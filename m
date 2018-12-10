@@ -1,40 +1,63 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <prvs=5882d5dada=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=5882d5dada=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="OJZGT9mR"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43DCNg4TdYzDr7C
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 06:11:30 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2018 11:11:28 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,339,1539673200"; d="scan'208";a="106370105"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga007.fm.intel.com with ESMTP; 10 Dec 2018 11:11:28 -0800
-Subject: Re: Virtual Media
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Cc: openbmc@lists.ozlabs.org, Jeremy Kerr <jk@ozlabs.org>
-References: <69abb9a05c7d01b71cd4a69f3e7c548e@linux.vnet.ibm.com>
- <eb74222a-737f-92cb-66a3-8d023b5962dc@ozlabs.org>
- <0d755df3a97b91ceebcdb7b50d403741@linux.vnet.ibm.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <92915043-f612-1a6a-484f-3d441ac47c08@intel.com>
-Date: Mon, 10 Dec 2018 11:13:29 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43DDfZ3sd4zDq8D
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 07:08:37 +1100 (AEDT)
+Received: from pps.filterd (m0001255.ppops.net [127.0.0.1])
+ by mx0b-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ wBAK7Nds015432
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Dec 2018 12:08:35 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-type; s=facebook; bh=vDMHH7kVNxyVk8Fng38m06gHInfn+XQCbFE45M2pZ6c=;
+ b=OJZGT9mRI4/dSS7aCZXqMfimSWOa4kgjSWGbBXCKfLGpRIc7kEBjbBoh2HUQC0RpEeSw
+ W7CB5kNww351G6jYu8VJx5e3fCSAZkzdsnKCKKvAdivqfHl+Mp/wJXbdX9gdxKRmX58R
+ pI+a2HQhHHWiJhZybMLkxj3Dkg1Dgm1bc2c= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0b-00082601.pphosted.com with ESMTP id 2p9wbyge91-17
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Dec 2018 12:08:34 -0800
+Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
+ mail.thefacebook.com (2620:10d:c081:35::128) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Mon, 10 Dec 2018 12:08:18 -0800
+Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
+ id ED1B04BDB0A3; Mon, 10 Dec 2018 12:08:15 -0800 (PST)
+Smtp-Origin-Hostprefix: devvm
+From: Vijay Khemka <vijaykhemka@fb.com>
+Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
+ <openbmc@lists.ozlabs.org>
+Smtp-Origin-Cluster: prn2c23
+Subject: [PATCH 2/2] ARM: dts: aspeed: Add KCS support for LPC BMC
+Date: Mon, 10 Dec 2018 12:07:53 -0800
+Message-ID: <20181210200753.3018124-3-vijaykhemka@fb.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20181210200753.3018124-1-vijaykhemka@fb.com>
+References: <20181210200753.3018124-1-vijaykhemka@fb.com>
+X-FB-Internal: Safe
 MIME-Version: 1.0
-In-Reply-To: <0d755df3a97b91ceebcdb7b50d403741@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-10_07:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,43 +69,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Dec 2018 19:11:32 -0000
+X-List-Received-Date: Mon, 10 Dec 2018 20:08:39 -0000
 
-On 12/10/18 9:43 AM, Adriana Kobylak wrote:
-> Hi Ed,
->
->>  - the nbd infrastructure allows us to use a unix domain socket (rather
->>    than a network socket) for that interface.
->
->>  - Using a websocket proxy, we can connect that process' stdio to a
->>    websocket.
->
-> As you pointed out, the Redfish schema for Virtual Media may not fit
-> with this design, so wanted to get your thoughts on how/if we could
-> somehow implement having the client request to mount the device via a
-> websocket, like by calling the VirtualMedia/<device_id> api, or could
-> we leverage some other schemas, or what would be your suggestion? Thanks!
->
-> Reference:
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/16481/
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-rest-server/+/14752/
->
->
-I think the root of the issue here is that the Virtual Media Redfish
-interface was designed to be able to mount a host from a network share,
-rather than proxying over a websocket.  I think in the long term, if
-we're going to support all the use cases we want to, we will eventually
-need both mechanisms, but for the moment, if we want to get something
-that works up quickly, and iterate, we're probably better off just
-continuing to make the websocket implementation work reliably.  In my
-head (i.e. I haven't backed this up with actual data) I see websocket as
-one implementation of a transport layer, with other transport layers
-(samba, NFS, ect) that could be supported at a later date.
+Added kcs device support for lpc BMC.
 
-I suspect the best approach here is to simply add a url handler under
-the existing name (/kvmws0) that does the websocket.  When and if
-someone goes to build out the Redfish interface for Virtual Media, we
-can go implement the redfish specific urls.  If you'd prefer to do it in
-the reverse order, that would work as well.
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ arch/arm/boot/dts/aspeed-g5.dtsi | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
 
--Ed
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index d107459fc0f8..1bd48655bacb 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -330,8 +330,35 @@
+ 				ranges = <0x0 0x1e789000 0x1000>;
+ 
+ 				lpc_bmc: lpc-bmc@0 {
+-					compatible = "aspeed,ast2500-lpc-bmc";
++					compatible = "aspeed,ast2500-lpc-bmc, "simple-mfd", "syscon"";
+ 					reg = <0x0 0x80>;
++					reg-io-width = <4>;
++
++					#address-cells = <1>;
++					#size-cells = <1>;
++					ranges = <0x0 0x0 0x80>;
++
++					kcs1: kcs1@0 {
++						compatible = "aspeed,ast2500-kcs-bmc";
++						reg = <0x0 0x80>;
++						interrupts = <8>;
++						kcs_chan = <1>;
++						status = "disabled";
++					};
++					kcs2: kcs2@0 {
++						compatible = "aspeed,ast2500-kcs-bmc";
++						reg = <0x0 0x80>;
++						interrupts = <8>;
++						kcs_chan = <2>;
++						status = "disabled";
++					};
++					kcs3: kcs3@0 {
++						compatible = "aspeed,ast2500-kcs-bmc";
++						reg = <0x0 0x80>;
++						interrupts = <8>;
++						kcs_chan = <3>;
++						status = "disabled";
++					};
+ 				};
+ 
+ 				lpc_host: lpc-host@80 {
+-- 
+2.17.1
