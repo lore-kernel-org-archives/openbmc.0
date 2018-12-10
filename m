@@ -1,54 +1,55 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12f; helo=mail-it1-x12f.google.com;
+ (client-ip=2607:f8b0:4864:20::d36; helo=mail-io1-xd36.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="E5lIjOam"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NKG2O6oW"; 
  dkim-atps=neutral
-Received: from mail-it1-x12f.google.com (mail-it1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
+Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
+ [IPv6:2607:f8b0:4864:20::d36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43CrGV34YWzDqdd
- for <openbmc@lists.ozlabs.org>; Mon, 10 Dec 2018 15:49:53 +1100 (AEDT)
-Received: by mail-it1-x12f.google.com with SMTP id g76so15487233itg.2
- for <openbmc@lists.ozlabs.org>; Sun, 09 Dec 2018 20:49:53 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Crlb1CkCzDqWk
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Dec 2018 16:11:39 +1100 (AEDT)
+Received: by mail-io1-xd36.google.com with SMTP id l14so7740918ioj.5
+ for <openbmc@lists.ozlabs.org>; Sun, 09 Dec 2018 21:11:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=UmYZEm61d/xUpW7POorwVENrk6YKjRYURPSD66AqImI=;
- b=E5lIjOamTG/A6v1XpDgtK75dBX5Q+kbza2ojiC91ypRTYk0JrNJLY11AdeTqZ2AnC/
- QuUxZYR/lVyXeAmlqlz+vllJ91P2X/ahyL+aqo9q59MSV7kaJEPtGapWJ07pTrgL5wOB
- VUFGQ41pzETBdvoIVYUJMrG4sDbYmdN190hkyBzBcdSC8V9P9ryX9WvO1SnsleOZp2Ff
- kM4RH/JJ/hc7dcYkhrn26JSNXoadSZk5e6hpBIWv08qTQdBKzYIcchAEexLiZMTSZkm4
- dTYs1TRcwcz5n8rPVsANyQxrlmKQp+3/TzDjZivlVH2iD0d2ZyDFZwU61gczuAKvVRgn
- hRPQ==
+ :cc; bh=JRk1eqFKLo3QXbQHrq6KQ2Mj1GgHXZlbyRMPzDjs7gs=;
+ b=NKG2O6oW8YIHV62fF6PIpSBT0gfml5Sm6ZXSougjNlzfzdwdhnjmohIK4mnVD7uu8c
+ IJMBFZpgsc01zQPJb/JCkT/ff5pzc1w/cBC2NzwC3o2nwcZIjCqDAUcoHyleuvZNwsMX
+ 49dTnviQYKpRH3ztIJINL6l8/3anpjeJh/SvERjxvzp5eJe5ao9kVfeZTU8dg/WbpEW8
+ Sn3w0nrPtKryyvgQgABVo/HerRdClWrpMJ9JrxFSI8nzPfgk8XXH8qDpAoqDGCfEQdNB
+ BRPbVdLaJGdaCBCCj5TjweAVfN6P0k4eY0EJweNDh1S2EnwU4mtnJWJsXAr3V7+ocskP
+ GCGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=UmYZEm61d/xUpW7POorwVENrk6YKjRYURPSD66AqImI=;
- b=nq/XkCu441vzfcznlSVtDny69vKRX8tMk/d292ic5JhtEuuSNd432cJMBxiUM2Li/8
- qG2oy+Q3FvEiLxgqXBIAxFcSfgLBPMZubKgM6s0/PXJMkpAOHHrAe3c4IgOSlkviXgk1
- ng/3Qsem9hQxVYOI+FvVgQ4DGHWZwwYOVfymZvyKbK5pT41GGal+HfgS/ZWKmMbPG/cV
- GAoLf/ikGQZ/9THcuhUbGJVwo0pRQUbi72OEfbi+WUzq52BmmNjgxzjVvEhrVSzJjG5h
- ZqsEXVR0HKVKh6pP1kfrsRAYr7YyNjL1I9/fAd44li5biGrY1ZLBvGYN5h2RB3g6yW0+
- qtyg==
-X-Gm-Message-State: AA+aEWaVdOL9Evw54it5ZOa62mDqNwsg9EGo4cAMAmbRhdv+qYuPltXR
- 1hbnHV9yg1vkjG25jiCLpFf5W6eSiwOIa3xxk14=
-X-Google-Smtp-Source: AFSGD/Xb9RFURUu0vvuiun64Zk4lRasUvU7K94TYVq7zNhxUQangIKI1Xs5kTg/h+kDCcU2DEXlRKgiY730MwNCr02c=
-X-Received: by 2002:a24:80cc:: with SMTP id g195mr9378689itd.178.1544417390886; 
- Sun, 09 Dec 2018 20:49:50 -0800 (PST)
+ bh=JRk1eqFKLo3QXbQHrq6KQ2Mj1GgHXZlbyRMPzDjs7gs=;
+ b=Dn51jt+hfP6n2xWUlGtUD2ltg6vh5PMm/CHGWdpa7bCxBGxE7WEK4Hma7zwScbtBdw
+ 2XaaEIdm8O+ORdzJ1Y4UqDFijroB4Hv5j8Tyebhbmk2jxdYsL1FuCTspDN9DH7PtGIk5
+ AySFBr/M4X+l6q2a+o5tm8CQ8QA+TdQyOydv/FlVCkYyxJs3pZeykROz3yy7An7ROSAI
+ gC61phn6yW4Bi2QWPEpJwXfrDnEKZuSvhU6WzqX2xHHA88U4QfwX1UShf5S3YYVsvTff
+ nqVcd1GMHI4Bs/wuoGPiYYfEoPJ3my3vpw2cSFEgQAb8VUxol6sDNDq3GAYAg/SFhI7N
+ VqLg==
+X-Gm-Message-State: AA+aEWYhh/g1rpOLPvCleqKxE4D/HUmxdRvS/uEeRgM/dpTXwj6lrAsl
+ CB0JZFPYNaysTid00zPi+5z1q6kOFtkRS300Yj0=
+X-Google-Smtp-Source: AFSGD/XxpBkPpQwigFWn48LX9njO3fesIfFVzeeuXrQ4kjfeRKvDSnQsbK6qEh5zj5uYIy3Rv/19M80lh7SvGRjCVWs=
+X-Received: by 2002:a6b:4106:: with SMTP id n6mr8609754ioa.171.1544418694196; 
+ Sun, 09 Dec 2018 21:11:34 -0800 (PST)
 MIME-Version: 1.0
-References: <tencent_042D1A75541F9448E7395CDBB86B1A011A09@qq.com>
-In-Reply-To: <tencent_042D1A75541F9448E7395CDBB86B1A011A09@qq.com>
+References: <DB7PR02MB43933CFF8148D4AEA9328D3E92AB0@DB7PR02MB4393.eurprd02.prod.outlook.com>
+In-Reply-To: <DB7PR02MB43933CFF8148D4AEA9328D3E92AB0@DB7PR02MB4393.eurprd02.prod.outlook.com>
 From: Lei YU <mine260309@gmail.com>
-Date: Mon, 10 Dec 2018 12:49:28 +0800
-Message-ID: <CAARXrt=iJ1NEAWQnrXN=ravGufQ16hyjAErEUstLw4p=9Lw3mA@mail.gmail.com>
-Subject: Re: Why OEM command can't run by "ipmitool -I lanplus"
-To: 1450335857@qq.com
+Date: Mon, 10 Dec 2018 13:11:11 +0800
+Message-ID: <CAARXrtmsQja0x+oobViG6Pnj08fpNBNaW2+tapXt3z+e235A_Q@mail.gmail.com>
+Subject: Re: Help: Host powered ON and after seconds Host Power OFF script is
+ started.
+To: maheswari.a@atos.net
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -62,15 +63,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Dec 2018 04:49:55 -0000
+X-List-Received-Date: Mon, 10 Dec 2018 05:11:40 -0000
 
-> On remote machine:
-> xiuzhi@xiuzhi-ThinkPad-T450:~$ipmitool -I lanplus -H 192.168.200.132  -P 0penBmc raw 0x3a 0x11
-> Unable to send RAW command (channel=0x0 netfn=0x3a lun=0x0 cmd=0x11 rsp=0xc1): Invalid command
-> xiuzhi@xiuzhi-ThinkPad-T450:~$ ipmitool -I lanplus -H 192.168.200.132  -P 0penBmc raw 6 4
->  56 00
+> What are all the process is responsible to send Host state signal as quiesce to phosphor-host-state-manager. ?.
+> If phosphor-watchdog or system_manager is responsible.Please let us know clear view of understanding.
+> In our platform, We are not using BOOTCOUNT sensor concept as initial phase.
 >
-> Who can help me?
 
-It looks like the plugin (assuming you implement the OEM command by plugin) is
-only loaded in ipmid, but not in netipmid.
+You are hitting the issue because of watchdog timeout.
+
+Behind that there are several pieces:
+1. phosphor-watchdog@poweron.service is started when host is powered on;
+2. During host boots, hostboot sends ipmi watchdog reset commands to BMC;
+3. If the watchdog times out, the service will start
+obmc-host-timeout@0.target, and the "Wanted" services will be started,
+including obmc-host-quiesce target.
