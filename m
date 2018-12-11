@@ -1,63 +1,62 @@
-Return-Path: <prvs=5883cba7b4=vijaykhemka@fb.com>
+Return-Path: <medadyoung@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=5883cba7b4=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com;
+ envelope-from=medadyoung@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="hJMNljAP"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="u55Is/qA"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
+ [IPv6:2607:f8b0:4864:20::641])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Dqwb24Q5zDqq8
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 06:37:50 +1100 (AEDT)
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- wBBJZfPX032529
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 11:37:49 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=facebook; bh=yHMWg7LgDhzV330eAf3PxPwRX+93Yb2qgSolLZ+ibmE=;
- b=hJMNljAPC/N+pnuOImF198j348VnQC9lC/A8rJJpFGvoyghxlbgKip+A/VRfPijcHNmV
- h0J9IVp99x7YVC1h6OxUIsFfs4q5dqm8yhLyFZuAV9OC+695GmpuwhOI8R1SVAwdUpHV
- PQlK1mikIMR0yKs+gS+4II4yewHbJayP138= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2pajx604ya-19
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 11:37:49 -0800
-Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
- mail.thefacebook.com (2620:10d:c081:35::129) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
- Tue, 11 Dec 2018 11:37:22 -0800
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
- id C3BF04C791F2; Tue, 11 Dec 2018 11:37:21 -0800 (PST)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
- <openbmc@lists.ozlabs.org>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v3 2/2] ARM: dts: aspeed: Add KCS support for LPC BMC
-Date: Tue, 11 Dec 2018 11:37:19 -0800
-Message-ID: <20181211193719.2232084-2-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20181211193719.2232084-1-vijaykhemka@fb.com>
-References: <20181211193719.2232084-1-vijaykhemka@fb.com>
-X-FB-Internal: Safe
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-11_06:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43DV8p0yvjzDqxc
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 17:17:10 +1100 (AEDT)
+Received: by mail-pl1-x641.google.com with SMTP id y1so6434973plp.9
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Dec 2018 22:17:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=TlYVShGWQfqCikX7zIfo6dSj8lcXrBBDWQwIm/PzWAQ=;
+ b=u55Is/qA0pSseLvGvzYgxvg44ykhaYLA1P4+SfTntUm/1jRq5p7qJiQ82p0EdWsWni
+ cdvBxrnGCavkp5pqneI/M2ZusPoIRlDM5rLfqYNyRTCAXLOadKxh/huIBzcXV+RJRkqu
+ WaRrwWxdL53tDisAlhgvyZC3eJvj4tR1M0xxQaJAlJ8N0mxjKisR6jiVAkywiRAAAXyh
+ x63D8vDM1Ydvsgb86/tzzVtyLBnFYitf18eB7h2HHynwSTbA/65xpbvo0IyF1fQ63nv8
+ dpMDV3QxZTn0idAZcy07VA0/DG2cTvC3ZrQpNIGSavewgqms8TirjIKom8g+K/0xwIZs
+ p/rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=TlYVShGWQfqCikX7zIfo6dSj8lcXrBBDWQwIm/PzWAQ=;
+ b=mbucBsFJMo8vVkzK5eBN22j9en7M6blTOaS0s2UYjExtGtxYUf0j7+DgYz15Y5TKpw
+ atgkEHhdaK8mUSjdsPBbyhiD62/H1dd+hzwzwYC9hZb6z99WaM1zuO9B7oM4xpKWVep0
+ xEap0bN+hddAyOC9rn+vzTZQBF+hixogs83QYkPR+aBdCwylqe5i75CtvWFpGBT24nLz
+ 6CVk4wxILG06tTI0luGp8czFJqWh1uKukxv6L3T2c/Mcn8YjiTMfRqkX8Jebo0CAH0Ai
+ wnMEMKlUhuZS1UcpgmDYkX4m1wzO2i6Ma4Y0PSyELKKtfM0wgGyh0+yzXa4P2w84NIQJ
+ OXGw==
+X-Gm-Message-State: AA+aEWZCiVRRixIZqhthcya6OrgfoJ+lJptElarpRKPA8tXg+6t+Lg6l
+ KkP0HJ+mCsz/McJdhQ7YVPI=
+X-Google-Smtp-Source: AFSGD/WtGwEGzXbzvfgEkVr2zxQ5RWgAx4+tVSYC1KALczRjt5jgzWAy5EcN525T7eCRDfgAiwvC+w==
+X-Received: by 2002:a17:902:722:: with SMTP id
+ 31mr14992831pli.271.1544509029167; 
+ Mon, 10 Dec 2018 22:17:09 -0800 (PST)
+Received: from localhost.localdomain (27-52-137-213.adsl.fetnet.net.
+ [27.52.137.213])
+ by smtp.gmail.com with ESMTPSA id e16sm16246045pfn.46.2018.12.10.22.17.07
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Mon, 10 Dec 2018 22:17:08 -0800 (PST)
+From: medadyoung@gmail.com
+To: jbacik@fb.com,
+	axboe@kernel.dk
+Cc: linux-block@vger.kernel.org, nbd@other.debian.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Medad <medadyoung@gmail.com>
+Subject: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
+Date: Tue, 11 Dec 2018 14:17:03 +0800
+Message-Id: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
+X-Mailer: git-send-email 2.7.4
+X-Mailman-Approved-At: Wed, 12 Dec 2018 11:53:32 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,66 +68,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Dec 2018 19:37:51 -0000
+X-List-Received-Date: Tue, 11 Dec 2018 06:17:15 -0000
 
-Added kcs device support for lpc BMC.
+From: Medad <medadyoung@gmail.com>
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+    If we do NOT clear NBD_BOUND flag when NBD connection is closed,
+    then the original NBD device could not be used again.
+
+Signed-off-by: Medad <medadyoung@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-g5.dtsi | 33 +++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ drivers/block/nbd.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index d107459fc0f8..53e6ce4092dd 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -330,8 +330,32 @@
- 				ranges = <0x0 0x1e789000 0x1000>;
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 64278f4..5c88490 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -277,10 +277,14 @@ static void sock_shutdown(struct nbd_device *nbd)
+ 	struct nbd_config *config = nbd->config;
+ 	int i;
  
- 				lpc_bmc: lpc-bmc@0 {
--					compatible = "aspeed,ast2500-lpc-bmc";
-+					compatible = "aspeed,ast2500-lpc-bmc, "simple-mfd", "syscon"";
- 					reg = <0x0 0x80>;
-+					reg-io-width = <4>;
-+
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					ranges = <0x0 0x0 0x80>;
-+
-+					kcs1: kcs1@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <1>;
-+						status = "disabled";
-+					};
-+					kcs2: kcs2@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <2>;
-+						status = "disabled";
-+					};
-+					kcs3: kcs3@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <3>;
-+						status = "disabled";
-+					};
- 				};
+-	if (config->num_connections == 0)
++	if (config->num_connections == 0) {
++		clear_bit(NBD_BOUND, &config->runtime_flags);
+ 		return;
+-	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags))
++	}
++	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags)) {
++		clear_bit(NBD_BOUND, &config->runtime_flags);
+ 		return;
++	}
  
- 				lpc_host: lpc-host@80 {
-@@ -343,6 +367,13 @@
- 					#size-cells = <1>;
- 					ranges = <0x0 0x80 0x1e0>;
+ 	for (i = 0; i < config->num_connections; i++) {
+ 		struct nbd_sock *nsock = config->socks[i];
+@@ -944,7 +948,7 @@ static int nbd_reconnect_socket(struct nbd_device *nbd, unsigned long arg)
+ 		sockfd_put(old);
  
-+					kcs4: kcs4@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <4>;
-+						status = "disabled";
-+					};
-+
- 					lpc_ctrl: lpc-ctrl@0 {
- 						compatible = "aspeed,ast2500-lpc-ctrl";
- 						reg = <0x0 0x80>;
+ 		clear_bit(NBD_DISCONNECTED, &config->runtime_flags);
+-
++		clear_bit(NBD_BOUND, &config->runtime_flags);
+ 		/* We take the tx_mutex in an error path in the recv_work, so we
+ 		 * need to queue_work outside of the tx_mutex.
+ 		 */
+@@ -1020,6 +1024,7 @@ static int nbd_disconnect(struct nbd_device *nbd)
+ 	dev_info(disk_to_dev(nbd->disk), "NBD_DISCONNECT\n");
+ 	set_bit(NBD_DISCONNECT_REQUESTED, &config->runtime_flags);
+ 	send_disconnects(nbd);
++	clear_bit(NBD_BOUND, &config->runtime_flags);
+ 	return 0;
+ }
+ 
 -- 
-2.17.1
+2.7.4
