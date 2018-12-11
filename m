@@ -1,47 +1,77 @@
-Return-Path: <sharad.khetan@intel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="r52NrGvV"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="c1EFemGi"; dkim-atps=neutral
+X-Greylist: delayed 429 seconds by postgrey-1.36 at bilbo;
+ Tue, 11 Dec 2018 11:42:38 AEDT
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43DLX76hQTzDqhS
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 11:33:25 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Dec 2018 16:33:23 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,340,1539673200"; d="scan'208";a="100484720"
-Received: from fmsmsx103.amr.corp.intel.com ([10.18.124.201])
- by orsmga008.jf.intel.com with ESMTP; 10 Dec 2018 16:33:23 -0800
-Received: from fmsmsx120.amr.corp.intel.com (10.18.124.208) by
- FMSMSX103.amr.corp.intel.com (10.18.124.201) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Mon, 10 Dec 2018 16:33:23 -0800
-Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.28]) by
- fmsmsx120.amr.corp.intel.com ([169.254.15.52]) with mapi id 14.03.0415.000;
- Mon, 10 Dec 2018 16:33:23 -0800
-From: "Khetan, Sharad" <sharad.khetan@intel.com>
-To: Andrew Geissler <geissonator@gmail.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Upstream Reference System(s)
-Thread-Topic: OpenBMC Upstream Reference System(s)
-Thread-Index: AQHUkLt+NMetXXQI1UimtLHjV4cGp6V4sMef
-Date: Tue, 11 Dec 2018 00:33:22 +0000
-Message-ID: <EA6DEA68-3D8C-4F2D-AA2D-71C8EC28F91B@intel.com>
-References: <CALLMt=qWJemCvKW-5VBgPTbjfwb2WTw-YitFJYicRTz5oXNNAA@mail.gmail.com>
-In-Reply-To: <CALLMt=qWJemCvKW-5VBgPTbjfwb2WTw-YitFJYicRTz5oXNNAA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43DLkk0MD3zDq5m
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 11:42:37 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1DC36216CA;
+ Mon, 10 Dec 2018 19:35:25 -0500 (EST)
+Received: from web5 ([10.202.2.215])
+ by compute4.internal (MEProxy); Mon, 10 Dec 2018 19:35:25 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:cc:mime-version:content-transfer-encoding
+ :content-type:in-reply-to:date:references:subject; s=fm1; bh=PBl
+ uqZuQ82eFD8J14Y7wGOCIjNatkpSgrSIfyiBJ6/4=; b=r52NrGvVtrFo7Av981j
+ SwcblwskjOc3+s+MTEPERUkRgv5MlFRKli016HwGHzv86wBazNcYAdUJx5rh/2b8
+ H0JNNGSS7a0b1+dtRUUSCiIvoUhAWlfqseMHEBP+PxSipMjiLOeaxRy4Q14hX5qa
+ OrmCefZea1Q4yUcI0NClwy8bvpZLwQLi1nhvlkTQcJKg4fa85wTaAvWXIn4ATuhP
+ MXfMSDCCi78sl5rf1F/RQBom5JDVVauLNgfRHQze7At7ueuC1XDDczwWIX1vuWON
+ odBUaPceKAEJ4xMt150bFnT1wzPkGGhyEA7CZQLKhJZBIKTxUUY2a0tprqV+6vUE
+ 0lg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=PBluqZuQ82eFD8J14Y7wGOCIjNatkpSgrSIfyiBJ6
+ /4=; b=c1EFemGijrctmFun3sVGH4ruk9X0ubQ772KBUSz0XwK4bpqxQAp+CY6iO
+ TWjMH9GUl/5TrA8kOt+WM/J0bUtkWwyVE1wgG1XOhAm5MXDNz8+HkKaupT0LEIJK
+ C7M8t71zvb3dZTPDFYiScqkZtGpiTxzvWcitiankVqOC/EfHvCfyO3jXlWE/Z6A0
+ t7DSjDdukklHU/GaOrKLGegqGYofMGoa7gR5/3y7yKUSQCVo/SQ8FaVl6aCvidE/
+ A7bRw90mFhCXrt/lEic/nhdAQW67X4AUXBqUwJG/kNO7swYQShSX6jg1KbGudi7q
+ XRgog/OFjnqZyKO5eG/O9pURbYdRw==
+X-ME-Sender: <xms:TAYPXFAO75beLsVMvuargxhdaVY_n5vTL3N1xoeEjuWSppkS3Yc6zw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtkedrudegiedgvdefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
+ tddtnecunecujfgurhepkffhvfgggfgtofgjffhfufesthhqredtredtjeenucfhrhhomh
+ eptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluh
+ hsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:TAYPXIjViivmEhhVgQ_DW6vTi6Nu1q90zgPQ9fcxDX5s7YjTOd-UTg>
+ <xmx:TAYPXL8OA1kK7nFYMIlBdh_bOfqS6RpcUo0Os1EBVSRlgOq8tv0Ypg>
+ <xmx:TAYPXPCxZsH5nx8CHAY2358JLaxBbaH8j0N6QycQWQICKSj4Lzgn4A>
+ <xmx:TAYPXNsfh6AEWyqC8XFs_wtMFXYA1W3z1udJlooLSYPLAtk9xJeGVg>
+ <xmx:TAYPXAdBqx2-jj4Eoh6OfS_JGYjKFv5ESki63sLx2WGVHm8ZC9iKPQ>
+ <xmx:TQYPXHQrBwLVwNHWbnV6FrbBGzMfukcr1mn10tu2A4UvAy37UkKAXg>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id E2D5F9E149; Mon, 10 Dec 2018 19:35:23 -0500 (EST)
+Message-Id: <1544488523.3308636.1605248144.073FF1F1@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: =?utf-8?Q?P=2E=20K=2E=20Lee=20=28=E6=9D=8E=E6=9F=8F=E5=AF=AC=29?=
+ <P.K.Lee@quantatw.com>, bradleyb@fuzziesquirrel.com
+Cc: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-2f590f9a
+In-Reply-To: <16DD5F49-0911-4513-B01B-B8B8BAADFFAB@quantatw.com>
+Date: Tue, 11 Dec 2018 11:05:23 +1030
+References: <16DD5F49-0911-4513-B01B-B8B8BAADFFAB@quantatw.com>
+Subject: Re: The ipmid failed to start
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,67 +83,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Dec 2018 00:33:29 -0000
+X-List-Received-Date: Tue, 11 Dec 2018 00:42:38 -0000
 
-Hi Andrew,=20
-I would like to see (and will support) an Intel platform. It may be Wolf Pa=
-ss or something else. I am not sure if the requirements and expectations of=
- supporting such a platform.=20
-I will discuss internally and get back.=20
-Thanks,
--Sharad
+Hello,
 
-> On Dec 11, 2018, at 12:36 AM, Andrew Geissler <geissonator@gmail.com> wro=
-te:
+On Mon, 10 Dec 2018, at 14:33, P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) wrot=
+e:
+> Hi Brad,
 >=20
-> Greetings,
+> I saw the issue, which is "recipes-phosphor: Fix systemd unit=20
+> dependences of ipmid, mboxd" appending=20
+> "Requires=3Dorg.openbmc.HostIpmi.service" and=20
+> "Afteorg.openbmc.HostIpmi.service", you merged on Nov 29.
 >=20
-> One thing that has come up a few times, and was touched on in last weeks
-> Infrastructure workgroup (and todays community meeting), was what is our
-> community reference system(s)? i.e. What do we as a community test agains=
-t
-> and guarantee works when we do a tag or release?
+> After that, the ipmid failed to start.
 >=20
-> If you look at something like https://openpower.xyz/job/openbmc-build/ yo=
-u
-> will see a variety of systems. Romulus is put through QEMU CI and another=
-,
-> Witherspoon, is put through HW CI currently. This list has been mostly cr=
-eated
-> by IBM, and so it brings up the question of what's our future plan here.
+> Because the file meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-kcs/
+> org.openbmc.HostIpmi.service already included "After=3Dphosphor-ipmi-
+> host.service" before, it caused two services waiting for each other.
+
+Ah, KCS. This is why I didn't hit the problem in my testing.
+
 >=20
-> First, what's the criteria for adding a system to officially being suppor=
-ted by
-> the upstream community?
-> - Covers as much OpenBMC function as possible?
-> - Is on hardware that anyone can easily (and cheaply) get their hands on?
-> - Has consistent upstream support and a person or company to support HW C=
-I?
+> If the "Requires=3Dorg.openbmc.HostIpmi.service" and=20
+> "Afteorg.openbmc.HostIpmi.service" are removed in the meta-phosphor/
+> recipes-phosphor/ipmi/phosphor-ipmi-host/phosphor-ipmi-host.service or=20
+> the "After=3Dphosphor-ipmi-host.service" is removed in the meta-phosphor/
+> recipes-phosphor/ipmi/phosphor-ipmi-kcs/org.openbmc.HostIpmi.service,=20
+> the ipmid will start normally.
 >=20
-> The witherspoon and romulus systems definitely are well supported by IBM =
-in
-> the upstream community but they are not all that cheap. There was a rasbe=
-rry
-> pi port out there that would be cheap and easy to get access to but not c=
-over
-> as much OpenBMC function. There's something like
-> https://www.raptorcs.com/content/TLSDS3/intro.html which is a bit more
-> accessible but I don't believe the code has been upstreamed.
+> I wonder if there is a better way to go about it.
+
+It's a bit dicey. Something to consider here is that systemd does it's tear=
+-down in stack-order with respect to the Before=3D/After=3D relationships d=
+efined in the service files. With org.openbmc.HostIpmi.service having an Af=
+ter=3D relationship with phosphor-ipmi-host.service it is torn down before =
+phosphor-ipmi-host. This impacts processes that want to send events to the =
+host during the BMC shutdown path: These applications need to depend on pho=
+sphor-ipmi-host to access its APIs, and it's a layering violation for the a=
+pplications to also depend on the transport that phosphor-ipmi-host is usin=
+g (KCS, BT etc). In order to propagate the event to the host, phosphor-ipmi=
+-host needs its transport, and therefore must have an After=3D relationship=
+ with the transport process due to systemd's stack ordering on tear-down.
+
+Having said that, requiring that After=3D relationship means that phosphor-=
+ipmi-host.service is started after org.openbmc.HostIpmi.service, which mean=
+s messages that arrive in the period between the two starting may get lost.=
+ I think it's worth keeping in mind that org.openbmc.HostIpmi simply emits =
+a signal when a message is received, and this provides no guarantee of anyo=
+ne actually caring. This is in contrast to sending events the other way, wh=
+ere org.openbmc.HostIpmi's interface provides a DBus method, which guarante=
+es someone cares or the caller receives an error. This design fits the Afte=
+r=3D relationship that I made phosphor-ipmi-host have on org.openbmc.HostIp=
+mi.service, so I'd suggest it's worth changing the relationship for the KCS=
+ implementation as well.
+
+However, maybe that's a decision to be made per-platform rather than genera=
+lly. I guess the unit files can be overridden in the packaging if this is a=
+ concern?
+
 >=20
-> One point made in last weeks Infrastructure workgroup is we should shoot
-> for a minimum amount of hardware that covers as much function as possible=
-.
-> So a matrix of some sort that covers our major functional areas. In gener=
-al,
-> having a system on the upstream support list is like getting your code
-> upstreamed,
-> once in, you have a guarantee that all future code will support it, so ma=
-ybe
-> this is more of a community reward to get your system on the list?
+> By the way, after I pushed the code to the Gerrit, "Jenkins Patch Set 1:=
+=20
+> User not approved, see admin, no CI" it showed. How can I solve this=20
+> problem?
+
+You need to convince someone that your patch isn't going to exploit our CI =
+infrastructure :) Once you've earned some trust in the community with your =
+contributions generally someone will add you to the list that allows CI to =
+test your patches straight away.
+
+Cheers,
+
+Andrew
+
 >=20
-> Just throwing ideas out there, input and ideas appreciated.
->=20
-> Andrew
->=20
-> References:
-> https://github.com/openbmc/openbmc/wiki/OpenBMC-Infrastructure-Workgroup
+> Sincerely,
+> P. K. Lee
