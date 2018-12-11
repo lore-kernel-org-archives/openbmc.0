@@ -1,82 +1,61 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <yao.yuan@hxt-semitech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=hxt-semitech.com
+ (client-ip=223.203.96.7; helo=barracuda.hxt-semitech.com;
+ envelope-from=yao.yuan@hxt-semitech.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=hxt-semitech.com
+Received: from barracuda.hxt-semitech.com (mx01.hxt-semitech.com
+ [223.203.96.7])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43DWyY6z7kzDqcg
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 18:38:29 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wBB7TQPr031976
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 02:38:27 -0500
-Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2pa8h3176f-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 02:38:26 -0500
-Received: from localhost
- by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Tue, 11 Dec 2018 07:38:24 -0000
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 11 Dec 2018 07:38:21 -0000
-Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
- [9.149.105.58])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- wBB7cKXv56754376
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 11 Dec 2018 07:38:20 GMT
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0703C4C046;
- Tue, 11 Dec 2018 07:38:20 +0000 (GMT)
-Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 006C74C044;
- Tue, 11 Dec 2018 07:38:18 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.79.245.65])
- by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Tue, 11 Dec 2018 07:38:17 +0000 (GMT)
-Subject: Re: Initial MCTP design proposal
-To: Supreeth Venkatesh <supreeth.venkatesh@arm.com>,
- Jeremy Kerr <jk@ozlabs.org>, openbmc <openbmc@lists.ozlabs.org>
-Cc: Emily Shaffer <emilyshaffer@google.com>,
- David Thompson <dthompson@mellanox.com>, Dong Wei <Dong.Wei@arm.com>,
- "Naidoo, Nilan" <nilan.naidoo@intel.com>
-References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
- <94639b69-3f3c-a606-ae68-f7e1461097e9@linux.vnet.ibm.com>
- <f8fe02f703ab7c11bf5871605364821688266667.camel@arm.com>
- <32644769-0d07-c416-9db7-bc9b777c4203@linux.vnet.ibm.com>
- <8ad2b4405a806a2a890843385096bd3a646cdf85.camel@arm.com>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Tue, 11 Dec 2018 13:08:17 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:52.0)
- Gecko/20100101 Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <8ad2b4405a806a2a890843385096bd3a646cdf85.camel@arm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43DX2R4KjkzDqcg
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 18:41:50 +1100 (AEDT)
+X-ASG-Debug-ID: 1544514101-093b7e13c602200001-mgJK9t
+Received: from HXTBJIDCEMVIW02.hxtcorp.net ([10.128.0.15]) by
+ barracuda.hxt-semitech.com with ESMTP id KqcjgHdMa1mg0gEr (version=TLSv1.2
+ cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NO) for
+ <openbmc@lists.ozlabs.org>; Tue, 11 Dec 2018 15:41:41 +0800 (CST)
+X-Barracuda-Envelope-From: yao.yuan@hxt-semitech.com
+Received: from HXTBJIDCEMVIW02.hxtcorp.net (10.128.0.15) by
+ HXTBJIDCEMVIW02.hxtcorp.net (10.128.0.15) with Microsoft SMTP Server (TLS) id
+ 15.0.1395.4; Tue, 11 Dec 2018 15:40:49 +0800
+Received: from HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6]) by
+ HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6%12]) with mapi id
+ 15.00.1395.000; Tue, 11 Dec 2018 15:40:49 +0800
+From: "Yuan, Yao" <yao.yuan@hxt-semitech.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: How to operate the gpio
+Thread-Topic: How to operate the gpio
+X-ASG-Orig-Subj: How to operate the gpio
+Thread-Index: AdSRIglwC0lBo/CiRFCLFEn5LdT91w==
+Date: Tue, 11 Dec 2018 07:40:49 +0000
+Message-ID: <8560e4ac81e042deab46bf6b22b2fd1b@HXTBJIDCEMVIW02.hxtcorp.net>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 18121107-0020-0000-0000-000002F55113
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18121107-0021-0000-0000-0000214575F7
-Message-Id: <42032c4e-4594-5803-67b4-79ba8622fc71@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-11_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1812110072
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.64.1.64]
+Content-Type: multipart/alternative;
+ boundary="_000_8560e4ac81e042deab46bf6b22b2fd1bHXTBJIDCEMVIW02hxtcorpn_"
+MIME-Version: 1.0
+X-Barracuda-Connect: UNKNOWN[10.128.0.15]
+X-Barracuda-Start-Time: 1544514101
+X-Barracuda-Encrypted: ECDHE-RSA-AES256-SHA384
+X-Barracuda-URL: https://192.168.50.101:443/cgi-mod/mark.cgi
+X-Virus-Scanned: by bsmtpd at hxt-semitech.com
+X-Barracuda-BRTS-Status: 1
+X-Barracuda-Bayes: INNOCENT GLOBAL 0.0000 1.0000 -2.0210
+X-Barracuda-Spam-Score: -2.02
+X-Barracuda-Spam-Status: No,
+ SCORE=-2.02 using global scores of TAG_LEVEL=1000.0
+ QUARANTINE_LEVEL=1000.0 KILL_LEVEL=9.0 tests=HTML_MESSAGE
+X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.63560
+ Rule breakdown below
+ pts rule name              description
+ ---- ---------------------- --------------------------------------------------
+ 0.00 HTML_MESSAGE           BODY: HTML included in message
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,462 +67,209 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Dec 2018 07:38:30 -0000
+X-List-Received-Date: Tue, 11 Dec 2018 07:41:53 -0000
 
-On 10/12/18 11:10 PM, Supreeth Venkatesh wrote:
-> On Mon, 2018-12-10 at 11:44 +0530, Deepak Kodihalli wrote:
->> On 07/12/18 10:39 PM, Supreeth Venkatesh wrote:
->>> On Fri, 2018-12-07 at 10:43 +0530, Deepak Kodihalli wrote:
->>>> On 07/12/18 8:11 AM, Jeremy Kerr wrote:
->>>>> Hi OpenBMCers!
->>>>>
->>>>> In an earlier thread, I promised to sketch out a design for a
->>>>> MCTP
->>>>> implementation in OpenBMC, and I've included it below.
->>>>
->>>>
->>>> Thanks Jeremy for sending this out. This looks good (have just
->>>> one
->>>> comment below).
->>>>
->>>> Question for everyone : do you have plans to employ PLDM over
->>>> MCTP?
->>>
->>> Yes Deepak. we do eventually.
->>
->>
->> Thanks for letting me know Supreeth!
-> My pleasure.
-> 
->>
->>>>
->>>> We are interested in PLDM for various "inside the box"
->>>> communications
->>>> (at the moment for the Host <-> BMC communication). I'd like to
->>>> propose
->>>> a design for a PLDM stack on OpenBMC, and would send a design
->>>> template
->>>> for review on the mailing list in some amount of time (I've just
->>>> started
->>>> with some initial sketches). I'd like to also know if others have
->>>> embarked on a similar activity, so that we can collaborate
->>>> earlier
->>>> and
->>>> avoid duplicate work.
->>>
->>> Yes. Interested to collaborate.
->>> Which portion of PLDM are you working on, other than base?
->>> Platform Monitoring and Control?
->>> Firmware Update?
->>> BIOS Control andConfiguration?
->>> SMBIOS Transfer?
->>> FRU Data?
->>> Redfish Device Enablement?
->>>
->>> We are currently interested in Platform Monitoring and Control.
->>
->>
->> We're interested in each of these profiles for the BMC host
->> communications. Are you interested in Platform monitoring and
->> control
->> for communications involving the BMC and the host firmware, or the
->> BMC
->> and other devices?
-> BMC and the host firmware initially.
-> 
->>
->> Also, I have been thinking about the usefulness/feasibility of a
->> common
->> PLDM library (just the protocol piece - encoding and decoding PLDM
->> messages), so as to be able to share code between BMC and host
->> firmware.
->> This of course sets expectations on the library based on OpenBMC and
->> various host firmware stacks. Do you have an opinion on this?
-> Glad that we are on the same page.
-> My thinking at this point is to come up with a generic standalone "C"
-> library which processes PLDM messages without regard to whether this
-> message contains payload for Sensors, firmware update, etc., so that it
-> can be ported to Host firmware if needed.
+--_000_8560e4ac81e042deab46bf6b22b2fd1bHXTBJIDCEMVIW02hxtcorpn_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-I was thinking of a C lib as well (given the lack of or limited C++ 
-stdlib support on some host firmware stacks). Although, when you say a 
-lib that processes the PLDM messages, do you mean just the parsing part?
+Hi All,
 
-I think the processing/handling of a PLDM message would be platform 
-specific, because that involves mapping PLDM concepts to platform 
-concepts (for eg to D-Bus on OpenBMC). What I believe can get to the 
-common lib is the marshalling and umarshalling of PLDM messages. So for 
-eg if the platform has all the necessary information to make a PLDM 
-message, it can rely on this lib to actually prepare the message for it. 
-Plus the reverse flow - decode an incoming PLDM message into C-style 
-data types. We'd have to work on what these APIs look like. Consumers of 
-this lib would be the PLDM app(s)/daemon(s).
+I have a scripts to enable console, it will write the gpio:
+#Control UART mux for obmc-console-client
+echo 325 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio325/direction
+cat /sys/class/gpio/gpio325/direction
+echo 0 > /sys/class/gpio/gpio325/value
+obmc-console-client
+echo 1 > /sys/class/gpio/gpio325/value
 
->>
->>>>
->>>>> This is roughly in the OpenBMC design document format (thanks
->>>>> for
->>>>> the
->>>>> reminder Andrew), but I've sent it to the list for initial
->>>>> review
->>>>> before
->>>>> proposing to gerrit - mainly because there were a lot of folks
->>>>> who
->>>>> expressed interest on the list. I suggest we move to gerrit
->>>>> once we
->>>>> get
->>>>> specific feedback coming in. Let me know if you have general
->>>>> comments
->>>>> whenever you like though.
->>>>>
->>>>> In parallel, I've been developing a prototype for the MCTP
->>>>> library
->>>>> mentioned below, including a serial transport binding. I'll
->>>>> push to
->>>>> github soon and post a link, once I have it in a
->>>>> slightly-more-consumable form.
->>>>>
->>>>> Cheers,
->>>>>
->>>>>
->>>>> Jeremy
->>>>>
->>>>> --------------------------------------------------------
->>>>>
->>>>> # Host/BMC communication channel: MCTP & PLDM
->>>>>
->>>>> Author: Jeremy Kerr <jk@ozlabs.org> <jk>
->>>>>
->>>>> ## Problem Description
->>>>>
->>>>> Currently, we have a few different methods of communication
->>>>> between
->>>>> host
->>>>> and BMC. This is primarily IPMI-based, but also includes a few
->>>>> hardware-specific side-channels, like hiomap. On OpenPOWER
->>>>> hardware
->>>>> at
->>>>> least, we've definitely started to hit some of the limitations
->>>>> of
->>>>> IPMI
->>>>> (for example, we have need for >255 sensors), as well as the
->>>>> hardware
->>>>> channels that IPMI typically uses.
->>>>>
->>>>> This design aims to use the Management Component Transport
->>>>> Protocol
->>>>> (MCTP) to provide a common transport layer over the multiple
->>>>> channels
->>>>> that OpenBMC platforms provide. Then, on top of MCTP, we have
->>>>> the
->>>>> opportunity to move to newer host/BMC messaging protocols to
->>>>> overcome
->>>>> some of the limitations we've encountered with IPMI.
->>>>>
->>>>> ## Background and References
->>>>>
->>>>> Separating the "transport" and "messaging protocol" parts of
->>>>> the
->>>>> current
->>>>> stack allows us to design these parts separately. Currently,
->>>>> IPMI
->>>>> defines both of these; we currently have BT and KCS (both
->>>>> defined
->>>>> as
->>>>> part of the IPMI 2.0 standard) as the transports, and IPMI
->>>>> itself
->>>>> as the
->>>>> messaging protocol.
->>>>>
->>>>> Some efforts of improving the hardware transport mechanism of
->>>>> IPMI
->>>>> have
->>>>> been attempted, but not in a cross-implementation manner so
->>>>> far.
->>>>> This
->>>>> does not address some of the limitations of the IPMI data
->>>>> model.
->>>>>
->>>>> MCTP defines a standard transport protocol, plus a number of
->>>>> separate
->>>>> hardware bindings for the actual transport of MCTP packets.
->>>>> These
->>>>> are
->>>>> defined by the DMTF's Platform Management Working group;
->>>>> standards
->>>>> are
->>>>> available at:
->>>>>
->>>>>      https://www.dmtf.org/standards/pmci
->>>>>
->>>>> I have included a small diagram of how these standards may fit
->>>>> together
->>>>> in an OpenBMC system. The DSP numbers there are references to
->>>>> DMTF
->>>>> standards.
->>>>>
->>>>> One of the key concepts here is that separation of transport
->>>>> protocol
->>>>> from the hardware bindings; this means that an MCTP "stack" may
->>>>> be
->>>>> using
->>>>> either a I2C, PCI, Serial or custom hardware channel, without
->>>>> the
->>>>> higher
->>>>> layers of that stack needing to be aware of the hardware
->>>>> implementation.
->>>>> These higher levels only need to be aware that they are
->>>>> communicating
->>>>> with a certain entity, defined by an Entity ID (MCTP EID).
->>>>>
->>>>> I've mainly focussed on the "transport" part of the design
->>>>> here.
->>>>> While
->>>>> this does enable new messaging protocols (mainly PLDM), I
->>>>> haven't
->>>>> covered that much; we will propose those details for a separate
->>>>> design
->>>>> effort.
->>>>>
->>>>> As part of the design, I have referred to MCTP "messages" and
->>>>> "packets";
->>>>> this is intentional, to match the definitions in the MCTP
->>>>> standard.
->>>>> MCTP
->>>>> messages are the higher-level data transferred between MCTP
->>>>> endpoints,
->>>>> which packets are typically smaller, and are what is sent over
->>>>> the
->>>>> hardware. Messages that are larger than the hardware MTU are
->>>>> split
->>>>> into
->>>>> individual packets by the transmit implementation, and
->>>>> reassembled
->>>>> at
->>>>> the receive implementation.
->>>>>
->>>>> A final important point is that this design is for the host <
->>>>> -->
->>>>> BMC
->>>>> channel *only*. Even if we do replace IPMI for the host
->>>>> interface,
->>>>> we
->>>>> will certainly need an IPMI interface available for external
->>>>> system
->>>>> management.
->>>>>
->>>>> ## Requirements
->>>>>
->>>>> Any channel between host and BMC should:
->>>>>
->>>>>     - Have a simple serialisation and deserialisation format, to
->>>>> enable
->>>>>       implementations in host firmware, which have widely
->>>>> varying
->>>>> runtime
->>>>>       capabilities
->>>>>
->>>>>     - Allow different hardware channels, as we have a wide
->>>>> variety of
->>>>>       target platforms for OpenBMC
->>>>>
->>>>>     - Be usable over simple hardware implementations, but have a
->>>>> facility
->>>>>       for higher bandwidth messaging on platforms that require
->>>>> it.
->>>>>
->>>>>     - Ideally, integrate with newer messaging protocols
->>>>>
->>>>> ## Proposed Design
->>>>>
->>>>> The MCTP core specification just provides the packetisation,
->>>>> routing and
->>>>> addressing mechanisms. The actual transmit/receive of those
->>>>> packets
->>>>> is
->>>>> up to the hardware binding of the MCTP transport.
->>>>>
->>>>> For OpenBMC, we would introduce an MCTP daemon, which
->>>>> implements
->>>>> the
->>>>> transport over a configurable hardware channel (eg., Serial
->>>>> UART,
->>>>> I2C or
->>>>> PCI). This daemon is responsible for the packetisation and
->>>>> routing
->>>>> of
->>>>> MCTP messages to and from host firmware.
->>>>>
->>>>> I see two options for the "inbound" or "application" interface
->>>>> of
->>>>> the
->>>>> MCTP daemon:
->>>>>
->>>>>     - it could handle upper parts of the stack (eg PLDM)
->>>>> directly,
->>>>> through
->>>>>       in-process handlers that register for certain MCTP message
->>>>> types; or
->>>>
->>>> We'd like to somehow ensure (at least via documentation) that the
->>>> handlers don't block the MCTP daemon from processing incoming
->>>> traffic.
->>>> The handlers might anyway end up making IPC calls (via D-Bus) to
->>>> other
->>>> processes. The second approach below seems to alleviate this
->>>> problem.
->>>>
->>>>>     - it could channel raw MCTP messages (reassembled from MCTP
->>>>> packets) to
->>>>>       DBUS messages (similar to the current IPMI host daemons),
->>>>> where
->>>>> the
->>>>>       upper layers receive and act on those DBUS events.
->>>>>
->>>>> I have a preference for the former, but I would be interested
->>>>> to
->>>>> hear
->>>>> from the IPMI folks about how the latter structure has worked
->>>>> in
->>>>> the
->>>>> past.
->>>>>
->>>>> The proposed implementation here is to produce an MCTP
->>>>> "library"
->>>>> which
->>>>> provides the packetisation and routing functions, between:
->>>>>
->>>>>     - an "upper" messaging transmit/receive interface, for tx/rx
->>>>> of a
->>>>> full
->>>>>       message to a specific endpoint
->>>>>
->>>>>     - a "lower" hardware binding for transmit/receive of
->>>>> individual
->>>>>       packets, providing a method for the core to tx/rx each
->>>>> packet
->>>>> to
->>>>>       hardware
->>>>>
->>>>> The lower interface would be plugged in to one of a number of
->>>>> hardware-specific binding implementations (most of which would
->>>>> be
->>>>> included in the library source tree, but others can be plugged-
->>>>> in
->>>>> too)
->>>>>
->>>>> The reason for a library is to allow the same MCTP
->>>>> implementation
->>>>> to be
->>>>> used in both OpenBMC and host firmware; the library should be
->>>>> bidirectional. To allow this, the library would be written in
->>>>> portable C
->>>>> (structured in a way that can be compiled as "extern C" in C++
->>>>> codebases), and be able to be configured to suit those runtime
->>>>> environments (for example, POSIX IO may not be available on all
->>>>> platforms; we should be able to compile the library to suit).
->>>>> The
->>>>> licence for the library should also allow this re-use; I'd
->>>>> suggest
->>>>> a
->>>>> dual Apache & GPL licence.
->>>>>
->>>>> As for the hardware bindings, we would want to implement a
->>>>> serial
->>>>> transport binding first, to allow easy prototyping in
->>>>> simulation.
->>>>> For
->>>>> OpenPOWER, we'd want to implement a "raw LPC" binding for
->>>>> better
->>>>> performance, and later PCIe for large transfers. I imagine that
->>>>> there is
->>>>> a need for an I2C binding implementation for other hardware
->>>>> platforms
->>>>> too.
->>>>>
->>>>> Lastly, I don't want to exclude any currently-used interfaces
->>>>> by
->>>>> implementing MCTP - this should be an optional component of
->>>>> OpenBMC, and
->>>>> not require platforms to implement it.
->>>>>
->>>>> ## Alternatives Considered
->>>>>
->>>>> There have been two main alternatives to this approach:
->>>>>
->>>>> Continue using IPMI, but start making more use of OEM
->>>>> extensions to
->>>>> suit the requirements of new platforms. However, given that the
->>>>> IPMI
->>>>> standard is no longer under active development, we would likely
->>>>> end
->>>>> up
->>>>> with a large amount of platform-specific customisations. This
->>>>> also
->>>>> does
->>>>> not solve the hardware channel issues in a standard manner.
->>>>>
->>>>> Redfish between host and BMC. This would mean that host
->>>>> firmware
->>>>> needs a
->>>>> HTTP client, a TCP/IP stack, a JSON (de)serialiser, and support
->>>>> for
->>>>> Redfish schema. This is not feasible for all host firmware
->>>>> implementations; certainly not for OpenPOWER. It's possible
->>>>> that we
->>>>> could run a simplified Redfish stack - indeed, MCTP has a
->>>>> proposal
->>>>> for a
->>>>> Redfish-over-MCTP protocol, which uses simplified serialisation
->>>>> and
->>>>> no
->>>>> requirement on HTTP. However, this still introduces a large
->>>>> amount
->>>>> of
->>>>> complexity in host firmware.
->>>>>
->>>>> ## Impacts
->>>>>
->>>>> Development would be required to implement the MCTP transport,
->>>>> plus
->>>>> any
->>>>> new users of the MCTP messaging (eg, a PLDM implementation).
->>>>> These
->>>>> would
->>>>> somewhat duplicate the work we have in IPMI handlers.
->>>>>
->>>>> We'd want to keep IPMI running in parallel, so the "upgrade"
->>>>> path
->>>>> should
->>>>> be fairly straightforward.
->>>>>
->>>>> Design and development needs to involve potential host firmware
->>>>> implementations.
->>>>>
->>>>> ## Testing
->>>>>
->>>>> For the core MCTP library, we are able to run tests there in
->>>>> complete
->>>>> isolation (I have already been able to run a prototype MCTP
->>>>> stack
->>>>> through the afl fuzzer) to ensure that the core transport
->>>>> protocol
->>>>> works.
->>>>>
->>>>> For MCTP hardware bindings, we would develop channel-specific
->>>>> tests
->>>>> that
->>>>> would be run in CI on both host and BMC.
->>>>>
->>>>> For the OpenBMC MCTP daemon implementation, testing models
->>>>> would
->>>>> depend
->>>>> on the structure we adopt in the design section.
->>>>>
->>>>
->>>> Regards,
->>>> Deepak
->>>>
->>
->>
-> 
+It seems very tedious that I have to do export every time in the scripts.
+
+In openbmc, if I want to operate the gpio,
+I have to
+1, echo the gpio num to /sys.class/gpio/export
+2, echo the direction to /sys.class/gpio/gpio*.direction
+3, read or write the value from the value.
+
+So it seems I need a script use to export some of the gpios at first?
+
+And I also find a python scripts in obmc: gpioutil
+But it need import obmc_system_config
+>>> import obmc_system_config
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+ImportError: No module named obmc_system_config
+
+Does anyone know how to install this module in obmc?
+
+Or does anyone know a better way to operate the gpio?
+
+Thanks.
+
+Best Regards,
+Yao.
+
+
+--_000_8560e4ac81e042deab46bf6b22b2fd1bHXTBJIDCEMVIW02hxtcorpn_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-justify:inter-ideograph;
+	font-size:10.5pt;
+	font-family:DengXian;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:DengXian;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:DengXian;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Hi All,<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">I have a scripts to enable console, it w=
+ill write the gpio:<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">#Control UART mux for obmc-console-clien=
+t<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">echo 325 &gt; /sys/class/gpio/export<o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">echo out &gt; /sys/class/gpio/gpio325/di=
+rection<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">cat /sys/class/gpio/gpio325/direction<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">echo 0 &gt; /sys/class/gpio/gpio325/valu=
+e<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">obmc-console-client<o:p></o:p></span></p=
+>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">echo 1 &gt; /sys/class/gpio/gpio325/valu=
+e<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">It seems very tedious that I have to do =
+export every time in the scripts.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">In openbmc, if I want to operate the gpi=
+o,<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">I have to<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">1, echo the gpio num to /sys.class/gpio/=
+export<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">2, echo the direction to /sys.class/gpio=
+/gpio*.direction<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">3, read or write the value from the valu=
+e.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">So it seems I need a script use to expor=
+t some of the gpios at first?<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">And I also find a python scripts in obmc=
+: gpioutil<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">But it need import obmc_system_config<o:=
+p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">&gt;&gt;&gt; import obmc_system_config<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Traceback (most recent call last):<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">&nbsp; File &quot;&lt;stdin&gt;&quot;, l=
+ine 1, in &lt;module&gt;<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">ImportError: No module named obmc_system=
+_config<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Does anyone know how to install this mod=
+ule in obmc?<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Or does anyone know a better way to oper=
+ate the gpio?<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Thanks.<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Best Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal" align=3D"left" style=3D"text-align:left"><span lang=
+=3D"EN-US" style=3D"color:#1F497D">Yao.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
+
+--_000_8560e4ac81e042deab46bf6b22b2fd1bHXTBJIDCEMVIW02hxtcorpn_--
