@@ -1,40 +1,40 @@
 Return-Path: <prvs=5884d0a988=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
  envelope-from=prvs=5884d0a988=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="W8IhdOBU"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="Jzfh/IY4"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43FTny6bMSzDqV8
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 08:04:19 +1100 (AEDT)
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43FTpd4LqnzDqVT
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 08:04:57 +1100 (AEDT)
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- wBCL111e013092
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:17 -0800
+ wBCL4kTB007311
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:53 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-type; s=facebook; bh=ACeWLzKnSYqBGDXLt1crRl2V8ZtG4AgpgdT2ngd5KPQ=;
- b=W8IhdOBURt5MO365zHCGtc/WKau/e8eZdIgN8AHvuOkps2HWp9isUVRXmPnN74fNIj68
- agxrs8UUP7x5ZywfyYfwgAANVqReBIAmihm7T18L4zQF95cQnco/6QsFJUsSgs7IyfmL
- OP5qqqqJvabHRs//VAnJwHYlTaXJLiQX4MA= 
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=9S7Huczn8dJSngKp1fJ/ZoCzFYxIA5gUIBVyYjRoTLU=;
+ b=Jzfh/IY4YLRiIXEmMP4E0DoFc/a7wC+Tq6MlsCcXj41m0Ni1WsTm7Ph3ycZOqfiIxTwV
+ TleQlEZm/yxlgVMG5FB3KOX3O0IwWUHE92kcAlRi3v74YYvMRPf9gVQTWFj9hrt4S+dX
+ S4+i6OvqdRAIbilivMqAN88/tOWzTbA7E6M= 
 Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2pb6jk8rrh-10
+ by mx0a-00082601.pphosted.com with ESMTP id 2pb7dbgm82-8
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:17 -0800
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:53 -0800
 Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
- mail.thefacebook.com (2620:10d:c081:35::126) with Microsoft SMTP Server
+ mail.thefacebook.com (2620:10d:c081:35::129) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
- Wed, 12 Dec 2018 13:04:07 -0800
+ Wed, 12 Dec 2018 13:04:09 -0800
 Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
- id C98194D1A37E; Wed, 12 Dec 2018 13:04:06 -0800 (PST)
+ id 8E08D4D1A36F; Wed, 12 Dec 2018 13:04:06 -0800 (PST)
 Smtp-Origin-Hostprefix: devvm
 From: Vijay Khemka <vijaykhemka@fb.com>
 Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
@@ -45,12 +45,10 @@ To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
 CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
  <openbmc@lists.ozlabs.org>
 Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v4 2/2] ARM: dts: aspeed: Add KCS support for LPC BMC
-Date: Wed, 12 Dec 2018 13:03:52 -0800
-Message-ID: <20181212210352.1717617-2-vijaykhemka@fb.com>
+Subject: [PATCH v4 1/2] ARM: dts: aspeed: Add KCS & lpc ctrl for Facebook
+Date: Wed, 12 Dec 2018 13:03:51 -0800
+Message-ID: <20181212210352.1717617-1-vijaykhemka@fb.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20181212210352.1717617-1-vijaykhemka@fb.com>
-References: <20181212210352.1717617-1-vijaykhemka@fb.com>
 X-FB-Internal: Safe
 MIME-Version: 1.0
 Content-Type: text/plain
@@ -69,66 +67,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Dec 2018 21:04:24 -0000
+X-List-Received-Date: Wed, 12 Dec 2018 21:04:58 -0000
 
-Added kcs device support for lpc BMC.
+Added kcs device and lpc ctrl device to enable LPC clock in Facebook
+Tiogapass device tree.
 
 Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
 ---
- arch/arm/boot/dts/aspeed-g5.dtsi | 33 +++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+ .../dts/aspeed-bmc-facebook-tiogapass.dts     | 30 +++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index d107459fc0f8..2743f400aa29 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -330,8 +330,32 @@
- 				ranges = <0x0 0x1e789000 0x1000>;
- 
- 				lpc_bmc: lpc-bmc@0 {
--					compatible = "aspeed,ast2500-lpc-bmc";
-+					compatible = "aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon";
- 					reg = <0x0 0x80>;
-+					reg-io-width = <4>;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+index d9d7f208788a..9544fa2c1822 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+@@ -21,6 +21,18 @@
+ 	memory@80000000 {
+ 		reg = <0x80000000 0x20000000>;
+ 	};
 +
-+					#address-cells = <1>;
-+					#size-cells = <1>;
-+					ranges = <0x0 0x0 0x80>;
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
 +
-+					kcs1: kcs1@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <1>;
-+						status = "disabled";
-+					};
-+					kcs2: kcs2@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <2>;
-+						status = "disabled";
-+					};
-+					kcs3: kcs3@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <3>;
-+						status = "disabled";
-+					};
- 				};
- 
- 				lpc_host: lpc-host@80 {
-@@ -343,6 +367,13 @@
- 					#size-cells = <1>;
- 					ranges = <0x0 0x80 0x1e0>;
- 
-+					kcs4: kcs4@0 {
-+						compatible = "aspeed,ast2500-kcs-bmc";
-+						interrupts = <8>;
-+						kcs_chan = <4>;
-+						status = "disabled";
-+					};
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x04000000>; /* 64M */
++		};
++	};
 +
- 					lpc_ctrl: lpc-ctrl@0 {
- 						compatible = "aspeed,ast2500-lpc-ctrl";
- 						reg = <0x0 0x80>;
+ 	iio-hwmon {
+ 		compatible = "iio-hwmon";
+ 		oemname0 = "MB_P3V3";
+@@ -62,6 +74,12 @@
+ 	};
+ };
+ 
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
+ &uart1 {
+ 	// Host Console
+ 	status = "okay";
+@@ -75,6 +93,18 @@
+ 	status = "okay";
+ };
+ 
++&kcs2 {
++	// BMC KCS channel 2
++	status = "okay";
++	kcs_addr = <0xca8>;
++};
++
++&kcs3 {
++	// BMC KCS channel 3
++	status = "okay";
++	kcs_addr = <0xca2>;
++};
++
+ &mac0 {
+ 	status = "okay";
+ 
 -- 
 2.17.1
