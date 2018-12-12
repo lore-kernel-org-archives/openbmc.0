@@ -1,53 +1,53 @@
-Return-Path: <prvs=5884d0a988=vijaykhemka@fb.com>
+Return-Path: <prvs=58842e9a9f=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=5884d0a988=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=58842e9a9f=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="Jzfh/IY4"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="iCwqRPoU"; 
  dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43FTpd4LqnzDqVT
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 08:04:57 +1100 (AEDT)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43FVvN2dMczDqV7
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 08:54:04 +1100 (AEDT)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- wBCL4kTB007311
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:53 -0800
+ wBCLrppP021808
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:54:01 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
  h=from : to : cc : subject
  : date : message-id : mime-version : content-type; s=facebook;
- bh=9S7Huczn8dJSngKp1fJ/ZoCzFYxIA5gUIBVyYjRoTLU=;
- b=Jzfh/IY4YLRiIXEmMP4E0DoFc/a7wC+Tq6MlsCcXj41m0Ni1WsTm7Ph3ycZOqfiIxTwV
- TleQlEZm/yxlgVMG5FB3KOX3O0IwWUHE92kcAlRi3v74YYvMRPf9gVQTWFj9hrt4S+dX
- S4+i6OvqdRAIbilivMqAN88/tOWzTbA7E6M= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2pb7dbgm82-8
+ bh=UCF37w1IQAbjhdvxGw99Y/GiQMjqbkJa5cRUu3Akncs=;
+ b=iCwqRPoUH/CTJHI3n4vR5Rzh8Jt0BGRu/UjO3ujQq2cO32/prjW1n5QYBSrFQ4Xd8H29
+ BNg9ZSpiVQ1yQHDZAb9OMH68ldsOLWYnBJbvDh2i6yRdpvIsLwykGYpxpGIJGH8qVGvX
+ 1u4qQEn2R07I352QbWhPHnSyTmRKnKLP42s= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2pban5r01h-13
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:04:53 -0800
-Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
- mail.thefacebook.com (2620:10d:c081:35::129) with Microsoft SMTP Server
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 13:54:01 -0800
+Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
+ mail.thefacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
- Wed, 12 Dec 2018 13:04:09 -0800
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
- id 8E08D4D1A36F; Wed, 12 Dec 2018 13:04:06 -0800 (PST)
+ Wed, 12 Dec 2018 13:53:12 -0800
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
+ id 56AC092A7340; Wed, 12 Dec 2018 13:53:07 -0800 (PST)
 Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Linus Walleij <linus.walleij@linaro.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, <linux-gpio@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v4 1/2] ARM: dts: aspeed: Add KCS & lpc ctrl for Facebook
-Date: Wed, 12 Dec 2018 13:03:51 -0800
-Message-ID: <20181212210352.1717617-1-vijaykhemka@fb.com>
+CC: Tao Ren <taoren@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH] gpio: aspeed: remove duplicated statement
+Date: Wed, 12 Dec 2018 13:53:05 -0800
+Message-ID: <20181212215305.3852170-1-taoren@fb.com>
 X-Mailer: git-send-email 2.17.1
 X-FB-Internal: Safe
 MIME-Version: 1.0
@@ -67,70 +67,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Dec 2018 21:04:58 -0000
+X-List-Received-Date: Wed, 12 Dec 2018 21:54:08 -0000
 
-Added kcs device and lpc ctrl device to enable LPC clock in Facebook
-Tiogapass device tree.
+Remove duplicated assignment statement from aspeed_gpio_probe() function.
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+Signed-off-by: Tao Ren <taoren@fb.com>
 ---
- .../dts/aspeed-bmc-facebook-tiogapass.dts     | 30 +++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ drivers/gpio/gpio-aspeed.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-index d9d7f208788a..9544fa2c1822 100644
---- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-@@ -21,6 +21,18 @@
- 	memory@80000000 {
- 		reg = <0x80000000 0x20000000>;
- 	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		flash_memory: region@98000000 {
-+			no-map;
-+			reg = <0x98000000 0x04000000>; /* 64M */
-+		};
-+	};
-+
- 	iio-hwmon {
- 		compatible = "iio-hwmon";
- 		oemname0 = "MB_P3V3";
-@@ -62,6 +74,12 @@
- 	};
- };
+diff --git a/drivers/gpio/gpio-aspeed.c b/drivers/gpio/gpio-aspeed.c
+index 2342e154029b..854bce4fb9e7 100644
+--- a/drivers/gpio/gpio-aspeed.c
++++ b/drivers/gpio/gpio-aspeed.c
+@@ -1185,7 +1185,6 @@ static int __init aspeed_gpio_probe(struct platform_device *pdev)
  
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+	flash = <&spi1>;
-+};
-+
- &uart1 {
- 	// Host Console
- 	status = "okay";
-@@ -75,6 +93,18 @@
- 	status = "okay";
- };
- 
-+&kcs2 {
-+	// BMC KCS channel 2
-+	status = "okay";
-+	kcs_addr = <0xca8>;
-+};
-+
-+&kcs3 {
-+	// BMC KCS channel 3
-+	status = "okay";
-+	kcs_addr = <0xca2>;
-+};
-+
- &mac0 {
- 	status = "okay";
- 
+ 	gpio->chip.parent = &pdev->dev;
+ 	gpio->chip.ngpio = gpio->config->nr_gpios;
+-	gpio->chip.parent = &pdev->dev;
+ 	gpio->chip.direction_input = aspeed_gpio_dir_in;
+ 	gpio->chip.direction_output = aspeed_gpio_dir_out;
+ 	gpio->chip.get_direction = aspeed_gpio_get_direction;
 -- 
 2.17.1
