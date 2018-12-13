@@ -1,61 +1,52 @@
-Return-Path: <prvs=5885c96b2c=vijaykhemka@fb.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=5885c96b2c=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::233; helo=mail-oi1-x233.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="cjYEpoTx"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ha3XX5B6"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-x233.google.com (mail-oi1-x233.google.com
+ [IPv6:2607:f8b0:4864:20::233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43G4HV0KtjzDqjY
- for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 06:58:29 +1100 (AEDT)
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- wBDJo7Iv024054
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 11:58:27 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=6xPDv9eZuGzy18l8+m8l21alMMgLY5002Osi37fXirM=;
- b=cjYEpoTxWLNSelJAd2nOvr86y39f34QNlK1PU2rTXxTRuM+RRFtLGtWeEqRQqPaAGe+v
- 8BloczqzjvaLAf0mRYJiDL581aeBQ/XTtAGMmzgNQWUds+TAgB0Rrptce8AybhJNxg/O
- FwFfeAIkDI8iPig28rbpWA86dzf5eOPqmvU= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2pbu15rr17-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 11:58:27 -0800
-Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
- mail.thefacebook.com (2620:10d:c021:18::174) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
- Thu, 13 Dec 2018 11:53:24 -0800
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
- id 830714EBD9B4; Thu, 13 Dec 2018 11:53:22 -0800 (PST)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
- <openbmc@lists.ozlabs.org>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH 1/4] ARM: dts: aspeed: Add sensors devices for Facebook
-Date: Thu, 13 Dec 2018 11:53:16 -0800
-Message-ID: <20181213195319.1333402-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43G6sg4SCGzDr5Z
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 08:54:47 +1100 (AEDT)
+Received: by mail-oi1-x233.google.com with SMTP id y1so2902751oie.12
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 13:54:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=eT/rLYKOA4pIJOGXvPkx0pslyI9l5m2OlEnvOEvvSz4=;
+ b=Ha3XX5B6Hmrknx8F+YGq/7AGlH7/mB/cV4/0RBNNwGbEqzcjUn76d33S6fYo4GJ9/G
+ DfWFFRtvxrYDZs4STyYJeYTeh4M4W8m38vYYnXU1kRSz06NNHG0JEEI6rWOy89C+KDEv
+ fuUht/KbtV4Y22XTUtcey+lwUoHMtSLKjywkToPnKeL/rzZBFOVajllcV4TVwT8qPrcg
+ 3tn3Cij0Ul5YST5bb08L2/jJ1lqxPwJ2r/vtvsdv6iF68KjD2rgYAoZygJFH8prhCUyB
+ i5b2wTK2czwglNXHqySnQc2S5PDc0/BLqkibLOOePVe2xLquHmRQbzqxoXnFF/9xl9yd
+ wTXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=eT/rLYKOA4pIJOGXvPkx0pslyI9l5m2OlEnvOEvvSz4=;
+ b=ip4TvwZkGimye6EtBpyixUQh7XTqWtsXALol+cvL1S/Jw77T2gzJdgtbK5+BQc5Dpj
+ RWv7I2rAmjKJGAbbRj3s+CzaFhd/Q4mLUU6cD/yftdqcRck9fBq2WjzYwn8yn0rb5CEF
+ kaAYU9xT54/iR/Ea5QrITiyg/wC75gE+tacZxNLXc5Vn/9UK4fhteIoCECjFVHZIp4gG
+ diXkoPdl5SoFuzeVtnN5BCr6aiLNUH7Zt7qmgf3ee71GH3lZQMLgEg/a4+Ij3SlG2orY
+ 12WcfQFeNHXsoGfhaqH5aG53aaefnC5t3aeqz7ez8EHIV2S5Txg28lYaciwMO1uf6juE
+ V7gg==
+X-Gm-Message-State: AA+aEWa0ID0UTDY/rOQ9e0XapqMu3I3DWncFoIzoKVXQxwKEN9BBMQu5
+ 5Em/oWbhmhjBaeLHH26RqmwcXl67vlNoiTzoEjotN1de
+X-Google-Smtp-Source: AFSGD/V0/b4f0QowXoVw6iM6sFlNMfsQr7R+BmKDQ6195E8yz19AOkGUlVqAQ+Ru5CqptOXujTgOTvjRi5Dd/apD2Uc=
+X-Received: by 2002:aca:b9d6:: with SMTP id j205mr320531oif.294.1544738084470; 
+ Thu, 13 Dec 2018 13:54:44 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-13_03:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Thu, 13 Dec 2018 15:54:28 -0600
+Message-ID: <CALLMt=o-AdAhB=w5xWq8Kq05sJiRtSktzGo9yC9EWb1K+-TR4g@mail.gmail.com>
+Subject: Jenkins Job Refactoring
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,84 +58,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Dec 2018 19:58:30 -0000
+X-List-Received-Date: Thu, 13 Dec 2018 21:54:48 -0000
 
-Added ADC and other sensor devices in Facebook Tiogapass device tree.
+Greetings,
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- .../dts/aspeed-bmc-facebook-tiogapass.dts     | 33 +++++++++++++++++--
- 1 file changed, 31 insertions(+), 2 deletions(-)
+I did a bit of jenkins job refactoring today. Should have minimal impact
+to everyone but just wanted to get an FYI out.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-index f8e7b71af7e6..58bbe08d3ba7 100644
---- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
-@@ -21,6 +21,25 @@
- 	memory@80000000 {
- 		reg = <0x80000000 0x20000000>;
- 	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		oemname0 = "MB_P3V3";
-+		oemname1 = "MB_P5V";
-+		oemname2 = "MB_P12V";
-+		oemname3 = "MB_P1V05";
-+		oemname4 = "MB_PVNN_PCH_STBY";
-+		oemname5 = "MB_P3V3_STBY";
-+		oemname6 = "MB_P5V_STBY";
-+		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-+					<&adc 4>, <&adc 5>, <&adc 6>;
-+	};
-+
-+	iio-hwmon-battery {
-+		oemname0 = "MB_P3V_BAT";
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 7>;
-+	};
- };
- 
- &fmc {
-@@ -64,6 +83,10 @@
- 	use-ncsi;
- };
- 
-+&adc {
-+	status = "okay";
-+};
-+
- &i2c0 {
- 	status = "okay";
- 	//Airmax Conn B, CPU0 PIROM, CPU1 PIROM
-@@ -122,6 +145,10 @@
- 
- &i2c8 {
- 	status = "okay";
-+	tmp421@1f {
-+		compatible = "ti,tmp421";
-+		reg = <0x1f>;
-+	};
- 	//Mezz Sensor SMBus
- };
- 
-@@ -134,13 +161,15 @@
- 	status = "okay";
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-+	oemname0 = "System_Fan_Connector_1";
-+	oemname1 = "System_Fan_Connector_3";
- 	fan@0 {
- 		reg = <0x00>;
- 		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
- 	};
- 
- 	fan@1 {
--		reg = <0x00>;
--		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
- 	};
- };
--- 
-2.17.1
+I put some details up at
+https://github.com/openbmc/openbmc/wiki/OpenBMC-Infrastructure-Workgroup#jenkins-jobs
+
+The main reason for this change was to be able to create and use
+a dedicated QEMU node. Still haven't gotten to the bottom of
+https://github.com/openbmc/qemu/issues/14 but overall it seems
+like a good idea to have a dedicated QEMU node. With this change
+I was able to bring builder1 and builder4 back online so we should
+see our build times get better.
+
+The only impact I see to users is that when your jenkins jobs
+fail you'll need to do one more click to get to the new build-openbmc
+job to see your compile errors.
+
+Let me know if you run into any issues.
+
+Andrew
