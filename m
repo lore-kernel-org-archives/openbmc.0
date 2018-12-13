@@ -1,56 +1,82 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::332; helo=mail-ot1-x332.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SL1xxXsQ"; 
- dkim-atps=neutral
-Received: from mail-ot1-x332.google.com (mail-ot1-x332.google.com
- [IPv6:2607:f8b0:4864:20::332])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Fvmr1BPpzDqnr
- for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 00:34:51 +1100 (AEDT)
-Received: by mail-ot1-x332.google.com with SMTP id v23so1873481otk.9
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 05:34:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Bc6kMlpXm9Nmg8c6xYZDDubKFa+6U8kdQEokjcEvyBc=;
- b=SL1xxXsQG9m8+S7c18wdvnxd3dFDZhuF28Y0LL/gB+gDdrsp6pd79Md8WNdmBBoAxr
- rX2Isi1SOwWnLR8DqYorrVOXc09FXdDHi6EmC2oRjsfatITA4I+w6riz0U3Uh4DG9JjP
- +CtEKL8DGik9Vx48iz66vqsnwa9FyZbw+cEB5nmWy7pMwpbM0aqeWaYFwCcZVv2czuGj
- TEG8xc6ZJoG9zgjs90UgXvbCbPrCvPvhOOT5CfjpOvNHlP8blalfOskEJub9bfFFuo9k
- 9pVB0B8KIw4vrxcW1UR9dJEGNUMR2BqUFI3DubZYqL8pIm/xgp1YkmXEjlPiseEwHq6V
- VGIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Bc6kMlpXm9Nmg8c6xYZDDubKFa+6U8kdQEokjcEvyBc=;
- b=CtSh3mu28t/LLbgCvLFXjWCWWyEPlm41fgf/fTFAfcGvN4OQWlFXl89j6dwLxKzfTB
- aqaNWVtNwtudGjJljk7aTYgdmpeN+SJ5yal+IqwHaijtz8BBs2t2ocXeGWv9SYhitGWN
- UrqSkSIWHB2MLufDtRS8Atn9YWdtmu0APbn/+DrMXwy9vlfM0EtIoRwuxLbSwKBCKSHx
- AkxTVuDlhm7wNAj540ygx3fV+W0JBZKXTPL25gPifn7si8OKl8rMs/jH55mCthKy9Tqo
- Ke2Ql3Wspa2TR2ovjUNRDRpS4ko6J00unILRPlhl4A2bkeRGp0KfSq4EbQipF9ZKZaRX
- 2PMA==
-X-Gm-Message-State: AA+aEWY7qILlc/hbz3dU0u6Y03ROjCZE7NtTBBfP05E6U3CINDhMAwWR
- tK5cQp7TqjGRxCRhynbBCp54NdX1wAWk29OkqAI=
-X-Google-Smtp-Source: AFSGD/UvrkfKRfaaXs9m5c/PKIvPZrHQ6s/ILjYd3hht6T8DSPdWk2yw5Fn/CPzly7v22Mzp6v7p5DWwZmc4CadUU7k=
-X-Received: by 2002:a9d:74c3:: with SMTP id a3mr17978703otl.107.1544708088850; 
- Thu, 13 Dec 2018 05:34:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43FwkN1txYzDqQJ
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 01:17:47 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ wBDEE6ju031770
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 09:17:45 -0500
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2pbq3v6522-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 09:17:45 -0500
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Thu, 13 Dec 2018 14:17:44 -0000
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 13 Dec 2018 14:17:41 -0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ wBDEHeXQ15728658
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 13 Dec 2018 14:17:40 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3A38A28058;
+ Thu, 13 Dec 2018 14:17:40 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D106B28064;
+ Thu, 13 Dec 2018 14:17:38 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Thu, 13 Dec 2018 14:17:38 +0000 (GMT)
 MIME-Version: 1.0
-References: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
-In-Reply-To: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 13 Dec 2018 07:34:32 -0600
-Message-ID: <CALLMt=r4nUdFHTNeiemhdM1zrRVt5-zc41mG2APBC-N2YO4TOQ@mail.gmail.com>
-Subject: Re: OpenBMC Raspberry Pi
-To: truongmd@gmail.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 13 Dec 2018 08:21:49 -0600
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: medadyoung@gmail.com, joel@jms.id.au, jk@ozlabs.org
+Cc: jbacik@fb.com, axboe@kernel.dk, linux-block@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ nbd@other.debian.org, openbmc
+ <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
+In-Reply-To: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
+References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 18121314-0060-0000-0000-000002E36DA7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010219; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000271; SDB=6.01131193; UDB=6.00587859; IPR=6.00911325; 
+ MB=3.00024681; MTD=3.00000008; XFM=3.00000015; UTC=2018-12-13 14:17:43
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 18121314-0061-0000-0000-000047863A82
+Message-Id: <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2018-12-13_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1812130124
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,37 +88,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Dec 2018 13:34:53 -0000
+X-List-Received-Date: Thu, 13 Dec 2018 14:17:48 -0000
 
-On Mon, Oct 29, 2018 at 4:52 PM M. D. Truong <truongmd@gmail.com> wrote:
->
-> Hi all,
->
-> OpenBMC on Raspberry Pi seems to have a bit of interest as a
-> stand-alone reference platform. The source has teased the possibility
-> of running OpenBMC on an RPI, so I bit and took a few cycles to make
-> it work. On a GitHub fork of OpenBMC code, sitting on the
-> "raspberrypi-cm3" branch are some patches that will build a working
-> distribution.
->
-> https://github.com/truongmd/openbmc/tree/raspberrypi-cm3
+On 2018-12-11 00:17, medadyoung@gmail.com wrote:
+> From: Medad <medadyoung@gmail.com>
+> 
+>     If we do NOT clear NBD_BOUND flag when NBD connection is closed,
+>     then the original NBD device could not be used again.
+> 
+> Signed-off-by: Medad <medadyoung@gmail.com>
 
-Hey My, this is great. Especially for people looking to get started
-with OpenBMC. Raspberry pi's are easy to get and very
-affordable.
+Tested on Witherspoon (OpenPOWER P9 with AST2500) and verified with
+this patch that the NBD device could be disconnected/reconnected.
 
-Any chance you were going to upstream these changes to
-the OpenBMC project so we could have them officially in
-the code base?
+Tested by: Adriana Kobylak <anoo@linux.ibm.com>
 
->
-> The README.md file has most of useful notes on building the code and
-> bringing it up on a device. I'm looking for feedback on changes before
-> pushing the code upstream. Features is a completely separate area for
-> discussion.
->
-> This was a great learning experience and I hope it's useful for others.
->
->
-> Cheers,
-> My
+> ---
+>  drivers/block/nbd.c | 11 ++++++++---
+>  1 file changed, 8 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+> index 64278f4..5c88490 100644
+> --- a/drivers/block/nbd.c
+> +++ b/drivers/block/nbd.c
+> @@ -277,10 +277,14 @@ static void sock_shutdown(struct nbd_device *nbd)
+>  	struct nbd_config *config = nbd->config;
+>  	int i;
+> 
+> -	if (config->num_connections == 0)
+> +	if (config->num_connections == 0) {
+> +		clear_bit(NBD_BOUND, &config->runtime_flags);
+>  		return;
+> -	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags))
+> +	}
+> +	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags)) {
+> +		clear_bit(NBD_BOUND, &config->runtime_flags);
+>  		return;
+> +	}
+> 
+>  	for (i = 0; i < config->num_connections; i++) {
+>  		struct nbd_sock *nsock = config->socks[i];
+> @@ -944,7 +948,7 @@ static int nbd_reconnect_socket(struct nbd_device
+> *nbd, unsigned long arg)
+>  		sockfd_put(old);
+> 
+>  		clear_bit(NBD_DISCONNECTED, &config->runtime_flags);
+> -
+> +		clear_bit(NBD_BOUND, &config->runtime_flags);
+>  		/* We take the tx_mutex in an error path in the recv_work, so we
+>  		 * need to queue_work outside of the tx_mutex.
+>  		 */
+> @@ -1020,6 +1024,7 @@ static int nbd_disconnect(struct nbd_device *nbd)
+>  	dev_info(disk_to_dev(nbd->disk), "NBD_DISCONNECT\n");
+>  	set_bit(NBD_DISCONNECT_REQUESTED, &config->runtime_flags);
+>  	send_disconnects(nbd);
+> +	clear_bit(NBD_BOUND, &config->runtime_flags);
+>  	return 0;
+>  }
