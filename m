@@ -1,59 +1,55 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <Avi.Fishman@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=avi.fishman@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="HW5tLmKw"; 
- dkim-atps=neutral
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=nuvoton.com
+X-Greylist: delayed 2937 seconds by postgrey-1.36 at bilbo;
+ Thu, 13 Dec 2018 19:19:27 AEDT
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43FbVk69B8zDqSM
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 12:21:34 +1100 (AEDT)
-Received: by mail-qt1-x842.google.com with SMTP id p17so431293qtl.5
- for <openbmc@lists.ozlabs.org>; Wed, 12 Dec 2018 17:21:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=pgGLrXqUdV+Gq7LlbjL9Dnxek3sMiFb6VCpIT3rOOlk=;
- b=HW5tLmKwTuRN8Og9J0uxdjTCxALcQItwbpngch812894EDrfcI329gLt61NnIl2jno
- dj6npjDoByYIvp2b2tXW0F2JjwITrdEVnGQ3CGwo5pfvNGo4Jqzpo7K/M8trS6wm95+j
- nYgMT2nfSns1iuln7cfp7iwfawVTz9/nElskA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=pgGLrXqUdV+Gq7LlbjL9Dnxek3sMiFb6VCpIT3rOOlk=;
- b=MxZGPqVWiNIc1NiwMS0yBtKZLbxVFRicUZel5mb8V67IeTVDU1iesgob1iSw8x2rxH
- XutLyQDYuY7Ziq7QCTQ6wImN/cD1AmKxPc4dPzP+wrdGzuEbXKfUZW4DJt/yRY1XGJI9
- ceG27pOyyt6GOHA9YA2IZb22L/Mj+rjYtqf6r7xDBAKqUmq5vzsMzQ154j7MDFSeIs2h
- 9mDxhZ+246HEAiQH8E6bQO//0XieZ5soN8qDEvC1HyMv3N1BzWue8b9hyqb6a6G4tLGP
- Ka/WbNNhs4fxjXLhzwLIfD7cEC312RTy0Z2IkNp9XhFzs+X7heOOYymmHtNP5u/nooxr
- wu+g==
-X-Gm-Message-State: AA+aEWZ0eiNrsrEyr4+kvO1Ym1Vxc4Tny/A0o6YWEIea2xian5iN0jml
- 4m9zPrUWs+Dpy5XG9XlSRGn/Q7AIXrctyJhJlEALqVfmtnU=
-X-Google-Smtp-Source: AFSGD/WLValOf9ICuuUniLG0u1cgOeVvdCQF29z4KTmN4tdNX+dytCyV+6LXUC6mrtRenagEgVc2Z0whhR2vUYZkDMY=
-X-Received: by 2002:ac8:7308:: with SMTP id x8mr22524495qto.284.1544664092584; 
- Wed, 12 Dec 2018 17:21:32 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Fmmv3hwqzDqnB
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 19:19:27 +1100 (AEDT)
+Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
+ [212.199.177.21])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wBD70OCM026867
+ for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 09:00:24 +0200
+Received: from NTILML02.nuvoton.com (10.190.1.46) by NTILML02.nuvoton.com
+ (10.190.1.46) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Thu, 13 Dec
+ 2018 09:30:22 +0200
+Received: from NTILML02.nuvoton.com ([::1]) by NTILML02.nuvoton.com ([::1])
+ with mapi id 15.00.1130.005; Thu, 13 Dec 2018 09:30:22 +0200
+From: <Avi.Fishman@nuvoton.com>
+To: <joel@jms.id.au>, <tmaimon77@gmail.com>
+CC: <openbmc@lists.ozlabs.org>
+Subject: RE: Linux dev-4.19
+Thread-Topic: Linux dev-4.19
+Thread-Index: AQHUknBu0SJ48hb7i0mm3M4hLx4ivaV7nKYAgAAaN4CAAI0EkA==
+Date: Thu, 13 Dec 2018 07:30:22 +0000
+Message-ID: <883f3b09e29e4c03b1a3ccd98fcb5282@NTILML02.nuvoton.com>
+References: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
+ <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+ <1E4319BB-39C3-455F-B659-B37F0153F0D9@fb.com>
+ <MWHPR15MB1486493B01A346850E6B73A7B2AE0@MWHPR15MB1486.namprd15.prod.outlook.com>
+ <CACPK8XesPmDBEP_eftmh0Fm_4H7StxWfzzYvStD3HaMiFzX2Tw@mail.gmail.com>
+ <VI1PR0502MB38692985438ED8BA1E4FACFFDDAF0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+ <CACPK8Xd2FDD=FX7SK5cxWrkgGT190rJAHOJefs4Gws6qzJkfYA@mail.gmail.com>
+ <CAP6Zq1je+PsriSUUL2JoNX-OQte85F=uQd7EG9np-D1fsxjcTg@mail.gmail.com>
+ <CACPK8XcGpd5Y3XTFB+VTFr+1S4hf4ytgMZV-VeDBrN8nyFPDHg@mail.gmail.com>
+ <CACPK8XeKEsMCP6vOQo96Y7TaBO1PWiBb1yZkaQAeBg0RiUD=sA@mail.gmail.com>
+In-Reply-To: <CACPK8XeKEsMCP6vOQo96Y7TaBO1PWiBb1yZkaQAeBg0RiUD=sA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.191.10.129]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
-In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 13 Dec 2018 11:51:20 +1030
-Message-ID: <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
-Subject: Re: Enable buttons GPIO passthrough
-To: kuiying.wang@intel.com, Linus Walleij <linus.walleij@linaro.org>, 
- linux-gpio@vger.kernel.org, Andrew Jeffery <andrew@aj.id.au>
-Cc: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- vernon.mauery@intel.com, james.feist@intel.com, 
- Jae Hyun Yoo <jae.hyun.yoo@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,806 +61,246 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Dec 2018 01:21:35 -0000
+X-List-Received-Date: Thu, 13 Dec 2018 08:19:29 -0000
 
-On Tue, 11 Dec 2018 at 18:32, Wang, Kuiying <kuiying.wang@intel.com> wrote:
->
-> Hi Joel/Andrew,
->
-> I write a drive to enable GPIO passthrough for buttons (like power/reset/=
-id button) as following attached patch.
->
-> Do you think it is acceptable?
->
-> Or we could do it in pinmux and extend gpio driver? Design passthrough st=
-ate except in/out.
-
-I think that this direction would be better than a misc driver. I've
-added Linus, the maintainer for these subsystems, and the linux-gpio
-mailing list to cc.
-
-Cheers,
-
-Joel
-
->
-> What=E2=80=99s your suggestions?
->
->
->
-> Thanks Kwin.
->
->
->
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
->
-> index f2062546250c..e94ee86820d3 100644
->
-> --- a/drivers/misc/Kconfig
->
-> +++ b/drivers/misc/Kconfig
->
-> @@ -4,6 +4,12 @@
->
->  menu "Misc devices"
->
-> +config GPIO_PASS_THROUGH
->
-> +             tristate "GPIO Pass Through"
->
-> +             depends on (ARCH_ASPEED || COMPILE_TEST)
->
-> +             help
->
-> +               Enable this for buttons GPIO pass through.
->
-> +
->
-> config SENSORS_LIS3LV02D
->
->               tristate
->
->               depends on INPUT
->
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
->
-> index bb89694e6b4b..13b8b8edbb70 100644
->
-> --- a/drivers/misc/Makefile
->
-> +++ b/drivers/misc/Makefile
->
-> @@ -61,3 +61,4 @@ obj-$(CONFIG_ASPEED_LPC_SIO)   +=3D aspeed-lpc-sio.o
->
-> obj-$(CONFIG_PCI_ENDPOINT_TEST)      +=3D pci_endpoint_test.o
->
-> obj-$(CONFIG_OCXL)                     +=3D ocxl/
->
-> obj-$(CONFIG_MISC_RTSX)                         +=3D cardreader/
->
-> +obj-$(CONFIG_GPIO_PASS_THROUGH)   +=3D gpio-passthrough.o
->
-> diff --git a/drivers/misc/gpio-passthrough.c b/drivers/misc/gpio-passthro=
-ugh.c
->
-> new file mode 100644
->
-> index 000000000000..0126fc08ae55
->
-> --- /dev/null
->
-> +++ b/drivers/misc/gpio-passthrough.c
->
-> @@ -0,0 +1,260 @@
->
-> +// SPDX-License-Identifier: GPL-2.0
->
-> +/*
->
-> + * Copyright (c) 2018 Intel Corporation
->
-> +*/
->
-> +
->
-> +#include "gpio-passthrough.h"
->
-> +
->
-> +struct aspeed_gpio_pass_through_dev {
->
-> +             struct miscdevice              miscdev;
->
-> +             unsigned int        addr;
->
-> +             unsigned int        size;
->
-> +};
->
-> +
->
-> +static struct aspeed_gpio_pass_through_dev ast_cdev_gpio_pass_through;
->
-> +
->
-> +static long ast_passthru_ioctl(struct file *filp, unsigned int cmd, unsi=
-gned long arg)
->
-> +{
->
-> +             long ret =3D 0;
->
-> +             struct passthru_ioctl_data passthru_data;
->
-> +
->
-> +             if (cmd =3D=3D GPIO_IOC_PASSTHRU)
->
-> +             {
->
-> +                            if (copy_from_user(&passthru_data,
->
-> +                                           (void __user*)arg, sizeof(pas=
-sthru_data)))
->
-> +                                           return -EFAULT;
->
-> +                            if (passthru_data.idx >=3D GPIO_PASSTHRU_MAX=
-)
->
-> +                                           return -EINVAL;
->
-> +
->
-> +                            switch (passthru_data.cmd) {
->
-> +                            case SET_GPIO_PASSTHRU_ENABLE:
->
-> +                                           ast_set_passthru_enable(passt=
-hru_data.idx,
->
-> +                                                                        =
- passthru_data.data);
->
-> +                                           break;
->
-> +                            case GET_GPIO_PASSTHRU_ENABLE:
->
-> +                                           passthru_data.data =3D ast_ge=
-t_passthru_enable(passthru_data.idx);
->
-> +                                           if (copy_to_user((void __user=
-*)arg, &passthru_data,
->
-> +                                                                        =
-                               sizeof(passthru_data)))
->
-> +                                           ret =3D -EFAULT;
->
-> +                            break;
->
-> +
->
-> +                            case SET_GPIO_PASSTHRU_OUT:
->
-> +                                           ast_set_passthru_out(passthru=
-_data.idx, passthru_data.data);
->
-> +                            break;
->
-> +
->
-> +                            default:
->
-> +                                           ret =3D -EINVAL;
->
-> +                            break;
->
-> +                            }
->
-> +             }
->
-> +             return ret;
->
-> +
->
-> +}
->
-> +
->
-> +static int ast_passthru_open(struct inode *inode, struct file *filp)
->
-> +{
->
-> +             return container_of(filp->private_data,
->
-> +                            struct aspeed_gpio_pass_through_dev, miscdev=
-);
->
-> +}
->
-> +
->
-> +static const struct file_operations ast_gpio_pth_fops =3D {
->
-> +             .owner          =3D THIS_MODULE,
->
-> +             .llseek         =3D no_llseek,
->
-> +             .unlocked_ioctl =3D ast_passthru_ioctl,
->
-> +             .open           =3D ast_passthru_open,
->
-> +};
->
-> +
->
-> +static struct miscdevice ast_gpio_pth_miscdev =3D {
->
-> +             .minor =3D MISC_DYNAMIC_MINOR,
->
-> +             .name =3D GPIO_PASS_THROUGH_NAME,
->
-> +             .fops =3D &ast_gpio_pth_fops,
->
-> +};
->
-> +
->
-> +static u32 ast_scu_base  =3D IO_ADDRESS(AST_SCU_BASE);
->
-> +
->
-> +static inline u32 ast_scu_read(u32 reg)
->
-> +{
->
-> +             return readl((void *)(ast_scu_base + reg));
->
-> +}
->
-> +
->
-> +static inline void ast_scu_write(u32 val, u32 reg)
->
-> +{
->
-> +#ifdef CONFIG_AST_SCU_LOCK
->
-> +             writel(SCU_PROTECT_UNLOCK, (void *)(ast_scu_base + AST_SCU_=
-PROTECT));
->
-> +             writel(val,                (void *)(ast_scu_base + reg));
->
-> +             writel(0x000000AA,         (void *)(ast_scu_base + AST_SCU_=
-PROTECT));
->
-> +#else
->
-> +             writel(SCU_PROTECT_UNLOCK, (void *)(ast_scu_base + AST_SCU_=
-PROTECT));
->
-> +             writel(val,                (void *)(ast_scu_base + reg));
->
-> +#endif
->
-> +}
->
-> +
->
-> +static int gpio_pass_through_probe(struct platform_device *pdev)
->
-> +{
->
-> +             struct aspeed_gpio_pass_through_dev   *gpio_pth_dev =3D &as=
-t_cdev_gpio_pass_through;
->
-> +             struct device *dev =3D &pdev->dev;
->
-> +             struct resource *rc;
->
-> +
->
-> +             dev_set_drvdata(&pdev->dev, gpio_pth_dev);
->
-> +             rc =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
->
-> +             if (!rc) {
->
-> +                            dev_err(dev, "Fail to platform_get_resource\=
-n");
->
-> +                            return -ENXIO;
->
-> +             }
->
-> +             gpio_pth_dev->addr =3D rc->start;
->
-> +             gpio_pth_dev->size =3D resource_size(rc);
->
-> +             gpio_pth_dev->miscdev =3D ast_gpio_pth_miscdev;
->
-> +             ast_passthru_init();
->
-> +             printk("GPIO PASS THROUGH DRIVER is loaded \n");
->
-> +             return misc_register(&gpio_pth_dev->miscdev);
->
-> +}
->
-> +
->
-> +static int gpio_pass_through_remove(struct platform_device *pdev)
->
-> +{
->
-> +             struct aspeed_gpio_pass_through_dev *gpio_pth_dev =3D
->
-> +                                                          dev_get_drvdat=
-a(&pdev->dev);
->
-> +             misc_deregister(&gpio_pth_dev->miscdev);
->
-> +             printk("GPIO PASS THROUGH DRIVER is removing \n");
->
-> +
->
-> +             return 0;
->
-> +}
->
-> +
->
-> +static struct platform_driver gpio_pass_through_driver =3D {
->
-> +             .probe     =3D gpio_pass_through_probe,
->
-> +             .remove    =3D gpio_pass_through_remove,
->
-> +             .driver    =3D {
->
-> +                            .name  =3D "gpio-pass-through",
->
-> +        .owner =3D THIS_MODULE,
->
-> +
->
-> +             },
->
-> +};
->
-> +
->
-> +/* GPIOE group only */
->
-> +struct gpio_passthru {
->
-> +             u32 passthru_mask;
->
-> +             u16 pin_in;
->
-> +             u16 pin_out;
->
-> +};
->
-> +
->
-> +static struct gpio_passthru passthru_settings[GPIO_PASSTHRU_MAX] =3D {
->
-> +             [GPIO_PASSTHRU0] =3D {
->
-> +                                           .passthru_mask =3D (1 << 12),=
- /* SCU8C[12] */
->
-> +                                           .pin_in        =3D PGPIO_PIN(=
-GPIOE, 0),
->
-> +                                           .pin_out       =3D PGPIO_PIN(=
-GPIOE, 1),
->
-> +                            },
->
-> +
->
-> +             [GPIO_PASSTHRU1] =3D {
->
-> +                                           .passthru_mask =3D (1 << 13),=
- /* SCU8C[13] */
->
-> +                                           .pin_in        =3D PGPIO_PIN(=
-GPIOE, 2),
->
-> +                                           .pin_out       =3D PGPIO_PIN(=
-GPIOE, 3),
->
-> +                            },
->
-> +
->
-> +             [GPIO_PASSTHRU2] =3D {
->
-> +                                           .passthru_mask =3D (1 << 14),=
- /* SCU8C[14] */
->
-> +                                           .pin_in        =3D PGPIO_PIN(=
-GPIOE, 4),
->
-> +                                           .pin_out       =3D PGPIO_PIN(=
-GPIOE, 5),
->
-> +                            },
->
-> +
->
-> +             [GPIO_PASSTHRU3] =3D {
->
-> +                                           .passthru_mask =3D (1 << 15),=
- /* SCU8C[15] */
->
-> +                                           .pin_in        =3D PGPIO_PIN(=
-GPIOE, 6),
->
-> +                                           .pin_out       =3D PGPIO_PIN(=
-GPIOE, 7),
->
-> +                            },
->
-> +};
->
-> +
->
-> +static void ast_set_passthru_enable(
->
-> +                                           unsigned short idx, unsigned =
-int enable)
->
-> +{
->
-> +             u32 val;
->
-> +             unsigned long flags;
->
-> +             struct gpio_passthru *passthru =3D &passthru_settings[idx];
->
-> +
->
-> +             local_irq_save(flags);
->
-> +
->
-> +             val =3D ast_scu_read(AST_SCU_FUN_PIN_CTRL4);
->
-> +             if (enable)
->
-> +                            val |=3D  (passthru->passthru_mask);
->
-> +             else
->
-> +                            val &=3D ~(passthru->passthru_mask);
->
-> +             ast_scu_write(val, AST_SCU_FUN_PIN_CTRL4);
->
-> +
->
-> +             local_irq_restore(flags);
->
-> +}
->
-> +
->
-> +static unsigned int ast_get_passthru_enable(unsigned short idx)
->
-> +{
->
-> +             unsigned int enable;
->
-> +             unsigned long flags;
->
-> +             struct gpio_passthru *passthru =3D &passthru_settings[idx];
->
-> +
->
-> +             local_irq_save(flags);
->
-> +
->
-> +             enable =3D (ast_scu_read(AST_SCU_FUN_PIN_CTRL4) & passthru-=
->passthru_mask) !=3D 0 ? 1 : 0;
->
-> +
->
-> +             local_irq_restore(flags);
->
-> +
->
-> +             return enable;
->
-> +}
->
-> +
->
-> +static void ast_set_passthru_out(
->
-> +                                           unsigned short idx, unsigned =
-int val)
->
-> +{
->
-> +             unsigned long flags;
->
-> +             struct gpio_passthru *passthru =3D &passthru_settings[idx];
->
-> +
->
-> +             local_irq_save(flags);
->
-> +
->
-> +             /* Disable PASSTHRU */
->
-> +             val  =3D ast_scu_read(AST_SCU_FUN_PIN_CTRL4);
->
-> +             val &=3D ~(passthru->passthru_mask);
->
-> +             ast_scu_write(val, AST_SCU_FUN_PIN_CTRL4);
->
-> +
->
-> +             local_irq_restore(flags);
->
-> +}
->
-> +
->
-> +static void ast_passthru_init(void)
->
-> +{
->
-> +             int i;
->
-> +             u32 val;
->
-> +             unsigned long flags;
->
-> +             struct gpio_passthru *passthru;
->
-> +
->
-> +             local_irq_save(flags);
->
-> +
->
-> +             /* 1. Enable GPIOE pin mode, SCU80[16:23] =3D 00 */
->
-> +             ast_scu_write(ast_scu_read(AST_SCU_FUN_PIN_CTRL1) & (~0x00F=
-F0000),
->
-> +                           AST_SCU_FUN_PIN_CTRL1);
->
-> +
->
-> +             /* 2. Enable them by setting SCU8C[12:15] */
->
-> +             for (i =3D 0; i < GPIO_PASSTHRU_MAX; i++) {
->
-> +                            passthru =3D &passthru_settings[i];
->
-> +
->
-> +                            val  =3D ast_scu_read(AST_SCU_FUN_PIN_CTRL4)=
-;
->
-> +                            val |=3D passthru->passthru_mask;
->
-> +                            ast_scu_write(val, AST_SCU_FUN_PIN_CTRL4);
->
-> +             }
->
-> +
->
-> +             /**********************************************************=
-****
->
-> +             * 3. Disable HWTrap for GPIOE pass-through mode
->
-> +             *
->
-> +             * Hardware strap register (SCU70) programming method.
->
-> +             *   #Write '1' to SCU70 can set the specific bit with value=
- '1'
->
-> +             *    Write '0' has no effect.
->
-> +             *   #Write '1' to SCU7C can clear the specific bit of SCU70=
- to
->
-> +             *    value '0'. Write '0' has no effect.
->
-> +             ***********************************************************=
-***/
->
-> +             if (ast_scu_read(AST_SCU_HW_STRAP1) & (0x1 << 22))
->
-> +                            ast_scu_write((0x1 << 22), AST_SCU_REVISION_=
-ID);
->
-> +
->
-> +             local_irq_restore(flags);
->
-> +
->
-> +             printk("HW_STRAP1 =3D 0x%08X\n", ast_scu_read(AST_SCU_HW_ST=
-RAP1));
->
-> +}
->
-> +
->
-> +module_platform_driver(gpio_pass_through_driver);
->
-> +
->
-> +MODULE_AUTHOR("Kuiying Wang <kuiying.wang@intel.com>");
->
-> +MODULE_DESCRIPTION("GPIO Pass Through Control Driver for all buttons lik=
-e Power/Reset/ID button");
->
-> +MODULE_LICENSE("GPL v2");
->
-> +
->
-> diff --git a/drivers/misc/gpio-passthrough.h b/drivers/misc/gpio-passthro=
-ugh.h
->
-> new file mode 100644
->
-> index 000000000000..a7274b8ab31e
->
-> --- /dev/null
->
-> +++ b/drivers/misc/gpio-passthrough.h
->
-> @@ -0,0 +1,60 @@
->
-> +#ifndef __GPIO_PASS_THROUGH_H__
->
-> +#define __GPIO_PASS_THROUGH_H__
->
-> +
->
-> +#include <linux/kernel.h>
->
-> +#include <linux/miscdevice.h>
->
-> +#include <linux/uaccess.h>
->
-> +#include <linux/module.h>
->
-> +#include <linux/of_platform.h>
->
-> +#include <linux/mm.h>
->
-> +#include <asm/io.h>
->
-> +
->
-> +#define PGPIO_PIN(PORT, PIN)   (((PORT) << 3) | ((PIN) & 0x07))
->
-> +#define GPIOE    4
->
-> +#define AST_SCU_BASE                    0x1E6E2000  /* SCU */
->
-> +#define AST_SCU_PROTECT                 0x00        /*  protection key r=
-egister */
->
-> +#define SCU_PROTECT_UNLOCK              0x1688A8A8
->
-> +#define AST_SCU_FUN_PIN_CTRL4           0x8C        /*  Multi-function P=
-in Control#4*/
->
-> +#define AST_SCU_FUN_PIN_CTRL1           0x80        /*  Multi-function P=
-in Control#1*/
->
-> +#define AST_SCU_HW_STRAP1               0x70        /*  hardware strappi=
-ng register */
->
-> +#define AST_SCU_REVISION_ID             0x7C        /*  Silicon revision=
- ID register */
->
-> +#define GPIO_PASS_THROUGH_NAME          "gpiopassthrough"
->
-> +#define IO_ADDRESS(x)                   (x)
->
-> +
->
-> +enum GPIO_PASSTHRU_INDEX {
->
-> +             GPIO_PASSTHRU0 =3D 0,  /* GPIOE0 -> GPIOE1 */
->
-> +             GPIO_PASSTHRU1,      /* GPIOE2 -> GPIOE3 */
->
-> +             GPIO_PASSTHRU2,      /* GPIOE4 -> GPIOE5 */
->
-> +             GPIO_PASSTHRU3,      /* GPIOE6 -> GPIOE7 */
->
-> +
->
-> +             GPIO_PASSTHRU_MAX
->
-> +};
->
-> +
->
-> +enum GPIO_PASSTHRU_CMD {
->
-> +             SET_GPIO_PASSTHRU_ENABLE =3D 0,
->
-> +             GET_GPIO_PASSTHRU_ENABLE,
->
-> +             GET_GPIO_PASSTHRU_IN,
->
-> +             SET_GPIO_PASSTHRU_OUT, /* !!! The PASSTHRU will be disabled=
- !!! */
->
-> +};
->
-> +
->
-> +struct passthru_ioctl_data {
->
-> +             unsigned short cmd;
->
-> +             unsigned short idx;
->
-> +             unsigned int   data;
->
-> +};
->
-> +
->
-> +static void ast_set_passthru_enable(
->
-> +                                           unsigned short idx, unsigned =
-int enable);
->
-> +static unsigned int ast_get_passthru_enable(unsigned short idx);
->
-> +static void ast_set_passthru_out(
->
-> +                                           unsigned short idx, unsigned =
-int val);
->
-> +static void ast_passthru_init(void);
->
-> +static inline u32 ast_scu_read(u32 reg);
->
-> +static inline void ast_scu_write(u32 val, u32 reg);
->
-> +
->
-> +/* IOCTL */
->
-> +#define GPIO_IOC_BASE       'G'
->
-> +#define GPIO_IOC_PASSTHRU   _IOWR(GPIO_IOC_BASE, 1, struct passthru_ioct=
-l_data)
->
-> +
->
-> +
->
-> +#endif
->
-> --
->
-> 2.16.2
->
->
->
-> Thanks,
->
-> Kwin.
->
->
+SGkgSm9lbCwNCg0KUmVnYXJkaW5nIHRoZSBFTUMgZHJpdmVyIEkgbWFkZSBhIGxvdCBvZiBjaGFu
+Z2VzIGFjY29yZGluZyB0byB5b3VyIGNvbW1lbnQgYW5kIEJlbmphbWluIGNvbW1lbnRzOg0KICAt
+IFVzZSAiZGV2XyoiIGZvciBtYXNzYWdlcw0KICAtIFJlbW92ZSBhbGwgY29kZSBub3QgZGVmaW5l
+ZCB0byBDT05GSUdfT0YNCiAgLSBVc2UgZGVidWdfZnMgaW5zdGVhZCBvZiBwcm9jXyoNCiAgLSBW
+TEFOIGlzIGhhbmRsZWQgbW9yZSBnZW50bHkNCiAgLSBDaGFuZ2Ugb3JkZXIgb2YgZnVuY3Rpb25z
+DQogIC0gUmVtb3ZlIENPTkZJR19OUENNN1hYX0VNQ19FVEhfREVCVUdfRVhUDQogIC0gQ2hhbmdl
+IF9yYXdfcmVhZGwgYW5kIF9yYXdfd3JpdGVsIHRvIHJlYWRsIGFuZCB3cml0ZWwNCiAgLSBSZW1v
+dmUgbXV4aW5nIChkb25lIGluIHBpbm11eCBkcml2ZXIpDQogIC0gQ2hhbmdlIEhXIHJlbGF0ZWQg
+dmFyaWFibGVzIGZyb20gInVuc2lnbmVkIGludCcgdG8gJ19fbGUzMicNCiAgLSBSZW1vdmUgaXJy
+ZWxldmFudCBlcnJvciBjYXNlcw0KICAtIFJlbW92ZSByZWR1bmRhbnQgbG9ja3MNCiAgLSBSZW1v
+dmUgcmVkdW5kYW50IG9mX21hdGNoX2RldmljZSgpDQogIC0gUmVtb3ZlIGV0aGVyX3NldHVwKCks
+IGl0IGlzIGRvbmUgaW5zaWRlIGFsbG9jX2V0aGVyZGV2KCkNCiAgLSBSZW1vdmUgbmFtaW5nIHRo
+ZSBkZXZpY2UgKGxldCB0aGUgbmV0d29yayBzdHVjayBwaWNrIGEgbmFtZSkNCiAgLSBTb21lIGRl
+ZmluaXRpb24gYW5kIGZ1bmN0aW9uIHJlbmFtaW5nDQogIC0gc3ludGF4IGFuZCBjb2RlIHN0eWxl
+IGNoYW5nZXMNCiAgLSB1cGRhdGUgZHRzIGJpbmRpbmcgZG9jdW1lbnQNCg0KQnV0IHN0aWxsIHNv
+bWUgY29tbWVudHMgZnJvbSBCZW5qYW1pbiB0aGF0IHJlcXVpcmVzIG1vcmUgcmlza3kgbW9kaWZp
+Y2F0aW9uIHdlcmUgbm90IGRvbmUgeWV0Lg0KVGhlIGRyaXZlciB3ZSBoYXZlIHdvcmtzIGFyb3Vu
+ZCBzb21lIEhXIGlzc3VlcyB0aGF0IHNvbWUgb2YgdGhlbSBhcmUgaGFyZCB0byByZXByb2R1Y2Us
+IHNvIEkgYW0gYWZyYWlkIChhdCB0aGlzIHBvaW50KSB0aGF0IHNvbWUgZGVzaWduIGNoYW5nZXMg
+bWlnaHQgYnJlYWsgdGhlbS4NClRoaXMgZHJpdmVyIHdhcyBoZWF2aWx5IHRlc3RlZCBvbiBvdXIg
+c2l0ZSBhbmQgb3VyIG1haW4gT0VNIGN1c3RvbWVyLg0KDQpOb3RlIHRoYXQgb24gb3VyIG5leHQg
+Qk1DIGNoaXAgd2Ugd2lsbCBub3QgdXNlIHRoaXMgSVAgc28gdGhpcyBJUCBvbmx5IGFwcGxpZXMg
+dG8gb3VyIFBvbGVnLg0KDQpUaGFua3MsDQpBdmkNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2Ut
+LS0tLQ0KRnJvbTogb3BlbmJtYyA8b3BlbmJtYy1ib3VuY2VzK2F2aWZpc2htYW43MD1nbWFpbC5j
+b21AbGlzdHMub3psYWJzLm9yZz4gT24gQmVoYWxmIE9mIEpvZWwgU3RhbmxleQ0KU2VudDogVGh1
+cnNkYXksIERlY2VtYmVyIDEzLCAyMDE4IDI6NTYgQU0NClRvOiBUb21lciBNYWltb24gPHRtYWlt
+b243N0BnbWFpbC5jb20+DQpDYzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxh
+YnMub3JnPg0KU3ViamVjdDogUmU6IExpbnV4IGRldi00LjE5DQoNCj4gPiBDb21taXQgdXBzdHJl
+YW0gdG8ga2VybmVsIDQuMjANCj4gPiBod21vbjogKG5wY20tNzUwLXB3bS1mYW4pIENoYW5nZSBp
+bml0aWFsIHB3bSB0YXJnZXQgdG8gMjU1DQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9p
+bnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXQua2VybmVsLm9yZ18NCj4gPiBwdWJfc2NtX2xp
+bnV4X2tlcm5lbF9naXRfdG9ydmFsZHNfbGludXguZ2l0X2NvbW1pdF8tM0ZpZC0zRGYyMWM4ZTc1
+Mw0KPiA+IGIxZGNiOGY5ZTViMDk2ZGIxZjdmNGU2ZmRmYTcyNTgmZD1Ed0lCYVEmYz11ZThtTzh6
+Z0M0Vlo0cV9hTlZLdDhHOU1DDQo+ID4gMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNP
+aGFUTUlVb0ZoVVBBWFY1MXVUbmVIcHJhaFBNNkk3OCZtPUUNCj4gPiBMbkFJc2JQRDZrZmFJakpk
+ZHFWajkzYmxqWU5FY2oyZFVYUHQ5TGh6TUkmcz1wLUxBUGRZT0JOSV9LS0lIX0Rhd2xISg0KPiA+
+IEozVGc4eWpzNWZTQ3djaHhPRFpNJmU9DQoNCkRvbmUuDQoNCj4gPiBDb21taXRzIHdpbGwgdXBz
+dHJlYW0gdG8ga2VybmVsIDQuMjENCj4gPg0KPiA+IGR0LWJpbmRpbmc6IHNwaTogYWRkIE5QQ00g
+UFNQSSBjb250cm9sbGVyIGRvY3VtZW50YXRpb24NCj4gPiBodHRwczovL3VybGRlZmVuc2UucHJv
+b2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2dpdC5rZXJuZWwub3JnXw0KPiA+IHB1Yl9z
+Y21fbGludXhfa2VybmVsX2dpdF9icm9vbmllX3NwaS5naXRfY29tbWl0Xy0zRmgtM0Rmb3ItMkRu
+ZXh0LTI2DQo+ID4gaWQtM0Q0YWQyNjg2NGRmNTNiMjY1OTc2YzRhM2FlNjFiMWU2Y2FkOTJmZTQw
+JmQ9RHdJQmFRJmM9dWU4bU84emdDNFYNCj4gPiBaNHFfYU5WS3Q4RzlNQzAxVUZEbWlzdk1SMWst
+RW9ETSZyPWtOZVU1Z3dOeTJjT2hhVE1JVW9GaFVQQVhWNTF1VG5lSA0KPiA+IHByYWhQTTZJNzgm
+bT1FTG5BSXNiUEQ2a2ZhSWpKZGRxVmo5M2JsallORWNqMmRVWFB0OUxoek1JJnM9ZVFVY1lmSmRj
+DQo+ID4gcTRJdFltTERuZ1NlOVFpOUFReTJGODZ1aEFlSFFiNGhuYyZlPQ0KPiA+DQo+ID4gc3Bp
+OiBucGNtOiBhZGQgTlBDTSBQU1BJIGNvbnRyb2xsZXIgZHJpdmVyDQo+ID4gaHR0cHM6Ly91cmxk
+ZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXQua2VybmVsLm9yZ18N
+Cj4gPiBwdWJfc2NtX2xpbnV4X2tlcm5lbF9naXRfYnJvb25pZV9zcGkuZ2l0X2NvbW1pdF8tM0Zo
+LTNEZm9yLTJEbmV4dC0yNg0KPiA+IGlkLTNEMmEyMmYxYjMwY2VlOGQxZTEwNGE2YzUwNjJhNjA5
+YmVkYmZkNWMzOSZkPUR3SUJhUSZjPXVlOG1POHpnQzRWDQo+ID4gWjRxX2FOVkt0OEc5TUMwMVVG
+RG1pc3ZNUjFrLUVvRE0mcj1rTmVVNWd3TnkyY09oYVRNSVVvRmhVUEFYVjUxdVRuZUgNCj4gPiBw
+cmFoUE02STc4Jm09RUxuQUlzYlBENmtmYUlqSmRkcVZqOTNibGpZTkVjajJkVVhQdDlMaHpNSSZz
+PUwwZDZ0Z2NBOA0KPiA+IEVvdmV5TnROX0JkdmJ3YzhnSmF3ZThCdDNFRTduN3Bxa1EmZT0NCj4g
+Pg0KPiA+IHNwaTogbnBjbTogZml4IHUzMiBjc2dwaW8gYmVpbmcgY2hlY2tlZCBmb3IgbGVzcyB0
+aGFuIHplcm8NCj4gPiBodHRwczovL3VybGRlZmVuc2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9
+aHR0cHMtM0FfX2dpdC5rZXJuZWwub3JnXw0KPiA+IHB1Yl9zY21fbGludXhfa2VybmVsX2dpdF9i
+cm9vbmllX3NwaS5naXRfY29tbWl0Xy0zRmgtM0Rmb3ItMkRuZXh0LTI2DQo+ID4gaWQtM0Q3NTdl
+YzExNmM5YmNlNDI3OGZhNDQyMzAzOTczNmM4MzJjYzYzYjZmJmQ9RHdJQmFRJmM9dWU4bU84emdD
+NFYNCj4gPiBaNHFfYU5WS3Q4RzlNQzAxVUZEbWlzdk1SMWstRW9ETSZyPWtOZVU1Z3dOeTJjT2hh
+VE1JVW9GaFVQQVhWNTF1VG5lSA0KPiA+IHByYWhQTTZJNzgmbT1FTG5BSXNiUEQ2a2ZhSWpKZGRx
+Vmo5M2JsallORWNqMmRVWFB0OUxoek1JJnM9cXNqWGxYUlF4DQo+ID4gVmw1dXY0dVg4QVdDUDJR
+UGt5ZFJfeEhEZ0J6U09adEozRSZlPQ0KPiA+DQo+ID4gc3BpOiBucGNtOiBmaXggcGxhdGZvcm1f
+bm9fZHJ2X293bmVyLmNvY2NpIHdhcm5pbmdzDQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29m
+cG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXQua2VybmVsLm9yZ18NCj4gPiBwdWJfc2Nt
+X2xpbnV4X2tlcm5lbF9naXRfYnJvb25pZV9zcGkuZ2l0X2NvbW1pdF8tM0ZoLTNEZm9yLTJEbmV4
+dC0yNg0KPiA+IGlkLTNENzk4NmUyMjczYzFlZDk4N2ZmMzRmMWMzMThkNWEyYjE4ZThjMGZlZSZk
+PUR3SUJhUSZjPXVlOG1POHpnQzRWDQo+ID4gWjRxX2FOVkt0OEc5TUMwMVVGRG1pc3ZNUjFrLUVv
+RE0mcj1rTmVVNWd3TnkyY09oYVRNSVVvRmhVUEFYVjUxdVRuZUgNCj4gPiBwcmFoUE02STc4Jm09
+RUxuQUlzYlBENmtmYUlqSmRkcVZqOTNibGpZTkVjajJkVVhQdDlMaHpNSSZzPVJJZVFSRnJjdQ0K
+PiA+IEtibWlzaUJNQlFRaHZXSXlFUHlRVDV6ZlMyVHN0d2FmSncmZT0NCj4gPg0KPiA+IHNwaTog
+bnBjbTogRml4IGFuIGVycm9yIGNvZGUgaW4gdGhlIHByb2JlIGZ1bmN0aW9uDQo+ID4gaHR0cHM6
+Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXQua2VybmVs
+Lm9yZ18NCj4gPiBwdWJfc2NtX2xpbnV4X2tlcm5lbF9naXRfYnJvb25pZV9zcGkuZ2l0X2NvbW1p
+dF8tM0ZoLTNEZm9yLTJEbmV4dC0yNg0KPiA+IGlkLTNENDI4Zjk3N2E2YTZiNDMxNTQ5Mjg1NzFi
+MDFmYTg0MTVjMTFhOTI0NCZkPUR3SUJhUSZjPXVlOG1POHpnQzRWDQo+ID4gWjRxX2FOVkt0OEc5
+TUMwMVVGRG1pc3ZNUjFrLUVvRE0mcj1rTmVVNWd3TnkyY09oYVRNSVVvRmhVUEFYVjUxdVRuZUgN
+Cj4gPiBwcmFoUE02STc4Jm09RUxuQUlzYlBENmtmYUlqSmRkcVZqOTNibGpZTkVjajJkVVhQdDlM
+aHpNSSZzPWpyZU1DS0g2bw0KPiA+IEFBbnEyOVQwVmVPODJrRkZSenBScHlWMFQwWDlWb0FvUnMm
+ZT0NCj4gPg0KPiA+IHNwaTogbnBjbTogRml4IHVuaW5pdGlhbGl6ZWQgdmFyaWFibGUgd2Fybmlu
+Zw0KPiA+IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0z
+QV9fZ2l0Lmtlcm5lbC5vcmdfDQo+ID4gcHViX3NjbV9saW51eF9rZXJuZWxfZ2l0X2Jyb29uaWVf
+c3BpLmdpdF9jb21taXRfLTNGaC0zRGZvci0yRG5leHQtMjYNCj4gPiBpZC0zRDFkMjMxOWVmYjZh
+OTcwZDVmNTc0MGE2MDgyODI0NGU2YzMwOWRmMmImZD1Ed0lCYVEmYz11ZThtTzh6Z0M0Vg0KPiA+
+IFo0cV9hTlZLdDhHOU1DMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNPaGFUTUlVb0Zo
+VVBBWFY1MXVUbmVIDQo+ID4gcHJhaFBNNkk3OCZtPUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxq
+WU5FY2oyZFVYUHQ5TGh6TUkmcz1iRkVrcWJCam4NCj4gPiBScWJqak56dzcxU0RLaHVFajlPNExM
+MkZvVk94TGpoZkRNJmU9DQo+ID4NCj4gPiBzcGk6IG5wY206IE1vZGlmeSBwc3BpIHNlbmQgZnVu
+Y3Rpb24NCj4gPiBodHRwczovL3VybGRlZmVuc2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0
+cHMtM0FfX2dpdC5rZXJuZWwub3JnXw0KPiA+IHB1Yl9zY21fbGludXhfa2VybmVsX2dpdF9icm9v
+bmllX3NwaS5naXRfY29tbWl0Xy0zRmgtM0Rmb3ItMkRuZXh0LTI2DQo+ID4gaWQtM0QxZmEzM2Jl
+MzZjZmM4OTA4YmU5NTFlZDU2MTEzOTA2ZjQyMmFkZDUwJmQ9RHdJQmFRJmM9dWU4bU84emdDNFYN
+Cj4gPiBaNHFfYU5WS3Q4RzlNQzAxVUZEbWlzdk1SMWstRW9ETSZyPWtOZVU1Z3dOeTJjT2hhVE1J
+VW9GaFVQQVhWNTF1VG5lSA0KPiA+IHByYWhQTTZJNzgmbT1FTG5BSXNiUEQ2a2ZhSWpKZGRxVmo5
+M2JsallORWNqMmRVWFB0OUxoek1JJnM9N21hMmgtUFVnDQo+ID4gY0VWb1hZT1Q0TmRpUzFsbWxD
+bDA0S3paRk5vbXMyT3dGdyZlPQ0KPiA+DQo+ID4gc3BpOiBVcGRhdGUgTlBDTSBQU1BJIGNvbnRy
+b2xsZXIgZG9jdW1lbnRhdGlvbg0KPiA+IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNv
+bS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0Lmtlcm5lbC5vcmdfDQo+ID4gcHViX3NjbV9saW51eF9r
+ZXJuZWxfZ2l0X2Jyb29uaWVfc3BpLmdpdF9jb21taXRfLTNGaC0zRGZvci0yRG5leHQtMjYNCj4g
+PiBpZC0zRDZhYjRhMzUwMjkyM2MyMGM1YTY5MjE4NjhlNzg3ZTVmZDAzMzQwOWImZD1Ed0lCYVEm
+Yz11ZThtTzh6Z0M0Vg0KPiA+IFo0cV9hTlZLdDhHOU1DMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05l
+VTVnd055MmNPaGFUTUlVb0ZoVVBBWFY1MXVUbmVIDQo+ID4gcHJhaFBNNkk3OCZtPUVMbkFJc2JQ
+RDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFVYUHQ5TGh6TUkmcz1qVkYtQ3Q4am0NCj4gPiB3MTd2
+Q2RJVzF1VGlxcU85Z2N6NE94MjYtRkxfckduVG00JmU9DQo+ID4NCj4gPiBwaW5jdHJsOiBudXZv
+dG9uOiBtb2RpZnkgTlBDTTd4eCBwaW4gY29uZmlndXJhdGlvbiBmdW5jdGlvbg0KPiA+IGh0dHBz
+Oi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0LmxpbmFy
+by5vcmdfDQo+ID4gcGVvcGxlX2xpbnVzLndhbGxlaWpfbGludXgtMkRwaW5jdHJsLmdpdF9jb21t
+aXRfLTNGaC0zRGZvci0yRG5leHQtMjYNCj4gPiBpZC0zRDY3YjI0OWFhYTY1MGE0NjFjODY0ODRl
+NmMzNjVmMzM4ODdmMDk2OGEmZD1Ed0lCYVEmYz11ZThtTzh6Z0M0Vg0KPiA+IFo0cV9hTlZLdDhH
+OU1DMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNPaGFUTUlVb0ZoVVBBWFY1MXVUbmVI
+DQo+ID4gcHJhaFBNNkk3OCZtPUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFVYUHQ5
+TGh6TUkmcz00OXRXUzNYREMNCj4gPiBhbTVVdV9oaUQ0WWh1aEtHVnU3Y2s4ZTVGMDlKQVdscFpN
+JmU9DQo+ID4NCj4gPiB3YXRjaGRvZzogbnBjbTogTW9kaWZ5IG5wY20gd2F0Y2hkb2cga2NvbmZp
+ZyBhcmNoIHBhcmFtZXRlcg0KPiA+DQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQu
+Y29tL3YyL3VybD91PWh0dHBzLTNBX19rZXJuZWwuZ29vZ2xlc28NCj4gPiB1cmNlLmNvbV9wdWJf
+c2NtX2xpbnV4X2tlcm5lbF9naXRfZ3JvZWNrX2xpbnV4LTJEc3RhZ2luZ18tMkJfNDE4MWY0YQ0K
+PiA+IDU1ODM4ZGIxNWRlYWVkMzE1YjExYmZhYjM5NWJlMGExNyZkPUR3SUJhUSZjPXVlOG1POHpn
+QzRWWjRxX2FOVkt0OEc5DQo+ID4gTUMwMVVGRG1pc3ZNUjFrLUVvRE0mcj1rTmVVNWd3TnkyY09o
+YVRNSVVvRmhVUEFYVjUxdVRuZUhwcmFoUE02STc4Jm0NCj4gPiA9RUxuQUlzYlBENmtmYUlqSmRk
+cVZqOTNibGpZTkVjajJkVVhQdDlMaHpNSSZzPXR2b0NXdHpGaHp0RG9ndHF4aGtjbQ0KPiA+IEFJ
+ZHdBMDB5c3liX0FqVjRMMXdmdGsmZT0NCg0KQWxsIG9mIHRoZSBhYm92ZSBhcmUgbm93IGRvbmUu
+IEkgYnVpbHQgeW91ciBkZWZjb25maWcgYW5kIG5ldCBib290ZWQgaXQgb24gdGhlIHBvbGVnIGV2
+YiBJIGhhdmU6DQoNCiBCb290aW5nIExpbnV4IG9uIHBoeXNpY2FsIENQVSAweDANCiBMaW51eCB2
+ZXJzaW9uIDQuMTkuOC0wMDA3Ny1nZGZkZTY5N2I2Y2FlIChqb2VsQGF1cm9yYSkgKGdjYyB2ZXJz
+aW9uDQo4LjIuMCAoVWJ1bnR1IDguMi4wLTd1YnVudHUxKSkgIzIgU01QIFRodSBEZWMgMTMgMTE6
+MjQ6MTIgQUNEVCAyMDE4DQogQ1BVOiBBUk12NyBQcm9jZXNzb3IgWzQxNGZjMDkxXSByZXZpc2lv
+biAxIChBUk12NyksIGNyPTE4YzUzODdkDQogQ1BVOiBQSVBUIC8gVklQVCBub25hbGlhc2luZyBk
+YXRhIGNhY2hlLCBWSVBUIGFsaWFzaW5nIGluc3RydWN0aW9uIGNhY2hlDQogT0Y6IGZkdDogTWFj
+aGluZSBtb2RlbDogTnV2b3RvbiBucGNtNzUwIERldmVsb3BtZW50IEJvYXJkIChEZXZpY2UgVHJl
+ZSkNCg0KDQo+ID4gQ29tbWl0cyBvbiB1cHN0cmVhbSBwcm9jZXNzDQo+ID4NCj4gPiBkdC1iaW5k
+aW5nOiBtdGQ6IGFkZCBOUENNIEZJVSBjb250cm9sbGVyDQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNl
+LnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXRodWIuY29tX051dm8NCj4gPiB0
+b24tMkRJc3JhZWxfbGludXhfY29tbWl0X2YxM2M4MmRjYTNjYTIxMTc1ZWI3MTIyMzE1NmQ1YzUy
+NWMxOGRkNzQmZA0KPiA+ID1Ed0lCYVEmYz11ZThtTzh6Z0M0Vlo0cV9hTlZLdDhHOU1DMDFVRkRt
+aXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNPDQo+ID4gaGFUTUlVb0ZoVVBBWFY1MXVUbmVIcHJh
+aFBNNkk3OCZtPUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFUNCj4gPiBYUHQ5TGh6
+TUkmcz0ySDdSZ1pEV0dhQzUxSjR2Z1BsUEktc01vTjlXZ2RuQ0R6UVBVRlJPTjRnJmU9DQo+ID4N
+Cj4gPiBtdGQ6IHNwaS1ub3I6IGFkZCBOUENNIEZJVSBjb250cm9sbGVyIGRyaXZlcg0KPiA+IGh0
+dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0aHVi
+LmNvbV9OdXZvDQo+ID4gdG9uLTJESXNyYWVsX2xpbnV4X2NvbW1pdF83NDc4MDlhMDA4MmRiZWFh
+YTZiNzg2ODQyYzVjNWVhZmZhNTE5NTYxJmQNCj4gPiA9RHdJQmFRJmM9dWU4bU84emdDNFZaNHFf
+YU5WS3Q4RzlNQzAxVUZEbWlzdk1SMWstRW9ETSZyPWtOZVU1Z3dOeTJjTw0KPiA+IGhhVE1JVW9G
+aFVQQVhWNTF1VG5lSHByYWhQTTZJNzgmbT1FTG5BSXNiUEQ2a2ZhSWpKZGRxVmo5M2JsallORWNq
+MmRVDQo+ID4gWFB0OUxoek1JJnM9dzZBRUZCd1JQQTJCSmpZTTM2YnlsREJON2ZVQlNCb2kyTUhr
+amRlRjZUQSZlPQ0KPiA+DQo+ID4gZHQtYmluZGluZ3M6IGkyYzogbnBjbTd4eDogYWRkIGJpbmRp
+bmcgZm9yIGkyYyBjb250cm9sbGVyDQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQu
+Y29tL3YyL3VybD91PWh0dHBzLTNBX19naXRodWIuY29tX051dm8NCj4gPiB0b24tMkRJc3JhZWxf
+bGludXhfY29tbWl0XzA3YmU1M2I0NzQ0M2ZjYWI2NDVmMGU2N2MwM2UzOTEyMzg3ZmY5YTcmZA0K
+PiA+ID1Ed0lCYVEmYz11ZThtTzh6Z0M0Vlo0cV9hTlZLdDhHOU1DMDFVRkRtaXN2TVIxay1Fb0RN
+JnI9a05lVTVnd055MmNPDQo+ID4gaGFUTUlVb0ZoVVBBWFY1MXVUbmVIcHJhaFBNNkk3OCZtPUVM
+bkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFUNCj4gPiBYUHQ5TGh6TUkmcz1CdjhnakxR
+bldtdjRVN19YMmprRFR6TFdtcy11aFBPc0t3RGozc0EwSkpVJmU9DQo+ID4NCj4gPiBpMmM6IG5w
+Y206IGRyaXZlciBmb3IgUG9sZWcgaTJjIGNvbnRyb2xsZXINCj4gPiBodHRwczovL3VybGRlZmVu
+c2UucHJvb2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2dpdGh1Yi5jb21fTnV2bw0KPiA+
+IHRvbi0yRElzcmFlbF9saW51eF9jb21taXRfM2E3ZjMzNzUwMjQ0NjFkM2RiMTdhNzhjYjdkODNk
+YWZjYzJkYmM2YyZkDQo+ID4gPUR3SUJhUSZjPXVlOG1POHpnQzRWWjRxX2FOVkt0OEc5TUMwMVVG
+RG1pc3ZNUjFrLUVvRE0mcj1rTmVVNWd3TnkyY08NCj4gPiBoYVRNSVVvRmhVUEFYVjUxdVRuZUhw
+cmFoUE02STc4Jm09RUxuQUlzYlBENmtmYUlqSmRkcVZqOTNibGpZTkVjajJkVQ0KPiA+IFhQdDlM
+aHpNSSZzPTBuMkRRWUdDY0x5S0tYMEtYWGZOYTlyM2Fid2EyV3Jrd01zc0tvYXQ2VWsmZT0NCj4g
+Pg0KPiA+IGR0LWJpbmRpbmc6IGJtYzogQWRkIE5QQ003eHggTFBDIEJQQyBkb2N1bWVudGF0aW9u
+DQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNB
+X19naXRodWIuY29tX051dm8NCj4gPiB0b24tMkRJc3JhZWxfbGludXhfY29tbWl0X2U4YjZjYzFj
+MzFlNzQ0YjNmZDU2MzBkNzkwYWY2NWFjMzhiMmMyNGQtMg0KPiA+IDNkaWZmLTJEZTczODZhYTc0
+MGQxMmJhZjhjZGMyYTBhYjhlNTM0N2MmZD1Ed0lCYVEmYz11ZThtTzh6Z0M0Vlo0cV9hDQo+ID4g
+TlZLdDhHOU1DMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNPaGFUTUlVb0ZoVVBBWFY1
+MXVUbmVIcHJhaFANCj4gPiBNNkk3OCZtPUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oy
+ZFVYUHQ5TGh6TUkmcz1vWnJJU0lqeUQ3M2VEcA0KPiA+IHdOQzN3MUlHeWtpS2lUaHo5RTFHY2l5
+cFdHNEpFJmU9DQo+ID4NCj4gPiBtaXNjOiBucGNtN3h4LWxwYy1icGM6IGFkZCBOUENNN3h4IEJJ
+T1MgcG9zdCBjb2RlIGRyaXZlcg0KPiA+IGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNv
+bS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0aHViLmNvbV9OdXZvDQo+ID4gdG9uLTJESXNyYWVsX2xp
+bnV4X2NvbW1pdF9hZGVlMjI3YWMyNDQzMWNkMDMzZjFjNDRiNjNkNWEyNDRhMGJkZDNiLTINCj4g
+PiAzZGlmZi0yRDcwODFlMjQ3MjdkODA1OGJjYzZlYmYyMDIzMGY1NDAzJmQ9RHdJQmFRJmM9dWU4
+bU84emdDNFZaNHFfYQ0KPiA+IE5WS3Q4RzlNQzAxVUZEbWlzdk1SMWstRW9ETSZyPWtOZVU1Z3dO
+eTJjT2hhVE1JVW9GaFVQQVhWNTF1VG5lSHByYWhQDQo+ID4gTTZJNzgmbT1FTG5BSXNiUEQ2a2Zh
+SWpKZGRxVmo5M2JsallORWNqMmRVWFB0OUxoek1JJnM9YWxZNmVMWTYxN0xPb0gNCj4gPiB1Q2M0
+di01ckF1VjRjZkVCcDV0bzA2OHA4WUhiWSZlPQ0KPiA+DQo+ID4gbWlzYzogYnBjOiBtb2RpZnkg
+cmVtb3ZlIGZ1bmN0aW9uIGluIG5wY203eHggYnBjIGRyaXZlcg0KPiA+IGh0dHBzOi8vdXJsZGVm
+ZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0aHViLmNvbV9OdXZvDQo+
+ID4gdG9uLTJESXNyYWVsX2xpbnV4X2NvbW1pdF8xYzUyNjhmOWIxN2Y5MzMzZWUyZmIyNDVmODQ3
+MjliZWViYjY2YTljLTINCj4gPiAzZGlmZi0yRDcwODFlMjQ3MjdkODA1OGJjYzZlYmYyMDIzMGY1
+NDAzJmQ9RHdJQmFRJmM9dWU4bU84emdDNFZaNHFfYQ0KPiA+IE5WS3Q4RzlNQzAxVUZEbWlzdk1S
+MWstRW9ETSZyPWtOZVU1Z3dOeTJjT2hhVE1JVW9GaFVQQVhWNTF1VG5lSHByYWhQDQo+ID4gTTZJ
+NzgmbT1FTG5BSXNiUEQ2a2ZhSWpKZGRxVmo5M2JsallORWNqMmRVWFB0OUxoek1JJnM9X2NMbEhP
+MVJDaTM4bkENCj4gPiAzQ2JUY0V2UzZ4UWwxVmd4bzFOSWc4TkZhNFllSSZlPQ0KPiA+DQo+ID4g
+UENJIG1haWwgYm94IGNvbW1pdHMNCj4gPg0KPiA+IGR0LWJpbmRpbmc6IGJtYzogYWRkIG5wY203
+eHggcGNpIG1haWxib3ggZG9jdW1lbnQNCj4gPiBodHRwczovL3VybGRlZmVuc2UucHJvb2Zwb2lu
+dC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2dpdGh1Yi5jb21fTnV2bw0KPiA+IHRvbi0yRElzcmFl
+bF9saW51eF9jb21taXRfN2RhNGY0MTg0OWFlZjExYjFhOWE2ZTA1NzczNTQ1ZjE4MTI0NjQ5NiZk
+DQo+ID4gPUR3SUJhUSZjPXVlOG1POHpnQzRWWjRxX2FOVkt0OEc5TUMwMVVGRG1pc3ZNUjFrLUVv
+RE0mcj1rTmVVNWd3TnkyY08NCj4gPiBoYVRNSVVvRmhVUEFYVjUxdVRuZUhwcmFoUE02STc4Jm09
+RUxuQUlzYlBENmtmYUlqSmRkcVZqOTNibGpZTkVjajJkVQ0KPiA+IFhQdDlMaHpNSSZzPXB4dmNt
+eVVScDNOVWNFNUI4NUpUYkMyUXM0SzhKa0Y5TS1GUTluRFFTNXcmZT0NCj4gPg0KPiA+IG1pc2M6
+IG1ib3g6IGFkZCBucGNtN3h4IHBjaSBtYWlsYm94IGRyaXZlcg0KPiA+IGh0dHBzOi8vdXJsZGVm
+ZW5zZS5wcm9vZnBvaW50LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fZ2l0aHViLmNvbV9OdXZvDQo+
+ID4gdG9uLTJESXNyYWVsX2xpbnV4X2NvbW1pdF9jM2Q1ZDJiYWI1YWQyMTZlNmMwZGViYWJmNTBh
+ZDgzNjVmMjMwMWQxJmQNCj4gPiA9RHdJQmFRJmM9dWU4bU84emdDNFZaNHFfYU5WS3Q4RzlNQzAx
+VUZEbWlzdk1SMWstRW9ETSZyPWtOZVU1Z3dOeTJjTw0KPiA+IGhhVE1JVW9GaFVQQVhWNTF1VG5l
+SHByYWhQTTZJNzgmbT1FTG5BSXNiUEQ2a2ZhSWpKZGRxVmo5M2JsallORWNqMmRVDQo+ID4gWFB0
+OUxoek1JJnM9bGxyR2NuWmdXdEZ4LTlQMVd0dUhONmI1U0pKd0luZTdvNlBWeWRhY05iZyZlPQ0K
+PiA+DQo+ID4gRU1DIG5ldCBjb21taXRzDQo+ID4NCj4gPiBuZXQ6IG5wY206IGFkZCBOUENNN3h4
+IEV0aGVybmV0IE1BQyBjb250cm9sbGVyDQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9p
+bnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXRodWIuY29tX051dm8NCj4gPiB0b24tMkRJc3Jh
+ZWxfbGludXhfY29tbWl0XzZhOTQwN2VkMTQyZmYyYzIwNWQ3MzJkNGQzNDc3YThlOWY3ZDk1MGIm
+ZA0KPiA+ID1Ed0lCYVEmYz11ZThtTzh6Z0M0Vlo0cV9hTlZLdDhHOU1DMDFVRkRtaXN2TVIxay1F
+b0RNJnI9a05lVTVnd055MmNPDQo+ID4gaGFUTUlVb0ZoVVBBWFY1MXVUbmVIcHJhaFBNNkk3OCZt
+PUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFUNCj4gPiBYUHQ5TGh6TUkmcz04M3VI
+RUlpZGV6dFhjU2ZrVzJTQ1dCYllSVDhUeDkzcXdfelVhMkI4aGJBJmU9DQo+ID4NCj4gPiBkdC1i
+aW5kaW5nOiBuZXQ6IGRvY3VtZW50IE5QQ003eHggRU1DIERUIGJpbmRpbmdzDQo+ID4gaHR0cHM6
+Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29tL3YyL3VybD91PWh0dHBzLTNBX19naXRodWIuY29t
+X051dm8NCj4gPiB0b24tMkRJc3JhZWxfbGludXhfY29tbWl0XzY2NDc4Yjg4NDA5ZGJhNDE1YTdi
+YjAwOGNlODMzYWZhMzk1N2ZiMmQmZA0KPiA+ID1Ed0lCYVEmYz11ZThtTzh6Z0M0Vlo0cV9hTlZL
+dDhHOU1DMDFVRkRtaXN2TVIxay1Fb0RNJnI9a05lVTVnd055MmNPDQo+ID4gaGFUTUlVb0ZoVVBB
+WFY1MXVUbmVIcHJhaFBNNkk3OCZtPUVMbkFJc2JQRDZrZmFJakpkZHFWajkzYmxqWU5FY2oyZFUN
+Cj4gPiBYUHQ5TGh6TUkmcz16czJDMEVZYlI5QXR3eUtucWJCcVhhLVNvM1hkU2NNb01zTnJkbXdh
+Vzg4JmU9DQoNCk5vdCBhbGwgb2YgdGhlIGFib3ZlIGNvbW1pdHMgZG8gbm90IGhhdmUgc2lnbmVk
+LW9mZi1ieXMuIFRoaXMgaXMgcmVxdWlyZWQgZm9yIHB1dHRpbmcgaXQgaW4gdGhlIGtlcm5lbCB0
+cmVlLg0KDQpJbnN0ZWFkIG9mIGNoZXJyeS1waWNraW5nIHRoZXNlIGZyb20geW91ciB0cmVlLCBJ
+IHdvdWxkIHByZWZlciB0byBzZWUgdGhlbSBwb3N0ZWQgdG8gdGhlIG1haWxpbmcgbGlzdCB3aGVy
+ZSBJIGNhbiBhcHBseSB0aGVtLiBDYW4geW91IHBsZWFzZSBzZW5kIHRoZW0gb3V0IHVzaW5nIGdp
+dCBzZW5kLWVtYWlsLCBhbmQgd2UgY2FuIGdvIGZyb20gdGhlcmU/DQoNCkkgaGF2ZSBhcHBsaWVk
+IHRoZSBkZXZpY2UgdHJlZSBwYXRjaCB5b3Ugc2VudC4NCg0KQ2FuIHlvdSBwbGVhc2UgcmUtc2Vu
+ZCB0aGUgZGVmY29uZmlnIHVzaW5nIGdpdC1zZW5kLWVtYWlsIGFuZCBuYW1lIGl0ICdwb2xlZ19k
+ZWZjb25maWcnIG9yICdwb2xlZ19zdmJfZGVmY29uZmlnJyAod2hhdCBpcyBTVkI/KSB0byBtYXRj
+aCB0aGUgZGVmY29uZmlnIG5hbWluZyBjb252ZW50aW9uLiBJdCBzaG91bGQgYmUgZ2VuZXJhdGVk
+IGFnYWluc3QgdGhlDQpkZXYtNC4xOSB0cmVlIChtYWtlIHBvbGVnX2RlZmNvbmZpZyAmJiBtYWtl
+IHNhdmVkZWZjb25maWcgJiYgY3AgZGVmY29uZmlnIGFyY2gvYXJtL2NvbmZpZy9wb2xlZ19kZWZj
+b25maWcpLg0KDQpDaGVlcnMsDQoNCkpvZWwNCg0KDQo9PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09DQpUaGUgcHJpdmlsZWdlZCBjb25maWRlbnRpYWwgaW5mb3JtYXRpb24gY29udGFp
+bmVkIGluIHRoaXMgZW1haWwgaXMgaW50ZW5kZWQgZm9yIHVzZSBvbmx5IGJ5IHRoZSBhZGRyZXNz
+ZWVzIGFzIGluZGljYXRlZCBieSB0aGUgb3JpZ2luYWwgc2VuZGVyIG9mIHRoaXMgZW1haWwuIElm
+IHlvdSBhcmUgbm90IHRoZSBhZGRyZXNzZWUgaW5kaWNhdGVkIGluIHRoaXMgZW1haWwgb3IgYXJl
+IG5vdCByZXNwb25zaWJsZSBmb3IgZGVsaXZlcnkgb2YgdGhlIGVtYWlsIHRvIHN1Y2ggYSBwZXJz
+b24sIHBsZWFzZSBraW5kbHkgcmVwbHkgdG8gdGhlIHNlbmRlciBpbmRpY2F0aW5nIHRoaXMgZmFj
+dCBhbmQgZGVsZXRlIGFsbCBjb3BpZXMgb2YgaXQgZnJvbSB5b3VyIGNvbXB1dGVyIGFuZCBuZXR3
+b3JrIHNlcnZlciBpbW1lZGlhdGVseS4gWW91ciBjb29wZXJhdGlvbiBpcyBoaWdobHkgYXBwcmVj
+aWF0ZWQuIEl0IGlzIGFkdmlzZWQgdGhhdCBhbnkgdW5hdXRob3JpemVkIHVzZSBvZiBjb25maWRl
+bnRpYWwgaW5mb3JtYXRpb24gb2YgTnV2b3RvbiBpcyBzdHJpY3RseSBwcm9oaWJpdGVkOyBhbmQg
+YW55IGluZm9ybWF0aW9uIGluIHRoaXMgZW1haWwgaXJyZWxldmFudCB0byB0aGUgb2ZmaWNpYWwg
+YnVzaW5lc3Mgb2YgTnV2b3RvbiBzaGFsbCBiZSBkZWVtZWQgYXMgbmVpdGhlciBnaXZlbiBub3Ig
+ZW5kb3JzZWQgYnkgTnV2b3Rvbi4NCg==
