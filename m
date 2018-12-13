@@ -1,82 +1,38 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <ullbeking@andrewnesbit.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=andrewnesbit.org
+ (client-ip=205.237.194.119; helo=smtp-out-1.mxes.net;
+ envelope-from=ullbeking@andrewnesbit.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=andrewnesbit.org
+Received: from smtp-out-1.mxes.net (smtp-out-1.mxes.net [205.237.194.119])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43FwkN1txYzDqQJ
- for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 01:17:47 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wBDEE6ju031770
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 09:17:45 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2pbq3v6522-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 13 Dec 2018 09:17:45 -0500
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Thu, 13 Dec 2018 14:17:44 -0000
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 13 Dec 2018 14:17:41 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- wBDEHeXQ15728658
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 13 Dec 2018 14:17:40 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A38A28058;
- Thu, 13 Dec 2018 14:17:40 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D106B28064;
- Thu, 13 Dec 2018 14:17:38 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 13 Dec 2018 14:17:38 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Fyw43z20zDqc1
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 02:56:18 +1100 (AEDT)
+Received: from Customer-MUA (mua.mxes.net [10.0.0.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by smtp.mxes.net (Postfix) with ESMTPSA id C1FE827541;
+ Thu, 13 Dec 2018 10:56:13 -0500 (EST)
+Subject: Re: OpenBMC Raspberry Pi
+To: Andrew Geissler <geissonator@gmail.com>, truongmd@gmail.com
+References: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
+ <CALLMt=r4nUdFHTNeiemhdM1zrRVt5-zc41mG2APBC-N2YO4TOQ@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Andrew Luke Nesbit <ullbeking@andrewnesbit.org>
+Openpgp: preference=signencrypt
+Message-ID: <40db2dd4-a10e-901d-d652-473ef75649b7@andrewnesbit.org>
+Date: Thu, 13 Dec 2018 15:56:11 +0000
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:60.0)
+ Gecko/20100101 Thunderbird/60.3.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+In-Reply-To: <CALLMt=r4nUdFHTNeiemhdM1zrRVt5-zc41mG2APBC-N2YO4TOQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-GB
 Content-Transfer-Encoding: 7bit
-Date: Thu, 13 Dec 2018 08:21:49 -0600
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: medadyoung@gmail.com, joel@jms.id.au, jk@ozlabs.org
-Cc: jbacik@fb.com, axboe@kernel.dk, linux-block@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- nbd@other.debian.org, openbmc
- <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
-Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
-In-Reply-To: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
-References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
-X-Sender: anoo@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 18121314-0060-0000-0000-000002E36DA7
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010219; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000271; SDB=6.01131193; UDB=6.00587859; IPR=6.00911325; 
- MB=3.00024681; MTD=3.00000008; XFM=3.00000015; UTC=2018-12-13 14:17:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 18121314-0061-0000-0000-000047863A82
-Message-Id: <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-13_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1812130124
+X-Sent-To: <b3BlbmJtY0BsaXN0cy5vemxhYnMub3Jn>
+X-Sender: tuffmail.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,60 +44,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 13 Dec 2018 14:17:48 -0000
+X-List-Received-Date: Thu, 13 Dec 2018 15:56:21 -0000
 
-On 2018-12-11 00:17, medadyoung@gmail.com wrote:
-> From: Medad <medadyoung@gmail.com>
-> 
->     If we do NOT clear NBD_BOUND flag when NBD connection is closed,
->     then the original NBD device could not be used again.
-> 
-> Signed-off-by: Medad <medadyoung@gmail.com>
+On 13/12/2018 13:34, Andrew Geissler wrote:
+> On Mon, Oct 29, 2018 at 4:52 PM M. D. Truong <truongmd@gmail.com> wrote:
 
-Tested on Witherspoon (OpenPOWER P9 with AST2500) and verified with
-this patch that the NBD device could be disconnected/reconnected.
+[...]
 
-Tested by: Adriana Kobylak <anoo@linux.ibm.com>
+>> On a GitHub fork of OpenBMC code, sitting on the
+>> "raspberrypi-cm3" branch are some patches that will build a working
+>> distribution.
+>>
+>> https://github.com/truongmd/openbmc/tree/raspberrypi-cm3
+> 
+> Hey My, this is great. Especially for people looking to get started
+> with OpenBMC. Raspberry pi's are easy to get and very
+> affordable.
 
-> ---
->  drivers/block/nbd.c | 11 ++++++++---
->  1 file changed, 8 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-> index 64278f4..5c88490 100644
-> --- a/drivers/block/nbd.c
-> +++ b/drivers/block/nbd.c
-> @@ -277,10 +277,14 @@ static void sock_shutdown(struct nbd_device *nbd)
->  	struct nbd_config *config = nbd->config;
->  	int i;
-> 
-> -	if (config->num_connections == 0)
-> +	if (config->num_connections == 0) {
-> +		clear_bit(NBD_BOUND, &config->runtime_flags);
->  		return;
-> -	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags))
-> +	}
-> +	if (test_and_set_bit(NBD_DISCONNECTED, &config->runtime_flags)) {
-> +		clear_bit(NBD_BOUND, &config->runtime_flags);
->  		return;
-> +	}
-> 
->  	for (i = 0; i < config->num_connections; i++) {
->  		struct nbd_sock *nsock = config->socks[i];
-> @@ -944,7 +948,7 @@ static int nbd_reconnect_socket(struct nbd_device
-> *nbd, unsigned long arg)
->  		sockfd_put(old);
-> 
->  		clear_bit(NBD_DISCONNECTED, &config->runtime_flags);
-> -
-> +		clear_bit(NBD_BOUND, &config->runtime_flags);
->  		/* We take the tx_mutex in an error path in the recv_work, so we
->  		 * need to queue_work outside of the tx_mutex.
->  		 */
-> @@ -1020,6 +1024,7 @@ static int nbd_disconnect(struct nbd_device *nbd)
->  	dev_info(disk_to_dev(nbd->disk), "NBD_DISCONNECT\n");
->  	set_bit(NBD_DISCONNECT_REQUESTED, &config->runtime_flags);
->  	send_disconnects(nbd);
-> +	clear_bit(NBD_BOUND, &config->runtime_flags);
->  	return 0;
->  }
+Yes, indeed this is fantastic!!  I have a spare RPi 3B+ plus a lot of
+accessories that I bought for a different project that never worked out.
+ Now I can try using this for OpenBMC, which is much more exciting to me
+anyway, than that other project was, and the people here are much nicer!
+
+> Any chance you were going to upstream these changes to
+> the OpenBMC project so we could have them officially in
+> the code base?
+
+Andrew, I've been gradually getting involved with OpenBMC at my own
+pace, and finally have a little more time than I did six months ago.  (I
+was ill over New Year, then I changed jobs, etc.  I've been very busy
+with other things than computers recently ;-)
+
+Please let me know if there's anything I can do to help.  I'd be happy
+to test, write docs, perform reproducible builds, and engineer
+infrastructure.
+
+I'm a production engineer by profession (much like an SRE) and I am
+considering getting involved with the OpenBMC Infrastructure Workgroup.
+
+>> The README.md file has most of useful notes on building the code and
+>> bringing it up on a device. I'm looking for feedback on changes before
+>> pushing the code upstream. Features is a completely separate area for
+>> discussion.
+
+My RPi is the RPi 3B+.  Will this work out-of-the-box with your branch?
+
+>> This was a great learning experience and I hope it's useful for others.
+
+Congratulations on this great achievment!! :-)
+
+Deep down I'm a fan of Orange Pi, so if all goes well I will look into
+porting it to OPi :-)
+
+Kind regards,
+
+Andrew
+-- 
+OpenPGP key: EB28 0338 28B7 19DA DAB0  B193 D21D 996E 883B E5B9
