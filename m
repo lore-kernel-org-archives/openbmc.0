@@ -1,65 +1,60 @@
-Return-Path: <arnd@arndb.de>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=arndb.de
- (client-ip=212.227.126.133; helo=mout.kundenserver.de;
- envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::241; helo=mail-oi1-x241.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arndb.de
-X-Greylist: delayed 359 seconds by postgrey-1.36 at bilbo;
- Sat, 15 Dec 2018 09:18:05 AEDT
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.133])
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="iSEHroYm"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
+ [IPv6:2607:f8b0:4864:20::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43GlL61gjdzDrPJ;
- Sat, 15 Dec 2018 09:18:05 +1100 (AEDT)
-Received: from wuerfel.lan ([109.192.41.194]) by mrelayeu.kundenserver.de
- (mreue011 [212.227.15.129]) with ESMTPA (Nemesis) id
- 1MC2k1-1gi49T0OBZ-00CULw; Fri, 14 Dec 2018 23:10:30 +0100
-From: Arnd Bergmann <arnd@arndb.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>,
- Andrew Jeffery <andrew@aj.id.au>, Andy Gross <andy.gross@linaro.org>,
- bp@alien8.de, Daniel Drake <dsd@laptop.org>,
- David Brown <david.brown@linaro.org>, dou_liyang@163.com,
- Ingo Molnar <mingo@redhat.com>,
- "James E.J. Bottomley" <jejb@linux.vnet.ibm.com>,
- Jens Frederich <jfrederich@gmail.com>, Lubomir Rintel <lkundrak@v3.sk>,
- Mark Rutland <mark.rutland@arm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Peter Zijlstra <peterz@infradead.org>, Rob Clark <robdclark@gmail.com>,
- Rob Herring <robh+dt@kernel.org>,
- Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-scsi@vger.kernel.org
-Subject: [PATCH 0/7] v4.19-stable randconfig fixes
-Date: Fri, 14 Dec 2018 23:10:05 +0100
-Message-Id: <20181214221023.3878670-1-arnd@arndb.de>
-X-Mailer: git-send-email 2.20.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Gmxm4mczzDrNx
+ for <openbmc@lists.ozlabs.org>; Sat, 15 Dec 2018 10:30:30 +1100 (AEDT)
+Received: by mail-oi1-x241.google.com with SMTP id h25so5948237oig.1
+ for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 15:30:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=sGlDv9/mKgoV1WH+EYkpVmmz6kkahqJVT5cOChf7FP0=;
+ b=iSEHroYm2T8KOX8I+49KZP8VPHNuXrAj0jPqKrZM17nAWV/3Q3tI0eePd0xDeLeoYv
+ NtlPNYRrCu6C4NOL3h1os6Q0HsrHK2OjsErANUQUeTZ48az/AgGC06vWmYiaSNFXBPud
+ LiI3ipJqBXiCfQ5SW4Ab+wpwShBPAqI+QAGPfSvrVWx5aM4sLiAgIPgartUvMZhktqwS
+ aAMLDlRoidfVzeFnJEfdSd2zn3bKNb8EThuo2QpzQ3VP1XibonesA0wm0U0ZLGH4dupP
+ VXlMQ7ht39yl3/ZZ+PuGm2hA7d93HlTyuSxtw9cj3qnfNfUaQj8kralMB/Q19ik6nm16
+ 7hCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=sGlDv9/mKgoV1WH+EYkpVmmz6kkahqJVT5cOChf7FP0=;
+ b=MEWqxI0ZwsViz4RxpphUYCH7LBOBAJLnUutFAvFMJdYa2khTCYeL6H5j5+yJLvbvJ3
+ OYbfk9JsTmeiYt/MfQ8MwHinbpmwwD6UbPPlA3+zohlIdi/HeGuH1Sue1TyTBMHEJtrJ
+ WCNLCGOIiUCND/Mzw/otKy/sG2dcsnZGYvmwBEBGJuxWuroic2ASYg3QUQwL/u2O+XLJ
+ vn5SDxrlafq0Q5AlkzVue0GidMyfVdC0PwR/5uhZBJ6FuJrvFMGS3OGKPXkKr1bHV0T/
+ 1gEe9DKRBKQZsDeTMwhcvnwJHQW9lxt9H/RpRg7JnojCSXr75HXuGCwrXUM9OBJnk6M7
+ A90g==
+X-Gm-Message-State: AA+aEWZ7kmtk25DjKwRWQ2fG2fkirLJl8lQDrVpdt/gbtfZoSy5BRcJY
+ Qxno8dxC4Aro2WYgox57jdQTTvrIuLqz2HD35xcIIA==
+X-Google-Smtp-Source: AFSGD/VI3RLlk7QwbRZLvlcsDEgNJH3faTJN9cS8iJevW3Rz86HsVAofWxQH1Wg2+U5X5BgZnZ1cWiXUs6grVIWbB8M=
+X-Received: by 2002:aca:a90f:: with SMTP id s15mr254887oie.137.1544830227794; 
+ Fri, 14 Dec 2018 15:30:27 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Provags-ID: V03:K1:BKx/+9tKlDqKBm3yFlKyDrtyhjifcH89zpw/TA+BR1GI/IXjxE6
- KW3z0cr3XpETC3xoJ++EI0JW/9H2NRFMq8Y3aElZvA6zHQ1dimmqunWZOdZRf2FdvenY89X
- epnrSbbPZtbAO/NqN+srg4Ed+NnCDdUj8NUJ692QEDM4t+lEjW01nHd+x+771FBFOo8eXhB
- cw3vt1ukEotp9faZny6Hw==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:PdME1AqrfPg=:p+lDL5tain3crQ+5p238mU
- KnJ+W2yVQDKFQtZA1TQxIiN8CPfT6GhJljOv8xdylJoEWBkQcSlWMx/44CLV76+bfFQOMS0F/
- 18OAykvpQc70/ykOFyIoRZxVUcsj2HvwtPA1U+esb6943SCZZJOXdN06sBtC2SpRWIsdlz0FQ
- b/OZ/cTrztxHr8ybzvsF1aHtXGNubkdXoSIh0s6CFRQf5vRJvqoja6RBwy8Gzma54sbvorY9k
- nOl9PnyQQgy5U2fu2+V/pRn9/Jxg5+ePpJaLv1UQGH+vDup+I7HGwNUOAbAtVO8A7UgZFSZ0y
- g5VfS41Bjp106kxZJwv2322+vdvkfvtvsail8LfKjriOjRlOQvJi43srPjQ3AB1L5ccRFEcuR
- GR4HssS5cKl7aPWF1VyR3w+gFxK7eRXfM5zVIS3c0/vMbD9PUNDnZFklHjXKqTL1pncMX0G7w
- HNojij5PBdyOIWmnlF+3lwKtr9VPq9pU7Xn8N5QBJs6CmQJejHzaShYwESRmXPelzAwU9lZTU
- XZTbNJchXCaaFEQF9crqJu2Eudo3NtYsf9jgXO4rJb89vGkJCwdU6guqj6Htt1okXIdjYGg/j
- yrE15AfC7Sgp4CVxMZwqfwSwKCiIwAAyKA2davkZnwyKI6GNPjOIUsFpyBYELm8iefKel24Ok
- qCyc1m0L8zGfcFASyPy0YxdXTFWjiBCLk6G4hpyMdQIhT2uScq71Kk0HjmOrUR8rD8LuuqyzR
- A87tOb8JQ7hyHUq7PmOlaRa4IGqn3PzUzd0ftS7FhzZ+LQQ4ZbQt0MRgyTij8XK0rhDOiSLn9
- ZRzYhitj37O23o/HQnCQ8Jv/LH47tZALkQ2AbA0GIlndSHYOTVPwcR9d7E1EgMwHQPD3/mOuM
- 9fMKtBAMXjG+tMklMHCHGuou1CHy+TF7g30EIpI4TftLW6ktLQJAvWaEf9P3IF
+References: <20181214221023.3878670-1-arnd@arndb.de>
+ <20181214221023.3878670-6-arnd@arndb.de>
+In-Reply-To: <20181214221023.3878670-6-arnd@arndb.de>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Fri, 14 Dec 2018 15:30:16 -0800
+Message-ID: <CAFd5g45GxxhHuyHWDjd41_8xscYN6p5XJShnmg9Z2-DDGwaE4A@mail.gmail.com>
+Subject: Re: [PATCH 5/7] [stable-4.19] i2c: aspeed: fix build warning
+To: Arnd Bergmann <arnd@arndb.de>
+Cc: Greg KH <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>,
+ stable@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,95 +66,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Dec 2018 22:18:07 -0000
+X-List-Received-Date: Fri, 14 Dec 2018 23:30:38 -0000
 
-Hi Greg,
+On Fri, Dec 14, 2018 at 2:12 PM Arnd Bergmann <arnd@arndb.de> wrote:
+>
+> Upstream commit 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events
+> properly") reworked the interrupt handling and fixed a warning in the process:
+>
+> drivers/i2c/busses/i2c-aspeed.c: In function 'aspeed_i2c_bus_irq':
+> drivers/i2c/busses/i2c-aspeed.c:567:1: error: label 'out' defined but not used [-Werror=unused-label]
+>
+> The warning is still present in v4.19.8 and can be fixed either by applying
+> that original patch, or by adding a simple #ifdef.
+>
+> Here, I choose the second simpler option as the original patch seems too
+> invasive for a stable backport.
+>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-I did some randconfig testing on linux-4.19 arm/arm64/x86. So far I needed
-27 patches, most of which are also still needed in mainline Linux. I
-had submitted some before, and others were not submitted previously
-for some reason. I'll try to get those fixed in mainline and then
-make sure we get them into 4.19 as well.
+Thanks!
 
-This series for now contains four patches that did make it into mainline:
-
-2e6ae11dd0d1 ("slimbus: ngd: mark PM functions as __maybe_unused")
-33f49571d750 ("staging: olpc_dcon: add a missing dependency")
-0eeec01488da ("scsi: raid_attrs: fix unused variable warning")
-11d4afd4ff66 ("sched/pelt: Fix warning and clean up IRQ PELT config")
-
-Feel free to either cherry-pick those from mainline or apply the
-patch from this series, whichever works best for you.
-
-The other three patches are for warnings in code that got removed in
-mainline kernels:
-
-3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events properly")
-972910948fb6 ("ARM: dts: qcom: Remove Arrow SD600 eval board")
-effec874792f ("drm/msm/dpu: Remove dpu_dbg")
-
-My feeling was that it's safer to just address the warning by fixing
-the code correctly in each of these cases, but if you disagree,
-applying the mainline change should work equally well, so decide
-for yourself.
-
-      Arnd
-
-Arnd Bergmann (5):
-  scsi: raid_attrs: fix unused variable warning
-  slimbus: ngd: mark PM functions as __maybe_unused
-  [stable-4.19] i2c: aspeed: fix build warning
-  [stable-4.19] ARM: dts: qcom-apq8064-arrow-sd-600eval fix
-    graph_endpoint warning
-  [stable-4.19] drm/msm:  fix address space warning
-
-Lubomir Rintel (1):
-  staging: olpc_dcon: add a missing dependency
-
-Vincent Guittot (1):
-  sched/pelt: Fix warning and clean up IRQ PELT config
-
- arch/arm/boot/dts/qcom-apq8064-arrow-sd-600eval.dts | 5 +++++
- drivers/gpu/drm/msm/disp/dpu1/dpu_dbg.c             | 8 ++++----
- drivers/i2c/busses/i2c-aspeed.c                     | 4 +++-
- drivers/scsi/raid_class.c                           | 4 +---
- drivers/slimbus/qcom-ngd-ctrl.c                     | 6 ++----
- drivers/staging/olpc_dcon/Kconfig                   | 1 +
- init/Kconfig                                        | 5 +++++
- kernel/sched/core.c                                 | 7 +++----
- kernel/sched/fair.c                                 | 2 +-
- kernel/sched/pelt.c                                 | 2 +-
- kernel/sched/pelt.h                                 | 2 +-
- kernel/sched/sched.h                                | 5 ++---
- 12 files changed, 29 insertions(+), 22 deletions(-)
-
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Cc: Andy Gross <andy.gross@linaro.org>
-Cc: bp@alien8.de
-Cc: Daniel Drake <dsd@laptop.org>
-Cc: David Brown <david.brown@linaro.org>
-Cc: dou_liyang@163.com
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: "James E.J. Bottomley" <jejb@linux.vnet.ibm.com>
-Cc: Jens Frederich <jfrederich@gmail.com>
-Cc: Lubomir Rintel <lkundrak@v3.sk>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: "Martin K. Petersen" <martin.petersen@oracle.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Rob Clark <robdclark@gmail.com>
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-i2c@vger.kernel.org
-Cc: openbmc@lists.ozlabs.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-aspeed@lists.ozlabs.org
-Cc: linux-scsi@vger.kernel.org
-
-
--- 
-2.20.0
+Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
