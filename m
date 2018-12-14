@@ -1,58 +1,54 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32b; helo=mail-ot1-x32b.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="iwrzfeiK"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43GY1R5BRkzDqC9
- for <openbmc@lists.ozlabs.org>; Sat, 15 Dec 2018 01:32:59 +1100 (AEDT)
-Received: by mail-ot1-x32b.google.com with SMTP id e12so5561906otl.5
- for <openbmc@lists.ozlabs.org>; Fri, 14 Dec 2018 06:32:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e3ZMlF6J//aPiVemM0FnjZL6S/idhW4sF+MVh3ZLxkw=;
- b=iwrzfeiKNimQd8Q4EDr7NSWZQRVtvxs7ybZAg+YoAZJITO7JIGsoQ1IEhBiOy0T59j
- f3qbYpz8oVxrvgguBGU2mkob3VStVoxndvi/jkd+GMjT+P7EKLSH6CKKsbOia3pYynXz
- BY86Uo1StzfRBarWN1OSzV1hxC7yDGDJNat249d0/dXy8poY9149wx2yfOrejGFd92E5
- LsRUY6Pyk9SCrK8BqFO0l9XBJsgtsVlUAptyifuwWVDDBY1+yN0qT2mrpnXUOPXK2MFg
- q+ysAUYBpUi7Vl3kKGSGFLSwetCQV5MP9qfLU7T2ScrSY+BQBc/tOq3QzHnnr3VBRF6d
- h5Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=e3ZMlF6J//aPiVemM0FnjZL6S/idhW4sF+MVh3ZLxkw=;
- b=Wql1cnO0c8RKYHbLY+jNtZte05zEtwT0lKdTyn+pkcvNnsDRq0HtKMi62fGrXtxaU7
- tAKdHN/dPMk6Kc//YerhxWaKHE0kzSgVS4Tb5rLznqguDvdpIknalNJ8zkxiAEXAVQ29
- o45flkfitEZPzC2CzIp4NIgWf7xglRTT7EVyhWETlMBIGjcxxdp7mPQBa+noKtzWBA0j
- ciA6032qV5yvha3vXZ5AN4TIdOaIzHCjABtkJd2FDMB+ofrLcN0yC1j387CLx9IbJUQe
- 5Mj6/K6vWOzSU+Cxl5BgF9QlGCCbAVc5vwXMUsk64ce7uYVD0+NUhA2e7cR83gRm1ncC
- h7fA==
-X-Gm-Message-State: AA+aEWYDuCoGzUOpzW0xaRN3lgyMYoifeC/LtwwM4eJNqUVQ/K4k9ifO
- 0OGGjXWuOrE/xHwJAnqgpcQYQB+dLu2rUYixnZQ=
-X-Google-Smtp-Source: AFSGD/XAdacLb9nOPddJF+8Rxh7HkJgEqPm82h70XPNH9JnYfFIkMcukJVBSWpiuEeaYTV2JIAoA5Om/+zJomYapq/A=
-X-Received: by 2002:a9d:71c9:: with SMTP id z9mr2308378otj.294.1544797977297; 
- Fri, 14 Dec 2018 06:32:57 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43GYrX0jPhzDrJ7
+ for <openbmc@lists.ozlabs.org>; Sat, 15 Dec 2018 02:10:15 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Dec 2018 07:10:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,353,1539673200"; 
+ d="scan'208,217";a="100722858"
+Received: from orsmsx108.amr.corp.intel.com ([10.22.240.6])
+ by orsmga006.jf.intel.com with ESMTP; 14 Dec 2018 07:10:12 -0800
+Received: from orsmsx153.amr.corp.intel.com (10.22.226.247) by
+ ORSMSX108.amr.corp.intel.com (10.22.240.6) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Fri, 14 Dec 2018 07:10:12 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.59]) by
+ ORSMSX153.amr.corp.intel.com ([169.254.12.130]) with mapi id 14.03.0415.000;
+ Fri, 14 Dec 2018 07:10:09 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Sivas Srr <sivas.srr@in.ibm.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Max number of REST sessions
+Thread-Topic: Max number of REST sessions
+Thread-Index: AQHUk6SOy0K1BVJkqkyG6OW1y5kjo6V+UohQ
+Date: Fri, 14 Dec 2018 15:10:09 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E82169934597DCA5@ORSMSX114.amr.corp.intel.com>
+References: <OF93226FA1.3C93F249-ON00258363.0041D36F-00258363.0041D8B5@notes.na.collabserv.com>
+In-Reply-To: <OF93226FA1.3C93F249-ON00258363.0041D36F-00258363.0041D8B5@notes.na.collabserv.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNjQ5YmJhNTMtN2U3YS00MjQ4LWIyMWItYzQzYTkwMzgyZWNmIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiSG85cHNVbUVSdVBrVzBoakRkUHBYTXZITk1lcm9QUngyb2pnXC9GSVBZZHlzNzdMK0hRdmlSSGlZTjZ1SmZyOXoifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.139]
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E82169934597DCA5ORSMSX114amrcor_"
 MIME-Version: 1.0
-References: <CAEx7e2SGZWe5ba9=0rSFc1-ArS9uPDhn8oLFSZMT4ygX968t9w@mail.gmail.com>
- <CALLMt=r4nUdFHTNeiemhdM1zrRVt5-zc41mG2APBC-N2YO4TOQ@mail.gmail.com>
- <40db2dd4-a10e-901d-d652-473ef75649b7@andrewnesbit.org>
-In-Reply-To: <40db2dd4-a10e-901d-d652-473ef75649b7@andrewnesbit.org>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 14 Dec 2018 08:32:41 -0600
-Message-ID: <CALLMt=rgaTDEmuZQr0QmgbnosdqkFundRYu=wa_nMPXw1gJLbA@mail.gmail.com>
-Subject: Re: OpenBMC Raspberry Pi
-To: ullbeking@andrewnesbit.org
-Cc: truongmd@gmail.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,74 +60,196 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 14 Dec 2018 14:33:01 -0000
+X-List-Received-Date: Fri, 14 Dec 2018 15:10:21 -0000
 
-On Thu, Dec 13, 2018 at 9:56 AM Andrew Luke Nesbit
-<ullbeking@andrewnesbit.org> wrote:
->
-> On 13/12/2018 13:34, Andrew Geissler wrote:
-> > On Mon, Oct 29, 2018 at 4:52 PM M. D. Truong <truongmd@gmail.com> wrote:
->
-> [...]
->
-> >> On a GitHub fork of OpenBMC code, sitting on the
-> >> "raspberrypi-cm3" branch are some patches that will build a working
-> >> distribution.
-> >>
-> >> https://github.com/truongmd/openbmc/tree/raspberrypi-cm3
-> >
-> > Hey My, this is great. Especially for people looking to get started
-> > with OpenBMC. Raspberry pi's are easy to get and very
-> > affordable.
->
-> Yes, indeed this is fantastic!!  I have a spare RPi 3B+ plus a lot of
-> accessories that I bought for a different project that never worked out.
->  Now I can try using this for OpenBMC, which is much more exciting to me
-> anyway, than that other project was, and the people here are much nicer!
->
-> > Any chance you were going to upstream these changes to
-> > the OpenBMC project so we could have them officially in
-> > the code base?
->
-> Andrew, I've been gradually getting involved with OpenBMC at my own
-> pace, and finally have a little more time than I did six months ago.  (I
-> was ill over New Year, then I changed jobs, etc.  I've been very busy
-> with other things than computers recently ;-)
->
-> Please let me know if there's anything I can do to help.  I'd be happy
-> to test, write docs, perform reproducible builds, and engineer
-> infrastructure.
+--_000_7E9441B1E5EFFD4681F54958E82169934597DCA5ORSMSX114amrcor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hey Andrew, great to see the excitement for the project. I think for this
-particular piece of work, what we really need is to take the commits
-from the fork and start submitting them to the appropriate upstream
-repositories within openbmc. With our recent meta- split into
-individual repos, there will be some work to map those changes to
-the right place.
+VG9kYXksIHRoZXJlIGlzIG5vIHNlc3Npb24gY291bnQgbGltaXQsIGFzaWRlIGZyb20geW91ciBC
+TUNzIFJBTSBsaW1pdGF0aW9ucyB0byBzdG9yZSBhIHNtYWxsIHN0cnVjdCBmb3IgZWFjaCB1c2Vy
+IHNlc3Npb24sIGFsdGhvdWdoIHRoZXJlIHNob3VsZCBiZS4gIEluIHRoZSBwYXN0IHdoZW4gdGhp
+cyBoYXMgY29tZSB1cCwgdGhlcmUgd2VyZSBxdWVzdGlvbnMgYWJvdXQgd2hhdCB0aGUgYmVoYXZp
+b3Igc2hvdWxkIGJlIHdoZW4gdXNlciBzZXNzaW9ucyByb2xsIHBhc3QgdGhlIGxpbWl0Lg0KDQpT
+b21lIG9mIHRoZSBwcm9wb3NlZCBzb2x1dGlvbnMgdGhhdCBJ4oCZdmUgaGVhcmQgaW4gdGhlIHBh
+c3Q6DQoNCjEuICAgICAgIEltcG9zZSBzZXNzaW9uIGxpbWl0cyBlaXRoZXIgcGVyIHVzZXIsIHBl
+ciBjb25uZWN0aW5nIGlwIGFkZHJlc3MsIG9yIGJvdGguICBXaGVuIGEgdXNlciByb2xscyBwYXN0
+IHRoZSBsaW1pdCwgb25lIG9mIHR3byB0aGluZ3MgY2FuIGhhcHBlbjoNCg0KYS4gICAgICAgTmV3
+IHNlc3Npb25zIGFyZSByZWplY3RlZCB1bnRpbCBvbGQgc2Vzc2lvbnMgdGltZSBvdXQuDQoNCmIu
+ICAgICAgTmV3IHNlc3Npb25zIHdpbGwg4oCccHVzaCBvdXTigJ0gdGhlIG9sZGVzdCBzZXNzaW9u
+IGluIHRoZSBxdWV1ZS4NCg0KMi4gICAgICAgVXNlIHNlc3Npb24gdG9rZW5zIGVuY3J5cHRlZCB3
+aXRoIGEgQk1DIHNlY3JldCAoc2ltaWxhciB0byBqc29uIHdlYiB0b2tlbikgYW5kIGRvbuKAmXQg
+c3RvcmUgdGhlIHNlc3Npb24gaW5mb3JtYXRpb24gb24gdGhlIEJNQyBhdCBhbGwuICBUaGlzIHdv
+dWxkIGVmZmVjdGl2ZWx5IHJlbW92ZSBhbGwgdGhlIHNlc3Npb24gbGltaXRzDQoNCjMuICAgICAg
+IOKAnFJldXNl4oCdIHNlc3Npb25zIHBlciB1c2VyIGFjY291bnQsIGVmZmVjdGl2ZWx5IGNhcHBp
+bmcgdGhlIHNlc3Npb24gY291bnQgdG8gdGhlIG51bWJlciBvZiB1c2VycyBvciBsZXNzDQoNCklu
+IG15IG9waW5pb24sIHNvbWVvbmUgKHBvc3NpYmx5IG1lKSBzaG91bGQgcHV0IHRvZ2V0aGVyIGEg
+cGF0Y2hzZXQgdG8gZXhlY3V0ZSBvbiAxYi4gIFdoYXQgYXJlIG90aGVyIHBlb3BsZeKAmXMgcmVx
+dWlyZW1lbnRzIGluIHRoaXMgYXJlYT8gIERpZCBJIG1pc3MgYW55dGhpbmc/DQoNCi1FZA0K
 
->
-> I'm a production engineer by profession (much like an SRE) and I am
-> considering getting involved with the OpenBMC Infrastructure Workgroup.
+--_000_7E9441B1E5EFFD4681F54958E82169934597DCA5ORSMSX114amrcor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The more the merrier, our next meeting will be 1/9/19!
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjEyLjBwdDsNCglmb250LWZhbWlseToiVGltZXMgTmV3IFJvbWFuIixzZXJpZjt9
+DQphOmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCglj
+b2xvcjojMDU2M0MxOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBz
+cGFuLk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xv
+cjojOTU0RjcyOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5Nc29MaXN0UGFyYWdy
+YXBoLCBsaS5Nc29MaXN0UGFyYWdyYXBoLCBkaXYuTXNvTGlzdFBhcmFncmFwaA0KCXttc28tc3R5
+bGUtcHJpb3JpdHk6MzQ7DQoJbWFyZ2luLXRvcDowaW47DQoJbWFyZ2luLXJpZ2h0OjBpbjsNCglt
+YXJnaW4tYm90dG9tOjBpbjsNCgltYXJnaW4tbGVmdDouNWluOw0KCW1hcmdpbi1ib3R0b206LjAw
+MDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9tYW4i
+LHNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsOw0K
+CWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0Kc3Bh
+bi5FbWFpbFN0eWxlMTgNCgl7bXNvLXN0eWxlLXR5cGU6cGVyc29uYWwtY29tcG9zZTsNCglmb250
+LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29D
+aHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJD
+YWxpYnJpIixzYW5zLXNlcmlmO30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDEx
+LjBpbjsNCgltYXJnaW46MS4waW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9u
+MQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQovKiBMaXN0IERlZmluaXRpb25zICovDQpAbGlzdCBs
+MA0KCXttc28tbGlzdC1pZDoxNjY3NTE3NzY7DQoJbXNvLWxpc3QtdHlwZTpoeWJyaWQ7DQoJbXNv
+LWxpc3QtdGVtcGxhdGUtaWRzOjI3MzYwNzIyNiA2NzY5ODcwMyA2NzY5ODcxMyA2NzY5ODcxNSA2
+NzY5ODcwMyA2NzY5ODcxMyA2NzY5ODcxNSA2NzY5ODcwMyA2NzY5ODcxMyA2NzY5ODcxNTt9DQpA
+bGlzdCBsMDpsZXZlbDENCgl7bXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51
+bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMDpsZXZl
+bDINCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YWxwaGEtbG93ZXI7DQoJbXNvLWxldmVsLXRh
+Yi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5k
+ZW50Oi0uMjVpbjt9DQpAbGlzdCBsMDpsZXZlbDMNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6
+cm9tYW4tbG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJl
+ci1wb3NpdGlvbjpyaWdodDsNCgl0ZXh0LWluZGVudDotOS4wcHQ7fQ0KQGxpc3QgbDA6bGV2ZWw0
+DQoJe21zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246
+bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxpc3QgbDA6bGV2ZWw1DQoJe21zby1sZXZl
+bC1udW1iZXItZm9ybWF0OmFscGhhLWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0K
+CW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0K
+QGxpc3QgbDA6bGV2ZWw2DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OnJvbWFuLWxvd2VyOw0K
+CW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmln
+aHQ7DQoJdGV4dC1pbmRlbnQ6LTkuMHB0O30NCkBsaXN0IGwwOmxldmVsNw0KCXttc28tbGV2ZWwt
+dGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1p
+bmRlbnQ6LS4yNWluO30NCkBsaXN0IGwwOmxldmVsOA0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1h
+dDphbHBoYS1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVt
+YmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwwOmxldmVs
+OQ0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpyb21hbi1sb3dlcjsNCgltc28tbGV2ZWwtdGFi
+LXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOnJpZ2h0Ow0KCXRleHQtaW5k
+ZW50Oi05LjBwdDt9DQpAbGlzdCBsMQ0KCXttc28tbGlzdC1pZDoyMzczNzE2NTg7DQoJbXNvLWxp
+c3QtdHlwZTpoeWJyaWQ7DQoJbXNvLWxpc3QtdGVtcGxhdGUtaWRzOjEwNzYxNjMwMzYgNjc2OTg3
+MDMgNjc2OTg3MTMgNjc2OTg3MTUgNjc2OTg3MDMgNjc2OTg3MTMgNjc2OTg3MTUgNjc2OTg3MDMg
+Njc2OTg3MTMgNjc2OTg3MTU7fQ0KQGxpc3QgbDE6bGV2ZWwxDQoJe21zby1sZXZlbC10YWItc3Rv
+cDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDot
+LjI1aW47fQ0KQGxpc3QgbDE6bGV2ZWwyDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmFscGhh
+LWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9z
+aXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxpc3QgbDE6bGV2ZWwzDQoJe21z
+by1sZXZlbC1udW1iZXItZm9ybWF0OnJvbWFuLWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpu
+b25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmlnaHQ7DQoJdGV4dC1pbmRlbnQ6LTku
+MHB0O30NCkBsaXN0IGwxOmxldmVsNA0KCXttc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28t
+bGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0
+IGwxOmxldmVsNQ0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDphbHBoYS1sb3dlcjsNCgltc28t
+bGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJ
+dGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwxOmxldmVsNg0KCXttc28tbGV2ZWwtbnVtYmVy
+LWZvcm1hdDpyb21hbi1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2
+ZWwtbnVtYmVyLXBvc2l0aW9uOnJpZ2h0Ow0KCXRleHQtaW5kZW50Oi05LjBwdDt9DQpAbGlzdCBs
+MTpsZXZlbDcNCgl7bXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1w
+b3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMTpsZXZlbDgNCgl7
+bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YWxwaGEtbG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9w
+Om5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0u
+MjVpbjt9DQpAbGlzdCBsMTpsZXZlbDkNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6cm9tYW4t
+bG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3Np
+dGlvbjpyaWdodDsNCgl0ZXh0LWluZGVudDotOS4wcHQ7fQ0Kb2wNCgl7bWFyZ2luLWJvdHRvbTow
+aW47fQ0KdWwNCgl7bWFyZ2luLWJvdHRvbTowaW47fQ0KLS0+PC9zdHlsZT48IS0tW2lmIGd0ZSBt
+c28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNwaWRtYXg9IjEwMjYi
+IC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBl
+bGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0K
+PC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0i
+RU4tVVMiIGxpbms9IiMwNTYzQzEiIHZsaW5rPSIjOTU0RjcyIj4NCjxkaXYgY2xhc3M9IldvcmRT
+ZWN0aW9uMSI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
+NDk3RCI+VG9kYXksIHRoZXJlIGlzIG5vIHNlc3Npb24gY291bnQgbGltaXQsIGFzaWRlIGZyb20g
+eW91ciBCTUNzIFJBTSBsaW1pdGF0aW9ucyB0byBzdG9yZSBhIHNtYWxsIHN0cnVjdCBmb3IgZWFj
+aCB1c2VyIHNlc3Npb24sIGFsdGhvdWdoIHRoZXJlIHNob3VsZCBiZS4mbmJzcDsgSW4gdGhlDQog
+cGFzdCB3aGVuIHRoaXMgaGFzIGNvbWUgdXAsIHRoZXJlIHdlcmUgcXVlc3Rpb25zIGFib3V0IDxh
+IG5hbWU9Il9fX19fcmVwbHlzZXBhcmF0b3IiPg0KPC9hPndoYXQgdGhlIGJlaGF2aW9yIHNob3Vs
+ZCBiZSB3aGVuIHVzZXIgc2Vzc2lvbnMgcm9sbCBwYXN0IHRoZSBsaW1pdC48bzpwPjwvbzpwPjwv
+c3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEx
+LjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFG
+NDk3RCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZx
+dW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPlNvbWUgb2YgdGhlIHByb3Bvc2VkIHNvbHV0
+aW9ucyB0aGF0IEnigJl2ZSBoZWFyZCBpbiB0aGUgcGFzdDo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
+DQo8cCBjbGFzcz0iTXNvTGlzdFBhcmFncmFwaCIgc3R5bGU9InRleHQtaW5kZW50Oi0uMjVpbjtt
+c28tbGlzdDpsMCBsZXZlbDEgbGZvMiI+PCFbaWYgIXN1cHBvcnRMaXN0c10+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNl
+cmlmO2NvbG9yOiMxRjQ5N0QiPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPjEuPHNwYW4g
+c3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJzcDsmbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsNCjwvc3Bhbj48L3NwYW4+PC9zcGFuPjwhW2VuZGlm
+XT48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SW1wb3NlIHNlc3Npb24gbGltaXRzIGVp
+dGhlciBwZXIgdXNlciwgcGVyIGNvbm5lY3RpbmcgaXAgYWRkcmVzcywgb3IgYm90aC4mbmJzcDsg
+V2hlbiBhIHVzZXIgcm9sbHMgcGFzdCB0aGUgbGltaXQsIG9uZSBvZiB0d28gdGhpbmdzIGNhbiBo
+YXBwZW46PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb0xpc3RQYXJhZ3JhcGgi
+IHN0eWxlPSJtYXJnaW4tbGVmdDoxLjBpbjt0ZXh0LWluZGVudDotLjI1aW47bXNvLWxpc3Q6bDAg
+bGV2ZWwyIGxmbzIiPg0KPCFbaWYgIXN1cHBvcnRMaXN0c10+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9y
+OiMxRjQ5N0QiPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPmEuPHNwYW4gc3R5bGU9ImZv
+bnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJzcDsmbmJzcDsmbmJzcDsm
+bmJzcDsmbmJzcDsmbmJzcDsNCjwvc3Bhbj48L3NwYW4+PC9zcGFuPjwhW2VuZGlmXT48c3BhbiBz
+dHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNh
+bnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+TmV3IHNlc3Npb25zIGFyZSByZWplY3RlZCB1bnRpbCBv
+bGQgc2Vzc2lvbnMgdGltZSBvdXQuPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1z
+b0xpc3RQYXJhZ3JhcGgiIHN0eWxlPSJtYXJnaW4tbGVmdDoxLjBpbjt0ZXh0LWluZGVudDotLjI1
+aW47bXNvLWxpc3Q6bDAgbGV2ZWwyIGxmbzIiPg0KPCFbaWYgIXN1cHBvcnRMaXN0c10+PHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90Oyxz
+YW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPmIu
+PHNwYW4gc3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsNCjwvc3Bhbj48L3NwYW4+PC9zcGFuPjwhW2VuZGlm
+XT48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtDYWxpYnJp
+JnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+TmV3IHNlc3Npb25zIHdpbGwg4oCccHVz
+aCBvdXTigJ0gdGhlIG9sZGVzdCBzZXNzaW9uIGluIHRoZSBxdWV1ZS48bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTGlzdFBhcmFncmFwaCIgc3R5bGU9InRleHQtaW5kZW50Oi0u
+MjVpbjttc28tbGlzdDpsMCBsZXZlbDEgbGZvMiI+PCFbaWYgIXN1cHBvcnRMaXN0c10+PHNwYW4g
+c3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90Oyxz
+YW5zLXNlcmlmO2NvbG9yOiMxRjQ5N0QiPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPjIu
+PHNwYW4gc3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJz
+cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsNCjwvc3Bhbj48L3NwYW4+PC9zcGFuPjwh
+W2VuZGlmXT48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVvdDtD
+YWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+VXNlIHNlc3Npb24gdG9rZW5z
+IGVuY3J5cHRlZCB3aXRoIGEgQk1DIHNlY3JldCAoc2ltaWxhciB0byBqc29uIHdlYiB0b2tlbikg
+YW5kIGRvbuKAmXQgc3RvcmUgdGhlIHNlc3Npb24gaW5mb3JtYXRpb24gb24gdGhlIEJNQyBhdCBh
+bGwuJm5ic3A7IFRoaXMgd291bGQgZWZmZWN0aXZlbHkNCiByZW1vdmUgYWxsIHRoZSBzZXNzaW9u
+IGxpbWl0czxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29MaXN0UGFyYWdyYXBo
+IiBzdHlsZT0idGV4dC1pbmRlbnQ6LS4yNWluO21zby1saXN0OmwwIGxldmVsMSBsZm8yIj48IVtp
+ZiAhc3VwcG9ydExpc3RzXT48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
+eTomcXVvdDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+PHNwYW4gc3R5
+bGU9Im1zby1saXN0Oklnbm9yZSI+My48c3BhbiBzdHlsZT0iZm9udDo3LjBwdCAmcXVvdDtUaW1l
+cyBOZXcgUm9tYW4mcXVvdDsiPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOw0K
+PC9zcGFuPjwvc3Bhbj48L3NwYW4+PCFbZW5kaWZdPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0
+OTdEIj7igJxSZXVzZeKAnSBzZXNzaW9ucyBwZXIgdXNlciBhY2NvdW50LCBlZmZlY3RpdmVseSBj
+YXBwaW5nIHRoZSBzZXNzaW9uIGNvdW50IHRvIHRoZSBudW1iZXIgb2YgdXNlcnMgb3IgbGVzczxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJm
+b250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVvdDssc2Fucy1zZXJp
+Zjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWlseTomcXVv
+dDtDYWxpYnJpJnF1b3Q7LHNhbnMtc2VyaWY7Y29sb3I6IzFGNDk3RCI+SW4gbXkgb3Bpbmlvbiwg
+c29tZW9uZSAocG9zc2libHkgbWUpIHNob3VsZCBwdXQgdG9nZXRoZXIgYSBwYXRjaHNldCB0byBl
+eGVjdXRlIG9uIDFiLiZuYnNwOyBXaGF0IGFyZSBvdGhlciBwZW9wbGXigJlzIHJlcXVpcmVtZW50
+cyBpbiB0aGlzIGFyZWE/Jm5ic3A7IERpZCBJIG1pc3MgYW55dGhpbmc/PG86cD48L286cD48L3Nw
+YW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4w
+cHQ7Zm9udC1mYW1pbHk6JnF1b3Q7Q2FsaWJyaSZxdW90OyxzYW5zLXNlcmlmO2NvbG9yOiMxRjQ5
+N0QiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkmcXVv
+dDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj4tRWQ8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8
+L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
->
-> >> The README.md file has most of useful notes on building the code and
-> >> bringing it up on a device. I'm looking for feedback on changes before
-> >> pushing the code upstream. Features is a completely separate area for
-> >> discussion.
->
-> My RPi is the RPi 3B+.  Will this work out-of-the-box with your branch?
->
-> >> This was a great learning experience and I hope it's useful for others.
->
-> Congratulations on this great achievment!! :-)
->
-> Deep down I'm a fan of Orange Pi, so if all goes well I will look into
-> porting it to OPi :-)
->
-> Kind regards,
->
-> Andrew
-> --
-> OpenPGP key: EB28 0338 28B7 19DA DAB0  B193 D21D 996E 883B E5B9
+--_000_7E9441B1E5EFFD4681F54958E82169934597DCA5ORSMSX114amrcor_--
