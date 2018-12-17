@@ -1,39 +1,46 @@
-Return-Path: <weiyongjun1@huawei.com>
+Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=huawei.com
- (client-ip=45.249.212.35; helo=huawei.com;
- envelope-from=weiyongjun1@huawei.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=huawei.com
-X-Greylist: delayed 945 seconds by postgrey-1.36 at bilbo;
- Mon, 17 Dec 2018 23:22:57 AEDT
-Received: from huawei.com (szxga07-in.huawei.com [45.249.212.35])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43JL0202qczDqlj;
- Mon, 17 Dec 2018 23:22:55 +1100 (AEDT)
-Received: from DGGEMS414-HUB.china.huawei.com (unknown [172.30.72.60])
- by Forcepoint Email with ESMTP id A332691D192D6;
- Mon, 17 Dec 2018 20:07:04 +0800 (CST)
-Received: from localhost.localdomain.localdomain (10.175.113.25) by
- DGGEMS414-HUB.china.huawei.com (10.3.19.214) with Microsoft SMTP Server id
- 14.3.408.0; Mon, 17 Dec 2018 20:06:55 +0800
-From: Wei Yongjun <weiyongjun1@huawei.com>
-To: Eddie James <eajames@linux.ibm.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
- <andrew@aj.id.au>
-CC: Wei Yongjun <weiyongjun1@huawei.com>, <linux-media@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <kernel-janitors@vger.kernel.org>
-Subject: [PATCH -next] media: platform: Fix missing spin_lock_init()
-Date: Mon, 17 Dec 2018 12:14:35 +0000
-Message-ID: <1545048875-157403-1-git-send-email-weiyongjun1@huawei.com>
-X-Mailer: git-send-email 1.8.3.1
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43JWvv6yhHzDqht;
+ Tue, 18 Dec 2018 06:50:03 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2018 11:50:01 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,366,1539673200"; d="scan'208";a="101389927"
+Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
+ by orsmga006.jf.intel.com with ESMTP; 17 Dec 2018 11:50:00 -0800
+Subject: Re: [Potential Spoof] Re: [PATCH 1/4] ARM: dts: aspeed: Add sensors
+ devices for Facebook
+To: Vijay Khemka <vijaykhemka@fb.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, Rob Herring <robh+dt@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>,
+ devicetree <devicetree@vger.kernel.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
+References: <E3F1FFD7-1C5A-43DE-BCA6-5B50EEEF577F@fb.com>
+From: James Feist <james.feist@linux.intel.com>
+Message-ID: <024aee07-0444-cdaf-d274-b07244aec7b2@linux.intel.com>
+Date: Mon, 17 Dec 2018 11:50:00 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-X-Originating-IP: [10.175.113.25]
-X-CFilter-Loop: Reflected
+In-Reply-To: <E3F1FFD7-1C5A-43DE-BCA6-5B50EEEF577F@fb.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,28 +52,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Dec 2018 12:22:58 -0000
+X-List-Received-Date: Mon, 17 Dec 2018 19:50:04 -0000
 
-The driver allocates the spinlock but not initialize it.
-Use spin_lock_init() on it to initialize it correctly.
+On 12/17/18 11:39 AM, Vijay Khemka wrote:
+> 
+> 
+> ﻿On 12/14/18, 12:42 PM, "Linux-aspeed on behalf of Vijay Khemka" <linux-aspeed-bounces+vijaykhemka=fb.com@lists.ozlabs.org on behalf of vijaykhemka@fb.com> wrote:
+> 
+>      
+>      
+>      On 12/14/18, 11:22 AM, "openbmc on behalf of Jae Hyun Yoo" <openbmc-bounces+vijaykhemka=fb.com@lists.ozlabs.org on behalf of jae.hyun.yoo@linux.intel.com> wrote:
+>      
+>          Hi Vijay,
+>          
+>          On 12/14/2018 10:11 AM, Vijay Khemka wrote:
+>          > On 12/13/18, 2:56 PM, "Joel Stanley" <joel@jms.id.au> wrote:
+>          
+>          <snip>
+>          
+>          >      > +               oemname0 = "MB_P3V3";
+>          >      > +               oemname1 = "MB_P5V";
+>          >      > +               oemname2 = "MB_P12V";
+>          >      > +               oemname3 = "MB_P1V05";
+>          >      > +               oemname4 = "MB_PVNN_PCH_STBY";
+>          >      > +               oemname5 = "MB_P3V3_STBY";
+>          >      > +               oemname6 = "MB_P5V_STBY";
+>          >
+>          >      "oemname" isn't part of the upstream bindings. Is this something you
+>          >      have patches for?
+>          > This is a workaround field used by dbus-sensors application to avoid overlay for dynamic detection of devices based on json file definition.
+>          >
+>          > Can you please also review other 3 patches in this series.
+>          >
+>          >
+>          
+>          These oemname settings should not be added into here. You can add these
+>          information into configuration of entity manager which uses overlay
+>          templates for dbus-sensors. Also, as Joel said, "oemname" isn't part of
+>          the upstream bindings.
+>      
+>      Overlay templates from entity manager is not working for fan and adc sensors that's why it is a workaround suggested by James Feist (Author of dbus-sensors).
+> 
+> @james.feist@linux.intel.com,
+> Please comment on above patch, please advise if I need to fix this.
 
-This is detected by Coccinelle semantic patch.
+Yes, this is a workaround. It should not be added to your device tree. 
+This has already been fixed for the fans, someone just needs to spend a 
+little bit of time to fix the ADCs then it won't be needed.
 
-Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
-Signed-off-by: Wei Yongjun <weiyongjun1@huawei.com>
----
- drivers/media/platform/aspeed-video.c | 1 +
- 1 file changed, 1 insertion(+)
+Thanks,
 
-diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index dfec813..692e08e 100644
---- a/drivers/media/platform/aspeed-video.c
-+++ b/drivers/media/platform/aspeed-video.c
-@@ -1661,6 +1661,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
- 
- 	video->frame_rate = 30;
- 	video->dev = &pdev->dev;
-+	spin_lock_init(&video->lock);
- 	mutex_init(&video->video_lock);
- 	init_waitqueue_head(&video->wait);
- 	INIT_DELAYED_WORK(&video->res_work, aspeed_video_resolution_work);
+James
+
+
+>          
+>          Cheers,
+>          Jae
+>          
+>      
+>      
+> 
