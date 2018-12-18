@@ -1,107 +1,61 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <SRS0=63Jp=O3=linuxfoundation.org=gregkh@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=srs0=63jp=o3=linuxfoundation.org=gregkh@kernel.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linuxfoundation.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="uUAZdgJz"; 
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="QPjz+9iG"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43K0vr4dNyzDqSP
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 01:36:40 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id E66EF418F9;
- Tue, 18 Dec 2018 14:36:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1545143795; x=
- 1546958196; bh=5QjR5m0Qo0GSTEzOZzYNIUFlftfy5+xYUkFv1jHfOoc=; b=u
- UAZdgJzsKwCZXT5uUIXnum9pCrh6xinf8bV6CRj2cSdWPEvu6Ca7/W+sB/FL/39E
- 1gf6ZrpWK01ivuc+3UXn+Da7ABPstwD87ED67nD1EAj3otMa9CQk+cJBm7qe/PIH
- uEVVviCrl441cWM1/JrLBos1jNBjmpF4QGTh+A8Ejc=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Holse5GNOwMO; Tue, 18 Dec 2018 17:36:35 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43K1jG4ZhKzDqQh;
+ Wed, 19 Dec 2018 02:12:34 +1100 (AEDT)
+Received: from localhost (5356596B.cm-6-7b.dynamic.ziggo.nl [83.86.89.107])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id C5E844120A;
- Tue, 18 Dec 2018 17:36:34 +0300 (MSK)
-Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 18
- Dec 2018 17:36:34 +0300
-Subject: Re: PLDM design proposal
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, Jeremy Kerr
- <jk@ozlabs.org>, Emily Shaffer <emilyshaffer@google.com>, Supreeth Venkatesh
- <Supreeth.Venkatesh@arm.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>,
- "Naidoo, Nilan" <nilan.naidoo@intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, <tomjose@linux.vnet.ibm.com>
-References: <1f371684-8db6-3a02-cefe-d073856599ab@linux.vnet.ibm.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <a918bd6d-b1cc-5062-cd20-828bba4ec1d0@yadro.com>
-Date: Tue, 18 Dec 2018 17:36:33 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.5.0
+ by mail.kernel.org (Postfix) with ESMTPSA id E1EC121871;
+ Tue, 18 Dec 2018 15:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1545145952;
+ bh=8Q4eZ8594DtSKWB2e+2mmCyVzsNilZD31iQ4WDodpxc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QPjz+9iGGOhxNQdjSkLMzgPocoibi5BIHhy1Z84bN4AJcyiNC4g2lJz3+xC42LuKF
+ zFtR0FA8SbiZsfzY1cRh5uWT9kDVc9GH0qT6ZJ0x1EuF1ESSnicdnIhghWfVWPsii1
+ uEW82Bug+Q8YAmH60lGSk41VmrGb5Tk6x2/PhSnM=
+Date: Tue, 18 Dec 2018 16:12:30 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, stable@vger.kernel.org,
+ Andrew Jeffery <andrew@aj.id.au>,
+ Andy Gross <andy.gross@linaro.org>, bp@alien8.de,
+ Daniel Drake <dsd@laptop.org>, David Brown <david.brown@linaro.org>,
+ dou_liyang@163.com, Ingo Molnar <mingo@redhat.com>,
+ "James E.J. Bottomley" <jejb@linux.vnet.ibm.com>,
+ Jens Frederich <jfrederich@gmail.com>, Lubomir Rintel <lkundrak@v3.sk>,
+ Mark Rutland <mark.rutland@arm.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Rob Clark <robdclark@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ Srinivas Kandagatla <srinivas.kandagatla@linaro.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, freedreno@lists.freedesktop.org,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-scsi@vger.kernel.org
+Subject: Re: [PATCH 0/7] v4.19-stable randconfig fixes
+Message-ID: <20181218151230.GA30844@kroah.com>
+References: <20181214221023.3878670-1-arnd@arndb.de>
+ <20181218002028.GX2746@sasha-vm>
 MIME-Version: 1.0
-In-Reply-To: <1f371684-8db6-3a02-cefe-d073856599ab@linux.vnet.ibm.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="3BbpoikUs3oXEIQ1ASTtrS7KuSXJSU6KZ"
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20181218002028.GX2746@sasha-vm>
+User-Agent: Mutt/1.11.1 (2018-12-01)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,74 +67,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Dec 2018 14:36:41 -0000
+X-List-Received-Date: Tue, 18 Dec 2018 15:12:35 -0000
 
---3BbpoikUs3oXEIQ1ASTtrS7KuSXJSU6KZ
-Content-Type: multipart/mixed; boundary="ZsoosgAukTHPuXjTHWNwh5yVU1umyYaHT";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>,
- Jeremy Kerr <jk@ozlabs.org>, Emily Shaffer <emilyshaffer@google.com>,
- Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- "Naidoo, Nilan" <nilan.naidoo@intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, tomjose@linux.vnet.ibm.com
-Message-ID: <a918bd6d-b1cc-5062-cd20-828bba4ec1d0@yadro.com>
-Subject: Re: PLDM design proposal
-References: <1f371684-8db6-3a02-cefe-d073856599ab@linux.vnet.ibm.com>
-In-Reply-To: <1f371684-8db6-3a02-cefe-d073856599ab@linux.vnet.ibm.com>
+On Mon, Dec 17, 2018 at 07:20:28PM -0500, Sasha Levin wrote:
+> On Fri, Dec 14, 2018 at 11:10:05PM +0100, Arnd Bergmann wrote:
+> > Hi Greg,
+> > 
+> > I did some randconfig testing on linux-4.19 arm/arm64/x86. So far I needed
+> > 27 patches, most of which are also still needed in mainline Linux. I
+> > had submitted some before, and others were not submitted previously
+> > for some reason. I'll try to get those fixed in mainline and then
+> > make sure we get them into 4.19 as well.
+> > 
+> > This series for now contains four patches that did make it into mainline:
+> > 
+> > 2e6ae11dd0d1 ("slimbus: ngd: mark PM functions as __maybe_unused")
+> > 33f49571d750 ("staging: olpc_dcon: add a missing dependency")
+> > 0eeec01488da ("scsi: raid_attrs: fix unused variable warning")
+> > 11d4afd4ff66 ("sched/pelt: Fix warning and clean up IRQ PELT config")
+> > 
+> > Feel free to either cherry-pick those from mainline or apply the
+> > patch from this series, whichever works best for you.
+> > 
+> > The other three patches are for warnings in code that got removed in
+> > mainline kernels:
+> > 
+> > 3e9efc3299dd ("i2c: aspeed: Handle master/slave combined irq events properly")
+> > 972910948fb6 ("ARM: dts: qcom: Remove Arrow SD600 eval board")
+> > effec874792f ("drm/msm/dpu: Remove dpu_dbg")
+> > 
+> > My feeling was that it's safer to just address the warning by fixing
+> > the code correctly in each of these cases, but if you disagree,
+> > applying the mainline change should work equally well, so decide
+> > for yourself.
+> 
+> Thanks Arnd, I took the series as is.
+> 
+> We really need to discuss how -stable deals with removed code upstream.
+> For some cases, we should probably follow suit and remove it from
+> -stable as well (I'm mostly thinking dodgy code with potential security
+> issues).
 
---ZsoosgAukTHPuXjTHWNwh5yVU1umyYaHT
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+It would be nice to do that at times (like lustre and ipx), but it's
+good to keep that code around as maybe someone is using it?  I don't
+know, it's a tough call...
 
-13.12.2018 19:30, Deepak Kodihalli wrote:
-> Hi All,
->
-> I've put down some thoughts below on an initial PLDM design on OpenBMC.=
- Thie structure of the document is based on the OpenBMC design template. =
-Please review and let me know your feedback. Once we've had a discussion =
-here on the list, I can move this to Gerrit with some more details. I'd s=
-ay reading the MCTP proposal from Jeremy should be a precursor to reading=
- this.
->
-> # PLDM Stack on OpenBMC
-Hi Deepak!
+thanks,
 
-Thank you for bringing this up.
-
-PLDM/MCTP look like a logical step in context of bringing in RedFish.
-
-Are there any ready Linux-based tools for inband management (similar to i=
-pmitool via /dev/ipmi0) for PLDM/MCTP?
-
-Alexander.
-
-
---ZsoosgAukTHPuXjTHWNwh5yVU1umyYaHT--
-
---3BbpoikUs3oXEIQ1ASTtrS7KuSXJSU6KZ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJcGQXxAAoJEOiTWHtbdBeNjikP/1E3BZdZVMlxp8G9RSPA0gyI
-+SQRYkWlSEM3LYZN9KLJaKIYa9+KpXP5ltlwuA9xUtMxtzA3aT5peXmgi0S4UaYo
-A32YHqhYRimQFKX2scV/JNxkCpY/WNpgsOqoyKwZ7ImVt5vB2ng02rkM/T4UqYP0
-g3m8w++ezZwsTqiMVeMuL1EZMHb3DYa0T/BSLEnVrh3GajqMOevy9dlrlZNlD2qU
-9bKdrT/8wrrHPXw7ppREWpeOsbJaz0LSDxJxxptWR90CPQVk6MJIwb/vl1Jncyq/
-ivP9bhh4apoKX+qoN9YJczcK+1kvd/kBBiKWYjSelbs09OoGFuFOR+4ayGWoT+Gw
-wAV8ioLcJEYMHjzAP4DsQz/gXJ+kiwIflX7JAT4tmThR4nAT9FYBfx8LLTGDRy0W
-2WbPmhmPSORm6uR/vXdtaPbLq4oCRMjNbUHUNN/+4PJ2LVkCkBAfR3PRVEger27+
-iQ84KOl8ChSoOjo7IMF3sazv1U98Ol6P0sG+ms8L8nwmJqZwmA78jt0U9D6bWu8U
-q78BJ5dIxuSZHRyTGpnC73B2qDBt6COPB041JbjGUKODoxXzsIE4mA9GWa4tYqPB
-A7Zc9SdoSaXb62UDdqeJHOmyBAkEfSn9gpLKAXJOMUJES8FztYOZuvxjTYQ6wQ/u
-IdTbSujrYL4oUZ03Jd4g
-=jVY+
------END PGP SIGNATURE-----
-
---3BbpoikUs3oXEIQ1ASTtrS7KuSXJSU6KZ--
+greg k-h
