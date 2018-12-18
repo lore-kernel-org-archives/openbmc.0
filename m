@@ -1,44 +1,53 @@
-Return-Path: <liuxiwei@inspur.com>
+Return-Path: <prvs=883397b27=P.K.Lee@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=210.51.26.145; helo=unicom145.biz-email.net;
- envelope-from=liuxiwei@inspur.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=883397b27=p.k.lee@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-X-Greylist: delayed 9804 seconds by postgrey-1.36 at bilbo;
- Tue, 18 Dec 2018 16:46:52 AEDT
-Received: from unicom145.biz-email.net (unicom145.biz-email.net
- [210.51.26.145])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Jn8X5B9fzDqT4
- for <openbmc@lists.ozlabs.org>; Tue, 18 Dec 2018 16:46:50 +1100 (AEDT)
-Received: from ([218.57.135.44])
- by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id IRM41135
- for <openbmc@lists.ozlabs.org>; Tue, 18 Dec 2018 13:46:35 +0800
-Received: from mail-lf1-f48.google.com (172.30.26.1) by
- jtjncas07.home.langchao.com (172.30.26.36) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Tue, 18 Dec 2018 13:46:34 +0800
-Received: by mail-lf1-f48.google.com with SMTP id z13so11275974lfe.11
- for <openbmc@lists.ozlabs.org>; Mon, 17 Dec 2018 21:46:34 -0800 (PST)
-X-Gm-Message-State: AA+aEWa7FwvYhXvnA6lGZijNS7cRy5GLdjTQKuMee1BkcthQ9XWzwCjs
- e/mptcp6aB5qdAF187rtagOQTeB5Bqbl6lI+QCg=
-X-Google-Smtp-Source: AFSGD/WvY+bMXYZDARBt4Py24+QWa9qL+aJScwd3X8+iCUnovnNu3xtsy/Ws78HmUaxBjm7AjwVI84jStKC4vVeDBsY=
-X-Received: by 2002:ac2:50c4:: with SMTP id h4mr7375526lfm.81.1545111984878;
- Mon, 17 Dec 2018 21:46:24 -0800 (PST)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 43Jqj316MFzDqPv
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Dec 2018 18:41:38 +1100 (AEDT)
+Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
+ by mx01.quantatw.com with ESMTP; 18 Dec 2018 15:41:35 +0800
+Received: from mailbx07.quanta.corp (10.243.91.102) by mailbx07.quanta.corp
+ (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Tue, 18 Dec
+ 2018 15:41:34 +0800
+Received: from mailbx07.quanta.corp ([fe80::457c:729c:24f0:9cae]) by
+ mailbx07.quanta.corp ([fe80::457c:729c:24f0:9cae%4]) with mapi id
+ 15.01.1531.004; Tue, 18 Dec 2018 15:41:34 +0800
+From: =?utf-8?B?UC4gSy4gTGVlICjmnY7mn4/lr6wp?= <P.K.Lee@quantatw.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+CC: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: The ipmid failed to start
+Thread-Topic: The ipmid failed to start
+Thread-Index: AQHUkD1FF3DhUhisVkiswR9jpWDOF6V4LDeAgAt3ZAA=
+Date: Tue, 18 Dec 2018 07:41:34 +0000
+Message-ID: <0511DD97-2899-49A0-9C36-839B29C2D809@quantatw.com>
+References: <16DD5F49-0911-4513-B01B-B8B8BAADFFAB@quantatw.com>
+ <1544488523.3308636.1605248144.073FF1F1@webmail.messagingengine.com>
+In-Reply-To: <1544488523.3308636.1605248144.073FF1F1@webmail.messagingengine.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.100.1062-23468.000
+x-tm-as-result: No--30.043300-0.000000-31
+x-tm-as-matchedid: 140026-150567-701625-704425-700685-700107-702020-704102-7
+ 03435-106420-139010-851218-700075-863277-705861-705178-701253-139504-708752
+ -701298-703747-703096-709584-105700-703378-862883-703088-709908-700767-7074
+ 10-704171-863299-704049-701446-707259-703788-700476-703428-702050-704980-70
+ 2228-700726-701583-703330-701604-700756-700700-700387-709185-700581-700752-
+ 863828-710019-701860-704421-700970-700401-148004-148133-20043-42000-42003
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <FCDAA42CA7C72648A6D5594B78D7F3A0@quantatw.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <4E117ED9-B492-4197-A66F-45949E3D7178@fb.com>
-In-Reply-To: <4E117ED9-B492-4197-A66F-45949E3D7178@fb.com>
-From: =?UTF-8?B?R2VvcmdlIExpdSjliJjplKHkvJ8p?= <liuxiwei@inspur.com>
-Date: Tue, 18 Dec 2018 13:46:13 +0800
-X-Gmail-Original-Message-ID: <CAHkHK09SisQ0s765c1DOV7Pe8NMOKw-UM+xe8dYdt5BWA-O9vQ@mail.gmail.com>
-Message-ID: <CAHkHK09SisQ0s765c1DOV7Pe8NMOKw-UM+xe8dYdt5BWA-O9vQ@mail.gmail.com>
-Subject: Re: Fan speed control
-To: Vijay Khemka <vijaykhemka@fb.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [172.30.26.1]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,29 +59,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Dec 2018 05:46:54 -0000
+X-List-Received-Date: Tue, 18 Dec 2018 07:41:44 -0000
 
-Hi Vijay
-
-I am also learning about the fan configuration part of openbmc
-There is a draft https://github.com/lxwinspur/openbmc-doc.
-I hope it can be useful for you
-
-Regards
-
--George
-
-On Tue, Dec 18, 2018 at 7:55 AM Vijay Khemka <vijaykhemka@fb.com> wrote:
->
-> Team,
->
-> I am looking for =E2=80=9Cfan speed control=E2=80=9D feature to enable fo=
-r Tiogapass. I understand that there are many approaches for this. Please p=
-oint me to all implementation and any details about each approach, may be s=
-ome pros and cons.
->
->
->
-> Regards
->
-> -Vijay
+SGkgQW5kcmV3LA0KDQpUaGFua3MgZm9yIHlvdXIgZXhwbGFuYXRpb25zIGluIGRldGFpbHMuDQoN
+ClRoZSBjdXJyZW50IHNpdHVhdGlvbiBvZiBzdGFydGluZyBLQ1M6DQogICAgc3lzdGVtZFsxXTog
+cGhvc3Bob3ItaXBtaS1ob3N0LnNlcnZpY2U6IEZvdW5kIG9yZGVyaW5nIGN5Y2xlIG9uIG9yZy5v
+cGVuYm1jLkhvc3RJcG1pLnNlcnZpY2Uvc3RhcnQNCiAgICBzeXN0ZW1kWzFdOiBwaG9zcGhvci1p
+cG1pLWhvc3Quc2VydmljZTogRm91bmQgZGVwZW5kZW5jeSBvbiBwaG9zcGhvci1pcG1pLWhvc3Qu
+c2VydmljZS9zdGFydA0KICAgIHN5c3RlbWRbMV06IHBob3NwaG9yLWlwbWktaG9zdC5zZXJ2aWNl
+OiBKb2Igb3JnLm9wZW5ibWMuSG9zdElwbWkuc2VydmljZS9zdGFydCBkZWxldGVkIHRvIGJyZWFr
+IG9yZGVyaW5nIGN5Y2xlIHN0YXJ0aW5nIHdpdGggcGhvc3Bob3ItaXBtaS1ob3N0LnNlcnZpY2Uv
+c3RhcnQNCg0KSSB3aWxsIGZpcnN0IHJlbW92ZSBBZnRlcj1waG9zcGhvci1pcG1pLWhvc3Quc2Vy
+dmljZSBpbiBvcmcub3BlbmJtYy5Ib3N0SXBtaS5zZXJ2aWNlIG9mIHBob3NwaG9yLWlwbWkta2Nz
+IGxpa2UgQlQuDQoNClRoYW5rcywNCg0KUC4gSy4gTGVlDQoNCj4gT24gRGVjIDExLCAyMDE4LCBh
+dCAwODozNSwgQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4gd3JvdGU6DQo+IA0KPiBI
+ZWxsbywNCj4gDQo+IE9uIE1vbiwgMTAgRGVjIDIwMTgsIGF0IDE0OjMzLCBQLiBLLiBMZWUgKOad
+juafj+WvrCkgd3JvdGU6DQo+PiBIaSBCcmFkLA0KPj4gDQo+PiBJIHNhdyB0aGUgaXNzdWUsIHdo
+aWNoIGlzICJyZWNpcGVzLXBob3NwaG9yOiBGaXggc3lzdGVtZCB1bml0IA0KPj4gZGVwZW5kZW5j
+ZXMgb2YgaXBtaWQsIG1ib3hkIiBhcHBlbmRpbmcgDQo+PiAiUmVxdWlyZXM9b3JnLm9wZW5ibWMu
+SG9zdElwbWkuc2VydmljZSIgYW5kIA0KPj4gIkFmdGVvcmcub3BlbmJtYy5Ib3N0SXBtaS5zZXJ2
+aWNlIiwgeW91IG1lcmdlZCBvbiBOb3YgMjkuDQo+PiANCj4+IEFmdGVyIHRoYXQsIHRoZSBpcG1p
+ZCBmYWlsZWQgdG8gc3RhcnQuDQo+PiANCj4+IEJlY2F1c2UgdGhlIGZpbGUgbWV0YS1waG9zcGhv
+ci9yZWNpcGVzLXBob3NwaG9yL2lwbWkvcGhvc3Bob3ItaXBtaS1rY3MvDQo+PiBvcmcub3BlbmJt
+Yy5Ib3N0SXBtaS5zZXJ2aWNlIGFscmVhZHkgaW5jbHVkZWQgIkFmdGVyPXBob3NwaG9yLWlwbWkt
+DQo+PiBob3N0LnNlcnZpY2UiIGJlZm9yZSwgaXQgY2F1c2VkIHR3byBzZXJ2aWNlcyB3YWl0aW5n
+IGZvciBlYWNoIG90aGVyLg0KPiANCj4gQWgsIEtDUy4gVGhpcyBpcyB3aHkgSSBkaWRuJ3QgaGl0
+IHRoZSBwcm9ibGVtIGluIG15IHRlc3RpbmcuDQo+IA0KPj4gDQo+PiBJZiB0aGUgIlJlcXVpcmVz
+PW9yZy5vcGVuYm1jLkhvc3RJcG1pLnNlcnZpY2UiIGFuZCANCj4+ICJBZnRlb3JnLm9wZW5ibWMu
+SG9zdElwbWkuc2VydmljZSIgYXJlIHJlbW92ZWQgaW4gdGhlIG1ldGEtcGhvc3Bob3IvDQo+PiBy
+ZWNpcGVzLXBob3NwaG9yL2lwbWkvcGhvc3Bob3ItaXBtaS1ob3N0L3Bob3NwaG9yLWlwbWktaG9z
+dC5zZXJ2aWNlIG9yIA0KPj4gdGhlICJBZnRlcj1waG9zcGhvci1pcG1pLWhvc3Quc2VydmljZSIg
+aXMgcmVtb3ZlZCBpbiB0aGUgbWV0YS1waG9zcGhvci8NCj4+IHJlY2lwZXMtcGhvc3Bob3IvaXBt
+aS9waG9zcGhvci1pcG1pLWtjcy9vcmcub3BlbmJtYy5Ib3N0SXBtaS5zZXJ2aWNlLCANCj4+IHRo
+ZSBpcG1pZCB3aWxsIHN0YXJ0IG5vcm1hbGx5Lg0KPj4gDQo+PiBJIHdvbmRlciBpZiB0aGVyZSBp
+cyBhIGJldHRlciB3YXkgdG8gZ28gYWJvdXQgaXQuDQo+IA0KPiBJdCdzIGEgYml0IGRpY2V5LiBT
+b21ldGhpbmcgdG8gY29uc2lkZXIgaGVyZSBpcyB0aGF0IHN5c3RlbWQgZG9lcyBpdCdzIHRlYXIt
+ZG93biBpbiBzdGFjay1vcmRlciB3aXRoIHJlc3BlY3QgdG8gdGhlIEJlZm9yZT0vQWZ0ZXI9IHJl
+bGF0aW9uc2hpcHMgZGVmaW5lZCBpbiB0aGUgc2VydmljZSBmaWxlcy4gV2l0aCBvcmcub3BlbmJt
+Yy5Ib3N0SXBtaS5zZXJ2aWNlIGhhdmluZyBhbiBBZnRlcj0gcmVsYXRpb25zaGlwIHdpdGggcGhv
+c3Bob3ItaXBtaS1ob3N0LnNlcnZpY2UgaXQgaXMgdG9ybiBkb3duIGJlZm9yZSBwaG9zcGhvci1p
+cG1pLWhvc3QuIFRoaXMgaW1wYWN0cyBwcm9jZXNzZXMgdGhhdCB3YW50IHRvIHNlbmQgZXZlbnRz
+IHRvIHRoZSBob3N0IGR1cmluZyB0aGUgQk1DIHNodXRkb3duIHBhdGg6IFRoZXNlIGFwcGxpY2F0
+aW9ucyBuZWVkIHRvIGRlcGVuZCBvbiBwaG9zcGhvci1pcG1pLWhvc3QgdG8gYWNjZXNzIGl0cyBB
+UElzLCBhbmQgaXQncyBhIGxheWVyaW5nIHZpb2xhdGlvbiBmb3IgdGhlIGFwcGxpY2F0aW9ucyB0
+byBhbHNvIGRlcGVuZCBvbiB0aGUgdHJhbnNwb3J0IHRoYXQgcGhvc3Bob3ItaXBtaS1ob3N0IGlz
+IHVzaW5nIChLQ1MsIEJUIGV0YykuIEluIG9yZGVyIHRvIHByb3BhZ2F0ZSB0aGUgZXZlbnQgdG8g
+dGhlIGhvc3QsIHBob3NwaG9yLWlwbWktaG9zdCBuZWVkcyBpdHMgdHJhbnNwb3J0LCBhbmQgdGhl
+cmVmb3JlIG11c3QgaGF2ZSBhbiBBZnRlcj0gcmVsYXRpb25zaGlwIHdpdGggdGhlIHRyYW5zcG9y
+dCBwcm9jZXNzIGR1ZSB0byBzeXN0ZW1kJ3Mgc3RhY2sgb3JkZXJpbmcgb24gdGVhci1kb3duLg0K
+PiANCj4gSGF2aW5nIHNhaWQgdGhhdCwgcmVxdWlyaW5nIHRoYXQgQWZ0ZXI9IHJlbGF0aW9uc2hp
+cCBtZWFucyB0aGF0IHBob3NwaG9yLWlwbWktaG9zdC5zZXJ2aWNlIGlzIHN0YXJ0ZWQgYWZ0ZXIg
+b3JnLm9wZW5ibWMuSG9zdElwbWkuc2VydmljZSwgd2hpY2ggbWVhbnMgbWVzc2FnZXMgdGhhdCBh
+cnJpdmUgaW4gdGhlIHBlcmlvZCBiZXR3ZWVuIHRoZSB0d28gc3RhcnRpbmcgbWF5IGdldCBsb3N0
+LiBJIHRoaW5rIGl0J3Mgd29ydGgga2VlcGluZyBpbiBtaW5kIHRoYXQgb3JnLm9wZW5ibWMuSG9z
+dElwbWkgc2ltcGx5IGVtaXRzIGEgc2lnbmFsIHdoZW4gYSBtZXNzYWdlIGlzIHJlY2VpdmVkLCBh
+bmQgdGhpcyBwcm92aWRlcyBubyBndWFyYW50ZWUgb2YgYW55b25lIGFjdHVhbGx5IGNhcmluZy4g
+VGhpcyBpcyBpbiBjb250cmFzdCB0byBzZW5kaW5nIGV2ZW50cyB0aGUgb3RoZXIgd2F5LCB3aGVy
+ZSBvcmcub3BlbmJtYy5Ib3N0SXBtaSdzIGludGVyZmFjZSBwcm92aWRlcyBhIERCdXMgbWV0aG9k
+LCB3aGljaCBndWFyYW50ZWVzIHNvbWVvbmUgY2FyZXMgb3IgdGhlIGNhbGxlciByZWNlaXZlcyBh
+biBlcnJvci4gVGhpcyBkZXNpZ24gZml0cyB0aGUgQWZ0ZXI9IHJlbGF0aW9uc2hpcCB0aGF0IEkg
+bWFkZSBwaG9zcGhvci1pcG1pLWhvc3QgaGF2ZSBvbiBvcmcub3BlbmJtYy5Ib3N0SXBtaS5zZXJ2
+aWNlLCBzbyBJJ2Qgc3VnZ2VzdCBpdCdzIHdvcnRoIGNoYW5naW5nIHRoZSByZWxhdGlvbnNoaXAg
+Zm9yIHRoZSBLQ1MgaW1wbGVtZW50YXRpb24gYXMgd2VsbC4NCj4gDQo+IEhvd2V2ZXIsIG1heWJl
+IHRoYXQncyBhIGRlY2lzaW9uIHRvIGJlIG1hZGUgcGVyLXBsYXRmb3JtIHJhdGhlciB0aGFuIGdl
+bmVyYWxseS4gSSBndWVzcyB0aGUgdW5pdCBmaWxlcyBjYW4gYmUgb3ZlcnJpZGRlbiBpbiB0aGUg
+cGFja2FnaW5nIGlmIHRoaXMgaXMgYSBjb25jZXJuPw0KPiANCj4+IA0KPj4gQnkgdGhlIHdheSwg
+YWZ0ZXIgSSBwdXNoZWQgdGhlIGNvZGUgdG8gdGhlIEdlcnJpdCwgIkplbmtpbnMgUGF0Y2ggU2V0
+IDE6IA0KPj4gVXNlciBub3QgYXBwcm92ZWQsIHNlZSBhZG1pbiwgbm8gQ0kiIGl0IHNob3dlZC4g
+SG93IGNhbiBJIHNvbHZlIHRoaXMgDQo+PiBwcm9ibGVtPw0KPiANCj4gWW91IG5lZWQgdG8gY29u
+dmluY2Ugc29tZW9uZSB0aGF0IHlvdXIgcGF0Y2ggaXNuJ3QgZ29pbmcgdG8gZXhwbG9pdCBvdXIg
+Q0kgaW5mcmFzdHJ1Y3R1cmUgOikgT25jZSB5b3UndmUgZWFybmVkIHNvbWUgdHJ1c3QgaW4gdGhl
+IGNvbW11bml0eSB3aXRoIHlvdXIgY29udHJpYnV0aW9ucyBnZW5lcmFsbHkgc29tZW9uZSB3aWxs
+IGFkZCB5b3UgdG8gdGhlIGxpc3QgdGhhdCBhbGxvd3MgQ0kgdG8gdGVzdCB5b3VyIHBhdGNoZXMg
+c3RyYWlnaHQgYXdheS4NCj4gDQo+IENoZWVycywNCj4gDQo+IEFuZHJldw0KPiANCj4+IA0KPj4g
+U2luY2VyZWx5LA0KPj4gUC4gSy4gTGVlDQoNCg==
