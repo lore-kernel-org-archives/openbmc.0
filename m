@@ -1,52 +1,61 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::335; helo=mail-ot1-x335.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=2607:f8b0:4864:20::12a; helo=mail-it1-x12a.google.com;
+ envelope-from=ross.burton@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hvd8hnSM"; 
+ unprotected) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="MXpyyxS8"; 
  dkim-atps=neutral
-Received: from mail-ot1-x335.google.com (mail-ot1-x335.google.com
- [IPv6:2607:f8b0:4864:20::335])
+Received: from mail-it1-x12a.google.com (mail-it1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43KTwk3Cr7zDqv5
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 20:24:05 +1100 (AEDT)
-Received: by mail-ot1-x335.google.com with SMTP id i20so18528525otl.0
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 01:24:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=oot6eAMzmdPfslofgdS0kmTI09LYPao8IvVjUxim6LU=;
- b=Hvd8hnSMe1zHTsjDIAPg5eI242BG+dRzYYmJcTIWEvT3tzvKwB06VKnIJacbY7R/BF
- IFfZcgZkQQp9D1LfePiWjIQfIiDrq/NRT6ib0ERX22xAdEmmUHArvO1ZdrrbnArpDZHG
- FhmrFbREDAhAr7F6xQUOyHTkoyg2lwSvKbrqRFDF0UNg6yDPYl2u6x7tAFZyucDqHAAK
- yASsg21emAXnzsngUvo4nVF+8UAwQymSbLYBfrOBO8qGsUpKBw+quiTa7hcs+5J6gfWm
- VzIL4FleyozeQmtO2z/TV0n09Et/atH/rFE8hiBtDt27Z5BW9GHm8wrVxPzY/h9UfAWy
- QJ2g==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43KVlX4mjdzDqQs
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 21:01:08 +1100 (AEDT)
+Received: by mail-it1-x12a.google.com with SMTP id m62so8763657ith.5
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 02:01:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=9SnGzxp1nTLaWm7Cn5ULLf/Izfms0GJdJ05c5jbohfw=;
+ b=MXpyyxS86iEyhBPWvuANAN3brmV04YdM/9xaz/YP4NGzBCmRvr+qiB0not7J1Z39xI
+ HpJHYMQ+OX0V52CY3TWp9VGQU7/397XQZKxak4seWZ5YCpvI0cMbo9WiHU3GQ1L3Qb5d
+ He60/5Hzyg0yMFX9JhEZpU5CMCaZmg8ZPsUGuzUllINx8T17oicAcCXRVqsXSs727JqG
+ 0CbrQkyV4KnikW3Hrs72iDzRScMde1TEIlwsYBJHsiNJSPMgJsLFOVn8MQEs86iPVh0m
+ nHKhGCIEBEUeCPQvIByO0QqvfD4fh/dBUnOm6qCijCvAtveJFPvbvTuhWUch4Fnd5RV6
+ mlRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=oot6eAMzmdPfslofgdS0kmTI09LYPao8IvVjUxim6LU=;
- b=JtdRa0pqMHx1WplCaAi/L0TXOqlFiRFbKShTHOMD18pk0XPkRYmmVIvkz65SUCYo8V
- JQpWv7ZLqQxY19mNEm3osYw4TP+ZzP7l4oFc9UmP9QwS48cYeGc4O+jOMTEAvYgFIdUt
- PwQhBDDqJmRx7kUzHy5bEqjWGO89RCbNtDlY2DfWlOn0QxQT8trrCCxvH5cdZp+j2AoM
- z2WVNXJnog3TIpa4W8b3Rs26O0L4qnmWGVpGNqG1PU5rcluDdYUSBOGStm9filfE1zrD
- T3cOlgd7Hlghg0wHciPAZkM5iee2utu4WtvMJR+pInrQ/SsSQYVQPskQqWVoPiyzNudl
- 8F+Q==
-X-Gm-Message-State: AA+aEWZhBR55zbMfaOh6TN4yPw23Zl3ytmj581zLgKLvbRtOBbWNas3D
- 5DjXF7yyhKlyaDav8FvpbXxTHBfxoExqegHUiOuVy0odY4g=
-X-Google-Smtp-Source: AFSGD/XLbk4xgKFsVSxH7fjXClvS0IGJVZlX6Vqb8UMUhvlawLhM/TapzP3sBg+tayp+gIBv4xYIA7WNB61uSiiCF0E=
-X-Received: by 2002:a9d:2624:: with SMTP id a33mr15225813otb.186.1545211093783; 
- Wed, 19 Dec 2018 01:18:13 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=9SnGzxp1nTLaWm7Cn5ULLf/Izfms0GJdJ05c5jbohfw=;
+ b=HLEjAUN/hlDcHiGq2qinmC0pMfMmSBTHUFL/lHpGEa7XuqsR+A8x8L/ZXr+ym7XdbH
+ aX1bpNisU5r09kcvcSp7d0Vgn9tFMDpT1SH8oDxPk7dg5wnA034jC2brIzSXCDQ+GqBz
+ 0atxMxTSm4wIxJH2higRGTEfRD/nwSHLQjzPz30epoLw7lANAnWB2dvfZoRz9IQhj5RK
+ +qWMTco9QaR5zhujRNZ/rBVdv9U59RF+NWoUrQTUVpJaioC9qKkNI+F58/c/1XvWYQlR
+ z6+AQqIiflZ0WNgsc7Dr9ZJ1dWdGsXv5pexhxsBHaqkRT83Gh3iWzyp02stQ93OOKoxj
+ enMw==
+X-Gm-Message-State: AA+aEWaUEoa+oPC5GW50b+XYhvB6I81ivERgEMYrCU/JA1MDFp43mrUC
+ pKqRBX2SA208gZifbERlP1MAMLOV2etQuIh+BtnUFA==
+X-Google-Smtp-Source: AFSGD/VfsHmOkCEHsKtvBA89QhkGaftVxo7qf5rjfHmEhNakORRuxDqz7pyXY2+yEpcb3WRyNFGdZMYy1L7yf2/ja1g=
+X-Received: by 2002:a24:1d4a:: with SMTP id 71mr5537134itj.62.1545213666613;
+ Wed, 19 Dec 2018 02:01:06 -0800 (PST)
 MIME-Version: 1.0
-From: AKASH G J <akashgj91@gmail.com>
-Date: Wed, 19 Dec 2018 14:48:05 +0530
-Message-ID: <CAE33tLEzzm+8UzpA2GCwic3Doxq3yhu4Jc-OCcnC56SV8VKp3g@mail.gmail.com>
-Subject: Get Device ID command failed: 0xc1 Invalid command
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000591722057d5c7e4d"
+References: <e0464c53-3d11-884c-75bd-1e78aed97ded@linux.intel.com>
+ <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
+ <CAJTo0LayfGOMkwFrLStd9_93fBBG8ZH4b806T5CCo=A1nbTCWg@mail.gmail.com>
+In-Reply-To: <CAJTo0LayfGOMkwFrLStd9_93fBBG8ZH4b806T5CCo=A1nbTCWg@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Wed, 19 Dec 2018 10:00:54 +0000
+Message-ID: <CAJTo0LY=EtEJpniVngfbkxbg3ibnEY9qvR18kOSpjFejh_tomA@mail.gmail.com>
+Subject: Re: [OE-core] flto automake
+To: Bradley Bishop <bradleyb@fuzziesquirrel.com>
+Cc: james.feist@linux.intel.com, OpenBMC <openbmc@lists.ozlabs.org>, 
+ OE-core <openembedded-core@lists.openembedded.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,28 +67,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Dec 2018 09:24:07 -0000
+X-List-Received-Date: Wed, 19 Dec 2018 10:01:14 -0000
 
---000000000000591722057d5c7e4d
-Content-Type: text/plain; charset="UTF-8"
+On Wed, 19 Dec 2018 at 01:07, Burton, Ross <ross.burton@intel.com> wrote:
 
-Hi Team,
+> That however leads to the question of should we just change the
+> defaults? Does anything break if we use gcc-ar instead of ar?
 
-While trying to execute commands using ipmitool, I am getting the following
-error.
+Answer: yes.
 
-*Get Device ID command failed: 0xc1 Invalid command*
+| x86_64-poky-linux-gcc-ar  rc libgcov.a $objects
+| x86_64-poky-linux-gcc-ar: Cannot find plugin 'liblto_plugin.so'
+| Makefile:932: recipe for target 'libgcov.a' failed
+ERROR: Task (/home/ross/Yocto/poky/meta/recipes-devtools/gcc/libgcc-initial_8.2.bb:do_compile)
+failed with exit code '1'
 
-Please someone help to resolve the problem.
+I don't know enough about gcc...
 
---000000000000591722057d5c7e4d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Hi Team,</div><div><br></div><div>Wh=
-ile trying to execute commands using ipmitool, I am getting the following e=
-rror.</div><div><br></div><div><b>Get Device ID command failed: 0xc1 Invali=
-d command</b></div><div><br></div><div>Please someone help to resolve the p=
-roblem.<b></b><br> </div></div></div>
-
---000000000000591722057d5c7e4d--
+Ross
