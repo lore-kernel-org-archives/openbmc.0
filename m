@@ -1,62 +1,66 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <richard.purdie@linuxfoundation.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
+ (client-ip=2a00:1450:4864:20::32d; helo=mail-wm1-x32d.google.com;
+ envelope-from=richard.purdie@linuxfoundation.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=linuxfoundation.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org
+ header.b="Knar14h3"; dkim-atps=neutral
+Received: from mail-wm1-x32d.google.com (mail-wm1-x32d.google.com
+ [IPv6:2a00:1450:4864:20::32d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43K9Wl0pKtzDqB7
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 08:04:50 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Dec 2018 13:04:49 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,370,1539673200"; d="scan'208";a="131061946"
-Received: from maru.jf.intel.com ([10.54.51.77])
- by fmsmga001.fm.intel.com with ESMTP; 18 Dec 2018 13:04:48 -0800
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- "Darrick J . Wong" <darrick.wong@oracle.com>,
- Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
- "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
- Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>,
- David Kershner <david.kershner@unisys.com>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Linus Walleij <linus.walleij@linaro.org>,
- Jason M Biils <jason.m.bills@linux.intel.com>
-Subject: [PATCH v9 12/12] Add maintainers for the PECI subsystem
-Date: Tue, 18 Dec 2018 13:04:17 -0800
-Message-Id: <20181218210417.30140-13-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.19.1
-In-Reply-To: <20181218210417.30140-1-jae.hyun.yoo@linux.intel.com>
-References: <20181218210417.30140-1-jae.hyun.yoo@linux.intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43KWhr0nsPzDqt3
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 21:43:51 +1100 (AEDT)
+Received: by mail-wm1-x32d.google.com with SMTP id c126so5865674wmh.0
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 02:43:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linuxfoundation.org; s=google;
+ h=message-id:subject:from:to:cc:date:in-reply-to:references
+ :user-agent:mime-version:content-transfer-encoding;
+ bh=ir31SjGTEI4n34T3LBevgn7zXFu9sdBeW22PbqUhf0s=;
+ b=Knar14h30SbFSYAwQTauhDYZD/Z49nmw2rv0R8NDzl4fiJP8I3M0bJudE4iNpfSv8r
+ 6Z7O4BxX4wz4sWj9K+OYfVuPCE4ipTvi9AuAp/TqdvHBqi795ETtB/t5HEwntc0VgTrk
+ yNmT8pMToYroIdvW47OYubW1zgmdPyunAaVDU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:message-id:subject:from:to:cc:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=ir31SjGTEI4n34T3LBevgn7zXFu9sdBeW22PbqUhf0s=;
+ b=NUYwLvdG6fckFtk/UXzpCNGVadv2o2PHN8dHB4y3E6rcqDmbNqpJA3XB6T8M5W/58V
+ XLBZXLqxeD3vxQuODtQtSVPGHqPVgfqkbh7HxHk8h8qKsSiUoYkHHMMMYzTpVXVZx59N
+ vdwTxiu546jUPAiQkSZ8SgH4O4iTLSfkTkivzm+oHkpJG9j89UG012irRTSy8YDqV9pn
+ BRL4tWyXvTqeXvZBnQ9ytzluOzJ9GhmaTAFNd0HeZBHUF1Kl/6uTfVdCVKhr+JNGNdDm
+ SjWp0aFMcJqmIy+GH4fRdwoSnJhzZ10l/bQ0CmWctyChNJaTIc7dCht7aJUFgWqvuM0o
+ h3iw==
+X-Gm-Message-State: AA+aEWYWCk9HCVI3oMAy6w5glsoezPfGb2Jlf0CA2us3Dkc8LVTYbFXT
+ 9auLTJLnlAK3C8Oo3UhbF9va6g==
+X-Google-Smtp-Source: AFSGD/W1/d9KsT8MN4/3efW9TIdTLqn0xn85bgmGB6wDM2leNOjKQmqg4X9iZInLgTjryV2ccgY5kg==
+X-Received: by 2002:a1c:8c05:: with SMTP id o5mr6283778wmd.29.1545216228507;
+ Wed, 19 Dec 2018 02:43:48 -0800 (PST)
+Received: from hex (5751f4a1.skybroadband.com. [87.81.244.161])
+ by smtp.gmail.com with ESMTPSA id w125sm5006025wmb.45.2018.12.19.02.43.47
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 19 Dec 2018 02:43:47 -0800 (PST)
+Message-ID: <62200bb7528e2f863ca074790a7407fc7c73630d.camel@linuxfoundation.org>
+Subject: Re: [OE-core] flto automake
+From: Richard Purdie <richard.purdie@linuxfoundation.org>
+To: "Burton, Ross" <ross.burton@intel.com>, Bradley Bishop
+ <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC <openbmc@lists.ozlabs.org>, james.feist@linux.intel.com, OE-core
+ <openembedded-core@lists.openembedded.org>
+Date: Wed, 19 Dec 2018 10:43:46 +0000
+In-Reply-To: <CAJTo0LY=EtEJpniVngfbkxbg3ibnEY9qvR18kOSpjFejh_tomA@mail.gmail.com>
+References: <e0464c53-3d11-884c-75bd-1e78aed97ded@linux.intel.com>
+ <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
+ <CAJTo0LayfGOMkwFrLStd9_93fBBG8ZH4b806T5CCo=A1nbTCWg@mail.gmail.com>
+ <CAJTo0LY=EtEJpniVngfbkxbg3ibnEY9qvR18kOSpjFejh_tomA@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.2-1 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 02 Jan 2019 10:25:34 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,61 +73,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Dec 2018 21:04:51 -0000
+X-List-Received-Date: Wed, 19 Dec 2018 10:43:57 -0000
 
-This commit adds maintainer information for the PECI subsystem.
+On Wed, 2018-12-19 at 10:00 +0000, Burton, Ross wrote:
+> On Wed, 19 Dec 2018 at 01:07, Burton, Ross <ross.burton@intel.com>
+> wrote:
+> 
+> > That however leads to the question of should we just change the
+> > defaults? Does anything break if we use gcc-ar instead of ar?
+> 
+> Answer: yes.
+> 
+> > x86_64-poky-linux-gcc-ar  rc libgcov.a $objects
+> > x86_64-poky-linux-gcc-ar: Cannot find plugin 'liblto_plugin.so'
+> > Makefile:932: recipe for target 'libgcov.a' failed
+> ERROR: Task (/home/ross/Yocto/poky/meta/recipes-devtools/gcc/libgcc-
+> initial_8.2.bb:do_compile)
+> failed with exit code '1'
+> 
+> I don't know enough about gcc...
 
-Cc: David S. Miller <davem@davemloft.net>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>
-Cc: Randy Dunlap <rdunlap@infradead.org>
-Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
----
- MAINTAINERS | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+The -initial compiler doesn't have lto compiled into it so you probably
+need to use binutils ar for that part of the bootstrap.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3318f30903b2..ffdf17cbf5f6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1356,6 +1356,14 @@ F:	arch/arm/mach-aspeed/
- F:	arch/arm/boot/dts/aspeed-*
- N:	aspeed
- 
-+ARM/ASPEED PECI DRIVER
-+M:	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-+M:	Jason M Biils <jason.m.bills@linux.intel.com>
-+L:	linux-aspeed@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/peci/peci-aspeed.txt
-+F:	drivers/peci/peci-aspeed.c
-+
- ARM/CALXEDA HIGHBANK ARCHITECTURE
- M:	Rob Herring <robh@kernel.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-@@ -11712,6 +11720,20 @@ L:	platform-driver-x86@vger.kernel.org
- S:	Maintained
- F:	drivers/platform/x86/peaq-wmi.c
- 
-+PECI SUBSYSTEM
-+M:	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-+M:	Jason M Biils <jason.m.bills@linux.intel.com>
-+L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/peci/
-+F:	drivers/mfd/intel-peci-client.c
-+F:	drivers/peci/
-+F:	drivers/hwmon/peci-*.c
-+F:	drivers/hwmon/peci-hwmon.h
-+F:	include/linux/mfd/intel-peci-client.h
-+F:	include/linux/peci.h
-+F:	include/uapi/linux/peci-ioctl.h
-+
- PER-CPU MEMORY ALLOCATOR
- M:	Dennis Zhou <dennis@kernel.org>
- M:	Tejun Heo <tj@kernel.org>
--- 
-2.19.1
+Cheers,
+
+Richard
