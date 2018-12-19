@@ -1,71 +1,54 @@
-Return-Path: <shrchand@cisco.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=cisco.com
- (client-ip=173.37.86.77; helo=rcdn-iport-6.cisco.com;
- envelope-from=shrchand@cisco.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none)
- header.from=cisco.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=cisco.com header.i=@cisco.com header.b="dk4aJP0y"; 
- dkim-atps=neutral
-X-Greylist: delayed 722 seconds by postgrey-1.36 at bilbo;
- Thu, 20 Dec 2018 06:09:24 AEDT
-Received: from rcdn-iport-6.cisco.com (rcdn-iport-6.cisco.com [173.37.86.77])
- (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Kkw43XwLzDqp5
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 06:09:23 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=cisco.com; i=@cisco.com; l=4970; q=dns/txt; s=iport;
- t=1545246564; x=1546456164;
- h=from:to:cc:subject:date:message-id:mime-version;
- bh=9+gDOVuLK7xLVRtSqnqbwQWNpql3J6ZKFwQplch7p4E=;
- b=dk4aJP0y16JtvNRdxLAP+nMnUemunKFJFZNFJEAuMlXD3zF2UAq/f/+k
- gaHdKg+fXumvzqw1zcYS0RUUkW8UcFv1FFILvTw5qKl2W0lTApUHmf7aF
- OrU+uEehR0AMfaob9EOAPaxUcOki6HHdILnGwGXjVRfiNkdkdFE6WmE2r o=;
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0AWAAAylBpc/5pdJa1kGgEBAQEBAgE?=
- =?us-ascii?q?BAQEHAgEBAQGBVAIBAQEBCwGBDXZmgQIxg3OUFYFokieHVgsBAYRsGYJUIjc?=
- =?us-ascii?q?GDQEDAQECAQECbR0LhWZWEgEMPgIEMCcEDoMnAYEdZKgfgS+FQIRxjD8XgUA?=
- =?us-ascii?q?/gREnDBOKVTGCJgKPQIZXixMKCQKRYBiRWYlIkBMCERSBJzUiKIEucBVlAYJ?=
- =?us-ascii?q?CkFpBjXmBHwEB?=
-X-IronPort-AV: E=Sophos;i="5.56,373,1539648000"; 
- d="scan'208,217";a="497443674"
-Received: from rcdn-core-3.cisco.com ([173.37.93.154])
- by rcdn-iport-6.cisco.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2018 18:57:13 +0000
-Received: from XCH-RTP-015.cisco.com (xch-rtp-015.cisco.com [64.101.220.155])
- by rcdn-core-3.cisco.com (8.15.2/8.15.2) with ESMTPS id
- wBJIvCYg026918
- (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=FAIL)
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 18:57:13 GMT
-Received: from xch-rtp-007.cisco.com (64.101.220.147) by XCH-RTP-015.cisco.com
- (64.101.220.155) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
- Wed, 19 Dec 2018 13:57:12 -0500
-Received: from xch-rtp-007.cisco.com ([64.101.220.147]) by
- XCH-RTP-007.cisco.com ([64.101.220.147]) with mapi id 15.00.1395.000; Wed, 19
- Dec 2018 13:57:11 -0500
-From: "Shreyas Chandrashekar (shrchand)" <shrchand@cisco.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43KlRg6zTnzDqsG
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 06:33:15 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Dec 2018 11:33:13 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,373,1539673200"; d="scan'208";a="100011284"
+Received: from orsmsx103.amr.corp.intel.com ([10.22.225.130])
+ by orsmga007.jf.intel.com with ESMTP; 19 Dec 2018 11:33:13 -0800
+Received: from orsmsx115.amr.corp.intel.com (10.22.240.11) by
+ ORSMSX103.amr.corp.intel.com (10.22.225.130) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 19 Dec 2018 11:33:13 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.59]) by
+ ORSMSX115.amr.corp.intel.com ([169.254.4.23]) with mapi id 14.03.0415.000;
+ Wed, 19 Dec 2018 11:33:13 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: "Shreyas Chandrashekar (shrchand)" <shrchand@cisco.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 CC: "Guhan Balasubramanian (gubalasu)" <gubalasu@cisco.com>
-Subject: Use MilliAmps for IPMI tool
+Subject: RE: Use MilliAmps for IPMI tool
 Thread-Topic: Use MilliAmps for IPMI tool
-Thread-Index: AQHUl8ymCQmEMU7mS0eLpjHFq4IuuQ==
-Date: Wed, 19 Dec 2018 18:57:11 +0000
-Message-ID: <85D37044-F771-4019-A66F-0762AD59BF1F@cisco.com>
+Thread-Index: AQHUl8ymCQmEMU7mS0eLpjHFq4IuuaWGbkhQ
+Date: Wed, 19 Dec 2018 19:33:12 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345984003@ORSMSX114.amr.corp.intel.com>
+References: <85D37044-F771-4019-A66F-0762AD59BF1F@cisco.com>
+In-Reply-To: <85D37044-F771-4019-A66F-0762AD59BF1F@cisco.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Microsoft-MacOutlook/10.b.0.180311
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.154.161.147]
-Content-Type: multipart/alternative;
- boundary="_000_85D37044F7714019A66F0762AD59BF1Fciscocom_"
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZGNkNGIxNzktMjA4Yy00MzhhLWFiOTUtZWU1ZTg5OTE0MjJlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiVFhRSjdcL2hvMkpOZllWWjhkcXNFZTVhVmh4YVZiWGpUSnVqWDhxbFpseU9ZSFd2TEh3QTVaOEFUOWtEam5MRkMifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-Outbound-SMTP-Client: 64.101.220.155, xch-rtp-015.cisco.com
-X-Outbound-Node: rcdn-core-3.cisco.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,77 +60,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Dec 2018 19:09:26 -0000
+X-List-Received-Date: Wed, 19 Dec 2018 19:33:20 -0000
 
---_000_85D37044F7714019A66F0762AD59BF1Fciscocom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-
-SGksDQoNCklQTUkgdG9vbCBpcyBiZWluZyB1c2VkIHRvIHByb2JlIGFuZCBnZXQgdGhlIHZhcmlv
-dXMgc2Vuc29yIHZhbHVlcyBmcm9tIGJtYy4gSG93ZXZlciwgYWZ0ZXIgcmVhZGluZyB0aHJvdWdo
-IHRoZSBJUE1JIHNwZWMgdGhlcmUgaXMgbm8gc3VwcG9ydCBmb3IgbWlsbGlBbXBlcmVzIG9yIG1p
-bGxpVm9sdHMuIElzIHRoZXJlIGFueSB3YXkgdG8gaGF2ZSB0aGUgc3VwcG9ydCBmb3IgbWlsbEFt
-cHMgYW5kIG1pbGxpVm9sdHM/DQoNClRoZSBhbGFybXMgYXJlIHJhaXNlZCBiYXNlZCBvbiBpbmNy
-ZW1lbnRzIGluIG1BbXBzL21Wb2x0cy4gSGVuY2Ugd291bGQgcHJlZmVyIHRoZSB2YWx1ZXMgc2Vu
-dCBhY3Jvc3MgYXMgaW4gbUFtcHMgKGFzIG9wcG9zZWQgdG8gZGl2aWRpbmcgdGhlIHZhbHVlIGJ5
-IDEwMDAgdG8gY29udmVydCB0aGVtIHRvIEFtcHMpLg0KDQpBbnkgaGVscCB3b3VsZCBiZSBhcHBy
-ZWNpYXRlZC4NCg0KDQpSZWdhcmRzDQoNClRoYW5rcw0KU2hyZXlhcw0K
-
---_000_85D37044F7714019A66F0762AD59BF1Fciscocom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <229EA1B623B63E4FB0217F2BCDFC5536@emea.cisco.com>
-Content-Transfer-Encoding: base64
-
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
-YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
-b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
-IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
-DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
-aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpz
-cGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOw0KCWZv
-bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1z
-b0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6
-IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4g
-MTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rp
-b24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBs
-YW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0i
-V29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTEuMHB0Ij5IaSw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQi
 PklQTUkgdG9vbCBpcyBiZWluZyB1c2VkIHRvIHByb2JlIGFuZCBnZXQgdGhlIHZhcmlvdXMgc2Vu
 c29yIHZhbHVlcyBmcm9tIGJtYy4gSG93ZXZlciwgYWZ0ZXIgcmVhZGluZyB0aHJvdWdoIHRoZSBJ
 UE1JIHNwZWMgdGhlcmUgaXMgbm8gc3VwcG9ydCBmb3IgbWlsbGlBbXBlcmVzIG9yIG1pbGxpVm9s
-dHMuIElzIHRoZXJlIGFueSB3YXkgdG8gaGF2ZSB0aGUgc3VwcG9ydA0KIGZvciBtaWxsQW1wcyBh
-bmQgbWlsbGlWb2x0cz88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQi
-PlRoZSBhbGFybXMgYXJlIHJhaXNlZCBiYXNlZCBvbiBpbmNyZW1lbnRzIGluIG1BbXBzL21Wb2x0
-cy4gSGVuY2Ugd291bGQgcHJlZmVyIHRoZSB2YWx1ZXMgc2VudCBhY3Jvc3MgYXMgaW4gbUFtcHMg
-KGFzIG9wcG9zZWQgdG8gZGl2aWRpbmcgdGhlIHZhbHVlIGJ5IDEwMDAgdG8gY29udmVydCB0aGVt
-IHRvIEFtcHMpLg0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
-cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5B
-bnkgaGVscCB3b3VsZCBiZSBhcHByZWNpYXRlZC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJz
-cDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
-bnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5SZWdhcmRzPG86cD48L286
-cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5UaGFua3M8bzpwPjwvbzpwPjwvc3Bh
-bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
-dCI+U2hyZXlhcyA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRt
-bD4NCg==
-
---_000_85D37044F7714019A66F0762AD59BF1Fciscocom_--
+dHMuDQogDQpJJ20gbm90IHJlYWxseSBzdXJlIGhvdyB0byBjYW1lIHRvIHRoaXMgY29uY2x1c2lv
+bi4gIFllcywgdGhlcmUgaXMgbm8gIm1pbGxpYW1wIiB1bml0IGluIHRoZSB1bml0IGNvZGVzIHRh
+YmxlLCBidXQgSSB3b3VsZG4ndCBleHBlY3QgdGhlcmUgdG8gYmUgZ2l2ZW4gaG93IElQTUkgc2Vu
+c29yIHNjYWxpbmcgd29ya3MuICBGb3IgbGluZWFyIHNjYWxpbmcgbW9kZSAod2hpY2ggaXMgYWxs
+IG9wZW5ibWMgc3VwcG9ydHMgdG9kYXkpIHZhbHVlIHNjYWxpbmcgaXMgc2V0IGJ5IE0gYW5kIEIg
+dmFsdWVzIGluIGEgdHlwZSAxIFNEUiByZWNvcmQuICBTZXR0aW5nIGFuIE0gdmFsdWUgb2YgMTAw
+MCBhbmQgYSB1bml0cyBmbGFnIG9mIFZvbHRzIHdvdWxkIGVmZmVjdGl2ZWx5IGdpdmUgeW91ICJt
+aWxsaXZvbHRzIiByZXNvbHV0aW9uLg0KDQpBbm90aGVyIG9wdGlvbiBoZXJlIHdvdWxkIGJlIHRv
+IHVzZSBsb2dhcml0aG1pYyBzY2FsaW5nLCB3aGljaCB3b3VsZCBnaXZlIHlvdSBiZXR0ZXIgcmVz
+b2x1dGlvbiBpbiB0aGUgbG93ZXIgZW5kIG9mIHRoZSBzcGVjdHJ1bSAoZXNwZWNpYWxseSB1c2Vm
+dWwgaW4gdGhlIGNhc2Ugb2YgbWlsbGl2b2x0cykuICBJZiB0aGlzIGlzIHNvbWV0aGluZyB5b3Un
+ZCBsaWtlIHRvIHB1cnN1ZSwgdGhlcmUncyBsaWtlbHkgc29tZSBwZW9wbGUgb24gdGhpcyBsaXN0
+IHRoYXQgY291bGQgcG9pbnQgeW91IHRvIHdoZXJlIHRoYXQgY2FwYWJpbGl0eSBjb3VsZCBiZSBh
+ZGRlZC4NCg0KU29tZSBzZWN0aW9ucyBvZiB0aGUgSVBNSSBzcGVjIHRvIHJlZmVyZW5jZSBmb3Ig
+dGhlIGFib3ZlDQoNCjM2LjMgU2Vuc29yIFJlYWRpbmcgQ29udmVyc2lvbiBGb3JtdWxhDQozNi40
+LjIgUmVzb2x1dGlvbi4NCjQzLjEgU0RSIFR5cGUgMDFoLCBGdWxsIHNlbnNvciByZWNvcmQsIGJ5
+dGVzIDI1OjI4DQoNClRoZXJlIGhhcyBiZWVuIHNvbWUgZWZmb3J0IG1hZGUgdG8gbWFrZSB0aGVz
+ZSB2YWx1ZXMgY2FsY3VsYXRlZCBhdXRvbWF0aWNhbGx5IGJhc2VkIG9uIHRoZSBtYXhpbXVtIGFu
+ZCBtaW5pbXVtIHZhbHVlIHJlYWRpbmdzIGluIHRoZSBEQnVzIGludGVyZmFjZSwgd2hpY2ggbWFr
+ZXMgdGhpcyBwcm9jZXNzIGZhciBsZXNzIGVycm9yIHByb25lLiAgSWYgdGhpcyBraW5kIG9mIHRo
+aW5nIGlzIGltcG9ydGFudCB0byB5b3UsIEkgd291bGQgaGlnaGx5IHJlY29tbWVuZCByZXZpZXdp
+bmcgYW5kIGFkZGluZyB5b3VyIG9waW5pb24gdG8gdGhvc2UgcGF0Y2hlcy4NCg0KLUVkDQo=
