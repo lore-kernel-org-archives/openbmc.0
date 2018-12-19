@@ -1,57 +1,71 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <shrchand@cisco.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.210.67; helo=mail-ot1-f67.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
- [209.85.210.67])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=cisco.com
+ (client-ip=173.37.86.77; helo=rcdn-iport-6.cisco.com;
+ envelope-from=shrchand@cisco.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none)
+ header.from=cisco.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=cisco.com header.i=@cisco.com header.b="dk4aJP0y"; 
+ dkim-atps=neutral
+X-Greylist: delayed 722 seconds by postgrey-1.36 at bilbo;
+ Thu, 20 Dec 2018 06:09:24 AEDT
+Received: from rcdn-iport-6.cisco.com (rcdn-iport-6.cisco.com [173.37.86.77])
+ (using TLSv1.2 with cipher DHE-RSA-SEED-SHA (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43KfZt3lyjzDqmY
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 02:54:13 +1100 (AEDT)
-Received: by mail-ot1-f67.google.com with SMTP id a11so19475915otr.10
- for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 07:54:13 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=EEwldNevxLDYjjxjiSSpC0uMqnUBZ0IgTSi2MFIV1jk=;
- b=FpI6pxh+dtz1MuzZFe6FFZOTp537wEC/p0a5E/9Gj2+9l0f3i8Yx9R6lYJ25ZUr77h
- vUsVtL8FIX6J7jFFvDrZku4FpqL2GMIyfjUlYTfUzpg6jHqzutr6dWZAnUsJziFl7KV7
- KpbXpToLjTd6Q1NaoN0iCuWTk0WyxIWxaLaFYopYsAu9QEX9j+kSRFFVSPYLSzv8WUUX
- s23bC5/vFDwn2WBeoEqRCHTOpgptzhww7W9KSwqC433clAMOx9n+DEBQmByZsMK7L78G
- +FqVgDBMuD8MnV2p6qb+InXpj3eUZCjmpKXGWaXt/2D7q/N7tjMosy4IHfK5yKaH3UXN
- U6VA==
-X-Gm-Message-State: AA+aEWZ0i4nuYTr2iYlOMIwBTFQuDKHsePMPw/GJ+DPSGfXa09MsuvFi
- UyGJD4ut5n5XgtP5pvfuxQ==
-X-Google-Smtp-Source: AFSGD/W23mjMN1Bqu4JohAJG1izcWAs+BhvvTr+cQr6ATG3n37tDNMzoD6nYfw4YHGuRb7FNNptMyQ==
-X-Received: by 2002:a9d:635a:: with SMTP id y26mr14474004otk.27.1545234851597; 
- Wed, 19 Dec 2018 07:54:11 -0800 (PST)
-Received: from localhost (24-155-109-49.dyn.grandenetworks.net.
- [24.155.109.49])
- by smtp.gmail.com with ESMTPSA id b128sm10395295oif.7.2018.12.19.07.54.10
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 19 Dec 2018 07:54:10 -0800 (PST)
-Date: Wed, 19 Dec 2018 09:54:10 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: dwmw2@infradead.org, computersforpeace@gmail.com,
- boris.brezillon@bootlin.com, marek.vasut@gmail.com, richard@nod.at,
- mark.rutland@arm.com, yuenn@google.com, venture@google.com,
- brendanhiggins@google.com, avifishman70@gmail.com, joel@jms.id.au,
- linux-mtd@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-binding: mtd: add NPCM FIU controller
-Message-ID: <20181219155410.GA3925@bogus>
-References: <20181203091456.454030-1-tmaimon77@gmail.com>
- <20181203091456.454030-2-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Kkw43XwLzDqp5
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 06:09:23 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=cisco.com; i=@cisco.com; l=4970; q=dns/txt; s=iport;
+ t=1545246564; x=1546456164;
+ h=from:to:cc:subject:date:message-id:mime-version;
+ bh=9+gDOVuLK7xLVRtSqnqbwQWNpql3J6ZKFwQplch7p4E=;
+ b=dk4aJP0y16JtvNRdxLAP+nMnUemunKFJFZNFJEAuMlXD3zF2UAq/f/+k
+ gaHdKg+fXumvzqw1zcYS0RUUkW8UcFv1FFILvTw5qKl2W0lTApUHmf7aF
+ OrU+uEehR0AMfaob9EOAPaxUcOki6HHdILnGwGXjVRfiNkdkdFE6WmE2r o=;
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: =?us-ascii?q?A0AWAAAylBpc/5pdJa1kGgEBAQEBAgE?=
+ =?us-ascii?q?BAQEHAgEBAQGBVAIBAQEBCwGBDXZmgQIxg3OUFYFokieHVgsBAYRsGYJUIjc?=
+ =?us-ascii?q?GDQEDAQECAQECbR0LhWZWEgEMPgIEMCcEDoMnAYEdZKgfgS+FQIRxjD8XgUA?=
+ =?us-ascii?q?/gREnDBOKVTGCJgKPQIZXixMKCQKRYBiRWYlIkBMCERSBJzUiKIEucBVlAYJ?=
+ =?us-ascii?q?CkFpBjXmBHwEB?=
+X-IronPort-AV: E=Sophos;i="5.56,373,1539648000"; 
+ d="scan'208,217";a="497443674"
+Received: from rcdn-core-3.cisco.com ([173.37.93.154])
+ by rcdn-iport-6.cisco.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Dec 2018 18:57:13 +0000
+Received: from XCH-RTP-015.cisco.com (xch-rtp-015.cisco.com [64.101.220.155])
+ by rcdn-core-3.cisco.com (8.15.2/8.15.2) with ESMTPS id
+ wBJIvCYg026918
+ (version=TLSv1.2 cipher=AES256-SHA bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 18:57:13 GMT
+Received: from xch-rtp-007.cisco.com (64.101.220.147) by XCH-RTP-015.cisco.com
+ (64.101.220.155) with Microsoft SMTP Server (TLS) id 15.0.1395.4;
+ Wed, 19 Dec 2018 13:57:12 -0500
+Received: from xch-rtp-007.cisco.com ([64.101.220.147]) by
+ XCH-RTP-007.cisco.com ([64.101.220.147]) with mapi id 15.00.1395.000; Wed, 19
+ Dec 2018 13:57:11 -0500
+From: "Shreyas Chandrashekar (shrchand)" <shrchand@cisco.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+CC: "Guhan Balasubramanian (gubalasu)" <gubalasu@cisco.com>
+Subject: Use MilliAmps for IPMI tool
+Thread-Topic: Use MilliAmps for IPMI tool
+Thread-Index: AQHUl8ymCQmEMU7mS0eLpjHFq4IuuQ==
+Date: Wed, 19 Dec 2018 18:57:11 +0000
+Message-ID: <85D37044-F771-4019-A66F-0762AD59BF1F@cisco.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.b.0.180311
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.154.161.147]
+Content-Type: multipart/alternative;
+ boundary="_000_85D37044F7714019A66F0762AD59BF1Fciscocom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181203091456.454030-2-tmaimon77@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Outbound-SMTP-Client: 64.101.220.155, xch-rtp-015.cisco.com
+X-Outbound-Node: rcdn-core-3.cisco.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,99 +77,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Dec 2018 15:54:15 -0000
+X-List-Received-Date: Wed, 19 Dec 2018 19:09:26 -0000
 
-On Mon, Dec 03, 2018 at 11:14:55AM +0200, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton BMC
-> NPCM Flash Interface Unit(FIU) SPI-NOR controller.
-> 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  Documentation/devicetree/bindings/mtd/npcm-fiu.txt | 64 ++++++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/mtd/npcm-fiu.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/mtd/npcm-fiu.txt b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
-> new file mode 100644
-> index 000000000000..9746cb5b1ced
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
-> @@ -0,0 +1,64 @@
-> +* Nuvoton FLASH Interface Unit (FIU) SPI Controller
-> +
-> +NPCM FIU supports single, dual and quad communication interface.
-> +
-> +The NPCM7XX supports three FIU modules,
-> +FIU0 and FIUx supports two chip selects,
-> +FIU3 support four chip select.
-> +
-> +Required properties:
-> +  - compatible : "nuvoton,npcm750-fiu" for the NPCM7XX BMC
-> +  - #address-cells : should be 1.
-> +  - #size-cells : should be 0.
-> +  - reg : the first contains the register location and length,
-> +          the second contains the memory mapping address and length
-> +  - reg-names: Should contain the reg names "control" and "memory"
-> +  - clocks : phandle of F reference clock.
-> +
-> +Required properties in case the pins can be muxed:
-> +  - pinctrl-names : a pinctrl state named "default" must be defined.
-> +  - pinctrl-0 : phandle referencing pin configuration of the device.
-> +
-> +Optional property:
-> +  - spix-mode: enable spix-mode for an expansion bus to an ASIC or CPLD.
+--_000_85D37044F7714019A66F0762AD59BF1Fciscocom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Needs a vendor prefix. Unless this is some standard SPI thing (which 
-I've never heard of).
+SGksDQoNCklQTUkgdG9vbCBpcyBiZWluZyB1c2VkIHRvIHByb2JlIGFuZCBnZXQgdGhlIHZhcmlv
+dXMgc2Vuc29yIHZhbHVlcyBmcm9tIGJtYy4gSG93ZXZlciwgYWZ0ZXIgcmVhZGluZyB0aHJvdWdo
+IHRoZSBJUE1JIHNwZWMgdGhlcmUgaXMgbm8gc3VwcG9ydCBmb3IgbWlsbGlBbXBlcmVzIG9yIG1p
+bGxpVm9sdHMuIElzIHRoZXJlIGFueSB3YXkgdG8gaGF2ZSB0aGUgc3VwcG9ydCBmb3IgbWlsbEFt
+cHMgYW5kIG1pbGxpVm9sdHM/DQoNClRoZSBhbGFybXMgYXJlIHJhaXNlZCBiYXNlZCBvbiBpbmNy
+ZW1lbnRzIGluIG1BbXBzL21Wb2x0cy4gSGVuY2Ugd291bGQgcHJlZmVyIHRoZSB2YWx1ZXMgc2Vu
+dCBhY3Jvc3MgYXMgaW4gbUFtcHMgKGFzIG9wcG9zZWQgdG8gZGl2aWRpbmcgdGhlIHZhbHVlIGJ5
+IDEwMDAgdG8gY29udmVydCB0aGVtIHRvIEFtcHMpLg0KDQpBbnkgaGVscCB3b3VsZCBiZSBhcHBy
+ZWNpYXRlZC4NCg0KDQpSZWdhcmRzDQoNClRoYW5rcw0KU2hyZXlhcw0K
 
-> +
-> +The SPI device must be a child of the FIU node and must have a
-> +compatible property as specified in bindings/mtd/jedec,spi-nor.txt
-> +
-> +Required property:
-> +- reg: chip select number.
-> +
-> +Optional property:
-> +- spi-rx-bus-width: see ../spi/spi-bus.txt for the description.
-> +
-> +Aliases:
-> +- All the FIU controller nodes should be represented in the aliases node using
-> +  the following format 'fiu{n}' where n is a unique number for the alias.
-> +  In the NPCM7XX BMC:
-> +  		fiu0 represent fiu 0 controller
-> +  		fiu1 represent fiu 3 controller
-> +  		fiu2 represent fiu x controller
+--_000_85D37044F7714019A66F0762AD59BF1Fciscocom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <229EA1B623B63E4FB0217F2BCDFC5536@emea.cisco.com>
+Content-Transfer-Encoding: base64
 
-Please don't make up your own aliases. Use 'spiX' if anything, but 
-really, why do you need aliases in the first place?
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
+YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
+b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
+IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
+aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
+DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
+aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpz
+cGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOw0KCWZv
+bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1z
+b0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6
+IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4g
+MTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rp
+b24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBs
+YW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIgdmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0i
+V29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6MTEuMHB0Ij5IaSw8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQi
+PklQTUkgdG9vbCBpcyBiZWluZyB1c2VkIHRvIHByb2JlIGFuZCBnZXQgdGhlIHZhcmlvdXMgc2Vu
+c29yIHZhbHVlcyBmcm9tIGJtYy4gSG93ZXZlciwgYWZ0ZXIgcmVhZGluZyB0aHJvdWdoIHRoZSBJ
+UE1JIHNwZWMgdGhlcmUgaXMgbm8gc3VwcG9ydCBmb3IgbWlsbGlBbXBlcmVzIG9yIG1pbGxpVm9s
+dHMuIElzIHRoZXJlIGFueSB3YXkgdG8gaGF2ZSB0aGUgc3VwcG9ydA0KIGZvciBtaWxsQW1wcyBh
+bmQgbWlsbGlWb2x0cz88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
+Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQi
+PlRoZSBhbGFybXMgYXJlIHJhaXNlZCBiYXNlZCBvbiBpbmNyZW1lbnRzIGluIG1BbXBzL21Wb2x0
+cy4gSGVuY2Ugd291bGQgcHJlZmVyIHRoZSB2YWx1ZXMgc2VudCBhY3Jvc3MgYXMgaW4gbUFtcHMg
+KGFzIG9wcG9zZWQgdG8gZGl2aWRpbmcgdGhlIHZhbHVlIGJ5IDEwMDAgdG8gY29udmVydCB0aGVt
+IHRvIEFtcHMpLg0KPG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwv
+cD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5B
+bnkgaGVscCB3b3VsZCBiZSBhcHByZWNpYXRlZC48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJz
+cDs8L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5SZWdhcmRzPG86cD48L286
+cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZToxMS4wcHQiPjxvOnA+Jm5ic3A7PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5UaGFua3M8bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dCI+U2hyZXlhcyA8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRt
+bD4NCg==
 
-> +
-> +Example:
-> +fiu3: fiu@c00000000 {
-
-spi@...
-
-> +	compatible = "nuvoton,npcm750-fiu";
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
-> +	reg-names = "control", "memory";
-> +	clocks = <&clk NPCM7XX_CLK_AHB>;
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&spi3_pins>;
-> +	spi-nor@0 {
-> +		compatible = "jedec,spi-nor";
-> +		spi-rx-bus-width = <2>;
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		reg = <0>;
-> +		partition@0 {
-> +			label = "flash_data";
-> +			reg = <0x0 0x800000>;
-> +		};
-> +	};
-> +};
-> +
-> -- 
-> 2.14.1
-> 
+--_000_85D37044F7714019A66F0762AD59BF1Fciscocom_--
