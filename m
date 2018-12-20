@@ -1,68 +1,31 @@
-Return-Path: <sivas.srr@in.ibm.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <benh@kernel.crashing.org>
+Authentication-Results: lists.ozlabs.org; spf=permerror (mailfrom)
+ smtp.mailfrom=kernel.crashing.org (client-ip=63.228.1.57;
+ helo=gate.crashing.org; envelope-from=benh@kernel.crashing.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43L2nf52nwzDqvg
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 18:04:54 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- wBK74oSd070685
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 02:04:52 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.72])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2pg44vwr63-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 02:04:51 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Thu, 20 Dec 2018 07:04:44 -0000
-Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
- by smtp.notes.na.collabserv.com (10.106.227.158) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 20 Dec 2018 07:04:41 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp02.a3.dal06.isc4sb.com
- with ESMTP id 2018122007044128-182343 ;
- Thu, 20 Dec 2018 07:04:41 +0000 
-In-Reply-To: 
-Subject: MoM of Test work group meeting:
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Thu, 20 Dec 2018 07:04:40 +0000
-Sensitivity: 
-References: 
-MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1541 | IBM Domino Build
- SCN1812108_20180501T0841_FP25 December 12, 2018 at 12:47
-X-LLNOutbound: False
-X-Disclaimed: 33475
-X-TNEFEvaluated: 1
-x-cbid: 18122007-6059-0000-0000-00000C98D92E
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.434296; ST=0; TS=0; UL=0; ISC=; MB=0.002173
-X-IBM-SpamModules-Versions: BY=3.00010253; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000271; SDB=6.01134351; UDB=6.00589778; IPR=6.00914523; 
- BA=6.00006182; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00024763; XFM=3.00000015;
- UTC=2018-12-20 07:04:43
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2018-12-20 06:19:51 - 6.00009362
-x-cbparentid: 18122007-6060-0000-0000-00004ECF3487
-Message-Id: <OFCF85E95B.2C42F047-ON00258369.0025BD8D-00258369.0026E168@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2018-12-20_04:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43L6KN0TxKzDqnM
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 20:44:07 +1100 (AEDT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by gate.crashing.org (8.14.1/8.14.1) with ESMTP id wB58bRe9014893;
+ Wed, 5 Dec 2018 02:37:29 -0600
+Message-ID: <5f345c3a2006fd3b643bf59f0d4b5bb3c47f50cd.camel@kernel.crashing.org>
+Subject: Re:    Re: VHUB didn't work on AST2500
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: xiuzhi <1450335857@qq.com>, "Andrew.Jeffery" <andrew@aj.id.au>, Eddie
+ James <eajames@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>
+Cc: openbmc <openbmc@lists.ozlabs.org>, "Alexander A. Filippov"
+ <a.filippov@yadro.com>
+In-Reply-To: <tencent_13FAC6CC09F9B66920987BA0@qq.com>
+References: <tencent_13FAC6CC09F9B66920987BA0@qq.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.2 (3.30.2-2.fc29) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,245 +37,848 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Dec 2018 07:04:55 -0000
+Date: Thu, 20 Dec 2018 09:44:11 -0000
+X-Original-Date: Wed, 05 Dec 2018 19:37:27 +1100
+X-List-Received-Date: Thu, 20 Dec 2018 09:44:11 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Hi All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Here with sending some important queries and MoM of 13 De=
-c 2018&nbsp; meeting.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >It will be helpful if we get some test owners for followi=
-ng functions which are getting ready from</div>
-<div dir=3D"ltr" >Intel and Google.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >IPMI Inband code update - Google&nbsp; ( Nancy could you =
-help here)</div>
-<div dir=3D"ltr" >IPMI User management - Intel&nbsp; ( Anup could you help =
-here )</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Thank you folks in advance.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><div><strong>MoM of Openbmc Test workgroup meeting on 13 =
-Dec 2018:</strong></div>
-<div>&nbsp;</div>
-<div>Attendees:&nbsp; Rahul Maheswari, Kaushi Venkatesh, Joseph Reynolds, N=
-ancy , Sivas</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div>Agenda:</div>
-<div>&nbsp;</div>
-<div><strong><u>Update on February Community Release from global openbmc ca=
-ll. </u></strong></div>
-<div>&nbsp;</div>
-<div>No official functionality available for Feb Community Release.</div>
-<div>Existing functions should be regressed especially GUI =E2=80=93 featur=
-es like SNMP, network, which are recently added</div>
-<div>&nbsp;</div>
-<div>Nancy mentioned that Patrick almost done with his inband IPMI code upd=
-ate.</div>
-<div>Nancy will be checking with Patrick on progress. And Sivas requested t=
-o have someone assigned for test will be good.</div>
-<div>&nbsp;</div>
-<div>Jan 7<sup>th</sup> is code progress and then we will do regression tes=
-ting.</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><strong><u>Release planning update:</u></strong></div>
-<div>&nbsp;</div>
-<div>Joseph going to represent test group as it happens around afternoon of=
- US time.</div>
-<div>Sivas requested Joseph to have all the cell updated including availabi=
-lity date <a href=3D"https://docs.google.com/spreadsheets/d/1lts-YX8J=5FAnS=
-2dKfhW649OQHijz-JRiJWHTDpKY62Hk/edit?usp=3Dsharing" >https://docs.google.co=
-m/spreadsheets/d/1lts-YX8J=5FAnS2dKfhW649OQHijz-JRiJWHTDpKY62Hk/edit?usp=3D=
-sharing</a></div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><strong><u>GUI Test meeting:</u></strong></div>
-<div>&nbsp;</div>
-<div>As Rahul, Kaushi, Arpana planning to work on GUI, Requested to have lo=
-cal meeting and plan for GUI testing.</div>
-<div>&nbsp;</div>
-<div><strong><u>Security Test:</u></strong></div>
-<div>&nbsp;</div>
-<div>Joseph Reynolds planning to add additional test cases by Jan 1<sup>st<=
-/sup> week.</div>
-<div>&nbsp;</div>
-<div>&nbsp;</div>
-<div><strong><u>Test work group meeting timing:</u></strong></div>
-<div>&nbsp;</div>
-<div>Team decided to meet from Jan 10<sup>th</sup> onwards and the same tim=
-ing.</div>
-<div>Sivas to send the invitation =E2=80=93 Action Item - Done</div></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Google drive link: <a href=3D"https://docs.google.com/doc=
-ument/d/1iRN61K1zo-lXHRn-KUhqx8Tugxccx9RiVa1oXPYKyAc/edit?usp=3Dsharing" >h=
-ttps://docs.google.com/document/d/1iRN61K1zo-lXHRn-KUhqx8Tugxccx9RiVa1oXPYK=
-yAc/edit?usp=3Dsharing</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Note: Wish you and your family a happy christmas and new =
-year.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Dec 13, 2018 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
-ine-block" >(applies to 2 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, venture@google.com, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >Note: Rescheduling this meeti=
-ng to accommodate new members.</font></font></font></font></font></span></d=
-iv>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:</font></font></fon=
-t></font></font></span></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >- Recap of last instance and solut=
-ion</font></font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >- New Agenda / Issues to be discus=
-sed - planned earlier</font></font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >-&nbsp; Around the room</font></fo=
-nt></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group</a></font></font></font></font></font><=
-/span></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Agenda: 23 Aug 2018</font></font><=
-/font></font></font></span></div>
-<div>&nbsp;</div>
-<ul>        <li><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Defa=
-ult Sans Serif,Verdana,Arial,Helvetica,sans-serif" >New member introduction=
- if any</font></font></font></font></font></span></li>        <li><span><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" >Auto test plan generation using robot framework =
-( <a href=3D"https://github.com/openbmc/openbmc-test-automation/blob/master=
-/tools/generate=5Ftest=5Fdocument" target=3D"=5Fblank" >https://github.com/=
-openbmc/openbmc-test-automation/blob/master/tools/generate=5Ftest=5Fdocumen=
-t )</a></font></font></font></font></font></span></li>        <li><span><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" >Do we need to create explicit test plan document=
-?</font></font></font></font></font></span></li>        <li><span><font siz=
-e=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><fo=
-nt size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif=
-" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans=
--serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,He=
-lvetica,sans-serif" >Dynamic CI discussion</font></font></font></font></fon=
-t></span></li></ul>
-<div>&nbsp;</div></div></div></div></div></div></div></div></blockquote></d=
-iv><BR>
+On Wed, 2018-12-05 at 11:39 +0800, xiuzhi wrote:
+> Hi Ben, Andrew,
+>     I found the reason is that the key values are different between usb-vhub keyboard and physical keyboard. The vhub key value has one more byte than physical. and it seemed that vhub mouse uses keyboard channel, the BIOS can receive values from vhub mouse even if BIOS closed the mouse driver.    
+> 1,   When the vhub mouse moves from ikvm, the vhub mouse sends out 6 bytes  data to keyboard channel:
+
+vhub itself just passes the data that's coming from the HID gadget
+driver, I don't know much about how it construct packets or is
+configured, you may want to look into it.
+
+Ben.
+
+> 02 00 50 14 CE 22 
+> 02 00 B0 0E E8 20 
+> 02 00 48 08 96 1E 
+> ..........
+> 2,  The first byte of data sent by the vhub keyboard value  is incorrect. The first byte is 01, which means that the control key is pressed from the physical keyboard view.
+> 1) using vhub keyboard
+> Presses the key 'a' , BIOS  receives data:
+> 
+> 01 00 00 04 00 00 00 00  
+> 
+> Release key 'a' ,BIOS  receives data:
+> 
+> 01 00 00 00 00 00 00 00  
+> 
+>  Press 'Control' +'a' ,BIOS  receives data:
+> 
+> 01 01 00 04 00 00 00 00  
+> Press the key'1' ,BIOS  receives data:
+> 
+> 01 00 1E 00 00 00 00 
+> 
+> Release key'1'usb, BIOS  receives data:
+> 
+> 01 00 00 00 00 00 00  
+> 2) using physical keyboard
+> Press the key 'a' ,BIOS  receives data:
+> 00 00 04 00 00 00 00 00 
+>  
+> Release key 'a' usb ,BIOS  receives data::
+> 
+> 00 00 00 00 00 00 00 00    
+> 
+> Press 'Control' + 'a' ,BIOS  receives data:
+> 
+> 01 00 04 00 00 00 00 00 
+> Press the key '1' ,BIOS  receives data:
+> 
+> 00 00 1E 00 00 00 00 00  
+> 
+> Release key '1' ,BIOS  receives data:
+> 
+> 00 00 00 00 00 00 00 00 
+> Why does the vhub keyboard  has the extra  first byte '01'?
+> Why vhub mouse use  keyboard channel to transfer data?
+> 
+> Best,
+> xiuzhi 
+> ------------------ Original ------------------
+> From:  "Benjamin Herrenschmidte";<benh@kernel.crashing.org>;
+> Send time: Monday, Nov 5, 2018 7:09 AM
+> To: "xiuzhi"<1450335857@qq.com>; "Andrew.Jeffery"<andrew@aj.id.au>; "EddieJames"<eajames@linux.vnet.ibm.com>; "Joel Stanley"<joel@jms.id.au>;
+> Cc: "openbmc"<openbmc@lists.ozlabs.org>; "Alexander A. Filippov"<a.filippov@yadro.com>;
+> Subject:  Re: Re: VHUB didn't work on AST2500
+> 
+> On Sun, 2018-11-04 at 10:54 +0800, xiuzhi wrote:
+> > Hi Ben,
+> >    Did you reproduce this issue? 
+> > I found this issue is related to the host UEFI BIOS usb driver last week.
+> > My host BIOS  is   cloned from udk2017 (www.uefi.org) .
+> > The ikvm mouse and keyboard work when the BIOS runs on legacy mode
+> > and will fail on UEFI mode.
+> >  I also compared the AMI BMC and OpenBMC.
+> > The AMI BMC ikvm (version is r11) works on  this problematic BIOS ,while OpenBMC  will fail on the same one  . 
+> > The OpenBMC ikvm works on legacy mode ,and fails on UEFI mode.
+> >    Do you have any suggestions ? 
+> 
+> That's good to know any explains why I cannot reproduce as I don't have
+> an UEFI system to test with.
+> 
+> I suspect something the UEFI BIOS does that upsets the Linux USB gadget
+> stack.
+> 
+> I could debug this if I had access to a system, either physically here
+> or remotely, where I can remotely install/netboot BMC kernels (so I
+> would probably need a serial connection to the BMC and a PDU), any
+> suggestion on how to do that ?
+> 
+> Otherwise, would there be a way to reproduce that with the x86 running
+> in qemu ? (plugging the AST2500 eval board USB into the host and
+> passing it through for example) ?
+> 
+> Cheers,
+> Ben.
+> 
+> > Best,
+> > Xiuzhi
+> > Hi Eddie,
+> >    The new obmc-ikvm has an new issue which got from https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/13888/
+> >    The number key 0-9 can input at the first BMC boot  start-ipkvm.service.
+> > It can't input any key when I restart the host ,and restart the start-ipkvm.service because of host screen resolution changed  :
+> > systemctl restart start-ipkvm.service
+> > dmesg log:
+> > [  144.990545] aspeed-video 1e700000.video: resolution changed; resetting
+> > [  145.135654] aspeed_vhub 1e6a0000.usb-vhub: USB bus suspend
+> > [  145.135672] configfs-gadget gadget: suspend
+> > [  146.020671] aspeed-video 1e700000.video: timed out on 1st mode detect
+> > [  146.027154] aspeed-video 1e700000.video: resolution changed; couldn't get new resolution
+> > [  267.098598] aspeed_vhub 1e6a0000.usb-vhub: USB bus resume
+> > [  267.098623] configfs-gadget gadget: resume
+> > [  267.098642] aspeed_vhub 1e6a0000.usb-vhub: USB bus reset
+> > [  267.098650] configfs-gadget gadget: suspend
+> > [  267.241258] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 00/05/0002/0000/0000 [out] st=0
+> > [  267.241292] aspeed_vhub 1e6a0000.usb-vhub: USB status=0b100000 speed=high
+> > [  267.241308] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SET_ADDRESS: Got address 2
+> > [  267.262265] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0100/0000/0008 [in] st=0
+> > [  267.262293] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:1)
+> > [  267.266784] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0100/0000/0012 [in] st=0
+> > [  267.266805] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:1)
+> > [  267.271552] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0200/0000/0008 [in] st=0
+> > [  267.271585] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:2)
+> > [  267.275390] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0200/0000/0019 [in] st=0
+> > [  267.275422] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:2)
+> > [  267.284132] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0300/0000/0002 [in] st=0
+> > [  267.284475] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 80/06/0300/0000/0004 [in] st=0
+> > [  267.284850] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 00/09/0001/0000/0000 [out] st=0
+> > [  267.318337] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a0/06/2900/0000/0002 [in] st=0
+> > [  267.318370] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubDescriptor(0)
+> > [  267.318390] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:41)
+> > [  267.318723] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a0/06/2900/0000/0009 [in] st=0
+> > [  267.318749] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubDescriptor(0)
+> > [  267.318765] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GET_DESCRIPTOR(type:41)
+> > [  267.322862] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0008/0001/0000 [out] st=0
+> > [  267.322892] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(1,8)
+> > [  267.323093] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0008/0002/0000 [out] st=0
+> > [  267.323121] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(2,8)
+> > [  267.323343] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0008/0003/0000 [out] st=0
+> > [  267.323368] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(3,8)
+> > [  267.323595] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0008/0004/0000 [out] st=0
+> > [  267.323622] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(4,8)
+> > [  267.323843] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0008/0005/0000 [out] st=0
+> > [  267.323870] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(5,8)
+> > [  267.344036] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a0/00/0000/0000/0004 [in] st=0
+> > [  267.344069] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > [  267.481060] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a3/00/0000/0001/0004 [in] st=0
+> > [  267.481091] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > [  267.481108] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0101 change=0001
+> > [  267.481446] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/01/0010/0001/0000 [out] st=0
+> > [  267.481468] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 ClearPortFeature(1,16)
+> > [  267.596168] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/03/0004/0001/0000 [out] st=0
+> > [  267.596202] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SetPortFeature(1,4)
+> > [  267.596217] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 Port reset !
+> > [  267.596237] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 0001 -> 0011 (C=0)
+> > [  267.596251] aspeed_vhub 1e6a0000.usb-vhub: port1 Reset at known speed of bound device, resetting...
+> > [  267.596259] configfs-gadget gadget: reset config
+> > [  267.596275] aspeed_vhub 1e6a0000.usb-vhub: port1:EP1 Disabling !
+> > [  267.596288] aspeed_vhub 1e6a0000.usb-vhub: port1:EP1 Nuking
+> > [  267.596307] configfs-gadget gadget: End Point Request ERROR: -108
+> > [  267.602439] aspeed_vhub 1e6a0000.usb-vhub: port1:EP2 Disabling !
+> > [  267.602458] aspeed_vhub 1e6a0000.usb-vhub: port1:EP2 Nuking
+> > [  267.602496] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 0011 -> 0403 (C=1)
+> > [  267.622677] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a3/00/0000/0001/0004 [in] st=0
+> > [  267.622710] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > [  267.622729] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 change=0012
+> > [  267.623097] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/01/0011/0001/0000 [out] st=0
+> > [  267.623127] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 ClearPortFeature(1,17)
+> > [  267.623344] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 23/01/0014/0001/0000 [out] st=0
+> > [  267.623373] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 ClearPortFeature(1,20)
+> > [  267.636359] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 00/05/0003/0000/0000 [out] st=2
+> > [  267.636389] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 wrong state
+> > [  267.636402] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 Nuking
+> > [  267.636412] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 Nuking
+> > [  267.636423] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 stalling
+> > [  267.653534] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a3/00/0000/0001/0004 [in] st=0
+> > [  267.653566] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > [  267.653582] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 change=0000
+> > [  267.673107] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a3/00/0000/0001/0004 [in] st=0
+> > [  267.673140] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > [  267.673159] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 change=0000
+> > [  267.673596] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet a0/00/0000/0000/0004 [in] st=0
+> > [  267.673622] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > 
+> > Best,
+> > Xiuzhi
+> > Hi Andrew,
+> >     Sorry , the pinctrl error was not caused by uart-render-controller .
+> > The reason is I definded a wrong gpio pin GPIOI3 (It is pin67) in file recipes-phosphor/sekleton/obmc-libobmc-intfgpio_defs.json.
+> > 
+> > The error message  dispeared after I removed the pin definition.
+> > Now, the error of character key inputting  still exists as well .
+> > 
+> > Best,
+> > xiuzhi
+> > Hi Andrew,
+> > > > [   66.751716] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request()
+> > >> failed for pin 67
+> > >> [   66.759322] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67
+> > >> (1e780000.gpio:347) status -1
+> > >> [   68.577538] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request()
+> > >> failed for pin 67
+> > >> [   68.585288] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67
+> > >> (1e780000.gpio:347) status -1
+> > 
+> > >Out of curiousity, what is causing the pinctrl failure? Do you have a mux clash?
+> > it was caused by uart-render-controller.service:
+> > "
+> > ExecStart=/usr/sbin/obmc-uart-render-controller \         /sys/devices/platform/ahb/ahb:apb/1e6e2000.syscon/1e6e2000.syscon:scratch/vga0 \          /sys/devices/platform/ahb/ahb:apb/1e6e2000.syscon/1e6e2000.syscon:scratch/dac_mux \
+> >           fbterm.service
+> > "
+> > fbterm is related to keyinput.
+> > AST2500 only support up to 228 gpio pins,but the error message read gpio:347 ,I don't know why ?
+> > 
+> > Best,
+> > Xiuzhi
+> > ------------------ Original ------------------
+> > From:  "Andrew.Jeffery";<andrew@aj.id.au>;
+> > Send time: Sunday, Oct 28, 2018 3:02 PM
+> > To: "xiuzhi"<1450335857@qq.com>; "Benjamin Herrenschmidt"<benh@kernel.crashing.org>; "Eddie James"<eajames@linux.vnet.ibm.com>; "Joel Stanley"<joel@jms.id.au>;
+> > Cc: "openbmc"<openbmc@lists.ozlabs.org>; "Alexander A. Filippov"<a.filippov@yadro.com>;
+> > Subject:  Re: Re: VHUB didn't work on AST2500
+> > 
+> > On Sun, 28 Oct 2018, at 12:19, xiuzhi wrote:
+> > > Hi Ben, Eddie,
+> > >   I update the kernel,libvncserver,obmc-ikvm source to the latest git 
+> > > commit numbers. 
+> > > Now I can input  number key 0-9, but still can't input any character key 
+> > > a-z  .
+> > > 1)kernel:   
+> > > KSRC ?= "git://github.com/eddiejames/linux;protocol=git;branch=$
+> > > {KBRANCH}"
+> > > KBRANCH ?= "video-dev"
+> > > LINUX_VERSION ?= "4.18.12"
+> > > SRCREV = "b953727d56c4de63eb0fad1f079f41004e61d713"
+> > > and updated the defconfig,create_usbhid.sh  as Eddie mentioned .
+> > > 2)libvncserver
+> > > SRC_URI = "git://github.com/LibVNC/libvncserver"
+> > > 
+> > > SRCREV = "ca2a5ac02fbbadd0a21fabba779c1ea69173d10b" 
+> > > 3)obmc-ikvm
+> > > SRC_URI = "git://github.com/eddiejames/obmc-ikvm"
+> > > SRCREV = "d548ee6c8f59c23552d61fb28b2ca2f20e6f3fe6"
+> > > 4) I input key on host BIOS CLI:
+> > > "1234567890" 'Enter' : good ,can see them on host screen
+> > > 'a' 'Enter':error ,see nothing
+> > > 'b' 'Enter':error,see nothing
+> > > 'c' 'Enter':error,see nothing
+> > > "123456789"'Enter':good
+> > > The dmesg is :
+> > > [   57.002351] udc 1e6a0000.usb-vhub:p1: registering UDC driver 
+> > > [obmc_hid]
+> > > [   57.002452] configfs-gadget gadget: adding 'hid'/e5acc706 to config 
+> > > 'c'/7ef6bc13
+> > > [   57.002488] aspeed_vhub 1e6a0000.usb-vhub: port1 Match EP type 3
+> > > [   57.002509] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocating gen EP 0 
+> > > for addr 1
+> > > [   57.013399] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocated epn#0 for 
+> > > port EP1
+> > > [   57.013435] aspeed_vhub 1e6a0000.usb-vhub: port1 Match EP type 3
+> > > [   57.013453] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocating gen EP 1 
+> > > for addr 2
+> > > [   57.018946] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocated epn#1 for 
+> > > port EP2
+> > > [   57.019463] aspeed_vhub 1e6a0000.usb-vhub: port1 start
+> > > [   57.019492] aspeed_vhub 1e6a0000.usb-vhub: port1 pullup(1)
+> > > [   57.019512] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 0000 -
+> > > > 0001 (C=1)
+> > > [   66.751716] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request() 
+> > > failed for pin 67
+> > > [   66.759322] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67 
+> > > (1e780000.gpio:347) status -1
+> > > [   68.577538] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request() 
+> > > failed for pin 67
+> > > [   68.585288] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67 
+> > > (1e780000.gpio:347) status -1
+> > 
+> > >Out of curiousity, what is causing the pinctrl failure? Do you have a mux clash?
+> >           /sys/devices/platform/ahb/ahb:apb/1e6e2000.syscon/1e6e2000.syscon:scratch/vga0 \
+> >           /sys/devices/platform/ahb/ahb:apb/1e6e2000.syscon/1e6e2000.syscon:scratch/dac_mux \
+> >           fbterm.service
+> > 
+> > > [  100.115387] aspeed_vhub 1e6a0000.usb-vhub: USB bus resume
+> > > [  100.115411] configfs-gadget gadget: resume
+> > > [  100.115427] aspeed_vhub 1e6a0000.usb-vhub: USB bus reset
+> > > [  100.258057] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 00/05/0002/0000/0000 [out] st=0
+> > > [  100.258092] aspeed_vhub 1e6a0000.usb-vhub: USB status=0b100000 
+> > > speed=high
+> > > [  100.258107] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SET_ADDRESS: Got 
+> > > address 2
+> > > [  100.279075] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0100/0000/0008 [in] st=0
+> > > [  100.279103] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:1)
+> > > [  100.283632] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0100/0000/0012 [in] st=0
+> > > [  100.283664] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:1)
+> > > [  100.288371] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0200/0000/0008 [in] st=0
+> > > [  100.288405] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:2)
+> > > [  100.292205] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0200/0000/0019 [in] st=0
+> > > [  100.292235] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:2)
+> > > [  100.300948] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0300/0000/0002 [in] st=0
+> > > [  100.301268] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 80/06/0300/0000/0004 [in] st=0
+> > > [  100.301640] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 00/09/0001/0000/0000 [out] st=0
+> > > [  100.335144] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a0/06/2900/0000/0002 [in] st=0
+> > > [  100.335178] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GetHubDescriptor(0)
+> > > [  100.335196] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:41)
+> > > [  100.335527] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a0/06/2900/0000/0009 [in] st=0
+> > > [  100.335554] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GetHubDescriptor(0)
+> > > [  100.335569] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > GET_DESCRIPTOR(type:41)
+> > > [  100.339672] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0008/0001/0000 [out] st=0
+> > > [  100.339703] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(1,8)
+> > > [  100.339890] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0008/0002/0000 [out] st=0
+> > > [  100.339912] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(2,8)
+> > > [  100.340139] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0008/0003/0000 [out] st=0
+> > > [  100.340160] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(3,8)
+> > > [  100.340386] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0008/0004/0000 [out] st=0
+> > > [  100.340404] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(4,8)
+> > > [  100.340637] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0008/0005/0000 [out] st=0
+> > > [  100.340656] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(5,8)
+> > > [  100.360852] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a0/00/0000/0000/0004 [in] st=0
+> > > [  100.360884] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > > [  100.500028] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a3/00/0000/0001/0004 [in] st=0
+> > > [  100.500062] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > [  100.500082] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0101 
+> > > change=0001
+> > > [  100.500404] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/01/0010/0001/0000 [out] st=0
+> > > [  100.500435] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > ClearPortFeature(1,16)
+> > > [  100.615543] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/03/0004/0001/0000 [out] st=0
+> > > [  100.615579] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > SetPortFeature(1,4)
+> > > [  100.615594] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 Port reset !
+> > > [  100.615612] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 0001 -
+> > > > 0011 (C=0)
+> > > [  100.615626] aspeed_vhub 1e6a0000.usb-vhub: port1 Reset at unknown 
+> > > speed of disabled device, enabling...
+> > > [  100.615643] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 0011 -
+> > > > 0403 (C=1)
+> > > [  100.635854] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a3/00/0000/0001/0004 [in] st=0
+> > > [  100.635885] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > [  100.635903] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 
+> > > change=0012
+> > > [  100.636271] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/01/0011/0001/0000 [out] st=0
+> > > [  100.636299] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > ClearPortFeature(1,17)
+> > > [  100.636515] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > 23/01/0014/0001/0000 [out] st=0
+> > > [  100.636540] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > ClearPortFeature(1,20)
+> > > [  100.649529] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 00/05/0003/0000/0000 [out] st=0
+> > > [  100.649564] aspeed_vhub 1e6a0000.usb-vhub: port1 fist packet, 
+> > > captured speed 3
+> > > [  100.649580] aspeed_vhub 1e6a0000.usb-vhub: port1 SET_ADDRESS: Got 
+> > > address 3
+> > > [  100.665314] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a3/00/0000/0001/0004 [in] st=0
+> > > [  100.665345] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > [  100.665363] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 
+> > > change=0000
+> > > [  100.680170] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0100/0000/0008 [in] st=0
+> > > [  100.680200] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.680234] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.684627] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0100/0000/0012 [in] st=0
+> > > [  100.684657] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.684690] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.689471] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0200/0000/0008 [in] st=0
+> > > [  100.689500] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.689538] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.693198] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0200/0000/0029 [in] st=0
+> > > [  100.693231] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.693267] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.701949] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0300/0000/0002 [in] st=0
+> > > [  100.701983] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.702020] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.702403] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/06/0300/0000/0004 [in] st=0
+> > > [  100.702432] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.702466] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.702774] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 00/09/0001/0000/0000 [out] st=0
+> > > [  100.702799] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.702818] configfs-gadget gadget: high-speed config #1: c
+> > > [  100.708470] aspeed_vhub 1e6a0000.usb-vhub: port1:EP1 Enabling [in] 
+> > > intr num 1 maxpacket=11
+> > > [  100.708512] aspeed_vhub 1e6a0000.usb-vhub: port1:EP2 Enabling [out] 
+> > > intr num 2 maxpacket=11
+> > > [  100.708565] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.777585] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 80/08/0000/0000/0001 [in] st=0
+> > > [  100.777619] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.777649] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.778029] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > a1/03/0000/0000/0001 [in] st=0
+> > > [  100.778055] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.778085] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.778403] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 21/0b/0000/0000/0000 [out] st=0
+> > > [  100.778428] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.778457] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > 0
+> > > [  100.778649] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 21/09/0200/0000/0001 [out] st=0
+> > > [  100.778672] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.778692] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > -95
+> > > [  100.778704] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 stalling
+> > > [  100.778746] aspeed_vhub 1e6a0000.usb-vhub: status direction mismatch
+> > > [  100.859563] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > 21/09/0200/0000/0001 [out] st=0
+> > > [  100.859592] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding to 
+> > > gadget...
+> > > [  100.859618] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver returned 
+> > > -95
+> > > [  100.859633] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 stalling
+> > > [  100.892835] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a3/00/0000/0001/0004 [in] st=0
+> > > [  100.892866] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > [  100.892882] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port status=0503 
+> > > change=0000
+> > > [  100.893278] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > a0/00/0000/0000/0004 [in] st=0
+> > > [  100.893305] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > > 
+> > > Best,
+> > > Xiuzhi
+> > > 
+> > > ------------------ Original ------------------
+> > > From:  "Benjamin Herrenschmidt";<benh@kernel.crashing.org>;
+> > > Send time: Saturday, Oct 27, 2018 7:55 AM
+> > > To: "xiuzhi"<1450335857@qq.com>; "Eddie 
+> > > James"<eajames@linux.vnet.ibm.com>; "Joel Stanley"<joel@jms.id.au>; 
+> > > Cc: "openbmc"<openbmc@lists.ozlabs.org>; "Alexander A. 
+> > > Filippov"<a.filippov@yadro.com>; 
+> > > Subject:  Re: Re: VHUB didn't work on AST2500
+> > > 
+> > > 
+> > > 
+> > > On Fri, 2018-10-26 at 14:34 +0800, xiuzhi wrote:
+> > > > Hi Eddie,
+> > > >    Thanks for your reply.  
+> > > > It seemd that the error was caused by the  version dismatch of kernel ,libvncserver ,obmc-ikvm and  vnc client. 
+> > > > Would you like to give me your  git commits numbers of them?
+> > > 
+> > > It's still a very strange error.
+> > > 
+> > > Once everything is up to date, let me know if it occurs again, there's
+> > > something not right going on in the vhub driver causing that state
+> > > mismatch error, it shouldn't happen. But I haven't managed to reproduce
+> > > it here.
+> > > 
+> > > Cheers,
+> > > Ben.
+> > > 
+> > > > Best,
+> > > > xiuzhi  
+> > > > On 10/24/2018 09:52 PM, xiuzhi wrote:
+> > > > > Hi Ben,
+> > > > >   I use vncviewer , xtightvncviewer 1.3.9-6.4ubuntu1.
+> > > > > And I also tested the ikvm by webui 
+> > > > > vnc(_https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/_) 
+> > > > > ,the same errors occured.
+> > > > > The same source code obmc-ikvm and this  kernel branch video-dev5  
+> > > > > works on my other  AST2400 hardware machine.
+> > > > > I remembered  only one  kernel version seemed to work on ast2500 ,I 
+> > > > > tested it six weeks ago .
+> > > > >  the kernel version is:
+> > > > >
+> > > > > KBRANCH ?= "video-dev"
+> > > > > LINUX_VERSION ?= "4.17.11"
+> > > > > SRCREV="09a65900b2fc7aab9caf9d0dfabc7ba80525b1dd"
+> > > > > the git repo is from  git://github.com/eddiejames/linux/,
+> > > > >
+> > > > > https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/11500/5/meta-openbmc-bsp/meta-aspeed/recipes-kernel/linux/linux-aspeed_git.bb
+> > > > > I want to test this kernel version ,but now this git repo is not 
+> > > > > available ,
+> > > > >  I asked Eddiejames week ago, and get no response until now .
+> > > > >  It is so bad that I did not  backup this kernel on my local machice.
+> > > > 
+> > > > I never made any kernel changes related to USB in my github trees, as 
+> > > > far as I know, so shouldn't be any difference. That original gerrit 
+> > > > commit was purely for our testing purposes for our system... not really 
+> > > > something I can support actively.
+> > > > 
+> > > > I have a number of commits pending review that you could try and pull in 
+> > > > if you really need this now:
+> > > > https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phosphor/+/13536/
+> > > > https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-aspeed/+/13541/
+> > > > https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/12126/
+> > > > 
+> > > > 
+> > > > Use these in combination with the two commits at the top of my video-dev 
+> > > > linux tree for your kernel.
+> > > > 
+> > > > Thanks,
+> > > > Eddie
+> > > > 
+> > > > >
+> > > > > Best.
+> > > > > Xiuzhi
+> > > > > On Thu, 2018-10-25 at 09:39 +0800, xiuzhi wrote:
+> > > > > > Hi Ben,
+> > > > > >   I open the CONFIG_USB_GADGET_DEBUG .
+> > > > > > and input the following keys by order:
+> > > > > > ';''Enter' :work good,can see ';' on host screen
+> > > > > > 'a''Enter' :error,see anything on screen
+> > > > > > 'b''Enter' :error,see anything on screen
+> > > > > > '1''Enter' :good
+> > > > > > '2''Enter' :good
+> > > > > > '3''Enter' :good
+> > > > > > '4''Enter' :good
+> > > > > > '5''Enter'  :error deadlock
+> > > > > > The log is:
+> > > > >
+> > > > > Can you tell me more about the userspace components you use to send
+> > > > > those keys ? I'd like to try to reproduce here.
+> > > > >
+> > > > > > [   78.820671] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request() 
+> > > > > failed for pin 67
+> > > > > > [   78.828274] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67 
+> > > > > (1e780000.gpio:347) status -1
+> > > > > > [   80.698564] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: request() 
+> > > > > failed for pin 67
+> > > > > > [   80.706166] aspeed-g5-pinctrl 1e6e2000.syscon:pinctrl: pin-67 
+> > > > > (1e780000.gpio:347) status -
+> > > > > > [   94.447816] udc 1e6a0000.usb-vhub:p1: registering UDC driver 
+> > > > > [obmc_hid]
+> > > > > > [   94.447909] configfs-gadget gadget: adding 'hid'/15e5a204 to 
+> > > > > config 'c'/70dd0747
+> > > > > > [   94.447940] aspeed_vhub 1e6a0000.usb-vhub: port1 Match EP type 3
+> > > > > > [   94.447958] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocating gen 
+> > > > > EP 0 for addr 1
+> > > > > > [   94.448474] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocated epn#0 
+> > > > > for port EP1
+> > > > > > [   94.448505] aspeed_vhub 1e6a0000.usb-vhub: port1 Match EP type 3
+> > > > > > [   94.448522] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocating gen 
+> > > > > EP 1 for addr 2
+> > > > > > [   94.448780] aspeed_vhub 1e6a0000.usb-vhub: port1 Allocated epn#1 
+> > > > > for port EP2
+> > > > > > [   94.449270] aspeed_vhub 1e6a0000.usb-vhub: port1 start
+> > > > > > [   94.449297] aspeed_vhub 1e6a0000.usb-vhub: port1 pullup(1)
+> > > > > > [   94.449317] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 
+> > > > > 0000 -> 0001 (C=1)
+> > > > > > [  100.158377] aspeed_vhub 1e6a0000.usb-vhub: USB bus resume
+> > > > > > [  100.158400] configfs-gadget gadget: resume
+> > > > > > [  100.158415] aspeed_vhub 1e6a0000.usb-vhub: USB bus reset
+> > > > > > [  100.301048] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 00/05/0002/0000/0000 [out] st=0
+> > > > > > [  100.301081] aspeed_vhub 1e6a0000.usb-vhub: USB status=0b100000 
+> > > > > speed=high
+> > > > > > [  100.301096] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SET_ADDRESS: 
+> > > > > Got address 2
+> > > > > > [  100.322061] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0100/0000/0008 [in] st=0
+> > > > > > [  100.322090] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:1)
+> > > > > > [  100.326625] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0100/0000/0012 [in] st=0
+> > > > > > [  100.326656] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:1)
+> > > > > > [  100.331359] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0200/0000/0008 [in] st=0
+> > > > > > [  100.331392] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:2)
+> > > > > > [  100.335194] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0200/0000/0019 [in] st=0
+> > > > > > [  100.335221] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:2)
+> > > > > > [  100.343939] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0300/0000/0002 [in] st=0
+> > > > > > [  100.344272] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 80/06/0300/0000/0004 [in] st=0
+> > > > > > [  100.344647] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 00/09/0001/0000/0000 [out] st=0
+> > > > > > [  100.378145] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a0/06/2900/0000/0002 [in] st=0
+> > > > > > [  100.378178] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GetHubDescriptor(0)
+> > > > > > [  100.378195] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:41)
+> > > > > > [  100.378522] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a0/06/2900/0000/0009 [in] st=0
+> > > > > > [  100.378546] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GetHubDescriptor(0)
+> > > > > > [  100.378560] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > GET_DESCRIPTOR(type:41)
+> > > > > > [  100.382665] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0008/0001/0000 [out] st=0
+> > > > > > [  100.382697] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(1,8)
+> > > > > > [  100.382896] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0008/0002/0000 [out] st=0
+> > > > > > [  100.382922] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(2,8)
+> > > > > > [  100.383148] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0008/0003/0000 [out] st=0
+> > > > > > [  100.383173] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(3,8)
+> > > > > > [  100.383396] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0008/0004/0000 [out] st=0
+> > > > > > [  100.383422] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(4,8)
+> > > > > > [  100.383643] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0008/0005/0000 [out] st=0
+> > > > > > [  100.383668] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(5,8)
+> > > > > > [  100.403844] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a0/00/0000/0000/0004 [in] st=0
+> > > > > > [  100.403871] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > > > > > [  100.549225] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a3/00/0000/0001/0004 [in] st=0
+> > > > > > [  100.549257] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > > > > [  100.549275] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port 
+> > > > > status=0101 change=0001
+> > > > > > [  100.549651] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/01/0010/0001/0000 [out] st=0
+> > > > > > [  100.549681] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > ClearPortFeature(1,16)
+> > > > > > [  100.664592] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/03/0004/0001/0000 [out] st=0
+> > > > > > [  100.664625] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > SetPortFeature(1,4)
+> > > > > > [  100.664639] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 Port reset !
+> > > > > > [  100.664658] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 
+> > > > > 0001 -> 0011 (C=0)
+> > > > > > [  100.664672] aspeed_vhub 1e6a0000.usb-vhub: port1 Reset at unknown 
+> > > > > speed of disabled device, enabling.
+> > > > > > [  100.664689] aspeed_vhub 1e6a0000.usb-vhub: port1 port 1 status 
+> > > > > 0011 -> 0403 (C=1)
+> > > > > > [  100.684840] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a3/00/0000/0001/0004 [in] st=0
+> > > > > > [  100.684867] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > > > > [  100.684885] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port 
+> > > > > status=0503 change=0012
+> > > > > > [  100.685276] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/01/0011/0001/0000 [out] st=0
+> > > > > > [  100.685306] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > ClearPortFeature(1,17)
+> > > > > > [  100.685518] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > 23/01/0014/0001/0000 [out] st=0
+> > > > > > [  100.685544] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 
+> > > > > ClearPortFeature(1,20)
+> > > > > > [  100.698539] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 00/05/0003/0000/0000 [out] st=0
+> > > > > > [  100.698568] aspeed_vhub 1e6a0000.usb-vhub: port1 fist packet, 
+> > > > > captured speed 3
+> > > > > > [  100.698585] aspeed_vhub 1e6a0000.usb-vhub: port1 SET_ADDRESS: Got 
+> > > > > address 3
+> > > > > > [  100.714314] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a3/00/0000/0001/0004 [in] st=0
+> > > > > > [  100.714339] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > > > > [  100.714354] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port 
+> > > > > status=0503 change=0000
+> > > > > > [  100.729165] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0100/0000/0008 [in] st=0
+> > > > > > [  100.729195] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.729227] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.733627] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0100/0000/0012 [in] st=0
+> > > > > > [  100.733658] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.733690] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.738363] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0200/0000/0008 [in] st=0
+> > > > > > [  100.738391] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.738427] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.742195] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0200/0000/0029 [in] st=0
+> > > > > > [  100.742225] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.742262] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.750944] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0300/0000/0002 [in] st=0
+> > > > > > [  100.750972] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.751006] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.751400] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/06/0300/0000/0004 [in] st=0
+> > > > > > [  100.751425] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.751455] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.751777] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 00/09/0001/0000/0000 [out] st=0
+> > > > > > [  100.751803] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.751821] configfs-gadget gadget: high-speed config #1: c
+> > > > > > [  100.757460] aspeed_vhub 1e6a0000.usb-vhub: port1:EP1 Enabling 
+> > > > > [in] intr num 1 maxpacket=11
+> > > > > > [  100.757502] aspeed_vhub 1e6a0000.usb-vhub: port1:EP2 Enabling 
+> > > > > [out] intr num 2 maxpacket=11
+> > > > > > [  100.757549] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.820566] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 80/08/0000/0000/0001 [in] st=0
+> > > > > > [  100.820594] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.820621] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.821026] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > a1/03/0000/0000/0001 [in] st=0
+> > > > > > [  100.821050] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.821076] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.821397] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 21/0b/0000/0000/0000 [out] st=0
+> > > > > > [  100.821422] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.821451] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned 0
+> > > > > > [  100.821643] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 21/09/0200/0000/0001 [out] st=0
+> > > > > > [  100.821666] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.821685] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned -95
+> > > > > > [  100.821697] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 stalling
+> > > > > > [  100.821735] aspeed_vhub 1e6a0000.usb-vhub: status direction mismatch
+> > > > > > [  100.913006] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 SETUP packet 
+> > > > > 21/09/0200/0000/0001 [out] st=0
+> > > > > > [  100.913034] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 forwarding 
+> > > > > to gadget...
+> > > > > > [  100.913056] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 driver 
+> > > > > returned -95
+> > > > > > [  100.913067] aspeed_vhub 1e6a0000.usb-vhub: port1:EP0 stalling
+> > > > > > [  100.946228] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a3/00/0000/0001/0004 [in] st=0
+> > > > > > [  100.946257] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetPortStatus(1)
+> > > > > > [  100.946274] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0  port 
+> > > > > status=0503 change=0000
+> > > > > > [  100.946645] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 SETUP packet 
+> > > > > a0/00/0000/0000/0004 [in] st=0
+> > > > > > [  100.946672] aspeed_vhub 1e6a0000.usb-vhub: hub:EP0 GetHubStatus
+> > > > > > [  399.741059] aspeed_vhub 1e6a0000.usb-vhub: USB bus suspend
+> > > > > > [  399.741081] configfs-gadget gadget: suspend
+> > > > > > Best,
+> > > > > > Xiuzhi
+> > > > > >
+> > > > > > ------------------ Original ------------------
+> > > > > > From:  "Benjamin Herrenschmidt";<benh@kernel.crashing.org>;
+> > > > > > Send time: Thursday, Oct 25, 2018 6:42 AM
+> > > > > > To: "Joel Stanley"<joel@jms.id.au>; "xiuzhi"<1450335857@qq.com>;
+> > > > > > Cc: "a.filippov"<a.filippov@yadro.com>; "OpenBMC 
+> > > > > Maillist"<openbmc@lists.ozlabs.org>;
+> > > > > > Subject:  Re: VHUB didn't work on AST2500
+> > > > > >
+> > > > > > On Wed, 2018-10-24 at 17:02 +1030, Joel Stanley wrote:
+> > > > > > > On Wed, 24 Oct 2018 at 17:00, xiuzhi <1450335857@qq.com> wrote:
+> > > > > > > >  I am porting obmc-ikvm to my hardware platform. The host screen 
+> > > > > can be seen by vncviewer , but the mouse and keyboard didn't work on 
+> > > > > AST2500
+> > > > > > > > . Only the keys ';' , 'Enter',  '1','2','3','4' work. others 
+> > > > > keyinput will deadlock the host screen .
+> > > > > > > > The kernel error log:
+> > > > > > > > [   99.326586] configfs-gadget gadget: high-speed config #1: c
+> > > > > > > > [   99.403704] aspeed_vhub 1e6a0000.usb-vhub: status direction 
+> > > > > mismatch
+> > > > > > > > [   99.492831] aspeed_vhub 1e6a0000.usb-vhub: status direction 
+> > > > > mismatch
+> > > > > > > > The kernel version is : video-dev5,
+> > > > > > > > commit 2acbc35adcfe15971b701770e1105276a18da9f7
+> > > > > > > >
+> > > > > > > > Who can give me some suggestions to  debug it?
+> > > > > > >
+> > > > > > > Ben, do you have any advice?
+> > > > > >
+> > > > > > I need to know a bit more. What is used as a gadget driver on the BMC ?
+> > > > > >
+> > > > > > I would probably need to reproduce with some added traces to the driver
+> > > > > > to figure out what's going on.
+> > > > > >
+> > > > > > One first thing to try would be a run with CONFIG_USB_GADGET_DEBUG
+> > > > > > along with some indication of what actions happen corresponding to what
+> > > > > > part of the log (ie, press key 'a' etc...).
+> > > > > >
+> > > > > > Cheers,
+> > > > > > Ben.
+> > > > > >
