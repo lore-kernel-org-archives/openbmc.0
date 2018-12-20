@@ -1,37 +1,63 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <raj.khem@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=210.51.61.248; helo=ssh248.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::829; helo=mail-qt1-x829.google.com;
+ envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dgz1UJIT"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [IPv6:2607:f8b0:4864:20::829])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43LC3K39mMzDqmf
- for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 00:17:13 +1100 (AEDT)
-Received: from ([218.57.135.44])
- by ssh248.corpemail.net (Antispam) with ASMTP (SSL) id KZL47802
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 21:17:02 +0800
-Received: from mail-lf1-f42.google.com (172.30.26.1) by
- jtjncas04.home.langchao.com (172.30.26.23) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Thu, 20 Dec 2018 21:17:00 +0800
-Received: by mail-lf1-f42.google.com with SMTP id l10so1315563lfh.9 for
- <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 05:17:00 -0800 (PST)
-X-Gm-Message-State: AA+aEWZiukM21UcyJM0CevPcXdLnxNa+9qo2ICWASuPgcG+QbAQQMLX7
- V/Ahb3qehMksPlpgmzjR9OgKu3Iu51JngJ5hHGc=
-X-Google-Smtp-Source: AFSGD/U5ULlgqsWbdwd3yK0oNHZsdWFRB13g61QqlaGCRSpW3sE8FlWzw0Uf7gh85Y8vZsvefZiFInBWCNQungNhYhg=
-X-Received: by 2002:a19:d145:: with SMTP id i66mr15716813lfg.97.1545311817066; 
- Thu, 20 Dec 2018 05:16:57 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43LG8k0jgxzDr1F
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 02:37:09 +1100 (AEDT)
+Received: by mail-qt1-x829.google.com with SMTP id i7so2221235qtj.10
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 07:37:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=a9C7QNX6NbQP9irdn3VoouegMSwa4A/BOwbudBvL874=;
+ b=dgz1UJITA/bS+T8l39XR0H0c14mmABl2rFJ8zyNmbK+5DTuTBdEG1aR1pmUMhjxtV4
+ YmX2ZO1WlZ5W7s0uYi3eAiTTPuucJ40vlB6hRrdrhmghgWcyu36KHUJegKf9qDRmBmlu
+ 8GglEM7rig2xR49zV4LfG0UVL92vzrHjEAwey+KwIpxwl63WZnasF2k7WMi/nalMvItq
+ QZmbwhlcp7HH7/24/RPweSCw5x9qrc/QDQSC0b+2FHmDLJB6TZeOTDdi4Le/ShkvI1Sq
+ EBsHy8TJhQghrtgnFCqwsZ9kNqY3rAg19cKT6zFaJAkmNcZMtvxW3Z162f0bp2FVgccw
+ ryHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=a9C7QNX6NbQP9irdn3VoouegMSwa4A/BOwbudBvL874=;
+ b=OXgAE3/rXwY4GFJ8grNHCaYCAE8h80hfz8NSRYEGGVCpJNlWf1E6nXPvFV9DfaA5vT
+ LKaBRSMxgGNW7fZ5GudgLafwL7rtMMZA2ON4DVKkG466doE5l1fXyGx7+sOyonI29qxn
+ wgpp1J6dreRZ/TJjhZjiFivsDEVElcHaW7w8BMYrjid/YJLruG0iWUX+J0A5AHBhoM/9
+ df5EfYroVmZivxzepO8kvymZSxhOZTxZfNOWQYMWq+PswVXoDxrEMQNGsRffsm/5NctP
+ JTQCq5NkI48Af3fch4ixkdObHX/+NgLi47ZMdvSgwZipqzpUPd/AeI+qP4zZbP9P7O7e
+ fMLg==
+X-Gm-Message-State: AA+aEWYtMA6BuIae52J+MDuCvyvPk5UNOYV/LEzTvK/GVqFrwx7Irfrc
+ qmr8tzl/yAzgDa6hIq7dreGSV7jmtScA5hO+ZDc=
+X-Google-Smtp-Source: AFSGD/Vx3wAEYdUM6E8u84L3tYNSvcX5iieH20URrfoLyH+0e/U5exjMT+vmd3JRqeShJZZkGuslVL3wuIp/4gZ+Pg0=
+X-Received: by 2002:ad4:41d0:: with SMTP id a16mr26335276qvq.55.1545320227067; 
+ Thu, 20 Dec 2018 07:37:07 -0800 (PST)
 MIME-Version: 1.0
-From: John Wang <wangzqbj@inspur.com>
-Date: Thu, 20 Dec 2018 21:16:45 +0800
-X-Gmail-Original-Message-ID: <CAHkHK0_yZxnX4sY5-ZN=tLXtUkqZJnHyXXUtb-C6Zn4gkGNniQ@mail.gmail.com>
-Message-ID: <CAHkHK0_yZxnX4sY5-ZN=tLXtUkqZJnHyXXUtb-C6Zn4gkGNniQ@mail.gmail.com>
-Subject: openbmc code auto-completion
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <e0464c53-3d11-884c-75bd-1e78aed97ded@linux.intel.com>
+ <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
+ <CAJTo0LayfGOMkwFrLStd9_93fBBG8ZH4b806T5CCo=A1nbTCWg@mail.gmail.com>
+ <CAMKF1sp1DLQwANi8sbHp4pP-YPPMbVOOsArUoxa286QAgTx-Lw@mail.gmail.com>
+ <CAJTo0Lb1Vq7-UXWKZf5hs4L4HzKAu45HTOnxtFXkOCttA0BiiA@mail.gmail.com>
+In-Reply-To: <CAJTo0Lb1Vq7-UXWKZf5hs4L4HzKAu45HTOnxtFXkOCttA0BiiA@mail.gmail.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Thu, 20 Dec 2018 07:36:40 -0800
+Message-ID: <CAMKF1speLVxgZXojHO5ZBNO1LQXS4CMFvhK6VEbkeJL3giyMiQ@mail.gmail.com>
+Subject: Re: [OE-core] flto automake
+To: "Burton, Ross" <ross.burton@intel.com>
+Cc: Bradley Bishop <bradleyb@fuzziesquirrel.com>,
+ OpenBMC <openbmc@lists.ozlabs.org>, 
+ James Feist <james.feist@linux.intel.com>, 
+ OE-core <openembedded-core@lists.openembedded.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [172.30.26.1]
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,27 +69,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Dec 2018 13:17:19 -0000
+X-List-Received-Date: Thu, 20 Dec 2018 15:37:11 -0000
 
-Hi,All
+On Thu, Dec 20, 2018 at 4:37 AM Burton, Ross <ross.burton@intel.com> wrote:
+>
+> On Thu, 20 Dec 2018 at 01:20, Khem Raj <raj.khem@gmail.com> wrote:
+> > > That however leads to the question of should we just change the
+> > > defaults? Does anything break if we use gcc-ar instead of ar?
+> >
+> > Dont think that is a good idea in general since gcc-ar is a wrapper
+> > around normal ar
+> > passing --plugin=/path/to/lto/plugin/so and that may not be right
+> > thing to do always.
+>
+> Well, I built core-image-sato core-image-weston with AR=gcc-ar
+> RANLIB=gcc-ranlib globally and it worked fine.
 
-I am a vimer. There is a ycm_extra_conf file for ycm(auto-completion)
-for openbmc-cpp-project,I want to share.I don't know where this file
-should be uploaded,just put it here
-https://github.com/inspur-bmc/common-dotfiles/blob/master/ycm_extra_conf.py.
+Please build a lot more. These images cover only handful of recipes
+there are problems like
 
-How to use it:
-devtool modify phosphor-led-sysfs
-cd workspace/sources/phosphor-led-sysfs/
-cp ycm_extra_conf.py  ./.ycm_extra_conf.py
+https://gcc.gnu.org/bugzilla/show_bug.cgi?id=77576
 
-vim xxx.cpp
+which we might have to contend.
 
-As a c++ beginner,I feel that auto-completion can make me write code
-more happily.This ycm_extra_conf file is simple ,if someone can tell
-me a better way for yocto(openbmc) auto-completion,I would be
-grateful.
+>
+> As we build the cross gcc we know what is in it.  Other toolchains be
+> they clang, ICC, or external GCCs, can override AR just like they do
+> the other variables.
+>
 
-Thanks
+Yes they can, but what doe this buy us ? except we make Core toolchain
+gcc dependent one step more.
 
--John
+> Ross
