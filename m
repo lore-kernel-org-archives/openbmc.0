@@ -1,61 +1,63 @@
-Return-Path: <raj.khem@gmail.com>
+Return-Path: <ross.burton@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::829; helo=mail-qt1-x829.google.com;
- envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=2a00:1450:4864:20::12f; helo=mail-lf1-x12f.google.com;
+ envelope-from=ross.burton@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="dgz1UJIT"; 
+ unprotected) header.d=intel-com.20150623.gappssmtp.com
+ header.i=@intel-com.20150623.gappssmtp.com header.b="jUyH5d63"; 
  dkim-atps=neutral
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
+Received: from mail-lf1-x12f.google.com (mail-lf1-x12f.google.com
+ [IPv6:2a00:1450:4864:20::12f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43LG8k0jgxzDr1F
- for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 02:37:09 +1100 (AEDT)
-Received: by mail-qt1-x829.google.com with SMTP id i7so2221235qtj.10
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 07:37:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43LGNb4ssTzDr1F
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 02:47:26 +1100 (AEDT)
+Received: by mail-lf1-x12f.google.com with SMTP id v5so1712351lfe.7
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 07:47:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=intel-com.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=a9C7QNX6NbQP9irdn3VoouegMSwa4A/BOwbudBvL874=;
- b=dgz1UJITA/bS+T8l39XR0H0c14mmABl2rFJ8zyNmbK+5DTuTBdEG1aR1pmUMhjxtV4
- YmX2ZO1WlZ5W7s0uYi3eAiTTPuucJ40vlB6hRrdrhmghgWcyu36KHUJegKf9qDRmBmlu
- 8GglEM7rig2xR49zV4LfG0UVL92vzrHjEAwey+KwIpxwl63WZnasF2k7WMi/nalMvItq
- QZmbwhlcp7HH7/24/RPweSCw5x9qrc/QDQSC0b+2FHmDLJB6TZeOTDdi4Le/ShkvI1Sq
- EBsHy8TJhQghrtgnFCqwsZ9kNqY3rAg19cKT6zFaJAkmNcZMtvxW3Z162f0bp2FVgccw
- ryHQ==
+ :cc; bh=q07xltA2elmqykK1jzoNSl+3vdBvATAbeYQqt+XUXbg=;
+ b=jUyH5d63hWe6zeVMEuANx92VU1oUiK++EHSyaGu3l1MK4FytQwvctSbg0G1xINQfYs
+ 3tC2lktVY3r9+9qK8oRuH9W27sw0V7Aku1XFt9pY8oGEd0jRGCiEtMnODC/KYToHgbOe
+ tzVDIdlQ3RKjZNI5ALCYpVUQHBblEI4DmBguHCChEG82+C8Vo+nH9DyYnrVg+2+n/ttp
+ JyEJ4gUSYb/Bx97tUWRKqdj7ldrJrjG0XzVCLCjVzEup/g7KhsyB5TAarxPpQrIPdn/k
+ uuyrpllzqt6yzxMQJZlZtY4S2VWdJv2fhMsa5+aGzO/evZnoiWj41v7Ii5HVAw57ceMb
+ PJgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=a9C7QNX6NbQP9irdn3VoouegMSwa4A/BOwbudBvL874=;
- b=OXgAE3/rXwY4GFJ8grNHCaYCAE8h80hfz8NSRYEGGVCpJNlWf1E6nXPvFV9DfaA5vT
- LKaBRSMxgGNW7fZ5GudgLafwL7rtMMZA2ON4DVKkG466doE5l1fXyGx7+sOyonI29qxn
- wgpp1J6dreRZ/TJjhZjiFivsDEVElcHaW7w8BMYrjid/YJLruG0iWUX+J0A5AHBhoM/9
- df5EfYroVmZivxzepO8kvymZSxhOZTxZfNOWQYMWq+PswVXoDxrEMQNGsRffsm/5NctP
- JTQCq5NkI48Af3fch4ixkdObHX/+NgLi47ZMdvSgwZipqzpUPd/AeI+qP4zZbP9P7O7e
- fMLg==
-X-Gm-Message-State: AA+aEWYtMA6BuIae52J+MDuCvyvPk5UNOYV/LEzTvK/GVqFrwx7Irfrc
- qmr8tzl/yAzgDa6hIq7dreGSV7jmtScA5hO+ZDc=
-X-Google-Smtp-Source: AFSGD/Vx3wAEYdUM6E8u84L3tYNSvcX5iieH20URrfoLyH+0e/U5exjMT+vmd3JRqeShJZZkGuslVL3wuIp/4gZ+Pg0=
-X-Received: by 2002:ad4:41d0:: with SMTP id a16mr26335276qvq.55.1545320227067; 
- Thu, 20 Dec 2018 07:37:07 -0800 (PST)
+ bh=q07xltA2elmqykK1jzoNSl+3vdBvATAbeYQqt+XUXbg=;
+ b=I+2xcXENHz5u0WVe+H6bhwH+neZnX/l7DSyN2tXmWGURtTlzANClM2tk4kNCSpO3Ue
+ +rHQecBWxTvc37O9aL5AEnQCJBgyoeUd6eMuifvteit2DsNOvuP3qlGoAjMJGPIWgGyi
+ Ix8X26F/ljeYa5b8O1G/0S98blEvvCq8HbpNw0zh15xWgNFtJT14HeSd+xfC2jzV4Pf7
+ lUGPRiqHHsh7eg4DEY43hX6EoSSFcT+hE4f05T2Lhqs3tM9kw3nUU9WXN5Tgj2R8dc8+
+ wrv0Qx/m1AkzfhhO2GgHNby2WHiY1SKl+oamujcJW7Xgkjjqhy249g3HemGk+op5hpJA
+ gBOA==
+X-Gm-Message-State: AA+aEWZCvPniYRbveqMYSJ5TB676cItjUkLv5apr/oi9x0j6rPyXPYBB
+ v3reiH05GFL/+9+T3MYO5lnX0w2O3NRPB6sd4Hhznw==
+X-Google-Smtp-Source: AFSGD/XHBug5qXlSpSnX39zpfHGYSCCueUV3I0L8d8Ysz/6gpJ4h/+G5LhDZt127NzbicpGbHv/cR5N8rvi63lbKrNs=
+X-Received: by 2002:a19:641d:: with SMTP id y29mr15249620lfb.14.1545320842771; 
+ Thu, 20 Dec 2018 07:47:22 -0800 (PST)
 MIME-Version: 1.0
 References: <e0464c53-3d11-884c-75bd-1e78aed97ded@linux.intel.com>
  <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
  <CAJTo0LayfGOMkwFrLStd9_93fBBG8ZH4b806T5CCo=A1nbTCWg@mail.gmail.com>
  <CAMKF1sp1DLQwANi8sbHp4pP-YPPMbVOOsArUoxa286QAgTx-Lw@mail.gmail.com>
  <CAJTo0Lb1Vq7-UXWKZf5hs4L4HzKAu45HTOnxtFXkOCttA0BiiA@mail.gmail.com>
-In-Reply-To: <CAJTo0Lb1Vq7-UXWKZf5hs4L4HzKAu45HTOnxtFXkOCttA0BiiA@mail.gmail.com>
-From: Khem Raj <raj.khem@gmail.com>
-Date: Thu, 20 Dec 2018 07:36:40 -0800
-Message-ID: <CAMKF1speLVxgZXojHO5ZBNO1LQXS4CMFvhK6VEbkeJL3giyMiQ@mail.gmail.com>
+ <CAMKF1speLVxgZXojHO5ZBNO1LQXS4CMFvhK6VEbkeJL3giyMiQ@mail.gmail.com>
+In-Reply-To: <CAMKF1speLVxgZXojHO5ZBNO1LQXS4CMFvhK6VEbkeJL3giyMiQ@mail.gmail.com>
+From: "Burton, Ross" <ross.burton@intel.com>
+Date: Thu, 20 Dec 2018 15:47:10 +0000
+Message-ID: <CAJTo0LZUEDT48YAEGc=+XPW9b-+qJU_RYAzw85hQLwYm-J2AVQ@mail.gmail.com>
 Subject: Re: [OE-core] flto automake
-To: "Burton, Ross" <ross.burton@intel.com>
+To: Khem Raj <raj.khem@gmail.com>
 Cc: Bradley Bishop <bradleyb@fuzziesquirrel.com>,
- OpenBMC <openbmc@lists.ozlabs.org>, 
- James Feist <james.feist@linux.intel.com>, 
+ OpenBMC <openbmc@lists.ozlabs.org>, james.feist@linux.intel.com, 
  OE-core <openembedded-core@lists.openembedded.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,36 +71,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Dec 2018 15:37:11 -0000
+X-List-Received-Date: Thu, 20 Dec 2018 15:47:29 -0000
 
-On Thu, Dec 20, 2018 at 4:37 AM Burton, Ross <ross.burton@intel.com> wrote:
+On Thu, 20 Dec 2018 at 15:37, Khem Raj <raj.khem@gmail.com> wrote:
+> > As we build the cross gcc we know what is in it.  Other toolchains be
+> > they clang, ICC, or external GCCs, can override AR just like they do
+> > the other variables.
 >
-> On Thu, 20 Dec 2018 at 01:20, Khem Raj <raj.khem@gmail.com> wrote:
-> > > That however leads to the question of should we just change the
-> > > defaults? Does anything break if we use gcc-ar instead of ar?
-> >
-> > Dont think that is a good idea in general since gcc-ar is a wrapper
-> > around normal ar
-> > passing --plugin=/path/to/lto/plugin/so and that may not be right
-> > thing to do always.
->
-> Well, I built core-image-sato core-image-weston with AR=gcc-ar
-> RANLIB=gcc-ranlib globally and it worked fine.
+> Yes they can, but what doe this buy us ? except we make Core toolchain
+> gcc dependent one step more.
 
-Please build a lot more. These images cover only handful of recipes
-there are problems like
+The core toolchain is currently GCC dependent already by definition.
+I'm actually about to start working on abstracting the core so it
+doesn't make any assumptions, like how there's no hard assumption of
+glibc in the core.
 
-https://gcc.gnu.org/bugzilla/show_bug.cgi?id=77576
-
-which we might have to contend.
-
->
-> As we build the cross gcc we know what is in it.  Other toolchains be
-> they clang, ICC, or external GCCs, can override AR just like they do
-> the other variables.
->
-
-Yes they can, but what doe this buy us ? except we make Core toolchain
-gcc dependent one step more.
-
-> Ross
+Ross
