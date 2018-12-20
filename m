@@ -1,53 +1,62 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <raj.khem@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::730; helo=mail-qk1-x730.google.com;
+ envelope-from=raj.khem@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aFCbjYV4"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Ktkf0T2CzDqkW
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 12:01:45 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Dec 2018 17:01:41 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,374,1539673200"; d="scan'208";a="119824921"
-Received: from orsmsx107.amr.corp.intel.com ([10.22.240.5])
- by FMSMGA003.fm.intel.com with ESMTP; 19 Dec 2018 17:01:41 -0800
-Received: from orsmsx114.amr.corp.intel.com ([169.254.8.59]) by
- ORSMSX107.amr.corp.intel.com ([169.254.1.51]) with mapi id 14.03.0415.000;
- Wed, 19 Dec 2018 17:01:41 -0800
-From: "Tanous, Ed" <ed.tanous@intel.com>
-To: "Shreyas Chandrashekar (shrchand)" <shrchand@cisco.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: "Guhan Balasubramanian (gubalasu)" <gubalasu@cisco.com>
-Subject: RE: Use MilliAmps for IPMI tool
-Thread-Topic: Use MilliAmps for IPMI tool
-Thread-Index: AQHUl8ymCQmEMU7mS0eLpjHFq4IuuaWGbkhQgAAqHQCAADMgIA==
-Date: Thu, 20 Dec 2018 01:01:40 +0000
-Message-ID: <7E9441B1E5EFFD4681F54958E8216993459845B3@ORSMSX114.amr.corp.intel.com>
-References: <85D37044-F771-4019-A66F-0762AD59BF1F@cisco.com>
- <7E9441B1E5EFFD4681F54958E821699345984003@ORSMSX114.amr.corp.intel.com>
- <72407329-3C6C-4265-8D57-9A104B66DEE5@cisco.com>
-In-Reply-To: <72407329-3C6C-4265-8D57-9A104B66DEE5@cisco.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTE3ZWU0MTEtOWZiMS00ZTBkLTgwZmMtOTE0YzMyYWQ1OWU2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiNDFXZ2JhS3VrOUhidGV3akFtbkIwSXk0RXNVVmJYcjdmWmQ2MHVSQ2JsakVEV1RiMTBvckpRc0g2MmdUaGt6SCJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.22.254.139]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Kv4P4s71zDqkZ
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 12:17:05 +1100 (AEDT)
+Received: by mail-qk1-x730.google.com with SMTP id o125so48933qkf.3
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Dec 2018 17:17:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=MdzKC7BuvJb+7Jnnq1y4JznGIhz/zX9fYG3ZsUVrq20=;
+ b=aFCbjYV4UrJMoA6Wv0aPpA4+FLsBXmpURn564AmevSxXFUV1lXCWDnJ7BK1JhVQt1b
+ XquoOzvRPq9lQE+x0z5Aq0rCAYZ67CRXjX55gecC7G6JFEfA042/OrOaVavBpKYwoEHZ
+ vN1czGvHqaweITLFgSNqWXENoRpzmZJwrCOyPskSpL9sI0fKzTo4zt0DFrJujRVUoI8c
+ ja/yClGgq9Io4u9PGoXwKoXiOQfAq7w19emUgBkb7oKzfoJ4O51hpycj6e3OkyKf4Yw5
+ 5tq3R3xDCIiuuIEoYhZclZAyOVkDI1ICPCDYq0/Dq7uM3Rxf1QRbnU/h785OWODcyTL9
+ fucg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=MdzKC7BuvJb+7Jnnq1y4JznGIhz/zX9fYG3ZsUVrq20=;
+ b=RhE0YPWLltDOAjVk75KpW8ZGrBmB8pR1yDxVx3/8ZEEBYncbpD9xSodrMWj8KEogQu
+ Z38Sjaa2DmercaPYu8H4TTzMPRpbosp8FMwmdLv1E7tN7S6SazOYmV58TxdxLUZeC2ie
+ g4VEw0uZm23wMobYchHh7UqChyEj8nUsOYnE3liCFUYJvI5gZlwxjh4zDuKov3c90A70
+ zFmV8OLV9vJ5+DzwHIIXRo73FqGwD6SqUimFWod88Takl1abA7H1NNP907iPFQaArWxO
+ bdm09m1xPDFKv1inlzp0gJMQ6k6t5wqh6KpDuwcpD6Va6j4uHQKbYIqWbUAhX3IKjz2V
+ 13nQ==
+X-Gm-Message-State: AA+aEWZqy48XRcgw0qLQeQGopsdm5LH9OOnvrZrF0xTHSh6SaXwQW3aJ
+ R4GWM8LIAoKSJIX+HZ1xsO7KVCo5bkZha8M4Yrg=
+X-Google-Smtp-Source: AFSGD/XipdTQsBpMaiHOZLwt6uUcz7TjAN7VvG0IMgRyWdz//joZAN1+1BuO9hkkxnbJBIac6asFaqDH68t2KlMijRg=
+X-Received: by 2002:a37:a80a:: with SMTP id r10mr23436124qke.2.1545268623124; 
+ Wed, 19 Dec 2018 17:17:03 -0800 (PST)
 MIME-Version: 1.0
+References: <e0464c53-3d11-884c-75bd-1e78aed97ded@linux.intel.com>
+ <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
+In-Reply-To: <E4F39B19-40EF-4774-B2B3-6C37A2CB98DC@fuzziesquirrel.com>
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 19 Dec 2018 17:16:37 -0800
+Message-ID: <CAMKF1sq5rCLE+mW4zzs59kpZnA_g9LJzvpSL0TyW5Lng8A0Xdg@mail.gmail.com>
+Subject: Re: [OE-core] flto automake
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: James Feist <james.feist@linux.intel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Patches and discussions about the oe-core layer
+ <openembedded-core@lists.openembedded.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,14 +68,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Dec 2018 01:01:47 -0000
+X-List-Received-Date: Thu, 20 Dec 2018 01:17:10 -0000
 
-PiANCj4gV2UgYXJlIGxvb2tpbmcgYXQgaGF2aW5nIG1pbGxpYW1wIGFuZCBtaWxsaXZvbHRzIHVu
-aXRzIGluIHRoZSB1bml0IGNvZGUgdGFibGUuIElzDQo+IHRoZXJlIGFueXdheSB0byBnZXQgdGhh
-dCBzdXBwb3J0PyBUaGF0IHdheSwgd2Ugd2lsbCBiZSBhYmxlIHRvIGRpc3BsYXkgdGhlDQo+IHZh
-bHVlcyBpbiBtaWxsaXZvbHRzIGFuZCBtaWxsaWFtcHMuDQo+IA0KDQpXaGF0IHByb2JsZW0gYXJl
-IHlvdSB0cnlpbmcgdG8gc29sdmUgd2l0aCB0aGF0IGNoYW5nZT8gIFRoZSBJUE1JIHNwZWMgaXMg
-bW9yZSByaWdpZCB0aGFuIGl0IG9uY2Ugd2FzLCBhbmQgZm9yIGEgdXNlIGNhc2UgdGhhdCBpcyBh
-bHJlYWR5IGNvdmVyZWQsIEkgd291bGQgYmUgc3VycHJpc2VkIGlmIHlvdSBjb3VsZCBnZXQgaXQg
-YWRkZWQsIGFuZCBnZXQgYWxsIHRoZSB0b29scyBhbmQgYmluZGluZ3MgdG8gYWRkIHN1cHBvcnQu
-DQo=
+On Tue, Dec 18, 2018 at 4:42 PM Brad Bishop <bradleyb@fuzziesquirrel.com> w=
+rote:
+>
+>
+>
+> > On Dec 18, 2018, at 1:08 PM, James Feist <james.feist@linux.intel.com> =
+wrote:
+> >
+> > If you aren't planning on enabling flto in a repo you can ignore this e=
+mail.
+> >
+> >
+> > I've created a new class flto-automake https://github.com/openbmc/meta-=
+phosphor/blob/master/classes/flto-automake.bbclass if you are enabling -flt=
+o in an autotools project you might be interested in. When using static lib=
+raries you may run into undefined references when building with Yocto. Yoct=
+o by default uses:
+
+
+The changes are right but I think flto should also be a DISTRO_FEATURE
+and this change should become effective only when flto is in
+DISTRO_FEATURES
+
+> >
+> > export AR =3D "${HOST_PREFIX}ar"
+> > export RANLIB =3D "${HOST_PREFIX}ranlib"
+> >
+> > for AR and RANLIB. This new class replaces these with the gcc equivalen=
+t wrappers that can work with the flto object files. This doesn't seem to b=
+e an issue for the CI build, it only shows up for Yocto builds. Reference: =
+http://stackoverflow.com/questions/25878407/how-can-i-use-lto-with-static-l=
+ibraries#comment67660913_25878408
+> >
+> > For Cmake I suggest looking at the way bmcweb handles it in CMakesLists=
+:
+> > https://github.com/openbmc/bmcweb/blob/master/CMakeLists.txt#L92
+
+hardcoding is not right. We have cross versions of these tools
+installed during OE build and we also have options to use non-gcc
+compilers, e.g. llvm provides its own verisons of llvm-ar and
+llvm-ranlib and llvm-nm which should be used when using clang
+or other llvm based static compilers.
+This is right fix for cross compiling with CMake
+https://github.com/YoeDistro/meta-ti/blob/yoe/mut/recipes-bsp/rwmem/rwmem/0=
+001-Use-CMake-provided-vars-for-ar-and-ranlib.patch
+
+> >
+> > Thanks,
+> >
+> > James
+>
+> Thanks James
+>
+> I wonder if this is something they would be interested in upstream.  I=E2=
+=80=99ve copied
+> the oe-core mailing list for possible comment.
+>
+> -brad
+> --
+> _______________________________________________
+> Openembedded-core mailing list
+> Openembedded-core@lists.openembedded.org
+> http://lists.openembedded.org/mailman/listinfo/openembedded-core
