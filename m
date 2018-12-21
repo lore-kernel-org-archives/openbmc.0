@@ -1,44 +1,52 @@
-Return-Path: <yong.b.li@linux.intel.com>
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32a; helo=mail-ot1-x32a.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ISuicjAO"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43LV9P3vddzDqtR
- for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 11:38:29 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Dec 2018 16:38:26 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,379,1539673200"; 
- d="scan'208,217";a="109006963"
-Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
- ([10.239.196.10])
- by fmsmga007.fm.intel.com with ESMTP; 20 Dec 2018 16:38:25 -0800
-From: "Yong Li" <yong.b.li@linux.intel.com>
-To: <venture@google.com>,
-	<openbmc@lists.ozlabs.org>
-Cc: "Li, Yong B" <yong.b.li@intel.com>
-Subject: journal log messages are missing with latest version
-Date: Fri, 21 Dec 2018 08:38:24 +0800
-Message-ID: <000601d498c5$7c4c2010$74e46030$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Lc4w1DCRzDr5Z
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 16:05:03 +1100 (AEDT)
+Received: by mail-ot1-x32a.google.com with SMTP id t5so4101918otk.1
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 21:05:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=LCrN3qQqj5WKUBK07YDaatiN3MqdUYl/tgz9OgLA4WY=;
+ b=ISuicjAOnxpmvss7+WuG5JNK8ewGBb+Ly/gr+cY3b96kod9j1wxA+CU9OFNcATarms
+ Oj37boMiE02u1cQtOf5dJKFaSZOty+Lotiu78hy0Nwl6BbugAVcMqVx6SaiRoape+v/a
+ z2H2AzjQ0j426Vl5Z6kLJF2CbCpAJ3lIGscQXi6m6dh6FLZqkfgNTnaYG7anIcu4o70g
+ 8yjpnZToqpj/MtJ7vwWT33Yy+Tthb74WOcOmqwRYa42143abOHoUl2n1U1x6Sq4Ht8uC
+ fY3FRfsn1yUIZ1JAaq7KRpKk316hNbvUOB1zkNGWvPYwNgG8v6I7FLGvmObvWT2QhTty
+ 1yMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=LCrN3qQqj5WKUBK07YDaatiN3MqdUYl/tgz9OgLA4WY=;
+ b=JX+vZI5LomITgVU5T2j8ysxYtn3ag322SEauJ6NTRxuZ/OzrmJX9Uj56kRZk99uULO
+ MY5KBBZ8qBcz0M/82fDV/cqED4uauRHgJ81Brddz0ZPnpGxJw67Bnl+5/xXS6KEoGQoM
+ kLTN16ins6yIkN/8Pz9W7fWvAuytD9XuJwPbUHFPNrG9i2Jce1cGeW7p/ORWvcgugzLh
+ ogO2iey7gOMZNJDyfguGXw2pnaiwLwPUtrB5FuPO8ReSKgx2mbZSxQN6ZoHAkX+aN7Gt
+ 4xwNx/eOhCNQ8ofp+ySDk3wBkYEdGS8Ba3TBEef1sH0vJIY/VYMdYwra5TFsaPlKO/8x
+ 6cgg==
+X-Gm-Message-State: AJcUukfr6WOZxD1jb4yHGAA1oRqkfdfAyun8suvnjjt7a5xNl9zOfanQ
+ LAAmNHcaRIdMIWdkjitkxQFiQcBJmpL3TNY0WJ4Lv7bO
+X-Google-Smtp-Source: ALg8bN6Ff2vWo/mJjJsCQWzpF2GkXGs4sbguENL0DtaidiWHP4lOyAOGNmeoXZuGwX0zer1RE6mZKp/FVCXY58FgNFM=
+X-Received: by 2002:a9d:3bc7:: with SMTP id k65mr667452otc.11.1545368701181;
+ Thu, 20 Dec 2018 21:05:01 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_0007_01D49908.8A70E6B0"
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdSYxXmiiblQVz+yQrqj86VrunkBvg==
-Content-Language: en-us
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMjA1Y2M5ODctZTViMC00YjM2LWJiYzMtNGQ0MzBjNDczYTAxIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoidEVsZFgyWkdjZDl3OXk4a3Bvd05vSjVCWUFmWUpkVzlQK0RHY2lGYmhaQjJTNW1LYkR0eFFrcWR3Z1pVZ3lvMyJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
+From: AKASH G J <akashgj91@gmail.com>
+Date: Fri, 21 Dec 2018 10:34:52 +0530
+Message-ID: <CAE33tLHRzGa2_t3AMfAjf4txP7cu=uFBHMuUFAERBkZ9ZoOGCw@mail.gmail.com>
+Subject: Sensors connected on I2C bus of chipset
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000007b2207057d813002"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,133 +58,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Dec 2018 00:38:34 -0000
+X-List-Received-Date: Fri, 21 Dec 2018 05:05:05 -0000
 
-This is a multipart message in MIME format.
+--0000000000007b2207057d813002
+Content-Type: text/plain; charset="UTF-8"
 
-------=_NextPart_000_0007_01D49908.8A70E6B0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Hi All,
 
- 
+I built OpenBMC Linux using Zaius configuration and booted on BMC Aspeed
+AST-2500. The board we are using have some temperature sensor (TMP75) and
+voltage sensors (ADM1293) on I2C bus connected to chipset, not to BMC.
 
-Hi Patrick,
-
- 
-
-I encountered a problem after upgrade to the latest opnebmc version:
-
- 
-
-These log messages in ipmid are missing with the "journalctl -f".
-
- 
-
-My tests shows that the blow change is related, after I revert it, I can get
-these log messages.
-
- 
-
-Did you meet such issue, or any suggestions/comments to narrow down this
-issue?
-
-https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e83066baa6f3711c
-88d6a3b9a5c4d49
-
-add sdjournal interface to inject tests
-
- 
-
-Thanks,
-
-Yong
+How I can monitor the readings using BMC ?
 
 
-------=_NextPart_000_0007_01D49908.8A70E6B0
-Content-Type: text/html;
-	charset="us-ascii"
+Thanks and Regards,
+
+Akash
+
+--0000000000007b2207057d813002
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:x=3D"urn:schemas-microsoft-com:office:excel" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:SimSun;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"Segoe UI";
-	panose-1:2 11 5 2 4 2 4 2 2 3;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US =
-link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Hi =
-Patrick,<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>I encountered a problem after upgrade to the latest =
-opnebmc version:<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>These log =
-messages in ipmid are missing with the &#8220;journalctl =
--f&#8221;.<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>My tests shows that the blow change is related, after =
-I revert it, I can get these log messages.<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Did you meet =
-such issue, or any suggestions/comments to narrow down this =
-issue?<o:p></o:p></p><p class=3DMsoNormal> <o:p></o:p></p><p =
-class=3DMsoNormal><a =
-href=3D"https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e8306=
-6baa6f3711c88d6a3b9a5c4d49">https://github.com/openbmc/phosphor-logging/c=
-ommit/59a6b1f27e83066baa6f3711c88d6a3b9a5c4d49</a><o:p></o:p></p><p =
-class=3DMsoNormal><b><span style=3D'font-size:13.5pt;font-family:"Segoe =
-UI",sans-serif;color:#05264C;background:#EAF5FF'>add sdjournal interface =
-to inject tests<o:p></o:p></span></b></p><p class=3DMsoNormal><b><span =
-style=3D'font-size:13.5pt;font-family:"Segoe =
-UI",sans-serif;color:#05264C;background:#EAF5FF'><o:p>&nbsp;</o:p></span>=
-</b></p><p class=3DMsoNormal>Thanks,<o:p></o:p></p><p =
-class=3DMsoNormal>Yong<o:p></o:p></p></div></body></html>
-------=_NextPart_000_0007_01D49908.8A70E6B0--
+<div dir=3D"ltr"><div>Hi All,</div><div><br></div><div>I built OpenBMC Linu=
+x using Zaius configuration and booted on BMC Aspeed AST-2500. The board we=
+ are using have some <span class=3D"gmail-il">temperature</span> <span clas=
+s=3D"gmail-il">sensor</span> (TMP75) and voltage sensors (ADM1293) on I2C b=
+us connected to chipset, not to BMC.</div><div><br></div><div>How I can mon=
+itor the readings using BMC ?</div><div><br></div><div><br></div><div>Thank=
+s and Regards,</div><div><br></div><div>Akash<br></div></div>
+
+--0000000000007b2207057d813002--
