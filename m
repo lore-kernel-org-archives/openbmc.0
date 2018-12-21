@@ -1,56 +1,51 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12f; helo=mail-it1-x12f.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=103.7.28.233; helo=smtpbg65.qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="CbaBfPCa"; 
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="L01cu+jc"; 
  dkim-atps=neutral
-Received: from mail-it1-x12f.google.com (mail-it1-x12f.google.com
- [IPv6:2607:f8b0:4864:20::12f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpbg65.qq.com (smtpbg65.qq.com [103.7.28.233])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Lcr642hXzDr7s
- for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 16:39:02 +1100 (AEDT)
-Received: by mail-it1-x12f.google.com with SMTP id c9so5076374itj.1
- for <openbmc@lists.ozlabs.org>; Thu, 20 Dec 2018 21:39:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bV+Z3Pgd//51S7yGwJvAAUD+zBgGW+Iml3uIMo/NhCs=;
- b=CbaBfPCasg+L/Afmvarvf+X1zMoMx3vuIQzRyS44UceTJrobuZzkAVB+eWvB0Tlr8g
- 6J+AMdLwoQll3lwpXBitifVyqa0H+ozZ0MhOF6tKE3F+6ATG6PpOGBEzhbjqMeqZu57Y
- /Q71mKWuynG7kA1jLsO1t6RLTXwmKsesfYiXyeGMKf3t/8ucoYDgs1ljQ0Cnjyhz2xo9
- 3FLkU4MWTMEULeFd2vWLUDnbpbhXs1F0r1C3SzLE9qvzE5vZCXxkMQVQYxGW4C6gQWSj
- t6IV/FnDKwssAa6TGQaXAmwbzpmtigojxNd/QF1yMXtdpmgECCcgPrsk3KgUdBn/MMGg
- xJIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bV+Z3Pgd//51S7yGwJvAAUD+zBgGW+Iml3uIMo/NhCs=;
- b=nH10KkMvpRN09AIXg3dYWlHhbbiq5VQM6W1ephcBWjjlLFL2pTJ1kF1bPLcL/UYnJd
- GfeDsIJNKrXhb+MrJ3jzpC+2tt9qhAWerQ5FTujjFPabkSwoaXZlIguLLLoEf39Y+Jmx
- DNzwBwxbiPKYtjClq1XSkLEceoNAIe7E8HYozbKwnYi/882ZxRnRnesJTbk6stW41UyB
- 99VHR+gkGqT+5NB6Mv4vdTHGZ61/fh/hGyHrft33UKeERtFsxVvSYlnB4OTIvDQfcDaj
- 14sWh4dWdgXMWvzghaPTAVJZbAU8WSkslg2qAsVvsQqLahAJqEHedRqm30dFPdF51bax
- 9FoA==
-X-Gm-Message-State: AA+aEWYYiVDmgvAarXJ/yYAVfWZXWxP4BLBaCFN2RA92xJo1m6KMuMJU
- 36fXj8B6xdVMlIQxA3E2MLGlbOPWTOaP/SczA44=
-X-Google-Smtp-Source: AFSGD/VhL2CVIIS2x81g6kJOTJyVA0yQaMN5t3u7o4BJpzNOWwmJt8ob0P+bF0TWH75k2cxlDkK7WqJtoJTEB5rSL4o=
-X-Received: by 2002:a24:97c3:: with SMTP id k186mr1220629ite.125.1545370739907; 
- Thu, 20 Dec 2018 21:38:59 -0800 (PST)
-MIME-Version: 1.0
-References: <CAE33tLHRzGa2_t3AMfAjf4txP7cu=uFBHMuUFAERBkZ9ZoOGCw@mail.gmail.com>
-In-Reply-To: <CAE33tLHRzGa2_t3AMfAjf4txP7cu=uFBHMuUFAERBkZ9ZoOGCw@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 21 Dec 2018 13:38:43 +0800
-Message-ID: <CAARXrt=tV3_eaSTotfTLEWkbggaOW-dq3nkE=rUSackwgVWmsA@mail.gmail.com>
-Subject: Re: Sensors connected on I2C bus of chipset
-To: AKASH G J <akashgj91@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43LdWz3qMrzDr80
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Dec 2018 17:09:57 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1545372578; bh=WarudTohKMlSh1Q3UnUvafxe6hy+1CmeZAiTd2SVsAw=;
+ h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=L01cu+jcVkH1eMKCnBF908lC6RmZoY5/5f/jRKHPYQyuOnQtODRQDchrjyqVXRYzY
+ NdqJMg0JGAoGkj9Vg6dN1qdhxDT2v9V7NHJu+om3YJ9Y3TJm5YngEhfFn5b13SLWgQ
+ /lHBL88L5JFJv4XQTtoqh+tD1Rm3TiK9aLpvHqMw=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+In-Reply-To: <mailman.711.1544469095.21335.openbmc@lists.ozlabs.org>
+References: <mailman.711.1544469095.21335.openbmc@lists.ozlabs.org>
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1545372577t645386
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: Re:Re: Virtual Media (Ed Tanous)
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5C1C83A1_0C629C38_28A1B8C3"
+Content-Transfer-Encoding: 8Bit
+Date: Fri, 21 Dec 2018 14:09:37 +0800
+X-Priority: 3
+Message-ID: <tencent_4586210B2172EB4638B54D58@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-ReplyHash: 3584751498
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Fri, 21 Dec 2018 14:09:38 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign4
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,16 +57,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 21 Dec 2018 05:39:03 -0000
+X-List-Received-Date: Fri, 21 Dec 2018 06:10:11 -0000
 
-On Fri, Dec 21, 2018 at 1:05 PM AKASH G J <akashgj91@gmail.com> wrote:
-> I built OpenBMC Linux using Zaius configuration and booted on BMC Aspeed AST-2500. The board we are using have some temperature sensor (TMP75) and voltage sensors (ADM1293) on I2C bus connected to chipset, not to BMC.
->
-> How I can monitor the readings using BMC ?
->
+This is a multi-part message in MIME format.
 
-Please refer to
-https://github.com/openbmc/docs/blob/master/sensor-architecture.md#creating-a-sensor
-for how to create a sensor.
+------=_NextPart_5C1C83A1_0C629C38_28A1B8C3
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-Thanks.
+SGkgRWQsDQogICBJIGFtIGludGVyZXN0aW5nIHRvIHRyeSB0aGlzIG5ldyBmZWF0dXJlLg0K
+SXMgdGhlcmUgYSBkZW1vIG9mIFZpcnR1YWwgTWVkaWEgYXZhaWxhYmxlIG5vdz8NCkJlc3Qs
+DQpYaXV6aGkNCk9uIDEyLzEwLzE4IDk6NDMgQU0sIEFkcmlhbmEgS29ieWxhayB3cm90ZToN
+Cj4gSGkgRWQsDQo+DQo+PiA/LSB0aGUgbmJkIGluZnJhc3RydWN0dXJlIGFsbG93cyB1cyB0
+byB1c2UgYSB1bml4IGRvbWFpbiBzb2NrZXQgKHJhdGhlcg0KPj4gPz8gdGhhbiBhIG5ldHdv
+cmsgc29ja2V0KSBmb3IgdGhhdCBpbnRlcmZhY2UuDQo+DQo+PiA/LSBVc2luZyBhIHdlYnNv
+Y2tldCBwcm94eSwgd2UgY2FuIGNvbm5lY3QgdGhhdCBwcm9jZXNzJyBzdGRpbyB0byBhDQo+
+PiA/PyB3ZWJzb2NrZXQuDQo+DQo+IEFzIHlvdSBwb2ludGVkIG91dCwgdGhlIFJlZGZpc2gg
+c2NoZW1hIGZvciBWaXJ0dWFsIE1lZGlhIG1heSBub3QgZml0DQo+IHdpdGggdGhpcyBkZXNp
+Z24sIHNvIHdhbnRlZCB0byBnZXQgeW91ciB0aG91Z2h0cyBvbiBob3cvaWYgd2UgY291bGQN
+Cj4gc29tZWhvdyBpbXBsZW1lbnQgaGF2aW5nIHRoZSBjbGllbnQgcmVxdWVzdCB0byBtb3Vu
+dCB0aGUgZGV2aWNlIHZpYSBhDQo+IHdlYnNvY2tldCwgbGlrZSBieSBjYWxsaW5nIHRoZSBW
+aXJ0dWFsTWVkaWEvPGRldmljZV9pZD4gYXBpLCBvciBjb3VsZA0KPiB3ZSBsZXZlcmFnZSBz
+b21lIG90aGVyIHNjaGVtYXMsIG9yIHdoYXQgd291bGQgYmUgeW91ciBzdWdnZXN0aW9uPyBU
+aGFua3MhDQo+DQo+IFJlZmVyZW5jZToNCj4gaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9q
+ZWN0Lnh5ei8jL2Mvb3BlbmJtYy9ibWN3ZWIvKy8xNjQ4MS8NCj4gaHR0cHM6Ly9nZXJyaXQu
+b3BlbmJtYy1wcm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9waG9zcGhvci1yZXN0LXNlcnZlci8r
+LzE0NzUyLw0KPg0KPg0KSSB0aGluayB0aGUgcm9vdCBvZiB0aGUgaXNzdWUgaGVyZSBpcyB0
+aGF0IHRoZSBWaXJ0dWFsIE1lZGlhIFJlZGZpc2gNCmludGVyZmFjZSB3YXMgZGVzaWduZWQg
+dG8gYmUgYWJsZSB0byBtb3VudCBhIGhvc3QgZnJvbSBhIG5ldHdvcmsgc2hhcmUsDQpyYXRo
+ZXIgdGhhbiBwcm94eWluZyBvdmVyIGEgd2Vic29ja2V0Lj8gSSB0aGluayBpbiB0aGUgbG9u
+ZyB0ZXJtLCBpZg0Kd2UncmUgZ29pbmcgdG8gc3VwcG9ydCBhbGwgdGhlIHVzZSBjYXNlcyB3
+ZSB3YW50IHRvLCB3ZSB3aWxsIGV2ZW50dWFsbHkNCm5lZWQgYm90aCBtZWNoYW5pc21zLCBi
+dXQgZm9yIHRoZSBtb21lbnQsIGlmIHdlIHdhbnQgdG8gZ2V0IHNvbWV0aGluZw0KdGhhdCB3
+b3JrcyB1cCBxdWlja2x5LCBhbmQgaXRlcmF0ZSwgd2UncmUgcHJvYmFibHkgYmV0dGVyIG9m
+ZiBqdXN0DQpjb250aW51aW5nIHRvIG1ha2UgdGhlIHdlYnNvY2tldCBpbXBsZW1lbnRhdGlv
+biB3b3JrIHJlbGlhYmx5Lj8gSW4gbXkNCmhlYWQgKGkuZS4gSSBoYXZlbid0IGJhY2tlZCB0
+aGlzIHVwIHdpdGggYWN0dWFsIGRhdGEpIEkgc2VlIHdlYnNvY2tldCBhcw0Kb25lIGltcGxl
+bWVudGF0aW9uIG9mIGEgdHJhbnNwb3J0IGxheWVyLCB3aXRoIG90aGVyIHRyYW5zcG9ydCBs
+YXllcnMNCihzYW1iYSwgTkZTLCBlY3QpIHRoYXQgY291bGQgYmUgc3VwcG9ydGVkIGF0IGEg
+bGF0ZXIgZGF0ZS4NCg0KSSBzdXNwZWN0IHRoZSBiZXN0IGFwcHJvYWNoIGhlcmUgaXMgdG8g
+c2ltcGx5IGFkZCBhIHVybCBoYW5kbGVyIHVuZGVyDQp0aGUgZXhpc3RpbmcgbmFtZSAoL2t2
+bXdzMCkgdGhhdCBkb2VzIHRoZSB3ZWJzb2NrZXQuPyBXaGVuIGFuZCBpZg0Kc29tZW9uZSBn
+b2VzIHRvIGJ1aWxkIG91dCB0aGUgUmVkZmlzaCBpbnRlcmZhY2UgZm9yIFZpcnR1YWwgTWVk
+aWEsIHdlDQpjYW4gZ28gaW1wbGVtZW50IHRoZSByZWRmaXNoIHNwZWNpZmljIHVybHMuPyBJ
+ZiB5b3UnZCBwcmVmZXIgdG8gZG8gaXQgaW4NCnRoZSByZXZlcnNlIG9yZGVyLCB0aGF0IHdv
+dWxkIHdvcmsgYXMgd2VsbC4NCg0KLUVkDQoNCg0KDQpFbmQgb2Ygb3BlbmJtYyBEaWdlc3Qs
+IFZvbCA0MCwgSXNzdWUgMzUNCioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKg==
+
+------=_NextPart_5C1C83A1_0C629C38_28A1B8C3
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+PGRpdj5IaSBFZCw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJIGFtIGludGVyZXN0aW5nIHRv
+IHRyeSB0aGlzIG5ldyBmZWF0dXJlLjwvZGl2PjxkaXY+SXMgdGhlcmUgYSBkZW1vIG9mIFZp
+cnR1YWwgTWVkaWEgYXZhaWxhYmxlIG5vdz88L2Rpdj48ZGl2PkJlc3QsPC9kaXY+PGRpdj5Y
+aXV6aGk8L2Rpdj48ZGl2Pk9uIDEyLzEwLzE4IDk6NDMgQU0sIEFkcmlhbmEgS29ieWxhayB3
+cm90ZTo8YnI+Jmd0OyBIaSBFZCw8YnI+Jmd0Ozxicj4mZ3Q7Jmd0OyA/LSB0aGUgbmJkIGlu
+ZnJhc3RydWN0dXJlIGFsbG93cyB1cyB0byB1c2UgYSB1bml4IGRvbWFpbiBzb2NrZXQgKHJh
+dGhlcjxicj4mZ3Q7Jmd0OyA/PyB0aGFuIGEgbmV0d29yayBzb2NrZXQpIGZvciB0aGF0IGlu
+dGVyZmFjZS48YnI+Jmd0Ozxicj4mZ3Q7Jmd0OyA/LSBVc2luZyBhIHdlYnNvY2tldCBwcm94
+eSwgd2UgY2FuIGNvbm5lY3QgdGhhdCBwcm9jZXNzJyBzdGRpbyB0byBhPGJyPiZndDsmZ3Q7
+ID8/IHdlYnNvY2tldC48YnI+Jmd0Ozxicj4mZ3Q7IEFzIHlvdSBwb2ludGVkIG91dCwgdGhl
+IFJlZGZpc2ggc2NoZW1hIGZvciBWaXJ0dWFsIE1lZGlhIG1heSBub3QgZml0PGJyPiZndDsg
+d2l0aCB0aGlzIGRlc2lnbiwgc28gd2FudGVkIHRvIGdldCB5b3VyIHRob3VnaHRzIG9uIGhv
+dy9pZiB3ZSBjb3VsZDxicj4mZ3Q7IHNvbWVob3cgaW1wbGVtZW50IGhhdmluZyB0aGUgY2xp
+ZW50IHJlcXVlc3QgdG8gbW91bnQgdGhlIGRldmljZSB2aWEgYTxicj4mZ3Q7IHdlYnNvY2tl
+dCwgbGlrZSBieSBjYWxsaW5nIHRoZSBWaXJ0dWFsTWVkaWEvJmx0O2RldmljZV9pZCZndDsg
+YXBpLCBvciBjb3VsZDxicj4mZ3Q7IHdlIGxldmVyYWdlIHNvbWUgb3RoZXIgc2NoZW1hcywg
+b3Igd2hhdCB3b3VsZCBiZSB5b3VyIHN1Z2dlc3Rpb24/IFRoYW5rcyE8YnI+Jmd0Ozxicj4m
+Z3Q7IFJlZmVyZW5jZTo8YnI+Jmd0OyBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3Qu
+eHl6LyMvYy9vcGVuYm1jL2JtY3dlYi8rLzE2NDgxLzxicj4mZ3Q7IGh0dHBzOi8vZ2Vycml0
+Lm9wZW5ibWMtcHJvamVjdC54eXovIy9jL29wZW5ibWMvcGhvc3Bob3ItcmVzdC1zZXJ2ZXIv
+Ky8xNDc1Mi88YnI+Jmd0Ozxicj4mZ3Q7PGJyPkkgdGhpbmsgdGhlIHJvb3Qgb2YgdGhlIGlz
+c3VlIGhlcmUgaXMgdGhhdCB0aGUgVmlydHVhbCBNZWRpYSBSZWRmaXNoPGJyPmludGVyZmFj
+ZSB3YXMgZGVzaWduZWQgdG8gYmUgYWJsZSB0byBtb3VudCBhIGhvc3QgZnJvbSBhIG5ldHdv
+cmsgc2hhcmUsPGJyPnJhdGhlciB0aGFuIHByb3h5aW5nIG92ZXIgYSB3ZWJzb2NrZXQuPyBJ
+IHRoaW5rIGluIHRoZSBsb25nIHRlcm0sIGlmPGJyPndlJ3JlIGdvaW5nIHRvIHN1cHBvcnQg
+YWxsIHRoZSB1c2UgY2FzZXMgd2Ugd2FudCB0bywgd2Ugd2lsbCBldmVudHVhbGx5PGJyPm5l
+ZWQgYm90aCBtZWNoYW5pc21zLCBidXQgZm9yIHRoZSBtb21lbnQsIGlmIHdlIHdhbnQgdG8g
+Z2V0IHNvbWV0aGluZzxicj50aGF0IHdvcmtzIHVwIHF1aWNrbHksIGFuZCBpdGVyYXRlLCB3
+ZSdyZSBwcm9iYWJseSBiZXR0ZXIgb2ZmIGp1c3Q8YnI+Y29udGludWluZyB0byBtYWtlIHRo
+ZSB3ZWJzb2NrZXQgaW1wbGVtZW50YXRpb24gd29yayByZWxpYWJseS4/IEluIG15PGJyPmhl
+YWQgKGkuZS4gSSBoYXZlbid0IGJhY2tlZCB0aGlzIHVwIHdpdGggYWN0dWFsIGRhdGEpIEkg
+c2VlIHdlYnNvY2tldCBhczxicj5vbmUgaW1wbGVtZW50YXRpb24gb2YgYSB0cmFuc3BvcnQg
+bGF5ZXIsIHdpdGggb3RoZXIgdHJhbnNwb3J0IGxheWVyczxicj4oc2FtYmEsIE5GUywgZWN0
+KSB0aGF0IGNvdWxkIGJlIHN1cHBvcnRlZCBhdCBhIGxhdGVyIGRhdGUuPGJyPjxicj5JIHN1
+c3BlY3QgdGhlIGJlc3QgYXBwcm9hY2ggaGVyZSBpcyB0byBzaW1wbHkgYWRkIGEgdXJsIGhh
+bmRsZXIgdW5kZXI8YnI+dGhlIGV4aXN0aW5nIG5hbWUgKC9rdm13czApIHRoYXQgZG9lcyB0
+aGUgd2Vic29ja2V0Lj8gV2hlbiBhbmQgaWY8YnI+c29tZW9uZSBnb2VzIHRvIGJ1aWxkIG91
+dCB0aGUgUmVkZmlzaCBpbnRlcmZhY2UgZm9yIFZpcnR1YWwgTWVkaWEsIHdlPGJyPmNhbiBn
+byBpbXBsZW1lbnQgdGhlIHJlZGZpc2ggc3BlY2lmaWMgdXJscy4/IElmIHlvdSdkIHByZWZl
+ciB0byBkbyBpdCBpbjxicj50aGUgcmV2ZXJzZSBvcmRlciwgdGhhdCB3b3VsZCB3b3JrIGFz
+IHdlbGwuPGJyPjxicj4tRWQ8YnI+PGJyPjxicj48YnI+RW5kIG9mIG9wZW5ibWMgRGlnZXN0
+LCBWb2wgNDAsIElzc3VlIDM1PGJyPioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq
+KioqKioqKjxicj48L2Rpdj4=
+
+------=_NextPart_5C1C83A1_0C629C38_28A1B8C3--
