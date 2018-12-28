@@ -1,48 +1,61 @@
-Return-Path: <prvs=893010396=Samuel.Jiang@quantatw.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=893010396=samuel.jiang@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::42b; helo=mail-pf1-x42b.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-X-Greylist: delayed 656 seconds by postgrey-1.36 at bilbo;
- Fri, 28 Dec 2018 20:06:24 AEDT
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 43R1685wNjzDqMb
- for <openbmc@lists.ozlabs.org>; Fri, 28 Dec 2018 20:06:23 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx02.quantatw.com with ESMTP; 28 Dec 2018 16:55:23 +0800
-Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 28 Dec
- 2018 16:55:11 +0800
-Received: from mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328]) by
- mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328%5]) with mapi id
- 15.01.1531.004; Fri, 28 Dec 2018 16:55:11 +0800
-From: =?utf-8?B?U2FtdWVsIEppYW5nICjmsZ/pqI/lhYgp?= <Samuel.Jiang@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: =?utf-8?B?QnVkZHkgSHVhbmcgKOm7g+Wkqem0uyk=?= <Buddy.Huang@quantatw.com>
-Subject: [Help] Could not recvie gerrit register verification email
-Thread-Topic: [Help] Could not recvie gerrit register verification email
-Thread-Index: AQHUnosK8BxAYcsvmUypdwz3RCszDg==
-Date: Fri, 28 Dec 2018 08:55:11 +0000
-Message-ID: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24318.006
-x-tm-as-result: No--1.646600-0.000000-31
-x-tm-as-matchedid: 140026-151186-101081-111604-188119-113024-111605-111602-7
- 05718-700264-700345-706065-700450-701153-704318-704425-700373-780030-707163
- -703267-703428-780014-700752-701298-106230-105250-703747-188057-700107-1880
- 92-148004-148133-10019-30057-42000-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: multipart/alternative;
- boundary="_000_00aad438fff24e09825c292304d87f6dSpark_"
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="S3idDEz8"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42b.google.com (mail-pf1-x42b.google.com
+ [IPv6:2607:f8b0:4864:20::42b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43R24d4dBvzDqMb
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Dec 2018 20:50:08 +1100 (AEDT)
+Received: by mail-pf1-x42b.google.com with SMTP id c73so10287229pfe.13
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Dec 2018 01:50:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=H8oR+xQS+fCZGt7Y20kZG4KQpxqVuces4OjFV8rW240=;
+ b=S3idDEz8bS++B8/F3KdWtq1HO5vnZBbMvj7v8EfXJPJCow+zn0Wbwqi4OtpVkZJ/Vn
+ +zRkunlcw7oQXh3sQwF5vaXCAFGAB56ntA4fQWlwP4f2MKwFSLYNsIlCjg7pi7fCqMXa
+ l3NSkuQib9VDhtA+c/p1IAFhnvik2sb7rCquCtuDWg0rggKxGFdmqD3A7OJvkyhHZ5fJ
+ o5Uz0pm6/2S00f6Qxj+zIoqFpRUPkkutn3NJrGSpiMLxF9yjWS1MH6YX3dW5lIeQeyGX
+ fIai5X7f0Ea9fZAOXVVdDeED65+YTS4BLSWGZZZRlhalplBErRhiQi2dh0zcIAlb0+j9
+ 1udw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=H8oR+xQS+fCZGt7Y20kZG4KQpxqVuces4OjFV8rW240=;
+ b=XS9SiCe0av7pPGQZG+q/UF3UPAhkLf5ex+5AUFtgC1l4MXbV41hPtl5h6hhKgnTUMe
+ C2sJtOJaOM4lV3LIuHVSdusvQNI5zrh6z1Cjk9F1YqM0GcfQlPWr0ftcffuf7WryH02n
+ dl9PyeTaWZkZgknu1v01vC2eNEiU987KLMvMNck9ObjNs6sKE3bcYvf+aoMzb/eLH2os
+ gFpSfm9zpXd2lLrMW8CJQUMaKsin/Pshw6E7sp/7SxQ0wGYEPOwAwOPHRda4Elbs8oQk
+ Vh/JxVIFg1CQ+fsUjI2cec4jYZ8YbKou2miwI4rQIND+jPiWDUj+NphQSB10P8UDJkPY
+ rHfA==
+X-Gm-Message-State: AJcUukdrMn43kRj7jQtCHZ6oHd6k5G3KtJjiC5dbz0mVuLxU5raBoSUF
+ qfG06XhH4LhBnZodzzHiU8ed6CrGD/NAOnhE4YwClw==
+X-Google-Smtp-Source: ALg8bN4RQDDbZJxH0t0W/gqDI7w3GxiTfkLKtoAMScacbt7uZQd45TR+mmUlNERa6AHmKaCRCi1XvLYrVXnxlczCYno=
+X-Received: by 2002:a63:4d:: with SMTP id 74mr26280239pga.248.1545990606221;
+ Fri, 28 Dec 2018 01:50:06 -0800 (PST)
 MIME-Version: 1.0
+References: <DFD47DF5-0CAE-4968-AF01-76B5884C2D58@fb.com>
+ <7E9441B1E5EFFD4681F54958E821699345985566@ORSMSX114.amr.corp.intel.com>
+ <2382D7CD-E130-4EDC-99AE-D993115C2A63@fb.com>
+In-Reply-To: <2382D7CD-E130-4EDC-99AE-D993115C2A63@fb.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 28 Dec 2018 01:49:54 -0800
+Message-ID: <CAO=notwPOqcrNMG2H5Yc8kiZa6GGJv+FPbVqeumG9b=Btoc_pw@mail.gmail.com>
+Subject: Re: Testing Phosphor-pid-control
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: "Tanous, Ed" <ed.tanous@intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,38 +67,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 28 Dec 2018 09:06:25 -0000
+X-List-Received-Date: Fri, 28 Dec 2018 09:50:11 -0000
 
---_000_00aad438fff24e09825c292304d87f6dSpark_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+On Thu, Dec 20, 2018 at 12:57 PM Vijay Khemka <vijaykhemka@fb.com> wrote:
+>
+> Hi Ed,
+> I am able to override and read it back but not seeing any change in pwm d=
+ata as well as fan speed. I have swampd running.
 
-RGVhciBvcGVuQk1DIEdlcnJpdCBtYW5hZ2VycywNCg0KSSByZWdpc3RlciBuZXcgR2Vycml0IGFj
-Y291bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5ZXN0ZXJkYXkgdW50aWwgbm93IHN0
-aWxsIG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVtYWlsLg0KDQpJIGNvbmZpcm1lZCBv
-dXIgbWFpbCBzZXJ2ZXIgbmV2ZXIgcmVjZWl2ZSBhbmQgZGlkbid0IHNldCBhbnkgcG9saWN5Lg0K
-DQpQbGVhc2UgaGVscCB1cyBjaGVjayBpZiBhbnkgcG9saWN5IHNldHRpbmcgY2F1c2VkIHRoaXMg
-cHJvYmxlbS4NCg0KVGhhbmtzLA0KDQpTYW11ZWwgSmlhbmcNCg==
+You mean the dbus reads of the values aren't changing?  I'm not as
+familiar with the dbus-sensor integration beyond run-time
+configuration, versus run-time state.  Swampd itself doesn't expose
+PID information or set-point information unless that's done in the
+step controller (and I didn't see that aspect in that object).
 
---_000_00aad438fff24e09825c292304d87f6dSpark_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <FBE64335B6CF1441A42338DD6A7AD46F@quantatw.com>
-Content-Transfer-Encoding: base64
+Or are you saying that the fan speeds aren't changing when you read
+the hwmon values?
 
-PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPg0KPGhlYWQ+DQo8bWV0
-YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD11
-dGYtOCI+DQo8dGl0bGU+PC90aXRsZT4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBuYW1lPSJtZXNz
-YWdlQm9keVNlY3Rpb24iIHN0eWxlPSJmb250LXNpemU6IDE0cHg7IGZvbnQtZmFtaWx5OiAtYXBw
-bGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsIHNhbnMtc2VyaWY7Ij4NCkRlYXIgb3BlbkJN
-QyBHZXJyaXQgbWFuYWdlcnMsPGJyPg0KPGJyPg0KSSByZWdpc3RlciBuZXcgR2Vycml0IGFjY291
-bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5ZXN0ZXJkYXkgdW50aWwgbm93IHN0aWxs
-IG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVtYWlsLjxicj4NCjxicj4NCkkgY29uZmly
-bWVkIG91ciBtYWlsIHNlcnZlciBuZXZlciByZWNlaXZlIGFuZCBkaWRuJ3Qgc2V0IGFueSBwb2xp
-Y3kuPGJyPg0KPGJyPg0KUGxlYXNlIGhlbHAgdXMgY2hlY2sgaWYgYW55IHBvbGljeSBzZXR0aW5n
-IGNhdXNlZCB0aGlzIHByb2JsZW0uPGJyPg0KPC9kaXY+DQo8ZGl2IG5hbWU9Im1lc3NhZ2VTaWdu
-YXR1cmVTZWN0aW9uIiBzdHlsZT0iZm9udC1zaXplOiAxNHB4OyBmb250LWZhbWlseTogLWFwcGxl
-LXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmOyI+DQo8YnI+DQpUaGFua3Ms
-DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5TYW11ZWwgSmlhbmc8L2Rpdj4NCjwvZGl2Pg0KPC9i
-b2R5Pg0KPC9odG1sPg0K
-
---_000_00aad438fff24e09825c292304d87f6dSpark_--
+>
+> Regards
+> -Vijay
+>
+> =EF=BB=BFOn 12/20/18, 10:14 AM, "Tanous, Ed" <ed.tanous@intel.com> wrote:
+>
+>     Assuming you=E2=80=99re using dbus-sensors (which I=E2=80=99m pretty =
+sure you are):
+>
+>     Support for overriding sensor values was recently landed in this comm=
+it:
+>     https://urldefense.proofpoint.com/v2/url?u=3Dhttps-3A__gerrit.openbmc=
+-2Dproject.xyz_-23_c_openbmc_dbus-2Dsensors_-2B_16177_&d=3DDwIGaQ&c=3D5VD0R=
+TtNlTh3ycd41b3MUw&r=3Dv9MU0Ki9pWnTXCWwjHPVgpnCR80vXkkcrIaqU7USl5g&m=3D1J-5e=
+Jl4Drc2LKcQ2SdONc02uR5cih3P68m66QcMYog&s=3Dc9798qmI_pA3hnzB97oaYFK8yFTmwrxd=
+pAeRrui4qkY&e=3D
+>
+>     Overriding a sensor value with a "fake" sensor reading should be as e=
+asy as simply calling SetProperty on the dbus interface.
+>
+>     Example as tested on my system (your path names may vary)
+>     dbus-send --system --print-reply --dest=3Dxyz.openbmc_project.CPUSens=
+or /xyz/openbmc_project/sensors/temperature/Core_1_CPU0 org.freedesktop.DBu=
+s.Properties.Set string:xyz.openbmc_project.Sensor.Value string:Value varia=
+nt:double:1.0
+>
+>     and verify by reading it back out:
+>
+>     dbus-send --system --print-reply --dest=3Dxyz.openbmc_project.CPUSens=
+or /xyz/openbmc_project/sensors/temperature/Core_1_CPU0 org.freedesktop.DBu=
+s.Properties.GetAll string:xyz.openbmc_project.Sensor.Value
+>
+>
