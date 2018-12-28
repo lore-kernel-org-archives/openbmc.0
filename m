@@ -1,35 +1,48 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <prvs=893010396=Samuel.Jiang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=893010396=samuel.jiang@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43NlYB3z60zDqND
- for <openbmc@lists.ozlabs.org>; Tue, 25 Dec 2018 03:48:30 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wBOGI0MB032448;
- Mon, 24 Dec 2018 18:18:00 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 3BB5662DA6; Mon, 24 Dec 2018 18:47:58 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: jic23@kernel.org, knaack.h@gmx.de, lars@metafoo.de, pmeerw@pmeerw.net,
- robh+dt@kernel.org, mark.rutland@arm.com, yuenn@google.com,
- venture@google.com, brendanhiggins@google.com, avifishman70@gmail.com,
- joel@jms.id.au
-Cc: linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 1/2] dt-binding: iio: add NPCM ADC documentation
-Date: Mon, 24 Dec 2018 18:47:54 +0200
-Message-Id: <20181224164755.286932-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20181224164755.286932-1-tmaimon77@gmail.com>
-References: <20181224164755.286932-1-tmaimon77@gmail.com>
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 656 seconds by postgrey-1.36 at bilbo;
+ Fri, 28 Dec 2018 20:06:24 AEDT
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 43R1685wNjzDqMb
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Dec 2018 20:06:23 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx02.quantatw.com with ESMTP; 28 Dec 2018 16:55:23 +0800
+Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 28 Dec
+ 2018 16:55:11 +0800
+Received: from mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328]) by
+ mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328%5]) with mapi id
+ 15.01.1531.004; Fri, 28 Dec 2018 16:55:11 +0800
+From: =?utf-8?B?U2FtdWVsIEppYW5nICjmsZ/pqI/lhYgp?= <Samuel.Jiang@quantatw.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+CC: =?utf-8?B?QnVkZHkgSHVhbmcgKOm7g+Wkqem0uyk=?= <Buddy.Huang@quantatw.com>
+Subject: [Help] Could not recvie gerrit register verification email
+Thread-Topic: [Help] Could not recvie gerrit register verification email
+Thread-Index: AQHUnosK8BxAYcsvmUypdwz3RCszDg==
+Date: Fri, 28 Dec 2018 08:55:11 +0000
+Message-ID: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24318.006
+x-tm-as-result: No--1.646600-0.000000-31
+x-tm-as-matchedid: 140026-151186-101081-111604-188119-113024-111605-111602-7
+ 05718-700264-700345-706065-700450-701153-704318-704425-700373-780030-707163
+ -703267-703428-780014-700752-701298-106230-105250-703747-188057-700107-1880
+ 92-148004-148133-10019-30057-42000-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: multipart/alternative;
+ boundary="_000_00aad438fff24e09825c292304d87f6dSpark_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,57 +54,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Dec 2018 16:48:31 -0000
+X-List-Received-Date: Fri, 28 Dec 2018 09:06:25 -0000
 
-Added device tree binding documentation for Nuvoton BMC
-NPCM Analog-to-Digital Converter(ADC).
+--_000_00aad438fff24e09825c292304d87f6dSpark_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/iio/adc/nuvoton,npcm-adc.txt          | 35 ++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+RGVhciBvcGVuQk1DIEdlcnJpdCBtYW5hZ2VycywNCg0KSSByZWdpc3RlciBuZXcgR2Vycml0IGFj
+Y291bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5ZXN0ZXJkYXkgdW50aWwgbm93IHN0
+aWxsIG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVtYWlsLg0KDQpJIGNvbmZpcm1lZCBv
+dXIgbWFpbCBzZXJ2ZXIgbmV2ZXIgcmVjZWl2ZSBhbmQgZGlkbid0IHNldCBhbnkgcG9saWN5Lg0K
+DQpQbGVhc2UgaGVscCB1cyBjaGVjayBpZiBhbnkgcG9saWN5IHNldHRpbmcgY2F1c2VkIHRoaXMg
+cHJvYmxlbS4NCg0KVGhhbmtzLA0KDQpTYW11ZWwgSmlhbmcNCg==
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-new file mode 100644
-index 000000000000..6f0843d837cc
---- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-@@ -0,0 +1,35 @@
-+Nuvoton NPCM Analog to Digital Converter (ADC)
-+
-+The NPCM ADC is a 10-bit converter for eight channel inputs.
-+
-+Required properties:
-+- compatible	: "nuvoton,npcm750-adc" for the NPCM7XX BMC.
-+- reg			: specifies physical base address and size of the registers.
-+- interrupts	: Contain the ADC interrupt with flags for falling edge.
-+
-+Optional properties:
-+- clocks		: phandle of ADC reference clock, in case the clock is not
-+				  added the ADC will use the default ADC sample rate.
-+- vref-supply	: The regulator supply ADC reference voltage, in case the
-+				  vref-supply is not added the ADC will use internal voltage
-+				  reference.
-+
-+Required Node in the NPCM7xx BMC:
-+An additional register is present in the NPCM7xx SOC which is
-+assumed to be in the same device tree, with and marked as
-+compatible with "nuvoton,npcm750-rst".
-+
-+Example:
-+
-+adc: adc@f000c000 {
-+	compatible = "nuvoton,npcm750-adc";
-+	reg = <0xf000c000 0x8>;
-+	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+	clocks = <&clk NPCM7XX_CLK_ADC>;
-+};
-+
-+rst: rst@f0801000 {
-+	compatible = "nuvoton,npcm750-rst", "syscon",
-+	"simple-mfd";
-+	reg = <0xf0801000 0x6C>;
-+};
--- 
-2.14.1
+--_000_00aad438fff24e09825c292304d87f6dSpark_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <FBE64335B6CF1441A42338DD6A7AD46F@quantatw.com>
+Content-Transfer-Encoding: base64
+
+PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPg0KPGhlYWQ+DQo8bWV0
+YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD11
+dGYtOCI+DQo8dGl0bGU+PC90aXRsZT4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBuYW1lPSJtZXNz
+YWdlQm9keVNlY3Rpb24iIHN0eWxlPSJmb250LXNpemU6IDE0cHg7IGZvbnQtZmFtaWx5OiAtYXBw
+bGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsIHNhbnMtc2VyaWY7Ij4NCkRlYXIgb3BlbkJN
+QyBHZXJyaXQgbWFuYWdlcnMsPGJyPg0KPGJyPg0KSSByZWdpc3RlciBuZXcgR2Vycml0IGFjY291
+bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5ZXN0ZXJkYXkgdW50aWwgbm93IHN0aWxs
+IG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVtYWlsLjxicj4NCjxicj4NCkkgY29uZmly
+bWVkIG91ciBtYWlsIHNlcnZlciBuZXZlciByZWNlaXZlIGFuZCBkaWRuJ3Qgc2V0IGFueSBwb2xp
+Y3kuPGJyPg0KPGJyPg0KUGxlYXNlIGhlbHAgdXMgY2hlY2sgaWYgYW55IHBvbGljeSBzZXR0aW5n
+IGNhdXNlZCB0aGlzIHByb2JsZW0uPGJyPg0KPC9kaXY+DQo8ZGl2IG5hbWU9Im1lc3NhZ2VTaWdu
+YXR1cmVTZWN0aW9uIiBzdHlsZT0iZm9udC1zaXplOiAxNHB4OyBmb250LWZhbWlseTogLWFwcGxl
+LXN5c3RlbSwgQmxpbmtNYWNTeXN0ZW1Gb250LCBzYW5zLXNlcmlmOyI+DQo8YnI+DQpUaGFua3Ms
+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5TYW11ZWwgSmlhbmc8L2Rpdj4NCjwvZGl2Pg0KPC9i
+b2R5Pg0KPC9odG1sPg0K
+
+--_000_00aad438fff24e09825c292304d87f6dSpark_--
