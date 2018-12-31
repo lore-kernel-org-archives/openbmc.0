@@ -9,20 +9,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43SsyV731PzDqF0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43SsyV75SKzDqF7
  for <openbmc@lists.ozlabs.org>; Mon, 31 Dec 2018 20:51:11 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wBV9L46I000541;
- Mon, 31 Dec 2018 11:21:04 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id wBV9L2n7000530;
+ Mon, 31 Dec 2018 11:21:02 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id E1F4562DA4; Mon, 31 Dec 2018 11:51:01 +0200 (IST)
+ id A171E62DA6; Mon, 31 Dec 2018 11:51:00 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [linux dev-4.19 v1 4/4] arm: configs: add NPCM7xx ADC and MMIO
- configuration
-Date: Mon, 31 Dec 2018 11:50:56 +0200
-Message-Id: <20181231095056.86234-5-tmaimon77@gmail.com>
+Subject: [linux dev-4.19 v1 1/4] dt-binding: iio: add NPCM ADC documentation
+Date: Mon, 31 Dec 2018 11:50:53 +0200
+Message-Id: <20181231095056.86234-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20181231095056.86234-1-tmaimon77@gmail.com>
 References: <20181231095056.86234-1-tmaimon77@gmail.com>
@@ -39,35 +38,55 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 31 Dec 2018 09:51:16 -0000
 
-Add ADC and MMIO configuration to NPCM7xx (Poleg) BMC.
+Added device tree binding documentation for Nuvoton BMC
+NPCM Analog-to-Digital Converter(ADC).
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/configs/npcm7xx_defconfig | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../bindings/iio/adc/nuvoton,npcm-adc.txt          | 35 ++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
 
-diff --git a/arch/arm/configs/npcm7xx_defconfig b/arch/arm/configs/npcm7xx_defconfig
-index f3cefe303a21..15d345a8c99b 100644
---- a/arch/arm/configs/npcm7xx_defconfig
-+++ b/arch/arm/configs/npcm7xx_defconfig
-@@ -67,6 +67,8 @@ CONFIG_SENSORS_LM75=y
- CONFIG_SENSORS_NPCM7XX=y
- CONFIG_SENSORS_TMP102=y
- CONFIG_WATCHDOG=y
-+CONFIG_REGULATOR=y
-+CONFIG_REGULATOR_FIXED_VOLTAGE=y
- CONFIG_USB_HIDDEV=y
- CONFIG_USB=y
- CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
-@@ -81,6 +83,9 @@ CONFIG_USB_MASS_STORAGE=m
- CONFIG_MMC=y
- CONFIG_MMC_SDHCI=y
- CONFIG_IIO=y
-+CONFIG_NPCM_ADC=y
-+CONFIG_IIO_MUX=y
-+CONFIG_MUX_MMIO=y
- CONFIG_MSDOS_FS=y
- CONFIG_VFAT_FS=y
- CONFIG_TMPFS=y
+diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+new file mode 100644
+index 000000000000..6f0843d837cc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+@@ -0,0 +1,35 @@
++Nuvoton NPCM Analog to Digital Converter (ADC)
++
++The NPCM ADC is a 10-bit converter for eight channel inputs.
++
++Required properties:
++- compatible	: "nuvoton,npcm750-adc" for the NPCM7XX BMC.
++- reg			: specifies physical base address and size of the registers.
++- interrupts	: Contain the ADC interrupt with flags for falling edge.
++
++Optional properties:
++- clocks		: phandle of ADC reference clock, in case the clock is not
++				  added the ADC will use the default ADC sample rate.
++- vref-supply	: The regulator supply ADC reference voltage, in case the
++				  vref-supply is not added the ADC will use internal voltage
++				  reference.
++
++Required Node in the NPCM7xx BMC:
++An additional register is present in the NPCM7xx SOC which is
++assumed to be in the same device tree, with and marked as
++compatible with "nuvoton,npcm750-rst".
++
++Example:
++
++adc: adc@f000c000 {
++	compatible = "nuvoton,npcm750-adc";
++	reg = <0xf000c000 0x8>;
++	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
++	clocks = <&clk NPCM7XX_CLK_ADC>;
++};
++
++rst: rst@f0801000 {
++	compatible = "nuvoton,npcm750-rst", "syscon",
++	"simple-mfd";
++	reg = <0xf0801000 0x6C>;
++};
 -- 
 2.14.1
