@@ -1,45 +1,71 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43VQXx6ZqkzDqKJ
- for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 09:22:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43VKCM3bf8zDqHn
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 05:22:22 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Jan 2019 14:22:51 -0800
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 02 Jan 2019 10:22:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,432,1539673200"; d="scan'208";a="105066051"
-Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
- by orsmga006.jf.intel.com with ESMTP; 02 Jan 2019 14:22:50 -0800
-Subject: Re: Testing Phosphor-pid-control
-To: Vijay Khemka <vijaykhemka@fb.com>, Patrick Venture <venture@google.com>
-Cc: "Tanous, Ed" <ed.tanous@intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <DFD47DF5-0CAE-4968-AF01-76B5884C2D58@fb.com>
- <7E9441B1E5EFFD4681F54958E821699345985566@ORSMSX114.amr.corp.intel.com>
- <2382D7CD-E130-4EDC-99AE-D993115C2A63@fb.com>
- <CAO=notwPOqcrNMG2H5Yc8kiZa6GGJv+FPbVqeumG9b=Btoc_pw@mail.gmail.com>
- <74BCEC89-4EFC-4FB7-BE76-0367361EDAA2@fb.com>
- <CAO=notwS+gXEVTa-7tqa54qvbmEntSyGJ+c5SeVe1w65yam50Q@mail.gmail.com>
- <FAAA7134-BC1A-4FBC-923B-25109107D389@fb.com>
-From: James Feist <james.feist@linux.intel.com>
-Message-ID: <c0297e6f-ba2e-69fe-9690-19dfd56dfeaf@linux.intel.com>
-Date: Wed, 2 Jan 2019 14:22:50 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+X-IronPort-AV: E=Sophos;i="5.56,431,1539673200"; d="scan'208";a="263909751"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga004.jf.intel.com with ESMTP; 02 Jan 2019 10:22:19 -0800
+Subject: Re: [PATCH v9 08/12] mfd: intel-peci-client: Add PECI client MFD
+ driver
+To: Lee Jones <lee.jones@linaro.org>
+Cc: Rob Herring <robh+dt@kernel.org>, Jean Delvare <jdelvare@suse.com>,
+ Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ "Darrick J . Wong" <darrick.wong@oracle.com>,
+ Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
+ "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
+ Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
+ Stephen Boyd <sboyd@codeaurora.org>,
+ David Kershner <david.kershner@unisys.com>,
+ Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
+ Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20181218210417.30140-1-jae.hyun.yoo@linux.intel.com>
+ <20181218210417.30140-9-jae.hyun.yoo@linux.intel.com>
+ <20181221144603.GR13248@dell>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <8e4bcf7d-aa43-6745-2ade-9123c8d182ef@linux.intel.com>
+Date: Wed, 2 Jan 2019 10:22:18 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.3.3
 MIME-Version: 1.0
-In-Reply-To: <FAAA7134-BC1A-4FBC-923B-25109107D389@fb.com>
+In-Reply-To: <20181221144603.GR13248@dell>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-Mailman-Approved-At: Thu, 03 Jan 2019 15:36:07 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,14 +77,132 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Jan 2019 22:22:58 -0000
+X-List-Received-Date: Wed, 02 Jan 2019 18:22:24 -0000
 
+Hi Lee,
 
-> How to configure step-wise controller as we need for linear configuration as well.
+On 12/21/2018 6:46 AM, Lee Jones wrote:
+> On Tue, 18 Dec 2018, Jae Hyun Yoo wrote:
+> 
+>> This commit adds PECI client MFD driver.
+>>
 
-There's an example here: 
-https://github.com/openbmc/entity-manager/blob/master/configurations/Intel%20Front%20Panel.json#L56
+<snip>
 
-Thanks
+>>   
+>> +config MFD_INTEL_PECI_CLIENT
+>> +	bool "Intel PECI client"
+>> +	depends on (PECI || COMPILE_TEST)
+>> +	select MFD_CORE
+>> +	help
+>> +	  If you say yes to this option, support will be included for the
+>> +	  Intel PECI (Platform Environment Control Interface) client. PECI is a
+>> +	  one-wire bus interface that provides a communication channel from PECI
+>> +	  clients in Intel processors and chipset components to external
+>> +	  monitoring or control devices.
+> 
+> This driver doesn't appear to actually do anything that can't be done
+> in a header file i.e. match some static data with a CPU ID.  The child
+> devices can be registered by whatever registers this device.
+> 
+> It seems superfluous.  Why do you need it?
+>
 
--James
+The main reason I added it is to provide a way for sharing the same unit
+address from multiple side-band function drivers that read 'reg'
+property setting from the parent node (this driver's node). The 'reg'
+property reading code is not in this driver but it will be performed in
+peci-core when this driver is registered using
+module_peci_driver(peci_client_driver), and then it will provides
+client->addr information for all its child node drivers.
+
+<snip>
+
+>> +#include <linux/bitfield.h>
+>> +#include <linux/mfd/core.h>
+>> +#include <linux/mfd/intel-peci-client.h>
+>> +#include <linux/module.h>
+>> +#include <linux/peci.h>
+>> +#include <linux/of_device.h>
+> 
+> Alphabetical.
+> 
+
+Will fix it. Thanks!
+
+<snip>
+
+>> +enum cpu_gens {
+>> +	CPU_GEN_HSX = 0, /* Haswell Xeon */
+>> +	CPU_GEN_BRX,     /* Broadwell Xeon */
+>> +	CPU_GEN_SKX,     /* Skylake Xeon */
+>> +};
+> 
+> This is unused.
+> 
+
+This is being used in 8 lines below but actually the static array can be
+initialized without using this enum type. Will remove it.
+
+>> +static struct mfd_cell peci_functions[] = {
+>> +	{ .name = "peci-cputemp", },
+>> +	{ .name = "peci-dimmtemp", },
+>> +	/* TODO: Add additional PECI sideband functions into here */
+>> +};
+>> +
+>> +static const struct cpu_gen_info cpu_gen_info_table[] = {
+>> +	[CPU_GEN_HSX] = {
+>> +		.family        = 6, /* Family code */
+>> +		.model         = INTEL_FAM6_HASWELL_X,
+>> +		.core_max      = CORE_MAX_ON_HSX,
+>> +		.chan_rank_max = CHAN_RANK_MAX_ON_HSX,
+>> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_HSX },
+>> +	[CPU_GEN_BRX] = {
+>> +		.family        = 6, /* Family code */
+>> +		.model         = INTEL_FAM6_BROADWELL_X,
+>> +		.core_max      = CORE_MAX_ON_BDX,
+>> +		.chan_rank_max = CHAN_RANK_MAX_ON_BDX,
+>> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_BDX },
+>> +	[CPU_GEN_SKX] = {
+>> +		.family        = 6, /* Family code */
+>> +		.model         = INTEL_FAM6_SKYLAKE_X,
+>> +		.core_max      = CORE_MAX_ON_SKX,
+>> +		.chan_rank_max = CHAN_RANK_MAX_ON_SKX,
+>> +		.dimm_idx_max  = DIMM_IDX_MAX_ON_SKX },
+>> +};
+>> +
+>> +static int peci_client_get_cpu_gen_info(struct peci_client_manager *priv)
+>> +{
+>> +	u32 cpu_id;
+>> +	u16 family;
+>> +	u8 model;
+>> +	int rc;
+> 
+> ret is almost ubiquitous in the kernel.  Please use it instead.
+> 
+
+Okay. Will change rc to ret.
+
+<snip>
+
+>> +static int peci_client_probe(struct peci_client *client)
+>> +{
+>> +	struct device *dev = &client->dev;
+>> +	struct peci_client_manager *priv;
+>> +	uint cpu_no;
+>> +	int ret;
+>> +
+>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> +	if (!priv)
+>> +		return -ENOMEM;
+>> +
+>> +	dev_set_drvdata(dev, priv);
+>> +	priv->client = client;
+>> +	priv->dev = dev;
+> 
+> If you have client (Which contains dev, you don't need dev).
+> 
+
+Makes sense. Will remove the 'dev' member.
+
+<snip>
