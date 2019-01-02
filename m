@@ -1,64 +1,58 @@
-Return-Path: <axel.lin@ingics.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=ingics.com
- (client-ip=2607:f8b0:4864:20::643; helo=mail-pl1-x643.google.com;
- envelope-from=axel.lin@ingics.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32b; helo=mail-ot1-x32b.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ingics.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ingics-com.20150623.gappssmtp.com
- header.i=@ingics-com.20150623.gappssmtp.com header.b="El2PiEnW"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="nzU7P13T"; 
  dkim-atps=neutral
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
+ [IPv6:2607:f8b0:4864:20::32b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Tbh84CdXzDqD1
- for <openbmc@lists.ozlabs.org>; Wed,  2 Jan 2019 01:11:16 +1100 (AEDT)
-Received: by mail-pl1-x643.google.com with SMTP id y1so13514927plp.9
- for <openbmc@lists.ozlabs.org>; Tue, 01 Jan 2019 06:11:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ingics-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:cc:subject:date:message-id;
- bh=9KPwdGFUYdkvNG0Ezhe7BWu8nYhpJ8F+NYDoLekHp2c=;
- b=El2PiEnW3HTxwY/GwuvVnSw7FuPS+NlPtX4GY6VCAmKX8gMogT5lxS3DJLiXJzfrh7
- XsESiy3QFCMPq96roCynGdtbSOUmhHo3OV7hpjFVXk4EwGbVhuxK+3G9bACq+EB5CYo5
- MaiaWLcu/GXmVoWduJHb2pTKVH4EAdkyr0FWhIqFMaa9vPfTP4lx4H7TJy4xdHGBSkpF
- BwZy9YUaBjs8rBYuo5ZQrljNl0Vy8hzfVu+QjKWNrhV9DlzN7U2Um1gL8HC/67HqMYFN
- rpqygg0KltREfI1PAYd02j88cKZpBubkgmYuoFgvfEAc256r1ic7IndwcM/jku850lnb
- 3Mxg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43VCjD2zMtzDqJ2
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 01:14:24 +1100 (AEDT)
+Received: by mail-ot1-x32b.google.com with SMTP id 81so26765226otj.2
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Jan 2019 06:14:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=SPQLU1PXCc8CLhO+FHiBfyUBEu2yVHinLSwarK/kKGU=;
+ b=nzU7P13T5tv7iKAIkGMhkk8e4wcb+vwKCoyOU7e3H0+cAO82pdlBEjA5RoZyyHi7of
+ Ev6EEsFmvu7NRwDff7HDS1w5z9Iz5P5n7wczzyD9hFNVy6AtU1muTfGvtz5tfPWAz+nm
+ YJjwb1EJGDJ6XQezbDeR+kw5rrrbI3NZxasHknQCxgdNj0PIII0L/NvflGWbgR8l78lN
+ /vfAVwKy22splkSEYH/9HE3cuRGh8YEUuQMd41PxTfX+bCEkS//gzcMCXE/zwLAJfPPK
+ uXWmuiZ/QWgXWtey/n5+lJ0FqRqyS4Fj65/J92N1RUX3Yexd4xwhsZCeK1/utfJo12Qy
+ YmWQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=9KPwdGFUYdkvNG0Ezhe7BWu8nYhpJ8F+NYDoLekHp2c=;
- b=qzxxoXZ8qrxTntLQQnKTso4lUm0Cnrit+w3LS4OMTY0EUPWqTsFQ7zmQxPIw2qsLvC
- +AgPTs8WBX11KADH/RemRHmWCcfwycDUK6FVEe053+HkKYOOvknePrrV38FiMeVNh6v+
- d1XtaqvYs0nF6vsPenMfnKy4n4Uy7Bz9W6GVy0Vl1jg1WLIrIApZEfBj3GVNi3S7aW24
- 0Hke8D4UXwaxg5sDnDjjQOAUcJXdZiGHazIm+bhMy+eY9zFXgimmRgCwiyyZIN00dC5R
- BPcbhA3uCw8LMefzywDZtfuCOYE2GUuodoK+9NwgqhO6ck/eNa5FcLKo5rWfWv1rU3ZL
- dTFA==
-X-Gm-Message-State: AJcUukeGHG+EdxTR14AF93yS67ytp9/K9KRUDoWLM0eEenhcWsaJmIiq
- RevaHbroB8wUE9wFBA31OQNEOA==
-X-Google-Smtp-Source: ALg8bN47sQAmPfAaoThjTldEL/M+XBcRsxjlzCB3Rix9007dlcHsM7FnyQyQWSLrn9gWkvj+Bn2ArQ==
-X-Received: by 2002:a17:902:f01:: with SMTP id
- 1mr39404917ply.143.1546351873759; 
- Tue, 01 Jan 2019 06:11:13 -0800 (PST)
-Received: from localhost.localdomain (36-239-205-119.dynamic-ip.hinet.net.
- [36.239.205.119])
- by smtp.gmail.com with ESMTPSA id h64sm77544556pfc.142.2019.01.01.06.11.09
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 01 Jan 2019 06:11:12 -0800 (PST)
-From: Axel Lin <axel.lin@ingics.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Brendan Higgins <brendanhiggins@google.com>, openbmc@lists.ozlabs.org,
- linux-spi@vger.kernel.org, Axel Lin <axel.lin@ingics.com>
-Subject: [PATCH] spi: npcm-pspi: Fix wrong priv pointer
-Date: Tue,  1 Jan 2019 22:10:53 +0800
-Message-Id: <20190101141053.3792-1-axel.lin@ingics.com>
-X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Wed, 02 Jan 2019 10:25:34 +1100
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=SPQLU1PXCc8CLhO+FHiBfyUBEu2yVHinLSwarK/kKGU=;
+ b=POxYEZnS7oSQqUmZARRE55MByQ3j2x7HmhJFMqGuAjufWdDKbXRU8hD+Xx3dXcBq0i
+ swe0ALfV0NZMZLo1oXlZ50/HBrMCkyx3hpO0T9+xL//Z4iLe4FWCHMkdMZfpycBFtcTb
+ gR93DQHIKoC1D1vmrElLmM5Ibw1xqnu13OIl0iJWhO1XowipQj2DtuRvNj2Rfa+ubO2m
+ X8IYOJ2GKVFoLxNKsk7V6RBLLbHf/eAvwt/3G8AQvLRmKciL2CYDc/3BA8wtqnRffWyO
+ YSqb4AAzO8dhxTkrvHf0q2k1tibFLq08aPFAMJIJU7jFCy73t0WaPtk04fKT0kkiPJM/
+ Y7Dw==
+X-Gm-Message-State: AJcUukdmbhUAXoCi3K1ZgxDdsuZaLKR7ugJn8KFoXIDUwFXSJcIZ9Ggi
+ roJ534SjaktRY31yBOCtkWgC6prDJdTr5VTjoT8=
+X-Google-Smtp-Source: ALg8bN76ViKkDbEWGl0ObiT5oe3GpFWUcqo+rKGUrZuROWtWrT7Ki45Uam4vMNP1yx1R6fA0awgML5UzDrF8vV+Zu5o=
+X-Received: by 2002:a9d:71c9:: with SMTP id z9mr32005452otj.294.1546438461501; 
+ Wed, 02 Jan 2019 06:14:21 -0800 (PST)
+MIME-Version: 1.0
+References: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
+In-Reply-To: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 2 Jan 2019 08:14:05 -0600
+Message-ID: <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
+Subject: Re: [Help] Could not recvie gerrit register verification email
+To: Samuel.Jiang@quantatw.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Buddy.Huang@quantatw.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,30 +64,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 01 Jan 2019 14:11:22 -0000
+X-List-Received-Date: Wed, 02 Jan 2019 14:14:25 -0000
 
-In npcm_pspi_probe(), current code set platform_set_drvdata(pdev, master);
-so in npcm_pspi_remove() platform_get_drvdata(pdev) will return pointer to
-master rather than priv. Fix it.
+On Fri, Dec 28, 2018 at 3:06 AM Samuel Jiang (=E6=B1=9F=E9=A8=8F=E5=85=88)
+<Samuel.Jiang@quantatw.com> wrote:
+>
+> Dear openBMC Gerrit managers,
+>
+> I register new Gerrit account and sent verify mail request yesterday unti=
+l now still not received any verification email.
+>
+> I confirmed our mail server never receive and didn't set any policy.
+>
+> Please help us check if any policy setting caused this problem.
 
-Signed-off-by: Axel Lin <axel.lin@ingics.com>
----
- drivers/spi/spi-npcm-pspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+Hi Samuel, can you please verify you followed the steps in
+https://github.com/openbmc/docs/blob/master/development/gerrit-setup.md?
 
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index e1dca79b9090..734a2b956959 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -465,7 +465,8 @@ static int npcm_pspi_probe(struct platform_device *pdev)
- 
- static int npcm_pspi_remove(struct platform_device *pdev)
- {
--	struct npcm_pspi *priv = platform_get_drvdata(pdev);
-+	struct spi_master *master = platform_get_drvdata(pdev);
-+	struct npcm_pspi *priv = spi_master_get_devdata(master);
- 
- 	npcm_pspi_reset_hw(priv);
- 	clk_disable_unprepare(priv->clk);
--- 
-2.17.1
+You're statement about registering a new account is a little
+concerning, you shouldn't be
+registering a new gerrit account, you should be linking your github one.
+
+>
+> Thanks,
+>
+> Samuel Jiang
