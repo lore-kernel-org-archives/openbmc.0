@@ -1,58 +1,52 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32b; helo=mail-ot1-x32b.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::a33; helo=mail-vk1-xa33.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nzU7P13T"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="O3NuIMOV"; 
  dkim-atps=neutral
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
+Received: from mail-vk1-xa33.google.com (mail-vk1-xa33.google.com
+ [IPv6:2607:f8b0:4864:20::a33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43VCjD2zMtzDqJ2
- for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 01:14:24 +1100 (AEDT)
-Received: by mail-ot1-x32b.google.com with SMTP id 81so26765226otj.2
- for <openbmc@lists.ozlabs.org>; Wed, 02 Jan 2019 06:14:23 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43VKFn1XRNzDqHn
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 05:24:28 +1100 (AEDT)
+Received: by mail-vk1-xa33.google.com with SMTP id 197so6761810vkf.4
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Jan 2019 10:24:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=SPQLU1PXCc8CLhO+FHiBfyUBEu2yVHinLSwarK/kKGU=;
- b=nzU7P13T5tv7iKAIkGMhkk8e4wcb+vwKCoyOU7e3H0+cAO82pdlBEjA5RoZyyHi7of
- Ev6EEsFmvu7NRwDff7HDS1w5z9Iz5P5n7wczzyD9hFNVy6AtU1muTfGvtz5tfPWAz+nm
- YJjwb1EJGDJ6XQezbDeR+kw5rrrbI3NZxasHknQCxgdNj0PIII0L/NvflGWbgR8l78lN
- /vfAVwKy22splkSEYH/9HE3cuRGh8YEUuQMd41PxTfX+bCEkS//gzcMCXE/zwLAJfPPK
- uXWmuiZ/QWgXWtey/n5+lJ0FqRqyS4Fj65/J92N1RUX3Yexd4xwhsZCeK1/utfJo12Qy
- YmWQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=t+wiqriavqVnRJBtwTmuzIrEd6GJyMZUYOQhnW2JGts=;
+ b=O3NuIMOVZgPl69lQO0zOGk8Y0YtEmIao1x63YfsaiJrjaMjQdR4oebZkUxL3Lly/G8
+ Z8FvIDz4lTzb3g7NLmjBdj5HCohV+c9/fz6jU5mz2OGT0aDCLRlxVjpI6b3D9tfOxZ1x
+ u0jQONB0B8JINRagjTWqVTFPgnOHo4zAuJH6g9SG2VDpLPBDjvhrE+h01S50TFQPEkFj
+ Ey4cYpzHs8JOrD5926M39vZcsK3eG1YcxlD9IBoU102aEGE+sFSJElbmgosEkpg4i86J
+ 6rtXTuMhyfUK8I3Qjaug5DRBX7WJll7qb+MnxhIL9olh7nLyZTbRyQXRBdKHaFTQJUco
+ pHlA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=SPQLU1PXCc8CLhO+FHiBfyUBEu2yVHinLSwarK/kKGU=;
- b=POxYEZnS7oSQqUmZARRE55MByQ3j2x7HmhJFMqGuAjufWdDKbXRU8hD+Xx3dXcBq0i
- swe0ALfV0NZMZLo1oXlZ50/HBrMCkyx3hpO0T9+xL//Z4iLe4FWCHMkdMZfpycBFtcTb
- gR93DQHIKoC1D1vmrElLmM5Ibw1xqnu13OIl0iJWhO1XowipQj2DtuRvNj2Rfa+ubO2m
- X8IYOJ2GKVFoLxNKsk7V6RBLLbHf/eAvwt/3G8AQvLRmKciL2CYDc/3BA8wtqnRffWyO
- YSqb4AAzO8dhxTkrvHf0q2k1tibFLq08aPFAMJIJU7jFCy73t0WaPtk04fKT0kkiPJM/
- Y7Dw==
-X-Gm-Message-State: AJcUukdmbhUAXoCi3K1ZgxDdsuZaLKR7ugJn8KFoXIDUwFXSJcIZ9Ggi
- roJ534SjaktRY31yBOCtkWgC6prDJdTr5VTjoT8=
-X-Google-Smtp-Source: ALg8bN76ViKkDbEWGl0ObiT5oe3GpFWUcqo+rKGUrZuROWtWrT7Ki45Uam4vMNP1yx1R6fA0awgML5UzDrF8vV+Zu5o=
-X-Received: by 2002:a9d:71c9:: with SMTP id z9mr32005452otj.294.1546438461501; 
- Wed, 02 Jan 2019 06:14:21 -0800 (PST)
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=t+wiqriavqVnRJBtwTmuzIrEd6GJyMZUYOQhnW2JGts=;
+ b=VdkBTW28bknGuZEy0x0YdjujzGtfrlElD17xM7k0r6ceQqL2QbAOd4q1en1PbWFbu4
+ m51yvMAvVT659j7ACJ/Wl9kgl6Co/FMgGJUm6gkty1Bq8I9tmvnnfmLMvxfOWGvADV9S
+ DT4kRw03Cy52opfOTh9Erh4LTVubIdFZpU/vT4cnVxtZJrA/EpTQmckuIp9XgSO2TqKU
+ h+LuMWxYP9DVf4YxlNrggxzzobtMgRaOenFpuc7d2VbM+8AurTsC5asGe6HSHMLnNowY
+ gS5yEUYFc8v3PZ6HMRJeh5ipPyo8qxm3nGWBcM9pjhIgw1Q5IGO5qdbXM8GMz/AbMg2r
+ LGNQ==
+X-Gm-Message-State: AJcUukcwMT3jF0vsm/0zUCAcRbKljLBBhHTTjDZipWdcN7rLcixe5fCt
+ V0ljoogGwXDpZSueMzhFyqF6zVp7lD8NlejO14jYrR9L
+X-Google-Smtp-Source: ALg8bN4Z987AXDmRJgDplQmVUP6ZHtuLv7ha7W+1cmj3CT/ag4aEAswm7+9NyIgYC0zgkBuGzL1ptBmMAaCKre/E8PI=
+X-Received: by 2002:a1f:60c9:: with SMTP id u192mr14968781vkb.36.1546453466084; 
+ Wed, 02 Jan 2019 10:24:26 -0800 (PST)
 MIME-Version: 1.0
-References: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
-In-Reply-To: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 2 Jan 2019 08:14:05 -0600
-Message-ID: <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
-Subject: Re: [Help] Could not recvie gerrit register verification email
-To: Samuel.Jiang@quantatw.com
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Buddy.Huang@quantatw.com
+From: Kurt Taylor <kurt.r.taylor@gmail.com>
+Date: Wed, 2 Jan 2019 12:24:14 -0600
+Message-ID: <CAG5OiwjiYZrC1ShDHOJktnKjBRydwedEsagLGcnKeFeLMZjRyQ@mail.gmail.com>
+Subject: Heads up: 2.6 release freeze next week!
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +58,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Jan 2019 14:14:25 -0000
+X-List-Received-Date: Wed, 02 Jan 2019 18:24:30 -0000
 
-On Fri, Dec 28, 2018 at 3:06 AM Samuel Jiang (=E6=B1=9F=E9=A8=8F=E5=85=88)
-<Samuel.Jiang@quantatw.com> wrote:
->
-> Dear openBMC Gerrit managers,
->
-> I register new Gerrit account and sent verify mail request yesterday unti=
-l now still not received any verification email.
->
-> I confirmed our mail server never receive and didn't set any policy.
->
-> Please help us check if any policy setting caused this problem.
+Happy New Year everyone!
 
-Hi Samuel, can you please verify you followed the steps in
-https://github.com/openbmc/docs/blob/master/development/gerrit-setup.md?
+Just a reminder, next Monday, January 7, 2019, we will tag a 2.6
+release candidate for our first release as a community.
 
-You're statement about registering a new account is a little
-concerning, you shouldn't be
-registering a new gerrit account, you should be linking your github one.
+As we agreed in the release planning working group, we will have a
+short 3-day window of sanity testing and then branch. You need to be
+planning on testing the tag during this time to make sure everything
+looks good on your platform. Unless there are serious problems
+(unlikely), we will branch the release so that master can continue
+merging patches.
 
->
-> Thanks,
->
-> Samuel Jiang
+The remainder of the 4-week release window, until February 4, 2019,
+will be set aside for companies to test. This time should also be
+spent making the documentation current and complete. Patches against
+this pre-release branch will be accepted only if they have minimal
+impact, such as documentation, or they are critical to basic
+functionality. At the release date, it will be tagged 2.6 and go into
+maintenance mode and very few patches will be allowed to be
+back-ported.
+
+Please contact your release planning working group representative for
+questions, or contact me directly. If your question is general in
+nature, find me on IRC or ask here on the list so everyone may
+benefit.
+
+Thanks for all the hard work you have put into this release!
+Kurt Taylor (krtaylor)
