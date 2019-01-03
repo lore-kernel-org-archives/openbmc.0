@@ -1,55 +1,74 @@
-Return-Path: <robherring2@gmail.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=209.85.166.195; helo=mail-it1-f195.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Received: from mail-it1-f195.google.com (mail-it1-f195.google.com
- [209.85.166.195])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43W0zx12SwzDqK5
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 08:14:51 +1100 (AEDT)
-Received: by mail-it1-f195.google.com with SMTP id z7so47223298iti.0
- for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 13:14:51 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=RFJv2pEtzMnCmHqpwbHFcL8CG7J04WnCqNMgo/+qLPk=;
- b=rudfvHGM/gH8trlllwFYLDnRX/sUzxz0eJMLAsQePtRu7Z9MlUqtXKU5JkwHlv/o4D
- z7Buihno8iBsETWXK4vXige0viFJNGIAjPTFWcSyRmgpl1rj0LxNhFyv7UN6+5pV96HQ
- 8RSwXHDfXRKcPUhlxcJVgMCXze6v18sBIJ5vtumpGCWBKeZ5qSbETBJoJ4voS8Fqbvfo
- SHXMqLqQLAwHyyPlGhIIIDpC5aJouzC//SWlH3KBHu1rU9dFabxcJtR1da7BA52Euwvv
- ql8eTLbpse/50ZgpEVxU3uu/5TSxUCp8udaUpQbgKRKgGAWU3XxFjy580eS50DwkYEe1
- V0iw==
-X-Gm-Message-State: AA+aEWZjk2wto4LTMoJXB8tOkhkEcIN3Pwc2+DQGSdcw4imKZbC5G/Bd
- 6uD0jNulpcMRUdIltj4mOQ==
-X-Google-Smtp-Source: AFSGD/UCiBXdQyBzaX30++tCxEnw5Oh61kbQIcMtaE22/WZG+KWgHmzQwzOsJa5YAxDjoZNpxMFPIA==
-X-Received: by 2002:a02:910a:: with SMTP id a10mr34057589jag.116.1546550089548; 
- Thu, 03 Jan 2019 13:14:49 -0800 (PST)
-Received: from localhost ([24.51.61.172])
- by smtp.gmail.com with ESMTPSA id f13sm25041184iol.82.2019.01.03.13.14.48
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Thu, 03 Jan 2019 13:14:48 -0800 (PST)
-Date: Thu, 3 Jan 2019 15:14:47 -0600
-From: Rob Herring <robh@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: jic23@kernel.org, knaack.h@gmx.de, lars@metafoo.de, pmeerw@pmeerw.net,
- mark.rutland@arm.com, yuenn@google.com, venture@google.com,
- brendanhiggins@google.com, avifishman70@gmail.com, joel@jms.id.au,
- linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] dt-binding: iio: add NPCM ADC documentation
-Message-ID: <20190103211447.GA4618@bogus>
-References: <20181224164755.286932-1-tmaimon77@gmail.com>
- <20181224164755.286932-2-tmaimon77@gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20181224164755.286932-2-tmaimon77@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43W1sV18w7zDqDF
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 08:54:21 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ x03LsI0p047720
+ for <openbmc@lists.ozlabs.org>; Thu, 3 Jan 2019 16:54:19 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2pspsu1jbp-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 16:54:19 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
+ Thu, 3 Jan 2019 21:54:18 -0000
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 3 Jan 2019 21:54:17 -0000
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x03LsGYT20906144
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 3 Jan 2019 21:54:16 GMT
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4F9A56A054;
+ Thu,  3 Jan 2019 21:54:16 +0000 (GMT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0D1B36A04F;
+ Thu,  3 Jan 2019 21:54:16 +0000 (GMT)
+Received: from talon7.ibm.com (unknown [9.41.179.222])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu,  3 Jan 2019 21:54:15 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.vnet.ibm.com>
+Subject: [PATCH dev-4.19 3/6] ARM: dts: aspeed-g5: Add video engine node
+Date: Thu,  3 Jan 2019 15:54:05 -0600
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1546552448-22621-1-git-send-email-eajames@linux.ibm.com>
+References: <1546552448-22621-1-git-send-email-eajames@linux.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 19010321-0004-0000-0000-000014CC6DA7
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010339; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000272; SDB=6.01141311; UDB=6.00593987; IPR=6.00921536; 
+ MB=3.00024957; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-03 21:54:18
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19010321-0005-0000-0000-00008A14BAD8
+Message-Id: <1546552448-22621-4-git-send-email-eajames@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-03_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1901030187
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,62 +80,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Jan 2019 21:14:53 -0000
+X-List-Received-Date: Thu, 03 Jan 2019 21:54:22 -0000
 
-On Mon, Dec 24, 2018 at 06:47:54PM +0200, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton BMC
-> NPCM Analog-to-Digital Converter(ADC).
-> 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-> ---
->  .../bindings/iio/adc/nuvoton,npcm-adc.txt          | 35 ++++++++++++++++++++++
->  1 file changed, 35 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> new file mode 100644
-> index 000000000000..6f0843d837cc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> @@ -0,0 +1,35 @@
-> +Nuvoton NPCM Analog to Digital Converter (ADC)
-> +
-> +The NPCM ADC is a 10-bit converter for eight channel inputs.
-> +
-> +Required properties:
-> +- compatible	: "nuvoton,npcm750-adc" for the NPCM7XX BMC.
-> +- reg			: specifies physical base address and size of the registers.
-> +- interrupts	: Contain the ADC interrupt with flags for falling edge.
-> +
-> +Optional properties:
-> +- clocks		: phandle of ADC reference clock, in case the clock is not
-> +				  added the ADC will use the default ADC sample rate.
-> +- vref-supply	: The regulator supply ADC reference voltage, in case the
-> +				  vref-supply is not added the ADC will use internal voltage
-> +				  reference.
-> +
-> +Required Node in the NPCM7xx BMC:
-> +An additional register is present in the NPCM7xx SOC which is
-> +assumed to be in the same device tree, with and marked as
-> +compatible with "nuvoton,npcm750-rst".
-> +
-> +Example:
-> +
-> +adc: adc@f000c000 {
-> +	compatible = "nuvoton,npcm750-adc";
-> +	reg = <0xf000c000 0x8>;
-> +	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-> +	clocks = <&clk NPCM7XX_CLK_ADC>;
-> +};
-> +
-> +rst: rst@f0801000 {
+From: Eddie James <eajames@linux.vnet.ibm.com>
 
-Why is this node here?
+Add a node to describe the video engine on the AST2500.
 
-> +	compatible = "nuvoton,npcm750-rst", "syscon",
-> +	"simple-mfd";
-> +	reg = <0xf0801000 0x6C>;
-> +};
-> -- 
-> 2.14.1
-> 
+Signed-off-by: Eddie James <eajames@linux.vnet.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-g5.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index f6e630f..8000877 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -243,6 +243,17 @@
+ 				interrupts = <0x19>;
+ 			};
+ 
++			video: video@1e700000 {
++				compatible = "aspeed,ast2500-video-engine";
++				reg = <0x1e700000 0x20000>;
++				clocks = <&syscon ASPEED_CLK_GATE_VCLK>,
++					 <&syscon ASPEED_CLK_GATE_ECLK>;
++				clock-names = "vclk", "eclk";
++				resets = <&syscon ASPEED_RESET_VIDEO>;
++				interrupts = <7>;
++				status = "disabled";
++			};
++
+ 			adc: adc@1e6e9000 {
+ 				compatible = "aspeed,ast2500-adc";
+ 				reg = <0x1e6e9000 0xb0>;
+-- 
+1.8.3.1
