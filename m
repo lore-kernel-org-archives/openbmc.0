@@ -1,79 +1,52 @@
-Return-Path: <jrey@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::530; helo=mail-pg1-x530.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="jVQASGdL"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43W3tR4z8QzDqGl
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 10:25:18 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- x03NOTuH102487
- for <openbmc@lists.ozlabs.org>; Thu, 3 Jan 2019 18:25:16 -0500
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2pssnd5trf-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 18:25:16 -0500
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
- Thu, 3 Jan 2019 23:25:15 -0000
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 3 Jan 2019 23:25:14 -0000
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x03NPDFT26083486
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 3 Jan 2019 23:25:13 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D5AF212405A;
- Thu,  3 Jan 2019 23:25:13 +0000 (GMT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 83A18124058;
- Thu,  3 Jan 2019 23:25:13 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu,  3 Jan 2019 23:25:13 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43W48m4dlQzDqH2
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 10:37:43 +1100 (AEDT)
+Received: by mail-pg1-x530.google.com with SMTP id t13so16632258pgr.11
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 15:37:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=CTDbxc1+/MhtJe+qZvs13RWWn+fVXqVkckzVj0tk8lE=;
+ b=jVQASGdLnzWUNajNjtIBqxavzz6Tx6R5c77Soc2I5WPrOctvQabY8sYz5RpF1wmcqv
+ 8Swy0JjisLCNVz9N0BmJNhczsTKU7Lm61Fl9e1N2ewaJqs2pxRE0ygCjoL/IX1O+tIPG
+ cNz/QTMQf3CgYphBrSsdr4ftOT1gTR8Q8aitv8xm/uFt1GFhnbr8c8t4sJwyypmp4g63
+ p0Av4EgHzohK1przWJYe4XGCx41Vl/NEVosySxUC/XSFARmDPUEfgj0NSYHdgmc01kgq
+ 8lXtY0pkZxzWLwbMIgsne+I05Xhr1Ea0XP2f14LtLdyOUIn9rA01685CDcEIRMilG6Dh
+ gwDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=CTDbxc1+/MhtJe+qZvs13RWWn+fVXqVkckzVj0tk8lE=;
+ b=llJryceSFvWLEJ8f9tFjmXuqo6d54HBCF5P+XxQT59VMOullM+M0juG0XsNcbyA1KC
+ QqPaHBVw0rQ5mLwG/sLchmquvs+LHHFHWsAMM8+BzGM11W0tFYnjmrLHYWS63LWu3QSb
+ khpgRkH6yFVUvqVmQ055CnHnkcJiQDmJZm+JshHSMEqTTl5CcNAXupm97MyHV0kpNK6Z
+ OQ62RAgwHHH/kGZNmwQ08TpXo+E0nRqDYrLMYufVZNV0y1EHQIsG9dq0WL/sNLOZpW7C
+ dfc9KNdEs70vLnWs2RbYzTNmDWm9xuXSt96JD2ma9NaNR5CVSl0y9rr3t9M8vp1QsoEV
+ 697Q==
+X-Gm-Message-State: AJcUukfPpl132LGhWP2h3qtzOZ0e9gbpio/0HdX4eN2CRKpYertUzjIp
+ fPvpVskUE+JwVZE68RyYqLpPn20KIzWojnctS2VLEHGq/B6IZg==
+X-Google-Smtp-Source: ALg8bN5tAa64Eote1Z7YmcfaaGx5wQB85fGNYT/xzu32rXZoDZmdkSYwe2IBBRLebzAn6RM/tem0hfGHti44SJwWMdM=
+X-Received: by 2002:a63:4d:: with SMTP id 74mr19092847pga.248.1546558660938;
+ Thu, 03 Jan 2019 15:37:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu, 03 Jan 2019 17:30:17 -0600
-From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: openbmc <openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org>
-Subject: Re: Add links to feature docs - created TOC
-In-Reply-To: <07ff326af9b25d021aee58aa650cc986@linux.vnet.ibm.com>
-References: <07ff326af9b25d021aee58aa650cc986@linux.vnet.ibm.com>
-X-Sender: jrey@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19010323-0068-0000-0000-0000037C4337
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010339; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000272; SDB=6.01141340; UDB=6.00594006; IPR=6.00921566; 
- MB=3.00024957; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-03 23:25:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19010323-0069-0000-0000-000046FD961B
-Message-Id: <18000575353de36c7e0736acb858655f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-03_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901030197
+From: Patrick Venture <venture@google.com>
+Date: Thu, 3 Jan 2019 15:37:29 -0800
+Message-ID: <CAO=notxxEPqizshSLonHwXNoonTTvxjuBVKYH0Z12cL4SOek7A@mail.gmail.com>
+Subject: Build failure while moving forward
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,34 +58,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Jan 2019 23:25:20 -0000
+X-List-Received-Date: Thu, 03 Jan 2019 23:37:45 -0000
 
-On 2018-12-05 17:31, Joseph Reynolds wrote:
-> I want to make it easier to find documentation for features of
-> OpenBMC.  The README ... file lists the features and links to the docs
-> repo, but not all features are documented there, and I'm still new to
-> BMCs, so it is hard for me to determine which docs to read.
-> 
-> I propose to add a link from each feature to its canonical
-> documentation.  So if you see me asking question in this area, you'll
-> know why.
+I'm seeing:
 
-I changed the OpenBMC feature list into a table of contents for OpenBMC 
-features.  The old list needed to be updated and doesn't make it easy to 
-find more information about OpenBMC features.  So I looked for docs and 
-added links to the project's README.
+| In file included from generated.cpp:89:0:
+| gen_serialization.hpp: In function 'void cereal::save(Archive&,
+const sdbusplus::xyz::openbmc_project::User::Ldap::server::Config&,
+uint32_t)':
+| gen_serialization.hpp:1450:14: error: 'const class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'secureLDAP'
+|      a(object.secureLDAP(), object.lDAPServerURI(),
+object.lDAPBindDN(), object.lDAPBaseDN(), object.lDAPBINDDNpassword(),
+object.lDAPSearchScope(), object.lDAPType());
+|               ^~~~~~~~~~
+| gen_serialization.hpp:1450:101: error: 'const class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'lDAPBINDDNpassword'
+|      a(object.secureLDAP(), object.lDAPServerURI(),
+object.lDAPBindDN(), object.lDAPBaseDN(), object.lDAPBINDDNpassword(),
+object.lDAPSearchScope(), object.lDAPType());
+|
+                                ^~~~~~~~~~~~~~~~~~
+| gen_serialization.hpp: In function 'void cereal::load(Archive&,
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config&,
+uint32_t)':
+| gen_serialization.hpp:1459:21: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'secureLDAP'
+|      decltype(object.secureLDAP()) SecureLDAP{};
+|                      ^~~~~~~~~~
+| gen_serialization.hpp:1459:21: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'secureLDAP'
+| gen_serialization.hpp:1463:21: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'lDAPBINDDNpassword'
+|      decltype(object.lDAPBINDDNpassword()) LDAPBINDDNpassword{};
+|                      ^~~~~~~~~~~~~~~~~~
+| gen_serialization.hpp:1463:21: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'lDAPBINDDNpassword'
+| gen_serialization.hpp:1467:12: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'secureLDAP'
+|      object.secureLDAP(SecureLDAP);
+|             ^~~~~~~~~~
+| gen_serialization.hpp:1471:12: error: 'class
+sdbusplus::xyz::openbmc_project::User::Ldap::server::Config' has no
+member named 'lDAPBINDDNpassword'
+|      object.lDAPBINDDNpassword(LDAPBINDDNpassword);
+|             ^~~~~~~~~~~~~~~~~~
 
-Please review.
-  - Let me know what features should be added or removed, or how to
-    organize the list.
+When I pull in 239eb56a464a2953cee573307745aa30092ae53a from
+openbmc/openbmc.   It looks like that patchset with user-manager and
+dbus-interfaces is also associated with my inventory-manager failure.
 
-  - I tried to find all the feature documentation, but I need your
-    help.  Please contribute doc links for your area and I will add them.
-    I prefer for each feature to link to a single document, but I will
-    take what I can get.
+I don't see another inventory-manager recipe patchset to pull in, so
+I'm curious what I'm missing.
 
-The review is here:
-https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/17056/
-
-Thanks!
-- Joseph
+Patrick
