@@ -1,55 +1,49 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <broonie@sirena.org.uk>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::72d; helo=mail-qk1-x72d.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=sirena.org.uk
+ (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
+ envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="PcySZOUI"; 
- dkim-atps=neutral
-Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
- [IPv6:2607:f8b0:4864:20::72d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.b="jvjExXLo"; dkim-atps=neutral
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Vcxd22vrzDqFB
- for <openbmc@lists.ozlabs.org>; Thu,  3 Jan 2019 17:11:32 +1100 (AEDT)
-Received: by mail-qk1-x72d.google.com with SMTP id q8so19178196qke.1
- for <openbmc@lists.ozlabs.org>; Wed, 02 Jan 2019 22:11:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=s3Odud8jPIfcXOaep3/Vy6a3quMuqPlvIK4wxaeLNo0=;
- b=PcySZOUIXksstaw3kRNGRPbmSpPsTFyqzBpFhqYnSs94dJKOQcilIU40x6ukkyp9YA
- 4N4krm+3/lybM+sRejbEYV9vRuzxPRIu/q5y/KlLzaBKp0H3UONgtZtkaEHYUfEKYv43
- jGzdReZxeR6zk8L8faJTMyhJThS7dUeMj4KMM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=s3Odud8jPIfcXOaep3/Vy6a3quMuqPlvIK4wxaeLNo0=;
- b=diJ7fQTaUGqaLMomMjGUuBVeVSGMFBhYfqfj+Pf4qbRtP41PYKhDlhwDABo4hc3mYN
- vvv2yYEjoCluJQou1SelxMhBFYurXrI4PiK6IYw15/impflw+p+I7a901r4ZTHWvobL0
- ehSqn+AGFCH6PfKEhePUkNYY72QmF5wUaxH9sYCsS0gtTbdfY3zKKQiJSer2PLO0ADEc
- GeOLm0D825ZlwTipVnARnbBIyV6bnhnCVx+hEokr7NbH8ynU2EK+wEyu15nvSVQc5UMi
- a3wDoBK1c6+kWvQ+OC8i5ErdNeIHgqqVa58CuH2PSBDoH55p4ra810DUvRZi8uNiJQRb
- j9lQ==
-X-Gm-Message-State: AJcUukfkVFMg0gB5LiQyuR6jIwd66MfXdF9qa3590KquuG+8OUfSfvG6
- /qvjovE+1ewphJIYFXjKJdiNzJUtdVWtLnTqWkM=
-X-Google-Smtp-Source: ALg8bN47UtFVuthIUzXnrjx3tztO1+5ZDe+fA3usXbahQwOlzmE1VLk+0MULTsjynS8TCS7EmbvivWLrI7FG9kvzQ/E=
-X-Received: by 2002:a37:a391:: with SMTP id m139mr41759266qke.11.1546495889728; 
- Wed, 02 Jan 2019 22:11:29 -0800 (PST)
-MIME-Version: 1.0
-References: <20181216110035.151310-1-tmaimon77@gmail.com>
-In-Reply-To: <20181216110035.151310-1-tmaimon77@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 3 Jan 2019 16:41:18 +1030
-Message-ID: <CACPK8XdszEGSCkr=i2iA6MQr9tyeLDUpwn8r0KgRUBKMZoSpZw@mail.gmail.com>
-Subject: Re: [linux dev-4.19 00/11] Add NPCM7xx patches to dev-4.19
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43VqBd5C4qzDqD2
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 00:53:28 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=YYG9URGBUbh2/d20c8mttBiXArlh+LGZlCPm2QZHmvs=; b=jvjExXLoucRo
+ HvrXvflj79UNv/9DR2BtLGvdIglZiMSCcc6YTrj27znbU+GPP3oxTyd90bFhEE/0T6pWxxm6/w+1C
+ quWTEBVUPpIcTweaJ0bB14I4WftmSuy1wQaBwk0UP73tZrqmBosrH/pN3CcrA05zv1v3Zv4ohkwxH
+ BcxD4=;
+Received: from [2001:470:1f1d:6b5:7e7a:91ff:fede:4a45]
+ (helo=finisterre.ee.mobilebroadband)
+ by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.2:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.89)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1gf3R2-0005ho-OL; Thu, 03 Jan 2019 13:53:20 +0000
+Received: by finisterre.ee.mobilebroadband (Postfix, from userid 1000)
+ id 37957440080; Thu,  3 Jan 2019 13:53:20 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Axel Lin <axel.lin@ingics.com>
+Cc: Mark Brown <broonie@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, openbmc@lists.ozlabs.org,
+ linux-spi@vger.kernel.org, linux-spi@vger.kernel.org
+Subject: Applied "spi: npcm-pspi: Fix wrong priv pointer" to the spi tree
+In-Reply-To: <20190101141053.3792-1-axel.lin@ingics.com>
+X-Patchwork-Hint: ignore
+Message-Id: <20190103135320.37957440080@finisterre.ee.mobilebroadband>
+Date: Thu,  3 Jan 2019 13:53:20 +0000 (GMT)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,97 +55,63 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Jan 2019 06:11:35 -0000
+X-List-Received-Date: Thu, 03 Jan 2019 13:53:30 -0000
 
-Hi Tomer,
+The patch
 
-On Sun, 16 Dec 2018 at 21:30, Tomer Maimon <tmaimon77@gmail.com> wrote:
->
-> Add the following NPCM7xx patches to dev-4.19:
+   spi: npcm-pspi: Fix wrong priv pointer
 
-I had some email issues where not all of these patches arrived in my
-inbox. They are on patchwork, so I was able to review them.
+has been applied to the spi tree at
 
->
-> 1. NPCM7xx FIU driver(SPI-NOR).
-> 2. NPCM7xx I2C driver.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git 
 
-The i2c does not build, so I did not include that patch:
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
 
-../drivers/i2c/busses/i2c-npcm7xx.c:9:10: fatal error:
-linux/clk/nuvoton.h: No such file or directory
- #include <linux/clk/nuvoton.h>
-          ^~~~~~~~~~~~~~~~~~~~~
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Please re-send it once you've tested that it applies and builds. It
-would be great if you had also tested it on hardware before sending.
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> 3. NPCM7xx BIOS post code driver.
-
-This introduces a warning:
-
-../drivers/misc/npcm7xx-lpc-bpc.c: In function =E2=80=98npcm7xx_bpc_irq=E2=
-=80=99:
-../drivers/misc/npcm7xx-lpc-bpc.c:150:25: warning: =E2=80=98last_addr_bit=
-=E2=80=99 may
-be used uninitialized in this function [-Wmaybe-uninitialized]
-   if (lpc_bpc->en_dwcap && last_addr_bit) {
-       ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
-
-I would strongly encourage you to look at the aspeed snoop driver and
-adopt a common userspace interface for this code. It's important to do
-that before userspace code is written that depends on this interface.
-
-> 4. NPCM7xx PCI mailbox driver.
-
-I didn't merge this one has it contained a bad size check. Please take
-a look at npcm7xx_mbox_write:
-
-+       if (count + *ppos > mbox->max_buf_size)
-+               return -EINVAL;
-
-If you resend just the mailbox driver (and bindings) I will merge them
-separately.
-
-> 5. NPCM7xx ETHERNET MAC Controller driver.
-> 6. NPCM7xx defconfig.
-
-I found some warnings and errors when building your patches
-
-The device tree updates cause this warning when building:
-
-  DTC     arch/arm/boot/dts/nuvoton-npcm750-evb.dtb
-arch/arm/boot/dts/nuvoton-npcm750-evb.dtb: Warning (pci_bridge):
-/ahb/axi-pcie@e1000000: node name is not "pci" or "pcie"
-
-The ADC driver causes this warning:
-
-../drivers/iio/adc/npcm_adc.c: In function =E2=80=98npcm_adc_probe=E2=80=99=
-:
-../drivers/iio/adc/npcm_adc.c:301:9: warning: =E2=80=98ret=E2=80=99 may be =
-used
-uninitialized in this function [-Wmaybe-uninitialized]
-  return ret;
-         ^~~
-
-I took a look at the driver and it is clear it needs some further work. eg:
-
-                if (PTR_ERR(info->vref) !=3D -ENODEV) {
-                        goto err_disable_clk;
-                        return PTR_ERR(info->vref);
-                }
-
-and:
-
-        if (of_device_is_compatible(np, "nuvoton,npcm750-adc")) {
-
-Can you please take another look at the series before we merge it?
-Here's a checklist:
-
-1. Build the code
-2. Check for warnings
-3. Run the patches through checkpatch.pl
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
+Mark
 
-Joel
+From 082531444e454bac6f743ec064203bf8812bc9ac Mon Sep 17 00:00:00 2001
+From: Axel Lin <axel.lin@ingics.com>
+Date: Tue, 1 Jan 2019 22:10:53 +0800
+Subject: [PATCH] spi: npcm-pspi: Fix wrong priv pointer
+
+In npcm_pspi_probe(), current code set platform_set_drvdata(pdev, master);
+so in npcm_pspi_remove() platform_get_drvdata(pdev) will return pointer to
+master rather than priv. Fix it.
+
+Signed-off-by: Axel Lin <axel.lin@ingics.com>
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/spi/spi-npcm-pspi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+index e1dca79b9090..734a2b956959 100644
+--- a/drivers/spi/spi-npcm-pspi.c
++++ b/drivers/spi/spi-npcm-pspi.c
+@@ -465,7 +465,8 @@ static int npcm_pspi_probe(struct platform_device *pdev)
+ 
+ static int npcm_pspi_remove(struct platform_device *pdev)
+ {
+-	struct npcm_pspi *priv = platform_get_drvdata(pdev);
++	struct spi_master *master = platform_get_drvdata(pdev);
++	struct npcm_pspi *priv = spi_master_get_devdata(master);
+ 
+ 	npcm_pspi_reset_hw(priv);
+ 	clk_disable_unprepare(priv->clk);
+-- 
+2.20.1
