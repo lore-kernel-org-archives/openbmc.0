@@ -1,81 +1,62 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::535; helo=mail-pg1-x535.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="gEowZLC6"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
+ [IPv6:2607:f8b0:4864:20::535])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Vwr12p9GzDqDf
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 05:07:41 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- x03I4XPu011138
- for <openbmc@lists.ozlabs.org>; Thu, 3 Jan 2019 13:07:39 -0500
-Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2psq1srxaf-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 13:07:39 -0500
-Received: from localhost
- by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Thu, 3 Jan 2019 18:07:38 -0000
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 3 Jan 2019 18:07:35 -0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x03I7YVA18219070
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 3 Jan 2019 18:07:34 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AE91178069;
- Thu,  3 Jan 2019 18:07:34 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7F7CE7805E;
- Thu,  3 Jan 2019 18:07:34 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu,  3 Jan 2019 18:07:34 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43VyQr6NYNzDqGB
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 06:19:32 +1100 (AEDT)
+Received: by mail-pg1-x535.google.com with SMTP id w7so16374428pgp.13
+ for <openbmc@lists.ozlabs.org>; Thu, 03 Jan 2019 11:19:32 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=O2sXdAhcdM4HGbxC3rSU/+QlJQB4sezqHIjBYnUfmwc=;
+ b=gEowZLC6PGjl+4yKMHW+Os5Ze456C4dTBg4ifAiObv/f/jz1gKS1mRYo03lRIS1bKm
+ uQqOu8uRIR0V3qEobODU/y1CnTGgnvqutETxuouTJcEjRpwc0mJv/QdXdAnIlPJ9mq87
+ +ixZ0p492ZTNOC8c9SxbyPPUM3PmAF13qM3BI8mG1ONZpGpnzRRTAYJsZv/AEIseJDjC
+ DutDMUWfNYTjSJ5Qi2f0/hxtR0hynz6xQr1edljDukpM1rzdJRh/6NRdVxlvf8MG+dGO
+ 8a9vJ+SlsysdSjX1ugzme/XKoq+647Ajl3mcugszG38XGt++kL2DQf3VEhPkcBFHcZ0J
+ 5RfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=O2sXdAhcdM4HGbxC3rSU/+QlJQB4sezqHIjBYnUfmwc=;
+ b=gr4KwEZZXnsyW2fDhgq1IgXCDZSGj240AvVlMtNvvYitbbzqSAOMtO7CqsI8xU3qBe
+ qwaTOPqqPtLyVMdzKgMkK+ofvXxsncVFldr3Np081EcES15dTFHB5KRqK95ZTPFkA8Tj
+ eviFkheMMNEMXkL6nILUNaNiKnWvWpIZ98kTMTECfUoCvhAZ6p22LMGgnoyBJrM4zYVK
+ LpvvM66vU8NJtpxM0/DQECOKgRCpwOr7V1UFIZ49gRp/UP+sAyE2hoxwV07YDdRdVXaZ
+ lQ0PqiPqLIUVf7hguXn3GmEab2RxzlZOJ1Xoi2ZAGVduLz5SvooBcrUAl9YNJN5pfJJC
+ Ln5Q==
+X-Gm-Message-State: AJcUukcRirHG9zbs07inEBymmnANIYAxK3cmTCv22Y0XKaDCFb/B4OrZ
+ AysSUExSax0XTptwAlrubWXmUdzISFTuliI9W2y53Q==
+X-Google-Smtp-Source: ALg8bN4KQO3wOMey/t/1F10qGU0rBx0lFKFSbmE9GfmYVJA0t3rTqf/Z4cxqx9GnSjZ2AFsBf+uYh1EdBI9EYRbuVs8=
+X-Received: by 2002:a63:955a:: with SMTP id t26mr18237587pgn.449.1546543170306; 
+ Thu, 03 Jan 2019 11:19:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-Date: Thu, 03 Jan 2019 12:12:38 -0600
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: Patrick Venture <venture@google.com>
-Cc: Yong Li <yong.b.li@linux.intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: Re: journal log messages are missing with latest version
-In-Reply-To: <CAO=notz4=R-v8yoyYRqRDBBvSaB6mBUNAaZbeQcf0a_wCHQ7qw@mail.gmail.com>
 References: <000601d498c5$7c4c2010$74e46030$@linux.intel.com>
  <CAO=notz4=R-v8yoyYRqRDBBvSaB6mBUNAaZbeQcf0a_wCHQ7qw@mail.gmail.com>
-X-Sender: mspinler@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19010318-0012-0000-0000-000016F350FB
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010338; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000272; SDB=6.01141235; UDB=6.00593942; IPR=6.00921460; 
- MB=3.00024956; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-03 18:07:37
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19010318-0013-0000-0000-000055ACFEFB
-Message-Id: <e7a140e4aaeb2bed76a9d36cbc422ea6@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-03_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901030159
+ <e7a140e4aaeb2bed76a9d36cbc422ea6@linux.vnet.ibm.com>
+In-Reply-To: <e7a140e4aaeb2bed76a9d36cbc422ea6@linux.vnet.ibm.com>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 3 Jan 2019 11:19:19 -0800
+Message-ID: <CAO=notw81jtXKHJOK2MaqG73Pu86=ZZY1UjYzg-NbHQnaqZUjA@mail.gmail.com>
+Subject: Re: journal log messages are missing with latest version
+To: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ William Kennington <wak@google.com>
+Cc: Yong Li <yong.b.li@linux.intel.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,73 +68,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Jan 2019 18:07:45 -0000
+X-List-Received-Date: Thu, 03 Jan 2019 19:19:34 -0000
 
-On 2019-01-02 13:09, Patrick Venture wrote:
-> On Thu, Dec 20, 2018 at 4:38 PM Yong Li <yong.b.li@linux.intel.com> 
-> wrote:
->> 
->> 
->> 
->> Hi Patrick,
->> 
->> 
->> 
->> I encountered a problem after upgrade to the latest opnebmc version:
->> 
->> 
->> 
->> These log messages in ipmid are missing with the “journalctl -f”.
-> 
-> Which log messages?
+On Thu, Jan 3, 2019 at 10:07 AM Matt Spinler
+<mspinler@linux.vnet.ibm.com> wrote:
+>
+> On 2019-01-02 13:09, Patrick Venture wrote:
+> > On Thu, Dec 20, 2018 at 4:38 PM Yong Li <yong.b.li@linux.intel.com>
+> > wrote:
+> >>
+> >>
+> >>
+> >> Hi Patrick,
+> >>
+> >>
+> >>
+> >> I encountered a problem after upgrade to the latest opnebmc version:
+> >>
+> >>
+> >>
+> >> These log messages in ipmid are missing with the =E2=80=9Cjournalctl -=
+f=E2=80=9D.
+> >
+> > Which log messages?
+>
+>
+> This showed up on all of our systems too, anything logged using
+> phosphor-logging
+> is missing from the journal.  I even ended up using a git bisect to also
+> narrow
+> it down to:
+>
+> phosphor-logging: srcrev bump 30047bf964..31552c05e2
+>
+>      Patrick Venture (5):
+>            add sdjournal interface to inject tests
+>            test: use only one main library
+>            bugfix: add fixes to mock class
+>            bugfix: rename method to match implementation
+>            test: add test to force building of sdjournal mock
+>
 
+William, you've been digging into sdbus a lot recently, can you take a
+deep look at the patchset above and see what I may have messed up?
+The phosphor-logging unit-tests were broken until I got it "working."
+Which lead me to believe that it's not correct -- and the daemons that
+have unit-tests that hit the log message are seeing the calls.
 
-This showed up on all of our systems too, anything logged using 
-phosphor-logging
-is missing from the journal.  I even ended up using a git bisect to also 
-narrow
-it down to:
-
-phosphor-logging: srcrev bump 30047bf964..31552c05e2
-
-     Patrick Venture (5):
-           add sdjournal interface to inject tests
-           test: use only one main library
-           bugfix: add fixes to mock class
-           bugfix: rename method to match implementation
-           test: add test to force building of sdjournal mock
-
-
-> 
->> 
->> 
->> 
->> My tests shows that the blow change is related, after I revert it, I 
->> can get these log messages.
->> 
->> 
->> 
->> Did you meet such issue, or any suggestions/comments to narrow down 
->> this issue?
->> 
->> https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e83066baa6f3711c88d6a3b9a5c4d49
->> 
->> add sdjournal interface to inject tests
-> 
-> There were some follow-on patches for phosphor-logging that you
-> shouldn't need -- it's
-> 
-> What SHA is for your https://github.com/openbmc/phosphor-host-ipmid ?
-> (so I know what version of that is in use by you).
-> 
-> Checking the HEAD version of
-> https://github.com/openbmc/phosphor-host-ipmid/blob/master/Makefile.am,
-> I see it's including the proper libs to get the full phosphor-logging
-> objects.
-> 
->> 
->> 
->> 
->> Thanks,
->> 
->> Yong
+>
+> >
+> >>
+> >>
+> >>
+> >> My tests shows that the blow change is related, after I revert it, I
+> >> can get these log messages.
+> >>
+> >>
+> >>
+> >> Did you meet such issue, or any suggestions/comments to narrow down
+> >> this issue?
+> >>
+> >> https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e83066baa6=
+f3711c88d6a3b9a5c4d49
+> >>
+> >> add sdjournal interface to inject tests
+> >
+> > There were some follow-on patches for phosphor-logging that you
+> > shouldn't need -- it's
+> >
+> > What SHA is for your https://github.com/openbmc/phosphor-host-ipmid ?
+> > (so I know what version of that is in use by you).
+> >
+> > Checking the HEAD version of
+> > https://github.com/openbmc/phosphor-host-ipmid/blob/master/Makefile.am,
+> > I see it's including the proper libs to get the full phosphor-logging
+> > objects.
+> >
+> >>
+> >>
+> >>
+> >> Thanks,
+> >>
+> >> Yong
+>
