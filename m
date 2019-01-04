@@ -1,68 +1,68 @@
 Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::442; helo=mail-pf1-x442.google.com;
+ (client-ip=2607:f8b0:4864:20::441; helo=mail-pf1-x441.google.com;
  envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="c7USWmup"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VO0K11K0"; 
  dkim-atps=neutral
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43WSCj454xzDqLw
- for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 01:41:37 +1100 (AEDT)
-Received: by mail-pf1-x442.google.com with SMTP id h3so18420675pfg.1
- for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 06:41:37 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43WSVC36bXzDqKX
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 01:54:11 +1100 (AEDT)
+Received: by mail-pf1-x441.google.com with SMTP id r136so18418718pfc.6
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 06:54:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=YV868BSnqnIpzGIYscB7tjr1nqGgfKm0TkrgdpnBBUI=;
- b=c7USWmup4cr6FSe4RkKzx+dSbWVd9UTpZ7w9satUS77iG5fEIF9YUIafhwfpMaX9jq
- aJyp+lNBvuOW0oAqOx1N/FIyfYg20qsEYzrvif7zZdMqEAABJecA3ZBJdZ6SXi+r/XeZ
- fwPzkYdA8+M5K449pVm2gBKAm/SzJff0/MuIIfPZf9xG5kZwPMAuuU3IwDV+rWsMS7H7
- Cu6Eozk2ktIYvyoxknVQZAO9vlyDPhc0zRlPPRTBsx7ufg03ssSLoB+eQdbNTlGOKJvg
- bPtR1giew9yXkqX581cwihHtVMunuuTJr3LLJdbfn1OIa687sJXi+zhS0S9ftMbrQNpj
- Zrgg==
+ bh=WyNwvvmB7Y0SxjoBpNJMU5F6oVWThqtshgbUQc2EguI=;
+ b=VO0K11K0rGzoVuMK8Eun3V59n6IqlZd/ICje3VTXPKo066E0pCT6A/a1qTuKtO3fjL
+ e7QFzhQFs6xT5pit2O6ueSYR8Od3Ta3kaCtPpAUPXhRvp7Yg/pR+5YJY42jfnHZEgQEw
+ sRXKVEIiVm6Wrs+HW+C/tkQV6f3UnspSovVvXFRuFkDm2rLY5wf7pFFyRFZRa6pgALRk
+ HjRLJK145Vevh+kqwQyHiTX+EtIqF5OaH2P0JAO8ME+WROkI4T4dPHvfyCtbiy7S9FQY
+ k2We62KmYQ9mT+GNDpxWyzywwDd2sxRhYsDfQ+tpIO2NDziYk1AJQgPH7FlAED4pSaW5
+ 9Hpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
  :date:user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=YV868BSnqnIpzGIYscB7tjr1nqGgfKm0TkrgdpnBBUI=;
- b=mI5NGqPMMW9GoKN/ZS/pMDjOLPV8uqn0OWK8CSkjU4hbId+lY3s0x762TYVYsH5RcF
- QF6jVRkCTPs38D1d0ocOGw4IxSSbXc7H3nV27D4lP8hX6wq1vLPjsuBM0+ztQ/Y1Hj5w
- G2aIwOpFXnCadlhTleb+k6DPT1ng5EzZ5EppTegYqteM9Hh+2SPUBEc7bDt7IMb8Or2x
- FQJH2sG7XJuTz5+E67N48wjUpfEnf7h92y3EzoAgmfILCn081lLYxUjbPnbnv1Vvzvae
- fY23hsRwD5GOMqjmNIokM4v5O/FxSNmkSTZcrtYbb1iGdH9Z86n9HIEZ5ptR7rtB8W6E
- hlXw==
-X-Gm-Message-State: AA+aEWZxTHlxt3JxnDnrtcfQOY96Wj8vDqWVLNRsNCt5lFVD/7ySSiod
- qpXclo8RkTVJF5x8UyC6F5E=
-X-Google-Smtp-Source: AFSGD/WEVdN+VSxjldZ/THORMqoKH19xFMLLOs/V4hUGPA/z1zn/5MC3m5/OEcHhbsYv4rbFcl3Kyw==
-X-Received: by 2002:a62:7086:: with SMTP id l128mr52352453pfc.68.1546612895235; 
- Fri, 04 Jan 2019 06:41:35 -0800 (PST)
+ bh=WyNwvvmB7Y0SxjoBpNJMU5F6oVWThqtshgbUQc2EguI=;
+ b=nLHNoNahxUDMBJvwAADuYvDhNI2t9Y7C3NhZoXuo1xqyzW53l5B+Ui1SHvdxus/a9c
+ cDIGw4yRB74g0Sa5RRY20Hj88WTVsvqa8vX33jZPtI0ruXEuTzwhppdP+6qfaUu6sI3m
+ vhRDTNJon8p+bE75YNGR9QfC9iWpXy2wjdQVWFnNGCmokyrTOLB2VDFjXyQweWrr7Ejz
+ OfersOHtNWS9G5ZTgLbGgZdWIZMLQy7t0v5j6q9LGxDkiTLnsRdhut5cVKNW4MnW9fNm
+ r7KVxVNezeXkGHAWAWLcuBgUcFTzolA0qxq1PionB/6EIQ5pY6p9qM+/7zwlZf9tcldc
+ oo3Q==
+X-Gm-Message-State: AJcUukei4OBte5i7jtp7w4yks8d9YKK59kjGYfwHfw9GzV1CoEw0yt2I
+ NCH8B2FCdO7qaEThuZd7xk/Px59L
+X-Google-Smtp-Source: ALg8bN5M9kaVnmnvLAZiRPO6hyLIi5HYji/reH8QNwr2avqARx6Dc32KU4muztyO70zg9At4lTK9nQ==
+X-Received: by 2002:a63:2054:: with SMTP id r20mr1912011pgm.328.1546613649411; 
+ Fri, 04 Jan 2019 06:54:09 -0800 (PST)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
  by smtp.gmail.com with ESMTPSA id
- g26sm76625679pfh.61.2019.01.04.06.41.33
+ e131sm97228328pfg.75.2019.01.04.06.54.08
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 04 Jan 2019 06:41:34 -0800 (PST)
+ Fri, 04 Jan 2019 06:54:08 -0800 (PST)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH 4/4] pmbus (dps650ab): add power supply driver
+Subject: Re: [PATCH 1/4] pmbus: associate PMBUS_SKIP_STATUS_CHECK with
+ driver_data
 To: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>, jdelvare@suse.com
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, shunyong.yang@hxt-semitech.com,
- dongsheng.wang@hxt-semitech.com
+Cc: openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Shunyong Yang <shunyong.yang@hxt-semitech.com>
 References: <cover.1546591275.git.xiaoting.liu@hxt-semitech.com>
- <e0ad8b6bb620f9fc2f818cbda66825c297f73d67.1546591275.git.xiaoting.liu@hxt-semitech.com>
+ <680b4d5659971cc4f6e1a6878837c2ce49962a7c.1546591275.git.xiaoting.liu@hxt-semitech.com>
 From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <0b42721e-2cef-a943-e4da-dd2f2a2a97f2@roeck-us.net>
-Date: Fri, 4 Jan 2019 06:41:32 -0800
+Message-ID: <b9548ce0-97d2-a3d4-d578-015fc5419967@roeck-us.net>
+Date: Fri, 4 Jan 2019 06:54:07 -0800
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
-In-Reply-To: <e0ad8b6bb620f9fc2f818cbda66825c297f73d67.1546591275.git.xiaoting.liu@hxt-semitech.com>
+In-Reply-To: <680b4d5659971cc4f6e1a6878837c2ce49962a7c.1546591275.git.xiaoting.liu@hxt-semitech.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -77,201 +77,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 14:41:39 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 14:54:12 -0000
 
-On 1/4/19 1:05 AM, Xiaoting Liu wrote:
-> The Delta dps650ab provides main power and standby power to server.
-> dps650ab can be detected by MFR_ID and MFR_MODEL referring to
-> manufacturer's feedback. This patch adds driver to moniter power
-> supply status.
+On 1/4/19 12:55 AM, Xiaoting Liu wrote:
+> Current code compares device name with name in i2c_device_id to decide
+> whether PMBUS_SKIP_STATUS_CHECK should be set in pmbus_platform_data,
+> which makes adding new devices with PMBUS_SKIP_STATUS_CHECK should also
+> modify code in pmbus_probe().
 > 
+> This patch adds pmbus_device_info to save pages and flags. Its pointer
+> is put in driver_data of i2c_device_id, which makes adding new device
+> more straightforward.
+> 
+
+Good idea, but I don't see at this time where the patch is needed.
+Maybe in patch 3/4 which is missing from the series ?
+
+> Signed-off-by: Shunyong Yang <shunyong.yang@hxt-semitech.com>
 > Signed-off-by: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>
 > ---
->   drivers/hwmon/pmbus/Kconfig    |  10 +++++
->   drivers/hwmon/pmbus/Makefile   |   1 +
->   drivers/hwmon/pmbus/dps650ab.c | 100 +++++++++++++++++++++++++++++++++++++++++
->   drivers/hwmon/pmbus/pmbus.c    |   3 ++
->   4 files changed, 114 insertions(+)
+>   drivers/hwmon/pmbus/pmbus.c | 54 +++++++++++++++++++++++++++------------------
+>   include/linux/pmbus.h       |  5 +++++
+>   2 files changed, 37 insertions(+), 22 deletions(-)
 > 
-> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-> index 629cb45f8557..de4638396592 100644
-> --- a/drivers/hwmon/pmbus/Kconfig
-> +++ b/drivers/hwmon/pmbus/Kconfig
-> @@ -184,4 +184,14 @@ config SENSORS_ZL6100
->            This driver can also be built as a module. If so, the module will
->            be called zl6100.
-> 
-> +config SENSORS_DPS650AB
-> +       tristate "Delta DPS650AB"
-> +       default n
-> +       help
-> +         If you say yes here you get hardware monitoring support for the
-> +         Delta DPS650AB controller.
-> +
-> +         This driver can also be built as a module. If so, the module will
-> +         be called dps650ab.
-> +
->   endif # PMBUS
-> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-> index ea0e39518c21..414818230a26 100644
-> --- a/drivers/hwmon/pmbus/Makefile
-> +++ b/drivers/hwmon/pmbus/Makefile
-> @@ -21,3 +21,4 @@ obj-$(CONFIG_SENSORS_TPS53679)        += tps53679.o
->   obj-$(CONFIG_SENSORS_UCD9000)  += ucd9000.o
->   obj-$(CONFIG_SENSORS_UCD9200)  += ucd9200.o
->   obj-$(CONFIG_SENSORS_ZL6100)   += zl6100.o
-> +obj-$(CONFIG_SENSORS_DPS650AB) += dps650ab.o
-> diff --git a/drivers/hwmon/pmbus/dps650ab.c b/drivers/hwmon/pmbus/dps650ab.c
-> new file mode 100644
-> index 000000000000..3c300e621f5a
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/dps650ab.c
-> @@ -0,0 +1,100 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Hardware monitoring driver for DELTA DPS650AB
-> + *
-> + * Copyright (c) 2018 Huaxintong Semiconductor Technology Co., Ltd.
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include "pmbus.h"
-> +
-> +#define DPS650AB_MFR_ID                        "DELTA"
-> +#define DPS650AB_MFR_MODEL             "DPS-650AB-16 A"
-> +
-> +static int dps650ab_probe(struct i2c_client *client,
-> +                        const struct i2c_device_id *id)
-> +{
-> +       struct pmbus_driver_info *info;
-> +       u8 buf[I2C_SMBUS_BLOCK_MAX];
-> +       int ret;
-> +
-> +       memset(buf, 0, I2C_SMBUS_BLOCK_MAX);
-> +
-
-I don't think this is needed.
-
-> +       if (!i2c_check_functionality(client->adapter,
-> +                                    I2C_FUNC_SMBUS_READ_BYTE_DATA
-> +                               | I2C_FUNC_SMBUS_READ_WORD_DATA
-> +                               | I2C_FUNC_SMBUS_READ_BLOCK_DATA))
-> +               return -ENODEV;
-> +
-> +       ret = i2c_smbus_read_block_data(client, PMBUS_MFR_ID, buf);
-> +       if (ret < 0) {
-> +               dev_err(&client->dev, "Failed to read PMBUS_MFR_ID\n");
-> +               return ret;
-> +       }
-> +
-> +       if (strncmp(buf, DPS650AB_MFR_ID, strlen(DPS650AB_MFR_ID))) {
-
-It might make sense to verify the length of the returned string as well,
-unless strings such as "DELTAX" are accepted on purpose. But even if
-that is the case I would prefer an added check of "ret < strlen(DPS650AB_MFR_ID)"
-over the memset() above....
-
-> +               dev_err(&client->dev, "DPS650AB_MFR_ID unrecognised\n");
-> +               return -ENODEV;
-> +       }
-> +
-> +       ret = i2c_smbus_read_block_data(client, PMBUS_MFR_MODEL, buf);
-> +       if (ret < 0) {
-> +               dev_err(&client->dev, "Failed to read PMBUS_MFR_MODEL\n");
-> +               return ret;
-> +       }
-> +
-> +       if (strncmp(buf, DPS650AB_MFR_MODEL, strlen(DPS650AB_MFR_MODEL))) {
-
-... to ensure that nothing bad slips through here. As currently written, the code
-accepts a MFR_ID of "DELTA50AB-16 A" combined with a MFR_MODEL "DPS-6" as valid.
-
-> +               dev_err(&client->dev, "DPS650AB_MFR_MODEL unrecognised\n");
-
-It would be a nice touch to actually list the unrecognized model. Otherwise
-the message is quite useless. Same for MFR_ID.
-
-> +               return -ENODEV;
-> +       }
-> +
-> +       info = devm_kzalloc(&client->dev, sizeof(*info), GFP_KERNEL);
-> +       if (!info)
-> +               return -ENOMEM;
-> +
-> +       info->pages = 1;
-> +       info->format[PSC_VOLTAGE_IN] = linear;
-> +       info->format[PSC_VOLTAGE_OUT] = linear;
-> +       info->format[PSC_CURRENT_IN] = linear;
-> +       info->format[PSC_CURRENT_OUT] = linear;
-> +       info->format[PSC_POWER] = linear;
-> +       info->format[PSC_TEMPERATURE] = linear;
-> +
-> +       info->func[0] = PMBUS_HAVE_VIN
-> +               | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN
-> +               | PMBUS_HAVE_STATUS_INPUT
-> +               | PMBUS_HAVE_POUT | PMBUS_HAVE_FAN12
-> +               | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-> +               | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-> +               | PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2
-> +               | PMBUS_HAVE_STATUS_TEMP;
-> +       info->func[1] = info->func[0];
-> +
-> +       return pmbus_do_probe(client, id, info);
-> +}
-> +
-> +static const struct i2c_device_id dps650ab_id[] = {
-> +       {"dps650ab", 1},
-> +       {}
-> +};
-> +
-> +MODULE_DEVICE_TABLE(i2c, dps650ab_id);
-> +
-> +static struct i2c_driver dps650ab_driver = {
-> +       .driver = {
-> +               .name   = "dps650ab",
-> +       },
-> +       .probe          = dps650ab_probe,
-> +       .remove         = pmbus_do_remove,
-> +       .id_table       = dps650ab_id,
-> +};
-> +
-> +module_i2c_driver(dps650ab_driver);
-> +
-> +MODULE_AUTHOR("Liuxiaoting <xiaoting.liu@hxt-semitech.com");
-> +MODULE_DESCRIPTION("PMBus driver for DPS650AB");
-> +MODULE_LICENSE("GPL v2");
 > diff --git a/drivers/hwmon/pmbus/pmbus.c b/drivers/hwmon/pmbus/pmbus.c
-> index aa4cf9636e99..930e8a3e2366 100644
+> index 7688dab32f6e..aa4cf9636e99 100644
 > --- a/drivers/hwmon/pmbus/pmbus.c
 > +++ b/drivers/hwmon/pmbus/pmbus.c
-> @@ -204,6 +204,8 @@ static int pmbus_probe(struct i2c_client *client,
->   static const struct pmbus_device_info sgd009_pmbus_info = {
->                                  1, PMBUS_SKIP_STATUS_CHECK};
->   static const struct pmbus_device_info pmbus_info = {0, 0};
-> +static const struct pmbus_device_info dps650ab_pmbus_info = {
+> @@ -172,13 +172,15 @@ static int pmbus_probe(struct i2c_client *client,
+>          struct pmbus_driver_info *info;
+>          struct pmbus_platform_data *pdata = NULL;
+>          struct device *dev = &client->dev;
+> +       struct pmbus_device_info *device_info;
+> 
+>          info = devm_kzalloc(dev, sizeof(struct pmbus_driver_info), GFP_KERNEL);
+>          if (!info)
+>                  return -ENOMEM;
+> 
+> -       if (!strcmp(id->name, "dps460") || !strcmp(id->name, "dps800") ||
+> -           !strcmp(id->name, "sgd009")) {
+> +       device_info = (struct pmbus_device_info *)id->driver_data;
+> +
+> +       if (device_info->flags & PMBUS_SKIP_STATUS_CHECK) {
+>                  pdata = devm_kzalloc(dev, sizeof(struct pmbus_platform_data),
+>                                       GFP_KERNEL);
+>                  if (!pdata)
+> @@ -187,36 +189,44 @@ static int pmbus_probe(struct i2c_client *client,
+>                  pdata->flags = PMBUS_SKIP_STATUS_CHECK;
+>          }
+> 
+> -       info->pages = id->driver_data;
+> +       info->pages = device_info->pages;
+>          info->identify = pmbus_identify;
+>          dev->platform_data = pdata;
+> 
+>          return pmbus_do_probe(client, id, info);
+>   }
+> 
+> +static const struct pmbus_device_info default_pmbus_info = {1, 0};
+> +static const struct pmbus_device_info dps460_pmbus_info = {
+> +                               1, PMBUS_SKIP_STATUS_CHECK};
+> +static const struct pmbus_device_info dps800_pmbus_info = {
+> +                               1, PMBUS_SKIP_STATUS_CHECK};
+> +static const struct pmbus_device_info sgd009_pmbus_info = {
 > +                               1, PMBUS_SKIP_STATUS_CHECK};
 
-Something is conceptually wrong here. Either this change or a new driver,
-but not both.
+Three structures with exactly the same content does not add value.
+Please merge into one with a common name that reflects its use.
+
+> +static const struct pmbus_device_info pmbus_info = {0, 0};
+
+default_pmbus_info and pmbus_info are badly named and ordered.
+The name should reflect that one sets one page and that the other
+leaves the number of pages unset.
+
+I would suggest three structures and names, such as
+
+pmbus_info_one
+pmbus_info_one_skip
+pmbus_info_zero
+
+though I am open to better names.
 
 >   /*
 >    * Use driver_data to set the number of pages supported by the chip.
 >    */
-> @@ -227,6 +229,7 @@ static int pmbus_probe(struct i2c_client *client,
->          {"tps544c20", (kernel_ulong_t)&default_pmbus_info},
->          {"tps544c25", (kernel_ulong_t)&default_pmbus_info},
->          {"udt020", (kernel_ulong_t)&default_pmbus_info},
-> +       {"dps650ab", (kernel_ulong_t)&dps650ab_pmbus_info},
-
-Also, FWIW, this should be kept in alphabetic order.
-
+>   static const struct i2c_device_id pmbus_id[] = {
+> -       {"adp4000", 1},
+> -       {"bmr453", 1},
+> -       {"bmr454", 1},
+> -       {"dps460", 1},
+> -       {"dps800", 1},
+> -       {"mdt040", 1},
+> -       {"ncp4200", 1},
+> -       {"ncp4208", 1},
+> -       {"pdt003", 1},
+> -       {"pdt006", 1},
+> -       {"pdt012", 1},
+> -       {"pmbus", 0},
+> -       {"sgd009", 1},
+> -       {"tps40400", 1},
+> -       {"tps544b20", 1},
+> -       {"tps544b25", 1},
+> -       {"tps544c20", 1},
+> -       {"tps544c25", 1},
+> -       {"udt020", 1},
+> +       {"adp4000", (kernel_ulong_t)&default_pmbus_info},
+> +       {"bmr453", (kernel_ulong_t)&default_pmbus_info},
+> +       {"bmr454", (kernel_ulong_t)&default_pmbus_info},
+> +       {"dps460", (kernel_ulong_t)&dps460_pmbus_info},
+> +       {"dps800", (kernel_ulong_t)&dps800_pmbus_info},
+> +       {"mdt040", (kernel_ulong_t)&default_pmbus_info},
+> +       {"ncp4200", (kernel_ulong_t)&default_pmbus_info},
+> +       {"ncp4208", (kernel_ulong_t)&default_pmbus_info},
+> +       {"pdt003", (kernel_ulong_t)&default_pmbus_info},
+> +       {"pdt006", (kernel_ulong_t)&default_pmbus_info},
+> +       {"pdt012", (kernel_ulong_t)&default_pmbus_info},
+> +       {"pmbus", (kernel_ulong_t)&pmbus_info},
+> +       {"sgd009", (kernel_ulong_t)&sgd009_pmbus_info},
+> +       {"tps40400", (kernel_ulong_t)&default_pmbus_info},
+> +       {"tps544b20", (kernel_ulong_t)&default_pmbus_info},
+> +       {"tps544b25", (kernel_ulong_t)&default_pmbus_info},
+> +       {"tps544c20", (kernel_ulong_t)&default_pmbus_info},
+> +       {"tps544c25", (kernel_ulong_t)&default_pmbus_info},
+> +       {"udt020", (kernel_ulong_t)&default_pmbus_info},
 >          {}
 >   };
 > 
+> diff --git a/include/linux/pmbus.h b/include/linux/pmbus.h
+> index ee3c2aba2a8e..3c05edad7666 100644
+> --- a/include/linux/pmbus.h
+> +++ b/include/linux/pmbus.h
+> @@ -46,4 +46,9 @@ struct pmbus_platform_data {
+>          struct regulator_init_data *reg_init_data;
+>   };
+> 
+> +struct pmbus_device_info {
+> +       int pages;
+> +       u32 flags;
+> +};
+> +
+
+This should not be needed here. The structure can be declared locally
+in pmbus.c (its use in patch 4/4 is wrong).
+
+>   #endif /* _PMBUS_H_ */
 > --
 > 1.8.3.1
 > 
