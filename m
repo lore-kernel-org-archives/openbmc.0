@@ -1,39 +1,52 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=162.243.126.186; helo=vip.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32e; helo=mail-ot1-x32e.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-X-Greylist: delayed 361 seconds by postgrey-1.36 at bilbo;
- Fri, 04 Jan 2019 23:28:14 AEDT
-Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Cu4Sj5Dt"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43WPFp1sRQzDqD3
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 23:28:10 +1100 (AEDT)
-Received: from ([218.57.135.44])
- by unicom146.biz-email.net (Antispam) with ASMTP (SSL) id VNU47747
- for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 20:16:47 +0800
-Received: from mail-lj1-f170.google.com (172.30.26.1) by
- jtjncas05.home.langchao.com (172.30.26.24) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Fri, 4 Jan 2019 20:17:11 +0800
-Received: by mail-lj1-f170.google.com with SMTP id x85-v6so32291406ljb.2
- for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 04:17:11 -0800 (PST)
-X-Gm-Message-State: AJcUuke4TEjWEXAVXEHywoM/rD4JAyjXO7BQIfqyjHyTLju3XbT072xK
- ixUWUob35H401sacOYtqFTgpJ4S2uc6r5/g5u8Y=
-X-Google-Smtp-Source: ALg8bN7vaPx89PjvBVE4K6gFeZjyFBILf+6QO4c7fNeAUO8xCiCXhkLBr26qD+/i/kAjS9sW+EEj0yfw0PoOZxvEfIg=
-X-Received: by 2002:a2e:841:: with SMTP id g1-v6mr31548340ljd.21.1546604228545; 
- Fri, 04 Jan 2019 04:17:08 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43WRQD69vfzDqLr
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 01:05:40 +1100 (AEDT)
+Received: by mail-ot1-x32e.google.com with SMTP id 32so32127611ota.12
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 06:05:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=dDX20e3LUwn95eG0SVUHEyYB8L7Jy5QzJQmmLovLwbQ=;
+ b=Cu4Sj5Dtb2ACUn3RGZlGlTuP3BzkRJrnMnN2kM6ak48dzhwUWZyIuu2mEf7/26HEV0
+ 7NWQ8Ews1zAlyNqnpNctnyfAplgK1GtPd018h4Mmco4i3mngDtT7dh+afKe5zD5maXe0
+ inGJanrsHBIlkR2pDMGE5sBS54qHcVFtOsisv5+44a3sxPtW7SJhDiZsvCQoeuo+jpex
+ cQshNxAJfD55oGYPbuNM4KODEBfdPjNCt3/BOhCPk81uFYdNOjkPnIdBrqeGPv7RAkWD
+ 5nPBcPltv/IuzmMjfCijDO9FyDcg+idh4UlXY72k/AXnYBCUEyATT/jl5JdNYY/xRxh9
+ V/iw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=dDX20e3LUwn95eG0SVUHEyYB8L7Jy5QzJQmmLovLwbQ=;
+ b=ZImkTH88gU+Z+0PGZiFSUB4nBLDga1pUvGXDI2b/9sQ+WbjYzd1isDn22ZPHmIBPDR
+ +GElBWi+kePisAXCUop8/vnzHY5TIbKD+DAAxrAv/+XU7NE1585OgQY7JzatvQNjHECl
+ Nad2Y+NsTdM69C+xc/IGAnGBDH674jbZZQpPCoVCjJWVLWszk6FU+kuI5ReRHLQ/ossm
+ wl0hO++GMXvVhr/uVFT5NMniC8JcUQlycr87NVpyHlT5BxBT46TOsMt9oJ7aceAMtN9a
+ 3wKi2F9f/5Qpwg68pDoT0P/wFVMBmGI8PBCbrez6XQXjfizRPoasdTb1l0WBgJLiHhVX
+ Aq5w==
+X-Gm-Message-State: AJcUukc2mspa6hFi1eTJARVvbNzhrrezU0Fw0tDNWu5OWNFOD//MdBxR
+ fqP/Y8b3BGSPhyQLCrqYfVbN9qI4Lq9kgLx308hfeQ==
+X-Google-Smtp-Source: ALg8bN6nzUIM0vpLZfucCp8jz8m6ufsM0OEuhX6Hgcxqkqufw4OvIGH0xrmHJVJ7cW8+vFt7uOaHKfHhAEmivyiAJ3k=
+X-Received: by 2002:a9d:ecd:: with SMTP id 71mr35908719otj.155.1546610737772; 
+ Fri, 04 Jan 2019 06:05:37 -0800 (PST)
 MIME-Version: 1.0
-From: John Wang <wangzqbj@inspur.com>
-Date: Fri, 4 Jan 2019 20:16:56 +0800
-X-Gmail-Original-Message-ID: <CAHkHK0_nw0AWgaE_gX7HsMjf2zm-yxa92rp4WLgMtSU_86Asvg@mail.gmail.com>
-Message-ID: <CAHkHK0_nw0AWgaE_gX7HsMjf2zm-yxa92rp4WLgMtSU_86Asvg@mail.gmail.com>
-Subject: A tool to generate fru.bin
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Fri, 4 Jan 2019 08:05:21 -0600
+Message-ID: <CALLMt=pQG2x7RQUM2c=TfQzH5aLPNykCKBOzLLEnApMPs3Z=dA@mail.gmail.com>
+Subject: Gerrit server outage this Sunday (1/6)
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000a69473057ea0dbc1"
-X-Originating-IP: [172.30.26.1]
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,51 +58,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 12:28:16 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 14:05:41 -0000
 
---000000000000a69473057ea0dbc1
-Content-Type: text/plain; charset="UTF-8"
+The server running gerrit is on Ubuntu 14. I'd like to get it up to
+Ubuntu 18 before we all kick back into gear for the new year. Should
+be offline for a bout ~2 hours Sunday afternoon.
 
-Hi all,
+I don't plan on updating gerrit, just the server it's running on.
 
-When I debug the fru function, I found that I need a tool to generate
-binary data that conforms to the fru protocol specification, so that it can
-be stored on the eeprom, and then I implement one myself.
-https://github.com/inspur-bmc/fru-generator
-
-This tool generates fru.bin based on the json file.
-
-Usge:
-        fru-generator -j fru.json -b fru.bin
-
-The command to read fru:
-phosphor-read-eeprom  --eeprom=/sys/bus/i2c/devices/xxx/eeprom --fruid=xx
-
-We can also simulate a fru eeprom device like this:
-phosphor-read-eeprom  --eeprom=/tmp/fru.bin --fruid=xx
-
-I would like to contribute this tool to the community, if anyone is
-interested.
-
-Regards
-
--John
-
---000000000000a69473057ea0dbc1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<br><br>When I debug the fru function, I found that=
- I need a tool to generate binary data that conforms to the fru protocol sp=
-ecification, so that it can be stored on the eeprom, and then I implement o=
-ne myself. =C2=A0 <a href=3D"https://github.com/inspur-bmc/fru-generator">h=
-ttps://github.com/inspur-bmc/fru-generator</a><br><br>This tool generates f=
-ru.bin based on the json file.<br><br>Usge:<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-fru-generator -j fru.json -b fru.bin<br>=C2=A0<br>The command to read fru:<=
-br>phosphor-read-eeprom =C2=A0--eeprom=3D/sys/bus/i2c/devices/xxx/eeprom --=
-fruid=3Dxx<br><br>We can also simulate a fru eeprom device like this:<br>ph=
-osphor-read-eeprom =C2=A0--eeprom=3D/tmp/fru.bin --fruid=3Dxx<br><br><div>I=
- would like to contribute this tool to the community, if anyone is interest=
-ed.<br><br>Regards<br><br>-John</div></div>
-
---000000000000a69473057ea0dbc1--
+Andrew
