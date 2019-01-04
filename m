@@ -1,71 +1,66 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::441; helo=mail-pf1-x441.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VO0K11K0"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="FlnY9N6d"; 
  dkim-atps=neutral
-Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
- [IPv6:2607:f8b0:4864:20::441])
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43WSVC36bXzDqKX
- for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 01:54:11 +1100 (AEDT)
-Received: by mail-pf1-x441.google.com with SMTP id r136so18418718pfc.6
- for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 06:54:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=WyNwvvmB7Y0SxjoBpNJMU5F6oVWThqtshgbUQc2EguI=;
- b=VO0K11K0rGzoVuMK8Eun3V59n6IqlZd/ICje3VTXPKo066E0pCT6A/a1qTuKtO3fjL
- e7QFzhQFs6xT5pit2O6ueSYR8Od3Ta3kaCtPpAUPXhRvp7Yg/pR+5YJY42jfnHZEgQEw
- sRXKVEIiVm6Wrs+HW+C/tkQV6f3UnspSovVvXFRuFkDm2rLY5wf7pFFyRFZRa6pgALRk
- HjRLJK145Vevh+kqwQyHiTX+EtIqF5OaH2P0JAO8ME+WROkI4T4dPHvfyCtbiy7S9FQY
- k2We62KmYQ9mT+GNDpxWyzywwDd2sxRhYsDfQ+tpIO2NDziYk1AJQgPH7FlAED4pSaW5
- 9Hpw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43WSZt6jPMzDqLw
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 01:58:14 +1100 (AEDT)
+Received: by mail-pg1-x533.google.com with SMTP id v28so17602566pgk.10
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 06:58:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=vKhbnSKWENnQpHNBghJtpHZLIAsnblYy4KXVJZ4rtHY=;
+ b=FlnY9N6dl0tHKUnsrMcY7ztMlcK/U/KNunVawvG8YAD2EVMldUNYgAUN70Vh8A37KN
+ wIX2rt+MmGY1c4VyeuioAGYzOqJjpPEs8ox3HPL2oABfaA8RfBVasGujcTqS2zxvUIV6
+ M1kuGyuzAWab8LAUV+xF6D5YcRV6eQLw+nr/uq5NEe7h7CZ87qF9L3o4RYf9WbVISxWk
+ l2R5Ix9Rl1MAUoiuOV+xRx1k57gnHqpAZae3XKGFW4SrEzJi9A1+y+MIcpJfp1RBdH0P
+ 46SzhBLI4mkhK1azWijWIu0G8U3IKsh2VCgx1HNIvHVfgtiWOHm4C3IK5Gqy8iMU1BuU
+ IWAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:message-id
- :date:user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=WyNwvvmB7Y0SxjoBpNJMU5F6oVWThqtshgbUQc2EguI=;
- b=nLHNoNahxUDMBJvwAADuYvDhNI2t9Y7C3NhZoXuo1xqyzW53l5B+Ui1SHvdxus/a9c
- cDIGw4yRB74g0Sa5RRY20Hj88WTVsvqa8vX33jZPtI0ruXEuTzwhppdP+6qfaUu6sI3m
- vhRDTNJon8p+bE75YNGR9QfC9iWpXy2wjdQVWFnNGCmokyrTOLB2VDFjXyQweWrr7Ejz
- OfersOHtNWS9G5ZTgLbGgZdWIZMLQy7t0v5j6q9LGxDkiTLnsRdhut5cVKNW4MnW9fNm
- r7KVxVNezeXkGHAWAWLcuBgUcFTzolA0qxq1PionB/6EIQ5pY6p9qM+/7zwlZf9tcldc
- oo3Q==
-X-Gm-Message-State: AJcUukei4OBte5i7jtp7w4yks8d9YKK59kjGYfwHfw9GzV1CoEw0yt2I
- NCH8B2FCdO7qaEThuZd7xk/Px59L
-X-Google-Smtp-Source: ALg8bN5M9kaVnmnvLAZiRPO6hyLIi5HYji/reH8QNwr2avqARx6Dc32KU4muztyO70zg9At4lTK9nQ==
-X-Received: by 2002:a63:2054:: with SMTP id r20mr1912011pgm.328.1546613649411; 
- Fri, 04 Jan 2019 06:54:09 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- e131sm97228328pfg.75.2019.01.04.06.54.08
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 04 Jan 2019 06:54:08 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH 1/4] pmbus: associate PMBUS_SKIP_STATUS_CHECK with
- driver_data
-To: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>, jdelvare@suse.com
-Cc: openbmc@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shunyong Yang <shunyong.yang@hxt-semitech.com>
-References: <cover.1546591275.git.xiaoting.liu@hxt-semitech.com>
- <680b4d5659971cc4f6e1a6878837c2ce49962a7c.1546591275.git.xiaoting.liu@hxt-semitech.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Message-ID: <b9548ce0-97d2-a3d4-d578-015fc5419967@roeck-us.net>
-Date: Fri, 4 Jan 2019 06:54:07 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=vKhbnSKWENnQpHNBghJtpHZLIAsnblYy4KXVJZ4rtHY=;
+ b=iTxAD9ouPGY9tF957beIZCbW+GVaGWUle3lnZRGOUhZL839Lg3VLpwpRkzKD2pHEhz
+ hHZ9Tu4OW1hdaBUj8M2Gdaxh/pu6Jh6WM6Gv9CDu1cYeZtSkO8nkVgXiyJLNp0RdXCxZ
+ uP6kwNZniQvQNW4YoMvFT+lG3nJhOJbphc9okr1On+w1wz2RJtl4JGToE5sVPOpYzViF
+ X5FEX41gsMi9lHmjWFMxZd0DthKIoI7SiYzBvOA6YqVjnZdi50jV13L7rJ+IBzhzusv2
+ 0T7H/z+tND9Q89bBxSaLHHNk06v5NQPlrSjHa1lyAUIkN2UFYXW1omMsip8zytLvyLeJ
+ L5Yw==
+X-Gm-Message-State: AJcUukcGuE1kX+v+20MkhKdcOLjHeA71M99V4QBhhhctf4cYGVLYm4dl
+ i2xCvBqW1tXjDhAt+BXFAsfAfxejIuvYKsjsL500PQ==
+X-Google-Smtp-Source: ALg8bN4ELjHK+Z1kH5bTYcX1BE6VGs8pIHRdXUgW4r1E9dex6gd+SIlq8D6bl6Z/VZ5uLVSy85gbblYi4b5Oax47338=
+X-Received: by 2002:a62:178f:: with SMTP id 137mr52089109pfx.226.1546613892058; 
+ Fri, 04 Jan 2019 06:58:12 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <680b4d5659971cc4f6e1a6878837c2ce49962a7c.1546591275.git.xiaoting.liu@hxt-semitech.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <000601d498c5$7c4c2010$74e46030$@linux.intel.com>
+ <CAO=notz4=R-v8yoyYRqRDBBvSaB6mBUNAaZbeQcf0a_wCHQ7qw@mail.gmail.com>
+ <e7a140e4aaeb2bed76a9d36cbc422ea6@linux.vnet.ibm.com>
+ <CAO=notw81jtXKHJOK2MaqG73Pu86=ZZY1UjYzg-NbHQnaqZUjA@mail.gmail.com>
+ <CAO=notzkJgHAxB8xoG_2qBtnRv3-D7pUji1ykqaTSSbn-T0j6g@mail.gmail.com>
+ <CAO=notwS_RHpZ-j99zwcSgFa7Prp0qDVGpEy1r3O-nPWUG5CMw@mail.gmail.com>
+ <3a1d3ae9-e067-c166-96cd-b91f984de3d5@linux.intel.com>
+In-Reply-To: <3a1d3ae9-e067-c166-96cd-b91f984de3d5@linux.intel.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 4 Jan 2019 06:58:00 -0800
+Message-ID: <CAO=notywRjKAUCxBwvCS7FgvnjXDPfT4qeXHu0bKgmbNpLkezQ@mail.gmail.com>
+Subject: Re: journal log messages are missing with latest version
+To: "Li, Yong B" <yong.b.li@linux.intel.com>
+Cc: Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ William Kennington <wak@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,158 +72,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 14:54:12 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 14:58:16 -0000
 
-On 1/4/19 12:55 AM, Xiaoting Liu wrote:
-> Current code compares device name with name in i2c_device_id to decide
-> whether PMBUS_SKIP_STATUS_CHECK should be set in pmbus_platform_data,
-> which makes adding new devices with PMBUS_SKIP_STATUS_CHECK should also
-> modify code in pmbus_probe().
-> 
-> This patch adds pmbus_device_info to save pages and flags. Its pointer
-> is put in driver_data of i2c_device_id, which makes adding new device
-> more straightforward.
-> 
+On Thu, Jan 3, 2019 at 5:20 PM Li, Yong B <yong.b.li@linux.intel.com> wrote=
+:
+>
+> Thanks Patrick for your mails.
+>
+> Will test https://gerrit.openbmc-project.xyz/17054, and update the result=
+s.
+>
+> On 1/4/2019 6:33 AM, Patrick Venture wrote:
+> > On Thu, Jan 3, 2019 at 2:28 PM Patrick Venture <venture@google.com> wro=
+te:
+> >> On Thu, Jan 3, 2019 at 11:19 AM Patrick Venture <venture@google.com> w=
+rote:
+> >>> On Thu, Jan 3, 2019 at 10:07 AM Matt Spinler
+> >>> <mspinler@linux.vnet.ibm.com> wrote:
+> >>>> On 2019-01-02 13:09, Patrick Venture wrote:
+> >>>>> On Thu, Dec 20, 2018 at 4:38 PM Yong Li <yong.b.li@linux.intel.com>
+> >>>>> wrote:
+> >>>>>>
+> >>>>>>
+> >>>>>> Hi Patrick,
+> >>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> I encountered a problem after upgrade to the latest opnebmc versio=
+n:
+> >>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> These log messages in ipmid are missing with the =E2=80=9Cjournalc=
+tl -f=E2=80=9D.
+> >>>>> Which log messages?
+> >>>>
+> >>>> This showed up on all of our systems too, anything logged using
+> >>>> phosphor-logging
+> >>>> is missing from the journal.  I even ended up using a git bisect to =
+also
+> >>>> narrow
+> >>>> it down to:
+> >>>>
+> >>>> phosphor-logging: srcrev bump 30047bf964..31552c05e2
+> >>>>
+> >>>>       Patrick Venture (5):
+> >>>>             add sdjournal interface to inject tests
+> >>>>             test: use only one main library
+> >>>>             bugfix: add fixes to mock class
+> >>>>             bugfix: rename method to match implementation
+> >>>>             test: add test to force building of sdjournal mock
+> >>>>
+> >>> William, you've been digging into sdbus a lot recently, can you take =
+a
+> >>> deep look at the patchset above and see what I may have messed up?
+> >>> The phosphor-logging unit-tests were broken until I got it "working."
+> >>> Which lead me to believe that it's not correct -- and the daemons tha=
+t
+> >>> have unit-tests that hit the log message are seeing the calls.
+> >>  From reading more into the var_args pass-through, that may be the
+> >> issue.  One cannot pass the var args down directly like this.  I
+> >> propose to initially snip out this extra call and then revisit so that
+> >> it'll resume working.
+> > https://gerrit.openbmc-project.xyz/17054
+> >> The problem is that sd_journal_send doesn't expect a va_list argument,
+> >> but rather strictly var args, which aren't the same.
 
-Good idea, but I don't see at this time where the patch is needed.
-Maybe in patch 3/4 which is missing from the series ?
+I generally try to avoid copying implementations, but an approach to
+this that would work and allow testing would be to use
+sd_journal_sendv() and have the interface call walk the parameters and
+build a list of iovec structures and then pass that.  This is
+effectively what is done by sd_journal_send, which just processes the
+input and sends to sd_journal_sendv.  We could also pass to
+sd_journal_print which takes a va_list, however, the behavior isn't
+identical for structured log entries.
 
-> Signed-off-by: Shunyong Yang <shunyong.yang@hxt-semitech.com>
-> Signed-off-by: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>
-> ---
->   drivers/hwmon/pmbus/pmbus.c | 54 +++++++++++++++++++++++++++------------------
->   include/linux/pmbus.h       |  5 +++++
->   2 files changed, 37 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/pmbus.c b/drivers/hwmon/pmbus/pmbus.c
-> index 7688dab32f6e..aa4cf9636e99 100644
-> --- a/drivers/hwmon/pmbus/pmbus.c
-> +++ b/drivers/hwmon/pmbus/pmbus.c
-> @@ -172,13 +172,15 @@ static int pmbus_probe(struct i2c_client *client,
->          struct pmbus_driver_info *info;
->          struct pmbus_platform_data *pdata = NULL;
->          struct device *dev = &client->dev;
-> +       struct pmbus_device_info *device_info;
-> 
->          info = devm_kzalloc(dev, sizeof(struct pmbus_driver_info), GFP_KERNEL);
->          if (!info)
->                  return -ENOMEM;
-> 
-> -       if (!strcmp(id->name, "dps460") || !strcmp(id->name, "dps800") ||
-> -           !strcmp(id->name, "sgd009")) {
-> +       device_info = (struct pmbus_device_info *)id->driver_data;
-> +
-> +       if (device_info->flags & PMBUS_SKIP_STATUS_CHECK) {
->                  pdata = devm_kzalloc(dev, sizeof(struct pmbus_platform_data),
->                                       GFP_KERNEL);
->                  if (!pdata)
-> @@ -187,36 +189,44 @@ static int pmbus_probe(struct i2c_client *client,
->                  pdata->flags = PMBUS_SKIP_STATUS_CHECK;
->          }
-> 
-> -       info->pages = id->driver_data;
-> +       info->pages = device_info->pages;
->          info->identify = pmbus_identify;
->          dev->platform_data = pdata;
-> 
->          return pmbus_do_probe(client, id, info);
->   }
-> 
-> +static const struct pmbus_device_info default_pmbus_info = {1, 0};
-> +static const struct pmbus_device_info dps460_pmbus_info = {
-> +                               1, PMBUS_SKIP_STATUS_CHECK};
-> +static const struct pmbus_device_info dps800_pmbus_info = {
-> +                               1, PMBUS_SKIP_STATUS_CHECK};
-> +static const struct pmbus_device_info sgd009_pmbus_info = {
-> +                               1, PMBUS_SKIP_STATUS_CHECK};
+So my question is, if we lift the code from systemd and make it work,
+that'll presumably add another license piece to phosphor-logging ---
+and I'm not really sure how that works.
 
-Three structures with exactly the same content does not add value.
-Please merge into one with a common name that reflects its use.
-
-> +static const struct pmbus_device_info pmbus_info = {0, 0};
-
-default_pmbus_info and pmbus_info are badly named and ordered.
-The name should reflect that one sets one page and that the other
-leaves the number of pages unset.
-
-I would suggest three structures and names, such as
-
-pmbus_info_one
-pmbus_info_one_skip
-pmbus_info_zero
-
-though I am open to better names.
-
->   /*
->    * Use driver_data to set the number of pages supported by the chip.
->    */
->   static const struct i2c_device_id pmbus_id[] = {
-> -       {"adp4000", 1},
-> -       {"bmr453", 1},
-> -       {"bmr454", 1},
-> -       {"dps460", 1},
-> -       {"dps800", 1},
-> -       {"mdt040", 1},
-> -       {"ncp4200", 1},
-> -       {"ncp4208", 1},
-> -       {"pdt003", 1},
-> -       {"pdt006", 1},
-> -       {"pdt012", 1},
-> -       {"pmbus", 0},
-> -       {"sgd009", 1},
-> -       {"tps40400", 1},
-> -       {"tps544b20", 1},
-> -       {"tps544b25", 1},
-> -       {"tps544c20", 1},
-> -       {"tps544c25", 1},
-> -       {"udt020", 1},
-> +       {"adp4000", (kernel_ulong_t)&default_pmbus_info},
-> +       {"bmr453", (kernel_ulong_t)&default_pmbus_info},
-> +       {"bmr454", (kernel_ulong_t)&default_pmbus_info},
-> +       {"dps460", (kernel_ulong_t)&dps460_pmbus_info},
-> +       {"dps800", (kernel_ulong_t)&dps800_pmbus_info},
-> +       {"mdt040", (kernel_ulong_t)&default_pmbus_info},
-> +       {"ncp4200", (kernel_ulong_t)&default_pmbus_info},
-> +       {"ncp4208", (kernel_ulong_t)&default_pmbus_info},
-> +       {"pdt003", (kernel_ulong_t)&default_pmbus_info},
-> +       {"pdt006", (kernel_ulong_t)&default_pmbus_info},
-> +       {"pdt012", (kernel_ulong_t)&default_pmbus_info},
-> +       {"pmbus", (kernel_ulong_t)&pmbus_info},
-> +       {"sgd009", (kernel_ulong_t)&sgd009_pmbus_info},
-> +       {"tps40400", (kernel_ulong_t)&default_pmbus_info},
-> +       {"tps544b20", (kernel_ulong_t)&default_pmbus_info},
-> +       {"tps544b25", (kernel_ulong_t)&default_pmbus_info},
-> +       {"tps544c20", (kernel_ulong_t)&default_pmbus_info},
-> +       {"tps544c25", (kernel_ulong_t)&default_pmbus_info},
-> +       {"udt020", (kernel_ulong_t)&default_pmbus_info},
->          {}
->   };
-> 
-> diff --git a/include/linux/pmbus.h b/include/linux/pmbus.h
-> index ee3c2aba2a8e..3c05edad7666 100644
-> --- a/include/linux/pmbus.h
-> +++ b/include/linux/pmbus.h
-> @@ -46,4 +46,9 @@ struct pmbus_platform_data {
->          struct regulator_init_data *reg_init_data;
->   };
-> 
-> +struct pmbus_device_info {
-> +       int pages;
-> +       u32 flags;
-> +};
-> +
-
-This should not be needed here. The structure can be declared locally
-in pmbus.c (its use in patch 4/4 is wrong).
-
->   #endif /* _PMBUS_H_ */
-> --
-> 1.8.3.1
-> 
-> 
-> 
-> 
-> This email is intended only for the named addressee. It may contain information that is confidential/private, legally privileged, or copyright-protected, and you should handle it accordingly. If you are not the intended recipient, you do not have legal rights to retain, copy, or distribute this email or its contents, and should promptly delete the email and all electronic copies in your system; do not retain copies in any media. If you have received this email in error, please notify the sender promptly. Thank you.
-> 
-> 
-> 
+> >>
+> >>>>>>
+> >>>>>>
+> >>>>>> My tests shows that the blow change is related, after I revert it,=
+ I
+> >>>>>> can get these log messages.
+> >>>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> Did you meet such issue, or any suggestions/comments to narrow dow=
+n
+> >>>>>> this issue?
+> >>>>>>
+> >>>>>> https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e83066=
+baa6f3711c88d6a3b9a5c4d49
+> >>>>>>
+> >>>>>> add sdjournal interface to inject tests
+> >>>>> There were some follow-on patches for phosphor-logging that you
+> >>>>> shouldn't need -- it's
+> >>>>>
+> >>>>> What SHA is for your https://github.com/openbmc/phosphor-host-ipmid=
+ ?
+> >>>>> (so I know what version of that is in use by you).
+> >>>>>
+> >>>>> Checking the HEAD version of
+> >>>>> https://github.com/openbmc/phosphor-host-ipmid/blob/master/Makefile=
+.am,
+> >>>>> I see it's including the proper libs to get the full phosphor-loggi=
+ng
+> >>>>> objects.
+> >>>>>
+> >>>>>>
+> >>>>>>
+> >>>>>> Thanks,
+> >>>>>>
+> >>>>>> Yong
+>
