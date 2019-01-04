@@ -1,80 +1,58 @@
-Return-Path: <jrey@linux.vnet.ibm.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::343; helo=mail-ot1-x343.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ElfndXD5"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43WSpC4T3WzDqJW
- for <openbmc@lists.ozlabs.org>; Sat,  5 Jan 2019 02:08:03 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- x04Ewmn1102632
- for <openbmc@lists.ozlabs.org>; Fri, 4 Jan 2019 10:08:01 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2pt8gb49nv-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 10:08:00 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
- Fri, 4 Jan 2019 15:08:00 -0000
-Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 4 Jan 2019 15:07:58 -0000
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x04F7vOQ27263040
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 4 Jan 2019 15:07:57 GMT
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1F0A46A058;
- Fri,  4 Jan 2019 15:07:57 +0000 (GMT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EAA476A047;
- Fri,  4 Jan 2019 15:07:56 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Fri,  4 Jan 2019 15:07:56 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43WTRS53hnzDqDx;
+ Sat,  5 Jan 2019 02:36:52 +1100 (AEDT)
+Received: by mail-ot1-x343.google.com with SMTP id 40so32372571oth.4;
+ Fri, 04 Jan 2019 07:36:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ftwpY3Kr/oa8+gzyuIL89suFgEAcz4cWVohwl6uAnDE=;
+ b=ElfndXD5Az15ePy6/hks56PNFLlCMS+tGX8T1LixpKAbOL6AWaiTw0gJvsY/Nj3SJH
+ aIy+mRfwLiUB/Rg5+TYuaVgbZRFRIZHjf5VGH1Z1HsyADpHtrwehcnOUoeclUKEZ8FYZ
+ sFkhbvHSLB6P1We8+SSOVnK1MW9b8+Bx+GYeBys6FPEiyJjFr2PDD+Q/hytZfRajtV12
+ ISnNW+hC0cbIXuGbFJafMOSyrEGHuaiEfEgMi3/u4XtNR9iuFJZf1XO+UBU96EmOmBfs
+ Vi1bD0wAgTDXLnSFWtUqrgjgg89WiBg3V868+wJZCxLmmYhmiv0WGOrTzMO6yWo0bA8q
+ Jgeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ftwpY3Kr/oa8+gzyuIL89suFgEAcz4cWVohwl6uAnDE=;
+ b=dYYj+doYFSQO5ReOn+oV4iOtNX3WTukJiPsYoOfzQB3/80a6kOo0FOCvbSboNhKReR
+ KRxXmZu2Isu/jNxEt4qmnvb6QmWpZ4t/tTBPGA0N5mT7AS1CxlQvDzxtuwCpmPbFRdMm
+ KyX3ireabDr9a2Seu3p48rDdWRuWH11Zvb8mz7WQUsy72ZYOlN1390jGPdw0FjCWF/CF
+ jbz20FzIYiSwCkixlGMczEkjUTVjSmUjTQpU8m+4D2PDXtJx2OF210Gii5r4iQRlx220
+ eJQ68GNzYMRTv1AHz+6MKsgyuYm9vB8nV+xdiHZ6nq/VkdxP/rPELyKRFAoFPe30aZem
+ V2Yg==
+X-Gm-Message-State: AJcUukeEY80Mj7/mFXgYGLOqFg3df9LK6PxUvrhtYefMYFkI92hvHWTl
+ 9mVzzwR9RWk/heViXH6yyzuISsfuVL6LZAgE0n4=
+X-Google-Smtp-Source: ALg8bN749bo8myLQDmf6EKYxyRq5W00pxxFjze5Dp2P9VQfAIldzZ9Au36LFXp3pXxmew0kkL1Z0n2Nz7jr/oXNN5Lo=
+X-Received: by 2002:a9d:74c3:: with SMTP id a3mr37733272otl.107.1546616210202; 
+ Fri, 04 Jan 2019 07:36:50 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 04 Jan 2019 09:13:03 -0600
-From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
-To: Omkar Kuppa <omkar.kuppa@sanmina.com>
-Cc: openbmc@lists.ozlabs.org, openbmc
- <openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org>
-Subject: Re: Error in running SDK
-In-Reply-To: <CAOSNvHqX_Yt0hAeUKq=E1h2cr06QLZaLv4NeZRkfiXV4wQf29w@mail.gmail.com>
 References: <CAOSNvHqX_Yt0hAeUKq=E1h2cr06QLZaLv4NeZRkfiXV4wQf29w@mail.gmail.com>
-X-Sender: jrey@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19010415-8235-0000-0000-00000E4472B9
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010344; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000272; SDB=6.01141650; UDB=6.00594194; IPR=6.00921880; 
- MB=3.00024975; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-04 15:07:59
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19010415-8236-0000-0000-000043F3143C
-Message-Id: <2f609082be880fbf2df9d1a6279decd1@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-04_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901040132
+ <2f609082be880fbf2df9d1a6279decd1@linux.vnet.ibm.com>
+In-Reply-To: <2f609082be880fbf2df9d1a6279decd1@linux.vnet.ibm.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Fri, 4 Jan 2019 09:36:34 -0600
+Message-ID: <CALLMt=rPpq+G9+w1CpF2A9brJDGFysN45-Wr+t5tz9fKdty2uw@mail.gmail.com>
+Subject: Re: Error in running SDK
+To: jrey@linux.vnet.ibm.com
+Cc: omkar.kuppa@sanmina.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,28 +64,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 15:08:04 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 15:36:53 -0000
 
-On 2019-01-04 05:55, Omkar Kuppa wrote:
-> Hi all,
-> I'm trying to setup Development Environment [1] for openbmc. I'm using
-> linux (ubuntu 18.04) in virtual box for the setup. When I ran SDK
-> installer ( oecore-x86_64-armv6-toolchain-nodistro.0.sh [2]) the
-> following error is displayed.
-> "ERROR: INCOMPATIBLE SDK INSTALLER! YOUR HOST IS ARMV6L AND THIS SDK
-> WAS BUILT FOR X86_64 HOSTS"
-> Please suggest how to resolve this error.
+On Fri, Jan 4, 2019 at 9:08 AM Joseph Reynolds <jrey@linux.vnet.ibm.com> wrote:
+>
+> On 2019-01-04 05:55, Omkar Kuppa wrote:
+> > Hi all,
+> > I'm trying to setup Development Environment [1] for openbmc. I'm using
+> > linux (ubuntu 18.04) in virtual box for the setup. When I ran SDK
+> > installer ( oecore-x86_64-armv6-toolchain-nodistro.0.sh [2]) the
+> > following error is displayed.
+> > "ERROR: INCOMPATIBLE SDK INSTALLER! YOUR HOST IS ARMV6L AND THIS SDK
+> > WAS BUILT FOR X86_64 HOSTS"
+> > Please suggest how to resolve this error.
+>
+> You could build the SDK from source.  See:
+> https://github.com/openbmc/docs/blob/master/cheatsheet.md
 
-You could build the SDK from source.  See:
-https://github.com/openbmc/docs/blob/master/cheatsheet.md
+Yeah, looks like you're running on an ARM based host. The SDK
+up in jenkins is only good for x86 based hosts. You'll need to build
+your own SDK per the directions from Joseph above.
 
-> 
-> Thanks in advance,
-> Omkar
-> [...snip...]
-> 
-> Links:
-> ------
-> [1] 
-> https://github.com/openbmc/docs/blob/master/development/dev-environment.md
-> [2] http://oecore-x86_64-armv6-toolchain-nodistro.0.sh
+>
+> >
+> > Thanks in advance,
+> > Omkar
+> > [...snip...]
+> >
+> > Links:
+> > ------
+> > [1]
+> > https://github.com/openbmc/docs/blob/master/development/dev-environment.md
+> > [2] http://oecore-x86_64-armv6-toolchain-nodistro.0.sh
+>
