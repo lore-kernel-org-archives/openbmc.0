@@ -1,54 +1,50 @@
-Return-Path: <prvs=90048b42d=Samuel.Jiang@quantatw.com>
+Return-Path: <omkar.kuppa@sanmina.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=90048b42d=samuel.jiang@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=sanmina.com
+ (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com;
+ envelope-from=omkar.kuppa@sanmina.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-X-Greylist: delayed 656 seconds by postgrey-1.36 at bilbo;
- Fri, 04 Jan 2019 14:23:39 AEDT
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 43W99R1r8bzDqC6
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 14:23:38 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx01.quantatw.com with ESMTP; 04 Jan 2019 11:12:39 +0800
-Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 4 Jan 2019
- 11:12:37 +0800
-Received: from mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328]) by
- mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328%5]) with mapi id
- 15.01.1531.004; Fri, 4 Jan 2019 11:12:37 +0800
-From: =?utf-8?B?U2FtdWVsIEppYW5nICjmsZ/pqI/lhYgp?= <Samuel.Jiang@quantatw.com>
-To: Andrew Geissler <geissonator@gmail.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- =?utf-8?B?QnVkZHkgSHVhbmcgKOm7g+Wkqem0uyk=?= <Buddy.Huang@quantatw.com>
-Subject: Re: [Help] Could not recvie gerrit register verification email
-Thread-Topic: [Help] Could not recvie gerrit register verification email
-Thread-Index: AQHUnosK8BxAYcsvmUypdwz3RCszDqWbh6OAgAJr04A=
-Date: Fri, 4 Jan 2019 03:12:36 +0000
-Message-ID: <82c21cc5-8fc1-4194-815b-02a64cf458ac@Spark>
-References: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
- <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
-In-Reply-To: <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24334.003
-x-tm-as-result: No--5.422500-0.000000-31
-x-tm-as-matchedid: 140026-150567-151186-101081-111604-188119-113024-111605-1
- 11602-705718-700264-700345-706065-700450-700075-700109-701827-700758-106230
- -700373-139703-700040-701452-704425-702020-188057-700107-710799-703747-7044
- 21-780013-105250-708440-112032-701702-139705-704341-703674-302500-111610-70
- 0200-708752-701153-704318-780030-707163-703267-703428-780014-700752-701298-
- 188092-899168-190077-148004-148133-29106-42000-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: multipart/alternative;
- boundary="_000_82c21cc58fc14194815b02a64cf458acSpark_"
+ dmarc=pass (p=none dis=none) header.from=sanmina.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=sanmina.com header.i=@sanmina.com header.b="hW2AmTHs"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
+ [IPv6:2607:f8b0:4864:20::435])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43WNWv4vPbzDqHX
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 22:55:19 +1100 (AEDT)
+Received: by mail-pf1-x435.google.com with SMTP id c123so18232887pfb.0
+ for <openbmc@lists.ozlabs.org>; Fri, 04 Jan 2019 03:55:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sanmina.com; s=google;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=yGcI5Kq4UaPvLggjt6q9+hWnwvv3GwdR0eM81Wlov5Q=;
+ b=hW2AmTHsawboNhH43XQRJksg54F8HNJhl+nJ455MmyJg5arVmfOWvZNghYnW+KPf12
+ yImwrXgoAIJs/dY4FW8EPHMdmjEzlvX0wSujHDlqY34g1O6+VRk3wWiYxFq0KK4tYxyX
+ klcz4om9v53ZGoTLjma2FVb3LvLGS8HoUcIho=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=yGcI5Kq4UaPvLggjt6q9+hWnwvv3GwdR0eM81Wlov5Q=;
+ b=dibiBFMC1wfk96AxDEY6L+EQvOHoc2DXxBRQva6qVwC3OwKGNcaZ7g5VyajE79YL0S
+ mdeMBzlWZN7NtbwAE2rZJ1JIktZR1OQvmI1ekt7/Q3Q9ttXNcZWaym6x5XZzkg2tv3re
+ dHmqjMX1lvRGmQ8icf7saUFMHGZssBi4VG/OEVZ0dl9muIZzveLJiDM9D5yDif4Tco1w
+ aXtr6Ucs8GcYk9fNYhbQhEljyBknsWrsrjfzvd/sGJAP+ob898zSyx0mgpH/qpJwTkHj
+ 7IO+/nslzk8CeGk7pnp69cNNR8z/dLg3+0zqLnbaQ836boB+MaCtSo+tc0lCPejw9bzE
+ 4zBA==
+X-Gm-Message-State: AA+aEWZ+ARPBzC+YK957vsG8RCiOLnZbsYXsx8TIe1C+/peXOYc8xlUU
+ L0lU3HcVmHuaMyOYoFkwNPOpyxncoFme4S7Nc/7m2Gu8K6jlMiaj0nIGdMb1aIOn7LotM4icW7b
+ xwbrW08Go4iUxso8IJ3n2GmHtezqSjZ4LTFs=
+X-Google-Smtp-Source: AFSGD/U9XSim0SYUJujEb132ZpYln54rYEzU+ohWud3MSQAQCglPRFc/pd6PuKbmhLtEmR0oZ14CuIHAmlm+9fYJhhg=
+X-Received: by 2002:a62:2606:: with SMTP id m6mr50964244pfm.133.1546602916372; 
+ Fri, 04 Jan 2019 03:55:16 -0800 (PST)
 MIME-Version: 1.0
+From: Omkar Kuppa <omkar.kuppa@sanmina.com>
+Date: Fri, 4 Jan 2019 17:25:04 +0530
+Message-ID: <CAOSNvHqX_Yt0hAeUKq=E1h2cr06QLZaLv4NeZRkfiXV4wQf29w@mail.gmail.com>
+Subject: Error in running SDK
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000709438057ea08d94"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,96 +56,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 03:23:40 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 11:55:25 -0000
 
---_000_82c21cc58fc14194815b02a64cf458acSpark_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--000000000000709438057ea08d94
+Content-Type: text/plain; charset="UTF-8"
 
-T24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICswODAwLCBBbmRyZXcgR2Vpc3NsZXIgPGdlaXNzb25h
-dG9yQGdtYWlsLmNvbT4sIHdyb3RlOg0KDQpIaSBTYW11ZWwsIGNhbiB5b3UgcGxlYXNlIHZlcmlm
-eSB5b3UgZm9sbG93ZWQgdGhlIHN0ZXBzIGluDQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9k
-b2NzL2Jsb2IvbWFzdGVyL2RldmVsb3BtZW50L2dlcnJpdC1zZXR1cC5tZD8NCg0KWW91J3JlIHN0
-YXRlbWVudCBhYm91dCByZWdpc3RlcmluZyBhIG5ldyBhY2NvdW50IGlzIGEgbGl0dGxlDQpjb25j
-ZXJuaW5nLCB5b3Ugc2hvdWxkbid0IGJlDQpyZWdpc3RlcmluZyBhIG5ldyBnZXJyaXQgYWNjb3Vu
-dCwgeW91IHNob3VsZCBiZSBsaW5raW5nIHlvdXIgZ2l0aHViIG9uZS4NCg0KSGkgQW5kcmV3LA0K
-DQpUaGFua3MgdG8geW91ciBzZXR1cCBsaW5rLA0KSSBlbmNvdW50ZXJlZCBhIHByb2JsZW0gd2hp
-Y2ggYXQgQWRkIGUtbWFpbCB0byBHZXJyaXQgdGhlc2Ugc3RlcHMsDQpDaGVjayBlLW1haWwgZm9y
-IGNvbmZpcm1hdGlvbiBhbmQgY2xpY2sgdGhlIGxpbmsgdG8gY29uZmlybS4NCg0KSSB3b3JrYXJv
-dW5kIGV4ZWN1dGUgdGhpcyBzdGVwLA0KR28gdG8gaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9q
-ZWN0Lnh5ei9wbHVnaW5zL2dpdGh1Yi1wbHVnaW4vc3RhdGljL2FjY291bnQuaHRtbCBhbmQgYXV0
-byBmaWxsIG1lIGluZm9ybWF0aW9uIGluY2x1ZGVkIGUtbWFpbC4NCg0KDQpUaGFua3MsDQoNClNh
-bXVlbCBKaWFuZw0KT24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICswODAwLCBBbmRyZXcgR2Vpc3Ns
-ZXIgLCB3cm90ZToNCk9uIEZyaSwgRGVjIDI4LCAyMDE4IGF0IDM6MDYgQU0gU2FtdWVsIEppYW5n
-ICjmsZ/pqI/lhYgpDQo8U2FtdWVsLkppYW5nQHF1YW50YXR3LmNvbT4gd3JvdGU6DQoNCkRlYXIg
-b3BlbkJNQyBHZXJyaXQgbWFuYWdlcnMsDQoNCkkgcmVnaXN0ZXIgbmV3IEdlcnJpdCBhY2NvdW50
-IGFuZCBzZW50IHZlcmlmeSBtYWlsIHJlcXVlc3QgeWVzdGVyZGF5IHVudGlsIG5vdyBzdGlsbCBu
-b3QgcmVjZWl2ZWQgYW55IHZlcmlmaWNhdGlvbiBlbWFpbC4NCg0KSSBjb25maXJtZWQgb3VyIG1h
-aWwgc2VydmVyIG5ldmVyIHJlY2VpdmUgYW5kIGRpZG4ndCBzZXQgYW55IHBvbGljeS4NCg0KUGxl
-YXNlIGhlbHAgdXMgY2hlY2sgaWYgYW55IHBvbGljeSBzZXR0aW5nIGNhdXNlZCB0aGlzIHByb2Js
-ZW0uDQoNCkhpIFNhbXVlbCwgY2FuIHlvdSBwbGVhc2UgdmVyaWZ5IHlvdSBmb2xsb3dlZCB0aGUg
-c3RlcHMgaW4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvYmxvYi9tYXN0ZXIvZGV2
-ZWxvcG1lbnQvZ2Vycml0LXNldHVwLm1kPw0KDQpZb3UncmUgc3RhdGVtZW50IGFib3V0IHJlZ2lz
-dGVyaW5nIGEgbmV3IGFjY291bnQgaXMgYSBsaXR0bGUNCmNvbmNlcm5pbmcsIHlvdSBzaG91bGRu
-J3QgYmUNCnJlZ2lzdGVyaW5nIGEgbmV3IGdlcnJpdCBhY2NvdW50LCB5b3Ugc2hvdWxkIGJlIGxp
-bmtpbmcgeW91ciBnaXRodWIgb25lLg0KDQoNClRoYW5rcywNCg0KU2FtdWVsIEppYW5nDQo=
+Hi all,
+I'm trying to setup Development Environment
+<https://github.com/openbmc/docs/blob/master/development/dev-environment.md>
+for
+openbmc. I'm using linux (ubuntu 18.04) in virtual box for the setup. When
+I ran SDK installer ( oecore-x86_64-armv6-toolchain-nodistro.0.sh) the
+following error is displayed.
+"*Error: Incompatible SDK installer! Your host is armv6l and this SDK was
+built for x86_64 hosts*"
+Please suggest how to resolve this error.
 
---_000_82c21cc58fc14194815b02a64cf458acSpark_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <5BC5D3AAB3A31E42B4361B1A378E963A@quantatw.com>
-Content-Transfer-Encoding: base64
+Thanks in advance,
+Omkar
 
-PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPg0KPGhlYWQ+DQo8bWV0
-YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD11
-dGYtOCI+DQo8dGl0bGU+PC90aXRsZT4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBuYW1lPSJtZXNz
-YWdlQm9keVNlY3Rpb24iIHN0eWxlPSJmb250LXNpemU6IDE0cHg7IGZvbnQtZmFtaWx5OiAtYXBw
-bGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsIHNhbnMtc2VyaWY7Ij4NCjxkaXY+T24gSmFu
-IDIsIDIwMTksIDEwOjE0IFBNICYjNDM7MDgwMCwgQW5kcmV3IEdlaXNzbGVyICZsdDtnZWlzc29u
-YXRvckBnbWFpbC5jb20mZ3Q7LCB3cm90ZTo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBz
-dHlsZT0ibWFyZ2luOiA1cHggNXB4OyBwYWRkaW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0
-aGluIHNvbGlkICMxYWJjOWM7Ij4NCjxicj4NCkhpIFNhbXVlbCwgY2FuIHlvdSBwbGVhc2UgdmVy
-aWZ5IHlvdSBmb2xsb3dlZCB0aGUgc3RlcHMgaW48YnI+DQpodHRwczovL2dpdGh1Yi5jb20vb3Bl
-bmJtYy9kb2NzL2Jsb2IvbWFzdGVyL2RldmVsb3BtZW50L2dlcnJpdC1zZXR1cC5tZD88YnI+DQo8
-YnI+DQpZb3UncmUgc3RhdGVtZW50IGFib3V0IHJlZ2lzdGVyaW5nIGEgbmV3IGFjY291bnQgaXMg
-YSBsaXR0bGU8YnI+DQpjb25jZXJuaW5nLCB5b3Ugc2hvdWxkbid0IGJlPGJyPg0KcmVnaXN0ZXJp
-bmcgYSBuZXcgZ2Vycml0IGFjY291bnQsIHlvdSBzaG91bGQgYmUgbGlua2luZyB5b3VyIGdpdGh1
-YiBvbmUuPC9ibG9ja3F1b3RlPg0KPC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5IaSBB
-bmRyZXcsPC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5UaGFua3MgdG8geW91ciBzZXR1
-cCBsaW5rLDxicj4NCkkgZW5jb3VudGVyZWQgYSBwcm9ibGVtIHdoaWNoIGF0IEFkZCBlLW1haWwg
-dG8gR2Vycml0IHRoZXNlIHN0ZXBzLDxicj4NCkNoZWNrIGUtbWFpbCBmb3IgY29uZmlybWF0aW9u
-IGFuZCBjbGljayB0aGUgbGluayB0byBjb25maXJtLjxicj4NCjxicj4NCkkgd29ya2Fyb3VuZCBl
-eGVjdXRlIHRoaXMgc3RlcCw8YnI+DQpHbyB0byA8YSBocmVmPSJodHRwczovL2dlcnJpdC5vcGVu
-Ym1jLXByb2plY3QueHl6L3BsdWdpbnMvZ2l0aHViLXBsdWdpbi9zdGF0aWMvYWNjb3VudC5odG1s
-Ij4NCmh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovcGx1Z2lucy9naXRodWItcGx1
-Z2luL3N0YXRpYy9hY2NvdW50Lmh0bWw8L2E+IGFuZCBhdXRvIGZpbGwgbWUgaW5mb3JtYXRpb24g
-aW5jbHVkZWQgZS1tYWlsLjxicj4NCjwvZGl2Pg0KPGRpdj48YnI+DQo8L2Rpdj4NCjwvZGl2Pg0K
-PGRpdiBuYW1lPSJtZXNzYWdlU2lnbmF0dXJlU2VjdGlvbiIgc3R5bGU9ImZvbnQtc2l6ZTogMTRw
-eDsgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1z
-ZXJpZjsiPg0KPGJyPg0KVGhhbmtzLA0KPGRpdj48YnI+DQo8L2Rpdj4NCjxkaXY+U2FtdWVsIEpp
-YW5nPC9kaXY+DQo8L2Rpdj4NCjxkaXYgbmFtZT0ibWVzc2FnZVJlcGx5U2VjdGlvbiIgc3R5bGU9
-ImZvbnQtc2l6ZTogMTRweDsgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lz
-dGVtRm9udCwgc2Fucy1zZXJpZjsiPg0KT24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICYjNDM7MDgw
-MCwgQW5kcmV3IEdlaXNzbGVyICwgd3JvdGU6PGJyPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIg
-c3R5bGU9Im1hcmdpbjogNXB4IDVweDsgcGFkZGluZy1sZWZ0OiAxMHB4OyBib3JkZXItbGVmdDog
-dGhpbiBzb2xpZCAjMWFiYzljOyI+DQpPbiBGcmksIERlYyAyOCwgMjAxOCBhdCAzOjA2IEFNIFNh
-bXVlbCBKaWFuZyAo5rGf6aiP5YWIKTxicj4NCiZsdDtTYW11ZWwuSmlhbmdAcXVhbnRhdHcuY29t
-Jmd0OyB3cm90ZTo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBzdHlsZT0ibWFyZ2luOiA1
-cHggNXB4OyBwYWRkaW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0aGluIHNvbGlkICNlNjdl
-MjI7Ij4NCjxicj4NCkRlYXIgb3BlbkJNQyBHZXJyaXQgbWFuYWdlcnMsPGJyPg0KPGJyPg0KSSBy
-ZWdpc3RlciBuZXcgR2Vycml0IGFjY291bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5
-ZXN0ZXJkYXkgdW50aWwgbm93IHN0aWxsIG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVt
-YWlsLjxicj4NCjxicj4NCkkgY29uZmlybWVkIG91ciBtYWlsIHNlcnZlciBuZXZlciByZWNlaXZl
-IGFuZCBkaWRuJ3Qgc2V0IGFueSBwb2xpY3kuPGJyPg0KPGJyPg0KUGxlYXNlIGhlbHAgdXMgY2hl
-Y2sgaWYgYW55IHBvbGljeSBzZXR0aW5nIGNhdXNlZCB0aGlzIHByb2JsZW0uPGJyPg0KPC9ibG9j
-a3F1b3RlPg0KPGJyPg0KSGkgU2FtdWVsLCBjYW4geW91IHBsZWFzZSB2ZXJpZnkgeW91IGZvbGxv
-d2VkIHRoZSBzdGVwcyBpbjxicj4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvYmxv
-Yi9tYXN0ZXIvZGV2ZWxvcG1lbnQvZ2Vycml0LXNldHVwLm1kPzxicj4NCjxicj4NCllvdSdyZSBz
-dGF0ZW1lbnQgYWJvdXQgcmVnaXN0ZXJpbmcgYSBuZXcgYWNjb3VudCBpcyBhIGxpdHRsZTxicj4N
-CmNvbmNlcm5pbmcsIHlvdSBzaG91bGRuJ3QgYmU8YnI+DQpyZWdpc3RlcmluZyBhIG5ldyBnZXJy
-aXQgYWNjb3VudCwgeW91IHNob3VsZCBiZSBsaW5raW5nIHlvdXIgZ2l0aHViIG9uZS48YnI+DQo8
-YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBzdHlsZT0ibWFyZ2luOiA1cHggNXB4OyBwYWRk
-aW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0aGluIHNvbGlkICNlNjdlMjI7Ij4NCjxicj4N
-ClRoYW5rcyw8YnI+DQo8YnI+DQpTYW11ZWwgSmlhbmc8YnI+DQo8L2Jsb2NrcXVvdGU+DQo8L2Js
-b2NrcXVvdGU+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+-- 
+CONFIDENTIALITY
+This e-mail message and any attachments thereto, is 
+intended only for use by the addressee(s) named herein and may contain 
+legally privileged and/or confidential information. If you are not the 
+intended recipient of this e-mail message, you are hereby notified that any 
+dissemination, distribution or copying of this e-mail message, and any 
+attachments thereto, is strictly prohibited.  If you have received this 
+e-mail message in error, please immediately notify the sender and 
+permanently delete the original and any copies of this email and any prints 
+thereof.
+ABSENT AN EXPRESS STATEMENT TO THE CONTRARY HEREINABOVE, THIS 
+E-MAIL IS NOT INTENDED AS A SUBSTITUTE FOR A WRITING.  Notwithstanding the 
+Uniform Electronic Transactions Act or the applicability of any other law 
+of similar substance and effect, absent an express statement to the 
+contrary hereinabove, this e-mail message its contents, and any attachments 
+hereto are not intended to represent an offer or acceptance to enter into a 
+contract and are not otherwise intended to bind the sender, Sanmina 
+Corporation (or any of its subsidiaries), or any other person or entity.
 
---_000_82c21cc58fc14194815b02a64cf458acSpark_--
+--000000000000709438057ea08d94
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div>Hi all,</div><div>I&#39;m trying to =
+setup=C2=A0<a href=3D"https://github.com/openbmc/docs/blob/master/developme=
+nt/dev-environment.md" style=3D"box-sizing:border-box;color:rgb(3,102,214);=
+text-decoration-line:none;font-family:-apple-system,BlinkMacSystemFont,&quo=
+t;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&=
+quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size:16px">Devel=
+opment Environment</a>=C2=A0for openbmc. I&#39;m using linux (ubuntu 18.04)=
+ in virtual box for the setup. When I ran SDK installer (=C2=A0<span style=
+=3D"background-color:initial;font-family:SFMono-Regular,Consolas,&quot;Libe=
+ration Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-size:13.=
+6px"><a href=3D"http://oecore-x86_64-armv6-toolchain-nodistro.0.sh">oecore-=
+x86_64-armv6-toolchain-nodistro.0.sh</a></span>) the following error is dis=
+played.</div><div>&quot;<b>Error: Incompatible SDK installer! Your host is =
+armv6l and this SDK was built for x86_64 hosts</b>&quot;</div><div>Please s=
+uggest how to resolve this error.</div><div><br></div><div>Thanks in advanc=
+e,</div><div>Omkar</div><div><br></div></div></div>
+
+<br>
+CONFIDENTIALITY<br>This e-mail message and any attachments thereto, is inte=
+nded only for use by the addressee(s) named herein and may contain legally =
+privileged and/or confidential information. If you are not the intended rec=
+ipient of this e-mail message, you are hereby notified that any disseminati=
+on, distribution or copying of this e-mail message, and any attachments the=
+reto, is strictly prohibited.  If you have received this e-mail message in =
+error, please immediately notify the sender and permanently delete the orig=
+inal and any copies of this email and any prints thereof.<br>ABSENT AN EXPR=
+ESS STATEMENT TO THE CONTRARY HEREINABOVE, THIS E-MAIL IS NOT INTENDED AS A=
+ SUBSTITUTE FOR A WRITING.  Notwithstanding the Uniform Electronic Transact=
+ions Act or the applicability of any other law of similar substance and eff=
+ect, absent an express statement to the contrary hereinabove, this e-mail m=
+essage its contents, and any attachments hereto are not intended to represe=
+nt an offer or acceptance to enter into a contract and are not otherwise in=
+tended to bind the sender, Sanmina Corporation (or any of its subsidiaries)=
+, or any other person or entity.<br>
+--000000000000709438057ea08d94--
