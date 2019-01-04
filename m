@@ -1,51 +1,54 @@
-Return-Path: <yong.b.li@linux.intel.com>
+Return-Path: <prvs=90048b42d=Samuel.Jiang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43W6RZ1lWtzDqGl
- for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 12:20:41 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 03 Jan 2019 17:20:38 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,437,1539673200"; d="scan'208";a="131393207"
-Received: from linux.intel.com ([10.54.29.200])
- by fmsmga002.fm.intel.com with ESMTP; 03 Jan 2019 17:20:38 -0800
-Received: from [10.239.197.33] (yongli3-mobl.ccr.corp.intel.com
- [10.239.197.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 5E7DC58028E;
- Thu,  3 Jan 2019 17:20:37 -0800 (PST)
-Subject: Re: journal log messages are missing with latest version
-To: Patrick Venture <venture@google.com>,
- Matt Spinler <mspinler@linux.vnet.ibm.com>,
- William Kennington <wak@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <000601d498c5$7c4c2010$74e46030$@linux.intel.com>
- <CAO=notz4=R-v8yoyYRqRDBBvSaB6mBUNAaZbeQcf0a_wCHQ7qw@mail.gmail.com>
- <e7a140e4aaeb2bed76a9d36cbc422ea6@linux.vnet.ibm.com>
- <CAO=notw81jtXKHJOK2MaqG73Pu86=ZZY1UjYzg-NbHQnaqZUjA@mail.gmail.com>
- <CAO=notzkJgHAxB8xoG_2qBtnRv3-D7pUji1ykqaTSSbn-T0j6g@mail.gmail.com>
- <CAO=notwS_RHpZ-j99zwcSgFa7Prp0qDVGpEy1r3O-nPWUG5CMw@mail.gmail.com>
-From: "Li, Yong B" <yong.b.li@linux.intel.com>
-Message-ID: <3a1d3ae9-e067-c166-96cd-b91f984de3d5@linux.intel.com>
-Date: Fri, 4 Jan 2019 09:20:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=90048b42d=samuel.jiang@quantatw.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 656 seconds by postgrey-1.36 at bilbo;
+ Fri, 04 Jan 2019 14:23:39 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 43W99R1r8bzDqC6
+ for <openbmc@lists.ozlabs.org>; Fri,  4 Jan 2019 14:23:38 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx01.quantatw.com with ESMTP; 04 Jan 2019 11:12:39 +0800
+Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 4 Jan 2019
+ 11:12:37 +0800
+Received: from mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328]) by
+ mailbx06.quanta.corp ([fe80::284f:e36d:dd80:5328%5]) with mapi id
+ 15.01.1531.004; Fri, 4 Jan 2019 11:12:37 +0800
+From: =?utf-8?B?U2FtdWVsIEppYW5nICjmsZ/pqI/lhYgp?= <Samuel.Jiang@quantatw.com>
+To: Andrew Geissler <geissonator@gmail.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?utf-8?B?QnVkZHkgSHVhbmcgKOm7g+Wkqem0uyk=?= <Buddy.Huang@quantatw.com>
+Subject: Re: [Help] Could not recvie gerrit register verification email
+Thread-Topic: [Help] Could not recvie gerrit register verification email
+Thread-Index: AQHUnosK8BxAYcsvmUypdwz3RCszDqWbh6OAgAJr04A=
+Date: Fri, 4 Jan 2019 03:12:36 +0000
+Message-ID: <82c21cc5-8fc1-4194-815b-02a64cf458ac@Spark>
+References: <00aad438-fff2-4e09-825c-292304d87f6d@Spark>
+ <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
+In-Reply-To: <CALLMt=r1UEwRsEzOcwhWZ2v6EP22Gfw0m-57EG_ZYf39nFg5CA@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24334.003
+x-tm-as-result: No--5.422500-0.000000-31
+x-tm-as-matchedid: 140026-150567-151186-101081-111604-188119-113024-111605-1
+ 11602-705718-700264-700345-706065-700450-700075-700109-701827-700758-106230
+ -700373-139703-700040-701452-704425-702020-188057-700107-710799-703747-7044
+ 21-780013-105250-708440-112032-701702-139705-704341-703674-302500-111610-70
+ 0200-708752-701153-704318-780030-707163-703267-703428-780014-700752-701298-
+ 188092-899168-190077-148004-148133-29106-42000-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: multipart/alternative;
+ boundary="_000_82c21cc58fc14194815b02a64cf458acSpark_"
 MIME-Version: 1.0
-In-Reply-To: <CAO=notwS_RHpZ-j99zwcSgFa7Prp0qDVGpEy1r3O-nPWUG5CMw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,87 +60,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 01:20:43 -0000
+X-List-Received-Date: Fri, 04 Jan 2019 03:23:40 -0000
 
-Thanks Patrick for your mails.
+--_000_82c21cc58fc14194815b02a64cf458acSpark_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Will test https://gerrit.openbmc-project.xyz/17054, and update the results.
+T24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICswODAwLCBBbmRyZXcgR2Vpc3NsZXIgPGdlaXNzb25h
+dG9yQGdtYWlsLmNvbT4sIHdyb3RlOg0KDQpIaSBTYW11ZWwsIGNhbiB5b3UgcGxlYXNlIHZlcmlm
+eSB5b3UgZm9sbG93ZWQgdGhlIHN0ZXBzIGluDQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9k
+b2NzL2Jsb2IvbWFzdGVyL2RldmVsb3BtZW50L2dlcnJpdC1zZXR1cC5tZD8NCg0KWW91J3JlIHN0
+YXRlbWVudCBhYm91dCByZWdpc3RlcmluZyBhIG5ldyBhY2NvdW50IGlzIGEgbGl0dGxlDQpjb25j
+ZXJuaW5nLCB5b3Ugc2hvdWxkbid0IGJlDQpyZWdpc3RlcmluZyBhIG5ldyBnZXJyaXQgYWNjb3Vu
+dCwgeW91IHNob3VsZCBiZSBsaW5raW5nIHlvdXIgZ2l0aHViIG9uZS4NCg0KSGkgQW5kcmV3LA0K
+DQpUaGFua3MgdG8geW91ciBzZXR1cCBsaW5rLA0KSSBlbmNvdW50ZXJlZCBhIHByb2JsZW0gd2hp
+Y2ggYXQgQWRkIGUtbWFpbCB0byBHZXJyaXQgdGhlc2Ugc3RlcHMsDQpDaGVjayBlLW1haWwgZm9y
+IGNvbmZpcm1hdGlvbiBhbmQgY2xpY2sgdGhlIGxpbmsgdG8gY29uZmlybS4NCg0KSSB3b3JrYXJv
+dW5kIGV4ZWN1dGUgdGhpcyBzdGVwLA0KR28gdG8gaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9q
+ZWN0Lnh5ei9wbHVnaW5zL2dpdGh1Yi1wbHVnaW4vc3RhdGljL2FjY291bnQuaHRtbCBhbmQgYXV0
+byBmaWxsIG1lIGluZm9ybWF0aW9uIGluY2x1ZGVkIGUtbWFpbC4NCg0KDQpUaGFua3MsDQoNClNh
+bXVlbCBKaWFuZw0KT24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICswODAwLCBBbmRyZXcgR2Vpc3Ns
+ZXIgLCB3cm90ZToNCk9uIEZyaSwgRGVjIDI4LCAyMDE4IGF0IDM6MDYgQU0gU2FtdWVsIEppYW5n
+ICjmsZ/pqI/lhYgpDQo8U2FtdWVsLkppYW5nQHF1YW50YXR3LmNvbT4gd3JvdGU6DQoNCkRlYXIg
+b3BlbkJNQyBHZXJyaXQgbWFuYWdlcnMsDQoNCkkgcmVnaXN0ZXIgbmV3IEdlcnJpdCBhY2NvdW50
+IGFuZCBzZW50IHZlcmlmeSBtYWlsIHJlcXVlc3QgeWVzdGVyZGF5IHVudGlsIG5vdyBzdGlsbCBu
+b3QgcmVjZWl2ZWQgYW55IHZlcmlmaWNhdGlvbiBlbWFpbC4NCg0KSSBjb25maXJtZWQgb3VyIG1h
+aWwgc2VydmVyIG5ldmVyIHJlY2VpdmUgYW5kIGRpZG4ndCBzZXQgYW55IHBvbGljeS4NCg0KUGxl
+YXNlIGhlbHAgdXMgY2hlY2sgaWYgYW55IHBvbGljeSBzZXR0aW5nIGNhdXNlZCB0aGlzIHByb2Js
+ZW0uDQoNCkhpIFNhbXVlbCwgY2FuIHlvdSBwbGVhc2UgdmVyaWZ5IHlvdSBmb2xsb3dlZCB0aGUg
+c3RlcHMgaW4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvYmxvYi9tYXN0ZXIvZGV2
+ZWxvcG1lbnQvZ2Vycml0LXNldHVwLm1kPw0KDQpZb3UncmUgc3RhdGVtZW50IGFib3V0IHJlZ2lz
+dGVyaW5nIGEgbmV3IGFjY291bnQgaXMgYSBsaXR0bGUNCmNvbmNlcm5pbmcsIHlvdSBzaG91bGRu
+J3QgYmUNCnJlZ2lzdGVyaW5nIGEgbmV3IGdlcnJpdCBhY2NvdW50LCB5b3Ugc2hvdWxkIGJlIGxp
+bmtpbmcgeW91ciBnaXRodWIgb25lLg0KDQoNClRoYW5rcywNCg0KU2FtdWVsIEppYW5nDQo=
 
-On 1/4/2019 6:33 AM, Patrick Venture wrote:
-> On Thu, Jan 3, 2019 at 2:28 PM Patrick Venture <venture@google.com> wrote:
->> On Thu, Jan 3, 2019 at 11:19 AM Patrick Venture <venture@google.com> wrote:
->>> On Thu, Jan 3, 2019 at 10:07 AM Matt Spinler
->>> <mspinler@linux.vnet.ibm.com> wrote:
->>>> On 2019-01-02 13:09, Patrick Venture wrote:
->>>>> On Thu, Dec 20, 2018 at 4:38 PM Yong Li <yong.b.li@linux.intel.com>
->>>>> wrote:
->>>>>>
->>>>>>
->>>>>> Hi Patrick,
->>>>>>
->>>>>>
->>>>>>
->>>>>> I encountered a problem after upgrade to the latest opnebmc version:
->>>>>>
->>>>>>
->>>>>>
->>>>>> These log messages in ipmid are missing with the “journalctl -f”.
->>>>> Which log messages?
->>>>
->>>> This showed up on all of our systems too, anything logged using
->>>> phosphor-logging
->>>> is missing from the journal.  I even ended up using a git bisect to also
->>>> narrow
->>>> it down to:
->>>>
->>>> phosphor-logging: srcrev bump 30047bf964..31552c05e2
->>>>
->>>>       Patrick Venture (5):
->>>>             add sdjournal interface to inject tests
->>>>             test: use only one main library
->>>>             bugfix: add fixes to mock class
->>>>             bugfix: rename method to match implementation
->>>>             test: add test to force building of sdjournal mock
->>>>
->>> William, you've been digging into sdbus a lot recently, can you take a
->>> deep look at the patchset above and see what I may have messed up?
->>> The phosphor-logging unit-tests were broken until I got it "working."
->>> Which lead me to believe that it's not correct -- and the daemons that
->>> have unit-tests that hit the log message are seeing the calls.
->>  From reading more into the var_args pass-through, that may be the
->> issue.  One cannot pass the var args down directly like this.  I
->> propose to initially snip out this extra call and then revisit so that
->> it'll resume working.
-> https://gerrit.openbmc-project.xyz/17054
->> The problem is that sd_journal_send doesn't expect a va_list argument,
->> but rather strictly var args, which aren't the same.
->>
->>>>>>
->>>>>>
->>>>>> My tests shows that the blow change is related, after I revert it, I
->>>>>> can get these log messages.
->>>>>>
->>>>>>
->>>>>>
->>>>>> Did you meet such issue, or any suggestions/comments to narrow down
->>>>>> this issue?
->>>>>>
->>>>>> https://github.com/openbmc/phosphor-logging/commit/59a6b1f27e83066baa6f3711c88d6a3b9a5c4d49
->>>>>>
->>>>>> add sdjournal interface to inject tests
->>>>> There were some follow-on patches for phosphor-logging that you
->>>>> shouldn't need -- it's
->>>>>
->>>>> What SHA is for your https://github.com/openbmc/phosphor-host-ipmid ?
->>>>> (so I know what version of that is in use by you).
->>>>>
->>>>> Checking the HEAD version of
->>>>> https://github.com/openbmc/phosphor-host-ipmid/blob/master/Makefile.am,
->>>>> I see it's including the proper libs to get the full phosphor-logging
->>>>> objects.
->>>>>
->>>>>>
->>>>>>
->>>>>> Thanks,
->>>>>>
->>>>>> Yong
+--_000_82c21cc58fc14194815b02a64cf458acSpark_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <5BC5D3AAB3A31E42B4361B1A378E963A@quantatw.com>
+Content-Transfer-Encoding: base64
+
+PGh0bWwgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPg0KPGhlYWQ+DQo8bWV0
+YSBodHRwLWVxdWl2PSJDb250ZW50LVR5cGUiIGNvbnRlbnQ9InRleHQvaHRtbDsgY2hhcnNldD11
+dGYtOCI+DQo8dGl0bGU+PC90aXRsZT4NCjwvaGVhZD4NCjxib2R5Pg0KPGRpdiBuYW1lPSJtZXNz
+YWdlQm9keVNlY3Rpb24iIHN0eWxlPSJmb250LXNpemU6IDE0cHg7IGZvbnQtZmFtaWx5OiAtYXBw
+bGUtc3lzdGVtLCBCbGlua01hY1N5c3RlbUZvbnQsIHNhbnMtc2VyaWY7Ij4NCjxkaXY+T24gSmFu
+IDIsIDIwMTksIDEwOjE0IFBNICYjNDM7MDgwMCwgQW5kcmV3IEdlaXNzbGVyICZsdDtnZWlzc29u
+YXRvckBnbWFpbC5jb20mZ3Q7LCB3cm90ZTo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBz
+dHlsZT0ibWFyZ2luOiA1cHggNXB4OyBwYWRkaW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0
+aGluIHNvbGlkICMxYWJjOWM7Ij4NCjxicj4NCkhpIFNhbXVlbCwgY2FuIHlvdSBwbGVhc2UgdmVy
+aWZ5IHlvdSBmb2xsb3dlZCB0aGUgc3RlcHMgaW48YnI+DQpodHRwczovL2dpdGh1Yi5jb20vb3Bl
+bmJtYy9kb2NzL2Jsb2IvbWFzdGVyL2RldmVsb3BtZW50L2dlcnJpdC1zZXR1cC5tZD88YnI+DQo8
+YnI+DQpZb3UncmUgc3RhdGVtZW50IGFib3V0IHJlZ2lzdGVyaW5nIGEgbmV3IGFjY291bnQgaXMg
+YSBsaXR0bGU8YnI+DQpjb25jZXJuaW5nLCB5b3Ugc2hvdWxkbid0IGJlPGJyPg0KcmVnaXN0ZXJp
+bmcgYSBuZXcgZ2Vycml0IGFjY291bnQsIHlvdSBzaG91bGQgYmUgbGlua2luZyB5b3VyIGdpdGh1
+YiBvbmUuPC9ibG9ja3F1b3RlPg0KPC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5IaSBB
+bmRyZXcsPC9kaXY+DQo8ZGl2Pjxicj4NCjwvZGl2Pg0KPGRpdj5UaGFua3MgdG8geW91ciBzZXR1
+cCBsaW5rLDxicj4NCkkgZW5jb3VudGVyZWQgYSBwcm9ibGVtIHdoaWNoIGF0IEFkZCBlLW1haWwg
+dG8gR2Vycml0IHRoZXNlIHN0ZXBzLDxicj4NCkNoZWNrIGUtbWFpbCBmb3IgY29uZmlybWF0aW9u
+IGFuZCBjbGljayB0aGUgbGluayB0byBjb25maXJtLjxicj4NCjxicj4NCkkgd29ya2Fyb3VuZCBl
+eGVjdXRlIHRoaXMgc3RlcCw8YnI+DQpHbyB0byA8YSBocmVmPSJodHRwczovL2dlcnJpdC5vcGVu
+Ym1jLXByb2plY3QueHl6L3BsdWdpbnMvZ2l0aHViLXBsdWdpbi9zdGF0aWMvYWNjb3VudC5odG1s
+Ij4NCmh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovcGx1Z2lucy9naXRodWItcGx1
+Z2luL3N0YXRpYy9hY2NvdW50Lmh0bWw8L2E+IGFuZCBhdXRvIGZpbGwgbWUgaW5mb3JtYXRpb24g
+aW5jbHVkZWQgZS1tYWlsLjxicj4NCjwvZGl2Pg0KPGRpdj48YnI+DQo8L2Rpdj4NCjwvZGl2Pg0K
+PGRpdiBuYW1lPSJtZXNzYWdlU2lnbmF0dXJlU2VjdGlvbiIgc3R5bGU9ImZvbnQtc2l6ZTogMTRw
+eDsgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lzdGVtRm9udCwgc2Fucy1z
+ZXJpZjsiPg0KPGJyPg0KVGhhbmtzLA0KPGRpdj48YnI+DQo8L2Rpdj4NCjxkaXY+U2FtdWVsIEpp
+YW5nPC9kaXY+DQo8L2Rpdj4NCjxkaXYgbmFtZT0ibWVzc2FnZVJlcGx5U2VjdGlvbiIgc3R5bGU9
+ImZvbnQtc2l6ZTogMTRweDsgZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIEJsaW5rTWFjU3lz
+dGVtRm9udCwgc2Fucy1zZXJpZjsiPg0KT24gSmFuIDIsIDIwMTksIDEwOjE0IFBNICYjNDM7MDgw
+MCwgQW5kcmV3IEdlaXNzbGVyICwgd3JvdGU6PGJyPg0KPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSIg
+c3R5bGU9Im1hcmdpbjogNXB4IDVweDsgcGFkZGluZy1sZWZ0OiAxMHB4OyBib3JkZXItbGVmdDog
+dGhpbiBzb2xpZCAjMWFiYzljOyI+DQpPbiBGcmksIERlYyAyOCwgMjAxOCBhdCAzOjA2IEFNIFNh
+bXVlbCBKaWFuZyAo5rGf6aiP5YWIKTxicj4NCiZsdDtTYW11ZWwuSmlhbmdAcXVhbnRhdHcuY29t
+Jmd0OyB3cm90ZTo8YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBzdHlsZT0ibWFyZ2luOiA1
+cHggNXB4OyBwYWRkaW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0aGluIHNvbGlkICNlNjdl
+MjI7Ij4NCjxicj4NCkRlYXIgb3BlbkJNQyBHZXJyaXQgbWFuYWdlcnMsPGJyPg0KPGJyPg0KSSBy
+ZWdpc3RlciBuZXcgR2Vycml0IGFjY291bnQgYW5kIHNlbnQgdmVyaWZ5IG1haWwgcmVxdWVzdCB5
+ZXN0ZXJkYXkgdW50aWwgbm93IHN0aWxsIG5vdCByZWNlaXZlZCBhbnkgdmVyaWZpY2F0aW9uIGVt
+YWlsLjxicj4NCjxicj4NCkkgY29uZmlybWVkIG91ciBtYWlsIHNlcnZlciBuZXZlciByZWNlaXZl
+IGFuZCBkaWRuJ3Qgc2V0IGFueSBwb2xpY3kuPGJyPg0KPGJyPg0KUGxlYXNlIGhlbHAgdXMgY2hl
+Y2sgaWYgYW55IHBvbGljeSBzZXR0aW5nIGNhdXNlZCB0aGlzIHByb2JsZW0uPGJyPg0KPC9ibG9j
+a3F1b3RlPg0KPGJyPg0KSGkgU2FtdWVsLCBjYW4geW91IHBsZWFzZSB2ZXJpZnkgeW91IGZvbGxv
+d2VkIHRoZSBzdGVwcyBpbjxicj4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvYmxv
+Yi9tYXN0ZXIvZGV2ZWxvcG1lbnQvZ2Vycml0LXNldHVwLm1kPzxicj4NCjxicj4NCllvdSdyZSBz
+dGF0ZW1lbnQgYWJvdXQgcmVnaXN0ZXJpbmcgYSBuZXcgYWNjb3VudCBpcyBhIGxpdHRsZTxicj4N
+CmNvbmNlcm5pbmcsIHlvdSBzaG91bGRuJ3QgYmU8YnI+DQpyZWdpc3RlcmluZyBhIG5ldyBnZXJy
+aXQgYWNjb3VudCwgeW91IHNob3VsZCBiZSBsaW5raW5nIHlvdXIgZ2l0aHViIG9uZS48YnI+DQo8
+YnI+DQo8YmxvY2txdW90ZSB0eXBlPSJjaXRlIiBzdHlsZT0ibWFyZ2luOiA1cHggNXB4OyBwYWRk
+aW5nLWxlZnQ6IDEwcHg7IGJvcmRlci1sZWZ0OiB0aGluIHNvbGlkICNlNjdlMjI7Ij4NCjxicj4N
+ClRoYW5rcyw8YnI+DQo8YnI+DQpTYW11ZWwgSmlhbmc8YnI+DQo8L2Jsb2NrcXVvdGU+DQo8L2Js
+b2NrcXVvdGU+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+
+--_000_82c21cc58fc14194815b02a64cf458acSpark_--
