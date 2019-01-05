@@ -1,58 +1,48 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <jic23@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::343; helo=mail-ot1-x343.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=jic23@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ElfndXD5"; 
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="WMz94rux"; 
  dkim-atps=neutral
-Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
- [IPv6:2607:f8b0:4864:20::343])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43WTRS53hnzDqDx;
- Sat,  5 Jan 2019 02:36:52 +1100 (AEDT)
-Received: by mail-ot1-x343.google.com with SMTP id 40so32372571oth.4;
- Fri, 04 Jan 2019 07:36:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ftwpY3Kr/oa8+gzyuIL89suFgEAcz4cWVohwl6uAnDE=;
- b=ElfndXD5Az15ePy6/hks56PNFLlCMS+tGX8T1LixpKAbOL6AWaiTw0gJvsY/Nj3SJH
- aIy+mRfwLiUB/Rg5+TYuaVgbZRFRIZHjf5VGH1Z1HsyADpHtrwehcnOUoeclUKEZ8FYZ
- sFkhbvHSLB6P1We8+SSOVnK1MW9b8+Bx+GYeBys6FPEiyJjFr2PDD+Q/hytZfRajtV12
- ISnNW+hC0cbIXuGbFJafMOSyrEGHuaiEfEgMi3/u4XtNR9iuFJZf1XO+UBU96EmOmBfs
- Vi1bD0wAgTDXLnSFWtUqrgjgg89WiBg3V868+wJZCxLmmYhmiv0WGOrTzMO6yWo0bA8q
- Jgeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ftwpY3Kr/oa8+gzyuIL89suFgEAcz4cWVohwl6uAnDE=;
- b=dYYj+doYFSQO5ReOn+oV4iOtNX3WTukJiPsYoOfzQB3/80a6kOo0FOCvbSboNhKReR
- KRxXmZu2Isu/jNxEt4qmnvb6QmWpZ4t/tTBPGA0N5mT7AS1CxlQvDzxtuwCpmPbFRdMm
- KyX3ireabDr9a2Seu3p48rDdWRuWH11Zvb8mz7WQUsy72ZYOlN1390jGPdw0FjCWF/CF
- jbz20FzIYiSwCkixlGMczEkjUTVjSmUjTQpU8m+4D2PDXtJx2OF210Gii5r4iQRlx220
- eJQ68GNzYMRTv1AHz+6MKsgyuYm9vB8nV+xdiHZ6nq/VkdxP/rPELyKRFAoFPe30aZem
- V2Yg==
-X-Gm-Message-State: AJcUukeEY80Mj7/mFXgYGLOqFg3df9LK6PxUvrhtYefMYFkI92hvHWTl
- 9mVzzwR9RWk/heViXH6yyzuISsfuVL6LZAgE0n4=
-X-Google-Smtp-Source: ALg8bN749bo8myLQDmf6EKYxyRq5W00pxxFjze5Dp2P9VQfAIldzZ9Au36LFXp3pXxmew0kkL1Z0n2Nz7jr/oXNN5Lo=
-X-Received: by 2002:a9d:74c3:: with SMTP id a3mr37733272otl.107.1546616210202; 
- Fri, 04 Jan 2019 07:36:50 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43X79v3w3BzDqF1
+ for <openbmc@lists.ozlabs.org>; Sun,  6 Jan 2019 03:57:23 +1100 (AEDT)
+Received: from archlinux (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net
+ [81.96.234.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id BD2E12070C;
+ Sat,  5 Jan 2019 16:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1546707441;
+ bh=5lF3HYnV1dbErhBabpg8zFcL7pAi15r7pVu3uoILwRQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=WMz94ruxD3WBElJgA6rHCPZq3bjjYn0xFpaXATeZYji4z0n4ZX12NtwdVWY551R6o
+ rYdN7PhhL5f2X2XUmODDcTJlnc4iILsmwcvvvlc0//Fof5iZD5ekPyDeHzkZMcqDN/
+ nL3o1zFLB5rTZUajUmjACPYOkQ8o8+qh4c7XDCNg=
+Date: Sat, 5 Jan 2019 16:57:15 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: knaack.h@gmx.de, lars@metafoo.de, pmeerw@pmeerw.net, robh+dt@kernel.org,
+ mark.rutland@arm.com, yuenn@google.com, venture@google.com,
+ brendanhiggins@google.com, avifishman70@gmail.com, joel@jms.id.au,
+ linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] dt-binding: iio: add NPCM ADC documentation
+Message-ID: <20190105165715.1d4d270a@archlinux>
+In-Reply-To: <20181224164755.286932-2-tmaimon77@gmail.com>
+References: <20181224164755.286932-1-tmaimon77@gmail.com>
+ <20181224164755.286932-2-tmaimon77@gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <CAOSNvHqX_Yt0hAeUKq=E1h2cr06QLZaLv4NeZRkfiXV4wQf29w@mail.gmail.com>
- <2f609082be880fbf2df9d1a6279decd1@linux.vnet.ibm.com>
-In-Reply-To: <2f609082be880fbf2df9d1a6279decd1@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 4 Jan 2019 09:36:34 -0600
-Message-ID: <CALLMt=rPpq+G9+w1CpF2A9brJDGFysN45-Wr+t5tz9fKdty2uw@mail.gmail.com>
-Subject: Re: Error in running SDK
-To: jrey@linux.vnet.ibm.com
-Cc: omkar.kuppa@sanmina.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,36 +54,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 04 Jan 2019 15:36:53 -0000
+X-List-Received-Date: Sat, 05 Jan 2019 16:57:24 -0000
 
-On Fri, Jan 4, 2019 at 9:08 AM Joseph Reynolds <jrey@linux.vnet.ibm.com> wrote:
->
-> On 2019-01-04 05:55, Omkar Kuppa wrote:
-> > Hi all,
-> > I'm trying to setup Development Environment [1] for openbmc. I'm using
-> > linux (ubuntu 18.04) in virtual box for the setup. When I ran SDK
-> > installer ( oecore-x86_64-armv6-toolchain-nodistro.0.sh [2]) the
-> > following error is displayed.
-> > "ERROR: INCOMPATIBLE SDK INSTALLER! YOUR HOST IS ARMV6L AND THIS SDK
-> > WAS BUILT FOR X86_64 HOSTS"
-> > Please suggest how to resolve this error.
->
-> You could build the SDK from source.  See:
-> https://github.com/openbmc/docs/blob/master/cheatsheet.md
+On Mon, 24 Dec 2018 18:47:54 +0200
+Tomer Maimon <tmaimon77@gmail.com> wrote:
 
-Yeah, looks like you're running on an ARM based host. The SDK
-up in jenkins is only good for x86 based hosts. You'll need to build
-your own SDK per the directions from Joseph above.
+> Added device tree binding documentation for Nuvoton BMC
+> NPCM Analog-to-Digital Converter(ADC).
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  .../bindings/iio/adc/nuvoton,npcm-adc.txt          | 35 ++++++++++++++++++++++
+>  1 file changed, 35 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+> new file mode 100644
+> index 000000000000..6f0843d837cc
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+> @@ -0,0 +1,35 @@
+> +Nuvoton NPCM Analog to Digital Converter (ADC)
+> +
+> +The NPCM ADC is a 10-bit converter for eight channel inputs.
+> +
+> +Required properties:
+> +- compatible	: "nuvoton,npcm750-adc" for the NPCM7XX BMC.
+> +- reg			: specifies physical base address and size of the registers.
+Something a bit crazy with the indentation here!
 
->
-> >
-> > Thanks in advance,
-> > Omkar
-> > [...snip...]
-> >
-> > Links:
-> > ------
-> > [1]
-> > https://github.com/openbmc/docs/blob/master/development/dev-environment.md
-> > [2] http://oecore-x86_64-armv6-toolchain-nodistro.0.sh
->
+> +- interrupts	: Contain the ADC interrupt with flags for falling edge.
+> +
+> +Optional properties:
+> +- clocks		: phandle of ADC reference clock, in case the clock is not
+> +				  added the ADC will use the default ADC sample rate.
+> +- vref-supply	: The regulator supply ADC reference voltage, in case the
+> +				  vref-supply is not added the ADC will use internal voltage
+> +				  reference.
+> +
+> +Required Node in the NPCM7xx BMC:
+> +An additional register is present in the NPCM7xx SOC which is
+> +assumed to be in the same device tree, with and marked as
+> +compatible with "nuvoton,npcm750-rst".
+> +
+> +Example:
+> +
+> +adc: adc@f000c000 {
+> +	compatible = "nuvoton,npcm750-adc";
+> +	reg = <0xf000c000 0x8>;
+> +	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+> +	clocks = <&clk NPCM7XX_CLK_ADC>;
+> +};
+> +
+> +rst: rst@f0801000 {
+> +	compatible = "nuvoton,npcm750-rst", "syscon",
+> +	"simple-mfd";
+> +	reg = <0xf0801000 0x6C>;
+> +};
