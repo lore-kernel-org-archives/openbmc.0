@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43YTPD3lm8zDqLr
- for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 08:41:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43YTPF2kwlzDqP4
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 08:41:53 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga003.fm.intel.com ([10.253.24.29])
  by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
  07 Jan 2019 13:41:46 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,451,1539673200"; d="scan'208";a="124046640"
+X-IronPort-AV: E=Sophos;i="5.56,451,1539673200"; d="scan'208";a="124046643"
 Received: from maru.jf.intel.com ([10.54.51.77])
- by FMSMGA003.fm.intel.com with ESMTP; 07 Jan 2019 13:41:46 -0800
+ by FMSMGA003.fm.intel.com with ESMTP; 07 Jan 2019 13:41:47 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
@@ -47,19 +47,19 @@ To: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
 Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
  openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Haiyue Wang <haiyue.wang@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>,
- Rob Herring <robh@kernel.org>
-Subject: [PATCH v10 01/12] dt-bindings: Add a document of PECI subsystem
-Date: Mon,  7 Jan 2019 13:41:25 -0800
-Message-Id: <20190107214136.5256-2-jae.hyun.yoo@linux.intel.com>
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Subject: [PATCH v10 02/12] Documentation: ioctl: Add ioctl numbers for PECI
+ subsystem
+Date: Mon,  7 Jan 2019 13:41:26 -0800
+Message-Id: <20190107214136.5256-3-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
 References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Tue, 08 Jan 2019 15:50:02 +1100
+X-Mailman-Approved-At: Tue, 08 Jan 2019 15:50:03 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,73 +71,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 07 Jan 2019 21:41:53 -0000
+X-List-Received-Date: Mon, 07 Jan 2019 21:41:54 -0000
 
-This commit adds a document of generic PECI bus, adapter and client
-driver.
+This commit updates ioctl-number.txt to reflect ioctl numbers used
+by the PECI subsystem.
 
-Cc: Rob Herring <robh+dt@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Cc: Joel Stanley <joel@jms.id.au>
+Cc: Jonathan Corbet <corbet@lwn.net>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Kishon Vijay Abraham I <kishon@ti.com>
+Cc: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+Cc: Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: Darrick J. Wong <darrick.wong@oracle.com>
+Cc: Tomohiro Kusumi <kusumi.tomohiro@gmail.com>
+Cc: Eric Sandeen <sandeen@redhat.com>
+Cc: Frederic Barrat <fbarrat@linux.vnet.ibm.com>
+Cc: Bryant G. Ly <bryantly@linux.vnet.ibm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: James Feist <james.feist@linux.intel.com>
+Cc: Jason M Biils <jason.m.bills@linux.intel.com>
+Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
-Reviewed-by: James Feist <james.feist@linux.intel.com>
-Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
-Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../devicetree/bindings/peci/peci.txt         | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/peci/peci.txt
+ Documentation/ioctl/ioctl-number.txt | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/peci/peci.txt b/Documentation/devicetree/bindings/peci/peci.txt
-new file mode 100644
-index 000000000000..71f26c7c6e58
---- /dev/null
-+++ b/Documentation/devicetree/bindings/peci/peci.txt
-@@ -0,0 +1,43 @@
-+Generic device tree configuration for PECI adapters
-+===================================================
-+
-+Required properties:
-+- #address-cells : Should be <1>. Read more about client addresses below.
-+- #size-cells    : Should be <0>. Read more about client addresses below.
-+
-+The cells properties above define that an address of CPU clients of a PECI bus
-+are described by a single value.
-+
-+Example:
-+	peci0: peci-bus@0 {
-+		compatible = "vendor,soc-peci";
-+		reg = <0x0 0x1000>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+	};
-+
-+Generic device tree configuration for PECI clients
-+==================================================
-+
-+Required properties:
-+- compatible : Should contain name of PECI client.
-+- reg        : Should contain address of a client CPU. According to the PECI
-+	       specification, client addresses start from 0x30.
-+
-+Example:
-+	peci-bus@0 {
-+		compatible = "vendor,soc-peci";
-+		reg = <0x0 0x1000>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		peci-client@30 {
-+			compatible = "intel,peci-client";
-+			reg = <0x30>;
-+		};
-+
-+		peci-client@31 {
-+			compatible = "intel,peci-client";
-+			reg = <0x31>;
-+		};
-+	};
+diff --git a/Documentation/ioctl/ioctl-number.txt b/Documentation/ioctl/ioctl-number.txt
+index c9558146ac58..aec1215bf6fd 100644
+--- a/Documentation/ioctl/ioctl-number.txt
++++ b/Documentation/ioctl/ioctl-number.txt
+@@ -327,6 +327,8 @@ Code  Seq#(hex)	Include File		Comments
+ 0xB4	00-0F	linux/gpio.h		<mailto:linux-gpio@vger.kernel.org>
+ 0xB5	00-0F	uapi/linux/rpmsg.h	<mailto:linux-remoteproc@vger.kernel.org>
+ 0xB6	all	linux/fpga-dfl.h
++0xB7	00-0F	uapi/linux/peci-ioctl.h	PECI subsystem
++					<mailto:jae.hyun.yoo@linux.intel.com>
+ 0xC0	00-0F	linux/usb/iowarrior.h
+ 0xCA	00-0F	uapi/misc/cxl.h
+ 0xCA	10-2F	uapi/misc/ocxl.h
 -- 
 2.20.1
