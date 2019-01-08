@@ -8,40 +8,36 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from barracuda02.hxt-semitech.com (unknown [223.203.96.18])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43YmNt0V09zDqN7
- for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 19:57:31 +1100 (AEDT)
-X-ASG-Debug-ID: 1546937844-107606139f152750001-mgJK9t
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Yml45zJpzDqFF
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 20:13:17 +1100 (AEDT)
+X-ASG-Debug-ID: 1546938791-107606139f152b80001-mgJK9t
 Received: from HXTBJIDCEMVIW01.hxtcorp.net ([10.128.0.14]) by
- barracuda02.hxt-semitech.com with ESMTP id LzL2Zu51YUH14gAn (version=TLSv1.2
+ barracuda02.hxt-semitech.com with ESMTP id mdPmz4DGalF0DetK (version=TLSv1.2
  cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NO);
- Tue, 08 Jan 2019 16:57:24 +0800 (CST)
+ Tue, 08 Jan 2019 17:13:11 +0800 (CST)
 X-Barracuda-Envelope-From: xiaoting.liu@hxt-semitech.com
 Received: from HXTBJIDCEMVIW02.hxtcorp.net (10.128.0.15) by
  HXTBJIDCEMVIW01.hxtcorp.net (10.128.0.14) with Microsoft SMTP Server (TLS) id
- 15.0.1395.4; Tue, 8 Jan 2019 16:57:19 +0800
+ 15.0.1395.4; Tue, 8 Jan 2019 17:13:05 +0800
 Received: from HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6]) by
  HXTBJIDCEMVIW02.hxtcorp.net ([fe80::3e:f4ff:7927:a6f6%12]) with mapi id
- 15.00.1395.000; Tue, 8 Jan 2019 16:57:19 +0800
+ 15.00.1395.000; Tue, 8 Jan 2019 17:13:05 +0800
 From: "Liu, Xiaoting" <xiaoting.liu@hxt-semitech.com>
-To: Guenter Roeck <linux@roeck-us.net>, "jdelvare@suse.com"
- <jdelvare@suse.com>, "robh+dt@kernel.org" <robh+dt@kernel.org>,
- "mark.rutland@arm.com" <mark.rutland@arm.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-CC: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "Yang, Shunyong"
- <shunyong.yang@hxt-semitech.com>, "Wang, Dongsheng"
+To: Guenter Roeck <linux@roeck-us.net>, "jdelvare@suse.com" <jdelvare@suse.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Yang,
+ Shunyong" <shunyong.yang@hxt-semitech.com>, "Wang, Dongsheng"
  <dongsheng.wang@hxt-semitech.com>
-Subject: Re: [PATCH v2 2/4] dt-bindings: hwmon: add dps650ab documentation
-Thread-Topic: [PATCH v2 2/4] dt-bindings: hwmon: add dps650ab documentation
-X-ASG-Orig-Subj: Re: [PATCH v2 2/4] dt-bindings: hwmon: add dps650ab
- documentation
-Thread-Index: AQHUpnWQzQeKH0TYK0OcFgV3qTYMfw==
-Date: Tue, 8 Jan 2019 08:57:19 +0000
-Message-ID: <6d28f64bd2f441d09819d66b55537e0b@HXTBJIDCEMVIW02.hxtcorp.net>
+Subject: Re: [PATCH v2 4/4] hwmon: (pmbus) add support for DPS-650AB
+Thread-Topic: [PATCH v2 4/4] hwmon: (pmbus) add support for DPS-650AB
+X-ASG-Orig-Subj: Re: [PATCH v2 4/4] hwmon: (pmbus) add support for DPS-650AB
+Thread-Index: AQHUpnWQvB84NJ6vhUqklmqeqreTrQ==
+Date: Tue, 8 Jan 2019 09:13:04 +0000
+Message-ID: <a05be53a7110480990bc3b2cf1d31dae@HXTBJIDCEMVIW02.hxtcorp.net>
 References: <cover.1546851856.git.xiaoting.liu@hxt-semitech.com>
- <0087d2d9c7cd7f38761f76c80d1c37cb2cea6ef2.1546851856.git.xiaoting.liu@hxt-semitech.com>
- <568735a3-1de2-3880-5fe1-7be38a55f33f@roeck-us.net>
+ <2e94eb44c0acf6b90c1d9bbffd1c5c5cc2af59be.1546851856.git.xiaoting.liu@hxt-semitech.com>
+ <af54e702-d384-4af8-0cbc-008a1e927b67@roeck-us.net>
 Accept-Language: zh-CN, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -52,17 +48,17 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-Barracuda-Connect: UNKNOWN[10.128.0.14]
-X-Barracuda-Start-Time: 1546937844
+X-Barracuda-Start-Time: 1546938791
 X-Barracuda-Encrypted: ECDHE-RSA-AES256-SHA384
 X-Barracuda-URL: https://192.168.50.102:443/cgi-mod/mark.cgi
-X-Barracuda-Scan-Msg-Size: 1391
+X-Barracuda-Scan-Msg-Size: 1392
 X-Virus-Scanned: by bsmtpd at hxt-semitech.com
 X-Barracuda-BRTS-Status: 1
-X-Barracuda-Bayes: INNOCENT GLOBAL 0.4824 1.0000 0.0000
+X-Barracuda-Bayes: INNOCENT GLOBAL 0.4928 1.0000 0.0000
 X-Barracuda-Spam-Score: 0.00
 X-Barracuda-Spam-Status: No, SCORE=0.00 using global scores of TAG_LEVEL=1000.0
  QUARANTINE_LEVEL=1000.0 KILL_LEVEL=9.0 tests=
-X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.65314
+X-Barracuda-Spam-Report: Code version 3.2, rules version 3.2.3.65315
  Rule breakdown below
  pts rule name              description
  ---- ---------------------- --------------------------------------------------
@@ -77,64 +73,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Jan 2019 08:57:34 -0000
+X-List-Received-Date: Tue, 08 Jan 2019 09:13:21 -0000
 
-On 2019/1/7 21:58, Guenter Roeck wrote:=0A=
-> On 1/7/19 3:00 AM, Xiaoting Liu wrote:=0A=
->> Bindings for DPS650AB power, voltage, temperature, and fan monitering.=
+Hi Guenter Roeck,=0A=
 =0A=
+Thanks for your reply.=0A=
+=0A=
+On 2019/1/7 22:04, Guenter Roeck wrote:=0A=
+> On 1/7/19 3:06 AM, Xiaoting Liu wrote:=0A=
+>> Provide support for PSU DPS-650AB from Delta Electronics, INC.=0A=
 >>=0A=
->> Signed-off-by: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>=0A=
->> ---=0A=
->> v2:=0A=
->>    Change the patch subject.=0A=
->> ---=0A=
->>   Documentation/devicetree/bindings/hwmon/dps650ab.txt | 11 +++++++++++=
+> Where is patch 3/4 ?=0A=
 =0A=
->>   1 file changed, 11 insertions(+)=0A=
->>=0A=
->> diff --git a/Documentation/devicetree/bindings/hwmon/dps650ab.txt b/Docu=
-mentation/devicetree/bindings/hwmon/dps650ab.txt=0A=
->> new file mode 100644=0A=
->> index 000000000000..6bbbff89f6d5=0A=
->> --- /dev/null=0A=
->> +++ b/Documentation/devicetree/bindings/hwmon/dps650ab.txt=0A=
->> @@ -0,0 +1,11 @@=0A=
->> +Bindings for DPS650AB power, voltage, temperature, and fan monitering=
+Sorry for forgetting to send patch 3/4 to you, please refer to the=0A=
+following link,=0A=
 =0A=
->> +=0A=
-> Assuming this is the Delta Electronics DPS-650-AB power supply, I think=
-=0A=
-> you should mention that here.=0A=
-I will update commit message as mentioned.=0A=
->=0A=
->> +Required properties:=0A=
->> +- compatible : "dps650ab"=0A=
-> Again, assuming this is the Delta Electronics power supply, this should=
-=0A=
-> probably be something like "delta,dps650ab".=0A=
-=0A=
-OK, I will add delta to compatible property.=0A=
+https://lore.kernel.org/patchwork/patch/1029475/=0A=
 =0A=
 Thanks,=0A=
 =0A=
 Xiaoting=0A=
 =0A=
->=0A=
-> Thanks,=0A=
-> Guenter=0A=
->=0A=
->> +- reg       : I2C address, one of 0x58, 0x59.=0A=
->> +=0A=
->> +Example:=0A=
->> +       dps650ab@58 {=0A=
->> +                   compatible =3D "dps650ab";=0A=
->> +                   reg =3D <0x58>;=0A=
->> +       };=0A=
+>> Signed-off-by: Xiaoting Liu <xiaoting.liu@hxt-semitech.com>=0A=
+>> ---=0A=
+>> v2:=0A=
+>>    Change the patch subject and commit message.=0A=
+>>    Drop dps650ab.c file.=0A=
+>>    Replace struct name dps650ab_pmbus_info with pmbus_info_one_skip.=0A=
+>> ---=0A=
+>>   drivers/hwmon/pmbus/pmbus.c | 1 +=0A=
+>>   1 file changed, 1 insertion(+)=0A=
+>>=0A=
+>> diff --git a/drivers/hwmon/pmbus/pmbus.c b/drivers/hwmon/pmbus/pmbus.c=
+=0A=
+>> index e38dd97cc49a..f6b35f858db8 100644=0A=
+>> --- a/drivers/hwmon/pmbus/pmbus.c=0A=
+>> +++ b/drivers/hwmon/pmbus/pmbus.c=0A=
+>> @@ -213,6 +213,7 @@ static int pmbus_probe(struct i2c_client *client,=0A=
+>>          {"bmr453", (kernel_ulong_t)&pmbus_info_one},=0A=
+>>          {"bmr454", (kernel_ulong_t)&pmbus_info_one},=0A=
+>>          {"dps460", (kernel_ulong_t)&pmbus_info_one_skip},=0A=
+>> +       {"dps650ab", (kernel_ulong_t)&pmbus_info_one_skip},=0A=
+>>          {"dps800", (kernel_ulong_t)&pmbus_info_one_skip},=0A=
+>>          {"mdt040", (kernel_ulong_t)&pmbus_info_one},=0A=
+>>          {"ncp4200", (kernel_ulong_t)&pmbus_info_one},=0A=
 >> --=0A=
 >> 1.8.3.1=0A=
 >>=0A=
 >>=0A=
 >>=0A=
->>=0A=
+>=0A=
 =0A=
