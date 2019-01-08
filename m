@@ -1,55 +1,52 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12d; helo=mail-it1-x12d.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LvykuxWU"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Can0xjsG"; 
  dkim-atps=neutral
-Received: from mail-it1-x12d.google.com (mail-it1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43YZrV4HPnzDqLq
- for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 12:47:22 +1100 (AEDT)
-Received: by mail-it1-x12d.google.com with SMTP id h193so3975870ita.5
- for <openbmc@lists.ozlabs.org>; Mon, 07 Jan 2019 17:47:22 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43YbS253mJzDqN8
+ for <openbmc@lists.ozlabs.org>; Tue,  8 Jan 2019 13:14:42 +1100 (AEDT)
+Received: by mail-qt1-x841.google.com with SMTP id t13so2837489qtn.3
+ for <openbmc@lists.ozlabs.org>; Mon, 07 Jan 2019 18:14:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9Numfc7dVpXgldG/jr0Zc8GdOkPwnOzXbnD8zAaITog=;
- b=LvykuxWUB/5Q5DkFDpkSkYy65tJ+x348UjmioLIN3q+bkhSGwrcqYg6Mps59n+p4Uz
- 93hQlnh/EsLwU1blh/a9m8PS0kkkGTNVDAfLQzIO89nYtOaC74i1VrMvH3RLhhGxy16a
- /YdfXMDV7GDAa/khdYe+MIhm3WgKdENy6yG3q6aASr47ghHE76JDi8XQWxLp5AyaNPIn
- 7NtCnH2AUncAS0u4i+fJw1M7Wwajy9gxDt/+eH/2DQPMAkPZKYA5PzfO+VqPWECk2PjZ
- 1GgCbruSPKjbLGocwvo4vODvPHa2jFqQ+e6Y8xDx/7C8W9zbZHdsjV6Ag6C97m7BBgra
- 1AMA==
+ :cc; bh=UpX+nXqCOKMIna60Cqq9VG/fdzcS3LJuJq+UGh0O8ag=;
+ b=Can0xjsGrtk1MgUZNxX8p5NdfjGsZxNBU4amV87ECZVb8iAzc2GfyATQ791rKddGuj
+ gmS3tM96vLERPtIaOdHCBv2uj2A3sigvfm6Bf+28rOeHnbMw6SjZGG7Z6XN74PaRAv3m
+ A9Y+E+zVhipK6cpR1LSMZk1rRUSMS8dJiCe0E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=9Numfc7dVpXgldG/jr0Zc8GdOkPwnOzXbnD8zAaITog=;
- b=nvp6MQ/JJexaODJSCn1MI9oFWo9cvvmrU5mgOsMnuEHPra29pnHXKicyETctswSOdo
- NxW+sgLipSC8ja6njbSBKtBdsEXLwBqEEnPUwRHIesCUpAyQAygoDHblSCqTB3j5WntH
- lhM3wXGaYySVK1S1AaOACKf0yr5zrJokfu2RRr3JAdSZKi90fkDBLmFu21SpChr2ircw
- K3lXtMGox+tpOlsIqsnfZYyi4A3D3c3KCRFcubXNn7HlzWu0R1Ba0jACr9wZwFOyXXjO
- 00cSccGsOY+5hiPR1HpIqI30NaRNSjeI82LC9XmJXaMoqsMTXlRyivZ+zfvX/DnZRfVM
- 6ikA==
-X-Gm-Message-State: AJcUukedSwk8fkm8dS/xZhTTz+F7mQv9weKbCSlAVrAPdtlMMCa9K+aJ
- vn9vb5VcpZoyswlVlKcdmTvlGsBpTM6wPyFouUnVK3HaM1s=
-X-Google-Smtp-Source: ALg8bN7CLxRX9Q3f/+jihN/xzQLw402IsZDSX3bCOPhgDkqpe2v4E4qNcVUTgMFOf61ioDHp+AyuL8hIR/roLyYBO1U=
-X-Received: by 2002:a24:4ac3:: with SMTP id k186mr134133itb.76.1546912040188; 
- Mon, 07 Jan 2019 17:47:20 -0800 (PST)
+ bh=UpX+nXqCOKMIna60Cqq9VG/fdzcS3LJuJq+UGh0O8ag=;
+ b=gVrX5Ltnelu11l2JP/YVCoQJqIfYrzBuCmstmJaSQEqKbJEcjmJYMBtV+GIlvSplD0
+ HBDGOAPo++ae+kWRGGhzxhxB79flGHIn6+u6pvOaV86H7RNdMpQrvIRtWmYDgHYS/Xft
+ matz6YUBOIefhBHsXx76H8BGAOzeJT5/WWRvWqsVhO8rmfa4thiYZOS5wM8zMHMRWWHf
+ FSsKdb+FgTbub8usw5l6fmyfk8T2EQrccLdgNlJWdLkiotuxw/qzmkzTi+uVMKu1vwPQ
+ SkoVWw1XiQgOQHIpkiD81XJbfGzJvhRhR0aGnVDxDYIVQHU7G7j+O1Bbz12gF07RyHPB
+ gDYQ==
+X-Gm-Message-State: AA+aEWblWipViEb6GXA0N4l8b9Q6HF4Zfl65hal6V+UYu2B9+GBfolpH
+ qi2gmumyR3xyAfV4M7tO0tfdlKa6MDGnRmRQtQ0=
+X-Google-Smtp-Source: AFSGD/X9MFdRkZqV5Gkp74WSvukFktEwGJAJcihESnMsGoOIeZJSMB3c1NtbARUNvJmnjIxoipapWWp/zlBujXCdItQ=
+X-Received: by 2002:aed:2764:: with SMTP id n91mr62644049qtd.37.1546913680150; 
+ Mon, 07 Jan 2019 18:14:40 -0800 (PST)
 MIME-Version: 1.0
-References: <CAARXrtniNa3XejKfasL-YwhVtu9siXLQk0b6hN71XzUbX7xDBQ@mail.gmail.com>
- <dbfffa82-52f3-b09f-a6a9-ac909a98c749@linux.intel.com>
-In-Reply-To: <dbfffa82-52f3-b09f-a6a9-ac909a98c749@linux.intel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 8 Jan 2019 09:47:07 +0800
-Message-ID: <CAARXrtmDsBET8vRZ67bNO_si1NMCOn21Mz8ZcNi55EN-peFBRA@mail.gmail.com>
-Subject: Re: About the usage of ipmi user management
-To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
+References: <1546552448-22621-1-git-send-email-eajames@linux.ibm.com>
+ <1546552448-22621-3-git-send-email-eajames@linux.ibm.com>
+In-Reply-To: <1546552448-22621-3-git-send-email-eajames@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 8 Jan 2019 13:14:27 +1100
+Message-ID: <CACPK8Xd5b13RunesBwKzH41K0xwL1mko_JGxhrb6R6v1isDNAQ@mail.gmail.com>
+Subject: Re: [PATCH dev-4.19 2/6] clk: aspeed: Setup video engine clocking
+To: Eddie James <eajames@linux.ibm.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -63,23 +60,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Jan 2019 01:47:23 -0000
+X-List-Received-Date: Tue, 08 Jan 2019 02:14:44 -0000
 
-On Tue, Jan 8, 2019 at 12:08 AM Thomaiyar, Richard Marian
-<richard.marian.thomaiyar@linux.intel.com> wrote:
->
-> Hi Lei Yu
->
-> There was an issue, when libuser commands was decoupled (which was
-> caused by another commit not merged). Same has been merged on Jan 5 US
-> time https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phosphor/+/16934/
->
-> Can you please confirm, whether you have tested it after this. When i
-> tested the same is working fine. Please check.
->
-> if your openbmc SHA is after 4b04e1fff12efc02ef234b37293958f7fc1c11f5
-> then it should include the fix
-> (https://github.com/openbmc/openbmc/commit/4b04e1fff12efc02ef234b37293958f7fc1c11f5)
+On Fri, 4 Jan 2019 at 08:54, Eddie James <eajames@linux.ibm.com> wrote:
 
-I was on yesterday's openbmc master (dc21ed5), so it should already
-have the patch.
+>  static const struct aspeed_gate_data aspeed_gates[] = {
+>         /*                               clk rst   name                 parent  flags */
+> -       [ASPEED_CLK_GATE_ECLK] =        {  0, -1, "eclk-gate",          "eclk", 0 }, /* Video Engine */
+> +       [ASPEED_CLK_GATE_ECLK] =        {  0,  6, "eclk-gate",          "eclk", 0 }, /* Video Engine */
+>         [ASPEED_CLK_GATE_GCLK] =        {  1,  7, "gclk-gate",          NULL,   0 }, /* 2D engine */
+>         [ASPEED_CLK_GATE_MCLK] =        {  2, -1, "mclk-gate",          "mpll", CLK_IS_CRITICAL }, /* SDRAM */
+>         [ASPEED_CLK_GATE_VCLK] =        {  3,  6, "vclk-gate",          NULL,   0 }, /* Video Capture */
+
+> @@ -317,6 +338,7 @@ struct aspeed_reset {
+>         [ASPEED_RESET_PECI]     = 10,
+>         [ASPEED_RESET_I2C]      =  2,
+>         [ASPEED_RESET_AHB]      =  1,
+> +       [ASPEED_RESET_VIDEO]    =  6,
+
+This is incorrect. You've already added the video reset to the video
+clock, so the reset will be released by enabling the clock.
+
+If this is the patch that went upstream then upstream needs to be fixed too.
