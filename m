@@ -1,56 +1,67 @@
-Return-Path: <venture@google.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::633; helo=mail-pl1-x633.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::330; helo=mail-ot1-x330.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="NS5Ewbli"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JrpQsQrO"; 
  dkim-atps=neutral
-Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
- [IPv6:2607:f8b0:4864:20::633])
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43ZbHz5NjRzDqSC
- for <openbmc@lists.ozlabs.org>; Thu, 10 Jan 2019 04:11:10 +1100 (AEDT)
-Received: by mail-pl1-x633.google.com with SMTP id y1so3853166plp.9
- for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 09:11:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=rC8hFwq52JQveZiYTrWtwYtQ6SAkJQTsARvATl3d+fw=;
- b=NS5Ewblih1H3YX9j5st8wEU6dcSRdJ7XNaV+6ftVPJPxwRFa+iAJ4lndm4i8OzwGl/
- 0TFeNbJO79BGuKn1iw41yU9d8eJM3ci2PvKlaxycP0F1cX5r7TbsgZPj/3M2gfLS0D2w
- oroK6hZjwx+KKZGdYaRagk5gFi6Sz6wPfKNKUMgFW8tFd3FxaJgxFQr30gS/cBAukgrG
- ZCu2P60GMcBetLhhPGXjRlVNHwYLfYpyhzu6UaE2+i5zueoXeloE612SgO7+9Wf/Wuqz
- r26aawcld4lQb6Syn1n8Valxow3ibcmVRXBdR81HfFz1PTcitUM1LmjNB/6DTt5gR3Qz
- rqvg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ZbXM3Y7FzDqXW
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Jan 2019 04:21:55 +1100 (AEDT)
+Received: by mail-ot1-x330.google.com with SMTP id e12so7370710otl.5
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 09:21:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=8XeZ1sQWgDu5esXEqx5IjHQJ//0yeFz6CY3oTd361Bs=;
+ b=JrpQsQrORjBc3lMmPaTQAqB8Yl84kc7Xf+qy/bRJW05WQKIfRabCm5EWZt4qQC057a
+ +Q47+Ld5x3haw7Iu94+5EzrXaIQu8cex/Rid4+Qoc/SnQDKabdlfHbFWb4aF0cJEaTDG
+ cO31QUlWa9HtfLakwJaYbfv8pzN30pZ49MwBEHSRfd8c1O5xJQtn2N9PCQXUVkqdATqV
+ TNvkp/Vogpl18EiMTa3s9jNGBNUulJ8Kps55H/FbPcf8tke+l5O4e9iGg4p0IujlHW5I
+ YZz5ac7B5G/RBTapn1fr0b55MVrxhreF6Wc+jxUOvTCgF0qEV2F0xJKZTVGKpJDWSne6
+ pq/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=rC8hFwq52JQveZiYTrWtwYtQ6SAkJQTsARvATl3d+fw=;
- b=ZAB5CCgesf3u3q2GcounnsYaI17LyxD8+vDwB506N+J7juDUFrsZQ6iPyhPS0dg3CL
- GUJnSmOEl3KMqotb7tGd0sHyE3KDjDoA3biKVD35zdjFCFm9e1E9HxWzRNhzLblwcaiT
- p0XtG6xSwOO8W5DRlBPvU8TPcDl59VdEgDUnFmRFLvUm702XAfcYCynMgH5K9ykuiV3X
- FW0oaGTE3y5Lq8xoWZsqQLiAUC3P/ydAYCYANJXXMLa4CFMko6tNtuHqexJg+3Psg1Ra
- sx5AZLx3XJ4uCFmfikPk0+dNLa0D6lPryDANM3pSYibNLp6tXYtTKqFeFbpXAOorXDHz
- 2LyQ==
-X-Gm-Message-State: AJcUukcu2YzR0zGEjpRRW4BGHmyY9mIQIZVa/laTMI6Vdk14j6hsk73p
- 0EogmxdMZsMOWcapJgtUWkdMcF7idBq2CFL1PmuTm4aRGv+ikg==
-X-Google-Smtp-Source: ALg8bN5KjMZmuGRuCSZO+Jf4nvMzVVycDgITirX0ZqTPzOQ5YL937+oC24FNfYDRTPs6m+WhHoQpNSq3EtXEyLX0Xvw=
-X-Received: by 2002:a17:902:468:: with SMTP id 95mr6756864ple.3.1547053868226; 
- Wed, 09 Jan 2019 09:11:08 -0800 (PST)
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=8XeZ1sQWgDu5esXEqx5IjHQJ//0yeFz6CY3oTd361Bs=;
+ b=InZqSmvvQTBjVIWPOUyGMG+kCYETW0qu0CfbnVUHqlfWJ0URq6Xp9hPaFZROaPRtAz
+ MrJIz0aluxwyB5dhK6h2LTk8ZjntXTxALkDg29NtDJShTPa63F91gDTBH8D0yTYldPCS
+ jggCWVBZffWhymM26K1kthpbj+XNYjOy5ncc1DnX1YJ5Sco7qIULHrmV/pN2ZC5FKvF+
+ UUWXCSV0BOr0fS77RAap7aDV8ksDL5e/a9xwpW3JaA98LV+LmUwKADswmi0jRuZt3Tpu
+ edOeyLt8csDghWAsaMQC3Sqgwv03ZORw5Bms36WTP/pD8mdTNGzMMbu6i8BzBPE8m2WE
+ OFCQ==
+X-Gm-Message-State: AJcUukfrUoXgdMQBYaUzEM+8zejgKFA9DaFPqWdH+Zb9KAOJVKbkl84P
+ IHvwDDTq0mEG7bmz6g2pwOM=
+X-Google-Smtp-Source: ALg8bN7IFMTbhBFI15QWlVCC/JXjApGRzaUcG43yl2r9tamAMh3xx1hjt8/V/7DRfiD5VcRI8Z1BZA==
+X-Received: by 2002:a9d:3a0a:: with SMTP id j10mr4525321otc.229.1547054513290; 
+ Wed, 09 Jan 2019 09:21:53 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id h25sm35280996otj.27.2019.01.09.09.21.52
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 09 Jan 2019 09:21:52 -0800 (PST)
+Subject: Re: FW: Signed OpenBMC CCLA from Mellanox Technologies
+To: openbmc@lists.ozlabs.org, dthompson@mellanox.com
+References: <VI1PR0502MB3869C054EBFA3EA4812643F2DD8C0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+ <VI1PR0502MB3869B3676998724C2418E21FDD8A0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <5a648457-bc40-c0ac-f019-514d5d17aefc@gmail.com>
+Date: Wed, 9 Jan 2019 11:21:51 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.4.0
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Wed, 9 Jan 2019 09:10:56 -0800
-Message-ID: <CAO=noty60eC2hS9xGTPArs2OCZyuRWAjWWbsWBdv1A82o1QCwg@mail.gmail.com>
-Subject: Packet Size Mismatches
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, 
- Emily Shaffer <emilyshaffer@google.com>, tomjoseph@in.ibm.com
-Cc: Natarajan Gurumoorthy <natg@google.com>,
- Benjamin Fair <benjaminfair@google.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <VI1PR0502MB3869B3676998724C2418E21FDD8A0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,30 +73,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2019 17:11:12 -0000
+X-List-Received-Date: Wed, 09 Jan 2019 17:21:56 -0000
 
-Per the maximum response size patch
-(https://gerrit.openbmc-project.xyz/15743), the goal is to know how
-many bytes can be returned by the channel.  This can vary by channel,
-per the comments, and other related changes.  However, presently,
-we're seeing a memory corruption over kcs which has a limit of 256.
-So, we're copying way too much data onto the response.  The code
-itself has no idea how many bytes it can send.
+On 1/8/19 7:58 AM, David Thompson wrote:
+> I have yet to receive a response from manager@lfprojects.org 
+> <mailto:manager@lfprojects.org>
+> 
+> Forwarding to OpenBMC email list for your approval.
+> 
+> Please let me know if you need any more information.
+> 
+>   * David
 
-https://github.com/openbmc/phosphor-host-ipmid/blob/master/ipmid.cpp#L409
-is a 64-byte buffer, but the ipmi message could ask for data beyond
-that, and leads to a blind memcpy situation.
+Hi David, The LF Manager forwarded to me. I accepted the Mellanox CCLA 
+and replied to you via email yesterday morning. Welcome!
 
-If I'm reading that patchset (not yet merged) correctly
-(https://gerrit.openbmc-project.xyz/16285) it lets the IPMI client
-request channel information to know the maximum it can request.
-However, what lets the code running ask that question?  How does my
-library know it's responding to a legal request?  Or is the idea that
-with the reworking that's underway it'll only be able to provide legal
-responses automatically for the channel on which the request came?
+Kurt Taylor (krtaylor)
 
-(Also, unrelated, but at some point is the goal still to have one
-daemon handle all ipmi traffic, including network ipmi traffic, via a
-bridge similar to kcsbridge and btbridge?)
-
-Patrick
+> 
+> *From:* David Thompson
+> *Sent:* Wednesday, January 2, 2019 2:07 PM
+> *To:* manager@lfprojects.org
+> *Subject:* Signed OpenBMC CCLA from Mellanox Technologies
+> 
+> Please find attached the signed CCLA from Mellanox Technologies for your 
+> approval.
+> 
+> Thanks,
+> 
+> David
+> 
+> David Thompson
+> 
+> Sr. Staff Engineer, System SW
+> 
+> Mellanox Technologies
+> 
+> 1900 West Park Drive, Suite 290
+> 
+> Westborough MA USA 01581
+> 
