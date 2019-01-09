@@ -1,48 +1,52 @@
-Return-Path: <yong.b.li@linux.intel.com>
+Return-Path: <tssheldonpotter@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::b33; helo=mail-yb1-xb33.google.com;
+ envelope-from=tssheldonpotter@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="WGP10PuW"; 
+ dkim-atps=neutral
+Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
+ [IPv6:2607:f8b0:4864:20::b33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43ZHDs4zWpzDqcw
- for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 16:07:24 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 08 Jan 2019 21:07:22 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,456,1539673200"; d="scan'208";a="136604576"
-Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
- ([10.239.197.142])
- by fmsmga001.fm.intel.com with ESMTP; 08 Jan 2019 21:07:21 -0800
-From: "Yong Li" <yong.b.li@linux.intel.com>
-To: "'Brad Bishop'" <bradleyb@fuzziesquirrel.com>
-Cc: "'Tanous, Ed'" <ed.tanous@intel.com>,
-	<openbmc@lists.ozlabs.org>
-References: <000001d4a7c9$bb643a40$322caec0$@linux.intel.com>
- <CDCE2036-F411-4B23-96ED-5C79F782E259@fuzziesquirrel.com>
-In-Reply-To: <CDCE2036-F411-4B23-96ED-5C79F782E259@fuzziesquirrel.com>
-Subject: RE: https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/16468/
- needs your review
-Date: Wed, 9 Jan 2019 13:07:21 +0800
-Message-ID: <000501d4a7d9$341e2680$9c5a7380$@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ZMPB09b9zDqfd
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 19:14:47 +1100 (AEDT)
+Received: by mail-yb1-xb33.google.com with SMTP id o73so2679081ybc.0
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 00:14:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=GPrcGmNOjyZFKngiuSpR5xaXqUXZqAKjzuqsDUbSYXU=;
+ b=WGP10PuWl/Sc/78s1uB3fXjYBz9e53TH/509z1HVVj/19DdiqFkYOZ9E3r2BEip2OD
+ IDNm6issOPwHUbhhdbBevOtP5pEG60i6jRA9Ki0r0jC0D/SVFQ5vAwTxdqUUrPEUUHme
+ DEC4klnItCpSjUMOlfYB2ZH/Gr1ME5GvPm0zqL9Yo5MK1/Iewl57oKJ0QTW7+eMiYgR/
+ 2VzsisJ864RdMg5Qww6OQ3xy9XOr1BegL8ti8Sto/ygb0G/AnKozb6LImTvrN9nim7z3
+ hmm+zpb2+jtjrlfdEPDaaYN2P73tRH01PC7AcpEsaE4y1zp0/cS7XQjpWYAba6qMUwP4
+ HPYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=GPrcGmNOjyZFKngiuSpR5xaXqUXZqAKjzuqsDUbSYXU=;
+ b=nmtsxYFpWCvDMBMwDbREGwNh+Kd6Yx0BPsoFpywKkCVlSY7I94y43Q+xn2pkyMMgoR
+ r1T28w40LoDYpZh26EeBnewASkYkB+/9MpWe6BOmgE84JRGnnsy3NHz/NGBr7lEKJY0W
+ nI0hBwFvqPsW0+GKnaA8t7GBCGdrOjvOVypak5sSALADyhVlqMY4Ne3vduccLvl9XyNN
+ 47iapAk04ANuWyzrnO/elHcA6xHiF+aqpy3bM7Uyu9i1I/ILSBm0Cal8l6zkaIVKthoY
+ z1tXDL0VcFfaaXh7CXai7nzIo2/NJeBfrsiT6zCjxSrOWId1TDvTbuWVfEymK4mhoCTy
+ vXlw==
+X-Gm-Message-State: AJcUukcTO5x/x/WTnu0q+GmVtdLi1FpCSgnl7gqtPAeecJs9BrUHNqZx
+ CMX8v8o/TsLWYBblsTweOepgMeBYBN6/PBLBK7s1czK0Xcg=
+X-Google-Smtp-Source: ALg8bN7mtZPEi22f7b26jy3Jq3pFtBCqPwEgS61vpJRSMJjeUWCiu3Rdxx8PzclqRQIKz2oJG4j0AT1gLkdWDJmHXPo=
+X-Received: by 2002:a25:2512:: with SMTP id l18mr4594216ybl.91.1547021685061; 
+ Wed, 09 Jan 2019 00:14:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQGXcPOejD69m91hR/NQwv+uUpY+FAHK96udphJ1/aA=
-Content-Language: en-us
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOGZkOTUyYzctMjNjMC00Zjg4LThlYTEtMDUyNzc3YWEyMzc5IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoieTg5M01yNTlhR0pUYnFjTVRNRUw5Q0lRM0JOb1wvWVwvRlZkT3lQcWFIMzUrUEJMTzF5K3VpbzZcL1h1Y25mdXZzMCJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
+From: Sheldon 13 <tssheldonpotter@gmail.com>
+Date: Wed, 9 Jan 2019 16:14:36 +0800
+Message-ID: <CAG4=AL-mZMe5iySguXGm9Nk2qXOtDvrj-9Acf+8eSMpX=MhbKA@mail.gmail.com>
+Subject: do_cofigure fail
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000ff7d6c057f020dd0"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,56 +58,125 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2019 05:07:26 -0000
+X-List-Received-Date: Wed, 09 Jan 2019 08:14:54 -0000
 
-Hi Brad,
+--000000000000ff7d6c057f020dd0
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for your mail. For this change, It should be better to add it =
-into 2.6.
-Based on this change, I will start to add the implementation in the IPMI =
-watchdog command.
-
-Thanks,
-Yong
------Original Message-----
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>=20
-Sent: Wednesday, January 9, 2019 11:35 AM
-To: Yong Li <yong.b.li@linux.intel.com>
-Cc: Tanous, Ed <ed.tanous@intel.com>
-Subject: Re: =
-https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+=
-/16468/ needs your review
+After I add a new application (such as *sdbus* or* phosphor-fan-presence*)
+using DEVTOOL, I build it with BITBAKE, but it always get error like this:
+##########################################################
+NOTE: Executing RunQueue Tasks
+ERROR: sdbusplus-1.0+git999-r0 do_configure: configure failed
+ERROR: sdbusplus-1.0+git999-r0 do_configure: Function failed: do_configure
+(log file is located at
+/home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229)
+ERROR: Logfile of failure stored in:
+/home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229
+Log data follows:
+| DEBUG: Executing python function externalsrc_configure_prefunc
+############################################################
 
 
-> On Jan 8, 2019, at 10:16 PM, Yong Li <yong.b.li@linux.intel.com> =
-wrote:
->=20
-> HI Brad,
-> =20
-> Sorry to disturbing, but the below code review is idle for serval =
-days:
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interface
-> s/+/16468/
-> =20
-> several reviewers had =E2=80=9C+1=E2=80=9D, could you help to review =
-or merge it please?
-> =20
-> Thanks,
-> Yong
 
-Hi Yong
+My recipe file *sdbusplus_git.bb <http://sdbusplus_git.bb>* was
+automatically generated by the DEVTOOL command ,it is like this:
+##################################################################################################################
+# Recipe created by recipetool
+# This is the basis of a recipe and may need further editing in order to be
+fully functional.
+# (Feel free to remove these comments when editing.)
 
-Please copy the list with this sort of thing.  In fact you should just =
-always copy the list.  Thanks.
+# WARNING: the following LICENSE and LIC_FILES_CHKSUM values are best
+guesses - it is
+# your responsibility to verify that the values are complete and correct.
+#
+# The following license files were not able to be identified and are
+# represented as "Unknown" below, you will need to check them yourself:
+#   LICENSE
+LICENSE = "Unknown"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
 
-I=E2=80=99m not merging much right now because we are in the middle of =
-trying to release 2.6:
-https://lists.ozlabs.org/pipermail/openbmc/2019-January/014503.html
+SRC_URI = "git://github.com/openbmc/sdbusplus.git;protocol=https"
 
-If you think it should be in 2.6, we can probably do that.  Do you need =
-it in 2.6?
+# Modify these as desired
+PV = "1.0+git${SRCPV}"
+SRCREV = "09c981700d7bd98eed54a670e959a424585dcd84"
 
-I expect to start merging code again after the three days are over and =
-we branch.
+S = "${WORKDIR}/git"
 
-thx - brad=3D
+# NOTE: the following library dependencies are unknown, ignoring: gtest
+gmock
+#       (this is based on recipes that have previously been built and
+packaged)
+DEPENDS = "gtest systemd"
+
+# NOTE: if this software is not capable of being built in a separate build
+directory
+# from the source, you should replace autotools with autotools-brokensep in
+the
+# inherit line
+inherit pkgconfig pythonnative autotools
+
+# Specify any options you want to pass to the configure script using
+EXTRA_OECONF:
+EXTRA_OECONF = ""
+###############################################################################################################
+and I didn't change the recipe and didn't know how to change it. Can you
+help me build my project?
+
+--000000000000ff7d6c057f020dd0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
+r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">After I add a new application (=
+such as <i>sdbus</i> or<i> phosphor-fan-presence</i>) using DEVTOOL, I buil=
+d it with BITBAKE, but it always get error like this:</div><div dir=3D"ltr"=
+>##########################################################</div><div dir=
+=3D"ltr"><div dir=3D"ltr">NOTE: Executing RunQueue Tasks</div><div dir=3D"l=
+tr">ERROR: sdbusplus-1.0+git999-r0 do_configure: configure failed</div><div=
+ dir=3D"ltr">ERROR: sdbusplus-1.0+git999-r0 do_configure: Function failed: =
+do_configure (log file is located at /home/sheldon13/dev/openbmc-2.2/build/=
+tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_c=
+onfigure.114229)</div><div dir=3D"ltr">ERROR: Logfile of failure stored in:=
+ /home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueab=
+i/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229</div><div dir=3D"ltr=
+">Log data follows:</div><div dir=3D"ltr">| DEBUG: Executing python functio=
+n externalsrc_configure_prefunc</div><div>#################################=
+###########################</div><div><br></div><div><br></div><div><br></d=
+iv><div>My recipe file=C2=A0<i><a href=3D"http://sdbusplus_git.bb">sdbusplu=
+s_git.bb</a></i> was automatically generated by the DEVTOOL command ,it is =
+like this:</div><div>######################################################=
+############################################################</div><div><div=
+># Recipe created by recipetool</div><div># This is the basis of a recipe a=
+nd may need further editing in order to be fully functional.</div><div># (F=
+eel free to remove these comments when editing.)</div><div><br></div><div>#=
+ WARNING: the following LICENSE and LIC_FILES_CHKSUM values are best guesse=
+s - it is</div><div># your responsibility to verify that the values are com=
+plete and correct.</div><div>#</div><div># The following license files were=
+ not able to be identified and are</div><div># represented as &quot;Unknown=
+&quot; below, you will need to check them yourself:</div><div>#=C2=A0 =C2=
+=A0LICENSE</div><div>LICENSE =3D &quot;Unknown&quot;</div><div>LIC_FILES_CH=
+KSUM =3D &quot;file://LICENSE;md5=3De3fc50a88d0a364313df4b21ef20c29e&quot;<=
+/div><div><br></div><div>SRC_URI =3D &quot;git://<a href=3D"http://github.c=
+om/openbmc/sdbusplus.git;protocol=3Dhttps">github.com/openbmc/sdbusplus.git=
+;protocol=3Dhttps</a>&quot;</div><div><br></div><div># Modify these as desi=
+red</div><div>PV =3D &quot;1.0+git${SRCPV}&quot;</div><div>SRCREV =3D &quot=
+;09c981700d7bd98eed54a670e959a424585dcd84&quot;</div><div><br></div><div>S =
+=3D &quot;${WORKDIR}/git&quot;</div><div><br></div><div># NOTE: the followi=
+ng library dependencies are unknown, ignoring: gtest gmock</div><div>#=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0(this is based on recipes that have previously been=
+ built and packaged)</div><div>DEPENDS =3D &quot;gtest systemd&quot;</div><=
+div><br></div><div># NOTE: if this software is not capable of being built i=
+n a separate build directory</div><div># from the source, you should replac=
+e autotools with autotools-brokensep in the</div><div># inherit line</div><=
+div>inherit pkgconfig pythonnative autotools</div><div><br></div><div># Spe=
+cify any options you want to pass to the configure script using EXTRA_OECON=
+F:</div><div>EXTRA_OECONF =3D &quot;&quot;</div></div><div>################=
+###########################################################################=
+####################</div><div>and I didn&#39;t change the recipe and didn&=
+#39;t know how to change it. Can you help me build my project?</div></div><=
+/div></div></div></div></div></div>
+
+--000000000000ff7d6c057f020dd0--
