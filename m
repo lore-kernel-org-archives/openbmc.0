@@ -1,58 +1,47 @@
-Return-Path: <venture@google.com>
+Return-Path: <ryan_chen@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::42f; helo=mail-pf1-x42f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uotVHRhP"; 
- dkim-atps=neutral
-Received: from mail-pf1-x42f.google.com (mail-pf1-x42f.google.com
- [IPv6:2607:f8b0:4864:20::42f])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43Z8xj0h6PzDqYk
- for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 11:23:52 +1100 (AEDT)
-Received: by mail-pf1-x42f.google.com with SMTP id c123so2753650pfb.0
- for <openbmc@lists.ozlabs.org>; Tue, 08 Jan 2019 16:23:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gJHv2+kcF9PEXwByQeaDnktYYIJMLqq0nVBrhXM2sMY=;
- b=uotVHRhP0+i80yCfpaTnENkdD4mjjkONADw8UJVqGtipLgyhCqXLnJ9naJCUXKxQFt
- E76RYQ0NTfCHrvU9uG9iKaoRpPmRKIBAWjb0ueWNLFSQgRSrm6Vm3PbkvH1HZdUP8euq
- FUOhBsV+bNDexF9w7FoN0kPvD4TbqEPsoU+J+e58iMqQ2KySQ0rQ8Lu0gASG4NUXhCMg
- TQp0JATromRVztkbV/DlH67/8AoRTTIlsbv9SscYEvolBLmIlH/mtsYDuQ0/fuXA4B6O
- 1zCKdeZ5s/qR+31HGN9NP24qmiVnQ/sBn1BFa8QhYcbdF0l3crqcFjDgnJAMUNTS7FgW
- lJNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gJHv2+kcF9PEXwByQeaDnktYYIJMLqq0nVBrhXM2sMY=;
- b=OLy1Uzg47R2bGkitVYrCWLmpdD2DE9RlX5WSxQZIsMD3cUfhQiariDOdBJ9xszU3zM
- 0tfBAsqCRX7YjYewvn8QkqAavw5W4VFdFALjCNpZYaKVX1N5Y7BHrABFQO8DegF2q6su
- g7j2IzOwwWRdxwc83nMRO7iah52AsD8RCuzIq5ccc6ZIl3nkv3sBvrNn/EHUd1hpeDM7
- wf+5oL6NGVHoaX4fuXXogE7jPiHxrj2QCvPnmKh58+Jp4bRvvuOMeRsDy8HTRXj8TMo+
- cfEPz0grYNTTYIcB4Uicjzm5lxZIyRzpa3FV/QPiu/U5FuRJvziD9tXlsr82hJpYGaaQ
- MhhQ==
-X-Gm-Message-State: AJcUukdyNaECTBNnsME+mrKPaLYMAJ0ycZRGtScp7JY1F2I80KiZsKhT
- trT+t3M4eQR0QJQpwOITKVXn10fTWdsyAoWk3juIwQ==
-X-Google-Smtp-Source: ALg8bN6c9dbeBSCcY3dXMX+aiSHGZ39ukK7KITHucuyh1gz8Zf4di1mfkp0Ih8G7UotkObrMnzfyt+S6VMBG5YteWVU=
-X-Received: by 2002:a63:4d:: with SMTP id 74mr3508795pga.248.1546993429721;
- Tue, 08 Jan 2019 16:23:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43Z9md2QJ4zDqDM
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 12:01:03 +1100 (AEDT)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id x0910Pss069147;
+ Wed, 9 Jan 2019 09:00:25 +0800 (GMT-8)
+ (envelope-from ryan_chen@aspeedtech.com)
+Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 9 Jan
+ 2019 09:00:45 +0800
+Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
+ TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
+ 15.00.0620.020; Wed, 9 Jan 2019 09:00:44 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: intel-ipmi-oem_git.bb compiler error
+Thread-Topic: intel-ipmi-oem_git.bb compiler error
+Thread-Index: AdSnM1LrzGnw9YiESouRH4ckpqRbZv//lz2A//6QSqA=
+Date: Wed, 9 Jan 2019 01:00:43 +0000
+Message-ID: <ff07dd6794144dfa8ee7431dd98cd9a1@TWMBX02.aspeed.com>
+References: <bcd8a8d63a0141929785d792135a4a2f@TWMBX02.aspeed.com>
+ <cbf22a18-a320-3a90-d382-0deb72956c99@linux.intel.com>
+In-Reply-To: <cbf22a18-a320-3a90-d382-0deb72956c99@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.81]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <CAO=notxXfcvs0SfBLoR5MCqt+AHA-V+7j4TRWmaKgxm0pqUFHw@mail.gmail.com>
- <CADKL2t6aW8CzLYX_DdN6-_ueSkeVSLsoA=ymwn0_Wr-U97cNDQ@mail.gmail.com>
-In-Reply-To: <CADKL2t6aW8CzLYX_DdN6-_ueSkeVSLsoA=ymwn0_Wr-U97cNDQ@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 8 Jan 2019 16:23:38 -0800
-Message-ID: <CAO=notwBQahZKpxwK6M_C9Fc0_U94ryhVOjSbPDOU0fUrR7VPg@mail.gmail.com>
-Subject: Re: Unable to override file by machine for
- phosphor-ipmi-fru-properties
-To: Benjamin Fair <benjaminfair@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Nancy Yuen <yuenn@google.com>
-Content-Type: text/plain; charset="UTF-8"
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com x0910Pss069147
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +53,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2019 00:23:54 -0000
+X-List-Received-Date: Wed, 09 Jan 2019 01:01:05 -0000
 
-On Tue, Jan 8, 2019 at 2:29 PM Benjamin Fair <benjaminfair@google.com> wrote:
->
-> On Tue, Jan 8, 2019 at 2:22 PM Patrick Venture <venture@google.com> wrote:
->>
->> With phosphor-ipmi-fru-properties, if we set the
->> FILESEXTRAPATHS_prepend to be machine specific, it can't find the file
->> and doesn't add the path, but if we leave off the machine override,
->> it'll find the file and use it.
->>
->> https://github.com/openbmc/meta-ingrasys/blob/master/meta-zaius/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties%25.bbappend
->>
->> This specifies that for zaius, it should prepend with this path and
->> use this override file.
->>
->> Deleted the extra-properties.yaml file from the original recipe and
->> tried building zaius:
->>
->> WARNING: phosphor-ipmi-fru-properties-native-1.0-r1 do_fetch: Failed
->> to fetch URL file://extra-properties.yaml, attempting MIRRORS if
->> available
->> ERROR: phosphor-ipmi-fru-properties-native-1.0-r1 do_fetch: Fetcher
->> failure: Unable to find file file://extra-properties.yaml anywhere.
->> The paths that were searched were:
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties-1.0/df-openpower
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties/df-openpower
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/files/df-openpower
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties-1.0/gbmc
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties/gbmc
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/files/gbmc
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties-1.0/
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties/
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/files/
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties-1.0/x86-64
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties/x86-64
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/files/x86-64
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties-1.0/
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-fru-properties/
->>     /usr/local/google/git/workspaces/building_122514933/meta-phosphor/recipes-phosphor/ipmi/files/
->>     /usr/local/google/git/workspaces/building_122514933/build/downloads
->> ERROR: phosphor-ipmi-fru-properties-native-1.0-r1 do_fetch: Fetcher
->> failure for URL: 'file://extra-properties.yaml'. Unable to fetch URL
->> from any source.
->> ERROR: phosphor-ipmi-fru-properties-native-1.0-r1 do_fetch: Function
->> failed: base_do_fetch
->>
->> Ok, it can't find it.  But when I delete the machine override on the
->> line, basically delete "zaius" it then finds the file and uses the
->> zaius file correctly.  This behavior is baffling me, does anybody have
->> any ideas?  Has anyone seen this behavior?
->>
->> Patrick
->
->
-> That's because this is a native package. Native packages don't set the MACHINE within the overrides variable so there's no way to tell what machine they're being built for.
-
-Thanks, that makes sense.
+SGVsbG8gUmljaGFyZCwJDQoJR2V0IGl0LiBUaGFua3MgYSBsb3QuDQoNCi0tLS0tT3JpZ2luYWwg
+TWVzc2FnZS0tLS0tDQpGcm9tOiBvcGVuYm1jIFttYWlsdG86b3BlbmJtYy1ib3VuY2VzK3J5YW5f
+Y2hlbj1hc3BlZWR0ZWNoLmNvbUBsaXN0cy5vemxhYnMub3JnXSBPbiBCZWhhbGYgT2YgVGhvbWFp
+eWFyLCBSaWNoYXJkIE1hcmlhbg0KU2VudDogVHVlc2RheSwgSmFudWFyeSA4LCAyMDE5IDc6MDUg
+UE0NClRvOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBpbnRlbC1pcG1p
+LW9lbV9naXQuYmIgY29tcGlsZXIgZXJyb3INCg0KUHVzaGVkIGEgZml4IGZvciB0aGUgc2FtZS4g
+WW91IGNhbiBhcHBseSBpdCBpbiB5b3VyIG9wZW5ibWMvbWV0YS1pbnRlbCwgdGhpcyBzaG91bGQg
+Zml4IHlvdXIgcHJvYmxlbS4NCg0KaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9qZWN0Lnh5ei8j
+L2Mvb3BlbmJtYy9tZXRhLWludGVsLysvMTcxNTAvDQoNCnJlZ2FyZHMNCg0KUmljaGFyZA0KDQpP
+biAxLzgvMjAxOSAyOjQ4IFBNLCBSeWFuIENoZW4gd3JvdGU6DQo+IEhlbGxvIE9wZW5CTUMsDQo+
+DQo+IAlXaGVuIEkgYnVpbGQgbWV0YS1zMjYwMHdmLCBpdCBnZXQgZm9sbG93aW5nIGNvbXBpbGVy
+IGVycm9yLCBkb2VzIHRoZXJlIGhhdmUgc29tZSBwYXRjaCBmb3IgZml4IGl0Pw0KPg0KPiAJRVJS
+T1I6IGludGVsLWlwbWktb2VtLTAuMStnaXRBVVRPSU5DKzUyMzQxZTg1NDMtcjAgZG9fY29tcGls
+ZTogDQo+IEZ1bmN0aW9uIGZhaWxlZDogZG9fY29tcGlsZSAobG9nIGZpbGUgaXMgbG9jYXRlZCBh
+dCANCj4gL2hvbWUvcnlhbi93b3JrL3Byb2plY3QvYXN0L29wZW5ibWMvb3BlbmJtYy9idWlsZC90
+bXAvd29yay9hcm12Ni1vcGVuYg0KPiBtYy1saW51eC1nbnVlYWJpL2ludGVsLWlwbWktb2VtLzAu
+MStnaXRBVVRPSU5DKzUyMzQxZTg1NDMtcjAvdGVtcC9sb2cuDQo+IGRvX2NvbXBpbGUuMTUwOTQp
+DQo+IEVSUk9SOiBMb2dmaWxlIG9mIGZhaWx1cmUgc3RvcmVkIGluOiANCj4gL2hvbWUvcnlhbi93
+b3JrL3Byb2plY3QvYXN0L29wZW5ibWMvb3BlbmJtYy9idWlsZC90bXAvd29yay9hcm12Ni1vcGVu
+Yg0KPiBtYy1saW51eC1nbnVlYWJpL2ludGVsLWlwbWktb2VtLzAuMStnaXRBVVRPSU5DKzUyMzQx
+ZTg1NDMtcjAvdGVtcC9sb2cuDQo+IGRvX2NvbXBpbGUuMTUwOTQNCj4NCj4gUnlhbg0K
