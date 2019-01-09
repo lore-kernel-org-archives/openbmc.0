@@ -1,52 +1,71 @@
-Return-Path: <tssheldonpotter@gmail.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::b33; helo=mail-yb1-xb33.google.com;
- envelope-from=tssheldonpotter@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WGP10PuW"; 
- dkim-atps=neutral
-Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
- [IPv6:2607:f8b0:4864:20::b33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43ZMPB09b9zDqfd
- for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 19:14:47 +1100 (AEDT)
-Received: by mail-yb1-xb33.google.com with SMTP id o73so2679081ybc.0
- for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 00:14:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=GPrcGmNOjyZFKngiuSpR5xaXqUXZqAKjzuqsDUbSYXU=;
- b=WGP10PuWl/Sc/78s1uB3fXjYBz9e53TH/509z1HVVj/19DdiqFkYOZ9E3r2BEip2OD
- IDNm6issOPwHUbhhdbBevOtP5pEG60i6jRA9Ki0r0jC0D/SVFQ5vAwTxdqUUrPEUUHme
- DEC4klnItCpSjUMOlfYB2ZH/Gr1ME5GvPm0zqL9Yo5MK1/Iewl57oKJ0QTW7+eMiYgR/
- 2VzsisJ864RdMg5Qww6OQ3xy9XOr1BegL8ti8Sto/ygb0G/AnKozb6LImTvrN9nim7z3
- hmm+zpb2+jtjrlfdEPDaaYN2P73tRH01PC7AcpEsaE4y1zp0/cS7XQjpWYAba6qMUwP4
- HPYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=GPrcGmNOjyZFKngiuSpR5xaXqUXZqAKjzuqsDUbSYXU=;
- b=nmtsxYFpWCvDMBMwDbREGwNh+Kd6Yx0BPsoFpywKkCVlSY7I94y43Q+xn2pkyMMgoR
- r1T28w40LoDYpZh26EeBnewASkYkB+/9MpWe6BOmgE84JRGnnsy3NHz/NGBr7lEKJY0W
- nI0hBwFvqPsW0+GKnaA8t7GBCGdrOjvOVypak5sSALADyhVlqMY4Ne3vduccLvl9XyNN
- 47iapAk04ANuWyzrnO/elHcA6xHiF+aqpy3bM7Uyu9i1I/ILSBm0Cal8l6zkaIVKthoY
- z1tXDL0VcFfaaXh7CXai7nzIo2/NJeBfrsiT6zCjxSrOWId1TDvTbuWVfEymK4mhoCTy
- vXlw==
-X-Gm-Message-State: AJcUukcTO5x/x/WTnu0q+GmVtdLi1FpCSgnl7gqtPAeecJs9BrUHNqZx
- CMX8v8o/TsLWYBblsTweOepgMeBYBN6/PBLBK7s1czK0Xcg=
-X-Google-Smtp-Source: ALg8bN7mtZPEi22f7b26jy3Jq3pFtBCqPwEgS61vpJRSMJjeUWCiu3Rdxx8PzclqRQIKz2oJG4j0AT1gLkdWDJmHXPo=
-X-Received: by 2002:a25:2512:: with SMTP id l18mr4594216ybl.91.1547021685061; 
- Wed, 09 Jan 2019 00:14:45 -0800 (PST)
-MIME-Version: 1.0
-From: Sheldon 13 <tssheldonpotter@gmail.com>
-Date: Wed, 9 Jan 2019 16:14:36 +0800
-Message-ID: <CAG4=AL-mZMe5iySguXGm9Nk2qXOtDvrj-9Acf+8eSMpX=MhbKA@mail.gmail.com>
-Subject: do_cofigure fail
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ZYKJ3nTLzDqZV
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Jan 2019 02:42:12 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ x09FXl0J041638
+ for <openbmc@lists.ozlabs.org>; Wed, 9 Jan 2019 10:42:10 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.67])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2pwh1095cm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 10:42:09 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Wed, 9 Jan 2019 15:42:08 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.16) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 9 Jan 2019 15:42:07 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2019010915420694-657025 ;
+ Wed, 9 Jan 2019 15:42:06 +0000 
+In-Reply-To: 
+Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
+ https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
+ Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
+ Code)-64800002 For eg. (Bengaluru - 080-64800002)
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000ff7d6c057f020dd0"
+Date: Wed, 9 Jan 2019 15:42:06 +0000
+Sensitivity: 
+References: 
+MIME-Version: 1.0
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 16616-1491 | IBM Domino Build
+ SCN1812108_20180501T0841_FP24 December 05, 2018 at 21:42
+X-LLNOutbound: False
+X-Disclaimed: 21135
+X-TNEFEvaluated: 1
+x-cbid: 19010915-0327-0000-0000-0000091ABA59
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.094782
+X-IBM-SpamModules-Versions: BY=3.00010373; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000274; SDB=6.01144029; UDB=6.00595639; IPR=6.00924292; 
+ BA=6.00006197; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025051; XFM=3.00000015;
+ UTC=2019-01-09 15:42:08
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-01-09 10:11:23 - 6.00009443
+x-cbparentid: 19010915-0328-0000-0000-0000FDD2D28F
+Message-Id: <OFB65FD033.E9BAD36C-ON0025837D.00562147-0025837D.005640BD@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-09_07:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,125 +77,150 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2019 08:14:54 -0000
+X-List-Received-Date: Wed, 09 Jan 2019 15:42:13 -0000
 
---000000000000ff7d6c057f020dd0
-Content-Type: text/plain; charset="UTF-8"
-
-After I add a new application (such as *sdbus* or* phosphor-fan-presence*)
-using DEVTOOL, I build it with BITBAKE, but it always get error like this:
-##########################################################
-NOTE: Executing RunQueue Tasks
-ERROR: sdbusplus-1.0+git999-r0 do_configure: configure failed
-ERROR: sdbusplus-1.0+git999-r0 do_configure: Function failed: do_configure
-(log file is located at
-/home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229)
-ERROR: Logfile of failure stored in:
-/home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229
-Log data follows:
-| DEBUG: Executing python function externalsrc_configure_prefunc
-############################################################
-
-
-
-My recipe file *sdbusplus_git.bb <http://sdbusplus_git.bb>* was
-automatically generated by the DEVTOOL command ,it is like this:
-##################################################################################################################
-# Recipe created by recipetool
-# This is the basis of a recipe and may need further editing in order to be
-fully functional.
-# (Feel free to remove these comments when editing.)
-
-# WARNING: the following LICENSE and LIC_FILES_CHKSUM values are best
-guesses - it is
-# your responsibility to verify that the values are complete and correct.
-#
-# The following license files were not able to be identified and are
-# represented as "Unknown" below, you will need to check them yourself:
-#   LICENSE
-LICENSE = "Unknown"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
-
-SRC_URI = "git://github.com/openbmc/sdbusplus.git;protocol=https"
-
-# Modify these as desired
-PV = "1.0+git${SRCPV}"
-SRCREV = "09c981700d7bd98eed54a670e959a424585dcd84"
-
-S = "${WORKDIR}/git"
-
-# NOTE: the following library dependencies are unknown, ignoring: gtest
-gmock
-#       (this is based on recipes that have previously been built and
-packaged)
-DEPENDS = "gtest systemd"
-
-# NOTE: if this software is not capable of being built in a separate build
-directory
-# from the source, you should replace autotools with autotools-brokensep in
-the
-# inherit line
-inherit pkgconfig pythonnative autotools
-
-# Specify any options you want to pass to the configure script using
-EXTRA_OECONF:
-EXTRA_OECONF = ""
-###############################################################################################################
-and I didn't change the recipe and didn't know how to change it. Can you
-help me build my project?
-
---000000000000ff7d6c057f020dd0
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">After I add a new application (=
-such as <i>sdbus</i> or<i> phosphor-fan-presence</i>) using DEVTOOL, I buil=
-d it with BITBAKE, but it always get error like this:</div><div dir=3D"ltr"=
->##########################################################</div><div dir=
-=3D"ltr"><div dir=3D"ltr">NOTE: Executing RunQueue Tasks</div><div dir=3D"l=
-tr">ERROR: sdbusplus-1.0+git999-r0 do_configure: configure failed</div><div=
- dir=3D"ltr">ERROR: sdbusplus-1.0+git999-r0 do_configure: Function failed: =
-do_configure (log file is located at /home/sheldon13/dev/openbmc-2.2/build/=
-tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_c=
-onfigure.114229)</div><div dir=3D"ltr">ERROR: Logfile of failure stored in:=
- /home/sheldon13/dev/openbmc-2.2/build/tmp/work/armv5e-openbmc-linux-gnueab=
-i/sdbusplus/1.0+git999-r0/temp/log.do_configure.114229</div><div dir=3D"ltr=
-">Log data follows:</div><div dir=3D"ltr">| DEBUG: Executing python functio=
-n externalsrc_configure_prefunc</div><div>#################################=
-###########################</div><div><br></div><div><br></div><div><br></d=
-iv><div>My recipe file=C2=A0<i><a href=3D"http://sdbusplus_git.bb">sdbusplu=
-s_git.bb</a></i> was automatically generated by the DEVTOOL command ,it is =
-like this:</div><div>######################################################=
-############################################################</div><div><div=
-># Recipe created by recipetool</div><div># This is the basis of a recipe a=
-nd may need further editing in order to be fully functional.</div><div># (F=
-eel free to remove these comments when editing.)</div><div><br></div><div>#=
- WARNING: the following LICENSE and LIC_FILES_CHKSUM values are best guesse=
-s - it is</div><div># your responsibility to verify that the values are com=
-plete and correct.</div><div>#</div><div># The following license files were=
- not able to be identified and are</div><div># represented as &quot;Unknown=
-&quot; below, you will need to check them yourself:</div><div>#=C2=A0 =C2=
-=A0LICENSE</div><div>LICENSE =3D &quot;Unknown&quot;</div><div>LIC_FILES_CH=
-KSUM =3D &quot;file://LICENSE;md5=3De3fc50a88d0a364313df4b21ef20c29e&quot;<=
-/div><div><br></div><div>SRC_URI =3D &quot;git://<a href=3D"http://github.c=
-om/openbmc/sdbusplus.git;protocol=3Dhttps">github.com/openbmc/sdbusplus.git=
-;protocol=3Dhttps</a>&quot;</div><div><br></div><div># Modify these as desi=
-red</div><div>PV =3D &quot;1.0+git${SRCPV}&quot;</div><div>SRCREV =3D &quot=
-;09c981700d7bd98eed54a670e959a424585dcd84&quot;</div><div><br></div><div>S =
-=3D &quot;${WORKDIR}/git&quot;</div><div><br></div><div># NOTE: the followi=
-ng library dependencies are unknown, ignoring: gtest gmock</div><div>#=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0(this is based on recipes that have previously been=
- built and packaged)</div><div>DEPENDS =3D &quot;gtest systemd&quot;</div><=
-div><br></div><div># NOTE: if this software is not capable of being built i=
-n a separate build directory</div><div># from the source, you should replac=
-e autotools with autotools-brokensep in the</div><div># inherit line</div><=
-div>inherit pkgconfig pythonnative autotools</div><div><br></div><div># Spe=
-cify any options you want to pass to the configure script using EXTRA_OECON=
-F:</div><div>EXTRA_OECONF =3D &quot;&quot;</div></div><div>################=
-###########################################################################=
-####################</div><div>and I didn&#39;t change the recipe and didn&=
-#39;t know how to change it. Can you help me build my project?</div></div><=
-/div></div></div></div></div></div>
-
---000000000000ff7d6c057f020dd0--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Hi All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Just a reminder, Tomorrow, We will start test work group =
+meeting is schedule at your favorite time.</div>
+<div dir=3D"ltr" >Agenda,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Pls take a look at <a href=3D"https://github.com/openbmc/=
+openbmc/wiki/Test-work-group" >https://github.com/openbmc/openbmc/wiki/Test=
+-work-group</a></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >With regards,</div>
+<div dir=3D"ltr" >Sivas</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
+ dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
+<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
+Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
+ 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
+" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
+t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
+ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
+- 080-64800002)</h2></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
+Sivas Srr/India/IBM</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
+o: </span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
+span></div></div></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
+" >Comments from Sivas Srr:</span></div></div>
+<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
+rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
+ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
+pan>Thu, Jan 10, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
+ine-block" >(applies to 27 instances)</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
+</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
+8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
+scode: 928 662 307</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
+n></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
+/span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
+ting name: </span> <span>OpenBMC Test Group meeting </span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
+ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
+: </span> <span>928 662 307</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
+</span> <span>sivas</span></div></div>
+<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
+17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
+top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
+10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
+pan></div>
+<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
+pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
+bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
+m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
+Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
+chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
+ia/IBM, yuenn@google.com</span></div></div>
+<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
+ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
+: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
+ont-weight: bold" >Optional: </span></div>
+<div>&nbsp;</div></div>
+<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
+lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
+ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
+eight: bold" >FYI: </span></div>
+<div>&nbsp;</div></div></div>
+<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
+ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
+n: left; color: #666;" >Description:</span></div>
+<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
+ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
+ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
+t></span></div>
+<div>&nbsp;</div>
+<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
+elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
+rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
+dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
+ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
+</font></font></font></font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
+ you wants to update the agenda. </font></font></font></font></font></span>=
+</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
+bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
+penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
+/font></span></div></div>
+<div>&nbsp;</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
+enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
+hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
+github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
+ >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
+</span>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
+.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
+"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
+CI/view?usp=3Dsharing</a></font></span></p>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
+le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
+it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
+in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
+heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
+target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
+Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Quality at the first place: Unit test results needed at th=
+e time of gerrit code review</font></span></div>
+<div>&nbsp;</div></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
+ owner</font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
+ Intel going to sign on this. ?</font></span></div></div></div></div></div>=
+</div></div></div></div></blockquote></div><BR>
