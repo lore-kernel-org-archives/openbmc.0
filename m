@@ -1,63 +1,49 @@
-Return-Path: <venture@google.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::535; helo=mail-pg1-x535.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="i8SzRSUz"; 
- dkim-atps=neutral
-Received: from mail-pg1-x535.google.com (mail-pg1-x535.google.com
- [IPv6:2607:f8b0:4864:20::535])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bmQr4tbZzDqvh
- for <openbmc@lists.ozlabs.org>; Sat, 12 Jan 2019 02:06:12 +1100 (AEDT)
-Received: by mail-pg1-x535.google.com with SMTP id d72so6413749pga.9
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 07:06:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=pEdh4aK675468BM1eF7EjMjNSE+OoD/DoiLr3Yn1h38=;
- b=i8SzRSUzr2j9Bl9x/ww5YMsAUt+IBPzrSFQKFbAEs4hPRLOQPN5MPhVes6OANy77A5
- urw8Pb63AdG+bhM6WdftLBHZxM8A2M2vPYEsNycuzEgMq37iTqsX3GgPXh9lFoPSJlPu
- iQN3xiPaxp2VC0+IZf7u2OSAwKCGeYu7+lhx6j264MiiWKPvMtJ1xRjMtd9QAiefJQz6
- EQWpxZkyJf2/uXLyhHX7zIwbVuA/tMH/oIf0XgNkRVXpeeSceC2r7cWKEPrVZMMcCM2P
- dc1Jd3Bt0BSI81o0n1amDEp68DYLJYoTHL+DZcqwpWwc5OCUWGF+ERAwvV4TXBsLh3Pa
- Awjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=pEdh4aK675468BM1eF7EjMjNSE+OoD/DoiLr3Yn1h38=;
- b=fzT8SckzQX6LQOrlZGVK9JLd0sAxvgQRFETCwaaJAp7Tlr0ohrxNSHkZmd2nGWsF19
- 19UQuR1a4JGzA9Cips7xFbu9sWWb+brpRJ++nY7Zqkr+g50GWzJj4HZkPDkE3khJ0PFk
- ZqcdYFTDutZAgNkbnWIYF4avf/YpA4WrsIHXF0os+L2qCiQzt+dcoBnYjLxfMPgmH4Ci
- hsmlfGAR2COu1rt806boWuETkOl3UDwEyJuPvdiThL7ePbUa68ICDNUuqtNIxQ+ltdUt
- 2S+Xe3ilit1fNdSLndoMsJPat3bOijQ5U7OrtJ+hHPWwQ52qTI1P98pa8WNVFp8Hv/o+
- Uf2g==
-X-Gm-Message-State: AJcUukfhTv7pZ5NgPFVGXwTK7xmYCFU98sUNdOB1Iyffwp14l1y92/mU
- ug/NiB8OQH3/H0TXttF7482MS/lcZOSxQEggR6cTCg==
-X-Google-Smtp-Source: ALg8bN6Jv7S6dTitPAvCOICspBk+bRfninWoMIiJ1weHwX1bvsXvFO0Oma6dNDhBP6NgLYNMd7hwfGJeO1fHfN2RlfU=
-X-Received: by 2002:a63:9a09:: with SMTP id o9mr13127781pge.94.1547219167985; 
- Fri, 11 Jan 2019 07:06:07 -0800 (PST)
-MIME-Version: 1.0
-References: <CAG4=AL-mZMe5iySguXGm9Nk2qXOtDvrj-9Acf+8eSMpX=MhbKA@mail.gmail.com>
- <CAO=notxSSvD2V_1tV+MBbfPqRD7qfSMvsOY2-6Q-aY0JzW-R9Q@mail.gmail.com>
- <CADKL2t5pdQ5zNEnn4S+Y9nEUR+XMBv5R2DdvoQLXZ4YNrz0dag@mail.gmail.com>
- <CAG4=AL8xiASCsHJGsQ-w52uPYqvhWtf-Qs1m01rbekbZdsN39g@mail.gmail.com>
- <CAO=notwABHYAZ04S4JjUGXAoEfWz2eDLXHGk3_Hd+skt5va0KQ@mail.gmail.com>
- <CAG4=AL_O4MLzMHp+zq6udUang4sXiPr7-Lnr_vEXQcSewGeoyQ@mail.gmail.com>
-In-Reply-To: <CAG4=AL_O4MLzMHp+zq6udUang4sXiPr7-Lnr_vEXQcSewGeoyQ@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Fri, 11 Jan 2019 07:05:56 -0800
-Message-ID: <CAO=notyOgM_ZEBsGZ_RaUULBu8adio=XZvpSZuVjP5JDaHtkDQ@mail.gmail.com>
-Subject: Re: do_cofigure fail
-To: Sheldon 13 <tssheldonpotter@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bnQR0Jw4zDr1q
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Jan 2019 02:50:51 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga006.fm.intel.com ([10.253.24.20])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Jan 2019 07:50:48 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,466,1539673200"; d="scan'208";a="309612529"
+Received: from orsmsx102.amr.corp.intel.com ([10.22.225.129])
+ by fmsmga006.fm.intel.com with ESMTP; 11 Jan 2019 07:50:48 -0800
+Received: from orsmsx163.amr.corp.intel.com (10.22.240.88) by
+ ORSMSX102.amr.corp.intel.com (10.22.225.129) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Fri, 11 Jan 2019 07:50:47 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.248]) by
+ ORSMSX163.amr.corp.intel.com ([169.254.9.130]) with mapi id 14.03.0415.000;
+ Fri, 11 Jan 2019 07:50:47 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Andrew Geissler <geissonator@gmail.com>
+CC: "omkar.kuppa@sanmina.com" <omkar.kuppa@sanmina.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: Re: Build fail - Reg
+Thread-Topic: Build fail - Reg
+Thread-Index: AQHUqabe9RfkIOnNY0ud1IZttI8FHqWql4OA//+gBUA=
+Date: Fri, 11 Jan 2019 15:50:47 +0000
+Message-ID: <9251870D-2847-49BD-A222-AC1009B494A2@intel.com>
+References: <CAOSNvHpQqF_7=RCN+jcR7enA+x_ikWfUP70P0rizau7MoZYFbw@mail.gmail.com>,
+ <CALLMt=q75TCAEhAnLD1sv=cdN8dWdUZwwt3ZjyOK4HeTS9m9zA@mail.gmail.com>
+In-Reply-To: <CALLMt=q75TCAEhAnLD1sv=cdN8dWdUZwwt3ZjyOK4HeTS9m9zA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,153 +55,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 15:06:13 -0000
+X-List-Received-Date: Fri, 11 Jan 2019 15:50:55 -0000
 
-On Thu, Jan 10, 2019 at 6:16 PM Sheldon 13 <tssheldonpotter@gmail.com> wrot=
+Does your network have a proxy server?  There are quite a few things that n=
+eed configured to get a successful build behind a proxy server.
+
+-Ed
+
+> On Jan 11, 2019, at 5:34 AM, Andrew Geissler <geissonator@gmail.com> wrot=
 e:
->
-> Sorry,I didn't know the sdbus has already in this project, if that's the =
-case, then I won't do this. But there is phosphor-fan recipe in the project=
-, so do you know how to check the state of fans by it? If I want to update =
-it to the newest  version, called phosphor-fan-presence, I guess, what shou=
-ld I do?
-
-i'm not super familiar with phosphor-fan-presence configuration, but
-searching, I found:
-
-https://github.com/openbmc/openbmc/blob/master/meta-ibm/meta-romulus/recipe=
-s-phosphor/fans/phosphor-fan-presence-config-native/config.yaml
-
->
-> Thank you!
->
-> Patrick Venture <venture@google.com> =E4=BA=8E2019=E5=B9=B41=E6=9C=8811=
-=E6=97=A5=E5=91=A8=E4=BA=94 =E4=B8=8A=E5=8D=8812:38=E5=86=99=E9=81=93=EF=BC=
-=9A
->>
->> On Wed, Jan 9, 2019 at 5:46 PM Sheldon 13 <tssheldonpotter@gmail.com> wr=
+>=20
+>> On Fri, Jan 11, 2019 at 6:12 AM Omkar Kuppa <omkar.kuppa@sanmina.com> wr=
 ote:
->> >
->> > I am using openbmc-v2.2 and want to add some new features,just for tes=
-t. But when I try to add any application, not only sdbus or phosphor-fan-pr=
-esence, but all the application I tried have this problem.
->> > Here is my step:
->> > (1)export TEMPLATECONF=3Dmeta-ibm/meta-palmetto/conf
->> > (2)openbmc-env
->> > (3)devtool add sdbusplus https://github.com/openbmc/sdbusplus.git
->> > (4) vim openbmc/build/conf/local.conf
->> >      add"IMAGE_INSTALL_append =3D " welcome" "
->> > (5)bitbake bitbake obmc-phosphor-image
->> >
->> > I have change to existing recipes but the problem is as the same.
->> >
->> > Benjamin Fair <benjaminfair@google.com> =E4=BA=8E2019=E5=B9=B41=E6=9C=
-=8810=E6=97=A5=E5=91=A8=E5=9B=9B =E4=B8=8A=E5=8D=882:59=E5=86=99=E9=81=93=
-=EF=BC=9A
->> >>
->> >> On Wed, Jan 9, 2019 at 10:05 AM Patrick Venture <venture@google.com> =
-wrote:
->> >> >
->> >> > On Wed, Jan 9, 2019 at 12:16 AM Sheldon 13 <tssheldonpotter@gmail.c=
-om> wrote:
->> >> > >
->> >> > > After I add a new application (such as sdbus or phosphor-fan-pres=
-ence) using DEVTOOL, I build it with BITBAKE, but it always get error like =
-this:
->> >>
->> >> Why are you adding a new recipe for these applications? You should be
->> >> able to use the existing recipes that have already been written.
->>
->> ^--- per Benjamin, sdbusplus is already a recipe.  If you want to
->> develop against it use:
->>
->> devtool modify -n sdbusplus /workspaces/sdbusplus_wip
->>
->> s.t. sdbusplus_wip is where you've checked out the code you wish to
->> modify.  That said, v2.2 of openbmc may be too old to work with HEAD
->> of sdbusplus.
->>
->>
->> >>
->> >> Here's the one for sdbusplus for instance:
->> >> https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-=
-extended/sdbusplus/sdbusplus_git.bb
->> >>
->> >> > > ##########################################################
->> >> > > NOTE: Executing RunQueue Tasks
->> >> > > ERROR: sdbusplus-1.0+git999-r0 do_configure: configure failed
->> >> > > ERROR: sdbusplus-1.0+git999-r0 do_configure: Function failed: do_=
-configure (log file is located at /home/sheldon13/dev/openbmc-2.2/build/tmp=
-/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/temp/log.do_conf=
-igure.114229)
->> >> > > ERROR: Logfile of failure stored in: /home/sheldon13/dev/openbmc-=
-2.2/build/tmp/work/armv5e-openbmc-linux-gnueabi/sdbusplus/1.0+git999-r0/tem=
-p/log.do_configure.114229
->> >> > > Log data follows:
->> >> > > | DEBUG: Executing python function externalsrc_configure_prefunc
->> >> > > ############################################################
->> >> > >
->> >> > >
->> >> > >
->> >> > > My recipe file sdbusplus_git.bb was automatically generated by th=
-e DEVTOOL command ,it is like this:
->> >> > > #################################################################=
-#################################################
->> >> > > # Recipe created by recipetool
->> >> > > # This is the basis of a recipe and may need further editing in o=
-rder to be fully functional.
->> >> > > # (Feel free to remove these comments when editing.)
->> >> > >
->> >> > > # WARNING: the following LICENSE and LIC_FILES_CHKSUM values are =
-best guesses - it is
->> >> > > # your responsibility to verify that the values are complete and =
-correct.
->> >> > > #
->> >> > > # The following license files were not able to be identified and =
-are
->> >> > > # represented as "Unknown" below, you will need to check them you=
-rself:
->> >> > > #   LICENSE
->> >> > > LICENSE =3D "Unknown"
->> >> > > LIC_FILES_CHKSUM =3D "file://LICENSE;md5=3De3fc50a88d0a364313df4b=
-21ef20c29e"
->> >> > >
->> >> > > SRC_URI =3D "git://github.com/openbmc/sdbusplus.git;protocol=3Dht=
-tps"
->> >> > >
->> >> > > # Modify these as desired
->> >> > > PV =3D "1.0+git${SRCPV}"
->> >> > > SRCREV =3D "09c981700d7bd98eed54a670e959a424585dcd84"
->> >> > >
->> >> > > S =3D "${WORKDIR}/git"
->> >> > >
->> >> > > # NOTE: the following library dependencies are unknown, ignoring:=
- gtest gmock
->> >> > > #       (this is based on recipes that have previously been built=
- and packaged)
->> >> > > DEPENDS =3D "gtest systemd"
->> >> > >
->> >> > > # NOTE: if this software is not capable of being built in a separ=
-ate build directory
->> >> > > # from the source, you should replace autotools with autotools-br=
-okensep in the
->> >> > > # inherit line
->> >> > > inherit pkgconfig pythonnative autotools
->> >> > >
->> >> > > # Specify any options you want to pass to the configure script us=
-ing EXTRA_OECONF:
->> >> > > EXTRA_OECONF =3D ""
->> >> > > #################################################################=
-##############################################
->> >> > > and I didn't change the recipe and didn't know how to change it. =
-Can you help me build my project?
->> >> >
->> >> > Can you provide your full steps to reproduce your workspace, such a=
-s,
->> >> > git clone openbmc, git clone sdbusplus, and so on, as I haven't had
->> >> > issues recently with devtool.
->> >>
->> >> Can you also describe what you're trying to accomplish? Feel free to
->> >> join the IRC channel #openbmc on freenode.net if that's easier.
->> >>
->> >> Benjamin
+>>=20
+>> Hi all,
+>> I've downloaded the openbmc project from github. While building the proj=
+ect, I'm facing the following error.
+>>=20
+>> Build Configuration:
+>> BB_VERSION           =3D "1.40.0"
+>> BUILD_SYS            =3D "i686-linux"
+>> NATIVELSBSTRING      =3D "ubuntu-14.04"
+>> TARGET_SYS           =3D "arm-openbmc-linux-gnueabi"
+>> MACHINE              =3D "zaius"
+>> DISTRO               =3D "openbmc-phosphor"
+>> DISTRO_VERSION       =3D "0.1.0"
+>> TUNE_FEATURES        =3D "arm armv6 thumb arm1176jzs"
+>> TARGET_FPU           =3D "soft"
+>> meta-zaius           =3D "master:1a4b7ee28bf7413af6513fb45ad0d0736048f86=
+6"
+>>=20
+>> ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Fetcher failure=
+: Fetch command export PSEUDO_DISABLED=3D1; export DBUS_SESSION_BUS_ADDRESS=
+=3D"unix:abstract=3D/tmp/dbus-4MEPus6gYW"; export SSH_AUTH_SOCK=3D"/run/use=
+r/1000/keyring-5RCWfK/ssh"; export PATH=3D"/../openbmc/build/tmp/work/armv6=
+-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysro=
+ot-native/usr/bin/python3-native:/../openbmc/scripts:/../openbmc/build/tmp/=
+work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/re=
+cipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi:/../openbmc/build/tmp=
+/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/r=
+ecipe-sysroot/usr/bin/crossscripts:/../openbmc/build/tmp/work/armv6-openbmc=
+-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-nativ=
+e/usr/sbin:/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-brok=
+er/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/bin:/../openbmc/bu=
+ild/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa=
+09-r0/recipe-sysroot-native/sbin:/../openbmc/build/tmp/work/armv6-openbmc-l=
+inux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/=
+bin:/../openbmc/poky/bitbake/bin:/../openbmc/build/tmp/hosttools"; export H=
+OME=3D"/home/omkar"; LANG=3DC git -c core.fsyncobjectfiles=3D0 clone --bare=
+ --mirror git://github.com/bus1/dbus-broker /../openbmc/build/downloads/git=
+2/github.com.bus1.dbus-broker --progress failed with exit code 128, output:
+>> Cloning into bare repository '/../openbmc/build/downloads/git2/github.co=
+m.bus1.dbus-broker'...
+>> fatal: unable to connect to github.com:
+>> github.com[0: 52.74.223.119]: errno=3DConnection timed out
+>> github.com[1: 13.250.177.223]: errno=3DConnection timed out
+>> github.com[2: 13.229.188.59]: errno=3DConnection timed out
+>=20
+> These certainly looks suspicious. Intermittent github connection issues?
+> Did you try rebuilding a few times? The initial build requires a lot
+> of network based downloads.
+>=20
+>>=20
+>> ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Fetcher failure=
+ for URL: 'gitsm://github.com/bus1/dbus-broker;protocol=3Dgit'. Unable to f=
+etch URL from any source.
+>> ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Function failed=
+: base_do_fetch
+>> ERROR: Logfile of failure stored in: /../openbmc/build/tmp/work/armv6-op=
+enbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/temp/log.do_fet=
+ch.2531
+>> ERROR: Task (/../openbmc/meta-openembedded/meta-oe/recipes-core/dbus/dbu=
+s-broker_git.bb:do_fetch) failed with exit code '1'
+>> NOTE: Tasks Summary: Attempted 2757 tasks of which 2756 didn't need to b=
+e rerun and 1 failed.
+>>=20
+>> Summary: 1 task failed:
+>>  /../openbmc/meta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git=
+.bb:do_fetch
+>>=20
+>> I'm trying to build the open bmc project for the first time. I tried to =
+build for Romulus, Palmetto and Zaius. Each build failed with a different e=
+rror. I don't have the errors for other builds. Please let me know how to r=
+esolve this error.
+>>=20
+>> Thanks in advance,
+>> Omkar
+>>=20
+>> CONFIDENTIALITY
+>> This e-mail message and any attachments thereto, is intended only for us=
+e by the addressee(s) named herein and may contain legally privileged and/o=
+r confidential information. If you are not the intended recipient of this e=
+-mail message, you are hereby notified that any dissemination, distribution=
+ or copying of this e-mail message, and any attachments thereto, is strictl=
+y prohibited. If you have received this e-mail message in error, please imm=
+ediately notify the sender and permanently delete the original and any copi=
+es of this email and any prints thereof.
+>> ABSENT AN EXPRESS STATEMENT TO THE CONTRARY HEREINABOVE, THIS E-MAIL IS =
+NOT INTENDED AS A SUBSTITUTE FOR A WRITING. Notwithstanding the Uniform Ele=
+ctronic Transactions Act or the applicability of any other law of similar s=
+ubstance and effect, absent an express statement to the contrary hereinabov=
+e, this e-mail message its contents, and any attachments hereto are not int=
+ended to represent an offer or acceptance to enter into a contract and are =
+not otherwise intended to bind the sender, Sanmina Corporation (or any of i=
+ts subsidiaries), or any other person or entity.
