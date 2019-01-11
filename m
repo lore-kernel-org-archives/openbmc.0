@@ -6,63 +6,63 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="tcQ7hBWG"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IWIbqapH"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="e1wK/z8e"; dkim-atps=neutral
+ header.b="poleahLJ"; dkim-atps=neutral
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
  [64.147.123.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bTb63NP4zDqws
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 14:57:22 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bTb95G8XzDqws
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 14:57:25 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 322531611;
- Thu, 10 Jan 2019 22:57:20 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id A8C271577;
+ Thu, 10 Jan 2019 22:57:23 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 10 Jan 2019 22:57:20 -0500
+ by compute4.internal (MEProxy); Thu, 10 Jan 2019 22:57:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=s3Ls2OXauC02m
- lPOSmpF1+8JoDYPWH7zmrhf3lyh71Q=; b=tcQ7hBWG5nDvig0XVeBFZD4TvWGR1
- l4pZRmV/5WOxdPgnAX19lYjg1BnWbQD95pgzKx5Eyak0cnQ61X+OqJ7Ln4Dipz9c
- 10/OVSvD8lOelhsg6MnFQ/bzT3++mdf/b/icWximTjmu3Sj7diFpOTbF+ArDkssl
- xMwfJCq3WU0lEmUT6mfV3q5N+bIRR0E6/qYpoV2v9EXR885jB/TnnYnwoS2ZP5qg
- kG8hejyiTTAGDr043ruKeVdHEVtZrp+SrdJNjvQsyqroyewF3K/lQGPcAIzZmszc
- bxCDy1RKh+UclEwRBzNDl/vvdWtgxYDNzIaH9isTx+3/f7VRCvAn/PGrQ==
+ :mime-version:content-transfer-encoding; s=fm1; bh=OJwsjW1jGnvB/
+ YwILPhuhN9+tOqnwx18zLBaBztRem4=; b=IWIbqapHptKUAPCN2JMT/VA+J727e
+ ecq6pYMMoKZI1MRlHYHFKnBLBgpOYXhHl8DNi3EfNXC6hvn2h2UWVv0nB6Dv0ryx
+ ZM8R/iI5+a02uImCqYZLRqFGf8PPaLLDUVSoLCHA7hDc9L6yoaztnsKuvZelYr9l
+ nmvM0XHOg4Id2KKuq2NkDTXiJ2OQevGtmEhdgUqAC69eZCxtdwkDpXYwPvjDboVe
+ 2xbsO8fIXUsIQX8koQisucbdROcn8Dvnywljk5b0Lwnl8vF3NrCocVC2p0Ntv+bM
+ 66RSodeRsRlH2/fGflJidpz1Vri61oLxjlk9u9BgMPpUTc2BfJYVnOoRA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=s3Ls2OXauC02mlPOSmpF1+8JoDYPWH7zmrhf3lyh71Q=; b=e1wK/z8e
- oDyoQdQAhPV4fQbqelkgg3LoDnHKgnkPory4Sft3NvIdwJ8AVpb+kUiZb4YlWxZl
- m3EDxIr+1CAlhFGqw5YWFrtlzO9KdC/RbwiSB/WTOnsK9MOvgkYaVGaPH7rhKHn7
- Q7bmHAUGTuwaFsC34X0mvzhNwHknXEoZCdCc3Uo0C3/ex68fViofJsNIdTYNyQUa
- +BbY6X23eqJirBbiS3UPogDdtUNRUyDNw+c/nm7YQJtHAJ6VNaMad+WBB3hftyz5
- xzBAeZs54YZ+rPQ061l0vedTTxZIcTV+1uZHnOqkRRcOlKAOwTIh7/weaLayyEAu
- wtc+okGD9SmKDw==
-X-ME-Sender: <xms:HxQ4XI04OZAQniqu1siRZJ2vyFRpffndlyblvz5V0bFakgsmSMc0Ug>
+ fm1; bh=OJwsjW1jGnvB/YwILPhuhN9+tOqnwx18zLBaBztRem4=; b=poleahLJ
+ YbIBE2eUTmIx2uRl+bU51993kqObaYFviNuRPrMP+iBBxy4yYfV7wzhs/S9SE2BH
+ dnt2ephWz9m7v09Cu5RdXuTq3jwLrULKEP8gGJeeKB3lbKnHITusis8UVl9bX9BO
+ fI6DjkSrrYHVyqghVJcZZYjP/mIb9+9sInwrYLntVriLXib7brWYo+D3j5pLusGB
+ bgZXC2uQdV/aUsPhQNApI3ITkSF/CV0c7pzwfbKEhbZ6GGFz298/yRSD+gUkfL0y
+ ksn7dYCmNI5kP4YmCby7lXNfL1j+XYpja/ioKTDqPXjj5i30yi3Bk4oyQeBu7YPU
+ dQVhQFZ5ojTpjw==
+X-ME-Sender: <xms:IxQ4XEEzpC4zL0v5Yjrmx2Wq8HpGYnFRQDbniool3K-_ima6ivJyrw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrfeeggdeigecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
  tdenucenucfjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomhepte
  hnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecukfhp
  pedvtddvrdekuddrudekrddvkeenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvg
- ifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:HxQ4XPau0vrNN_415eKvZEgoF-af9D7LX723G54j4qfvdNyhZbfQJA>
- <xmx:HxQ4XDqMrMLxDZmwAAySRzjmOO7d4QBxfWYnGngLh0iqhY3MMt_3Cw>
- <xmx:HxQ4XDpwf1N3AhDc2hlR6lg91aCtL9SGo33kferhV7WcEsi670PNYA>
- <xmx:HxQ4XCmEbp9k0-LlagPX4g5xdRxiPPnHauANLu9lyYsLDrYQIhgF7g>
+ ifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedu
+X-ME-Proxy: <xmx:IxQ4XFyTpUgin2VsiPfDdZA8ncWu4ENJPzKPRq4X_5kiO0owL9oDaA>
+ <xmx:IxQ4XOnVoTXz9mFCfUk84Jo0HVk40kIVKkOzb3O1aO3M-YvumTqxmA>
+ <xmx:IxQ4XGk5WeMlSMKUgVCuHpMwOpFapKH9Mj_uDGRw0hTVwq3E3HlyvA>
+ <xmx:IxQ4XEr322QgPNcK9Lw7LG8JB0qmNEFbq9Kh_mkKYsYyEo4bOKBv3Q>
 Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5A87E100BA;
- Thu, 10 Jan 2019 22:57:17 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2E9FB10106;
+ Thu, 10 Jan 2019 22:57:19 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, clg@kaod.org, geissonator@gmail.com,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [RFC qemu legoater/aspeed-3.1 1/4] timer: aspeed: Fire interrupt on
- failure to meet deadline
-Date: Fri, 11 Jan 2019 14:26:35 +1030
-Message-Id: <20190111035638.19725-2-andrew@aj.id.au>
+Subject: [RFC qemu legoater/aspeed-3.1 2/4] timer: aspeed: Status register
+ contains reload for stopped timer
+Date: Fri, 11 Jan 2019 14:26:36 +1030
+Message-Id: <20190111035638.19725-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.19.1
 In-Reply-To: <20190111035638.19725-1-andrew@aj.id.au>
 References: <20190111035638.19725-1-andrew@aj.id.au>
@@ -79,37 +79,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 03:57:23 -0000
+X-List-Received-Date: Fri, 11 Jan 2019 03:57:26 -0000
+
+From the datasheet:
+
+> This register stores the current status of counter #N. When timer
+> enable bit TMC30[N * b] is disabled, the reload register will be
+> loaded into this counter. When timer bit TMC30[N * b] is set, the
+> counter will start to decrement. CPU can update this register value
+> when enable bit is set.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- hw/timer/aspeed_timer.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ hw/timer/aspeed_timer.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
-index 1a54d85e9d49..54c75bf4f322 100644
+index 54c75bf4f322..6adc14d62034 100644
 --- a/hw/timer/aspeed_timer.c
 +++ b/hw/timer/aspeed_timer.c
-@@ -128,10 +128,16 @@ static uint64_t calculate_next(struct AspeedTimer *t)
-     if (now < next)
-         return next;
+@@ -182,7 +182,11 @@ static uint64_t aspeed_timer_get_value(AspeedTimer *t, int reg)
  
--    /* We've missed all of the deadlines. Set a timer in the future to let
--     * execution catch up */
--    t->start = now;
--    return next + 10000;
-+    /* We've missed all deadlines, fire interrupt and try again */
-+    timer_del(&t->timer);
-+
-+    if (timer_overflow_interrupt(t)) {
-+        t->level = !t->level;
-+        qemu_set_irq(t->irq, t->level);
-+    }
-+
-+    t->start = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
-+    return calculate_time(t, MAX(MAX(t->match[0], t->match[1]), 0));
- }
- 
- static void aspeed_timer_mod(AspeedTimer *t)
+     switch (reg) {
+     case TIMER_REG_STATUS:
+-        value = calculate_ticks(t, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL));
++        if (timer_enabled(t)) {
++            value = calculate_ticks(t, qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL));
++        } else {
++            value = t->reload;
++        }
+         break;
+     case TIMER_REG_RELOAD:
+         value = t->reload;
 -- 
 2.19.1
