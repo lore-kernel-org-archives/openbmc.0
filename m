@@ -1,39 +1,41 @@
 Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.36.149; helo=4.mo179.mail-out.ovh.net;
+ (client-ip=178.33.107.29; helo=15.mo5.mail-out.ovh.net;
  envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 1046 seconds by postgrey-1.36 at bilbo;
- Fri, 11 Jan 2019 21:32:13 AEDT
-Received: from 4.mo179.mail-out.ovh.net (4.mo179.mail-out.ovh.net
- [46.105.36.149])
+X-Greylist: delayed 1205 seconds by postgrey-1.36 at bilbo;
+ Fri, 11 Jan 2019 21:47:18 AEDT
+Received: from 15.mo5.mail-out.ovh.net (15.mo5.mail-out.ovh.net
+ [178.33.107.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bfLj4RghzDr1C
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 21:32:12 +1100 (AEDT)
-Received: from player763.ha.ovh.net (unknown [10.109.146.240])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id 009551103FE
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 11:14:41 +0100 (CET)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bfh628b5zDr1f
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 21:47:15 +1100 (AEDT)
+Received: from player730.ha.ovh.net (unknown [10.109.160.217])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id 15F8520EA64
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 11:10:52 +0100 (CET)
 Received: from kaod.org (lfbn-1-10603-25.w90-89.abo.wanadoo.fr [90.89.194.25])
  (Authenticated sender: clg@kaod.org)
- by player763.ha.ovh.net (Postfix) with ESMTPSA id 4625218CE262;
- Fri, 11 Jan 2019 10:14:36 +0000 (UTC)
-Subject: Re: [RFC qemu legoater/aspeed-3.1 0/4] Handle short timer periods
+ by player730.ha.ovh.net (Postfix) with ESMTPSA id 1AE641715757;
+ Fri, 11 Jan 2019 10:10:48 +0000 (UTC)
+Subject: Re: [RFC qemu legoater/aspeed-3.1 4/4] timer: aspeed: Provide
+ back-pressure information for short periods
 To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
 References: <20190111035638.19725-1-andrew@aj.id.au>
+ <20190111035638.19725-5-andrew@aj.id.au>
 From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <a0e97564-63de-0820-d550-d2b45e92bee0@kaod.org>
-Date: Fri, 11 Jan 2019 11:14:35 +0100
+Message-ID: <65ac448c-d53f-c2f8-c123-69e45afd2a90@kaod.org>
+Date: Fri, 11 Jan 2019 11:10:47 +0100
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.4.0
 MIME-Version: 1.0
-In-Reply-To: <20190111035638.19725-1-andrew@aj.id.au>
+In-Reply-To: <20190111035638.19725-5-andrew@aj.id.au>
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 7823034030718159717
+X-Ovh-Tracer-Id: 7758576261953129317
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtledrfeehgddufecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -48,80 +50,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 10:32:14 -0000
-
-Hello Andrew,
+X-List-Received-Date: Fri, 11 Jan 2019 10:47:18 -0000
 
 On 1/11/19 4:56 AM, Andrew Jeffery wrote:
-> Hello,
+> First up: This is not the way the hardware behaves.
+
+I think this is OK from the QEMU side. It would be better if Linux was 
+not involved though.
+
+> However, it helps resolve real-world problems with short periods being
+> used under Linux. Commit 4451d3f59f2a ("clocksource/drivers/fttmr010:
+> Fix set_next_event handler") in Linux fixed the timer driver to
+> correctly schedule the next event for the Aspeed controller, and in
+> combination with 5daa8212c08e ("ARM: dts: aspeed: Describe random number
+> device") Linux will now set a timer with a period as low as 1us.
 > 
-> We've had an issue for a while, since the introduction of 4451d3f59f2a
-> ("clocksource/drivers/fttmr010: Fix set_next_event handler") in Linux, where
-> our qemu instances have a "sticky" behaviour. The VM becomes unresponsive at
-> unexpected times for unpredicable but often long periods of time.
+> Configuring a qemu timer with such a short period results in spending
+> time handling the interrupt in the model rather than executing guest
+> code, leading to noticeable "sticky" behaviour in the guest.
 > 
-> This series, along with the associated patch to Linux's fttmr010 driver[0],
-> aims to resolve it.
-> 
-> [0] http://patchwork.ozlabs.org/patch/1023363/
+> The behaviour of Linux is correct with respect to the hardware, so we
+> need to improve our handling under emulation. The approach chosen is to
+> provide back-pressure information by calculating an acceptable minimum
+> number of ticks to be set on the model. Under Linux an additional read
+> is added in the timer configuration path to detect back-pressure, which
+> will never occur on hardware. However if back-pressure is observed, the
+> driver alerts the clock event subsystem, which then performs its own
+> next event dilation via a config option - d1748302f70b ("clockevents:
+> Make minimum delay adjustments configurable")
 
-I gave the whole a try and on a x86 host, QEMU reaches :
-
-[    8.282333] systemd[1]: Set hostname to <romulus>.
-
-on a ppc64el :
-
-[   11.497910] systemd[1]: Set hostname to <romulus>.
-
-which is much better than before.
-
-As the QEMU patchset does not seem to impact support for older images, 
-I have updated the aspeed-3.1 branch and also created a new branch for 
-dev : aspeed-4.0.
-
-> The series an RFC series because it doesn't fix all the cases, just
-> demonstrates a potential way forward. The approach is to provide back-pressure
-> - to test if the reload value is set to a value that's smaller than some
-> experimentally determined value (in this case, 20us), and if so, configure a
-> period of at least 20us. The MAX() of the requested and minimum values is then
-> set in the reload register rather than the requested value, which can then be
-> read back by Linux. The fttmr010 driver, upon observing the greater value,
-> starts pushing back on the clock event subsystem, which then iteratively
-> determines a minimum acceptible event period before proceeding with the boot
-> process.
-> 
-> The implementation does not take care of the match register cases, but at the
-> moment they are unused by Linux on Aspeed SoCs. The match register case is not
-> taken care of because I'm not sure if this implementation is what we want to
-> use going forward, or whether we want to do something that's completely hidden
-> in the qemu model. However taking advantage of Linux's existing support for
-> determining minimum timer periods seemed like easy solution.
-> 
-> The stickiness turns out to be a consequence of Linux configuring a very short
-> timer period (1us, mostly due to the timerio_rng driver), which causes qemu to
-> spend a large chunk of its timeslice handling the host timer interrupt rather
-> than executing guest code.
-> 
-> Please critique!
-
-We are adding another QEMU HW tweak in Linux. We need feedback from the
-Linux maintainers I would say.
-
-Thanks,
-
-C. 
+So, this is approach is not totally unacceptable, QEMU is an hypervisor
+which has its own timing constraints.
  
+> A minimum period of 5us was experimentally determined on a Lenovo
+> T480s, which I've increased to 20us for "safety".
 > 
-> Andrew
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> ---
+>  hw/misc/aspeed_scu.c            | 6 ++++++
+>  hw/timer/aspeed_timer.c         | 6 +++++-
+>  include/hw/timer/aspeed_timer.h | 1 +
+>  3 files changed, 12 insertions(+), 1 deletion(-)
 > 
-> Andrew Jeffery (4):
->   timer: aspeed: Fire interrupt on failure to meet deadline
->   timer: aspeed: Status register contains reload for stopped timer
->   timer: aspeed: Fix match calculations
->   timer: aspeed: Provide back-pressure information for short periods
-> 
->  hw/misc/aspeed_scu.c            |  6 ++++++
->  hw/timer/aspeed_timer.c         | 37 ++++++++++++++++++++++++++-------
->  include/hw/timer/aspeed_timer.h |  1 +
->  3 files changed, 36 insertions(+), 8 deletions(-)
+> diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
+> index 257f9a6c6b8a..0410776b456a 100644
+> --- a/hw/misc/aspeed_scu.c
+> +++ b/hw/misc/aspeed_scu.c
+> @@ -432,6 +432,12 @@ static void aspeed_scu_realize(DeviceState *dev, Error **errp)
+>                            TYPE_ASPEED_SCU, SCU_IO_REGION_SIZE);
+>  
+>      sysbus_init_mmio(sbd, &s->iomem);
+> +
+> +    /*
+> +     * Reset on realize to ensure the APB clock value is calculated in time for
+> +     * use by the timer model, which is reset before the SCU.
+> +     */
+> +    aspeed_scu_reset(dev);
+
+sigh. May be we should call aspeed_scu_set_apb_freq() from the Aspeed timer
+model ?
+
+>  }
+>  
+>  static const VMStateDescription vmstate_aspeed_scu = {
+> diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
+> index 35b40a7c4010..0f3501ac5a5c 100644
+> --- a/hw/timer/aspeed_timer.c
+> +++ b/hw/timer/aspeed_timer.c
+> @@ -254,7 +254,7 @@ static void aspeed_timer_set_value(AspeedTimerCtrlState *s, int timer, int reg,
+>      switch (reg) {
+>      case TIMER_REG_RELOAD:
+>          old_reload = t->reload;
+> -        t->reload = value;
+> +        t->reload = value < t->min_ticks ? t->min_ticks : value;
+>  
+>          /* If the reload value was not previously set, or zero, and
+>           * the current value is valid, try to start the timer if it is
+> @@ -306,7 +306,11 @@ static void aspeed_timer_ctrl_enable(AspeedTimer *t, bool enable)
+>  
+>  static void aspeed_timer_ctrl_external_clock(AspeedTimer *t, bool enable)
+>  {
+> +    AspeedTimerCtrlState *s = timer_to_ctrl(t);
+> +    uint32_t rate = enable ? TIMER_CLOCK_EXT_HZ : s->scu->apb_freq;
+> +
+>      trace_aspeed_timer_ctrl_external_clock(t->id, enable);
+> +    t->min_ticks = muldiv64(20 * SCALE_US, rate, NANOSECONDS_PER_SECOND);
+
+That '20' deserves a define I think.
+
+C.
+
+>  }
+>  
+>  static void aspeed_timer_ctrl_overflow_interrupt(AspeedTimer *t, bool enable)
+> diff --git a/include/hw/timer/aspeed_timer.h b/include/hw/timer/aspeed_timer.h
+> index 1fb949e16710..10c851ebb6d7 100644
+> --- a/include/hw/timer/aspeed_timer.h
+> +++ b/include/hw/timer/aspeed_timer.h
+> @@ -41,6 +41,7 @@ typedef struct AspeedTimer {
+>       * interrupts, signalling with both the rising and falling edge.
+>       */
+>      int32_t level;
+> +    uint32_t min_ticks;
+>      uint32_t reload;
+>      uint32_t match[2];
+>      uint64_t start;
 > 
