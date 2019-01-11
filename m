@@ -1,42 +1,70 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oe900o0M"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="lxfYi/BH"; dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bPbw0jZ5zDqvs
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 11:57:46 +1100 (AEDT)
-X-Amp-Result: UNSCANNABLE
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jan 2019 16:57:44 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,463,1539673200"; d="scan'208";a="126742712"
-Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
- ([10.7.150.62])
- by orsmga001.jf.intel.com with ESMTP; 10 Jan 2019 16:57:44 -0800
-Date: Thu, 10 Jan 2019 16:57:44 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Patrick Venture <venture@google.com>
-Cc: Emily Shaffer <emilyshaffer@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, tomjoseph@in.ibm.com,
- Benjamin Fair <benjaminfair@google.com>,
- Natarajan Gurumoorthy <natg@google.com>
-Subject: Re: Packet Size Mismatches
-Message-ID: <20190111005744.GB7259@mauery.jf.intel.com>
-References: <CAO=noty60eC2hS9xGTPArs2OCZyuRWAjWWbsWBdv1A82o1QCwg@mail.gmail.com>
- <20190110220623.GA7259@mauery.jf.intel.com>
- <CAO=noty9tVX_G-TK+XYbESQAwFwwB7or-zxH5ZkuC8wwBtXK4w@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bT8H32kyzDqws
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 14:37:35 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 75DB6157F;
+ Thu, 10 Jan 2019 22:37:32 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Thu, 10 Jan 2019 22:37:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=Drlj8XPpA5ps8JCr3XEawOVFps
+ SbvgBMABWHCVuGgzc=; b=oe900o0MlSjzsjaNJ1sIuuBmQXHm4rBjYGakdiZKGW
+ DQja1KJxPELF5WUZNzcXL66URhQ5iIhJ3prk7nUwArSjgP55eSNM9lGtRrrmBh2v
+ MPkIhXLl+tRRiqDWb1AHnZuavyZhpu+rxh49cEdp2qT4AcKSq+l3xmlHFGRvCqmu
+ uyc5MQ1lHSxr+xzuLp/pMbEX17F4HdeQTioI+LlUKx9cD6O3GnfUtfRrvLn4JAZj
+ XOoqDEX2Lven3YHmabuUVVJvuNnW3TyZLtCKD29LKxJFZUDUlFq7cM7nWzjtm8bp
+ Ll0f7OdkxGqRUFgbdBo/4WSZrez8kyX/L8ELlI874dGA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Drlj8XPpA5ps8JCr3
+ XEawOVFpsSbvgBMABWHCVuGgzc=; b=lxfYi/BH+PFQuPj7e5CROGOnwjP+LLAAk
+ LkQJMhyZWGqaKyyfQejbXDf28F2ZeL7j7vcWZiY3rGONg49p+Eo0KgqjgXBIwaLE
+ cvpv7jRNbgX0mGBDMDBCHn69vF6s4dJR+Jp7192XaaqhY3ihbXC/S5EHM9uicApH
+ LYnXptwrwlrpENqWqGRI6NuQAmpmpIFTm5PG9IqYxy2la3L/pzdSrgoIFWOvArsl
+ yLqmZmk15K3e3nEwkMaNXRsgPzhzbADiG19lVwKFh9AM0aPVVH8wRuiPzZqku1jj
+ dGEqEgtcrcd+CI/YIsQtQeFGiJgiz6Bky/aA/H3j30z6D4Q+7dERA==
+X-ME-Sender: <xms:ew84XJg38VIwIuiBC3C_GM_9N0nE5-iDMRhgz4WS1EmJe3t1thROsA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrfeeggdehlecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
+ tdenucenucfjughrpefhvffufffkofgggfestdekredtredttdenucfhrhhomheptehnug
+ hrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecukfhppedv
+ tddvrdekuddrudekrddvkeenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifse
+ grjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:ew84XOupdqeMVzT8qOylWq-cn5vsPvjpfepX5ZA1LGxfh--h7FxESQ>
+ <xmx:ew84XHRPiKAek4d2OGT_Fq2qRsCJaTOew1bvForcgPE2-lE-6BlRgg>
+ <xmx:ew84XC1sqfp3lIvDRKl7yNAOpLzMutuR8_fuJfgCgN-8bojHa68wJg>
+ <xmx:fA84XN-JNfj_8yVSB8vC6qrGjOFXeBMWvDePwLauXVcUk9wPPv6DpQ>
+Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 20670E425A;
+ Thu, 10 Jan 2019 22:37:27 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, clg@kaod.org, geissonator@gmail.com,
+ Andrew Jeffery <andrew@aj.id.au>
+Subject: [RFC linux dev-4.19] clocksource: fttmr010: Detect back-pressure for
+ Aspeed controllers
+Date: Fri, 11 Jan 2019 14:06:28 +1030
+Message-Id: <20190111033628.18677-1-andrew@aj.id.au>
+X-Mailer: git-send-email 2.19.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAO=noty9tVX_G-TK+XYbESQAwFwwB7or-zxH5ZkuC8wwBtXK4w@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,43 +76,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 00:57:49 -0000
+X-List-Received-Date: Fri, 11 Jan 2019 03:37:40 -0000
 
-On 10-Jan-2019 03:46 PM, Patrick Venture wrote:
->On Thu, Jan 10, 2019 at 2:06 PM Vernon Mauery
-><vernon.mauery@linux.intel.com> wrote:
->>
->> On 09-Jan-2019 09:10 AM, Patrick Venture wrote:
->> >Per the maximum response size patch
->> >(https://gerrit.openbmc-project.xyz/15743), the goal is to know how
->> >many bytes can be returned by the channel.  This can vary by channel,
->> >per the comments, and other related changes.  However, presently,
->> >we're seeing a memory corruption over kcs which has a limit of 256.
->> >So, we're copying way too much data onto the response.  The code
->> >itself has no idea how many bytes it can send.
->>
->> This is a tricky problem.... Ideally, if an IPMI command wants to return
->> a large number of bytes, it would consult its context and return an
->> error if the response would not fit in the channel. This relies on each
->> command to be written correctly. In a slightly less ideal world, the
->
->Obviously the 64 byte response buffer in impid will be fixed at some
->point shortly, probably in your currently staged patches.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
 
-I am not sure that this particular issue is addressed yet, but the 
-patches I have lay a framework that allows it to be more easily fixed.
+See the cover letter on the corresponding qemu RFC series, to be sent after
+this patch.
 
->Is the context something new being passed to handlers?  (I haven't had
->a chance to really dig through your full stack of patches).
+ arch/arm/mach-aspeed/Kconfig         | 1 +
+ drivers/clocksource/timer-fttmr010.c | 7 +++++++
+ 2 files changed, 8 insertions(+)
 
-The context is something that can be requested as part of the handler 
-signature. The handler can have the request object, the context object, 
-or the yield context object. The request object contains all the info, 
-the context contains some of the info, and the yield context is only for 
-async operations. 
-
-handler.hpp contains the details of what sorts of goodies that can be 
-requested on top of ipmi data types.
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-host-ipmid/+/11273/17/ipmi/handler.hpp
-
---Vernon
+diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
+index 2d5570e6e186..6b82d5416cf0 100644
+--- a/arch/arm/mach-aspeed/Kconfig
++++ b/arch/arm/mach-aspeed/Kconfig
+@@ -7,6 +7,7 @@ menuconfig ARCH_ASPEED
+ 	select FTTMR010_TIMER
+ 	select MFD_SYSCON
+ 	select PINCTRL
++	select GENERIC_CLOCKEVENTS_MIN_ADJUST
+ 	help
+ 	  Say Y here if you want to run your kernel on an ASpeed BMC SoC.
+ 
+diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+index cf93f6419b51..f15386b98289 100644
+--- a/drivers/clocksource/timer-fttmr010.c
++++ b/drivers/clocksource/timer-fttmr010.c
+@@ -124,6 +124,7 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+ {
+ 	struct fttmr010 *fttmr010 = to_fttmr010(evt);
+ 	u32 cr;
++	u32 l;
+ 
+ 	/* Stop */
+ 	cr = readl(fttmr010->base + TIMER_CR);
+@@ -136,6 +137,12 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+ 		 * into TIMER1_COUNT register when the timer is re-enabled.
+ 		 */
+ 		writel(cycles, fttmr010->base + TIMER1_LOAD);
++#if CONFIG_GENERIC_CLOCKEVENTS_MIN_ADJUST
++		/* QEMU model may provide back-pressure on requested period */
++		l = readl(fttmr010->base + TIMER1_LOAD);
++		if (l > cycles)
++			return -EINVAL;
++#endif
+ 	} else {
+ 		/* Setup the match register forward in time */
+ 		cr = readl(fttmr010->base + TIMER1_COUNT);
+-- 
+2.19.1
