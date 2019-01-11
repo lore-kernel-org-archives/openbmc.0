@@ -6,63 +6,66 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ujqkcdFW"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="tcQ7hBWG"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ZVb9Qfn1"; dkim-atps=neutral
+ header.b="e1wK/z8e"; dkim-atps=neutral
 Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
  [64.147.123.25])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bTb52jSMzDqws
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 14:57:21 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bTb63NP4zDqws
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 14:57:22 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 980161630;
- Thu, 10 Jan 2019 22:57:18 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 322531611;
+ Thu, 10 Jan 2019 22:57:20 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 10 Jan 2019 22:57:18 -0500
+ by compute4.internal (MEProxy); Thu, 10 Jan 2019 22:57:20 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=0Ajo5q5MowbbriqcYt2AdMNDnh
- FPIGMppogmo5fYLO4=; b=ujqkcdFWvnDSZY7ckFBN4+bL/BgCtxZR24bk6Dq+wt
- d3DqSRe677vJqC8AF5w5Q0uUQgCmJmj4RzNdycAK9hQu2h64oPLEwY0njdRxq9kp
- W9/pLXVJLQCxgnCZfZ9CH0B//jL9htRdHV5g74z6xKvK57xceqVJcSvSzMekR71G
- HxY4cqUmJRPrbMndbkjNYFZSS/d746QvJUdzsG49IKt13VYyvv6LANkQyWh48dtn
- DJS212P5yDN/mFL09V0n9dmZwgecuW6wCKnKlNqrCDEU7yZ3cFs/lZQoFEWxyhcc
- QTEQHzGxmzd1tzMyvL/I91r0VzjRyemrq9z3Efog7hVA==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=s3Ls2OXauC02m
+ lPOSmpF1+8JoDYPWH7zmrhf3lyh71Q=; b=tcQ7hBWG5nDvig0XVeBFZD4TvWGR1
+ l4pZRmV/5WOxdPgnAX19lYjg1BnWbQD95pgzKx5Eyak0cnQ61X+OqJ7Ln4Dipz9c
+ 10/OVSvD8lOelhsg6MnFQ/bzT3++mdf/b/icWximTjmu3Sj7diFpOTbF+ArDkssl
+ xMwfJCq3WU0lEmUT6mfV3q5N+bIRR0E6/qYpoV2v9EXR885jB/TnnYnwoS2ZP5qg
+ kG8hejyiTTAGDr043ruKeVdHEVtZrp+SrdJNjvQsyqroyewF3K/lQGPcAIzZmszc
+ bxCDy1RKh+UclEwRBzNDl/vvdWtgxYDNzIaH9isTx+3/f7VRCvAn/PGrQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=0Ajo5q5MowbbriqcY
- t2AdMNDnhFPIGMppogmo5fYLO4=; b=ZVb9Qfn1OgcXdd1gzZPgK6OEGFdjt72fy
- aq5Keqp/p3wL/S4beBDqU9vo2+kkQP1/gEdNBHeQgPoJq8mLq2pd0o0XEwV0JR43
- LlkpImGYbonHniLcU/up65iWBE6PTh+nZQS6jumtJ52dz7XyM2zBQ7JwVhdO9Pco
- 3Kp4/eJ3EydNNdxtVEK2LJcgNcF3FfCiRFpPwJG4Ttu+Ia5rdTnbERNorM4FounI
- 7uDrH+eXNDMQBt1fQS9+NWt3KwRTiXeYHeVvEfYcfrGCMJasJ2ZN+tNyHs9Z76k3
- qxBXDGQsRst0c/BPwQHYxZ7WOF8R3T1KpKp9rb0iM34EpZMDEc+AA==
-X-ME-Sender: <xms:HBQ4XL5YTpv6nN73JXd2JxBCoRWxS0d-YnaFzKE1rH65-j9GHEmeow>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=s3Ls2OXauC02mlPOSmpF1+8JoDYPWH7zmrhf3lyh71Q=; b=e1wK/z8e
+ oDyoQdQAhPV4fQbqelkgg3LoDnHKgnkPory4Sft3NvIdwJ8AVpb+kUiZb4YlWxZl
+ m3EDxIr+1CAlhFGqw5YWFrtlzO9KdC/RbwiSB/WTOnsK9MOvgkYaVGaPH7rhKHn7
+ Q7bmHAUGTuwaFsC34X0mvzhNwHknXEoZCdCc3Uo0C3/ex68fViofJsNIdTYNyQUa
+ +BbY6X23eqJirBbiS3UPogDdtUNRUyDNw+c/nm7YQJtHAJ6VNaMad+WBB3hftyz5
+ xzBAeZs54YZ+rPQ061l0vedTTxZIcTV+1uZHnOqkRRcOlKAOwTIh7/weaLayyEAu
+ wtc+okGD9SmKDw==
+X-ME-Sender: <xms:HxQ4XI04OZAQniqu1siRZJ2vyFRpffndlyblvz5V0bFakgsmSMc0Ug>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrfeeggdeigecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucenucfjughrpefhvffufffkofgggfestdekredtredttdenucfhrhhomheptehnug
- hrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgr
- ihhnpehoiihlrggsshdrohhrghenucfkphepvddtvddrkedurddukedrvdeknecurfgrrh
- grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
- rhfuihiivgeptd
-X-ME-Proxy: <xmx:HBQ4XBFzh0t-t3Z9H3JNbrCqUwCzI84CnOKT6bYRK9AAojRi9EvTfA>
- <xmx:HBQ4XESNk9M0COepdtQqqktXqFvN9nY9PokziijWH97v4W3ESEAzng>
- <xmx:HBQ4XKu7NMNMt1_t3l_zr6M2aaidNBdXzhf-2zPkOxfspWlRKHji0g>
- <xmx:HhQ4XA9y8EYZHaLRUywjCYF4PEtvMghLD87Tle9zj0GicEcFvmg2Tg>
+ tdenucenucfjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomhepte
+ hnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecukfhp
+ pedvtddvrdekuddrudekrddvkeenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvg
+ ifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:HxQ4XPau0vrNN_415eKvZEgoF-af9D7LX723G54j4qfvdNyhZbfQJA>
+ <xmx:HxQ4XDqMrMLxDZmwAAySRzjmOO7d4QBxfWYnGngLh0iqhY3MMt_3Cw>
+ <xmx:HxQ4XDpwf1N3AhDc2hlR6lg91aCtL9SGo33kferhV7WcEsi670PNYA>
+ <xmx:HxQ4XCmEbp9k0-LlagPX4g5xdRxiPPnHauANLu9lyYsLDrYQIhgF7g>
 Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id 6DA6410106;
- Thu, 10 Jan 2019 22:57:13 -0500 (EST)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 5A87E100BA;
+ Thu, 10 Jan 2019 22:57:17 -0500 (EST)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, clg@kaod.org, geissonator@gmail.com,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [RFC qemu legoater/aspeed-3.1 0/4] Handle short timer periods
-Date: Fri, 11 Jan 2019 14:26:34 +1030
-Message-Id: <20190111035638.19725-1-andrew@aj.id.au>
+Subject: [RFC qemu legoater/aspeed-3.1 1/4] timer: aspeed: Fire interrupt on
+ failure to meet deadline
+Date: Fri, 11 Jan 2019 14:26:35 +1030
+Message-Id: <20190111035638.19725-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.19.1
+In-Reply-To: <20190111035638.19725-1-andrew@aj.id.au>
+References: <20190111035638.19725-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -76,57 +79,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 03:57:22 -0000
+X-List-Received-Date: Fri, 11 Jan 2019 03:57:23 -0000
 
-Hello,
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ hw/timer/aspeed_timer.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-We've had an issue for a while, since the introduction of 4451d3f59f2a
-("clocksource/drivers/fttmr010: Fix set_next_event handler") in Linux, where
-our qemu instances have a "sticky" behaviour. The VM becomes unresponsive at
-unexpected times for unpredicable but often long periods of time.
-
-This series, along with the associated patch to Linux's fttmr010 driver[0],
-aims to resolve it.
-
-[0] http://patchwork.ozlabs.org/patch/1023363/
-
-The series an RFC series because it doesn't fix all the cases, just
-demonstrates a potential way forward. The approach is to provide back-pressure
-- to test if the reload value is set to a value that's smaller than some
-experimentally determined value (in this case, 20us), and if so, configure a
-period of at least 20us. The MAX() of the requested and minimum values is then
-set in the reload register rather than the requested value, which can then be
-read back by Linux. The fttmr010 driver, upon observing the greater value,
-starts pushing back on the clock event subsystem, which then iteratively
-determines a minimum acceptible event period before proceeding with the boot
-process.
-
-The implementation does not take care of the match register cases, but at the
-moment they are unused by Linux on Aspeed SoCs. The match register case is not
-taken care of because I'm not sure if this implementation is what we want to
-use going forward, or whether we want to do something that's completely hidden
-in the qemu model. However taking advantage of Linux's existing support for
-determining minimum timer periods seemed like easy solution.
-
-The stickiness turns out to be a consequence of Linux configuring a very short
-timer period (1us, mostly due to the timerio_rng driver), which causes qemu to
-spend a large chunk of its timeslice handling the host timer interrupt rather
-than executing guest code.
-
-Please critique!
-
-Andrew
-
-Andrew Jeffery (4):
-  timer: aspeed: Fire interrupt on failure to meet deadline
-  timer: aspeed: Status register contains reload for stopped timer
-  timer: aspeed: Fix match calculations
-  timer: aspeed: Provide back-pressure information for short periods
-
- hw/misc/aspeed_scu.c            |  6 ++++++
- hw/timer/aspeed_timer.c         | 37 ++++++++++++++++++++++++++-------
- include/hw/timer/aspeed_timer.h |  1 +
- 3 files changed, 36 insertions(+), 8 deletions(-)
-
+diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
+index 1a54d85e9d49..54c75bf4f322 100644
+--- a/hw/timer/aspeed_timer.c
++++ b/hw/timer/aspeed_timer.c
+@@ -128,10 +128,16 @@ static uint64_t calculate_next(struct AspeedTimer *t)
+     if (now < next)
+         return next;
+ 
+-    /* We've missed all of the deadlines. Set a timer in the future to let
+-     * execution catch up */
+-    t->start = now;
+-    return next + 10000;
++    /* We've missed all deadlines, fire interrupt and try again */
++    timer_del(&t->timer);
++
++    if (timer_overflow_interrupt(t)) {
++        t->level = !t->level;
++        qemu_set_irq(t->irq, t->level);
++    }
++
++    t->start = qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL);
++    return calculate_time(t, MAX(MAX(t->match[0], t->match[1]), 0));
+ }
+ 
+ static void aspeed_timer_mod(AspeedTimer *t)
 -- 
 2.19.1
