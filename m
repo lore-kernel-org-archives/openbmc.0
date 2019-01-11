@@ -1,51 +1,56 @@
-Return-Path: <omkar.kuppa@sanmina.com>
+Return-Path: <blue@cmd.nu>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=sanmina.com
- (client-ip=2607:f8b0:4864:20::632; helo=mail-pl1-x632.google.com;
- envelope-from=omkar.kuppa@sanmina.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=cmd.nu
+ (client-ip=2a00:1450:4864:20::544; helo=mail-ed1-x544.google.com;
+ envelope-from=blue@cmd.nu; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=sanmina.com
+ dmarc=pass (p=reject dis=none) header.from=cmd.nu
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sanmina.com header.i=@sanmina.com header.b="TQrWPfTk"; 
+ unprotected) header.d=cmd.nu header.i=@cmd.nu header.b="f3P8/4EJ"; 
  dkim-atps=neutral
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
+Received: from mail-ed1-x544.google.com (mail-ed1-x544.google.com
+ [IPv6:2a00:1450:4864:20::544])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43bhYP40cYzDqy9
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 23:11:36 +1100 (AEDT)
-Received: by mail-pl1-x632.google.com with SMTP id 101so6693189pld.6
- for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 04:11:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sanmina.com; s=google;
- h=mime-version:from:date:message-id:subject:to;
- bh=obK5j4c9BJXa3S4102hTChEbLdFinqD1ncKdBvhD/kI=;
- b=TQrWPfTkKA+72+sdw8XjX2HJZ+jT1ebGdr0I9PHznC02rfO2Z1913sEFx/d+o9pjlO
- OOI3actp4xlZ/xYktr2ZtTUK3xu6NHr2cg0nqns3YFDbJOZbHdmc6cs8tPd+v/0rq5FB
- r1aVsHJV6TQtpg6BdGjCZzCiJje4HiTMdk4D4=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43bhz66b1GzDqxB
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 23:30:21 +1100 (AEDT)
+Received: by mail-ed1-x544.google.com with SMTP id f9so12923244eds.10
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Jan 2019 04:30:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cmd.nu; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3M7eeaPBM9j1ykA8sFQkE+TBD2tQUV94MTvIlLE5pwk=;
+ b=f3P8/4EJK6tId5JENJ3vC0MszBCsMy2jE1NBKB9DnKk02n4nhb8BdM8NJWUvPgvXQ2
+ kNIf94dNYQJyfLr04CpGYE1oUmY3fFIW9V0MKKJ1h9QeQK60dTTn0HfUefwPft5X7Z5X
+ bsKJ+Mgcw5oC0LpX0/Vk3JvItH3vow9nb3VvE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=obK5j4c9BJXa3S4102hTChEbLdFinqD1ncKdBvhD/kI=;
- b=AFPpRPCBe3ewd5K8n4AvOzeII66GVES2b/Bp0eujS0gwJ5sdBklx8jV2B533aA2cMJ
- XJrqvGnfqq9Fp4BmUn3b3cH/okSnpEouC+wCuG2Em2okNYcaB+os/bwaNrP/JZsNcFNR
- YpOpYpxweCVOAVWfNxxtQkQ/D68hLQ904tDViSmqVoqTejTfVEXsV7rzY9ymQglKb2KL
- i2ZCRmm2bLRH9H9l9vcclrpTHjzAM36XrfSBBhjcSpxyWpkv9wiuOz9ZqcMogUdOPMrJ
- 8cT5+UUFeH/VwcLsnp4vhRdUwqvArmI6S09ywD+rVTnlA5PLFkD05LMOVRRaNp4xJWXH
- 4viQ==
-X-Gm-Message-State: AJcUukeldpWgml0/au6DtW7Oa8FX57R//0uyO+RZy3rwlKcFUiYmLFaf
- V8KUAg24a4r8M3l4Bqr4myNst7lUi1SLvijnHBp6NEx2MW6X/W7iw55MZQHk8mw6NHH7W+GrksW
- qz5Sxz0utwX12KHDao2rvI0wqYCZx50y1
-X-Google-Smtp-Source: ALg8bN7LDH/qdmNjT2/HhEim3luWMYQBae4ECJxT5femD/9xR3qGBDm3L2ByPaR4jXNllfPRJYHb6wU7lqa/5sPRqF0=
-X-Received: by 2002:a17:902:5a4d:: with SMTP id
- f13mr14844549plm.49.1547208693870; 
- Fri, 11 Jan 2019 04:11:33 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3M7eeaPBM9j1ykA8sFQkE+TBD2tQUV94MTvIlLE5pwk=;
+ b=FzSwD8rxIikg7PCA3Zj/HGh9L6f+LCFMGslAGJiaKreYckiKUI+heKwP85BI1f0uCK
+ s/JADR725amTLRFuFLzPBeoJqRv51iZi3QeNAQMQn/xm2SMIwwqFmILfOe4j3QSLFdwa
+ oDeucKO/XvIt2eFv6hqidmAT82sLJiJQHP3m9u99aiYQkZcyu7z1Srz3w8NUSzxV6e8C
+ b9gnqkKAv8E13W/bvnPrgmCiMd6g0Bs/QL/DXoVAqxEu8PZXPIV+VtEHX/0uMC1r3mkB
+ DG/WuNWULGwDak8LCk1P+jB6LZQz2oUmWbe47ggambalj5V0p9J42reSYzOzVrzPDsqw
+ pnzQ==
+X-Gm-Message-State: AJcUukccU/ArO29W8+ZTUX6v2sjDXX6PgoG2/h1CLlRurwInhSf7fde2
+ 8zFfBv70Ui0uXQ3x1P4h13jdCD/fPp6MGeFw/25eRA==
+X-Google-Smtp-Source: ALg8bN6ijmGU78mOKr6cTW1FIvbjaoV5qHuiAH/ufIj6kgFSgKZLgFx2G+Zv1khPpJVvNoZyf3Cpfq7VXOB0IMjselg=
+X-Received: by 2002:a17:906:815a:: with SMTP id
+ z26-v6mr391815ejw.121.1547209818578; 
+ Fri, 11 Jan 2019 04:30:18 -0800 (PST)
 MIME-Version: 1.0
-From: Omkar Kuppa <omkar.kuppa@sanmina.com>
-Date: Fri, 11 Jan 2019 17:41:22 +0530
-Message-ID: <CAOSNvHpQqF_7=RCN+jcR7enA+x_ikWfUP70P0rizau7MoZYFbw@mail.gmail.com>
-Subject: Build fail - Reg
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000097a969057f2d987b"
+References: <20181112142541.166609-1-bluecmd@google.com>
+In-Reply-To: <20181112142541.166609-1-bluecmd@google.com>
+From: Christian Svensson <blue@cmd.nu>
+Date: Fri, 11 Jan 2019 13:30:08 +0100
+Message-ID: <CADiuDARXNE=j-_w5uH3RwMNc7Y6duDuQw0Axq3mvU=SXzxaSGw@mail.gmail.com>
+Subject: Re: [PATCH] linux: arch: define aspeed SOC IO mapping
+To: Christian Svensson <bluecmd@google.com>
+Cc: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>,
+ Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@aj.id.au>, clg@kaod.org
+Content-Type: multipart/alternative; boundary="000000000000a1414d057f2ddb54"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,195 +62,278 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 11 Jan 2019 12:11:40 -0000
+X-List-Received-Date: Fri, 11 Jan 2019 12:30:30 -0000
 
---00000000000097a969057f2d987b
+--000000000000a1414d057f2ddb54
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi all,
-I've downloaded the openbmc project from github. While building the
-project, I'm facing the following error.
+Ping.
 
-*Build Configuration:*
-BB_VERSION           =3D "1.40.0"
-BUILD_SYS            =3D "i686-linux"
-NATIVELSBSTRING      =3D "ubuntu-14.04"
-TARGET_SYS           =3D "arm-openbmc-linux-gnueabi"
-MACHINE              =3D "zaius"
-DISTRO               =3D "openbmc-phosphor"
-DISTRO_VERSION       =3D "0.1.0"
-TUNE_FEATURES        =3D "arm armv6 thumb arm1176jzs"
-TARGET_FPU           =3D "soft"
-meta-zaius           =3D "master:1a4b7ee28bf7413af6513fb45ad0d0736048f866"
 
-*ERROR:* dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Fetcher failure:
-Fetch command export PSEUDO_DISABLED=3D1; export
-DBUS_SESSION_BUS_ADDRESS=3D"unix:abstract=3D/tmp/dbus-4MEPus6gYW"; export
-SSH_AUTH_SOCK=3D"/run/user/1000/keyring-5RCWfK/ssh"; export
-PATH=3D"/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/=
-16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/bin/python3-native:/.=
-./openbmc/scripts:/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/db=
-us-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/bin/arm-ope=
-nbmc-linux-gnueabi:/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/d=
-bus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot/usr/bin/crossscripts:=
-/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAU=
-TOINC+fc874afa09-r0/recipe-sysroot-native/usr/sbin:/../openbmc/build/tmp/wo=
-rk/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/reci=
-pe-sysroot-native/usr/bin:/../openbmc/build/tmp/work/armv6-openbmc-linux-gn=
-ueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/sbin:/.=
-./openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTO=
-INC+fc874afa09-r0/recipe-sysroot-native/bin:/../openbmc/poky/bitbake/bin:/.=
-./openbmc/build/tmp/hosttools";
-export HOME=3D"/home/omkar"; LANG=3DC git -c core.fsyncobjectfiles=3D0 clon=
-e
---bare --mirror git://github.com/bus1/dbus-broker
-/../openbmc/build/downloads/git2/github.com.bus1.dbus-broker --progress
-failed with exit code 128, output:
-Cloning into bare repository
-'/../openbmc/build/downloads/git2/github.com.bus1.dbus-broker'...
-fatal: unable to connect to github.com:
-github.com[0: 52.74.223.119]: errno=3DConnection timed out
-github.com[1: 13.250.177.223]: errno=3DConnection timed out
-github.com[2: 13.229.188.59]: errno=3DConnection timed out
+On Mon, Nov 12, 2018 at 3:26 PM Christian Svensson <bluecmd@google.com>
+wrote:
 
-ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Fetcher failure
-for URL: 'gitsm://github.com/bus1/dbus-broker;protocol=3Dgit'. Unable to
-fetch URL from any source.
-ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Function failed:
-base_do_fetch
-ERROR: Logfile of failure stored in:
-/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAU=
-TOINC+fc874afa09-r0/temp/log.do_fetch.2531
-ERROR: Task
-(/../openbmc/meta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git.bb=
-:do_fetch)
-failed with exit code '1'
-NOTE: Tasks Summary: Attempted 2757 tasks of which 2756 didn't need to be
-rerun and 1 failed.
+> Without this IO mapping early printk will simply not work after the
+> paging and MMU has been setup.
+>
+> This patch maps all the whole 0x1e600000 IO space to 0xfe600000.
+>
+> Signed-off-by: Christian Svensson <bluecmd@google.com>
+> ---
+>  arch/arm/Makefile                 |  1 +
+>  arch/arm/mach-aspeed/Makefile     |  1 +
+>  arch/arm/mach-aspeed/aspeed_soc.c | 47 +++++++++++++++++++++++++++++++
+>  arch/arm/mach-aspeed/iomap.h      | 17 +++++++++++
+>  4 files changed, 66 insertions(+)
+>  create mode 100644 arch/arm/mach-aspeed/Makefile
+>  create mode 100644 arch/arm/mach-aspeed/aspeed_soc.c
+>  create mode 100644 arch/arm/mach-aspeed/iomap.h
+>
+> diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+> index fc26c3d7b9b6..f0e3ca392f8c 100644
+> --- a/arch/arm/Makefile
+> +++ b/arch/arm/Makefile
+> @@ -159,6 +159,7 @@ textofs-$(CONFIG_ARCH_AXXIA) := 0x00308000
+>  machine-$(CONFIG_ARCH_ACTIONS)         += actions
+>  machine-$(CONFIG_ARCH_ALPINE)          += alpine
+>  machine-$(CONFIG_ARCH_ARTPEC)          += artpec
+> +machine-$(CONFIG_ARCH_ASPEED)          += aspeed
+>  machine-$(CONFIG_ARCH_AT91)            += at91
+>  machine-$(CONFIG_ARCH_AXXIA)           += axxia
+>  machine-$(CONFIG_ARCH_BCM)             += bcm
+> diff --git a/arch/arm/mach-aspeed/Makefile b/arch/arm/mach-aspeed/Makefile
+> new file mode 100644
+> index 000000000000..426952d47cc3
+> --- /dev/null
+> +++ b/arch/arm/mach-aspeed/Makefile
+> @@ -0,0 +1 @@
+> +obj-y := aspeed_soc.o
+> diff --git a/arch/arm/mach-aspeed/aspeed_soc.c
+> b/arch/arm/mach-aspeed/aspeed_soc.c
+> new file mode 100644
+> index 000000000000..187276c2813d
+> --- /dev/null
+> +++ b/arch/arm/mach-aspeed/aspeed_soc.c
+> @@ -0,0 +1,47 @@
+> +/*
+> + * Copyright (C) 2018 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#include <linux/init.h>
+> +#include <linux/of_platform.h>
+> +
+> +#include <asm/mach/arch.h>
+> +#include <asm/mach/map.h>
+> +
+> +#include "iomap.h"
+> +
+> +// This is needed for e.g. earlyprintk
+> +static struct map_desc io_desc[] __initdata = {
+> +       {
+> +               .virtual = AST_IO_VIRT,
+> +               .pfn = __phys_to_pfn(AST_IO_PHYS),
+> +               .length = AST_IO_SIZE,
+> +               .type = MT_DEVICE
+> +       }
+> +};
+> +
+> +static void __init aspeed_map_io(void)
+> +{
+> +       iotable_init(io_desc, ARRAY_SIZE(io_desc));
+> +}
+> +
+> +static const char * const aspeed_compat[] = {
+> +       "aspeed,ast2400",
+> +       "aspeed,ast2500",
+> +       NULL
+> +};
+> +
+> +DT_MACHINE_START(ASPEED_DT, "Aspeed SoC")
+> +       .map_io = aspeed_map_io,
+> +       .dt_compat = aspeed_compat,
+> +MACHINE_END
+> diff --git a/arch/arm/mach-aspeed/iomap.h b/arch/arm/mach-aspeed/iomap.h
+> new file mode 100644
+> index 000000000000..7ea5276f3892
+> --- /dev/null
+> +++ b/arch/arm/mach-aspeed/iomap.h
+> @@ -0,0 +1,17 @@
+> +/*
+> + * Copyright (C) 2018 Google, Inc.
+> + *
+> + * This program is free software; you can redistribute it and/or modify
+> + * it under the terms of the GNU General Public License as published by
+> + * the Free Software Foundation; either version 2 of the License, or
+> + * (at your option) any later version.
+> + *
+> + * This program is distributed in the hope that it will be useful,
+> + * but WITHOUT ANY WARRANTY; without even the implied warranty of
+> + * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> + * GNU General Public License for more details.
+> + */
+> +
+> +#define AST_IO_PHYS 0x1e600000
+> +#define AST_IO_VIRT 0xfe600000
+> +#define AST_IO_SIZE 0x00200000
+> --
+> 2.19.1.930.g4563a0d9d0-goog
+>
+>
 
-Summary: 1 task failed:
-
-/../openbmc/meta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git.bb:
-do_fetch
-
-I'm trying to build the open bmc project for the first time. I tried to
-build for Romulus, Palmetto and Zaius. Each build failed with a different
-error. I don't have the errors for other builds. Please let me know how to
-resolve this error.
-
-Thanks in advance,
-Omkar
-
---=20
-CONFIDENTIALITY
-This e-mail message and any attachments thereto, is=20
-intended only for use by the addressee(s) named herein and may contain=20
-legally privileged and/or confidential information. If you are not the=20
-intended recipient of this e-mail message, you are hereby notified that any=
-=20
-dissemination, distribution or copying of this e-mail message, and any=20
-attachments thereto, is strictly prohibited.  If you have received this=20
-e-mail message in error, please immediately notify the sender and=20
-permanently delete the original and any copies of this email and any prints=
-=20
-thereof.
-ABSENT AN EXPRESS STATEMENT TO THE CONTRARY HEREINABOVE, THIS=20
-E-MAIL IS NOT INTENDED AS A SUBSTITUTE FOR A WRITING.  Notwithstanding the=
-=20
-Uniform Electronic Transactions Act or the applicability of any other law=
-=20
-of similar substance and effect, absent an express statement to the=20
-contrary hereinabove, this e-mail message its contents, and any attachments=
-=20
-hereto are not intended to represent an offer or acceptance to enter into a=
-=20
-contract and are not otherwise intended to bind the sender, Sanmina=20
-Corporation (or any of its subsidiaries), or any other person or entity.
-
---00000000000097a969057f2d987b
+--000000000000a1414d057f2ddb54
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>Hi=
- all,</div><div>I&#39;ve downloaded the openbmc project from github. While =
-building the project, I&#39;m facing the following error.</div><div><br></d=
-iv><div><div><div><b>Build Configuration:</b></div><div>BB_VERSION=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;1.40.0&quot;</div><div>BUILD_SY=
-S=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;i686-linux&quot;</div>=
-<div>NATIVELSBSTRING=C2=A0 =C2=A0 =C2=A0 =3D &quot;ubuntu-14.04&quot;</div>=
-<div>TARGET_SYS=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;arm-openb=
-mc-linux-gnueabi&quot;</div><div>MACHINE=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =3D &quot;zaius&quot;</div><div>DISTRO=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;openbmc-phosphor&quot;</div><di=
-v>DISTRO_VERSION=C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &quot;0.1.0&quot;</div><div>=
-TUNE_FEATURES=C2=A0 =C2=A0 =C2=A0 =C2=A0 =3D &quot;arm armv6 thumb arm1176j=
-zs&quot;</div><div>TARGET_FPU=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=3D &=
-quot;soft&quot;</div></div><div>meta-zaius=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0=3D &quot;master:1a4b7ee28bf7413af6513fb45ad0d0736048f866&quot;<b=
-r></div><div><br></div></div><div><b>ERROR:</b> dbus-broker-16+gitAUTOINC+f=
-c874afa09-r0 do_fetch: Fetcher failure: Fetch command export PSEUDO_DISABLE=
-D=3D1; export DBUS_SESSION_BUS_ADDRESS=3D&quot;unix:abstract=3D/tmp/dbus-4M=
-EPus6gYW&quot;; export SSH_AUTH_SOCK=3D&quot;/run/user/1000/keyring-5RCWfK/=
-ssh&quot;; export PATH=3D&quot;/../openbmc/build/tmp/work/armv6-openbmc-lin=
-ux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/us=
-r/bin/python3-native:/../openbmc/scripts:/../openbmc/build/tmp/work/armv6-o=
-penbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot=
--native/usr/bin/arm-openbmc-linux-gnueabi:/../openbmc/build/tmp/work/armv6-=
-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroo=
-t/usr/bin/crossscripts:/../openbmc/build/tmp/work/armv6-openbmc-linux-gnuea=
-bi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/sbin:/=
-../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUT=
-OINC+fc874afa09-r0/recipe-sysroot-native/usr/bin:/../openbmc/build/tmp/work=
-/armv6-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe=
--sysroot-native/sbin:/../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi=
-/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/bin:/../open=
-bmc/poky/bitbake/bin:/../openbmc/build/tmp/hosttools&quot;; export HOME=3D&=
-quot;/home/omkar&quot;; LANG=3DC git -c core.fsyncobjectfiles=3D0 clone --b=
-are --mirror git://<a href=3D"http://github.com/bus1/dbus-broker">github.co=
-m/bus1/dbus-broker</a> /../openbmc/build/downloads/git2/github.com.bus1.dbu=
-s-broker --progress failed with exit code 128, output:</div><div>Cloning in=
-to bare repository &#39;/../openbmc/build/downloads/git2/github.com.bus1.db=
-us-broker&#39;...</div><div>fatal: unable to connect to <a href=3D"http://g=
-ithub.com">github.com</a>:</div><div><a href=3D"http://github.com">github.c=
-om</a>[0: 52.74.223.119]: errno=3DConnection timed out</div><div><a href=3D=
-"http://github.com">github.com</a>[1: 13.250.177.223]: errno=3DConnection t=
-imed out</div><div><a href=3D"http://github.com">github.com</a>[2: 13.229.1=
-88.59]: errno=3DConnection timed out</div><div><br></div><div>ERROR: dbus-b=
-roker-16+gitAUTOINC+fc874afa09-r0 do_fetch: Fetcher failure for URL: &#39;g=
-itsm://<a href=3D"http://github.com/bus1/dbus-broker;protocol=3Dgit">github=
-.com/bus1/dbus-broker;protocol=3Dgit</a>&#39;. Unable to fetch URL from any=
- source.<br></div><div>ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_fe=
-tch: Function failed: base_do_fetch</div><div>ERROR: Logfile of failure sto=
-red in: /../openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/dbus-broker/=
-16+gitAUTOINC+fc874afa09-r0/temp/log.do_fetch.2531</div><div>ERROR: Task (/=
-../openbmc/meta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git.bb:d=
-o_fetch) failed with exit code &#39;1&#39;</div><div>NOTE: Tasks Summary: A=
-ttempted 2757 tasks of which 2756 didn&#39;t need to be rerun and 1 failed.=
-</div><div><br></div><div>Summary: 1 task failed:</div><div>=C2=A0 /../open=
-bmc/meta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git.bb:do_fetch=
-</div><div><br></div><div><div>I&#39;m trying to build the open bmc project=
- for the first time. I tried to build for Romulus, Palmetto and Zaius. Each=
- build failed with a different error. I don&#39;t have the errors for other=
- builds. Please let me know how to resolve this error.<br></div></div><div>=
-<br></div><div>Thanks in advance,</div><div>Omkar</div></div></div></div></=
-div>
-
+<div dir=3D"ltr">Ping.<div><br></div></div><br><div class=3D"gmail_quote"><=
+div dir=3D"ltr">On Mon, Nov 12, 2018 at 3:26 PM Christian Svensson &lt;<a h=
+ref=3D"mailto:bluecmd@google.com">bluecmd@google.com</a>&gt; wrote:<br></di=
+v><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;borde=
+r-left:1px solid rgb(204,204,204);padding-left:1ex">Without this IO mapping=
+ early printk will simply not work after the<br>
+paging and MMU has been setup.<br>
 <br>
-CONFIDENTIALITY<br>This e-mail message and any attachments thereto, is inte=
-nded only for use by the addressee(s) named herein and may contain legally =
-privileged and/or confidential information. If you are not the intended rec=
-ipient of this e-mail message, you are hereby notified that any disseminati=
-on, distribution or copying of this e-mail message, and any attachments the=
-reto, is strictly prohibited.  If you have received this e-mail message in =
-error, please immediately notify the sender and permanently delete the orig=
-inal and any copies of this email and any prints thereof.<br>ABSENT AN EXPR=
-ESS STATEMENT TO THE CONTRARY HEREINABOVE, THIS E-MAIL IS NOT INTENDED AS A=
- SUBSTITUTE FOR A WRITING.  Notwithstanding the Uniform Electronic Transact=
-ions Act or the applicability of any other law of similar substance and eff=
-ect, absent an express statement to the contrary hereinabove, this e-mail m=
-essage its contents, and any attachments hereto are not intended to represe=
-nt an offer or acceptance to enter into a contract and are not otherwise in=
-tended to bind the sender, Sanmina Corporation (or any of its subsidiaries)=
-, or any other person or entity.<br>
---00000000000097a969057f2d987b--
+This patch maps all the whole 0x1e600000 IO space to 0xfe600000.<br>
+<br>
+Signed-off-by: Christian Svensson &lt;<a href=3D"mailto:bluecmd@google.com"=
+ target=3D"_blank">bluecmd@google.com</a>&gt;<br>
+---<br>
+=C2=A0arch/arm/Makefile=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0|=C2=A0 1 +<br>
+=C2=A0arch/arm/mach-aspeed/Makefile=C2=A0 =C2=A0 =C2=A0|=C2=A0 1 +<br>
+=C2=A0arch/arm/mach-aspeed/aspeed_soc.c | 47 ++++++++++++++++++++++++++++++=
++<br>
+=C2=A0arch/arm/mach-aspeed/iomap.h=C2=A0 =C2=A0 =C2=A0 | 17 +++++++++++<br>
+=C2=A04 files changed, 66 insertions(+)<br>
+=C2=A0create mode 100644 arch/arm/mach-aspeed/Makefile<br>
+=C2=A0create mode 100644 arch/arm/mach-aspeed/aspeed_soc.c<br>
+=C2=A0create mode 100644 arch/arm/mach-aspeed/iomap.h<br>
+<br>
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile<br>
+index fc26c3d7b9b6..f0e3ca392f8c 100644<br>
+--- a/arch/arm/Makefile<br>
++++ b/arch/arm/Makefile<br>
+@@ -159,6 +159,7 @@ textofs-$(CONFIG_ARCH_AXXIA) :=3D 0x00308000<br>
+=C2=A0machine-$(CONFIG_ARCH_ACTIONS)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0+=3D =
+actions<br>
+=C2=A0machine-$(CONFIG_ARCH_ALPINE)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D =
+alpine<br>
+=C2=A0machine-$(CONFIG_ARCH_ARTPEC)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D =
+artpec<br>
++machine-$(CONFIG_ARCH_ASPEED)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 +=3D aspee=
+d<br>
+=C2=A0machine-$(CONFIG_ARCH_AT91)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
++=3D at91<br>
+=C2=A0machine-$(CONFIG_ARCH_AXXIA)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
++=3D axxia<br>
+=C2=A0machine-$(CONFIG_ARCH_BCM)=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0+=3D bcm<br>
+diff --git a/arch/arm/mach-aspeed/Makefile b/arch/arm/mach-aspeed/Makefile<=
+br>
+new file mode 100644<br>
+index 000000000000..426952d47cc3<br>
+--- /dev/null<br>
++++ b/arch/arm/mach-aspeed/Makefile<br>
+@@ -0,0 +1 @@<br>
++obj-y :=3D aspeed_soc.o<br>
+diff --git a/arch/arm/mach-aspeed/aspeed_soc.c b/arch/arm/mach-aspeed/aspee=
+d_soc.c<br>
+new file mode 100644<br>
+index 000000000000..187276c2813d<br>
+--- /dev/null<br>
++++ b/arch/arm/mach-aspeed/aspeed_soc.c<br>
+@@ -0,0 +1,47 @@<br>
++/*<br>
++ * Copyright (C) 2018 Google, Inc.<br>
++ *<br>
++ * This program is free software; you can redistribute it and/or modify<br=
+>
++ * it under the terms of the GNU General Public License as published by<br=
+>
++ * the Free Software Foundation; either version 2 of the License, or<br>
++ * (at your option) any later version.<br>
++ *<br>
++ * This program is distributed in the hope that it will be useful,<br>
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>
++ * GNU General Public License for more details.<br>
++ */<br>
++<br>
++#include &lt;linux/init.h&gt;<br>
++#include &lt;linux/of_platform.h&gt;<br>
++<br>
++#include &lt;asm/mach/arch.h&gt;<br>
++#include &lt;asm/mach/map.h&gt;<br>
++<br>
++#include &quot;iomap.h&quot;<br>
++<br>
++// This is needed for e.g. earlyprintk<br>
++static struct map_desc io_desc[] __initdata =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.virtual =3D AST_IO=
+_VIRT,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.pfn =3D __phys_to_=
+pfn(AST_IO_PHYS),<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.length =3D AST_IO_=
+SIZE,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0.type =3D MT_DEVICE=
+<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
++};<br>
++<br>
++static void __init aspeed_map_io(void)<br>
++{<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0iotable_init(io_desc, ARRAY_SIZE(io_desc));<br>
++}<br>
++<br>
++static const char * const aspeed_compat[] =3D {<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;aspeed,ast2400&quot;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0&quot;aspeed,ast2500&quot;,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0NULL<br>
++};<br>
++<br>
++DT_MACHINE_START(ASPEED_DT, &quot;Aspeed SoC&quot;)<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.map_io =3D aspeed_map_io,<br>
++=C2=A0 =C2=A0 =C2=A0 =C2=A0.dt_compat =3D aspeed_compat,<br>
++MACHINE_END<br>
+diff --git a/arch/arm/mach-aspeed/iomap.h b/arch/arm/mach-aspeed/iomap.h<br=
+>
+new file mode 100644<br>
+index 000000000000..7ea5276f3892<br>
+--- /dev/null<br>
++++ b/arch/arm/mach-aspeed/iomap.h<br>
+@@ -0,0 +1,17 @@<br>
++/*<br>
++ * Copyright (C) 2018 Google, Inc.<br>
++ *<br>
++ * This program is free software; you can redistribute it and/or modify<br=
+>
++ * it under the terms of the GNU General Public License as published by<br=
+>
++ * the Free Software Foundation; either version 2 of the License, or<br>
++ * (at your option) any later version.<br>
++ *<br>
++ * This program is distributed in the hope that it will be useful,<br>
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of<br>
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.=C2=A0 See the<br>
++ * GNU General Public License for more details.<br>
++ */<br>
++<br>
++#define AST_IO_PHYS 0x1e600000<br>
++#define AST_IO_VIRT 0xfe600000<br>
++#define AST_IO_SIZE 0x00200000<br>
+-- <br>
+2.19.1.930.g4563a0d9d0-goog<br>
+<br>
+</blockquote></div>
+
+--000000000000a1414d057f2ddb54--
