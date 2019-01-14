@@ -1,27 +1,26 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dpgk2BnPzDqVq
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 09:54:25 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dpsz2NXvzDqVy
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 10:03:18 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2019 14:54:23 -0800
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2019 15:03:14 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,479,1539673200"; d="scan'208";a="291540833"
+X-IronPort-AV: E=Sophos;i="5.56,479,1539673200"; d="scan'208";a="291543069"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
  ([10.7.153.143])
- by orsmga005.jf.intel.com with ESMTP; 14 Jan 2019 14:54:23 -0800
-Subject: Re: [PATCH v10 09/12] Documentation: hwmon: Add documents for PECI
- hwmon client drivers
+ by orsmga005.jf.intel.com with ESMTP; 14 Jan 2019 15:03:15 -0800
+Subject: Re: [PATCH v10 08/12] mfd: intel-peci-client: Add PECI client driver
 To: Joel Stanley <joel@jms.id.au>
 Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
@@ -50,20 +49,19 @@ Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  devicetree <devicetree@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  linux-doc@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Haiyue Wang <haiyue.wang@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
 References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-10-jae.hyun.yoo@linux.intel.com>
- <CACPK8XdK-VpV7y1UT81QUo7CXuUp=gjjnZmTbvLvRVERtv5fDA@mail.gmail.com>
+ <20190107214136.5256-9-jae.hyun.yoo@linux.intel.com>
+ <CACPK8Xet1HUbC4MN-XO31oZj56+af1Lpc_mtee-COSYizedWTg@mail.gmail.com>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <879f5254-2575-6a40-07ed-a80b2d944cb6@linux.intel.com>
-Date: Mon, 14 Jan 2019 14:54:23 -0800
+Message-ID: <7f63d8f1-2af6-e386-d5b2-c78e3881d789@linux.intel.com>
+Date: Mon, 14 Jan 2019 15:03:15 -0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.3.3
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XdK-VpV7y1UT81QUo7CXuUp=gjjnZmTbvLvRVERtv5fDA@mail.gmail.com>
+In-Reply-To: <CACPK8Xet1HUbC4MN-XO31oZj56+af1Lpc_mtee-COSYizedWTg@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -79,31 +77,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 22:54:27 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 23:03:20 -0000
 
-On 1/14/2019 3:43 AM, Joel Stanley wrote:
+On 1/14/2019 3:42 AM, Joel Stanley wrote:
 > On Tue, 8 Jan 2019 at 08:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
 >>
->> This commit adds hwmon documents for PECI cputemp and dimmtemp drivers.
->>
->> Cc: Guenter Roeck <linux@roeck-us.net>
->> Cc: Jean Delvare <jdelvare@suse.com>
->> Cc: Jonathan Corbet <corbet@lwn.net>
->> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
->> Cc: Randy Dunlap <rdunlap@infradead.org>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
->> Reviewed-by: James Feist <james.feist@linux.intel.com>
->> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
->> Acked-by: Guenter Roeck <linux@roeck-us.net>
+>> This commit adds PECI client driver.
 > 
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> It looks like it's a PECI driver for the three CPU families, and it
+> implements cpu and dimm temp, with sideband functions deferred to the
+> future. If you add that information with a few more words it would
+> make for a nicer commit message.
 > 
 
-Hi Joel,
+Yes, that would be nicer. I'll add the description into the commit
+message.
 
-Thank you so much for your careful review on this patch series. I'll
-submit v11 soon to address your review comments.
+Thanks for your review!
 
 Regards,
 Jae
+
+>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> 
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> 
