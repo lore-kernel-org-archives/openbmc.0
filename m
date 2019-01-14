@@ -9,21 +9,21 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfc0mxgzDqVn
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 00:07:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfd3HY9zDqVr
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 00:07:36 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbK1Q019002;
- Mon, 14 Jan 2019 14:37:20 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbHLe018984;
+ Mon, 14 Jan 2019 14:37:17 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id B454B62DA4; Mon, 14 Jan 2019 15:07:17 +0200 (IST)
+ id F39A762DA4; Mon, 14 Jan 2019 15:07:14 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>
-Subject: [linux dev-4.19 10/15] dt-binding: net: document NPCM7xx EMC DT
- bindings
-Date: Mon, 14 Jan 2019 15:07:05 +0200
-Message-Id: <20190114130710.427600-11-tmaimon77@gmail.com>
+ Tali Perry <tali.perry1@gmail.com>
+Subject: [linux dev-4.19 04/15] dt-bindings: i2c: npcm7xx: add binding for i2c
+ controller
+Date: Mon, 14 Jan 2019 15:06:59 +0200
+Message-Id: <20190114130710.427600-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20190114130710.427600-1-tmaimon77@gmail.com>
 References: <20190114130710.427600-1-tmaimon77@gmail.com>
@@ -38,60 +38,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 13:07:36 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 13:07:38 -0000
 
-Added device tree binding documentation for
-Nuvoton NPCM7xx Ethernet MAC Controller (EMC).
-
-Signed-off-by: Avi Fishman <avifishman70@gmail.com>
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Signed-off-by: Tali Perry <tali.perry1@gmail.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
 ---
- .../bindings/net/nuvoton,npcm7xx-emc.txt           | 36 ++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
+ .../devicetree/bindings/i2c/i2c-npcm7xx.txt        | 29 ++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
 
-diff --git a/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt b/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
 new file mode 100644
-index 000000000000..4227597401f5
+index 000000000000..0ecae950748b
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nuvoton,npcm7xx-emc.txt
-@@ -0,0 +1,36 @@
-+Nuvoton NPCM7XX 10/100 Ethernet MAC Controller (EMC)
++++ b/Documentation/devicetree/bindings/i2c/i2c-npcm7xx.txt
+@@ -0,0 +1,29 @@
++Nuvoton NPCM7XX I2C bus
 +
-+The NPCM750x provides two identical Ethernet MAC Controllers
-+for WAN/LAN applications
++The NPCM750x includes sixteen I2C bus controllers. All Controllers support
++both master and slave mode. Each controller has two 16 byte HW FIFO for TX and
++RX.
 +
 +Required properties:
-+- device_type     : Should be "network"
-+- compatible      : "nuvoton,npcm750-emc" for Poleg NPCM750.
++- compatible      : must be "nuvoton,npcm750-i2c"
 +- reg             : Offset and length of the register set for the device.
-+- interrupts      : Contain the emc interrupts with flags for falling edge.
-+                    first interrupt dedicated to Txirq
-+                    second interrupt dedicated to Rxirq
-+- phy-mode        : Should be "rmii" (see ethernet.txt in the same directory)
-+- clocks          : phandle of emc reference clock.
-+- use-ncsi        : Use the NC-SI stack instead of an MDIO PHY
++- interrupts      : Contain the I2C interrupt with flags for falling edge.
++- clocks          : phandle of I2C reference clock.
 +
++Optional:
++- bus-frequency   : Contain the I2C bus frequency,
++			the default I2C bus frequency is 100000.
++- pinctrl-0       : must be <&smbX_pins>, X is module number
++			(on NPCM7XX it's 0 to 15)
++- pinctrl-names   : should be set to "default"
 +Example:
 +
-+emc0: eth@f0825000 {
-+	device_type = "network";
-+	compatible = "nuvoton,npcm750-emc";
-+	reg = <0xf0825000 0x1000>;
-+	interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
-+	             <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
-+	phy-mode = "rmii";
-+	clocks = <&clk NPCM7XX_CLK_AHB>;
-+
-+	#use-ncsi; /* add this to support ncsi */
-+
-+	clock-names = "clk_emc";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&r1_pins
-+	             &r1err_pins
-+	             &r1md_pins>;
-+	status = "okay";
-+};
-\ No newline at end of file
++	i2c0: i2c@80000 {
++		compatible = "nuvoton,npcm750-i2c";
++		reg = <0x80000 0x1000>;
++		clocks = <&clk NPCM7XX_CLK_APB2>;
++		bus-frequency = <100000>;
++		interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&smb0_pins>;
++	};
 -- 
 2.14.1
