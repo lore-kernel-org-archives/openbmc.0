@@ -1,50 +1,48 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dpK22w5HzDqTv
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 09:38:13 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dpZS041vzDqVZ
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 09:49:51 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Jan 2019 14:38:10 -0800
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Jan 2019 14:49:48 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,479,1539673200"; d="scan'208";a="291537241"
+X-IronPort-AV: E=Sophos;i="5.56,479,1539673200"; d="scan'208";a="291540043"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
  ([10.7.153.143])
- by orsmga005.jf.intel.com with ESMTP; 14 Jan 2019 14:38:10 -0800
-Subject: Re: [PATCH v10 03/12] peci: Add support for PECI bus driver core
+ by orsmga005.jf.intel.com with ESMTP; 14 Jan 2019 14:49:48 -0800
+Subject: Re: [PATCH v10 06/12] peci: Add a PECI adapter driver for Aspeed
+ AST24xx/AST25xx
 To: Joel Stanley <joel@jms.id.au>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>,
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, devicetree <devicetree@vger.kernel.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Viresh Kumar <viresh.kumar@linaro.org>,
  Andy Shevchenko <andriy.shevchenko@intel.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Fengguang Wu <fengguang.wu@intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Julia Cartwright <juliac@eso.teric.us>,
+ Robin Murphy <robin.murphy@arm.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
  Haiyue Wang <haiyue.wang@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
 References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
- <CACPK8XfxU6r_0HLbD2MuSgON5-G43cpENhK+SR=9KhBG4GeWDA@mail.gmail.com>
+ <20190107214136.5256-7-jae.hyun.yoo@linux.intel.com>
+ <CACPK8XfMyXfomepZEPJCr=A-cCPw-CVAZ0B2CuKn7oXCNz6LbQ@mail.gmail.com>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <68876b15-f0fb-e9dd-a4aa-e9b5c50f4a54@linux.intel.com>
-Date: Mon, 14 Jan 2019 14:38:10 -0800
+Message-ID: <abaef001-a769-ec5d-45f0-02a994fdbee6@linux.intel.com>
+Date: Mon, 14 Jan 2019 14:49:48 -0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.3.3
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XfxU6r_0HLbD2MuSgON5-G43cpENhK+SR=9KhBG4GeWDA@mail.gmail.com>
+In-Reply-To: <CACPK8XfMyXfomepZEPJCr=A-cCPw-CVAZ0B2CuKn7oXCNz6LbQ@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
@@ -59,201 +57,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 22:38:15 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 22:49:52 -0000
 
-Hello Joel,
-
-On 1/14/2019 3:13 AM, Joel Stanley wrote:
-> Hello Jae,
-> 
+On 1/14/2019 3:37 AM, Joel Stanley wrote:
 > On Tue, 8 Jan 2019 at 08:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> This commit adds driver implementation for PECI bus core into linux
->> driver framework.
+>> +       ret = of_property_read_u32(priv->dev->of_node, "cmd-timeout-ms",
+>> +                                  &priv->cmd_timeout_ms);
+>> +       if (ret || priv->cmd_timeout_ms > PECI_CMD_TIMEOUT_MS_MAX ||
+>> +           priv->cmd_timeout_ms == 0) {
+>> +               if (!ret)
+>> +                       dev_warn(priv->dev,
+>> +                                "Invalid cmd-timeout-ms : %u. Use default : %u\n",
+>> +                                priv->cmd_timeout_ms,
+>> +                                PECI_CMD_TIMEOUT_MS_DEFAULT);
 > 
-> I would like to help you get this merged next release cycle, as we are
-> now carrying it in OpenBMC. I suggest we ask Greg to queue it up if
-> there are no objections after you've addressed my questions.
-> 
-
-Thanks a lot for your help on reviewing this patch series. I'll submit
-v11 to address your comments. We could ask Greg to queue it then.
-
->> +static u8 peci_aw_fcs(u8 *data, int len)
-> 
-> I was wondering what aw_fcs meant. I notice that later on you describe
-> it as an Assure Write Frame Check Sequence byte. You could add a
-> comment next to this function :)
+> As this property is documented as optional, I'd split out the checks
+> so you only warn when the value provided is invalid.
 > 
 
-Agreed. I'll add a comment like you suggested.
+Please check the above 'if' statement too. It prints out warning only
+when the property is defined in device tree but the value is out of
+range.
 
-> Instead of casing to u8 every time you call this, you could have this
-> take a struct peci_xfer_msg * and cast when calling crc8.
-> 
-
-Yes, that would be neater. Will fix it.
-
->> +{
->> +       return crc8(peci_crc8_table, data, (size_t)len, 0);
->> +}
 >> +
->> +static int __peci_xfer(struct peci_adapter *adapter, struct peci_xfer_msg *msg,
->> +                      bool do_retry, bool has_aw_fcs)
->> +{
->> +       ktime_t start, end;
->> +       s64 elapsed_ms;
->> +       int rc = 0;
+>> +       regmap_write(priv->regmap, ASPEED_PECI_CTRL,
+>> +                    FIELD_PREP(PECI_CTRL_CLK_DIV_MASK, PECI_CLK_DIV_DEFAULT) |
+>> +                    PECI_CTRL_PECI_CLK_EN);
 >> +
 >> +       /**
 > 
-> These are for kerneldoc, and the comments aren't kerneldoc. Replace
-> them with /* instead.
+> Just the one *.
 > 
 
-Okay, I'll check all comments again in this series.
+Will fix it.
 
->> +        * For some commands, the PECI originator may need to retry a command if
->> +        * the processor PECI client responds with a 0x8x completion code. In
->> +        * each instance, the processor PECI client may have started the
->> +        * operation but not completed it yet. When the 'retry' bit is set, the
->> +        * PECI client will ignore a new request if it exactly matches a
->> +        * previous valid request.
+>> +        * Timing negotiation period setting.
+>> +        * The unit of the programmed value is 4 times of PECI clock period.
 >> +        */
->> +
->> +       if (do_retry)
->> +               start = ktime_get();
->> +
->> +       do {
->> +               rc = adapter->xfer(adapter, msg);
->> +
->> +               if (!do_retry || rc)
->> +                       break;
->> +
->> +               if (msg->rx_buf[0] == DEV_PECI_CC_SUCCESS)
->> +                       break;
->> +
->> +               /* Retry is needed when completion code is 0x8x */
->> +               if ((msg->rx_buf[0] & DEV_PECI_CC_RETRY_CHECK_MASK) !=
->> +                   DEV_PECI_CC_NEED_RETRY) {
->> +                       rc = -EIO;
->> +                       break;
->> +               }
->> +
->> +               /* Set the retry bit to indicate a retry attempt */
->> +               msg->tx_buf[1] |= DEV_PECI_RETRY_BIT;
->> +
->> +               /* Recalculate the AW FCS if it has one */
->> +               if (has_aw_fcs)
->> +                       msg->tx_buf[msg->tx_len - 1] = 0x80 ^
+>> +       regmap_write(priv->regmap, ASPEED_PECI_TIMING,
+>> +                    FIELD_PREP(PECI_TIMING_MESSAGE_MASK, msg_timing) |
+>> +                    FIELD_PREP(PECI_TIMING_ADDRESS_MASK, addr_timing));
 > 
-> Can we guarantee that msg->tx_len will be set to non-zero whenever has_aw_fcs?
-> 
-> I suggest checking before doing the assignment in case a new caller is
-> added and they make a mistake.
-> 
-
-The msg->tx_len is already checked by callers - peci_ioctl_wr_pkg_cfg()
-and peci_ioctl_wr_pci_cfg_local() - so it's not needed to be checked
-again at here.
-
->> +static int peci_ioctl_get_dib(struct peci_adapter *adapter, void *vmsg)
+>> +static int aspeed_peci_xfer(struct peci_adapter *adapter,
+>> +                           struct peci_xfer_msg *msg)
 >> +{
->> +       struct peci_get_dib_msg *umsg = vmsg;
->> +       struct peci_xfer_msg msg;
->> +       int rc;
+>> +       struct aspeed_peci *priv = peci_get_adapdata(adapter);
 >> +
->> +       msg.addr      = umsg->addr;
->> +       msg.tx_len    = GET_DIB_WR_LEN;
->> +       msg.rx_len    = GET_DIB_RD_LEN;
->> +       msg.tx_buf[0] = GET_DIB_PECI_CMD;
->> +
->> +       rc = peci_xfer(adapter, &msg);
-> 
-> Most of tx_buf is going to be uninitialised. I assume a well behaving
-> adapter->xfer will check this and only send the correct number of
-> bytes, but it might pay to zero out struct peci_xfer_msg in all of
-> these functions?
-> 
-
-The tx_buf will be initialized only amounts it needs to be in each
-command. The adapter->xfer is handling exactly up to msg->tx_len so
-it would be better keep the current code without using zeroing out the
-struct.
-
->> +       if (rc)
->> +               return rc;
->> +
->> +       umsg->dib = le64_to_cpup((__le64 *)msg.rx_buf);
->> +
->> +       return 0;
+>> +       return aspeed_peci_xfer_native(priv, msg);
 >> +}
 > 
+> It looks like you could do the peci_get_adapdata in
+> aspeed_peci_xfer_native and drop the need for this wrapper.
+> 
+
+Yes, that would be neater. Will remove this wrapper.
+
 >> +
->> +#if IS_ENABLED(CONFIG_OF)
->> +static struct peci_client *peci_of_register_device(struct peci_adapter *adapter,
->> +                                                  struct device_node *node)
+>> +static int aspeed_peci_probe(struct platform_device *pdev)
 >> +{
->> +       struct peci_board_info info = {};
->> +       struct peci_client *result;
->> +       const __be32 *addr_be;
->> +       int len;
->> +
->> +       dev_dbg(&adapter->dev, "register %pOF\n", node);
->> +
->> +       if (of_modalias_node(node, info.type, sizeof(info.type)) < 0) {
 > 
-> I don't understand why you're doing this. Won't this always be peci,
-> as your binding requires?
-> 
-
-Since it supports only 'intel,peci-client' for now, it's not needed
-actually. I'll drop it at this time. It would be added later if needed.
-
->> +               dev_err(&adapter->dev, "modalias failure on %pOF\n", node);
->> +               return ERR_PTR(-EINVAL);
+>>
+>> +       res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+>> +       base = devm_ioremap_resource(&pdev->dev, res);
+>> +       if (IS_ERR(base)) {
+>> +               ret = PTR_ERR(base);
+>> +               goto err_put_adapter_dev;
 >> +       }
 >> +
->> +       addr_be = of_get_property(node, "reg", &len);
->> +       if (!addr_be || len < sizeof(*addr_be)) {
-> 
-> The second check looks suspicious.
-> 
-> You could fix it to check the expected length (4), or use of_property_read_u32.
-> 
-
-Right, I'll fix it using of_property_read_u32.
-
->> +               dev_err(&adapter->dev, "invalid reg on %pOF\n", node);
->> +               return ERR_PTR(-EINVAL);
+>> +       priv->regmap = devm_regmap_init_mmio(&pdev->dev, base,
+>> +                                            &aspeed_peci_regmap_config);
+>> +       if (IS_ERR(priv->regmap)) {
+>> +               ret = PTR_ERR(priv->regmap);
+>> +               goto err_put_adapter_dev;
 >> +       }
 >> +
->> +       info.addr = be32_to_cpup(addr_be);
->> +       info.of_node = of_node_get(node);
->> +
->> +       result = peci_new_device(adapter, &info);
->> +       if (!result)
+>> +       /**
+>> +        * We check that the regmap works on this very first access,
+>> +        * but as this is an MMIO-backed regmap, subsequent regmap
+>> +        * access is not going to fail and we skip error checks from
+>> +        * this point.
 > 
-> Should you do an of_node_put here?
+> Why do you use a regmap for this driver? AFAICT it has exclusive
+> ownership over the register range it uses, which is sometimes a reason
+> to use a regmap over a mmio region.
 > 
-
-Oh, this code is definitely incorrect. I should to put the of_node
-reference at here if peci_new_device() fails and should keep the
-reference until peci_unregister_device() is called. Will fix it.
-Thank you for your pointing it out!
-
->> +               result = ERR_PTR(-EINVAL);
->> +
->> +       of_node_put(node);
-> 
-> Why do you release the reference here?
+> I'm not sure if you've ever disassembled drivers/base/regmap/regmap.o,
+> but if you do you will find that a single mmio read turns into
+> hundreds of instructions.
 > 
 
-This is incorrect too. Will move the of_node_get/put code into
-peci_new_device() and peci_unregister_device() to avoid confusion.
-Thanks again for your pointing it out. :)
+No specific reason. regmap makes some overhead as you mentioned but it
+also provides some advantages on access simplification, endianness
+handling and register dump at run time. I would not insist using of
+regmap if you prefer using of raw readl and writel. Do you want replace
+regmap with readl and writel in this driver?
 
->> +       return result;
->> +}
->> +
+Thanks,
+Jae
+
+> Cheers,
+> 
+> Joel
 > 
