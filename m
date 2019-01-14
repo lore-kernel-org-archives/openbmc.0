@@ -6,68 +6,74 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="vLRvxGI0"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qNHTJ8IR"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="SNVPL4zP"; dkim-atps=neutral
+ header.b="Lsdsn+Gj"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dGTP6mcRzDqRF
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 12:43:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dH8l2htSzDqNC
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 13:14:15 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 262E228CD8;
- Sun, 13 Jan 2019 20:43:35 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9BEFD2883E;
+ Sun, 13 Jan 2019 21:14:12 -0500 (EST)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Sun, 13 Jan 2019 20:43:35 -0500
+ by compute4.internal (MEProxy); Sun, 13 Jan 2019 21:14:12 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:references:subject:date:in-reply-to; s=fm1; bh=otR
- 6+LW7YYtCw1eoPvNwllwp2TyfXDukMLcx93kQF2Q=; b=vLRvxGI0pxHhXXm8T5C
- yA7MgzfcW5o95cu29hB++7XJAA5fwG3XqIPVWtLJZ4LxZa2+ekNZ2jMXzJknIz2Y
- 334nJc0ikEbpOmag4LiyjcaRfY4dOEcCwtlDoKQqkwNyqRMgooJA0HxNdQcvJQ5X
- x2F5qPw4qDHvWihR32OmCqQGBXfE7t0QGOuvZmYuXoPuqI+4RXQIB1XoGaWGYN8v
- Iyx2M442oks+yKSgy03bV53KubH6aMH92kCGXH39SKtYIAPBFzd9hzPk8nOcRZ+q
- Zr4QgFrtAI13p+yUio2tHZHZOfskHPLUx16uNHjv9POjv+As/jU9nrqfDFCnbiIw
- fUg==
+ :content-type:date:in-reply-to:references:subject; s=fm1; bh=2TO
+ iQQGOpHnwM9qYihAzLKXtvgVPTbUoia+sKL59uXo=; b=qNHTJ8IRbIXsokOKriC
+ hoYjpAEDDw6HmuZagdqzCft4IGYxsKP7+YMCUcBlmdkATwCBufoN7iD96iBiV59E
+ sjb+pr6VzP7c2Ec4VOheE/TMSL9SPR9pcucJKPn458l2MlK8tEDR/X8jIB0NH4i1
+ 9G4TMd+K93A3n3S8FOR0i48yBuFqv8gnQrU3ORijSFiU5N53pNtXf3Flf620k239
+ bvhu//NGfbBbqTpw3myQr/H0bwl3a+/pziV1XCdhS9h9N55Zw+U8diXqirzHbBOO
+ cZ1Wyv57YhHvaPR2CLP16x4+ruXHzLjqLIfiCDIQ5k64sTfab14Bo6kDWj0XxOdb
+ y8A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=otR6+LW7YYtCw1eoPvNwllwp2TyfXDukMLcx93kQF
- 2Q=; b=SNVPL4zPlMoPAZAZUoewjRXZtq+WV8Rko98e7lUjREH+WyTcS1wl56PDo
- Ij4T2JDulKHzUO+C2QPMG/LcHxtpsdDQFK/STWVxLpw45zN7kVLYZQsb/Yr1LsJg
- PWpm+INsauLOYfjIU+tuKa8GEB2dqca/aVOs5H6IK1/KB6WzyX+ApoO6tj15s2aq
- ZKODz6aYdtQ++CGrAVW0XOSsbK1qt5H65cj4026W7cTh7euy8Dp7YTCnqfvlsy0F
- DJjb6Mh2kCguWQPGJcp4T53+3peNqYINwjLekuHQ+7AIXlAe+vA3WC/ARC9+EAkO
- TmD4ipfhvm6V/Vod2oWo+6xvTpo6g==
-X-ME-Sender: <xms:Ruk7XMQnFYTgMj9L87QcM3UDx_j-QBTT8mWzTFNH8bPWGNDFaxYmFQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgedtgdefkecutefuodetggdotefrodftvf
+ :x-sasl-enc; s=fm1; bh=2TOiQQGOpHnwM9qYihAzLKXtvgVPTbUoia+sKL59u
+ Xo=; b=Lsdsn+GjxGKZ0N3WCwQ61zCwI+wMuN3WqxuWvYQ+g/SIVAU6IAGdlwYiw
+ UpfeQo0lt6dRqwv8dWL+YkUMlVPl6Tyqse54WiJLKIwvhLT5zCSXJNLv6rQk3lRd
+ MU4kLNh65l2gNqzgY4NYPRW0bRcdqWtIFL0N96nkqQx4sE5Mw4OjmpbtL8k0BT4M
+ SdZhKCHNBpgR8sYqHXFVIBJ+dWf5KRajWFUevz8/zva2j+cKBuC4ggaptzTqycbr
+ ZKrwjtyOkIrsN7Qzg9ylevsPRgfLZYzAXQDltBEi/N056rDuk/QzKv5ngnEMWyXC
+ Lg0LHvFydSRqoj4DiRmEqB4c6a7pQ==
+X-ME-Sender: <xms:c_A7XKHRfySJ-QPOctXx1pM_3EBIzY3Urr_6CfDlI7pVXOGk_hg1HA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgedtgdegfecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucenucfjughrpefkhffvggfgtgfofhfuffgjsehtqhertdertdejnecuhfhrohhmpe
- etnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucff
- ohhmrghinhepohiilhgrsghsrdhorhhgnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
+ tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
+ ffjghfufesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
+ rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
  gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:Ruk7XOD7kIAi1sdaGzROV9ZphhDfdqgZXdZGOadNIjVoul6R-7trQA>
- <xmx:Ruk7XE1rMTS3QfMWXBmlm_GpnyRD4-ujmPN2sbqFpK3vr7Qwlf5T1Q>
- <xmx:Ruk7XEXnbF9RTAmXw8JwbFLdLRQ0OUGI1DaVuGMMntr0hfy2Yv3hCA>
- <xmx:R-k7XKjZzEj5C8D0ZZKSGC1BpNWn4WbWGRHEHH4j9J5bduR-EhjUbw>
+X-ME-Proxy: <xmx:c_A7XDuAc6mvCqMNnyJEaOAyuxRJ88xSSphu_g0UHZNrcKchv_AeQA>
+ <xmx:c_A7XGXzinY8jOw5HB2So3RyJ4ZUfZ8a008M_OZu9acJOg3ufH2Tbg>
+ <xmx:c_A7XL6RUDgCn1VVKN67uPwH_Uphv9zbxo8TvyFtYgC6D3YgA1tE5A>
+ <xmx:dPA7XK4-XD1GKBjnuo4OXYp42hYImFfSzk2StlefT5KU0OBOOGMr3Q>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 1D8FF9E564; Sun, 13 Jan 2019 20:43:34 -0500 (EST)
-Message-Id: <1547430214.2367641.1633616584.6059DC2B@webmail.messagingengine.com>
+ id 27D409E564; Sun, 13 Jan 2019 21:14:11 -0500 (EST)
+Message-Id: <1547432051.2375740.1633677528.34818C65@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: =?utf-8?Q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- openbmc@lists.ozlabs.org
+To: Christian Svensson <blue@cmd.nu>
+Cc: clg@kaod.org, Christian Svensson <bluecmd@google.com>,
+ "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>,
+ Joel Stanley <joel@jms.id.au>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
-References: <20190111035638.19725-1-andrew@aj.id.au>
- <a0e97564-63de-0820-d550-d2b45e92bee0@kaod.org>
-Subject: Re: [RFC qemu legoater/aspeed-3.1 0/4] Handle short timer periods
-Date: Mon, 14 Jan 2019 12:13:34 +1030
-In-Reply-To: <a0e97564-63de-0820-d550-d2b45e92bee0@kaod.org>
+Date: Mon, 14 Jan 2019 12:44:11 +1030
+In-Reply-To: <CADiuDARu6fwudJjcfJ0=sDpjQvtsog+GT5gUWu1WPTzPejFaZg@mail.gmail.com>
+References: <20181112142137.160970-1-bluecmd@google.com>
+ <21acbd66-c75c-d5e3-fcfb-fa75421a7879@kaod.org>
+ <CADiuDAQ1mjh56ibSd+tNq2NFiJFtLcAfyoC8fdd=y+4Mu+jD6w@mail.gmail.com>
+ <1542068863.1552891.1574692280.790D270F@webmail.messagingengine.com>
+ <CADiuDARPsPGkHP1HRm1RVP=G2scSLozSON3o5h_PuA3ngT5eXg@mail.gmail.com>
+ <CADiuDARu6fwudJjcfJ0=sDpjQvtsog+GT5gUWu1WPTzPejFaZg@mail.gmail.com>
+Subject: Re: [PATCH] qemu: aspeed_timer: Use signed muldiv for timer resets
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,142 +85,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 01:43:41 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 02:14:16 -0000
 
-On Fri, 11 Jan 2019, at 20:44, C=C3=A9dric Le Goater wrote:
-> Hello Andrew,
->=20
-> On 1/11/19 4:56 AM, Andrew Jeffery wrote:
-> > Hello,
-> >=20
-> > We've had an issue for a while, since the introduction of 4451d3f59f2a
-> > ("clocksource/drivers/fttmr010: Fix set_next_event handler") in Linux, =
-where
-> > our qemu instances have a "sticky" behaviour. The VM becomes unresponsi=
-ve at
-> > unexpected times for unpredicable but often long periods of time.
-> >=20
-> > This series, along with the associated patch to Linux's fttmr010 driver=
-[0],
-> > aims to resolve it.
-> >=20
-> > [0] http://patchwork.ozlabs.org/patch/1023363/
->=20
-> I gave the whole a try and on a x86 host, QEMU reaches :
->=20
-> [    8.282333] systemd[1]: Set hostname to <romulus>.
->=20
-> on a ppc64el :
->=20
-> [   11.497910] systemd[1]: Set hostname to <romulus>.
->=20
-> which is much better than before.
->=20
-> As the QEMU patchset does not seem to impact support for older images,=20
-> I have updated the aspeed-3.1 branch and also created a new branch for=20
-> dev : aspeed-4.0.
->=20
-> > The series an RFC series because it doesn't fix all the cases, just
-> > demonstrates a potential way forward. The approach is to provide back-p=
-ressure
-> > - to test if the reload value is set to a value that's smaller than some
-> > experimentally determined value (in this case, 20us), and if so, config=
-ure a
-> > period of at least 20us. The MAX() of the requested and minimum values =
-is then
-> > set in the reload register rather than the requested value, which can t=
-hen be
-> > read back by Linux. The fttmr010 driver, upon observing the greater val=
-ue,
-> > starts pushing back on the clock event subsystem, which then iteratively
-> > determines a minimum acceptible event period before proceeding with the=
- boot
-> > process.
-> >=20
-> > The implementation does not take care of the match register cases, but =
-at the
-> > moment they are unused by Linux on Aspeed SoCs. The match register case=
- is not
-> > taken care of because I'm not sure if this implementation is what we wa=
-nt to
-> > use going forward, or whether we want to do something that's completely=
- hidden
-> > in the qemu model. However taking advantage of Linux's existing support=
- for
-> > determining minimum timer periods seemed like easy solution.
+On Fri, 11 Jan 2019, at 23:00, Christian Svensson wrote:
+> Ping. What's left to be done here?
 
-Do you mind helping me hash out the full behaviour?
-
-The key requirement is that any modelled timer period not be shorter than e=
-.g. the
-20us I picked. So there are a number cases:
-
-MIN_PERIOD =3D ticks(20us)
-
-1. RELOAD < MIN_PERIOD
-2. RELOAD >=3D (2 * MIN_PERIOD), MATCH{1,2} < MIN_PERIOD
-3. RELOAD >=3D (2 * MIN_PERIOD), (RELOAD - (RELOAD - MATCH{1,2})) < MIN_PER=
-IOD
-4. MIN_PERIOD <=3D RELOAD < (2 * MIN_PERIOD), MATCH{1,2} < RELOAD
-5. RELOAD > (2 * MIN_PERIOD), MIN_PERIOD < MATCH1 <=3D (RELOAD - MIN_PERIOD=
-), 0 <=3D (MATCH1 - MATCH2) < MIN_PERIOD
-6. RELOAD > (2 * MIN_PERIOD), 0 <=3D (MATCH2 - MATCH1) < MIN_PERIOD, MIN_PE=
-RIOD < MATCH2 <=3D (RELOAD - MIN_PERIOD)
-7. RELOAD < (3 * MIN_PERIOD), 0 < MATCH1 < RELOAD, 0 < MATCH2 < RELOAD
-
-The provided patches only solve case 1 (with the assumption that the match
-registers contain an irrelevant value).
-
-For the rest, I think we need to implement the following:
-
-Each time RELOAD, MATCH1, or MATCH2 are modified, check the constraints
-above, and expand all values as necessary to accommodate the minimum period
-constraint of 20us. With the constraint of "not-before" on a timer event,
-conceptually the algorithm looks like the following for the most general ca=
-se of
-two valid match register values:
-
-* Define registers RELOAD, MATCH1, MATCH2
-
-* Sort the values of RELOAD, MATCH1 and MATCH2 such that we have values
-R > X > Y > 0 where R maps to RELOAD, and X and Y to MATCH1 and MATCH2 as
-appropriate
-
-* Set dY =3D MAX(MIN_PERIOD - (Y - 0), 0);
-* Set Y =3D Y + dY
-* Set X =3D X + dY
-* Set R =3D R + dY
-* Set dX =3D MAX(MIN_PERIOD - (X - Y), 0);
-* Set X =3D X + dX
-* Set R =3D R + dX
-* Set dR =3D MAX(MIN_PERIOD - (R - X), 0);
-* Set R =3D R + dR
-
-* Assign R, X and Y back to RELOAD, MATCH1 and MATCH2 as appropriate
-
-With this we require R <=3D (UINT32_MAX - (2 * (MIN_PERIOD - 1))) to
-allow for any adjustments.
-
-The downfall of this approach is it only works for a stopped timer. I can't=
- see
-how we could expand time on a running timer to account for a short match pe=
-riod
-*and* keep consistency with the monotonic decrease of the status register.
-
-Unless we use shadow registers or track things like ticks-per-tick? Current=
-ly the
-way the timer is implemented is it derives the ticks and time periods direc=
-tly from
-the configuration of the model. If we implement a set of shadow registers t=
-hat
-contain the expanded times above and we translate between the configured va=
-lues
-and the dilated time it might be possible?
-
-That's a half-baked thought, so if it doesn't make sense please ask questio=
-ns and
-I'll try to untangle the idea from the wool in my head.
-
-It seems this needs some deep consideration :/
+I've taken Cedric's tree and pushed it to openbmc/qemu master, so the patch
+is there. Did you send it upstream originally? That's where it should go, but that
+will probably require fixing the issue I pointed out last time.
 
 Andrew
+
+> 
+> On Tue, Nov 13, 2018 at 9:58 AM Christian Svensson <blue@cmd.nu> wrote:
+> 
+> >
+> >
+> > On Tue, Nov 13, 2018 at 1:27 AM Andrew Jeffery <andrew@aj.id.au> wrote:
+> > > By inspection the concept of the patch seems okay to me. However, the
+> > issue
+> > > that host-utils.h takes care of in addition to providing helpers is
+> > support for
+> > > those helpers on systems that don't support 128-bit integers. The patch
+> > should
+> > > be sent to the upstream lists, and I don't think we should be breaking
+> > > qemu-arm-* generally for systems that we might not care about.
+> >
+> > Ah, yes - I missed that there were two - one for systems with int128 and
+> > one for them
+> > without. Hm, that does complicate things.
+> >
+> > Given that we only have one operand that is ever negative, how do you feel
+> > about a patch
+> > that goes along the lines of:
+> >
+> > if (delta >= 0) {
+> >   t->start += muldiv64(delta, NANOSECONDS_PER_SECOND, rate);
+> > } else {
+> >    t->start = (int64_t)t->start - muldiv64(-delta, NANOSECONDS_PER_SECOND,
+> > rate);
+> > }
+> >
+> > That should avoid any issues I think, save us/me from implementing a
+> > signed muldiv,
+> > but cost a bit on the readable code side.
+> >
+> >
