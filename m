@@ -1,63 +1,30 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="fGckE1ub"; 
- dkim-atps=neutral
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dWht29kBzDqTn
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 22:39:26 +1100 (AEDT)
-Received: by mail-qk1-x744.google.com with SMTP id c21so10294654qkl.6
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 03:39:26 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=834xKIynk/o9voPxmczwLTwxDuUNC859N0LEpxFn33I=;
- b=fGckE1ubOKS2i7PI1U6t15AhGAXoHSA7giv/EiFhEyjjygpSABxFbKwNCFZxNpTYfz
- mX9O/mFN5/jXh8fWVhT7pK09L4/aXwnsM+YkudiGypNCYuJph0LmcokztBkVn30UBpjr
- FE4c6Kf84kEzGOiR3Ue61Xe4theNyKyUYOC4E=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=834xKIynk/o9voPxmczwLTwxDuUNC859N0LEpxFn33I=;
- b=g+DpDumqS5UKSQsfGsEfGCwVbE1ipAs1MkgtkJKS9/cBDMWvrg8YPHz24IZG/iMIHH
- +BVuq+9MQCkGgGI18EyVKlhnAV18w5RkbADVsYv2KSa5j6E6I0MmXU4ReFSOO1LakP7E
- oQd4QcZzrojxwma2w7Np7dPkb2+Lqv9fpE6f64Dbqgt9bILhiXQiy/w8PL+gS8/LcDN6
- DlcKzKg28LtFEnHsDcRgvmeMqsAL1oiqZMblKyG7x6zmV76umj8/Rn1mrUuskc5DZXCc
- j/7ZYLOexoq/IEZg8GOunmXbzfBpbczT59FEQmiHN8qjAKGd2y/ToAVJLhcD34R4Sp7a
- 4Fsw==
-X-Gm-Message-State: AJcUuke2/k6jm5F30sJN+WgcrM5D3YU5eeepBDdIu+ES1ejB8OeUDSdJ
- fCw//Ss0L2Ad16WDSuNXcDsjBlk9jZyfZIZvDUw=
-X-Google-Smtp-Source: ALg8bN66R1hiIVUdRwNQToedgoHpv4ikmM+/P0uly/Kr6mguPbP+HegorMajkTCWHXRu/PyoLr4sDjlaU8Jl5hgzNCE=
-X-Received: by 2002:a37:bc06:: with SMTP id m6mr22843777qkf.336.1547465964198; 
- Mon, 14 Jan 2019 03:39:24 -0800 (PST)
-MIME-Version: 1.0
-References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-8-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20190107214136.5256-8-jae.hyun.yoo@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 14 Jan 2019 22:09:12 +1030
-Message-ID: <CACPK8XcBKnN=CJy+pVruZh=8qZNdr4pNt=hV50Ev1k6YgYtAKQ@mail.gmail.com>
-Subject: Re: [PATCH v10 07/12] dt-bindings: mfd: Add a document for PECI
- client driver
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
- Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Arnd Bergmann <arnd@arndb.de>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- James Feist <james.feist@linux.intel.com>, 
- Jason M Biils <jason.m.bills@linux.intel.com>, 
- Vernon Mauery <vernon.mauery@linux.intel.com>, Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfR6KvHzDqVZ
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 00:07:25 +1100 (AEDT)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbG2h018974;
+ Mon, 14 Jan 2019 14:37:16 +0200
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 2327B62DA7; Mon, 14 Jan 2019 15:07:14 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [linux dev-4.19 02/15] dt-binding: mtd: add NPCM FIU controller
+Date: Mon, 14 Jan 2019 15:06:57 +0200
+Message-Id: <20190114130710.427600-3-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
+In-Reply-To: <20190114130710.427600-1-tmaimon77@gmail.com>
+References: <20190114130710.427600-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,21 +36,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 11:39:26 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 13:07:28 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 13:07:28 -0000
 
-On Tue, 8 Jan 2019 at 08:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->
-> This commit adds a dt-bindings document for PECI client driver.
->
-> Cc: Lee Jones <lee.jones@linaro.org>
-> Cc: Rob Herring <robh+dt@kernel.org>
-> Cc: Mark Rutland <mark.rutland@arm.com>
-> Cc: Andrew Jeffery <andrew@aj.id.au>
-> Cc: James Feist <james.feist@linux.intel.com>
-> Cc: Jason M Biils <jason.m.bills@linux.intel.com>
-> Cc: Joel Stanley <joel@jms.id.au>
-> Cc: Vernon Mauery <vernon.mauery@linux.intel.com>
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
+Added device tree binding documentation for Nuvoton BMC
+NPCM Flash Interface Unit(FIU) SPI-NOR controller.
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ Documentation/devicetree/bindings/mtd/npcm-fiu.txt | 64 ++++++++++++++++++++++
+ 1 file changed, 64 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mtd/npcm-fiu.txt
+
+diff --git a/Documentation/devicetree/bindings/mtd/npcm-fiu.txt b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
+new file mode 100644
+index 000000000000..9746cb5b1ced
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
+@@ -0,0 +1,64 @@
++* Nuvoton FLASH Interface Unit (FIU) SPI Controller
++
++NPCM FIU supports single, dual and quad communication interface.
++
++The NPCM7XX supports three FIU modules,
++FIU0 and FIUx supports two chip selects,
++FIU3 support four chip select.
++
++Required properties:
++  - compatible : "nuvoton,npcm750-fiu" for the NPCM7XX BMC
++  - #address-cells : should be 1.
++  - #size-cells : should be 0.
++  - reg : the first contains the register location and length,
++          the second contains the memory mapping address and length
++  - reg-names: Should contain the reg names "control" and "memory"
++  - clocks : phandle of F reference clock.
++
++Required properties in case the pins can be muxed:
++  - pinctrl-names : a pinctrl state named "default" must be defined.
++  - pinctrl-0 : phandle referencing pin configuration of the device.
++
++Optional property:
++  - spix-mode: enable spix-mode for an expansion bus to an ASIC or CPLD.
++
++The SPI device must be a child of the FIU node and must have a
++compatible property as specified in bindings/mtd/jedec,spi-nor.txt
++
++Required property:
++- reg: chip select number.
++
++Optional property:
++- spi-rx-bus-width: see ../spi/spi-bus.txt for the description.
++
++Aliases:
++- All the FIU controller nodes should be represented in the aliases node using
++  the following format 'fiu{n}' where n is a unique number for the alias.
++  In the NPCM7XX BMC:
++  		fiu0 represent fiu 0 controller
++  		fiu1 represent fiu 3 controller
++  		fiu2 represent fiu x controller
++
++Example:
++fiu3: fiu@c00000000 {
++	compatible = "nuvoton,npcm750-fiu";
++	#address-cells = <1>;
++	#size-cells = <0>;
++	reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
++	reg-names = "control", "memory";
++	clocks = <&clk NPCM7XX_CLK_AHB>;
++	pinctrl-names = "default";
++	pinctrl-0 = <&spi3_pins>;
++	spi-nor@0 {
++		compatible = "jedec,spi-nor";
++		spi-rx-bus-width = <2>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		reg = <0>;
++		partition@0 {
++			label = "flash_data";
++			reg = <0x0 0x800000>;
++		};
++	};
++};
++
+-- 
+2.14.1
