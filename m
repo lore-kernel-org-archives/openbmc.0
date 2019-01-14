@@ -1,45 +1,66 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.32.122.254; helo=4.mo7.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::834; helo=mail-qt1-x834.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 380 seconds by postgrey-1.36 at bilbo;
- Mon, 14 Jan 2019 20:01:48 AEDT
-Received: from 4.mo7.mail-out.ovh.net (4.mo7.mail-out.ovh.net [178.32.122.254])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="I4IWMPD1"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dSC027CrzDqMp
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 20:01:46 +1100 (AEDT)
-Received: from player770.ha.ovh.net (unknown [10.109.143.72])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 764E3F443B
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 09:55:21 +0100 (CET)
-Received: from kaod.org (lfbn-1-10603-25.w90-89.abo.wanadoo.fr [90.89.194.25])
- (Authenticated sender: clg@kaod.org)
- by player770.ha.ovh.net (Postfix) with ESMTPSA id DFE9D19BB851;
- Mon, 14 Jan 2019 08:55:13 +0000 (UTC)
-Subject: Re: [RFC qemu legoater/aspeed-3.1 4/4] timer: aspeed: Provide
- back-pressure information for short periods
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <20190111035638.19725-1-andrew@aj.id.au>
- <20190111035638.19725-5-andrew@aj.id.au>
- <65ac448c-d53f-c2f8-c123-69e45afd2a90@kaod.org>
- <1547420870.2324801.1633579320.71BA703F@webmail.messagingengine.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <e495d3e1-a3a0-920c-f82e-e35c642162b3@kaod.org>
-Date: Mon, 14 Jan 2019 09:55:13 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dW6w151xzDqQm
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 22:13:27 +1100 (AEDT)
+Received: by mail-qt1-x834.google.com with SMTP id i7so26001688qtj.10
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 03:13:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=svBCDBq8bWr+JrQJ41SKoxjOcMNQ6G0zJyH5TfvUZqU=;
+ b=I4IWMPD1UgIPQ60krEIXBmSSpQbIOL/hoYd704xzRq8Y5l3Y1B7CFABR3La3dEAh8N
+ p4q+jEw6zxuYxl70NGCUNcyNpWhklR1JEZSrrGPUKY23YGXTb5yC5ZixT7vKFnNJhX2K
+ NrE4sIzAy8Z41IER6MRmJfg6M33wf9rB96wTw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=svBCDBq8bWr+JrQJ41SKoxjOcMNQ6G0zJyH5TfvUZqU=;
+ b=r+iWIRdcAepAflwaLK0YCly/zzqntVRZLYj3Nj3DDrvTmYeT+fXxTB3RTQzE3USJDc
+ q16CyardsAD9rRKWyV+8cPPtcTyCcPHLNSF0jVVdcxWE0J2XFWb2qevFjdRr5XSHpRzX
+ 8OqsMSpKE/WMxzeqDhXuKszuKlm4reUZfRIRGWDykEkPM/Wu/mW8+aWmBIROcGz/20pX
+ jyZT9tJ4pgziNavne7xWu5NhBYs1yegl6CnQpOckAuMWlVHhLuS6wYPy6xtpSCdgykNB
+ dTFtLEMbV6qu3qYZ9uoT64QuvNOOMOhYWhW0HiGhDmiCgyFnYjJmUcUkKCuu6rKT8+4G
+ 5/dw==
+X-Gm-Message-State: AJcUukcd2HNTMZEyWBgpxEpGpS99OmaR9Di0y/urtvQ/sUw8+heXILU1
+ nXqaR3wgB8YDdyyxolQyKkLr8M3P8JatEGJaVag=
+X-Google-Smtp-Source: ALg8bN7S+uW7N8MNoCNnwO5M9a565avKw8p3W45E80SBpi6+wUmVUWG7NejFmM+CbxAyRKFfKPnEazyIy7Rr04MrWkM=
+X-Received: by 2002:ac8:3065:: with SMTP id g34mr23873498qte.136.1547464405416; 
+ Mon, 14 Jan 2019 03:13:25 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1547420870.2324801.1633579320.71BA703F@webmail.messagingengine.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 5654550808209099621
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtledrgedtgdduvdejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
+ <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 14 Jan 2019 21:43:13 +1030
+Message-ID: <CACPK8XfxU6r_0HLbD2MuSgON5-G43cpENhK+SR=9KhBG4GeWDA@mail.gmail.com>
+Subject: Re: [PATCH v10 03/12] peci: Add support for PECI bus driver core
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>, 
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Julia Cartwright <juliac@eso.teric.us>, 
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>, 
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,120 +72,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 09:01:49 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 11:13:29 -0000
 
-On 1/14/19 12:07 AM, Andrew Jeffery wrote:
-> On Fri, 11 Jan 2019, at 20:40, Cédric Le Goater wrote:
->> On 1/11/19 4:56 AM, Andrew Jeffery wrote:
->>> First up: This is not the way the hardware behaves.
->>
->> I think this is OK from the QEMU side. It would be better if Linux was 
->> not involved though.
-> 
-> It doesn't have to be, just it may see wonky timer behaviour because
-> the timer will not be doing exactly what was asked.
-> 
->>
->>> However, it helps resolve real-world problems with short periods being
->>> used under Linux. Commit 4451d3f59f2a ("clocksource/drivers/fttmr010:
->>> Fix set_next_event handler") in Linux fixed the timer driver to
->>> correctly schedule the next event for the Aspeed controller, and in
->>> combination with 5daa8212c08e ("ARM: dts: aspeed: Describe random number
->>> device") Linux will now set a timer with a period as low as 1us.
->>>
->>> Configuring a qemu timer with such a short period results in spending
->>> time handling the interrupt in the model rather than executing guest
->>> code, leading to noticeable "sticky" behaviour in the guest.
->>>
->>> The behaviour of Linux is correct with respect to the hardware, so we
->>> need to improve our handling under emulation. The approach chosen is to
->>> provide back-pressure information by calculating an acceptable minimum
->>> number of ticks to be set on the model. Under Linux an additional read
->>> is added in the timer configuration path to detect back-pressure, which
->>> will never occur on hardware. However if back-pressure is observed, the
->>> driver alerts the clock event subsystem, which then performs its own
->>> next event dilation via a config option - d1748302f70b ("clockevents:
->>> Make minimum delay adjustments configurable")
->>
->> So, this is approach is not totally unacceptable, QEMU is an hypervisor
->> which has its own timing constraints.
->>  
->>> A minimum period of 5us was experimentally determined on a Lenovo
->>> T480s, which I've increased to 20us for "safety".
->>>
->>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
->>> ---
->>>  hw/misc/aspeed_scu.c            | 6 ++++++
->>>  hw/timer/aspeed_timer.c         | 6 +++++-
->>>  include/hw/timer/aspeed_timer.h | 1 +
->>>  3 files changed, 12 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/hw/misc/aspeed_scu.c b/hw/misc/aspeed_scu.c
->>> index 257f9a6c6b8a..0410776b456a 100644
->>> --- a/hw/misc/aspeed_scu.c
->>> +++ b/hw/misc/aspeed_scu.c
->>> @@ -432,6 +432,12 @@ static void aspeed_scu_realize(DeviceState *dev, Error **errp)
->>>                            TYPE_ASPEED_SCU, SCU_IO_REGION_SIZE);
->>>  
->>>      sysbus_init_mmio(sbd, &s->iomem);
->>> +
->>> +    /*
->>> +     * Reset on realize to ensure the APB clock value is calculated in time for
->>> +     * use by the timer model, which is reset before the SCU.
->>> +     */
->>> +    aspeed_scu_reset(dev);
->>
->> sigh. May be we should call aspeed_scu_set_apb_freq() from the Aspeed timer
->> model ?
-> 
-> I dunno - will we run into this in other models as well? If we do, should they also call
-> aspeed_scu_set_apb_freq()? If they do it probably won't matter (same input, same
-> output), but it seems a bit messy to distribute the call through the code?
+Hello Jae,
 
-This is really a reset order problem. SCU reset should be called before all 
-others models. I don't know if we can order the calls but calling reset in 
-a realize routine is a problem also. 
+On Tue, 8 Jan 2019 at 08:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>
+> This commit adds driver implementation for PECI bus core into linux
+> driver framework.
 
-The APB clock depends on the HPLL_PARAM register and on the CLK_SEL register,
-and these can be set a runtime by FW.
+I would like to help you get this merged next release cycle, as we are
+now carrying it in OpenBMC. I suggest we ask Greg to queue it up if
+there are no objections after you've addressed my questions.
 
-May be we can introduce a reset method at the machine level forcing SCU
-first. That  would be one way to ask how it should be done.
+> +static u8 peci_aw_fcs(u8 *data, int len)
 
-C.
+I was wondering what aw_fcs meant. I notice that later on you describe
+it as an Assure Write Frame Check Sequence byte. You could add a
+comment next to this function :)
 
+Instead of casing to u8 every time you call this, you could have this
+take a struct peci_xfer_msg * and cast when calling crc8.
 
+> +{
+> +       return crc8(peci_crc8_table, data, (size_t)len, 0);
+> +}
+> +
+> +static int __peci_xfer(struct peci_adapter *adapter, struct peci_xfer_msg *msg,
+> +                      bool do_retry, bool has_aw_fcs)
+> +{
+> +       ktime_t start, end;
+> +       s64 elapsed_ms;
+> +       int rc = 0;
+> +
+> +       /**
 
->>
->>>  }
->>>  
->>>  static const VMStateDescription vmstate_aspeed_scu = {
->>> diff --git a/hw/timer/aspeed_timer.c b/hw/timer/aspeed_timer.c
->>> index 35b40a7c4010..0f3501ac5a5c 100644
->>> --- a/hw/timer/aspeed_timer.c
->>> +++ b/hw/timer/aspeed_timer.c
->>> @@ -254,7 +254,7 @@ static void aspeed_timer_set_value(AspeedTimerCtrlState *s, int timer, int reg,
->>>      switch (reg) {
->>>      case TIMER_REG_RELOAD:
->>>          old_reload = t->reload;
->>> -        t->reload = value;
->>> +        t->reload = value < t->min_ticks ? t->min_ticks : value;
->>>  
->>>          /* If the reload value was not previously set, or zero, and
->>>           * the current value is valid, try to start the timer if it is
->>> @@ -306,7 +306,11 @@ static void aspeed_timer_ctrl_enable(AspeedTimer *t, bool enable)
->>>  
->>>  static void aspeed_timer_ctrl_external_clock(AspeedTimer *t, bool enable)
->>>  {
->>> +    AspeedTimerCtrlState *s = timer_to_ctrl(t);
->>> +    uint32_t rate = enable ? TIMER_CLOCK_EXT_HZ : s->scu->apb_freq;
->>> +
->>>      trace_aspeed_timer_ctrl_external_clock(t->id, enable);
->>> +    t->min_ticks = muldiv64(20 * SCALE_US, rate, NANOSECONDS_PER_SECOND);
->>
->> That '20' deserves a define I think.
-> 
-> Yes, good call :)
-> 
-> Andrew
-> 
+These are for kerneldoc, and the comments aren't kerneldoc. Replace
+them with /* instead.
+
+> +        * For some commands, the PECI originator may need to retry a command if
+> +        * the processor PECI client responds with a 0x8x completion code. In
+> +        * each instance, the processor PECI client may have started the
+> +        * operation but not completed it yet. When the 'retry' bit is set, the
+> +        * PECI client will ignore a new request if it exactly matches a
+> +        * previous valid request.
+> +        */
+> +
+> +       if (do_retry)
+> +               start = ktime_get();
+> +
+> +       do {
+> +               rc = adapter->xfer(adapter, msg);
+> +
+> +               if (!do_retry || rc)
+> +                       break;
+> +
+> +               if (msg->rx_buf[0] == DEV_PECI_CC_SUCCESS)
+> +                       break;
+> +
+> +               /* Retry is needed when completion code is 0x8x */
+> +               if ((msg->rx_buf[0] & DEV_PECI_CC_RETRY_CHECK_MASK) !=
+> +                   DEV_PECI_CC_NEED_RETRY) {
+> +                       rc = -EIO;
+> +                       break;
+> +               }
+> +
+> +               /* Set the retry bit to indicate a retry attempt */
+> +               msg->tx_buf[1] |= DEV_PECI_RETRY_BIT;
+> +
+> +               /* Recalculate the AW FCS if it has one */
+> +               if (has_aw_fcs)
+> +                       msg->tx_buf[msg->tx_len - 1] = 0x80 ^
+
+Can we guarantee that msg->tx_len will be set to non-zero whenever has_aw_fcs?
+
+I suggest checking before doing the assignment in case a new caller is
+added and they make a mistake.
+
+> +static int peci_ioctl_get_dib(struct peci_adapter *adapter, void *vmsg)
+> +{
+> +       struct peci_get_dib_msg *umsg = vmsg;
+> +       struct peci_xfer_msg msg;
+> +       int rc;
+> +
+> +       msg.addr      = umsg->addr;
+> +       msg.tx_len    = GET_DIB_WR_LEN;
+> +       msg.rx_len    = GET_DIB_RD_LEN;
+> +       msg.tx_buf[0] = GET_DIB_PECI_CMD;
+> +
+> +       rc = peci_xfer(adapter, &msg);
+
+Most of tx_buf is going to be uninitialised. I assume a well behaving
+adapter->xfer will check this and only send the correct number of
+bytes, but it might pay to zero out struct peci_xfer_msg in all of
+these functions?
+
+> +       if (rc)
+> +               return rc;
+> +
+> +       umsg->dib = le64_to_cpup((__le64 *)msg.rx_buf);
+> +
+> +       return 0;
+> +}
+
+> +
+> +#if IS_ENABLED(CONFIG_OF)
+> +static struct peci_client *peci_of_register_device(struct peci_adapter *adapter,
+> +                                                  struct device_node *node)
+> +{
+> +       struct peci_board_info info = {};
+> +       struct peci_client *result;
+> +       const __be32 *addr_be;
+> +       int len;
+> +
+> +       dev_dbg(&adapter->dev, "register %pOF\n", node);
+> +
+> +       if (of_modalias_node(node, info.type, sizeof(info.type)) < 0) {
+
+I don't understand why you're doing this. Won't this always be peci,
+as your binding requires?
+
+> +               dev_err(&adapter->dev, "modalias failure on %pOF\n", node);
+> +               return ERR_PTR(-EINVAL);
+> +       }
+> +
+> +       addr_be = of_get_property(node, "reg", &len);
+> +       if (!addr_be || len < sizeof(*addr_be)) {
+
+The second check looks suspicious.
+
+You could fix it to check the expected length (4), or use of_property_read_u32.
+
+> +               dev_err(&adapter->dev, "invalid reg on %pOF\n", node);
+> +               return ERR_PTR(-EINVAL);
+> +       }
+> +
+> +       info.addr = be32_to_cpup(addr_be);
+> +       info.of_node = of_node_get(node);
+> +
+> +       result = peci_new_device(adapter, &info);
+> +       if (!result)
+
+Should you do an of_node_put here?
+
+> +               result = ERR_PTR(-EINVAL);
+> +
+> +       of_node_put(node);
+
+Why do you release the reference here?
+
+> +       return result;
+> +}
+> +
