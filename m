@@ -1,59 +1,57 @@
-Return-Path: <miguel.ojeda.sandonis@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::143; helo=mail-lf1-x143.google.com;
- envelope-from=miguel.ojeda.sandonis@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="L6yCZPVg"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="mF+vHs/b"; 
  dkim-atps=neutral
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43ZTgC42XQzDqRq
- for <openbmc@lists.ozlabs.org>; Wed,  9 Jan 2019 23:57:24 +1100 (AEDT)
-Received: by mail-lf1-x143.google.com with SMTP id e26so5571014lfc.2
- for <openbmc@lists.ozlabs.org>; Wed, 09 Jan 2019 04:57:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dMcX0pDbzDqQb
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 16:35:07 +1100 (AEDT)
+Received: by mail-qk1-x742.google.com with SMTP id z18so9882637qkj.10
+ for <openbmc@lists.ozlabs.org>; Sun, 13 Jan 2019 21:35:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ZOo5JSi7whhcM7/WGLUWRVHIGV2nNGbZoniImBrz8HI=;
- b=L6yCZPVgmSKLw7ZooXepH04uTqvC4MlaU3vVaMwNKCBclctn5t44oUOfWjyrj2GFNz
- QNMqxQ60HJO672mbGsfYM4NUlv2kBeqf4t/mk2TRFIfEIJhtWpgpNSkjeSNwbyoW4rQg
- 1CmMwt1ZBL0O+BMYqfopTglRvcCopLCYs77k62C9JQVy4WSF7UkOkSqU+Q1UHL65xzDe
- Sr4zJLu7xegvYuYn/EsQ5576yjYVRyKy1rFuw8wBkTuKBM2y3+XsC0zTrOM2Wy4ef2uj
- xM8NifnHvw623Bc7wRR53qsxTCWA8RdU+Pn/ZY7RbmUnTHQd+4EGVZmt7S2lP5e1Z6Al
- tGWg==
+ :cc; bh=oaJnHgqxNLSmOeClaph1+naF1VsLXybulRXguvYvNko=;
+ b=mF+vHs/b3gwFu7b+oacGUylpLkfQjRl4AkOOn9YE+Ca0J2kUHAA2XghIU9VX7cS51e
+ 7ElDMIIp1YUBbADVHsVA9wtvPn6uh8/H5yYo3Fu/KUpQ4RFxQRJ+Jjt///QGsfJEIb/r
+ gd3HsN0UHLCo9RrpQlz/nmQmEwmenbkWtr58M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=ZOo5JSi7whhcM7/WGLUWRVHIGV2nNGbZoniImBrz8HI=;
- b=dfwgf/slG6OwTTnV1b9ulu4D5BHh1AWak3isFCFrdTNdRGXN3xRpW4ZHdCVTGe+5Md
- hKZLSFsL9VpIlXP/m2RRc8wj/rEoiXHDC49BqZblYe7Bco9MGpKnXPucJoZPhvniS8PL
- FhYP5Ojs9R0Ezm4ab5PF/WnMFbmqwmFlGqIJGCEOe6734E1wCU8tvl5jAfIKEL/dgiZm
- h1UInNI+WxHjctt1LKyq6L4zg0kj2t2RXpbkEIDuY35MWH4IvtiEyWWQapVRxdN46UYp
- fdRDxM/gMR6Q/TSXzQixPdMf9MYthgPFmgrUDnPc66C/Yj0ckysjKJIjGcMrAfLvmTnK
- E+Tw==
-X-Gm-Message-State: AJcUukcmNFr2dobMXRpEAXhKaYjHInEn1li1PwRxnivJc8qNIu54Z/kT
- OILHXIE104EKVAybkKsV0A/S3jAiUyMiyGC8yn8=
-X-Google-Smtp-Source: ALg8bN6lsFUWca0M39BC9MkCevTEdYbwdZcmwlKetXbjc22ZmWisyfxB/S2GV+bIbVhdjbLR/oJ55E8/S5Dkt/ktoY0=
-X-Received: by 2002:a19:8fce:: with SMTP id s75mr3294463lfk.151.1547038640635; 
- Wed, 09 Jan 2019 04:57:20 -0800 (PST)
+ bh=oaJnHgqxNLSmOeClaph1+naF1VsLXybulRXguvYvNko=;
+ b=ueoZSOwD6Y+nhToTW6A7gilHIxgv9ICt/X6dA+CT35eFAhvCiLdGz8BHxTFtEB6sE7
+ cEv4ofTlVyqMiVACyBWI10m647rU8175bMZNoNeqPOhpDJf/Elx+xiriVA3jCMAcLTh+
+ a5+fSFJJR/0EsZiGhiuZblHbr3O9e9K+XZQn4erqZDpkSImkibRxGj1FMCcXv1V/Y8CL
+ wOr6crKn9RpIlPHheXqTnxKd/RIk7nwbYA/Gav0OjL/F5TVnUGmzP+WxdISWGnFCIkmh
+ +nIFMRX/EIGdDkkC8E+4rwQL7e3YedL+Awd7d3vkpBebB0eoOMfpuXX/v/nglcupmLkP
+ YpnA==
+X-Gm-Message-State: AJcUukfPd/MpJy6Y0XBspIn6+9/OPmEyEIZ98T/PiykJeJR6KA+68XKA
+ 5uldp1M1cu2/Mzw6BbOT3VYdfR5ewX29qs1a/Oc=
+X-Google-Smtp-Source: ALg8bN7AotucbzagLEkUA9bBE23ZmB2lHcesb2pNRdmv6h/jGw9Q/hiKytIE4a0Gk3hlE5Rft3IETb54XrNZ+PQ4h7U=
+X-Received: by 2002:ae9:dec5:: with SMTP id
+ s188mr21107671qkf.127.1547444104492; 
+ Sun, 13 Jan 2019 21:35:04 -0800 (PST)
 MIME-Version: 1.0
 References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-11-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20190107214136.5256-11-jae.hyun.yoo@linux.intel.com>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Wed, 9 Jan 2019 13:57:09 +0100
-Message-ID: <CANiq72=dA1weOip-YzZRmsOEHOve2FdJh9_qbN2dmH8HR58WYg@mail.gmail.com>
-Subject: Re: [PATCH v10 10/12] hwmon: Add PECI cputemp driver
+ <20190107214136.5256-2-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20190107214136.5256-2-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 14 Jan 2019 16:04:53 +1030
+Message-ID: <CACPK8Xe5H31M=U3JQQaOheoopFZQtS0ZegaGRx4Pmw7Ym9g5YQ@mail.gmail.com>
+Subject: Re: [PATCH v10 01/12] dt-bindings: Add a document of PECI subsystem
 To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>, 
  Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>, 
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Jonathan Corbet <corbet@lwn.net>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
  Kishon Vijay Abraham I <kishon@ti.com>, 
@@ -75,15 +73,13 @@ Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Johan Hovold <johan@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
  Juergen Gross <jgross@suse.com>, 
  Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>, 
- Linux Doc Mailing List <linux-doc@vger.kernel.org>, openbmc@lists.ozlabs.org, 
- Alan Cox <alan@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Jason M Biils <jason.m.bills@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>, 
- Stef van Os <stef.van.os@prodrive-technologies.com>, 
- Haiyue Wang <haiyue.wang@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>, 
- Vernon Mauery <vernon.mauery@linux.intel.com>
+ devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ linux-doc@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Haiyue Wang <haiyue.wang@linux.intel.com>, 
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 18 Jan 2019 12:42:14 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -97,42 +93,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Jan 2019 12:57:28 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 05:35:08 -0000
 
-Hi,
-
-A few minor nitpicks that you may consider.
-
-On Mon, Jan 7, 2019 at 10:41 PM Jae Hyun Yoo
-<jae.hyun.yoo@linux.intel.com> wrote:
+On Tue, 8 Jan 2019 at 08:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
 >
-> +       if (priv->temp_config[channel] & BIT(attr))
-> +               if (channel < DEFAULT_CHANNEL_NUMS ||
-> +                   (channel >= DEFAULT_CHANNEL_NUMS &&
-> +                    (priv->core_mask & BIT(channel - DEFAULT_CHANNEL_NUMS))))
-> +                       return 0444;
+> This commit adds a document of generic PECI bus, adapter and client
+> driver.
+>
+> Cc: Rob Herring <robh+dt@kernel.org>
+> Cc: Mark Rutland <mark.rutland@arm.com>
+> Cc: Andrew Jeffery <andrew@aj.id.au>
+> Cc: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Reviewed-by: Haiyue Wang <haiyue.wang@linux.intel.com>
+> Reviewed-by: James Feist <james.feist@linux.intel.com>
+> Reviewed-by: Vernon Mauery <vernon.mauery@linux.intel.com>
+> Reviewed-by: Rob Herring <robh@kernel.org>
 
-Maybe if ((...) && (...)) instead of double if?
-
-> +       for (i = 0; i < priv->gen_info->core_max; i++)
-> +               if (priv->core_mask & BIT(i))
-> +                       while (i + DEFAULT_CHANNEL_NUMS >= priv->config_idx)
-> +                               priv->temp_config[priv->config_idx++] =
-> +                                       config_table[channel_core];
-
-priv->config_idx <= i + DEFAULT_CHANNEL_NUMS seems more readable (i.e.
-the while-loop variable first).
-
-> +static inline bool peci_temp_need_update(struct temp_data *temp)
-> +{
-> +       if (temp->valid &&
-> +           time_before(jiffies, temp->last_updated + UPDATE_INTERVAL))
-> +               return false;
-> +
-> +       return true;
-> +}
-
-Simply return the condition result.
-
-Cheers,
-Miguel
+Reviewed-by: Joel Stanley <joel@jms.id.au>
