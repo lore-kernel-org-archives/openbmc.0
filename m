@@ -1,65 +1,44 @@
-Return-Path: <bluecmd@google.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::344; helo=mail-ot1-x344.google.com;
- envelope-from=bluecmd@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.58.226; helo=3.mo2.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="UKFdxw0b"; 
- dkim-atps=neutral
-Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
- [IPv6:2607:f8b0:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dPvn6ssMzDqPw
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 18:18:23 +1100 (AEDT)
-Received: by mail-ot1-x344.google.com with SMTP id k98so18467421otk.3
- for <openbmc@lists.ozlabs.org>; Sun, 13 Jan 2019 23:18:23 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EfrQfsFaqDQA4SCfhHJFACeuq7S1wHFl5rzpcaq4jX0=;
- b=UKFdxw0bLxLkNP8Q2RLnnDm2f9VVOi8QoQn2QbGTIZGP/UYh3YfpkX0v0MhvTLHG3a
- hzITo5v+DnZ04eM7Qgl7cgPMqLNtDMPtZbWn0ItkjWe04gJiuA4AIQhd5Otf5+38rtCP
- RxDaAEC/XzO2fDUiUgQ9cj7iV1LUhL1WhvwES0lN/TG2m9r/ZKG1ZI9NhbB2quxUnlES
- 00bMWT1xrXPF4NPiszmiH5QBS0bHDyaCjsPsExVhIs5ARyfeyzc9pwq3ZgZtjc5VbPcA
- WJHazFPWGX6ScJGLtlSoR4aOTcY8EcU2pZorXxoFsxhIohICkH/0ZUEXnTK6d8g2af/b
- lDWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EfrQfsFaqDQA4SCfhHJFACeuq7S1wHFl5rzpcaq4jX0=;
- b=uM0TN80aYmAjnh0b1pLqcU2bzVOs4ssF6tei10hRuOYSYl7/2YsvqPrqezOumCH5cN
- 4rsl8DVvhA6exexiFZ7NjBqESW2hWfuIzcQU2QUPs3x6xFBZMvqSfWaLPY/SXYeKC/3w
- BJ/XQ7KMa2aA8XhzxdEdNpmw48Lt4ZKhNTwYNk+ImEr9MO4j4dmzXKfty3xoF8XvP89B
- MoqsCPsyHCwxjvTOCdKCqihJEqbaPJ9qUCOwvDguYRyD1C33RE0VLeNdUBwpiNAjtNa4
- YFNuFs1Ir1h5avDwfq5/wPD1j5MvDe1BD/DmIqQpO/KIkU/FIfchYTYcVRIGf/HhvRRp
- k78Q==
-X-Gm-Message-State: AJcUukcetwOPfsxFjDzEmOoXddlHyW0xZJmnQiHI0LaJHSoc0Qx7+c4Q
- URwyGMx67c5RyteIGJOz3Ixi+YbMl+2cGQTtZIDwXw==
-X-Google-Smtp-Source: ALg8bN6IupXC+gDhfZlrb+7cXwltva9xkQrfpeZoYDf8M6ZYTy3QJS6eKFvtdtnri0zkDExtAvpxrPshwTbQUTHXPtA=
-X-Received: by 2002:a9d:5e8c:: with SMTP id f12mr17123194otl.343.1547450300986; 
- Sun, 13 Jan 2019 23:18:20 -0800 (PST)
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 1799 seconds by postgrey-1.36 at bilbo;
+ Mon, 14 Jan 2019 19:17:38 AEDT
+Received: from 3.mo2.mail-out.ovh.net (3.mo2.mail-out.ovh.net [46.105.58.226])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dRD24TvWzDqR2
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 19:17:36 +1100 (AEDT)
+Received: from player791.ha.ovh.net (unknown [10.109.159.154])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTP id C120417A3B0
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 08:40:23 +0100 (CET)
+Received: from kaod.org (lfbn-1-10603-25.w90-89.abo.wanadoo.fr [90.89.194.25])
+ (Authenticated sender: clg@kaod.org)
+ by player791.ha.ovh.net (Postfix) with ESMTPSA id 862AB180B37E;
+ Mon, 14 Jan 2019 07:40:16 +0000 (UTC)
+Subject: Re: [RFC linux dev-4.19] clocksource: fttmr010: Detect back-pressure
+ for Aspeed controllers
+To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+References: <20190111033628.18677-1-andrew@aj.id.au>
+ <d0220a96-aff0-38b3-e8e2-b2c93811cc53@kaod.org>
+ <1547420656.2323823.1633576352.6CDBEC51@webmail.messagingengine.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <d1155bec-b029-4172-1965-69754088d022@kaod.org>
+Date: Mon, 14 Jan 2019 08:40:16 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-References: <20181112142137.160970-1-bluecmd@google.com>
- <21acbd66-c75c-d5e3-fcfb-fa75421a7879@kaod.org>
- <CADiuDAQ1mjh56ibSd+tNq2NFiJFtLcAfyoC8fdd=y+4Mu+jD6w@mail.gmail.com>
- <1542068863.1552891.1574692280.790D270F@webmail.messagingengine.com>
- <CADiuDARPsPGkHP1HRm1RVP=G2scSLozSON3o5h_PuA3ngT5eXg@mail.gmail.com>
- <CADiuDARu6fwudJjcfJ0=sDpjQvtsog+GT5gUWu1WPTzPejFaZg@mail.gmail.com>
- <1547432051.2375740.1633677528.34818C65@webmail.messagingengine.com>
-In-Reply-To: <1547432051.2375740.1633677528.34818C65@webmail.messagingengine.com>
-From: Christian Svensson <bluecmd@google.com>
-Date: Mon, 14 Jan 2019 08:18:08 +0100
-Message-ID: <CAEfeXvaYO4KRFYnsvfdEevzgNgCJTwY2EKsT6ow71hzK13HfMg@mail.gmail.com>
-Subject: Re: [PATCH] qemu: aspeed_timer: Use signed muldiv for timer resets
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Christian Svensson <blue@cmd.nu>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>,
- Joel Stanley <joel@jms.id.au>
-Content-Type: multipart/alternative; boundary="0000000000007fdd1f057f65d918"
+In-Reply-To: <1547420656.2323823.1633576352.6CDBEC51@webmail.messagingengine.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 4388476362904341349
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtledrgedtgdduuddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,51 +50,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 07:18:31 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 08:17:39 -0000
 
---0000000000007fdd1f057f65d918
-Content-Type: text/plain; charset="UTF-8"
+On 1/14/19 12:04 AM, Andrew Jeffery wrote:
+> On Fri, 11 Jan 2019, at 19:36, Cédric Le Goater wrote:
+>> On 1/11/19 4:36 AM, Andrew Jeffery wrote:
+>>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>>
+>> This patch should not have any impact on a real system where l == cycles.
+>> It might be difficult to merge though.
+> 
+> I agree.
+> 
+> Note however that the qemu patches resolve the issue regardless of whether this
+> patch to Linux is applied, just if it's not Linux will not be aware that the timer isn't
+> behaving how Linux requested.
 
-On Mon, Jan 14, 2019, 03:14 Andrew Jeffery <andrew@aj.id.au wrote:
+Indeed. I checked on a ppc64el.
 
-> On Fri, 11 Jan 2019, at 23:00, Christian Svensson wrote:
-> > Ping. What's left to be done here?
->
-> I've taken Cedric's tree and pushed it to openbmc/qemu master, so the patch
-> is there. Did you send it upstream originally? That's where it should go,
-> but that
-> will probably require fixing the issue I pointed out last time.
->
+> Maybe we live with that?
 
-Ah, wierd, I swore I checked the repository last week but I must have
-checked my own fork or something. Thanks for pulling the patch.
-
-As for fixing the issues, any specific concerns with the proposal I replied
-with back in November?
-
+yes ! Could please send your QEMU patchset ?  
+ 
 Thanks,
 
---0000000000007fdd1f057f65d918
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+C. 
 
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
-On Mon, Jan 14, 2019, 03:14 Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.=
-id.au">andrew@aj.id.au</a> wrote:<br></div><blockquote class=3D"gmail_quote=
-" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">O=
-n Fri, 11 Jan 2019, at 23:00, Christian Svensson wrote:<br>
-&gt; Ping. What&#39;s left to be done here?<br>
-<br>
-I&#39;ve taken Cedric&#39;s tree and pushed it to openbmc/qemu master, so t=
-he patch<br>
-is there. Did you send it upstream originally? That&#39;s where it should g=
-o, but that<br>
-will probably require fixing the issue I pointed out last time.<br></blockq=
-uote></div></div><div dir=3D"auto"><br></div><div dir=3D"auto">Ah, wierd, I=
- swore I checked the repository last week but I must have checked my own fo=
-rk or something. Thanks for pulling the patch.</div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">As for fixing the issues, any specific concerns with=
- the proposal I replied with back in November?</div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">Thanks,</div></div>
 
---0000000000007fdd1f057f65d918--
+> Andrew
+> 
+>>
+>> C. 
+>>
+>>> ---
+>>>
+>>> See the cover letter on the corresponding qemu RFC series, to be sent after
+>>> this patch.
+>>>
+>>>  arch/arm/mach-aspeed/Kconfig         | 1 +
+>>>  drivers/clocksource/timer-fttmr010.c | 7 +++++++
+>>>  2 files changed, 8 insertions(+)
+>>>
+>>> diff --git a/arch/arm/mach-aspeed/Kconfig b/arch/arm/mach-aspeed/Kconfig
+>>> index 2d5570e6e186..6b82d5416cf0 100644
+>>> --- a/arch/arm/mach-aspeed/Kconfig
+>>> +++ b/arch/arm/mach-aspeed/Kconfig
+>>> @@ -7,6 +7,7 @@ menuconfig ARCH_ASPEED
+>>>  	select FTTMR010_TIMER
+>>>  	select MFD_SYSCON
+>>>  	select PINCTRL
+>>> +	select GENERIC_CLOCKEVENTS_MIN_ADJUST
+>>>  	help
+>>>  	  Say Y here if you want to run your kernel on an ASpeed BMC SoC.
+>>>  
+>>> diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+>>> index cf93f6419b51..f15386b98289 100644
+>>> --- a/drivers/clocksource/timer-fttmr010.c
+>>> +++ b/drivers/clocksource/timer-fttmr010.c
+>>> @@ -124,6 +124,7 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+>>>  {
+>>>  	struct fttmr010 *fttmr010 = to_fttmr010(evt);
+>>>  	u32 cr;
+>>> +	u32 l;
+>>>  
+>>>  	/* Stop */
+>>>  	cr = readl(fttmr010->base + TIMER_CR);
+>>> @@ -136,6 +137,12 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
+>>>  		 * into TIMER1_COUNT register when the timer is re-enabled.
+>>>  		 */
+>>>  		writel(cycles, fttmr010->base + TIMER1_LOAD);
+>>> +#if CONFIG_GENERIC_CLOCKEVENTS_MIN_ADJUST> +		/* QEMU model may provide back-pressure on requested period */
+>>> +		l = readl(fttmr010->base + TIMER1_LOAD);
+>>> +		if (l > cycles)
+>>> +			return -EINVAL;
+>>> +#endif
+>>>  	} else {
+>>>  		/* Setup the match register forward in time */
+>>>  		cr = readl(fttmr010->base + TIMER1_COUNT);
+>>>
+>>
