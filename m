@@ -9,19 +9,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfX5S4DzDqVW
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfY2w2fzDqVy
  for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 00:07:32 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbK0O019008;
- Mon, 14 Jan 2019 14:37:20 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbLOZ019014;
+ Mon, 14 Jan 2019 14:37:21 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 97BDE62DA4; Mon, 14 Jan 2019 15:07:18 +0200 (IST)
+ id 7735562DA4; Mon, 14 Jan 2019 15:07:19 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [linux dev-4.19 12/15] dt-binding: iio: add NPCM ADC documentation
-Date: Mon, 14 Jan 2019 15:07:07 +0200
-Message-Id: <20190114130710.427600-13-tmaimon77@gmail.com>
+Subject: [linux dev-4.19 14/15] arm: npcm: add defconfig for Nuvoton NPCM7xx
+ BMC
+Date: Mon, 14 Jan 2019 15:07:09 +0200
+Message-Id: <20190114130710.427600-15-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20190114130710.427600-1-tmaimon77@gmail.com>
 References: <20190114130710.427600-1-tmaimon77@gmail.com>
@@ -36,57 +37,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 13:07:33 -0000
+X-List-Received-Date: Mon, 14 Jan 2019 13:07:34 -0000
 
-Added device tree binding documentation for Nuvoton BMC
-NPCM Analog-to-Digital Converter(ADC).
+Add configuration definition for Nuvoton
+NPCM7xx (Poleg) BMC.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../bindings/iio/adc/nuvoton,npcm-adc.txt          | 35 ++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+ arch/arm/configs/npcm7xx_defconfig | 122 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 122 insertions(+)
+ create mode 100644 arch/arm/configs/npcm7xx_defconfig
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+diff --git a/arch/arm/configs/npcm7xx_defconfig b/arch/arm/configs/npcm7xx_defconfig
 new file mode 100644
-index 000000000000..6f0843d837cc
+index 000000000000..afddb4e88300
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-@@ -0,0 +1,35 @@
-+Nuvoton NPCM Analog to Digital Converter (ADC)
-+
-+The NPCM ADC is a 10-bit converter for eight channel inputs.
-+
-+Required properties:
-+- compatible	: "nuvoton,npcm750-adc" for the NPCM7XX BMC.
-+- reg			: specifies physical base address and size of the registers.
-+- interrupts	: Contain the ADC interrupt with flags for falling edge.
-+
-+Optional properties:
-+- clocks		: phandle of ADC reference clock, in case the clock is not
-+				  added the ADC will use the default ADC sample rate.
-+- vref-supply	: The regulator supply ADC reference voltage, in case the
-+				  vref-supply is not added the ADC will use internal voltage
-+				  reference.
-+
-+Required Node in the NPCM7xx BMC:
-+An additional register is present in the NPCM7xx SOC which is
-+assumed to be in the same device tree, with and marked as
-+compatible with "nuvoton,npcm750-rst".
-+
-+Example:
-+
-+adc: adc@f000c000 {
-+	compatible = "nuvoton,npcm750-adc";
-+	reg = <0xf000c000 0x8>;
-+	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
-+	clocks = <&clk NPCM7XX_CLK_ADC>;
-+};
-+
-+rst: rst@f0801000 {
-+	compatible = "nuvoton,npcm750-rst", "syscon",
-+	"simple-mfd";
-+	reg = <0xf0801000 0x6C>;
-+};
++++ b/arch/arm/configs/npcm7xx_defconfig
+@@ -0,0 +1,122 @@
++CONFIG_KERNEL_XZ=y
++CONFIG_SYSVIPC=y
++CONFIG_BSD_PROCESS_ACCT=y
++CONFIG_LOG_BUF_SHIFT=21
++CONFIG_CGROUPS=y
++CONFIG_SYSFS_DEPRECATED=y
++CONFIG_SYSFS_DEPRECATED_V2=y
++CONFIG_BLK_DEV_INITRD=y
++CONFIG_SYSCTL_SYSCALL=y
++CONFIG_EMBEDDED=y
++CONFIG_SLAB=y
++CONFIG_MODULES=y
++CONFIG_MODULE_UNLOAD=y
++CONFIG_MODVERSIONS=y
++CONFIG_PARTITION_ADVANCED=y
++CONFIG_DEFAULT_DEADLINE=y
++CONFIG_ARCH_NPCM=y
++CONFIG_ARCH_NPCM7XX=y
++CONFIG_SMP=y
++CONFIG_VMSPLIT_3G_OPT=y
++CONFIG_ZBOOT_ROM_BSS=0x0
++CONFIG_BINFMT_MISC=y
++CONFIG_NET=y
++CONFIG_PACKET=y
++CONFIG_UNIX=y
++CONFIG_INET=y
++CONFIG_IP_PNP=y
++CONFIG_IP_PNP_DHCP=y
++CONFIG_IP_PNP_BOOTP=y
++CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
++CONFIG_DEVTMPFS=y
++CONFIG_MTD=y
++CONFIG_MTD_BLOCK=y
++CONFIG_MTD_RAM=y
++CONFIG_MTD_COMPLEX_MAPPINGS=y
++CONFIG_MTD_M25P80=y
++CONFIG_MTD_SPI_NOR=y
++CONFIG_SPI_NPCM_FIU=y
++CONFIG_OF_OVERLAY=y
++CONFIG_BLK_DEV_LOOP=y
++CONFIG_BLK_DEV_NBD=y
++CONFIG_BLK_DEV_RAM=y
++CONFIG_BLK_DEV_RAM_COUNT=1
++CONFIG_BLK_DEV_RAM_SIZE=8192
++CONFIG_NPCM7XX_LPC_BPC=y
++CONFIG_NPCM7XX_PCI_MBOX=y
++CONFIG_SCSI=y
++CONFIG_BLK_DEV_SD=y
++CONFIG_NETDEVICES=y
++CONFIG_NPCM7XX_EMC_ETH=y
++CONFIG_STMMAC_ETH=y
++CONFIG_BROADCOM_PHY=y
++CONFIG_SERIAL_8250=y
++CONFIG_SERIAL_8250_CONSOLE=y
++CONFIG_SERIAL_OF_PLATFORM=y
++CONFIG_NPCM750_OTP=y
++CONFIG_NPCM750_OTP_WRITE_ENABLE=y
++CONFIG_NPCM7XX_KCS_IPMI_BMC=y
++CONFIG_HW_RANDOM=y
++CONFIG_I2C=y
++CONFIG_I2C_CHARDEV=y
++CONFIG_I2C_NPCM7XX=y
++CONFIG_I2C_SLAVE_EEPROM=y
++CONFIG_SPI=y
++CONFIG_SPI_NPCM_PSPI=y
++CONFIG_GPIO_SYSFS=y
++CONFIG_GPIO_GENERIC_PLATFORM=y
++CONFIG_SENSORS_LM75=y
++CONFIG_SENSORS_NPCM7XX=y
++CONFIG_SENSORS_TMP102=y
++CONFIG_WATCHDOG=y
++CONFIG_REGULATOR=y
++CONFIG_REGULATOR_FIXED_VOLTAGE=y
++CONFIG_NPCM750_VCD=y
++CONFIG_NPCM750_ECE=y
++CONFIG_USB_HIDDEV=y
++CONFIG_USB=y
++CONFIG_USB_ANNOUNCE_NEW_DEVICES=y
++CONFIG_USB_EHCI_HCD=y
++CONFIG_USB_EHCI_ROOT_HUB_TT=y
++CONFIG_USB_OHCI_HCD=y
++CONFIG_USB_STORAGE=y
++CONFIG_USB_CHIPIDEA=y
++CONFIG_USB_CHIPIDEA_UDC=y
++CONFIG_USB_GADGET=y
++CONFIG_USB_GADGET_NPCMX50_USB2=y
++CONFIG_USB_CONFIGFS=y
++CONFIG_USB_CONFIGFS_F_HID=y
++CONFIG_USB_MASS_STORAGE=m
++CONFIG_USB_EDM_KBD_MOUSE=m
++CONFIG_MMC=y
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_NPCM750=y
++CONFIG_IIO=y
++CONFIG_NPCM_ADC=y
++CONFIG_IIO_MUX=y
++CONFIG_MUX_MMIO=y
++CONFIG_MSDOS_FS=y
++CONFIG_VFAT_FS=y
++CONFIG_TMPFS=y
++CONFIG_ROMFS_FS=y
++CONFIG_NFS_FS=y
++CONFIG_ROOT_NFS=y
++CONFIG_CIFS=y
++CONFIG_CIFS_XATTR=y
++CONFIG_NLS_CODEPAGE_437=y
++CONFIG_NLS_ASCII=y
++CONFIG_NLS_ISO8859_1=y
++CONFIG_DYNAMIC_DEBUG=y
++CONFIG_DEBUG_INFO=y
++CONFIG_DEBUG_INFO_REDUCED=y
++CONFIG_READABLE_ASM=y
++CONFIG_DEBUG_SECTION_MISMATCH=y
++CONFIG_MAGIC_SYSRQ=y
++CONFIG_FUNCTION_TRACER=y
++CONFIG_CRYPTO_CBC=y
++CONFIG_CRYPTO_CRC32C=y
++CONFIG_CRYPTO_DEFLATE=y
++CONFIG_CRYPTO_LZO=y
++CONFIG_CRYPTO_USER_API_SKCIPHER=y
++CONFIG_CRYPTO_DEV_NPCMX50=y
++CONFIG_ARM_CRYPTO=y
 -- 
 2.14.1
