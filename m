@@ -9,19 +9,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfR6KvHzDqVZ
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dYfR6ZySzDqWH
  for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 00:07:25 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbG2h018974;
- Mon, 14 Jan 2019 14:37:16 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0ECbI8m018990;
+ Mon, 14 Jan 2019 14:37:18 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 2327B62DA7; Mon, 14 Jan 2019 15:07:14 +0200 (IST)
+ id D5DD562DA4; Mon, 14 Jan 2019 15:07:15 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [linux dev-4.19 02/15] dt-binding: mtd: add NPCM FIU controller
-Date: Mon, 14 Jan 2019 15:06:57 +0200
-Message-Id: <20190114130710.427600-3-tmaimon77@gmail.com>
+Subject: [linux dev-4.19 06/15] dt-binding: bmc: Add NPCM7xx LPC BPC
+ documentation
+Date: Mon, 14 Jan 2019 15:07:01 +0200
+Message-Id: <20190114130710.427600-7-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20190114130710.427600-1-tmaimon77@gmail.com>
 References: <20190114130710.427600-1-tmaimon77@gmail.com>
@@ -37,86 +38,49 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 14 Jan 2019 13:07:28 -0000
-X-List-Received-Date: Mon, 14 Jan 2019 13:07:28 -0000
 
 Added device tree binding documentation for Nuvoton BMC
-NPCM Flash Interface Unit(FIU) SPI-NOR controller.
+NPCM7xx BIOS Post Code (BPC).
+The NPCM7xx BPC monitoring two configurable I/O addresses
+written by the host on Low Pin Count (LPC) bus.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/devicetree/bindings/mtd/npcm-fiu.txt | 64 ++++++++++++++++++++++
- 1 file changed, 64 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mtd/npcm-fiu.txt
+ .../devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt    | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
 
-diff --git a/Documentation/devicetree/bindings/mtd/npcm-fiu.txt b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
+diff --git a/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
 new file mode 100644
-index 000000000000..9746cb5b1ced
+index 000000000000..0832c9cbea32
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/mtd/npcm-fiu.txt
-@@ -0,0 +1,64 @@
-+* Nuvoton FLASH Interface Unit (FIU) SPI Controller
++++ b/Documentation/devicetree/bindings/bmc/npcm7xx-lpc-bpc.txt
+@@ -0,0 +1,26 @@
++Nuvoton NPCM7xx LPC BPC interface
 +
-+NPCM FIU supports single, dual and quad communication interface.
++Nuvoton BMC NPCM7xx BIOS Post Code (BPC) monitoring two
++configurable I/O addresses written by the host on the
++Low Pin Count (LPC) bus, the capure data stored in 128-word FIFO.
 +
-+The NPCM7XX supports three FIU modules,
-+FIU0 and FIUx supports two chip selects,
-+FIU3 support four chip select.
++NPCM7xx BPC supports capture double words, when using capture
++double word only I/O address 1 is monitored.
 +
-+Required properties:
-+  - compatible : "nuvoton,npcm750-fiu" for the NPCM7XX BMC
-+  - #address-cells : should be 1.
-+  - #size-cells : should be 0.
-+  - reg : the first contains the register location and length,
-+          the second contains the memory mapping address and length
-+  - reg-names: Should contain the reg names "control" and "memory"
-+  - clocks : phandle of F reference clock.
++Required properties for lpc_bpc node
++- compatible	: "nuvoton,npcm750-lpc-bpc" for Poleg NPCM7XX.
++- reg 			: specifies physical base address and size of the registers.
++- interrupts	: contain the LPC BPC with flags for falling edge.
++- monitor-ports : contain monitor I/O addresses, at least one monitor I/O
++				  address required
 +
-+Required properties in case the pins can be muxed:
-+  - pinctrl-names : a pinctrl state named "default" must be defined.
-+  - pinctrl-0 : phandle referencing pin configuration of the device.
-+
-+Optional property:
-+  - spix-mode: enable spix-mode for an expansion bus to an ASIC or CPLD.
-+
-+The SPI device must be a child of the FIU node and must have a
-+compatible property as specified in bindings/mtd/jedec,spi-nor.txt
-+
-+Required property:
-+- reg: chip select number.
-+
-+Optional property:
-+- spi-rx-bus-width: see ../spi/spi-bus.txt for the description.
-+
-+Aliases:
-+- All the FIU controller nodes should be represented in the aliases node using
-+  the following format 'fiu{n}' where n is a unique number for the alias.
-+  In the NPCM7XX BMC:
-+  		fiu0 represent fiu 0 controller
-+  		fiu1 represent fiu 3 controller
-+  		fiu2 represent fiu x controller
++Optional property for lpc_bpc node
++- bpc-en-dwcapture : enable capture double words support.
 +
 +Example:
-+fiu3: fiu@c00000000 {
-+	compatible = "nuvoton,npcm750-fiu";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	reg = <0xfb000000 0x1000>, <0x80000000 0x10000000>;
-+	reg-names = "control", "memory";
-+	clocks = <&clk NPCM7XX_CLK_AHB>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi3_pins>;
-+	spi-nor@0 {
-+		compatible = "jedec,spi-nor";
-+		spi-rx-bus-width = <2>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		reg = <0>;
-+		partition@0 {
-+			label = "flash_data";
-+			reg = <0x0 0x800000>;
-+		};
++	lpc_bpc: lpc-bpc@f0007040 {
++		compatible = "nuvoton,npcm7xx-lpc-bpc";
++		reg = <0xf0007040 0x14>;
++		monitor-ports = <0x80>;
++		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
 +	};
-+};
-+
 -- 
 2.14.1
