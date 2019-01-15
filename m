@@ -1,65 +1,62 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
+ (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="R+s9h54c"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="PGFOt4XG"; 
  dkim-atps=neutral
-Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
- [IPv6:2607:f8b0:4864:20::744])
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fR4d4WgGzDqQC
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 10:14:41 +1100 (AEDT)
-Received: by mail-qk1-x744.google.com with SMTP id o125so2665991qkf.3
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 15:14:41 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fRDm4FL5zDqPF
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 10:21:44 +1100 (AEDT)
+Received: by mail-qt1-x843.google.com with SMTP id y20so5011370qtm.13
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 15:21:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TE0RgnW3gqU0OlkU8MUNLqvrL9uNfl6XW2noSA9azQs=;
- b=R+s9h54coXHYdJx8cPfptzIQ6EHyxabE/zalyJeZFNbB8K5zBlEFDNDpvc57P1g3Lo
- nSWBMv9VnM2XyVTCY+DjQgY7+e0H1JmVbIFVKleKd2vQdqmrgoWg7igdhL84hSjg51vF
- CQztl+nbg4qT1IgbHeUtT+OvtFlxTadZWzC98=
+ :cc; bh=uJY4lwOCQUNKRZERBYPlCOhWD3u8IjOlUrsRcWLxW8s=;
+ b=PGFOt4XG7tkv/XzZ9jYKTv2a/Fs+ps/iGvjiA8tK0C9GG3H39SvV+A259P1YKKX+Gm
+ HZ8p7WrykuuaO8FHP3hFGaTrdUPTXNUv70fqENF3cXj7yqH+fxUvSGrGKuH/mEcT1DpA
+ 507/DtU8+jooaMDLHsegqLpbeqrkGVnbBFlKc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=TE0RgnW3gqU0OlkU8MUNLqvrL9uNfl6XW2noSA9azQs=;
- b=dA/17ZyREeRLReWcdjxm3Pkeu47fn/K5sxWi+T5ZTjv2aCIttiO0LkHKp73T6e++7Q
- 1rs6HcWBBJtfPaKRc7AU34r/ZFz9lC5w6/oZo0qZ4Sge6imcD7oajtmQX+txP/H/Bdbk
- pEwrxb5Fh7+LeiaeT5S6vuWj/WciPdLs+s9lsrc+FgWt/0GXC94h7MbneffEGRSxt3do
- 4DzhsRXIeLfylanls3H3ccr7aQfQkL2v9lOWuf0S+cPAxhfkXrp46OpderZcNjGvRMPW
- RY8fP4evBgWw6baz6BL886h7aSVODa2JnCocWRBzgw3DZooEcNML9SmlZ+AJBx05woIK
- Tkdw==
-X-Gm-Message-State: AJcUukfHknaNq/PqKLjMqFXZDRXiPRjT0becnxaiCIzNmjIVcY6py+d+
- PG8CllMJmeQkA3pCoLk5+CW0BaAZl1CO/0vKueI=
-X-Google-Smtp-Source: ALg8bN6Vll7tVbYX6uRv7+fXX12sqYZkOX1xxR7J+sk1OoYRJ4Se2zeybqPn+/dVpT2TSkIIsgAs4YVlPrXLqBuNkYs=
-X-Received: by 2002:a37:61cd:: with SMTP id v196mr4656877qkb.25.1547594078546; 
- Tue, 15 Jan 2019 15:14:38 -0800 (PST)
+ bh=uJY4lwOCQUNKRZERBYPlCOhWD3u8IjOlUrsRcWLxW8s=;
+ b=D7isQaxFUU6x2w5u1hPzfMaLgmgKVucdJwScKajc+LPUrVAEv7vWCnbyLXbVc4SOSc
+ WXDMW7fVV4ynOB8BnXaIoSAluiRDGNb4xnFMbd8l3aOIkHFLhXExUa9IDRFstXjqfCXP
+ okHM2K4DZaabs1uG3RWZrpIFL0qauxmMP95kiuffkjCCAiG2togDF4JynQH1NhyNttSU
+ zKP6PXzMRK13D2RBNKsu4Q5NRYHj/Ba0TXak7TNMj9AEwznZMnxzruXTwZm8XgbrBGrG
+ yUxMSXqhLRWF4ONj765gHp8+0dIgKkOxKSP/IxiJkZ82LGKgZ0tX0mk0liFa4JwSQihd
+ sJ0Q==
+X-Gm-Message-State: AJcUukcTl79X6N27PvjZXm02se+BjSYv8otB0EMRPv/5lDolbegissBS
+ GmMH6zba4UGw8JEL0SnVBaH2upUlj+aFIXNf3d0=
+X-Google-Smtp-Source: ALg8bN4J74fIT+l5wj9d3fnPDj1BYRvZ6aCu+KiVfjam3KMGNuiuhUyiwyQvgjFeZuKhNpJxyQqLPNk+GaiF3HvlbOs=
+X-Received: by 2002:ac8:29b7:: with SMTP id 52mr4835382qts.266.1547594501921; 
+ Tue, 15 Jan 2019 15:21:41 -0800 (PST)
 MIME-Version: 1.0
-References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-7-jae.hyun.yoo@linux.intel.com>
- <CACPK8XfMyXfomepZEPJCr=A-cCPw-CVAZ0B2CuKn7oXCNz6LbQ@mail.gmail.com>
- <abaef001-a769-ec5d-45f0-02a994fdbee6@linux.intel.com>
-In-Reply-To: <abaef001-a769-ec5d-45f0-02a994fdbee6@linux.intel.com>
+References: <20190109164343.164205-1-tmaimon77@gmail.com>
+ <20190109164343.164205-2-tmaimon77@gmail.com>
+In-Reply-To: <20190109164343.164205-2-tmaimon77@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 16 Jan 2019 10:14:26 +1100
-Message-ID: <CACPK8XdBSYHB+S8Sp8Y=J0cK9D=coa+coQj3S7TEFs9DJ8Ljxg@mail.gmail.com>
-Subject: Re: [PATCH v10 06/12] peci: Add a PECI adapter driver for Aspeed
- AST24xx/AST25xx
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Arnd Bergmann <arnd@arndb.de>, devicetree <devicetree@vger.kernel.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+Date: Wed, 16 Jan 2019 10:21:30 +1100
+Message-ID: <CACPK8XebHzVAO2TX25N24S0Pgg_0xA=7GN3j0oXhSyD4LmL4=w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-binding: iio: add NPCM ADC documentation
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>, 
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>, 
+ Patrick Venture <venture@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Avi Fishman <avifishman70@gmail.com>, linux-iio@vger.kernel.org, 
  OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Andy Shevchenko <andriy.shevchenko@intel.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, Haiyue Wang <haiyue.wang@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -72,33 +69,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 23:14:42 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 23:21:45 -0000
 
-On Tue, 15 Jan 2019 at 09:49, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
-> >> +       /**
-> >> +        * We check that the regmap works on this very first access,
-> >> +        * but as this is an MMIO-backed regmap, subsequent regmap
-> >> +        * access is not going to fail and we skip error checks from
-> >> +        * this point.
-> >
-> > Why do you use a regmap for this driver? AFAICT it has exclusive
-> > ownership over the register range it uses, which is sometimes a reason
-> > to use a regmap over a mmio region.
-> >
-> > I'm not sure if you've ever disassembled drivers/base/regmap/regmap.o,
-> > but if you do you will find that a single mmio read turns into
-> > hundreds of instructions.
-> >
->
-> No specific reason. regmap makes some overhead as you mentioned but it
-> also provides some advantages on access simplification, endianness
-> handling and register dump at run time. I would not insist using of
-> regmap if you prefer using of raw readl and writel. Do you want replace
-> regmap with readl and writel in this driver?
+On Thu, 10 Jan 2019 at 03:44, Tomer Maimon <tmaimon77@gmail.com> wrote:
 
-I think that would be best.
+> +Required Node in the NPCM7xx BMC:
+> +An additional register is present in the NPCM7xx SOC which is
+> +assumed to be in the same device tree, with and marked as
+> +compatible with "nuvoton,npcm750-rst".
 
-You raise some good points about the regmap API, and you're not alone
-in using it for these reasons. We should look in to providing a
-suitable API without the overhead, or making regmap more efficient for
-the mmio case.
+Is there a reason you don't include a phandle to the reset node?
+
+I think doing that would make more sense.
+
+> +adc: adc@f000c000 {
+> +       compatible = "nuvoton,npcm750-adc";
+> +       reg = <0xf000c000 0x8>;
+> +       interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
+> +       clocks = <&clk NPCM7XX_CLK_ADC>;
+> +};
+
+> +
+> +rst: rst@f0801000 {
+> +       compatible = "nuvoton,npcm750-rst", "syscon",
+> +       "simple-mfd";
+> +       reg = <0xf0801000 0x6C>;
+> +};
