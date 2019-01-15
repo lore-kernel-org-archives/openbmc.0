@@ -1,65 +1,80 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <msbarth@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::143; helo=mail-lf1-x143.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=msbarth@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="dYLtW48P"; 
- dkim-atps=neutral
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
- [IPv6:2a00:1450:4864:20::143])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43f8Kh0SwyzDqbv
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 23:09:59 +1100 (AEDT)
-Received: by mail-lf1-x143.google.com with SMTP id l10so1833704lfh.9
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 04:09:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=X0E8G4tDKBYRpJOBNrKhQmtTZlNk7ivAvvsgpLl2wXI=;
- b=dYLtW48PiFV24Rh8HDtb2F9hUknkx/mkC1De5+BzsxubLWEDZuHUw+SvMLZlOz0Xfz
- oSBsWrhmoPeRkhNJhaEAzM4LrvGaa3mxkHRpIiRWmMsmZXOG/4y3jj+Glk0C3COMCL7T
- XpsyyYTb62J2aCsQOL8p4RwUv1aeqWkZ2c1GQ=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=X0E8G4tDKBYRpJOBNrKhQmtTZlNk7ivAvvsgpLl2wXI=;
- b=WHUuPjBXklAM/dlibH1108JRQ9C/WAyGdYXHU2gfu7IbiEVv0c+2NI7K7VUxqXgted
- aH0LfR32sMjIRuO7iX8+IJAUbkuYFbNXoahx+YBiu0u1kzYMPGaNoGLf9OtIlIR1OPWf
- rtfs+9sLwLMZCzxh0EeAiWsd2sNxtwFFUsvleDY2NUGYESOylT1rEBfWxipvIy4I4HG3
- INLuWue5qwz32bHKrSwQOc6GRlmTtKrlXcKiHSni8SFPy1QyFqef4AAuF1oKlbzqezNZ
- U+N8PS9fz/rwjD2EEX73vbFD2S8BNpiiAj9ysCUVNuV0viDceJeU+J7md1v6phpr/+lg
- Ytuw==
-X-Gm-Message-State: AJcUukdaAM//TUgPTc5eO9+AVb2wICWK2xlQ02Cs6vrEspxHv0ZBWbpi
- fLS9uzYZkr03RpwOtoTcR15d/0meai2ykbHRWjfRrw==
-X-Google-Smtp-Source: ALg8bN536HbxvYb2juT7I0gndhN042wDUoTNIb4fqSlAl3jb8yjkZvFyuYxvKqwsjf1K1N4RUnFAah+g+VRvMANACR4=
-X-Received: by 2002:a19:8d01:: with SMTP id p1mr2543546lfd.149.1547554196558; 
- Tue, 15 Jan 2019 04:09:56 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fD800nzSzDqZN
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 02:01:51 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ x0FEwjuI125162
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 10:01:49 -0500
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2q1e0ckr1t-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 10:01:47 -0500
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.ibm.com>;
+ Tue, 15 Jan 2019 15:01:45 -0000
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 15 Jan 2019 15:01:43 -0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x0FF1goV23396382
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 15 Jan 2019 15:01:42 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 84166AC059;
+ Tue, 15 Jan 2019 15:01:42 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5D230AC05B;
+ Tue, 15 Jan 2019 15:01:42 +0000 (GMT)
+Received: from [9.10.99.133] (unknown [9.10.99.133])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 15 Jan 2019 15:01:42 +0000 (GMT)
+Subject: Re: phosphor-hwmon funcitonal interface
+To: Patrick Venture <venture@google.com>,
+ Matt Spinler <mspinler@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAO=notzYAiR1nZ08=N-oi2g--XgjZ576wRomDDLYEdhLnw2pnQ@mail.gmail.com>
+From: Matthew Barth <msbarth@linux.ibm.com>
+Date: Tue, 15 Jan 2019 09:01:41 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
- <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
- <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
- <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
- <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
-In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Tue, 15 Jan 2019 13:09:44 +0100
-Message-ID: <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
-Subject: Re: Enable buttons GPIO passthrough
-To: "Wang, Kuiying" <kuiying.wang@intel.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Joel Stanley <joel@jms.id.au>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, 
- Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- "Mauery, Vernon" <vernon.mauery@intel.com>, "Feist,
- James" <james.feist@intel.com>, "Yoo, Jae Hyun" <jae.hyun.yoo@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAO=notzYAiR1nZ08=N-oi2g--XgjZ576wRomDDLYEdhLnw2pnQ@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 19011515-2213-0000-0000-0000033DB210
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010411; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000274; SDB=6.01146860; UDB=6.00597356; IPR=6.00927152; 
+ MB=3.00025137; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-15 15:01:44
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19011515-2214-0000-0000-00005CFB1D0F
+Message-Id: <4dc41dd1-d8cf-df00-1de7-eb47e01ecbc7@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-15_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1901150125
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,39 +86,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 12:10:01 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 15:01:52 -0000
 
-Hi Kwin,
 
-> Based on pinmux to do passthrough is too complex and no reference,
 
-Don't let that discourage you! We are some of the world's most important
-software engineers in the kernel, and we don't just do the simple stuff,
-like filling in the blanks guided by previous example, we do the really
-complicated stuff of inventing the frameworks.
+On 1/14/19 2:31 PM, Patrick Venture wrote:
+> Right now, if a sensor has an explicit hwmon fault interface, then we
+> have the notion of a status:
+> 
+> https://github.com/openbmc/phosphor-hwmon/blob/master/sensor.cpp#L205
+> 
+> However, I propose that if there isn't a fault file, we still add the
+> interface, and set to functional=true.  This would allow us to change
+> it to false in the following condition:
+> 
+Would this be optional so this interface/property doesnt show on sensors 
+that dont want it?
+> https://github.com/openbmc/phosphor-hwmon/blob/master/hwmonio.cpp#L127
+> 
+> So basically, instead of returning -rc on failure (optionally), it
+> could optionally set functional to false, and phosphor-host-ipmid
+> would need to know to check this additional interface.
+> 
+I'm ok with this. Where and how would this optionally be configured for 
+a device and its sensors?
 
-> I have another 2 simple proposals to do button GPIO passthrough as following:
-> 1. extend "passthrough" to the "direction" property of gpio, use "value" to
-> control it be disabled/enabled.
-
-This is what I described in my first reply. A .set_config() option.
-But it still needs to patch the DT bindings for generic pin config
-and add a globally uniquie enumerator for this config to
-pinconf-generic.h since GPIO is reusing these generics,
-so begin with that in any case.
-
-> 2. extend "value" property of gpio to support the third value "2",
-> which means pass-through is enabled, otherwise passthrough is disabled.
-
-No, sorry, this is the wrong idea.
-
-.set_value() sets the GPIO line as high or low, it is essentially
-boolean and it is an integer only for historical reasons.
-
-.set_config() is what we use to set up debounce or open drain
-and such electronic configurations on GPIO lines, and this
-should be done there, unless Andrew prefers that it is gets
-done in the pin control driver.
-
-Yours,
-Linus Walleij
+> Thoughts?  (IIRC< I've mentioned this idea before, but now i'm setting
+> up some cycles to hammer it out, as I continue to implement unit-tests
+> in phosphor-hwmon)
+> 
+> Patrick
+> 
