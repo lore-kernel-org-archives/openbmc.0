@@ -1,48 +1,52 @@
 Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fRTL3G0GzDqRM;
- Wed, 16 Jan 2019 10:32:37 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fRZ70727zDq96
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 10:36:46 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2019 15:32:34 -0800
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Jan 2019 15:36:43 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,483,1539673200"; d="scan'208";a="267421640"
+X-IronPort-AV: E=Sophos;i="5.56,483,1539673200"; d="scan'208";a="267422316"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
  ([10.7.153.143])
- by orsmga004.jf.intel.com with ESMTP; 15 Jan 2019 15:32:34 -0800
-Subject: Re: [PATCH i2c-next v9 0/5] i2c: aspeed: Add bus idle waiting logic
- for multi-master use cases
-To: Wolfram Sang <wsa@the-dreams.de>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ by orsmga004.jf.intel.com with ESMTP; 15 Jan 2019 15:36:43 -0800
+Subject: Re: [PATCH v10 06/12] peci: Add a PECI adapter driver for Aspeed
+ AST24xx/AST25xx
+To: Joel Stanley <joel@jms.id.au>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>, Arnd Bergmann
+ <arnd@arndb.de>, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20181030210917.32711-1-jae.hyun.yoo@linux.intel.com>
- <20190115224713.duoha332mjlrmwji@ninjato>
+ Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Haiyue Wang <haiyue.wang@linux.intel.com>
+References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
+ <20190107214136.5256-7-jae.hyun.yoo@linux.intel.com>
+ <CACPK8XfMyXfomepZEPJCr=A-cCPw-CVAZ0B2CuKn7oXCNz6LbQ@mail.gmail.com>
+ <abaef001-a769-ec5d-45f0-02a994fdbee6@linux.intel.com>
+ <CACPK8XdBSYHB+S8Sp8Y=J0cK9D=coa+coQj3S7TEFs9DJ8Ljxg@mail.gmail.com>
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <ae348673-f6d5-36ac-a1f2-872d0bab06b1@linux.intel.com>
-Date: Tue, 15 Jan 2019 15:32:33 -0800
+Message-ID: <17179a43-9ac7-366a-bfe6-044e80875a06@linux.intel.com>
+Date: Tue, 15 Jan 2019 15:36:43 -0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.3.3
 MIME-Version: 1.0
-In-Reply-To: <20190115224713.duoha332mjlrmwji@ninjato>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <CACPK8XdBSYHB+S8Sp8Y=J0cK9D=coa+coQj3S7TEFs9DJ8Ljxg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -56,38 +60,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 23:32:39 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 23:36:47 -0000
 
-On 1/15/2019 2:47 PM, Wolfram Sang wrote:
-> On Tue, Oct 30, 2018 at 02:09:11PM -0700, Jae Hyun Yoo wrote:
->> In multi-master environment, this driver's master cannot know
->> exactly when a peer master sends data to this driver's slave so a
->> case can be happened that this master tries to send data through
->> the master_xfer function but slave data from peer master is still
->> being processed by this driver. To prevent state corruption in the
->> case, this patch adds checking code if any slave operation is
->> ongoing and it waits up to the bus timeout duration before starting
->> a master_xfer operation.
+On 1/15/2019 3:14 PM, Joel Stanley wrote:
+> On Tue, 15 Jan 2019 at 09:49, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+>>>> +       /**
+>>>> +        * We check that the regmap works on this very first access,
+>>>> +        * but as this is an MMIO-backed regmap, subsequent regmap
+>>>> +        * access is not going to fail and we skip error checks from
+>>>> +        * this point.
+>>>
+>>> Why do you use a regmap for this driver? AFAICT it has exclusive
+>>> ownership over the register range it uses, which is sometimes a reason
+>>> to use a regmap over a mmio region.
+>>>
+>>> I'm not sure if you've ever disassembled drivers/base/regmap/regmap.o,
+>>> but if you do you will find that a single mmio read turns into
+>>> hundreds of instructions.
+>>>
 >>
->> To support this change, it introduces changes on i2c-core-base to
->> make that able to read the bus timeout and master transfer retries
->> count values from device tree properties.
->>
->> Please review this patch set.
+>> No specific reason. regmap makes some overhead as you mentioned but it
+>> also provides some advantages on access simplification, endianness
+>> handling and register dump at run time. I would not insist using of
+>> regmap if you prefer using of raw readl and writel. Do you want replace
+>> regmap with readl and writel in this driver?
 > 
-> Marking this as "Changes requested". I think if the mutex approach
-> works, these patches become obsolete then.
+> I think that would be best.
+> 
+> You raise some good points about the regmap API, and you're not alone
+> in using it for these reasons. We should look in to providing a
+> suitable API without the overhead, or making regmap more efficient for
+> the mmio case.
 > 
 
-Hi Wolfram,
+Okay. I'll rewrite this driver code using readl and writel instead of 
+regmap mmio. Thanks again for your review!
 
-Thanks for your touching base. I made and tested a new patch in my
-local. Actually, I couldn't use a mutex because it should provide
-locking between driver context and interrupt context. Instead, after
-taking lots of experiments, I checked that idle waiting can be supported
-by this H/W so I didn't need to use any locking method in the driver
-code for multi-master handling. I'll submit a new patch tomorrow using a
-different thread. Please drop this patch set.
-
-Thanks,
+Regards,
 Jae
