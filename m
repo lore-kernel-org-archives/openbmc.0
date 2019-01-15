@@ -1,59 +1,68 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:4864:20::22d; helo=mail-lj1-x22d.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="jB+uiIZI"; 
+ dkim-atps=neutral
+Received: from mail-lj1-x22d.google.com (mail-lj1-x22d.google.com
+ [IPv6:2a00:1450:4864:20::22d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43f5HN242gzDqdc
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 20:52:44 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2019 01:52:40 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,481,1539673200"; d="scan'208";a="118603884"
-Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
- by orsmga003.jf.intel.com with ESMTP; 15 Jan 2019 01:52:40 -0800
-Received: from FMSMSX110.amr.corp.intel.com (10.18.116.10) by
- fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Tue, 15 Jan 2019 01:52:40 -0800
-Received: from shsmsx154.ccr.corp.intel.com (10.239.6.54) by
- fmsmsx110.amr.corp.intel.com (10.18.116.10) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Tue, 15 Jan 2019 01:52:40 -0800
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.63]) by
- SHSMSX154.ccr.corp.intel.com ([169.254.7.46]) with mapi id 14.03.0415.000;
- Tue, 15 Jan 2019 17:52:39 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Linus Walleij <linus.walleij@linaro.org>, Andrew Jeffery
- <andrew@aj.id.au>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-CC: Joel Stanley <joel@jms.id.au>, "open list:GPIO SUBSYSTEM"
- <linux-gpio@vger.kernel.org>, Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery, Vernon"
- <vernon.mauery@intel.com>, "Feist, James" <james.feist@intel.com>, "Yoo, Jae
- Hyun" <jae.hyun.yoo@intel.com>
-Subject: RE: Enable buttons GPIO passthrough
-Thread-Topic: Enable buttons GPIO passthrough
-Thread-Index: AQHUqY1NYywjorJW6EeKU0Lg6H6RIKWtkS8AgABZUQCAAgEksIAAKXmg
-Date: Tue, 15 Jan 2019 09:52:39 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43f8CF6gf2zDqfM
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 23:04:25 +1100 (AEDT)
+Received: by mail-lj1-x22d.google.com with SMTP id s5-v6so2043218ljd.12
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 04:04:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=i5MVcR7jsV1c4w9nkon1FtdR8mMOQqF9jY/2IT3JOU0=;
+ b=jB+uiIZIxUX62+/Vr1UlI1n3owOMCRSf5iYhwzfFmjgcr3KKnUCSjpbYo3hISkWnKB
+ DqH8FD/4qcjujfSDCiVq7HyxrgjvN+e9gOOHmQCs1yjYb3Yt75gYb4NzAqrirk5OiFbg
+ vYeObvRtcZqcFyYriEMQ27vVdg7jI0NCOFnBM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=i5MVcR7jsV1c4w9nkon1FtdR8mMOQqF9jY/2IT3JOU0=;
+ b=AM9APMLuxHF/4kXxwkcmrX8E57XiRZic91Dvhhb88oQd/z9ybyiP6xpSnE+y+E71uN
+ 4kvi3l62cdTXcYzI0fl9JluA59i9l/fYlMcqBDTKYNyU0+8fWQ1WsB2DgQFtccY7clct
+ qaJr/1g0+T9RKNopd0ZZ+8dezUNJIBuVB1NFgjGCXQ+vvB1zbnAL1FZekcSYmXF02Pd2
+ FcyTfJaKCK70VzZMCIl2we0TEfqK3vJgvh6l+yk+Iaq5jWdy5PaAT0afPiz00R+9a0w6
+ sEdBYeWwgjuLge6PGKsmL/dsHx+f23G30a/d9vcHFEqQrVHWmhry58dQpzOWGQH9rwVC
+ BYTQ==
+X-Gm-Message-State: AJcUukcXB9NHztgQKJhL1wT9cO7oc2tHf9zRcU9J4zL4VRVwcIntMJOz
+ LXXH03hUN3H0VJY48Ndub9KakTMJsLKYRgCbgmQOiw==
+X-Google-Smtp-Source: ALg8bN4Hs9Bzkc7HeqayTCFZSyIlQQB7KB0ugx70bDtGsR9jEBbovBPztMp16hlmiplGKTmGwrdk7r6BpKpa2jVK3jI=
+X-Received: by 2002:a2e:710a:: with SMTP id
+ m10-v6mr2530430ljc.66.1547553861094; 
+ Tue, 15 Jan 2019 04:04:21 -0800 (PST)
+MIME-Version: 1.0
 References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
  <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
  <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
  <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
- <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com> 
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
+ <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43CEF9@shsmsx102.ccr.corp.intel.com>
+In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E7724E43CEF9@shsmsx102.ccr.corp.intel.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Tue, 15 Jan 2019 13:04:09 +0100
+Message-ID: <CACRpkdZsrGMa9xtnAE29qHwqCzN7RgetxuDG=9o_kqdO8yGjJg@mail.gmail.com>
+Subject: Re: Enable buttons GPIO passthrough
+To: "Wang, Kuiying" <kuiying.wang@intel.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Joel Stanley <joel@jms.id.au>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, 
+ Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ "Mauery, Vernon" <vernon.mauery@intel.com>, "Feist,
+ James" <james.feist@intel.com>, "Yoo, Jae Hyun" <jae.hyun.yoo@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,106 +74,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 09:52:49 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 12:04:27 -0000
 
-SGkgTGludXMsDQpCYXNlZCBvbiBwaW5tdXggdG8gZG8gcGFzc3Rocm91Z2ggaXMgdG9vIGNvbXBs
-ZXggYW5kIG5vIHJlZmVyZW5jZSwgSSBoYXZlIGFub3RoZXIgMiBzaW1wbGUgcHJvcG9zYWxzIHRv
-IGRvIGJ1dHRvbiBHUElPIHBhc3N0aHJvdWdoIGFzIGZvbGxvd2luZzoNCjEuIGV4dGVuZCAicGFz
-c3Rocm91Z2giIHRvIHRoZSAiZGlyZWN0aW9uIiBwcm9wZXJ0eSBvZiBncGlvLCB1c2UgInZhbHVl
-IiB0byBjb250cm9sIGl0IGJlIGRpc2FibGVkL2VuYWJsZWQuDQogICAgIFRoaXMgc29sdXRpb24g
-bmVlZHM6IA0KCUFkZCAicGFzc3Rocm91Z2giIHBhcnNpbmcgaW4gZ3Bpb2xpYi1zeXNmcy5jDQoJ
-QWRkICIgZGlyZWN0aW9uX3Bhc3N0aHJvdWdoIiBzdXBwb3J0ZWQgaW4gZ3Bpb19jaGlwIHN0cnVj
-dCBpbiBpbmNsdWRlL2xpbnV4L2dwaW8vZHJpdmVyLmgNCglBZGQgImFzcGVlZF9ncGlvX2Rpcl9w
-YXNzdGhyb3VnaCIgZnVuY3Rpb24gaW4gZ3Bpby1hc3BlZWQuYyBmaWxlIHRvIG1hcCAicGFzc3Ro
-cm91Z2giIGRpcmVjdGlvbi4NCglNb2RpZnkgYXNwZWVkX2dwaW9fc2V0IGZ1bmN0aW9uIGluIGdw
-aW8tYXNwZWVkLmMgZmlsZSB0byBtb2RpZnkgcmVnaXN0ZXIgYWNjb3JkaW5nIHRvIHRoZSAidmFs
-dWUiIHRvIGRpc2FibGUvZW5hYmxlIHBhc3MtdGhyb3VnaC4NCjIuIGV4dGVuZCAidmFsdWUiIHBy
-b3BlcnR5IG9mIGdwaW8gdG8gc3VwcG9ydCB0aGUgdGhpcmQgdmFsdWUgIjIiLCB3aGljaCBtZWFu
-cyBwYXNzLXRocm91Z2ggaXMgZW5hYmxlZCwgb3RoZXJ3aXNlIHBhc3N0aHJvdWdoIGlzIGRpc2Fi
-bGVkLg0KICAgIFRoaXMgc29sdXRpb24gaXMgdmVyeSBzaW1wbGUgdG8gc3VwcG9ydCBwYXNzLXRo
-cm91Z2gsIGp1c3QgbmVlZDoNCglNb2RpZnkgYXNwZWVkX2dwaW9fc2V0IGZ1bmN0aW9uIGluIGdw
-aW8tYXNwZWVkLmMgZmlsZS4gV2hlbiB2YWx1ZSBpcyBzZXQgdG8gIjIiIGVuYWJsZSBwYXNzdGhy
-b3VnaCB2aWEgbW9kaWZ5IGNvcnJlc3BvbmRpbmcgcmVnaXN0ZXIsIG90aGVyd2lzZSBkaXNhYmxl
-IHBhc3N0aHJvdWdoLg0KCQkNCkRvIHlvdSBhZ3JlZSB0byB1c2Ugb25lIHNpbXBsZSBzb2x1dGlv
-biB0byBkbyBwYXNzdGhyb3VnaD8NCg0KVGhhbmtzLA0KS3dpbi4NCg0KDQotLS0tLU9yaWdpbmFs
-IE1lc3NhZ2UtLS0tLQ0KRnJvbTogV2FuZywgS3VpeWluZyANClNlbnQ6IFR1ZXNkYXksIEphbnVh
-cnkgMTUsIDIwMTkgMzoyMSBQTQ0KVG86ICdMaW51cyBXYWxsZWlqJyA8bGludXMud2FsbGVpakBs
-aW5hcm8ub3JnPjsgQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT47IFRob21hcyBQZXRh
-enpvbmkgPHRob21hcy5wZXRhenpvbmlAYm9vdGxpbi5jb20+DQpDYzogSm9lbCBTdGFubGV5IDxq
-b2VsQGptcy5pZC5hdT47IG9wZW4gbGlzdDpHUElPIFNVQlNZU1RFTSA8bGludXgtZ3Bpb0B2Z2Vy
-Lmtlcm5lbC5vcmc+OyBBbmRyZXcgR2Vpc3NsZXIgPGdlaXNzb25hdG9yQGdtYWlsLmNvbT47IE9w
-ZW5CTUMgTWFpbGxpc3QgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IE1hdWVyeSwgVmVybm9u
-IDx2ZXJub24ubWF1ZXJ5QGludGVsLmNvbT47IEZlaXN0LCBKYW1lcyA8amFtZXMuZmVpc3RAaW50
-ZWwuY29tPjsgWW9vLCBKYWUgSHl1biA8amFlLmh5dW4ueW9vQGludGVsLmNvbT4NClN1YmplY3Q6
-IFJFOiBFbmFibGUgYnV0dG9ucyBHUElPIHBhc3N0aHJvdWdoDQoNCkhpIExpbnVzLA0KVGhhbmtz
-IGEgbG90IGZvciB5b3VyIHNoYXJpbmcgYW5kIHN1Z2dlc3Rpb24uDQpNeSBwcm9wb3NhbCB0byBl
-bmFibGUgYnV0dG9ucyBHUElPIHBhc3MtdGhyb3VnaCBiYXNlZCBvbiBwaW5tdXggZHJpdmVyIGFz
-IGZvbGxvd2luZzoNCjEuIHJlbW92ZSBjb2RlcyBhYm91dCBTQ1U3QyBjbGVhcmFuY2UgKGZyb20g
-bGluZSAxOTQgdG8gbGluZSAyMzYpIGluIGFzcGVlZF9zaWdfZXhwcl9zZXQgZnVuY3Rpb24gaW4g
-cGluY3RybC1hc3BlZWQuYyBmaWxlLg0KMi4gY3JlYXRlIDIgbmV3IGZ1bmN0aW9ucyBpbiBwaW5j
-dHJsLWFzcGVlZC5jIGZpbGU6IOKAnGFzcGVlZF9ncGlvX3Bhc3N0aHJvdWdoX2VuYWJsZeKAnSBh
-bmQg4oCcYXNwZWVkX2dwaW9fcGFzc3Rocm91Z2hfZGlzYWJsZeKAnQ0KMy4gYmluZCBidXR0b24g
-Z3BpbyB0byBwaW5jdHJsDQoNClBsZWFzZSBmZWVsIGZyZWUgdG8gY29ycmVjdCBtZSBhbmQgc2hh
-cmUgeW91ciBwcmVmZXJyZWQgc29sdXRpb24uDQoNClRoYW5rcywNCkt3aW4uDQoNCg0KLS0tLS1P
-cmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IExpbnVzIFdhbGxlaWogW21haWx0bzpsaW51cy53
-YWxsZWlqQGxpbmFyby5vcmddDQpTZW50OiBNb25kYXksIEphbnVhcnkgMTQsIDIwMTkgNDoxOSBQ
-TQ0KVG86IEFuZHJldyBKZWZmZXJ5IDxhbmRyZXdAYWouaWQuYXU+OyBUaG9tYXMgUGV0YXp6b25p
-IDx0aG9tYXMucGV0YXp6b25pQGJvb3RsaW4uY29tPg0KQ2M6IEpvZWwgU3RhbmxleSA8am9lbEBq
-bXMuaWQuYXU+OyBXYW5nLCBLdWl5aW5nIDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPjsgb3BlbiBs
-aXN0OkdQSU8gU1VCU1lTVEVNIDxsaW51eC1ncGlvQHZnZXIua2VybmVsLm9yZz47IEFuZHJldyBH
-ZWlzc2xlciA8Z2Vpc3NvbmF0b3JAZ21haWwuY29tPjsgT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJt
-Y0BsaXN0cy5vemxhYnMub3JnPjsgTWF1ZXJ5LCBWZXJub24gPHZlcm5vbi5tYXVlcnlAaW50ZWwu
-Y29tPjsgRmVpc3QsIEphbWVzIDxqYW1lcy5mZWlzdEBpbnRlbC5jb20+OyBZb28sIEphZSBIeXVu
-IDxqYWUuaHl1bi55b29AaW50ZWwuY29tPg0KU3ViamVjdDogUmU6IEVuYWJsZSBidXR0b25zIEdQ
-SU8gcGFzc3Rocm91Z2gNCg0KT24gTW9uLCBKYW4gMTQsIDIwMTkgYXQgMzo1OSBBTSBBbmRyZXcg
-SmVmZmVyeSA8YW5kcmV3QGFqLmlkLmF1PiB3cm90ZToNCj4gT24gRnJpLCAxMSBKYW4gMjAxOSwg
-YXQgMTk6MzEsIExpbnVzIFdhbGxlaWogd3JvdGU6DQoNCj4gPiBJIGFtIHNvcnJ5IGJ1dCBJJ20g
-Y29uZnVzZWQgYWJvdXQgdGhpcy4gSXQncyBhIHZlcnkgdGVyc2UgDQo+ID4gZXhwbGFuYXRpb24g
-b2YgdGhlIHByb2JsZW0gYW5kIGEgYnVuY2ggb2YgY29kZS4NCj4gPg0KPiA+IENhbiB5b3UgZm9s
-a3MgcGxlYXNlIGRlZmluZSB3aGF0IGV4YWN0bHkgeW91IG1lYW4gd2l0aCBhICJHUElPIA0KPiA+
-IHBhc3N0aHJvdWdoIiBhbmQgd2hhdCB5b3UgYXJlIHRyeWluZyB0byBhY2hpZXZlIHdpdGggdGhp
-cyBvbiB0aGVzZSANCj4gPiBidXR0b25zPw0KPg0KPiBPbiB0aGUgQXNwZWVkIEJNQyBTb0NzLCBz
-ZXZlcmFsIEdQSU8gYmFua3MgKEQgYW5kIEUpIGNhbiBiZSBjb25maWd1cmVkIA0KPiBzbyB0aGUg
-cGlucyBpbiB0aGUgbG93IGhhbGYgb2YgYSBiYW5rIG9mIDggcGlucyBhcmUgaW5wdXQsIGFuZCB0
-aGUgDQo+IHBpbnMgaW4gdGhlIGhpZ2ggaGFsZiBvZiB0aGUgYmFuayBhcmUgb3V0cHV0LiBUaGUg
-bGluZSBzdGF0ZSBvZiBwaW5zIDAgDQo+IDw9IGkgPCA0IGlzIHJlZmxlY3RlZCBvbiBwaW4gaSAr
-IDQuIFRoaXMgd2F5IGl0IGFwcGVhcnMgYXMgdGhvdWdoIHRoZSANCj4gQk1DIGlzIG5vdCBwcmVz
-ZW50IGluIHRoZSBjaXJjdWl0Lg0KPg0KPiBUaGlzIGlzIHVzZWZ1bCB3aGVuIHRoZSBCTUMgbWF5
-IG5vdCBoYXZlIGZpcm13YXJlIG9mIGl0cyBvd24sIG9yIGlmIGl0IA0KPiBkb2VzLCBpZiB0aGUg
-Qk1DIGZpcm13YXJlIGlzIG5vdCByZXF1aXJlZCBvbiB0aGUgY3JpdGljYWwgcGF0aCBvZiB0aGUg
-DQo+IGhvc3QncyBib290IHByb2Nlc3MuIElmIG9yIHdoZW4gdGhlIEJNQyBmaXJtd2FyZSBib290
-cyB1cCwgaXQgbWF5IA0KPiBjaG9vc2UgdG8gYnJlYWsgdGhlIHBhc3MtdGhyb3VnaCBiZWhhdmlv
-dXIgaW4gb3JkZXIgdG8gcHJvdmlkZSBpdHMgb3duIA0KPiBvdXQtb2YtYmFuZCBtYW5hZ2VtZW50
-IGNhcGFiaWxpdGllcy4NCj4NCj4gVGhpcyBjYW4gYmUgdXNlZCBmb3IgdGhpbmdzIGxpa2UgYSBi
-b3gncyBwb3dlciBidXR0b24gYXMNCj4gbWVudGlvbmVkOiBJZiB0aGUgQk1DIGlzIG5vdCB1cCwg
-cG9rZSB0aGUgaG9zdCBkaXJlY3RseSwgb3RoZXJ3aXNlLCANCj4gcG9rZSB0aGUgQk1DIGZpcm13
-YXJlIGFuZCBoYXZlIGl0IHBva2UgdGhlIGhvc3QuDQo+DQo+IFRoZSBwYXNzLXRocm91Z2ggc2V0
-dGluZ3MgYXJlIHRpZWQgdG8gdGhlIFNvQydzIHBpbm11eC4gSW50dWl0aXZlbHkgaXQgDQo+IHNo
-b3VsZCBiZSBpbnRlZ3JhdGVkIGludG8gdGhlIHBpbm11eCBkcml2ZXIsIGJ1dCBJSVJDIHRoZXJl
-IHdhcyBzb21lIA0KPiB1Z2x5IGNvdXBsaW5nIG9mIHRoZSBmdW5jdGlvbiB0aGF0IGRpZG4ndCBo
-YXZlIGEgbmVhdCBzb2x1dGlvbiB3aXRoIA0KPiB0aGUgY3VycmVudGx5LXNlcGFyYXRlIEdQSU8g
-YW5kIHBpbm11eCBkcml2ZXJzLg0KPg0KPiBIb3BlIHRoYXQgaGVscHMuDQoNClllcyBJIGdldCBp
-dCBub3chIFRoYW5rcyBhIGxvdCENCg0KVGhhdCdzIGEgdmVyeSBuZWF0IGhhcmR3YXJlIHRyaWNr
-LCBJIGxpa2UgaG93IHRoZXkgdGhpbmsuDQoNClBpbiBjb25maWcgaW4gdGhlIHBpbiBjb250cm9s
-IGRyaXZlciBpcyBpbmRlZWQgdGhlIHJlY29tbWVuZGVkIHdheSB0byBnbywgaWYgcG9zc2libGUu
-DQoNCklmIG5vdCBwb3NzaWJsZSwgc28gdGhhdCB0aGlzIHBhcnRpY3VsYXIgdHJpY2sgbmVlZHMg
-dG8gYmUgaGFuZGxlZCBvbiB0aGUgR1BJTyBzaWRlIG9mIHRoZSB3b3JsZCwgSSB3b3VsZCByZWNv
-bW1lbmQgdG8gd29yayB3aXRoIGFkZGluZyBpdCBhcyBnZW5lcmljIEdQSU8gbGluZSBjb25maWcg
-b24gdGhlIEdQSU8gc2lkZS4NCg0KVGhhdCBtZWFucywgZG9jdW1lbnQgcGFzc3Rocm91Z2ggaW4N
-CmluY2x1ZGUvbGludXgvcGluY3RybC9waW5jb25mLWdlbmVyaWMuaA0KRG9jdW1lbnRhdGlvbi9k
-ZXZpY2V0cmVlL2JpbmRpbmdzL3BpbmN0cmwvcGluY3RybC1iaW5kaW5ncy50eHQNCnNvIGl0IGlz
-IGEgZ2VuZXJpYyBjb25maWcgaW4gdGhlIHBpbiBjb250cm9sIHdvcmxkLCB0aGVuIGFsc28gbWFr
-ZSBpdCBhIEdQSU8tb25seSBiaW5kaW5nOg0KDQpEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvZ3Bpby9ncGlvLnR4dA0KaW5jbHVkZS9kdC1iaW5kaW5ncy9ncGlvL2dwaW8uaA0KQW5k
-IHBhcnNlIGl0IGFzIGFuIGFyZ3VtZW50IGZvciB0aGUgc2Vjb25kIGNlbGwgaW4gdGhlIEdQSU8g
-cGhhbmRsZSwgdGhlbiBtYW5hZ2UgaXQgaW4gdGhlIEdQSU8gZHJpdmVyDQouc2V0X2NvbmZpZygp
-IGNhbGxiYWNrIHdpdGhvdXQgY2FsbGluZyBpbnRvIHRoZSBwaW4gY29uZmlnIGJhY2tlbmQuDQoN
-ClRob21hcyBQZXRhenpvbmkgaXMgY3VycmVudGx5IGxvb2tpbmcgaW50byB1c2luZyBzb21lIG9m
-IHRoZSBzdGFuZGFyZCBwaW4gY29uZmlnIHNldCB1cHMgb24gdGhlIHB1cmUgR1BJTyBwYXRoIHNv
-IGtlZXAgaGltIGluIENDLiBJIHRoaW5rIGl0IHdpbGwgYmUgbmVjZXNzYXJ5IHRvIGdvIGRvd24g
-dGhpcyBwYXRoIGZvciBzb21lIGxpbmUgY29uZmlndXJhdGlvbnMgcmF0aGVyIHRoYW4gZm9yY2li
-bHkga2VlcCBHUElPIGFuZCBwaW4gY29udHJvbCBlbGVjdHJvbmljIHNldHRpbmdzIHNlcGFyYXRl
-Lg0KDQpNeSBpZGVhIGFzIG1haW50YWluZXIgaXMgdGhhdCBJIHdhbnQgdG8ga2VlcCB0aGUgYXZh
-aWxhYmxlIGNvbmZpZ3MgdG9nZXRoZXIgc28gdGhhdCBpdCBjYW4gYmUgc2VhbWxlc3NseSBzd2l0
-Y2hlZCBiZXR3ZWVuIHRoZSBHUElPIGZyb250LWVuZCBhbmQgYSBwaW4gY29udHJvbCBiYWNrLWVu
-ZC4NCg0KWW91cnMsDQpMaW51cyBXYWxsZWlqDQo=
+Hi Kwin!
+
+On Tue, Jan 15, 2019 at 8:21 AM Wang, Kuiying <kuiying.wang@intel.com> wrot=
+e:
+
+> My proposal to enable buttons GPIO pass-through based on pinmux driver as=
+ following:
+> 1. remove codes about SCU7C clearance (from line 194 to line 236) in
+> aspeed_sig_expr_set function in pinctrl-aspeed.c file.
+> 2. create 2 new functions in pinctrl-aspeed.c file: =E2=80=9Caspeed_gpio_=
+passthrough_enable=E2=80=9D
+> and =E2=80=9Caspeed_gpio_passthrough_disable=E2=80=9D
+
+These are coding implementation issues that you need to discuss with
+the maintainer of pinctrl-aspeed.c, Andrew.
+
+> 3. bind button gpio to pinctrl
+
+This will just be a pin control state like "default" or any other stare.
+
+What you need to do first is establish a standard for this, so augment the
+pin control bindings and the generic parser code to handle this and
+provide a new enumerator back to .set_config in the pin config
+portion of the pin control driver.
+
+So:
+
+Step 1: standardize pin pass through for everyone
+Step 2: implement support for this in the Aspeed driver
+
+I think using a name like "gpio-passthrough" is misleading, something
+describing what is actually happening, like "latch" or just "passthrough"
+is better.
+
+Yours,
+Linus Walleij
