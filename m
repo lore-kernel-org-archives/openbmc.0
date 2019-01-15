@@ -1,56 +1,61 @@
-Return-Path: <wak@google.com>
+Return-Path: <prvs=691841d5b5=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::232; helo=mail-lj1-x232.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=691841d5b5=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="OacYRVuX"; 
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="K6mAHjf+"; 
  dkim-atps=neutral
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43dq1d5R6zzDqWH
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 10:09:50 +1100 (AEDT)
-Received: by mail-lj1-x232.google.com with SMTP id c19-v6so684157lja.5
- for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 15:09:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=MEapSWUKp5km3VPLKIs8fc/GMppUwEdhGa4T0xKRbFA=;
- b=OacYRVuXJNcS9cjudDz8ykYMt2llNnKnAdtcOWYPBjjiWj45rYg8gdxzO8fmpxKyZH
- Gx6RfX+QFXgOa6YZRRHs/FouaR+RpRziPJQMfS+lyY1aF4zytrtI0n4yiV5JLkmrFqIN
- gfcPs1g6vo+UfysowIPt49EA4hFXfkjM56FLdZiV5kJEHgQ2cOqZwGw/z/jKrB6OrYj0
- Hg9Urz5xMvSrGgk2r2daIdfM0LwnRDmboZmUwCwTmEsl0BW2o/pLZGvpsxWhwMuSt95q
- /Ygx2ygiluGcZttbckBMdDTWO4FduHzzporZwl21+C49DLfIVNg53HVwwD1J/eARCaFT
- 1ZYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=MEapSWUKp5km3VPLKIs8fc/GMppUwEdhGa4T0xKRbFA=;
- b=sT3zPdRvR3rdt+Xv4QPg0VdW1MgFuC2AIYPjyuWdp3f4EH8FBa6+JbNxEJSW/TPbDX
- UkMU4ZlfafsDEO9/3IbJ4yhf8OfLUswCktxldhc/0zm3qXqqy9TN4wHJ1rwaHC5LDYK6
- x2w9z4OvOCNsgfHpg74XgckA/QSTYj/WwmJwzItC8qK/l9CgMWb5X8ZF2sPRrezVBnaa
- Grp81/MOxfZAA36k8koCfQyJ07SucIw0kylSKQBO7Y62i7ItlfftbFG7nQTf2rquguxL
- b3oG6dDY+dU+rICd7oCL52s57lW374j4JDEV6l03E+wYWJK52r27x9ySVRV5kjUZd8tD
- PXDA==
-X-Gm-Message-State: AJcUuketWvhMAhVOdBaQBMRe58FXrBZSo5jWenekcZBMYUJgNMmKsxEE
- EA4FnSAHkYftdj7VTk8XMRHn7g5HFQ8wFATVkrVP3w==
-X-Google-Smtp-Source: ALg8bN5QtxJUGG0mdgbiXRvl5kIVk7YAx2J+NM89nFXfe3jdpyxk/mUx36l8eqwUGR/wU5T1vtwNMedOnBoaUNkiMlk=
-X-Received: by 2002:a2e:97d7:: with SMTP id m23-v6mr661964ljj.18.1547507386921; 
- Mon, 14 Jan 2019 15:09:46 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43dtcd69pvzDqSW
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 12:51:58 +1100 (AEDT)
+Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0F1jJkY029228
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 17:51:57 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=aESUuSfO+VQO3WJHfZNYu/4Qorm+v9KumqWN5Cx3Eng=;
+ b=K6mAHjf+a+e9GhY9Kbnlnxttghx4jcME2yvdwg43rtx7rcn+PorBQkmhihz1p1ZnrBOi
+ aGUkevggchlVaslK/bt9k8DuruKTCmA+E7yPYvcAT2lsTE6I7VK9npju3k3I02cfmTi7
+ JMY8EIkmOGteHDZ2AAy4BAoliwd7K/Zz8lQ= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2q14kv89bj-9
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 14 Jan 2019 17:51:57 -0800
+Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
+ mail.thefacebook.com (2620:10d:c021:18::172) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
+ Mon, 14 Jan 2019 17:51:51 -0800
+Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
+ id 8373675BEF45; Mon, 14 Jan 2019 17:51:48 -0800 (PST)
+Smtp-Origin-Hostprefix: devvm
+From: Vijay Khemka <vijaykhemka@fb.com>
+Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
+To: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@aj.id.au>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
+CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
+ <openbmc@lists.ozlabs.org>
+Smtp-Origin-Cluster: prn2c23
+Subject: [PATCH] misc: aspeed-lpc-ctrl: make memory-region optional
+Date: Mon, 14 Jan 2019 17:51:46 -0800
+Message-ID: <20190115015146.2412785-1-vijaykhemka@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-References: <20190114161923.GD7259@mauery.jf.intel.com>
-In-Reply-To: <20190114161923.GD7259@mauery.jf.intel.com>
-From: William Kennington <wak@google.com>
-Date: Mon, 14 Jan 2019 15:09:35 -0800
-Message-ID: <CAPnigK=9s2U6wYgRBu2TFNBzjNb3Jq5uUmXbHGDvD=GKoCmbXw@mail.gmail.com>
-Subject: Re: logging level conventions
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
-Cc: OpenBMC Development <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-14_13:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,21 +67,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 14 Jan 2019 23:09:59 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 01:52:02 -0000
 
-Agree, hopefully it is being done this way already.
+Makiing memory-region as optional parameter in device tree if
+user needs to use memory-region then define in devicetree.
 
-On Mon, Jan 14, 2019 at 8:20 AM Vernon Mauery
-<vernon.mauery@linux.intel.com> wrote:
->
-> When making a change in netipmid, the conversation came up about user
-> errors versus system errors. There are times that both should be logged,
-> but obviously system errors are more severe. So in that project, I made
-> system errors (like failure to communicate on dbus, etc.,) as log<ERR>()
-> and user errors (like bad credentials) as log<INFO>().
->
-> Does anyone else think that the project as a whole should make this
-> distinction between system errors and user errors? Maybe add something
-> to the coding style?
->
-> --Vernon
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ drivers/misc/aspeed-lpc-ctrl.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+index a024f8042259..20507f0764fb 100644
+--- a/drivers/misc/aspeed-lpc-ctrl.c
++++ b/drivers/misc/aspeed-lpc-ctrl.c
+@@ -90,6 +90,10 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+ 		if (map.window_id != 0)
+ 			return -EINVAL;
+ 
++		/* If memory-region is not described in device tree */
++		if (!lpc_ctrl->mem_size)
++			return -EINVAL;
++
+ 		map.size = lpc_ctrl->mem_size;
+ 
+ 		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
+@@ -129,6 +133,10 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+ 			addr = lpc_ctrl->pnor_base;
+ 			size = lpc_ctrl->pnor_size;
+ 		} else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
++			/* If memory-region is not described in device tree */
++			if (!lpc_ctrl->mem_size)
++				return -EINVAL;
++
+ 			addr = lpc_ctrl->mem_base;
+ 			size = lpc_ctrl->mem_size;
+ 		} else {
+@@ -214,22 +222,20 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
+ 
+ 	dev_set_drvdata(&pdev->dev, lpc_ctrl);
+ 
++	/* If memory-region is described in device tree then store */
+ 	node = of_parse_phandle(dev->of_node, "memory-region", 0);
+-	if (!node) {
+-		dev_err(dev, "Didn't find reserved memory\n");
+-		return -EINVAL;
+-	}
++	if (node) {
++		rc = of_address_to_resource(node, 0, &resm);
++		of_node_put(node);
++		if (rc) {
++			dev_err(dev, "Couldn't address to resource for reserved memory\n");
++			return -ENOMEM;
++		}
+ 
+-	rc = of_address_to_resource(node, 0, &resm);
+-	of_node_put(node);
+-	if (rc) {
+-		dev_err(dev, "Couldn't address to resource for reserved memory\n");
+-		return -ENOMEM;
++		lpc_ctrl->mem_size = resource_size(&resm);
++		lpc_ctrl->mem_base = resm.start;
+ 	}
+ 
+-	lpc_ctrl->mem_size = resource_size(&resm);
+-	lpc_ctrl->mem_base = resm.start;
+-
+ 	lpc_ctrl->regmap = syscon_node_to_regmap(
+ 			pdev->dev.parent->of_node);
+ 	if (IS_ERR(lpc_ctrl->regmap)) {
+-- 
+2.17.1
