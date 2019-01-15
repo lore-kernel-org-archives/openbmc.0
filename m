@@ -1,38 +1,28 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fGLn3RWFzDqJS
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 03:41:19 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 15 Jan 2019 08:41:18 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,481,1539673200"; d="scan'208";a="267334659"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by orsmga004.jf.intel.com with ESMTP; 15 Jan 2019 08:41:17 -0800
-Subject: Re: archiving ipmitool fork
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <3BDB2E0E-E60B-4228-A522-5D5F9CE6D8FD@fuzziesquirrel.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <82170eaa-90f7-7fd0-2d3a-d15e8cb14515@intel.com>
-Date: Tue, 15 Jan 2019 08:43:34 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fHBQ5SZTzDqCB
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 04:19:10 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Tue, 15 Jan 2019 12:19:28 -0500
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: "Yang, Cheng C" <cheng.c.yang@linux.intel.com>
+Cc: openbmc@lists.ozlabs.org, ed.tanous@intel.com
+Subject: Re: Need help to create a new repo for MDR
+Message-ID: <20190115171928.ilyfajso343ha2xh@thinkpad>
+References: <7c7d2165-d53d-6a33-0fec-069fdfbbbeda@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <3BDB2E0E-E60B-4228-A522-5D5F9CE6D8FD@fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7c7d2165-d53d-6a33-0fec-069fdfbbbeda@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,15 +34,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 16:41:23 -0000
+X-List-Received-Date: Tue, 15 Jan 2019 17:19:11 -0000
 
-On 1/15/19 8:02 AM, Brad Bishop wrote:
-> Hi Ed
->
-> I’m looking at https://gerrit.openbmc-project.xyz/17307
->
-> Does this mean we can archive our ipmitool fork on GitHub?
-That was the hope, but I don't want to force it if JK had plans to work
-on that repo some more.  At the very least this patch gets us up to the
-current release of ipmitool, gets us building against 2.6, and drops an
-OpenBMC specific recipe.
+On Wed, Jan 09, 2019 at 11:50:01AM +0800, Yang, Cheng C wrote:
+> Hi Brad,
+> 
+>     Intel platform has a feature called MDR which used for BIOS transfer SMBIOS table to BMC.
+> 
+> There are two version in MDR, MDR V1 and V2.
+> 
+> MDR V1 is based on ipmi commands, BIOS will send SMBIOS table in pieces through ipmi  oem commands.
+> 
+> MDR V2 use VGA shared memory, BIOS will send whole SMBIOS table to VGA shared memory in ast2500 before post complete, and then BMC can get the SMBIOS table from VGA shared memory.
+> 
+> During the post phase,  our BIOS will first try to send SMBIOS table through MDR V2, and if not succeed, BIOS will try to send MDR V1 then.
+> 
+> After BMC get SMBIOS table, BMC will put CPU and DIMM information to dbus interface and then Web page can show these CPU DIMM information  to users.
+> 
+> I have implemented the MDR feature and hope to upstream it, so do you mind help to create a repo for MDR feature?
+> 
+> Thank you very much!
+
+Hi Cheng
+
+What would you like the MDR repository to be called?
+
+thx - brad
