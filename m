@@ -1,61 +1,81 @@
-Return-Path: <prvs=6919559932=vijaykhemka@fb.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=6919559932=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="L6tXCag5"; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43g1R3502FzDqjx
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 09:02:39 +1100 (AEDT)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0GLvcOJ019980
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 14:02:37 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=iahf2l2yW9zVsnHo/QQdvnMijX51fzwpDGNmIWN7kuw=;
- b=L6tXCag5XIJHK61pUSXv1Y+ghNOz6YSXCoZD6RMrIkM6rjlDpUZRfVqKpzoNIuF2jgoU
- XpZXSWEu6e67DvhAuOMFYfWP9JW215z2AgzOPS+HE/H8fL/G584ECkwcpLXq9QfIbyDi
- y87s6Q8oITIyyiCG+s1tMyM/EdZ2VP9U2sk= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2q2cgv03jg-10
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 14:02:37 -0800
-Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
- mail.thefacebook.com (2620:10d:c081:35::130) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1531.3;
- Wed, 16 Jan 2019 14:02:08 -0800
-Received: by devvm4117.prn2.facebook.com (Postfix, from userid 167582)
- id 2ACF57931170; Wed, 16 Jan 2019 14:01:56 -0800 (PST)
-Smtp-Origin-Hostprefix: devvm
-From: Vijay Khemka <vijaykhemka@fb.com>
-Smtp-Origin-Hostname: devvm4117.prn2.facebook.com
-To: Arnd Bergmann <arnd@arndb.de>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
- <andrew@aj.id.au>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>
-CC: <vijaykhemka@fb.com>, "openbmc @ lists . ozlabs . org"
- <openbmc@lists.ozlabs.org>
-Smtp-Origin-Cluster: prn2c23
-Subject: [PATCH v2] misc: aspeed-lpc-ctrl: make parameter optional
-Date: Wed, 16 Jan 2019 14:01:54 -0800
-Message-ID: <20190116220154.1026171-1-vijaykhemka@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43g1jH3sZXzDqLF
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 09:14:53 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ x0GM8u2Z185233
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 17:14:50 -0500
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2q2bdqv322-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 17:14:39 -0500
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Wed, 16 Jan 2019 22:14:39 -0000
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 16 Jan 2019 22:14:36 -0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x0GMEZ8n18415858
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 16 Jan 2019 22:14:35 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 20CB8C6088;
+ Wed, 16 Jan 2019 22:14:35 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EE338C6091;
+ Wed, 16 Jan 2019 22:14:34 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed, 16 Jan 2019 22:14:34 +0000 (GMT)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 16 Jan 2019 16:20:12 -0600
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, openbmc
+ <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: Linux dev-4.19
+In-Reply-To: <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+References: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
+ <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19011622-8235-0000-0000-00000E4C1C8D
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010420; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000274; SDB=6.01147481; UDB=6.00597731; IPR=6.00927777; 
+ MB=3.00025162; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-16 22:14:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19011622-8236-0000-0000-0000441BAA03
+Message-Id: <dd385c02a589f510142dae350b09438c@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-01-16_08:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1901160176
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,130 +87,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2019 22:02:40 -0000
+X-List-Received-Date: Wed, 16 Jan 2019 22:15:00 -0000
 
-Makiing memory-region and flash as optional parameter in device
-tree if user needs to use these parameter through ioctl then
-need to define in devicetree.
+Hi Joel,
 
-Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
----
- drivers/misc/aspeed-lpc-ctrl.c | 58 +++++++++++++++++++++-------------
- 1 file changed, 36 insertions(+), 22 deletions(-)
+> 
+> I've published a gerrit commit that bumps openbmc to use this version.
+> This has had some testing by our CI on Witherspoon and Romulus, and I
+> did some manual testing on Romulus and Palmetto (hardware and Qemu). I
+> intend to merge it tomorrow:
+> 
 
-diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-index a024f8042259..332210e06e98 100644
---- a/drivers/misc/aspeed-lpc-ctrl.c
-+++ b/drivers/misc/aspeed-lpc-ctrl.c
-@@ -68,6 +68,7 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
- 		unsigned long param)
- {
- 	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
-+	struct device *dev = file->private_data;
- 	void __user *p = (void __user *)param;
- 	struct aspeed_lpc_ctrl_mapping map;
- 	u32 addr;
-@@ -90,6 +91,12 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
- 		if (map.window_id != 0)
- 			return -EINVAL;
- 
-+		/* If memory-region is not described in device tree */
-+		if (!lpc_ctrl->mem_size) {
-+			dev_err(dev, "Didn't find reserved memory\n");
-+			return -EINVAL;
-+		}
-+
- 		map.size = lpc_ctrl->mem_size;
- 
- 		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
-@@ -126,9 +133,18 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
- 			return -EINVAL;
- 
- 		if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH) {
-+			if (!lpc_ctrl->pnor_size) {
-+				dev_err(dev, "Didn't find host pnor flash\n");
-+				return -EINVAL;
-+			}
- 			addr = lpc_ctrl->pnor_base;
- 			size = lpc_ctrl->pnor_size;
- 		} else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
-+			/* If memory-region is not described in device tree */
-+			if (!lpc_ctrl->mem_size) {
-+				dev_err(dev, "Didn't find reserved memory\n");
-+				return -EINVAL;
-+			}
- 			addr = lpc_ctrl->mem_base;
- 			size = lpc_ctrl->mem_size;
- 		} else {
-@@ -196,17 +212,17 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
- 	if (!lpc_ctrl)
- 		return -ENOMEM;
- 
-+	/* If flash is described in device tree then store */
- 	node = of_parse_phandle(dev->of_node, "flash", 0);
- 	if (!node) {
--		dev_err(dev, "Didn't find host pnor flash node\n");
--		return -ENODEV;
--	}
--
--	rc = of_address_to_resource(node, 1, &resm);
--	of_node_put(node);
--	if (rc) {
--		dev_err(dev, "Couldn't address to resource for flash\n");
--		return rc;
-+		dev_dbg(dev, "Didn't find host pnor flash node\n");
-+	} else {
-+		rc = of_address_to_resource(node, 1, &resm);
-+		of_node_put(node);
-+		if (rc) {
-+			dev_err(dev, "Couldn't address to resource for flash\n");
-+			return rc;
-+		}
- 	}
- 
- 	lpc_ctrl->pnor_size = resource_size(&resm);
-@@ -214,22 +230,22 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
- 
- 	dev_set_drvdata(&pdev->dev, lpc_ctrl);
- 
-+	/* If memory-region is described in device tree then store */
- 	node = of_parse_phandle(dev->of_node, "memory-region", 0);
- 	if (!node) {
--		dev_err(dev, "Didn't find reserved memory\n");
--		return -EINVAL;
--	}
-+		dev_dbg(dev, "Didn't find reserved memory\n");
-+	} else {
-+		rc = of_address_to_resource(node, 0, &resm);
-+		of_node_put(node);
-+		if (rc) {
-+			dev_err(dev, "Couldn't address to resource for reserved memory\n");
-+			return -ENOMEM;
-+		}
- 
--	rc = of_address_to_resource(node, 0, &resm);
--	of_node_put(node);
--	if (rc) {
--		dev_err(dev, "Couldn't address to resource for reserved memory\n");
--		return -ENOMEM;
-+		lpc_ctrl->mem_size = resource_size(&resm);
-+		lpc_ctrl->mem_base = resm.start;
- 	}
- 
--	lpc_ctrl->mem_size = resource_size(&resm);
--	lpc_ctrl->mem_base = resm.start;
--
- 	lpc_ctrl->regmap = syscon_node_to_regmap(
- 			pdev->dev.parent->of_node);
- 	if (IS_ERR(lpc_ctrl->regmap)) {
-@@ -258,8 +274,6 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
- 		goto err;
- 	}
- 
--	dev_info(dev, "Loaded at %pr\n", &resm);
--
- 	return 0;
- 
- err:
--- 
-2.17.1
+Seems the AST2500 defconfig hasn't been updated in a while:
+
+https://github.com/openbmc/openbmc/blob/4feb727cd6b77a68bdaca63e121b378d814f5eaf/meta-aspeed/recipes-kernel/linux/ast2500/defconfig
+
+Would you be updating it with the changes from 4.19? Looking for the 
+configs
+that enable NBD snd the vhub device.
+I can submit an update to gerrit just not sure if we just copy the file
+from the kernel repo or only certain changes are added.
+
+Thanks.
