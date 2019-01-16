@@ -1,80 +1,56 @@
-Return-Path: <jrey@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="dFuGSPyC"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43g2G54FTKzDqgZ
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 09:39:57 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- x0GMYcBn018188
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 17:39:55 -0500
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2q2946tc32-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 17:39:55 -0500
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
- Wed, 16 Jan 2019 22:39:54 -0000
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 16 Jan 2019 22:39:52 -0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0GMdp5u23330872
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 16 Jan 2019 22:39:51 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A9507C605F;
- Wed, 16 Jan 2019 22:39:51 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 833E3C605B;
- Wed, 16 Jan 2019 22:39:51 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 16 Jan 2019 22:39:51 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43g3Wh2Rh6zDqN7;
+ Thu, 17 Jan 2019 10:36:48 +1100 (AEDT)
+Received: by mail-qt1-x842.google.com with SMTP id y20so9308738qtm.13;
+ Wed, 16 Jan 2019 15:36:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yodGLzKxWdUz0j7H8esGt8ndfcspQtVjzUEk3JYW9D4=;
+ b=dFuGSPyCfa4DO+hGtdV8Vjk6UsiF+QcHlJMZH+0+GtQ0iVuJgsVb0gyKVm7au2lB6N
+ uug9CwuwFajbvNnGGEzgYlnwhaVNyc2EQ0N0L8MjY6PmnGGLvNG0QLBSfOdrCgirxAHf
+ FW7Q63yBI+Ivh501EEpozM451Zx6sXmKLG/iY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yodGLzKxWdUz0j7H8esGt8ndfcspQtVjzUEk3JYW9D4=;
+ b=SdTBuqyc5MCx37KcP+mm813Twc2XphkeeM5/h9HPrkql4eQ5e0oYtSet7ssqpr9qh/
+ BywL3PCs/fFahN2OyPPCQyETu2bGsoW1yTKd7bLQxH7F/Ge8Mh2zXcQiDc4pzcBQAIWG
+ 6IGmOlIzrk1+81YAEum5U5yFznFxNcsY5Kj08KRpEjO7c2MR0wmCKcwM75juHLfCrfFa
+ at+YIYvQOo2G5btsiIbgBLtoE5h3sGZUfUkXIg50UCRlq6vGPmWHpLHKM0x8W71WKrcZ
+ UrJojqDUaf5E/mpiLAzDjDImQyCZ6dPbCe4N3TLhjy4CCRSOKf4s49ROHEUNMdAw2ZuK
+ lctQ==
+X-Gm-Message-State: AJcUukd8AD7wZvmuaBC3+s9Vu1wnbNPmpxgsi6lStQ28bdEdggUhhH0q
+ u4a5NtlsOW5Tuf15k49qBkPNxDkKYaXEXMgzGJM=
+X-Google-Smtp-Source: ALg8bN6nfBbWGM7SXOpPwzJ1qG2rSTqm75MsQyuJZdFTGr9z3MnKKDitKWMvU9eRczqBxLBR+KKpHtxo9B0cqnxYP+Q=
+X-Received: by 2002:ac8:748:: with SMTP id k8mr9241014qth.235.1547681805428;
+ Wed, 16 Jan 2019 15:36:45 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 16 Jan 2019 16:45:28 -0600
-From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
-To: krtaylor <kurt.r.taylor@gmail.com>
-Cc: openbmc@lists.ozlabs.org, openbmc
- <openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org>
-Subject: Re: 2.6 release notes - content?
-In-Reply-To: <76efefd3-5fa1-0274-59da-9908858d9b98@gmail.com>
-References: <76efefd3-5fa1-0274-59da-9908858d9b98@gmail.com>
-X-Sender: jrey@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19011622-8235-0000-0000-00000E4C1E6A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010420; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000274; SDB=6.01147490; UDB=6.00597735; IPR=6.00927785; 
- MB=3.00025163; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-16 22:39:54
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19011622-8236-0000-0000-0000441BB6F1
-Message-Id: <c237a6f7e5e8675e31590630ce7d0baf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-16_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901160180
+References: <CACPK8Xfo5zzyLUa-8fU6j7d5GpVnFea1k3PC93vxiOvYAGV7ZQ@mail.gmail.com>
+ <CACPK8Xfxq=df=nW+U57v4vHaJ8B96bi8ABddH_vZNHBBQcLXTA@mail.gmail.com>
+ <dd385c02a589f510142dae350b09438c@linux.vnet.ibm.com>
+In-Reply-To: <dd385c02a589f510142dae350b09438c@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 17 Jan 2019 10:36:33 +1100
+Message-ID: <CACPK8XfiztAE2fasSB+u4YMF8g+s0mHSvmhbdPEprQs6dUmRdw@mail.gmail.com>
+Subject: Re: Linux dev-4.19
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +62,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2019 22:39:58 -0000
+X-List-Received-Date: Wed, 16 Jan 2019 23:36:50 -0000
 
-On 2019-01-16 13:03, krtaylor wrote:
-> At the last release planning meeting I asked for volunteers to write
-> the 2.6 release notes...and instead I got volunteered. So, I'll have a
-> go at it, but I need your help.
+On Thu, 17 Jan 2019 at 09:14, Adriana Kobylak <anoo@linux.ibm.com> wrote:
+> Would you be updating it with the changes from 4.19? Looking for the
+> configs
+> that enable NBD snd the vhub device.
+> I can submit an update to gerrit just not sure if we just copy the file
+> from the kernel repo or only certain changes are added.
 
-Thanks Kurt!
+As you guessed, it's up to you to submit a change to Gerrit if you
+want the defconfig changed. We don't copy the defconfig from the
+kernel tree as this contains options relating to testing and
+development that we don't enable for the BMC build.
 
+Use menuconfig to enable the option(s), and then savedefconfig to
+write out your updated defconfig.
 
-> I am going to start with the content in the spreadsheet, so I need the
-> release planning reps to ensure that it is current ASAP.
-> 
-> https://docs.google.com/spreadsheets/d/1lts-YX8J_AnS2dKfhW649OQHijz-JRiJWHTDpKY62Hk/edit?usp=sharing
-> 
-> We'll be excluding those features that were not completed. I also need
-> to include *significant* functionality that was contributed, but not
-> listed in the spreadsheet.
-> 
-> For new content, I need a couple of sentences that describe the
-> feature and the benefit, as well as special considerations,
-> configuration, limitations, etc. Anything more than a couple of
-> paragraphs needs to be documented in the feature/repo readme or in
-> docs.
+Cheers,
 
-If you would like to review what features OpenBMC supports, or add a 
-feature to that list, see the following two reviews.  The first lists 
-*major* OpenBMC features in the project README, and the second creates a 
-new feature TOC in the docs repo.  The feature TOC attempts to list all 
-features and point to their documentation.  Feel free to add review 
-comments, and I will handle them.  But be sure to tell Kurt about new 
-content.
-
-https://gerrit.openbmc-project.xyz/#/c/openbmc/openbmc/+/17056/
-
-https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/17440/
-
-
-> I am not trying to write the perfect release notes. We can improve the
-> process and quality for 2.7.
-> 
-> So, please check with the spreadsheet, make sure it is current and
-> reply here with content pointers or any spreadsheet omissions.
-> 
-> Thanks everyone!
-> Kurt (krtaylor)
+Joel
