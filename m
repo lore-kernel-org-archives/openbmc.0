@@ -1,75 +1,33 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fqy23dkKzDqSF
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 01:55:22 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
- x0GEoJ6A142060
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 09:50:36 -0500
-Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2q240wfp6s-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 09:50:30 -0500
-Received: from localhost
- by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Wed, 16 Jan 2019 14:49:37 -0000
-Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
- by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 16 Jan 2019 14:49:34 -0000
-Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
- [9.149.105.60])
- by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0GEnXIq45154376
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 16 Jan 2019 14:49:33 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 571B442041;
- Wed, 16 Jan 2019 14:49:33 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C164842049;
- Wed, 16 Jan 2019 14:49:32 +0000 (GMT)
-Received: from [9.85.71.50] (unknown [9.85.71.50])
- by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Wed, 16 Jan 2019 14:49:32 +0000 (GMT)
-Subject: Re: logging level conventions
-To: Vernon Mauery <vernon.mauery@linux.intel.com>,
- OpenBMC Development <openbmc@lists.ozlabs.org>
-References: <20190114161923.GD7259@mauery.jf.intel.com>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Date: Wed, 16 Jan 2019 20:19:29 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <20190114161923.GD7259@mauery.jf.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19011614-0012-0000-0000-000002E8D81A
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19011614-0013-0000-0000-0000211FF095
-Message-Id: <8eb2a18f-1d70-276a-2048-efc6c74de18d@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-16_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=730 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901160123
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ftTg1Y3mzDqmR
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 03:49:23 +1100 (AEDT)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x0GGIxUE013485;
+ Wed, 16 Jan 2019 18:18:59 +0200
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id B429962DA4; Wed, 16 Jan 2019 18:48:56 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: jic23@kernel.org, knaack.h@gmx.de, lars@metafoo.de, pmeerw@pmeerw.net,
+ robh+dt@kernel.org, mark.rutland@arm.com, yuenn@google.com,
+ venture@google.com, brendanhiggins@google.com, avifishman70@gmail.com,
+ joel@jms.id.au
+Cc: linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v3 0/2] iio: adc: npcm: add NPCM ADC driver
+Date: Wed, 16 Jan 2019 18:48:53 +0200
+Message-Id: <20190116164855.200357-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,23 +39,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2019 14:55:23 -0000
+X-List-Received-Date: Wed, 16 Jan 2019 16:49:28 -0000
 
+This patch set adds Analog-to-Digital Converter (ADC) support 
+for the Nuvoton NPCM Baseboard Management Controller (BMC).
 
+The NPCM ADC is a 10-bit converter for eight channel inputs.
 
-On Monday 14 January 2019 09:49 PM, Vernon Mauery wrote:
-> When making a change in netipmid, the conversation came up about user 
-> errors versus system errors. There are times that both should be 
-> logged, but obviously system errors are more severe. So in that 
-> project, I made system errors (like failure to communicate on dbus, 
-> etc.,) as log<ERR>() and user errors (like bad credentials) as 
-> log<INFO>().
->
-> Does anyone else think that the project as a whole should make this 
-> distinction between system errors and user errors? Maybe add something 
-> to the coding style?
-Agree, if there are no objections to this we should add it to the coding 
-guidelines so that the new developers benefit.
->
-> --Vernon
->
+The NPCM ADC driver tested on NPCM750 evaluation board.
+
+Addressed comments from:.
+ - Jonathan Cameron: https://lore.kernel.org/patchwork/patch/1030483/
+
+Changes since version 2:
+ - Return error if clock have not found in the device tree ADC node.
+ - Modify regulator order for avoid mixing devm and non-devm path.
+ - Modify probe and remove function to have relative ordering.
+ 				  
+Changes since version 1:
+ - Add NPCM prefix.
+ - Remove unnecessary parameter initialization.
+ - Modify read function to avoid racy condition.
+ - Reading the reference voltage when needed.
+ - Modify dt-binding documentation according Jonathan comments.
+
+Tomer Maimon (2):
+  dt-binding: iio: add NPCM ADC documentation
+  iio: adc: add NPCM ADC driver
+
+ .../bindings/iio/adc/nuvoton,npcm-adc.txt          |  35 +++
+ drivers/iio/adc/Kconfig                            |  10 +
+ drivers/iio/adc/Makefile                           |   1 +
+ drivers/iio/adc/npcm_adc.c                         | 335 +++++++++++++++++++++
+ 4 files changed, 381 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
+ create mode 100644 drivers/iio/adc/npcm_adc.c
+
+-- 
+2.14.1
