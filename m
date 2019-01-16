@@ -1,55 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="a4QJ8kRM"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="nmFSGF5+"; 
  dkim-atps=neutral
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fRxK1MRhzDqJ1
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 10:53:24 +1100 (AEDT)
-Received: by mail-qk1-x742.google.com with SMTP id q8so2732826qke.1
- for <openbmc@lists.ozlabs.org>; Tue, 15 Jan 2019 15:53:24 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fSKt6cRQzDqVs;
+ Wed, 16 Jan 2019 11:11:14 +1100 (AEDT)
+Received: by mail-qt1-x843.google.com with SMTP id d19so5159740qtq.9;
+ Tue, 15 Jan 2019 16:11:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=pV/EVyrxDVgDptUsvY6YKTL0UtEyJ+yZpvKEE8ukFV4=;
- b=a4QJ8kRMzEgB92POBYAPq45yKszxwn8s5Sd60h9nOm5caNRB/gHuI2mfDXQFSTmRm3
- da8wquKNT5Ltgn+TtX1QEWjC+Iu3LNRpdAqeMUfdqPP3G56m4D26s0iBY25wR0b9Dv2T
- vFajbQANRKVu5SDsCuXmbtABknFVFzUbkCfV0=
+ :cc; bh=9UWxkyK0epyPeU314jsRls3vNFn1c0AujvqZOvXdHDM=;
+ b=nmFSGF5+YkIzhYrqbNwAkkJsJfCkjt4oSwtmOTJEido0I6J3ojm6ipVIn3MJdHxhJj
+ 9Y2FylhgPGO2V7mJzP3IEkPKSVPgOV1aPQlSW8YMod+NNBQsQAKUeVPrCFxov8y/aUTd
+ bdfRFdh931J+3XUvq1oGcF3vvxbaV7504yAEQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=pV/EVyrxDVgDptUsvY6YKTL0UtEyJ+yZpvKEE8ukFV4=;
- b=f7v08gDL91lzBlthm2t5TG0nSDt+OXnCxNw1R6Swln8SvJlAflcl6lN2iC1etZsopb
- 00fnbdZfAGIoJTbJqDCI98Y6Zb+tvrBZpNbYWzLU6Qnd//e58Eth5Y/kSLAv0+6jmNoU
- aTWvrhAASnS5ULtHy57XJss5wd3Zbei4seaR1Swa0oqB0YzU0Ms77hi5BCtNBy56QNaU
- vE3NNm+w9LVOlwglOd4rFTR0XhBayYwHDkn2EgUK0hdCWec4zKlzp8cel5fhRGwNI693
- rncwTUFH36idALvnJNw9Y6gLjIBIV//AW/yETc6eNH+1o1gbSQPIj+wfJw+eTjo6a10n
- jICA==
-X-Gm-Message-State: AJcUukdsAYJFnvC318ON9mTPftt+yWNgFRcxKaaZ7nQ4bcV5M3QLnGXo
- PgwNGoAYo2pztE59jWdYPLulPASQrcxMJ7RyyVE=
-X-Google-Smtp-Source: ALg8bN6+olCYeAJWDufWDpXl6djUZdmCsNn+xXqO1iQoe2QgTibKJjFcuncnQXIywZ/xrVbRKYOwfZcTJABXwYUrWM8=
-X-Received: by 2002:a37:bc06:: with SMTP id m6mr4845665qkf.336.1547596402651; 
- Tue, 15 Jan 2019 15:53:22 -0800 (PST)
+ bh=9UWxkyK0epyPeU314jsRls3vNFn1c0AujvqZOvXdHDM=;
+ b=cWEFmvbjFYAvhjelXF3DJQPPChNO4yDJ4jlh+BGFJs1qiDt5cPFmlLBMlRKZzNUGPK
+ eLeb3gHRl82ECaA8Qb7XJgPihTWOxA5u6qVfP8ERbmqZbodpjwE48GdkqJmR9lFv4Ohk
+ RDZ8EWudK5DWEcyM6HtiLQ0yQU+HVfyiBWHpjQ0/+xPbEAOsLPBYpJmELW/mR5CMP9gh
+ zk5s4yOabQPvg93Wc1Nk8dMEFaFReMt39cJ0/DtndJ4UNNqph2WXFVNTKO2a5Wnne2ms
+ KmGboncG9+V9dUkGybc7jZNFMo4GYMk1jxrkrmwdfqdWzV3qN0vNcFkSjxerykdhrCap
+ 4Amw==
+X-Gm-Message-State: AJcUukcIcOFcAOdHd7AItfNXe12KM3kEcLuaDNY4Gujp36dZqdNFP3GK
+ 7ddArM2PM9YazCcW4HpPgS6vWreSLRS8mRZQ/aA=
+X-Google-Smtp-Source: ALg8bN4QOX2GrSFP9TsPFlPxQIvJb5FHhVnrwz3LVEvABZFa80Qz14Xsq6181xv66iH5XLoPQV3FbKMcbfw3EV3lghM=
+X-Received: by 2002:a0c:e751:: with SMTP id g17mr5083778qvn.160.1547597472528; 
+ Tue, 15 Jan 2019 16:11:12 -0800 (PST)
 MIME-Version: 1.0
-References: <20190114130710.427600-1-tmaimon77@gmail.com>
- <20190114130710.427600-4-tmaimon77@gmail.com>
-In-Reply-To: <20190114130710.427600-4-tmaimon77@gmail.com>
+References: <20190115015146.2412785-1-vijaykhemka@fb.com>
+In-Reply-To: <20190115015146.2412785-1-vijaykhemka@fb.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 16 Jan 2019 10:53:11 +1100
-Message-ID: <CACPK8XeF8MYsUJA7HsQL23mfoGFRQ5rjSTRzrJxhZL23fzRikg@mail.gmail.com>
-Subject: Re: [linux dev-4.19 03/15] mtd: spi-nor: add NPCM FIU controller
- driver
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
+Date: Wed, 16 Jan 2019 11:11:01 +1100
+Message-ID: <CACPK8Xesi2tQzH1d=Ow6VucO3qo6ptosKb-WDi-Cw1vg5FXGzg@mail.gmail.com>
+Subject: Re: [PATCH] misc: aspeed-lpc-ctrl: make memory-region optional
+To: Vijay Khemka <vijaykhemka@fb.com>, Andrew Jeffery <andrew@aj.id.au>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
+ "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -62,48 +63,103 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Jan 2019 23:53:25 -0000
+X-List-Received-Date: Wed, 16 Jan 2019 00:11:15 -0000
 
-Hi Tomer,
+Hi Vijay,
 
-On Tue, 15 Jan 2019 at 00:07, Tomer Maimon <tmaimon77@gmail.com> wrote:
+On Tue, 15 Jan 2019 at 12:51, Vijay Khemka <vijaykhemka@fb.com> wrote:
 >
-> Add Nuvoton NPCM BMC Flash Interface Unit(FIU) SPI-NOR
-> controller driver
->
-> The FIU supports single, dual or quad communication interface.
->
-> the FIU controller can operate in following modes:
-> - User Mode Access(UMA): provides flash access by using an
->   indirect address/data mechanism.
-> - direct rd/wr mode: maps the flash memory into the core
->   address space.
-> - SPI-X mode: used for an expansion bus to an ASIC or CPLD.
->
+> Makiing memory-region as optional parameter in device tree if
+> user needs to use memory-region then define in devicetree.
 
-> +static int npcm_fiu_uma_read(struct spi_nor *nor, u8 transaction_code,
-> +                            u32 address, bool is_address_size, u8 *data,
-> +                            u32 data_size)
-> +{
+Thank you for finding the time to do this work. You're not the first
+to be blocked by this limitation, but you are the first who found the
+time to propose a patch.
 
+I think we should complete the rework to make the flash device
+optional too. Can you do a v2 with a proposal for that?
+
+>
+> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> ---
+>  drivers/misc/aspeed-lpc-ctrl.c | 30 ++++++++++++++++++------------
+>  1 file changed, 18 insertions(+), 12 deletions(-)
+>
+> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
+> index a024f8042259..20507f0764fb 100644
+> --- a/drivers/misc/aspeed-lpc-ctrl.c
+> +++ b/drivers/misc/aspeed-lpc-ctrl.c
+> @@ -90,6 +90,10 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+>                 if (map.window_id != 0)
+>                         return -EINVAL;
+>
+> +               /* If memory-region is not described in device tree */
+> +               if (!lpc_ctrl->mem_size)
+> +                       return -EINVAL;
 > +
-> +       regmap_update_bits(host->regmap, NPCM_FIU_UMA_CTS,
-> +                          NPCM_FIU_UMA_CTS_DEV_NUM,
-> +                          (chip->chipselect <<
-> +                           NPCM_FIU_UMA_CTS_DEV_NUM_SHIFT));
-> +       regmap_update_bits(host->regmap, NPCM_FIU_UMA_CMD,
-> +                          NPCM_FIU_UMA_CMD_CMD, transaction_code);
-> +       regmap_write(host->regmap, NPCM_FIU_UMA_ADDR, address);
+>                 map.size = lpc_ctrl->mem_size;
+>
+>                 return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
+> @@ -129,6 +133,10 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
+>                         addr = lpc_ctrl->pnor_base;
+>                         size = lpc_ctrl->pnor_size;
+>                 } else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
+> +                       /* If memory-region is not described in device tree */
+> +                       if (!lpc_ctrl->mem_size)
 
-I notice this driver uses regmap for register reads and writes. Are
-you aware that regmap has a very large overhead for every operation?
-It takes a few hundred instructions to do each read/write, where as
-readl/writel result in one or two instructions.
+Should it print a message here? I think a dev_dbg makes sense.
 
-I'd strongly recommend implementing your drivers without regmap unless
-you are using it to access, for example, a couple of registers that
-are shared between drivers.
+> +                               return -EINVAL;
+> +
+>                         addr = lpc_ctrl->mem_base;
+>                         size = lpc_ctrl->mem_size;
+>                 } else {
+> @@ -214,22 +222,20 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
+>
+>         dev_set_drvdata(&pdev->dev, lpc_ctrl);
+>
+> +       /* If memory-region is described in device tree then store */
+>         node = of_parse_phandle(dev->of_node, "memory-region", 0);
+> -       if (!node) {
+> -               dev_err(dev, "Didn't find reserved memory\n");
+> -               return -EINVAL;
+> -       }
+> +       if (node) {
 
-Cheers,
+Print a debug message when we didn't find the node.
 
-Joel
+> +               rc = of_address_to_resource(node, 0, &resm);
+> +               of_node_put(node);
+> +               if (rc) {
+> +                       dev_err(dev, "Couldn't address to resource for reserved memory\n");
+> +                       return -ENOMEM;
+> +               }
+>
+> -       rc = of_address_to_resource(node, 0, &resm);
+> -       of_node_put(node);
+> -       if (rc) {
+> -               dev_err(dev, "Couldn't address to resource for reserved memory\n");
+> -               return -ENOMEM;
+> +               lpc_ctrl->mem_size = resource_size(&resm);
+> +               lpc_ctrl->mem_base = resm.start;
+>         }
+>
+> -       lpc_ctrl->mem_size = resource_size(&resm);
+> -       lpc_ctrl->mem_base = resm.start;
+> -
+>         lpc_ctrl->regmap = syscon_node_to_regmap(
+>                         pdev->dev.parent->of_node);
+>         if (IS_ERR(lpc_ctrl->regmap)) {
+
+Down below here is this line:
+
+>        dev_info(dev, "Loaded at %pr\n", &resm);
+
+As resm is first used for the flash resource and then the memory
+region, it will display the location of the flash when the memory
+region is not present. This is confusing. You should either print out
+the regions separately, or consider removing this dev_info completely.
+
+> --
+> 2.17.1
+>
