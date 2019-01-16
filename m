@@ -1,56 +1,63 @@
-Return-Path: <osk@google.com>
+Return-Path: <kuiying.wang@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::52d; helo=mail-ed1-x52d.google.com;
- envelope-from=osk@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="YIoHG0WN"; 
- dkim-atps=neutral
-Received: from mail-ed1-x52d.google.com (mail-ed1-x52d.google.com
- [IPv6:2a00:1450:4864:20::52d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43fpz723tHzDqgx
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 01:11:08 +1100 (AEDT)
-Received: by mail-ed1-x52d.google.com with SMTP id b3so5557747ede.1
- for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 06:11:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=23PWxB2QSbIzkx0+5aaG0hAzcMVs7YLxdt6uqu4DuLg=;
- b=YIoHG0WNk7VAJEqT0vUpMvfjdjt/EZwhX5pMlTWt8vrrHPoGOr/t1FyboWs5Niz9Ev
- 5ab8pQgclkGjAT6met0asumMw25jat0jsarI0otRFr7wAQowRZTZJHSqge6KWkqahTVt
- hmofbcQiNcnhlgUvgwy/gql2gN6Fn1Icg3tuGfSjsFkFw/y9MCrEvYaeVRVGUSOfrisy
- sAKTUFgFHXlP86Nf6KfnZwSYtsyAI88iwMA7WEObTWLc0ZyyR2Efl7y2dutRjJ2lGeDp
- b/GE2WxwfZI8IvJ5/FCbXIs3iNkA7YdRSY8UM2Wrm9dEBX/rwMX82AoEpVJb+3DwB2yQ
- lJjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=23PWxB2QSbIzkx0+5aaG0hAzcMVs7YLxdt6uqu4DuLg=;
- b=JZAI0DLQ4ectPUnYUZHIbYYVlETJtn9rh1Q6m7uxtOt04Ja8qauiICdXh+H6JdXimo
- sXIQquwnZRNNvURNSCEoJKwH5ZNZt9tqtXB7k5NXOPc9k+DzJHYTfM0k5OWBAb1ubHpZ
- qB92bD3qdhGsvYmY0fI2Gft3kqQbvpSkKYRifvx8A1sk89g+sQYrJIduvWXOlGL54NkE
- 0fekMqi1CH8PJHb5hBtsWFoihoJxufkzquhC+P2DWbu1ObRSp7CqUFa7qzdt6vyDJ6IQ
- 45d3RLVzJLhEzKfOYqH1lO8U+3ou65F1N2vuajNlm+wDg+IHR9DkmaBNnIz4zbNqx8eL
- lxoA==
-X-Gm-Message-State: AJcUukemh7phQFdd4p6JXvtQlpazjvXOYZN/WITACHumQLdPdJ0AdQ0G
- IwHpxuo/qWbS/2mc1Gr+DzRld8aMbYw3aVhqGotu6A==
-X-Google-Smtp-Source: ALg8bN6XE78G7fy/SBPcEmprE00tc4OUFdzav4zlb66NHbIJSog3e6jHEkeGn5W9ZwNDt0vIvUGUcfiwzs5J7AGKD9E=
-X-Received: by 2002:a50:8e16:: with SMTP id 22mr7681739edw.269.1547647864864; 
- Wed, 16 Jan 2019 06:11:04 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43fqP754h7zDqkw
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 01:30:18 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 16 Jan 2019 06:30:16 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,486,1539673200"; d="scan'208";a="118954774"
+Received: from fmsmsx105.amr.corp.intel.com ([10.18.124.203])
+ by orsmga003.jf.intel.com with ESMTP; 16 Jan 2019 06:30:15 -0800
+Received: from fmsmsx152.amr.corp.intel.com (10.18.125.5) by
+ FMSMSX105.amr.corp.intel.com (10.18.124.203) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 16 Jan 2019 06:30:15 -0800
+Received: from shsmsx104.ccr.corp.intel.com (10.239.4.70) by
+ FMSMSX152.amr.corp.intel.com (10.18.125.5) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 16 Jan 2019 06:30:15 -0800
+Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.63]) by
+ SHSMSX104.ccr.corp.intel.com ([169.254.5.159]) with mapi id 14.03.0415.000;
+ Wed, 16 Jan 2019 22:30:13 +0800
+From: "Wang, Kuiying" <kuiying.wang@intel.com>
+To: Linus Walleij <linus.walleij@linaro.org>, Joel Stanley <joel@jms.id.au>
+CC: Andrew Jeffery <andrew@aj.id.au>, Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>, "open list:GPIO SUBSYSTEM"
+ <linux-gpio@vger.kernel.org>, Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery, Vernon"
+ <vernon.mauery@intel.com>, "Feist, James" <james.feist@intel.com>, "Yoo, Jae
+ Hyun" <jae.hyun.yoo@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>,
+ "Khetan, Sharad" <sharad.khetan@intel.com>
+Subject: RE: Enable buttons GPIO passthrough
+Thread-Topic: Enable buttons GPIO passthrough
+Thread-Index: AQHUqY1NYywjorJW6EeKU0Lg6H6RIKWtkS8AgABZUQCAAgEksIAAKXmg//+oEgCAAj7wUA==
+Date: Wed, 16 Jan 2019 14:30:12 +0000
+Message-ID: <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
+ <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
+ <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
+ <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
+ <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
+In-Reply-To: <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.239.127.40]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <tencent_46EA11C87A97937C3140CAC7@qq.com>
-In-Reply-To: <tencent_46EA11C87A97937C3140CAC7@qq.com>
-From: Oskar Senft <osk@google.com>
-Date: Wed, 16 Jan 2019 09:10:53 -0500
-Message-ID: <CABoTLcSEdfGHM+L_pFT9ZW11PZCcLPwV5SokOCf09-n3b7MJOg@mail.gmail.com>
-Subject: Re: Why can't /dev/ipmi0 on host be created stably
-To: xiuzhi <1450335857@qq.com>
-Cc: openbmc <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000397f7a057f93d977"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,97 +69,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Jan 2019 14:11:16 -0000
+X-List-Received-Date: Wed, 16 Jan 2019 14:30:20 -0000
 
---000000000000397f7a057f93d977
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Xiuzhi
-
-The following observation may or may not be related to your problem:
-
-We're using AMI BIOS with OpenBMC using the IPMI BT mode. I found that in
-certain cases the host and BMC can get "out of sync" wrt. what the BMC put
-in the message queue and what the BIOS expects. The problem can be caused
-by the BMC responding "slowly" to an IPMI request from the BIOS where the
-BIOS times out before the BMC responds. The BMC then responds before the
-BIOS issues the next request, which causes the BIOS to read the previous
-response as the response for the latest request.
-
-This has resulted in all sorts of weird behavior for us, incl. the BIOS not
-"detecting" the BMC and therefore not exposing it in the SMBIOS tables,
-which - in our case - is the configuration source for the Linux IPMI driver.
-
-I hope this helps?
-
-What BIOS are you using? Are you able to make changes to the BIOS code?
-
-Oskar.
-
-On Tue, Jan 15, 2019 at 9:33 PM xiuzhi <1450335857@qq.com> wrote:
-
-> Hi All,
->    I am testing the bmc ipmi-kcs reliability.
->    The /dev/ipmi0 on host will not  be available  in several consecutive
-> bmc reboot test.  The CA3 value is 0x04 which can be got by the command "mm
-> -io ca3" on host bios shell when failing to create the ipmi0  .
-> The CA3 value 0x04 means that SMS_ATN is set to 1, which meas:
-> "Set to 1 when the BMC has one or more messages in the Receive Message
-> Queue, or when a watchdog timer pre-timeout, or event message buffer full
-> condition exists [2] . OEMs may also elect to set this flag is one of the
-> OEM 1, 2,or 3 flags from the Get Message Flags command becomes set. R/O
-> This bit is related to indicating when the BMC is the source of a system
-> interrupt. Refer to sections 9.12, KCS Communication and Non-communication
-> , 9.13, Physical Interrupt Line Sharing, and 9.14, Additional
-> Specifications for the KCS interface for additional information on the use
-> and requirements for the SMS_ATN bit."
->  see the Table 9-, KCS Interface Status Register Bits in section 9.7 of
-> Intelligent Platform ManageBment Interface Specification .
->    What  causes this problem?
->  Best,
-> Xiuzhi
->
-
---000000000000397f7a057f93d977
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi=C2=A0Xiuzhi<div><br></div><div>The following observatio=
-n may or may not be related to your problem:</div><div><br></div><div>We&#3=
-9;re using AMI BIOS with OpenBMC using the IPMI BT mode. I found that in ce=
-rtain cases the host and BMC can get &quot;out of sync&quot; wrt. what the =
-BMC put in the message queue and what the BIOS expects. The problem can be =
-caused by the BMC responding &quot;slowly&quot; to an IPMI request from the=
- BIOS where the BIOS times out before the BMC responds. The BMC then respon=
-ds before the BIOS issues the next request, which causes the BIOS to read t=
-he previous response as the response for the latest request.</div><div><br>=
-</div><div>This has resulted in all sorts of weird behavior for us, incl. t=
-he BIOS not &quot;detecting&quot; the BMC and therefore not exposing it in =
-the SMBIOS tables, which - in our case - is the configuration source for th=
-e Linux IPMI driver.</div><div><br></div><div>I hope this helps?</div><div>=
-<br></div><div>What BIOS are you using? Are you able to make changes to the=
- BIOS code?</div><div><br></div><div>Oskar.</div></div><br><div class=3D"gm=
-ail_quote"><div dir=3D"ltr">On Tue, Jan 15, 2019 at 9:33 PM xiuzhi &lt;<a h=
-ref=3D"mailto:1450335857@qq.com">1450335857@qq.com</a>&gt; wrote:<br></div>=
-<blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-=
-left:1px solid rgb(204,204,204);padding-left:1ex"><div>Hi All,</div><div>=
-=C2=A0 =C2=A0I am testing the bmc ipmi-kcs reliability.</div><div>=C2=A0 =
-=C2=A0The /dev/ipmi0 on host will not=C2=A0 be available=C2=A0 in several c=
-onsecutive bmc reboot test.=C2=A0 The CA3 value is 0x04 which can be got by=
- the command &quot;mm -io ca3&quot; on host bios shell when failing to crea=
-te the ipmi0=C2=A0 .</div><div>The CA3 value 0x04 means that SMS_ATN is set=
- to 1, which meas:</div><div><div>&quot;Set to 1 when the BMC has one or mo=
-re messages in the Receive Message Queue, or when a watchdog timer pre-time=
-out, or event message buffer full condition exists [2] . OEMs may also elec=
-t to set this flag is one of the OEM 1, 2,or 3 flags from the Get Message F=
-lags command becomes set. R/O This bit is related to indicating when the BM=
-C is the source of a system interrupt. Refer to sections 9.12, KCS Communic=
-ation and Non-communication , 9.13, Physical Interrupt Line Sharing, and 9.=
-14, Additional Specifications for the KCS interface for additional informat=
-ion on the use and requirements for the SMS_ATN bit.&quot;</div></div><div>=
-=C2=A0see the Table 9-, KCS Interface Status Register Bits in section 9.7 o=
-f=C2=A0 Intelligent Platform ManageBment Interface Specification .</div><di=
-v>=C2=A0 =C2=A0What=C2=A0 causes this problem?</div><div>=C2=A0Best,</div><=
-div>Xiuzhi</div></blockquote></div>
-
---000000000000397f7a057f93d977--
+SGkgSm9lbCwNCkRvIGFncmVlIHRvIHVzZSBwcm9wb3NhbCAjMT8gKGV4dGVuZCAicGFzc3Rocm91
+Z2giIHRvIHRoZSAiZGlyZWN0aW9uIiBwcm9wZXJ0eSBvZiBncGlvLCB1c2UgICJ2YWx1ZSIgdG8g
+Y29udHJvbCBpdCBiZSBkaXNhYmxlZC9lbmFibGVkLikNCg0KQWxsLA0KQW55IG90aGVyIGNvbW1l
+bnRzPw0KDQpUaGFua3MsDQpLd2luLg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpG
+cm9tOiBMaW51cyBXYWxsZWlqIFttYWlsdG86bGludXMud2FsbGVpakBsaW5hcm8ub3JnXSANClNl
+bnQ6IFR1ZXNkYXksIEphbnVhcnkgMTUsIDIwMTkgODoxMCBQTQ0KVG86IFdhbmcsIEt1aXlpbmcg
+PGt1aXlpbmcud2FuZ0BpbnRlbC5jb20+DQpDYzogQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5p
+ZC5hdT47IFRob21hcyBQZXRhenpvbmkgPHRob21hcy5wZXRhenpvbmlAYm9vdGxpbi5jb20+OyBK
+b2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1Pjsgb3BlbiBsaXN0OkdQSU8gU1VCU1lTVEVNIDxs
+aW51eC1ncGlvQHZnZXIua2VybmVsLm9yZz47IEFuZHJldyBHZWlzc2xlciA8Z2Vpc3NvbmF0b3JA
+Z21haWwuY29tPjsgT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsg
+TWF1ZXJ5LCBWZXJub24gPHZlcm5vbi5tYXVlcnlAaW50ZWwuY29tPjsgRmVpc3QsIEphbWVzIDxq
+YW1lcy5mZWlzdEBpbnRlbC5jb20+OyBZb28sIEphZSBIeXVuIDxqYWUuaHl1bi55b29AaW50ZWwu
+Y29tPg0KU3ViamVjdDogUmU6IEVuYWJsZSBidXR0b25zIEdQSU8gcGFzc3Rocm91Z2gNCg0KSGkg
+S3dpbiwNCg0KPiBCYXNlZCBvbiBwaW5tdXggdG8gZG8gcGFzc3Rocm91Z2ggaXMgdG9vIGNvbXBs
+ZXggYW5kIG5vIHJlZmVyZW5jZSwNCg0KRG9uJ3QgbGV0IHRoYXQgZGlzY291cmFnZSB5b3UhIFdl
+IGFyZSBzb21lIG9mIHRoZSB3b3JsZCdzIG1vc3QgaW1wb3J0YW50IHNvZnR3YXJlIGVuZ2luZWVy
+cyBpbiB0aGUga2VybmVsLCBhbmQgd2UgZG9uJ3QganVzdCBkbyB0aGUgc2ltcGxlIHN0dWZmLCBs
+aWtlIGZpbGxpbmcgaW4gdGhlIGJsYW5rcyBndWlkZWQgYnkgcHJldmlvdXMgZXhhbXBsZSwgd2Ug
+ZG8gdGhlIHJlYWxseSBjb21wbGljYXRlZCBzdHVmZiBvZiBpbnZlbnRpbmcgdGhlIGZyYW1ld29y
+a3MuDQoNCj4gSSBoYXZlIGFub3RoZXIgMiBzaW1wbGUgcHJvcG9zYWxzIHRvIGRvIGJ1dHRvbiBH
+UElPIHBhc3N0aHJvdWdoIGFzIGZvbGxvd2luZzoNCj4gMS4gZXh0ZW5kICJwYXNzdGhyb3VnaCIg
+dG8gdGhlICJkaXJlY3Rpb24iIHByb3BlcnR5IG9mIGdwaW8sIHVzZSANCj4gInZhbHVlIiB0byBj
+b250cm9sIGl0IGJlIGRpc2FibGVkL2VuYWJsZWQuDQoNClRoaXMgaXMgd2hhdCBJIGRlc2NyaWJl
+ZCBpbiBteSBmaXJzdCByZXBseS4gQSAuc2V0X2NvbmZpZygpIG9wdGlvbi4NCkJ1dCBpdCBzdGls
+bCBuZWVkcyB0byBwYXRjaCB0aGUgRFQgYmluZGluZ3MgZm9yIGdlbmVyaWMgcGluIGNvbmZpZyBh
+bmQgYWRkIGEgZ2xvYmFsbHkgdW5pcXVpZSBlbnVtZXJhdG9yIGZvciB0aGlzIGNvbmZpZyB0byBw
+aW5jb25mLWdlbmVyaWMuaCBzaW5jZSBHUElPIGlzIHJldXNpbmcgdGhlc2UgZ2VuZXJpY3MsIHNv
+IGJlZ2luIHdpdGggdGhhdCBpbiBhbnkgY2FzZS4NCg0KPiAyLiBleHRlbmQgInZhbHVlIiBwcm9w
+ZXJ0eSBvZiBncGlvIHRvIHN1cHBvcnQgdGhlIHRoaXJkIHZhbHVlICIyIiwgDQo+IHdoaWNoIG1l
+YW5zIHBhc3MtdGhyb3VnaCBpcyBlbmFibGVkLCBvdGhlcndpc2UgcGFzc3Rocm91Z2ggaXMgZGlz
+YWJsZWQuDQoNCk5vLCBzb3JyeSwgdGhpcyBpcyB0aGUgd3JvbmcgaWRlYS4NCg0KLnNldF92YWx1
+ZSgpIHNldHMgdGhlIEdQSU8gbGluZSBhcyBoaWdoIG9yIGxvdywgaXQgaXMgZXNzZW50aWFsbHkg
+Ym9vbGVhbiBhbmQgaXQgaXMgYW4gaW50ZWdlciBvbmx5IGZvciBoaXN0b3JpY2FsIHJlYXNvbnMu
+DQoNCi5zZXRfY29uZmlnKCkgaXMgd2hhdCB3ZSB1c2UgdG8gc2V0IHVwIGRlYm91bmNlIG9yIG9w
+ZW4gZHJhaW4gYW5kIHN1Y2ggZWxlY3Ryb25pYyBjb25maWd1cmF0aW9ucyBvbiBHUElPIGxpbmVz
+LCBhbmQgdGhpcyBzaG91bGQgYmUgZG9uZSB0aGVyZSwgdW5sZXNzIEFuZHJldyBwcmVmZXJzIHRo
+YXQgaXQgaXMgZ2V0cyBkb25lIGluIHRoZSBwaW4gY29udHJvbCBkcml2ZXIuDQoNCllvdXJzLA0K
+TGludXMgV2FsbGVpag0K
