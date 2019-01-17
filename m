@@ -1,54 +1,79 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <Brenden_Lai@jabil.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::844; helo=mail-qt1-x844.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=jabil.com
+ (client-ip=40.107.81.138; helo=nam01-by2-obe.outbound.protection.outlook.com;
+ envelope-from=brenden_lai@jabil.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ dmarc=none (p=none dis=none) header.from=jabil.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ee75G85Y"; 
- dkim-atps=neutral
-Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
- [IPv6:2607:f8b0:4864:20::844])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ unprotected) header.d=jabil.onmicrosoft.com header.i=@jabil.onmicrosoft.com
+ header.b="a73ACm+l"; dkim-atps=neutral
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com
+ (mail-eopbgr810138.outbound.protection.outlook.com [40.107.81.138])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gG7H4DJjzDqMl;
- Thu, 17 Jan 2019 18:34:51 +1100 (AEDT)
-Received: by mail-qt1-x844.google.com with SMTP id k12so10312908qtf.7;
- Wed, 16 Jan 2019 23:34:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Ty4TZXemD3pmxV/fImNNoGI0TZtUKP2Z8GeOb5Fvj3c=;
- b=ee75G85YR7+APioORsObIp6vne+dH9MNICLtaJuN44fbrhQNfQiV7ix7gJDhhjU5wt
- PPc6M5oOq5vorjmBa4hau0/jfY++tbVm2Q13DkA9GuqiYFFwCdIKlOIAI87qROHcfu/Z
- uymC5rlPxuAdVPY8hekAhz5c0llub1OdIZ+GM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Ty4TZXemD3pmxV/fImNNoGI0TZtUKP2Z8GeOb5Fvj3c=;
- b=jwaYTr5mOjeKXS4xyjMZ5RDIe0M36+vp61sTfyueZ4PUEJ087ZRujaLiNIU62Ov93x
- WPH6WqMjOJedeog6iQTnYxIAo6W9Vn2mQI9ByFwMLsPCaZaygdfC7bKF42uKOJC7KwWQ
- bk10AuBBRC5/exEX3pe+eoJtVghkc9Voz6tX9JYwyRxOxpnpmoSm/CFHZhBr7Xbi6bqw
- L10gxAgrrKiR2UhpMLcrnSmGa/PLzrdN9ozN5SZZvY5B0+/CdrWHmdZvLcS8BSMMF80G
- yPcGK9lOsaL/oZpxGQdMfHAJ1F08yO960+2j9vVaz/+niaDLBSxkx4LFLCTTWJbHFfSD
- YzLw==
-X-Gm-Message-State: AJcUuke+koIrylXUIaKOX1bl30okn5wXkRqyaojwEdl2Mt5qS0ZFYY1E
- 3QMYrMg/N6kp4HsnbnoO7OKEQDkdBymvQdVO99Vdbcl8
-X-Google-Smtp-Source: ALg8bN6wdZk2m5W9J7UyieHahPPYm6XVYYJwGd9ITFM5KZtMf20kEQqpaK3ib3/+rSTRX1D9Jnv62gCxExoKJYxGVfI=
-X-Received: by 2002:a0c:806f:: with SMTP id 102mr10127209qva.89.1547710488443; 
- Wed, 16 Jan 2019 23:34:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43gGV817GVzDqhs
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 18:51:10 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.onmicrosoft.com; 
+ s=selector1-jabil-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dOhFQkYPEbRDDmIZhPHrO+Fba3tfLIdekQiDYxJU+ig=;
+ b=a73ACm+lMux2VOgQGmn6AYdabCRnIoG3o47JlVkBW3H18aOjt8X5Vd17UDUDHVP6jmjkDNyN+QsCXKH2o7DnpOHBFqZn8ydrwtMk9xejqlfbjuGuUTqHngpOjSGr7MGFBsU0YFaRhH+rCeMysY4MAC3U8gURwivJ7e3HdOXqfP8=
+Received: from SN6PR02MB5693.namprd02.prod.outlook.com (20.177.252.17) by
+ SN6PR02MB4400.namprd02.prod.outlook.com (52.135.119.206) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1537.26; Thu, 17 Jan 2019 07:51:06 +0000
+Received: from SN6PR02MB5693.namprd02.prod.outlook.com
+ ([fe80::59f9:194e:34f4:584f]) by SN6PR02MB5693.namprd02.prod.outlook.com
+ ([fe80::59f9:194e:34f4:584f%4]) with mapi id 15.20.1537.018; Thu, 17 Jan 2019
+ 07:51:06 +0000
+From: Brenden Lai <Brenden_Lai@jabil.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: couple questions for OpenBMC 
+Thread-Topic: couple questions for OpenBMC 
+Thread-Index: AdSuOGDDOCeJ0FTHQom6IskZCJGACA==
+Date: Thu, 17 Jan 2019 07:51:06 +0000
+Message-ID: <SN6PR02MB5693D3A8387A48C7453FEC0796830@SN6PR02MB5693.namprd02.prod.outlook.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5Lmh0bWwiIHA9ImM6XHVzZXJzXDE1MzIxNDhcYXBwZGF0YVxyb2FtaW5nXDA5ZDg0OWI2LTMyZDMtNGE0MC04NWVlLTZiODRiYTI5ZTM1Ylxtc2dzXG1zZy1hMWI2MGY1Yy0xYTJjLTExZTktODc5MS1iODhhNjBhMzA2OTFcYW1lLXRlc3RcYTFiNjBmNWQtMWEyYy0xMWU5LTg3OTEtYjg4YTYwYTMwNjkxYm9keS5odG1sIiBzej0iMzI0MSIgdD0iMTMxOTIxODUwNjE1ODM0ODk4IiBoPSJyVEUxa0tqVGlmcEJQdm5sTnd6Y0ppcGdPZkk9IiBpZD0iIiBibD0iMCIgYm89IjEiLz48L21ldGE+
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Brenden_Lai@jabil.com; 
+x-originating-ip: [165.225.102.64]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; SN6PR02MB4400;
+ 20:Z0Mt5IWnS0TBpeF+KvEewbY7bF9fycnbtfT8eLmktsR93JHO8CLW5veVRF2R9fdA1qtmNw9sRIFpt5jRGtIOb8XOsqkBPhcnW7XdWHjsbnHEyFY5lsvdKldfnVWaRTLvrofQyz49dWHk5HaDo/SM3PNy9jFIQMlaAOKQCT9vxsQ=
+x-ms-exchange-antispam-srfa-diagnostics: SOS;
+x-ms-office365-filtering-correlation-id: 354138a4-5e8c-46f6-8944-08d67c50894c
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600109)(711020)(4618075)(2017052603328)(7153060)(7193020);
+ SRVR:SN6PR02MB4400; 
+x-ms-traffictypediagnostic: SN6PR02MB4400:
+x-microsoft-antispam-prvs: <SN6PR02MB440003C0DC1A4BE1C368544E96830@SN6PR02MB4400.namprd02.prod.outlook.com>
+x-forefront-prvs: 0920602B08
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(39860400002)(396003)(136003)(376002)(346002)(189003)(199004)(2351001)(54896002)(316002)(9686003)(256004)(5024004)(106356001)(33656002)(486006)(6916009)(81166006)(81156014)(8676002)(1730700003)(4743002)(25786009)(5660300001)(7696005)(53936002)(476003)(74316002)(7736002)(3480700005)(68736007)(9326002)(72206003)(6506007)(99286004)(26005)(478600001)(14454004)(86362001)(2501003)(186003)(102836004)(80792005)(97736004)(55016002)(105586002)(6116002)(3846002)(71190400001)(71200400001)(8936002)(790700001)(66066001)(4744005)(6436002)(55236004)(6306002)(5640700003)(2906002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR02MB4400;
+ H:SN6PR02MB5693.namprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: jabil.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: zTkDCYo85rPcv4IvAm7NU85WUBToBkI4/mfHnU6kTlFqL4M/ViNKNOC69g9PjsLYOL3Zx/3GQbiFbVbpg5kw3zCkKbwcV8FmlZyv5h/iTc379GWgBcXrHKo6babGIF5d/+R1Hn0COb10jvkMLYN1da+rRXSxWiWXHJPLxL7CyY2VZyxhV69JBL8r6b1P+yra5ni8VGINUslnBbVj+Moh2qU2uCT3kIyFYRL4JuleCIUBnXQ60bQnLTM3bOpFs4fWOQQcynWzeIzqtwOqPjpkblv43/RL9iuBtPBZ4WMIu4d8SEX+t8kWHAFR15XGsVRgY+SWocDBtr5GA4vIZCpwBORjxGRZckarAShkoH60N0FMf4K3hhzaHH5CnTybbKTSZtxqti2xxijczGAbvDnlwsp5MwtTEIfqgZXdhVxXg7A=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_SN6PR02MB5693D3A8387A48C7453FEC0796830SN6PR02MB5693namp_"
 MIME-Version: 1.0
-References: <1547708191-8721-1-git-send-email-wangzqbj@inspur.com>
-In-Reply-To: <1547708191-8721-1-git-send-email-wangzqbj@inspur.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 17 Jan 2019 18:34:34 +1100
-Message-ID: <CACPK8XeL0N59CkBKyaBek19X_fmUNZCqQkOM+2i=g60LMJexfg@mail.gmail.com>
-Subject: Re: [PATCH] ARM:dts:aspeed Add Inspur on5263m5 BMC
-To: John Wang <wangzqbj@inspur.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, linux-aspeed@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: jabil.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 354138a4-5e8c-46f6-8944-08d67c50894c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Jan 2019 07:51:06.0775 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB4400
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,211 +85,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 07:34:53 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 07:51:13 -0000
 
-On Thu, 17 Jan 2019 at 17:56, John Wang <wangzqbj@inspur.com> wrote:
+--_000_SN6PR02MB5693D3A8387A48C7453FEC0796830SN6PR02MB5693namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Hi
+I have couple questions about OpenBMC .
+
+1.if I decide use OpenBMC solution , Does it mean I should put all BMC sour=
+ce code on github including some commercial software  ?
+
+2.Are there any tutorial or /document  for using dbus within OpenBMC ?
+
+3.Why there is no release note after V1.05 ?  Will the coming release  atta=
+ch release note ?
+
+4.I know openBMC is using some file text to represent  device (LED , sensor=
+) , but I am curious about how this files bind to real device ?
+   Where is the low level operation relate code ?
+
+
+Thanks -Brenden
+
+
+Brenden Lai
+SR. BMC Design Engineer
+E&I, Jabil Design Services
+
+
+--_000_SN6PR02MB5693D3A8387A48C7453FEC0796830SN6PR02MB5693namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Add initial version of device tree file for on5263m5 ast2500bmc
->
-> Signed-off-by: John Wang <wangzqbj@inspur.com>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi <o:p></o:p></p>
+<p class=3D"MsoNormal">I have couple questions about OpenBMC . <o:p></o:p><=
+/p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">1.if I decide use OpenBMC solution , Does it mean I =
+should put all BMC source code on github including some commercial software=
+ &nbsp;?
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">2.Are there any tutorial or /document &nbsp;for usin=
+g dbus within OpenBMC ?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">3.Why there is no release note after V1.05 ?&nbsp; W=
+ill the coming release&nbsp; attach release note ?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">4.I know openBMC is using some file text to represen=
+t &nbsp;device (LED , sensor) , but I am curious about how this files bind =
+to real device ?<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp; Where is the low level operation relate=
+ code ?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks -Brenden<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:10.0pt;color:black">Brenden Lai<br>
+SR. BMC Design Engineer<br>
+</span><span style=3D"font-size:10.0pt;color:#222222">E&amp;I, Jabil Design=
+ Services</span><span style=3D"font-size:10.0pt;color:black"><o:p></o:p></s=
+pan></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
 
-The changes look good. It's convention to add a changelog to your
-patch when you resend it, just below the ---. For example:
-
----
-v2: FIx reserved memory address and correct copyright
-
-You should also send the patch with v2 (or v3, or v4, etc) in the
-subject line. Git format-patch can do this for you with the -v flag:
-
- git format-patch -v 2 --to=openbmc@lists.ozlabs.org -1
-
-Keep this in mind for next time.
-
-Your patch has some bad whitespace. I get this warnings when applying:
-
-Applying: ARM:dts:aspeed Add Inspur on5263m5 BMC
-.git/rebase-apply/patch:42: trailing whitespace.
-
-.git/rebase-apply/patch:45: trailing whitespace.
-
-.git/rebase-apply/patch:114: trailing whitespace.
-
-.git/rebase-apply/patch:117: trailing whitespace, space before tab in indent.
-            reg = <0x54>;
-.git/rebase-apply/patch:145: space before tab in indent.
-           reg = <0x00>;
-warning: squelched 6 whitespace errors
-warning: 11 lines add whitespace errors.
-
-You can use a tool called checkpatch.pl to check that your patches are
-okay before sending:
-
-./scripts/checkpatch.pl 0001-ARM-dts-aspeed-Add-Inspur-on5263m5-BMC.patch
-
-Can you please do that and send a v3?
-
-Thanks!
-
-Joel
-
-
->  arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 146 +++++++++++++++++++++++
->  1 file changed, 146 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> new file mode 100644
-> index 0000000..064ae30
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> @@ -0,0 +1,146 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2018 Inspur Corporation
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +       model = "ON5263M5 BMC";
-> +       compatible = "inspur,on5263m5-bmc", "aspeed,ast2500";
-> +
-> +       chosen {
-> +               stdout-path = &uart5;
-> +               bootargs = "earlyprintk";
-> +       };
-> +
-> +       memory {
-> +               reg = <0x80000000 0x20000000>;
-> +       };
-> +
-> +       reserved-memory {
-> +               #address-cells = <1>;
-> +               #size-cells = <1>;
-> +               ranges;
-> +
-> +               vga_memory: framebuffer@9f000000 {
-> +                       no-map;
-> +                       reg = <0x9f000000 0x01000000>;
-> +               };
-> +       };
-> +
-> +       leds {
-> +           compatible = "gpio-leds";
-> +
-> +           bmc_alive {
-> +               label = "bmc_alive";
-> +               gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
-> +               linux,default-trigger = "timer";
-> +           };
-> +       };
-> +
-> +       iio-hwmon {
-> +               compatible = "iio-hwmon";
-> +               io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-> +                       <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
-> +       };
-> +
-> +};
-> +
-> +&fmc {
-> +       status = "okay";
-> +       flash@0 {
-> +               status = "okay";
-> +               m25p,fast-read;
-> +               label = "bmc";
-> +#include "openbmc-flash-layout.dtsi"
-> +       };
-> +};
-> +
-> +&spi1 {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_spi1_default>;
-> +
-> +       flash@0 {
-> +               status = "okay";
-> +               m25p,fast-read;
-> +               label = "pnor";
-> +       };
-> +};
-> +
-> +&uart5 {
-> +       status = "okay";
-> +};
-> +
-> +&mac0 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_rmii1_default>;
-> +       use-ncsi;
-> +};
-> +
-> +&mac1 {
-> +       status = "okay";
-> +
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-> +};
-> +
-> +&i2c6 {
-> +       status = "okay";
-> +
-> +       tmp421@4e {
-> +               compatible = "ti,tmp421";
-> +               reg = <0x4e>;
-> +       };
-> +
-> +       tmp112@48 {
-> +               compatible = "ti,tmp112";
-> +               reg = <0x48>;
-> +       };
-> +
-> +       eeprom@54 {
-> +               compatible = "atmel,24c64";
-> +               reg = <0x54>;
-> +               pagesize = <32>;
-> +       };
-> +};
-> +
-> +&i2c7 {
-> +       status = "okay";
-> +
-> +       adm1278@11 {
-> +                 compatible = "adi,adm1278";
-> +                 reg = <0x11>;
-> +       };
-> +};
-> +
-> +&gfx {
-> +       status = "okay";
-> +};
-> +
-> +&pinctrl {
-> +       aspeed,external-nodes = <&gfx &lhc>;
-> +};
-> +
-> +&pwm_tacho {
-> +       status = "okay";
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +
-> +       fan@0 {
-> +               reg = <0x00>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
-> +       };
-> +
-> +       fan@1 {
-> +               reg = <0x01>;
-> +               aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
-> +       };
-> +};
-> +
-> +&adc {
-> +       status = "okay";
-> +};
-> --
-> 2.7.4
->
+--_000_SN6PR02MB5693D3A8387A48C7453FEC0796830SN6PR02MB5693namp_--
