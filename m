@@ -1,57 +1,46 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <wangzhiqiang8906@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=209.85.210.196; helo=mail-pf1-f196.google.com;
+ envelope-from=wangzhiqiang8906@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="QrohxhwH"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
+ dmarc=none (p=none dis=none) header.from=inspur.com
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+ [209.85.210.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gDQ20sxjzDqQN;
- Thu, 17 Jan 2019 17:17:30 +1100 (AEDT)
-Received: by mail-qt1-x841.google.com with SMTP id l12so10162035qtf.8;
- Wed, 16 Jan 2019 22:17:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FKfY06XBvP+7+lbG+bUd4k8JgUNDe4s1OC2BG4+aqNQ=;
- b=QrohxhwH+D46iYBRsQWtmMIQDDPdVNdtow+/ApAd/32mCnidizUfQOmFMdAIe8fcLw
- y8frZX0ZFffmR+9hEtWESUAUy0cOu4N0QsyVJYh8wikeRI4TYnk5i138YQW30SjCPYKp
- 7N63THQsW+z6Z+Qz9ut5aTs7kFbJHp87ul2yw=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43gFHC6bKLzDqkq;
+ Thu, 17 Jan 2019 17:56:39 +1100 (AEDT)
+Received: by mail-pf1-f196.google.com with SMTP id w73so4340951pfk.10;
+ Wed, 16 Jan 2019 22:56:39 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FKfY06XBvP+7+lbG+bUd4k8JgUNDe4s1OC2BG4+aqNQ=;
- b=PNnVcM/+eRnfm87bswafMzcSQIEyElBj8+2BgG0uCCAGbqN1tWPcapSuv98Nouq9/H
- MObE7b35q0C53U6QkwYR0HMQQ/TipKAyjfWKm95ipqtL5k5/Lz2s+WKGWFgVjPcd0/TQ
- JZPWrWcl88eOhKlTeN/3R2nUoSSpMYE5y4Uo4XajDOveQWWjwqeeaDTRuqdDCHrLH+AF
- alshI4nizEJQAZ2F+T3RoJD+l+J9YPLZcgi4bbcHmyTNodYCrrDigJ74W+GQyEYAFWcB
- Wp+Lg+s8CaG8Q7gQvdDppNbJDueZ8p4WyvANUorsxM8gg1zycSUqMXepJV3aPVrDZjeh
- wLLw==
-X-Gm-Message-State: AJcUukeMJLUWaxpI53rpQkVOg/Scw8AVWNY0fJH1JN9SStt6qW1VMT8N
- jfv16fMF0Q9YNoXlc+nnkWNr4NW0ibHmRMg0v2M=
-X-Google-Smtp-Source: ALg8bN5JkY1m/cQon+3Je4qTIUqCns1PRy7wSqDPtkx1aQq/lr6LJ3SkBE7UsuAG3vxioE1AKMPRT5667+U/NQFoX7g=
-X-Received: by 2002:ac8:748:: with SMTP id k8mr10223752qth.235.1547705847795; 
- Wed, 16 Jan 2019 22:17:27 -0800 (PST)
-MIME-Version: 1.0
-References: <20190116220154.1026171-1-vijaykhemka@fb.com>
-In-Reply-To: <20190116220154.1026171-1-vijaykhemka@fb.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 17 Jan 2019 17:17:16 +1100
-Message-ID: <CACPK8XdCVvUaCFsMXdEkc9KG0TQCGpYV55u-X7pY7vBLLHuQtw@mail.gmail.com>
-Subject: Re: [PATCH v2] misc: aspeed-lpc-ctrl: make parameter optional
-To: Vijay Khemka <vijaykhemka@fb.com>, Andrew Jeffery <andrew@aj.id.au>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=SMY+o4iAmQhkVGtRN8BO3dEcyFUmXVzcyBddW2yYBSU=;
+ b=Lubpp+Gt4glBFhDdo8d+7jUG+jJELUG32FPKufYIWX2oe+nW7urlgjOhI4FE3kliSK
+ ilXIWIvzfXhUvoNXJPEqPR0DZrpCH0fbh0lJwSVbIY/mK9pmU8makmRMXXc/O9VqyaAH
+ tioPedEiKqyJJDaH6yQadTBFluT9mIixe/3c5JvDvSQrkQWTeHiaCyX0xzTdSLSY8ip2
+ cUnAhHyEsSdb0c+yNRhNBFoVrb306IXLFAM0X7QiyZ+dinaNhuAZXx6vt50hX7Txpplc
+ LUC799j16k00+5P3GTrBGoeF17l/uQxXlA27kf4kINA9g809NhUpdr7V5MAGrdmVNhly
+ /IaQ==
+X-Gm-Message-State: AJcUukdE+z80RL6DOXsI6apmUFH/TkqLWgc33D15OZwwEQW5W7OspR9x
+ 30+jRv0awzKMcD6yWtHt57OqOMf0u8E=
+X-Google-Smtp-Source: ALg8bN7jg6lA0crn9cQ6ER4o0LOfnX7dPDbrIuoHER6YSZkLp3cq0muHiLXaLkoUasNDtx2NzjVdMQ==
+X-Received: by 2002:a63:6604:: with SMTP id a4mr12443087pgc.118.1547708197652; 
+ Wed, 16 Jan 2019 22:56:37 -0800 (PST)
+Received: from localhost ([97.64.21.159])
+ by smtp.gmail.com with ESMTPSA id n7sm1110489pff.36.2019.01.16.22.56.35
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 16 Jan 2019 22:56:36 -0800 (PST)
+From: John Wang <wangzqbj@inspur.com>
+To: andrew@aj.id.au,
+	joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org,
+	linux-aspeed@lists.ozlabs.org
+Subject: [PATCH] ARM:dts:aspeed Add Inspur on5263m5 BMC
+Date: Thu, 17 Jan 2019 14:56:31 +0800
+Message-Id: <1547708191-8721-1-git-send-email-wangzqbj@inspur.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,148 +52,167 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 06:17:30 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 06:56:40 -0000
 
-On Thu, 17 Jan 2019 at 09:02, Vijay Khemka <vijaykhemka@fb.com> wrote:
->
-> Makiing memory-region and flash as optional parameter in device
-> tree if user needs to use these parameter through ioctl then
-> need to define in devicetree.
->
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+Add initial version of device tree file for on5263m5 ast2500bmc
 
-Thanks! This looks okay to me. I tested it on one of our systems which
-uses both flash and reserved memory and it was fine.
+Signed-off-by: John Wang <wangzqbj@inspur.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 146 +++++++++++++++++++++++
+ 1 file changed, 146 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
 
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-
-Can you also send a patch to update the bindings at
-Documentation/devicetree/bindings/mfd/aspeed-lpc.txt ? I think the
-only change you need to make is to move the memory region and flash
-properties to optional (instead of required).
-
-Cheers,
-
-Joel
-
-> ---
->  drivers/misc/aspeed-lpc-ctrl.c | 58 +++++++++++++++++++++-------------
->  1 file changed, 36 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-ctrl.c
-> index a024f8042259..332210e06e98 100644
-> --- a/drivers/misc/aspeed-lpc-ctrl.c
-> +++ b/drivers/misc/aspeed-lpc-ctrl.c
-> @@ -68,6 +68,7 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
->                 unsigned long param)
->  {
->         struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
-> +       struct device *dev = file->private_data;
->         void __user *p = (void __user *)param;
->         struct aspeed_lpc_ctrl_mapping map;
->         u32 addr;
-> @@ -90,6 +91,12 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
->                 if (map.window_id != 0)
->                         return -EINVAL;
->
-> +               /* If memory-region is not described in device tree */
-> +               if (!lpc_ctrl->mem_size) {
-> +                       dev_err(dev, "Didn't find reserved memory\n");
-> +                       return -EINVAL;
-> +               }
-> +
->                 map.size = lpc_ctrl->mem_size;
->
->                 return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
-> @@ -126,9 +133,18 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
->                         return -EINVAL;
->
->                 if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH) {
-> +                       if (!lpc_ctrl->pnor_size) {
-> +                               dev_err(dev, "Didn't find host pnor flash\n");
-> +                               return -EINVAL;
-> +                       }
->                         addr = lpc_ctrl->pnor_base;
->                         size = lpc_ctrl->pnor_size;
->                 } else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
-> +                       /* If memory-region is not described in device tree */
-> +                       if (!lpc_ctrl->mem_size) {
-> +                               dev_err(dev, "Didn't find reserved memory\n");
-> +                               return -EINVAL;
-> +                       }
->                         addr = lpc_ctrl->mem_base;
->                         size = lpc_ctrl->mem_size;
->                 } else {
-> @@ -196,17 +212,17 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
->         if (!lpc_ctrl)
->                 return -ENOMEM;
->
-> +       /* If flash is described in device tree then store */
->         node = of_parse_phandle(dev->of_node, "flash", 0);
->         if (!node) {
-> -               dev_err(dev, "Didn't find host pnor flash node\n");
-> -               return -ENODEV;
-> -       }
-> -
-> -       rc = of_address_to_resource(node, 1, &resm);
-> -       of_node_put(node);
-> -       if (rc) {
-> -               dev_err(dev, "Couldn't address to resource for flash\n");
-> -               return rc;
-> +               dev_dbg(dev, "Didn't find host pnor flash node\n");
-> +       } else {
-> +               rc = of_address_to_resource(node, 1, &resm);
-> +               of_node_put(node);
-> +               if (rc) {
-> +                       dev_err(dev, "Couldn't address to resource for flash\n");
-> +                       return rc;
-> +               }
->         }
->
->         lpc_ctrl->pnor_size = resource_size(&resm);
-> @@ -214,22 +230,22 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
->
->         dev_set_drvdata(&pdev->dev, lpc_ctrl);
->
-> +       /* If memory-region is described in device tree then store */
->         node = of_parse_phandle(dev->of_node, "memory-region", 0);
->         if (!node) {
-> -               dev_err(dev, "Didn't find reserved memory\n");
-> -               return -EINVAL;
-> -       }
-> +               dev_dbg(dev, "Didn't find reserved memory\n");
-> +       } else {
-> +               rc = of_address_to_resource(node, 0, &resm);
-> +               of_node_put(node);
-> +               if (rc) {
-> +                       dev_err(dev, "Couldn't address to resource for reserved memory\n");
-> +                       return -ENOMEM;
-> +               }
->
-> -       rc = of_address_to_resource(node, 0, &resm);
-> -       of_node_put(node);
-> -       if (rc) {
-> -               dev_err(dev, "Couldn't address to resource for reserved memory\n");
-> -               return -ENOMEM;
-> +               lpc_ctrl->mem_size = resource_size(&resm);
-> +               lpc_ctrl->mem_base = resm.start;
->         }
->
-> -       lpc_ctrl->mem_size = resource_size(&resm);
-> -       lpc_ctrl->mem_base = resm.start;
-> -
->         lpc_ctrl->regmap = syscon_node_to_regmap(
->                         pdev->dev.parent->of_node);
->         if (IS_ERR(lpc_ctrl->regmap)) {
-> @@ -258,8 +274,6 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
->                 goto err;
->         }
->
-> -       dev_info(dev, "Loaded at %pr\n", &resm);
-> -
->         return 0;
->
->  err:
-> --
-> 2.17.1
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
+new file mode 100644
+index 0000000..064ae30
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
+@@ -0,0 +1,146 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Inspur Corporation
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "ON5263M5 BMC";
++	compatible = "inspur,on5263m5-bmc", "aspeed,ast2500";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "earlyprintk";
++	};
++
++	memory {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@9f000000 {
++			no-map;
++			reg = <0x9f000000 0x01000000>;
++		};
++	};
++	
++	leds {
++	    compatible = "gpio-leds";
++	    
++	    bmc_alive {
++	        label = "bmc_alive";
++		gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
++		linux,default-trigger = "timer";
++	    };
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&i2c6 {
++	status = "okay";
++
++	tmp421@4e {
++	        compatible = "ti,tmp421";
++		reg = <0x4e>;
++	};
++
++	tmp112@48 {
++		compatible = "ti,tmp112";
++		reg = <0x48>;
++	};
++	
++	eeprom@54 {
++		compatible = "atmel,24c64";
++    		reg = <0x54>; 
++		pagesize = <32>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	adm1278@11 {
++		  compatible = "adi,adm1278";
++		  reg = <0x11>;
++	};
++};
++
++&gfx {
++	status = "okay";
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++
++	fan@0 {
++   		reg = <0x00>;
++   		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;  
++ 	};
++
++ 	fan@1 {
++   		reg = <0x01>;
++   		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
++ 	};
++};
++
++&adc {
++	status = "okay";
++};
+-- 
+2.7.4
