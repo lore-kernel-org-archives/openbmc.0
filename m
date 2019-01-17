@@ -1,49 +1,56 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <osk@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=184.105.206.84; helo=smtpproxy19.qq.com;
- envelope-from=1450335857@qq.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::529; helo=mail-ed1-x529.google.com;
+ envelope-from=osk@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="Q490Jbt8"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JIvqqMjh"; 
  dkim-atps=neutral
-Received: from smtpproxy19.qq.com (smtpproxy19.qq.com [184.105.206.84])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com
+ [IPv6:2a00:1450:4864:20::529])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43g7Jt2YzFzDqQ3
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 13:27:41 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1547692051; bh=6erit9WTDWKiYg3MzeMlRgY0B965mY4+PlhC/rIiNuY=;
- h=From:To:Cc:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=Q490Jbt89nQmjh1I8i76bc56jnwtINnM6iv4Rp7RRko2ZXdPKEIkl48hx91CctH51
- VfQ/DET0JM1Hj5/F0MkPlT4K2m+0ZYP+Mjraq6E/3o15mCM4MPKp1k+wkVlXwWxXTI
- EMkUyrQVRERl/MYRMzsEFabG/aZqPCHf96yRh/lE=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1547692050t808469
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?T3NrYXIgU2VuZnQ=?=" <osk@google.com>
-Cc: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43g7gn5w5yzDqg9
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 13:44:05 +1100 (AEDT)
+Received: by mail-ed1-x529.google.com with SMTP id y56so7107500edd.11
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Jan 2019 18:44:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=70PmUCzfxpPq5XlH9xsQtOZafbt0bfTR2JoASLkxiY4=;
+ b=JIvqqMjhlbIU7eOLON6j+JwcWEjmenc0/a2/nr/Cvk4S/Xx7IjVShWc/MYKgAnaj7G
+ 1DVyUyv8T52G23JyNDyK/HDMznwjEZkCXItMI7RblxfdMNH2hGoWp6xx9fw8iNjYvVe5
+ tLz+rM58WiBH6T8vIZ6n1CPVT7+2tQenFqjWaF75BM0QNSp1ZnY0ZoJF+CXSdUsTUPHz
+ xBGx3REKyFWuDb5Q6RUIputUynuPG51jz1NsiFjmkGIY8w+mUX8MfI4zHpUZFq+qWU9/
+ BjFdw5+0U5Bn00/iQPb06dzA8WFgS10C/T9mhFcTdxB+sh9OlnAp/zsCsy1myBgrkcDV
+ tPGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=70PmUCzfxpPq5XlH9xsQtOZafbt0bfTR2JoASLkxiY4=;
+ b=cHwzUTqfdNVFGqMh7X/JKwcbAC2NSzF9GEL/iIUoXA1GMKUkrAGv13SDnm79QmhhMA
+ mZV0yU86svu/Wb+wO/5GyONaCbUwfH5l/5WwbnretBR10UXqr6Ke9RIesJkmuPsElQVB
+ FKtCHZvY7ojb1VagHXFGRGpCKl/11I8a71cRaNlRFyJJibBICdyZINgaHSv9xF3HfX6T
+ COdrj6h7EvSc3CDi97n/ouT5/IrRSo5/zPWsbRcUpfjaquu7Eh6V7QiY4q9nZZ6P6csW
+ BwiWaQnBgI7ZxtgbcR2Etq7EMRsDSyYgdO+Pd1+xzmhLyy55f0jV20Pin3XRmUOTFY3A
+ 8ZMw==
+X-Gm-Message-State: AJcUuke4rkzC2/kbHdVwACwh8mu21wfq4qPuGwJcpfbRZA7IgH40sIPe
+ Wrm65vzmBLaz4Ps2LEap3DIOYGqLrKGH9lUA41lwLw==
+X-Google-Smtp-Source: ALg8bN4T0mLkUgjpesR35JVA6KdMnf94nqN+r9/lqD0FUSydi28EwnYb6fXHjNlGMxAifIyiDZUDOHu7NKmmYQ//fw0=
+X-Received: by 2002:a50:d797:: with SMTP id w23mr10122016edi.19.1547693041739; 
+ Wed, 16 Jan 2019 18:44:01 -0800 (PST)
+MIME-Version: 1.0
+References: <tencent_733318C72C90AEE322AE1889@qq.com>
+In-Reply-To: <tencent_733318C72C90AEE322AE1889@qq.com>
+From: Oskar Senft <osk@google.com>
+Date: Wed, 16 Jan 2019 21:43:48 -0500
+Message-ID: <CABoTLcQFSzTVo8ACNxjhQ+t20e7LDBOO4iWwM1Vsuyf1imjEbw@mail.gmail.com>
 Subject: Re: Re: Why can't /dev/ipmi0 on host be created stably
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5C3FE812_0AC76528_25BC7BAB"
-Content-Transfer-Encoding: 8Bit
-Date: Thu, 17 Jan 2019 10:27:30 +0800
-X-Priority: 3
-Message-ID: <tencent_733318C72C90AEE322AE1889@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Thu, 17 Jan 2019 10:27:30 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgforeign:bgforeign2
-X-QQ-Bgrelay: 1
+To: xiuzhi <1450335857@qq.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000fa0e06057f9e5de0"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,151 +62,179 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 02:27:45 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 02:44:07 -0000
 
-This is a multi-part message in MIME format.
+--000000000000fa0e06057f9e5de0
+Content-Type: text/plain; charset="UTF-8"
 
-------=_NextPart_5C3FE812_0AC76528_25BC7BAB
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+Hi
 
-SGkgT3NrYXIsDQogICBJIGFza2VkIHRoZSBCSU9TIGRldmVsb3BlciwgaGUgc2FpZCB0aGUg
-QklPUyByZWFkIHRoZSBpbyBDQTMgZmlyc3RseSwgaWYgaXQgaXMgbm90IDB4MDAsIHRoZSBC
-SU9TIHdpbGwgdGhpbmsgdGhlIGlwbWkgZG9lc24ndCBleGlzdC4NCiAgSSBpbnB1dCB0aGUg
-Y29tbWFuZCAiIG1tIC1pbyBDQTMiIGluIEJJT1MsIGl0IHJldHVybiB0aGUgMHgwNCBldmVy
-eSB0aW1lcywgc28gaXQncyBwb2ludGxlc3MgZm9yIEJJT1MgdG8gd2FpdCB0aGUgQk1DIGFu
-c3dlci4NCiAgSSB1c2VyIGlwbWkta2NzIG1vZGUuDQoNCg0KQmVzdCwNCnhpdXpoaQ0KSGkg
-T3NrYXIsDQogICBJIHVzZSBvcGVuc291cmNlIFVFRkkgQklPUyBhbmQgQU1JIEJJT1MgdG8g
-dGVzdC4gSSBhbSBhYmxlIHRvIG1vZGlmeSB0aGUgY29kZSBvZiBVRUZJIEJJT1MuIA0KICAg
-SG93IHNob3VsZCBJIGNoYW5nZSB0aGUgQklPUyBjb2RlIHRvIGVuc3VyZSB0aGUgc3luY2hy
-b25pemF0aW9uIGJldHdlZW4gdGhlIHR3byBzaWRlcyBzbyB0aGF0IEkgY2FuIHRlbGwgbXkg
-QklPUyB0ZWFtIHRvIG1vZGlmeSBpdD8gIA0KDQoNCkJlc3QsDQp4aXV6aGkgICANCg0KDQoN
-Cg0KLS0tLS0tLS0tLS0tLS0tLS0tIE9yaWdpbmFsIC0tLS0tLS0tLS0tLS0tLS0tLQ0KRnJv
-bTogICJPc2thciBTZW5mdCI7PG9za0Bnb29nbGUuY29tPjsNClNlbmQgdGltZTogV2VkbmVz
-ZGF5LCBKYW4gMTYsIDIwMTkgMTA6MTAgUE0NClRvOiAieGl1emhpIjwxNDUwMzM1ODU3QHFx
-LmNvbT47IA0KQ2M6ICJvcGVuYm1jIjxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyANClN1
-YmplY3Q6ICBSZTogV2h5IGNhbid0IC9kZXYvaXBtaTAgb24gaG9zdCBiZSBjcmVhdGVkIHN0
-YWJseQ0KDQoNCg0KSGkgWGl1emhpDQoNClRoZSBmb2xsb3dpbmcgb2JzZXJ2YXRpb24gbWF5
-IG9yIG1heSBub3QgYmUgcmVsYXRlZCB0byB5b3VyIHByb2JsZW06DQoNCg0KV2UncmUgdXNp
-bmcgQU1JIEJJT1Mgd2l0aCBPcGVuQk1DIHVzaW5nIHRoZSBJUE1JIEJUIG1vZGUuIEkgZm91
-bmQgdGhhdCBpbiBjZXJ0YWluIGNhc2VzIHRoZSBob3N0IGFuZCBCTUMgY2FuIGdldCAib3V0
-IG9mIHN5bmMiIHdydC4gd2hhdCB0aGUgQk1DIHB1dCBpbiB0aGUgbWVzc2FnZSBxdWV1ZSBh
-bmQgd2hhdCB0aGUgQklPUyBleHBlY3RzLiBUaGUgcHJvYmxlbSBjYW4gYmUgY2F1c2VkIGJ5
-IHRoZSBCTUMgcmVzcG9uZGluZyAic2xvd2x5IiB0byBhbiBJUE1JIHJlcXVlc3QgZnJvbSB0
-aGUgQklPUyB3aGVyZSB0aGUgQklPUyB0aW1lcyBvdXQgYmVmb3JlIHRoZSBCTUMgcmVzcG9u
-ZHMuIFRoZSBCTUMgdGhlbiByZXNwb25kcyBiZWZvcmUgdGhlIEJJT1MgaXNzdWVzIHRoZSBu
-ZXh0IHJlcXVlc3QsIHdoaWNoIGNhdXNlcyB0aGUgQklPUyB0byByZWFkIHRoZSBwcmV2aW91
-cyByZXNwb25zZSBhcyB0aGUgcmVzcG9uc2UgZm9yIHRoZSBsYXRlc3QgcmVxdWVzdC4NCg0K
-DQpUaGlzIGhhcyByZXN1bHRlZCBpbiBhbGwgc29ydHMgb2Ygd2VpcmQgYmVoYXZpb3IgZm9y
-IHVzLCBpbmNsLiB0aGUgQklPUyBub3QgImRldGVjdGluZyIgdGhlIEJNQyBhbmQgdGhlcmVm
-b3JlIG5vdCBleHBvc2luZyBpdCBpbiB0aGUgU01CSU9TIHRhYmxlcywgd2hpY2ggLSBpbiBv
-dXIgY2FzZSAtIGlzIHRoZSBjb25maWd1cmF0aW9uIHNvdXJjZSBmb3IgdGhlIExpbnV4IElQ
-TUkgZHJpdmVyLg0KDQoNCkkgaG9wZSB0aGlzIGhlbHBzPw0KDQoNCldoYXQgQklPUyBhcmUg
-eW91IHVzaW5nPyBBcmUgeW91IGFibGUgdG8gbWFrZSBjaGFuZ2VzIHRvIHRoZSBCSU9TIGNv
-ZGU/DQoNCg0KT3NrYXIuDQoNCg0KT24gVHVlLCBKYW4gMTUsIDIwMTkgYXQgOTozMyBQTSB4
-aXV6aGkgPDE0NTAzMzU4NTdAcXEuY29tPiB3cm90ZToNCg0KSGkgQWxsLA0KICAgSSBhbSB0
-ZXN0aW5nIHRoZSBibWMgaXBtaS1rY3MgcmVsaWFiaWxpdHkuDQogICBUaGUgL2Rldi9pcG1p
-MCBvbiBob3N0IHdpbGwgbm90ICBiZSBhdmFpbGFibGUgIGluIHNldmVyYWwgY29uc2VjdXRp
-dmUgYm1jIHJlYm9vdCB0ZXN0LiAgVGhlIENBMyB2YWx1ZSBpcyAweDA0IHdoaWNoIGNhbiBi
-ZSBnb3QgYnkgdGhlIGNvbW1hbmQgIm1tIC1pbyBjYTMiIG9uIGhvc3QgYmlvcyBzaGVsbCB3
-aGVuIGZhaWxpbmcgdG8gY3JlYXRlIHRoZSBpcG1pMCAgLg0KVGhlIENBMyB2YWx1ZSAweDA0
-IG1lYW5zIHRoYXQgU01TX0FUTiBpcyBzZXQgdG8gMSwgd2hpY2ggbWVhczoNCiJTZXQgdG8g
-MSB3aGVuIHRoZSBCTUMgaGFzIG9uZSBvciBtb3JlIG1lc3NhZ2VzIGluIHRoZSBSZWNlaXZl
-IE1lc3NhZ2UgUXVldWUsIG9yIHdoZW4gYSB3YXRjaGRvZyB0aW1lciBwcmUtdGltZW91dCwg
-b3IgZXZlbnQgbWVzc2FnZSBidWZmZXIgZnVsbCBjb25kaXRpb24gZXhpc3RzIFsyXSAuIE9F
-TXMgbWF5IGFsc28gZWxlY3QgdG8gc2V0IHRoaXMgZmxhZyBpcyBvbmUgb2YgdGhlIE9FTSAx
-LCAyLG9yIDMgZmxhZ3MgZnJvbSB0aGUgR2V0IE1lc3NhZ2UgRmxhZ3MgY29tbWFuZCBiZWNv
-bWVzIHNldC4gUi9PIFRoaXMgYml0IGlzIHJlbGF0ZWQgdG8gaW5kaWNhdGluZyB3aGVuIHRo
-ZSBCTUMgaXMgdGhlIHNvdXJjZSBvZiBhIHN5c3RlbSBpbnRlcnJ1cHQuIFJlZmVyIHRvIHNl
-Y3Rpb25zIDkuMTIsIEtDUyBDb21tdW5pY2F0aW9uIGFuZCBOb24tY29tbXVuaWNhdGlvbiAs
-IDkuMTMsIFBoeXNpY2FsIEludGVycnVwdCBMaW5lIFNoYXJpbmcsIGFuZCA5LjE0LCBBZGRp
-dGlvbmFsIFNwZWNpZmljYXRpb25zIGZvciB0aGUgS0NTIGludGVyZmFjZSBmb3IgYWRkaXRp
-b25hbCBpbmZvcm1hdGlvbiBvbiB0aGUgdXNlIGFuZCByZXF1aXJlbWVudHMgZm9yIHRoZSBT
-TVNfQVROIGJpdC4iDQoNCiBzZWUgdGhlIFRhYmxlIDktLCBLQ1MgSW50ZXJmYWNlIFN0YXR1
-cyBSZWdpc3RlciBCaXRzIGluIHNlY3Rpb24gOS43IG9mICBJbnRlbGxpZ2VudCBQbGF0Zm9y
-bSBNYW5hZ2VCbWVudCBJbnRlcmZhY2UgU3BlY2lmaWNhdGlvbiAuDQogICBXaGF0ICBjYXVz
-ZXMgdGhpcyBwcm9ibGVtPw0KIEJlc3QsDQpYaXV6aGk=
+I'm not sure what CA3 is, I'm afraid. Can you explain? Or do you have a
+reference?
 
-------=_NextPart_5C3FE812_0AC76528_25BC7BAB
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+AMI BIOS can be configured to try a number of times to talk with the BMC.
+To check whether it's just a timing issue, reboot the host once the BMC is
+up and running. I found that just the first boot right after power on
+exposed the issue. Subsequent reboots without power cycle were not fine.
 
-PGRpdj5IaSBPc2thciw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJIGFza2VkIHRoZSBCSU9T
-IGRldmVsb3BlciwgaGUgc2FpZCB0aGUgQklPUyByZWFkIHRoZSBpbyBDQTMgZmlyc3RseSwg
-aWYgaXQgaXMgbm90IDB4MDAsIHRoZSBCSU9TIHdpbGwgdGhpbmsgdGhlIGlwbWkgZG9lc24n
-dCBleGlzdC48L2Rpdj48ZGl2PiZuYnNwOyBJIGlucHV0IHRoZSBjb21tYW5kICIgbW0gLWlv
-IENBMyIgaW4gQklPUywgaXQgcmV0dXJuIHRoZSAweDA0IGV2ZXJ5IHRpbWVzLCBzbyBpdCdz
-IHBvaW50bGVzcyBmb3IgQklPUyB0byB3YWl0IHRoZSBCTUMgYW5zd2VyLjwvZGl2PjxkaXY+
-Jm5ic3A7IEkgdXNlciBpcG1pLWtjcyBtb2RlLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-QmVzdCw8L2Rpdj48ZGl2PnhpdXpoaTwvZGl2PjxkaXY+SGkgT3NrYXIsPC9kaXY+PGRpdj4m
-bmJzcDsgJm5ic3A7SSB1c2Ugb3BlbnNvdXJjZSBVRUZJIEJJT1MgYW5kIEFNSSBCSU9TIHRv
-IHRlc3QuIEkgYW0gYWJsZSB0byBtb2RpZnkgdGhlIGNvZGUgb2YgVUVGSSBCSU9TLiA8L2Rp
-dj48ZGl2PiZuYnNwOyAmbmJzcDtIb3cgc2hvdWxkIEkgY2hhbmdlIHRoZSBCSU9TIGNvZGUg
-dG8gZW5zdXJlIHRoZSBzeW5jaHJvbml6YXRpb24gYmV0d2VlbiB0aGUgdHdvIHNpZGVzIHNv
-IHRoYXQgSSBjYW4gdGVsbCBteSBCSU9TIHRlYW0gdG8gbW9kaWZ5IGl0PyZuYnNwOyA8L2Rp
-dj48ZGl2Pjxicj48L2Rpdj48ZGl2PkJlc3QsPC9kaXY+PGRpdj54aXV6aGkmbmJzcDsgJm5i
-c3A7PC9kaXY+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2IHN0eWxl
-PSJmb250LXNpemU6IDEycHg7Zm9udC1mYW1pbHk6IEFyaWFsIE5hcnJvdztwYWRkaW5nOjJw
-eCAwIDJweCAwOyI+LS0tLS0tLS0tLS0tLS0tLS0tIE9yaWdpbmFsIC0tLS0tLS0tLS0tLS0t
-LS0tLTwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJweDtiYWNrZ3JvdW5kOiNlZmVm
-ZWY7cGFkZGluZzo4cHg7Ij48ZGl2PjxiPkZyb206IDwvYj4mbmJzcDsiT3NrYXIgU2VuZnQi
-OyZsdDtvc2tAZ29vZ2xlLmNvbSZndDs7PC9kaXY+PGRpdj48Yj5TZW5kIHRpbWU6PC9iPiZu
-YnNwO1dlZG5lc2RheSwgSmFuIDE2LCAyMDE5IDEwOjEwIFBNPC9kaXY+PGRpdj48Yj5Ubzo8
-L2I+Jm5ic3A7InhpdXpoaSImbHQ7MTQ1MDMzNTg1N0BxcS5jb20mZ3Q7OyA8d2JyPjwvZGl2
-PjxkaXY+PGI+Q2M6PC9iPiZuYnNwOyJvcGVuYm1jIiZsdDtvcGVuYm1jQGxpc3RzLm96bGFi
-cy5vcmcmZ3Q7OyA8d2JyPjwvZGl2PjxkaXY+PGI+U3ViamVjdDogPC9iPiZuYnNwO1JlOiBX
-aHkgY2FuJ3QgL2Rldi9pcG1pMCBvbiBob3N0IGJlIGNyZWF0ZWQgc3RhYmx5PC9kaXY+PC9k
-aXY+PGRpdj48YnI+PC9kaXY+PGRpdiBkaXI9Imx0ciI+SGkgWGl1emhpPGRpdj48YnI+PC9k
-aXY+PGRpdj5UaGUgZm9sbG93aW5nIG9ic2VydmF0aW9uIG1heSBvciBtYXkgbm90IGJlIHJl
-bGF0ZWQgdG8geW91ciBwcm9ibGVtOjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2UncmUg
-dXNpbmcgQU1JIEJJT1Mgd2l0aCBPcGVuQk1DIHVzaW5nIHRoZSBJUE1JIEJUIG1vZGUuIEkg
-Zm91bmQgdGhhdCBpbiBjZXJ0YWluIGNhc2VzIHRoZSBob3N0IGFuZCBCTUMgY2FuIGdldCAi
-b3V0IG9mIHN5bmMiIHdydC4gd2hhdCB0aGUgQk1DIHB1dCBpbiB0aGUgbWVzc2FnZSBxdWV1
-ZSBhbmQgd2hhdCB0aGUgQklPUyBleHBlY3RzLiBUaGUgcHJvYmxlbSBjYW4gYmUgY2F1c2Vk
-IGJ5IHRoZSBCTUMgcmVzcG9uZGluZyAic2xvd2x5IiB0byBhbiBJUE1JIHJlcXVlc3QgZnJv
-bSB0aGUgQklPUyB3aGVyZSB0aGUgQklPUyB0aW1lcyBvdXQgYmVmb3JlIHRoZSBCTUMgcmVz
-cG9uZHMuIFRoZSBCTUMgdGhlbiByZXNwb25kcyBiZWZvcmUgdGhlIEJJT1MgaXNzdWVzIHRo
-ZSBuZXh0IHJlcXVlc3QsIHdoaWNoIGNhdXNlcyB0aGUgQklPUyB0byByZWFkIHRoZSBwcmV2
-aW91cyByZXNwb25zZSBhcyB0aGUgcmVzcG9uc2UgZm9yIHRoZSBsYXRlc3QgcmVxdWVzdC48
-L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoaXMgaGFzIHJlc3VsdGVkIGluIGFsbCBzb3J0
-cyBvZiB3ZWlyZCBiZWhhdmlvciBmb3IgdXMsIGluY2wuIHRoZSBCSU9TIG5vdCAiZGV0ZWN0
-aW5nIiB0aGUgQk1DIGFuZCB0aGVyZWZvcmUgbm90IGV4cG9zaW5nIGl0IGluIHRoZSBTTUJJ
-T1MgdGFibGVzLCB3aGljaCAtIGluIG91ciBjYXNlIC0gaXMgdGhlIGNvbmZpZ3VyYXRpb24g
-c291cmNlIGZvciB0aGUgTGludXggSVBNSSBkcml2ZXIuPC9kaXY+PGRpdj48YnI+PC9kaXY+
-PGRpdj5JIGhvcGUgdGhpcyBoZWxwcz88L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PldoYXQg
-QklPUyBhcmUgeW91IHVzaW5nPyBBcmUgeW91IGFibGUgdG8gbWFrZSBjaGFuZ2VzIHRvIHRo
-ZSBCSU9TIGNvZGU/PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5Pc2thci48L2Rpdj48L2Rp
-dj48YnI+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiPk9uIFR1ZSwg
-SmFuIDE1LCAyMDE5IGF0IDk6MzMgUE0geGl1emhpICZsdDs8YSBocmVmPSJtYWlsdG86MTQ1
-MDMzNTg1N0BxcS5jb20iPjE0NTAzMzU4NTdAcXEuY29tPC9hPiZndDsgd3JvdGU6PGJyPjwv
-ZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHgg
-MHB4IDBweCAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtw
-YWRkaW5nLWxlZnQ6MWV4Ij48ZGl2PkhpIEFsbCw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJ
-IGFtIHRlc3RpbmcgdGhlIGJtYyBpcG1pLWtjcyByZWxpYWJpbGl0eS48L2Rpdj48ZGl2PiZu
-YnNwOyAmbmJzcDtUaGUgL2Rldi9pcG1pMCBvbiBob3N0IHdpbGwgbm90Jm5ic3A7IGJlIGF2
-YWlsYWJsZSZuYnNwOyBpbiBzZXZlcmFsIGNvbnNlY3V0aXZlIGJtYyByZWJvb3QgdGVzdC4m
-bmJzcDsgVGhlIENBMyB2YWx1ZSBpcyAweDA0IHdoaWNoIGNhbiBiZSBnb3QgYnkgdGhlIGNv
-bW1hbmQgIm1tIC1pbyBjYTMiIG9uIGhvc3QgYmlvcyBzaGVsbCB3aGVuIGZhaWxpbmcgdG8g
-Y3JlYXRlIHRoZSBpcG1pMCZuYnNwOyAuPC9kaXY+PGRpdj5UaGUgQ0EzIHZhbHVlIDB4MDQg
-bWVhbnMgdGhhdCBTTVNfQVROIGlzIHNldCB0byAxLCB3aGljaCBtZWFzOjwvZGl2PjxkaXY+
-PGRpdj4iU2V0IHRvIDEgd2hlbiB0aGUgQk1DIGhhcyBvbmUgb3IgbW9yZSBtZXNzYWdlcyBp
-biB0aGUgUmVjZWl2ZSBNZXNzYWdlIFF1ZXVlLCBvciB3aGVuIGEgd2F0Y2hkb2cgdGltZXIg
-cHJlLXRpbWVvdXQsIG9yIGV2ZW50IG1lc3NhZ2UgYnVmZmVyIGZ1bGwgY29uZGl0aW9uIGV4
-aXN0cyBbMl0gLiBPRU1zIG1heSBhbHNvIGVsZWN0IHRvIHNldCB0aGlzIGZsYWcgaXMgb25l
-IG9mIHRoZSBPRU0gMSwgMixvciAzIGZsYWdzIGZyb20gdGhlIEdldCBNZXNzYWdlIEZsYWdz
-IGNvbW1hbmQgYmVjb21lcyBzZXQuIFIvTyBUaGlzIGJpdCBpcyByZWxhdGVkIHRvIGluZGlj
-YXRpbmcgd2hlbiB0aGUgQk1DIGlzIHRoZSBzb3VyY2Ugb2YgYSBzeXN0ZW0gaW50ZXJydXB0
-LiBSZWZlciB0byBzZWN0aW9ucyA5LjEyLCBLQ1MgQ29tbXVuaWNhdGlvbiBhbmQgTm9uLWNv
-bW11bmljYXRpb24gLCA5LjEzLCBQaHlzaWNhbCBJbnRlcnJ1cHQgTGluZSBTaGFyaW5nLCBh
-bmQgOS4xNCwgQWRkaXRpb25hbCBTcGVjaWZpY2F0aW9ucyBmb3IgdGhlIEtDUyBpbnRlcmZh
-Y2UgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gb24gdGhlIHVzZSBhbmQgcmVxdWlyZW1l
-bnRzIGZvciB0aGUgU01TX0FUTiBiaXQuIjwvZGl2PjwvZGl2PjxkaXY+Jm5ic3A7c2VlIHRo
-ZSBUYWJsZSA5LSwgS0NTIEludGVyZmFjZSBTdGF0dXMgUmVnaXN0ZXIgQml0cyBpbiBzZWN0
-aW9uIDkuNyBvZiZuYnNwOyBJbnRlbGxpZ2VudCBQbGF0Zm9ybSBNYW5hZ2VCbWVudCBJbnRl
-cmZhY2UgU3BlY2lmaWNhdGlvbiAuPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7V2hhdCZuYnNw
-OyBjYXVzZXMgdGhpcyBwcm9ibGVtPzwvZGl2PjxkaXY+Jm5ic3A7QmVzdCw8L2Rpdj48ZGl2
-PlhpdXpoaTwvZGl2PjwvYmxvY2txdW90ZT48L2Rpdj48L2Rpdj4=
+Is that the case for you, too?
 
-------=_NextPart_5C3FE812_0AC76528_25BC7BAB--
+Also, I'm not sure whether the problem I observed is even applicable to KCS.
+
+Oskar.
+
+On Wed, Jan 16, 2019, 9:27 PM xiuzhi <1450335857@qq.com wrote:
+
+> Hi Oskar,
+>    I asked the BIOS developer, he said the BIOS read the io CA3 firstly,
+> if it is not 0x00, the BIOS will think the ipmi doesn't exist.
+>   I input the command " mm -io CA3" in BIOS, it return the 0x04 every
+> times, so it's pointless for BIOS to wait the BMC answer.
+>   I user ipmi-kcs mode.
+>
+> Best,
+> xiuzhi
+> Hi Oskar,
+>    I use opensource UEFI BIOS and AMI BIOS to test. I am able to modify
+> the code of UEFI BIOS.
+>    How should I change the BIOS code to ensure the synchronization between
+> the two sides so that I can tell my BIOS team to modify it?
+>
+> Best,
+> xiuzhi
+>
+>
+> ------------------ Original ------------------
+> *From: * "Oskar Senft";<osk@google.com>;
+> *Send time:* Wednesday, Jan 16, 2019 10:10 PM
+> *To:* "xiuzhi"<1450335857@qq.com>;
+> *Cc:* "openbmc"<openbmc@lists.ozlabs.org>;
+> *Subject: * Re: Why can't /dev/ipmi0 on host be created stably
+>
+> Hi Xiuzhi
+>
+> The following observation may or may not be related to your problem:
+>
+> We're using AMI BIOS with OpenBMC using the IPMI BT mode. I found that in
+> certain cases the host and BMC can get "out of sync" wrt. what the BMC put
+> in the message queue and what the BIOS expects. The problem can be caused
+> by the BMC responding "slowly" to an IPMI request from the BIOS where the
+> BIOS times out before the BMC responds. The BMC then responds before the
+> BIOS issues the next request, which causes the BIOS to read the previous
+> response as the response for the latest request.
+>
+> This has resulted in all sorts of weird behavior for us, incl. the BIOS
+> not "detecting" the BMC and therefore not exposing it in the SMBIOS tables,
+> which - in our case - is the configuration source for the Linux IPMI driver.
+>
+> I hope this helps?
+>
+> What BIOS are you using? Are you able to make changes to the BIOS code?
+>
+> Oskar.
+>
+> On Tue, Jan 15, 2019 at 9:33 PM xiuzhi <1450335857@qq.com> wrote:
+>
+>> Hi All,
+>>    I am testing the bmc ipmi-kcs reliability.
+>>    The /dev/ipmi0 on host will not  be available  in several consecutive
+>> bmc reboot test.  The CA3 value is 0x04 which can be got by the command "mm
+>> -io ca3" on host bios shell when failing to create the ipmi0  .
+>> The CA3 value 0x04 means that SMS_ATN is set to 1, which meas:
+>> "Set to 1 when the BMC has one or more messages in the Receive Message
+>> Queue, or when a watchdog timer pre-timeout, or event message buffer full
+>> condition exists [2] . OEMs may also elect to set this flag is one of the
+>> OEM 1, 2,or 3 flags from the Get Message Flags command becomes set. R/O
+>> This bit is related to indicating when the BMC is the source of a system
+>> interrupt. Refer to sections 9.12, KCS Communication and Non-communication
+>> , 9.13, Physical Interrupt Line Sharing, and 9.14, Additional
+>> Specifications for the KCS interface for additional information on the use
+>> and requirements for the SMS_ATN bit."
+>>  see the Table 9-, KCS Interface Status Register Bits in section 9.7 of
+>> Intelligent Platform ManageBment Interface Specification .
+>>    What  causes this problem?
+>>  Best,
+>> Xiuzhi
+>>
+>
+
+--000000000000fa0e06057f9e5de0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"auto">Hi<div dir=3D"auto"><br></div><div dir=3D"auto">I&#39;m n=
+ot sure what CA3 is, I&#39;m afraid. Can you explain? Or do you have a refe=
+rence?</div><div dir=3D"auto"><br></div><div dir=3D"auto">AMI BIOS can be c=
+onfigured to try a number of times to talk with the BMC. To check whether i=
+t&#39;s just a timing issue, reboot the host once the BMC is up and running=
+. I found that just the first boot right after power on exposed the issue. =
+Subsequent reboots without power cycle were not fine.</div><div dir=3D"auto=
+"><br></div><div dir=3D"auto">Is that the case for you, too?</div><div dir=
+=3D"auto"><br></div><div dir=3D"auto">Also, I&#39;m not sure whether the pr=
+oblem I observed is even applicable to KCS.</div><div dir=3D"auto"><br></di=
+v><div dir=3D"auto">Oskar.</div></div><br><div class=3D"gmail_quote"><div d=
+ir=3D"ltr">On Wed, Jan 16, 2019, 9:27 PM xiuzhi &lt;<a href=3D"mailto:14503=
+35857@qq.com">1450335857@qq.com</a> wrote:<br></div><blockquote class=3D"gm=
+ail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-le=
+ft:1ex"><div>Hi Oskar,</div><div>=C2=A0 =C2=A0I asked the BIOS developer, h=
+e said the BIOS read the io CA3 firstly, if it is not 0x00, the BIOS will t=
+hink the ipmi doesn&#39;t exist.</div><div>=C2=A0 I input the command &quot=
+; mm -io CA3&quot; in BIOS, it return the 0x04 every times, so it&#39;s poi=
+ntless for BIOS to wait the BMC answer.</div><div>=C2=A0 I user ipmi-kcs mo=
+de.</div><div><br></div><div>Best,</div><div>xiuzhi</div><div>Hi Oskar,</di=
+v><div>=C2=A0 =C2=A0I use opensource UEFI BIOS and AMI BIOS to test. I am a=
+ble to modify the code of UEFI BIOS. </div><div>=C2=A0 =C2=A0How should I c=
+hange the BIOS code to ensure the synchronization between the two sides so =
+that I can tell my BIOS team to modify it?=C2=A0 </div><div><br></div><div>=
+Best,</div><div>xiuzhi=C2=A0 =C2=A0</div><div><div><br></div><div><br></div=
+><div style=3D"font-size:12px;font-family:Arial Narrow;padding:2px 0 2px 0"=
+>------------------ Original ------------------</div><div style=3D"font-siz=
+e:12px;background:#efefef;padding:8px"><div><b>From: </b>=C2=A0&quot;Oskar =
+Senft&quot;;&lt;<a href=3D"mailto:osk@google.com" target=3D"_blank" rel=3D"=
+noreferrer">osk@google.com</a>&gt;;</div><div><b>Send time:</b>=C2=A0Wednes=
+day, Jan 16, 2019 10:10 PM</div><div><b>To:</b>=C2=A0&quot;xiuzhi&quot;&lt;=
+<a href=3D"mailto:1450335857@qq.com" target=3D"_blank" rel=3D"noreferrer">1=
+450335857@qq.com</a>&gt;; </div><div><b>Cc:</b>=C2=A0&quot;openbmc&quot;&lt=
+;<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank" rel=3D"noref=
+errer">openbmc@lists.ozlabs.org</a>&gt;; </div><div><b>Subject: </b>=C2=A0R=
+e: Why can&#39;t /dev/ipmi0 on host be created stably</div></div><div><br><=
+/div><div dir=3D"ltr">Hi Xiuzhi<div><br></div><div>The following observatio=
+n may or may not be related to your problem:</div><div><br></div><div>We&#3=
+9;re using AMI BIOS with OpenBMC using the IPMI BT mode. I found that in ce=
+rtain cases the host and BMC can get &quot;out of sync&quot; wrt. what the =
+BMC put in the message queue and what the BIOS expects. The problem can be =
+caused by the BMC responding &quot;slowly&quot; to an IPMI request from the=
+ BIOS where the BIOS times out before the BMC responds. The BMC then respon=
+ds before the BIOS issues the next request, which causes the BIOS to read t=
+he previous response as the response for the latest request.</div><div><br>=
+</div><div>This has resulted in all sorts of weird behavior for us, incl. t=
+he BIOS not &quot;detecting&quot; the BMC and therefore not exposing it in =
+the SMBIOS tables, which - in our case - is the configuration source for th=
+e Linux IPMI driver.</div><div><br></div><div>I hope this helps?</div><div>=
+<br></div><div>What BIOS are you using? Are you able to make changes to the=
+ BIOS code?</div><div><br></div><div>Oskar.</div></div><br><div class=3D"gm=
+ail_quote"><div dir=3D"ltr">On Tue, Jan 15, 2019 at 9:33 PM xiuzhi &lt;<a h=
+ref=3D"mailto:1450335857@qq.com" target=3D"_blank" rel=3D"noreferrer">14503=
+35857@qq.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex"><div>Hi All,</div><div>=C2=A0 =C2=A0I am testing the bmc ipmi-k=
+cs reliability.</div><div>=C2=A0 =C2=A0The /dev/ipmi0 on host will not=C2=
+=A0 be available=C2=A0 in several consecutive bmc reboot test.=C2=A0 The CA=
+3 value is 0x04 which can be got by the command &quot;mm -io ca3&quot; on h=
+ost bios shell when failing to create the ipmi0=C2=A0 .</div><div>The CA3 v=
+alue 0x04 means that SMS_ATN is set to 1, which meas:</div><div><div>&quot;=
+Set to 1 when the BMC has one or more messages in the Receive Message Queue=
+, or when a watchdog timer pre-timeout, or event message buffer full condit=
+ion exists [2] . OEMs may also elect to set this flag is one of the OEM 1, =
+2,or 3 flags from the Get Message Flags command becomes set. R/O This bit i=
+s related to indicating when the BMC is the source of a system interrupt. R=
+efer to sections 9.12, KCS Communication and Non-communication , 9.13, Phys=
+ical Interrupt Line Sharing, and 9.14, Additional Specifications for the KC=
+S interface for additional information on the use and requirements for the =
+SMS_ATN bit.&quot;</div></div><div>=C2=A0see the Table 9-, KCS Interface St=
+atus Register Bits in section 9.7 of=C2=A0 Intelligent Platform ManageBment=
+ Interface Specification .</div><div>=C2=A0 =C2=A0What=C2=A0 causes this pr=
+oblem?</div><div>=C2=A0Best,</div><div>Xiuzhi</div></blockquote></div></div=
+></blockquote></div>
+
+--000000000000fa0e06057f9e5de0--
