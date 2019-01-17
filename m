@@ -1,72 +1,49 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=184.105.206.84; helo=smtpproxy19.qq.com;
+ envelope-from=1450335857@qq.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="h8AR7/FT"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="cH+Tw8I9"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="Q490Jbt8"; 
+ dkim-atps=neutral
+Received: from smtpproxy19.qq.com (smtpproxy19.qq.com [184.105.206.84])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43g6yD1KJPzDqkP
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 13:11:31 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 52BD223A36;
- Wed, 16 Jan 2019 21:11:29 -0500 (EST)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Wed, 16 Jan 2019 21:11:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:references:subject:date:in-reply-to; s=fm1; bh=ptp
- QO35GSHDbg7RhQFb8WU9CR6o99d1nUVwzm1nd1iU=; b=h8AR7/FTRjXMXK6RQeq
- /G4w98/5uwpuIA16tl0l4UoKIyVsdePdQOcnNC+Spt8HWrRQLNEwyj2t1YqNkAoN
- VfH741K38N5OgEXyWPaUlEcM6k6EI5WATvoOOki0a+6Q8CMMU2c7KIRO8KueKE1W
- Ezy7AaPzhFVxWCGdoMU19P6Uze0CTH12obFkJKZOLH+VFJEIfwQ670qR4qIBnPtI
- DvQTvzwF8ZiwXGncTqd7pBgwKvlRy0AumZju2cOAxOw055NPWp7n21h35mtwmh+5
- NyWnRcMGgRsR8oP0ub+1v92BcHEolX5P5LlINr67oOXES33vzFuH6OwLt5WWUjGD
- fUQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=ptpQO35GSHDbg7RhQFb8WU9CR6o99d1nUVwzm1nd1
- iU=; b=cH+Tw8I9PE8q2kxQhrxNg+BLJVN93Se/fLapTYH0bUbeXrJtnnuivXSeE
- aBM4V4C/2nq+/+MlJHBLzo7LjCRwKOuO3pXPgbGC+8o0bgK5d2VygqN1s0tJNPiE
- uOMSXBj3EODCuIyXS4LKVACcK/NAEhUXJ+sla2oS9SChSQFIwALxt2jj+i7hwOO/
- m2cGXtincp4qE8/hOqd/TlViqytQAazsM/HsOkKNck3OAoLe1EN/JE7WvLhshxzk
- Fkm1kUPjGsiEGQ+QWVOGxXx/Hl9ni22pE1TazQ3zzJ5FsGEMDhe8wLDskCRyQe0C
- ihIPM9YQQQ6eVVO1wnjMI7Yg9weeA==
-X-ME-Sender: <xms:T-Q_XFYw4bLdGd308kHGoeL2UwnUOQ2zxbm8qCpZPScjEmr_ue90Vw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeeigdegfecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- hfufffjgesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
- rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
- gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:T-Q_XPkodJyfKH-Kh6dkj6oBzgoL_w8J859qQq3VATEkRL63A4wzrA>
- <xmx:T-Q_XEFEKylD6UFcGIQKliru7LkkicTy_O6a11ElsBXIIxiuqGWqkA>
- <xmx:T-Q_XOF5cjN1GEZerhOIgITwpOpaXDHmvuXd_cOsxeIOzwO52G0Kbg>
- <xmx:UeQ_XDrd2Ys1rwuZ-iADVabujEsrpheJAXHnyyb3rBZt1catJCe8gw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 4D2C84140; Wed, 16 Jan 2019 21:11:27 -0500 (EST)
-Message-Id: <1547691087.1635443.1636715576.07EA9674@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: John Wang <wangzqbj@inspur.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
-References: <1545373529-22629-1-git-send-email-wangzqbj@inspur.com>
-Subject: Re: [PATCH] ARM:dts:aspeed Add Inspur on5263m5 BMC
-Date: Thu, 17 Jan 2019 12:41:27 +1030
-In-Reply-To: <1545373529-22629-1-git-send-email-wangzqbj@inspur.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43g7Jt2YzFzDqQ3
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 13:27:41 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1547692051; bh=6erit9WTDWKiYg3MzeMlRgY0B965mY4+PlhC/rIiNuY=;
+ h=From:To:Cc:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=Q490Jbt89nQmjh1I8i76bc56jnwtINnM6iv4Rp7RRko2ZXdPKEIkl48hx91CctH51
+ VfQ/DET0JM1Hj5/F0MkPlT4K2m+0ZYP+Mjraq6E/3o15mCM4MPKp1k+wkVlXwWxXTI
+ EMkUyrQVRERl/MYRMzsEFabG/aZqPCHf96yRh/lE=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1547692050t808469
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?T3NrYXIgU2VuZnQ=?=" <osk@google.com>
+Cc: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
+Subject: Re: Re: Why can't /dev/ipmi0 on host be created stably
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5C3FE812_0AC76528_25BC7BAB"
+Content-Transfer-Encoding: 8Bit
+Date: Thu, 17 Jan 2019 10:27:30 +0800
+X-Priority: 3
+Message-ID: <tencent_733318C72C90AEE322AE1889@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Thu, 17 Jan 2019 10:27:30 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign2
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,184 +55,151 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 02:11:35 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 02:27:45 -0000
 
-Hi John,
+This is a multi-part message in MIME format.
 
-On Fri, 21 Dec 2018, at 16:55, John Wang wrote:
-> Add initial version of device tree file for on5263m5 ast2500bmc
-> 
-> Signed-off-by: John Wang <wangzqbj@inspur.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 146 +++++++++++++++++++++++
->  1 file changed, 146 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/
-> arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> new file mode 100644
-> index 0000000..dff1085
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> @@ -0,0 +1,146 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2017 Intel Corporation
+------=_NextPart_5C3FE812_0AC76528_25BC7BAB
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-Shouldn't this be Inspur?
+SGkgT3NrYXIsDQogICBJIGFza2VkIHRoZSBCSU9TIGRldmVsb3BlciwgaGUgc2FpZCB0aGUg
+QklPUyByZWFkIHRoZSBpbyBDQTMgZmlyc3RseSwgaWYgaXQgaXMgbm90IDB4MDAsIHRoZSBC
+SU9TIHdpbGwgdGhpbmsgdGhlIGlwbWkgZG9lc24ndCBleGlzdC4NCiAgSSBpbnB1dCB0aGUg
+Y29tbWFuZCAiIG1tIC1pbyBDQTMiIGluIEJJT1MsIGl0IHJldHVybiB0aGUgMHgwNCBldmVy
+eSB0aW1lcywgc28gaXQncyBwb2ludGxlc3MgZm9yIEJJT1MgdG8gd2FpdCB0aGUgQk1DIGFu
+c3dlci4NCiAgSSB1c2VyIGlwbWkta2NzIG1vZGUuDQoNCg0KQmVzdCwNCnhpdXpoaQ0KSGkg
+T3NrYXIsDQogICBJIHVzZSBvcGVuc291cmNlIFVFRkkgQklPUyBhbmQgQU1JIEJJT1MgdG8g
+dGVzdC4gSSBhbSBhYmxlIHRvIG1vZGlmeSB0aGUgY29kZSBvZiBVRUZJIEJJT1MuIA0KICAg
+SG93IHNob3VsZCBJIGNoYW5nZSB0aGUgQklPUyBjb2RlIHRvIGVuc3VyZSB0aGUgc3luY2hy
+b25pemF0aW9uIGJldHdlZW4gdGhlIHR3byBzaWRlcyBzbyB0aGF0IEkgY2FuIHRlbGwgbXkg
+QklPUyB0ZWFtIHRvIG1vZGlmeSBpdD8gIA0KDQoNCkJlc3QsDQp4aXV6aGkgICANCg0KDQoN
+Cg0KLS0tLS0tLS0tLS0tLS0tLS0tIE9yaWdpbmFsIC0tLS0tLS0tLS0tLS0tLS0tLQ0KRnJv
+bTogICJPc2thciBTZW5mdCI7PG9za0Bnb29nbGUuY29tPjsNClNlbmQgdGltZTogV2VkbmVz
+ZGF5LCBKYW4gMTYsIDIwMTkgMTA6MTAgUE0NClRvOiAieGl1emhpIjwxNDUwMzM1ODU3QHFx
+LmNvbT47IA0KQ2M6ICJvcGVuYm1jIjxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyANClN1
+YmplY3Q6ICBSZTogV2h5IGNhbid0IC9kZXYvaXBtaTAgb24gaG9zdCBiZSBjcmVhdGVkIHN0
+YWJseQ0KDQoNCg0KSGkgWGl1emhpDQoNClRoZSBmb2xsb3dpbmcgb2JzZXJ2YXRpb24gbWF5
+IG9yIG1heSBub3QgYmUgcmVsYXRlZCB0byB5b3VyIHByb2JsZW06DQoNCg0KV2UncmUgdXNp
+bmcgQU1JIEJJT1Mgd2l0aCBPcGVuQk1DIHVzaW5nIHRoZSBJUE1JIEJUIG1vZGUuIEkgZm91
+bmQgdGhhdCBpbiBjZXJ0YWluIGNhc2VzIHRoZSBob3N0IGFuZCBCTUMgY2FuIGdldCAib3V0
+IG9mIHN5bmMiIHdydC4gd2hhdCB0aGUgQk1DIHB1dCBpbiB0aGUgbWVzc2FnZSBxdWV1ZSBh
+bmQgd2hhdCB0aGUgQklPUyBleHBlY3RzLiBUaGUgcHJvYmxlbSBjYW4gYmUgY2F1c2VkIGJ5
+IHRoZSBCTUMgcmVzcG9uZGluZyAic2xvd2x5IiB0byBhbiBJUE1JIHJlcXVlc3QgZnJvbSB0
+aGUgQklPUyB3aGVyZSB0aGUgQklPUyB0aW1lcyBvdXQgYmVmb3JlIHRoZSBCTUMgcmVzcG9u
+ZHMuIFRoZSBCTUMgdGhlbiByZXNwb25kcyBiZWZvcmUgdGhlIEJJT1MgaXNzdWVzIHRoZSBu
+ZXh0IHJlcXVlc3QsIHdoaWNoIGNhdXNlcyB0aGUgQklPUyB0byByZWFkIHRoZSBwcmV2aW91
+cyByZXNwb25zZSBhcyB0aGUgcmVzcG9uc2UgZm9yIHRoZSBsYXRlc3QgcmVxdWVzdC4NCg0K
+DQpUaGlzIGhhcyByZXN1bHRlZCBpbiBhbGwgc29ydHMgb2Ygd2VpcmQgYmVoYXZpb3IgZm9y
+IHVzLCBpbmNsLiB0aGUgQklPUyBub3QgImRldGVjdGluZyIgdGhlIEJNQyBhbmQgdGhlcmVm
+b3JlIG5vdCBleHBvc2luZyBpdCBpbiB0aGUgU01CSU9TIHRhYmxlcywgd2hpY2ggLSBpbiBv
+dXIgY2FzZSAtIGlzIHRoZSBjb25maWd1cmF0aW9uIHNvdXJjZSBmb3IgdGhlIExpbnV4IElQ
+TUkgZHJpdmVyLg0KDQoNCkkgaG9wZSB0aGlzIGhlbHBzPw0KDQoNCldoYXQgQklPUyBhcmUg
+eW91IHVzaW5nPyBBcmUgeW91IGFibGUgdG8gbWFrZSBjaGFuZ2VzIHRvIHRoZSBCSU9TIGNv
+ZGU/DQoNCg0KT3NrYXIuDQoNCg0KT24gVHVlLCBKYW4gMTUsIDIwMTkgYXQgOTozMyBQTSB4
+aXV6aGkgPDE0NTAzMzU4NTdAcXEuY29tPiB3cm90ZToNCg0KSGkgQWxsLA0KICAgSSBhbSB0
+ZXN0aW5nIHRoZSBibWMgaXBtaS1rY3MgcmVsaWFiaWxpdHkuDQogICBUaGUgL2Rldi9pcG1p
+MCBvbiBob3N0IHdpbGwgbm90ICBiZSBhdmFpbGFibGUgIGluIHNldmVyYWwgY29uc2VjdXRp
+dmUgYm1jIHJlYm9vdCB0ZXN0LiAgVGhlIENBMyB2YWx1ZSBpcyAweDA0IHdoaWNoIGNhbiBi
+ZSBnb3QgYnkgdGhlIGNvbW1hbmQgIm1tIC1pbyBjYTMiIG9uIGhvc3QgYmlvcyBzaGVsbCB3
+aGVuIGZhaWxpbmcgdG8gY3JlYXRlIHRoZSBpcG1pMCAgLg0KVGhlIENBMyB2YWx1ZSAweDA0
+IG1lYW5zIHRoYXQgU01TX0FUTiBpcyBzZXQgdG8gMSwgd2hpY2ggbWVhczoNCiJTZXQgdG8g
+MSB3aGVuIHRoZSBCTUMgaGFzIG9uZSBvciBtb3JlIG1lc3NhZ2VzIGluIHRoZSBSZWNlaXZl
+IE1lc3NhZ2UgUXVldWUsIG9yIHdoZW4gYSB3YXRjaGRvZyB0aW1lciBwcmUtdGltZW91dCwg
+b3IgZXZlbnQgbWVzc2FnZSBidWZmZXIgZnVsbCBjb25kaXRpb24gZXhpc3RzIFsyXSAuIE9F
+TXMgbWF5IGFsc28gZWxlY3QgdG8gc2V0IHRoaXMgZmxhZyBpcyBvbmUgb2YgdGhlIE9FTSAx
+LCAyLG9yIDMgZmxhZ3MgZnJvbSB0aGUgR2V0IE1lc3NhZ2UgRmxhZ3MgY29tbWFuZCBiZWNv
+bWVzIHNldC4gUi9PIFRoaXMgYml0IGlzIHJlbGF0ZWQgdG8gaW5kaWNhdGluZyB3aGVuIHRo
+ZSBCTUMgaXMgdGhlIHNvdXJjZSBvZiBhIHN5c3RlbSBpbnRlcnJ1cHQuIFJlZmVyIHRvIHNl
+Y3Rpb25zIDkuMTIsIEtDUyBDb21tdW5pY2F0aW9uIGFuZCBOb24tY29tbXVuaWNhdGlvbiAs
+IDkuMTMsIFBoeXNpY2FsIEludGVycnVwdCBMaW5lIFNoYXJpbmcsIGFuZCA5LjE0LCBBZGRp
+dGlvbmFsIFNwZWNpZmljYXRpb25zIGZvciB0aGUgS0NTIGludGVyZmFjZSBmb3IgYWRkaXRp
+b25hbCBpbmZvcm1hdGlvbiBvbiB0aGUgdXNlIGFuZCByZXF1aXJlbWVudHMgZm9yIHRoZSBT
+TVNfQVROIGJpdC4iDQoNCiBzZWUgdGhlIFRhYmxlIDktLCBLQ1MgSW50ZXJmYWNlIFN0YXR1
+cyBSZWdpc3RlciBCaXRzIGluIHNlY3Rpb24gOS43IG9mICBJbnRlbGxpZ2VudCBQbGF0Zm9y
+bSBNYW5hZ2VCbWVudCBJbnRlcmZhY2UgU3BlY2lmaWNhdGlvbiAuDQogICBXaGF0ICBjYXVz
+ZXMgdGhpcyBwcm9ibGVtPw0KIEJlc3QsDQpYaXV6aGk=
 
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	model = "ON5263M5 BMC";
-> +	compatible = "inspur,on5263m5-bmc", "aspeed,ast2500";
-> +
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "earlyprintk";
-> +	};
-> +
-> +	memory {
-> +		reg = <0x80000000 0x20000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		vga_memory: framebuffer@7f000000 {
-> +			no-map;
-> +			reg = <0x7f000000 0x01000000>;
+------=_NextPart_5C3FE812_0AC76528_25BC7BAB
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-This needs to be in the SDRAM portion of the address-space. With 512MiB of RAM and
-a 16MiB VGA framebuffer  the address should be 0x9f000000. At the moment you're
-scribbling on the AHB-to-LPC+ bridge mapping.
+PGRpdj5IaSBPc2thciw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJIGFza2VkIHRoZSBCSU9T
+IGRldmVsb3BlciwgaGUgc2FpZCB0aGUgQklPUyByZWFkIHRoZSBpbyBDQTMgZmlyc3RseSwg
+aWYgaXQgaXMgbm90IDB4MDAsIHRoZSBCSU9TIHdpbGwgdGhpbmsgdGhlIGlwbWkgZG9lc24n
+dCBleGlzdC48L2Rpdj48ZGl2PiZuYnNwOyBJIGlucHV0IHRoZSBjb21tYW5kICIgbW0gLWlv
+IENBMyIgaW4gQklPUywgaXQgcmV0dXJuIHRoZSAweDA0IGV2ZXJ5IHRpbWVzLCBzbyBpdCdz
+IHBvaW50bGVzcyBmb3IgQklPUyB0byB3YWl0IHRoZSBCTUMgYW5zd2VyLjwvZGl2PjxkaXY+
+Jm5ic3A7IEkgdXNlciBpcG1pLWtjcyBtb2RlLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
+QmVzdCw8L2Rpdj48ZGl2PnhpdXpoaTwvZGl2PjxkaXY+SGkgT3NrYXIsPC9kaXY+PGRpdj4m
+bmJzcDsgJm5ic3A7SSB1c2Ugb3BlbnNvdXJjZSBVRUZJIEJJT1MgYW5kIEFNSSBCSU9TIHRv
+IHRlc3QuIEkgYW0gYWJsZSB0byBtb2RpZnkgdGhlIGNvZGUgb2YgVUVGSSBCSU9TLiA8L2Rp
+dj48ZGl2PiZuYnNwOyAmbmJzcDtIb3cgc2hvdWxkIEkgY2hhbmdlIHRoZSBCSU9TIGNvZGUg
+dG8gZW5zdXJlIHRoZSBzeW5jaHJvbml6YXRpb24gYmV0d2VlbiB0aGUgdHdvIHNpZGVzIHNv
+IHRoYXQgSSBjYW4gdGVsbCBteSBCSU9TIHRlYW0gdG8gbW9kaWZ5IGl0PyZuYnNwOyA8L2Rp
+dj48ZGl2Pjxicj48L2Rpdj48ZGl2PkJlc3QsPC9kaXY+PGRpdj54aXV6aGkmbmJzcDsgJm5i
+c3A7PC9kaXY+PGRpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2IHN0eWxl
+PSJmb250LXNpemU6IDEycHg7Zm9udC1mYW1pbHk6IEFyaWFsIE5hcnJvdztwYWRkaW5nOjJw
+eCAwIDJweCAwOyI+LS0tLS0tLS0tLS0tLS0tLS0tIE9yaWdpbmFsIC0tLS0tLS0tLS0tLS0t
+LS0tLTwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJweDtiYWNrZ3JvdW5kOiNlZmVm
+ZWY7cGFkZGluZzo4cHg7Ij48ZGl2PjxiPkZyb206IDwvYj4mbmJzcDsiT3NrYXIgU2VuZnQi
+OyZsdDtvc2tAZ29vZ2xlLmNvbSZndDs7PC9kaXY+PGRpdj48Yj5TZW5kIHRpbWU6PC9iPiZu
+YnNwO1dlZG5lc2RheSwgSmFuIDE2LCAyMDE5IDEwOjEwIFBNPC9kaXY+PGRpdj48Yj5Ubzo8
+L2I+Jm5ic3A7InhpdXpoaSImbHQ7MTQ1MDMzNTg1N0BxcS5jb20mZ3Q7OyA8d2JyPjwvZGl2
+PjxkaXY+PGI+Q2M6PC9iPiZuYnNwOyJvcGVuYm1jIiZsdDtvcGVuYm1jQGxpc3RzLm96bGFi
+cy5vcmcmZ3Q7OyA8d2JyPjwvZGl2PjxkaXY+PGI+U3ViamVjdDogPC9iPiZuYnNwO1JlOiBX
+aHkgY2FuJ3QgL2Rldi9pcG1pMCBvbiBob3N0IGJlIGNyZWF0ZWQgc3RhYmx5PC9kaXY+PC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdiBkaXI9Imx0ciI+SGkgWGl1emhpPGRpdj48YnI+PC9k
+aXY+PGRpdj5UaGUgZm9sbG93aW5nIG9ic2VydmF0aW9uIG1heSBvciBtYXkgbm90IGJlIHJl
+bGF0ZWQgdG8geW91ciBwcm9ibGVtOjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+V2UncmUg
+dXNpbmcgQU1JIEJJT1Mgd2l0aCBPcGVuQk1DIHVzaW5nIHRoZSBJUE1JIEJUIG1vZGUuIEkg
+Zm91bmQgdGhhdCBpbiBjZXJ0YWluIGNhc2VzIHRoZSBob3N0IGFuZCBCTUMgY2FuIGdldCAi
+b3V0IG9mIHN5bmMiIHdydC4gd2hhdCB0aGUgQk1DIHB1dCBpbiB0aGUgbWVzc2FnZSBxdWV1
+ZSBhbmQgd2hhdCB0aGUgQklPUyBleHBlY3RzLiBUaGUgcHJvYmxlbSBjYW4gYmUgY2F1c2Vk
+IGJ5IHRoZSBCTUMgcmVzcG9uZGluZyAic2xvd2x5IiB0byBhbiBJUE1JIHJlcXVlc3QgZnJv
+bSB0aGUgQklPUyB3aGVyZSB0aGUgQklPUyB0aW1lcyBvdXQgYmVmb3JlIHRoZSBCTUMgcmVz
+cG9uZHMuIFRoZSBCTUMgdGhlbiByZXNwb25kcyBiZWZvcmUgdGhlIEJJT1MgaXNzdWVzIHRo
+ZSBuZXh0IHJlcXVlc3QsIHdoaWNoIGNhdXNlcyB0aGUgQklPUyB0byByZWFkIHRoZSBwcmV2
+aW91cyByZXNwb25zZSBhcyB0aGUgcmVzcG9uc2UgZm9yIHRoZSBsYXRlc3QgcmVxdWVzdC48
+L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoaXMgaGFzIHJlc3VsdGVkIGluIGFsbCBzb3J0
+cyBvZiB3ZWlyZCBiZWhhdmlvciBmb3IgdXMsIGluY2wuIHRoZSBCSU9TIG5vdCAiZGV0ZWN0
+aW5nIiB0aGUgQk1DIGFuZCB0aGVyZWZvcmUgbm90IGV4cG9zaW5nIGl0IGluIHRoZSBTTUJJ
+T1MgdGFibGVzLCB3aGljaCAtIGluIG91ciBjYXNlIC0gaXMgdGhlIGNvbmZpZ3VyYXRpb24g
+c291cmNlIGZvciB0aGUgTGludXggSVBNSSBkcml2ZXIuPC9kaXY+PGRpdj48YnI+PC9kaXY+
+PGRpdj5JIGhvcGUgdGhpcyBoZWxwcz88L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PldoYXQg
+QklPUyBhcmUgeW91IHVzaW5nPyBBcmUgeW91IGFibGUgdG8gbWFrZSBjaGFuZ2VzIHRvIHRo
+ZSBCSU9TIGNvZGU/PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5Pc2thci48L2Rpdj48L2Rp
+dj48YnI+PGRpdiBjbGFzcz0iZ21haWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiPk9uIFR1ZSwg
+SmFuIDE1LCAyMDE5IGF0IDk6MzMgUE0geGl1emhpICZsdDs8YSBocmVmPSJtYWlsdG86MTQ1
+MDMzNTg1N0BxcS5jb20iPjE0NTAzMzU4NTdAcXEuY29tPC9hPiZndDsgd3JvdGU6PGJyPjwv
+ZGl2PjxibG9ja3F1b3RlIGNsYXNzPSJnbWFpbF9xdW90ZSIgc3R5bGU9Im1hcmdpbjowcHgg
+MHB4IDBweCAwLjhleDtib3JkZXItbGVmdDoxcHggc29saWQgcmdiKDIwNCwyMDQsMjA0KTtw
+YWRkaW5nLWxlZnQ6MWV4Ij48ZGl2PkhpIEFsbCw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJ
+IGFtIHRlc3RpbmcgdGhlIGJtYyBpcG1pLWtjcyByZWxpYWJpbGl0eS48L2Rpdj48ZGl2PiZu
+YnNwOyAmbmJzcDtUaGUgL2Rldi9pcG1pMCBvbiBob3N0IHdpbGwgbm90Jm5ic3A7IGJlIGF2
+YWlsYWJsZSZuYnNwOyBpbiBzZXZlcmFsIGNvbnNlY3V0aXZlIGJtYyByZWJvb3QgdGVzdC4m
+bmJzcDsgVGhlIENBMyB2YWx1ZSBpcyAweDA0IHdoaWNoIGNhbiBiZSBnb3QgYnkgdGhlIGNv
+bW1hbmQgIm1tIC1pbyBjYTMiIG9uIGhvc3QgYmlvcyBzaGVsbCB3aGVuIGZhaWxpbmcgdG8g
+Y3JlYXRlIHRoZSBpcG1pMCZuYnNwOyAuPC9kaXY+PGRpdj5UaGUgQ0EzIHZhbHVlIDB4MDQg
+bWVhbnMgdGhhdCBTTVNfQVROIGlzIHNldCB0byAxLCB3aGljaCBtZWFzOjwvZGl2PjxkaXY+
+PGRpdj4iU2V0IHRvIDEgd2hlbiB0aGUgQk1DIGhhcyBvbmUgb3IgbW9yZSBtZXNzYWdlcyBp
+biB0aGUgUmVjZWl2ZSBNZXNzYWdlIFF1ZXVlLCBvciB3aGVuIGEgd2F0Y2hkb2cgdGltZXIg
+cHJlLXRpbWVvdXQsIG9yIGV2ZW50IG1lc3NhZ2UgYnVmZmVyIGZ1bGwgY29uZGl0aW9uIGV4
+aXN0cyBbMl0gLiBPRU1zIG1heSBhbHNvIGVsZWN0IHRvIHNldCB0aGlzIGZsYWcgaXMgb25l
+IG9mIHRoZSBPRU0gMSwgMixvciAzIGZsYWdzIGZyb20gdGhlIEdldCBNZXNzYWdlIEZsYWdz
+IGNvbW1hbmQgYmVjb21lcyBzZXQuIFIvTyBUaGlzIGJpdCBpcyByZWxhdGVkIHRvIGluZGlj
+YXRpbmcgd2hlbiB0aGUgQk1DIGlzIHRoZSBzb3VyY2Ugb2YgYSBzeXN0ZW0gaW50ZXJydXB0
+LiBSZWZlciB0byBzZWN0aW9ucyA5LjEyLCBLQ1MgQ29tbXVuaWNhdGlvbiBhbmQgTm9uLWNv
+bW11bmljYXRpb24gLCA5LjEzLCBQaHlzaWNhbCBJbnRlcnJ1cHQgTGluZSBTaGFyaW5nLCBh
+bmQgOS4xNCwgQWRkaXRpb25hbCBTcGVjaWZpY2F0aW9ucyBmb3IgdGhlIEtDUyBpbnRlcmZh
+Y2UgZm9yIGFkZGl0aW9uYWwgaW5mb3JtYXRpb24gb24gdGhlIHVzZSBhbmQgcmVxdWlyZW1l
+bnRzIGZvciB0aGUgU01TX0FUTiBiaXQuIjwvZGl2PjwvZGl2PjxkaXY+Jm5ic3A7c2VlIHRo
+ZSBUYWJsZSA5LSwgS0NTIEludGVyZmFjZSBTdGF0dXMgUmVnaXN0ZXIgQml0cyBpbiBzZWN0
+aW9uIDkuNyBvZiZuYnNwOyBJbnRlbGxpZ2VudCBQbGF0Zm9ybSBNYW5hZ2VCbWVudCBJbnRl
+cmZhY2UgU3BlY2lmaWNhdGlvbiAuPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7V2hhdCZuYnNw
+OyBjYXVzZXMgdGhpcyBwcm9ibGVtPzwvZGl2PjxkaXY+Jm5ic3A7QmVzdCw8L2Rpdj48ZGl2
+PlhpdXpoaTwvZGl2PjwvYmxvY2txdW90ZT48L2Rpdj48L2Rpdj4=
 
-Cheers,
-
-Andrew
-
-> +		};
-> +	};
-> +	
-> +	leds {
-> +	    compatible = "gpio-leds";
-> +	    
-> +	    bmc_alive {
-> +	        label = "bmc_alive";
-> +		gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
-> +		linux,default-trigger = "timer";
-> +	    };
-> +	};
-> +
-> +	iio-hwmon {
-> +		compatible = "iio-hwmon";
-> +		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-> +			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
-> +	};
-> +
-> +};
-> +
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "bmc";
-> +#include "openbmc-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_spi1_default>;
-> +
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "pnor";
-> +	};
-> +};
-> +
-> +&uart5 {
-> +	status = "okay";
-> +};
-> +
-> +&mac0 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii1_default>;
-> +	use-ncsi;
-> +};
-> +
-> +&mac1 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-> +};
-> +
-> +&i2c6 {
-> +	status = "okay";
-> +
-> +	tmp421@4e {
-> +	        compatible = "ti,tmp421";
-> +		reg = <0x4e>;
-> +	};
-> +
-> +	tmp112@48 {
-> +		compatible = "ti,tmp112";
-> +		reg = <0x48>;
-> +	};
-> +	
-> +	eeprom@54 {
-> +		compatible = "atmel,24c64";
-> +    		reg = <0x54>; 
-> +		pagesize = <32>;
-> +	};
-> +};
-> +
-> +&i2c7 {
-> +	status = "okay";
-> +
-> +	adm1278@11 {
-> +		  compatible = "adi,adm1278";
-> +		  reg = <0x11>;
-> +	};
-> +};
-> +
-> +&gfx {
-> +	status = "okay";
-> +};
-> +
-> +&pinctrl {
-> +	aspeed,external-nodes = <&gfx &lhc>;
-> +};
-> +
-> +&pwm_tacho {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +
-> +	fan@0 {
-> +   		reg = <0x00>;
-> +   		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;  
-> + 	};
-> +
-> + 	fan@1 {
-> +   		reg = <0x01>;
-> +   		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
-> + 	};
-> +};
-> +
-> +&adc {
-> +	status = "okay";
-> +};
-> -- 
-> 2.7.4
-> 
+------=_NextPart_5C3FE812_0AC76528_25BC7BAB--
