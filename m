@@ -1,72 +1,64 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <gkeishin@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=gkeishin@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jDQg2cdu"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="CvwbaX7h"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gLTn0sxwzDqkK;
- Thu, 17 Jan 2019 21:51:08 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 3B02426185;
- Thu, 17 Jan 2019 05:51:06 -0500 (EST)
-Received: from web2 ([10.202.2.212])
- by compute4.internal (MEProxy); Thu, 17 Jan 2019 05:51:06 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:date:subject:references:in-reply-to; s=fm1; bh=2Bv
- KJ9wyfseRhnPH+z5XD+oX7miVHOB6qXgZi7RHkKA=; b=jDQg2cduva9nd+pAfrl
- k57Cjl3y43FAgxC08PSc+bgrnT5ab+3Rsl6RlWyYghsJIRFYYSAlK5W0x7n3Bkxc
- JS0zvmP+//hOVL5Ih4LqC1G30R+GqtesufPF2VROEBVZFnnQ6sZJYD1DoNobJi40
- YC/+X9pzY9G9UVzgTSchK1YWWPDesEGyNyOXBu2YgLJPsJ80OJ8jREKPOqu/u9pH
- 4a0dp6QFUFhv0zh1TVwIUg0L7zkdWnnl1W9/pMXv+ciPbwHeEhpiiAqqk0HGc07d
- Wy1P/oFRFjr56aFFw9Wrb/2pRtJ+bZEmdOiw/KGqPLkGfy0ng7TZLSZ4tKAPt0B2
- ZrA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=2BvKJ9wyfseRhnPH+z5XD+oX7miVHOB6qXgZi7RHk
- KA=; b=CvwbaX7hsyzjh7k8M9AeqqeECoAkSFAL40d4EBh+FUmGZoCOz7YBKw4WC
- xObSYX5yUOd/TO6DKCTDmu/wCTEbuNPDIXNvRQpD9hER/6nR3Mhq3DjcjZ24mX7c
- w/oLeXVqW43xOotAfW/x50ehzj5VtOQX1TGNoCTq/Zq4lkX3imbQuvDKVB6F3ofs
- HDX31M9HdFEBBZQMuromBavdxFFgj1N4N1zxpGOwzgq4klXJA8iXklbU9B3z7yIJ
- Ga8ZIDCPPitXNSjsWbp+wN2OPICwrSY4XhE6CgOE4iUioyXRMI6jecPli6kcjJc6
- RRtOI3wJoH53CACDxFLYzSCVygtEA==
-X-ME-Sender: <xms:GF5AXBIOvWkxHKIMnteHX2s8hYSqkCuPgnPbjxPD7wNw1-f6-c4-5g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeekgddugecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- ffufhfjgesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
- rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
- gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:GF5AXGdWbqdrZNdZ2v88J0sRENP01wRfUXjacXvcfdLYWb1Snvg_2A>
- <xmx:GF5AXIeeDNMZq22j3eSB57cEs55HnjqOdQqLjVOnZDQ1asbsGz7TqA>
- <xmx:GF5AXNYZHmfuvj62sRpyA3957W9lM0YaI55GCAJFuuUwkT6wlgMX4g>
- <xmx:Gl5AXNzEDFAtG_K-3Rn8HMA-HkwVCCGZ-UtqBSWktasdhyLzVYEbkA>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id B005E6225C; Thu, 17 Jan 2019 05:51:04 -0500 (EST)
-Message-Id: <1547722264.3333955.1636977176.3F135DC4@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: John Wang <wangzqbj@inspur.com>, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43gVBQ6FkSzDqw8
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 03:38:19 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.22/8.16.0.22) with SMTP id
+ x0HGZxPN074202
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 11:38:17 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.66])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2q2txk7k76-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 11:38:17 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <gkeishin@in.ibm.com>;
+ Thu, 17 Jan 2019 16:38:16 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.127) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 17 Jan 2019 16:38:13 -0000
+Received: from us1a3-mail113.a3.dal06.isc4sb.com ([10.146.6.4])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2019011716381318-773197 ;
+ Thu, 17 Jan 2019 16:38:13 +0000 
+To: openbmc@lists.ozlabs.org
+Subject: Openbmc test Release tagging for Community Release
+From: "George Keishing" <gkeishin@in.ibm.com>
+Date: Thu, 17 Jan 2019 22:08:13 +0530
+X-KeepSent: F42ED130:9BA22149-00258385:005A6773;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP10 SHF68 March 06, 2018
+X-LLNOutbound: False
+X-Disclaimed: 53619
+X-TNEFEvaluated: 1
+x-cbid: 19011716-6357-0000-0000-00000925DCC8
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.439231; ST=0; TS=0; UL=0; ISC=; MB=0.099131
+X-IBM-SpamModules-Versions: BY=3.00010424; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000275; SDB=6.01147844; UDB=6.00597951; IPR=6.00928142; 
+ BA=6.00006203; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025174; XFM=3.00000015;
+ UTC=2019-01-17 16:38:14
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-01-17 13:52:11 - 6.00009477
+x-cbparentid: 19011716-6358-0000-0000-00005536FC0F
+Message-Id: <OFF42ED130.9BA22149-ON00258385.005A6773-65258385.005B63D6@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="=_alternative 005AC60C65258385_="
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
-Date: Thu, 17 Jan 2019 21:21:04 +1030
-Subject: Re: [PATCH v3] ARM:dts:aspeed Add Inspur on5263m5 BMC
-References: <1547717562-17778-1-git-send-email-wangzqbj@inspur.com>
-In-Reply-To: <1547717562-17778-1-git-send-email-wangzqbj@inspur.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-17_05:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,178 +70,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 10:51:12 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 16:38:23 -0000
+
+
+--=_alternative 005AC60C65258385_=
+Content-Type: text/plain; charset="US-ASCII"
+Content-Transfer-Encoding: Quoted-printable
+
+Hi All,
+
+We are going to tag a openbmc test release soon for the community master=20
+release testing. So, expect 2.3 tag version soon there in a week time from=
+=20
+now, once the test code and master are stable.
+
+As part of the release tagging in test, we are freezing any new changes=20
+for now in test except for CI/CT fixes required to support testing the=20
+Master 2.6 .=20
+
+Recent  release 2.2 stable.=20
+https://github.com/openbmc/openbmc-test-automation/releases=20
+
+Thanks and Regards,
+   George Keishing
+   IBM Systems &Technology Lab, Firmware Development,
 
 
 
-On Thu, 17 Jan 2019, at 20:02, John Wang wrote:
-> Add initial version of device tree file for on5263m5 ast2500bmc
-> 
-> Signed-off-by: John Wang <wangzqbj@inspur.com>
+--=_alternative 005AC60C65258385_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="US-ASCII"
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> ---
-> v3: Fix some style problems like trailing whitespace,space before tabs.
-> ---
-> v2: FIx reserved memory address and correct copyright
-> ---
->  arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 145 +++++++++++++++++++++++
->  1 file changed, 145 insertions(+)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/
-> arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> new file mode 100644
-> index 0000000..2337ee2
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
-> @@ -0,0 +1,145 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// Copyright (c) 2018 Inspur Corporation
-> +/dts-v1/;
-> +
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +
-> +/ {
-> +	model = "ON5263M5 BMC";
-> +	compatible = "inspur,on5263m5-bmc", "aspeed,ast2500";
-> +
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "earlyprintk";
-> +	};
-> +
-> +	memory {
-> +		reg = <0x80000000 0x20000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		vga_memory: framebuffer@9f000000 {
-> +			no-map;
-> +			reg = <0x9f000000 0x01000000>;
-> +		};
-> +	};
-> +
-> +	leds {
-> +	    compatible = "gpio-leds";
-> +	    bmc_alive {
-> +		label = "bmc_alive";
-> +		gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
-> +		linux,default-trigger = "timer";
-> +	    };
-> +	};
-> +
-> +	iio-hwmon {
-> +		compatible = "iio-hwmon";
-> +		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-> +			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
-> +	};
-> +
-> +};
-> +
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "bmc";
-> +#include "openbmc-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_spi1_default>;
-> +
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
-> +		label = "pnor";
-> +	};
-> +};
-> +
-> +&uart5 {
-> +	status = "okay";
-> +};
-> +
-> +&mac0 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii1_default>;
-> +	use-ncsi;
-> +};
-> +
-> +&mac1 {
-> +	status = "okay";
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-> +};
-> +
-> +&i2c6 {
-> +	status = "okay";
-> +
-> +	tmp421@4e {
-> +		compatible = "ti,tmp421";
-> +		reg = <0x4e>;
-> +	};
-> +
-> +	tmp112@48 {
-> +		compatible = "ti,tmp112";
-> +		reg = <0x48>;
-> +	};
-> +
-> +	eeprom@54 {
-> +		compatible = "atmel,24c64";
-> +		reg = <0x54>;
-> +		pagesize = <32>;
-> +	};
-> +};
-> +
-> +&i2c7 {
-> +	status = "okay";
-> +
-> +	adm1278@11 {
-> +		  compatible = "adi,adm1278";
-> +		  reg = <0x11>;
-> +	};
-> +};
-> +
-> +&gfx {
-> +	status = "okay";
-> +};
-> +
-> +&pinctrl {
-> +	aspeed,external-nodes = <&gfx &lhc>;
-> +};
-> +
-> +&pwm_tacho {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-> +
-> +	fan@0 {
-> +		reg = <0x00>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
-> +	};
-> +
-> +	fan@1 {
-> +		reg = <0x01>;
-> +		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
-> +	};
-> +};
-> +
-> +&adc {
-> +	status = "okay";
-> +};
-> -- 
-> 2.7.4
-> 
+<span style=3D" font-size:10pt;font-family:sans-serif">Hi All,</span><br><b=
+r><span style=3D" font-size:10pt;font-family:sans-serif">We are going to
+tag a openbmc test release soon for the community master release testing.
+So, expect 2.3 tag version soon there in a week time from now, once the
+test code and master are stable.</span><br><br><span style=3D" font-size:10=
+pt;font-family:sans-serif">As part of the
+release tagging in test, we are freezing any new changes for now in test
+except for CI/CT fixes required to support testing the Master 2.6 . </span>=
+<br><br><span style=3D" font-size:10pt;font-family:sans-serif">Recent &nbsp=
+;release
+2.2 stable. </span><a href=3D"https://github.com/openbmc/openbmc-test-autom=
+ation/releases"><span style=3D" font-size:10pt;color:blue;font-family:sans-=
+serif">https://github.com/openbmc/openbmc-test-automation/releases</span></=
+a><span style=3D" font-size:10pt;font-family:sans-serif"></span><br><br><sp=
+an style=3D" font-size:10pt;color:blue;font-family:sans-serif"><b>Thanks
+and Regards,</b></span><br><span style=3D" font-size:10pt;color:blue;font-f=
+amily:sans-serif">&nbsp;
+&nbsp;George Keishing</span><br><span style=3D" font-size:10pt;color:blue;f=
+ont-family:sans-serif">&nbsp;
+&nbsp;IBM Systems &amp;Technology Lab, Firmware Development,</span><br><BR>
+--=_alternative 005AC60C65258385_=--
