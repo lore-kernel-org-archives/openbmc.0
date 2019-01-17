@@ -1,43 +1,72 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=162.243.126.186; helo=vip.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jDQg2cdu"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="CvwbaX7h"; dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gL5V2cPfzDqBV
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 21:33:31 +1100 (AEDT)
-Received: from ([60.208.111.195])
- by unicom146.biz-email.net (Antispam) with ASMTP (SSL) id ILS27939
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 18:27:39 +0800
-Received: from mail-lf1-f46.google.com (10.100.1.52) by
- jtjnmail201601.home.langchao.com (10.100.2.1) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1591.10; Thu, 17 Jan 2019 18:27:37 +0800
-Received: by mail-lf1-f46.google.com with SMTP id e26so7378565lfc.2
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jan 2019 02:27:37 -0800 (PST)
-X-Gm-Message-State: AJcUukdIGXMf5PnYsrxQrc5mNkVg6bZR0EzKf+JDDpYS8sgbA3QbSCxj
- +/UoUb9YeKMIGOD+GTRBFA1Mma07r+rwm5McXlE=
-X-Google-Smtp-Source: ALg8bN6F/GSP1nRmuPUB2R+KixQpYE/kLYfE25uirV3cEbJV0NSAIZxTDj7lNpfRgila6l3zAMSjBv+oB+xYaU64NzM=
-X-Received: by 2002:a19:a58d:: with SMTP id o135mr10042237lfe.97.1547720854287; 
- Thu, 17 Jan 2019 02:27:34 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43gLTn0sxwzDqkK;
+ Thu, 17 Jan 2019 21:51:08 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 3B02426185;
+ Thu, 17 Jan 2019 05:51:06 -0500 (EST)
+Received: from web2 ([10.202.2.212])
+ by compute4.internal (MEProxy); Thu, 17 Jan 2019 05:51:06 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:cc:mime-version:content-transfer-encoding
+ :content-type:date:subject:references:in-reply-to; s=fm1; bh=2Bv
+ KJ9wyfseRhnPH+z5XD+oX7miVHOB6qXgZi7RHkKA=; b=jDQg2cduva9nd+pAfrl
+ k57Cjl3y43FAgxC08PSc+bgrnT5ab+3Rsl6RlWyYghsJIRFYYSAlK5W0x7n3Bkxc
+ JS0zvmP+//hOVL5Ih4LqC1G30R+GqtesufPF2VROEBVZFnnQ6sZJYD1DoNobJi40
+ YC/+X9pzY9G9UVzgTSchK1YWWPDesEGyNyOXBu2YgLJPsJ80OJ8jREKPOqu/u9pH
+ 4a0dp6QFUFhv0zh1TVwIUg0L7zkdWnnl1W9/pMXv+ciPbwHeEhpiiAqqk0HGc07d
+ Wy1P/oFRFjr56aFFw9Wrb/2pRtJ+bZEmdOiw/KGqPLkGfy0ng7TZLSZ4tKAPt0B2
+ ZrA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=2BvKJ9wyfseRhnPH+z5XD+oX7miVHOB6qXgZi7RHk
+ KA=; b=CvwbaX7hsyzjh7k8M9AeqqeECoAkSFAL40d4EBh+FUmGZoCOz7YBKw4WC
+ xObSYX5yUOd/TO6DKCTDmu/wCTEbuNPDIXNvRQpD9hER/6nR3Mhq3DjcjZ24mX7c
+ w/oLeXVqW43xOotAfW/x50ehzj5VtOQX1TGNoCTq/Zq4lkX3imbQuvDKVB6F3ofs
+ HDX31M9HdFEBBZQMuromBavdxFFgj1N4N1zxpGOwzgq4klXJA8iXklbU9B3z7yIJ
+ Ga8ZIDCPPitXNSjsWbp+wN2OPICwrSY4XhE6CgOE4iUioyXRMI6jecPli6kcjJc6
+ RRtOI3wJoH53CACDxFLYzSCVygtEA==
+X-ME-Sender: <xms:GF5AXBIOvWkxHKIMnteHX2s8hYSqkCuPgnPbjxPD7wNw1-f6-c4-5g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeekgddugecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
+ tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
+ ffufhfjgesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
+ rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
+ gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:GF5AXGdWbqdrZNdZ2v88J0sRENP01wRfUXjacXvcfdLYWb1Snvg_2A>
+ <xmx:GF5AXIeeDNMZq22j3eSB57cEs55HnjqOdQqLjVOnZDQ1asbsGz7TqA>
+ <xmx:GF5AXNYZHmfuvj62sRpyA3957W9lM0YaI55GCAJFuuUwkT6wlgMX4g>
+ <xmx:Gl5AXNzEDFAtG_K-3Rn8HMA-HkwVCCGZ-UtqBSWktasdhyLzVYEbkA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id B005E6225C; Thu, 17 Jan 2019 05:51:04 -0500 (EST)
+Message-Id: <1547722264.3333955.1636977176.3F135DC4@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: John Wang <wangzqbj@inspur.com>, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
 MIME-Version: 1.0
-References: <SN6PR02MB5693D3A8387A48C7453FEC0796830@SN6PR02MB5693.namprd02.prod.outlook.com>
-In-Reply-To: <SN6PR02MB5693D3A8387A48C7453FEC0796830@SN6PR02MB5693.namprd02.prod.outlook.com>
-From: John Wang <wangzqbj@inspur.com>
-Date: Thu, 17 Jan 2019 18:27:22 +0800
-X-Gmail-Original-Message-ID: <CAHkHK08_MujVhwv2SaPfNPn+bS36a3uLEWjfvYU+CkFFE_2j4Q@mail.gmail.com>
-Message-ID: <CAHkHK08_MujVhwv2SaPfNPn+bS36a3uLEWjfvYU+CkFFE_2j4Q@mail.gmail.com>
-Subject: Re: couple questions for OpenBMC
-To: Brenden Lai <Brenden_Lai@jabil.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-X-Originating-IP: [10.100.1.52]
-X-ClientProxiedBy: jtjnmail201604.home.langchao.com (10.100.2.4) To
- jtjnmail201601.home.langchao.com (10.100.2.1)
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
+Date: Thu, 17 Jan 2019 21:21:04 +1030
+Subject: Re: [PATCH v3] ARM:dts:aspeed Add Inspur on5263m5 BMC
+References: <1547717562-17778-1-git-send-email-wangzqbj@inspur.com>
+In-Reply-To: <1547717562-17778-1-git-send-email-wangzqbj@inspur.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,61 +78,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Jan 2019 10:33:35 -0000
+X-List-Received-Date: Thu, 17 Jan 2019 10:51:12 -0000
 
-On Thu, Jan 17, 2019 at 3:52 PM Brenden Lai <Brenden_Lai@jabil.com> wrote:
->
-> Hi
->
-> I have couple questions about OpenBMC .
 
->
-> 1.if I decide use OpenBMC solution , Does it mean I should put all BMC source code on github including some commercial software  ?
->
->
->
-> 2.Are there any tutorial or /document  for using dbus within OpenBMC ?
-please refer to this link [https://github.com/openbmc/sdbusplus] for
-documentation and examples.
-or you can use busctrl to find out it.
 
-example:
-    busctl tree xyz.openbmc_project.LED.GroupManager
-    busctl introspect   xyz.openbmc_project.LED.GroupManager
-/xyz/openbmc_project/led/groups/enclosure_fault
+On Thu, 17 Jan 2019, at 20:02, John Wang wrote:
+> Add initial version of device tree file for on5263m5 ast2500bmc
+> 
+> Signed-off-by: John Wang <wangzqbj@inspur.com>
 
-> 3.Why there is no release note after V1.05 ?  Will the coming release  attach release note ?
->
->
-> 4.I know openBMC is using some file text to represent  device (LED , sensor)
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Linux uses device tree to describe the hardware component,you can
-refer to https://elinux.org/Device_Tree_Usage
-This link[https://github.com/openbmc/docs/blob/master/LED-architecture.md]
-tells you how openbmc controls led.
-
-Can be roughly described:
-          phosphor-led-manager(strategy) -->
-phosphor-led->sysfs(action)  --> linux led subsystem
-
- linux led subsystem :
-https://github.com/openbmc/linux/blob/dev-4.19/Documentation/leds/leds-class.txt
-
->but I am curious about how this files bind to real device ?
->    Where is the low level operation relate code ?
-
-https://github.com/openbmc/phosphor-led-sysfs/blob/e0844ff447abad01fa6f902caab3839336d1518d/physical.cpp#L131
-
->
->
-> Thanks -Brenden
->
->
->
->
->
-> Brenden Lai
-> SR. BMC Design Engineer
-> E&I, Jabil Design Services
->
->
+> ---
+> v3: Fix some style problems like trailing whitespace,space before tabs.
+> ---
+> v2: FIx reserved memory address and correct copyright
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 145 +++++++++++++++++++++++
+>  1 file changed, 145 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/
+> arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
+> new file mode 100644
+> index 0000000..2337ee2
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
+> @@ -0,0 +1,145 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2018 Inspur Corporation
+> +/dts-v1/;
+> +
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model = "ON5263M5 BMC";
+> +	compatible = "inspur,on5263m5-bmc", "aspeed,ast2500";
+> +
+> +	chosen {
+> +		stdout-path = &uart5;
+> +		bootargs = "earlyprintk";
+> +	};
+> +
+> +	memory {
+> +		reg = <0x80000000 0x20000000>;
+> +	};
+> +
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		vga_memory: framebuffer@9f000000 {
+> +			no-map;
+> +			reg = <0x9f000000 0x01000000>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +	    compatible = "gpio-leds";
+> +	    bmc_alive {
+> +		label = "bmc_alive";
+> +		gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
+> +		linux,default-trigger = "timer";
+> +	    };
+> +	};
+> +
+> +	iio-hwmon {
+> +		compatible = "iio-hwmon";
+> +		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
+> +			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
+> +	};
+> +
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "bmc";
+> +#include "openbmc-flash-layout.dtsi"
+> +	};
+> +};
+> +
+> +&spi1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "pnor";
+> +	};
+> +};
+> +
+> +&uart5 {
+> +	status = "okay";
+> +};
+> +
+> +&mac0 {
+> +	status = "okay";
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rmii1_default>;
+> +	use-ncsi;
+> +};
+> +
+> +&mac1 {
+> +	status = "okay";
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
+> +};
+> +
+> +&i2c6 {
+> +	status = "okay";
+> +
+> +	tmp421@4e {
+> +		compatible = "ti,tmp421";
+> +		reg = <0x4e>;
+> +	};
+> +
+> +	tmp112@48 {
+> +		compatible = "ti,tmp112";
+> +		reg = <0x48>;
+> +	};
+> +
+> +	eeprom@54 {
+> +		compatible = "atmel,24c64";
+> +		reg = <0x54>;
+> +		pagesize = <32>;
+> +	};
+> +};
+> +
+> +&i2c7 {
+> +	status = "okay";
+> +
+> +	adm1278@11 {
+> +		  compatible = "adi,adm1278";
+> +		  reg = <0x11>;
+> +	};
+> +};
+> +
+> +&gfx {
+> +	status = "okay";
+> +};
+> +
+> +&pinctrl {
+> +	aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> +
+> +&pwm_tacho {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
+> +
+> +	fan@0 {
+> +		reg = <0x00>;
+> +		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
+> +	};
+> +
+> +	fan@1 {
+> +		reg = <0x01>;
+> +		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
+> +	};
+> +};
+> +
+> +&adc {
+> +	status = "okay";
+> +};
+> -- 
+> 2.7.4
+> 
