@@ -1,75 +1,41 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <fyczy@126.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=126.com
+ (client-ip=220.181.15.33; helo=m15-33.126.com; envelope-from=fyczy@126.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="tsfB+2DN"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="E+mSePgb"; dkim-atps=neutral
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
- [66.111.4.29])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gpcL6whMzDqpK;
- Fri, 18 Jan 2019 15:58:26 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 287D927513;
- Thu, 17 Jan 2019 23:58:24 -0500 (EST)
-Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Thu, 17 Jan 2019 23:58:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:references:in-reply-to:date:subject; s=fm1; bh=FSs
- 3M3hmz3f0DGGFuPlnrdj30ljpMXiUZSOaJ/70si8=; b=tsfB+2DNiJUhsONOA5k
- Lq2WAYQ81tta40/X7feIMpU0jY3mFYeWk4eg6zJ21qBJIbvp7fpxie7vx65RE1mc
- bGm5aP2BUSEzOebzg7swKML6z482AZkJtaIPY+puoZkX2yrcgf7y5c+saX4DqANU
- OfFlJ4ektpX7rciaWpvgAgOdn5letzCdeg+6N8h/DqULT81VaZioqDTmc9dws6H/
- gUD0d5WqP1hWUcnYFHcMdNAzEmHpYXeTIezqrO/QZ4CVh+h6CLINh22CfO0BhYZS
- d9DFYVhjvZuAchjSo5ZLYsi3LuHfwgLEn42Je+oynHw65zC3uhhx0acerwLlAO5x
- FVg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=FSs3M3hmz3f0DGGFuPlnrdj30ljpMXiUZSOaJ/70s
- i8=; b=E+mSePgbwggEbElvu9zkYYi8CabJykXFIc5sRqfaMDf7WjPUmf4FPVh1T
- oQmvL1NYkB/UhGzHWgHHC7iSyOq5GELiH1nQ+ad0La4OqYkpOStLeyWQapi3t1or
- sy0CqEG6OjH7/TbyK0MnMlebYVmekyWOghUb58CEgE7ZYlGo7oeD+qY5yL0+3r/1
- 494h1RScxktWDtXci0IYiN7PbhAc6KhzWLYS5vvguUAdd6dmI9Es04JknGIrfx+X
- XSRX/eJbrykeV/T5i4vd46tnZyX6aJlx5WCa48uqlpOe6jy6Bso3GK8GJQ3vpiWJ
- tEqd0e85+IrAKiPpHL/6dfsSbKqQg==
-X-ME-Sender: <xms:71xBXEoXaK88eNxR389u3H6Ko2686eXJeDmPquI01UHRJk9ZutrD3w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeelgdejhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- hfjgffufesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
- rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
- gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:71xBXG8w-IWp-H8VCDYbOLgDTcQc2AdiixFpb3cZNuW3xUXeWtAHlQ>
- <xmx:71xBXK37eah2EqEuD7P6OdcKQhCIscvsPNTYg4ZZLN5d5a2h4kYC9g>
- <xmx:71xBXJBVzqZiJvLbHiQLhFUPJK9GIDlAEeXZx41IgU5DkeXmsjB_xQ>
- <xmx:8FxBXModPjVQdNOkpjnCcbQLXGcK93tC65ZlyUxhjM2LmVDk9G81hw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id D2606429B; Thu, 17 Jan 2019 23:58:22 -0500 (EST)
-Message-Id: <1547787502.2061444.1637712576.1F1E21B4@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Vijay Khemka <vijaykhemka@fb.com>, Arnd Bergmann <arnd@arndb.de>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Cc: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+ dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=126.com header.i=@126.com header.b="Q9nFvPGz"; 
+ dkim-atps=neutral
+Received: from m15-33.126.com (m15-33.126.com [220.181.15.33])
+ by lists.ozlabs.org (Postfix) with ESMTP id 43gwcY5P9zzDqty
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 20:28:53 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=gi25Y
+ 9tbu9eKglf49CdqTPIP213y6PP1Ez2SHsyTsY4=; b=Q9nFvPGzoZioZ+Kmar5Si
+ d/CHSe1wfYyvrvrj+TtcB+8jUPIgN1vQXm2jOGDQMk2b2+W2yr1xvW3SlzCtK79W
+ Q3yhQwtRTvQi/IzNrtKhT2hOIFBvih5kgTXawLGlafnszYA5PvStUbfBsU73TWfc
+ AQlpdGN4kYsK6ic+cSIo7g=
+Received: from fyczy$126.com ( [58.56.96.29] ) by ajax-webmail-wmsvr33
+ (Coremail) ; Fri, 18 Jan 2019 17:28:44 +0800 (CST)
+X-Originating-IP: [58.56.96.29]
+Date: Fri, 18 Jan 2019 17:28:44 +0800 (CST)
+From: =?GBK?B?wfXO/c6w?= <fyczy@126.com>
+To: openbmc@lists.ozlabs.org
+Subject: couple questions for Event Log
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+ 20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
+X-CM-CTRLDATA: iHlXYWZvb3Rlcl9odG09MjAzNDo1Ng==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_119466_559030783.1547803724069"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
-References: <20190116220154.1026171-1-vijaykhemka@fb.com>
-In-Reply-To: <20190116220154.1026171-1-vijaykhemka@fb.com>
-Date: Fri, 18 Jan 2019 15:28:22 +1030
-Subject: Re: [PATCH v2] misc: aspeed-lpc-ctrl: make parameter optional
+Message-ID: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: IcqowACnr8NNnEFci0oIAA--.8477W
+X-CM-SenderInfo: xi1f65a6rslhhfrp/1tbimgRA9VpD7V22MwABsG
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,170 +47,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 04:58:28 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 09:29:04 -0000
 
-Hi Vijay,
+------=_Part_119466_559030783.1547803724069
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Thanks for doing the work to fix the driver. Some minor queries/points
-below.
+SGkKCjEuICAgICAgIEhvdyB0byBkZWJ1ZyB0aGUgc3lzdGVtIGV2ZW50IGxvZywgaG93IHRvIGNv
+bmZpZ3VyZSBpdCwgYW5kIHdoYXQgbW9kdWxlcyBhcmUgcmVsYXRlZCB0byB0aGUgbG9nIGZ1bmN0
+aW9uPwoKMi4gICAgICAgV2hlbiBpcyB0aGUgcGhvc3Bob3Itc2VsLWxvZ2dlciByZWdpc3RyYXRp
+b24gbWV0aG9kIChJcG1pU2VsQWRkLCBJcG1pU2VsQWRkT2VtKSBpbnZva2VkPyBIb3cgdG8gdXNl
+IERCVVMgdG8gcmVhZCBqb3VybmFsY3RsPwoKMy4gICAgICAgQ291bGQgYW55b25lIHNoYXJlIGEg
+ZGVzY3JpcHRpb24gb2YgdGhlIHlhbWwgZmlsZSBhYm91dCBwaG9zcGhvci1sb2dnaW5nPwoKVGhh
+bmtz
+------=_Part_119466_559030783.1547803724069
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-On Thu, 17 Jan 2019, at 08:31, Vijay Khemka wrote:
-> Makiing memory-region and flash as optional parameter in device
-> tree if user needs to use these parameter through ioctl then
-> need to define in devicetree.
-> 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
-> ---
->  drivers/misc/aspeed-lpc-ctrl.c | 58 +++++++++++++++++++++-------------
->  1 file changed, 36 insertions(+), 22 deletions(-)
-> 
-> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-
-> ctrl.c
-> index a024f8042259..332210e06e98 100644
-> --- a/drivers/misc/aspeed-lpc-ctrl.c
-> +++ b/drivers/misc/aspeed-lpc-ctrl.c
-> @@ -68,6 +68,7 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, 
-> unsigned int cmd,
->  		unsigned long param)
->  {
->  	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
-> +	struct device *dev = file->private_data;
->  	void __user *p = (void __user *)param;
->  	struct aspeed_lpc_ctrl_mapping map;
->  	u32 addr;
-> @@ -90,6 +91,12 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, 
-> unsigned int cmd,
->  		if (map.window_id != 0)
->  			return -EINVAL;
->  
-> +		/* If memory-region is not described in device tree */
-> +		if (!lpc_ctrl->mem_size) {
-> +			dev_err(dev, "Didn't find reserved memory\n");
-> +			return -EINVAL;
-
-I feel like EINVAL isn't quite right - it's pretty generic, and the parameter
-value changes its validity with the devicetree context. My gut instinct
-would be to use EINVAL for parameter values that violate assumptions
-of the driver rather than violate configuration of the driver. Maybe ENXIO
-("No such device or address") is an improvement: "I can't map that device
-because there's no such device or address"?
-
-> +		}
-> +
->  		map.size = lpc_ctrl->mem_size;
->  
->  		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
-> @@ -126,9 +133,18 @@ static long aspeed_lpc_ctrl_ioctl(struct file 
-> *file, unsigned int cmd,
->  			return -EINVAL;
->  
->  		if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH) {
-> +			if (!lpc_ctrl->pnor_size) {
-> +				dev_err(dev, "Didn't find host pnor flash\n");
-> +				return -EINVAL;
-
-See the error code discussion above. Also, this is userspace's error not 
-the kernel's, so I think dev_err() is a bit harsh. Probably best to just let
-userspace log the error if it thinks the it is concerning.
-
-> +			}
->  			addr = lpc_ctrl->pnor_base;
->  			size = lpc_ctrl->pnor_size;
->  		} else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
-> +			/* If memory-region is not described in device tree */
-> +			if (!lpc_ctrl->mem_size) {
-> +				dev_err(dev, "Didn't find reserved memory\n");
-> +				return -EINVAL;
-
-as above.
-
-> +			}
->  			addr = lpc_ctrl->mem_base;
->  			size = lpc_ctrl->mem_size;
->  		} else {
-> @@ -196,17 +212,17 @@ static int aspeed_lpc_ctrl_probe(struct 
-> platform_device *pdev)
->  	if (!lpc_ctrl)
->  		return -ENOMEM;
->  
-> +	/* If flash is described in device tree then store */
->  	node = of_parse_phandle(dev->of_node, "flash", 0);
->  	if (!node) {
-> -		dev_err(dev, "Didn't find host pnor flash node\n");
-> -		return -ENODEV;
-> -	}
-> -
-> -	rc = of_address_to_resource(node, 1, &resm);
-> -	of_node_put(node);
-> -	if (rc) {
-> -		dev_err(dev, "Couldn't address to resource for flash\n");
-> -		return rc;
-> +		dev_dbg(dev, "Didn't find host pnor flash node\n");
-> +	} else {
-> +		rc = of_address_to_resource(node, 1, &resm);
-> +		of_node_put(node);
-> +		if (rc) {
-> +			dev_err(dev, "Couldn't address to resource for flash\n");
-> +			return rc;
-> +		}
->  	}
->  
->  	lpc_ctrl->pnor_size = resource_size(&resm);
-> @@ -214,22 +230,22 @@ static int aspeed_lpc_ctrl_probe(struct 
-> platform_device *pdev)
->  
->  	dev_set_drvdata(&pdev->dev, lpc_ctrl);
->  
-> +	/* If memory-region is described in device tree then store */
->  	node = of_parse_phandle(dev->of_node, "memory-region", 0);
->  	if (!node) {
-> -		dev_err(dev, "Didn't find reserved memory\n");
-> -		return -EINVAL;
-> -	}
-> +		dev_dbg(dev, "Didn't find reserved memory\n");
-> +	} else {
-> +		rc = of_address_to_resource(node, 0, &resm);
-> +		of_node_put(node);
-> +		if (rc) {
-> +			dev_err(dev, "Couldn't address to resource for reserved memory\n");
-> +			return -ENOMEM;
-
-Wow, I think this is an abuse of ENOMEM. Its description is "Out of memory"
-which doesn't really reflect the problem here.
-
-Not really your fault though, maybe we'll fix that with some follow-up patches.
-
-Cheers,
-
-Andrew
-
-> +		}
->  
-> -	rc = of_address_to_resource(node, 0, &resm);
-> -	of_node_put(node);
-> -	if (rc) {
-> -		dev_err(dev, "Couldn't address to resource for reserved memory\n");
-> -		return -ENOMEM;
-> +		lpc_ctrl->mem_size = resource_size(&resm);
-> +		lpc_ctrl->mem_base = resm.start;
->  	}
->  
-> -	lpc_ctrl->mem_size = resource_size(&resm);
-> -	lpc_ctrl->mem_base = resm.start;
-> -
->  	lpc_ctrl->regmap = syscon_node_to_regmap(
->  			pdev->dev.parent->of_node);
->  	if (IS_ERR(lpc_ctrl->regmap)) {
-> @@ -258,8 +274,6 @@ static int aspeed_lpc_ctrl_probe(struct 
-> platform_device *pdev)
->  		goto err;
->  	}
->  
-> -	dev_info(dev, "Loaded at %pr\n", &resm);
-> -
->  	return 0;
->  
->  err:
-> -- 
-> 2.17.1
-> 
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVT
+Ij5IaTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4KCjxwIGNsYXNzPSJNc29MaXN0UGFyYWdyYXBoIiBz
+dHlsZT0ibWFyZ2luLWxlZnQ6MzkuMHB0O3RleHQtaW5kZW50Oi0xOC4wcHQ7Cm1zby1jaGFyLWlu
+ZGVudC1jb3VudDowO21zby1saXN0OmwwIGxldmVsMSBsZm8xIj48IS0tW2lmICFzdXBwb3J0TGlz
+dHNdLS0+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJtc28tZmFyZWFzdC1mb250LWZhbWlseTpD
+YWxpYnJpO21zby1mYXJlYXN0LXRoZW1lLWZvbnQ6bWlub3ItbGF0aW47Cm1zby1iaWRpLWZvbnQt
+ZmFtaWx5OkNhbGlicmk7bXNvLWJpZGktdGhlbWUtZm9udDptaW5vci1sYXRpbiI+PHNwYW4gc3R5
+bGU9Im1zby1saXN0Oklnbm9yZSI+MS48c3BhbiBzdHlsZT0iZm9udDo3LjBwdCAmcXVvdDtUaW1l
+cyBOZXcgUm9tYW4mcXVvdDsiPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOwo8
+L3NwYW4+PC9zcGFuPjwvc3Bhbj48IS0tW2VuZGlmXS0tPjxzcGFuIGxhbmc9IkVOLVVTIj5Ib3cg
+dG8gZGVidWcgdGhlIHN5c3RlbSBldmVudApsb2csIGhvdyB0byBjb25maWd1cmUgaXQsIGFuZCB3
+aGF0IG1vZHVsZXMgYXJlIHJlbGF0ZWQgdG8gdGhlIGxvZyBmdW5jdGlvbj8gPG86cD48L286cD48
+L3NwYW4+PC9wPgoKPHAgY2xhc3M9Ik1zb0xpc3RQYXJhZ3JhcGgiIHN0eWxlPSJtYXJnaW4tbGVm
+dDozOS4wcHQ7dGV4dC1pbmRlbnQ6LTE4LjBwdDsKbXNvLWNoYXItaW5kZW50LWNvdW50OjA7bXNv
+LWxpc3Q6bDAgbGV2ZWwxIGxmbzEiPjwhLS1baWYgIXN1cHBvcnRMaXN0c10tLT48c3BhbiBsYW5n
+PSJFTi1VUyIgc3R5bGU9Im1zby1mYXJlYXN0LWZvbnQtZmFtaWx5OkNhbGlicmk7bXNvLWZhcmVh
+c3QtdGhlbWUtZm9udDptaW5vci1sYXRpbjsKbXNvLWJpZGktZm9udC1mYW1pbHk6Q2FsaWJyaTtt
+c28tYmlkaS10aGVtZS1mb250Om1pbm9yLWxhdGluIj48c3BhbiBzdHlsZT0ibXNvLWxpc3Q6SWdu
+b3JlIj4yLjxzcGFuIHN0eWxlPSJmb250OjcuMHB0ICZxdW90O1RpbWVzIE5ldyBSb21hbiZxdW90
+OyI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Cjwvc3Bhbj48L3NwYW4+PC9z
+cGFuPjwhLS1bZW5kaWZdLS0+PHNwYW4gbGFuZz0iRU4tVVMiPldoZW4gaXMgdGhlIHBob3NwaG9y
+LXNlbC1sb2dnZXIKcmVnaXN0cmF0aW9uIG1ldGhvZCAoSXBtaVNlbEFkZCwgSXBtaVNlbEFkZE9l
+bSkgaW52b2tlZD8gSG93IHRvIHVzZSBEQlVTIHRvCnJlYWQgam91cm5hbGN0bD88bzpwPjwvbzpw
+Pjwvc3Bhbj48L3A+Cgo8cCBjbGFzcz0iTXNvTGlzdFBhcmFncmFwaCIgc3R5bGU9Im1hcmdpbi1s
+ZWZ0OjM5LjBwdDt0ZXh0LWluZGVudDotMTguMHB0Owptc28tY2hhci1pbmRlbnQtY291bnQ6MDtt
+c28tbGlzdDpsMCBsZXZlbDEgbGZvMSI+PCEtLVtpZiAhc3VwcG9ydExpc3RzXS0tPjxzcGFuIGxh
+bmc9IkVOLVVTIiBzdHlsZT0ibXNvLWZhcmVhc3QtZm9udC1mYW1pbHk6Q2FsaWJyaTttc28tZmFy
+ZWFzdC10aGVtZS1mb250Om1pbm9yLWxhdGluOwptc28tYmlkaS1mb250LWZhbWlseTpDYWxpYnJp
+O21zby1iaWRpLXRoZW1lLWZvbnQ6bWlub3ItbGF0aW4iPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJ
+Z25vcmUiPjMuPHNwYW4gc3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1
+b3Q7Ij4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsKPC9zcGFuPjwvc3Bhbj48
+L3NwYW4+PCEtLVtlbmRpZl0tLT48c3BhbiBsYW5nPSJFTi1VUyI+Q291bGQgYW55b25lIHNoYXJl
+IGEKZGVzY3JpcHRpb24gb2YgdGhlIHlhbWwgZmlsZSBhYm91dCBwaG9zcGhvci1sb2dnaW5nPzxv
+OnA+PC9vOnA+PC9zcGFuPjwvcD4KCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVO
+LVVTIj5UaGFua3M8bzpwPjwvbzpwPjwvc3Bhbj48L3A+PC9kaXY+PGJyPjxicj48c3BhbiB0aXRs
+ZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwvc3Bhbj4=
+------=_Part_119466_559030783.1547803724069--
