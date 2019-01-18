@@ -6,71 +6,70 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oG5OB19K"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="tsfB+2DN"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="FhySyZFw"; dkim-atps=neutral
+ header.b="E+mSePgb"; dkim-atps=neutral
 Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
  [66.111.4.29])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43gnnT0BkGzDqF0;
- Fri, 18 Jan 2019 15:21:16 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43gpcL6whMzDqpK;
+ Fri, 18 Jan 2019 15:58:26 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2BE4521ADD;
- Thu, 17 Jan 2019 23:21:14 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 287D927513;
+ Thu, 17 Jan 2019 23:58:24 -0500 (EST)
 Received: from web6 ([10.202.2.216])
- by compute4.internal (MEProxy); Thu, 17 Jan 2019 23:21:14 -0500
+ by compute4.internal (MEProxy); Thu, 17 Jan 2019 23:58:24 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:references:date:in-reply-to:subject; s=fm1; bh=m9V
- EIlsPUJt00+Jb74/la9I69I7E0UJYRsCp2QNRtBo=; b=oG5OB19KjjwCkg9aVNs
- HVTm2eb8ZbNXU4ZpwzFkrQImrzjRLuj8LO1niVg5ZOy3PGpS7fwFJ+MIwUfXhPhB
- mOwGjugIIppOol35NU6zfUMNKCHOo9ZpYejCb56EoH1KFZReNnaxWKQNxhJTaZSz
- 4wTjYaBcqGiCVOARPDi8pD9o4c7no9zgUONmgxryBjf6JbMvdCqj9pLi6sumDV3x
- IQsVf7IrNX5AKSpZSBd/RwC3niykkatbdvZr7wbxMnaxItdYMYGeQX/tVG/HEVRw
- LQ0F9W/pt+y44ykjlaBZ8TSmEY1XnHWFr6FiykpmVXv8WuGoluiQoqMdzKUDrXn3
- avQ==
+ :content-type:references:in-reply-to:date:subject; s=fm1; bh=FSs
+ 3M3hmz3f0DGGFuPlnrdj30ljpMXiUZSOaJ/70si8=; b=tsfB+2DNiJUhsONOA5k
+ Lq2WAYQ81tta40/X7feIMpU0jY3mFYeWk4eg6zJ21qBJIbvp7fpxie7vx65RE1mc
+ bGm5aP2BUSEzOebzg7swKML6z482AZkJtaIPY+puoZkX2yrcgf7y5c+saX4DqANU
+ OfFlJ4ektpX7rciaWpvgAgOdn5letzCdeg+6N8h/DqULT81VaZioqDTmc9dws6H/
+ gUD0d5WqP1hWUcnYFHcMdNAzEmHpYXeTIezqrO/QZ4CVh+h6CLINh22CfO0BhYZS
+ d9DFYVhjvZuAchjSo5ZLYsi3LuHfwgLEn42Je+oynHw65zC3uhhx0acerwLlAO5x
+ FVg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=m9VEIlsPUJt00+Jb74/la9I69I7E0UJYRsCp2QNRt
- Bo=; b=FhySyZFw7t7GqpTwHw/DQ5vvJjjtU/tbtSVi9YVZ/og6ELh3be+DjJM6B
- gxmaIP7yOgvvPx/1azZ5eQqKnwZQchefPWhjftWCrsxwjg5yElEUg/0WhhbWKtKp
- S8oTNnRxn64TWJkXGo8EOU1YrUHBk66s5QgssB3mGVEpdg3pyQ2w2i+084on5XFc
- Ir8mp52MNWv/RizXLF2urdyDmiPiV9Pq2yLS8VAosN+Ci2x+SlUoe08rEeeyUUNf
- 4QjXn56qY72h/+ZL/QZkqb8eWVdaeX8/xqf7O9ekS/BdZQh43h7MHK78mLvPM3Vl
- tUSJPj16pT8P+yresBRLmbHv+bu8A==
-X-ME-Sender: <xms:OVRBXMDcb3mdRnHaga1R2g4qANad2gTgMIg2ETVVgIYH74dN1t44YA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeelgdeikecutefuodetggdotefrodftvf
+ :x-sasl-enc; s=fm1; bh=FSs3M3hmz3f0DGGFuPlnrdj30ljpMXiUZSOaJ/70s
+ i8=; b=E+mSePgbwggEbElvu9zkYYi8CabJykXFIc5sRqfaMDf7WjPUmf4FPVh1T
+ oQmvL1NYkB/UhGzHWgHHC7iSyOq5GELiH1nQ+ad0La4OqYkpOStLeyWQapi3t1or
+ sy0CqEG6OjH7/TbyK0MnMlebYVmekyWOghUb58CEgE7ZYlGo7oeD+qY5yL0+3r/1
+ 494h1RScxktWDtXci0IYiN7PbhAc6KhzWLYS5vvguUAdd6dmI9Es04JknGIrfx+X
+ XSRX/eJbrykeV/T5i4vd46tnZyX6aJlx5WCa48uqlpOe6jy6Bso3GK8GJQ3vpiWJ
+ tEqd0e85+IrAKiPpHL/6dfsSbKqQg==
+X-ME-Sender: <xms:71xBXEoXaK88eNxR389u3H6Ko2686eXJeDmPquI01UHRJk9ZutrD3w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrgeelgdejhecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
  tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- hfffgjufesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
+ hfjgffufesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
  rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
  gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:OVRBXK1qoPczqoQGfrGNuKZWw7T_yJOWQKSm4jOlnk2n4QcxCg8lAQ>
- <xmx:OVRBXCXjn_vaA3S3yaqtftWEInbWegOglRUHMp58Dzkx7Rr9l6CPjQ>
- <xmx:OVRBXEmU1h3z0pRYDZmCqcg7ZRjUSJLe0WstK7C8no9wTslOeBjyQA>
- <xmx:OlRBXK-xS45LkojaaSuib_yZKftL2sz9PB6xtTV1DAoTT3TjjEh-lg>
+X-ME-Proxy: <xmx:71xBXG8w-IWp-H8VCDYbOLgDTcQc2AdiixFpb3cZNuW3xUXeWtAHlQ>
+ <xmx:71xBXK37eah2EqEuD7P6OdcKQhCIscvsPNTYg4ZZLN5d5a2h4kYC9g>
+ <xmx:71xBXJBVzqZiJvLbHiQLhFUPJK9GIDlAEeXZx41IgU5DkeXmsjB_xQ>
+ <xmx:8FxBXModPjVQdNOkpjnCcbQLXGcK93tC65ZlyUxhjM2LmVDk9G81hw>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id BC8FD429B; Thu, 17 Jan 2019 23:21:12 -0500 (EST)
-Message-Id: <1547785272.2051152.1637704704.1926B2B5@webmail.messagingengine.com>
+ id D2606429B; Thu, 17 Jan 2019 23:58:22 -0500 (EST)
+Message-Id: <1547787502.2061444.1637712576.1F1E21B4@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Vijay Khemka <vijaykhemka@fb.com>, Lee Jones <lee.jones@linaro.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
+To: Vijay Khemka <vijaykhemka@fb.com>, Arnd Bergmann <arnd@arndb.de>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ Joel Stanley <joel@jms.id.au>, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Cc: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-36e4bfd3
-References: <20190117190830.824013-1-vijaykhemka@fb.com>
-Date: Fri, 18 Jan 2019 14:51:12 +1030
-In-Reply-To: <20190117190830.824013-1-vijaykhemka@fb.com>
-Subject: Re: [PATCH] dt-bindings: aspeed-lpc: Make parameter optional
+References: <20190116220154.1026171-1-vijaykhemka@fb.com>
+In-Reply-To: <20190116220154.1026171-1-vijaykhemka@fb.com>
+Date: Fri, 18 Jan 2019 15:28:22 +1030
+Subject: Re: [PATCH v2] misc: aspeed-lpc-ctrl: make parameter optional
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,41 +81,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 04:21:20 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 04:58:28 -0000
 
 Hi Vijay,
 
-On Fri, 18 Jan 2019, at 05:38, Vijay Khemka wrote:
-> Memory-region and flash phandle is not a required parameter, it is
-> optional to describe in device tree and needed only use basis.
+Thanks for doing the work to fix the driver. Some minor queries/points
+below.
+
+On Thu, 17 Jan 2019, at 08:31, Vijay Khemka wrote:
+> Makiing memory-region and flash as optional parameter in device
+> tree if user needs to use these parameter through ioctl then
+> need to define in devicetree.
 > 
 > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
 > ---
->  Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 4 ++++
->  1 file changed, 4 insertions(+)
+>  drivers/misc/aspeed-lpc-ctrl.c | 58 +++++++++++++++++++++-------------
+>  1 file changed, 36 insertions(+), 22 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/
-> Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> index 34dd89087cff..ff0cb28903dd 100644
-> --- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> +++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> @@ -135,6 +135,10 @@ Required properties:
->  - clocks:	contains a phandle to the syscon node describing the clocks.
->  		There should then be one cell representing the clock to use
+> diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-lpc-
+> ctrl.c
+> index a024f8042259..332210e06e98 100644
+> --- a/drivers/misc/aspeed-lpc-ctrl.c
+> +++ b/drivers/misc/aspeed-lpc-ctrl.c
+> @@ -68,6 +68,7 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, 
+> unsigned int cmd,
+>  		unsigned long param)
+>  {
+>  	struct aspeed_lpc_ctrl *lpc_ctrl = file_aspeed_lpc_ctrl(file);
+> +	struct device *dev = file->private_data;
+>  	void __user *p = (void __user *)param;
+>  	struct aspeed_lpc_ctrl_mapping map;
+>  	u32 addr;
+> @@ -90,6 +91,12 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, 
+> unsigned int cmd,
+>  		if (map.window_id != 0)
+>  			return -EINVAL;
 >  
-> +Optional properties:
-> +These below properties are optional and required only if one need to use it
-> +through ioctl.
+> +		/* If memory-region is not described in device tree */
+> +		if (!lpc_ctrl->mem_size) {
+> +			dev_err(dev, "Didn't find reserved memory\n");
+> +			return -EINVAL;
 
-I'd just say "Optional properties". Leave the description off, as we probably
-shouldn't be talking about ioctls and such in the bindings.
+I feel like EINVAL isn't quite right - it's pretty generic, and the parameter
+value changes its validity with the devicetree context. My gut instinct
+would be to use EINVAL for parameter values that violate assumptions
+of the driver rather than violate configuration of the driver. Maybe ENXIO
+("No such device or address") is an improvement: "I can't map that device
+because there's no such device or address"?
+
+> +		}
+> +
+>  		map.size = lpc_ctrl->mem_size;
+>  
+>  		return copy_to_user(p, &map, sizeof(map)) ? -EFAULT : 0;
+> @@ -126,9 +133,18 @@ static long aspeed_lpc_ctrl_ioctl(struct file 
+> *file, unsigned int cmd,
+>  			return -EINVAL;
+>  
+>  		if (map.window_type == ASPEED_LPC_CTRL_WINDOW_FLASH) {
+> +			if (!lpc_ctrl->pnor_size) {
+> +				dev_err(dev, "Didn't find host pnor flash\n");
+> +				return -EINVAL;
+
+See the error code discussion above. Also, this is userspace's error not 
+the kernel's, so I think dev_err() is a bit harsh. Probably best to just let
+userspace log the error if it thinks the it is concerning.
+
+> +			}
+>  			addr = lpc_ctrl->pnor_base;
+>  			size = lpc_ctrl->pnor_size;
+>  		} else if (map.window_type == ASPEED_LPC_CTRL_WINDOW_MEMORY) {
+> +			/* If memory-region is not described in device tree */
+> +			if (!lpc_ctrl->mem_size) {
+> +				dev_err(dev, "Didn't find reserved memory\n");
+> +				return -EINVAL;
+
+as above.
+
+> +			}
+>  			addr = lpc_ctrl->mem_base;
+>  			size = lpc_ctrl->mem_size;
+>  		} else {
+> @@ -196,17 +212,17 @@ static int aspeed_lpc_ctrl_probe(struct 
+> platform_device *pdev)
+>  	if (!lpc_ctrl)
+>  		return -ENOMEM;
+>  
+> +	/* If flash is described in device tree then store */
+>  	node = of_parse_phandle(dev->of_node, "flash", 0);
+>  	if (!node) {
+> -		dev_err(dev, "Didn't find host pnor flash node\n");
+> -		return -ENODEV;
+> -	}
+> -
+> -	rc = of_address_to_resource(node, 1, &resm);
+> -	of_node_put(node);
+> -	if (rc) {
+> -		dev_err(dev, "Couldn't address to resource for flash\n");
+> -		return rc;
+> +		dev_dbg(dev, "Didn't find host pnor flash node\n");
+> +	} else {
+> +		rc = of_address_to_resource(node, 1, &resm);
+> +		of_node_put(node);
+> +		if (rc) {
+> +			dev_err(dev, "Couldn't address to resource for flash\n");
+> +			return rc;
+> +		}
+>  	}
+>  
+>  	lpc_ctrl->pnor_size = resource_size(&resm);
+> @@ -214,22 +230,22 @@ static int aspeed_lpc_ctrl_probe(struct 
+> platform_device *pdev)
+>  
+>  	dev_set_drvdata(&pdev->dev, lpc_ctrl);
+>  
+> +	/* If memory-region is described in device tree then store */
+>  	node = of_parse_phandle(dev->of_node, "memory-region", 0);
+>  	if (!node) {
+> -		dev_err(dev, "Didn't find reserved memory\n");
+> -		return -EINVAL;
+> -	}
+> +		dev_dbg(dev, "Didn't find reserved memory\n");
+> +	} else {
+> +		rc = of_address_to_resource(node, 0, &resm);
+> +		of_node_put(node);
+> +		if (rc) {
+> +			dev_err(dev, "Couldn't address to resource for reserved memory\n");
+> +			return -ENOMEM;
+
+Wow, I think this is an abuse of ENOMEM. Its description is "Out of memory"
+which doesn't really reflect the problem here.
+
+Not really your fault though, maybe we'll fix that with some follow-up patches.
+
+Cheers,
 
 Andrew
 
-> +
->  - memory-region: A phandle to a reserved_memory region to be used for the LPC
->  		to AHB mapping
+> +		}
 >  
+> -	rc = of_address_to_resource(node, 0, &resm);
+> -	of_node_put(node);
+> -	if (rc) {
+> -		dev_err(dev, "Couldn't address to resource for reserved memory\n");
+> -		return -ENOMEM;
+> +		lpc_ctrl->mem_size = resource_size(&resm);
+> +		lpc_ctrl->mem_base = resm.start;
+>  	}
+>  
+> -	lpc_ctrl->mem_size = resource_size(&resm);
+> -	lpc_ctrl->mem_base = resm.start;
+> -
+>  	lpc_ctrl->regmap = syscon_node_to_regmap(
+>  			pdev->dev.parent->of_node);
+>  	if (IS_ERR(lpc_ctrl->regmap)) {
+> @@ -258,8 +274,6 @@ static int aspeed_lpc_ctrl_probe(struct 
+> platform_device *pdev)
+>  		goto err;
+>  	}
+>  
+> -	dev_info(dev, "Loaded at %pr\n", &resm);
+> -
+>  	return 0;
+>  
+>  err:
 > -- 
 > 2.17.1
 > 
