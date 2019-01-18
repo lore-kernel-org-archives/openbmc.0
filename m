@@ -1,57 +1,51 @@
-Return-Path: <osk@google.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::52e; helo=mail-ed1-x52e.google.com;
- envelope-from=osk@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="cNfCRpd2"; 
- dkim-atps=neutral
-Received: from mail-ed1-x52e.google.com (mail-ed1-x52e.google.com
- [IPv6:2a00:1450:4864:20::52e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43hF164bq4zDr7x
- for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 08:47:54 +1100 (AEDT)
-Received: by mail-ed1-x52e.google.com with SMTP id b14so12296959edt.6
- for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 13:47:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=AUc5aTb6Y5AeerB8dcNljNHdwfB6np31Q5bxZRoF/a0=;
- b=cNfCRpd2zUyn/eG9wm1nc33CsYRK3pOfBHycksOCQjdb84z5Kg5wS+l8ZdxpH4CHCQ
- LPaQ4nlIwU3nPA+KXwghTHbk7WLoE9wyudnqUbo8pokau1nuGYhhXPeaf2lMD9xYWHag
- pUBQNkSvCZVhvQWLu2cnlvjV/tAP3aEDwQ0NRMWVgjLNshh0Z8gJfRh6UeRrcXekWunA
- hHUtmTdkPJmqRwpMFuqtf3Qi/OgS5HJ4LJGPn6GErsodiXdC5k7Chu+IIILsU1jvuSO9
- 4cdd0yTsRVQLZaMZsunuhQuDVj4qv9d53A+AcovCdrDe8GjAYjyQ0VzFnMtjS196rj2s
- QLuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=AUc5aTb6Y5AeerB8dcNljNHdwfB6np31Q5bxZRoF/a0=;
- b=gl9cL1s2UhkKfANNtOXHCF9xYh/uM+AYU/JQWvk9QQiKE1QkBrSFTiUyXxVhYQtUu0
- PI69NHgKxqMhGtDOCtyXCdg6xxc1Ynj06M5hxr1pzN0RNbruzT4a8+/dZ4MC77jYl6VU
- w7wHU95TC14q4MbkqjCuR1vJU4KMwmnpWPNxGr4axuNV7mHnDcBE6O6/+o61dQE3BmWy
- T9Ly+Q3/5RcGnSBi9HznrDAU4XInCo9TC4I2buVg7M8MysHMtaANZa65gxPHlEK8Avur
- 0D9lHGX7V6VdlfINRiLxpzdm5ecF4FDlTpZ/LwuEkg0ngQ5ua9eh5CIqs2vELx/03XYp
- Jn2g==
-X-Gm-Message-State: AJcUukeucSgK6OKlbG8ROHeJxq2QiKULDztxIsNsSiMN6/DjSZSsuOUJ
- kOZMvmtMq7LT0yak83go4Lts1b3NPhorr1e7Kq1+ED7QY7Y=
-X-Google-Smtp-Source: ALg8bN6BTCW9RpCVpx9zAJnHMZtFROOZeD4oc7yv1zMP32APTaCSNwW5zKB7aE0yMDHhxLXzlEcYwOlYS42XbpjBzmA=
-X-Received: by 2002:a05:6402:13d6:: with SMTP id
- a22mr16823124edx.39.1547848071037; 
- Fri, 18 Jan 2019 13:47:51 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43hHlt5kQVzDrCl
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 10:51:34 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2019 15:51:29 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,492,1539673200"; 
+ d="scan'208,217";a="135898865"
+Received: from orsmsx101.amr.corp.intel.com ([10.22.225.128])
+ by fmsmga002.fm.intel.com with ESMTP; 18 Jan 2019 15:51:28 -0800
+Received: from orsmsx115.amr.corp.intel.com (10.22.240.11) by
+ ORSMSX101.amr.corp.intel.com (10.22.225.128) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Fri, 18 Jan 2019 15:51:28 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.248]) by
+ ORSMSX115.amr.corp.intel.com ([169.254.4.145]) with mapi id 14.03.0415.000;
+ Fri, 18 Jan 2019 15:51:27 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: TLS cipher suite changes on master
+Thread-Topic: TLS cipher suite changes on master
+Thread-Index: AdSviIWbW/QAIJJaSBakJCiQWk55bA==
+Date: Fri, 18 Jan 2019 23:51:24 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E8216993459B6F13@ORSMSX114.amr.corp.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMzI5NGIxNzctMzQzOS00MzJhLTk4OGUtYTNhYzE2M2ZjNDFhIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiNWsrM1czbURYckR3R3JQbnNoV2ZvVHUwVzFycjVcLzY4T3JLbm5ieFlHUnhCd1BTck4wM0psZ2g5VzJwREttaDkifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: multipart/alternative;
+ boundary="_000_7E9441B1E5EFFD4681F54958E8216993459B6F13ORSMSX114amrcor_"
 MIME-Version: 1.0
-References: <DE46657A-3E0D-445B-AE97-987C3E54C1D7@fb.com>
-In-Reply-To: <DE46657A-3E0D-445B-AE97-987C3E54C1D7@fb.com>
-From: Oskar Senft <osk@google.com>
-Date: Fri, 18 Jan 2019 16:47:39 -0500
-Message-ID: <CABoTLcQjC2=pRYmX3EdBdhY8qtw8a7UKDKq1ueLRf5DHLn6fJg@mail.gmail.com>
-Subject: Re: AMI Bios not booting completely
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: openbmc <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000719696057fc276c9"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,553 +57,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 21:47:56 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 23:51:39 -0000
 
---000000000000719696057fc276c9
-Content-Type: text/plain; charset="UTF-8"
-
-What really peaks out is that it stops just as it's trying to initialize
-the DXE serial driver ... Is it possible that this driver is attempting to
-access a resource that's not exposed or not handled through/by OpenBMC?
-
-Oskar.
-
-On Fri, Jan 18, 2019 at 2:33 PM Vijay Khemka <vijaykhemka@fb.com> wrote:
-
-> Team,
->
-> I am unable to boot Bios all the way to boot  (grub in our case) prompt.
-> I have verified IPMI communication with KCS debug. It does work with our FB
-> internal image but not with LF openbmc image. Following is the last log
-> lines and it get stuck after that.
->
->
->
-> InstallRom...Run-time ROM Size = 8000 Bytes
->
-> FetchBbsBootDevices: B3/D0/F0, ClassCode 3
->
-> InstallProtocolInterface: OpromStartEnd 0
->
-> OnPciIOInstalled
->
-> OnPciIOInstalled LocateHandle = Success
->
-> OnPciIOInstalled HandleProtocol = Success
->
-> OpRomStartEndProtocol located
->
->                PCI OPROM(handle 66307C98, 3/0/0): addr C0000, size 8000
->
-> InstallProtocolInterface: EfiDevicePath 65EAE9D8
->
-> VESA: fetching the list of VESA modes supported by the controller from
-> 3F022
->
-> VESA mode 101 (640x480)  skipping as BPP (8) is less than 24...
->
-> VESA mode 102 (800x600)  skipping as the mode has not linear frame
-> buffer...
->
-> VESA mode 103 (800x600)  skipping as BPP (8) is less than 24...
->
-> VESA mode 105 (1024x768)  skipping as BPP (8) is less than 24...
->
-> VESA mode 110 (640x480)  skipping as BPP (15) is less than 24...
->
-> VESA mode 111 (640x480)  skipping as BPP (16) is less than 24...
->
-> VESA mode 113 (800x600)  skipping as BPP (15) is less than 24...
->
-> VESA mode 114 (800x600)  skipping as BPP (16) is less than 24...
->
-> VESA mode 116 (1024x768)  skipping as BPP (15) is less than 24...
->
-> VESA mode 117 (1024x768)  skipping as BPP (16) is less than 24...
->
-> VESA mode 120 (640x480)  neither EDID nor MODE match is found.
->
-> VESA mode 121 (800x600)  MODE match found (0).
->
-> ODE match found (2).
->
-> VESA mode 122 (1024x768)  neither EDID nor MODE match is found.
->
-> VESA mode 130 (320x240)  skipping as BPP (8) is less than 24...
->
-> VESA mode 131 (320x240)  skipping as BPP (15) is less than 24...
->
-> VESA mode 132 (320x240)  skipping as BPP (16) is less than 24...
->
-> VESA mode 133 (320x240)  neither EDID nor MODE match is found.
->
-> VESA mode 134 (400x300)  skipping as BPP (8) is less than 24...
->
-> VESA mode 135 (400x300)  skipping as BPP (15) is less than 24...
->
-> VESA mode 136 (400x300)  skipping as BPP (16) is less than 24...
->
-> VESA mode 137 (400x300)  neither EDID nor MODE match is found.
->
-> VESA mode 138 (512x384)  skipping as BPP (8) is less than 24...
->
-> VESA mode 139 (512x384)  skipping as BPP (15) is less than 24...
->
-> VESA mode 13A (512x384)  skipping as BPP (16) is less than 24...
->
-> VESA mode 13B (512x384)  neither EDID nor MODE match is found.
->
-> Total number of GOP modes: 1
->
-> UefiBiosVideo AllocateTheBuffers()
->
-> VbeModeNumber: 0x121
->
-> BytesPerScanLine: 0xC80
->
-> HorizontalResolution: 0x320
->
-> VerticalResolution: 0x258
->
-> axBytesPerScanLine: 0xC80
->
-> axVerticalResolution: 0x258
->
-> InstallProtocolInterface: EfiGraphicsOutput 65EABB38[24m
->
-> [4mInstallProtocolInterface: EfiEdidDiscovered 65EABB58[24m
->
-> [4mInstallProtocolInterface: EfiEdidActive 65EABB68[24m
->
->
->
-> [4mOptRomSetup: GOP Protocol Installed, EVENT=0x68A8FB98.[24m
->
-> [4mOptRomSetup: ChkVga - VGA Settings: VgaIdx=0x14D; Item=1; Group=2;
-> cbMode=1; GopFound=1;[24m
->
-> [4mSuccess[24m
->
-> [4mAMI Graphic Console
-> Driver.Start(6A4C081C)[PciRoot(0x0)/Pci(0x1C,0x4)/Pci(0x0,0x0)/Pci(0x0,0x0)/AcpiAdr(0x80010100)]=InstallProtocolInterface:
-> EfiSimpleTextOut 65EAE298[24m
->
-> [4mInstallProtocolInterface: AmiTextOut 65EAE399[24m
->
-> [4mSuccess[24m
->
-> [4mAMI Console Splitter Text Out
-> Driver.Start(6A4C80B0)[PciRoot(0x0)/Pci(0x1C,0x4)/Pci(0x0,0x0)/Pci(0x0,0x0)/AcpiAdr(0x80010100)]=[24m
->
-> [4mRows = 19  Col = 50    AllDevices = 1 [24m
->
-> [4mRows = 19  Col = 50    AllDevices = 0 [24m
->
-> [4mRows = 1F  Col = 64    AllDevices = 1 [24m
->
-> [4mRows = 1F  Col = 64    AllDevices = 1 [24m
->
-> [4mSuccess[24m
->
-> [4mBDS.ConnectConOutVariable(6A730CF8)[24m
->
-> [4mAMI Serial I/O
-> Driver.Start(6A64A87C)[PciRoot(0x0)/Pci(0x1F,0x0)/Serial(0x0);Uart(InstallProtocolInterface:
-> EfiSerialIo 65EAB298[24m
->
-> [4mInstallProtocolInterface: EfiDevicePath 65C9D818[24m
->
-> [4mSuccess[24m
->
-> [4mAMI Terminal
-> Driver.Start(6A47662C)[PciRoot(0x0)/Pci(0x1F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware);VenVt100()]=ACPI:
-> SetAcpiTable() Table=0x65C9D2D8; Handle=0x6A47D530; *Handle=0x0[24m
->
-> [4mACPI: SetAcpiTable() Exiting... Status = Success[24m
->
-> [4mInstallProtocolInterface: EfiDevicePath 68A46D18[24m
->
-> [H[2J[61B[H[4mInstallProtocolInterface: EfiSimpleTextIn 68A45018
->
-> InstallProtocolInterface: EfiSimpleTextInputEx 68A45030
->
-> InstallProtocolInterface: AmiEfiKeycode 68A45060
->
-> InstallProtocolInterface: EfiSimpleTextOut 68A45090
->
-> Success
->
-> AMI Console Splitter Text Out
-> Driver.Start(6A4C80B0)[PciRoot(0x0)/Pci(0x1F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware)/VenVt100()]=
->
-> Rows = 19  Col = 50    AllDevices = 1
->
-> [24m[H[2J[7B[H[25;60HSuccess
->
-> AMI Console Splitter Text In
-> Driver.Start(6A4C84C4)[PciRoot(0x0)/Pci(0x1F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware)/VenVt100()]=Success
->
-> AMI Serial I/O
-> Driver.Start(6A64A87C)[PciRoot(0x0)/Pci(0x1F,0x0)/Serial(0x1);Uart(57600,8,N,1)]=
->
->
->
->
->
-> Please throw some light here.
->
->
->
-> Regards
->
-> -Vijay
->
-
---000000000000719696057fc276c9
-Content-Type: text/html; charset="UTF-8"
+--_000_7E9441B1E5EFFD4681F54958E8216993459B6F13ORSMSX114amrcor_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr">What really peaks out is that it stops just as it&#39;s tr=
-ying to initialize the DXE serial driver ... Is it possible that this drive=
-r is attempting to access a resource that&#39;s not exposed or not handled =
-through/by OpenBMC?<div><br></div><div>Oskar.</div></div><br><div class=3D"=
-gmail_quote"><div dir=3D"ltr">On Fri, Jan 18, 2019 at 2:33 PM Vijay Khemka =
-&lt;<a href=3D"mailto:vijaykhemka@fb.com">vijaykhemka@fb.com</a>&gt; wrote:=
-<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8=
-ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+I'd like to draw people's attention to a patchset for bmcweb here:
+https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/17390/
 
+This is updating the bmcweb cipher suites to more secure values, and in tur=
+n deprecating support for some older framework that we might have as client=
+s.  As stated in the patch, we are following OWASP "B" cipher suite recomme=
+ndations, although I would like to see us move to "A" in the near future.  =
+I have tested several browsers, and several OpenSSL versions, and they seem=
+ to work.  I'm bringing attention to this to mention that if people see iss=
+ues in HTTPS in the next week or so, they are likely the result of this cha=
+nge, and to report them so we can get them resolved.  The most likely culpr=
+it is going to be out of date crypto frameworks (think pyCrypto type) that =
+don't have support for SHA256.  If we lose compatibility for anything impor=
+tant, we need to get it identified so we can roll back the changes, or get =
+frameworks up to date.  In most cases, it will give a very unhelpful "Unabl=
+e to make secure connection" or "No shared cipher suites" message, which is=
+ pretty cryptic if you don't know what to look for.
 
+Hopefully this goes off without a hitch, and this email was unnecessary, bu=
+t in the case that I've made an error, hopefully this warning will save peo=
+ple some time.
 
+-Ed
 
+--_000_7E9441B1E5EFFD4681F54958E8216993459B6F13ORSMSX114amrcor_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-<div lang=3D"EN-US">
-<div class=3D"gmail-m_-6498760784469360057WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Team,<u></u><u></u></=
-span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">I am unable to boot B=
-ios all the way to boot=C2=A0 (grub in our case) prompt.=C2=A0 I have verif=
-ied IPMI communication with KCS debug. It does work with our FB internal im=
-age but not with LF openbmc image. Following
- is the last log lines and it get stuck after that.<u></u><u></u></span></p=
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<div style=3D"border-top:none;border-right:none;border-left:none;border-bot=
-tom:2.25pt double windowtext;padding:0in 0in 1pt">
-<p class=3D"MsoNormal" style=3D"border:none;padding:0in"><span style=3D"fon=
-t-size:11pt"><u></u>=C2=A0<u></u></span></p>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">I&#8217;d like to draw people&#8217;s attention to a=
+ patchset for bmcweb here:<o:p></o:p></p>
+<p class=3D"MsoNormal">https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcwe=
+b/&#43;/17390/<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">This is updating the bmcweb cipher suites to more se=
+cure values, and in turn deprecating support for some older framework that =
+we might have as clients.&nbsp; As stated in the patch, we are following OW=
+ASP &#8220;B&#8221; cipher suite recommendations, although
+ I would like to see us move to &#8220;A&#8221; in the near future.&nbsp; I=
+ have tested several browsers, and several OpenSSL versions, and they seem =
+to work.&nbsp; I&#8217;m bringing attention to this to mention that if peop=
+le see issues in HTTPS in the next week or so, they are likely
+ the result of this change, and to report them so we can get them resolved.=
+&nbsp; The most likely culprit is going to be out of date crypto frameworks=
+ (think pyCrypto type) that don&#8217;t have support for SHA256.&nbsp; If w=
+e lose compatibility for anything important, we
+ need to get it identified so we can roll back the changes, or get framewor=
+ks up to date.&nbsp; In most cases, it will give a very unhelpful &#8220;Un=
+able to make secure connection&#8221; or &#8220;No shared cipher suites&#82=
+21; message, which is pretty cryptic if you don&#8217;t know what to
+ look for.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hopefully this goes off without a hitch, and this em=
+ail was unnecessary, but in the case that I&#8217;ve made an error, hopeful=
+ly this warning will save people some time.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">-Ed<o:p></o:p></p>
 </div>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallRom...Run-time ROM Size =3D 8000 Bytes</span><u></u>=
-<u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">FetchBbsBootDevices: B3/D0/F0, ClassCode 3</span><u></u><u>=
-</u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: OpromStartEnd 0</span><u></u><u><=
-/u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">OnPciIOInstalled</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">OnPciIOInstalled LocateHandle =3D Success</span><u></u><u><=
-/u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">OnPciIOInstalled HandleProtocol =3D Success</span><u></u><u=
-></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">OpRomStartEndProtocol located</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057apple-converted-space">=C2=A0=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 </span><span class=3D"gmail-m_-6498760784469360057s1">PCI OP=
-ROM(handle 66307C98, 3/0/0): addr C0000, size 8000</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: EfiDevicePath 65EAE9D8</span><u><=
-/u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA: fetching the list of VESA modes supported by the cont=
-roller from 3F022</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 101 (640x480)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 102 (800x600)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as the mode =
-has not linear frame buffer...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 103 (800x600)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 105 (1024x768)</span><span class=3D"gmail-m_-6498=
-760784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 110 (640x480)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 111 (640x480)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 113 (800x600)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 114 (800x600)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 116 (1024x768)</span><span class=3D"gmail-m_-6498=
-760784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 117 (1024x768)</span><span class=3D"gmail-m_-6498=
-760784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 120 (640x480)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">neither EDID nor MODE=
- match is found.</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 121 (800x600)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">MODE match found (0).=
-</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">ODE match found (2).</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 122 (1024x768)</span><span class=3D"gmail-m_-6498=
-760784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">neither EDID nor MODE=
- match is found.</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 130 (320x240)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 131 (320x240)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 132 (320x240)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 133 (320x240)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">neither EDID nor MODE=
- match is found.</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 134 (400x300)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 135 (400x300)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 136 (400x300)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 137 (400x300)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">neither EDID nor MODE=
- match is found.</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 138 (512x384)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (8) i=
-s less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 139 (512x384)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (15) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 13A (512x384)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">skipping as BPP (16) =
-is less than 24...</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VESA mode 13B (512x384)</span><span class=3D"gmail-m_-64987=
-60784469360057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">neither EDID nor MODE=
- match is found.</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">Total number of GOP modes: 1</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">UefiBiosVideo AllocateTheBuffers()</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VbeModeNumber: 0x121</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">BytesPerScanLine: 0xC80</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">HorizontalResolution: 0x320</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">VerticalResolution: 0x258</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">axBytesPerScanLine: 0xC80</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">axVerticalResolution: 0x258</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: EfiGraphicsOutput 65EABB38[24m</s=
-pan><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mInstallProtocolInterface: EfiEdidDiscovered 65EABB58[24m=
-</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mInstallProtocolInterface: EfiEdidActive 65EABB68[24m</sp=
-an><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p2"><u></u>=C2=A0<u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mOptRomSetup: GOP Protocol Installed, EVENT=3D0x68A8FB98.=
-[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mOptRomSetup: ChkVga - VGA Settings: VgaIdx=3D0x14D; Item=
-=3D1; Group=3D2; cbMode=3D1; GopFound=3D1;[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mSuccess[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mAMI Graphic Console Driver.Start(6A4C081C)[PciRoot(0x0)/=
-Pci(0x1C,0x4)/Pci(0x0,0x0)/Pci(0x0,0x0)/AcpiAdr(0x80010100)]=3DInstallProto=
-colInterface: EfiSimpleTextOut 65EAE298[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mInstallProtocolInterface: AmiTextOut 65EAE399[24m</span>=
-<u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mSuccess[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mAMI Console Splitter Text Out Driver.Start(6A4C80B0)[Pci=
-Root(0x0)/Pci(0x1C,0x4)/Pci(0x0,0x0)/Pci(0x0,0x0)/AcpiAdr(0x80010100)]=3D[2=
-4m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mRows =3D 19</span><span class=3D"gmail-m_-64987607844693=
-60057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">Col =3D 50</span><spa=
-n class=3D"gmail-m_-6498760784469360057apple-converted-space">=C2=A0 =C2=A0=
- </span>
-<span class=3D"gmail-m_-6498760784469360057s1">AllDevices =3D 1 [24m</span>=
-<u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mRows =3D 19</span><span class=3D"gmail-m_-64987607844693=
-60057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">Col =3D 50</span><spa=
-n class=3D"gmail-m_-6498760784469360057apple-converted-space">=C2=A0 =C2=A0=
- </span>
-<span class=3D"gmail-m_-6498760784469360057s1">AllDevices =3D 0 [24m</span>=
-<u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mRows =3D 1F</span><span class=3D"gmail-m_-64987607844693=
-60057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">Col =3D 64</span><spa=
-n class=3D"gmail-m_-6498760784469360057apple-converted-space">=C2=A0 =C2=A0=
- </span>
-<span class=3D"gmail-m_-6498760784469360057s1">AllDevices =3D 1 [24m</span>=
-<u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mRows =3D 1F</span><span class=3D"gmail-m_-64987607844693=
-60057apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">Col =3D 64</span><spa=
-n class=3D"gmail-m_-6498760784469360057apple-converted-space">=C2=A0 =C2=A0=
- </span>
-<span class=3D"gmail-m_-6498760784469360057s1">AllDevices =3D 1 [24m</span>=
-<u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mSuccess[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mBDS.ConnectConOutVariable(6A730CF8)[24m</span><u></u><u>=
-</u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mAMI Serial I/O Driver.Start(6A64A87C)[PciRoot(0x0)/Pci(0=
-x1F,0x0)/Serial(0x0);Uart(InstallProtocolInterface: EfiSerialIo 65EAB298[24=
-m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mInstallProtocolInterface: EfiDevicePath 65C9D818[24m</sp=
-an><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mSuccess[24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mAMI Terminal Driver.Start(6A47662C)[PciRoot(0x0)/Pci(0x1=
-F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware);VenVt100()]=3DA=
-CPI: SetAcpiTable() Table=3D0x65C9D2D8; Handle=3D0x6A47D530; *Handle=3D0x0[=
-24m</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mACPI: SetAcpiTable() Exiting... Status =3D Success[24m</=
-span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[4mInstallProtocolInterface: EfiDevicePath 68A46D18[24m</sp=
-an><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[H[2J[61B[H[4mInstallProtocolInterface: EfiSimpleTextIn 68A=
-45018</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: EfiSimpleTextInputEx 68A45030</sp=
-an><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: AmiEfiKeycode 68A45060</span><u><=
-/u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">InstallProtocolInterface: EfiSimpleTextOut 68A45090</span><=
-u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">Success</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">AMI Console Splitter Text Out Driver.Start(6A4C80B0)[PciRoo=
-t(0x0)/Pci(0x1F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware)/V=
-enVt100()]=3D</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">Rows =3D 19</span><span class=3D"gmail-m_-64987607844693600=
-57apple-converted-space">=C2=A0
-</span><span class=3D"gmail-m_-6498760784469360057s1">Col =3D 50</span><spa=
-n class=3D"gmail-m_-6498760784469360057apple-converted-space">=C2=A0 =C2=A0=
- </span>
-<span class=3D"gmail-m_-6498760784469360057s1">AllDevices =3D 1</span><u></=
-u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">[24m[H[2J[7B[H[25;60HSuccess</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">AMI Console Splitter Text In Driver.Start(6A4C84C4)[PciRoot=
-(0x0)/Pci(0x1F,0x0)/Serial(0x0)/Uart(57600,8,N,1)/UartFlowCtrl(Hardware)/Ve=
-nVt100()]=3DSuccess</span><u></u><u></u></p>
-<p class=3D"gmail-m_-6498760784469360057p1"><span class=3D"gmail-m_-6498760=
-784469360057s1">AMI Serial I/O Driver.Start(6A64A87C)[PciRoot(0x0)/Pci(0x1F=
-,0x0)/Serial(0x1);Uart(57600,8,N,1)]=3D</span><u></u><u></u></p>
-<div style=3D"border-top:none;border-right:none;border-left:none;border-bot=
-tom:2.25pt double windowtext;padding:0in 0in 1pt">
-<p class=3D"MsoNormal" style=3D"border:none;padding:0in"><span style=3D"fon=
-t-size:11pt"><u></u>=C2=A0<u></u></span></p>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Please throw some lig=
-ht here.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Regards<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">-Vijay<u></u><u></u><=
-/span></p>
-</div>
-</div>
+</body>
+</html>
 
-</blockquote></div>
-
---000000000000719696057fc276c9--
+--_000_7E9441B1E5EFFD4681F54958E8216993459B6F13ORSMSX114amrcor_--
