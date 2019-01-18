@@ -1,41 +1,67 @@
-Return-Path: <fyczy@126.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=126.com
- (client-ip=220.181.15.33; helo=m15-33.126.com; envelope-from=fyczy@126.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32e; helo=mail-ot1-x32e.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=126.com header.i=@126.com header.b="Q9nFvPGz"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NDzxEBNI"; 
  dkim-atps=neutral
-Received: from m15-33.126.com (m15-33.126.com [220.181.15.33])
- by lists.ozlabs.org (Postfix) with ESMTP id 43gwcY5P9zzDqty
- for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 20:28:53 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=gi25Y
- 9tbu9eKglf49CdqTPIP213y6PP1Ez2SHsyTsY4=; b=Q9nFvPGzoZioZ+Kmar5Si
- d/CHSe1wfYyvrvrj+TtcB+8jUPIgN1vQXm2jOGDQMk2b2+W2yr1xvW3SlzCtK79W
- Q3yhQwtRTvQi/IzNrtKhT2hOIFBvih5kgTXawLGlafnszYA5PvStUbfBsU73TWfc
- AQlpdGN4kYsK6ic+cSIo7g=
-Received: from fyczy$126.com ( [58.56.96.29] ) by ajax-webmail-wmsvr33
- (Coremail) ; Fri, 18 Jan 2019 17:28:44 +0800 (CST)
-X-Originating-IP: [58.56.96.29]
-Date: Fri, 18 Jan 2019 17:28:44 +0800 (CST)
-From: =?GBK?B?wfXO/c6w?= <fyczy@126.com>
+Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
+ [IPv6:2607:f8b0:4864:20::32e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43h47d1j5VzDr2P
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 02:07:56 +1100 (AEDT)
+Received: by mail-ot1-x32e.google.com with SMTP id u16so14613342otk.8
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 07:07:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=odZKec6GnZRxqqrW+XCf2eKuFvbFUngKhWf+XYhvyXg=;
+ b=NDzxEBNIJKcRudzVa1BfSOFC0EnKNqrcNT9RfI0FuYmHQIXU2hJ0l5Ldw8PqumutkQ
+ tjZOnt2fWyL75gxmbUDrjei/pPfOMsCumLKGz3hmFRylGxuhGWR890DzrIPfcpNduFJ3
+ r4GnZ7l905cqu7PZITBVLToJMqw1BbNFrgb5eebyvGGkioDKWxo8pE0quv38+alt0REM
+ DFtWHps4uJ4jMD2zG0oi4/Q134EcVXV60FFPfXzQDBiC2iNJvyAUWlcnd5pgIqmLumwm
+ 3/AOYhbF6EXLTV3bumScI3GsWorXbu9+TGANUXEAZUk5ZMu/OIjUuls4SKvbnvQrElZu
+ 2afQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=odZKec6GnZRxqqrW+XCf2eKuFvbFUngKhWf+XYhvyXg=;
+ b=iWi0DinE79DgdVBh/UdO0zdduYPHoHqxEcpp2S2QXiI2kXRXrPNjxBnfalJXIult+l
+ E9m+5N4mnY6t4W/uF9t+K1ioY40zcV0XCJsuYbUc7fNZ+Uec9w/7adrNDuQHQCkz5M0x
+ gyIDNoSCqHjxuKCe3Lu/6qWW+E0jr8AfQT13hxZoKw/oHIG5N8tXbBDP20OSexXMXPIl
+ 9LgIzJRfd1ygYejk74/FcmBVNSmT4v/0NhdLYjAgKXgYeg2n3VHYABzjH10/y574zgrU
+ 67gOHWqpbrxUCGRu9hMJzrvX5zag7CVZQPIZsJnHKm2n1FiH/QC8P8kttY/mKd3bf2SZ
+ fM7Q==
+X-Gm-Message-State: AJcUukeBiY/A4cOgsVGcy/+Y9lNV1NDGSUJUwO7TFiYdIaJuT8yDqhxK
+ QFpq61js3Szrw9DYjl/CaXsSwcU0
+X-Google-Smtp-Source: ALg8bN7EUnWSEyrqYylH1ylUVeIduMVIExYRaB6eLYFzp2RZkQNMTjzT503zsc2d5XqRoUCQTE+xDQ==
+X-Received: by 2002:a9d:2186:: with SMTP id s6mr12619390otb.346.1547824074122; 
+ Fri, 18 Jan 2019 07:07:54 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id v20sm1952352otk.77.2019.01.18.07.07.52
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 18 Jan 2019 07:07:53 -0800 (PST)
+Subject: Re: Openbmc test Release tagging for Community Release
 To: openbmc@lists.ozlabs.org
-Subject: couple questions for Event Log
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
- 20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
-X-CM-CTRLDATA: iHlXYWZvb3Rlcl9odG09MjAzNDo1Ng==
-Content-Type: multipart/alternative; 
- boundary="----=_Part_119466_559030783.1547803724069"
+References: <OFF42ED130.9BA22149-ON00258385.005A6773-65258385.005B63D6@notes.na.collabserv.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <ecb9f90c-958b-219b-160c-11ee09a72ecb@gmail.com>
+Date: Fri, 18 Jan 2019 09:07:52 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.4.0
 MIME-Version: 1.0
-Message-ID: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: IcqowACnr8NNnEFci0oIAA--.8477W
-X-CM-SenderInfo: xi1f65a6rslhhfrp/1tbimgRA9VpD7V22MwABsG
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+In-Reply-To: <OFF42ED130.9BA22149-ON00258385.005A6773-65258385.005B63D6@notes.na.collabserv.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,58 +73,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 09:29:04 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 15:07:58 -0000
 
-------=_Part_119466_559030783.1547803724069
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+On 1/17/19 10:38 AM, George Keishing wrote:
+> Hi All,
+> 
+> We are going to tag a openbmc test release soon for the community master 
+> release testing. So, expect 2.3 tag version soon there in a week time 
+> from now, once the test code and master are stable.
 
-SGkKCjEuICAgICAgIEhvdyB0byBkZWJ1ZyB0aGUgc3lzdGVtIGV2ZW50IGxvZywgaG93IHRvIGNv
-bmZpZ3VyZSBpdCwgYW5kIHdoYXQgbW9kdWxlcyBhcmUgcmVsYXRlZCB0byB0aGUgbG9nIGZ1bmN0
-aW9uPwoKMi4gICAgICAgV2hlbiBpcyB0aGUgcGhvc3Bob3Itc2VsLWxvZ2dlciByZWdpc3RyYXRp
-b24gbWV0aG9kIChJcG1pU2VsQWRkLCBJcG1pU2VsQWRkT2VtKSBpbnZva2VkPyBIb3cgdG8gdXNl
-IERCVVMgdG8gcmVhZCBqb3VybmFsY3RsPwoKMy4gICAgICAgQ291bGQgYW55b25lIHNoYXJlIGEg
-ZGVzY3JpcHRpb24gb2YgdGhlIHlhbWwgZmlsZSBhYm91dCBwaG9zcGhvci1sb2dnaW5nPwoKVGhh
-bmtz
-------=_Part_119466_559030783.1547803724069
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+No, we are in the middle of a test cycle for the 2.6 release. We agreed 
+and switched from the informal tags to a formal release process last 
+June/July. Why do we need to tag master at an earlier level? Please come 
+to a release planning meeting and let's talk about what you need.
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVOLVVT
-Ij5IaTxvOnA+PC9vOnA+PC9zcGFuPjwvcD4KCjxwIGNsYXNzPSJNc29MaXN0UGFyYWdyYXBoIiBz
-dHlsZT0ibWFyZ2luLWxlZnQ6MzkuMHB0O3RleHQtaW5kZW50Oi0xOC4wcHQ7Cm1zby1jaGFyLWlu
-ZGVudC1jb3VudDowO21zby1saXN0OmwwIGxldmVsMSBsZm8xIj48IS0tW2lmICFzdXBwb3J0TGlz
-dHNdLS0+PHNwYW4gbGFuZz0iRU4tVVMiIHN0eWxlPSJtc28tZmFyZWFzdC1mb250LWZhbWlseTpD
-YWxpYnJpO21zby1mYXJlYXN0LXRoZW1lLWZvbnQ6bWlub3ItbGF0aW47Cm1zby1iaWRpLWZvbnQt
-ZmFtaWx5OkNhbGlicmk7bXNvLWJpZGktdGhlbWUtZm9udDptaW5vci1sYXRpbiI+PHNwYW4gc3R5
-bGU9Im1zby1saXN0Oklnbm9yZSI+MS48c3BhbiBzdHlsZT0iZm9udDo3LjBwdCAmcXVvdDtUaW1l
-cyBOZXcgUm9tYW4mcXVvdDsiPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOwo8
-L3NwYW4+PC9zcGFuPjwvc3Bhbj48IS0tW2VuZGlmXS0tPjxzcGFuIGxhbmc9IkVOLVVTIj5Ib3cg
-dG8gZGVidWcgdGhlIHN5c3RlbSBldmVudApsb2csIGhvdyB0byBjb25maWd1cmUgaXQsIGFuZCB3
-aGF0IG1vZHVsZXMgYXJlIHJlbGF0ZWQgdG8gdGhlIGxvZyBmdW5jdGlvbj8gPG86cD48L286cD48
-L3NwYW4+PC9wPgoKPHAgY2xhc3M9Ik1zb0xpc3RQYXJhZ3JhcGgiIHN0eWxlPSJtYXJnaW4tbGVm
-dDozOS4wcHQ7dGV4dC1pbmRlbnQ6LTE4LjBwdDsKbXNvLWNoYXItaW5kZW50LWNvdW50OjA7bXNv
-LWxpc3Q6bDAgbGV2ZWwxIGxmbzEiPjwhLS1baWYgIXN1cHBvcnRMaXN0c10tLT48c3BhbiBsYW5n
-PSJFTi1VUyIgc3R5bGU9Im1zby1mYXJlYXN0LWZvbnQtZmFtaWx5OkNhbGlicmk7bXNvLWZhcmVh
-c3QtdGhlbWUtZm9udDptaW5vci1sYXRpbjsKbXNvLWJpZGktZm9udC1mYW1pbHk6Q2FsaWJyaTtt
-c28tYmlkaS10aGVtZS1mb250Om1pbm9yLWxhdGluIj48c3BhbiBzdHlsZT0ibXNvLWxpc3Q6SWdu
-b3JlIj4yLjxzcGFuIHN0eWxlPSJmb250OjcuMHB0ICZxdW90O1RpbWVzIE5ldyBSb21hbiZxdW90
-OyI+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Cjwvc3Bhbj48L3NwYW4+PC9z
-cGFuPjwhLS1bZW5kaWZdLS0+PHNwYW4gbGFuZz0iRU4tVVMiPldoZW4gaXMgdGhlIHBob3NwaG9y
-LXNlbC1sb2dnZXIKcmVnaXN0cmF0aW9uIG1ldGhvZCAoSXBtaVNlbEFkZCwgSXBtaVNlbEFkZE9l
-bSkgaW52b2tlZD8gSG93IHRvIHVzZSBEQlVTIHRvCnJlYWQgam91cm5hbGN0bD88bzpwPjwvbzpw
-Pjwvc3Bhbj48L3A+Cgo8cCBjbGFzcz0iTXNvTGlzdFBhcmFncmFwaCIgc3R5bGU9Im1hcmdpbi1s
-ZWZ0OjM5LjBwdDt0ZXh0LWluZGVudDotMTguMHB0Owptc28tY2hhci1pbmRlbnQtY291bnQ6MDtt
-c28tbGlzdDpsMCBsZXZlbDEgbGZvMSI+PCEtLVtpZiAhc3VwcG9ydExpc3RzXS0tPjxzcGFuIGxh
-bmc9IkVOLVVTIiBzdHlsZT0ibXNvLWZhcmVhc3QtZm9udC1mYW1pbHk6Q2FsaWJyaTttc28tZmFy
-ZWFzdC10aGVtZS1mb250Om1pbm9yLWxhdGluOwptc28tYmlkaS1mb250LWZhbWlseTpDYWxpYnJp
-O21zby1iaWRpLXRoZW1lLWZvbnQ6bWlub3ItbGF0aW4iPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJ
-Z25vcmUiPjMuPHNwYW4gc3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1
-b3Q7Ij4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsKPC9zcGFuPjwvc3Bhbj48
-L3NwYW4+PCEtLVtlbmRpZl0tLT48c3BhbiBsYW5nPSJFTi1VUyI+Q291bGQgYW55b25lIHNoYXJl
-IGEKZGVzY3JpcHRpb24gb2YgdGhlIHlhbWwgZmlsZSBhYm91dCBwaG9zcGhvci1sb2dnaW5nPzxv
-OnA+PC9vOnA+PC9zcGFuPjwvcD4KCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIGxhbmc9IkVO
-LVVTIj5UaGFua3M8bzpwPjwvbzpwPjwvc3Bhbj48L3A+PC9kaXY+PGJyPjxicj48c3BhbiB0aXRs
-ZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwvc3Bhbj4=
-------=_Part_119466_559030783.1547803724069--
+> As part of the release tagging in test, we are freezing any new changes 
+> for now in test except for CI/CT fixes required to support testing the 
+> Master 2.6 .
+
+I don't understand this at all. What is "release tagging in test"? We 
+have a 2.6 branch and master (which is also at 2.6+ level).
+
+Kurt (krtaylor)
