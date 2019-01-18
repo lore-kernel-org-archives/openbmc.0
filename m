@@ -1,80 +1,38 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <jason.m.bills@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43h4qG1YytzDr1f
- for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 02:38:50 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0IFXfKH028611
- for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 10:38:48 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2q3fd1x79u-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 10:38:47 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Fri, 18 Jan 2019 15:38:46 -0000
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 18 Jan 2019 15:38:43 -0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0IFchpP21430390
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 18 Jan 2019 15:38:43 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E03A8112061;
- Fri, 18 Jan 2019 15:38:42 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 61AA6112063;
- Fri, 18 Jan 2019 15:38:42 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 18 Jan 2019 15:38:42 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43h7mQ6J4HzDr6x
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 04:51:30 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 18 Jan 2019 09:51:27 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,491,1539673200"; d="scan'208";a="109324448"
+Received: from jmbills-mobl4.amr.corp.intel.com (HELO [10.241.242.104])
+ ([10.241.242.104])
+ by orsmga006.jf.intel.com with ESMTP; 18 Jan 2019 09:51:27 -0800
+Subject: Re: couple questions for Event Log
+To: openbmc@lists.ozlabs.org
+References: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
+From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+Message-ID: <7bf8dc07-5146-ffd9-870a-ba74c0cb36d9@linux.intel.com>
+Date: Fri, 18 Jan 2019 09:51:26 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 18 Jan 2019 09:44:23 -0600
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: joel@jms.id.au, jk@ozlabs.org
-Cc: openbmc@lists.ozlabs.org, medadyoung@gmail.com
-Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
-In-Reply-To: <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
-References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
- <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
-X-Sender: anoo@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19011815-0040-0000-0000-000004B403D6
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010430; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000275; SDB=6.01148299; UDB=6.00593882; IPR=6.00928602; 
- MB=3.00025188; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-18 15:38:45
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19011815-0041-0000-0000-000008BF0EF8
-Message-Id: <c2c5408cf1a715df1e7ac6447620b5de@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-18_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=503 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901180111
+In-Reply-To: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
+Content-Type: text/plain; charset=gbk; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,9 +44,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 15:38:50 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 17:51:35 -0000
 
-Hi Joel,
+On 1/18/2019 1:28 AM, ÁõÎýÎ° wrote:
+> Hi
+> 
+> 1.How to debug the system event log, how to configure it, and what 
+> modules are related to the log function?
 
-Why has this patch been archived and marked as "Not Applicable"? - 
-http://patchwork.ozlabs.org/patch/1011480/
+Can you provide more detail?  Are you looking specifically for IPMI SEL 
+or general BMC logging through phosphor-logging?
+
+> 
+> 2.When is the phosphor-sel-logger registration method (IpmiSelAdd, 
+> IpmiSelAddOem) invoked? How to use DBUS to read journalctl?
+
+phosphor-sel-logger runs as a service and exposes the IpmiSelAdd and 
+IpmiSelAddOem methods on D-Bus.  When either of those methods is 
+invoked, the phosphor-sel-logger creates an IPMI SEL entry in the system 
+journal using the provided data.  The journal can then be parsed to 
+extract the SEL entries as found in 
+https://gerrit.openbmc-project.xyz/c/openbmc/intel-ipmi-oem/+/16280.
+
+journalctl is a command-line utility to read the system journal, so it 
+isn't used over D-Bus.  Details on journalctl can be found here: 
+https://www.freedesktop.org/software/systemd/man/journalctl.html.
+
+If you want to read the journal in source, you can use the sd_journal 
+APIs here: 
+https://www.freedesktop.org/software/systemd/man/sd_journal.html#. 
+Example usage is in the gerrit review above.
+
+> 
+> 3.Could anyone share a description of the yaml file about phosphor-logging?
+> 
+> Thanks
+> 
+> 
+> 
+
+Thanks,
+-Jason
