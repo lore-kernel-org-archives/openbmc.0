@@ -1,38 +1,54 @@
-Return-Path: <jason.m.bills@linux.intel.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::632; helo=mail-pl1-x632.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="oVppqRtc"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43h7mQ6J4HzDr6x
- for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 04:51:30 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2019 09:51:27 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,491,1539673200"; d="scan'208";a="109324448"
-Received: from jmbills-mobl4.amr.corp.intel.com (HELO [10.241.242.104])
- ([10.241.242.104])
- by orsmga006.jf.intel.com with ESMTP; 18 Jan 2019 09:51:27 -0800
-Subject: Re: couple questions for Event Log
-To: openbmc@lists.ozlabs.org
-References: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-Message-ID: <7bf8dc07-5146-ffd9-870a-ba74c0cb36d9@linux.intel.com>
-Date: Fri, 18 Jan 2019 09:51:26 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43h8q44VV3zDqpf
+ for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 05:38:55 +1100 (AEDT)
+Received: by mail-pl1-x632.google.com with SMTP id g9so6723182plo.3
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Jan 2019 10:38:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=tAMA//uTOvHa1/j3WSDmIKCl2tF1yKeOtTVkmhmngdQ=;
+ b=oVppqRtcA6JtxdZ5H7B/OgZ1pn49xzFNS/LXeeoL9ffTNt1xd7QXRN4GZ0DHzPhI/0
+ BLd1iItMAOvsZ/3HAE6zPE/WBZxKzj2BMAF7NbTdGQ18klWe+1dODVLQsjYxhtShHDlg
+ AJ3dqoBNtWyfthbkHe/HEjYvGdWTj1/m3Fo1AohUIf/YcghGmpuFwmNV/eHw4t2k+iFs
+ msPf0g66RqFFgG7eRhI3ColVRVZud75VAW/jEncHObjuXpredw5L7eDzrE8taP/Ezpjn
+ EPE1BR0bumDNfB+bjxSbBBLSCFhFRwGWzkIFujCR8ZIaHDr2iz14pNVrgki3elAHSw25
+ Fevw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=tAMA//uTOvHa1/j3WSDmIKCl2tF1yKeOtTVkmhmngdQ=;
+ b=eNkC2pInR6q/CC7ApkCpuOfcMp2S7q0cThyvUcxC++VPrEu/06PqndCPI5LF/aStpd
+ T/YKO6GYVMQB85uO+2RIAQMbfM8V1XAN5Df6lN9DblqUfscTioom5/lpxZlq8VTXI56y
+ VAWFZDiyQ2FLJXNOnvAeZDGE5AV8mXNjuw9GaXrm/fy+BR0deNIjghEC6kHamHQ0dNrl
+ 2Ze5j2uETL/5S5GrucXZg7I62EETR/FzpQNzaehugi6Y9NdeHEzEFdE2GCI8V9rmhO6Z
+ G0MBVbs3Tqz2W8CHXCk6+ORpzs1NdkObBGM9AGzDUAzZv4mUEba9AkqAIPgv78x/yHRE
+ gBMA==
+X-Gm-Message-State: AJcUukcJbVHz30NYs9k+IJ9qvKhCKIPKzmHwKCJmxbxeRURgXvS2Ovk0
+ bHS1g0wO1HUojyQU+6NJI7vyJwd5779t1FTVry3ONtj9sjXwYA==
+X-Google-Smtp-Source: ALg8bN7RU2YEBNQJhILzeSqeggmt8yG0OyBR2qfZ6k8fUXd4BTthVSr7xhuHUXsZNQ6H/iFLPJJa+AJCR5l+PiygN1Q=
+X-Received: by 2002:a17:902:1126:: with SMTP id
+ d35mr19161978pla.1.1547836732759; 
+ Fri, 18 Jan 2019 10:38:52 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <5aff6ce7.7e70.168604a8925.Coremail.fyczy@126.com>
-Content-Type: text/plain; charset=gbk; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: Patrick Venture <venture@google.com>
+Date: Fri, 18 Jan 2019 10:38:41 -0800
+Message-ID: <CAO=notxJck9xYXKv=BYADuZV1Ya771bS7Mc_-1OUfDp4iFTq2A@mail.gmail.com>
+Subject: Using mmap against aspeed-lpc-ctrl device - weird bytes :D
+To: Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,44 +60,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 17:51:35 -0000
+X-List-Received-Date: Fri, 18 Jan 2019 18:38:57 -0000
 
-On 1/18/2019 1:28 AM, ÁõÎýÎ° wrote:
-> Hi
-> 
-> 1.How to debug the system event log, how to configure it, and what 
-> modules are related to the log function?
+Just to give you some context snippets:
 
-Can you provide more detail?  Are you looking specifically for IPMI SEL 
-or general BMC logging through phosphor-logging?
+System DTS snippet:
 
-> 
-> 2.When is the phosphor-sel-logger registration method (IpmiSelAdd, 
-> IpmiSelAddOem) invoked? How to use DBUS to read journalctl?
+reserved-memory {
+ #address-cells = <1>;
+ #size-cells = <1>;
+ ranges;
+ lpc_mapped_memory: region@98000000 {
+  no-map;
+  reg = <0x98000000 0x00800000>; /* 8MB */
+ };
+};
 
-phosphor-sel-logger runs as a service and exposes the IpmiSelAdd and 
-IpmiSelAddOem methods on D-Bus.  When either of those methods is 
-invoked, the phosphor-sel-logger creates an IPMI SEL entry in the system 
-journal using the provided data.  The journal can then be parsed to 
-extract the SEL entries as found in 
-https://gerrit.openbmc-project.xyz/c/openbmc/intel-ipmi-oem/+/16280.
+&lpc_ctrl {
+ status = "okay";
+ memory-region = <&lpc_mapped_memory>;
+ flash = <&spi1>; // spi disabled, but needed for lpc_ctrl to probe
+};
 
-journalctl is a command-line utility to read the system journal, so it 
-isn't used over D-Bus.  Details on journalctl can be found here: 
-https://www.freedesktop.org/software/systemd/man/journalctl.html.
+So, on the BMC, it receives the host's memory map address --> so it
+can configure the window:
 
-If you want to read the journal in source, you can use the sd_journal 
-APIs here: 
-https://www.freedesktop.org/software/systemd/man/sd_journal.html#. 
-Example usage is in the gerrit review above.
+https://github.com/openbmc/phosphor-ipmi-flash/blob/master/lpc_aspeed.cpp#L42
 
-> 
-> 3.Could anyone share a description of the yaml file about phosphor-logging?
-> 
-> Thanks
-> 
-> 
-> 
+Then the host tool, mmap's to the host set-aside address, 4KiB, and
+tells the BMC to copy out the 4KiB:
 
-Thanks,
--Jason
+https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-ipmi-flash/+/17505
+
+Keep in mind, previously this was working by the BMC opening /dev/mem
+and mapping against lpc_mapped_memory -- but now we're opening
+aspeed-lpc-ctrl.  In the code above, regionAddress ==
+lpc_mapped_memory, and regionSize is 64KiB.
+
+Can you take a look to at least sanity check this?
+
+It ends up copying out data that looks like this:
+
+00000000  0a 00 01 00 0a 00 01 00  0a 00 01 00 0a 00 01 00  |................|
+*
+00001000
+
+Patrick
