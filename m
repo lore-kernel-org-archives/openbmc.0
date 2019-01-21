@@ -1,54 +1,71 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::229; helo=mail-oi1-x229.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::d30; helo=mail-io1-xd30.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MaKRGHQu"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="kE5Mqe7D"; 
  dkim-atps=neutral
-Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
- [IPv6:2607:f8b0:4864:20::229])
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43jz150BZlzDqQb
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 04:23:52 +1100 (AEDT)
-Received: by mail-oi1-x229.google.com with SMTP id x202so15116721oif.13
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 09:23:52 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43k2nm144tzDqST
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 07:14:19 +1100 (AEDT)
+Received: by mail-io1-xd30.google.com with SMTP id b23so17342650ios.10
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:14:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=LWme1KnkrfMxAk/fb7uxiDpS0jjgaBuNvUWosF0wWPc=;
- b=MaKRGHQuIXWnu/ME8lglgOy7kBG4XMqJ4ljQxqgJQWGt5SRy8znuVK7nBs81U9PnTD
- EFA+8NFOOpk8LZ4WBTA2+uz/63fMQq6C6ucKyiCfDOB/nJAaNkuiQdRy0nV5vbCy0Fgh
- L3/AY+LfIB0yZz5Y/2yUPch4nsmQofvRypCkeTma8xTJnwPTAdpAa2BIJqETyIRb1OTg
- f47p/bLH3JaQjyE9QKYlTpXKvBWntP0JRXWDVmVUqkxlCMWYZJXgJ/313XeCoFly+AEo
- 5o6aebsy2adx/pZDtx444XXaI2X/ainP9wURMi6gx2CD6Eu2AwuhDbdKgMDH5qudCkFw
- dp7g==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pVe2fJMoGFrcJA3z9VLysnkB5pFTXl0Wnx5S7jnVMdI=;
+ b=kE5Mqe7Day9ynVeypox3a1OjOkM61aN0GlkPT1VFcZuCkavfbKPkLKItiw4lDIcuo/
+ uPiwM9ScB0G7gyLVCKs1mXbi0u5ePifoNGmca4P/hHO//tzAEzygK2KLfgcMa9HhAYnC
+ voMxmmz2Vjo9Xv9vreSAbiorAAQlg/bh7y3Bc08kV2rUeAKDuqnS4di5yksWK1PAICZi
+ EgWvz5UfUwgF6PPQe8TJrJc1Z5W4KSGMfO6FR2ynxC7Y2x13turFfLVaP6LQdiYhrWDV
+ 8hPN3GtuJOIFiGlW4sgS0XYxEz55ewWle6I1NfwptHwD9Fsw4gSXRKVCiPhgFH1bLLFN
+ z/og==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=LWme1KnkrfMxAk/fb7uxiDpS0jjgaBuNvUWosF0wWPc=;
- b=r1FULiZDhSm+4n5PlWWtsUPgAFnFANczd76nEedM5F3cJbZEpFYetaLaQmgJuTFJKy
- 79cIUU0w3ZoqjtX6MFtICdJx0ascavTXDlu/hYQhnrIlUNYTpBEpqWXKWTBhfOhGofDN
- INTaGUoLejUABwaXuL81RfnkW8olJam/IPnh96CVdpUQJUPA2E7QYmPg34AIX87bTd48
- tK2ozM7b5XYmngyeJrE9CnAUPqVNNo6A2vX3e3locA76EPUoyqwVa9cImp1YedUqhuD7
- xNe7XawwCgw4neSyvjjnlggr6NxZsS7eNGKk3HI3kQ7SHMoYVcZcVSa3X1NOfNQJQdgH
- aHqg==
-X-Gm-Message-State: AJcUukdb5ECS033V84a/FNmXHWtjGlP9SqbPGkQG6D/j+VhhYvjGEwSI
- tGZvult6nAYYJ4TUPCAIYKiNnzyL1I2heX2NzhAerJT/
-X-Google-Smtp-Source: ALg8bN49pbBEayLthcctAIkAfShm/bsOop6V32+suZsyGKaN4zNswFqJoxnNsjlGbrLqbj9Vvxu7O8t0hNVzYHHqGQQ=
-X-Received: by 2002:aca:5587:: with SMTP id j129mr6349173oib.93.1548091430659; 
- Mon, 21 Jan 2019 09:23:50 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pVe2fJMoGFrcJA3z9VLysnkB5pFTXl0Wnx5S7jnVMdI=;
+ b=YmiXoEo0MnKYuIUG8ZpDPvfnkg3PS1BQ6Sx7GZ4QfmjcsIpQha9FOywtO9edVOCVlZ
+ DF3xjEcXUXvJRKWC0uc48eZQFIfQB2l24UIYtxkh74eG7nojyn/9wYq0MUUUqvPSRQrj
+ ImZ6GXy8AJsfAHA+/d73b6b5GoDe22Y36kt7XUphUuYYz3Ldd8Kbj9Z9VSd91972htOv
+ T+huzBZVCdFINO8mnzbi3TP7MRICLQgShPYjmDzzotM8BJvITBsuds4UokZEyRf4OXoc
+ AR9L+rI6kA9VV8h1OQtQoZDnNAyfrVWXmxBjRyfjiLYbP4UFPw8PU9WSL2/Cvuaw19Rp
+ 5BSA==
+X-Gm-Message-State: AJcUukfFpLOgBJjtdLWsPeEnEDVX7oQhGaPxpzWYOPTnceqJyx8IRgrX
+ O7kwQQe53vrQ7SAvidPAkZzfIOmbeNzhUwzghkg=
+X-Google-Smtp-Source: ALg8bN7QxuOccDKbNoaymZGsMhPN0+Mg0tUt3EAeby/nWH7hh83h/mekMx+5liRYGpOdffDLRXdm64umFATjO4KUnck=
+X-Received: by 2002:a5d:9650:: with SMTP id d16mr17741132ios.289.1548101657474; 
+ Mon, 21 Jan 2019 12:14:17 -0800 (PST)
 MIME-Version: 1.0
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Mon, 21 Jan 2019 11:23:34 -0600
-Message-ID: <CALLMt=rmk2=ranWssd=TEOZy=sH=RWzKjkSbAEn=V9tY7Ozk+Q@mail.gmail.com>
-Subject: Thud branches required in certain repos?
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@intel.com, 
- Matt Spinler <spinler@us.ibm.com>, William Kennington <wak@google.com>,
- dkodihal@linux.vnet.ibm.com, Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <20190109164343.164205-1-tmaimon77@gmail.com>
+ <20190109164343.164205-2-tmaimon77@gmail.com>
+ <CACPK8XebHzVAO2TX25N24S0Pgg_0xA=7GN3j0oXhSyD4LmL4=w@mail.gmail.com>
+ <CAP6Zq1j=oPdVXZKBteBcaLVZcvoU7M6YbfGhSCaC44Ld9AQ9Ag@mail.gmail.com>
+ <CACPK8XfFRigW9pN4JLrH+KcE6ACJUzX0qJV8xeph_DkfKWgBEQ@mail.gmail.com>
+ <CAL_JsqLn3wCpAWDTQFsrvuPJqWurTDNcu=j988PpHWtuW4Po6w@mail.gmail.com>
+In-Reply-To: <CAL_JsqLn3wCpAWDTQFsrvuPJqWurTDNcu=j988PpHWtuW4Po6w@mail.gmail.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Mon, 21 Jan 2019 22:20:35 +0200
+Message-ID: <CAP6Zq1g=h2qqtOwFNi_u152nggVWVUXR-=59wKUyUCaPjgx21w@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-binding: iio: add NPCM ADC documentation
+To: Rob Herring <robh+dt@kernel.org>
+Cc: Joel Stanley <joel@jms.id.au>, Jonathan Cameron <jic23@kernel.org>,
+ Hartmut Knaack <knaack.h@gmx.de>, Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Nancy Yuen <yuenn@google.com>, Patrick Venture <venture@google.com>, 
+ Brendan Higgins <brendanhiggins@google.com>,
+ Avi Fishman <avifishman70@gmail.com>, 
+ "open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>
+Content-Type: multipart/alternative; boundary="0000000000005ebd68057ffd818e"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,40 +77,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Jan 2019 17:23:54 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 20:14:21 -0000
 
-Recently we created a Thud branch (i.e. 2.6). Currently we've just branched
-the openbmc/meta-* and openbmc/openbmc layers.
+--0000000000005ebd68057ffd818e
+Content-Type: text/plain; charset="UTF-8"
 
-Pre repository CI (i.e. https://openpower.xyz/job/openbmc-repository-ci/) had
-its scripts updated to support the new branch. Basically if a change comes in
-from a branch, it will attempt to find and use that same branch from all of
-the dependent repositories. If it can't find the branch, then it will just
-use master from that build.
+Hi Rob,
 
-Dependent repositories are repositories that most repositories depend on and
-are always built as a part of the per repository CI process:
+Thanks for the clarification,
 
-  phosphor-objmgr
-  sdbusplus
-  sdeventplus
-  gpioplus
-  phosphor-logging
-  phosphor-dbus-interfaces
-  openpower-dbus-interfaces
+I will remove the rst node and Required Node in the NPCM7xx BMC explanation
+from the DT binding.
 
-In general, just using master from these dependent repositories will work. We
-only run into issues if some sort of API or data type change occurs in master
-that is not compatible with the branch.
+On Mon, 21 Jan 2019 at 18:12, Rob Herring <robh+dt@kernel.org> wrote:
 
-To avoid weird errors in the future though, I'd like for the maintainers of the
-above repos to create the corresponding branch in each of the above repos
-whenever a new branch is created for the openbmc project.
+> On Sun, Jan 20, 2019 at 7:48 PM Joel Stanley <joel@jms.id.au> wrote:
+> >
+> > On Sat, 19 Jan 2019 at 02:12, Tomer Maimon <tmaimon77@gmail.com> wrote:
+> > >
+> > > Hi Joel,
+> > >
+> > > Thanks for bringing this to my attention,
+> > >
+> > > I think I will leave it the same way it is now because I will like to
+> develop the reset driver and to handle the NPCM7xx SOC resets.
+> >
+> > You could also do that.
+> >
+> > But I was suggesting you use a phandle, so you could then find the
+> > node you want without searching the entire device tree for the node
+> > with the correct compatible.
+>
+> That's not really any more efficient. You just search the entire tree
+> for the matching phandle number instead. Well, that was true until we
+> recently added the phandle cache.
+>
+> In any case, it you plan to move to the reset binding (which would be
+> good), then it's better to have nothing in the DT and add something
+> rather than change the DT binding.
 
-Adding a branch is easy, just go to your project in gerrit and use the
-"Create Branch" option. Be sure to put the "Initial Revision" commit at whatever
-we were at when the Thud branch occurred and call it "thud".
 
-Other ideas or thoughts?
+>
+Rob
+>
 
-Andrew
+Thanks,
+
+Tomer
+
+--0000000000005ebd68057ffd818e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><div dir=3D"ltr">Hi Rob,<br></d=
+iv><div><br></div>Thanks for the clarification,<div><br></div><div>I will r=
+emove the rst node and=C2=A0Required Node in the NPCM7xx BMC=C2=A0explanati=
+on from the DT binding.</div><div>=C2=A0<br><div class=3D"gmail_quote"><div=
+ dir=3D"ltr">On Mon, 21 Jan 2019 at 18:12, Rob Herring &lt;<a href=3D"mailt=
+o:robh%2Bdt@kernel.org">robh+dt@kernel.org</a>&gt; wrote:<br></div><blockqu=
+ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
+ solid rgb(204,204,204);padding-left:1ex">On Sun, Jan 20, 2019 at 7:48 PM J=
+oel Stanley &lt;<a href=3D"mailto:joel@jms.id.au" target=3D"_blank">joel@jm=
+s.id.au</a>&gt; wrote:<br>
+&gt;<br>
+&gt; On Sat, 19 Jan 2019 at 02:12, Tomer Maimon &lt;<a href=3D"mailto:tmaim=
+on77@gmail.com" target=3D"_blank">tmaimon77@gmail.com</a>&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt; Hi Joel,<br>
+&gt; &gt;<br>
+&gt; &gt; Thanks for bringing this to my attention,<br>
+&gt; &gt;<br>
+&gt; &gt; I think I will leave it the same way it is now because I will lik=
+e to develop the reset driver and to handle the NPCM7xx SOC resets.<br>
+&gt;<br>
+&gt; You could also do that.<br>
+&gt;<br>
+&gt; But I was suggesting you use a phandle, so you could then find the<br>
+&gt; node you want without searching the entire device tree for the node<br=
+>
+&gt; with the correct compatible.<br>
+<br>
+That&#39;s not really any more efficient. You just search the entire tree<b=
+r>
+for the matching phandle number instead. Well, that was true until we<br>
+recently added the phandle cache.<br>
+<br>
+In any case, it you plan to move to the reset binding (which would be<br>
+good), then it&#39;s better to have nothing in the DT and add something<br>
+rather than change the DT binding.</blockquote><blockquote class=3D"gmail_q=
+uote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,2=
+04);padding-left:1ex">=C2=A0<br></blockquote><blockquote class=3D"gmail_quo=
+te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
+);padding-left:1ex">
+Rob<br></blockquote><div><br></div><div>Thanks,</div><div><br></div><div>To=
+mer=C2=A0</div></div></div></div>
+
+--0000000000005ebd68057ffd818e--
