@@ -1,64 +1,53 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
+ (client-ip=2607:f8b0:4864:20::82e; helo=mail-qt1-x82e.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="kF7MDOz0"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="PraYCe4S"; 
  dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
+Received: from mail-qt1-x82e.google.com (mail-qt1-x82e.google.com
+ [IPv6:2607:f8b0:4864:20::82e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43jZFZ1sctzDqTN
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:48:18 +1100 (AEDT)
-Received: by mail-qt1-x841.google.com with SMTP id i7so21756796qtj.10
- for <openbmc@lists.ozlabs.org>; Sun, 20 Jan 2019 17:48:18 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43jZfC6VHpzDqTP
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 13:06:11 +1100 (AEDT)
+Received: by mail-qt1-x82e.google.com with SMTP id u47so21831191qtj.6
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Jan 2019 18:06:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=dQS4dApOQ8D+jq9Hf+FEXLnyJvAFN5QvNThj5XsJjH8=;
- b=kF7MDOz04YfonTsmUw6Hw9Bl27lA2DYqMtZ28shJmJ5zSNJZqrIcjKW/F+FCBxz5QW
- jrc3WlNejTskjQd0vjaPpuMRAZ2YOxCsxxgdg/puoLPf7rJXzvRUKfZvjzSkn5F433Yq
- InqjzFsxXYAnX/MMZmKJA2UbahN6jy+UbD0zY=
+ :cc; bh=VIzFPqPNM0nZutAD9UcI3JgMu+x5HcHgFZj4oXs+1LQ=;
+ b=PraYCe4SbnB1Ne93+t+lKQAXp6YgRT/wVWGxhNIGBwvcN52y14H2QZUsOp20dOzBTB
+ vv/lvNoHnWJhkX7U+/h3MM8wgBXdOwd2M5Vb7Ge6vqnTnwfv9kv6YElkY0VY9S//ndAL
+ q4mbx6u0Q5nnw6Ql1wFZuOHS2boBzlTouxQy4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=dQS4dApOQ8D+jq9Hf+FEXLnyJvAFN5QvNThj5XsJjH8=;
- b=fzWEhtsYf+DG0XWn+gRSh2Mg3LneD/0hmyALzt+1M+qAKugptB7Y1MMMXPJ3UAvOAl
- ZIV4VDkfdWQ1ZZuWDgc0bSnB0ao/6PNIWqOOsYc6r3i1kCIFIQMlTC/eUcdD3EIoc8rz
- cdgdg4V7Q/+W5DSklfHi3Lo6UP0NOk1+qaiO58dCKPNRLx5+iL+5hmKWIBzphKSuA0O9
- clM+y5MXXxsw3adpnCZPaM2P50VehzOQ14p5phUlg+N3pdRcrs2hKqmiA5l+S1lbvHH6
- PYXwPyzrY5nV4OWSXLvNLGOh8qPb+coIXdNp7D0fhrrqDAgJLvmtcYadSSMfonADwlyj
- of7Q==
-X-Gm-Message-State: AJcUukcwLmBR1HvXngpIF8HHt8MV5npc+W5ecwDNZ8SNdtVR5y1E0coU
- rbCq2upBCUeRxap1Q8S3HbanrpFrfDakgEpgv7Q=
-X-Google-Smtp-Source: ALg8bN44shxb2J0M3z9sjRCFuo4/J0aMjjxqNvJ52rP1UcA1tnGgudSEPIMVnKPVzBjGDURtQ9HSX83f/Ti71iUvX2s=
-X-Received: by 2002:a0c:c927:: with SMTP id r36mr24582500qvj.51.1548035295703; 
- Sun, 20 Jan 2019 17:48:15 -0800 (PST)
+ bh=VIzFPqPNM0nZutAD9UcI3JgMu+x5HcHgFZj4oXs+1LQ=;
+ b=M6Ov8ZT3kAqj0ABOIr1OzChtGNUOLg6eLsjDU9mpLuNrfY8b4+jxQ2viZB+1/S9Ijt
+ 1bZTtn2sj7DkPxlthjPpod6nVW3iau126FVinIEJuWgPbTSX6YFcJx8DK8PvnFmmiVp5
+ wWmxusR5SBr9QAvlHpfqUTNE5l22kXhkfHQuWb+dRa/wLvsROCtmOFChaLF+d+X9xVCk
+ tj6iX5NiClkej/cM86J3TPFdLDpB05WymTZdkssuPimoIHo8z1/esXwVADBuXpHO24ha
+ U5Su6Uu9goINVrdVRjhNNZWeF0DlXKFu45LX0jhpFlwif42w/ImuM/LsPTOhPqD7FgmR
+ A9Ew==
+X-Gm-Message-State: AJcUukclPQm0Es39eapzb+PhxHbcNw8y/l6nL/OcNEFUHudjCYPGGNAq
+ LmNHelIosZmAIr0XoMhVrnJkuz9iapfeFFxuuCcenxg8mMI=
+X-Google-Smtp-Source: ALg8bN5HW6WWabIf3OoQ6CEUQujnnnPBmKCXn5MHB3ywp+fIQZcbXBOEODvWvahizBHgcuMSX/WR/fy2dxMxDC3wFQE=
+X-Received: by 2002:a0c:e751:: with SMTP id g17mr9798726qvn.160.1548036369398; 
+ Sun, 20 Jan 2019 18:06:09 -0800 (PST)
 MIME-Version: 1.0
-References: <20190109164343.164205-1-tmaimon77@gmail.com>
- <20190109164343.164205-2-tmaimon77@gmail.com>
- <CACPK8XebHzVAO2TX25N24S0Pgg_0xA=7GN3j0oXhSyD4LmL4=w@mail.gmail.com>
- <CAP6Zq1j=oPdVXZKBteBcaLVZcvoU7M6YbfGhSCaC44Ld9AQ9Ag@mail.gmail.com>
-In-Reply-To: <CAP6Zq1j=oPdVXZKBteBcaLVZcvoU7M6YbfGhSCaC44Ld9AQ9Ag@mail.gmail.com>
+References: <20190118021802.752bcjgc7oxa33m4@thinkpad>
+ <20190118210913.a4kynzggtesqln5g@thinkpad>
+In-Reply-To: <20190118210913.a4kynzggtesqln5g@thinkpad>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Jan 2019 12:48:04 +1100
-Message-ID: <CACPK8XfFRigW9pN4JLrH+KcE6ACJUzX0qJV8xeph_DkfKWgBEQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-binding: iio: add NPCM ADC documentation
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>, 
- Lars-Peter Clausen <lars@metafoo.de>,
- Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>, 
- Patrick Venture <venture@google.com>,
- Brendan Higgins <brendanhiggins@google.com>, 
- Avi Fishman <avifishman70@gmail.com>, linux-iio@vger.kernel.org, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- devicetree <devicetree@vger.kernel.org>
+Date: Mon, 21 Jan 2019 13:05:57 +1100
+Message-ID: <CACPK8XdJ36=APS3=-cA7cvVXsLOVmmf1ejF=GW5SZH7SOSe+HQ@mail.gmail.com>
+Subject: Re: OpenBMC at the 2019 OCP Summit Hardware Management track
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -71,18 +60,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Jan 2019 01:48:18 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 02:06:12 -0000
 
-On Sat, 19 Jan 2019 at 02:12, Tomer Maimon <tmaimon77@gmail.com> wrote:
+On Sat, 19 Jan 2019 at 08:09, Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
 >
-> Hi Joel,
+> On Thu, Jan 17, 2019 at 09:18:02PM -0500, Brad Bishop wrote:
+> > Hi Everyone
+> >
+> > The TSC has asked me to present at the 2019 OCP Summit on behalf of the
+> > OpenBMC community.  You can see the abstract here:
 >
-> Thanks for bringing this to my attention,
+> https://github.com/openbmc/openbmc/wiki/files/OCPGLO19_OpenBMC_Project_Update-draft.pdf
 >
-> I think I will leave it the same way it is now because I will like to develop the reset driver and to handle the NPCM7xx SOC resets.
+> It is still very draft-y, but you can get a sense of the outline and
+> high level flow.  I could use help calling out any function implemented
+> in 2.6 and any function planned for 2.7.
 
-You could also do that.
+Looks good.
 
-But I was suggesting you use a phandle, so you could then find the
-node you want without searching the entire device tree for the node
-with the correct compatible.
+If you wanted another slide you could talk about engagement with
+upstream. One of most active upstreams is the kenrel. This is a good
+graph to show how that work is going:
+
+ https://ozlabs.org/~joel/patches.png
+
+Cheers,
+
+Joel
