@@ -1,76 +1,56 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="EGaNNipF"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43h9dp683RzDqnD
- for <openbmc@lists.ozlabs.org>; Sat, 19 Jan 2019 06:15:57 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jan 2019 11:15:55 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,491,1539673200"; d="scan'208";a="110965538"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
- ([10.7.153.143])
- by orsmga008.jf.intel.com with ESMTP; 18 Jan 2019 11:15:55 -0800
-Subject: Re: [PATCH v10 10/12] hwmon: Add PECI cputemp driver
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
- Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
- Kishon Vijay Abraham I <kishon@ti.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- "Darrick J . Wong" <darrick.wong@oracle.com>,
- Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
- Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
- "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
- Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
- "David S . Miller" <davem@davemloft.net>,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
- Stephen Boyd <sboyd@codeaurora.org>,
- David Kershner <david.kershner@unisys.com>,
- Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
- Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel <linux-kernel@vger.kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>,
- openbmc@lists.ozlabs.org, Alan Cox <alan@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>,
- Stef van Os <stef.van.os@prodrive-technologies.com>,
- Haiyue Wang <haiyue.wang@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
- <20190107214136.5256-11-jae.hyun.yoo@linux.intel.com>
- <CANiq72=dA1weOip-YzZRmsOEHOve2FdJh9_qbN2dmH8HR58WYg@mail.gmail.com>
- <8ef997aa-2971-2907-3821-e71f9e8dd53a@linux.intel.com>
- <CANiq72=qO0B_WfWRM0sXOE4Hz_gU=_VsijTNsqVFN2PJehOWQg@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <ce72bcc1-2ccf-6e0b-c247-d8a882391c19@linux.intel.com>
-Date: Fri, 18 Jan 2019 11:15:54 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.3.3
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43jZ8c0x7szDqMm
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:43:59 +1100 (AEDT)
+Received: by mail-qk1-x742.google.com with SMTP id c21so11369325qkl.6
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Jan 2019 17:43:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=M+KFDTsoK/r63fBni3RY22X3iT3hcX6rEGsepMscyNw=;
+ b=EGaNNipFqA3rbsj1y6QuuPxgyGHGf2wXZ8ymKXXH5qW3++8wHHrgMjW7NqYZvMiQLz
+ IRA5EvkwBd+UwxkWcNF4iyQ99rVB/uqhawZEDRGSM8TyezL37lVN5YkhB/j6yKH8koGL
+ aX582lyqZkDba8mKjCHsQx0waiUVegcYdladc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=M+KFDTsoK/r63fBni3RY22X3iT3hcX6rEGsepMscyNw=;
+ b=kP5oUYKJIrIMgwxoEB53RiEPjHBHaGAoulKozlIaEgT8eR6TsAQhYxX3B9wXjNq6CH
+ cLs/Zm17kR40hVKOe/ctNY/IHZhZE4o+0eAfyNxGXLO2ZoUnrkK7WTiA0zAlAYrqUt9E
+ ruoq2Y3n6ptqmh1VKTZ+Acl1APMqfcutrQVPfOnB2U/ANaJ7fx7tGBSUsc2sNlmI+j0s
+ 9fI5n1kN/UtbYB/R2nlRI+acGzhOsIDe1Lpm1pSe8mg/h6nKe5w3lC5iEWaFlv+dYY10
+ LUmY31YgmK4pQ3wuM2yDzbBDRmqgOpGJTDNtXGIy6iSfHEX4Phyb1fmt5nnln/0O3S+C
+ M4cw==
+X-Gm-Message-State: AJcUukc0joGJUu45lTM+jj4jldu/NtCWrChfYW3WgDlQz7z7ONuIHRfn
+ 85iSmYMcKUXolrvB0ZwKlxojYLG+hVkeGlMErIY=
+X-Google-Smtp-Source: ALg8bN7YxH2oBaUVpcZnskxkruSbJ+9QXgdTv/ur8D64I2CQQIr5+jfq5YEwbCYmh1bHorleNjZmSQPQtI4HFjmO9KA=
+X-Received: by 2002:a37:61cd:: with SMTP id v196mr23279654qkb.25.1548035037493; 
+ Sun, 20 Jan 2019 17:43:57 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CANiq72=qO0B_WfWRM0sXOE4Hz_gU=_VsijTNsqVFN2PJehOWQg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 21 Jan 2019 12:39:16 +1100
+References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
+ <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
+ <c2c5408cf1a715df1e7ac6447620b5de@linux.vnet.ibm.com>
+In-Reply-To: <c2c5408cf1a715df1e7ac6447620b5de@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 21 Jan 2019 12:43:45 +1100
+Message-ID: <CACPK8Xc-jB-vW60-+xGgf3igWTw=ZLBdjJG0niwbwU66_gA0KA@mail.gmail.com>
+Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ medadyoung@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,39 +62,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 18 Jan 2019 19:15:59 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 01:44:01 -0000
 
-Hi Miguel,
+On Sat, 19 Jan 2019 at 02:38, Adriana Kobylak <anoo@linux.ibm.com> wrote:
+>
+> Hi Joel,
+>
+> Why has this patch been archived and marked as "Not Applicable"? -
 
-On 1/18/2019 11:05 AM, Miguel Ojeda wrote:
-> Hi Jae,
-> 
-> On Fri, Jan 18, 2019 at 6:52 PM Jae Hyun Yoo
-> <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> I'm assuming you meant:
->>
->> return !(temp->valid && time_before(jiffies, temp->last_updated +
->>                                                UPDATE_INTERVAL));
-> 
-> Yeah, or return !... || !..., whatever you feel is more comprehensible. :)
-> 
+This is a patch for the upstream kernel, not openbmc.
 
-Okay, I'll change it like above.
+OpenBMC patches follow this process and contain the target branch they
+want the maintainer to apply them to:
 
->> Thanks for your review!
-> 
-> You're welcome! It is just nitpicking, but I thought sending the email
-> wouldn't hurt too much (in case you do another version of the series,
-> otherwise don't change it just for this! :-)
-> 
+https://github.com/openbmc/linux/wiki/DevelopmentProcess#patch-submitters-wishing-to-have-a-change-included-through-this-process
 
-Currently, I'm making v11 series. I'll address your comments when I
-submit the version. Thanks again for your review! :)
+If you want this backported to the openbmc kernel I suggest you follow
+this process.
 
-Regards,
-Jae
+(I notice that this patch has not been accepted upstream. I suggest
+you follow up on the upstream list before asking it to be submitted).
 
-> Cheers,
-> Miguel
-> 
+Cheers,
+
+Joel
