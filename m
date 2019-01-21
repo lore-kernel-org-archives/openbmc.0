@@ -1,41 +1,71 @@
-Return-Path: <fyczy@126.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=126.com
- (client-ip=220.181.15.63; helo=m15-63.126.com; envelope-from=fyczy@126.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=126.com header.i=@126.com header.b="QplWn+PT"; 
- dkim-atps=neutral
-Received: from m15-63.126.com (m15-63.126.com [220.181.15.63])
- by lists.ozlabs.org (Postfix) with ESMTP id 43jmnc2dqjzDqVL
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 20:43:14 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=hOgVm
- HQOiytgW6rHZ/Kb7oAixJMvagrrk92Hs37tNao=; b=QplWn+PTLWttY0kRUA7x/
- WuSsQZcw0QpBRWc6MT4HEe+1h4k/SZJJsHlBiXok/P4X4xLjylmESyZgYY+czgqz
- 2xdNsRfXQ8PE2iu7oC42W3VvdSzi5rrf2Xp/d/4FmBizvRD3xfk1/D0nSKqBwLK/
- i1HW+ytHr/61a8VxCPD+40=
-Received: from fyczy$126.com ( [58.56.96.29] ) by ajax-webmail-wmsvr63
- (Coremail) ; Mon, 21 Jan 2019 17:43:06 +0800 (CST)
-X-Originating-IP: [58.56.96.29]
-Date: Mon, 21 Jan 2019 17:43:06 +0800 (CST)
-From: "George Liu" <fyczy@126.com>
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43jn3g3dh2zDqVw
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 20:55:26 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0L9tH2o036551
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 04:55:24 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.66])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2q58rjyx7c-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 04:55:20 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Mon, 21 Jan 2019 09:54:22 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.127) with
+ smtp.notes.na.collabserv.com ESMTP; Mon, 21 Jan 2019 09:54:19 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2019012109541957-264124 ;
+ Mon, 21 Jan 2019 09:54:19 +0000 
+In-Reply-To: 
+Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
+ https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
+ Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
+ Code)-64800002 For eg. (Bengaluru - 080-64800002)
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: couple questions for Event Log
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
- 20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
-X-CM-CTRLDATA: 3oVKZGZvb3Rlcl9odG09NDIyOjU2
-Content-Type: multipart/alternative; 
- boundary="----=_Part_118144_1161375160.1548063786605"
+Date: Mon, 21 Jan 2019 09:54:18 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-Message-ID: <421daf7d.7dda.1686fcac66d.Coremail.fyczy@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: P8qowADXhX0rlEVcI7IJAA--.63636W
-X-CM-SenderInfo: xi1f65a6rslhhfrp/1tbi6AtD9VpD75hMxwAAsw
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
+ SCN1812108_20180501T0841_FP26 January 03, 2019 at 15:20
+X-LLNOutbound: False
+X-Disclaimed: 52551
+X-TNEFEvaluated: 1
+x-cbid: 19012109-6357-0000-0000-000009334E09
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.116230
+X-IBM-SpamModules-Versions: BY=3.00010445; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000275; SDB=6.01149603; UDB=6.00599022; IPR=6.00929928; 
+ BA=6.00006205; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025220; XFM=3.00000015;
+ UTC=2019-01-21 09:54:21
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-01-21 06:20:46 - 6.00009489
+x-cbparentid: 19012109-6358-0000-0000-000055475369
+Message-Id: <OFA4B15EBF.0D5197AD-ON00258389.00355E99-00258389.0036694B@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-21_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,29 +77,153 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Jan 2019 09:43:19 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 09:55:28 -0000
 
-------=_Part_118144_1161375160.1548063786605
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
-
-SGk6CjEuIENvdWxkIGFueW9uZSB1c2UgaW1waXRvb2wgc2VsIGxpc3QgdG8gcmVhZCB2YWx1ZXMg
-YWZ0ZXIgY2FsbGluZyB0aGUgc2Rfam91cm5hbF9zZW5kIG1ldGhvZD8KMi4gQ2FsbGluZyB0aGUg
-c3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3IgbWV0aG9kIG9mIHRoZSBwaG9zcGhvci1zZWwtbG9n
-Z2VyIG1vZHVsZSwgd2h5IGdldCB0aGUgdmFsdWVzIG9mIG1heCwgbWluLCBzZW5zb3JWYWwgYXJl
-IGFsbCAwPyBCdXQgSSBjYW4gZ2V0IHRoZSBjb3JyZWN0IHZhbHVlcyB0aHJvdWdoIGRidXMuClRo
-YW5rcw==
-------=_Part_118144_1161375160.1548063786605
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
-
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXY+SGk6PC9kaXY+PGRpdj4xLiZuYnNwO0NvdWxkIGFueW9u
-ZSB1c2UgaW1waXRvb2wgc2VsIGxpc3QgdG8gcmVhZCB2YWx1ZXMgYWZ0ZXIgY2FsbGluZyB0aGUg
-c2Rfam91cm5hbF9zZW5kIG1ldGhvZD88L2Rpdj48ZGl2PjIuJm5ic3A7Q2FsbGluZyB0aGUgc3Rh
-cnRUaHJlc2hvbGRFdmVudE1vbml0b3IgbWV0aG9kIG9mIHRoZSBwaG9zcGhvci1zZWwtbG9nZ2Vy
-IG1vZHVsZSwgd2h5IGdldCB0aGUgdmFsdWVzIG9mIG1heCwgbWluLCBzZW5zb3JWYWwgYXJlIGFs
-bCAwPyBCdXQgSSBjYW4gZ2V0IHRoZSBjb3JyZWN0IHZhbHVlcyB0aHJvdWdoIGRidXMuPC9kaXY+
-PGRpdj5UaGFua3M8L2Rpdj48L2Rpdj48YnI+PGJyPjxzcGFuIHRpdGxlPSJuZXRlYXNlZm9vdGVy
-Ij48cD4mbmJzcDs8L3A+PC9zcGFuPg==
-------=_Part_118144_1161375160.1548063786605--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Just a reminder, Openbmc test workgroup meeting is on thi=
+s week.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >And in case if you have anything to add to the agenda, pl=
+s feel free to add</div>
+<div dir=3D"ltr" >it in the agenda.</div>
+<div dir=3D"ltr" ><a href=3D"https://github.com/openbmc/openbmc/wiki/Test-w=
+ork-group" >https://github.com/openbmc/openbmc/wiki/Test-work-group</a></di=
+v>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Also uploaded the MoM of last instance of meeting.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >With regards,</div>
+<div dir=3D"ltr" >Sivas</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
+ dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
+<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
+Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
+ 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
+" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
+t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
+ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
+- 080-64800002)</h2></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
+Sivas Srr/India/IBM</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
+o: </span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
+span></div></div></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
+" >Comments from Sivas Srr:</span></div></div>
+<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
+rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
+ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
+pan>Thu, Jan 24, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
+ine-block" >(applies to 27 instances)</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
+</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
+8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
+scode: 928 662 307</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
+n></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
+/span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
+ting name: </span> <span>OpenBMC Test Group meeting </span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
+ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
+: </span> <span>928 662 307</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
+</span> <span>sivas</span></div></div>
+<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
+17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
+top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
+10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
+pan></div>
+<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
+pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
+bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
+m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
+Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
+chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
+ia/IBM, yuenn@google.com</span></div></div>
+<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
+ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
+: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
+ont-weight: bold" >Optional: </span></div>
+<div>&nbsp;</div></div>
+<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
+lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
+ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
+eight: bold" >FYI: </span></div>
+<div>&nbsp;</div></div></div>
+<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
+ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
+n: left; color: #666;" >Description:</span></div>
+<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
+ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
+ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
+t></span></div>
+<div>&nbsp;</div>
+<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
+elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
+rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
+dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
+ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
+</font></font></font></font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
+ you wants to update the agenda. </font></font></font></font></font></span>=
+</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
+bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
+penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
+/font></span></div></div>
+<div>&nbsp;</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
+enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
+hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
+github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
+ >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
+</span>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
+.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
+"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
+CI/view?usp=3Dsharing</a></font></span></p>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
+le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
+it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
+in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
+heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
+target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
+Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Quality at the first place: Unit test results needed at th=
+e time of gerrit code review</font></span></div>
+<div>&nbsp;</div></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
+ owner</font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
+ Intel going to sign on this. ?</font></span></div></div></div></div></div>=
+</div></div></div></div></blockquote></div><BR>
