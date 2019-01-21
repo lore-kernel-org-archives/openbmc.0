@@ -1,55 +1,64 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
+ (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="EGaNNipF"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="kF7MDOz0"; 
  dkim-atps=neutral
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43jZ8c0x7szDqMm
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:43:59 +1100 (AEDT)
-Received: by mail-qk1-x742.google.com with SMTP id c21so11369325qkl.6
- for <openbmc@lists.ozlabs.org>; Sun, 20 Jan 2019 17:43:59 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43jZFZ1sctzDqTN
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:48:18 +1100 (AEDT)
+Received: by mail-qt1-x841.google.com with SMTP id i7so21756796qtj.10
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Jan 2019 17:48:18 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=M+KFDTsoK/r63fBni3RY22X3iT3hcX6rEGsepMscyNw=;
- b=EGaNNipFqA3rbsj1y6QuuPxgyGHGf2wXZ8ymKXXH5qW3++8wHHrgMjW7NqYZvMiQLz
- IRA5EvkwBd+UwxkWcNF4iyQ99rVB/uqhawZEDRGSM8TyezL37lVN5YkhB/j6yKH8koGL
- aX582lyqZkDba8mKjCHsQx0waiUVegcYdladc=
+ :cc; bh=dQS4dApOQ8D+jq9Hf+FEXLnyJvAFN5QvNThj5XsJjH8=;
+ b=kF7MDOz04YfonTsmUw6Hw9Bl27lA2DYqMtZ28shJmJ5zSNJZqrIcjKW/F+FCBxz5QW
+ jrc3WlNejTskjQd0vjaPpuMRAZ2YOxCsxxgdg/puoLPf7rJXzvRUKfZvjzSkn5F433Yq
+ InqjzFsxXYAnX/MMZmKJA2UbahN6jy+UbD0zY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=M+KFDTsoK/r63fBni3RY22X3iT3hcX6rEGsepMscyNw=;
- b=kP5oUYKJIrIMgwxoEB53RiEPjHBHaGAoulKozlIaEgT8eR6TsAQhYxX3B9wXjNq6CH
- cLs/Zm17kR40hVKOe/ctNY/IHZhZE4o+0eAfyNxGXLO2ZoUnrkK7WTiA0zAlAYrqUt9E
- ruoq2Y3n6ptqmh1VKTZ+Acl1APMqfcutrQVPfOnB2U/ANaJ7fx7tGBSUsc2sNlmI+j0s
- 9fI5n1kN/UtbYB/R2nlRI+acGzhOsIDe1Lpm1pSe8mg/h6nKe5w3lC5iEWaFlv+dYY10
- LUmY31YgmK4pQ3wuM2yDzbBDRmqgOpGJTDNtXGIy6iSfHEX4Phyb1fmt5nnln/0O3S+C
- M4cw==
-X-Gm-Message-State: AJcUukc0joGJUu45lTM+jj4jldu/NtCWrChfYW3WgDlQz7z7ONuIHRfn
- 85iSmYMcKUXolrvB0ZwKlxojYLG+hVkeGlMErIY=
-X-Google-Smtp-Source: ALg8bN7YxH2oBaUVpcZnskxkruSbJ+9QXgdTv/ur8D64I2CQQIr5+jfq5YEwbCYmh1bHorleNjZmSQPQtI4HFjmO9KA=
-X-Received: by 2002:a37:61cd:: with SMTP id v196mr23279654qkb.25.1548035037493; 
- Sun, 20 Jan 2019 17:43:57 -0800 (PST)
+ bh=dQS4dApOQ8D+jq9Hf+FEXLnyJvAFN5QvNThj5XsJjH8=;
+ b=fzWEhtsYf+DG0XWn+gRSh2Mg3LneD/0hmyALzt+1M+qAKugptB7Y1MMMXPJ3UAvOAl
+ ZIV4VDkfdWQ1ZZuWDgc0bSnB0ao/6PNIWqOOsYc6r3i1kCIFIQMlTC/eUcdD3EIoc8rz
+ cdgdg4V7Q/+W5DSklfHi3Lo6UP0NOk1+qaiO58dCKPNRLx5+iL+5hmKWIBzphKSuA0O9
+ clM+y5MXXxsw3adpnCZPaM2P50VehzOQ14p5phUlg+N3pdRcrs2hKqmiA5l+S1lbvHH6
+ PYXwPyzrY5nV4OWSXLvNLGOh8qPb+coIXdNp7D0fhrrqDAgJLvmtcYadSSMfonADwlyj
+ of7Q==
+X-Gm-Message-State: AJcUukcwLmBR1HvXngpIF8HHt8MV5npc+W5ecwDNZ8SNdtVR5y1E0coU
+ rbCq2upBCUeRxap1Q8S3HbanrpFrfDakgEpgv7Q=
+X-Google-Smtp-Source: ALg8bN44shxb2J0M3z9sjRCFuo4/J0aMjjxqNvJ52rP1UcA1tnGgudSEPIMVnKPVzBjGDURtQ9HSX83f/Ti71iUvX2s=
+X-Received: by 2002:a0c:c927:: with SMTP id r36mr24582500qvj.51.1548035295703; 
+ Sun, 20 Jan 2019 17:48:15 -0800 (PST)
 MIME-Version: 1.0
-References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
- <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
- <c2c5408cf1a715df1e7ac6447620b5de@linux.vnet.ibm.com>
-In-Reply-To: <c2c5408cf1a715df1e7ac6447620b5de@linux.vnet.ibm.com>
+References: <20190109164343.164205-1-tmaimon77@gmail.com>
+ <20190109164343.164205-2-tmaimon77@gmail.com>
+ <CACPK8XebHzVAO2TX25N24S0Pgg_0xA=7GN3j0oXhSyD4LmL4=w@mail.gmail.com>
+ <CAP6Zq1j=oPdVXZKBteBcaLVZcvoU7M6YbfGhSCaC44Ld9AQ9Ag@mail.gmail.com>
+In-Reply-To: <CAP6Zq1j=oPdVXZKBteBcaLVZcvoU7M6YbfGhSCaC44Ld9AQ9Ag@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Jan 2019 12:43:45 +1100
-Message-ID: <CACPK8Xc-jB-vW60-+xGgf3igWTw=ZLBdjJG0niwbwU66_gA0KA@mail.gmail.com>
-Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Cc: Jeremy Kerr <jk@ozlabs.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- medadyoung@gmail.com
+Date: Mon, 21 Jan 2019 12:48:04 +1100
+Message-ID: <CACPK8XfFRigW9pN4JLrH+KcE6ACJUzX0qJV8xeph_DkfKWgBEQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-binding: iio: add NPCM ADC documentation
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Hartmut Knaack <knaack.h@gmx.de>, 
+ Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Rob Herring <robh+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Nancy Yuen <yuenn@google.com>, 
+ Patrick Venture <venture@google.com>,
+ Brendan Higgins <brendanhiggins@google.com>, 
+ Avi Fishman <avifishman70@gmail.com>, linux-iio@vger.kernel.org, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ devicetree <devicetree@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -62,27 +71,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Jan 2019 01:44:01 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 01:48:18 -0000
 
-On Sat, 19 Jan 2019 at 02:38, Adriana Kobylak <anoo@linux.ibm.com> wrote:
+On Sat, 19 Jan 2019 at 02:12, Tomer Maimon <tmaimon77@gmail.com> wrote:
 >
 > Hi Joel,
 >
-> Why has this patch been archived and marked as "Not Applicable"? -
+> Thanks for bringing this to my attention,
+>
+> I think I will leave it the same way it is now because I will like to develop the reset driver and to handle the NPCM7xx SOC resets.
 
-This is a patch for the upstream kernel, not openbmc.
+You could also do that.
 
-OpenBMC patches follow this process and contain the target branch they
-want the maintainer to apply them to:
-
-https://github.com/openbmc/linux/wiki/DevelopmentProcess#patch-submitters-wishing-to-have-a-change-included-through-this-process
-
-If you want this backported to the openbmc kernel I suggest you follow
-this process.
-
-(I notice that this patch has not been accepted upstream. I suggest
-you follow up on the upstream list before asking it to be submitted).
-
-Cheers,
-
-Joel
+But I was suggesting you use a phandle, so you could then find the
+node you want without searching the entire device tree for the node
+with the correct compatible.
