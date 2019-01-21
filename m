@@ -1,73 +1,54 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::229; helo=mail-oi1-x229.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="MaKRGHQu"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43jyr90g96zDqP0
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 04:16:08 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0LH8vBw121323
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:16:06 -0500
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2q5htwhg78-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 12:16:06 -0500
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
- Mon, 21 Jan 2019 17:16:05 -0000
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 21 Jan 2019 17:16:03 -0000
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0LHG2SB22544566
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 21 Jan 2019 17:16:02 GMT
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 495176A054;
- Mon, 21 Jan 2019 17:16:02 +0000 (GMT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4EACA6A04D;
- Mon, 21 Jan 2019 17:16:01 +0000 (GMT)
-Received: from oc6728276242.ibm.com (unknown [9.85.171.190])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 21 Jan 2019 17:16:01 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, andrew@aj.id.au, benh@kernel.crashing.org,
- Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH] fsi: sbefifo: Don't fail operations when in SBE IPL state
-Date: Mon, 21 Jan 2019 11:15:58 -0600
-X-Mailer: git-send-email 1.8.3.1
-X-TM-AS-GCONF: 00
-x-cbid: 19012117-0036-0000-0000-00000A7F1022
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010449; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000275; SDB=6.01149751; UDB=6.00599111; IPR=6.00930075; 
- MB=3.00025224; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-21 17:16:04
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19012117-0037-0000-0000-00004A6E36EE
-Message-Id: <1548090958-25908-1-git-send-email-eajames@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-21_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901210135
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43jz150BZlzDqQb
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 04:23:52 +1100 (AEDT)
+Received: by mail-oi1-x229.google.com with SMTP id x202so15116721oif.13
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jan 2019 09:23:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=LWme1KnkrfMxAk/fb7uxiDpS0jjgaBuNvUWosF0wWPc=;
+ b=MaKRGHQuIXWnu/ME8lglgOy7kBG4XMqJ4ljQxqgJQWGt5SRy8znuVK7nBs81U9PnTD
+ EFA+8NFOOpk8LZ4WBTA2+uz/63fMQq6C6ucKyiCfDOB/nJAaNkuiQdRy0nV5vbCy0Fgh
+ L3/AY+LfIB0yZz5Y/2yUPch4nsmQofvRypCkeTma8xTJnwPTAdpAa2BIJqETyIRb1OTg
+ f47p/bLH3JaQjyE9QKYlTpXKvBWntP0JRXWDVmVUqkxlCMWYZJXgJ/313XeCoFly+AEo
+ 5o6aebsy2adx/pZDtx444XXaI2X/ainP9wURMi6gx2CD6Eu2AwuhDbdKgMDH5qudCkFw
+ dp7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=LWme1KnkrfMxAk/fb7uxiDpS0jjgaBuNvUWosF0wWPc=;
+ b=r1FULiZDhSm+4n5PlWWtsUPgAFnFANczd76nEedM5F3cJbZEpFYetaLaQmgJuTFJKy
+ 79cIUU0w3ZoqjtX6MFtICdJx0ascavTXDlu/hYQhnrIlUNYTpBEpqWXKWTBhfOhGofDN
+ INTaGUoLejUABwaXuL81RfnkW8olJam/IPnh96CVdpUQJUPA2E7QYmPg34AIX87bTd48
+ tK2ozM7b5XYmngyeJrE9CnAUPqVNNo6A2vX3e3locA76EPUoyqwVa9cImp1YedUqhuD7
+ xNe7XawwCgw4neSyvjjnlggr6NxZsS7eNGKk3HI3kQ7SHMoYVcZcVSa3X1NOfNQJQdgH
+ aHqg==
+X-Gm-Message-State: AJcUukdb5ECS033V84a/FNmXHWtjGlP9SqbPGkQG6D/j+VhhYvjGEwSI
+ tGZvult6nAYYJ4TUPCAIYKiNnzyL1I2heX2NzhAerJT/
+X-Google-Smtp-Source: ALg8bN49pbBEayLthcctAIkAfShm/bsOop6V32+suZsyGKaN4zNswFqJoxnNsjlGbrLqbj9Vvxu7O8t0hNVzYHHqGQQ=
+X-Received: by 2002:aca:5587:: with SMTP id j129mr6349173oib.93.1548091430659; 
+ Mon, 21 Jan 2019 09:23:50 -0800 (PST)
+MIME-Version: 1.0
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 21 Jan 2019 11:23:34 -0600
+Message-ID: <CALLMt=rmk2=ranWssd=TEOZy=sH=RWzKjkSbAEn=V9tY7Ozk+Q@mail.gmail.com>
+Subject: Thud branches required in certain repos?
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@intel.com, 
+ Matt Spinler <spinler@us.ibm.com>, William Kennington <wak@google.com>,
+ dkodihal@linux.vnet.ibm.com, Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,33 +60,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Jan 2019 17:16:09 -0000
+X-List-Received-Date: Mon, 21 Jan 2019 17:23:54 -0000
 
-SBE fifo operations should be allowed while the SBE is in any of the
-"IPL" states. Operations should succeed in this state.
+Recently we created a Thud branch (i.e. 2.6). Currently we've just branched
+the openbmc/meta-* and openbmc/openbmc layers.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- drivers/fsi/fsi-sbefifo.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Pre repository CI (i.e. https://openpower.xyz/job/openbmc-repository-ci/) had
+its scripts updated to support the new branch. Basically if a change comes in
+from a branch, it will attempt to find and use that same branch from all of
+the dependent repositories. If it can't find the branch, then it will just
+use master from that build.
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index c7d13ac..f7665b3 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -290,11 +290,11 @@ static int sbefifo_check_sbe_state(struct sbefifo *sbefifo)
- 	switch ((sbm & CFAM_SBM_SBE_STATE_MASK) >> CFAM_SBM_SBE_STATE_SHIFT) {
- 	case SBE_STATE_UNKNOWN:
- 		return -ESHUTDOWN;
-+	case SBE_STATE_DMT:
-+		return -EBUSY;
- 	case SBE_STATE_IPLING:
- 	case SBE_STATE_ISTEP:
- 	case SBE_STATE_MPIPL:
--	case SBE_STATE_DMT:
--		return -EBUSY;
- 	case SBE_STATE_RUNTIME:
- 	case SBE_STATE_DUMP: /* Not sure about that one */
- 		break;
--- 
-1.8.3.1
+Dependent repositories are repositories that most repositories depend on and
+are always built as a part of the per repository CI process:
+
+  phosphor-objmgr
+  sdbusplus
+  sdeventplus
+  gpioplus
+  phosphor-logging
+  phosphor-dbus-interfaces
+  openpower-dbus-interfaces
+
+In general, just using master from these dependent repositories will work. We
+only run into issues if some sort of API or data type change occurs in master
+that is not compatible with the branch.
+
+To avoid weird errors in the future though, I'd like for the maintainers of the
+above repos to create the corresponding branch in each of the above repos
+whenever a new branch is created for the openbmc project.
+
+Adding a branch is easy, just go to your project in gerrit and use the
+"Create Branch" option. Be sure to put the "Initial Revision" commit at whatever
+we were at when the Thud branch occurred and call it "thud".
+
+Other ideas or thoughts?
+
+Andrew
