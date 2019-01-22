@@ -1,38 +1,29 @@
-Return-Path: <jason.m.bills@linux.intel.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kg1x1r06zDqJt
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 07:27:00 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2019 12:26:56 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,508,1539673200"; d="scan'208";a="118584241"
-Received: from jmbills-mobl4.amr.corp.intel.com (HELO [10.241.242.119])
- ([10.241.242.119])
- by fmsmga008.fm.intel.com with ESMTP; 22 Jan 2019 12:26:56 -0800
-Subject: Re: couple questions for Event Log
-To: openbmc@lists.ozlabs.org
-References: <421daf7d.7dda.1686fcac66d.Coremail.fyczy@126.com>
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-Message-ID: <01fb8bcf-87a7-2f12-b9b1-fe3be9896ea6@linux.intel.com>
-Date: Tue, 22 Jan 2019 12:26:55 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kgcC4nDnzDqLG
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 07:53:14 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Tue, 22 Jan 2019 15:53:38 -0500
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>
+Subject: Re: Intel-ipmi-oem repo
+Message-ID: <20190122205338.m2giw4ghhievyssc@thinkpad>
+References: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
 MIME-Version: 1.0
-In-Reply-To: <421daf7d.7dda.1686fcac66d.Coremail.fyczy@126.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,42 +35,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 20:27:02 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 20:53:16 -0000
 
+On Tue, Jan 22, 2019 at 06:16:20PM +0000, Vijay Khemka wrote:
+> Team,
+> Intel-ipmi-oem should be broken and 2 parts, genric and oem specific. I=
+ see several functionality in this repo like sensors and storage commands=
+ are generic enough to be used by other platform who is using entity mana=
+ger. So I feel that we should have these functionalities to be moved to a=
+ separate common repo which can be used by everyone and this repo can onl=
+y contain Intel OEM specific IPMI command support.
+>=20
+> My 2 cents =F0=9F=98=8A
 
+In general I support the goal here.
 
-On 1/21/2019 1:43 AM, George Liu wrote:
-> Hi:
-> 1. Could anyone use impitool sel list to read values after calling the 
-> sd_journal_send method?
+More repos, sure.  Let me know what you want them called, who the
+maintainers of each should be, and confirm that they can be licensed
+as Apache-2.0.
 
-No, not really.  sd_journal_send only adds a log entry with metadata to 
-the journal.
+Sorry Vijay - I'm going to hijack your thread.  This is something
+I've been thinking about lately and your note put it at a tipping
+point for me.
 
-phosphor-sel-logger adds special metadata to identify the entry as an 
-IPMI sel record.  A special implementation of the 'Get SEL Entry' IPMI 
-command is needed to find the journal entries with SEL metadata and 
-construct the IPMI SEL records.  An example implementation is here: 
-https://gerrit.openbmc-project.xyz/c/openbmc/intel-ipmi-oem/+/16280.
+We have evolved into a bit of a wild-west culture as far as putting code
+(repos) up in the openbmc namespace.  There are simply no rules at all.
+Anyone can simply ask Brad for a repo and it gets created, no questions
+asked, no accountability.
 
-> 2. Calling the startThresholdEventMonitor method of the 
-> phosphor-sel-logger module, why get the values of max, min, sensorVal 
-> are all 0? But I can get the correct values through dbus.
+So I guess a quick poll - does anyone find this concerning (or not)?
 
-Calling startThresholdEventMonitor() should start a D-Bus match to watch 
-for any changes to 'xyz.openbmc_project.Sensor.Threshold' properties. 
-The 'Alarm' properties are used to know when a sensor threshold is 
-crossed and log that event automatically.
+fwiw, I think I'm ok with this model at this point in the project,
+assuming that the rules (or lack thereof) apply to everyone equally.
 
-When the match is triggered, the callback uses the same bus and path to 
-get the properties from the 'xyz.openbmc_project.Sensor.Value' interface 
-which has the MaxValue, MinValue, and Value properties for the sensor.
-
-So, is the issue you see that after the match is triggered and the 
-'xyz.openbmc_project.Sensor.Value' properties are read from that path, 
-they are all 0, but if you manually read the properties from the same 
-path, they are correct?
-
-> Thanks
-> 
-> 
+thx - brad
