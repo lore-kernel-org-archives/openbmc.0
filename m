@@ -1,35 +1,37 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <wsa@the-dreams.de>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=the-dreams.de
+ (client-ip=88.99.104.3; helo=pokefinder.org; envelope-from=wsa@the-dreams.de;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kkWM5fMszDqKX
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 10:04:11 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2019 15:04:08 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,508,1539673200"; d="scan'208";a="313936684"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga005.fm.intel.com with ESMTP; 22 Jan 2019 15:04:08 -0800
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-From: Ed Tanous <ed.tanous@intel.com>
-Subject: MTLS support for HTTPS authentication
-Message-ID: <d408ea9c-6088-7e4e-f124-0de2e8fe51bb@intel.com>
-Date: Tue, 22 Jan 2019 15:06:25 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+ dmarc=none (p=none dis=none) header.from=the-dreams.de
+Received: from pokefinder.org (sauhun.de [88.99.104.3])
+ by lists.ozlabs.org (Postfix) with ESMTP id 43kkrP1XXDzDqL8;
+ Wed, 23 Jan 2019 10:18:59 +1100 (AEDT)
+Received: from localhost (p54B333AA.dip0.t-ipconnect.de [84.179.51.170])
+ by pokefinder.org (Postfix) with ESMTPSA id A084A2C78FF;
+ Wed, 23 Jan 2019 00:18:54 +0100 (CET)
+Date: Wed, 23 Jan 2019 00:18:54 +0100
+From: Wolfram Sang <wsa@the-dreams.de>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org,
+ Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Subject: Re: [PATCH] i2c: aspeed: Remove hard-coded bus timeout value setting
+Message-ID: <20190122231854.g75ijhg6halhzdvh@ninjato>
+References: <20190116193943.6004-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="n33otukcn44nvdcc"
+Content-Disposition: inline
+In-Reply-To: <20190116193943.6004-1-jae.hyun.yoo@linux.intel.com>
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,77 +43,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 23:04:16 -0000
-
-I'm investigating the possibility of the web layer in OpenBMC supporting
-MTLS for user authentication.  For the uninitiated, mutual TLS is a
-mechanism to allow a server to verify whether or not a client can be
-"trusted" in a very similar way that the client can verify that the
-server is trusted on a standard TLS connection.  This is done during the
-setup of the transport, rather than inside the channel once the
-transport has been opened.  It also allows users to authenticate without
-having any direct credentials (encrypted or not) to hit the wire.  The
-hope is that this would allow much easier and more secure use of the
-webui, Redfish, and any other https based resource in the BMC.
-
-Overall, the primary goal here is to provide an authentication mechanism
-that doesn't require passwords, nor requires the BMC to know any
-"secrets" like session tokens, and could authenticate entirely based on
-"public" information, thus reducing the possibility for attack.
+X-List-Received-Date: Tue, 22 Jan 2019 23:19:01 -0000
 
 
-The flow I'd like to propose is.
+--n33otukcn44nvdcc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-1. During provisioning of a system, an administrator uploads the public
-certificate for an authority that can be trusted for user
-authentication.  This would likely be done through a POST/PATCH to the
-new Redfish Certificates schema that was recently released.  At this
-point, the administrator/provisioner would have the option of completely
-disabling other authentication types (session, basic, ect) to allow ONLY
-authenticated types.  For images or deployments that have a known
-destination, and known authority, these authorities could be baked into
-the image at build time instead of uploaded runtime.  The "phosphor"
-reference implementation would default to allowing no authorities until
-configured.
+On Wed, Jan 16, 2019 at 11:39:43AM -0800, Jae Hyun Yoo wrote:
+> This commit removes hard-coded bus timeout value setting so that
+> it can be set by i2c-core-base.
+>=20
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
 
-2. A user would request a signed certificate (using a CSR) to their
-given authority.  This could be as simple as signing a request locally
-using openssl, or requesting a cert from a rack level controller
-(possibly OpenRMC?).   The exact flows would depend on the authority
-being used, and should be considered outside the scope of OpenBMC.  The
-CSR would include the CommonName field value of <username>@<bmc
-hostname>   (ex ed@EdsBmc).
-
-3. A user would then attach that certificate to their request.  Doing
-this in curl would use the --key and --cert parameters.  Most HTTP
-clients have similar mechanisms for specifying a client certificate.
-
-4. Upon receiving the connection, the bmc would verify that the
-certificate was valid against the certificate authority, then use the
-CommonName field to parse out the username, and match it up with a given
-BMC user.  That connection would then be authenticated as that that user
-until the connection is closed.  The authorization schemes would remain
-as they were previously.
+Applied to for-next, thanks!
 
 
-Some questions I'd like to pose:
+--n33otukcn44nvdcc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-1. Is there something better we can use in the CommonName field to
-correctly identify the system name and the user name?  Do we think that
-the common authority services people are using will allow signing such a
-request?  Is the request detailed enough?
-2. How should we handle the date problem?  In a lot of cases, the BMC
-might not have access to the current or correct time.  This will cause
-validation of the certificate to fail, as in most cases it will have
-been signed in the "future" compared to the BMC time.  Should we ignore
-the signing dates?  Is there a way to verify we're on NTP time, then
-fall back to ignoring the date if NTP is disabled or has failed?  Should
-we be strict?  Does this need to be configurable?
-3. Should we limit the number of levels of verification we support?
-Said another way, should we support anything other than a certificate
-chain size of 1?  Should we support configuration of the chain length?
-Is there some upper bound we should impose?
-4. Is anyone else interested in pursuing?
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlxHpN0ACgkQFA3kzBSg
+KbY1fw/9H06zwh4pL8+szV13WMpPIU1rXCyiRitiy1m4Q6GgfHgyNUyjAAeuNmO/
+TcwZNmGx4yGlonk7LmL1xg98w7mjcbAwwu4B5ihlPN28MJGGT+WIdpHibjzB8Dvz
+Qwqh23tWxaU0KtMRwZppKKbKv5T8jux6qarxfxVFDY5eEd8qSWiqRCzN/5i9pE3Y
+gVpxKi5cQwSANEveQ9rjLU+tqq+VNo48PlcybHMaVImGL8V9lDVOKwosoQnISJ71
+Wnx+FfX0f/Mlu00gIcB/LrPnz4JbWRLvvyTr8RRtjJXHEmaicIncj6vmGvLp8m3l
+NsUAalTrwdDJq9EzzTRYNhlDlkUEonESnIlaQmjgSGKLYJ3u8sO1vL6P7SNfYRbu
+dP7O/e0eZFlovb+6XnF21arafl/J8bN4Qv0MLgm3/kUWxcmw6MpDBoiQ58eLn0et
+hFG4AJCWNszEA1btFdt+kR2VSl65+6rHydDqJIP7aDwnoXVYqIJjYjs79tHbs+jS
+jIKvcIpXvzMpPwQ4W7pO9QwqCfDDadnKuOoFpe2L59a+OYT6orTNqfl3kSRey7sv
+9WfLkus8l7nZovpkeXW9vwkEUvdC3xQX5f6eIiKiB4is7uArt5cZmH7BHQOiypX0
+jh0pSX9f6dI9eDCMq/VGzOysDHitI6K+E/0tiv6wFAycN/IVIfg=
+=nQmG
+-----END PGP SIGNATURE-----
 
--Ed
+--n33otukcn44nvdcc--
