@@ -1,57 +1,104 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <prvs=6925d468ca=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::22a; helo=mail-oi1-x22a.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=6925d468ca=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="uzkU1wa1"; 
- dkim-atps=neutral
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="qy6Eieh+"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="EjS01uBS"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kXMv1KrSzDqM0
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 02:27:06 +1100 (AEDT)
-Received: by mail-oi1-x22a.google.com with SMTP id i6so17694126oia.6
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 07:27:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=e6axM6Bz8b3P4FR64CXOYeWD1ot0TF6T5fBD31uYf38=;
- b=uzkU1wa1GdBIB96jopTfpihOmGwVFjlwnuQFgN2uX68WaCuvp9wLzlyl5ub7pDQmlH
- ZsNh4xazgqr0NCw8+DhqxAR4kJ9wzVfGVjGo7/Ys1h1aCpqLGgIkG+Dxh9YbSA1X+EIr
- pZCS19nEa9ZSNUywxf3eEZoNVAimO+btIVwKvtwSkCTpLVHIwWpatgWlEYi4jhHSQPfW
- uTqibUAv6kuIfeWqiluCSBXsi6jMJJs1z+yg49WguLqsBOGcPXuhwQMqaMnsPwaxA5vI
- rILZvamQBd//RiN6BKpSf8q6oSuUljUJpcv4dWT9Cew2gZPb2eP+mnGHZdHwsnL29Pv2
- SdOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=e6axM6Bz8b3P4FR64CXOYeWD1ot0TF6T5fBD31uYf38=;
- b=Uhpsq/PPM3Hu1FJnChTiRSiPiPiVrWtK48GMynqZuvlmk+jLtIngxL+l3PKD2S+oZu
- jA7rLTD95AfXHXbDBk9U6gnmp8923RI+Mw/umskP3dAVWuZEiiHV65+OH5eyJVvEEk+X
- NtplkHDLsrkOd1vnAQUR+RZxyrAFQuM88TEwrnPMWAa8NxHvr5lsb2vElToMs/Dd6QEk
- etElhHCqeKLwcXaw1SOlSE/9X1E4hIUoYDnaIh5Bkjnu/XB+41VCxabSFL5QssDFZQha
- uu0LTzpC6xMP/NkiYjceeuLVc8r/ukm6RRCBB2Zy2x15nwHapUiVimemwooM47F1VsYW
- A8Fg==
-X-Gm-Message-State: AJcUukeCBGYHI0E+hopOum0O/CTSd+9O8ZEN+zPTq7tciHo0Q5RUcwdQ
- BLwyk6M/p/bhLAGJlWwFUgd0eh38wgGhr9XiqRY=
-X-Google-Smtp-Source: ALg8bN6HZFmk0HTUb1BoeaoehIj5R8Y4eXxG75XTZa7FvACij8sw5JfF8gkskqVdwBxtuC/5KDm1NU/AGIRNgjuKKk4=
-X-Received: by 2002:aca:cd48:: with SMTP id d69mr8140127oig.326.1548170824776; 
- Tue, 22 Jan 2019 07:27:04 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kc7W29RNzDqKw
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 05:16:30 +1100 (AEDT)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0MI8jOV002777
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 10:16:28 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : content-type : mime-version; s=facebook;
+ bh=n2c4AwnP1HoLlo3iQ42OZh8EDgL2O8vnEDUiv8zwCsI=;
+ b=qy6Eieh+4VA9Tyv8LbMQo1fSzD6jD0pexg4loQleMQ6BUNsm3OIr7WbJZPPOZjWsECWz
+ attP2vjUD/18qEvpZVZGHpaQ2JF7Wqq0YKdIarvkJY8wNXQP4gEJ2307PGQi32egzBP4
+ ozAgDmW97IYqrJ9cIebkjibqFqVf5uuLTXE= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2q65jn8qwq-10
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 10:16:27 -0800
+Received: from frc-hub05.TheFacebook.com (2620:10d:c021:18::175) by
+ frc-hub03.TheFacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Tue, 22 Jan 2019 10:16:22 -0800
+Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.75) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Tue, 22 Jan 2019 10:16:22 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n2c4AwnP1HoLlo3iQ42OZh8EDgL2O8vnEDUiv8zwCsI=;
+ b=EjS01uBSqFwSPzDV66RLnwSF8pDMDDpKrJetMVKaHR7jUj0aPaWWQPKpRochM+SIlbj0lkcgGaXenGK08QyWmMEIR3IoxhLwUhsQ3jHHT8tjXXM9OEqNlHurAN4pJPoef5+emhYseqCmv6WkP5r58NGtQ2NyVpVwh4QdKwZh0pY=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1416.namprd15.prod.outlook.com (10.172.160.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1537.31; Tue, 22 Jan 2019 18:16:21 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c%4]) with mapi id 15.20.1537.031; Tue, 22 Jan 2019
+ 18:16:21 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: openbmc <openbmc@lists.ozlabs.org>
+Subject: Intel-ipmi-oem repo
+Thread-Topic: Intel-ipmi-oem repo
+Thread-Index: AQHUsn6T2PovaFK5IEGTS1z8ksaC/g==
+Date: Tue, 22 Jan 2019 18:16:20 +0000
+Message-ID: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::6:5da0]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1416;
+ 20:MdTMp87VtnVcnRxLxO6O6MjI8tWpQprjCjWDBOhy6YCGDQIoIh1aA50ssmV/djVqM3S0pK96Hl8O/rBn6oSMZ9NwBxF8pySzlAH+UkxEy8aTObLjdjLlOTZwnfFZcx0npVRnsz/6hapV423PuaW4iyBjOPwajgaGVL5FGcI8DVI=
+x-ms-office365-filtering-correlation-id: 2c62cf86-34ad-4b40-4550-08d68095b5f6
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600109)(711020)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1416; 
+x-ms-traffictypediagnostic: CY4PR15MB1416:
+x-microsoft-antispam-prvs: <CY4PR15MB14167F454FA0EC23EA29E8A3DD980@CY4PR15MB1416.namprd15.prod.outlook.com>
+x-forefront-prvs: 0925081676
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(136003)(376002)(396003)(346002)(366004)(189003)(199004)(36756003)(316002)(6486002)(82746002)(54896002)(6512007)(2906002)(68736007)(6306002)(478600001)(99286004)(6436002)(33656002)(14454004)(83716004)(6116002)(25786009)(71190400001)(7736002)(71200400001)(256004)(14444005)(186003)(4744005)(8936002)(97736004)(81166006)(8676002)(81156014)(105586002)(486006)(106356001)(476003)(6916009)(46003)(86362001)(2616005)(102836004)(53936002)(3480700005)(6506007);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1416;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: Ood3iYHxGJ/CmPJPfcEzi3NsDSbm/yRTzA5hOsh8bmyT4o9Ogqam44MXK1s7Ls++pyHhI5YWAgXII+gAta+pbfVlj0ojTbD8RhqTo0x0OQU/Oc9u6ocXMG7jQWQn8kPZ3U2qEjCiPaIon3tlSbOIJDvGCgpDG0hsbpzDUmpjdwimDbsgJ/giLsX8cQ0H5k3HchEkY265PV9nV31Gw1qzZfZXb7n+Rrj/NgITs15PmRp4VqVuV/YlMFENRvxTgzW9p/yiMoWihyY2P5H/thXd+mpaqngusY8xafBjszTVgEsYbj5nKFhh0ZQTkZnVLvl6B/AFMdBBLtsSQboYK8dKSLPWHGewCq/ByZ0vTRm+awCdO6N+A1xL0s0cQN7G89pllM/C1a3qycvDp1jxVxaQRUOvsLGror4VER4PKwljOjs=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_B67393AC1915499993D9944EA6D61D2Afbcom_"
 MIME-Version: 1.0
-References: <CALLMt=rZvQ_yYHA9DmpHEbjNvaJgHPOkZ1qquxJp=ZYam-K-4Q@mail.gmail.com>
- <eff505fb-cad7-b0a4-bf1c-42b3f79905d6@intel.com>
-In-Reply-To: <eff505fb-cad7-b0a4-bf1c-42b3f79905d6@intel.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 22 Jan 2019 09:26:48 -0600
-Message-ID: <CALLMt=rq8ykQJiqsatZrofv76mJX4g1c-Z8Ohu1J=mLGSEUuyA@mail.gmail.com>
-Subject: Re: Redfish Software Updates in OpenBMC
-To: Ed Tanous <ed.tanous@intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c62cf86-34ad-4b40-4550-08d68095b5f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2019 18:16:20.9708 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1416
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-22_10:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,67 +110,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 15:27:08 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 18:16:40 -0000
 
-On Mon, Jan 14, 2019 at 11:04 AM Ed Tanous <ed.tanous@intel.com> wrote:
+--_000_B67393AC1915499993D9944EA6D61D2Afbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> On 1/10/19 2:43 PM, Andrew Geissler wrote
-> > Redfish defines a UpdateService schema[a]. An action available on the
-> > UpdateService is a SimpleUpdate interface. I think the flow to use this would
-> > look like this:
-> >
-> > # Retrieve the URI to upload an image to
-> > HttpPushUri = GET  /redfish/v1/UpdateService
-> >
-> > # Upload firmware image
-> > ImageURI = POST HttpPushUri
->
-> As redfish is written, this is where the flow stops.  The BMC takes over
-> from here, and updates itself.  One enhancement I'd really like to see
-> made is to return a reference to a TaskService task, so we can track the
-> progress as the update is applied.
->
-> My understanding is that SimpleUpdate is a flow where the BMC can pull
-> down an image itself, so the URI is generally not something local to the
-> BMC, but a remote server that the BMC can connect to.
+VGVhbSwNCkludGVsLWlwbWktb2VtIHNob3VsZCBiZSBicm9rZW4gYW5kIDIgcGFydHMsIGdlbnJp
+YyBhbmQgb2VtIHNwZWNpZmljLiBJIHNlZSBzZXZlcmFsIGZ1bmN0aW9uYWxpdHkgaW4gdGhpcyBy
+ZXBvIGxpa2Ugc2Vuc29ycyBhbmQgc3RvcmFnZSBjb21tYW5kcyBhcmUgZ2VuZXJpYyBlbm91Z2gg
+dG8gYmUgdXNlZCBieSBvdGhlciBwbGF0Zm9ybSB3aG8gaXMgdXNpbmcgZW50aXR5IG1hbmFnZXIu
+IFNvIEkgZmVlbCB0aGF0IHdlIHNob3VsZCBoYXZlIHRoZXNlIGZ1bmN0aW9uYWxpdGllcyB0byBi
+ZSBtb3ZlZCB0byBhIHNlcGFyYXRlIGNvbW1vbiByZXBvIHdoaWNoIGNhbiBiZSB1c2VkIGJ5IGV2
+ZXJ5b25lIGFuZCB0aGlzIHJlcG8gY2FuIG9ubHkgY29udGFpbiBJbnRlbCBPRU0gc3BlY2lmaWMg
+SVBNSSBjb21tYW5kIHN1cHBvcnQuDQoNCk15IDIgY2VudHMg8J+Yig0KDQpSZWdhcmRzDQotVmlq
+YXkNCg0K
 
-Looked like the Dell implementation was using it as a local pointer but I agree,
-the specification seems to only support the remote server concept. This is
-a feature we'll want (like for TFTP and such).
+--_000_B67393AC1915499993D9944EA6D61D2Afbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <DDCFF1691978FC46841186346FE54935@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
->
-> > The main issue with the above is the loss of our ability to have multiple
-> > firmware images of the same type in a system and to be able to change the
-> > priority of them to switch back and forth between them. It's also not obvious
-> > to me what the target is for the BIOS when doing an update of it? There are OEM
-> > options for both Actions and Properties if needed (but would be great to avoid).
->
-> The piece I think you're missing is the new property that was added in
-> redfish UpdateService 1.1.1 named HttpPushUriTargets.  It essentially
-> allows you to define multiple targets for the push flow you outlined
-> above, although I don't see anyone using it yet.
->
-> https://github.com/openbmc/bmcweb/blob/c0eb9bd95afa900dc808dce7c2c5fa521ba828f5/static/redfish/v1/schema/UpdateService_v1.xml#L224
->
-> If you want to implement SimpleUpdate, it also supports the Targets
-> property, which lets you direct where you would like a given payload to
-> be updated to:
->
-> https://github.com/openbmc/bmcweb/blob/c0eb9bd95afa900dc808dce7c2c5fa521ba828f5/static/redfish/v1/schema/UpdateService_v1.xml#L74
->
-> One design conflict I'm seeing is that Redfish wasn't really meant to
-> separate out the upload and activate interfaces.  Personally, I like the
-> Redfish approach better, as it simplifies things for the user.  Loading
-> a target with firmware is a single step (upload), instead of 2 (upload
-> then activate).  Most of the systems I know of use the single step process.
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJBcHBsZSBD
+b2xvciBFbW9qaSI7DQoJcGFub3NlLTE6MCAwIDAgMCAwIDAgMCAwIDAgMDt9DQovKiBTdHlsZSBE
+ZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0K
+CXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0
+Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29I
+eXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4
+dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9s
+bG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1k
+ZWNvcmF0aW9uOnVuZGVybGluZTt9DQpzcGFuLkVtYWlsU3R5bGUxNw0KCXttc28tc3R5bGUtdHlw
+ZTpwZXJzb25hbC1jb21wb3NlOw0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0K
+CWNvbG9yOndpbmRvd3RleHQ7fQ0Kc3Bhbi5hcHBsZS1jb252ZXJ0ZWQtc3BhY2UNCgl7bXNvLXN0
+eWxlLW5hbWU6YXBwbGUtY29udmVydGVkLXNwYWNlO30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1z
+dHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlm
+O30NCkBwYWdlIFdvcmRTZWN0aW9uMQ0KCXtzaXplOjguNWluIDExLjBpbjsNCgltYXJnaW46MS4w
+aW4gMS4waW4gMS4waW4gMS4waW47fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0
+aW9uMTt9DQotLT48L3N0eWxlPg0KPC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9IiMw
+NTYzQzEiIHZsaW5rPSIjOTU0RjcyIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtjb2xvcjpibGFj
+ayI+VGVhbSw8L3NwYW4+PHNwYW4gc3R5bGU9ImNvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bh
+bj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBw
+dDtjb2xvcjpibGFjayI+SW50ZWwtaXBtaS1vZW0gc2hvdWxkIGJlIGJyb2tlbiBhbmQgMiBwYXJ0
+cywgZ2VucmljIGFuZCBvZW0gc3BlY2lmaWMuIEkgc2VlIHNldmVyYWwgZnVuY3Rpb25hbGl0eSBp
+biB0aGlzIHJlcG8gbGlrZSBzZW5zb3JzIGFuZCBzdG9yYWdlIGNvbW1hbmRzIGFyZSBnZW5lcmlj
+IGVub3VnaCB0byBiZSB1c2VkIGJ5IG90aGVyIHBsYXRmb3JtDQogd2hvIGlzIHVzaW5nIGVudGl0
+eSBtYW5hZ2VyLiBTbyBJIGZlZWwgdGhhdCB3ZSBzaG91bGQgaGF2ZSB0aGVzZSBmdW5jdGlvbmFs
+aXRpZXMgdG8gYmUgbW92ZWQgdG8gYSBzZXBhcmF0ZSBjb21tb24gcmVwbyB3aGljaCBjYW4gYmUg
+dXNlZCBieSBldmVyeW9uZSBhbmQgdGhpcyByZXBvIGNhbiBvbmx5IGNvbnRhaW4gSW50ZWwgT0VN
+IHNwZWNpZmljIElQTUkgY29tbWFuZCBzdXBwb3J0Ljwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6
+YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2NvbG9yOmJsYWNrIj4mbmJzcDs8L3NwYW4+PHNwYW4g
+c3R5bGU9ImNvbG9yOmJsYWNrIj48bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtjb2xvcjpibGFjayI+TXkgMiBj
+ZW50cyZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdDtmb250LWZhbWls
+eTomcXVvdDtBcHBsZSBDb2xvciBFbW9qaSZxdW90Oztjb2xvcjpibGFjayI+JiMxMjg1MjI7PC9z
+cGFuPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFjayI+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Y29sb3I6Ymxh
+Y2siPiZuYnNwOzwvc3Bhbj48c3BhbiBzdHlsZT0iY29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9z
+cGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0O2NvbG9yOmJsYWNrIj5SZWdhcmRzPC9zcGFuPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFjayI+
+PG86cD48L286cD48L3NwYW4+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQ7Y29sb3I6YmxhY2siPi1WaWpheTwvc3Bhbj48c3BhbiBzdHlsZT0i
+Y29sb3I6YmxhY2siPjxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
+L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
 
-Yeah, I'd like to stick with the default interface and I agree that the one
-step process is easier. I would propose though that we add an OEM
-"Priority" field so in instances where the system supports multiple
-images for the same HttpPushUriTargets, the user would have an easy
-way to switch back and forth. We use this a lot in development and
-I know customers use it when they want to quickly roll back to a
-previous update (when they were just testing out a new release or
-run into issues with it). Some investigation will be required by me to
-determine if the existing API's would support multiple firmware instances
-for the same Target.
+--_000_B67393AC1915499993D9944EA6D61D2Afbcom_--
