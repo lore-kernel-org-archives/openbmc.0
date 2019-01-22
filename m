@@ -1,78 +1,65 @@
-Return-Path: <Brenden_Lai@jabil.com>
+Return-Path: <kuiying.wang@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=jabil.com
- (client-ip=40.107.70.94; helo=nam04-sn1-obe.outbound.protection.outlook.com;
- envelope-from=brenden_lai@jabil.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jabil.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jabil.onmicrosoft.com header.i=@jabil.onmicrosoft.com
- header.b="n4nXHx65"; dkim-atps=neutral
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700094.outbound.protection.outlook.com [40.107.70.94])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kJYq14QBzDqJq
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 17:34:53 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.onmicrosoft.com; 
- s=selector1-jabil-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BzfPhh0mMpiMGweP6kQLyPI1qnSbGhoISa1wW8hYYOw=;
- b=n4nXHx65D4kVqPvMkEVnNpfwFmNwze+muwFiU0vyp3sE9VI+JLU/2eWFR7EISQ7tnUwE4RH75yb+jO13JvFxvSfnAHrT/SJB4qkr34mO5Q3wqcvBLSbpc9kwrrFvM7wRRK5LEIqwOjONU105aXZvkvWM/I61ZlhCMxuBT5MH0o8=
-Received: from SN6PR02MB5693.namprd02.prod.outlook.com (20.177.252.17) by
- SN6PR02MB5616.namprd02.prod.outlook.com (20.177.251.92) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1537.24; Tue, 22 Jan 2019 06:34:48 +0000
-Received: from SN6PR02MB5693.namprd02.prod.outlook.com
- ([fe80::59f9:194e:34f4:584f]) by SN6PR02MB5693.namprd02.prod.outlook.com
- ([fe80::59f9:194e:34f4:584f%4]) with mapi id 15.20.1537.031; Tue, 22 Jan 2019
- 06:34:48 +0000
-From: Brenden Lai <Brenden_Lai@jabil.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: build and enviroment questions
-Thread-Topic: build and enviroment questions
-Thread-Index: AdSyFw4NSN1kiK3bQQOz4TuWWa35KA==
-Date: Tue, 22 Jan 2019 06:34:48 +0000
-Message-ID: <SN6PR02MB569357D7F6705F757F805F3796980@SN6PR02MB5693.namprd02.prod.outlook.com>
-Accept-Language: zh-TW, en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kQ00571CzDqND
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 21:39:27 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Jan 2019 02:39:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,505,1539673200"; d="scan'208";a="127621276"
+Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
+ by FMSMGA003.fm.intel.com with ESMTP; 22 Jan 2019 02:39:25 -0800
+Received: from fmsmsx119.amr.corp.intel.com (10.18.124.207) by
+ FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Tue, 22 Jan 2019 02:39:25 -0800
+Received: from shsmsx105.ccr.corp.intel.com (10.239.4.158) by
+ FMSMSX119.amr.corp.intel.com (10.18.124.207) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Tue, 22 Jan 2019 02:39:24 -0800
+Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.63]) by
+ SHSMSX105.ccr.corp.intel.com ([169.254.11.184]) with mapi id 14.03.0415.000;
+ Tue, 22 Jan 2019 18:39:22 +0800
+From: "Wang, Kuiying" <kuiying.wang@intel.com>
+To: Linus Walleij <linus.walleij@linaro.org>
+CC: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, "Thomas
+ Petazzoni" <thomas.petazzoni@bootlin.com>, "open list:GPIO SUBSYSTEM"
+ <linux-gpio@vger.kernel.org>, Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery, Vernon"
+ <vernon.mauery@intel.com>, "Feist, James" <james.feist@intel.com>, "Yoo, Jae
+ Hyun" <jae.hyun.yoo@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>,
+ "Khetan, Sharad" <sharad.khetan@intel.com>
+Subject: RE: Enable buttons GPIO passthrough
+Thread-Topic: Enable buttons GPIO passthrough
+Thread-Index: AQHUqY1NYywjorJW6EeKU0Lg6H6RIKWtkS8AgABZUQCAAgEksIAAKXmg//+oEgCAAj7wUIAHP+CAgAHrjjA=
+Date: Tue, 22 Jan 2019 10:39:21 +0000
+Message-ID: <959CAFA1E282D14FB901BE9A7BF4E7724E440ABF@shsmsx102.ccr.corp.intel.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
+ <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
+ <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
+ <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
+ <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
+In-Reply-To: <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5Lmh0bWwiIHA9ImM6XHVzZXJzXDE1MzIxNDhcYXBwZGF0YVxyb2FtaW5nXDA5ZDg0OWI2LTMyZDMtNGE0MC04NWVlLTZiODRiYTI5ZTM1Ylxtc2dzXG1zZy1jZTE2ZjI0NC0xZTBmLTExZTktODc5NS1iODhhNjBhMzA2OTFcYW1lLXRlc3RcY2UxNmYyNDUtMWUwZi0xMWU5LTg3OTUtYjg4YTYwYTMwNjkxYm9keS5odG1sIiBzej0iMTA5NjciIHQ9IjEzMTkyNjEyNDg1MjkyOTI3MyIgaD0iWjZrdWFVV1I3WGlnaTZVb2F2aUFqVS9jL01nPSIgaWQ9IiIgYmw9IjAiIGJvPSIxIi8+PC9tZXRhPg==
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Brenden_Lai@jabil.com; 
-x-originating-ip: [165.225.102.65]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; SN6PR02MB5616;
- 20:oKS8i4VmwQxkO14AbSeaW3zBpNq8nUeSe3ZMCrc0RxjQeaXyQe80/Y5vbEHvpQR2apFdLW3KC/8LepR3csGu3nQWndy/RciLI5IfedBF4X6fZq1iehdPzFehjtYOIXWHtr5aPrkYDWt8w/Eo8qRcvlCvsleyUHonuPQM8N94uJA=
-x-ms-office365-filtering-correlation-id: 11da54f2-67b3-4fe7-e575-08d68033b517
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600109)(711020)(4618075)(2017052603328)(7153060)(7193020);
- SRVR:SN6PR02MB5616; 
-x-ms-traffictypediagnostic: SN6PR02MB5616:
-x-microsoft-antispam-prvs: <SN6PR02MB5616B819B131C78B608F3DBF96980@SN6PR02MB5616.namprd02.prod.outlook.com>
-x-forefront-prvs: 0925081676
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(346002)(366004)(376002)(136003)(39860400002)(199004)(189003)(53754006)(33656002)(68736007)(97736004)(316002)(80792005)(66066001)(7736002)(6436002)(14444005)(2351001)(256004)(1730700003)(81166006)(81156014)(8676002)(5640700003)(6916009)(55016002)(8936002)(486006)(106356001)(74316002)(6116002)(3846002)(99286004)(105586002)(790700001)(14454004)(25786009)(478600001)(72206003)(86362001)(7696005)(3480700005)(26005)(102836004)(476003)(2501003)(2906002)(71200400001)(71190400001)(6306002)(54896002)(9686003)(53936002)(6506007)(55236004)(186003);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR02MB5616;
- H:SN6PR02MB5693.namprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: jabil.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: DJFuw2IIojnuCAqEPwv9/8WgzpYvlMWvtKY6Hjveu0H+Sg3SvSYVUK1ucvvNVagIv8yOXcXCHVUE2kYPYNMERslLkeP24V2ItoFNg9FOJ/fTurndgShlbljYa6NWrONAJyNP/jqRRPxpnlnsNHo6KsmfSMkGxbzXMwC22PglzMnd4NZ+ZHXXgQYRYUX+yxm+h7GtQUsf4L82WKMAWRbJ/D9QIDl6Unm7eJu+SaFWITiBYvt+OfO/sj8tAN8S2sxTvcoje8bic8PCzAi69fLr24iPGPxvgxmThAQ6R1sTLCOoYAD2BAFpPFZUWVavIQdTcjm1roei7WgyAHmUl8CDiu9J5xe6arymiUT+AcimIitxQQPpq9tSbQwQoRElRARwDjm3HsTnpM8DZjS2ypIxAZx2rWHqD0K+XIsGFxES//E=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_SN6PR02MB569357D7F6705F757F805F3796980SN6PR02MB5693namp_"
+x-originating-ip: [10.239.127.40]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-OriginatorOrg: jabil.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11da54f2-67b3-4fe7-e575-08d68033b517
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2019 06:34:48.8112 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB5616
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,377 +71,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 06:34:57 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 10:39:29 -0000
 
---_000_SN6PR02MB569357D7F6705F757F805F3796980SN6PR02MB5693namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-Hi all ,
-I have couple questions about build code
-
-Question 1 :
-If  I follow the steps of GITHUB openbmc readme to build code , it always f=
-ailed due to bitbake not found as below :
-export TEMPLATECONF=3Dmeta-ibm/meta-palmetto/conf
-
-./openbmc-env
-brenden@brenden-VirtualBox:~/OCP/openbmc$ bitbake obmc-phosphor-image
-WARNING:root:could not open file '/etc/apt/sources.list.d/nodesource.list'
-bitbake: command not found
-
-But after I try use :
-source ./setup palmetto
-Then the build process goes smoothly .What the difference between this two =
-method ?
-
-Question 2 :
-The build configuration info MACHINE always show "zaius" , even if  build f=
-or palmetto and  romulus
-
-Build Configuration:
-BB_VERSION           =3D "1.40.0"
-BUILD_SYS            =3D "x86_64-linux"
-NATIVELSBSTRING      =3D "ubuntu-16.04"
-TARGET_SYS           =3D "arm-openbmc-linux-gnueabi"
-MACHINE              =3D "zaius"
-DISTRO               =3D "openbmc-phosphor"
-DISTRO_VERSION       =3D "0.1.0"
-TUNE_FEATURES        =3D "arm armv6 thumb arm1176jzs"
-TARGET_FPU           =3D "soft"
-meta
-meta-poky
-meta-oe
-meta-networking
-meta-perl
-meta-python
-meta-webserver
-meta-phosphor
-meta-aspeed
-meta-openpower
-meta-ingrasys
-meta-zaius           =3D "master:50ea7cc89521929e29d0836367fa8b06776ce4c2"
-
-Here is my scripts:
-For: romulus
-source ./setup romulus
-bitbake obmc-phosphor-imag
-For
-               source ./setup palmetto
-bitbake obmc-phosphor-imag
-Is it a normal behavior or my environment setting wrong ?
-
-
-Question 3 :
-I understand it long time for first build , due to it may install some prer=
-equisite
-But Why it still take so long time to build while the build target machine =
-is different from previous build ?
-I saw it take over 5000 task(see below ) just like first build , Does it ma=
-ke sense ?
-
-Initialising tasks: 100% |#######################################| Time: 0:=
-00:05
-Sstate summary: Wanted 1476 Found 0 Missed 1476 Current 345 (0% match, 18% =
-complete)
-NOTE: Executing SetScene Tasks
-NOTE: Executing RunQueue Tasks
-Currently  1 running tasks (440 of 5152)   8% |##                          =
-    |
-
-Thanks -Brenden
-
-
-
-
-
-Brenden Lai
-SR. BMC Design Engineer
-E&I, Jabil Design Services
-
-
---_000_SN6PR02MB569357D7F6705F757F805F3796980SN6PR02MB5693namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 1 6 1 0 1 1 1 1 1;}
-@font-face
-	{font-family:Consolas;
-	panose-1:2 11 6 9 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-code
-	{mso-style-priority:99;
-	font-family:"Courier New";}
-pre
-	{mso-style-priority:99;
-	mso-style-link:"HTML Preformatted Char";
-	margin:0in;
-	margin-bottom:.0001pt;
-	font-size:10.0pt;
-	font-family:"Courier New";}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0in;
-	margin-right:0in;
-	margin-bottom:0in;
-	margin-left:.5in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.HTMLPreformattedChar
-	{mso-style-name:"HTML Preformatted Char";
-	mso-style-priority:99;
-	mso-style-link:"HTML Preformatted";
-	font-family:"Courier New";}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1024206878;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-1428018392 -1959858818 67698713 67698715 67698703 6=
-7698713 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:.75in;
-	text-indent:-.25in;}
-@list l0:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:1.25in;
-	text-indent:-.25in;}
-@list l0:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:1.75in;
-	text-indent:-9.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.25in;
-	text-indent:-.25in;}
-@list l0:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:2.75in;
-	text-indent:-.25in;}
-@list l0:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:3.25in;
-	text-indent:-9.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:3.75in;
-	text-indent:-.25in;}
-@list l0:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:4.25in;
-	text-indent:-.25in;}
-@list l0:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:4.75in;
-	text-indent:-9.0pt;}
-ol
-	{margin-bottom:0in;}
-ul
-	{margin-bottom:0in;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi all , <o:p></o:p></p>
-<p class=3D"MsoNormal">I have couple questions about build code<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Question 1 :<o:p></o:p></p>
-<p class=3D"MsoNormal">If &nbsp;I follow the steps of GITHUB openbmc readme=
- to build code , it always failed due to bitbake not found as below :<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal" style=3D"background:#F6F8FA"><span style=3D"font-siz=
-e:10.0pt;font-family:Consolas;color:#24292E;border:none windowtext 1.0pt;pa=
-dding:0in">export TEMPLATECONF=3Dmeta-ibm/meta-palmetto/conf<o:p></o:p></sp=
-an></p>
-<pre style=3D"background:#F6F8FA"><code><span style=3D"font-family:Consolas=
-;color:#24292E;border:none windowtext 1.0pt;padding:0in;background:yellow;m=
-so-highlight:yellow">./openbmc-env</span></code><span style=3D"font-family:=
-Consolas;color:#24292E"><o:p></o:p></span></pre>
-<p class=3D"MsoNormal"><i>brenden@brenden-VirtualBox:~/OCP/openbmc$ bitbake=
- obmc-phosphor-image<o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i>WARNING:root:could not open file '/etc/apt/source=
-s.list.d/nodesource.list'<o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i>bitbake: command not found<o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i><o:p>&nbsp;</o:p></i></p>
-<p class=3D"MsoNormal">But after I try use :<o:p></o:p></p>
-<p class=3D"MsoNormal"><i>source ./setup palmetto <o:p></o:p></i></p>
-<p class=3D"MsoNormal">Then the build process goes smoothly .What the diffe=
-rence between this two method ?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Question 2 :<o:p></o:p></p>
-<p class=3D"MsoNormal">The build configuration info MACHINE always show &#8=
-220;zaius&#8221; , even if &nbsp;build for palmetto and &nbsp;romulus
-<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Build Configuration:<o:p></o:p></p>
-<p class=3D"MsoNormal">BB_VERSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; =3D &quot;1.40.0&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">BUILD_SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; =3D &quot;x86_64-linux&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">NATIVELSBSTRING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D &q=
-uot;ubuntu-16.04&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">TARGET_SYS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; =3D &quot;arm-openbmc-linux-gnueabi&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">MACHINE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D &quot;zaius&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">DISTRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =3D &quot;openbmc-phosphor&quot;<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">DISTRO_VERSION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; =
-=3D &quot;0.1.0&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">TUNE_FEATURES&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; =3D &quot;arm armv6 thumb arm1176jzs&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">TARGET_FPU&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; =3D &quot;soft&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">meta&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-poky&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-oe&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-networking&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">meta-perl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-python&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-webserver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <=
-o:p></o:p></p>
-<p class=3D"MsoNormal">meta-phosphor&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-aspeed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-openpower&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <=
-o:p></o:p></p>
-<p class=3D"MsoNormal">meta-ingrasys&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; <o:p></o:p></p>
-<p class=3D"MsoNormal">meta-zaius&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp; =3D &quot;master:50ea7cc89521929e29d0836367fa8b06776ce4c=
-2&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal"><i><o:p>&nbsp;</o:p></i></p>
-<p class=3D"MsoNormal">Here is my scripts:<o:p></o:p></p>
-<p class=3D"MsoNormal"><i>For: romulus<o:p></o:p></i></p>
-<p class=3D"MsoNormal" style=3D"text-indent:.5in"><i>source ./setup romulus=
-<o:p></o:p></i></p>
-<p class=3D"MsoNormal" style=3D"text-indent:.5in"><i>bitbake obmc-phosphor-=
-imag<o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i>For <o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; source ./setup </i>palmetto<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal" style=3D"text-indent:.5in"><i>bitbake obmc-phosphor-=
-imag <o:p>
-</o:p></i></p>
-<p class=3D"MsoNormal">Is it a normal behavior or my environment setting wr=
-ong ?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Question 3 :<o:p></o:p></p>
-<p class=3D"MsoNormal">I understand it long time for first build , due to i=
-t may install some prerequisite
-<o:p></o:p></p>
-<p class=3D"MsoNormal">But Why it still take so long time to build while th=
-e build target machine is different from previous build ?<o:p></o:p></p>
-<p class=3D"MsoNormal">I saw it take over 5000 task(see below ) just like f=
-irst build , Does it make sense ?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Initialising tasks: 100% |##########################=
-#############| Time: 0:00:05<o:p></o:p></p>
-<p class=3D"MsoNormal">Sstate summary: Wanted 1476 Found 0 Missed 1476 Curr=
-ent 345 (0% match, 18% complete)<o:p></o:p></p>
-<p class=3D"MsoNormal">NOTE: Executing SetScene Tasks<o:p></o:p></p>
-<p class=3D"MsoNormal">NOTE: Executing RunQueue Tasks<o:p></o:p></p>
-<p class=3D"MsoNormal">Currently&nbsp; 1 running tasks (440 of <span style=
-=3D"background:yellow;mso-highlight:yellow">
-5152</span>)&nbsp;&nbsp; 8% |##&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p></o:p></p>
-<p class=3D"MsoNormal"><i>Thanks -Brenden<o:p></o:p></i></p>
-<p class=3D"MsoNormal"><i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></i></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><i><o:p>&nbsp;</o:p></i></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
-lt:auto"><span style=3D"font-size:10.0pt;color:black">Brenden Lai<br>
-SR. BMC Design Engineer<br>
-</span><span style=3D"font-size:10.0pt;color:#222222">E&amp;I, Jabil Design=
- Services</span><span style=3D"font-size:10.0pt;color:black"><o:p></o:p></s=
-pan></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-</div>
-</body>
-</html>
-
---_000_SN6PR02MB569357D7F6705F757F805F3796980SN6PR02MB5693namp_--
+SGkgTGludXMsDQpMZXQgbWUgYXR0YWNoIGEgZHJhZnQgcGF0Y2gsIGl0IHdpbGwgYmUgZWFzeSB0
+byB1bmRlcnN0YW5kLg0KDQppZiBzb21lb25lIHdhbm5hIGVuYWJsZSBwYXNzdGhyb3VnaCBqdXN0
+IG5lZWQgdG8gb3ZlcnJpZGUgbGlrZSAiIGdwaW8tPmNoaXAuZGlyZWN0aW9uX3Bhc3N0aHJvdWdo
+ID0gYXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoOyINCmVsc2UgcGFzc3Rocm91Z2ggaXMgZGlz
+YWJsZWQuDQoNCkluIGFwcCBsZXZlbCwganVzdCBuZWVkIHRvIGVjaG8gInBhc3N0aHJvdWdoIiB0
+byBlbmFibGUgcGFzc3Rocm91Z2ggbGlrZSAiZWNobyBwYXNzdGhyb3VnaCA+IC9zeXMvY2xhc3Mv
+Z3Bpby9ncGlvMzUvZGlyZWN0aW9uIg0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dwaW8t
+YXNwZWVkLmMgYi9kcml2ZXJzL2dwaW8vZ3Bpby1hc3BlZWQuYw0KaW5kZXggMjM0MmUxNTQwMjli
+Li4xMDkxY2VkZWQ3NmEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwaW8vZ3Bpby1hc3BlZWQuYw0K
+KysrIGIvZHJpdmVycy9ncGlvL2dwaW8tYXNwZWVkLmMNCkBAIC00ODIsNiArNDgyLDMzIEBAIHN0
+YXRpYyBpbnQgYXNwZWVkX2dwaW9fZGlyX291dChzdHJ1Y3QgZ3Bpb19jaGlwICpnYywNCiAJcmV0
+dXJuIDA7DQogfQ0KIA0KK3N0YXRpYyBpbnQgYXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoKHN0
+cnVjdCBncGlvX2NoaXAgKmdjLA0KKwkJCSAgICAgICB1bnNpZ25lZCBpbnQgb2Zmc2V0KQ0KK3sN
+CisJc3RydWN0IGFzcGVlZF9ncGlvICpncGlvID0gZ3Bpb2NoaXBfZ2V0X2RhdGEoZ2MpOw0KKwlj
+b25zdCBzdHJ1Y3QgYXNwZWVkX2dwaW9fYmFuayAqYmFuayA9IHRvX2Jhbmsob2Zmc2V0KTsNCisJ
+dm9pZCBfX2lvbWVtICphZGRyID0gYmFua19yZWcoZ3BpbywgYmFuaywgcmVnX2Rpcik7DQorCXVu
+c2lnbmVkIGxvbmcgZmxhZ3M7DQorCWJvb2wgY29wcm87DQorCXUzMiByZWc7DQorCXByaW50aygi
+a3dpbjo6YXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoIik7DQorCS8vVE9ETyBlbmFibGVfcGFz
+c3Rocm91aGcoKTsNCisJc3Bpbl9sb2NrX2lycXNhdmUoJmdwaW8tPmxvY2ssIGZsYWdzKTsNCisN
+CisJcmVnID0gaW9yZWFkMzIoYWRkcik7DQorCXJlZyB8PSBHUElPX0JJVChvZmZzZXQpOw0KKw0K
+Kwljb3BybyA9IGFzcGVlZF9ncGlvX2NvcHJvX3JlcXVlc3QoZ3Bpbywgb2Zmc2V0KTsNCisJLy9f
+X2FzcGVlZF9ncGlvX3NldChnYywgb2Zmc2V0LCB2YWwpOw0KKwlpb3dyaXRlMzIocmVnLCBhZGRy
+KTsNCisNCisJaWYgKGNvcHJvKQ0KKwkJYXNwZWVkX2dwaW9fY29wcm9fcmVsZWFzZShncGlvLCBv
+ZmZzZXQpOw0KKwlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZncGlvLT5sb2NrLCBmbGFncyk7DQor
+DQorCXJldHVybiAwOw0KK30NCisNCiBzdGF0aWMgaW50IGFzcGVlZF9ncGlvX2dldF9kaXJlY3Rp
+b24oc3RydWN0IGdwaW9fY2hpcCAqZ2MsIHVuc2lnbmVkIGludCBvZmZzZXQpDQogew0KIAlzdHJ1
+Y3QgYXNwZWVkX2dwaW8gKmdwaW8gPSBncGlvY2hpcF9nZXRfZGF0YShnYyk7DQpAQCAtMTE4OCw2
+ICsxMjE1LDcgQEAgc3RhdGljIGludCBfX2luaXQgYXNwZWVkX2dwaW9fcHJvYmUoc3RydWN0IHBs
+YXRmb3JtX2RldmljZSAqcGRldikNCiAJZ3Bpby0+Y2hpcC5wYXJlbnQgPSAmcGRldi0+ZGV2Ow0K
+IAlncGlvLT5jaGlwLmRpcmVjdGlvbl9pbnB1dCA9IGFzcGVlZF9ncGlvX2Rpcl9pbjsNCiAJZ3Bp
+by0+Y2hpcC5kaXJlY3Rpb25fb3V0cHV0ID0gYXNwZWVkX2dwaW9fZGlyX291dDsNCisJZ3Bpby0+
+Y2hpcC5kaXJlY3Rpb25fcGFzc3Rocm91Z2ggPSBhc3BlZWRfZ3Bpb19kaXJfcGFzc3Rocm91Z2g7
+DQogCWdwaW8tPmNoaXAuZ2V0X2RpcmVjdGlvbiA9IGFzcGVlZF9ncGlvX2dldF9kaXJlY3Rpb247
+DQogCWdwaW8tPmNoaXAucmVxdWVzdCA9IGFzcGVlZF9ncGlvX3JlcXVlc3Q7DQogCWdwaW8tPmNo
+aXAuZnJlZSA9IGFzcGVlZF9ncGlvX2ZyZWU7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dw
+aW9saWItc3lzZnMuYyBiL2RyaXZlcnMvZ3Bpby9ncGlvbGliLXN5c2ZzLmMNCmluZGV4IDNkYmFm
+NDg5YThhNS4uNWM3ODA2N2FkMjUwIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncGlvL2dwaW9saWIt
+c3lzZnMuYw0KKysrIGIvZHJpdmVycy9ncGlvL2dwaW9saWItc3lzZnMuYw0KQEAgLTg5LDYgKzg5
+LDggQEAgc3RhdGljIHNzaXplX3QgZGlyZWN0aW9uX3N0b3JlKHN0cnVjdCBkZXZpY2UgKmRldiwN
+CiAJCXN0YXR1cyA9IGdwaW9kX2RpcmVjdGlvbl9vdXRwdXRfcmF3KGRlc2MsIDApOw0KIAllbHNl
+IGlmIChzeXNmc19zdHJlcShidWYsICJpbiIpKQ0KIAkJc3RhdHVzID0gZ3Bpb2RfZGlyZWN0aW9u
+X2lucHV0KGRlc2MpOw0KKwllbHNlIGlmIChzeXNmc19zdHJlcShidWYsICJwYXNzdGhyb3VnaCIp
+KQ0KKwkJc3RhdHVzID0gZ3Bpb2RfZGlyZWN0aW9uX3Bhc3N0aHJvdWdoKGRlc2MpOw0KIAllbHNl
+DQogCQlzdGF0dXMgPSAtRUlOVkFMOw0KIA0KQEAgLTMwMCw2ICszMDIsOCBAQCBzdGF0aWMgc3Np
+emVfdCBlZGdlX3N0b3JlKHN0cnVjdCBkZXZpY2UgKmRldiwNCiB9DQogc3RhdGljIERFVklDRV9B
+VFRSX1JXKGVkZ2UpOw0KIA0KKw0KKw0KIC8qIENhbGxlciBob2xkcyBncGlvZC1kYXRhIG11dGV4
+LiAqLw0KIHN0YXRpYyBpbnQgZ3Bpb19zeXNmc19zZXRfYWN0aXZlX2xvdyhzdHJ1Y3QgZGV2aWNl
+ICpkZXYsIGludCB2YWx1ZSkNCiB7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dwaW9saWIu
+YyBiL2RyaXZlcnMvZ3Bpby9ncGlvbGliLmMNCmluZGV4IGE4ZTAxZDk5OTE5Yy4uNTMwNTczYmQ4
+NzExIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncGlvL2dwaW9saWIuYw0KKysrIGIvZHJpdmVycy9n
+cGlvL2dwaW9saWIuYw0KQEAgLTI1MzYsNiArMjUzNiwzMyBAQCBpbnQgZ3Bpb2RfZGlyZWN0aW9u
+X2lucHV0KHN0cnVjdCBncGlvX2Rlc2MgKmRlc2MpDQogfQ0KIEVYUE9SVF9TWU1CT0xfR1BMKGdw
+aW9kX2RpcmVjdGlvbl9pbnB1dCk7DQogDQorDQoraW50IGdwaW9kX2RpcmVjdGlvbl9wYXNzdGhy
+b3VnaChzdHJ1Y3QgZ3Bpb19kZXNjICpkZXNjKQ0KK3sNCisJc3RydWN0IGdwaW9fY2hpcAkqY2hp
+cDsNCisJaW50CQkJc3RhdHVzID0gLUVJTlZBTDsNCisNCisJVkFMSURBVEVfREVTQyhkZXNjKTsN
+CisJY2hpcCA9IGRlc2MtPmdkZXYtPmNoaXA7DQorDQorCWlmICghY2hpcC0+ZGlyZWN0aW9uX3Bh
+c3N0aHJvdWdoKSB7DQorCQlncGlvZF93YXJuKGRlc2MsDQorCQkJIiVzOiBtaXNzaW5nIGRpcmVj
+dGlvbl9wYXNzdGhyb3VnaCgpIG9wZXJhdGlvbnNcbiIsDQorCQkJX19mdW5jX18pOw0KKwkJcmV0
+dXJuIC1FSU87DQorCX0NCisNCisJc3RhdHVzID0gY2hpcC0+ZGlyZWN0aW9uX3Bhc3N0aHJvdWdo
+KGNoaXAsIGdwaW9fY2hpcF9od2dwaW8oZGVzYykpOw0KKwlpZiAoc3RhdHVzID09IDApDQorCQlj
+bGVhcl9iaXQoRkxBR19JU19PVVQsICZkZXNjLT5mbGFncyk7DQorDQorCXRyYWNlX2dwaW9fZGly
+ZWN0aW9uKGRlc2NfdG9fZ3BpbyhkZXNjKSwgMSwgc3RhdHVzKTsNCisNCisJcmV0dXJuIHN0YXR1
+czsNCit9DQorRVhQT1JUX1NZTUJPTF9HUEwoZ3Bpb2RfZGlyZWN0aW9uX3Bhc3N0aHJvdWdoKTsN
+CisNCisNCiBzdGF0aWMgaW50IGdwaW9fc2V0X2RyaXZlX3NpbmdsZV9lbmRlZChzdHJ1Y3QgZ3Bp
+b19jaGlwICpnYywgdW5zaWduZWQgb2Zmc2V0LA0KIAkJCQkgICAgICAgZW51bSBwaW5fY29uZmln
+X3BhcmFtIG1vZGUpDQogew0KZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIu
+aCBiL2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIuaA0KaW5kZXggYTRkNWViMzc3NDRhLi4wN2Uz
+MGY5ZTNiY2UgMTAwNjQ0DQotLS0gYS9pbmNsdWRlL2xpbnV4L2dwaW8vZHJpdmVyLmgNCisrKyBi
+L2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIuaA0KQEAgLTI0NSw2ICsyNDUsOCBAQCBzdHJ1Y3Qg
+Z3Bpb19jaGlwIHsNCiAJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJCQkoKmRpcmVjdGlv
+bl9vdXRwdXQpKHN0cnVjdCBncGlvX2NoaXAgKmNoaXAsDQogCQkJCQkJdW5zaWduZWQgb2Zmc2V0
+LCBpbnQgdmFsdWUpOw0KKwlpbnQJCQkoKmRpcmVjdGlvbl9wYXNzdGhyb3VnaCkoc3RydWN0IGdw
+aW9fY2hpcCAqY2hpcCwNCisJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJCQkoKmdldCko
+c3RydWN0IGdwaW9fY2hpcCAqY2hpcCwNCiAJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJ
+CQkoKmdldF9tdWx0aXBsZSkoc3RydWN0IGdwaW9fY2hpcCAqY2hpcCwNCg0KDQpUaGFua3MsDQpL
+d2luLg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBMaW51cyBXYWxsZWlq
+IFttYWlsdG86bGludXMud2FsbGVpakBsaW5hcm8ub3JnXSANClNlbnQ6IE1vbmRheSwgSmFudWFy
+eSAyMSwgMjAxOSA5OjEwIFBNDQpUbzogV2FuZywgS3VpeWluZyA8a3VpeWluZy53YW5nQGludGVs
+LmNvbT4NCkNjOiBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1PjsgQW5kcmV3IEplZmZlcnkg
+PGFuZHJld0Bhai5pZC5hdT47IFRob21hcyBQZXRhenpvbmkgPHRob21hcy5wZXRhenpvbmlAYm9v
+dGxpbi5jb20+OyBvcGVuIGxpc3Q6R1BJTyBTVUJTWVNURU0gPGxpbnV4LWdwaW9Admdlci5rZXJu
+ZWwub3JnPjsgQW5kcmV3IEdlaXNzbGVyIDxnZWlzc29uYXRvckBnbWFpbC5jb20+OyBPcGVuQk1D
+IE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyBNYXVlcnksIFZlcm5vbiA8dmVy
+bm9uLm1hdWVyeUBpbnRlbC5jb20+OyBGZWlzdCwgSmFtZXMgPGphbWVzLmZlaXN0QGludGVsLmNv
+bT47IFlvbywgSmFlIEh5dW4gPGphZS5oeXVuLnlvb0BpbnRlbC5jb20+OyBOZ3V5ZW4sIEhhaSBW
+IDxoYWkudi5uZ3V5ZW5AaW50ZWwuY29tPjsgS2hldGFuLCBTaGFyYWQgPHNoYXJhZC5raGV0YW5A
+aW50ZWwuY29tPg0KU3ViamVjdDogUmU6IEVuYWJsZSBidXR0b25zIEdQSU8gcGFzc3Rocm91Z2gN
+Cg0KSGkgS3dpbiwNCg0KT24gV2VkLCBKYW4gMTYsIDIwMTkgYXQgMzozMCBQTSBXYW5nLCBLdWl5
+aW5nIDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPiB3cm90ZToNCg0KPiBIaSBKb2VsLA0KPiBEbyBh
+Z3JlZSB0byB1c2UgcHJvcG9zYWwgIzE/IChleHRlbmQgInBhc3N0aHJvdWdoIiB0byB0aGUgImRp
+cmVjdGlvbiIgDQo+IHByb3BlcnR5IG9mIGdwaW8sIHVzZSAgInZhbHVlIiB0byBjb250cm9sIGl0
+IGJlIGRpc2FibGVkL2VuYWJsZWQuKQ0KPg0KPiBBbGwsDQo+IEFueSBvdGhlciBjb21tZW50cz8N
+Cg0KSSB0aGluayB5b3UgbWF5YmUgbWlzdW5kZXJzdG9vZCBteSBwcmV2aW91cyBtYWlsLCBvciBJ
+IG1pc3VuZGVyc3Rvb2QgeW91cnMgOikNCg0KTWFrZSBzdXJlIHRoYXQgcGFzc3Rocm91Z2ggbW9k
+ZSBpcyBzZXQgdXAgaW4gdGhlIC5zZXRfY29uZmlnKCkgY2FsbGJhY2ssIG5vdGhpbmcgZWxzZS4N
+Cg0KRG8gbm90IGNoYW5nZSB0aGUgc2lnbmF0dXJlcyBvZiB0aGUgZGlyZWN0aW9uIGZ1bmN0aW9u
+cyBvciBzZXRfdmFsdWUoKSBmdW5jdGlvbnMgaW4gZ3Bpb2xpYi4NCg0KQnV0IG1heWJlIHlvdSBh
+cmUgdGFsa2luZyBhYm91dCBpbXBsZW1lbnRhdGlvbiBkZXRhaWxzIGluIHRoZSBzcGVjaWZpYyBH
+UElPIGRyaXZlciBmb3IgQXNwZWVkPyBUaGVuIEkganVzdCBtaXNzZWQgdGhhdCBwYXJ0LCBzb3Jy
+eS4NCg0KWW91cnMsDQpMaW51cyBXYWxsZWlqDQo=
