@@ -1,58 +1,60 @@
 Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::336; helo=mail-ot1-x336.google.com;
+ (client-ip=2607:f8b0:4864:20::236; helo=mail-oi1-x236.google.com;
  envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kh2L/HXl"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="S3WC7QoC"; 
  dkim-atps=neutral
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
+Received: from mail-oi1-x236.google.com (mail-oi1-x236.google.com
+ [IPv6:2607:f8b0:4864:20::236])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kV8k3D4KzDqLk
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 00:47:18 +1100 (AEDT)
-Received: by mail-ot1-x336.google.com with SMTP id s5so23630702oth.7
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 05:47:18 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kVkW2YhZzDqMK;
+ Wed, 23 Jan 2019 01:13:07 +1100 (AEDT)
+Received: by mail-oi1-x236.google.com with SMTP id t204so17465496oie.7;
+ Tue, 22 Jan 2019 06:13:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=3wMMd5gTBZ1ikjTeYVWTqkLtfF54WGZd0jjpd6fEWFo=;
- b=Kh2L/HXlNWZKxpoU+/pxg9i01tIFxyssEIQDmOP+AsBlro/x8WJ74g5otyFYVwhRCR
- XHdSHTDdDlBsucov7zTEUuy+IAu2U334tV8HgVKdecSo2CaLbat+4a5RKuZgJqOBQv4W
- rAil/ZpYeK108jUEGOgt67UaD2wRzhSpLHeLh5fhPkWukVo9C2CBetRN5HGGqIccGkL4
- iY9mZLFDsBR2b7qC8Z6YJD6i4/kEp5Cm0Sp0Z7B6yaYkD2NOUnZ5g+tZBj4HygsbNw06
- UjUnoLLzvp4UCaftFEEYo0VUarx2sbismyPtnshT2vHmtqjyuylQ/vNKRRhcPDLuDFpM
- ntRA==
+ :cc; bh=25EFUuh5VThA3zYXHTef+zGdXGBFXF34AsrAUZq35Mw=;
+ b=S3WC7QoCzaZJjUuB6jB+h125z3dWLUhubpKEGdX9ZkjOxt1pJ9j5dLSa46Is3yOmFi
+ k7o8BYcKLP9bRH4+0WpjEDDC9GdcNhnZWtBN7lrtHHErUV/KFCFjOnv0ZJsswHkyzpLl
+ TEwlcsw7vGGwejAWJwhLwq1y3s3wCDSJ29Hxb3k1fNe9Vh8oLfC9AtI7qnVA+kxy72A0
+ w/Wtlh/gBuY88+p6mcs0we0gkHLN0mJphPq0Z2DB5SkvDoh6hSRw5UbrXhX2KoJVA0j9
+ pMZpH6zkyshmkko0YGzVz0/EZ30Y+zJJd5S4KQSooVtIDUkxFUOmtKsRrA3Ni34liBfm
+ M0Bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=3wMMd5gTBZ1ikjTeYVWTqkLtfF54WGZd0jjpd6fEWFo=;
- b=qZ14b2qLszpJ9VWvvSgdJuJVLNEQV5BYGZ6HhM9R3tRMvzsV1pjbL/tFz0DZDQBAqw
- x02lBaM1bCuxNBGxt1eSj9AKa5gGR6+xo4CyksbyFWpuLTVIIWtSEbmbg4jSOHMI55T1
- Uoli+rCNi4QXOITK1TgIzWxrwuMlvciH/ClMGkIwxo9viRP19OLt6Rgg5nQ6FmuHtRIq
- +TR0cluWgivPzrPjXOAx0qSAH7emr2nWbgUYFq3AZEkgfQGssQShCQ2A4gFAgp49+ykf
- C8rRkGV4y2K4u/N8esza5qrtFTXasVmMhe2cp/zpAFK9YmdSj1Rdb5vpZ5CLczyVj/HS
- E4EA==
-X-Gm-Message-State: AJcUukf4LGzurOFEuyPfHrR6Au5QRyKa/FLogkRJ9Hw124GKcA/81BTN
- GvwYYDQUgM86w5NKWGAEtcKBjNsR/vhFkndtkiIIb+Kp
-X-Google-Smtp-Source: ALg8bN4wwD+wQPyzjLYWM4BHFiX0PbJcfGAyNMrFHxh7vKidv/+nkfcUw9x+1swKRzuWvr3HVKXGM0ECi1aF01/BxfU=
-X-Received: by 2002:a9d:71c9:: with SMTP id z9mr23000456otj.294.1548164836529; 
- Tue, 22 Jan 2019 05:47:16 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=25EFUuh5VThA3zYXHTef+zGdXGBFXF34AsrAUZq35Mw=;
+ b=dKwDjd9IyBu5M2KLSn0ZRvBWtzBBcayilW6nNCotSderJ1CF9nFiYmazPTgHHu4IbB
+ w1CU5ZgjkLudAS5Iorf16eQjg8KY6quwQrdZ+PqzmLPch35c44i9v0pGP7MnflSwGHWo
+ AeY9cvywewwfTI/BUyOh38YMh42XOO1iS/cduJIzRUOqjo0I1ewdqS1ytNyBXEqaj/VO
+ 4PxMwXQShYngRXi3/b4+iZcnQCyYjmzsaqhsMWr2vO03LtiCF+uEWA872LTIak5Es/am
+ KmXZY7NOh/YRHS3MLtedOucc3WNr14mXNOPIZU38PhL2NfM6KotvLJV8Hh+SDn1PCq4X
+ b9ug==
+X-Gm-Message-State: AJcUukfLToVAevvS26cWPi0tFbKpNFv7yEiic0kZBfYUDrI+2MsIWSk9
+ NOTtjFZBFs7Z1Zqk02Atv49yYRUME80rcT+nuFA=
+X-Google-Smtp-Source: ALg8bN55+/7yWn5o175Au3jMlgxSmIyPyv/pOdO5kCw3Mvo68rIE5jmX0BzETmGH4rK/yv+dIdj1biEAkWZ9qvf/D8E=
+X-Received: by 2002:aca:5587:: with SMTP id j129mr8594953oib.93.1548166384503; 
+ Tue, 22 Jan 2019 06:13:04 -0800 (PST)
 MIME-Version: 1.0
-References: <SN6PR02MB569357D7F6705F757F805F3796980@SN6PR02MB5693.namprd02.prod.outlook.com>
-In-Reply-To: <SN6PR02MB569357D7F6705F757F805F3796980@SN6PR02MB5693.namprd02.prod.outlook.com>
+References: <CALLMt=rmk2=ranWssd=TEOZy=sH=RWzKjkSbAEn=V9tY7Ozk+Q@mail.gmail.com>
+ <e52fca8da7ba89a7a07407c1b28c60f9@linux.vnet.ibm.com>
+In-Reply-To: <e52fca8da7ba89a7a07407c1b28c60f9@linux.vnet.ibm.com>
 From: Andrew Geissler <geissonator@gmail.com>
-Date: Tue, 22 Jan 2019 07:47:00 -0600
-Message-ID: <CALLMt=pqGNzLqiED=o=hK9N9Td-Q+r_y0mpvQTVm7UNsjMMMSg@mail.gmail.com>
-Subject: Re: build and enviroment questions
-To: Brenden Lai <Brenden_Lai@jabil.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Tue, 22 Jan 2019 08:12:48 -0600
+Message-ID: <CALLMt=o-mVUX-6MbZqd_qZdd+bWaQ1dxmtgi5W=ZY_b3r=Ub0A@mail.gmail.com>
+Subject: Re: Thud branches required in certain repos?
+To: Joseph Reynolds <jrey@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ed.tanous@intel.com, 
+ Matt Spinler <spinler@us.ibm.com>, William Kennington <wak@google.com>,
+ dkodihal@linux.vnet.ibm.com, Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ openbmc <openbmc-bounces+jrey=linux.vnet.ibm.com@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,118 +66,100 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 13:47:19 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 14:13:08 -0000
 
-On Tue, Jan 22, 2019 at 12:35 AM Brenden Lai <Brenden_Lai@jabil.com> wrote:
+On Mon, Jan 21, 2019 at 4:45 PM Joseph Reynolds <jrey@linux.vnet.ibm.com> wrote:
 >
-> Hi all ,
+> On 2019-01-21 11:23, Andrew Geissler wrote:
+> > Recently we created a Thud branch (i.e. 2.6). Currently we've just
+> > branched
+> > the openbmc/meta-* and openbmc/openbmc layers.
+> >
+> > Pre repository CI (i.e.
+> > https://openpower.xyz/job/openbmc-repository-ci/) had
+> > its scripts updated to support the new branch. Basically if a change
+> > comes in
+> > from a branch, it will attempt to find and use that same branch from
+> > all of
+> > the dependent repositories. If it can't find the branch, then it will
+> > just
+> > use master from that build.
+> >
+> > Dependent repositories are repositories that most repositories depend
+> > on and
+> > are always built as a part of the per repository CI process:
+> >
+> >   phosphor-objmgr
+> >   sdbusplus
+> >   sdeventplus
+> >   gpioplus
+> >   phosphor-logging
+> >   phosphor-dbus-interfaces
+> >   openpower-dbus-interfaces
+> >
+> > In general, just using master from these dependent repositories will
+> > work. We
+> > only run into issues if some sort of API or data type change occurs in
+> > master
+> > that is not compatible with the branch.
+> >
+> > To avoid weird errors in the future though, I'd like for the
+> > maintainers of the
+> > above repos to create the corresponding branch in each of the above
+> > repos
+> > whenever a new branch is created for the openbmc project.
+> >
+> > Adding a branch is easy, just go to your project in gerrit and use the
+> > "Create Branch" option. Be sure to put the "Initial Revision" commit at
+> > whatever
+> > we were at when the Thud branch occurred and call it "thud".
+> >
+> > Other ideas or thoughts?
 >
-> I have couple questions about build code
+> Let's walk through a scenario.  Suppose we need to fix a bad problem in
+> the OpenBMC 2.6 release in the sdbusplus repo.
 >
-> Question 1 :
+> The way I understand it, a pre-requisite step would be to fix the
+> problem in the master branch of sdbusplus and then bump the master
+> branch of openbmc to use the new version of sdbusplus.
 >
-> If  I follow the steps of GITHUB openbmc readme to build code , it always=
- failed due to bitbake not found as below :
-> export TEMPLATECONF=3Dmeta-ibm/meta-palmetto/conf
-> ./openbmc-env
-> brenden@brenden-VirtualBox:~/OCP/openbmc$ bitbake obmc-phosphor-image
-> WARNING:root:could not open file '/etc/apt/sources.list.d/nodesource.list=
-'
+> The next step (given the proposal above) is to commit the fix to the
+> head of (repo=sdbusplus, branch=thud) and then create a new commit in
+> (repo=openbmc, branch=thud) which bumps the new version of sdbusplus.
+> When this is done, someone who checks out (repo=openbmc, branch=thud)
+> will pick up the fixes in (repo=sdbusplus, branch=thud).  Correct?
 >
-> bitbake: command not found
-> But after I try use :
-> source ./setup palmetto
-> Then the build process goes smoothly .What the difference between this tw=
-o method ?
+> I can foresee a problem if the (repo=openbmc, branch=thud) update points
+> to a sdbusplus version that is past the 2.6 version but not in
+> branch=thud.  For example, if it pointed to the branch=master version of
+> the fix.  That would pick up not only the sdbusplus fix, but also all
+> development work that happened after the 2.6 release.  Is that the
+> "weird" error you refer to?
 
-I'm not sure, the directions are ". openbmc-env" but I'm not sure if
-that's really much different
-then what you're doing. I don't think by default it's executable though.
+My error is outside of the openbmc repo discussion, although what you
+point out could def be an issue if we don't ensure the proper pointers
+to the individual repositories and their branches.
 
-> Question 2 :
-> The build configuration info MACHINE always show =E2=80=9Czaius=E2=80=9D =
-, even if  build for palmetto and  romulus
->
-> Build Configuration:
-> BB_VERSION           =3D "1.40.0"
-> BUILD_SYS            =3D "x86_64-linux"
-> NATIVELSBSTRING      =3D "ubuntu-16.04"
-> TARGET_SYS           =3D "arm-openbmc-linux-gnueabi"
-> MACHINE              =3D "zaius"
-> DISTRO               =3D "openbmc-phosphor"
-> DISTRO_VERSION       =3D "0.1.0"
-> TUNE_FEATURES        =3D "arm armv6 thumb arm1176jzs"
-> TARGET_FPU           =3D "soft"
-> meta
-> meta-poky
-> meta-oe
-> meta-networking
-> meta-perl
-> meta-python
-> meta-webserver
-> meta-phosphor
-> meta-aspeed
-> meta-openpower
-> meta-ingrasys
-> meta-zaius           =3D "master:50ea7cc89521929e29d0836367fa8b06776ce4c2=
-"
->
-> Here is my scripts:
-> For: romulus
-> source ./setup romulus
-> bitbake obmc-phosphor-imag
-> For
->                source ./setup palmetto
->
-> bitbake obmc-phosphor-imag
->
-> Is it a normal behavior or my environment setting wrong ?
+Here's the problem I'm looking at, going along with your example:
 
-If you're reusing a build directory then it will only use whatever it
-was first setup for. You need
-to remove the conf directory before entering into the build env if you
-want it to look at your
-new TEMPLATECONF (i.e. rm -r build/conf && . openbmc-env)
-
->
-> Question 3 :
-> I understand it long time for first build , due to it may install some pr=
-erequisite
-> But Why it still take so long time to build while the build target machin=
-e is different from previous build ?
-> I saw it take over 5000 task(see below ) just like first build , Does it =
-make sense ?
->
-> Initialising tasks: 100% |#######################################| Time: =
-0:00:05
-> Sstate summary: Wanted 1476 Found 0 Missed 1476 Current 345 (0% match, 18=
-% complete)
-> NOTE: Executing SetScene Tasks
-> NOTE: Executing RunQueue Tasks
-> Currently  1 running tasks (440 of 5152)   8% |##                        =
-      |
-
-If you're moving between an AST2400 or AST2500 system you'll
-definitely see a big impact
-due to different version packages in each. Even going between fairly
-similar systems usually
-has a pretty big hit the first time. Internally we've created a shared
-nfs folder that has the
-downloads and sstate cache and we have a job that periodically builds
-all systems and
-updates those caches. When we setup our dev environment we utilize
-that customrc feature
-from openbmc-env to setup the SOURCE_MIRROR_URL and SSTATE_MIRRORS flags
-to use those share caches. The infrastructure workgroup has an action
-item to generate
-these cache files up on openpower.xyz so people could download them to
-speed up their
-own builds.
+The fix is put into (repo=sdbusplus, branch=thud)
+Currently, the CI job would use (repo=sdeventplus,gpioplus,..., branch=master)
+to build all of the dependencies for sdbusplus. Lets say there's an interface
+change in phosphor-dbus-interfaces in master, that (repo=sdbusplus, branch=thud)
+does not support. The compile will fail. The solution is that all
+dependent library
+repositories need to have a thud branch that CI can build against.
 
 >
-> Thanks -Brenden
-> Brenden Lai
-> SR. BMC Design Engineer
-> E&I, Jabil Design Services
+> To prevent this problem: when making bumps in (repo=openbmc,
+> branch=thud), reviewers must ensure both (a) the fix was correctly
+> copied (or cherry picked) from branch=master into branch=thud, but also
+> that the version bump (in repo=openbmc, branch=thud) points to the
+> branch=thud version (srcrev) and NOT to the branch=master version.
 >
+> Anything else?
+>
+> - Joseph
+>
+> > Andrew
 >
