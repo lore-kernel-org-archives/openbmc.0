@@ -1,107 +1,81 @@
-Return-Path: <prvs=6925d468ca=vijaykhemka@fb.com>
+Return-Path: <SRS0=915k=P6=linuxfoundation.org=gregkh@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=6925d468ca=vijaykhemka@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=srs0=915k=p6=linuxfoundation.org=gregkh@kernel.org;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linuxfoundation.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="YeoiOzkD"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="AZNDRmTB"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="m6gyhcOm"; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kTZD6mtbzDqKN
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 00:20:52 +1100 (AEDT)
+Received: from localhost (5356596B.cm-6-7b.dynamic.ziggo.nl [83.86.89.107])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kjbJ2pBJzDqLg
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 09:22:35 +1100 (AEDT)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0MMJRrE010899; Tue, 22 Jan 2019 14:22:32 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type :
- mime-version; s=facebook; bh=Wpi33p5dXcRtmqXgg2yMHSDmlI/2yUJud5altK/exH4=;
- b=YeoiOzkDzi5wu06JIQJWAh56IIQiR5uNAZEUrg5st/zsQzHLB6nec/eW216sc5HYKklT
- vX0rDARsB1hqxnXRUguwOO8Wtm4w9v5zpK9133EIcime5u5LRZD++wLK+7K90SrJxlVE
- hx0oVFaIEcKkIJKsBepRkz1T+OYZPv+vtqI= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2q6bn481tq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Tue, 22 Jan 2019 14:22:32 -0800
-Received: from frc-hub01.TheFacebook.com (2620:10d:c021:18::171) by
- frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Tue, 22 Jan 2019 14:22:31 -0800
-Received: from NAM02-CY1-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.71) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Tue, 22 Jan 2019 14:22:31 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wpi33p5dXcRtmqXgg2yMHSDmlI/2yUJud5altK/exH4=;
- b=AZNDRmTBAGuJ8QfwbizOzh3cQ2Rm1eQYN9l+5JAcfnsTbEts6zu3PfCozlR3sfIwkBq6p20OPCpKHVFA+RoZsELgJmwBwCuuKm1sYU7lGSfhwuLQwKBuK1YWNErf8l3biMc5Y3x/EBuOp3ivtWAtc2xTj+Sg8240+JX/f2x5Hck=
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
- CY4PR15MB1319.namprd15.prod.outlook.com (10.172.182.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1537.31; Tue, 22 Jan 2019 22:22:30 +0000
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::b4e4:1e1f:8c5d:9a8c]) by CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::b4e4:1e1f:8c5d:9a8c%4]) with mapi id 15.20.1537.031; Tue, 22 Jan 2019
- 22:22:30 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: Ed Tanous <ed.tanous@intel.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: Re: Intel-ipmi-oem repo
-Thread-Topic: Intel-ipmi-oem repo
-Thread-Index: AQHUsn6T2PovaFK5IEGTS1z8ksaC/qW72BMA//9+v4A=
-Date: Tue, 22 Jan 2019 22:22:30 +0000
-Message-ID: <0B0A393C-5A14-42A0-86A1-9606CD7F942C@fb.com>
-References: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
- <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
-In-Reply-To: <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::6:5da0]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; CY4PR15MB1319;
- 20:7kccPn+WxAAKjNtVV/yUmtYVvanN1/mhy6aaWTBFJkKNzbnyjpKiNNUVOOUO9pnhQritqV1iOhDiOLUowpof3986HJ6SGYUEM0OJcjf057Dl3TsbIDB8QdwsuN43Wm4Jt+QbL3Gz3tkXkn3onKwGYUiowbgBwfhZ2BeouYoW1eM=
-x-ms-office365-filtering-correlation-id: 8d3f1d86-db9d-4aba-d546-08d680b8192a
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600109)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1319; 
-x-ms-traffictypediagnostic: CY4PR15MB1319:
-x-microsoft-antispam-prvs: <CY4PR15MB1319D290F7E8F3EB1CB6B437DD980@CY4PR15MB1319.namprd15.prod.outlook.com>
-x-forefront-prvs: 0925081676
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39860400002)(136003)(396003)(376002)(346002)(366004)(199004)(189003)(99286004)(106356001)(76176011)(97736004)(229853002)(2906002)(105586002)(110136005)(6116002)(316002)(68736007)(82746002)(36756003)(2501003)(46003)(6306002)(14454004)(256004)(478600001)(14444005)(236005)(966005)(54896002)(6512007)(102836004)(11346002)(446003)(53936002)(71190400001)(2616005)(6436002)(476003)(6486002)(186003)(81156014)(81166006)(606006)(86362001)(53546011)(33656002)(8676002)(7736002)(25786009)(6246003)(486006)(6506007)(8936002)(3480700005)(71200400001)(83716004);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1319;
- H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: HOy8T2CmkK7BJ4o5VjQFknfhWwtzm7GLenekrpqvnS/YgMvCPUR0BnLpsK2CWvQBuV92NMo0QjpZxWEO9M8KKDo6kxUdHS4r3PmoyiJQygGblM+8LscAVrvk345CfAxrkkR1Fvckmuay0JSxqPwQUQkJpwyWJN6m2THr8Gb29M+MnypAFCY4HRO1/x/fiNDrare3XMpfiv+Wp+AiUzS3Kr1Sz/YSg4DROgUWZt2zqg4ZMGxHgBbfyXZD0Jj+HjZ7sp55VGNcWNpXtdWlsMYTIzImdxaMXub5+AdoeE45MdpMQidbUzQ/FxsgBtm4NWkcOjiUhwc3hyZqES5eZ4m6RQAUzajTyDVH6B+ZvEcJlWl0dHHQ6nE5bnapmtABpvqxG9J6cF65lQkT7doLN0oMs+UoHtkxHuVnBaBcjZOtdfM=
-spamdiagnosticoutput: 1:99
-spamdiagnosticmetadata: NSPM
-Content-Type: multipart/alternative;
- boundary="_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_"
+ by mail.kernel.org (Postfix) with ESMTPSA id F193621721;
+ Tue, 22 Jan 2019 13:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1548163250;
+ bh=2DlXjjbbAUhTSoFGs05TmyIvmbhZPzCsq3At5EXwApA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=m6gyhcOmVdNq5ORgLd7HqdL+dUh5aY9rLQVdu9QW6mCvAKb4DGlSClx8qMob3nR7W
+ /oYb1WH0EAPjKvsjADXmb2z37V5LcfIQEKWAMC8eTkxrcUOwe+k/pRG/2yNTLluzfj
+ UPGyA+sr3Gl2cnhvtZ4Y+M95+GtGDF7MA0jpID8Q=
+Date: Tue, 22 Jan 2019 14:20:47 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
+ Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+ Kishon Vijay Abraham I <kishon@ti.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ "Darrick J . Wong" <darrick.wong@oracle.com>,
+ Eric Sandeen <sandeen@redhat.com>, Arnd Bergmann <arnd@arndb.de>,
+ Wu Hao <hao.wu@intel.com>, Tomohiro Kusumi <kusumi.tomohiro@gmail.com>,
+ "Bryant G . Ly" <bryantly@linux.vnet.ibm.com>,
+ Frederic Barrat <fbarrat@linux.vnet.ibm.com>,
+ "David S . Miller" <davem@davemloft.net>,
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>,
+ Vinod Koul <vkoul@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
+ David Kershner <david.kershner@unisys.com>,
+ Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
+ Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
+ Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
+ linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+ openbmc@lists.ozlabs.org, Gavin Schenk <g.schenk@eckelmann.de>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Cyrille Pitchen <cyrille.pitchen@free-electrons.com>,
+ Alan Cox <alan@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Fengguang Wu <fengguang.wu@intel.com>,
+ Jason M Biils <jason.m.bills@linux.intel.com>,
+ Julia Cartwright <juliac@eso.teric.us>,
+ Haiyue Wang <haiyue.wang@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+Subject: Re: [PATCH v10 03/12] peci: Add support for PECI bus driver core
+Message-ID: <20190122132047.GA12357@kroah.com>
+References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
+ <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d3f1d86-db9d-4aba-d546-08d680b8192a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2019 22:22:30.2360 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1319
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-22_11:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
+User-Agent: Mutt/1.11.2 (2019-01-07)
+X-Mailman-Approved-At: Wed, 23 Jan 2019 09:35:55 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,192 +87,640 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 22:22:37 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 13:20:54 -0000
 
---_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+On Mon, Jan 07, 2019 at 01:41:27PM -0800, Jae Hyun Yoo wrote:
+> +config PECI
+> +	bool "PECI support"
+> +	select RT_MUTEXES
+> +	select CRC8
+> +	help
+> +	  The Platform Environment Control Interface (PECI) is a one-wire bus
+> +	  interface that provides a communication channel from Intel processors
+> +	  and chipset components to external monitoring or control devices.
 
-SWYgd2UgY2FuIG1hbmFnZSB0aGlzIGluIHN0YW5kYXJkIHJlcG8gd2l0aCBzb21lIGNvbXBpbGUg
-dGltZSBjb25maWcgcGFyYW1ldGVyIHRvIHVzZSBjaG9zZW4gYXBwcm9hY2guIEl0IHdpbGwgaGVs
-cCBpbiBtYWludGFpbmluZyBtdWx0aXBsZSByZXBvLg0KDQpGcm9tOiBvcGVuYm1jIDxvcGVuYm1j
-LWJvdW5jZXMrdmlqYXlraGVta2E9ZmIuY29tQGxpc3RzLm96bGFicy5vcmc+IG9uIGJlaGFsZiBv
-ZiBFZCBUYW5vdXMgPGVkLnRhbm91c0BpbnRlbC5jb20+DQpEYXRlOiBUdWVzZGF5LCBKYW51YXJ5
-IDIyLCAyMDE5IGF0IDI6MDQgUE0NClRvOiAib3BlbmJtY0BsaXN0cy5vemxhYnMub3JnIiA8b3Bl
-bmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IEludGVsLWlwbWktb2VtIHJlcG8N
-Cg0KT24gMS8yMi8xOSAxMDoxNiBBTSwgVmlqYXkgS2hlbWthIHdyb3RlOg0KVGVhbSwNCkludGVs
-LWlwbWktb2VtIHNob3VsZCBiZSBicm9rZW4gYW5kIDIgcGFydHMsIGdlbnJpYyBhbmQgb2VtIHNw
-ZWNpZmljLiBJIHNlZSBzZXZlcmFsIGZ1bmN0aW9uYWxpdHkgaW4gdGhpcyByZXBvIGxpa2Ugc2Vu
-c29ycyBhbmQgc3RvcmFnZSBjb21tYW5kcyBhcmUgZ2VuZXJpYyBlbm91Z2ggdG8gYmUgdXNlZCBi
-eSBvdGhlciBwbGF0Zm9ybSB3aG8gaXMgdXNpbmcgZW50aXR5IG1hbmFnZXIuIFNvIEkgZmVlbCB0
-aGF0IHdlIHNob3VsZCBoYXZlIHRoZXNlIGZ1bmN0aW9uYWxpdGllcyB0byBiZSBtb3ZlZCB0byBh
-IHNlcGFyYXRlIGNvbW1vbiByZXBvIHdoaWNoIGNhbiBiZSB1c2VkIGJ5IGV2ZXJ5b25lIGFuZCB0
-aGlzIHJlcG8gY2FuIG9ubHkgY29udGFpbiBJbnRlbCBPRU0gc3BlY2lmaWMgSVBNSSBjb21tYW5k
-IHN1cHBvcnQuDQoNCldoZW4gdGhpcyB3b3JrIHdhcyBmaXJzdCBzdGFydGVkLCB0aGUgaG9wZSB3
-YXMgdGhhdCB0aGUgU0RSLCBTRUwgYW5kIHRoZSBzZW5zb3IgbnVtYmVyaW5nIGNoYW5nZXMgY291
-bGQgYmUgcm9sbGVkIG91dCB0byB0aGUgd2hvbGUgcHJvamVjdCBhcyB0aGUgInN0YW5kYXJkIiwg
-YW5kIHRoYXQgdGhpcyB3YXMganVzdCBhIHN0YWdpbmcgYXJlYS4gIFVuZm9ydHVuYXRlbHksIHdo
-ZW4gd2UgdHJpZWQgdG8gcHVzaCB0aGVtLCB3ZSBnb3Qgc29tZSBsYXRlIGJyZWFraW5nIGZlZWRi
-YWNrIGZyb20gdGhlIG1haW50YWluZXIgdGhhdCBzb21lIGZsb3dzIChsaWtlIHdyaXRpbmcgc2Vu
-c29yIHZhbHVlcyBmcm9tIHRoZSBob3N0KSB3b3VsZCBicmVhayBJQk0gc3lzdGVtcy4gIEdpdmVu
-IHRoYXQgb3VyIHN5c3RlbXMgZGlkbid0IHJlcXVpcmUgb3IgaW1wbGVtZW50IHRob3NlIGZsb3dz
-LCB3ZSBkaWRuJ3QgaGF2ZSBhIHZlcnkgY2xlYXIgcGF0aCBmb3J3YXJkIGZvciBob3cgdG8gZ2V0
-IHRoZW0gdXBzdHJlYW1lZCwgYW5kIGV2ZW50dWFsbHkgcmFuIG91dCBvZiB0aW1lIHdhaXRpbmcg
-Zm9yIHJlc3BvbnNlcy4NCg0KVGhlIGxhc3QgdGhyZWFkIEkgcmVjYWxsIG9uIHRoZSBpc3N1ZSB3
-YXMgaGVyZSwgd2hlcmUgdGhlIG1haW50YWluZXIgZG9jdW1lbnRlZCBzb21lIG9mIHRoZSBpc3N1
-ZXMgdGhhdCB3ZXJlIHByZXNlbnQgb24gSUJNIHN5c3RlbXMgd2l0aCB0aG9zZSBjb21tYW5kIHNl
-dHMuICBUaGVyZSB3ZXJlIHNldmVyYWwgb3RoZXIgZ2Vycml0IHJldmlld3MgdGhhdCBJIGNhbiBm
-aW5kIGlmIG5lZWRlZCwgYnV0IHRoZXkgYmFzaWNhbGx5IGJvaWxlZCBkb3duIHRvIHdoYXQncyBp
-biB0aGUgdGhyZWFkIGJlbG93Lg0KDQpodHRwczovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWls
-L29wZW5ibWMvMjAxOC1Ob3ZlbWJlci8wMTQxMzkuaHRtbDxodHRwczovL3VybGRlZmVuc2UucHJv
-b2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2xpc3RzLm96bGFicy5vcmdfcGlwZXJtYWls
-X29wZW5ibWNfMjAxOC0yRE5vdmVtYmVyXzAxNDEzOS5odG1sJmQ9RHdNRGFRJmM9NVZEMFJUdE5s
-VGgzeWNkNDFiM01VdyZyPXY5TVUwS2k5cFduVFhDV3dqSFBWZ3BuQ1I4MHZYa2tjcklhcVU3VVNs
-NWcmbT1sT2hDOHk3S2NVM1EyUlE0am9ucnZzTlZiMnowN01nRFRlWElhX05FSUYwJnM9cVc5S1g2
-ZUVhMUIyY0NVSEtxWlJHWnRMU2I3S0NySzlTT04zUzVBV1lHOCZlPT4NCg0KR2l2ZW4gdGhhdCBp
-dCBzb3VuZHMgbGlrZSB0aGUgY29tbXVuaXR5IGlzIGludGVyZXN0ZWQgaW4gdGhlc2UgY2hhbmdl
-cyBiZWluZyByb2xsZWQgb3V0IHRvIG1vcmUgdGhhbiBqdXN0IGludGVsIHN5c3RlbXMsIEkgc3Vz
-cGVjdCB3ZSBuZWVkIHRvIGNvbnRpbnVlIHRoYXQgZGlzY3Vzc2lvbi4NCg0KRm9yIHJlZmVyZW5j
-ZSwgdGhlIGNoYW5nZXMgYmVpbmcgbWVudGlvbmVkIGVuYWJsZToNCg0KMS4gRHluYW1pYyBJUE1J
-IHNlbnNvciBjcmVhdGlvbiBiYXNlZCBvbiBkYnVzIG1hcHBlciByZWZsZWN0aW9uLCByYXRoZXIg
-dGhhbiBoYXJkY29kZWQgcGF0aHMgYW5kIHNlbnNvciBudW1iZXJzLg0KMi4gQXV0b21hdGljIGdl
-bmVyYXRpb24gb2YgdHlwZSAxIFNEUnMgKGluY2x1ZGluZyBNIGFuZCBCIHNjYWxpbmcpIGZyb20g
-ZGJ1cyBpbnRlcmZhY2VzLg0KMy4gQXV0b21hdGljIGdlbmVyYXRpb24gb2YgRlJVIHNkciByZWNv
-cmRzIGJhc2VkIG9uIGRidXMgaW50ZXJmYWNlcy4NCg0KVGhlcmUgYXJlIHByb2JhYmx5IG90aGVy
-IHRoaW5ncyB0aGF0IEknbSBmb3JnZXR0aW5nLCBidXQgdGhlc2UgYXJlIHRoZSBoaWdobGlnaHRz
-Lg0KDQpUb20sDQoNCkRvIHlvdSB0aGluayB0aGF0IHlvdSBjb3VsZCBwcm9wb3NlIGEgcGF0aCB0
-aGF0IHdvdWxkIGFsbG93IHRoZXNlIGNoYW5nZXMgaW50byB0aGUgbWFpbnN0cmVhbSwgd2hpbGUg
-c3RpbGwga2VlcGluZyBJQk0gc3lzdGVtcyBmdW5jdGlvbmFsPyAgQmFzZWQgb24gY29tbWVudHMg
-dGhhdCBJJ3ZlIGhlYXJkIGJvdGggaW4gcGVyc29uLCBhbmQgb24gb3RoZXIgZ2Vycml0IHJldmll
-d3MsIEkgYmVsaWV2ZSB0aGVzZSBjaGFuZ2VzIGhhdmUgc29tZSBsZXZlbCBvZiBzdXBwb3J0IGZy
-b20gdGhlIG90aGVyIHR3byBJUE1JIG1haW50YWluZXJzIChjb3JyZWN0IG1lIGlmIEknbSB3cm9u
-ZyBndXlzKS4NCg0KDQoNCklmIHRoZSBmaW5hbCBhbnN3ZXIgaXMgdGhhdCB3ZSByZWFsbHkgbmVl
-ZCB5ZXQgYW5vdGhlciByZXBvLCBzbyBiZSBpdCwgSSdtIGhhcHB5IHRvIGhlbHAgbWFpbnRhaW4g
-aXQsIGJ1dCBnaXZlbiB0aGUgaW50ZXJlc3QsIHdlIHNob3VsZCBhdCBsZWFzdCBpbnZlc3RpZ2F0
-ZSB0aGUgcG9zc2liaWxpdHkgb2YgbWFraW5nIHRoaXMgdGhlICJzdGFuZGFyZCIgZ29pbmcgZm9y
-d2FyZC4NCg0KTXkgMiBjZW50cyDwn5iKDQpNdWNoIGFwcHJlY2lhdGVkLg0KDQo=
+Why can't this be built as a module?
 
---_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <F01E0E2864609C438E17F8A092AE4E8D@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+And why do you rely on rt mutexes?
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJBcHBsZSBD
-b2xvciBFbW9qaSI7DQoJcGFub3NlLTE6MCAwIDAgMCAwIDAgMCAwIDAgMDt9DQovKiBTdHlsZSBE
-ZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0K
-CXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0
-Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29I
-eXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4
-dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9s
-bG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1k
-ZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1zb25vcm1hbDAsIGRpdi5t
-c29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCgltc28tbWFyZ2luLXRvcC1h
-bHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRv
-Ow0KCW1hcmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJD
-YWxpYnJpIixzYW5zLXNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE4DQoJe21zby1zdHlsZS10eXBl
-OnBlcnNvbmFsOw0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndp
-bmRvd3RleHQ7fQ0Kc3Bhbi5hcHBsZS1jb252ZXJ0ZWQtc3BhY2UNCgl7bXNvLXN0eWxlLW5hbWU6
-YXBwbGUtY29udmVydGVkLXNwYWNlO30NCnNwYW4uRW1haWxTdHlsZTIxDQoJe21zby1zdHlsZS10
-eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0K
-CWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhw
-b3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7c2l6
-ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGluO30NCmRpdi5X
-b3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT4NCjwvaGVhZD4N
-Cjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8ZGl2
-IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMS4wcHQiPklmIHdlIGNhbiBtYW5hZ2UgdGhpcyBpbiBzdGFuZGFyZCByZXBv
-IHdpdGggc29tZSBjb21waWxlIHRpbWUgY29uZmlnIHBhcmFtZXRlciB0byB1c2UgY2hvc2VuIGFw
-cHJvYWNoLiBJdCB3aWxsIGhlbHAgaW4gbWFpbnRhaW5pbmcgbXVsdGlwbGUgcmVwby48bzpwPjwv
-bzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1z
-aXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9y
-ZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAjQjVDNERGIDEuMHB0O3BhZGRpbmc6My4wcHQgMGlu
-IDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+PHNwYW4gc3R5bGU9ImNvbG9yOmJs
-YWNrIj5Gcm9tOiA8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFjayI+b3BlbmJtYyAm
-bHQ7b3BlbmJtYy1ib3VuY2VzJiM0Mzt2aWpheWtoZW1rYT1mYi5jb21AbGlzdHMub3psYWJzLm9y
-ZyZndDsgb24gYmVoYWxmIG9mIEVkIFRhbm91cyAmbHQ7ZWQudGFub3VzQGludGVsLmNvbSZndDs8
-YnI+DQo8Yj5EYXRlOiA8L2I+VHVlc2RheSwgSmFudWFyeSAyMiwgMjAxOSBhdCAyOjA0IFBNPGJy
-Pg0KPGI+VG86IDwvYj4mcXVvdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmcXVvdDsgJmx0O29w
-ZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs8YnI+DQo8Yj5TdWJqZWN0OiA8L2I+UmU6IEludGVs
-LWlwbWktb2VtIHJlcG88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJz
-cDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-T24gMS8yMi8xOSAxMDoxNiBBTSwgVmlqYXkgS2hlbWthIHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0K
-PC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9t
-OjUuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
-MHB0O2NvbG9yOmJsYWNrIj5UZWFtLDwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2NvbG9yOmJsYWNrIj5JbnRl
-bC1pcG1pLW9lbSBzaG91bGQgYmUgYnJva2VuIGFuZCAyIHBhcnRzLCBnZW5yaWMgYW5kIG9lbSBz
-cGVjaWZpYy4gSSBzZWUgc2V2ZXJhbCBmdW5jdGlvbmFsaXR5IGluIHRoaXMgcmVwbyBsaWtlIHNl
-bnNvcnMgYW5kIHN0b3JhZ2UgY29tbWFuZHMgYXJlIGdlbmVyaWMgZW5vdWdoIHRvIGJlIHVzZWQg
-Ynkgb3RoZXIgcGxhdGZvcm0NCiB3aG8gaXMgdXNpbmcgZW50aXR5IG1hbmFnZXIuIFNvIEkgZmVl
-bCB0aGF0IHdlIHNob3VsZCBoYXZlIHRoZXNlIGZ1bmN0aW9uYWxpdGllcyB0byBiZSBtb3ZlZCB0
-byBhIHNlcGFyYXRlIGNvbW1vbiByZXBvIHdoaWNoIGNhbiBiZSB1c2VkIGJ5IGV2ZXJ5b25lIGFu
-ZCB0aGlzIHJlcG8gY2FuIG9ubHkgY29udGFpbiBJbnRlbCBPRU0gc3BlY2lmaWMgSVBNSSBjb21t
-YW5kIHN1cHBvcnQuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPHA+V2hl
-biB0aGlzIHdvcmsgd2FzIGZpcnN0IHN0YXJ0ZWQsIHRoZSBob3BlIHdhcyB0aGF0IHRoZSBTRFIs
-IFNFTCBhbmQgdGhlIHNlbnNvciBudW1iZXJpbmcgY2hhbmdlcyBjb3VsZCBiZSByb2xsZWQgb3V0
-IHRvIHRoZSB3aG9sZSBwcm9qZWN0IGFzIHRoZSAmcXVvdDtzdGFuZGFyZCZxdW90OywgYW5kIHRo
-YXQgdGhpcyB3YXMganVzdCBhIHN0YWdpbmcgYXJlYS4mbmJzcDsgVW5mb3J0dW5hdGVseSwgd2hl
-biB3ZSB0cmllZCB0byBwdXNoIHRoZW0sIHdlIGdvdCBzb21lIGxhdGUNCiBicmVha2luZyBmZWVk
-YmFjayBmcm9tIHRoZSBtYWludGFpbmVyIHRoYXQgc29tZSBmbG93cyAobGlrZSB3cml0aW5nIHNl
-bnNvciB2YWx1ZXMgZnJvbSB0aGUgaG9zdCkgd291bGQgYnJlYWsgSUJNIHN5c3RlbXMuJm5ic3A7
-IEdpdmVuIHRoYXQgb3VyIHN5c3RlbXMgZGlkbid0IHJlcXVpcmUgb3IgaW1wbGVtZW50IHRob3Nl
-IGZsb3dzLCB3ZSBkaWRuJ3QgaGF2ZSBhIHZlcnkgY2xlYXIgcGF0aCBmb3J3YXJkIGZvciBob3cg
-dG8gZ2V0IHRoZW0gdXBzdHJlYW1lZCwNCiBhbmQgZXZlbnR1YWxseSByYW4gb3V0IG9mIHRpbWUg
-d2FpdGluZyBmb3IgcmVzcG9uc2VzLjxvOnA+PC9vOnA+PC9wPg0KPHA+VGhlIGxhc3QgdGhyZWFk
-IEkgcmVjYWxsIG9uIHRoZSBpc3N1ZSB3YXMgaGVyZSwgd2hlcmUgdGhlIG1haW50YWluZXIgZG9j
-dW1lbnRlZCBzb21lIG9mIHRoZSBpc3N1ZXMgdGhhdCB3ZXJlIHByZXNlbnQgb24gSUJNIHN5c3Rl
-bXMgd2l0aCB0aG9zZSBjb21tYW5kIHNldHMuJm5ic3A7IFRoZXJlIHdlcmUgc2V2ZXJhbCBvdGhl
-ciBnZXJyaXQgcmV2aWV3cyB0aGF0IEkgY2FuIGZpbmQgaWYgbmVlZGVkLCBidXQgdGhleSBiYXNp
-Y2FsbHkgYm9pbGVkIGRvd24NCiB0byB3aGF0J3MgaW4gdGhlIHRocmVhZCBiZWxvdy48bzpwPjwv
-bzpwPjwvcD4NCjxwPjxhIGhyZWY9Imh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92
-Mi91cmw/dT1odHRwcy0zQV9fbGlzdHMub3psYWJzLm9yZ19waXBlcm1haWxfb3BlbmJtY18yMDE4
-LTJETm92ZW1iZXJfMDE0MTM5Lmh0bWwmYW1wO2Q9RHdNRGFRJmFtcDtjPTVWRDBSVHRObFRoM3lj
-ZDQxYjNNVXcmYW1wO3I9djlNVTBLaTlwV25UWENXd2pIUFZncG5DUjgwdlhra2NySWFxVTdVU2w1
-ZyZhbXA7bT1sT2hDOHk3S2NVM1EyUlE0am9ucnZzTlZiMnowN01nRFRlWElhX05FSUYwJmFtcDtz
-PXFXOUtYNmVFYTFCMmNDVUhLcVpSR1p0TFNiN0tDcks5U09OM1M1QVdZRzgmYW1wO2U9Ij5odHRw
-czovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAxOC1Ob3ZlbWJlci8wMTQx
-MzkuaHRtbDwvYT48bzpwPjwvbzpwPjwvcD4NCjxwPkdpdmVuIHRoYXQgaXQgc291bmRzIGxpa2Ug
-dGhlIGNvbW11bml0eSBpcyBpbnRlcmVzdGVkIGluIHRoZXNlIGNoYW5nZXMgYmVpbmcgcm9sbGVk
-IG91dCB0byBtb3JlIHRoYW4ganVzdCBpbnRlbCBzeXN0ZW1zLCBJIHN1c3BlY3Qgd2UgbmVlZCB0
-byBjb250aW51ZSB0aGF0IGRpc2N1c3Npb24uPG86cD48L286cD48L3A+DQo8cD5Gb3IgcmVmZXJl
-bmNlLCB0aGUgY2hhbmdlcyBiZWluZyBtZW50aW9uZWQgZW5hYmxlOjxvOnA+PC9vOnA+PC9wPg0K
-PHA+MS4gRHluYW1pYyBJUE1JIHNlbnNvciBjcmVhdGlvbiBiYXNlZCBvbiBkYnVzIG1hcHBlciBy
-ZWZsZWN0aW9uLCByYXRoZXIgdGhhbiBoYXJkY29kZWQgcGF0aHMgYW5kIHNlbnNvciBudW1iZXJz
-Ljxicj4NCjIuIEF1dG9tYXRpYyBnZW5lcmF0aW9uIG9mIHR5cGUgMSBTRFJzIChpbmNsdWRpbmcg
-TSBhbmQgQiBzY2FsaW5nKSBmcm9tIGRidXMgaW50ZXJmYWNlcy48YnI+DQozLiBBdXRvbWF0aWMg
-Z2VuZXJhdGlvbiBvZiBGUlUgc2RyIHJlY29yZHMgYmFzZWQgb24gZGJ1cyBpbnRlcmZhY2VzLjxv
-OnA+PC9vOnA+PC9wPg0KPHA+VGhlcmUgYXJlIHByb2JhYmx5IG90aGVyIHRoaW5ncyB0aGF0IEkn
-bSBmb3JnZXR0aW5nLCBidXQgdGhlc2UgYXJlIHRoZSBoaWdobGlnaHRzLjxvOnA+PC9vOnA+PC9w
-Pg0KPHA+VG9tLDxvOnA+PC9vOnA+PC9wPg0KPHA+RG8geW91IHRoaW5rIHRoYXQgeW91IGNvdWxk
-IHByb3Bvc2UgYSBwYXRoIHRoYXQgd291bGQgYWxsb3cgdGhlc2UgY2hhbmdlcyBpbnRvIHRoZSBt
-YWluc3RyZWFtLCB3aGlsZSBzdGlsbCBrZWVwaW5nIElCTSBzeXN0ZW1zIGZ1bmN0aW9uYWw/Jm5i
-c3A7IEJhc2VkIG9uIGNvbW1lbnRzIHRoYXQgSSd2ZSBoZWFyZCBib3RoIGluIHBlcnNvbiwgYW5k
-IG9uIG90aGVyIGdlcnJpdCByZXZpZXdzLCBJIGJlbGlldmUgdGhlc2UgY2hhbmdlcyBoYXZlIHNv
-bWUgbGV2ZWwNCiBvZiBzdXBwb3J0IGZyb20gdGhlIG90aGVyIHR3byBJUE1JIG1haW50YWluZXJz
-IChjb3JyZWN0IG1lIGlmIEknbSB3cm9uZyBndXlzKS48bzpwPjwvbzpwPjwvcD4NCjxwPjxvOnA+
-Jm5ic3A7PC9vOnA+PC9wPg0KPHA+SWYgdGhlIGZpbmFsIGFuc3dlciBpcyB0aGF0IHdlIHJlYWxs
-eSBuZWVkIHlldCBhbm90aGVyIHJlcG8sIHNvIGJlIGl0LCBJJ20gaGFwcHkgdG8gaGVscCBtYWlu
-dGFpbiBpdCwgYnV0IGdpdmVuIHRoZSBpbnRlcmVzdCwgd2Ugc2hvdWxkIGF0IGxlYXN0IGludmVz
-dGlnYXRlIHRoZSBwb3NzaWJpbGl0eSBvZiBtYWtpbmcgdGhpcyB0aGUgJnF1b3Q7c3RhbmRhcmQm
-cXVvdDsgZ29pbmcgZm9yd2FyZC48bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJt
-YXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Y29sb3I6YmxhY2siPiZuYnNwOzwvc3Bh
-bj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
-LXNpemU6MTEuMHB0O2NvbG9yOmJsYWNrIj5NeSAyIGNlbnRzJm5ic3A7PC9zcGFuPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0FwcGxlIENvbG9yIEVtb2pp
-JnF1b3Q7Ij4mIzEyODUyMjs8L3NwYW4+PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+TXVjaCBh
-cHByZWNpYXRlZC48YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwv
-Ym9keT4NCjwvaHRtbD4NCg==
+Anyway, the driver core interaction looks good, I have a few other minor
+comments on the ioctl handling:
 
---_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_--
+> +typedef int (*peci_ioctl_fn_type)(struct peci_adapter *, void *);
+> +
+> +static const peci_ioctl_fn_type peci_ioctl_fn[PECI_CMD_MAX] = {
+> +	peci_ioctl_xfer,
+> +	peci_ioctl_ping,
+> +	peci_ioctl_get_dib,
+> +	peci_ioctl_get_temp,
+> +	peci_ioctl_rd_pkg_cfg,
+> +	peci_ioctl_wr_pkg_cfg,
+> +	peci_ioctl_rd_ia_msr,
+> +	NULL, /* Reserved */
+> +	peci_ioctl_rd_pci_cfg,
+> +	NULL, /* Reserved */
+> +	peci_ioctl_rd_pci_cfg_local,
+> +	peci_ioctl_wr_pci_cfg_local,
+> +};
+
+That's "interesting", why not have a list that has the ioctl number, and
+the function pointer?  That way no need for "reserved" entries, and you
+don't have to add a new item to your "is this a valid ioctl" check
+below:
+
+> +static long peci_ioctl(struct file *file, unsigned int iocmd, unsigned long arg)
+> +{
+> +	struct peci_adapter *adapter = file->private_data;
+> +	void __user *argp = (void __user *)arg;
+> +	unsigned int msg_len;
+> +	enum peci_cmd cmd;
+> +	int rc = 0;
+
+No need to set rc here.
+
+> +	u8 *msg;
+> +
+> +	if (!capable(CAP_SYS_ADMIN))
+> +		return -EPERM;
+
+Really?  Nice, you have userspace tools running as root, what could go
+wrong... :)
+
+> +
+> +	dev_dbg(&adapter->dev, "ioctl, cmd=0x%x, arg=0x%lx\n", iocmd, arg);
+
+I understand the need for this type of thing when debugging the code
+initially, but you can remove them all now, ftrace should provide what
+you need now, right?
+
+> +
+> +	switch (iocmd) {
+> +	case PECI_IOC_XFER:
+> +	case PECI_IOC_PING:
+> +	case PECI_IOC_GET_DIB:
+> +	case PECI_IOC_GET_TEMP:
+> +	case PECI_IOC_RD_PKG_CFG:
+> +	case PECI_IOC_WR_PKG_CFG:
+> +	case PECI_IOC_RD_IA_MSR:
+> +	case PECI_IOC_RD_PCI_CFG:
+> +	case PECI_IOC_RD_PCI_CFG_LOCAL:
+> +	case PECI_IOC_WR_PCI_CFG_LOCAL:
+> +		cmd = _IOC_NR(iocmd);
+> +		msg_len = _IOC_SIZE(iocmd);
+> +		break;
+
+That check up there can be replaced with an iteration over the list of
+ioctl functions, right?
+
+
+> +
+> +	default:
+> +		dev_dbg(&adapter->dev, "Invalid ioctl cmd : 0x%x\n", iocmd);
+> +		return -ENOTTY;
+> +	}
+> +
+> +	if (!access_ok(argp, msg_len))
+> +		return -EFAULT;
+> +
+> +	msg = memdup_user(argp, msg_len);
+> +	if (IS_ERR(msg))
+> +		return PTR_ERR(msg);
+
+Why call access_ok() if you are going to copy the memory anyways?
+memdup_user should fail with -EFAULT if you can't copy the memory
+properly.
+
+> +
+> +	rc = peci_command(adapter, cmd, msg);
+
+Are you _SURE_ you audited your ioctls to not do foolish things with
+userspace values?  I sure didn't, so can you please have someone else do
+this and sign off on this patch that they did so?
+
+> +static int peci_detect(struct peci_adapter *adapter, u8 addr)
+> +{
+> +	struct peci_ping_msg msg;
+> +
+> +	msg.addr = addr;
+
+What about the un-initialized fields in this structure?  Can you
+properly handle that, and also, is this ok to be on the stack?
+
+> +static ssize_t peci_sysfs_new_device(struct device *dev,
+> +				     struct device_attribute *attr,
+> +				     const char *buf, size_t count)
+> +{
+> +	struct peci_adapter *adapter = to_peci_adapter(dev);
+> +	struct peci_board_info info = {};
+> +	struct peci_client *client;
+> +	char *blank, end;
+> +	int rc;
+> +
+> +	/* Parse device type */
+> +	blank = strchr(buf, ' ');
+> +	if (!blank) {
+> +		dev_err(dev, "%s: Missing parameters\n", "new_device");
+> +		return -EINVAL;
+> +	}
+> +	if (blank - buf > PECI_NAME_SIZE - 1) {
+> +		dev_err(dev, "%s: Invalid device type\n", "new_device");
+> +		return -EINVAL;
+> +	}
+> +	memcpy(info.type, buf, blank - buf);
+> +
+> +	/* Parse remaining parameters, reject extra parameters */
+> +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
+
+Please do not tell me you are parsing a sysfs write to do some type of
+new configuration.  That is not what sysfs is for, that is what configfs
+is for, please use that instead, this isn't ok.
+
+
+
+> +	if (rc < 1) {
+> +		dev_err(dev, "%s: Can't parse client address\n", "new_device");
+> +		return -EINVAL;
+> +	}
+> +	if (rc > 1  && end != '\n') {
+> +		dev_err(dev, "%s: Extra parameters\n", "new_device");
+> +		return -EINVAL;
+> +	}
+> +
+> +	client = peci_new_device(adapter, &info);
+> +	if (!client)
+> +		return -EINVAL;
+> +
+> +	/* Keep track of the added device */
+> +	mutex_lock(&adapter->userspace_clients_lock);
+> +	list_add_tail(&client->detected, &adapter->userspace_clients);
+> +	mutex_unlock(&adapter->userspace_clients_lock);
+> +	dev_info(dev, "%s: Instantiated device %s at 0x%02hx\n", "new_device",
+> +		 info.type, info.addr);
+
+Don't be noisy for things that are expected to happen.
+
+
+> +
+> +	return count;
+> +}
+> +static DEVICE_ATTR(new_device, 0200, NULL, peci_sysfs_new_device);
+
+Not that you should be doing this, but DEVICE_ATTR_RO() is what you want
+here, right?
+
+
+> +
+> +static ssize_t peci_sysfs_delete_device(struct device *dev,
+> +					struct device_attribute *attr,
+> +					const char *buf, size_t count)
+> +{
+> +	struct peci_adapter *adapter = to_peci_adapter(dev);
+> +	struct peci_client *client, *next;
+> +	struct peci_board_info info = {};
+> +	struct peci_driver *driver;
+> +	char *blank, end;
+> +	int rc;
+> +
+> +	/* Parse device type */
+> +	blank = strchr(buf, ' ');
+> +	if (!blank) {
+> +		dev_err(dev, "%s: Missing parameters\n", "delete_device");
+> +		return -EINVAL;
+> +	}
+> +	if (blank - buf > PECI_NAME_SIZE - 1) {
+> +		dev_err(dev, "%s: Invalid device type\n", "delete_device");
+> +		return -EINVAL;
+> +	}
+> +	memcpy(info.type, buf, blank - buf);
+> +
+> +	/* Parse remaining parameters, reject extra parameters */
+> +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
+> +	if (rc < 1) {
+> +		dev_err(dev, "%s: Can't parse client address\n",
+> +			"delete_device");
+> +		return -EINVAL;
+> +	}
+> +	if (rc > 1  && end != '\n') {
+> +		dev_err(dev, "%s: Extra parameters\n", "delete_device");
+> +		return -EINVAL;
+> +	}
+
+Same here, no parsing of configurations through sysfs, that is not ok.
+Again, use configfs.
+
+> +
+> +	/* Make sure the device was added through sysfs */
+> +	rc = -ENOENT;
+> +	mutex_lock(&adapter->userspace_clients_lock);
+> +	list_for_each_entry_safe(client, next, &adapter->userspace_clients,
+> +				 detected) {
+> +		driver = to_peci_driver(client->dev.driver);
+> +
+> +		if (client->addr == info.addr &&
+> +		    !strncmp(client->name, info.type, PECI_NAME_SIZE)) {
+> +			dev_info(dev, "%s: Deleting device %s at 0x%02hx\n",
+> +				 "delete_device", client->name, client->addr);
+> +			list_del(&client->detected);
+> +			peci_unregister_device(client);
+> +			rc = count;
+> +			break;
+> +		}
+> +	}
+> +	mutex_unlock(&adapter->userspace_clients_lock);
+> +
+> +	if (rc < 0)
+> +		dev_err(dev, "%s: Can't find device in list\n",
+> +			"delete_device");
+
+So you can just spam the syslog by writing odd values to the file?  Not
+good.
+
+> +
+> +	return rc;
+> +}
+> +static DEVICE_ATTR_IGNORE_LOCKDEP(delete_device, 0200, NULL,
+> +				  peci_sysfs_delete_device);
+
+sysfs files that remove themselves are reserved for a specific circle in
+hell, you really don't want to mess with them :(
+
+> +/**
+> + * struct peci_adapter - represent a PECI adapter
+> + * @owner: owner module of the PECI adpater
+> + * @bus_lock: mutex for exclusion of multiple callers
+> + * @dev: device interface to this driver
+> + * @cdev: character device object to create character device
+> + * @nr: the bus number to map
+> + * @name: name of the adapter
+> + * @userspace_clients_lock: mutex for exclusion of clients handling
+> + * @userspace_clients: list of registered clients
+> + * @xfer: low-level transfer function pointer of the adapter
+> + * @cmd_mask: mask for supportable PECI commands
+> + *
+> + * Each PECI adapter can communicate with one or more PECI client children.
+> + * These make a small bus, sharing a single wired PECI connection.
+> + */
+> +struct peci_adapter {
+> +	struct module		*owner;
+> +	struct rt_mutex		bus_lock;
+> +	struct device		dev;
+> +	struct cdev		cdev;
+
+Yeah, two differently reference counted variables in the same structure,
+what could go wrong!  :(
+
+Don't do this, make your cdev a pointer to be sure you get things right,
+otherwise this will never work properly.
+
+And shouldn't the character device be a class device?  Don't confuse
+devices in the driver model with the interaction of them to userspace in
+a specific manner, those should be separate things, right?
+
+
+> +	int			nr;
+> +	char			name[PECI_NAME_SIZE];
+
+What's wrong with the name in struct device?
+
+
+> +	struct mutex		userspace_clients_lock; /* clients list mutex */
+> +	struct list_head	userspace_clients;
+> +	int			(*xfer)(struct peci_adapter *adapter,
+> +					struct peci_xfer_msg *msg);
+> +	uint			cmd_mask;
+
+u32?
+
+> --- /dev/null
+> +++ b/include/uapi/linux/peci-ioctl.h
+> @@ -0,0 +1,403 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/* Copyright (c) 2018-2019 Intel Corporation */
+> +
+> +#ifndef __PECI_IOCTL_H
+> +#define __PECI_IOCTL_H
+> +
+> +#include <linux/ioctl.h>
+> +#include <linux/types.h>
+> +
+> +/* Base Address of 48d */
+> +#define PECI_BASE_ADDR  0x30  /* The PECI client's default address of 0x30 */
+> +#define PECI_OFFSET_MAX 8     /* Max numver of CPU clients */
+> +
+> +/* PCI Access */
+> +#define MAX_PCI_READ_LEN 24   /* Number of bytes of the PCI Space read */
+
+PCI?  Or PECI?  I'm confused now, what does PCI have to do with PECI?
+
+> +
+> +#define PCI_BUS0_CPU0      0x00
+> +#define PCI_BUS0_CPU1      0x80
+> +#define PCI_CPUBUSNO_BUS   0x00
+> +#define PCI_CPUBUSNO_DEV   0x08
+> +#define PCI_CPUBUSNO_FUNC  0x02
+> +#define PCI_CPUBUSNO       0xcc
+> +#define PCI_CPUBUSNO_1     0xd0
+> +#define PCI_CPUBUSNO_VALID 0xd4
+
+You just abused the PCI core namespace here, are you sure about that?
+
+
+> +
+> +/* Package Identifier Read Parameter Value */
+> +#define PKG_ID_CPU_ID               0x0000  /* CPUID Info */
+> +#define PKG_ID_PLATFORM_ID          0x0001  /* Platform ID */
+> +#define PKG_ID_UNCORE_ID            0x0002  /* Uncore Device ID */
+> +#define PKG_ID_MAX_THREAD_ID        0x0003  /* Max Thread ID */
+> +#define PKG_ID_MICROCODE_REV        0x0004  /* CPU Microcode Update Revision */
+> +#define PKG_ID_MACHINE_CHECK_STATUS 0x0005  /* Machine Check Status */
+> +
+> +/* RdPkgConfig Index */
+> +#define MBX_INDEX_CPU_ID            0   /* Package Identifier Read */
+> +#define MBX_INDEX_VR_DEBUG          1   /* VR Debug */
+> +#define MBX_INDEX_PKG_TEMP_READ     2   /* Package Temperature Read */
+> +#define MBX_INDEX_ENERGY_COUNTER    3   /* Energy counter */
+> +#define MBX_INDEX_ENERGY_STATUS     4   /* DDR Energy Status */
+> +#define MBX_INDEX_WAKE_MODE_BIT     5   /* "Wake on PECI" Mode bit */
+> +#define MBX_INDEX_EPI               6   /* Efficient Performance Indication */
+> +#define MBX_INDEX_PKG_RAPL_PERF     8   /* Pkg RAPL Performance Status Read */
+> +#define MBX_INDEX_PER_CORE_DTS_TEMP 9   /* Per Core DTS Temperature Read */
+> +#define MBX_INDEX_DTS_MARGIN        10  /* DTS thermal margin */
+> +#define MBX_INDEX_SKT_PWR_THRTL_DUR 11  /* Socket Power Throttled Duration */
+> +#define MBX_INDEX_CFG_TDP_CONTROL   12  /* TDP Config Control */
+> +#define MBX_INDEX_CFG_TDP_LEVELS    13  /* TDP Config Levels */
+> +#define MBX_INDEX_DDR_DIMM_TEMP     14  /* DDR DIMM Temperature */
+> +#define MBX_INDEX_CFG_ICCMAX        15  /* Configurable ICCMAX */
+> +#define MBX_INDEX_TEMP_TARGET       16  /* Temperature Target Read */
+> +#define MBX_INDEX_CURR_CFG_LIMIT    17  /* Current Config Limit */
+> +#define MBX_INDEX_DIMM_TEMP_READ    20  /* Package Thermal Status Read */
+> +#define MBX_INDEX_DRAM_IMC_TMP_READ 22  /* DRAM IMC Temperature Read */
+> +#define MBX_INDEX_DDR_CH_THERM_STAT 23  /* DDR Channel Thermal Status */
+> +#define MBX_INDEX_PKG_POWER_LIMIT1  26  /* Package Power Limit1 */
+> +#define MBX_INDEX_PKG_POWER_LIMIT2  27  /* Package Power Limit2 */
+> +#define MBX_INDEX_TDP               28  /* Thermal design power minimum */
+> +#define MBX_INDEX_TDP_HIGH          29  /* Thermal design power maximum */
+> +#define MBX_INDEX_TDP_UNITS         30  /* Units for power/energy registers */
+> +#define MBX_INDEX_RUN_TIME          31  /* Accumulated Run Time */
+> +#define MBX_INDEX_CONSTRAINED_TIME  32  /* Thermally Constrained Time Read */
+> +#define MBX_INDEX_TURBO_RATIO       33  /* Turbo Activation Ratio */
+> +#define MBX_INDEX_DDR_RAPL_PL1      34  /* DDR RAPL PL1 */
+> +#define MBX_INDEX_DDR_PWR_INFO_HIGH 35  /* DRAM Power Info Read (high) */
+> +#define MBX_INDEX_DDR_PWR_INFO_LOW  36  /* DRAM Power Info Read (low) */
+> +#define MBX_INDEX_DDR_RAPL_PL2      37  /* DDR RAPL PL2 */
+> +#define MBX_INDEX_DDR_RAPL_STATUS   38  /* DDR RAPL Performance Status */
+> +#define MBX_INDEX_DDR_HOT_ABSOLUTE  43  /* DDR Hottest Dimm Absolute Temp */
+> +#define MBX_INDEX_DDR_HOT_RELATIVE  44  /* DDR Hottest Dimm Relative Temp */
+> +#define MBX_INDEX_DDR_THROTTLE_TIME 45  /* DDR Throttle Time */
+> +#define MBX_INDEX_DDR_THERM_STATUS  46  /* DDR Thermal Status */
+> +#define MBX_INDEX_TIME_AVG_TEMP     47  /* Package time-averaged temperature */
+> +#define MBX_INDEX_TURBO_RATIO_LIMIT 49  /* Turbo Ratio Limit Read */
+> +#define MBX_INDEX_HWP_AUTO_OOB      53  /* HWP Autonomous Out-of-band */
+> +#define MBX_INDEX_DDR_WARM_BUDGET   55  /* DDR Warm Power Budget */
+> +#define MBX_INDEX_DDR_HOT_BUDGET    56  /* DDR Hot Power Budget */
+> +#define MBX_INDEX_PKG_PSYS_PWR_LIM3 57  /* Package/Psys Power Limit3 */
+> +#define MBX_INDEX_PKG_PSYS_PWR_LIM1 58  /* Package/Psys Power Limit1 */
+> +#define MBX_INDEX_PKG_PSYS_PWR_LIM2 59  /* Package/Psys Power Limit2 */
+> +#define MBX_INDEX_PKG_PSYS_PWR_LIM4 60  /* Package/Psys Power Limit4 */
+> +#define MBX_INDEX_PERF_LIMIT_REASON 65  /* Performance Limit Reasons */
+> +
+> +/* WrPkgConfig Index */
+> +#define MBX_INDEX_DIMM_AMBIENT      19
+> +#define MBX_INDEX_DIMM_TEMP         24
+> +
+> +/* Device Specific Completion Code (CC) Definition */
+> +#define DEV_PECI_CC_SUCCESS          0x40
+> +#define DEV_PECI_CC_TIMEOUT          0x80
+> +#define DEV_PECI_CC_OUT_OF_RESOURCE  0x81
+> +#define DEV_PECI_CC_UNAVAIL_RESOURCE 0x82
+> +#define DEV_PECI_CC_INVALID_REQ      0x90
+> +
+> +/* Completion Code mask to check retry needs */
+> +#define DEV_PECI_CC_RETRY_CHECK_MASK 0xf0
+> +#define DEV_PECI_CC_NEED_RETRY       0x80
+> +
+> +/* Skylake EDS says to retry for 250ms */
+> +#define DEV_PECI_RETRY_TIME_MS       250
+> +#define DEV_PECI_RETRY_INTERVAL_USEC 10000
+> +#define DEV_PECI_RETRY_BIT           0x01
+> +
+> +#define GET_TEMP_WR_LEN   1
+> +#define GET_TEMP_RD_LEN   2
+> +#define GET_TEMP_PECI_CMD 0x01
+> +
+> +#define GET_DIB_WR_LEN   1
+> +#define GET_DIB_RD_LEN   8
+> +#define GET_DIB_PECI_CMD 0xf7
+> +
+> +#define RDPKGCFG_WRITE_LEN     5
+> +#define RDPKGCFG_READ_LEN_BASE 1
+> +#define RDPKGCFG_PECI_CMD      0xa1
+> +
+> +#define WRPKGCFG_WRITE_LEN_BASE 6
+> +#define WRPKGCFG_READ_LEN       1
+> +#define WRPKGCFG_PECI_CMD       0xa5
+> +
+> +#define RDIAMSR_WRITE_LEN 5
+> +#define RDIAMSR_READ_LEN  9
+> +#define RDIAMSR_PECI_CMD  0xb1
+> +
+> +#define WRIAMSR_PECI_CMD  0xb5
+> +
+> +#define RDPCICFG_WRITE_LEN 6
+> +#define RDPCICFG_READ_LEN  5
+> +#define RDPCICFG_PECI_CMD  0x61
+> +
+> +#define WRPCICFG_PECI_CMD  0x65
+> +
+> +#define RDPCICFGLOCAL_WRITE_LEN     5
+> +#define RDPCICFGLOCAL_READ_LEN_BASE 1
+> +#define RDPCICFGLOCAL_PECI_CMD      0xe1
+> +
+> +#define WRPCICFGLOCAL_WRITE_LEN_BASE 6
+> +#define WRPCICFGLOCAL_READ_LEN       1
+> +#define WRPCICFGLOCAL_PECI_CMD       0xe5
+
+Alignment?
+
+> +
+> +#define PECI_BUFFER_SIZE 32
+
+Why don't all of these have PECI_ at the front of them?
+
+> +/**
+> + * enum peci_cmd - PECI client commands
+> + * @PECI_CMD_XFER: raw PECI transfer
+> + * @PECI_CMD_PING: ping, a required message for all PECI devices
+> + * @PECI_CMD_GET_DIB: get DIB (Device Info Byte)
+> + * @PECI_CMD_GET_TEMP: get maximum die temperature
+> + * @PECI_CMD_RD_PKG_CFG: read access to the PCS (Package Configuration Space)
+> + * @PECI_CMD_WR_PKG_CFG: write access to the PCS (Package Configuration Space)
+> + * @PECI_CMD_RD_IA_MSR: read access to MSRs (Model Specific Registers)
+> + * @PECI_CMD_WR_IA_MSR: write access to MSRs (Model Specific Registers)
+> + * @PECI_CMD_RD_PCI_CFG: sideband read access to the PCI configuration space
+> + *	maintained in downstream devices external to the processor
+> + * @PECI_CMD_WR_PCI_CFG: sideband write access to the PCI configuration space
+> + *	maintained in downstream devices external to the processor
+> + * @PECI_CMD_RD_PCI_CFG_LOCAL: sideband read access to the PCI configuration
+> + *	space that resides within the processor
+> + * @PECI_CMD_WR_PCI_CFG_LOCAL: sideband write access to the PCI configuration
+> + *	space that resides within the processor
+> + *
+> + * Available commands depend on client's PECI revision.
+> + */
+> +enum peci_cmd {
+> +	PECI_CMD_XFER = 0,
+> +	PECI_CMD_PING,
+> +	PECI_CMD_GET_DIB,
+> +	PECI_CMD_GET_TEMP,
+> +	PECI_CMD_RD_PKG_CFG,
+> +	PECI_CMD_WR_PKG_CFG,
+> +	PECI_CMD_RD_IA_MSR,
+> +	PECI_CMD_WR_IA_MSR,
+> +	PECI_CMD_RD_PCI_CFG,
+> +	PECI_CMD_WR_PCI_CFG,
+> +	PECI_CMD_RD_PCI_CFG_LOCAL,
+> +	PECI_CMD_WR_PCI_CFG_LOCAL,
+> +	PECI_CMD_MAX
+> +};
+> +
+> +/**
+> + * struct peci_xfer_msg - raw PECI transfer command
+> + * @addr; address of the client
+> + * @tx_len: number of data to be written in bytes
+> + * @rx_len: number of data to be read in bytes
+> + * @tx_buf: data to be written, or NULL
+> + * @rx_buf: data to be read, or NULL
+> + *
+> + * raw PECI transfer
+> + */
+> +struct peci_xfer_msg {
+> +	__u8 addr;
+> +	__u8 tx_len;
+> +	__u8 rx_len;
+> +	__u8 tx_buf[PECI_BUFFER_SIZE];
+> +	__u8 rx_buf[PECI_BUFFER_SIZE];
+> +} __attribute__((__packed__));
+
+Go kick the hardware engineer who did not align things on a 32bit
+boundry.  They should have known better :(
+
+> +
+> +/**
+> + * struct peci_ping_msg - ping command
+> + * @addr: address of the client
+> + *
+> + * Ping() is a required message for all PECI devices. This message is used to
+> + * enumerate devices or determine if a device has been removed, been
+> + * powered-off, etc.
+> + */
+> +struct peci_ping_msg {
+> +	__u8 addr;
+> +} __attribute__((__packed__));
+> +
+> +/**
+> + * struct peci_get_dib_msg - GetDIB command
+> + * @addr: address of the client
+> + * @dib: DIB data to be read
+> + *
+> + * The processor PECI client implementation of GetDIB() includes an 8-byte
+> + * response and provides information regarding client revision number and the
+> + * number of supported domains. All processor PECI clients support the GetDIB()
+> + * command.
+> + */
+> +struct peci_get_dib_msg {
+> +	__u8  addr;
+> +	__u64 dib;
+> +} __attribute__((__packed__));
+
+Ick, really?  That's horrible, again, go kick them hard!
+
+> +/**
+> + * struct peci_get_temp_msg - GetTemp command
+> + * @addr: address of the client
+> + * @temp_raw: raw temperature data to be read
+> + *
+> + * The GetTemp() command is used to retrieve the maximum die temperature from a
+> + * target PECI address. The temperature is used by the external thermal
+> + * management system to regulate the temperature on the die. The data is
+> + * returned as a negative value representing the number of degrees centigrade
+> + * below the maximum processor junction temperature.
+> + */
+> +struct peci_get_temp_msg {
+> +	__u8  addr;
+> +	__s16 temp_raw;
+> +} __attribute__((__packed__));
+
+{kick kick kick}
+
+> +
+> +/**
+> + * struct peci_rd_pkg_cfg_msg - RdPkgConfig command
+> + * @addr: address of the client
+> + * @index: encoding index for the requested service
+> + * @param: specific data being requested
+> + * @rx_len: number of data to be read in bytes
+> + * @pkg_config: package config data to be read
+> + *
+> + * The RdPkgConfig() command provides read access to the Package Configuration
+> + * Space (PCS) within the processor, including various power and thermal
+> + * management functions. Typical PCS read services supported by the processor
+> + * may include access to temperature data, energy status, run time information,
+> + * DIMM temperatures and so on.
+> + */
+> +struct peci_rd_pkg_cfg_msg {
+> +	__u8  addr;
+> +	__u8  index;
+> +	__u16 param;
+> +	__u8  rx_len;
+> +	__u8  pkg_config[4];
+> +} __attribute__((__packed__));
+
+Ok, that's better, someone finally wisened up.
+
+> +
+> +/**
+> + * struct peci_wr_pkg_cfg_msg - WrPkgConfig command
+> + * @addr: address of the client
+> + * @index: encoding index for the requested service
+> + * @param: specific data being requested
+> + * @tx_len: number of data to be written in bytes
+> + * @value: package config data to be written
+> + *
+> + * The WrPkgConfig() command provides write access to the Package Configuration
+> + * Space (PCS) within the processor, including various power and thermal
+> + * management functions. Typical PCS write services supported by the processor
+> + * may include power limiting, thermal averaging constant programming and so on.
+> + */
+> +struct peci_wr_pkg_cfg_msg {
+> +	__u8  addr;
+> +	__u8  index;
+> +	__u16 param;
+> +	__u8  tx_len;
+> +	__u32 value;
+> +} __attribute__((__packed__));
+
+No they didn't, ick, no one cares about speed here I guess.  Oh well :(
+
+> +
+> +/**
+> + * struct peci_rd_ia_msr_msg - RdIAMSR command
+> + * @addr: address of the client
+> + * @thread_id: ID of the specific logical processor
+> + * @address: address of MSR to read from
+> + * @value: data to be read
+> + *
+> + * The RdIAMSR() PECI command provides read access to Model Specific Registers
+> + * (MSRs) defined in the processor's Intel Architecture (IA).
+> + */
+> +struct peci_rd_ia_msr_msg {
+> +	__u8  addr;
+> +	__u8  thread_id;
+> +	__u16 address;
+> +	__u64 value;
+> +} __attribute__((__packed__));
+
+They got lucky!
+
+oh well,
+
+greg k-h
