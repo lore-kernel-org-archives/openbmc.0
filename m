@@ -1,38 +1,107 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <prvs=6925d468ca=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=6925d468ca=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="YeoiOzkD"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="AZNDRmTB"; dkim-atps=neutral
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kj8c5BlXzDqLg
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 09:02:52 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2019 14:02:50 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,508,1539673200"; 
- d="scan'208,217";a="313924641"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga005.fm.intel.com with ESMTP; 22 Jan 2019 14:02:50 -0800
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kjbJ2pBJzDqLg
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 09:22:35 +1100 (AEDT)
+Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0MMJRrE010899; Tue, 22 Jan 2019 14:22:32 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=Wpi33p5dXcRtmqXgg2yMHSDmlI/2yUJud5altK/exH4=;
+ b=YeoiOzkDzi5wu06JIQJWAh56IIQiR5uNAZEUrg5st/zsQzHLB6nec/eW216sc5HYKklT
+ vX0rDARsB1hqxnXRUguwOO8Wtm4w9v5zpK9133EIcime5u5LRZD++wLK+7K90SrJxlVE
+ hx0oVFaIEcKkIJKsBepRkz1T+OYZPv+vtqI= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2q6bn481tq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Tue, 22 Jan 2019 14:22:32 -0800
+Received: from frc-hub01.TheFacebook.com (2620:10d:c021:18::171) by
+ frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Tue, 22 Jan 2019 14:22:31 -0800
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.71) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Tue, 22 Jan 2019 14:22:31 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Wpi33p5dXcRtmqXgg2yMHSDmlI/2yUJud5altK/exH4=;
+ b=AZNDRmTBAGuJ8QfwbizOzh3cQ2Rm1eQYN9l+5JAcfnsTbEts6zu3PfCozlR3sfIwkBq6p20OPCpKHVFA+RoZsELgJmwBwCuuKm1sYU7lGSfhwuLQwKBuK1YWNErf8l3biMc5Y3x/EBuOp3ivtWAtc2xTj+Sg8240+JX/f2x5Hck=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1319.namprd15.prod.outlook.com (10.172.182.7) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1537.31; Tue, 22 Jan 2019 22:22:30 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c%4]) with mapi id 15.20.1537.031; Tue, 22 Jan 2019
+ 22:22:30 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: Ed Tanous <ed.tanous@intel.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
 Subject: Re: Intel-ipmi-oem repo
-To: openbmc@lists.ozlabs.org
+Thread-Topic: Intel-ipmi-oem repo
+Thread-Index: AQHUsn6T2PovaFK5IEGTS1z8ksaC/qW72BMA//9+v4A=
+Date: Tue, 22 Jan 2019 22:22:30 +0000
+Message-ID: <0B0A393C-5A14-42A0-86A1-9606CD7F942C@fb.com>
 References: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
-Date: Tue, 22 Jan 2019 14:05:06 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
-MIME-Version: 1.0
-In-Reply-To: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
-Content-Type: multipart/alternative;
- boundary="------------BAD328A68D62F4AD3C2F7CB5"
+ <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
+In-Reply-To: <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
+Accept-Language: en-US
 Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::6:5da0]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1319;
+ 20:7kccPn+WxAAKjNtVV/yUmtYVvanN1/mhy6aaWTBFJkKNzbnyjpKiNNUVOOUO9pnhQritqV1iOhDiOLUowpof3986HJ6SGYUEM0OJcjf057Dl3TsbIDB8QdwsuN43Wm4Jt+QbL3Gz3tkXkn3onKwGYUiowbgBwfhZ2BeouYoW1eM=
+x-ms-office365-filtering-correlation-id: 8d3f1d86-db9d-4aba-d546-08d680b8192a
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600109)(711020)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1319; 
+x-ms-traffictypediagnostic: CY4PR15MB1319:
+x-microsoft-antispam-prvs: <CY4PR15MB1319D290F7E8F3EB1CB6B437DD980@CY4PR15MB1319.namprd15.prod.outlook.com>
+x-forefront-prvs: 0925081676
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(136003)(396003)(376002)(346002)(366004)(199004)(189003)(99286004)(106356001)(76176011)(97736004)(229853002)(2906002)(105586002)(110136005)(6116002)(316002)(68736007)(82746002)(36756003)(2501003)(46003)(6306002)(14454004)(256004)(478600001)(14444005)(236005)(966005)(54896002)(6512007)(102836004)(11346002)(446003)(53936002)(71190400001)(2616005)(6436002)(476003)(6486002)(186003)(81156014)(81166006)(606006)(86362001)(53546011)(33656002)(8676002)(7736002)(25786009)(6246003)(486006)(6506007)(8936002)(3480700005)(71200400001)(83716004);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1319;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: HOy8T2CmkK7BJ4o5VjQFknfhWwtzm7GLenekrpqvnS/YgMvCPUR0BnLpsK2CWvQBuV92NMo0QjpZxWEO9M8KKDo6kxUdHS4r3PmoyiJQygGblM+8LscAVrvk345CfAxrkkR1Fvckmuay0JSxqPwQUQkJpwyWJN6m2THr8Gb29M+MnypAFCY4HRO1/x/fiNDrare3XMpfiv+Wp+AiUzS3Kr1Sz/YSg4DROgUWZt2zqg4ZMGxHgBbfyXZD0Jj+HjZ7sp55VGNcWNpXtdWlsMYTIzImdxaMXub5+AdoeE45MdpMQidbUzQ/FxsgBtm4NWkcOjiUhwc3hyZqES5eZ4m6RQAUzajTyDVH6B+ZvEcJlWl0dHHQ6nE5bnapmtABpvqxG9J6cF65lQkT7doLN0oMs+UoHtkxHuVnBaBcjZOtdfM=
+spamdiagnosticoutput: 1:99
+spamdiagnosticmetadata: NSPM
+Content-Type: multipart/alternative;
+ boundary="_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d3f1d86-db9d-4aba-d546-08d680b8192a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jan 2019 22:22:30.2360 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1319
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-22_11:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,205 +113,192 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 22:02:57 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 22:22:37 -0000
 
-This is a multi-part message in MIME format.
---------------BAD328A68D62F4AD3C2F7CB5
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+--_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On 1/22/19 10:16 AM, Vijay Khemka wrote:
->
-> Team,
->
-> Intel-ipmi-oem should be broken and 2 parts, genric and oem specific.
-> I see several functionality in this repo like sensors and storage
-> commands are generic enough to be used by other platform who is using
-> entity manager. So I feel that we should have these functionalities to
-> be moved to a separate common repo which can be used by everyone and
-> this repo can only contain Intel OEM specific IPMI command support.
->
-When this work was first started, the hope was that the SDR, SEL and the
-sensor numbering changes could be rolled out to the whole project as the
-"standard", and that this was just a staging area.  Unfortunately, when
-we tried to push them, we got some late breaking feedback from the
-maintainer that some flows (like writing sensor values from the host)
-would break IBM systems.  Given that our systems didn't require or
-implement those flows, we didn't have a very clear path forward for how
-to get them upstreamed, and eventually ran out of time waiting for
-responses.
+SWYgd2UgY2FuIG1hbmFnZSB0aGlzIGluIHN0YW5kYXJkIHJlcG8gd2l0aCBzb21lIGNvbXBpbGUg
+dGltZSBjb25maWcgcGFyYW1ldGVyIHRvIHVzZSBjaG9zZW4gYXBwcm9hY2guIEl0IHdpbGwgaGVs
+cCBpbiBtYWludGFpbmluZyBtdWx0aXBsZSByZXBvLg0KDQpGcm9tOiBvcGVuYm1jIDxvcGVuYm1j
+LWJvdW5jZXMrdmlqYXlraGVta2E9ZmIuY29tQGxpc3RzLm96bGFicy5vcmc+IG9uIGJlaGFsZiBv
+ZiBFZCBUYW5vdXMgPGVkLnRhbm91c0BpbnRlbC5jb20+DQpEYXRlOiBUdWVzZGF5LCBKYW51YXJ5
+IDIyLCAyMDE5IGF0IDI6MDQgUE0NClRvOiAib3BlbmJtY0BsaXN0cy5vemxhYnMub3JnIiA8b3Bl
+bmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IEludGVsLWlwbWktb2VtIHJlcG8N
+Cg0KT24gMS8yMi8xOSAxMDoxNiBBTSwgVmlqYXkgS2hlbWthIHdyb3RlOg0KVGVhbSwNCkludGVs
+LWlwbWktb2VtIHNob3VsZCBiZSBicm9rZW4gYW5kIDIgcGFydHMsIGdlbnJpYyBhbmQgb2VtIHNw
+ZWNpZmljLiBJIHNlZSBzZXZlcmFsIGZ1bmN0aW9uYWxpdHkgaW4gdGhpcyByZXBvIGxpa2Ugc2Vu
+c29ycyBhbmQgc3RvcmFnZSBjb21tYW5kcyBhcmUgZ2VuZXJpYyBlbm91Z2ggdG8gYmUgdXNlZCBi
+eSBvdGhlciBwbGF0Zm9ybSB3aG8gaXMgdXNpbmcgZW50aXR5IG1hbmFnZXIuIFNvIEkgZmVlbCB0
+aGF0IHdlIHNob3VsZCBoYXZlIHRoZXNlIGZ1bmN0aW9uYWxpdGllcyB0byBiZSBtb3ZlZCB0byBh
+IHNlcGFyYXRlIGNvbW1vbiByZXBvIHdoaWNoIGNhbiBiZSB1c2VkIGJ5IGV2ZXJ5b25lIGFuZCB0
+aGlzIHJlcG8gY2FuIG9ubHkgY29udGFpbiBJbnRlbCBPRU0gc3BlY2lmaWMgSVBNSSBjb21tYW5k
+IHN1cHBvcnQuDQoNCldoZW4gdGhpcyB3b3JrIHdhcyBmaXJzdCBzdGFydGVkLCB0aGUgaG9wZSB3
+YXMgdGhhdCB0aGUgU0RSLCBTRUwgYW5kIHRoZSBzZW5zb3IgbnVtYmVyaW5nIGNoYW5nZXMgY291
+bGQgYmUgcm9sbGVkIG91dCB0byB0aGUgd2hvbGUgcHJvamVjdCBhcyB0aGUgInN0YW5kYXJkIiwg
+YW5kIHRoYXQgdGhpcyB3YXMganVzdCBhIHN0YWdpbmcgYXJlYS4gIFVuZm9ydHVuYXRlbHksIHdo
+ZW4gd2UgdHJpZWQgdG8gcHVzaCB0aGVtLCB3ZSBnb3Qgc29tZSBsYXRlIGJyZWFraW5nIGZlZWRi
+YWNrIGZyb20gdGhlIG1haW50YWluZXIgdGhhdCBzb21lIGZsb3dzIChsaWtlIHdyaXRpbmcgc2Vu
+c29yIHZhbHVlcyBmcm9tIHRoZSBob3N0KSB3b3VsZCBicmVhayBJQk0gc3lzdGVtcy4gIEdpdmVu
+IHRoYXQgb3VyIHN5c3RlbXMgZGlkbid0IHJlcXVpcmUgb3IgaW1wbGVtZW50IHRob3NlIGZsb3dz
+LCB3ZSBkaWRuJ3QgaGF2ZSBhIHZlcnkgY2xlYXIgcGF0aCBmb3J3YXJkIGZvciBob3cgdG8gZ2V0
+IHRoZW0gdXBzdHJlYW1lZCwgYW5kIGV2ZW50dWFsbHkgcmFuIG91dCBvZiB0aW1lIHdhaXRpbmcg
+Zm9yIHJlc3BvbnNlcy4NCg0KVGhlIGxhc3QgdGhyZWFkIEkgcmVjYWxsIG9uIHRoZSBpc3N1ZSB3
+YXMgaGVyZSwgd2hlcmUgdGhlIG1haW50YWluZXIgZG9jdW1lbnRlZCBzb21lIG9mIHRoZSBpc3N1
+ZXMgdGhhdCB3ZXJlIHByZXNlbnQgb24gSUJNIHN5c3RlbXMgd2l0aCB0aG9zZSBjb21tYW5kIHNl
+dHMuICBUaGVyZSB3ZXJlIHNldmVyYWwgb3RoZXIgZ2Vycml0IHJldmlld3MgdGhhdCBJIGNhbiBm
+aW5kIGlmIG5lZWRlZCwgYnV0IHRoZXkgYmFzaWNhbGx5IGJvaWxlZCBkb3duIHRvIHdoYXQncyBp
+biB0aGUgdGhyZWFkIGJlbG93Lg0KDQpodHRwczovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWls
+L29wZW5ibWMvMjAxOC1Ob3ZlbWJlci8wMTQxMzkuaHRtbDxodHRwczovL3VybGRlZmVuc2UucHJv
+b2Zwb2ludC5jb20vdjIvdXJsP3U9aHR0cHMtM0FfX2xpc3RzLm96bGFicy5vcmdfcGlwZXJtYWls
+X29wZW5ibWNfMjAxOC0yRE5vdmVtYmVyXzAxNDEzOS5odG1sJmQ9RHdNRGFRJmM9NVZEMFJUdE5s
+VGgzeWNkNDFiM01VdyZyPXY5TVUwS2k5cFduVFhDV3dqSFBWZ3BuQ1I4MHZYa2tjcklhcVU3VVNs
+NWcmbT1sT2hDOHk3S2NVM1EyUlE0am9ucnZzTlZiMnowN01nRFRlWElhX05FSUYwJnM9cVc5S1g2
+ZUVhMUIyY0NVSEtxWlJHWnRMU2I3S0NySzlTT04zUzVBV1lHOCZlPT4NCg0KR2l2ZW4gdGhhdCBp
+dCBzb3VuZHMgbGlrZSB0aGUgY29tbXVuaXR5IGlzIGludGVyZXN0ZWQgaW4gdGhlc2UgY2hhbmdl
+cyBiZWluZyByb2xsZWQgb3V0IHRvIG1vcmUgdGhhbiBqdXN0IGludGVsIHN5c3RlbXMsIEkgc3Vz
+cGVjdCB3ZSBuZWVkIHRvIGNvbnRpbnVlIHRoYXQgZGlzY3Vzc2lvbi4NCg0KRm9yIHJlZmVyZW5j
+ZSwgdGhlIGNoYW5nZXMgYmVpbmcgbWVudGlvbmVkIGVuYWJsZToNCg0KMS4gRHluYW1pYyBJUE1J
+IHNlbnNvciBjcmVhdGlvbiBiYXNlZCBvbiBkYnVzIG1hcHBlciByZWZsZWN0aW9uLCByYXRoZXIg
+dGhhbiBoYXJkY29kZWQgcGF0aHMgYW5kIHNlbnNvciBudW1iZXJzLg0KMi4gQXV0b21hdGljIGdl
+bmVyYXRpb24gb2YgdHlwZSAxIFNEUnMgKGluY2x1ZGluZyBNIGFuZCBCIHNjYWxpbmcpIGZyb20g
+ZGJ1cyBpbnRlcmZhY2VzLg0KMy4gQXV0b21hdGljIGdlbmVyYXRpb24gb2YgRlJVIHNkciByZWNv
+cmRzIGJhc2VkIG9uIGRidXMgaW50ZXJmYWNlcy4NCg0KVGhlcmUgYXJlIHByb2JhYmx5IG90aGVy
+IHRoaW5ncyB0aGF0IEknbSBmb3JnZXR0aW5nLCBidXQgdGhlc2UgYXJlIHRoZSBoaWdobGlnaHRz
+Lg0KDQpUb20sDQoNCkRvIHlvdSB0aGluayB0aGF0IHlvdSBjb3VsZCBwcm9wb3NlIGEgcGF0aCB0
+aGF0IHdvdWxkIGFsbG93IHRoZXNlIGNoYW5nZXMgaW50byB0aGUgbWFpbnN0cmVhbSwgd2hpbGUg
+c3RpbGwga2VlcGluZyBJQk0gc3lzdGVtcyBmdW5jdGlvbmFsPyAgQmFzZWQgb24gY29tbWVudHMg
+dGhhdCBJJ3ZlIGhlYXJkIGJvdGggaW4gcGVyc29uLCBhbmQgb24gb3RoZXIgZ2Vycml0IHJldmll
+d3MsIEkgYmVsaWV2ZSB0aGVzZSBjaGFuZ2VzIGhhdmUgc29tZSBsZXZlbCBvZiBzdXBwb3J0IGZy
+b20gdGhlIG90aGVyIHR3byBJUE1JIG1haW50YWluZXJzIChjb3JyZWN0IG1lIGlmIEknbSB3cm9u
+ZyBndXlzKS4NCg0KDQoNCklmIHRoZSBmaW5hbCBhbnN3ZXIgaXMgdGhhdCB3ZSByZWFsbHkgbmVl
+ZCB5ZXQgYW5vdGhlciByZXBvLCBzbyBiZSBpdCwgSSdtIGhhcHB5IHRvIGhlbHAgbWFpbnRhaW4g
+aXQsIGJ1dCBnaXZlbiB0aGUgaW50ZXJlc3QsIHdlIHNob3VsZCBhdCBsZWFzdCBpbnZlc3RpZ2F0
+ZSB0aGUgcG9zc2liaWxpdHkgb2YgbWFraW5nIHRoaXMgdGhlICJzdGFuZGFyZCIgZ29pbmcgZm9y
+d2FyZC4NCg0KTXkgMiBjZW50cyDwn5iKDQpNdWNoIGFwcHJlY2lhdGVkLg0KDQo=
 
-The last thread I recall on the issue was here, where the maintainer
-documented some of the issues that were present on IBM systems with
-those command sets.  There were several other gerrit reviews that I can
-find if needed, but they basically boiled down to what's in the thread
-below.
+--_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <F01E0E2864609C438E17F8A092AE4E8D@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
+IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
+IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJBcHBsZSBD
+b2xvciBFbW9qaSI7DQoJcGFub3NlLTE6MCAwIDAgMCAwIDAgMCAwIDAgMDt9DQovKiBTdHlsZSBE
+ZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0K
+CXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0
+Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29I
+eXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4
+dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9s
+bG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1k
+ZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1zb25vcm1hbDAsIGRpdi5t
+c29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCgltc28tbWFyZ2luLXRvcC1h
+bHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRv
+Ow0KCW1hcmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJD
+YWxpYnJpIixzYW5zLXNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE4DQoJe21zby1zdHlsZS10eXBl
+OnBlcnNvbmFsOw0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndp
+bmRvd3RleHQ7fQ0Kc3Bhbi5hcHBsZS1jb252ZXJ0ZWQtc3BhY2UNCgl7bXNvLXN0eWxlLW5hbWU6
+YXBwbGUtY29udmVydGVkLXNwYWNlO30NCnNwYW4uRW1haWxTdHlsZTIxDQoJe21zby1zdHlsZS10
+eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0K
+CWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhw
+b3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7c2l6
+ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGluO30NCmRpdi5X
+b3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT4NCjwvaGVhZD4N
+Cjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8ZGl2
+IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PHNwYW4gc3R5bGU9
+ImZvbnQtc2l6ZToxMS4wcHQiPklmIHdlIGNhbiBtYW5hZ2UgdGhpcyBpbiBzdGFuZGFyZCByZXBv
+IHdpdGggc29tZSBjb21waWxlIHRpbWUgY29uZmlnIHBhcmFtZXRlciB0byB1c2UgY2hvc2VuIGFw
+cHJvYWNoLiBJdCB3aWxsIGhlbHAgaW4gbWFpbnRhaW5pbmcgbXVsdGlwbGUgcmVwby48bzpwPjwv
+bzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1z
+aXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHlsZT0iYm9y
+ZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAjQjVDNERGIDEuMHB0O3BhZGRpbmc6My4wcHQgMGlu
+IDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+PHNwYW4gc3R5bGU9ImNvbG9yOmJs
+YWNrIj5Gcm9tOiA8L3NwYW4+PC9iPjxzcGFuIHN0eWxlPSJjb2xvcjpibGFjayI+b3BlbmJtYyAm
+bHQ7b3BlbmJtYy1ib3VuY2VzJiM0Mzt2aWpheWtoZW1rYT1mYi5jb21AbGlzdHMub3psYWJzLm9y
+ZyZndDsgb24gYmVoYWxmIG9mIEVkIFRhbm91cyAmbHQ7ZWQudGFub3VzQGludGVsLmNvbSZndDs8
+YnI+DQo8Yj5EYXRlOiA8L2I+VHVlc2RheSwgSmFudWFyeSAyMiwgMjAxOSBhdCAyOjA0IFBNPGJy
+Pg0KPGI+VG86IDwvYj4mcXVvdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmcXVvdDsgJmx0O29w
+ZW5ibWNAbGlzdHMub3psYWJzLm9yZyZndDs8YnI+DQo8Yj5TdWJqZWN0OiA8L2I+UmU6IEludGVs
+LWlwbWktb2VtIHJlcG88bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJz
+cDs8L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
+T24gMS8yMi8xOSAxMDoxNiBBTSwgVmlqYXkgS2hlbWthIHdyb3RlOjxvOnA+PC9vOnA+PC9wPg0K
+PC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0ibWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9t
+OjUuMHB0Ij4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEu
+MHB0O2NvbG9yOmJsYWNrIj5UZWFtLDwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
+c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2NvbG9yOmJsYWNrIj5JbnRl
+bC1pcG1pLW9lbSBzaG91bGQgYmUgYnJva2VuIGFuZCAyIHBhcnRzLCBnZW5yaWMgYW5kIG9lbSBz
+cGVjaWZpYy4gSSBzZWUgc2V2ZXJhbCBmdW5jdGlvbmFsaXR5IGluIHRoaXMgcmVwbyBsaWtlIHNl
+bnNvcnMgYW5kIHN0b3JhZ2UgY29tbWFuZHMgYXJlIGdlbmVyaWMgZW5vdWdoIHRvIGJlIHVzZWQg
+Ynkgb3RoZXIgcGxhdGZvcm0NCiB3aG8gaXMgdXNpbmcgZW50aXR5IG1hbmFnZXIuIFNvIEkgZmVl
+bCB0aGF0IHdlIHNob3VsZCBoYXZlIHRoZXNlIGZ1bmN0aW9uYWxpdGllcyB0byBiZSBtb3ZlZCB0
+byBhIHNlcGFyYXRlIGNvbW1vbiByZXBvIHdoaWNoIGNhbiBiZSB1c2VkIGJ5IGV2ZXJ5b25lIGFu
+ZCB0aGlzIHJlcG8gY2FuIG9ubHkgY29udGFpbiBJbnRlbCBPRU0gc3BlY2lmaWMgSVBNSSBjb21t
+YW5kIHN1cHBvcnQuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9ibG9ja3F1b3RlPg0KPHA+V2hl
+biB0aGlzIHdvcmsgd2FzIGZpcnN0IHN0YXJ0ZWQsIHRoZSBob3BlIHdhcyB0aGF0IHRoZSBTRFIs
+IFNFTCBhbmQgdGhlIHNlbnNvciBudW1iZXJpbmcgY2hhbmdlcyBjb3VsZCBiZSByb2xsZWQgb3V0
+IHRvIHRoZSB3aG9sZSBwcm9qZWN0IGFzIHRoZSAmcXVvdDtzdGFuZGFyZCZxdW90OywgYW5kIHRo
+YXQgdGhpcyB3YXMganVzdCBhIHN0YWdpbmcgYXJlYS4mbmJzcDsgVW5mb3J0dW5hdGVseSwgd2hl
+biB3ZSB0cmllZCB0byBwdXNoIHRoZW0sIHdlIGdvdCBzb21lIGxhdGUNCiBicmVha2luZyBmZWVk
+YmFjayBmcm9tIHRoZSBtYWludGFpbmVyIHRoYXQgc29tZSBmbG93cyAobGlrZSB3cml0aW5nIHNl
+bnNvciB2YWx1ZXMgZnJvbSB0aGUgaG9zdCkgd291bGQgYnJlYWsgSUJNIHN5c3RlbXMuJm5ic3A7
+IEdpdmVuIHRoYXQgb3VyIHN5c3RlbXMgZGlkbid0IHJlcXVpcmUgb3IgaW1wbGVtZW50IHRob3Nl
+IGZsb3dzLCB3ZSBkaWRuJ3QgaGF2ZSBhIHZlcnkgY2xlYXIgcGF0aCBmb3J3YXJkIGZvciBob3cg
+dG8gZ2V0IHRoZW0gdXBzdHJlYW1lZCwNCiBhbmQgZXZlbnR1YWxseSByYW4gb3V0IG9mIHRpbWUg
+d2FpdGluZyBmb3IgcmVzcG9uc2VzLjxvOnA+PC9vOnA+PC9wPg0KPHA+VGhlIGxhc3QgdGhyZWFk
+IEkgcmVjYWxsIG9uIHRoZSBpc3N1ZSB3YXMgaGVyZSwgd2hlcmUgdGhlIG1haW50YWluZXIgZG9j
+dW1lbnRlZCBzb21lIG9mIHRoZSBpc3N1ZXMgdGhhdCB3ZXJlIHByZXNlbnQgb24gSUJNIHN5c3Rl
+bXMgd2l0aCB0aG9zZSBjb21tYW5kIHNldHMuJm5ic3A7IFRoZXJlIHdlcmUgc2V2ZXJhbCBvdGhl
+ciBnZXJyaXQgcmV2aWV3cyB0aGF0IEkgY2FuIGZpbmQgaWYgbmVlZGVkLCBidXQgdGhleSBiYXNp
+Y2FsbHkgYm9pbGVkIGRvd24NCiB0byB3aGF0J3MgaW4gdGhlIHRocmVhZCBiZWxvdy48bzpwPjwv
+bzpwPjwvcD4NCjxwPjxhIGhyZWY9Imh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50LmNvbS92
+Mi91cmw/dT1odHRwcy0zQV9fbGlzdHMub3psYWJzLm9yZ19waXBlcm1haWxfb3BlbmJtY18yMDE4
+LTJETm92ZW1iZXJfMDE0MTM5Lmh0bWwmYW1wO2Q9RHdNRGFRJmFtcDtjPTVWRDBSVHRObFRoM3lj
+ZDQxYjNNVXcmYW1wO3I9djlNVTBLaTlwV25UWENXd2pIUFZncG5DUjgwdlhra2NySWFxVTdVU2w1
+ZyZhbXA7bT1sT2hDOHk3S2NVM1EyUlE0am9ucnZzTlZiMnowN01nRFRlWElhX05FSUYwJmFtcDtz
+PXFXOUtYNmVFYTFCMmNDVUhLcVpSR1p0TFNiN0tDcks5U09OM1M1QVdZRzgmYW1wO2U9Ij5odHRw
+czovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAxOC1Ob3ZlbWJlci8wMTQx
+MzkuaHRtbDwvYT48bzpwPjwvbzpwPjwvcD4NCjxwPkdpdmVuIHRoYXQgaXQgc291bmRzIGxpa2Ug
+dGhlIGNvbW11bml0eSBpcyBpbnRlcmVzdGVkIGluIHRoZXNlIGNoYW5nZXMgYmVpbmcgcm9sbGVk
+IG91dCB0byBtb3JlIHRoYW4ganVzdCBpbnRlbCBzeXN0ZW1zLCBJIHN1c3BlY3Qgd2UgbmVlZCB0
+byBjb250aW51ZSB0aGF0IGRpc2N1c3Npb24uPG86cD48L286cD48L3A+DQo8cD5Gb3IgcmVmZXJl
+bmNlLCB0aGUgY2hhbmdlcyBiZWluZyBtZW50aW9uZWQgZW5hYmxlOjxvOnA+PC9vOnA+PC9wPg0K
+PHA+MS4gRHluYW1pYyBJUE1JIHNlbnNvciBjcmVhdGlvbiBiYXNlZCBvbiBkYnVzIG1hcHBlciBy
+ZWZsZWN0aW9uLCByYXRoZXIgdGhhbiBoYXJkY29kZWQgcGF0aHMgYW5kIHNlbnNvciBudW1iZXJz
+Ljxicj4NCjIuIEF1dG9tYXRpYyBnZW5lcmF0aW9uIG9mIHR5cGUgMSBTRFJzIChpbmNsdWRpbmcg
+TSBhbmQgQiBzY2FsaW5nKSBmcm9tIGRidXMgaW50ZXJmYWNlcy48YnI+DQozLiBBdXRvbWF0aWMg
+Z2VuZXJhdGlvbiBvZiBGUlUgc2RyIHJlY29yZHMgYmFzZWQgb24gZGJ1cyBpbnRlcmZhY2VzLjxv
+OnA+PC9vOnA+PC9wPg0KPHA+VGhlcmUgYXJlIHByb2JhYmx5IG90aGVyIHRoaW5ncyB0aGF0IEkn
+bSBmb3JnZXR0aW5nLCBidXQgdGhlc2UgYXJlIHRoZSBoaWdobGlnaHRzLjxvOnA+PC9vOnA+PC9w
+Pg0KPHA+VG9tLDxvOnA+PC9vOnA+PC9wPg0KPHA+RG8geW91IHRoaW5rIHRoYXQgeW91IGNvdWxk
+IHByb3Bvc2UgYSBwYXRoIHRoYXQgd291bGQgYWxsb3cgdGhlc2UgY2hhbmdlcyBpbnRvIHRoZSBt
+YWluc3RyZWFtLCB3aGlsZSBzdGlsbCBrZWVwaW5nIElCTSBzeXN0ZW1zIGZ1bmN0aW9uYWw/Jm5i
+c3A7IEJhc2VkIG9uIGNvbW1lbnRzIHRoYXQgSSd2ZSBoZWFyZCBib3RoIGluIHBlcnNvbiwgYW5k
+IG9uIG90aGVyIGdlcnJpdCByZXZpZXdzLCBJIGJlbGlldmUgdGhlc2UgY2hhbmdlcyBoYXZlIHNv
+bWUgbGV2ZWwNCiBvZiBzdXBwb3J0IGZyb20gdGhlIG90aGVyIHR3byBJUE1JIG1haW50YWluZXJz
+IChjb3JyZWN0IG1lIGlmIEknbSB3cm9uZyBndXlzKS48bzpwPjwvbzpwPjwvcD4NCjxwPjxvOnA+
+Jm5ic3A7PC9vOnA+PC9wPg0KPHA+SWYgdGhlIGZpbmFsIGFuc3dlciBpcyB0aGF0IHdlIHJlYWxs
+eSBuZWVkIHlldCBhbm90aGVyIHJlcG8sIHNvIGJlIGl0LCBJJ20gaGFwcHkgdG8gaGVscCBtYWlu
+dGFpbiBpdCwgYnV0IGdpdmVuIHRoZSBpbnRlcmVzdCwgd2Ugc2hvdWxkIGF0IGxlYXN0IGludmVz
+dGlnYXRlIHRoZSBwb3NzaWJpbGl0eSBvZiBtYWtpbmcgdGhpcyB0aGUgJnF1b3Q7c3RhbmRhcmQm
+cXVvdDsgZ29pbmcgZm9yd2FyZC48bzpwPjwvbzpwPjwvcD4NCjxibG9ja3F1b3RlIHN0eWxlPSJt
+YXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQiPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMS4wcHQ7Y29sb3I6YmxhY2siPiZuYnNwOzwvc3Bh
+bj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
+LXNpemU6MTEuMHB0O2NvbG9yOmJsYWNrIj5NeSAyIGNlbnRzJm5ic3A7PC9zcGFuPjxzcGFuIHN0
+eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0FwcGxlIENvbG9yIEVtb2pp
+JnF1b3Q7Ij4mIzEyODUyMjs8L3NwYW4+PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8
+cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExLjBwdCI+TXVjaCBh
+cHByZWNpYXRlZC48YnI+DQo8YnI+DQo8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwv
+Ym9keT4NCjwvaHRtbD4NCg==
 
-Given that it sounds like the community is interested in these changes
-being rolled out to more than just intel systems, I suspect we need to
-continue that discussion.
-
-For reference, the changes being mentioned enable:
-
-1. Dynamic IPMI sensor creation based on dbus mapper reflection, rather
-than hardcoded paths and sensor numbers.
-2. Automatic generation of type 1 SDRs (including M and B scaling) from
-dbus interfaces.
-3. Automatic generation of FRU sdr records based on dbus interfaces.
-
-There are probably other things that I'm forgetting, but these are the
-highlights.
-
-Tom,
-
-Do you think that you could propose a path that would allow these
-changes into the mainstream, while still keeping IBM systems
-functional?  Based on comments that I've heard both in person, and on
-other gerrit reviews, I believe these changes have some level of support
-from the other two IPMI maintainers (correct me if I'm wrong guys).
-
-
-If the final answer is that we really need yet another repo, so be it,
-I'm happy to help maintain it, but given the interest, we should at
-least investigate the possibility of making this the "standard" going
-forward.
-
->  
->
-> My 2 cents 😊
->
-Much appreciated.
-
---------------BAD328A68D62F4AD3C2F7CB5
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <div class="moz-cite-prefix">On 1/22/19 10:16 AM, Vijay Khemka
-      wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-      <meta name="Generator" content="Microsoft Word 15 (filtered
-        medium)">
-      <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Apple Color Emoji";
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.apple-converted-space
-	{mso-style-name:apple-converted-space;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-      <div class="WordSection1">
-        <p class="MsoNormal"><span style="font-size:11.0pt;color:black">Team,</span><span
-            style="color:black"><o:p></o:p></span></p>
-        <p class="MsoNormal"><span style="font-size:11.0pt;color:black">Intel-ipmi-oem
-            should be broken and 2 parts, genric and oem specific. I see
-            several functionality in this repo like sensors and storage
-            commands are generic enough to be used by other platform who
-            is using entity manager. So I feel that we should have these
-            functionalities to be moved to a separate common repo which
-            can be used by everyone and this repo can only contain Intel
-            OEM specific IPMI command support.</span><span
-            style="color:black"><o:p></o:p></span></p>
-      </div>
-    </blockquote>
-    <p>When this work was first started, the hope was that the SDR, SEL
-      and the sensor numbering changes could be rolled out to the whole
-      project as the "standard", and that this was just a staging area. 
-      Unfortunately, when we tried to push them, we got some late
-      breaking feedback from the maintainer that some flows (like
-      writing sensor values from the host) would break IBM systems. 
-      Given that our systems didn't require or implement those flows, we
-      didn't have a very clear path forward for how to get them
-      upstreamed, and eventually ran out of time waiting for responses.</p>
-    <p>The last thread I recall on the issue was here, where the
-      maintainer documented some of the issues that were present on IBM
-      systems with those command sets.  There were several other gerrit
-      reviews that I can find if needed, but they basically boiled down
-      to what's in the thread below.<br>
-    </p>
-    <p><a class="moz-txt-link-freetext" href="https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html">https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html</a></p>
-    <p>Given that it sounds like the community is interested in these
-      changes being rolled out to more than just intel systems, I
-      suspect we need to continue that discussion.</p>
-    <p>For reference, the changes being mentioned enable:</p>
-    <p>1. Dynamic IPMI sensor creation based on dbus mapper reflection,
-      rather than hardcoded paths and sensor numbers.<br>
-      2. Automatic generation of type 1 SDRs (including M and B scaling)
-      from dbus interfaces.<br>
-      3. Automatic generation of FRU sdr records based on dbus
-      interfaces.</p>
-    <p>There are probably other things that I'm forgetting, but these
-      are the highlights.</p>
-    <p>Tom,</p>
-    <p>Do you think that you could propose a path that would allow these
-      changes into the mainstream, while still keeping IBM systems
-      functional?  Based on comments that I've heard both in person, and
-      on other gerrit reviews, I believe these changes have some level
-      of support from the other two IPMI maintainers (correct me if I'm
-      wrong guys).</p>
-    <p><br>
-    </p>
-    <p>If the final answer is that we really need yet another repo, so
-      be it, I'm happy to help maintain it, but given the interest, we
-      should at least investigate the possibility of making this the
-      "standard" going forward.<br>
-    </p>
-    <blockquote type="cite"
-      cite="mid:B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com">
-      <div class="WordSection1">
-        <p class="MsoNormal"><span style="font-size:11.0pt;color:black"> </span><span
-            style="color:black"><o:p></o:p></span></p>
-        <p class="MsoNormal"><span style="font-size:11.0pt;color:black">My
-            2 cents </span><span
-            style="font-size:11.0pt;font-family:&quot;Apple Color
-            Emoji&quot;;color:black">😊</span><span style="color:black"><o:p></o:p></span></p>
-        <span style="font-size:11.0pt;color:black"></span><span
-          style="color:black"><o:p></o:p></span>
-      </div>
-    </blockquote>
-    Much appreciated.<br>
-  </body>
-</html>
-
---------------BAD328A68D62F4AD3C2F7CB5--
+--_000_0B0A393C5A1442A086A19606CD7F942Cfbcom_--
