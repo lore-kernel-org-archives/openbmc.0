@@ -1,65 +1,56 @@
-Return-Path: <kuiying.wang@intel.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=kuiying.wang@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::334; helo=mail-ot1-x334.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="W2vaABHF"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
+ [IPv6:2607:f8b0:4864:20::334])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kQ00571CzDqND
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 21:39:27 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Jan 2019 02:39:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,505,1539673200"; d="scan'208";a="127621276"
-Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
- by FMSMGA003.fm.intel.com with ESMTP; 22 Jan 2019 02:39:25 -0800
-Received: from fmsmsx119.amr.corp.intel.com (10.18.124.207) by
- FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Tue, 22 Jan 2019 02:39:25 -0800
-Received: from shsmsx105.ccr.corp.intel.com (10.239.4.158) by
- FMSMSX119.amr.corp.intel.com (10.18.124.207) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Tue, 22 Jan 2019 02:39:24 -0800
-Received: from shsmsx102.ccr.corp.intel.com ([169.254.2.63]) by
- SHSMSX105.ccr.corp.intel.com ([169.254.11.184]) with mapi id 14.03.0415.000;
- Tue, 22 Jan 2019 18:39:22 +0800
-From: "Wang, Kuiying" <kuiying.wang@intel.com>
-To: Linus Walleij <linus.walleij@linaro.org>
-CC: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, "Thomas
- Petazzoni" <thomas.petazzoni@bootlin.com>, "open list:GPIO SUBSYSTEM"
- <linux-gpio@vger.kernel.org>, Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery, Vernon"
- <vernon.mauery@intel.com>, "Feist, James" <james.feist@intel.com>, "Yoo, Jae
- Hyun" <jae.hyun.yoo@intel.com>, "Nguyen, Hai V" <hai.v.nguyen@intel.com>,
- "Khetan, Sharad" <sharad.khetan@intel.com>
-Subject: RE: Enable buttons GPIO passthrough
-Thread-Topic: Enable buttons GPIO passthrough
-Thread-Index: AQHUqY1NYywjorJW6EeKU0Lg6H6RIKWtkS8AgABZUQCAAgEksIAAKXmg//+oEgCAAj7wUIAHP+CAgAHrjjA=
-Date: Tue, 22 Jan 2019 10:39:21 +0000
-Message-ID: <959CAFA1E282D14FB901BE9A7BF4E7724E440ABF@shsmsx102.ccr.corp.intel.com>
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
- <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
- <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
- <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
- <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
- <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
- <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
-In-Reply-To: <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.239.127.40]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kTmj6DrRzDqLD
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 00:29:57 +1100 (AEDT)
+Received: by mail-ot1-x334.google.com with SMTP id i20so23651462otl.0
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jan 2019 05:29:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=S+dUEpmUinEPt6hOolX6dNbER4f62nxDOsOSTRC5mZI=;
+ b=W2vaABHFHHVreszSM+IwS1XbZhiF2u53iz7wPh1I+lgITIGyMqYyUPgTZ4JYeBnoGx
+ YI8BskTwzj4yGXVGaUeuc7m6Mn80D6zC6Rx8lMdAg/PoMVc4idfJGIuquroyD0jbwo+n
+ 2G14Y8gkfvtGB3gNsvubVKHHtUjDZx9k4P/NEfUuL61jPXsacp5lAHJVhVmVEXTX/mCn
+ OzVdfQ1UVz3KqwfKczBksFItDQcnTPRq1M4IDkulTaCpx7sD21YylhNnEv2Qw05y29Qd
+ nMhk6rh5y/Hwflayj3pBPnCg/iQZRCNcmJfCQ6Is+ogzIUjXEQxhwYFM/wHytEVgqQhx
+ T5/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=S+dUEpmUinEPt6hOolX6dNbER4f62nxDOsOSTRC5mZI=;
+ b=UqnColzvqS4jBY7M7BGvOBTuT10zu43Gn85uTapcWaw97iSU17hN/tu7cTgscdABra
+ RsAwPZXJ8mGD35CwemePE9ci/+C6TV5clTNfBsroM8OXnBCtCeWTW5vEt3FvrTNfgT42
+ iV9ltgijK+oK/VYoxs1EDjPaaSDI8yynsqxR0a3QozObIdQ/g+nbTlFmsAjjshyGq0Ww
+ taa4JptLXfKHkJUHa1L2ENtJjhbEQciVDyAXbta5V9+vacoadih7HKcwG99H2ogfQUx2
+ dwo2Vt2hvUAoNQqb1oVstyycECnpNLeXOJhpCQ54kFbGSToUrkOtAln93AXwq4qEaNRr
+ zp/Q==
+X-Gm-Message-State: AJcUukfYRsSfWyNU1fhENzbB8/3lfAbTQRsQAQlZ88WrrVRZNs2062KX
+ fnxQg6uo1eCWisdDGN/nDApEb1yTTD1EG+1ZwaY=
+X-Google-Smtp-Source: ALg8bN5UuD37G+3fAtLkZJgFJdsC/lRdD89IAWbfdo1LGlccuEz4IfRNWg7MfxbImJCB7SzV617b5wH5k0opvJynsyc=
+X-Received: by 2002:a9d:74c3:: with SMTP id a3mr23482239otl.107.1548163795351; 
+ Tue, 22 Jan 2019 05:29:55 -0800 (PST)
 MIME-Version: 1.0
+References: <SN6PR02MB56937EE5CC255D9D877300A4969F0@SN6PR02MB5693.namprd02.prod.outlook.com>
+In-Reply-To: <SN6PR02MB56937EE5CC255D9D877300A4969F0@SN6PR02MB5693.namprd02.prod.outlook.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 22 Jan 2019 07:29:39 -0600
+Message-ID: <CALLMt=o1wqtaGLKRxLS6Hj5obFUFMaZNZHxc9VZ+=_PLCQdUEQ@mail.gmail.com>
+Subject: Re: couple OpenBMC image build and update questions
+To: Brenden Lai <Brenden_Lai@jabil.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,105 +62,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 22 Jan 2019 10:39:29 -0000
+X-List-Received-Date: Tue, 22 Jan 2019 13:30:00 -0000
 
-SGkgTGludXMsDQpMZXQgbWUgYXR0YWNoIGEgZHJhZnQgcGF0Y2gsIGl0IHdpbGwgYmUgZWFzeSB0
-byB1bmRlcnN0YW5kLg0KDQppZiBzb21lb25lIHdhbm5hIGVuYWJsZSBwYXNzdGhyb3VnaCBqdXN0
-IG5lZWQgdG8gb3ZlcnJpZGUgbGlrZSAiIGdwaW8tPmNoaXAuZGlyZWN0aW9uX3Bhc3N0aHJvdWdo
-ID0gYXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoOyINCmVsc2UgcGFzc3Rocm91Z2ggaXMgZGlz
-YWJsZWQuDQoNCkluIGFwcCBsZXZlbCwganVzdCBuZWVkIHRvIGVjaG8gInBhc3N0aHJvdWdoIiB0
-byBlbmFibGUgcGFzc3Rocm91Z2ggbGlrZSAiZWNobyBwYXNzdGhyb3VnaCA+IC9zeXMvY2xhc3Mv
-Z3Bpby9ncGlvMzUvZGlyZWN0aW9uIg0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dwaW8t
-YXNwZWVkLmMgYi9kcml2ZXJzL2dwaW8vZ3Bpby1hc3BlZWQuYw0KaW5kZXggMjM0MmUxNTQwMjli
-Li4xMDkxY2VkZWQ3NmEgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwaW8vZ3Bpby1hc3BlZWQuYw0K
-KysrIGIvZHJpdmVycy9ncGlvL2dwaW8tYXNwZWVkLmMNCkBAIC00ODIsNiArNDgyLDMzIEBAIHN0
-YXRpYyBpbnQgYXNwZWVkX2dwaW9fZGlyX291dChzdHJ1Y3QgZ3Bpb19jaGlwICpnYywNCiAJcmV0
-dXJuIDA7DQogfQ0KIA0KK3N0YXRpYyBpbnQgYXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoKHN0
-cnVjdCBncGlvX2NoaXAgKmdjLA0KKwkJCSAgICAgICB1bnNpZ25lZCBpbnQgb2Zmc2V0KQ0KK3sN
-CisJc3RydWN0IGFzcGVlZF9ncGlvICpncGlvID0gZ3Bpb2NoaXBfZ2V0X2RhdGEoZ2MpOw0KKwlj
-b25zdCBzdHJ1Y3QgYXNwZWVkX2dwaW9fYmFuayAqYmFuayA9IHRvX2Jhbmsob2Zmc2V0KTsNCisJ
-dm9pZCBfX2lvbWVtICphZGRyID0gYmFua19yZWcoZ3BpbywgYmFuaywgcmVnX2Rpcik7DQorCXVu
-c2lnbmVkIGxvbmcgZmxhZ3M7DQorCWJvb2wgY29wcm87DQorCXUzMiByZWc7DQorCXByaW50aygi
-a3dpbjo6YXNwZWVkX2dwaW9fZGlyX3Bhc3N0aHJvdWdoIik7DQorCS8vVE9ETyBlbmFibGVfcGFz
-c3Rocm91aGcoKTsNCisJc3Bpbl9sb2NrX2lycXNhdmUoJmdwaW8tPmxvY2ssIGZsYWdzKTsNCisN
-CisJcmVnID0gaW9yZWFkMzIoYWRkcik7DQorCXJlZyB8PSBHUElPX0JJVChvZmZzZXQpOw0KKw0K
-Kwljb3BybyA9IGFzcGVlZF9ncGlvX2NvcHJvX3JlcXVlc3QoZ3Bpbywgb2Zmc2V0KTsNCisJLy9f
-X2FzcGVlZF9ncGlvX3NldChnYywgb2Zmc2V0LCB2YWwpOw0KKwlpb3dyaXRlMzIocmVnLCBhZGRy
-KTsNCisNCisJaWYgKGNvcHJvKQ0KKwkJYXNwZWVkX2dwaW9fY29wcm9fcmVsZWFzZShncGlvLCBv
-ZmZzZXQpOw0KKwlzcGluX3VubG9ja19pcnFyZXN0b3JlKCZncGlvLT5sb2NrLCBmbGFncyk7DQor
-DQorCXJldHVybiAwOw0KK30NCisNCiBzdGF0aWMgaW50IGFzcGVlZF9ncGlvX2dldF9kaXJlY3Rp
-b24oc3RydWN0IGdwaW9fY2hpcCAqZ2MsIHVuc2lnbmVkIGludCBvZmZzZXQpDQogew0KIAlzdHJ1
-Y3QgYXNwZWVkX2dwaW8gKmdwaW8gPSBncGlvY2hpcF9nZXRfZGF0YShnYyk7DQpAQCAtMTE4OCw2
-ICsxMjE1LDcgQEAgc3RhdGljIGludCBfX2luaXQgYXNwZWVkX2dwaW9fcHJvYmUoc3RydWN0IHBs
-YXRmb3JtX2RldmljZSAqcGRldikNCiAJZ3Bpby0+Y2hpcC5wYXJlbnQgPSAmcGRldi0+ZGV2Ow0K
-IAlncGlvLT5jaGlwLmRpcmVjdGlvbl9pbnB1dCA9IGFzcGVlZF9ncGlvX2Rpcl9pbjsNCiAJZ3Bp
-by0+Y2hpcC5kaXJlY3Rpb25fb3V0cHV0ID0gYXNwZWVkX2dwaW9fZGlyX291dDsNCisJZ3Bpby0+
-Y2hpcC5kaXJlY3Rpb25fcGFzc3Rocm91Z2ggPSBhc3BlZWRfZ3Bpb19kaXJfcGFzc3Rocm91Z2g7
-DQogCWdwaW8tPmNoaXAuZ2V0X2RpcmVjdGlvbiA9IGFzcGVlZF9ncGlvX2dldF9kaXJlY3Rpb247
-DQogCWdwaW8tPmNoaXAucmVxdWVzdCA9IGFzcGVlZF9ncGlvX3JlcXVlc3Q7DQogCWdwaW8tPmNo
-aXAuZnJlZSA9IGFzcGVlZF9ncGlvX2ZyZWU7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dw
-aW9saWItc3lzZnMuYyBiL2RyaXZlcnMvZ3Bpby9ncGlvbGliLXN5c2ZzLmMNCmluZGV4IDNkYmFm
-NDg5YThhNS4uNWM3ODA2N2FkMjUwIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncGlvL2dwaW9saWIt
-c3lzZnMuYw0KKysrIGIvZHJpdmVycy9ncGlvL2dwaW9saWItc3lzZnMuYw0KQEAgLTg5LDYgKzg5
-LDggQEAgc3RhdGljIHNzaXplX3QgZGlyZWN0aW9uX3N0b3JlKHN0cnVjdCBkZXZpY2UgKmRldiwN
-CiAJCXN0YXR1cyA9IGdwaW9kX2RpcmVjdGlvbl9vdXRwdXRfcmF3KGRlc2MsIDApOw0KIAllbHNl
-IGlmIChzeXNmc19zdHJlcShidWYsICJpbiIpKQ0KIAkJc3RhdHVzID0gZ3Bpb2RfZGlyZWN0aW9u
-X2lucHV0KGRlc2MpOw0KKwllbHNlIGlmIChzeXNmc19zdHJlcShidWYsICJwYXNzdGhyb3VnaCIp
-KQ0KKwkJc3RhdHVzID0gZ3Bpb2RfZGlyZWN0aW9uX3Bhc3N0aHJvdWdoKGRlc2MpOw0KIAllbHNl
-DQogCQlzdGF0dXMgPSAtRUlOVkFMOw0KIA0KQEAgLTMwMCw2ICszMDIsOCBAQCBzdGF0aWMgc3Np
-emVfdCBlZGdlX3N0b3JlKHN0cnVjdCBkZXZpY2UgKmRldiwNCiB9DQogc3RhdGljIERFVklDRV9B
-VFRSX1JXKGVkZ2UpOw0KIA0KKw0KKw0KIC8qIENhbGxlciBob2xkcyBncGlvZC1kYXRhIG11dGV4
-LiAqLw0KIHN0YXRpYyBpbnQgZ3Bpb19zeXNmc19zZXRfYWN0aXZlX2xvdyhzdHJ1Y3QgZGV2aWNl
-ICpkZXYsIGludCB2YWx1ZSkNCiB7DQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ncGlvL2dwaW9saWIu
-YyBiL2RyaXZlcnMvZ3Bpby9ncGlvbGliLmMNCmluZGV4IGE4ZTAxZDk5OTE5Yy4uNTMwNTczYmQ4
-NzExIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9ncGlvL2dwaW9saWIuYw0KKysrIGIvZHJpdmVycy9n
-cGlvL2dwaW9saWIuYw0KQEAgLTI1MzYsNiArMjUzNiwzMyBAQCBpbnQgZ3Bpb2RfZGlyZWN0aW9u
-X2lucHV0KHN0cnVjdCBncGlvX2Rlc2MgKmRlc2MpDQogfQ0KIEVYUE9SVF9TWU1CT0xfR1BMKGdw
-aW9kX2RpcmVjdGlvbl9pbnB1dCk7DQogDQorDQoraW50IGdwaW9kX2RpcmVjdGlvbl9wYXNzdGhy
-b3VnaChzdHJ1Y3QgZ3Bpb19kZXNjICpkZXNjKQ0KK3sNCisJc3RydWN0IGdwaW9fY2hpcAkqY2hp
-cDsNCisJaW50CQkJc3RhdHVzID0gLUVJTlZBTDsNCisNCisJVkFMSURBVEVfREVTQyhkZXNjKTsN
-CisJY2hpcCA9IGRlc2MtPmdkZXYtPmNoaXA7DQorDQorCWlmICghY2hpcC0+ZGlyZWN0aW9uX3Bh
-c3N0aHJvdWdoKSB7DQorCQlncGlvZF93YXJuKGRlc2MsDQorCQkJIiVzOiBtaXNzaW5nIGRpcmVj
-dGlvbl9wYXNzdGhyb3VnaCgpIG9wZXJhdGlvbnNcbiIsDQorCQkJX19mdW5jX18pOw0KKwkJcmV0
-dXJuIC1FSU87DQorCX0NCisNCisJc3RhdHVzID0gY2hpcC0+ZGlyZWN0aW9uX3Bhc3N0aHJvdWdo
-KGNoaXAsIGdwaW9fY2hpcF9od2dwaW8oZGVzYykpOw0KKwlpZiAoc3RhdHVzID09IDApDQorCQlj
-bGVhcl9iaXQoRkxBR19JU19PVVQsICZkZXNjLT5mbGFncyk7DQorDQorCXRyYWNlX2dwaW9fZGly
-ZWN0aW9uKGRlc2NfdG9fZ3BpbyhkZXNjKSwgMSwgc3RhdHVzKTsNCisNCisJcmV0dXJuIHN0YXR1
-czsNCit9DQorRVhQT1JUX1NZTUJPTF9HUEwoZ3Bpb2RfZGlyZWN0aW9uX3Bhc3N0aHJvdWdoKTsN
-CisNCisNCiBzdGF0aWMgaW50IGdwaW9fc2V0X2RyaXZlX3NpbmdsZV9lbmRlZChzdHJ1Y3QgZ3Bp
-b19jaGlwICpnYywgdW5zaWduZWQgb2Zmc2V0LA0KIAkJCQkgICAgICAgZW51bSBwaW5fY29uZmln
-X3BhcmFtIG1vZGUpDQogew0KZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIu
-aCBiL2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIuaA0KaW5kZXggYTRkNWViMzc3NDRhLi4wN2Uz
-MGY5ZTNiY2UgMTAwNjQ0DQotLS0gYS9pbmNsdWRlL2xpbnV4L2dwaW8vZHJpdmVyLmgNCisrKyBi
-L2luY2x1ZGUvbGludXgvZ3Bpby9kcml2ZXIuaA0KQEAgLTI0NSw2ICsyNDUsOCBAQCBzdHJ1Y3Qg
-Z3Bpb19jaGlwIHsNCiAJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJCQkoKmRpcmVjdGlv
-bl9vdXRwdXQpKHN0cnVjdCBncGlvX2NoaXAgKmNoaXAsDQogCQkJCQkJdW5zaWduZWQgb2Zmc2V0
-LCBpbnQgdmFsdWUpOw0KKwlpbnQJCQkoKmRpcmVjdGlvbl9wYXNzdGhyb3VnaCkoc3RydWN0IGdw
-aW9fY2hpcCAqY2hpcCwNCisJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJCQkoKmdldCko
-c3RydWN0IGdwaW9fY2hpcCAqY2hpcCwNCiAJCQkJCQl1bnNpZ25lZCBvZmZzZXQpOw0KIAlpbnQJ
-CQkoKmdldF9tdWx0aXBsZSkoc3RydWN0IGdwaW9fY2hpcCAqY2hpcCwNCg0KDQpUaGFua3MsDQpL
-d2luLg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBMaW51cyBXYWxsZWlq
-IFttYWlsdG86bGludXMud2FsbGVpakBsaW5hcm8ub3JnXSANClNlbnQ6IE1vbmRheSwgSmFudWFy
-eSAyMSwgMjAxOSA5OjEwIFBNDQpUbzogV2FuZywgS3VpeWluZyA8a3VpeWluZy53YW5nQGludGVs
-LmNvbT4NCkNjOiBKb2VsIFN0YW5sZXkgPGpvZWxAam1zLmlkLmF1PjsgQW5kcmV3IEplZmZlcnkg
-PGFuZHJld0Bhai5pZC5hdT47IFRob21hcyBQZXRhenpvbmkgPHRob21hcy5wZXRhenpvbmlAYm9v
-dGxpbi5jb20+OyBvcGVuIGxpc3Q6R1BJTyBTVUJTWVNURU0gPGxpbnV4LWdwaW9Admdlci5rZXJu
-ZWwub3JnPjsgQW5kcmV3IEdlaXNzbGVyIDxnZWlzc29uYXRvckBnbWFpbC5jb20+OyBPcGVuQk1D
-IE1haWxsaXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyBNYXVlcnksIFZlcm5vbiA8dmVy
-bm9uLm1hdWVyeUBpbnRlbC5jb20+OyBGZWlzdCwgSmFtZXMgPGphbWVzLmZlaXN0QGludGVsLmNv
-bT47IFlvbywgSmFlIEh5dW4gPGphZS5oeXVuLnlvb0BpbnRlbC5jb20+OyBOZ3V5ZW4sIEhhaSBW
-IDxoYWkudi5uZ3V5ZW5AaW50ZWwuY29tPjsgS2hldGFuLCBTaGFyYWQgPHNoYXJhZC5raGV0YW5A
-aW50ZWwuY29tPg0KU3ViamVjdDogUmU6IEVuYWJsZSBidXR0b25zIEdQSU8gcGFzc3Rocm91Z2gN
-Cg0KSGkgS3dpbiwNCg0KT24gV2VkLCBKYW4gMTYsIDIwMTkgYXQgMzozMCBQTSBXYW5nLCBLdWl5
-aW5nIDxrdWl5aW5nLndhbmdAaW50ZWwuY29tPiB3cm90ZToNCg0KPiBIaSBKb2VsLA0KPiBEbyBh
-Z3JlZSB0byB1c2UgcHJvcG9zYWwgIzE/IChleHRlbmQgInBhc3N0aHJvdWdoIiB0byB0aGUgImRp
-cmVjdGlvbiIgDQo+IHByb3BlcnR5IG9mIGdwaW8sIHVzZSAgInZhbHVlIiB0byBjb250cm9sIGl0
-IGJlIGRpc2FibGVkL2VuYWJsZWQuKQ0KPg0KPiBBbGwsDQo+IEFueSBvdGhlciBjb21tZW50cz8N
-Cg0KSSB0aGluayB5b3UgbWF5YmUgbWlzdW5kZXJzdG9vZCBteSBwcmV2aW91cyBtYWlsLCBvciBJ
-IG1pc3VuZGVyc3Rvb2QgeW91cnMgOikNCg0KTWFrZSBzdXJlIHRoYXQgcGFzc3Rocm91Z2ggbW9k
-ZSBpcyBzZXQgdXAgaW4gdGhlIC5zZXRfY29uZmlnKCkgY2FsbGJhY2ssIG5vdGhpbmcgZWxzZS4N
-Cg0KRG8gbm90IGNoYW5nZSB0aGUgc2lnbmF0dXJlcyBvZiB0aGUgZGlyZWN0aW9uIGZ1bmN0aW9u
-cyBvciBzZXRfdmFsdWUoKSBmdW5jdGlvbnMgaW4gZ3Bpb2xpYi4NCg0KQnV0IG1heWJlIHlvdSBh
-cmUgdGFsa2luZyBhYm91dCBpbXBsZW1lbnRhdGlvbiBkZXRhaWxzIGluIHRoZSBzcGVjaWZpYyBH
-UElPIGRyaXZlciBmb3IgQXNwZWVkPyBUaGVuIEkganVzdCBtaXNzZWQgdGhhdCBwYXJ0LCBzb3Jy
-eS4NCg0KWW91cnMsDQpMaW51cyBXYWxsZWlqDQo=
+On Mon, Jan 21, 2019 at 1:05 AM Brenden Lai <Brenden_Lai@jabil.com> wrote:
+>
+> Hi all ,
+>
+>                I have done my first OpenBMC build with ver 2.6 , it do take a long time .
+>                Here is my questions .
+>
+> Attach screenshot , Which one is the BMC FW image  after building?
+
+I haven't built the default qemuarm image in a long time. I believe
+obmc-phosphor-image-qemuarm.ext4 is the FW image.
+
+> Does the image for both QEMU and real machine ?
+
+I believe this default image would only support QEMU.
+
+> How to update it by programming tool like SF600?
+
+Yes, we use the dediprog tool internally to flash fresh chips.
+
+> Does it support online update such as AMI YAFU flash ?
+
+Not familiar with this but once you get OpenBMC on a systems, it does provide
+interfaces to update the firmware via a network connection.
+
+The system we use for our CI work is Romulus. This system is supported in
+QEMU and on real hardware if you'd like to give it a shot.
+
+https://github.com/openbmc/openbmc/blob/master/README.md#3-target-your-hardware
+talks about setting up your TEMPLATECONF for a system and
+https://github.com/openbmc/docs/blob/master/development/dev-environment.md#download-and-start-qemu-session
+has some pointers on starting your QEMU session. You'd of course need a Romulus
+system to flash on real hardware but hopefully it would help you get
+comfortable with
+building the image and testing in QEMU.
+
+OpenBMC images are very specific to the hardware so before flashing on
+your system
+ you'd need to ensure you've got all of the different config options setup.
+https://github.com/openbmc/docs/blob/master/development/add-new-system.md
+is a reference for how to add a new system.
+
+>
+>
+> Here is the output of my  build
+> brenden@brenden-VirtualBox:~/OCP/openbmc/build/tmp/deploy/images/qemuarm$ ls obmc*
+> obmc-phosphor-debug-tarball-qemuarm-20190119120630.qemuboot.conf
+> obmc-phosphor-debug-tarball-qemuarm-20190119120630.rootfs.manifest
+> obmc-phosphor-debug-tarball-qemuarm-20190119120630.rootfs.tar.xz
+> obmc-phosphor-debug-tarball-qemuarm-20190119120630.testdata.json
+> obmc-phosphor-debug-tarball-qemuarm.manifest
+> obmc-phosphor-debug-tarball-qemuarm.qemuboot.conf
+> obmc-phosphor-debug-tarball-qemuarm.tar.xz
+> obmc-phosphor-debug-tarball-qemuarm.testdata.json
+> obmc-phosphor-image-qemuarm-20190119120630.qemuboot.conf
+> obmc-phosphor-image-qemuarm-20190119120630.rootfs.ext4
+> obmc-phosphor-image-qemuarm-20190119120630.rootfs.manifest
+> obmc-phosphor-image-qemuarm-20190119120630.rootfs.tar.bz2
+> obmc-phosphor-image-qemuarm-20190119120630.testdata.json
+> obmc-phosphor-image-qemuarm.ext4
+> obmc-phosphor-image-qemuarm.manifest
+> obmc-phosphor-image-qemuarm.qemuboot.conf
+> obmc-phosphor-image-qemuarm.tar.bz2
+> obmc-phosphor-image-qemuarm.testdata.json
+>
+>
+> Brenden Lai
+> SR. BMC Design Engineer
+> E&I, Jabil Design Services
+>
+>
