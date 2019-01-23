@@ -1,52 +1,35 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::331; helo=mail-ot1-x331.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lZrrK3w+"; 
- dkim-atps=neutral
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43lBB56NdPzDqBP
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 03:50:53 +1100 (AEDT)
-Received: by mail-ot1-x331.google.com with SMTP id e12so2512855otl.5
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 08:50:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=t6ashdodUeP/8/EALYamEynR/jk5w2364SbBbW84834=;
- b=lZrrK3w+W7Og0Xy6FGTk1o8mva2es/+nriZIbcvU9Yqw2Fwst9H7l/CbwAZNz5oFIF
- Lr8VXgHEI9axwd62WU4gmmOmcOQCUUzUFM9UcKfovZiygeObl4Gn23rAdY1/aFl0iqg3
- 75iQrpFUBzAoFKT3+WLDUbly320GDxMO7sl35U0X34g2NSddJRkdbJ/WTOoILJXmSC+U
- rybmcO4+z/dA1BJk8o2WNIg298dJexYsSnRP8xbM0WgUsV0Oa4KmDxe1aeKQ1fUGYCr4
- XTm+QcokPBgoHkI0WBd7C0cIrYZ6pPuBHtybj9p3zM8lkW+uT2ea2YDGgMvnhojbQHB8
- 481g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=t6ashdodUeP/8/EALYamEynR/jk5w2364SbBbW84834=;
- b=IVJQWgkvOF1UUuEcaE1iPIo/lYfdhiYQ9qOkDCIUzCFh5QPcGJA9tmaH1rOb1Yui9k
- J068tAI8AN6jondteq/mx5+Dh2eLAV8Sje+gwsDfDbTI0wTjEO2ROqgvqeGYcw8DNVpi
- CcFrEMpkE1Bb5/+J6ZHI0miQ1Y0Y0/VzngwCOuPY5ilygIHH7PDJbexIJ+buT89rEZuJ
- 7XBjn0pydzDXLUC5urwTSEdC4UAS7syadc1w1rsEFl58NjFatn6LZm7/jJdHkMkdU21M
- eCvUJVNO7mtvrF9NTJ4ekpah5u4pNE/JYdjgQZ11bJpFX1crWv1M63HqAdCLR2rkQPeV
- lz9Q==
-X-Gm-Message-State: AJcUukc0CaD83Tyi1kRx2ivk4eCiMcb+jJbN6RgwzlxbPXjI/3gb4VJd
- yqmLuZqV6tfbLLbHWlda2qjHN1MNk9uqVhpy36F2wjoG
-X-Google-Smtp-Source: ALg8bN4US/yjjNZmD5eBAt+OEzmAdTSVp1j2aLIPG3X6QJq1pIvZnItIcFaGMOmVeC2XNWiG2DPJD8Zd5CQ8EmIBJWE=
-X-Received: by 2002:a9d:ecd:: with SMTP id 71mr1899048otj.155.1548262250931;
- Wed, 23 Jan 2019 08:50:50 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43lBMM3GqszDqKJ
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 03:58:54 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Wed, 23 Jan 2019 11:59:19 -0500
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Ed Tanous <ed.tanous@intel.com>
+Cc: Tom Joseph <tomjose@linux.vnet.ibm.com>, openbmc@lists.ozlabs.org,
+ jason.m.bills@intel.com, Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Emily Shaffer <emilyshaffer@google.com>,
+ Bradley W Bishop <bradleyb@us.ibm.com>
+Subject: Re: Intel-ipmi-oem repo
+Message-ID: <20190123165919.g4sifus4q3fxwphg@thinkpad>
+References: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
+ <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
+ <275b2db5-798f-b5c2-697a-bac50d6cd223@linux.vnet.ibm.com>
+ <12723f71-dc40-1306-b7fc-e238222aa230@intel.com>
 MIME-Version: 1.0
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Wed, 23 Jan 2019 10:50:35 -0600
-Message-ID: <CALLMt=p5adG8YL4HDq6BkpdDweCun+RMOkF4+ALOObXjG881EQ@mail.gmail.com>
-Subject: Infrastructure Workgroup Today - 3:00pm CT
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+In-Reply-To: <12723f71-dc40-1306-b7fc-e238222aa230@intel.com>
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,11 +41,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Jan 2019 16:50:55 -0000
+X-List-Received-Date: Wed, 23 Jan 2019 16:58:56 -0000
 
-We'll be discussing thud branch support, some CI escapes, and priorities
-for the team.
+On Wed, Jan 23, 2019 at 08:34:51AM -0800, Ed Tanous wrote:
+>=20
+> On 1/22/19 10:13 PM, Tom Joseph wrote:
+> > On Wednesday 23 January 2019 03:35 AM, Ed Tanous wrote:
+> >> On 1/22/19 10:16 AM, Vijay Khemka wrote:
+> >>> In the case of SEL we did make progress and reached a consensus. Th=
+e
+> >>> proposed solution was to support mapping sensor number to sensor
+> >>> D-Bus object paths in a flexible way(support both arbitrary mapping
+> >>> and hardcoded sensor number), so that IBM systems can coexist with
+> >>> the proposed SEL architecture. Jason was pursuing that and we
+> >>> haven't heard from him for quite some time, this was brought in the
+> >>> community call multiple times. =3D
+>=20
+> I was unaware Jason was still pursuing that, my understanding was that
+> there wasn't a clear path forward for that change series to be
+> compatible with IBM systems.=A0=20
 
-https://github.com/openbmc/openbmc/wiki/OpenBMC-Infrastructure-Workgroup
+This should read:
 
-Andrew
+a clear path forward for that change series to be compatible with every
+user of the project since it started. =20
+
+It is a common misconception that IBM was the only user of/contributor
+to this project prior to IBM donating it to The Linux Foundation last yea=
+r.
+In fact there were several contributors and users prior TLF.
+
+> Was there any details on what the proposed
+> solution was, and what the next steps are?
+
+Just to level set - Do you expect Tom/IBM to provide the solution?  May I
+ask why?  I felt the note from Tom spelled it out pretty clearly - an
+abstraction is needed for sensor numbers.
+
+>=A0It sounds like Vijay is
+> hitting a bit of a wall with having that stuff checked into meta-intel;=
+=A0
+> I'd much rather roll those changes out into net-ipmid than create a new
+> repo.
+
+Me too!
+
+>=20
+> As Brad said earlier in the thread, the proliferation of repos is
+> getting a bit nutty, and I'd like to avoid it if at all possible.
+>=20
