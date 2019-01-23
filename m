@@ -1,78 +1,81 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
+Return-Path: <Brenden_Lai@jabil.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=jabil.com
+ (client-ip=40.107.80.91; helo=nam03-dm3-obe.outbound.protection.outlook.com;
+ envelope-from=brenden_lai@jabil.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jabil.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=jabil.onmicrosoft.com header.i=@jabil.onmicrosoft.com
+ header.b="Hs9CuNPv"; dkim-atps=neutral
+Received: from NAM03-DM3-obe.outbound.protection.outlook.com
+ (mail-eopbgr800091.outbound.protection.outlook.com [40.107.80.91])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43kw2p3tPwzDqJW
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 17:13:38 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0N5x9NF022704
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 01:13:35 -0500
-Received: from e06smtp02.uk.ibm.com (e06smtp02.uk.ibm.com [195.75.94.98])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2q6et877x4-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 01:13:35 -0500
-Received: from localhost
- by e06smtp02.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
- Wed, 23 Jan 2019 06:13:32 -0000
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp02.uk.ibm.com (192.168.101.132) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 23 Jan 2019 06:13:31 -0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0N6DUXB7602492
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 23 Jan 2019 06:13:30 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E9B98A4040;
- Wed, 23 Jan 2019 06:13:29 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1CF57A404D;
- Wed, 23 Jan 2019 06:13:28 +0000 (GMT)
-Received: from [9.102.0.153] (unknown [9.102.0.153])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Wed, 23 Jan 2019 06:13:27 +0000 (GMT)
-Subject: Re: Intel-ipmi-oem repo
-To: Ed Tanous <ed.tanous@intel.com>, openbmc@lists.ozlabs.org
-References: <B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com>
- <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
-Cc: Bradley W Bishop <bradleyb@us.ibm.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, jason.m.bills@intel.com,
- dkodihal@linux.vnet.ibm.com, Emily Shaffer <emilyshaffer@google.com>
-From: Tom Joseph <tomjose@linux.vnet.ibm.com>
-Date: Wed, 23 Jan 2019 11:43:26 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
- Thunderbird/52.9.1
-MIME-Version: 1.0
-In-Reply-To: <1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com>
-Content-Type: multipart/alternative;
- boundary="------------34F9CEAD7D9C69ECB75E4477"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43kxBp4ChczDqLG
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Jan 2019 18:05:37 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.onmicrosoft.com; 
+ s=selector1-jabil-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Ii2mBBK7mbvIX/snDuzsIOVpFPYk7dPSIsiCj4zeC5I=;
+ b=Hs9CuNPvxBvzwMBqOwp4xOk8TfcgB+GKJCuKgdWlouMGT4tmJwT2K2PX75uV17jEhlrWwkQsQw975zdwbp/QhIMo7I5F9Kt894aAIAoFxu+I0IlruuNg25uC5x1QUI01eDZjDF1Z7ZARaIhTMRIYRvo7zsr2+VSPRJ+STOoEfsk=
+Received: from SN6PR02MB5693.namprd02.prod.outlook.com (20.177.252.17) by
+ SN6PR02MB5599.namprd02.prod.outlook.com (20.177.251.87) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1537.27; Wed, 23 Jan 2019 07:05:32 +0000
+Received: from SN6PR02MB5693.namprd02.prod.outlook.com
+ ([fe80::59f9:194e:34f4:584f]) by SN6PR02MB5693.namprd02.prod.outlook.com
+ ([fe80::59f9:194e:34f4:584f%4]) with mapi id 15.20.1537.031; Wed, 23 Jan 2019
+ 07:05:32 +0000
+From: Brenden Lai <Brenden_Lai@jabil.com>
+To: Andrew Geissler <geissonator@gmail.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: couple OpenBMC image build and update questions
+Thread-Topic: couple OpenBMC image build and update questions
+Thread-Index: AQHUslaRrN8ZSd96rUemxcSwYZ7rIqW8aqMQ
+Date: Wed, 23 Jan 2019 07:05:32 +0000
+Message-ID: <SN6PR02MB56934CFFE714BCE4A15B095096990@SN6PR02MB5693.namprd02.prod.outlook.com>
+References: <SN6PR02MB56937EE5CC255D9D877300A4969F0@SN6PR02MB5693.namprd02.prod.outlook.com>
+ <CALLMt=o1wqtaGLKRxLS6Hj5obFUFMaZNZHxc9VZ+=_PLCQdUEQ@mail.gmail.com>
+In-Reply-To: <CALLMt=o1wqtaGLKRxLS6Hj5obFUFMaZNZHxc9VZ+=_PLCQdUEQ@mail.gmail.com>
+Accept-Language: zh-TW, en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19012306-0008-0000-0000-000002B4B8CF
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19012306-0009-0000-0000-00002220E741
-Message-Id: <275b2db5-798f-b5c2-697a-bac50d6cd223@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-23_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901230048
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5LnR4dCIgcD0iYzpcdXNlcnNcMTUzMjE0OFxhcHBkYXRhXHJvYW1pbmdcMDlkODQ5YjYtMzJkMy00YTQwLTg1ZWUtNmI4NGJhMjllMzViXG1zZ3NcbXNnLTQ0MDI0YmZlLTFlZGQtMTFlOS04Nzk2LWI4OGE2MGEzMDY5MVxhbWUtdGVzdFw0NDAyNGJmZi0xZWRkLTExZTktODc5Ni1iODhhNjBhMzA2OTFib2R5LnR4dCIgc3o9IjQxMTMiIHQ9IjEzMTkyNzAwNzI5OTYyNDAyNiIgaD0iNjlGMnFQZ0VLMWlxSGY4YlYxYnFNUUJUNldJPSIgaWQ9IiIgYmw9IjAiIGJvPSIxIi8+PC9tZXRhPg==
+x-dg-rorf: =?utf-8?B?5IyA5r2s5pWz5LWJ5p2z5pWT542z5r2p5IGuNA==?=
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Brenden_Lai@jabil.com; 
+x-originating-ip: [165.225.102.61]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; SN6PR02MB5599;
+ 20:gu1PZzdF4cN+xeN7xpMt3eoKMa7lFNsXcaapKPqNWqADMjRNVohkXB0F3UUlIy4WNkFxa43PY5DuyTYzb6118HKR1CgJH69j6hBL+ufLvNbRUvOPA8a4TGdePFC9cu+okqPN7Azdz7kW6aOjZZLPVna1OgU2vEbtavo4S9XXx3g=
+x-ms-office365-filtering-correlation-id: cca6c4fd-0532-443b-8583-08d681012a92
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600110)(711020)(4605077)(4618075)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:SN6PR02MB5599; 
+x-ms-traffictypediagnostic: SN6PR02MB5599:
+x-microsoft-antispam-prvs: <SN6PR02MB55997D395CBCEF44E161E2C696990@SN6PR02MB5599.namprd02.prod.outlook.com>
+x-forefront-prvs: 0926B0E013
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(376002)(366004)(346002)(396003)(39860400002)(136003)(189003)(199004)(13464003)(53754006)(66574012)(8936002)(74316002)(3846002)(97736004)(446003)(86362001)(316002)(6506007)(6116002)(7736002)(8676002)(81156014)(81166006)(66066001)(14444005)(5024004)(305945005)(478600001)(1411001)(6916009)(80792005)(256004)(71200400001)(53936002)(71190400001)(25786009)(105586002)(6246003)(55236004)(6436002)(2906002)(53546011)(55016002)(15650500001)(68736007)(102836004)(476003)(6306002)(106356001)(186003)(11346002)(9686003)(33656002)(14454004)(229853002)(486006)(72206003)(26005)(99286004)(4326008)(966005)(39060400002)(76176011)(7696005);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR02MB5599;
+ H:SN6PR02MB5693.namprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: jabil.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: lUkCZCSpggPSx1pu1adL6UQBCjwWPZyJXUz2lScMWS7Z1Y516W1IZdGHf1roiltljD37L+2zoKhn0tlPTkDs496IxIzTWRdVR7Y/QNRqp2hvti/zm+DwgTtlk1y3EaFvu8a3SgxwxOVyjtfis+hc9g9mWgn96Stb1KdGV5xtcELAYFpRdHPjV0cgnvWJAEDvpYg7mCUqyLDskNzLRHlB6zuUdSqjbvE7/PqnpKWe1USqy5HBnhhHWQOJMz9KRVJmP2wiLz1kO3lEZym84eG6kulH2jQBm1ygWHJyYMJaDb2c8aAPWQT98iFibgKx1SnkXjq4OGk26un6sxRoE/UK+1J3xaCuMtHAiG3v21Roa9jMTfuGbcuqpfLZn/cXzuYSoK2qs87pcWeiRBz3DRt9FEyhOLViZ1p1GpJSIELMrAg=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: jabil.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cca6c4fd-0532-443b-8583-08d681012a92
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jan 2019 07:05:32.7268 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB5599
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,263 +87,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 23 Jan 2019 06:13:39 -0000
+X-List-Received-Date: Wed, 23 Jan 2019 07:05:40 -0000
 
-This is a multi-part message in MIME format.
---------------34F9CEAD7D9C69ECB75E4477
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-
-
-
-On Wednesday 23 January 2019 03:35 AM, Ed Tanous wrote:
-> On 1/22/19 10:16 AM, Vijay Khemka wrote:
->>
->> Team,
->>
->> Intel-ipmi-oem should be broken and 2 parts, genric and oem specific. 
->> I see several functionality in this repo like sensors and storage 
->> commands are generic enough to be used by other platform who is using 
->> entity manager. So I feel that we should have these functionalities 
->> to be moved to a separate common repo which can be used by everyone 
->> and this repo can only contain Intel OEM specific IPMI command support.
->>
-> When this work was first started, the hope was that the SDR, SEL and 
-> the sensor numbering changes could be rolled out to the whole project 
-> as the "standard", and that this was just a staging area.  
-> Unfortunately, when we tried to push them, we got some late breaking 
-> feedback from the maintainer that some flows (like writing sensor 
-> values from the host) would break IBM systems.  Given that our systems 
-> didn't require or implement those flows, we didn't have a very clear 
-> path forward for how to get them upstreamed, and eventually ran out of 
-> time waiting for responses.
->
-This is disappointing to hear, feedback was provided as early as May 
-2018 and discussed in the community calls earlier that that. 
-(https://gerrit.openbmc-project.xyz/#/c/openbmc/s2600wf-misc/+/8521/). 
-The major point of concern was arbitrary sensor numbers and the solution 
-was a flexible way to assign sensor numbers to sensor D-bus objects.
->
-> The last thread I recall on the issue was here, where the maintainer 
-> documented some of the issues that were present on IBM systems with 
-> those command sets.  There were several other gerrit reviews that I 
-> can find if needed, but they basically boiled down to what's in the 
-> thread below.
->
-> https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html
->
-> Given that it sounds like the community is interested in these changes 
-> being rolled out to more than just intel systems, I suspect we need to 
-> continue that discussion.
->
-> For reference, the changes being mentioned enable:
->
-> 1. Dynamic IPMI sensor creation based on dbus mapper reflection, 
-> rather than hardcoded paths and sensor numbers.
-> 2. Automatic generation of type 1 SDRs (including M and B scaling) 
-> from dbus interfaces.
-> 3. Automatic generation of FRU sdr records based on dbus interfaces.
->
-> There are probably other things that I'm forgetting, but these are the 
-> highlights.
->
-> Tom,
->
-> Do you think that you could propose a path that would allow these 
-> changes into the mainstream, while still keeping IBM systems 
-> functional?  Based on comments that I've heard both in person, and on 
-> other gerrit reviews, I believe these changes have some level of 
-> support from the other two IPMI maintainers (correct me if I'm wrong 
-> guys).
->
-In the case of SEL we did make progress and reached a consensus. The 
-proposed solution was to support mapping sensor number to sensor D-Bus 
-object paths in a flexible way(support both arbitrary mapping and 
-hardcoded sensor number), so that IBM systems can coexist with the 
-proposed SEL architecture. Jason was pursuing that and we haven't heard 
-from him for quite some time, this was brought in the community call 
-multiple times.
-
-There was OpenPower OEM specific stuff in the standard implementation of 
-the SEL and i am done with moving that to the OEM library.
-
-If the final answer is that we really need yet another repo, so be it, 
-I'm happy to help maintain it, but given the interest, we should at 
-least investigate the possibility of making this the "standard" going 
-forward.
->>
->> My 2 cents 😊
->>
-> Much appreciated.
-
-
---------------34F9CEAD7D9C69ECB75E4477
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <p><br>
-    </p>
-    <br>
-    <div class="moz-cite-prefix">On Wednesday 23 January 2019 03:35 AM,
-      Ed Tanous wrote:<br>
-    </div>
-    <blockquote type="cite"
-      cite="mid:1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com">
-      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-      <div class="moz-cite-prefix">On 1/22/19 10:16 AM, Vijay Khemka
-        wrote:<br>
-      </div>
-      <blockquote type="cite"
-        cite="mid:B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com">
-        <meta http-equiv="Content-Type" content="text/html;
-          charset=utf-8">
-        <meta name="Generator" content="Microsoft Word 15 (filtered
-          medium)">
-        <style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"Apple Color Emoji";
-	panose-1:0 0 0 0 0 0 0 0 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.apple-converted-space
-	{mso-style-name:apple-converted-space;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-        <div class="WordSection1">
-          <p class="MsoNormal"><span
-              style="font-size:11.0pt;color:black">Team,</span><span
-              style="color:black"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:11.0pt;color:black">Intel-ipmi-oem should
-              be broken and 2 parts, genric and oem specific. I see
-              several functionality in this repo like sensors and
-              storage commands are generic enough to be used by other
-              platform who is using entity manager. So I feel that we
-              should have these functionalities to be moved to a
-              separate common repo which can be used by everyone and
-              this repo can only contain Intel OEM specific IPMI command
-              support.</span><span style="color:black"><o:p></o:p></span></p>
-        </div>
-      </blockquote>
-      <p>When this work was first started, the hope was that the SDR,
-        SEL and the sensor numbering changes could be rolled out to the
-        whole project as the "standard", and that this was just a
-        staging area.  Unfortunately, when we tried to push them, we got
-        some late breaking feedback from the maintainer that some flows
-        (like writing sensor values from the host) would break IBM
-        systems.  Given that our systems didn't require or implement
-        those flows, we didn't have a very clear path forward for how to
-        get them upstreamed, and eventually ran out of time waiting for
-        responses.</p>
-    </blockquote>
-    This is disappointing to hear, feedback was provided as early as May
-    2018 and discussed in the community calls earlier that that.
-    (<a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/openbmc/s2600wf-misc/+/8521/">https://gerrit.openbmc-project.xyz/#/c/openbmc/s2600wf-misc/+/8521/</a>).
-    The major point of concern was arbitrary sensor numbers and the
-    solution was a flexible way to assign sensor numbers to sensor D-bus
-    objects.<br>
-    <blockquote type="cite"
-      cite="mid:1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com">
-      <p>The last thread I recall on the issue was here, where the
-        maintainer documented some of the issues that were present on
-        IBM systems with those command sets.  There were several other
-        gerrit reviews that I can find if needed, but they basically
-        boiled down to what's in the thread below.<br>
-      </p>
-      <p><a class="moz-txt-link-freetext"
-href="https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html"
-          moz-do-not-send="true">https://lists.ozlabs.org/pipermail/openbmc/2018-November/014139.html</a></p>
-      <p>Given that it sounds like the community is interested in these
-        changes being rolled out to more than just intel systems, I
-        suspect we need to continue that discussion.</p>
-      <p>For reference, the changes being mentioned enable:</p>
-      <p>1. Dynamic IPMI sensor creation based on dbus mapper
-        reflection, rather than hardcoded paths and sensor numbers.<br>
-        2. Automatic generation of type 1 SDRs (including M and B
-        scaling) from dbus interfaces.<br>
-        3. Automatic generation of FRU sdr records based on dbus
-        interfaces.</p>
-      <p>There are probably other things that I'm forgetting, but these
-        are the highlights.</p>
-      <p>Tom,</p>
-      <p>Do you think that you could propose a path that would allow
-        these changes into the mainstream, while still keeping IBM
-        systems functional?  Based on comments that I've heard both in
-        person, and on other gerrit reviews, I believe these changes
-        have some level of support from the other two IPMI maintainers
-        (correct me if I'm wrong guys).</p>
-    </blockquote>
-    In the case of SEL we did make progress and reached a consensus. The
-    proposed solution was to support mapping sensor number to sensor
-    D-Bus object paths in a flexible way(support both arbitrary mapping
-    and hardcoded sensor number), so that IBM systems can coexist with
-    the proposed SEL architecture. Jason was pursuing that and we
-    haven't heard from him for quite some time, this was brought in the
-    community call multiple times. <br>
-    <br>
-    There was OpenPower OEM specific stuff in the standard
-    implementation of the SEL and i am done with moving that to the OEM
-    library. <br>
-    <br>
-    If the final answer is that we really need yet another repo, so be
-    it, I'm happy to help maintain it, but given the interest, we should
-    at least investigate the possibility of making this the "standard"
-    going forward.<br>
-    <blockquote type="cite"
-      cite="mid:1cf09b78-e1bc-b999-f934-e60bea6a1e1c@intel.com">
-      <blockquote type="cite"
-        cite="mid:B67393AC-1915-4999-93D9-944EA6D61D2A@fb.com">
-        <div class="WordSection1">
-          <p class="MsoNormal"><span
-              style="font-size:11.0pt;color:black"> </span><span
-              style="color:black"><o:p></o:p></span></p>
-          <p class="MsoNormal"><span
-              style="font-size:11.0pt;color:black">My 2 cents </span><span
-              style="font-size:11.0pt;font-family:&quot;Apple Color
-              Emoji&quot;;color:black">😊</span><span
-              style="color:black"><o:p></o:p></span></p>
-          <span style="font-size:11.0pt;color:black"></span><span
-            style="color:black"><o:p></o:p></span> </div>
-      </blockquote>
-      Much appreciated.<br>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------34F9CEAD7D9C69ECB75E4477--
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQW5kcmV3IEdlaXNzbGVy
+IDxnZWlzc29uYXRvckBnbWFpbC5jb20+DQo+IFNlbnQ6IFR1ZXNkYXksIEphbnVhcnkgMjIsIDIw
+MTkgOTozMCBQTQ0KPiBUbzogQnJlbmRlbiBMYWkgPEJyZW5kZW5fTGFpQGphYmlsLmNvbT4NCj4g
+Q2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KPiBTdWJqZWN0OiBSZTogY291cGxlIE9wZW5C
+TUMgaW1hZ2UgYnVpbGQgYW5kIHVwZGF0ZSBxdWVzdGlvbnMNCj4gDQo+IE9uIE1vbiwgSmFuIDIx
+LCAyMDE5IGF0IDE6MDUgQU0gQnJlbmRlbiBMYWkgPEJyZW5kZW5fTGFpQGphYmlsLmNvbT4NCj4g
+d3JvdGU6DQo+ID4NCj4gPiBIaSBhbGwgLA0KPiA+DQo+ID4gICAgICAgICAgICAgICAgSSBoYXZl
+IGRvbmUgbXkgZmlyc3QgT3BlbkJNQyBidWlsZCB3aXRoIHZlciAyLjYgLCBpdCBkbyB0YWtlIGEg
+bG9uZw0KPiB0aW1lIC4NCj4gPiAgICAgICAgICAgICAgICBIZXJlIGlzIG15IHF1ZXN0aW9ucyAu
+DQo+ID4NCj4gPiBBdHRhY2ggc2NyZWVuc2hvdCAsIFdoaWNoIG9uZSBpcyB0aGUgQk1DIEZXIGlt
+YWdlICBhZnRlciBidWlsZGluZz8NCj4gDQo+IEkgaGF2ZW4ndCBidWlsdCB0aGUgZGVmYXVsdCBx
+ZW11YXJtIGltYWdlIGluIGEgbG9uZyB0aW1lLiBJIGJlbGlldmUNCj4gb2JtYy1waG9zcGhvci1p
+bWFnZS1xZW11YXJtLmV4dDQgaXMgdGhlIEZXIGltYWdlLg0KVGhlIFFFTVUgaGFuZyBhZnRlciBp
+bnN0YWxsaW5nIGltYWdlICwgc2VlIGJlbG93LiANCg0KYnJlbmRlbkBicmVuZGVuLVZpcnR1YWxC
+b3g6fi9vcGVuYm1jJCAuL3FlbXUtc3lzdGVtLWFybSAtbSAyNTYgLU0gcm9tdWx1cy1ibWMgLW5v
+Z3JhcGhpYyAtZHJpdmUgZmlsZT1+L09DUC9vcGVuYm1jL2J1aWxkL3RtcC9kZXBsb3kvaW1hZ2Vz
+L3FlbXVhcm0vb2JtYy1waG9zcGhvci1pbWFnZS1xZW11YXJtLTIwMTkwMTE5MTIwNjMwLnJvb3Rm
+cy5leHQ0LGZvcm1hdD1yYXcsaWY9bXRkIC1uZXQgbmljIC1uZXQgdXNlcixob3N0ZndkPToxMjcu
+MC4wLjE6MjIyMi06MjIsaG9zdGZ3ZD06MTI3LjAuMC4xOjI0NDMtOjQ0Myxob3N0bmFtZT1xZW11
+DQpxZW11LXN5c3RlbS1hcm06IEFzcGVlZCBpQlQgaGFzIG5vIGNoYXJkZXYgYmFja2VuZA0KDQpB
+cmUgdGhlcmUgYW55IGNoZWNrcG9pbnQgdG8gY2xhcmlmeSB0aGlzIGlzc3VlID8NCj4gDQo+ID4g
+RG9lcyB0aGUgaW1hZ2UgZm9yIGJvdGggUUVNVSBhbmQgcmVhbCBtYWNoaW5lID8NCj4gDQo+IEkg
+YmVsaWV2ZSB0aGlzIGRlZmF1bHQgaW1hZ2Ugd291bGQgb25seSBzdXBwb3J0IFFFTVUuDQo+IA0K
+PiA+IEhvdyB0byB1cGRhdGUgaXQgYnkgcHJvZ3JhbW1pbmcgdG9vbCBsaWtlIFNGNjAwPw0KPiAN
+Cj4gWWVzLCB3ZSB1c2UgdGhlIGRlZGlwcm9nIHRvb2wgaW50ZXJuYWxseSB0byBmbGFzaCBmcmVz
+aCBjaGlwcy4NCklmIEkgaGF2ZSAyIFNQSSBmbGFzaCBmb3IgcmVkdW5kYW50IHB1cnBvc2UgLCAN
+CkhvdyBkbyBsaW51eCBrZXJuZWwga25vdyB3aGVyZSAgdG8gYm9vdCBmcm9tID8NCkFyZSB0aGVy
+ZSBhbnkgY29uZmlndXJhdGlvbiBmaWxlIGRlc2NyaWJlZCB0aGUgb2Zmc2V0IG9mIHVib290ICwg
+a2VybmFsICxmaWxlc3lzdGVtIGluIFNQSSBmbGFzaCAgDQoNCj4gDQo+ID4gRG9lcyBpdCBzdXBw
+b3J0IG9ubGluZSB1cGRhdGUgc3VjaCBhcyBBTUkgWUFGVSBmbGFzaCA/DQo+IA0KPiBOb3QgZmFt
+aWxpYXIgd2l0aCB0aGlzIGJ1dCBvbmNlIHlvdSBnZXQgT3BlbkJNQyBvbiBhIHN5c3RlbXMsIGl0
+IGRvZXMNCj4gcHJvdmlkZSBpbnRlcmZhY2VzIHRvIHVwZGF0ZSB0aGUgZmlybXdhcmUgdmlhIGEg
+bmV0d29yayBjb25uZWN0aW9uLg0KPiANCj4gVGhlIHN5c3RlbSB3ZSB1c2UgZm9yIG91ciBDSSB3
+b3JrIGlzIFJvbXVsdXMuIFRoaXMgc3lzdGVtIGlzIHN1cHBvcnRlZCBpbg0KPiBRRU1VIGFuZCBv
+biByZWFsIGhhcmR3YXJlIGlmIHlvdSdkIGxpa2UgdG8gZ2l2ZSBpdCBhIHNob3QuDQo+IA0KPiBo
+dHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2Jsb2IvbWFzdGVyL1JFQURNRS5tZCMz
+LXRhcmdldC0NCj4geW91ci1oYXJkd2FyZQ0KPiB0YWxrcyBhYm91dCBzZXR0aW5nIHVwIHlvdXIg
+VEVNUExBVEVDT05GIGZvciBhIHN5c3RlbSBhbmQNCj4gaHR0cHM6Ly9naXRodWIuY29tL29wZW5i
+bWMvZG9jcy9ibG9iL21hc3Rlci9kZXZlbG9wbWVudC9kZXYtDQo+IGVudmlyb25tZW50Lm1kI2Rv
+d25sb2FkLWFuZC1zdGFydC1xZW11LXNlc3Npb24NCj4gaGFzIHNvbWUgcG9pbnRlcnMgb24gc3Rh
+cnRpbmcgeW91ciBRRU1VIHNlc3Npb24uIFlvdSdkIG9mIGNvdXJzZSBuZWVkIGENCj4gUm9tdWx1
+cyBzeXN0ZW0gdG8gZmxhc2ggb24gcmVhbCBoYXJkd2FyZSBidXQgaG9wZWZ1bGx5IGl0IHdvdWxk
+IGhlbHAgeW91DQo+IGdldCBjb21mb3J0YWJsZSB3aXRoIGJ1aWxkaW5nIHRoZSBpbWFnZSBhbmQg
+dGVzdGluZyBpbiBRRU1VLg0KPiANCj4gT3BlbkJNQyBpbWFnZXMgYXJlIHZlcnkgc3BlY2lmaWMg
+dG8gdGhlIGhhcmR3YXJlIHNvIGJlZm9yZSBmbGFzaGluZyBvbg0KPiB5b3VyIHN5c3RlbSAgeW91
+J2QgbmVlZCB0byBlbnN1cmUgeW91J3ZlIGdvdCBhbGwgb2YgdGhlIGRpZmZlcmVudCBjb25maWcN
+Cj4gb3B0aW9ucyBzZXR1cC4NCj4gaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvZG9jcy9ibG9i
+L21hc3Rlci9kZXZlbG9wbWVudC9hZGQtbmV3LQ0KPiBzeXN0ZW0ubWQNCj4gaXMgYSByZWZlcmVu
+Y2UgZm9yIGhvdyB0byBhZGQgYSBuZXcgc3lzdGVtLg0KPiANCj4gPg0KPiA+DQo+ID4gSGVyZSBp
+cyB0aGUgb3V0cHV0IG9mIG15ICBidWlsZA0KPiA+IGJyZW5kZW5AYnJlbmRlbi0NCj4gVmlydHVh
+bEJveDp+L09DUC9vcGVuYm1jL2J1aWxkL3RtcC9kZXBsb3kvaW1hZ2VzL3FlbXVhDQo+ID4gcm0k
+IGxzIG9ibWMqDQo+ID4gb2JtYy1waG9zcGhvci1kZWJ1Zy10YXJiYWxsLXFlbXVhcm0tMjAxOTAx
+MTkxMjA2MzAucWVtdWJvb3QuY29uZg0KPiA+IG9ibWMtcGhvc3Bob3ItZGVidWctdGFyYmFsbC1x
+ZW11YXJtLTIwMTkwMTE5MTIwNjMwLnJvb3Rmcy5tYW5pZmVzdA0KPiA+IG9ibWMtcGhvc3Bob3It
+ZGVidWctdGFyYmFsbC1xZW11YXJtLTIwMTkwMTE5MTIwNjMwLnJvb3Rmcy50YXIueHoNCj4gPiBv
+Ym1jLXBob3NwaG9yLWRlYnVnLXRhcmJhbGwtcWVtdWFybS0yMDE5MDExOTEyMDYzMC50ZXN0ZGF0
+YS5qc29uDQo+ID4gb2JtYy1waG9zcGhvci1kZWJ1Zy10YXJiYWxsLXFlbXVhcm0ubWFuaWZlc3QN
+Cj4gPiBvYm1jLXBob3NwaG9yLWRlYnVnLXRhcmJhbGwtcWVtdWFybS5xZW11Ym9vdC5jb25mDQo+
+ID4gb2JtYy1waG9zcGhvci1kZWJ1Zy10YXJiYWxsLXFlbXVhcm0udGFyLnh6DQo+ID4gb2JtYy1w
+aG9zcGhvci1kZWJ1Zy10YXJiYWxsLXFlbXVhcm0udGVzdGRhdGEuanNvbg0KPiA+IG9ibWMtcGhv
+c3Bob3ItaW1hZ2UtcWVtdWFybS0yMDE5MDExOTEyMDYzMC5xZW11Ym9vdC5jb25mDQo+ID4gb2Jt
+Yy1waG9zcGhvci1pbWFnZS1xZW11YXJtLTIwMTkwMTE5MTIwNjMwLnJvb3Rmcy5leHQ0DQo+ID4g
+b2JtYy1waG9zcGhvci1pbWFnZS1xZW11YXJtLTIwMTkwMTE5MTIwNjMwLnJvb3Rmcy5tYW5pZmVz
+dA0KPiA+IG9ibWMtcGhvc3Bob3ItaW1hZ2UtcWVtdWFybS0yMDE5MDExOTEyMDYzMC5yb290ZnMu
+dGFyLmJ6Mg0KPiA+IG9ibWMtcGhvc3Bob3ItaW1hZ2UtcWVtdWFybS0yMDE5MDExOTEyMDYzMC50
+ZXN0ZGF0YS5qc29uDQo+ID4gb2JtYy1waG9zcGhvci1pbWFnZS1xZW11YXJtLmV4dDQNCj4gPiBv
+Ym1jLXBob3NwaG9yLWltYWdlLXFlbXVhcm0ubWFuaWZlc3QNCj4gPiBvYm1jLXBob3NwaG9yLWlt
+YWdlLXFlbXVhcm0ucWVtdWJvb3QuY29uZg0KPiA+IG9ibWMtcGhvc3Bob3ItaW1hZ2UtcWVtdWFy
+bS50YXIuYnoyDQo+ID4gb2JtYy1waG9zcGhvci1pbWFnZS1xZW11YXJtLnRlc3RkYXRhLmpzb24N
+Cj4gPg0KPiA+DQo+ID4gQnJlbmRlbiBMYWkNCj4gPiBTUi4gQk1DIERlc2lnbiBFbmdpbmVlcg0K
+PiA+IEUmSSwgSmFiaWwgRGVzaWduIFNlcnZpY2VzDQo+ID4NCj4gPg0K
