@@ -1,100 +1,108 @@
-Return-Path: <prvs=6927de25bb=vijaykhemka@fb.com>
+Return-Path: <prvs=6927b2db97=amithash@fb.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=6927de25bb=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=6927b2db97=amithash@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=fb.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="CjhuV+Vo"; 
+ unprotected) header.d=fb.com header.i=@fb.com header.b="pxc2L7z+"; 
  dkim=pass (1024-bit key;
  unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="Vbb4YpfO"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ header.b="Xy8pM4lp"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43lvMK4Qg9zDqBV
- for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 07:46:20 +1100 (AEDT)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43lySB2xXdzDqKl
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 10:05:42 +1100 (AEDT)
+Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
  by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0OKhOCM004589
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 12:46:18 -0800
+ x0ON4Y3x030791; Thu, 24 Jan 2019 15:05:35 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : content-type : mime-version; s=facebook;
- bh=Ku1Sj24W1EERHLYbpzdrdJfuDRbNhtZWzkQKhTwMBBU=;
- b=CjhuV+VoDj8PfWB0tDmg13cOX2OpWQa3PlTxlRO0kwqcD49PQPepGk/Uakug4u5qZlPh
- yEaRL9fkiXEA7F3K1ztjbwCqYVscBMmWctWy88MdvutUBUc0IfH/3g8xb8Lsjesrxkit
- Q4u99+pyZak4ybhqvvd8GOcAf6Pr93oTnL4= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2q7m04g5s8-10
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 12:46:17 -0800
-Received: from frc-hub02.TheFacebook.com (2620:10d:c021:18::172) by
- frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=vwwp7vAyvJgavPNk1Ps6Aer6sgInott4SBrCSGhlwVU=;
+ b=pxc2L7z+Qn5DovJ/GffR9RMkQnOaYmRxW0T5XcKDj/e55BX37I9J/4UrYGPkKmF1Hqf0
+ pvjsIuMXXvzkEuEH5T834cCfty5Mkz5S0zS1l0Gc0Jt1rgz92gPW1W+udqkJUYlPNvmy
+ AaUZHdSknMUprVuIKOw08yW9EYOIMfH2030= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2q7mxx8as3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Thu, 24 Jan 2019 15:05:35 -0800
+Received: from prn-mbx02.TheFacebook.com (2620:10d:c081:6::16) by
+ prn-hub06.TheFacebook.com (2620:10d:c081:35::130) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 24 Jan 2019 12:45:07 -0800
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.72) with Microsoft SMTP
- Server
+ 15.1.1531.3; Thu, 24 Jan 2019 15:05:32 -0800
+Received: from prn-hub05.TheFacebook.com (2620:10d:c081:35::129) by
+ prn-mbx02.TheFacebook.com (2620:10d:c081:6::16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Thu, 24 Jan 2019 15:05:31 -0800
+Received: from NAM02-SN1-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.29) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Thu, 24 Jan 2019 12:45:07 -0800
+ via Frontend Transport; Thu, 24 Jan 2019 15:05:31 -0800
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
  s=selector1-fb-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ku1Sj24W1EERHLYbpzdrdJfuDRbNhtZWzkQKhTwMBBU=;
- b=Vbb4YpfOmI1scp9JFGDOHeWILZGau1xRsnyua1TOyXGcJ0QgdqhMwIlgm4fU2zVhxWQGIcQsdNb65zug/9LtTOK7f9WXLTN3mUDtdN85fRimS9bq7vPUA2IiNcS/yZtrZ7Ut83KtRXTwPLxOa/1+R8KalJyDckb/Q8AAeENHp4A=
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
- CY4PR15MB1574.namprd15.prod.outlook.com (10.172.162.15) with Microsoft SMTP
+ bh=vwwp7vAyvJgavPNk1Ps6Aer6sgInott4SBrCSGhlwVU=;
+ b=Xy8pM4lpITi7aTvIuHOT0YMYGqMu1E0kijrnkMfyyQIHk23L5DrJ+sSp8KaraOYBc5DUK1kd6954CMWol5CsJLqU72osTAvCujr77bmddasuQIBDAw4HrHQ95uRM0KUHTKUgV6OcvyQ3/q3dFIFEQG186Bgz7DF9AOcvOAWfAkI=
+Received: from MWHPR15MB1486.namprd15.prod.outlook.com (10.173.235.7) by
+ MWHPR15MB1568.namprd15.prod.outlook.com (10.173.235.141) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1537.28; Thu, 24 Jan 2019 20:45:06 +0000
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::b4e4:1e1f:8c5d:9a8c]) by CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::b4e4:1e1f:8c5d:9a8c%4]) with mapi id 15.20.1537.031; Thu, 24 Jan 2019
- 20:45:06 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
-Subject: phosphor-ipmi-ipmb
-Thread-Topic: phosphor-ipmi-ipmb
-Thread-Index: AQHUtCWwHIsXW1iQLk+0OoN3MhjWDg==
-Date: Thu, 24 Jan 2019 20:45:06 +0000
-Message-ID: <D710B092-2CBE-4954-B301-3E8DF30214CF@fb.com>
+ 15.20.1537.31; Thu, 24 Jan 2019 23:05:29 +0000
+Received: from MWHPR15MB1486.namprd15.prod.outlook.com
+ ([fe80::e042:b8f3:1cab:b6f5]) by MWHPR15MB1486.namprd15.prod.outlook.com
+ ([fe80::e042:b8f3:1cab:b6f5%3]) with mapi id 15.20.1558.016; Thu, 24 Jan 2019
+ 23:05:29 +0000
+From: Amithash Prasad <amithash@fb.com>
+To: "Li, Yong B" <yong.b.li@linux.intel.com>, Vijay Khemka
+ <vijaykhemka@fb.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+CC: "cheng.c.yang@intel.com" <cheng.c.yang@intel.com>, "osk@google.com"
+ <osk@google.com>
+Subject: Re: configuring lpc register from user space
+Thread-Topic: configuring lpc register from user space
+Thread-Index: AQHUsq7mJL8Gq6TnZUm014bNCUUai6W8GF+AgALzsz8=
+Date: Thu, 24 Jan 2019 23:05:29 +0000
+Message-ID: <MWHPR15MB148626B6581162BFF5A17113B29A0@MWHPR15MB1486.namprd15.prod.outlook.com>
+References: <898F383C-6AB8-4AF0-91F4-680CA01C2D50@fb.com>,
+ <3aa23d34-2d9b-7500-1fb0-a211377ecc4d@linux.intel.com>
+In-Reply-To: <3aa23d34-2d9b-7500-1fb0-a211377ecc4d@linux.intel.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::4:af34]
+x-originating-ip: [2620:10d:c090:200::4:cfa6]
 x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; CY4PR15MB1574;
- 20:SokW57hM+DsyIXyPa7WQJcA0BpZp4paqR7W8y8GkH+vTiGkkJBySpowX5sC5GMAjjmJsvXKJPiYeFODz0aTcHeFuZvCkHk0iQb8j9F6k1+iUOf3RtoNEDHLrckJoPZdRjl9RVK9LgtjE7KV/yc5UcHEZv/+Lla9rerRgH8OWSsU=
-x-ms-office365-filtering-correlation-id: b8e5e515-ee6b-48f3-21bc-08d6823cd2cd
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1568;
+ 20:35IDMbDEblcDL2q91XIIhZagyOx93OQEdBc92ZGY2WfGqr5unZ2vPIspOFGnXiY00tx2fYbJ+2QkTVJIrqUr3bDzOExqdkj97aYtuPu2ptO1gE94VJhbFX7V/kha50aWoAXRILDwjxgNKHO40jbCgXG/rMkAYErV5jhz4S2klII=
+x-ms-office365-filtering-correlation-id: 2374229a-24d4-425d-4894-08d682506f6a
 x-microsoft-antispam: BCL:0; PCL:0;
  RULEID:(2390118)(7020095)(4652040)(8989299)(5600110)(711020)(4605077)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1574; 
-x-ms-traffictypediagnostic: CY4PR15MB1574:
-x-microsoft-antispam-prvs: <CY4PR15MB157449643FDC44E6D5AB6D41DD9A0@CY4PR15MB1574.namprd15.prod.outlook.com>
+ SRVR:MWHPR15MB1568; 
+x-ms-traffictypediagnostic: MWHPR15MB1568:
+x-microsoft-antispam-prvs: <MWHPR15MB15683E5D2F4251FC1E228F19B29A0@MWHPR15MB1568.namprd15.prod.outlook.com>
 x-forefront-prvs: 0927AA37C7
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(39860400002)(346002)(376002)(136003)(396003)(366004)(189003)(199004)(7736002)(86362001)(3480700005)(14444005)(81156014)(81166006)(8676002)(71200400001)(966005)(256004)(25786009)(14454004)(8936002)(36756003)(478600001)(83716004)(68736007)(97736004)(6436002)(71190400001)(82746002)(6916009)(316002)(54896002)(486006)(53936002)(6512007)(6486002)(6116002)(105586002)(186003)(106356001)(99286004)(6506007)(2616005)(33656002)(2906002)(102836004)(6306002)(476003)(46003);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1574;
- H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ SFS:(10019020)(396003)(39860400002)(136003)(366004)(346002)(376002)(189003)(199004)(71200400001)(106356001)(6436002)(68736007)(7736002)(71190400001)(2501003)(81166006)(97736004)(558084003)(81156014)(229853002)(8676002)(8936002)(105586002)(105004)(476003)(46003)(86362001)(74316002)(256004)(14454004)(99286004)(2906002)(9686003)(6306002)(54896002)(236005)(486006)(55016002)(11346002)(6506007)(110136005)(606006)(33656002)(19627405001)(53936002)(54906003)(4326008)(446003)(316002)(7696005)(186003)(6116002)(478600001)(25786009)(76176011)(6246003)(102836004)(966005);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1568;
+ H:MWHPR15MB1486.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
  PTR:InfoNoRecords; MX:1; A:1; 
 received-spf: None (protection.outlook.com: fb.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: D5jgD5T69o7wknlcx2Kla8ioHaRsmsCCiiYkohS6+L1Z/I+LtFx45lDYVeAvFCKExu2jQqfmOHL9uPK4GStVl27KHM0iR08+wIG9+ojs8FMN3GQm4AfTOjXe8FekmsnrwaZ8VrRiHAh9vJo8bBlOR5BzJ4TbGYBBrpUvNsEkfyF7LAdNTumeBaF4XlIHGEboX5N6x57EDM+TKTyL7PpNnltlMFA7fE4DBwTT9F4VIBqxS9vR+Us445ATDTNMXqypPJMEg/WWr3Wr8GMerkxhjYBFK8HG/ETQj6Oss21G8nH97WQQlof0wTe0om9HmSURujSfDUDSA/JZAgpXBwdh+2gfAKp4ul2VRDhA5DbZdRYIZ/E9LLos+zzUewtpVuYF6vaCfQVEN4UarWBP77sBc3LB+zczm2n4gjakVbP4A2M=
+x-microsoft-antispam-message-info: y0CxMFpHyZRF39WSuRa1J+JZnqtEHuwbOod9x3bRCUj3OwNjoUlSMjEvR7o2NTgUulGUPqDKJCKvr4bJ0XgjpEu6yHSJVLvQfIvk+xB10qATc0wVcx1TOteT+gxjBzUp+wlUK2KH5+0pq/BQq3eOlsc5jYzxVdTn5iWFRhDO5k78WwhndRnlyB/6a7QnDQuyzcwhFTeEo6AAvotQS9hcxMOF3nXlMQ52TquZeWHggRvNU5RB6tP49u9unbfvMZIq/L14m5Z5Iz6BDmKAWAlckdtRujFCFxZJAjDL/X+fm7XT1ohOkP4LBJTmmfvIRRp/2qJBAzePwuqJG8zDF4to03l8LtfqpOhBBdoWZFemTsb45pcTzalD789GxKKpN+Tw3FxoNZfE5+iEVsmetO22RAgBoXpboibi5cm1G7HG8hs=
 Content-Type: multipart/alternative;
- boundary="_000_D710B0922CBE4954B3013E8DF30214CFfbcom_"
+ boundary="_000_MWHPR15MB148626B6581162BFF5A17113B29A0MWHPR15MB1486namp_"
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: b8e5e515-ee6b-48f3-21bc-08d6823cd2cd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jan 2019 20:45:06.4561 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2374229a-24d4-425d-4894-08d682506f6a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jan 2019 23:05:29.6353 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1574
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1568
 X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-24_12:, , signatures=0
+ definitions=2019-01-24_15:, , signatures=0
 X-Proofpoint-Spam-Reason: safe
 X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -108,186 +116,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Jan 2019 20:46:24 -0000
+X-List-Received-Date: Thu, 24 Jan 2019 23:05:47 -0000
 
---_000_D710B0922CBE4954B3013E8DF30214CFfbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_MWHPR15MB148626B6581162BFF5A17113B29A0MWHPR15MB1486namp_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-VGVhbSwNClBob3NwaG9yLWlwbWktaXBtYiBpcyBub3QgYnVpbGRpbmcgYW5kIGl0IGlzIGZhaWxp
-bmcgd2l0aCBiZWxvdyBtZXNzYWdlcy4NCg0KDQp8IC0tIExvb2tpbmcgZm9yIGxpbnV4L2kyYy1k
-ZXYtdXNlci5oDQoNCnwgLS0gTG9va2luZyBmb3IgbGludXgvaTJjLWRldi11c2VyLmggLSBub3Qg
-Zm91bmQNCg0KfCBDb3VsZCBub3QgZmluZCBsaW51eC9pMmMtZGV2LXVzZXIuaDogQXR0ZW1wdGlu
-ZyB0byBkb3dubG9hZCBsb2NhbGx5IGZvciBidWlsZGluZyBmcm9tIGh0dHBzOi8vcmF3LmdpdGh1
-YnVzZXJjb250ZW50LmNvbS9vcGVuYm1jL2xpbnV4L2Rldi00LjEzL2luY2x1ZGUvdWFwaS9saW51
-eC9pMmMtZGV2LmgNCg0KfCBDTWFrZSBFcnJvciBhdCBDTWFrZUxpc3RzLnR4dDoyNyAobWVzc2Fn
-ZSk6DQoNCnwgICBpMmMtZGV2LXVzZXIuaCBtaXNzaW5nDQoNCnwNCg0KfA0KDQp8IC0tIENvbmZp
-Z3VyaW5nIGluY29tcGxldGUsIGVycm9ycyBvY2N1cnJlZCENCg0KfCBTZWUgYWxzbyAiL2hvbWUv
-dmlqYXlraGVta2EvcHJvai9vcGVuYm1jL2xmL2RlYzEzLWdoL3Rlc3Qvb3BlbmJtYy9idWlsZC90
-bXAvd29yay9hcm12Ni1vcGVuYm1jLWxpbnV4LWdudWVhYmkvcGhvc3Bob3ItaXBtaS1pcG1iLzAu
-MStnaXQ5OTktcjAvcGhvc3Bob3ItaXBtaS1pcG1iLTAuMStnaXQ5OTkvQ01ha2VGaWxlcy9DTWFr
-ZU91dHB1dC5sb2ciLg0KDQp8IFNlZSBhbHNvICIvaG9tZS92aWpheWtoZW1rYS9wcm9qL29wZW5i
-bWMvbGYvZGVjMTMtZ2gvdGVzdC9vcGVuYm1jL2J1aWxkL3RtcC93b3JrL2FybXY2LW9wZW5ibWMt
-bGludXgtZ251ZWFiaS9waG9zcGhvci1pcG1pLWlwbWIvMC4xK2dpdDk5OS1yMC9waG9zcGhvci1p
-cG1pLWlwbWItMC4xK2dpdDk5OS9DTWFrZUZpbGVzL0NNYWtlRXJyb3IubG9nIi4NCg0KfCBXQVJO
-SU5HOiAvaG9tZS92aWpheWtoZW1rYS9wcm9qL29wZW5ibWMvbGYvZGVjMTMtZ2gvdGVzdC9vcGVu
-Ym1jL2J1aWxkL3RtcC93b3JrL2FybXY2LW9wZW5ibWMtbGludXgtZ251ZWFiaS9waG9zcGhvci1p
-cG1pLWlwbWIvMC4xK2dpdDk5OS1yMC90ZW1wL3J1bi5kb19jb25maWd1cmUuMzQ4MzQxNjoxIGV4
-aXQgMSBmcm9tICdjbWFrZSAtRyBOaW5qYSAtRENNQUtFX01BS0VfUFJPR1JBTT1uaW5qYSAkb2Vj
-bWFrZV9zaXRlZmlsZSAvaG9tZS92aWpheWtoZW1rYS9wcm9qL29wZW5ibWMvbGYvZGVjMTMtZ2gv
-dGVzdC9vcGVuYm1jL2J1aWxkL3dvcmtzcGFjZS9zb3VyY2VzL3Bob3NwaG9yLWlwbWktaXBtYiAt
-RENNQUtFX0lOU1RBTExfUFJFRklYOlBBVEg9L3VzciAtRENNQUtFX0lOU1RBTExfQklORElSOlBB
-VEg9YmluIC1EQ01BS0VfSU5TVEFMTF9TQklORElSOlBBVEg9c2JpbiAtRENNQUtFX0lOU1RBTExf
-TElCRVhFQ0RJUjpQQVRIPWxpYmV4ZWMgLURDTUFLRV9JTlNUQUxMX1NZU0NPTkZESVI6UEFUSD0v
-ZXRjIC1EQ01BS0VfSU5TVEFMTF9TSEFSRURTVEFURURJUjpQQVRIPS4uL2NvbSAtRENNQUtFX0lO
-U1RBTExfTE9DQUxTVEFURURJUjpQQVRIPS92YXIgLURDTUFLRV9JTlNUQUxMX0xJQkRJUjpQQVRI
-PWxpYiAtRENNQUtFX0lOU1RBTExfSU5DTFVERURJUjpQQVRIPWluY2x1ZGUgLURDTUFLRV9JTlNU
-QUxMX0RBVEFST09URElSOlBBVEg9c2hhcmUgLURDTUFLRV9JTlNUQUxMX1NPX05PX0VYRT0wIC1E
-Q01BS0VfVE9PTENIQUlOX0ZJTEU9L2hvbWUvdmlqYXlraGVta2EvcHJvai9vcGVuYm1jL2xmL2Rl
-YzEzLWdoL3Rlc3Qvb3BlbmJtYy9idWlsZC90bXAvd29yay9hcm12Ni1vcGVuYm1jLWxpbnV4LWdu
-dWVhYmkvcGhvc3Bob3ItaXBtaS1pcG1iLzAuMStnaXQ5OTktcjAvdG9vbGNoYWluLmNtYWtlIC1E
-Q01BS0VfVkVSQk9TRV9NQUtFRklMRT0xIC1EQ01BS0VfTk9fU1lTVEVNX0ZST01fSU1QT1JURUQ9
-MSAke1BBQ0tBR0VDT05GSUdfQ09ORkFSR1N9IC1Xbm8tZGV2Jw0KDQp8IEVSUk9SOiBGdW5jdGlv
-biBmYWlsZWQ6IGRvX2NvbmZpZ3VyZSAobG9nIGZpbGUgaXMgbG9jYXRlZCBhdCAvaG9tZS92aWph
-eWtoZW1rYS9wcm9qL29wZW5ibWMvbGYvZGVjMTMtZ2gvdGVzdC9vcGVuYm1jL2J1aWxkL3RtcC93
-b3JrL2FybXY2LW9wZW5ibWMtbGludXgtZ251ZWFiaS9waG9zcGhvci1pcG1pLWlwbWIvMC4xK2dp
-dDk5OS1yMC90ZW1wL2xvZy5kb19jb25maWd1cmUuMzQ4MzQxNikNCg0KRVJST1I6IFRhc2sgKC9o
-b21lL3ZpamF5a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1naC90ZXN0L29wZW5ibWMvbWV0
-YS1waG9zcGhvci9yZWNpcGVzLXBob3NwaG9yL2lwbWkvcGhvc3Bob3ItaXBtaS1pcG1iX2dpdC5i
-Yjpkb19jb25maWd1cmUpIGZhaWxlZCB3aXRoIGV4aXQgY29kZSAnMScNCg0KTk9URTogVGFza3Mg
-U3VtbWFyeTogQXR0ZW1wdGVkIDE4NzggdGFza3Mgb2Ygd2hpY2ggMTg3NyBkaWRuJ3QgbmVlZCB0
-byBiZSByZXJ1biBhbmQgMSBmYWlsZWQuDQoNCg0KDQpTdW1tYXJ5OiAxIHRhc2sgZmFpbGVkOg0K
-DQogIC9ob21lL3ZpamF5a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1naC90ZXN0L29wZW5i
-bWMvbWV0YS1waG9zcGhvci9yZWNpcGVzLXBob3NwaG9yL2lwbWkvcGhvc3Bob3ItaXBtaS1pcG1i
-X2dpdC5iYjpkb19jb25maWd1cmUNCg0KU3VtbWFyeTogVGhlcmUgd2VyZSAyIFdBUk5JTkcgbWVz
-c2FnZXMgc2hvd24uDQoNClN1bW1hcnk6IFRoZXJlIHdhcyAxIEVSUk9SIG1lc3NhZ2Ugc2hvd24s
-IHJldHVybmluZyBhIG5vbi16ZXJvIGV4aXQgY29kZS4NCg0KDQpSZWdhcmRzDQotVmlqYXkNCg==
+> For the UART routeing, there is a kernel device driver, it will export
+> several entities in sysfs, you can adjust the routing.
+> https://patchwork.ozlabs.org/patch/969238/
+Looks like this driver never made it into the mainline kernel.
 
---_000_D710B0922CBE4954B3013E8DF30214CFfbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <2D45BFDC94216146BC18EED479528E34@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+--_000_MWHPR15MB148626B6581162BFF5A17113B29A0MWHPR15MB1486namp_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5Ok1lbmxvOw0K
-CXBhbm9zZS0xOjIgMTEgNiA5IDMgOCA0IDIgMiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICov
-DQpwLk1zb05vcm1hbCwgbGkuTXNvTm9ybWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47
-DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWZvbnQtc2l6ZToxMi4wcHQ7DQoJZm9udC1mYW1p
-bHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXtt
-c28tc3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6IzA1NjNDMTsNCgl0ZXh0LWRlY29yYXRpb246
-dW5kZXJsaW5lO30NCmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28t
-c3R5bGUtcHJpb3JpdHk6OTk7DQoJY29sb3I6Izk1NEY3MjsNCgl0ZXh0LWRlY29yYXRpb246dW5k
-ZXJsaW5lO30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLWNv
-bXBvc2U7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2luZG93
-dGV4dDt9DQpwLnAxLCBsaS5wMSwgZGl2LnAxDQoJe21zby1zdHlsZS1uYW1lOnAxOw0KCW1hcmdp
-bjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAwMXB0Ow0KCWJhY2tncm91bmQ6d2hpdGU7DQoJZm9u
-dC1zaXplOjguNXB0Ow0KCWZvbnQtZmFtaWx5Ok1lbmxvOw0KCWNvbG9yOmJsYWNrO30NCnAucDIs
-IGxpLnAyLCBkaXYucDINCgl7bXNvLXN0eWxlLW5hbWU6cDI7DQoJbWFyZ2luOjBpbjsNCgltYXJn
-aW4tYm90dG9tOi4wMDAxcHQ7DQoJYmFja2dyb3VuZDp3aGl0ZTsNCglmb250LXNpemU6OC41cHQ7
-DQoJZm9udC1mYW1pbHk6TWVubG87DQoJY29sb3I6I0MzMzcyMDt9DQpwLnAzLCBsaS5wMywgZGl2
-LnAzDQoJe21zby1zdHlsZS1uYW1lOnAzOw0KCW1hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTou
-MDAwMXB0Ow0KCWJhY2tncm91bmQ6d2hpdGU7DQoJZm9udC1zaXplOjguNXB0Ow0KCWZvbnQtZmFt
-aWx5Ok1lbmxvOw0KCWNvbG9yOmJsYWNrO30NCnNwYW4uczINCgl7bXNvLXN0eWxlLW5hbWU6czI7
-DQoJY29sb3I6YmxhY2s7fQ0Kc3Bhbi5zMQ0KCXttc28tc3R5bGUtbmFtZTpzMTt9DQpzcGFuLmFw
-cGxlLWNvbnZlcnRlZC1zcGFjZQ0KCXttc28tc3R5bGUtbmFtZTphcHBsZS1jb252ZXJ0ZWQtc3Bh
-Y2U7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7fQ0KQHBh
-Z2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBp
-biAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30N
-Ci0tPjwvc3R5bGU+DQo8L2hlYWQ+DQo8Ym9keSBsYW5nPSJFTi1VUyIgbGluaz0iIzA1NjNDMSIg
-dmxpbms9IiM5NTRGNzIiPg0KPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij5UZWFtLDxvOnA+PC9vOnA+
-PC9zcGFuPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
-MTEuMHB0Ij5QaG9zcGhvci1pcG1pLWlwbWIgaXMgbm90IGJ1aWxkaW5nIGFuZCBpdCBpcyBmYWls
-aW5nIHdpdGggYmVsb3cgbWVzc2FnZXMuPG86cD48L286cD48L3NwYW4+PC9wPg0KPGRpdiBzdHls
-ZT0ibXNvLWVsZW1lbnQ6cGFyYS1ib3JkZXItZGl2O2JvcmRlcjpub25lO2JvcmRlci1ib3R0b206
-ZG91YmxlIHdpbmRvd3RleHQgMi4yNXB0O3BhZGRpbmc6MGluIDBpbiAxLjBwdCAwaW4iPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9ImJvcmRlcjpub25lO3BhZGRpbmc6MGluIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjExLjBwdCI+PG86cD4mbmJzcDs8L286cD48L3NwYW4+PC9wPg0KPC9k
-aXY+DQo8cCBjbGFzcz0icDEiPjxzcGFuIGNsYXNzPSJzMSI+fCAtLSBMb29raW5nIGZvciBsaW51
-eC9pMmMtZGV2LXVzZXIuaDwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNw
-YW4gY2xhc3M9InMxIj58IC0tIExvb2tpbmcgZm9yIGxpbnV4L2kyYy1kZXYtdXNlci5oIC0gbm90
-IGZvdW5kPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0i
-czEiPnwgQ291bGQgbm90IGZpbmQgbGludXgvaTJjLWRldi11c2VyLmg6IEF0dGVtcHRpbmcgdG8g
-ZG93bmxvYWQgbG9jYWxseSBmb3IgYnVpbGRpbmcgZnJvbSBodHRwczovL3Jhdy5naXRodWJ1c2Vy
-Y29udGVudC5jb20vb3BlbmJtYy9saW51eC9kZXYtNC4xMy9pbmNsdWRlL3VhcGkvbGludXgvaTJj
-LWRldi5oPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0i
-czEiPnwgQ01ha2UgRXJyb3IgYXQgQ01ha2VMaXN0cy50eHQ6MjcgKG1lc3NhZ2UpOjwvc3Bhbj48
-bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj58IDwvc3Bhbj48
-c3BhbiBjbGFzcz0iYXBwbGUtY29udmVydGVkLXNwYWNlIj4mbmJzcDsgPC9zcGFuPg0KPHNwYW4g
-Y2xhc3M9InMxIj5pMmMtZGV2LXVzZXIuaCBtaXNzaW5nPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0K
-PHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iczEiPnw8L3NwYW4+PHNwYW4gY2xhc3M9ImFwcGxl
-LWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9
-InAxIj48c3BhbiBjbGFzcz0iczEiPnw8L3NwYW4+PHNwYW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRl
-ZC1zcGFjZSI+Jm5ic3A7PC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3Bh
-biBjbGFzcz0iczEiPnwgLS0gQ29uZmlndXJpbmcgaW5jb21wbGV0ZSwgZXJyb3JzIG9jY3VycmVk
-ITwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj58
-IFNlZSBhbHNvICZxdW90Oy9ob21lL3ZpamF5a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1n
-aC90ZXN0L29wZW5ibWMvYnVpbGQvdG1wL3dvcmsvYXJtdjYtb3BlbmJtYy1saW51eC1nbnVlYWJp
-L3Bob3NwaG9yLWlwbWktaXBtYi8wLjEmIzQzO2dpdDk5OS1yMC9waG9zcGhvci1pcG1pLWlwbWIt
-MC4xJiM0MztnaXQ5OTkvQ01ha2VGaWxlcy9DTWFrZU91dHB1dC5sb2cmcXVvdDsuPC9zcGFuPjxv
-OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFzcz0iczEiPnwgU2VlIGFsc28g
-JnF1b3Q7L2hvbWUvdmlqYXlraGVta2EvcHJvai9vcGVuYm1jL2xmL2RlYzEzLWdoL3Rlc3Qvb3Bl
-bmJtYy9idWlsZC90bXAvd29yay9hcm12Ni1vcGVuYm1jLWxpbnV4LWdudWVhYmkvcGhvc3Bob3It
-aXBtaS1pcG1iLzAuMSYjNDM7Z2l0OTk5LXIwL3Bob3NwaG9yLWlwbWktaXBtYi0wLjEmIzQzO2dp
-dDk5OS9DTWFrZUZpbGVzL0NNYWtlRXJyb3IubG9nJnF1b3Q7Ljwvc3Bhbj48bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj58IFdBUk5JTkc6IC9ob21lL3ZpamF5
-a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1naC90ZXN0L29wZW5ibWMvYnVpbGQvdG1wL3dv
-cmsvYXJtdjYtb3BlbmJtYy1saW51eC1nbnVlYWJpL3Bob3NwaG9yLWlwbWktaXBtYi8wLjEmIzQz
-O2dpdDk5OS1yMC90ZW1wL3J1bi5kb19jb25maWd1cmUuMzQ4MzQxNjoxIGV4aXQgMSBmcm9tICdj
-bWFrZSAtRyBOaW5qYSAtRENNQUtFX01BS0VfUFJPR1JBTT1uaW5qYQ0KICRvZWNtYWtlX3NpdGVm
-aWxlIC9ob21lL3ZpamF5a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1naC90ZXN0L29wZW5i
-bWMvYnVpbGQvd29ya3NwYWNlL3NvdXJjZXMvcGhvc3Bob3ItaXBtaS1pcG1iIC1EQ01BS0VfSU5T
-VEFMTF9QUkVGSVg6UEFUSD0vdXNyIC1EQ01BS0VfSU5TVEFMTF9CSU5ESVI6UEFUSD1iaW4gLURD
-TUFLRV9JTlNUQUxMX1NCSU5ESVI6UEFUSD1zYmluIC1EQ01BS0VfSU5TVEFMTF9MSUJFWEVDRElS
-OlBBVEg9bGliZXhlYw0KIC1EQ01BS0VfSU5TVEFMTF9TWVNDT05GRElSOlBBVEg9L2V0YyAtRENN
-QUtFX0lOU1RBTExfU0hBUkVEU1RBVEVESVI6UEFUSD0uLi9jb20gLURDTUFLRV9JTlNUQUxMX0xP
-Q0FMU1RBVEVESVI6UEFUSD0vdmFyIC1EQ01BS0VfSU5TVEFMTF9MSUJESVI6UEFUSD1saWIgLURD
-TUFLRV9JTlNUQUxMX0lOQ0xVREVESVI6UEFUSD1pbmNsdWRlIC1EQ01BS0VfSU5TVEFMTF9EQVRB
-Uk9PVERJUjpQQVRIPXNoYXJlIC1EQ01BS0VfSU5TVEFMTF9TT19OT19FWEU9MA0KIC1EQ01BS0Vf
-VE9PTENIQUlOX0ZJTEU9L2hvbWUvdmlqYXlraGVta2EvcHJvai9vcGVuYm1jL2xmL2RlYzEzLWdo
-L3Rlc3Qvb3BlbmJtYy9idWlsZC90bXAvd29yay9hcm12Ni1vcGVuYm1jLWxpbnV4LWdudWVhYmkv
-cGhvc3Bob3ItaXBtaS1pcG1iLzAuMSYjNDM7Z2l0OTk5LXIwL3Rvb2xjaGFpbi5jbWFrZSAtRENN
-QUtFX1ZFUkJPU0VfTUFLRUZJTEU9MSAtRENNQUtFX05PX1NZU1RFTV9GUk9NX0lNUE9SVEVEPTEg
-JHtQQUNLQUdFQ09ORklHX0NPTkZBUkdTfQ0KIC1Xbm8tZGV2Jzwvc3Bhbj48bzpwPjwvbzpwPjwv
-cD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj58IEVSUk9SOiBGdW5jdGlvbiBmYWls
-ZWQ6IGRvX2NvbmZpZ3VyZSAobG9nIGZpbGUgaXMgbG9jYXRlZCBhdCAvaG9tZS92aWpheWtoZW1r
-YS9wcm9qL29wZW5ibWMvbGYvZGVjMTMtZ2gvdGVzdC9vcGVuYm1jL2J1aWxkL3RtcC93b3JrL2Fy
-bXY2LW9wZW5ibWMtbGludXgtZ251ZWFiaS9waG9zcGhvci1pcG1pLWlwbWIvMC4xJiM0MztnaXQ5
-OTktcjAvdGVtcC9sb2cuZG9fY29uZmlndXJlLjM0ODM0MTYpPC9zcGFuPjxvOnA+PC9vOnA+PC9w
-Pg0KPHAgY2xhc3M9InAyIj48c3BhbiBjbGFzcz0iczEiPjxiPkVSUk9SPC9iPjwvc3Bhbj48c3Bh
-biBjbGFzcz0iczIiPjogPC9zcGFuPjxzcGFuIGNsYXNzPSJzMSI+VGFzayAoL2hvbWUvdmlqYXlr
-aGVta2EvcHJvai9vcGVuYm1jL2xmL2RlYzEzLWdoL3Rlc3Qvb3BlbmJtYy9tZXRhLXBob3NwaG9y
-L3JlY2lwZXMtcGhvc3Bob3IvaXBtaS9waG9zcGhvci1pcG1pLWlwbWJfZ2l0LmJiOmRvX2NvbmZp
-Z3VyZSkgZmFpbGVkIHdpdGggZXhpdCBjb2RlICcxJzwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxw
-IGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj48Yj5OT1RFPC9iPjogVGFza3MgU3VtbWFyeTog
-QXR0ZW1wdGVkIDE4NzggdGFza3Mgb2Ygd2hpY2ggMTg3NyBkaWRuJ3QgbmVlZCB0byBiZSByZXJ1
-biBhbmQgMSBmYWlsZWQuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAzIj48bzpw
-PiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNwYW4gY2xhc3M9InMxIj5TdW1tYXJ5
-OiAxIHRhc2sgZmFpbGVkOjwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJwMSI+PHNw
-YW4gY2xhc3M9ImFwcGxlLWNvbnZlcnRlZC1zcGFjZSI+Jm5ic3A7IDwvc3Bhbj48c3BhbiBjbGFz
-cz0iczEiPi9ob21lL3ZpamF5a2hlbWthL3Byb2ovb3BlbmJtYy9sZi9kZWMxMy1naC90ZXN0L29w
-ZW5ibWMvbWV0YS1waG9zcGhvci9yZWNpcGVzLXBob3NwaG9yL2lwbWkvcGhvc3Bob3ItaXBtaS1p
-cG1iX2dpdC5iYjpkb19jb25maWd1cmU8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
-cDEiPjxzcGFuIGNsYXNzPSJzMSI+U3VtbWFyeTogVGhlcmUgd2VyZSAyIFdBUk5JTkcgbWVzc2Fn
-ZXMgc2hvd24uPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9InAxIj48c3BhbiBjbGFz
-cz0iczEiPlN1bW1hcnk6IFRoZXJlIHdhcyAxIEVSUk9SIG1lc3NhZ2Ugc2hvd24sIHJldHVybmlu
-ZyBhIG5vbi16ZXJvIGV4aXQgY29kZS48L3NwYW4+PG86cD48L286cD48L3A+DQo8ZGl2IHN0eWxl
-PSJtc28tZWxlbWVudDpwYXJhLWJvcmRlci1kaXY7Ym9yZGVyOm5vbmU7Ym9yZGVyLWJvdHRvbTpk
-b3VibGUgd2luZG93dGV4dCAyLjI1cHQ7cGFkZGluZzowaW4gMGluIDEuMHB0IDBpbiI+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0iYm9yZGVyOm5vbmU7cGFkZGluZzowaW4iPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTEuMHB0Ij48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij48
-bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48c3BhbiBz
-dHlsZT0iZm9udC1zaXplOjExLjBwdCI+UmVnYXJkczxvOnA+PC9vOnA+PC9zcGFuPjwvcD4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0Ij4tVmlqYXk8
-bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+&gt; For the UART routeing, there is a kernel device driver, it will export=
+&nbsp;<br>
+</div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt"=
+>
+<div class=3D"PlainText">&gt; several entities in sysfs, you can adjust the=
+ routing.</div>
+<div class=3D"PlainText">&gt;&nbsp;<a href=3D"https://patchwork.ozlabs.org/=
+patch/969238/">https://patchwork.ozlabs.org/patch/969238/</a><br>
+Looks like this driver never made it into the mainline kernel.</div>
+</span></font></div>
+</body>
+</html>
 
---_000_D710B0922CBE4954B3013E8DF30214CFfbcom_--
+--_000_MWHPR15MB148626B6581162BFF5A17113B29A0MWHPR15MB1486namp_--
