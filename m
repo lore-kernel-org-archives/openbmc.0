@@ -1,28 +1,56 @@
-Return-Path: <awilliams@marvell.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=fail (mailfrom) smtp.mailfrom=marvell.com
- (client-ip=173.8.172.90; helo=roger.doofus.org;
- envelope-from=awilliams@marvell.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d31; helo=mail-io1-xd31.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=marvell.com
-X-Greylist: delayed 582 seconds by postgrey-1.36 at bilbo;
- Thu, 24 Jan 2019 20:13:27 AEDT
-Received: from roger.doofus.org (unknown [173.8.172.90])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="TyFaFWjt"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd31.google.com (mail-io1-xd31.google.com
+ [IPv6:2607:f8b0:4864:20::d31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43lbzq0ZzwzDqDS
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 20:13:25 +1100 (AEDT)
-Received: from flash.localnet (unknown [192.168.0.16])
- by roger.doofus.org (Postfix) with ESMTPSA id A85AD846C55C
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 01:03:40 -0800 (PST)
-From: Aaron Williams <awilliams@marvell.com>
-To: openbmc@lists.ozlabs.org
-Subject: OpenBMC Sensors
-Date: Thu, 24 Jan 2019 01:03:40 -0800
-Message-ID: <6065976.siBLTEBlHZ@flash>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43lcHQ1pDnzDqCq
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 20:26:57 +1100 (AEDT)
+Received: by mail-io1-xd31.google.com with SMTP id t24so4165762ioi.0
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 01:26:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=3TjIf8oqlUBWIjNMCz8xHtSQ2i+6+PGV+3znS7T/+x0=;
+ b=TyFaFWjtcXJJgu9BpMHPDi81J5aFjDVnSGD2Az6T0jA9ySuSCculGUJ9qFwS/iVS1j
+ uN5Tlq++CeR1eD4CCMurPyW0ALjVed7YN5sFruGlDRxrtnlLhw6W4UeQPmccxHOCF11j
+ XY5UVrfDPxBJ2YSZUh2AU4PReglgnVPvSblAr/+No85yVEmQ/VozdOw73HoEHMtgdY0B
+ 8IyhgR7IVjmQhb1Dbzvj8T0jHAHsrdMuopSEbwVlGJRySigzqmfvHfdh93gw0br8oaQq
+ Gw1kGBOOuZSqHzwGy16/0oKAua0qhvePflTW98XnHB3yC6CHrfKbf708xht+2cFeeLuI
+ HtHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=3TjIf8oqlUBWIjNMCz8xHtSQ2i+6+PGV+3znS7T/+x0=;
+ b=bkT3gxykHWSPNynokAr1rT1GPbg1Ncj0cqwewJo5ZtLykjS6H/VDU4Ts2E3mnMpTAg
+ RWqQBi1EbDWANPEJWuMsnhSRhqP4ebMzzihlVQvE6E0SJSfDVhTtEiN4k6kpxbH7PBYs
+ hkGS7zvml/D8Jr6z8Hry2uOl/+wikzh9bAeIqPWalqwhUD6LPT1wHKhecLr86YxzwmCa
+ Rv1fk116d5uBKR+9K5Jv28SWU9RXQZq0JluTfsnWVHokxPdn2iJFT3xP17dtXXIow6z5
+ OwQKkpb71Men6U2xmQDrDOu6JJAglodbOmBBLOGzy2t0lVM6eXfyJS6pvaIlwC5GfcxK
+ tQrg==
+X-Gm-Message-State: AHQUAuZNNQSrSW5RyqCp2UxWi9XnN+CeyaF/+ZsOfOx78EjBTXH8CzKY
+ Ifc6onmsMSmL6TUOgIPgN5EFEZ0TAYeyn6V5I14=
+X-Google-Smtp-Source: ALg8bN6vBowqMmNW7pMZPlzLmKLz0n/C8+nikqyhTPlFVBubjpnwQrXQzzrEXmLXSvcgpy6iQln0q2qIHtDXYAnsG9Q=
+X-Received: by 2002:a6b:4106:: with SMTP id n6mr3346187ioa.171.1548322015629; 
+ Thu, 24 Jan 2019 01:26:55 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="us-ascii"
+References: <6065976.siBLTEBlHZ@flash>
+In-Reply-To: <6065976.siBLTEBlHZ@flash>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 24 Jan 2019 17:26:39 +0800
+Message-ID: <CAARXrtkg0uoJ7L8cwme8mkckmNj5bwb1hk15iWgqVYXbJ5pOCw@mail.gmail.com>
+Subject: Re: OpenBMC Sensors
+To: Aaron Williams <awilliams@marvell.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,35 +62,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Jan 2019 09:13:27 -0000
+X-List-Received-Date: Thu, 24 Jan 2019 09:26:59 -0000
 
-Hi all,
+On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams <awilliams@marvell.com> wrote:
+> I see how to set up the hwmon portion defining the devices based on the device
+> tree, but I am unsure how to go about configuring the YAML and other files for
+> this.
 
-I have a board with a couple of i2c sensors that I am trying to configure to 
-work in OpenBMC but I have a lot of confusion. Do I need to add all the IPMI 
-configuration for the sensors? I'm still fairly new to OpenBMC and IPMI and am 
-not sure how to go about configuring things. I'm looking at the IBM Romulus 
-board as an example.
+For sensors' config, please refer to
+https://github.com/openbmc/docs/blob/master/sensor-architecture.md
+And it looks you are looking for fan controls, then you could refer to:
+https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#fans
 
-We have two temperature sensors, a TI TMP421 which monitors the CPU core 
-temperature as well as an ADT7462 which monitors several locations around the 
-motherboard and controls the fans.
-
-We want to control the speed of the CPU fan based on the temperature measured 
-by the tmp421 in order to keep it within our thermal envelope, which shouldn't 
-be too difficult to do whereas the chassis fans would be based on the 
-motherboard temperature.
-
-I see how to set up the hwmon portion defining the devices based on the device 
-tree, but I am unsure how to go about configuring the YAML and other files for 
-this.
-
-At some point we should also be able to obtain internal per-core temperature 
-information as well which we would also like to report.
-
-Engineering has made this a rather high priority since the CPU fan sounds like 
-a jet engine and rarely needs to run anywhere near 100%.
-
-The ADT7462 can also measure the voltage and monitor the fan speeds.
-
--Aaron
+(I really need to submit my porting guide to openbmc/docs)
