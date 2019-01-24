@@ -1,34 +1,27 @@
-Return-Path: <SRS0=LeJN=QA=linuxfoundation.org=gregkh@kernel.org>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=srs0=lejn=qa=linuxfoundation.org=gregkh@kernel.org;
- receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linuxfoundation.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="kbSZQSm4"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43lXyn5vHyzDqGg
- for <openbmc@lists.ozlabs.org>; Thu, 24 Jan 2019 17:57:21 +1100 (AEDT)
-Received: from localhost (5356596B.cm-6-7b.dynamic.ziggo.nl [83.86.89.107])
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C81042184C;
- Thu, 24 Jan 2019 06:57:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1548313038;
- bh=QZ0zZ83Txu50roCR9SfwerCPZ28c+eM+OgjNYgcBDKo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kbSZQSm4oZPQKjjiM3FKEDtAKKdHQ9IBV2izaaJL36vpM0WVNR8aVPpyB6kPOb+K4
- w3JJXjSdBKAtij3xHdUDYYIiQWwdGjOmHq46KVnBGJz1DLS9XarkRLHt9RcQlq9jWy
- S/eWgXSsHctfxVDpyMugy6Gn67YZNwCq2FXvVy9Q=
-Date: Thu, 24 Jan 2019 07:57:14 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43lx1l5XQgzDqGx
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 09:01:14 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Jan 2019 14:01:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,518,1539673200"; d="scan'208";a="294188168"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.143])
+ ([10.7.153.143])
+ by orsmga005.jf.intel.com with ESMTP; 24 Jan 2019 14:01:11 -0800
+Subject: Re: [PATCH v10 03/12] peci: Add support for PECI bus driver core
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
  Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
@@ -45,17 +38,17 @@ Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>,
- Vinod Koul <vkoul@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
+ Stephen Boyd <sboyd@codeaurora.org>,
  David Kershner <david.kershner@unisys.com>,
  Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
  Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
  Thomas Gleixner <tglx@linutronix.de>, Juergen Gross <jgross@suse.com>,
- Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>,
- linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- openbmc@lists.ozlabs.org, Gavin Schenk <g.schenk@eckelmann.de>,
- Viresh Kumar <viresh.kumar@linaro.org>,
+ Cyrille Pitchen <cyrille.pitchen@wedev4u.fr>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Gavin Schenk <g.schenk@eckelmann.de>, Viresh Kumar
+ <viresh.kumar@linaro.org>,
  Cyrille Pitchen <cyrille.pitchen@free-electrons.com>,
  Alan Cox <alan@linux.intel.com>, Andrew Lunn <andrew@lunn.ch>,
  Andy Shevchenko <andriy.shevchenko@intel.com>,
@@ -66,17 +59,21 @@ Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>,
  Haiyue Wang <haiyue.wang@linux.intel.com>,
  James Feist <james.feist@linux.intel.com>,
  Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH v10 03/12] peci: Add support for PECI bus driver core
-Message-ID: <20190124065714.GA28194@kroah.com>
 References: <20190107214136.5256-1-jae.hyun.yoo@linux.intel.com>
  <20190107214136.5256-4-jae.hyun.yoo@linux.intel.com>
  <20190122132047.GA12357@kroah.com>
  <0826ef5c-c919-cdd7-5e2a-fc056d41756e@linux.intel.com>
+ <20190124065714.GA28194@kroah.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <c583da6e-341d-80ee-04a9-8988203a65bb@linux.intel.com>
+Date: Thu, 24 Jan 2019 14:01:10 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.3.3
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <0826ef5c-c919-cdd7-5e2a-fc056d41756e@linux.intel.com>
-User-Agent: Mutt/1.11.2 (2019-01-07)
+In-Reply-To: <20190124065714.GA28194@kroah.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 29 Jan 2019 14:11:08 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -89,306 +86,323 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Jan 2019 06:57:23 -0000
+X-List-Received-Date: Thu, 24 Jan 2019 22:01:16 -0000
 
-On Wed, Jan 23, 2019 at 01:38:24PM -0800, Jae Hyun Yoo wrote:
-> Hi Greg,
+Hi Greg,
+
+On 1/23/2019 10:57 PM, Greg Kroah-Hartman wrote:
+> On Wed, Jan 23, 2019 at 01:38:24PM -0800, Jae Hyun Yoo wrote:
+>> Hi Greg,
+>>
+>> Thanks for sharing your time on reviewing this patch. Please find my
+>> answers below.
+>>
+>> On 1/22/2019 5:20 AM, Greg Kroah-Hartman wrote:
+>>> On Mon, Jan 07, 2019 at 01:41:27PM -0800, Jae Hyun Yoo wrote:
+>>>> +config PECI
+>>>> +	bool "PECI support"
+>>>> +	select RT_MUTEXES
+>>>> +	select CRC8
+>>>> +	help
+>>>> +	  The Platform Environment Control Interface (PECI) is a one-wire bus
+>>>> +	  interface that provides a communication channel from Intel processors
+>>>> +	  and chipset components to external monitoring or control devices.
+>>>
+>>> Why can't this be built as a module?
+>>
+>> This PECI core driver should be prepared ahead of any PECI adapter
+>> driver registration which can be called from 'kernel_init' if the
+>> adapter driver is built-in. So this driver uses 'postcore_initcall' and
+>> it's the reason why it can't be built as a module.
 > 
-> Thanks for sharing your time on reviewing this patch. Please find my
-> answers below.
+> Then set up your dependancies correctly.  As an example, you can have
+> the USB core as a module, and you are not allowed to have USB drivers
+> built into the kernel.  It's not difficult to do this.  Please make your
+> core also be a module so that you do not burden the zillions of machines
+> out there with code that they do not need, just because you forced the
+> distro to choose "Y" or "N".
+
+Okay. I'll make this core config as a tristate.
+
+>>>> +	u8 *msg;
+>>>> +
+>>>> +	if (!capable(CAP_SYS_ADMIN))
+>>>> +		return -EPERM;
+>>>
+>>> Really?  Nice, you have userspace tools running as root, what could go
+>>> wrong... :)
+>>
+>> I didn't catch your point. Should it be removed?
 > 
-> On 1/22/2019 5:20 AM, Greg Kroah-Hartman wrote:
-> > On Mon, Jan 07, 2019 at 01:41:27PM -0800, Jae Hyun Yoo wrote:
-> > > +config PECI
-> > > +	bool "PECI support"
-> > > +	select RT_MUTEXES
-> > > +	select CRC8
-> > > +	help
-> > > +	  The Platform Environment Control Interface (PECI) is a one-wire bus
-> > > +	  interface that provides a communication channel from Intel processors
-> > > +	  and chipset components to external monitoring or control devices.
-> > 
-> > Why can't this be built as a module?
+> You are forcing your userspace tools to have CAP_SYS_ADMIN in order to
+> talk to your device.  Why?  What is wrong with the file permissions on
+> the device node instead?  Why can't userspace decide what user should be
+> able to talk to your device?
 > 
-> This PECI core driver should be prepared ahead of any PECI adapter
-> driver registration which can be called from 'kernel_init' if the
-> adapter driver is built-in. So this driver uses 'postcore_initcall' and
-> it's the reason why it can't be built as a module.
+> Don't require special permissions for no good reason.  This forces
+> whatever userspace tool that handles this, to have enough permission to
+> do anything it wants in the system.  And I do not think you want that.
 
-Then set up your dependancies correctly.  As an example, you can have
-the USB core as a module, and you are not allowed to have USB drivers
-built into the kernel.  It's not difficult to do this.  Please make your
-core also be a module so that you do not burden the zillions of machines
-out there with code that they do not need, just because you forced the
-distro to choose "Y" or "N".
+Okay, I got your point now. Thank you. I'll remove this permission check
+from here.
 
-> > And why do you rely on rt mutexes?
+>>>> +static int peci_detect(struct peci_adapter *adapter, u8 addr)
+>>>> +{
+>>>> +	struct peci_ping_msg msg;
+>>>> +
+>>>> +	msg.addr = addr;
+>>>
+>>> What about the un-initialized fields in this structure?  Can you
+>>> properly handle that, and also, is this ok to be on the stack?
+>>
+>> It's fully initialized at here because the peci_ping_msg struct has only
+>> one member:
+>>
+>> struct peci_ping_msg {
+>> 	__u8 addr;
+>> };
 > 
-> I intended to use that for giving priorities on each PECI sideband
-> function. For an example, Crach Dump sideband function should have a
-> higher priority than Temperature Monitoring sideband function. But, in
-> this initial implementation, it doesn't have any priority adjustment
-> code on the rt mutext yet so I'll remove this config dependency and will
-> replace rt_mutex with mutex for now. It could be replaced back with
-> rt_mutex later when it's actually needed.
+> Ok.  But my question about "can you do this off the stack" remains.
 
-thank you.
+I'll add 3 bytes of dummy padding into this structure. Also, I'll check
+again u32 boundary alignment for all struct defines in peci_ioctl.h.
+Would it be okay to be on stack then?
 
-> > > +	u8 *msg;
-> > > +
-> > > +	if (!capable(CAP_SYS_ADMIN))
-> > > +		return -EPERM;
-> > 
-> > Really?  Nice, you have userspace tools running as root, what could go
-> > wrong... :)
+>>>> +static ssize_t peci_sysfs_new_device(struct device *dev,
+>>>> +				     struct device_attribute *attr,
+>>>> +				     const char *buf, size_t count)
+>>>> +{
+>>>> +	struct peci_adapter *adapter = to_peci_adapter(dev);
+>>>> +	struct peci_board_info info = {};
+>>>> +	struct peci_client *client;
+>>>> +	char *blank, end;
+>>>> +	int rc;
+>>>> +
+>>>> +	/* Parse device type */
+>>>> +	blank = strchr(buf, ' ');
+>>>> +	if (!blank) {
+>>>> +		dev_err(dev, "%s: Missing parameters\n", "new_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	if (blank - buf > PECI_NAME_SIZE - 1) {
+>>>> +		dev_err(dev, "%s: Invalid device type\n", "new_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	memcpy(info.type, buf, blank - buf);
+>>>> +
+>>>> +	/* Parse remaining parameters, reject extra parameters */
+>>>> +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
+>>>
+>>> Please do not tell me you are parsing a sysfs write to do some type of
+>>> new configuration.  That is not what sysfs is for, that is what configfs
+>>> is for, please use that instead, this isn't ok.
+>>
+>> This is for run-time registration of a PECI client which is connected to
+>> a PECI bus adapter. The life cycle of this sysfs interface will be
+>> synced with the adapter driver. Actually, it follows what I2C core
+>> driver currently does.
 > 
-> I didn't catch your point. Should it be removed?
-
-You are forcing your userspace tools to have CAP_SYS_ADMIN in order to
-talk to your device.  Why?  What is wrong with the file permissions on
-the device node instead?  Why can't userspace decide what user should be
-able to talk to your device?
-
-Don't require special permissions for no good reason.  This forces
-whatever userspace tool that handles this, to have enough permission to
-do anything it wants in the system.  And I do not think you want that.
-
-> > > +static int peci_detect(struct peci_adapter *adapter, u8 addr)
-> > > +{
-> > > +	struct peci_ping_msg msg;
-> > > +
-> > > +	msg.addr = addr;
-> > 
-> > What about the un-initialized fields in this structure?  Can you
-> > properly handle that, and also, is this ok to be on the stack?
+> What i2c core driver parses configuration options in sysfs?
 > 
-> It's fully initialized at here because the peci_ping_msg struct has only
-> one member:
+> Ugh, I see that now.  That's horrible.  Please do not emulate that at
+> all.
 > 
-> struct peci_ping_msg {
-> 	__u8 addr;
-> };
+> Again, use configfs, that is what it is there for, do not spread bad
+> interfaces to new places in the kernel.
 
-Ok.  But my question about "can you do this off the stack" remains.
+Okay, I see. I'll rewrite this interface using configfs. Thanks!
 
-> > > +static ssize_t peci_sysfs_new_device(struct device *dev,
-> > > +				     struct device_attribute *attr,
-> > > +				     const char *buf, size_t count)
-> > > +{
-> > > +	struct peci_adapter *adapter = to_peci_adapter(dev);
-> > > +	struct peci_board_info info = {};
-> > > +	struct peci_client *client;
-> > > +	char *blank, end;
-> > > +	int rc;
-> > > +
-> > > +	/* Parse device type */
-> > > +	blank = strchr(buf, ' ');
-> > > +	if (!blank) {
-> > > +		dev_err(dev, "%s: Missing parameters\n", "new_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	if (blank - buf > PECI_NAME_SIZE - 1) {
-> > > +		dev_err(dev, "%s: Invalid device type\n", "new_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	memcpy(info.type, buf, blank - buf);
-> > > +
-> > > +	/* Parse remaining parameters, reject extra parameters */
-> > > +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
-> > 
-> > Please do not tell me you are parsing a sysfs write to do some type of
-> > new configuration.  That is not what sysfs is for, that is what configfs
-> > is for, please use that instead, this isn't ok.
+>>>> +	if (rc < 1) {
+>>>> +		dev_err(dev, "%s: Can't parse client address\n", "new_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	if (rc > 1  && end != '\n') {
+>>>> +		dev_err(dev, "%s: Extra parameters\n", "new_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +
+>>>> +	client = peci_new_device(adapter, &info);
+>>>> +	if (!client)
+>>>> +		return -EINVAL;
+>>>> +
+>>>> +	/* Keep track of the added device */
+>>>> +	mutex_lock(&adapter->userspace_clients_lock);
+>>>> +	list_add_tail(&client->detected, &adapter->userspace_clients);
+>>>> +	mutex_unlock(&adapter->userspace_clients_lock);
+>>>> +	dev_info(dev, "%s: Instantiated device %s at 0x%02hx\n", "new_device",
+>>>> +		 info.type, info.addr);
+>>>
+>>> Don't be noisy for things that are expected to happen.
+>>
+>> I think it should print out a result on a userspace request for client
+>> module registration.
 > 
-> This is for run-time registration of a PECI client which is connected to
-> a PECI bus adapter. The life cycle of this sysfs interface will be
-> synced with the adapter driver. Actually, it follows what I2C core
-> driver currently does.
+> Why?  Who is going to do anything with this?  Userspace "knows" it
+> worked because their function call returned success.  It is not going to
+> then parse a kernel log.
 
-What i2c core driver parses configuration options in sysfs?
+Agree. Will change it to dev_dbg().
 
-Ugh, I see that now.  That's horrible.  Please do not emulate that at
-all.
-
-Again, use configfs, that is what it is there for, do not spread bad
-interfaces to new places in the kernel.
-
-> > > +	if (rc < 1) {
-> > > +		dev_err(dev, "%s: Can't parse client address\n", "new_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	if (rc > 1  && end != '\n') {
-> > > +		dev_err(dev, "%s: Extra parameters\n", "new_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +
-> > > +	client = peci_new_device(adapter, &info);
-> > > +	if (!client)
-> > > +		return -EINVAL;
-> > > +
-> > > +	/* Keep track of the added device */
-> > > +	mutex_lock(&adapter->userspace_clients_lock);
-> > > +	list_add_tail(&client->detected, &adapter->userspace_clients);
-> > > +	mutex_unlock(&adapter->userspace_clients_lock);
-> > > +	dev_info(dev, "%s: Instantiated device %s at 0x%02hx\n", "new_device",
-> > > +		 info.type, info.addr);
-> > 
-> > Don't be noisy for things that are expected to happen.
+>>>> +
+>>>> +	return count;
+>>>> +}
+>>>> +static DEVICE_ATTR(new_device, 0200, NULL, peci_sysfs_new_device);
+>>>
+>>> Not that you should be doing this, but DEVICE_ATTR_RO() is what you want
+>>> here, right?
+>>
+>> Actually, DEVICE_ATTR_WO() is what I can use here. The reason why I used
+>> DEVICE_ATTR() is for keeping the function naming pattern as
+>> 'peci_sysfs_new_device()' instead of 'new_device_store()'.
 > 
-> I think it should print out a result on a userspace request for client
-> module registration.
+> Sorry, yes, WO is what you want.  But anyway, this should be in
+> configfs, not sysfs.
 
-Why?  Who is going to do anything with this?  Userspace "knows" it
-worked because their function call returned success.  It is not going to
-then parse a kernel log.
+I'll rewrite this interface using configfs.
 
-> > > +
-> > > +	return count;
-> > > +}
-> > > +static DEVICE_ATTR(new_device, 0200, NULL, peci_sysfs_new_device);
-> > 
-> > Not that you should be doing this, but DEVICE_ATTR_RO() is what you want
-> > here, right?
+>>>> +static ssize_t peci_sysfs_delete_device(struct device *dev,
+>>>> +					struct device_attribute *attr,
+>>>> +					const char *buf, size_t count)
+>>>> +{
+>>>> +	struct peci_adapter *adapter = to_peci_adapter(dev);
+>>>> +	struct peci_client *client, *next;
+>>>> +	struct peci_board_info info = {};
+>>>> +	struct peci_driver *driver;
+>>>> +	char *blank, end;
+>>>> +	int rc;
+>>>> +
+>>>> +	/* Parse device type */
+>>>> +	blank = strchr(buf, ' ');
+>>>> +	if (!blank) {
+>>>> +		dev_err(dev, "%s: Missing parameters\n", "delete_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	if (blank - buf > PECI_NAME_SIZE - 1) {
+>>>> +		dev_err(dev, "%s: Invalid device type\n", "delete_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	memcpy(info.type, buf, blank - buf);
+>>>> +
+>>>> +	/* Parse remaining parameters, reject extra parameters */
+>>>> +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
+>>>> +	if (rc < 1) {
+>>>> +		dev_err(dev, "%s: Can't parse client address\n",
+>>>> +			"delete_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>> +	if (rc > 1  && end != '\n') {
+>>>> +		dev_err(dev, "%s: Extra parameters\n", "delete_device");
+>>>> +		return -EINVAL;
+>>>> +	}
+>>>
+>>> Same here, no parsing of configurations through sysfs, that is not ok.
+>>> Again, use configfs.
+>>
+>> Same as above. This is for run-time deregistration of a PECI client
+>> which is registered on a PECI bus adapter. The life cycle of this sysfs
+>> interface will be synced with the adapter driver. Actually, it follows
+>> what I2C core driver currently does.
 > 
-> Actually, DEVICE_ATTR_WO() is what I can use here. The reason why I used
-> DEVICE_ATTR() is for keeping the function naming pattern as
-> 'peci_sysfs_new_device()' instead of 'new_device_store()'.
+> Again, do not copy previous mistakes please.
 
-Sorry, yes, WO is what you want.  But anyway, this should be in
-configfs, not sysfs.
+Agreed. Thanks!
 
-> > > +static ssize_t peci_sysfs_delete_device(struct device *dev,
-> > > +					struct device_attribute *attr,
-> > > +					const char *buf, size_t count)
-> > > +{
-> > > +	struct peci_adapter *adapter = to_peci_adapter(dev);
-> > > +	struct peci_client *client, *next;
-> > > +	struct peci_board_info info = {};
-> > > +	struct peci_driver *driver;
-> > > +	char *blank, end;
-> > > +	int rc;
-> > > +
-> > > +	/* Parse device type */
-> > > +	blank = strchr(buf, ' ');
-> > > +	if (!blank) {
-> > > +		dev_err(dev, "%s: Missing parameters\n", "delete_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	if (blank - buf > PECI_NAME_SIZE - 1) {
-> > > +		dev_err(dev, "%s: Invalid device type\n", "delete_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	memcpy(info.type, buf, blank - buf);
-> > > +
-> > > +	/* Parse remaining parameters, reject extra parameters */
-> > > +	rc = sscanf(++blank, "%hi%c", &info.addr, &end);
-> > > +	if (rc < 1) {
-> > > +		dev_err(dev, "%s: Can't parse client address\n",
-> > > +			"delete_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > > +	if (rc > 1  && end != '\n') {
-> > > +		dev_err(dev, "%s: Extra parameters\n", "delete_device");
-> > > +		return -EINVAL;
-> > > +	}
-> > 
-> > Same here, no parsing of configurations through sysfs, that is not ok.
-> > Again, use configfs.
+>>>> +
+>>>> +	return rc;
+>>>> +}
+>>>> +static DEVICE_ATTR_IGNORE_LOCKDEP(delete_device, 0200, NULL,
+>>>> +				  peci_sysfs_delete_device);
+>>>
+>>> sysfs files that remove themselves are reserved for a specific circle in
+>>> hell, you really don't want to mess with them :(
+>>
+>> It cannot remove itself. The owner of the sysfs files is an adapter
+>> driver and only client devices can be added/removed by these sysfs
+>> files. An adapter can't be removed by accessing of this sysfs.
 > 
-> Same as above. This is for run-time deregistration of a PECI client
-> which is registered on a PECI bus adapter. The life cycle of this sysfs
-> interface will be synced with the adapter driver. Actually, it follows
-> what I2C core driver currently does.
+> They why the LOCKDEP notation?
 
-Again, do not copy previous mistakes please.
+For a case of debugging. Anyway, I'll rewrite this part using configfs.
 
-> > > +
-> > > +	return rc;
-> > > +}
-> > > +static DEVICE_ATTR_IGNORE_LOCKDEP(delete_device, 0200, NULL,
-> > > +				  peci_sysfs_delete_device);
-> > 
-> > sysfs files that remove themselves are reserved for a specific circle in
-> > hell, you really don't want to mess with them :(
+>>>> +/**
+>>>> + * struct peci_adapter - represent a PECI adapter
+>>>> + * @owner: owner module of the PECI adpater
+>>>> + * @bus_lock: mutex for exclusion of multiple callers
+>>>> + * @dev: device interface to this driver
+>>>> + * @cdev: character device object to create character device
+>>>> + * @nr: the bus number to map
+>>>> + * @name: name of the adapter
+>>>> + * @userspace_clients_lock: mutex for exclusion of clients handling
+>>>> + * @userspace_clients: list of registered clients
+>>>> + * @xfer: low-level transfer function pointer of the adapter
+>>>> + * @cmd_mask: mask for supportable PECI commands
+>>>> + *
+>>>> + * Each PECI adapter can communicate with one or more PECI client children.
+>>>> + * These make a small bus, sharing a single wired PECI connection.
+>>>> + */
+>>>> +struct peci_adapter {
+>>>> +	struct module		*owner;
+>>>> +	struct rt_mutex		bus_lock;
+>>>> +	struct device		dev;
+>>>> +	struct cdev		cdev;
+>>>
+>>> Yeah, two differently reference counted variables in the same structure,
+>>> what could go wrong!  :(
+>>>
+>>> Don't do this, make your cdev a pointer to be sure you get things right,
+>>> otherwise this will never work properly.
+>>>
+>>> And shouldn't the character device be a class device?  Don't confuse
+>>> devices in the driver model with the interaction of them to userspace in
+>>> a specific manner, those should be separate things, right?
+>>
+>> Okay, I got your point. I'll split out the character device part as
+>> a separated module and will make the module can be attached to a PECI
+>> bus.
 > 
-> It cannot remove itself. The owner of the sysfs files is an adapter
-> driver and only client devices can be added/removed by these sysfs
-> files. An adapter can't be removed by accessing of this sysfs.
+> I'm not saying it has to be a whole separate module, at the least it
+> needs to be a new structure.  As it is, your code is not correct due to
+> the dual-structures-trying-to-fight-it-out-for-lifecycle-rules
 
-They why the LOCKDEP notation?
+I got you point clearly now. I'll use a separate structure for the
+character device.
 
-> > > +/**
-> > > + * struct peci_adapter - represent a PECI adapter
-> > > + * @owner: owner module of the PECI adpater
-> > > + * @bus_lock: mutex for exclusion of multiple callers
-> > > + * @dev: device interface to this driver
-> > > + * @cdev: character device object to create character device
-> > > + * @nr: the bus number to map
-> > > + * @name: name of the adapter
-> > > + * @userspace_clients_lock: mutex for exclusion of clients handling
-> > > + * @userspace_clients: list of registered clients
-> > > + * @xfer: low-level transfer function pointer of the adapter
-> > > + * @cmd_mask: mask for supportable PECI commands
-> > > + *
-> > > + * Each PECI adapter can communicate with one or more PECI client children.
-> > > + * These make a small bus, sharing a single wired PECI connection.
-> > > + */
-> > > +struct peci_adapter {
-> > > +	struct module		*owner;
-> > > +	struct rt_mutex		bus_lock;
-> > > +	struct device		dev;
-> > > +	struct cdev		cdev;
-> > 
-> > Yeah, two differently reference counted variables in the same structure,
-> > what could go wrong!  :(
-> > 
-> > Don't do this, make your cdev a pointer to be sure you get things right,
-> > otherwise this will never work properly.
-> > 
-> > And shouldn't the character device be a class device?  Don't confuse
-> > devices in the driver model with the interaction of them to userspace in
-> > a specific manner, those should be separate things, right?
+>>>> +/**
+>>>> + * struct peci_xfer_msg - raw PECI transfer command
+>>>> + * @addr; address of the client
+>>>> + * @tx_len: number of data to be written in bytes
+>>>> + * @rx_len: number of data to be read in bytes
+>>>> + * @tx_buf: data to be written, or NULL
+>>>> + * @rx_buf: data to be read, or NULL
+>>>> + *
+>>>> + * raw PECI transfer
+>>>> + */
+>>>> +struct peci_xfer_msg {
+>>>> +	__u8 addr;
+>>>> +	__u8 tx_len;
+>>>> +	__u8 rx_len;
+>>>> +	__u8 tx_buf[PECI_BUFFER_SIZE];
+>>>> +	__u8 rx_buf[PECI_BUFFER_SIZE];
+>>>> +} __attribute__((__packed__));
+>>>
+>>> Go kick the hardware engineer who did not align things on a 32bit
+>>> boundry.  They should have known better :(
+>>
+>> I intended to make it as contiguous byte sequence in this order because
+>> some PECI commands need to caclulate CRC8 checksum using this as a byte
+>> array. I'll align these on a 32bit boundary and will use a temporary
+>> buffer instead while calcuating a CRC8 checksum.
 > 
-> Okay, I got your point. I'll split out the character device part as
-> a separated module and will make the module can be attached to a PECI
-> bus.
-
-I'm not saying it has to be a whole separate module, at the least it
-needs to be a new structure.  As it is, your code is not correct due to
-the dual-structures-trying-to-fight-it-out-for-lifecycle-rules
-
-> > > +/**
-> > > + * struct peci_xfer_msg - raw PECI transfer command
-> > > + * @addr; address of the client
-> > > + * @tx_len: number of data to be written in bytes
-> > > + * @rx_len: number of data to be read in bytes
-> > > + * @tx_buf: data to be written, or NULL
-> > > + * @rx_buf: data to be read, or NULL
-> > > + *
-> > > + * raw PECI transfer
-> > > + */
-> > > +struct peci_xfer_msg {
-> > > +	__u8 addr;
-> > > +	__u8 tx_len;
-> > > +	__u8 rx_len;
-> > > +	__u8 tx_buf[PECI_BUFFER_SIZE];
-> > > +	__u8 rx_buf[PECI_BUFFER_SIZE];
-> > > +} __attribute__((__packed__));
-> > 
-> > Go kick the hardware engineer who did not align things on a 32bit
-> > boundry.  They should have known better :(
+> If this really is the way the structure needs to be on the wire, that's
+> fine, it's just a complaint about the protocol and how bad accessing
+> those fields are going to suck for some processors.
 > 
-> I intended to make it as contiguous byte sequence in this order because
-> some PECI commands need to caclulate CRC8 checksum using this as a byte
-> array. I'll align these on a 32bit boundary and will use a temporary
-> buffer instead while calcuating a CRC8 checksum.
+> But if you can get away with not doing it like this, that would be nice.
 
-If this really is the way the structure needs to be on the wire, that's
-fine, it's just a complaint about the protocol and how bad accessing
-those fields are going to suck for some processors.
+OK. I'll align this on a 32bit boundary and align all remaining
+structures in this header file as well.
 
-But if you can get away with not doing it like this, that would be nice.
+Thanks a lot for your comments.
 
-thanks,
-
-greg k-h
+Regards,
+Jae
