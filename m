@@ -1,55 +1,76 @@
-Return-Path: <venture@google.com>
+Return-Path: <jrey@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="v2yWhGvS"; 
- dkim-atps=neutral
-Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
- [IPv6:2607:f8b0:4864:20::52e])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43mTC50sn5zDqPv
- for <openbmc@lists.ozlabs.org>; Sat, 26 Jan 2019 06:11:11 +1100 (AEDT)
-Received: by mail-pg1-x52e.google.com with SMTP id v28so4573083pgk.10
- for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 11:11:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=NM07DD92mheaqcA+DuLvYen3v1N/yQ/gvUqtqhjB3E8=;
- b=v2yWhGvStsD5lp4vZAeu0D5i/mk3U0BwWr3N5KrlomLJNdN+ZwGxDDJGjYu7sQwpRD
- +DKtdllti24F1itqVbopV5Da1QaM6kRoMuERQpnq9vsZBiJiF4em5KsbjNnh/qa7e7EJ
- jTAVYTJ9tDchFXsAiB4iU27/uFI5H4KX0xcCWKbPZqkV+uZWyibrX0depLpu7lFRPznp
- liCMtC0uB7RWvIUgY0Z30vso3tBfOD9ZNDDZxF1+34s5T5y8c6t8vC9dTPLRU1wkrUvy
- cTl9jT6uGyTj9kft1b5KwAme71EHWiL0cpatIMbDDXZ93i/vAMMh+BRvOWzxoDXONN0E
- i5jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=NM07DD92mheaqcA+DuLvYen3v1N/yQ/gvUqtqhjB3E8=;
- b=LR9yBUEgmFaccgq8x9XVPmbY3gpWkhBJ6UTAukSH4fOCQc/2dPFC3pLQvG+wNMukEL
- l/HDDY1f8eMwbw1kC4OuKy2LKnQJN8mf62UJK7h0a61QHBoy2ey36btWvTRYF84Pauvc
- XSPw2IPF1qzN3Y2BnNRDfsRQTcmWoo6NTE1QpczWCi/hPSK6YD0Bc5PsnPWw2OqSfyiJ
- 7P0+830SQAMrHVVRzoQXWtInzHKlMVAx7SK7+ldr2Q3rwQO1mOFyvYQXDoKWgQ5E0wPm
- 3fhzzSguQ6fxST68u1gOuGUIc3k53c1HBEe9rDqenWtJ+NzQ3yykWZ0NW2zODl4l8ng5
- 92dg==
-X-Gm-Message-State: AJcUukeUQc4F6RyJl7fZeUzkWaPTI7IRa8FDCj1i5/GnY8t3dZoCHuZd
- Wdxscp/zHDN2qBHpSOgvOSPOy7HAxwkDSR9lZV2+HwvDF0AE0Q==
-X-Google-Smtp-Source: ALg8bN6TsCapBCxc4XsgRZ+Q2VA51HMTpMIWFzd/L+XWQtHK+W92xhAT/JcNv9yPirsX4RKsl7XUgPo90HoMAZIO6JY=
-X-Received: by 2002:a63:5e43:: with SMTP id s64mr11089551pgb.101.1548443469296; 
- Fri, 25 Jan 2019 11:11:09 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43mWFc2pLkzDqQ1
+ for <openbmc@lists.ozlabs.org>; Sat, 26 Jan 2019 07:43:31 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0PKXxn9005450
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 15:43:29 -0500
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2q87ramy6m-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 15:43:29 -0500
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
+ Fri, 25 Jan 2019 20:43:28 -0000
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 25 Jan 2019 20:43:26 -0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x0PKhPA724510594
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 20:43:25 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B2E9D124052
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 20:43:25 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7CC46124053
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 20:43:25 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 20:43:25 +0000 (GMT)
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Fri, 25 Jan 2019 11:10:58 -0800
-Message-ID: <CAO=notyYfCk5L984Q96C1vNQQ85BBWhxS1p8HEo0NXEEzj+dkg@mail.gmail.com>
-Subject: dbus-broker build failure thud transition
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 25 Jan 2019 14:49:25 -0600
+From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: algorithm: document("features")
+X-Sender: jrey@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19012520-0068-0000-0000-00000388C26E
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010476; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000277; SDB=6.01151716; UDB=6.00600302; IPR=6.00932060; 
+ MB=3.00025289; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-25 20:43:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19012520-0069-0000-0000-000047449D2F
+Message-Id: <e2f3341473a364121b9f520fbf0a51e5@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-25_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=574 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1901250158
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,50 +82,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 25 Jan 2019 19:11:15 -0000
-
-Seeing the following while trying to rebase onto the thud branch.
-When I just build Zaius upstream with the thud branch it builds
-dbus-broker fine, but not otherwise, so I'm curious if anyone else has
-seen this?
-
-ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_unpack: Fetcher
-failure: Fetch command export PSEUDO_DISABLED=3D1; export
-PATH=3D"/usr/local/google/git/workspaces/building_thud_rebase/metabuild_reb=
-ase/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+f=
-c874afa09-r0/recipe-sysroot-native/usr/bin/python3-native:/usr/local/google=
-/git/workspaces/building_thud_rebase/metabuild_rebase/scripts:/usr/local/go=
-ogle/git/workspaces/building_thud_rebase/metabuild_rebase/build/tmp/work/ar=
-mv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-s=
-ysroot-native/usr/bin/arm-openbmc-linux-gnueabi:/usr/local/google/git/works=
-paces/building_thud_rebase/metabuild_rebase/build/tmp/work/armv5e-openbmc-l=
-inux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot/usr/bin=
-/crossscripts:/usr/local/google/git/workspaces/building_thud_rebase/metabui=
-ld_rebase/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUT=
-OINC+fc874afa09-r0/recipe-sysroot-native/usr/sbin:/usr/local/google/git/wor=
-kspaces/building_thud_rebase/metabuild_rebase/build/tmp/work/armv5e-openbmc=
--linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-nativ=
-e/usr/bin:/usr/local/google/git/workspaces/building_thud_rebase/metabuild_r=
-ebase/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC=
-+fc874afa09-r0/recipe-sysroot-native/sbin:/usr/local/google/git/workspaces/=
-building_thud_rebase/metabuild_rebase/build/tmp/work/armv5e-openbmc-linux-g=
-nueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/bin:/u=
-sr/local/google/git/workspaces/building_thud_rebase/metabuild_rebase/poky/b=
-itbake/bin:/usr/local/google/git/workspaces/building_thud_rebase/metabuild_=
-rebase/build/tmp/hosttools";
-export HOME=3D"/usr/local/google/home/venture"; cp -fpLR
-/usr/local/google/git/workspaces/building_thud_rebase/metabuild_rebase/buil=
-d/downloads/git2/github.com.bus1.dbus-broker/modules/subprojects/c-dvar
-/usr/local/google/git/workspaces/building_thud_rebase/metabuild_rebase/buil=
-d/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa0=
-9-r0/git/.git/modules/subprojects/c-dvar
-failed with exit code 1, output:
+X-List-Received-Date: Fri, 25 Jan 2019 20:43:33 -0000
 
 
-cp: cannot stat
-'/usr/local/google/git/workspaces/building_thud_rebase/metabuild_rebase/bui=
-ld/downloads/git2/github.com.bus1.dbus-broker/modules/subprojects/c-dvar/mo=
-dules/subprojects/c-utf8':
-No such file or directory
+FEATURE_TOC_REVIEW = 
+"https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/17440/1/feature-toc.md";
 
-Patrick
+if (working_on_feature(feature_name))
+{
+     // locate documentation for your feature
+     feature_doc = FEATURE_TOC_REVIEW -> feature_name;
+     // ensure it is adequate
+     if ((not feature_doc) or (is_empty(feature_doc))
+         please_contribute_to_review(FEATURE_TOC_REVIEW, feature_name);
+     else if need_improvement(feature_doc)
+         please_improve(feature_docs);
+}
