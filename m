@@ -1,61 +1,53 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <jic23@kernel.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::836; helo=mail-qt1-x836.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kernel.org
+ (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=jic23@kernel.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="AR5RdfQq"; 
+ dmarc=pass (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.b="KPPNK6/R"; 
  dkim-atps=neutral
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43mdLp1HbJzDq6t
- for <openbmc@lists.ozlabs.org>; Sat, 26 Jan 2019 12:18:19 +1100 (AEDT)
-Received: by mail-qt1-x836.google.com with SMTP id t33so12774983qtt.4
- for <openbmc@lists.ozlabs.org>; Fri, 25 Jan 2019 17:18:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oKUbcObTsUmSGLX0l1jBFbt6cYiFvAFOuNk1MoJYWJk=;
- b=AR5RdfQqGSgtraGlpMm6PU2iurFYyi6srfjKNOF033bSaF9IwsM7VE9zV09lbxl+D4
- ZOFKqgmSIddzv0akwdTAFZNuvEHpOzec7ZdwJit0cAZLfaiWLKYUe8zV/nBwL7sg+bby
- 44AItxLPKVJ6ZkRIVNZjgRWI/DeCNWgVtkO9XsrMb69oSVc5v/SNrqHeTpyuwT6IuBT3
- +7Ith2+4JZzD6FNiVqBRwTptwplkkF46aoTOvDdWMgos3dKEszQTf00W3F4cL0XOwnib
- VQZr7iJTdGYfT2faz9lFXVS5+ry7EbS1U8ijPd8C+eTiTcJdynn6A+LWf1njvThFXU4L
- Bt6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oKUbcObTsUmSGLX0l1jBFbt6cYiFvAFOuNk1MoJYWJk=;
- b=Lm+ROCnFr+7Mfgs/n2tD2viwBKqaPHvHFjRLn6ueLy2SFOvppGUF/pu6Y7SRDWTAq7
- uf5Im6qCKpPr+66zkiVGxPosvyIAlwR4wLaFIgv7vMqnwJD+ecZr6SFao9L21VKBN++d
- N54AabIPUY/XzhaTxTPTP5L1wgVK9rLUvnQF6f6+GRSPMLOr57vjIFVG6rlrIyUjC7qi
- FUXxFZrBpzWXvBL746g2PWvwM40SFo9xsD0r3h9VVFVfzvScFXRAoU6+R8J2URnlNLPr
- FO6H314xdqH12KXSbfcQCy+GafRiJDygcS1RVxFmQ9MLxo/1SW/KH8LOGABNGiwHtT9g
- Pp+g==
-X-Gm-Message-State: AJcUukfuEnlXanAuKlA9VmSF9hSr0WXAzqU3eWn7BPUZ+FkeygvfeS2M
- jek771GUq8GQUJ4/SPt4vtBoeR4L6MUlrZ+snGrWMA==
-X-Google-Smtp-Source: ALg8bN4p2Nu8aMRHO0FOqSJe7D5uw5MrBl1lqhx14fgKvWWYNNYWXJDkxfdRmoMf5ZfARJNTGoe8VWhJ/OCXECMo8aE=
-X-Received: by 2002:a0c:eb41:: with SMTP id c1mr12857055qvq.211.1548465496543; 
- Fri, 25 Jan 2019 17:18:16 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43n3653yvZzDqBH
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Jan 2019 04:38:53 +1100 (AEDT)
+Received: from archlinux (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net
+ [81.96.234.148])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 7DA6E21872;
+ Sat, 26 Jan 2019 17:32:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1548523966;
+ bh=oJ3NN00mwI0y/xBGgM3NSkTIlUX/qbXv4h/n4er/BIE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=KPPNK6/Ry3Qboli2gK8yQGDcFmGOl9Q7erVFYw4I7c6AH8znRqXwNHfeQk5DaPZhR
+ KuqgjIRjJUDpLWAV9dTjQQUf0TdLq8gWfAeOKA28RnJxAxeeUFgwcPa2rA0cx/dVIv
+ AkYPQLGukHaPwo7zo0kTKhwzdYnFRzuS2BSxUD9I=
+Date: Sat, 26 Jan 2019 17:32:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Hartmut Knaack <knaack.h@gmx.de>, Lars-Peter Clausen <lars@metafoo.de>,
+ Peter Meerwald-Stadler <pmeerw@pmeerw.net>, Rob Herring
+ <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Nancy Yuen
+ <yuenn@google.com>, Patrick Venture <venture@google.com>, Brendan Higgins
+ <brendanhiggins@google.com>, Avi Fishman <avifishman70@gmail.com>, Joel
+ Stanley <joel@jms.id.au>, linux-iio@vger.kernel.org, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, devicetree <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v3 2/2] iio: adc: add NPCM ADC driver
+Message-ID: <20190126173240.4f87423d@archlinux>
+In-Reply-To: <CAP6Zq1j=wjkKYsP=aFSDCYKV3ESUibtV0oXTXG5P1LikVgdJdw@mail.gmail.com>
+References: <20190116164855.200357-1-tmaimon77@gmail.com>
+ <20190116164855.200357-3-tmaimon77@gmail.com>
+ <20190119180843.78510580@archlinux>
+ <CAP6Zq1j=wjkKYsP=aFSDCYKV3ESUibtV0oXTXG5P1LikVgdJdw@mail.gmail.com>
+X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <CAJoAoZnbzzcruF7YnKh7LS+Pg6uxVx=BSJaR-X5q9cX9QMDgOg@mail.gmail.com>
- <AF6D38D7-CFE5-4D25-A31B-FB82DD82B4FB@amperecomputing.com>
- <MN2PR01MB5359821606C930685149BB57B79A0@MN2PR01MB5359.prod.exchangelabs.com>
- <CAJoAoZnQmnJmCaD9+=tmyDo4tekuhAZOatE889ahqXSOd6FOUg@mail.gmail.com>
- <814A00F2-640D-4AD3-821A-491472C7D027@amperecomputing.com>
-In-Reply-To: <814A00F2-640D-4AD3-821A-491472C7D027@amperecomputing.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Fri, 25 Jan 2019 17:18:04 -0800
-Message-ID: <CAJoAoZmUw3TZ3zQO7JEt9UVhizZiRCRMFOwer+eo41Q8Jj=mZw@mail.gmail.com>
-Subject: Re: ampere-openbmc/phosphor-host-ipmid
-To: Hoang Nguyen <hnguyen@amperecomputing.com>
-Cc: Hien Pham <hpham@amperecomputing.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000dee96105805237fa"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,693 +59,454 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 26 Jan 2019 01:18:27 -0000
+X-List-Received-Date: Sat, 26 Jan 2019 17:38:54 -0000
 
---000000000000dee96105805237fa
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Sun, 20 Jan 2019 17:05:38 +0200
+Tomer Maimon <tmaimon77@gmail.com> wrote:
 
-+OpenBMC mailing list
+> Hi Jonathan,
+> 
+> Thanks a lot for reviewing our driver,
+> 
+> On Sat, 19 Jan 2019 at 20:08, Jonathan Cameron <jic23@kernel.org> wrote:
+> 
+> > On Wed, 16 Jan 2019 18:48:55 +0200
+> > Tomer Maimon <tmaimon77@gmail.com> wrote:
+> >  
+> > > Add Nuvoton NPCM BMC Analog-to-Digital Converter(ADC) driver.
+> > >
+> > > The NPCM ADC is a 10-bit converter for eight channel inputs.
+> > >
+> > > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>  
+> > One trivial ordering in remove oddity that I'll just fix up.
+> > Also, I don't particularly like printing a message on success
+> > as it's not providing any useful info.  Hmm. I don't care
+> > strongly enough to remove it though.
+> >  
+> 
+> The Probe log is is important for us when customers doing bring-up or have
+> some issues,
+> we ask the logs w/o asking to do all kinds of things to see if a device was
+> probed.
 
-Hoang,
+You should probably develop a proper info gathering script.  Chances of this
+randomly getting 'tidied up' in future (i.e. remove) is rather high and
+I doubt I'll remember this if you miss the patch...
 
-Thanks for the overview. I think that we would probably like to see your
-design for review - it sounds interesting and there have been other
-complaints regarding FRU parser.  If you want to provide more detail to the
-entire list I'm sure we will be interested to hear, and also very
-interested to take a look at your code and consider adoption.
+I don't care all that much though and your problem if it goes away. Kernel
+logs shouldn't be used as ABI.  Even error messages tend to change over time!
 
-Thanks!
-Emily
+Jonathan
 
-On Fri, Jan 25, 2019 at 1:23 AM Hoang Nguyen <hnguyen@amperecomputing.com>
-wrote:
-
-> Hi Emily,
->
->
->
-> FYI, now I don=E2=80=99t have too much time to develop new feature of IPM=
-I@OpenBMC,
-> but I can follow the IPMI@OpenBMC activity.
->
-> I=E2=80=99ll push the code for reviewing if you=E2=80=99re interesting in=
- my design.
->
->
->
-> Firstly, I=E2=80=99ll overview about my design. And I=E2=80=99ll continue=
- in detail if you
-> agree.
->
->
->
-> *The package name*: FRU manager
->
->
->
-> *The reason for new package:*
->
-> + Current package doesn=E2=80=99t support Multirecord FRU parsing
->
-> + Sometime, using =E2=80=9CIPMI fru write=E2=80=A6=E2=80=9D command will =
-crash the FRU EEPROM
-> image -> nothing from D-Bus can inform this info
->
->
->
-> *New package structure:*
->
-> FRU manager package has 2 parts: *Manager* and *Parser*
->
-> + *Manager*:
->
->     - Initial the D-Bus interface + all properties of
-> Chassis/Board/Product/Multirecord areas (with default value)
->
->     - Provide the D-Bus methods for other packages (*Parser* as an
-> example) to update the real data of FRU to D-Bus
->
->     - Provide methods to update the FRU device directly (in case of FRU
-> recovering)
->
->
->
-> + *Parser*:
->
->     - Access the FRU device directly to parse the FRU data and request to
-> update these date to D-Bus (using *Manager* supported methods)
->
->
->
-> *New services to handle new package:*
->
-> Add more 2 services:
->
-> + FRU manager service: start Manager part to handle all FRU request on
-> D-Bus
->
-> + FRU parser service: start Parser part to parse FRU data and update to
-> D-Bus
->
->
->
-> *Improvement points:*
->
-> + Handle Multirecord data
->
-> + In case of FRU data is not correct, the FRU parser service will be
-> failed, all data of FRU on D-Bus are =E2=80=9Cdefault value=E2=80=9D
->
->    -> We can identify the issue and recovering the FRU image
->
->
->
->
->
-> Best regards,
->
-> Hoang
->
->
->
-> *From: *Emily Shaffer <emilyshaffer@google.com>
-> *Date: *Friday, January 25, 2019 at 7:11 AM
-> *To: *Hien Pham <hpham@amperecomputing.com>
-> *Cc: *Hoang Nguyen <hnguyen@amperecomputing.com>
-> *Subject: *Re: ampere-openbmc/phosphor-host-ipmid
->
->
->
-> [NOTICE: This email originated from an external sender. Please be mindful
-> of safe email handling and proprietary information protection practices.]
-> _________________________________________________________________________=
-_______________________________________________
->
->
-> Hien, Hoang,
->
->
->
-> Thanks so much for replying to my cold email :)
->
->
->
-> I want to take a look and understand better the approach you guys used.
-> We've added more support to some of the FRU functionality you were missin=
-g
-> - specifically multirecord FRU has seen development in the past month or
-> two - but it looks like you made a broader change.  If you have the
-> engineer time to do so, I think it'd be valuable for you to push either
-> your code or a design proposal (which maybe you already have written) for
-> the OpenBMC community to take a look at (via gerrit) - I'd like to get th=
-e
-> rest of the community's feedback too.
->
->
->
-> It sounds like you aren't able to dedicate a lot of resources right now s=
-o
-> I definitely understand if you don't want to put up a review; if you won'=
-t
-> have the time, could you let me know? I'll ask the other IPMI maintainers
-> to take a look at your approach too and we can decide if it's something w=
-e
-> want to bring over ourselves.  (But it's more cohesive for the community =
-if
-> you're able to push the review from your end :) )
->
->
->
+> 
+> 
+> > Applied to the togreg branch of iio.git and pushed out as
+> > testing for the autobuilders to play with it.
+> >
+> > Thanks,
+> >
+> > Jonathan
+> >  
+> > > ---
+> > >  drivers/iio/adc/Kconfig    |  10 ++
+> > >  drivers/iio/adc/Makefile   |   1 +
+> > >  drivers/iio/adc/npcm_adc.c | 335  
+> > +++++++++++++++++++++++++++++++++++++++++++++  
+> > >  3 files changed, 346 insertions(+)
+> > >  create mode 100644 drivers/iio/adc/npcm_adc.c
+> > >
+> > > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+> > > index 7a3ca4ec0cb7..2d1e70a7d5c4 100644
+> > > --- a/drivers/iio/adc/Kconfig
+> > > +++ b/drivers/iio/adc/Kconfig
+> > > @@ -576,6 +576,16 @@ config NAU7802
+> > >         To compile this driver as a module, choose M here: the
+> > >         module will be called nau7802.
+> > >
+> > > +config NPCM_ADC
+> > > +     tristate "Nuvoton NPCM ADC driver"
+> > > +     depends on ARCH_NPCM || COMPILE_TEST
+> > > +     depends on HAS_IOMEM
+> > > +     help
+> > > +       Say yes here to build support for Nuvoton NPCM ADC.
+> > > +
+> > > +       This driver can also be built as a module. If so, the module
+> > > +       will be called npcm_adc.
+> > > +
+> > >  config PALMAS_GPADC
+> > >       tristate "TI Palmas General Purpose ADC"
+> > >       depends on MFD_PALMAS
+> > > diff --git a/drivers/iio/adc/Makefile b/drivers/iio/adc/Makefile
+> > > index 07df37f621bd..3337eb1f4c30 100644
+> > > --- a/drivers/iio/adc/Makefile
+> > > +++ b/drivers/iio/adc/Makefile
+> > > @@ -55,6 +55,7 @@ obj-$(CONFIG_MEN_Z188_ADC) += men_z188_adc.o
+> > >  obj-$(CONFIG_MESON_SARADC) += meson_saradc.o
+> > >  obj-$(CONFIG_MXS_LRADC_ADC) += mxs-lradc-adc.o
+> > >  obj-$(CONFIG_NAU7802) += nau7802.o
+> > > +obj-$(CONFIG_NPCM_ADC) += npcm_adc.o
+> > >  obj-$(CONFIG_PALMAS_GPADC) += palmas_gpadc.o
+> > >  obj-$(CONFIG_QCOM_SPMI_ADC5) += qcom-spmi-adc5.o
+> > >  obj-$(CONFIG_QCOM_SPMI_IADC) += qcom-spmi-iadc.o
+> > > diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
+> > > new file mode 100644
+> > > index 000000000000..1cc377cdf1f7
+> > > --- /dev/null
+> > > +++ b/drivers/iio/adc/npcm_adc.c
+> > > @@ -0,0 +1,335 @@
+> > > +// SPDX-License-Identifier: GPL-2.0
+> > > +// Copyright (c) 2019 Nuvoton Technology corporation.
+> > > +
+> > > +#include <linux/clk.h>
+> > > +#include <linux/device.h>
+> > > +#include <linux/mfd/syscon.h>
+> > > +#include <linux/io.h>
+> > > +#include <linux/iio/iio.h>
+> > > +#include <linux/interrupt.h>
+> > > +#include <linux/kernel.h>
+> > > +#include <linux/module.h>
+> > > +#include <linux/platform_device.h>
+> > > +#include <linux/regmap.h>
+> > > +#include <linux/regulator/consumer.h>
+> > > +#include <linux/spinlock.h>
+> > > +#include <linux/uaccess.h>
+> > > +
+> > > +struct npcm_adc {
+> > > +     bool int_status;
+> > > +     u32 adc_sample_hz;
+> > > +     struct device *dev;
+> > > +     void __iomem *regs;
+> > > +     struct clk *adc_clk;
+> > > +     wait_queue_head_t wq;
+> > > +     struct regulator *vref;
+> > > +     struct regmap *rst_regmap;
+> > > +};
+> > > +
+> > > +/* NPCM7xx reset module */
+> > > +#define NPCM7XX_IPSRST1_OFFSET               0x020
+> > > +#define NPCM7XX_IPSRST1_ADC_RST              BIT(27)
+> > > +
+> > > +/* ADC registers */
+> > > +#define NPCM_ADCCON   0x00
+> > > +#define NPCM_ADCDATA  0x04
+> > > +
+> > > +/* ADCCON Register Bits */
+> > > +#define NPCM_ADCCON_ADC_INT_EN               BIT(21)
+> > > +#define NPCM_ADCCON_REFSEL           BIT(19)
+> > > +#define NPCM_ADCCON_ADC_INT_ST               BIT(18)
+> > > +#define NPCM_ADCCON_ADC_EN           BIT(17)
+> > > +#define NPCM_ADCCON_ADC_RST          BIT(16)
+> > > +#define NPCM_ADCCON_ADC_CONV         BIT(13)
+> > > +
+> > > +#define NPCM_ADCCON_CH_MASK          GENMASK(27, 24)
+> > > +#define NPCM_ADCCON_CH(x)            ((x) << 24)
+> > > +#define NPCM_ADCCON_DIV_SHIFT                1
+> > > +#define NPCM_ADCCON_DIV_MASK         GENMASK(8, 1)
+> > > +#define NPCM_ADC_DATA_MASK(x)                ((x) & GENMASK(9, 0))
+> > > +
+> > > +#define NPCM_ADC_ENABLE              (NPCM_ADCCON_ADC_EN |  
+> > NPCM_ADCCON_ADC_INT_EN)  
+> > > +
+> > > +/* ADC General Definition */
+> > > +#define NPCM_RESOLUTION_BITS         10
+> > > +#define NPCM_INT_VREF_MV             2000
+> > > +
+> > > +#define NPCM_ADC_CHAN(ch) {                                  \
+> > > +     .type = IIO_VOLTAGE,                                    \
+> > > +     .indexed = 1,                                           \
+> > > +     .channel = ch,                                          \
+> > > +     .info_mask_separate = BIT(IIO_CHAN_INFO_RAW),           \
+> > > +     .info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE) |  \
+> > > +                             BIT(IIO_CHAN_INFO_SAMP_FREQ),   \
+> > > +}
+> > > +
+> > > +static const struct iio_chan_spec npcm_adc_iio_channels[] = {
+> > > +     NPCM_ADC_CHAN(0),
+> > > +     NPCM_ADC_CHAN(1),
+> > > +     NPCM_ADC_CHAN(2),
+> > > +     NPCM_ADC_CHAN(3),
+> > > +     NPCM_ADC_CHAN(4),
+> > > +     NPCM_ADC_CHAN(5),
+> > > +     NPCM_ADC_CHAN(6),
+> > > +     NPCM_ADC_CHAN(7),
+> > > +};
+> > > +
+> > > +static irqreturn_t npcm_adc_isr(int irq, void *data)
+> > > +{
+> > > +     u32 regtemp;
+> > > +     struct iio_dev *indio_dev = data;
+> > > +     struct npcm_adc *info = iio_priv(indio_dev);
+> > > +
+> > > +     regtemp = ioread32(info->regs + NPCM_ADCCON);
+> > > +     if (regtemp & NPCM_ADCCON_ADC_INT_ST) {
+> > > +             iowrite32(regtemp, info->regs + NPCM_ADCCON);
+> > > +             wake_up_interruptible(&info->wq);
+> > > +             info->int_status = true;
+> > > +     }
+> > > +
+> > > +     return IRQ_HANDLED;
+> > > +}
+> > > +
+> > > +static int npcm_adc_read(struct npcm_adc *info, int *val, u8 channel)
+> > > +{
+> > > +     int ret;
+> > > +     u32 regtemp;
+> > > +
+> > > +     /* Select ADC channel */
+> > > +     regtemp = ioread32(info->regs + NPCM_ADCCON);
+> > > +     regtemp &= ~NPCM_ADCCON_CH_MASK;
+> > > +     info->int_status = false;
+> > > +     iowrite32(regtemp | NPCM_ADCCON_CH(channel) |
+> > > +               NPCM_ADCCON_ADC_CONV, info->regs + NPCM_ADCCON);
+> > > +
+> > > +     ret = wait_event_interruptible_timeout(info->wq, info->int_status,
+> > > +                                            msecs_to_jiffies(10));
+> > > +     if (ret == 0) {
+> > > +             regtemp = ioread32(info->regs + NPCM_ADCCON);
+> > > +             if ((regtemp & NPCM_ADCCON_ADC_CONV) && info->rst_regmap) {
+> > > +                     /* if conversion failed - reset ADC module */
+> > > +                     regmap_write(info->rst_regmap,  
+> > NPCM7XX_IPSRST1_OFFSET,  
+> > > +                                  NPCM7XX_IPSRST1_ADC_RST);
+> > > +                     msleep(100);
+> > > +                     regmap_write(info->rst_regmap,  
+> > NPCM7XX_IPSRST1_OFFSET,  
+> > > +                                  0x0);
+> > > +                     msleep(100);
+> > > +
+> > > +                     /* Enable ADC and start conversion module */
+> > > +                     iowrite32(NPCM_ADC_ENABLE | NPCM_ADCCON_ADC_CONV,
+> > > +                               info->regs + NPCM_ADCCON);
+> > > +                     dev_err(info->dev, "RESET ADC Complete\n");
+> > > +             }
+> > > +             return -ETIMEDOUT;
+> > > +     }
+> > > +     if (ret < 0)
+> > > +             return ret;
+> > > +
+> > > +     *val = NPCM_ADC_DATA_MASK(ioread32(info->regs + NPCM_ADCDATA));
+> > > +
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static int npcm_adc_read_raw(struct iio_dev *indio_dev,
+> > > +                          struct iio_chan_spec const *chan, int *val,
+> > > +                          int *val2, long mask)
+> > > +{
+> > > +     int ret;
+> > > +     int vref_uv;
+> > > +     struct npcm_adc *info = iio_priv(indio_dev);
+> > > +
+> > > +     switch (mask) {
+> > > +     case IIO_CHAN_INFO_RAW:
+> > > +             mutex_lock(&indio_dev->mlock);
+> > > +             ret = npcm_adc_read(info, val, chan->channel);
+> > > +             mutex_unlock(&indio_dev->mlock);
+> > > +             if (ret) {
+> > > +                     dev_err(info->dev, "NPCM ADC read failed\n");
+> > > +                     return ret;
+> > > +             }
+> > > +             return IIO_VAL_INT;
+> > > +     case IIO_CHAN_INFO_SCALE:
+> > > +             if (info->vref) {
+> > > +                     vref_uv = regulator_get_voltage(info->vref);
+> > > +                     *val = vref_uv / 1000;
+> > > +             } else {
+> > > +                     *val = NPCM_INT_VREF_MV;
+> > > +             }
+> > > +             *val2 = NPCM_RESOLUTION_BITS;
+> > > +             return IIO_VAL_FRACTIONAL_LOG2;
+> > > +     case IIO_CHAN_INFO_SAMP_FREQ:
+> > > +             *val = info->adc_sample_hz;
+> > > +             return IIO_VAL_INT;
+> > > +     default:
+> > > +             return -EINVAL;
+> > > +     }
+> > > +
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static const struct iio_info npcm_adc_iio_info = {
+> > > +     .read_raw = &npcm_adc_read_raw,
+> > > +};
+> > > +
+> > > +static const struct of_device_id npcm_adc_match[] = {
+> > > +     { .compatible = "nuvoton,npcm750-adc", },
+> > > +     { /* sentinel */ }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, npcm_adc_match);
+> > > +
+> > > +static int npcm_adc_probe(struct platform_device *pdev)
+> > > +{
+> > > +     int ret;
+> > > +     int irq;
+> > > +     u32 div;
+> > > +     u32 reg_con;
+> > > +     struct resource *res;
+> > > +     struct npcm_adc *info;
+> > > +     struct iio_dev *indio_dev;
+> > > +     struct device *dev = &pdev->dev;
+> > > +     struct device_node *np = pdev->dev.of_node;
+> > > +
+> > > +     indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*info));
+> > > +     if (!indio_dev)
+> > > +             return -ENOMEM;
+> > > +     info = iio_priv(indio_dev);
+> > > +
+> > > +     info->dev = &pdev->dev;
+> > > +
+> > > +     res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> > > +     info->regs = devm_ioremap_resource(&pdev->dev, res);
+> > > +     if (IS_ERR(info->regs))
+> > > +             return PTR_ERR(info->regs);
+> > > +
+> > > +     info->adc_clk = devm_clk_get(&pdev->dev, NULL);
+> > > +     if (IS_ERR(info->adc_clk)) {
+> > > +             dev_warn(&pdev->dev, "ADC clock failed: can't read clk\n");
+> > > +             return PTR_ERR(info->adc_clk);
+> > > +     }
+> > > +
+> > > +     /* calculate ADC clock sample rate */
+> > > +     reg_con = ioread32(info->regs + NPCM_ADCCON);
+> > > +     div = reg_con & NPCM_ADCCON_DIV_MASK;
+> > > +     div = div >> NPCM_ADCCON_DIV_SHIFT;
+> > > +     info->adc_sample_hz = clk_get_rate(info->adc_clk) / ((div + 1) *  
+> > 2);  
+> > > +
+> > > +     if (of_device_is_compatible(np, "nuvoton,npcm750-adc")) {
+> > > +             info->rst_regmap = syscon_regmap_lookup_by_compatible
+> > > +                     ("nuvoton,npcm750-rst");
+> > > +             if (IS_ERR(info->rst_regmap)) {
+> > > +                     dev_err(&pdev->dev, "Failed to find  
+> > nuvoton,npcm750-rst\n");  
+> > > +                     ret = PTR_ERR(info->rst_regmap);
+> > > +                     goto err_disable_clk;
+> > > +             }
+> > > +     }
+> > > +
+> > > +     irq = platform_get_irq(pdev, 0);
+> > > +     if (irq <= 0) {
+> > > +             dev_err(dev, "failed getting interrupt resource\n");
+> > > +             ret = -EINVAL;
+> > > +             goto err_disable_clk;
+> > > +     }
+> > > +
+> > > +     ret = devm_request_irq(&pdev->dev, irq, npcm_adc_isr, 0,
+> > > +                            "NPCM_ADC", indio_dev);
+> > > +     if (ret < 0) {
+> > > +             dev_err(dev, "failed requesting interrupt\n");
+> > > +             goto err_disable_clk;
+> > > +     }
+> > > +
+> > > +     reg_con = ioread32(info->regs + NPCM_ADCCON);
+> > > +     info->vref = devm_regulator_get_optional(&pdev->dev, "vref");
+> > > +     if (!IS_ERR(info->vref)) {
+> > > +             ret = regulator_enable(info->vref);
+> > > +             if (ret) {
+> > > +                     dev_err(&pdev->dev, "Can't enable ADC reference  
+> > voltage\n");  
+> > > +                     goto err_disable_clk;
+> > > +             }
+> > > +
+> > > +             iowrite32(reg_con & ~NPCM_ADCCON_REFSEL,
+> > > +                       info->regs + NPCM_ADCCON);
+> > > +     } else {
+> > > +             /*
+> > > +              * Any error which is not ENODEV indicates the regulator
+> > > +              * has been specified and so is a failure case.
+> > > +              */
+> > > +             if (PTR_ERR(info->vref) != -ENODEV) {
+> > > +                     ret = PTR_ERR(info->vref);
+> > > +                     goto err_disable_clk;
+> > > +             }
+> > > +
+> > > +             /* Use internal reference */
+> > > +             iowrite32(reg_con | NPCM_ADCCON_REFSEL,
+> > > +                       info->regs + NPCM_ADCCON);
+> > > +     }
+> > > +
+> > > +     init_waitqueue_head(&info->wq);
+> > > +
+> > > +     reg_con = ioread32(info->regs + NPCM_ADCCON);
+> > > +     reg_con |= NPCM_ADC_ENABLE;
+> > > +
+> > > +     /* Enable the ADC Module */
+> > > +     iowrite32(reg_con, info->regs + NPCM_ADCCON);
+> > > +
+> > > +     /* Start ADC conversion */
+> > > +     iowrite32(reg_con | NPCM_ADCCON_ADC_CONV, info->regs +  
+> > NPCM_ADCCON);  
+> > > +
+> > > +     platform_set_drvdata(pdev, indio_dev);
+> > > +     indio_dev->name = dev_name(&pdev->dev);
+> > > +     indio_dev->dev.parent = &pdev->dev;
+> > > +     indio_dev->info = &npcm_adc_iio_info;
+> > > +     indio_dev->modes = INDIO_DIRECT_MODE;
+> > > +     indio_dev->channels = npcm_adc_iio_channels;
+> > > +     indio_dev->num_channels = ARRAY_SIZE(npcm_adc_iio_channels);
+> > > +
+> > > +     ret = iio_device_register(indio_dev);
+> > > +     if (ret) {
+> > > +             dev_err(&pdev->dev, "Couldn't register the device.\n");
+> > > +             goto err_iio_register;
+> > > +     }
+> > > +
+> > > +     pr_info("NPCM ADC driver probed\n");  
+> > Hmm. Not sure this tells us anything useful.  If we have succeeding
+> > in probing there are lots of ways to find out that are better than
+> > filling up the kernel log.
+> >  
+> > > +
+> > > +     return 0;
+> > > +
+> > > +err_iio_register:
+> > > +     iowrite32(reg_con & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
+> > > +     if (!IS_ERR(info->vref))
+> > > +             regulator_disable(info->vref);
+> > > +err_disable_clk:
+> > > +     clk_disable_unprepare(info->adc_clk);
+> > > +
+> > > +     return ret;
+> > > +}
+> > > +
+> > > +static int npcm_adc_remove(struct platform_device *pdev)
+> > > +{
+> > > +     struct iio_dev *indio_dev = platform_get_drvdata(pdev);
+> > > +     struct npcm_adc *info = iio_priv(indio_dev);
+> > > +     u32 regtemp;
+> > > +
+> > > +     regtemp = ioread32(info->regs + NPCM_ADCCON);  
+> >
+> > The ordering is a bit odd here.  I would have done the unregister
+> > first then read the value.  Doesn't have any real effect other than making
+> > reviewers wonder if there is something interesting going on!
+> >  
+> > > +
+> > > +     iio_device_unregister(indio_dev);
+> > > +     iowrite32(regtemp & ~NPCM_ADCCON_ADC_EN, info->regs + NPCM_ADCCON);
+> > > +     if (!IS_ERR(info->vref))
+> > > +             regulator_disable(info->vref);
+> > > +     clk_disable_unprepare(info->adc_clk);
+> > > +
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static struct platform_driver npcm_adc_driver = {
+> > > +     .probe          = npcm_adc_probe,
+> > > +     .remove         = npcm_adc_remove,
+> > > +     .driver         = {
+> > > +             .name   = "npcm_adc",
+> > > +             .of_match_table = npcm_adc_match,
+> > > +     },
+> > > +};
+> > > +
+> > > +module_platform_driver(npcm_adc_driver);
+> > > +
+> > > +MODULE_DESCRIPTION("Nuvoton NPCM ADC Driver");
+> > > +MODULE_AUTHOR("Tomer Maimon <tomer.maimon@nuvoton.com>");
+> > > +MODULE_LICENSE("GPL v2");  
+> >
+> >  
 > Thanks,
->
-> Emily
->
->
->
-> On Wed, Jan 23, 2019 at 11:53 PM Hien Pham <hpham@amperecomputing.com>
-> wrote:
->
-> Dear Emily,
->
->
->
-> I'm Hien Plam (Ampere OpenBMC CLA manager).  Nice to hear that you care
-> the change we did.
->
->
->
-> No worry, we committed to contribute back and willing to submit the chang=
-e
-> to the upstream anyway (if you see the change are applicable).  Please le=
-t
-> us know if you are interesting in our FRU refactor (Hoang's
-> explanation below).  If yes, we can process  next step to upstream the
-> changes.
->
->
->
-> Thank and best regards,
-> ------------------------------
->
-> *From:* Hoang Nguyen
-> *Sent:* Thursday, January 24, 2019 2:02:23 PM
-> *To:* Emily Shaffer
-> *Cc:* Hien Pham
-> *Subject:* Re: ampere-openbmc/phosphor-host-ipmid
->
->
->
-> Hi Emily,
->
->
->
-> First at all, I=E2=80=99d like to inform that now we=E2=80=99re suspendin=
-g the OpenBMC
-> activity due to the business strategy.
->
-> But we=E2=80=99ll come back with OpenBMC soon (I=E2=80=99m *sure* about i=
-t).
->
->
->
-> Regarding to your interesting of IPMI implementations (FRU interaction in
-> phosphor-host-ipmid), I=E2=80=99ve not push these code because I=E2=80=99=
-m using another
-> design for the communication between IPMI implementation
-> (phosphor-host-ipmid) and FRU access handler (ipmi-fru-parser).
->
->
->
-> At current design, I found some limitation, such as:
->
->    - ipmi-fru-parser cannot parse the multi-record area
->    - ipmi-fru-parser takes many responsibilities:
->
->
->    - Handle FRU device
->       - Implement IPMI FRU commands
->
->
->    - many modules can access the FRU EEPROM device directly
->
->
->
-> So I changed the design, include:
->
->    1. Disable the ipmi-fru-parser
->    2. Create new module (like FRU manager package) to handle the FRU
->    device.
->
-> Overview about this package, it can:
->
->    - Access (read/write) the FRU device directly.
->    - Parse the multi-record area and public all info to D-Bus interface
->    - Provide some methods (using D-Bus interface) to support the
->    read/write FRU device request from other packages.
->
->
->    1. Update all relate packages (phosphor-host-ipmid is example):
->
->
->    - Stop accessing FRU device directly and start using FRU manager
->    package by calling supported methods
->    - Move IPMI FRU commands to phosphor-host-ipmid
->
->
->
-> With this design, each package takes only one responsibility; prevent the
-> issue of FRU device accessing from many packages.
->
->
->
-> Finally, because this solution is specific for our system, so I did not
-> pushed it.
->
-> (but it always follow the common specification)
->
->
->
-> Best regards,
->
-> Hoang
->
->
->
-> *From: *Emily Shaffer <emilyshaffer@google.com>
-> *Date: *Thursday, January 24, 2019 at 5:26 AM
-> *To: *Hoang Nguyen <hnguyen@amperecomputing.com>
-> *Subject: *ampere-openbmc/phosphor-host-ipmid
->
->
->
-> [NOTICE: This email originated from an external sender. Please be mindful
-> of safe email handling and proprietary information protection practices.]
-> _________________________________________________________________________=
-_______________________________________________
->
->
-> Hi Hoang,
->
->
->
-> I'm a maintainer of the IPMI stack for OpenBMC (github.com/openbmc) and
-> came across your forked project today.
->
->
->
-> I noticed that Ampere executed a CLA with OpenBMC in July 2018, but I
-> don't see that you're contributing your IPMI implementations back to
-> OpenBMC. It actually looks like in general Ampere has written some code
-> that we want, especially regarding FRU interaction in phosphor-host-ipmid=
-,
-> so I'm curious why it is that you haven't pushed any code back up to us.
->
->
->
-> Can I facilitate getting Ampere to contribute back to the OpenBMC
-> community?
->
->
->
-> Thanks,
->
-> Emily Shaffer
-> (Github/Freenode: nasamuffin)
->
->
-
---000000000000dee96105805237fa
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">+OpenBMC mailing list<div><br></div><div>Hoang,</div><div>=
-<br></div><div>Thanks for the overview. I think that we would probably like=
- to see your design for review - it sounds interesting and there have been =
-other complaints regarding FRU parser.=C2=A0 If you want to provide more de=
-tail to the entire list I&#39;m sure we will be interested to hear, and als=
-o very interested to take a look at your code and consider adoption.</div><=
-div><br></div><div>Thanks!</div><div>Emily</div><div><br><div class=3D"gmai=
-l_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Fri, Jan 25, 2019 at 1:23=
- AM Hoang Nguyen &lt;<a href=3D"mailto:hnguyen@amperecomputing.com">hnguyen=
-@amperecomputing.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex"=
->
-
-
-
-
-
-<div lang=3D"EN-US" link=3D"blue" vlink=3D"purple">
-<div class=3D"m_-7908660954218574492WordSection1">
-<p class=3D"MsoNormal">Hi Emily,<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">FYI, now I don=E2=80=99t have too much time to devel=
-op new feature of IPMI@OpenBMC, but I can follow the IPMI@OpenBMC activity.=
-<u></u><u></u></p>
-<p class=3D"MsoNormal">I=E2=80=99ll push the code for reviewing if you=E2=
-=80=99re interesting in my design.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Firstly, I=E2=80=99ll overview about my design. And =
-I=E2=80=99ll continue in detail if you agree.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>The package name</b>: FRU manager<u></u><u></u></=
-p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>The reason for new package:<u></u><u></u></b></p>
-<p class=3D"MsoNormal">+ Current package doesn=E2=80=99t support Multirecor=
-d FRU parsing<u></u><u></u></p>
-<p class=3D"MsoNormal">+ Sometime, using =E2=80=9CIPMI fru write=E2=80=A6=
-=E2=80=9D command will crash the FRU EEPROM image -&gt; nothing from D-Bus =
-can inform this info<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>New package structure:<u></u><u></u></b></p>
-<p class=3D"MsoNormal">FRU manager package has 2 parts: <b>Manager</b> and =
-<b>Parser</b><u></u><u></u></p>
-<p class=3D"MsoNormal">+ <b>Manager</b>:<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0=C2=A0=C2=A0 - Initial the D-Bus interface + a=
-ll properties of Chassis/Board/Product/Multirecord areas (with
-<span style=3D"color:red">default value</span>)<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0=C2=A0=C2=A0 - Provide the D-Bus methods for o=
-ther packages (<b>Parser</b> as an example) to update the real data of FRU =
-to D-Bus<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0=C2=A0 =C2=A0- Provide methods to update the F=
-RU device directly (in case of FRU recovering)<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">+ <b>Parser</b>:<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0=C2=A0=C2=A0 - Access the FRU device directly =
-to parse the FRU data and request to update these date to D-Bus (using
-<b>Manager</b> supported methods)<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>New services to handle new package:<u></u><u></u>=
-</b></p>
-<p class=3D"MsoNormal">Add more 2 services:<u></u><u></u></p>
-<p class=3D"MsoNormal">+ FRU manager service: start Manager part to handle =
-all FRU request on D-Bus<u></u><u></u></p>
-<p class=3D"MsoNormal">+ FRU parser service: start Parser part to parse FRU=
- data and update to D-Bus<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><b>Improvement points:<u></u><u></u></b></p>
-<p class=3D"MsoNormal">+ Handle Multirecord data<u></u><u></u></p>
-<p class=3D"MsoNormal">+ In case of FRU data is not correct, the FRU parser=
- service will be failed, all data of FRU on D-Bus are =E2=80=9Cdefault valu=
-e=E2=80=9D<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0=C2=A0 -&gt; We can identify the issue and rec=
-overing the FRU image<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Best regards,<u></u><u></u></p>
-<p class=3D"MsoNormal">Hoang<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:12.0pt;color:black">From=
-: </span></b><span style=3D"font-size:12.0pt;color:black">Emily Shaffer &lt=
-;<a href=3D"mailto:emilyshaffer@google.com" target=3D"_blank">emilyshaffer@=
-google.com</a>&gt;<br>
-<b>Date: </b>Friday, January 25, 2019 at 7:11 AM<br>
-<b>To: </b>Hien Pham &lt;<a href=3D"mailto:hpham@amperecomputing.com" targe=
-t=3D"_blank">hpham@amperecomputing.com</a>&gt;<br>
-<b>Cc: </b>Hoang Nguyen &lt;<a href=3D"mailto:hnguyen@amperecomputing.com" =
-target=3D"_blank">hnguyen@amperecomputing.com</a>&gt;<br>
-<b>Subject: </b>Re: ampere-openbmc/phosphor-host-ipmid<u></u><u></u></span>=
-</p>
-</div></div></div><div lang=3D"EN-US" link=3D"blue" vlink=3D"purple"><div c=
-lass=3D"m_-7908660954218574492WordSection1">
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<p class=3D"MsoNormal">[NOTICE: This email originated from an external send=
-er. Please be mindful of safe email handling and proprietary information pr=
-otection practices.] ______________________________________________________=
-__________________________________________________________________
-<u></u><u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">Hien, Hoang, <u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks so much for replying to my cold email :)<u></=
-u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">I want to take a look and understand better the appr=
-oach you guys used. We&#39;ve added more support to some of the FRU functio=
-nality you were missing - specifically multirecord FRU has seen development=
- in the past month or two - but it looks
- like you made a broader change.=C2=A0 If you have the engineer time to do =
-so, I think it&#39;d be valuable for you to push either your code or a desi=
-gn proposal (which maybe you already have written) for the OpenBMC communit=
-y to take a look at (via gerrit) - I&#39;d like
- to get the rest of the community&#39;s feedback too.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">It sounds like you aren&#39;t able to dedicate a lot=
- of resources right now so I definitely understand if you don&#39;t want to=
- put up a review; if you won&#39;t have the time, could you let me know? I&=
-#39;ll ask the other IPMI maintainers to take a look
- at your approach too and we can decide if it&#39;s something we want to br=
-ing over ourselves.=C2=A0 (But it&#39;s more cohesive for the community if =
-you&#39;re able to push the review from your end :) )<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks,<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Emily<u></u><u></u></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div>
-<div>
-<p class=3D"MsoNormal">On Wed, Jan 23, 2019 at 11:53 PM Hien Pham &lt;<a hr=
-ef=3D"mailto:hpham@amperecomputing.com" target=3D"_blank">hpham@amperecompu=
-ting.com</a>&gt; wrote:<u></u><u></u></p>
-</div>
-<blockquote style=3D"border:none;border-left:solid #cccccc 1.0pt;padding:0c=
-m 0cm 0cm 6.0pt;margin-left:4.8pt;margin-right:0cm">
-<div>
-<div id=3D"m_-7908660954218574492m_3349455740235281957divtagdefaultwrapper"=
->
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black">Dear Emily,<u></u><u></u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black"><u></u>=C2=A0<u></u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black">I&#39;m Hien Plam (Ampere OpenBMC CLA manager).=C2=A0 Nice =
-to hear that you care the change we did.<u></u><u></u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black"><u></u>=C2=A0<u></u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black">No worry, we committed to contribute back and willing to su=
-bmit the change to the upstream anyway (if you see the change are applicabl=
-e).=C2=A0 Please let us know if you are interesting
- in=C2=A0our FRU refactor=C2=A0(Hoang&#39;s explanation=C2=A0below).=C2=A0 =
-If yes, we can process=C2=A0 next step to upstream the changes.<u></u><u></=
-u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black"><u></u>=C2=A0<u></u></span></p>
-<p style=3D"margin:0cm;margin-bottom:.0001pt"><span style=3D"font-size:12.0=
-pt;color:black">Thank and best regards,<u></u><u></u></span></p>
-</div>
-<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"0" width=3D"100%" align=3D"center">
-</div>
-<div id=3D"m_-7908660954218574492m_3349455740235281957divRplyFwdMsg">
-<p class=3D"MsoNormal"><b><span style=3D"color:black">From:</span></b><span=
- style=3D"color:black"> Hoang Nguyen<br>
-<b>Sent:</b> Thursday, January 24, 2019 2:02:23 PM<br>
-<b>To:</b> Emily Shaffer<br>
-<b>Cc:</b> Hien Pham<br>
-<b>Subject:</b> Re: ampere-openbmc/phosphor-host-ipmid</span> <u></u><u></u=
-></p>
-<div>
-<p class=3D"MsoNormal">=C2=A0<u></u><u></u></p>
-</div>
-</div>
-</div>
-<div>
-<div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Hi Emily,=
-<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">First at =
-all, I=E2=80=99d like to inform that now we=E2=80=99re suspending the OpenB=
-MC activity due to the business strategy.<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">But we=E2=
-=80=99ll come back with OpenBMC soon (I=E2=80=99m
-<b>sure</b> about it).<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Regarding=
- to your interesting of IPMI implementations (FRU interaction in phosphor-h=
-ost-ipmid), I=E2=80=99ve not push these code because I=E2=80=99m using anot=
-her design for the communication between IPMI implementation (phosphor-host=
--ipmid)
- and FRU access handler (ipmi-fru-parser).<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">At curren=
-t design, I found some limitation, such as:<u></u><u></u></p>
-<ul type=3D"disc">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-ipmi-fru-parser cannot parse the multi-record area<u></u><u></u></li><li cl=
-ass=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-ipmi-fru-parser takes many responsibilities: <u></u><u></u></li></ul>
-<ul type=3D"disc">
-<ul type=3D"circle">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Handle FRU device<u></u><u></u></li><li class=3D"m_-7908660954218574492m334=
-9455740235281957xmsolistparagraph">
-Implement IPMI FRU commands<u></u><u></u></li></ul>
-</ul>
-<ul type=3D"disc">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-many modules can access the FRU EEPROM device directly<u></u><u></u></li></=
-ul>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">So I chan=
-ged the design, include:<u></u><u></u></p>
-<ol start=3D"1" type=3D"1">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Disable the ipmi-fru-parser<u></u><u></u></li><li class=3D"m_-7908660954218=
-574492m3349455740235281957xmsolistparagraph">
-Create new module (like FRU manager package) to handle the FRU device.<u></=
-u><u></u></li></ol>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">Ov=
-erview about this package, it can:<u></u><u></u></p>
-<ul type=3D"disc">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Access (read/write) the FRU device directly.<u></u><u></u></li><li class=3D=
-"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Parse the multi-record area and public all info to D-Bus interface<u></u><u=
-></u></li><li class=3D"m_-7908660954218574492m3349455740235281957xmsolistpa=
-ragraph">
-Provide some methods (using D-Bus interface) to support the read/write FRU =
-device request from other packages.<u></u><u></u></li></ul>
-<ol start=3D"3" type=3D"1">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Update all relate packages (phosphor-host-ipmid is example):<u></u><u></u><=
-/li></ol>
-<ul type=3D"disc">
-<li class=3D"m_-7908660954218574492m3349455740235281957xmsolistparagraph">
-Stop accessing FRU device directly and start using FRU manager package by c=
-alling supported methods<u></u><u></u></li><li class=3D"m_-7908660954218574=
-492m3349455740235281957xmsolistparagraph">
-Move IPMI FRU commands to phosphor-host-ipmid<u></u><u></u></li></ul>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">With this=
- design, each package takes only one responsibility; prevent the issue of F=
-RU device accessing from many packages.<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Finally, =
-because this solution is specific for our system, so I did not pushed it.<u=
-></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">(but it a=
-lways follow the common specification)<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Best rega=
-rds,<u></u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Hoang<u><=
-/u><u></u></p>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-<div style=3D"border:none;border-top:solid #b5c4df 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal"><b><span =
-style=3D"font-size:12.0pt;color:black">From:
-</span></b><span style=3D"font-size:12.0pt;color:black">Emily Shaffer &lt;<=
-a href=3D"mailto:emilyshaffer@google.com" target=3D"_blank">emilyshaffer@go=
-ogle.com</a>&gt;<br>
-<b>Date: </b>Thursday, January 24, 2019 at 5:26 AM<br>
-<b>To: </b>Hoang Nguyen &lt;<a href=3D"mailto:hnguyen@amperecomputing.com" =
-target=3D"_blank">hnguyen@amperecomputing.com</a>&gt;<br>
-<b>Subject: </b>ampere-openbmc/phosphor-host-ipmid</span><u></u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-</div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">[NOTICE: =
-This email originated from an external sender. Please be mindful of safe em=
-ail handling and proprietary information protection practices.] ___________=
-___________________________________________________________________________=
-__________________________________
-<u></u><u></u></p>
-<div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Hi Hoang,=
- <u></u><u></u></p>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">I&#39;m a=
- maintainer of the IPMI stack for OpenBMC (<a href=3D"http://github.com/ope=
-nbmc" target=3D"_blank">github.com/openbmc</a>) and came across your forked=
- project today.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">I noticed=
- that Ampere executed a CLA with OpenBMC in July 2018, but I don&#39;t see =
-that you&#39;re contributing your IPMI implementations back to OpenBMC. It =
-actually looks like in general Ampere has written some code that
- we want, especially regarding FRU interaction in phosphor-host-ipmid, so I=
-&#39;m curious why it is that you haven&#39;t pushed any code back up to us=
-.<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Can I fac=
-ilitate getting Ampere to contribute back to the OpenBMC community?<u></u><=
-u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">=C2=A0<u>=
-</u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Thanks,<u=
-></u><u></u></p>
-</div>
-<div>
-<p class=3D"m_-7908660954218574492m3349455740235281957xmsonormal">Emily Sha=
-ffer<br>
-(Github/Freenode: nasamuffin)<u></u><u></u></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</blockquote>
-</div>
-</div>
-</div></div></blockquote></div></div></div>
-
---000000000000dee96105805237fa--
+> 
+> Tomer
