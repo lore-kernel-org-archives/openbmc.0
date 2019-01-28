@@ -1,77 +1,28 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43pFq71ZmczDqDF
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 03:45:06 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0SGheuT069591
- for <openbmc@lists.ozlabs.org>; Mon, 28 Jan 2019 11:45:04 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qa3ye5eyt-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 28 Jan 2019 11:45:04 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Mon, 28 Jan 2019 16:45:03 -0000
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 28 Jan 2019 16:45:01 -0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0SGj0oh22282356
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 28 Jan 2019 16:45:00 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 426EEBE056;
- Mon, 28 Jan 2019 16:45:00 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1638BBE054;
- Mon, 28 Jan 2019 16:45:00 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 28 Jan 2019 16:45:00 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43pJCr2N1gzDqN8
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 05:33:11 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Mon, 28 Jan 2019 13:33:40 -0500
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: David Thompson <dthompson@mellanox.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Question on upstreaming and release planning
+Message-ID: <20190128183340.s4ahkzcarv4ruhei@thinkpad>
+References: <VI1PR0502MB38692122CA756E330804994EDD960@VI1PR0502MB3869.eurprd05.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 28 Jan 2019 10:51:07 -0600
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: Kernel device tree for bringup system
-X-Sender: anoo@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19012816-0020-0000-0000-00000EB31E62
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010493; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000277; SDB=6.01153055; UDB=6.00601118; IPR=6.00933418; 
- MB=3.00025325; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-28 16:45:02
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19012816-0021-0000-0000-00006497B2E4
-Message-Id: <a0508103572bcf42b019d03b86127433@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-28_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=543 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901280126
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VI1PR0502MB38692122CA756E330804994EDD960@VI1PR0502MB3869.eurprd05.prod.outlook.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,15 +34,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Jan 2019 16:45:07 -0000
+X-List-Received-Date: Mon, 28 Jan 2019 18:33:12 -0000
 
-Hi Joel,
+On Mon, Jan 28, 2019 at 03:20:41PM +0000, David Thompson wrote:
+> Hello all,
+> 
+> I work for Mellanox Technologies and we've have been using OpenBMC
+> for a while now.  We hope to upstream the code contributions that
+> support our machine (called "bluewhale-ast2500") which is a hardware
+> platform based on ASPEED AST2500.
+> 
+> We have a new meta-layer at:
+> $TOP/meta-mellanox/meta-bluewhale-ast2500/
+> which holds the supporting files for our machine.
+> 
+> What's the process to get our machine into the upstream?
 
-At IBM we want to use as a bringup vehicle a witherspoon system with 
-bigger flash chips.
+You can submit a pull request to the Gerrit server.  Here is a cheat
+sheet:
 
-How would you recommend handling the device tree changes for it, do 
-people usually create a separate dts file for supporting different 
-configurations?
+https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#submitting-changes-via-gerrit-server
 
-Thanks.
+We already have a meta-mellanox repository for meta-msn so your pull
+request would be against meta-mellanox and just be a new folder with
+meta-bluewhale.
+
+> Do I need to attend a release planning meeting and discuss?
+
+No, not to add your platform to meta-mellanox.
+
+The release planning meeting is where we plan the implementation of
+technologies (not hardware platforms) like Redfish, MCTP, etc.  If you
+plan to work on something like that and want to share it with the
+broader community, it makes sense to 1 - announce that on the mailing
+list and 2 - bring your intentions to the release planning meeting.
+
+Don't get the wrong idea - we'd love to have you at the release planning
+meeting even if you don't intend to do any of those things.
+
+> I see there's a meeting on Mon 1/28, that's why I ask now.
+> 
+> FWIW, I have submitted a signed CCLA, and it's been accepted already.
+> 
+> Thanks,
+> 
+>   *   Dave
+> 
+> 
+> David Thompson
+> Sr. Staff Engineer, System SW
+> Mellanox Technologies
+> 1900 West Park Drive, Suite 290
+> Westborough MA USA 01581
+> Direct: +1 508-475-6375
+> 
