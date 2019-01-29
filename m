@@ -1,37 +1,118 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <prvs=7932b03394=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.88; helo=mga01.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=7932b03394=vijaykhemka@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="HAnohHg0"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="Vn8ktr1k"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43q1nR54tTzDqGq
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 09:46:18 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 29 Jan 2019 14:46:16 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,538,1539673200"; d="scan'208";a="139899150"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga004.fm.intel.com with ESMTP; 29 Jan 2019 14:46:13 -0800
-Subject: Re: WebUI Fonts
-To: openbmc@lists.ozlabs.org
-References: <CAOUmYFTGSMQy2-C6xphK1=-ecVAsb-0WSnB89rcBFBm15QPZcw@mail.gmail.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <8ed86145-296c-72b6-2fd2-989629533d59@intel.com>
-Date: Tue, 29 Jan 2019 14:48:32 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-MIME-Version: 1.0
-In-Reply-To: <CAOUmYFTGSMQy2-C6xphK1=-ecVAsb-0WSnB89rcBFBm15QPZcw@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43q25w30KzzDqJc;
+ Wed, 30 Jan 2019 10:00:32 +1100 (AEDT)
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0TMt2KC022721; Tue, 29 Jan 2019 15:00:16 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=uooQxjN8/atJFc3aEL4pzYDP4FYhwQDkL5vYSrH8vWo=;
+ b=HAnohHg0los1/bAm26UHmuH0vd8NOZ/wPgSD2p+zLm5/jVllFgRf75Y/lD4I/ccP3fWn
+ 9LKrAf1gXDz/iDW2bG5SOkkK7QKhD7ampXjbuYL8ukaDk3cu0mjaK4vhdegZ0qBIyb9U
+ Z0BiBuW1aGFFVpQMWeV40AQXW1+4f/i1sfg= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2qavr8gpxa-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Tue, 29 Jan 2019 15:00:16 -0800
+Received: from frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) by
+ frc-hub05.TheFacebook.com (2620:10d:c021:18::175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Tue, 29 Jan 2019 15:00:14 -0800
+Received: from frc-hub03.TheFacebook.com (2620:10d:c021:18::173) by
+ frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Tue, 29 Jan 2019 15:00:13 -0800
+Received: from NAM04-CO1-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.73) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Tue, 29 Jan 2019 15:00:13 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uooQxjN8/atJFc3aEL4pzYDP4FYhwQDkL5vYSrH8vWo=;
+ b=Vn8ktr1kv21St+3SlkD9Czljgt4ofnUiO1cVcN+VprZM+ePpUzJVlH39b9RqveFMc9dWqLaBp/0eVMxYexsaHiFMPDdu35EZnK7MVQrUEOlicuhWuIk5XhGVIW33n+SJIUdKtl+gziYHBal49SyOW31tro6nJDZC6E4tKjk47ic=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.180.139) by
+ CY4PR15MB1351.namprd15.prod.outlook.com (10.172.158.151) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1537.29; Tue, 29 Jan 2019 23:00:12 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::b4e4:1e1f:8c5d:9a8c%4]) with mapi id 15.20.1537.031; Tue, 29 Jan 2019
+ 23:00:12 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: Lee Jones <lee.jones@linaro.org>
+CC: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "openbmc @ lists . ozlabs . org"
+ <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v2] dt-bindings: aspeed-lpc: Make parameter optional
+Thread-Topic: [PATCH v2] dt-bindings: aspeed-lpc: Make parameter optional
+Thread-Index: AQHUr2qjb3N/GePovUiM68RLzMkX8aXGPegAgAAp7IA=
+Date: Tue, 29 Jan 2019 23:00:11 +0000
+Message-ID: <A29B3BAA-8FA1-4FED-AB8D-C6DA2C2F785C@fb.com>
+References: <20190118201547.640173-1-vijaykhemka@fb.com>
+ <20190129123008.GC24070@dell>
+In-Reply-To: <20190129123008.GC24070@dell>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::6:afcf]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1351;
+ 20:gptrMWokAR4nhPvs4znoMSAEgN+UskRMpFeoQsCzZWXwXG0orG9olEmYzYio6XsRFLCRu2C+e68Ir4jSzXSIGLtrKyLI/2n40D2kYKjJMSl5c3tQquOeG79EexcHgjTMkdbnjGC7RtClSBehXDPoapPOxrKUfiquIH3k2fw2yhs=
+x-ms-office365-filtering-correlation-id: a4eb8c19-0937-43de-1ec6-08d6863d8616
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1351; 
+x-ms-traffictypediagnostic: CY4PR15MB1351:
+x-microsoft-antispam-prvs: <CY4PR15MB13515765546795B8B07B91EDDD970@CY4PR15MB1351.namprd15.prod.outlook.com>
+x-forefront-prvs: 093290AD39
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(39860400002)(136003)(376002)(396003)(346002)(366004)(199004)(189003)(76176011)(46003)(7416002)(86362001)(486006)(476003)(186003)(446003)(11346002)(305945005)(102836004)(2616005)(6116002)(6506007)(99286004)(256004)(53936002)(6512007)(2906002)(83716004)(7736002)(6916009)(6246003)(71190400001)(71200400001)(316002)(478600001)(105586002)(33656002)(14454004)(97736004)(54906003)(6436002)(8676002)(229853002)(106356001)(81166006)(82746002)(81156014)(68736007)(8936002)(25786009)(36756003)(6486002)(4326008);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1351;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: l67BybvluVM/hlgx1XVb7kzAPKJfDb+xsmKwGtL+n01/qqJsYwTtWIliETk7M8o03GfgwfM46265IS2d96CfsLK67HhnaMWE7rFp2MIy/xHMblOaaLtn6UrQPz0/bWXSM+ihFDTQblo6wbB7C4DXK72tidUFZiRdqTz4KOrhxGAx1WPxUkMJYFNffdwbLIu2K7ZFNAG1UA82XftDqzV/Y6zcVGFURYTmFHTjsi+mOAiiZqoBt1o4YTBsOJ9XYH6V19jUP0WrVK0PVpu3huaKXRB0KDcHJcZptCClunieHNRuDC9WgyOEHvhrzPJyWBS0gOny9nDvE19637lobvuB79Mz3ud0ok2gGnQT/5HgBoxGaCO/ZnSb4gNpxtFSEQDvcnuUS+yuquRqD/DiJU+JFMDFWkdpMD3oc/gM+b6QJnQ=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <AF1F6947D459C44888696407724BBA09@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4eb8c19-0937-43de-1ec6-08d6863d8616
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Jan 2019 23:00:11.9290 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1351
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-29_18:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,107 +124,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Jan 2019 22:46:20 -0000
+X-List-Received-Date: Tue, 29 Jan 2019 23:00:37 -0000
 
-
-On 1/29/19 2:21 PM, Derick wrote:
-> 
-> 
-> I have an accessibility audit of our icons on a todo list and I'd love
-> to create the documentation to help make the 
-> application more inclusive! I just need to prioritize the time with
-> another project.
-I didn't mean to call you out.  I realize we're all busy :)
-
-> 
-> small. We can test that, but the SVG icons have been typically smaller
-> than font icons. 
-That sounds like a great reason to use SVG over fonts.  If we can show
-that in a meaningful way, I'm happy to support moving the UI over to SVG.
-
-> 
-> 
-> The SVG sprite example above is exactly what I'm referring to. And the
-> icomoon tool (I refer to 
-> that below in point #2 I have been using provides all the code,
-> including the SVG sprite.  
-The first hit I get what I search "webpack icomoon" is a link to a stack
-overflow with the title "webpack with icomoon does not work".  That's
-not a great sign, although I haven't dug into the details yet.
-
-Webpack also has some built-in capabilities for SVG sprites that I
-haven't had time to look at.  It sounds like that is the current
-best-practice for webpack.
-https://github.com/kisenka/svg-sprite-loader
-
-If we're looking at dropping webpack, or doing a two stage build
-(icomoon then webpack) that's something that needs a longer discussion.
-Alternatively webpack is open source, we could certainly just go fix
-icomoon support.
-
-> 
-> 
-> I like the idea of using an SVG sprite. Using the <use> element (which
-> would required a small polyfill for IE 11) 
-> the implementation is as simple as using font icons. We would only have
-> the icons we needed to use and the file size 
-> (which we can test and evaluate) would be small since we don't need to
-> include the entire font-awesome library.
-> 
-> Some reasons I prefer the SVG sprite is:
-> 1. It would allow for easy conversion downstream for anyone that wants
-> to use a different icon set
-> 2. Implementation is consistent and can be easily documented
-
-This is exactly the kind of background I was looking for on why this
-change is worth it, as well as trade offs and things that are required.
-
-> 
-> We can keep the login icons inlined to minimize the load if we think
-> loading the SVG sprite is too much of a load.
-
-I think a single SVG sprite doesn't add too much load.  It's when we're
-pulling 12 different icons separately that we need to pay attention.
-Today, rendering the initial login page load requires 4 files, one of
-which is already an SVG (the openbmc logo), and 276KB of payload.   If
-we go to svg sprites, presumably the SVG file just gets bigger, but
-we're still requesting the same number of resources.  We should be in
-good shape.
-
-> 
-> 
-> Using an SVG sprite would make it easy to simply update the downstream
-> SVG sprite without
-> having to update any code.
->  
-
-Say more on this point......  I'm not sure I understand.  Wont people
-always have to override some file to update icons?
-> 
->  
-> I agree with the use of a consistent and open icon set, like font
-> awesome. I have been using
-> a great tool called icomoon (free), https://icomoon.io/ to manage my
-> icon sets. It's fantastic
-> because we can use font awesome and can import icons if needed. The icon
-> set can be 
-> saved as a JSON file and even added to the repository if needed, so that
-> anyone could
-> import it to icomoon and add or update icons using font awesome or any
-> number of other
-> free icon sets and then have an updated SVG sprite generated, as well as
-> downloading
-> the updated icon set config. 
-
-
-My preference would be to use the built-in webpack sprite loader, under
-the assumption that it works better, and will be easier to maintain long
-term, but I'm happy to support icomoon if it's a better tool.
-
-
-
-
-Moving the webui to SVG sprites sounds like a positive thing to do, and
-has my support.  Looking forward to seeing the patchsets.
-
--Ed
+VGhhbmtzIExlZSwNCg0K77u/T24gMS8yOS8xOSwgNDozMCBBTSwgIkxlZSBKb25lcyIgPGxlZS5q
+b25lc0BsaW5hcm8ub3JnPiB3cm90ZToNCg0KICAgIE9uIEZyaSwgMTggSmFuIDIwMTksIFZpamF5
+IEtoZW1rYSB3cm90ZToNCiAgICANCiAgICA+IE1lbW9yeS1yZWdpb24gYW5kIGZsYXNoIHBoYW5k
+bGUgaXMgbm90IGEgcmVxdWlyZWQgcGFyYW1ldGVyLCBpdCBpcw0KICAgID4gb3B0aW9uYWwgdG8g
+ZGVzY3JpYmUgaW4gZGV2aWNlIHRyZWUgYW5kIG5lZWRlZCBvbmx5IHVzZSBiYXNpcy4NCiAgICA+
+IA0KICAgID4gU2lnbmVkLW9mZi1ieTogVmlqYXkgS2hlbWthIDx2aWpheWtoZW1rYUBmYi5jb20+
+DQogICAgPiAtLS0NCiAgICA+ICBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbWZk
+L2FzcGVlZC1scGMudHh0IHwgMyArKysNCiAgICA+ICAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRp
+b25zKCspDQogICAgPiANCiAgICA+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbWZkL2FzcGVlZC1scGMudHh0IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
+L2JpbmRpbmdzL21mZC9hc3BlZWQtbHBjLnR4dA0KICAgID4gaW5kZXggMzRkZDg5MDg3Y2ZmLi5k
+MjhjNGUxMTc2MTEgMTAwNjQ0DQogICAgPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
+YmluZGluZ3MvbWZkL2FzcGVlZC1scGMudHh0DQogICAgPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rl
+dmljZXRyZWUvYmluZGluZ3MvbWZkL2FzcGVlZC1scGMudHh0DQogICAgPiBAQCAtMTM1LDYgKzEz
+NSw5IEBAIFJlcXVpcmVkIHByb3BlcnRpZXM6DQogICAgPiAgLSBjbG9ja3M6CWNvbnRhaW5zIGEg
+cGhhbmRsZSB0byB0aGUgc3lzY29uIG5vZGUgZGVzY3JpYmluZyB0aGUgY2xvY2tzLg0KICAgID4g
+IAkJVGhlcmUgc2hvdWxkIHRoZW4gYmUgb25lIGNlbGwgcmVwcmVzZW50aW5nIHRoZSBjbG9jayB0
+byB1c2UNCiAgICA+ICANCiAgICA+ICtPcHRpb25hbCBwcm9wZXJ0aWVzOg0KICAgID4gK1RoZXNl
+IGJlbG93IHByb3BlcnRpZXMgYXJlIG9wdGlvbmFsIHRvIGRlZmluZS4NCiAgICANCiAgICBUaGlz
+IGxpbmUgaXMgc3VwZXJmbHVvdXMuICBQbGVhc2UgcmVtb3ZlIGl0Lg0KSSB3aWxsIHJlbW92ZSBp
+dC4gSSBhbSBhc3N1bWluZyBvbmx5IDEgbGluZSB0byByZW1vdmUuDQogICAgDQogICAgPiArDQog
+ICAgPiAgLSBtZW1vcnktcmVnaW9uOiBBIHBoYW5kbGUgdG8gYSByZXNlcnZlZF9tZW1vcnkgcmVn
+aW9uIHRvIGJlIHVzZWQgZm9yIHRoZSBMUEMNCiAgICA+ICAJCXRvIEFIQiBtYXBwaW5nDQogICAg
+PiAgDQogICAgDQogICAgLS0gDQogICAgTGVlIEpvbmVzIFvmnY7nkLzmlq9dDQogICAgTGluYXJv
+IFNlcnZpY2VzIFRlY2huaWNhbCBMZWFkDQogICAgTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ug
+c29mdHdhcmUgZm9yIEFSTSBTb0NzDQogICAgRm9sbG93IExpbmFybzogRmFjZWJvb2sgfCBUd2l0
+dGVyIHwgQmxvZw0KICAgIA0KDQo=
