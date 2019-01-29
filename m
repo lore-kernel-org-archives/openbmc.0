@@ -1,52 +1,66 @@
-Return-Path: <priyankarandive611@gmail.com>
+Return-Path: <lee.jones@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d35; helo=mail-io1-xd35.google.com;
- envelope-from=priyankarandive611@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:4864:20::344; helo=mail-wm1-x344.google.com;
+ envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqfPfrpD"; 
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="LZZN6Wad"; 
  dkim-atps=neutral
-Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
- [IPv6:2607:f8b0:4864:20::d35])
+Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
+ [IPv6:2a00:1450:4864:20::344])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43pm5x1znMzDqPf
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 23:29:37 +1100 (AEDT)
-Received: by mail-io1-xd35.google.com with SMTP id m19so16154206ioh.3
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 04:29:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=AX0BOa7v8F1r1eKTt6mrM+rwptyLD4xqZ1CV4tHT1p8=;
- b=VqfPfrpD00ZSJURVRuIrXSueXQErU05KVAUSBfweUlZSw27QKjbiy1YFxazOxxWCYj
- Ov1N1jECeyfvKu5K1UuqX71F2wLwZRnRtRA7RlCGpWcHo87j4TIPdNQ4ZnSUdC5OjoZX
- REWpXvgPd/S5cOhiOsKyghQcMhIKuFe09SO6OTsZHX8OgzleYaLqGaMms3dZVVp16bUd
- UhvJKHu0MD6lfwHqE78UrDGZMLrCUMi+a0q4xfKUpiGL+E6enoh/yB5uOR7JKKOTUTxj
- RUP7BBzuL9CVL9N05zU6qXp8J+/bXLoCd1XAoszLsZO3b5HPhJ8g/yH41rKTBxIjmYsS
- Rykw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43pm6d3GrkzDqQn
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 23:30:13 +1100 (AEDT)
+Received: by mail-wm1-x344.google.com with SMTP id t200so17708453wmt.0
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 04:30:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=oE8Qm9PdZluCUZkLGWY+ZFIppoNu/D2qntGj/3XiAXQ=;
+ b=LZZN6Wadr4cjXRY+8dG1EeZk5m/TdVcTfpOsZ5V3GC5hu0tCP6jbbMPBh03ne5P1zy
+ ghlKYErOvpXI91DIeGX1ODR8VvIyaDe5KPQSfDOG6AzBpYuhi+79EKFNQFSSbLM68h6D
+ 95Z/d7mkgz/UENS2zkiIHBphbNV6BRLo8vu6U=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=AX0BOa7v8F1r1eKTt6mrM+rwptyLD4xqZ1CV4tHT1p8=;
- b=TTHIrYiSymgp7qfMI/DzrScF+h608zBx7dXwBI1B/pLa7Tox/IMAfnwQ4bFxvtCNHE
- v+G2GavPsaGZ7mcqucPcfDX/zvSDsLYZyiIT9dWn0StgYFbVrzbSNeblB8LHA5pcfnvM
- 2sKRLTtoIQOBm6aT7re/fiB3mHG3l7NcOrKZzMTl//lVQRRGPGa2vwkfrDxUF3SF1QVD
- EFSRxE9EInjpxmjVpS11Mcjx52BtTyFywy77DDZQ6vVKNthEReCMIRrVOvj35LFLm4/9
- 1/Wr0lTfkD9yaGxjPi6egXCZ6IZCDX42yrNq9M9/XHNBxACQyRQgddpaihu5xx0aQ7P4
- rxsw==
-X-Gm-Message-State: AHQUAuZQengV2P2P1HGsK5AC3BzaxNR6/RRtdHIN06k/ezIADjVHdC58
- wX2pqy3HIXZ123lR0PoL3c7RLSVY8SXok2i9kTOj3f265O4=
-X-Google-Smtp-Source: ALg8bN77/XHNUs1kcbWvBG0thfxVzHO5WzA4hMRlfdwDjamjNKKKTwhuI0ArCHEBw6LX7v8S372V3BaWnvSx+SYShiI=
-X-Received: by 2002:a6b:1604:: with SMTP id 4mr14258040iow.29.1548764975082;
- Tue, 29 Jan 2019 04:29:35 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=oE8Qm9PdZluCUZkLGWY+ZFIppoNu/D2qntGj/3XiAXQ=;
+ b=OM5/A4bMEnw8toNljCLZkIuWB7JRLSQT/nikH2c7h6/aX818b4BurTuhriW5acxfiv
+ 5FmUv1eKE98U+M7+Fw9GAtS9/CTMciKtkt7pVLSrF6GYUyt3zydIyzeP7a4pjDOxplAf
+ 3T3KqP4zbvbG6dKk7lelCTJFbylvF4hV24puuSRRBlS/lSgGzy+o3kebrjHCzu3X8UD7
+ G0NSqZ6kN1qnm9E5C2wlat9G5MqIqwua52zh9yOenmkwwf+zOpaNF26/2wudIPmnpT+L
+ GXNZ50YZFKtXKP3+ndtN5KjlmXux8dzH/eEZbpDvqtQ44SWNxUpG3isM/uJlMurt0F3A
+ jmxg==
+X-Gm-Message-State: AJcUukeWnodKrw/rdVqi2di0wEiYL2UqFRSyysoGCCNpR+avIgzQov9J
+ yJm9iOLXhqC8qBf/D+fKz1IvIQ==
+X-Google-Smtp-Source: ALg8bN6Dv5bto48uf2VZhK8Y3t2maUaWJp3mSF942fyW3hxN7qnMGNqU1ppDG+NKI3dclarAXzygsA==
+X-Received: by 2002:a1c:a755:: with SMTP id q82mr21799557wme.6.1548765010759; 
+ Tue, 29 Jan 2019 04:30:10 -0800 (PST)
+Received: from dell ([2.27.35.198])
+ by smtp.gmail.com with ESMTPSA id l19sm2852142wme.21.2019.01.29.04.30.09
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Tue, 29 Jan 2019 04:30:09 -0800 (PST)
+Date: Tue, 29 Jan 2019 12:30:08 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v2] dt-bindings: aspeed-lpc: Make parameter optional
+Message-ID: <20190129123008.GC24070@dell>
+References: <20190118201547.640173-1-vijaykhemka@fb.com>
 MIME-Version: 1.0
-From: priyanka randive <priyankarandive611@gmail.com>
-Date: Tue, 29 Jan 2019 18:01:41 +0530
-Message-ID: <CAGxojq779wj=y+docT9yQtqy6zuTsT1JyEwDSUDZsSgnL2Facg@mail.gmail.com>
-Subject: To reduce size of openbmc rootfs
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000002e2faa058097f26d"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20190118201547.640173-1-vijaykhemka@fb.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,39 +72,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Jan 2019 12:29:43 -0000
+X-List-Received-Date: Tue, 29 Jan 2019 12:30:18 -0000
 
---0000000000002e2faa058097f26d
-Content-Type: text/plain; charset="UTF-8"
+On Fri, 18 Jan 2019, Vijay Khemka wrote:
 
-I am trying to reduce openbmc rootfs image which i want to flash on ast2500
-board.My current image size is 14 mb and I want less than 14 mb. I am
-unable to find proper documentation or steps to do this. so please can
-anyone give me solution for this issue.
+> Memory-region and flash phandle is not a required parameter, it is
+> optional to describe in device tree and needed only use basis.
+> 
+> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> ---
+>  Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+> index 34dd89087cff..d28c4e117611 100644
+> --- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+> +++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+> @@ -135,6 +135,9 @@ Required properties:
+>  - clocks:	contains a phandle to the syscon node describing the clocks.
+>  		There should then be one cell representing the clock to use
+>  
+> +Optional properties:
+> +These below properties are optional to define.
 
-Thanks in advance.
+This line is superfluous.  Please remove it.
 
---0000000000002e2faa058097f26d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> +
+>  - memory-region: A phandle to a reserved_memory region to be used for the LPC
+>  		to AHB mapping
+>  
 
-<div dir=3D"ltr"><div><span style=3D"color:rgb(36,41,46);font-family:-apple=
--system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,=
-&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Sym=
-bol&quot;;font-size:14px">I am trying to reduce openbmc rootfs image which =
-i want to flash on ast2500 board.My current image size is 14 mb and I want =
-less than 14 mb. I am unable to find proper documentation or steps to do th=
-is. so please can anyone give me solution for this issue.</span></div><div>=
-<br style=3D"box-sizing:border-box;color:rgb(36,41,46);font-family:-apple-s=
-ystem,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&q=
-uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbo=
-l&quot;;font-size:14px"><span style=3D"color:rgb(36,41,46);font-family:-app=
-le-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-seri=
-f,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI S=
-ymbol&quot;;font-size:14px">Thanks in advance.</span><span style=3D"color:r=
-gb(36,41,46);font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&qu=
-ot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI=
- Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size:14px"><br></span></div><=
-/div>
-
---0000000000002e2faa058097f26d--
+-- 
+Lee Jones [李琼斯]
+Linaro Services Technical Lead
+Linaro.org │ Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog
