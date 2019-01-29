@@ -1,52 +1,52 @@
-Return-Path: <kitsok@yandex-team.ru>
+Return-Path: <priyankarandive611@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yandex-team.ru
- (client-ip=2a02:6b8:0:1630::190; helo=forwardcorp1j.cmail.yandex.net;
- envelope-from=kitsok@yandex-team.ru; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=yandex-team.ru
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru
- header.b="n8nqnIkJ"; dkim-atps=neutral
-X-Greylist: delayed 655 seconds by postgrey-1.36 at bilbo;
- Tue, 29 Jan 2019 19:40:34 AEDT
-Received: from forwardcorp1j.cmail.yandex.net (forwardcorp1j.cmail.yandex.net
- [IPv6:2a02:6b8:0:1630::190])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d35; helo=mail-io1-xd35.google.com;
+ envelope-from=priyankarandive611@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqfPfrpD"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd35.google.com (mail-io1-xd35.google.com
+ [IPv6:2607:f8b0:4864:20::d35])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43pg1Z1QtQzDqLH
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 19:40:33 +1100 (AEDT)
-Received: from mxbackcorp1j.mail.yandex.net (mxbackcorp1j.mail.yandex.net
- [IPv6:2a02:6b8:0:1619::162])
- by forwardcorp1j.cmail.yandex.net (Yandex) with ESMTP id 158B820C01;
- Tue, 29 Jan 2019 11:29:30 +0300 (MSK)
-Received: from localhost (localhost [::1])
- by mxbackcorp1j.mail.yandex.net (nwsmtp/Yandex) with ESMTP id
- zszETFiUJo-TT6ub8UG; Tue, 29 Jan 2019 11:29:30 +0300
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; 
- t=1548750570; bh=/eRcwDGWIJJdeSn9oWDdqiLgNbaC9Di1PzQHNIAcHEw=;
- h=From:To:In-Reply-To:References:Subject:Date:Message-Id;
- b=n8nqnIkJomV+KtM9jLSfFFqH202nMFoRPbLTeG/XCacw1JU3guBjRjExn5vlQ7mvj
- JTUMMJaNvOYz9Ot4wqSZO57+aEvoir+7I+LvDbZmyDvDngvQ9UfGiOUwCrqMfQIVDb
- YvVf+yP5XDbv+finf61oAYijG4iPpJ4E/3tYznjk=
-Authentication-Results: mxbackcorp1j.mail.yandex.net;
- dkim=pass header.i=@yandex-team.ru
-X-Yandex-Sender-Uid: 1120000000049860
-Received: by myt4-a988562a11ab.qloud-c.yandex.net with HTTP;
- Tue, 29 Jan 2019 11:29:29 +0300
-From: Konstantin Klubnichkin <kitsok@yandex-team.ru>
-To: Brenden Lai <brenden_lai@jabil.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-In-Reply-To: <SN6PR02MB5693EB44045D9C63CA2E48C896970@SN6PR02MB5693.namprd02.prod.outlook.com>
-References: <SN6PR02MB5693EB44045D9C63CA2E48C896970@SN6PR02MB5693.namprd02.prod.outlook.com>
-Subject: Re: dts file questions
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43pm5x1znMzDqPf
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 23:29:37 +1100 (AEDT)
+Received: by mail-io1-xd35.google.com with SMTP id m19so16154206ioh.3
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 04:29:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=AX0BOa7v8F1r1eKTt6mrM+rwptyLD4xqZ1CV4tHT1p8=;
+ b=VqfPfrpD00ZSJURVRuIrXSueXQErU05KVAUSBfweUlZSw27QKjbiy1YFxazOxxWCYj
+ Ov1N1jECeyfvKu5K1UuqX71F2wLwZRnRtRA7RlCGpWcHo87j4TIPdNQ4ZnSUdC5OjoZX
+ REWpXvgPd/S5cOhiOsKyghQcMhIKuFe09SO6OTsZHX8OgzleYaLqGaMms3dZVVp16bUd
+ UhvJKHu0MD6lfwHqE78UrDGZMLrCUMi+a0q4xfKUpiGL+E6enoh/yB5uOR7JKKOTUTxj
+ RUP7BBzuL9CVL9N05zU6qXp8J+/bXLoCd1XAoszLsZO3b5HPhJ8g/yH41rKTBxIjmYsS
+ Rykw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=AX0BOa7v8F1r1eKTt6mrM+rwptyLD4xqZ1CV4tHT1p8=;
+ b=TTHIrYiSymgp7qfMI/DzrScF+h608zBx7dXwBI1B/pLa7Tox/IMAfnwQ4bFxvtCNHE
+ v+G2GavPsaGZ7mcqucPcfDX/zvSDsLYZyiIT9dWn0StgYFbVrzbSNeblB8LHA5pcfnvM
+ 2sKRLTtoIQOBm6aT7re/fiB3mHG3l7NcOrKZzMTl//lVQRRGPGa2vwkfrDxUF3SF1QVD
+ EFSRxE9EInjpxmjVpS11Mcjx52BtTyFywy77DDZQ6vVKNthEReCMIRrVOvj35LFLm4/9
+ 1/Wr0lTfkD9yaGxjPi6egXCZ6IZCDX42yrNq9M9/XHNBxACQyRQgddpaihu5xx0aQ7P4
+ rxsw==
+X-Gm-Message-State: AHQUAuZQengV2P2P1HGsK5AC3BzaxNR6/RRtdHIN06k/ezIADjVHdC58
+ wX2pqy3HIXZ123lR0PoL3c7RLSVY8SXok2i9kTOj3f265O4=
+X-Google-Smtp-Source: ALg8bN77/XHNUs1kcbWvBG0thfxVzHO5WzA4hMRlfdwDjamjNKKKTwhuI0ArCHEBw6LX7v8S372V3BaWnvSx+SYShiI=
+X-Received: by 2002:a6b:1604:: with SMTP id 4mr14258040iow.29.1548764975082;
+ Tue, 29 Jan 2019 04:29:35 -0800 (PST)
 MIME-Version: 1.0
-X-Mailer: Yamail [ http://yandex.ru ] 5.0
-Date: Tue, 29 Jan 2019 11:29:29 +0300
-Message-Id: <261731548750569@myt4-a988562a11ab.qloud-c.yandex.net>
-Content-Transfer-Encoding: base64
-Content-Type: text/html; charset=utf-8
+From: priyanka randive <priyankarandive611@gmail.com>
+Date: Tue, 29 Jan 2019 18:01:41 +0530
+Message-ID: <CAGxojq779wj=y+docT9yQtqy6zuTsT1JyEwDSUDZsSgnL2Facg@mail.gmail.com>
+Subject: To reduce size of openbmc rootfs
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000002e2faa058097f26d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +58,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Jan 2019 08:40:37 -0000
+X-List-Received-Date: Tue, 29 Jan 2019 12:29:43 -0000
 
-PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+SGVsbG8sIEJyZW5kZW4h
-PC9kaXY+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+wqA8L2Rpdj48
-ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj7CoDwvZGl2PjxkaXYgeG1s
-bnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjI5LjAxLjIwMTksIDA3OjA4LCAiQnJl
-bmRlbiBMYWkiICZsdDticmVuZGVuX2xhaUBqYWJpbC5jb20mZ3Q7OjwvZGl2PjxibG9ja3F1b3Rl
-IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiB0eXBlPSJjaXRlIj48ZGl2IGxp
-bms9IiMwNTYzQzEiIHZsaW5rPSIjOTU0RjcyIiBsYW5nPSJFTi1VUyI+PGRpdj48cCBzdHlsZT0i
-bWFyZ2luOjBpbjttYXJnaW4tYm90dG9tOjAuMDAwMXB0O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFt
-aWx5OkNhbGlicmksc2Fucy1zZXJpZjsiPkhpIGFsbCAsPC9wPjxwIHN0eWxlPSJtYXJnaW46MGlu
-O21hcmdpbi1ib3R0b206MC4wMDAxcHQ7Zm9udC1zaXplOjExcHQ7Zm9udC1mYW1pbHk6Q2FsaWJy
-aSxzYW5zLXNlcmlmOyI+wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBJIGhhdmUgY291cGxl
-IGR0cyBxdWVzdGlvbnMgYWJvdXQgwqBwb3J0aW5nIE9wZW5CTUMgaW50byBhIG5ldyBtYWNoaW5l
-IC48L3A+PHAgc3R5bGU9Im1hcmdpbjowaW47bWFyZ2luLWJvdHRvbTowLjAwMDFwdDtmb250LXNp
-emU6MTFwdDtmb250LWZhbWlseTpDYWxpYnJpLHNhbnMtc2VyaWY7Ij7CoDwvcD48b2wgc3R5bGU9
-Im1hcmdpbi10b3A6MGluOyIgdHlwZT0iMSI+PGxpIHN0eWxlPSJtYXJnaW4tbGVmdDowLjI1aW47
-Ij5BbHRob3VnaMKgIHRoZXJlIGFyZSBtYW55IGR0cyBmaWxlIGxvY2F0ZWQgaW7CoCA8YSByZWw9
-Im5vb3BlbmVyIG5vcmVmZXJyZXIiIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2xp
-bnV4L2Jsb2IvZGV2LTQuMTMvYXJjaC9hcm0vYm9vdC9kdHMvIj5odHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9saW51eC9ibG9iL2Rldi00LjEzL2FyY2gvYXJtL2Jvb3QvZHRzLzwvYT4gLDwvbGk+
-PC9vbD48cCBzdHlsZT0ibWFyZ2luLWxlZnQ6MC43NWluOyI+QnV0ICwgaG93IGRvZXMgYml0YmFr
-ZSBrbm93IHdoaWNoIG9uZSBzaG91bGQgYmUgYXBwbGllZCAuPC9wPjwvZGl2PjwvZGl2PjwvYmxv
-Y2txdW90ZT48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj48YnIgLz5Z
-b3UgZGVzY3JpYmUgdGhlIG5lZWRlZCBkZXZpY2UgdHJlZSBpbiB0aGUgbWFjaGluZSBjb25maWcg
-ZmlsZTo8L2Rpdj48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj7CoDwv
-ZGl2PjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPktFUk5FTF9ERVZJ
-Q0VUUkVFID0gIiR7S01BQ0hJTkV9LWJtYy15YW5kZXgtJHtNQUNISU5FfS5kdGIiPC9kaXY+PGRp
-diB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+wqA8L2Rpdj48ZGl2IHhtbG5z
-PSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj7CoDwvZGl2PjxibG9ja3F1b3RlIHhtbG5z
-PSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiB0eXBlPSJjaXRlIj48ZGl2IGxpbms9IiMw
-NTYzQzEiIHZsaW5rPSIjOTU0RjcyIiBsYW5nPSJFTi1VUyI+PGRpdj48b2wgc3R5bGU9Im1hcmdp
-bi10b3A6MGluOyIgdHlwZT0iMSI+PGxpIHN0eWxlPSJtYXJnaW4tbGVmdDowLjI1aW47Ij5pZiB0
-aGVyZSBhcmUgbm8gc3VpdGFibGUgZHRzIGZpbGUgaW4gZ2l0aHViICwgaXQgc2hvdWxkIGJlIG1h
-ZGUgYnkgbXlzZWxmICwgd2hlcmUgc2hvdWxkIEkgcHV0IG15IGR0cyBmaWxlIGluIHdvcmtpbmcg
-c3BhY2UgwqBzb3VyY2UgdHJlZT88L2xpPjwvb2w+PC9kaXY+PC9kaXY+PC9ibG9ja3F1b3RlPjxk
-aXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPjxkaXY+VG8gZG8gc28geW91
-IGNhbiBjcmVhdGUgYW4gYXBwZW5kIHJlY2lwZSB0byBsaW51eC1hc3BlZWQsIGFuZCBjb3B5IHRo
-ZSBuZWVkZWQgZmlsZSB0byB0aGUga2VybmVsIHNvdXJjZSB0cmVlOjwvZGl2PjxkaXY+PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PC9kaXY+PGRpdj4kY2F0IGxpbnV4LWFzcGVlZF8lLmJiYXBwZW5kPGJyIC8+RklM
-RVNFWFRSQVBBVEhTX3ByZXBlbmQgOj0gIiR7VEhJU0RJUn0vJHtQTn06IjxiciAvPjxiciAvPlNS
-Q19VUkkgKz0gImZpbGU6Ly9hc3BlZWQtYm1jLXlhbmRleC1teTcwLmR0cyI8YnIgLz5TUkNfVVJJ
-ICs9ICJmaWxlOi8vbXk3MC5jZmciPGJyIC8+PGJyIC8+ZG9fcGF0Y2hfYXBwZW5kKCkgezxiciAv
-PsKgwqDCoCBpbnN0YWxsIC1tIDA2NDQgJHtXT1JLRElSfS9hc3BlZWQtYm1jLXlhbmRleC1teTcw
-LmR0cyAke1NUQUdJTkdfS0VSTkVMX0RJUn0vYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy15
-YW5kZXgtbXk3MC5kdHM8YnIgLz59PC9kaXY+PGRpdj49PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT08L2Rpdj48L2Rp
-dj48YmxvY2txdW90ZSB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCIgdHlwZT0i
-Y2l0ZSI+PGRpdiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiIgbGFuZz0iRU4tVVMiPjxk
-aXY+wqA8cD48c3BhbiBzdHlsZT0iY29sb3I6YmxhY2s7Zm9udC1zaXplOjEwcHQ7Ij5CcmVuZGVu
-IExhaTxiciAvPlNSLiBCTUMgRGVzaWduIEVuZ2luZWVyPC9zcGFuPjxiciAvPjxzcGFuIHN0eWxl
-PSJjb2xvcjojMjIyMjIyO2ZvbnQtc2l6ZToxMHB0OyI+RSZhbXA7SSwgSmFiaWwgRGVzaWduIFNl
-cnZpY2VzPC9zcGFuPjwvcD48cCBzdHlsZT0ibWFyZ2luOjBpbjttYXJnaW4tYm90dG9tOjAuMDAw
-MXB0O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1zZXJpZjsiPsKgPC9w
-PjwvZGl2PjwvZGl2PjwvYmxvY2txdW90ZT48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8x
-OTk5L3hodG1sIj7CoDwvZGl2PjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0
-bWwiPsKgPC9kaXY+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+LS3C
-oDwvZGl2PjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGh0bWwiPkJlc3QgcmVn
-YXJkcyw8L2Rpdj48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIj5Lb25z
-dGFudGluIEtsdWJuaWNoa2luLDwvZGl2PjxkaXYgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzE5
-OTkveGh0bWwiPmxlYWQgZmlybXdhcmUgZW5naW5lZXIsPC9kaXY+PGRpdiB4bWxucz0iaHR0cDov
-L3d3dy53My5vcmcvMTk5OS94aHRtbCI+c2VydmVyIGhhcmR3YXJlIFImYW1wO0QgZ3JvdXAsPC9k
-aXY+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+WWFuZGV4IE1vc2Nv
-dyBvZmZpY2UuPC9kaXY+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94aHRtbCI+
-dGVsOiArNy05MDMtNTEwLTMzLTMzPC9kaXY+PGRpdiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-MTk5OS94aHRtbCI+wqA8L2Rpdj4=
+--0000000000002e2faa058097f26d
+Content-Type: text/plain; charset="UTF-8"
+
+I am trying to reduce openbmc rootfs image which i want to flash on ast2500
+board.My current image size is 14 mb and I want less than 14 mb. I am
+unable to find proper documentation or steps to do this. so please can
+anyone give me solution for this issue.
+
+Thanks in advance.
+
+--0000000000002e2faa058097f26d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><span style=3D"color:rgb(36,41,46);font-family:-apple=
+-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,=
+&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Sym=
+bol&quot;;font-size:14px">I am trying to reduce openbmc rootfs image which =
+i want to flash on ast2500 board.My current image size is 14 mb and I want =
+less than 14 mb. I am unable to find proper documentation or steps to do th=
+is. so please can anyone give me solution for this issue.</span></div><div>=
+<br style=3D"box-sizing:border-box;color:rgb(36,41,46);font-family:-apple-s=
+ystem,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&q=
+uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI Symbo=
+l&quot;;font-size:14px"><span style=3D"color:rgb(36,41,46);font-family:-app=
+le-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-seri=
+f,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;,&quot;Segoe UI S=
+ymbol&quot;;font-size:14px">Thanks in advance.</span><span style=3D"color:r=
+gb(36,41,46);font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&qu=
+ot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI=
+ Emoji&quot;,&quot;Segoe UI Symbol&quot;;font-size:14px"><br></span></div><=
+/div>
+
+--0000000000002e2faa058097f26d--
