@@ -1,66 +1,79 @@
-Return-Path: <lee.jones@linaro.org>
+Return-Path: <mspinler@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::344; helo=mail-wm1-x344.google.com;
- envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="LZZN6Wad"; 
- dkim-atps=neutral
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43pm6d3GrkzDqQn
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 23:30:13 +1100 (AEDT)
-Received: by mail-wm1-x344.google.com with SMTP id t200so17708453wmt.0
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 04:30:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=oE8Qm9PdZluCUZkLGWY+ZFIppoNu/D2qntGj/3XiAXQ=;
- b=LZZN6Wadr4cjXRY+8dG1EeZk5m/TdVcTfpOsZ5V3GC5hu0tCP6jbbMPBh03ne5P1zy
- ghlKYErOvpXI91DIeGX1ODR8VvIyaDe5KPQSfDOG6AzBpYuhi+79EKFNQFSSbLM68h6D
- 95Z/d7mkgz/UENS2zkiIHBphbNV6BRLo8vu6U=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=oE8Qm9PdZluCUZkLGWY+ZFIppoNu/D2qntGj/3XiAXQ=;
- b=OM5/A4bMEnw8toNljCLZkIuWB7JRLSQT/nikH2c7h6/aX818b4BurTuhriW5acxfiv
- 5FmUv1eKE98U+M7+Fw9GAtS9/CTMciKtkt7pVLSrF6GYUyt3zydIyzeP7a4pjDOxplAf
- 3T3KqP4zbvbG6dKk7lelCTJFbylvF4hV24puuSRRBlS/lSgGzy+o3kebrjHCzu3X8UD7
- G0NSqZ6kN1qnm9E5C2wlat9G5MqIqwua52zh9yOenmkwwf+zOpaNF26/2wudIPmnpT+L
- GXNZ50YZFKtXKP3+ndtN5KjlmXux8dzH/eEZbpDvqtQ44SWNxUpG3isM/uJlMurt0F3A
- jmxg==
-X-Gm-Message-State: AJcUukeWnodKrw/rdVqi2di0wEiYL2UqFRSyysoGCCNpR+avIgzQov9J
- yJm9iOLXhqC8qBf/D+fKz1IvIQ==
-X-Google-Smtp-Source: ALg8bN6Dv5bto48uf2VZhK8Y3t2maUaWJp3mSF942fyW3hxN7qnMGNqU1ppDG+NKI3dclarAXzygsA==
-X-Received: by 2002:a1c:a755:: with SMTP id q82mr21799557wme.6.1548765010759; 
- Tue, 29 Jan 2019 04:30:10 -0800 (PST)
-Received: from dell ([2.27.35.198])
- by smtp.gmail.com with ESMTPSA id l19sm2852142wme.21.2019.01.29.04.30.09
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 29 Jan 2019 04:30:09 -0800 (PST)
-Date: Tue, 29 Jan 2019 12:30:08 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH v2] dt-bindings: aspeed-lpc: Make parameter optional
-Message-ID: <20190129123008.GC24070@dell>
-References: <20190118201547.640173-1-vijaykhemka@fb.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43pphG3grmzDqHJ
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 01:26:06 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x0TEIXZq102320
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 09:26:04 -0500
+Received: from e35.co.us.ibm.com (e35.co.us.ibm.com [32.97.110.153])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qapytx47n-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jan 2019 09:26:03 -0500
+Received: from localhost
+ by e35.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
+ Tue, 29 Jan 2019 14:26:01 -0000
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e35.co.us.ibm.com (192.168.1.135) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 29 Jan 2019 14:25:58 -0000
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x0TEPvg827394108
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 29 Jan 2019 14:25:57 GMT
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 538856A05A;
+ Tue, 29 Jan 2019 14:25:57 +0000 (GMT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3274A6A061;
+ Tue, 29 Jan 2019 14:25:57 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Tue, 29 Jan 2019 14:25:57 +0000 (GMT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20190118201547.640173-1-vijaykhemka@fb.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 29 Jan 2019 08:32:06 -0600
+From: Matt Spinler <mspinler@linux.vnet.ibm.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: REST API authentication changes coming soon
+In-Reply-To: <f7bae68a4338da902ff1b43c03f38ee16cf16c79.camel@fuzziesquirrel.com>
+References: <f7bae68a4338da902ff1b43c03f38ee16cf16c79.camel@fuzziesquirrel.com>
+X-Sender: mspinler@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19012914-0012-0000-0000-00001701A9A5
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010499; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000277; SDB=6.01153485; UDB=6.00601377; IPR=6.00933851; 
+ MB=3.00025338; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-29 14:25:59
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19012914-0013-0000-0000-000056009C87
+Message-Id: <a4c896ca2ad943cb669e2ceaf09955ff@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-01-29_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1901290108
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,38 +85,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 29 Jan 2019 12:30:18 -0000
+X-List-Received-Date: Tue, 29 Jan 2019 14:26:07 -0000
 
-On Fri, 18 Jan 2019, Vijay Khemka wrote:
-
-> Memory-region and flash phandle is not a required parameter, it is
-> optional to describe in device tree and needed only use basis.
+On 2019-01-28 12:52, Brad Bishop wrote:
+> I just wanted to re-announce this change in a very visible way:
 > 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
-> ---
->  Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 3 +++
->  1 file changed, 3 insertions(+)
+> https://lists.ozlabs.org/pipermail/openbmc/2019-January/014881.html
 > 
-> diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> index 34dd89087cff..d28c4e117611 100644
-> --- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> +++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
-> @@ -135,6 +135,9 @@ Required properties:
->  - clocks:	contains a phandle to the syscon node describing the clocks.
->  		There should then be one cell representing the clock to use
->  
-> +Optional properties:
-> +These below properties are optional to define.
+> I'm not sure how to interpret the silence.  There will be some impact
+> to any programatic use of the current REST API when we make this
+> switch.  If you have issues with that please speak up so we can see
+> about what we can do to help ease the transition.
 
-This line is superfluous.  Please remove it.
 
-> +
->  - memory-region: A phandle to a reserved_memory region to be used for the LPC
->  		to AHB mapping
->  
+There is a review in progress at
+https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/17706/ with the
+new authentication details.
 
--- 
-Lee Jones [李琼斯]
-Linaro Services Technical Lead
-Linaro.org │ Open source software for ARM SoCs
-Follow Linaro: Facebook | Twitter | Blog
+Other differences I've noticed from phosphor-rest:
+* URLs are case sensitive
+* Will not interpolate strings to ints
+   e.g. won't covert "1000" to 1000 if D-Bus arg is an int
+* Not tolerant on things like double '/'s in the URL
+   e.g. /xyz/openbmc_project//attr/blah... will not work
+
+
+
+> thx - brad
