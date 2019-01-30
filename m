@@ -1,58 +1,58 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::530; helo=mail-pg1-x530.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::733; helo=mail-qk1-x733.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ELENzZLN"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="RJpmNZOh"; 
  dkim-atps=neutral
-Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
- [IPv6:2607:f8b0:4864:20::530])
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43qTgm6pFnzDqHk
- for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 03:43:00 +1100 (AEDT)
-Received: by mail-pg1-x530.google.com with SMTP id m1so51853pgq.8
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 08:43:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43qW8q1c6dzDqS9
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 04:49:46 +1100 (AEDT)
+Received: by mail-qk1-x733.google.com with SMTP id y16so244816qki.7
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 09:49:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=L3nu9eYJajq1sHSIhUhrNrZP/2v6X7pL8ZZxOT7sSY0=;
- b=ELENzZLNdVkGVupDxELr4/xhuRvDQony0iUxH/GfjN12JXaDTsrPqDrOQE2NZiY7F3
- gxD3fo40vcFdcrXUZA9+ti+aaFqbghMSfPwuJNjHl/brV74BzA0Uavw9OCcyFbi4N8QB
- eRYlKoUrEYHQ4gl49J6lrCfd9ADxeHX/+LJV6A/Q7+AkAUtG1GefS6dhLCit5gj15YLz
- 73JHyZnUjsMGE37GHiGMQvxaUazLOmmnqdJE8QxwkOEl1mg5j2wMdbH6Iy4D1muRZbg1
- 0ZnIOP2ggjgZKfqcRZb7UJ2y0Ih+cdfj2GbV4Opoqbvg0UOCpxC3Tl5zA2e1hMn+9Mh2
- K12w==
+ :cc; bh=lWzLpXJDjthQSQYhS9VZyWzbmBv1qs/UpzMbM1MK548=;
+ b=RJpmNZOh3Yoy8e428brXSCqTLf5Ppdx/q0SyLzMyyA667riMAi8N6HF8yWoaYRZA6G
+ pdIRlV0iyi0G+ZUXzlXmalaqh5U8yobHalR+SbFYCNCDKiXURM2qhOam2Qcf1TV3/wRo
+ LNibA7akkaelKmVGwRkAfaIVuI0NaG8Hu1hRe1RZK+xgoikvhy6sgu7vcylOiL9Cvd4W
+ SO/c4Xi3OVO6o4w21cyr0crxcuY1MDmeeWeTxnjw5wRnPpQq/z9r4NCX8w71KZn1Nwjt
+ otpzIoAimBMo3urPVsW8pvlOAEm262D6qXkm7Q4qhXD5AXIcVKgdCTJ8RNUsoIagCCBt
+ p3Pg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:content-transfer-encoding;
- bh=L3nu9eYJajq1sHSIhUhrNrZP/2v6X7pL8ZZxOT7sSY0=;
- b=FXlH4ClBulwNGUhuk7U8wpXy4NJtZXf5P5oNu2YxRCHRt6Io01gaViKcnrLYP23x4k
- Evgm/motcSeLfeMgMpI/mIOpDC15cgIEpehGhdrMvS+nv80aNfPj3Hp6n/Dzjl6Jfx10
- J/tSvN5pBL01zgItmmW5WfnXNmbSdMVmso0f0XrRfeNnf7GOf2B30QMvc7Kzuij3hLUZ
- lDrI+iD67vyLtwMp5WaNTHZPyf6nQ/788FxoDZTrBFsssC4+nyP4OGvykmzNTUVrHESM
- HlBTRYYWe2/lvJU/VHZutkfanfzlJafLWvYptEYOF80VrN6oB800uoJGuSr9+/OSN+CU
- rsow==
-X-Gm-Message-State: AJcUukdV0HnjG0PNndgUqzQdVEK0bGWkuB6T9ltl/Evg8xHDcYFRbCXc
- ZIywTaQ+R6mvCkhMANgub016wabp+ZHXwAIglvUGT1x2
-X-Google-Smtp-Source: ALg8bN4lveuEJN7FGjktoMDFolEORQnMXIZ+3tAckPxR3KgTh2rmBSFfn4lAYDnYnFleTPuVoDq+fUE/79mCpO/bA04=
-X-Received: by 2002:a62:26c7:: with SMTP id m190mr31770742pfm.79.1548866578239; 
- Wed, 30 Jan 2019 08:42:58 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=lWzLpXJDjthQSQYhS9VZyWzbmBv1qs/UpzMbM1MK548=;
+ b=teovrSGM1zbMa0ziMKPLMkOR7Ofps19idFrhVBal4fk7o6lPQ/QprsIqn0OHyXMiiT
+ 2VtlcYnK+8HZyx2onjxaz2h78EeEWmaPM1j8zKDRSOBSSfYFIr5sbt7Hqz/F0c4tqzzJ
+ NX5lUEoevdPapknialYuUhLWp7+58o3EDWPlD9+A07sE77fp+Yr9VLjQ/IqNm6b1H73x
+ 0+h+UiTJft92/hLpczywIZmfb0QLUOyqwTmXWMvLm3zdU7psWl/yRlW7u/hCoFM0kIxc
+ EsthZ/hZ3n/sb9uC/PH7V7+uUSIyhosktvBoNYqQA++NQseFr1S9askK7Jz8YG0+eaNG
+ 99Mg==
+X-Gm-Message-State: AJcUukcoorzgyjfrXYIRDEEdfycuoY5wVhb7VeMUsEmVi9q2Y7Wmlz9U
+ VulR79/w0JDql33kSkVb+V0rjZ4ze6DyQAHkOBRx/g==
+X-Google-Smtp-Source: ALg8bN7oCxpCRgCTdphZWQUKlML8Mq2Qa5WvmdL6WoqKdsVrria+VR/iLqKqA7GEGPu6Bc5QR1AyZVlT7UieQW7Gl7U=
+X-Received: by 2002:a37:4a47:: with SMTP id x68mr29020258qka.112.1548870584179; 
+ Wed, 30 Jan 2019 09:49:44 -0800 (PST)
 MIME-Version: 1.0
-References: <CANT4NrJLCLwH6dW9iTD8yMUjdbw-7-ai6YEfw97s0D-sr33Vww@mail.gmail.com>
- <53839b56-77b1-e743-2737-46d77220780a@linux.vnet.ibm.com>
-In-Reply-To: <53839b56-77b1-e743-2737-46d77220780a@linux.vnet.ibm.com>
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Wed, 30 Jan 2019 10:42:47 -0600
-Message-ID: <CANT4NrKHEWR2xa=L1meCWoV8d7_igKVr6QP5v2mbtm2b9gx2ww@mail.gmail.com>
-Subject: Re: SNMP query
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <6065976.siBLTEBlHZ@flash>
+ <CAARXrtkg0uoJ7L8cwme8mkckmNj5bwb1hk15iWgqVYXbJ5pOCw@mail.gmail.com>
+In-Reply-To: <CAARXrtkg0uoJ7L8cwme8mkckmNj5bwb1hk15iWgqVYXbJ5pOCw@mail.gmail.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Wed, 30 Jan 2019 09:49:32 -0800
+Message-ID: <CAJoAoZmZhxFNuvRYKQ04iTYZVrHgoukbM4HdTaPP6kCZppMhDA@mail.gmail.com>
+Subject: Re: OpenBMC Sensors
+To: Lei YU <mine260309@gmail.com>
+Cc: Aaron Williams <awilliams@marvell.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000f98fa90580b08834"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,72 +64,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 16:43:02 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 17:49:48 -0000
 
-My team has decided to forgo the Test button on the SNMP panel.  We
-plan to offer the same field validation affordances for the query, but
-now the user will be notified after the Save Settings button is
-clicked. And we will provide an affordance if the user has to wait
-more than a few seconds for the response.
+--000000000000f98fa90580b08834
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you all for the feedback.
+Hi Aaron,
 
--- Susan
+Note that you only really need to worry about sending the temperature via
+IPMI if you want to send it somewhere besides the BMC.  If you plan to do
+internal thermal control (BMC reads temperature, BMC adjusts fans
+accordingly) you probably don't need IPMI config and can get away with
+setting it up as far as DBus in the sensor architecture doc Lei sent.
 
+Emily
 
-On Tue, Jan 29, 2019 at 12:53 PM Ratan Gupta
-<ratagupt@linux.vnet.ibm.com> wrote:
+On Thu, Jan 24, 2019 at 1:27 AM Lei YU <mine260309@gmail.com> wrote:
+
+> On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams <awilliams@marvell.com>
+> wrote:
+> > I see how to set up the hwmon portion defining the devices based on the
+> device
+> > tree, but I am unsure how to go about configuring the YAML and other
+> files for
+> > this.
 >
-> Hi Susan,
+> For sensors' config, please refer to
+> https://github.com/openbmc/docs/blob/master/sensor-architecture.md
+> And it looks you are looking for fan controls, then you could refer to:
 >
-> On 29/01/19 11:01 PM, susan jasinski wrote:
+> https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#fans
 >
-> On the GUI SNMP panel, all customers that we tested told us that they wan=
-t the ability to test the manager host name or IP address that they provide=
- to be sure that it is accurate. Right now, the BMC does not have this abil=
-ity.
+> (I really need to submit my porting guide to openbmc/docs)
 >
-> I wanted to get more info on this, Currently SNMP D-Bus service on the BM=
-C does the validation for whether the IP is reachable or not as part of con=
-figuration.
->
-> Suppose if admin configures the hostname/ip which is valid end point(ping=
-able hostname/ip) but not the SNMP trapdaemon, In this scenario what is cus=
-tomer expectation?
->
-> SNMP trapdaemon works on UDP, and the trapdaemon(162) listens only the tr=
-ap messages not the SNMP agent messages.
->
-> BMC uses the SNMP for sending the trap messages to the SNMP trapdaemon.
->
-> Below link seems useful if BMC would have been SNMP client(sending messag=
-es to port 161) and SNMP agent is sitting outside the BMC and on BMC I run =
-the command SNMPwalk to find that the configured IP address is SNMP agent o=
-r not which is not the case here.
->
->
-> My team did some digging around on the internet and found this SNMP query=
- suggestion. https://support.panorama9.com/hc/en-us/articles/203568188-Test=
--if-SNMP-devices-are-responding-correctly-to-SNMP-queries
->
->
-> I am looking for feedback on whether we should implement something simila=
-r?
-> - If we get a response from an SNMP enabled device in the backend, then w=
-e would provide a  validation message like "Device responded to the SNMP qu=
-ery"
->
-> - If we do not get a response, then we would provide a validation message=
- like "Invalid host name or IP address, or the device did not respond to th=
-e SNMP query"
->
-> I am open to suggestions for the messages.
->
->
->
->
-> -- Susan Jasinski
->
-> Regards
->
-> Ratan
+
+--000000000000f98fa90580b08834
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Aaron,<div><br></div><div>Note that you only really nee=
+d to worry about sending the temperature via IPMI if you want to send it so=
+mewhere besides the BMC.=C2=A0 If you plan to do internal thermal control (=
+BMC reads temperature, BMC adjusts fans accordingly) you probably don&#39;t=
+ need IPMI config and can get away with setting it up as far as DBus in the=
+ sensor architecture doc Lei sent.</div><div><br></div><div>Emily</div></di=
+v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On T=
+hu, Jan 24, 2019 at 1:27 AM Lei YU &lt;<a href=3D"mailto:mine260309@gmail.c=
+om">mine260309@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail=
+_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:=
+1ex">On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams &lt;<a href=3D"mailto:a=
+williams@marvell.com" target=3D"_blank">awilliams@marvell.com</a>&gt; wrote=
+:<br>
+&gt; I see how to set up the hwmon portion defining the devices based on th=
+e device<br>
+&gt; tree, but I am unsure how to go about configuring the YAML and other f=
+iles for<br>
+&gt; this.<br>
+<br>
+For sensors&#39; config, please refer to<br>
+<a href=3D"https://github.com/openbmc/docs/blob/master/sensor-architecture.=
+md" rel=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/docs/bl=
+ob/master/sensor-architecture.md</a><br>
+And it looks you are looking for fan controls, then you could refer to:<br>
+<a href=3D"https://github.com/mine260309/openbmc-intro/blob/master/Porting_=
+Guide.md#fans" rel=3D"noreferrer" target=3D"_blank">https://github.com/mine=
+260309/openbmc-intro/blob/master/Porting_Guide.md#fans</a><br>
+<br>
+(I really need to submit my porting guide to openbmc/docs)<br>
+</blockquote></div>
+
+--000000000000f98fa90580b08834--
