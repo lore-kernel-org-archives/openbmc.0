@@ -1,80 +1,76 @@
 Return-Path: <Brenden_Lai@jabil.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=jabil.com
- (client-ip=40.107.70.120; helo=nam04-sn1-obe.outbound.protection.outlook.com;
+ (client-ip=40.107.71.111; helo=nam05-by2-obe.outbound.protection.outlook.com;
  envelope-from=brenden_lai@jabil.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=permerror header.from=jabil.com
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=jabil.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=jabil.com header.i=@jabil.com header.b="mu/bvd94"; 
+ unprotected) header.d=jabil.com header.i=@jabil.com header.b="Ux9Qqll8"; 
  dkim-atps=neutral
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700120.outbound.protection.outlook.com [40.107.70.120])
+Received: from NAM05-BY2-obe.outbound.protection.outlook.com
+ (mail-eopbgr710111.outbound.protection.outlook.com [40.107.71.111])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43q9xM43f1zDqJR
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 15:53:41 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43qNk26lfPzDqWr
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 23:59:38 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jabil.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GLZ/agylwkVEr1T6cdOwauXGPM1OOfcSMZkeN92+fUU=;
- b=mu/bvd94F6OB090a3zLUFHxyWa38EXftKW+DPnv6/SHokbV+wJStiGBlt4qCTKaTNf18a50EvRgzLnqriOkO+IoDvJy8mClxMJyRdkaohC0wuJ+kVr0c/K4m46n7BQUCadsrtzCP2sWnFe7uj+7e2BLtGQ6352Ve1eHRWOqyvdo=
+ bh=pdaLeS9DgmKtmqMmb69v6KkvsB2w7tQfELmE1Ms2WZc=;
+ b=Ux9Qqll86dYiC8O+9T54bPHEGObnwUF+LznWM3Be18+bnkyyJupY6cxS+icU6/S4XR7f1t4Muo5bc45eqWog7ldfCuyzEOpjKA8YWrHpUCWUWNjLfSz0+Kv7O3G9G2i5/huclAsaTqV4z29V2pADiCN2cWM30nQKs5zbZEZ2fWg=
 Received: from SN6PR02MB5693.namprd02.prod.outlook.com (20.177.252.17) by
- SN6PR02MB5326.namprd02.prod.outlook.com (52.135.104.24) with Microsoft SMTP
+ SN6PR02MB4958.namprd02.prod.outlook.com (52.135.116.88) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1580.16; Wed, 30 Jan 2019 04:53:12 +0000
+ 15.20.1580.17; Wed, 30 Jan 2019 12:59:34 +0000
 Received: from SN6PR02MB5693.namprd02.prod.outlook.com
  ([fe80::40f4:6107:9cdc:3271]) by SN6PR02MB5693.namprd02.prod.outlook.com
  ([fe80::40f4:6107:9cdc:3271%2]) with mapi id 15.20.1580.017; Wed, 30 Jan 2019
- 04:53:12 +0000
+ 12:59:34 +0000
 From: Brenden Lai <Brenden_Lai@jabil.com>
-To: Konstantin Klubnichkin <kitsok@yandex-team.ru>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: dts file questions
-Thread-Topic: dts file questions
-Thread-Index: AdS3hk9s5ritFbd1TOeDOqaZjc2KKAAJnDuAACdxtJA=
-Date: Wed, 30 Jan 2019 04:53:12 +0000
-Message-ID: <SN6PR02MB5693B67EBB739B542BE9A7E496900@SN6PR02MB5693.namprd02.prod.outlook.com>
-References: <SN6PR02MB5693EB44045D9C63CA2E48C896970@SN6PR02MB5693.namprd02.prod.outlook.com>
- <261731548750569@myt4-a988562a11ab.qloud-c.yandex.net>
-In-Reply-To: <261731548750569@myt4-a988562a11ab.qloud-c.yandex.net>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: about toolchain selection
+Thread-Topic: about toolchain selection
+Thread-Index: AdS4mfxlhTU5GLVbTPKdZuvqcRDKjA==
+Date: Wed, 30 Jan 2019 12:59:33 +0000
+Message-ID: <SN6PR02MB569348097B12E3C37722251F96900@SN6PR02MB5693.namprd02.prod.outlook.com>
 Accept-Language: zh-TW, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5Lmh0bWwiIHA9ImM6XHVzZXJzXDE1MzIxNDhcYXBwZGF0YVxyb2FtaW5nXDA5ZDg0OWI2LTMyZDMtNGE0MC04NWVlLTZiODRiYTI5ZTM1Ylxtc2dzXG1zZy1lZjcyMDNmYS0yNDRhLTExZTktODc5Yi1iODhhNjBhMzA2OTFcYW1lLXRlc3RcZWY3MjAzZmItMjQ0YS0xMWU5LTg3OWItYjg4YTYwYTMwNjkxYm9keS5odG1sIiBzej0iNzI3MiIgdD0iMTMxOTMyOTc1ODg1MzY0Mjk3IiBoPSJqamFMdkRCVTh1T3dLVEM4ZjJTWW50VW9hMm89IiBpZD0iIiBibD0iMCIgYm89IjEiLz48L21ldGE+
-x-dg-rorf: =?utf-8?B?5IyA5r2s5pWz5LWJ5p2z5pWT542z5r2p5IGuNA==?=
+x-dg-ref: PG1ldGE+PGF0IG5tPSJib2R5Lmh0bWwiIHA9ImM6XHVzZXJzXDE1MzIxNDhcYXBwZGF0YVxyb2FtaW5nXDA5ZDg0OWI2LTMyZDMtNGE0MC04NWVlLTZiODRiYTI5ZTM1Ylxtc2dzXG1zZy1lMWVhMjU3Yy0yNDhlLTExZTktODc5Yi1iODhhNjBhMzA2OTFcYW1lLXRlc3RcZTFlYTI1N2QtMjQ4ZS0xMWU5LTg3OWItYjg4YTYwYTMwNjkxYm9keS5odG1sIiBzej0iMTA3NzkiIHQ9IjEzMTkzMzI2NzcxNjE1MzQ4MCIgaD0iN01jZExjNm04NHFBdkZMWWZOK0VsK25yclIwPSIgaWQ9IiIgYmw9IjAiIGJvPSIxIi8+PC9tZXRhPg==
 authentication-results: spf=none (sender IP is )
  smtp.mailfrom=Brenden_Lai@jabil.com; 
-x-originating-ip: [165.225.102.66]
+x-originating-ip: [2001:b011:300b:30ea:19dc:1369:9c27:4458]
 x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; SN6PR02MB5326;
- 20:lI2HM1B6SVHY4Q0JWVGFFmfIAzyOF0QLcrYf4RK6df1CNERi2VL+ns73orBzWgQM+O5/D3x3PR4TGghuv8UWQi3jT+3R9FrnC+AMG3hvGFO7ryI+IEOcHHNZB+M+HK7F7wpZ818jBYiDJ58dr52w0NKrsgJat/R3nT68l062i+I=
-x-ms-office365-filtering-correlation-id: e0d83503-436f-4791-75d8-08d6866ed6bb
+x-microsoft-exchange-diagnostics: 1; SN6PR02MB4958;
+ 20:OwluL8vL0paxroDYUHK6WzB9rLqXwRSfJAMpGL9eL056um/4rSjqwwh2Qlz2uA9Ri44pMHUmlejpABK7AHSQekDHjj2gzCkc+xyCT4MhIrh3AlMWamRiYxtY1rhyX93NrpE8NvsEh+UYMOl09jFahcIOgDVjJ77BRiMuZpAilLA=
+x-ms-office365-filtering-correlation-id: 7c4417b3-bd1d-409c-021d-08d686b2c837
 x-ms-office365-filtering-ht: Tenant
 x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(7168020)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(4618075)(2017052603328)(7153060)(7193020);
- SRVR:SN6PR02MB5326; 
-x-ms-traffictypediagnostic: SN6PR02MB5326:
-x-microsoft-antispam-prvs: <SN6PR02MB53264411360D0E806BF2377096900@SN6PR02MB5326.namprd02.prod.outlook.com>
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(4618075)(2017052603328)(7153060)(7193020);
+ SRVR:SN6PR02MB4958; 
+x-ms-traffictypediagnostic: SN6PR02MB4958:
+x-microsoft-antispam-prvs: <SN6PR02MB49586C0E439D8F23808CD05396900@SN6PR02MB4958.namprd02.prod.outlook.com>
 x-forefront-prvs: 0933E9FD8D
 x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(396003)(39860400002)(366004)(376002)(346002)(136003)(189003)(199004)(53754006)(6116002)(790700001)(3846002)(76176011)(80792005)(26005)(7696005)(55236004)(6506007)(53546011)(102836004)(66066001)(2501003)(97736004)(68736007)(99286004)(186003)(6246003)(9686003)(55016002)(6306002)(54896002)(236005)(2906002)(486006)(256004)(14444005)(86362001)(7116003)(71190400001)(71200400001)(33656002)(25786009)(606006)(3480700005)(105586002)(106356001)(478600001)(316002)(446003)(14454004)(53936002)(11346002)(966005)(229853002)(72206003)(110136005)(6436002)(476003)(7736002)(74316002)(81156014)(81166006)(8936002)(8676002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR02MB5326;
+ SFS:(10019020)(136003)(346002)(366004)(376002)(39860400002)(396003)(53754006)(199004)(189003)(74316002)(72206003)(7116003)(3480700005)(6436002)(106356001)(80792005)(486006)(25786009)(99286004)(478600001)(102836004)(86362001)(7696005)(97736004)(6506007)(14454004)(68736007)(256004)(53936002)(54896002)(8936002)(5640700003)(6306002)(7736002)(105586002)(9686003)(8676002)(1730700003)(81166006)(316002)(2351001)(790700001)(33656002)(46003)(186003)(6116002)(81156014)(55016002)(71200400001)(2501003)(71190400001)(476003)(2906002)(6916009)(133083001);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR02MB4958;
  H:SN6PR02MB5693.namprd02.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
+ PTR:InfoNoRecords; A:1; MX:1; 
 received-spf: None (protection.outlook.com: jabil.com does not designate
  permitted sender hosts)
 x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 2IIrs5zNg5TmAImJvkq+9cLBT5xprmb0s8fpChdZvMoPfGLr08mSESqyW+kxeSgKSEVYaqqCUkP4GdEquY0REwghy/ecUUJ40XADD825mCamaGGFnet23sjBaMWKSUGuQsLHFw2qq8YAfXXXCAAwsA23/OmL6GG5dxo8Wgn6Sdp6L4D1uxQTEggJc7zC9Je8p9oDuhNh9+IgR4owcfilbPfgfFwPuDbcAkhhji6YFOvu8PLyTSLiROELrZtbAucpShRBYDVoucz7dA1AA0Tuo76zWidArv3IEb+AXzo3hwGx4Sz2bZEfEBo4c1w03zmO9D+puFJZiv0Ve6QWFwIIAFqdgg38YP8ilYX4iAulm8+NsLOYQb3O2FzG66cfCc6Es5cTbBOItDoIx2X+MxlRZ2mb6gzDYpQ+QbXKhe1Ni6k=
+x-microsoft-antispam-message-info: +ATdpcYqZK5z99TzS3bSH0MugzQ8V4r/psww0QnCX8BQXWdBLVkVZssEhC81J/GzafzP7pdH7KOvZ1mTQpJ9Qq8x0q7Xn26R0o7mIC/S13kwA7pwR2m7BMKNJpGYk3dQ67lIlYSvNyFGnU7ZFOy6jDxZL7/XGNb0xkqI5npnQ426V+NO+RUiSYIbg6ebILRKIpy9J8D/Vcqx8mgJYyGhcXK61mdA+R9FfkukdoSY/p6ty+LnvJz6r5LDJc3tlKzNa1dtje8NIh/s/iqTC1RUEnVHeMbds7s7xD12PTe2KuzHITaTzK2wYujJa2L9At8IaGtEduW8J4PMzGP32UNZ7Wh+mTeaPqp/4HbZu8phKGdGRdCAbLCdvY+rwp+QPoU14Fjq9++UEJuVOdtrMN/BaSjFsbn+gr0ReYmSN9oNg7I=
 Content-Type: multipart/alternative;
- boundary="_000_SN6PR02MB5693B67EBB739B542BE9A7E496900SN6PR02MB5693namp_"
+ boundary="_000_SN6PR02MB569348097B12E3C37722251F96900SN6PR02MB5693namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: jabil.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0d83503-436f-4791-75d8-08d6866ed6bb
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2019 04:53:12.5597 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c4417b3-bd1d-409c-021d-08d686b2c837
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jan 2019 12:59:33.9521 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: bc876b21-f134-4c12-a265-8ed26b7f0f3b
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB5326
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR02MB4958
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,186 +82,365 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 04:53:45 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 12:59:40 -0000
 
---_000_SN6PR02MB5693B67EBB739B542BE9A7E496900SN6PR02MB5693namp_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--_000_SN6PR02MB569348097B12E3C37722251F96900SN6PR02MB5693namp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-VGhhbmtzICBLb25zdGFudGluICENCkJ5ZSB0aGUgd2F5ICwNCklmIEkgd291bGQgbGlrZSB0byBh
-Y2Nlc3MgYXN0XzI1MDAgcGVyaXBoZXJhbCAgc3VjaCBhcyBMUEMgLCBJMkMgIGluIHVib290LA0K
-QXJlIHRoZXJlIGFueSBzcGVjaWZpYyBmaWxlIGhhdmUgdG8gbW9kaWZ5IGFzIHdlbGwgYXMgZHRz
-ICBmb3Iga2VybmVsID8NCg0KDQoNCkZyb206IEtvbnN0YW50aW4gS2x1Ym5pY2hraW4gPGtpdHNv
-a0B5YW5kZXgtdGVhbS5ydT4NClNlbnQ6IFR1ZXNkYXksIEphbnVhcnkgMjksIDIwMTkgNDoyOSBQ
-TQ0KVG86IEJyZW5kZW4gTGFpIDxCcmVuZGVuX0xhaUBqYWJpbC5jb20+OyBvcGVuYm1jQGxpc3Rz
-Lm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBkdHMgZmlsZSBxdWVzdGlvbnMNCg0KSGVsbG8sIEJy
-ZW5kZW4hDQoNCg0KMjkuMDEuMjAxOSwgMDc6MDgsICJCcmVuZGVuIExhaSIgPGJyZW5kZW5fbGFp
-QGphYmlsLmNvbTxtYWlsdG86YnJlbmRlbl9sYWlAamFiaWwuY29tPj46DQoNCkhpIGFsbCAsDQoN
-CiAgICAgICAgICAgICAgIEkgaGF2ZSBjb3VwbGUgZHRzIHF1ZXN0aW9ucyBhYm91dCAgcG9ydGlu
-ZyBPcGVuQk1DIGludG8gYSBuZXcgbWFjaGluZSAuDQoNCg0KMS4gICAgICBBbHRob3VnaCAgdGhl
-cmUgYXJlIG1hbnkgZHRzIGZpbGUgbG9jYXRlZCBpbiAgaHR0cHM6Ly9naXRodWIuY29tL29wZW5i
-bWMvbGludXgvYmxvYi9kZXYtNC4xMy9hcmNoL2FybS9ib290L2R0cy8gLA0KDQpCdXQgLCBob3cg
-ZG9lcyBiaXRiYWtlIGtub3cgd2hpY2ggb25lIHNob3VsZCBiZSBhcHBsaWVkIC4NCg0KWW91IGRl
-c2NyaWJlIHRoZSBuZWVkZWQgZGV2aWNlIHRyZWUgaW4gdGhlIG1hY2hpbmUgY29uZmlnIGZpbGU6
-DQoNCktFUk5FTF9ERVZJQ0VUUkVFID0gIiR7S01BQ0hJTkV9LWJtYy15YW5kZXgtJHtNQUNISU5F
-fS5kdGIiDQoNCg0KMS4gICAgICBpZiB0aGVyZSBhcmUgbm8gc3VpdGFibGUgZHRzIGZpbGUgaW4g
-Z2l0aHViICwgaXQgc2hvdWxkIGJlIG1hZGUgYnkgbXlzZWxmICwgd2hlcmUgc2hvdWxkIEkgcHV0
-IG15IGR0cyBmaWxlIGluIHdvcmtpbmcgc3BhY2UgIHNvdXJjZSB0cmVlPw0KVG8gZG8gc28geW91
-IGNhbiBjcmVhdGUgYW4gYXBwZW5kIHJlY2lwZSB0byBsaW51eC1hc3BlZWQsIGFuZCBjb3B5IHRo
-ZSBuZWVkZWQgZmlsZSB0byB0aGUga2VybmVsIHNvdXJjZSB0cmVlOg0KPT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-DQokY2F0IGxpbnV4LWFzcGVlZF8lLmJiYXBwZW5kDQpGSUxFU0VYVFJBUEFUSFNfcHJlcGVuZCA6
-PSAiJHtUSElTRElSfS8ke1BOfToiDQoNClNSQ19VUkkgKz0gImZpbGU6Ly9hc3BlZWQtYm1jLXlh
-bmRleC1teTcwLmR0cyINClNSQ19VUkkgKz0gImZpbGU6Ly9teTcwLmNmZyINCg0KZG9fcGF0Y2hf
-YXBwZW5kKCkgew0KICAgIGluc3RhbGwgLW0gMDY0NCAke1dPUktESVJ9L2FzcGVlZC1ibWMteWFu
-ZGV4LW15NzAuZHRzICR7U1RBR0lOR19LRVJORUxfRElSfS9hcmNoL2FybS9ib290L2R0cy9hc3Bl
-ZWQtYm1jLXlhbmRleC1teTcwLmR0cw0KfQ0KPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQoNCg0KQnJlbmRlbiBM
-YWkNClNSLiBCTUMgRGVzaWduIEVuZ2luZWVyDQpFJkksIEphYmlsIERlc2lnbiBTZXJ2aWNlcw0K
-DQoNCg0KDQotLQ0KQmVzdCByZWdhcmRzLA0KS29uc3RhbnRpbiBLbHVibmljaGtpbiwNCmxlYWQg
-ZmlybXdhcmUgZW5naW5lZXIsDQpzZXJ2ZXIgaGFyZHdhcmUgUiZEIGdyb3VwLA0KWWFuZGV4IE1v
-c2NvdyBvZmZpY2UuDQp0ZWw6ICs3LTkwMy01MTAtMzMtMzMNCg0K
 
---_000_SN6PR02MB5693B67EBB739B542BE9A7E496900SN6PR02MB5693namp_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi all ,
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-5paw57Sw5piO6auUOw0KCXBhbm9zZS0xOjIgMiA1IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJcQOaWsOe0
-sOaYjumrlCI7DQoJcGFub3NlLTE6MiAxIDYgMSAwIDEgMSAxIDEgMTt9DQovKiBTdHlsZSBEZWZp
-bml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXtt
-YXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTEuMHB0Ow0K
-CWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBl
-cmxpbmsNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNv
-cmF0aW9uOnVuZGVybGluZTt9DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQN
-Cgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRp
-b246dW5kZXJsaW5lO30NCnAubXNvbm9ybWFsMCwgbGkubXNvbm9ybWFsMCwgZGl2Lm1zb25vcm1h
-bDANCgl7bXNvLXN0eWxlLW5hbWU6bXNvbm9ybWFsOw0KCW1zby1tYXJnaW4tdG9wLWFsdDphdXRv
-Ow0KCW1hcmdpbi1yaWdodDowaW47DQoJbXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87DQoJbWFy
-Z2luLWxlZnQ6MGluOw0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmki
-LHNhbnMtc2VyaWY7fQ0Kc3Bhbi5FbWFpbFN0eWxlMjANCgl7bXNvLXN0eWxlLXR5cGU6cGVyc29u
-YWwtcmVwbHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2lu
-ZG93dGV4dDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsN
-Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpAcGFnZSBXb3JkU2VjdGlvbjEN
-Cgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMjVpbiAxLjBpbiAxLjI1aW47
-fQ0KZGl2LldvcmRTZWN0aW9uMQ0KCXtwYWdlOldvcmRTZWN0aW9uMTt9DQovKiBMaXN0IERlZmlu
-aXRpb25zICovDQpAbGlzdCBsMA0KCXttc28tbGlzdC1pZDo5MDg4NzkzNDc7DQoJbXNvLWxpc3Qt
-dGVtcGxhdGUtaWRzOi04MTMxNTQyNDQ7fQ0KQGxpc3QgbDENCgl7bXNvLWxpc3QtaWQ6MTY4MTc0
-MDE2OTsNCgltc28tbGlzdC10ZW1wbGF0ZS1pZHM6MTQ3MjMzODY0NDt9DQpvbA0KCXttYXJnaW4t
-Ym90dG9tOjBpbjt9DQp1bA0KCXttYXJnaW4tYm90dG9tOjBpbjt9DQotLT48L3N0eWxlPjwhLS1b
-aWYgZ3RlIG1zbyA5XT48eG1sPg0KPG86c2hhcGVkZWZhdWx0cyB2OmV4dD0iZWRpdCIgc3BpZG1h
-eD0iMTAyNiIgLz4NCjwveG1sPjwhW2VuZGlmXS0tPjwhLS1baWYgZ3RlIG1zbyA5XT48eG1sPg0K
-PG86c2hhcGVsYXlvdXQgdjpleHQ9ImVkaXQiPg0KPG86aWRtYXAgdjpleHQ9ImVkaXQiIGRhdGE9
-IjEiIC8+DQo8L286c2hhcGVsYXlvdXQ+PC94bWw+PCFbZW5kaWZdLS0+DQo8L2hlYWQ+DQo8Ym9k
-eSBsYW5nPSJFTi1VUyIgbGluaz0iYmx1ZSIgdmxpbms9InB1cnBsZSI+DQo8ZGl2IGNsYXNzPSJX
-b3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VGhhbmtzICZuYnNwO0tvbnN0YW50
-aW4gITxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+QnllIHRoZSB3YXkgLCA8
-bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPklmIEkgd291bGQgbGlrZSB0byBh
-Y2Nlc3MgYXN0XzI1MDAgcGVyaXBoZXJhbCAmbmJzcDtzdWNoIGFzIExQQyAsIEkyQyAmbmJzcDtp
-biB1Ym9vdCwNCjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+QXJlIHRoZXJl
-IGFueSBzcGVjaWZpYyBmaWxlIGhhdmUgdG8gbW9kaWZ5IGFzIHdlbGwgYXMgZHRzICZuYnNwO2Zv
-ciBrZXJuZWwgPzxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJz
-cDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDsmbmJzcDsmbmJzcDsmbmJz
-cDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsgPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwv
-bzpwPjwvcD4NCjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkIGJsdWUg
-MS41cHQ7cGFkZGluZzowaW4gMGluIDBpbiA0LjBwdCI+DQo8ZGl2Pg0KPGRpdiBzdHlsZT0iYm9y
-ZGVyOm5vbmU7Ym9yZGVyLXRvcDpzb2xpZCAjRTFFMUUxIDEuMHB0O3BhZGRpbmc6My4wcHQgMGlu
-IDBpbiAwaW4iPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PGI+RnJvbTo8L2I+IEtvbnN0YW50aW4g
-S2x1Ym5pY2hraW4gJmx0O2tpdHNva0B5YW5kZXgtdGVhbS5ydSZndDsgPGJyPg0KPGI+U2VudDo8
-L2I+IFR1ZXNkYXksIEphbnVhcnkgMjksIDIwMTkgNDoyOSBQTTxicj4NCjxiPlRvOjwvYj4gQnJl
-bmRlbiBMYWkgJmx0O0JyZW5kZW5fTGFpQGphYmlsLmNvbSZndDs7IG9wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZzxicj4NCjxiPlN1YmplY3Q6PC9iPiBSZTogZHRzIGZpbGUgcXVlc3Rpb25zPG86cD48
-L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJz
-cDs8L286cD48L3A+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+SGVsbG8sIEJyZW5kZW4h
-PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJz
-cDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZu
-YnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-MjkuMDEuMjAxOSwgMDc6MDgsICZxdW90O0JyZW5kZW4gTGFpJnF1b3Q7ICZsdDs8YSBocmVmPSJt
-YWlsdG86YnJlbmRlbl9sYWlAamFiaWwuY29tIj5icmVuZGVuX2xhaUBqYWJpbC5jb208L2E+Jmd0
-Ozo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9Im1hcmdpbi10b3A6
-NS4wcHQ7bWFyZ2luLWJvdHRvbTo1LjBwdCI+DQo8ZGl2Pg0KPGRpdj4NCjxwIHN0eWxlPSJtYXJn
-aW46MGluO21hcmdpbi1ib3R0b206LjAwMDFwdCI+SGkgYWxsICw8bzpwPjwvbzpwPjwvcD4NCjxw
-IHN0eWxlPSJtYXJnaW46MGluO21hcmdpbi1ib3R0b206LjAwMDFwdCI+Jm5ic3A7Jm5ic3A7Jm5i
-c3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7
-Jm5ic3A7Jm5ic3A7IEkgaGF2ZSBjb3VwbGUgZHRzIHF1ZXN0aW9ucyBhYm91dCAmbmJzcDtwb3J0
-aW5nIE9wZW5CTUMgaW50byBhIG5ldyBtYWNoaW5lIC48bzpwPjwvbzpwPjwvcD4NCjxwIHN0eWxl
-PSJtYXJnaW46MGluO21hcmdpbi1ib3R0b206LjAwMDFwdCI+Jm5ic3A7PG86cD48L286cD48L3A+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNv
-LW1hcmdpbi1ib3R0b20tYWx0OmF1dG87bWFyZ2luLWxlZnQ6Ljc1aW47dGV4dC1pbmRlbnQ6LS4y
-NWluO21zby1saXN0OmwwIGxldmVsMSBsZm8xIj4NCjwhW2lmICFzdXBwb3J0TGlzdHNdPjxzcGFu
-IHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPjEuPHNwYW4gc3R5bGU9ImZvbnQ6Ny4wcHQgJnF1b3Q7
-VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsNCjwv
-c3Bhbj48L3NwYW4+PCFbZW5kaWZdPkFsdGhvdWdoJm5ic3A7IHRoZXJlIGFyZSBtYW55IGR0cyBm
-aWxlIGxvY2F0ZWQgaW4mbmJzcDsgPGEgaHJlZj0iaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMv
-bGludXgvYmxvYi9kZXYtNC4xMy9hcmNoL2FybS9ib290L2R0cy8iPg0KaHR0cHM6Ly9naXRodWIu
-Y29tL29wZW5ibWMvbGludXgvYmxvYi9kZXYtNC4xMy9hcmNoL2FybS9ib290L2R0cy88L2E+ICw8
-bzpwPjwvbzpwPjwvcD4NCjxwIHN0eWxlPSJtYXJnaW4tbGVmdDouNzVpbiI+QnV0ICwgaG93IGRv
-ZXMgYml0YmFrZSBrbm93IHdoaWNoIG9uZSBzaG91bGQgYmUgYXBwbGllZCAuPG86cD48L286cD48
-L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1b3RlPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPjxicj4NCllvdSBkZXNjcmliZSB0aGUgbmVlZGVkIGRldmljZSB0cmVlIGluIHRoZSBt
-YWNoaW5lIGNvbmZpZyBmaWxlOjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xh
-c3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj5LRVJORUxfREVWSUNFVFJFRSA9ICZxdW90OyR7S01BQ0hJTkV9LWJt
-Yy15YW5kZXgtJHtNQUNISU5FfS5kdGImcXVvdDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8L2Rpdj4N
-CjxibG9ja3F1b3RlIHN0eWxlPSJtYXJnaW4tdG9wOjUuMHB0O21hcmdpbi1ib3R0b206NS4wcHQi
-Pg0KPGRpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10
-b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG87bWFyZ2luLWxlZnQ6Ljc1aW47
-dGV4dC1pbmRlbnQ6LS4yNWluO21zby1saXN0OmwxIGxldmVsMSBsZm8yIj4NCjwhW2lmICFzdXBw
-b3J0TGlzdHNdPjxzcGFuIHN0eWxlPSJtc28tbGlzdDpJZ25vcmUiPjEuPHNwYW4gc3R5bGU9ImZv
-bnQ6Ny4wcHQgJnF1b3Q7VGltZXMgTmV3IFJvbWFuJnF1b3Q7Ij4mbmJzcDsmbmJzcDsmbmJzcDsm
-bmJzcDsmbmJzcDsNCjwvc3Bhbj48L3NwYW4+PCFbZW5kaWZdPmlmIHRoZXJlIGFyZSBubyBzdWl0
-YWJsZSBkdHMgZmlsZSBpbiBnaXRodWIgLCBpdCBzaG91bGQgYmUgbWFkZSBieSBteXNlbGYgLCB3
-aGVyZSBzaG91bGQgSSBwdXQgbXkgZHRzIGZpbGUgaW4gd29ya2luZyBzcGFjZSAmbmJzcDtzb3Vy
-Y2UgdHJlZT88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Jsb2NrcXVvdGU+DQo8
-ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRvIGRvIHNvIHlvdSBjYW4gY3JlYXRl
-IGFuIGFwcGVuZCByZWNpcGUgdG8gbGludXgtYXNwZWVkLCBhbmQgY29weSB0aGUgbmVlZGVkIGZp
-bGUgdG8gdGhlIGtlcm5lbCBzb3VyY2UgdHJlZTo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PTxvOnA+PC9vOnA+PC9wPg0K
-PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+JGNhdCBsaW51eC1hc3BlZWRfJS5i
-YmFwcGVuZDxicj4NCkZJTEVTRVhUUkFQQVRIU19wcmVwZW5kIDo9ICZxdW90OyR7VEhJU0RJUn0v
-JHtQTn06JnF1b3Q7PGJyPg0KPGJyPg0KU1JDX1VSSSAmIzQzOz0gJnF1b3Q7PGEgaHJlZj0iZmls
-ZTovL2FzcGVlZC1ibWMteWFuZGV4LW15NzAuZHRzIj5maWxlOi8vYXNwZWVkLWJtYy15YW5kZXgt
-bXk3MC5kdHM8L2E+JnF1b3Q7PGJyPg0KU1JDX1VSSSAmIzQzOz0gJnF1b3Q7PGEgaHJlZj0iZmls
-ZTovL215NzAuY2ZnIj5maWxlOi8vbXk3MC5jZmc8L2E+JnF1b3Q7PGJyPg0KPGJyPg0KZG9fcGF0
-Y2hfYXBwZW5kKCkgezxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyBpbnN0YWxsIC1tIDA2NDQgJHtX
-T1JLRElSfS9hc3BlZWQtYm1jLXlhbmRleC1teTcwLmR0cyAke1NUQUdJTkdfS0VSTkVMX0RJUn0v
-YXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy15YW5kZXgtbXk3MC5kdHM8YnI+DQp9PG86cD48
-L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj49PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT08bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0i
-bWFyZ2luLXRvcDo1LjBwdDttYXJnaW4tYm90dG9tOjUuMHB0Ij4NCjxkaXY+DQo8ZGl2Pg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8cD48c3BhbiBzdHlsZT0i
-Zm9udC1zaXplOjEwLjBwdDtjb2xvcjpibGFjayI+QnJlbmRlbiBMYWk8YnI+DQpTUi4gQk1DIERl
-c2lnbiBFbmdpbmVlcjwvc3Bhbj48YnI+DQo8c3BhbiBzdHlsZT0iZm9udC1zaXplOjEwLjBwdDtj
-b2xvcjojMjIyMjIyIj5FJmFtcDtJLCBKYWJpbCBEZXNpZ24gU2VydmljZXM8L3NwYW4+PG86cD48
-L286cD48L3A+DQo8cCBzdHlsZT0ibWFyZ2luOjBpbjttYXJnaW4tYm90dG9tOi4wMDAxcHQiPiZu
-YnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxvY2txdW90ZT4NCjxkaXY+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+LS0mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2
-Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkJlc3QgcmVnYXJkcyw8bzpwPjwvbzpwPjwv
-cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPktvbnN0YW50aW4gS2x1Ym5p
-Y2hraW4sPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFs
-Ij5sZWFkIGZpcm13YXJlIGVuZ2luZWVyLDxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+c2VydmVyIGhhcmR3YXJlIFImYW1wO0QgZ3JvdXAsPG86cD48
-L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5ZYW5kZXggTW9z
-Y293IG9mZmljZS48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29O
-b3JtYWwiPnRlbDogJiM0Mzs3LTkwMy01MTAtMzMtMzM8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
-DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+I am curious about how bitbake knows which toolchain should be use for spec=
+ific architecture.
+Then I try to find certain build tool (ex: arm-openbmc-linux-gnueabi-strip)=
+, Surprisingly , it located in a lot of recipe folders as below
 
---_000_SN6PR02MB5693B67EBB739B542BE9A7E496900SN6PR02MB5693namp_--
+./build/tmp/work/armv6-openbmc-linux-gnueabi/python-pytest/3.4.2-r0/recipe-=
+sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-=
+gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/python-pytest/3.4.2-r0/recipe-=
+sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-=
+strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/udev-aspeed-vuart/1.0-r1/recip=
+e-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linu=
+x-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/udev-aspeed-vuart/1.0-r1/recip=
+e-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueab=
+i-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/nbd/3.17-r0/recipe-sysroot-nat=
+ive/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2=
+.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/nbd/3.17-r0/recipe-sysroot-nat=
+ive/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/op-proc-control/1.0+gitAUTOINC=
++729521fef4-r1/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/=
+gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/op-proc-control/1.0+gitAUTOINC=
++729521fef4-r1/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-=
+openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/base-passwd/3.5.29-r0/recipe-s=
+ysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-g=
+nueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/base-passwd/3.5.29-r0/recipe-s=
+ysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-s=
+trip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/pixman/1_0.34.0-r0/recipe-sysr=
+oot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnue=
+abi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/pixman/1_0.34.0-r0/recipe-sysr=
+oot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-stri=
+p
+./build/tmp/work/armv6-openbmc-linux-gnueabi/net-snmp/5.8-r0/recipe-sysroot=
+-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi=
+/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/net-snmp/5.8-r0/recipe-sysroot=
+-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/liblogging/1.0.6-r0/recipe-sys=
+root-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnu=
+eabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/liblogging/1.0.6-r0/recipe-sys=
+root-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-str=
+ip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/libpcre/8.42-r0/recipe-sysroot=
+-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi=
+/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/libpcre/8.42-r0/recipe-sysroot=
+-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-dbus-monitor/1.0+gitA=
+UTOINC+12789e6c66-r1/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gn=
+ueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-dbus-monitor/1.0+gitA=
+UTOINC+12789e6c66-r1/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueab=
+i/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-user-manager/1.0+gitA=
+UTOINC+f5c2df5eef-r1/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gn=
+ueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-user-manager/1.0+gitA=
+UTOINC+f5c2df5eef-r1/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueab=
+i/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/slpd-lite/1.0+gitAUTOINC+a5928=
+88328-r1/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/ar=
+m-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/slpd-lite/1.0+gitAUTOINC+a5928=
+88328-r1/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbm=
+c-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/pdbg/2.0+gitAUTOINC+59ebe397a3=
+-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-ope=
+nbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/pdbg/2.0+gitAUTOINC+59ebe397a3=
+-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-lin=
+ux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/openldap/2.4.46-r0/recipe-sysr=
+oot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnue=
+abi/8.2.0/arm-openbmc-linux-gnueabi-strip
+./build/tmp/work/armv6-openbmc-linux-gnueabi/openldap/2.4.46-r0/recipe-sysr=
+oot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-stri=
+p
+
+
+  1.  Does it make sense for duplicate toolchain ?
+  2.  How to write recipe to add new packages(ex:Net-snmp , ipmitool ) into=
+ OpenBmc ?
+
+
+
+Brenden Lai
+SR. BMC Design Engineer
+E&I, Jabil Design Services
+
+
+--_000_SN6PR02MB569348097B12E3C37722251F96900SN6PR02MB5693namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:PMingLiU;
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:274799189;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1630920740 67698703 67698713 67698715 67698703 6769=
+8713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l0:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Hi all ,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am curious about how bitbake knows which toolchain=
+ should be use for specific architecture.
+<o:p></o:p></p>
+<p class=3D"MsoNormal">Then I try to find certain build tool (ex: arm-openb=
+mc-linux-gnueabi-strip), Surprisingly , it located in a lot of recipe folde=
+rs as below<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/python-=
+pytest/3.4.2-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi=
+/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></=
+o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/python-=
+pytest/3.4.2-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm=
+-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/udev-as=
+peed-vuart/1.0-r1/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnuea=
+bi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/udev-as=
+peed-vuart/1.0-r1/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/a=
+rm-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/nbd/3.1=
+7-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-op=
+enbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/nbd/3.1=
+7-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-li=
+nux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/op-proc=
+-control/1.0&#43;gitAUTOINC&#43;729521fef4-r1/recipe-sysroot-native/usr/lib=
+exec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-open=
+bmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/op-proc=
+-control/1.0&#43;gitAUTOINC&#43;729521fef4-r1/recipe-sysroot-native/usr/bin=
+/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/base-pa=
+sswd/3.5.29-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/=
+gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o=
+:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/base-pa=
+sswd/3.5.29-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-=
+openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/pixman/=
+1_0.34.0-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc=
+/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/pixman/=
+1_0.34.0-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-ope=
+nbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/net-snm=
+p/5.8-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/ar=
+m-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/net-snm=
+p/5.8-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbm=
+c-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/liblogg=
+ing/1.0.6-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gc=
+c/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p=
+></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/liblogg=
+ing/1.0.6-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-op=
+enbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/libpcre=
+/8.42-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc/ar=
+m-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p=
+>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/libpcre=
+/8.42-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-openbm=
+c-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
+r-dbus-monitor/1.0&#43;gitAUTOINC&#43;12789e6c66-r1/recipe-sysroot-native/u=
+sr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/ar=
+m-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
+r-dbus-monitor/1.0&#43;gitAUTOINC&#43;12789e6c66-r1/recipe-sysroot-native/u=
+sr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
+r-user-manager/1.0&#43;gitAUTOINC&#43;f5c2df5eef-r1/recipe-sysroot-native/u=
+sr/libexec/arm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/ar=
+m-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
+r-user-manager/1.0&#43;gitAUTOINC&#43;f5c2df5eef-r1/recipe-sysroot-native/u=
+sr/bin/arm-openbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/slpd-li=
+te/1.0&#43;gitAUTOINC&#43;a592888328-r1/recipe-sysroot-native/usr/libexec/a=
+rm-openbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-li=
+nux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/slpd-li=
+te/1.0&#43;gitAUTOINC&#43;a592888328-r1/recipe-sysroot-native/usr/bin/arm-o=
+penbmc-linux-gnueabi/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/pdbg/2.=
+0&#43;gitAUTOINC&#43;59ebe397a3-r0/recipe-sysroot-native/usr/libexec/arm-op=
+enbmc-linux-gnueabi/gcc/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-g=
+nueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/pdbg/2.=
+0&#43;gitAUTOINC&#43;59ebe397a3-r0/recipe-sysroot-native/usr/bin/arm-openbm=
+c-linux-gnueabi/arm-openbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/openlda=
+p/2.4.46-r0/recipe-sysroot-native/usr/libexec/arm-openbmc-linux-gnueabi/gcc=
+/arm-openbmc-linux-gnueabi/8.2.0/arm-openbmc-linux-gnueabi-strip<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal">./build/tmp/work/armv6-openbmc-linux-gnueabi/openlda=
+p/2.4.46-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linux-gnueabi/arm-ope=
+nbmc-linux-gnueabi-strip<o:p></o:p></p>
+<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <o:p></o:p></p>
+<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
+<li class=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 =
+lfo1">Does it make sense for duplicate toolchain ?<o:p></o:p></li><li class=
+=3D"MsoListParagraph" style=3D"margin-left:0in;mso-list:l0 level1 lfo1">How=
+ to write recipe to add new packages(ex:Net-snmp , ipmitool ) into OpenBmc =
+?<o:p></o:p></li></ol>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal" style=3D"mso-margin-top-alt:auto;mso-margin-bottom-a=
+lt:auto"><span style=3D"font-size:10.0pt;color:black">Brenden Lai<br>
+SR. BMC Design Engineer<br>
+</span><span style=3D"font-size:10.0pt;color:#222222">E&amp;I, Jabil Design=
+ Services</span><span style=3D"font-size:10.0pt;color:black"><o:p></o:p></s=
+pan></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_SN6PR02MB569348097B12E3C37722251F96900SN6PR02MB5693namp_--
