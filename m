@@ -1,67 +1,58 @@
-Return-Path: <dukh@lenovo.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=lenovo.com
- (client-ip=67.219.246.209; helo=mail1.bemta23.messagelabs.com;
- envelope-from=dukh@lenovo.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::530; helo=mail-pg1-x530.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=lenovo.com
-Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
- [67.219.246.209])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ELENzZLN"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x530.google.com (mail-pg1-x530.google.com
+ [IPv6:2607:f8b0:4864:20::530])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43qSgs1sc6zDqTD
- for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 02:57:57 +1100 (AEDT)
-Received: from [67.219.247.54] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-d.us-east-1.aws.symcld.net id DA/3F-12949-289C15C5;
- Wed, 30 Jan 2019 15:57:54 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupmleJIrShJLcpLzFFi42LJePGQSbfpZGC
- MwbMXchanWl6wODB6nJ+xkDGAMYo1My8pvyKBNeP4J8uCzeIVP77MZm9g7BDtYuTiEBJ4ySjx
- eOcjFghnGqPE5U9PmbsYOTnYBJQkNj+9wwZiiwhYSix50A5kc3AIC+hK7HnABxE2kti55gsjh
- K0nMa9rFpjNIqAqsaXhEhOIzSvgI9H5ZxOYzSggKzHt0X0wm1lAXOLWk/lgtoSAgMSSPeeZIW
- xRiZeP/7GCrJIQkJfYMksQojxP4srSW2wQIwUlTs58wjKBUWAWkkmzkJTNQlIGEdeRWLD7Exu
- ErS2xbOFrZhj7zIHHTMjiCxjZVzGaJxVlpmeU5CZm5ugaGhjoGhoaAbGuoZmRXmKVbopeabFu
- amJxia6hXmJ5sV5xZW5yTopeXmrJJkZgZKQUcC/awXixJf0QoyQHk5Ior5dvYIwQX1J+SmVGY
- nFGfFFpTmrxIUYZDg4lCd6Hx4FygkWp6akVaZk5wBiFSUtw8CiJ8MqfAErzFhck5hZnpkOkTj
- FachxY9HAuM8eW+8+A5C4QKcSSl5+XKiXOexRkngBIQ0ZpHtw4WBq5xCgrJczLyMDAIMRTkFq
- Um1mCKv+KUZyDUUmYtxdkLU9mXgnc1ldABzEBHVTlGAByUEkiQkqqgVHk1do1ltLbZk9NvcfK
- mWpRtzrlxoVti6QZri1tedH+aedZzVWHnbJ67OdtfsGQb6RkfmzFTm7j5K13q78auGzPfnR0z
- 8KHCZczJj/a8/vHnaoAGdbvfQvdz7KwtCYd+9nJJrl2icf9zTE8RmXbJzuWizszx3cus+a0Mp
- /25F6HD2fWrQsSa14qsRRnJBpqMRcVJwIAx0fqOR4DAAA=
-X-Env-Sender: dukh@lenovo.com
-X-Msg-Ref: server-20.tower-426.messagelabs.com!1548863874!1109363!1
-X-Originating-IP: [104.232.225.2]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.31.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 30767 invoked from network); 30 Jan 2019 15:57:54 -0000
-Received: from unknown (HELO maesmtp01.lenovo.com) (104.232.225.2)
- by server-20.tower-426.messagelabs.com with DHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 30 Jan 2019 15:57:54 -0000
-Received: from CNMAILCH02.lenovo.com (unknown [10.96.97.130]) by
- maesmtp01.lenovo.com with smtp
- (TLS: TLSv1/SSLv3,256bits,ECDHE-RSA-AES256-SHA384)
- id 32a4_1cf5_915b9b7d_3bb9_46cd_b99a_93ab489e9ec0;
- Wed, 30 Jan 2019 15:57:50 +0000
-Received: from CNMAILEX03.lenovo.com ([169.254.11.88]) by
- CNMAILCH02.lenovo.com ([::1]) with mapi id 14.03.0415.000; Wed, 30 Jan 2019
- 23:57:48 +0800
-From: Duke KH Du <dukh@lenovo.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: BSD-3 license is allowed in metadata
-Thread-Topic: BSD-3 license is allowed in metadata
-Thread-Index: AdS4tCm+ltMVTygGT4OA0fFaZJTgGA==
-Date: Wed, 30 Jan 2019 15:57:47 +0000
-Message-ID: <9F16AAB7177A1645BBAFF66396C46B0E7A2DD226@CNMAILEX03.lenovo.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.96.19.89]
-Content-Type: multipart/alternative;
- boundary="_000_9F16AAB7177A1645BBAFF66396C46B0E7A2DD226CNMAILEX03lenov_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43qTgm6pFnzDqHk
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 03:43:00 +1100 (AEDT)
+Received: by mail-pg1-x530.google.com with SMTP id m1so51853pgq.8
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 08:43:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=L3nu9eYJajq1sHSIhUhrNrZP/2v6X7pL8ZZxOT7sSY0=;
+ b=ELENzZLNdVkGVupDxELr4/xhuRvDQony0iUxH/GfjN12JXaDTsrPqDrOQE2NZiY7F3
+ gxD3fo40vcFdcrXUZA9+ti+aaFqbghMSfPwuJNjHl/brV74BzA0Uavw9OCcyFbi4N8QB
+ eRYlKoUrEYHQ4gl49J6lrCfd9ADxeHX/+LJV6A/Q7+AkAUtG1GefS6dhLCit5gj15YLz
+ 73JHyZnUjsMGE37GHiGMQvxaUazLOmmnqdJE8QxwkOEl1mg5j2wMdbH6Iy4D1muRZbg1
+ 0ZnIOP2ggjgZKfqcRZb7UJ2y0Ih+cdfj2GbV4Opoqbvg0UOCpxC3Tl5zA2e1hMn+9Mh2
+ K12w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:content-transfer-encoding;
+ bh=L3nu9eYJajq1sHSIhUhrNrZP/2v6X7pL8ZZxOT7sSY0=;
+ b=FXlH4ClBulwNGUhuk7U8wpXy4NJtZXf5P5oNu2YxRCHRt6Io01gaViKcnrLYP23x4k
+ Evgm/motcSeLfeMgMpI/mIOpDC15cgIEpehGhdrMvS+nv80aNfPj3Hp6n/Dzjl6Jfx10
+ J/tSvN5pBL01zgItmmW5WfnXNmbSdMVmso0f0XrRfeNnf7GOf2B30QMvc7Kzuij3hLUZ
+ lDrI+iD67vyLtwMp5WaNTHZPyf6nQ/788FxoDZTrBFsssC4+nyP4OGvykmzNTUVrHESM
+ HlBTRYYWe2/lvJU/VHZutkfanfzlJafLWvYptEYOF80VrN6oB800uoJGuSr9+/OSN+CU
+ rsow==
+X-Gm-Message-State: AJcUukdV0HnjG0PNndgUqzQdVEK0bGWkuB6T9ltl/Evg8xHDcYFRbCXc
+ ZIywTaQ+R6mvCkhMANgub016wabp+ZHXwAIglvUGT1x2
+X-Google-Smtp-Source: ALg8bN4lveuEJN7FGjktoMDFolEORQnMXIZ+3tAckPxR3KgTh2rmBSFfn4lAYDnYnFleTPuVoDq+fUE/79mCpO/bA04=
+X-Received: by 2002:a62:26c7:: with SMTP id m190mr31770742pfm.79.1548866578239; 
+ Wed, 30 Jan 2019 08:42:58 -0800 (PST)
 MIME-Version: 1.0
+References: <CANT4NrJLCLwH6dW9iTD8yMUjdbw-7-ai6YEfw97s0D-sr33Vww@mail.gmail.com>
+ <53839b56-77b1-e743-2737-46d77220780a@linux.vnet.ibm.com>
+In-Reply-To: <53839b56-77b1-e743-2737-46d77220780a@linux.vnet.ibm.com>
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Wed, 30 Jan 2019 10:42:47 -0600
+Message-ID: <CANT4NrKHEWR2xa=L1meCWoV8d7_igKVr6QP5v2mbtm2b9gx2ww@mail.gmail.com>
+Subject: Re: SNMP query
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,97 +64,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 15:58:02 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 16:43:02 -0000
 
---_000_9F16AAB7177A1645BBAFF66396C46B0E7A2DD226CNMAILEX03lenov_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+My team has decided to forgo the Test button on the SNMP panel.  We
+plan to offer the same field validation affordances for the query, but
+now the user will be notified after the Save Settings button is
+clicked. And we will provide an affordance if the user has to wait
+more than a few seconds for the response.
 
-Hi All,
+Thank you all for the feedback.
 
-We observed in each metadata, there will be two kinds of license, MIT and A=
-pache 2.0.
-If MIT and Apache2.0 is replaced by BSD-3 license in our own metadata, it t=
-hat allowed by OpenBMC?
+-- Susan
 
-Could you kindly provide the answer for this license question?
 
-Thanks.
-
---_000_9F16AAB7177A1645BBAFF66396C46B0E7A2DD226CNMAILEX03lenov_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+On Tue, Jan 29, 2019 at 12:53 PM Ratan Gupta
+<ratagupt@linux.vnet.ibm.com> wrote:
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:\7B49\7EBF;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@\7B49\7EBF";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.25in 1.0in 1.25in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi All,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">We observed in each metadata, there will be two kind=
-s of license, MIT and Apache 2.0.<o:p></o:p></p>
-<p class=3D"MsoNormal">If MIT and Apache2.0 is replaced by BSD-3 license in=
- our own metadata, it that allowed by OpenBMC?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Could you kindly provide the answer for this license=
- question?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks.<o:p></o:p></p>
-</div>
-</body>
-</html>
-
---_000_9F16AAB7177A1645BBAFF66396C46B0E7A2DD226CNMAILEX03lenov_--
+> Hi Susan,
+>
+> On 29/01/19 11:01 PM, susan jasinski wrote:
+>
+> On the GUI SNMP panel, all customers that we tested told us that they wan=
+t the ability to test the manager host name or IP address that they provide=
+ to be sure that it is accurate. Right now, the BMC does not have this abil=
+ity.
+>
+> I wanted to get more info on this, Currently SNMP D-Bus service on the BM=
+C does the validation for whether the IP is reachable or not as part of con=
+figuration.
+>
+> Suppose if admin configures the hostname/ip which is valid end point(ping=
+able hostname/ip) but not the SNMP trapdaemon, In this scenario what is cus=
+tomer expectation?
+>
+> SNMP trapdaemon works on UDP, and the trapdaemon(162) listens only the tr=
+ap messages not the SNMP agent messages.
+>
+> BMC uses the SNMP for sending the trap messages to the SNMP trapdaemon.
+>
+> Below link seems useful if BMC would have been SNMP client(sending messag=
+es to port 161) and SNMP agent is sitting outside the BMC and on BMC I run =
+the command SNMPwalk to find that the configured IP address is SNMP agent o=
+r not which is not the case here.
+>
+>
+> My team did some digging around on the internet and found this SNMP query=
+ suggestion. https://support.panorama9.com/hc/en-us/articles/203568188-Test=
+-if-SNMP-devices-are-responding-correctly-to-SNMP-queries
+>
+>
+> I am looking for feedback on whether we should implement something simila=
+r?
+> - If we get a response from an SNMP enabled device in the backend, then w=
+e would provide a  validation message like "Device responded to the SNMP qu=
+ery"
+>
+> - If we do not get a response, then we would provide a validation message=
+ like "Invalid host name or IP address, or the device did not respond to th=
+e SNMP query"
+>
+> I am open to suggestions for the messages.
+>
+>
+>
+>
+> -- Susan Jasinski
+>
+> Regards
+>
+> Ratan
