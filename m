@@ -1,76 +1,36 @@
-Return-Path: <jrey@linux.vnet.ibm.com>
+Return-Path: <awilliams@marvell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=fail (mailfrom) smtp.mailfrom=marvell.com
+ (client-ip=173.8.172.90; helo=roger.doofus.org;
+ envelope-from=awilliams@marvell.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=marvell.com
+Received: from roger.doofus.org (aaronw.com [173.8.172.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43qY0c0mFPzDqRF
- for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 06:12:47 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x0UJ8rc0035969
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 14:12:45 -0500
-Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2qbg1a5mnc-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jan 2019 14:12:44 -0500
-Received: from localhost
- by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.vnet.ibm.com>;
- Wed, 30 Jan 2019 19:12:44 -0000
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 30 Jan 2019 19:12:42 -0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x0UJCf2a9764908
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Wed, 30 Jan 2019 19:12:41 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5D3E1AC060;
- Wed, 30 Jan 2019 19:12:41 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0AA31AC059;
- Wed, 30 Jan 2019 19:12:41 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed, 30 Jan 2019 19:12:40 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43qc1T2WTLzDq6B
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 08:28:43 +1100 (AEDT)
+Received: from roger.doofus.org (localhost [127.0.0.1])
+ by roger.doofus.org (Postfix) with ESMTP id B5C4C80A4413;
+ Wed, 30 Jan 2019 13:28:39 -0800 (PST)
+Authentication-Results: roger.doofus.org; 
+X-DKIM-Authentication-Results: none
+Received: from flash.localnet (unknown [192.168.0.16])
+ by roger.doofus.org (Postfix) with ESMTPSA id 1CAC3801F490;
+ Wed, 30 Jan 2019 13:28:39 -0800 (PST)
+From: Aaron Williams <awilliams@marvell.com>
+To: Emily Shaffer <emilyshaffer@google.com>
+Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: [EXT] Re: OpenBMC Sensors
+Date: Wed, 30 Jan 2019 13:28:38 -0800
+Message-ID: <32964718.XoMeP9TR8m@flash>
+In-Reply-To: <CAJoAoZmZhxFNuvRYKQ04iTYZVrHgoukbM4HdTaPP6kCZppMhDA@mail.gmail.com>
+References: <6065976.siBLTEBlHZ@flash>
+ <CAARXrtkg0uoJ7L8cwme8mkckmNj5bwb1hk15iWgqVYXbJ5pOCw@mail.gmail.com>
+ <CAJoAoZmZhxFNuvRYKQ04iTYZVrHgoukbM4HdTaPP6kCZppMhDA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 30 Jan 2019 13:18:52 -0600
-From: Joseph Reynolds <jrey@linux.vnet.ibm.com>
-To: openbmc-security@lists.ozlabs.org, openbmc@lists.ozlabs.org
-Subject: [Security Advisory] CVE 2019-6260: Unsecured ASPEED AHB Bridges
-X-Sender: jrey@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19013019-0052-0000-0000-00000380A391
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010505; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000277; SDB=6.01154043; UDB=6.00601716; IPR=6.00934418; 
- MB=3.00025357; MTD=3.00000008; XFM=3.00000015; UTC=2019-01-30 19:12:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19013019-0053-0000-0000-00005FA89BAA
-Message-Id: <d90a9fc2ed623766a28ae6d1e6773b51@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-01-30_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=843 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1901300144
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,17 +42,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 19:12:48 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 21:28:45 -0000
 
-The OpenBMC Security Response team has released an OpenBMC Security 
-Advisory:
-https://github.com/openbmc/openbmc/issues/3475
+Hi Emily,
 
-An OpenBMC Security Advisory explains a security vulnerability, its 
-severity, and how to protect systems that are built on OpenBMC.
-For more information about OpenBMC Security Response, see:
-https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team.md
+That's what I need the temperature for. We have two controllers, one that 
+monitors the core temperature (a TI TMP421) and one that controls the fans 
+(ADT7462). In order to maintain the thermal envelope the TMP421 needs to be 
+monitored to adjust the fan speed through the ADT7462.
 
-For general information about OpenBMC Security, see the Security Working 
-Group wiki:
-https://github.com/openbmc/openbmc/wiki/Security-working-group
+Further complicating things is the fact that these sensors disappear when the 
+host is powered down.
+
+-Aaron
+
+On Wednesday, January 30, 2019 9:49:32 AM PST Emily Shaffer wrote:
+> External Email
+> 
+> ----------------------------------------------------------------------
+> Hi Aaron,
+> 
+> Note that you only really need to worry about sending the temperature via
+> IPMI if you want to send it somewhere besides the BMC.  If you plan to do
+> internal thermal control (BMC reads temperature, BMC adjusts fans
+> accordingly) you probably don't need IPMI config and can get away with
+> setting it up as far as DBus in the sensor architecture doc Lei sent.
+> 
+> Emily
+> 
+> On Thu, Jan 24, 2019 at 1:27 AM Lei YU <mine260309@gmail.com> wrote:
+> > On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams <awilliams@marvell.com>
+> > 
+> > wrote:
+> > > I see how to set up the hwmon portion defining the devices based on the
+> > 
+> > device
+> > 
+> > > tree, but I am unsure how to go about configuring the YAML and other
+> > 
+> > files for
+> > 
+> > > this.
+> > 
+> > For sensors' config, please refer to
+> > https://github.com/openbmc/docs/blob/master/sensor-architecture.md
+> > And it looks you are looking for fan controls, then you could refer to:
+> > 
+> > https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#f
+> > ans
+> > 
+> > (I really need to submit my porting guide to openbmc/docs)
