@@ -1,57 +1,56 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
+ (client-ip=2607:f8b0:4864:20::743; helo=mail-qk1-x743.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="O+psazMW"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="gdH1PxCX"; 
  dkim-atps=neutral
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
+Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
+ [IPv6:2607:f8b0:4864:20::743])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43q85f5L4DzDqF0;
- Wed, 30 Jan 2019 14:30:46 +1100 (AEDT)
-Received: by mail-qt1-x843.google.com with SMTP id v11so24838649qtc.2;
- Tue, 29 Jan 2019 19:30:46 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43q8GD4svczDqQg;
+ Wed, 30 Jan 2019 14:38:12 +1100 (AEDT)
+Received: by mail-qk1-x743.google.com with SMTP id q1so12901723qkf.13;
+ Tue, 29 Jan 2019 19:38:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EOazp/NWSDbCI8C+71UDBedskrp4jlovZVpb655hqvc=;
- b=O+psazMWvQoU6qhDFavivE6P9jLDHQZ3zpfhSE/LPFAGiKfXe7TrmCEsw4aNUdKK4K
- lpJ0kIdBwycUE7Kzr87i4aTSw1FnGlWGQmYfTMzdinb/1XmuW7PbG+rvT+umTqFBzID/
- ntKSqRUK2r2MzeLpRRXXA55Y33nfT3nVs66f0=
+ :cc; bh=Dg2MenSHWrAwQe2mYdpL9kjlGddqbZ3q0zPRrt2PF6o=;
+ b=gdH1PxCX3i5nIlJRizCaRCrYu2gZ8oLTOqelWVQtJMVkMvi4hxOQ/ignri279EpM1B
+ FQBbxF2oSU8sgmVavHZSCGPc+OaA2exrhvn7NP7o82RWroktpcxTsKfEFNJo66qAd/Cq
+ tXcPJDRorwazIlKq//clip7tOHR/Vvwjz5DYw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=EOazp/NWSDbCI8C+71UDBedskrp4jlovZVpb655hqvc=;
- b=mBK51G+xFQZkeOgX9oaUrprHe6j1aVfkHUW+tiF5CcJgkpRVnj/s0zBQ63gGrdtz4R
- UWwikY2sy0N7GHpRQIyLhxMNDjoYZaxWNLwahTAnoy/AST6kBepvRwEE8kUVYhR47mvZ
- g6Sx75drIaxxzxgtty+Kt8r54WtmWHz2VSBXEns280rJDgpShPZ7qgsHtZn04es/3vEp
- nVgeGEW3yVgWr3W+ZwOOGtTpSVZ9w59VELT9LteSa7QFwiYGdQXx4IBYTNMuchLnOIB4
- BoHsrvvE8hIJPZqCAqoni0mTTuYh0Cr7Fmu0GHGjND+MSoGQdVFlMjbw8RQ/bjxaZfen
- wRDg==
-X-Gm-Message-State: AJcUukf4clo1h/scGrGnA8eSDz0/aF3yY+/0jvKjMJBJgmcGlDmjYzUj
- eRdTot9OHh7DZFE9hc+gV5/EspF4SOBHjJlHSWg=
-X-Google-Smtp-Source: ALg8bN7LW70WzD86d3+LFpR4kdydSKb/yb44aVGHjpkQPeLKmhko7YcKakMv2eFQDtrtBDy9bist227w4b+PVjN7JKU=
-X-Received: by 2002:a0c:e789:: with SMTP id x9mr27109614qvn.245.1548819044408; 
- Tue, 29 Jan 2019 19:30:44 -0800 (PST)
+ bh=Dg2MenSHWrAwQe2mYdpL9kjlGddqbZ3q0zPRrt2PF6o=;
+ b=Ot8jq83NvlnvcA2AbDTVkFcHQz08iHy+jz9kZTw1ZVQLQMut0+4eGwOPg7TROCwz4y
+ 0eHsLReg3S7uOaoNZOQXZ5+YEaoyYtwVqVrMRU/C18ZJtLr7vVuChR3E8WvBbqULQGgK
+ fqTmNkCMN6J4AF8jDw01GlIdAL3Ic7UR/+H2N5cREIPFcXiASyJrXl88UteAm7KjmTLJ
+ 9NiPCc43Wlz6nNmSq4ASFd5U9F3ZQNgLPzzVMT4dQ83mv8ZJBnGbNzqQAULgbv16vDal
+ lGlupW81Y45fI2q+Yw0qUnww6brWyc2Podma0U2qhctrxq8e88HdzgqTOwt/85PUDwdQ
+ EHkQ==
+X-Gm-Message-State: AJcUukePxL5UmwJfoF9AObhexyHfJEECY99hnDaawDKV/PNfZ0VMkqEM
+ YSd9zsLzJFoHRg2vq+KWsDrptAlMqnjbV9AYBVE=
+X-Google-Smtp-Source: ALg8bN5yQjI6Tf9kyG+GP6w6clWGHJ0xefs8q7tANRJ1rMrsVVqXcCyM+uPDE890R+YUZ3zgWz2ChuW1j9/frM7fBJY=
+X-Received: by 2002:ae9:dec5:: with SMTP id
+ s188mr25826624qkf.127.1548819490344; 
+ Tue, 29 Jan 2019 19:38:10 -0800 (PST)
 MIME-Version: 1.0
-References: <20190129230538.1044378-1-vijaykhemka@fb.com>
-In-Reply-To: <20190129230538.1044378-1-vijaykhemka@fb.com>
+References: <20190129214624.119330-1-venture@google.com>
+In-Reply-To: <20190129214624.119330-1-venture@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 30 Jan 2019 14:30:29 +1100
-Message-ID: <CACPK8Xdg+mjqL-qnNGUnRPw03sqBJGf_ckcsFnw6_F7HA96o6Q@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: aspeed-lpc: Make parameter optional
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: Lee Jones <lee.jones@linaro.org>, Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>, 
- devicetree <devicetree@vger.kernel.org>, 
+Date: Wed, 30 Jan 2019 14:37:58 +1100
+Message-ID: <CACPK8XeSoOkOqVtc7Xhov7Zrj8sMc28q1-BQ_t-d5FTYXMkggg@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: quanta-q71l: enable lpc_ctrl node
+To: Patrick Venture <venture@google.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Andrew Jeffery <andrew@aj.id.au>, 
+ Mark Rutland <mark.rutland@arm.com>, devicetree <devicetree@vger.kernel.org>, 
  Linux ARM <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -64,15 +63,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 03:30:47 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 03:38:13 -0000
 
-On Wed, 30 Jan 2019 at 10:05, Vijay Khemka <vijaykhemka@fb.com> wrote:
+On Wed, 30 Jan 2019 at 08:46, Patrick Venture <venture@google.com> wrote:
 >
-> Memory-region and flash phandle is not a required parameter, it is
-> optional to describe in device tree and needed only use basis.
+> Enable the lpc_ctrl node in the quanta-q71l dts such that the LPC_CLK is
+> enabled.
 >
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> Signed-off-by: Patrick Venture <venture@google.com>
 
-Acked-by: Joel Stanley <joel@jms.id.au>
+Applied to the aspeed tree for 5.1.
 
-Thanks for following this up Vijay.
+Cheers,
+
+Joel
