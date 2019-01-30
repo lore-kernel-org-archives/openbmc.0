@@ -1,51 +1,50 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::743; helo=mail-qk1-x743.google.com;
+ (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="gdH1PxCX"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="ey0zfcYg"; 
  dkim-atps=neutral
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43q8GD4svczDqQg;
- Wed, 30 Jan 2019 14:38:12 +1100 (AEDT)
-Received: by mail-qk1-x743.google.com with SMTP id q1so12901723qkf.13;
- Tue, 29 Jan 2019 19:38:12 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43q8Gb0RTczDqQg;
+ Wed, 30 Jan 2019 14:38:30 +1100 (AEDT)
+Received: by mail-qk1-x742.google.com with SMTP id q1so12901987qkf.13;
+ Tue, 29 Jan 2019 19:38:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Dg2MenSHWrAwQe2mYdpL9kjlGddqbZ3q0zPRrt2PF6o=;
- b=gdH1PxCX3i5nIlJRizCaRCrYu2gZ8oLTOqelWVQtJMVkMvi4hxOQ/ignri279EpM1B
- FQBbxF2oSU8sgmVavHZSCGPc+OaA2exrhvn7NP7o82RWroktpcxTsKfEFNJo66qAd/Cq
- tXcPJDRorwazIlKq//clip7tOHR/Vvwjz5DYw=
+ :cc; bh=cvQzkXhLPeLTgOpbEGZkyycdIgApjN7ax2QwNyqnteI=;
+ b=ey0zfcYgibOQGdFqjPX3227zGgdcaG9Tj0pT/7QDkcrVnKKfNEmPUyFFijSQkfXWIj
+ /FMcNC+NZ35wmaoDwJgBHccMEOA1G0R5c0PMvQ5BLSCghHYJsh+oQjDbYkXusHc2ZW3b
+ Ov+2qt4vGLJgmzb3BSs6n3HLKU016d41tAZD8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=Dg2MenSHWrAwQe2mYdpL9kjlGddqbZ3q0zPRrt2PF6o=;
- b=Ot8jq83NvlnvcA2AbDTVkFcHQz08iHy+jz9kZTw1ZVQLQMut0+4eGwOPg7TROCwz4y
- 0eHsLReg3S7uOaoNZOQXZ5+YEaoyYtwVqVrMRU/C18ZJtLr7vVuChR3E8WvBbqULQGgK
- fqTmNkCMN6J4AF8jDw01GlIdAL3Ic7UR/+H2N5cREIPFcXiASyJrXl88UteAm7KjmTLJ
- 9NiPCc43Wlz6nNmSq4ASFd5U9F3ZQNgLPzzVMT4dQ83mv8ZJBnGbNzqQAULgbv16vDal
- lGlupW81Y45fI2q+Yw0qUnww6brWyc2Podma0U2qhctrxq8e88HdzgqTOwt/85PUDwdQ
- EHkQ==
-X-Gm-Message-State: AJcUukePxL5UmwJfoF9AObhexyHfJEECY99hnDaawDKV/PNfZ0VMkqEM
- YSd9zsLzJFoHRg2vq+KWsDrptAlMqnjbV9AYBVE=
-X-Google-Smtp-Source: ALg8bN5yQjI6Tf9kyG+GP6w6clWGHJ0xefs8q7tANRJ1rMrsVVqXcCyM+uPDE890R+YUZ3zgWz2ChuW1j9/frM7fBJY=
-X-Received: by 2002:ae9:dec5:: with SMTP id
- s188mr25826624qkf.127.1548819490344; 
- Tue, 29 Jan 2019 19:38:10 -0800 (PST)
+ bh=cvQzkXhLPeLTgOpbEGZkyycdIgApjN7ax2QwNyqnteI=;
+ b=HIOj0OvGXtIX38eqh35XoJSQpLbW5Z+qE8oA+J9IiSKHfw/vA/k12XCF0lAkwDQIz8
+ rFh1OrEV/Bf+UMpb/7nCQfN79FWktYNXZNLgPY1p2B0JTXPYtEzwKb2R7rwFCHxZRqP6
+ yJdkbknSCFuEVDyxpY8VR7UwT20YbFknzJX8uYizidD86QFIxlR7VVmbqWoU+6HZC3D2
+ ZSq7n5LkZv2U3Or+m7bKPqd8fZiWOpto5WCBhHtZGWBzbUbc/EiyrRdPqNdiPGPEq8/n
+ LtPNNHjYSTViRLlPoENgd/nuyunWKyG0FHmolLz4K3NTr3ISqRKKfCXMFJWRET/0fQAy
+ p+Uw==
+X-Gm-Message-State: AJcUukfFZZXoQY218HvlEjJAVDFB0QsDi+5WtWX8H+z2lfYoUc66lF6S
+ 0+RsZYd/a1us63Ar3cY2r1Pl8ylaiUSUk/3pHbI=
+X-Google-Smtp-Source: ALg8bN4JOiF64YPw5l1msQix8HtFd086FzSEg2HOYTNVQInCcekKKD2qj7EfQ/r1BM/tIDwHDkyZtrJjasFGPdT2V18=
+X-Received: by 2002:a37:61cd:: with SMTP id v196mr26444903qkb.25.1548819508774; 
+ Tue, 29 Jan 2019 19:38:28 -0800 (PST)
 MIME-Version: 1.0
-References: <20190129214624.119330-1-venture@google.com>
-In-Reply-To: <20190129214624.119330-1-venture@google.com>
+References: <20190129214703.119694-1-venture@google.com>
+In-Reply-To: <20190129214703.119694-1-venture@google.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 30 Jan 2019 14:37:58 +1100
-Message-ID: <CACPK8XeSoOkOqVtc7Xhov7Zrj8sMc28q1-BQ_t-d5FTYXMkggg@mail.gmail.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: quanta-q71l: enable lpc_ctrl node
+Date: Wed, 30 Jan 2019 14:38:17 +1100
+Message-ID: <CACPK8Xfz5m6++SWoN-E_sT-n6y68vvrcvunhso4nD5Yq3vN6+A@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: quanta-q71l: enable uart1
 To: Patrick Venture <venture@google.com>
 Cc: Rob Herring <robh+dt@kernel.org>, Andrew Jeffery <andrew@aj.id.au>, 
  Mark Rutland <mark.rutland@arm.com>, devicetree <devicetree@vger.kernel.org>, 
@@ -63,12 +62,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Jan 2019 03:38:13 -0000
+X-List-Received-Date: Wed, 30 Jan 2019 03:38:31 -0000
 
-On Wed, 30 Jan 2019 at 08:46, Patrick Venture <venture@google.com> wrote:
+On Wed, 30 Jan 2019 at 08:47, Patrick Venture <venture@google.com> wrote:
 >
-> Enable the lpc_ctrl node in the quanta-q71l dts such that the LPC_CLK is
-> enabled.
+> Enable the uart1 node such that the clock will be enabled.
 >
 > Signed-off-by: Patrick Venture <venture@google.com>
 
