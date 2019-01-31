@@ -1,60 +1,47 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::42d; helo=mail-pf1-x42d.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="jLkgbe0S"; 
- dkim-atps=neutral
-Received: from mail-pf1-x42d.google.com (mail-pf1-x42d.google.com
- [IPv6:2607:f8b0:4864:20::42d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43r41Q0RcvzDqTL
- for <openbmc@lists.ozlabs.org>; Fri,  1 Feb 2019 02:30:17 +1100 (AEDT)
-Received: by mail-pf1-x42d.google.com with SMTP id z9so1631896pfi.2
- for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 07:30:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=eGVJ18UkmJ+ehfbyqvKASbc3J71CPthEVXD9NTFdAxk=;
- b=jLkgbe0SZhEtDH/Vxwo5KXi9YHC2ddQFIT6P1fNnMh86UMb0LaJVQqA9rVcZmqUvQt
- nRTttbFcnPs+lTIdA5jxrxSqkZiM27dhV7yNnC2h3Er43BQ6J6qLZv/Ffc+6CQM5WQl3
- ZBtOYrf9FzpWsFqLdnMPKFEttour5N3x+n0BeoUInngfydGY9g+zFr/XvdP05+b1xnTa
- sLRnF6zBLi5uvch6DU1xYhVmhx5lL3YHV5nIchZvYQ3ypOARmCXfobSUvM/fyqgyFsqn
- wUDqPDixlkhKi7H9vg3qqDe6SnqGq+FLQBRONCMYvZL3qua2Zf/YTt40456Opkwq/jwn
- p0vg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=eGVJ18UkmJ+ehfbyqvKASbc3J71CPthEVXD9NTFdAxk=;
- b=uHnLkCI9wZSj0j3ZpXSDKvYpRMq5s7Y/xIhj8IHh2YsN43aE3FvDT/sapL9QOyrgXa
- 0ttlb3S/4ZRjH+Ko0VBAJnbqr3/yPYAVLqeKlwVb3RiSyIPhT1Umjz3GMC3q0HeW0F/I
- nM764rr5Agqam1fN5cbumry4fiTJhCIECWQZQyudYzsr/EUNSKzEa0aabhuLHbq9Og29
- 5GJjLNDwF4hbcapNpQXNo4yvN9jXufiUmiFsTR6Fn/2Oz6/Y0KyWr9fXdnXpqt8l6iTC
- 3VDbcdb3xpvAl7S9fwC6OnkMowqtrmrk0oXFK6UraGFiR5t6UPBPcE79BKQgGk8kESFD
- slww==
-X-Gm-Message-State: AJcUukdPcM+p4uZPDm5g0hyzTJVPNVMJHAQr0HiRUn7KeEnRISV87Ahr
- e/drEiN2TN0n3xji9RwjSUNU4e4C18EcvnrT4CgN1Q==
-X-Google-Smtp-Source: ALg8bN5qs7Wis5CuRX/AdPGwHhpUhmMGNtNTFXx6xk9QI48tWVvadiRD6ggmRfnL5eMf6VOgVVEtaSqS8MbKe2xZF9s=
-X-Received: by 2002:a63:e545:: with SMTP id z5mr31903959pgj.195.1548948615199; 
- Thu, 31 Jan 2019 07:30:15 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43r7nl4nx9zDqcQ;
+ Fri,  1 Feb 2019 05:20:26 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 31 Jan 2019 10:20:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.56,545,1539673200"; d="scan'208";a="112695419"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga006.jf.intel.com with ESMTP; 31 Jan 2019 10:20:22 -0800
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH] i2c: aspeed: Add multi-master use case support
+To: Wolfram Sang <wsa@the-dreams.de>,
+ Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Cc: Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20190116193958.6049-1-jae.hyun.yoo@linux.intel.com>
+Message-ID: <c9b312af-4c0f-5629-386c-8a72bcb3c1b0@linux.intel.com>
+Date: Thu, 31 Jan 2019 10:20:22 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.3.3
 MIME-Version: 1.0
-References: <6065976.siBLTEBlHZ@flash> <2825900.tvUVfaqXQI@flash>
- <CAJoAoZkOAgt7w5QAxkuO1595NUn7jbkYwh4WN4nAnEGMLxWeMg@mail.gmail.com>
- <2342439.TUI2J960l9@flash>
- <CAJoAoZnV+u8kJKV7TkPxU_b1hdmJ3nbFyD6rVMSd9ohPSjDHig@mail.gmail.com>
-In-Reply-To: <CAJoAoZnV+u8kJKV7TkPxU_b1hdmJ3nbFyD6rVMSd9ohPSjDHig@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 31 Jan 2019 07:30:04 -0800
-Message-ID: <CAO=notzSOb7VcYhByoyae63o3xFctpJpMCnKgaTn0dRKp+VckA@mail.gmail.com>
-Subject: Re: [EXT] Re: OpenBMC Sensors
-To: Emily Shaffer <emilyshaffer@google.com>
-Cc: Aaron Williams <awilliams@marvell.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20190116193958.6049-1-jae.hyun.yoo@linux.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,164 +53,293 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Jan 2019 15:30:19 -0000
+X-List-Received-Date: Thu, 31 Jan 2019 18:20:28 -0000
 
-On Wed, Jan 30, 2019 at 8:49 PM Emily Shaffer <emilyshaffer@google.com> wrote:
->
-> Aaron,
->
-> If it's complaining at build time it's what it says on the box - you probably need to include the recipe which builds phosphor-fans-sensor-inventory.
->
-> Emily
->
-> On Wed, Jan 30, 2019, 8:17 PM Aaron Williams <awilliams@marvell.com> wrote:
->>
->> Hi Emily,
->>
->> I'm still not sure how to go about using this, I'm still fairly new to
->> OpenBMC. It's complaing about nothing providing 'virtual/phosphor-fans-sensor-
->> inventory'.  I included phosphor-pid-control as one of our dependencies.
+Hi Brendan,
 
-Per Emily, you'll need to implement a recipe that defines the PID
-inputs.  It sounds like you have two PID loops.  One is the
-temperature sensor, and that feeds the set-point for the fans, which
-are a second PID loop.  The idea being, the temperature pid loop
-attempts to maintain the temperature under (or over) some set-point,
-and it'll in turn try to get the fans to speed up when necessary.
+Can you please review this patch?
 
->>
->> -Aaron
->>
->> On Wednesday, January 30, 2019 1:48:10 PM PST you wrote:
->> > Great, best luck Aaron. Thanks!
->> >
->> > On Wed, Jan 30, 2019, 1:47 PM Aaron Williams <awilliams@marvell.com> wrote:
->> > > Hi Emily,
->> > >
->> > > Thank you, I will look into it. I don't think losing the sensors when we
->> > > cut
->> > > power to the host CPU will be much of an issue. I was just notified of a
->> > > change to our CPLD that will allow the BMC to keep the sensors powered. At
->> > > the
->> > > moment, cutting power shuts of the power from the ATX power supply but now
+Thanks,
+Jae
 
-As far as the sensors when the try is powered down, that's pretty
-common.  The hwmon driver on the BMC will just be unable to read the
-values, and you can deal with that in phosphor-hwmon a couple ways.
-Phosphor-pid-control will go into fail-safe mode if it doesn't receive
-a sensor value frequently enough.  This mode would cause it to drive
-the fans to a pre-defined set-point per a configuration.
-
->> > > I
->> > > will have more fine-grained power control. Now I just have to figure out
->> > > how
->> > > to update the Lattice CPLD from the BMC... I found some code in the
->> > > Facebook
->> > > OpenBMC which hopefully I can port over.
->> > >
->> > > -Aaron
->> > >
->> > > On Wednesday, January 30, 2019 1:42:40 PM PST Emily Shaffer wrote:
->> > > > Aaron, we use this daemon for local (to BMC) thermal control:
->> > > > https://github.com/openbmc/phosphor-pid-control
->> > > > Maybe you'll find it helpful.
->> > > >
->> > > > Although I'm not sure how to help you with losing sensors when the host
->> > > > powers down but the BMC is expected to continue to cool the tray.
->> > > > Sounds
->> > > > like an issue with the board design, unless I'm not understanding what
->> > > > you're saying.
->> > > >
->> > > > On Wed, Jan 30, 2019 at 1:28 PM Aaron Williams <awilliams@marvell.com>
->> > > >
->> > > > wrote:
->> > > > > Hi Emily,
->> > > > >
->> > > > > That's what I need the temperature for. We have two controllers, one
->> > >
->> > > that
->> > >
->> > > > > monitors the core temperature (a TI TMP421) and one that controls the
->> > >
->> > > fans
->> > >
->> > > > > (ADT7462). In order to maintain the thermal envelope the TMP421 needs
->> > >
->> > > to
->> > >
->> > > > > be
->> > > > > monitored to adjust the fan speed through the ADT7462.
->> > > > >
->> > > > > Further complicating things is the fact that these sensors disappear
->> > >
->> > > when
->> > >
->> > > > > the
->> > > > > host is powered down.
->> > > > >
->> > > > > -Aaron
->> > > > >
->> > > > > On Wednesday, January 30, 2019 9:49:32 AM PST Emily Shaffer wrote:
->> > > > > > External Email
->> > >
->> > > ----------------------------------------------------------------------
->> > >
->> > > > > > Hi Aaron,
->> > > > > >
->> > > > > > Note that you only really need to worry about sending the
->> > > > > > temperature
->> > > > > > via
->> > > > > > IPMI if you want to send it somewhere besides the BMC.  If you plan
->> > >
->> > > to
->> > >
->> > > > > > do
->> > > > > > internal thermal control (BMC reads temperature, BMC adjusts fans
->> > > > > > accordingly) you probably don't need IPMI config and can get away
->> > >
->> > > with
->> > >
->> > > > > > setting it up as far as DBus in the sensor architecture doc Lei
->> > > > > > sent.
->> > > > > >
->> > > > > > Emily
->> > > > > >
->> > > > > > On Thu, Jan 24, 2019 at 1:27 AM Lei YU <mine260309@gmail.com> wrote:
->> > > > > > > On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams <
->> > >
->> > > awilliams@marvell.com>
->> > >
->> > > > > > > wrote:
->> > > > > > > > I see how to set up the hwmon portion defining the devices based
->> > >
->> > > on
->> > >
->> > > > > the
->> > > > >
->> > > > > > > device
->> > > > > > >
->> > > > > > > > tree, but I am unsure how to go about configuring the YAML and
->> > >
->> > > other
->> > >
->> > > > > > > files for
->> > > > > > >
->> > > > > > > > this.
->> > > > > > >
->> > > > > > > For sensors' config, please refer to
->> > > > > > > https://github.com/openbmc/docs/blob/master/sensor-architecture.md
->> > > > > > >
->> > > > > > > And it looks you are looking for fan controls, then you could
->> > >
->> > > refer
->> > > to:
->> > >
->> > > https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide.md#f
->> > >
->> > > > > > > ans
->> > > > > > >
->> > > > > > > (I really need to submit my porting guide to openbmc/docs)
->>
->>
->>
->>
+On 1/16/2019 11:39 AM, Jae Hyun Yoo wrote:
+> In multi-master environment, this driver's master cannot know
+> exactly when a peer master sends data to this driver's slave so
+> cases can be happened that this master tries sending data through
+> the master_xfer function but slave data from a peer master is still
+> being processed or slave xfer is started by a peer immediately
+> after it queues a master command. To support multi-master use cases
+> properly, this H/W provides arbitration in physical level and it
+> provides priority based command handling too to avoid conflicts in
+> multi-master environment, means that if a master and a slave events
+> happen at the same time, H/W will handle a higher priority event
+> first and a pending event will be handled when bus comes back to
+> the idle state.
+> 
+> To support this H/W feature properly, this patch adds the 'pending'
+> state of master and its handling code so that the pending master
+> xfer can be continued after slave operation properly.
+> 
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> ---
+>   drivers/i2c/busses/i2c-aspeed.c | 118 +++++++++++++++++++++++++-------
+>   1 file changed, 92 insertions(+), 26 deletions(-)
+> 
+> diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+> index 8dc9161ced38..9253ebccb008 100644
+> --- a/drivers/i2c/busses/i2c-aspeed.c
+> +++ b/drivers/i2c/busses/i2c-aspeed.c
+> @@ -117,6 +117,7 @@
+>   
+>   enum aspeed_i2c_master_state {
+>   	ASPEED_I2C_MASTER_INACTIVE,
+> +	ASPEED_I2C_MASTER_PENDING,
+>   	ASPEED_I2C_MASTER_START,
+>   	ASPEED_I2C_MASTER_TX_FIRST,
+>   	ASPEED_I2C_MASTER_TX,
+> @@ -126,12 +127,13 @@ enum aspeed_i2c_master_state {
+>   };
+>   
+>   enum aspeed_i2c_slave_state {
+> -	ASPEED_I2C_SLAVE_STOP,
+> +	ASPEED_I2C_SLAVE_INACTIVE,
+>   	ASPEED_I2C_SLAVE_START,
+>   	ASPEED_I2C_SLAVE_READ_REQUESTED,
+>   	ASPEED_I2C_SLAVE_READ_PROCESSED,
+>   	ASPEED_I2C_SLAVE_WRITE_REQUESTED,
+>   	ASPEED_I2C_SLAVE_WRITE_RECEIVED,
+> +	ASPEED_I2C_SLAVE_STOP,
+>   };
+>   
+>   struct aspeed_i2c_bus {
+> @@ -156,6 +158,8 @@ struct aspeed_i2c_bus {
+>   	int				cmd_err;
+>   	/* Protected only by i2c_lock_bus */
+>   	int				master_xfer_result;
+> +	/* Multi-master */
+> +	bool				multi_master;
+>   #if IS_ENABLED(CONFIG_I2C_SLAVE)
+>   	struct i2c_client		*slave;
+>   	enum aspeed_i2c_slave_state	slave_state;
+> @@ -251,7 +255,7 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   	}
+>   
+>   	/* Slave is not currently active, irq was for someone else. */
+> -	if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
+> +	if (bus->slave_state == ASPEED_I2C_SLAVE_INACTIVE)
+>   		return irq_handled;
+>   
+>   	dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
+> @@ -277,16 +281,15 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   		irq_handled |= ASPEED_I2CD_INTR_NORMAL_STOP;
+>   		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>   	}
+> -	if (irq_status & ASPEED_I2CD_INTR_TX_NAK) {
+> +	if (irq_status & ASPEED_I2CD_INTR_TX_NAK &&
+> +	    bus->slave_state == ASPEED_I2C_SLAVE_READ_PROCESSED) {
+>   		irq_handled |= ASPEED_I2CD_INTR_TX_NAK;
+>   		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+>   	}
+> -	if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
+> -		irq_handled |= ASPEED_I2CD_INTR_TX_ACK;
+>   
+>   	switch (bus->slave_state) {
+>   	case ASPEED_I2C_SLAVE_READ_REQUESTED:
+> -		if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
+> +		if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_ACK))
+>   			dev_err(bus->dev, "Unexpected ACK on read request.\n");
+>   		bus->slave_state = ASPEED_I2C_SLAVE_READ_PROCESSED;
+>   		i2c_slave_event(slave, I2C_SLAVE_READ_REQUESTED, &value);
+> @@ -294,9 +297,12 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   		writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
+>   		break;
+>   	case ASPEED_I2C_SLAVE_READ_PROCESSED:
+> -		if (!(irq_status & ASPEED_I2CD_INTR_TX_ACK))
+> +		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>   			dev_err(bus->dev,
+>   				"Expected ACK after processed read.\n");
+> +			break;
+> +		}
+> +		irq_handled |= ASPEED_I2CD_INTR_TX_ACK;
+>   		i2c_slave_event(slave, I2C_SLAVE_READ_PROCESSED, &value);
+>   		writel(value, bus->base + ASPEED_I2C_BYTE_BUF_REG);
+>   		writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
+> @@ -310,10 +316,15 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   		break;
+>   	case ASPEED_I2C_SLAVE_STOP:
+>   		i2c_slave_event(slave, I2C_SLAVE_STOP, &value);
+> +		bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
+> +		break;
+> +	case ASPEED_I2C_SLAVE_START:
+> +		/* Slave was just started. Waiting for the next event. */;
+>   		break;
+>   	default:
+> -		dev_err(bus->dev, "unhandled slave_state: %d\n",
+> +		dev_err(bus->dev, "unknown slave_state: %d\n",
+>   			bus->slave_state);
+> +		bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
+>   		break;
+>   	}
+>   
+> @@ -329,6 +340,17 @@ static void aspeed_i2c_do_start(struct aspeed_i2c_bus *bus)
+>   	u8 slave_addr = i2c_8bit_addr_from_msg(msg);
+>   
+>   	bus->master_state = ASPEED_I2C_MASTER_START;
+> +
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +	/*
+> +	 * If it's requested in the middle of a slave session, set the master
+> +	 * state to 'pending' then H/W will continue handling this master
+> +	 * command when the bus comes back to the idle state.
+> +	 */
+> +	if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
+> +		bus->master_state = ASPEED_I2C_MASTER_PENDING;
+> +#endif /* CONFIG_I2C_SLAVE */
+> +
+>   	bus->buf_index = 0;
+>   
+>   	if (msg->flags & I2C_M_RD) {
+> @@ -384,10 +406,6 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>   		irq_handled |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
+>   		goto out_complete;
+> -	} else {
+> -		/* Master is not currently active, irq was for someone else. */
+> -		if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE)
+> -			goto out_no_complete;
+>   	}
+>   
+>   	/*
+> @@ -399,11 +417,32 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   	if (ret) {
+>   		dev_dbg(bus->dev, "received error interrupt: 0x%08x\n",
+>   			irq_status);
+> -		bus->cmd_err = ret;
+> -		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+>   		irq_handled |= (irq_status & ASPEED_I2CD_INTR_MASTER_ERRORS);
+> -		goto out_complete;
+> +		if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> +			bus->cmd_err = ret;
+> +			bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
+> +			goto out_complete;
+> +		}
+> +	}
+> +
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +	/*
+> +	 * A pending master command will be started by H/W when the bus comes
+> +	 * back to idle state after completing a slave operation so change the
+> +	 * master state from 'pending' to 'start' at here if slave is inactive.
+> +	 */
+> +	if (bus->master_state == ASPEED_I2C_MASTER_PENDING) {
+> +		if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
+> +			goto out_no_complete;
+> +
+> +		bus->master_state = ASPEED_I2C_MASTER_START;
+>   	}
+> +#endif /* CONFIG_I2C_SLAVE */
+> +
+> +	/* Master is not currently active, irq was for someone else. */
+> +	if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE ||
+> +	    bus->master_state == ASPEED_I2C_MASTER_PENDING)
+> +		goto out_no_complete;
+>   
+>   	/* We are in an invalid state; reset bus to a known state. */
+>   	if (!bus->msgs) {
+> @@ -423,6 +462,20 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+>   	 * then update the state and handle the new state below.
+>   	 */
+>   	if (bus->master_state == ASPEED_I2C_MASTER_START) {
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +		/*
+> +		 * If a peer master starts a xfer immediately after it queues a
+> +		 * master command, change its state to 'pending' then H/W will
+> +		 * continue the queued master xfer just after completing the
+> +		 * slave mode session.
+> +		 */
+> +		if (unlikely(irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH)) {
+> +			bus->master_state = ASPEED_I2C_MASTER_PENDING;
+> +			dev_dbg(bus->dev,
+> +				"master goes pending due to a slave start\n");
+> +			goto out_no_complete;
+> +		}
+> +#endif /* CONFIG_I2C_SLAVE */
+>   		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
+>   			if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_NAK))) {
+>   				bus->cmd_err = -ENXIO;
+> @@ -566,7 +619,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
+>   	 * interrupt bits. Each case needs to be handled using corresponding
+>   	 * handlers depending on the current state.
+>   	 */
+> -	if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
+> +	if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE &&
+> +	    bus->master_state != ASPEED_I2C_MASTER_PENDING) {
+>   		irq_handled = aspeed_i2c_master_irq(bus, irq_remaining);
+>   		irq_remaining &= ~irq_handled;
+>   		if (irq_remaining)
+> @@ -601,15 +655,15 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>   {
+>   	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
+>   	unsigned long time_left, flags;
+> -	int ret = 0;
+> +	int ret;
+>   
+>   	spin_lock_irqsave(&bus->lock, flags);
+>   	bus->cmd_err = 0;
+>   
+> -	/* If bus is busy, attempt recovery. We assume a single master
+> -	 * environment.
+> -	 */
+> -	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
+> +	/* If bus is busy in a single master environment, attempt recovery. */
+> +	if (!bus->multi_master &&
+> +	    (readl(bus->base + ASPEED_I2C_CMD_REG) &
+> +	     ASPEED_I2CD_BUS_BUSY_STS)) {
+>   		spin_unlock_irqrestore(&bus->lock, flags);
+>   		ret = aspeed_i2c_recover_bus(bus);
+>   		if (ret)
+> @@ -629,10 +683,20 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
+>   	time_left = wait_for_completion_timeout(&bus->cmd_complete,
+>   						bus->adap.timeout);
+>   
+> -	if (time_left == 0)
+> +	if (time_left == 0) {
+> +		/*
+> +		 * If timed out and bus is still busy in a multi master
+> +		 * environment, attempt recovery at here.
+> +		 */
+> +		if (bus->multi_master &&
+> +		    (readl(bus->base + ASPEED_I2C_CMD_REG) &
+> +		     ASPEED_I2CD_BUS_BUSY_STS))
+> +			ret = aspeed_i2c_recover_bus(bus);
+> +
+>   		return -ETIMEDOUT;
+> -	else
+> -		return bus->master_xfer_result;
+> +	}
+> +
+> +	return bus->master_xfer_result;
+>   }
+>   
+>   static u32 aspeed_i2c_functionality(struct i2c_adapter *adap)
+> @@ -672,7 +736,7 @@ static int aspeed_i2c_reg_slave(struct i2c_client *client)
+>   	__aspeed_i2c_reg_slave(bus, client->addr);
+>   
+>   	bus->slave = client;
+> -	bus->slave_state = ASPEED_I2C_SLAVE_STOP;
+> +	bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
+>   	spin_unlock_irqrestore(&bus->lock, flags);
+>   
+>   	return 0;
+> @@ -827,7 +891,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
+>   	if (ret < 0)
+>   		return ret;
+>   
+> -	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
+> +	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
+> +		bus->multi_master = true;
+> +	else
+>   		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
+>   
+>   	/* Enable Master Mode */
+> 
