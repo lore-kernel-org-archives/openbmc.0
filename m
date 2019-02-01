@@ -8,23 +8,23 @@ Authentication-Results: lists.ozlabs.org;
 Received: from roger.doofus.org (unknown [173.8.172.90])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43rJnq38rDzDqdR
- for <openbmc@lists.ozlabs.org>; Fri,  1 Feb 2019 12:06:04 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43rQMR3TM9zDqfV
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Feb 2019 16:17:05 +1100 (AEDT)
 Received: from roger.doofus.org (localhost [127.0.0.1])
- by roger.doofus.org (Postfix) with ESMTP id 44E2480A4413;
- Thu, 31 Jan 2019 17:06:01 -0800 (PST)
+ by roger.doofus.org (Postfix) with ESMTP id 7150080A4413;
+ Thu, 31 Jan 2019 21:17:02 -0800 (PST)
 Authentication-Results: roger.doofus.org; 
 X-DKIM-Authentication-Results: none
 Received: from flash.localnet (unknown [192.168.0.16])
- by roger.doofus.org (Postfix) with ESMTPSA id EAE2F801F490;
- Thu, 31 Jan 2019 17:06:00 -0800 (PST)
+ by roger.doofus.org (Postfix) with ESMTPSA id 099638001451;
+ Thu, 31 Jan 2019 21:17:01 -0800 (PST)
 From: Aaron Williams <awilliams@marvell.com>
 To: Patrick Venture <venture@google.com>
 Cc: Emily Shaffer <emilyshaffer@google.com>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Subject: Re: [EXT] Re: OpenBMC Sensors
-Date: Thu, 31 Jan 2019 17:05:58 -0800
-Message-ID: <8654571.dlUhQdZHB1@flash>
+Date: Thu, 31 Jan 2019 21:17:01 -0800
+Message-ID: <15407680.LHmlcfl6Tm@flash>
 In-Reply-To: <CAO=notzSOb7VcYhByoyae63o3xFctpJpMCnKgaTn0dRKp+VckA@mail.gmail.com>
 References: <6065976.siBLTEBlHZ@flash>
  <CAJoAoZnV+u8kJKV7TkPxU_b1hdmJ3nbFyD6rVMSd9ohPSjDHig@mail.gmail.com>
@@ -43,12 +43,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Feb 2019 01:06:08 -0000
+X-List-Received-Date: Fri, 01 Feb 2019 05:17:08 -0000
 
-Hi Patric, Emily,
+Thanks,
 
-Thanks for your help. Are there any examples of this? I've tried looking at 
-the other available platforms but I'm not finding anything for this.
+I think I know what I need to do, after looking at the config example and 
+other yaml examples I've found. My problem is I haven't been able to find any 
+example recipes and whatnot that use this (or maybe I'm looking at the wrong 
+things). I've looked at the various implementations but don't see anything 
+using this.
 
 -Aaron
 
