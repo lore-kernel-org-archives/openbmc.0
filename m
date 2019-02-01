@@ -1,57 +1,37 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <awilliams@marvell.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+ spf=fail (mailfrom) smtp.mailfrom=marvell.com
+ (client-ip=173.8.172.90; helo=roger.doofus.org;
+ envelope-from=awilliams@marvell.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SesqOi9h"; 
- dkim-atps=neutral
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ dmarc=fail (p=none dis=none) header.from=marvell.com
+Received: from roger.doofus.org (unknown [173.8.172.90])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43rFJP5fY7zDqS9
- for <openbmc@lists.ozlabs.org>; Fri,  1 Feb 2019 09:28:53 +1100 (AEDT)
-Received: by mail-pg1-x534.google.com with SMTP id r11so1974963pgp.6
- for <openbmc@lists.ozlabs.org>; Thu, 31 Jan 2019 14:28:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=Ay4DQH40tprjOJUsGW2K2suaJ0QdzZ2Q7p0TqtRZQkI=;
- b=SesqOi9h2kMi+sGIIg2bWLcAiihRSH4o08OQLTV6LLb6WIyLJPUhtlleP0WXBKCWE/
- 27kAg+vkLxyxmK5L31AzOMBx82h+y3q+67gXosCeucVwePyu/ULc0F9Sgo7BLlfTTJf5
- tEZ7diS2i0VNIAWwEDi8P01jrl8Cx/fm8/zJ5ZNyNnh9xyMyAKeln3vYSNBlqqjY2/8S
- n3uAdmF0KiTI9fW8Cj4A8ON5/nYjNvjxcqZ2+mngowVsf4l0SYU4o/4rQz6JfqcDRuB8
- b2WbrFOZq4Ps/Y0A1m4IivtNcY3y+zcLMWpNxD5Hlq90LtXqfn2z6a0fkfIB0YLj66QT
- L2sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=Ay4DQH40tprjOJUsGW2K2suaJ0QdzZ2Q7p0TqtRZQkI=;
- b=nFE0iG8Iea25XZbn7BtXgbZvpdDhM4tnRuFybVo5NM/ViQ7Q44ABilEwKexlolJ0Ci
- RdgaTZIl/EwPzjWMaU47fOpcNDvNWBl38EFYu4ngaHMweA+S3KiZCIz4JVIxrGrPGTw9
- QCsNZILXzBarVpnWtZRBn/MoYTP8BkDkWO/mIwnE1Bc1oIdW47j1rA9SA8J02aWzwLxg
- npiuytKgjKFELrlSGXn+KCYIqqKm/1AQ/c8RkFRoAutBXjynOWKH3JEmuoc88BCw1641
- LB+XDVUFoCtNTlM0j5O1BeycE+Zx7kzPlWtxjQ/YPoDqqkouQ24M4wCodaadbGawL5AP
- h19g==
-X-Gm-Message-State: AJcUukdYzpyVnTu17FLxHtl7eVtv9lCZPW4Wq1uXc13sgqo2AkWdKwFc
- OIhJ0TthusKMEmcdcblyCYbCFpcxStxqFiorlOd2N2NZ
-X-Google-Smtp-Source: ALg8bN4HktQ6Fg0PRWu+4nh7tIDxDuTMg66hBRxK9lDmXZNMpULGo0QE64Vmh52xXsLEnXa1FZB8RnSGp3Vm1ijtWdM=
-X-Received: by 2002:a62:26c7:: with SMTP id m190mr37308195pfm.79.1548973731079; 
- Thu, 31 Jan 2019 14:28:51 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43rJnq38rDzDqdR
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Feb 2019 12:06:04 +1100 (AEDT)
+Received: from roger.doofus.org (localhost [127.0.0.1])
+ by roger.doofus.org (Postfix) with ESMTP id 44E2480A4413;
+ Thu, 31 Jan 2019 17:06:01 -0800 (PST)
+Authentication-Results: roger.doofus.org; 
+X-DKIM-Authentication-Results: none
+Received: from flash.localnet (unknown [192.168.0.16])
+ by roger.doofus.org (Postfix) with ESMTPSA id EAE2F801F490;
+ Thu, 31 Jan 2019 17:06:00 -0800 (PST)
+From: Aaron Williams <awilliams@marvell.com>
+To: Patrick Venture <venture@google.com>
+Cc: Emily Shaffer <emilyshaffer@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: [EXT] Re: OpenBMC Sensors
+Date: Thu, 31 Jan 2019 17:05:58 -0800
+Message-ID: <8654571.dlUhQdZHB1@flash>
+In-Reply-To: <CAO=notzSOb7VcYhByoyae63o3xFctpJpMCnKgaTn0dRKp+VckA@mail.gmail.com>
+References: <6065976.siBLTEBlHZ@flash>
+ <CAJoAoZnV+u8kJKV7TkPxU_b1hdmJ3nbFyD6rVMSd9ohPSjDHig@mail.gmail.com>
+ <CAO=notzSOb7VcYhByoyae63o3xFctpJpMCnKgaTn0dRKp+VckA@mail.gmail.com>
 MIME-Version: 1.0
-References: <CAOUmYFTGSMQy2-C6xphK1=-ecVAsb-0WSnB89rcBFBm15QPZcw@mail.gmail.com>
- <8ed86145-296c-72b6-2fd2-989629533d59@intel.com>
- <CAOUmYFTfeWKsPvJLSnEbExVy6+XZ9nNdmK0y_Vvvw94g6Zty+Q@mail.gmail.com>
-In-Reply-To: <CAOUmYFTfeWKsPvJLSnEbExVy6+XZ9nNdmK0y_Vvvw94g6Zty+Q@mail.gmail.com>
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Thu, 31 Jan 2019 16:28:40 -0600
-Message-ID: <CANT4Nr+FUh5QfjHodVZa6ci7sMHYXDxYMX44kP+VY_pvd0_+qA@mail.gmail.com>
-Subject: Re: WebUI Fonts
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,167 +43,192 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Jan 2019 22:28:54 -0000
+X-List-Received-Date: Fri, 01 Feb 2019 01:06:08 -0000
 
-Some additional decisions were made today on IRC:
+Hi Patric, Emily,
 
-- Move to the webpack SVG sprite loader
-- Guideline is to use the Carbon icon set for upstream build (Carbon
-is an open and free icon set created by IBM)
-- If a non-Carbon icon is used at some point, the code will NOT be
-rejected; anyone can update it with a Carbon icon replacement or leave
-it as is
+Thanks for your help. Are there any examples of this? I've tried looking at 
+the other available platforms but I'm not finding anything for this.
 
-On Tue, Jan 29, 2019 at 9:25 PM Derick <derick.montague@gmail.com> wrote:
->>
->> The first hit I get what I search "webpack icomoon" is a link to a stack
->> overflow with the title "webpack with icomoon does not work".  That's
->> not a great sign, although I haven't dug into the details yet.
->
->
-> That looks like an icon font issue that we wouldn't have to deal with
-> if we went the SVG sprite route.
->
->>
->> Webpack also has some built-in capabilities for SVG sprites that I
->> haven't had time to look at.  It sounds like that is the current
->> best-practice for webpack.
->> https://github.com/kisenka/svg-sprite-loader
->>
->> If we're looking at dropping webpack, or doing a two stage build
->> (icomoon then webpack) that's something that needs a longer discussion.
->> Alternatively webpack is open source, we could certainly just go fix
->> icomoon support.
->
->
-> This looks really good. All we need to do is add
-> the SVGs to a directory and import in order to use it. The
-> process is much simpler than the icomoon approach and downstream
-> it's as simple as replacing the SVG to use a different icon.
->
->> Say more on this point......  I'm not sure I understand.  Wont people
->> always have to override some file to update icons?
->
->
-> The svg-sprite-loader handles this well. If someone wants to use a
-> different Twitter icon, they just replace it downstream. No actual markup
-> would need to change, which is what I meant when I said no coding
-> would be needed.
->
-> The icomoon approaceh downstream would use a different SVG sprite, but
-> building and generating with iconmoon is cumbersome compared
-> to having webpack do the work for us!
->
->> My preference would be to use the built-in webpack sprite loader, under
->> the assumption that it works better, and will be easier to maintain long
->> term, but I'm happy to support icomoon if it's a better tool.
->
->
-> Looking at the loader, I think this is the right direction. If we don't encounter any unforeseen issues
-> this seems like the simplest approach.
->
-> On Tue, Jan 29, 2019 at 4:46 PM Ed Tanous <ed.tanous@intel.com> wrote:
->>
->>
->> On 1/29/19 2:21 PM, Derick wrote:
->> >
->> >
->> > I have an accessibility audit of our icons on a todo list and I'd love
->> > to create the documentation to help make the
->> > application more inclusive! I just need to prioritize the time with
->> > another project.
->> I didn't mean to call you out.  I realize we're all busy :)
->>
->> >
->> > small. We can test that, but the SVG icons have been typically smaller
->> > than font icons.
->> That sounds like a great reason to use SVG over fonts.  If we can show
->> that in a meaningful way, I'm happy to support moving the UI over to SVG.
->>
->> >
->> >
->> > The SVG sprite example above is exactly what I'm referring to. And the
->> > icomoon tool (I refer to
->> > that below in point #2 I have been using provides all the code,
->> > including the SVG sprite.
->> The first hit I get what I search "webpack icomoon" is a link to a stack
->> overflow with the title "webpack with icomoon does not work".  That's
->> not a great sign, although I haven't dug into the details yet.
->>
->> Webpack also has some built-in capabilities for SVG sprites that I
->> haven't had time to look at.  It sounds like that is the current
->> best-practice for webpack.
->> https://github.com/kisenka/svg-sprite-loader
->>
->> If we're looking at dropping webpack, or doing a two stage build
->> (icomoon then webpack) that's something that needs a longer discussion.
->> Alternatively webpack is open source, we could certainly just go fix
->> icomoon support.
->>
->> >
->> >
->> > I like the idea of using an SVG sprite. Using the <use> element (which
->> > would required a small polyfill for IE 11)
->> > the implementation is as simple as using font icons. We would only have
->> > the icons we needed to use and the file size
->> > (which we can test and evaluate) would be small since we don't need to
->> > include the entire font-awesome library.
->> >
->> > Some reasons I prefer the SVG sprite is:
->> > 1. It would allow for easy conversion downstream for anyone that wants
->> > to use a different icon set
->> > 2. Implementation is consistent and can be easily documented
->>
->> This is exactly the kind of background I was looking for on why this
->> change is worth it, as well as trade offs and things that are required.
->>
->> >
->> > We can keep the login icons inlined to minimize the load if we think
->> > loading the SVG sprite is too much of a load.
->>
->> I think a single SVG sprite doesn't add too much load.  It's when we're
->> pulling 12 different icons separately that we need to pay attention.
->> Today, rendering the initial login page load requires 4 files, one of
->> which is already an SVG (the openbmc logo), and 276KB of payload.   If
->> we go to svg sprites, presumably the SVG file just gets bigger, but
->> we're still requesting the same number of resources.  We should be in
->> good shape.
->>
->> >
->> >
->> > Using an SVG sprite would make it easy to simply update the downstream
->> > SVG sprite without
->> > having to update any code.
->> >
->>
->> Say more on this point......  I'm not sure I understand.  Wont people
->> always have to override some file to update icons?
->> >
->> >
->> > I agree with the use of a consistent and open icon set, like font
->> > awesome. I have been using
->> > a great tool called icomoon (free), https://icomoon.io/ to manage my
->> > icon sets. It's fantastic
->> > because we can use font awesome and can import icons if needed. The icon
->> > set can be
->> > saved as a JSON file and even added to the repository if needed, so that
->> > anyone could
->> > import it to icomoon and add or update icons using font awesome or any
->> > number of other
->> > free icon sets and then have an updated SVG sprite generated, as well as
->> > downloading
->> > the updated icon set config.
->>
->>
->> My preference would be to use the built-in webpack sprite loader, under
->> the assumption that it works better, and will be easier to maintain long
->> term, but I'm happy to support icomoon if it's a better tool.
->>
->>
->>
->>
->> Moving the webui to SVG sprites sounds like a positive thing to do, and
->> has my support.  Looking forward to seeing the patchsets.
->>
->> -Ed
->>
+-Aaron
+
+On Thursday, January 31, 2019 7:30:04 AM PST Patrick Venture wrote:
+> On Wed, Jan 30, 2019 at 8:49 PM Emily Shaffer <emilyshaffer@google.com> 
+wrote:
+> > Aaron,
+> > 
+> > If it's complaining at build time it's what it says on the box - you
+> > probably need to include the recipe which builds
+> > phosphor-fans-sensor-inventory.
+> > 
+> > Emily
+> > 
+> > On Wed, Jan 30, 2019, 8:17 PM Aaron Williams <awilliams@marvell.com> 
+wrote:
+> >> Hi Emily,
+> >> 
+> >> I'm still not sure how to go about using this, I'm still fairly new to
+> >> OpenBMC. It's complaing about nothing providing
+> >> 'virtual/phosphor-fans-sensor- inventory'.  I included
+> >> phosphor-pid-control as one of our dependencies.
+> Per Emily, you'll need to implement a recipe that defines the PID
+> inputs.  It sounds like you have two PID loops.  One is the
+> temperature sensor, and that feeds the set-point for the fans, which
+> are a second PID loop.  The idea being, the temperature pid loop
+> attempts to maintain the temperature under (or over) some set-point,
+> and it'll in turn try to get the fans to speed up when necessary.
+> 
+> >> -Aaron
+> >> 
+> >> On Wednesday, January 30, 2019 1:48:10 PM PST you wrote:
+> >> > Great, best luck Aaron. Thanks!
+> >> > 
+> >> > On Wed, Jan 30, 2019, 1:47 PM Aaron Williams <awilliams@marvell.com> 
+wrote:
+> >> > > Hi Emily,
+> >> > > 
+> >> > > Thank you, I will look into it. I don't think losing the sensors when
+> >> > > we
+> >> > > cut
+> >> > > power to the host CPU will be much of an issue. I was just notified
+> >> > > of a
+> >> > > change to our CPLD that will allow the BMC to keep the sensors
+> >> > > powered. At
+> >> > > the
+> >> > > moment, cutting power shuts of the power from the ATX power supply
+> >> > > but now
+> 
+> As far as the sensors when the try is powered down, that's pretty
+> common.  The hwmon driver on the BMC will just be unable to read the
+> values, and you can deal with that in phosphor-hwmon a couple ways.
+> Phosphor-pid-control will go into fail-safe mode if it doesn't receive
+> a sensor value frequently enough.  This mode would cause it to drive
+> the fans to a pre-defined set-point per a configuration.
+> 
+> >> > > I
+> >> > > will have more fine-grained power control. Now I just have to figure
+> >> > > out
+> >> > > how
+> >> > > to update the Lattice CPLD from the BMC... I found some code in the
+> >> > > Facebook
+> >> > > OpenBMC which hopefully I can port over.
+> >> > > 
+> >> > > -Aaron
+> >> > > 
+> >> > > On Wednesday, January 30, 2019 1:42:40 PM PST Emily Shaffer wrote:
+> >> > > > Aaron, we use this daemon for local (to BMC) thermal control:
+> >> > > > https://github.com/openbmc/phosphor-pid-control
+> >> > > > Maybe you'll find it helpful.
+> >> > > > 
+> >> > > > Although I'm not sure how to help you with losing sensors when the
+> >> > > > host
+> >> > > > powers down but the BMC is expected to continue to cool the tray.
+> >> > > > Sounds
+> >> > > > like an issue with the board design, unless I'm not understanding
+> >> > > > what
+> >> > > > you're saying.
+> >> > > > 
+> >> > > > On Wed, Jan 30, 2019 at 1:28 PM Aaron Williams
+> >> > > > <awilliams@marvell.com>
+> >> > > > 
+> >> > > > wrote:
+> >> > > > > Hi Emily,
+> >> > > > > 
+> >> > > > > That's what I need the temperature for. We have two controllers,
+> >> > > > > one
+> >> > > 
+> >> > > that
+> >> > > 
+> >> > > > > monitors the core temperature (a TI TMP421) and one that controls
+> >> > > > > the
+> >> > > 
+> >> > > fans
+> >> > > 
+> >> > > > > (ADT7462). In order to maintain the thermal envelope the TMP421
+> >> > > > > needs
+> >> > > 
+> >> > > to
+> >> > > 
+> >> > > > > be
+> >> > > > > monitored to adjust the fan speed through the ADT7462.
+> >> > > > > 
+> >> > > > > Further complicating things is the fact that these sensors
+> >> > > > > disappear
+> >> > > 
+> >> > > when
+> >> > > 
+> >> > > > > the
+> >> > > > > host is powered down.
+> >> > > > > 
+> >> > > > > -Aaron
+> >> > > > > 
+> >> > > > > On Wednesday, January 30, 2019 9:49:32 AM PST Emily Shaffer 
+wrote:
+> >> > > > > > External Email
+> >> > > 
+> >> > > ---------------------------------------------------------------------
+> >> > > -
+> >> > > 
+> >> > > > > > Hi Aaron,
+> >> > > > > > 
+> >> > > > > > Note that you only really need to worry about sending the
+> >> > > > > > temperature
+> >> > > > > > via
+> >> > > > > > IPMI if you want to send it somewhere besides the BMC.  If you
+> >> > > > > > plan
+> >> > > 
+> >> > > to
+> >> > > 
+> >> > > > > > do
+> >> > > > > > internal thermal control (BMC reads temperature, BMC adjusts
+> >> > > > > > fans
+> >> > > > > > accordingly) you probably don't need IPMI config and can get
+> >> > > > > > away
+> >> > > 
+> >> > > with
+> >> > > 
+> >> > > > > > setting it up as far as DBus in the sensor architecture doc Lei
+> >> > > > > > sent.
+> >> > > > > > 
+> >> > > > > > Emily
+> >> > > > > > 
+> >> > > > > > On Thu, Jan 24, 2019 at 1:27 AM Lei YU <mine260309@gmail.com> 
+wrote:
+> >> > > > > > > On Thu, Jan 24, 2019 at 5:13 PM Aaron Williams <
+> >> > > 
+> >> > > awilliams@marvell.com>
+> >> > > 
+> >> > > > > > > wrote:
+> >> > > > > > > > I see how to set up the hwmon portion defining the devices
+> >> > > > > > > > based
+> >> > > 
+> >> > > on
+> >> > > 
+> >> > > > > the
+> >> > > > > 
+> >> > > > > > > device
+> >> > > > > > > 
+> >> > > > > > > > tree, but I am unsure how to go about configuring the YAML
+> >> > > > > > > > and
+> >> > > 
+> >> > > other
+> >> > > 
+> >> > > > > > > files for
+> >> > > > > > > 
+> >> > > > > > > > this.
+> >> > > > > > > 
+> >> > > > > > > For sensors' config, please refer to
+> >> > > > > > > https://github.com/openbmc/docs/blob/master/sensor-architectu
+> >> > > > > > > re.md
+> >> > > > > > > 
+> >> > > > > > > And it looks you are looking for fan controls, then you could
+> >> > > 
+> >> > > refer
+> >> > > to:
+> >> > > 
+> >> > > https://github.com/mine260309/openbmc-intro/blob/master/Porting_Guide
+> >> > > .md#f
+> >> > > 
+> >> > > > > > > ans
+> >> > > > > > > 
+> >> > > > > > > (I really need to submit my porting guide to openbmc/docs)
