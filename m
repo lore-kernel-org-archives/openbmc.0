@@ -1,80 +1,52 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::531; helo=mail-pg1-x531.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="tB6UbFxN"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43tXHt1YDkzDqL8
- for <openbmc@lists.ozlabs.org>; Tue,  5 Feb 2019 02:51:21 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x14FbCYA162331
- for <openbmc@lists.ozlabs.org>; Mon, 4 Feb 2019 10:51:19 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2qepvs55h9-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 04 Feb 2019 10:51:19 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Mon, 4 Feb 2019 15:51:18 -0000
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 4 Feb 2019 15:51:15 -0000
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x14FpElM23920780
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 4 Feb 2019 15:51:14 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F157012405B;
- Mon,  4 Feb 2019 15:51:13 +0000 (GMT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 89B3F124053;
- Mon,  4 Feb 2019 15:51:13 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon,  4 Feb 2019 15:51:13 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43tdS71608zDqKf
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Feb 2019 06:43:51 +1100 (AEDT)
+Received: by mail-pg1-x531.google.com with SMTP id d72so369607pga.9
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Feb 2019 11:43:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=j20w6d/3XhIjSuGxTrzGEj2SMfoYhObF/nNYQJIp1WA=;
+ b=tB6UbFxN1/yBa8cYE/k7hvqawcw1Dusql5xcRP/MoAxV9RAa/IstuZAtCeFwT6CAiM
+ nbctd9YjCzLdxOGmKAWM7z/h0VQrKvkiDaO88F9bMXGBwy7RPBbUHFIDJSnr0GVkqCCi
+ IyUvwljD/nXW/g9KyiRXwBHsAub6CWuQlUvxazF7gBwpmcxHX/Ytdm+cYYM88OWe3HPL
+ YjoTwWuxgtiVzhp78e/5JD6GC9NteOEfq8dOp/HN8Oy1MEjssBRzkFJi9d7+lRvpWQlq
+ xZISPAsJSqqqG5XlmlHx+unPLv/NJ2mSsnuwYb7ZwWtKJ6aXrQGTlHwHLoXq21IOvX5k
+ XwqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=j20w6d/3XhIjSuGxTrzGEj2SMfoYhObF/nNYQJIp1WA=;
+ b=orTuMoc40zqkBlpZG5vBqeKg4sAiuzsWVD/Ru2ZJnUAz7pZWkS8BIgc5COTPr22mo8
+ cHts4c146DpFpyACx2E7xW9ID+hvP7iye4xo2rEBY6TtIWHmBVp8EK9/qmFyHOaSnaVD
+ rOMxnx+3ML5m9j2Ro5qEI5Yq+QIbKQJOIfsfvWaA0w9a7CH6CqFVWpqtrgbuZLyObl3h
+ KfuyMNfzkJrmxT8zbsHPDszM2RtMuLLROmH1AlTizVZoqAj/Vtc3xc+zRmB5gIuhK+DK
+ Lf90+prNL6i+58QYJ/u9WoTCGsG09iNYnDS82iORx0Lf9kR95m1BFhRUJxuE4h9n1Aff
+ 1eqQ==
+X-Gm-Message-State: AHQUAuZiKO9G3Km9V971wMlpuGan7iO5N4TVToKKtoMgJ4+nbAOSCavD
+ 74ObJlcYl0TctRo0Th/tUEnNEfG1Sqdm/RFdupQaf1kK
+X-Google-Smtp-Source: AHgI3IYj++aoMqT/Cf8P2S43Gkij9e4T8+5a4lTcbHByvK27Ah0jlboL+tQX+POEHHefQMMty3IOyKDJdpo/4335eiw=
+X-Received: by 2002:a63:d347:: with SMTP id u7mr910927pgi.383.1549309428837;
+ Mon, 04 Feb 2019 11:43:48 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 04 Feb 2019 09:57:37 -0600
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: AKASH G J <akashgj91@gmail.com>
-Cc: openbmc@lists.ozlabs.org, openbmc
- <openbmc-bounces+mspinler=linux.vnet.ibm.com@lists.ozlabs.org>
-Subject: Re: LED not Blinking
-In-Reply-To: <CAE33tLEsh+Oh8LYY0tkO98tVzVDjZwbxO9J49zp2fAWz_dysbQ@mail.gmail.com>
-References: <CAE33tLEsh+Oh8LYY0tkO98tVzVDjZwbxO9J49zp2fAWz_dysbQ@mail.gmail.com>
-X-Sender: mspinler@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19020415-0040-0000-0000-000004BC1148
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010535; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000279; SDB=6.01156291; UDB=6.00593882; IPR=6.00936750; 
- MB=3.00025433; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-04 15:51:16
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19020415-0041-0000-0000-000008C72A71
-Message-Id: <f9f2f2ecdbfbc94f8a6afcbd7ab06ced@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-04_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=860 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902040122
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Mon, 4 Feb 2019 13:43:38 -0600
+Message-ID: <CANT4NrLJN4N0Q=_PnDChbxyvAizDwZGJQRO60gROy8tOpsZvXg@mail.gmail.com>
+Subject: GUI Design Workgroup Wed - 10:00am CT
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,49 +58,6 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Feb 2019 15:51:22 -0000
+X-List-Received-Date: Mon, 04 Feb 2019 19:43:52 -0000
 
-On 2019-02-04 06:18, AKASH G J wrote:
-> Hi all,
-> 
-> We have a board containing BMC Aspeed AST-2500. One LED is connected
-> to GPIO-E0. I am using zaius machine configuration for building the
-> image. I want that LED to blink after BMC is booted. So I changed the
-> following files.
-> 
-> Patched the device tree file aspeed-bmc-opp-zaius.dts
-> 
->  leds {
->             compatible = "gpio-leds";
-> +        power {
-> +            gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_LOW>;
-> +        };
->   };
-> 
-> Added the following configuration to sensor inventory file
-> openbmc/meta-ingrasys/meta-zaius/recipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory%/config.yaml
-> 
-> bmc_booted:
->     power:
->         Action: 'Blink'
->         DutyOn: 50
->         Period: 1000
->         Priority: 'On'
-> 
-> The LED is glowing when the BMC boots up. But it is not blinking.
-> Please someone help to resolve the issue.
-> 
-
-
-Hi,
-
-The LEDs are defined in a different file, check out, for example,
-meta-ibm/meta-romulus/recipes-phosphor/leds/romulus-led-manager-config/led.yaml.
-
-
-You can tell it should be working when you see a
-/xyz/openbmc_project/led/groups/bmc_booted  object on D-Bus.
-
-
-
-> Thanks in advance.
+We'll be reviewing the updated Network and LDAP panel designs.
