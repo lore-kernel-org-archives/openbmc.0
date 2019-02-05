@@ -1,81 +1,30 @@
-Return-Path: <mspinler@linux.vnet.ibm.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43v7fl4l0wzDqLV
- for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 02:24:47 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x15FGscl075939
- for <openbmc@lists.ozlabs.org>; Tue, 5 Feb 2019 10:24:45 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qfb4u6nrh-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 05 Feb 2019 10:24:44 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.vnet.ibm.com>;
- Tue, 5 Feb 2019 15:24:43 -0000
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 5 Feb 2019 15:24:41 -0000
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x15FOepx22610026
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Tue, 5 Feb 2019 15:24:40 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DDC35B2064;
- Tue,  5 Feb 2019 15:24:39 +0000 (GMT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8F24DB206A;
- Tue,  5 Feb 2019 15:24:39 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue,  5 Feb 2019 15:24:39 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43vBZG1nGYzDqMr
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 04:36:05 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Tue, 5 Feb 2019 12:36:27 -0500
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "Tanous, Ed" <ed.tanous@intel.com>, Jeremy Kerr <jk@ozlabs.org>,
+ Adriana Kobylak <anoo@linux.vnet.ibm.com>
+Subject: Re: [Redfish] VirtualMedia
+Message-ID: <20190205173627.lju73ko22y4etuab@thinkpad>
+References: <53D123781965AE42A2ABEE982B242E41A1007CF9@IRSMSX102.ger.corp.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 05 Feb 2019 09:31:06 -0600
-From: Matt Spinler <mspinler@linux.vnet.ibm.com>
-To: AKASH G J <akashgj91@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: LED not Blinking
-In-Reply-To: <CAE33tLHZ6LOa4CtYwYVuKZxgZoNkCzxfNM7LGLQDQfDoww7dww@mail.gmail.com>
-References: <CAE33tLEsh+Oh8LYY0tkO98tVzVDjZwbxO9J49zp2fAWz_dysbQ@mail.gmail.com>
- <f9f2f2ecdbfbc94f8a6afcbd7ab06ced@linux.vnet.ibm.com>
- <CAE33tLHZ6LOa4CtYwYVuKZxgZoNkCzxfNM7LGLQDQfDoww7dww@mail.gmail.com>
-X-Sender: mspinler@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19020515-0040-0000-0000-000004BC9BBF
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010541; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000279; SDB=6.01156700; UDB=6.00593882; IPR=6.00937219; 
- MB=3.00025445; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-05 15:24:43
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19020515-0041-0000-0000-000008C7B5B8
-Message-Id: <5aeeee958a538fe17d5b8ef4416734d8@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-05_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902050117
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <53D123781965AE42A2ABEE982B242E41A1007CF9@IRSMSX102.ger.corp.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,64 +36,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Feb 2019 15:24:48 -0000
+X-List-Received-Date: Tue, 05 Feb 2019 17:36:06 -0000
 
-On 2019-02-04 22:34, AKASH G J wrote:
-> I am using zaius machine configuration. In that led.yaml file is not
-> available.
-> 
+On Mon, Feb 04, 2019 at 10:12:46PM +0000, Rapkiewicz, Pawel wrote:
+>Hi,
+>
+>I've reviewed some email threads about implementation and usage of Virtual Media, and I tend to agree, that Virtual Media schema was not designed for usage like web socket proxy. I'm planning to propose some OEM extension that will make Virtual Media closer to our needs, and I'd like to ask you what would be your usage of NBD over web sockets, are you planning to mount NBD device only in BMC, make it available to HOST over i.e. usb gadget, or both depending on use case (Any other?).
 
-You can add support for that using the guide at
-https://github.com/openbmc/docs/blob/master/LED-architecture.md,
-and also the Romulus layer has examples.
+We are planning on making available to the host via usb gadget.  Just
+curious - what are some use cases for mounting the file locally on the
+BMC?
 
+fwiw Adriana and Jeremy had been working to this design here:
 
-> On Mon, Feb 4, 2019 at 9:21 PM Matt Spinler
-> <mspinler@linux.vnet.ibm.com> wrote:
-> 
->> On 2019-02-04 06:18, AKASH G J wrote:
->>> Hi all,
->>> 
->>> We have a board containing BMC Aspeed AST-2500. One LED is
->> connected
->>> to GPIO-E0. I am using zaius machine configuration for building
->> the
->>> image. I want that LED to blink after BMC is booted. So I changed
->> the
->>> following files.
->>> 
->>> Patched the device tree file aspeed-bmc-opp-zaius.dts
->>> 
->>> leds {
->>> compatible = "gpio-leds";
->>> + power {
->>> + gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_LOW>;
->>> + };
->>> };
->>> 
->>> Added the following configuration to sensor inventory file
->>> 
->> 
-> openbmc/meta-ingrasys/meta-zaius/recipes-phosphor/ipmi/phosphor-ipmi-sensor-inventory%/config.yaml
->>> 
->>> bmc_booted:
->>> power:
->>> Action: 'Blink'
->>> DutyOn: 50
->>> Period: 1000
->>> Priority: 'On'
->>> 
->>> The LED is glowing when the BMC boots up. But it is not blinking.
->>> Please someone help to resolve the issue.
->>> 
->> 
->> Hi,
->> 
->> The LEDs are defined in a different file, check out, for example,
->> 
-> meta-ibm/meta-romulus/recipes-phosphor/leds/romulus-led-manager-config/led.yaml.
->> 
->> You can tell it should be working when you see a
->> /xyz/openbmc_project/led/groups/bmc_booted object on D-Bus.
->> 
->>> Thanks in advance.
+https://lists.ozlabs.org/pipermail/openbmc/2018-July/012647.html
+
+Based on the chat in IRC it sounded like Intel might want to tweak that
+slightly and get rid of the nbd-proxy as a stand-alone application and
+move that functionality into bmcweb.  Did I understand correctly?  I
+don't think I'm opposed to that or anything (Jeremy/Adriana please
+comment if you have any concerns there) but can you comment on the
+motivation for the change?
+
+>
+>I was thinking about implementation of Virtual Media Service, that will allow those actions, but before that I'd like to gather more input.
+>
+>I'm attaching link to nbd-proxy functionality implementation in bmcweb: https://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/17749/
+>There are two proposals on how nbd-client can be spawned upon web socket connection:
+>- systemd watching Unix Socket files
+>- VirtualMediaService triggered by bmcweb
+>
+>Systemd tends to be easier, but with less control
+>VirtualMediaService allows more (like usb gadget), but would be better designed if I'd receive some input on your use cases.
+>
+>Regards,
+>Pawel Rapkiewicz
+>--------------------------------------------------------------------
+>
+>Intel Technology Poland sp. z o.o.
+>ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydzial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-316 | Kapital zakladowy 200.000 PLN.
+>
+>Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wiadomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiekolwiek
+>przegladanie lub rozpowszechnianie jest zabronione.
+>This e-mail and any attachments may contain confidential material for the sole use of the intended recipient(s). If you are not the intended recipient, please contact the sender and delete all copies; any review or distribution by
+>others is strictly prohibited.
