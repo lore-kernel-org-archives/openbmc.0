@@ -1,82 +1,51 @@
-Return-Path: <Supreeth.Venkatesh@arm.com>
+Return-Path: <pawel.rapkiewicz@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=arm.com
- (client-ip=40.107.13.57; helo=eur01-he1-obe.outbound.protection.outlook.com;
- envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=pawel.rapkiewicz@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arm.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=armh.onmicrosoft.com header.i=@armh.onmicrosoft.com
- header.b="J+NhDe6J"; dkim-atps=neutral
-Received: from EUR01-HE1-obe.outbound.protection.outlook.com
- (mail-eopbgr130057.outbound.protection.outlook.com [40.107.13.57])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43vG4q3gdszDqML
- for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 07:14:17 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
- s=selector1-arm-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z8LYomKi6/Tyfe32GeYGF/MWWMOt0pzXke6606Ygd4k=;
- b=J+NhDe6J6X3jejOdoTNQdx3cVhsyh8IyFQyJG5cjuW/mYQdkvQaFDKF6UOWqSLXZJYWgVSODSZUXGLq+IOM6RLdoK76nChOOzwujbLk561BPmN7NzF9Be7NHik4LziBgLZ6LkdpZ3gsgfWXxAMd3f8z8RBN0fe9S1Rcwdb+73bg=
-Received: from AM4PR08MB2788.eurprd08.prod.outlook.com (10.171.191.18) by
- AM4PR08MB0850.eurprd08.prod.outlook.com (10.164.83.20) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1601.17; Tue, 5 Feb 2019 20:14:11 +0000
-Received: from AM4PR08MB2788.eurprd08.prod.outlook.com
- ([fe80::f8f8:9441:9bdf:a4b9]) by AM4PR08MB2788.eurprd08.prod.outlook.com
- ([fe80::f8f8:9441:9bdf:a4b9%4]) with mapi id 15.20.1580.019; Tue, 5 Feb 2019
- 20:14:11 +0000
-From: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-CC: Daniil Egranov <Daniil.Egranov@arm.com>, Dong Wei <Dong.Wei@arm.com>
-Subject: RE: Secure boot for BMC
-Thread-Topic: Secure boot for BMC
-Thread-Index: AQHUvV0IW4Ejfk+cFEKOmrTsUhtfaKXRo0Nw
-Date: Tue, 5 Feb 2019 20:14:11 +0000
-Message-ID: <AM4PR08MB27880C2FE1350242F092CAA5806E0@AM4PR08MB2788.eurprd08.prod.outlook.com>
-References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-Accept-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43vKxC69zQzDqDY
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 10:07:56 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 05 Feb 2019 15:07:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,337,1544515200"; d="scan'208";a="122273291"
+Received: from irsmsx101.ger.corp.intel.com ([163.33.3.153])
+ by fmsmga008.fm.intel.com with ESMTP; 05 Feb 2019 15:07:52 -0800
+Received: from irsmsx102.ger.corp.intel.com ([169.254.2.65]) by
+ IRSMSX101.ger.corp.intel.com ([169.254.1.213]) with mapi id 14.03.0415.000;
+ Tue, 5 Feb 2019 23:07:51 +0000
+From: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Tanous, Ed"
+ <ed.tanous@intel.com>, Jeremy Kerr <jk@ozlabs.org>, Adriana Kobylak
+ <anoo@linux.vnet.ibm.com>
+Subject: RE: [Redfish] VirtualMedia
+Thread-Topic: [Redfish] VirtualMedia
+Thread-Index: AdS81DvZ0sIWmrRRQ5OCnZ3P6JVTJwApRZyAAAj0oTA=
+Date: Tue, 5 Feb 2019 23:07:50 +0000
+Message-ID: <53D123781965AE42A2ABEE982B242E41A100830C@IRSMSX102.ger.corp.intel.com>
+References: <53D123781965AE42A2ABEE982B242E41A1007CF9@IRSMSX102.ger.corp.intel.com>
+ <20190205173627.lju73ko22y4etuab@thinkpad>
+In-Reply-To: <20190205173627.lju73ko22y4etuab@thinkpad>
+Accept-Language: pl-PL, en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=Supreeth.Venkatesh@arm.com; 
-x-originating-ip: [2600:1700:8c61:400:a49f:d08d:ee4a:615c]
-x-ms-publictraffictype: Email
-x-microsoft-exchange-diagnostics: 1; AM4PR08MB0850;
- 6:/iOP6g92Ywar5YEjGhIcpciKKi40Q+Cm14Ou4tFCcvzkUhDqOcxZDSebjHn2A9dt+86ASD/ixq0qBBCUe8Kr0d92b4sG5AbQJ6FmSikhFPkA7c9nSRxC9rPKMIFeqA3d/19eWLitHJZuXvSedXjQYRjqUOO0ePBBqEDjJjm8VtNJxJ3XAamYZH7IFMWK1OJV/PQHd0MZ7ith/IB840IyDA3dURnODj435zSYkjjS7R+Y3U8PiCqxFLSe35rumMX2V9WNz/3WVX7joY5bIzR9KDH63vXeW1QdKWMTBzcpzIalrCvrYa1lAJiom+uD/f/9NHi6DOkJIuEHMi/Smm6HXisXO0PBQojqo/+87xr90HF+UCIq51UolvuguGMN/fB0lodBiVlTRcGBN8+HEFKZMCNjfU1cVi4CLicWpiCUH5w28qxqb9CSU61FaXrRI3yCztNHFSVNGqQmQ44QQPJHHQ==;
- 5:cPcSDCCh9OA76S/EeXIb61rvn5D0p4RVcBoZLtXek5H39c8hzrIkK5QMpR/G4Z+zN5sIKXplMsr3jf5r8GlDffAKHFOY5/IRwS9aVjJ69JK5/erohJHBz2h9KOBkx24FaM/rAKk1gZ/SeeN1XTGF1oMZmnfhSB2xtFetNyDbZqpOWIVVjaVZmLtmJ5YAXkZ0bahRqW6g+4MqpSg0GN9fbA==;
- 7:StMQv+jjJg/NTrlAzZmG9a69k86nCgiFy+ugN5MZjivrwY7/BtTiC+SyE0THMhd/Ap/4XuyBgaxTHgctb/YdNpzgHcqieAnAEpRjuBVCoSutftb6gvY8F0ohTMaLOfaVl6Fty0WaXMAWDhmgnMxK3g==
-x-ms-office365-filtering-correlation-id: bc4c2651-899e-4a9b-1b36-08d68ba67e46
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(4618075)(2017052603328)(7153060)(7193020);
- SRVR:AM4PR08MB0850; 
-x-ms-traffictypediagnostic: AM4PR08MB0850:
-x-microsoft-antispam-prvs: <AM4PR08MB08503463A7BDCFDCB52FDB06806E0@AM4PR08MB0850.eurprd08.prod.outlook.com>
-x-forefront-prvs: 0939529DE2
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10009020)(136003)(366004)(376002)(346002)(396003)(39860400002)(40434004)(13464003)(199004)(189003)(53754006)(6116002)(99286004)(2906002)(71190400001)(14454004)(478600001)(68736007)(53546011)(6506007)(72206003)(4326008)(3480700005)(6246003)(53936002)(2501003)(74316002)(446003)(476003)(86362001)(97736004)(186003)(102836004)(71200400001)(11346002)(9686003)(4744005)(486006)(46003)(5024004)(33656002)(81156014)(81166006)(14444005)(229853002)(256004)(305945005)(316002)(105586002)(106356001)(7736002)(55016002)(8936002)(25786009)(76176011)(7696005)(6436002)(54906003)(110136005)(8676002);
- DIR:OUT; SFP:1101; SCL:1; SRVR:AM4PR08MB0850;
- H:AM4PR08MB2788.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: arm.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: TfE6ksStgFk2Ud0gL6zPTp5vlLNRPXJUndrD3ST0d8h/LJBVSJaiJ0un8vHuFzE8/6/19vNiGYWFzbCLmJA3ONRmiZjLg6nq1zof8EU/Q0tGJwB206z30kdIXgASgY3zvIeBVzhkR9qqySFKGsP+FOpQ06NNS//vUZB6ZRe0mCKMMsCozL5KvEoRUUgCrLvd2ZZUZxC40v+72KzyOL1R/6V5LykRuErLjNJ2HlAWwhCE1xwrQlC1G6UB3x0k/m0mrwUvnfNlSAbu5810AemkMnHTCwt81la965tXFDYeRmqp1/d2Rc4e1OXrsfFLQS2RgCFZPt2ZX2zwWi7HVg96v6lDnz1OM761Hmcqb2/PDM/atA4QqLjZe/0mQRvRxgwHL7vXPu8T5Zqer9GFqABeUGtadYYyOHD7m/2Vc+xpOKY=
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [163.33.239.180]
 Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bc4c2651-899e-4a9b-1b36-08d68ba67e46
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Feb 2019 20:14:11.7868 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR08MB0850
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,32 +57,155 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Feb 2019 20:14:21 -0000
+X-List-Received-Date: Tue, 05 Feb 2019 23:08:00 -0000
 
-Brad,
+Brad, Adriana,
 
-We (Daniil and me from Arm) are happy to collaborate on Secure BMC Boot Des=
-ign/Implementation.
+Here are answers for your email, at the bottom I'm describing flow we were =
+talking on IRC channel.
 
-Thanks,
-Supreeth
+> We are planning on making available to the host via usb gadget.  Just cur=
+ious - what are some use cases for mounting the file locally on the BMC?
 
------Original Message-----
-From: openbmc <openbmc-bounces+supreeth.venkatesh=3Darm.com@lists.ozlabs.or=
-g> On Behalf Of Brad Bishop
-Sent: Tuesday, February 5, 2019 8:14 AM
-To: openbmc@lists.ozlabs.org
-Subject: Secure boot for BMC
+I'm not aware of any, but I can imagine some, one of it might be as you men=
+tioned on IRC channel to perform update, not sure if it will be useful,
+and how it would work comparing to other update methods, but it's for free.=
+ If there is already possibility to expose image through BMC to HOST,
+mounting it on BMC is one step less. That's why I was asking about use case=
+s, it complicates a little a flow, i.e. slightly larger VirtualMedia Oem ex=
+tention,
+but might be worth it. In the below flow I skipped that possibility.
 
-Hi everyone
+> fwiw Adriana and Jeremy had been working to this design here:
 
-Does anyone have plans to provide a secure BMC boot implementation to OpenB=
-MC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who all want=
-s to collaborate on this before I submit a design template.
+> https://lists.ozlabs.org/pipermail/openbmc/2018-July/012647.html
 
-thx - brad
-IMPORTANT NOTICE: The contents of this email and any attachments are confid=
-ential and may also be privileged. If you are not the intended recipient, p=
-lease notify the sender immediately and do not disclose the contents to any=
- other person, use it for any purpose, or store or copy the information in =
-any medium. Thank you.
+I've read it before and find using NBD great idea.
+
+> Based on the chat in IRC it sounded like Intel might want to tweak that s=
+lightly and get rid of the nbd-proxy as a stand-alone application and move =
+that functionality into bmcweb.  Did I understand correctly?  I don't think=
+ I'm opposed to that or anything (Jeremy/Adriana please comment if you have=
+ any concerns there) but can you comment on the motivation for the change?
+
+First motivation was to integrate NBD solution inside bmcweb (it was before=
+ I found other integration patchsets), and inherit all the benefits from it=
+, like all supported authentication methods, TLS, and one server certificat=
+e, as far as I know, there would be problems with having websocketd working=
+ with same certificate as bmcweb (I might be wrong at this point). Then I'v=
+e realized that using boost::asio, and boost::beast nbd-proxy may be incorp=
+orated into bmcweb, and the libraries would make it simpler. Moreover  it w=
+ill remove additional communication channel - pipes, which will decrease co=
+ntext switching and number of syscalls for communication over pipes. To be =
+honest I have no idea how big (or little)  is a gain in performance, it mig=
+ht be worth to measure it, and have comparable results. =
+
+
+I left spawning of nbd-client, but would like to discuss that. The motivati=
+on behind that was that bmcweb is large standalone application which has a =
+lot of functionalities - websockets are one of it, and I don't want to impl=
+ement spawning and process monitoring inside it, I think it shouldn't be it=
+s responsibility, that feature is far away from base bmcweb functionality.
+
+After reviewing https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-phospho=
+r/+/17494/2  =
+
+I suggest two options of spawning nbd-client and configuring usb gadget, bo=
+th were already proposed in nbd-proxy patchset, but here in details
+
+1. Using systemd to monitor /tmp/nbd-proxy.X.sock files, and based on any c=
+hange it will start nbd-client with appropriate options, like:
+nbd-client -u /tmp/nbd-proxy.X.sock -b 512 /dev/nbdX
+then it will start "state_hook" script from the above commit with appropria=
+te parameters.
+Pros:
+- It's almost for free, easy shell script is required to determine which nb=
+d-client shall be connected
+- there is no need for watching if nbd-client shall be terminated - if loca=
+l socket will disappear nbd-client would stop working, stopping usb gadget =
+would be required
+Cons:
+- There is very little control in options for both nbd-client and usb gadge=
+t, options cannot be passed explicitly, monitoring script shall determine w=
+hich are required
+- VirtualMedia redfish schema have no real data to be feed, probably nothin=
+g except IP of remote host cannot be exposed,
+
+2. Going with the spirit of OpenBMC as I understand it, and implement servi=
+ce for managing VirtualMedia with appropriate DBus interface, I'd advocate =
+for that.
+Pros:
+- Gives a lot of flexibility in options for mounting devices, like block-si=
+ze, timeout, etc
+- Can monitor nbd-client, connections, etc and do appropriate actions on us=
+b gadget, i.e. if connection is broken
+- Will deliver real data for VirtualMedia schema
+- Can be extended (if needed) to allow mounting other types of protocols, a=
+s described in DMTF's VirtualMedia schema (NFS, CIFS, etc) all having same =
+DBus interface
+Cons:
+- This is another service, it will not interfere on communication between N=
+BD-server, and nbd-client, once its connected, but consumes flash, RAM, and=
+ once for a while context switching time
+
+So based on nbd-proxy.hpp bmcweb patchset(https://gerrit.openbmc-project.xy=
+z/#/c/openbmc/bmcweb/+/17749/), and choosing second option from the above t=
+he flow might look like:
+
+1. bmcweb starts and expose /nbd URI
+2. From browser user is serving image through nbd-server (JS)
+3. bmcweb accepts connection, verifies credentials (i.e. Basic Auth, sessio=
+n, etc)
+4. bmcweb Exposes first free local socket from pool (i.e. /tmp/nbd-proxy.0.=
+sock)
+<options>:
+A) Easier, automatic
+5. bmcweb calls appropriate Virtual Media DBus method, =
+
+B) Manual
+5.1. bmcweb exposes VirtualMedia redfish schema with connected NBD Server o=
+ver WS, and allows OEM "Mount to Host" action with parameters
+5.2 bmcweb accepts POST on OEM "Mount to Host" action and calls appropriate=
+ Dbus method exposed by Virtual Media
+</options>
+6. VirtualMedia spawns nbd-client from /tmp/nbd-proxy.0.sock and mounts it =
+to first free /dev/nbdX device, i.e. /dev/nbd0, =
+
+7. VirtualMedia starts monitoring nbd-client, and configures usb gadget to =
+expose /dev/nbd0 to HOST
+
+At this point the traffic goes through this stream
+NBDServer(JS) <=3D=3D WSS =3D=3D> bmcweb <=3D=3D local socket =3D=3D> nbd-c=
+lient <=3D=3D syscalls? =3D=3D> usb gadget
+
+Moreover:
+- Virtual Media schema contains all the information delivered from Virtual =
+Media Dbus service, it can contain whatever nbd-client is delivering + IP o=
+f remote host, local NBD device, usb gadget data
+- Virtual Media schema allows to break connection by DELETE method (or ejec=
+t action) over HTTP to bmcweb forwarded over Dbus to Virtual Media Schema
+- Virtual Media reacts on nbd-client stops working, websocket or local sock=
+et disconnection, and is able to clean up (mostly usb gadget configuration)
+
+Regards,
+Pawel =
+
+
+
+--------------------------------------------------------------------
+
+Intel Technology Poland sp. z o.o.
+ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
+ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
+6 | Kapital zakladowy 200.000 PLN.
+
+Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
+ i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
+adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
+olwiek
+przegladanie lub rozpowszechnianie jest zabronione.
+This e-mail and any attachments may contain confidential material for the s=
+ole use of the intended recipient(s). If you are not the intended recipient=
+, please contact the sender and delete all copies; any review or distributi=
+on by
+others is strictly prohibited.
