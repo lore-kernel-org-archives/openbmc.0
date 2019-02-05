@@ -1,46 +1,54 @@
-Return-Path: <pawel.rapkiewicz@intel.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.65; helo=mga03.intel.com;
- envelope-from=pawel.rapkiewicz@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::12e; helo=mail-it1-x12e.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="e6NXuWRy"; 
+ dkim-atps=neutral
+Received: from mail-it1-x12e.google.com (mail-it1-x12e.google.com
+ [IPv6:2607:f8b0:4864:20::12e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43thmH01h9zDqL9
- for <openbmc@lists.ozlabs.org>; Tue,  5 Feb 2019 09:12:52 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Feb 2019 14:12:48 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.56,560,1539673200"; d="scan'208";a="113688829"
-Received: from irsmsx109.ger.corp.intel.com ([163.33.3.23])
- by orsmga006.jf.intel.com with ESMTP; 04 Feb 2019 14:12:47 -0800
-Received: from irsmsx102.ger.corp.intel.com ([169.254.2.65]) by
- IRSMSX109.ger.corp.intel.com ([169.254.13.133]) with mapi id 14.03.0415.000;
- Mon, 4 Feb 2019 22:12:46 +0000
-From: "Rapkiewicz, Pawel" <pawel.rapkiewicz@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: Adriana Kobylak <anoo@linux.ibm.com>, "Tanous, Ed" <ed.tanous@intel.com>
-Subject: [Redfish] VirtualMedia
-Thread-Topic: [Redfish] VirtualMedia
-Thread-Index: AdS81DvZ0sIWmrRRQ5OCnZ3P6JVTJw==
-Date: Mon, 4 Feb 2019 22:12:46 +0000
-Message-ID: <53D123781965AE42A2ABEE982B242E41A1007CF9@IRSMSX102.ger.corp.intel.com>
-Accept-Language: pl-PL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [163.33.239.180]
-Content-Type: text/plain; charset="us-ascii"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43tlVh1P8mzDqLJ
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Feb 2019 11:16:27 +1100 (AEDT)
+Received: by mail-it1-x12e.google.com with SMTP id p197so4403097itp.0
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Feb 2019 16:16:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=P/aNRu4X14BAI66gdQIIJ2upkJ8nvMB0WRshn/+uKmE=;
+ b=e6NXuWRyLdPUou9l9dNNt4fmHpOasuyLjlXZFJmDpKGnbnShCUYsxlmkLqiUD6oryZ
+ WUDloOg8sLA8DcMJQZWMXZaOrBCN5dYnkMrac9g5KdBTAXmdeqEliIHojzAj73r5zokz
+ xJFVl1NMMTEGJ45ypTvzfPEvQJxODYOjTEu7p7xN78hxJQhAzzAH5tIQ+XPXRQM3NFjo
+ 26plG1Z2JxQDH2Ji7HW7tYpL2Avum6JIzVYj/+onva8rOpPxUUy52LSCx2IeblCjffK/
+ dOwjZtrdkjAS7FvzYWTp6xdZsmcVTducZq9xBECrszOVLLLTYQsZZHcpEc+q5xdJTNKc
+ CbMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=P/aNRu4X14BAI66gdQIIJ2upkJ8nvMB0WRshn/+uKmE=;
+ b=eAZL8C/JSCRmx4XZilNZ6JWPmfizwvk6x5aNg/wWbbLN8zz+g8wNORISDQwPAg0N1c
+ ds2OXPC3GrwqDbTxnzKgDbkirlHY/uLGsDqyvbgayF0h2Nppm1loNeeasZKEHRC6b3K6
+ 6KOVkO1EEBr3OojNiqgRCxoqR821WdS28SKAP59+zmX7VfLhNvS8ZAr4AQEGhnNtvsc0
+ BzHke5/HdW1AK/bBsZx1/jd/J+emMtW9Ty8ZW9xRhIu+vQQ9UzuAIzJbZqRZiv4qyfQj
+ GB0D4TwcifKdwCVTMStcSH48mN9AWsQ1bFs/F6Uy3jqcx4Evd/GMzL0c5hg8w3NLyrmL
+ fp4w==
+X-Gm-Message-State: AHQUAuaymJBMXo65vd+w+KpHxaXqj/6ZV1E9IvpkTPMuhf50c19OS1D6
+ 0PVjiW8PNPVif1TfkWZUa4bMg4JIX1V1h33JiU4=
+X-Google-Smtp-Source: AHgI3IYhT4Hi0t1JjHuyhy1/9YhA84QrGIx5FEEPDsvcO2LQiD9UkdyBEcmfBJWagXg1UuQ7eB5Apm38nyj6nAVa8fM=
+X-Received: by 2002:a6b:ed0b:: with SMTP id n11mr1455965iog.90.1549325785898; 
+ Mon, 04 Feb 2019 16:16:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Tue, 5 Feb 2019 02:23:11 +0200
+Message-ID: <CAP6Zq1jAMHSrbEmnKcQcwAfmpgZJ0n3JUwxGSYVw6B==FJYRGQ@mail.gmail.com>
+Subject: OpenBMC GitHub invitation to Taiwan Nuvoton BMC team
+To: bradleyb@fuzziesquirrel.com, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: kwliu@nuvoton.com, warp5tw@gmail.com, timlee660101@gmail.com, 
+ yschu57@gmail.com, medadyoung@gmail.com
+Content-Type: multipart/alternative; boundary="0000000000001c233c05811a851d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,49 +60,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Feb 2019 22:13:03 -0000
+X-List-Received-Date: Tue, 05 Feb 2019 00:16:29 -0000
 
-Hi,
+--0000000000001c233c05811a851d
+Content-Type: text/plain; charset="UTF-8"
 
-I've reviewed some email threads about implementation and usage of Virtual =
-Media, and I tend to agree, that Virtual Media schema was not designed for =
-usage like web socket proxy. I'm planning to propose some OEM extension tha=
-t will make Virtual Media closer to our needs, and I'd like to ask you what=
- would be your usage of NBD over web sockets, are you planning to mount NBD=
- device only in BMC, make it available to HOST over i.e. usb gadget, or bot=
-h depending on use case (Any other?).
+Hi Brad,
 
-I was thinking about implementation of Virtual Media Service, that will all=
-ow those actions, but before that I'd like to gather more input.
 
-I'm attaching link to nbd-proxy functionality implementation in bmcweb: htt=
-ps://gerrit.openbmc-project.xyz/#/c/openbmc/bmcweb/+/17749/ =
 
-There are two proposals on how nbd-client can be spawned upon web socket co=
-nnection:
-- systemd watching Unix Socket files
-- VirtualMediaService triggered by bmcweb
+Could you please send invites to the OpenBMC GitHub organization to our
+team Taiwan Nuvoton BMC team.
 
-Systemd tends to be easier, but with less control
-VirtualMediaService allows more (like usb gadget), but would be better desi=
-gned if I'd receive some input on your use cases.
 
-Regards,
-Pawel Rapkiewicz
---------------------------------------------------------------------
 
-Intel Technology Poland sp. z o.o.
-ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
-ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
-6 | Kapital zakladowy 200.000 PLN.
+Joseph Liu: kwliu@nuvoton.com
 
-Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
- i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
-adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
-olwiek
-przegladanie lub rozpowszechnianie jest zabronione.
-This e-mail and any attachments may contain confidential material for the s=
-ole use of the intended recipient(s). If you are not the intended recipient=
-, please contact the sender and delete all copies; any review or distributi=
-on by
-others is strictly prohibited.
+Tyrone: warp5tw@gmail.com
+
+Tim: timlee660101@gmail.com
+
+Stanley : yschu57@gmail.com
+
+Medad: medadyoung@gmail.com
+
+
+
+They will like to upstream Poleg code to the OpenBMC github.
+
+
+
+Thanks a lot,
+
+
+
+Tomer
+
+--0000000000001c233c05811a851d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;fo=
+nt-size:11pt;font-family:Calibri,sans-serif">Hi Brad,</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">=C2=A0</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Could you please send invites to the OpenBMC Gi=
+tHub
+organization to our team Taiwan Nuvoton BMC team.</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">=C2=A0</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Joseph Liu: <a href=3D"mailto:kwliu@nuvoton.com=
+" style=3D"color:rgb(5,99,193)"><span style=3D"color:windowtext;text-decora=
+tion-line:none">kwliu@nuvoton.com</span></a></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Tyrone: <a href=3D"mailto:warp5tw@gmail.com" st=
+yle=3D"color:rgb(5,99,193)"><span style=3D"color:windowtext;text-decoration=
+-line:none">warp5tw@gmail.com</span></a></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Tim: <a href=3D"mailto:timlee660101@gmail.com" =
+style=3D"color:rgb(5,99,193)"><span style=3D"color:windowtext;text-decorati=
+on-line:none">timlee660101@gmail.com</span></a></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Stanley : <a href=3D"mailto:yschu57@gmail.com" =
+style=3D"color:rgb(5,99,193)"><span style=3D"color:windowtext;text-decorati=
+on-line:none">yschu57@gmail.com</span></a></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Medad: <a href=3D"mailto:medadyoung@gmail.com" =
+style=3D"color:rgb(5,99,193)"><span style=3D"color:windowtext;text-decorati=
+on-line:none">medadyoung@gmail.com</span></a></p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">=C2=A0</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">They will like to upstream Poleg code to the Op=
+enBMC github.</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">=C2=A0</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Thanks a lot,</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">=C2=A0</p>
+
+<p class=3D"MsoNormal" style=3D"margin:0cm 0cm 0.0001pt;font-size:11pt;font=
+-family:Calibri,sans-serif">Tomer</p></div>
+
+--0000000000001c233c05811a851d--
