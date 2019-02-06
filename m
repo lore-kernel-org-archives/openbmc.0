@@ -1,46 +1,76 @@
-Return-Path: <tomer.maimon@nuvoton.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=nuvoton.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43tkkh0cf1zDqLD
- for <openbmc@lists.ozlabs.org>; Tue,  5 Feb 2019 10:41:42 +1100 (AEDT)
-Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
- [212.199.177.21])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x14NBccl028133
- for <openbmc@lists.ozlabs.org>; Tue, 5 Feb 2019 01:11:38 +0200
-Received: from NTHCML01B.nuvoton.com (10.1.8.178) by NTILML02.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Tue, 5 Feb
- 2019 01:41:34 +0200
-Received: from NTILML02.nuvoton.com (10.190.1.46) by NTHCML01B.nuvoton.com
- (10.1.8.178) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Tue, 5 Feb 2019
- 07:41:29 +0800
-Received: from NTILML02.nuvoton.com ([::1]) by NTILML02.nuvoton.com ([::1])
- with mapi id 15.00.1130.005; Tue, 5 Feb 2019 01:41:25 +0200
-From: <tomer.maimon@nuvoton.com>
-To: <bradleyb@fuzziesquirrel.com>, <openbmc@lists.ozlabs.org>
-CC: <KWLIU@nuvoton.com>, <warp5tw@gmail.com>, <timlee660101@gmail.com>,
- <yschu57@gmail.com>, <medadyoung@gmail.com>
-Subject: OpenBMC GitHub invitation to Taiwan Nuvoton BMC team
-Thread-Topic: OpenBMC GitHub invitation to Taiwan Nuvoton BMC team
-Thread-Index: AdS84+uURrIdtBhiRv20ghQjEIu0uQ==
-Date: Mon, 4 Feb 2019 23:41:23 +0000
-Message-ID: <7b4cba7fe9bb4adfa29045d525f96034@NTILML02.nuvoton.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.191.10.124]
-Content-Type: multipart/alternative;
- boundary="_000_7b4cba7fe9bb4adfa29045d525f96034NTILML02nuvotoncom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43vl4P6znfzDqMs
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Feb 2019 02:00:31 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x16F0Fnh004731
+ for <openbmc@lists.ozlabs.org>; Wed, 6 Feb 2019 10:00:28 -0500
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qg1jj131r-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Feb 2019 10:00:27 -0500
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Wed, 6 Feb 2019 15:00:21 -0000
+Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 6 Feb 2019 15:00:20 -0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x16F0Jea19988596
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Wed, 6 Feb 2019 15:00:19 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D60DE28074
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 15:00:18 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9B0B32806D
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 15:00:18 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Feb 2019 15:00:18 +0000 (GMT)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 06 Feb 2019 09:06:47 -0600
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: Openbmc <openbmc@lists.ozlabs.org>
+Subject: Security Working Group meeting Wednesday February 6 at 10:00am PDT
+X-Sender: jrey@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19020615-2213-0000-0000-0000034B3487
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010548; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000279; SDB=6.01157163; UDB=6.00603679; IPR=6.00937692; 
+ MB=3.00025463; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-06 15:00:21
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19020615-2214-0000-0000-00005D410B6C
+Message-Id: <fdc68300255885fe3227b548c541a7a5@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-06_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=640 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902060118
 X-Mailman-Approved-At: Thu, 07 Feb 2019 12:42:54 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -53,147 +83,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Feb 2019 23:41:49 -0000
+X-List-Received-Date: Wed, 06 Feb 2019 15:00:38 -0000
 
---_000_7b4cba7fe9bb4adfa29045d525f96034NTILML02nuvotoncom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday Febuary 6 at 10:00am PDT.
 
-Hi Brad,
+Topics may include:
+- Current development items
+- Questions about recent security vulnerabilities
+- BMC asset and threat models
 
-Could you please send invites to the OpenBMC GitHub organization to our tea=
-m Taiwan Nuvoton BMC team.
+Access, agenda, and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group
 
-Joseph Liu: kwliu@nuvoton.com<mailto:kwliu@nuvoton.com>
-Tyrone: warp5tw@gmail.com<mailto:warp5tw@gmail.com>
-Tim: timlee660101@gmail.com<mailto:timlee660101@gmail.com>
-Stanley : yschu57@gmail.com<mailto:yschu57@gmail.com>
-Medad: medadyoung@gmail.com<mailto:medadyoung@gmail.com>
-
-They will like to upstream Poleg code to the OpenBMC github.
-
-Thanks,
-
-Tomer
-
-
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email to such a person, please kindly reply to=
- the sender indicating this fact and delete all copies of it from your comp=
-uter and network server immediately. Your cooperation is highly appreciated=
-. It is advised that any unauthorized use of confidential information of Nu=
-voton is strictly prohibited; and any information in this email irrelevant =
-to the official business of Nuvoton shall be deemed as neither given nor en=
-dorsed by Nuvoton.
-
---_000_7b4cba7fe9bb4adfa29045d525f96034NTILML02nuvotoncom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi Brad,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Could you please send invites to the OpenBMC GitHub =
-organization to our team Taiwan Nuvoton BMC team.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Joseph Liu: <a href=3D"mailto:kwliu@nuvoton.com"><sp=
-an style=3D"color:windowtext;text-decoration:none">kwliu@nuvoton.com</span>=
-</a><o:p></o:p></p>
-<p class=3D"MsoNormal">Tyrone: <a href=3D"mailto:warp5tw@gmail.com"><span s=
-tyle=3D"color:windowtext;text-decoration:none">warp5tw@gmail.com</span></a>=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">Tim: <a href=3D"mailto:timlee660101@gmail.com"><span=
- style=3D"color:windowtext;text-decoration:none">timlee660101@gmail.com</sp=
-an></a><o:p></o:p></p>
-<p class=3D"MsoNormal">Stanley : <a href=3D"mailto:yschu57@gmail.com"><span=
- style=3D"color:windowtext;text-decoration:none">yschu57@gmail.com</span></=
-a><o:p></o:p></p>
-<p class=3D"MsoNormal">Medad: <a href=3D"mailto:medadyoung@gmail.com"><span=
- style=3D"color:windowtext;text-decoration:none">medadyoung@gmail.com</span=
-></a><o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">They will like to upstream Poleg code to the OpenBMC=
- github.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Tomer<o:p></o:p></p>
-</div>
-<br>
-<font face=3D"Arial" color=3D"Black" size=3D"3"><br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
-The privileged confidential information contained in this email is intended=
- for use only by the addressees as indicated by the original sender of this=
- email. If you are not the addressee indicated in this email or are not res=
-ponsible for delivery of the email
- to such a person, please kindly reply to the sender indicating this fact a=
-nd delete all copies of it from your computer and network server immediatel=
-y. Your cooperation is highly appreciated. It is advised that any unauthori=
-zed use of confidential information
- of Nuvoton is strictly prohibited; and any information in this email irrel=
-evant to the official business of Nuvoton shall be deemed as neither given =
-nor endorsed by Nuvoton.<br>
-</font>
-</body>
-</html>
-
---_000_7b4cba7fe9bb4adfa29045d525f96034NTILML02nuvotoncom_--
+- Joseph
