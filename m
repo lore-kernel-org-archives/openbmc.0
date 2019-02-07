@@ -1,58 +1,69 @@
-Return-Path: <luke_chen@aspeedtech.com>
+Return-Path: <lee.jones@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
- (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
- envelope-from=luke_chen@aspeedtech.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=aspeedtech.com
-X-Greylist: delayed 355 seconds by postgrey-1.36 at bilbo;
- Thu, 07 Feb 2019 16:12:38 AEDT
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:4864:20::343; helo=mail-wm1-x343.google.com;
+ envelope-from=lee.jones@linaro.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="zHYt7e++"; 
+ dkim-atps=neutral
+Received: from mail-wm1-x343.google.com (mail-wm1-x343.google.com
+ [IPv6:2a00:1450:4864:20::343])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43w5zV0dKJzDqPM
- for <openbmc@lists.ozlabs.org>; Thu,  7 Feb 2019 16:12:37 +1100 (AEDT)
-Received: from twspam01.aspeedtech.com (localhost [127.0.0.2] (may be forged))
- by twspam01.aspeedtech.com with ESMTP id x1754mmq016257
- for <openbmc@lists.ozlabs.org>; Thu, 7 Feb 2019 13:04:48 +0800 (GMT-8)
- (envelope-from luke_chen@aspeedtech.com)
-Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id x1754UuO016238;
- Thu, 7 Feb 2019 13:04:30 +0800 (GMT-8)
- (envelope-from luke_chen@aspeedtech.com)
-Received: from TWMBX01.aspeed.com (192.168.0.23) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Thu, 7 Feb
- 2019 13:06:27 +0800
-Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX01.aspeed.com
- (192.168.0.23) with Microsoft SMTP Server (TLS) id 15.0.620.29; Thu, 7 Feb
- 2019 13:06:26 +0800
-Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
- TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
- 15.00.0620.020; Thu, 7 Feb 2019 13:06:25 +0800
-From: Luke Chen <luke_chen@aspeedtech.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Ryan Chen
- <ryan_chen@aspeedtech.com>, ShivahShankar Shakarnarayan rao
- <shivahshankar.shankarnarayanrao@aspeedtech.com>, Yunlin Tang
- <yunlin.tang@aspeedtech.com>,
- Dwarka Partani <dwarka.partani@aspeedtech.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Secure boot for BMC
-Thread-Topic: Secure boot for BMC
-Thread-Index: AQHUvV0gbkcxDvYbP0ae7816CL86yaXTywVR
-Date: Thu, 7 Feb 2019 05:06:24 +0000
-Message-ID: <0A4E4AC6-458B-4D9B-81B7-18A013D7E27F@aspeedtech.com>
-References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43w9Qr5YqqzDqMx
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Feb 2019 18:48:03 +1100 (AEDT)
+Received: by mail-wm1-x343.google.com with SMTP id f16so708320wmh.4
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Feb 2019 23:48:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:content-transfer-encoding:in-reply-to
+ :user-agent; bh=NTdGonK744BlVpHfJkByCKbXq8IBZylaPXj5tnPuUxY=;
+ b=zHYt7e++rFoBLVbdSTZYUfceoYPP6XWpRAgkGAUAcxf4eGQhHwM6/jg8m0A/jK+pIA
+ 9TiXqQKfBnCXeNdAP9QEQiwU31k0jetNrd/JCEeuTJ1JB3sBUpfnFv7KyGkn122N3JRt
+ tzBr5ZVSTPKVDEXbx4Im4bT0lW0f1Jrt8EnXMJHNJu5St6U3OffipiVmevtY1fjewD/z
+ 780sB1NIhfILmZt1kpgC6n4iL/jrd5xvsYUhtyAwszKEEb1OZszAR5imAw5kmrXAuw/H
+ C+2LyU3hpQUEzA2L9gi3fDXrUi+aSKyIrl85QBZ4AnJoGNlNpod/W/RSdcHQs08oiVxk
+ Ob9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to:user-agent;
+ bh=NTdGonK744BlVpHfJkByCKbXq8IBZylaPXj5tnPuUxY=;
+ b=ZUgMzOf0iWpVtHxiDFcSMvMFQFaMFOA38CWoEjiD+D7qmFS0NsCVuRAfmpdTF771i6
+ 8wkohmpbVPQvZIfyoD/dBc3Yj4THgd8Xlz6GO8guCIEDgOTJtZJBs1oD7BtxVA+uUJ3z
+ hl6Q1s1DmgMj/aFngL5No/lpIPXsCcvCe0ZP866Ah/7P4MKWwYaJKiPtka47jRKIfiZV
+ jN4ttZoZWWeRPdJJGUpRk0JU1knYeC87uvp2YorSfYr368J1Rb0UfAtvzx8CPwfwlNZ8
+ pgCfOSxjHgRRVxlcAkmNAmyVV5VaMDpBksCXLvFdFlEHVd65p3X/LX+lVQaZ1U4LM1OK
+ DTTw==
+X-Gm-Message-State: AHQUAuZzl0B7pvFGdcTr+DKym+6/Nh8Juncy64ZLclNiDqyNkdNk7SL+
+ KHPCdYJMLyo5hegAdDjnaWievw==
+X-Google-Smtp-Source: AHgI3Ib61/0rKoFEbhN4qPnZvjLR+p9OgAfjOHNnoPy8Yxc/nofF36J3kFM2jFsvlzEWtjucRAeu8w==
+X-Received: by 2002:a1c:790c:: with SMTP id l12mr5837602wme.11.1549525680239; 
+ Wed, 06 Feb 2019 23:48:00 -0800 (PST)
+Received: from dell ([2.27.35.171])
+ by smtp.gmail.com with ESMTPSA id r14sm5727736wrr.65.2019.02.06.23.47.59
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Wed, 06 Feb 2019 23:47:59 -0800 (PST)
+Date: Thu, 7 Feb 2019 07:47:57 +0000
+From: Lee Jones <lee.jones@linaro.org>
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH v3] dt-bindings: aspeed-lpc: Make parameter optional
+Message-ID: <20190207074757.GA4672@dell>
+References: <20190129230538.1044378-1-vijaykhemka@fb.com>
 MIME-Version: 1.0
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com x1754UuO016238
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20190129230538.1044378-1-vijaykhemka@fb.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,13 +75,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Feb 2019 05:12:38 -0000
+X-List-Received-Date: Thu, 07 Feb 2019 07:48:05 -0000
 
-SGkgQnJhZA0KQVNQRUVEIHRlYW0gd2FudHMgdG8gam9pbiB0aGlzIGRldmVsb3BtZW50Lg0KDQpU
-aGFua3MuDQoNCrFxp9qquiBpUGhvbmUgtsewZQ0KDQo+IEJyYWQgQmlzaG9wIDxicmFkbGV5YkBm
-dXp6aWVzcXVpcnJlbC5jb20+IKnzIDIwMTmmfjKk6zWk6SAyMjoxNCC8Z7lEoUcNCj4gDQo+IEhp
-IGV2ZXJ5b25lDQo+IA0KPiBEb2VzIGFueW9uZSBoYXZlIHBsYW5zIHRvIHByb3ZpZGUgYSBzZWN1
-cmUgQk1DIGJvb3QgaW1wbGVtZW50YXRpb24gdG8NCj4gT3BlbkJNQyBpbiB0aGUgMi43IG9yIDIu
-OCB0aW1lZnJhbWU/ICBKdXN0IHRyeWluZyB0byBnZXQgYSBmZWVsIGZvciB3aG8NCj4gYWxsIHdh
-bnRzIHRvIGNvbGxhYm9yYXRlIG9uIHRoaXMgYmVmb3JlIEkgc3VibWl0IGEgZGVzaWduIHRlbXBs
-YXRlLg0KPiANCj4gdGh4IC0gYnJhZA0K
+On Tue, 29 Jan 2019, Vijay Khemka wrote:
+
+> Memory-region and flash phandle is not a required parameter, it is
+> optional to describe in device tree and needed only use basis.
+> 
+> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+> ---
+>  Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 2 ++
+>  1 file changed, 2 insertions(+)
+
+Applied, thanks.
+
+-- 
+Lee Jones [李琼斯]
+Linaro Services Technical Lead
+Linaro.org │ Open source software for ARM SoCs
+Follow Linaro: Facebook | Twitter | Blog
