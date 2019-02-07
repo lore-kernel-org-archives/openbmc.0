@@ -1,53 +1,46 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <ryan_chen@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::82a; helo=mail-qt1-x82a.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="MndsEpWh"; 
- dkim-atps=neutral
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [IPv6:2607:f8b0:4864:20::82a])
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43w1M45lP1zDqNw
- for <openbmc@lists.ozlabs.org>; Thu,  7 Feb 2019 12:44:16 +1100 (AEDT)
-Received: by mail-qt1-x82a.google.com with SMTP id b8so10343908qtj.1
- for <openbmc@lists.ozlabs.org>; Wed, 06 Feb 2019 17:44:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OzhBcKuAfYNUNu2NYeQPSsZzQmcCAVnPdlfumMVLQbM=;
- b=MndsEpWhyfu8N9HJzf+X+egXMMI3rZTR9qhT9qQRNAIs7zMzKzP2j/Ti+gRjRpxcFt
- 9tEckacP3fwaSk/W9EsO3J7RUKhO88WgvT5PoiKUWBE37d22lOXn5YGPZDDSwNy1jcRd
- 1Z8dhVgM0kfbqqVEhZpeGR/TDbi4bfHowhcb0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OzhBcKuAfYNUNu2NYeQPSsZzQmcCAVnPdlfumMVLQbM=;
- b=UNXw5GFLJKt7XIuwy7KlVqlO771hE5Ivs8ixbk6k0TOWwknZR/JAsHy/pCVzAyNjKG
- ucvXsKZsI49ZVbjhkszRwqZxqmhjQLcqIB4Fw45FMrg6hFtTKo92NnhPyRXNdjapjCJ+
- 2WKF6OsQ+HXCna4COs5Xu2bkOndXC/j1IClJaeUw0hHkcC97YxIVkFtedgF+TLccY50j
- 4HAApFDDAsytYY5c1FK2Ze0HOdLohjAs/fjciyBx6B/LIr1kTNuzYTKxJdKNGbroA3oZ
- yiXlBHs7ndm1jG6PlJjMa2aTQItL+QH6HiLLR4tMl6hJJ5v8MnK8ITN0XQx642DJwbIj
- 2gYw==
-X-Gm-Message-State: AHQUAuYGP7mYGkQXetYE/btDbTOOYMoPcAdXeKSD8A3GdSUWHIVoPEeq
- 9cNTpR3TFPSa8cxWWtlBGTctJPkqo4yQAf3tGPM=
-X-Google-Smtp-Source: AHgI3IZQXi5xXZWORShs02qGevQyX8uZMljaxMtdqkb0UZZpQFGiRCbZK/EK2rx1gxOch1BBO7oE3JB51tsdrVoa9AE=
-X-Received: by 2002:a0c:9592:: with SMTP id s18mr7490545qvs.85.1549503853855; 
- Wed, 06 Feb 2019 17:44:13 -0800 (PST)
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43w1nv3hZxzDqJ2
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Feb 2019 13:04:02 +1100 (AEDT)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id x1721gwP099518;
+ Thu, 7 Feb 2019 10:01:42 +0800 (GMT-8)
+ (envelope-from ryan_chen@aspeedtech.com)
+Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Thu, 7 Feb
+ 2019 10:03:38 +0800
+Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
+ TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
+ 15.00.0620.020; Thu, 7 Feb 2019 10:03:38 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Secure boot for BMC
+Thread-Topic: Secure boot for BMC
+Thread-Index: AQHUvV46qPt5j8Xb4Ei0sx6zd+2y9KXTlyLQ
+Date: Thu, 7 Feb 2019 02:03:37 +0000
+Message-ID: <bbd6db33f3c9447a9c3b37dee4589768@TWMBX02.aspeed.com>
 References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
 In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 7 Feb 2019 12:14:01 +1030
-Message-ID: <CACPK8XdhDmXXCef6h_DezHEGn8EGyvF58DbeU+UBhR6UnyUZ5w@mail.gmail.com>
-Subject: Re: Secure boot for BMC
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.81]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com x1721gwP099518
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,18 +52,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Feb 2019 01:44:17 -0000
+X-List-Received-Date: Thu, 07 Feb 2019 02:04:04 -0000
 
-On Wed, 6 Feb 2019 at 00:44, Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->
-> Hi everyone
->
-> Does anyone have plans to provide a secure BMC boot implementation to
-> OpenBMC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who
-> all wants to collaborate on this before I submit a design template.
-
-I am interested in working on this.
+Hello Brad,
+	I would like join this. =20
 
 Cheers,
 
-Joel
+Ryan
+
+-----Original Message-----
+From: openbmc [mailto:openbmc-bounces+ryan_chen=3Daspeedtech.com@lists.ozla=
+bs.org] On Behalf Of Brad Bishop
+Sent: Tuesday, February 5, 2019 10:14 PM
+To: openbmc@lists.ozlabs.org
+Subject: Secure boot for BMC
+
+Hi everyone
+
+Does anyone have plans to provide a secure BMC boot implementation to OpenB=
+MC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who all want=
+s to collaborate on this before I submit a design template.
+
+thx - brad
