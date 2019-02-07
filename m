@@ -9,24 +9,22 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43wN8F5pBRzDqSJ
- for <openbmc@lists.ozlabs.org>; Fri,  8 Feb 2019 02:51:07 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43wPjK0mcqzDqRw
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Feb 2019 04:01:24 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Thu, 7 Feb 2019 10:51:31 -0500
+Date: Thu, 7 Feb 2019 12:01:47 -0500
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: openbmc <openbmc@lists.ozlabs.org>,
- Emily Shaffer <emilyshaffer@google.com>,
- David Thompson <dthompson@mellanox.com>, Dong Wei <Dong.Wei@arm.com>,
- Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
- "Naidoo, Nilan" <nilan.naidoo@intel.com>
-Subject: Re: Initial MCTP design proposal
-Message-ID: <20190207155131.gzntyqoflqfw5vld@thinkpad>
-References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, kwliu@nuvoton.com,
+ warp5tw@gmail.com, timlee660101@gmail.com, yschu57@gmail.com,
+ medadyoung@gmail.com
+Subject: Re: OpenBMC GitHub invitation to Taiwan Nuvoton BMC team
+Message-ID: <20190207170147.t72h7vpzstq5x3fc@thinkpad>
+References: <CAP6Zq1jAMHSrbEmnKcQcwAfmpgZJ0n3JUwxGSYVw6B==FJYRGQ@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
+In-Reply-To: <CAP6Zq1jAMHSrbEmnKcQcwAfmpgZJ0n3JUwxGSYVw6B==FJYRGQ@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,24 +36,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Feb 2019 15:51:10 -0000
+X-List-Received-Date: Thu, 07 Feb 2019 17:01:26 -0000
 
-On Fri, Dec 07, 2018 at 10:41:08AM +0800, Jeremy Kerr wrote:
->Hi OpenBMCers!
+On Tue, Feb 05, 2019 at 02:23:11AM +0200, Tomer Maimon wrote:
+>Hi Brad,
 >
->In an earlier thread, I promised to sketch out a design for a MCTP
->implementation in OpenBMC, and I've included it below.
+>
+>
+>Could you please send invites to the OpenBMC GitHub organization to our
+>team Taiwan Nuvoton BMC team.
+>
+>
+>
+>Joseph Liu: kwliu@nuvoton.com
+>
+>Tyrone: warp5tw@gmail.com
+>
+>Tim: timlee660101@gmail.com
+>
+>Stanley : yschu57@gmail.com
+>
+>Medad: medadyoung@gmail.com
 
-Hi Jeremy
+Done!
 
-Were you planning on submitting this to the docs repository as a design?
-Do you need some help with that?
+Some had already registered to Gerrit with nuvoton.com addresses...so I
+sent invites to those addresses too.
 
-I bring this up because another mctp related design has appeared:
+>They will like to upstream Poleg code to the OpenBMC github.
 
-https://gerrit.openbmc-project.xyz/18031
+Awesome!
 
-I haven't had a chance to determine how (if at all) these two designs
-overlap.  Mostly just wanted to bring to your awareness.
+>Thanks a lot,
 
-thx - brad
+No problem, and sorry it took so long.
