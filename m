@@ -1,78 +1,85 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <Supreeth.Venkatesh@arm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::242; helo=mail-lj1-x242.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=arm.com
+ (client-ip=40.107.2.62; helo=eur02-ve1-obe.outbound.protection.outlook.com;
+ envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="WZc0ExB+"; 
- dkim-atps=neutral
-Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com
- [IPv6:2a00:1450:4864:20::242])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=arm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=armh.onmicrosoft.com header.i=@armh.onmicrosoft.com
+ header.b="dzl3XJBw"; dkim-atps=neutral
+Received: from EUR02-VE1-obe.outbound.protection.outlook.com
+ (mail-eopbgr20062.outbound.protection.outlook.com [40.107.2.62])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43wv0X65TKzDqRP
- for <openbmc@lists.ozlabs.org>; Fri,  8 Feb 2019 23:01:16 +1100 (AEDT)
-Received: by mail-lj1-x242.google.com with SMTP id s5-v6so2726089ljd.12
- for <openbmc@lists.ozlabs.org>; Fri, 08 Feb 2019 04:01:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=USGx2kho1odtp/xVaq0QRLPVGc74cEK/ucDAsuKh7GE=;
- b=WZc0ExB+dCeAAilJyNmQBHYWZ7AOoOxRPfu2mQkVslrldtDcdHXVdmXwWyy2jLzlnx
- GSUh/8BxY1f+5tVZcIgO0SeVMOSls/GjgvT4Z4XzE3ezyiXaqAjFVpqe68o/ZnXO9+pM
- ppS6PpLsPgYcvla1AB8fN5AhqAY7PjQYQ3VOLPwL9YLrvWjv4noYEqdJE8W8SdeDjdmP
- iRtm5VEuehj15KUBK0I6eMDhPZIpWCxxrzImVMJ4Y5vgMbV0wIlPT5vva2LKnTecyRP8
- PC0frpAU15QXpauPNpd6Z4NJsCh+2R64B1mQU6ot1WxrHANKBJXDDi4oTvgidezsj1r+
- FCYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=USGx2kho1odtp/xVaq0QRLPVGc74cEK/ucDAsuKh7GE=;
- b=X0zVgy3wbIElbTqIg1/brJAynU7jwhO8b/S9RtmMMLA13FX/87heUv0FRrCXl22dq1
- Pma0xV7VV5PqdANQq6SPZhcsiTzSEcFQ+TS2hSQCBgRISbawMfLL/Wj5L7TPfosYIYRv
- jGgsW+bb7/HMtNp+0pLTKeWPU5Ox02blDnue1L4kDoJXxdFyPLXCp5/M5AvrAl/GVAUy
- 9hAOIoyhegHJEoOMJj9/tzmpjKQ6fsHaJFaxKoRZfEUiHkycM4YSsJImKC+HCri50nMp
- dU+EnD114c/kNZ8mxd8o1KlislcfkyWLTyHVpcywQOmL5FvNcLyu5Gx32a2YE4+dfn/A
- /KdA==
-X-Gm-Message-State: AHQUAuZxZX50JEIavk27S0HoY0H5LrQQxfTb8E4IQtaY1vr0wpnN+BeU
- IWOfWX8F0WCHUD6DzzfRFw8RRR1D1ZgoZJqZHOKmjA==
-X-Google-Smtp-Source: AHgI3IYznAnlYtGESrMmKm3KhCsKC3AcqrTDXXSJo7MStjZIgdE2dBa0w36QAU2VPqxYQRgoziEhf45ZWz51wLP7Xbk=
-X-Received: by 2002:a2e:6109:: with SMTP id
- v9-v6mr13051776ljb.126.1549627272978; 
- Fri, 08 Feb 2019 04:01:12 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43x0C922FxzDqb9
+ for <openbmc@lists.ozlabs.org>; Sat,  9 Feb 2019 02:55:48 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=armh.onmicrosoft.com; 
+ s=selector1-arm-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hDgAWyuwo8umhBGSPC001o8yfFIk3xGQbUW3c2IcOl4=;
+ b=dzl3XJBwgzU9r6SsNqNl9MIJnBecJ60q2zyJwbQ2J1hmi3HoMaAh61zqRSECd0aMOw+4cBKmvPYAvjFep/ja60NW8R20KWEtmBLhphox3GVmaTH+idAVIUDzInq7xU63uydxPClmx/3IUrOPy5sofO3Qj2EGDi0KtcVBpY/iNIs=
+Received: from AM4PR08MB2788.eurprd08.prod.outlook.com (10.171.191.18) by
+ AM4PR08MB2866.eurprd08.prod.outlook.com (10.171.191.138) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1601.19; Fri, 8 Feb 2019 15:55:43 +0000
+Received: from AM4PR08MB2788.eurprd08.prod.outlook.com
+ ([fe80::f8f8:9441:9bdf:a4b9]) by AM4PR08MB2788.eurprd08.prod.outlook.com
+ ([fe80::f8f8:9441:9bdf:a4b9%4]) with mapi id 15.20.1601.016; Fri, 8 Feb 2019
+ 15:55:43 +0000
+From: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
+To: Jeremy Kerr <jk@ozlabs.org>, Brad Bishop <bradleyb@fuzziesquirrel.com>
+CC: openbmc <openbmc@lists.ozlabs.org>, Emily Shaffer
+ <emilyshaffer@google.com>, David Thompson <dthompson@mellanox.com>, Dong Wei
+ <Dong.Wei@arm.com>, "Naidoo, Nilan" <nilan.naidoo@intel.com>, Deepak
+ Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: RE: Initial MCTP design proposal
+Thread-Topic: Initial MCTP design proposal
+Thread-Index: AQHUjdZUZHgpeKmdsEWUnZms7RjaM6XU3lCAgAD6f4CAAJe2IA==
+Date: Fri, 8 Feb 2019 15:55:43 +0000
+Message-ID: <AM4PR08MB27880C633DDB02D3E29A08DE80690@AM4PR08MB2788.eurprd08.prod.outlook.com>
+References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
+ <20190207155131.gzntyqoflqfw5vld@thinkpad>
+ <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+In-Reply-To: <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=Supreeth.Venkatesh@arm.com; 
+x-originating-ip: [2600:1700:8c61:400:a463:96f6:447f:4cfb]
+x-ms-publictraffictype: Email
+x-microsoft-exchange-diagnostics: 1; AM4PR08MB2866;
+ 20:p/PN9ymlMIlssBY9hFHi0p7wQ8bDNnxY7NLd7kaeWXlbjANJAXmzAwaWfvSJUBLb7rCKJmApP9wAvuhjlO/TOLVxGlcIJxcCyE5xK22gQW54dkK5BqQBPKlFWcbAsTaKiSu73W7guwBvQBOlRasGSooCfnBQPlqwdO/C7jCi+pw=
+x-ms-office365-filtering-correlation-id: 028e4131-f95b-442a-c784-08d68ddde1b1
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(4618075)(2017052603328)(7153060)(7193020);
+ SRVR:AM4PR08MB2866; 
+x-ms-traffictypediagnostic: AM4PR08MB2866:
+x-ms-exchange-purlcount: 2
+x-microsoft-antispam-prvs: <AM4PR08MB2866C642BE30F014ED4A9E4E80690@AM4PR08MB2866.eurprd08.prod.outlook.com>
+x-forefront-prvs: 094213BFEA
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10009020)(346002)(376002)(396003)(136003)(366004)(39860400002)(55674003)(13464003)(189003)(199004)(40434004)(2906002)(476003)(256004)(5024004)(86362001)(14454004)(102836004)(14444005)(561944003)(106356001)(316002)(105586002)(46003)(186003)(11346002)(446003)(3480700005)(71200400001)(71190400001)(486006)(33656002)(4326008)(53546011)(68736007)(478600001)(966005)(6306002)(6506007)(9686003)(7696005)(25786009)(53936002)(76176011)(72206003)(229853002)(74316002)(53376002)(7736002)(6436002)(305945005)(6246003)(55016002)(54906003)(110136005)(8676002)(8936002)(99286004)(81156014)(81166006)(97736004)(6116002);
+ DIR:OUT; SFP:1101; SCL:1; SRVR:AM4PR08MB2866;
+ H:AM4PR08MB2788.eurprd08.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: arm.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: qwn+1t8BERT2rDuSRxSi5asTLiv/PgMgxRbnxXcliec0S7DxdhzIzhV865XH/PJLiDdl3wrHYUvb1Tfu+QLCyBSWkFIyO9SiGwq4yLQF1JC1qlqkTPxT8q2IRY9v08hSA+0EHnbFMEtS9xDpGMQq3Q3VnCoyahVgPMCbvd3rXipFbkgYUfFQ9+ICMDLz98k0b1nFheaRHtUpJjWHg53vSEy198LKVb7mipP24ZNjsqT+BqMHbIYFNxlYBBaZ9Bb32MYYTgbSuRJY3ysOGxeltSDs+OtBVRELQLvlE+Ei9T6N/4u1JukmolHoSk6E7xqlbmFQZSXAnO1X9YycF6Q+X+mmxVy6M07hGd4zCMJ8CLC4nOfeHA83o0SItKiy32sMEO0ba9sz8/Pftdrlh8xVTnebAa+4FWbWHTp8uDZzsGQ=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
- <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
- <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
- <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
- <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
- <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
- <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E440ABF@shsmsx102.ccr.corp.intel.com>
- <CACRpkda6PZnoF83mYeTDYxqaFYLTp2jn=E6WJe6KptRuYbFLuQ@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E451F18@shsmsx102.ccr.corp.intel.com>
-In-Reply-To: <959CAFA1E282D14FB901BE9A7BF4E7724E451F18@shsmsx102.ccr.corp.intel.com>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Fri, 8 Feb 2019 13:01:00 +0100
-Message-ID: <CACRpkdaiLv94-bcE85E5TyRQWG-EXOCUVu0fLpOr++5_Q0Qqfw@mail.gmail.com>
-Subject: Re: Enable buttons GPIO passthrough
-To: "Wang, Kuiying" <kuiying.wang@intel.com>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Andrew Geissler <geissonator@gmail.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery,
- Vernon" <vernon.mauery@intel.com>, 
- "Feist, James" <james.feist@intel.com>, "Yoo,
- Jae Hyun" <jae.hyun.yoo@intel.com>, 
- "Nguyen, Hai V" <hai.v.nguyen@intel.com>, "Khetan,
- Sharad" <sharad.khetan@intel.com>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 028e4131-f95b-442a-c784-08d68ddde1b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Feb 2019 15:55:43.1836 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM4PR08MB2866
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,206 +91,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Feb 2019 12:01:18 -0000
+X-List-Received-Date: Fri, 08 Feb 2019 15:55:51 -0000
 
-Hi Kwin,
-
-thanks for your patch!
-
-On Thu, Jan 31, 2019 at 4:11 PM Wang, Kuiying <kuiying.wang@intel.com> wrote:
-
-> Below patch is based gpio character device and extend .set_config() property to
-> support pass-through.
-
-This is starting to look good!
-
-> And I plan to add passthrough setting for gpioset of libgpiod, patch is attached.
-> If you agree I will upstream it together w/ this pass-through patch.
-
-Bartosz is the maintainer of libgpiod so he can answer about that.
-
-I'm not sure why it needs to be a userspace thing, can you explain
-this?
-
-Why can you not just set up passthrough in the device tree file?
-
-It seems like a dangerous thing for userspace to deal with.
-
-> BTW: I have 2 questions hope could get your answer:
->         1. why we have to switch to gpio character device and what's
->             the advantage of it?
-
-- We get a proper topology with local numberspace per gpiochip
-  instead of an unmaintainable large global numberspace with
-  numbers that are magic and different on every system.
-
-- Discovery mechanism, you can inspect the available GPIOs
-  by gpiochip and name.
-
-- When a process using a character device crashes, it will
-  release its resources and release the GPIO lines it is holding.
-  When using sysfs, if a process that exported a few GPIOs
-  crashes, sometimes things are left in an undefined state,
-  never cleaned up and the best way to get control over the
-  machine again is reboot.
-
-All of the above issue of the sysfs ABI were pretty
-serious.
-
->         2. As you mentioned " sysfs ABI is deprecated since
->             over three years ", why sysfs ABI is still in use and
->             most of cases are still using sysfs ABI?
-
-What are you basing this statement on? It is deprecated,
-and people have to actively choose to compile it into their
-kernel. Big distributions like Fedora does not support the sysfs
-ABI and disable it in their kernels. If others enable it, please
-tell then they are wrong and the GPIO maintainer want them
-to stop using it.
-
->  And when sysfs ABI is removed totally?
-
-Around the year 2020.
-
-Maybe not even then, if people are still using it. However
-the GPIO character device is design to last ~100 years so
-I think it will win in the end. I have patience.
-
-> Please share all the related information (including web page/video/PPT/etc.)  ASAP. :)
-
-I have some presentation here:
-https://dflund.se/~triad/papers/GPIO-for-Engineers-and-Makers.pdf
-
-> +static int aspeed_gpio_pass_through(struct gpio_chip *chip, unsigned int offset,
-> +                                   unsigned long usecs)
-> +{
-> +       printk("kwin::aspeed_gpio_pass_through is called");
-> +       return 0;
-> +}
-
-I guess you want to actually implement this too :D
-
->  static int aspeed_gpio_set_config(struct gpio_chip *chip, unsigned int offset,
->                                   unsigned long config)
->  {
->         unsigned long param = pinconf_to_config_param(config);
->         u32 arg = pinconf_to_config_argument(config);
-> -
-> +       printk("kwin:: aspeed_gpio_set_config");
-
-Please remove debug prints when submitting the final patch.
-BTW pr_info() is better for this kind of stuff.
-
-> +       else if (param == PIN_CONFIG_PASS_THROUGH)
-> +               return aspeed_gpio_pass_through((chip, offset, arg);
-
-Yes this is good.
-
-> @@ -579,6 +579,8 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
->                         set_bit(FLAG_OPEN_DRAIN, &desc->flags);
->                 if (lflags & GPIOHANDLE_REQUEST_OPEN_SOURCE)
->                         set_bit(FLAG_OPEN_SOURCE, &desc->flags);
-> +               if (lflags & GPIOHANDLE_REQUEST_PASS_THROUGH)
-> +                       set_bit(FLAG_PASS_THROUGH, &desc->flags);
-
-This is good if we support this on the character device.
-
-> @@ -598,6 +600,10 @@ static int linehandle_create(struct gpio_device *gdev, void __user *ip)
->                         ret = gpiod_direction_input(desc);
->                         if (ret)
->                                 goto out_free_descs;
-> +               } else if (lflags & GPIOHANDLE_REQUEST_PASS_THROUGH) {
-> +                       ret = gpiod_direction_pass_through(desc);
-> +                       if (ret)
-> +                               goto out_free_descs;
-
-OK looks good too.
-
-> +/**
-> + * gpiod_direction_pass_through - set the GPIO direction to pass-through
-> + * @desc:      GPIO to set to pass-through
-> + *
-> + * Set the direction of the passed GPIO to passthrough.
-> + *
-> + * Return 0 in case of success, else an error code.
-> + */
-> +int gpiod_direction_pass_through(struct gpio_desc *desc)
-> +{
-> +       struct gpio_chip *gc;
-> +       printk("kwin:: gpiod_direction_pass_through");
-> +       VALIDATE_DESC(desc);
-> +       /* GPIOs used for IRQs shall not be set as pass-through */
-> +       if (test_bit(FLAG_USED_AS_IRQ, &desc->flags)) {
-> +               gpiod_err(desc,
-> +                         "%s: tried to set a GPIO tied to an IRQ as pass-through\n",
-> +                         __func__);
-> +               return -EIO;
-> +       }
-> +       gc = desc->gdev->chip;
-> +       if (test_bit(FLAG_PASS_THROUGH, &desc->flags)) {
-> +               gpio_set_drive_single_ended(gc, gpio_chip_hwgpio(desc),
-> +                                           PIN_CONFIG_PASS_THROUGH);
-> +       } else {
-> +               gpiod_err(desc,
-> +                         "%s: desc->flags is not set to FLAG_PASS_THROUGH\n",
-> +                         __func__);
-> +               return -EIO;
-> +       }
-> +
-> +       return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(gpiod_direction_pass_through);
-
-I think you should skip this. I don't think users in the kernel need
-to dynamically set this up. It should be done as a flag in either
-device trees, machine tables or from explicit request from the
-character device ioctl().
-
->  #define FLAG_SYSFS     3       /* exported via /sys/class/gpio/control */
-> +#define FLAG_PASS_THROUGH 4 /*Gpio is passthrough type*/
-
-OK good.
-
-> @@ -124,6 +124,7 @@ enum pin_config_param {
->         PIN_CONFIG_SLEW_RATE,
->         PIN_CONFIG_SKEW_DELAY,
->         PIN_CONFIG_PERSIST_STATE,
-> +       PIN_CONFIG_PASS_THROUGH,
-
-Good.
-
-
-> diff --git a/include/uapi/linux/gpio.h b/include/uapi/linux/gpio.h
-> index 1bf6e6df084b..44d9876b4aa2 100644
-> --- a/include/uapi/linux/gpio.h
-> +++ b/include/uapi/linux/gpio.h
-> @@ -62,6 +62,7 @@ struct gpioline_info {
->  #define GPIOHANDLE_REQUEST_ACTIVE_LOW  (1UL << 2)
->  #define GPIOHANDLE_REQUEST_OPEN_DRAIN  (1UL << 3)
->  #define GPIOHANDLE_REQUEST_OPEN_SOURCE (1UL << 4)
-> +#define GPIOHANDLE_REQUEST_PASS_THROUGH (1UL << 5)
-
-Seems right, if we should support userspace.
-
-
-Things are missing from this patch set:
-
-- Adding the flag to include/linux/gpio/machine.h so we can set this
-  up from machine descriptor tables.
-- Adding the flag to include/dt-bindings/gpio/gpio.h
-  so we can set this from the device tree.
-
-Also code for handling both above ways of setting it up.
-
-And I think what you want to do with Aspeed is to set this up using
-device tree and not in userspace, unless you can explain some
-reason why you wouldn't do that and instead do this complex
-and dangerous system operation in userspace. Definately you
-want the system default to be set up from device tree and then
-that should support passthrough, right?
-
-I can't comment much on libgpiod, we'll see if we want this for
-userspace first.
-
-Yours,
-Linus Walleij
+SmVyZW15LA0KDQpUaGFua3MgZm9yIHBvc3RpbmcgdGhlIHJldmlldy4NCk1heSBJIHN1Z2dlc3Qg
+cmVxdWVzdGluZyBNQ1RQIHJlcG9zaXRvcnkgaW4gT3BlbkJNQyBnaXRodWIgZm9yIGVmZmVjdGl2
+ZSBjb2xsYWJvcmF0aW9uIHNpbWlsYXIgdG8gUExETSByYXRoZXIgdGhhbiB1c2luZyBwZXJzb25h
+bCBnaXRodWIgcmVwbz8NClRoaXMgd2lsbCBhbHNvIGF2b2lkIGR1cGxpY2F0aW5nIGVmZm9ydCBh
+bmQgd2lsbCBhbHNvIGVuY291cmFnZSBwYXJ0aWNpcGF0aW9uIGZyb20gbXVsdGlwbGUgY29udHJp
+YnV0b3JzLg0KDQpUaGFua3MsDQpTdXByZWV0aA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0t
+LQ0KRnJvbTogSmVyZW15IEtlcnIgPGprQG96bGFicy5vcmc+DQpTZW50OiBGcmlkYXksIEZlYnJ1
+YXJ5IDgsIDIwMTkgMTI6NDggQU0NClRvOiBCcmFkIEJpc2hvcCA8YnJhZGxleWJAZnV6emllc3F1
+aXJyZWwuY29tPg0KQ2M6IG9wZW5ibWMgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IEVtaWx5
+IFNoYWZmZXIgPGVtaWx5c2hhZmZlckBnb29nbGUuY29tPjsgRGF2aWQgVGhvbXBzb24gPGR0aG9t
+cHNvbkBtZWxsYW5veC5jb20+OyBEb25nIFdlaSA8RG9uZy5XZWlAYXJtLmNvbT47IFN1cHJlZXRo
+IFZlbmthdGVzaCA8U3VwcmVldGguVmVua2F0ZXNoQGFybS5jb20+OyBOYWlkb28sIE5pbGFuIDxu
+aWxhbi5uYWlkb29AaW50ZWwuY29tPg0KU3ViamVjdDogUmU6IEluaXRpYWwgTUNUUCBkZXNpZ24g
+cHJvcG9zYWwNCg0KSGkgQnJhZCwNCg0KPiBXZXJlIHlvdSBwbGFubmluZyBvbiBzdWJtaXR0aW5n
+IHRoaXMgdG8gdGhlIGRvY3MgcmVwb3NpdG9yeSBhcyBhDQo+IGRlc2lnbj8NCg0KWWVzISA6KQ0K
+DQo+IERvIHlvdSBuZWVkIHNvbWUgaGVscCB3aXRoIHRoYXQ/DQoNCkp1c3QgYSBudWRnZSBpbnRv
+IGRvaW5nIHNvLCB3aGljaCB5b3VyIGVtYWlsIHByb3ZpZGVkIQ0KDQpJJ3ZlIGp1c3QgcHVzaGVk
+IHRvIGdlcnJpdDoNCg0KICBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6L2Mvb3Bl
+bmJtYy9kb2NzLysvMTgwODkNCg0KLSB0aGlzIGlzIHRoZSBkb2MgdGhhdCBJJ2Qgb3JpZ2luYWxs
+eSBzZW50IG91dCAodG9wIG9mIHRoaXMgdGhyZWFkKSwgYW5kIGluY29ycG9yYXRpbmcgc3VnZ2Vz
+dGlvbnMgZGlzY3Vzc2VkIHRoZXJlLg0KDQpJbiB0aGUgbWVhbnRpbWUsIEkndmUgbWFpbmx5IGJl
+ZW4gd29ya2luZyBvbiB0aGUgcHJvdG90eXBlIHNrZXRjaGVzIGZvciB0aGUgTUNUUCBsaWJyYXJ5
+LCBhbmQgSSd2ZSBqdXN0IHB1c2hlZCB0aGF0IHRvbzoNCg0KICBodHRwOi8vZ2l0aHViLmNvbS9q
+ay1vemxhYnMvbGlibWN0cA0KDQpJdCdzIHZlcnkgcHJvdG90eXBleSBhdCB0aGlzIHN0YWdlLCBh
+bmQgSSdtIG9wZW4gdG8gaW5wdXQgYW5kIHB1bGwgcmVxdWVzdHMuIEknbSBnb2luZyB0byBiZSBx
+dWl0ZSBwZXJtaXNzaXZlIHdpdGggYWNjZXB0aW5nIGNoYW5nZXMgYXQgdGhpcyBlYXJseSBzdGFn
+ZS4uLg0KDQpJZiB3ZSBnbyBhaGVhZCB3aXRoIHRoZSBNQ1RQIGRlc2lnbnMsIGFuZCB3YW50IHRv
+IHVzZSB0aGlzLCBJJ2QgcHJvcG9zZSBtb3ZpbmcgaXQgZnJvbSBteSBwZXJzb25hbCBnaXRodWIg
+cmVwbyBpbnRvIC9vcGVuYm1jLyAoYWZ0ZXIgc3VpdGFibGUgdXBkYXRlcyB0byBnZXQgaXQgaW50
+byBPcGVuQk1DIHN0YW5kYXJkcywgb2YgY291cnNlKS4gUGF0Y2hlcyB3ZWxjb21lIQ0KDQpDaGVl
+cnMsDQoNCg0KSmVyZW15DQoNCklNUE9SVEFOVCBOT1RJQ0U6IFRoZSBjb250ZW50cyBvZiB0aGlz
+IGVtYWlsIGFuZCBhbnkgYXR0YWNobWVudHMgYXJlIGNvbmZpZGVudGlhbCBhbmQgbWF5IGFsc28g
+YmUgcHJpdmlsZWdlZC4gSWYgeW91IGFyZSBub3QgdGhlIGludGVuZGVkIHJlY2lwaWVudCwgcGxl
+YXNlIG5vdGlmeSB0aGUgc2VuZGVyIGltbWVkaWF0ZWx5IGFuZCBkbyBub3QgZGlzY2xvc2UgdGhl
+IGNvbnRlbnRzIHRvIGFueSBvdGhlciBwZXJzb24sIHVzZSBpdCBmb3IgYW55IHB1cnBvc2UsIG9y
+IHN0b3JlIG9yIGNvcHkgdGhlIGluZm9ybWF0aW9uIGluIGFueSBtZWRpdW0uIFRoYW5rIHlvdS4N
+Cg==
