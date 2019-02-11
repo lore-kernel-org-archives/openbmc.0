@@ -1,78 +1,79 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <linus.walleij@linaro.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linaro.org
+ (client-ip=2a00:1450:4864:20::143; helo=mail-lf1-x143.google.com;
+ envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Tt1MYvL5"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mLLXNe0L"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=linaro.org header.i=@linaro.org header.b="TOtT/47O"; 
+ dkim-atps=neutral
+Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com
+ [IPv6:2a00:1450:4864:20::143])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yZ1S61mTzDqJ5;
- Mon, 11 Feb 2019 16:22:52 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2B41D204B9;
- Mon, 11 Feb 2019 00:22:50 -0500 (EST)
-Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Mon, 11 Feb 2019 00:22:50 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:date:in-reply-to:subject:references; s=fm2; bh=XEv
- m6ZA+fGIUi8Lya1ekc4etlnANUbCvCdTjSErcXOM=; b=Tt1MYvL5gYpIBofVPfU
- cpVkNIH0lG6ak8cBvAOp+m2XCIdf6Q63H8J0qw0dHGVgtHItCqS0w0tVTieXJBaW
- LBKJGQBoSZ3DaCULNqKtRiKhcivTjHTS1zH4qNnRcCKivMnsGcAxs01cCxUL/hzR
- dZDNjHlb488CAOP7nGD/DV05YwWfw16DkQcl+3Cjz8sFI1RvYgXEOXAf8IIiz7JO
- 4avuk/f35OVXjyVmmKRIAXUaQTvjJqmDS7qIuhRU3xfdGusFW8b2OCwzF1A/DzbU
- 5f0odvcKVAvoDwatSIXW8qiyNAaoUAlSe+GT70gL73UBBF7G8WyjoK7JGkL96rNb
- 6ag==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=XEvm6ZA+fGIUi8Lya1ekc4etlnANUbCvCdTjSErcX
- OM=; b=mLLXNe0LhEWIjGyvs91BK8O9FRM7wESxmZR2uwszxh4+BUx0jo4Mz4VqK
- 4RfkDLJystsW7xOhmvPwZoqpjqlEz7UD6hN7sTAxIKTPBG8mQEOapoVAThlHHC1C
- 1CGHUoXbyO672wqKBH3vbN1OaLLIBNUbYN7yn/cvekkNOGxNZ1p11aVxfeJhS8MB
- P0spLaGN69mB+BVYOq8JNwnti7/kYa2VQRSXvPMdfy80SLau+nNCdSDdIKGHU9pv
- sW+ClOgI5Csfn5dvMNw3Br1gFDdD25ND+N/VwTXvLvStD5+YsKn1MXXtFBFIlduJ
- Bk2sfvE+8qDb7vGafE7tn98HXvsjw==
-X-ME-Sender: <xms:pwZhXJT-Wt9ozd2lC87w_CxlGyPiF5DR2h8LUpd-6PNn1A-VSscDQA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrleejgdekfecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- ffjgfufhesthhqredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
- rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
- gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:qAZhXJwdFkYuEL7KhCbEK4GHpsun36oAtFMV9XsRISm2FH-ibVyxmA>
- <xmx:qAZhXD3RvrfeedrXyvhSbUiaP9AooGEJvwcEfacp0W_qcOV9QdMb4A>
- <xmx:qAZhXP7yl08KySqHULpDy3HsSmwuseWYJxUgqEPfJFscRONCjwn8fw>
- <xmx:qgZhXN47dZJ_lYI6YXtCC5tsFNoriU5azvn6er8JrLmc95fCoraeig>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id D75CB9E009; Mon, 11 Feb 2019 00:22:47 -0500 (EST)
-Message-Id: <1549862567.1175306.1655243744.11AFF30D@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Vijay Khemka <vijaykhemka@fb.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Joel Stanley <joel@jms.id.au>,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ydhn42czzDqR6
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 19:08:41 +1100 (AEDT)
+Received: by mail-lf1-x143.google.com with SMTP id u21so1549572lfu.1
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 00:08:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=uxXwznqUP9TmNNlIeZ2S/QX+2H+5vNVNuMAI7j0s1Ww=;
+ b=TOtT/47OQPdHTTXRwdeytfJsQbaxZFlrxZxFnDw0fKjWs9TfYJIGea6VQg8ReeOw1i
+ lGqXGbsMfSspSidgf8uFuLm50LOltF2hO6deFih4KGnQTwTHoJQ7Q1NRaEfy2xEsjBY6
+ hb2iTSUfahnxryC9cJmOYiGRbQFFA2auIb6Uyitq2MKOMeNpF947JvVDYr0sh7jCB1/D
+ lGLHXLNUnS6Q3GdxQZccHQbsi/7mBSWedmvYPBwd/3ZpF5RO51N+eFVY1Ecu8Zy0widc
+ aT70em5CXVabVxdTKpF19S7iVDSHrFrcNEEySx2adjXO5HrGejlxwQDDRxT1pljfbEw4
+ amZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=uxXwznqUP9TmNNlIeZ2S/QX+2H+5vNVNuMAI7j0s1Ww=;
+ b=f8LEZmUJX+d3E20LXeqADEKMHsQO1in1Q3gz2j/pINGKm8YulEwRxCyVUKD4iq+Zy9
+ TIslvkEiLq5REvFuEPg/ElWN0hlf/YofKGwzPeVpJIL0EIuhEZz23ARTf3eAVIkp5NEL
+ Fqje7sNJ8Oagca5qNpsN1SacOlsyos9Qm+F59OVkoYlJJbrxqlUHIiGw1u8VSoNGeL8e
+ IOk55El7Eg1t8W8siTrpvZoant6j1SQmtux16uLOZHDfIFwaLfRCNwF87hlAm8QcjWnA
+ oMirazJVYXMpP6nhILVOkae8V5mgDFEeOFbnM7RQHEM4uAbefjvV16w7p7pS0PHShyW7
+ EwlA==
+X-Gm-Message-State: AHQUAuYx3AxQ1xA4OrLYKWGP+W8dDhd8d48i/fs/cPLTQzciMrsQrnbQ
+ eVA6334cKMEg0RnKz1DoEU2YYtim+Hu3IPsUIer1lA==
+X-Google-Smtp-Source: AHgI3IayLlO+RBa9Q42/dlp+AfoSx9B38Dyn4j92Hl7Qj5I0BIT4eQOL/kZrKgHIJA6EburSEKDRGd1VGqnYcn48tOs=
+X-Received: by 2002:a19:7dc2:: with SMTP id y185mr21934735lfc.27.1549872517719; 
+ Mon, 11 Feb 2019 00:08:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-950b8783
-Date: Mon, 11 Feb 2019 15:52:47 +1030
-In-Reply-To: <13C13AE8-63A4-4002-9E0D-70276C529448@fb.com>
-Subject: Re: [PATCH] misc: aspeed-lpc-ctrl: Correct return values
-References: <20190123230634.1815021-1-vijaykhemka@fb.com>
- <20190124081544.GA1649@kroah.com>
- <13C13AE8-63A4-4002-9E0D-70276C529448@fb.com>
+References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
+ <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
+ <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
+ <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
+ <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E440ABF@shsmsx102.ccr.corp.intel.com>
+ <CACRpkda6PZnoF83mYeTDYxqaFYLTp2jn=E6WJe6KptRuYbFLuQ@mail.gmail.com>
+ <959CAFA1E282D14FB901BE9A7BF4E7724E451F18@shsmsx102.ccr.corp.intel.com>
+ <CACRpkdaiLv94-bcE85E5TyRQWG-EXOCUVu0fLpOr++5_Q0Qqfw@mail.gmail.com>
+ <1549860867.1161225.1655227592.67A55C10@webmail.messagingengine.com>
+In-Reply-To: <1549860867.1161225.1655227592.67A55C10@webmail.messagingengine.com>
+From: Linus Walleij <linus.walleij@linaro.org>
+Date: Mon, 11 Feb 2019 09:08:25 +0100
+Message-ID: <CACRpkdbqGvRXtsTZwhDvd77H3Tpgt5H5YaATyEbyAGKJ-OhBzQ@mail.gmail.com>
+Subject: Re: Enable buttons GPIO passthrough
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: "Wang, Kuiying" <kuiying.wang@intel.com>, Joel Stanley <joel@jms.id.au>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Andrew Geissler <geissonator@gmail.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery,
+ Vernon" <vernon.mauery@intel.com>, 
+ "Feist, James" <james.feist@intel.com>, "Yoo,
+ Jae Hyun" <jae.hyun.yoo@intel.com>, 
+ "Nguyen, Hai V" <hai.v.nguyen@intel.com>, "Khetan,
+ Sharad" <sharad.khetan@intel.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,53 +85,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 05:22:53 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 08:08:42 -0000
 
-On Fri, 25 Jan 2019, at 05:59, Vijay Khemka wrote:
->=20
->=20
-> =EF=BB=BFOn 1/24/19, 12:16 AM, "Greg Kroah-Hartman" <gregkh@linuxfoundati=
-on.org> wrote:
->=20
->     On Wed, Jan 23, 2019 at 03:06:34PM -0800, Vijay Khemka wrote:
->     > Corrected some of return values with appropriate meanings.
->     >=20
->     > Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
->     > ---
->     >  drivers/misc/aspeed-lpc-ctrl.c | 15 +++++++--------
->     >  1 file changed, 7 insertions(+), 8 deletions(-)
->     >=20
->     > diff --git a/drivers/misc/aspeed-lpc-ctrl.c b/drivers/misc/aspeed-
-> lpc-ctrl.c
->     > index 332210e06e98..97ae341109d5 100644
->     > --- a/drivers/misc/aspeed-lpc-ctrl.c
->     > +++ b/drivers/misc/aspeed-lpc-ctrl.c
->     > @@ -68,7 +68,6 @@ static long aspeed_lpc_ctrl_ioctl(struct file=20
-> *file, unsigned int cmd,
->     >  		unsigned long param)
->     >  {
->     >  	struct aspeed_lpc_ctrl *lpc_ctrl =3D file_aspeed_lpc_ctrl(file);
->     > -	struct device *dev =3D file->private_data;
->     >  	void __user *p =3D (void __user *)param;
->     >  	struct aspeed_lpc_ctrl_mapping map;
->     >  	u32 addr;
->     > @@ -93,8 +92,8 @@ static long aspeed_lpc_ctrl_ioctl(struct file=20
-> *file, unsigned int cmd,
->     >=20=20
->     >  		/* If memory-region is not described in device tree */
->     >  		if (!lpc_ctrl->mem_size) {
->     > -			dev_err(dev, "Didn't find reserved memory\n");
->     > -			return -EINVAL;
->     > +			pr_err("aspeed_lpc_ctrl: ioctl: Didn't find reserved memory\n");
->=20=20=20=20=20
->     Why did you change from dev_err() to pr_err()?  You just lost a lot of
->     information that the user previously was getting from dev_err() :(
->=20
-> I did this as per review comment from Andrew Jeffery, as we don't want=20
-> to put this error for driver. It has to be handled by userspace. But I=20
-> am still reporting some error here.
+On Mon, Feb 11, 2019 at 5:54 AM Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Fri, 8 Feb 2019, at 22:31, Linus Walleij wrote:
 
-Sorry? What I was trying to suggest was removing the logging altogether and
-just returning the error code. Not simply changing how the logging is done.
+> > > +static int aspeed_gpio_pass_through(struct gpio_chip *chip, unsigned int offset,
+> > > +                                   unsigned long usecs)
+> > > +{
+> > > +       printk("kwin::aspeed_gpio_pass_through is called");
+> > > +       return 0;
+> > > +}
+> >
+> > I guess you want to actually implement this too :D
+>
+> Something to keep in mind is that the ASPEED pinctrl already supports configuring the
+> passthrough bits. What we don't want is to cause some inconsistent state between
+> the GPIO and pinmux subsystems by just whacking the bits directly.
+>
+> Looks like we should be able to make it work with PIN_MAP_MUX_GROUP() and using
+> some custom name for the state (maybe "passthrough")? It's a half-baked thought
+> though so I'm not sure if it's feasible let alone acceptable, but hopefully Linus can
+> comment.
 
-Andrew
+Since its a real odd thing this "passthrough" I would certainly prefer if you
+could keep it as a custom thing on the pin control side of things. Then I
+suppose that you set it up using the device tree and all is fine?
+
+What I'd like to hear from Kwin is a convincing story why Aspeed SoCs
+need to do this from userspace, as that seems to be his goal.
+
+Yours,
+Linus Walleij
