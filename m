@@ -1,74 +1,69 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32a; helo=mail-ot1-x32a.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="u+OtNv/t"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="hWRf4+bL"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="hilmcTtB"; 
+ dkim-atps=neutral
+Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
+ [IPv6:2607:f8b0:4864:20::32a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43z2BP3gM2zDqTb
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 10:32:13 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2334A2258B;
- Mon, 11 Feb 2019 18:32:10 -0500 (EST)
-Received: from web1 ([10.202.2.211])
- by compute4.internal (MEProxy); Mon, 11 Feb 2019 18:32:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:in-reply-to:date:references:subject; s=fm2; bh=+t7
- TRA3eZQTJ4YrAMfIaU/dsCYO2/XbRjCO/kxPqUJQ=; b=u+OtNv/tN6+QSxcVdMQ
- kq6WqdXsAFPhn11DdVqAGm4rhpp5Gm5hBIpcquWYQdAhYu20vEPDoO9tSDLS39f6
- 4SAr0+aOZ9PG+dyrdBCGRzqqU8MJbuadQoRlQU9Ko334IZ7eJVegn96Y8jk52Nxh
- MdnwU9Cu4uheYodl6QTofIxugGBdKePU8epdXtzxytTeM1scf44kJiXjyVovMqXU
- RpSWGZzQwMcYLljOHVRymJ7BFtmaZuSinWqu2j8kd/9KkcGGG+B/XvUS+paelNqM
- vEawz9wS0eijNO+ov0s477RGW6sULLP/da9OU9VPCayNgud7pgTphFR5H7H4zxe1
- Wmw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=+t7TRA3eZQTJ4YrAMfIaU/dsCYO2/XbRjCO/kxPqU
- JQ=; b=hWRf4+bL1uMEnANUGIQZP5ZeQpJWQ+42CyoaKsdvtNMfReZ5x9uXqGrAA
- Ot/9PN4PiLXixNDUSH8K+wpqb65CTZjx6WWKyidIze+FhN0V9JLOTynFQMpC8qvA
- 49U5ADO0+rjTt+ky2ZegxyrvuA6mzh8L1iYoyT9kHXg9M21zVpKcpAeoFPeHiJFf
- tUott1iQHVcpJo9AMbpd3WFIx2UDFOh1XQAp1BoMNZZes6x1P/4QSLaO7JdnrAXc
- Immxtxz89rWxRcH3AcMhDHln6VVc9qZL6qpgvZlmZrNlg8wbhsxEYyz+dfFVS6jr
- CM1MEi7Se1z4bNKDzsMWBdrZv1xPg==
-X-ME-Sender: <xms:-QViXGXUZ25Yr2Y9vp_RWws2JuzjwAO62ghOGK-cYrJUN3Q78O9QLg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddttddgudduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
- tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkhffvggfgtg
- fojgfffhfusehtjeertdertdejnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicu
- oegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprg
- hnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:-QViXOzYyJAZsADF7MXxv78pI7FpSR73x1Lh1pIvNrDN2EzLIfoOVw>
- <xmx:-QViXBjLyL6aEIZ1ZBeOdy5PMmDw0mYOsucD1C5CM8SidTqhl8ePCA>
- <xmx:-QViXI5roZrD3BXPBjY7X8NKA1rG7MYMLwLrscldziN_H4yIy1St0Q>
- <xmx:-gViXOe2bnT8OVMsy_4_vxrs0OwiIbUjrus0U3ywCHW1V5Vmep4JKw>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 76A5A942D4; Mon, 11 Feb 2019 18:32:09 -0500 (EST)
-Message-Id: <1549927929.1686694.1655933984.5318EBC3@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: Kun Yi <kunyi@google.com>
-Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43z2Nl06MJzDq78
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 10:41:10 +1100 (AEDT)
+Received: by mail-ot1-x32a.google.com with SMTP id n71so1271480ota.10
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 15:41:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=7+J+zFlmdxYeHKZVeEGntkOjkGwDNTscUfWaQPGpAwU=;
+ b=hilmcTtB254qDsn77WJ5tuJ1GMjaA6C7eLVL5kdrgI3k5aXcGKD0FAH2gZltkAyu/4
+ CgMhAHYlPdqa9Kr0Ehe6dgBRPxCf2N1hnboR9tZXIqWp2nZEZU/VT25hRP9EeN0HDwfq
+ jyNKerNFrYVRR9o6i65B09EzNVPbrNEH7TQjGqg+hprw8Bn/lGnhZpHVVC7sdo7N8Kj8
+ I6bBlg3Xwobje6ch9i4ccrJf/1EGHqWdxjWAlHFFJevWqbCmjPEFwlhBwX51YWX61mWT
+ rwUoj3EBNiUyI6X9hydCGoxWJab2msjRoBrgr69U3thmiA2pkHfgegWfJRnOjhjYKFRX
+ 6Ikw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=7+J+zFlmdxYeHKZVeEGntkOjkGwDNTscUfWaQPGpAwU=;
+ b=CtmCpkvlmZxCVqyLkrcef7sDRu4XeZHxl0gAJETmRcfoPZBugxSGi15JtZaVzdGI1x
+ h9UNVJRnpKbKQcx8M7EJVNIDuoH60YAf0SasFy6vWCtCBQOfy3FouK2pUcIIpzkO6WoJ
+ n5imY3iV5w0N9t2UC/79oWAYBdhx2vhK0HZp8AsWxvcohJ6K0hN6aLaNDZrho+InUBMu
+ vD8J7qSTv3hoD7kWkPv/IkAG3j/TCxOSiMmM0+5dWlsw6hvG2s45Ey6kdnxNu4pyi7Xy
+ FqsdS/qTfdmqnUKfhUs4zbl6+clKGDwPiNedmRlvjldxzEXvNd7idOAoBkudF6T4mY7c
+ N35A==
+X-Gm-Message-State: AHQUAua7jclSfCRfNm9wh06pYlg6M4bzXcGYn3844Bgn6RVh3ISrpov+
+ hHe6JPQuOLG/HvptMcMQF7autFU6
+X-Google-Smtp-Source: AHgI3Ia78uB1IoPQShvFaFx+s5QOTydHsBrtH3ACa1HGQnLZUF5gUL10oKRSATTXiJCkutYspywOww==
+X-Received: by 2002:a9d:4e08:: with SMTP id p8mr768921otf.116.1549928467997;
+ Mon, 11 Feb 2019 15:41:07 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id d3sm5128774otb.79.2019.02.11.15.41.07
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 11 Feb 2019 15:41:07 -0800 (PST)
+Subject: Re: Using Stale bot to clean up issues
+To: openbmc@lists.ozlabs.org
+References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
+ <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
+ <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
+Date: Mon, 11 Feb 2019 17:41:06 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-950b8783
-In-Reply-To: <CAGMNF6VM9SDm1c0hFLBYwSdwPHdEjA=a5ikbhJk3GFrYFwKNRQ@mail.gmail.com>
-Date: Tue, 12 Feb 2019 10:02:09 +1030
-References: <20180723145840.17856-1-andrew@aj.id.au>
- <20180723145840.17856-5-andrew@aj.id.au>
- <CAGMNF6VM9SDm1c0hFLBYwSdwPHdEjA=a5ikbhJk3GFrYFwKNRQ@mail.gmail.com>
-Subject: Re: [PATCH u-boot 4/4] aspeed: Disable unnecessary features
+In-Reply-To: <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,25 +75,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 23:32:14 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 23:41:12 -0000
 
-Hi Kun,
-
-It's probably safe to reply to this now :)
-
-On Sat, 15 Sep 2018, at 09:52, Kun Yi wrote:
-> Thanks for sending the patch Andrew. I think it's a viable solution since
-> linux upstream didn't like the idea of misc controls.
+On 2/8/19 6:23 PM, GUNNAR MILLS wrote:
 > 
-> My feature request would be that we add config options for selectively
-> turning these features on/off. For example, we actually use LPC2AHB and
-> PCIe2AHB downstream for host-BMC mailbox typed transfers.. It would be nice
-> if we could take this patch and define the flags to enable what we needed.
+> On 2/7/2019 5:13 PM, Ed Tanous wrote:
+>> Have we looked at what a majority of our issues are getting stale from?
+> 
+> 
+> Just in  openbmc/openbmc there is 467 issues. 281 are older than a year 
+> and 78 are older than 2 years.
+> Some of them are a lack of feedback from the submitter. A pretty large 
+> percentage I don’t know if they are still an issue.
 
-We've included the patch via bitbake but I think wee should work to get it applied to
-the u-boot repository. I think you're probably right - having some control over which
-features are enabled or disabled would be nice. The way I see this working is that
-the bitbake magic simply selects the desired configuration rather than applying the
-patch.
+Maybe what we need is a fix it week! Oh yeah, we have tried that. :) But 
+seriously, maybe just old issue review is good enough for now? 
+Priorities can change (increase) over time and some old forgotten issues 
+my be important enough to fix now, or may add an important twist for a 
+new design.
 
-Andrew
+I understand the desire to keep it open due to lack of resources for 
+fixing it, but a year? 2 years? Yeah, let's close 'em.
+
+> I feel this many issues is unmanageable. From the stale bot README:
+> "In the experience of the maintainers of this app—and the hundreds of 
+> other projects and organizations that use it—focusing on issues that are 
+> actively affecting humans is an effective method for prioritizing work.
+>
+> To some, a robot trying to close stale issues may seem inhospitable or 
+> offensive to contributors. But the alternative is to disrespect them by 
+> setting false expectations and implicitly ignoring their work. This app 
+> makes it explicit: if work is not progressing, then it's stale. A 
+> comment is all it takes to keep the conversation alive."
+
+As long as the issue is closed and not deleted. I just want someone to 
+be able to find an issue and reopen it, and retain all the previous 
+discussion history. Of course, that assumes that someone will search 
+closed issues before opening a new one, but still.
+
+> 
+> I feel strongly we should do something like this to manage our issues.
+
+SGTM.
+
+Where are you planning on hosting it?
+
+Kurt Taylor (krtaylor)
