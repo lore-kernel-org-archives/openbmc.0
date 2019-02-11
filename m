@@ -6,66 +6,72 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YIC4BbOl"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="MR/Lb9FZ"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="zHKFaVOF"; dkim-atps=neutral
+ header.b="aX0eN0vB"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yYS96Wy0zDqMk
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 15:57:29 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43yYgh1ZCyzDqMk
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:07:28 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1500921C4F;
- Sun, 10 Feb 2019 23:57:27 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 4A31921B20;
+ Mon, 11 Feb 2019 00:07:25 -0500 (EST)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Sun, 10 Feb 2019 23:57:27 -0500
+ by compute4.internal (MEProxy); Mon, 11 Feb 2019 00:07:25 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  message-id:from:to:mime-version:content-transfer-encoding
- :content-type:in-reply-to:date:subject:references; s=fm2; bh=vNM
- glOR7VHUA039dnDRfsR0B2E5tNchU0WTp2LMepnk=; b=YIC4BbOlFkYUjHYIyuf
- oM/Oomv6RCVdLHxQEyo/vXm/yUNbA62HyEx6ATPPJ8DwZv2UmySOZrkjKu6ihOtY
- 3T6tY3uBpLgwpc/My5+qscf9RNVwY1MUmRVC8DLq7GWRX8+cnK7HfQUZGxLvDnH2
- iXrKOng39vMokE6mw/AdxZW/Evq1A3H7KZ0pibw4BzcmS/UdS2Flx4o1r30FG/+F
- XIklheg65vqQTBDoSZBafylQeVubaT/MfxlpSQ5vhk2f/Lh8178NvT2Lg0CwrvOp
- DdBQXW4En1LT79XDbhYnLLFuPkDCUrGBm7APm5WHWHv5uh7lJtCjYG25dFg1A50Z
- CUQ==
+ :content-type:subject:date:in-reply-to:references; s=fm2; bh=MQ5
+ 78F+mZdo+XeLkoRu3YzfODsy0ZfpIdtj4HV2g9B8=; b=MR/Lb9FZfH7wtyM2pdk
+ 2TQZouCFetmlW3BvB1YqdKrQDDBQ/VrWZl9EOD+rG+bIk64y5KuQsC+lmY+SHxuj
+ AldD60Em5Pd6/2TiYU0symjm2g3lZ3tQoiBFDdH9BGqq0kXgAvAjOqtbp//0WVov
+ BgbR1PzMMwMXCuQGjBSREIQWHRgN6F89TbH8G8L7fPpZsb8GQXAQ+TmLFERjpqnn
+ kGTfHSEIYBh1aPZxQuorByCqHVFM5wdUpv7VdWwiQ2fnI1faLX7UOXhiGoR/a5D+
+ mcEuOEC44G8TNeEKT3BQfBFhoxw9oGl76m+yiOuXyWp+LLe8m1ff70dFq3qjgRb3
+ MUg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=vNMglOR7VHUA039dnDRfsR0B2E5tNchU0WTp2LMep
- nk=; b=zHKFaVOFbFI0OsHkyohmMS9KNCC9tJu4f/Ua56NG9BF9yGEQyY5aQz2Id
- Tm4FLpnZAEbrPHR5WKerIoqoimbowHny1amNVkgSl8qksXo1MsVoMUFE08lUQIbE
- E7/xXXSZvKuO5AQkzl3xMbY+cyj4/LvHLapptnEFTG3IJbF1JqPRw8MUKPG3deeS
- Hb4SYve80+lFEux7KnK4UcCqOxR7wbU9w8efP3sVgROj/KpYXUKONwqxf5NHD6iH
- gpe7zAmsM6T/q4rMd9zESnlT+O3QROIkzDCZWxLH248P7dDkIbo25k9yE9k4/pmN
- jgo/9497tf9A+SmwZqFowUNxouB+w==
-X-ME-Sender: <xms:tgBhXIIKWL4EQUy0v34U6i-2IkEJJTMfh3Rk5VZupQQYeMkB3uRrog>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrleejgdejjecutefuodetggdotefrodftvf
+ :x-sasl-enc; s=fm2; bh=MQ578F+mZdo+XeLkoRu3YzfODsy0ZfpIdtj4HV2g9
+ B8=; b=aX0eN0vBiUg7jCUXb/uNJt7DuRNOqzoBMnRd/W4EXOZncJ60MogUicTSJ
+ IfW431XgOS8jTycjWzK7BGEX7dcU0tS/5ziziGnMCu+soRR4mJJgFv01odajtT99
+ 0P0513mHuh+uuQR9Pkfe+9aGjUuFALRaBDtIjzMU4l9pHBujULSKSpBQyOrHhiM9
+ nziz5374oZ8lccW9X1jVPnb5+urXPpwdkgaYDXyhBRgpVzqhAghcVjWp5oqNHyXP
+ ABJmcZ+MGY/FSU6l/1yigli/kvUIZQFJjSeu7JzSGh7p71lAYYTODevb7cCnEjKi
+ nJPgSQQ5MmsKdnZIFYnFBYTcdVRkA==
+X-ME-Sender: <xms:DANhXA5E9MJ_SL4f8J6C8Czs6E0Rhx8AmG-8k23EbK6w_ZA8ewo8tw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrleejgdektdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucenucfjughrpefkhffvggfgtgfojgffufhfsehtjeertdertdejnecuhfhrohhmpe
- etnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfr
- rghrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhush
- htvghrufhiiigvpedt
-X-ME-Proxy: <xmx:tgBhXKhrN3T5PHY3mdquUyj7beuPr4ZlxEGzSUzhSacHQKX_gBGGJA>
- <xmx:tgBhXB_IxC4RLenboOQ7_Fp9_UlvBDnalTT2JD8USX1vxKIXdjA9Cw>
- <xmx:tgBhXIi66Z-M4kJnDIJskbNGDdZi9Ws9NsacO_vkqX5YwylsI9Gfeg>
- <xmx:twBhXOtrUTZsPN8drOcHtXivNfedDjSh69_P8-ASg0hUgmVCroMPcw>
+ tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
+ fuffgjfhesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
+ rghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrihhnpehgihhthhhusgdrtghomh
+ enucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucev
+ lhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:DANhXMqeObDruwoDei8dcmnImE4aIy-S-eX2J_prGZL66K6StLuTOg>
+ <xmx:DANhXOXnDGhS4J6mxmLoYAR9k_1vRvwMpHgTmgCBxtI4AbHio1rVQA>
+ <xmx:DANhXL7TOt-ZXPTlrFsCCbL38qo1GxuTThQJIQAt-sC76ozcZZ67PA>
+ <xmx:DQNhXDByS-4jfWeENQ_4dhAdrMroWOwGP5wChipYFkcBslWRE9tfzg>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 6E3559E524; Sun, 10 Feb 2019 23:57:26 -0500 (EST)
-Message-Id: <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
+ id 8B3019E524; Mon, 11 Feb 2019 00:07:24 -0500 (EST)
+Message-Id: <1549861644.1167682.1655236224.441279F1@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org
+To: Alexander Amelkin <a.amelkin@yadro.com>,
+ Stewart Smith <stewart@linux.ibm.com>, Lei YU <mine260309@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-950b8783
-In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
-Date: Mon, 11 Feb 2019 15:27:26 +1030
-Subject: Re: Secure boot for BMC
-References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
+Subject: Re: Romulus to use Virtual PNOR
+Date: Mon, 11 Feb 2019 15:37:24 +1030
+In-Reply-To: <5b47c893-274b-2d8f-355c-4f565ddc2579@yadro.com>
+References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+ <fdc48c10-5dc1-0fca-7b7c-d150307b9a37@yadro.com>
+ <87o97piwcp.fsf@linux.vnet.ibm.com>
+ <5b47c893-274b-2d8f-355c-4f565ddc2579@yadro.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,17 +83,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 04:57:30 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 05:07:29 -0000
 
-On Wed, 6 Feb 2019, at 00:44, Brad Bishop wrote:
-> Hi everyone
-> 
-> Does anyone have plans to provide a secure BMC boot implementation to
-> OpenBMC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who
-> all wants to collaborate on this before I submit a design template.
-> 
-> thx - brad
 
-I'm interested in secureboot discussions.
+On Thu, 7 Feb 2019, at 01:31, Alexander Amelkin wrote:
+> 
+> 06.02.2019 3:39, Stewart Smith wrote:
+> > Alexander Amelkin <a.amelkin@yadro.com> writes:
+> >> 25.01.2019 10:40, Lei YU wrote:
+> >>> This email is to notify that Romulus is going to use VirtualPNOR feature, if
+> >>> no objections are received.
+> >>>
+> >>> ...
+> >>>
+> >>> Any objections?
+> >> Well, the main concern is how it will affect vesnin, which is P8-based (like palmetto).
+> >>
+> >> All this virtual PNOR functionality is based on mbox/hiomap, which is
+> >> not supported for P8 in openpower firmware.
+> > For various reasons, this is now changing, so you'll be able to do hiomap
+> > on P8.
+> 
+> Could you please elaborate on this? Some GitHub issues or discussion 
+> threads anywhere?
+> 
+> The problem as we see it is that P8 must be supported everywhere 
+> throughout op-build components.
+> Even if there was no support in hostboot for hiomap being added, we 
+> could be able to add it ourselves. But that still wouldn't work with 
+> SBE, as while the SBE sources for P8 are public, they nonetheless 
+> require a proprietary toolchain to build that, I quote the README.md, 
+> "cannot be open-sourced". The op-build framework takes pre-built SBE 
+> binaries for P8.
+> 
+> Anyway, if hiomap support is indeed being added for P8, we'd love to 
+> know more about it.
+
+Hostboot support for hiomap on P8 has landed as of[1] (on the master-p8
+branch). This should with the latest skiboot stable releases once I've fixed up
+the P8 fallback support in skiboot master[2]. From there we need to get the
+BMC-side fixed up (add the hiomap daemon) and we should be good to go.
+
+[1] https://github.com/open-power/hostboot/commit/adb33e73b32c133dc9c6d23b695884d0d8c0ec9e
+[2] https://github.com/open-power/skiboot/issues/217
+
+> 
+> >
+> >> As a result, we suspect that palmetto and (what concerns us most)
+> >> vesnin will lose firmware update support completely.
+> > I think this is a valid concern, and I'd be concerned if there's tight
+> > coupling between VPNOR and the firmware update APIs.
+> 
+> So far it looks to me like there is such tight coupling.
+
+Yes, this is something I've been concerned about since its introduction.
+The coupling is unfortunate and should be unravelled IMO, but that's
+work that someone needs to take on.
 
 Andrew
