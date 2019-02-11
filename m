@@ -1,76 +1,82 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="au0EeWXf"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="CdO+l2gY"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yyvM5gqLzDqWF
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 08:03:59 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1BL2cu6120081
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:03:57 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qkenr4y38-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:03:56 -0500
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Mon, 11 Feb 2019 21:03:55 -0000
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 11 Feb 2019 21:03:54 -0000
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1BL3qsF23920728
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:53 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D8DD1B2066
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9EB06B2064
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43z1Jk2lhDzDqZy
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 09:52:38 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id D057322BCB;
+ Mon, 11 Feb 2019 17:52:35 -0500 (EST)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Mon, 11 Feb 2019 17:52:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:cc:mime-version:content-transfer-encoding
+ :content-type:in-reply-to:date:references:subject; s=fm2; bh=Kn3
+ +kOVYbTSADUmcPBdUie6J8U3XiEg+VvIRwwGLxmY=; b=au0EeWXfI+m+uZYCktq
+ +4wGWkkbhaDDRmxNm9gdxejtYLmrMgpbzOVM76D7lfNKt48avv9xlvvHQi9o9e33
+ MS31KpWPGdp/eboLgwgJ7J9GRcUhjk5cPPMA13C6R2+M+IKeUgxwE4fRfHNxvaeL
+ prTj3WHim3Vv/oI7tnSmneN8GQFmG67+jFZGze0Tsw/udpzU3gqEueR1ntZmFkWg
+ cdtAdIdFq34g0ouInAfAAGvYSqA9FIWF7hq6Q3SjKT5ZzvyG2BAWmXc3GxCIOVXk
+ NZefCPZxIamywJG4WBEgjogATEYv7F8Mc3ns/MBLXEdYCRyoRs86UKpPPxp4a/08
+ JhQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=Kn3+kOVYbTSADUmcPBdUie6J8U3XiEg+VvIRwwGLx
+ mY=; b=CdO+l2gYmwVIRR84mHoZdQVi3FMyrpJatTgu2Sbrp7+kIZpCsTOpVBQ2l
+ acHYNM01I1Qr0b7+qkyswZrY2SP+JL4tkMY+zLjRNziTb+L/Ohrr1OcLvCT9KjeR
+ 0Yg33WgaK1wYDFZ+/hx7vXt5sXKKa9Ym608fe8pcy24q8rlhv7DaLk2dtObfpNue
+ L4rDW1diMvsWQtIIaQg6VcAH6JlxVf7ZmYqbMNm2PSW12ZxW/WYPKyFPS/JMBWbX
+ 1fv1kFGlgOb8bm7KN3954dxdwmcq9sQ36XV3VLHK9sjQU9iq6lkCk2CUcvVDNjx6
+ wpMfWQZyPNZ+r2hJo4r7wWkaGBpIg==
+X-ME-Sender: <xms:svxhXJtUtlBfV3PI7RK0prnL3cB9FXuRh1jN7gvBoNov0qXIRoUKlg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddttddgtdefucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
+ tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkhffvggfgtg
+ fojgfffhfusehtjeertdertdejnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicu
+ oegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:svxhXGiizuI-JjmCkYFFTxXOyHDi4k_p0SLifN4MqT1moaYoY2o73Q>
+ <xmx:svxhXB8txE9E-Pn_FgFeJNC6lSNYiBo1gP0i6QXzxKDyKhYrxwKbnA>
+ <xmx:svxhXAv2uwpaLR7uR37OH-Bm1Kzj0BuQ6ij4MUEEdO3FALRLOXczpA>
+ <xmx:s_xhXMt5j2NlEJ2ZWRf-raxyql6VwtOQVNTjZvd5Ynl_2qUI8_qUUQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 7A727942D4; Mon, 11 Feb 2019 17:52:34 -0500 (EST)
+Message-Id: <1549925554.1671710.1655910736.5D2C2BD2@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Christian Svensson <bluecmd@google.com>
+Cc: Christian Svensson <blue@cmd.nu>,
+ =?utf-8?Q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
+ "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>,
+ Joel Stanley <joel@jms.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Mon, 11 Feb 2019 15:10:34 -0600
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: Design for Backup and Restore of BMC configuration settings
-X-Sender: anoo@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19021121-0060-0000-0000-00000309CD74
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010578; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000279; SDB=6.01159665; UDB=6.00605191; IPR=6.00940211; 
- MB=3.00025531; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-11 21:03:55
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19021121-0061-0000-0000-000048456C8D
-Message-Id: <6ecb1a2263e0632b8a39198aef71d60f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-11_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=1 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=591 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902110153
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-950b8783
+In-Reply-To: <CAEfeXvaYO4KRFYnsvfdEevzgNgCJTwY2EKsT6ow71hzK13HfMg@mail.gmail.com>
+Date: Tue, 12 Feb 2019 09:22:34 +1030
+References: <20181112142137.160970-1-bluecmd@google.com>
+ <21acbd66-c75c-d5e3-fcfb-fa75421a7879@kaod.org>
+ <CADiuDAQ1mjh56ibSd+tNq2NFiJFtLcAfyoC8fdd=y+4Mu+jD6w@mail.gmail.com>
+ <1542068863.1552891.1574692280.790D270F@webmail.messagingengine.com>
+ <CADiuDARPsPGkHP1HRm1RVP=G2scSLozSON3o5h_PuA3ngT5eXg@mail.gmail.com>
+ <CADiuDARu6fwudJjcfJ0=sDpjQvtsog+GT5gUWu1WPTzPejFaZg@mail.gmail.com>
+ <1547432051.2375740.1633677528.34818C65@webmail.messagingengine.com>
+ <CAEfeXvaYO4KRFYnsvfdEevzgNgCJTwY2EKsT6ow71hzK13HfMg@mail.gmail.com>
+Subject: Re: [PATCH] qemu: aspeed_timer: Use signed muldiv for timer resets
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,8 +88,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 21:04:00 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 22:52:41 -0000
 
-For those interested, proposal for a Backup and Restore of BMC 
-configuration settings up for review:
-https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18163/
+On Mon, 14 Jan 2019, at 17:48, Christian Svensson wrote:
+> On Mon, Jan 14, 2019, 03:14 Andrew Jeffery <andrew@aj.id.au wrote:
+> 
+> > On Fri, 11 Jan 2019, at 23:00, Christian Svensson wrote:
+> > > Ping. What's left to be done here?
+> >
+> > I've taken Cedric's tree and pushed it to openbmc/qemu master, so the patch
+> > is there. Did you send it upstream originally? That's where it should go,
+> > but that
+> > will probably require fixing the issue I pointed out last time.
+> >
+> 
+> Ah, wierd, I swore I checked the repository last week but I must have
+> checked my own fork or something. Thanks for pulling the patch.
+> 
+> As for fixing the issues, any specific concerns with the proposal I replied
+> with back in November?
+
+Sorry for the late reply here. What was the suggestion? I'll try to find the thread
+in the mean time.
+
+Andrew
