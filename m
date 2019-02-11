@@ -1,53 +1,46 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52c; helo=mail-pg1-x52c.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="APrHBil8"; 
- dkim-atps=neutral
-Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
- [IPv6:2607:f8b0:4864:20::52c])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yrDg3QxXzDqS9
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 03:03:31 +1100 (AEDT)
-Received: by mail-pg1-x52c.google.com with SMTP id z10so5139159pgp.7
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 08:03:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=rzx6fZb92L0fNwuQ3F12ZphNTswDc3pVHlaYMsnAQno=;
- b=APrHBil8KcnRPFXrbF6PdWXRzSbAqLg74bqMgUBALGnj6o5wZdxfn0SRhDFAI9iknr
- ilwy4ATyKYnpw4jjAbV+apvIX9+6rJB9bpfF99NGAA2VZkUwbTBim4LQe+hr4yXRTfzO
- gACKUjRg9Ugy+KyeNZiKDYj7o/ycQCv349GqI5OABu1tny2PjSCW/wFJtJ5gLcrxKUBg
- /k1jaQEHfqqygheHJj4EUTuPWUV9OO513G0i59+APmHhQROFnLX7hp0C5681IKmhqMw1
- co+o1aHOcWs9IvLHlXsKXKjTACENRivYb3F8OO69FXhBanWl6n/02y8BtREgEwYK4wpN
- Iiow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=rzx6fZb92L0fNwuQ3F12ZphNTswDc3pVHlaYMsnAQno=;
- b=p3CWe/SyzquH13pmvjq8fLHS6dNsctEt37MD50G02ZlmLw4LCKHTB40ooNLsfmZ0+b
- Ce7gPNIfISfqy3lB1wjh0OyzYmUuper1YLlMc5BZOraWHEIWfbOv0K7PJlf1RKMXbq7w
- vQvvmpYh9WwnoT21kUopn8pgtbRbify5rhCh4U8FKm8cO9GmIhcIt55n70shfZe7yCGA
- B5cpnP6LRHqBM5tKuUJSwiN7729qLGuiS9a7HSijUB9XLIMMPROJieRQQgjP2VtLveXx
- /NfRLfy3yGPricry00KH7Q/gsRXXF1tXfCGCqN+duIK9MPvk5IM/ZdxpWGKj5gMh2ze4
- VoWg==
-X-Gm-Message-State: AHQUAuaC6506JQNtWM4VUpBxxTVEcc10VRM6YYpWd7gQI1dEcEsWaMXC
- CoDJ9iQy1EqymUofvAYClKL8ZV4IEqX6wd4sVci4XDpkNYw=
-X-Google-Smtp-Source: AHgI3IbzTmw2I2zDWUFHRoBbrvKdnkk+pdvC/9FEW3XKIA5AWN59lUDr4ulzBg8Wx1Ihg6unHUj7ukm0DklXL4GBCK4=
-X-Received: by 2002:a62:7086:: with SMTP id l128mr37333329pfc.68.1549901008499; 
- Mon, 11 Feb 2019 08:03:28 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43yv2Y5NDPzDqX8;
+ Tue, 12 Feb 2019 05:09:56 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Feb 2019 10:09:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,359,1544515200"; d="scan'208";a="274201006"
+Received: from unknown (HELO [10.7.153.148]) ([10.7.153.148])
+ by orsmga004.jf.intel.com with ESMTP; 11 Feb 2019 10:09:53 -0800
+Subject: Re: [PATCH] i2c: aspeed: Add multi-master use case support
+To: Wolfram Sang <wsa@the-dreams.de>
+Cc: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Jarkko Nikula <jarkko.nikula@linux.intel.com>,
+ James Feist <james.feist@linux.intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>
+References: <20190116193958.6049-1-jae.hyun.yoo@linux.intel.com>
+ <20190208214849.GH12451@kunai>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <d26a95ac-41ab-91eb-bbae-e4143235e531@linux.intel.com>
+Date: Mon, 11 Feb 2019 10:09:53 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.3.3
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Mon, 11 Feb 2019 08:03:17 -0800
-Message-ID: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
-Subject: Host-side tools
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <20190208214849.GH12451@kunai>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,21 +52,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 16:03:32 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 18:09:59 -0000
 
-Brad,
+> Hmmm, the #ifdeffery quite increases with this patch. Maybe it is easier
+> to select I2C_SLAVE in Kconfig? I'll let you decide.
+> 
+> My code checkers found this:
+> 
+>      CPPCHECK
+> drivers/i2c/busses/i2c-aspeed.c:694:10: warning: Variable 'ret' is assigned a value that is never used. [unreadVariable]
+> 
 
-It's my understanding that host-side tools that cooperate with
-bmc-side tools should be in the same repo, hence why the host-side
-blobs stuff is in phosphor-ipmi-flash.  However, if I add any
-dependencies to the configuration for the BMC-side, those get in the
-way of configuring for the host-side.  Would it not make sense to
-sometimes have it split?  And if so, I would like to propose creating
-two repos, a blobs library host-side, and a flash tool host-side repo,
-so those can be neatly split and not have anything in their
-configuration file that's really bmc-side specific, like ipmid, or
-phosphor-dbus-interface, or something.
+Hi Wolfram,
 
-Thoughts?
+Yes, cppcheck pointed it out correctly. The assignment on the variable
+'ret' is not needed at there. Actually, the code should not be wrapped
+using I2C_SLAVE because a bus can also be in multi-master environment
+even when slave is not enabled. So the warning can be removed by below
+fix.
 
-Patrick
+---
+diff --git a/drivers/i2c/busses/i2c-aspeed.c 
+b/drivers/i2c/busses/i2c-aspeed.c
+index 9253ebccb008..882c4ab1d18a 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -655,7 +655,6 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter 
+*adap,
+  {
+         struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
+         unsigned long time_left, flags;
+-       int ret;
+
+         spin_lock_irqsave(&bus->lock, flags);
+         bus->cmd_err = 0;
+@@ -664,6 +663,8 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter 
+*adap,
+         if (!bus->multi_master &&
+             (readl(bus->base + ASPEED_I2C_CMD_REG) &
+              ASPEED_I2CD_BUS_BUSY_STS)) {
++               int ret;
++
+                 spin_unlock_irqrestore(&bus->lock, flags);
+                 ret = aspeed_i2c_recover_bus(bus);
+                 if (ret)
+@@ -691,7 +692,7 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter 
+*adap,
+                 if (bus->multi_master &&
+                     (readl(bus->base + ASPEED_I2C_CMD_REG) &
+                      ASPEED_I2CD_BUS_BUSY_STS))
+-                       ret = aspeed_i2c_recover_bus(bus);
++                       aspeed_i2c_recover_bus(bus);
+
+                 return -ETIMEDOUT;
+---
+
+The reason of adding changes at line 658 and 667 is to remove below
+cppcheck warning when the change at 694 is applied.
+
+[drivers/i2c/busses/i2c-aspeed.c:670]: (style) The scope of the variable 
+'ret' can be reduced.
+
+Can you please apply above changes on top of this patch? Or I can submit
+v2 with it.
+
+Thanks,
+Jae
