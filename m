@@ -1,49 +1,76 @@
-Return-Path: <jic23@kernel.org>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kernel.org
- (client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=jic23@kernel.org;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="lYXcDnWJ"; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yy2m3TY7zDqWw
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 07:25:19 +1100 (AEDT)
-Received: from archlinux (cpc91196-cmbg18-2-0-cust659.5-4.cable.virginm.net
- [81.96.234.148])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 88054218A4;
- Mon, 11 Feb 2019 20:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1549916717;
- bh=ZU8mpCMtSWR3dTI5Qdrc+P5N3tyVKzyPGycxg4RONzs=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=lYXcDnWJ5U+LH4kgLKvpP0P9eJHwaX88rukhOhso/1gvFMyogHd1HJHcFTnPCju+3
- a6AAPXrO8C0XzSX2NOFnAvFwGPXm+oU0UiXvfWQwggXYSZ24bBluiEVqhbpu3PXnXe
- a5H8iFfPIcTl7Nam2J0zKDuOB4AC2KMTTy/EZlxg=
-Date: Mon, 11 Feb 2019 20:25:11 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: gregkh@linuxfoundation.org, knaack.h@gmx.de, lars@metafoo.de,
- pmeerw@pmeerw.net, robh+dt@kernel.org, mark.rutland@arm.com,
- yuenn@google.com, venture@google.com, brendanhiggins@google.com,
- avifishman70@gmail.com, joel@jms.id.au, linux-iio@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] dt-binding: iio: remove rst node from NPCM ADC
- document
-Message-ID: <20190211202511.622d4c48@archlinux>
-In-Reply-To: <20190210204749.381445-1-tmaimon77@gmail.com>
-References: <20190210204749.381445-1-tmaimon77@gmail.com>
-X-Mailer: Claws Mail 3.17.3 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43yyvM5gqLzDqWF
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 08:03:59 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1BL2cu6120081
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:03:57 -0500
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qkenr4y38-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:03:56 -0500
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Mon, 11 Feb 2019 21:03:55 -0000
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 11 Feb 2019 21:03:54 -0000
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1BL3qsF23920728
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:53 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D8DD1B2066
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9EB06B2064
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 21:03:52 +0000 (GMT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+Date: Mon, 11 Feb 2019 15:10:34 -0600
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: Design for Backup and Restore of BMC configuration settings
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19021121-0060-0000-0000-00000309CD74
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010578; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000279; SDB=6.01159665; UDB=6.00605191; IPR=6.00940211; 
+ MB=3.00025531; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-11 21:03:55
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021121-0061-0000-0000-000048456C8D
+Message-Id: <6ecb1a2263e0632b8a39198aef71d60f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-11_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=1 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=591 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902110153
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,50 +82,8 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 20:25:21 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 21:04:00 -0000
 
-On Sun, 10 Feb 2019 22:47:49 +0200
-Tomer Maimon <tmaimon77@gmail.com> wrote:
-
-> Remove NPCM7xx rst node for preparing the NPCM ADC
-> document to describe ADC reset binding.
-> 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Applied to the togreg branch of iio.git and pushed out as testing
-for the autobuilders to play with it. Hopefully just in time
-for this cycle as I'll do a final pull request in a day or two.
-
-Thanks,
-
-Jonathan
-
-> ---
->  .../devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt          | 11 -----------
->  1 file changed, 11 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> index 1b8132cd9060..eb939fe77836 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> +++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-> @@ -14,11 +14,6 @@ Optional properties:
->  			   vref-supply is not added the ADC will use internal voltage
->  			   reference.
->  
-> -Required Node in the NPCM7xx BMC:
-> -An additional register is present in the NPCM7xx SOC which is
-> -assumed to be in the same device tree, with and marked as
-> -compatible with "nuvoton,npcm750-rst".
-> -
->  Example:
->  
->  adc: adc@f000c000 {
-> @@ -27,9 +22,3 @@ adc: adc@f000c000 {
->  	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
->  	clocks = <&clk NPCM7XX_CLK_ADC>;
->  };
-> -
-> -rst: rst@f0801000 {
-> -	compatible = "nuvoton,npcm750-rst", "syscon",
-> -	"simple-mfd";
-> -	reg = <0xf0801000 0x6C>;
-> -};
+For those interested, proposal for a Backup and Restore of BMC 
+configuration settings up for review:
+https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18163/
