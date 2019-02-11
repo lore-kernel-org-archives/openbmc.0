@@ -9,26 +9,20 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yw501mCnzDqMb
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 05:57:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43ywJY3J5gzDqTs
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 06:07:09 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 11 Feb 2019 13:57:36 -0500
+Date: Mon, 11 Feb 2019 14:07:38 -0500
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Jeremy Kerr <jk@ozlabs.org>
-Cc: Emily Shaffer <emilyshaffer@google.com>,
- David Thompson <dthompson@mellanox.com>,
- openbmc <openbmc@lists.ozlabs.org>,
- Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
- "Naidoo, Nilan" <nilan.naidoo@intel.com>, Dong Wei <Dong.Wei@arm.com>
-Subject: Re: Initial MCTP design proposal
-Message-ID: <20190211185736.dafbfc74n76r33pu@thinkpad.dyn.fuzziesquirrel.com>
-References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
- <20190207155131.gzntyqoflqfw5vld@thinkpad>
- <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: New repo request
+Message-ID: <20190211190738.l6dx7w2akay34w53@thinkpad.dyn.fuzziesquirrel.com>
+References: <AA5BE1BA-F0FE-452E-B935-989AE8C14AC0@fb.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+In-Reply-To: <AA5BE1BA-F0FE-452E-B935-989AE8C14AC0@fb.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,15 +34,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 18:57:08 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 19:07:09 -0000
 
->If we go ahead with the MCTP designs, and want to use this, I'd propose
->moving it from my personal github repo into /openbmc/ (after suitable
->updates to get it into OpenBMC standards, of course). Patches welcome!
+On Thu, Feb 07, 2019 at 06:40:41PM +0000, Vijay Khemka wrote:
+>Hi Brad,
+>We need a new repo fb-ipmi-oem for facebook oem IPMI message handling. Please let me know what are basic steps I need to follow.
+>
+>Regards
+>-Vijay
 
-There was some interest in performing a formal code review on Gerrit of
-what you have written thus far (or intend to distribute).
+Hi Vijay
 
-To that end I could create an initial empty repository in the openbmc
-namespace and you could push your tree there for review, when you are
-ready.  How does that sound?
+I've created openbmc/fb-ipmi-oem.  Have fun.
+
+thx - brad
