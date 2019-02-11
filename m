@@ -9,21 +9,20 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yvgc54ktzDqXB
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 05:38:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43yvx53HNPzDqXB
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 05:50:17 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 11 Feb 2019 13:39:04 -0500
+Date: Mon, 11 Feb 2019 13:50:46 -0500
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Ed Tanous <ed.tanous@intel.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Using Stale bot to clean up issues
-Message-ID: <20190211183904.dvva7vheuhz4ryok@thinkpad.dyn.fuzziesquirrel.com>
-References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
- <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
+To: Patrick Venture <venture@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Host-side tools
+Message-ID: <20190211185046.2lisomjnecvrd7eh@thinkpad.dyn.fuzziesquirrel.com>
+References: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
+In-Reply-To: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -35,23 +34,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 18:38:37 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 18:50:17 -0000
 
-On Thu, Feb 07, 2019 at 03:13:53PM -0800, Ed Tanous wrote:
+On Mon, Feb 11, 2019 at 08:03:17AM -0800, Patrick Venture wrote:
+>Brad,
 >
->
->On 2/7/19 11:26 AM, GUNNAR MILLS wrote:
->>
->> Is anyone opposed to using this bot to help clean up our issues?
->>
->
->Have we looked at what a majority of our issues are getting stale from?
->If a majority is lack of feedback from the submitter, I might be in
->favor, but we need to be careful we don't accidentally sweep things
->under the rug just because we don't have the manpower to get them fixed
->right away.
+>It's my understanding that host-side tools that cooperate with bmc-side
+>tools should be in the same repo,
 
-Can you elaborate on the need for care?  It isn't obvious to me.
-Thinking out loud... If an issue is closed by the bot that we didn't
-want closed, can't we just reopen it?  And if noone notices...it wasn't
-that important in the first place?
+Is this something I said at some point?  Where is this coming from?
+
+>hence why the host-side blobs stuff is in phosphor-ipmi-flash.
+>However, if I add any dependencies to the configuration for the
+>BMC-side, those get in the way of configuring for the host-side.  Would
+>it not make sense to sometimes have it split?  And if so, I would like
+>to propose creating two repos, a blobs library host-side, and a flash
+>tool host-side repo, so those can be neatly split and not have anything
+>in their configuration file that's really bmc-side specific, like
+>ipmid, or phosphor-dbus-interface, or something.
+
+I can make a repo if you would like.  Just let me know what you would
+like it called.
+
+That said, I think you can also probably do this in the same repo, if
+you wanted, by having different build targets - it might not make any
+sense to try and build both applications with a single invocation of
+configure - as you point out, they are being "configured" for vastly
+different runtime environments.
