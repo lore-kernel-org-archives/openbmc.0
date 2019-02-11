@@ -6,89 +6,66 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="deybHaG7"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="YIC4BbOl"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="NBPAe4P8"; dkim-atps=neutral
+ header.b="zHKFaVOF"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43yYNr1g0VzDqMl
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 15:54:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43yYS96Wy0zDqMk
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 15:57:29 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id E4FF421820;
- Sun, 10 Feb 2019 23:54:29 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 1500921C4F;
+ Sun, 10 Feb 2019 23:57:27 -0500 (EST)
 Received: from web3 ([10.202.2.213])
- by compute4.internal (MEProxy); Sun, 10 Feb 2019 23:54:29 -0500
+ by compute4.internal (MEProxy); Sun, 10 Feb 2019 23:57:27 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:subject:references:in-reply-to:date; s=fm2; bh=NgV
- mOo3E0ZIOdKbgI5ZEX9yfANcOLDQmSaPpXGp31CA=; b=deybHaG7CKSs85YqTxa
- iGhM6PL6U8P/ot6+ES+rWdHElmAqcfjpmn3HLrMEp1AHEh+aUvdddx3EBBl1jl5u
- rHAXMUmLcyXz21yOVUeJwsCv6YVYMKSknTn9bphIoxubD9L4LCxHGky0zB1hP9YR
- rd2x84b2boJDNYhlf3sS8HKXvUBm+Vrz5mynYqwHTXO6j3JRAn0fbcdL9rahxnYc
- wEORUBWy/8jwVB90DpkR5yM41ukuuS3Xp50aCxupyBwHirLD2NMA/ula5Vk2jCIy
- PH4HBYhTnfKIzhVp5uBOcaDtmXYbnL+IhGzKbIJzeSc94e2G2EOEk+hI7tdKEZUv
- VmQ==
+ message-id:from:to:mime-version:content-transfer-encoding
+ :content-type:in-reply-to:date:subject:references; s=fm2; bh=vNM
+ glOR7VHUA039dnDRfsR0B2E5tNchU0WTp2LMepnk=; b=YIC4BbOlFkYUjHYIyuf
+ oM/Oomv6RCVdLHxQEyo/vXm/yUNbA62HyEx6ATPPJ8DwZv2UmySOZrkjKu6ihOtY
+ 3T6tY3uBpLgwpc/My5+qscf9RNVwY1MUmRVC8DLq7GWRX8+cnK7HfQUZGxLvDnH2
+ iXrKOng39vMokE6mw/AdxZW/Evq1A3H7KZ0pibw4BzcmS/UdS2Flx4o1r30FG/+F
+ XIklheg65vqQTBDoSZBafylQeVubaT/MfxlpSQ5vhk2f/Lh8178NvT2Lg0CwrvOp
+ DdBQXW4En1LT79XDbhYnLLFuPkDCUrGBm7APm5WHWHv5uh7lJtCjYG25dFg1A50Z
+ CUQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
+ messagingengine.com; h=content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=NgVmOo3E0ZIOdKbgI5ZEX9yfANcOLDQmSaPpXGp31
- CA=; b=NBPAe4P894Jc/WkO+mlvDCNmg9QGSP2y8kRq7/qpzFykWqt0RxVZRi6Oz
- dDDJy4W1gufsX1P1b5OP2ChN4hB7bxW/LyDqIB+vN7MbPGf3OU0FIChgYmuM+/pD
- pV0G8m8uSH7Ca9eGakJvb3orO0+grlaFF0ZFi60H382l9Jduzy7GSnZg98REt/OF
- kQXX3rsLu4VH1WGMJn1CcIoAuwTzMdDgn7xbx4FMNnrFucX4xo089LIpr/TZG2iW
- BPPtvzuwvLqnuDpxPW4w9lzWys2SbxxW8YSCOzTAdNpXbTq3mD5skPq8nQxlKAB5
- OQ18KO8ZjxYZ1iZbMrq6YhzcIKx1Q==
-X-ME-Sender: <xms:AwBhXC9v6DiSyOChPwlA7hAa1ovvsN-t7aaaKE54JRzdE_3vql5o0w>
+ :x-sasl-enc; s=fm2; bh=vNMglOR7VHUA039dnDRfsR0B2E5tNchU0WTp2LMep
+ nk=; b=zHKFaVOFbFI0OsHkyohmMS9KNCC9tJu4f/Ua56NG9BF9yGEQyY5aQz2Id
+ Tm4FLpnZAEbrPHR5WKerIoqoimbowHny1amNVkgSl8qksXo1MsVoMUFE08lUQIbE
+ E7/xXXSZvKuO5AQkzl3xMbY+cyj4/LvHLapptnEFTG3IJbF1JqPRw8MUKPG3deeS
+ Hb4SYve80+lFEux7KnK4UcCqOxR7wbU9w8efP3sVgROj/KpYXUKONwqxf5NHD6iH
+ gpe7zAmsM6T/q4rMd9zESnlT+O3QROIkzDCZWxLH248P7dDkIbo25k9yE9k4/pmN
+ jgo/9497tf9A+SmwZqFowUNxouB+w==
+X-ME-Sender: <xms:tgBhXIIKWL4EQUy0v34U6i-2IkEJJTMfh3Rk5VZupQQYeMkB3uRrog>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrleejgdejjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecufedt
- tdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggfgtof
- fufhgjffesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceo
- rghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnh
- gurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:AwBhXOuO5zDohxzObYW52VmWEfugYwEto1wjNfjNYDWwnjiFvSdrrw>
- <xmx:AwBhXKNMZuoDpZWGWj2t-rcBmQaosieVqoVlNxESEM-8yhd21p13WQ>
- <xmx:AwBhXLjzYOkD0N6Q8qYfM18Va8-lMkbEApd_NirAVfTs7VeBAgswqA>
- <xmx:BQBhXDYcLBkm_Uu9lllTQ63rqI6Ig9_gmh3_U5vRh-Q3w0DI7iK2Ww>
+ tdenucenucfjughrpefkhffvggfgtgfojgffufhfsehtjeertdertdejnecuhfhrohhmpe
+ etnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfr
+ rghrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhush
+ htvghrufhiiigvpedt
+X-ME-Proxy: <xmx:tgBhXKhrN3T5PHY3mdquUyj7beuPr4ZlxEGzSUzhSacHQKX_gBGGJA>
+ <xmx:tgBhXB_IxC4RLenboOQ7_Fp9_UlvBDnalTT2JD8USX1vxKIXdjA9Cw>
+ <xmx:tgBhXIi66Z-M4kJnDIJskbNGDdZi9Ws9NsacO_vkqX5YwylsI9Gfeg>
+ <xmx:twBhXOtrUTZsPN8drOcHtXivNfedDjSh69_P8-ASg0hUgmVCroMPcw>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 9F6219E524; Sun, 10 Feb 2019 23:54:27 -0500 (EST)
-Message-Id: <1549860867.1161225.1655227592.67A55C10@webmail.messagingengine.com>
+ id 6E3559E524; Sun, 10 Feb 2019 23:57:26 -0500 (EST)
+Message-Id: <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Linus Walleij <linus.walleij@linaro.org>, "Wang,
- Kuiying" <kuiying.wang@intel.com>
-Cc: Joel Stanley <joel@jms.id.au>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, "Mauery,
- Vernon" <vernon.mauery@intel.com>, "Feist,
- James" <james.feist@intel.com>, "Yoo, Jae Hyun" <jae.hyun.yoo@intel.com>,
- "Nguyen, Hai V" <hai.v.nguyen@intel.com>, "Khetan,
- Sharad" <sharad.khetan@intel.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-950b8783
-Subject: Re: Enable buttons GPIO passthrough
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E41D8EE@shsmsx102.ccr.corp.intel.com>
- <CACPK8Xf_oEuG0=_-bRiaTAWpiw_qNEVVsW9_dtamwGcUM0JtRQ@mail.gmail.com>
- <CACRpkdbz0uqyDH9BJ9T7DvvPPomjh2BY2c=Wcd4zQF-7wSP7bw@mail.gmail.com>
- <1547434784.3014503.1633687936.2F06F402@webmail.messagingengine.com>
- <CACRpkdYPfyyQJ=RZGj+7Uv5g9_Bg_rS2OCWXLVpUWYYD2zG+4A@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43D003@shsmsx102.ccr.corp.intel.com>
- <CACRpkdazF1GkXcMK3_S_=cmpj086LckjskkDuE9R+FzWPPCmeQ@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E43DAA1@shsmsx102.ccr.corp.intel.com>
- <CACRpkdbcKLXFNpWWsNqrDa2U9QKnO7700n2-1gM64-v1+bkrTg@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E440ABF@shsmsx102.ccr.corp.intel.com>
- <CACRpkda6PZnoF83mYeTDYxqaFYLTp2jn=E6WJe6KptRuYbFLuQ@mail.gmail.com>
- <959CAFA1E282D14FB901BE9A7BF4E7724E451F18@shsmsx102.ccr.corp.intel.com>
- <CACRpkdaiLv94-bcE85E5TyRQWG-EXOCUVu0fLpOr++5_Q0Qqfw@mail.gmail.com>
-In-Reply-To: <CACRpkdaiLv94-bcE85E5TyRQWG-EXOCUVu0fLpOr++5_Q0Qqfw@mail.gmail.com>
-Date: Mon, 11 Feb 2019 15:24:27 +1030
+In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
+Date: Mon, 11 Feb 2019 15:27:26 +1030
+Subject: Re: Secure boot for BMC
+References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,27 +77,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 04:54:39 -0000
+X-List-Received-Date: Mon, 11 Feb 2019 04:57:30 -0000
 
-Hi  Kwin,
-
-On Fri, 8 Feb 2019, at 22:31, Linus Walleij wrote:
-> > +static int aspeed_gpio_pass_through(struct gpio_chip *chip, unsigned int offset,
-> > +                                   unsigned long usecs)
-> > +{
-> > +       printk("kwin::aspeed_gpio_pass_through is called");
-> > +       return 0;
-> > +}
+On Wed, 6 Feb 2019, at 00:44, Brad Bishop wrote:
+> Hi everyone
 > 
-> I guess you want to actually implement this too :D
+> Does anyone have plans to provide a secure BMC boot implementation to
+> OpenBMC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who
+> all wants to collaborate on this before I submit a design template.
+> 
+> thx - brad
 
-Something to keep in mind is that the ASPEED pinctrl already supports configuring the
-passthrough bits. What we don't want is to cause some inconsistent state between
-the GPIO and pinmux subsystems by just whacking the bits directly.
-
-Looks like we should be able to make it work with PIN_MAP_MUX_GROUP() and using
-some custom name for the state (maybe "passthrough")? It's a half-baked thought
-though so I'm not sure if it's feasible let alone acceptable, but hopefully Linus can
-comment.
+I'm interested in secureboot discussions.
 
 Andrew
