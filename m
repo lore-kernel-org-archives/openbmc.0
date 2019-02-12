@@ -1,60 +1,57 @@
-Return-Path: <venture@google.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52f; helo=mail-pg1-x52f.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::329; helo=mail-ot1-x329.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="b6dfv1fK"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DlXWz/N3"; 
  dkim-atps=neutral
-Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
- [IPv6:2607:f8b0:4864:20::52f])
+Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
+ [IPv6:2607:f8b0:4864:20::329])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43zTjT3MB6zDqLc
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 04:12:13 +1100 (AEDT)
-Received: by mail-pg1-x52f.google.com with SMTP id q206so1544974pgq.4
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 09:12:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zVFN3mPyzDqM5
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 04:36:24 +1100 (AEDT)
+Received: by mail-ot1-x329.google.com with SMTP id z19so5872345otm.2
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 09:36:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=snXmkm3VVIZ+K/tGK+mouDnrvNSBGw3QQYrfavgA9gQ=;
- b=b6dfv1fKCC94fxwsrzEjD3V4TvcUaM0ZZWAclBRJMiYxnVFg+/ZN5k6xsYsBDpG4mm
- jQF3XcC+vLvusHxWXvAcJppOsx8xSpnGIm7ZYNIkMFf0tdPYSAw7hA1wGLofH8RdxKyC
- Ke8dKWaSASS+Cde+zNW4zFxQEktKj6yQDE3f33oNpSIynLfDizW+6NN4WIp1BrIHRixy
- TNy8quwijJyfRHHenR9ok8OuWiEFH6AkcSoU2HJ/PYMNSsFmIxUo9Owijlg2Taq0CZu3
- L8rGTFYawUPOex3JDAm0e5PZuNc2GuVVgohXwVkfVWpu/rUDrGcLqoTjz6SasLJEd+3k
- uJWA==
+ :cc; bh=Oi3L8VGVQWDonRivjILiZfZ0yIPqMUNebd9MmtPqGYc=;
+ b=DlXWz/N353DxYu2ORYElYE6P6Yvwlg2SUlpwkXJH1vf6p/gXh34xB/0hxupQ50N+YN
+ kBknhqu7ryIbXn6KE+XS3nKxDTrcmDC6qg89Cidf0EiOWQT3xPdyI/TZQCPmowLA7x3b
+ XvoD9lOd6GnJYmSmpCoN3+HzDj1cRyjdIjL3wn/s6Hoe8VSnwzv1u5zQIMdasIkAJHXr
+ CfprAN54UBwSz8iCq3OTAoXOnXkcGSc7C2HBnHbVADld766DRSRprP+xF0SGltgsZG9Q
+ bjAv+lJAPsmNGTw8TK9Vwuuy53LWw+ASJA8KiFQ+sQUxss/IZps45WJJj5mbgE5uroHF
+ vdBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=snXmkm3VVIZ+K/tGK+mouDnrvNSBGw3QQYrfavgA9gQ=;
- b=FktHCQ1N0SLKMtTSsvw9JnmAWHKf23i+EpRzZbeMAqWABdWj9sEXQr+GPbzYEkg6FJ
- WzFieoIKiZXmsYIxpsV23NUFbLnyXTykPGoEWinKvjYdmGzKTImY8IMCXEFCE5VmK6/N
- zw0VirJL8lWJMgJE+DKCzB4B9eJbFi9b0UCkfpvQCj+X/znkgyuTyqsaz76AVxMgrJzM
- K+XMIVMytrq8d0jZ7umk/So6BM8oo75Q1O9ryn2iZFqiHhyp6jD/3bj9d9z+jULATEmV
- Puw1rhUBOidTpvTgh6Fqhvc9KofxN839FGZ/X178buFqDQFgE9qvn05rtxY3e+kJcUN4
- dkWA==
-X-Gm-Message-State: AHQUAua7tLnAznpOv2G7QNsOWhrJUOGRdaj8ZBFYDk42rOwlzXPItQHb
- lPBVSnreO3qmFZy/r5hKcMFnJu+P828Ma2M02kGrfA==
-X-Google-Smtp-Source: AHgI3IbSPZkHvFgr73l8+APt+OdYQRoLus91oGxWMHsV3Q0RB0c4/CX/ueXRTEk32fDNRTngoHZL0K7qy2cnPNhAFig=
-X-Received: by 2002:a63:125a:: with SMTP id 26mr4564295pgs.314.1549991530925; 
- Tue, 12 Feb 2019 09:12:10 -0800 (PST)
+ bh=Oi3L8VGVQWDonRivjILiZfZ0yIPqMUNebd9MmtPqGYc=;
+ b=Ti0ZbXJ2hbq/VrlAH2N1ntkYUf+SB+cynwOq6XYooy1tpb3sNUNBgTSPwedvJsVTeD
+ T/4muk7iW1aBtTWSfB+lmV9Tawh8A1/s1NTfdopuqWJmf/vLngHsVb3VYOOXX1gP59V/
+ +5y+rlJMnCPSL5QSQt/PEYXvV41up3H42j7W/csdH3W3ZiUTZ0+b+pM23z94zcA9CGrN
+ os1/Umm0e3x5b1F7/8g/NQubYrud7nkSYVSC3vjaFa8ROwHhryxQuuLMmIGl2z+rMMb+
+ ae/oelHBzSJ0Dgz3RNPUWTFYZrCUq4nE1dxsxGHqll9jJbPVCgkTo8tokyQH51IcWtg/
+ 6vjg==
+X-Gm-Message-State: AHQUAuYpWCYz2qZr7+dIxG6MfDRxBCA7c9XKVqCPira3+BpE5i+TiB2U
+ vCuuybSkKpVQfohdB1UFDMaDd2iaUxsd9EzTAbnKyn89
+X-Google-Smtp-Source: AHgI3IZb51mWcIl09+ovaWIt8lZ+tbfI0c5RPNBL59I7ZChRheXckY9r+6syY/S2hIf9mgs0GwKAAYs8391HpA8LOMw=
+X-Received: by 2002:a9d:7685:: with SMTP id j5mr5060542otl.150.1549992982196; 
+ Tue, 12 Feb 2019 09:36:22 -0800 (PST)
 MIME-Version: 1.0
-References: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
- <20190211185046.2lisomjnecvrd7eh@thinkpad.dyn.fuzziesquirrel.com>
- <CAPnigKm9Sce7DbBjKf7tGJrgVPyF=2u04GFPW4FTzeHKUHYhTg@mail.gmail.com>
- <CAO=notwCLir90VDFiNHWKwYHuKJ6k7TWrCECkWkAe3QKprc_hg@mail.gmail.com>
- <CAO=notyaqHWYHk3+wekPMLBK_==vwDT-+ccyNMxXPcRKwvPZDQ@mail.gmail.com>
-In-Reply-To: <CAO=notyaqHWYHk3+wekPMLBK_==vwDT-+ccyNMxXPcRKwvPZDQ@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 12 Feb 2019 09:11:59 -0800
-Message-ID: <CAO=notyKK7f_rwScw2UDuhJPv7rNJQj5sTpz8N-_M9iO+XR36A@mail.gmail.com>
-Subject: Re: Host-side tools
-To: William Kennington <wak@google.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CALLMt=rZvQ_yYHA9DmpHEbjNvaJgHPOkZ1qquxJp=ZYam-K-4Q@mail.gmail.com>
+ <eff505fb-cad7-b0a4-bf1c-42b3f79905d6@intel.com>
+ <CALLMt=rq8ykQJiqsatZrofv76mJX4g1c-Z8Ohu1J=mLGSEUuyA@mail.gmail.com>
+In-Reply-To: <CALLMt=rq8ykQJiqsatZrofv76mJX4g1c-Z8Ohu1J=mLGSEUuyA@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 12 Feb 2019 11:36:06 -0600
+Message-ID: <CALLMt=oBXo7EYZ7qXnAyxjPJH+z08GSQgdfGftwgJxMuz1DVDw@mail.gmail.com>
+Subject: Re: Redfish Software Updates in OpenBMC
+To: Ed Tanous <ed.tanous@intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -67,95 +64,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2019 17:12:14 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 17:36:25 -0000
 
-On Mon, Feb 11, 2019 at 3:07 PM Patrick Venture <venture@google.com> wrote:
+On Tue, Jan 22, 2019 at 9:26 AM Andrew Geissler <geissonator@gmail.com> wrote:
 >
-> On Mon, Feb 11, 2019 at 2:58 PM Patrick Venture <venture@google.com> wrote:
-> >
-> > On Mon, Feb 11, 2019 at 11:49 AM William Kennington <wak@google.com> wrote:
+> On Mon, Jan 14, 2019 at 11:04 AM Ed Tanous <ed.tanous@intel.com> wrote:
+>
+> > On 1/10/19 2:43 PM, Andrew Geissler wrote
+> > > Redfish defines a UpdateService schema[a]. An action available on the
+> > > UpdateService is a SimpleUpdate interface. I think the flow to use this would
+> > > look like this:
 > > >
-> > > As long as it's possible to build the host side tooling without
-> > > building any of the BMC side tooling and vice versa it sounds fine to
-> > > me.
-> >
-> > I've been doing a lot of host-side development lately and I was
-> > interested to know what the end result would be.  If someone ran the
-> > configuration just to use the tool, they might run into issues.  I've
-> > avoided using BMC-side libraries where possible to avoid host-side
-> > tool poisoning.
-> >
+> > > # Retrieve the URI to upload an image to
+> > > HttpPushUri = GET  /redfish/v1/UpdateService
 > > >
-> > > On Mon, Feb 11, 2019 at 10:51 AM Brad Bishop
-> > > <bradleyb@fuzziesquirrel.com> wrote:
-> > > >
-> > > > On Mon, Feb 11, 2019 at 08:03:17AM -0800, Patrick Venture wrote:
-> > > > >Brad,
-> > > > >
-> > > > >It's my understanding that host-side tools that cooperate with bmc-side
-> > > > >tools should be in the same repo,
-> > > >
-> > > > Is this something I said at some point?  Where is this coming from?
+> > > # Upload firmware image
+> > > ImageURI = POST HttpPushUri
 > >
-> > I don't have the exact email, and it might have been very very stale
-> > information.  But I'm glad to clear this up! :D
+> > As redfish is written, this is where the flow stops.  The BMC takes over
+> > from here, and updates itself.  One enhancement I'd really like to see
+> > made is to return a reference to a TaskService task, so we can track the
+> > progress as the update is applied.
 > >
-> > > >
-> > > > >hence why the host-side blobs stuff is in phosphor-ipmi-flash.
-> > > > >However, if I add any dependencies to the configuration for the
-> > > > >BMC-side, those get in the way of configuring for the host-side.  Would
-> > > > >it not make sense to sometimes have it split?  And if so, I would like
-> > > > >to propose creating two repos, a blobs library host-side, and a flash
-> > > > >tool host-side repo, so those can be neatly split and not have anything
-> > > > >in their configuration file that's really bmc-side specific, like
-> > > > >ipmid, or phosphor-dbus-interface, or something.
-> > > >
-> > > > I can make a repo if you would like.  Just let me know what you would
-> > > > like it called.
-> >
-> > Thanks.  I'm working on an IPMI blob toolset, such that there is a
-> > library that provides host-side blob tooling, and then the flash host
-> > toolset can link against that library and be used on the host.
-> >
-> > So that's my goal.  To get there I was thinking,
-> > phosphor-ipmi-blobs-tool (or ipmi-blobs-lib) and
-> > phosphor-ipmi-flash-tool for that side.  The argument against
-> > ipmi-blobs-lib is that there may end up being some basic tool there
-> > tool and not just the library -- do you have any preference in this
-> > case?
+> > My understanding is that SimpleUpdate is a flow where the BMC can pull
+> > down an image itself, so the URI is generally not something local to the
+> > BMC, but a remote server that the BMC can connect to.
 >
-> Reviewing my goals further, the idea of having an ipmi-blobs-lib or
-> ipmi-blobslib repo would be helpful.  I could do all the host-side
-> blob tooling there, and have that be a dependency of
-> phosphor-ipmi-flash-tool.  Which leaves me with two repo requests:
+> Looked like the Dell implementation was using it as a local pointer but I agree,
+> the specification seems to only support the remote server concept. This is
+> a feature we'll want (like for TFTP and such).
 >
-> ipmi-blobslib
-> phosphor-ipmi-flash-tool
+> >
+> > > The main issue with the above is the loss of our ability to have multiple
+> > > firmware images of the same type in a system and to be able to change the
+> > > priority of them to switch back and forth between them. It's also not obvious
+> > > to me what the target is for the BIOS when doing an update of it? There are OEM
+> > > options for both Actions and Properties if needed (but would be great to avoid).
+> >
+> > The piece I think you're missing is the new property that was added in
+> > redfish UpdateService 1.1.1 named HttpPushUriTargets.  It essentially
+> > allows you to define multiple targets for the push flow you outlined
+> > above, although I don't see anyone using it yet.
+> >
+> > https://github.com/openbmc/bmcweb/blob/c0eb9bd95afa900dc808dce7c2c5fa521ba828f5/static/redfish/v1/schema/UpdateService_v1.xml#L224
+> >
+> > If you want to implement SimpleUpdate, it also supports the Targets
+> > property, which lets you direct where you would like a given payload to
+> > be updated to:
+> >
+> > https://github.com/openbmc/bmcweb/blob/c0eb9bd95afa900dc808dce7c2c5fa521ba828f5/static/redfish/v1/schema/UpdateService_v1.xml#L74
+> >
+> > One design conflict I'm seeing is that Redfish wasn't really meant to
+> > separate out the upload and activate interfaces.  Personally, I like the
+> > Redfish approach better, as it simplifies things for the user.  Loading
+> > a target with firmware is a single step (upload), instead of 2 (upload
+> > then activate).  Most of the systems I know of use the single step process.
 >
-> You could add the phosphor prefix to the ipmi-blobslib if you wanted
-> for consistency since its' meant to work with and on the phosphor
-> environment.
+> Yeah, I'd like to stick with the default interface and I agree that the one
+> step process is easier. I would propose though that we add an OEM
+> "Priority" field so in instances where the system supports multiple
+> images for the same HttpPushUriTargets, the user would have an easy
+> way to switch back and forth. We use this a lot in development and
+> I know customers use it when they want to quickly roll back to a
+> previous update (when they were just testing out a new release or
+> run into issues with it). Some investigation will be required by me to
+> determine if the existing API's would support multiple firmware instances
+> for the same Target.
 
-Brad + William,
+I put a design doc up at
+https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18186/
+I hemmed and hawed a bit on whether it was needed but figured with all
+our recent community discussions, it's better to over communicate then
+under.
 
-I was thinking about this more -- w.r.t the configure script, i could
-put the blobs host-side library portion into the phosphor-ipmi-blobs
-repo and have it build and install a library.  And could use enable or
-disable to only check for things like phosphor-logging if it's being
-built for the BMC.  I'm just not sure what the idiomatic approach is
-for that -- or maybe a build variable, like "build-host-library=yes"
-or something.
-
-Patrick
-
->
->
-> >
-> > I'm definitely seeking suggestions on this.
-> >
-> > > >
-> > > > That said, I think you can also probably do this in the same repo, if
-> > > > you wanted, by having different build targets - it might not make any
-> > > > sense to try and build both applications with a single invocation of
-> > > > configure - as you point out, they are being "configured" for vastly
-> > > > different runtime environments.
+Andrew
