@@ -1,67 +1,44 @@
-Return-Path: <pengms1@lenovo.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=lenovo.com
- (client-ip=67.219.246.210; helo=mail1.bemta23.messagelabs.com;
- envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.52.148; helo=10.mo5.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=lenovo.com
-Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
- [67.219.246.210])
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 519 seconds by postgrey-1.36 at bilbo;
+ Tue, 12 Feb 2019 19:27:19 AEDT
+Received: from 10.mo5.mail-out.ovh.net (10.mo5.mail-out.ovh.net
+ [46.105.52.148])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43zFjC3XCgzDq6y
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 19:11:06 +1100 (AEDT)
-Received: from [67.219.247.54] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-3.bemta.az-d.us-east-1.aws.symcld.net id A8/46-09496-79F726C5;
- Tue, 12 Feb 2019 08:11:03 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupmleJIrShJLcpLzFFi42LJePGQSXd6fVK
- MQfMyZYtTLS9YHBg9zs9YyBjAGMWamZeUX5HAmtHedpS5YJ1ixbs1bA2Mu+S6GLk4hASeM0qs
- bZ3NBuHMZZRY92kRYxcjJwebgJbEwv97mEBsEQFLiSUP2oGKODiEBRwlpjyyhwi7STzuvsgOY
- etJXHu6jRnEZhFQlXje9x8szivgI3Hv9W+wMYwCYhLfT60Bs5kFxCXmTpvFCmJLCAhILNlznh
- nCFpV4+fgfK8gqCQF5iS2zBCHK8yT2LNvLCjFSUOLkzCcsExgFZiGZNAtJ2SwkZRBxHYkFuz+
- xQdjaEssWvmaGsc8ceMyELL6AkX0Vo3lSUWZ6RkluYmaOrqGBga6hoRGQ1jU0M9JLrNJN0Sst
- 1k1NLC7RNdRLLC/WK67MTc5J0ctLLdnECIyMlAKuRTsY3y1NP8QoycGkJMp7PTApRogvKT+lM
- iOxOCO+qDQntfgQowwHh5IEL2cdUE6wKDU9tSItMwcYozBpCQ4eJRFe7VqgNG9xQWJucWY6RO
- oUoyVH38Znc5k5ttwHkbtApBBLXn5eqpQ4bzzIPAGQhozSPLhxsDRyiVFWSpiXkYGBQYinILU
- oN7MEVf4VozgHo5IwLyvIFJ7MvBK4ra+ADmICOohLIQHkoJJEhJRUA6NVl/S/sC3zdX8wfrW6
- WO0w/4ZR4s7UWPXDC99Ep+6Q2MibczDjxgJ5kXv3E1NiTVjdd7UZHX7O/DXiHFPTT0Ue2wObv
- M6t3iQ+nSUzJWWFVlmy5ledWzsSdm94Xxv28aZh0FEHK9FvDX/i/GNyA3UkWaZ+1LM6FtXjaz
- 99S7eL3MN5hQ82+CuxFGckGmoxFxUnAgAkwQ1UHgMAAA==
-X-Env-Sender: pengms1@lenovo.com
-X-Msg-Ref: server-5.tower-426.messagelabs.com!1549959063!1700203!1
-X-Originating-IP: [104.232.225.2]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.31.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 20431 invoked from network); 12 Feb 2019 08:11:03 -0000
-Received: from unknown (HELO maesmtp01.lenovo.com) (104.232.225.2)
- by server-5.tower-426.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
- SMTP; 12 Feb 2019 08:11:03 -0000
-Received: from CNMAILEX02.lenovo.com (unknown [10.96.80.2]) by
- maesmtp01.lenovo.com with smtp
- (TLS: TLSv1/SSLv3,256bits,ECDHE-RSA-AES256-SHA384)
- id 463e_f3bc_22204512_cb59_4041_89f2_898343c4035d;
- Tue, 12 Feb 2019 08:11:02 +0000
-Received: from CNMAILEX01.lenovo.com ([169.254.9.132]) by
- CNMAILEX02.lenovo.com ([10.96.80.2]) with mapi id 14.03.0415.000; Tue, 12 Feb
- 2019 16:10:04 +0800
-From: Andrew MS1 Peng <pengms1@lenovo.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: How should we have our own releases and version numbers?
-Thread-Topic: How should we have our own releases and version numbers?
-Thread-Index: AdTCqFacC12jibo+Sd+yRJsfgPp14Q==
-Date: Tue, 12 Feb 2019 08:10:02 +0000
-Message-ID: <264283F7338E734E863366C752FEABBC2D222A13@CNMAILEX01.lenovo.com>
-Accept-Language: en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.96.19.89]
-Content-Type: multipart/alternative;
- boundary="_000_264283F7338E734E863366C752FEABBC2D222A13CNMAILEX01lenov_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zG3q1nHNzDqLC
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 19:27:17 +1100 (AEDT)
+Received: from player772.ha.ovh.net (unknown [10.109.159.69])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id B900521B559
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 09:18:34 +0100 (CET)
+Received: from kaod.org (102.221.90.212.static.wline.lns.sme.cust.swisscom.ch
+ [212.90.221.102]) (Authenticated sender: clg@kaod.org)
+ by player772.ha.ovh.net (Postfix) with ESMTPSA id 9735D296C83B;
+ Tue, 12 Feb 2019 08:18:31 +0000 (UTC)
+Subject: Re: Issues with SPI NOR flash
+To: Andrew Jeffery <andrew@aj.id.au>, Aaron Williams <awilliams@marvell.com>, 
+ openbmc@lists.ozlabs.org
+References: <2947580.vCq4SJ4yDf@awilliams-suse>
+ <1549925829.1673864.1655912104.34B09B10@webmail.messagingengine.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <89d815b2-2b9f-b132-5a9d-c4995b7637dd@kaod.org>
+Date: Tue, 12 Feb 2019 09:18:20 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
+In-Reply-To: <1549925829.1673864.1655912104.34B09B10@webmail.messagingengine.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 9320480903886244610
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedtledrledvgdduvddvucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,120 +50,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2019 08:11:12 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 08:27:19 -0000
 
---_000_264283F7338E734E863366C752FEABBC2D222A13CNMAILEX01lenov_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hello,
 
-Hi All,
+On 2/11/19 11:57 PM, Andrew Jeffery wrote:
+> Hi Aaron,
+> 
+> On Tue, 8 Jan 2019, at 21:52, Aaron Williams wrote:
+>> Hi all,
+>>
+>> I'm running into a problem with the SPI NOR connected to our host processor. 
+>> We're using a Macronix MX25L25645GMI-08G connected to the spi1 device on an 
+>> AST2500. This device is muxed between our host processor and the BMC. When our 
+>> host processor is powered off, the BMC has exclusive access to it.
 
-We would like to have a specific Fw version numbers when release image and =
-see the firmware revision from ipmi get device command (0x06, 0x01), thus w=
-e created os-release.bbappend<https://github.com/LenovoHS/openbmc/blob/mast=
-er/meta-lenovo/meta-hr630/recipes-core/os-release/os-release.bbappend> file=
-, but the version_id property can't be overwritten by our bbappend file. Co=
-uld someone give me an advice?
+yes but there could be different (incompatible) states in the SPI controller 
+drivers on each kernel (BMC, Host) and in the flash module as well. That is 
+why having only one side doing the control is usually preferred.  
 
-Thanks.
-Andrew
+>> Anyway, the behavior is that I can read the SPI NOR without any difficulty, 
+>> however, when I write to it the SPI nor appears to be filled with garbage. 
+>> I had to guess, I'd guess that the SPI driver is not waiting for the SPI NOR 
+>> to complete the write operation before moving to the next block.
 
---_000_264283F7338E734E863366C752FEABBC2D222A13CNMAILEX01lenov_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+When the host is powered off, you seem to be able to read the PNOR correctly, 
+(I assume you did the write from the host side then) but the first write from 
+the BMC trashes the contents ?  
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@PMingLiU";
-	panose-1:2 1 6 1 0 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:DengXian;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:DengXian;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:DengXian;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif;mso-fareast-language:ZH-TW">Hi All,<o=
-:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif;mso-fareast-language:ZH-TW"><o:p>&nbs=
-p;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">We would like to have a specific Fw =
-version numbers when release image and see the firmware revision from ipmi =
-get device command (0x06, 0x01), thus we created
-<a href=3D"https://github.com/LenovoHS/openbmc/blob/master/meta-lenovo/meta=
--hr630/recipes-core/os-release/os-release.bbappend">
-os-release.bbappend</a> file, but the version_id property can't be overwrit=
-ten by our bbappend file. Could someone give me an advice?<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Thanks.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Andrew</span><span lang=3D"EN-US" st=
-yle=3D"font-size:12.0pt;font-family:&quot;Calibri&quot;,sans-serif;mso-fare=
-ast-language:ZH-TW"><o:p></o:p></span></p>
-</div>
-</body>
-</html>
+>> Here is the relevant section from our device tree:
+>>
+>> &spi1 {
+>> 	status = "okay";
+>> 	flash@0 {
+>> 		status = "okay";
+>> 		compatible = "jedec,spi-nor", "spi-nor";
+>> 		label = "host";
+>> 		m25p,fast-read;
+>> 		spi-tx-bus-width = <1>;
+>> 		spi-rx-bus-width = <1>;
+>> 		spi-max-frequency = <50000000>;
+>> 		partitions {
+>> 			compatible = "fixed-partitions";
+>> 			#address-cells = <1>;
+>> 			#size-cells = <1>;
+>>
+>> 			bootloader@0 {
+>> 				reg = <0x0 0x1000000>;
+>> 				label = "host-
+>> bootloader";
+>> 			};
+>> 			kernel@1000000 {
+>> 				reg = <0x1000000 
+>> 0x1000000>;
+>> 				label = "host-kernel";
+>> 			};
+>> 		};
+>> 	};
+>> };
+>>
+>> Note that our host is also running 4.19 and has no trouble writing to the SPI 
+>> NOR. The corruption seems worse when flashcp is used compared to just cp. I 
+>> noticed that flashcp writes in 4K blocks. The Macronix device has a 256 byte 
+>> page buffer. I have tried slowing down the bus to 5MHz and that made no 
+>> difference. Note that we are currently using single bit mode for both the host 
+>> and BMC processors for this flash, though we plan to move to move to QPI on 
+>> the host processor later.
 
---_000_264283F7338E734E863366C752FEABBC2D222A13CNMAILEX01lenov_--
+What about 4BYTE mode ? have you checked in which mode the flash device is 
+left by the host ? That could be a problem. 
+
+C. 
+
+>> Before the write operation the host processor has not had any access to the 
+>> SPI NOR. The host is powered down and the BMC is rebooted to force a clean 
+>> state.
+>>
+> 
+> Did you find the problem? I've added Cédric to Cc in case you haven't - he
+> should be able to answer questions about the flash stack.
+> Andrew
+> 
