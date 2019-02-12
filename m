@@ -1,51 +1,66 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <gkeishin@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::82d; helo=mail-qt1-x82d.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=gkeishin@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="ksCBvYYr"; 
- dkim-atps=neutral
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43zKXB4Dy3zDqM7
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 22:03:38 +1100 (AEDT)
-Received: by mail-qt1-x82d.google.com with SMTP id w4so2421105qtc.1
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 03:03:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=Z3PQ1NLBEnhIHX+tKmBobI/axZwsfncrf5ZfUNFvO9k=;
- b=ksCBvYYrWmRReN6c+hZNs1o0ArH4KJxNFgLxwJlAxB3zwW/3nmWh09JMtfni8fp7y+
- Ks1ekJ1iEl9idmy+PNn4L9l2OVtJJmyLWEl90z+p2gugw09v9iK7DDQ5GJ4KztOXlNwX
- BlmIdpYud6ZEY7vagwMNOa2OFOwWWqxSW72pg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=Z3PQ1NLBEnhIHX+tKmBobI/axZwsfncrf5ZfUNFvO9k=;
- b=rvVPOWGYEJkNXdRT6dsD05cJRzn1JXvz7YwOWQEA2NLk51uOSzIJoIK1LVAGTFAX/D
- HwyN8K+5ZqXLNb9K2RLxEN85JvqNo1A9Z2eUt+mScw37+Y9C1UyT8Y427p9x7ZWdJ17y
- 4dMntvKGPYAtReXsO/ag6XtEKbhSIBsscokSIvUbG0UvKCUd8wXhV+AgkWEvvlEa5URP
- YDbrxeivX47/zCJnZyXWgSRC1w3dF50S9jcfm2mp218CX2qn+7wofu/wVnjKHrCSZnR4
- ZWpvcUwGl+gD7koJ58On3lKn1UuJhXsgqRkU9PlXCYbzqcFzwqiO5QEXHOCVQ1TkLZT+
- lvDA==
-X-Gm-Message-State: AHQUAub2u3GEvKWuJxMv88ijKFaFaR+pQngrvKHMBrL8vCyVcwDcs7Or
- 6eQ3T+mrgLlryjhgYz/S9xV/PnJBLWtDP+ujwf0=
-X-Google-Smtp-Source: AHgI3IZX8bMd7bv6fV80FY3I+2jOJLxQLiw4IUIRa/sh0Wo4heJIOGuaBT4cT+UIrtUIjVLlZALOQyWmIYqra3qp8gk=
-X-Received: by 2002:ac8:29b7:: with SMTP id 52mr2260048qts.266.1549969415826; 
- Tue, 12 Feb 2019 03:03:35 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zPQV3bHbzDqNk
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 00:58:57 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1CDtr8E132258
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 08:58:55 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.90])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qkww9ma7h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 08:58:55 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <gkeishin@in.ibm.com>;
+ Tue, 12 Feb 2019 13:58:54 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.141) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 12 Feb 2019 13:58:51 -0000
+Received: from us1a3-mail113.a3.dal06.isc4sb.com ([10.146.6.4])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2019021213585116-541806 ;
+ Tue, 12 Feb 2019 13:58:51 +0000 
+In-Reply-To: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org
+Subject: Re: Secure boot for BMC
+From: "George Keishing" <gkeishin@in.ibm.com>
+Date: Tue, 12 Feb 2019 19:28:51 +0530
+References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
 MIME-Version: 1.0
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 12 Feb 2019 21:33:24 +1030
-Message-ID: <CACPK8XcrM9tT6WgaNAPDTmSMFEC4qb3ETx5uVj2UrrB396tMGg@mail.gmail.com>
-Subject: ppc64 asan issue
-To: "William A. Kennington III" <wak@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Content-Type: text/plain; charset="UTF-8"
+X-KeepSent: 92324BB0:102A5073-0025839F:004C43BD;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP10 SHF68 March 06, 2018
+X-LLNOutbound: False
+X-Disclaimed: 62395
+X-TNEFEvaluated: 1
+x-cbid: 19021213-9717-0000-0000-00000B01663B
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.433748; ST=0; TS=0; UL=0; ISC=; MB=0.046680
+X-IBM-SpamModules-Versions: BY=3.00010583; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000279; SDB=6.01159998; UDB=6.00605394; IPR=6.00940550; 
+ BA=6.00006229; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025545; XFM=3.00000015;
+ UTC=2019-02-12 13:58:53
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-02-12 13:00:53 - 6.00009577
+x-cbparentid: 19021213-9718-0000-0000-0000438D73B1
+Message-Id: <OF92324BB0.102A5073-ON0025839F.004C43BD-6525839F.004CCCA3@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="=_alternative 004C61E26525839F_="
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-12_08:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,42 +72,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2019 11:03:40 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 13:58:59 -0000
 
-Hi William,
 
-I saw this change to our build scripts, where we disable the sanitiser
-for ppc64:
+--=_alternative 004C61E26525839F_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
 
-https://github.com/openbmc/openbmc-build-scripts/commit/282e33011ea62fe80bff2c5ab0e9ef9446d6c551
+From:   Brad Bishop <bradleyb@fuzziesquirrel.com>
+To:     openbmc@lists.ozlabs.org
+Date:   02/05/2019 07:44 PM
+Subject:        Secure boot for BMC
+Sent by:        "openbmc"=20
+<openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org>
 
-It would be great if you could open a bug report about this one. As a
-starting point it should file it against GCC, but even an openbmc
-issue would be a good start.
 
-I did some investigation myself and I could reproduce the failure on
-GCC 7 on Ubuntu 18.04 ppc64le. It didn't happen with GCC 8, nor with
-GCC trunk.
 
-However even GCC 7 took a few compiles before I started hitting the
-issue, so my testing may have not been comprehensive.
+Hi everyone
 
-Cheers,
+Does anyone have plans to provide a secure BMC boot implementation to
+OpenBMC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who
+all wants to collaborate on this before I submit a design template.
 
-Joel
+thx - brad
 
---
-My testing looked like this:
 
-$ cat san.c
-#include <stdlib.h>
-#include <stdio.h>
 
-int main()
-{
-    void *p = malloc(4);
-    printf("%p\n", p);
-    return 0;
-}
-$ gcc -fsanitize=address -o san{,.c}
-$ ./san
+> I'm interested in secureboot discussion.
+
+> Thnx- George
+
+
+--=_alternative 004C61E26525839F_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="US-ASCII"
+
+<span style=3D" font-size:9pt;color:#5f5f5f;font-family:sans-serif">From:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">Brad
+Bishop &lt;bradleyb@fuzziesquirrel.com&gt;</span><br><span style=3D" font-s=
+ize:9pt;color:#5f5f5f;font-family:sans-serif">To:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">openbmc@lists.ozlabs.org</span><br><span style=3D" font-size:9=
+pt;color:#5f5f5f;font-family:sans-serif">Date:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">02/05/2019
+07:44 PM</span><br><span style=3D" font-size:9pt;color:#5f5f5f;font-family:=
+sans-serif">Subject:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">Secure
+boot for BMC</span><br><span style=3D" font-size:9pt;color:#5f5f5f;font-fam=
+ily:sans-serif">Sent
+by: &nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-fa=
+mily:sans-serif">&quot;openbmc&quot;
+&lt;openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org&gt;</span><br><h=
+r noshade><br><br><br><tt><span style=3D" font-size:10pt">Hi everyone<br><b=
+r>Does anyone have plans to provide a secure BMC boot implementation to<br>=
+OpenBMC in the 2.7 or 2.8 timeframe? &nbsp;Just trying to get a feel for
+who<br>all wants to collaborate on this before I submit a design template.<=
+br><br>thx - brad<br><br></span></tt><br><br><span style=3D" font-size:10pt=
+;font-family:sans-serif">&gt; I'm interested
+in secureboot discussion.</span><br><br><span style=3D" font-size:10pt;font=
+-family:sans-serif">&gt; Thnx- George</span><BR>
+--=_alternative 004C61E26525839F_=--
