@@ -1,59 +1,61 @@
 Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::52a; helo=mail-pg1-x52a.google.com;
+ (client-ip=2607:f8b0:4864:20::52f; helo=mail-pg1-x52f.google.com;
  envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="saRN7NFW"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="b6dfv1fK"; 
  dkim-atps=neutral
-Received: from mail-pg1-x52a.google.com (mail-pg1-x52a.google.com
- [IPv6:2607:f8b0:4864:20::52a])
+Received: from mail-pg1-x52f.google.com (mail-pg1-x52f.google.com
+ [IPv6:2607:f8b0:4864:20::52f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43zSxM2nBszDqNQ
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 03:37:26 +1100 (AEDT)
-Received: by mail-pg1-x52a.google.com with SMTP id v28so1484027pgk.10
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 08:37:26 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zTjT3MB6zDqLc
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 04:12:13 +1100 (AEDT)
+Received: by mail-pg1-x52f.google.com with SMTP id q206so1544974pgq.4
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 09:12:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=FO7/3r8p3sVaKKELNmstzmL+rF3o3N5IPbi+4f4ktJc=;
- b=saRN7NFWiPWDJHblGoIY8I4w/hrdVpfm6zRoIzMKolFicoidqRCYcTlJE42JLOLjF1
- O+kLVvt3UYcKkaiTXioJl7Uwrh+oQAwc5t7g5u9qv7444nCm1RwqLft5ByG6zNULrHTs
- h4fiU8KFCXvGAXZoLN1phsyVi9KfHvnttzpLWPJjL4CSz2fXF/NM8C5GfBz7gIAEkDHl
- xKIge1LWqExYIQsfJIKGXxK3KUQIGr8ux9SoTsKJtWAfskOHCqGsu8lw+p/P04whl4Hy
- LY4gZtuJhAIkyoDVyLAxLLFqcJlL/eoEbKAjqh4BPGIjLJTJsSRk0QJ+JDtuEO+yUi8C
- SpqQ==
+ :cc; bh=snXmkm3VVIZ+K/tGK+mouDnrvNSBGw3QQYrfavgA9gQ=;
+ b=b6dfv1fKCC94fxwsrzEjD3V4TvcUaM0ZZWAclBRJMiYxnVFg+/ZN5k6xsYsBDpG4mm
+ jQF3XcC+vLvusHxWXvAcJppOsx8xSpnGIm7ZYNIkMFf0tdPYSAw7hA1wGLofH8RdxKyC
+ Ke8dKWaSASS+Cde+zNW4zFxQEktKj6yQDE3f33oNpSIynLfDizW+6NN4WIp1BrIHRixy
+ TNy8quwijJyfRHHenR9ok8OuWiEFH6AkcSoU2HJ/PYMNSsFmIxUo9Owijlg2Taq0CZu3
+ L8rGTFYawUPOex3JDAm0e5PZuNc2GuVVgohXwVkfVWpu/rUDrGcLqoTjz6SasLJEd+3k
+ uJWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=FO7/3r8p3sVaKKELNmstzmL+rF3o3N5IPbi+4f4ktJc=;
- b=jMNbv22VNYqpFVb5qcZtlniSiWglQ6+wUsEZpspxU26U34x/gMuZBODPPb0xDdUGUs
- 4Hu/YpGy2TehgfObjF7LdyNkVwyFfzq6iC1RrsPLb7RxqWPaPxLM0Q87a2Pm+ulFyKiP
- 6J77QwQoF+Ep1PS7aLOg/SMzcX5e26faOk4T65Pow4qBZH1bRJQo9jz/a1zJmLeZeJlC
- 4a+fYbdjzixkm53/e+CTljsTZPZCXDXXRzz4mBPTM4gpXp+MWYaSmGRfAC+VIy6JoCKM
- GkRj+4dCfJuzRxjVEEvrQsGd5qaTgYEx1E9lPnn3OFlCFt5E4RIQ7pRqrDn7DFrx8poD
- etcg==
-X-Gm-Message-State: AHQUAubYXdU9Sjl2YNSpr0DMNtqeLztcXlGPFyxa1qPQWFgAmRh6Mmh2
- P1kM8C6G4VKOXgMMgAvJrBnYHEmmtANq4fyGTfWj3Q==
-X-Google-Smtp-Source: AHgI3IalM0L9lQvz46jfrl2iBl4fmOSmD1jwH0CXcH3o1Aa0lDtnaGmXAozmpeEIu0c356UNt2rUjdROnC38Op0AV6M=
-X-Received: by 2002:a63:f74c:: with SMTP id f12mr4420089pgk.195.1549989438124; 
- Tue, 12 Feb 2019 08:37:18 -0800 (PST)
+ :message-id:subject:to:cc;
+ bh=snXmkm3VVIZ+K/tGK+mouDnrvNSBGw3QQYrfavgA9gQ=;
+ b=FktHCQ1N0SLKMtTSsvw9JnmAWHKf23i+EpRzZbeMAqWABdWj9sEXQr+GPbzYEkg6FJ
+ WzFieoIKiZXmsYIxpsV23NUFbLnyXTykPGoEWinKvjYdmGzKTImY8IMCXEFCE5VmK6/N
+ zw0VirJL8lWJMgJE+DKCzB4B9eJbFi9b0UCkfpvQCj+X/znkgyuTyqsaz76AVxMgrJzM
+ K+XMIVMytrq8d0jZ7umk/So6BM8oo75Q1O9ryn2iZFqiHhyp6jD/3bj9d9z+jULATEmV
+ Puw1rhUBOidTpvTgh6Fqhvc9KofxN839FGZ/X178buFqDQFgE9qvn05rtxY3e+kJcUN4
+ dkWA==
+X-Gm-Message-State: AHQUAua7tLnAznpOv2G7QNsOWhrJUOGRdaj8ZBFYDk42rOwlzXPItQHb
+ lPBVSnreO3qmFZy/r5hKcMFnJu+P828Ma2M02kGrfA==
+X-Google-Smtp-Source: AHgI3IbSPZkHvFgr73l8+APt+OdYQRoLus91oGxWMHsV3Q0RB0c4/CX/ueXRTEk32fDNRTngoHZL0K7qy2cnPNhAFig=
+X-Received: by 2002:a63:125a:: with SMTP id 26mr4564295pgs.314.1549991530925; 
+ Tue, 12 Feb 2019 09:12:10 -0800 (PST)
 MIME-Version: 1.0
-References: <CAO=notwO6vByDi29oQVK+3wC0nWRq7zyU-uJDzXZG9hnux9daA@mail.gmail.com>
- <CALLMt=onoQGU=kHS4zAkQWm7KbpC=EhrT8y2qrVDhC30m5RAqA@mail.gmail.com>
-In-Reply-To: <CALLMt=onoQGU=kHS4zAkQWm7KbpC=EhrT8y2qrVDhC30m5RAqA@mail.gmail.com>
+References: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
+ <20190211185046.2lisomjnecvrd7eh@thinkpad.dyn.fuzziesquirrel.com>
+ <CAPnigKm9Sce7DbBjKf7tGJrgVPyF=2u04GFPW4FTzeHKUHYhTg@mail.gmail.com>
+ <CAO=notwCLir90VDFiNHWKwYHuKJ6k7TWrCECkWkAe3QKprc_hg@mail.gmail.com>
+ <CAO=notyaqHWYHk3+wekPMLBK_==vwDT-+ccyNMxXPcRKwvPZDQ@mail.gmail.com>
+In-Reply-To: <CAO=notyaqHWYHk3+wekPMLBK_==vwDT-+ccyNMxXPcRKwvPZDQ@mail.gmail.com>
 From: Patrick Venture <venture@google.com>
-Date: Tue, 12 Feb 2019 08:37:05 -0800
-Message-ID: <CAO=notyLYuxYmgetaVFm8Z8vhZne5p0QBTug57uKh_eYvXKHLw@mail.gmail.com>
-Subject: Re: gitsm and own-mirror lead to unhappiness
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Tue, 12 Feb 2019 09:11:59 -0800
+Message-ID: <CAO=notyKK7f_rwScw2UDuhJPv7rNJQj5sTpz8N-_M9iO+XR36A@mail.gmail.com>
+Subject: Re: Host-side tools
+To: William Kennington <wak@google.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,125 +67,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2019 16:37:28 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 17:12:14 -0000
 
-On Tue, Feb 12, 2019 at 7:53 AM Andrew Geissler <geissonator@gmail.com> wro=
-te:
+On Mon, Feb 11, 2019 at 3:07 PM Patrick Venture <venture@google.com> wrote:
 >
-> On Tue, Feb 12, 2019 at 9:21 AM Patrick Venture <venture@google.com> wrot=
-e:
+> On Mon, Feb 11, 2019 at 2:58 PM Patrick Venture <venture@google.com> wrote:
 > >
-> > Has anyone else run into this issue?
+> > On Mon, Feb 11, 2019 at 11:49 AM William Kennington <wak@google.com> wrote:
+> > >
+> > > As long as it's possible to build the host side tooling without
+> > > building any of the BMC side tooling and vice versa it sounds fine to
+> > > me.
 > >
-> > openbmcbmc works fine when building zaius as phosphor:
+> > I've been doing a lot of host-side development lately and I was
+> > interested to know what the end result would be.  If someone ran the
+> > configuration just to use the tool, they might run into issues.  I've
+> > avoided using BMC-side libraries where possible to avoid host-side
+> > tool poisoning.
 > >
-> > PREMIRRORS=3D"bzr://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n cvs://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n git://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n gitsm://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n hg://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n osc://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n p4://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n svn://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n"
+> > >
+> > > On Mon, Feb 11, 2019 at 10:51 AM Brad Bishop
+> > > <bradleyb@fuzziesquirrel.com> wrote:
+> > > >
+> > > > On Mon, Feb 11, 2019 at 08:03:17AM -0800, Patrick Venture wrote:
+> > > > >Brad,
+> > > > >
+> > > > >It's my understanding that host-side tools that cooperate with bmc-side
+> > > > >tools should be in the same repo,
+> > > >
+> > > > Is this something I said at some point?  Where is this coming from?
 > >
-> > when using a mirror via the own-mirror class it has (and fails):
+> > I don't have the exact email, and it might have been very very stale
+> > information.  But I'm glad to clear this up! :D
 > >
-> > PREMIRRORS=3D" cvs://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n svn://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n git://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n gitsm://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n hg://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n bzr://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n p4://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n osc://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n https?\$://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n ftp://.*/.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n npm://.*/?.*
-> > file:///google/data/ro/teams/gbmc/mirror/sources/ \n bzr://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n cvs://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n git://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n gitsm://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n hg://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n osc://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n p4://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n svn://.*/.*
-> > http://downloads.yoctoproject.org/mirror/sources/ \n"
+> > > >
+> > > > >hence why the host-side blobs stuff is in phosphor-ipmi-flash.
+> > > > >However, if I add any dependencies to the configuration for the
+> > > > >BMC-side, those get in the way of configuring for the host-side.  Would
+> > > > >it not make sense to sometimes have it split?  And if so, I would like
+> > > > >to propose creating two repos, a blobs library host-side, and a flash
+> > > > >tool host-side repo, so those can be neatly split and not have anything
+> > > > >in their configuration file that's really bmc-side specific, like
+> > > > >ipmid, or phosphor-dbus-interface, or something.
+> > > >
+> > > > I can make a repo if you would like.  Just let me know what you would
+> > > > like it called.
 > >
-> > Here's the error:
+> > Thanks.  I'm working on an IPMI blob toolset, such that there is a
+> > library that provides host-side blob tooling, and then the flash host
+> > toolset can link against that library and be used on the host.
 > >
-> > ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_unpack: Fetcher
-> > failure: Fetch command export PSEUDO_DISABLED=3D1; export
-> > P4CONFIG=3D".p4config"; export
-> > DBUS_SESSION_BUS_ADDRESS=3D"unix:abstract=3D/tmp/dbus-ikQVQidiXM,guid=
-=3D017a369eba1bf971869460b55c475ed9";
-> > export SSH_AGENT_PID=3D"64102"; export
-> > SSH_AUTH_SOCK=3D"/tmp/ssh-lw8WN8I9mmbS/agent.63979"; export
-> > PATH=3D"/usr/local/google/git/workspaces/building_rebase_failure/build/=
-tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-=
-r0/recipe-sysroot-native/usr/bin/python3-native:/usr/local/google/git/works=
-paces/building_rebase_failure/scripts:/usr/local/google/git/workspaces/buil=
-ding_rebase_failure/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker=
-/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/bin/arm-openbmc-linu=
-x-gnueabi:/usr/local/google/git/workspaces/building_rebase_failure/build/tm=
-p/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0=
-/recipe-sysroot/usr/bin/crossscripts:/usr/local/google/git/workspaces/build=
-ing_rebase_failure/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/=
-16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr/sbin:/usr/local/googl=
-e/git/workspaces/building_rebase_failure/build/tmp/work/armv5e-openbmc-linu=
-x-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/recipe-sysroot-native/usr=
-/bin:/usr/local/google/git/workspaces/building_rebase_failure/build/tmp/wor=
-k/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/reci=
-pe-sysroot-native/sbin:/usr/local/google/git/workspaces/building_rebase_fai=
-lure/build/tmp/work/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+=
-fc874afa09-r0/recipe-sysroot-native/bin:/usr/local/google/git/workspaces/bu=
-ilding_rebase_failure/poky/bitbake/bin:/usr/local/google/git/workspaces/bui=
-lding_rebase_failure/build/tmp/hosttools";
-> > export HOME=3D"/usr/local/google/home/venture"; cp -fpLR
-> > /usr/local/google/git/workspaces/building_rebase_failure/build/download=
-s/git2/github.com.bus1.dbus-broker/modules/subprojects/c-dvar
-> > /usr/local/google/git/workspaces/building_rebase_failure/build/tmp/work=
-/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/git/.=
-git/modules/subprojects/c-dvar
-> > failed with exit code 1, output:
-> > cp: cannot stat
-> > '/usr/local/google/git/workspaces/building_rebase_failure/build/downloa=
-ds/git2/github.com.bus1.dbus-broker/modules/subprojects/c-dvar/modules/subp=
-rojects/c-utf8':
-> > No such file or directory
-> >
-> > ERROR: dbus-broker-16+gitAUTOINC+fc874afa09-r0 do_unpack: Function
-> > failed: base_do_unpack
-> > ERROR: Logfile of failure stored in:
-> > /usr/local/google/git/workspaces/building_rebase_failure/build/tmp/work=
-/armv5e-openbmc-linux-gnueabi/dbus-broker/16+gitAUTOINC+fc874afa09-r0/temp/=
-log.do_unpack.86989
-> > ERROR: Task (/usr/local/google/git/workspaces/building_rebase_failure/m=
-eta-openembedded/meta-oe/recipes-core/dbus/dbus-broker_git.bb:do_unpack)
-> > failed with exit code '1'
-> > NOTE: Tasks Summary: Attempted 1317 tasks of which 0 didn't need to be
-> > rerun and 1 failed.
+> > So that's my goal.  To get there I was thinking,
+> > phosphor-ipmi-blobs-tool (or ipmi-blobs-lib) and
+> > phosphor-ipmi-flash-tool for that side.  The argument against
+> > ipmi-blobs-lib is that there may end up being some basic tool there
+> > tool and not just the library -- do you have any preference in this
+> > case?
 >
-> Yeah, we've seen this on a few of our builder machines and some
-> internal machines - https://github.com/openbmc/openbmc/issues/3480
+> Reviewing my goals further, the idea of having an ipmi-blobs-lib or
+> ipmi-blobslib repo would be helpful.  I could do all the host-side
+> blob tooling there, and have that be a dependency of
+> phosphor-ipmi-flash-tool.  Which leaves me with two repo requests:
 >
-> Sometimes rebuilding a few times fixes it, but sometimes it's a hard
-> failure (builder4 is offline due to this).
+> ipmi-blobslib
+> phosphor-ipmi-flash-tool
+>
+> You could add the phosphor prefix to the ipmi-blobslib if you wanted
+> for consistency since its' meant to work with and on the phosphor
+> environment.
 
-Interesting. So, our failures are not identical but symptomatically
-similar -- unable to get submodules.  It's frustrating to say the
-least.  I'll try doing the rebuilds you suggested.  If it builds once,
-perhaps and i have the tarball built, it'll work for the future --
-since it's a host-specific issue for you, it makes me think perhaps
-it's a git version issue or related to some package on which it
-depends varying between systems.  However, I imagine the build systems
-are identical except for architecture.  We're seeing the failure
-building on x86-64.
+Brad + William,
+
+I was thinking about this more -- w.r.t the configure script, i could
+put the blobs host-side library portion into the phosphor-ipmi-blobs
+repo and have it build and install a library.  And could use enable or
+disable to only check for things like phosphor-logging if it's being
+built for the BMC.  I'm just not sure what the idiomatic approach is
+for that -- or maybe a build variable, like "build-host-library=yes"
+or something.
+
+Patrick
 
 >
-> Andrew
 >
 > >
+> > I'm definitely seeking suggestions on this.
 > >
-> >
-> > Patrick
+> > > >
+> > > > That said, I think you can also probably do this in the same repo, if
+> > > > you wanted, by having different build targets - it might not make any
+> > > > sense to try and build both applications with a single invocation of
+> > > > configure - as you point out, they are being "configured" for vastly
+> > > > different runtime environments.
