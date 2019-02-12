@@ -1,81 +1,53 @@
-Return-Path: <gmills@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::82b; helo=mail-qt1-x82b.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="Fmd7KAoB"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
+ [IPv6:2607:f8b0:4864:20::82b])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43z7w62GMrzDqPY
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 14:50:14 +1100 (AEDT)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1C3j2WL137724
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 22:50:11 -0500
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2qkmk6ks6x-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 22:50:11 -0500
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
- Tue, 12 Feb 2019 03:50:10 -0000
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 12 Feb 2019 03:50:08 -0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1C3o7iV17825904
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 12 Feb 2019 03:50:07 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B7854112064;
- Tue, 12 Feb 2019 03:50:07 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 635DF112069;
- Tue, 12 Feb 2019 03:50:06 +0000 (GMT)
-Received: from [9.81.210.200] (unknown [9.81.210.200])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 12 Feb 2019 03:50:05 +0000 (GMT)
-Subject: Re: Using Stale bot to clean up issues
-To: krtaylor <kurt.r.taylor@gmail.com>, openbmc@lists.ozlabs.org
-References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
- <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
- <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
- <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
-From: GUNNAR MILLS <gmills@linux.vnet.ibm.com>
-Date: Mon, 11 Feb 2019 21:50:04 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43z84x0V03zDqHV
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 14:57:52 +1100 (AEDT)
+Received: by mail-qt1-x82b.google.com with SMTP id a48so1464813qtb.4
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 19:57:52 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=g+ngruGZBwf/6/e3/hyuzmX8DkXivROFQbbEcl9xO3w=;
+ b=Fmd7KAoBrzb+mWOa7MPbvlJahZmCkHXBfuHetZGegAvdeF+lwMT1IgGwE98jSyG6s8
+ kKvBg32Jrzrfra1+oDHU4nHe40tgih5D1POLPcXtd2Ye4mw1aqK5OBXQ/2nCK4M6h5y4
+ FTRMuYO4Ag/BXSFRqQ2tMVl0r5RN+G0PozZg8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=g+ngruGZBwf/6/e3/hyuzmX8DkXivROFQbbEcl9xO3w=;
+ b=Bpj4H+iJfhw5ncfTq5J+mnD2kXfjrrGBb/zVTAu7iFgwd3WgT+F8f+6X6PfKMLe5l6
+ RFvwsMRws9f6GMQdZ6mvk2Apnnh4XWGCcRpTrR7gJfCxBrAjBDH+VzjN5T/qEIZdRH8Y
+ VMuDAzhZj4psO1GYK61OBMXB6ADbmn2Oww1qYOH/30nA/1ZJ/nD1tIbHh8QgX34V2t2o
+ tsXiE5gp3rkF7a+DcOYQBaQyKjz4Gp5u/Mm2nkYlv5XuDYrVLUo5F14JXRoK7BtULo2x
+ CZ6W8HW7oK/AynLvbbIuzC0EeETIB9fjYXxI8l7yEAb46jIPPm70KEm9wOP2VmlwraoU
+ qQ/Q==
+X-Gm-Message-State: AHQUAuatCEfH/9nflKWj422OIB6WsTzS2aw4op6MrrC4ARXYflw5aWro
+ yDnGZv+HxOo/I48k5xMgREeW4COsB/fAxfRxMwE=
+X-Google-Smtp-Source: AHgI3IaJRhuL3bvHee3DWD0rFwnDueQhY1GyrFjanxVyeQ4SIB3aN/MEoyFVzwbfk/wWHN2Fmg0dGYOfzbvGx32/4cM=
+X-Received: by 2002:ac8:4547:: with SMTP id z7mr1249816qtn.37.1549943870752;
+ Mon, 11 Feb 2019 19:57:50 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19021203-0072-0000-0000-000003F89B4A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010580; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000279; SDB=6.01159797; UDB=6.00605272; IPR=6.00940346; 
- MB=3.00025537; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-12 03:50:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19021203-0073-0000-0000-00004B271987
-Message-Id: <17b83fbc-247f-dee2-9fc3-2dd3efdee670@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-12_03:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902120026
+References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+In-Reply-To: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 12 Feb 2019 14:27:38 +1030
+Message-ID: <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
+Subject: Re: Romulus to use Virtual PNOR
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,32 +59,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Feb 2019 03:50:15 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 03:57:54 -0000
 
-
-On 2/11/2019 5:41 PM, krtaylor wrote:
+On Fri, 25 Jan 2019 at 18:11, Lei YU <mine260309@gmail.com> wrote:
 >
-> As long as the issue is closed and not deleted. I just want someone to 
-> be able to find an issue and reopen it, and retain all the previous 
-> discussion history. Of course, that assumes that someone will search 
-> closed issues before opening a new one, but still.
+> This email is to notify that Romulus is going to use VirtualPNOR feature, if
+> no objections are received.
 >
-Yeah, they will just be closed, not deleted and my thought was to start 
-pretty lax.
-
-Don't touch them until 6 months of inactively and then another month of 
-inactively in this "stale" state before closing. We can revisit this later.
-
-
+> It **impacts** to existing Romulus systems, that they must do PNOR code update
+> when the feature is enabled.
 >
-> Where are you planning on hosting it?
+> A little background on this topic could be found at:
+> https://lists.ozlabs.org/pipermail/openbmc/2018-May/011822.html
+> https://lists.ozlabs.org/pipermail/openbmc/2018-November/014112.html
 >
-No need to host it anywhere. It is a GitHub App.
-https://developer.github.com/apps/about-apps/#about-github-apps
+> I did not receive any feedback, so I choose to use VritualPNOR feature,
+> which has below benefits:
+> 1. It requires minor code changes for a system to switch to VirtualPNOR;
+> 2. It gets full features, including PNOR version, code verification, and code
+>    update via new interface;
+> 3. When OpenBMC switches to Redfish, it will get Redfish code update for free,
+>    because IBM will implement Redfish code update based on VirtualPNOR.
+>
+> The related changes are:
+> * OpenBMC: https://gerrit.openbmc-project.xyz/#/q/topic:ubifs-pnor-for-romulus
+> * op-build: https://github.com/open-power/op-build/pull/2578
+>
+> Any objections?
 
-I installed it on a personal repository, just a couple clicks!
+I would prefer this not to happen.
 
-Need to be "an organization owner or have admin permissions in a 
-repository to install a GitHub App".  Will then need a .github/stale.yml
+The "virtual pnor" feature is tightly coupled to UBI. The preferred
+filesystem to use on small NOR chips is JFFS2, which suits the
+technology and the size that BMCs ship on.
 
-- Gunnar
+Moving to vpnor breaks features such as full pnor flashing from the host.
+
+Cheers,
+
+Joel
