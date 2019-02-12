@@ -1,69 +1,58 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <yuenn@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32a; helo=mail-ot1-x32a.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::a36; helo=mail-vk1-xa36.google.com;
+ envelope-from=yuenn@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="hilmcTtB"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="RKbEtZhG"; 
  dkim-atps=neutral
-Received: from mail-ot1-x32a.google.com (mail-ot1-x32a.google.com
- [IPv6:2607:f8b0:4864:20::32a])
+Received: from mail-vk1-xa36.google.com (mail-vk1-xa36.google.com
+ [IPv6:2607:f8b0:4864:20::a36])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43z2Nl06MJzDq78
- for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 10:41:10 +1100 (AEDT)
-Received: by mail-ot1-x32a.google.com with SMTP id n71so1271480ota.10
- for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 15:41:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=7+J+zFlmdxYeHKZVeEGntkOjkGwDNTscUfWaQPGpAwU=;
- b=hilmcTtB254qDsn77WJ5tuJ1GMjaA6C7eLVL5kdrgI3k5aXcGKD0FAH2gZltkAyu/4
- CgMhAHYlPdqa9Kr0Ehe6dgBRPxCf2N1hnboR9tZXIqWp2nZEZU/VT25hRP9EeN0HDwfq
- jyNKerNFrYVRR9o6i65B09EzNVPbrNEH7TQjGqg+hprw8Bn/lGnhZpHVVC7sdo7N8Kj8
- I6bBlg3Xwobje6ch9i4ccrJf/1EGHqWdxjWAlHFFJevWqbCmjPEFwlhBwX51YWX61mWT
- rwUoj3EBNiUyI6X9hydCGoxWJab2msjRoBrgr69U3thmiA2pkHfgegWfJRnOjhjYKFRX
- 6Ikw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43z3V66WKpzDqCD
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Feb 2019 11:30:54 +1100 (AEDT)
+Received: by mail-vk1-xa36.google.com with SMTP id y14so211454vkd.1
+ for <openbmc@lists.ozlabs.org>; Mon, 11 Feb 2019 16:30:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Kf2iErwdHJKP8wanRo6eiKJAwjtHLqiK09MSKsC8NHU=;
+ b=RKbEtZhGcs2CrEkEDxnv+bxgtoUwCxxIGShFdTV4V/Pm2HFVlLoV3ZF8I9a8pH5B+a
+ wKERolfUtMk0fcRM1ry9qjPmCUDT8KhPhEh33uDc2BDSUjXK5AtGALorBpT6FzJ+UJcE
+ fICJ16pWi+NwG2PaY6TizoggCANvjEscI7bP0Oex5nL//ecCm1N6Z4qf8ZG40wwITYrz
+ YmiU5NFke94nmGC3Scj3HXglTaqRzbcJ1lCfChOV9/K3SI0CI7P7+q4G59ZZX0sHzy46
+ e8WhUfPn4CeZofMVWtjaRiG8y8O+QPxUAG/sWAzFOVVsRdS2ZdytsJqzEW2xQflfPER+
+ 1y5w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=7+J+zFlmdxYeHKZVeEGntkOjkGwDNTscUfWaQPGpAwU=;
- b=CtmCpkvlmZxCVqyLkrcef7sDRu4XeZHxl0gAJETmRcfoPZBugxSGi15JtZaVzdGI1x
- h9UNVJRnpKbKQcx8M7EJVNIDuoH60YAf0SasFy6vWCtCBQOfy3FouK2pUcIIpzkO6WoJ
- n5imY3iV5w0N9t2UC/79oWAYBdhx2vhK0HZp8AsWxvcohJ6K0hN6aLaNDZrho+InUBMu
- vD8J7qSTv3hoD7kWkPv/IkAG3j/TCxOSiMmM0+5dWlsw6hvG2s45Ey6kdnxNu4pyi7Xy
- FqsdS/qTfdmqnUKfhUs4zbl6+clKGDwPiNedmRlvjldxzEXvNd7idOAoBkudF6T4mY7c
- N35A==
-X-Gm-Message-State: AHQUAua7jclSfCRfNm9wh06pYlg6M4bzXcGYn3844Bgn6RVh3ISrpov+
- hHe6JPQuOLG/HvptMcMQF7autFU6
-X-Google-Smtp-Source: AHgI3Ia78uB1IoPQShvFaFx+s5QOTydHsBrtH3ACa1HGQnLZUF5gUL10oKRSATTXiJCkutYspywOww==
-X-Received: by 2002:a9d:4e08:: with SMTP id p8mr768921otf.116.1549928467997;
- Mon, 11 Feb 2019 15:41:07 -0800 (PST)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id d3sm5128774otb.79.2019.02.11.15.41.07
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 11 Feb 2019 15:41:07 -0800 (PST)
-Subject: Re: Using Stale bot to clean up issues
-To: openbmc@lists.ozlabs.org
-References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
- <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
- <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
-Date: Mon, 11 Feb 2019 17:41:06 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.5.0
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Kf2iErwdHJKP8wanRo6eiKJAwjtHLqiK09MSKsC8NHU=;
+ b=d/vWr+8Rv/3281pS0GiBzqGhNRoGrCdqZmRW4HlittH9T/TB1787uy+j6ebQHxnUfy
+ ltYPIQu81gv4gBoVB/HZhBLa3oZN0ELH39ZvaL9rucdIrnYWWIa7Cg1VCvxVRG9hRO4+
+ YEU5P7MyL2nTCs47BTRov/78GflFVa4UeXJ1u7MZYThpylr9/YSf1PrwjIrjdlaRr1TQ
+ auwEdLCv+Cqlj+qYSCyQ44fNYw2vEN8zLhoCmc4H/cFluQJZjyf3cwRM5EzNr2+wqX/2
+ tPz8jPXeP6PJBH3PjzfG9KWWuKoCZZfq0GmqmxrcMQpohxagc//dEMcO1yToG79vmlm8
+ hlEg==
+X-Gm-Message-State: AHQUAuZJmynf4uXlUsSfkr5CgkqmObFX45T8p7oKPizrSazg4YUKowkn
+ vyX9oCXzGLEX+uQoPev5IVt1JzQwiKN8Z6epdyw2vg==
+X-Google-Smtp-Source: AHgI3IbOnECTdXTJ7ZMqweJQxjqMh2WEwEnlR0uGxEdAJVVE9tAfO0GA7nhQlV2WIBGjoszqLfb17giKURsBTLflbTc=
+X-Received: by 2002:a1f:e807:: with SMTP id f7mr426507vkh.16.1549931451349;
+ Mon, 11 Feb 2019 16:30:51 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
+ <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
+In-Reply-To: <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
+From: Nancy Yuen <yuenn@google.com>
+Date: Mon, 11 Feb 2019 16:30:12 -0800
+Message-ID: <CADfYTpENfKyyoMuhuN+RzD7nCQbo+g8sWS-mxMU0PUS5C-Z3yw@mail.gmail.com>
+Subject: Re: Secure boot for BMC
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000009601e10581a7897f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,49 +64,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 11 Feb 2019 23:41:12 -0000
+X-List-Received-Date: Tue, 12 Feb 2019 00:30:56 -0000
 
-On 2/8/19 6:23 PM, GUNNAR MILLS wrote:
-> 
-> On 2/7/2019 5:13 PM, Ed Tanous wrote:
->> Have we looked at what a majority of our issues are getting stale from?
-> 
-> 
-> Just in  openbmc/openbmc there is 467 issues. 281 are older than a year 
-> and 78 are older than 2 years.
-> Some of them are a lack of feedback from the submitter. A pretty large 
-> percentage I don’t know if they are still an issue.
+--0000000000009601e10581a7897f
+Content-Type: text/plain; charset="UTF-8"
 
-Maybe what we need is a fix it week! Oh yeah, we have tried that. :) But 
-seriously, maybe just old issue review is good enough for now? 
-Priorities can change (increase) over time and some old forgotten issues 
-my be important enough to fix now, or may add an important twist for a 
-new design.
+We are working on secure boot, but we have a requirement for a Google HW
+root of trust so I'm not sure if that fits in with these discussions.
+----------
+Nancy
 
-I understand the desire to keep it open due to lack of resources for 
-fixing it, but a year? 2 years? Yeah, let's close 'em.
 
-> I feel this many issues is unmanageable. From the stale bot README:
-> "In the experience of the maintainers of this app—and the hundreds of 
-> other projects and organizations that use it—focusing on issues that are 
-> actively affecting humans is an effective method for prioritizing work.
+On Sun, Feb 10, 2019 at 8:57 PM Andrew Jeffery <andrew@aj.id.au> wrote:
+
+> On Wed, 6 Feb 2019, at 00:44, Brad Bishop wrote:
+> > Hi everyone
+> >
+> > Does anyone have plans to provide a secure BMC boot implementation to
+> > OpenBMC in the 2.7 or 2.8 timeframe?  Just trying to get a feel for who
+> > all wants to collaborate on this before I submit a design template.
+> >
+> > thx - brad
 >
-> To some, a robot trying to close stale issues may seem inhospitable or 
-> offensive to contributors. But the alternative is to disrespect them by 
-> setting false expectations and implicitly ignoring their work. This app 
-> makes it explicit: if work is not progressing, then it's stale. A 
-> comment is all it takes to keep the conversation alive."
+> I'm interested in secureboot discussions.
+>
+> Andrew
+>
 
-As long as the issue is closed and not deleted. I just want someone to 
-be able to find an issue and reopen it, and retain all the previous 
-discussion history. Of course, that assumes that someone will search 
-closed issues before opening a new one, but still.
+--0000000000009601e10581a7897f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> 
-> I feel strongly we should do something like this to manage our issues.
+<div dir=3D"ltr">We are working on secure boot, but we have a requirement f=
+or a Google HW root of trust so I&#39;m not sure if that fits in with these=
+ discussions.<br clear=3D"all"><div><div dir=3D"ltr" class=3D"gmail_signatu=
+re" data-smartmail=3D"gmail_signature">----------<br>Nancy</div></div><br><=
+/div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">O=
+n Sun, Feb 10, 2019 at 8:57 PM Andrew Jeffery &lt;<a href=3D"mailto:andrew@=
+aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br></div><blockquote class=3D"gmai=
+l_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,20=
+4,204);padding-left:1ex">On Wed, 6 Feb 2019, at 00:44, Brad Bishop wrote:<b=
+r>
+&gt; Hi everyone<br>
+&gt; <br>
+&gt; Does anyone have plans to provide a secure BMC boot implementation to<=
+br>
+&gt; OpenBMC in the 2.7 or 2.8 timeframe?=C2=A0 Just trying to get a feel f=
+or who<br>
+&gt; all wants to collaborate on this before I submit a design template.<br=
+>
+&gt; <br>
+&gt; thx - brad<br>
+<br>
+I&#39;m interested in secureboot discussions.<br>
+<br>
+Andrew<br>
+</blockquote></div>
 
-SGTM.
-
-Where are you planning on hosting it?
-
-Kurt Taylor (krtaylor)
+--0000000000009601e10581a7897f--
