@@ -1,52 +1,72 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32b; helo=mail-ot1-x32b.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tv6w8wlu"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32b.google.com (mail-ot1-x32b.google.com
- [IPv6:2607:f8b0:4864:20::32b])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43ztdd1YWFzDqSs
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 19:55:16 +1100 (AEDT)
-Received: by mail-ot1-x32b.google.com with SMTP id m1so2681580otf.5
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 00:55:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=4GXWBPrKRzPThp9oEYgI+4xbFU5E9Eu6O0dprbae73I=;
- b=Tv6w8wlu3lF9r+bPgFXoXfuMC+LvRYz8DpuFwQifmW9SlLBF1F/RCJKdRgHItHXbkx
- g32THYsgyYUlJOXiuBnvwXe4EbRS4b+e72ofzch6jLkB9ZfgIJJ/7pyjss8+dXCE+xdz
- R60/PmVMi41lWCGA9EcDPoWDASFP1RRjPid7XXPgFqf+cVdPXNA60W+rLGWil2Ujtj+u
- Tr/+XhzECTUAqKL19CjTafN1pRz4AkoVAzaU5WQu+A83WfU5LX5clnUb64/fJLMKnm4b
- 08DT1Z0kL7m337DDMyW+W7S1KfgYKfzJ+Wr/OnbsKvEq8plkpajA7QOtTxAONOuznL++
- Oslw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=4GXWBPrKRzPThp9oEYgI+4xbFU5E9Eu6O0dprbae73I=;
- b=K9QlzDDmR1HaoXobJABqL3ec4Iu2pzF/zfkAc4ERMHqZHH3ejquy2PxpMVB5kjA/jz
- gYV/eZ7QLrnAXysPzsolhAUt/eq1hOhXaNLaMr9u1unCU4P68WheQXyJd3ra+m92t7SW
- yX1Lzkdto7xeXLkUU/KajBnh9ArsCAdRkfmkqq1pacaDIv0WfCEhtV6sHgvbU34sghPv
- QozOHvdt/yvM83JEVtiEzGfRWHy3wN0D7G8hZL4UOOMAnNlolOO1jv/IQ7cv39P4atdU
- bYSGrsIZAxtyFSwoSQpjfEtuIAWI46zN5KBldENd4H2fdOXF53Jtl2lU2h9c9tjTk3QF
- +0rg==
-X-Gm-Message-State: AHQUAub7KqchSVCAJxm6n6iQ2z5nkJYMKvkG0xB6XlUr+5eMJTX5MSD/
- AkaJSYedc6YA/wEHoXSy2bVkM8Mz2r8DdeCYbfcBuU1Shvw=
-X-Google-Smtp-Source: AHgI3IbliZmv7QlvQyuqcZ3FUzlrQtSl0KLY5rfjX0bSPwY/jpmpm5GNxjWHI1YmzWA45EnhymBEo97PR7OvPXc2Pxc=
-X-Received: by 2002:a9d:4598:: with SMTP id x24mr7908907ote.57.1550048114552; 
- Wed, 13 Feb 2019 00:55:14 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zwVn6LzyzDqRc
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 21:19:29 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1DAHpmd142788
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 05:19:27 -0500
+Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qmemp77js-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 05:19:26 -0500
+Received: from localhost
+ by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Wed, 13 Feb 2019 10:19:24 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 13 Feb 2019 10:19:21 -0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1DAJK0B30212288
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Wed, 13 Feb 2019 10:19:20 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BEB7811C04C;
+ Wed, 13 Feb 2019 10:19:20 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B777A11C04A;
+ Wed, 13 Feb 2019 10:19:19 +0000 (GMT)
+Received: from [9.80.209.105] (unknown [9.80.209.105])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Wed, 13 Feb 2019 10:19:19 +0000 (GMT)
+To: openbmc@lists.ozlabs.org, ed.tanous@intel.com
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Subject: Redfish query(AccountService)
+Date: Wed, 13 Feb 2019 15:49:16 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-From: AKASH G J <akashgj91@gmail.com>
-Date: Wed, 13 Feb 2019 14:24:29 +0530
-Message-ID: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
-Subject: Unable to read or write from system SPI flash memory.
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000040b4680581c2b370"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19021310-0028-0000-0000-0000034806FB
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021310-0029-0000-0000-0000240629F0
+Message-Id: <de3b0df2-f53b-9000-4723-4fda7f895e0d@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-13_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=765 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902130075
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,102 +78,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Feb 2019 08:55:18 -0000
+X-List-Received-Date: Wed, 13 Feb 2019 10:19:30 -0000
 
---00000000000040b4680581c2b370
-Content-Type: text/plain; charset="UTF-8"
+Hi,
 
-Hi all,
+Need your input on following query
 
-We have a test board containing BMC Aspeed AST-2500. It contains BMC flash
-memory, SPI1 flash memory and SPI2 flash memory. we are using zaius machine
-configuration for building Linux. When I am trying to write to SPI1 flash
-at address 30000000 using pflash tool, the modified data is not reflected
-after reboot. Same with SPI2 flash. With pflash tool I am able to write
-data permanently to BMC flash memory. The device tree for SPI devices is
-following.
+As part of the the github story 
+https://github.com/ibm-openbmc/dev/issues/232 which is to support the 
+"RemoteRoleMapping" under LDAP property in AccountService
 
-&fmc {
-    status = "okay";
+RemoteRoleMapping is a property of type collection of mapping rules 
+under LDAP property.
 
-    flash@0 {
-        status = "okay";
-        label = "bmc";
-        m25p,fast-read;
-        spi-max-frequency = <50000000>;
-#include "openbmc-flash-layout.dtsi"
-    };
-};
+eg GET Request is as follows(truncated output)
 
-&spi1 {
-    status = "okay";
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_spi1_default>;
+"LDAP": {
+             "RemoteRoleMapping": [
+             {
+                 "RemoteUser": "cn=Manager,dc=example,dc=org",
+                 "LocalRole": "Admin"
+             },
+         {
+                 "RemoteUser": "cn=Admins,ou=Groups,dc=example,dc=org",
+                 "LocalRole": "Admin"
+             },
+             {
+                 "RemoteUser": "cn=PowerUsers,ou=Groups,dc=example,dc=org",
+                 "LocalRole": "Operator"
+             },
+     ]
+}
 
-    flash@0 {
-        status = "okay";
-        label = "pnor";
-        m25p,fast-read;
-        spi-max-frequency = <100000000>;
-    };
-};
+We have the following use cases for the PATCH request on RemoteRoleMapping
 
-&spi2 {
-    status = "okay";
-    pinctrl-names = "default";
-    pinctrl-0 = <&pinctrl_spi2ck_default
-             &pinctrl_spi2cs0_default
-             &pinctrl_spi2cs1_default
-             &pinctrl_spi2miso_default
-             &pinctrl_spi2mosi_default>;
+=> How to add the Role Mapping?
 
-    flash@0 {
-        status = "okay";
-    };
-};
+  PATCH { "RemoteRoleMapping": [{"RemoteUser": 
+"Admingroup15","LocalRole": "User"},{"RemoteUser": "Admingroup13", 
+"LocalRole": "Administrator"},{"RemoteUser": "Admingroup14", 
+"LocalRole": "Operator"}]}
 
-Please someone help to resolve the problem.
+With the above PATCH request all the above role mapping gets added.
+
+=> How to delete a specific role mapping,
+
+let's continue the above eg, After addding the above roles mapping, user 
+want to delete the second mapping which is ({"RemoteUser": 
+"Admingroup13", "LocalRole": "Administrator"})
+
+Following PATCH request would be used.
+PATCH {"RemoteRoleMapping": [{},null,{}]}'
+
+Now we have the following two roles mapping
+
+{"RemoteUser": "Admingroup15",
+   LocalRole": "User"
+}
+{"RemoteUser": "Admingroup14",
+  "LocalRole": "Operator"
+}
 
 
-Thanks in advance.
+=> Let's take a case where user want to update the second role mapping, 
+User would use the following PATCH request.
 
-Akash
+PATCH {"RemoteRoleMapping": [{},{"RemoteUser": 
+"NewUserName","LocalRole": "Operator"}]}
 
---00000000000040b4680581c2b370
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Do you see any other use case for the PATCH request for the 
+"RemoteRoleMapping" or any changes in the above PATCH request?
 
-<div dir=3D"ltr"><div dir=3D"ltr">Hi all,<br><br>We have a test board conta=
-ining BMC Aspeed AST-2500. It contains BMC flash memory, SPI1 flash memory =
-and SPI2 flash memory. we are using zaius machine configuration for buildin=
-g Linux. When I am trying to write to SPI1 flash at address 30000000 using =
-pflash tool, the modified data is not reflected after reboot. Same with SPI=
-2 flash. With pflash tool I am able to write data permanently to BMC flash =
-memory. The device tree for SPI devices is following.<br><br>&amp;fmc {<br>=
-=C2=A0=C2=A0=C2=A0 status =3D &quot;okay&quot;;<br><br>=C2=A0=C2=A0=C2=A0 f=
-lash@0 {<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 status =3D &quot;okay&quo=
-t;;<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 label =3D &quot;bmc&quot;;<br>=
-=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 m25p,fast-read;<br>=C2=A0=C2=A0=C2=A0=
- =C2=A0=C2=A0=C2=A0 spi-max-frequency =3D &lt;50000000&gt;;<br>#include &qu=
-ot;openbmc-flash-layout.dtsi&quot;<br>=C2=A0=C2=A0=C2=A0 };<br>};<br><br>&a=
-mp;spi1 {<br>=C2=A0=C2=A0=C2=A0 status =3D &quot;okay&quot;;<br>=C2=A0=C2=
-=A0=C2=A0 pinctrl-names =3D &quot;default&quot;;<br>=C2=A0=C2=A0=C2=A0 pinc=
-trl-0 =3D &lt;&amp;pinctrl_spi1_default&gt;;<br><br>=C2=A0=C2=A0=C2=A0 flas=
-h@0 {<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 status =3D &quot;okay&quot;;=
-<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 label =3D &quot;pnor&quot;;<br>=
-=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 m25p,fast-read;<br>=C2=A0=C2=A0=C2=A0=
- =C2=A0=C2=A0=C2=A0 spi-max-frequency =3D &lt;100000000&gt;;<br>=C2=A0=C2=
-=A0=C2=A0 };<br>};<br><br>&amp;spi2 {<br>=C2=A0=C2=A0=C2=A0 status =3D &quo=
-t;okay&quot;;<br>=C2=A0=C2=A0=C2=A0 pinctrl-names =3D &quot;default&quot;;<=
-br>=C2=A0=C2=A0=C2=A0 pinctrl-0 =3D &lt;&amp;pinctrl_spi2ck_default<br>=C2=
-=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 &amp;pinctrl_sp=
-i2cs0_default<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=
-=C2=A0 &amp;pinctrl_spi2cs1_default<br>=C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=
-=A0 =C2=A0=C2=A0=C2=A0=C2=A0 &amp;pinctrl_spi2miso_default<br>=C2=A0=C2=A0=
-=C2=A0 =C2=A0=C2=A0=C2=A0 =C2=A0=C2=A0=C2=A0=C2=A0 &amp;pinctrl_spi2mosi_de=
-fault&gt;;<br><br>=C2=A0=C2=A0=C2=A0 flash@0 {<br>=C2=A0=C2=A0=C2=A0 =C2=A0=
-=C2=A0=C2=A0 status =3D &quot;okay&quot;;<br>=C2=A0=C2=A0=C2=A0 };<br>};<br=
-><br>Please someone help to resolve the problem.<br><br><br>Thanks in advan=
-ce.<br><br>Akash<br></div></div>
+Looking for your inputs
 
---00000000000040b4680581c2b370--
+Ratan
