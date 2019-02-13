@@ -1,47 +1,29 @@
-Return-Path: <wangzqbj@inspur.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=162.243.126.186; helo=vip.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Return-Path: <mpe@ellerman.id.au>
+Received: from ozlabs.org (bilbo.ozlabs.org [IPv6:2401:3900:2:1::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 43zh5B6XTDzDqN8
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 11:59:58 +1100 (AEDT)
-Received: from ([60.208.111.195])
- by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id ECO62937;
- Wed, 13 Feb 2019 08:53:37 +0800
-Received: from mail-lf1-f46.google.com (10.100.1.52) by
- jtjnmail201606.home.langchao.com (10.100.2.6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1591.10; Wed, 13 Feb 2019 08:53:33 +0800
-Received: by mail-lf1-f46.google.com with SMTP id u21so469621lfu.1;
- Tue, 12 Feb 2019 16:53:33 -0800 (PST)
-X-Gm-Message-State: AHQUAubdlhvHtgCeu+xkYbFoMsY6o0cO52WMEavKztnVfh65quI3DWPC
- G0flVr4g9e0W9CzK/LZ68kPuY+ZL3PRQTOc6lqs=
-X-Google-Smtp-Source: AHgI3IY4B+JtwkHZ1gTeCq6ZI2mAP8VRiW4kh1DzkWt7zqpN/DSJKDmAMqoU/J6fCwzhg3s2Au8IjzeRbFWNHDIouj8=
-X-Received: by 2002:a19:f707:: with SMTP id z7mr4359577lfe.54.1550019210749;
- Tue, 12 Feb 2019 16:53:30 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 43zmxt5yZKzDqQR
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 15:38:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=ellerman.id.au
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by ozlabs.org (Postfix) with ESMTPSA id 43zmxt43hCz9s7h;
+ Wed, 13 Feb 2019 15:38:58 +1100 (AEDT)
+From: Michael Ellerman <mpe@ellerman.id.au>
+To: William Kennington <wak@google.com>, Joel Stanley <joel@jms.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: ppc64 asan issue
+In-Reply-To: <CAPnigKnGz=8cEiUYYvmv3CcQP6ygN-8NzLLV2KfktSkxx=JVCQ@mail.gmail.com>
+References: <CACPK8XcrM9tT6WgaNAPDTmSMFEC4qb3ETx5uVj2UrrB396tMGg@mail.gmail.com>
+ <CAPnigKnGz=8cEiUYYvmv3CcQP6ygN-8NzLLV2KfktSkxx=JVCQ@mail.gmail.com>
+Date: Wed, 13 Feb 2019 15:38:58 +1100
+Message-ID: <87wom4xpy5.fsf@concordia.ellerman.id.au>
 MIME-Version: 1.0
-References: <1547708191-8721-1-git-send-email-wangzqbj@inspur.com>
- <4C4C6975-CA11-4609-BF8D-6246A1C5F193@fb.com>
-In-Reply-To: <4C4C6975-CA11-4609-BF8D-6246A1C5F193@fb.com>
-From: John Wang <wangzqbj@inspur.com>
-Date: Wed, 13 Feb 2019 08:53:19 +0800
-X-Gmail-Original-Message-ID: <CAHkHK09m4=--6h3kKnbx9bHf_9tJC1_c3e31VXcSu7rZ94vT3Q@mail.gmail.com>
-Message-ID: <CAHkHK09m4=--6h3kKnbx9bHf_9tJC1_c3e31VXcSu7rZ94vT3Q@mail.gmail.com>
-Subject: Re: [PATCH] ARM:dts:aspeed Add Inspur on5263m5 BMC
-To: Vijay Khemka <vijaykhemka@fb.com>
-CC: "andrew@aj.id.au" <andrew@aj.id.au>, "joel@jms.id.au" <joel@jms.id.au>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [10.100.1.52]
-X-ClientProxiedBy: jtjnmail201607.home.langchao.com (10.100.2.7) To
- jtjnmail201606.home.langchao.com (10.100.2.6)
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,183 +35,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Feb 2019 01:00:00 -0000
+X-List-Received-Date: Wed, 13 Feb 2019 04:38:59 -0000
 
-On Wed, Feb 13, 2019 at 6:11 AM Vijay Khemka <vijaykhemka@fb.com> wrote:
->
->
->
-> =EF=BB=BFOn 2/12/19, 1:58 PM, "Linux-aspeed on behalf of John Wang" <linu=
-x-aspeed-bounces+vijaykhemka=3Dfb.com@lists.ozlabs.org on behalf of wangzqb=
-j@inspur.com> wrote:
->
->     Add initial version of device tree file for on5263m5 ast2500bmc
->
->     Signed-off-by: John Wang <wangzqbj@inspur.com>
->     ---
->      arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 146 +++++++++++++=
-++++++++++
->      1 file changed, 146 insertions(+)
->      create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
->
->     diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts b/arch/=
-arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
->     new file mode 100644
->     index 0000000..064ae30
->     --- /dev/null
->     +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
->     @@ -0,0 +1,146 @@
->     +// SPDX-License-Identifier: GPL-2.0
->     +// Copyright (c) 2018 Inspur Corporation
->     +/dts-v1/;
->     +
->     +#include "aspeed-g5.dtsi"
->     +#include <dt-bindings/gpio/aspeed-gpio.h>
->     +
->     +/ {
->     +   model =3D "ON5263M5 BMC";
->     +   compatible =3D "inspur,on5263m5-bmc", "aspeed,ast2500";
->     +
->     +   chosen {
->     +           stdout-path =3D &uart5;
->     +           bootargs =3D "earlyprintk";
->     +   };
->     +
->     +   memory {
->     +           reg =3D <0x80000000 0x20000000>;
->     +   };
->     +
->     +   reserved-memory {
->     +           #address-cells =3D <1>;
->     +           #size-cells =3D <1>;
->     +           ranges;
->     +
->     +           vga_memory: framebuffer@9f000000 {
->     +                   no-map;
->     +                   reg =3D <0x9f000000 0x01000000>;
->     +           };
->     +   };
->     +
->     +   leds {
->     +       compatible =3D "gpio-leds";
->     +
->     +       bmc_alive {
->     +           label =3D "bmc_alive";
->     +           gpios =3D <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_LOW>;
->     +           linux,default-trigger =3D "timer";
->     +       };
->     +   };
->     +
->     +   iio-hwmon {
->     +           compatible =3D "iio-hwmon";
->     +           io-channels =3D <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
->     +                   <&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
->     +   };
->     +
->     +};
->     +
->     +&fmc {
->     +   status =3D "okay";
->     +   flash@0 {
->     +           status =3D "okay";
->     +           m25p,fast-read;
->     +           label =3D "bmc";
->     +#include "openbmc-flash-layout.dtsi"
->     +   };
->     +};
->     +
->     +&spi1 {
->     +   status =3D "okay";
->     +   pinctrl-names =3D "default";
->     +   pinctrl-0 =3D <&pinctrl_spi1_default>;
->     +
->     +   flash@0 {
->     +           status =3D "okay";
->     +           m25p,fast-read;
->     +           label =3D "pnor";
->     +   };
->     +};
->     +
->     +&uart5 {
->     +   status =3D "okay";
->     +};
->     +
->     +&mac0 {
->     +   status =3D "okay";
->     +
->     +   pinctrl-names =3D "default";
->     +   pinctrl-0 =3D <&pinctrl_rmii1_default>;
->     +   use-ncsi;
->     +};
->     +
->     +&mac1 {
->     +   status =3D "okay";
->     +
->     +   pinctrl-names =3D "default";
->     +   pinctrl-0 =3D <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
->     +};
->     +
->     +&i2c6 {
->     +   status =3D "okay";
->     +
->     +   tmp421@4e {
->     +           compatible =3D "ti,tmp421";
->     +           reg =3D <0x4e>;
->     +   };
->     +
->     +   tmp112@48 {
->     +           compatible =3D "ti,tmp112";
->     +           reg =3D <0x48>;
->     +   };
->     +
->     +   eeprom@54 {
->     +           compatible =3D "atmel,24c64";
->     +                   reg =3D <0x54>;
->     +           pagesize =3D <32>;
->     +   };
->     +};
->     +
->     +&i2c7 {
->     +   status =3D "okay";
->     +
->     +   adm1278@11 {
->     +             compatible =3D "adi,adm1278";
->     +             reg =3D <0x11>;
->     +   };
->     +};
->     +
->     +&gfx {
->     +   status =3D "okay";
->     +};
->     +
->     +&pinctrl {
->     +   aspeed,external-nodes =3D <&gfx &lhc>;
->     +};
-> This pinctrl definition is not required as it is already defined in aspee=
-d-g5.dtsi.
-Thanks,Vijay. Next patch,I would drop the definition.
->     +
->     +&pwm_tacho {
->     +   status =3D "okay";
->     +   pinctrl-names =3D "default";
->     +   pinctrl-0 =3D <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
->     +
->     +   fan@0 {
->     +                   reg =3D <0x00>;
->     +                   aspeed,fan-tach-ch =3D /bits/ 8 <0x00 0x01>;
->     +   };
->     +
->     +   fan@1 {
->     +                   reg =3D <0x01>;
->     +                   aspeed,fan-tach-ch =3D /bits/ 8 <0x02 0x03>;
->     +   };
->     +};
->     +
->     +&adc {
->     +   status =3D "okay";
->     +};
->     --
->     2.7.4
->
->
->
+William Kennington <wak@google.com> writes:
+> I'm doing autodetection for it now, but it is something I need to test
+> with a compiler closer to upstream.
+> https://github.com/openbmc/openbmc-build-scripts/commit/0b7fb2bcfd603949f9999127f56e3fc0e0351fbc
+
+For me on 18.04 with GCC 8 it works OK (just a small test program, not
+openbmc). Whereas with GCC 7 I get ASAN asserts when compiling.
+
+So I wonder what exact GCC 8 version you're using.
+
+I have: gcc-8 (Ubuntu 8.2.0-1ubuntu2~18.04) 8.2.0
+
+
+There's a GCC bug tracking some backports to GCC 8:
+  https://gcc.gnu.org/bugzilla/show_bug.cgi?id=89308
+
+But it's not clear if they will fix your problem or not.
+
+cheers
+
+> On Tue, Feb 12, 2019 at 3:03 AM Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> Hi William,
+>>
+>> I saw this change to our build scripts, where we disable the sanitiser
+>> for ppc64:
+>>
+>> https://github.com/openbmc/openbmc-build-scripts/commit/282e33011ea62fe80bff2c5ab0e9ef9446d6c551
+>>
+>> It would be great if you could open a bug report about this one. As a
+>> starting point it should file it against GCC, but even an openbmc
+>> issue would be a good start.
+>>
+>> I did some investigation myself and I could reproduce the failure on
+>> GCC 7 on Ubuntu 18.04 ppc64le. It didn't happen with GCC 8, nor with
+>> GCC trunk.
+>>
+>> However even GCC 7 took a few compiles before I started hitting the
+>> issue, so my testing may have not been comprehensive.
+>>
+>> Cheers,
+>>
+>> Joel
+>>
+>> --
+>> My testing looked like this:
+>>
+>> $ cat san.c
+>> #include <stdlib.h>
+>> #include <stdio.h>
+>>
+>> int main()
+>> {
+>>     void *p = malloc(4);
+>>     printf("%p\n", p);
+>>     return 0;
+>> }
+>> $ gcc -fsanitize=address -o san{,.c}
+>> $ ./san
