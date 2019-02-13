@@ -1,65 +1,71 @@
-Return-Path: <venture@google.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::529; helo=mail-pg1-x529.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Q5m2Bu++"; 
- dkim-atps=neutral
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AWUL/5xY"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="BojaazZd"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4409w76ytnzDqRj
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 07:23:51 +1100 (AEDT)
-Received: by mail-pg1-x529.google.com with SMTP id d72so1690380pga.9
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 12:23:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=jGAVo9SECHlghQzvJgtk1fyywD+kVIAVM1NB40hz4a4=;
- b=Q5m2Bu++ssJplMKeUo+fN1xMJw7aRi4vgUs81I3u4rZkgBwlbEwKpYZ5yxOKrELAuu
- dNmXQKeOz3eZMCbGErrmsaABmr4DlY0tSEaFF1YxFnL/idpaKOZC3uE80qbFYZ5vMrtU
- cZ4sNureWd+VarZ5uhQp9rG8/CP7BZrLdheE8S6BOQQKgk3HGL+c9z5LyQ+VYBeCHHg5
- SWCkl8bkV092yoN4+nSr+zmV4r+mqFeOUnZ/y2rkA38waFhla0gNwYsEaIaYGYhYUmsz
- VEux7tZnqYO3PYjGL2zqZuORLjLv1fGuMzM+PrZYMkxwUH+V0z1UebMap22wijcINCEx
- CPMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=jGAVo9SECHlghQzvJgtk1fyywD+kVIAVM1NB40hz4a4=;
- b=BCKyceqCru+xCm/XSBTNKCHJYakIsZ4PtVKIwOQ0PRlSwQyBP3Ytn5v5dMKQubyOVW
- 9RIhYJK5i9TvHKm7G9pzapU4cS7USy5x6boB2OJmQzVNw8LdcCO3aB6Zho7O3muPjnQ6
- EHejISxwkrrXDGnCZMM8LmTx6orfi0qJWhtE8DamJiKTIbPlLqPk6MX0qkW0tSmljRam
- BdtnncldApkqzxXj9CY6NTPy0MMDrkht004V/CNWz99SGMaDQSjmJHo7MnvcUtoH4MhC
- o9M1UmR+BWcsLXez1mmLFzMDBUkX17E8DgMXx32LdlDIw+aB0gled5QqOBZulXsrS9XB
- ZsPA==
-X-Gm-Message-State: AHQUAuZDx2ajZIh4u9VbIu30AbBDZyJKVlETPYIZ5KgeNhdXBwpUfyoq
- r68PLbbfqzMTMhR5NWB0VEo3yZ0IdMMkaWYT5WVpOA==
-X-Google-Smtp-Source: AHgI3IaubxwlQIS0GI7b4DzKPEn669wZtknwNTAnGZ9ssITvmngOdBBdtSPCck87euU7BUOykDC3GDMK2s7wIOo/1YU=
-X-Received: by 2002:a63:f74c:: with SMTP id f12mr2098421pgk.195.1550089428933; 
- Wed, 13 Feb 2019 12:23:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440F1C0slDzDqVh
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 09:43:26 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 54191231BB;
+ Wed, 13 Feb 2019 17:43:24 -0500 (EST)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Wed, 13 Feb 2019 17:43:24 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:mime-version:content-transfer-encoding
+ :content-type:subject:in-reply-to:references:date; s=fm2; bh=f8a
+ PEkHGf6Kr5UdFaf8XWUPK0xFca3Sy45EPMzk2Ohs=; b=AWUL/5xY3wnnBiVJAH0
+ Mkh2Dbpszw+zN972hNC8/sJvOtZpf+JGY8jY+umHGZ80KFaGTMoL+a+lnEWA7EaI
+ D2ISfpmj9ma91/eM0J/ZT9taoem4vQfs8NkF9fqSajsz/kMCzvMO4FKyqNdu14uu
+ 95f5UnUR42VCvdxVYZjMKC1IjMhuqTxjVg5c7Exa/pFZuAW5lO1i8VhjnuuswLxw
+ z5o0lbcGmosKk/gEIPcwRV7Y2seWItowFCi8ASi7hhhrsLCa7/5Sp2kceweJjnRi
+ cx4omQxqo+ZEI9ISZpnC6D4Ft9aVWW6ZYT0qN8lbDMeYvvUmWwhCIG3CmQS6y3ks
+ Duw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=f8aPEkHGf6Kr5UdFaf8XWUPK0xFca3Sy45EPMzk2O
+ hs=; b=BojaazZdGBoXDGPtbsMMsJFQaREVYAroIspBI/0KaOrcs6AkojZLAmfck
+ Onu7lyKsai3nzuAEs2Ojh5+O0G1WhWd9dssJlEt1n9PEdG+9ZZJU4LsxPmgz9Qjj
+ rhV5ciBv87gWhpdbnf63FQLCeNoSJ9TLibzIGBsITqZ5CbNF4ATQdrbeLaSAZMXw
+ d947qIWOIfpgESEWTi5A++8+vOKN+cI+hLYJGv2U7EvuYVWe/Th3Ao5SkZT3i+lu
+ rPjduKOU1iQbqvQ+lKgQrNm4buu1arbIRUPOvY8YNc/ZPLNAG5xpYJjZu9WpS/1N
+ DJneWRnVZpqR4xF8+Wbdz4yDlZTIw==
+X-ME-Sender: <xms:jJ1kXIvlevkc2tE0p6YJzPVhdyodZYBUw_hJMLQVR_i-OZyIOAhtbg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddtfedgudeiiecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthenuceurghilhhouhhtmecu
+ fedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepkffhvfgggf
+ gtoffujghfffesthejredtredtjeenucfhrhhomheptehnughrvgifucflvghffhgvrhih
+ uceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:jJ1kXMxueKvzjQKTovtlCO9w-BPRXuf2QSuCHO_fL1D_83CLxpBPMQ>
+ <xmx:jJ1kXIcxkhzfxJMJjpgdt-UEA1qOHBeciE3llGaI-CcbCiQTUNbWCQ>
+ <xmx:jJ1kXENP0lKM9XQVMn7oa0YLFSvWJfZMDHg3figVeQro7Iuk8gNWnA>
+ <xmx:jJ1kXNgvvhPtdrKmhbHkZzHmXtbGkQpkeuU1jXOBQsO5ZfwHSbg1Jw>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id E9498942D4; Wed, 13 Feb 2019 17:43:23 -0500 (EST)
+Message-Id: <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: AKASH G J <akashgj91@gmail.com>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-References: <CAO=notwr7mZQ_ww_z7Vn94SrvmGZu6v+KK-LwujvSmK4v3ut0g@mail.gmail.com>
- <20190211185046.2lisomjnecvrd7eh@thinkpad.dyn.fuzziesquirrel.com>
- <CAPnigKm9Sce7DbBjKf7tGJrgVPyF=2u04GFPW4FTzeHKUHYhTg@mail.gmail.com>
- <CAO=notwCLir90VDFiNHWKwYHuKJ6k7TWrCECkWkAe3QKprc_hg@mail.gmail.com>
- <CAO=notyaqHWYHk3+wekPMLBK_==vwDT-+ccyNMxXPcRKwvPZDQ@mail.gmail.com>
- <EC08735B-9BC7-4781-9DD9-2CC9DA63DCE5@fb.com>
-In-Reply-To: <EC08735B-9BC7-4781-9DD9-2CC9DA63DCE5@fb.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 13 Feb 2019 12:23:37 -0800
-Message-ID: <CAO=noty_cHo1WW3mZhiY_SS779a6QnBwpXE0a5ddEdw6uu8wbg@mail.gmail.com>
-Subject: Re: Host-side tools
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: William Kennington <wak@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-e97eb308
+Subject: Re: Unable to read or write from system SPI flash memory.
+In-Reply-To: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
+References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
+Date: Thu, 14 Feb 2019 09:13:23 +1030
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,123 +77,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Feb 2019 20:23:53 -0000
+X-List-Received-Date: Wed, 13 Feb 2019 22:43:30 -0000
 
-On Tue, Feb 12, 2019 at 1:33 PM Vijay Khemka <vijaykhemka@fb.com> wrote:
->
->
->
-> =EF=BB=BFOn 2/11/19, 3:08 PM, "openbmc on behalf of Patrick Venture" <ope=
-nbmc-bounces+vijaykhemka=3Dfb.com@lists.ozlabs.org on behalf of venture@goo=
-gle.com> wrote:
->
->     On Mon, Feb 11, 2019 at 2:58 PM Patrick Venture <venture@google.com> =
-wrote:
->     >
->     > On Mon, Feb 11, 2019 at 11:49 AM William Kennington <wak@google.com=
-> wrote:
->     > >
->     > > As long as it's possible to build the host side tooling without
->     > > building any of the BMC side tooling and vice versa it sounds fin=
-e to
->     > > me.
->     >
->     > I've been doing a lot of host-side development lately and I was
->     > interested to know what the end result would be.  If someone ran th=
-e
->     > configuration just to use the tool, they might run into issues.  I'=
-ve
->     > avoided using BMC-side libraries where possible to avoid host-side
->     > tool poisoning.
->     >
->     > >
->     > > On Mon, Feb 11, 2019 at 10:51 AM Brad Bishop
->     > > <bradleyb@fuzziesquirrel.com> wrote:
->     > > >
->     > > > On Mon, Feb 11, 2019 at 08:03:17AM -0800, Patrick Venture wrote=
-:
->     > > > >Brad,
->     > > > >
->     > > > >It's my understanding that host-side tools that cooperate with=
- bmc-side
->     > > > >tools should be in the same repo,
->     > > >
->     > > > Is this something I said at some point?  Where is this coming f=
-rom?
->     >
->     > I don't have the exact email, and it might have been very very stal=
-e
->     > information.  But I'm glad to clear this up! :D
->     >
->     > > >
->     > > > >hence why the host-side blobs stuff is in phosphor-ipmi-flash.
->     > > > >However, if I add any dependencies to the configuration for th=
-e
->     > > > >BMC-side, those get in the way of configuring for the host-sid=
-e.  Would
->     > > > >it not make sense to sometimes have it split?  And if so, I wo=
-uld like
->     > > > >to propose creating two repos, a blobs library host-side, and =
-a flash
->     > > > >tool host-side repo, so those can be neatly split and not have=
- anything
->     > > > >in their configuration file that's really bmc-side specific, l=
-ike
->     > > > >ipmid, or phosphor-dbus-interface, or something.
->     > > >
->     > > > I can make a repo if you would like.  Just let me know what you=
- would
->     > > > like it called.
->     >
->     > Thanks.  I'm working on an IPMI blob toolset, such that there is a
->     > library that provides host-side blob tooling, and then the flash ho=
-st
->     > toolset can link against that library and be used on the host.
->     >
->     > So that's my goal.  To get there I was thinking,
->     > phosphor-ipmi-blobs-tool (or ipmi-blobs-lib) and
->     > phosphor-ipmi-flash-tool for that side.  The argument against
->     > ipmi-blobs-lib is that there may end up being some basic tool there
->     > tool and not just the library -- do you have any preference in this
->     > case?
->
->     Reviewing my goals further, the idea of having an ipmi-blobs-lib or
->     ipmi-blobslib repo would be helpful.  I could do all the host-side
->     blob tooling there, and have that be a dependency of
->     phosphor-ipmi-flash-tool.  Which leaves me with two repo requests:
->
->     ipmi-blobslib
->     phosphor-ipmi-flash-tool
->
-> Can we name as "phosphor-host-tools instead of calling ipmi-blob.
-> As we can have similar tools repo for bmc and we can call it as
-> phosphor-bmc-tools. All host related tools can be in one single
-> repo and bmc tools can be in another single repo.
+On Wed, 13 Feb 2019, at 19:24, AKASH G J wrote:
+> Hi all,
+> 
+> We have a test board containing BMC Aspeed AST-2500. It contains BMC flash
+> memory, SPI1 flash memory and SPI2 flash memory. we are using zaius machine
+> configuration for building Linux. When I am trying to write to SPI1 flash
+> at address 30000000 using pflash tool, the modified data is not reflected
+> after reboot. Same with SPI2 flash. With pflash tool I am able to write
+> data permanently to BMC flash memory. The device tree for SPI devices is
+> following.
+> 
+> &fmc {
+>     status = "okay";
+> 
+>     flash@0 {
+>         status = "okay";
+>         label = "bmc";
+>         m25p,fast-read;
+>         spi-max-frequency = <50000000>;
+> #include "openbmc-flash-layout.dtsi"
+>     };
+> };
+> 
+> &spi1 {
+>     status = "okay";
+>     pinctrl-names = "default";
+>     pinctrl-0 = <&pinctrl_spi1_default>;
+> 
+>     flash@0 {
+>         status = "okay";
+>         label = "pnor";
+>         m25p,fast-read;
+>         spi-max-frequency = <100000000>;
+>     };
+> };
+> 
+> &spi2 {
+>     status = "okay";
+>     pinctrl-names = "default";
+>     pinctrl-0 = <&pinctrl_spi2ck_default
+>              &pinctrl_spi2cs0_default
+>              &pinctrl_spi2cs1_default
+>              &pinctrl_spi2miso_default
+>              &pinctrl_spi2mosi_default>;
+> 
+>     flash@0 {
+>         status = "okay";
+>     };
+> };
 
-There's already a repo, iirc for some BMC tools.  And, I don't know
-that storing arbitrary host-tools in the same repo is a plan I can
-support - unless they're all cpp built the same way, but really at
-that point it feels like if someone wanted to build their one tool it
-might be more steps?
+How are you invoking pflash? You should not be using the /dev/mem backend
+when you have the flash controller and devices enabled via the devicetree. You
+should be using the mtd backend instead.
 
->
->     You could add the phosphor prefix to the ipmi-blobslib if you wanted
->     for consistency since its' meant to work with and on the phosphor
->     environment.
->
->
->     >
->     > I'm definitely seeking suggestions on this.
->     >
->     > > >
->     > > > That said, I think you can also probably do this in the same re=
-po, if
->     > > > you wanted, by having different build targets - it might not ma=
-ke any
->     > > > sense to try and build both applications with a single invocati=
-on of
->     > > > configure - as you point out, they are being "configured" for v=
-astly
->     > > > different runtime environments.
->
->
+Andrew
