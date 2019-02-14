@@ -1,67 +1,83 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.15; helo=cpsmtpb-ews10.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="mf6KZc5W"; 
- dkim-atps=neutral
-X-Greylist: delayed 801 seconds by postgrey-1.36 at bilbo;
- Fri, 15 Feb 2019 03:35:20 AEDT
-Received: from cpsmtpb-ews10.kpnxchange.com (cpsmtpb-ews10.kpnxchange.com
- [213.75.39.15])
- by lists.ozlabs.org (Postfix) with ESMTP id 440hp03FSbzDqcD
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 03:35:18 +1100 (AEDT)
-Received: from cpsps-ews13.kpnxchange.com ([10.94.84.180]) by
- cpsmtpb-ews10.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Thu, 14 Feb 2019 17:21:51 +0100
-X-Brand: /q/rzKX13g==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e2=11;e3=10);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=GcnGYjfL c=1 sm=1 tr=0
- a=sfk9uMsoq7e5/NfZ3OK45Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
- a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
- a=CFTnQlWoA9kA:10 a=wUFvI-CCSdcnM4vRU30A:9 a=CjuIK1q_8ugA:10
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
- cpsps-ews13.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Thu, 14 Feb 2019 17:21:51 +0100
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1550161311;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=8o7WCXnIN9bhVbMyW4WSKtFO/E6AJeZ71xkbsdUyNBI=;
- b=mf6KZc5WQ1VEq5R9+RQOpQ98lLqWnEq8nUWoe2/eCbp0Y83htE5oM9yj8jBVObQvoVdyw6cE/Zf
- LpGcWsLryRB2UpmUfz/g5pP7du2liig2uTheXYVGXkFwY/CMaoNToRJWqzLLx/njgl+870udYlfqj
- cQGENE2SOve0WWC3YXo=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT108.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Thu, 14 Feb 2019 17:21:51 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 14 Feb
- 2019 17:21:11 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Thu, 14 Feb 2019 17:21:11 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Building intel s2600wf image
-Thread-Topic: Building intel s2600wf image
-Thread-Index: AdTEgOxruXMkKJM/Q0SIL26ipoAf6Q==
-Date: Thu, 14 Feb 2019 16:21:10 +0000
-Message-ID: <5beefafbdca24738a72f243e667823fe@Eltsrv03.Eltan.local>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440qCc69F7zDqWF
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 08:24:28 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1ELO2Jc090413
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 16:24:25 -0500
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2qnekhg3gj-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 16:24:25 -0500
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Thu, 14 Feb 2019 21:24:24 -0000
+Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 14 Feb 2019 21:24:22 -0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1ELOLdd26214624
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 14 Feb 2019 21:24:21 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 41E9BC6055;
+ Thu, 14 Feb 2019 21:24:21 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 15FB0C6059;
+ Thu, 14 Feb 2019 21:24:21 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 14 Feb 2019 21:24:21 +0000 (GMT)
 MIME-Version: 1.0
-X-OriginalArrivalTime: 14 Feb 2019 16:21:51.0378 (UTC)
- FILETIME=[64562720:01D4C481]
-X-RcptDomain: lists.ozlabs.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 14 Feb 2019 15:31:11 -0600
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: Andrew Geissler <geissonator@gmail.com>
+Cc: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: Romulus to use Virtual PNOR
+In-Reply-To: <CALLMt=q_Pb=TpzR353dTMyP=cpkf9FPJCFiSxu+Q3_ntK5no2Q@mail.gmail.com>
+References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+ <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
+ <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
+ <CALLMt=q_Pb=TpzR353dTMyP=cpkf9FPJCFiSxu+Q3_ntK5no2Q@mail.gmail.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19021421-0016-0000-0000-000009841A74
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010596; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000280; SDB=6.01161099; UDB=6.00606058; IPR=6.00941656; 
+ MB=3.00025585; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-14 21:24:24
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021421-0017-0000-0000-00004226BD8F
+Message-Id: <c8633af8ba717f0812cf55b8eb458084@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-14_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=722 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902140141
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,18 +89,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Feb 2019 16:35:23 -0000
+X-List-Received-Date: Thu, 14 Feb 2019 21:24:29 -0000
 
-Hello,
+On 2019-02-14 07:13, Andrew Geissler wrote:
+> On Wed, Feb 13, 2019 at 9:03 PM Lei YU <mine260309@gmail.com> wrote:
+>> 
+>> Based on the discussion, let's keep using static flash layout for PNOR 
+>> on
+>> Romulus.
+>> 
+>> This brings the questions:
+>> 1. Shall we move the legacy code update service
+>>    (org.openbmc.control.Flash.service) to the new one
+>>    (xyz.openbmc_project.Software.xxx.service)?
+> 
+> Yes please. I asked Adriana to open a story to track doing this.
 
-We are trying to build the Intel s2600wf image using the latest OpenBMC tre=
-e. If we do that we are running into build errors.
+https://github.com/ibm-openbmc/dev/issues/417
 
-Before digging into this can you tell me which commit of the tree can be us=
-ed to build an image for  this device without errors. This allows us to hav=
-e a stable version for reference.
-
-Best Regards,
-
-Wim Vervoorn=20
-Eltan B.V.
+The first step would be to support just updating the pnor using the
+libflash library that the legacy code uses. We can look into the
+other features like signature validation afterwards.
