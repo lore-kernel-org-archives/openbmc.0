@@ -6,74 +6,69 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="su3Yc85t"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="wT1Opbvu"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="5SdOUMxR"; dkim-atps=neutral
+ header.b="Y6ub2HGH"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440smZ3CpCzDqC7;
- Fri, 15 Feb 2019 10:19:42 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440syN1vSlzDqKX
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 10:28:11 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A68EA2222E;
- Thu, 14 Feb 2019 18:19:39 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 10E0722005;
+ Thu, 14 Feb 2019 18:28:09 -0500 (EST)
 Received: from web1 ([10.202.2.211])
- by compute4.internal (MEProxy); Thu, 14 Feb 2019 18:19:39 -0500
+ by compute4.internal (MEProxy); Thu, 14 Feb 2019 18:28:09 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:subject:references:in-reply-to:date; s=fm2; bh=bFe
- pqL0NpvwEbbi2xzMWcVXlAegulWGMVwzoseaRqsQ=; b=su3Yc85t1tC3cWPFpfW
- hXDO3JCVRbgiTcA1ogPp5u74lXLRAmYg4Yr7x/xz59ysPzxHtTb6cuND/Mm+FqyC
- OAtFTwYllWPdI6XRL0OuK0x2bDRP9yeOHpd0Apx/zMP8RiSslyCVz2M+ZTfL/SaI
- epkbql+I8suTzYcHW31+vPxkFH5DMOdPp4ycTvb6BNhUi6oZ6JIxalsjb04NsHKR
- TQ0qcEJgszAVBDJrmjvggzK5MLG6dfUsXzaGg1bpgVFfnRLxUXKnWvchnIdYcQ4q
- M2uZbVokhHGMK4hU75tNlVK+atLdFSSlNu4GjPp+X01V7O5JrTT/Z6atIO/0/m9u
- p5w==
+ :content-type:references:subject:date:in-reply-to; s=fm2; bh=sa2
+ Zzp+X+ceKzgAHk8aZPo+/0FS2j7Egs635/0WFl3c=; b=wT1OpbvuQUcJnyxuA0k
+ SjVqDRNpG/uuYMBLYNeUVJMjw6aF7K/uQMZkomhA+or3GnqkFtscV2usqWgXSZYr
+ WBOtsIuDHNXkt1o2bXQgDXJsMTgyf7K9036v/c4x/FX63APbJhqgF0N0aggDoOtv
+ tATXWN3l4SaPqs5IqvUdhUyva9wSV7ujZf0EXp7ouD3KBoz12BwizTXElii1wUUs
+ /5UQKQZrAJ9SplK8JGgbIHbgCBVps4ZMstvCnmFfyMjDt407rEESKNF0j26+auOU
+ HNTQ/QpVAwkYGudxE4JNgZijvzQsW26gWiWb1tr5/rvXsX4SnVZ44XRc0ndJZUjZ
+ FGw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:content-type
  :date:from:in-reply-to:message-id:mime-version:references
  :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=bFepqL0NpvwEbbi2xzMWcVXlAegulWGMVwzoseaRq
- sQ=; b=5SdOUMxRYKRS0LHNBeg6V8CP6M9lbCU+50Ih0cytoAc1u7iW3qfE3cXeq
- ElZ0Y1f2GVbKij8pFPJfjQ44YuskrLZRUflWn6nZTK0IQreg22bTM2wm66BplbYo
- Tsl7lXO5AeWWY8pbQsU4U4KDHbU9RrztkfkXy0Hyr6f2iv6BehS6dT2y5VrGvfxY
- wmA2VSlCHXrQ0Vlm/umlRYyYs6a5uqg46MW9g25QnNIjo45lxXKEdjTrksFW6BuB
- zGjAH2cmfSezNq6wfuJxVCeYHdzySmtYqSUE4TCK27xTCNbkleEICO+kKSXrdV+h
- kKYQc1BwJ9ITK4m5m48VquKJoLzNg==
-X-ME-Sender: <xms:ivdlXBs_rj67gb1g5TgAWzqUVG706sv-cwLbllW7NErhJ__ARcgNiQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddtiedgtdeiucetufdoteggodetrfdotf
+ :x-sasl-enc; s=fm2; bh=sa2Zzp+X+ceKzgAHk8aZPo+/0FS2j7Egs635/0WFl
+ 3c=; b=Y6ub2HGHDt+rAIhIXLiVsIpDCtMzuQI/EBxt75idGJMwcGL56cA4SkLjH
+ RaXI1gYNXsz2aDHJ/rdb/l8VN5QEzePHZ9VdfEjcvgrZm3fpcuZSJN3FQlNYNtXP
+ tHCl8gQ0HZRfUK9qKjrvI+i2Jkbq4Sv9Bz7R2wlIIKu7HSCtIqPh28eNhaBs/q8h
+ RyFNUwR3Z0toytACG5LmkhvNSWMuRfnjRHcm5zzdA2wKlmCftQ6qskqABSwWvQug
+ SX3I/dW8gi+ZAA5c/OnZRhnLqY6MWuBR4LmytrEWPDCX4tu37otIiNYTpPysUiSE
+ 9Ofwj3rOjZzLExvkBCVDAMQnJfsHQ==
+X-ME-Sender: <xms:iPllXD-gVboW2ntQYbJ5DOS_6G31mqlSnb_w_2PhLhiVMWkGjn49eg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddtiedgtdejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
- tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenogfuuhhsphgvtghtffhomh
- grihhnucdlgeelmdenucfjughrpefkhffvggfgtgfoufhfjgffsehtjeertdertdejnecu
- hfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhiugdrrg
- huqeenucffohhmrghinhepghhoohhglhgvrdgtohhmnecurfgrrhgrmhepmhgrihhlfhhr
- ohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:ivdlXJMibapyCl4ywka-_V1bx5kj9ZzrKhRg48xNec6QHWoVVQn6mA>
- <xmx:ivdlXG-DXme4EVPtq0mbk8qMUB5mzp2qkn88_H7-RMaqDLsb8Lg0wg>
- <xmx:ivdlXMtFa1uQSCqAgjobYssYDtuELFoXgxTt2PuknIrRPeRkL6cLvg>
- <xmx:i_dlXE3BgH5500Ny4tZModyAHkDBJnCifFikxSlaotkVNwTFjgkmkg>
+ tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkhffvggfgtg
+ fofhfuffgjsehtjeertdertdejnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicu
+ oegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:iPllXGlQ4wpbHmVT-45n0738ZcyUKfr7-sVX8cukiHLKUF6Xq_Intw>
+ <xmx:iPllXN8TZRb3OX0aJz4F_ZpGzd2bGzQmWBRGm-zD3prP7kvOdY6yUw>
+ <xmx:iPllXMnZSnqlvd9eLuobQOkb4Yu0c7iSwhfnRk3l5xgJptVh5wAOYw>
+ <xmx:ifllXAFc5FVFtgpmtjfIBi4mPmnvtfjF--bq7SD1eXUiCnCI4pwJCQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id B116E94513; Thu, 14 Feb 2019 18:19:38 -0500 (EST)
-Message-Id: <1550186378.4136016.1658266304.4858D971@webmail.messagingengine.com>
+ id 6CEB494513; Thu, 14 Feb 2019 18:28:08 -0500 (EST)
+Message-Id: <1550186888.4139421.1658270160.5405B961@webmail.messagingengine.com>
 From: Andrew Jeffery <andrew@aj.id.au>
-To: Joseph Reynolds <jrey@linux.ibm.com>
-Cc: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- openbmc <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
+To: AKASH G J <akashgj91@gmail.com>
+Cc: openbmc@lists.ozlabs.org
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="utf-8"
 X-Mailer: MessagingEngine.com Webmail Interface - ajax-e97eb308
-Subject: Re: Secure boot for BMC
-References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
- <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
- <CADfYTpENfKyyoMuhuN+RzD7nCQbo+g8sWS-mxMU0PUS5C-Z3yw@mail.gmail.com>
- <1550013215.2866613.1656755904.44211550@webmail.messagingengine.com>
- <02642911831c76d37123735a2964984f@linux.vnet.ibm.com>
-In-Reply-To: <02642911831c76d37123735a2964984f@linux.vnet.ibm.com>
-Date: Fri, 15 Feb 2019 09:49:38 +1030
+References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
+ <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
+ <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
+Subject: Re: Unable to read or write from system SPI flash memory.
+Date: Fri, 15 Feb 2019 09:58:08 +1030
+In-Reply-To: <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,41 +80,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Feb 2019 23:19:46 -0000
+X-List-Received-Date: Thu, 14 Feb 2019 23:28:13 -0000
 
-On Thu, 14 Feb 2019, at 11:04, Joseph Reynolds wrote:
-> On 2019-02-12 17:13, Andrew Jeffery wrote:
-> > On Tue, 12 Feb 2019, at 11:00, Nancy Yuen wrote:
-> >> We are working on secure boot, but we have a requirement for a Google 
-> >> HW
-> >> root of trust so I'm not sure if that fits in with these discussions.
-> > 
-> > I think it would help to have some idea of Google's requirements so the 
-> > project
-> > can accommodate them where we can, if you can reveal any details. It 
-> > may also
-> > help inform others (me?) on strategies to secure firmware.
+On Thu, 14 Feb 2019, at 14:59, AKASH G J wrote:
+> I am using the following command to write data to SPI1 flash.
+> *pflash -e -a 0 -f -p <filename>*
 > 
-> The OpenBMC security working group has discussed various "root of trust" 
-> ideas.  The way I understand it, OpenBMC community members are looking 
-> into different solutions including
-> "Secure Boot" and "Trusted Platform Module" (TPM) solutions, including 
-> Google's OpenTitan chip.  See the meeting minutes for details:
-> https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI
+> On Thu, Feb 14, 2019 at 4:13 AM Andrew Jeffery <andrew@aj.id.au> wrote:
 > 
-> My understanding of the "Secure Boot" concept is that some chip 
-> validates the boot loader's digital signature after loading it and 
-> before jumping into it.  Then the boot loader would validate the code it 
-> loads before jumping into it.  Etc.  A validation failure could either 
-> (a) cause the BMC to fail to boot, or (b) boot the BMC in failsafe mode 
-> where it could not write to its flash or talk to its host.  OpenBMC may 
-> also need some way to talk to the chip.
-> 
-> My understanding of TPMs is much more limited.  So we are waiting for 
-> proposals.
+> > On Wed, 13 Feb 2019, at 19:24, AKASH G J wrote:
+> > > Hi all,
+> > >
+> > > We have a test board containing BMC Aspeed AST-2500. It contains BMC
+> > flash
+> > > memory, SPI1 flash memory and SPI2 flash memory. we are using zaius
+> > machine
+> > > configuration for building Linux. When I am trying to write to SPI1 flash
+> > > at address 30000000 using pflash tool, the modified data is not reflected
+> > > after reboot. 
 
-On OpenPOWER systems I think we need the TPM approach, as we can't
-restrict our customers by burning e.g. IBM keys into the ASPEED OTP key
-slots (... in the 2600).
+A reboot of what? The host or the BMC? Does this mean that the expected data
+is present after the pflash but before the reboot of whichever system you're
+talking about here?
+
+What are the versions of the BMC kernel and pflash tool that you're using?
 
 Andrew
