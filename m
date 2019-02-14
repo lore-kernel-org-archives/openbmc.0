@@ -1,84 +1,58 @@
-Return-Path: <jrey@linux.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="ZOBwDGIT"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440HKK3qZ7zDqL5
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 11:27:33 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1E0JNMn125974
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 19:27:31 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qmt758vtp-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 19:27:30 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
- Thu, 14 Feb 2019 00:27:30 -0000
-Received: from b03cxnp07028.gho.boulder.ibm.com (9.17.130.15)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 14 Feb 2019 00:27:27 -0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1E0RQVU19726370
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 14 Feb 2019 00:27:26 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3C8DFBE051;
- Thu, 14 Feb 2019 00:27:26 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0A72ABE04F;
- Thu, 14 Feb 2019 00:27:25 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 14 Feb 2019 00:27:25 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440LP972RYzDqR1;
+ Thu, 14 Feb 2019 13:46:05 +1100 (AEDT)
+Received: by mail-qt1-x842.google.com with SMTP id w4so5304699qtc.1;
+ Wed, 13 Feb 2019 18:46:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=3/MRHWH1eDADDzg2rOvmAkC2VlQ9FZSO20nJ01BKou0=;
+ b=ZOBwDGIT+ZM/62JcaKodRruEg6MZEx7u1rDKDLZI7oUdTUaqmLP/oPE9H2AqCEy6Yh
+ AGE01qRXvWMxMEm1uao4AM5MOd1oUasFq7YYo7pcyN/CsXADMuG6CCaTqzDPuoXMlj/Q
+ 7taEStcUyJt81+2hKw1oX5Kxufsnlgaw0WpwU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=3/MRHWH1eDADDzg2rOvmAkC2VlQ9FZSO20nJ01BKou0=;
+ b=izD0Z+kV7eNPSsYMx3JUgbFixFxw1sgjWJ8qohdNOm8eWLJxUUVEEAcjre9nWRx3Wn
+ t35FYlc2YE0WR4BWk3AEP/H4qEJ8qXARI+YKvBk3F/RSqn56OKy5pYoOZZLEnx5i15X7
+ rAREaCNs65oN73xAM5A9mTHiAVw20URmq7xdXQQagGT6bS9s8CQbjXTQuIYxd36JHVE6
+ pNmjhRqQw7GJDtQwqWlyq5ly0WshOt7kN5IuEloQf72Y0mgQM+QL4lBs/fx+F4zGdRmx
+ NkToBjIIbRDu5qFnPQKg6by26GlPXFihKAGp/M08vJe0X4ACQtDW65hiSTxhqJ+nEjAG
+ vAnQ==
+X-Gm-Message-State: AHQUAuZFNSXciGo4wuiNyn2U5mDX+Bw2bdX7nkYQfgahki2Xmnwe88Z9
+ CSn28q6TlI0leCwyyJyhFRkAlKrnnd5U5EI5VvI=
+X-Google-Smtp-Source: AHgI3IYVFUxFm5ZUKno8dfN1w1OUychW7eKLBeT+GFdZOe1hsy/Drqp7SV49xIoy6ltd72KHDHIq+FvP//j52i37m8o=
+X-Received: by 2002:aed:3574:: with SMTP id b49mr1115856qte.235.1550112362963; 
+ Wed, 13 Feb 2019 18:46:02 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 13 Feb 2019 18:34:14 -0600
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>,
- openbmc <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
-Subject: Re: Secure boot for BMC
-In-Reply-To: <1550013215.2866613.1656755904.44211550@webmail.messagingengine.com>
-References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
- <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
- <CADfYTpENfKyyoMuhuN+RzD7nCQbo+g8sWS-mxMU0PUS5C-Z3yw@mail.gmail.com>
- <1550013215.2866613.1656755904.44211550@webmail.messagingengine.com>
-X-Sender: jrey@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19021400-0020-0000-0000-00000EBB771B
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010591; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000279; SDB=6.01160684; UDB=6.00605807; IPR=6.00941239; 
- MB=3.00025570; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-14 00:27:29
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19021400-0021-0000-0000-000064CA37B6
-Message-Id: <02642911831c76d37123735a2964984f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-13_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=608 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902140001
+References: <1547708191-8721-1-git-send-email-wangzqbj@inspur.com>
+ <4C4C6975-CA11-4609-BF8D-6246A1C5F193@fb.com>
+In-Reply-To: <4C4C6975-CA11-4609-BF8D-6246A1C5F193@fb.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 14 Feb 2019 13:15:51 +1030
+Message-ID: <CACPK8XdFPLdGJw2RM3r55wX=8U1UgLNN_kk-9jBZenMF6ezSpg@mail.gmail.com>
+Subject: Re: [PATCH] ARM:dts:aspeed Add Inspur on5263m5 BMC
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: John Wang <wangzqbj@inspur.com>, "andrew@aj.id.au" <andrew@aj.id.au>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,38 +64,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Feb 2019 00:27:33 -0000
+X-List-Received-Date: Thu, 14 Feb 2019 02:46:07 -0000
 
-On 2019-02-12 17:13, Andrew Jeffery wrote:
-> On Tue, 12 Feb 2019, at 11:00, Nancy Yuen wrote:
->> We are working on secure boot, but we have a requirement for a Google 
->> HW
->> root of trust so I'm not sure if that fits in with these discussions.
-> 
-> I think it would help to have some idea of Google's requirements so the 
-> project
-> can accommodate them where we can, if you can reveal any details. It 
-> may also
-> help inform others (me?) on strategies to secure firmware.
+On Wed, 13 Feb 2019 at 08:40, Vijay Khemka <vijaykhemka@fb.com> wrote:
 
-The OpenBMC security working group has discussed various "root of trust" 
-ideas.  The way I understand it, OpenBMC community members are looking 
-into different solutions including
-"Secure Boot" and "Trusted Platform Module" (TPM) solutions, including 
-Google's OpenTitan chip.  See the meeting minutes for details:
-https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI
+> =EF=BB=BFOn 2/12/19, 1:58 PM, "Linux-aspeed on behalf of John Wang" <linu=
+x-aspeed-bounces+vijaykhemka=3Dfb.com@lists.ozlabs.org on behalf of wangzqb=
+j@inspur.com> wrote:
+>
+>     Add initial version of device tree file for on5263m5 ast2500bmc
+>
+>     Signed-off-by: John Wang <wangzqbj@inspur.com>
+>     ---
+>      arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts | 146 +++++++++++++=
+++++++++++
+>      1 file changed, 146 insertions(+)
+>      create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-on5263m5.dts
 
-My understanding of the "Secure Boot" concept is that some chip 
-validates the boot loader's digital signature after loading it and 
-before jumping into it.  Then the boot loader would validate the code it 
-loads before jumping into it.  Etc.  A validation failure could either 
-(a) cause the BMC to fail to boot, or (b) boot the BMC in failsafe mode 
-where it could not write to its flash or talk to its host.  OpenBMC may 
-also need some way to talk to the chip.
+>     +&pinctrl {
+>     +   aspeed,external-nodes =3D <&gfx &lhc>;
+>     +};
+> This pinctrl definition is not required as it is already defined in aspee=
+d-g5.dtsi.
 
-My understanding of TPMs is much more limited.  So we are waiting for 
-proposals.
+I've already applied the patch and sent the pull request. Please
+follow up with a patch to clean this up.
 
-- Joseph
+Cheers,
 
-> Andrew
+Joel
