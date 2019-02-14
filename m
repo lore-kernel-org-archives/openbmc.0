@@ -1,58 +1,106 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::334; helo=mail-ot1-x334.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="WEBo6x6G"; 
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="DbJUg3E4"; 
  dkim-atps=neutral
-Received: from mail-ot1-x334.google.com (mail-ot1-x334.google.com
- [IPv6:2607:f8b0:4864:20::334])
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440Njx3nGzzDq7j
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 15:30:45 +1100 (AEDT)
-Received: by mail-ot1-x334.google.com with SMTP id z19so8416711otm.2
- for <openbmc@lists.ozlabs.org>; Wed, 13 Feb 2019 20:30:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WiTQjW79TumJ5+JY7o9yvnvawLQ9OQ5SIP/iGznnjF0=;
- b=WEBo6x6G1hD97i6t2yelWM8PNakgXhBzTjGVmH/m3DjY2EYBfJ8DSRG+aoYl3gzvyT
- VlTfeIwmlUSgGSsKRuwrQzDIDPowcxzAa61sOwG0li9nSZ/vRILZnwYyXFNv6JrQa4Uy
- 1cEzJTAnZZWgKERD9S2VJ/BXzKGeB3KUWVfGcVuexcuHpIZ2SGH8X8cfqm4IpvAc8mZa
- mvMWkwgSnCPkYFILHjjqoYClBxjitl3H6rT+qZo5Bjp9vDadBDOiHZZh3W0kVmsMkQBK
- fSvVCfYdDgeAx9Dt2v83y0F8BoIP3jOecS6GIydFnFdj35m4d8ODzDwFcHAvVBkH+dpw
- gIig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=WiTQjW79TumJ5+JY7o9yvnvawLQ9OQ5SIP/iGznnjF0=;
- b=b9nfuR7XHHJfWUr7JzPyATFXuaVdz/L/df8NAF2uH0iNlacha7yrbDOdlW1G3QK7at
- SCbfrDuxKWPEEEUR+8ub/ws7nkpvOQNqiT58u/jg8k9ZrdcE/JQeuJhmBUzFT3DzjUcP
- 4evJOcp2HDujP8Vlv1+4fC8HGxjo45p918sPrt6r3LNSXvwfNMhjbv62XbAjFvrYFWVT
- MX19xoiqN31d6fCmTzDewgh5bXLNxUAE4Knmz60wzn6+73CPdNexo7GA9LIUNPYO8MiU
- hjJz754/taFyJyZtviIdK1mX5h/V1MfUGWjg0fAtecs916Wqw+8jmxyH+Rdvtvezl38/
- yFgw==
-X-Gm-Message-State: AHQUAuZjiX82d73xNaUyJHR9cMSLUHtqsnRrbuO+DfgTH6bfHZ22/bqt
- WStS9Uih+uGmCPAiyA733EFR1VXDbtpjQouIOqtYjzCWnf0=
-X-Google-Smtp-Source: AHgI3IbcB8in+hQVSrIuveSp7Ki9ocB9iw1+w4gxgk9Lm/sdt6Rv7YRuRIQ6dyikgvrPfhoA2tvd+pyzjWEQiT+/gTw=
-X-Received: by 2002:a05:6830:10cd:: with SMTP id
- z13mr311713oto.57.1550118642735; 
- Wed, 13 Feb 2019 20:30:42 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440YQp44rqzDqMk
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 22:03:14 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 2210141994
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 11:03:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1550142188; x=
+ 1551956589; bh=H+tDD2kqWVCe6AyiZRWWllLQMzyw3nkykkudv9Ul7MU=; b=D
+ bJUg3E4XfnqV184N9mzeHAlwxovVYjZgqhRWKSIg9kiUdpjoYmSKh0ePkiypTgne
+ oa0OJWQ13fCXX0dtvLcGQL5A5zC2Kfzl7JKxOGEb2k9U72UaWW2hdh8JWUzfU7qP
+ Tb+8DRADX5wjkXODvnPC7t8NQX7rFBpbHjlnXbVZsw=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id M2Wn86VpugtD for <openbmc@lists.ozlabs.org>;
+ Thu, 14 Feb 2019 14:03:08 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 3367441965
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 14:03:08 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 14
+ Feb 2019 14:03:07 +0300
+Subject: Re: Romulus to use Virtual PNOR
+To: <openbmc@lists.ozlabs.org>
+References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+ <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
+ <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <3ddb6822-51ae-a613-f46c-bad4826d546e@yadro.com>
+Date: Thu, 14 Feb 2019 14:03:07 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
- <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
-In-Reply-To: <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
-From: AKASH G J <akashgj91@gmail.com>
-Date: Thu, 14 Feb 2019 09:59:56 +0530
-Message-ID: <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
-Subject: Re: Unable to read or write from system SPI flash memory.
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000000f60de0581d31fd7"
+In-Reply-To: <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="HJtsRH4O5Z0aWGTotST2xD1WFXiQc1hdV"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,157 +112,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Feb 2019 04:30:46 -0000
+X-List-Received-Date: Thu, 14 Feb 2019 11:03:15 -0000
 
---0000000000000f60de0581d31fd7
-Content-Type: text/plain; charset="UTF-8"
+--HJtsRH4O5Z0aWGTotST2xD1WFXiQc1hdV
+Content-Type: multipart/mixed; boundary="lnxZv84bxkguiWyPU4OJXjxtkAcidIyE5";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <3ddb6822-51ae-a613-f46c-bad4826d546e@yadro.com>
+Subject: Re: Romulus to use Virtual PNOR
+References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
+ <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
+ <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
+In-Reply-To: <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
 
-I am using the following command to write data to SPI1 flash.
-*pflash -e -a 0 -f -p <filename>*
-
-On Thu, Feb 14, 2019 at 4:13 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Wed, 13 Feb 2019, at 19:24, AKASH G J wrote:
-> > Hi all,
-> >
-> > We have a test board containing BMC Aspeed AST-2500. It contains BMC
-> flash
-> > memory, SPI1 flash memory and SPI2 flash memory. we are using zaius
-> machine
-> > configuration for building Linux. When I am trying to write to SPI1 flash
-> > at address 30000000 using pflash tool, the modified data is not reflected
-> > after reboot. Same with SPI2 flash. With pflash tool I am able to write
-> > data permanently to BMC flash memory. The device tree for SPI devices is
-> > following.
-> >
-> > &fmc {
-> >     status = "okay";
-> >
-> >     flash@0 {
-> >         status = "okay";
-> >         label = "bmc";
-> >         m25p,fast-read;
-> >         spi-max-frequency = <50000000>;
-> > #include "openbmc-flash-layout.dtsi"
-> >     };
-> > };
-> >
-> > &spi1 {
-> >     status = "okay";
-> >     pinctrl-names = "default";
-> >     pinctrl-0 = <&pinctrl_spi1_default>;
-> >
-> >     flash@0 {
-> >         status = "okay";
-> >         label = "pnor";
-> >         m25p,fast-read;
-> >         spi-max-frequency = <100000000>;
-> >     };
-> > };
-> >
-> > &spi2 {
-> >     status = "okay";
-> >     pinctrl-names = "default";
-> >     pinctrl-0 = <&pinctrl_spi2ck_default
-> >              &pinctrl_spi2cs0_default
-> >              &pinctrl_spi2cs1_default
-> >              &pinctrl_spi2miso_default
-> >              &pinctrl_spi2mosi_default>;
-> >
-> >     flash@0 {
-> >         status = "okay";
-> >     };
-> > };
->
-> How are you invoking pflash? You should not be using the /dev/mem backend
-> when you have the flash controller and devices enabled via the devicetree.
-> You
-> should be using the mtd backend instead.
->
-> Andrew
->
-
---0000000000000f60de0581d31fd7
-Content-Type: text/html; charset="UTF-8"
+--lnxZv84bxkguiWyPU4OJXjxtkAcidIyE5
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div>I am using the following command to =
-write data to SPI1 flash.</div></div><div dir=3D"ltr"><i>pflash -e -a 0 -f =
--p &lt;filename&gt;</i><br></div></div><br><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 14, 2019 at 4:13 AM Andrew Jef=
-fery &lt;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Wed, 13 Feb 2=
-019, at 19:24, AKASH G J wrote:<br>
-&gt; Hi all,<br>
-&gt; <br>
-&gt; We have a test board containing BMC Aspeed AST-2500. It contains BMC f=
-lash<br>
-&gt; memory, SPI1 flash memory and SPI2 flash memory. we are using zaius ma=
-chine<br>
-&gt; configuration for building Linux. When I am trying to write to SPI1 fl=
-ash<br>
-&gt; at address 30000000 using pflash tool, the modified data is not reflec=
-ted<br>
-&gt; after reboot. Same with SPI2 flash. With pflash tool I am able to writ=
-e<br>
-&gt; data permanently to BMC flash memory. The device tree for SPI devices =
-is<br>
-&gt; following.<br>
-&gt; <br>
-&gt; &amp;fmc {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0flash@0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0label =3D &quot;bmc&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0m25p,fast-read;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spi-max-frequency =3D &lt;50000000&gt=
-;;<br>
-&gt; #include &quot;openbmc-flash-layout.dtsi&quot;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0};<br>
-&gt; };<br>
-&gt; <br>
-&gt; &amp;spi1 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pinctrl-names =3D &quot;default&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D &lt;&amp;pinctrl_spi1_default&gt;;<br=
+14.02.2019 6:03, Lei YU wrote:
+> Based on the discussion, let's keep using static flash layout for PNOR =
+on
+> Romulus.
 >
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0flash@0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0label =3D &quot;pnor&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0m25p,fast-read;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0spi-max-frequency =3D &lt;100000000&g=
-t;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0};<br>
-&gt; };<br>
-&gt; <br>
-&gt; &amp;spi2 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pinctrl-names =3D &quot;default&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0pinctrl-0 =3D &lt;&amp;pinctrl_spi2ck_default<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;pinctrl_spi2cs0_d=
-efault<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;pinctrl_spi2cs1_d=
-efault<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;pinctrl_spi2miso_=
-default<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 &amp;pinctrl_spi2mosi_=
-default&gt;;<br>
-&gt; <br>
-&gt;=C2=A0 =C2=A0 =C2=A0flash@0 {<br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0status =3D &quot;okay&quot;;<br>
-&gt;=C2=A0 =C2=A0 =C2=A0};<br>
-&gt; };<br>
-<br>
-How are you invoking pflash? You should not be using the /dev/mem backend<b=
-r>
-when you have the flash controller and devices enabled via the devicetree. =
-You<br>
-should be using the mtd backend instead.<br>
-<br>
-Andrew<br>
-</blockquote></div>
+> This brings the questions:
+> 1. Shall we move the legacy code update service
+>    (org.openbmc.control.Flash.service) to the new one
+>    (xyz.openbmc_project.Software.xxx.service)?
+> 2. How do we plan to support PNOR version, image verification for stati=
+c flash
+>    layout?
 
---0000000000000f60de0581d31fd7--
+What's the problem with version and image verification?
+
+The installed PNOR reports its version via IPMI FRU now, so we know the i=
+nstalled version.
+
+The version supplied in the update can be checked using the image contain=
+er header.
+Image integrity/validity checks can also be performed using container hea=
+der information.
+The header meta-information can be then saved on BMC side to perform PNOR=
+ contents checks before starting the host.
+
+You could also reserve a section in PNOR itself for that meta-info, but I=
+MO that would be less secure than storing the info in BMC.
+
+Alexander.
+
+
+
+--lnxZv84bxkguiWyPU4OJXjxtkAcidIyE5--
+
+--HJtsRH4O5Z0aWGTotST2xD1WFXiQc1hdV
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJcZUrrAAoJEOiTWHtbdBeNZaYP/1X2ldk7/BT84j2UnvIijXXu
+m5t/4g2mwsPp0vcIESP9KOXmv3/sarDd4TYO2QXmsHS1FDaHO/dicCw59MwEPeYG
+dIs8c+lb/N/9/XtrqmLwALYNvTNGuZcyQlLWrFtwYrZp7ZgKeiUwPDFyljE3mNad
+97VPclCJShWMJ/t0f997ihQrg6PXJA2XU7tA72ytkmupApQ9jobSMr6pZHNDocL+
+Oa9LIAS0pA7ve/M6lWGr1ovwWW8UTjZ5mBwMEoFvOkjv9dM5BtiTgdZFAKVAs8LX
+hpFCaqoQovJKrf4I8bwLYSd0texbP8JT3OjGtgvHR/ImMhSyNU4r4h2zZfLzOjMU
+Up25lH2RNYUnGFdis1Y7zmEFq0KoTwGgq/g/xabMgCAG2PDZweDf8OSymeZqPsLm
+abi8Y//5ZiQEPwoGNl5eUofxD3V3A0CCnNVQgaxeRFM657fL/rWu+Q1Z2PGex6HO
+M2MZ41UpmTirUD3YMpfCFQAUs60UJl76mKCPZsIkJWNSRYVTcXZ/HpAXgGbNSydQ
+VCwAf+/yetK9utjkvl9rin6F8pCJqj+aE0MBnPM/wYx3K7gR883syvw2dgni/r0q
+BBtPE5gOGrip6/0HldV22LS99/vfc8M6zZlXQozggwyEGAMRvpaP1hQljXLUEKHV
+4gL/KShz+NRaadW7m0ba
+=1ae4
+-----END PGP SIGNATURE-----
+
+--HJtsRH4O5Z0aWGTotST2xD1WFXiQc1hdV--
