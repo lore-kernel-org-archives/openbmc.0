@@ -1,114 +1,79 @@
-Return-Path: <prvs=7948b7080f=taoren@fb.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=7948b7080f=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="NXeTPTp8"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="VECZozpA"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="su3Yc85t"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="5SdOUMxR"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440sjK2x20zDqC7
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 10:16:49 +1100 (AEDT)
-Received: from pps.filterd (m0109334.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1ENCWLf025298
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 15:16:46 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : content-type : content-id : content-transfer-encoding
- : mime-version; s=facebook;
- bh=Z87+Smm3026Yu2jX8LOd7LPTFvil4ocrDBCSIQePeU8=;
- b=NXeTPTp8PMPe2ivWzhmYP5iDmnUBCEO4zISo2ZPHzIz0Kssn83httRlmDs49v4/SN+D9
- qT/g7RYx/RwMAyuiITeaAMQ1ShliAmnjpZhdRD3nUC4RWEfCTgRMiQd4KtIufdJUfH28
- TJN3ffy7/c1r0LOZzOhE1GnLfCm41IlAmYM= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2qnf4y8j8t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 15:16:46 -0800
-Received: from prn-mbx08.TheFacebook.com (2620:10d:c081:6::22) by
- prn-hub01.TheFacebook.com (2620:10d:c081:35::125) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 15:16:45 -0800
-Received: from prn-hub06.TheFacebook.com (2620:10d:c081:35::130) by
- prn-mbx08.TheFacebook.com (2620:10d:c081:6::22) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 15:16:45 -0800
-Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Thu, 14 Feb 2019 15:16:45 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z87+Smm3026Yu2jX8LOd7LPTFvil4ocrDBCSIQePeU8=;
- b=VECZozpA4Snm91GBkpxdH66kTcYJBBfdEQBRvP3xeA/Bpc04/T0+HjX1IIpONL5o9JrHyGbwbFbr+Hennx0Ioz493ES8Xsi+Csd7U9qSkQmoH/zkzVP2EcH7hYK7JBYmUIgHCseB+TDZ5vTzl9Ln6OaxQB5bYfzf9fu9mTEcL0M=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1312.namprd15.prod.outlook.com (10.175.3.138) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1601.22; Thu, 14 Feb 2019 23:16:43 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa%6]) with mapi id 15.20.1601.023; Thu, 14 Feb 2019
- 23:16:43 +0000
-From: Tao Ren <taoren@fb.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Topic: Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Index: AQHUxLtZwFCRNBGKaU+mRuVAh8lBkg==
-Date: Thu, 14 Feb 2019 23:16:43 +0000
-Message-ID: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: BYAPR11CA0087.namprd11.prod.outlook.com
- (2603:10b6:a03:f4::28) To MWHPR15MB1216.namprd15.prod.outlook.com
- (2603:10b6:320:23::18)
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::7:fa98]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 2350cdfc-350c-4c8c-dd27-08d692d27b8b
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1312; 
-x-ms-traffictypediagnostic: MWHPR15MB1312:
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1312;
- 20:sinZ/Aw/mzLQb5naH/YaRhx64+t6QWBUzOtommv4e26Hpjoo0wJUTn0k0wGtxo9y59ph5zg9Ukq4cRJBGCjg0eD72S1+jKDQ5VS5GMXCEUikgfL2DM8CLHqqlRxLuOSaozEEXRrjXaBKBk3bXcCxUEzxfqdxROorAHDx6SvB7lE=
-x-microsoft-antispam-prvs: <MWHPR15MB1312EE46E1AA318FA1A044A6B2670@MWHPR15MB1312.namprd15.prod.outlook.com>
-x-forefront-prvs: 09480768F8
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(136003)(396003)(376002)(346002)(39860400002)(189003)(199004)(36756003)(65806001)(53936002)(2616005)(6512007)(52116002)(476003)(99286004)(65956001)(2906002)(256004)(58126008)(97736004)(71190400001)(71200400001)(64126003)(8676002)(6486002)(6436002)(105586002)(316002)(478600001)(106356001)(46003)(486006)(4744005)(6916009)(186003)(305945005)(81156014)(8936002)(6116002)(25786009)(81166006)(386003)(6506007)(86362001)(14454004)(102836004)(65826007)(7736002)(31686004)(68736007)(31696002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1312;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: JZs7t2O1IuudUj3ufj7MJSodclXx9GR19QvSGKk5uiQvZaGhA3P/5tuDfGe1yf84bj3Sssd5QW9grTVZsAvO/m7HkYAEDeprKFanxx8kfTdGkAVsoDIGXPvCxzyqxVw6UfjPw0Z7i17NaM9iLeskO/uRlnOIgykdX2LWF8Al3vOE5AZMOl1tU5zrSz1zyTy/wcdNouoNLBD01KbVE9TcASk8oMH5ha1WlEO7C9yoqoZHKHQaK4HruEwd/ud+2LLWITSEZ9qBrMiTogbe/1X5QwgbuTRIepiCBIo7OLyiB2efbMGDedMcTtn4xEF86J2JfeYb/rhDluQENOgyEZMWGT/z/eJlq1YD8PtsC++vSU3hjmjVknPCXQNeYoCI/hRXOLUaQIjH9ILYk/V+rihHHHwceWrst4toX8rBOCAVlQc=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <AF30C25495731B44A0B4A5D854512B68@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440smZ3CpCzDqC7;
+ Fri, 15 Feb 2019 10:19:42 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A68EA2222E;
+ Thu, 14 Feb 2019 18:19:39 -0500 (EST)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Thu, 14 Feb 2019 18:19:39 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:cc:mime-version:content-transfer-encoding
+ :content-type:subject:references:in-reply-to:date; s=fm2; bh=bFe
+ pqL0NpvwEbbi2xzMWcVXlAegulWGMVwzoseaRqsQ=; b=su3Yc85t1tC3cWPFpfW
+ hXDO3JCVRbgiTcA1ogPp5u74lXLRAmYg4Yr7x/xz59ysPzxHtTb6cuND/Mm+FqyC
+ OAtFTwYllWPdI6XRL0OuK0x2bDRP9yeOHpd0Apx/zMP8RiSslyCVz2M+ZTfL/SaI
+ epkbql+I8suTzYcHW31+vPxkFH5DMOdPp4ycTvb6BNhUi6oZ6JIxalsjb04NsHKR
+ TQ0qcEJgszAVBDJrmjvggzK5MLG6dfUsXzaGg1bpgVFfnRLxUXKnWvchnIdYcQ4q
+ M2uZbVokhHGMK4hU75tNlVK+atLdFSSlNu4GjPp+X01V7O5JrTT/Z6atIO/0/m9u
+ p5w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=bFepqL0NpvwEbbi2xzMWcVXlAegulWGMVwzoseaRq
+ sQ=; b=5SdOUMxRYKRS0LHNBeg6V8CP6M9lbCU+50Ih0cytoAc1u7iW3qfE3cXeq
+ ElZ0Y1f2GVbKij8pFPJfjQ44YuskrLZRUflWn6nZTK0IQreg22bTM2wm66BplbYo
+ Tsl7lXO5AeWWY8pbQsU4U4KDHbU9RrztkfkXy0Hyr6f2iv6BehS6dT2y5VrGvfxY
+ wmA2VSlCHXrQ0Vlm/umlRYyYs6a5uqg46MW9g25QnNIjo45lxXKEdjTrksFW6BuB
+ zGjAH2cmfSezNq6wfuJxVCeYHdzySmtYqSUE4TCK27xTCNbkleEICO+kKSXrdV+h
+ kKYQc1BwJ9ITK4m5m48VquKJoLzNg==
+X-ME-Sender: <xms:ivdlXBs_rj67gb1g5TgAWzqUVG706sv-cwLbllW7NErhJ__ARcgNiQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddtiedgtdeiucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
+ tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenogfuuhhsphgvtghtffhomh
+ grihhnucdlgeelmdenucfjughrpefkhffvggfgtgfoufhfjgffsehtjeertdertdejnecu
+ hfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhiugdrrg
+ huqeenucffohhmrghinhepghhoohhglhgvrdgtohhmnecurfgrrhgrmhepmhgrihhlfhhr
+ ohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:ivdlXJMibapyCl4ywka-_V1bx5kj9ZzrKhRg48xNec6QHWoVVQn6mA>
+ <xmx:ivdlXG-DXme4EVPtq0mbk8qMUB5mzp2qkn88_H7-RMaqDLsb8Lg0wg>
+ <xmx:ivdlXMtFa1uQSCqAgjobYssYDtuELFoXgxTt2PuknIrRPeRkL6cLvg>
+ <xmx:i_dlXE3BgH5500Ny4tZModyAHkDBJnCifFikxSlaotkVNwTFjgkmkg>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id B116E94513; Thu, 14 Feb 2019 18:19:38 -0500 (EST)
+Message-Id: <1550186378.4136016.1658266304.4858D971@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Joseph Reynolds <jrey@linux.ibm.com>
+Cc: Nancy Yuen <yuenn@google.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ openbmc <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2350cdfc-350c-4c8c-dd27-08d692d27b8b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2019 23:16:43.0943 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1312
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-14_12:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-e97eb308
+Subject: Re: Secure boot for BMC
+References: <20190205141403.y2yno3nmxvwgd6ex@thinkpad>
+ <1549861046.1162750.1655235472.36317B95@webmail.messagingengine.com>
+ <CADfYTpENfKyyoMuhuN+RzD7nCQbo+g8sWS-mxMU0PUS5C-Z3yw@mail.gmail.com>
+ <1550013215.2866613.1656755904.44211550@webmail.messagingengine.com>
+ <02642911831c76d37123735a2964984f@linux.vnet.ibm.com>
+In-Reply-To: <02642911831c76d37123735a2964984f@linux.vnet.ibm.com>
+Date: Fri, 15 Feb 2019 09:49:38 +1030
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,14 +85,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Feb 2019 23:16:54 -0000
+X-List-Received-Date: Thu, 14 Feb 2019 23:19:46 -0000
 
-SGksDQoNCkkgZ290IGZvbGxvd2luZyBlcnJvciB3aGlsZSBib290aW5nIHVwIG9wZW5ibWMgbGlu
-dXggNC4xOCBvbiBGYWNlYm9vayBZQU1QIEJNQyAoYXN0MjUwMCBiYXNlZCksIGFuZCBpdCdzIGJl
-Y2F1c2UgdG90YWwgNTk0IEdQSU8gcGlucyBhcmUgcHJvdmlkZWQgYnkgYXNwZWVkIHNvYyBhbmQg
-aS9vIGV4cGFuZGVycyBvbiBZQU1QIGJvYXJkOg0KDQpncGlvY2hpcF9maW5kX2Jhc2U6IGNhbm5v
-dCBmaW5kIGZyZWUgcmFuZ2UNCmdwaW9jaGlwX2FkZF9kYXRhX3dpdGhfa2V5OiBHUElPcyAwLi4x
-NSAocGNhOTU1NSkgZmFpbGVkIHRvIHJlZ2lzdGVyDQoNCkknbSB3b25kZXJpbmcgaWYgaXQncyBn
-b29kIGlkZWEgdG8gaW5jcmVhc2UgQVJDSF9OUl9HUElPIGRlZmF1bHQgdmFsdWUgdG8gdGhlICJu
-ZXh0IGxldmVsIiAoMTAyNCkgZm9yIEFSQ0hfQVNQRUVEPyBJZiBub3QsIGFueSBvdGhlciBzdWdn
-ZXN0aW9ucyBmb3IgdGhpcyBwcm9ibGVtPw0KDQoNClRoYW5rcywNCg0KVGFvDQo=
+On Thu, 14 Feb 2019, at 11:04, Joseph Reynolds wrote:
+> On 2019-02-12 17:13, Andrew Jeffery wrote:
+> > On Tue, 12 Feb 2019, at 11:00, Nancy Yuen wrote:
+> >> We are working on secure boot, but we have a requirement for a Google 
+> >> HW
+> >> root of trust so I'm not sure if that fits in with these discussions.
+> > 
+> > I think it would help to have some idea of Google's requirements so the 
+> > project
+> > can accommodate them where we can, if you can reveal any details. It 
+> > may also
+> > help inform others (me?) on strategies to secure firmware.
+> 
+> The OpenBMC security working group has discussed various "root of trust" 
+> ideas.  The way I understand it, OpenBMC community members are looking 
+> into different solutions including
+> "Secure Boot" and "Trusted Platform Module" (TPM) solutions, including 
+> Google's OpenTitan chip.  See the meeting minutes for details:
+> https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI
+> 
+> My understanding of the "Secure Boot" concept is that some chip 
+> validates the boot loader's digital signature after loading it and 
+> before jumping into it.  Then the boot loader would validate the code it 
+> loads before jumping into it.  Etc.  A validation failure could either 
+> (a) cause the BMC to fail to boot, or (b) boot the BMC in failsafe mode 
+> where it could not write to its flash or talk to its host.  OpenBMC may 
+> also need some way to talk to the chip.
+> 
+> My understanding of TPMs is much more limited.  So we are waiting for 
+> proposals.
+
+On OpenPOWER systems I think we need the TPM approach, as we can't
+restrict our customers by burning e.g. IBM keys into the ASPEED OTP key
+slots (... in the 2600).
+
+Andrew
