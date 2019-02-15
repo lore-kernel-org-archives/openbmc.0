@@ -1,117 +1,72 @@
-Return-Path: <prvs=7949d66157=taoren@fb.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=7949d66157=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="ZOiRTk4a"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="e841zeOh"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="RktMJOfS"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="1q2Y6zxX"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440w7x6WlBzDq6X
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 12:06:33 +1100 (AEDT)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1F13mk1024786
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 17:06:31 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=facebook;
- bh=k3uUwQlPhEEr25wFm08ArFNrdG939T4J7aCoBgNqAkY=;
- b=ZOiRTk4a+yWCd6QoWk0cH5egArxIiAFnF1p9ia2BjqzYH8kharlWd3xiyllnulbVDJny
- 2bIS84PqxxN/nr1tye++RjwwNJUgBfZwRl/qedypW2Y7CzsDbut3sxxG72gZPqwsJ3Bt
- dPiRHQAgUfWbuzB/nzD2JAm25QFkipwJn9w= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2qnk18r2b9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 17:06:31 -0800
-Received: from frc-mbx01.TheFacebook.com (2620:10d:c0a1:f82::25) by
- frc-hub03.TheFacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 17:06:30 -0800
-Received: from frc-hub02.TheFacebook.com (2620:10d:c021:18::172) by
- frc-mbx01.TheFacebook.com (2620:10d:c0a1:f82::25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 17:06:30 -0800
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.72) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Thu, 14 Feb 2019 17:06:30 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=k3uUwQlPhEEr25wFm08ArFNrdG939T4J7aCoBgNqAkY=;
- b=e841zeOhCLohlJWxsmPlncLRudokJ8mIcDhDDCbCoyrdG2bS6R6bAfbvIa8laHnCUwq5zLonckjlZPHipnE8JkvOIg+gNm1vFE6BMC3eLlCmaTgDXvcF/Y5w3xafU3sTOqwk5o7V3A3fam2ckBDN2SKthctZFRNi1vlx9ERIF18=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1215.namprd15.prod.outlook.com (10.175.2.145) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1601.21; Fri, 15 Feb 2019 01:06:29 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa%6]) with mapi id 15.20.1601.023; Fri, 15 Feb 2019
- 01:06:29 +0000
-From: Tao Ren <taoren@fb.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: [Potential Spoof] Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Topic: [Potential Spoof] Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Index: AQHUxLtZRcZN9O3uWEaNvnMOddT+d6XgC+IA
-Date: Fri, 15 Feb 2019 01:06:29 +0000
-Message-ID: <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
-References: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
-In-Reply-To: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: BYAPR07CA0045.namprd07.prod.outlook.com
- (2603:10b6:a03:60::22) To MWHPR15MB1216.namprd15.prod.outlook.com
- (2603:10b6:320:23::18)
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::7:fa98]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c9f35039-f4b5-43af-06ba-08d692e1d0cf
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1215; 
-x-ms-traffictypediagnostic: MWHPR15MB1215:
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1215;
- 20:Gr9tWssoBIBwtQvlA0J9U6VATrfaxfnXLVjKFcGpS27Us54GWJ4oCzXwcC5230cAdVu1CepilUMUzCdMVDGEtF0BylP0e52Anm79Hh1kfk3vsIi2mR/GXCH+ZgHWX6c2ynH/ddd+IogY1QSmjbCNeVITyy7yaNVk4ClMU6NafLE=
-x-microsoft-antispam-prvs: <MWHPR15MB1215A2EBF958716DA580F5E2B2600@MWHPR15MB1215.namprd15.prod.outlook.com>
-x-forefront-prvs: 09497C15EB
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(346002)(136003)(396003)(39860400002)(376002)(189003)(199004)(71190400001)(97736004)(2906002)(1730700003)(256004)(8936002)(14454004)(229853002)(305945005)(81156014)(81166006)(4744005)(7736002)(71200400001)(8676002)(6246003)(2501003)(53936002)(76176011)(68736007)(478600001)(6486002)(316002)(58126008)(6512007)(52116002)(53546011)(186003)(6436002)(36756003)(65826007)(486006)(2616005)(31686004)(86362001)(6506007)(476003)(386003)(46003)(31696002)(5640700003)(2351001)(6116002)(99286004)(102836004)(6916009)(105586002)(25786009)(65806001)(64126003)(446003)(65956001)(11346002)(106356001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1215;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: JAB2Ytg/xLqR5QyUZuh+tctzODKgt6dK53ES4ZS3F4bgizExl+YGZr4xTKKrdGpN2jNdAYLmk03vpzNVoAt7utX0T8kgws5oJzRdqHLC5PHxmyq0sUcYqYCIye8HwjIrcJNZ8Szk5fiqUWImkNhX/60Zi2n35H5gP6NDTXjxmi1Y8til1w71QxV1FqE7u41qnHEgj7jRjp4l0GPlXSdv/qB1rWWtwM5FlYQ9EAe/O0P1PgcG8KKZz+T6ZytW7EvD8G364DJsNwlz7NqNiR8iy5y2aErOo/ZYiBbV1f/CDz/nyfEXDj5m3sFhYYSK90tySNNWAyUA53S7yKA2lnJzW5ISMX0LwbyhnQ1qi20/9F8sJtqGdMJSmR08ia+QhTmiNnJSOEbDfXZrVcia7OCNKxSuIWPHkRQMBFGSXJ4MFLM=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <BE7CE4AE20129443AC052FE31944E55C@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 440wxb6kBJzDqVS
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 12:42:43 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 255B22226C;
+ Thu, 14 Feb 2019 20:42:40 -0500 (EST)
+Received: from web1 ([10.202.2.211])
+ by compute4.internal (MEProxy); Thu, 14 Feb 2019 20:42:40 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:from:to:mime-version:content-transfer-encoding
+ :content-type:in-reply-to:date:subject:references; s=fm2; bh=ru7
+ GFZUhYtzc37V3n4NguYitda4sDJfEWtYqndMBaaY=; b=RktMJOfSWckOc7p4k5C
+ sfCCTd1x1nKfTt4+lXjamS5JV3m2+ZC1h0BdjmW2whHHQUNThvyjfluvd9zMeb9a
+ nbr26PiG1e04qgs2Au8LRCUP1xK1UnfHH1W6445Z3MyO6AWPBoEkfQkQpCso7oel
+ v/r8+xuReexiqoraXKVsIB83ofmkkbLxRvrJHiy5p4mwTRg9qtxB7avX7Uvl5ZnJ
+ PV3YMlf+482TO/w2McUKuYrTCCstLVS4mOhheF1wDuzM2wl38Bb070TvMShNACIG
+ UKnWzV0DYKsLgKdn/ioacWGV4R7faFzrsgl4xinRvlItdfu6/WFEnpbcY+S1B1KZ
+ xFg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=ru7GFZUhYtzc37V3n4NguYitda4sDJfEWtYqndMBa
+ aY=; b=1q2Y6zxX5U7fy+MZUk4Pc+kwZjUshQQsMbCYK5DC0sJ0eOaKI/TnXU7IV
+ QOU0GJ4dJK6DqVb6t5Z8+Ol94xESEO/J+kW6oqhQglK1KWkIRNNngA7e/sjL+TLJ
+ OwgcycsdwKkBIKQPq1wmsB+lP15dFBWqmWaiUV9tz4/qlhFyLp1RjTTrZuVaaHOm
+ 9hpyZqoGh3Ycmz2gE52PnKZDJML1d4TtnqlpaRN6DI1Z9HbNpqgQyWwaJj24rORY
+ JmhKjP8T8Eg950hIMggTvvHEmStsnqOcOSSZfMfJ+jVs6hEQEF7Mm3SvJZRPPg5y
+ ypRSM8oG9znvx6QVltokP9wJGu/GQ==
+X-ME-Sender: <xms:DxlmXEmKhS_vJlXHiyDmTi6HuV_E5O-JjpPCNMn3ra3qOF8bVODFEw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledruddtiedgfeegucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
+ tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkhffvggfgtg
+ fojgffufhfsehtjeertdertdejnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicu
+ oegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprg
+ hnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:DxlmXOh8Et6sIVG_5fdVnQ9S7sbmmyC43_G1ml7HUcLFKQZuG151iQ>
+ <xmx:DxlmXLVoeS1Nrqe9v2t8M8C1gG1how-YSKKbQ94e8SvaLTZvm_hG4Q>
+ <xmx:DxlmXHvVlacZG58p6K2NJPKVitfNPZEeL1kNCt9i47dWK1Fkr0nyaQ>
+ <xmx:EBlmXAEvTdWNPaVf21ALTf6FQpmFF_NjSivXq5vNij0FH0luE5k-RA>
+Received: by mailuser.nyi.internal (Postfix, from userid 99)
+ id 7619194513; Thu, 14 Feb 2019 20:42:39 -0500 (EST)
+Message-Id: <1550194959.4187502.1658322936.5ED72093@webmail.messagingengine.com>
+From: Andrew Jeffery <andrew@aj.id.au>
+To: Tao Ren <taoren@fb.com>, openbmc@lists.ozlabs.org
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9f35039-f4b5-43af-06ba-08d692e1d0cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2019 01:06:28.5967 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1215
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-14_12:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+X-Mailer: MessagingEngine.com Webmail Interface - ajax-e97eb308
+In-Reply-To: <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
+Date: Fri, 15 Feb 2019 12:12:39 +1030
+Subject: Re: [Potential Spoof] Increase ARCH_NR_GPIO for ARCH_ASPEED?
+References: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
+ <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,17 +78,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 01:06:39 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 01:42:47 -0000
 
-T24gMi8xNC8xOSAzOjE2IFBNLCBUYW8gUmVuIHdyb3RlOg0KPiBIaSwNCj4gDQo+IEkgZ290IGZv
-bGxvd2luZyBlcnJvciB3aGlsZSBib290aW5nIHVwIG9wZW5ibWMgbGludXggNC4xOCBvbiBGYWNl
-Ym9vayBZQU1QIEJNQyAoYXN0MjUwMCBiYXNlZCksIGFuZCBpdCdzIGJlY2F1c2UgdG90YWwgNTk0
-IEdQSU8gcGlucyBhcmUgcHJvdmlkZWQgYnkgYXNwZWVkIHNvYyBhbmQgaS9vIGV4cGFuZGVycyBv
-biBZQU1QIGJvYXJkOg0KPiANCj4gZ3Bpb2NoaXBfZmluZF9iYXNlOiBjYW5ub3QgZmluZCBmcmVl
-IHJhbmdlDQo+IGdwaW9jaGlwX2FkZF9kYXRhX3dpdGhfa2V5OiBHUElPcyAwLi4xNSAocGNhOTU1
-NSkgZmFpbGVkIHRvIHJlZ2lzdGVyDQo+IA0KPiBJJ20gd29uZGVyaW5nIGlmIGl0J3MgZ29vZCBp
-ZGVhIHRvIGluY3JlYXNlIEFSQ0hfTlJfR1BJTyBkZWZhdWx0IHZhbHVlIHRvIHRoZSAibmV4dCBs
-ZXZlbCIgKDEwMjQpIGZvciBBUkNIX0FTUEVFRD8gSWYgbm90LCBhbnkgb3RoZXIgc3VnZ2VzdGlv
-bnMgZm9yIHRoaXMgcHJvYmxlbT8NCg0KSSBmb3Jnb3QgdG8gbWVudGlvbiB0aGUgY3VycmVudCB2
-YWx1ZSBvZiBBUkNIX05SX0dQSU8gZm9yIEFSQ0hfQVNQRUVEOiBpdCdzIDUxMiAoYnV0IFlBTVAg
-Qk1DIHByb3ZpZGVzIDU5NCBHUElPIHBpbnMpLg0KDQotIFRhbw0K
+On Fri, 15 Feb 2019, at 11:36, Tao Ren wrote:
+> On 2/14/19 3:16 PM, Tao Ren wrote:
+> > Hi,
+> > 
+> > I got following error while booting up openbmc linux 4.18 on Facebook YAMP BMC (ast2500 based), and it's because total 594 GPIO pins are provided by aspeed soc and i/o expanders on YAMP board:
+> > 
+> > gpiochip_find_base: cannot find free range
+> > gpiochip_add_data_with_key: GPIOs 0..15 (pca9555) failed to register
+> > 
+> > I'm wondering if it's good idea to increase ARCH_NR_GPIO default value to the "next level" (1024) for ARCH_ASPEED? If not, any other suggestions for this problem?
+
+I don't know that there's much other choice, but beware that changing
+the value will impact userspace if you're using the sysfs interface (which
+you  ideally you shouldn't be, as it's deprecated), as the base addresses
+of the gpiochips will change.
+
+Andrew
