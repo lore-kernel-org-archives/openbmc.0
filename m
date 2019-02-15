@@ -1,37 +1,104 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=the-dreams.de
- (client-ip=88.99.104.3; helo=pokefinder.org; envelope-from=wsa@the-dreams.de;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=the-dreams.de
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 4416Tm3QTRzDqXm;
- Fri, 15 Feb 2019 19:52:42 +1100 (AEDT)
-Received: from localhost (unknown [83.221.228.209])
- by pokefinder.org (Postfix) with ESMTPSA id AF80A2E3551;
- Fri, 15 Feb 2019 09:52:39 +0100 (CET)
-Date: Fri, 15 Feb 2019 09:52:39 +0100
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-kernel@vger.kernel.org,
- Jarkko Nikula <jarkko.nikula@linux.intel.com>,
- James Feist <james.feist@linux.intel.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>
-Subject: Re: [PATCH v2] i2c: aspeed: Add multi-master use case support
-Message-ID: <20190215085239.v5cjmcef2q62xiyl@ninjato>
-References: <20190211185444.4965-1-jae.hyun.yoo@linux.intel.com>
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="OsDe3pA+"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4418n7039qzDqL9
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 21:36:10 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id CF23B41981
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 10:36:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1550226966; x=
+ 1552041367; bh=wf5UQxFZ+Kk8FQzaUi9O/UBfPfDNEKhT1Mj1IG5jYWE=; b=O
+ sDe3pA+O7G9AWnNOkcCfC/gi8y5leBG1u6DTiAsKzbLkprtn+ALX4HaVXlLcUZ1I
+ U1ovSX0ppHZTfdP4kniB26zFif4fjluciA+pyXXOdK8K15xz730VsCmzJIBLv84Y
+ lkK7KYkXQajCp5O4NWhexdbn2JW5+0osu6SOofHucI=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id j8416GqNq2ae for <openbmc@lists.ozlabs.org>;
+ Fri, 15 Feb 2019 13:36:06 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id D57A441925
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 13:36:06 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 15
+ Feb 2019 13:36:06 +0300
+Subject: Re: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
+To: <openbmc@lists.ozlabs.org>
+References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <ef432789-cbfe-9adf-2562-296abc261582@yadro.com>
+Date: Fri, 15 Feb 2019 13:36:06 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
+In-Reply-To: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="ybsnxjjqnbgxua7z"
-Content-Disposition: inline
-In-Reply-To: <20190211185444.4965-1-jae.hyun.yoo@linux.intel.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
+ protocol="application/pgp-signature";
+ boundary="JtTew6cVqZpsDQ87jFU5QvkZJICQXADQ0"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,56 +110,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 08:52:45 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 10:36:12 -0000
 
+--JtTew6cVqZpsDQ87jFU5QvkZJICQXADQ0
+Content-Type: multipart/mixed; boundary="xk4ubKMFHKgH0cD0CEvv0wbGUOW6dFZbg";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: openbmc@lists.ozlabs.org
+Message-ID: <ef432789-cbfe-9adf-2562-296abc261582@yadro.com>
+Subject: Re: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
+References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
+In-Reply-To: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
 
---ybsnxjjqnbgxua7z
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+--xk4ubKMFHKgH0cD0CEvv0wbGUOW6dFZbg
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-On Mon, Feb 11, 2019 at 10:54:44AM -0800, Jae Hyun Yoo wrote:
-> In multi-master environment, this driver's master cannot know
-> exactly when a peer master sends data to this driver's slave so
-> cases can be happened that this master tries sending data through
-> the master_xfer function but slave data from a peer master is still
-> being processed or slave xfer is started by a peer immediately
-> after it queues a master command. To support multi-master use cases
-> properly, this H/W provides arbitration in physical level and it
-> provides priority based command handling too to avoid conflicts in
-> multi-master environment, means that if a master and a slave events
-> happen at the same time, H/W will handle a higher priority event
-> first and a pending event will be handled when bus comes back to
-> the idle state.
->=20
-> To support this H/W feature properly, this patch adds the 'pending'
-> state of master and its handling code so that the pending master
-> xfer can be continued after slave operation properly.
->=20
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+Guys, what's the fate of this patch set?
+Is going to be merged into openbmc linux?
+We have an SD card slot on our BMC card and so would like to know whether=
+ or not to await arrival of SDIO support from upstream or import this pat=
+ch set locally.
 
-Applied to for-next, thanks!
+Thank you.
+
+17.07.2018 10:26, Ryan Chen wrote:
+> This series implements Aspeed SDIO driver. In Aspeed SDIO controller
+> with two slots and have a global register for interrupt status and othe=
+r
+> general information.
+>
+> v2=20
+> Change irqchip driver(irq-aspeed-sdhci-ic.c) to aspeed sdhci core drive=
+r
+> aspeed-sdhci-core.c
+>
+> v0
+> For implements this, it will have have irq-aspeed-sdhci-ic.c for sdhci
+> each slot irq dispatch, and then go to sdhci driver handle (sdhci.c).
+>
+> Another is sdhci-of-aspeed.c for specific function call.
+>
+>
+> Ryan Chen
+>
+>
+> Ryan Chen (7):
+>   clk: Aspeed: Modify clk-aspeed.c driver probe sequence
+>   clk: Aspeed: Add sdhci reset and clock
+>   mmc: Aspeed: Add Aspeed sdhci core driver
+>   mmc: Aspeed: Add driver for Aspeed sdhci
+>   dts: Aspeed: Add devicetree for Aspeed sdhci
+>   Documentation: mmc: add aspeed sdhci binding document
+>   configs: Aspeed: enable mmc host in defconfig
+>
+>  .../bindings/mmc/aspeed,aspeed-sdhci.txt           |  54 +++++++
+>  arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  14 ++
+>  arch/arm/boot/dts/aspeed-g4.dtsi                   |  40 +++++
+>  arch/arm/boot/dts/aspeed-g5.dtsi                   |  40 +++++
+>  arch/arm/configs/aspeed_g5_defconfig               |   6 +
+>  drivers/clk/clk-aspeed.c                           |  51 +++---
+>  drivers/irqchip/Makefile                           |   2 +-
+>  drivers/mmc/host/Kconfig                           |  12 ++
+>  drivers/mmc/host/Makefile                          |   1 +
+>  drivers/mmc/host/aspeed-sdhci-core.c               | 147 +++++++++++++=
+++++
+>  drivers/mmc/host/sdhci-of-aspeed.c                 | 178 +++++++++++++=
+++++++++
+>  include/dt-bindings/clock/aspeed-clock.h           |   2 +-
+>  include/linux/mmc/sdhci-aspeed-data.h              |  28 ++++
+>  13 files changed, 553 insertions(+), 22 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/mmc/aspeed,aspeed=
+-sdhci.txt
+>  create mode 100644 drivers/mmc/host/aspeed-sdhci-core.c
+>  create mode 100644 drivers/mmc/host/sdhci-of-aspeed.c
+>  create mode 100644 include/linux/mmc/sdhci-aspeed-data.h
+>
 
 
---ybsnxjjqnbgxua7z
+--xk4ubKMFHKgH0cD0CEvv0wbGUOW6dFZbg--
+
+--JtTew6cVqZpsDQ87jFU5QvkZJICQXADQ0
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-iQIzBAABCAAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAlxmfdcACgkQFA3kzBSg
-KbYJEw//dnf7zJDVpII7ZpsgPtNZerCcz/+RipuuRefqyn6ol/03zMNMDsTsqWTZ
-WB9tWi0dBE0uC50iOyLKS0M9I5b1xVqKasEl2Z/r8J9IvGuakbIfGfhiYJ9oJgdH
-zJBxkc5W2Or1FJ9AUIxpKWeaUSeE6J2/wv5168RfjLQAb+Sr9jVCrCon1ZsTo/7B
-9lBwoYMAXTonbf615WTcU+fnRHDyIbjboL0OB1W2Iv8ksmTPvETviuqfSk4PyiSJ
-RLcQUWrw44sUu9sSUzQNZ97g6l20R/LnFtXdQYIDrXNTmP+tXlAfxqdt6ghVumwa
-toW9MZX/JkYc0xrBIOQPpEL61yqLyoQdChhv9ahUAKUiKTIkz0Io9S5PobOMvIbd
-sGyJ+abYVA9Qvg8CH+ZKQGZwm/SgIGfKtkIgbh+3Q6ATChB5dDfytJw4N2OoVu0T
-5DgPrkmpIaVF9JTOnhvzQZYswpBZuDk11yC2Tea2s9Djp1fN3ettw+uYLbcnLmo1
-GNLWOtLTkT0gr/krY8xy006jaMOa4tjlLLKlB9AzUNB4APidP2UDKE68wrxlo7SD
-+5nQ+CZn9CJUBdXR5hQeDrzpoTdRBgNlUPUaB0TOK3Sbz962vu1I4019xG1ITLwf
-OEUWzonl3lABGqbew7I3lyn5Py9nEcWVfW+6Ks74i5vvRBcIAOQ=
-=dfmE
+iQIcBAEBCAAGBQJcZpYWAAoJEOiTWHtbdBeN1kcQAMR4ZLeDonkNbltnccW/5VQj
+IkCli2+0wDkysCoOSSd9va2zaYjsVgZu2xg8ARZ0MCutNoh9J2AALCVk/8mOSgk6
+nhmu+rR0aCvGEBREbcq4jRR94COFGkWnRJUmerddxyacLkU/9UFlJspo9xBSeOW4
+fiXLs24Qp7VXBc0+hC8idB9SCAlISVtTO/HenhnK6T0UnYmTaDlDJ3tYvqoxqJaV
+Pw7oNI/q/kJ6VW5Yu6jjkdBS4v9rwvZ7yxfJ3RLMnLtuGVjd3D7sQOia/LfHt9Ek
+uGeiyMj2/r32jFfTJ61ZuZG04U9VcnBS7+SwQvngiSdvXkcgYQ11qqjrBTen4+u4
+ifJtxhy1HMeBsF/zNP7pgwHYX/XxijOZFA87hjCxwyCIR87UubKFa+gpZ3H4pKuk
+vn5/8EXKqp/8iBoNrDPfRUxsKv76MsWpukv5n/jQDcxn4YxoUNzejMUBKY24M3iD
+tdnQG5Nx2WEsuhk3kc4du36Dy2+0yxV5hAZj2XclpyHw8iEWspumzGej28vYI1nZ
+irHmHnXUVRhNkTmSaz4ghGdiVBBmsZRBmRsCUNl4aWaUR2gLaa+DSxBjz4O8jolW
+hFge28eDKoyLwB4gUNvWx36oYPCleYaGyChi/hVJhvg2OxWrknaov52dB31fKTa7
+nmwjAfYZG94YIC2iBJ/P
+=qCF5
 -----END PGP SIGNATURE-----
 
---ybsnxjjqnbgxua7z--
+--JtTew6cVqZpsDQ87jFU5QvkZJICQXADQ0--
