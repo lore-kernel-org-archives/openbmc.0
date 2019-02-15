@@ -1,55 +1,31 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <dthompson@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=dthompson@mellanox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="elvrBmcl"; 
- dkim-atps=neutral
-Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
- [IPv6:2607:f8b0:4864:20::534])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 441Pgh2mBCzDqgB
- for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 07:17:19 +1100 (AEDT)
-Received: by mail-pg1-x534.google.com with SMTP id w7so5286225pgp.13
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 12:17:19 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=bTGeA2Vovulx7agDQkgqK6qc7W2cT0FebtvoxfAF2cQ=;
- b=elvrBmcld8oIzEoPS+JA0+RPJ4oanwduAW3krAYAjb5bce/BWiC9yhGNsLVOWzVA+u
- PZnBUfwrp54xkYXFdoP5yfTh6Uoz7fEbViWgw6IkYKQSr+2T5gdAj7MCRVbsPb0Tuxii
- YPULT2inM0ByKf8LeLgweOiCexrwcuGD0IKyGkRJQ8T1ZB3Qr4+6y3/JgMvtay6WXV+w
- arvS8C6vkaF25X0vu7lCZez16SXHhj8O392l1Ll//LDyns00cjAN4gfQDMkkKqtPioH2
- seg7Q1QNVW7ZY084glI1W+bcoM8U5+p4tsi/32UNDSnbEomxk2A9fz75YfdWoBubTcoI
- oQuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to
- :content-transfer-encoding;
- bh=bTGeA2Vovulx7agDQkgqK6qc7W2cT0FebtvoxfAF2cQ=;
- b=mfbgE+ttJ3yZthSVj0DNp/yXA9XX2Xdkwe5EdN3IlGGhUPRYtzNFx9+tAML7iCV+8y
- HiGiV9zcawaTvrcabJ/rMq4B3L2evCJt9RdTCTZss7wnmFSvarwe8NVsT5n1m2G7x6V1
- 6FvPa6lmpj3AGHnjqfPkPqNMFPr4ZM2PnwP9WE6OcMTn3jBLOkFeqSep3AVSZik50sAH
- 7SiUc9Jrrf2ieKBpw6X0ua3BCbE+Je8aYgXig+r3JyyUQjwZWzHzAOZhkL6U1ofZN1Fw
- nQuK6DHgdOiDxN//4bJgQF91RsPFbmsqaVV2QTt5QBobggm8/RPsOBo4y6d0O3FE4HC5
- IFTw==
-X-Gm-Message-State: AHQUAuYafe2Gru6pOZlcS+PzKEuD/gs46I3rh5i8tK5mjLfGRw7GVpxJ
- j2hutU3I8y+KXsQmGbYldEiQx5jD3xKrBe7VmezcoUEJ
-X-Google-Smtp-Source: AHgI3IZk8+o6Q6nQv7HIFdmz0rb8+lnrMwI7y2tRNcaeyO9kGEjn8i0l8LZGhtbCdnhDKMM1zIxvkWckgs4TdkO6164=
-X-Received: by 2002:a63:d347:: with SMTP id u7mr6990767pgi.383.1550261837750; 
- Fri, 15 Feb 2019 12:17:17 -0800 (PST)
-MIME-Version: 1.0
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Fri, 15 Feb 2019 14:17:06 -0600
-Message-ID: <CANT4Nr+Gpd7roWyPT5vpeskL9bvKBbsKKma_6WhPpenWdwACwg@mail.gmail.com>
-Subject: GUI translation bundles
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+X-Greylist: delayed 397 seconds by postgrey-1.36 at bilbo;
+ Sat, 16 Feb 2019 07:26:13 AEDT
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 441Psx5rVBzDqGc
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 07:26:12 +1100 (AEDT)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ dthompson@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 15 Feb 2019 22:19:26 +0200
+Received: from farm-1.mtbu.labs.mlnx (farm-1.mtbu.labs.mlnx [10.15.2.31])
+ by mtbu-labmailer.labs.mlnx (8.14.4/8.14.4) with ESMTP id x1FKJOj8000498;
+ Fri, 15 Feb 2019 15:19:24 -0500
+Received: (from dthompson@localhost)
+ by farm-1.mtbu.labs.mlnx (8.14.7/8.13.8/Submit) id x1FKJOP8029404;
+ Fri, 15 Feb 2019 15:19:24 -0500
+From: David Thompson <dthompson@mellanox.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, David Thompson <dthompson@mellanox.com>
+Subject: [PATCH U-Boot v1] aspeed/ast-scu.c: add ast_get_m_pll_clk() support
+Date: Fri, 15 Feb 2019 15:19:13 -0500
+Message-Id: <b0566f5d7195c4f2dba0343e02ca96635c36a7c2.1550259966.git.dthompson@mellanox.com>
+X-Mailer: git-send-email 2.1.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,26 +37,82 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 20:17:21 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 20:26:15 -0000
 
-I=E2=80=99d like some feedback about how to breakdown translation bundles f=
-or the GUI.
+The source code for ast_get_m_pll_clk() is adapted from
+the file "arch/arm/mach-aspeed/ast-bmc-scu.c" contained
+in the bootloader portion of the ASPEED AST2500 SDK.
 
-My initial thought is to create a bundle per panel since companies
-have the option to pick and choose which upstream panels they want to
-use. Would this be an overwhelming amount of bundles? Does this idea
-scale well as we grow the number of panels? Does this scale well as
-new panels are added after existing panels have already been
-translated?
+The values for "A2" silicon revision IDs are from the
+document "AST2500/AST2520 Integrated Remote Management
+Processor A2 Datasheet", version 1.6, pages 373-374.
 
-In addition, there could a =E2=80=9Cglobal=E2=80=9D bundle for navigation a=
-nd header,
-Should this include words/phrases that are common across many panels
-such as =E2=80=9Csave=E2=80=9D and =E2=80=9Ccancel=E2=80=9D?
+Signed-off-by: David Thompson <dthompson@mellanox.com>
+Reviewed-by: Shravan Ramani <sramani@mellanox.com>
+---
+ arch/arm/include/asm/arch-aspeed/ast_scu.h |  1 +
+ arch/arm/mach-aspeed/ast-scu.c             | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 31 insertions(+)
 
-Also, should GUI notifications/messages be in their own bundle or put
-into their respective panel=E2=80=99s bundle?
-
-Can you think of other factors that should guide this decision?
-
-Thank you, Susan Jasinski
+diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+index d248416..dcbc673 100644
+--- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
++++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+@@ -37,6 +37,7 @@ extern void ast_scu_get_who_init_dram(void);
+ 
+ extern u32 ast_get_clk_source(void);
+ extern u32 ast_get_h_pll_clk(void);
++extern u32 ast_get_m_pll_clk(void);
+ extern u32 ast_get_ahbclk(void);
+ 
+ extern u32 ast_scu_get_vga_memsize(void);
+diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
+index 0cc0d67..6184ff4 100644
+--- a/arch/arm/mach-aspeed/ast-scu.c
++++ b/arch/arm/mach-aspeed/ast-scu.c
+@@ -100,6 +100,10 @@ static struct soc_id soc_map_table[] = {
+ 	SOC_ID("AST2510-A1", 0x04010103),
+ 	SOC_ID("AST2520-A1", 0x04010203),
+ 	SOC_ID("AST2530-A1", 0x04010403),
++	SOC_ID("AST2500-A2", 0x04030303),
++	SOC_ID("AST2510-A2", 0x04030103),
++	SOC_ID("AST2520-A2", 0x04030203),
++	SOC_ID("AST2530-A2", 0x04030403),
+ };
+ 
+ void ast_scu_init_eth(u8 num)
+@@ -235,6 +239,32 @@ u32 ast_get_h_pll_clk(void)
+ 	return clk;
+ }
+ 
++u32 ast_get_m_pll_clk(void)
++{
++	u32 clk = 0;
++	u32 m_pll_set = ast_scu_read(AST_SCU_M_PLL);
++
++	if (m_pll_set & SCU_M_PLL_OFF)
++		return 0;
++
++	/* Programming */
++	clk = ast_get_clk_source();
++	if (m_pll_set & SCU_M_PLL_BYPASS) {
++		return clk;
++	} else {
++		/* P = SCU20[13:18]
++		 * M = SCU20[5:12]
++		 * N = SCU20[0:4]
++		 * mpll = 24MHz * [(M+1) /(N+1)] / (P+1)
++		 */
++		clk = ((clk * (SCU_M_PLL_GET_MNUM(m_pll_set) + 1)) /
++			   (SCU_M_PLL_GET_NNUM(m_pll_set) + 1)) /
++			(SCU_M_PLL_GET_PDNUM(m_pll_set) + 1);
++	}
++	debug("m_pll = %d\n", clk);
++	return clk;
++}
++
+ u32 ast_get_ahbclk(void)
+ {
+ 	unsigned int axi_div, ahb_div, hpll;
+-- 
+2.1.2
