@@ -1,119 +1,71 @@
-Return-Path: <prvs=7949d66157=taoren@fb.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=7949d66157=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="XggxCXVZ"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="fYU5LMsu"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 440xML5kjxzDqVF
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 13:01:33 +1100 (AEDT)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1F1wLSH009400; Thu, 14 Feb 2019 18:01:29 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=facebook;
- bh=cW/zIrbRrw05Zw4BLQeZkAsBUpkTF3a+nRbEVG1jrH0=;
- b=XggxCXVZmu2NRoF2iuqfFbgcVVc9OLn0Nj2fO36Hpg2WMy8kgxBu/OLFarMXq8Hc1qoV
- V6cTmhD7UirxmkEaM6HF5a4ZdUdwXjyzXn46kOCyv6gdazomUvmRyW5b1vPpVCZHJN3n
- wbpY1SUyHlPpOa8iP4Y78b7qnwhx1suP7+U= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2qnh5jrhbh-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Thu, 14 Feb 2019 18:01:29 -0800
-Received: from frc-mbx01.TheFacebook.com (2620:10d:c0a1:f82::25) by
- frc-hub01.TheFacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 18:01:28 -0800
-Received: from frc-hub06.TheFacebook.com (2620:10d:c021:18::176) by
- frc-mbx01.TheFacebook.com (2620:10d:c0a1:f82::25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1531.3; Thu, 14 Feb 2019 18:01:28 -0800
-Received: from NAM05-CO1-obe.outbound.protection.outlook.com (192.168.183.28)
- by o365-in.thefacebook.com (192.168.177.76) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
- via Frontend Transport; Thu, 14 Feb 2019 18:01:28 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cW/zIrbRrw05Zw4BLQeZkAsBUpkTF3a+nRbEVG1jrH0=;
- b=fYU5LMsuPZ97nVdP9qqmj01Yetwp6cAUD6/4z8IIAXLw7xvH7vdZJ/39fmzzer4YtZV3PEXbZw0dfnQdcGGyb9mita107unxtKG11ZmQ9wB/PvIQHfVluFD4+FN2rjXtZRHJOIPnOOlobwzL9HYefyEBXJPfJEj2VW2mDdR4b+k=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1871.namprd15.prod.outlook.com (10.174.255.150) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1622.18; Fri, 15 Feb 2019 02:01:26 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::315b:5c00:59e0:b3aa%6]) with mapi id 15.20.1601.023; Fri, 15 Feb 2019
- 02:01:26 +0000
-From: Tao Ren <taoren@fb.com>
-To: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: Re: Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Topic: Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Thread-Index: AQHUxNJcttE7fFa5AU6Z0cMMPNb9Qw==
-Date: Fri, 15 Feb 2019 02:01:26 +0000
-Message-ID: <d271e188-e135-eaff-5532-6ba6b95dce5a@fb.com>
-References: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
- <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
- <1550194959.4187502.1658322936.5ED72093@webmail.messagingengine.com>
-In-Reply-To: <1550194959.4187502.1658322936.5ED72093@webmail.messagingengine.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: MWHPR20CA0022.namprd20.prod.outlook.com
- (2603:10b6:300:13d::32) To MWHPR15MB1216.namprd15.prod.outlook.com
- (2603:10b6:320:23::18)
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4410XD5RVtzDqVB
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 15:24:28 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1F4Iki9112655
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 23:24:26 -0500
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qnmdrcsqm-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Feb 2019 23:24:25 -0500
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Fri, 15 Feb 2019 04:24:23 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 15 Feb 2019 04:24:21 -0000
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+ [9.149.105.232])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1F4OKMH56295530
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 04:24:20 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0C74B52052
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 04:24:20 +0000 (GMT)
+Received: from [9.85.132.76] (unknown [9.85.132.76])
+ by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTPS id 144A85204E
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 04:24:18 +0000 (GMT)
+Subject: Re: Redfish: Generating and installing CSR based certificates.
+To: openbmc@lists.ozlabs.org
+References: <CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Fri, 15 Feb 2019 09:54:16 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.4.0
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::6:82ab]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8db3c279-bfce-4bb2-5898-08d692e97e3f
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600110)(711020)(4605077)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1871; 
-x-ms-traffictypediagnostic: MWHPR15MB1871:
-x-microsoft-exchange-diagnostics: 1; MWHPR15MB1871;
- 20:xxSEyo40lBAo69a2YN0ZUizKzUsvQdWXvYpJQKmFt4Gr/c6LbPIm1HwrEUT85l11Ru+wSVWGUj05uxtBvnfrM7e3pil/MrRL4ZytpUOiozb6KZYmSuB7l+b9QsA8BtU1VXA18fktwdszYReKapJzTtH5JW9fh8ST4v0sM5sl1IY=
-x-microsoft-antispam-prvs: <MWHPR15MB1871A00755B2DCFD8567D0B0B2600@MWHPR15MB1871.namprd15.prod.outlook.com>
-x-forefront-prvs: 09497C15EB
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(136003)(346002)(39860400002)(396003)(376002)(366004)(189003)(199004)(2501003)(256004)(106356001)(31686004)(2906002)(4744005)(97736004)(68736007)(71190400001)(36756003)(71200400001)(64126003)(105586002)(386003)(14454004)(446003)(486006)(186003)(46003)(65826007)(53546011)(6506007)(102836004)(2616005)(11346002)(476003)(52116002)(76176011)(99286004)(65806001)(65956001)(316002)(58126008)(6116002)(478600001)(6436002)(6512007)(229853002)(110136005)(6486002)(7736002)(81156014)(81166006)(8676002)(25786009)(8936002)(31696002)(6246003)(53936002)(305945005)(86362001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1871;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: A1zvYjbEDnJwVaQheuiwa59v1nYGbbkS/lfbr+1q9LBL49hE2GiA+886NOG1ZOHcA3/cZQA1OWI2z1InOa3l6tXyPO2EPfN/ugJEszzMhybCTtYWe7cKF4HZTbAI2Aj/iZkCjgh4NQX4hSL9c75UvmlXIV/zKC5X7Vur4qu2grD+c7rb0m37ARQeWvrgKmeFiRZfDxR5FgKA1ivpsekX/PkdNBszbZo2NR9kCV2dQbtIxMbw1xxIEMkLJka5CJ6NjJZTscSgqk9O9E5qzAqsFbaklQCO01FYMzfAxUrnpSvUE1wkn3ly0RGjH+BgQ2lH3SwXiZ9GrP7SnACRJKfiDsHA6RHA5DvIL/fCpJW2LMbq9+hka/Oh8iAvx94udKS8WiLj6tafXlFE+g0rUjYSw6J/DusWS/SvinktbTrzNns=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5CC7BA29B5E37F40810314C37667E42D@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8db3c279-bfce-4bb2-5898-08d692e97e3f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2019 02:01:26.1228 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1871
-X-OriginatorOrg: fb.com
+In-Reply-To: <CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com>
+Content-Type: multipart/alternative;
+ boundary="------------8D60D8C00471AFE1F9D6A980"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19021504-4275-0000-0000-0000030FB920
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021504-4276-0000-0000-0000381DD6D7
+Message-Id: <827200f4-1c4f-9619-1037-26473a9b81e1@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-14_12:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ definitions=2019-02-15_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902150030
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,15 +77,293 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 02:01:35 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 04:24:29 -0000
 
-T24gMi8xNC8xOSA1OjQyIFBNLCBBbmRyZXcgSmVmZmVyeSB3cm90ZToNCj4gSSBkb24ndCBrbm93
-IHRoYXQgdGhlcmUncyBtdWNoIG90aGVyIGNob2ljZSwgYnV0IGJld2FyZSB0aGF0IGNoYW5naW5n
-DQo+IHRoZSB2YWx1ZSB3aWxsIGltcGFjdCB1c2Vyc3BhY2UgaWYgeW91J3JlIHVzaW5nIHRoZSBz
-eXNmcyBpbnRlcmZhY2UgKHdoaWNoDQo+IHlvdSAgaWRlYWxseSB5b3Ugc2hvdWxkbid0IGJlLCBh
-cyBpdCdzIGRlcHJlY2F0ZWQpLCBhcyB0aGUgYmFzZSBhZGRyZXNzZXMNCj4gb2YgdGhlIGdwaW9j
-aGlwcyB3aWxsIGNoYW5nZS4NCj4gDQo+IEFuZHJldw0KDQpUaGFuayB5b3UgQW5kcmV3IGZvciB0
-aGUgY29tbWVudHMuIEhvcGVmdWxseSBub2JvZHkgaW4gdGhlIGNvbW11bml0eSB3aWxsIGJlIGlt
-cGFjdGVkIGJ5IHRoZSBwYXRjaDsgaWYgdW5mb3J0dW5hdGVseSBzb21lIGFwcHMgYXJlIGJyb2tl
-biAoZHVlIHRvIHRoZSBkZXBlbmRlbmN5IG9uIHN5c2ZzLWdwaW8pLCBJJ20gaGFwcHkgdG8gaGVs
-cCB3aXRoIHRoZSBmaXguDQoNClRoYW5rcywNCg0KLSBUYW8NCg==
+This is a multi-part message in MIME format.
+--------------8D60D8C00471AFE1F9D6A980
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+
+Hi Jayanth,
+
+I have some querys
+
+On 14/02/19 7:23 PM, Jayanth Othayoth wrote:
+> All,
+> Please find the Redflish based CSR ( Certificate Signing Request) 
+> generation and installing the certificate in BMC.
+> This is based on the latest Redfish spec (Reference: 
+> https://www.dmtf.org/sites/default/files/Redfish_2018_Release_3_Overview.pdf) 
+> and related documents.
+> Included the Gerrit link related to  d-bus interfaces :
+>     Review Link: 
+> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/16571/
+>
+> Looking for the inputs  on this  design flow and any additional 
+> changes required from the security aspect on managing private keys in 
+> the BMC.
+>
+>   * The user performs the GenerateCSR action ( URIs:
+>     /redfish/v1/CertificateService ) with required parameters.
+>       o Certificate service provides a d-bus interface to generate CSR .
+>           + Certificate manager create Private key and saves the
+>             service specific path
+>           + Returns the d-bus path for the newly created CSR.
+>
+I am hoping this design is wrt Redfish, which explains the flow to 
+deploy CSR based certificate.
+
+I was little confused about d-bus interface terminology here, I 
+understand that in redfish we have certificate service schema which has 
+action
+
+GenerateCSR, I am assuming we are talking about the same.
+
+GenerateCSR should not return the d-bus Path however it should return 
+the URI of the Certificate Collection where the certificate will be 
+installed.
+
+Does the GenerateCSR creates CSR resource which can be modifiable in future?
+
+>       o  Certificate service provides d-bus interface to download CSR
+>           +  The user need need wait for the creation of CSR specific
+>             d-bus path to download the newly created CSR
+>
+Does the certificate service schema have the action Download CSR?
+
+I hope that response of GenerateCSR returns the CSR, There should not be 
+another redfish call to get the CSR.
+
+>       o  The user takes the CSR file and get it signed by the
+>         appropriate authority.
+>           +  This step is outside the scope of Redfish.
+>   *  The user navigates to the appropriate certificate collection
+>       o   Example: if trying to replace the HTTPS certificate for a
+>         Manager, navigate to the Manager’s Certificate Collection that
+>         is subordinate to the NetworkProtocol/HTTPS object
+>   * The user performs a POST on the Certificate Collection with the
+>     certificate string in the body
+>       o  Use the existing certificate upload d-bus interface.
+>   * Certificate manager validates the certificate with the available
+>     service specific private keys in the BMC.
+>   * After successful validation  pairs the private key used in the
+>     first step with the installed certificate.
+>
+Would the implementation persist the CSR and associated private key for 
+verification?
+
+I can understand that we can do the verification of public/private key 
+through oprenssl function, but is there a possibility that user can 
+change the CSR request(eg change the organization)
+
+and get it signed and upload the certificate, How the implementation 
+takes care of it?
+
+Now suppose user creates three CSR request and on the BMC we have three 
+associated private keys and once user upload the certificate
+
+would the implementation starts matching the certificate public key with 
+all the stored private keys and once it gets matched
+
+then the implementation creates the pairing?
+
+How the certificates would be deleted?
+> Assumption:
+>
+>   * For a service, BMC allows maximum 3 ( ?) CSR requests. Any new
+>     request after this will remove the oldest private key information
+>     from the BMC.
+>   * User has to do a Factory removing  the private key from the system.
+>
+Regards
+
+Ratan Gupta
+
+
+--------------8D60D8C00471AFE1F9D6A980
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Jayanth,</p>
+    <p>I have some querys<br>
+    </p>
+    <div class="moz-cite-prefix">On 14/02/19 7:23 PM, Jayanth Othayoth
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com">
+      <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div dir="ltr">
+            <div>All,</div>
+            <div>Please find the Redflish based CSR ( Certificate
+              Signing Request) generation and installing the certificate
+              in BMC. <br>
+            </div>
+            <div>This is based on the latest Redfish spec (Reference: <a
+href="https://www.dmtf.org/sites/default/files/Redfish_2018_Release_3_Overview.pdf"
+                moz-do-not-send="true">https://www.dmtf.org/sites/default/files/Redfish_2018_Release_3_Overview.pdf</a>)
+              and related documents. <br>
+            </div>
+            <div>Included the Gerrit link related to  d-bus interfaces :
+              <br>
+            </div>
+            <div>    Review Link: <a
+href="https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/16571/"
+                moz-do-not-send="true">https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/16571/</a></div>
+            <div><br>
+            </div>
+            <div>Looking for the inputs  on this  design flow and any
+              additional changes required from the security aspect on
+              managing private keys in the BMC. <br>
+            </div>
+            <div>
+              <ul>
+                <li>The user performs the GenerateCSR action ( URIs:
+                  /redfish/v1/CertificateService ) with required
+                  parameters.</li>
+                <ul>
+                  <li>Certificate service provides a d-bus interface to
+                    generate CSR .</li>
+                  <ul>
+                    <li>Certificate manager create Private key and saves
+                      the service specific path <br>
+                    </li>
+                    <li>Returns the d-bus path for the newly created
+                      CSR.</li>
+                  </ul>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p><tt>I am hoping this design is wrt Redfish, which explains the
+        flow to deploy CSR based certificate.</tt></p>
+    <p><tt>I was little confused about d-bus interface terminology here,
+        I understand that in redfish we have certificate service schema
+        which has action</tt></p>
+    <p><tt>GenerateCSR, I am assuming we are talking about the same.</tt><br>
+    </p>
+    <p><tt>GenerateCSR should not return the d-bus Path however it
+        should return the </tt><tt><span><span class="objectBox
+            objectBox-string"> URI of the Certificate Collection where
+            the certificate will be installed.</span></span></tt></p>
+    <p><tt>Does the GenerateCSR creates CSR resource which can be
+        modifiable in future?<br>
+      </tt></p>
+    <blockquote type="cite"
+cite="mid:CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div dir="ltr">
+            <div>
+              <ul>
+                <ul>
+                  <li> Certificate service provides d-bus interface to
+                    download CSR</li>
+                  <ul>
+                    <li> The user need need wait for the creation of CSR
+                      specific d-bus path to download the newly created
+                      CSR</li>
+                  </ul>
+                </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p><tt>Does the certificate service schema have the action Download
+        CSR?</tt></p>
+    <p><tt>I hope that response of GenerateCSR returns the CSR, There
+        should not be another redfish call to get the CSR</tt>.<br>
+    </p>
+    <blockquote type="cite"
+cite="mid:CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div dir="ltr">
+            <div>
+              <ul>
+                <ul>
+                  <li> The user takes the CSR file and get it signed by
+                    the appropriate authority.</li>
+                  <ul>
+                    <li> This step is outside the scope of Redfish.</li>
+                  </ul>
+                </ul>
+                <li> The user navigates to the appropriate certificate
+                  collection</li>
+                <ul>
+                  <li>  Example: if trying to replace the HTTPS
+                    certificate for a Manager, navigate to the Manager’s
+                    Certificate Collection that is subordinate to the  
+                    NetworkProtocol/HTTPS object</li>
+                </ul>
+                <li>The user performs a POST on the Certificate
+                  Collection with the certificate string in the body</li>
+                <ul>
+                  <li> Use the existing certificate upload d-bus
+                    interface.</li>
+                </ul>
+                <li>Certificate manager validates the certificate with
+                  the available service specific private keys in the
+                  BMC.</li>
+                <li>After successful validation  pairs the private key
+                  used in the first step with the installed certificate.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p><tt>Would the implementation persist the CSR and associated
+        private key for verification?</tt></p>
+    <p><tt>I can understand that we can do the verification of
+        public/private key through oprenssl function, but is there a
+        possibility that user can change the CSR request(eg change the
+        organization)</tt></p>
+    <p><tt>and get it signed and upload the certificate, How the
+        implementation takes care of it?</tt></p>
+    <p><tt>Now suppose user creates three CSR request and on the BMC we
+        have three associated private keys and once user upload the
+        certificate</tt></p>
+    <p><tt>would the implementation starts matching the certificate
+        public key with all the stored private keys and once it gets
+        matched</tt></p>
+    <p><tt>then the implementation creates the pairing?</tt><br>
+    </p>
+    <tt>How the certificates would be deleted?</tt><br>
+    <blockquote type="cite"
+cite="mid:CACkAXSpTdZ8s_Qd2j1qkwBy7Ti+7ieOzyJtcLkCEqBmsLWs4AQ@mail.gmail.com">
+      <div dir="ltr">
+        <div dir="ltr">
+          <div dir="ltr">
+            <div>Assumption:<br>
+            </div>
+            <ul>
+              <li>For a service, BMC allows maximum 3 ( ?) CSR requests.
+                Any new request after this will remove the oldest
+                private key information from the BMC.</li>
+              <li>User has to do a Factory removing  the private key
+                from the system.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </blockquote>
+    <p><tt>Regards</tt></p>
+    <p><tt>Ratan Gupta</tt><br>
+    </p>
+  </body>
+</html>
+
+--------------8D60D8C00471AFE1F9D6A980--
