@@ -1,108 +1,74 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="V5xlhe18"; 
- dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 441HRs4FnnzDqc5
- for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 02:36:41 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id DE71B419A1;
- Fri, 15 Feb 2019 15:36:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:from:from:references:subject:subject
- :received:received:received; s=mta-01; t=1550244996; x=
- 1552059397; bh=OehCb+SFwMZjBLXgIiucY6d6sr6rmXrb6TI7bkL6UAw=; b=V
- 5xlhe18xWdBbhDrLg3hl9dHT8p4ahXuvK2vvXJm7pwUGFJp4z0ilEOKsWmiAPWZ6
- sZCh8hI4UhDNySrRfsiwA7+O0zjui05s9lbHvw2HI2yU3BNExWIQCHcI9EfjkhvP
- bjQn4kNqpMV7g44joEkdvbAmhvjZVgeQeB4B8ylEFo=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id wXnptn2EmfCs; Fri, 15 Feb 2019 18:36:36 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 0AC4541959;
- Fri, 15 Feb 2019 18:36:36 +0300 (MSK)
-Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 15
- Feb 2019 18:36:35 +0300
-Subject: Re: Romulus to use Virtual PNOR
-To: Lei YU <mine260309@gmail.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
- <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
- <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
- <3ddb6822-51ae-a613-f46c-bad4826d546e@yadro.com>
- <CAARXrtmR1+akCu9u3QhDEU6+i8GRNgpxaJV2rwse-xy+vHUCFQ@mail.gmail.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Message-ID: <e1b6856a-14eb-b004-fcc1-5f9e403a9d03@yadro.com>
-Date: Fri, 15 Feb 2019 18:36:34 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
-MIME-Version: 1.0
-In-Reply-To: <CAARXrtmR1+akCu9u3QhDEU6+i8GRNgpxaJV2rwse-xy+vHUCFQ@mail.gmail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="8d12yDK93KsIQlmRpddcAxME0xpFHg9WQ"
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 441JSl1Bl7zDqRh
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 03:22:30 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1FGKZZH010792
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 11:22:28 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qp0s2gg54-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 11:22:27 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Fri, 15 Feb 2019 16:22:26 -0000
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 15 Feb 2019 16:22:23 -0000
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1FGMMJl20578462
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 15 Feb 2019 16:22:22 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B0370AE05C;
+ Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4CE76AE05F;
+ Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: joel@jms.id.au, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2] ARM: dts: Aspeed: Witherspoon-128: Update BMC
+ partitioning
+Date: Fri, 15 Feb 2019 10:22:20 -0600
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1549647210-5509-1-git-send-email-anoo@linux.ibm.com>
+References: <1549647210-5509-1-git-send-email-anoo@linux.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 19021516-0040-0000-0000-000004C210E3
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010602; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000280; SDB=6.01161475; UDB=6.00604226; IPR=6.00942035; 
+ MB=3.00025598; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-15 16:22:25
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021516-0041-0000-0000-000008CD3281
+Message-Id: <1550247740-35751-1-git-send-email-anoo@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-15_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902150112
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,112 +80,751 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 15:36:42 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 16:22:31 -0000
 
---8d12yDK93KsIQlmRpddcAxME0xpFHg9WQ
-Content-Type: multipart/mixed; boundary="svgfvca4DyqaMhHBpC1A7QTqcRV2ps746";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Message-ID: <e1b6856a-14eb-b004-fcc1-5f9e403a9d03@yadro.com>
-Subject: Re: Romulus to use Virtual PNOR
-References: <CAARXrtmBsbJt7n_wmpg3nadtoJuz0bqbT9d9ijKL8bDTu+k+WA@mail.gmail.com>
- <CACPK8Xd-OX_zQtn5rtfRw+rXB+783hQSwc_PTmzMYr=SHaP5Tg@mail.gmail.com>
- <CAARXrtnjhLDez0vjXOxMGgNeNXPTZCBZZBa6Kk+U9=tkRJoKgg@mail.gmail.com>
- <3ddb6822-51ae-a613-f46c-bad4826d546e@yadro.com>
- <CAARXrtmR1+akCu9u3QhDEU6+i8GRNgpxaJV2rwse-xy+vHUCFQ@mail.gmail.com>
-In-Reply-To: <CAARXrtmR1+akCu9u3QhDEU6+i8GRNgpxaJV2rwse-xy+vHUCFQ@mail.gmail.com>
+Create a Witherspoon-128 dts based off Witherspoon but with 128MB
+BMC flash chips.
 
---svgfvca4DyqaMhHBpC1A7QTqcRV2ps746
-Content-Type: multipart/alternative;
- boundary="------------2ACD43962C3B275375E569CC"
-Content-Language: en-US
+Signed-off-by: Adriana Kobylak <anoo@linux.ibm.com>
+---
+ arch/arm/boot/dts/Makefile                         |   1 +
+ .../aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi |  18 +
+ .../dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi |  18 +
+ .../boot/dts/aspeed-bmc-opp-witherspoon-128.dts    | 664 +++++++++++++++++++++
+ 4 files changed, 701 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
 
-This is a multi-part message in MIME format.
---------------2ACD43962C3B275375E569CC
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-15.02.2019 9:48, Lei YU wrote:
->
->> The installed PNOR reports its version via IPMI FRU now, so we know th=
-e installed version.
-> Great! Could you kindly let me know how do you implement this?
-Please see systemFwIpmiFruInv::buildProductInfoArea() function in
-hostboot/src/usr/ipmiext/ipmifruinv.C
-
-That is where hostboot builds the opfw FRU.
-
-Alexander.
-
-
-
---------------2ACD43962C3B275375E569CC
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-  <head>
-    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DUTF=
--8">
-  </head>
-  <body text=3D"#000000" bgcolor=3D"#FFFFFF">
-    <div class=3D"moz-cite-prefix">15.02.2019 9:48, Lei YU wrote:<br>
-    </div>
-    <blockquote type=3D"cite"
-cite=3D"mid:CAARXrtmR1+akCu9u3QhDEU6+i8GRNgpxaJV2rwse-xy+vHUCFQ@mail.gmai=
-l.com"><br>
-      <blockquote type=3D"cite">
-        <pre class=3D"moz-quote-pre" wrap=3D"">The installed PNOR reports=
- its version via IPMI FRU now, so we know the installed version.
-</pre>
-      </blockquote>
-      <pre class=3D"moz-quote-pre" wrap=3D"">Great! Could you kindly let =
-me know how do you implement this?
-</pre>
-    </blockquote>
-    Please see <span class=3D"pl-en">systemFwIpmiFruInv::buildProductInfo=
-Area()
-      function in</span><span class=3D"pl-en"></span><span class=3D"pl-en=
-"><br>
-      hostboot/src/usr/ipmiext/ipmifruinv.C<br>
-    </span>
-    <p>That is where hostboot builds the opfw FRU.</p>
-    <p>Alexander.<br>
-      <span class=3D"pl-en"></span></p>
-    <p><span class=3D"pl-en"></span></p>
-    <p><br>
-      <span class=3D"pl-en"></span></p>
-    <p><span class=3D"pl-en"></span></p>
-  </body>
-</html>
-
---------------2ACD43962C3B275375E569CC--
-
---svgfvca4DyqaMhHBpC1A7QTqcRV2ps746--
-
---8d12yDK93KsIQlmRpddcAxME0xpFHg9WQ
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJcZtyCAAoJEOiTWHtbdBeNXskP/j9ue8ovhEV2QfDz156iZ5UK
-t3z2/9kIfC68SYQwHh6H38yowlcVFxf1GkvOjJG2MBK0x2wUFoo8kxFSamNDAd9m
-A8Z84MfaT/lDZXE08CGQKto8UrCenngtjgPjXZXIB8h1UIaq2dDjuqwI3BVKOEFI
-wYOstZBfIAgBRIkR/0NBueOXwJ3JWuWQh47cTw5pWOfJD2BLykPeti8+kujlw+O+
-Zx8LFOjMmfIMutbkmCsZPDPu+uBwwuOhEJ5ThKDwDrv9+/pVtwXGskcMqqe8vQDt
-3gJRU1wz3Bh+CzyYHTGyDiN76BIONQthwRECH6/27hxbUnsqfUvBrqP76Nquvw42
-VaPO6sgE7asqWmuBCKdti1HLupBJiPRKaOaSAZksdDn7tGrZmpHsQ+MJNeW/lYkH
-L6/ROInA3ucWiBGkTnbtqxcPjS/VWYH365oeOR3SZCi31HSuKHcRQHDprNLkJ4jE
-2htT82xmIvruNnaIgRd9oVDDQjfx1a8mWXeUE4Dm0VGk5Qpt9NKDXc0Gqg74e+z+
-6nvz4dzFH7GjekDkugyZFQiTrhCj1oplxFMOcBiltOSIbRnJNhr3pJozl+aJhYnT
-bYHWdD/0PU1kfddOmbQ2bshsyBe+3Oa2G9z8a5AoeBr87f6sQE5gpQLDa8c6xKBe
-G7QEgamF5cmvC/fIZZz5
-=/Ka5
------END PGP SIGNATURE-----
-
---8d12yDK93KsIQlmRpddcAxME0xpFHg9WQ--
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 1a2db60..03de1ae8 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1205,6 +1205,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-romulus.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
++	aspeed-bmc-opp-witherspoon-128.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-portwell-neptune.dtb \
+ 	aspeed-bmc-quanta-q71l.dtb
+diff --git a/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
+new file mode 100644
+index 0000000..9af7fa5
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
+@@ -0,0 +1,18 @@
++		label = "alt-bmc";
++		partitions {
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				compatible = "fixed-partitions";
++				u-boot@0 {
++					reg = < 0 0x60000 >;
++					label = "alt-u-boot";
++				};
++				u-boot-env@60000 {
++					reg = < 0x60000 0x20000 >;
++					label = "alt-u-boot-env";
++				};
++				obmc-ubi@80000 {
++					reg = < 0x80000 0x7F80000>;
++					label = "alt-obmc-ubi";
++				};
++		};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
+new file mode 100644
+index 0000000..b7d49bb
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
+@@ -0,0 +1,18 @@
++		label = "bmc";
++		partitions {
++				#address-cells = < 1 >;
++				#size-cells = < 1 >;
++				compatible = "fixed-partitions";
++				u-boot@0 {
++					reg = < 0 0x60000 >;
++					label = "u-boot";
++				};
++				u-boot-env@60000 {
++					reg = < 0x60000 0x20000 >;
++					label = "u-boot-env";
++				};
++				obmc-ubi@80000 {
++					reg = < 0x80000 0x7F80000>;
++					label = "obmc-ubi";
++				};
++		};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
+new file mode 100644
+index 0000000..84ee5a2
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
+@@ -0,0 +1,664 @@
++// SPDX-License-Identifier: GPL-2.0+
++/dts-v1/;
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/leds/leds-pca955x.h>
++
++/ {
++	model = "Witherspoon BMC";
++	compatible = "ibm,witherspoon-bmc", "aspeed,ast2500";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x04000000>; /* 64M */
++		};
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		air-water {
++			label = "air-water";
++			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(B, 5)>;
++		};
++
++		checkstop {
++			label = "checkstop";
++			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(J, 2)>;
++		};
++
++		ps0-presence {
++			label = "ps0-presence";
++			gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(P, 7)>;
++		};
++
++		ps1-presence {
++			label = "ps1-presence";
++			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(N, 0)>;
++		};
++	};
++
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
++	};
++
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		poll-interval = <1000>;
++
++		fan0-presence {
++			label = "fan0-presence";
++			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
++			linux,code = <4>;
++		};
++
++		fan1-presence {
++			label = "fan1-presence";
++			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
++			linux,code = <5>;
++		};
++
++		fan2-presence {
++			label = "fan2-presence";
++			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
++			linux,code = <6>;
++		};
++
++		fan3-presence {
++			label = "fan3-presence";
++			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
++			linux,code = <7>;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		fan0 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
++		};
++
++		fan1 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
++		};
++
++		fan2 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
++		};
++
++		fan3 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
++		};
++
++		front-fault {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
++		};
++
++		front-power {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
++		};
++
++		front-id {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
++		};
++
++		rear-fault {
++			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
++		};
++
++		rear-id {
++			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
++		};
++
++		rear-power {
++			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
++		};
++
++		power-button {
++			gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	fsi: gpio-fsi {
++		compatible = "fsi-master-gpio", "fsi-master";
++		#address-cells = <2>;
++		#size-cells = <0>;
++		no-gpio-delays;
++
++		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
++		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
++		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
++		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
++		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
++	};
++
++	iio-hwmon-dps310 {
++		compatible = "iio-hwmon";
++		io-channels = <&dps 0>;
++	};
++
++	iio-hwmon-bmp280 {
++		compatible = "iio-hwmon";
++		io-channels = <&bmp 1>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++
++	flash@0 {
++		status = "okay";
++		label = "bmc";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++#include "aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi"
++	};
++
++	flash@1 {
++		status = "okay";
++		label = "alt";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++#include "aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		label = "pnor";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++	};
++};
++
++&uart1 {
++	/* Rear RS-232 connector */
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++			&pinctrl_rxd1_default
++			&pinctrl_nrts1_default
++			&pinctrl_ndtr1_default
++			&pinctrl_ndsr1_default
++			&pinctrl_ncts1_default
++			&pinctrl_ndcd1_default
++			&pinctrl_nri1_default>;
++};
++
++&uart2 {
++	/* APSS */
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
++&mbox {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&i2c2 {
++	status = "okay";
++
++	/* MUX ->
++	 *    Samtec 1
++	 *    Samtec 2
++	 */
++};
++
++&i2c3 {
++	status = "okay";
++
++	bmp: bmp280@77 {
++		compatible = "bosch,bmp280";
++		reg = <0x77>;
++		#io-channel-cells = <1>;
++	};
++
++	max31785@52 {
++		compatible = "maxim,max31785a";
++		reg = <0x52>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		fan@0 {
++			compatible = "pmbus-fan";
++			reg = <0>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@1 {
++			compatible = "pmbus-fan";
++			reg = <1>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@2 {
++			compatible = "pmbus-fan";
++			reg = <2>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@3 {
++			compatible = "pmbus-fan";
++			reg = <3>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++	};
++
++	dps: dps310@76 {
++		compatible = "infineon,dps310";
++		reg = <0x76>;
++		#io-channel-cells = <0>;
++	};
++
++	pca0: pca9552@60 {
++		compatible = "nxp,pca9552";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	power-supply@68 {
++		compatible = "ibm,cffps1";
++		reg = <0x68>;
++	};
++
++	power-supply@69 {
++		compatible = "ibm,cffps1";
++		reg = <0x69>;
++	};
++};
++
++&i2c4 {
++	status = "okay";
++
++	tmp423a@4c {
++		compatible = "ti,tmp423";
++		reg = <0x4c>;
++	};
++
++	ir35221@70 {
++		compatible = "infineon,ir35221";
++		reg = <0x70>;
++	};
++
++	ir35221@71 {
++		compatible = "infineon,ir35221";
++		reg = <0x71>;
++	};
++};
++
++
++&i2c5 {
++	status = "okay";
++
++	tmp423a@4c {
++		compatible = "ti,tmp423";
++		reg = <0x4c>;
++	};
++
++	ir35221@70 {
++		compatible = "infineon,ir35221";
++		reg = <0x70>;
++	};
++
++	ir35221@71 {
++		compatible = "infineon,ir35221";
++		reg = <0x71>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++
++	tmp275@4a {
++		compatible = "ti,tmp275";
++		reg = <0x4a>;
++	};
++};
++
++&i2c10 {
++	/* MUX
++	 *   -> PCIe Slot 3
++	 *   -> PCIe Slot 4
++	 */
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++
++	pca9552: pca9552@60 {
++		compatible = "nxp,pca9552";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
++			"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
++			"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
++			"GPU4_TH_OVERT_N_BUFF",	"GPU5_TH_OVERT_N_BUFF",
++			"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
++			"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
++			"GPU4_PWR_GOOD_BUFF", "GPU5_PWR_GOOD_BUFF",
++			"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	rtc@32 {
++		compatible = "epson,rx8900";
++		reg = <0x32>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c64";
++		reg = <0x51>;
++	};
++
++	ucd90160@64 {
++		compatible = "ti,ucd90160";
++		reg = <0x64>;
++	};
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&wdt1 {
++	aspeed,reset-type = "none";
++	aspeed,external-signal;
++	aspeed,ext-push-pull;
++	aspeed,ext-active-high;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdtrst1_default>;
++};
++
++&wdt2 {
++	aspeed,alt-boot;
++};
++
++&ibt {
++	status = "okay";
++};
++
++&adc {
++	status = "okay";
++};
++
++#include "ibm-power9-dual.dtsi"
+-- 
+1.8.3.1
