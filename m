@@ -1,67 +1,64 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.13; helo=cpsmtpb-ews08.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::330; helo=mail-ot1-x330.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="ZNdTPeiK"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VA7o87d6"; 
  dkim-atps=neutral
-Received: from cpsmtpb-ews08.kpnxchange.com (cpsmtpb-ews08.kpnxchange.com
- [213.75.39.13])
- by lists.ozlabs.org (Postfix) with ESMTP id 441Jh02tnkzDqSq
- for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 03:32:13 +1100 (AEDT)
-Received: from cpsps-ews30.kpnxchange.com ([10.94.84.196]) by
- cpsmtpb-ews08.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Fri, 15 Feb 2019 17:32:10 +0100
-X-Brand: 7Ljiz6bi2A==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e2=11;e3=10);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=UOIM4xXy c=1 sm=1 tr=0
- a=sfk9uMsoq7e5/NfZ3OK45Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
- a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
- a=CFTnQlWoA9kA:10 a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=dpRSjrXKAAAA:8
- a=iPe0xSL15bPFmPykl-wA:9 a=CjuIK1q_8ugA:10 a=-FEs8UIgK8oA:10
- a=NWVoK91CQyQA:10 a=IC2XNlieTeVoXbcui8wp:22 a=xkwab4zIHtOjTkBAMNFX:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
- cpsps-ews30.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Fri, 15 Feb 2019 17:32:10 +0100
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1550248330;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=9BkuqnE8PqQgiN6uGEjt1J3IJsbZTcyv4oWp+BOsvCI=;
- b=ZNdTPeiKYpTNZop43BQE7PXziq1Iym0yOs0aQb6ijy6Je5FEk/cpG+wgSY64PuA1NktuCACUio5
- aCsX2bFgQcdbcNUospYz/iIzCPfp/2SkkWk9ZSthrbuTJH7wXhXfVah21DDqwU6b4L8ruwv42u/Jf
- /v5C/pifWHTzUE8F6WE=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT108.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Fri, 15 Feb 2019 17:32:10 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Fri, 15 Feb
- 2019 17:31:34 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Fri, 15 Feb 2019 17:31:34 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 441Mcd45d3zDqQ1
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 05:44:33 +1100 (AEDT)
+Received: by mail-ot1-x330.google.com with SMTP id i5so18150749oto.9
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 10:44:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:from:subject:message-id:date:user-agent:mime-version
+ :content-language:content-transfer-encoding;
+ bh=DzwiAirDAg25ZwRRjNfLhQPX2Wc9Sgkusas5ii8WcSA=;
+ b=VA7o87d6n5n2U+d+Hexwifg6ARGjHDRisFYajAZdLSxEUG/ICzH85rZz/IttwSfNAU
+ JwygIPFPA7uVj4P+f6CmCMT2xms1XabHVwkTwM2LoqeJG/V1asjDNEeC0zTaUAreHS3k
+ GGHm/W4BKxCnOWfbgJ6UJjZvUw9XfU+Fx/pLbK8lnff35ktcN7p+ZFBTFvWhPy2J1bex
+ PGvLLtJhehExLdo4/EeaWMZOLt057fMN2/cCkKfn1p/atAGMi9sbONZQoTNe5oKy5S7F
+ G5K6evJcF0TMoxM5dyQG/cCXCY1+78rIIsXdD0JUvg9eCctC8+lY2asn9U99m6nQrE+z
+ tTmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:to:from:subject:message-id:date:user-agent
+ :mime-version:content-language:content-transfer-encoding;
+ bh=DzwiAirDAg25ZwRRjNfLhQPX2Wc9Sgkusas5ii8WcSA=;
+ b=dqZhdjXBU6B1fSfdKvPqhYaTystHZwq6Sn+FQwqImcBQANme+ATLIRBRHaZjX8UwVe
+ tdOHuuKIiDqpKoQ3vF3r9VFtziAIY+kPktTwvr3pAQbhSo0toDgszjrHtPEEQ/ZnixqU
+ gICGww3XGRyAy/KStMr1FEjQNCuy7BGAj5RwoKziUQ+RLhbLpAAOyeQM+he4Nt6ASwUO
+ AVaFWlUVkFdw3jkZWcUHGhgSd4vZo57IyFRv8YvDfQolHx1LW2/bRxCy9NU599WXro3E
+ kzYPGWMGU9pifYANLmdbJfzC/u0z0a3BkQSNyWCTGGgRbtvXVEr/k9RX5QczzLoYEbVT
+ sveg==
+X-Gm-Message-State: AHQUAubeL2O/AN1WFa+CLM6eQKFcjbav5qf76uJKDZxio86sklSaRE9P
+ 3A503jalYxoKfHhjAOMSbBvdwVVk
+X-Google-Smtp-Source: AHgI3IYmBH+z2Pu30Ep24FUQJ8QtkcF6qDhkYt1P6AEh84SjtPdRNCi/qDc67GA0NdH2JfZk0LTN6A==
+X-Received: by 2002:a9d:2387:: with SMTP id t7mr6495096otb.68.1550256271076;
+ Fri, 15 Feb 2019 10:44:31 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id h16sm2458671otl.29.2019.02.15.10.44.30
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Fri, 15 Feb 2019 10:44:30 -0800 (PST)
 To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Building intel s2600wf image
-Thread-Topic: Building intel s2600wf image
-Thread-Index: AdTFSt2alieuRaKeTgaddnrT2vklLA==
-Date: Fri, 15 Feb 2019 16:31:34 +0000
-Message-ID: <0dd29982f6954541a2ce2420c87684e7@Eltsrv03.Eltan.local>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
+From: krtaylor <kurt.r.taylor@gmail.com>
+Subject: 2.6 Release announcement
+Message-ID: <06f35a3e-2d73-f973-8a45-fd38282fd1ed@gmail.com>
+Date: Fri, 15 Feb 2019 12:44:29 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.0
 MIME-Version: 1.0
-X-OriginalArrivalTime: 15 Feb 2019 16:32:10.0002 (UTC)
- FILETIME=[FF7A6F20:01D4C54B]
-X-RcptDomain: lists.ozlabs.org
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,61 +70,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 16:32:19 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 18:44:35 -0000
 
-Hello James,
+I have not been successful (yet) in trying to get access to our 
+openbmc.org website for adding things like announcements. So, I created 
+a quick release announcement on my personal blog to spread the great 
+news about all the hard work that went into this release!
 
-I got the tree building now.
+http://www.kurttaylor.com/blog/2019/02/openbmc-2-6-release/
+or
+https://twitter.com/kurtrtaylor/status/1096473964350791681
 
-I have been performing some tests as well. One thing that popped up immedia=
-tely is that there are no devices created for the kcs interface while the s=
-ervice for this is started.
-
-I noticed that the facebook-tiogapass.dts has the items for kcs2 and 3 incl=
-uded while the s2600wf.dts doesn't assign addresses for these devices (leav=
-ing the kcs_addr at 0 causing the driver not to load).
-
-I this intentional and do start the driver in another way or should I chang=
-e the dts?
-
-Best regards,
-
-Wim Vervoorn
-
-
-Message: 4
-Date: Thu, 14 Feb 2019 16:01:57 -0800
-From: James Feist <james.feist@linux.intel.com>
-To: openbmc@lists.ozlabs.org
-Subject: Re: Building intel s2600wf image
-Message-ID: <0af603f9-33e6-0dcb-7e9c-2cfa13cc2a02@linux.intel.com>
-Content-Type: text/plain; charset=3Dutf-8; format=3Dflowed
-
-On 2/14/19 3:49 PM, Andrew Jeffery wrote:
-> Hi Wim,
->=20
-> On Fri, 15 Feb 2019, at 02:51, Wim Vervoorn wrote:
->> Hello,
->>
->> We are trying to build the Intel s2600wf image using the latest=20
->> OpenBMC tree. If we do that we are running into build errors.
->>
->> Before digging into this can you tell me which commit of the tree can=20
->> be used to build an image for  this device without errors. This=20
->> allows us to have a stable version for reference.
-
-I tried to build today with latest trunk and there were some issues, I fixe=
-d them all today but all the bumps have to go through first.=20
-Specifically this one:=20
-https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-intel/+/18410/
-
-Then it needs to get synced into openbmc-openbmc, or you can checkout the p=
-atch with the above version of meta-phosphor and it should build.
-
-Thanks
-
--James
-
-
-End of openbmc Digest, Vol 42, Issue 36
-***************************************
+Kurt Taylor (krtaylor)
