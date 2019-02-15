@@ -1,74 +1,67 @@
-Return-Path: <anoo@linux.ibm.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.13; helo=cpsmtpb-ews08.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 441JSl1Bl7zDqRh
- for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 03:22:30 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1FGKZZH010792
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 11:22:28 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qp0s2gg54-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 15 Feb 2019 11:22:27 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
- Fri, 15 Feb 2019 16:22:26 -0000
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 15 Feb 2019 16:22:23 -0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1FGMMJl20578462
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 15 Feb 2019 16:22:22 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B0370AE05C;
- Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4CE76AE05F;
- Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
-Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 15 Feb 2019 16:22:22 +0000 (GMT)
-From: Adriana Kobylak <anoo@linux.ibm.com>
-To: joel@jms.id.au, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v2] ARM: dts: Aspeed: Witherspoon-128: Update BMC
- partitioning
-Date: Fri, 15 Feb 2019 10:22:20 -0600
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1549647210-5509-1-git-send-email-anoo@linux.ibm.com>
-References: <1549647210-5509-1-git-send-email-anoo@linux.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 19021516-0040-0000-0000-000004C210E3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010602; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000280; SDB=6.01161475; UDB=6.00604226; IPR=6.00942035; 
- MB=3.00025598; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-15 16:22:25
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19021516-0041-0000-0000-000008CD3281
-Message-Id: <1550247740-35751-1-git-send-email-anoo@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-15_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902150112
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="ZNdTPeiK"; 
+ dkim-atps=neutral
+Received: from cpsmtpb-ews08.kpnxchange.com (cpsmtpb-ews08.kpnxchange.com
+ [213.75.39.13])
+ by lists.ozlabs.org (Postfix) with ESMTP id 441Jh02tnkzDqSq
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 03:32:13 +1100 (AEDT)
+Received: from cpsps-ews30.kpnxchange.com ([10.94.84.196]) by
+ cpsmtpb-ews08.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Fri, 15 Feb 2019 17:32:10 +0100
+X-Brand: 7Ljiz6bi2A==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e2=11;e3=10);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=UOIM4xXy c=1 sm=1 tr=0
+ a=sfk9uMsoq7e5/NfZ3OK45Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
+ a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
+ a=CFTnQlWoA9kA:10 a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=dpRSjrXKAAAA:8
+ a=iPe0xSL15bPFmPykl-wA:9 a=CjuIK1q_8ugA:10 a=-FEs8UIgK8oA:10
+ a=NWVoK91CQyQA:10 a=IC2XNlieTeVoXbcui8wp:22 a=xkwab4zIHtOjTkBAMNFX:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from CPSMTPM-CMT108.kpnxchange.com ([195.121.3.24]) by
+ cpsps-ews30.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
+ Fri, 15 Feb 2019 17:32:10 +0100
+Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
+ c=relaxed/relaxed; t=1550248330;
+ h=mime-version:date:message-id:subject:from:to:content-type;
+ bh=9BkuqnE8PqQgiN6uGEjt1J3IJsbZTcyv4oWp+BOsvCI=;
+ b=ZNdTPeiKYpTNZop43BQE7PXziq1Iym0yOs0aQb6ijy6Je5FEk/cpG+wgSY64PuA1NktuCACUio5
+ aCsX2bFgQcdbcNUospYz/iIzCPfp/2SkkWk9ZSthrbuTJH7wXhXfVah21DDqwU6b4L8ruwv42u/Jf
+ /v5C/pifWHTzUE8F6WE=
+Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
+ CPSMTPM-CMT108.kpnxchange.com over TLS secured channel with Microsoft
+ SMTPSVC(8.5.9600.16384); Fri, 15 Feb 2019 17:32:10 +0100
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Fri, 15 Feb
+ 2019 17:31:34 +0100
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Fri, 15 Feb 2019 17:31:34 +0100
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Building intel s2600wf image
+Thread-Topic: Building intel s2600wf image
+Thread-Index: AdTFSt2alieuRaKeTgaddnrT2vklLA==
+Date: Fri, 15 Feb 2019 16:31:34 +0000
+Message-ID: <0dd29982f6954541a2ce2420c87684e7@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+MIME-Version: 1.0
+X-OriginalArrivalTime: 15 Feb 2019 16:32:10.0002 (UTC)
+ FILETIME=[FF7A6F20:01D4C54B]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,751 +73,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Feb 2019 16:22:31 -0000
+X-List-Received-Date: Fri, 15 Feb 2019 16:32:19 -0000
 
-Create a Witherspoon-128 dts based off Witherspoon but with 128MB
-BMC flash chips.
+Hello James,
 
-Signed-off-by: Adriana Kobylak <anoo@linux.ibm.com>
----
- arch/arm/boot/dts/Makefile                         |   1 +
- .../aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi |  18 +
- .../dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi |  18 +
- .../boot/dts/aspeed-bmc-opp-witherspoon-128.dts    | 664 +++++++++++++++++++++
- 4 files changed, 701 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
+I got the tree building now.
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 1a2db60..03de1ae8 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1205,6 +1205,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-romulus.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
-+	aspeed-bmc-opp-witherspoon-128.dtb \
- 	aspeed-bmc-opp-zaius.dtb \
- 	aspeed-bmc-portwell-neptune.dtb \
- 	aspeed-bmc-quanta-q71l.dtb
-diff --git a/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
-new file mode 100644
-index 0000000..9af7fa5
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi
-@@ -0,0 +1,18 @@
-+		label = "alt-bmc";
-+		partitions {
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				compatible = "fixed-partitions";
-+				u-boot@0 {
-+					reg = < 0 0x60000 >;
-+					label = "alt-u-boot";
-+				};
-+				u-boot-env@60000 {
-+					reg = < 0x60000 0x20000 >;
-+					label = "alt-u-boot-env";
-+				};
-+				obmc-ubi@80000 {
-+					reg = < 0x80000 0x7F80000>;
-+					label = "alt-obmc-ubi";
-+				};
-+		};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
-new file mode 100644
-index 0000000..b7d49bb
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi
-@@ -0,0 +1,18 @@
-+		label = "bmc";
-+		partitions {
-+				#address-cells = < 1 >;
-+				#size-cells = < 1 >;
-+				compatible = "fixed-partitions";
-+				u-boot@0 {
-+					reg = < 0 0x60000 >;
-+					label = "u-boot";
-+				};
-+				u-boot-env@60000 {
-+					reg = < 0x60000 0x20000 >;
-+					label = "u-boot-env";
-+				};
-+				obmc-ubi@80000 {
-+					reg = < 0x80000 0x7F80000>;
-+					label = "obmc-ubi";
-+				};
-+		};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
-new file mode 100644
-index 0000000..84ee5a2
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
-@@ -0,0 +1,664 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/dts-v1/;
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+#include <dt-bindings/leds/leds-pca955x.h>
-+
-+/ {
-+	model = "Witherspoon BMC";
-+	compatible = "ibm,witherspoon-bmc", "aspeed,ast2500";
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory@80000000 {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		flash_memory: region@98000000 {
-+			no-map;
-+			reg = <0x98000000 0x04000000>; /* 64M */
-+		};
-+
-+		gfx_memory: framebuffer {
-+			size = <0x01000000>;
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		air-water {
-+			label = "air-water";
-+			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(B, 5)>;
-+		};
-+
-+		checkstop {
-+			label = "checkstop";
-+			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(J, 2)>;
-+		};
-+
-+		ps0-presence {
-+			label = "ps0-presence";
-+			gpios = <&gpio ASPEED_GPIO(P, 7) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(P, 7)>;
-+		};
-+
-+		ps1-presence {
-+			label = "ps1-presence";
-+			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
-+			linux,code = <ASPEED_GPIO(N, 0)>;
-+		};
-+	};
-+
-+	iio-hwmon-battery {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 12>;
-+	};
-+
-+	gpio-keys-polled {
-+		compatible = "gpio-keys-polled";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		poll-interval = <1000>;
-+
-+		fan0-presence {
-+			label = "fan0-presence";
-+			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
-+			linux,code = <4>;
-+		};
-+
-+		fan1-presence {
-+			label = "fan1-presence";
-+			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
-+			linux,code = <5>;
-+		};
-+
-+		fan2-presence {
-+			label = "fan2-presence";
-+			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <6>;
-+		};
-+
-+		fan3-presence {
-+			label = "fan3-presence";
-+			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
-+			linux,code = <7>;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		fan0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		fan1 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		fan2 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		fan3 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		front-fault {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		front-power {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		front-id {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rear-fault {
-+			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rear-id {
-+			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rear-power {
-+			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		power-button {
-+			gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	fsi: gpio-fsi {
-+		compatible = "fsi-master-gpio", "fsi-master";
-+		#address-cells = <2>;
-+		#size-cells = <0>;
-+		no-gpio-delays;
-+
-+		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-+		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
-+		mux-gpios = <&gpio ASPEED_GPIO(A, 6) GPIO_ACTIVE_HIGH>;
-+		enable-gpios = <&gpio ASPEED_GPIO(D, 0) GPIO_ACTIVE_HIGH>;
-+		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	iio-hwmon-dps310 {
-+		compatible = "iio-hwmon";
-+		io-channels = <&dps 0>;
-+	};
-+
-+	iio-hwmon-bmp280 {
-+		compatible = "iio-hwmon";
-+		io-channels = <&bmp 1>;
-+	};
-+
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "bmc";
-+		m25p,fast-read;
-+		spi-max-frequency = <100000000>;
-+#include "aspeed-bmc-opp-flash-layout-ubi-128mb.dtsi"
-+	};
-+
-+	flash@1 {
-+		status = "okay";
-+		label = "alt";
-+		m25p,fast-read;
-+		spi-max-frequency = <100000000>;
-+#include "aspeed-bmc-alt-opp-flash-layout-ubi-128mb.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		label = "pnor";
-+		m25p,fast-read;
-+		spi-max-frequency = <100000000>;
-+	};
-+};
-+
-+&uart1 {
-+	/* Rear RS-232 connector */
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd1_default
-+			&pinctrl_rxd1_default
-+			&pinctrl_nrts1_default
-+			&pinctrl_ndtr1_default
-+			&pinctrl_ndsr1_default
-+			&pinctrl_ncts1_default
-+			&pinctrl_ndcd1_default
-+			&pinctrl_nri1_default>;
-+};
-+
-+&uart2 {
-+	/* APSS */
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+	flash = <&spi1>;
-+};
-+
-+&mbox {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+
-+	/* MUX ->
-+	 *    Samtec 1
-+	 *    Samtec 2
-+	 */
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+
-+	bmp: bmp280@77 {
-+		compatible = "bosch,bmp280";
-+		reg = <0x77>;
-+		#io-channel-cells = <1>;
-+	};
-+
-+	max31785@52 {
-+		compatible = "maxim,max31785a";
-+		reg = <0x52>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		fan@0 {
-+			compatible = "pmbus-fan";
-+			reg = <0>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
-+
-+		fan@1 {
-+			compatible = "pmbus-fan";
-+			reg = <1>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
-+
-+		fan@2 {
-+			compatible = "pmbus-fan";
-+			reg = <2>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
-+
-+		fan@3 {
-+			compatible = "pmbus-fan";
-+			reg = <3>;
-+			tach-pulses = <2>;
-+			maxim,fan-rotor-input = "tach";
-+			maxim,fan-pwm-freq = <25000>;
-+			maxim,fan-dual-tach;
-+			maxim,fan-no-watchdog;
-+			maxim,fan-no-fault-ramp;
-+			maxim,fan-ramp = <2>;
-+			maxim,fan-fault-pin-mon;
-+		};
-+	};
-+
-+	dps: dps310@76 {
-+		compatible = "infineon,dps310";
-+		reg = <0x76>;
-+		#io-channel-cells = <0>;
-+	};
-+
-+	pca0: pca9552@60 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x60>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
-+	power-supply@68 {
-+		compatible = "ibm,cffps1";
-+		reg = <0x68>;
-+	};
-+
-+	power-supply@69 {
-+		compatible = "ibm,cffps1";
-+		reg = <0x69>;
-+	};
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+
-+	tmp423a@4c {
-+		compatible = "ti,tmp423";
-+		reg = <0x4c>;
-+	};
-+
-+	ir35221@70 {
-+		compatible = "infineon,ir35221";
-+		reg = <0x70>;
-+	};
-+
-+	ir35221@71 {
-+		compatible = "infineon,ir35221";
-+		reg = <0x71>;
-+	};
-+};
-+
-+
-+&i2c5 {
-+	status = "okay";
-+
-+	tmp423a@4c {
-+		compatible = "ti,tmp423";
-+		reg = <0x4c>;
-+	};
-+
-+	ir35221@70 {
-+		compatible = "infineon,ir35221";
-+		reg = <0x70>;
-+	};
-+
-+	ir35221@71 {
-+		compatible = "infineon,ir35221";
-+		reg = <0x71>;
-+	};
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+
-+	tmp275@4a {
-+		compatible = "ti,tmp275";
-+		reg = <0x4a>;
-+	};
-+};
-+
-+&i2c10 {
-+	/* MUX
-+	 *   -> PCIe Slot 3
-+	 *   -> PCIe Slot 4
-+	 */
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+
-+	pca9552: pca9552@60 {
-+		compatible = "nxp,pca9552";
-+		reg = <0x60>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
-+			"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
-+			"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
-+			"GPU4_TH_OVERT_N_BUFF",	"GPU5_TH_OVERT_N_BUFF",
-+			"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
-+			"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
-+			"GPU4_PWR_GOOD_BUFF", "GPU5_PWR_GOOD_BUFF",
-+			"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
-+	rtc@32 {
-+		compatible = "epson,rx8900";
-+		reg = <0x32>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+
-+	ucd90160@64 {
-+		compatible = "ti,ucd90160";
-+		reg = <0x64>;
-+	};
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+&i2c13 {
-+	status = "okay";
-+};
-+
-+&vuart {
-+	status = "okay";
-+};
-+
-+&gfx {
-+	status = "okay";
-+	memory-region = <&gfx_memory>;
-+};
-+
-+&pinctrl {
-+	aspeed,external-nodes = <&gfx &lhc>;
-+};
-+
-+&wdt1 {
-+	aspeed,reset-type = "none";
-+	aspeed,external-signal;
-+	aspeed,ext-push-pull;
-+	aspeed,ext-active-high;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_wdtrst1_default>;
-+};
-+
-+&wdt2 {
-+	aspeed,alt-boot;
-+};
-+
-+&ibt {
-+	status = "okay";
-+};
-+
-+&adc {
-+	status = "okay";
-+};
-+
-+#include "ibm-power9-dual.dtsi"
--- 
-1.8.3.1
+I have been performing some tests as well. One thing that popped up immedia=
+tely is that there are no devices created for the kcs interface while the s=
+ervice for this is started.
+
+I noticed that the facebook-tiogapass.dts has the items for kcs2 and 3 incl=
+uded while the s2600wf.dts doesn't assign addresses for these devices (leav=
+ing the kcs_addr at 0 causing the driver not to load).
+
+I this intentional and do start the driver in another way or should I chang=
+e the dts?
+
+Best regards,
+
+Wim Vervoorn
+
+
+Message: 4
+Date: Thu, 14 Feb 2019 16:01:57 -0800
+From: James Feist <james.feist@linux.intel.com>
+To: openbmc@lists.ozlabs.org
+Subject: Re: Building intel s2600wf image
+Message-ID: <0af603f9-33e6-0dcb-7e9c-2cfa13cc2a02@linux.intel.com>
+Content-Type: text/plain; charset=3Dutf-8; format=3Dflowed
+
+On 2/14/19 3:49 PM, Andrew Jeffery wrote:
+> Hi Wim,
+>=20
+> On Fri, 15 Feb 2019, at 02:51, Wim Vervoorn wrote:
+>> Hello,
+>>
+>> We are trying to build the Intel s2600wf image using the latest=20
+>> OpenBMC tree. If we do that we are running into build errors.
+>>
+>> Before digging into this can you tell me which commit of the tree can=20
+>> be used to build an image for  this device without errors. This=20
+>> allows us to have a stable version for reference.
+
+I tried to build today with latest trunk and there were some issues, I fixe=
+d them all today but all the bumps have to go through first.=20
+Specifically this one:=20
+https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-intel/+/18410/
+
+Then it needs to get synced into openbmc-openbmc, or you can checkout the p=
+atch with the above version of meta-phosphor and it should build.
+
+Thanks
+
+-James
+
+
+End of openbmc Digest, Vol 42, Issue 36
+***************************************
