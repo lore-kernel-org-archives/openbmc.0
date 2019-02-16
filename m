@@ -1,72 +1,80 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.8; helo=cpsmtpb-ews05.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="GpbGn/5J"; 
- dkim-atps=neutral
-Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
- [213.75.39.8])
- by lists.ozlabs.org (Postfix) with ESMTP id 441hMH1tzmzDqcp
- for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 18:19:06 +1100 (AEDT)
-Received: from cpsps-ews26.kpnxchange.com ([10.94.84.192]) by
- cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Sat, 16 Feb 2019 08:19:02 +0100
-X-Brand: 7Ljiz6bi2A==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e2=11;e3=10);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=UOIM4xXy c=1 sm=1 tr=0
- a=qDt3RXe/W/RMJVjRtURR+Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
- a=xqWC_Br6kY4A:10 a=CFTnQlWoA9kA:10 a=FOH2dFAWAAAA:8 a=voM4FWlXAAAA:8
- a=X5F7dNyOAAAA:8 a=9EtzjIcKfHNKvmLtKhAA:9 a=D5y4OPxHJo--O23F:21
- a=_pzieqDus7-nmB8I:21 a=QEXdDO2ut3YA:10 a=N8Lo1w8Ha9H9sntpyxUA:9
- a=MSPlWNCmBZzkbHNn:21 a=_W_S_7VecoQA:10 a=frz4AuCg-hUA:10
- a=i3VuKzQdj-NEYjvDI-p3:22 a=IC2XNlieTeVoXbcui8wp:22
- a=pS7LufLo7ZPxIL5li5Lt:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT106.kpnxchange.com ([195.121.3.22]) by
- cpsps-ews26.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Sat, 16 Feb 2019 08:19:02 +0100
-Content-Language: nl-NL
-Content-Type: multipart/alternative;
- boundary="_000_ca9f5aa5d0be44bbb7262dec846c60a0emailandroidcom_"
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1550301542;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=q6+PYPhLPbaYAKntZGd4Gv+xpASS1sXv5sHPfrEPr/o=;
- b=GpbGn/5JqJ3PVuRt3kBv7ZTORyMYG89zOi5JqQPKICFq3wTWPU6b2Ff6RPA15a4M1f48hY5bAbY
- lVKUtM60IFK4207zR1qPEfgsKmbjRneOd8ioC43SRA1wzQSwaGr/WGYgl+gocMGb6+1RiTuyr3H3S
- PE8bz0aDjLpvwNsw0Jc=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT106.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Sat, 16 Feb 2019 08:19:02 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Sat, 16 Feb
- 2019 08:18:18 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Sat, 16 Feb 2019 08:17:59 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: Vijay Khemka <vijaykhemka@fb.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Adding IPMI support to an existing implementation
-Thread-Topic: Adding IPMI support to an existing implementation
-Thread-Index: AdTFIDsr8pTdO/3NT8aRBIZaZyiwgwACgNuAACdgIn0=
-Date: Sat, 16 Feb 2019 07:17:59 +0000
-Message-ID: <ca9f5aa5-d0be-44bb-b726-2dec846c60a0@email.android.com>
-References: <5cb3deac47694e52afdf214837928110@Eltsrv03.Eltan.local>,
- <6E1BC227-2D18-43DA-94C1-2B726BC37B3D@fb.com>
-In-Reply-To: <6E1BC227-2D18-43DA-94C1-2B726BC37B3D@fb.com>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 441z666P3DzDqTT
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Feb 2019 05:23:42 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1GINUHv040383
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 13:23:39 -0500
+Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qpfg2xr5h-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Feb 2019 13:23:39 -0500
+Received: from localhost
+ by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Sat, 16 Feb 2019 18:23:38 -0000
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Sat, 16 Feb 2019 18:23:35 -0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1GINYqb25231432
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sat, 16 Feb 2019 18:23:34 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A5B9128064;
+ Sat, 16 Feb 2019 18:23:34 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4C94B28059;
+ Sat, 16 Feb 2019 18:23:34 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Sat, 16 Feb 2019 18:23:34 +0000 (GMT)
 MIME-Version: 1.0
-X-OriginalArrivalTime: 16 Feb 2019 07:19:02.0255 (UTC)
- FILETIME=[E473DFF0:01D4C5C7]
-X-RcptDomain: lists.ozlabs.org
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Sat, 16 Feb 2019 12:30:29 -0600
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: krtaylor <kurt.r.taylor@gmail.com>
+Cc: openbmc@lists.ozlabs.org, openbmc
+ <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: 2.6 Release announcement - doc versioning
+In-Reply-To: <06f35a3e-2d73-f973-8a45-fd38282fd1ed@gmail.com>
+References: <06f35a3e-2d73-f973-8a45-fd38282fd1ed@gmail.com>
+X-Sender: jrey@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19021618-2213-0000-0000-00000353138B
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010609; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000280; SDB=6.01161991; UDB=6.00606598; IPR=6.00942555; 
+ MB=3.00025616; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-16 18:23:37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021618-2214-0000-0000-00005D60A729
+Message-Id: <1b0f40f7d9a1729eca21d4c655476895@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-16_14:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902160137
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,83 +86,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 16 Feb 2019 07:19:08 -0000
+X-List-Received-Date: Sat, 16 Feb 2019 18:23:43 -0000
 
---_000_ca9f5aa5d0be44bbb7262dec846c60a0emailandroidcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+On 2019-02-15 12:44, krtaylor wrote:
+> I have not been successful (yet) in trying to get access to our
+> openbmc.org website for adding things like announcements. So, I
+> created a quick release announcement on my personal blog to spread the
+> great news about all the hard work that went into this release!
 
-QXQgdGhpcyBwb2ludCBJJ20gbm90IGxvb2tpbmcgZm9yIGFkZGl0aW9uYWwgT0VNIGNvbW1hbmRz
-Lg0KDQpNeSBtYWluIGdvYWwgaXMganVzdCB0byBhZGQgYWxsIHN1cHBvcnQgcmVxdWVzdCB0byBl
-bmFibGUgaW5iYW5kIGlwbWkgd2l0aCBLQ1MgaW50ZXJmYWNlLiAgVGhlIG1vc3QgaW1wb3J0YW50
-IHRoaW5nIGlzIHRoYXQgdGhlIHN5c3RlbSBpcyBjYXBhYmxlIHRvIHByb3ZpZGUgdGhlIGludmVu
-dG9yeSBhbmQgZXZlbnRsb2cgaW5mb3JtYXRpb24gdG8gdGhlIEJNQyBkdXJpbmcgYm9vdC4NCg0K
-VGhlIGluZm9ybWF0aW9uIEkgYW0gbG9va2luZyBmb3IgYXJlIGl0ZW1zIGxpa2UuIFdoaWNoIHNl
-cnZpY2VzIG5lZWQgdG8gYmUgaW5jbHVkZWQgYW5kIHdoYXQgZG8gSSBuZWVkIHRvIGNvbmZpZ3Vy
-ZSB0byBtYWtlIGl0IHdvcmsuDQoNCkJlc3QgcmVnYXJkcywNCg0KV2ltIFZlcnZvb3JuDQoNCk9w
-IDE1IGZlYi4gMjAxOSA5OjMxIHAubS4gc2NocmVlZiBWaWpheSBLaGVta2EgPHZpamF5a2hlbWth
-QGZiLmNvbT46DQpIaSBXaW0sDQpXaGF0IGFyZSB0cnlpbmcgaGVyZSwgYWRkaW5nIGV4dHJhIGlw
-bWkgc3VwcG9ydCBmb3IgeW91ciBvZW0gY29tbWFuZHM/IElQTUkgc3VwcG9ydCBpcyBhbHJlYWR5
-IHRoZXJlIGluIHBob3NwaG9yLWltYWdlLiBQbGVhc2Ugc2VlIGlmICJpcG1pZCIgZGFlbW9uIGlz
-IHJ1bm5pbmcuIFlvdSBjYW4gY2hlY2sgcGFja2FnZSBwaG9zcGhvci1pcG1pLWhvc3Qgd2hpY2gg
-cHJvdmlkZXMgc3VwcG9ydCBmb3IgaXBtaSBkYWVtb24uDQoNClJlZ2FyZHMNCi1WaWpheQ0KDQrv
-u79PbiAyLzE1LzE5LCAzOjIzIEFNLCAib3BlbmJtYyBvbiBiZWhhbGYgb2YgV2ltIFZlcnZvb3Ju
-IiA8b3BlbmJtYy1ib3VuY2VzK3ZpamF5a2hlbWthPWZiLmNvbUBsaXN0cy5vemxhYnMub3JnIG9u
-IGJlaGFsZiBvZiB3dmVydm9vcm5AZWx0YW4uY29tPiB3cm90ZToNCg0KICAgIEhlbGxvLA0KDQog
-ICAgV2UgaGF2ZSBhbiBleGlzdGluZyBBU1QyNDAwIGJhc2VkIGltcGxlbWVudGF0aW9uIGZvciBP
-cGVuQk1DIDIuNi4wIGFuZCBhcmUgdHJ5aW5nIHRvIGFkZCBJUE1JIHN1cHBvcnQgdG8gaXQuDQoN
-CiAgICBBdCB0aGlzIG1vbWVudCB3ZSBkb24ndCBoYXZlIGEgZ29vZCBzZXQgb2YgZG9jdW1lbnRh
-dGlvbiBvbiB0aGUgaXBtaSBpbXBsZW1lbnRhdGlvbiBpbmNsdWRlZCBpbiBPcGVuQk1DLg0KDQog
-ICAgQ2FuIGFueW9uZSBwb2ludCBtZSB0byB0aGlzIGRvY3VtZW50YXRpb24/IE9yIGlzIHRoZSBv
-bmx5IHdheSB0byBkbyB0aGlzIHRvIGdvIG92ZXIgdGhlIHZhcmlvdXMgcGFja2FnZXM/DQoNCiAg
-ICBCZXN0IHJlZ2FyZHMsDQoNCiAgICBXaW0gVmVydm9vcm4NCg0KDQo=
+Thanks Kurt.  It looks great!
 
---_000_ca9f5aa5d0be44bbb7262dec846c60a0emailandroidcom_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+I got a question from someone who was looking for docs for the 2.6.0 
+release and for the earlier v2.3 release.  They went to the 
+[REST-cheatsheet][] and found guidance which had already been updated 
+for the planned 2.7 release.  So they were confused and frustrated 
+because this interface had an incompatible change (to its authentication 
+method).  I pointed them into the document history.
 
-PGh0bWw+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIgY29udGVudD0i
-dGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRvciIgY29udGVu
-dD0iTWljcm9zb2Z0IEV4Y2hhbmdlIFNlcnZlciI+DQo8IS0tIGNvbnZlcnRlZCBmcm9tIHRleHQg
-LS0+PHN0eWxlPjwhLS0gLkVtYWlsUXVvdGUgeyBtYXJnaW4tbGVmdDogMXB0OyBwYWRkaW5nLWxl
-ZnQ6IDRwdDsgYm9yZGVyLWxlZnQ6ICM4MDAwMDAgMnB4IHNvbGlkOyB9IC0tPjwvc3R5bGU+DQo8
-L2hlYWQ+DQo8Ym9keT4NCjxkaXY+DQo8ZGl2IGRpcj0iYXV0byI+QXQgdGhpcyBwb2ludCBJJ20g
-bm90IGxvb2tpbmcgZm9yIGFkZGl0aW9uYWwgT0VNIGNvbW1hbmRzLiZuYnNwOw0KPGRpdiBkaXI9
-ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPk15IG1haW4gZ29hbCBpcyBqdXN0
-IHRvIGFkZCBhbGwgc3VwcG9ydCByZXF1ZXN0IHRvIGVuYWJsZSBpbmJhbmQgaXBtaSB3aXRoIEtD
-UyBpbnRlcmZhY2UuJm5ic3A7IFRoZSBtb3N0IGltcG9ydGFudCB0aGluZyBpcyB0aGF0IHRoZSBz
-eXN0ZW0gaXMgY2FwYWJsZSB0byBwcm92aWRlIHRoZSBpbnZlbnRvcnkgYW5kIGV2ZW50bG9nIGlu
-Zm9ybWF0aW9uIHRvIHRoZSBCTUMgZHVyaW5nIGJvb3QuPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+
-PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+VGhlIGluZm9ybWF0aW9uIEkgYW0gbG9va2lu
-ZyBmb3IgYXJlIGl0ZW1zIGxpa2UuIFdoaWNoIHNlcnZpY2VzIG5lZWQgdG8gYmUgaW5jbHVkZWQg
-YW5kIHdoYXQgZG8gSSBuZWVkIHRvIGNvbmZpZ3VyZSB0byBtYWtlIGl0IHdvcmsuPC9kaXY+DQo8
-ZGl2IGRpcj0iYXV0byI+PGJyPg0KPC9kaXY+DQo8ZGl2IGRpcj0iYXV0byI+QmVzdCByZWdhcmRz
-LDwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPjxicj4NCjwvZGl2Pg0KPGRpdiBkaXI9ImF1dG8iPldp
-bSBWZXJ2b29ybjwvZGl2Pg0KPC9kaXY+DQo8ZGl2IGNsYXNzPSJ4X2dtYWlsX2V4dHJhIj48YnI+
-DQo8ZGl2IGNsYXNzPSJ4X2dtYWlsX3F1b3RlIj5PcCAxNSBmZWIuIDIwMTkgOTozMSBwLm0uIHNj
-aHJlZWYgVmlqYXkgS2hlbWthICZsdDt2aWpheWtoZW1rYUBmYi5jb20mZ3Q7OjxiciB0eXBlPSJh
-dHRyaWJ1dGlvbiI+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8Zm9udCBzaXplPSIyIj48c3Bh
-biBzdHlsZT0iZm9udC1zaXplOjEwcHQ7Ij4NCjxkaXYgY2xhc3M9IlBsYWluVGV4dCI+SGkgV2lt
-LDxicj4NCldoYXQgYXJlIHRyeWluZyBoZXJlLCBhZGRpbmcgZXh0cmEgaXBtaSBzdXBwb3J0IGZv
-ciB5b3VyIG9lbSBjb21tYW5kcz8gSVBNSSBzdXBwb3J0IGlzIGFscmVhZHkgdGhlcmUgaW4gcGhv
-c3Bob3ItaW1hZ2UuIFBsZWFzZSBzZWUgaWYgJnF1b3Q7aXBtaWQmcXVvdDsgZGFlbW9uIGlzIHJ1
-bm5pbmcuIFlvdSBjYW4gY2hlY2sgcGFja2FnZSBwaG9zcGhvci1pcG1pLWhvc3Qgd2hpY2ggcHJv
-dmlkZXMgc3VwcG9ydCBmb3IgaXBtaSBkYWVtb24uPGJyPg0KPGJyPg0KUmVnYXJkczxicj4NCi1W
-aWpheTxicj4NCjxicj4NCu+7v09uIDIvMTUvMTksIDM6MjMgQU0sICZxdW90O29wZW5ibWMgb24g
-YmVoYWxmIG9mIFdpbSBWZXJ2b29ybiZxdW90OyAmbHQ7b3BlbmJtYy1ib3VuY2VzJiM0Mzt2aWph
-eWtoZW1rYT1mYi5jb21AbGlzdHMub3psYWJzLm9yZyBvbiBiZWhhbGYgb2Ygd3ZlcnZvb3JuQGVs
-dGFuLmNvbSZndDsgd3JvdGU6PGJyPg0KPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IEhlbGxvLDxi
-cj4NCiZuYnNwOyZuYnNwOyZuYnNwOyA8YnI+DQombmJzcDsmbmJzcDsmbmJzcDsgV2UgaGF2ZSBh
-biBleGlzdGluZyBBU1QyNDAwIGJhc2VkIGltcGxlbWVudGF0aW9uIGZvciBPcGVuQk1DIDIuNi4w
-IGFuZCBhcmUgdHJ5aW5nIHRvIGFkZCBJUE1JIHN1cHBvcnQgdG8gaXQuPGJyPg0KJm5ic3A7Jm5i
-c3A7Jm5ic3A7IDxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyBBdCB0aGlzIG1vbWVudCB3ZSBkb24n
-dCBoYXZlIGEgZ29vZCBzZXQgb2YgZG9jdW1lbnRhdGlvbiBvbiB0aGUgaXBtaSBpbXBsZW1lbnRh
-dGlvbiBpbmNsdWRlZCBpbiBPcGVuQk1DLjxicj4NCiZuYnNwOyZuYnNwOyZuYnNwOyA8YnI+DQom
-bmJzcDsmbmJzcDsmbmJzcDsgQ2FuIGFueW9uZSBwb2ludCBtZSB0byB0aGlzIGRvY3VtZW50YXRp
-b24/IE9yIGlzIHRoZSBvbmx5IHdheSB0byBkbyB0aGlzIHRvIGdvIG92ZXIgdGhlIHZhcmlvdXMg
-cGFja2FnZXM/PGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IDxicj4NCiZuYnNwOyZuYnNwOyZuYnNw
-OyBCZXN0IHJlZ2FyZHMsPGJyPg0KJm5ic3A7Jm5ic3A7Jm5ic3A7IDxicj4NCiZuYnNwOyZuYnNw
-OyZuYnNwOyBXaW0gVmVydm9vcm48YnI+DQombmJzcDsmbmJzcDsmbmJzcDsgPGJyPg0KPGJyPg0K
-PC9kaXY+DQo8L3NwYW4+PC9mb250Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Going forward, what is the plan for documentation versioning?  We should 
+have a way for someone to get the documentation for a specific release 
+level, for example, to get the docs that apply to the 2.6.0 release.  
+This will become more important as we add new features and make 
+incompatible changes to existing interfaces.  Should the openbmc/docs 
+repository have the same branching or tagging as the other openbmc 
+repos?  Then someone can just checkout that version.
 
---_000_ca9f5aa5d0be44bbb7262dec846c60a0emailandroidcom_--
+- Joseph
+
+[REST-cheatsheet]: 
+https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md
+
+...snip...
+> Kurt Taylor (krtaylor)
