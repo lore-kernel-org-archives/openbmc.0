@@ -1,78 +1,56 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::142; helo=mail-it1-x142.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="X72fgQuv"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="zszPmMhn"; dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ScOZBvuy"; 
+ dkim-atps=neutral
+Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 442sRP4Pz3zDqJs
- for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 16:11:45 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 231832D3A;
- Mon, 18 Feb 2019 00:11:40 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 18 Feb 2019 00:11:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type:content-transfer-encoding; s=fm2; bh=x6LHHL/JyUl1r
- cfPNFznlm0Gb9i46mkLNF2+WVqgvgI=; b=X72fgQuvYuRLo/fRKXzgKwcTXwXFw
- mFeKGevX/jNtmAdjHOYhgBL8hCn4QXHf5ZHKJOweKQ5Zvkzd3uGNQNVdS8jU3+Oo
- YZ7t5e+ddOdli/w9UciWuEkN/R6KSK95A8znnqje1ScbWRUyZ4AA7P8Rv1/TXvxU
- Cou/5dGVfREfHSCgIaZe6EkKYT9y8BhOEXfgmPVk6aRL8d498Mp6CRityRGkD2LL
- PZBF0OAY+KgcJvU93sNP1sgxq6ul4dyzgL5OVKH/+sn/fL88qcOgnR21tGNi6tuP
- Lt0OjPuEvTXHuiDMVzwU3mQvQhnav0tXKHt1RyaRPo0Xw1/dnXvuYHpKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=x6LHHL/JyUl1rcfPNFznlm0Gb9i46mkLNF2+WVqgvgI=; b=zszPmMhn
- vCymMoSRr9DJdR8SAwdSRRxKpQYx3MgT93QpINGS8QptEueXML3PS49UvgKVsqv6
- B5j9fO7z6Ltdm0Y/HrCnjROuXFgwkfeoSl2rHb5w/bOsTNSBAVphn1x6j66SGk0a
- DHVr9oxm86I7QUYufQ2AiWwd5vDqyDImak/Ny6YNkz34oA/FNKSRGX0H7zcNCS2k
- MC93WcJDGnu8uLZoV/R+wZ2w2lIYRfu+Fd2gRm+pQaBDNb6O8cAwx9Etuj5w2hBG
- cjCO/ZWp96suChMBig9a+/HsiKRa5Xs6Y5aDVq+6hMqX7MOfBnIikZc4U18mM51p
- 0AFMr2lV8ZawBA==
-X-ME-Sender: <xms:ij5qXL2-zPchMuB960zqY-hm_CDAPuFV5YUwjoxD36VTmLkgaJpTSg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrudduvddgkeehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
- tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefofgfkjghfff
- fhvffutgfgsehtqhertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhih
- fdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucffohhmrghinhepghhithhhuhgsrd
- gtohhmnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
- necuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:ij5qXMaowM4fyyg64EedfpHYnls0eKSE8GKfgXP22gdcic5ZY0WCFw>
- <xmx:ij5qXKkdBYd9scUZ48Tm-a21V2-n6knSp_6kiuIZ2DPoq7sXDtPGXw>
- <xmx:ij5qXNyMzHQ8_1ImzCpJemVc6emXcy4v7eIzUEcHVBIOL-eQKD1jFg>
- <xmx:iz5qXOeOroPqlsuTgTkgNjj3GlVQ-UkiNxIvPNx3W-KyppFM6kNGNQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 4C75C7C1EB; Mon, 18 Feb 2019 00:11:38 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
-X-Me-Personality: 52947553
-Message-Id: <be6cd582-6090-49a3-a3db-0f578b1815fd@www.fastmail.com>
-In-Reply-To: <8614FF34-6AA3-451A-8B51-2E759A1CDB14@fb.com>
-References: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
- <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
- <1550194959.4187502.1658322936.5ED72093@webmail.messagingengine.com>
- <d271e188-e135-eaff-5532-6ba6b95dce5a@fb.com>
- <1550458070.2791184.1659887272.2685E434@webmail.messagingengine.com>
- <8614FF34-6AA3-451A-8B51-2E759A1CDB14@fb.com>
-Date: Mon, 18 Feb 2019 00:11:23 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "Tao Ren" <taoren@fb.com>
-Subject: Re: Increase ARCH_NR_GPIO for ARCH_ASPEED?
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 442yFP56SzzDq74
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 19:48:25 +1100 (AEDT)
+Received: by mail-it1-x142.google.com with SMTP id h6so38011926itl.1
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 00:48:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=VxzRwxpRy1xNaqq6WnOyw/hR2S9R3OgTLxFavICayfQ=;
+ b=ScOZBvuyzyiWrmZ32+AaJKduHBxl8BfH0DKX4jJHlJVxkDFnHAvTn2JVhIGCVLKx54
+ bQb8Y7M/s9otJ3gXMn7YYnFx/S36AmXxptlzIcnCiSxPbXaqeRdJA4nXTpPpGHbDVhSa
+ 3XliJrKMVUFlzCn+kHrI1hgGECVWNAxyIRtQIoID8eYeZK9e90J04pvkAf9iGihGZu0V
+ QK8V7XQHJayl5pMpKDpg3Qq9twHleroE665+bRMNNXEg5jtkX7mjRbUCun0u5k7+DyDP
+ n19aUKzwkn9usCr++dIBuOPtrkvW/M6KwcVw2wBRNJEIBvpFTH9jvo0UX4mDgW0qfKD7
+ ipLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=VxzRwxpRy1xNaqq6WnOyw/hR2S9R3OgTLxFavICayfQ=;
+ b=HeMv0Nl66KrR7I6Mhz79+pR4dURLZ//sPFZeLezlivrEwQ1V57gUgd04RSXSN+3lQM
+ FueX8/krGJSwjMS0h4qcxyxgf6bRHV57ggvP2toOFWbW/N22wmsOyD3aMgPa3GgRVl56
+ mqanBVGtEAPy4m+y9F7UJZ6wnvEWAVvh1Tte1aQS7XcFvVmcb5ntI/CNXuv2nuquvLkj
+ FFuAYBOfWyrptoYuSASPh1sTYWgkq5cuB2s1ITAqZDESkb4qGqyDxyzYgHaVqgvJ12HG
+ XI3KU97QLgNUeDdI02kFUc2zbCWLXvwsVR2VfGjZRg3/v4FZRol1AcGKqwT23T6c3dlG
+ Ctwg==
+X-Gm-Message-State: AHQUAuaW9nxl+RzkYKug61yKkB5wL+6Q36eR95JU2hm4EPX52ffEd58v
+ WTy6Jg/XEFxeysMQKx8kqLqL/MqjnUKpROzEzDs=
+X-Google-Smtp-Source: AHgI3IaTy5BTkcfDKwn7D0p4DHnYy3OQwyF/XVXNqPJG9433HS30w9+igvmhOfoKrvFo4z74gjqGRraSGgt9fzdp5is=
+X-Received: by 2002:a6b:fd02:: with SMTP id c2mr12190712ioi.156.1550479702978; 
+ Mon, 18 Feb 2019 00:48:22 -0800 (PST)
+MIME-Version: 1.0
+References: <06f35a3e-2d73-f973-8a45-fd38282fd1ed@gmail.com>
+In-Reply-To: <06f35a3e-2d73-f973-8a45-fd38282fd1ed@gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 18 Feb 2019 16:48:04 +0800
+Message-ID: <CAARXrtmRpsTEQAWdBEvXTxvzOwAJ7RoHqGWdcA66NPUii9AZBw@mail.gmail.com>
+Subject: Re: 2.6 Release announcement
+To: krtaylor <kurt.r.taylor@gmail.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,45 +62,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Feb 2019 05:11:49 -0000
+X-List-Received-Date: Mon, 18 Feb 2019 08:48:26 -0000
 
-On Mon, 18 Feb 2019, at 15:26, Tao Ren wrote:
-> Hi Andrew,
->=20
-> =EF=BB=BFOn 2/17/19, 6:48 PM, "Andrew Jeffery" <andrew@aj.id.au> wrote=
-:
-> > However, there's no reason you can't narrow the change to only apply=
+Hi Brad, Kurt,
 
-> > to your system (rather than do it in the base defconfig and affect a=
-ll
-> > systems).
->=20
-> Perhaps it's my lack of greater knowledge on kconfig; I actually tried=
-=20
-> a few options but couldn't find a nice way to apply the change to my=20=
+The 2.6.0 tag is a bit weird, that `git describe` does not correctly get the
+latest tag:
 
-> system only.
->=20
-> At first, I tried to customize ARCH_NR_GPIO in my <old.config> file,=20=
+    $ git describe
+    2.6.0-rc1-242-g073a600a0
 
-> but the value was set to default (or ignored) by running "make=20
-> olddefconfig".
->=20
-> Then I added "input prompt" for ARCH_NR_GPIO option: customized value=20=
+This results in `/etc/os-release` to report the build is not from the 2.6.0
+tag but from 2.6.0-rc1.
 
-> in <old.config> was applied while running "make olddefconfig", but my=20=
+Some investigations:
 
-> concern is the approach may impact more users?
->=20
-> My third approach is what I proposed in this email thread (setting=20
-> default ARCH_NR_GPIO to 1024 for ARCH_ASPEED).
->=20
-> I'm looking forward for your suggestions. Thank you again.
+* Both `git describe --tags` and `git describe --abbrev=0 --tags` shows the
+latest tag is `2.6.0-rc1`:
 
-As an example, for Tiogapass, you should be able to define `CONFIG_ARCH_=
-NR_GPIO =3D 1024` in tiogapass.cfg:
+    $ git describe --tags
+    2.6.0-rc1-242-g073a600a0
+    $ git describe --abbrev=0 --tags
+    2.6.0-rc1
 
-https://github.com/openbmc/meta-facebook/blob/master/meta-tiogapass/reci=
-pes-kernel/linux/linux-aspeed/tiogapass.cfg
+* The only way to get the latest tag is with below command:
 
-Andrew
+    $ git describe --tags $(git rev-list --tags --max-count=1)
+    2.6.0
+
+* It indicates that the tag 2.6.0 is not on the master branch.
+
+    $ git branch --contains tags/2.6.0
+
+    $ git branch --contains tags/2.6.0-rc1
+    * master
+
+Could you help to check and hopefully fix this?
+
+Thanks!
+
+On Sat, Feb 16, 2019 at 2:44 AM krtaylor <kurt.r.taylor@gmail.com> wrote:
+>
+> I have not been successful (yet) in trying to get access to our
+> openbmc.org website for adding things like announcements. So, I created
+> a quick release announcement on my personal blog to spread the great
+> news about all the hard work that went into this release!
+>
+> http://www.kurttaylor.com/blog/2019/02/openbmc-2-6-release/
+> or
+> https://twitter.com/kurtrtaylor/status/1096473964350791681
+>
+> Kurt Taylor (krtaylor)
+>
