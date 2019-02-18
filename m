@@ -9,22 +9,20 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4435tk6v1kzDqDP
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 01:32:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44361N67xczDqFt
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 01:38:32 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 18 Feb 2019 09:33:00 -0500
+Date: Mon, 18 Feb 2019 09:38:49 -0500
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Duke KH Du <dukh@lenovo.com>
+To: Pravinash Jeyapaul <pravinashj@ami.com>
 Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: [External]  Re: Lenovo CCLA
-Message-ID: <20190218143300.rpfuq4lghybhriuv@thinkpad.dyn.fuzziesquirrel.com>
-References: <9F16AAB7177A1645BBAFF66396C46B0E7A2DDFFB@CNMAILEX03.lenovo.com>
- <20190207190132.penuqrg4iceznnom@thinkpad>
- <9F16AAB7177A1645BBAFF66396C46B0E7A2F2DDF@CNMAILEX03.lenovo.com>
+Subject: Re: Request to create meta-ami layer
+Message-ID: <20190218143849.uk57ufzx4637wh3j@thinkpad.dyn.fuzziesquirrel.com>
+References: <172B3E99B822FF48BA79AD354B1F1F59012585AF47@atlms1.us.megatrends.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <9F16AAB7177A1645BBAFF66396C46B0E7A2F2DDF@CNMAILEX03.lenovo.com>
+In-Reply-To: <172B3E99B822FF48BA79AD354B1F1F59012585AF47@atlms1.us.megatrends.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,13 +34,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Feb 2019 14:32:48 -0000
+X-List-Received-Date: Mon, 18 Feb 2019 14:38:33 -0000
 
-On Mon, Feb 18, 2019 at 12:15:52PM +0000, Duke KH Du wrote:
+On Wed, Feb 13, 2019 at 11:31:52PM +0000, Pravinash Jeyapaul wrote:
 >Hi Brad,
 >
->Thanks for your approval.
->
->And could you help create the meta-lenovo repo?
+>Thank you for accepting CCLA from American Megatrends Inc (AMI). Can you please create meta-ami layer?
 
 Created.
