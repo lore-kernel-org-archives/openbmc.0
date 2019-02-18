@@ -1,76 +1,54 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C5s5SELN"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="knZTUsi+"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="VrUZX539"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 442pBV2drFzDqHY
- for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 13:45:22 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D91692201E;
- Sun, 17 Feb 2019 21:45:18 -0500 (EST)
-Received: from web1 ([10.202.2.211])
- by compute4.internal (MEProxy); Sun, 17 Feb 2019 21:45:18 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:from:to:cc:mime-version:content-transfer-encoding
- :content-type:references:date:in-reply-to:subject; s=fm2; bh=ykk
- XeuDSg8FeW3Kv30ssrUp6+T9plJqMkj3m3A042Ug=; b=C5s5SELNgO4R4+xBHZK
- L4hdFcrNQaU3g66LA/0FMFlwEN1gdESeHcibyAXL4cN5VPuCNlsmPcNS2K+whrli
- FDvnq4AQsdvAUUZb6uUYkP26jA4NtnMZ4EE25uwnDJAyN7Zs0XyakmBXGoArQPgW
- JAHZMMAWGVzagFg4QKmGKq2IzROBmWHnim58eftUtNEG52KtHDVhwms73MjCAZRX
- cMpCZjysJ+tSw5SYm5KePSsCqyhbdcWlM7fK+XgZ+kKk98te6mS2uQxQGOcDhiQG
- DyuU6bGZjHteXqNU2f1x3TXUg4TWn53fu4kEq8dyF+CkL6y2NQpCA/+iwU2D2qPX
- PlA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=ykkXeuDSg8FeW3Kv30ssrUp6+T9plJqMkj3m3A042
- Ug=; b=knZTUsi+e9NsEOEFLG4NqE9cgJF/s8ckVBMP50bbdc12SeYXmYyAWOevg
- wPh71S7UsoPfzIcsi3KV0cUZX0N+hIvfE8iTWJn5AKFiGRm/Uh8/vLG80p2sNMDH
- VQL8SjKZMikBBTa7f2pHsfPZbib//+uUcC38mIW1Y6f24jzm8fr9nubLsrnsrZl+
- nwdPgqrnjZ3lwuwPI56Dzkq3XcBOtYLAsO2SBZl1qUXlNSvszr4UT2yP2ueaMQEb
- DQiiRoJmtxbf+hYx5Xc6aCd/c/1/ltGlNDAoNLrnaNqov7D0HVILiR3/vS4+IuEu
- Z/71nEmA2Eg2Y9wyUkfFIbimLly3g==
-X-ME-Sender: <xms:PhxqXEKXTLatkYDJNtABuuDJtjR5I3Nk25RneNkE8JTrrH9J8li48g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedtledrudduvddgheegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfquhhtnecuuegrihhlohhuthemucef
- tddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefkhffvggfgtg
- fofhffjgfusehtjeertdertdejnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicu
- oegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprg
- hnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:PhxqXLYA0eKUFPx2bkHXl3f7-o-G7zS0coxFsPBbvfhxh0dnbu4oVA>
- <xmx:PhxqXPkY6QVXPfi1tgG9vavUu3bCIRAm-jcE63t4McrLfq4OcEtMgQ>
- <xmx:PhxqXBXgpQNwR4U1kz5RBbKBaRe3LIBDZdUqMzKMuxi1jjzZ9KQkiQ>
- <xmx:PhxqXGW8UyWOAh89CEgvU8083oauaRr1l04VsywCydG_u1Zz0BYszQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 99)
- id 90B9C941EB; Sun, 17 Feb 2019 21:45:18 -0500 (EST)
-Message-Id: <1550457918.2790490.1659886984.2F457972@webmail.messagingengine.com>
-From: Andrew Jeffery <andrew@aj.id.au>
-To: AKASH G J <akashgj91@gmail.com>
-Cc: openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 442pF26JcKzDqCG
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 13:47:34 +1100 (AEDT)
+Received: by mail-qk1-x744.google.com with SMTP id m9so9194061qkl.4
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Feb 2019 18:47:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Alugpt5dMxow4V8s6b+TyYBLVCn3d+yHDqif/3Puoj0=;
+ b=VrUZX5391nLjlnneyd9nHUDFcUwL51hm63rY5ZiQj9ZbF/EhVGvLquLk/Whwnii3qV
+ MPVxWZvq8IUFFj8D2+0GGl986MhkuQCA0k+5OI1DBmdckC4mI1d3c1xuzmOMJLIFIxqV
+ iiNzpgxM/QzyuJ7/CzPHVPPUR5DzIb4Hsrxq4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Alugpt5dMxow4V8s6b+TyYBLVCn3d+yHDqif/3Puoj0=;
+ b=oR5XOIF7LGAgsYv4kM3iH6xCcjYJbnYnruuKbENfJ0yhMJo5avXAsxcFdwiV0/Tkdx
+ lqbMh7ASSytQ9I/E25s+DKJ83OobSHTGqd7S1QlBSOT+sJJ8uuwyBXsOry26SLNPPVxS
+ fHPO1fap9pq2lSeWboHNDH7vJKu3/ywakA1ZeRYXBy1+ysKGjcSq/V0r3+dsaGmDLc/t
+ sX8mVK/dMlBfnnaOYNwdnVkVdnE0T7442K3gOEol0A/YGC812I2Yqhcihmw49BsMm8Mg
+ N0VlCfu+LeQbuDgtwod9qLOGqXypi7pv5RjoDVFmZ0GmKQk1X39TXeK9QSQjq21Zbqxn
+ 9b1A==
+X-Gm-Message-State: AHQUAuZ4Qqty3qtyBv4tEXlx+Fon/dRjCBGgii4Z5xpG11GU+jwbpNs5
+ pt4y/yn8jylFCYSpUZ84hQrxVAkFKwH2HTP5dlE=
+X-Google-Smtp-Source: AHgI3IYPQ8rbhXzZInBzA3xJwyvS4y42NUVdro2/h83wAlNdO9b93JfM5qth+In9mssFeQOPRGjbZpehDds3CGSmIw0=
+X-Received: by 2002:a37:dd41:: with SMTP id n62mr14772901qki.11.1550458052194; 
+ Sun, 17 Feb 2019 18:47:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="utf-8"
-X-Mailer: MessagingEngine.com Webmail Interface - ajax-e97eb308
-References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
- <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
- <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
- <1550186888.4139421.1658270160.5405B961@webmail.messagingengine.com>
- <CAE33tLHdxOpH8NsPv6xRLdymAisBsy0smwySkc=V=E6nz28fKQ@mail.gmail.com>
-Date: Mon, 18 Feb 2019 13:15:18 +1030
-In-Reply-To: <CAE33tLHdxOpH8NsPv6xRLdymAisBsy0smwySkc=V=E6nz28fKQ@mail.gmail.com>
-Subject: Re: Unable to read or write from system SPI flash memory.
+References: <1550216841-57006-1-git-send-email-mine260309@gmail.com>
+In-Reply-To: <1550216841-57006-1-git-send-email-mine260309@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 18 Feb 2019 13:17:20 +1030
+Message-ID: <CACPK8XeYeGw_PRhn8ZW8e9ep=PRR6PTb4VOcBC5nc=RRdeRVDg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.19] ARM: dts: palmetto: Fix flash_memory region
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,17 +60,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Feb 2019 02:45:22 -0000
+X-List-Received-Date: Mon, 18 Feb 2019 02:47:36 -0000
 
+On Fri, 15 Feb 2019 at 18:17, Lei YU <mine260309@gmail.com> wrote:
+>
+> The flash_memory region was incorrect and exceeds AST2400's RAM range.
+> Fix it by putting it before coldfire region, and aligned with 32MiB.
 
+We've had a patch to do this in patchwork for some time now:
 
-On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:
-> I just powered off the entire board. After that the data is not present in
-> the SPI1 flash. But before power-off it was there.
+https://patchwork.ozlabs.org/patch/879522/
 
-How were you verifying the data was there before the poweroff?
+We can't do that as it breaks booting, as the FIT loading will
+(sometimes) place the initrd or dtb in the reserved region, and this
+stops Linux from being able to map it, causing boot to fail.
 
-> 
-> We are using OpenBMC Linux version 4.18.7 and pflash v6.1
+We need to fix that bug before we can resolve this issue. There is a
+u-boot environment variable that can be set that stops anything being
+loaded too high. The proper fix is probably to make u-boot's FIT
+loader aware of the reserved mappings and not put things there. Other
+suggestions are welcome.
 
-Thanks for the versions. Should be handy as we dig deeper.
+>
+> Signed-off-by: Lei YU <mine260309@gmail.com>
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> index 9285b90..50c9178 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-palmetto.dts
+> @@ -32,9 +32,9 @@
+>                         no-map;
+>                 };
+>
+> -               flash_memory: region@98000000 {
+> +               flash_memory: region@5c000000 {
+>                         no-map;
+> -                       reg = <0x98000000 0x01000000>; /* 16MB */
+> +                       reg = <0x5C000000 0x02000000>; /* 32MB */
+>                 };
+>         };
+>
+> --
+> 2.7.4
+>
