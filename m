@@ -1,61 +1,116 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <prvs=795208a188=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::331; helo=mail-ot1-x331.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=795208a188=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QuE72Anv"; 
- dkim-atps=neutral
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="NqKGTL1J"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="DYS0zbtZ"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 442rcW52vSzDqKP
- for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 15:34:35 +1100 (AEDT)
-Received: by mail-ot1-x331.google.com with SMTP id z19so26217324otm.2
- for <openbmc@lists.ozlabs.org>; Sun, 17 Feb 2019 20:34:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=0BcI+29IV7qCqvKr5ttdBTYYEv2fmJPZ/pL9MwoONkQ=;
- b=QuE72Anvne0C1fdfO4R/a9uKbY8M29bC3dTpvuU6mChrxBmbw6wq04zG2SxW0EISad
- i8cZfKu9M02GleVoyt63poDFk8AYw4ylIqIVl5tqms7AMqVjwFh1gZLnE0SFme83tyYU
- CQ4Ys9EwYA4mV8up2JlY2Hbr1TzAgxvCFO9oTicB1ozvoxj140tsxMkdNiWVqb/j584D
- g8celr+SQW7ebIeXtPnrvYl65hTZfqamsbAzpDhfu3U3mZ4FPa88X3bI6STZgGsay7Uv
- Q/GTa9YQL7/ztsl23p3tRb7XpuSXQGcBEqWsH81t7wP4rSmoKDJs25Se3Stur1ckgEoj
- ZGTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=0BcI+29IV7qCqvKr5ttdBTYYEv2fmJPZ/pL9MwoONkQ=;
- b=UQd7BOqb7MczNa0h2tU9SCjV1JEK5+PqHzpPFAo8bNXQ1omT0eG3Z3pkBT9y1EM0y9
- cP6rsyrH7vVwV+4FKqABws2N+8cMaYjTaqPFR4U8tuuo+GNoA8Ra4QvCFarQ4mBGJhQP
- kzkKVmJdo7Hf6Ll7vjikm/QHCZiBY/leM/xy+VPIoeGCHUGvDMjLh12HaViJ2xpch8EA
- W2MzICbSrHe/bEEkTkiZYsMUl+LzzY6Pv7s+LgikM2akVFAS+Ghpr4eAlS2e/BRqDgki
- v3ySXpplva6PRATNlU6mo4SanQbClZmVx08DEsk//1n0wTpRKTu6Y1BXrpvnP5L/mLsa
- q3Hw==
-X-Gm-Message-State: AHQUAuZFSJ/TxfulORmOF2CXAo5oWn6detuVwHzt1pux4eXC98wxBdHI
- wAI4tIc//pAPh/yc+mI9lmLcSsTM/SQZKlk2s++lmaCA
-X-Google-Smtp-Source: AHgI3IZyO6S0y3bbZMnai5M/nADQVqWKuxKmz5nLaaXBkeeww4+jWUb9ogffwS1vyPODb7JpAqy8g8w/PhrIoVUdWbQ=
-X-Received: by 2002:aca:c7c2:: with SMTP id x185mr13182639oif.25.1550464473345; 
- Sun, 17 Feb 2019 20:34:33 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 442s6F44VVzDqJB
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 15:56:49 +1100 (AEDT)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1I4qTbX031392; Sun, 17 Feb 2019 20:56:44 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=VDI2kmNn8uA2RTgsoZ8OHmBSM5C1iYSkB/02eZWSf5Y=;
+ b=NqKGTL1JFWi2+YdK1ifAtayXYKOXCJkQbhnps7vjHucYKw0NGbQcmnXr0uaTWmw7HUVS
+ 5i6VI1igOdeOlFX+Yeuw1nYvWLOWoOQj1vghETAO2HG1rcBqGwsMlwkIwE6wqdV6CMtm
+ fcW8/jFSBds0Zv5lhv6zEYrRE5LAP8B1PBo= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2qqntc813r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Sun, 17 Feb 2019 20:56:44 -0800
+Received: from frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) by
+ frc-hub03.TheFacebook.com (2620:10d:c021:18::173) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Sun, 17 Feb 2019 20:56:42 -0800
+Received: from frc-hub03.TheFacebook.com (2620:10d:c021:18::173) by
+ frc-mbx02.TheFacebook.com (2620:10d:c0a1:f82::26) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1531.3; Sun, 17 Feb 2019 20:56:42 -0800
+Received: from NAM05-DM3-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.73) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1531.3
+ via Frontend Transport; Sun, 17 Feb 2019 20:56:42 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VDI2kmNn8uA2RTgsoZ8OHmBSM5C1iYSkB/02eZWSf5Y=;
+ b=DYS0zbtZIDZgID71uGSETvml0w+EscpsJJqKV6s0ThdxwGTtr93/xIyKIThYLwucj9IGKfmL1RrZrsEI1SoGc9F+FXtTbL5xeJuNEcN9cZoZ7va/wS2ky3BqKMW2pdO47yeCn0UA59xAAVP/isVYH8ZKq6s/7qLiCuoNFzj03Kg=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1117.namprd15.prod.outlook.com (10.175.2.7) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1622.19; Mon, 18 Feb 2019 04:56:40 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::315b:5c00:59e0:b3aa]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::315b:5c00:59e0:b3aa%6]) with mapi id 15.20.1622.018; Mon, 18 Feb 2019
+ 04:56:34 +0000
+From: Tao Ren <taoren@fb.com>
+To: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: Re: Increase ARCH_NR_GPIO for ARCH_ASPEED?
+Thread-Topic: Increase ARCH_NR_GPIO for ARCH_ASPEED?
+Thread-Index: AQHUxNJcttE7fFa5AU6Z0cMMPNb9Q6Xk3wcA//+d24A=
+Date: Mon, 18 Feb 2019 04:56:34 +0000
+Message-ID: <8614FF34-6AA3-451A-8B51-2E759A1CDB14@fb.com>
+References: <3d3df19e-ea5e-8086-34ec-5fa1b200a313@fb.com>
+ <d30c021d-8586-984e-a4f7-ce7cb88a1b11@fb.com>
+ <1550194959.4187502.1658322936.5ED72093@webmail.messagingengine.com>
+ <d271e188-e135-eaff-5532-6ba6b95dce5a@fb.com>
+ <1550458070.2791184.1659887272.2685E434@webmail.messagingengine.com>
+In-Reply-To: <1550458070.2791184.1659887272.2685E434@webmail.messagingengine.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Microsoft-MacOutlook/10.14.0.181208
+x-originating-ip: [2620:10d:c090:180::1:93af]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 0d0729eb-6e29-45d3-220e-08d6955d74d1
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600110)(711020)(4605104)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1117; 
+x-ms-traffictypediagnostic: MWHPR15MB1117:
+x-microsoft-exchange-diagnostics: 1; MWHPR15MB1117;
+ 20:Q/J0hQZvsxCFv2IMa08OdzeaS6vyUkH4d7eNy/L6ntwAmqYdRKRtE10AOSSnQGtQnvrwiKf03UjioivfmNDPOtn5PIBMwZCsp9klZAh8qqIq6VI+yizcPaM+bg+qAKxWEDjy8dv5zoTfyf6b6zdhcQPe84zVXlzJeE3T0GpsU4o=
+x-microsoft-antispam-prvs: <MWHPR15MB11179A5A2719A6194DE3D5B6B2630@MWHPR15MB1117.namprd15.prod.outlook.com>
+x-forefront-prvs: 09525C61DB
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(346002)(376002)(366004)(396003)(39850400004)(199004)(189003)(76176011)(476003)(102836004)(5660300002)(2616005)(93886005)(6116002)(11346002)(446003)(486006)(2501003)(99286004)(68736007)(186003)(256004)(33656002)(6486002)(46003)(2906002)(25786009)(478600001)(14454004)(6506007)(53936002)(71190400001)(8676002)(6512007)(106356001)(6436002)(7736002)(105586002)(8936002)(97736004)(36756003)(316002)(83716004)(86362001)(81166006)(110136005)(58126008)(6246003)(305945005)(229853002)(81156014)(71200400001)(4744005)(82746002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1117;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: 5lvhrQXtmj/jCU6Yq3lCt+AxIwDCoM7PXA1RfVviZPUU6P20bDYpPYPjXfhbjXxoOXogeaisVGBnmy6ZG934NBBXvEwUm591x9/XpMOgZ2MqnwbmZwloC5ZZqXlaHSaIy1GeyZAElf7TBZd22VwZY0SshwgXpSel15kWi9dcS8Qe/sBch4SMjxU9G/ysl8/sEKz3jSvksHUxeKyJtPq+nhPqz/6i4eoZwqQGV9qpRnix+Qx3GQu8UwVSvA2XrpAyjkSyWwfuVd4KE8yhcAsmr6QNCJd5UrPk26utqbho+ZJ2OVQafW21fCbvUOG5dz3JAVMh5EGtFLBI2Jth668jmWb1JtoqCAK4QWDxbgyfYlGxYxpdLucohMlXJG0Csmr5d/frztAmaFKlLtoiHzmBWn5GbSfP/FBYHuM5P0ydNeI=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <EF5340DB125A7F4C91A752BC88338D7C@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
- <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
- <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
- <1550186888.4139421.1658270160.5405B961@webmail.messagingengine.com>
- <CAE33tLHdxOpH8NsPv6xRLdymAisBsy0smwySkc=V=E6nz28fKQ@mail.gmail.com>
- <1550457918.2790490.1659886984.2F457972@webmail.messagingengine.com>
-In-Reply-To: <1550457918.2790490.1659886984.2F457972@webmail.messagingengine.com>
-From: AKASH G J <akashgj91@gmail.com>
-Date: Mon, 18 Feb 2019 10:03:46 +0530
-Message-ID: <CAE33tLH4_f1tYAektG2GLUh47EFEYybwgcTKi1KP3UV3QuZPtQ@mail.gmail.com>
-Subject: Re: Unable to read or write from system SPI flash memory.
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000002bb41d058223a4b9"
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d0729eb-6e29-45d3-220e-08d6955d74d1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Feb 2019 04:56:34.1691 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1117
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-18_04:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,62 +122,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Feb 2019 04:34:36 -0000
+X-List-Received-Date: Mon, 18 Feb 2019 04:56:55 -0000
 
---0000000000002bb41d058223a4b9
-Content-Type: text/plain; charset="UTF-8"
-
-I wrote a bootable version of OpenBMC Linux image in system SPI flash.
-
-I tried to boot it before power-off, it was successfully booted. Then I
-tried to boot the same, that time it was unsuccessful.
-
-Do I need to make any change in the Linux device tree for resolving this
-issue?
-
-On Mon, Feb 18, 2019 at 8:15 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-
->
->
-> On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:
-> > I just powered off the entire board. After that the data is not present
-> in
-> > the SPI1 flash. But before power-off it was there.
->
-> How were you verifying the data was there before the poweroff?
->
-> >
-> > We are using OpenBMC Linux version 4.18.7 and pflash v6.1
->
-> Thanks for the versions. Should be handy as we dig deeper.
->
-
---0000000000002bb41d058223a4b9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>I wrote a bootable version of OpenBMC Linux image in =
-system SPI flash. <br></div><div><br></div><div>I tried to boot it before p=
-ower-off, it was successfully booted. Then I tried to boot the same, that t=
-ime it was unsuccessful.</div><div><br></div><div>Do I need to make any cha=
-nge in the Linux device tree for resolving this issue?</div></div><br><div =
-class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, Feb 18,=
- 2019 at 8:15 AM Andrew Jeffery &lt;<a href=3D"mailto:andrew@aj.id.au">andr=
-ew@aj.id.au</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex"><br>
-<br>
-On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:<br>
-&gt; I just powered off the entire board. After that the data is not presen=
-t in<br>
-&gt; the SPI1 flash. But before power-off it was there.<br>
-<br>
-How were you verifying the data was there before the poweroff?<br>
-<br>
-&gt; <br>
-&gt; We are using OpenBMC Linux version 4.18.7 and pflash v6.1<br>
-<br>
-Thanks for the versions. Should be handy as we dig deeper.<br>
-</blockquote></div>
-
---0000000000002bb41d058223a4b9--
+SGkgQW5kcmV3LA0KDQrvu79PbiAyLzE3LzE5LCA2OjQ4IFBNLCAiQW5kcmV3IEplZmZlcnkiIDxh
+bmRyZXdAYWouaWQuYXU+IHdyb3RlOg0KPiBIb3dldmVyLCB0aGVyZSdzIG5vIHJlYXNvbiB5b3Ug
+Y2FuJ3QgbmFycm93IHRoZSBjaGFuZ2UgdG8gb25seSBhcHBseQ0KPiB0byB5b3VyIHN5c3RlbSAo
+cmF0aGVyIHRoYW4gZG8gaXQgaW4gdGhlIGJhc2UgZGVmY29uZmlnIGFuZCBhZmZlY3QgYWxsDQo+
+IHN5c3RlbXMpLg0KDQpQZXJoYXBzIGl0J3MgbXkgbGFjayBvZiBncmVhdGVyIGtub3dsZWRnZSBv
+biBrY29uZmlnOyBJIGFjdHVhbGx5IHRyaWVkIGEgZmV3IG9wdGlvbnMgYnV0IGNvdWxkbid0IGZp
+bmQgYSBuaWNlIHdheSB0byBhcHBseSB0aGUgY2hhbmdlIHRvIG15IHN5c3RlbSBvbmx5Lg0KDQpB
+dCBmaXJzdCwgSSB0cmllZCB0byBjdXN0b21pemUgQVJDSF9OUl9HUElPIGluIG15IDxvbGQuY29u
+ZmlnPiBmaWxlLCBidXQgdGhlIHZhbHVlIHdhcyBzZXQgdG8gZGVmYXVsdCAob3IgaWdub3JlZCkg
+YnkgcnVubmluZyAibWFrZSBvbGRkZWZjb25maWciLg0KDQpUaGVuIEkgYWRkZWQgImlucHV0IHBy
+b21wdCIgZm9yIEFSQ0hfTlJfR1BJTyBvcHRpb246IGN1c3RvbWl6ZWQgdmFsdWUgaW4gPG9sZC5j
+b25maWc+IHdhcyBhcHBsaWVkIHdoaWxlIHJ1bm5pbmcgIm1ha2Ugb2xkZGVmY29uZmlnIiwgYnV0
+IG15IGNvbmNlcm4gaXMgdGhlIGFwcHJvYWNoIG1heSBpbXBhY3QgbW9yZSB1c2Vycz8NCg0KTXkg
+dGhpcmQgYXBwcm9hY2ggaXMgd2hhdCBJIHByb3Bvc2VkIGluIHRoaXMgZW1haWwgdGhyZWFkIChz
+ZXR0aW5nIGRlZmF1bHQgQVJDSF9OUl9HUElPIHRvIDEwMjQgZm9yIEFSQ0hfQVNQRUVEKS4NCg0K
+SSdtIGxvb2tpbmcgZm9yd2FyZCBmb3IgeW91ciBzdWdnZXN0aW9ucy4gVGhhbmsgeW91IGFnYWlu
+Lg0KDQoNCkJlc3QgcmVnYXJkcywNCg0KVGFvDQogDQoNCg==
