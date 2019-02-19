@@ -1,56 +1,51 @@
-Return-Path: <derick.montague@gmail.com>
+Return-Path: <marta.mazur@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::32f; helo=mail-wm1-x32f.google.com;
- envelope-from=derick.montague@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=marta.mazur@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="gpou4i2n"; 
- dkim-atps=neutral
-Received: from mail-wm1-x32f.google.com (mail-wm1-x32f.google.com
- [IPv6:2a00:1450:4864:20::32f])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 443qqN4wY5zDqJK
- for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 06:02:24 +1100 (AEDT)
-Received: by mail-wm1-x32f.google.com with SMTP id x10so3879233wmg.2
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 11:02:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=k9dURMzikSAs3EX1bnxheEXHlYVaRejEntd+ceWHwsA=;
- b=gpou4i2nsrJX+AZOKHBejDeWDu6hTBQw8GkZiHQcxJ5IyJ5B+2Ebza/aPETd4tIBRE
- wgxobTSmS1wug56An62vdKOSZBMPSh15PY/f4Yma66wANjhP6LyK4H5gb5bN5Tahx/qH
- clN9iuHhxQftgsxaxOcvZi33mFXMyPNWHewIzQXSkvejtCMsfZ5f1mLTeysm3HSsY6ZU
- ll5Nz4eU8hp9yACaXJ/w8vCa9X4f9fheRNs0JEwrbN9exMFzb64TIZJYwz25QV1NIngX
- Z3RYKW6H3R8lbL75SbNyYUrVa341tkoiOrqC7ho3YKroHVgzTpshpjiKEhWcA9fYC77s
- E+LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=k9dURMzikSAs3EX1bnxheEXHlYVaRejEntd+ceWHwsA=;
- b=AQGwTYOQfTSy3kWzLYkoiy6CDlfYckKZfV1HJFpEmiIMFwQCY1VPizXlCRF4wzbZ0o
- iitSOEEjZlNt+rOCZ77MB7r5Tp08vUahvvwy5GonwcStua9KUS2VN5OlESLpjfTY8OO1
- PrFApVgd+DT6MelxyGjoeMRd/fwV+teBXCkMVMEfd0vcMCXbc/cDfXheRW9jzoAxuRMy
- XpAfibcMl+Oh3+XW7nkLI/91nju7+Er+BSWaHeqZOJpp9eadU9nH+cZhVmeruzAHTImc
- QJVJbNQ67NJtW7CzpoXmvNJodaHv1bHEcnZLhrWYeE3XlVxnVWt/7OBAFTi20LnP4L4P
- pA0Q==
-X-Gm-Message-State: AHQUAuZXlT86LSa696ESJskX74dgo1i5GYK4wSG0Vk3H4Aa6Z4DjENpK
- HetgHQHsdKwyH3SeW5a83G9LJW0zT1odjGHcd+w1WgSH
-X-Google-Smtp-Source: AHgI3IYfCkaWRJTFiLacveO58NY23ko+2wRMIdm0vVn+r40/KOknNpb6lR2FKmLwB98FiGVnfr0UiF/qkKqEaYYQN5Q=
-X-Received: by 2002:a1c:6342:: with SMTP id x63mr3843290wmb.92.1550602941155; 
- Tue, 19 Feb 2019 11:02:21 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 443qy14hyzzDqHv
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 06:08:05 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 19 Feb 2019 11:08:03 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,388,1544515200"; 
+ d="scan'208,217";a="148123211"
+Received: from irsmsx152.ger.corp.intel.com ([163.33.192.66])
+ by fmsmga001.fm.intel.com with ESMTP; 19 Feb 2019 11:08:02 -0800
+Received: from irsmsx156.ger.corp.intel.com (10.108.20.68) by
+ IRSMSX152.ger.corp.intel.com (163.33.192.66) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Tue, 19 Feb 2019 19:08:01 +0000
+Received: from irsmsx103.ger.corp.intel.com ([169.254.3.199]) by
+ IRSMSX156.ger.corp.intel.com ([169.254.3.58]) with mapi id 14.03.0415.000;
+ Tue, 19 Feb 2019 19:08:01 +0000
+From: "Mazur, Marta" <marta.mazur@intel.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: bashisms in meta-phosphor scripts
+Thread-Topic: bashisms in meta-phosphor scripts
+Thread-Index: AdTIhU2ViXH+UOPAScyXHmtEIdawTg==
+Date: Tue, 19 Feb 2019 19:08:00 +0000
+Message-ID: <57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1@IRSMSX103.ger.corp.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiMTE0MDAxMDgtOWJiMi00Mzg1LTgzMDktNWU5NTA5MWQ5OWRlIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiWTJvQlQzbDZJZHRkSUJwa1hHWWllTGRvQmJJdCtrZThSRzllK3BaXC84QjZSTG1GSzB1Nlk4XC83WHg3RVwvVzUzNSJ9
+x-ctpclassification: CTP_NT
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [163.33.239.180]
+Content-Type: multipart/alternative;
+ boundary="_000_57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1IRSMSX103gercor_"
 MIME-Version: 1.0
-References: <CANT4Nr+Gpd7roWyPT5vpeskL9bvKBbsKKma_6WhPpenWdwACwg@mail.gmail.com>
- <c28330a3-e3ab-56c8-b9bb-1a4160a08466@yadro.com>
-In-Reply-To: <c28330a3-e3ab-56c8-b9bb-1a4160a08466@yadro.com>
-From: Derick <derick.montague@gmail.com>
-Date: Tue, 19 Feb 2019 13:02:09 -0600
-Message-ID: <CAOUmYFTJhmC-e+tRUrQ=mYVRpGD0aMBGABOxwCWuQ4DmneQSmA@mail.gmail.com>
-Subject: Re: GUI translation bundles
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000007ed3b0058243e14c"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,265 +57,156 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Feb 2019 19:02:25 -0000
+X-List-Received-Date: Tue, 19 Feb 2019 19:08:10 -0000
 
---0000000000007ed3b0058243e14c
-Content-Type: text/plain; charset="UTF-8"
+--_000_57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1IRSMSX103gercor_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alexander!
+Hi all,
 
-Are you going to use some ready framework for translations or are you going
-> to develop a new one?
+We have to cut out bash from our system and use busybox ash as the only she=
+ll. I found several scripts in the meta-phosphor layer that are not POSIX c=
+ompliant and therefore are unusable without bash.
 
+Has anyone run into this problem? Does anyone have plans to remove bash dep=
+endencies from this layer?
 
-After some previous discussions, it was decided to use Angular Translate -
-https://github.com/angular-translate/angular-translate
+Or maybe we could patch those scripts and submit the patches to upstream? I=
+t should increase portability to systems with any POSIX shell.
 
+Regards,
+Marta
+--------------------------------------------------------------------
 
+Intel Technology Poland sp. z o.o.
+ul. Slowackiego 173 | 80-298 Gdansk | Sad Rejonowy Gdansk Polnoc | VII Wydz=
+ial Gospodarczy Krajowego Rejestru Sadowego - KRS 101882 | NIP 957-07-52-31=
+6 | Kapital zakladowy 200.000 PLN.
 
-> It would be great if the solution provided an option for quick language
-> switching.
+Ta wiadomosc wraz z zalacznikami jest przeznaczona dla okreslonego adresata=
+ i moze zawierac informacje poufne. W razie przypadkowego otrzymania tej wi=
+adomosci, prosimy o powiadomienie nadawcy oraz trwale jej usuniecie; jakiek=
+olwiek
+przegladanie lub rozpowszechnianie jest zabronione.
+This e-mail and any attachments may contain confidential material for the s=
+ole use of the intended recipient(s). If you are not the intended recipient=
+, please contact the sender and delete all copies; any review or distributi=
+on by
+others is strictly prohibited.
 
-
-The suggested pattern would be a simple language switcher on the login page=
-.
-
-The problem is that different languages may require the variable part at
-> different locations within the string and also may use inclinations, so y=
-ou
-> can't just break such strings apart and translate "You have" and "new
-> messages" separately because the translation may not just require writing
-> it like "12 new messages you have", but will also be different for, say, =
-21
-> and 22 messages. At least for Russian language the latter is definitely a
-> problem to think of: we'll say "=D0=A3 =D0=B2=D0=B0=D1=81 21 =D0=BD=D0=BE=
-=D0=B2=D0=9E=D0=95 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=95",=
- but "=D0=A3 =D0=B2=D0=B0=D1=81 22
-> =D0=BD=D0=BE=D0=B2=D0=AB=D0=A5 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=
-=D0=B8=D0=AF". I believe other Slavic languages, and at least German and
-> French are also affected by similar problems.
-> That also concerns your question about "common" phrases. What is "common"
-> in English, may differ significantly depending on context in other
-> languages.
-> I implore you to not forget about such peculiarities. In the past I've ha=
-d
-> issues with some software packages whose authors didn't think about that,
-> and it was a pain translating those packages.
-
-
-This is a great point! I would expect, in the example you provided, for the
-property value to be the complete sentence, e.g. { new_messages: "You have
-{variable} new messages" }.
-
-Derick Montague
-* * * * * * * * * * * * * * * *
-Mobile: 512-609-0760
-http://www.derick-montague.me
-
-
-On Mon, Feb 18, 2019 at 3:19 AM Alexander Amelkin <a.amelkin@yadro.com>
-wrote:
-
-> Hi, Susan!
->
-> 15.02.2019 23:17, susan jasinski wrote:
->
-> > I=E2=80=99d like some feedback about how to breakdown translation bundl=
-es for
-> the GUI.
-> >
-> > My initial thought is to create a bundle per panel since companies
-> > have the option to pick and choose which upstream panels they want to
-> > use. Would this be an overwhelming amount of bundles? Does this idea
-> > scale well as we grow the number of panels? Does this scale well as
-> > new panels are added after existing panels have already been
-> > translated?
-> >
-> > In addition, there could a =E2=80=9Cglobal=E2=80=9D bundle for navigati=
-on and header,
-> > Should this include words/phrases that are common across many panels
-> > such as =E2=80=9Csave=E2=80=9D and =E2=80=9Ccancel=E2=80=9D?
-> >
-> > Also, should GUI notifications/messages be in their own bundle or put
-> > into their respective panel=E2=80=99s bundle?
-> >
-> > Can you think of other factors that should guide this decision?
->
-> Are you going to use some ready framework for translations or are you
-> going to develop a new one?
->
-> It would be great if the solution provided an option for quick language
-> switching.
->
-> I once implemented such a solution, it used a json map of English strings
-> to local strings. All translatable objects had a special class name, and
-> the client-side Javascript code used that class to find all
-> to-be-translated objects and on the fly changed their innerHTML using the
-> map (saving the original content in an object's property). The con was th=
-at
-> the implementation was only able to process simple strings and couldn't b=
-e
-> applied to objects containing variable text (e.g. values embedded in text
-> like "You have 12 new messages"). The problem is that different languages
-> may require the variable part at different locations within the string an=
-d
-> also may use inclinations, so you can't just break such strings apart and
-> translate "You have" and "new messages" separately because the translatio=
-n
-> may not just require writing it like "12 new messages you have", but will
-> also be different for, say, 21 and 22 messages. At least for Russian
-> language the latter is definitely a problem
-> to think of: we'll say "=D0=A3 =D0=B2=D0=B0=D1=81 21 =D0=BD=D0=BE=D0=B2=
-=D0=9E=D0=95 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=95", but "=
-=D0=A3 =D0=B2=D0=B0=D1=81 22 =D0=BD=D0=BE=D0=B2=D0=AB=D0=A5
-> =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=AF". I believe other =
-Slavic languages, and at least German and
-> French are also affected by similar problems.
->
-> That also concerns your question about "common" phrases. What is "common"
-> in English, may differ significantly depending on context in other
-> languages.
->
-> I implore you to not forget about such peculiarities. In the past I've ha=
-d
-> issues with some software packages whose authors didn't think about that,
-> and it was a pain translating those packages.
->
-> As to bundling, I think that if something is shipped as a separate bundle=
-,
-> can be removed or added, then the translation data must go along with the
-> rest of the bundle. The translation engine however must either be a
-> separate bundle per se or be embedded into the core of WebUI.
->
-> Alexander Amelkin
->
->
->
-
---0000000000007ed3b0058243e14c
-Content-Type: text/html; charset="UTF-8"
+--_000_57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1IRSMSX103gercor_
+Content-Type: text/html; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi Alexander!</div><div =
-dir=3D"ltr"><br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px=
- 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Are=
- you going to use some ready framework for translations or are you going to=
- develop a new one?</blockquote><div><br></div><div>After some previous dis=
-cussions, it was decided to use Angular Translate -=C2=A0<a href=3D"https:/=
-/github.com/angular-translate/angular-translate">https://github.com/angular=
--translate/angular-translate</a>=C2=A0</div><div><br></div><div>=C2=A0</div=
-><div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
- 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">It woul=
-d be great if the solution provided an option for quick language switching.=
-</blockquote><div><br></div><div>The suggested pattern would be a simple la=
-nguage switcher on the login page.</div><div><br></div><blockquote class=3D=
-"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(2=
-04,204,204);padding-left:1ex">The problem is that different languages may r=
-equire the variable part at different locations within the string and also =
-may use inclinations, so you can&#39;t just break such strings apart and tr=
-anslate &quot;You have&quot; and &quot;new messages&quot; separately becaus=
-e the translation may not just require writing it like &quot;12 new message=
-s you have&quot;, but will also be different for, say, 21 and 22 messages. =
-At least for Russian language the latter is definitely a problem to think o=
-f: we&#39;ll say &quot;=D0=A3 =D0=B2=D0=B0=D1=81 21 =D0=BD=D0=BE=D0=B2=D0=
-=9E=D0=95 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=95&quot;, but=
- &quot;=D0=A3 =D0=B2=D0=B0=D1=81 22 =D0=BD=D0=BE=D0=B2=D0=AB=D0=A5 =D1=81=
-=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=AF&quot;. I believe other Sla=
-vic languages, and at least German and French are also affected by similar =
-problems.<br>That also concerns your question about &quot;common&quot; phra=
-ses. What is &quot;common&quot; in English, may differ significantly depend=
-ing on context in other languages.<br>I implore you to not forget about suc=
-h peculiarities. In the past I&#39;ve had issues with some software package=
-s whose authors didn&#39;t think about that, and it was a pain translating =
-those packages.</blockquote><div><br></div><div>This is a great point! I wo=
-uld expect, in the example you provided, for the property value to be the c=
-omplete sentence, e.g. { new_messages: &quot;You have {variable} new messag=
-es&quot; }.=C2=A0</div><div>=C2=A0</div><div><div dir=3D"ltr" class=3D"gmai=
-l_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div><div dir=3D"ltr"><=
-span style=3D"font-family:arial;font-size:small">Derick Montague</span><div=
- style=3D"font-family:arial;font-size:small">* * * * * * * * * * * * * * * =
-*=C2=A0</div><div style=3D"font-family:arial;font-size:small">Mobile:=C2=A0=
-<span title=3D"Call with Google Voice">512-609-0760</span><br></div><div st=
-yle=3D"font-family:arial;font-size:small"><a href=3D"http://www.derick-mont=
-ague.me" target=3D"_blank">http://www.derick-montague.me</a></div></div></d=
-iv></div></div></div></div></div><br></div><br><div class=3D"gmail_quote"><=
-div dir=3D"ltr" class=3D"gmail_attr">On Mon, Feb 18, 2019 at 3:19 AM Alexan=
-der Amelkin &lt;<a href=3D"mailto:a.amelkin@yadro.com">a.amelkin@yadro.com<=
-/a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0=
-px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">H=
-i, Susan!<br>
-<br>
-15.02.2019 23:17, susan jasinski wrote:<br>
-<br>
-&gt; I=E2=80=99d like some feedback about how to breakdown translation bund=
-les for the GUI.<br>
-&gt;<br>
-&gt; My initial thought is to create a bundle per panel since companies<br>
-&gt; have the option to pick and choose which upstream panels they want to<=
-br>
-&gt; use. Would this be an overwhelming amount of bundles? Does this idea<b=
-r>
-&gt; scale well as we grow the number of panels? Does this scale well as<br=
->
-&gt; new panels are added after existing panels have already been<br>
-&gt; translated?<br>
-&gt;<br>
-&gt; In addition, there could a =E2=80=9Cglobal=E2=80=9D bundle for navigat=
-ion and header,<br>
-&gt; Should this include words/phrases that are common across many panels<b=
-r>
-&gt; such as =E2=80=9Csave=E2=80=9D and =E2=80=9Ccancel=E2=80=9D?<br>
-&gt;<br>
-&gt; Also, should GUI notifications/messages be in their own bundle or put<=
-br>
-&gt; into their respective panel=E2=80=99s bundle?<br>
-&gt;<br>
-&gt; Can you think of other factors that should guide this decision?<br>
-<br>
-Are you going to use some ready framework for translations or are you going=
- to develop a new one?<br>
-<br>
-It would be great if the solution provided an option for quick language swi=
-tching.<br>
-<br>
-I once implemented such a solution, it used a json map of English strings t=
-o local strings. All translatable objects had a special class name, and the=
- client-side Javascript code used that class to find all to-be-translated o=
-bjects and on the fly changed their innerHTML using the map (saving the ori=
-ginal content in an object&#39;s property). The con was that the implementa=
-tion was only able to process simple strings and couldn&#39;t be applied to=
- objects containing variable text (e.g. values embedded in text like &quot;=
-You have 12 new messages&quot;). The problem is that different languages ma=
-y require the variable part at different locations within the string and al=
-so may use inclinations, so you can&#39;t just break such strings apart and=
- translate &quot;You have&quot; and &quot;new messages&quot; separately bec=
-ause the translation may not just require writing it like &quot;12 new mess=
-ages you have&quot;, but will also be different for, say, 21 and 22 message=
-s. At least for Russian language the latter is definitely a problem<br>
-to think of: we&#39;ll say &quot;=D0=A3 =D0=B2=D0=B0=D1=81 21 =D0=BD=D0=BE=
-=D0=B2=D0=9E=D0=95 =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=95&q=
-uot;, but &quot;=D0=A3 =D0=B2=D0=B0=D1=81 22 =D0=BD=D0=BE=D0=B2=D0=AB=D0=A5=
- =D1=81=D0=BE=D0=BE=D0=B1=D1=89=D0=B5=D0=BD=D0=B8=D0=AF&quot;. I believe ot=
-her Slavic languages, and at least German and French are also affected by s=
-imilar problems.<br>
-<br>
-That also concerns your question about &quot;common&quot; phrases. What is =
-&quot;common&quot; in English, may differ significantly depending on contex=
-t in other languages.<br>
-<br>
-I implore you to not forget about such peculiarities. In the past I&#39;ve =
-had issues with some software packages whose authors didn&#39;t think about=
- that, and it was a pain translating those packages.<br>
-<br>
-As to bundling, I think that if something is shipped as a separate bundle, =
-can be removed or added, then the translation data must go along with the r=
-est of the bundle. The translation engine however must either be a separate=
- bundle per se or be embedded into the core of WebUI.<br>
-<br>
-Alexander Amelkin<br>
-<br>
-<br>
-</blockquote></div></div></div>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	font-family:"Calibri",sans-serif;
+	mso-fareast-language:EN-US;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"PL" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi all,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">We have to cut out bash from ou=
+r system and use busybox ash as the only shell. I found several scripts in =
+the meta-phosphor layer that are not POSIX compliant and therefore are unus=
+able without bash.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Has anyone run into this proble=
+m? Does anyone have plans to remove bash dependencies from this layer?<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Or maybe we could patch those s=
+cripts and submit the patches to upstream? It should increase portability t=
+o systems with any POSIX shell.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Marta<o:p></o:p></span></p>
+</div>
+<p>---------------------------------------------------------------------<br>
+<strong style=3D"line-height: 11.25pt;"><span  style=3D"font-size: 9pt; col=
+or:
+#595959;"><span style=3D"font-family: 'Arial Narrow', sans-serif;">Intel
+Technology Poland sp. z o.o.<br></span></span></strong><span style=3D"color:
+#595959; font-family: 'Arial Narrow', sans-serif; font-size: 9pt; line-heig=
+ht:
+11.25pt;">ul. S&#322owackiego 173 | 80-298 Gda&#324sk | S&#261d Rejonowy Gd=
+a&#324sk
+P&#243&#322noc
+| VII Wydzia&#322 Gospodarczy Krajowego Rejestru S&#261dowego - KRS 101882 =
+| NIP
+957-07-52-316 | Kapita&#322 zak&#322adowy 200.000 PLN.</span></p><p>
 
---0000000000007ed3b0058243e14c--
+<span style=3D"font-size:8.0pt;font-family:&quot;Arial
+Narrow&quot;,&quot;sans-serif&quot;;
+mso-fareast-font-family:&quot;Times New
+Roman&quot;;mso-bidi-font-family:Arial;
+color:#595959;mso-ansi-language:EN-US;mso-fareast-language:EN-US;mso-bidi-l=
+anguage:
+AR-SA">Ta wiadomo&#347&#263 wraz z za&#322&#261cznikami jest przeznaczona d=
+la okre&#347lonego
+adresata i mo&#380e zawiera&#263 informacje poufne. W razie przypadkowego o=
+trzymania
+tej wiadomo&#347ci, prosimy o powiadomienie nadawcy oraz trwa&#322e jej usu=
+ni&#281cie;
+jakiekolwiek przegl&#261danie lub rozpowszechnianie jest zabronione.<br>
+This e-mail and any attachments may contain confidential material for the s=
+ole
+use of the intended recipient(s). If you are not the intended recipient,
+please
+contact the sender and delete all copies; any review or distribution by oth=
+ers
+is strictly prohibited.</span></p><p class=3D"MsoNormal"><o:p></o:p></p>
+</body>
+</html>
+
+--_000_57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1IRSMSX103gercor_--
