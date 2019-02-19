@@ -1,46 +1,63 @@
-Return-Path: <jk@ozlabs.org>
-Received: from ozlabs.org (bilbo.ozlabs.org [203.11.71.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 443Pt26LvrzDqGB
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 13:33:14 +1100 (AEDT)
+Return-Path: <akashgj91@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ozlabs.org
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com;
+ envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="p//MIDrs"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="AN+hf5UF"; 
  dkim-atps=neutral
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by ozlabs.org (Postfix) with ESMTPSA id 443Pt170Cmz9sDn;
- Tue, 19 Feb 2019 13:33:13 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ozlabs.org; s=201707;
- t=1550543594; bh=sWVV0kbEdIne+Kh6LclOuoDbBzWl1MtMi/52cO/Ox0g=;
- h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
- b=p//MIDrs3QFUKWyBlFwmewmvCTz2brnRpywYjCwkZU2W/mZSrHvhBpHlLrGyh6Q0j
- lSMHNTnJlxSv4l+cRffKXvBvD52jtkt/pzqoJ/ggKyyfuUk8finWM9mYKwpHM8ZM2f
- hmyHeeAvsVAsP2xPoQjuvxUDCPAfHu3DjbVeSLSxgxdgj5Q09HVO83FcUfN12/CKL3
- GPbRX6IXNFAhJGoxv/JrWGZgoh3eWxVtgjrsEPyMduH2RwGNHib+x97UWAaXd/6dFE
- 1/DfBoJlX5dcezYVfaE9avbbcRbU7AeJbv9+rTYi3nThGHtCttpn2h3+f4D0yxZoVi
- coWwm5xXtJNwQ==
-Message-ID: <ce7c63195c576fcb4abacf044103e642b7380673.camel@ozlabs.org>
-Subject: Re: libMCTP
-From: Jeremy Kerr <jk@ozlabs.org>
-To: "Tanous, Ed" <ed.tanous@intel.com>
-Cc: openbmc <openbmc@lists.ozlabs.org>, Emily Shaffer
- <emilyshaffer@google.com>,  Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Tue, 19 Feb 2019 10:33:11 +0800
-In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993459F4C7B@ORSMSX114.amr.corp.intel.com>
-References: <7E9441B1E5EFFD4681F54958E8216993459F28DB@ORSMSX114.amr.corp.intel.com>
- <5b8fc35e971dd654b81843d9df82037bb1c9c2c9.camel@ozlabs.org>
- <7E9441B1E5EFFD4681F54958E8216993459F4C7B@ORSMSX114.amr.corp.intel.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.30.5-1 
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 443SK54hLZzDqKD
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 15:23:21 +1100 (AEDT)
+Received: by mail-ot1-x32f.google.com with SMTP id i20so32153008otl.0
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Feb 2019 20:23:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aC3ymaghnWxq2Y1CP6TamrqvoN7x4kqkJ7mMvFqnaEI=;
+ b=AN+hf5UFjuVQuUFNUuJ706mpv3IeCabaqIjZff3kDnZsoVNVkmnNDQcMGwHYrF5Gqk
+ glKVeD3u2TYOnng4Agm7zwkO6OuNkkP6Yb2q45fIK8R8jarhaMDEvqIpyiajG1xSqos3
+ sZlWqCtBeVP1j+pBBINYCGcAAO+uYe4QK7TgrJpaf4MIII1CXSiqq59+hzpDLfDqmJiG
+ +un0cCb84yqh6r7aEZDgLaA+CQKeGi8dNkcJgAyxSjDafze3FieAZ2F7C36s/ikaFlyO
+ CAxTBs1Zbzq8WtepGuFzzaneqGoUjhOuXU0hsJ6euwKVuhM7NBZUd0OrxPh+ZddVB5aF
+ 0ahw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aC3ymaghnWxq2Y1CP6TamrqvoN7x4kqkJ7mMvFqnaEI=;
+ b=BMVxk8HGbZJ7r/0sifa8KcQoG5V/VgzhRCAVstNhalx4WTY+cnyLILpOFA68EiqcCo
+ 7NvyIPejnUDjK0DWQ4c9CU3xoiiXB/6h7e5nemTIif9HF358kqt8GGtRsEpj+2YQIYBi
+ q64ezFXVUpPe1qZZX1YXhnM4B1C90TE2KCj7uuUe9GvTKvwu+QTrkb3qBENdEDn0zPT7
+ M8wutrUpu+kmxn5tiB2tFuIbnrSIwjhtER8WaT0wj0BmfpzzIx2IaXH64z8PdAyMzOya
+ D7vQVidKdvmWGtOXgdJZ5AedADYnjCdxZFTrUDwjqDiWSIJxeAiaAsND61FZNHHyMPHJ
+ Psfg==
+X-Gm-Message-State: AHQUAuYCd1/umR4ImnHHRdqJxL8h4c/FZQanLOr+lmsT3ZUfNWJn1Gkg
+ dlvZotpO/PuuLOClYWVpbm9OyvsrVzRydebbomfshGWy
+X-Google-Smtp-Source: AHgI3IZj5r4anvZ5PwfPXjJPBNI7uEJcti/AOKBwDdcqK77PS4Qbbumw1EPTprMSOUfAT3LmE5KSCaFbYaLsW7CwqzA=
+X-Received: by 2002:aca:61c4:: with SMTP id v187mr1278811oib.122.1550550199101; 
+ Mon, 18 Feb 2019 20:23:19 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
+ <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
+ <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
+ <1550186888.4139421.1658270160.5405B961@webmail.messagingengine.com>
+ <CAE33tLHdxOpH8NsPv6xRLdymAisBsy0smwySkc=V=E6nz28fKQ@mail.gmail.com>
+ <1550457918.2790490.1659886984.2F457972@webmail.messagingengine.com>
+ <CAE33tLH4_f1tYAektG2GLUh47EFEYybwgcTKi1KP3UV3QuZPtQ@mail.gmail.com>
+ <e44dbb70-8630-4bc0-9809-f24b6e9a3815@www.fastmail.com>
+In-Reply-To: <e44dbb70-8630-4bc0-9809-f24b6e9a3815@www.fastmail.com>
+From: AKASH G J <akashgj91@gmail.com>
+Date: Tue, 19 Feb 2019 09:52:32 +0530
+Message-ID: <CAE33tLEdEsdZ+0NXvAuVeWP3145MvL5w=VZQp-_obQPBLSpDGw@mail.gmail.com>
+Subject: Re: Unable to read or write from system SPI flash memory.
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000d2eb920582379904"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,69 +69,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Feb 2019 02:33:16 -0000
+X-List-Received-Date: Tue, 19 Feb 2019 04:23:22 -0000
 
-Hi Ed,
+--000000000000d2eb920582379904
+Content-Type: text/plain; charset="UTF-8"
 
-[+Brad, Emily, Deepak - there are a couple of areas below that could
-benefit from your input]
+I flashed OpenBMC image to system flash using pflash. After power-off, I
+tried to boot the BMC (Aspeed AST-2500) from the system flash. For that I
+used the command *bootm <system flash address>* in u-boot prompt. That
+gives error "no image found".
 
-> I'm a lot less worried about the formatting.  Whatever everyone else
-> wants is fine.  Clang-format is really useful, so it's not great to
-> lose, it for this repo, but there isn't that much code there, so it's
-> not a big concern for me.
+On Tue, Feb 19, 2019 at 5:33 AM Andrew Jeffery <andrew@aj.id.au> wrote:
 
-... I've also realised that we're applying the C++ coding standards to C
-code here, which OpenBMC is defined to use kernel-style
-(https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#c).
+>
+>
+> On Mon, 18 Feb 2019, at 15:04, AKASH G J wrote:
+> > I wrote a bootable version of OpenBMC Linux image in system SPI flash.
+> >
+> > I tried to boot it before power-off, it was successfully booted. Then I
+> > tried to boot the same, that time it was unsuccessful.
+>
+> But you just said you flashed an OpenBMC image to the system flash.
+> That's never going to work. You need the host firmware on the host
+> flash to successfully boot the host, and OpenBMC is not the host
+> firmware.
+>
+> Am I understanding you correctly?
+>
+> >
+> > Do I need to make any change in the Linux device tree for resolving this
+> issue?
+> >
+> > On Mon, Feb 18, 2019 at 8:15 AM Andrew Jeffery <andrew@aj.id.au> wrote:
+> > >
+> > >
+> > >  On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:
+> > >  > I just powered off the entire board. After that the data is not
+> present in
+> > >  > the SPI1 flash. But before power-off it was there.
+> > >
+> > >  How were you verifying the data was there before the poweroff?
+> > >
+> > >  >
+> > >  > We are using OpenBMC Linux version 4.18.7 and pflash v6.1
+> > >
+> > >  Thanks for the versions. Should be handy as we dig deeper.
+> > >
+> >
+>
 
-So, I'll drop this patch as it is. However, as you mention, using clang-
-format is a good idea, so I'll add a .clang-format definition for C
-here.
+--000000000000d2eb920582379904
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If (or when) when we implement the C++ interface, we can add a separate
-clang-format definition for that.
+<div dir=3D"ltr"><div>I flashed OpenBMC image to system flash using pflash.=
+ After power-off, I tried to boot the BMC (Aspeed AST-2500) from the system=
+ flash. For that I used the command <i>bootm &lt;system flash address&gt;</=
+i> in u-boot prompt. That gives error &quot;no image found&quot;.<br></div>=
+</div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">=
+On Tue, Feb 19, 2019 at 5:33 AM Andrew Jeffery &lt;<a href=3D"mailto:andrew=
+@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br></div><blockquote class=3D"gma=
+il_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,2=
+04,204);padding-left:1ex"><br>
+<br>
+On Mon, 18 Feb 2019, at 15:04, AKASH G J wrote:<br>
+&gt; I wrote a bootable version of OpenBMC Linux image in system SPI flash.=
+ <br>
+&gt; <br>
+&gt; I tried to boot it before power-off, it was successfully booted. Then =
+I <br>
+&gt; tried to boot the same, that time it was unsuccessful.<br>
+<br>
+But you just said you flashed an OpenBMC image to the system flash. <br>
+That&#39;s never going to work. You need the host firmware on the host<br>
+flash to successfully boot the host, and OpenBMC is not the host<br>
+firmware.<br>
+<br>
+Am I understanding you correctly?<br>
+<br>
+&gt; <br>
+&gt; Do I need to make any change in the Linux device tree for resolving th=
+is issue?<br>
+&gt; <br>
+&gt; On Mon, Feb 18, 2019 at 8:15 AM Andrew Jeffery &lt;<a href=3D"mailto:a=
+ndrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
+&gt; &gt; <br>
+&gt; &gt;=C2=A0 <br>
+&gt; &gt;=C2=A0 On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:<br>
+&gt; &gt;=C2=A0 &gt; I just powered off the entire board. After that the da=
+ta is not present in<br>
+&gt; &gt;=C2=A0 &gt; the SPI1 flash. But before power-off it was there.<br>
+&gt; &gt;=C2=A0 <br>
+&gt; &gt;=C2=A0 How were you verifying the data was there before the powero=
+ff?<br>
+&gt; &gt;=C2=A0 <br>
+&gt; &gt;=C2=A0 &gt; <br>
+&gt; &gt;=C2=A0 &gt; We are using OpenBMC Linux version 4.18.7 and pflash v=
+6.1<br>
+&gt; &gt;=C2=A0 <br>
+&gt; &gt;=C2=A0 Thanks for the versions. Should be handy as we dig deeper.<=
+br>
+&gt; &gt;=C2=A0 <br>
+&gt;<br>
+</blockquote></div>
 
-> Let me get some of the commits cleaned up, and I'll send out pull
-> requests.  We could ask Ronnie if he's ok with a relicense, but it's
-> not that difficult to just rebuild it.  95% of that is an auto
-> generated file. I just the first implementation I found, mostly as
-> part of trying to verify the multi-packet stuff was working
-> correctly.  It needs cleaned up a bit.
-
-OK, I'll leave that to you. Let me know when you're OK to get it merged.
-
-At the moment, we're definitely at proof-of-concept stage, so aren't
-doing formal reviews, using gerrit etc. When we reach a point where the
-proof-of-concept changes into something we're sure we'll end up using,
-I'll get the process started to properly integrate into OpenBMC. I'm
-after your thoughts on when that should happen. Brad & Emily, yours too.
-
-> > The NVME & smbus backends look good - let me know when you think
-> > they're OK for merging to master and I will do so.
-> 
-> This was something I wasn't sure about;  Does it make sense to have
-> nvme-mi in libmctp, or should we be creating libnvme?  I'm kinda
-> thinking one library would be nice, I'm not aware of any other
-> transports that NVME-mi can use, and it doesn't end up being a lot
-> more code.
-
-I think a libnvme would be best, but that does raise a good design
-decision.
-
-Previous discussions have tended towards in-process MCTP handlers,
-rather than an MCTP daemon that forwards reassembled messages to dbus
-(for other processes to handle). This would mean that the MCTP daemon,
-for current functionality, would have both handlers for PLDM and NVME-mi 
-message types. While the code there could be separated on whatever
-scheme we like (say, libmctp + libpldm + libnvme + a main loop), does it
-still make sense to have all of that in one process?
-
-I can see the preference for efficiency having the one process, but it
-would also be nice to keep things modular (eg, for systems with no NVME
-stack, or no PLDM handlers). Deepak, any thoughts?
-
-Cheers,
-
-
-Jeremy
+--000000000000d2eb920582379904--
