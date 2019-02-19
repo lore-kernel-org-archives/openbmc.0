@@ -1,49 +1,41 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <fyczy@126.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=59.36.132.35; helo=qq.com; envelope-from=1450335857@qq.com;
+ spf=pass (mailfrom) smtp.mailfrom=126.com
+ (client-ip=220.181.15.14; helo=m15-14.126.com; envelope-from=fyczy@126.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
+ dmarc=pass (p=none dis=none) header.from=126.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="IDxXDhOD"; 
+ unprotected) header.d=126.com header.i=@126.com header.b="fwGHfzeL"; 
  dkim-atps=neutral
-Received: from qq.com (smtpbg465.qq.com [59.36.132.35])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 443YjX4fyszDqDT
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 19:26:24 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1550564768; bh=GVqokTU2HDcJPIzaBpEVLYjCQ1pBrXDO8F9MtZVZJZA=;
- h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=IDxXDhODooels8e3GPY23aw6GNooyudv9l7yDxR/FwDkUq0iBFEEmAqH3Iq2P8/Cr
- vYIsJ4pzQB9WKWVGiz2UVOu1/EYivbPFjBWkNYnJ8oAgOfKFM5TPMIVRQif9BSLl9x
- pm8DZkmUinVNrn1nqpmbP24FE9z5H0s2L6zj76HM=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1550564767t964564
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
- "=?ISO-8859-1?B?amFlLmh5dW4ueW9v?=" <jae.hyun.yoo@linux.intel.com>
-Subject: obmc-ikvm host OS console mode issue
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5C6BBD9F_0A6E0FB0_5E47B969"
-Content-Transfer-Encoding: 8Bit
-Date: Tue, 19 Feb 2019 16:26:07 +0800
+Received: from m15-14.126.com (m15-14.126.com [220.181.15.14])
+ by lists.ozlabs.org (Postfix) with ESMTP id 443cjn5pPvzDqHX
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 21:41:41 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=WEISg
+ b8YxgbGvt6n5YSoAj9ZkbdJJKO68sfuBpaRPv4=; b=fwGHfzeLW9n2f4ZZuBwex
+ P+cCJjRfh1bwtJcEru+8b9PV7OAdRQnfDR3eIu7wHhjHjU8Ct5cloNCLpKAC/pCH
+ EpQu1A340AnZLlE61POkIkg9offlTbsJ7kbUC3O1ZJVAXaGtfqBG1ZOwjGSi2nol
+ fEZ7/Ar0PN32tD+4bSH7J0=
+Received: from fyczy$126.com ( [58.56.96.26] ) by ajax-webmail-wmsvr14
+ (Coremail) ; Tue, 19 Feb 2019 18:41:34 +0800 (CST)
+X-Originating-IP: [58.56.96.26]
+Date: Tue, 19 Feb 2019 18:41:34 +0800 (CST)
+From: "George Liu" <fyczy@126.com>
+To: openbmc@lists.ozlabs.org
+Subject: phosphor-net-ipmid
 X-Priority: 3
-Message-ID: <tencent_381DA9DC452799622EA1E4E4@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Tue, 19 Feb 2019 16:26:08 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgforeign:bgforeign4
-X-QQ-Bgrelay: 1
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+ 20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
+X-CM-CTRLDATA: /HTZtGZvb3Rlcl9odG09MjM1OjU2
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_111651_440788403.1550572894628"
+MIME-Version: 1.0
+Message-ID: <1572be36.7756.1690558b9a5.Coremail.fyczy@126.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: DsqowAA3Px9f3WtcL9wWAA--.16941W
+X-CM-SenderInfo: xi1f65a6rslhhfrp/1tbiXB9g9VpD8ADc9QAAsW
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,41 +47,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Feb 2019 08:26:26 -0000
+X-List-Received-Date: Tue, 19 Feb 2019 10:41:51 -0000
 
-This is a multi-part message in MIME format.
-
-------=_NextPart_5C6BBD9F_0A6E0FB0_5E47B969
-Content-Type: text/plain;
-	charset="ISO-8859-1"
+------=_Part_111651_440788403.1550572894628
+Content-Type: text/plain; charset=GBK
 Content-Transfer-Encoding: base64
 
-SGkgSmFlLCAgIEkgdXBkYXRlZCB0aGUgb2JtYy1pa3ZtIGNvbW1pdCA3ZGZhYzlmZjJkMTU2
-OWFlZGY4MzE3NWZiMDQyNzU2MmMyMTg4ZTYzIA0KIEl0IGNhdXNlZCBvbmUgaXNzdWU6DQpU
-aGUgaWt2bSBvbmx5IHdvcmtzIG9uIGxpbnV4IE9TIEdVSSBtb2RlLA0KV2hlbiBJIHN3aXRj
-aCB0byBvcyBjb25zb2xlIG1vZGUsIHRoZSBpa3ZtIGNhbid0IGdldCB0aGUgaG9zdCBzY3Jl
-ZW4uDQpQbGVhc2UgY2hlY2sgeW91IGNvbW1pdC4NCg0KDQpCZXN0LA0KeGl1emhp
+SGkgYWxsOgogICAgSSBhbSBydW5uaW5nIG5ldGlwbWlkIGZhaWxlZCBhbmQgVGlwIFVuYWJsZSB0
+byBiaW5kIHNvY2tldCwgSG93IHRvIGNvbXBpbGUgcGhvc3Bob3ItbmV0LWlwbWlkClRoYW5rcw==
 
-------=_NextPart_5C6BBD9F_0A6E0FB0_5E47B969
-Content-Type: text/html;
-	charset="ISO-8859-1"
+------=_Part_111651_440788403.1550572894628
+Content-Type: text/html; charset=GBK
 Content-Transfer-Encoding: base64
 
-SGkgSmFlLDxkaXY+Jm5ic3A7ICZuYnNwO0kgdXBkYXRlZCB0aGUgb2JtYy1pa3ZtIGNvbW1p
-dCA8c3BhbiBzdHlsZT0iIGNvbG9yOiByZ2IoNjgsIDc3LCA4Nik7IDsgOyA7IDsgOyAiPjdk
-ZmFjOWZmMmQxNTY5YWVkZjgzMTc1ZmIwNDI3NTYyYzIxODhlNjMgPC9zcGFuPjwvZGl2Pjxk
-aXY+PHNwYW4gc3R5bGU9IiBjb2xvcjogcmdiKDY4LCA3NywgODYpOyA7IDsgOyA7IDsgIj4m
-bmJzcDtJdCBjYXVzZWQgb25lIGlzc3VlOjwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxl
-PSIgY29sb3I6IHJnYig2OCwgNzcsIDg2KTsgOyA7IDsgOyA7ICI+VGhlIGlrdm0gb25seSB3
-b3JrcyBvbiBsaW51eCBPUyBHVUkgbW9kZSw8L3NwYW4+PC9kaXY+PGRpdj48c3BhbiBzdHls
-ZT0iIGNvbG9yOiByZ2IoNjgsIDc3LCA4Nik7IDsgOyA7IDsgOyAiPldoZW4gSSBzd2l0Y2gg
-dG8gb3MgY29uc29sZSBtb2RlLCB0aGUgaWt2bSBjYW4ndCBnZXQgdGhlIGhvc3Qgc2NyZWVu
-Ljwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSIgY29sb3I6IHJnYig2OCwgNzcsIDg2
-KTsgOyA7IDsgOyA7ICI+UGxlYXNlIGNoZWNrIHlvdSBjb21taXQuPC9zcGFuPjwvZGl2Pjxk
-aXY+PHNwYW4gc3R5bGU9IiBjb2xvcjogcmdiKDY4LCA3NywgODYpOyA7IDsgOyA7IDsgIj48
-YnI+PC9zcGFuPjwvZGl2PjxkaXY+PHNwYW4gc3R5bGU9IiBjb2xvcjogcmdiKDY4LCA3Nywg
-ODYpOyA7IDsgOyA7IDsgIj5CZXN0LDwvc3Bhbj48L2Rpdj48ZGl2PjxzcGFuIHN0eWxlPSIg
-Y29sb3I6IHJnYig2OCwgNzcsIDg2KTsgOyA7IDsgOyA7ICI+eGl1emhpPC9zcGFuPjwvZGl2
-Pg==
-
-------=_NextPart_5C6BBD9F_0A6E0FB0_5E47B969--
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXY+SGkgYWxsOjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyBJ
+IGFtIHJ1bm5pbmcgbmV0aXBtaWQgZmFpbGVkIGFuZCBUaXAgVW5hYmxlIHRvIGJpbmQgc29ja2V0
+LCBIb3cgdG8gY29tcGlsZSBwaG9zcGhvci1uZXQtaXBtaWQ8L2Rpdj48ZGl2PlRoYW5rczwvZGl2
+PjwvZGl2Pjxicj48YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxwPiZuYnNwOzwvcD48
+L3NwYW4+
+------=_Part_111651_440788403.1550572894628--
