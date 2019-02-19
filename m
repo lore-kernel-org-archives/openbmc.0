@@ -1,41 +1,76 @@
-Return-Path: <fyczy@126.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=126.com
- (client-ip=220.181.15.14; helo=m15-14.126.com; envelope-from=fyczy@126.com;
- receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=126.com header.i=@126.com header.b="fwGHfzeL"; 
- dkim-atps=neutral
-Received: from m15-14.126.com (m15-14.126.com [220.181.15.14])
- by lists.ozlabs.org (Postfix) with ESMTP id 443cjn5pPvzDqHX
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 21:41:41 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=WEISg
- b8YxgbGvt6n5YSoAj9ZkbdJJKO68sfuBpaRPv4=; b=fwGHfzeLW9n2f4ZZuBwex
- P+cCJjRfh1bwtJcEru+8b9PV7OAdRQnfDR3eIu7wHhjHjU8Ct5cloNCLpKAC/pCH
- EpQu1A340AnZLlE61POkIkg9offlTbsJ7kbUC3O1ZJVAXaGtfqBG1ZOwjGSi2nol
- fEZ7/Ar0PN32tD+4bSH7J0=
-Received: from fyczy$126.com ( [58.56.96.26] ) by ajax-webmail-wmsvr14
- (Coremail) ; Tue, 19 Feb 2019 18:41:34 +0800 (CST)
-X-Originating-IP: [58.56.96.26]
-Date: Tue, 19 Feb 2019 18:41:34 +0800 (CST)
-From: "George Liu" <fyczy@126.com>
-To: openbmc@lists.ozlabs.org
-Subject: phosphor-net-ipmid
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
- 20180927(cd7136b6) Copyright (c) 2002-2019 www.mailtech.cn 126com
-X-CM-CTRLDATA: /HTZtGZvb3Rlcl9odG09MjM1OjU2
-Content-Type: multipart/alternative; 
- boundary="----=_Part_111651_440788403.1550572894628"
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 443h3r0Y7KzDqHR
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 00:12:39 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1JD0NuN082691
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 08:12:36 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qrhrw2ckp-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 08:12:36 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Tue, 19 Feb 2019 13:12:35 -0000
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 19 Feb 2019 13:12:33 -0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1JDCWrf24576174
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 13:12:32 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 039D26E05B
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 13:12:32 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D27B46E052
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 13:12:31 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 13:12:31 +0000 (GMT)
 MIME-Version: 1.0
-Message-ID: <1572be36.7756.1690558b9a5.Coremail.fyczy@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: DsqowAA3Px9f3WtcL9wWAA--.16941W
-X-CM-SenderInfo: xi1f65a6rslhhfrp/1tbiXB9g9VpD8ADc9QAAsW
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Tue, 19 Feb 2019 07:19:34 -0600
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: Openbmc <openbmc@lists.ozlabs.org>
+Subject: Security Working Group meeting Wednesday February 20
+X-Sender: jrey@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19021913-0004-0000-0000-000014E42295
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010625; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01163305; UDB=6.00607397; IPR=6.00943888; 
+ MB=3.00025657; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-19 13:12:34
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19021913-0005-0000-0000-00008AA6E601
+Message-Id: <594171160fd596aafb60fb1aa838ab92@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-19_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=870 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902190097
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,23 +82,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Feb 2019 10:41:51 -0000
+X-List-Received-Date: Tue, 19 Feb 2019 13:12:40 -0000
 
-------=_Part_111651_440788403.1550572894628
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday February 20 at 10:00am PDT.
 
-SGkgYWxsOgogICAgSSBhbSBydW5uaW5nIG5ldGlwbWlkIGZhaWxlZCBhbmQgVGlwIFVuYWJsZSB0
-byBiaW5kIHNvY2tldCwgSG93IHRvIGNvbXBpbGUgcGhvc3Bob3ItbmV0LWlwbWlkClRoYW5rcw==
+Topics may include:
+- Current development items
+- Exciting new security vulnerabilities
+- Exciting new vulnerability testing tools
 
-------=_Part_111651_440788403.1550572894628
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
+Access, agenda, and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXY+SGkgYWxsOjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyBJ
-IGFtIHJ1bm5pbmcgbmV0aXBtaWQgZmFpbGVkIGFuZCBUaXAgVW5hYmxlIHRvIGJpbmQgc29ja2V0
-LCBIb3cgdG8gY29tcGlsZSBwaG9zcGhvci1uZXQtaXBtaWQ8L2Rpdj48ZGl2PlRoYW5rczwvZGl2
-PjwvZGl2Pjxicj48YnI+PHNwYW4gdGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxwPiZuYnNwOzwvcD48
-L3NwYW4+
-------=_Part_111651_440788403.1550572894628--
+- Joseph
