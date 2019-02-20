@@ -1,66 +1,76 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <mspinler@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.4; helo=cpsmtpb-ews01.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="c3XfjBMc"; 
- dkim-atps=neutral
-Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
- [213.75.39.4])
- by lists.ozlabs.org (Postfix) with ESMTP id 444NBP6Px7zDqHJ
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 03:20:42 +1100 (AEDT)
-Received: from cpsps-ews30.kpnxchange.com ([10.94.84.196]) by
- cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Wed, 20 Feb 2019 17:20:39 +0100
-X-Brand: +YTO/YbK+g==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=GcnGYjfL c=1 sm=1 tr=0
- a=qax0hVeNvbzdTQm989tE2Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
- a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10 a=xqWC_Br6kY4A:10
- a=CFTnQlWoA9kA:10 a=voM4FWlXAAAA:8 a=-JXWrlxeB_KYf1oYZnIA:9
- a=QEXdDO2ut3YA:10 a=5SRTxDzXmMkA:10 a=IC2XNlieTeVoXbcui8wp:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT105.kpnxchange.com ([195.121.3.21]) by
- cpsps-ews30.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Wed, 20 Feb 2019 17:20:39 +0100
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1550679639;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=DruXnN15ezjnBaXpdqaVjGNJ6rEzLsTyYc5jBltgSFM=;
- b=c3XfjBMc0sQe0bs/hZQRox2Sxid97BKc5Nnug597MQdh7DNImv6Nc9QWpET3Cignb8AR+H6uXWr
- 8klf9HFTy7LW5+eCWBbpEEpDR2pedeCBxognueeUz4DqK7QJdXWPu5Am6Mk8epxMctXvHuKE/cPij
- NldLJtVYjeWinv7XM4A=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT105.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Wed, 20 Feb 2019 17:20:39 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Wed, 20 Feb
- 2019 17:20:36 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Wed, 20 Feb 2019 17:20:18 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: problem getting inventory to work intel s2600wf image
-Thread-Topic: problem getting inventory to work intel s2600wf image
-Thread-Index: AdTJMF2x2yNoZXFgRCq0pqAR4Wo4CQ==
-Date: Wed, 20 Feb 2019 16:20:18 +0000
-Message-ID: <793ef877fe654bd0810e8f27a18566f6@Eltsrv03.Eltan.local>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 444Nzm3pRRzDqLk
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 03:56:36 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1KGs6wk077532
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 11:56:34 -0500
+Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qs8quy7fu-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 11:56:34 -0500
+Received: from localhost
+ by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
+ Wed, 20 Feb 2019 16:56:32 -0000
+Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
+ by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 20 Feb 2019 16:56:29 -0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1KGuS0524313938
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 20 Feb 2019 16:56:28 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A6778AC060;
+ Wed, 20 Feb 2019 16:56:28 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7F4D1AC062;
+ Wed, 20 Feb 2019 16:56:28 +0000 (GMT)
+Received: from [9.10.99.45] (unknown [9.10.99.45])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 20 Feb 2019 16:56:28 +0000 (GMT)
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Matt Spinler <mspinler@linux.ibm.com>
+Subject: sensor->inventory associations in phosphor-hwmon
+Date: Wed, 20 Feb 2019 10:56:28 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.1
 MIME-Version: 1.0
-X-OriginalArrivalTime: 20 Feb 2019 16:20:39.0229 (UTC)
- FILETIME=[37CF96D0:01D4C938]
-X-RcptDomain: lists.ozlabs.org
+Content-Type: multipart/alternative;
+ boundary="------------42D32705241DBD190876060F"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19022016-0040-0000-0000-000004C49784
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010632; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01163858; UDB=6.00606765; IPR=6.00944442; 
+ MB=3.00025669; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-20 16:56:30
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022016-0041-0000-0000-000008CF99F8
+Message-Id: <29a93725-5fb2-c302-a572-dec03340f814@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-20_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=937 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902200119
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,23 +82,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Feb 2019 16:20:48 -0000
+X-List-Received-Date: Wed, 20 Feb 2019 16:56:37 -0000
 
-SGVsbG8sDQoNCldlIGFyZSBoYXZpbmcgcHJvYmxlbXMgZ2V0dGluZyB0aGUgaW52ZW50b3J5IHRv
-IHdvcmsgb24gdGhlIGludGVsIHMyNjAwd2YgYnVpbGQuDQoNCldlIGFyZSB1c2luZyBhIHZlcnkg
-cmVjZW50IHZlcnNpb24gb2YgdGhlIHRyZWUuDQoNClRoZSBmaXJzdCB0aGluZyBJIG5vdGljZWQg
-aXMgdGhlIHNhbWUgaXNzdWUgYXMgdGhlIG9uZSBtZW50aW9uZWQgaGVyZToNCmh0dHBzOi8vbGlz
-dHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8yMDE4LU1heS8wMTE4NDEuaHRtbA0KDQpC
-YXNpY2FsbHkgdGhlIG9yZy5vcGVuYm1jLm1hbmFnZXJzLlN5c3RlbS5zZXJ2aWNlIGNhbid0IHN0
-YXJ0IGJlY2F1c2UgdGhlIHB5dGhvbiBzY3JpcHQgdXNlZCBjYW4ndCBpbXBvcnQgb2JtYy5pbnZl
-bnRvcnkuDQoNCkkgZ290IHRoYXQgaXNzdWUgb3V0IG9mIHRoZSB3YXkgYnkgYWRkaW5nIGEgZGVw
-ZW5kZW5jeSBzbyB0aGUgc2NyaXB0IHJlcXVpcmVkIGlzIHB1bGxlZCBpbiBidXQgdGhlIHNlcnZp
-Y2Ugc3RpbGwgZG9lc24ndCBzdGFydC4gTm93IEkgc2VlIHRoYXQgbGluZSAzMCBvZiB0aGUgc3lz
-dGVtX21hbmFnZXIucHkgc2NyaXB0IGlzIGdlbmVyYXRpbmcgYW4gZXJyb3Igd2hpbGUgYmVpbmcg
-Y2FsbGVkIGZyb20gbGluZSAxMTUuIA0KSXQgZ2VuZXJhdGVzIEF0dHJpYnV0ZUVycm9yOiAnbW9k
-dWxlJyBvYmplY3QgaGFzIG5vIGF0dHJpYnV0ZSAnSURfTE9PS1VQJw0KDQpNeSBxdWVzdGlvbiBp
-cyBzaG91bGQgdGhlIFMyNjAwV0YgY29kZSBpbiB0aGUgT3BlbkJtYyByZXBvIGJlIGNhcGFibGUg
-b2Ygc3VwcG9ydGluZyB0aGlzIG9yIGFtIEkgbWlzc2luZyBzb21lIGl0ZW1zIHRvIHJlYWxseSBk
-byB0aGlzPyANCg0KSWYgdGhlcmUgaXMgYSBzcGVjaWZpYyBjb21taXQgdGhhdCBzaG91bGQgaGF2
-ZSB0aGlzIHdvcmtpbmcgcGxlYXNlIGxldCBtZSBrbm93IHdoYXQgdG8gY2hlY2sgb3V0Lg0KDQpC
-ZXN0IHJlZ2FyZHMsDQoNCldpbSBWZXJ2b29ybg0K
+This is a multi-part message in MIME format.
+--------------42D32705241DBD190876060F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+Hi,
+
+We have a need to know which sensor objects hosted by the various phosphor-hwmon
+daemons belong to which inventory objects.  For example, we need to know that
+the /xyz/openbmc_project/sensors/power/ps1_input_power sensor belongs to the
+/xyz/openbmc_project/inventory/system/powersupply1 item.
+
+To accomplish this, I am proposing we add a new environment variable to the
+system specific phosphor-hwmon config files that the phosphor-hwmon code
+can then use to create associations interfaces that will cause the mapper to
+create the appropriate association D-Bus paths.
+
+As an example, we could add to the power-supply1 conf file an ASSOCIATIONS
+variable for each sensor (assuming ps1_input_power is represented by IN1):
+
+     ASSOCIATIONS_IN1=/xyz/openbmc_project/inventory/system/powersupply1
+
+The code would then see that and create a new org.openbmc.Associations interface
+on the /xyz/openbmc_project/sensors/power/ps1_input_power path with an
+associations property of:
+
+     ["inventory",
+      "sensors",
+      "/xyz/openbmc_project/inventory/system/powersupply1"]
+
+This leads to the mapper creating:
+
+     /xyz/openbmc_project/sensors/power/ps1_input_power/inventory
+
+With an xyz.openbmc_project.Association interface with an
+endpoints property of:
+
+     ["/xyz/openbmc_project/inventory/system/powersupply1"]
+
+And also the other association path:
+
+     /xyz/openbmc_project/inventory/system/powersupply1/sensors
+
+With an xyz.openbmc_project.Association interface with an
+endpoints property of:
+
+     ["/xyz/openbmc_project/sensors/power/ps1_input_power"]
+
+This now allows one to both find all sensors associated with a power supply, and
+find which inventory item is associated with a particular sensor.  Note that
+the endpoints property is an array, and can get entries from multiple places.
+
+I suppose we could also put the forward/reverse association names, in this case
+"inventory" and "sensors", into the hwmon config file, and also allow creating
+multiple associations for each sensor if there is a usecase, though I would like
+to keep it as simple as possible:
+
+ASSOCIATIONS1_IN1=inventory,sensors,/xyz/openbmc_project/inventory/system/powersupply1
+ASSOCIATIONS2_IN1=chassis,contained_sensors,/xyz/openbmc_project/inventory/system/chassis
+
+What does everyone think?
+
+Thanks
+Matt
+
+
+--------------42D32705241DBD190876060F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <pre>Hi,
+
+We have a need to know which sensor objects hosted by the various phosphor-hwmon
+daemons belong to which inventory objects.  For example, we need to know that
+the /xyz/openbmc_project/sensors/power/ps1_input_power sensor belongs to the
+/xyz/openbmc_project/inventory/system/powersupply1 item.
+
+To accomplish this, I am proposing we add a new environment variable to the
+system specific phosphor-hwmon config files that the phosphor-hwmon code
+can then use to create associations interfaces that will cause the mapper to
+create the appropriate association D-Bus paths.
+
+As an example, we could add to the power-supply1 conf file an ASSOCIATIONS
+variable for each sensor (assuming ps1_input_power is represented by IN1):
+
+    ASSOCIATIONS_IN1=/xyz/openbmc_project/inventory/system/powersupply1
+
+The code would then see that and create a new org.openbmc.Associations interface
+on the /xyz/openbmc_project/sensors/power/ps1_input_power path with an
+associations property of:
+
+    ["inventory",
+     "sensors",
+     "/xyz/openbmc_project/inventory/system/powersupply1"]
+
+This leads to the mapper creating:
+
+    /xyz/openbmc_project/sensors/power/ps1_input_power/inventory
+
+With an xyz.openbmc_project.Association interface with an
+endpoints property of:
+
+    ["/xyz/openbmc_project/inventory/system/powersupply1"]
+
+And also the other association path:
+
+    /xyz/openbmc_project/inventory/system/powersupply1/sensors
+
+With an xyz.openbmc_project.Association interface with an
+endpoints property of:
+
+    ["/xyz/openbmc_project/sensors/power/ps1_input_power"]
+
+This now allows one to both find all sensors associated with a power supply, and
+find which inventory item is associated with a particular sensor.  Note that
+the endpoints property is an array, and can get entries from multiple places.
+
+I suppose we could also put the forward/reverse association names, in this case
+"inventory" and "sensors", into the hwmon config file, and also allow creating
+multiple associations for each sensor if there is a usecase, though I would like
+to keep it as simple as possible:
+
+ASSOCIATIONS1_IN1=inventory,sensors,/xyz/openbmc_project/inventory/system/powersupply1
+ASSOCIATIONS2_IN1=chassis,contained_sensors,/xyz/openbmc_project/inventory/system/chassis
+
+What does everyone think?
+
+Thanks
+Matt</pre>
+  </body>
+</html>
+
+--------------42D32705241DBD190876060F--
