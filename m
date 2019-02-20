@@ -1,65 +1,73 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32e; helo=mail-ot1-x32e.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bTshFuI5"; 
- dkim-atps=neutral
-Received: from mail-ot1-x32e.google.com (mail-ot1-x32e.google.com
- [IPv6:2607:f8b0:4864:20::32e])
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4444TQ5b21zDq8Y
- for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 15:32:42 +1100 (AEDT)
-Received: by mail-ot1-x32e.google.com with SMTP id c18so16484673otl.13
- for <openbmc@lists.ozlabs.org>; Tue, 19 Feb 2019 20:32:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=p6OiprlSNmsl57VxpE0Wl41NrNEly0ipgiH7I9tFOSk=;
- b=bTshFuI584VyI/B8aqBlKlCquSHKY/BzHyKpMX65mKNfHikOeCQY+fsAWHXXR3MkHL
- 8Wv/x8SS7b8IvIm+rNNS3eTfFOeP44HTMORkVMwsonFuDkWcF3R/5dMIL8IsNZ2f6LAc
- v7dwlTbwxpNW6Ecg13HhJdg/AvMWzuZmvlPgSLqEejSxRzdqvzCv3a2gQNB9cGW6KbqD
- R4kwfGf3DCE/guY1pWK60asnoFEoZsaTuaVG18hJg2B38g/OMnhsyrr27XIytui0hCki
- d3hU8inGQcNvZXzEvevGxb8djY932Y2kVeJ2xAMT8BDDKM1lcMx1crULl9OT8gixC8gT
- rsZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=p6OiprlSNmsl57VxpE0Wl41NrNEly0ipgiH7I9tFOSk=;
- b=YJNKzCIxLAyBIYrVsIx9XJ5Ay02fasiE0o18QtXGIzOPfH/OTNJHx8UrIFwbsIyne+
- 1wUcNpB0iPNGYM0gtlnf2o6037+ZrdoABWxk6rIpbJPuZWzTV0oVdj/+k1G9zeEhqHUk
- C3KAVrIOofniHKVLG4829jI6FIEuJWomuPVvsm2KNuxF9hAp3PpXvvtps7qEUYdZ+sp0
- Brie5nCShH1d6a3KoIgLDpTQI7tu4ZU0fbEtcTTSdDKNKdy/eSrkdzF0RXwXVdgJHhMr
- 8o5JzO4DKnb6je/T55215fgEsyiO1pCmbzeR3QioDNUqWkD/tJ2J5l2DWYUpc5EQ3Qu/
- qvMQ==
-X-Gm-Message-State: AHQUAuZao8ammlLHLTvlujFLr/m3fZhDtQQe/ZCMuBBGsVf3qoUiUO1W
- vn1ose/lB6HopylLALDrdGCt7HbgkP8et9FMXpsNUevfpZ0=
-X-Google-Smtp-Source: AHgI3IapZUnlqi4no9WRvm5/7XezzyrKNQyF4sNP/+6MDb54uC408MpLy5Zy+mPWebOamfta+s3RpbABv2OnEC+KBFg=
-X-Received: by 2002:aca:61c4:: with SMTP id v187mr4489191oib.122.1550637160135; 
- Tue, 19 Feb 2019 20:32:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44458z2jhkzDqFs
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 16:03:31 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1K4xHfS110352
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 00:03:28 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.114])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qrxrctyub-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Feb 2019 00:03:28 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Wed, 20 Feb 2019 05:03:27 -0000
+Received: from us1b3-smtp08.a3dr.sjc01.isc4sb.com (10.122.203.190)
+ by smtp.notes.na.collabserv.com (10.122.47.58) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 20 Feb 2019 05:03:25 -0000
+Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
+ by us1b3-smtp08.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2019022005032317-19057 ;
+ Wed, 20 Feb 2019 05:03:23 +0000 
+In-Reply-To: 
+Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
+ https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
+ Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
+ Code)-64800002 For eg. (Bengaluru - 080-64800002)
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Wed, 20 Feb 2019 05:03:22 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-References: <CAE33tLGC==CvoJLBV+jUnp=RiFph7wxa0q2o6ZfhrqaNMZtBCQ@mail.gmail.com>
- <1550097803.1007491.1657535928.051F6319@webmail.messagingengine.com>
- <CAE33tLG24aYDx0a7pbNCs8KU=ANT161JvT9c_iPpCQ44Lc5Fbg@mail.gmail.com>
- <1550186888.4139421.1658270160.5405B961@webmail.messagingengine.com>
- <CAE33tLHdxOpH8NsPv6xRLdymAisBsy0smwySkc=V=E6nz28fKQ@mail.gmail.com>
- <1550457918.2790490.1659886984.2F457972@webmail.messagingengine.com>
- <CAE33tLH4_f1tYAektG2GLUh47EFEYybwgcTKi1KP3UV3QuZPtQ@mail.gmail.com>
- <e44dbb70-8630-4bc0-9809-f24b6e9a3815@www.fastmail.com>
- <CAE33tLEdEsdZ+0NXvAuVeWP3145MvL5w=VZQp-_obQPBLSpDGw@mail.gmail.com>
- <7be5b88e-5a17-4f6f-b0dc-9120945a821c@www.fastmail.com>
-In-Reply-To: <7be5b88e-5a17-4f6f-b0dc-9120945a821c@www.fastmail.com>
-From: AKASH G J <akashgj91@gmail.com>
-Date: Wed, 20 Feb 2019 10:01:52 +0530
-Message-ID: <CAE33tLHidcVg74E2WVTZ-0i1pH4TfOQPVzB0n02ek3GyDeY-Zw@mail.gmail.com>
-Subject: Re: Unable to read or write from system SPI flash memory.
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000001b00e105824bd903"
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
+ SCN1812108_20180501T0841_FP26 January 03, 2019 at 15:20
+X-KeepSent: 0A2733B4:00FC4C19-002583A7:001BA5F5;
+ type=4; name=$KeepSent
+X-LLNOutbound: False
+X-Disclaimed: 2255
+X-TNEFEvaluated: 1
+x-cbid: 19022005-9695-0000-0000-000005913692
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.397008; ST=0; TS=0; UL=0; ISC=; MB=0.052257
+X-IBM-SpamModules-Versions: BY=3.00010629; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01163621; UDB=6.00607587; IPR=6.00944205; 
+ BA=6.00006235; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025664; XFM=3.00000015;
+ UTC=2019-02-20 05:03:26
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-02-19 10:38:48 - 6.00009605
+x-cbparentid: 19022005-9696-0000-0000-00003A7B5469
+Message-Id: <OF0A2733B4.00FC4C19-ON002583A7.001BA5F5-002583A7.001BC683@notes.na.collabserv.com>
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-20_04:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,290 +79,146 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Feb 2019 04:32:43 -0000
+X-List-Received-Date: Wed, 20 Feb 2019 05:03:31 -0000
 
---0000000000001b00e105824bd903
-Content-Type: text/plain; charset="UTF-8"
-
-Andrew, Sorry for the inconvenience.
-
-For flashing the kernel image, I used the command
-
-$
-*pflash -e -a 0 -f -p fitImage.bin*
-
-and for flashing root file system
-
-*$ pflash -e -a 8388608 -f -p obmc.rootfs.cpio.lzma.u-boot*
-
-After power-off I used the command* bootm 0x30000000 0x30800000 *in u-boot
-prompt.
-
-On Wed, Feb 20, 2019 at 4:52 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-
-> On Tue, 19 Feb 2019, at 14:53, AKASH G J wrote:
-> > I flashed OpenBMC image to system flash using pflash. After power-off,
-> > I tried to boot the BMC (Aspeed AST-2500) from the system flash. For
-> > that I used the command *bootm <system flash address>* in u-boot
-> > prompt. That gives error "no image found".
->
-> Akash, I can't help you any further if you do not give me the exact
-> commands
-> you are using to flash the system and verify your claims. For instance,
-> there's
-> no reason to abstract `<system flash address>` here and it's value is
-> actually
-> crucial to understanding what you are trying to do.
->
-> Please, literally copy and paste the output of your console into your
-> response.
-> Please do not edit it, do not type it out by hand, do not invent or
-> abstract the
-> commands that you're executing. Without that I'm going to leave it for
-> someone else to help.
->
-> That said, bootm expects a kernel image in memory, not the address of the
-> system flash. As far as I'm aware, if you're providing anything other than
-> the
-> kernel address it won't work. If you want to just start executing
-> instructions
-> at some random address, the `go` command is what you need:
->
-> ```
-> root@witherspoon:~# reboot -ff
-> Rebooting.[42291.288011] reboot: Restarting system
->
->
->
-> U-Boot 2016.07 (Feb 19 2019 - 10:48:12 +0000)
->
->        Watchdog enabled
-> DRAM:  496 MiB
-> Flash: 32 MiB
-> In:    serial
-> Out:   serial
-> Err:   serial
-> Net:   aspeednic#0
-> Hit any key to stop autoboot:  0
-> ast#
-> ast# help go
-> go - start application at address 'addr'
->
-> Usage:
-> go addr [arg ...]
->     - start application at address 'addr'
->       passing 'arg' as arguments
-> ast# go 0
-> ## Starting application at 0x00000000 ...
->
->
-> U-Boot 2016.07 (Feb 19 2019 - 10:48:12 +0000)
->
->        Watchdog enabled
-> DRAM:  496 MiB
-> Flash: 32 MiB
-> In:    serial
-> Out:   serial
-> Err:   serial
-> Net:   aspeednic#0
-> Hit any key to stop autoboot:  0
-> ast#
-> ```
->
->
-> Andrew
->
-> >
-> > On Tue, Feb 19, 2019 at 5:33 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-> > >
-> > >
-> > >  On Mon, 18 Feb 2019, at 15:04, AKASH G J wrote:
-> > >  > I wrote a bootable version of OpenBMC Linux image in system SPI
-> flash.
-> > >  >
-> > >  > I tried to boot it before power-off, it was successfully booted.
-> Then I
-> > >  > tried to boot the same, that time it was unsuccessful.
-> > >
-> > >  But you just said you flashed an OpenBMC image to the system flash.
-> > >  That's never going to work. You need the host firmware on the host
-> > >  flash to successfully boot the host, and OpenBMC is not the host
-> > >  firmware.
-> > >
-> > >  Am I understanding you correctly?
-> > >
-> > >  >
-> > >  > Do I need to make any change in the Linux device tree for resolving
-> this issue?
-> > >  >
-> > >  > On Mon, Feb 18, 2019 at 8:15 AM Andrew Jeffery <andrew@aj.id.au>
-> wrote:
-> > >  > >
-> > >  > >
-> > >  > > On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:
-> > >  > > > I just powered off the entire board. After that the data is not
-> present in
-> > >  > > > the SPI1 flash. But before power-off it was there.
-> > >  > >
-> > >  > > How were you verifying the data was there before the poweroff?
-> > >  > >
-> > >  > > >
-> > >  > > > We are using OpenBMC Linux version 4.18.7 and pflash v6.1
-> > >  > >
-> > >  > > Thanks for the versions. Should be handy as we dig deeper.
-> > >  > >
-> > >  >
-> > >
-> >
->
-
---0000000000001b00e105824bd903
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>An=
-drew, Sorry for the inconvenience.</div><div><br></div><div>For flashing th=
-e kernel image, I used the command</div><div><br></div><div>$ <i>pflash -e =
--a 0 -f -p fitImage.bin<br></i></div><div><i><br></i></div><div>and for fla=
-shing root file system</div><div><i><br></i></div><div><i>$ <i>pflash -e -a=
- <i>8388608</i> -f -p obmc.rootfs.cpio.lzma.u-boot</i></i></div><div><i><i>=
-<br></i></i></div><div><i><i> </i></i>After power-off I used the command<i>=
-<i> <i>bootm 0x30000000 0x30800000</i> </i></i>in u-boot prompt.</div></div=
-></div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D=
-"gmail_attr">On Wed, Feb 20, 2019 at 4:52 AM Andrew Jeffery &lt;<a href=3D"=
-mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt; wrote:<br></div><blockquote=
- class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px so=
-lid rgb(204,204,204);padding-left:1ex">On Tue, 19 Feb 2019, at 14:53, AKASH=
- G J wrote:<br>
-&gt; I flashed OpenBMC image to system flash using pflash. After power-off,=
- <br>
-&gt; I tried to boot the BMC (Aspeed AST-2500) from the system flash. For <=
-br>
-&gt; that I used the command *bootm &lt;system flash address&gt;* in u-boot=
- <br>
-&gt; prompt. That gives error &quot;no image found&quot;.<br>
-<br>
-Akash, I can&#39;t help you any further if you do not give me the exact com=
-mands<br>
-you are using to flash the system and verify your claims. For instance, the=
-re&#39;s<br>
-no reason to abstract `&lt;system flash address&gt;` here and it&#39;s valu=
-e is actually<br>
-crucial to understanding what you are trying to do.<br>
-<br>
-Please, literally copy and paste the output of your console into your respo=
-nse.<br>
-Please do not edit it, do not type it out by hand, do not invent or abstrac=
-t the<br>
-commands that you&#39;re executing. Without that I&#39;m going to leave it =
-for<br>
-someone else to help.<br>
-<br>
-That said, bootm expects a kernel image in memory, not the address of the<b=
-r>
-system flash. As far as I&#39;m aware, if you&#39;re providing anything oth=
-er than the<br>
-kernel address it won&#39;t work. If you want to just start executing instr=
-uctions<br>
-at some random address, the `go` command is what you need:<br>
-<br>
-```<br>
-root@witherspoon:~# reboot -ff<br>
-Rebooting.[42291.288011] reboot: Restarting system<br>
-<br>
-<br>
-<br>
-U-Boot 2016.07 (Feb 19 2019 - 10:48:12 +0000)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0Watchdog enabled<br>
-DRAM:=C2=A0 496 MiB<br>
-Flash: 32 MiB<br>
-In:=C2=A0 =C2=A0 serial<br>
-Out:=C2=A0 =C2=A0serial<br>
-Err:=C2=A0 =C2=A0serial<br>
-Net:=C2=A0 =C2=A0aspeednic#0<br>
-Hit any key to stop autoboot:=C2=A0 0<br>
-ast#<br>
-ast# help go<br>
-go - start application at address &#39;addr&#39;<br>
-<br>
-Usage:<br>
-go addr [arg ...]<br>
-=C2=A0 =C2=A0 - start application at address &#39;addr&#39;<br>
-=C2=A0 =C2=A0 =C2=A0 passing &#39;arg&#39; as arguments<br>
-ast# go 0<br>
-## Starting application at 0x00000000 ...<br>
-<br>
-<br>
-U-Boot 2016.07 (Feb 19 2019 - 10:48:12 +0000)<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0Watchdog enabled<br>
-DRAM:=C2=A0 496 MiB<br>
-Flash: 32 MiB<br>
-In:=C2=A0 =C2=A0 serial<br>
-Out:=C2=A0 =C2=A0serial<br>
-Err:=C2=A0 =C2=A0serial<br>
-Net:=C2=A0 =C2=A0aspeednic#0<br>
-Hit any key to stop autoboot:=C2=A0 0<br>
-ast#<br>
-```<br>
-<br>
-<br>
-Andrew<br>
-<br>
-&gt; <br>
-&gt; On Tue, Feb 19, 2019 at 5:33 AM Andrew Jeffery &lt;<a href=3D"mailto:a=
-ndrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
-&gt; &gt; <br>
-&gt; &gt;=C2=A0 <br>
-&gt; &gt;=C2=A0 On Mon, 18 Feb 2019, at 15:04, AKASH G J wrote:<br>
-&gt; &gt;=C2=A0 &gt; I wrote a bootable version of OpenBMC Linux image in s=
-ystem SPI flash. <br>
-&gt; &gt;=C2=A0 &gt; <br>
-&gt; &gt;=C2=A0 &gt; I tried to boot it before power-off, it was successful=
-ly booted. Then I <br>
-&gt; &gt;=C2=A0 &gt; tried to boot the same, that time it was unsuccessful.=
-<br>
-&gt; &gt;=C2=A0 <br>
-&gt; &gt;=C2=A0 But you just said you flashed an OpenBMC image to the syste=
-m flash. <br>
-&gt; &gt;=C2=A0 That&#39;s never going to work. You need the host firmware =
-on the host<br>
-&gt; &gt;=C2=A0 flash to successfully boot the host, and OpenBMC is not the=
- host<br>
-&gt; &gt;=C2=A0 firmware.<br>
-&gt; &gt;=C2=A0 <br>
-&gt; &gt;=C2=A0 Am I understanding you correctly?<br>
-&gt; &gt;=C2=A0 <br>
-&gt; &gt;=C2=A0 &gt; <br>
-&gt; &gt;=C2=A0 &gt; Do I need to make any change in the Linux device tree =
-for resolving this issue?<br>
-&gt; &gt;=C2=A0 &gt; <br>
-&gt; &gt;=C2=A0 &gt; On Mon, Feb 18, 2019 at 8:15 AM Andrew Jeffery &lt;<a =
-href=3D"mailto:andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; w=
-rote:<br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; On Fri, 15 Feb 2019, at 16:03, AKASH G J wrote:<b=
-r>
-&gt; &gt;=C2=A0 &gt; &gt; &gt; I just powered off the entire board. After t=
-hat the data is not present in<br>
-&gt; &gt;=C2=A0 &gt; &gt; &gt; the SPI1 flash. But before power-off it was =
-there.<br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; How were you verifying the data was there before =
-the poweroff?<br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; &gt; We are using OpenBMC Linux version 4.18.7 an=
-d pflash v6.1<br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt; &gt; Thanks for the versions. Should be handy as we di=
-g deeper.<br>
-&gt; &gt;=C2=A0 &gt; &gt; <br>
-&gt; &gt;=C2=A0 &gt;<br>
-&gt; &gt;=C2=A0 <br>
-&gt;<br>
-</blockquote></div>
-
---0000000000001b00e105824bd903--
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Just a reminder tomorrow, we have test community meeting.=
+</div>
+<div dir=3D"ltr" >Pls feel free to add agenda at <a href=3D"https://github.=
+com/openbmc/openbmc/wiki/Test-work-group" >https://github.com/openbmc/openb=
+mc/wiki/Test-work-group</a></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >With regards,</div>
+<div dir=3D"ltr" >Sivas</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
+ dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
+<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
+Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
+ 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
+" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
+t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
+ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
+- 080-64800002)</h2></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
+Sivas Srr/India/IBM</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
+o: </span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
+span></div></div></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
+" >Comments from Sivas Srr:</span></div></div>
+<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
+rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
+ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
+pan>Thu, Feb 21, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
+ine-block" >(applies to 24 instances)</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
+</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
+8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
+scode: 928 662 307</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
+n></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
+/span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
+ting name: </span> <span>OpenBMC Test Group meeting </span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
+ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
+: </span> <span>928 662 307</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
+</span> <span>sivas</span></div></div>
+<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
+17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
+top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
+10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
+pan></div>
+<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
+pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
+bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
+m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
+Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
+chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
+ia/IBM, yuenn@google.com</span></div></div>
+<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
+ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
+: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
+ont-weight: bold" >Optional: </span></div>
+<div>&nbsp;</div></div>
+<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
+lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
+ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
+eight: bold" >FYI: </span></div>
+<div>&nbsp;</div></div></div>
+<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
+ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
+n: left; color: #666;" >Description:</span></div>
+<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
+ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
+ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
+t></span></div>
+<div>&nbsp;</div>
+<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
+elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
+rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
+dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
+ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
+</font></font></font></font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
+ you wants to update the agenda. </font></font></font></font></font></span>=
+</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
+bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
+penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
+/font></span></div></div>
+<div>&nbsp;</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
+enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
+hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
+github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
+ >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
+</span>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
+.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
+"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
+CI/view?usp=3Dsharing</a></font></span></p>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
+le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
+it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
+in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
+heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
+target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
+Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Quality at the first place: Unit test results needed at th=
+e time of gerrit code review</font></span></div>
+<div>&nbsp;</div></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
+ owner</font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
+ Intel going to sign on this. ?</font></span></div></div></div></div></div>=
+</div></div></div></div></blockquote></div><BR>
