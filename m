@@ -1,78 +1,52 @@
-Return-Path: <gmills@linux.vnet.ibm.com>
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::b32; helo=mail-yb1-xb32.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LsM0kQGp"; 
+ dkim-atps=neutral
+Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
+ [IPv6:2607:f8b0:4864:20::b32])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4454Yl4xnlzDq5Y
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 06:39:54 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1LJSjOw009204
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 14:39:52 -0500
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qt11jbj4b-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 14:39:51 -0500
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
- Thu, 21 Feb 2019 19:39:51 -0000
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 21 Feb 2019 19:39:49 -0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1LJdm4Y17301610
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 21 Feb 2019 19:39:48 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3AB04AC05E;
- Thu, 21 Feb 2019 19:39:48 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 164C4AC05F;
- Thu, 21 Feb 2019 19:39:48 +0000 (GMT)
-Received: from [9.10.100.31] (unknown [9.10.100.31])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 21 Feb 2019 19:39:47 +0000 (GMT)
-Subject: Re: Problem with license text file
-To: susan jasinski <susantjasinski@gmail.com>, openbmc@lists.ozlabs.org
-References: <CANT4Nr+t_s2FAov9X=0HNOqW1MfwDS6uG4ZmdvxnLUr+QO3uNg@mail.gmail.com>
-From: Gunnar Mills <gmills@linux.vnet.ibm.com>
-Date: Thu, 21 Feb 2019 13:39:49 -0600
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4457Pr6mlszDqSK
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 08:48:16 +1100 (AEDT)
+Received: by mail-yb1-xb32.google.com with SMTP id f5so62479ybf.3
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 13:48:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=QFXOgC/gQgqUpTV9IwMt9Aq0GgNo/RxAwF08audBr5I=;
+ b=LsM0kQGpArYzVuHZnyKzGQenFxR5PnLBbaUhrNwwOLOX7Ov0eh7vPZIdiObaBUEDGC
+ Qa6F+U03KdTEHBtRkIe9A0UMK6RI0PB03KqlbSjYSWLPFYZHUpX63TJFGXF/upbUX4Nu
+ T4EXCvvWPcU2W1aJyo8IjHNsKEUcSjEyQd6V0XUkJ5ki3K8JyB9SCHAmOvYIYVDvwJs/
+ p2c9RNkwOaVbhXZfdR8CIQ7undOoEt1u2EJeB4lDyMbycKcZc2YX1TtvOVqRddY0zYl8
+ jLKswCu7jKSX91ZjrqAQYHZQOSSPVrLx5hQzno0PlcOtwxa6NWMR9Ew/yHkC3RE+WY5p
+ dshw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=QFXOgC/gQgqUpTV9IwMt9Aq0GgNo/RxAwF08audBr5I=;
+ b=T1mfYb8au2G+Ce8ZbbPOD0x3exLTX1ebOU2NjswQOr/tfEqLARIudjLhMvsRFzJXxp
+ qHc60GcJDizrukmh0Bo26OKNq2iy0euUTywHlreEwJ84gvsqRye9D/a6cHHsc8iJbO5g
+ idQ2Q5MT0lgs5dIDLLsy2PGtzpJQTqYJX/4TqqY2zYLfw0BdDbn73Dmdjmkd/5a/tcHC
+ 5BDXDc60lQvi083PiV2jenAKg354shLJ+qR6MASICquPm6nPtLX8MNjpB2GUruOGyq74
+ XWILWpHiu3+dwK4hmqtpfdPqU6bXVQ1MQ2Q+Qt6lllpWlAJDnyJlKHTYXV2siKFHjk0l
+ e2iw==
+X-Gm-Message-State: AHQUAuYR+AC6KvyXBR2TBIJPKl0E6qcj8INDO50VdVMQze2u2SaC9QmH
+ dugKtx2GCiirbwodadQXaKUjEyiBhBaNPFMF+8A5wy+q
+X-Google-Smtp-Source: AHgI3IZtPUTVTPHt3F6MOqgxUe5daQmsBYY1Kn/HXQDLaULCzqhCIqs6/POnA8sF//7BPcUghkzK/zkeX4rwJQsSEGo=
+X-Received: by 2002:a25:6e8b:: with SMTP id j133mr645741ybc.220.1550785693679; 
+ Thu, 21 Feb 2019 13:48:13 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <CANT4Nr+t_s2FAov9X=0HNOqW1MfwDS6uG4ZmdvxnLUr+QO3uNg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19022119-0068-0000-0000-00000397819B
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010639; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01164390; UDB=6.00608050; IPR=6.00944975; 
- MB=3.00025684; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-21 19:39:50
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19022119-0069-0000-0000-00004795918D
-Message-Id: <acb0a1e2-5641-5d23-20a5-38a23cdf62e4@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-21_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902210135
+From: ja az <jandraara@gmail.com>
+Date: Thu, 21 Feb 2019 15:48:02 -0600
+Message-ID: <CAMTupoQWY3tcTi1K=gu72UwvWPdufksO7AgKcmofB_KjKS27HA@mail.gmail.com>
+Subject: UI Feedback Session - Network Settings
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,28 +58,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Feb 2019 19:39:56 -0000
+X-List-Received-Date: Thu, 21 Feb 2019 21:48:18 -0000
 
+Team,
 
-On 2/21/2019 11:55 AM, susan jasinski wrote:
-> While talking with our layer today about the OpenBMC Apache license,
-> we were not able to open the open-bmc license file in GitHub. Will
-> someone please look at that file to see if there is a problem that
-> needs to be fixed?
+There was a desire to discuss the Network settings designs presented
+yesterday during the demo. I have set a meeting for next week to
+discuss that, and welcome you all to join. In the mean time, please
+review the designs in InVision and make comments where you want to
+provide feedback. That is the best and fastest way for the design team
+to get and incorporate feedback into our designs.
 
-What license file? Which repo? openbmc/openbmc?
-The openbmc/openbmc LICENSE points at poky/LICENSE.
+Meeting info:
+Tuesday Feb 26 at 7:00 AM CST
+https://ibm.webex.com/meet/jandra.aranguren
+United States of America Toll +1-669-234-1178  Access Code: 927 646 009
 
-$ ls -l  openbmc/LICENSE
-lrwxrwxrwx 1 gmills gmills 12 Aug 23 14:29 openbmc/LICENSE -> poky/LICENSE
+Network Settings:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN
+- Is the relationship between VLAN and interfaces correct?
+- Are adding a DNS server and adding an IP address separate actions
+with a single intention or are they independent of each other?
+- Is there a use case for combining static and dynamic IP Addresses /
+DNS Servers?
 
-https://github.com/openbmc/openbmc/blob/master/poky/LICENSE
+github issue:
+https://github.com/openbmc/phosphor-webui/issues/62
 
-All the other repos have their own licenses, mostly Apache-2.0.
-
-> Feel free to DM me if you don't find the same issue.
-
-I would strongly discourage direct message on problems sent to the 
-mailing list, then we have no idea if this problem has been resolved. :)
-
-- Gunnar
+Best,
+Jandra Aranguren
