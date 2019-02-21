@@ -1,72 +1,46 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <prvs=948077aa3=Will.Liang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=948077aa3=will.liang@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="AON+OG08"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="0J6Dq4Ll"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 444gd95GfczDqLM
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 14:56:29 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 2F4F422F5B;
- Wed, 20 Feb 2019 22:56:26 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Wed, 20 Feb 2019 22:56:26 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type; s=fm2; bh=j8FdIrAFWcXqUn/Sy0BN6+U4J4QPbj0m/ky+q/D
- SkiI=; b=AON+OG08UkBNp/xAyw21D5ZZgljsaKU2v3ztADwWOQYnmGZAt0KVSvQ
- SMAGiAWfd2nT8uf4ZD9Ve27KV9zxQ1M8nJZ+nEb3/X4A7lUXVsHiD8Z4Kd5/0D3e
- V4HiSH5nG+wXNGnxy80yARQCJ2SGDnf1fECJIFnhC5+iCuXdDynH+gmHJ1qfT7QU
- vmwqf1dX+wHiNhN6OV7ttK/7bv3qXkOibDHw0iubtmmE+EoTMFhDncojodwckg8i
- OzYrm0jUjOavZD55CIUqbhL1Vd/S7J07dqySA77t7MALHGsM2SvoQ/VT2C8+fhs4
- 3ARYiyDrfnR0qUThsbp8d+XGV+2OOJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=j8FdIrAFWcXqUn/Sy
- 0BN6+U4J4QPbj0m/ky+q/DSkiI=; b=0J6Dq4LlTvQocsTN3wl9cIHlZaOzRHWW9
- qJlk1zcPanm0SATtbe7Nr7+SqJw0VGLysniyoDfde1OnTsz8TdpSiaZ9Rc+p5dHP
- P6SmWmackyfP7d6PpHbjxHBwPIDU2r3euXpB/3L2OpY1jaycTwf6mmllCiBFO8Ef
- 0to31bdPN378BNbIYZeaNnjxBNqHc37mEX39JG5lrya+iyzsR6De6K3E89NV/6qA
- JvzXUja9EVOzz0C26YYIZTs70qtDXHb07kc5RdOHqSDjTBfJm0Z/CGtetMpzp8xb
- 87lYNcGH4Ute+lrYHfw2n10ST8yTbSWhSEgeBRqhVE6pkel1DKH+g==
-X-ME-Sender: <xms:aSFuXIJihK0_LFNdhSDoeQIiDeyuPEX8qvymnDhhCAzhNYjsOatCGQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrtdejgdeiheculddtuddrgedtledrtddtmd
- cutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
- hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
- ufhiiigvpedt
-X-ME-Proxy: <xmx:aSFuXMZZsStynjQVvXs0-O0RBqTpvhFijLf7VGKi5hHBKhw59xwjZA>
- <xmx:aSFuXMQQBGrIHSKq1W1X1BwvgLPiJNaAZXZBQxCsBzMVmsMbrEIJUg>
- <xmx:aSFuXEhMp49hAfQUlKubVCZpMWs51OudKlb8d3Q9PhQILh6kCeqLMA>
- <xmx:aiFuXPianX4VUm2NpFVTtK8nRHXTgl3rZMihdFPITlxwOTFNQGqaqA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 537AB7C1EB; Wed, 20 Feb 2019 22:56:25 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
-X-Me-Personality: 52947553
-Message-Id: <16fc4075-fd43-4d3a-b0be-1e2239e8085e@www.fastmail.com>
-In-Reply-To: <24741baf-40ba-31c9-98e4-f229c4df7323@linux.vnet.ibm.com>
-References: <011d0902-7189-4562-86d3-f50e7f249e12@www.fastmail.com>
- <24741baf-40ba-31c9-98e4-f229c4df7323@linux.vnet.ibm.com>
-Date: Wed, 20 Feb 2019 22:56:24 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org, "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
- "Gunnar Mills" <gmills@linux.vnet.ibm.com>
-Subject: Re: Repository for CVE-2019-6260 test tool
-Content-Type: text/plain
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 670 seconds by postgrey-1.36 at bilbo;
+ Thu, 21 Feb 2019 17:36:54 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 444lBG6kh2zDqFG
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 17:36:53 +1100 (AEDT)
+Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
+ by mx01.quantatw.com with ESMTP; 21 Feb 2019 14:25:39 +0800
+Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
+ (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Thu, 21 Feb
+ 2019 14:25:38 +0800
+Received: from mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381]) by
+ mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381%11]) with mapi id
+ 15.01.1531.004; Thu, 21 Feb 2019 14:25:38 +0800
+From: =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: ECC memory of BMC  
+Thread-Topic: ECC memory of BMC  
+Thread-Index: AQHUya1p/FCQCnvcCUCqyg3eXim5ww==
+Date: Thu, 21 Feb 2019 06:25:38 +0000
+Message-ID: <88e05768447d466ca674e12e20c650dc@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24442.002
+x-tm-as-result: No--1.106900-0.000000-31
+x-tm-as-matchedid: 140026-111600-111604-300151-705718-701827-702638-111605-7
+ 00074-700264-700732-700345-700450-188116-702898-709584-700752-702050-701450
+ -188092-148004-148054-10019-22561-30057-42000-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: multipart/alternative;
+ boundary="_000_88e05768447d466ca674e12e20c650dcquantatwcom_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,21 +52,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Feb 2019 03:56:33 -0000
+X-List-Received-Date: Thu, 21 Feb 2019 06:36:56 -0000
 
+--_000_88e05768447d466ca674e12e20c650dcquantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
+SGksDQoNCg0Kd2UgYXJlIHRyeWluZyB0byBlbmFibGUgRUNDIG9uIEJNQyBtZW1vcnkuDQoNCmlz
+IHRoZXJlIGFueSBleGlzdCBzb2x1dGlvbiBvbiBCTUM/DQoNCndlIGNhbiBhbHNvIHNoYXJlIG91
+ciBwcm9wb3NhbCB0byByZXZpZXcgaWYgdGhlcmUgd2FzIGFueW9uZSBpbnRlcmVzdGVkIGluIGl0
+Lg0KDQoNCkJScywNCg0KV2lsbA0K
 
-On Thu, 21 Feb 2019, at 14:10, Gunnar Mills wrote:
-> On 2/20/2019 8:42 PM, Andrew Jeffery wrote: 
-> 
->   Can you please create a cve-2019-6260 repository under the OpenBMC 
-> github organisation to host the tool?
-> >   
-> Why a new cve-2019-6260 repo instead of openbmc-tools?
+--_000_88e05768447d466ca674e12e20c650dcquantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-No really good reason, just felt it was well defined enough to not get lumped
-in with everything else in the openbmc-tools repo. openbmc-tools was
-intended as a home for ill-defined scripts and bits that people had lying
-around that they wouldn't have otherwise published.
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p>Hi,</p>
+<p><br>
+</p>
+<p><span>we are trying to enable ECC on BMC memory.</span><br>
+</p>
+<p>is there any exist solution on BMC?</p>
+<p><span>we can also share our proposal to review </span><span>if&nbsp;ther=
+e was&nbsp;anyone&nbsp;interested&nbsp;in it.</span></p>
+<p><span><br>
+</span></p>
+<p><span>BRs,<br>
+</span></p>
+<p><span>Will<br>
+</span></p>
+</div>
+</body>
+</html>
 
-Andrew
+--_000_88e05768447d466ca674e12e20c650dcquantatwcom_--
