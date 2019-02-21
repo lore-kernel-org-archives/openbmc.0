@@ -1,39 +1,65 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4451Vy6rQXzDqQW
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 04:22:18 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 21 Feb 2019 09:22:15 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,396,1544515200"; d="scan'208";a="276817855"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga004.jf.intel.com with ESMTP; 21 Feb 2019 09:22:15 -0800
-Subject: Re: obmc-ikvm host OS console mode issue
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- Eddie James <eajames@linux.vnet.ibm.com>
-References: <tencent_601B7E351099FC4A291EA922@qq.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <2648d3de-e949-3eee-c2be-cd8e119d4c7c@linux.intel.com>
-Date: Thu, 21 Feb 2019 09:22:15 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
-MIME-Version: 1.0
-In-Reply-To: <tencent_601B7E351099FC4A291EA922@qq.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.14; helo=cpsmtpb-ews09.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="ibUqLQk+"; 
+ dkim-atps=neutral
+Received: from cpsmtpb-ews09.kpnxchange.com (cpsmtpb-ews09.kpnxchange.com
+ [213.75.39.14])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4451bR4dd8zDqD8
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 04:26:10 +1100 (AEDT)
+Received: from cpsps-ews10.kpnxchange.com ([10.94.84.177]) by
+ cpsmtpb-ews09.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Thu, 21 Feb 2019 18:26:04 +0100
+X-Brand: /q/rzKX13g==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=P9LreRIu c=1 sm=1 tr=0
+ a=2ogvC8Id7dqQrJ8F/yAB5g==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
+ a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10 a=xqWC_Br6kY4A:10
+ a=CFTnQlWoA9kA:10 a=a6E6v4z86zQ9wxqfOIUA:9 a=QEXdDO2ut3YA:10
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from CPSMTPM-CMT102.kpnxchange.com ([195.121.3.18]) by
+ cpsps-ews10.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
+ Thu, 21 Feb 2019 18:26:05 +0100
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
+ c=relaxed/relaxed; t=1550769965;
+ h=mime-version:date:message-id:subject:from:to:content-type;
+ bh=45EXzz9ksebi8d3NocQKSz4yxqs7NfflDvYG8SEthis=;
+ b=ibUqLQk+l2/bv8sH3W8Xvyqed7FzNkcjr4N1bALzeU57Im6q6wDRokQoEB8ebIBgLMlRAn+zssE
+ 1vZ2/3MzwTFuhLZtGAN7btLNggBCOUMMa53ag2kJYimXZB8w7Txbx0uCYiIsOU/M56H6alYUAWSm8
+ bpQ1xvhvtz3gfo/QB8g=
+Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
+ CPSMTPM-CMT102.kpnxchange.com over TLS secured channel with Microsoft
+ SMTPSVC(8.5.9600.16384); Thu, 21 Feb 2019 18:26:05 +0100
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 21 Feb
+ 2019 18:25:22 +0100
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Thu, 21 Feb 2019 18:25:16 +0100
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Adding items to the inventory
+Thread-Topic: Adding items to the inventory
+Thread-Index: AdTKCdILjkUvAIbPQJiwb2C0caqZVg==
+Date: Thu, 21 Feb 2019 17:25:15 +0000
+Message-ID: <f1fde8eb21f147188daa49e949ebd12e@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+MIME-Version: 1.0
+X-OriginalArrivalTime: 21 Feb 2019 17:26:05.0259 (UTC)
+ FILETIME=[8651F9B0:01D4CA0A]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,106 +71,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Feb 2019 17:22:19 -0000
+X-List-Received-Date: Thu, 21 Feb 2019 17:26:14 -0000
 
-Hi xuizhi,
-
-Virtual terminal also works. I used 'sudo chvt 2' instead of using
-'Ctrl+Alt+F2' because I couldn't send the hot key through webui kvm.
-Also, instead of clicking the 'refresh' button, I changed web page
-to the 'Server overview' page and changed it back to
-'Server control -> KVM' page. It works well.
-
-IMHO, you might want check the 'refresh' button handling logic in
-webui implementation. Actually, the 'refresh' button is for system
-info update, not for kvm screen update, anyways.
-
-Cheers,
-Jae
-
-
-On 2/20/2019 10:27 PM, xiuzhi wrote:
-> Hi Joe,
->        It did work on EFI BIOS shell mode and OS GUI mode as your 
-> screenshots.  It will fail on host OS console mode.
-> Please press "Ctrl+Alt+F2" to switch to OS console as the attachment 
-> screenshot , then click the "Refresh" button, the issue will be reproduced.
->     I updated the source  
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/18583/
->    The ikvm window is black screen when the host OS screen start 
-> dormancy or no LCD monitor device available .
->    My BMC hardware is Ast2500.
-> Hi xiuzhi,
-> I tested it and checked that kvm through websocket works on both text
-> mode and gui mode of the host. Please find captured image I'm attaching.
-> 
-> As you experienced, current kvm implementation is a bit unstable.
-> In case it doesn't work, restart 'start-ipkvm' service and try again.
-> 
-> # systemctl stop start-ipkvm
-> # systemctl start start-ipkvm
-> 
-> If the issue is relating to the host wake-up event, please try this:
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/18583/
-> 
-> Since it still needs lots of improvement, your debugging and
-> contribution on this kvm function would be very appreciated.
-> 
-> Thanks,
-> Jae
-> 
-> 
-> On 2/19/2019 6:01 PM, xiuzhi wrote:
->  > Hi Jae,
->  >     The issue can be reproduced by the following cases:
->  > 1) the ikvm engine driver is from
->  > https://lists.ozlabs.org/pipermail/openbmc/2019-January/014523.html
->  > 2) ikvm handler patch is from:
->  > 
-> https://github.com/Nuvoton-Israel/openbmc/blob/master/meta-evb/meta-evb-nuvoton/meta-evb-npcm750/recipes-phosphor/interfaces/phosphor-rest/0001-add-kvm-handler.patch
->  > 3) webui is from
->  > https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/
->  >
->  > Case1, Start the host OS to GUI mode, click the "refresh" Button on
->  > https://xxx.xxx.xxx.xxx/#/kvm page.
->  >
->  > Case2,  switch hostOS to console mode, click the "refresh" Button on
->  > https://xxx.xxx.xxx.xxx/#/kvm page.
->  >
->  > 1,Using obmc-ikvm commit 7dfac9ff2d1569aedf83175fb0427562c2188e63
->  > case1 is OK
->  > case2 refresh page fail, can not get the host screen.
->  >
->  > 2,Using obmc-ikvm commit
->  >   b9c253dca682d01e076ec6240ade2db151aec81a
->  > case1 is OK
->  > case2 is OK
->  >
->  > Best,
->  > xiuzhi
->  > ------------------ Original ------------------
->  > *From: * "jae.hyun.yoo";<jae.hyun.yoo@linux.intel.com>;
->  > *Date: * Feb 20, 2019
->  > *To: * "xiuzhi"<1450335857@qq.com>; "openbmc"<openbmc@lists.ozlabs.org>;
->  > *Subject: * Re: obmc-ikvm host OS console mode issue
->  >
->  > Hi xiuzhi,
->  >
->  > I don't think the commit causes the issue. Check aspeed-video driver
->  > module in kernel that what happens on video mode change events.
->  >
->  > Cheers,
->  > Jae
->  >
->  > On 2/19/2019 12:26 AM, xiuzhi wrote:
->  >  > Hi Jae,
->  >  >     I updated the obmc-ikvm commit
->  > 7dfac9ff2d1569aedf83175fb0427562c2188e63
->  >  >   It caused one issue:
->  >  > The ikvm only works on linux OS GUI mode,
->  >  > When I switch to os console mode, the ikvm can't get the host screen.
->  >  > Please check you commit.
->  >  >
->  >  > Best,
->  >  > xiuzhi
-> 
+SGVsbG8sDQoNCldlIGFyZSB0cnlpbmcgdG8gYWRkIGl0ZW1zIHRvIHRoZSBpbnZlbnRvcnkuDQoN
+ClNvIGZhciB3ZSBoYXZlbid0IGJlZW4gYWJsZSB0byBnZXQgdGhpcyB3b3JraW5nLiBBbGwgd2Ug
+c2VlIGlzIHRoZSBzeXN0ZW0gaXRlbS4NCg0KV2Ugbm90aWNlZCBzb21lIGNvZGUgaXMgYWRkaW5n
+IHN0YXRpYyBpdGVtcyBmcm9tIHRoZSAiYm9hcmRfbmFtZSIucHkuIElmIHdlIHRyeSB0byBkbyB0
+aGlzIG5vdGhpbmcgc2hvd3MgdXAuDQoNCldlJ3ZlIGJhc2VkIG91ciBjb2RlIG9uIHRoZSBJbnRl
+bCBTMjYwMFdGIGltcGxlbWVudGF0aW9uLg0KDQpBdCB0aGlzIHBvaW50IHdlIGRvbid0IGhhdmUg
+RUVQUk9NcyBjb25uZWN0ZWQgdG8gdGhlIEJNQyBzbyBldmVuIGFkZGluZyBzdGF0aWMgaXRlbXMg
+d291bGQgYmUgYW4gaW1wcm92ZW1lbnQuDQoNCklzIHRoZSB3YXkgdG8gaGFuZGxlIHRoaXMgZG9j
+dW1lbnRlZCBzb21ld2hlcmU/DQoNCkJlc3QgcmVnYXJkcywNCg0KV2ltIFZlcnZvb3JuDQogICAg
+DQoNCg==
