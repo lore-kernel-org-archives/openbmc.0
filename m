@@ -1,41 +1,38 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445d7X4kJSzDqSj
- for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 04:07:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445dKv36N6zDqDW
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 04:16:34 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2019 09:07:33 -0800
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 22 Feb 2019 09:16:32 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,400,1544515200"; d="scan'208";a="117035555"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga007.jf.intel.com with ESMTP; 22 Feb 2019 09:07:33 -0800
-Subject: Re: obmc-ikvm host OS console mode issue
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- Eddie James <eajames@linux.vnet.ibm.com>
-References: <tencent_601B7E351099FC4A291EA922@qq.com>
- <2648d3de-e949-3eee-c2be-cd8e119d4c7c@linux.intel.com>
- <tencent_67F229E84D938D9265BEC618@qq.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <3fc3e83d-b297-c2a9-aeed-01783c79c982@linux.intel.com>
-Date: Fri, 22 Feb 2019 09:07:33 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+X-IronPort-AV: E=Sophos;i="5.58,400,1544515200"; d="scan'208";a="146489008"
+Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
+ by fmsmga004.fm.intel.com with ESMTP; 22 Feb 2019 09:16:32 -0800
+Subject: Re: Redfish: Network test findings
+To: openbmc@lists.ozlabs.org
+References: <OF53FC2776.6CFC8561-ON002583A9.00391CD8-652583A9.003ABCA8@LocalDomain>
+ <OF3C14C139.B5348C62-ON002583A9.00475679-652583A9.005AF2E2@notes.na.collabserv.com>
+From: Ed Tanous <ed.tanous@intel.com>
+Message-ID: <f53bcaf6-bb52-963e-bb7c-eb58b1ac6561@intel.com>
+Date: Fri, 22 Feb 2019 09:16:32 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-In-Reply-To: <tencent_67F229E84D938D9265BEC618@qq.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <OF3C14C139.B5348C62-ON002583A9.00475679-652583A9.005AF2E2@notes.na.collabserv.com>
+Content-Type: text/plain; charset=windows-1252
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -47,125 +44,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 17:07:37 -0000
-
-Hi xuizhi,
-
-I pinned libvncserver at commit aa8a1aa76880ffb8f23b98d0dbe35988b2609877
-
-Best,
-Jae
+X-List-Received-Date: Fri, 22 Feb 2019 17:16:36 -0000
 
 
-On 2/21/2019 7:01 PM, xiuzhi wrote:
-> Hi Jae,
->    I am afraid that this "Refresh" issue is related to the libvncserver.
->    Would you like to tell me your libnvcserver commit number?
-> Best,
-> xiuzhi
+
+On 2/22/19 8:33 AM, Prashanth Katti1 wrote:
+> Hi Ed Tanous,
 > 
-> Hi xuizhi,
+> Here are the finding on Network test for bmcweb.
+> .
+> Could you look into the following issues and let us know.
 > 
-> Virtual terminal also works. I used 'sudo chvt 2' instead of using
-> 'Ctrl+Alt+F2' because I couldn't send the hot key through webui kvm.
-> Also, instead of clicking the 'refresh' button, I changed web page
-> to the 'Server overview' page and changed it back to
-> 'Server control -> KVM' page. It works well.
-> 
-> IMHO, you might want check the 'refresh' button handling logic in
-> webui implementation. Actually, the 'refresh' button is for system
-> info update, not for kvm screen update, anyways.
-> 
-> Cheers,
-> Jae
-> 
-> 
-> On 2/20/2019 10:27 PM, xiuzhi wrote:
->  > Hi Joe,
->  >        It did work on EFI BIOS shell mode and OS GUI mode as your
->  > screenshots.  It will fail on host OS console mode.
->  > Please press "Ctrl+Alt+F2" to switch to OS console as the attachment
->  > screenshot , then click the "Refresh" button, the issue will be 
-> reproduced.
->  >     I updated the source
->  > https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/18583/
->  >    The ikvm window is black screen when the host OS screen start
->  > dormancy or no LCD monitor device available .
->  >    My BMC hardware is Ast2500.
->  > Hi xiuzhi,
->  > I tested it and checked that kvm through websocket works on both text
->  > mode and gui mode of the host. Please find captured image I'm attaching.
->  >
->  > As you experienced, current kvm implementation is a bit unstable.
->  > In case it doesn't work, restart 'start-ipkvm' service and try again.
->  >
->  > # systemctl stop start-ipkvm
->  > # systemctl start start-ipkvm
->  >
->  > If the issue is relating to the host wake-up event, please try this:
->  > https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/18583/
->  >
->  > Since it still needs lots of improvement, your debugging and
->  > contribution on this kvm function would be very appreciated.
->  >
->  > Thanks,
->  > Jae
->  >
->  >
->  > On 2/19/2019 6:01 PM, xiuzhi wrote:
->  >  > Hi Jae,
->  >  >     The issue can be reproduced by the following cases:
->  >  > 1) the ikvm engine driver is from
->  >  > https://lists.ozlabs.org/pipermail/openbmc/2019-January/014523.html
->  >  > 2) ikvm handler patch is from:
->  >  >
->  > 
-> https://github.com/Nuvoton-Israel/openbmc/blob/master/meta-evb/meta-evb-nuvoton/meta-evb-npcm750/recipes-phosphor/interfaces/phosphor-rest/0001-add-kvm-handler.patch
->  >  > 3) webui is from
->  >  > https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/
->  >  >
->  >  > Case1, Start the host OS to GUI mode, click the "refresh" Button on
->  >  > https://xxx.xxx.xxx.xxx/#/kvm page.
->  >  >
->  >  > Case2,  switch hostOS to console mode, click the "refresh" Button on
->  >  > https://xxx.xxx.xxx.xxx/#/kvm page.
->  >  >
->  >  > 1,Using obmc-ikvm commit 7dfac9ff2d1569aedf83175fb0427562c2188e63
->  >  > case1 is OK
->  >  > case2 refresh page fail, can not get the host screen.
->  >  >
->  >  > 2,Using obmc-ikvm commit
->  >  >   b9c253dca682d01e076ec6240ade2db151aec81a
->  >  > case1 is OK
->  >  > case2 is OK
->  >  >
->  >  > Best,
->  >  > xiuzhi
->  >  > ------------------ Original ------------------
->  >  > *From: * "jae.hyun.yoo";<jae.hyun.yoo@linux.intel.com>;
->  >  > *Date: * Feb 20, 2019
->  >  > *To: * "xiuzhi"<1450335857@qq.com>; 
-> "openbmc"<openbmc@lists.ozlabs.org>;
->  >  > *Subject: * Re: obmc-ikvm host OS console mode issue
->  >  >
->  >  > Hi xiuzhi,
->  >  >
->  >  > I don't think the commit causes the issue. Check aspeed-video driver
->  >  > module in kernel that what happens on video mode change events.
->  >  >
->  >  > Cheers,
->  >  > Jae
->  >  >
->  >  > On 2/19/2019 12:26 AM, xiuzhi wrote:
->  >  >  > Hi Jae,
->  >  >  >     I updated the obmc-ikvm commit
->  >  > 7dfac9ff2d1569aedf83175fb0427562c2188e63
->  >  >  >   It caused one issue:
->  >  >  > The ikvm only works on linux OS GUI mode,
->  >  >  > When I switch to os console mode, the ikvm can't get the host 
-> screen.
->  >  >  > Please check you commit.
->  >  >  >
->  >  >  > Best,
->  >  >  > xiuzhi
->  >
+
+I'm happy to review any patches that resolve some, or all of these.
+Based on the titles, a lot of these look like enhancement requests for
+parameters that aren't currently implemented, or misunderstandings about
+how Redfish error codes work.
+
+If you have some initial triage done to identify the failure modes on
+these, that would help a lot to get them resolved quickly.  If you need
+any specific background to help triage, I'm almost always on IRC (and
+obviously this list).
+
+-Ed
