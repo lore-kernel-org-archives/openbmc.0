@@ -1,52 +1,77 @@
-Return-Path: <jandraara@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::b32; helo=mail-yb1-xb32.google.com;
- envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LsM0kQGp"; 
- dkim-atps=neutral
-Received: from mail-yb1-xb32.google.com (mail-yb1-xb32.google.com
- [IPv6:2607:f8b0:4864:20::b32])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="C+dUGI8z"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="VdE30+wn"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4457Pr6mlszDqSK
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 08:48:16 +1100 (AEDT)
-Received: by mail-yb1-xb32.google.com with SMTP id f5so62479ybf.3
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 13:48:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=QFXOgC/gQgqUpTV9IwMt9Aq0GgNo/RxAwF08audBr5I=;
- b=LsM0kQGpArYzVuHZnyKzGQenFxR5PnLBbaUhrNwwOLOX7Ov0eh7vPZIdiObaBUEDGC
- Qa6F+U03KdTEHBtRkIe9A0UMK6RI0PB03KqlbSjYSWLPFYZHUpX63TJFGXF/upbUX4Nu
- T4EXCvvWPcU2W1aJyo8IjHNsKEUcSjEyQd6V0XUkJ5ki3K8JyB9SCHAmOvYIYVDvwJs/
- p2c9RNkwOaVbhXZfdR8CIQ7undOoEt1u2EJeB4lDyMbycKcZc2YX1TtvOVqRddY0zYl8
- jLKswCu7jKSX91ZjrqAQYHZQOSSPVrLx5hQzno0PlcOtwxa6NWMR9Ew/yHkC3RE+WY5p
- dshw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=QFXOgC/gQgqUpTV9IwMt9Aq0GgNo/RxAwF08audBr5I=;
- b=T1mfYb8au2G+Ce8ZbbPOD0x3exLTX1ebOU2NjswQOr/tfEqLARIudjLhMvsRFzJXxp
- qHc60GcJDizrukmh0Bo26OKNq2iy0euUTywHlreEwJ84gvsqRye9D/a6cHHsc8iJbO5g
- idQ2Q5MT0lgs5dIDLLsy2PGtzpJQTqYJX/4TqqY2zYLfw0BdDbn73Dmdjmkd/5a/tcHC
- 5BDXDc60lQvi083PiV2jenAKg354shLJ+qR6MASICquPm6nPtLX8MNjpB2GUruOGyq74
- XWILWpHiu3+dwK4hmqtpfdPqU6bXVQ1MQ2Q+Qt6lllpWlAJDnyJlKHTYXV2siKFHjk0l
- e2iw==
-X-Gm-Message-State: AHQUAuYR+AC6KvyXBR2TBIJPKl0E6qcj8INDO50VdVMQze2u2SaC9QmH
- dugKtx2GCiirbwodadQXaKUjEyiBhBaNPFMF+8A5wy+q
-X-Google-Smtp-Source: AHgI3IZtPUTVTPHt3F6MOqgxUe5daQmsBYY1Kn/HXQDLaULCzqhCIqs6/POnA8sF//7BPcUghkzK/zkeX4rwJQsSEGo=
-X-Received: by 2002:a25:6e8b:: with SMTP id j133mr645741ybc.220.1550785693679; 
- Thu, 21 Feb 2019 13:48:13 -0800 (PST)
-MIME-Version: 1.0
-From: ja az <jandraara@gmail.com>
-Date: Thu, 21 Feb 2019 15:48:02 -0600
-Message-ID: <CAMTupoQWY3tcTi1K=gu72UwvWPdufksO7AgKcmofB_KjKS27HA@mail.gmail.com>
-Subject: UI Feedback Session - Network Settings
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445Byf3nTpzDqSZ
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 11:28:26 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 38C7021E9E;
+ Thu, 21 Feb 2019 19:28:23 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Thu, 21 Feb 2019 19:28:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:in-reply-to:references:date:from:to:cc:subject
+ :content-type:content-transfer-encoding; s=fm2; bh=fqxc+XsoimRMr
+ rd+M/HfzG9t5qf9Hx2pawOxi9CaDls=; b=C+dUGI8z9gKMklz1poQxVjerFitT+
+ HZan4CuDmYK5pDwXQtZfMfGa9CyyTphNOOTlFicNMQdmww3MDYJUxpZ3dDR90t53
+ BwR6glTxQzDmaBsUT5LHQmP1SSfOCL68GZqIRHlxukze45UJDh9lNDUXVwq+ZUku
+ kPRr8I0fDbwslaefbjj3RAeLof6hZl904Rl6EBsN+PsSiuVqR/fzIkYBEcmzW7hC
+ cHoRqE4Ak+mDF916zogEZr1sA2nLzCAv7Ef02BDEXxG5jvEvhU7JdhW+5tMEBruB
+ zBg22a/rVhWW32ceQl2edFei7H4SoNUav4EEXoaOtcES3c0mQGZUrsJAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=fqxc+XsoimRMrrd+M/HfzG9t5qf9Hx2pawOxi9CaDls=; b=VdE30+wn
+ E7a+fPuZciahGGpl8Cyu7WeC2emLlYNQqBQic07QzvBjMvwbBj7s9JXVbze4pf17
+ rI3pwpFZ+l/+EzxZV/JJJZGU7z0lCMFCuhpyK31nY2R0uwT6ReZxVgEg9pNg7q+C
+ k12AKkALb0W00hMoiLX1qjeKvwxuZfvNI4ePaIYusynzy4scDmK3ouUi1vN+fSrh
+ eEVm2IQYXG+jXAH9pKdEq7l0acrFDwX+92o2ShaQsY7Z+mNfActDptQF8sYk7bVd
+ MCnQ4lWVV4SZEsqR1zTEn+/gRBAabQLn4o5L7zy+Al0P5mh+1ttYdgXJ9hlJo+Nb
+ B/TY4kcT9tqtMA==
+X-ME-Sender: <xms:JUJvXG6pifNFiriE8DTTUmOh8qDfYstzTQ-yMVXSUIWGSX1Tk3qrQA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrtdelgddvudculddtuddrgedtledrtddtmd
+ cutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfkfgjfhffhffvufgtgfesthhqredtreerjeenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:JUJvXELtYpYhweCfazNpBtpJqkfzb8fl491YPAS8rlTcdHTamNbFdg>
+ <xmx:JUJvXAc-y584ydnnD4WYMYs-VvZFJDcrxpQS9U057W69D5MoE9W9Bw>
+ <xmx:JUJvXHe8tvLVgAS4XsvloqJbVC_o9Re94THu36i082sFkWf9lEBKrg>
+ <xmx:J0JvXKKJZKyxByoF6TYcfk03q-QHYg9IoE4vToqJSDDfeLmpX69HuA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id AFFDF7C1A3; Thu, 21 Feb 2019 19:28:21 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
+X-Me-Personality: 52947553
+Message-Id: <8b3b8d3a-9cf5-4f7d-9993-e71fd3cd6e07@www.fastmail.com>
+In-Reply-To: <66dac7974c444060a9b4b1052b00d072@quantatw.com>
+References: <88e05768447d466ca674e12e20c650dc@quantatw.com>
+ <96605da0-113a-4d43-994a-f081f30af71e@www.fastmail.com>
+ <66dac7974c444060a9b4b1052b00d072@quantatw.com>
+Date: Thu, 21 Feb 2019 19:28:21 -0500
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?Will_Liang_=28=E6=A2=81=E6=B0=B8=E9=89=89=29?=
+ <Will.Liang@quantatw.com>
+Cc: "Stefan M Schaeckeler" <sschaeck@cisco.com>, dkodihal@in.ibm.com
+Subject: Re: ECC memory of BMC  
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,32 +83,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Feb 2019 21:48:18 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 00:28:29 -0000
 
-Team,
+Hi Will,
 
-There was a desire to discuss the Network settings designs presented
-yesterday during the demo. I have set a meeting for next week to
-discuss that, and welcome you all to join. In the mean time, please
-review the designs in InVision and make comments where you want to
-provide feedback. That is the best and fastest way for the design team
-to get and incorporate feedback into our designs.
+As a note, please send text-only email to the list in the future,
+and try to avoid top-posting (try to reply "inline" underneath
+the paragraph of interest, this way the context is always
+adjacent to your response)
 
-Meeting info:
-Tuesday Feb 26 at 7:00 AM CST
-https://ibm.webex.com/meet/jandra.aranguren
-United States of America Toll +1-669-234-1178  Access Code: 927 646 009
+I understand text-only email and inline replies can be hard to
+do with some mail clients, but that's the list preference.
 
-Network Settings:
-https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN
-- Is the relationship between VLAN and interfaces correct?
-- Are adding a DNS server and adding an IP address separate actions
-with a single intention or are they independent of each other?
-- Is there a use case for combining static and dynamic IP Addresses /
-DNS Servers?
+On Thu, 21 Feb 2019, at 17:57, Will Liang (=E6=A2=81=E6=B0=B8=E9=89=89) =
+wrote:
+> =20
+> Hi Andrew,
+> =20
+> Thanks for your response.
+> =20
+> We have also found EDAC driver.
+>
+> What we want to do is to record the ECC events to SEL.
+> =20
+> we are considering to create new dbus and a service.
 
-github issue:
-https://github.com/openbmc/phosphor-webui/issues/62
+Right; I think you need to create a new service that polls
+the sysfs interface for the EDAC device, and then use
+phosphor-logging to create error logs.  I'm not much of a
+userspace guy, so I've Cc'ed Deepak who might be able
+to help on that  front.
 
-Best,
-Jandra Aranguren
+Andrew
