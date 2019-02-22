@@ -1,38 +1,52 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <hkwilliamson@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c34; helo=mail-yw1-xc34.google.com;
+ envelope-from=hkwilliamson@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZHv7eRzD"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc34.google.com (mail-yw1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445k5y0NJ4zDqWv
- for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 07:51:32 +1100 (AEDT)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Feb 2019 12:51:29 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,401,1544515200"; d="scan'208";a="140875398"
-Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
- ([10.7.150.62])
- by orsmga001.jf.intel.com with ESMTP; 22 Feb 2019 12:51:29 -0800
-Date: Fri, 22 Feb 2019 12:51:29 -0800
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: IPMI Channel Config Removed?
-Message-ID: <20190222205129.GB44612@mauery.jf.intel.com>
-References: <CAO=notwH0_2nGmWaxyr-56Tzb_SFJHmdUPeUZpjWBBVm5EArzg@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445kdD5K6fzDqW6
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 08:15:09 +1100 (AEDT)
+Received: by mail-yw1-xc34.google.com with SMTP id p17so1383379ywg.0
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 13:15:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=7ldRWz+aK76t4/sHe69pron0JwI7TWnayt58316voOo=;
+ b=ZHv7eRzDXyiL/2EmpU2gF4R89jkPlquG6o9r1upfj77xSzsOlGUyFmB9aHEVVw6r25
+ EU81NI/J+Je01kbEN/9naw8pSXx3raluWeP+w8vJV4OoxvO1XDPejDQ/RxyM5FhP+BiQ
+ YOcXiH2AMHnLLFwzZuwn1ybF/0sXixtHo/xb0nOSLmuYnkAwY0GS8tJ07b7HQvPfT0bD
+ h3mRkKp4OS9Dc0QnKhBTzkSkgPgyVI9U+K/9pjuK2xTHZbZmrsPAzftdOUevzGkrSmqP
+ eV4pj7njXwv19dn6k4hpsf3MvPoPfw/Pgpjf20XhOgon3tWZD9wb/EnB6x3mhHPhZAaI
+ GCRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=7ldRWz+aK76t4/sHe69pron0JwI7TWnayt58316voOo=;
+ b=QB7EmnHZzGJZCAAfuXt1XnZ8ZvJvEw1fOMt3c37OSzK9RiHfKEl2Lu5CNu+SJsShz8
+ D94Vk2RRNvxQYQV573XtgpJCfYNyTOBlJImqXTKj2tl0/vRREid/5Cx6QywlXu/0llnm
+ nGWVdrU8nUTXmmlLO8affuYTPiIaKjOyX2RG8ZgkUSnFyp+gylXp89txwPIa+QNujsdg
+ JTIKs/w93xlEa8odKazKKzgeoLTbXKokkGlhVnpa8FMhNmf4sIbsv0IyYPdOIJ4KZF9Y
+ sopTakiyvvHaAV5b/uAicLqHE6lWJUT/y2QtizdjC93gwwPYBkOg2ePAmKmJHPPR7gw6
+ 2g1w==
+X-Gm-Message-State: AHQUAuZW5O7w9Sgql7gy+0VcKUiBik6R16LHdQAT7QS6w4FSEtHsTXJp
+ 78+9AWZ/t7ynUkidpuiwLYoNMTe3cZLbyfky95VFuQ==
+X-Google-Smtp-Source: AHgI3IZtgfAv7H7pdpI5qFznpRcDRCUKZaBctKkClgoU707R1IIH6vzIgDh/2F0aQb9T1pwaqtbAf/1GG+fHD81G4Sk=
+X-Received: by 2002:a81:ad8:: with SMTP id 207mr5010783ywk.188.1550870106692; 
+ Fri, 22 Feb 2019 13:15:06 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAO=notwH0_2nGmWaxyr-56Tzb_SFJHmdUPeUZpjWBBVm5EArzg@mail.gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+From: Keith Williamson <hkwilliamson@gmail.com>
+Date: Fri, 22 Feb 2019 13:14:47 -0800
+Message-ID: <CAFweeiT62MGOER0WMGMhvR5EX4t=7+pwp1p2BO7rYEq6e+qDdg@mail.gmail.com>
+Subject: DRAM usage on AST2500 with OpenBMC and Redfish
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000cd61c605828215b5"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,32 +58,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 20:51:35 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 21:15:14 -0000
 
-On 22-Feb-2019 09:55 AM, Patrick Venture wrote:
->It looks like the channel config for IPMI was removed from the
->sources.  Instead the channel layer is doing something by checking
->with the sysfs device instances -- and there's some mapping (I haven't
->dug into it).
+--000000000000cd61c605828215b5
+Content-Type: text/plain; charset="UTF-8"
 
-IPMI channels are configured with a JSON file that lives in 
-/usr/share/ipmi-providers/channel_config.json on the BMC. The default 
-file in yocto-land lives at 
-meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-config/channel_config.json 
-and can be overridden with bbappend.
+Hi,
 
->I'd like to know if I need to do anything to configure the channels
->such that eth1 is channel 1, and eth0 is channel 0?  Or Did that
->change?  Can I make eth1 channel 5?
+Just starting to look at OpenBMC for next server board implementation.
 
-Making your own config is as easy as overriding the default with 
-bitbake.
+Is 512MB DRAM on the AST2500 more than enough for OpenBMC, Redfish, etc or
+is anyone in the community recommending 1GB DRAM?
 
->All our platforms were using channel configs, and quanta-q71l upstream
->was too, so I'd like some explanation as I don't remember seeing an
->email about it when it was dropped.
+Thanks,
 
-I don't recall if there was an email, but several months back, there 
-were user/channel config reviews out that slowly got merged in.
+Keith
 
---Vernon
+--000000000000cd61c605828215b5
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>Just starting to look at=
+ OpenBMC for next server board implementation. <br></div><div><br></div><di=
+v>Is 512MB DRAM on the AST2500 more than enough for OpenBMC, Redfish, etc o=
+r is anyone in the community recommending 1GB DRAM?</div><div><br></div><di=
+v>Thanks,</div><div><br></div><div>Keith<br></div></div>
+
+--000000000000cd61c605828215b5--
