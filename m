@@ -1,70 +1,54 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=184.105.206.29; helo=smtpbg202.qq.com;
+ envelope-from=1450335857@qq.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="pG0wnV9N"; 
+ dkim-atps=neutral
+Received: from smtpbg202.qq.com (smtpbg202.qq.com [184.105.206.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445G545M9DzDqRF
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 13:49:12 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1M2dFjO075954
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 21:49:10 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.103])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qt6acmwsy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 21 Feb 2019 21:49:09 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Fri, 22 Feb 2019 02:49:09 -0000
-Received: from us1b3-smtp07.a3dr.sjc01.isc4sb.com (10.122.203.198)
- by smtp.notes.na.collabserv.com (10.122.47.39) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 22 Feb 2019 02:49:07 -0000
-Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
- by us1b3-smtp07.a3dr.sjc01.isc4sb.com
- with ESMTP id 2019022202490745-1090088 ;
- Fri, 22 Feb 2019 02:49:07 +0000 
-In-Reply-To: 
-Subject: Fw: OpenBMC Test Work group meeting: 21 Feb 2019 update
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Fri, 22 Feb 2019 02:49:07 +0000
-Sensitivity: 
-References: 
-MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
- SCN1812108_20180501T0841_FP26 January 03, 2019 at 15:20
-X-KeepSent: 3CDE953A:8ED77C00-002583A9:000DF39D;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 39959
-X-TNEFEvaluated: 1
-x-cbid: 19022202-6371-0000-0000-000005942330
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.397008; ST=0; TS=0; UL=0; ISC=; MB=0.051970
-X-IBM-SpamModules-Versions: BY=3.00010641; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01164533; UDB=6.00608137; IPR=6.00945118; 
- BA=6.00006237; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025688; XFM=3.00000015;
- UTC=2019-02-22 02:49:09
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-02-21 22:44:31 - 6.00009614
-x-cbparentid: 19022202-6372-0000-0000-0000DAC35102
-Message-Id: <OF3CDE953A.8ED77C00-ON002583A9.000DF39D-002583A9.000F7BD6@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-22_02:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445GMZ6fktzDqRF
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 14:01:45 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1550804491; bh=dfq0CFmhdt85EERa8XiFiGocH0n3GtZMi4L0SG4Ibrg=;
+ h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=pG0wnV9N8tUa5zGb3RhErcQ6ITJmuc1ymod9aU7k7ILrKYjZ3bi/C2ONSi1Ko9cNQ
+ gX0VCf+ki0pM9YrWDefOoo8MFdpjZ2OnvaL1M2DDJ1y8Ym/3SgK3EaD9Gh73KGRVkH
+ 8E3oj81tbMJ9XV8z68rQ3aFQd+NbdkedZrBdXmcE=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+In-Reply-To: <2648d3de-e949-3eee-c2be-cd8e119d4c7c@linux.intel.com>
+References: <tencent_601B7E351099FC4A291EA922@qq.com>
+ <2648d3de-e949-3eee-c2be-cd8e119d4c7c@linux.intel.com>
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1550804490t380412
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?amFlLmh5dW4ueW9v?=" <jae.hyun.yoo@linux.intel.com>,
+ "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
+ "=?ISO-8859-1?B?RWRkaWUgSmFtZXM=?=" <eajames@linux.vnet.ibm.com>
+Subject: Re: obmc-ikvm host OS console mode issue
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5C6F660A_0A6AB548_3437C4B5"
+Content-Transfer-Encoding: 8Bit
+Date: Fri, 22 Feb 2019 11:01:30 +0800
+X-Priority: 3
+Message-ID: <tencent_67F229E84D938D9265BEC618@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-ReplyHash: 1106978207
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Fri, 22 Feb 2019 11:01:31 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign2
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,185 +60,189 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 02:49:13 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 03:01:49 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Dear All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >MoM highlights of 21 Feb 2019 instance of meeting:</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Attendees:</div>
-<div dir=3D"ltr" >Rahul, Joseph Reynold, Andrew, George, Maksym Yepaneshiko=
-v (Jabil) and Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Welcomed Maksym Yepaneshikov to openbmc test community wi=
-th his introduction.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Discussion on Redfish Automation:</div>
-<div dir=3D"ltr" >- Walked thru the directory structure and informed that d=
-irectory structure aligned with Redfish schema.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Discussion on ideas for end-user impact statement and cha=
-nge log: Joseph Reynold:</div>
-<div dir=3D"ltr" >- Response: Good proposal. Adding end user impact stateme=
-nt is good.</div>
-<div dir=3D"ltr" >- Requested to make generic so that if an issue is relate=
-d to impacting another component.</div>
-<div dir=3D"ltr" >- Eg. Issue may not be a end user impact but it can impac=
-t internally another component.</div>
-<div dir=3D"ltr" >- Can propose Github to add Impact field in the issue sec=
-tion, Which can help to track easily.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Release Management group update:</div>
-<div dir=3D"ltr" >- Need design for feature like IP KVM</div>
-<div dir=3D"ltr" >- Joseph to update in our next instance</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Discussion on PLDM test:</div>
-<div dir=3D"ltr" >- PLDM basically for internal communication between BMC a=
-nd the HOST.</div>
-<div dir=3D"ltr" >- As of now, No explicit testing, But it can be tested vi=
-a all system operations.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >MoM of yesterday's instance of meeting located at : <a hr=
-ef=3D"https://drive.google.com/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmFQB=
-tYa?usp=3Dsharing" >https://drive.google.com/drive/folders/1Cps88uPHB87RkQY=
-3uDFKdVwrTmFQBtYa?usp=3Dsharing</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Note: In case if you have any agenda to discuss, Pls feel=
- free to add it at <a href=3D"https://github.com/openbmc/openbmc/wiki/Test-=
-work-group" >https://github.com/openbmc/openbmc/wiki/Test-work-group</a></d=
-iv>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Feb 21, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
-ine-block" >(applies to 24 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
-ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
-t></span></div>
-<div>&nbsp;</div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
-</font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
- you wants to update the agenda. </font></font></font></font></font></span>=
-</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
-/font></span></div></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
-enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
-hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
-github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
- >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
-</span>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
-.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
-"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
-CI/view?usp=3Dsharing</a></font></span></p>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
-le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
-it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
-in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
-heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
-target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
-Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Quality at the first place: Unit test results needed at th=
-e time of gerrit code review</font></span></div>
-<div>&nbsp;</div></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
- owner</font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
- Intel going to sign on this. ?</font></span></div></div></div></div></div>=
-</div></div></div></div></blockquote></div><BR>
+This is a multi-part message in MIME format.
+
+------=_NextPart_5C6F660A_0A6AB548_3437C4B5
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+SGkgSmFlLA0KICBJIGFtIGFmcmFpZCB0aGF0IHRoaXMgIlJlZnJlc2giIGlzc3VlIGlzIHJl
+bGF0ZWQgdG8gdGhlIGxpYnZuY3NlcnZlci4NCiAgV291bGQgeW91IGxpa2UgdG8gdGVsbCBt
+ZSB5b3VyIGxpYm52Y3NlcnZlciBjb21taXQgbnVtYmVyPw0KICANCkJlc3QsDQp4aXV6aGkN
+Cg0KDQpIaSB4dWl6aGksDQoNClZpcnR1YWwgdGVybWluYWwgYWxzbyB3b3Jrcy4gSSB1c2Vk
+ICdzdWRvIGNodnQgMicgaW5zdGVhZCBvZiB1c2luZw0KJ0N0cmwrQWx0K0YyJyBiZWNhdXNl
+IEkgY291bGRuJ3Qgc2VuZCB0aGUgaG90IGtleSB0aHJvdWdoIHdlYnVpIGt2bS4NCkFsc28s
+IGluc3RlYWQgb2YgY2xpY2tpbmcgdGhlICdyZWZyZXNoJyBidXR0b24sIEkgY2hhbmdlZCB3
+ZWIgcGFnZQ0KdG8gdGhlICdTZXJ2ZXIgb3ZlcnZpZXcnIHBhZ2UgYW5kIGNoYW5nZWQgaXQg
+YmFjayB0bw0KJ1NlcnZlciBjb250cm9sIC0+IEtWTScgcGFnZS4gSXQgd29ya3Mgd2VsbC4N
+Cg0KSU1ITywgeW91IG1pZ2h0IHdhbnQgY2hlY2sgdGhlICdyZWZyZXNoJyBidXR0b24gaGFu
+ZGxpbmcgbG9naWMgaW4NCndlYnVpIGltcGxlbWVudGF0aW9uLiBBY3R1YWxseSwgdGhlICdy
+ZWZyZXNoJyBidXR0b24gaXMgZm9yIHN5c3RlbQ0KaW5mbyB1cGRhdGUsIG5vdCBmb3Iga3Zt
+IHNjcmVlbiB1cGRhdGUsIGFueXdheXMuDQoNCkNoZWVycywNCkphZQ0KDQoNCk9uIDIvMjAv
+MjAxOSAxMDoyNyBQTSwgeGl1emhpIHdyb3RlOg0KPiBIaSBKb2UsDQo+ICAgICAgICBJdCBk
+aWQgd29yayBvbiBFRkkgQklPUyBzaGVsbCBtb2RlIGFuZCBPUyBHVUkgbW9kZSBhcyB5b3Vy
+IA0KPiBzY3JlZW5zaG90cy4gIEl0IHdpbGwgZmFpbCBvbiBob3N0IE9TIGNvbnNvbGUgbW9k
+ZS4NCj4gUGxlYXNlIHByZXNzICJDdHJsK0FsdCtGMiIgdG8gc3dpdGNoIHRvIE9TIGNvbnNv
+bGUgYXMgdGhlIGF0dGFjaG1lbnQgDQo+IHNjcmVlbnNob3QgLCB0aGVuIGNsaWNrIHRoZSAi
+UmVmcmVzaCIgYnV0dG9uLCB0aGUgaXNzdWUgd2lsbCBiZSByZXByb2R1Y2VkLg0KPiAgICAg
+SSB1cGRhdGVkIHRoZSBzb3VyY2UgIA0KPiBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2pl
+Y3QueHl6LyMvYy9vcGVuYm1jL29ibWMtaWt2bS8rLzE4NTgzLw0KPiAgICBUaGUgaWt2bSB3
+aW5kb3cgaXMgYmxhY2sgc2NyZWVuIHdoZW4gdGhlIGhvc3QgT1Mgc2NyZWVuIHN0YXJ0IA0K
+PiBkb3JtYW5jeSBvciBubyBMQ0QgbW9uaXRvciBkZXZpY2UgYXZhaWxhYmxlIC4NCj4gICAg
+TXkgQk1DIGhhcmR3YXJlIGlzIEFzdDI1MDAuDQo+IEhpIHhpdXpoaSwNCj4gSSB0ZXN0ZWQg
+aXQgYW5kIGNoZWNrZWQgdGhhdCBrdm0gdGhyb3VnaCB3ZWJzb2NrZXQgd29ya3Mgb24gYm90
+aCB0ZXh0DQo+IG1vZGUgYW5kIGd1aSBtb2RlIG9mIHRoZSBob3N0LiBQbGVhc2UgZmluZCBj
+YXB0dXJlZCBpbWFnZSBJJ20gYXR0YWNoaW5nLg0KPiANCj4gQXMgeW91IGV4cGVyaWVuY2Vk
+LCBjdXJyZW50IGt2bSBpbXBsZW1lbnRhdGlvbiBpcyBhIGJpdCB1bnN0YWJsZS4NCj4gSW4g
+Y2FzZSBpdCBkb2Vzbid0IHdvcmssIHJlc3RhcnQgJ3N0YXJ0LWlwa3ZtJyBzZXJ2aWNlIGFu
+ZCB0cnkgYWdhaW4uDQo+IA0KPiAjIHN5c3RlbWN0bCBzdG9wIHN0YXJ0LWlwa3ZtDQo+ICMg
+c3lzdGVtY3RsIHN0YXJ0IHN0YXJ0LWlwa3ZtDQo+IA0KPiBJZiB0aGUgaXNzdWUgaXMgcmVs
+YXRpbmcgdG8gdGhlIGhvc3Qgd2FrZS11cCBldmVudCwgcGxlYXNlIHRyeSB0aGlzOg0KPiBo
+dHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL29ibWMtaWt2
+bS8rLzE4NTgzLw0KPiANCj4gU2luY2UgaXQgc3RpbGwgbmVlZHMgbG90cyBvZiBpbXByb3Zl
+bWVudCwgeW91ciBkZWJ1Z2dpbmcgYW5kDQo+IGNvbnRyaWJ1dGlvbiBvbiB0aGlzIGt2bSBm
+dW5jdGlvbiB3b3VsZCBiZSB2ZXJ5IGFwcHJlY2lhdGVkLg0KPiANCj4gVGhhbmtzLA0KPiBK
+YWUNCj4gDQo+IA0KPiBPbiAyLzE5LzIwMTkgNjowMSBQTSwgeGl1emhpIHdyb3RlOg0KPiAg
+PiBIaSBKYWUsDQo+ICA+ICAgICBUaGUgaXNzdWUgY2FuIGJlIHJlcHJvZHVjZWQgYnkgdGhl
+IGZvbGxvd2luZyBjYXNlczoNCj4gID4gMSkgdGhlIGlrdm0gZW5naW5lIGRyaXZlciBpcyBm
+cm9tDQo+ICA+IGh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8y
+MDE5LUphbnVhcnkvMDE0NTIzLmh0bWwNCj4gID4gMikgaWt2bSBoYW5kbGVyIHBhdGNoIGlz
+IGZyb206DQo+ICA+IA0KPiBodHRwczovL2dpdGh1Yi5jb20vTnV2b3Rvbi1Jc3JhZWwvb3Bl
+bmJtYy9ibG9iL21hc3Rlci9tZXRhLWV2Yi9tZXRhLWV2Yi1udXZvdG9uL21ldGEtZXZiLW5w
+Y203NTAvcmVjaXBlcy1waG9zcGhvci9pbnRlcmZhY2VzL3Bob3NwaG9yLXJlc3QvMDAwMS1h
+ZGQta3ZtLWhhbmRsZXIucGF0Y2gNCj4gID4gMykgd2VidWkgaXMgZnJvbQ0KPiAgPiBodHRw
+czovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL3Bob3NwaG9yLXdl
+YnVpLysvMTAyNjgvDQo+ICA+DQo+ICA+IENhc2UxLCBTdGFydCB0aGUgaG9zdCBPUyB0byBH
+VUkgbW9kZSwgY2xpY2sgdGhlICJyZWZyZXNoIiBCdXR0b24gb24NCj4gID4gaHR0cHM6Ly94
+eHgueHh4Lnh4eC54eHgvIy9rdm0gcGFnZS4NCj4gID4NCj4gID4gQ2FzZTIsICBzd2l0Y2gg
+aG9zdE9TIHRvIGNvbnNvbGUgbW9kZSwgY2xpY2sgdGhlICJyZWZyZXNoIiBCdXR0b24gb24N
+Cj4gID4gaHR0cHM6Ly94eHgueHh4Lnh4eC54eHgvIy9rdm0gcGFnZS4NCj4gID4NCj4gID4g
+MSxVc2luZyBvYm1jLWlrdm0gY29tbWl0IDdkZmFjOWZmMmQxNTY5YWVkZjgzMTc1ZmIwNDI3
+NTYyYzIxODhlNjMNCj4gID4gY2FzZTEgaXMgT0sNCj4gID4gY2FzZTIgcmVmcmVzaCBwYWdl
+IGZhaWwsIGNhbiBub3QgZ2V0IHRoZSBob3N0IHNjcmVlbi4NCj4gID4NCj4gID4gMixVc2lu
+ZyBvYm1jLWlrdm0gY29tbWl0DQo+ICA+ICAgYjljMjUzZGNhNjgyZDAxZTA3NmVjNjI0MGFk
+ZTJkYjE1MWFlYzgxYQ0KPiAgPiBjYXNlMSBpcyBPSw0KPiAgPiBjYXNlMiBpcyBPSw0KPiAg
+Pg0KPiAgPiBCZXN0LA0KPiAgPiB4aXV6aGkNCj4gID4gLS0tLS0tLS0tLS0tLS0tLS0tIE9y
+aWdpbmFsIC0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAgPiAqRnJvbTogKiAiamFlLmh5dW4ueW9v
+Ijs8amFlLmh5dW4ueW9vQGxpbnV4LmludGVsLmNvbT47DQo+ICA+ICpEYXRlOiAqIEZlYiAy
+MCwgMjAxOQ0KPiAgPiAqVG86ICogInhpdXpoaSI8MTQ1MDMzNTg1N0BxcS5jb20+OyAib3Bl
+bmJtYyI8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPjsNCj4gID4gKlN1YmplY3Q6ICogUmU6
+IG9ibWMtaWt2bSBob3N0IE9TIGNvbnNvbGUgbW9kZSBpc3N1ZQ0KPiAgPg0KPiAgPiBIaSB4
+aXV6aGksDQo+ICA+DQo+ICA+IEkgZG9uJ3QgdGhpbmsgdGhlIGNvbW1pdCBjYXVzZXMgdGhl
+IGlzc3VlLiBDaGVjayBhc3BlZWQtdmlkZW8gZHJpdmVyDQo+ICA+IG1vZHVsZSBpbiBrZXJu
+ZWwgdGhhdCB3aGF0IGhhcHBlbnMgb24gdmlkZW8gbW9kZSBjaGFuZ2UgZXZlbnRzLg0KPiAg
+Pg0KPiAgPiBDaGVlcnMsDQo+ICA+IEphZQ0KPiAgPg0KPiAgPiBPbiAyLzE5LzIwMTkgMTI6
+MjYgQU0sIHhpdXpoaSB3cm90ZToNCj4gID4gID4gSGkgSmFlLA0KPiAgPiAgPiAgICAgSSB1
+cGRhdGVkIHRoZSBvYm1jLWlrdm0gY29tbWl0DQo+ICA+IDdkZmFjOWZmMmQxNTY5YWVkZjgz
+MTc1ZmIwNDI3NTYyYzIxODhlNjMNCj4gID4gID4gICBJdCBjYXVzZWQgb25lIGlzc3VlOg0K
+PiAgPiAgPiBUaGUgaWt2bSBvbmx5IHdvcmtzIG9uIGxpbnV4IE9TIEdVSSBtb2RlLA0KPiAg
+PiAgPiBXaGVuIEkgc3dpdGNoIHRvIG9zIGNvbnNvbGUgbW9kZSwgdGhlIGlrdm0gY2FuJ3Qg
+Z2V0IHRoZSBob3N0IHNjcmVlbi4NCj4gID4gID4gUGxlYXNlIGNoZWNrIHlvdSBjb21taXQu
+DQo+ICA+ICA+DQo+ICA+ICA+IEJlc3QsDQo+ICA+ICA+IHhpdXpoaQ0KPg==
+
+------=_NextPart_5C6F660A_0A6AB548_3437C4B5
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+PGRpdj5IaSBKYWUsPC9kaXY+PGRpdj4mbmJzcDsgSSBhbSBhZnJhaWQgdGhhdCB0aGlzICJS
+ZWZyZXNoIiBpc3N1ZSBpcyByZWxhdGVkIHRvIHRoZSBsaWJ2bmNzZXJ2ZXIuPC9kaXY+PGRp
+dj4mbmJzcDsgV291bGQgeW91IGxpa2UgdG8gdGVsbCBtZSB5b3VyIGxpYm52Y3NlcnZlciBj
+b21taXQgbnVtYmVyPzwvZGl2PjxkaXY+Jm5ic3A7Jm5ic3A7PC9kaXY+PGRpdj5CZXN0LDwv
+ZGl2PjxkaXY+eGl1emhpPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5IaSB4dWl6aGksPGJy
+Pjxicj5WaXJ0dWFsIHRlcm1pbmFsIGFsc28gd29ya3MuIEkgdXNlZCAnc3VkbyBjaHZ0IDIn
+IGluc3RlYWQgb2YgdXNpbmc8YnI+J0N0cmwrQWx0K0YyJyBiZWNhdXNlIEkgY291bGRuJ3Qg
+c2VuZCB0aGUgaG90IGtleSB0aHJvdWdoIHdlYnVpIGt2bS48YnI+QWxzbywgaW5zdGVhZCBv
+ZiBjbGlja2luZyB0aGUgJ3JlZnJlc2gnIGJ1dHRvbiwgSSBjaGFuZ2VkIHdlYiBwYWdlPGJy
+PnRvIHRoZSAnU2VydmVyIG92ZXJ2aWV3JyBwYWdlIGFuZCBjaGFuZ2VkIGl0IGJhY2sgdG88
+YnI+J1NlcnZlciBjb250cm9sIC0mZ3Q7IEtWTScgcGFnZS4gSXQgd29ya3Mgd2VsbC48YnI+
+PGJyPklNSE8sIHlvdSBtaWdodCB3YW50IGNoZWNrIHRoZSAncmVmcmVzaCcgYnV0dG9uIGhh
+bmRsaW5nIGxvZ2ljIGluPGJyPndlYnVpIGltcGxlbWVudGF0aW9uLiBBY3R1YWxseSwgdGhl
+ICdyZWZyZXNoJyBidXR0b24gaXMgZm9yIHN5c3RlbTxicj5pbmZvIHVwZGF0ZSwgbm90IGZv
+ciBrdm0gc2NyZWVuIHVwZGF0ZSwgYW55d2F5cy48YnI+PGJyPkNoZWVycyw8YnI+SmFlPGJy
+Pjxicj48YnI+T24gMi8yMC8yMDE5IDEwOjI3IFBNLCB4aXV6aGkgd3JvdGU6PGJyPiZndDsg
+SGkgSm9lLDxicj4mZ3Q7Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IEl0IGRpZCB3b3Jr
+IG9uIEVGSSBCSU9TIHNoZWxsIG1vZGUgYW5kIE9TIEdVSSBtb2RlIGFzIHlvdXIgPGJyPiZn
+dDsgc2NyZWVuc2hvdHMuJm5ic3A7IEl0IHdpbGwgZmFpbCBvbiBob3N0IE9TIGNvbnNvbGUg
+bW9kZS48YnI+Jmd0OyBQbGVhc2UgcHJlc3MgIkN0cmwrQWx0K0YyIiB0byBzd2l0Y2ggdG8g
+T1MgY29uc29sZSBhcyB0aGUgYXR0YWNobWVudCA8YnI+Jmd0OyBzY3JlZW5zaG90ICwgdGhl
+biBjbGljayB0aGUgIlJlZnJlc2giIGJ1dHRvbiwgdGhlIGlzc3VlIHdpbGwgYmUgcmVwcm9k
+dWNlZC48YnI+Jmd0OyZuYnNwOyAmbmJzcDsgJm5ic3A7SSB1cGRhdGVkIHRoZSBzb3VyY2Um
+bmJzcDsgPGJyPiZndDsgaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9qZWN0Lnh5ei8jL2Mv
+b3BlbmJtYy9vYm1jLWlrdm0vKy8xODU4My88YnI+Jmd0OyZuYnNwOyAmbmJzcDsgVGhlIGlr
+dm0gd2luZG93IGlzIGJsYWNrIHNjcmVlbiB3aGVuIHRoZSBob3N0IE9TIHNjcmVlbiBzdGFy
+dCA8YnI+Jmd0OyBkb3JtYW5jeSBvciBubyBMQ0QgbW9uaXRvciBkZXZpY2UgYXZhaWxhYmxl
+IC48YnI+Jmd0OyZuYnNwOyAmbmJzcDsgTXkgQk1DIGhhcmR3YXJlIGlzIEFzdDI1MDAuPGJy
+PiZndDsgSGkgeGl1emhpLDxicj4mZ3Q7IEkgdGVzdGVkIGl0IGFuZCBjaGVja2VkIHRoYXQg
+a3ZtIHRocm91Z2ggd2Vic29ja2V0IHdvcmtzIG9uIGJvdGggdGV4dDxicj4mZ3Q7IG1vZGUg
+YW5kIGd1aSBtb2RlIG9mIHRoZSBob3N0LiBQbGVhc2UgZmluZCBjYXB0dXJlZCBpbWFnZSBJ
+J20gYXR0YWNoaW5nLjxicj4mZ3Q7IDxicj4mZ3Q7IEFzIHlvdSBleHBlcmllbmNlZCwgY3Vy
+cmVudCBrdm0gaW1wbGVtZW50YXRpb24gaXMgYSBiaXQgdW5zdGFibGUuPGJyPiZndDsgSW4g
+Y2FzZSBpdCBkb2Vzbid0IHdvcmssIHJlc3RhcnQgJ3N0YXJ0LWlwa3ZtJyBzZXJ2aWNlIGFu
+ZCB0cnkgYWdhaW4uPGJyPiZndDsgPGJyPiZndDsgIyBzeXN0ZW1jdGwgc3RvcCBzdGFydC1p
+cGt2bTxicj4mZ3Q7ICMgc3lzdGVtY3RsIHN0YXJ0IHN0YXJ0LWlwa3ZtPGJyPiZndDsgPGJy
+PiZndDsgSWYgdGhlIGlzc3VlIGlzIHJlbGF0aW5nIHRvIHRoZSBob3N0IHdha2UtdXAgZXZl
+bnQsIHBsZWFzZSB0cnkgdGhpczo8YnI+Jmd0OyBodHRwczovL2dlcnJpdC5vcGVuYm1jLXBy
+b2plY3QueHl6LyMvYy9vcGVuYm1jL29ibWMtaWt2bS8rLzE4NTgzLzxicj4mZ3Q7IDxicj4m
+Z3Q7IFNpbmNlIGl0IHN0aWxsIG5lZWRzIGxvdHMgb2YgaW1wcm92ZW1lbnQsIHlvdXIgZGVi
+dWdnaW5nIGFuZDxicj4mZ3Q7IGNvbnRyaWJ1dGlvbiBvbiB0aGlzIGt2bSBmdW5jdGlvbiB3
+b3VsZCBiZSB2ZXJ5IGFwcHJlY2lhdGVkLjxicj4mZ3Q7IDxicj4mZ3Q7IFRoYW5rcyw8YnI+
+Jmd0OyBKYWU8YnI+Jmd0OyA8YnI+Jmd0OyA8YnI+Jmd0OyBPbiAyLzE5LzIwMTkgNjowMSBQ
+TSwgeGl1emhpIHdyb3RlOjxicj4mZ3Q7Jm5ic3A7ICZndDsgSGkgSmFlLDxicj4mZ3Q7Jm5i
+c3A7ICZndDsmbmJzcDsgJm5ic3A7ICZuYnNwO1RoZSBpc3N1ZSBjYW4gYmUgcmVwcm9kdWNl
+ZCBieSB0aGUgZm9sbG93aW5nIGNhc2VzOjxicj4mZ3Q7Jm5ic3A7ICZndDsgMSkgdGhlIGlr
+dm0gZW5naW5lIGRyaXZlciBpcyBmcm9tPGJyPiZndDsmbmJzcDsgJmd0OyBodHRwczovL2xp
+c3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAxOS1KYW51YXJ5LzAxNDUyMy5o
+dG1sPGJyPiZndDsmbmJzcDsgJmd0OyAyKSBpa3ZtIGhhbmRsZXIgcGF0Y2ggaXMgZnJvbTo8
+YnI+Jmd0OyZuYnNwOyAmZ3Q7IDxicj4mZ3Q7IGh0dHBzOi8vZ2l0aHViLmNvbS9OdXZvdG9u
+LUlzcmFlbC9vcGVuYm1jL2Jsb2IvbWFzdGVyL21ldGEtZXZiL21ldGEtZXZiLW51dm90b24v
+bWV0YS1ldmItbnBjbTc1MC9yZWNpcGVzLXBob3NwaG9yL2ludGVyZmFjZXMvcGhvc3Bob3It
+cmVzdC8wMDAxLWFkZC1rdm0taGFuZGxlci5wYXRjaDxicj4mZ3Q7Jm5ic3A7ICZndDsgMykg
+d2VidWkgaXMgZnJvbTxicj4mZ3Q7Jm5ic3A7ICZndDsgaHR0cHM6Ly9nZXJyaXQub3BlbmJt
+Yy1wcm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9waG9zcGhvci13ZWJ1aS8rLzEwMjY4Lzxicj4m
+Z3Q7Jm5ic3A7ICZndDs8YnI+Jmd0OyZuYnNwOyAmZ3Q7IENhc2UxLCBTdGFydCB0aGUgaG9z
+dCBPUyB0byBHVUkgbW9kZSwgY2xpY2sgdGhlICJyZWZyZXNoIiBCdXR0b24gb248YnI+Jmd0
+OyZuYnNwOyAmZ3Q7IGh0dHBzOi8veHh4Lnh4eC54eHgueHh4LyMva3ZtIHBhZ2UuPGJyPiZn
+dDsmbmJzcDsgJmd0Ozxicj4mZ3Q7Jm5ic3A7ICZndDsgQ2FzZTIsJm5ic3A7IHN3aXRjaCBo
+b3N0T1MgdG8gY29uc29sZSBtb2RlLCBjbGljayB0aGUgInJlZnJlc2giIEJ1dHRvbiBvbjxi
+cj4mZ3Q7Jm5ic3A7ICZndDsgaHR0cHM6Ly94eHgueHh4Lnh4eC54eHgvIy9rdm0gcGFnZS48
+YnI+Jmd0OyZuYnNwOyAmZ3Q7PGJyPiZndDsmbmJzcDsgJmd0OyAxLFVzaW5nIG9ibWMtaWt2
+bSZuYnNwO2NvbW1pdCA3ZGZhYzlmZjJkMTU2OWFlZGY4MzE3NWZiMDQyNzU2MmMyMTg4ZTYz
+PGJyPiZndDsmbmJzcDsgJmd0OyBjYXNlMSBpcyBPSzxicj4mZ3Q7Jm5ic3A7ICZndDsgY2Fz
+ZTIgcmVmcmVzaCBwYWdlIGZhaWwsIGNhbiBub3QgZ2V0IHRoZSBob3N0IHNjcmVlbi48YnI+
+Jmd0OyZuYnNwOyAmZ3Q7PGJyPiZndDsmbmJzcDsgJmd0OyAyLFVzaW5nIG9ibWMtaWt2bSBj
+b21taXQ8YnI+Jmd0OyZuYnNwOyAmZ3Q7Jm5ic3A7ICZuYnNwO2I5YzI1M2RjYTY4MmQwMWUw
+NzZlYzYyNDBhZGUyZGIxNTFhZWM4MWE8YnI+Jmd0OyZuYnNwOyAmZ3Q7IGNhc2UxIGlzIE9L
+PGJyPiZndDsmbmJzcDsgJmd0OyBjYXNlMiBpcyBPSzxicj4mZ3Q7Jm5ic3A7ICZndDs8YnI+
+Jmd0OyZuYnNwOyAmZ3Q7IEJlc3QsPGJyPiZndDsmbmJzcDsgJmd0OyB4aXV6aGk8YnI+Jmd0
+OyZuYnNwOyAmZ3Q7IC0tLS0tLS0tLS0tLS0tLS0tLSZuYnNwO09yaWdpbmFsJm5ic3A7LS0t
+LS0tLS0tLS0tLS0tLS0tPGJyPiZndDsmbmJzcDsgJmd0OyAqRnJvbTogKiZuYnNwOyJqYWUu
+aHl1bi55b28iOyZsdDtqYWUuaHl1bi55b29AbGludXguaW50ZWwuY29tJmd0Ozs8YnI+Jmd0
+OyZuYnNwOyAmZ3Q7ICpEYXRlOiAqJm5ic3A7RmViIDIwLCAyMDE5PGJyPiZndDsmbmJzcDsg
+Jmd0OyAqVG86ICombmJzcDsieGl1emhpIiZsdDsxNDUwMzM1ODU3QHFxLmNvbSZndDs7ICJv
+cGVuYm1jIiZsdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmZ3Q7Ozxicj4mZ3Q7Jm5ic3A7
+ICZndDsgKlN1YmplY3Q6ICombmJzcDtSZTogb2JtYy1pa3ZtIGhvc3QgT1MgY29uc29sZSBt
+b2RlIGlzc3VlPGJyPiZndDsmbmJzcDsgJmd0Ozxicj4mZ3Q7Jm5ic3A7ICZndDsgSGkgeGl1
+emhpLDxicj4mZ3Q7Jm5ic3A7ICZndDs8YnI+Jmd0OyZuYnNwOyAmZ3Q7IEkgZG9uJ3QgdGhp
+bmsgdGhlIGNvbW1pdCBjYXVzZXMgdGhlIGlzc3VlLiBDaGVjayBhc3BlZWQtdmlkZW8gZHJp
+dmVyPGJyPiZndDsmbmJzcDsgJmd0OyBtb2R1bGUgaW4ga2VybmVsIHRoYXQgd2hhdCBoYXBw
+ZW5zIG9uIHZpZGVvIG1vZGUgY2hhbmdlIGV2ZW50cy48YnI+Jmd0OyZuYnNwOyAmZ3Q7PGJy
+PiZndDsmbmJzcDsgJmd0OyBDaGVlcnMsPGJyPiZndDsmbmJzcDsgJmd0OyBKYWU8YnI+Jmd0
+OyZuYnNwOyAmZ3Q7PGJyPiZndDsmbmJzcDsgJmd0OyBPbiAyLzE5LzIwMTkgMTI6MjYgQU0s
+IHhpdXpoaSB3cm90ZTo8YnI+Jmd0OyZuYnNwOyAmZ3Q7Jm5ic3A7ICZndDsgSGkgSmFlLDxi
+cj4mZ3Q7Jm5ic3A7ICZndDsmbmJzcDsgJmd0OyZuYnNwOyAmbmJzcDsgJm5ic3A7SSB1cGRh
+dGVkIHRoZSBvYm1jLWlrdm0gY29tbWl0PGJyPiZndDsmbmJzcDsgJmd0OyA3ZGZhYzlmZjJk
+MTU2OWFlZGY4MzE3NWZiMDQyNzU2MmMyMTg4ZTYzPGJyPiZndDsmbmJzcDsgJmd0OyZuYnNw
+OyAmZ3Q7Jm5ic3A7ICZuYnNwO0l0IGNhdXNlZCBvbmUgaXNzdWU6PGJyPiZndDsmbmJzcDsg
+Jmd0OyZuYnNwOyAmZ3Q7IFRoZSBpa3ZtIG9ubHkgd29ya3Mgb24gbGludXggT1MgR1VJIG1v
+ZGUsPGJyPiZndDsmbmJzcDsgJmd0OyZuYnNwOyAmZ3Q7IFdoZW4gSSBzd2l0Y2ggdG8gb3Mg
+Y29uc29sZSBtb2RlLCB0aGUgaWt2bSBjYW4ndCBnZXQgdGhlIGhvc3Qgc2NyZWVuLjxicj4m
+Z3Q7Jm5ic3A7ICZndDsmbmJzcDsgJmd0OyBQbGVhc2UgY2hlY2sgeW91IGNvbW1pdC48YnI+
+Jmd0OyZuYnNwOyAmZ3Q7Jm5ic3A7ICZndDs8YnI+Jmd0OyZuYnNwOyAmZ3Q7Jm5ic3A7ICZn
+dDsgQmVzdCw8YnI+Jmd0OyZuYnNwOyAmZ3Q7Jm5ic3A7ICZndDsgeGl1emhpPGJyPiZndDsg
+PGJyPjwvZGl2Pg==
+
+------=_NextPart_5C6F660A_0A6AB548_3437C4B5--
