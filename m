@@ -1,76 +1,67 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <prkatti1@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
  (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
+ envelope-from=prkatti1@in.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445YM66f06zDqKJ
- for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 01:17:21 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445cNH6fNJzDqWt
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 03:33:35 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1MEFXjY044694
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 09:17:19 -0500
-Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qtj20j99m-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 09:17:19 -0500
+ x1MGVLQT019354
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 11:33:33 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.81])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qtkbjdn77-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 11:33:33 -0500
 Received: from localhost
- by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Fri, 22 Feb 2019 14:17:16 -0000
-Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
- by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 22 Feb 2019 14:17:14 -0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1MEHDYu14614620
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 22 Feb 2019 14:17:13 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A4258A4059;
- Fri, 22 Feb 2019 14:17:13 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DF4ECA404D;
- Fri, 22 Feb 2019 14:17:12 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.79.241.219])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 22 Feb 2019 14:17:12 +0000 (GMT)
-Subject: Re: Proposal for pldmtool
-To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>, tomjose@linux.vnet.ibm.com
-References: <3151516d-0aa1-465c-be01-44b3d837fbce@linux.vnet.ibm.com>
- <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
-Cc: openbmc@lists.ozlabs.org
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Fri, 22 Feb 2019 19:47:08 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.5.1
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <prkatti1@in.ibm.com>;
+ Fri, 22 Feb 2019 16:33:32 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 22 Feb 2019 16:33:29 -0000
+Received: from us1a3-mail267.a3.dal06.isc4sb.com ([10.146.127.216])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2019022216332751-626768 ;
+ Fri, 22 Feb 2019 16:33:27 +0000 
+In-Reply-To: <OF53FC2776.6CFC8561-ON002583A9.00391CD8-652583A9.003ABCA8@LocalDomain>
+To: openbmc@lists.ozlabs.org
+Cc: "George Keishing" <gkeishin@in.ibm.com>
+Subject: Redfish: Network test findings
+From: "Prashanth Katti1" <prkatti1@in.ibm.com>
+Date: Fri, 22 Feb 2019 22:03:27 +0530
+References: <OF53FC2776.6CFC8561-ON002583A9.00391CD8-652583A9.003ABCA8@LocalDomain>
 MIME-Version: 1.0
-In-Reply-To: <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 19022214-0020-0000-0000-00000319FD32
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19022214-0021-0000-0000-0000216B5577
-Message-Id: <5f9e4b07-5680-6335-8050-24c3d97ebf3d@linux.vnet.ibm.com>
+X-KeepSent: 3C14C139:B5348C62-002583A9:00475679;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP9 SHF55 October 04, 2017
+X-LLNOutbound: False
+X-Disclaimed: 49447
+X-TNEFEvaluated: 1
+x-cbid: 19022216-7093-0000-0000-00000A40DABB
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000000
+X-IBM-SpamModules-Versions: BY=3.00010644; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01164805; UDB=6.00608301; IPR=6.00945393; 
+ BA=6.00006238; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025699; XFM=3.00000015;
+ UTC=2019-02-22 16:33:30
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-02-22 14:39:19 - 6.00009617
+x-cbparentid: 19022216-7094-0000-0000-000070D408E4
+Message-Id: <OF3C14C139.B5348C62-ON002583A9.00475679-652583A9.005AF2E2@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="=_alternative 00476743652583A9_="
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-22_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902220101
+ definitions=2019-02-22_12:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,35 +73,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 14:17:24 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 16:33:36 -0000
 
-On 21/02/19 11:12 PM, Supreeth Venkatesh wrote:
-> Tom,
-> 
-> Thanks for sending this out as a feeler.
-> This sounds like a logical next step after implementation of PLDM and MCTP.
-> However, I have a couple of initial questions.
-> 
-> " A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon."
-> 1. Do you think it is ok to use this as external interface to BMC? I was under the impression that IPMI or Redfish were external facing interfaces to BMC.
->       PLDM was intended for inside the box communications.
 
-I'll let Tom comment as well, but I agree that this use-case probably 
-does not exist. This tool serves more as a debug aid for in-band PLDM 
-communication.
+--=_alternative 00476743652583A9_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
 
-> 2. Why not use Redfish device enablement for PLDM, so that the tool (typically http/s client) will issue PLDM requests in the form of Json payload.
+Hi Ed Tanous,
 
-What if the PLDM device the BMC is talking to does not implement Redfish?
+Here are the finding on Network test for bmcweb.
+.=20
+Could you look into the following issues and let us know.
 
-> 3. Can you describe the use case for the tool to be run on host firmware? In my opinion, this is highly unlikely though it can be run from host user space.
+ Configure IP address           =20
+https://github.com/openbmc/bmcweb/issues/36
+ Delete IP address              =20
+https://github.com/openbmc/bmcweb/issues/36
+ Configure DNS                  =20
+https://github.com/openbmc/bmcweb/issues/50
+ Configure NTP                                 =20
+https://github.com/openbmc/bmcweb/issues/53
+ Configure VLAN                =20
+https://github.com/openbmc/bmcweb/issues/51
+ Delete VLAN                                   =20
+https://github.com/openbmc/bmcweb/issues/51
+ Configure DHCP(Enable/Disable) =20
+https://github.com/openbmc/bmcweb/issues/52
+ Configure DHCP options                =20
+https://github.com/openbmc/bmcweb/issues/52
+ Configure HostName             =20
+https://github.com/openbmc/bmcweb/issues/44
+ Configure Default Gataeway     =20
+https://github.com/openbmc/bmcweb/issues/54
+ Configure MAC Address                      =20
+https://github.com/openbmc/bmcweb/issues/43
 
-Probably for debug - quickly test a remote PLDM device without having to 
-write a full blown requester application. Similar to how it would help 
-when it runs on the BMC.
 
-> Thanks,
-> Supreeth
+Prashanth Katti
 
-Regards,
-Deepak
+
+--=_alternative 00476743652583A9_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="US-ASCII"
+
+<span style=3D" font-size:10pt;font-family:sans-serif">Hi Ed Tanous,</span>=
+<br><br><span style=3D" font-size:10pt;font-family:sans-serif">Here are the=
+ finding
+on Network test for bmcweb.</span><br><span style=3D" font-size:10pt;font-f=
+amily:sans-serif">. </span><br><span style=3D" font-size:10pt;font-family:s=
+ans-serif">Could you look
+into the following issues and let us know.</span><br><br><span style=3D" fo=
+nt-size:10pt;font-family:sans-serif">&nbsp;Configure
+IP address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a=
+ href=3Dhttps://github.com/openbmc/bmcweb/issues/36><span style=3D" font-si=
+ze:10pt;color:blue;font-family:sans-serif">&nbsp; &nbsp; &nbsp; &nbsp;https=
+://github.com/openbmc/bmcweb/issues/36</span></a><br><span style=3D" font-s=
+ize:10pt;font-family:sans-serif">&nbsp;Delete IP
+address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a hr=
+ef=3Dhttps://github.com/openbmc/bmcweb/issues/36><span style=3D" font-size:=
+10pt;color:blue;font-family:sans-serif">&nbsp; &nbsp; &nbsp; &nbsp;https://=
+github.com/openbmc/bmcweb/issues/36</span></a><br><span style=3D" font-size=
+:10pt;font-family:sans-serif">&nbsp;Configure
+DNS &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;</span><a href=3Dhttps://github.com/openbmc/bmcw=
+eb/issues/50><span style=3D" font-size:10pt;color:blue;font-family:sans-ser=
+if">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;https://github.c=
+om/openbmc/bmcweb/issues/50</span></a><br><span style=3D" font-size:10pt;fo=
+nt-family:sans-serif">&nbsp;Configure
+NTP &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp;</span><a href=3Dhttps://github.com/openbmc/bmcweb/issu=
+es/53><span style=3D" font-size:10pt;color:blue;font-family:sans-serif">htt=
+ps://github.com/openbmc/bmcweb/issues/53</span></a><br><span style=3D" font=
+-size:10pt;font-family:sans-serif">&nbsp;Configure
+VLAN &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp;</span><a href=3Dhttps://github.com/openbmc/bmcw=
+eb/issues/51><span style=3D" font-size:10pt;color:blue;font-family:sans-ser=
+if">https://github.com/openbmc/bmcweb/issues/51</span></a><br><span style=
+=3D" font-size:10pt;font-family:sans-serif">&nbsp;Delete VLAN
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp;</span><a href=3Dhttps://github.com/openbmc/bmcweb/issues/51><=
+span style=3D" font-size:10pt;color:blue;font-family:sans-serif">https://gi=
+thub.com/openbmc/bmcweb/issues/51</span></a><br><span style=3D" font-size:1=
+0pt;font-family:sans-serif">&nbsp;Configure
+DHCP(Enable/Disable) </span><a href=3Dhttps://github.com/openbmc/bmcweb/iss=
+ues/52><span style=3D" font-size:10pt;color:blue;font-family:sans-serif">&n=
+bsp;
+&nbsp;https://github.com/openbmc/bmcweb/issues/52</span></a><br><span style=
+=3D" font-size:10pt;font-family:sans-serif">&nbsp;Configure
+DHCP options &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</span><a href=3Dhttps://github.com/openbmc/bmcweb/issues/52><span style=3D=
+" font-size:10pt;color:blue;font-family:sans-serif">https://github.com/open=
+bmc/bmcweb/issues/52</span></a><br><span style=3D" font-size:10pt;font-fami=
+ly:sans-serif">&nbsp;Configure
+HostName &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><a h=
+ref=3Dhttps://github.com/openbmc/bmcweb/issues/44><span style=3D" font-size=
+:10pt;color:blue;font-family:sans-serif">&nbsp; &nbsp; &nbsp; &nbsp;https:/=
+/github.com/openbmc/bmcweb/issues/44</span></a><br><span style=3D" font-siz=
+e:10pt;font-family:sans-serif">&nbsp;Configure
+Default Gataeway &nbsp; &nbsp; &nbsp; &nbsp;</span><a href=3Dhttps://github=
+.com/openbmc/bmcweb/issues/54><span style=3D" font-size:10pt;color:blue;fon=
+t-family:sans-serif">&nbsp; &nbsp; &nbsp; &nbsp;https://github.com/openbmc/=
+bmcweb/issues/54</span></a><br><span style=3D" font-size:10pt;font-family:s=
+ans-serif">&nbsp;Configure
+MAC Address &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; </span><a href=3Dhttps://github.com/openbmc/bmcweb/issues/43>=
+<span style=3D" font-size:10pt;color:blue;font-family:sans-serif">https://g=
+ithub.com/openbmc/bmcweb/issues/43</span></a><br><br><br><span style=3D" fo=
+nt-size:10pt;font-family:sans-serif">Prashanth Katti</span><BR>
+--=_alternative 00476743652583A9_=--
