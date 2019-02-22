@@ -1,52 +1,58 @@
-Return-Path: <hkwilliamson@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::c34; helo=mail-yw1-xc34.google.com;
- envelope-from=hkwilliamson@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZHv7eRzD"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="Fh8XWl2N"; 
  dkim-atps=neutral
-Received: from mail-yw1-xc34.google.com (mail-yw1-xc34.google.com
- [IPv6:2607:f8b0:4864:20::c34])
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445kdD5K6fzDqW6
- for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 08:15:09 +1100 (AEDT)
-Received: by mail-yw1-xc34.google.com with SMTP id p17so1383379ywg.0
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 13:15:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=7ldRWz+aK76t4/sHe69pron0JwI7TWnayt58316voOo=;
- b=ZHv7eRzDXyiL/2EmpU2gF4R89jkPlquG6o9r1upfj77xSzsOlGUyFmB9aHEVVw6r25
- EU81NI/J+Je01kbEN/9naw8pSXx3raluWeP+w8vJV4OoxvO1XDPejDQ/RxyM5FhP+BiQ
- YOcXiH2AMHnLLFwzZuwn1ybF/0sXixtHo/xb0nOSLmuYnkAwY0GS8tJ07b7HQvPfT0bD
- h3mRkKp4OS9Dc0QnKhBTzkSkgPgyVI9U+K/9pjuK2xTHZbZmrsPAzftdOUevzGkrSmqP
- eV4pj7njXwv19dn6k4hpsf3MvPoPfw/Pgpjf20XhOgon3tWZD9wb/EnB6x3mhHPhZAaI
- GCRw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445lFM5VkyzDqWh
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 08:43:03 +1100 (AEDT)
+Received: by mail-pl1-x635.google.com with SMTP id d15so1674947plr.1
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 13:43:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yprb/pz8nHcCgW53KrciaG1HfiJk86x3+Sf1fxje+OU=;
+ b=Fh8XWl2N61C86MnchK9IRMPyPU8B72YRVzmzS2sF7SKf+gqdiv8lcXtaJ0dmFX5KCJ
+ 9EmlZgF3ODj6LIGkl+sk6PpnuZrntk84NbTI2k9TMHb0/3xwuUZoppeNFKkCKebsp1QJ
+ bAZL2bs8HsFXfzYp3x1Go3lylBXCSCV5IL658Zx08cdyhSP0XKb9Tsq4D0MtZFIZo7JI
+ Aiqzbzf+QP+MlVCPn8+srE3UdAEAQfCVzKWjwk5PtpZWtQCes57uHKSba2dJR5RKUU5R
+ qpGl2PBMRpcRe9kfY5JVpyMfcBcJiFyzBBHb3za/77ZIDcMt5axTt9K+DMZnPKHmcbxA
+ bJNQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=7ldRWz+aK76t4/sHe69pron0JwI7TWnayt58316voOo=;
- b=QB7EmnHZzGJZCAAfuXt1XnZ8ZvJvEw1fOMt3c37OSzK9RiHfKEl2Lu5CNu+SJsShz8
- D94Vk2RRNvxQYQV573XtgpJCfYNyTOBlJImqXTKj2tl0/vRREid/5Cx6QywlXu/0llnm
- nGWVdrU8nUTXmmlLO8affuYTPiIaKjOyX2RG8ZgkUSnFyp+gylXp89txwPIa+QNujsdg
- JTIKs/w93xlEa8odKazKKzgeoLTbXKokkGlhVnpa8FMhNmf4sIbsv0IyYPdOIJ4KZF9Y
- sopTakiyvvHaAV5b/uAicLqHE6lWJUT/y2QtizdjC93gwwPYBkOg2ePAmKmJHPPR7gw6
- 2g1w==
-X-Gm-Message-State: AHQUAuZW5O7w9Sgql7gy+0VcKUiBik6R16LHdQAT7QS6w4FSEtHsTXJp
- 78+9AWZ/t7ynUkidpuiwLYoNMTe3cZLbyfky95VFuQ==
-X-Google-Smtp-Source: AHgI3IZtgfAv7H7pdpI5qFznpRcDRCUKZaBctKkClgoU707R1IIH6vzIgDh/2F0aQb9T1pwaqtbAf/1GG+fHD81G4Sk=
-X-Received: by 2002:a81:ad8:: with SMTP id 207mr5010783ywk.188.1550870106692; 
- Fri, 22 Feb 2019 13:15:06 -0800 (PST)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yprb/pz8nHcCgW53KrciaG1HfiJk86x3+Sf1fxje+OU=;
+ b=XrlLDtOLVvhhARl2rsNkUu9sDfOGR4SdqhlwRGu8vPjCsV8UtdUVqKGiUT23HdhS+5
+ KoWJLFH5Eac7tlvntq4R8IrmLZYeLu0gt5NiMd1v9P6vChe+0N6qKMraD+5xAyz6ZkFn
+ 77tbkBY2wxhwocPkagfj/qT/0/oaYZfE3XZcKH1LlpP4XWZTlC1B5rJ6jlU5k80IYFPW
+ 4vXtww4/c0dBBXzjWOq7V9iJbqeGrTEbuODnWkVI3a98OQ4pE/AThqbsMHv/gwaOc0uG
+ 5qStRWHVqemxk5fBwkJiZNXkrplO/snoX7ow2Qfi/hBJ9n1sQ0GZrrRoil+Y/Ck9tH9Z
+ E0LA==
+X-Gm-Message-State: AHQUAuYnlHbIGEKf5/eeLQKL1BWAx3Ot8YsGaMgYDf2ecycwYtu/L25w
+ Nj+RsB8W3gpYwr7D8DG5SJGD0qY8nS6Y3jScWgotHA==
+X-Google-Smtp-Source: AHgI3IYFwfmhHzN62B3i5aeMVzy7Sr56EYvxWbyBdR76hJf+mzbbtsmsqIrqTt9s9P7mHmVpvPONQ3AYUOKIFM4z2Gc=
+X-Received: by 2002:a17:902:8b83:: with SMTP id
+ ay3mr5963929plb.1.1550871781408; 
+ Fri, 22 Feb 2019 13:43:01 -0800 (PST)
 MIME-Version: 1.0
-From: Keith Williamson <hkwilliamson@gmail.com>
-Date: Fri, 22 Feb 2019 13:14:47 -0800
-Message-ID: <CAFweeiT62MGOER0WMGMhvR5EX4t=7+pwp1p2BO7rYEq6e+qDdg@mail.gmail.com>
-Subject: DRAM usage on AST2500 with OpenBMC and Redfish
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000cd61c605828215b5"
+References: <CAO=notwH0_2nGmWaxyr-56Tzb_SFJHmdUPeUZpjWBBVm5EArzg@mail.gmail.com>
+ <20190222205129.GB44612@mauery.jf.intel.com>
+In-Reply-To: <20190222205129.GB44612@mauery.jf.intel.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 22 Feb 2019 13:42:50 -0800
+Message-ID: <CAO=notyqagt2BQ94mMt7oUWTQiRFZUj8vLOj3yeCnhpezyEB=w@mail.gmail.com>
+Subject: Re: IPMI Channel Config Removed?
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,30 +64,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 21:15:14 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 21:43:04 -0000
 
---000000000000cd61c605828215b5
-Content-Type: text/plain; charset="UTF-8"
+On Fri, Feb 22, 2019 at 12:51 PM Vernon Mauery
+<vernon.mauery@linux.intel.com> wrote:
+>
+> On 22-Feb-2019 09:55 AM, Patrick Venture wrote:
+> >It looks like the channel config for IPMI was removed from the
+> >sources.  Instead the channel layer is doing something by checking
+> >with the sysfs device instances -- and there's some mapping (I haven't
+> >dug into it).
+>
+> IPMI channels are configured with a JSON file that lives in
+> /usr/share/ipmi-providers/channel_config.json on the BMC. The default
+> file in yocto-land lives at
+> meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-config/channel_config.json
+> and can be overridden with bbappend.
+>
+> >I'd like to know if I need to do anything to configure the channels
+> >such that eth1 is channel 1, and eth0 is channel 0?  Or Did that
+> >change?  Can I make eth1 channel 5?
+>
+> Making your own config is as easy as overriding the default with
+> bitbake.
 
-Hi,
+Thanks, I'll take a look at setting that up for the platforms.
 
-Just starting to look at OpenBMC for next server board implementation.
+>
+> >All our platforms were using channel configs, and quanta-q71l upstream
+> >was too, so I'd like some explanation as I don't remember seeing an
+> >email about it when it was dropped.
+>
+> I don't recall if there was an email, but several months back, there
+> were user/channel config reviews out that slowly got merged in.
 
-Is 512MB DRAM on the AST2500 more than enough for OpenBMC, Redfish, etc or
-is anyone in the community recommending 1GB DRAM?
+Reviews notwithstanding, in the future it would be appreciate if when
+something like that is changed, a five line announcement email would
+be appreciated.
 
-Thanks,
-
-Keith
-
---000000000000cd61c605828215b5
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi,</div><div><br></div><div>Just starting to look at=
- OpenBMC for next server board implementation. <br></div><div><br></div><di=
-v>Is 512MB DRAM on the AST2500 more than enough for OpenBMC, Redfish, etc o=
-r is anyone in the community recommending 1GB DRAM?</div><div><br></div><di=
-v>Thanks,</div><div><br></div><div>Keith<br></div></div>
-
---000000000000cd61c605828215b5--
+>
+> --Vernon
