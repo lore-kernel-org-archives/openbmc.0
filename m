@@ -1,50 +1,81 @@
-Return-Path: <prvs=949bc9603=Tony.Lee@quantatw.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=949bc9603=tony.lee@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-X-Greylist: delayed 640 seconds by postgrey-1.36 at bilbo;
- Fri, 22 Feb 2019 14:25:26 AEDT
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 445Gtt6W4WzDqSl
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 14:25:26 +1100 (AEDT)
-Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
- by mx02.quantatw.com with ESMTP; 22 Feb 2019 11:14:44 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx06.quanta.corp
- (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 22 Feb
- 2019 11:14:41 +0800
-Received: from mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381]) by
- mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381%11]) with mapi id
- 15.01.1531.004; Fri, 22 Feb 2019 11:14:41 +0800
-From: =?big5?B?VG9ueSBMZWUgKKf1pOW0SSk=?= <Tony.Lee@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "benjaminfair@google.com" <benjaminfair@google.com>,
- "emilyshaffer@google.com" <emilyshaffer@google.com>
-CC: =?big5?B?QnVkZHkgSHVhbmcgKLbApNHCRSk=?= <Buddy.Huang@quantatw.com>
-Subject: Support for NVMe-MI?
-Thread-Topic: Support for NVMe-MI?
-Thread-Index: AdTKW4APladdDbk7RG6ShkYe6mLkbA==
-Date: Fri, 22 Feb 2019 03:14:41 +0000
-Message-ID: <7146489c577d4784bd57fa4cb22a65b2@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24446.003
-x-tm-as-result: No--16.575400-0.000000-31
-x-tm-as-matchedid: 140026-139704-113220-780058-111604-700362-705718-700345-7
- 01827-700264-702497-700450-700732-701306-264792-709859-111605-700074-700402
- -700656-700079-139705-111610-704425-707451-708712-703223-709584-702643-1211
- 69-706719-102356-188124-700107-188093-148004-148054-20020-30063-42000-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: multipart/alternative;
- boundary="_000_7146489c577d4784bd57fa4cb22a65b2quantatwcom_"
-MIME-Version: 1.0
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="DDNS0ZUs"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="gALjIK4T"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445LCk6T6pzDqSD
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 16:55:14 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2E6612222E;
+ Fri, 22 Feb 2019 00:55:12 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Fri, 22 Feb 2019 00:55:12 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:in-reply-to:references:date:from:to:cc:subject
+ :content-type:content-transfer-encoding; s=fm2; bh=iAikT9FKYZ6tE
+ suT9yT5shpOYYlvvHQVo6pRFixe9bw=; b=DDNS0ZUsIF8Q23X5ha6RZysAOxYpO
+ 0e3rigeBRyZgWI8hYwOf03MMAr5j26iArOprNFtPDGn9X2+PwIb2mxMVzAaxU7AR
+ Y2ph5Tqo4t+N89vEw3A2AEXpPxIJW05+smjT6bGgZaEeqSwbi16conezpQEDGnX+
+ aOu4nuI8IuuX4rS6FllSia3jiiGaoj3wJqsQhLsVGlUSmArx9tJ6nIuvKxF87zf3
+ kJk77i1DbiAmVYGge1XBTGkxKrzSwm4PFxQ+AlBzEmvkgvf99sDrMsYh/EgPq5Rn
+ V9OaMXxQ08KxptHqZRdPWpocVC9js6Whh22zB+dbe6+WJzXVzm5PX84CA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=iAikT9FKYZ6tEsuT9yT5shpOYYlvvHQVo6pRFixe9bw=; b=gALjIK4T
+ Tt5cjitcz7OnohNAddYRsrKhfOtH9N88ReoXo/5juWxue7gSWzXl53crjJSPvGMj
+ aBy1N71N2kACYwZ7cyd5VIe8PyfOJYmLsRZ5kxZFNxhSrJwp9gWjtef6MMq+xMXb
+ nGSZW8vFsWWM0vd3esASUx01d7Hmz5o2pKjRoKduZsEKrSC8inIxefci7EgyLIBf
+ kFPjDk/6PCgejPj19lnB4GazUKlm7cYwB45fauqDk0qUONZbOfaGaoA7gAwykI2H
+ jgy/IAwg+cHx7erBY622CV+a0dTk2XJXsIORVci3TyGDqwblLNjaADVR8rF4UM4U
+ xJ7JN/Qmkb4mqA==
+X-ME-Sender: <xms:v45vXB6Y91FC8svtuMx3Ouybb0pSj2R6gt0RyocO8Bm84wYGKL_dUA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrtdelgdekkeculddtuddrgedtledrtddtmd
+ cutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfhuthen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfkfgjfhffhffvufgtgfesthhqredtreerjeenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:v45vXPVuYKqr_MBIfUNgjA1_NC7Nh26xMgQL_4rMVMyoLI8tw9Pnsg>
+ <xmx:v45vXJJYorepR5Ortfw6Pnj8j-ed36bAc70Miu5CSIYPvUw4THmYcg>
+ <xmx:v45vXBvJFsZE-bbpqYz0YCRh2udhxk_Pf2h9XrTNpQvUEc2upFdyvg>
+ <xmx:wI5vXK1YNtdCBS-YsppT69i46f1JN1DNTMuzKkzZhjRzIIjEj64kkQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 450137C1EB; Fri, 22 Feb 2019 00:55:11 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
+X-Me-Personality: 52947553
+Message-Id: <f2602a79-6d08-4154-936d-d23e5641a7ec@www.fastmail.com>
+In-Reply-To: <EC804DC2-940C-431E-A358-B803CDE93F5C@cisco.com>
+References: <88e05768447d466ca674e12e20c650dc@quantatw.com>
+ <96605da0-113a-4d43-994a-f081f30af71e@www.fastmail.com>
+ <66dac7974c444060a9b4b1052b00d072@quantatw.com>
+ <8b3b8d3a-9cf5-4f7d-9993-e71fd3cd6e07@www.fastmail.com>
+ <8f0d3dec56434a0484f6d5172c036ed4@quantatw.com>
+ <EC804DC2-940C-431E-A358-B803CDE93F5C@cisco.com>
+Date: Fri, 22 Feb 2019 00:55:10 -0500
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: =?UTF-8?Q?Will_Liang_=28=E6=A2=81=E6=B0=B8=E9=89=89=29?=
+ <Will.Liang@quantatw.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "Stefan M Schaeckeler" <sschaeck@cisco.com>
+Cc: "dkodihal@in.ibm.com" <dkodihal@in.ibm.com>
+Subject: Re: ECC memory of BMC  
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,147 +87,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 03:25:32 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 05:55:18 -0000
 
---_000_7146489c577d4784bd57fa4cb22a65b2quantatwcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Fri, 22 Feb 2019, at 16:22, Stefan Schaeckeler (sschaeck) wrote:
+> Hi Will,
+>=20
+> =EF=BB=BFOn 2/21/19, 6:00 PM, "Will Liang (=E6=A2=81=E6=B0=B8=E9=89=89=
+)" <Will.Liang@quantatw.com> wrote:
+>=20
+> > > > What we want to do is to record the ECC events to SEL.
+> > > >
+> > > > we are considering to create new dbus and a service.
+> > >=20
+> > > Right; I think you need to create a new service that polls the sys=
+fs interface for
+> > > the EDAC device, and then use phosphor-logging to create error log=
+s.=20
+> >
+> > We consider creating the following objects for D-Bus:
+> > -bus name : /xyz/openbmc_project/ECC
+> > -object path : /xyz/openbmc_project/ECC/status
+> > -interface : xyz.openbmc_project.Memory.MemoryECC
+> >
+> > and error types for xyz::openbmc_project::Memory::Ecc::Error::ceCoun=
+t and "ueCount"
+> > and "isLoggingLimitReached" for phosphor-logging error message.
+>=20
+>=20
+> Note, the driver also logs the addresses of the recoverable and un-rec=
+overable
+> errors. Perhaps you want to expose them, too?
+>=20
+> The edac framework is unfortunately not exposing them through sysfs. T=
+hey get
+> printed through "edac_mc_handle_error()" as printk(KERN_WARNING, ...) =
+and look
+> like
+>=20
+> root@aspeed-arm:# dmesg | grep EDAC
+> [ 1718.900000] EDAC MC0: 1 CE address(es) not available on=20
+> mc#0csrow#0channel#0 (csrow:0 channel:0 page:0x0 offset:0x0 grain:0=20=
 
-SGksDQoNCg0KDQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2lzc3Vlcy8zNDgy
-IGlzIGFza2luZyBzdXBwb3J0IGZvciBOVk1lLU1JLg0KDQpOb3csIHdlIGZvdW5kIHRoYXQgR29v
-Z2xlIGhhcyBhIHBhY2thZ2UgY2FsbGVkIKGnZ29vZ2xlLWlwbWktaTJjoaguIEl0IHByb3ZpZGVz
-IGEgaXBtaSBicmlkZ2UgY29tbWFuZCB3aGljaCBjYW4gZ2V0IHRoZSBkZXZpY2UgZGF0YSB3aGVy
-ZSBhcmUgb24gdGhlIGkyYyBidXMuDQoNCg0KDQpUaGVyZSBhcmUgdGhlIGNvbW1hbmQgYW5kIHJl
-c3BvbnNlIGV4YW1wbGUgYmVsb3c6DQokIGlwbWl0b29sIC1JIGRidXMgcmF3IDB4MmUgMiAweDc5
-IDB4MmIgMHgwMCAxNCAwIDB4ZDQgMCAxIDAgMHhkNSAwIDgNCnJlc3BvbnNlOiA3OSAyYiAwMCAw
-NiBiYiBmZiAyYSAwMCAwMCAwMCAyZQ0KJCBpcG1pdG9vbCAtSSBkYnVzIHJhdyAweDJlIDIgMHg3
-OSAweDJiIDB4MDAgMTQgMCAweGQ0IDAgMSA4IDB4ZDUgMCAyNA0KcmVzcG9uc2UgOiA3OSAyYiAw
-MCAxNiA4MCA4NiA1MCA0OCA0YyA0NiAzNyAzMSAzMSAzNSAzMCAzMA0KUmVzcG9uc2UgaXMgZGVm
-aW5lIGluIE5WTSBFeHByZXNzIE1hbmFnZW1lbnQgSW50ZXJmYWNlIFNQRUMNCkl0J3Mgb25seSB1
-c2VkIGZvciBpbi1iYW5kIG5vdy4NCg0KSG93IGFib3V0IGFkZGluZyBzdXBwb3J0IGZvciBvdXQt
-b2YtYmFuZCBmb3IgdGhpcyB1c2VmdWwgT0VNIGNvbW1hbmQ/DQoNCg0KVGhhbmtzDQpCZXN0IFJl
-Z2FyZHMsDQpUb255DQoNCg==
+> syndrome:0x0)
+> [ 1718.900000] EDAC MC0: 1 CE on mc#0csrow#0channel#0 (csrow:0=20
+> channel:0 page:0x80000 offset:0x0 grain:0 syndrome:0x0)
+>=20
+>=20
+> I'm not sure if there is an elegant way for userspace to retrieve mess=
+ages from
+> the kernel ring buffer.
+>=20
 
---_000_7146489c577d4784bd57fa4cb22a65b2quantatwcom_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
-	panose-1:2 1 6 1 0 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.MsoPlainText, li.MsoPlainText, div.MsoPlainText
-	{mso-style-priority:99;
-	mso-style-link:"=AF=C2=A4=E5=A6r =A6r=A4=B8";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.a
-	{mso-style-name:"=AF=C2=A4=E5=A6r =A6r=A4=B8";
-	mso-style-priority:99;
-	mso-style-link:=AF=C2=A4=E5=A6r;
-	font-family:"Calibri",sans-serif;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Hi,<o:p></o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US"><a href=3D"https://github.co=
-m/openbmc/openbmc/issues/3482">https://github.com/openbmc/openbmc/issues/34=
-82</a> is asking support for NVMe-MI.<o:p></o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">Now, we found that Google ha=
-s a package called
-</span><span lang=3D"EN-US" style=3D"font-family:&quot;Courier New&quot;">=
-=A1=A7</span><span lang=3D"EN-US">google-ipmi-i2c</span><span lang=3D"EN-US=
-" style=3D"font-family:&quot;Courier New&quot;">=A1=A8</span><span lang=3D"=
-EN-US">. It provides a ipmi bridge command which can get the device data wh=
-ere
- are on the i2c bus.<o:p></o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US" style=3D"font-size:11.0pt;fo=
-nt-family:&quot;Arial&quot;,sans-serif;color:black">There are the command a=
-nd response example below:</span><span lang=3D"EN-US"><o:p></o:p></span></p=
->
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">$ ipmitool -I dbus raw 0=
-x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 0 0xd5 0 8<br>
-response: 79 2b 00 06 bb ff 2a 00 00 00 2e<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">$</span><span lang=3D"EN=
--US" style=3D"font-family:&quot;Arial&quot;,sans-serif">
-</span><span lang=3D"EN-US" style=3D"font-family:&quot;Arial&quot;,sans-ser=
-if">ipmitool -I dbus raw 0x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 8 0xd5 0 24<br=
->
-response : 79 2b 00 16 80 86 50 48 4c 46 37 31 31 35 30 30<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">Response is define in NV=
-M Express Management Interface SPEC<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US">=
-It's only used for in-band now.<o:p></o:p></span></p>
-<p class=3D"MsoPlainText"><span lang=3D"EN-US">How about adding support for=
- out-of-band for this useful OEM command?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,<o:p></o:p></span>=
-</p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Tony<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_7146489c577d4784bd57fa4cb22a65b2quantatwcom_--
+Lets not start scraping dmesg. It's not considered part of the kernel AB=
+I.
