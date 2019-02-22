@@ -1,45 +1,76 @@
-Return-Path: <prvs=9497a70a9=Duke.Du@quantatw.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=9497a70a9=duke.du@quantatw.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-X-Greylist: delayed 685 seconds by postgrey-1.36 at bilbo;
- Fri, 22 Feb 2019 20:25:12 AEDT
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 445Qt00h9nzDqSY
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 20:25:11 +1100 (AEDT)
-Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
- by mx02.quantatw.com with ESMTP; 22 Feb 2019 17:13:43 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
- (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 22 Feb
- 2019 17:13:41 +0800
-Received: from mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381]) by
- mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381%11]) with mapi id
- 15.01.1531.004; Fri, 22 Feb 2019 17:13:41 +0800
-From: =?big5?B?RHVrZSBEdSAop/myu7nFKQ==?= <Duke.Du@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Add driver MAX31725/6 to linux kernel 4.19 
-Thread-Topic: Add driver MAX31725/6 to linux kernel 4.19 
-Thread-Index: AdTKjBaMNowG6gfeQf6yf8IfQoND0A==
-Date: Fri, 22 Feb 2019 09:13:41 +0000
-Message-ID: <31b8f5a5c7bb46f69a15ad91cdd450d2@quantatw.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24446.003
-x-tm-as-result: No--5.330600-0.000000-31
-x-tm-as-matchedid: 150588-701625-704425-700685-708060-700648-703523-704421-7
- 00107-863519-700562-780013-148004-148133-10007-41000-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 445YM66f06zDqKJ
+ for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 01:17:21 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1MEFXjY044694
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 09:17:19 -0500
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qtj20j99m-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 09:17:19 -0500
+Received: from localhost
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Fri, 22 Feb 2019 14:17:16 -0000
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 22 Feb 2019 14:17:14 -0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1MEHDYu14614620
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 22 Feb 2019 14:17:13 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A4258A4059;
+ Fri, 22 Feb 2019 14:17:13 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DF4ECA404D;
+ Fri, 22 Feb 2019 14:17:12 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.79.241.219])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Fri, 22 Feb 2019 14:17:12 +0000 (GMT)
+Subject: Re: Proposal for pldmtool
+To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>, tomjose@linux.vnet.ibm.com
+References: <3151516d-0aa1-465c-be01-44b3d837fbce@linux.vnet.ibm.com>
+ <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+Cc: openbmc@lists.ozlabs.org
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Fri, 22 Feb 2019 19:47:08 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.1
 MIME-Version: 1.0
+In-Reply-To: <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 19022214-0020-0000-0000-00000319FD32
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022214-0021-0000-0000-0000216B5577
+Message-Id: <5f9e4b07-5680-6335-8050-24c3d97ebf3d@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-22_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902220101
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,10 +82,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 09:25:12 -0000
+X-List-Received-Date: Fri, 22 Feb 2019 14:17:24 -0000
 
-SGksIA0KCVRoZSBkcml2ZXIgTUFYMzE3MjUvNiBpcyBhZGRlZCB0byB0aGUgbGludXgga2VybmVs
-IDQuMjAgYnV0IEkgd2FudCB0byBhZGQgZHJpdmVyIE1BWDMxNzI1LzYgdG8gbGludXgga2VybmVs
-IDQuMTksIGhvdyBjYW4gSSBkbyA/DQoNClRoYW5rcy4NCkJlc3QgcmVnYXJkcywNCkR1a2UsIER1
-DQpRdWFudGEgQ29tcHV0ZXIgSW5jLg0KVGVsOiArODg2LTMtMzI3MjM0NSBFeHQ6IDE4MDQ3DQpF
-LU1haWw6IER1a2UuRHVAcXVhbnRhdHcuY29tDQoNCg==
+On 21/02/19 11:12 PM, Supreeth Venkatesh wrote:
+> Tom,
+> 
+> Thanks for sending this out as a feeler.
+> This sounds like a logical next step after implementation of PLDM and MCTP.
+> However, I have a couple of initial questions.
+> 
+> " A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon."
+> 1. Do you think it is ok to use this as external interface to BMC? I was under the impression that IPMI or Redfish were external facing interfaces to BMC.
+>       PLDM was intended for inside the box communications.
+
+I'll let Tom comment as well, but I agree that this use-case probably 
+does not exist. This tool serves more as a debug aid for in-band PLDM 
+communication.
+
+> 2. Why not use Redfish device enablement for PLDM, so that the tool (typically http/s client) will issue PLDM requests in the form of Json payload.
+
+What if the PLDM device the BMC is talking to does not implement Redfish?
+
+> 3. Can you describe the use case for the tool to be run on host firmware? In my opinion, this is highly unlikely though it can be run from host user space.
+
+Probably for debug - quickly test a remote PLDM device without having to 
+write a full blown requester application. Similar to how it would help 
+when it runs on the BMC.
+
+> Thanks,
+> Supreeth
+
+Regards,
+Deepak
