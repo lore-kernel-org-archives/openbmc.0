@@ -1,39 +1,71 @@
-Return-Path: <prvs=9529fcd8d=Duke.Du@quantatw.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=9529fcd8d=duke.du@quantatw.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 447DJk4fBXzDqKy
- for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 18:35:58 +1100 (AEDT)
-Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
- by mx02.quantatw.com with ESMTP; 25 Feb 2019 15:35:55 +0800
-Received: from dusj-System-Product-Name.dhcpserver.local (10.243.91.252) by
- mailbx08.quanta.corp (10.243.91.103) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1531.3; Mon, 25 Feb 2019 15:35:54 +0800
-From: Duke <Duke.Du@quantatw.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: <openbmc@lists.ozlabs.org>, Duke <Duke.Du@quantatw.com>
-Subject: [PATCH dev-4.19 v1]
- Add-driver-lm75-MAX31725/6-to-linux-kernel-4.19-for-Quanta-GSJ-board
-Date: Mon, 25 Feb 2019 15:35:47 +0800
-Message-ID: <1551080147-6940-1-git-send-email-Duke.Du@quantatw.com>
-X-Mailer: git-send-email 2.7.4
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 447NRC6tvnzDqPX
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 00:42:14 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1PDYKwC082739
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 08:42:08 -0500
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qvfd6e9q4-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 08:42:08 -0500
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Mon, 25 Feb 2019 13:42:02 -0000
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 25 Feb 2019 13:41:59 -0000
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1PDfwSo30277798
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Mon, 25 Feb 2019 13:41:58 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A1B864203F;
+ Mon, 25 Feb 2019 13:41:58 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0795542049;
+ Mon, 25 Feb 2019 13:41:58 +0000 (GMT)
+Received: from [9.202.13.25] (unknown [9.202.13.25])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Mon, 25 Feb 2019 13:41:57 +0000 (GMT)
+To: openbmc@lists.ozlabs.org, ed.tanous@intel.com
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Subject: Redfish: Design User authorization.
+Date: Mon, 25 Feb 2019 19:11:56 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [10.243.91.252]
-X-ClientProxiedBy: mailbx07.quanta.corp (10.243.91.102) To
- mailbx08.quanta.corp (10.243.91.103)
-X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24452.000
-X-TM-AS-Result: No--6.216000-0.000000-31
-X-TM-AS-MatchedID: 704421-708060-700648-703523-704410-700016-188019-186035-7
- 05802-139704-780058-706561-709584-105700-704318-700023-704171-704307-706290
- -702626-702169-121169-708712-703712-148004-148036-20020-42000-42003-63
-X-TM-AS-User-Approved-Sender: Yes
-X-TM-AS-User-Blocked-Sender: No
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19022513-0012-0000-0000-000002F9EB14
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022513-0013-0000-0000-000021318B80
+Message-Id: <b7596cbb-14f6-2d03-6860-840fb2ee7a7f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-25_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=422 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902250100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,103 +77,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Feb 2019 07:36:08 -0000
+X-List-Received-Date: Mon, 25 Feb 2019 13:42:16 -0000
 
-Add driver of sensor lm75 MAX31725/6 to linux kernel-4.19.
+Hi Ed,
 
-Signed-off-by: Duke <Duke.Du@quantatw.com>
----
- Documentation/hwmon/lm75 |  6 +++---
- drivers/hwmon/lm75.c     | 18 ++++++++++++++++--
- 2 files changed, 19 insertions(+), 5 deletions(-)
+This mail is regarding the authorization support on Redfish.
 
-diff --git a/Documentation/hwmon/lm75 b/Documentation/hwmon/lm75
-index ac95edf..2f1120f 100644
---- a/Documentation/hwmon/lm75
-+++ b/Documentation/hwmon/lm75
-@@ -17,8 +17,8 @@ Supported chips:
-     Addresses scanned: none
-     Datasheet: Publicly available at the Maxim website
-                http://www.maximintegrated.com/
--  * Maxim MAX6625, MAX6626
--    Prefixes: 'max6625', 'max6626'
-+  * Maxim MAX6625, MAX6626, MAX31725, MAX31726
-+    Prefixes: 'max6625', 'max6626', 'max31725', 'max31726'
-     Addresses scanned: none
-     Datasheet: Publicly available at the Maxim website
-                http://www.maxim-ic.com/
-@@ -86,7 +86,7 @@ The LM75 is essentially an industry standard; there may be other
- LM75 clones not listed here, with or without various enhancements,
- that are supported. The clones are not detected by the driver, unless
- they reproduce the exact register tricks of the original LM75, and must
--therefore be instantiated explicitly. Higher resolution up to 12-bit
-+therefore be instantiated explicitly. Higher resolution up to 16-bit
- is supported by this driver, other specific enhancements are not.
- 
- The LM77 is not supported, contrary to what we pretended for a long time.
-diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-index 49f4b33..e6e5a10 100644
---- a/drivers/hwmon/lm75.c
-+++ b/drivers/hwmon/lm75.c
-@@ -47,6 +47,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- 	lm75b,
- 	max6625,
- 	max6626,
-+	max31725,
- 	mcp980x,
- 	stds75,
- 	tcn75,
-@@ -64,7 +65,6 @@ enum lm75_type {		/* keep sorted in alphabetical order */
- static const unsigned short normal_i2c[] = { 0x48, 0x49, 0x4a, 0x4b, 0x4c,
- 					0x4d, 0x4e, 0x4f, I2C_CLIENT_END };
- 
--
- /* The LM75 registers */
- #define LM75_REG_TEMP		0x00
- #define LM75_REG_CONF		0x01
-@@ -76,7 +76,7 @@ struct lm75_data {
- 	struct i2c_client	*client;
- 	struct regmap		*regmap;
- 	u8			orig_conf;
--	u8			resolution;	/* In bits, between 9 and 12 */
-+	u8			resolution;	/* In bits, between 9 and 16 */
- 	u8			resolution_limits;
- 	unsigned int		sample_time;	/* In ms */
- };
-@@ -339,6 +339,10 @@ lm75_probe(struct i2c_client *client, const struct i2c_device_id *id)
- 		data->resolution_limits = 9;
- 		data->sample_time = MSEC_PER_SEC / 4;
- 		break;
-+	case max31725:
-+		data->resolution = 16;
-+		data->sample_time = MSEC_PER_SEC / 8;
-+		break;
- 	case tcn75:
- 		data->resolution = 9;
- 		data->sample_time = MSEC_PER_SEC / 8;
-@@ -415,6 +419,8 @@ static const struct i2c_device_id lm75_ids[] = {
- 	{ "lm75b", lm75b, },
- 	{ "max6625", max6625, },
- 	{ "max6626", max6626, },
-+	{ "max31725", max31725, },
-+	{ "max31726", max31725, },
- 	{ "mcp980x", mcp980x, },
- 	{ "stds75", stds75, },
- 	{ "tcn75", tcn75, },
-@@ -472,6 +478,14 @@ static const struct of_device_id lm75_of_match[] = {
- 		.data = (void *)max6626
- 	},
- 	{
-+		.compatible = "maxim,max31725",
-+		.data = (void *)max31725
-+	},
-+	{
-+		.compatible = "maxim,max31726",
-+		.data = (void *)max31725
-+	},
-+	{
- 		.compatible = "maxim,mcp980x",
- 		.data = (void *)mcp980x
- 	},
--- 
-2.7.4
+In Redfish we have two types of privilege.
+
+1) User Privilege
+
+Redfish Authorization uses Roles and Privileges to control which users 
+have what access to
+resources.
+
+We can have static mapping of Roles and assigned privileges
+      Role = "Administrator"
+           Privileges = Login, ConfigureManager, 
+ConfigureUsers,ConfigureComponents, ConfigureSelf
+      Role = "Operator"
+           Privileges = Login, ConfigureComponents, ConfigureSelf
+      Role = "ReadOnly"
+           Privileges = Login, ConfigureSelf
+
+Currently in phsophor-user-manager all the default Roles/Privileges is 
+hardcoded.
+
+we need to map privilege name/Role to the RoleName of the Redfish.
+Static mapping is needed in the Redfish code for the same.
+
+    eg priv-admin = Administrator.
+
+Once we have the above mapping ready we will add the user role in the 
+session object itself during creation of the session.
+we can get the user role/privilege by calling the D-bus method on 
+phosphor-user-manager.
+Gerrit commit is up for the same.
+
+
+2) Entity privilege =>(Operation to Privilege) mapping
+
+    Currently each redfish node have the entity privilege structure, 
+which is supposed to be consumed
+    when the redfish request is being recieved by the redfish node class.
+    In the dispatchRequest funtion of node.hpp
+     => Check what is entity privilege
+     => Check what is user privilege
+     => If the user is having that privilege then allow the request 
+otherwise not.
+
+     Eg: If a PATCH operation is performed on the Account Service and 
+the entity privilege
+     for the Account service PATCH operation is "ConfigureUsers" and the 
+User Role which we get
+     From the session request have the same privilege then allow the 
+operation.
+
+I can see that in current Redfish code User Privileges is hardcoded and 
+it is allowing all
+users to do any operation.
+
+Can I get your feedback on the same?
+
+Ratan
