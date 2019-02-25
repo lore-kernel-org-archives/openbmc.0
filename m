@@ -1,71 +1,53 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 447NRC6tvnzDqPX
- for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 00:42:14 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1PDYKwC082739
- for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 08:42:08 -0500
-Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qvfd6e9q4-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 08:42:08 -0500
-Received: from localhost
- by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Mon, 25 Feb 2019 13:42:02 -0000
-Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
- by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 25 Feb 2019 13:41:59 -0000
-Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1PDfwSo30277798
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Mon, 25 Feb 2019 13:41:58 GMT
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A1B864203F;
- Mon, 25 Feb 2019 13:41:58 +0000 (GMT)
-Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0795542049;
- Mon, 25 Feb 2019 13:41:58 +0000 (GMT)
-Received: from [9.202.13.25] (unknown [9.202.13.25])
- by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Mon, 25 Feb 2019 13:41:57 +0000 (GMT)
-To: openbmc@lists.ozlabs.org, ed.tanous@intel.com
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Subject: Redfish: Design User authorization.
-Date: Mon, 25 Feb 2019 19:11:56 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 447T5t6MNBzDqL0
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 04:12:27 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2019 09:12:23 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,411,1544515200"; d="scan'208";a="137067228"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by orsmga002.jf.intel.com with ESMTP; 25 Feb 2019 09:12:23 -0800
+Received: from orsmsx122.amr.corp.intel.com (10.22.225.227) by
+ ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Mon, 25 Feb 2019 09:12:22 -0800
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.37]) by
+ ORSMSX122.amr.corp.intel.com ([169.254.11.48]) with mapi id 14.03.0415.000;
+ Mon, 25 Feb 2019 09:12:22 -0800
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Redfish: Design User authorization.
+Thread-Topic: Redfish: Design User authorization.
+Thread-Index: AQHUzQ/8ZJgYYU7ANUWGU9vZjmshYqXwvPXQ
+Date: Mon, 25 Feb 2019 17:12:21 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com>
+References: <b7596cbb-14f6-2d03-6860-840fb2ee7a7f@linux.vnet.ibm.com>
+In-Reply-To: <b7596cbb-14f6-2d03-6860-840fb2ee7a7f@linux.vnet.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19022513-0012-0000-0000-000002F9EB14
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19022513-0013-0000-0000-000021318B80
-Message-Id: <b7596cbb-14f6-2d03-6860-840fb2ee7a7f@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-25_07:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=422 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902250100
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiZTc1NzhhZGQtZmU5ZC00YjBmLWFiMTItMTEyNmQ3N2RmZGY4IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiYUZhRDErMUlxaDJBUjlWMlN6YWtxVm5DUjhQdVlDelArT0tUc0ZXYUNCTXlweHlaU0c1Mk50cFZlR3phMzE4RiJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.22.254.138]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,66 +59,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Feb 2019 13:42:16 -0000
+X-List-Received-Date: Mon, 25 Feb 2019 17:12:35 -0000
 
-Hi Ed,
-
-This mail is regarding the authorization support on Redfish.
-
-In Redfish we have two types of privilege.
-
-1) User Privilege
-
-Redfish Authorization uses Roles and Privileges to control which users 
-have what access to
-resources.
-
-We can have static mapping of Roles and assigned privileges
-      Role = "Administrator"
-           Privileges = Login, ConfigureManager, 
-ConfigureUsers,ConfigureComponents, ConfigureSelf
-      Role = "Operator"
-           Privileges = Login, ConfigureComponents, ConfigureSelf
-      Role = "ReadOnly"
-           Privileges = Login, ConfigureSelf
-
-Currently in phsophor-user-manager all the default Roles/Privileges is 
-hardcoded.
-
-we need to map privilege name/Role to the RoleName of the Redfish.
-Static mapping is needed in the Redfish code for the same.
-
-    eg priv-admin = Administrator.
-
-Once we have the above mapping ready we will add the user role in the 
-session object itself during creation of the session.
-we can get the user role/privilege by calling the D-bus method on 
-phosphor-user-manager.
-Gerrit commit is up for the same.
-
-
-2) Entity privilege =>(Operation to Privilege) mapping
-
-    Currently each redfish node have the entity privilege structure, 
-which is supposed to be consumed
-    when the redfish request is being recieved by the redfish node class.
-    In the dispatchRequest funtion of node.hpp
-     => Check what is entity privilege
-     => Check what is user privilege
-     => If the user is having that privilege then allow the request 
-otherwise not.
-
-     Eg: If a PATCH operation is performed on the Account Service and 
-the entity privilege
-     for the Account service PATCH operation is "ConfigureUsers" and the 
-User Role which we get
-     From the session request have the same privilege then allow the 
-operation.
-
-I can see that in current Redfish code User Privileges is hardcoded and 
-it is allowing all
-users to do any operation.
-
-Can I get your feedback on the same?
-
-Ratan
+Pg0KPiBIaSBFZCwNCj4gDQo+IFRoaXMgbWFpbCBpcyByZWdhcmRpbmcgdGhlIGF1dGhvcml6YXRp
+b24gc3VwcG9ydCBvbiBSZWRmaXNoLg0KPiANCg0KVGhhbmtzIGZvciBwdXNoaW5nIGZvcndhcmQg
+b24gdGhpcy4gIEkgdGhpbmsgdGhlIGJlc3QgZmlyc3Qgc3RlcCB3b3VsZCBiZSB0byByZXZpZXcg
+dGhlIHBhdGNoc2V0IHRoYXQncyBhbHJlYWR5IGluIHByb2dyZXNzIHRoYXQncyBhZGRpbmcgc29t
+ZSBpbmZyYXN0cnVjdHVyZSB0byBkbyBhIGxvdCBvZiB0aGUgdGhpbmdzIHlvdSdyZSBwcm9wb3Np
+bmcuICBJZiB5b3UncmUgcHJvcG9zaW5nIGFuIGFsdGVybmF0aXZlIGFwcHJvYWNoIHRoYW4gdGhl
+IGV4aXN0aW5nIHJldmlldywgYW5kIEkgbWlzdW5kZXJzdG9vZCwgYXBvbG9naWVzLg0KDQpodHRw
+czovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6L2Mvb3BlbmJtYy9ibWN3ZWIvKy8xNTgxMw0K
+DQpJIHN1c3BlY3QgdGhlIHF1ZXN0aW9ucyB3ZSBuZWVkIHRvIGFuc3dlciBhcmU6DQoxLiBIb3cg
+ZG8gd2UgZGV0ZXJtaW5lIGEgdXNlcidzIHJvbGU/DQoyLiBHaXZlbiB0aGF0IHByaXZpbGVnZSBp
+cyByZXF1aXJlZCB0byBzZXJ2aWNlIGV2ZXJ5IHJlcXVlc3QsIGRvIHdlIG5lZWQgdG8gY2FjaGUg
+aXQsIG9yIGNhbiB3ZSBnbyB0byBkYnVzIGZvciBldmVyeSByZXF1ZXN0Pw0KMy4gSG93IGlzIHRo
+ZSBjYWNoZSBpbnZhbGlkYXRlZD8NCg0KSSB0aGluayB0aGUgYnVsayBvZiB0aGUgaW1wbGVtZW50
+YXRpb24gd2lsbCBiZSBmaWxsaW5nIG91dCB0aGUgbWV0aG9kIGhlcmU6DQpodHRwczovL2dpdGh1
+Yi5jb20vb3BlbmJtYy9ibWN3ZWIvYmxvYi9hMjQ1MjZkY2Y5YWQ4ZGUyZjBiZDlkYmQ1ZmM3NDZh
+MTMwMzUxYTIyL3JlZGZpc2gtY29yZS9pbmNsdWRlL3ByaXZpbGVnZXMuaHBwI0wyMjkNCg0KQW5k
+IG1vdmluZyByb2xlcyBhd2F5IGZyb20gdGhlIHN0YXRpYyBpbXBsZW1lbnRhdGlvbiwgYXMgeW91
+J3ZlIGFscmVhZHkgZGV0ZXJtaW5lZC4NCg0KRG8geW91IGhhdmUgYW55IGludGVudGlvbiB0byBp
+bXBsZW1lbnQgUHJpdmlsZWdlUmVnaXN0cnk/DQoNCkxvb2tpbmcgZm9yd2FyZCB0byBzZWVpbmcg
+eW91ciB3b3JrIGhlcmUuDQoNCi1FZA0K
