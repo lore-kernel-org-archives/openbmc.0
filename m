@@ -1,52 +1,37 @@
-Return-Path: <jandraara@gmail.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::c2f; helo=mail-yw1-xc2f.google.com;
- envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=192.55.52.151; helo=mga17.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="AToX6tvN"; 
- dkim-atps=neutral
-Received: from mail-yw1-xc2f.google.com (mail-yw1-xc2f.google.com
- [IPv6:2607:f8b0:4864:20::c2f])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 447bwn5ltYzDqLH
- for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 09:20:09 +1100 (AEDT)
-Received: by mail-yw1-xc2f.google.com with SMTP id k14so4314910ywe.4
- for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 14:20:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=kQiUzpVuWH3DEX6wG7CLDOxqEbyOE7/uKSzh9x4hfCg=;
- b=AToX6tvNERyAwo1oWudFInSpvQamUWN0reLhp7IeUOsyXZTZlnqHqukS6mBmJz9oyB
- 64CLvUPDt2zn926DEl9vvhbxs5JqzQsEdO8OylPhBPlstyjUOzF8tSd4j/p0epaVu/I8
- DjCdBQs0bEZQZndNnZOiEd7VmaOwNze+v3wdjaxD6GwlWBUvhZPhnvi2zqx8b4Ofd5rp
- WHE9KqICXBcEyE7ywXXc+taHAXBm7ldY9utb9xM/XxRjpVOLRf3ErSy3hYLhZg0pEHmS
- a/x5uCkXb9YJH2iv0nJOjn+gqP+3YlgdQ6VoxlywUoPBWAj6VEanjL6UXkKS6/mgeOd3
- rEPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=kQiUzpVuWH3DEX6wG7CLDOxqEbyOE7/uKSzh9x4hfCg=;
- b=aYX388ANGOWaf1xDUVah6mTUmKgXrDo9nx2VrMEH02kGl/jfTEc1uChFTdSfH7NJfi
- 9aOFa08XKqu1NCgcuCKR2O9m/RnZe0pVgbzL9YHK01IdQ7/PI3BknmGRdwGsZ9YtPdez
- C7ghhmb9cgJj3mYxk1AEqyjYIjknwDcm5zOTEO13LX6Y+K3IGx9HENyp0jONYm0mcIUx
- iC9k+QPAj2S6oVIWTE6eRjYR5q/uyUHOeYLHUrodJsDxoWLAAs5i29pkX92YweoOAZ/Q
- q7Sm9V4yHzGhb1aTjDuMKbjMXY4Sp85YVlCzW8NrYgQgmt+qNjU01g01ILlPdUi9uZ2J
- pOIg==
-X-Gm-Message-State: AHQUAuZ3tBo/HzwkkmFMGEBDfQsfKpb77B7bz/1WJpkAlHjftYgxhxuH
- eYduHErSXS87p7PXZ0ZUxDl1MdOAzKBQMdwlXwn270Xr
-X-Google-Smtp-Source: AHgI3IbRKlIajffkQ7v+Crr7gFfzAO8hC36QdZdZVE3subr4zjeSu8KxNj3F9sMxHPNsIVq+ybw6Z66sfkq0lMDY/LM=
-X-Received: by 2002:a81:1690:: with SMTP id 138mr16132008yww.276.1551133205645; 
- Mon, 25 Feb 2019 14:20:05 -0800 (PST)
-MIME-Version: 1.0
-From: ja az <jandraara@gmail.com>
-Date: Mon, 25 Feb 2019 16:19:55 -0600
-Message-ID: <CAMTupoQ-tMw44SqtPZx4nnDe9tf6oWjt2EUUbdeAEowkhGiJEg@mail.gmail.com>
-Subject: Reminder : UI Feedback Session - Network Settings
+ by lists.ozlabs.org (Postfix) with ESMTPS id 447cfj2P1KzDqM1
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 09:53:00 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 25 Feb 2019 14:52:58 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,413,1544515200"; d="scan'208";a="146484217"
+Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
+ by fmsmga002.fm.intel.com with ESMTP; 25 Feb 2019 14:52:58 -0800
+Subject: Re: DRAM usage on AST2500 with OpenBMC and Redfish
 To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+References: <CAFweeiT62MGOER0WMGMhvR5EX4t=7+pwp1p2BO7rYEq6e+qDdg@mail.gmail.com>
+From: Ed Tanous <ed.tanous@intel.com>
+Message-ID: <72974e00-6057-6d77-c915-7587115545f8@intel.com>
+Date: Mon, 25 Feb 2019 14:52:58 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
+MIME-Version: 1.0
+In-Reply-To: <CAFweeiT62MGOER0WMGMhvR5EX4t=7+pwp1p2BO7rYEq6e+qDdg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,29 +43,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Feb 2019 22:20:10 -0000
+X-List-Received-Date: Mon, 25 Feb 2019 22:53:02 -0000
 
-Team,
 
-There was a desire to discuss the Network settings designs presented
-during the demo last week. I have set a meeting for tomorrow and
-welcome you all to join.
+On 2/22/19 1:14 PM, Keith Williamson wrote:
+> 
+> Is 512MB DRAM on the AST2500 more than enough for OpenBMC, Redfish, etc
+> or is anyone in the community recommending 1GB DRAM?
+> 
+Relevant quote:
+"640 K ought to be enough for anybody"
 
-Meeting info:
-Tuesday Feb 26 at 7:00 AM CST
-https://ibm.webex.com/meet/jandra.aranguren
-United States of America Toll +1-669-234-1178  Access Code: 927 646 009
-
-Network Settings:
-https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN
-- Is the relationship between VLAN and interfaces correct?
-- Are adding a DNS server and adding an IP address separate actions
-with a single intention or are they independent of each other?
-- Is there a use case for combining static and dynamic IP Addresses /
-DNS Servers?
-
-github issue:
-https://github.com/openbmc/phosphor-webui/issues/62
-
-Best,
-Jandra Aranguren
+At this point in time, the systems I'm working on only support 512MB,
+and I've never even thought about wanting more, except in maybe a debug
+context for capturing logs to ram.  On the other end of the spectrum,
+I've heard that the platforms that support 128MB have a tough time;  I
+don't know of any in between data points.
