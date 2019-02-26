@@ -1,58 +1,75 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::82a; helo=mail-qt1-x82a.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="uabvqLfN"; 
- dkim-atps=neutral
-Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
- [IPv6:2607:f8b0:4864:20::82a])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 447hY61Gk9zDqC4
- for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 12:48:25 +1100 (AEDT)
-Received: by mail-qt1-x82a.google.com with SMTP id v10so13101490qtp.8
- for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 17:48:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EgJmEm2AZiajl3i9T2+4xYrKHR71K+abyJUpy8ySzfs=;
- b=uabvqLfNgErRz35kUKpNckF1W/Qr9RGbtKmJUUa1IGYVp82nWMG5eT5EIbLzz6uyJ7
- XoV+XtCnNzYQ68IKbK5qINXFwbj1KCaQr4d4mhQsDuqjorSssHf7EWTGBjX7ANAZSpch
- BWnJ/Jxq6UAiLqlgTt8b23IpfwG8QkxT43sdK+UvClHJR3ee5gOMfPsMIdTWo5ySEgqn
- GpjrdLu8vqdYX40yM4RP/57hGqUunteHzAjpq261jdCjICndsm6p8Z5Ma29HFirXghbm
- 6koW2+RA+/7GGIEf9d3ALWR8RQJTydQqBEezMFqUrw+huw4NThAtYgeQhCcctswMyhix
- 8XdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EgJmEm2AZiajl3i9T2+4xYrKHR71K+abyJUpy8ySzfs=;
- b=bfjN60GmFL5fROMQv6LTJny/qrMf+m1sxkGJAtbQKdYRiDLTE1Jyl9u19G4yOWpGLx
- NYSAnxKvocJZ/UTNPs+kVoDVZMeXvzeKiWZl3LuIkl/dEBK49rSkBTl7qeMZVpZVFvuL
- u2k5z7WpNa6kt2fka1xEeBmPH3BESLQpRid//KkkyY2Ef7majutd/PK7ZAssB0hoISDp
- 5A+BecwvFFT9PPxu2M/b0MpQKa1n6LDFRm3xIAcxTzFbZuGiVu7ay2NZc9SHcNRU3rTn
- zFlay5Bu23+mMP1v8eUFiB4TLOlLDnCDvFOK3Z1D0Jw4SwhjK0NiRrLoku7jFYytS4yo
- msoQ==
-X-Gm-Message-State: AHQUAuZ3oBlnpTRKFk475LovZ/138Dl9yjf/HyY0v0Ni9qQYcyDbSYgP
- ALK3zeQVEZJnDh+JMisjd1fXNW3qYis4vPqezllN6Q==
-X-Google-Smtp-Source: AHgI3IZT+CA4mPfiFnm7TijYbWSyXX/6jGtKsuSvK9MGdP2Oq2xB0VbUUvf4i4/26U7csseLjcccGuw5OO+54Ivh5QE=
-X-Received: by 2002:ac8:38b3:: with SMTP id f48mr16599746qtc.125.1551145702513; 
- Mon, 25 Feb 2019 17:48:22 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 447l3W4H5nzDq5W
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 14:41:26 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1Q3fGbh029751
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 22:41:22 -0500
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2qvt12g8qh-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Feb 2019 22:41:19 -0500
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Tue, 26 Feb 2019 03:39:51 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 26 Feb 2019 03:39:49 -0000
+Received: from d06av24.portsmouth.uk.ibm.com (mk.ibm.com [9.149.105.60])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1Q3dmnw60883038
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Tue, 26 Feb 2019 03:39:48 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 42B194203F;
+ Tue, 26 Feb 2019 03:39:48 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2146142041;
+ Tue, 26 Feb 2019 03:39:47 +0000 (GMT)
+Received: from [9.85.207.185] (unknown [9.85.207.185])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Tue, 26 Feb 2019 03:39:46 +0000 (GMT)
+Subject: Re: Redfish: Design User authorization.
+To: "Tanous, Ed" <ed.tanous@intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <b7596cbb-14f6-2d03-6860-840fb2ee7a7f@linux.vnet.ibm.com>
+ <7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Tue, 26 Feb 2019 09:09:44 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-References: <7146489c577d4784bd57fa4cb22a65b2@quantatw.com>
-In-Reply-To: <7146489c577d4784bd57fa4cb22a65b2@quantatw.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Mon, 25 Feb 2019 17:48:11 -0800
-Message-ID: <CAJoAoZnkkNJsTZ4Yoe7=RA87HazPa7kcLSpNjGEMfLVDfvEAwA@mail.gmail.com>
-Subject: Re: Support for NVMe-MI?
-To: =?UTF-8?B?VG9ueSBMZWUgKOadjuaWh+WvjCk=?= <Tony.Lee@quantatw.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
- "benjaminfair@google.com" <benjaminfair@google.com>, 
- =?UTF-8?B?QnVkZHkgSHVhbmcgKOm7g+Wkqem0uyk=?= <Buddy.Huang@quantatw.com>
-Content-Type: multipart/alternative; boundary="000000000000983b6c0582c2407b"
+In-Reply-To: <7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com>
+Content-Type: multipart/alternative;
+ boundary="------------2199D4C5D1D69F3E71800479"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19022603-4275-0000-0000-00000313F0F2
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022603-4276-0000-0000-000038222ED5
+Message-Id: <89c3e6e6-88cd-a709-f5fb-180c543bf311@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-26_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902260025
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,132 +81,144 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Feb 2019 01:48:27 -0000
+X-List-Received-Date: Tue, 26 Feb 2019 03:41:28 -0000
 
---000000000000983b6c0582c2407b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This is a multi-part message in MIME format.
+--------------2199D4C5D1D69F3E71800479
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-I expect you will be able to use the same command out-of-band if you add
-the relevant parameters to ipmitool to use the LAN. Can you report back if
-that isn't working for you?
+Hi Ed,
 
-On Thu, Feb 21, 2019 at 7:14 PM Tony Lee (=E6=9D=8E=E6=96=87=E5=AF=8C) <Ton=
-y.Lee@quantatw.com>
-wrote:
+Please find my responses
 
-> Hi,
->
->
->
-> https://github.com/openbmc/openbmc/issues/3482 is asking support for
-> NVMe-MI.
->
-> Now, we found that Google has a package called =E2=80=9Cgoogle-ipmi-i2c=
-=E2=80=9D. It
-> provides a ipmi bridge command which can get the device data where are on
-> the i2c bus.
->
->
->
-> There are the command and response example below:
->
-> $ ipmitool -I dbus raw 0x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 0 0xd5 0 8
-> response: 79 2b 00 06 bb ff 2a 00 00 00 2e
->
-> $ ipmitool -I dbus raw 0x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 8 0xd5 0 24
-> response : 79 2b 00 16 80 86 50 48 4c 46 37 31 31 35 30 30
->
-> Response is define in NVM Express Management Interface SPEC
->
-> It's only used for in-band now.
->
-> How about adding support for out-of-band for this useful OEM command?
->
->
->
->
->
-> Thanks
->
-> Best Regards,
->
-> Tony
->
->
->
-
---000000000000983b6c0582c2407b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">I expect you will be able to use the same command out-of-b=
-and if you add the relevant parameters to ipmitool to use the LAN. Can you =
-report back if that isn&#39;t working for you?</div><br><div class=3D"gmail=
-_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Feb 21, 2019 at 7:14 =
-PM Tony Lee (=E6=9D=8E=E6=96=87=E5=AF=8C) &lt;<a href=3D"mailto:Tony.Lee@qu=
-antatw.com">Tony.Lee@quantatw.com</a>&gt; wrote:<br></div><blockquote class=
-=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padd=
-ing-left:1ex">
+Ratan
 
 
-
-
-
-<div lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"m_-3355478774038688319WordSection1">
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US">Hi,<u>=
-</u><u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US"><u></u=
->=C2=A0<u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US"><a hre=
-f=3D"https://github.com/openbmc/openbmc/issues/3482" target=3D"_blank">http=
-s://github.com/openbmc/openbmc/issues/3482</a> is asking support for NVMe-M=
-I.<u></u><u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US">Now, w=
-e found that Google has a package called
-</span><span lang=3D"EN-US" style=3D"font-family:&quot;Courier New&quot;">=
-=E2=80=9C</span><span lang=3D"EN-US">google-ipmi-i2c</span><span lang=3D"EN=
--US" style=3D"font-family:&quot;Courier New&quot;">=E2=80=9D</span><span la=
-ng=3D"EN-US">. It provides a ipmi bridge command which can get the device d=
-ata where
- are on the i2c bus.<u></u><u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US"><u></u=
->=C2=A0<u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US" style=
-=3D"font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif;color:black">=
-There are the command and response example below:</span><span lang=3D"EN-US=
-"><u></u><u></u></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">$ ipmitool -I dbus raw 0=
-x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 0 0xd5 0 8<br>
-response: 79 2b 00 06 bb ff 2a 00 00 00 2e<u></u><u></u></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">$</span><span lang=3D"EN=
--US" style=3D"font-family:&quot;Arial&quot;,sans-serif">
-</span><span lang=3D"EN-US" style=3D"font-family:&quot;Arial&quot;,sans-ser=
-if">ipmitool -I dbus raw 0x2e 2 0x79 0x2b 0x00 14 0 0xd4 0 1 8 0xd5 0 24<br=
+On 25/02/19 10:42 PM, Tanous, Ed wrote:
+>> Hi Ed,
+>>
+>> This mail is regarding the authorization support on Redfish.
+>>
+> Thanks for pushing forward on this.  I think the best first step would be to review the patchset that's already in progress that's adding some infrastructure to do a lot of the things you're proposing.  If you're proposing an alternative approach than the existing review, and I misunderstood, apologies.
 >
-response : 79 2b 00 16 80 86 50 48 4c 46 37 31 31 35 30 30<u></u><u></u></s=
-pan></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US" =
-style=3D"font-family:&quot;Arial&quot;,sans-serif">Response is define in NV=
-M Express Management Interface SPEC<u></u><u></u></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt"><span lang=3D"EN-US">=
-It&#39;s only used for in-band now.<u></u><u></u></span></p>
-<p class=3D"m_-3355478774038688319MsoPlainText"><span lang=3D"EN-US">How ab=
-out adding support for out-of-band for this useful OEM command?<u></u><u></=
-u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Best Regards,<u></u><u></u></sp=
-an></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Tony<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-</div>
-</div>
+> https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/15813
+>
+> I suspect the questions we need to answer are:
+> 1. How do we determine a user's role?
+*we can get the user role/privilege by calling the D-bus method on 
+phosphor-user-manager.*
 
-</blockquote></div>
+*Gerrit commit is up for the same.*
 
---000000000000983b6c0582c2407b--
+*https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/18132/
+*
+
+> 2. Given that privilege is required to service every request, do we need to cache it, or can we go to dbus for every request?
+Once we get the user role/privilege, we will add the user role in the 
+session object itself
+
+during creation of the session so no need to make D-bus call for every 
+request.
+
+> 3. How is the cache invalidated?
+Session would be invalidated during logout or session timeout.
+>
+> I think the bulk of the implementation will be filling out the method here:
+> https://github.com/openbmc/bmcweb/blob/a24526dcf9ad8de2f0bd9dbd5fc746a130351a22/redfish-core/include/privileges.hpp#L229
+>
+> And moving roles away from the static implementation, as you've already determined.
+>
+> Do you have any intention to implement PrivilegeRegistry?
+No, the intention is to call the get User Info function and add the User 
+role into the session, so for each HTTP request we know the user 
+privilege and compare it with the entity privilege.
+>
+> Looking forward to seeing your work here.
+>
+> -Ed
+
+--------------2199D4C5D1D69F3E71800479
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p><tt>Hi Ed,</tt></p>
+    <p><tt>Please find my responses </tt><tt><br>
+      </tt></p>
+    <p><tt>Ratan</tt><br>
+    </p>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 25/02/19 10:42 PM, Tanous, Ed wrote:<br>
+    </div>
+    <blockquote type="cite"
+cite="mid:7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com">
+      <blockquote type="cite">
+        <pre class="moz-quote-pre" wrap="">
+Hi Ed,
+
+This mail is regarding the authorization support on Redfish.
+
+</pre>
+      </blockquote>
+      <pre class="moz-quote-pre" wrap="">
+Thanks for pushing forward on this.  I think the best first step would be to review the patchset that's already in progress that's adding some infrastructure to do a lot of the things you're proposing.  If you're proposing an alternative approach than the existing review, and I misunderstood, apologies.
+
+<a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/15813">https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/15813</a>
+
+I suspect the questions we need to answer are:
+1. How do we determine a user's role?</pre>
+    </blockquote>
+    <tt><b>we can get the user role/privilege by calling the D-bus
+        method on phosphor-user-manager.</b></tt>
+    <p><tt><b>Gerrit commit is up for the same.</b></tt></p>
+    <p><b><tt><a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/18132/">https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/18132/</a><br>
+        </tt></b></p>
+    <blockquote type="cite"
+cite="mid:7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com">
+      <pre class="moz-quote-pre" wrap="">
+2. Given that privilege is required to service every request, do we need to cache it, or can we go to dbus for every request?</pre>
+    </blockquote>
+    <tt>Once we get the user role/privilege, we will add the user role
+      in the session object itself</tt><tt><br>
+    </tt>
+    <p><tt>during creation of the session so no need to make D-bus call
+        for every request.</tt></p>
+    <blockquote type="cite"
+cite="mid:7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com">
+      <pre class="moz-quote-pre" wrap="">
+3. How is the cache invalidated?</pre>
+    </blockquote>
+    <tt>Session would be invalidated during logout or session timeout</tt>.<br>
+    <blockquote type="cite"
+cite="mid:7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com">
+      <pre class="moz-quote-pre" wrap="">
+
+I think the bulk of the implementation will be filling out the method here:
+<a class="moz-txt-link-freetext" href="https://github.com/openbmc/bmcweb/blob/a24526dcf9ad8de2f0bd9dbd5fc746a130351a22/redfish-core/include/privileges.hpp#L229">https://github.com/openbmc/bmcweb/blob/a24526dcf9ad8de2f0bd9dbd5fc746a130351a22/redfish-core/include/privileges.hpp#L229</a>
+
+And moving roles away from the static implementation, as you've already determined.
+
+Do you have any intention to implement PrivilegeRegistry?</pre>
+    </blockquote>
+    <tt>No, the intention is to call the get User Info function and add
+      the User role into the session, so for each HTTP request we know
+      the user privilege and compare it with the entity privilege.</tt><br>
+    <blockquote type="cite"
+cite="mid:7E9441B1E5EFFD4681F54958E8216993459FE05D@ORSMSX114.amr.corp.intel.com">
+      <pre class="moz-quote-pre" wrap="">
+
+Looking forward to seeing your work here.
+
+-Ed
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------2199D4C5D1D69F3E71800479--
