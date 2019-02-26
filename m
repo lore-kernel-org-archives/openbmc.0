@@ -1,70 +1,69 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <gkeishin@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=gkeishin@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="fGS/rllJ"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Xi0OxsRJ"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 447sPp3dKyzDqP4
- for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 19:27:41 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9B1B123191
- for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 03:27:37 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Tue, 26 Feb 2019 03:27:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type; s=fm2; bh=iCubV5A7KVF8+iumR32wMQSuuNREjn7gjwdw4B4
- v2VY=; b=fGS/rllJKXf7JwUdES195xSTAiGTG/nlRvgH/Wwkwnsgjul7CHcjaBM
- FikWjNZJY8KScD38J5UEaz+ZkcNQIMN3thHNJqtfRHHvyn3GDj88vKmoKhRhj6FW
- /8DSu+DnlfUQXTQ9X830rRhG3Q1FWXwVaNgyrOO+zrw+PRQrFO31DNRQcrpeQp5W
- n332T/sfsV1J4o5qZhoVYx45Z2ZzmYS8FFNLMzd05icmoTn3qjiV0RteViEGZadG
- watL3tgYq9Z/5PIS7UoTMeSlnbcHldGUUcRK7NZhoqh3Dnl4HKCB4PUkXDUrignT
- IlIItuNdl+EY3polpZ3QTxgSr5qWVKg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=iCubV5A7KVF8+iumR
- 32wMQSuuNREjn7gjwdw4B4v2VY=; b=Xi0OxsRJ52o8gIUPVh+YYOmStVEjZlcCJ
- UXSMAZ5BOk3yByUyQGaqtTg7o/P8rzh1VBx4a7mQPqs9C9wwKPdy0py+fZ4o9BXo
- HuGgyNTEmUoC+QOw48DAKBhwGfYRi8Ys/7goE008hvc3WMor5uUYG0g8Y748murQ
- 5r8t17rTdXa8ZGIicat/1WIvW/XgE3DHpdiBJrIvT9ZtpRZqccYvKg1kw4uZG1rK
- xISdx/2a6RF2mFslUIZlRTuLudKqXfzqX4WH3gU1uwVRSdOFw2QREG6vfoP03Bke
- FoauNFtkDCd5zCtRbmJ8xDMFY5T3zX0INjsqRzSj/vSRjQCQ0Fxhw==
-X-ME-Sender: <xms:ePh0XI6E3KxJlKLFrNRW68aoX4nrshQNxcRsGP3cjOrJ7PRPJLPHsA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrudekgdduvddvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdlvdefmdenucfjughrpefofg
- fkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgurhgvficulfgvfhhf
- vghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrihhnpehophgvnh
- gsmhgtqdhprhhojhgvtghtrdighiiinecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgu
- rhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:ePh0XLJ4ubt85nf6ho6z4O48btTQZPx1ICunusNRBjfiwTt4IPCFuw>
- <xmx:ePh0XEitksuHF_uj7ZBGDLfcdv_thYQ2no25tDB9_ZWLxgjPv77MQQ>
- <xmx:ePh0XAJ6pnYOE9e01ExZn1S9-q8G_lyo4-pebtEJhgxjqVLs9fps_A>
- <xmx:efh0XBhUABy6ic218qGyFOSXaUeb18Em9l60qzX47ziwyRCS--ghcw>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id C390F7C1EB; Tue, 26 Feb 2019 03:27:36 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
-X-Me-Personality: 52947553
-Message-Id: <2dbf6734-cf35-41aa-b1bc-e1159564c41b@www.fastmail.com>
-In-Reply-To: <c0185b95-00a9-325c-90ec-172751ee6e98@linux.intel.com>
-References: <c0185b95-00a9-325c-90ec-172751ee6e98@linux.intel.com>
-Date: Tue, 26 Feb 2019 03:27:36 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: Re: gerrit down?
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 447zsC2DSNzDq7n
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Feb 2019 00:18:21 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1QDFQOI097234
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 08:18:16 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qw3fraghs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 08:18:16 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <gkeishin@in.ibm.com>;
+ Tue, 26 Feb 2019 13:18:15 -0000
+Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Tue, 26 Feb 2019 13:18:11 -0000
+Received: from us1a3-mail113.a3.dal06.isc4sb.com ([10.146.6.4])
+ by us1a3-smtp05.a3.dal06.isc4sb.com
+ with ESMTP id 2019022613181107-561396 ;
+ Tue, 26 Feb 2019 13:18:11 +0000 
+In-Reply-To: <f53bcaf6-bb52-963e-bb7c-eb58b1ac6561@intel.com>
+To: Ed Tanous <ed.tanous@intel.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: Redfish: Network test findings
+From: "George Keishing" <gkeishin@in.ibm.com>
+Date: Tue, 26 Feb 2019 18:48:10 +0530
+References: <OF53FC2776.6CFC8561-ON002583A9.00391CD8-652583A9.003ABCA8@LocalDomain>
+ <OF3C14C139.B5348C62-ON002583A9.00475679-652583A9.005AF2E2@notes.na.collabserv.com>
+ <f53bcaf6-bb52-963e-bb7c-eb58b1ac6561@intel.com>
+MIME-Version: 1.0
+X-KeepSent: 07B302A4:58205C4C-002583AD:0047E1C1;
+ type=4; name=$KeepSent
+X-Mailer: IBM Notes Release 9.0.1FP10 SHF68 March 06, 2018
+X-LLNOutbound: False
+X-Disclaimed: 59235
+X-TNEFEvaluated: 1
+x-cbid: 19022613-5101-0000-0000-00000E6A6477
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.433748; ST=0; TS=0; UL=0; ISC=; MB=0.088317
+X-IBM-SpamModules-Versions: BY=3.00010667; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01166637; UDB=6.00609410; IPR=6.00947243; 
+ BA=6.00006241; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
+ ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025748; XFM=3.00000015;
+ UTC=2019-02-26 13:18:13
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-02-26 09:13:45 - 6.00009632
+x-cbparentid: 19022613-5102-0000-0000-00006EF07367
+Message-Id: <OF07B302A4.58205C4C-ON002583AD.0047E1C1-652583AD.0049132B@notes.na.collabserv.com>
+Content-Type: multipart/alternative;
+ boundary="=_alternative 0048E16B652583AD_="
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-26_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,18 +75,121 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Feb 2019 08:27:46 -0000
+X-List-Received-Date: Tue, 26 Feb 2019 13:18:24 -0000
+
+
+--=_alternative 0048E16B652583AD_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="US-ASCII"
+
+From:   Ed Tanous <ed.tanous@intel.com>
+To:     openbmc@lists.ozlabs.org
+Date:   02/22/2019 10:47 PM
+Subject:        Re: Redfish: Network test findings
+Sent by:        "openbmc"=20
+<openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org>
 
 
 
-On Tue, 26 Feb 2019, at 17:38, Jia, Chunhui wrote:
-> Brad,
-> 
-> Is gerrit server down?
-> 
-> I tried to access https://gerrit.openbmc-project.xyz/ and got "502 Bad 
-> Gateway".
-> 
->
 
-Yeah, seems to be dead
+
+On 2/22/19 8:33 AM, Prashanth Katti1 wrote:
+> Hi Ed Tanous,
+>=20
+> Here are the finding on Network test for bmcweb.
+> .
+> Could you look into the following issues and let us know.
+>=20
+
+I'm happy to review any patches that resolve some, or all of these.
+Based on the titles, a lot of these look like enhancement requests for
+parameters that aren't currently implemented, or misunderstandings about
+how Redfish error codes work.
+
+If you have some initial triage done to identify the failure modes on
+these, that would help a lot to get them resolved quickly.  If you need
+any specific background to help triage, I'm almost always on IRC (and
+obviously this list).
+
+-Ed
+
+--------------------
+
+Ed,
+
+    We were looking for the initial configuration for IP , MAC, hostname , =
+
+gateway, DHCP enable to be working.
+
+    Well, yes the others could be enhancement or perhaps to be done.
+
+    For now, if you could take a quick look at those github logged issues=20
+and help us understand what is expected
+    and what would be the correct way to validate those in those terms of=20
+bug vs features, so that, we can request
+    our folks to help contribute on it, if required.=20
+=20
+Thanks=20
+George Keishing
+
+
+
+
+
+
+--=_alternative 0048E16B652583AD_=
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="US-ASCII"
+
+
+<br><br><span style=3D" font-size:9pt;color:#5f5f5f;font-family:sans-serif"=
+>From:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">Ed
+Tanous &lt;ed.tanous@intel.com&gt;</span><br><span style=3D" font-size:9pt;=
+color:#5f5f5f;font-family:sans-serif">To:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">openbmc@lists.ozlabs.org</span><br><span style=3D" font-size:9=
+pt;color:#5f5f5f;font-family:sans-serif">Date:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">02/22/2019
+10:47 PM</span><br><span style=3D" font-size:9pt;color:#5f5f5f;font-family:=
+sans-serif">Subject:
+&nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-family=
+:sans-serif">Re:
+Redfish: Network test findings</span><br><span style=3D" font-size:9pt;colo=
+r:#5f5f5f;font-family:sans-serif">Sent
+by: &nbsp; &nbsp; &nbsp; &nbsp;</span><span style=3D" font-size:9pt;font-fa=
+mily:sans-serif">&quot;openbmc&quot;
+&lt;openbmc-bounces+gkeishin=3Din.ibm.com@lists.ozlabs.org&gt;</span><br><h=
+r noshade><br><br><br><tt><span style=3D" font-size:10pt"><br><br>On 2/22/1=
+9 8:33 AM, Prashanth Katti1 wrote:<br>&gt; Hi Ed Tanous,<br>&gt; <br>&gt; H=
+ere are the finding on Network test for bmcweb.<br>&gt; .<br>&gt; Could you=
+ look into the following issues and let us know.<br>&gt; <br><br>I'm happy =
+to review any patches that resolve some, or all of these.<br>Based on the t=
+itles, a lot of these look like enhancement requests for<br>parameters that=
+ aren't currently implemented, or misunderstandings about<br>how Redfish er=
+ror codes work.<br><br>If you have some initial triage done to identify the=
+ failure modes on<br>these, that would help a lot to get them resolved quic=
+kly. &nbsp;If you
+need<br>any specific background to help triage, I'm almost always on IRC (a=
+nd<br>obviously this list).<br><br>-Ed<br><br>--------------------</span></=
+tt><br><br><tt><span style=3D" font-size:10pt">Ed,</span></tt><br><br><tt><=
+span style=3D" font-size:10pt">&nbsp; &nbsp; We were looking for
+the initial configuration for IP , MAC, hostname , gateway, DHCP enable
+to be working.</span></tt><br><br><tt><span style=3D" font-size:10pt">&nbsp=
+; &nbsp; Well, yes the others
+could be enhancement or perhaps to be done.</span></tt><br><br><tt><span st=
+yle=3D" font-size:10pt">&nbsp; &nbsp; For now, if you could
+take a quick look at those github logged issues and help us understand
+what is expected</span></tt><br><tt><span style=3D" font-size:10pt">&nbsp; =
+&nbsp; and what would be the
+correct way to validate those in those terms of bug vs features, so that,
+we can request</span></tt><br><tt><span style=3D" font-size:10pt">&nbsp; &n=
+bsp; our folks to help contribute
+on it, if required. </span></tt><br><tt><span style=3D" font-size:10pt">&nb=
+sp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; </span></tt><br><tt><span style=3D" font-size:10pt">Thanks </span></=
+tt><br><tt><span style=3D" font-size:10pt">George Keishing</span></tt><br><=
+br><br><br><BR>
+--=_alternative 0048E16B652583AD_=--
