@@ -1,76 +1,72 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::22e; helo=mail-oi1-x22e.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XtUzGVdK"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="cWIZZFQp"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="OzLmqZeI"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 448HYS6NnGzDqGb
- for <openbmc@lists.ozlabs.org>; Wed, 27 Feb 2019 12:05:48 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 12FBA21E44;
- Tue, 26 Feb 2019 20:05:46 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Tue, 26 Feb 2019 20:05:46 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type:content-transfer-encoding; s=fm2; bh=fQa6dsp9LzPiu
- lLHcU4h4IVR3l3NQZdgoJrpRfwf0vM=; b=XtUzGVdKF3GUM0XOU1uqT+f1OEBBu
- oMzGBeNJodMzdKvpVUDX2mnqqjDMZ3wrUbBl9Xsb1rdrjPRpmN5uPoEprvcb48zw
- uGE1vViw+fKAXwNs4Vp8Jq82cNp0zzTBSkOj52L/Z6DTcwv7adAkfvD2h4sSD+e3
- piiiz7A6Nc500kCFVRfiDL9yz0lESh0GGUCsrDR6qmL6Ct/gRRLVjE+ZrW86qMvG
- dQhnco+7xiC4SAY4mNy/2ynDPJq6gkJw3Cwp5Qg3s3CdeLUzoou8ulufU8DCB64F
- oQ0OmBsWintBWRJySYmSsbYI7lG2IuFkTCBsJ7o/BWDphB+RkNYk43eMw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=fQa6dsp9LzPiulLHcU4h4IVR3l3NQZdgoJrpRfwf0vM=; b=cWIZZFQp
- Lka9s+c5eV/59FrxhP7fxAq/PGOo5WIDxUVoSVGFm++9hffLhNBFalph+eCp7bAd
- mAmrRq3HVcM8ZW8kNYAhA6q65j9Qlds8DCIn0Tc06X7BtrKGkj/EsoqQ0Fv/quCH
- gU61fNVPJ/KcfGMZaqFPJ2JOKcv/4NEdtqD8KqjtKrUM4pS+EMOQusxa3m1UG9VA
- gq6blGDdgedJl8rpxnAKs8A/Oyq1lyYRgh94T7Zo9qYGJBfOlO3ItTs96XtgC0OR
- rOLjRwrrfhdyW/v0ddvBqjiXKTyMIe2zr//LLTmMe11qhHWsqQ/iQDTjElNXiSLQ
- 647smN8cNV8eNA==
-X-ME-Sender: <xms:aeJ1XNA9UQxfVxS6zYpN5Xtt8suqJ9ucXtoyezFEHXfUfsqLyExltw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrvddtgddvjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgfkjghffffhvffutgfgsehtqhertderreejnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
- hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
- ufhiiigvpedt
-X-ME-Proxy: <xmx:aeJ1XA_HeGhaA5iL5CUMQBOJlsbog29JbSZTdm9d3AiwD3NkYypM1A>
- <xmx:aeJ1XNVaH1UgO2cqcdmkzskzi_poumQg8POoH2OA1DxTG1BpnjF-7w>
- <xmx:aeJ1XItzxCD6VlsOi0IP-dirTnqm6pwHIuLOp-enkodh31Pxd8BYOg>
- <xmx:auJ1XNvUgdryRYcQjlt-ukT25CL2ej6w5bm6JvCuVq-qdOh2aKV3JQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id B2CB57C1EB; Tue, 26 Feb 2019 20:05:45 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
-X-Me-Personality: 52947553
-Message-Id: <82094808-a679-45b6-88ae-cf46b32fba87@www.fastmail.com>
-In-Reply-To: <VI1PR0502MB3869BAA419AF15A98BAB340DDD7B0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
-References: <VI1PR0502MB38692DFF848268A3BB778560DD7A0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
- <60aeb06f-9885-4b17-bbfc-4071bce56276@www.fastmail.com>
- <VI1PR0502MB3869BAA419AF15A98BAB340DDD7B0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
-Date: Tue, 26 Feb 2019 20:05:45 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "David Thompson" <dthompson@mellanox.com>,
- "OpenBMC Maillist" <openbmc@lists.ozlabs.org>,
- "Joel Stanley" <joel@jms.id.au>
-Subject: Re: Patches for U-Boot v2016.07-aspeed-openbmc?
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 448JhJ15yszDqK9
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Feb 2019 12:56:47 +1100 (AEDT)
+Received: by mail-oi1-x22e.google.com with SMTP id x187so12140978oia.7
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Feb 2019 17:56:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=VKzNAn5VyBBg4W34aY31T3mMWdUNdPmb9zE95kcXg2E=;
+ b=OzLmqZeIzCqeHzskh6kbdBBHAdNjnWoGniNxKJazDsC7iDaKKLKCIslnzTnSRPVKL+
+ isfbOz/PqWcnBM2fztnAn2EPMnKRmGVRYanwGPEvy1RTpizaJeEGeXjmLb5ShSoNqxj1
+ eOMUMUPv+M8kSZtKUTQgyplW6ReND5zEnSME6uU286Xo5J/rmBF0n8sHep77janFEEE1
+ uJ1jqAHhzVHp3TmUUq//g9gDzx8XciBC3+fH7esXU0hSSJd+Zd509p/GZ3rXeva7CHCA
+ 6VlyRSeZNBc4nspaqsiivar9dQ7Vx3xxRX21a5CTWBTXuC8v8XJ5FGcmcdqXILWb4BNw
+ 3Juw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=VKzNAn5VyBBg4W34aY31T3mMWdUNdPmb9zE95kcXg2E=;
+ b=o5nNwUqSZcjem2UrGVXZNIzzhNTsfIUDoxLgvBiR2LxWFdVcK7OJhyuLyME9GG3078
+ 3ChcD1Osi8Ov7haWQIqM9tKmR13r6tdHBg+14lJTFRaahNsQFhWXfHVpirhohoicv2vt
+ QLs/VLftTUuSmkhIIvn1hCigusp6sUYIguNRzcMcTn2nMCMnFdA7N9XqZduT25vUXCmq
+ qBjjYsRGMHuB3/Q0alW4Dc+2YzdME8uu/Ocgj8emtrbsIWlsebZIV4OjsR7RFvFD4xb3
+ PdMd2m2cLNnyi0cgNmUGWXj8TMfCCn72ISUkGvq50dHbutVYFfTMUq/e5i7/CSaKRCkB
+ lLqQ==
+X-Gm-Message-State: AHQUAualq8V8JuTQsAzSlBf40z0xyaXdh4ggnlLghoddWnmRZgRmNj0v
+ ZBPgrcWMbH1TEYBC/ZYzQeccpzZd
+X-Google-Smtp-Source: AHgI3IZaWFmz3QeT+dfUtQa4y7ud+gqRQmfR6SLN7YZ8f09V08nfi86Qd59AaIYLsjPksdZ03ea1cQ==
+X-Received: by 2002:aca:4747:: with SMTP id u68mr4363947oia.38.1551232603856; 
+ Tue, 26 Feb 2019 17:56:43 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id b130sm5262734oif.54.2019.02.26.17.56.42
+ for <openbmc@lists.ozlabs.org>
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 26 Feb 2019 17:56:43 -0800 (PST)
+Subject: Re: Using Stale bot to clean up issues
+To: openbmc@lists.ozlabs.org
+References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
+ <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
+ <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
+ <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
+ <17b83fbc-247f-dee2-9fc3-2dd3efdee670@linux.vnet.ibm.com>
+ <9e2daca4-c082-0bf7-071f-62c2af9129e7@linux.vnet.ibm.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <f3f6f750-31a2-d30a-0c28-db95fe9eff6f@gmail.com>
+Date: Tue, 26 Feb 2019 19:56:42 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.1
+MIME-Version: 1.0
+In-Reply-To: <9e2daca4-c082-0bf7-071f-62c2af9129e7@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,124 +78,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Feb 2019 01:05:49 -0000
+X-List-Received-Date: Wed, 27 Feb 2019 01:56:49 -0000
 
+On 2/26/19 4:03 PM, Gunnar Mills wrote:
+> 
+> On 2/11/2019 9:50 PM, GUNNAR MILLS wrote:
+>>
+>> Don't touch them until 6 months of inactively and then another month 
+>> of inactively in this "stale" state before closing. We can revisit 
+>> this later.
+>>
+> 
+>> Need to be "an organization owner or have admin permissions in a 
+>> repository to install a GitHub App".  Will then need a .github/stale.yml
+>>
+> Are there still concerns or can we install this Stale bot?
+> https://github.com/apps/stale
 
+Please?  :)
 
-On Wed, 27 Feb 2019, at 10:04, David Thompson wrote:
-> Correct, for my BMC project I have made changes to OpenBMC's U-Boot=20=
+I like the 7 month window because I could see a issue being created at 
+the beginning of a cycle and not being touched until the next. We can 
+then make an effort to check the "stale" ones as they are tagged.
 
-> image (v2016.07-aspeed-openbmc branch).
->=20
-> My goal is to "upstream" these changes to OpenBMC so that
-> I don't need to carry them around in my private repo.
->=20
-> I had already sent in one patch for review, addressed to Joel.
-> I will add you Andrew to that same email, since I did not know Joel wa=
-s=20
-> on leave.
-
-Great, I'll take a look when I get a chance.
-
->=20
-> Thank you,
-> - Dave
->=20
->=20
-> -----Original Message-----
-> From: Andrew Jeffery <andrew@aj.id.au>=20
-> Sent: Monday, February 25, 2019 6:30 PM
-> To: David Thompson <dthompson@mellanox.com>; OpenBMC Maillist=20
-> <openbmc@lists.ozlabs.org>; Joel Stanley <joel@jms.id.au>
-> Subject: Re: Patches for U-Boot v2016.07-aspeed-openbmc?
->=20
->=20
->=20
-> On Tue, 26 Feb 2019, at 04:59, David Thompson wrote:
-> > =20
-> > The latest OpenBMC 2.6 is based on U-Boot v2016.07-aspeed-openbmc.
-> >=20
-> >=20
-> > I have a few patches I=E2=80=99m considering upstreaming,
->=20
-> "Upstream" in this case being OpenBMC, or to the actual u-boot project=
-?
->=20
-> > one of which is a new
-> >=20
-> > U-Boot machine/board. Should I send in patches based off this older,=
-
-> >=20
-> > but currently used, U-Boot branch?
->=20
-> If you're planning to send to the u-boot project you certainly can't=20=
-
-> base it on OpenBMC's fork :)
->=20
-> > Or, should I just be sending in
-> >=20
-> > patches based on latest upstream U-Boot, with the intent that
-> >=20
-> > eventually OpenBMC will be picking up a newer version of U-Boot?
->=20
-> Our u-boot is in a pretty bad state at the moment, and no-one really=20=
-
-> seems to have the time to improve it. Several factors make it a bit of=
-=20
-> a pain:
->=20
-> * Aspeed's chip team produces a monolithic platform.S file to=20
-> initialise hardware and work around chip bugs where they can
-> * platform.S includes DRAM initialisation
-> * upstream u-boot includes a C implementation of DRAM initialisation=20=
-
-> that is almost but not quite entirely unlike the strategy used in=20
-> platform.S
->=20
-> An easy way forward would be to dump platform.S for each generation=20=
-
-> into upstream, but the suspicion is we'd need a pretty damn convincing=
-=20
-> argument for it and for the removal of the C-based DRAM initialisation=
-.=20
-> Converting it all to C doesn't really seem feasible either, as we'd=20=
-
-> need to analyse all the assembly for each release of the SDK and port=20=
-
-> the new fixes on each release.
-> That's a pretty tedious task. Maybe some middle ground can be found=20=
-
-> though?
->=20
-> I do know that Joel is keen to turn the situation around andmay have=20=
-
-> some feedback when he comes back from leave.
->=20
-> In the mean time I guess you can send the patches here? At least that=20=
-
-> way you won't be carrying them in the yocto tree.
->=20
-> Andrew
->=20
-> >=20
-> >=20
-> > Thanks in advance,
-> >=20
-> >  * Dave
-> >=20
-> >=20
-> > David Thompson
-> >=20
-> > Sr. Staff Engineer, System SW
-> >=20
-> > Mellanox Technologies
-> >=20
-> > 1900 West Park Drive, Suite 290
-> >=20
-> > Westborough MA USA 01581
-> >=20
-> > Direct: +1 508-475-6375
-> >=20
-> >=20
-> >
->
+Kurt Taylor (krtaylor)
