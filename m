@@ -1,74 +1,77 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Yc+dA1rK"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Y9xZKhct"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 448skp42YWzDqHW
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 10:45:54 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 32E5B231CD;
- Wed, 27 Feb 2019 18:45:52 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Wed, 27 Feb 2019 18:45:52 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:cc:subject
- :content-type; s=fm2; bh=GBRGlKeOCKln3lXOLnOdWjn0rdeSiD1/42rdPBz
- //oc=; b=Yc+dA1rKmePdBDdES6XSVR7e4cWCzW/Xj9UV/bLEyPNj7Su0flVM79L
- yk4xTkEFcGcuDlyUtl8IdLkFj8Pbmyvf62tyPuTJ6QpFDxILWAsfcHyyiZOzLISZ
- o3g2pz9wln1ehy6rDCYfOxH+2nBvoCD9l8SoeFL1kUebr3rtM5pvrcoVAj7GvdRV
- U7fgoKBWyE3Kd7hzEyG6+5NpgMGzy7sWIGr81RyXpUJ6MbnFagksY5T74ixSdjuU
- NxoPAzVWTU1lGEwL7rJvp/8/e97P1f1CRBCUenQI651mmeDv09hbUV5oA5bIKWDD
- tb51T/y8a5I5cUXJOaZIR6CUiFk7AKw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=GBRGlKeOCKln3lXOL
- nOdWjn0rdeSiD1/42rdPBz//oc=; b=Y9xZKhctwRbJaIpJkJ7ZCndNpJO/TQMJx
- Dmgm3cvYMQnfNbNHfFvRVr3o5gOVtdd8vcR9cycMpltFjIw7wW7E0npSfaR1lmz/
- 2uYbM64L0XWE6Yj1kwhJ+TyND4l3D0uWPXxovHUUz0bgeZ/HgaK3apnBbb1Ncfhs
- 0l/4WmC5TMgUOuTVw8a5BYsFXpj/jAGO9dv8RUqbh1lbOycqZQzHlxoKvavoFHRD
- CRY3KoFz6Hjj+OLgJ9Rv9f17mcqJ5wnhVYiqzKue0RU2CV48C/2DR/nAtJxlOKXl
- yAo3gha/TiwWqe03mGZmbHIZp/n9VJmrmJHG90eDJZrjVNWVFw6+A==
-X-ME-Sender: <xms:LiF3XIrkv1vMhxzzOVB2a3yEG2A5SUhOIEHSbKF7oYCdFu55wxsngQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrvddvgddtlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgurhgv
- ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmh
- epmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfu
- ihiivgeptd
-X-ME-Proxy: <xmx:LiF3XIpoKUiZ28orY8nh7lrt4ydyeYVixFyoLyvDdrDHSU9wGRqbHw>
- <xmx:LiF3XD0NBCE-4sDNfYsCIpbPHFH3K0ibwi0PhFjewVkxIKzGgInSXw>
- <xmx:LiF3XOFukq1PF_wEpvkVYWyYs3NKlI_nckVl1BUIu1eeXBYuStH5uA>
- <xmx:MCF3XJIOhuRlHMh-XoyhavOmnAM_am6hWIquhh1w-NupCN48E2xZjQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 3AF017C1EB; Wed, 27 Feb 2019 18:45:50 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-895-g0d23ba6-fmstable-20190213v1
-X-Me-Personality: 52947553
-Message-Id: <3b16cffb-c442-4b1e-aed0-7c45157967e7@www.fastmail.com>
-In-Reply-To: <20190227095233.6655-1-fran.hsu@quantatw.com>
-References: <20190227095233.6655-1-fran.hsu@quantatw.com>
-Date: Wed, 27 Feb 2019 18:45:48 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "fran.hsu" <fran.hsu@quantatw.com>, "Joel Stanley" <joel@jms.id.au>,
- "Benjamin Fair" <benjaminfair@google.com>,
- "Emily Shaffer" <emilyshaffer@google.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_dev-4.19_v3]_Fix_the_name_of_the_include_file._It_i?=
- =?UTF-8?Q?s_a_typo._Signed-off-by:_FranHsu_<Fran.Hsu@quantatw.com>?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4492gF0BgtzDqM9
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 17:28:24 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1S6OCW5124039
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 01:28:18 -0500
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qx96farjq-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 01:28:18 -0500
+Received: from localhost
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Thu, 28 Feb 2019 06:28:14 -0000
+Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 28 Feb 2019 06:28:13 -0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1S6SCbM24183034
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Thu, 28 Feb 2019 06:28:12 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 23FE411C050;
+ Thu, 28 Feb 2019 06:28:12 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 17DC411C054;
+ Thu, 28 Feb 2019 06:28:11 +0000 (GMT)
+Received: from [9.193.103.203] (unknown [9.193.103.203])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 28 Feb 2019 06:28:10 +0000 (GMT)
+Subject: Re: Proposal for pldmtool
+To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alexander Amelkin <a.amelkin@yadro.com>, "benwei@fb.com" <benwei@fb.com>
+References: <3151516d-0aa1-465c-be01-44b3d837fbce@linux.vnet.ibm.com>
+ <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Date: Thu, 28 Feb 2019 11:58:09 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
+MIME-Version: 1.0
+In-Reply-To: <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19022806-0020-0000-0000-0000031C3440
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022806-0021-0000-0000-0000216DA436
+Message-Id: <9ef52020-8bd1-8aab-b8b4-56c636523892@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-28_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902280044
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,42 +83,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 27 Feb 2019 23:45:55 -0000
+X-List-Received-Date: Thu, 28 Feb 2019 06:28:25 -0000
 
 
 
-On Wed, 27 Feb 2019, at 20:26, fran.hsu@quantatw.com wrote:
-> From: FranHsu <Fran.Hsu@quantatw.com>
-> 
-
-Missing the Signed-off-by line.
-
-However, this patch should be squashed into patch 1. Please
-do so and send a v2.
-
-Cheers,
-
-Andrew
-
-> ---
->  arch/arm/boot/dts/nuvoton-npcm730-gsj.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts 
-> b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> index 411387ee2f62..998a7d451b7d 100644
-> --- a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> +++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> @@ -3,7 +3,7 @@
->  
->  /dts-v1/;
->  #include "nuvoton-npcm730.dtsi"
-> -#include "nuvoton-npcm733-gsj-gpio.dtsi"
-> +#include "nuvoton-npcm730-gsj-gpio.dtsi"
->  / {
->  	model = "Quanta GSJ Board (Device Tree v2))";
->  	compatible = "nuvoton,npcm750";
-> -- 
-> 2.21.0
-> 
+On Thursday 21 February 2019 11:12 PM, Supreeth Venkatesh wrote:
+> Tom,
 >
+> Thanks for sending this out as a feeler.
+> This sounds like a logical next step after implementation of PLDM and MCTP.
+> However, I have a couple of initial questions.
+>
+> " A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon."
+> 1. Do you think it is ok to use this as external interface to BMC? I was under the impression that IPMI or Redfish were external facing interfaces to BMC.
+>       PLDM was intended for inside the box communications.
+I agree that PLDM is intended for inside the box communications. The 
+proposal is not to use it as an external interface, but rather give a 
+provision to run pldmtool from outside the box.
+>
+> 2. Why not use Redfish device enablement for PLDM, so that the tool (typically http/s client) will issue PLDM requests in the form of Json payload.
+I think it is not guaranteed that the management controllers 
+implementing pldm has https support.
+>
+> 3. Can you describe the use case for the tool to be run on host firmware? In my opinion, this is highly unlikely though it can be run from host user space.
+This might not be a typical use-case to run pldmtool from host firmware. 
+I was curious to know if someone will be interested to do this. But we 
+do see a possibility of running it from Host OS targeting the BMC, just 
+like ipmitool can be run from the host targeting the BMC via KCS/BT 
+interfaces.
+>
+> Thanks,
+> Supreeth
+> -----Original Message-----
+> From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+> Sent: Monday, February 18, 2019 4:09 AM
+> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>; Alexander Amelkin <a.amelkin@yadro.com>; benwei@fb.com
+> Subject: Proposal for pldmtool
+>
+> Hi All,
+>
+> I wanted to put down initial thoughts on "pldmtool" which is a utility for controlling PLDM enabled devices. The naming of the utility was influenced by ipmitool which is a client utility to control IPMI enabled devices. The pldmtool acts as the requester and sends the PLDM message to target any PLDM enabled device. The PLDM response message is processed and expressed in human readable format.  This proposal needs to be considered on the basis of the pldm design (https://github.com/openbmc/docs/blob/master/designs/pldm-stack.md).
+> These are possible pldmtool usage scenarios.
+>
+> * pldmtool can run on OpenBMC and can target the PLDM daemon. PLDM daemon will have a D-Bus interface to accept PLDM requests.
+> * pldmtool can target other management controllers connected to BMC implementing PLDM stacks.
+> * A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon.
+>
+> These are the some of the salient features in the pldmtool that
+>
+> * Provide user friendly command options
+> * Debug options to print detailed PLDM messages.
+> * Leverage libmctp and libpldm library getting developed for communicating with MCTP layer and for encoding/decoding PLDM messages.
+> (https://github.com/openbmc/pldm, https://github.com/jk-ozlabs/libmctp)
+>
+> The host firmware stacks typically have runtime constraints. If there is interest in having pldmtool run on host firmware then pldmtool will have to be written in C. Apart from this consideration the natural choice will be to develop this in modern C++.
+>
+> This mail is a feeler to seek the interests of the community. I will be keen to follow-up this with a design template.
+>
+> Thanks,
+> Tom
+>
+> IMPORTANT NOTICE: The contents of this email and any attachments are confidential and may also be privileged. If you are not the intended recipient, please notify the sender immediately and do not disclose the contents to any other person, use it for any purpose, or store or copy the information in any medium. Thank you.
