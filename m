@@ -1,50 +1,76 @@
-Return-Path: <prvs=95537dfa2=Fran.Hsu@quantatw.com>
+Return-Path: <zshelle@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=95537dfa2=fran.hsu@quantatw.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 4497yz4K7TzDqHh
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 21:27:21 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx01.quantatw.com with ESMTP; 28 Feb 2019 18:27:18 +0800
-Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Thu, 28 Feb
- 2019 18:27:17 +0800
-Received: from mailbx06.quanta.corp ([fe80::c71:d9b4:b8c2:41c1]) by
- mailbx06.quanta.corp ([fe80::c71:d9b4:b8c2:41c1%5]) with mapi id
- 15.01.1531.004; Thu, 28 Feb 2019 18:27:17 +0800
-From: =?big5?B?RnJhbiBIc3UgKK59u3jBvik=?= <Fran.Hsu@quantatw.com>
-To: =?big5?B?RnJhbiBIc3UgKK59u3jBvik=?= <Fran.Hsu@quantatw.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH dev-4.19 v3] Fix the name of the include file. It is a
- typo. Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
-Thread-Topic: [PATCH dev-4.19 v3] Fix the name of the include file. It is a
- typo. Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
-Thread-Index: AQHUzoIvSmaWHTs6kU+xaSoLT8yZo6XzygAAgAE5CiA=
-Date: Thu, 28 Feb 2019 10:27:16 +0000
-Message-ID: <1bfe3d66aa2345dfa1f65310663e263a@quantatw.com>
-References: <20190227095233.6655-1-fran.hsu@quantatw.com>
- <3b16cffb-c442-4b1e-aed0-7c45157967e7@www.fastmail.com>
-In-Reply-To: <3b16cffb-c442-4b1e-aed0-7c45157967e7@www.fastmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24460.000
-x-tm-as-result: No--14.090100-0.000000-31
-x-tm-as-matchedid: 140026-150567-150658-701625-704425-700685-712203-700075-1
- 39010-106230-700401-700107-701016-700270-188019-863519-711871-708712-148004
- -148133-20043-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=zshelle@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449J2y2zxRzDqQR
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 03:31:17 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x1SGSSTl141333
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 11:31:15 -0500
+Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qxjn8j6ns-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 11:31:14 -0500
+Received: from localhost
+ by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <zshelle@linux.vnet.ibm.com>;
+ Thu, 28 Feb 2019 16:31:14 -0000
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 28 Feb 2019 16:31:11 -0000
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x1SGVATn60620968
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:10 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DF2B5BE053
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C33DDBE054
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 28 Feb 2019 10:38:35 -0600
+From: zshelle <zshelle@linux.vnet.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: New repo for System Fatal Error Diagnostics for POWER Systems
+X-Sender: zshelle@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19022816-0020-0000-0000-00000EC2D1FC
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010680; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01167652; UDB=6.00610025; IPR=6.00948265; 
+ MB=3.00025782; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-28 16:31:12
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19022816-0021-0000-0000-000064F275BC
+Message-Id: <8f90bbe93f545017f281fa433b5f3660@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-28_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=868 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902280112
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,22 +82,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Feb 2019 10:27:24 -0000
+X-List-Received-Date: Thu, 28 Feb 2019 16:31:23 -0000
 
-T24gV2VkLCAyNyBGZWIgMjAxOSwgYXQgMjA6MjYsIGZyYW4uaHN1QHF1YW50YXR3LmNvbSB3cm90
-ZToNCj4gRnJvbTogRnJhbkhzdSA8RnJhbi5Ic3VAcXVhbnRhdHcuY29tPg0KPiANCg0KTWlzc2lu
-ZyB0aGUgU2lnbmVkLW9mZi1ieSBsaW5lLg0KDQpIb3dldmVyLCB0aGlzIHBhdGNoIHNob3VsZCBi
-ZSBzcXVhc2hlZCBpbnRvIHBhdGNoIDEuIFBsZWFzZQ0KZG8gc28gYW5kIHNlbmQgYSB2Mi4NCg0K
-Q2hlZXJzLA0KDQpBbmRyZXcNCkhpIEFuZHJldywNCglUaGFua3MsDQo+IC0tLQ0KPiAgYXJjaC9h
-cm0vYm9vdC9kdHMvbnV2b3Rvbi1ucGNtNzMwLWdzai5kdHMgfCAyICstDQo+ICAxIGZpbGUgY2hh
-bmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQgYS9h
-cmNoL2FybS9ib290L2R0cy9udXZvdG9uLW5wY203MzAtZ3NqLmR0cyANCj4gYi9hcmNoL2FybS9i
-b290L2R0cy9udXZvdG9uLW5wY203MzAtZ3NqLmR0cw0KPiBpbmRleCA0MTEzODdlZTJmNjIuLjk5
-OGE3ZDQ1MWI3ZCAxMDA2NDQNCj4gLS0tIGEvYXJjaC9hcm0vYm9vdC9kdHMvbnV2b3Rvbi1ucGNt
-NzMwLWdzai5kdHMNCj4gKysrIGIvYXJjaC9hcm0vYm9vdC9kdHMvbnV2b3Rvbi1ucGNtNzMwLWdz
-ai5kdHMNCj4gQEAgLTMsNyArMyw3IEBADQo+ICANCj4gIC9kdHMtdjEvOw0KPiAgI2luY2x1ZGUg
-Im51dm90b24tbnBjbTczMC5kdHNpIg0KPiAtI2luY2x1ZGUgIm51dm90b24tbnBjbTczMy1nc2ot
-Z3Bpby5kdHNpIg0KPiArI2luY2x1ZGUgIm51dm90b24tbnBjbTczMC1nc2otZ3Bpby5kdHNpIg0K
-PiAgLyB7DQo+ICAJbW9kZWwgPSAiUXVhbnRhIEdTSiBCb2FyZCAoRGV2aWNlIFRyZWUgdjIpKSI7
-DQo+ICAJY29tcGF0aWJsZSA9ICJudXZvdG9uLG5wY203NTAiOw0KPiAtLSANCj4gMi4yMS4wDQo+
-IA0KPg0K
+The design proposal is here: 
+https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/
+
+In the design proposal, I indicated we need a repo for the analyzer side 
+and the isolator side of the diagnostics. The analyzer side will all be 
+OpenBMC specific code. That is the easy one. The isolator side will be 
+common code used throughout several projects within OpenPOWER in 
+addition to its application in OpenBMC. It's been pointed out to me that 
+there will be some convenient advantages to putting this isolator repo 
+in the OpenBMC project. However, it will be used heavily in several 
+OpenPOWER projects. I should point out that while the isolator is 
+currently geared towards POWER, it has the potential to be used on other 
+architectures in the future. I would appreciate any input on this topic.
