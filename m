@@ -1,76 +1,62 @@
-Return-Path: <zshelle@linux.vnet.ibm.com>
+Return-Path: <emilyshaffer@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=zshelle@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::829; helo=mail-qt1-x829.google.com;
+ envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="EqkWlPOw"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
+ [IPv6:2607:f8b0:4864:20::829])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449J2y2zxRzDqQR
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 03:31:17 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1SGSSTl141333
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 11:31:15 -0500
-Received: from e36.co.us.ibm.com (e36.co.us.ibm.com [32.97.110.154])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qxjn8j6ns-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 11:31:14 -0500
-Received: from localhost
- by e36.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <zshelle@linux.vnet.ibm.com>;
- Thu, 28 Feb 2019 16:31:14 -0000
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e36.co.us.ibm.com (192.168.1.136) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 28 Feb 2019 16:31:11 -0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1SGVATn60620968
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:10 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DF2B5BE053
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C33DDBE054
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:31:09 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449LqT4Dw0zDqP2
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 05:36:37 +1100 (AEDT)
+Received: by mail-qt1-x829.google.com with SMTP id d2so24650579qti.11
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 10:36:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=9R+LO6Xae4EPi69xEFmEiE9ZmGEehL73M8AoSNwypOg=;
+ b=EqkWlPOwMmDzfzLiPKpHptwtExrm+KtTNt04GH6k84lmZtqedNigDyaR7k/8dfYt9b
+ 7y7bNbeta/9ECRUoyINeZIeixsHWkruIVoqWoj6m0YJ9tOe9Kn+oMc4MJeR1+shIVWjQ
+ 9cBgtJmFb0uIbFqcIvA00+wdVZ0lSWpzyCs8bQkISyh1ihWih7bWwhTdDlH18a5A8Zbs
+ jIwRMP4igPN/YnZjMO0KxhXQLxS1q+bYokoCYXB9J0Ul50EsBTkwhNiin3ogdl+uNIdl
+ BqjOeFj9RThhtKrQAgY7/wBQoP8XdQfcm91oGZZXiYqeLyg6Yk1B3dr2TY2eaW7PpLnj
+ 3JGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=9R+LO6Xae4EPi69xEFmEiE9ZmGEehL73M8AoSNwypOg=;
+ b=qTh4Jp3jYsXdLdwi62B8dfa3BpVfrtK3QbeZiifLSxyh0+LW69sr5/kZ96XNZsc5dV
+ Ekwggoi/Qe1SiOfiazuR17OZpgPO0XPDxtHmBZTROdSmvs8kXa95YDTUnYZHgLiCu+m+
+ rcWlnKEusGlfDbELbC4iuZCAX3W9RaEhrrWoLJ21fK21+XbNCL9oAnTVjEtFM7Jth4Ng
+ f0viN7A7aPT0eVaFC0MD5j9nckV72S2/jb0N26OMuPJ2Z5rWaDC8n1TukX1aBhaLrwe0
+ UNdQ1nx6gkLeIoWDevvGzgmz7uyBbdieXLh8aXBdtSUsUd1pLeV9yv3QlrWiw/iHKsP0
+ P2hQ==
+X-Gm-Message-State: APjAAAWQwCPhrSmp7j90EoyGCBu4gKQq+FNn7nOR+bjVSmMnFVibESjj
+ rIoC4VGGBwQDUAW2eu5l4KhQTsDKxNE6AsRQZfHAgQ==
+X-Google-Smtp-Source: APXvYqyhUITqLymwaiUAtF9UiVHN7TmLFdpb+JhKrUXboW2bA6bt8nWejOOh7p6BE+Cg0RWO6P0p1bWOxqEXiy0fS50=
+X-Received: by 2002:ac8:30da:: with SMTP id w26mr601422qta.386.1551378992925; 
+ Thu, 28 Feb 2019 10:36:32 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu, 28 Feb 2019 10:38:35 -0600
-From: zshelle <zshelle@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: New repo for System Fatal Error Diagnostics for POWER Systems
-X-Sender: zshelle@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19022816-0020-0000-0000-00000EC2D1FC
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010680; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01167652; UDB=6.00610025; IPR=6.00948265; 
- MB=3.00025782; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-28 16:31:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19022816-0021-0000-0000-000064F275BC
-Message-Id: <8f90bbe93f545017f281fa433b5f3660@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-28_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=868 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902280112
+References: <3151516d-0aa1-465c-be01-44b3d837fbce@linux.vnet.ibm.com>
+ <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+ <9ef52020-8bd1-8aab-b8b4-56c636523892@linux.vnet.ibm.com>
+In-Reply-To: <9ef52020-8bd1-8aab-b8b4-56c636523892@linux.vnet.ibm.com>
+From: Emily Shaffer <emilyshaffer@google.com>
+Date: Thu, 28 Feb 2019 10:36:21 -0800
+Message-ID: <CAJoAoZ=KtCWabJUxxeUHnDdKz0fkKAFN6Cnvqpes3QETQJRuhA@mail.gmail.com>
+Subject: Re: Proposal for pldmtool
+To: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Cc: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ Alexander Amelkin <a.amelkin@yadro.com>, "benwei@fb.com" <benwei@fb.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,18 +68,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Feb 2019 16:31:23 -0000
+X-List-Received-Date: Thu, 28 Feb 2019 18:36:38 -0000
 
-The design proposal is here: 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/
+On Wed, Feb 27, 2019 at 10:29 PM Tom Joseph <tomjose@linux.vnet.ibm.com> wr=
+ote:
+>
+>
+>
+> On Thursday 21 February 2019 11:12 PM, Supreeth Venkatesh wrote:
+> > Tom,
+> >
+> > Thanks for sending this out as a feeler.
+> > This sounds like a logical next step after implementation of PLDM and M=
+CTP.
+> > However, I have a couple of initial questions.
+> >
+> > " A provision to run pldmtool targeting OpenBMC over a custom network p=
+ort and route the request to the PLDM daemon."
+> > 1. Do you think it is ok to use this as external interface to BMC? I wa=
+s under the impression that IPMI or Redfish were external facing interfaces=
+ to BMC.
+> >       PLDM was intended for inside the box communications.
+> I agree that PLDM is intended for inside the box communications. The
+> proposal is not to use it as an external interface, but rather give a
+> provision to run pldmtool from outside the box.
 
-In the design proposal, I indicated we need a repo for the analyzer side 
-and the isolator side of the diagnostics. The analyzer side will all be 
-OpenBMC specific code. That is the easy one. The isolator side will be 
-common code used throughout several projects within OpenPOWER in 
-addition to its application in OpenBMC. It's been pointed out to me that 
-there will be some convenient advantages to putting this isolator repo 
-in the OpenBMC project. However, it will be used heavily in several 
-OpenPOWER projects. I should point out that while the isolator is 
-currently geared towards POWER, it has the potential to be used on other 
-architectures in the future. I would appreciate any input on this topic.
+I'm a little confused how this is different from external interface.
+Could you elaborate? Are you trying to route through the host first?
+
+> >
+> > 2. Why not use Redfish device enablement for PLDM, so that the tool (ty=
+pically http/s client) will issue PLDM requests in the form of Json payload=
+.
+> I think it is not guaranteed that the management controllers
+> implementing pldm has https support.
+> >
+> > 3. Can you describe the use case for the tool to be run on host firmwar=
+e? In my opinion, this is highly unlikely though it can be run from host us=
+er space.
+> This might not be a typical use-case to run pldmtool from host firmware.
+> I was curious to know if someone will be interested to do this. But we
+> do see a possibility of running it from Host OS targeting the BMC, just
+> like ipmitool can be run from the host targeting the BMC via KCS/BT
+> interfaces.
+> >
+> > Thanks,
+> > Supreeth
+> > -----Original Message-----
+> > From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+> > Sent: Monday, February 18, 2019 4:09 AM
+> > To: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Supreeth Venkatesh <Su=
+preeth.Venkatesh@arm.com>; Alexander Amelkin <a.amelkin@yadro.com>; benwei@=
+fb.com
+> > Subject: Proposal for pldmtool
+> >
+> > Hi All,
+> >
+> > I wanted to put down initial thoughts on "pldmtool" which is a utility =
+for controlling PLDM enabled devices. The naming of the utility was influen=
+ced by ipmitool which is a client utility to control IPMI enabled devices. =
+The pldmtool acts as the requester and sends the PLDM message to target any=
+ PLDM enabled device. The PLDM response message is processed and expressed =
+in human readable format.  This proposal needs to be considered on the basi=
+s of the pldm design (https://github.com/openbmc/docs/blob/master/designs/p=
+ldm-stack.md).
+> > These are possible pldmtool usage scenarios.
+> >
+> > * pldmtool can run on OpenBMC and can target the PLDM daemon. PLDM daem=
+on will have a D-Bus interface to accept PLDM requests.
+> > * pldmtool can target other management controllers connected to BMC imp=
+lementing PLDM stacks.
+> > * A provision to run pldmtool targeting OpenBMC over a custom network p=
+ort and route the request to the PLDM daemon.
+> >
+> > These are the some of the salient features in the pldmtool that
+> >
+> > * Provide user friendly command options
+> > * Debug options to print detailed PLDM messages.
+> > * Leverage libmctp and libpldm library getting developed for communicat=
+ing with MCTP layer and for encoding/decoding PLDM messages.
+> > (https://github.com/openbmc/pldm, https://github.com/jk-ozlabs/libmctp)
+> >
+> > The host firmware stacks typically have runtime constraints. If there i=
+s interest in having pldmtool run on host firmware then pldmtool will have =
+to be written in C. Apart from this consideration the natural choice will b=
+e to develop this in modern C++.
+> >
+> > This mail is a feeler to seek the interests of the community. I will be=
+ keen to follow-up this with a design template.
+> >
+> > Thanks,
+> > Tom
+> >
+> > IMPORTANT NOTICE: The contents of this email and any attachments are co=
+nfidential and may also be privileged. If you are not the intended recipien=
+t, please notify the sender immediately and do not disclose the contents to=
+ any other person, use it for any purpose, or store or copy the information=
+ in any medium. Thank you.
+>
+
+
+--=20
+Emily Shaffer
