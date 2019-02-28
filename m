@@ -1,80 +1,55 @@
-Return-Path: <jrey@linux.ibm.com>
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c31; helo=mail-yw1-xc31.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tqr2fvZY"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc31.google.com (mail-yw1-xc31.google.com
+ [IPv6:2607:f8b0:4864:20::c31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449Qvv39bTzDqQ9
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 08:40:43 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1SLY5LQ019192
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:40:41 -0500
-Received: from e17.ny.us.ibm.com (e17.ny.us.ibm.com [129.33.205.207])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qxnmwp0jy-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 16:40:40 -0500
-Received: from localhost
- by e17.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
- Thu, 28 Feb 2019 21:40:39 -0000
-Received: from b01cxnp22033.gho.pok.ibm.com (9.57.198.23)
- by e17.ny.us.ibm.com (146.89.104.204) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 28 Feb 2019 21:40:36 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x1SLeZxb21168296
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 28 Feb 2019 21:40:35 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4904028064;
- Thu, 28 Feb 2019 21:40:35 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C836D28059;
- Thu, 28 Feb 2019 21:40:34 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 28 Feb 2019 21:40:34 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449Rls3SzDzDq6Q
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 09:18:48 +1100 (AEDT)
+Received: by mail-yw1-xc31.google.com with SMTP id q128so12428360ywg.8
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 14:18:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=7mKoP3hVfMJKgKZNWEnBro1J3fehTkY8aH2Bdf36TVU=;
+ b=Tqr2fvZYM6fuwY5qtZ36nMga0AguJDv+Iz9KYZhbDo9zbdjpuNgVyQsDfMRsKF9YNP
+ Kig7LdbGQ7NLycC2efRiPcS9XLi6RyXdacSCWuQHVQ0rmD4tUCpsIgV1ioywoBWO6ooV
+ tYrNwjw4zO9P4VwxBtaCdW1fi96ldp/cMZpeEOxaVjrNx2Wz/jV/KuXuFwunU3sIyAep
+ tLS83I82mYLxwvez9a+9SsSxJuyJ42yWSvqJjlbH2G46RrxDMxXJHqCcPSV0xKGWfVQ0
+ y0qduoAGjRzi2O/LaTYOYskOV6dMXUlF7ghzZ1ZUbTzssRgcjcye4AP8jOK0V3zcjlXq
+ CSsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=7mKoP3hVfMJKgKZNWEnBro1J3fehTkY8aH2Bdf36TVU=;
+ b=WDh0FdUaiIC5O7P7+HDl4N695NZVraFatLrtgUkQrBE5oCkrt/uwuYhVTtpmiQ1cZ0
+ GyaCyN9aLhHRSLo0hXi+9JhxMPwKdDO3VD5WZKeVmaUKsr/3pOKMG8/iJoFDr6U8KozQ
+ us3H/+fX4SkZn3S+Q2zqAZogXH0mT8AqSyK7IPicyUOat08xA21MKCsPuGQuh+FaSvf3
+ UZQG2AxrnUVYuXUSBEu0CtpO7tMGt/z5fOm96YVml0XhnijFijLuSVPu0H7AFNY5csMK
+ /kopfGIHu3r2Femd+CRtd+MPKoMnih6Eb2iweyW0/fcYc7k2WP3hsgqAiwc7MUEJpQyU
+ j0Ng==
+X-Gm-Message-State: APjAAAUcLuW4H30L7InUM3kSFt7ldvf5n9GTawCtZ22ITLG9ifa6Pfen
+ fLzvYpvwZq6/qwOAkwWjaca01sStr0bqgfCyMNi26Lbo
+X-Google-Smtp-Source: APXvYqz1GYdsEqSo6XEPjaxxhVZNmOjh2W3ZbsWygbabB0xNx6g8A0V1rjdGRi56HPmpTA2clpWO4aIr+ncOt1njdvs=
+X-Received: by 2002:a81:1701:: with SMTP id 1mr1150949ywx.56.1551392323702;
+ Thu, 28 Feb 2019 14:18:43 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Thu, 28 Feb 2019 15:48:00 -0600
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: "Mazur, Marta" <marta.mazur@intel.com>
-Cc: openbmc@lists.ozlabs.org, openbmc
- <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
-Subject: Re: bashisms in meta-phosphor scripts
-In-Reply-To: <57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1@IRSMSX103.ger.corp.intel.com>
-References: <57D4E00C36C60342B4DF4D5243A0FFBF4F8E41A1@IRSMSX103.ger.corp.intel.com>
-X-Sender: jrey@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19022821-0040-0000-0000-000004C99028
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010682; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01167755; UDB=6.00606765; IPR=6.00948368; 
- MB=3.00025784; MTD=3.00000008; XFM=3.00000015; UTC=2019-02-28 21:40:37
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19022821-0041-0000-0000-000008D498BD
-Message-Id: <1dcffdb01b9788a2659f7e5680f0d6da@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-28_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1902280143
+From: ja az <jandraara@gmail.com>
+Date: Thu, 28 Feb 2019 16:18:21 -0600
+Message-ID: <CAMTupoSj09Tq=1hfdEsQBJi_aO=TVY00Qs1CC3zrmZP2R-o2FQ@mail.gmail.com>
+Subject: NTP Servers - Should a reboot be required?
+To: openbmc@lists.ozlabs.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,53 +61,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Feb 2019 21:40:44 -0000
+X-List-Received-Date: Thu, 28 Feb 2019 22:18:50 -0000
 
-On 2019-02-19 13:08, Mazur, Marta wrote:
-> Hi all,
-> 
-> We have to cut out bash from our system and use busybox ash as the
-> only shell. I found several scripts in the meta-phosphor layer that
-> are not POSIX compliant and therefore are unusable without bash.
+Hi all,
 
-Why do you need to drop bash?  Licensing?  To save space?
+During the Demo and Retrospective call last week, the UI design team
+showed the current proposals for the Date and Time Settings panels. As
+it stands, the backend has been developed in way such that any changes
+in the synchronized NTP servers would require the host to be off in
+order for the changes to go into effect. If the host is not off, a
+reboot is required. And so, the UI designs were created to represent
+this. When they were shown last week, there was hesitation regarding
+the need for a reboot; some gave the example of changing the date on
+their laptop and how that doesn=E2=80=99t require a reboot.
 
+Are there resources to modify the backend so that a reboot is not
+required? Is that possible even if there were resources?
 
-> Has anyone run into this problem? Does anyone have plans to remove
-> bash dependencies from this layer?
+Please review said designs at:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/318994112_2-_S_Add_Empty
 
-I haven't heard of any such plans, nor did I find any in the email 
-archives: https://lists.ozlabs.org/pipermail/openbmc/
-
-
-> Or maybe we could patch those scripts and submit the patches to
-> upstream? It should increase portability to systems with any POSIX
-> shell.
-
-That approach could work.  Before you get started, we should discuss the 
-idea of not using POSIX scripts and not using bashisms.
-If there is agreement, you might want to first document the issue here: 
-https://github.com/openbmc/docs/blob/master/anti-patterns.md
-
-- Joseph
-
-> Regards,
-> 
-> Marta
-> 
-> ---------------------------------------------------------------------
->  Intel Technology Poland sp. z o.o.
-> ul. S&#322owackiego 173 | 80-298 Gda&#324sk | S&#261d Rejonowy
-> Gda&#324sk P&#243&#322noc | VII Wydzia&#322 Gospodarczy Krajowego
-> Rejestru S&#261dowego - KRS 101882 | NIP 957-07-52-316 | Kapita&#322
-> zak&#322adowy 200.000 PLN.
-> 
->  Ta wiadomo&#347&#263 wraz z za&#322&#261cznikami jest przeznaczona
-> dla okre&#347lonego adresata i mo&#380e zawiera&#263 informacje
-> poufne. W razie przypadkowego otrzymania tej wiadomo&#347ci, prosimy o
-> powiadomienie nadawcy oraz trwa&#322e jej usuni&#281cie; jakiekolwiek
-> przegl&#261danie lub rozpowszechnianie jest zabronione.
->  This e-mail and any attachments may contain confidential material for
-> the sole use of the intended recipient(s). If you are not the intended
-> recipient, please contact the sender and delete all copies; any review
-> or distribution by others is strictly prohibited.
+Jandra A
