@@ -1,72 +1,77 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="IXOZ2/5j"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gDhFWc8l"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449T0p0NKWzDqLJ
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 10:15:05 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id AE10222D16;
- Thu, 28 Feb 2019 18:15:00 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 28 Feb 2019 18:15:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:cc:subject
- :content-type; s=fm2; bh=XRlTN0+ARhHKWP4hSMuc/WJ1nuuoHl5vKtnUdhM
- v3QE=; b=IXOZ2/5jwvmsWpQV38/xZtbaj+GC6EcCiTibiIj3VkVoQ4iuEMvYDgk
- i0+/d5LJUAQMtgzcD2YSoFUVWUJevIJLJM6iOZEm5s6oRPy9fKH39ml0XxJi70HF
- tqle068F/ccxhdpcIP19qg6a8GXljvaQCgCBvZl9yb5XpZaf91ghYrvu3XUoxOks
- PJElTu3nG3nSvjwQNDeABKs9tkOmm2F9H3cm13GBuFWs/zTiVhNXPhMWX19oO+V8
- fzvcV5UK0U3eJ3JSFRxDPiV9UrDMHksb1klxu/vNPyxwsIkUL5ag3gjYTwTut1RZ
- Ez4Fp2iACgQzbOgLkE6gupc3ysYS4IA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=XRlTN0+ARhHKWP4hS
- Muc/WJ1nuuoHl5vKtnUdhMv3QE=; b=gDhFWc8lCKzzlwjjGiQQO3DAsP7AG8hyr
- BM2HAZsr9sc/plRrWyf0FIplORoaQ/oBE1yUSZ7hnMuWENT2pYzzUvaNbF+fRV9x
- HI0xOAJTqJ0Ott7L5x7tf7zK7r+ULNSJoVGRhnLtvZSnZlP+q2QHb7VajZU24fIk
- vrsvVKkjS793ys9RzIex5bqaLHTJTgaNZznGm8uWGkHOL6WdFpEWvrJFnug4lkox
- zv+7reiomaTT9TuDaj6UkFCqqVChQR5buIOoXIspwp+yOqpEZYUUSwAj1EQonMXb
- +diZaa/GYzv41ZrpkSKNe4eUVp2fS1kJcpTZ9o5NiP79xcgLxblQw==
-X-ME-Sender: <xms:c2t4XA-xh4MwXTx-PGZX60_S_FV-u8pX5YjCJ58MekyRdcGXrBkMng>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrvdeggddtlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculddujedmnecujfgurhepofgfkfgjfhffhffvufgtsehttdertderredt
- necuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrd
- hiugdrrghuqeenucffohhmrghinhepohhpvghnsghmtgdqphhrohhjvggtthdrgiihiidp
- ghhithhhuhgsrdgtohhmpdhoiihlrggsshdrohhrghenucfrrghrrghmpehmrghilhhfrh
- homheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:c2t4XLUco7nrKa9taa4DaiLLdWCcsP_IkyfUGcba51zHphvGRHOJeA>
- <xmx:c2t4XFiFM10kCFSzHJ0VkJmLhwy9NxD1U8OhAwdshPGwq48RySQWTQ>
- <xmx:c2t4XBzKYuUBIsRnAFfDei0c6kDbxNLv9lcnsIVHKF7MeuE6sOgoLA>
- <xmx:dGt4XNzza_Pxok07DLtFMUfdE5JKp2EsFAU6p7NGtQh9Tl2l37jCdg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id D19977C1EB; Thu, 28 Feb 2019 18:14:59 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
-X-Me-Personality: 52947553
-Message-Id: <17672106-f35f-44d6-b10f-1e7b95fc0578@www.fastmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449VQM0QpQzDq5Y
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 11:18:50 +1100 (AEDT)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x2104wPl030887
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 19:18:47 -0500
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qxsf21cux-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 19:18:47 -0500
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Fri, 1 Mar 2019 00:18:46 -0000
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 1 Mar 2019 00:18:43 -0000
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x210IgME20250734
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 1 Mar 2019 00:18:42 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8996FB2065;
+ Fri,  1 Mar 2019 00:18:42 +0000 (GMT)
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6DEFAB2067;
+ Fri,  1 Mar 2019 00:18:41 +0000 (GMT)
+Received: from birb.localdomain (unknown [9.81.200.160])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with SMTP;
+ Fri,  1 Mar 2019 00:18:41 +0000 (GMT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id 895904EC65C; Fri,  1 Mar 2019 11:18:37 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.ibm.com>
+To: Lei YU <mine260309@gmail.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: Re: Static layout PNOR support in openpower-pnor-code-mgmt
 In-Reply-To: <CAARXrtmaOQJ9a224iosU1m+5FSryC4TM7qgBT3n9MYPWzZiQrQ@mail.gmail.com>
 References: <CAARXrtmaOQJ9a224iosU1m+5FSryC4TM7qgBT3n9MYPWzZiQrQ@mail.gmail.com>
-Date: Thu, 28 Feb 2019 18:14:59 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: Mine <mine260309@gmail.com>, "OpenBMC Maillist" <openbmc@lists.ozlabs.org>
-Cc: "Alexander Amelkin" <a.amelkin@yadro.com>
-Subject: Re: Static layout PNOR support in openpower-pnor-code-mgmt
+Date: Fri, 01 Mar 2019 11:18:37 +1100
+MIME-Version: 1.0
 Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 19030100-0052-0000-0000-000003928717
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010682; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01167808; UDB=6.00610119; IPR=6.00948421; 
+ MB=3.00025786; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-01 00:18:45
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030100-0053-0000-0000-00006000CEDC
+Message-Id: <877edjsazm.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-02-28_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1902280160
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,39 +83,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Feb 2019 23:15:09 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 00:18:52 -0000
 
-
-
-On Thu, 28 Feb 2019, at 17:47, Lei YU wrote:
+Lei YU <mine260309@gmail.com> writes:
 > As a follow up of [VPNOR discussion][1], the static layout PNOR
 > support in openpower-pnor-code-mgmt is implemented and pushed to gerrit
-> starting from 
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/openpower-pnor-code-mgmt/+/18747/
-> 
+> starting from https://gerrit.openbmc-project.xyz/#/c/openbmc/openpower-pnor-code-mgmt/+/18747/
+>
 > Code reviews and tests are welcome.
-> 
+>
 > To test the feature:
 > 1. Pick the above gerrit commits and build with --disable-ubifs_layout
-
-This is a monstrous nitpick, but any chance we can avoid mixing '-' and '_' in the option
-name? I very much prefer just using '-' for visual consistency.
-
 > 2. Generate pnor in static.tar.gz format, by below command:
->     ./generate-squashfs <xxx.pnor>   # xxx.pnor.static.tar.gz will be generated
->    This tar.gz will be used to do the code update.
-> 3. Do code update, gard reset, factory reset the same as VPNOR, described in
->    [host-code-update.md][2] and [REST-cheatsheet.md][3]
-> 
-> I only tested it on Romulus, and will test it on Palmetto. Hopefully it will
-> be tested on other OpenPOWER machines before the patches are merged.
+>     ./generate-squashfs <xxx.pnor>   # xxx.pnor.static.tar.gz will be
+> generated
 
-Awesome work! Thanks for sorting this out.
+Is this a new format? Why? Where is it documented?
 
-> 
-> Note: image verification feature is not implemented yet.
-> 
-> [1]: https://lists.ozlabs.org/pipermail/openbmc/2019-February/015104.html
-> [2]: https://github.com/openbmc/docs/blob/master/code-update/host-code-update.md
-> [3]: https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md
->
+-- 
+Stewart Smith
+OPAL Architect, IBM.
