@@ -1,57 +1,71 @@
-Return-Path: <wen.yang99@zte.com.cn>
+Return-Path: <geert.uytterhoeven@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=zte.com.cn
- (client-ip=202.103.147.172; helo=mxct.zte.com.cn;
- envelope-from=wen.yang99@zte.com.cn; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=zte.com.cn
-Received: from mxct.zte.com.cn (out1.zte.com.cn [202.103.147.172])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=209.85.222.67; helo=mail-ua1-f67.google.com;
+ envelope-from=geert.uytterhoeven@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux-m68k.org
+Received: from mail-ua1-f67.google.com (mail-ua1-f67.google.com
+ [209.85.222.67])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449kVm456gzDqQ8
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 20:23:27 +1100 (AEDT)
-Received: from mse01.zte.com.cn (unknown [10.30.3.20])
- by Forcepoint Email with ESMTPS id 15771E684883FDA264E8;
- Fri,  1 Mar 2019 16:57:24 +0800 (CST)
-Received: from notes_smtp.zte.com.cn ([10.30.1.239])
- by mse01.zte.com.cn with ESMTP id x218vEeK087103;
- Fri, 1 Mar 2019 16:57:14 +0800 (GMT-8)
- (envelope-from wen.yang99@zte.com.cn)
-Received: from fox-host8.localdomain ([10.74.120.8])
- by szsmtp06.zte.com.cn (Lotus Domino Release 8.5.3FP6)
- with ESMTP id 2019030116575305-2499021 ;
- Fri, 1 Mar 2019 16:57:53 +0800 
-From: Wen Yang <wen.yang99@zte.com.cn>
-To: liviu.dudau@arm.com
-Cc: sudeep.holla@arm.com, lorenzo.pieralisi@arm.com, linux@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kgene@kernel.org, krzk@kernel.org, linux-samsung-soc@vger.kernel.org,
- michal.simek@xilinx.com, afaerber@suse.de,
- manivannan.sadhasivam@linaro.org, dinguyen@kernel.org, heiko@sntech.de,
- linux-rockchip@lists.infradead.org, f.fainelli@gmail.com,
- rjui@broadcom.com, sbranden@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, linus.walleij@linaro.org,
- avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
- yuenn@google.com, brendanhiggins@google.com, openbmc@lists.ozlabs.org,
- xuwei5@hisilicon.com, maxime.ripard@bootlin.com, wens@csie.org,
- catalin.marinas@arm.com, will.deacon@arm.com, horms@verge.net.au,
- magnus.damm@gmail.com, linux-renesas-soc@vger.kernel.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- fabio.estevam@nxp.com, linux-imx@nxp.com, wang.yi59@zte.com.cn,
- Wen Yang <wen.yang99@zte.com.cn>
-Subject: [PATCH 09/15] ARM: socfpga: fix a leaked reference by addingmissing
- of_node_put
-Date: Fri, 1 Mar 2019 16:56:50 +0800
-Message-Id: <1551430616-42014-9-git-send-email-wen.yang99@zte.com.cn>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449l7Q2sfGzDqRR
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 20:51:43 +1100 (AEDT)
+Received: by mail-ua1-f67.google.com with SMTP id j7so7095076uak.8
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 01:51:42 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5wRZYJMbL7YK8sFkJdZpCHVpLmSHoA0VUyOgYXV8p3E=;
+ b=WVdkgRtX2lpldhCx6M8vbvXqjfNkr8M8v6SeMjUy3x0S3Jp0C5zjaLIENSApncq9rl
+ WBBq90GGDVMZUq79osFfe9aPx4vUyYcB0+IFma5PGc/g+y1NJur0YM4FtkxKn7fM3ykc
+ j3o8Bn3cFY75cEqper3Jr+Kgma2qSqFvBc0fefa9T4va8tDZdyb0ldT/PSlW+/C9OXEJ
+ ZqW56TS+DmmRSjy17Toea36WyptUEFu+Z3vBiHYL3cx+9cNbKYVnblWAQlLq2AY3Q5UF
+ JX617JxN2DPBX5Rkhd9TOKJXNViPl9vPWRrhq9Gp2uclvVFFSNgNhd+ArExiWrpAktQf
+ 0aKA==
+X-Gm-Message-State: APjAAAUnDzGOMiCSzkX/XtnCbd6Ze4uAhbrg1wsv3uFjwQ3jj0eokexB
+ 7X5zntWzMeShhs4+jqswluHYgr+3tZtUgbE6mQM=
+X-Google-Smtp-Source: APXvYqwQqmv0qSf/5I7Q7XSoWMbil550gLemcgNm3OkWBAPRfchw5wWM4WxaHoIxWPSOeqFbfrsBQFGlYJTQ+WlPsfk=
+X-Received: by 2002:a67:78ce:: with SMTP id t197mr2151989vsc.152.1551433899715; 
+ Fri, 01 Mar 2019 01:51:39 -0800 (PST)
+MIME-Version: 1.0
 References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
-X-MIMETrack: Itemize by SMTP Server on SZSMTP06/server/zte_ltd(Release
- 8.5.3FP6|November 21, 2013) at 2019-03-01 16:57:53,
- Serialize by Router on notes_smtp/zte_ltd(Release 9.0.1FP7|August  17, 2016) at
- 2019-03-01 16:56:58, Serialize complete at 2019-03-01 16:56:58
-X-MAIL: mse01.zte.com.cn x218vEeK087103
-X-Mailman-Approved-At: Mon, 04 Mar 2019 13:02:08 +1100
+ <1551430616-42014-8-git-send-email-wen.yang99@zte.com.cn>
+In-Reply-To: <1551430616-42014-8-git-send-email-wen.yang99@zte.com.cn>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 1 Mar 2019 10:51:27 +0100
+Message-ID: <CAMuHMdWrY0UNhCA7a8oHVfdVNXaB=15qFuWqvuU9OZpf7-ecmg@mail.gmail.com>
+Subject: Re: [PATCH 08/15] ARM: shmobile: fix a leaked reference by
+ addingmissing of_node_put
+To: Wen Yang <wen.yang99@zte.com.cn>
+Cc: Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
+ Russell King <linux@armlinux.org.uk>, 
+ Linux ARM <linux-arm-kernel@lists.infradead.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Kukjin Kim <kgene@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-samsung-soc@vger.kernel.org, 
+ Michal Simek <michal.simek@xilinx.com>,
+ =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Dinh Nguyen <dinguyen@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, 
+ Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>, 
+ Scott Branden <sbranden@broadcom.com>, bcm-kernel-feedback-list@broadcom.com, 
+ Linus Walleij <linus.walleij@linaro.org>, avifishman70@gmail.com,
+ tmaimon77@gmail.com, 
+ venture@google.com, yuenn@google.com, brendanhiggins@google.com, 
+ openbmc@lists.ozlabs.org, Wei Xu <xuwei5@hisilicon.com>, 
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will.deacon@arm.com>, 
+ Simon Horman <horms@verge.net.au>, Magnus Damm <magnus.damm@gmail.com>, 
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Sascha Hauer <kernel@pengutronix.de>, 
+ Fabio Estevam <fabio.estevam@nxp.com>, linux-imx@nxp.com, wang.yi59@zte.com.cn
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Mon, 04 Mar 2019 13:02:06 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,35 +77,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 09:23:29 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 09:51:47 -0000
 
-The call to of_get_next_child returns a node pointer with refcount
-incremented thus it must be explicitly decremented after the last
-usage.
+On Fri, Mar 1, 2019 at 9:57 AM Wen Yang <wen.yang99@zte.com.cn> wrote:
+> The call to of_get_next_child returns a node pointer with refcount
+> incremented thus it must be explicitly decremented after the last
+> usage.
+>
+> Detected by coccinelle with the following warnings:
+> ./arch/arm/mach-shmobile/pm-rcar-gen2.c:77:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 66, but without a corresponding object release within this function.
+> ./arch/arm/mach-shmobile/pm-rcar-gen2.c:85:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 66, but without a corresponding object release within this function.
+> ./arch/arm/mach-shmobile/pm-rcar-gen2.c:90:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 66, but without a corresponding object release within this function.
+>
+> Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
 
-Detected by coccinelle with the following warnings:
-./arch/arm/mach-socfpga/platsmp.c:93:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 85, but without a corresponding object release within this function.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
-Cc: Dinh Nguyen <dinguyen@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm/mach-socfpga/platsmp.c | 1 +
- 1 file changed, 1 insertion(+)
+Gr{oetje,eeting}s,
 
-diff --git a/arch/arm/mach-socfpga/platsmp.c b/arch/arm/mach-socfpga/platsmp.c
-index 0ee7677..55c2884 100644
---- a/arch/arm/mach-socfpga/platsmp.c
-+++ b/arch/arm/mach-socfpga/platsmp.c
-@@ -89,6 +89,7 @@ static void __init socfpga_smp_prepare_cpus(unsigned int max_cpus)
- 	}
- 
- 	socfpga_scu_base_addr = of_iomap(np, 0);
-+	of_node_put(np);
- 	if (!socfpga_scu_base_addr)
- 		return;
- 	scu_enable(socfpga_scu_base_addr);
+                        Geert
+
 -- 
-2.9.5
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
