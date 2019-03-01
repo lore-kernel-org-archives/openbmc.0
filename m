@@ -1,56 +1,80 @@
-Return-Path: <artemsen@gmail.com>
+Return-Path: <zshelle@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d30; helo=mail-io1-xd30.google.com;
- envelope-from=artemsen@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rlS4lNBe"; 
- dkim-atps=neutral
-Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
- [IPv6:2607:f8b0:4864:20::d30])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=zshelle@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449xnD0Q6WzDqTQ
- for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 04:51:43 +1100 (AEDT)
-Received: by mail-io1-xd30.google.com with SMTP id p196so20205708iod.9
- for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 09:51:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Uq2Jr5vzKb6pmw7NZuyXikOzm6qlX/bKIZLLee6fguE=;
- b=rlS4lNBelNX6IhXpaxkgaeNknEAXbS9+ZBQuvjqjPhHl7Mhd1i93/xI75EyyBh2CT7
- 11gF/J25I4B3eYQeMUeoNrK0VBIjdwo8roCV4hm52JtVYuTNaLqeVU5BiSW0NRrMjDA2
- lP7qhqjq0wK6RgzRZaDkzxOlFMRWro1jWfVKTY/GFsH2fp5AavZYLkiJME+aFEYYSl2l
- 4qKQPolqe0JAShWsCDMx/AE8LonH01ZqNFtscJLx4RFOh5hWWZdsmcxU2xA8mRqsxGHM
- AmVovQgXLtfHCO2QT2PFEF82cuWwxaZ6uT026uOZQEuiEg4BYBYB4MnngzMyxc0YjbtT
- u/NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Uq2Jr5vzKb6pmw7NZuyXikOzm6qlX/bKIZLLee6fguE=;
- b=bUj4kdCU2XqbQ5lC6+uAsNAnmmEf0PDr8Dbqk8yRZZ54D4v+x2HNaQxQh6cK4IrE3N
- LD66fX1nImdiBUF1zrv+aMKAEF1E6mrztL0Ql+q4di9CxPQL+u9PmYUI2tjOZf5tAglY
- 3wRKUTpImzgqMQ9imptfe22okKajDf/f+uezYINZT0fR+I3bN9dB2Hg5qiFDvKU+u4kh
- 4zEVMPgpHDW9DPD4q1DIjKmAZkl1i/QRIFtXM/nIUXKRkCAAjHz5i0wsxME6xVmuXqMx
- R8pbhQFn7snhWNRu4w9gifuSaZ0gK2ZOszjjW+ARdOK7VQ2vse4mdeKcuc0zCBGToGhO
- pSSg==
-X-Gm-Message-State: APjAAAUTSMB2NMt8pafy8zOG3n3eeMS1IrwxvT79Cnp9sq5YU0p/cHZi
- dudBqABwmrRy1VIWFVXs45fcw04mi9J6KcR4YZo=
-X-Google-Smtp-Source: APXvYqwu5QDGeFZuwqdBa+WXEuhQCZzHaYm3trKSDNA04IICxT+TgekHBo6Dub8WXVWgxflpTdjllDEqVuE+cPyRZdo=
-X-Received: by 2002:a6b:b214:: with SMTP id b20mr3392202iof.130.1551462700126; 
- Fri, 01 Mar 2019 09:51:40 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449ybc16m7zDqV4
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 05:28:27 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x21ISKwZ012063
+ for <openbmc@lists.ozlabs.org>; Fri, 1 Mar 2019 13:28:24 -0500
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qy8arvvwn-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 13:28:20 -0500
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <zshelle@linux.vnet.ibm.com>;
+ Fri, 1 Mar 2019 18:26:35 -0000
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 1 Mar 2019 18:26:34 -0000
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x21IQXHE46596346
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 1 Mar 2019 18:26:33 GMT
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id F042C6A051;
+ Fri,  1 Mar 2019 18:26:32 +0000 (GMT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CF6456A047;
+ Fri,  1 Mar 2019 18:26:32 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Fri,  1 Mar 2019 18:26:32 +0000 (GMT)
 MIME-Version: 1.0
-References: <263d64e0656a31579fd990b6e862cf72@linux.vnet.ibm.com>
-In-Reply-To: <263d64e0656a31579fd990b6e862cf72@linux.vnet.ibm.com>
-From: Artem Senichev <artemsen@gmail.com>
-Date: Fri, 1 Mar 2019 20:51:28 +0300
-Message-ID: <CAHsrh9JkjT49OZPwVMvQyHTpDjGhtxjuc37zZvX6GZnsjtAaQw@mail.gmail.com>
-Subject: Re: where is existing OpenPOWER checkstop handling support?
-To: zshelle <zshelle@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Fri, 01 Mar 2019 12:34:01 -0600
+From: zshelle <zshelle@linux.vnet.ibm.com>
+To: Artem Senichev <artemsen@gmail.com>
 Cc: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000001f970505830c0f3e"
+Subject: Re: where is existing OpenPOWER checkstop handling support?
+In-Reply-To: <CAHsrh9JkjT49OZPwVMvQyHTpDjGhtxjuc37zZvX6GZnsjtAaQw@mail.gmail.com>
+References: <263d64e0656a31579fd990b6e862cf72@linux.vnet.ibm.com>
+ <CAHsrh9JkjT49OZPwVMvQyHTpDjGhtxjuc37zZvX6GZnsjtAaQw@mail.gmail.com>
+X-Sender: zshelle@linux.vnet.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19030118-0036-0000-0000-00000A9316EB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010687; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01168168; UDB=6.00610335; IPR=6.00948784; 
+ MB=3.00025798; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-01 18:26:35
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030118-0037-0000-0000-00004AE4530F
+Message-Id: <b2eb346de41b738a1d1fadbe2801ca11@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-01_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=772 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903010127
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +86,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 17:51:45 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 18:28:28 -0000
 
---0000000000001f970505830c0f3e
-Content-Type: text/plain; charset="UTF-8"
+On 2019-03-01 11:51, Artem Senichev wrote:
+> For OpenPOWER, the checkstop signal comes through GPIO.
+> 
+> GPIO monitor: https://github.com/openbmc/phosphor-gpio-monitor [1]
+> 
+> Recipe:
+> https://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb
+> [2]
+> 
+> --
+> Best regards,
+> Artem Senichev
+> 
+> On Fri, Mar 1, 2019 at 6:13 PM zshelle <zshelle@linux.vnet.ibm.com>
+> wrote:
+> 
+>> I know for OpenPOWER systems, there is some support to detect a
+>> system
+>> checkstop, wait some defined amount of time, then reset the
+>> machine.
+>> Could anyone point me to this code?
+> 
+> 
+> Links:
+> ------
+> [1] https://github.com/openbmc/phosphor-gpio-monitor
+> [2]
+> https://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb
 
-For OpenPOWER, the checkstop signal comes through GPIO.
-
-GPIO monitor: https://github.com/openbmc/phosphor-gpio-monitor
-Recipe:
-https://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb
-
---
-Best regards,
-Artem Senichev
-
-
-On Fri, Mar 1, 2019 at 6:13 PM zshelle <zshelle@linux.vnet.ibm.com> wrote:
-
-> I know for OpenPOWER systems, there is some support to detect a system
-> checkstop, wait some defined amount of time, then reset the machine.
-> Could anyone point me to this code?
->
->
-
---0000000000001f970505830c0f3e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
-ult" style=3D"font-family:monospace,monospace">For OpenPOWER, the checkstop=
- signal comes through GPIO.</div><div class=3D"gmail_default" style=3D"font=
--family:monospace,monospace"><br></div><div class=3D"gmail_default" style=
-=3D"font-family:monospace,monospace">GPIO monitor: <a href=3D"https://githu=
-b.com/openbmc/phosphor-gpio-monitor">https://github.com/openbmc/phosphor-gp=
-io-monitor</a><br></div><div class=3D"gmail_default" style=3D"font-family:m=
-onospace,monospace">Recipe: <a href=3D"https://github.com/openbmc/openbmc/b=
-lob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb">https=
-://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/h=
-ost/checkstop-monitor.bb</a></div><div class=3D"gmail_default" style=3D"fon=
-t-family:monospace,monospace"><br clear=3D"all"></div><div><div dir=3D"ltr"=
- class=3D"gmail_signature">--<br>Best regards,<br>Artem Senichev</div></div=
-><br></div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
-s=3D"gmail_attr">On Fri, Mar 1, 2019 at 6:13 PM zshelle &lt;<a href=3D"mail=
-to:zshelle@linux.vnet.ibm.com">zshelle@linux.vnet.ibm.com</a>&gt; wrote:<br=
-></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
-border-left:1px solid rgb(204,204,204);padding-left:1ex">I know for OpenPOW=
-ER systems, there is some support to detect a system <br>
-checkstop, wait some defined amount of time, then reset the machine. <br>
-Could anyone point me to this code?<br>
-<br>
-</blockquote></div>
-
---0000000000001f970505830c0f3e--
+Thank you. Now I just need to figure out how that works.
