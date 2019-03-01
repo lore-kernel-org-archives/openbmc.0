@@ -1,65 +1,56 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <artemsen@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::32f; helo=mail-ot1-x32f.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::d30; helo=mail-io1-xd30.google.com;
+ envelope-from=artemsen@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="K8d22cRK"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="rlS4lNBe"; 
  dkim-atps=neutral
-Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
- [IPv6:2607:f8b0:4864:20::32f])
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449x0F4Gd3zDqTF
- for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 04:16:13 +1100 (AEDT)
-Received: by mail-ot1-x32f.google.com with SMTP id 98so21649539oty.1
- for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 09:16:12 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449xnD0Q6WzDqTQ
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 04:51:43 +1100 (AEDT)
+Received: by mail-io1-xd30.google.com with SMTP id p196so20205708iod.9
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 09:51:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:subject:to:message-id:date:user-agent:mime-version
- :content-language:content-transfer-encoding;
- bh=CfzxbC/IOkITBhZOauMvzqIZdKa0uVIaxWdsH3gFlFk=;
- b=K8d22cRKsM+Lj+Bt5ahhcbnMjtWyOzNz/PPd6OKnvMkEIFO1WaKABSWSx0FwquVUvP
- RMTl41aDwH5ZQszqpmS+muXO0D/ewAPm8DAAIv7PpozGCmAI3P15Bwx18bb3eADQVn3p
- hASGEEZ/H95AqD+DTPKoQbFrVZUkGYJ1u4A+/ywsQcQfRJpZKvnSX8Ru3dkWqFPmJoIT
- nRGLhsqkqQKxktwtgat60Oh8LSNwfPrBHxqKkBufilsf1ZLTIM5loWMw/7WeybdnqcS3
- uJ0GkWOre55M8Da40UXEJfTd2I5tLIgF9C6qRpesgHevWlGHdIWqNNioS8ZRx1ZNKJ7M
- fPfw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Uq2Jr5vzKb6pmw7NZuyXikOzm6qlX/bKIZLLee6fguE=;
+ b=rlS4lNBelNX6IhXpaxkgaeNknEAXbS9+ZBQuvjqjPhHl7Mhd1i93/xI75EyyBh2CT7
+ 11gF/J25I4B3eYQeMUeoNrK0VBIjdwo8roCV4hm52JtVYuTNaLqeVU5BiSW0NRrMjDA2
+ lP7qhqjq0wK6RgzRZaDkzxOlFMRWro1jWfVKTY/GFsH2fp5AavZYLkiJME+aFEYYSl2l
+ 4qKQPolqe0JAShWsCDMx/AE8LonH01ZqNFtscJLx4RFOh5hWWZdsmcxU2xA8mRqsxGHM
+ AmVovQgXLtfHCO2QT2PFEF82cuWwxaZ6uT026uOZQEuiEg4BYBYB4MnngzMyxc0YjbtT
+ u/NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:subject:to:message-id:date:user-agent
- :mime-version:content-language:content-transfer-encoding;
- bh=CfzxbC/IOkITBhZOauMvzqIZdKa0uVIaxWdsH3gFlFk=;
- b=WL2anb92sPnf6iA8kqXU7Q39Xhw69PMRxR1I7+x1G37xKwq36BmgxYd3ZuUG6MbgXS
- lPor+osohAk225j5MCpBtMD2/unYg1VY5qpMuygfq1xjjt8q7n66EUF8o/ie3oQrrk/T
- 8/TdrMdaBM7Q5NjXiLY8LkPcIIMvdZVuTNC5or0r5ceuL2rjh3pMJaN4KoDc7yK+iDY/
- 4dBzSK3+JmAIIlAjKvq7LWwNXos03MMHxPOxcDtvJqOjYCt+sCdFplkwp9GRK3xKcMDJ
- 89gvsIpuUISMfwQZBnmWv/k9y6UprIn3iU712w6xlRpqJBbaS9Y3WajW65I1yL6J1GxK
- aU4Q==
-X-Gm-Message-State: APjAAAUPXyWvjZB4FmvaOHqS5RBSaQgC2NE1LPimGplDo9eQRUJYUjA6
- DYME8UcnlXDrRWKuEjAyLt/fBMlj
-X-Google-Smtp-Source: APXvYqyJU/hjCdjOqhV5LeajxF5OMB2RNDiVskrzSDEEpBks+xTPLWHg8ms34AisfNAT+L+yxyH/uQ==
-X-Received: by 2002:a05:6830:14d6:: with SMTP id
- t22mr4202207otq.255.1551460570316; 
- Fri, 01 Mar 2019 09:16:10 -0800 (PST)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id e24sm9123919otl.2.2019.03.01.09.16.09
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 01 Mar 2019 09:16:09 -0800 (PST)
-From: krtaylor <kurt.r.taylor@gmail.com>
-Subject: 2.7 Release Planning Guidelines - Features, Designs and Milestones
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Message-ID: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
-Date: Fri, 1 Mar 2019 11:16:08 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.5.2
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Uq2Jr5vzKb6pmw7NZuyXikOzm6qlX/bKIZLLee6fguE=;
+ b=bUj4kdCU2XqbQ5lC6+uAsNAnmmEf0PDr8Dbqk8yRZZ54D4v+x2HNaQxQh6cK4IrE3N
+ LD66fX1nImdiBUF1zrv+aMKAEF1E6mrztL0Ql+q4di9CxPQL+u9PmYUI2tjOZf5tAglY
+ 3wRKUTpImzgqMQ9imptfe22okKajDf/f+uezYINZT0fR+I3bN9dB2Hg5qiFDvKU+u4kh
+ 4zEVMPgpHDW9DPD4q1DIjKmAZkl1i/QRIFtXM/nIUXKRkCAAjHz5i0wsxME6xVmuXqMx
+ R8pbhQFn7snhWNRu4w9gifuSaZ0gK2ZOszjjW+ARdOK7VQ2vse4mdeKcuc0zCBGToGhO
+ pSSg==
+X-Gm-Message-State: APjAAAUTSMB2NMt8pafy8zOG3n3eeMS1IrwxvT79Cnp9sq5YU0p/cHZi
+ dudBqABwmrRy1VIWFVXs45fcw04mi9J6KcR4YZo=
+X-Google-Smtp-Source: APXvYqwu5QDGeFZuwqdBa+WXEuhQCZzHaYm3trKSDNA04IICxT+TgekHBo6Dub8WXVWgxflpTdjllDEqVuE+cPyRZdo=
+X-Received: by 2002:a6b:b214:: with SMTP id b20mr3392202iof.130.1551462700126; 
+ Fri, 01 Mar 2019 09:51:40 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <263d64e0656a31579fd990b6e862cf72@linux.vnet.ibm.com>
+In-Reply-To: <263d64e0656a31579fd990b6e862cf72@linux.vnet.ibm.com>
+From: Artem Senichev <artemsen@gmail.com>
+Date: Fri, 1 Mar 2019 20:51:28 +0300
+Message-ID: <CAHsrh9JkjT49OZPwVMvQyHTpDjGhtxjuc37zZvX6GZnsjtAaQw@mail.gmail.com>
+Subject: Re: where is existing OpenPOWER checkstop handling support?
+To: zshelle <zshelle@linux.vnet.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000001f970505830c0f3e"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,40 +62,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 17:16:14 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 17:51:45 -0000
 
-All,
+--0000000000001f970505830c0f3e
+Content-Type: text/plain; charset="UTF-8"
 
-At the last release planning meeting we agreed to start enforcing the 
-design requirement for 2.7 release features. This gives the repo 
-maintainer the authority to not merge major contributions without 
-designs in place. Of course, the maintainer also has the discretion to 
-"grandfather" in work that was previously underway that had designs 
-socialized in IRC or email. I think having these designs in place will 
-fix a lot of the release notes concerns, as well as level-setting what 
-we're all working on.
+For OpenPOWER, the checkstop signal comes through GPIO.
 
-TLDR: if work has a feature issue created in github (tagged Release2.7), 
-it MUST to have a design template filled out in order to be merged.
+GPIO monitor: https://github.com/openbmc/phosphor-gpio-monitor
+Recipe:
+https://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb
 
-Second, we agreed to set a VERY aggressive schedule for having all 
-feature issue designs in place: *March 25th*  Obviously, that means that 
-release feature issues need to be completed before then.
+--
+Best regards,
+Artem Senichev
 
-Third, we also agreed to establish checkpoints for delivery of features 
-so we can check the feature progress, seek community assistance, etc. We 
-will establish Design, Code1, Code2, Freeze and Release milestones. They 
-are mostly self-explanatory, with Code1 and Code2 being used for staging 
-dependent work for instance. They will be approximately 6 week intervals.
 
-Finally, I am asking for EVERYONE'S help in making sure what you are 
-working on falls into a openbmc/openbmc issue tagged Release2.7 (or 
-Release2.8 for long-running projects). If not, and it is not a quick fix 
-or small enhancement, please let your release planning rep know and help 
-them get the feature issue created ASAP. Check here: 
-https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
+On Fri, Mar 1, 2019 at 6:13 PM zshelle <zshelle@linux.vnet.ibm.com> wrote:
 
-As always, I am available for any questions. Find me on IRC or come to a 
-release planning meeting and let's discuss.
+> I know for OpenPOWER systems, there is some support to detect a system
+> checkstop, wait some defined amount of time, then reset the machine.
+> Could anyone point me to this code?
+>
+>
 
-Kurt Taylor (krtaylor)
+--0000000000001f970505830c0f3e
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_defa=
+ult" style=3D"font-family:monospace,monospace">For OpenPOWER, the checkstop=
+ signal comes through GPIO.</div><div class=3D"gmail_default" style=3D"font=
+-family:monospace,monospace"><br></div><div class=3D"gmail_default" style=
+=3D"font-family:monospace,monospace">GPIO monitor: <a href=3D"https://githu=
+b.com/openbmc/phosphor-gpio-monitor">https://github.com/openbmc/phosphor-gp=
+io-monitor</a><br></div><div class=3D"gmail_default" style=3D"font-family:m=
+onospace,monospace">Recipe: <a href=3D"https://github.com/openbmc/openbmc/b=
+lob/master/meta-openpower/recipes-phosphor/host/checkstop-monitor.bb">https=
+://github.com/openbmc/openbmc/blob/master/meta-openpower/recipes-phosphor/h=
+ost/checkstop-monitor.bb</a></div><div class=3D"gmail_default" style=3D"fon=
+t-family:monospace,monospace"><br clear=3D"all"></div><div><div dir=3D"ltr"=
+ class=3D"gmail_signature">--<br>Best regards,<br>Artem Senichev</div></div=
+><br></div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" clas=
+s=3D"gmail_attr">On Fri, Mar 1, 2019 at 6:13 PM zshelle &lt;<a href=3D"mail=
+to:zshelle@linux.vnet.ibm.com">zshelle@linux.vnet.ibm.com</a>&gt; wrote:<br=
+></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;=
+border-left:1px solid rgb(204,204,204);padding-left:1ex">I know for OpenPOW=
+ER systems, there is some support to detect a system <br>
+checkstop, wait some defined amount of time, then reset the machine. <br>
+Could anyone point me to this code?<br>
+<br>
+</blockquote></div>
+
+--0000000000001f970505830c0f3e--
