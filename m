@@ -1,65 +1,80 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <tomjose@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.8; helo=cpsmtpb-ews05.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="Bwlp0aSj"; 
- dkim-atps=neutral
-Received: from cpsmtpb-ews05.kpnxchange.com (cpsmtpb-ews05.kpnxchange.com
- [213.75.39.8])
- by lists.ozlabs.org (Postfix) with ESMTP id 449lFf2BK1zDqRR
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 20:57:06 +1100 (AEDT)
-Received: from cpsps-ews04.kpnxchange.com ([10.94.84.171]) by
- cpsmtpb-ews05.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Fri, 1 Mar 2019 10:57:00 +0100
-X-Brand: /q/rzKX13g==
-X-KPN-SpamVerdict: e1=;e2=;e3=;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Grey;B
- M:NotScanned;FinalVerdict:PossibleSpam
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT103.kpnxchange.com ([195.121.3.19]) by
- cpsps-ews04.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Fri, 1 Mar 2019 10:57:00 +0100
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1551434220;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=LxxqxPK011kDX4e61pZr+x6IrUe1whSdiKq0wJMug0g=;
- b=Bwlp0aSjs02iZdjphMTSnvd/4zJ+raPnNc6jm7MwYI+AFyKz0G92uNNThaehdOAYnqDEVr0xV1h
- 3FhOI8p+ZhjI3PzaqVZdw3txPSI+jPCF0ZDYN5ditnAEESiuMtm1nOUEWg6v11gM87s78ynKzE1Wk
- /7yH0mual92APIMowS4=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT103.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Fri, 1 Mar 2019 10:57:00 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Fri, 1 Mar
- 2019 10:56:25 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Fri, 1 Mar 2019 10:56:25 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: Building intel s2600wf image
-Thread-Topic: Building intel s2600wf image
-Thread-Index: AdTFSt2alieuRaKeTgaddnrT2vklLAKGGQCAACxjjEA=
-Date: Fri, 1 Mar 2019 09:56:24 +0000
-Message-ID: <1c172896f971483e91b488c1cb9cbf7e@Eltsrv03.Eltan.local>
-References: <0dd29982f6954541a2ce2420c87684e7@Eltsrv03.Eltan.local>
- <C8BA2205-EAB7-4225-B879-B5D43D2CC2D7@fb.com>
-In-Reply-To: <C8BA2205-EAB7-4225-B879-B5D43D2CC2D7@fb.com>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=tomjose@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449pPz1kHxzDqQv
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 23:19:33 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x21CA7Jk141891
+ for <openbmc@lists.ozlabs.org>; Fri, 1 Mar 2019 07:19:29 -0500
+Received: from e06smtp07.uk.ibm.com (e06smtp07.uk.ibm.com [195.75.94.103])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2qy4gnrc2u-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 07:19:29 -0500
+Received: from localhost
+ by e06smtp07.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <tomjose@linux.vnet.ibm.com>;
+ Fri, 1 Mar 2019 12:19:26 -0000
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp07.uk.ibm.com (192.168.101.137) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 1 Mar 2019 12:19:24 -0000
+Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
+ [9.149.105.59])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x21CJNCx30277812
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+ Fri, 1 Mar 2019 12:19:23 GMT
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 43899A4055;
+ Fri,  1 Mar 2019 12:19:23 +0000 (GMT)
+Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6767FA4040;
+ Fri,  1 Mar 2019 12:19:22 +0000 (GMT)
+Received: from [9.193.103.203] (unknown [9.193.103.203])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Fri,  1 Mar 2019 12:19:22 +0000 (GMT)
+Subject: Re: Proposal for pldmtool
+To: Emily Shaffer <emilyshaffer@google.com>
+Cc: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alexander Amelkin <a.amelkin@yadro.com>, "benwei@fb.com" <benwei@fb.com>
+References: <3151516d-0aa1-465c-be01-44b3d837fbce@linux.vnet.ibm.com>
+ <VI1PR08MB2799DE313D14D5C96966A840807E0@VI1PR08MB2799.eurprd08.prod.outlook.com>
+ <9ef52020-8bd1-8aab-b8b4-56c636523892@linux.vnet.ibm.com>
+ <CAJoAoZ=KtCWabJUxxeUHnDdKz0fkKAFN6Cnvqpes3QETQJRuhA@mail.gmail.com>
+From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+Date: Fri, 1 Mar 2019 17:49:21 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-X-OriginalArrivalTime: 01 Mar 2019 09:57:00.0907 (UTC)
- FILETIME=[1D8A23B0:01D4D015]
-X-RcptDomain: lists.ozlabs.org
+In-Reply-To: <CAJoAoZ=KtCWabJUxxeUHnDdKz0fkKAFN6Cnvqpes3QETQJRuhA@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19030112-0028-0000-0000-0000034E9926
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030112-0029-0000-0000-0000240CF83F
+Message-Id: <8d8ad264-827d-e9fa-5585-86c99d9dd31f@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-01_09:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903010086
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,69 +86,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 09:57:14 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 12:19:36 -0000
 
-SGVsbG8gVmlqYXksDQoNClBsZWFzZSBtYWtlIHN1cmUgdG8gdXNlIHRoaXMgYmIgZmlsZSB0byBo
-ZXQgdGhlIGZpbGUgY29waWVkOg0KDQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9tZXRhLWlu
-dGVsL3RyZWUvbWFzdGVyL21ldGEtY29tbW9uL3JlY2lwZXMtcGhvc3Bob3IvaXBtaQ0KDQpkb19p
-bnN0YWxsX2FwcGVuZCgpew0KICBpbnN0YWxsIC1kICR7RH0ke2luY2x1ZGVkaXJ9L3Bob3NwaG9y
-LWlwbWktaG9zdA0KICBpbnN0YWxsIC1tIDA2NDQgLUQgJHtTfS91dGlscy5ocHAgJHtEfSR7aW5j
-bHVkZWRpcn0vcGhvc3Bob3ItaXBtaS1ob3N0DQogIGluc3RhbGwgLW0gMDY0NCAtRCAke1N9L3R5
-cGVzLmhwcCAke0R9JHtpbmNsdWRlZGlyfS9waG9zcGhvci1pcG1pLWhvc3QNCiAgaW5zdGFsbCAt
-bSAwNjQ0IC1EICR7U30vc2Vuc29yaGFuZGxlci5ocHAgJHtEfSR7aW5jbHVkZWRpcn0vcGhvc3Bo
-b3ItaXBtaS1ob3N0DQogIGluc3RhbGwgLW0gMDY0NCAtRCAke1N9L3NlbHV0aWxpdHkuaHBwICR7
-RH0ke2luY2x1ZGVkaXJ9L3Bob3NwaG9yLWlwbWktaG9zdA0KfQ0KDQpCZXN0IHJlZ2FyZHMsDQoN
-CldpbQ0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogVmlqYXkgS2hlbWthIFtt
-YWlsdG86dmlqYXlraGVta2FAZmIuY29tXSANClNlbnQ6IFRodXJzZGF5LCBGZWJydWFyeSAyOCwg
-MjAxOSA5OjQ0IFBNDQpUbzogV2ltIFZlcnZvb3JuIDx3dmVydm9vcm5AZWx0YW4uY29tPjsgb3Bl
-bmJtY0BsaXN0cy5vemxhYnMub3JnDQpTdWJqZWN0OiBSZTogQnVpbGRpbmcgaW50ZWwgczI2MDB3
-ZiBpbWFnZQ0KDQpIaSBXaW0sDQpIb3cgZGlkIHlvdSBnZXQgcGFzcyB0aHJvdWdoIGJlbG93IGJ1
-aWxkIGlzc3VlIGFzIEkgYW0gc3RpbGwgc2VlaW5nIGl0Lg0KDQovaG9tZS92aWpheWtoZW1rYS9w
-cm9qL29wZW5ibWMvbGYvZmViMDQtbGYvb3BlbmJtYy9idWlsZC90bXAvd29yay9hcm12Ni1vcGVu
-Ym1jLWxpbnV4LWdudWVhYmkvaW50ZWwtaXBtaS1vZW0vMC4xK2dpdEFVVE9JTkMrY2FjOTdhNTMz
-Yi1yMC9naXQvc3JjL3V0aWxzLmNwcDoxOjEwOiBmYXRhbCBlcnJvcjogcGhvc3Bob3ItaXBtaS1o
-b3N0L3V0aWxzLmhwcDogTm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeQ0KfCAgI2luY2x1ZGUgInBo
-b3NwaG9yLWlwbWktaG9zdC91dGlscy5ocHAiDQoNClJlZ2FyZHMNCi1WaWpheQ0KDQrvu79PbiAy
-LzE1LzE5LCA4OjMzIEFNLCAib3BlbmJtYyBvbiBiZWhhbGYgb2YgV2ltIFZlcnZvb3JuIiA8b3Bl
-bmJtYy1ib3VuY2VzK3ZpamF5a2hlbWthPWZiLmNvbUBsaXN0cy5vemxhYnMub3JnIG9uIGJlaGFs
-ZiBvZiB3dmVydm9vcm5AZWx0YW4uY29tPiB3cm90ZToNCg0KICAgIEhlbGxvIEphbWVzLA0KICAg
-IA0KICAgIEkgZ290IHRoZSB0cmVlIGJ1aWxkaW5nIG5vdy4NCiAgICANCiAgICBJIGhhdmUgYmVl
-biBwZXJmb3JtaW5nIHNvbWUgdGVzdHMgYXMgd2VsbC4gT25lIHRoaW5nIHRoYXQgcG9wcGVkIHVw
-IGltbWVkaWF0ZWx5IGlzIHRoYXQgdGhlcmUgYXJlIG5vIGRldmljZXMgY3JlYXRlZCBmb3IgdGhl
-IGtjcyBpbnRlcmZhY2Ugd2hpbGUgdGhlIHNlcnZpY2UgZm9yIHRoaXMgaXMgc3RhcnRlZC4NCiAg
-ICANCiAgICBJIG5vdGljZWQgdGhhdCB0aGUgZmFjZWJvb2stdGlvZ2FwYXNzLmR0cyBoYXMgdGhl
-IGl0ZW1zIGZvciBrY3MyIGFuZCAzIGluY2x1ZGVkIHdoaWxlIHRoZSBzMjYwMHdmLmR0cyBkb2Vz
-bid0IGFzc2lnbiBhZGRyZXNzZXMgZm9yIHRoZXNlIGRldmljZXMgKGxlYXZpbmcgdGhlIGtjc19h
-ZGRyIGF0IDAgY2F1c2luZyB0aGUgZHJpdmVyIG5vdCB0byBsb2FkKS4NCiAgICANCiAgICBJIHRo
-aXMgaW50ZW50aW9uYWwgYW5kIGRvIHN0YXJ0IHRoZSBkcml2ZXIgaW4gYW5vdGhlciB3YXkgb3Ig
-c2hvdWxkIEkgY2hhbmdlIHRoZSBkdHM/DQogICAgDQogICAgQmVzdCByZWdhcmRzLA0KICAgIA0K
-ICAgIFdpbSBWZXJ2b29ybg0KICAgIA0KICAgIA0KICAgIE1lc3NhZ2U6IDQNCiAgICBEYXRlOiBU
-aHUsIDE0IEZlYiAyMDE5IDE2OjAxOjU3IC0wODAwDQogICAgRnJvbTogSmFtZXMgRmVpc3QgPGph
-bWVzLmZlaXN0QGxpbnV4LmludGVsLmNvbT4NCiAgICBUbzogb3BlbmJtY0BsaXN0cy5vemxhYnMu
-b3JnDQogICAgU3ViamVjdDogUmU6IEJ1aWxkaW5nIGludGVsIHMyNjAwd2YgaW1hZ2UNCiAgICBN
-ZXNzYWdlLUlEOiA8MGFmNjAzZjktMzNlNi0wZGNiLTdlOWMtMmNmYTEzY2MyYTAyQGxpbnV4Lmlu
-dGVsLmNvbT4NCiAgICBDb250ZW50LVR5cGU6IHRleHQvcGxhaW47IGNoYXJzZXQ9dXRmLTg7IGZv
-cm1hdD1mbG93ZWQNCiAgICANCiAgICBPbiAyLzE0LzE5IDM6NDkgUE0sIEFuZHJldyBKZWZmZXJ5
-IHdyb3RlOg0KICAgID4gSGkgV2ltLA0KICAgID4gDQogICAgPiBPbiBGcmksIDE1IEZlYiAyMDE5
-LCBhdCAwMjo1MSwgV2ltIFZlcnZvb3JuIHdyb3RlOg0KICAgID4+IEhlbGxvLA0KICAgID4+DQog
-ICAgPj4gV2UgYXJlIHRyeWluZyB0byBidWlsZCB0aGUgSW50ZWwgczI2MDB3ZiBpbWFnZSB1c2lu
-ZyB0aGUgbGF0ZXN0IA0KICAgID4+IE9wZW5CTUMgdHJlZS4gSWYgd2UgZG8gdGhhdCB3ZSBhcmUg
-cnVubmluZyBpbnRvIGJ1aWxkIGVycm9ycy4NCiAgICA+Pg0KICAgID4+IEJlZm9yZSBkaWdnaW5n
-IGludG8gdGhpcyBjYW4geW91IHRlbGwgbWUgd2hpY2ggY29tbWl0IG9mIHRoZSB0cmVlIGNhbiAN
-CiAgICA+PiBiZSB1c2VkIHRvIGJ1aWxkIGFuIGltYWdlIGZvciAgdGhpcyBkZXZpY2Ugd2l0aG91
-dCBlcnJvcnMuIFRoaXMgDQogICAgPj4gYWxsb3dzIHVzIHRvIGhhdmUgYSBzdGFibGUgdmVyc2lv
-biBmb3IgcmVmZXJlbmNlLg0KICAgIA0KICAgIEkgdHJpZWQgdG8gYnVpbGQgdG9kYXkgd2l0aCBs
-YXRlc3QgdHJ1bmsgYW5kIHRoZXJlIHdlcmUgc29tZSBpc3N1ZXMsIEkgZml4ZWQgdGhlbSBhbGwg
-dG9kYXkgYnV0IGFsbCB0aGUgYnVtcHMgaGF2ZSB0byBnbyB0aHJvdWdoIGZpcnN0LiANCiAgICBT
-cGVjaWZpY2FsbHkgdGhpcyBvbmU6IA0KICAgIGh0dHBzOi8vdXJsZGVmZW5zZS5wcm9vZnBvaW50
-LmNvbS92Mi91cmw/dT1odHRwcy0zQV9fZ2Vycml0Lm9wZW5ibWMtMkRwcm9qZWN0Lnh5el8tMjNf
-Y19vcGVuYm1jX21ldGEtMkRpbnRlbF8tMkJfMTg0MTBfJmQ9RHdJRkFnJmM9NVZEMFJUdE5sVGgz
-eWNkNDFiM01VdyZyPXY5TVUwS2k5cFduVFhDV3dqSFBWZ3BuQ1I4MHZYa2tjcklhcVU3VVNsNWcm
-bT1RUnBvYS00dEdqcmFTeDhreGV0bzJnaWpoazRkdDRYUHdobTJSVjg4UmRJJnM9cjVNWlFmU1Ro
-VGQ4SEpyNTdIbkhFYWxWWWJOVkVuZDJTU0VodTBGWlRWUSZlPQ0KICAgIA0KICAgIFRoZW4gaXQg
-bmVlZHMgdG8gZ2V0IHN5bmNlZCBpbnRvIG9wZW5ibWMtb3BlbmJtYywgb3IgeW91IGNhbiBjaGVj
-a291dCB0aGUgcGF0Y2ggd2l0aCB0aGUgYWJvdmUgdmVyc2lvbiBvZiBtZXRhLXBob3NwaG9yIGFu
-ZCBpdCBzaG91bGQgYnVpbGQuDQogICAgDQogICAgVGhhbmtzDQogICAgDQogICAgLUphbWVzDQog
-ICAgDQogICAgDQogICAgRW5kIG9mIG9wZW5ibWMgRGlnZXN0LCBWb2wgNDIsIElzc3VlIDM2DQog
-ICAgKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqDQogICAgDQogICAgDQog
-ICAgDQoNCg==
+
+
+On Friday 01 March 2019 12:06 AM, Emily Shaffer wrote:
+> On Wed, Feb 27, 2019 at 10:29 PM Tom Joseph <tomjose@linux.vnet.ibm.com> wrote:
+>>
+>>
+>> On Thursday 21 February 2019 11:12 PM, Supreeth Venkatesh wrote:
+>>> Tom,
+>>>
+>>> Thanks for sending this out as a feeler.
+>>> This sounds like a logical next step after implementation of PLDM and MCTP.
+>>> However, I have a couple of initial questions.
+>>>
+>>> " A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon."
+>>> 1. Do you think it is ok to use this as external interface to BMC? I was under the impression that IPMI or Redfish were external facing interfaces to BMC.
+>>>        PLDM was intended for inside the box communications.
+>> I agree that PLDM is intended for inside the box communications. The
+>> proposal is not to use it as an external interface, but rather give a
+>> provision to run pldmtool from outside the box.
+> I'm a little confused how this is different from external interface.
+> Could you elaborate? Are you trying to route through the host first?
+
+On a box shipped to customers, there would be no external interface to 
+send PLDM messages to BMC. This can be considered as a debug option for 
+lab purpose.
+
+>
+>>> 2. Why not use Redfish device enablement for PLDM, so that the tool (typically http/s client) will issue PLDM requests in the form of Json payload.
+>> I think it is not guaranteed that the management controllers
+>> implementing pldm has https support.
+>>> 3. Can you describe the use case for the tool to be run on host firmware? In my opinion, this is highly unlikely though it can be run from host user space.
+>> This might not be a typical use-case to run pldmtool from host firmware.
+>> I was curious to know if someone will be interested to do this. But we
+>> do see a possibility of running it from Host OS targeting the BMC, just
+>> like ipmitool can be run from the host targeting the BMC via KCS/BT
+>> interfaces.
+>>> Thanks,
+>>> Supreeth
+>>> -----Original Message-----
+>>> From: Tom Joseph <tomjose@linux.vnet.ibm.com>
+>>> Sent: Monday, February 18, 2019 4:09 AM
+>>> To: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>; Alexander Amelkin <a.amelkin@yadro.com>; benwei@fb.com
+>>> Subject: Proposal for pldmtool
+>>>
+>>> Hi All,
+>>>
+>>> I wanted to put down initial thoughts on "pldmtool" which is a utility for controlling PLDM enabled devices. The naming of the utility was influenced by ipmitool which is a client utility to control IPMI enabled devices. The pldmtool acts as the requester and sends the PLDM message to target any PLDM enabled device. The PLDM response message is processed and expressed in human readable format.  This proposal needs to be considered on the basis of the pldm design (https://github.com/openbmc/docs/blob/master/designs/pldm-stack.md).
+>>> These are possible pldmtool usage scenarios.
+>>>
+>>> * pldmtool can run on OpenBMC and can target the PLDM daemon. PLDM daemon will have a D-Bus interface to accept PLDM requests.
+>>> * pldmtool can target other management controllers connected to BMC implementing PLDM stacks.
+>>> * A provision to run pldmtool targeting OpenBMC over a custom network port and route the request to the PLDM daemon.
+>>>
+>>> These are the some of the salient features in the pldmtool that
+>>>
+>>> * Provide user friendly command options
+>>> * Debug options to print detailed PLDM messages.
+>>> * Leverage libmctp and libpldm library getting developed for communicating with MCTP layer and for encoding/decoding PLDM messages.
+>>> (https://github.com/openbmc/pldm, https://github.com/jk-ozlabs/libmctp)
+>>>
+>>> The host firmware stacks typically have runtime constraints. If there is interest in having pldmtool run on host firmware then pldmtool will have to be written in C. Apart from this consideration the natural choice will be to develop this in modern C++.
+>>>
+>>> This mail is a feeler to seek the interests of the community. I will be keen to follow-up this with a design template.
+>>>
+>>> Thanks,
+>>> Tom
+>>>
+>>> IMPORTANT NOTICE: The contents of this email and any attachments are confidential and may also be privileged. If you are not the intended recipient, please notify the sender immediately and do not disclose the contents to any other person, use it for any purpose, or store or copy the information in any medium. Thank you.
+>
