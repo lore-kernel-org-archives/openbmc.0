@@ -1,68 +1,59 @@
-Return-Path: <prkatti1@in.ibm.com>
+Return-Path: <wen.yang99@zte.com.cn>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=prkatti1@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=zte.com.cn
+ (client-ip=63.217.80.70; helo=mxhk.zte.com.cn;
+ envelope-from=wen.yang99@zte.com.cn; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=none (p=none dis=none) header.from=zte.com.cn
+X-Greylist: delayed 957 seconds by postgrey-1.36 at bilbo;
+ Fri, 01 Mar 2019 20:13:01 AEDT
+Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [63.217.80.70])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 445X4F0zTMzDqWx
- for <openbmc@lists.ozlabs.org>; Sat, 23 Feb 2019 00:19:18 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x1MDGbXf143971
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 08:19:16 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.75])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qtg1twgdq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 22 Feb 2019 08:19:16 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <prkatti1@in.ibm.com>;
- Fri, 22 Feb 2019 13:19:15 -0000
-Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
- by smtp.notes.na.collabserv.com (10.106.227.123) with
- smtp.notes.na.collabserv.com ESMTP; Fri, 22 Feb 2019 13:19:12 -0000
-Received: from us1a3-mail267.a3.dal06.isc4sb.com ([10.146.127.216])
- by us1a3-smtp02.a3.dal06.isc4sb.com
- with ESMTP id 2019022213191209-478458 ;
- Fri, 22 Feb 2019 13:19:12 +0000 
-In-Reply-To: 
-Subject: Redfish: Network test findings
-From: "Prashanth Katti1" <prkatti1@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Fri, 22 Feb 2019 13:19:11 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449kGj3n9RzDqQ8
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 20:13:01 +1100 (AEDT)
+Received: from mse01.zte.com.cn (unknown [10.30.3.20])
+ by Forcepoint Email with ESMTPS id 6DC6C3FD8DD54C244F7B;
+ Fri,  1 Mar 2019 16:56:56 +0800 (CST)
+Received: from notes_smtp.zte.com.cn ([10.30.1.239])
+ by mse01.zte.com.cn with ESMTP id x218ul86086315;
+ Fri, 1 Mar 2019 16:56:47 +0800 (GMT-8)
+ (envelope-from wen.yang99@zte.com.cn)
+Received: from fox-host8.localdomain ([10.74.120.8])
+ by szsmtp06.zte.com.cn (Lotus Domino Release 8.5.3FP6)
+ with ESMTP id 2019030116572652-2498911 ;
+ Fri, 1 Mar 2019 16:57:26 +0800 
+From: Wen Yang <wen.yang99@zte.com.cn>
+To: liviu.dudau@arm.com
+Cc: sudeep.holla@arm.com, lorenzo.pieralisi@arm.com, linux@armlinux.org.uk,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kgene@kernel.org, krzk@kernel.org, linux-samsung-soc@vger.kernel.org,
+ michal.simek@xilinx.com, afaerber@suse.de,
+ manivannan.sadhasivam@linaro.org, dinguyen@kernel.org, heiko@sntech.de,
+ linux-rockchip@lists.infradead.org, f.fainelli@gmail.com,
+ rjui@broadcom.com, sbranden@broadcom.com,
+ bcm-kernel-feedback-list@broadcom.com, linus.walleij@linaro.org,
+ avifishman70@gmail.com, tmaimon77@gmail.com, venture@google.com,
+ yuenn@google.com, brendanhiggins@google.com, openbmc@lists.ozlabs.org,
+ xuwei5@hisilicon.com, maxime.ripard@bootlin.com, wens@csie.org,
+ catalin.marinas@arm.com, will.deacon@arm.com, horms@verge.net.au,
+ magnus.damm@gmail.com, linux-renesas-soc@vger.kernel.org,
+ shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
+ fabio.estevam@nxp.com, linux-imx@nxp.com, wang.yi59@zte.com.cn,
+ Wen Yang <wen.yang99@zte.com.cn>
+Subject: [PATCH 01/15] ARM: actions: fix a leaked reference by addingmissing
+ of_node_put
+Date: Fri, 1 Mar 2019 16:56:42 +0800
+Message-Id: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
+X-Mailer: git-send-email 1.8.3.1
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
- SCN1812108_20180501T0841_FP26 January 03, 2019 at 15:20
-X-LLNOutbound: False
-X-Disclaimed: 21603
-X-TNEFEvaluated: 1
-x-cbid: 19022213-3815-0000-0000-00000A574262
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000000
-X-IBM-SpamModules-Versions: BY=3.00010643; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01164742; UDB=6.00608263; IPR=6.00945328; 
- BA=6.00006237; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025697; XFM=3.00000015;
- UTC=2019-02-22 13:19:14
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-02-22 10:07:25 - 6.00009616
-x-cbparentid: 19022213-3816-0000-0000-00000E615BBF
-Message-Id: <OF7495FEE7.41DE7631-ON002583A9.004907D9-002583A9.00492B2F@notes.na.collabserv.com>
-Content-Type: text/html; charset="UTF-8"
+X-MIMETrack: Itemize by SMTP Server on SZSMTP06/server/zte_ltd(Release
+ 8.5.3FP6|November 21, 2013) at 2019-03-01 16:57:26,
+ Serialize by Router on notes_smtp/zte_ltd(Release 9.0.1FP7|August  17, 2016) at
+ 2019-03-01 16:56:32
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-02-22_10:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+X-MAIL: mse01.zte.com.cn x218ul86086315
 X-Mailman-Approved-At: Mon, 04 Mar 2019 13:02:06 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -75,117 +66,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 22 Feb 2019 13:19:26 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 09:13:01 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" ><font size=3D"2" =
-style=3D"outline: none; color: rgb(18, 18, 18); font-family: &quot;Helvetic=
-a Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif; font=
--style: normal; font-variant-ligatures: normal; font-variant-caps: normal; =
-font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; te=
-xt-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-=
-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 25=
-5, 255); text-decoration-style: initial; text-decoration-color: initial;" >=
-Hi Ed Tanous,</font><br style=3D"outline: none; color: rgb(18, 18, 18); fon=
-t-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande=
-&quot;, sans-serif; font-size: 12px; font-style: normal; font-variant-ligat=
-ures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: no=
-ne; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-=
-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: in=
-itial; text-decoration-color: initial;" ><br style=3D"outline: none; color:=
- rgb(18, 18, 18); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial=
-, &quot;Lucida Grande&quot;, sans-serif; font-size: 12px; font-style: norma=
-l; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: =
-400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0p=
-x; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;=
- -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text=
--decoration-style: initial; text-decoration-color: initial;" ><font size=3D=
-"2" style=3D"outline: none; color: rgb(18, 18, 18); font-family: &quot;Helv=
-etica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif; =
-font-style: normal; font-variant-ligatures: normal; font-variant-caps: norm=
-al; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start=
-; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; w=
-ord-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255=
-, 255, 255); text-decoration-style: initial; text-decoration-color: initial=
-;" >Here are the finding on Network test for bmcweb.</font><br style=3D"out=
-line: none; color: rgb(18, 18, 18); font-family: &quot;Helvetica Neue&quot;=
-, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif; font-size: 12px;=
- font-style: normal; font-variant-ligatures: normal; font-variant-caps: nor=
-mal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: star=
-t; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; =
-word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(25=
-5, 255, 255); text-decoration-style: initial; text-decoration-color: initia=
-l;" ><font size=3D"2" style=3D"outline: none; color: rgb(18, 18, 18); font-=
-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&q=
-uot;, sans-serif; font-style: normal; font-variant-ligatures: normal; font-=
-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2;=
- text-align: start; text-indent: 0px; text-transform: none; white-space: no=
-rmal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; backgro=
-und-color: rgb(255, 255, 255); text-decoration-style: initial; text-decorat=
-ion-color: initial;" >.<span>&nbsp;</span></font><br style=3D"outline: none=
-; color: rgb(18, 18, 18); font-family: &quot;Helvetica Neue&quot;, Helvetic=
-a, Arial, &quot;Lucida Grande&quot;, sans-serif; font-size: 12px; font-styl=
-e: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-=
-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-in=
-dent: 0px; text-transform: none; white-space: normal; widows: 2; word-spaci=
-ng: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 25=
-5); text-decoration-style: initial; text-decoration-color: initial;" ><font=
- size=3D"2" style=3D"outline: none; color: rgb(18, 18, 18); font-family: &q=
-uot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans=
--serif; font-style: normal; font-variant-ligatures: normal; font-variant-ca=
-ps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-alig=
-n: start; text-indent: 0px; text-transform: none; white-space: normal; wido=
-ws: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color:=
- rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color:=
- initial;" >Could you look into the following issues and let us know.</font=
-></div>
-<div dir=3D"ltr" >Configure IP address&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp=
-;<a href=3D"https://github.com/openbmc/bmcweb/issues/36" >https://github.co=
-m/openbmc/bmcweb/issues/36</a><br>&nbsp;Delete IP address&nbsp; &nbsp; &nbs=
-p; &nbsp; &nbsp; &nbsp;&nbsp;<a href=3D"https://github.com/openbmc/bmcweb/i=
-ssues/36" >https://github.com/openbmc/bmcweb/issues/36</a><br>&nbsp;Configu=
-re DNS&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a =
-href=3D"https://github.com/openbmc/bmcweb/issues/50" >https://github.com/op=
-enbmc/bmcweb/issues/50</a><br>&nbsp;Configure NTP&nbsp; &nbsp; &nbsp; &nbsp=
-; &nbsp; &nbsp; &nbsp; &nbsp; <a href=3D"https://github.com/openbmc/bmcweb/=
-issues/53" >https://github.com/openbmc/bmcweb/issues/53</a><br>&nbsp;Config=
-ure VLAN&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<=
-a href=3D"https://github.com/openbmc/bmcweb/issues/51" >https://github.com/=
-openbmc/bmcweb/issues/51</a><br>&nbsp;Delete VLAN&nbsp;&nbsp; &nbsp; &nbsp;=
- &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href=3D"https://github.=
-com/openbmc/bmcweb/issues/51" >https://github.com/openbmc/bmcweb/issues/51<=
-/a><br>&nbsp;Configure DHCP(Enable/Disable) <a href=3D"https://github.com/o=
-penbmc/bmcweb/issues/52" >https://github.com/openbmc/bmcweb/issues/52</a><b=
-r>&nbsp;Configure DHCP options&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<a href=
-=3D"https://github.com/openbmc/bmcweb/issues/52" >https://github.com/openbm=
-c/bmcweb/issues/52</a><br>&nbsp;Configure HostName&nbsp;&nbsp; &nbsp;&nbsp;=
-&nbsp; &nbsp;<a href=3D"https://github.com/openbmc/bmcweb/issues/44" >https=
-://github.com/openbmc/bmcweb/issues/44</a><br>&nbsp;Configure Default Gatae=
-way&nbsp;&nbsp; &nbsp;<a href=3D"https://github.com/openbmc/bmcweb/issues/5=
-4" >https://github.com/openbmc/bmcweb/issues/54</a><br>&nbsp;Configure MAC =
-Address&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;<a href=3D"https://github.com/=
-openbmc/bmcweb/issues/43" >https://github.com/openbmc/bmcweb/issues/43</a><=
-br style=3D"outline: none; color: rgb(18, 18, 18); font-family: &quot;Helve=
-tica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande&quot;, sans-serif; f=
-ont-size: 12px; font-style: normal; font-variant-ligatures: normal; font-va=
-riant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; t=
-ext-align: start; text-indent: 0px; text-transform: none; white-space: norm=
-al; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; backgroun=
-d-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoratio=
-n-color: initial;" ><br style=3D"outline: none; color: rgb(18, 18, 18); fon=
-t-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Lucida Grande=
-&quot;, sans-serif; font-size: 12px; font-style: normal; font-variant-ligat=
-ures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: =
-normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: no=
-ne; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-=
-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: in=
-itial; text-decoration-color: initial;" ><font size=3D"2" style=3D"outline:=
- none; color: rgb(18, 18, 18); font-family: &quot;Helvetica Neue&quot;, Hel=
-vetica, Arial, &quot;Lucida Grande&quot;, sans-serif; font-style: normal; f=
-ont-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;=
- letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; t=
-ext-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -we=
-bkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-dec=
-oration-style: initial; text-decoration-color: initial;" >Prashanth Katti</=
-font></div></div><BR>
+The call to of=5Fget=5Fnext=5Fchild returns a node pointer with refcount
+incremented thus it must be explicitly decremented after the last
+usage.
+
+Detected by coccinelle with the following warnings:
+./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missing of=5Fnode=5Fput; =
+acquired a node pointer with refcount incremented on line 103, but without =
+a corresponding object release within this function.
+./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missing of=5Fnode=5Fput; =
+acquired a node pointer with refcount incremented on line 115, but without =
+a corresponding object release within this function.
+./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missing of=5Fnode=5Fput; =
+acquired a node pointer with refcount incremented on line 128, but without =
+a corresponding object release within this function.
+
+Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+Cc: "Andreas F=C3=A4rber" <afaerber@suse.de>
+Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
+Cc: Russell King <linux@armlinux.org.uk>
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+ arch/arm/mach-actions/platsmp.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm/mach-actions/platsmp.c b/arch/arm/mach-actions/platsm=
+p.c
+index 4fd479c..1a8e078 100644
+--- a/arch/arm/mach-actions/platsmp.c
++++ b/arch/arm/mach-actions/platsmp.c
+@@ -107,6 +107,7 @@ static void =5F=5Finit s500=5Fsmp=5Fprepare=5Fcpus(unsi=
+gned int max=5Fcpus)
+ 	}
+=20
+ 	timer=5Fbase=5Faddr =3D of=5Fiomap(node, 0);
++	of=5Fnode=5Fput(node);
+ 	if (!timer=5Fbase=5Faddr) {
+ 		pr=5Ferr("%s: could not map timer registers\n", =5F=5Ffunc=5F=5F);
+ 		return;
+@@ -119,6 +120,7 @@ static void =5F=5Finit s500=5Fsmp=5Fprepare=5Fcpus(unsi=
+gned int max=5Fcpus)
+ 	}
+=20
+ 	sps=5Fbase=5Faddr =3D of=5Fiomap(node, 0);
++	of=5Fnode=5Fput(node);
+ 	if (!sps=5Fbase=5Faddr) {
+ 		pr=5Ferr("%s: could not map sps registers\n", =5F=5Ffunc=5F=5F);
+ 		return;
+@@ -132,6 +134,7 @@ static void =5F=5Finit s500=5Fsmp=5Fprepare=5Fcpus(unsi=
+gned int max=5Fcpus)
+ 		}
+=20
+ 		scu=5Fbase=5Faddr =3D of=5Fiomap(node, 0);
++		of=5Fnode=5Fput(node);
+ 		if (!scu=5Fbase=5Faddr) {
+ 			pr=5Ferr("%s: could not map scu registers\n", =5F=5Ffunc=5F=5F);
+ 			return;
+--=20
+2.9.5
