@@ -1,61 +1,58 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d36; helo=mail-io1-xd36.google.com;
+ (client-ip=2607:f8b0:4864:20::130; helo=mail-it1-x130.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="IQqWdpnn"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wzvojvm3"; 
  dkim-atps=neutral
-Received: from mail-io1-xd36.google.com (mail-io1-xd36.google.com
- [IPv6:2607:f8b0:4864:20::d36])
+Received: from mail-it1-x130.google.com (mail-it1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449XbP1VKZzDqDW
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 12:56:48 +1100 (AEDT)
-Received: by mail-io1-xd36.google.com with SMTP id 9so6524196iog.8
- for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 17:56:48 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 449Y0s2YzyzDqHj
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 13:15:24 +1100 (AEDT)
+Received: by mail-it1-x130.google.com with SMTP id l15so19073386iti.4
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Feb 2019 18:15:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c55R5uTkzrV9QciPc97NkffGDOQsqnIEpCALzQNAZpc=;
- b=IQqWdpnnxdGYRRcWBADPC2jnm8+GvpX4vMFctc0bDgAa5Xh35KkmEoKx4nJu6O3IrG
- iBeyHMpeqC0H9do3Rs8x0Zy1J9yxyOFIxxzESo+Vb4zNpISz3K8g7XMl4va1JcpaG9N/
- 9xegABonxxcWoL0Gr+W/yiWrzdn0Ha6kpvTn57gPIbEg4nTpafHu54NcmW1qL7hxqCbv
- AGCFxj6XYnlq5MLARiEak9UH+tldAAJiP/3SNSkJ82Se0aU3RoJjxLQE/DTYEKbJxqcR
- t0OBj+ss+tLAVNmkKZVUa0Saw8ael4l1sRgrHAokvv9PklEVV05Mm292qrkAjup9VyZO
- MEDw==
+ :cc:content-transfer-encoding;
+ bh=4Bntw+UFAUju9NBxHTzUI3FcaSZXcPtv4GEZBnS5EzQ=;
+ b=Wzvojvm3ccP+4KuMR32lZS90xnN6SjHJTz/E2ILeHH6Bk9aw+Iqj1by40oN3HNzNFs
+ CcnO9hVxycUDYCd3cIekFHTwtMRzWQbBlmae7u/feBTkrX+J1Ov2wDwlP996Hv+967WK
+ BxR/o59MGR/m3O3k38jqkzV0tnL2dEa5xsaQoXDT8sEyUKsJQ20vMRER5Y4Kacg8cQuH
+ EX8Y8m3P6phUPNmbaMA4jqAS4OnoNasE+jIhBf45bICFl4WDxFt29Jgre7LHzf8ORT3i
+ Uav65PqGkJ+3qP/jZVyopUSRzgg7wA6D8K6Y+XHCbzztCuXk1uhWAHIluAeMvjWCTV1w
+ U6Xg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c55R5uTkzrV9QciPc97NkffGDOQsqnIEpCALzQNAZpc=;
- b=VYRuf85Wjge+Q8UlbVA7Dyw33FukzAmhQ86h6RLcJSjfeCItJG6pEpchHGagkj2lv7
- gS9w2wspGfuat/0CXXCXV0paPzBXgtmDkQ4sRmFOLkUTVYSIKZFWrplGSGgVUroYexO+
- RIqgo+Nrq8g8PsSIKj+QPhnccCgDOQ0GBBtiYzo2nU2j6gMwLG6zJRNIh7SmVuB/mxk4
- zvT9yACX2rUNRLNlxiUL3H157wVUlq2dO1aEx6mKBX2mpPBh3ndUSGYTmBtbHYmi16q9
- MXz1vCwClF87sIkQKxPUuArpvKDFnS+JtJflezywHF7gAZf+sZQJAjDzl1c2smWxSxrS
- 50gQ==
-X-Gm-Message-State: APjAAAUQMYJC6jjALiv8cTvEwLn2N1nbbus7drbofqm0Juolll3vLfmj
- oncVdrcnYK2lgmIvY1YOc+WmZzlkmXyFJBMPbmM=
-X-Google-Smtp-Source: APXvYqxBn+XkYhE7UCICqXF8ePhlqc6RyZ7Tj+o8D0yDdHZUGF2GVfvWo881phxJw6EE2sW+PrUJf4Ooa16gwtyC09M=
-X-Received: by 2002:a6b:8d55:: with SMTP id p82mr1419448iod.171.1551405405620; 
- Thu, 28 Feb 2019 17:56:45 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=4Bntw+UFAUju9NBxHTzUI3FcaSZXcPtv4GEZBnS5EzQ=;
+ b=f1wMuWiQY6HTRuFwgkdpNgC4fm1C4vm1DyMsryTzbGl94qPLPG+yMjBvHRwtBu92sZ
+ bsr+6kviH7CJaJe2aXpWWEGhoVLpAEC3ntovK7HVoD/k21p0+ATQLgY8nDiz1yCt86gq
+ iOKeRcDwQlkgTDG0gY+cv2UXdNI53CzsRc1kTS0BB8J0B/yQB/Cbmm0RlNWGmdXO8+Zp
+ TPld3no8BGpWzSkiInlHX/50Y5BEtxeaPLR1altUgoCzMnYEiH5iyjvaL0haWj4nUDB+
+ VPN9Xr5urAJ1O19XhukmjJB2T/yIGqKEyqUKuvMUSlvNnhWljkXldnc71VxSiiyGuCUs
+ pVEw==
+X-Gm-Message-State: APjAAAVLAXOs+HskkDeOM4YeYXg6p6NEKP1vwQsf6kR0OIuCGR2WE5Os
+ nusC5XBpiUtv8J5B2lDhTOlqRoTj+HUcd1m0V6E=
+X-Google-Smtp-Source: AHgI3IYz4D0SthLcMKiFbUFtNK6eRzQPHEYGIPOIVgRT1pNdZ+R/3N/wWP5ueZFBIQ8GxUbjbJ9/BSLxCIjqUWQ41Ug=
+X-Received: by 2002:a24:5f4d:: with SMTP id r74mr1785531itb.178.1551406521368; 
+ Thu, 28 Feb 2019 18:15:21 -0800 (PST)
 MIME-Version: 1.0
-References: <CAARXrtmaOQJ9a224iosU1m+5FSryC4TM7qgBT3n9MYPWzZiQrQ@mail.gmail.com>
- <877edjsazm.fsf@linux.vnet.ibm.com>
- <6da2e0e6f04ed7bb152db5008137680fc761ed42.camel@mendozajonas.com>
- <87pnrbqs8r.fsf@linux.vnet.ibm.com>
-In-Reply-To: <87pnrbqs8r.fsf@linux.vnet.ibm.com>
+References: <CAMTupoSj09Tq=1hfdEsQBJi_aO=TVY00Qs1CC3zrmZP2R-o2FQ@mail.gmail.com>
+In-Reply-To: <CAMTupoSj09Tq=1hfdEsQBJi_aO=TVY00Qs1CC3zrmZP2R-o2FQ@mail.gmail.com>
 From: Lei YU <mine260309@gmail.com>
-Date: Fri, 1 Mar 2019 09:56:28 +0800
-Message-ID: <CAARXrtmX6np4jaeDnv_EAMfrLCKi+xGOX6rmy17ov2kLrP+qrg@mail.gmail.com>
-Subject: Re: Static layout PNOR support in openpower-pnor-code-mgmt
-To: Stewart Smith <stewart@linux.ibm.com>
-Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Alexander Amelkin <a.amelkin@yadro.com>
+Date: Fri, 1 Mar 2019 10:15:03 +0800
+Message-ID: <CAARXrt=ebgO7sPOWJa_XUR48qcX+K74kTEqz=iNSd46kALjtyw@mail.gmail.com>
+Subject: Re: NTP Servers - Should a reboot be required?
+To: ja az <jandraara@gmail.com>, vishwa <vishwa@linux.vnet.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,20 +64,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 01:56:50 -0000
+X-List-Received-Date: Fri, 01 Mar 2019 02:15:26 -0000
 
-> >> Is this a new format? Why? Where is it documented?
-> >>
-> >
-> > Looking on gerrit this just appears to be the PNOR and a MANIFEST file in
-> > a tarball. Considering it's just a call to 'tar', having it be generated
-> > by something called 'generate-squashfs' is confusing. I guess this is
-> > because generate-squashfs creates the MANIFEST file?
+On Fri, Mar 1, 2019 at 6:19 AM ja az <jandraara@gmail.com> wrote:
 >
-> Yeah, that sounds odd. The current format is just the pnor file.
+> Hi all,
+>
+> During the Demo and Retrospective call last week, the UI design team
+> showed the current proposals for the Date and Time Settings panels. As
+> it stands, the backend has been developed in way such that any changes
+> in the synchronized NTP servers would require the host to be off in
+> order for the changes to go into effect. If the host is not off, a
+> reboot is required. And so, the UI designs were created to represent
+> this. When they were shown last week, there was hesitation regarding
+> the need for a reboot; some gave the example of changing the date on
+> their laptop and how that doesn=E2=80=99t require a reboot.
+>
+> Are there resources to modify the backend so that a reboot is not
+> required? Is that possible even if there were resources?
 
-Yeah, it is a bit odd, I just want to re-use the code in 'generate-squashfs'
-to generate a tar that contains MANIFEST and the pnor.
-Possibly it could be renamed to `generate-tar`or similar.
-Be noted that this file is used to generate Witherspoon's PNOR tarball in
-op-build. So renaming it should cause op-build to pick the new name.
+This is really a good question.
+In OpenBMC's time manager, a requirement is that time setting changes shall
+not be applied until host is off, see [special-note-on-host-on][1]
+
+@Vishwa could you kindly help to describe the reason (or history) of the
+requirement?
+
+[1]: https://github.com/openbmc/phosphor-time-manager#special-note-on-host-=
+on
