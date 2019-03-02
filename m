@@ -1,76 +1,56 @@
-Return-Path: <jrey@linux.ibm.com>
+Return-Path: <jainmjo@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::234; helo=mail-oi1-x234.google.com;
+ envelope-from=jainmjo@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="UeAY1t6S"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
+ [IPv6:2607:f8b0:4864:20::234])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44B2V73RzDzDqTf
- for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 08:23:58 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x21LNtMU062537
- for <openbmc@lists.ozlabs.org>; Fri, 1 Mar 2019 16:23:56 -0500
-Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2qybqtt56j-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 16:23:56 -0500
-Received: from localhost
- by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
- Fri, 1 Mar 2019 21:23:48 -0000
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 1 Mar 2019 21:23:45 -0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x21LNicn24510614
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Fri, 1 Mar 2019 21:23:44 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9FC59AC067
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 21:23:44 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 68BA4AC064
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 21:23:44 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Fri,  1 Mar 2019 21:23:44 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44BBNk6X5tzDqTN
+ for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 14:19:45 +1100 (AEDT)
+Received: by mail-oi1-x234.google.com with SMTP id i8so21187870oib.10
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 19:19:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=itV2xL+QZ2zl/j64fXXTxmWQZvsrKo4FfO3MWSOpnLw=;
+ b=UeAY1t6S28di7roSBdg5IZeBxK5bIMGuarA1tmVPJJhLWkHHpMs6ThofcU8Rsc0UMH
+ Gfp/DWHViiRW2kqL752R6Bu3tOCggR5DXfTdmdVrshu/ds9UQeHGKkT6s0gMkR+B6f+k
+ eem4JL6io6ibZbEoALKFq0hZAUv7MsZGdVPEQJaI1adSby4t4/z1fwydXz2nA6RHLUax
+ 6ymn+lKJdM6dswWP6M4JiTJhuq8hVEhInIIgXhgdePaWeVYCelnEXUtOn/0SRmBn8r6r
+ cI8YzkPQrAhdfLIezUIecmhC34VGVGHR2xD3UruOxaiG+ZIoH8QlWKjLe8hV4b+nRy1v
+ yNSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=itV2xL+QZ2zl/j64fXXTxmWQZvsrKo4FfO3MWSOpnLw=;
+ b=tzm/sA3fO/nuOy6NAofbc3+DZkauDmD48GVcI2/hrEpTmZUovEeKg8yqk0AobV5Uum
+ ArXl0+iSwZ1N7+iLF3U2jmGTc2qyiX5pUH8OdhBL/B3ZExpLjo17YNPn8OmsxzgvvIhl
+ Bk1kmXGNnFEwISL73TQjaSyJx/C5HqSci5hBKPiNAGuDC2NUxMcaBQtE5h7fVj82y6fl
+ pv35pB/9zvggO4/b0+k7Cfauws46jO2sHHkLW5GUBP9NhBx4pNUDeIQQ69HHeey3za17
+ aXfupsET57P/hIlDkrQjMd7Zf64PSONt5TnTkOEZvGN5FTyfzXXoqQWF45zNpQwN4Y7z
+ R+yw==
+X-Gm-Message-State: AHQUAuZNjnDKWLq2uRhys3+k5daACsX2SB4pEPYx6SVK3/HmwrUtfChC
+ ZBGeD8cNYREeYZoqWWfO4+fsl0B3Q+wk6YhpNarxyA==
+X-Google-Smtp-Source: AHgI3IaAJirJcpROufmKFOTzoi0rUlpM9yUGofWDLa7cepZlmID0JEVYou/FgqJ/CEmgCWKK5Y3eVeArHF3EhiNl4I0=
+X-Received: by 2002:aca:ab94:: with SMTP id u142mr5380210oie.58.1551496782395; 
+ Fri, 01 Mar 2019 19:19:42 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Fri, 01 Mar 2019 15:31:12 -0600
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: Openbmc <openbmc@lists.ozlabs.org>
-Subject: [Design] Kernel-based BMC firewall
-X-Sender: jrey@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19030121-0060-0000-0000-00000314775E
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010688; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01168227; UDB=6.00610370; IPR=6.00948842; 
- MB=3.00025799; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-01 21:23:46
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030121-0061-0000-0000-00004877E892
-Message-Id: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-01_15:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903010145
+References: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
+In-Reply-To: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
+From: "jainmjo@gmail.com" <jainmjo@gmail.com>
+Date: Sat, 2 Mar 2019 08:49:31 +0530
+Message-ID: <CADc45smTAr8FBh17mr2oVsHdM_-tpiQ7B1hBFMNG39tP0aBEcA@mail.gmail.com>
+Subject: Re: [Design] Kernel-based BMC firewall
+To: Joseph Reynolds <jrey@linux.ibm.com>
+Cc: Openbmc <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000095be46058313fe36"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,154 +62,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 21:24:00 -0000
+X-List-Received-Date: Sat, 02 Mar 2019 03:19:52 -0000
 
-Here is my BMC firewall design.  I'll post it as a gerrit docs review in 
-a few days if nobody steers this in a different direction.
+--00000000000095be46058313fe36
+Content-Type: text/plain; charset="UTF-8"
 
-Highlights:
-  - firewall established by default when networking starts
-  - BMC-specific firewall rules to be documented
-  - firewall logging not started by default
+On Sat, Mar 2, 2019 at 2:54 AM Joseph Reynolds <jrey@linux.ibm.com> wrote:
 
-Enjoy,
+>
+> ## Alternatives Considered
+>
+> A user interface to indicate the firewall's status was considered.
+> This would invoke iptables and return success only if it showed
+> firewall rules, something like `iptables -L -n -v`.  This is not
+> needed for basic function.
+>
+> The `ufw` firewall was considered.  It is implemented in Python which
+> is being removed from the OpenBMC image.
+>
 
-- Joseph Reynolds
+iptables is being replaced with nftables (at least in the debian world).
+Have you considered nftables?
+I am very new to OpenBMC. So please correct me if this is not relevant.
 
+~jj
 
-# Firewall
+--00000000000095be46058313fe36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Author:
-   Joseph Reynolds <josephreynolds1>
-Primary assignee:
-   < Name and/or IRC nic or None >
-Other contributors:
-   < Name and/or IRC nic or None >
-Created:
-   2019-03-01
+<div dir=3D"ltr"><div><br></div><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Sat, Mar 2, 2019 at 2:54 AM Joseph Reynolds &lt;<a=
+ href=3D"mailto:jrey@linux.ibm.com">jrey@linux.ibm.com</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
+## Alternatives Considered<br>
+<br>
+A user interface to indicate the firewall&#39;s status was considered.<br>
+This would invoke iptables and return success only if it showed<br>
+firewall rules, something like `iptables -L -n -v`.=C2=A0 This is not<br>
+needed for basic function.<br>
+<br>
+The `ufw` firewall was considered.=C2=A0 It is implemented in Python which<=
+br>
+is being removed from the OpenBMC image.<br></blockquote><div>=C2=A0</div><=
+div>iptables is being replaced with nftables (at least in the debian world)=
+. Have you considered nftables?</div><div>I am very new to OpenBMC. So plea=
+se correct me if this is not relevant.</div><div><br></div><div>~jj</div></=
+div></div>
 
-## Problem Description
-
-OpenBMC needs an integral firewall to monitor and control its IP 
-traffic.
-
-## Background and References
-
-The Yocto/OpenEmbedded projects offer ready-made Linux kernel-based
-firewall recipes.  These are based on:
-  - the Linux `netfilter` kernel modules which provide the basic 
-capability
-    to work with IP packets.
-  - the `iptables` Linux command (and similar commands like ip6tables) 
-work
-    with netfilter tables
-  - the `arno-iptables-firewall` package which provides shell scripts 
-that
-    uses iptables to establish a firewall.
-  - the `ulogd` firewall logger package
-
-References:
-- The Linux firewall documentation:
-   http://linuxdocs.org/HOWTOs/Firewall-HOWTO-2.html
-- Basic concepts from Wikipedia:
-   - https://en.wikipedia.org/wiki/Netfilter
-   - https://en.wikipedia.org/wiki/Iptables
-- The OpenEmbedded recipes for firewalls:
-   
-http://layers.openembedded.org/layerindex/branch/master/recipes/?q=iptables
-- Log connections via ulogd.
-
-## Requirements
-
-The BMC must automatically establish a firewall when the network
-service is started, and remove it when networking stops.  The firewall
-rules must have reasonable defaults for a BMC.
-
-The firewall must have these capabilities:
-  1. Block unauthorized IP traffic to and from the BMC.
-  2. Block malicious packets.
-  3. Log network traffic.
-  4. Rate-limiting to thwart denial of service attacks.
-
-The firewall must not:
-- Consume excessive CPU cycles.
-- Consume excessive space in memory or on disk.
-
-The system integrator must be able to:
-- Establish firewall rules to implement security policy.
-- Set default IP logging behavior.
-- Configure the firewall for IPv4, IPv6, or both.
-- Remove firewall capabilty from the BMC if desired.
-
-The admin user must be able to:
-- Temporarily modify, disable, or re-enable the firewall.
-- Enable or disable IP logging.
-- Retrieve the firewall logs, if enabled.
-
-## Proposed Design
-
-This adds a set of BitBake recipes to set up an IP firewall based on
-Linux kernel netfilter modules, the iptables commands, and the
-arno-iptables-firewall package.
-
-The firewall gets put up when systemd starts the networking service, and
-gets taken down when networking stops.
-The firewall logging service is also made available, but it is not 
-started
-
-The firewall rules will default to disallow all IP traffic, then be
-permissive in allowing all legitimate BMC traffic.  We'll have
-customized firewall rules specific to a generic BMC environment and
-document these rules in the docs repository.
-
-These rules are intended to be "secure by design" and documented well
-enough for a system integrator to change them as needed.
-
-## Alternatives Considered
-
-A user interface to indicate the firewall's status was considered.
-This would invoke iptables and return success only if it showed
-firewall rules, something like `iptables -L -n -v`.  This is not
-needed for basic function.
-
-The `ufw` firewall was considered.  It is implemented in Python which
-is being removed from the OpenBMC image.
-
-## Impacts
-
-There are three levels of impact:
-1. If the firewall recipes are present:
-  - Uses more flash space for kernel modules and iptables commands.
-2. When the firewall is enabled:
-  - Uses more memory for kernel modules and related tables.
-  - Uses more CPU cycles for network service.
-3. When the firewall IP logging service is enabled:
-  - Uses more resources for CPU and log file storage.
-
-If the firewall rules are overly restrictive, functions which require
-IP may not work correctly.  The documentation must show how to
-identify and fix this problem, specifically:
-  - How to enable IP logging.
-  - How to find, read, and interpret the log.
-  - How to change firewall rules to allow your traffic.
-
-## Testing
-
-Ensure all functions which use IP continue to work.  Enable firewall
-IP logging during these tests, and check it for errors.
-
- From the requirement section:
-  - Test the firewall's capabilities.  For example:
-     - Send badly formed packets.
-     - Send traffic to closed ports.
-  - Test each of the admin user's functions.
-
-Test the procedure to enable logging and detect blocked IP traffic.
-
-Note the recommended dev-environment [1] maps TCP ports 22 and 443 (to
-ports 2222 and 2443).  This is not an issue for the BMC's firewall
-because this mapping is done by the simulator, so the BMC sees the
-original port numbers: 22 and 443.
-
-[1]: 
-https://github.com/openbmc/docs/blob/master/development/dev-environment.md
+--00000000000095be46058313fe36--
