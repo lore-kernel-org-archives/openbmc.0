@@ -6,66 +6,66 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="CdFXU1Sr"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V8R2G1G/"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="uUuQ+fpB"; dkim-atps=neutral
+ header.b="bz5fb9h5"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44CHct6wBBzDqGp;
- Mon,  4 Mar 2019 09:19:10 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CJvw37PPzDqGS
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 10:17:14 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0AFE32120D;
- Sun,  3 Mar 2019 17:19:08 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id DB9FC218A8;
+ Sun,  3 Mar 2019 18:17:10 -0500 (EST)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Sun, 03 Mar 2019 17:19:08 -0500
+ by compute4.internal (MEProxy); Sun, 03 Mar 2019 18:17:10 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:cc:subject
- :content-type; s=fm2; bh=XXZoXGPTrANrnd2ukqqiX9dagkcQGYFBEjDzaxW
- G/AU=; b=CdFXU1SrFL9aY8KUBcUMnKDY3njlhFXB8RxZ7z/P+Xsip0gkVGu+nTb
- sH99ntdKZ3TKBpqyF1goSfY9b3JRblulAXo2RYiZ91FDevL3uRlS22Bl+B8dQ5zR
- g9T+9LsScpB3j1jkDpTVjGH2T77qBXxA3gZfF/hkdeHRrERMCcBsRSK4knnNVCxe
- 7YHMX5Qdyf32pbL9faJd3Q1IhXr35n7OdSkQ2ORI41chXWByUdVhgCunb8vGgaG1
- aZVQ6EEIXKGaxPLuXtaXYe+/Vjt1IlWfuM4JQq/3o7edTDgf91RI0BTk20HRrwoD
- PdKV4wpxdiTlyjAELi+nNZxM0mym/SQ==
+ message-id:in-reply-to:references:date:from:to:subject
+ :content-type; s=fm2; bh=3LpoDF0xxyCXslZU8qbXrkwqVggREI+gOGJCmZP
+ Vk4c=; b=V8R2G1G/R7h9wKOE5s1U+Ir1Yu9n00L8iHrrxgsrY/4SuXEa+FPMpmb
+ Y5y6x9jwFymnYZ/RpEDgCjk8Vde0FkSUYKXkQYzZhsdXBlH5g70PEsnWTW+rZ/CW
+ 4x4KEtEfCcRCkdejdTkdMycTvlESvLp/M1W4lDQ2pH3my3QNyxgepbLZG9L1Kmbs
+ 4r/igjVfBh5HGYviw92lfq900p3q+xiQcRxMgTEGCpayMRMw48jEagMoM/ibvRzq
+ RjYWCxoPK3wCY/hl18ibFReXFR3T2nCLj1+IwNZ8lhxHeFM4gTTZupBg5UrA2AaI
+ /rli8vQJp8WDAhySllZubByuAc776og==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=XXZoXGPTrANrnd2uk
- qqiX9dagkcQGYFBEjDzaxWG/AU=; b=uUuQ+fpBIt/qJAT4rIGRfdeJQSWvLkxI7
- nnDQCfdgulUVDYgMKaAAW8gT2kDD1nLv6JCfADFpfDo7BnoP7g6WP6S1NduVp3SO
- WdOrysrg+Yx8y9Ta6QpIpOk4BjeiJfnSkUiBS9sa/4/DlSxMHigVbwvWqtcXbhju
- kKJRBojmN/mwc1pbm99zjRagkZaMEWkfRq0Z6zBbYaA5u+83AAI9oPcKryR+3Ir+
- INQQK3CKCCJMqI+rcCanUgY7FpJSl8NXn87jOfZPvfNrgnXE7CiSOEU/NAjQjWSu
- mLxa5iI4uEMNf0vwbVXEYaitq9huKhmTaNR1Ui5YWE2KEuMF0O2lw==
-X-ME-Sender: <xms:2lJ8XN-t7YWMk8x7Ef1GbWUPDyIVFoyQKCr-cRAkqKNGBfgDHlmhjw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrvdelgdduheelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucffohhmrg
- hinhepghhithhhuhgsrdgtohhmnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgv
- fiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:2lJ8XFNHv6JMdzvlZYrm8MeIiYnd2PM-nWaLeOB9mg8bCf4jkSIJFA>
- <xmx:2lJ8XDiXG6YusXg0b_AXcEXUF6UjLVxVTVMxenvFI8JfCfeUuJ92ig>
- <xmx:2lJ8XERPNklcX9cGhHDiZT5Eo-hV7SepUY7WyBS9TEjrvHHpJ9CohA>
- <xmx:21J8XJu2Nn9_X2DgfARLMZVLHsGJIaxusw2ulVs7sQbSSQu0fkqGWQ>
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=3LpoDF0xxyCXslZU8
+ qbXrkwqVggREI+gOGJCmZPVk4c=; b=bz5fb9h51SpnddJ0c66RwFGYqeu7r6CzU
+ RyPxzoaSCb/Xz+b9YBGYBkBrRJ9F9cn83uhlnK6Xmr8ZhmiOorRvTgi87yoA0UMm
+ CBTPftnP5rorpq16NL1mgwdFKmRbktCzp9gFWhzkkOnStCEDpZo9KKEd0GG4VgwF
+ D2g2KmSgnZ9b9eIxf6ZC2g60f7MDdntzA+gymkisnY1VFVnP11C14yI4kV9EOoIZ
+ YWBpC6kOKF/cxOcrHx1nRJdw1yyxI5vN7KLvY3Q7xjVelOoKV5MmW02AWNDOfilc
+ NVe4yXCLps4+Q2KLkGOoDgTZk9GW6lEFKfk/N0ebjub5U7sgypLJQ==
+X-ME-Sender: <xms:dmB8XNV27FmeI4lB7gdtsRoOgu7_ZjKGCetgiXXwE-GlfvjPxAFKfg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrfedtgddtiecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgurhgv
+ ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrih
+ hnpehgihhthhhusgdrtghomhenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgif
+ segrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:dmB8XLf8oncPVrd2u5-rG8Np7_t7jMPhy9WhxnahEHvZNiZ0nsXawg>
+ <xmx:dmB8XCd4-7XAhxlEeOtk2AqkPd8RAi5kYMCqu-vgssGrNohRHnLazQ>
+ <xmx:dmB8XBmQC5vQFXNcwp8qt8BM1PZfwaJyRfP59HA8JGBUd_lIPNEbvA>
+ <xmx:dmB8XOUfNI8KIrMhLCsZsYToUJSBDLzz_Vi0a8IRW8eNxCcQGAsFmA>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 6E1CC7C1EB; Sun,  3 Mar 2019 17:19:06 -0500 (EST)
+ id 4C5C57C538; Sun,  3 Mar 2019 18:17:10 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
 X-Me-Personality: 52947553
-Message-Id: <ea1f6c0c-cb08-4504-8308-eb5eb5b9ba51@www.fastmail.com>
-In-Reply-To: <8b23543286a12cfa90186efe08039f8c@linux.vnet.ibm.com>
-References: <8b23543286a12cfa90186efe08039f8c@linux.vnet.ibm.com>
-Date: Sun, 03 Mar 2019 17:19:05 -0500
+Message-Id: <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
+In-Reply-To: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
+References: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
+Date: Sun, 03 Mar 2019 18:16:40 -0500
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Joseph Reynolds" <jrey@linux.ibm.com>
-Cc: openbmc@lists.ozlabs.org,
- openbmc <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
-Subject: Re: [Proposal] End-user impacts and change log + details
+To: "Kurt Taylor" <kurt.r.taylor@gmail.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: =?UTF-8?Q?Re:_2.7_Release_Planning_Guidelines_-_Features,
+ _Designs_and_Mi?= =?UTF-8?Q?lestones?=
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -78,233 +78,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 03 Mar 2019 22:19:11 -0000
+X-List-Received-Date: Sun, 03 Mar 2019 23:17:20 -0000
 
 
 
-On Sat, 2 Mar 2019, at 07:45, Joseph Reynolds wrote:
-> On 2019-02-27 17:10, Andrew Jeffery wrote:
-> > On Wed, 27 Feb 2019, at 01:52, Joseph Reynolds wrote:
-> >> This is a proposal to improve OpenBMC communication and get better
-> >> release notes.
-> >> 
-> >> ** Preamble **
-> >> 
-> >> Teams that use OpenBMC in other projects will not know OpenBMC as well
-> >> as the development community, and they will not know what is in each
-> >> release.  The main way for them to find out is by reading the release
-> >> notes.  They will make decisions based on its contents.  That makes 
-> >> the
-> >> release notes an important communication between the development
-> >> community and its end-users.
-> >> 
-> >> We need to get better at communicating new and changed OpenBMC
-> >> functions.  Doing so gives many benefits, including better release 
-> >> notes
-> >> [1].
-> >> 
-> >> ** The proposal **
-> >> 
-> >> 1. Adopt a new practice to provide end-user impact statements when and
-> >> where it make sense to do so.
-> >> 2. Begin a project level change log to summarize user impacts.
-> >> 
-> >> ** Details **
-> >> 
-> >> How do these changes help connect the folks who contribute to OpenBMC
-> >> with the folks who use it?  The main points are:
-> >> 1. Contributors write an "end-user impact" statement to notify users
-> >> that something they might care about has changed.
-> >> 2. Community members use end-user impact statements to create a change
-> >> log which summarizes changes they consider significant.
-> >> 3. Release planning summarizes the change log as an input to the 
-> >> release
-> >> notes.
-> >> 
-> >> Items in detail:
-> >> 
-> >> 1. Create end-user impact statements.
-> >> 
-> >> An "end-user impact" statement summarizes each change from the point 
-> >> of
-> >> view of someone familiar with using the external interfaces.  It tells
-> >> them what they need to know about what changed from their point of 
-> >> view,
-> >> so they know what to test, how to adapt, etc.
-> >> 
-> >> When there is an impact, it should have details like:
-> >> - Is there an end-user impact (y/n)?
-> >> - Is this a new feature or function (where are the docs)?
-> >> - Is this a bug fix?
-> >> - What does the end-user need to know (one liner)?
-> >> These statements don't have to be perfect.  Any inkling you can 
-> >> provide
-> >> that there is a user impact is helpful to the community.  The impact
-> >> might change during the release as the design evolves.  Different
-> >> contributors will see different impacts.  That's all normal and okay.
-> >> 
-> >> Are the following end-user impacts?
-> >> - Change to phosphor-webui that affects the browser display?  Answer
-> >> "no" if it doesn't affect usage, or "Yes" if the user will likely 
-> >> notice
-> >> or care.
-> >> - Bug fix in fan control? Answer depends.  Answer "yes" if the bug 
-> >> might
-> >> start a fire.
-> >> - Refactor code?  No
-> >> - New Redfish API?  Yes; new features are positive user impacts.
-> >> - Adding new documentation?  No; although helpful, docs don't affect 
-> >> the
-> >> end-user's use of the external interfaces
-> >> - BMCWeb retires old and accepts new TLS encryption algorithms?  Yes, 
-> >> it
-> >> affects how you can connect to the BMC
-> >> - Changes to phosphor-rest or to D-Bus APIs?  No, despite their
-> >> importance, these interfaces are technically internal to the BMC.  We
-> >> might want to document user-impacts to these as well.
-> >> - Security fix?  Yes, probably, given today's climate
-> >> Feel free to come up with your own criteria, based on your estimation 
-> >> of
-> >> an end-user.
-> >> 
-> >> Writing an "end-user impact" statement bridges two worlds.  Folks who
-> >> work on the code may prefer to leave documentation for others or may 
-> >> not
-> >> fully understand the impact of their change on BMC operations.  And
-> >> nobody else may understand the change.  So who should write the 
-> >> end-user
-> >> impact statement?  Anyone who understands the change and how it 
-> >> impacts
-> >> end-users.  That could be developers, testers, or project managers.
-> >> Multiple people can contribute over time.  And it should be okay to
-> >> document an end-user impact in someone else's change.
-> >> 
-> >> It is important that all of the end-user impact statements be
-> >> "findable".  Adding them as comments on selected GitHub issues is an
-> >> obvious solution, and I suggest using the issue associated with the 
-> >> code
-> >> change that caused the user impact. (We could use GitHub labels [8][9]
-> >> to mark issues which have user impact.)
-> >> 
-> >> 2. Create a change log from end-user impact statements.
-> >> 
-> >> Groups who care about end-user impacts include testers, security 
-> >> folks,
-> >> release managers, and others.  They can scan the issues, read the 
-> >> impact
-> >> statements, and use them to curate a change log [2] which lists all
-> >> changes that might be interesting to users.  Each change log entry
-> >> should have a brief description of the impact (from the user's point 
-> >> of
-> >> view) with links back to the issue.  The change log could be an 
-> >> openbmc
-> >> wiki page.  (And yes, some people's job includes curating change 
-> >> logs.)
-> >> 
-> >> We should have a project-wide change log which captures all impacts.
-> >> (It is easy to ignore entries you don't care about.)  Anyone who cares
-> >> about a user impact can add items to the change log.
-> >> 
-> >> How is the change log useful?  Testers will use the change log to help
-> >> ensure test coverage and add facts about where the test cases are 
-> >> stored
-> >> and whether the tests passed.  Release managers will use it to gauge
-> >> progress toward goals.  Security folks will cover security changes.
-> >> Technical writers, etc.  Each will contribute significant facts about
-> >> their part of the process, and the log is a place to organize links to
-> >> demos, etc.
-> >> 
-> >> 3. Use the change log to make release notes.
-> >> 
-> >> The Release Planning work group [3] can refer to the change log as an
-> >> input to the Release Notes [1][4].  For example, multiple changes can 
-> >> be
-> >> merged, minor changes can be omitted, important changes can be
-> >> highlighted, etc.  Having good release notes is a hallmark of a mature
-> >> development process.
-> >> 
-> >> Let's be clear about this: Most users will ignore the release notes or
-> >> use it only to answer specific questions about bugs or features.  Only 
-> >> a
-> >> few will use it to learn more about new functions, changed functions
-> >> they have to adapt to, how to review test efforts, what security fixes
-> >> are included, etc.  They will make decisions based on its content.  
-> >> For
-> >> example, some groups may use it as part of a software security 
-> >> assurance
-> >> process [5].
-> >> 
-> >> ** Conclusion **
-> >> 
-> >> That's the proposal ... create end-user impact statements ... 
-> >> summarize
-> >> them in a change log ... and massage that into release notes.  The 
-> >> real
-> >> trick is to actually write end-user impact statements as the work is
-> >> being done.  We have the test team [6] and the security work group [7]
-> >> to help with that, along with pressure from groups who use OpenBMC in
-> >> their projects.
-> > 
-> > So, I think it's a reasonable proposal, however, I think there needs to 
-> > be
-> > more concrete description of how I as a contributor go about this. 
-> > There's
-> > a sort-of throw-away suggestion above that the user impact descriptions
-> > should go in "the github issue associated with the change" - I guess I 
-> > want
-> > to see some agreement that this is how we're going to go about it. You
-> > probably also want to start hassling developers to actually write the 
-> > impact
-> > statement; while I don't expect anyone will be opposed to the idea, 
-> > getting
-> > them to take it up is a separate problem (there may also be a problem 
-> > of
-> > having a github issue associated with the change to start with).
+On Sat, 2 Mar 2019, at 03:47, krtaylor wrote:
+> All,
 > 
-> Thank you!
-> 
-> Here is the next level of detail:
-> 
-> 1. Add the "change log process" to the CONTRIBUTING doc [101].
->   - Motivate the need to document end-user impacts and for a change log,
->     and show how these flow into the release notes.
->   - Provide guidance for the content of user impact statements.
->     Give examples of impacts, non-impacts, and end-users.
->   - Say where to document impacts (in github.com/openbmc/REPO/issues).
-> 
-> 2. Agree to use issues to document user impact statements.  Understand 
-> that any indication there is a user impact is helpful.  Agree it is okay 
-> to write a terse impact statement.  Agree that mentioning @changelog 
-> with no other explanation means you want someone else to write the 
-> impact statement.  Agree it is okay for someone other than the developer 
-> to write impact statements.  Agree that if you write @changelog and 
-> nobody takes any action, then nobody cares about your change, and that's 
-> okay.
+> At the last release planning meeting we agreed to start enforcing the 
+> design requirement for 2.7 release features. This gives the repo 
+> maintainer the authority to not merge major contributions without 
+> designs in place. Of course, the maintainer also has the discretion to 
+> "grandfather" in work that was previously underway that had designs 
+> socialized in IRC or email. I think having these designs in place will 
+> fix a lot of the release notes concerns, as well as level-setting what 
+> we're all working on.
 
-I have disagreements with this, see below.
+What is the scope of these features? My gut instinct is it's something like
+"high-level capability that OpenBMC does not yet have" as opposed to
+"useful feature in existing platform-specific tool". Is there a description
+somewhere of where we're drawing the line? I guess my question can
+be rephrased as "what are we (explicitly) _not_ trying to control"?
 
 > 
-> 3. Create a GitHub openbmc user called "changelog".  Then contributors 
-> can @mention [102] @changelog in the issue that describes the user 
-> impacts,
-> and all issues that describe user impacts can be found.  I had thought 
-> to create a new label [8][9] called "User impact" for this purpose, but 
-> GitHub permissions do not allow most users to add labels.
+> TLDR: if work has a feature issue created in github (tagged Release2.7), 
+> it MUST to have a design template filled out in order to be merged.
+> 
+> Second, we agreed to set a VERY aggressive schedule for having all 
+> feature issue designs in place: *March 25th*  Obviously, that means that 
+> release feature issues need to be completed before then.
+> 
+> Third, we also agreed to establish checkpoints for delivery of features 
+> so we can check the feature progress, seek community assistance, etc. We 
+> will establish Design, Code1, Code2, Freeze and Release milestones. They 
+> are mostly self-explanatory, with Code1 and Code2 being used for staging 
+> dependent work for instance. They will be approximately 6 week intervals.
+> 
+> Finally, I am asking for EVERYONE'S help in making sure what you are 
+> working on falls into a openbmc/openbmc issue tagged Release2.7 (or 
+> Release2.8 for long-running projects). If not, and it is not a quick 
+> fix 
+> or small enhancement, please let your release planning rep know and 
+> help 
+> them get the feature issue created ASAP. Check here: 
+> https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
+> 
+> As always, I am available for any questions. Find me on IRC or come to a 
+> release planning meeting and let's discuss.
 
-It seems a bit abusive to claim a global name like @changelog for the
-purpose of the OpenBMC project for what is - essentially - a process hack.
+I haven't been attending the release planning meetings; maybe I'm a bit
+under-informed/out of line so take this with a grain of salt. However:
 
-What if other projects wanted to do something similar? Also, anyone on
-GitHub can mention an account; is there a plan to control "spam" (nice
-to have a plan for this even if it doesn't eventuate)?
+This all seems like a top-down attempt to manage a large-ish open source
+project. Given everyone's diverse interest as a means to scratch their own
+itch, I feel like the kernel's approach is something that we should be
+modelling: Releases occur on a fixed cadence, and whether a feature makes
+it into a given release is largely dictated by whether the maintainer of a given
+subsystem feels its ready to go in rather than whether a particular label is
+applied to a github issue. Having timed releases dictating included features
+rather than features happening to land in a given timed release leads to
+problems like serious slippage of release dates or merging of immature
+features simply to meet the promised deadline. Best for things just to go in
+when they are ready. If people need to ship the feature before it is integrated
+upstream then the responsibility and burden is on their own (probably
+internal) fork of the project. It's not something upstream should be saddled
+with.
 
-One person is going to have to own the changelog account and go through
-all its notifications. Who is that one person? Why? Or are we going to do
-credential sharing? Who are the credentials shared with? On what basis?
-
-Perhaps we need a changelog bot that we can invoke in each issue?
-
-Whatever the case, I think we need to mull over this some more. I don't
-think the use of an @changelog account is appropriate.
+I'm not arguing against having designs or code freezes, but I am concerned
+about language like "Finally, I am asking for EVERYONE'S help in making
+sure what you are working on falls into a openbmc/openbmc issue tagged
+Release2.7". It has a distasteful dictatorial ring to it for an open source project,
+and to me it's a bit demotivating. Maybe that's not how it was intended?
 
 Andrew
