@@ -1,28 +1,70 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Udm48Pn9"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="MSyOdBwL"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44BfjX1rklzDqNS
- for <openbmc@lists.ozlabs.org>; Sun,  3 Mar 2019 08:35:59 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Sat, 2 Mar 2019 16:36:24 -0500
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: openbmc@lists.ozlabs.org
-Subject: Re: OpenBMC at the 2019 OCP Summit Hardware Management track
-Message-ID: <20190302213624.uuddz4pzqemnrehh@thinkpad>
-References: <20190118021802.752bcjgc7oxa33m4@thinkpad>
- <20190118210913.a4kynzggtesqln5g@thinkpad>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20190118210913.a4kynzggtesqln5g@thinkpad>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CHP00j19zDqGW
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 09:08:50 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9C87D2200E;
+ Sun,  3 Mar 2019 17:08:47 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Sun, 03 Mar 2019 17:08:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:in-reply-to:references:date:from:to:subject
+ :content-type; s=fm2; bh=tfMM5zAej4Nz2gMWzh7C+29oDNvylfsdrX/E/p9
+ OEeA=; b=Udm48Pn9v/WLErJRzgjpXbchElspdE5c+jQhTjKPqrZ6jInReda25XA
+ Ak9WR9PFLBHFKgonzKUTmk4dpqJiS3qfVZPGDqGoKe69Ga+gKDE+IAHT0HTavkWh
+ Iwq8uobvCR0cJkDcy3iAK8MC8DKmH/wfROy/gZOMThlOVgZYQVHnO+6UKlRyCPTA
+ stAXk8KYQ1FYLS3mHxrUCuvXHJEozgsgbpiiVh/IngSvoqesnktO8KNQ76Dg3sFB
+ uXfDIYS6FADZ4VVPrAhOkp0peBsh5cwEEMwGnxUpPJcVYnRKnPTrS+jDxCU38LXv
+ 6AprMK0pewVk4hiU3VKJHrNgzbJ06RA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:references:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=tfMM5zAej4Nz2gMWz
+ h7C+29oDNvylfsdrX/E/p9OEeA=; b=MSyOdBwLhFjsF7iI11h/dV7Klvg8ih2ox
+ 0k2aLD4IFJzZkhOlUN0sHZSaw9CcrAzafZYOlYl9BLkB2NGHnN2ZCRMeicAtwY0Z
+ wg05qGxJVYzIRsyeNFtOpN+Z/+BRHMZDpfy3vNUL45LFCycjU1RpaXyFl2WyNiZo
+ qpKA8YhbnjkcPTFMNmqZb6mXT0uuRbWtDLfhWt1JJu/2Bg+ue2GQoo/ZtFelGnH5
+ GZoaQFonzOjXck0LkE2tZgpmVsuH1p7qI634gxz8hdd8dKaI5c9utuyrxK0EdXHX
+ 2gTfIn4sxnU3qQ5Rr/ZTo4H6yhSoKfOMmmmUr3GwB3fFhup7vIoBg==
+X-ME-Sender: <xms:blB8XKiPAviFhioEmHnMLUPftz6_mLpMhft-Q4EAb2eIqUtNzchfEQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrvdelgdduheejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
+ hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
+ ufhiiigvpedt
+X-ME-Proxy: <xmx:blB8XHUHs8ZVynzWEo9l_pHsz0TBASWx6V6BghG_sSV0Y3pwrLxT0w>
+ <xmx:blB8XE1UyNfEKmaH09sLiwybcgMT46TzXjnICjjVwyYBvzPlbF-UnA>
+ <xmx:blB8XFGymDGMDGQ7MQUsK_mF2BxtthhXytqYpKF7P76c4Zz-F1ZPVg>
+ <xmx:b1B8XFUdOiQ1s3MQ2ZhyK-Bc9B5bemtZzgdz2dAe97RCxVEYKxRhjQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id AD8E97C4CE; Sun,  3 Mar 2019 17:08:46 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
+X-Me-Personality: 52947553
+Message-Id: <05c4a58b-341c-4e39-97a9-221fa89c00d1@www.fastmail.com>
+In-Reply-To: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
+References: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
+Date: Sun, 03 Mar 2019 17:08:04 -0500
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Joseph Reynolds" <jrey@linux.ibm.com>, Openbmc <openbmc@lists.ozlabs.org>
+Subject: Re: [Design] Kernel-based BMC firewall
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,50 +76,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 02 Mar 2019 21:36:01 -0000
+X-List-Received-Date: Sun, 03 Mar 2019 22:08:56 -0000
 
-On Fri, Jan 18, 2019 at 04:09:13PM -0500, Brad Bishop wrote:
->On Thu, Jan 17, 2019 at 09:18:02PM -0500, Brad Bishop wrote:
->> Hi Everyone
->>
->> The TSC has asked me to present at the 2019 OCP Summit on behalf of the
->> OpenBMC community.  You can see the abstract here:
->>
->> https://2019ocpglobalsummit.sched.com/event/Jil3/openbmc-project-update?iframe=no&w=100%&sidebar=yes&bg=no
->>
->> I will be hashing the presentation out in the next day or two. If you
->> have anything you think might make sense to talk about there, I'd love
->> to hear about it.
->>
->> Also, I intend to publish a draft once I have composed it, if you'd
->> prefer to leave feedback that way as well (or instead).  Stay tuned.
->>
->> thx - brad
->
->I've put a draft here:
->
->https://github.com/openbmc/openbmc/wiki/files/OCPGLO19_OpenBMC_Project_Update-draft.pdf
->
->It is still very draft-y, but you can get a sense of the outline and
->high level flow.  I could use help calling out any function implemented
->in 2.6 and any function planned for 2.7.
->
->thx - brad
 
-Hi Everyone
 
-The final draft was due last Thursday...I was able to get an extension
-until Monday due to some personal extenuating circumstances...
+On Sat, 2 Mar 2019, at 07:54, Joseph Reynolds wrote:
+> Here is my BMC firewall design.  I'll post it as a gerrit docs review in 
+> a few days if nobody steers this in a different direction.
+> 
+> Highlights:
+>   - firewall established by default when networking starts
+>   - BMC-specific firewall rules to be documented
+>   - firewall logging not started by default
+> 
+> Enjoy,
+> 
+> - Joseph Reynolds
+> 
+> 
+> # Firewall
+> 
+> Author:
+>    Joseph Reynolds <josephreynolds1>
+> Primary assignee:
+>    < Name and/or IRC nic or None >
+> Other contributors:
+>    < Name and/or IRC nic or None >
+> Created:
+>    2019-03-01
+> 
+> ## Problem Description
+> 
+> OpenBMC needs an integral firewall to monitor and control its IP 
+> traffic.
 
-I've refreshed the link above with a new version, that incorporates the
-feedback I've received.  If there is any additional/new feedback, please
-let me know...I can try to get it incorporated, but no promises...I
-don't know if OCP will allow any additional changes.  I would still
-appreciate hearing your feedback because even if I can't update the
-slides, I can still bring it up during the presentation itself.  
+I think this is a bit light. What I would like to see here is a discussion of use-
+cases instead of a one-sentence hand-wave. How do we want to control its
+IP traffic? In what circumstances? How are we monitoring the traffic given
+the limited flash space to log it?
 
-If I get updates/suggestions prior to Sunday evening I should be able to
-incorporate them without issue.
+A lot can be accomplished by simply binding the right services to the right
+interfaces, or not running services that you don't need. There's no need
+to firewall a closed port (unless you're trying to cloak the machine on the
+network, and even then any open port is going to give the game away).
 
-Thanks!
--brad
+Given that BMCs tend to be on a separate management network, what are
+we trying to firewall them from? Are we trying to break down the notion
+that they need to be (on a separate management network)? If so there's
+still the problem of broken protocols like IPMI. I'm not saying that we
+shouldn't remove hurdles, but I'd like a better understanding of *why*
+when we're proposing to add complexity (with associated hits to flash
+space, memory usage and CPU time on a slow system).
+
+Cheers,
+
+Andrew
