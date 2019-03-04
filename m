@@ -1,74 +1,112 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <fabrizio.castro@bp.renesas.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SjdWkQEU"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="zifAEWbx"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=bp.renesas.com
+ (client-ip=40.107.140.91; helo=jpn01-ty1-obe.outbound.protection.outlook.com;
+ envelope-from=fabrizio.castro@bp.renesas.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=bp.renesas.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=renesasgroup.onmicrosoft.com
+ header.i=@renesasgroup.onmicrosoft.com header.b="wGq9IHbQ"; 
+ dkim-atps=neutral
+Received: from JPN01-TY1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1400091.outbound.protection.outlook.com [40.107.140.91])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44CyxB1SJVzDqG8
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 11:50:37 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id A96D821FF0;
- Mon,  4 Mar 2019 19:50:33 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 04 Mar 2019 19:50:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type; s=fm2; bh=rDNmN5CvWjjkp3OmtmffC0iayS0XWO0mau/3AcG
- bJrg=; b=SjdWkQEUqB/IpZL7dkpFy8QKePKw9bGxT5wpbOPTS87t2Nl2+V07AEg
- vD4of/RbbSDVrmGpQSGMz/iuOKToDD4nEtRUVJ/7PI1BrSPLMVF7+7Assai5PjSA
- 7Z1JV6aMV2Q2qNdeWh8hrv053Yn3h9n5S1Rzu3FtwPUL3tjXK1mIKJONtjcHPaNV
- hPlAfDoV5xMZ4CC+l6mQSt162m823qKSnNVM5RiwowaNq677yPcZj78MZGMd91HD
- z8HI4er4zOpxFY4HgHfeKzad/kJ4BR0kidsEbH+n7iucasbhrV4MQUp1Yv7Y0fdj
- kN8lsdDR8474W3xhyJVcgIPpsveCo2w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=rDNmN5CvWjjkp3Omt
- mffC0iayS0XWO0mau/3AcGbJrg=; b=zifAEWbx78A81eT/BaKSgJMl7vrnKOUsE
- AaaGw4d+BaPvELHVo/748tgf0yaUF6mfgHbUZ+OsJcC1x5bSWYBCViz9txEjfSPs
- uYFQ06oYHkyRAF4KMIO1OdvmP9bL4QVvBzYannu00DNpNiYoDZ+LGgFNgIIZtESo
- Gm0bjBRx0pJ50V126Xxq23A7UcugsLvMbFmp6UNacg7Y2FBtVR4ug9EWI+TlWvdQ
- Vip4FeHFNcS7YAcw3zTfhraQgxopqV2SAnPGtvNcv5A5pZNXi8K6P0hkkXReMJca
- MRZLY2ptfZAAY/EFO6BMZYcoaNEBOD/k2iu9hvoaRSMXpB8puMg+Q==
-X-ME-Sender: <xms:2cd9XLHa2bV_jgvL6qUTquFNZBg5-hw59-_RBOVP6BzuLbUsSYf8JA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrfedvgddviecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgurhgv
- ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrih
- hnpehgihhthhhusgdrtghomhenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgif
- segrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:2cd9XIzZClO1XsT7Oe3NFflhctabnffiLqOdFRM8yDcwRYcn6qjvJQ>
- <xmx:2cd9XN1kKdkkvEaC8ovBUXNXV1is28sZFtWIcp09SRZAEVO6gm4ANg>
- <xmx:2cd9XApnxsAyAchrUB5OO_Mk03rSD3IMbzhnpLdFig-DiJAZesNN9w>
- <xmx:2cd9XHYqLe3_sSlFvf4x8gM1IJHDgmwmQ_ii2BeIJl96y7bIdQD54Q>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 2808E7C1EB; Mon,  4 Mar 2019 19:50:33 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
-X-Me-Personality: 52947553
-Message-Id: <81072bbc-330b-4772-aca2-a6b08ebc12c0@www.fastmail.com>
-In-Reply-To: <3b42a0d2-3325-e002-d8bd-a7dc3c460c73@gmail.com>
-References: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
- <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
- <3b42a0d2-3325-e002-d8bd-a7dc3c460c73@gmail.com>
-Date: Mon, 04 Mar 2019 19:50:32 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Kurt Taylor" <kurt.r.taylor@gmail.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: =?UTF-8?Q?Re:_2.7_Release_Planning_Guidelines_-_Features,
- _Designs_and_Mi?= =?UTF-8?Q?lestones?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CcPl2bKlzDq5x
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 21:55:36 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=renesasgroup.onmicrosoft.com; s=selector1-bp-renesas-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+WzTnV/AP2xryydISl46YElgNNb1lLBls+cnaLq84B0=;
+ b=wGq9IHbQKOp7ADstsidTZ3j0dYEt1J+HLIvfDytkVJKt7Dh2cUEoEaHif31BzAuXiShFwzfJtLkAm+35cwrJgPLG+0Jl6rlTqazPNeQALGu7QovnkGI7VjUY9mxxHevZ66ONmINCf2BgMhW49t37r/otXvFkt0Y2J3wMj1IRO0c=
+Received: from TY1PR01MB1770.jpnprd01.prod.outlook.com (52.133.163.147) by
+ TY1PR01MB1707.jpnprd01.prod.outlook.com (52.133.160.148) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1665.15; Mon, 4 Mar 2019 10:55:28 +0000
+Received: from TY1PR01MB1770.jpnprd01.prod.outlook.com
+ ([fe80::b593:2e3c:aa50:2273]) by TY1PR01MB1770.jpnprd01.prod.outlook.com
+ ([fe80::b593:2e3c:aa50:2273%4]) with mapi id 15.20.1665.019; Mon, 4 Mar 2019
+ 10:55:28 +0000
+From: Fabrizio Castro <fabrizio.castro@bp.renesas.com>
+To: Simon Horman <horms@verge.net.au>, Geert Uytterhoeven
+ <geert@linux-m68k.org>
+CC: Wen Yang <wen.yang99@zte.com.cn>, Liviu Dudau <liviu.dudau@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>, Lorenzo Pieralisi
+ <lorenzo.pieralisi@arm.com>, Russell King <linux@armlinux.org.uk>, Linux ARM
+ <linux-arm-kernel@lists.infradead.org>, Linux Kernel Mailing List
+ <linux-kernel@vger.kernel.org>, Kukjin Kim <kgene@kernel.org>, Krzysztof
+ Kozlowski <krzk@kernel.org>, "linux-samsung-soc@vger.kernel.org"
+ <linux-samsung-soc@vger.kernel.org>, Michal Simek <michal.simek@xilinx.com>,
+ =?iso-8859-1?Q?Andreas_F=E4rber?= <afaerber@suse.de>, Manivannan Sadhasivam
+ <manivannan.sadhasivam@linaro.org>, Dinh Nguyen <dinguyen@kernel.org>, Heiko
+ Stuebner <heiko@sntech.de>, "open list:ARM/Rockchip SoC..."
+ <linux-rockchip@lists.infradead.org>, Florian Fainelli
+ <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>, Scott Branden
+ <sbranden@broadcom.com>, "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>, Linus Walleij
+ <linus.walleij@linaro.org>, "avifishman70@gmail.com"
+ <avifishman70@gmail.com>, "tmaimon77@gmail.com" <tmaimon77@gmail.com>,
+ "venture@google.com" <venture@google.com>, "yuenn@google.com"
+ <yuenn@google.com>, "brendanhiggins@google.com" <brendanhiggins@google.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Wei Xu
+ <xuwei5@hisilicon.com>, Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu
+ Tsai <wens@csie.org>, Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will.deacon@arm.com>, Magnus Damm <magnus.damm@gmail.com>, Linux-Renesas
+ <linux-renesas-soc@vger.kernel.org>, Shawn Guo <shawnguo@kernel.org>, Sascha
+ Hauer <s.hauer@pengutronix.de>, Sascha Hauer <kernel@pengutronix.de>, Fabio
+ Estevam <fabio.estevam@nxp.com>, "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "wang.yi59@zte.com.cn" <wang.yi59@zte.com.cn>
+Subject: RE: [PATCH 08/15] ARM: shmobile: fix a leaked reference by
+ addingmissing of_node_put
+Thread-Topic: [PATCH 08/15] ARM: shmobile: fix a leaked reference by
+ addingmissing of_node_put
+Thread-Index: AQHU0AzNbKz7yrFVwkeI8MRN0xB8OKX2iJOAgATAMwCAAAg4cA==
+Date: Mon, 4 Mar 2019 10:55:27 +0000
+Message-ID: <TY1PR01MB17701D48CA7E650507C2E010C0710@TY1PR01MB1770.jpnprd01.prod.outlook.com>
+References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
+ <1551430616-42014-8-git-send-email-wen.yang99@zte.com.cn>
+ <CAMuHMdWrY0UNhCA7a8oHVfdVNXaB=15qFuWqvuU9OZpf7-ecmg@mail.gmail.com>
+ <20190304102423.bipib6frc6ma2ltv@verge.net.au>
+In-Reply-To: <20190304102423.bipib6frc6ma2ltv@verge.net.au>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: spf=none (sender IP is )
+ smtp.mailfrom=fabrizio.castro@bp.renesas.com; 
+x-originating-ip: [193.141.220.21]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b7cf551b-ec5a-4428-8990-08d6a08fe9b5
+x-ms-office365-filtering-ht: Tenant
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600127)(711020)(4605104)(4618075)(2017052603328)(7153060)(7193020);
+ SRVR:TY1PR01MB1707; 
+x-ms-traffictypediagnostic: TY1PR01MB1707:
+x-microsoft-exchange-diagnostics: 1; TY1PR01MB1707;
+ 20:i7W2Bn5cw1MvSBLyG/kxuN9Q24rz0cgObwyz80s/NXh+PKxBtxZ4lVYSE6qeYDX092lJWckyZ4ipAgxIm6pbEwKpHqjkd8ZI2hA8iblUzBNjLvQcy1njh58z//UWmvGu8Vl2Y2GQJ00qIxk9OJPQRcvnWno5ULe5KkNC0AgEs7s=
+x-microsoft-antispam-prvs: <TY1PR01MB1707620B53918462B1D48346C0710@TY1PR01MB1707.jpnprd01.prod.outlook.com>
+x-forefront-prvs: 09669DB681
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(136003)(39860400002)(396003)(366004)(346002)(376002)(189003)(199004)(7416002)(7406005)(97736004)(102836004)(26005)(9686003)(14454004)(8936002)(44832011)(186003)(66066001)(25786009)(74316002)(4326008)(256004)(71190400001)(71200400001)(2906002)(446003)(99286004)(11346002)(7696005)(476003)(305945005)(76176011)(106356001)(105586002)(6246003)(81166006)(8676002)(81156014)(486006)(7736002)(3846002)(55016002)(6116002)(478600001)(53936002)(53546011)(86362001)(54906003)(6506007)(52536013)(93886005)(229853002)(68736007)(33656002)(5660300002)(110136005)(6436002)(316002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:TY1PR01MB1707;
+ H:TY1PR01MB1770.jpnprd01.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:0; 
+received-spf: None (protection.outlook.com: bp.renesas.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: v2WEl6k5ARi4C2ibwD6af0P8sgYnHbU9SIcwlFlXRaLd5IANpR9VljQCvRvf4SXIswEkqJRM3ITgc3Ke36NaiYOahsNMwB/Xt6D0EI9VfwzfqXRz3HeBhOuVXKA9003ilxmmX3LePt+Z+eOltdoaLTYVXkqR3iuE86TUsutJi9cZb5/gJ2RjQgw9ErEh2Fm87kFzZ5ticVXwYf3T0DX9mZw39/w48IDAxZO9PpbuFW6vTxotb20dmJ89pLX6wyCF4f6QgFFJfmcDcCuG/txkKDSjlU4gOz9NZ6+5G2EQrZbGmOGp1NzrKQtYcV+SYL4XkfHRI6jYUc5IxHHAwh5PNYPTjS2MUdoNmpBpbYnm0zsYTrbN67/1GmRA63v79Az7XhurbUBQkal1Ir3s30405JECPeDyRt9gCOBJYw5Syvg=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7cf551b-ec5a-4428-8990-08d6a08fe9b5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2019 10:55:27.5845 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PR01MB1707
+X-Mailman-Approved-At: Tue, 05 Mar 2019 12:27:30 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,111 +118,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 00:50:42 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 10:55:40 -0000
 
-On Mon, 4 Mar 2019, at 15:01, krtaylor wrote:
-> On 3/3/19 5:16 PM, Andrew Jeffery wrote:
-> > 
-> > 
-> > On Sat, 2 Mar 2019, at 03:47, krtaylor wrote:
-> >> All,
-> >>
-> >> At the last release planning meeting we agreed to start enforcing the
-> >> design requirement for 2.7 release features. This gives the repo
-> >> maintainer the authority to not merge major contributions without
-> >> designs in place. Of course, the maintainer also has the discretion to
-> >> "grandfather" in work that was previously underway that had designs
-> >> socialized in IRC or email. I think having these designs in place will
-> >> fix a lot of the release notes concerns, as well as level-setting what
-> >> we're all working on.
-> > 
-> > What is the scope of these features? My gut instinct is it's something like
-> > "high-level capability that OpenBMC does not yet have" as opposed to
-> > "useful feature in existing platform-specific tool". Is there a description
-> > somewhere of where we're drawing the line? I guess my question can
-> > be rephrased as "what are we (explicitly) _not_ trying to control"?
-> 
-> We are a new open source project that has all the typical communication 
-> problems of teams that are not used to sharing what they are working on 
-> now having to. It can't wait until they are ready to drop a huge chunk 
-> of code. We are working toward breaking that cycle by starting early 
-> sharing what we are working on (features). Then we will get more detail 
-> (designs) and get needed feedback in the design reviews. When code 
-> starts dropping (incrementally), everyone knows about what is being 
-> delivered, and how the group intends on it functioning. This is about 
-> communication and cooperation, not control.
-> > 
-> >>
-> >> TLDR: if work has a feature issue created in github (tagged Release2.7),
-> >> it MUST to have a design template filled out in order to be merged.
-> >>
-> >> Second, we agreed to set a VERY aggressive schedule for having all
-> >> feature issue designs in place: *March 25th*  Obviously, that means that
-> >> release feature issues need to be completed before then.
-> >>
-> >> Third, we also agreed to establish checkpoints for delivery of features
-> >> so we can check the feature progress, seek community assistance, etc. We
-> >> will establish Design, Code1, Code2, Freeze and Release milestones. They
-> >> are mostly self-explanatory, with Code1 and Code2 being used for staging
-> >> dependent work for instance. They will be approximately 6 week intervals.
-> >>
-> >> Finally, I am asking for EVERYONE'S help in making sure what you are
-> >> working on falls into a openbmc/openbmc issue tagged Release2.7 (or
-> >> Release2.8 for long-running projects). If not, and it is not a quick
-> >> fix
-> >> or small enhancement, please let your release planning rep know and
-> >> help
-> >> them get the feature issue created ASAP. Check here:
-> >> https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
-> >>
-> >> As always, I am available for any questions. Find me on IRC or come to a
-> >> release planning meeting and let's discuss.
-> > 
-> > I haven't been attending the release planning meetings; maybe I'm a bit
-> > under-informed/out of line so take this with a grain of salt. However:
-> > 
-> > This all seems like a top-down attempt to manage a large-ish open source
-> > project. Given everyone's diverse interest as a means to scratch their own
-> > itch, I feel like the kernel's approach is something that we should be
-> > modelling: Releases occur on a fixed cadence, and whether a feature makes
-> > it into a given release is largely dictated by whether the maintainer of a given
-> > subsystem feels its ready to go in rather than whether a particular label is
-> 
-> Exactly what we are doing. The label is for release intention.
-> 
-> > applied to a github issue. Having timed releases dictating included features
-> > rather than features happening to land in a given timed release leads to
-> > problems like serious slippage of release dates or merging of immature
-> > features simply to meet the promised deadline. Best for things just to go in
-> > when they are ready. If people need to ship the feature before it is integrated
-> > upstream then the responsibility and burden is on their own (probably
-> > internal) fork of the project. It's not something upstream should be saddled
-> > with.
-> 
-> Our release cycle is based on fixed dates, as are many other open source 
-> projects. Unlike product release cycles, we will not slip a date to 
-> finish a feature. If you miss the release train, you simply catch the 
-> next one.
-> 
-> > I'm not arguing against having designs or code freezes, but I am concerned
-> > about language like "Finally, I am asking for EVERYONE'S help in making
-> > sure what you are working on falls into a openbmc/openbmc issue tagged
-> > Release2.7". It has a distasteful dictatorial ring to it for an open source project,
-> > and to me it's a bit demotivating. Maybe that's not how it was intended?
-> 
-> If someone if working on a new feature that has not been added to 
-> github, then they need to talk to their release planning rep and get it 
-> entered, or just add it themselves. The last thing we need is to 
-> duplicate work. Again, this is about communication and cooperation, not 
-> control.
+Hello Simon,
 
-Great! Looks like I misread it (possibly not helped by lacking context). Thanks
-for clarifying, and thanks for your work on improving communication around
-feature development.
+> From: linux-renesas-soc-owner@vger.kernel.org <linux-renesas-soc-owner@vg=
+er.kernel.org> On Behalf Of Simon Horman
+> Sent: 04 March 2019 10:24
+> Subject: Re: [PATCH 08/15] ARM: shmobile: fix a leaked reference by addin=
+gmissing of_node_put
+>=20
+> On Fri, Mar 01, 2019 at 10:51:27AM +0100, Geert Uytterhoeven wrote:
+> > On Fri, Mar 1, 2019 at 9:57 AM Wen Yang <wen.yang99@zte.com.cn> wrote:
+> > > The call to of_get_next_child returns a node pointer with refcount
+> > > incremented thus it must be explicitly decremented after the last
+> > > usage.
+> > >
+> > > Detected by coccinelle with the following warnings:
+> > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:77:2-8: ERROR: missing of_nod=
+e_put; acquired a node pointer with refcount
+> incremented on line 66, but without a corresponding object release within=
+ this function.
+> > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:85:2-8: ERROR: missing of_nod=
+e_put; acquired a node pointer with refcount
+> incremented on line 66, but without a corresponding object release within=
+ this function.
+> > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:90:2-8: ERROR: missing of_nod=
+e_put; acquired a node pointer with refcount
+> incremented on line 66, but without a corresponding object release within=
+ this function.
+> > >
+> > > Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
+> >
+> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>=20
+> Thanks, applied for v5.2.
 
-Andrew
+I am sorry for commenting on this just a moment after you took the patch, I=
+ guess there is a space missing in the title s/addingmissing/adding missing=
+/ ? Is that still fixable?
 
-> 
-> Thanks for your feedback,
-> Kurt (krtaylor)
->
+Thanks,
+Fab
