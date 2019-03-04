@@ -1,37 +1,76 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.93; helo=mga11.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ClT90rlmzDqFH
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 03:14:03 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2019 08:14:00 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,440,1544515200"; d="scan'208";a="122523024"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by orsmga008.jf.intel.com with ESMTP; 04 Mar 2019 08:14:00 -0800
-Subject: Re: [Design] Kernel-based BMC firewall
-To: openbmc@lists.ozlabs.org
-References: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <8d8c463f-5043-4d95-b907-02cb182dd5da@intel.com>
-Date: Mon, 4 Mar 2019 08:14:00 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CnQ62z3jzDqFs
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 04:41:33 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x24HdIIJ127091
+ for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 12:41:29 -0500
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r16vvn749-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 12:41:29 -0500
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Mon, 4 Mar 2019 17:41:28 -0000
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 4 Mar 2019 17:41:27 -0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x24HfQMC54001892
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 17:41:26 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3E00C6E04C
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:26 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 18AF36E053
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:26 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:25 +0000 (GMT)
 MIME-Version: 1.0
-In-Reply-To: <285cb288b03952703b6b879f6a1cac9a@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+Date: Mon, 04 Mar 2019 11:49:01 -0600
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: Openbmc <openbmc@lists.ozlabs.org>
+Subject: Security Working Group meeting - Wednesday March 6
+X-Sender: jrey@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19030417-0004-0000-0000-000014E9D1BB
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010704; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01169579; UDB=6.00611185; IPR=6.00950207; 
+ MB=3.00025830; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-04 17:41:27
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030417-0005-0000-0000-00008ACAC832
+Message-Id: <72af3f948ad18b268c460f1c0a4d10f1@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-04_08:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=758 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903040128
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,213 +82,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 16:14:06 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 17:41:34 -0000
 
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday March 6 at 10:00am PDT.
 
-On 3/1/19 1:31 PM, Joseph Reynolds wrote:
-> ## Problem Description
->
-> OpenBMC needs an integral firewall to monitor and control its IP traffic.
+Current topics:
+- development items with security impact
+- default userids
 
-Why?  I believe this needs more details here on why the current solution
-is inadequate.  If some document/security policy is driving this, we
-should reference that here as well.  There _must_ be a standard or
-authority for network security that we can reference rather than
-creating our own.
+Access, agenda, and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group
 
-I would like to see the problem description be a lot longer than 1
-sentence given how long the requirements section is.
->
-> ## Background and References
->
-> The Yocto/OpenEmbedded projects offer ready-made Linux kernel-based
-> firewall recipes.  These are based on:
->  - the Linux `netfilter` kernel modules which provide the basic capability
->    to work with IP packets.
->  - the `iptables` Linux command (and similar commands like ip6tables) work
->    with netfilter tables
->  - the `arno-iptables-firewall` package which provides shell scripts that
->    uses iptables to establish a firewall.
->  - the `ulogd` firewall logger package
->
-> References:
-> - The Linux firewall documentation:
->   http://linuxdocs.org/HOWTOs/Firewall-HOWTO-2.html
-> - Basic concepts from Wikipedia:
->   - https://en.wikipedia.org/wiki/Netfilter
->   - https://en.wikipedia.org/wiki/Iptables
-> - The OpenEmbedded recipes for firewalls:
->
-http://layers.openembedded.org/layerindex/branch/master/recipes/?q=iptables
-> - Log connections via ulogd.
->
-> ## Requirements
->
-> The BMC must automatically establish a firewall when the network
-> service is started, and remove it when networking stops.  The firewall
-> rules must have reasonable defaults for a BMC.
-Why is firewall removal required?  If networking is down, that shouldn't
-make any changes to the firewall, correct?
->
-> The firewall must have these capabilities:
->  1. Block unauthorized IP traffic to and from the BMC.
-
-This needs a much better definition of what "unauthorized" means.
-Technically traffic on ports that are unsupported is already "blocked"
-just based on the bind rules, and the fact that we, as a policy, don't
-run code that wasn't compiled into the image.  Under the strict security
-definition of authorization, a firewall has no ability to "authorize" a
-request, except possibly based on IP.  If your goal is DOS prevention,
-_just_ a firewall is likely not enough.
-
-I would  like to see lots more detail here.
->  2. Block malicious packets.
-Like what?  Do you have any references of what kinds of "malicious"
-packets you're hoping to block?  Is there a relevant OWASP page on this?
->  3. Log network traffic.
-
-This item feels like it could be a design document on its own.  I would
-hope the firewall isn't logging all network traffic.
->  4. Rate-limiting to thwart denial of service attacks.
-
-More details on how this is desired really needs to be attached.  Is
-this a per-ip rate limit?  In background, it would be good if you could
-attach some data around what rate limits a common AST platform would
-need imposed.
->
-> The firewall must not:
-> - Consume excessive CPU cycles.
-> - Consume excessive space in memory or on disk.
-These two things should have soft targets to define excessive.  is 5%
-overhead excessive?  50%?  2MB on flash worth it?
->
-> The system integrator must be able to:
-> - Establish firewall rules to implement security policy.
-> - Set default IP logging behavior.
-I suspect the word "default" wasn't intended here.  Default implies that
-someone can change the runtime defaults at runtime.  Unless you meant
-compile time...?
-> - Configure the firewall for IPv4, IPv6, or both.
-> - Remove firewall capabilty from the BMC if desired.
-At runtime?  Is the goal for the defaults to be "firewall on" or
-"firewall off"?
->
-> The admin user must be able to:
-> - Temporarily modify, disable, or re-enable the firewall.
-> - Enable or disable IP logging.
-> - Retrieve the firewall logs, if enabled.
->
-
-Some other background that I think would help here:
-What do other BMC implementations do?
-What do other similar network connected devices (OpenWRT for example) do?
-
-
-> ## Proposed Design
->
-> This adds a set of BitBake recipes to set up an IP firewall based on
-> Linux kernel netfilter modules, the iptables commands, and the
-> arno-iptables-firewall package.
->
-> The firewall gets put up when systemd starts the networking service, and
-> gets taken down when networking stops.
-> The firewall logging service is also made available, but it is not started
->
-> The firewall rules will default to disallow all IP traffic, then be
-> permissive in allowing all legitimate BMC traffic.  We'll have
-> customized firewall rules specific to a generic BMC environment and
-> document these rules in the docs repository.
-In terms of firewall rules, what is a "generic BMC environment"?  All
-ports/ips accepted?
->
-> These rules are intended to be "secure by design" and documented well
-> enough for a system integrator to change them as needed.
-
-In this section I see nothing about how rate limiting is going to be
-implemented or designed.  Given that has a lot of real-world
-implications, I'd like to see that called out specifically.  For
-example, firmware update is a 64MB payload and can easily run over
-buffer limits quickly.  Is that case called out specifically in the
-firewall rules, or are the limits set so high that a firmware update
-doesn't matter?  Virtual media and KVM are other great examples of
-_very_ high bandwidth applications that would be severely impacted by
-bandwidth limits.  In general, both those applications are capable of
-using 100% of the BMCs effective NIC bandwidth.  I have worked on other
-BMC firmwares in the past where the security tradeoffs of enabling a
-firewall were shadowed by the performance hits to those services.  I
-would feel a lot better if these were called out specifically in the
-requirements.  Something like, "Enabling the firewall should have a <10%
-impact of the performance of KVM/virtual media".
->
-> ## Alternatives Considered
->
-> A user interface to indicate the firewall's status was considered.
-> This would invoke iptables and return success only if it showed
-> firewall rules, something like `iptables -L -n -v`.  This is not
-> needed for basic function.
->
-> The `ufw` firewall was considered.  It is implemented in Python which
-> is being removed from the OpenBMC image.
->
-
-You missed what we currently do, relying on bind rules to define what
-sockets/ports are accepted.  I suspect it doesn't meet your needs, but
-we should call it out, because it's what's currently implemented.
-
-> ## Impacts
->
-> There are three levels of impact:
-> 1. If the firewall recipes are present:
->  - Uses more flash space for kernel modules and iptables commands.
-> 2. When the firewall is enabled:
->  - Uses more memory for kernel modules and related tables.
->  - Uses more CPU cycles for network service.
-> 3. When the firewall IP logging service is enabled:
->  - Uses more resources for CPU and log file storage.
->
-> If the firewall rules are overly restrictive, functions which require
-> IP may not work correctly.  The documentation must show how to
-> identify and fix this problem, specifically:
->  - How to enable IP logging.
->  - How to find, read, and interpret the log.
->  - How to change firewall rules to allow your traffic.
->
-> ## Testing
->
-> Ensure all functions which use IP continue to work.  Enable firewall
-> IP logging during these tests, and check it for errors.
->
-> From the requirement section:
->  - Test the firewall's capabilities.  For example:
->     - Send badly formed packets.
->     - Send traffic to closed ports.
->  - Test each of the admin user's functions.
->
-> Test the procedure to enable logging and detect blocked IP traffic.
->
-> Note the recommended dev-environment [1] maps TCP ports 22 and 443 (to
-> ports 2222 and 2443).  This is not an issue for the BMC's firewall
-> because this mapping is done by the simulator, so the BMC sees the
-> original port numbers: 22 and 443.
-
-I don't see any tests for tests of the performance attributes.
->
-> [1]:
-https://github.com/openbmc/docs/blob/master/development/dev-environment.md
->
-
-Overall, I'm skeptical that in real-world BMCs adding a firewall will
-have a measurable impact on DOS attack prevention, or network security,
-given how loose the rules would need to be to enable all the services
-required.  My suspicion was that that rate limiting in the individual
-network facing daemons would be more effective, as they can
-remove/disable the rate limits for authorized users.  With that said,
-I'm cautiously hopeful that I will be proven wrong.
-
-Some initial, far-from-merge-worthy attempts at differentiating between
-pre and post authenticated payloads, and adjusting the limits
-accordingly is staged below:
-https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/16420/9/crow/include/crow/http_connection.h#133
-
-
--Ed
+- Joseph
