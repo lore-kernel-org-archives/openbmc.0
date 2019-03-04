@@ -1,76 +1,52 @@
-Return-Path: <zshelle@linux.vnet.ibm.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=zshelle@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qSIifPbY"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44CrqV3V6fzDqFv
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 07:15:17 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x24KF3M3129752
- for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 15:15:14 -0500
-Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r18ft6644-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 15:15:13 -0500
-Received: from localhost
- by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <zshelle@linux.vnet.ibm.com>;
- Mon, 4 Mar 2019 20:15:12 -0000
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 4 Mar 2019 20:15:10 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x24KF9XU13828190
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 20:15:09 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7981B28067
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 20:15:09 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4789428059
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 20:15:09 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 20:15:09 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CsQx6hM1zDqD3
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 07:42:33 +1100 (AEDT)
+Received: by mail-pg1-x52e.google.com with SMTP id r124so3904157pgr.3
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 12:42:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=vaUVgt77vy1u4Tydj0f50XWkTDqw9B/90CrGlrRGSFo=;
+ b=qSIifPbYEKKC615sbXqARu3QoExChd76YiUqOWKfbXkLG3HcqfSB4AyvRboI+hOYID
+ 84Y2Xt3bmWaePLlEpe0WNE5dUXj4jXSI0RFeA8or3hnCZaPpozBfSQpgILPAYZnWjZ+/
+ okiIqlja9qwgwxatIbHTK9SWZt5LdCwDI/t1ppbcr0O5eXyV1FU0dwxukfFi95tsRpZn
+ 1BTZ2qzDYi6Qr5+wPq6Bw851IfY3uL23KIyDgk51G9fvhv7k1C5oxbIXg2y3B1B2I4vY
+ UcDCwrLwmZbboWFMgcKf527XQ/sQfh6y2kmIy3BlilRaJE5pC0i92s5Za9/TviD9MCCF
+ Ke+Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=vaUVgt77vy1u4Tydj0f50XWkTDqw9B/90CrGlrRGSFo=;
+ b=J+Z9X6FA44zWYBz9GBXwPeV8a7ki1RpPOCgYcMH9NKVLlBnjgUcCLSktTmTSYKOWzY
+ slCpuJdgBRw6vmTZL0FhXO7qiOH5NujUJQgxzilseX1l/ayQdFfacHMQGFgvAsQovtRo
+ eAIcs6J8TKl6mepZL7vwfg44kzgw7jvLFgx3Bu3BI76ayz2KCGsv2HFs8PPy/sXggj87
+ 5n0j9GKtk4pKF+ojOkcGosHrL0a+tw7y6yhEMxMXpZ7G29m2ir56rOy4x9m4YAJeH2J0
+ nMSGQ3exBZLOVvLMSbBq6iYAi6M2NkwxvB1Q2i4AijI0FIYBUt/kQ81yAEdZWuIFu6Mx
+ 5mXA==
+X-Gm-Message-State: APjAAAUnBKwbrLnZg44o8zMWYskkRXRYcBgrsd7hfSGc9Tc3BQtvcQWE
+ O0Mox2PH/edP3H5222AjWAankeAvmdjdh+3rEWHd2G+R
+X-Google-Smtp-Source: APXvYqzYbcLPLGAJqSPKnT6OyFafSA3dPTOo7GrpAJHiAO7YEAt7W04odI4FBNadDQBIUl665ouSwCcBPAeiP+rzUi4=
+X-Received: by 2002:a63:c310:: with SMTP id c16mr19545174pgd.233.1551732150261; 
+ Mon, 04 Mar 2019 12:42:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 04 Mar 2019 14:22:45 -0600
-From: zshelle <zshelle@linux.vnet.ibm.com>
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Mon, 4 Mar 2019 14:42:19 -0600
+Message-ID: <CANT4NrKrG6hh9v82Lm+5SA1GopQvEB4AJvxEjBBf9_-D2Yq5ug@mail.gmail.com>
+Subject: GUI Work Group meeting - Wednesday March 6 at 7:30AM CT
 To: openbmc@lists.ozlabs.org
-Subject: anyone interested in chip register error diagnostics?
-X-Sender: zshelle@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19030420-0064-0000-0000-000003B3B55A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010704; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01169630; UDB=6.00611217; IPR=6.00950259; 
- MB=3.00025830; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-04 20:15:11
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030420-0065-0000-0000-00003C9CA10E
-Message-Id: <d6c9b047b8906a7dabc6fc1acf7d7c2d@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-04_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=1
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=1
- clxscore=1015 lowpriorityscore=0 mlxscore=1 impostorscore=0
- mlxlogscore=206 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903040144
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,16 +58,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 20:15:19 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 20:42:34 -0000
 
-On POWER, I work on a component that listens for hardware errors 
-reported by registers in the system chips (processors, memory buffers, 
-I/O chips, etc.) and performs service actions based on those errors. I 
-have been working on porting some of this code to the BMC for system 
-fatal error analysis (see my work-in-progress proposals: 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/ and 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18831/). As part 
-of the new design, we are building a generic, data-driven register error 
-isolator, which will be used by several applications within POWER. 
-However, it has the potential to be useful on other architectures as 
-well. I am curious if anyone in the community is interested in this.
+This is a reminder of the OpenBMC GUI Work Group meeting scheduled for
+this Wednesday, March 6 at 7:30 am CT.
+
+Web conference:
+https://ibm.webex.com/meet/susantj
+
+Current topics:
+- Network + IPV6 panel updates since our last meeting
+- new Firmware panel layout due to user
+feedback
+- Local User Management panel suggestions to follow patterns already
+established in LDAP panel
+
+Access, agenda, and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
+
+If you have GUI panels that you want to show, please add them to the agenda.
+
+-- Susan
