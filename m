@@ -1,76 +1,55 @@
-Return-Path: <jrey@linux.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::42e; helo=mail-pf1-x42e.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="l9JFv1Ek"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x42e.google.com (mail-pf1-x42e.google.com
+ [IPv6:2607:f8b0:4864:20::42e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44CnQ62z3jzDqFs
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 04:41:33 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x24HdIIJ127091
- for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 12:41:29 -0500
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r16vvn749-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 12:41:29 -0500
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
- Mon, 4 Mar 2019 17:41:28 -0000
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 4 Mar 2019 17:41:27 -0000
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x24HfQMC54001892
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 17:41:26 GMT
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3E00C6E04C
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:26 +0000 (GMT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 18AF36E053
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:26 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 17:41:25 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Cp610LRSzDqHP
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 05:12:40 +1100 (AEDT)
+Received: by mail-pf1-x42e.google.com with SMTP id n22so3590140pfa.3
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 10:12:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=FTJ+Bqsen9efTkONVu20yvQ62FZ0wc2MMN3Hq1VtEec=;
+ b=l9JFv1Ek+8Ytwy1+ImBELAy0iNnm2pCCzCRDwn4Pp0uleHdPB+UGnJtPb9q7Y3+0if
+ mNlfGb4KOpD8N1XnOfC4/h+XHleiW0TB9o2tM8db0HWAIba30zwSoNVD9FF0LQ4wgMuw
+ gWG2GW+J7WlTb4FxNng3/iyB9+VBUXxJH2v83GjdxV/07TZ8eS16Fp9KwdSOXmATU9WV
+ 4PLumkcRSkV7vZl4gnQHm4W7Beak+kExmpbYdDhjTjIs8hCVqo+oiZkgMYmMEXFQfoXV
+ 7lxy47zhg+TRG6VEMWeZmj16GDIdHE7idtW3XSmVVkp4P12oOZjDuLp27W+YDz08fYZp
+ wQNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=FTJ+Bqsen9efTkONVu20yvQ62FZ0wc2MMN3Hq1VtEec=;
+ b=V4BZwrRO9fe+EKdkfYB5DX4suoiaO8NaZ4BAgc8EsgudAaln/TRhgyIHxKj4x0BM6X
+ xlX97ek/DMoj7S4DQLa45GGN1lLhh6dU/8kocaEQLqX/kWXj/c15wPrF+vfSvjgGriQs
+ i9JmgPp8EdWpEGItovwGVhgYBgFf+msrxihW5Gm68haxZ1Mgpk6B0SdUIgg+1EuXoHAg
+ NH5KIj9TcGpSACU/1Khi4YS66fR+5+D4YpQj63VBI7W0L2tAFYqzPeaLIqRBz9QXaXRC
+ RwJgzCIRrYKjkv2cdcjY/V4+2Xp6LYBQtvYZtp54wJ/DR7ogn3pfWrfOzDT4Ix1jkyaP
+ JCzw==
+X-Gm-Message-State: AHQUAuZu/bTmP8IcH/GGM6OV/F/xQzAPJsE3aR7wNyQmt45ExS/T5z5d
+ iT9ohIljuBQVBmcEh2IuaLPlbnBWV0lv6plW2QuodfYAbJU=
+X-Google-Smtp-Source: AHgI3IZplMYIfgLZhTxuYGff8LynJZJZRDs+uOCKM4JE/cgvaoiUi/lRbfCkJzlhVL4IiaoNma/J9Zq0RDCxeszAvNg=
+X-Received: by 2002:a62:8384:: with SMTP id
+ h126mr20925568pfe.243.1551723157092; 
+ Mon, 04 Mar 2019 10:12:37 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 04 Mar 2019 11:49:01 -0600
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: Openbmc <openbmc@lists.ozlabs.org>
-Subject: Security Working Group meeting - Wednesday March 6
-X-Sender: jrey@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19030417-0004-0000-0000-000014E9D1BB
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010704; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01169579; UDB=6.00611185; IPR=6.00950207; 
- MB=3.00025830; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-04 17:41:27
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030417-0005-0000-0000-00008ACAC832
-Message-Id: <72af3f948ad18b268c460f1c0a4d10f1@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-04_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=758 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903040128
+From: Patrick Venture <venture@google.com>
+Date: Mon, 4 Mar 2019 10:12:24 -0800
+Message-ID: <CAO=notzgE0XdR_paQsbzbS7jfoshdT=pti3kMZ0wObb7q6hU0g@mail.gmail.com>
+Subject: new repo request
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Kun Yi <kunyi731@gmail.com>, 
+ Natarajan Gurumoorthy <natg@google.com>,
+ Benjamin Fair <benjaminfair@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,16 +61,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 17:41:34 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 18:12:41 -0000
 
-This is a reminder of the OpenBMC Security Working Group meeting 
-scheduled for this Wednesday March 6 at 10:00am PDT.
+Brad,
 
-Current topics:
-- development items with security impact
-- default userids
+Please create a repo: ipmi-blob-tool (or) phosphor-blob-tool (at your
+discretion).
 
-Access, agenda, and notes are in the wiki:
-https://github.com/openbmc/openbmc/wiki/Security-working-group
+I'm going to write up the blob tool as a library and then a small
+utility, and then use that in phosphor-ipmi-flash so that we can have
+other blob tools more easily.  There are a few other use-cases we've
+run into, and the core blob code for the tool currently lives in
+phosphor-ipmi-flash, which is sub-ideal.
 
-- Joseph
+Patrick
