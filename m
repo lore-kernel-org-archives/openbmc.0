@@ -1,38 +1,79 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Csr10x8HzDq8g
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 08:00:48 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Received: from brads-mbp.dyn.fuzziesquirrel.com
- (Brads-MBP.dyn.fuzziesquirrel.com [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id C61A36DD31;
- Mon,  4 Mar 2019 16:00:44 -0500 (EST)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 12.2 \(3445.102.3\))
-Subject: Re: anyone interested in chip register error diagnostics?
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <AM4PR08MB2788F676F7BE8F10D8EFB90A80710@AM4PR08MB2788.eurprd08.prod.outlook.com>
-Date: Mon, 4 Mar 2019 16:01:16 -0500
-Cc: zshelle <zshelle@linux.vnet.ibm.com>,
- "ed.tanous@intel.com" <ed.tanous@intel.com>, Dong Wei <Dong.Wei@arm.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D80C3F77-70A1-4ECF-A492-97D6D28B9484@fuzziesquirrel.com>
-References: <d6c9b047b8906a7dabc6fc1acf7d7c2d@linux.vnet.ibm.com>
- <20190304203754.5piu2z2hj2yipomd@thinkpad>
- <AM4PR08MB2788F676F7BE8F10D8EFB90A80710@AM4PR08MB2788.eurprd08.prod.outlook.com>
-To: Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>
-X-Mailer: Apple Mail (2.3445.102.3)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Ctf55w7LzDqGC
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 08:37:14 +1100 (AEDT)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x24LWK8B042658
+ for <openbmc@lists.ozlabs.org>; Mon, 4 Mar 2019 16:37:12 -0500
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r18jdrg63-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 16:37:11 -0500
+Received: from localhost
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
+ Mon, 4 Mar 2019 21:37:11 -0000
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 4 Mar 2019 21:37:06 -0000
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x24Lb5OV63766670
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 4 Mar 2019 21:37:05 GMT
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 79A31136051;
+ Mon,  4 Mar 2019 21:37:05 +0000 (GMT)
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B5009136055;
+ Mon,  4 Mar 2019 21:37:04 +0000 (GMT)
+Received: from talon7.ibm.com (unknown [9.41.179.222])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon,  4 Mar 2019 21:37:04 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-aspeed@lists.ozlabs.org, devicetree@vger.kernel.org,
+ robh+dt@kernel.org, mark.rutland@arm.com, joel@jms.id.au,
+ andrew@aj.id.au, arnd@arndb.de, gregkh@linuxfoundation.org,
+ jk@ozlabs.org, openbmc@lists.ozlabs.org,
+ Eddie James <eajames@linux.ibm.com>
+Subject: [PATCH 1/6] dt-bindings: misc: Add Aspeed XDMA engine binding
+ documentation
+Date: Mon,  4 Mar 2019 15:36:55 -0600
+X-Mailer: git-send-email 1.8.3.1
+In-Reply-To: <1551735420-16202-1-git-send-email-eajames@linux.ibm.com>
+References: <1551735420-16202-1-git-send-email-eajames@linux.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 19030421-0016-0000-0000-0000098BE570
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010705; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01169658; UDB=6.00611233; IPR=6.00950286; 
+ MB=3.00025831; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-04 21:37:09
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030421-0017-0000-0000-000042587885
+Message-Id: <1551735420-16202-2-git-send-email-eajames@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-04_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903040151
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,75 +85,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 21:00:50 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 21:37:18 -0000
 
-oops=E2=80=A6I did not mean to take the list off copy.  Adding it back =
-on=E2=80=A6
+Document the bindings.
 
-> On Mar 4, 2019, at 3:56 PM, Supreeth Venkatesh =
-<Supreeth.Venkatesh@arm.com> wrote:
->=20
->=20
-> Thanks Brad.
->=20
-> Hi Zane/Brad,
->=20
-> On Arm Platforms, We use Common Platform Error Record (CPER) to report =
-these kinds of hardware errors.
-> The format of the errors are defined in Appendix N in UEFI =
-specification
-> =
-http://www.uefi.org/sites/default/files/resources/UEFI%20Spec%202_7_A%20Se=
-pt%206.pdf
->=20
-> I have not read the proposal in its entirety, but this seems similar =
-to Reliability, Availability, Serviceability (RAS) feature using
-> System Management Mode/Management Mode, but on the BMC side.
->=20
-> I will take a look at the reviews posted and provide more feedback.
->=20
-> If this is something similar to RAS feature, I have in fact proposed =
-in DMTF PMCI WG to include CPER formats to be added to one of
-> the PLDM specifications.
->=20
-> Arm would be interested in the design of this component, if it can =
-accommodate the above error formats and component can be designed in
-> an architecture agnostic way.
->=20
-> Thanks,
-> Supreeth
->=20
-> -----Original Message-----
-> From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> Sent: Monday, March 4, 2019 2:38 PM
-> To: zshelle <zshelle@linux.vnet.ibm.com>; Supreeth Venkatesh =
-<Supreeth.Venkatesh@arm.com>; ed.tanous@intel.com
-> Subject: Re: anyone interested in chip register error diagnostics?
->=20
-> On Mon, Mar 04, 2019 at 02:22:45PM -0600, zshelle wrote:
->> On POWER, I work on a component that listens for hardware errors
->> reported by registers in the system chips (processors, memory =
-buffers,
->> I/O chips, etc.) and performs service actions based on those errors. =
-I
->> have been working on porting some of this code to the BMC for system
->> fatal error analysis (see my work-in-progress proposals:
->> https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/ and
->> https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18831/). As =
-part
->> of the new design, we are building a generic, data-driven register
->> error isolator, which will be used by several applications within
->> POWER. However, it has the potential to be useful on other
->> architectures as well. I am curious if anyone in the community is
->> interested in this.
->=20
-> Thanks Zane - I'll tag Ed(x86) and Supreeth(arm) on this one.  Ed, =
-Supreeth - do you understand the function being proposed here?  How does =
-this work on x86 and arm servers?
->=20
-> thx - brad
-> IMPORTANT NOTICE: The contents of this email and any attachments are =
-confidential and may also be privileged. If you are not the intended =
-recipient, please notify the sender immediately and do not disclose the =
-contents to any other person, use it for any purpose, or store or copy =
-the information in any medium. Thank you.
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ .../devicetree/bindings/misc/aspeed,xdma.txt       | 23 ++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/misc/aspeed,xdma.txt
+
+diff --git a/Documentation/devicetree/bindings/misc/aspeed,xdma.txt b/Documentation/devicetree/bindings/misc/aspeed,xdma.txt
+new file mode 100644
+index 0000000..85e82ea
+--- /dev/null
++++ b/Documentation/devicetree/bindings/misc/aspeed,xdma.txt
+@@ -0,0 +1,23 @@
++* Device tree bindings for the Aspeed XDMA engine
++
++The XDMA Engine embedded in the AST2500 SOC can perform automatic DMA
++operations over PCI between the AST2500 (acting as a BMC) and a host processor.
++
++Required properties:
++
++ - compatible		"aspeed,ast2500-xdma"
++ - reg			contains the offset and length of the memory region
++			assigned to the XDMA registers
++ - resets		reset specifier for the syscon reset associated with
++			the XDMA engine
++ - interrupts		the interrupt associated with the XDMA engine on this
++			platform
++
++Example:
++
++    xdma@1e6e7000 {
++        compatible = "aspeed,ast2500-xdma";
++        reg = <0x1e6e7000 0x100>;
++        resets = <&syscon ASPEED_RESET_XDMA>;
++        interrupts = <6>;
++    };
+-- 
+1.8.3.1
