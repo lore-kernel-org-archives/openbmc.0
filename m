@@ -1,82 +1,68 @@
-Return-Path: <manivannan.sadhasivam@linaro.org>
+Return-Path: <kurt.r.taylor@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4864:20::542; helo=mail-pg1-x542.google.com;
- envelope-from=manivannan.sadhasivam@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::241; helo=mail-oi1-x241.google.com;
+ envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="nt1k1fUw"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="KsFdV86I"; 
  dkim-atps=neutral
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+Received: from mail-oi1-x241.google.com (mail-oi1-x241.google.com
+ [IPv6:2607:f8b0:4864:20::241])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 449vCY07XgzDqCR
- for <openbmc@lists.ozlabs.org>; Sat,  2 Mar 2019 02:55:48 +1100 (AEDT)
-Received: by mail-pg1-x542.google.com with SMTP id r124so11636931pgr.3
- for <openbmc@lists.ozlabs.org>; Fri, 01 Mar 2019 07:55:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to
- :user-agent; bh=jLIyFAifiRAgcvZD4ggavrGnBhF8t9ofKtSW3O8SPdo=;
- b=nt1k1fUwJM5poxCxYlEuws5SBVNeAlUTIEUk58bnjvn4bqDaBbUPnWWY9gbMmQ/wM6
- bGZEwLv4BPHl+SnqH3Jk5ehTLV/5HtuvoTBKYzpymvyrA9yqh2AiWzOqLodBkRAIOPWc
- lhQXgBObH4PtSaA6zW4FKU5+dSveES5jH1bmiV2PvzObWsAiTjoyaFeG8gIIQtjsHnV9
- JKa5raQ4yO5Xm72T97mn4jKpQr1FOArglRPv8vT7gam1j+QkJhht+MQBDPOp7uyeaUPL
- s/HjI+NFsHChvIY31DnDWQbj2w59Ga/F4Oidt/Ksf3bVg8u/i9Svib5zIm74DBKvFoNT
- hlKw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CRtz63ynzDq62
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 15:31:55 +1100 (AEDT)
+Received: by mail-oi1-x241.google.com with SMTP id t206so2834407oib.3
+ for <openbmc@lists.ozlabs.org>; Sun, 03 Mar 2019 20:31:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-language:content-transfer-encoding;
+ bh=kN+FARBgdodsUatS9pyf+uqyZObxOdmvC2NEbut/CCI=;
+ b=KsFdV86I4zbhgQTuH/I8HMabGx7/BTp3qHk0hbO6jGhUKR8/ra0NMRn8psl9UIdtww
+ cB3vb5aAPOptmrji30AUz+eR1oXpi5JAXjSfp1DFK0QQqwRbOEWV2rNvCvoQs5+B/jY4
+ bc/vLRpxwQ4iadh0X+/0qER3shFt9zFmirn58ecCE1BPoZgZm6y+NotFxEcUshIBw+zc
+ g2TJ1gUTSFgouoFuETc4cI7hRTuEVAtA339kB0gJz3zf1A+lRm9W7vVVgp0FJXwwKC8f
+ NMXlWeTTPy76l7Uq7ikyg1V2aaYPvxTIhIhgTl7QctfqfGuVFuabAHBU862BAyCuXuQ5
+ qClA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to:user-agent;
- bh=jLIyFAifiRAgcvZD4ggavrGnBhF8t9ofKtSW3O8SPdo=;
- b=TFvzt7QxrpgPldJuPNB+hSRePHC4dLSN6DYMPf/uq96miopDz18W8d+X8RuyoSJzCa
- VQE3F3XxZ1RhyupQYWVccxqOnMkrCY3G2IVnRA9mVXrRd0b34Q1yQw303JL68yPZKBdb
- FRkI6pPC/SIIzeD5X1CaFEVHESMEDnEbmAUkTrbzk8oka5GI1Vp3h/Tz7PZ4A3hj3jzS
- 1y0VAwWwPSwxlMAMEv30UqJhd87B/Am+OAF2dowL07HdcYVPGRFr706nBsTemZV0y9Cy
- KCqoTAnft2Tg5vUbH07MZve066MK4GObOSTQPWlvLrCuiGvpcjk3wHHIdHg1iG8N6KD1
- zVGg==
-X-Gm-Message-State: APjAAAUnwcr4lpQzSXOir7CPAx/p24pwgxe72CKj1pfnJ2jhIIg5axi4
- 8WZxzf4fNC3FVTDi5UOT3De1
-X-Google-Smtp-Source: APXvYqwKdl1qp9Psj2lcXh8SiEEmaJX0plH/RB2i6CpFukg+GA77tAJ9rxSY8+0yTca1CBEA64l8KA==
-X-Received: by 2002:a63:d80b:: with SMTP id b11mr5440880pgh.168.1551455744564; 
- Fri, 01 Mar 2019 07:55:44 -0800 (PST)
-Received: from Mani-XPS-13-9360 ([2409:4072:630c:677c:2dd3:3db1:5145:4da9])
- by smtp.gmail.com with ESMTPSA id b138sm48505561pfb.48.2019.03.01.07.55.26
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Fri, 01 Mar 2019 07:55:43 -0800 (PST)
-Date: Fri, 1 Mar 2019 21:25:23 +0530
-From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-To: Wen Yang <wen.yang99@zte.com.cn>, linus.walleij@linaro.org,
- afaerber@suse.de
-Cc: liviu.dudau@arm.com, sudeep.holla@arm.com, lorenzo.pieralisi@arm.com,
- linux@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, kgene@kernel.org, krzk@kernel.org,
- linux-samsung-soc@vger.kernel.org, michal.simek@xilinx.com,
- dinguyen@kernel.org, heiko@sntech.de,
- linux-rockchip@lists.infradead.org, f.fainelli@gmail.com,
- rjui@broadcom.com, sbranden@broadcom.com,
- bcm-kernel-feedback-list@broadcom.com, avifishman70@gmail.com,
- tmaimon77@gmail.com, venture@google.com, yuenn@google.com,
- brendanhiggins@google.com, openbmc@lists.ozlabs.org,
- xuwei5@hisilicon.com, maxime.ripard@bootlin.com, wens@csie.org,
- catalin.marinas@arm.com, will.deacon@arm.com, horms@verge.net.au,
- magnus.damm@gmail.com, linux-renesas-soc@vger.kernel.org,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- fabio.estevam@nxp.com, linux-imx@nxp.com, wang.yi59@zte.com.cn
-Subject: Re: [PATCH 01/15] ARM: actions: fix a leaked reference by
- addingmissing of_node_put
-Message-ID: <20190301155523.GA1915@Mani-XPS-13-9360>
-References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=kN+FARBgdodsUatS9pyf+uqyZObxOdmvC2NEbut/CCI=;
+ b=hzZzdLWvZYXTKgDty04fOJlifykxA2Pu1UQv57ChWiCh1qT8ea8wMK2cz8uoQo8gjs
+ EMX3gkWgq583tZztAJcUJ9v9E7g+si58WS/Qy0QuziPD4Xr/A5LvlVVmF6lsnRKaVHcm
+ Zu0fH1CAj4Z+k9QVsXKedopnttMqq8txZnDLl4qLxP+JXeo909iooTvmk2jl06BnYU0v
+ IHikfVWDUYuFePq2GVkd1a/xwwFIbVsfOAu/ZDqt95lEbiusVvwdZj3bCqWZzgZ0RgHH
+ qQe9HHXMxnts35X/3iyLC0z7HCsLfvfF1hCOxMLit/Hu+4lZh2b3E47D+BATjwy5y/oP
+ xYpQ==
+X-Gm-Message-State: AHQUAuY8Ebi9ysqj3Q/izAt72/ps5GVTA/feRcCLw8d2eV4kILcgq4UN
+ oiRthAEvSvrFxK9UWsRbwoYXNyKi
+X-Google-Smtp-Source: AHgI3IbqgdHH62y6PHvehIPrFAC4DgfoiHUw55c4ep/R0ZrwKX4Ae69bfCe4dg9OdLzkFEFQXVttTg==
+X-Received: by 2002:aca:5785:: with SMTP id l127mr10195272oib.14.1551673911806; 
+ Sun, 03 Mar 2019 20:31:51 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id m89sm2077185otc.7.2019.03.03.20.31.50
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 03 Mar 2019 20:31:51 -0800 (PST)
+Subject: Re: 2.7 Release Planning Guidelines - Features, Designs and Milestones
+To: Andrew Jeffery <andrew@aj.id.au>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
+ <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <3b42a0d2-3325-e002-d8bd-a7dc3c460c73@gmail.com>
+Date: Sun, 3 Mar 2019 22:31:49 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Mailman-Approved-At: Mon, 04 Mar 2019 13:02:06 +1100
+In-Reply-To: <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,68 +74,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Mar 2019 15:55:54 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 04:31:56 -0000
 
-Hi Wen,
-
-On Fri, Mar 01, 2019 at 04:56:42PM +0800, Wen Yang wrote:
-> The call to of_get_next_child returns a node pointer with refcount
-> incremented thus it must be explicitly decremented after the last
-> usage.
+On 3/3/19 5:16 PM, Andrew Jeffery wrote:
 > 
-> Detected by coccinelle with the following warnings:
-> ./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 103, but without a corresponding object release within this function.
-> ./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 115, but without a corresponding object release within this function.
-> ./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 128, but without a corresponding object release within this function.
 > 
-
-We have a floating patch for this:
-https://www.spinics.net/lists/arm-kernel/msg694544.html
-
-Andreas: Can you please take a second look at the patchset submitted by Linus
-Walleij and Russel for simplifying the Actions startup code?
-
-Thanks,
-Mani
-
-> Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
-> Cc: "Andreas Färber" <afaerber@suse.de>
-> Cc: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> ---
->  arch/arm/mach-actions/platsmp.c | 3 +++
->  1 file changed, 3 insertions(+)
+> On Sat, 2 Mar 2019, at 03:47, krtaylor wrote:
+>> All,
+>>
+>> At the last release planning meeting we agreed to start enforcing the
+>> design requirement for 2.7 release features. This gives the repo
+>> maintainer the authority to not merge major contributions without
+>> designs in place. Of course, the maintainer also has the discretion to
+>> "grandfather" in work that was previously underway that had designs
+>> socialized in IRC or email. I think having these designs in place will
+>> fix a lot of the release notes concerns, as well as level-setting what
+>> we're all working on.
 > 
-> diff --git a/arch/arm/mach-actions/platsmp.c b/arch/arm/mach-actions/platsmp.c
-> index 4fd479c..1a8e078 100644
-> --- a/arch/arm/mach-actions/platsmp.c
-> +++ b/arch/arm/mach-actions/platsmp.c
-> @@ -107,6 +107,7 @@ static void __init s500_smp_prepare_cpus(unsigned int max_cpus)
->  	}
->  
->  	timer_base_addr = of_iomap(node, 0);
-> +	of_node_put(node);
->  	if (!timer_base_addr) {
->  		pr_err("%s: could not map timer registers\n", __func__);
->  		return;
-> @@ -119,6 +120,7 @@ static void __init s500_smp_prepare_cpus(unsigned int max_cpus)
->  	}
->  
->  	sps_base_addr = of_iomap(node, 0);
-> +	of_node_put(node);
->  	if (!sps_base_addr) {
->  		pr_err("%s: could not map sps registers\n", __func__);
->  		return;
-> @@ -132,6 +134,7 @@ static void __init s500_smp_prepare_cpus(unsigned int max_cpus)
->  		}
->  
->  		scu_base_addr = of_iomap(node, 0);
-> +		of_node_put(node);
->  		if (!scu_base_addr) {
->  			pr_err("%s: could not map scu registers\n", __func__);
->  			return;
-> -- 
-> 2.9.5
+> What is the scope of these features? My gut instinct is it's something like
+> "high-level capability that OpenBMC does not yet have" as opposed to
+> "useful feature in existing platform-specific tool". Is there a description
+> somewhere of where we're drawing the line? I guess my question can
+> be rephrased as "what are we (explicitly) _not_ trying to control"?
+
+We are a new open source project that has all the typical communication 
+problems of teams that are not used to sharing what they are working on 
+now having to. It can't wait until they are ready to drop a huge chunk 
+of code. We are working toward breaking that cycle by starting early 
+sharing what we are working on (features). Then we will get more detail 
+(designs) and get needed feedback in the design reviews. When code 
+starts dropping (incrementally), everyone knows about what is being 
+delivered, and how the group intends on it functioning. This is about 
+communication and cooperation, not control.
 > 
+>>
+>> TLDR: if work has a feature issue created in github (tagged Release2.7),
+>> it MUST to have a design template filled out in order to be merged.
+>>
+>> Second, we agreed to set a VERY aggressive schedule for having all
+>> feature issue designs in place: *March 25th*  Obviously, that means that
+>> release feature issues need to be completed before then.
+>>
+>> Third, we also agreed to establish checkpoints for delivery of features
+>> so we can check the feature progress, seek community assistance, etc. We
+>> will establish Design, Code1, Code2, Freeze and Release milestones. They
+>> are mostly self-explanatory, with Code1 and Code2 being used for staging
+>> dependent work for instance. They will be approximately 6 week intervals.
+>>
+>> Finally, I am asking for EVERYONE'S help in making sure what you are
+>> working on falls into a openbmc/openbmc issue tagged Release2.7 (or
+>> Release2.8 for long-running projects). If not, and it is not a quick
+>> fix
+>> or small enhancement, please let your release planning rep know and
+>> help
+>> them get the feature issue created ASAP. Check here:
+>> https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
+>>
+>> As always, I am available for any questions. Find me on IRC or come to a
+>> release planning meeting and let's discuss.
+> 
+> I haven't been attending the release planning meetings; maybe I'm a bit
+> under-informed/out of line so take this with a grain of salt. However:
+> 
+> This all seems like a top-down attempt to manage a large-ish open source
+> project. Given everyone's diverse interest as a means to scratch their own
+> itch, I feel like the kernel's approach is something that we should be
+> modelling: Releases occur on a fixed cadence, and whether a feature makes
+> it into a given release is largely dictated by whether the maintainer of a given
+> subsystem feels its ready to go in rather than whether a particular label is
+
+Exactly what we are doing. The label is for release intention.
+
+> applied to a github issue. Having timed releases dictating included features
+> rather than features happening to land in a given timed release leads to
+> problems like serious slippage of release dates or merging of immature
+> features simply to meet the promised deadline. Best for things just to go in
+> when they are ready. If people need to ship the feature before it is integrated
+> upstream then the responsibility and burden is on their own (probably
+> internal) fork of the project. It's not something upstream should be saddled
+> with.
+
+Our release cycle is based on fixed dates, as are many other open source 
+projects. Unlike product release cycles, we will not slip a date to 
+finish a feature. If you miss the release train, you simply catch the 
+next one.
+
+> I'm not arguing against having designs or code freezes, but I am concerned
+> about language like "Finally, I am asking for EVERYONE'S help in making
+> sure what you are working on falls into a openbmc/openbmc issue tagged
+> Release2.7". It has a distasteful dictatorial ring to it for an open source project,
+> and to me it's a bit demotivating. Maybe that's not how it was intended?
+
+If someone if working on a new feature that has not been added to 
+github, then they need to talk to their release planning rep and get it 
+entered, or just add it themselves. The last thing we need is to 
+duplicate work. Again, this is about communication and cooperation, not 
+control.
+
+Thanks for your feedback,
+Kurt (krtaylor)
