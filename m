@@ -1,72 +1,55 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="V8R2G1G/"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="bz5fb9h5"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="GDk2GvQt"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44CJvw37PPzDqGS
- for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 10:17:14 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id DB9FC218A8;
- Sun,  3 Mar 2019 18:17:10 -0500 (EST)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Sun, 03 Mar 2019 18:17:10 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:subject
- :content-type; s=fm2; bh=3LpoDF0xxyCXslZU8qbXrkwqVggREI+gOGJCmZP
- Vk4c=; b=V8R2G1G/R7h9wKOE5s1U+Ir1Yu9n00L8iHrrxgsrY/4SuXEa+FPMpmb
- Y5y6x9jwFymnYZ/RpEDgCjk8Vde0FkSUYKXkQYzZhsdXBlH5g70PEsnWTW+rZ/CW
- 4x4KEtEfCcRCkdejdTkdMycTvlESvLp/M1W4lDQ2pH3my3QNyxgepbLZG9L1Kmbs
- 4r/igjVfBh5HGYviw92lfq900p3q+xiQcRxMgTEGCpayMRMw48jEagMoM/ibvRzq
- RjYWCxoPK3wCY/hl18ibFReXFR3T2nCLj1+IwNZ8lhxHeFM4gTTZupBg5UrA2AaI
- /rli8vQJp8WDAhySllZubByuAc776og==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=3LpoDF0xxyCXslZU8
- qbXrkwqVggREI+gOGJCmZPVk4c=; b=bz5fb9h51SpnddJ0c66RwFGYqeu7r6CzU
- RyPxzoaSCb/Xz+b9YBGYBkBrRJ9F9cn83uhlnK6Xmr8ZhmiOorRvTgi87yoA0UMm
- CBTPftnP5rorpq16NL1mgwdFKmRbktCzp9gFWhzkkOnStCEDpZo9KKEd0GG4VgwF
- D2g2KmSgnZ9b9eIxf6ZC2g60f7MDdntzA+gymkisnY1VFVnP11C14yI4kV9EOoIZ
- YWBpC6kOKF/cxOcrHx1nRJdw1yyxI5vN7KLvY3Q7xjVelOoKV5MmW02AWNDOfilc
- NVe4yXCLps4+Q2KLkGOoDgTZk9GW6lEFKfk/N0ebjub5U7sgypLJQ==
-X-ME-Sender: <xms:dmB8XNV27FmeI4lB7gdtsRoOgu7_ZjKGCetgiXXwE-GlfvjPxAFKfg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrfedtgddtiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgurhgv
- ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrih
- hnpehgihhthhhusgdrtghomhenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgif
- segrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:dmB8XLf8oncPVrd2u5-rG8Np7_t7jMPhy9WhxnahEHvZNiZ0nsXawg>
- <xmx:dmB8XCd4-7XAhxlEeOtk2AqkPd8RAi5kYMCqu-vgssGrNohRHnLazQ>
- <xmx:dmB8XBmQC5vQFXNcwp8qt8BM1PZfwaJyRfP59HA8JGBUd_lIPNEbvA>
- <xmx:dmB8XOUfNI8KIrMhLCsZsYToUJSBDLzz_Vi0a8IRW8eNxCcQGAsFmA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 4C5C57C538; Sun,  3 Mar 2019 18:17:10 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
-X-Me-Personality: 52947553
-Message-Id: <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
-In-Reply-To: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
-References: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
-Date: Sun, 03 Mar 2019 18:16:40 -0500
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Kurt Taylor" <kurt.r.taylor@gmail.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: =?UTF-8?Q?Re:_2.7_Release_Planning_Guidelines_-_Features,
- _Designs_and_Mi?= =?UTF-8?Q?lestones?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CMQ12Q85zDqDB
+ for <openbmc@lists.ozlabs.org>; Mon,  4 Mar 2019 12:09:58 +1100 (AEDT)
+Received: by mail-qt1-x842.google.com with SMTP id p25so3568803qtb.3
+ for <openbmc@lists.ozlabs.org>; Sun, 03 Mar 2019 17:09:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=w6SUO75icvxrFJX86Ll5DkRqK97XFqz6DiugkcS+Sc4=;
+ b=GDk2GvQtOPHP2YxPs3e/+JD0/igf2MqRjUsrMHQDEIEWVll+DT687g9dqsKBv5ziWg
+ 7kh1wM2FqDqQ1i/ao7dsWhAI7bqJnvB0AngftnNnp7qFFgKX2KPmEqMonZQhbd24qAh2
+ LT5YXjx5BDVJe1sLZko9hasRoj4/XYDib+T/I=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=w6SUO75icvxrFJX86Ll5DkRqK97XFqz6DiugkcS+Sc4=;
+ b=jWjXELKVrr041EBVENdV0mBBW29blecOVnzeumQjeo3oJnM2ktL2C9O0MvFJrk5bUP
+ rHs+HaLsSGTV/McN+hvGYmpI+XrnmpkZhj1DpkaCotmdkjV5KKipbpuQrj/f+rXuKRo9
+ h8r2Vuiqv89Hh9rnJRwPIveBeyKS4XerQzS7qqVVYSLJ89Nj3RhYFpcYYzPH34k2jXQF
+ 2MMebBRCs76/GHq9VqmZQ0YurkugJM9X1ilFvWCMj1etUwNezW11qxvWMhVeZsoQLLnn
+ kxasfGTbA1gTbrM+hM1k79MV4AjyFttt32KUi1nZvY4+82dPV7F/89KPi04mkXHOTOGD
+ 64FA==
+X-Gm-Message-State: APjAAAVCy84N5L34YguaFVyW9ywvfC0FXrnVKm0qpTHxHQNY87+QcL5w
+ i3GwUyl5bvtFfFq7IfFgQDXyp8gmAd1eqNYP4Ew=
+X-Google-Smtp-Source: APXvYqxbW4Y7mJCflDPWlA9TtLizx3M3G6jrVKHnmj/xxvuF4zLEvFuS6AZWFEnkC2+cvHPsOmbJc05PEc0vQQH/HMs=
+X-Received: by 2002:ac8:2d85:: with SMTP id p5mr13149412qta.136.1551661794717; 
+ Sun, 03 Mar 2019 17:09:54 -0800 (PST)
+MIME-Version: 1.0
+References: <20190228094925.5419-1-fran.hsu@quantatw.com>
+In-Reply-To: <20190228094925.5419-1-fran.hsu@quantatw.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 4 Mar 2019 11:39:42 +1030
+Message-ID: <CACPK8XcDgnyYpg-QfZOGj5-xTScWUpyhEUigWadGzZQ8kkeH4A@mail.gmail.com>
+Subject: Re: [PATCH dev-4.19 v3] Add Quanta GSJ board device tree v2.
+To: fran.hsu@quantatw.com
+Cc: Benjamin Fair <benjaminfair@google.com>,
+ Emily Shaffer <emilyshaffer@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,76 +61,665 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 03 Mar 2019 23:17:20 -0000
+X-List-Received-Date: Mon, 04 Mar 2019 01:10:03 -0000
 
+Hello Fran,
 
+Thanks for the patch.
 
-On Sat, 2 Mar 2019, at 03:47, krtaylor wrote:
-> All,
-> 
-> At the last release planning meeting we agreed to start enforcing the 
-> design requirement for 2.7 release features. This gives the repo 
-> maintainer the authority to not merge major contributions without 
-> designs in place. Of course, the maintainer also has the discretion to 
-> "grandfather" in work that was previously underway that had designs 
-> socialized in IRC or email. I think having these designs in place will 
-> fix a lot of the release notes concerns, as well as level-setting what 
-> we're all working on.
+On Thu, 28 Feb 2019 at 20:19, <fran.hsu@quantatw.com> wrote:
+>
+> From: FranHsu <Fran.Hsu@quantatw.com>
+>
+> Add device tree source include file nuvoton-npcm730-gsj-gpio.dtsi for setting pinctrl definition.
 
-What is the scope of these features? My gut instinct is it's something like
-"high-level capability that OpenBMC does not yet have" as opposed to
-"useful feature in existing platform-specific tool". Is there a description
-somewhere of where we're drawing the line? I guess my question can
-be rephrased as "what are we (explicitly) _not_ trying to control"?
+I suggest you use the commit message to describe the system you are
+adding. See some of the aspeed systems for an example:
 
-> 
-> TLDR: if work has a feature issue created in github (tagged Release2.7), 
-> it MUST to have a design template filled out in order to be merged.
-> 
-> Second, we agreed to set a VERY aggressive schedule for having all 
-> feature issue designs in place: *March 25th*  Obviously, that means that 
-> release feature issues need to be completed before then.
-> 
-> Third, we also agreed to establish checkpoints for delivery of features 
-> so we can check the feature progress, seek community assistance, etc. We 
-> will establish Design, Code1, Code2, Freeze and Release milestones. They 
-> are mostly self-explanatory, with Code1 and Code2 being used for staging 
-> dependent work for instance. They will be approximately 6 week intervals.
-> 
-> Finally, I am asking for EVERYONE'S help in making sure what you are 
-> working on falls into a openbmc/openbmc issue tagged Release2.7 (or 
-> Release2.8 for long-running projects). If not, and it is not a quick 
-> fix 
-> or small enhancement, please let your release planning rep know and 
-> help 
-> them get the feature issue created ASAP. Check here: 
-> https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
-> 
-> As always, I am available for any questions. Find me on IRC or come to a 
-> release planning meeting and let's discuss.
+https://git.kernel.org/torvalds/c/f88bc8e15f1
 
-I haven't been attending the release planning meetings; maybe I'm a bit
-under-informed/out of line so take this with a grain of salt. However:
+ > ARM: dts: aspeed: Add Qanta Q71L BMC machine
+ >
+ > The Qanta Q71L BMC is an ASPEED ast2400 based BMC that is part of a
+Qanta x86 server.
 
-This all seems like a top-down attempt to manage a large-ish open source
-project. Given everyone's diverse interest as a means to scratch their own
-itch, I feel like the kernel's approach is something that we should be
-modelling: Releases occur on a fixed cadence, and whether a feature makes
-it into a given release is largely dictated by whether the maintainer of a given
-subsystem feels its ready to go in rather than whether a particular label is
-applied to a github issue. Having timed releases dictating included features
-rather than features happening to land in a given timed release leads to
-problems like serious slippage of release dates or merging of immature
-features simply to meet the promised deadline. Best for things just to go in
-when they are ready. If people need to ship the feature before it is integrated
-upstream then the responsibility and burden is on their own (probably
-internal) fork of the project. It's not something upstream should be saddled
-with.
+> Tested: This commit could build successfully with the Nuvoton kernel branch "Poleg-4.19.16-OpenBMC".
+>     And it could be booted on EVB.
 
-I'm not arguing against having designs or code freezes, but I am concerned
-about language like "Finally, I am asking for EVERYONE'S help in making
-sure what you are working on falls into a openbmc/openbmc issue tagged
-Release2.7". It has a distasteful dictatorial ring to it for an open source project,
-and to me it's a bit demotivating. Maybe that's not how it was intended?
+As you're asking this to be applied to the dev-4.19 branch, you should
+be testing it on top of the latest dev-4.19 kernel tree. Similarly, if
+you were submitting it for mainline inclusion, you should test on top
+of the latest release of mainline.
 
-Andrew
+I recommend submitting this patch for upstream inclusion, as we do for
+the aspeed device trees.
+
+> Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
+> ---
+>  .../boot/dts/nuvoton-npcm730-gsj-gpio.dtsi    | 2452 +++++++++++++++++
+>  arch/arm/boot/dts/nuvoton-npcm730-gsj.dts     |  550 ++++
+>  2 files changed, 3002 insertions(+)
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+>  create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
+>
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+> new file mode 100644
+> index 000000000000..cf51cf3281cb
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+> @@ -0,0 +1,2452 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
+> +// Update by Fran.Hsu@qunatatw.com
+
+If your changes are copyrightable, then please add a copyright line
+with the copyright owner (your company?). You can chose to have your
+name there too, but this is not required as the git history will
+contain your name if someone needs this information in the future.
+
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
+> new file mode 100644
+> index 000000000000..411387ee2f62
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
+> @@ -0,0 +1,550 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +// Copyright (c) 2019 Quanta Computer lnc. Fran.Hsu@quantatw.com
+
+This copyright line looks good.
+
+> +
+> +/dts-v1/;
+> +#include "nuvoton-npcm730.dtsi"
+
+This file does not exist, so your patch breaks the kernel build. This
+is why it is important to test on the branch you intend the patch to
+apply to.
+
+Please send a patch to add nuvoton-npcm730.dtsi.
+
+> +#include "nuvoton-npcm733-gsj-gpio.dtsi"
+> +/ {
+> +       model = "Quanta GSJ Board (Device Tree v2))";
+> +       compatible = "nuvoton,npcm750";
+> +
+> +       aliases {
+> +               ethernet1 = &gmac0;
+> +               serial3 = &serial3;
+> +               udc9 = &udc9;
+> +               i2c0 = &i2c0;
+> +               i2c1 = &i2c1;
+> +               i2c2 = &i2c2;
+> +               i2c3 = &i2c3;
+> +               i2c4 = &i2c4;
+> +               i2c5 = &i2c5;
+> +               i2c6 = &i2c6;
+> +               i2c7 = &i2c7;
+> +               i2c8 = &i2c8;
+> +               i2c9 = &i2c9;
+> +               i2c10 = &i2c10;
+> +               i2c11 = &i2c11;
+> +               i2c12 = &i2c12;
+> +               i2c13 = &i2c13;
+> +               i2c14 = &i2c14;
+> +               i2c15 = &i2c15;
+> +               spi0 = &spi0;
+> +               spi1 = &spi1;
+> +               fiu0 = &fiu0;
+> +               fiu1 = &fiu3;
+> +               fiu2 = &fiux;
+> +       };
+
+Do you need all of these aliases? Most of the numbering (eg. i2c)
+should come out the same without these.
+
+> +
+> +       chosen {
+> +               stdout-path = &serial3;
+> +       };
+> +
+> +       memory {
+> +               reg = <0 0x40000000>;
+> +       };
+> +
+> +       ahb {
+> +               gmac0: eth@f0802000 {
+> +                       reg = <0xf0802000 0x2000>;
+
+I haven't seen the npcm730 dtsi, but I assume it is similar to the
+npcm750 which already contains the full ethernet node. If this is the
+case, you only need to do this:
+
+&gmac0 {
+    phy-mode = "rgmii-id";
+    status = "okay";
+};
+
+> +                       phy-mode = "rgmii-id";
+
+I don't think the phy-mode property make sense if it's using NCSI.
+
+> +                       status = "okay";
+> +               };
+> +               emc0: eth@f0825000 {
+> +                       phy-mode = "rmii";
+
+I don't think the phy-mode makes sense if it's using NCSI.
+
+We should change the NCSI layer to support phy-mode = "ncsi".
+
+> +                       use-ncsi; /* add this to support ncsi */
+
+You can remove this comment.
+
+> +                       status = "okay";
+> +               };
+> +               ehci1: usb@f0806000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               ohci1: ohci@f0807000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               udc9:udc@f0839000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               aes:aes@f0858000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               sha:sha@f085a000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               fiu0: fiu@fb000000 {
+> +                       pinctrl-names = "default";
+> +                       pinctrl-0 = <&spi0cs1_pins>;
+> +                       status = "okay";
+> +                       spi-nor@0 {
+> +                               compatible = "jedec,spi-nor";
+> +                               #address-cells = <1>;
+> +                               #size-cells = <1>;
+> +                               reg = <0>;
+> +                               spi-rx-bus-width = <2>;
+> +                               partitions@80000000 {
+> +                                               compatible = "fixed-partitions";
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <1>;
+> +                                               bmc@0{
+> +                                                       label = "bmc";
+> +                                                       reg = <0x000000 0x4000000>;
+> +                                               };
+> +                                               u-boot@0 {
+> +                                                       label = "u-boot";
+> +                                                       reg = <0x0000000 0x80000>;
+> +                                               };
+> +                                               envparam@100000 {
+> +                                                       label = "env-param";
+> +                                                       reg = <0x0100000 0x40000>;
+> +                                               };
+> +                                               kernel@200000 {
+> +                                                       label = "kernel";
+> +                                                       reg = <0x0200000 0x580000>;
+> +                                               };
+> +                                               rofs@C00000 {
+> +                                                       label = "rofs";
+> +                                                       reg = <0x0C00000 0x2600000>;
+> +                                               };
+> +                                               rwfs@3200000 {
+> +                                                       label = "rwfs";
+> +                                                       reg = <0x3200000 0xE00000>;
+> +                                               };
+> +                               };
+> +                       };
+> +               };
+> +
+> +               fiu3: fiu@c0000000 {
+> +                       pinctrl-0 = <&spi3_pins>;
+> +                       status = "disabled";
+
+It is unnecessary to add the node and then set it to disabled. You can
+simply omit these nodes.
+
+Reading the rest of this device tree, it looks like a number of the
+contents should be in the SoC definition (npcm730.dsti) so it can be
+shared among systems that use the npcm730.
+
+Cheers,
+
+Joel
+
+> +               };
+> +
+> +               fiux: fiu@fb001000 {
+> +                       status = "disabled";
+> +                       spix-mode;
+> +               };
+> +
+> +               sdhci0: sdhci@f0842000 {
+> +                       status = "disabled";
+> +               };
+> +
+> +               pcimbox: pcimbox@f0848000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               vcd: vcd@f0810000 {
+> +                       status = "disabled";
+> +               };
+> +
+> +               ece: ece@f0820000 {
+> +                       status = "okay";
+> +               };
+> +
+> +               apb {
+> +
+> +                       watchdog1: watchdog@901C {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       rng: rng@b000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       serial0: serial@1000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       serial1: serial@2000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       serial2: serial@3000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       serial3: serial@4000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       adc: adc@c000 {
+> +                               status = "okay";
+> +                       };
+> +                       otp:otp@189000 {
+> +                               status = "okay";
+> +                       };
+> +
+> +                       i2c0: i2c@80000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "disabled";
+> +                       };
+> +
+> +                       i2c1: i2c@81000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               lm75@5c {
+> +                                       compatible = "maxim,max31725";
+> +                                       reg = <0x5c>;
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +
+> +                       i2c2: i2c@82000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               lm75@5c {
+> +                                       compatible = "maxim,max31725";
+> +                                       reg = <0x5c>;
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +
+> +                       i2c3: i2c@83000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               lm75@5c {
+> +                                       compatible = "maxim,max31725";
+> +                                       reg = <0x5c>;
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +
+> +                       i2c4: i2c@84000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               lm75@5c {
+> +                                       compatible = "maxim,max31725";
+> +                                       reg = <0x5c>;
+> +                                       status = "okay";
+> +                               };
+> +                       };
+> +
+> +                       i2c5: i2c@85000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "disabled";
+> +                       };
+> +
+> +                       i2c6: i2c@86000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "disabled";
+> +                       };
+> +
+> +                       i2c7: i2c@87000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "disabled";
+> +                       };
+> +
+> +                       i2c8: i2c@88000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                       };
+> +
+> +                       i2c9: i2c@89000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               eeprom@55 {
+> +                                       compatible = "atmel,24c64";
+> +                                       reg = <0x55>;
+> +                               };
+> +                       };
+> +
+> +                       i2c10: i2c@8a000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                               eeprom@55 {
+> +                                       compatible = "atmel,24c64";
+> +                                       reg = <0x55>;
+> +                               };
+> +                       };
+> +
+> +                       i2c11: i2c@8b000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +
+> +                               /* P12V Quarter Brick DC/DC Power Module Q54SH12050 @60 */
+> +                               power-brick@36 {
+> +                                       compatible = "delta,dps800";
+> +                                       reg = <0x36>;
+> +                               };
+> +                               hotswap@15 {
+> +                                       compatible = "ti,lm5066i";
+> +                                       reg = <0x15>;
+> +                               };
+> +                       };
+> +
+> +                       i2c12: i2c@8c000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                       };
+> +
+> +                       i2c13: i2c@8d000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                       };
+> +
+> +                       i2c14: i2c@8e000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +                       };
+> +
+> +                       i2c15: i2c@8f000 {
+> +                               #address-cells = <1>;
+> +                               #size-cells = <0>;
+> +                               bus-frequency = <100000>;
+> +                               status = "okay";
+> +
+> +                               i2c-switch@75 {
+> +                                       compatible = "nxp,pca9548";
+> +                                       #address-cells = <1>;
+> +                                       #size-cells = <0>;
+> +                                       reg = <0x75>;
+> +                                       i2c-mux-idle-disconnect;
+> +
+> +                                       i2c_u20: i2c-bus@0 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <0>;
+> +                                       };
+> +
+> +                                       i2c_u21: i2c-bus@1 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <1>;
+> +                                       };
+> +
+> +                                       i2c_u22: i2c-bus@2 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <2>;
+> +                                       };
+> +
+> +                                       i2c_u23: i2c-bus@3 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <3>;
+> +                                       };
+> +
+> +                                       i2c_u24: i2c-bus@4 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <4>;
+> +                                       };
+> +
+> +                                       i2c_u25: i2c-bus@5 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <5>;
+> +                                       };
+> +
+> +                                       i2c_u26: i2c-bus@6 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <6>;
+> +                                       };
+> +
+> +                                       i2c_u27: i2c-bus@7 {
+> +                                               #address-cells = <1>;
+> +                                               #size-cells = <0>;
+> +                                               reg = <7>;
+> +                                       };
+> +                               };
+> +                       };
+> +
+> +                       pwm_fan:pwm-fan-controller@103000 {
+> +                               pinctrl-names = "default";
+> +                               pinctrl-0 = <   &pwm0_pins &pwm1_pins &pwm2_pins
+> +                                               &fanin0_pins &fanin1_pins
+> +                                               &fanin2_pins &fanin3_pins
+> +                                               &fanin4_pins &fanin5_pins>;
+> +                               status = "okay";
+> +                               fan@0 {
+> +                                       reg = <0x00>;
+> +                                       fan-tach-ch = /bits/ 8 <0x00 0x01>;
+> +                                       cooling-levels = <127 255>;
+> +                               };
+> +                               fan@1 {
+> +                                       reg = <0x01>;
+> +                                       fan-tach-ch = /bits/ 8 <0x02 0x03>;
+> +                                       cooling-levels = /bits/ 8 <127 255>;
+> +                               };
+> +                               fan@2 {
+> +                                       reg = <0x02>;
+> +                                       fan-tach-ch = /bits/ 8 <0x04 0x05>;
+> +                                       cooling-levels = /bits/ 8 <127 255>;
+> +                               };
+> +                               fan@3 {
+> +                                       reg = <0x03>;
+> +                                       fan-tach-ch = /bits/ 8 <0x06 0x07>;
+> +                                       cooling-levels = /bits/ 8 <127 255>;
+> +                               };
+> +                               fan@4 {
+> +                                       reg = <0x04>;
+> +                                       fan-tach-ch = /bits/ 8 <0x08 0x09>;
+> +                                       cooling-levels = /bits/ 8 <127 255>;
+> +                               };
+> +                               fan@5 {
+> +                                       reg = <0x05>;
+> +                                       fan-tach-ch = /bits/ 8 <0x0A 0x0B>;
+> +                                       cooling-levels = /bits/ 8 <127 255>;
+> +                               };
+> +                       };
+> +
+> +                       spi0: spi@200000 {
+> +                               status = "disabled";
+> +                       };
+> +
+> +                       spi1: spi@201000 {
+> +                               status = "disabled";
+> +                       };
+> +
+> +               };
+> +       };
+> +
+> +       pinctrl: pinctrl@f0800000 {
+> +               pinctrl-names = "default";
+> +               pinctrl-0 = <
+> +                               /* GPI pins*/
+> +                               &gpio8_pins
+> +                               &gpio9_pins
+> +                               &gpio12_pins
+> +                               &gpio13_pins
+> +                               &gpio14_pins
+> +                               &gpio60_pins
+> +                               &gpio83_pins
+> +                               &gpio91_pins
+> +                               &gpio92_pins
+> +                               &gpio95_pins
+> +                               &gpio136_pins
+> +                               &gpio137_pins
+> +                               &gpio141_pins
+> +                               &gpio144_pins
+> +                               &gpio145_pins
+> +                               &gpio146_pins
+> +                               &gpio147_pins
+> +                               &gpio148_pins
+> +                               &gpio149_pins
+> +                               &gpio150_pins
+> +                               &gpio151_pins
+> +                               &gpio152_pins
+> +                               &gpio153_pins
+> +                               &gpio154_pins
+> +                               &gpio155_pins
+> +                               &gpio156_pins
+> +                               &gpio157_pins
+> +                               &gpio158_pins
+> +                               &gpio159_pins
+> +                               &gpio161_pins
+> +                               &gpio162_pins
+> +                               &gpio163_pins
+> +                               &gpio164_pins
+> +                               &gpio165_pins
+> +                               &gpio166_pins
+> +                               &gpio167_pins
+> +                               &gpio168_pins
+> +                               &gpio169_pins
+> +                               &gpio170_pins
+> +                               &gpio177_pins
+> +                               &gpio191_pins
+> +                               &gpio192_pins
+> +                               &gpio203_pins
+> +                               /* GPO pins*/
+> +                               &gpio0od_pins
+> +                               &gpio1od_pins
+> +                               &gpio2od_pins
+> +                               &gpio3od_pins
+> +                               &gpio4od_pins
+> +                               &gpio5od_pins
+> +                               &gpio6od_pins
+> +                               &gpio7od_pins
+> +                               &gpio10od_pins
+> +                               &gpio11od_pins
+> +                               &gpio15od_pins
+> +                               &gpio17od_pins
+> +                               &gpio18od_pins
+> +                               &gpio19od_pins
+> +                               &gpio24od_pins
+> +                               &gpio25od_pins
+> +                               &gpio37od_pins
+> +                               &gpio59od_pins
+> +                               &gpio72od_pins
+> +                               &gpio73od_pins
+> +                               &gpio74od_pins
+> +                               &gpio75od_pins
+> +                               &gpio76od_pins
+> +                               &gpio77od_pins
+> +                               &gpio78od_pins
+> +                               &gpio79od_pins
+> +                               &gpio84od_pins
+> +                               &gpio85od_pins
+> +                               &gpio86od_pins
+> +                               &gpio87od_pins
+> +                               &gpio88od_pins
+> +                               &gpio89od_pins
+> +                               &gpio90od_pins
+> +                               &gpio93od_pins
+> +                               &gpio94od_pins
+> +                               &gpio125od_pins
+> +                               &gpio126od_pins
+> +                               &gpio127od_pins
+> +                               &gpio142od_pins
+> +                               &gpio143ol_pins
+> +                               &gpio175od_pins
+> +                               &gpio176od_pins
+> +                               &gpio190od_pins
+> +                               &gpio194od_pins
+> +                               &gpio195od_pins
+> +                               &gpio196od_pins
+> +                               &gpio197od_pins
+> +                               &gpio198od_pins
+> +                               &gpio199od_pins
+> +                               &gpio200od_pins
+> +                               &gpio202od_pins
+> +                               >;
+> +       };
+> +
+> +
+> +
+> +       leds {
+> +               compatible = "gpio-leds";
+> +               pinctrl-names = "default";
+> +               pinctrl-0 = <&gpio143ol_pins>;
+> +
+> +               led {
+> +                       label = "led-bmc-live";
+> +                       gpios = <&gpio4 15 GPIO_ACTIVE_HIGH>;
+> +                       linux,default-trigger = "heartbeat";
+> +               };
+> +       };
+> +};
+> +
+> --
+> 2.21.0
+>
