@@ -1,56 +1,57 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <wen.yang99@zte.com.cn>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::72e; helo=mail-qk1-x72e.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=zte.com.cn
+ (client-ip=202.103.147.172; helo=mxct.zte.com.cn;
+ envelope-from=wen.yang99@zte.com.cn; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="XKjXRKPE"; 
- dkim-atps=neutral
-Received: from mail-qk1-x72e.google.com (mail-qk1-x72e.google.com
- [IPv6:2607:f8b0:4864:20::72e])
+ dmarc=none (p=none dis=none) header.from=zte.com.cn
+Received: from mxct.zte.com.cn (out1.zte.com.cn [202.103.147.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44F86K2gQgzDqBj
- for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 09:47:36 +1100 (AEDT)
-Received: by mail-qk1-x72e.google.com with SMTP id m9so7889286qkl.4
- for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2019 14:47:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=TXAmMnjkA+lC+isrBEmiDUWN/cyxYv1GGoairVayasY=;
- b=XKjXRKPE7I5xjHt2EAz4ucmGLuEImjEI90EG9JCeh7iCltvXCw+7xGAH7Qri0ykw8F
- zjS9QaBWYnhbG4Bssy6Pxgbw6j1aGxMKyCaeT68LVy+zimsRqz6VAvPy8vj7PAnxRlWY
- tz+jKfDHIk9BuM3jIceDreOG7gb73ChmRPQWvrCuKQerOy1mA+NUu9eXcMWupPU4csDd
- NmxEyGy84oFkUwr33ktB8VTEd2+ZGfI7r8YoHP4XGZOM7vQrr504BUM/jTBG6en7O6vy
- KWCpr3g2a22OVnx0w+jawkvQfxu6exJe9d4/7zIscv1L3g7af7v8bSX4gR+8tPuWJxCP
- 5aeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=TXAmMnjkA+lC+isrBEmiDUWN/cyxYv1GGoairVayasY=;
- b=NtLRk9eBDsqOY7div2xRjECeTiRjG9Uv9a2X4NaB6l3eGJiPlQRkVybjUhdEuusAs5
- o3Z+EPTlNW0jF+d2TyBEVDEu8gmhiJQTjHYkKNF3OZ8xxPeaR0K+SQnVZHAPKwQ0lwYz
- IEEC5NTxxLBMTQqEF7XlVXiLzGeE//AD64e1Mj8UFt4JRWud6SUNYGLxo/pxvgEjpDBY
- YWHlxM9rbWfK69ptIf+a5a4xi7+ytNIVo5ed/EKWnG6ZoAaX/fjtmxx9m9q7+V2AHv+A
- CLO+D4h0ScGcNh0fzsboVuLtwZm5k7UDOEeP22ZpiMf/pWgM7270XHTyaiomfP9JXRXv
- W32g==
-X-Gm-Message-State: APjAAAVXsU9UnsbD79/Q7zcW1zEMZF16UBuQ2JPAbyVZyIcxrLDu/yiK
- o0gpkCrU2QxeY8Vv2j7BUh46JmauIoblk4g7SFxIAQ==
-X-Google-Smtp-Source: APXvYqwIOIMOhiZ2atF5xn82tcm7wMYaKwQ+qgU0oUbE2eLT+q2N4s8tSD0H/LsnhgLVWx4qYld0mZfWfQv7meqi9RQ=
-X-Received: by 2002:a37:370c:: with SMTP id e12mr7576239qka.64.1551912452786; 
- Wed, 06 Mar 2019 14:47:32 -0800 (PST)
-MIME-Version: 1.0
-References: <CAO9PYRJjBTPEgymzS5aygU_=e2dBqDwMezFF2iOZ-Ah016dhYQ@mail.gmail.com>
-In-Reply-To: <CAO9PYRJjBTPEgymzS5aygU_=e2dBqDwMezFF2iOZ-Ah016dhYQ@mail.gmail.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Wed, 6 Mar 2019 14:47:21 -0800
-Message-ID: <CAJoAoZmWD_jx+qCtJV-KOXRGa0GO0w3JpOO_q4GHJ0KzR8LKuQ@mail.gmail.com>
-Subject: Re: Sensor value calculation formula
-To: Deng Tyler <tyler.sabdon@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CzmW46b4zDqGM
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 12:28:07 +1100 (AEDT)
+Received: from mse01.zte.com.cn (unknown [10.30.3.20])
+ by Forcepoint Email with ESMTPS id 6A5DDF726F468D4A253C;
+ Tue,  5 Mar 2019 09:28:02 +0800 (CST)
+Received: from kjyxapp05.zte.com.cn ([10.30.12.204])
+ by mse01.zte.com.cn with SMTP id x251RtkC037230;
+ Tue, 5 Mar 2019 09:27:55 +0800 (GMT-8)
+ (envelope-from wen.yang99@zte.com.cn)
+Received: from mapi (kjyxapp05[null]) by mapi (Zmail) with MAPI id mid14;
+ Tue, 5 Mar 2019 09:27:55 +0800 (CST)
+Date: Tue, 5 Mar 2019 09:27:55 +0800 (CST)
+X-Zmail-TransId: 2b075c7dd09bbcf7ae7f
+X-Mailer: Zmail v1.0
+Message-ID: <201903050927558424426@zte.com.cn>
+In-Reply-To: <20190304144606.GA7466@e107155-lin>
+References: 1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn,
+ 20190304144606.GA7466@e107155-lin
+Mime-Version: 1.0
+From: <wen.yang99@zte.com.cn>
+To: <sudeep.holla@arm.com>
+Cc: <liviu.dudau@arm.com>, <lorenzo.pieralisi@arm.com>,
+ <linux@armlinux.org.uk>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>, <kgene@kernel.org>, <krzk@kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, <michal.simek@xilinx.com>,
+ <afaerber@suse.de>, <manivannan.sadhasivam@linaro.org>,
+ <dinguyen@kernel.org>, <heiko@sntech.de>,
+ <linux-rockchip@lists.infradead.org>, <f.fainelli@gmail.com>,
+ <rjui@broadcom.com>, <sbranden@broadcom.com>,
+ <bcm-kernel-feedback-list@broadcom.com>, <linus.walleij@linaro.org>,
+ <avifishman70@gmail.com>, <tmaimon77@gmail.com>, <venture@google.com>,
+ <yuenn@google.com>, <brendanhiggins@google.com>,
+ <openbmc@lists.ozlabs.org>, <xuwei5@hisilicon.com>,
+ <maxime.ripard@bootlin.com>, <wens@csie.org>,
+ <catalin.marinas@arm.com>, <will.deacon@arm.com>, <horms@verge.net.au>,
+ <magnus.damm@gmail.com>, <linux-renesas-soc@vger.kernel.org>,
+ <shawnguo@kernel.org>, <s.hauer@pengutronix.de>,
+ <kernel@pengutronix.de>, <fabio.estevam@nxp.com>, <linux-imx@nxp.com>,
+ <wang.yi59@zte.com.cn>
+Subject: =?UTF-8?B?UmU6IFtQQVRDSCAxMi8xNV0gQVJNOiB2ZXhwcmVzczogZml4IGEgbGVha2VkIHJlZmVyZW5jZSBieWFkZGluZ21pc3Npbmcgb2Zfbm9kZV9wdXQ=?=
+Content-Type: multipart/mixed;
+	boundary="=====_001_next====="
+X-MAIL: mse01.zte.com.cn x251RtkC037230
+X-Mailman-Approved-At: Thu, 07 Mar 2019 12:31:42 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,55 +63,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2019 22:47:39 -0000
-
-Hi Tyler,Is this a typo? Do you mean you want to display 21.0 in
-ipmitool? I don't know why there is scaling besides power of 10 on
-your raw value. That is odd.Assuming it was a typo, what you want to
-do is set the scale in the sensor info in order to perform /100
-operation. Or you could set the unit, though that might be difficult
-with a /100 (rather than increment of 1000).The scaling with m, rExp,
-etc is because the IPMI protocol has such a narrow field for sensor
-data (1 byte, as you saw; this is value x).So my recommendation to you
-is to use the scale to do your 2100->21.0 rounding when displaying
-output from ipmitool; and then to use your estimated maximum and
-minimum y to try and figure out what kind of coefficients you want to
-use.  This doesn't need to be perfect; you will lose some precision if
-you choose exponents which give you a much wider range than you need,
-but otherwise the operation should be invisible at the other end.If
-you really did mean you want 2100 -> 12.0 then that's a different
-question, which may require some more massaging on one end or another,
-so let us know.
-
-Emily
-
-On Wed, Mar 6, 2019 at 5:33 AM Deng Tyler <tyler.sabdon@gmail.com> wrote:
->
-> Hi all:
->     Sensor reading, according to IPMI spec, is calculated as:
->
-> y = L[(Mx + B * 10^(bExp)) * 10^(rExp)]
->
-> y: the 'final value' as reported by IPMItool
-> x: 8 bits, unsigned, reading data encoded in IPMI response packet
-> M: 10 bits, signed integer multiplier, multiplierM in YAML
-> B: 10 bits, signed additive offset, offsetB in YAML
-> bExp: 4 bits, signed, bExp in YAML
-> rExp: 4 bits, signed, rExp in YAML
->
->  ipmid calculate raw data by
-> double value = variant_ns::get<T>(propValue) * std::pow(10, sensorInfo.scale - sensorInfo.exponentR);
-> auto rawData = static_cast<uint8_t>((value - sensorInfo.scaledOffset) / sensorInfo.coefficientM);sue
->
-> I am confused about why process raw data with M and rExp? M, offsetB, bExp and rExp shall just responded to ipmitool and calculate with raw
-> data. I thought raw data only need calculated by scale if raw data need to be adjust before respond to ipmitool.
-> Now I met a problem, I have a raw data is 2100 and I want to display 12.0 in ipmitool sdr command. I don't know how to assign M, rExp and scale value in yaml.
-> Could some one tell me how to translate sensor value? tks.
->
-> Tyler
->
->
+X-List-Received-Date: Tue, 05 Mar 2019 01:28:12 -0000
 
 
---
-Emily Shaffer
+
+--=====_001_next=====
+Content-Type: multipart/alternative;
+	boundary="=====_003_next====="
+
+
+--=====_003_next=====
+Content-Type: text/plain;
+	charset="UTF-8"
+Content-Transfer-Encoding: base64
+
+PiA+IFRoZSBjYWxsIHRvIG9mX2dldF9uZXh0X2NoaWxkIHJldHVybnMgYSBub2RlIHBvaW50ZXIg
+d2l0aCByZWZjb3VudAo+ID4gaW5jcmVtZW50ZWQgdGh1cyBpdCBtdXN0IGJlIGV4cGxpY2l0bHkg
+ZGVjcmVtZW50ZWQgYWZ0ZXIgdGhlIGxhc3QKPiA+IHVzYWdlLgo+ID4KPiA+IERldGVjdGVkIGJ5
+IGNvY2NpbmVsbGUgd2l0aCB0aGUgZm9sbG93aW5nIHdhcm5pbmdzOgo+ID4gLi9hcmNoL2FybS9t
+YWNoLXZleHByZXNzL2Rjc2NiLmM6MTUwOjItODogRVJST1I6IG1pc3Npbmcgb2Zfbm9kZV9wdXQ7
+IGFjcXVpcmVkIGEgbm9kZSBwb2ludGVyIHdpdGggcmVmY291bnQgaW5jcmVtZW50ZWQgb24gbGlu
+ZSAxNDUsIGJ1dCB3aXRob3V0IGEgY29ycmVzcG9uZGluZyBvYmplY3QgcmVsZWFzZSB3aXRoaW4g
+dGhpcyBmdW5jdGlvbi4KPiA+IC4vYXJjaC9hcm0vbWFjaC12ZXhwcmVzcy9kY3NjYi5jOjE2MDoy
+LTg6IEVSUk9SOiBtaXNzaW5nIG9mX25vZGVfcHV0OyBhY3F1aXJlZCBhIG5vZGUgcG9pbnRlciB3
+aXRoIHJlZmNvdW50IGluY3JlbWVudGVkIG9uIGxpbmUgMTQ1LCBidXQgd2l0aG91dCBhIGNvcnJl
+c3BvbmRpbmcgb2JqZWN0IHJlbGVhc2Ugd2l0aGluIHRoaXMgZnVuY3Rpb24uCj4gPiAuL2FyY2gv
+YXJtL21hY2gtdmV4cHJlc3MvZGNzY2IuYzoxNzE6MS03OiBFUlJPUjogbWlzc2luZyBvZl9ub2Rl
+X3B1dDsgYWNxdWlyZWQgYSBub2RlIHBvaW50ZXIgd2l0aCByZWZjb3VudCBpbmNyZW1lbnRlZCBv
+biBsaW5lIDE0NSwgYnV0IHdpdGhvdXQgYSBjb3JyZXNwb25kaW5nIG9iamVjdCByZWxlYXNlIHdp
+dGhpbiB0aGlzIGZ1bmN0aW9uLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IFdlbiBZYW5nIDx3ZW4u
+eWFuZzk5QHp0ZS5jb20uY24+Cj4gPiBDYzogTGl2aXUgRHVkYXUgPGxpdml1LmR1ZGF1QGFybS5j
+b20+Cj4gPiBDYzogU3VkZWVwIEhvbGxhIDxzdWRlZXAuaG9sbGFAYXJtLmNvbT4KPiAKPiBMb29r
+cyBnb29kLCBhc3N1bWluZyB5b3Ugd2FudCB0byB0YWtlIHRoaXMgYXMgYSBzZXJpZXMuIFBsZWFz
+ZSBzaG91dCBpZgo+IHlvdSB3YW50IHVzIHRvIHRha2UgdGhpcy4KPiAKPiBBY2tlZC1ieTogU3Vk
+ZWVwIEhvbGxhIDxzdWRlZXAuaG9sbGFAYXJtLmNvbT4KClRoYW5rIHlvdSB2ZXJ5IG11Y2gsIHdl
+IHdpbGwgc3VibWl0IGEgdjIgc2VyaWVzIHBhdGNoIHRoYXQgd2lsbCBmaXggYSB0eXBvIHNvb246
+CmFkZCBhIG1pc3Npbmcgc3BhY2UgYmV0d2VlbiAiYWRkaW5nIiBhbmQgIm1pc3NpbmciCgotLQpS
+ZWdhcmRzLApXZW4=
+
+
+--=====_003_next=====--
+
+--=====_001_next=====--
