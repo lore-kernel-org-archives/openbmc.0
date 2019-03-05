@@ -1,88 +1,59 @@
-Return-Path: <linus.walleij@linaro.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2a00:1450:4864:20::144; helo=mail-lf1-x144.google.com;
- envelope-from=linus.walleij@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="i/pqUSxt"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="KC9Rfw22"; 
  dkim-atps=neutral
-Received: from mail-lf1-x144.google.com (mail-lf1-x144.google.com
- [IPv6:2a00:1450:4864:20::144])
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Cw0H6vnXzDqFt
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 09:38:07 +1100 (AEDT)
-Received: by mail-lf1-x144.google.com with SMTP id r123so4706586lff.6
- for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 14:38:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Czsx58FhzDq5f
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 12:32:53 +1100 (AEDT)
+Received: by mail-qt1-x841.google.com with SMTP id w4so7385324qtc.1
+ for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 17:32:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=zhzJRAZt/R3PF5BQzh2oLYrOEtPSkbVjGUE3eqKeFF4=;
- b=i/pqUSxtkZTGQee4dyx8hrGiQrrcDTKPONLULgYNsJ2AzkjzVjfdBDhjIHInC62gfg
- DW7IvlZrIxjqbN9ivBT61CTVwE573URms1XXpmpJ7tYce4+jTWlWb4qa2mc3dYtL3Sph
- o+lAcxX96jnbMrttUrBFJYkjh+JNAN+544IGWLhJv1I7Qg0ngpndI8XHvACB8hQhOupT
- F9+mOnmrz+zeaYhxzXiPA+ZQCbto65SSHf8/44JSbxuiSZoWYqv75JgCZfIvSVewPfEL
- zWAs2f6+ED3qgR1osxaG9eDYNs2+HnLB13VTPjz6tqNrnxETFtreoYDQ513hqrG/8kw9
- 1ITg==
+ :cc:content-transfer-encoding;
+ bh=WhNu0FWouAzHmVoJO4qVfpsXERW1kHg7M2yBo8EldgM=;
+ b=KC9Rfw22eQqnpu761Jj/v27kkGpCP8ku2w6NiQxGbKndfFp+MYllNjY8UAMzcqL2b/
+ VD2pSANmOPwWrqURkAfBka/pmoLXsrGhy9pOAV/0pYkSC67NugDAKJxGYngYPauUdGrA
+ mXNqvRjRsKlxdRmwUAJWlNNNbJZxawaKKDjKM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=zhzJRAZt/R3PF5BQzh2oLYrOEtPSkbVjGUE3eqKeFF4=;
- b=JI08QVIypk3l+N1M26pFw14P1DdRkherhX57VkcsZhPvBVP0zoepty/yOBJzvy9PLc
- JT2ZZSg8cFrUMgyFelOiGFAZps4tlWL0a0D1uo0APw8m8boolO1h8obMVX5pFGGqeS96
- H8Vxw1i2oRcibuDNcNP9mon7E8I1Oo8bJPaRiIcKBnsjYrsLF+G9O25elljrDF2qQ12T
- sKWdPGrWG38FATW3CIHgeSPDFEwew8tExbEpP1NnARKKlXEWsuAXDvDQHJnZaeTSP7uP
- Kx+5mXouYioLkc20duFJ3aD2JXor/Tma8Uq8OFe2ChJnBU1umRA4gpOQTiun5NPbNQ0Z
- EEYQ==
-X-Gm-Message-State: APjAAAUw9BtBgNQcExnLFfL94X/dIzytnZSzr6mGpoEchZj5oVbkTbd9
- oMy4ZliWwgSfOhfSwELZ0AZOrGLr2PSPvXaxRBH74Q==
-X-Google-Smtp-Source: APXvYqxVKHRb41Wd2WOnYPv9vOYsDDZaIXMzjxDoSa/W5A+CwtjIrx8OHtkfSEfyBwCR8HWS/le0gY70BOKnXzVeixE=
-X-Received: by 2002:a19:a417:: with SMTP id q23mr7220186lfc.27.1551739080195; 
- Mon, 04 Mar 2019 14:38:00 -0800 (PST)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=WhNu0FWouAzHmVoJO4qVfpsXERW1kHg7M2yBo8EldgM=;
+ b=rXPccAa6Ecst5IYYGSreMVLDC9IhxP5dcwGTqT+i4PsBS09YZ9UCNuepvCQf/TbCAo
+ P4JuPcZjIetdKvyGKuq7HLam/o+tVxWAmNHm8XROsvEBooS/vaVFh3XrrVaBNh89iPgG
+ 9AocNU+AdDb2aFUgjLXjpNzlFT/dkMOJaSZ/rluwF9tspHwCbsAjQo4dTpKSq9gq5DL4
+ wk83nmx9Fum+DAVQjhSm+exhCO9I232hWku3v9pmHxJov29wDnGpo3g9YVapF4281+q+
+ VQa6AYcrcY/RsROhr3cfsqmfOlKPDjdMoXwlBxHhRanf6vciDT65A7tc0SWzkEMLLuwJ
+ Sk0g==
+X-Gm-Message-State: APjAAAVxskXUSNdp9iSOcEN9OuSy+f+H6sXaQvraeNOZaHHP/pPCrUkR
+ 33JoqbYc7Uo5J2J6OuHLnm8oeqUy8a3BXF/Ssmg=
+X-Google-Smtp-Source: APXvYqyXdXCM2oYtHNbz+QIqY4r+Y0jYP2aXZlTWzj7pFIiQHhfMGd4Cr7RaYwK4rtQilH0k4l/1U/Ld/ZzJx1pYGZ0=
+X-Received: by 2002:a0c:928a:: with SMTP id b10mr233049qvb.89.1551749569188;
+ Mon, 04 Mar 2019 17:32:49 -0800 (PST)
 MIME-Version: 1.0
-References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
- <20190301155523.GA1915@Mani-XPS-13-9360>
- <CACRpkdb=E9_rm4_7DQV3dS5uOs1gozxEwN9MtWr0tTwmjcYe=A@mail.gmail.com>
- <20190304144829.GA5265@Mani-XPS-13-9360>
-In-Reply-To: <20190304144829.GA5265@Mani-XPS-13-9360>
-From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 4 Mar 2019 23:37:48 +0100
-Message-ID: <CACRpkda+8QZnaT-YoeccQGjg78y9-E-JoWBr3LJs62T03H4wQw@mail.gmail.com>
-Subject: Re: [PATCH 01/15] ARM: actions: fix a leaked reference by
- addingmissing of_node_put
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Wen Yang <wen.yang99@zte.com.cn>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Russell King <linux@armlinux.org.uk>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kukjin Kim <kgene@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, 
- Michal Simek <michal.simek@xilinx.com>, Dinh Nguyen <dinguyen@kernel.org>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, 
- Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- avifishman70@gmail.com, 
- Tomer Maimon <tmaimon77@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Xu Wei <xuwei5@hisilicon.com>, Maxime Ripard <maxime.ripard@bootlin.com>, 
- Chen-Yu Tsai <wens@csie.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will.deacon@arm.com>, Simon Horman <horms@verge.net.au>, 
- Magnus Damm <magnus.damm@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Sascha Hauer <kernel@pengutronix.de>, Fabio Estevam <fabio.estevam@nxp.com>, 
- NXP Linux Team <linux-imx@nxp.com>, wang.yi59@zte.com.cn
+References: <20190228094925.5419-1-fran.hsu@quantatw.com>
+ <CACPK8XcDgnyYpg-QfZOGj5-xTScWUpyhEUigWadGzZQ8kkeH4A@mail.gmail.com>
+ <6368ebf3122c4357ac469d4733c346ea@quantatw.com>
+In-Reply-To: <6368ebf3122c4357ac469d4733c346ea@quantatw.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 5 Mar 2019 12:02:37 +1030
+Message-ID: <CACPK8Xc-dg+6cu82C1bO=5f4MdyMSANTmn4_MZa+d0KhJTGCKg@mail.gmail.com>
+Subject: Re: [PATCH dev-4.19 v3] Add Quanta GSJ board device tree v2.
+To: =?UTF-8?B?RnJhbiBIc3UgKOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>
+Cc: Benjamin Fair <benjaminfair@google.com>,
+ Emily Shaffer <emilyshaffer@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-X-Mailman-Approved-At: Tue, 05 Mar 2019 12:27:30 +1100
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,54 +65,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 22:38:10 -0000
+X-List-Received-Date: Tue, 05 Mar 2019 01:32:55 -0000
 
-On Mon, Mar 4, 2019 at 3:48 PM Manivannan Sadhasivam
-<manivannan.sadhasivam@linaro.org> wrote:
-> On Mon, Mar 04, 2019 at 01:29:33PM +0100, Linus Walleij wrote:
-> > On Fri, Mar 1, 2019 at 4:55 PM Manivannan Sadhasivam
-> > <manivannan.sadhasivam@linaro.org> wrote:
-> > > Hi Wen,
-> > >
-> > > On Fri, Mar 01, 2019 at 04:56:42PM +0800, Wen Yang wrote:
-> > > > The call to of_get_next_child returns a node pointer with refcount
-> > > > incremented thus it must be explicitly decremented after the last
-> > > > usage.
-> > > >
-> > > > Detected by coccinelle with the following warnings:
-> > > > ./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 103, but without a corresponding object release within this function.
-> > > > ./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 115, but without a corresponding object release within this function.
-> > > > ./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missing of_node_put; acquired a node pointer with refcount incremented on line 128, but without a corresponding object release within this function.
-> > > >
-> > >
-> > > We have a floating patch for this:
-> > > https://www.spinics.net/lists/arm-kernel/msg694544.html
-> > >
-> > > Andreas: Can you please take a second look at the patchset submitted by Linus
-> > > Walleij and Russel for simplifying the Actions startup code?
-> >
-> > Andreas wrote a version of simplifying secondary startup in the
-> > same spirit as Russell's patches, and it's merged and all
-> > is fine I think.
-> >
->
-> Oops. I think I missed that! Can you please point me to that patch? And how it
-> got merged? I did the PR for actions stuff this time and haven't included any
-> mach-actions patches.
+On Tue, 5 Mar 2019 at 01:13, Fran Hsu (=E5=BE=90=E8=AA=8C=E8=AC=99) <Fran.H=
+su@quantatw.com> wrote:
+> Regarding the part of nuvoton-npcm730.dtsi.
+> Please have a look at this link https://patchwork.ozlabs.org/patch/104589=
+9/
+> This patch was pushed by Nuvoton Inc and wait for the review.
 
-I just did git log arch/arm/mach-actions but I think it came in quite some time
-ago, not last merge window:
+Thanks for pointing that out. I didn't receive that email (a recurring
+problem with Gmail and mailing lists).
 
-But you see:
-commit 6c2eb3e76fb84e2eb46d484f71fab469c0d9532c
-"ARM: owl: smp: Drop owl_secondary_boot()"
-commit bad29933fef76fb6ee577f4a0b6d145c1f52f663
-"ARM: owl: smp: Use __pa_symbol()"
-commit 18cfd9429d8a82c49add8f3ca9d366599bfcac45
-"ARM: owl: smp: Drop bogus holding pen"
+That dtsi does not contain all of the SoC devices that yours does. You
+will want to add the rest on top of that patch.
 
-platsmp.c looks just fine these days. Except for what Wei's patch is fixing,
-of_node_put().
+Cheers,
 
-Yours,
-Linus Walleij
+Joel
