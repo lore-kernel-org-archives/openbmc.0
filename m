@@ -1,79 +1,113 @@
-Return-Path: <zshelle@linux.vnet.ibm.com>
+Return-Path: <prvs=8967a2eefa=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=zshelle@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=8967a2eefa=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="RBNWZUpu"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="BdYSe4hz"; dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44DQCc2kD0zDqCt
- for <openbmc@lists.ozlabs.org>; Wed,  6 Mar 2019 05:19:40 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x25IELWE015230
- for <openbmc@lists.ozlabs.org>; Tue, 5 Mar 2019 13:19:37 -0500
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r1v84pvg0-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 05 Mar 2019 13:19:37 -0500
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <zshelle@linux.vnet.ibm.com>;
- Tue, 5 Mar 2019 18:19:35 -0000
-Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 5 Mar 2019 18:19:33 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x25IJXYJ19595286
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 5 Mar 2019 18:19:33 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0176A28058;
- Tue,  5 Mar 2019 18:19:33 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7CFB52805C;
- Tue,  5 Mar 2019 18:19:32 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue,  5 Mar 2019 18:19:32 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44DSXq2jWJzDq5Z;
+ Wed,  6 Mar 2019 07:04:42 +1100 (AEDT)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x25K1OLl012880; Tue, 5 Mar 2019 12:02:14 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type : content-id
+ : content-transfer-encoding : mime-version; s=facebook;
+ bh=WwtA9msDoxaKPjQgylPz7d3y3iWQwNSTNvGNgMGPpu8=;
+ b=RBNWZUpuP59ZSYnEQTLzQrpHTGeovSXyrN79AwN9sya7Z0lK8LLo8TkOIJPdPYJ2TTlG
+ UM7yxsu4PaP3as75aXWOeqUMuW2z/bX+4keEz6Zj0LKREenlcM1gY+HjQriEuqnmEsvW
+ zvieWbDS3Do8vkdwjz/AdwBA02m6pyFDUbc= 
+Received: from maileast.thefacebook.com ([199.201.65.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2r1wmprj01-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Tue, 05 Mar 2019 12:02:13 -0800
+Received: from frc-hub03.TheFacebook.com (2620:10d:c021:18::173) by
+ frc-hub05.TheFacebook.com (2620:10d:c021:18::175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1713.5; Tue, 5 Mar 2019 12:01:17 -0800
+Received: from NAM02-BL2-obe.outbound.protection.outlook.com (192.168.183.28)
+ by o365-in.thefacebook.com (192.168.177.73) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1713.5
+ via Frontend Transport; Tue, 5 Mar 2019 12:01:16 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WwtA9msDoxaKPjQgylPz7d3y3iWQwNSTNvGNgMGPpu8=;
+ b=BdYSe4hzk3lqNORq+qP6KWPntTUgol5u3NMbqPb8yXYVD5h4Rf62DX9tL6+s5WRILX7jubO0J7m3wM5O+5HJs0ZxtvOIsWHiOJJM0JFX138bTiQC1mLEaCuCUX8f8+1CR6YEU4wpZuIZ+OSjMm1mLQfnH4c1TlBjLg09KRCL39k=
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.177.11) by
+ CY4PR15MB1608.namprd15.prod.outlook.com (10.175.119.19) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1665.15; Tue, 5 Mar 2019 20:01:02 +0000
+Received: from CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::c47c:32d3:4b03:adea]) by CY4PR15MB1269.namprd15.prod.outlook.com
+ ([fe80::c47c:32d3:4b03:adea%3]) with mapi id 15.20.1665.020; Tue, 5 Mar 2019
+ 20:01:02 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"
+ <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+CC: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH] ARM: dts: aspeed: tiogapass: Enable VUART
+Thread-Topic: [PATCH] ARM: dts: aspeed: tiogapass: Enable VUART
+Thread-Index: AQHUuMemZJYThVA8H0+uGcmnPW39RKX9JKSA
+Date: Tue, 5 Mar 2019 20:01:02 +0000
+Message-ID: <DAA424C9-E096-40A3-8287-CE4C8E9ABD61@fb.com>
+References: <20190130181427.2469674-1-vijaykhemka@fb.com>
+In-Reply-To: <20190130181427.2469674-1-vijaykhemka@fb.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::3:907c]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: cb85a199-3401-4d93-17ff-08d6a1a54b49
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(5600127)(711020)(4605104)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
+ SRVR:CY4PR15MB1608; 
+x-ms-traffictypediagnostic: CY4PR15MB1608:
+x-microsoft-exchange-diagnostics: 1; CY4PR15MB1608;
+ 20:1hwXr6e8UcOEKkdoEzSzpIpfpXpVPdkzLSwxSXe8i/ZLOo/PbDpiCWOESuiyDKCFSs86sHN+vYxEj90SWyFP2dDDP4qx4a+jZTu5KUY2ZSj9BYzMEN714m8cFxc5oB6nujHqGr+fUmaw1UaL+E6XaCmO42zH0hmVobK7+jzgfbw=
+x-microsoft-antispam-prvs: <CY4PR15MB1608FB69D795F4D37CF441F6DD720@CY4PR15MB1608.namprd15.prod.outlook.com>
+x-forefront-prvs: 0967749BC1
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(366004)(396003)(376002)(346002)(136003)(39860400002)(199004)(189003)(2906002)(68736007)(106356001)(6436002)(105586002)(6486002)(256004)(186003)(46003)(14454004)(2501003)(486006)(476003)(2616005)(229853002)(446003)(11346002)(53936002)(6512007)(5660300002)(6506007)(6116002)(81156014)(2201001)(305945005)(8676002)(81166006)(478600001)(110136005)(36756003)(82746002)(316002)(86362001)(8936002)(76176011)(7736002)(71200400001)(6246003)(33656002)(102836004)(99286004)(71190400001)(97736004)(4326008)(83716004)(6346003)(25786009)(4744005);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1608;
+ H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; A:1; MX:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: y+m1ZOAyIbaLjAxLDEC6BypFEewJU8ynbvVtYqpLMZ0QUgoGti+yVxNYX7feZlULsFKSaZgxtHRYwwMDmoBexeM81GP4Sl1YcFE2HmPBucBPSKuGfkrYFYBI8kxmPAi6kUGKh0ffUkozwfN6/x85n8jR3RVoFEhJMpuwJwE+H92tIe2I0tw0f7DQwbKOCUtACtXEHQU7anpE6o1Seqcds55uGk35aJ1jw1/vcrtjW7CuJcyFL/OtICIfkdsGuH8ahHuBMBdQN4X+DxDcUdDp+0U7OQf/X+c0iQA3F/+tBZsXtjgA9o8AKfeTrsbCQl443L9AAia/7nr8xnvaQWl1a+loBCqPIgHB9aWCV18CjOF2fXawuQY6re0hvc4RMUiW6ItFNhr4uzunEMcz7hlDHyEez3m+6Dqe3Sk0Mv1gZ8A=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <C26BD7655BD783459EAE8B3F04F3AEA3@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Tue, 05 Mar 2019 12:27:10 -0600
-From: zshelle <zshelle@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: openbmc <openbmc-bounces+zshelle=linux.vnet.ibm.com@lists.ozlabs.org>
-Subject: Re: New repo for System Fatal Error Diagnostics for POWER Systems
-In-Reply-To: <8f90bbe93f545017f281fa433b5f3660@linux.vnet.ibm.com>
-References: <8f90bbe93f545017f281fa433b5f3660@linux.vnet.ibm.com>
-X-Sender: zshelle@linux.vnet.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19030518-2213-0000-0000-0000035E5CE2
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010710; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01170066; UDB=6.00611482; IPR=6.00950699; 
- MB=3.00025843; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-05 18:19:35
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030518-2214-0000-0000-00005D91F970
-Message-Id: <ce514d61cb270ac17d3e01dd13a6d713@linux.vnet.ibm.com>
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb85a199-3401-4d93-17ff-08d6a1a54b49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Mar 2019 20:01:02.3280 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1608
+X-OriginatorOrg: fb.com
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-03-05_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903050120
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,30 +119,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 18:19:40 -0000
+X-List-Received-Date: Tue, 05 Mar 2019 20:04:45 -0000
 
-On 2019-02-28 10:38, zshelle wrote:
-> The design proposal is here:
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/
-> 
-> In the design proposal, I indicated we need a repo for the analyzer
-> side and the isolator side of the diagnostics. The analyzer side will
-> all be OpenBMC specific code. That is the easy one. The isolator side
-> will be common code used throughout several projects within OpenPOWER
-> in addition to its application in OpenBMC. It's been pointed out to me
-> that there will be some convenient advantages to putting this isolator
-> repo in the OpenBMC project. However, it will be used heavily in
-> several OpenPOWER projects. I should point out that while the isolator
-> is currently geared towards POWER, it has the potential to be used on
-> other architectures in the future. I would appreciate any input on
-> this topic.
-
-Is there enough information in the proposal to at least get the repos 
-created? Sorry to push, but I want to get these repos created before I 
-am out on paternity leave starting this Friday.
-
-For the analyzer, I was thinking of openpower-hw-diags or something 
-along those lines.
-
-I could use some suggestions for the isolator. It sounds like it could 
-be used by more than POWER.
+UGxlYXNlIHJldmlldyBiZWxvdyBwYXRjaC4NCg0KUmVnYXJkcw0KLVZpamF5DQoNCu+7v09uIDEv
+MzAvMTksIDEwOjE0IEFNLCAiVmlqYXkgS2hlbWthIiA8dmlqYXlraGVta2FAZmIuY29tPiB3cm90
+ZToNCg0KICAgIEVuYWJsaW5nIHZ1YXJ0IGZvciBGYWNlYm9vayB0aW9nYXBhc3MNCiAgICANCiAg
+ICBTaWduZWQtb2ZmLWJ5OiBWaWpheSBLaGVta2EgPHZpamF5a2hlbWthQGZiLmNvbT4NCiAgICAt
+LS0NCiAgICAgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWJtYy1mYWNlYm9vay10aW9nYXBhc3Mu
+ZHRzIHwgNSArKysrKw0KICAgICAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspDQogICAg
+DQogICAgZGlmZiAtLWdpdCBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2st
+dGlvZ2FwYXNzLmR0cyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2stdGlv
+Z2FwYXNzLmR0cw0KICAgIGluZGV4IDQyZTBkN2E4ZThkMC4uYTA1OGZiMjk4NWY3IDEwMDY0NA0K
+ICAgIC0tLSBhL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2stdGlvZ2FwYXNz
+LmR0cw0KICAgICsrKyBiL2FyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1ibWMtZmFjZWJvb2stdGlv
+Z2FwYXNzLmR0cw0KICAgIEBAIC02NCw2ICs2NCwxMSBAQA0KICAgICAJc3RhdHVzID0gIm9rYXki
+Ow0KICAgICB9Ow0KICAgICANCiAgICArJnZ1YXJ0IHsNCiAgICArCS8vIFZVQVJUIEhvc3QgQ29u
+c29sZQ0KICAgICsJc3RhdHVzID0gIm9rYXkiOw0KICAgICt9Ow0KICAgICsNCiAgICAgJnVhcnQx
+IHsNCiAgICAgCS8vIEhvc3QgQ29uc29sZQ0KICAgICAJc3RhdHVzID0gIm9rYXkiOw0KICAgIC0t
+IA0KICAgIDIuMTcuMQ0KICAgIA0KICAgIA0KDQo=
