@@ -1,59 +1,46 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <prvs=9606f6fb5=Tony.Lee@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=9606f6fb5=tony.lee@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="KC9Rfw22"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Czsx58FhzDq5f
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 12:32:53 +1100 (AEDT)
-Received: by mail-qt1-x841.google.com with SMTP id w4so7385324qtc.1
- for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 17:32:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=WhNu0FWouAzHmVoJO4qVfpsXERW1kHg7M2yBo8EldgM=;
- b=KC9Rfw22eQqnpu761Jj/v27kkGpCP8ku2w6NiQxGbKndfFp+MYllNjY8UAMzcqL2b/
- VD2pSANmOPwWrqURkAfBka/pmoLXsrGhy9pOAV/0pYkSC67NugDAKJxGYngYPauUdGrA
- mXNqvRjRsKlxdRmwUAJWlNNNbJZxawaKKDjKM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=WhNu0FWouAzHmVoJO4qVfpsXERW1kHg7M2yBo8EldgM=;
- b=rXPccAa6Ecst5IYYGSreMVLDC9IhxP5dcwGTqT+i4PsBS09YZ9UCNuepvCQf/TbCAo
- P4JuPcZjIetdKvyGKuq7HLam/o+tVxWAmNHm8XROsvEBooS/vaVFh3XrrVaBNh89iPgG
- 9AocNU+AdDb2aFUgjLXjpNzlFT/dkMOJaSZ/rluwF9tspHwCbsAjQo4dTpKSq9gq5DL4
- wk83nmx9Fum+DAVQjhSm+exhCO9I232hWku3v9pmHxJov29wDnGpo3g9YVapF4281+q+
- VQa6AYcrcY/RsROhr3cfsqmfOlKPDjdMoXwlBxHhRanf6vciDT65A7tc0SWzkEMLLuwJ
- Sk0g==
-X-Gm-Message-State: APjAAAVxskXUSNdp9iSOcEN9OuSy+f+H6sXaQvraeNOZaHHP/pPCrUkR
- 33JoqbYc7Uo5J2J6OuHLnm8oeqUy8a3BXF/Ssmg=
-X-Google-Smtp-Source: APXvYqyXdXCM2oYtHNbz+QIqY4r+Y0jYP2aXZlTWzj7pFIiQHhfMGd4Cr7RaYwK4rtQilH0k4l/1U/Ld/ZzJx1pYGZ0=
-X-Received: by 2002:a0c:928a:: with SMTP id b10mr233049qvb.89.1551749569188;
- Mon, 04 Mar 2019 17:32:49 -0800 (PST)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44D7Gb5FVNzDqBt
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 18:06:06 +1100 (AEDT)
+Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
+ by mx02.quantatw.com with ESMTP; 05 Mar 2019 15:06:01 +0800
+Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx08.quanta.corp
+ (10.243.91.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Tue, 5 Mar 2019
+ 15:05:59 +0800
+Received: from mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381]) by
+ mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381%11]) with mapi id
+ 15.01.1531.004; Tue, 5 Mar 2019 15:05:59 +0800
+From: =?big5?B?VG9ueSBMZWUgKKf1pOW0SSk=?= <Tony.Lee@quantatw.com>
+To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: How to upload proposal and code for specifying and customizing
+ projects?
+Thread-Topic: How to upload proposal and code for specifying and customizing
+ projects?
+Thread-Index: AdTTIPIRPhO1APIASHuF/QKTlnZP6g==
+Date: Tue, 5 Mar 2019 07:05:59 +0000
+Message-ID: <86e053918f1541f3a7b8f9264355080f@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24470.002
+x-tm-as-result: No--4.605600-0.000000-31
+x-tm-as-matchedid: 140026-701625-704425-700685-863519-704195-709584-704156-7
+ 11953-700040-700107-148004-148133-10019-41000-42000-42003-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-References: <20190228094925.5419-1-fran.hsu@quantatw.com>
- <CACPK8XcDgnyYpg-QfZOGj5-xTScWUpyhEUigWadGzZQ8kkeH4A@mail.gmail.com>
- <6368ebf3122c4357ac469d4733c346ea@quantatw.com>
-In-Reply-To: <6368ebf3122c4357ac469d4733c346ea@quantatw.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 5 Mar 2019 12:02:37 +1030
-Message-ID: <CACPK8Xc-dg+6cu82C1bO=5f4MdyMSANTmn4_MZa+d0KhJTGCKg@mail.gmail.com>
-Subject: Re: [PATCH dev-4.19 v3] Add Quanta GSJ board device tree v2.
-To: =?UTF-8?B?RnJhbiBIc3UgKOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>
-Cc: Benjamin Fair <benjaminfair@google.com>,
- Emily Shaffer <emilyshaffer@google.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,21 +52,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 01:32:55 -0000
+X-List-Received-Date: Tue, 05 Mar 2019 07:06:16 -0000
 
-On Tue, 5 Mar 2019 at 01:13, Fran Hsu (=E5=BE=90=E8=AA=8C=E8=AC=99) <Fran.H=
-su@quantatw.com> wrote:
-> Regarding the part of nuvoton-npcm730.dtsi.
-> Please have a look at this link https://patchwork.ozlabs.org/patch/104589=
-9/
-> This patch was pushed by Nuvoton Inc and wait for the review.
-
-Thanks for pointing that out. I didn't receive that email (a recurring
-problem with Gmail and mailing lists).
-
-That dtsi does not contain all of the SoC devices that yours does. You
-will want to add the rest on top of that patch.
-
-Cheers,
-
-Joel
+SGkgQnJhZCwNCg0KSSBoYXZlIHR3byBuZXcgcGFja2FnZXMgInBob3NwaG9yLW52bWUiIGFuZCAi
+cXVhbnRhLWRidXMtaW50ZXJmYWNlcyIgZm9yIHNwZWNpZnlpbmcgYW5kIGN1c3RvbWl6aW5nIHBy
+b2plY3RzLg0KVGhlcmUgd2FzIGEgc2VydmljZSBwb29saW5nIHN0YXR1cyBvZiBOVk1lIGRldmlj
+ZXMgaW4gIiBwaG9zcGhvci1udm1lICIgYW5kIHNldmVyYWwgZC1idXMgaW50ZXJmYWNlcyBmb3Ig
+UXVhbnRhDQppbiAicXVhbnRhLWRidXMtaW50ZXJmYWNlcyIuDQogDQoxLiBJcyBpdCB3aWxsIGJl
+IHB1dCBpbnRvIGEgbmV3IHJlcG9zaXRvcnkgb3IgcHV0IGl0IHVuZGVyIHRoZSBtZXRhLXF1YW50
+YT8NCjIuIEFzIGZvciB0aGUgcHJvcG9zYWwsIGlzIGl0IHN0aWxsIG5lZWQgdG8gY29tbWl0IHRv
+IGdlcnJpdCB1bmRlciBvcGVuYm1jL2RvY3MgPw0KDQpUaGFua3MNCkJlc3QgUmVnYXJkcywNClRv
+bnkNCg0K
