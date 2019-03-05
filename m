@@ -1,36 +1,74 @@
-Return-Path: <supreeth.venkatesh@arm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=arm.com
- (client-ip=217.140.101.70; helo=foss.arm.com;
- envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=arm.com
-Received: from foss.arm.com (foss.arm.com [217.140.101.70])
- by lists.ozlabs.org (Postfix) with ESMTP id 44Cxgl720mzDqFY
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 10:53:50 +1100 (AEDT)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6B08B80D;
- Mon,  4 Mar 2019 15:53:46 -0800 (PST)
-Received: from supven01-thinkstation-p720.austin.arm.com
- (supven01-thinkstation-p720.austin.arm.com [10.118.28.44])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1B8E03F706;
- Mon,  4 Mar 2019 15:53:46 -0800 (PST)
-Message-ID: <d68f47712a2b0b82dfa4c313fc899afd1e37e529.camel@arm.com>
-Subject: Re: anyone interested in chip register error diagnostics?
-From: Supreeth Venkatesh <supreeth.venkatesh@arm.com>
-To: zshelle <zshelle@linux.vnet.ibm.com>
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, ed.tanous@intel.com, Dong Wei
- <Dong.Wei@arm.com>, openbmc@lists.ozlabs.org
-Date: Mon, 04 Mar 2019 17:53:45 -0600
-In-Reply-To: <3d72867607bc75b18960223dc8cea114@linux.vnet.ibm.com>
-References: <d6c9b047b8906a7dabc6fc1acf7d7c2d@linux.vnet.ibm.com>
- <20190304203754.5piu2z2hj2yipomd@thinkpad>
- <AM4PR08MB2788F676F7BE8F10D8EFB90A80710@AM4PR08MB2788.eurprd08.prod.outlook.com>
- <3d72867607bc75b18960223dc8cea114@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SjdWkQEU"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="zifAEWbx"; dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44CyxB1SJVzDqG8
+ for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 11:50:37 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id A96D821FF0;
+ Mon,  4 Mar 2019 19:50:33 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Mon, 04 Mar 2019 19:50:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:in-reply-to:references:date:from:to:subject
+ :content-type; s=fm2; bh=rDNmN5CvWjjkp3OmtmffC0iayS0XWO0mau/3AcG
+ bJrg=; b=SjdWkQEUqB/IpZL7dkpFy8QKePKw9bGxT5wpbOPTS87t2Nl2+V07AEg
+ vD4of/RbbSDVrmGpQSGMz/iuOKToDD4nEtRUVJ/7PI1BrSPLMVF7+7Assai5PjSA
+ 7Z1JV6aMV2Q2qNdeWh8hrv053Yn3h9n5S1Rzu3FtwPUL3tjXK1mIKJONtjcHPaNV
+ hPlAfDoV5xMZ4CC+l6mQSt162m823qKSnNVM5RiwowaNq677yPcZj78MZGMd91HD
+ z8HI4er4zOpxFY4HgHfeKzad/kJ4BR0kidsEbH+n7iucasbhrV4MQUp1Yv7Y0fdj
+ kN8lsdDR8474W3xhyJVcgIPpsveCo2w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:references:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=rDNmN5CvWjjkp3Omt
+ mffC0iayS0XWO0mau/3AcGbJrg=; b=zifAEWbx78A81eT/BaKSgJMl7vrnKOUsE
+ AaaGw4d+BaPvELHVo/748tgf0yaUF6mfgHbUZ+OsJcC1x5bSWYBCViz9txEjfSPs
+ uYFQ06oYHkyRAF4KMIO1OdvmP9bL4QVvBzYannu00DNpNiYoDZ+LGgFNgIIZtESo
+ Gm0bjBRx0pJ50V126Xxq23A7UcugsLvMbFmp6UNacg7Y2FBtVR4ug9EWI+TlWvdQ
+ Vip4FeHFNcS7YAcw3zTfhraQgxopqV2SAnPGtvNcv5A5pZNXi8K6P0hkkXReMJca
+ MRZLY2ptfZAAY/EFO6BMZYcoaNEBOD/k2iu9hvoaRSMXpB8puMg+Q==
+X-ME-Sender: <xms:2cd9XLHa2bV_jgvL6qUTquFNZBg5-hw59-_RBOVP6BzuLbUsSYf8JA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrfedvgddviecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgurhgv
+ ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomhgrih
+ hnpehgihhthhhusgdrtghomhenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgif
+ segrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:2cd9XIzZClO1XsT7Oe3NFflhctabnffiLqOdFRM8yDcwRYcn6qjvJQ>
+ <xmx:2cd9XN1kKdkkvEaC8ovBUXNXV1is28sZFtWIcp09SRZAEVO6gm4ANg>
+ <xmx:2cd9XApnxsAyAchrUB5OO_Mk03rSD3IMbzhnpLdFig-DiJAZesNN9w>
+ <xmx:2cd9XHYqLe3_sSlFvf4x8gM1IJHDgmwmQ_ii2BeIJl96y7bIdQD54Q>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 2808E7C1EB; Mon,  4 Mar 2019 19:50:33 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
+X-Me-Personality: 52947553
+Message-Id: <81072bbc-330b-4772-aca2-a6b08ebc12c0@www.fastmail.com>
+In-Reply-To: <3b42a0d2-3325-e002-d8bd-a7dc3c460c73@gmail.com>
+References: <0f698442-7f23-4d4f-9e00-f5b77703e543@gmail.com>
+ <3196f4ca-4d98-4374-8047-5bef11d3a736@www.fastmail.com>
+ <3b42a0d2-3325-e002-d8bd-a7dc3c460c73@gmail.com>
+Date: Mon, 04 Mar 2019 19:50:32 -0500
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Kurt Taylor" <kurt.r.taylor@gmail.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: =?UTF-8?Q?Re:_2.7_Release_Planning_Guidelines_-_Features,
+ _Designs_and_Mi?= =?UTF-8?Q?lestones?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,123 +80,111 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 04 Mar 2019 23:53:56 -0000
+X-List-Received-Date: Tue, 05 Mar 2019 00:50:42 -0000
 
-On Mon, 2019-03-04 at 16:44 -0600, zshelle wrote:
-> On 2019-03-04 14:56, Supreeth Venkatesh wrote:
-> > Thanks Brad.
+On Mon, 4 Mar 2019, at 15:01, krtaylor wrote:
+> On 3/3/19 5:16 PM, Andrew Jeffery wrote:
 > > 
-> > Hi Zane/Brad,
 > > 
-> > On Arm Platforms, We use Common Platform Error Record (CPER) to
-> > report
-> > these kinds of hardware errors.
-> > The format of the errors are defined in Appendix N in UEFI 
-> > specification
+> > On Sat, 2 Mar 2019, at 03:47, krtaylor wrote:
+> >> All,
+> >>
+> >> At the last release planning meeting we agreed to start enforcing the
+> >> design requirement for 2.7 release features. This gives the repo
+> >> maintainer the authority to not merge major contributions without
+> >> designs in place. Of course, the maintainer also has the discretion to
+> >> "grandfather" in work that was previously underway that had designs
+> >> socialized in IRC or email. I think having these designs in place will
+> >> fix a lot of the release notes concerns, as well as level-setting what
+> >> we're all working on.
 > > 
-http://www.uefi.org/sites/default/files/resources/UEFI%20Spec%202_7_A%20Sept%206.pdf
-> > 
-> > I have not read the proposal in its entirety, but this seems
-> > similar
-> > to Reliability, Availability, Serviceability (RAS) feature using
-> > System Management Mode/Management Mode, but on the BMC side.
-> > 
-> > I will take a look at the reviews posted and provide more feedback.
-> > 
-> > If this is something similar to RAS feature, I have in fact
-> > proposed
-> > in DMTF PMCI WG to include CPER formats to be added to one of
-> > the PLDM specifications.
-> > 
-> > Arm would be interested in the design of this component, if it can
-> > accommodate the above error formats and component can be designed
-> > in
-> > an architecture agnostic way.
-> > 
-> > Thanks,
-> > Supreeth
-> > 
-> > -----Original Message-----
-> > From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-> > Sent: Monday, March 4, 2019 2:38 PM
-> > To: zshelle <zshelle@linux.vnet.ibm.com>; Supreeth Venkatesh
-> > <Supreeth.Venkatesh@arm.com>; ed.tanous@intel.com
-> > Subject: Re: anyone interested in chip register error diagnostics?
-> > 
-> > On Mon, Mar 04, 2019 at 02:22:45PM -0600, zshelle wrote:
-> > > On POWER, I work on a component that listens for hardware errors
-> > > reported by registers in the system chips (processors, memory
-> > > buffers,
-> > > I/O chips, etc.) and performs service actions based on those
-> > > errors. I
-> > > have been working on porting some of this code to the BMC for
-> > > system
-> > > fatal error analysis (see my work-in-progress proposals:
-> > > https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18591/ and
-> > > https://gerrit.openbmc-project.xyz/#/c/openbmc/docs/+/18831/). As
-> > > part
-> > > of the new design, we are building a generic, data-driven
-> > > register
-> > > error isolator, which will be used by several applications within
-> > > POWER. However, it has the potential to be useful on other
-> > > architectures as well. I am curious if anyone in the community is
-> > > interested in this.
-> > 
-> > Thanks Zane - I'll tag Ed(x86) and Supreeth(arm) on this one.  Ed,
-> > Supreeth - do you understand the function being proposed here?  How
-> > does this work on x86 and arm servers?
-> > 
-> > thx - brad
-> > IMPORTANT NOTICE: The contents of this email and any attachments
-> > are
-> > confidential and may also be privileged. If you are not the
-> > intended
-> > recipient, please notify the sender immediately and do not disclose
-> > the contents to any other person, use it for any purpose, or store
-> > or
-> > copy the information in any medium. Thank you.
+> > What is the scope of these features? My gut instinct is it's something like
+> > "high-level capability that OpenBMC does not yet have" as opposed to
+> > "useful feature in existing platform-specific tool". Is there a description
+> > somewhere of where we're drawing the line? I guess my question can
+> > be rephrased as "what are we (explicitly) _not_ trying to control"?
 > 
-> Looks like CPER is similar to IBM's Platform Error Log (PEL). At
-> this 
-> time, I am not really focused on the log format at the moment, but it
-> is 
-> on my list of things to investigate. I heard a rumor that there may
-> be a 
-> standard "OpenBMC" logging mechanism in the works. With those, you
-> could 
-> convert them into the CPER or PEL format if needed.
-Ok. You are not currently focussed on format of the log itself but
-rather on the error syndrome/fault registers. Right?
-However, at present, error syndrome information gathered from the fault
-registers are converted to CPER/PEL format for logging purposes in the
-host firmware/microcontroller firmware.
+> We are a new open source project that has all the typical communication 
+> problems of teams that are not used to sharing what they are working on 
+> now having to. It can't wait until they are ready to drop a huge chunk 
+> of code. We are working toward breaking that cycle by starting early 
+> sharing what we are working on (features). Then we will get more detail 
+> (designs) and get needed feedback in the design reviews. When code 
+> starts dropping (incrementally), everyone knows about what is being 
+> delivered, and how the group intends on it functioning. This is about 
+> communication and cooperation, not control.
+> > 
+> >>
+> >> TLDR: if work has a feature issue created in github (tagged Release2.7),
+> >> it MUST to have a design template filled out in order to be merged.
+> >>
+> >> Second, we agreed to set a VERY aggressive schedule for having all
+> >> feature issue designs in place: *March 25th*  Obviously, that means that
+> >> release feature issues need to be completed before then.
+> >>
+> >> Third, we also agreed to establish checkpoints for delivery of features
+> >> so we can check the feature progress, seek community assistance, etc. We
+> >> will establish Design, Code1, Code2, Freeze and Release milestones. They
+> >> are mostly self-explanatory, with Code1 and Code2 being used for staging
+> >> dependent work for instance. They will be approximately 6 week intervals.
+> >>
+> >> Finally, I am asking for EVERYONE'S help in making sure what you are
+> >> working on falls into a openbmc/openbmc issue tagged Release2.7 (or
+> >> Release2.8 for long-running projects). If not, and it is not a quick
+> >> fix
+> >> or small enhancement, please let your release planning rep know and
+> >> help
+> >> them get the feature issue created ASAP. Check here:
+> >> https://github.com/openbmc/openbmc/issues?q=is%3Aopen+is%3Aissue+label%3ARelease2.7
+> >>
+> >> As always, I am available for any questions. Find me on IRC or come to a
+> >> release planning meeting and let's discuss.
+> > 
+> > I haven't been attending the release planning meetings; maybe I'm a bit
+> > under-informed/out of line so take this with a grain of salt. However:
+> > 
+> > This all seems like a top-down attempt to manage a large-ish open source
+> > project. Given everyone's diverse interest as a means to scratch their own
+> > itch, I feel like the kernel's approach is something that we should be
+> > modelling: Releases occur on a fixed cadence, and whether a feature makes
+> > it into a given release is largely dictated by whether the maintainer of a given
+> > subsystem feels its ready to go in rather than whether a particular label is
+> 
+> Exactly what we are doing. The label is for release intention.
+> 
+> > applied to a github issue. Having timed releases dictating included features
+> > rather than features happening to land in a given timed release leads to
+> > problems like serious slippage of release dates or merging of immature
+> > features simply to meet the promised deadline. Best for things just to go in
+> > when they are ready. If people need to ship the feature before it is integrated
+> > upstream then the responsibility and burden is on their own (probably
+> > internal) fork of the project. It's not something upstream should be saddled
+> > with.
+> 
+> Our release cycle is based on fixed dates, as are many other open source 
+> projects. Unlike product release cycles, we will not slip a date to 
+> finish a feature. If you miss the release train, you simply catch the 
+> next one.
+> 
+> > I'm not arguing against having designs or code freezes, but I am concerned
+> > about language like "Finally, I am asking for EVERYONE'S help in making
+> > sure what you are working on falls into a openbmc/openbmc issue tagged
+> > Release2.7". It has a distasteful dictatorial ring to it for an open source project,
+> > and to me it's a bit demotivating. Maybe that's not how it was intended?
+> 
+> If someone if working on a new feature that has not been added to 
+> github, then they need to talk to their release planning rep and get it 
+> entered, or just add it themselves. The last thing we need is to 
+> duplicate work. Again, this is about communication and cooperation, not 
+> control.
+
+Great! Looks like I misread it (possibly not helped by lacking context). Thanks
+for clarifying, and thanks for your work on improving communication around
+feature development.
+
+Andrew
 
 > 
-> My proposals are more focused on reading the registers from hardware
-> and 
-> determining what caused the error. On POWER, we have hundreds of what
-> we 
-> call fault isolation registers (FIRs), where each bit within those 
-> registers can signify a different hardware error event. It is also 
-> possible that there may be several active bits on at the same time.
-> So 
-> my component will sort through all of those registers, find the
-> active 
-> bits, and determine what is the root cause of the failure versus 
-> side-effect errors. Once root cause is determined, we then perform
-> any 
-> services actions defined by our RAS team (and commit a log). Is
-> there 
-> anything like this on ARM?
-On Arm platforms also, There are several error syndrome registers which
-are read. 
-This information leads to contruction of CPER record which will be used
-by OS to take service actions as per RAS policy.
-
-After reading 18831, it looks like you want to move error data
-collection to BMC from host firmware and for that you collect all fault
-isolation registers.
-Is there a security implication here?
-
-Thank you for the proposal, I will read 18591 thoroughly to understand,
-whether we can reuse this on arm architecture.
+> Thanks for your feedback,
+> Kurt (krtaylor)
+>
