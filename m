@@ -1,77 +1,49 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <sharad.khetan@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44F6Px5QhdzDqC5
- for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 08:30:54 +1100 (AEDT)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x26LS0ju130627
- for <openbmc@lists.ozlabs.org>; Wed, 6 Mar 2019 16:30:51 -0500
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2r2kanr6y3-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2019 16:30:51 -0500
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Wed, 6 Mar 2019 21:30:50 -0000
-Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 6 Mar 2019 21:30:49 -0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x26LUmG512320902
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 6 Mar 2019 21:30:48 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0E89CAC062;
- Wed,  6 Mar 2019 21:30:48 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A3BE0AC06A;
- Wed,  6 Mar 2019 21:30:47 +0000 (GMT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed,  6 Mar 2019 21:30:47 +0000 (GMT)
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: 1450335857@qq.com, venture@google.com, jae.hyun.yoo@linux.intel.com
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Subject: License change for obmc-ikvm
-Date: Wed, 6 Mar 2019 15:30:47 -0600
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44F7mS6wzqzDqBb
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 09:31:57 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Mar 2019 14:31:53 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,449,1544515200"; d="scan'208";a="280374788"
+Received: from fmsmsx108.amr.corp.intel.com ([10.18.124.206])
+ by orsmga004.jf.intel.com with ESMTP; 06 Mar 2019 14:31:52 -0800
+Received: from fmsmsx155.amr.corp.intel.com (10.18.116.71) by
+ FMSMSX108.amr.corp.intel.com (10.18.124.206) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Wed, 6 Mar 2019 14:31:52 -0800
+Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.168]) by
+ FMSMSX155.amr.corp.intel.com ([169.254.5.88]) with mapi id 14.03.0415.000;
+ Wed, 6 Mar 2019 14:31:52 -0800
+From: "Khetan, Sharad" <sharad.khetan@intel.com>
+To: Eddie James <eajames@linux.vnet.ibm.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>, "1450335857@qq.com"
+ <1450335857@qq.com>, "jae.hyun.yoo@linux.intel.com"
+ <jae.hyun.yoo@linux.intel.com>, "venture@google.com" <venture@google.com>
+Subject: Re: License change for obmc-ikvm
+Thread-Topic: License change for obmc-ikvm
+Thread-Index: AQHU1GQAl54EpakFuU6Hy2R+Lb6A5aX/MAJ1
+Date: Wed, 6 Mar 2019 22:31:52 +0000
+Message-ID: <C02E8263-2029-499C-8485-98EB19EC6438@intel.com>
+References: <42f16713-0719-4871-59a8-aa912a3b79ee@linux.vnet.ibm.com>
+In-Reply-To: <42f16713-0719-4871-59a8-aa912a3b79ee@linux.vnet.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19030621-2213-0000-0000-0000035F368A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010716; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01170604; UDB=6.00611808; IPR=6.00951243; 
- MB=3.00025863; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-06 21:30:50
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030621-2214-0000-0000-00005D9615D0
-Message-Id: <42f16713-0719-4871-59a8-aa912a3b79ee@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-06_14:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=828 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903060145
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,17 +55,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2019 21:31:02 -0000
+X-List-Received-Date: Wed, 06 Mar 2019 22:32:10 -0000
 
-Hi,
+Hi Eddie,
+Is there a reason for changing the license to GPL2? Is it because of a need=
+ to add a GPL2 component or is there a different reason?
+Thanks,
+-Sharad
 
-We're planning to change the license for obmc-ikvm from Apache 2 to GPL 
-2. The change is up on gerrit for review here: 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/obmc-ikvm/+/18974/
-
-I've added all contributors to review, but anyone else feel free to 
-review there or reply to this thread.
-
-Thanks!
-
-Eddie
+> On Mar 6, 2019, at 10:31 PM, Eddie James <eajames@linux.vnet.ibm.com> wro=
+te:
+>=20
+> Hi,
+>=20
+> We're planning to change the license for obmc-ikvm from Apache 2 to GPL 2=
+. The change is up on gerrit for review here: https://gerrit.openbmc-projec=
+t.xyz/#/c/openbmc/obmc-ikvm/+/18974/
+>=20
+> I've added all contributors to review, but anyone else feel free to revie=
+w there or reply to this thread.
+>=20
+> Thanks!
+>=20
+> Eddie
+>=20
