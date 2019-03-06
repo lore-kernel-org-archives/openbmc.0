@@ -1,71 +1,46 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <prvs=961fec1a8=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=961fec1a8=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Dx216pgFzDq9V
- for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 01:28:08 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x26EPShj109678
- for <openbmc@lists.ozlabs.org>; Wed, 6 Mar 2019 09:28:06 -0500
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.93])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r2ent4v7m-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2019 09:28:06 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Wed, 6 Mar 2019 14:28:05 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.39) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 6 Mar 2019 14:28:02 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2019030614280195-560521 ;
- Wed, 6 Mar 2019 14:28:01 +0000 
-In-Reply-To: 
-Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
- https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
- Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
- Code)-64800002 For eg. (Bengaluru - 080-64800002)
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Wed, 6 Mar 2019 14:28:01 +0000
-Sensitivity: 
-References: 
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 698 seconds by postgrey-1.36 at bilbo;
+ Thu, 07 Mar 2019 02:18:33 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44Dy896Tn9zDqBj
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 02:18:32 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx01.quantatw.com with ESMTP; 06 Mar 2019 23:06:51 +0800
+Received: from george-Quanta.com.com (10.243.91.252) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Wed, 6 Mar 2019
+ 23:06:50 +0800
+From: George Hung <george.hung@quantatw.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: <openbmc@lists.ozlabs.org>, <emilyshaffer@google.com>,
+ <benjaminfair@google.com>, <Avi.Fishman@nuvoton.com>,
+ <ofer.eilon@nuvoton.com>, George Hung <george.hung@quantatw.com>
+Subject: [PATCH dev-4.19 v1] EDAC: Add Nuvoton NPCM7xx EDAC driver
+Date: Wed, 6 Mar 2019 23:03:53 +0800
+Message-ID: <20190306150354.741-1-george.hung@quantatw.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
- SCN1812108_20180501T0841_FP30 February 15, 2019 at 14:01
-X-LLNOutbound: False
-X-Disclaimed: 39735
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 19030614-1799-0000-0000-00000AAF791B
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.052815
-X-IBM-SpamModules-Versions: BY=3.00010715; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01170462; UDB=6.00611723; IPR=6.00951102; 
- BA=6.00006251; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00025857; XFM=3.00000015;
- UTC=2019-03-06 14:28:04
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-03-06 13:09:21 - 6.00009662
-x-cbparentid: 19030614-1800-0000-0000-0000FE1C8540
-Message-Id: <OF36285ED1.978AB581-ON002583B5.004F57E4-002583B5.004F785D@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-06_10:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.243.91.252]
+X-ClientProxiedBy: mailbx06.quanta.corp (10.243.91.101) To
+ mailbx05.quanta.corp (10.243.91.100)
+X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24470.002
+X-TM-AS-Result: No--9.294200-0.000000-31
+X-TM-AS-MatchedID: 704421-708060-700016-703529-188019-705414-701016-845348-7
+ 04425-700324-121336-863519-700648-700918-708712-702898-700264-701220-700057
+ -700476-701296-702098-709584-706290-188199-702426-704496-700767-105250-7800
+ 52-711106-701594-701944-703454-780012-704318-701053-710739-707163-121367-70
+ 7788-780011-712058-701384-701708-703378-705450-105630-106420-703969-704568-
+ 148004-148036-29997-42000-42003-63
+X-TM-AS-User-Approved-Sender: Yes
+X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,147 +52,472 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2019 14:28:10 -0000
+X-List-Received-Date: Wed, 06 Mar 2019 15:18:35 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Hi All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Reminder for tomorrow's test work group meeting.</div>
-<div dir=3D"ltr" >if you have anything to discuss, Please feel free to upda=
-te at</div>
-<div dir=3D"ltr" ><a href=3D"https://github.com/openbmc/openbmc/wiki/Test-w=
-ork-group" >https://github.com/openbmc/openbmc/wiki/Test-work-group</a></di=
-v>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Mar 7, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inli=
-ne-block" >(applies to 24 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
-ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
-t></span></div>
-<div>&nbsp;</div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
-</font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
- you wants to update the agenda. </font></font></font></font></font></span>=
-</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
-/font></span></div></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
-enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
-hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
-github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
- >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
-</span>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
-.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
-"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
-CI/view?usp=3Dsharing</a></font></span></p>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
-le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
-it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
-in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
-heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
-target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
-Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Quality at the first place: Unit test results needed at th=
-e time of gerrit code review</font></span></div>
-<div>&nbsp;</div></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
- owner</font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
- Intel going to sign on this. ?</font></span></div></div></div></div></div>=
-</div></div></div></div></blockquote></div><BR>
+Add support for the Nuvoton NPCM7xx SoC EDAC driver
+
+Signed-off-by: George Hung <george.hung@quantatw.com>
+---
+ drivers/edac/Kconfig        |   7 +
+ drivers/edac/Makefile       |   2 +
+ drivers/edac/npcm7xx_edac.c | 423 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 432 insertions(+)
+ create mode 100644 drivers/edac/npcm7xx_edac.c
+
+diff --git a/drivers/edac/Kconfig b/drivers/edac/Kconfig
+index 57304b2e989f..857030400c62 100644
+--- a/drivers/edac/Kconfig
++++ b/drivers/edac/Kconfig
+@@ -460,4 +460,11 @@ config EDAC_TI
+ 	  Support for error detection and correction on the
+           TI SoCs.
+ 
++config EDAC_NUVOTON
++	tristate "Nuvoton NPCM7xx DDR Memory Controller"
++	depends on ARCH_NPCM
++	help
++	  Support for error detection and correction on the
++	  Nuvoton NPCM7xx DDR memory controller.
++
+ endif # EDAC
+diff --git a/drivers/edac/Makefile b/drivers/edac/Makefile
+index 02b43a7d8c3e..22325b16fc25 100644
+--- a/drivers/edac/Makefile
++++ b/drivers/edac/Makefile
+@@ -77,3 +77,5 @@ obj-$(CONFIG_EDAC_ALTERA)		+= altera_edac.o
+ obj-$(CONFIG_EDAC_SYNOPSYS)		+= synopsys_edac.o
+ obj-$(CONFIG_EDAC_XGENE)		+= xgene_edac.o
+ obj-$(CONFIG_EDAC_TI)			+= ti_edac.o
++
++obj-$(CONFIG_EDAC_NUVOTON)		+= npcm7xx_edac.o
+diff --git a/drivers/edac/npcm7xx_edac.c b/drivers/edac/npcm7xx_edac.c
+new file mode 100644
+index 000000000000..55280a55a9b9
+--- /dev/null
++++ b/drivers/edac/npcm7xx_edac.c
+@@ -0,0 +1,423 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2019 Quanta Computer lnc.
++ */
++
++#include <linux/edac.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/of_address.h>
++#include <linux/of_device.h>
++
++#include "edac_module.h"
++
++#define ECC_ENABLE                     BIT(24)
++
++#define INT_STATUS_ADDR                116
++#define INT_ACK_ADDR                   117
++#define INT_MASK_ADDR                  118
++
++#define ECC_EN_ADDR                    93
++#define ECC_C_ADDR_ADDR                98
++#define ECC_C_DATA_ADDR                100
++#define ECC_C_ID_ADDR                  101
++#define ECC_C_SYND_ADDR                99
++#define ECC_U_ADDR_ADDR                95
++#define ECC_U_DATA_ADDR                97
++#define ECC_U_ID_ADDR                  101
++#define ECC_U_SYND_ADDR                96
++
++#define ECC_ERROR                      -1
++#define EDAC_MSG_SIZE                  256
++#define EDAC_MOD_NAME                  "npcm7xx-edac"
++
++struct ecc_error_signature_info {
++	u32 ecc_addr;
++	u32 ecc_data;
++	u32 ecc_id;
++	u32 ecc_synd;
++};
++
++struct npcm7xx_ecc_int_status {
++	u32 int_mask;
++	u32 int_status;
++	u32 int_ack;
++	u32 ce_cnt;
++	u32 ue_cnt;
++	struct ecc_error_signature_info ceinfo;
++	struct ecc_error_signature_info ueinfo;
++};
++
++struct npcm7xx_edac_priv {
++	void __iomem *baseaddr;
++	char message[EDAC_MSG_SIZE];
++	struct npcm7xx_ecc_int_status stat;
++};
++
++/**
++ * npcm7xx_edac_get_ecc_syndrom - Get the current ecc error info
++ * @base:	Pointer to the base address of the ddr memory controller
++ * @p:		Pointer to the Nuvoton ecc status structure
++ *
++ * Determines there is any ecc error or not
++ *
++ * Return: ECC detection status
++ */
++static int npcm7xx_edac_get_ecc_syndrom(void __iomem *base,
++					struct npcm7xx_ecc_int_status *p)
++{
++	int status = 0;
++	u32 int_status = 0;
++
++	int_status = readl(base + 4*INT_STATUS_ADDR);
++	writel(int_status, base + 4*INT_ACK_ADDR);
++	edac_dbg(3, "int_status: %#08x\n", int_status);
++
++	if ((int_status & (1 << 6)) == (1 << 6)) {
++		edac_dbg(3, "6-Mult uncorrectable detected.\n");
++		p->ue_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 5)) == (1 << 5)) {
++		edac_dbg(3, "5-An uncorrectable detected\n");
++		p->ue_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 4)) == (1 << 4)) {
++		edac_dbg(3, "4-mult correctable detected.\n");
++		p->ce_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 3)) == (1 << 3)) {
++		edac_dbg(3, "3-A correctable detected.\n");
++		p->ce_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if (status == ECC_ERROR) {
++		u32 ecc_synd;
++
++		p->ceinfo.ecc_addr = readl(base + 4*ECC_C_ADDR_ADDR);
++		p->ceinfo.ecc_data = readl(base + 4*ECC_C_DATA_ADDR);
++		p->ceinfo.ecc_synd = readl(base + 4*ECC_C_SYND_ADDR);
++
++		p->ueinfo.ecc_addr = readl(base + 4*ECC_U_ADDR_ADDR);
++		p->ueinfo.ecc_data = readl(base + 4*ECC_U_DATA_ADDR);
++		p->ueinfo.ecc_synd = readl(base + 4*ECC_U_SYND_ADDR);
++
++		/* ECC_C_ID_ADDR has same value as ECC_U_ID_ADDR */
++		ecc_synd = readl(base + 4*ECC_C_ID_ADDR);
++		p->ueinfo.ecc_id = ecc_synd & 0xFFFF;
++		p->ceinfo.ecc_id = ecc_synd >> 16;
++	}
++
++	return status;
++}
++
++/**
++ * npcm7xx_edac_handle_error - Handle controller error types CE and UE
++ * @mci:	Pointer to the edac memory controller instance
++ * @p:		Pointer to the Nuvoton ecc status structure
++ *
++ * Handles the controller ECC correctable and un correctable error.
++ */
++static void npcm7xx_edac_handle_error(struct mem_ctl_info *mci,
++				    struct npcm7xx_ecc_int_status *p)
++{
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++	u32 page, offset;
++
++	if (p->ce_cnt) {
++		snprintf(priv->message, EDAC_MSG_SIZE,
++			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
++			p->ceinfo.ecc_synd, p->ceinfo.ecc_addr,
++			p->ceinfo.ecc_data, p->ceinfo.ecc_id);
++
++		page = p->ceinfo.ecc_addr >> PAGE_SHIFT;
++		offset = p->ceinfo.ecc_addr & ~PAGE_MASK;
++		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
++				     p->ce_cnt, page, offset,
++				     p->ceinfo.ecc_synd,
++				     0, 0, -1,
++				     priv->message, "");
++	}
++
++	if (p->ue_cnt) {
++		snprintf(priv->message, EDAC_MSG_SIZE,
++			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
++			p->ueinfo.ecc_synd, p->ueinfo.ecc_addr,
++			p->ueinfo.ecc_data, p->ueinfo.ecc_id);
++
++		page = p->ueinfo.ecc_addr >> PAGE_SHIFT;
++		offset = p->ueinfo.ecc_addr & ~PAGE_MASK;
++		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
++				     p->ue_cnt, page, offset,
++				     p->ueinfo.ecc_synd,
++				     0, 0, -1,
++				     priv->message, "");
++	}
++
++	memset(p, 0, sizeof(*p));
++}
++
++/**
++ * npcm7xx_edac_check - Check controller for ECC errors
++ * @mci:	Pointer to the edac memory controller instance
++ *
++ * This routine is used to check and post ECC errors and is called by
++ * this driver's CE and UE interrupt handler.
++ */
++static void npcm7xx_edac_check(struct mem_ctl_info *mci)
++{
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++	int status = 0;
++
++	status = npcm7xx_edac_get_ecc_syndrom(priv->baseaddr, &priv->stat);
++	if (status != ECC_ERROR)
++		return;
++
++	npcm7xx_edac_handle_error(mci, &priv->stat);
++}
++
++/**
++ * npcm7xx_edac_isr - CE/UE interrupt service routine
++ * @irq:    The virtual interrupt number being serviced.
++ * @dev_id: A pointer to the EDAC memory controller instance
++ *          associated with the interrupt being handled.
++ *
++ * This routine implements the interrupt handler for both correctable
++ * (CE) and uncorrectable (UE) ECC errors for the Nuvoton Cadence DDR
++ * controller. It simply calls through to the routine used to check,
++ * report and clear the ECC status.
++ *
++ * Unconditionally returns IRQ_HANDLED.
++ */
++static irqreturn_t npcm7xx_edac_isr(int irq, void *dev_id)
++{
++	struct mem_ctl_info *mci = dev_id;
++	int npcm_edac_report = 0;
++
++	npcm_edac_report = edac_get_report_status();
++	if (npcm_edac_report != EDAC_REPORTING_DISABLED)
++		npcm7xx_edac_check(mci);
++
++	return IRQ_HANDLED;
++}
++
++static int npcm7xx_edac_register_irq(struct mem_ctl_info *mci,
++					struct platform_device *pdev)
++{
++	int status = 0;
++	int mc_irq;
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++
++	/* Only enable MC interrupts with ECC - clear int_mask[6:3] */
++	writel(0x7FFFFF87, priv->baseaddr + 4*INT_MASK_ADDR);
++
++	mc_irq = platform_get_irq(pdev, 0);
++
++	if (!mc_irq) {
++		edac_printk(KERN_ERR, EDAC_MC, "Unable to map interrupts.\n");
++		status = -ENODEV;
++		goto fail;
++	}
++
++	status = devm_request_irq(&pdev->dev, mc_irq, npcm7xx_edac_isr, 0,
++			       "npcm-memory-controller", mci);
++
++	if (status < 0) {
++		edac_printk(KERN_ERR, EDAC_MC,
++				      "Unable to request irq %d for ECC",
++				      mc_irq);
++		status = -ENODEV;
++		goto fail;
++	}
++
++	return 0;
++
++fail:
++	return status;
++}
++
++static const struct of_device_id npcm7xx_edac_of_match[] = {
++	{ .compatible = "nuvoton,npcm7xx-sdram-edac"},
++	{ /* end of table */ }
++};
++
++MODULE_DEVICE_TABLE(of, npcm7xx_edac_of_match);
++
++/**
++ * npcm7xx_edac_mc_init - Initialize driver instance
++ * @mci:	Pointer to the edac memory controller instance
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Performs initialization of the EDAC memory controller instance and
++ * related driver-private data associated with the memory controller the
++ * instance is bound to.
++ *
++ * Returns 0 if OK; otherwise, < 0 on error.
++ */
++static int npcm7xx_edac_mc_init(struct mem_ctl_info *mci,
++				 struct platform_device *pdev)
++{
++	const struct of_device_id *id;
++
++	id = of_match_device(npcm7xx_edac_of_match, &pdev->dev);
++	if (!id)
++		return -ENODEV;
++
++	/* Initialize controller capabilities and configuration */
++	mci->mtype_cap = MEM_FLAG_DDR4;
++	mci->edac_ctl_cap = EDAC_FLAG_SECDED;
++	mci->edac_cap = EDAC_FLAG_SECDED;
++	mci->scrub_cap = SCRUB_FLAG_HW_SRC;
++	mci->scrub_mode = SCRUB_HW_SRC;
++	mci->ctl_name = id->compatible;
++	mci->dev_name = dev_name(&pdev->dev);
++	mci->mod_name = EDAC_MOD_NAME;
++
++	edac_op_state = EDAC_OPSTATE_INT;
++
++	return 0;
++}
++
++/**
++ * npcm7xx_edac_get_eccstate - Return the controller ecc enable/disable status
++ * @base:	Pointer to the ddr memory controller base address
++ *
++ * Get the ECC enable/disable status for the controller
++ *
++ * Return: a ecc status boolean i.e true/false - enabled/disabled.
++ */
++static bool npcm7xx_edac_get_eccstate(void __iomem *base)
++{
++	u32 ecc_en;
++	bool state = false;
++
++	ecc_en = readl(base + 4*ECC_EN_ADDR);
++	if (ecc_en & ECC_ENABLE) {
++		edac_printk(KERN_INFO, EDAC_MC, "ECC reporting and correcting on. ");
++		state = true;
++	}
++
++	return state;
++}
++
++/**
++ * npcm7xx_edac_mc_probe - Check controller and bind driver
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Probes a specific controller instance for binding with the driver.
++ *
++ * Return: 0 if the controller instance was successfully bound to the
++ * driver; otherwise, < 0 on error.
++ */
++static int npcm7xx_edac_mc_probe(struct platform_device *pdev)
++{
++	struct mem_ctl_info *mci;
++	struct edac_mc_layer layers[1];
++	struct npcm7xx_edac_priv *priv;
++	struct resource *res;
++	void __iomem *baseaddr;
++	int rc;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	baseaddr = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(baseaddr)) {
++		edac_printk(KERN_ERR, EDAC_MOD_NAME,
++			    "DDR controller regs not defined\n");
++		return PTR_ERR(baseaddr);
++	}
++
++	/*
++	 * Check if ECC is enabled.
++	 * If not, there is no useful monitoring that can be done
++	 * for this controller.
++	 */
++	if (!npcm7xx_edac_get_eccstate(baseaddr)) {
++		edac_printk(KERN_INFO, EDAC_MC, "ECC disabled\n");
++		return -ENXIO;
++	}
++
++	/*
++	 * Allocate an EDA controller instance and perform the appropriate
++	 * initialization.
++	 */
++	layers[0].type = EDAC_MC_LAYER_ALL_MEM;
++	layers[0].size = 1;
++
++	mci = edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
++			    sizeof(struct npcm7xx_edac_priv));
++	if (!mci) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed memory allocation for mc instance\n");
++		return -ENOMEM;
++	}
++
++	mci->pdev = &pdev->dev;
++	priv = mci->pvt_info;
++	priv->baseaddr = baseaddr;
++	platform_set_drvdata(pdev, mci);
++
++	rc = npcm7xx_edac_mc_init(mci, pdev);
++	if (rc) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed to initialize instance\n");
++		goto free_edac_mc;
++	}
++
++	/* Attempt to register it with the EDAC subsystem */
++	rc = edac_mc_add_mc(mci);
++	if (rc) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed to register with EDAC core\n");
++		goto free_edac_mc;
++	}
++
++	/* Register interrupts */
++	rc = npcm7xx_edac_register_irq(mci, pdev);
++	if (rc)
++		goto free_edac_mc;
++
++	return 0;
++
++free_edac_mc:
++	edac_mc_free(mci);
++
++	return rc;
++}
++
++/**
++ * npcm7xx_edac_mc_remove - Unbind driver from controller
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Return: Unconditionally 0
++ */
++static int npcm7xx_edac_mc_remove(struct platform_device *pdev)
++{
++	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
++
++	edac_mc_del_mc(&pdev->dev);
++	edac_mc_free(mci);
++
++	return 0;
++}
++
++static struct platform_driver npcm7xx_edac_driver = {
++	.probe = npcm7xx_edac_mc_probe,
++	.remove = npcm7xx_edac_mc_remove,
++	.driver = {
++		   .name = EDAC_MOD_NAME,
++		   .of_match_table = npcm7xx_edac_of_match,
++	},
++};
++
++module_platform_driver(npcm7xx_edac_driver);
++
++MODULE_AUTHOR("Quanta Computer Inc.");
++MODULE_DESCRIPTION("Nuvoton NPCM7xx EDAC Driver");
++MODULE_LICENSE("GPL v2");
+-- 
+2.21.0
