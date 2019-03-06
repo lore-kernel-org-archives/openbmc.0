@@ -6,33 +6,33 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=arm.com
 Received: from foss.arm.com (usa-sjc-mx-foss1.foss.arm.com [217.140.101.70])
- by lists.ozlabs.org (Postfix) with ESMTP id 44F2J31ptTzDq63
- for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 05:25:36 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id 44F2Ql01cQzDq8x
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 05:31:25 +1100 (AEDT)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D0DC0EBD;
- Wed,  6 Mar 2019 10:25:33 -0800 (PST)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id EB995EBD;
+ Wed,  6 Mar 2019 10:31:23 -0800 (PST)
 Received: from supven01-ThinkStation-P720.austin.arm.com
  (supven01-ThinkStation-P720.austin.arm.com [10.118.28.44])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 843F93F706;
- Wed,  6 Mar 2019 10:25:33 -0800 (PST)
-Message-ID: <eca208264ee44e17ec86371aeaf3bce1dc36e1e5.camel@arm.com>
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A037F3F706;
+ Wed,  6 Mar 2019 10:31:23 -0800 (PST)
+Message-ID: <f2afd3a89073c03f13830ce071f300ae1df6186c.camel@arm.com>
 Subject: Re: anyone interested in chip register error diagnostics?
 From: Supreeth Venkatesh <supreeth.venkatesh@arm.com>
 To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: zshelle <zshelle@linux.vnet.ibm.com>, Dong Wei <Dong.Wei@arm.com>, 
- ed.tanous@intel.com, openbmc@lists.ozlabs.org
-Date: Wed, 06 Mar 2019 12:25:33 -0600
-In-Reply-To: <20190305173938.tdcz4cxtomxz2cbh@thinkpad>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Dong Wei
+ <Dong.Wei@arm.com>,  "ed.tanous@intel.com" <ed.tanous@intel.com>, zshelle
+ <zshelle@linux.vnet.ibm.com>
+Date: Wed, 06 Mar 2019 12:31:23 -0600
+In-Reply-To: <20190305174139.ya4kvilcng3adfcd@thinkpad>
 References: <d6c9b047b8906a7dabc6fc1acf7d7c2d@linux.vnet.ibm.com>
  <20190304203754.5piu2z2hj2yipomd@thinkpad>
  <AM4PR08MB2788F676F7BE8F10D8EFB90A80710@AM4PR08MB2788.eurprd08.prod.outlook.com>
- <3d72867607bc75b18960223dc8cea114@linux.vnet.ibm.com>
- <d68f47712a2b0b82dfa4c313fc899afd1e37e529.camel@arm.com>
- <20190305173938.tdcz4cxtomxz2cbh@thinkpad>
+ <D80C3F77-70A1-4ECF-A492-97D6D28B9484@fuzziesquirrel.com>
+ <20190305174139.ya4kvilcng3adfcd@thinkpad>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
 Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,43 +44,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Mar 2019 18:25:40 -0000
+X-List-Received-Date: Wed, 06 Mar 2019 18:31:27 -0000
 
-On Tue, 2019-03-05 at 12:39 -0500, Brad Bishop wrote:
-> On Mon, Mar 04, 2019 at 05:53:45PM -0600, Supreeth Venkatesh wrote:
-> > On Mon, 2019-03-04 at 16:44 -0600, zshelle wrote:
-> > On Arm platforms also, There are several error syndrome registers
-> > which
-> > are read.
-> > This information leads to contruction of CPER record which will be
-> > used
-> > by OS to take service actions as per RAS policy.
+On Tue, 2019-03-05 at 12:41 -0500, Brad Bishop wrote:
+> On Mon, Mar 04, 2019 at 04:01:16PM -0500, Brad Bishop wrote:
+> > oops…I did not mean to take the list off copy.  Adding it back on…
 > > 
-> > After reading 18831, it looks like you want to move error data
-> > collection to BMC from host firmware and for that you collect all
-> > fault
-> > isolation registers.
+> > > On Mar 4, 2019, at 3:56 PM, Supreeth Venkatesh <
+> > > Supreeth.Venkatesh@arm.com> wrote:
+> > > 
+> > > 
+> > > Thanks Brad.
+> > > 
+> > > Hi Zane/Brad,
+> > > 
+> > > On Arm Platforms, We use Common Platform Error Record (CPER) to
+> > > report these kinds of hardware errors.
 > 
-> It isn't really moving - we run it on the host as well as the BMC,
-> for
-> situations where the POWER processor is not able to execute
-> instructions
-> due to a malfunction somewhere.
-Thanks for the clarification Brad.
-
-> 
-> > Is there a security implication here?
-> 
-> Are you able to expand on this?
-Yes. I meant if this involves direct host/target register access from
-BMC, then there may be a security issue. 
-However, from Zane's reply, it does not seem to be the case.    
-
-
-> 
-> > 
-> > Thank you for the proposal, I will read 18591 thoroughly to
-> > understand,
-> > whether we can reuse this on arm architecture.
-> 
-> Thanks Supreeth!
+> Supreeth - Is the code that generates these open source?
+Yes. 
+arm-tf: https://github.com/ARM-software/arm-trusted-firmware
+edk2: https://github.com/tianocore/edk2/tree/master/StandaloneMmPkg
