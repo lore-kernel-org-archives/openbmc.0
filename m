@@ -1,88 +1,78 @@
-Return-Path: <manivannan.sadhasivam@linaro.org>
+Return-Path: <horms@verge.net.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linaro.org
- (client-ip=2607:f8b0:4864:20::142; helo=mail-it1-x142.google.com;
- envelope-from=manivannan.sadhasivam@linaro.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=verge.net.au
+ (client-ip=202.4.237.240; helo=kirsty.vergenet.net;
+ envelope-from=horms@verge.net.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="E3yWxV0F"; 
+ dmarc=none (p=none dis=none) header.from=verge.net.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=verge.net.au header.i=@verge.net.au header.b="N/QFnX41";
  dkim-atps=neutral
-Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44D0Hb2Rb0zDqDp
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 12:51:36 +1100 (AEDT)
-Received: by mail-it1-x142.google.com with SMTP id v2so1879881ith.3
- for <openbmc@lists.ozlabs.org>; Mon, 04 Mar 2019 17:51:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Tb94qa+Lhw2PjTQbTPumpz74R9zUXXqOPciWgwufK1w=;
- b=E3yWxV0FoJIFkTzdXXlmBAJYwu/GlPuOoFRqOMcWv8RVg/ehx1SiPu2qqXKxl0hQ28
- w4W82AhhHxqCRXIJMdKQjhU9aKhVF7d9V+D2u2GhLwQzAhCwoxfmqMhmrBb7r571s+gS
- CDOB32itYl9Unt++e7QXqiiKFf+JEMaXiwMh0pPlRINVx97R5qSnSHFjUzGdfeZYQq3e
- ve+Ylvam4ajGudxD4FIaBxQLknAioTM9/bxBx1/gvQWr18Bsa17i1Aq3vOum8UjSGpnJ
- 02n3UzDyk0Ia+w6f6SzeSCKnH1ZL5jSnYe/W+Y3jZdGmudtFfOSSTkAuTFhsnRzmoJlV
- kChw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Tb94qa+Lhw2PjTQbTPumpz74R9zUXXqOPciWgwufK1w=;
- b=stPAPN5aeyg2ydfsWYHa7eBlSnAqDF9hAeT3yE28Pd0iJIh+YxbPY98KWeWQT2sbPm
- UZE7SfmPsvEXBG5Qz/0L5H9N2YJov9wl4U5hjXsbEmh22AiT05Epuna0HvaMafe2VRH+
- kvgSiJ1MfrsnHaWqYS7gOBj4V2qEfOs0x+AS4S8K68ZcR3Tfk+L18fIMzqSBsyiqrRIr
- rvtRGKktREGnCLix4wla3onpmY+lO1HyXwZZLHCcZf62BHgB074W8cH3188EkJpknM3y
- 3K7urHb8G7EC9mqdc8X7S0kRVHdYpI++3ibBYL32h2WIsvqZC3mzF6IzedaPUahzQUuk
- 11uA==
-X-Gm-Message-State: APjAAAX3QiRI8i6JijG+ZRhNR6Po3bqhmK47Rp7eM6iVw4vscjhxbhw1
- L/P4QI1O3811p7CcPCe/IEiWZeP80b2izyEZl2tK
-X-Google-Smtp-Source: APXvYqyrEXorU1B6ZIyYiIz6F0MAJ4/pkx/ouJUbgqxJfAHWwFvlD4XrfkBLJXWSODT3oCpdOgyXsky1pSN4a394k88=
-X-Received: by 2002:a24:6344:: with SMTP id j65mr1255750itc.40.1551750692827; 
- Mon, 04 Mar 2019 17:51:32 -0800 (PST)
-MIME-Version: 1.0
-References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
- <20190301155523.GA1915@Mani-XPS-13-9360>
- <CACRpkdb=E9_rm4_7DQV3dS5uOs1gozxEwN9MtWr0tTwmjcYe=A@mail.gmail.com>
- <20190304144829.GA5265@Mani-XPS-13-9360>
- <CACRpkda+8QZnaT-YoeccQGjg78y9-E-JoWBr3LJs62T03H4wQw@mail.gmail.com>
-In-Reply-To: <CACRpkda+8QZnaT-YoeccQGjg78y9-E-JoWBr3LJs62T03H4wQw@mail.gmail.com>
-From: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Date: Tue, 5 Mar 2019 07:21:19 +0530
-Message-ID: <CAOZjjhnDYHkWCd-zDqkFpg5FPoj-UxxNwVxfbg6QEahiASm10w@mail.gmail.com>
-Subject: Re: [PATCH 01/15] ARM: actions: fix a leaked reference by
- addingmissing of_node_put
-To: Linus Walleij <linus.walleij@linaro.org>
-Cc: Wen Yang <wen.yang99@zte.com.cn>,
- =?UTF-8?Q?Andreas_F=C3=A4rber?= <afaerber@suse.de>, 
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>, 
+Received: from kirsty.vergenet.net (kirsty.vergenet.net [202.4.237.240])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44Dv4y4Q0jzDq8W
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 00:00:33 +1100 (AEDT)
+Received: from reginn.horms.nl (watermunt.horms.nl [80.127.179.77])
+ by kirsty.vergenet.net (Postfix) with ESMTPA id 80BE325B7D6;
+ Thu,  7 Mar 2019 00:00:31 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=verge.net.au; s=mail;
+ t=1551877231; bh=hZU842crZ/VahV9rk7Fzx8ogXea/xJyxOnqRvPQS8m4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=N/QFnX41QGxrwjqhBxM1IbhtDy7xrB4m9i1wUiLccvN6rl2Cwe+QiO4vVJix/TV11
+ kt2RR625S/pAI7q5MqFNTF9wVV8Xmpns0TZtladIbG9V1oJEBZB1zxd3ZyxWPxu0JS
+ v8hH3Tg1U8LUo9hl/M+EgIolSQqm3sVw6DgBFJWs=
+Received: by reginn.horms.nl (Postfix, from userid 7100)
+ id 0977A94030D; Wed,  6 Mar 2019 14:00:29 +0100 (CET)
+Date: Wed, 6 Mar 2019 14:00:29 +0100
+From: Simon Horman <horms@verge.net.au>
+To: Fabrizio Castro <fabrizio.castro@bp.renesas.com>
+Cc: Geert Uytterhoeven <geert@linux-m68k.org>,
+ Wen Yang <wen.yang99@zte.com.cn>, Liviu Dudau <liviu.dudau@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Russell King <linux@armlinux.org.uk>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Russell King <linux@armlinux.org.uk>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
  Kukjin Kim <kgene@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>, 
- Michal Simek <michal.simek@xilinx.com>, Dinh Nguyen <dinguyen@kernel.org>, 
- =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>, 
- Florian Fainelli <f.fainelli@gmail.com>, Ray Jui <rjui@broadcom.com>, 
- Scott Branden <sbranden@broadcom.com>, 
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- avifishman70@gmail.com, 
- Tomer Maimon <tmaimon77@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, 
- Brendan Higgins <brendanhiggins@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Xu Wei <xuwei5@hisilicon.com>, Maxime Ripard <maxime.ripard@bootlin.com>, 
- Chen-Yu Tsai <wens@csie.org>, Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will.deacon@arm.com>, Simon Horman <horms@verge.net.au>, 
- Magnus Damm <magnus.damm@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Sascha Hauer <kernel@pengutronix.de>, Fabio Estevam <fabio.estevam@nxp.com>, 
- NXP Linux Team <linux-imx@nxp.com>, wang.yi59@zte.com.cn
-Content-Type: multipart/alternative; boundary="000000000000d3bb3405834f1c04"
+ "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Andreas =?utf-8?Q?F=C3=A4rber?= <afaerber@suse.de>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+ Dinh Nguyen <dinguyen@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ "bcm-kernel-feedback-list@broadcom.com"
+ <bcm-kernel-feedback-list@broadcom.com>, 
+ Linus Walleij <linus.walleij@linaro.org>,
+ "avifishman70@gmail.com" <avifishman70@gmail.com>,
+ "tmaimon77@gmail.com" <tmaimon77@gmail.com>,
+ "venture@google.com" <venture@google.com>,
+ "yuenn@google.com" <yuenn@google.com>,
+ "brendanhiggins@google.com" <brendanhiggins@google.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Wei Xu <xuwei5@hisilicon.com>, Maxime Ripard <maxime.ripard@bootlin.com>,
+ Chen-Yu Tsai <wens@csie.org>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will.deacon@arm.com>, Magnus Damm <magnus.damm@gmail.com>,
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Sascha Hauer <kernel@pengutronix.de>,
+ Fabio Estevam <fabio.estevam@nxp.com>,
+ "linux-imx@nxp.com" <linux-imx@nxp.com>,
+ "wang.yi59@zte.com.cn" <wang.yi59@zte.com.cn>
+Subject: Re: [PATCH 08/15] ARM: shmobile: fix a leaked reference by
+ addingmissing of_node_put
+Message-ID: <20190306130029.nysvl7fmcjcmhqnw@verge.net.au>
+References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
+ <1551430616-42014-8-git-send-email-wen.yang99@zte.com.cn>
+ <CAMuHMdWrY0UNhCA7a8oHVfdVNXaB=15qFuWqvuU9OZpf7-ecmg@mail.gmail.com>
+ <20190304102423.bipib6frc6ma2ltv@verge.net.au>
+ <TY1PR01MB17701D48CA7E650507C2E010C0710@TY1PR01MB1770.jpnprd01.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <TY1PR01MB17701D48CA7E650507C2E010C0710@TY1PR01MB1770.jpnprd01.prod.outlook.com>
+Organisation: Horms Solutions BV
+User-Agent: NeoMutt/20170113 (1.7.2)
 X-Mailman-Approved-At: Thu, 07 Mar 2019 12:31:41 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -95,174 +85,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 01:51:40 -0000
+X-List-Received-Date: Wed, 06 Mar 2019 13:00:37 -0000
 
---000000000000d3bb3405834f1c04
-Content-Type: text/plain; charset="UTF-8"
-
-On Tue, 5 Mar, 2019, 4:08 AM Linus Walleij <linus.walleij@linaro.org wrote:
-
-> On Mon, Mar 4, 2019 at 3:48 PM Manivannan Sadhasivam
-> <manivannan.sadhasivam@linaro.org> wrote:
-> > On Mon, Mar 04, 2019 at 01:29:33PM +0100, Linus Walleij wrote:
-> > > On Fri, Mar 1, 2019 at 4:55 PM Manivannan Sadhasivam
-> > > <manivannan.sadhasivam@linaro.org> wrote:
-> > > > Hi Wen,
+On Mon, Mar 04, 2019 at 10:55:27AM +0000, Fabrizio Castro wrote:
+> Hello Simon,
+> 
+> > From: linux-renesas-soc-owner@vger.kernel.org <linux-renesas-soc-owner@vger.kernel.org> On Behalf Of Simon Horman
+> > Sent: 04 March 2019 10:24
+> > Subject: Re: [PATCH 08/15] ARM: shmobile: fix a leaked reference by addingmissing of_node_put
+> > 
+> > On Fri, Mar 01, 2019 at 10:51:27AM +0100, Geert Uytterhoeven wrote:
+> > > On Fri, Mar 1, 2019 at 9:57 AM Wen Yang <wen.yang99@zte.com.cn> wrote:
+> > > > The call to of_get_next_child returns a node pointer with refcount
+> > > > incremented thus it must be explicitly decremented after the last
+> > > > usage.
 > > > >
-> > > > On Fri, Mar 01, 2019 at 04:56:42PM +0800, Wen Yang wrote:
-> > > > > The call to of_get_next_child returns a node pointer with refcount
-> > > > > incremented thus it must be explicitly decremented after the last
-> > > > > usage.
-> > > > >
-> > > > > Detected by coccinelle with the following warnings:
-> > > > > ./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missing
-> of_node_put; acquired a node pointer with refcount incremented on line 103,
-> but without a corresponding object release within this function.
-> > > > > ./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missing
-> of_node_put; acquired a node pointer with refcount incremented on line 115,
-> but without a corresponding object release within this function.
-> > > > > ./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missing
-> of_node_put; acquired a node pointer with refcount incremented on line 128,
-> but without a corresponding object release within this function.
-> > > > >
+> > > > Detected by coccinelle with the following warnings:
+> > > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:77:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount
+> > incremented on line 66, but without a corresponding object release within this function.
+> > > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:85:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount
+> > incremented on line 66, but without a corresponding object release within this function.
+> > > > ./arch/arm/mach-shmobile/pm-rcar-gen2.c:90:2-8: ERROR: missing of_node_put; acquired a node pointer with refcount
+> > incremented on line 66, but without a corresponding object release within this function.
 > > > >
-> > > > We have a floating patch for this:
-> > > > https://www.spinics.net/lists/arm-kernel/msg694544.html
-> > > >
-> > > > Andreas: Can you please take a second look at the patchset submitted
-> by Linus
-> > > > Walleij and Russel for simplifying the Actions startup code?
+> > > > Signed-off-by: Wen Yang <wen.yang99@zte.com.cn>
 > > >
-> > > Andreas wrote a version of simplifying secondary startup in the
-> > > same spirit as Russell's patches, and it's merged and all
-> > > is fine I think.
-> > >
-> >
-> > Oops. I think I missed that! Can you please point me to that patch? And
-> how it
-> > got merged? I did the PR for actions stuff this time and haven't
-> included any
-> > mach-actions patches.
->
-> I just did git log arch/arm/mach-actions but I think it came in quite some
-> time
-> ago, not last merge window:
->
-> But you see:
-> commit 6c2eb3e76fb84e2eb46d484f71fab469c0d9532c
-> "ARM: owl: smp: Drop owl_secondary_boot()"
-> commit bad29933fef76fb6ee577f4a0b6d145c1f52f663
-> "ARM: owl: smp: Use __pa_symbol()"
-> commit 18cfd9429d8a82c49add8f3ca9d366599bfcac45
-> "ARM: owl: smp: Drop bogus holding pen"
->
-> platsmp.c looks just fine these days. Except for what Wei's patch is
-> fixing,
-> of_node_put().
->
+> > > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > 
+> > Thanks, applied for v5.2.
+> 
+> I am sorry for commenting on this just a moment after you took the patch, I guess there is a space missing in the title s/addingmissing/adding missing/ ? Is that still fixable?
 
-Nope. platsmp.c still requires some cleanup like removing the redundant
-bootlock and pen_release flag as pointed out by Russel. Andreas just
-replied to your cleanup patches but there was no follow up since that. So,
-I guess we can just apply Russell's patches and this patch once Andreas is
-fine with it (it looks good to me though).
-
-Thanks,
-Mani
-
-
-> Yours,
-> Linus Walleij
->
-
---000000000000d3bb3405834f1c04
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto"><div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr">=
-On Tue, 5 Mar, 2019, 4:08 AM Linus Walleij &lt;<a href=3D"mailto:linus.wall=
-eij@linaro.org">linus.walleij@linaro.org</a> wrote:<br></div><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;p=
-adding-left:1ex">On Mon, Mar 4, 2019 at 3:48 PM Manivannan Sadhasivam<br>
-&lt;<a href=3D"mailto:manivannan.sadhasivam@linaro.org" target=3D"_blank" r=
-el=3D"noreferrer">manivannan.sadhasivam@linaro.org</a>&gt; wrote:<br>
-&gt; On Mon, Mar 04, 2019 at 01:29:33PM +0100, Linus Walleij wrote:<br>
-&gt; &gt; On Fri, Mar 1, 2019 at 4:55 PM Manivannan Sadhasivam<br>
-&gt; &gt; &lt;<a href=3D"mailto:manivannan.sadhasivam@linaro.org" target=3D=
-"_blank" rel=3D"noreferrer">manivannan.sadhasivam@linaro.org</a>&gt; wrote:=
-<br>
-&gt; &gt; &gt; Hi Wen,<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; On Fri, Mar 01, 2019 at 04:56:42PM +0800, Wen Yang wrote:<br=
->
-&gt; &gt; &gt; &gt; The call to of_get_next_child returns a node pointer wi=
-th refcount<br>
-&gt; &gt; &gt; &gt; incremented thus it must be explicitly decremented afte=
-r the last<br>
-&gt; &gt; &gt; &gt; usage.<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt; &gt; Detected by coccinelle with the following warnings:<br>
-&gt; &gt; &gt; &gt; ./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missi=
-ng of_node_put; acquired a node pointer with refcount incremented on line 1=
-03, but without a corresponding object release within this function.<br>
-&gt; &gt; &gt; &gt; ./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missi=
-ng of_node_put; acquired a node pointer with refcount incremented on line 1=
-15, but without a corresponding object release within this function.<br>
-&gt; &gt; &gt; &gt; ./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missi=
-ng of_node_put; acquired a node pointer with refcount incremented on line 1=
-28, but without a corresponding object release within this function.<br>
-&gt; &gt; &gt; &gt;<br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; We have a floating patch for this:<br>
-&gt; &gt; &gt; <a href=3D"https://www.spinics.net/lists/arm-kernel/msg69454=
-4.html" rel=3D"noreferrer noreferrer" target=3D"_blank">https://www.spinics=
-.net/lists/arm-kernel/msg694544.html</a><br>
-&gt; &gt; &gt;<br>
-&gt; &gt; &gt; Andreas: Can you please take a second look at the patchset s=
-ubmitted by Linus<br>
-&gt; &gt; &gt; Walleij and Russel for simplifying the Actions startup code?=
-<br>
-&gt; &gt;<br>
-&gt; &gt; Andreas wrote a version of simplifying secondary startup in the<b=
-r>
-&gt; &gt; same spirit as Russell&#39;s patches, and it&#39;s merged and all=
-<br>
-&gt; &gt; is fine I think.<br>
-&gt; &gt;<br>
-&gt;<br>
-&gt; Oops. I think I missed that! Can you please point me to that patch? An=
-d how it<br>
-&gt; got merged? I did the PR for actions stuff this time and haven&#39;t i=
-ncluded any<br>
-&gt; mach-actions patches.<br>
-<br>
-I just did git log arch/arm/mach-actions but I think it came in quite some =
-time<br>
-ago, not last merge window:<br>
-<br>
-But you see:<br>
-commit 6c2eb3e76fb84e2eb46d484f71fab469c0d9532c<br>
-&quot;ARM: owl: smp: Drop owl_secondary_boot()&quot;<br>
-commit bad29933fef76fb6ee577f4a0b6d145c1f52f663<br>
-&quot;ARM: owl: smp: Use __pa_symbol()&quot;<br>
-commit 18cfd9429d8a82c49add8f3ca9d366599bfcac45<br>
-&quot;ARM: owl: smp: Drop bogus holding pen&quot;<br>
-<br>
-platsmp.c looks just fine these days. Except for what Wei&#39;s patch is fi=
-xing,<br>
-of_node_put().<br></blockquote></div></div><div dir=3D"auto"><br></div><div=
- dir=3D"auto">Nope. platsmp.c still requires some cleanup like removing the=
- redundant bootlock and pen_release flag as pointed out by Russel. Andreas =
-just replied to your cleanup patches but there was no follow up since that.=
- So, I guess we can just apply Russell&#39;s patches and this patch once An=
-dreas is fine with it (it looks good to me though).=C2=A0</div><div dir=3D"=
-auto"><br></div><div dir=3D"auto">Thanks,=C2=A0</div><div dir=3D"auto">Mani=
-</div><div dir=3D"auto"><br></div><div dir=3D"auto"><div class=3D"gmail_quo=
-te"><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .8ex;border-lef=
-t:1px #ccc solid;padding-left:1ex">
-<br>
-Yours,<br>
-Linus Walleij<br>
-</blockquote></div></div></div>
-
---000000000000d3bb3405834f1c04--
+Thanks for noticing, fixed.
