@@ -1,27 +1,28 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <supreeth.venkatesh@arm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=arm.com
+ (client-ip=217.140.101.70; helo=foss.arm.com;
+ envelope-from=supreeth.venkatesh@arm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Fgp95spkzDq5f
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 06:35:27 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 07 Mar 2019 11:35:25 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,451,1544515200"; d="scan'208";a="123576164"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by orsmga008.jf.intel.com with ESMTP; 07 Mar 2019 11:35:25 -0800
+ dmarc=none (p=none dis=none) header.from=arm.com
+Received: from foss.arm.com (foss.arm.com [217.140.101.70])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44FjFD04zrzDqDW
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 07:40:30 +1100 (AEDT)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.72.51.249])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ECE07EBD;
+ Thu,  7 Mar 2019 12:40:27 -0800 (PST)
+Received: from supven01-thinkstation-p720.austin.arm.com
+ (supven01-thinkstation-p720.austin.arm.com [10.118.28.44])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id A9E2E3F71D;
+ Thu,  7 Mar 2019 12:40:27 -0800 (PST)
+Message-ID: <fe67a0a67bf7208a1a8be74d1f737fc37aea96b1.camel@arm.com>
 Subject: Re: Initial MCTP design proposal
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, Jeremy Kerr <jk@ozlabs.org>
+From: Supreeth Venkatesh <supreeth.venkatesh@arm.com>
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, Jeremy Kerr
+ <jk@ozlabs.org>,  "Tanous, Ed" <ed.tanous@intel.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 07 Mar 2019 14:40:27 -0600
+In-Reply-To: <76923984-3d27-581b-0541-ae571a441e2d@linux.vnet.ibm.com>
 References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
  <20190207155131.gzntyqoflqfw5vld@thinkpad>
  <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
@@ -29,15 +30,9 @@ References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
  <9c1410a1255d49735b7a9879750557bc92acaa47.camel@ozlabs.org>
  <ad89021d-57a9-980a-6034-8530b81b975c@intel.com>
  <76923984-3d27-581b-0541-ae571a441e2d@linux.vnet.ibm.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <3447b96c-2a52-660a-3015-22b559242c0d@intel.com>
-Date: Thu, 7 Mar 2019 11:35:25 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
-MIME-Version: 1.0
-In-Reply-To: <76923984-3d27-581b-0541-ae571a441e2d@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -50,23 +45,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Mar 2019 19:35:30 -0000
+X-List-Received-Date: Thu, 07 Mar 2019 20:40:32 -0000
 
+On Thu, 2019-03-07 at 14:16 +0530, Deepak Kodihalli wrote:
+> On 07/03/19 1:34 AM, Ed Tanous wrote:
+> > 
+> > On 2/12/19 12:43 AM, Jeremy Kerr wrote:
+> > > > To that end I could create an initial empty repository in the
+> > > > openbmc
+> > > > namespace and you could push your tree there for review, when
+> > > > you are
+> > > > ready.  How does that sound?
+> > 
+> > I would like to see this happen.  Once it does, I'll likely push
+> > reviews
+> > for the commits in this tree to it (which includes both Jeremys
+> > commits
+> > as well as my own.
+> > https://github.com/edtanous/libmctp/commits/pr1
+> > 
+> > 
+> > > 
+> > > Yep, I'd be happy to do this when we decide on a good time to do
+> > > the
+> > > reviews.
+> > 
+> > I vote the time is now.  Any objections?
 
++1
 
-On 3/7/19 12:46 AM, Deepak Kodihalli wrote:
 > 
-> I agree to this as well. I've got two PLDM stacks on my laptop
-> (requester and responder) talking to each other over libmctp (over the
-> serial binding - making use of fifos instead of an actual serial
-> connection). I'd like to push a couple small commits to libmctp as well
+> I agree to this as well. I've got two PLDM stacks on my laptop 
+> (requester and responder) talking to each other over libmctp (over
+> the 
+> serial binding - making use of fifos instead of an actual serial 
+> connection). I'd like to push a couple small commits to libmctp as
+> well 
 > (I made a PR for one of them at the moment).
-This is one thing I've wondered before about the way PLDM is being built
-out.  Testing the implementation against itself doesn't really test the
-correctness of it, unless you're creating a bunch of asserts on data
-structure elements, and even then, it just tests that you're giving what
-you expect, not that you faithfully implemented the spec.
+> 
+> Regards,
+> Deepak
+> 
 
-Do you plan to run this implementation against something other than
-itself to test at some point?  If so, what device/implementation are you
-planning to target?
+Thanks,
+Supreeth
