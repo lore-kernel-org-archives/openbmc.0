@@ -1,90 +1,57 @@
-Return-Path: <linux+openbmc=lists.ozlabs.org@armlinux.org.uk>
+Return-Path: <tyler.sabdon@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=armlinux.org.uk
- (client-ip=2001:4d48:ad52:3201:214:fdff:fe10:1be6;
- helo=pandora.armlinux.org.uk;
- envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=armlinux.org.uk
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d30; helo=mail-io1-xd30.google.com;
+ envelope-from=tyler.sabdon@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="Ckd119AE"; dkim-atps=neutral
-X-Greylist: delayed 452 seconds by postgrey-1.36 at bilbo;
- Tue, 05 Mar 2019 21:03:39 AEDT
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="G0ARb7ge"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44DCCH4hBHzDq96
- for <openbmc@lists.ozlabs.org>; Tue,  5 Mar 2019 21:03:37 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=B4wdFcvaQS9jQ+A96f4iwiWLIVrRdXxvFqFNs+W8ziA=; b=Ckd119AEXAaocwB1e1eYphnMi
- FeX6nPYqK/kOiCtUOoy1uHwB63/BD5ZCx/amoMcFoJkbu4tugwe/vHyBEcyEy//3fITVthW+v/f68
- R3TS8hZT/7tsQ/SKTadOcemkA+jONlRdnHwIJacWd8zRw13qfVubvadHfClbxRzt01nUuXidg77wf
- WEvk0UwP4kWjYdb9LsGHxWtfS0nZlscINv//lhVigNKxU2pRjmzcJMzMPTCFXc3z1VrgB6BAexzFt
- zJPc98WB5ghjkAF5f60OEXoF1xWFYEQYw3mlXwPDOpZMiwO6Llt+hqM+l26APzDzkVBox9Kk+8t2G
- pl5YdglNQ==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:54940)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1h16nB-0000Mp-VA; Tue, 05 Mar 2019 09:55:22 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.89)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1h16mv-00035r-Sh; Tue, 05 Mar 2019 09:55:05 +0000
-Date: Tue, 5 Mar 2019 09:55:05 +0000
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-Cc: Linus Walleij <linus.walleij@linaro.org>, Wen Yang <wen.yang99@zte.com.cn>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@arm.com>,
- Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Kukjin Kim <kgene@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-samsung-soc <linux-samsung-soc@vger.kernel.org>,
- Michal Simek <michal.simek@xilinx.com>, Dinh Nguyen <dinguyen@kernel.org>,
- Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
- "open list:ARM/Rockchip SoC..." <linux-rockchip@lists.infradead.org>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- bcm-kernel-feedback-list <bcm-kernel-feedback-list@broadcom.com>,
- avifishman70@gmail.com, Tomer Maimon <tmaimon77@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Xu Wei <xuwei5@hisilicon.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will.deacon@arm.com>, Simon Horman <horms@verge.net.au>,
- Magnus Damm <magnus.damm@gmail.com>,
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>,
- Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Sascha Hauer <kernel@pengutronix.de>,
- Fabio Estevam <fabio.estevam@nxp.com>,
- NXP Linux Team <linux-imx@nxp.com>, wang.yi59@zte.com.cn
-Subject: Re: [PATCH 01/15] ARM: actions: fix a leaked reference by
- addingmissing of_node_put
-Message-ID: <20190305095505.znposuv6avjtbfwf@shell.armlinux.org.uk>
-References: <1551430616-42014-1-git-send-email-wen.yang99@zte.com.cn>
- <20190301155523.GA1915@Mani-XPS-13-9360>
- <CACRpkdb=E9_rm4_7DQV3dS5uOs1gozxEwN9MtWr0tTwmjcYe=A@mail.gmail.com>
- <20190304144829.GA5265@Mani-XPS-13-9360>
- <CACRpkda+8QZnaT-YoeccQGjg78y9-E-JoWBr3LJs62T03H4wQw@mail.gmail.com>
- <CAOZjjhnDYHkWCd-zDqkFpg5FPoj-UxxNwVxfbg6QEahiASm10w@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44FDFz5TCGzDqC9
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 12:54:31 +1100 (AEDT)
+Received: by mail-io1-xd30.google.com with SMTP id p196so12038522iod.9
+ for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2019 17:54:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UvxEt8aFf5DA5rZ6Cu9p5MUAvMknxDdavoUdg8BOkWc=;
+ b=G0ARb7geT4QzLmEG2NIPVfjNTT67q+ptxSSVb9LVp15GyTsKjDGCf0XJ5F2Mk+VT+w
+ ftfsmoGXKmfLdKzOckKvZlUXOAuYLH64JRwxBXgIdj0Wh+776K2BPe8DekTGp4EeTElp
+ 2dbD1Mzn7K1S6edyKXyiQPDdGR/3LzvSEOp0940XADzv3ziNlSwWmmTdqSxRV2sgHtAl
+ KY3jQ0pT85ahuFN4p/uQAgGNNKbNIXz9elj1V1jNbkmJd4OFi6NCjKGbDKL65NKnN6m6
+ IFZG/7urouTLhvHJwu7RGKEvWrMyLUtl2MygLdXhHzNFypr9Eg7WmM2rm0XH3v30w57d
+ c+ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UvxEt8aFf5DA5rZ6Cu9p5MUAvMknxDdavoUdg8BOkWc=;
+ b=CbT6MAp4LfuSJo742kKxOFn0qVpCFlRw1lVnC7Wdxcsxwek5TJRRdBMhhm3SrUgrpT
+ C+ALVQ+o3jrEw5U9cb2PXEk4hZWL+QC5aOa5DUEfaFT1OMDftR038D46RZL5XIsZc/BU
+ 96g+oriV3JTDKunUCEkghEQf2tD+JHuiKGxif/s0lEPbH9n0XeecZwiz8brVPFgqxwkh
+ cqr0EQyk6om7HiDpP0UNnZ2lvg7oJ7vnl5YhEHnHSxwID0XS0k/jWnDh8aF/wQGxEuwW
+ poPaTfvpJQDzL64siT3ccFyvygkAahk3srtOp4ZV6tcyaZAvO2ZrZClw1fIsrokc+20B
+ NWPA==
+X-Gm-Message-State: APjAAAXCicF1depj3ZV/hPvYsMHaMpRjciV98UTKJUBzbNuclwXpEG7D
+ pgrUwWsjypU8ghf0w+eWP9D40t5r7kKhuFyFVSA=
+X-Google-Smtp-Source: APXvYqxpsIHHmydU87m1uV7nzHy3legpYM9gex1RgzULQII8Ifkg9MAvnZd0sv2J0iOuHWuiry2vgwPlw6LGU3iMWOA=
+X-Received: by 2002:a5e:c707:: with SMTP id f7mr5299036iop.76.1551923665536;
+ Wed, 06 Mar 2019 17:54:25 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAOZjjhnDYHkWCd-zDqkFpg5FPoj-UxxNwVxfbg6QEahiASm10w@mail.gmail.com>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Sender: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-X-Mailman-Approved-At: Thu, 07 Mar 2019 12:31:42 +1100
+References: <CAO9PYRJjBTPEgymzS5aygU_=e2dBqDwMezFF2iOZ-Ah016dhYQ@mail.gmail.com>
+ <CAJoAoZmWD_jx+qCtJV-KOXRGa0GO0w3JpOO_q4GHJ0KzR8LKuQ@mail.gmail.com>
+In-Reply-To: <CAJoAoZmWD_jx+qCtJV-KOXRGa0GO0w3JpOO_q4GHJ0KzR8LKuQ@mail.gmail.com>
+From: Deng Tyler <tyler.sabdon@gmail.com>
+Date: Thu, 7 Mar 2019 09:54:14 +0800
+Message-ID: <CAO9PYRLkfidAqVTV-HU-SJAAdq9RARbLH8hanC+72rr03ibYNg@mail.gmail.com>
+Subject: Re: Sensor value calculation formula
+To: Emily Shaffer <emilyshaffer@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000cd8f8705837762a9"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,83 +63,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 05 Mar 2019 10:03:43 -0000
+X-List-Received-Date: Thu, 07 Mar 2019 01:54:33 -0000
 
-On Tue, Mar 05, 2019 at 07:21:19AM +0530, Manivannan Sadhasivam wrote:
-> On Tue, 5 Mar, 2019, 4:08 AM Linus Walleij <linus.walleij@linaro.org wrote:
-> 
-> > On Mon, Mar 4, 2019 at 3:48 PM Manivannan Sadhasivam
-> > <manivannan.sadhasivam@linaro.org> wrote:
-> > > On Mon, Mar 04, 2019 at 01:29:33PM +0100, Linus Walleij wrote:
-> > > > On Fri, Mar 1, 2019 at 4:55 PM Manivannan Sadhasivam
-> > > > <manivannan.sadhasivam@linaro.org> wrote:
-> > > > > Hi Wen,
-> > > > >
-> > > > > On Fri, Mar 01, 2019 at 04:56:42PM +0800, Wen Yang wrote:
-> > > > > > The call to of_get_next_child returns a node pointer with refcount
-> > > > > > incremented thus it must be explicitly decremented after the last
-> > > > > > usage.
-> > > > > >
-> > > > > > Detected by coccinelle with the following warnings:
-> > > > > > ./arch/arm/mach-actions/platsmp.c:112:2-8: ERROR: missing
-> > of_node_put; acquired a node pointer with refcount incremented on line 103,
-> > but without a corresponding object release within this function.
-> > > > > > ./arch/arm/mach-actions/platsmp.c:124:2-8: ERROR: missing
-> > of_node_put; acquired a node pointer with refcount incremented on line 115,
-> > but without a corresponding object release within this function.
-> > > > > > ./arch/arm/mach-actions/platsmp.c:137:3-9: ERROR: missing
-> > of_node_put; acquired a node pointer with refcount incremented on line 128,
-> > but without a corresponding object release within this function.
-> > > > > >
-> > > > >
-> > > > > We have a floating patch for this:
-> > > > > https://www.spinics.net/lists/arm-kernel/msg694544.html
-> > > > >
-> > > > > Andreas: Can you please take a second look at the patchset submitted
-> > by Linus
-> > > > > Walleij and Russel for simplifying the Actions startup code?
-> > > >
-> > > > Andreas wrote a version of simplifying secondary startup in the
-> > > > same spirit as Russell's patches, and it's merged and all
-> > > > is fine I think.
-> > > >
-> > >
-> > > Oops. I think I missed that! Can you please point me to that patch? And
-> > how it
-> > > got merged? I did the PR for actions stuff this time and haven't
-> > included any
-> > > mach-actions patches.
-> >
-> > I just did git log arch/arm/mach-actions but I think it came in quite some
-> > time
-> > ago, not last merge window:
-> >
-> > But you see:
-> > commit 6c2eb3e76fb84e2eb46d484f71fab469c0d9532c
-> > "ARM: owl: smp: Drop owl_secondary_boot()"
-> > commit bad29933fef76fb6ee577f4a0b6d145c1f52f663
-> > "ARM: owl: smp: Use __pa_symbol()"
-> > commit 18cfd9429d8a82c49add8f3ca9d366599bfcac45
-> > "ARM: owl: smp: Drop bogus holding pen"
-> >
-> > platsmp.c looks just fine these days. Except for what Wei's patch is
-> > fixing,
-> > of_node_put().
-> >
-> 
-> Nope. platsmp.c still requires some cleanup like removing the redundant
-> bootlock and pen_release flag as pointed out by Russel. Andreas just
-> replied to your cleanup patches but there was no follow up since that. So,
-> I guess we can just apply Russell's patches and this patch once Andreas is
-> fine with it (it looks good to me though).
+--000000000000cd8f8705837762a9
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-No.  My patches are in my tree queued for this merge window.  They
-are part of a series that can not be broken up and merged separately
-because all the per-platform patches need to be merged before the final
-patch "ARM: smp: remove arch-provided "pen_release"" otherwise the
-platforms break.  I thought that was already explained.
+Hi Emily, thank for your kindly reply. This is not typo. I want to dispaly
+12.0V in ipmitool and my raw data in Dbus is 2100.
+I know value x length is 1 byte. I concern that why raw data calculate with
+M, rExp before response to ipmitool.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+Tyler
+
+Emily Shaffer <emilyshaffer@google.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=887=
+=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=886:47=E5=AF=AB=E9=81=93=EF=BC=
+=9A
+
+> Hi Tyler,Is this a typo? Do you mean you want to display 21.0 in
+> ipmitool? I don't know why there is scaling besides power of 10 on
+> your raw value. That is odd.Assuming it was a typo, what you want to
+> do is set the scale in the sensor info in order to perform /100
+> operation. Or you could set the unit, though that might be difficult
+> with a /100 (rather than increment of 1000).The scaling with m, rExp,
+> etc is because the IPMI protocol has such a narrow field for sensor
+> data (1 byte, as you saw; this is value x).So my recommendation to you
+> is to use the scale to do your 2100->21.0 rounding when displaying
+> output from ipmitool; and then to use your estimated maximum and
+> minimum y to try and figure out what kind of coefficients you want to
+> use.  This doesn't need to be perfect; you will lose some precision if
+> you choose exponents which give you a much wider range than you need,
+> but otherwise the operation should be invisible at the other end.If
+> you really did mean you want 2100 -> 12.0 then that's a different
+> question, which may require some more massaging on one end or another,
+> so let us know.
+>
+> Emily
+>
+> On Wed, Mar 6, 2019 at 5:33 AM Deng Tyler <tyler.sabdon@gmail.com> wrote:
+> >
+> > Hi all:
+> >     Sensor reading, according to IPMI spec, is calculated as:
+> >
+> > y =3D L[(Mx + B * 10^(bExp)) * 10^(rExp)]
+> >
+> > y: the 'final value' as reported by IPMItool
+> > x: 8 bits, unsigned, reading data encoded in IPMI response packet
+> > M: 10 bits, signed integer multiplier, multiplierM in YAML
+> > B: 10 bits, signed additive offset, offsetB in YAML
+> > bExp: 4 bits, signed, bExp in YAML
+> > rExp: 4 bits, signed, rExp in YAML
+> >
+> >  ipmid calculate raw data by
+> > double value =3D variant_ns::get<T>(propValue) * std::pow(10,
+> sensorInfo.scale - sensorInfo.exponentR);
+> > auto rawData =3D static_cast<uint8_t>((value - sensorInfo.scaledOffset)=
+ /
+> sensorInfo.coefficientM);sue
+> >
+> > I am confused about why process raw data with M and rExp? M, offsetB,
+> bExp and rExp shall just responded to ipmitool and calculate with raw
+> > data. I thought raw data only need calculated by scale if raw data need
+> to be adjust before respond to ipmitool.
+> > Now I met a problem, I have a raw data is 2100 and I want to display
+> 12.0 in ipmitool sdr command. I don't know how to assign M, rExp and scal=
+e
+> value in yaml.
+> > Could some one tell me how to translate sensor value? tks.
+> >
+> > Tyler
+> >
+> >
+>
+>
+> --
+> Emily Shaffer
+>
+
+--000000000000cd8f8705837762a9
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Emily, thank for your kindly reply. This is not typo. I=
+ want to dispaly 12.0V in ipmitool and my raw data in Dbus is 2100.<div>I k=
+now value x length is 1 byte. I concern that why raw data calculate with M,=
+ rExp before response to ipmitool.</div><div><br></div><div>Tyler</div></di=
+v><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Emil=
+y Shaffer &lt;<a href=3D"mailto:emilyshaffer@google.com">emilyshaffer@googl=
+e.com</a>&gt; =E6=96=BC 2019=E5=B9=B43=E6=9C=887=E6=97=A5 =E9=80=B1=E5=9B=
+=9B =E4=B8=8A=E5=8D=886:47=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote =
+class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px sol=
+id rgb(204,204,204);padding-left:1ex">Hi Tyler,Is this a typo? Do you mean =
+you want to display 21.0 in<br>
+ipmitool? I don&#39;t know why there is scaling besides power of 10 on<br>
+your raw value. That is odd.Assuming it was a typo, what you want to<br>
+do is set the scale in the sensor info in order to perform /100<br>
+operation. Or you could set the unit, though that might be difficult<br>
+with a /100 (rather than increment of 1000).The scaling with m, rExp,<br>
+etc is because the IPMI protocol has such a narrow field for sensor<br>
+data (1 byte, as you saw; this is value x).So my recommendation to you<br>
+is to use the scale to do your 2100-&gt;21.0 rounding when displaying<br>
+output from ipmitool; and then to use your estimated maximum and<br>
+minimum y to try and figure out what kind of coefficients you want to<br>
+use.=C2=A0 This doesn&#39;t need to be perfect; you will lose some precisio=
+n if<br>
+you choose exponents which give you a much wider range than you need,<br>
+but otherwise the operation should be invisible at the other end.If<br>
+you really did mean you want 2100 -&gt; 12.0 then that&#39;s a different<br=
+>
+question, which may require some more massaging on one end or another,<br>
+so let us know.<br>
+<br>
+Emily<br>
+<br>
+On Wed, Mar 6, 2019 at 5:33 AM Deng Tyler &lt;<a href=3D"mailto:tyler.sabdo=
+n@gmail.com" target=3D"_blank">tyler.sabdon@gmail.com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; Hi all:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Sensor reading, according to IPMI spec, is calculat=
+ed as:<br>
+&gt;<br>
+&gt; y =3D L[(Mx + B * 10^(bExp)) * 10^(rExp)]<br>
+&gt;<br>
+&gt; y: the &#39;final value&#39; as reported by IPMItool<br>
+&gt; x: 8 bits, unsigned, reading data encoded in IPMI response packet<br>
+&gt; M: 10 bits, signed integer multiplier, multiplierM in YAML<br>
+&gt; B: 10 bits, signed additive offset, offsetB in YAML<br>
+&gt; bExp: 4 bits, signed, bExp in YAML<br>
+&gt; rExp: 4 bits, signed, rExp in YAML<br>
+&gt;<br>
+&gt;=C2=A0 ipmid calculate raw data by<br>
+&gt; double value =3D variant_ns::get&lt;T&gt;(propValue) * std::pow(10, se=
+nsorInfo.scale - sensorInfo.exponentR);<br>
+&gt; auto rawData =3D static_cast&lt;uint8_t&gt;((value - sensorInfo.scaled=
+Offset) / sensorInfo.coefficientM);sue<br>
+&gt;<br>
+&gt; I am confused about why process raw data with M and rExp? M, offsetB, =
+bExp and rExp shall just responded to ipmitool and calculate with raw<br>
+&gt; data. I thought raw data only need calculated by scale if raw data nee=
+d to be adjust before respond to ipmitool.<br>
+&gt; Now I met a problem, I have a raw data is 2100 and I want to display 1=
+2.0 in ipmitool sdr command. I don&#39;t know how to assign M, rExp and sca=
+le value in yaml.<br>
+&gt; Could some one tell me how to translate sensor value? tks.<br>
+&gt;<br>
+&gt; Tyler<br>
+&gt;<br>
+&gt;<br>
+<br>
+<br>
+--<br>
+Emily Shaffer<br>
+</blockquote></div>
+
+--000000000000cd8f8705837762a9--
