@@ -1,63 +1,80 @@
-Return-Path: <tyler.sabdon@gmail.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::133; helo=mail-it1-x133.google.com;
- envelope-from=tyler.sabdon@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="TKBJI1ct"; 
- dkim-atps=neutral
-Received: from mail-it1-x133.google.com (mail-it1-x133.google.com
- [IPv6:2607:f8b0:4864:20::133])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44FK9R3yKbzDqCC
- for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 16:35:55 +1100 (AEDT)
-Received: by mail-it1-x133.google.com with SMTP id e24so13437751itl.1
- for <openbmc@lists.ozlabs.org>; Wed, 06 Mar 2019 21:35:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Mk1eTY2PStzMtxdFS2/7dpcylM+NiKr8205+dkeNCxU=;
- b=TKBJI1ctX9dYX7ncBvJTbybZiAgp0xBzyOXuh93yPqdPW2H0T/gs2/wqKPlaDZ3N7M
- mZtamH7mIDxkj/8EXC/9ANpbGl3zoHXLRBZBnEU0+jehGLh1mg5/S7EFoK6aTpBlJF5y
- a0oHnGZhsDPXDeOhX6rZ/l10htPsfATnQeXhTbm6PYsF0a8yYObH1EV9ZP0bPMGV2+2d
- 9+bn9ifoRbkPRvu5Q51WW1zp1YBdYuRCKLtwxdylM88mK6f6VBADdj8u4HQ9OLRQdG9N
- 9zDcLUOhvGZTkiM7A2g7GEm6u8EKo/PongjgNDA7h6We4YrA5p16gJkLEn7bq9Q4LOnj
- Xysg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Mk1eTY2PStzMtxdFS2/7dpcylM+NiKr8205+dkeNCxU=;
- b=BUPbFmiXxz7IqIArY1HeYS6MECcNWtYfHPJ1udfQ/uKLFyGZV9poyKCzJJCYIbVF5u
- uV8NoEdw1KZf2FKR8BL7lk72Qp1v9k+kjVrN3PJXq7P5SGlPGr3RVlIJFQE/Q8p4S4vV
- 9KoTRpd6zmXDJHZjwPGQp5Fp1ieZ14eCBvPCoBGQs1uaeg55VttCH91P6N8F+7J4HICO
- nzXwcVZblxuU7Bmx/O3vWfxcBi8toSSodL1GcFPVv0Mg0su8HGUlmIpy5OOQ+NQBqiBM
- 0p11N2nrvsJQLYfYiTxlJ2AOvNpo+TyW7W/PomSNmzzXXHkLL+RlRWEROsKaTuO27QpG
- InHA==
-X-Gm-Message-State: APjAAAVUMM0oz5UC7BLImy0lA+n4ExfLUA3cR4oONczie3zJv6tqUsPU
- xwjRgPZn851XdnQH6L6fl1veRSOH9wBhiO2zRVs2bw==
-X-Google-Smtp-Source: APXvYqwaaJjAW5GAmSp77MNjOx9st76MXcf+FXv4oq8QcS1Remm3DUvuZMnKL5hEGKVOSivnIlf8/kLv0lBtPWmwI7k=
-X-Received: by 2002:a24:7a4b:: with SMTP id a72mr4097286itc.178.1551936951382; 
- Wed, 06 Mar 2019 21:35:51 -0800 (PST)
-MIME-Version: 1.0
-References: <CAO9PYRJjBTPEgymzS5aygU_=e2dBqDwMezFF2iOZ-Ah016dhYQ@mail.gmail.com>
- <CAJoAoZmWD_jx+qCtJV-KOXRGa0GO0w3JpOO_q4GHJ0KzR8LKuQ@mail.gmail.com>
- <CAO9PYRLkfidAqVTV-HU-SJAAdq9RARbLH8hanC+72rr03ibYNg@mail.gmail.com>
- <CAJoAoZmO1t4gougLchF-XacYVU5b7uR2qAYyXRHpjnwJNzdm6g@mail.gmail.com>
- <CAO9PYRKF5rVO7xJedEM4z7OAKLvtUU0LYJJb=rh7bUK85rJLkQ@mail.gmail.com>
- <CAJoAoZkLH8Bvsu8c1UNKdwhoxzJEGXcZ=GpdyrYt2wf_BTTWNg@mail.gmail.com>
- <CAO9PYR+t4BaVDA1+EHG9YXTf3MVd+2kf7LAiP1PcEwQvTgCgyA@mail.gmail.com>
- <CAJoAoZ=iZdB+HA1o9p1d3zgBaT9E93HpAos8PZ0fnXmcT3kJwQ@mail.gmail.com>
-In-Reply-To: <CAJoAoZ=iZdB+HA1o9p1d3zgBaT9E93HpAos8PZ0fnXmcT3kJwQ@mail.gmail.com>
-From: Deng Tyler <tyler.sabdon@gmail.com>
-Date: Thu, 7 Mar 2019 13:35:40 +0800
-Message-ID: <CAO9PYRLA6=1a9dsNPLj8zM5_xM9p=XUJ6gEe7-LbnFux_1+kkg@mail.gmail.com>
-Subject: Re: Sensor value calculation formula
-To: Emily Shaffer <emilyshaffer@google.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44FPPZ2BBSzDqCM
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Mar 2019 19:46:41 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x278hgEo065983
+ for <openbmc@lists.ozlabs.org>; Thu, 7 Mar 2019 03:46:39 -0500
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2r2x0k5k8c-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Mar 2019 03:46:38 -0500
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 7 Mar 2019 08:46:37 -0000
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 7 Mar 2019 08:46:34 -0000
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x278kXkf51249262
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 7 Mar 2019 08:46:33 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4E920A405B;
+ Thu,  7 Mar 2019 08:46:33 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B367CA405C;
+ Thu,  7 Mar 2019 08:46:32 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.202.217])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Thu,  7 Mar 2019 08:46:32 +0000 (GMT)
+Subject: Re: Initial MCTP design proposal
+To: Jeremy Kerr <jk@ozlabs.org>, "Tanous, Ed" <ed.tanous@intel.com>
+References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
+ <20190207155131.gzntyqoflqfw5vld@thinkpad>
+ <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+ <20190211185736.dafbfc74n76r33pu@thinkpad.dyn.fuzziesquirrel.com>
+ <9c1410a1255d49735b7a9879750557bc92acaa47.camel@ozlabs.org>
+ <ad89021d-57a9-980a-6034-8530b81b975c@intel.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000b377af05837a7a75"
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 7 Mar 2019 14:16:31 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.1
+MIME-Version: 1.0
+In-Reply-To: <ad89021d-57a9-980a-6034-8530b81b975c@intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 19030708-4275-0000-0000-000003180A37
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030708-4276-0000-0000-000038266363
+Message-Id: <76923984-3d27-581b-0541-ae571a441e2d@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-07_04:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903070064
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,417 +86,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 07 Mar 2019 05:35:57 -0000
+X-List-Received-Date: Thu, 07 Mar 2019 08:46:43 -0000
 
---000000000000b377af05837a7a75
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 07/03/19 1:34 AM, Ed Tanous wrote:
+> 
+> On 2/12/19 12:43 AM, Jeremy Kerr wrote:
 
-Hi Emily
-    I found it hardcoded in phosphor-hwmon for different sensor type. I
-think that scale value may be customized for more flexible to fit custom
-platform.
-
-Tyler
-
-Emily Shaffer <emilyshaffer@google.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=887=
-=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=881:22=E5=AF=AB=E9=81=93=EF=BC=
-=9A
-
-> Tyler,
->
-> Sorry that I forgot. Yes, the scale is hardcoded for certain sensor types=
-,
-> ie voltage is always millivolts. I have asked about this before but maybe
-> someone else on the list can give a better answer why that's the case.
->
-> Emily
->
-> On Wed, Mar 6, 2019, 9:19 PM Deng Tyler <tyler.sabdon@gmail.com> wrote:
->
->> Hi Emily, thank for your kindly reply. I understood how it wok now. But =
-I
->> still have a question, which customized file can assign scale value to
->> Dbus? It seems always equal -3.
+>>> To that end I could create an initial empty repository in the openbmc
+>>> namespace and you could push your tree there for review, when you are
+>>> ready.  How does that sound?
+> I would like to see this happen.  Once it does, I'll likely push reviews
+> for the commits in this tree to it (which includes both Jeremys commits
+> as well as my own.
+> https://github.com/edtanous/libmctp/commits/pr1
+> 
+> 
 >>
->> Tyler
->>
->> Emily Shaffer <emilyshaffer@google.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=
-=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8811:46=E5=AF=AB=E9=81=93=
-=EF=BC=9A
->>
->>> Tyler,
->>>
->>> In the example you cited, ideally that DBus entry reads Value: 4986;
->>> Unit: Volts; Scale: -3.
->>>
->>>
->>> https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/ope=
-nbmc_project/Sensor/Value.interface.yaml
->>>
->>> This essentially means the DBus entry is expressing 4986 millivolts,
->>> or 4986*10^-3 volts.
->>>
->>> On Wed, Mar 6, 2019 at 7:39 PM Deng Tyler <tyler.sabdon@gmail.com>
->>> wrote:
->>> >
->>> > Hi Emily, thank for your reply and you are really help me a lot. I us=
-e
->>> "GAIN_in1=3D5.0" in configuration file convert 2100 to 10500. Now Dbus =
-store
->>> value is 10500 and it mean 10.5V in ipmitool end. But I still have some
->>> doubt about " DBus should be holding the value in units". There is a
->>> example in openbmc sensor document as below:
->>> > =3D=3D=3D=3D
->>> > so for a DBus sensor value of 4986 meaning 4.986V, phosphor-ipmi-host
->>> would encode it as
->>> >
->>> > x: 4986 / 20 =3D 249
->>> > M: 20
->>> > rExp: -3
->>> >
->>> > When ipmitool sensor list is called, the tool fetches sensor factors
->>> and computes value as:
->>> >
->>> > y =3D 20 * 249 * 10^-3 =3D 4.98 (V)
->>> >
->>> > =3D=3D=3D=3D
->>> > In above description, Dbus store value is 4986 but it is not real
->>> value in unit. If user switch to REST or redfish for getting sensor the=
-n
->>> 4986 will be display in same time. Is it correct?
->>> >
->>> > Tyler
->>> >
->>> > Emily Shaffer <emilyshaffer@google.com> =E6=96=BC 2019=E5=B9=B43=E6=
-=9C=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8810:02=E5=AF=AB=E9=81=
-=93=EF=BC=9A
->>> >>
->>> >> It sounds like you may want to convert, on your sensor end, so that
->>> >> you are expressing 12.0V in DBus. DBus should be holding the value i=
-n
->>> >> units, rather than a raw sensor value. The alternative here would be
->>> >> for you to put some context-aware conversion into host-ipmid or into
->>> >> your handler on top of ipmitool, and that's not something anybody
->>> >> wants :)  Later if you decide to switch to Redfish, you will have th=
-e
->>> >> same problem, due to your value in DBus being a raw reading instead =
-of
->>> >> something in units.
->>> >>
->>> >> Is it possible for you to modify your code where the value is being
->>> >> pushed to DBus?
->>> >>
->>> >> On Wed, Mar 6, 2019 at 5:54 PM Deng Tyler <tyler.sabdon@gmail.com>
->>> wrote:
->>> >> >
->>> >> > Hi Emily, thank for your kindly reply. This is not typo. I want to
->>> dispaly 12.0V in ipmitool and my raw data in Dbus is 2100.
->>> >> > I know value x length is 1 byte. I concern that why raw data
->>> calculate with M, rExp before response to ipmitool.
->>> >> >
->>> >> > Tyler
->>> >> >
->>> >> > Emily Shaffer <emilyshaffer@google.com> =E6=96=BC 2019=E5=B9=B43=
-=E6=9C=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=886:47=E5=AF=AB=E9=
-=81=93=EF=BC=9A
->>> >> >>
->>> >> >> Hi Tyler,Is this a typo? Do you mean you want to display 21.0 in
->>> >> >> ipmitool? I don't know why there is scaling besides power of 10 o=
-n
->>> >> >> your raw value. That is odd.Assuming it was a typo, what you want
->>> to
->>> >> >> do is set the scale in the sensor info in order to perform /100
->>> >> >> operation. Or you could set the unit, though that might be
->>> difficult
->>> >> >> with a /100 (rather than increment of 1000).The scaling with m,
->>> rExp,
->>> >> >> etc is because the IPMI protocol has such a narrow field for sens=
-or
->>> >> >> data (1 byte, as you saw; this is value x).So my recommendation t=
-o
->>> you
->>> >> >> is to use the scale to do your 2100->21.0 rounding when displayin=
-g
->>> >> >> output from ipmitool; and then to use your estimated maximum and
->>> >> >> minimum y to try and figure out what kind of coefficients you wan=
-t
->>> to
->>> >> >> use.  This doesn't need to be perfect; you will lose some
->>> precision if
->>> >> >> you choose exponents which give you a much wider range than you
->>> need,
->>> >> >> but otherwise the operation should be invisible at the other end.=
-If
->>> >> >> you really did mean you want 2100 -> 12.0 then that's a different
->>> >> >> question, which may require some more massaging on one end or
->>> another,
->>> >> >> so let us know.
->>> >> >>
->>> >> >> Emily
->>> >> >>
->>> >> >> On Wed, Mar 6, 2019 at 5:33 AM Deng Tyler <tyler.sabdon@gmail.com=
->
->>> wrote:
->>> >> >> >
->>> >> >> > Hi all:
->>> >> >> >     Sensor reading, according to IPMI spec, is calculated as:
->>> >> >> >
->>> >> >> > y =3D L[(Mx + B * 10^(bExp)) * 10^(rExp)]
->>> >> >> >
->>> >> >> > y: the 'final value' as reported by IPMItool
->>> >> >> > x: 8 bits, unsigned, reading data encoded in IPMI response pack=
-et
->>> >> >> > M: 10 bits, signed integer multiplier, multiplierM in YAML
->>> >> >> > B: 10 bits, signed additive offset, offsetB in YAML
->>> >> >> > bExp: 4 bits, signed, bExp in YAML
->>> >> >> > rExp: 4 bits, signed, rExp in YAML
->>> >> >> >
->>> >> >> >  ipmid calculate raw data by
->>> >> >> > double value =3D variant_ns::get<T>(propValue) * std::pow(10,
->>> sensorInfo.scale - sensorInfo.exponentR);
->>> >> >> > auto rawData =3D static_cast<uint8_t>((value -
->>> sensorInfo.scaledOffset) / sensorInfo.coefficientM);sue
->>> >> >> >
->>> >> >> > I am confused about why process raw data with M and rExp? M,
->>> offsetB, bExp and rExp shall just responded to ipmitool and calculate w=
-ith
->>> raw
->>> >> >> > data. I thought raw data only need calculated by scale if raw
->>> data need to be adjust before respond to ipmitool.
->>> >> >> > Now I met a problem, I have a raw data is 2100 and I want to
->>> display 12.0 in ipmitool sdr command. I don't know how to assign M, rEx=
-p
->>> and scale value in yaml.
->>> >> >> > Could some one tell me how to translate sensor value? tks.
->>> >> >> >
->>> >> >> > Tyler
->>> >> >> >
->>> >> >> >
->>> >> >>
->>> >> >>
->>> >> >> --
->>> >> >> Emily Shaffer
->>> >>
->>> >>
->>> >>
->>> >> --
->>> >> Emily Shaffer
->>>
->>>
->>>
->>> --
->>> Emily Shaffer
->>>
->>
+>> Yep, I'd be happy to do this when we decide on a good time to do the
+>> reviews.
+> I vote the time is now.  Any objections?
 
---000000000000b377af05837a7a75
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+I agree to this as well. I've got two PLDM stacks on my laptop 
+(requester and responder) talking to each other over libmctp (over the 
+serial binding - making use of fifos instead of an actual serial 
+connection). I'd like to push a couple small commits to libmctp as well 
+(I made a PR for one of them at the moment).
 
-<div dir=3D"ltr">Hi Emily<div>=C2=A0 =C2=A0 I found it hardcoded in phospho=
-r-hwmon for different sensor type. I think that scale value may be customiz=
-ed for more flexible to fit custom platform.=C2=A0</div><div><br></div><div=
->Tyler</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"=
-gmail_attr">Emily Shaffer &lt;<a href=3D"mailto:emilyshaffer@google.com">em=
-ilyshaffer@google.com</a>&gt; =E6=96=BC 2019=E5=B9=B43=E6=9C=887=E6=97=A5 =
-=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=881:22=E5=AF=AB=E9=81=93=EF=BC=9A<br></d=
-iv><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bord=
-er-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"auto">Tyle=
-r,<div dir=3D"auto"><br></div><div dir=3D"auto">Sorry that I forgot. Yes, t=
-he scale is hardcoded for certain sensor types, ie voltage is always milliv=
-olts. I have asked about this before but maybe someone else on the list can=
- give a better answer why that&#39;s the case.</div><div dir=3D"auto"><br><=
-/div><div dir=3D"auto">Emily</div></div><br><div class=3D"gmail_quote"><div=
- dir=3D"ltr" class=3D"gmail_attr">On Wed, Mar 6, 2019, 9:19 PM Deng Tyler &=
-lt;<a href=3D"mailto:tyler.sabdon@gmail.com" target=3D"_blank">tyler.sabdon=
-@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
-=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
--left:1ex"><div dir=3D"ltr">Hi Emily, thank for your kindly reply. I unders=
-tood how it wok now. But I still have a question, which customized file can=
- assign scale value to Dbus? It seems always equal -3.<div><br></div><div>T=
-yler</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gm=
-ail_attr">Emily Shaffer &lt;<a href=3D"mailto:emilyshaffer@google.com" rel=
-=3D"noreferrer" target=3D"_blank">emilyshaffer@google.com</a>&gt; =E6=96=BC=
- 2019=E5=B9=B43=E6=9C=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8811:=
-46=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" st=
-yle=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padd=
-ing-left:1ex">Tyler,<br>
-<br>
-In the example you cited, ideally that DBus entry reads Value: 4986;<br>
-Unit: Volts; Scale: -3.<br>
-<br>
-<a href=3D"https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/=
-xyz/openbmc_project/Sensor/Value.interface.yaml" rel=3D"noreferrer noreferr=
-er" target=3D"_blank">https://github.com/openbmc/phosphor-dbus-interfaces/b=
-lob/master/xyz/openbmc_project/Sensor/Value.interface.yaml</a><br>
-<br>
-This essentially means the DBus entry is expressing 4986 millivolts,<br>
-or 4986*10^-3 volts.<br>
-<br>
-On Wed, Mar 6, 2019 at 7:39 PM Deng Tyler &lt;<a href=3D"mailto:tyler.sabdo=
-n@gmail.com" rel=3D"noreferrer" target=3D"_blank">tyler.sabdon@gmail.com</a=
->&gt; wrote:<br>
-&gt;<br>
-&gt; Hi Emily, thank for your reply and you are really help me a lot. I use=
- &quot;GAIN_in1=3D5.0&quot; in configuration file convert 2100 to 10500. No=
-w Dbus store value is 10500 and it mean 10.5V in ipmitool end. But I still =
-have some doubt about &quot; DBus should be holding the value in units&quot=
-;. There is a example in openbmc sensor document as below:<br>
-&gt; =3D=3D=3D=3D<br>
-&gt; so for a DBus sensor value of 4986 meaning 4.986V, phosphor-ipmi-host =
-would encode it as<br>
-&gt;<br>
-&gt; x: 4986 / 20 =3D 249<br>
-&gt; M: 20<br>
-&gt; rExp: -3<br>
-&gt;<br>
-&gt; When ipmitool sensor list is called, the tool fetches sensor factors a=
-nd computes value as:<br>
-&gt;<br>
-&gt; y =3D 20 * 249 * 10^-3 =3D 4.98 (V)<br>
-&gt;<br>
-&gt; =3D=3D=3D=3D<br>
-&gt; In above description, Dbus store value is 4986 but it is not real valu=
-e in unit. If user switch to REST or redfish for getting sensor then 4986 w=
-ill be display in same time. Is it correct?<br>
-&gt;<br>
-&gt; Tyler<br>
-&gt;<br>
-&gt; Emily Shaffer &lt;<a href=3D"mailto:emilyshaffer@google.com" rel=3D"no=
-referrer" target=3D"_blank">emilyshaffer@google.com</a>&gt; =E6=96=BC 2019=
-=E5=B9=B43=E6=9C=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=8810:02=E5=
-=AF=AB=E9=81=93=EF=BC=9A<br>
-&gt;&gt;<br>
-&gt;&gt; It sounds like you may want to convert, on your sensor end, so tha=
-t<br>
-&gt;&gt; you are expressing 12.0V in DBus. DBus should be holding the value=
- in<br>
-&gt;&gt; units, rather than a raw sensor value. The alternative here would =
-be<br>
-&gt;&gt; for you to put some context-aware conversion into host-ipmid or in=
-to<br>
-&gt;&gt; your handler on top of ipmitool, and that&#39;s not something anyb=
-ody<br>
-&gt;&gt; wants :)=C2=A0 Later if you decide to switch to Redfish, you will =
-have the<br>
-&gt;&gt; same problem, due to your value in DBus being a raw reading instea=
-d of<br>
-&gt;&gt; something in units.<br>
-&gt;&gt;<br>
-&gt;&gt; Is it possible for you to modify your code where the value is bein=
-g<br>
-&gt;&gt; pushed to DBus?<br>
-&gt;&gt;<br>
-&gt;&gt; On Wed, Mar 6, 2019 at 5:54 PM Deng Tyler &lt;<a href=3D"mailto:ty=
-ler.sabdon@gmail.com" rel=3D"noreferrer" target=3D"_blank">tyler.sabdon@gma=
-il.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Hi Emily, thank for your kindly reply. This is not typo. I wa=
-nt to dispaly 12.0V in ipmitool and my raw data in Dbus is 2100.<br>
-&gt;&gt; &gt; I know value x length is 1 byte. I concern that why raw data =
-calculate with M, rExp before response to ipmitool.<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Tyler<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Emily Shaffer &lt;<a href=3D"mailto:emilyshaffer@google.com" =
-rel=3D"noreferrer" target=3D"_blank">emilyshaffer@google.com</a>&gt; =E6=96=
-=BC 2019=E5=B9=B43=E6=9C=887=E6=97=A5 =E9=80=B1=E5=9B=9B =E4=B8=8A=E5=8D=88=
-6:47=E5=AF=AB=E9=81=93=EF=BC=9A<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Hi Tyler,Is this a typo? Do you mean you want to display =
-21.0 in<br>
-&gt;&gt; &gt;&gt; ipmitool? I don&#39;t know why there is scaling besides p=
-ower of 10 on<br>
-&gt;&gt; &gt;&gt; your raw value. That is odd.Assuming it was a typo, what =
-you want to<br>
-&gt;&gt; &gt;&gt; do is set the scale in the sensor info in order to perfor=
-m /100<br>
-&gt;&gt; &gt;&gt; operation. Or you could set the unit, though that might b=
-e difficult<br>
-&gt;&gt; &gt;&gt; with a /100 (rather than increment of 1000).The scaling w=
-ith m, rExp,<br>
-&gt;&gt; &gt;&gt; etc is because the IPMI protocol has such a narrow field =
-for sensor<br>
-&gt;&gt; &gt;&gt; data (1 byte, as you saw; this is value x).So my recommen=
-dation to you<br>
-&gt;&gt; &gt;&gt; is to use the scale to do your 2100-&gt;21.0 rounding whe=
-n displaying<br>
-&gt;&gt; &gt;&gt; output from ipmitool; and then to use your estimated maxi=
-mum and<br>
-&gt;&gt; &gt;&gt; minimum y to try and figure out what kind of coefficients=
- you want to<br>
-&gt;&gt; &gt;&gt; use.=C2=A0 This doesn&#39;t need to be perfect; you will =
-lose some precision if<br>
-&gt;&gt; &gt;&gt; you choose exponents which give you a much wider range th=
-an you need,<br>
-&gt;&gt; &gt;&gt; but otherwise the operation should be invisible at the ot=
-her end.If<br>
-&gt;&gt; &gt;&gt; you really did mean you want 2100 -&gt; 12.0 then that&#3=
-9;s a different<br>
-&gt;&gt; &gt;&gt; question, which may require some more massaging on one en=
-d or another,<br>
-&gt;&gt; &gt;&gt; so let us know.<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; Emily<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; On Wed, Mar 6, 2019 at 5:33 AM Deng Tyler &lt;<a href=3D"=
-mailto:tyler.sabdon@gmail.com" rel=3D"noreferrer" target=3D"_blank">tyler.s=
-abdon@gmail.com</a>&gt; wrote:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Hi all:<br>
-&gt;&gt; &gt;&gt; &gt;=C2=A0 =C2=A0 =C2=A0Sensor reading, according to IPMI=
- spec, is calculated as:<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; y =3D L[(Mx + B * 10^(bExp)) * 10^(rExp)]<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; y: the &#39;final value&#39; as reported by IPMItool=
-<br>
-&gt;&gt; &gt;&gt; &gt; x: 8 bits, unsigned, reading data encoded in IPMI re=
-sponse packet<br>
-&gt;&gt; &gt;&gt; &gt; M: 10 bits, signed integer multiplier, multiplierM i=
-n YAML<br>
-&gt;&gt; &gt;&gt; &gt; B: 10 bits, signed additive offset, offsetB in YAML<=
-br>
-&gt;&gt; &gt;&gt; &gt; bExp: 4 bits, signed, bExp in YAML<br>
-&gt;&gt; &gt;&gt; &gt; rExp: 4 bits, signed, rExp in YAML<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;=C2=A0 ipmid calculate raw data by<br>
-&gt;&gt; &gt;&gt; &gt; double value =3D variant_ns::get&lt;T&gt;(propValue)=
- * std::pow(10, sensorInfo.scale - sensorInfo.exponentR);<br>
-&gt;&gt; &gt;&gt; &gt; auto rawData =3D static_cast&lt;uint8_t&gt;((value -=
- sensorInfo.scaledOffset) / sensorInfo.coefficientM);sue<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; I am confused about why process raw data with M and =
-rExp? M, offsetB, bExp and rExp shall just responded to ipmitool and calcul=
-ate with raw<br>
-&gt;&gt; &gt;&gt; &gt; data. I thought raw data only need calculated by sca=
-le if raw data need to be adjust before respond to ipmitool.<br>
-&gt;&gt; &gt;&gt; &gt; Now I met a problem, I have a raw data is 2100 and I=
- want to display 12.0 in ipmitool sdr command. I don&#39;t know how to assi=
-gn M, rExp and scale value in yaml.<br>
-&gt;&gt; &gt;&gt; &gt; Could some one tell me how to translate sensor value=
-? tks.<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt; Tyler<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt; &gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt;<br>
-&gt;&gt; &gt;&gt; --<br>
-&gt;&gt; &gt;&gt; Emily Shaffer<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; --<br>
-&gt;&gt; Emily Shaffer<br>
-<br>
-<br>
-<br>
--- <br>
-Emily Shaffer<br>
-</blockquote></div>
-</blockquote></div>
-</blockquote></div>
-
---000000000000b377af05837a7a75--
+Regards,
+Deepak
