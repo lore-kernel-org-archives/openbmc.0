@@ -1,80 +1,37 @@
-Return-Path: <zshelle@linux.ibm.com>
+Return-Path: <richard.marian.thomaiyar@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=zshelle@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Ft1t2SbszDqFm
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 14:16:17 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x283Bn3d109983
- for <openbmc@lists.ozlabs.org>; Thu, 7 Mar 2019 22:16:15 -0500
-Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r3dd9xyy1-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 07 Mar 2019 22:16:15 -0500
-Received: from localhost
- by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <zshelle@linux.ibm.com>;
- Fri, 8 Mar 2019 03:16:14 -0000
-Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
- by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 8 Mar 2019 03:16:11 -0000
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x283GApG21233910
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Fri, 8 Mar 2019 03:16:10 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AFE18B2064
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 747ABB2066
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Fv6S0drbzDqGb
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 15:05:15 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 07 Mar 2019 20:05:12 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,454,1544515200"; d="scan'208";a="120682042"
+Received: from rthomaiy-mobl2.gar.corp.intel.com (HELO [10.67.163.239])
+ ([10.67.163.239])
+ by orsmga007.jf.intel.com with ESMTP; 07 Mar 2019 20:05:10 -0800
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, ratagupt@linux.vnet.ibm.com, 
+ bradleyb@fuzziesquirrel.com
+From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
+Subject: Reg removal of un-used Set Password D-Bus method API
+Message-ID: <045f6137-a7ff-81f1-8f16-bc97ce4c9dd1@linux.intel.com>
+Date: Fri, 8 Mar 2019 09:35:09 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Date: Thu, 07 Mar 2019 21:23:54 -0600
-From: Zane Shelley <zshelle@linux.ibm.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: requirements for new repos
-Organization: IBM
-In-Reply-To: <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
-References: <c07297eeb5a0a7415a250a1a9e77e5e2@linux.vnet.ibm.com>
- <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
-X-Sender: zshelle@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-x-cbid: 19030803-0072-0000-0000-000004073640
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010724; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01171191; UDB=6.00612164; IPR=6.00951834; 
- MB=3.00025885; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-08 03:16:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030803-0073-0000-0000-00004B6AE45E
-Message-Id: <8601f6b7ea3d51315596d672baaa812e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-08_02:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=998 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903080021
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,22 +43,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Mar 2019 03:16:19 -0000
+X-List-Received-Date: Fri, 08 Mar 2019 04:05:21 -0000
 
-On 2019-03-07 13:24, Patrick Venture wrote:
-> On Thu, Mar 7, 2019 at 8:43 AM zshelle <zshelle@linux.vnet.ibm.com> 
-> wrote:
->> 
->> Besides the license and maintainers files, are there any other general
->> requirements for each repo?
-> 
-> You'll want a bootstrap.sh script for the CI to hit.  This'll run our
-> normal validation.  There's additionally a .clang-format file that'll
-> ensure conformance to the style guide.
-> 
->> 
+All,
 
-Thanks! Will look into it.
+As part of clean-up, planning to remove unused SetPassword D-Bus method 
+API exposed through password.interface.yaml. OpenBMC master code doesn't 
+rely on this API anymore, and uses pam_chauthtok() API to update the 
+password (for security purposes). Even phosphor-user-manager don't 
+expose SetPassword D-Bus method API. Following 2 commits are in review 
+which will remove the same permanently.
 
--- 
-- Zane
+Please let us know, if you have any concerns or require any further 
+clarifications.
+
+1. 
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/18940/
+
+2. 
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/18943/
+
+Regards,
+
+Richard
