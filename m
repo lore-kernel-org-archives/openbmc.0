@@ -1,75 +1,82 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
  spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
  (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=linux.vnet.ibm.com
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Fvfz4SVjzDqC7
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 15:30:01 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44FwJC1Ts0zDqGc
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 15:58:50 +1100 (AEDT)
 Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x284OFiK126649
- for <openbmc@lists.ozlabs.org>; Thu, 7 Mar 2019 23:29:58 -0500
-Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r3e2tfxed-1
+ x284sdSE106631
+ for <openbmc@lists.ozlabs.org>; Thu, 7 Mar 2019 23:58:48 -0500
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r3e2tgt97-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 07 Mar 2019 23:29:58 -0500
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Mar 2019 23:58:47 -0500
 Received: from localhost
- by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Fri, 8 Mar 2019 04:29:56 -0000
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Fri, 8 Mar 2019 04:58:45 -0000
+Received: from b06cxnps3074.portsmouth.uk.ibm.com (9.149.109.194)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
  Authorized Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 8 Mar 2019 04:29:53 -0000
+ Fri, 8 Mar 2019 04:58:43 -0000
 Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
  [9.149.105.59])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x284ToO632178380
+ by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x284wgvR55181398
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Fri, 8 Mar 2019 04:29:50 GMT
+ Fri, 8 Mar 2019 04:58:42 GMT
 Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 01D90A4040;
- Fri,  8 Mar 2019 04:29:50 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 9CA56A4055;
+ Fri,  8 Mar 2019 04:58:42 +0000 (GMT)
 Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 75697A4057;
- Fri,  8 Mar 2019 04:29:48 +0000 (GMT)
-Received: from [9.85.160.186] (unknown [9.85.160.186])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Fri,  8 Mar 2019 04:29:48 +0000 (GMT)
-Subject: Re: Reg removal of un-used Set Password D-Bus method API
-To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, gkeishin@in.ibm.com
-References: <045f6137-a7ff-81f1-8f16-bc97ce4c9dd1@linux.intel.com>
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Date: Fri, 8 Mar 2019 09:59:45 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.4.0
+ by IMSVA (Postfix) with ESMTP id 08C83A4051;
+ Fri,  8 Mar 2019 04:58:42 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.202.217])
+ by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Fri,  8 Mar 2019 04:58:41 +0000 (GMT)
+Subject: Re: Initial MCTP design proposal
+To: Ed Tanous <ed.tanous@intel.com>, Jeremy Kerr <jk@ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <a75abc9a6c5c2ae50b39576a60a2bb07c65567d4.camel@ozlabs.org>
+ <20190207155131.gzntyqoflqfw5vld@thinkpad>
+ <2159944d88eadddab4e7dfa5b50c85a4fc0ca234.camel@ozlabs.org>
+ <20190211185736.dafbfc74n76r33pu@thinkpad.dyn.fuzziesquirrel.com>
+ <9c1410a1255d49735b7a9879750557bc92acaa47.camel@ozlabs.org>
+ <ad89021d-57a9-980a-6034-8530b81b975c@intel.com>
+ <76923984-3d27-581b-0541-ae571a441e2d@linux.vnet.ibm.com>
+ <3447b96c-2a52-660a-3015-22b559242c0d@intel.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Fri, 8 Mar 2019 10:28:41 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.5.3
 MIME-Version: 1.0
-In-Reply-To: <045f6137-a7ff-81f1-8f16-bc97ce4c9dd1@linux.intel.com>
+In-Reply-To: <3447b96c-2a52-660a-3015-22b559242c0d@intel.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-x-cbid: 19030804-0020-0000-0000-000003200CE9
+x-cbid: 19030804-0016-0000-0000-0000025F59CB
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19030804-0021-0000-0000-00002172240C
-Message-Id: <9f293ba3-ddf8-95ec-3a71-37d58bf6ed13@linux.vnet.ibm.com>
+x-cbparentid: 19030804-0017-0000-0000-000032B9EAA9
+Message-Id: <847a41e2-59cd-47dd-ac1c-7d6c433e003d@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-08_03:, , signatures=0
+ definitions=2019-03-08_04:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  priorityscore=1501
  malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
  clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=875 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903080030
+ mlxlogscore=815 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903080033
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,37 +88,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Mar 2019 04:30:04 -0000
+X-List-Received-Date: Fri, 08 Mar 2019 04:58:51 -0000
 
-George,
+On 08/03/19 1:05 AM, Ed Tanous wrote:
+> 
+> 
+> On 3/7/19 12:46 AM, Deepak Kodihalli wrote:
+>>
+>> I agree to this as well. I've got two PLDM stacks on my laptop
+>> (requester and responder) talking to each other over libmctp (over the
+>> serial binding - making use of fifos instead of an actual serial
+>> connection). I'd like to push a couple small commits to libmctp as well
+>> (I made a PR for one of them at the moment).
+> This is one thing I've wondered before about the way PLDM is being built
+> out.  Testing the implementation against itself doesn't really test the
+> correctness of it, unless you're creating a bunch of asserts on data
+> structure elements, and even then, it just tests that you're giving what
+> you expect, not that you faithfully implemented the spec.
+> 
+> Do you plan to run this implementation against something other than
+> itself to test at some point?  If so, what device/implementation are you
+> planning to target?
 
-Seems we need to clean from the following place or some other private 
-branch :)
+BMC to host communications over MCTP, over different physical channels 
+(LPC for eg), is one of the first goals. There are more details in the 
+PLDM/MCTP design docs that Jeremy and I had sent out.
 
-https://github.com/openbmc/openbmc-test-automation/search?q=SetPassword&unscoped_q=SetPassword
+The test that I described above was to integrate the PLDM stack with 
+libmctp and see how that goes, without having to wait for another device 
+implementation to be ready. I think this is a logical step towards 
+employing PLDM/MCTP for device-device communication. The PLDM daemon 
+will link with the MCTP libs, eventually.
 
-Regards
-Ratan Gupta
-On 08/03/19 9:35 AM, Thomaiyar, Richard Marian wrote:
-> All,
->
-> As part of clean-up, planning to remove unused SetPassword D-Bus 
-> method API exposed through password.interface.yaml. OpenBMC master 
-> code doesn't rely on this API anymore, and uses pam_chauthtok() API to 
-> update the password (for security purposes). Even 
-> phosphor-user-manager don't expose SetPassword D-Bus method API. 
-> Following 2 commits are in review which will remove the same permanently.
->
-> Please let us know, if you have any concerns or require any further 
-> clarifications.
->
-> 1. 
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-user-manager/+/18940/
->
-> 2. 
-> https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-dbus-interfaces/+/18943/
->
-> Regards,
->
-> Richard
->
+Regards,
+Deepak
