@@ -1,51 +1,80 @@
-Return-Path: <prvs=9635c77e4=Tony.Lee@quantatw.com>
+Return-Path: <zshelle@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=9635c77e4=tony.lee@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=zshelle@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44FsRd12DwzDqH2
- for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 13:50:00 +1100 (AEDT)
-Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
- by mx01.quantatw.com with ESMTP; 08 Mar 2019 10:49:52 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
- (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1531.3; Fri, 8 Mar 2019
- 10:49:50 +0800
-Received: from mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381]) by
- mailbx08.quanta.corp ([fe80::c92c:150b:530e:b381%11]) with mapi id
- 15.01.1531.004; Fri, 8 Mar 2019 10:49:50 +0800
-From: =?utf-8?B?VG9ueSBMZWUgKOadjuaWh+WvjCk=?= <Tony.Lee@quantatw.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: How to upload proposal and code for specifying and customizing
- projects?
-Thread-Topic: How to upload proposal and code for specifying and customizing
- projects?
-Thread-Index: AdTTIPIRPhO1APIASHuF/QKTlnZP6gBOPviAAD28sLA=
-Date: Fri, 8 Mar 2019 02:49:50 +0000
-Message-ID: <417a986a10d340148fdc010a703ded2e@quantatw.com>
-References: <86e053918f1541f3a7b8f9264355080f@quantatw.com>
- <20190307041941.22vujoizv5prib57@thinkpad>
-In-Reply-To: <20190307041941.22vujoizv5prib57@thinkpad>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24474.000
-x-tm-as-result: No--7.884800-0.000000-31
-x-tm-as-matchedid: 150567-701625-704425-700685-139010-701177-705526-863519-7
- 04195-711953-780022-700889-704980-709850-701223-700007-703674-704341-700038
- -704156-700107-139006-700724-106660-707825-701604-700075-139703-700040-7095
- 84-705461-148004-148133-42000-42003-63-190014
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Ft1t2SbszDqFm
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 14:16:17 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x283Bn3d109983
+ for <openbmc@lists.ozlabs.org>; Thu, 7 Mar 2019 22:16:15 -0500
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r3dd9xyy1-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 07 Mar 2019 22:16:15 -0500
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <zshelle@linux.ibm.com>;
+ Fri, 8 Mar 2019 03:16:14 -0000
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Fri, 8 Mar 2019 03:16:11 -0000
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x283GApG21233910
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Fri, 8 Mar 2019 03:16:10 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AFE18B2064
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 747ABB2066
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Fri,  8 Mar 2019 03:16:10 +0000 (GMT)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Thu, 07 Mar 2019 21:23:54 -0600
+From: Zane Shelley <zshelle@linux.ibm.com>
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: requirements for new repos
+Organization: IBM
+In-Reply-To: <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
+References: <c07297eeb5a0a7415a250a1a9e77e5e2@linux.vnet.ibm.com>
+ <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
+X-Sender: zshelle@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19030803-0072-0000-0000-000004073640
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010724; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01171191; UDB=6.00612164; IPR=6.00951834; 
+ MB=3.00025885; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-08 03:16:12
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19030803-0073-0000-0000-00004B6AE45E
+Message-Id: <8601f6b7ea3d51315596d672baaa812e@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-08_02:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=998 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903080021
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,48 +86,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 08 Mar 2019 02:50:06 -0000
+X-List-Received-Date: Fri, 08 Mar 2019 03:16:19 -0000
 
-SGkgQnJhZCwNCg0KPiBJcyB0aGlzIHBhY2thZ2UgYWxyZWFkeSB3cml0dGVuPyAgV291bGQgeW91
-IG1pbmQgZmlsbGluZyBvdXQgYSBkZXNpZ24gdGVtcGxhdGUgZm9yIGl0Pw0KTm8sIHRoZSBwYWNr
-YWdlIGlzIG5vdCByZWFkeSB5ZXQuIEkgd2lsbCBmaWxsaW5nIG91dCBhIGRlc2lnbiB0ZW1wbGF0
-ZSBmb3IgaXQuDQoNCj4gSSBjYW4gY2VydGFpbmx5IGNyZWF0ZSBhIHF1YW50YS1kYnVzLWludGVy
-ZmFjZXMgcmVwb3NpdG9yeSBpZiB5b3UnZCBsaWtlLiAgQnV0IGZpcnN0IC0gSSdtIGp1c3QgY3Vy
-aW91cyBhYm91dCB3aGF0IHNvcnRzIG9mIERCdXMgQVBJcyB5b3UgaGF2ZT8gIEFyZSB0aGV5IGFj
-dHVhbGx5IHNwZWNpZmljIHRvIFF1YW50YSBtYWNoaW5lcywgb3IgY291bGQgdGhleSBiZSBwdXQg
-aW4gcGhvc3Bob3ItZGJ1cy1pbnRlcmZhY2VzPyAgDQpVbmRlcnN0b29kLiBJdCBjYW4gYWxzbyBi
-ZSB1c2VkIGZvciB0aGUgbWFjaGluZSBoYXMgTlZNZSBkcml2ZXMgb24gaXQuIFRoZSBBUElzIGNv
-dWxkIGJlIHB1dCBpbiBwaG9zcGhvci1kYnVzLWludGVyZmFjZXMuDQpmb3IgZXhhbXBsZSwgInh5
-ei5vcGVuYm1jX3Byb2plY3QuTnZtZS5JbmZvcm1hdGlvbuKAnS4gVGhlIHByb3BlcnRpZXMgd2ls
-bCBiZSBTZXJpYWxOdW1iZXIsIFZlbmRvcklELCBTbWFydFdhcm5pbmdzLCBTdGF0dXNGbGFncywg
-RHJpdmVMaWZlVXNlZC4NCg0KPiBDb3VsZCB5b3UgYnJpZWZseSB0YWxrIGFib3V0IHdoYXQgc29t
-ZSBvZiB0aGUgYXBwbGljYXRpb25zIHRoYXQgcHJlc2VudC93b3VsZCBwcmVzZW50IHRoZXNlIEFQ
-SXMgZG8/DQpUaGUgYXBwbGljYXRpb24gaXMgdG8gcmV0cmlldmUgaW5mb3JtYXRpb24gb2YgdGhl
-IE5WTWUgZGV2aWNlcyBieSBOVk1lLU1JIGNvbW1hbmRzIHZpYSBTTUJ1cyBkaXJlY3RseS4NCg0K
-VGhhbmtzDQpCZXN0IFJlZ2FyZHMsDQpUb255DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
-DQpGcm9tOiBCcmFkIEJpc2hvcCBbbWFpbHRvOmJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbV0g
-DQpTZW50OiBUaHVyc2RheSwgTWFyY2ggNywgMjAxOSAxMjoyMCBQTQ0KVG86IFRvbnkgTGVlICjm
-nY7mloflr4wpIDxUb255LkxlZUBxdWFudGF0dy5jb20+DQpDYzogb3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnDQpTdWJqZWN0OiBSZTogSG93IHRvIHVwbG9hZCBwcm9wb3NhbCBhbmQgY29kZSBmb3Ig
-c3BlY2lmeWluZyBhbmQgY3VzdG9taXppbmcgcHJvamVjdHM/DQoNCk9uIFR1ZSwgTWFyIDA1LCAy
-MDE5IGF0IDA3OjA1OjU5QU0gKzAwMDAsIFRvbnkgTGVlICjmnY7mloflr4wpIHdyb3RlOg0KPkhp
-IEJyYWQsDQo+DQo+SSBoYXZlIHR3byBuZXcgcGFja2FnZXMgInBob3NwaG9yLW52bWUiIA0KDQpJ
-cyB0aGlzIHBhY2thZ2UgYWxyZWFkeSB3cml0dGVuPyAgV291bGQgeW91IG1pbmQgZmlsbGluZyBv
-dXQgYSBkZXNpZ24gdGVtcGxhdGUgZm9yIGl0Pw0KDQpodHRwczovL2dpdGh1Yi5jb20vb3BlbmJt
-Yy9kb2NzL2Jsb2IvbWFzdGVyL2Rlc2lnbnMvZGVzaWduLXRlbXBsYXRlLm1kDQoNCj4gYW5kICJx
-dWFudGEtZGJ1cy1pbnRlcmZhY2VzIiBmb3Igc3BlY2lmeWluZyBhbmQgY3VzdG9taXppbmcgcHJv
-amVjdHMuDQo+VGhlcmUgd2FzIGEgc2VydmljZSBwb29saW5nIHN0YXR1cyBvZiBOVk1lIGRldmlj
-ZXMgaW4gIiBwaG9zcGhvci1udm1lICINCj5hbmQgc2V2ZXJhbCBkLWJ1cyBpbnRlcmZhY2VzIGZv
-ciBRdWFudGEgaW4gInF1YW50YS1kYnVzLWludGVyZmFjZXMiLg0KPg0KPjEuIElzIGl0IHdpbGwg
-YmUgcHV0IGludG8gYSBuZXcgcmVwb3NpdG9yeSBvciBwdXQgaXQgdW5kZXIgdGhlIG1ldGEtcXVh
-bnRhPw0KPjIuIEFzIGZvciB0aGUgcHJvcG9zYWwsIGlzIGl0IHN0aWxsIG5lZWQgdG8gY29tbWl0
-IHRvIGdlcnJpdCB1bmRlciBvcGVuYm1jL2RvY3MgPw0KDQpJIGNhbiBjZXJ0YWlubHkgY3JlYXRl
-IGEgcXVhbnRhLWRidXMtaW50ZXJmYWNlcyByZXBvc2l0b3J5IGlmIHlvdSdkIGxpa2UuICBCdXQg
-Zmlyc3QgLSBJJ20ganVzdCBjdXJpb3VzIGFib3V1dCB3aGF0IHNvcnRzIG9mIERCdXMgQVBJcyB5
-b3UgaGF2ZT8gIEFyZSB0aGV5IGFjdHVhbGx5IHNwZWNpZmljIHRvIFF1YW50YSBtYWNoaW5lcywg
-b3IgY291bGQgdGhleSBiZSBwdXQgaW4gcGhvc3Bob3ItZGJ1cy1pbnRlcmZhY2VzPyAgDQoNCkRv
-IHRoZSBhcHBsaWNhdGlvbnMgdGhhdCBpbXBsZW1lbnQgdGhlIEFQSXMgaW4gcXVhbnRhLWRidXMt
-aW50ZXJmYWNlcyBhbHJlYWR5IGV4aXN0IG9yIGFyZSB5b3UgcGxhbm5pbmcgb24gd3JpdGluZyB0
-aGVtIGluIHRoZSBmdXR1cmU/DQoNCkNvdWxkIHlvdSBicmllZmx5IHRhbGsgYWJvdXQgd2hhdCBz
-b21lIG9mIHRoZSBhcHBsaWNhdGlvbnMgdGhhdCBwcmVzZW50L3dvdWxkIHByZXNlbnQgdGhlc2Ug
-QVBJcyBkbz8NCg0KdGh4IC0gYnJhZA0K
+On 2019-03-07 13:24, Patrick Venture wrote:
+> On Thu, Mar 7, 2019 at 8:43 AM zshelle <zshelle@linux.vnet.ibm.com> 
+> wrote:
+>> 
+>> Besides the license and maintainers files, are there any other general
+>> requirements for each repo?
+> 
+> You'll want a bootstrap.sh script for the CI to hit.  This'll run our
+> normal validation.  There's additionally a .clang-format file that'll
+> ensure conformance to the style guide.
+> 
+>> 
+
+Thanks! Will look into it.
+
+-- 
+- Zane
