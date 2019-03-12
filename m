@@ -1,79 +1,72 @@
-Return-Path: <mspinler@linux.ibm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VXC1k3So"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="KFaMOyTg"; dkim-atps=neutral
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44JpTz0cDvzDqDY
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 08:47:18 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2CLdGUC127782
- for <openbmc@lists.ozlabs.org>; Tue, 12 Mar 2019 17:47:16 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2r6hsn284g-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 12 Mar 2019 17:47:16 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
- Tue, 12 Mar 2019 21:47:15 -0000
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 12 Mar 2019 21:47:13 -0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2CLlCIr21561458
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 12 Mar 2019 21:47:12 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B71A828060;
- Tue, 12 Mar 2019 21:47:12 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6B36C2805E;
- Tue, 12 Mar 2019 21:47:12 +0000 (GMT)
-Received: from [9.10.99.45] (unknown [9.10.99.45])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 12 Mar 2019 21:47:12 +0000 (GMT)
-Subject: Re: [PATCH] ARM: dts: aspeed: Add Swift BMC machine
-To: Adriana Kobylak <anoo@linux.ibm.com>, joel@jms.id.au, msbarth@linux.ibm.com
-Cc: openbmc@lists.ozlabs.org
-References: <1551820067-53510-1-git-send-email-anoo@linux.ibm.com>
-From: Matt Spinler <mspinler@linux.ibm.com>
-Date: Tue, 12 Mar 2019 16:47:13 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.3
-MIME-Version: 1.0
-In-Reply-To: <1551820067-53510-1-git-send-email-anoo@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19031221-2213-0000-0000-00000362685A
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010746; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01173465; UDB=6.00613536; IPR=6.00954124; 
- MB=3.00025952; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-12 21:47:15
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19031221-2214-0000-0000-00005DA5EE8C
-Message-Id: <02b66794-19bf-a042-66a9-00fc712355f5@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-12_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903120143
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44JrZS0FJ7zDqF6;
+ Wed, 13 Mar 2019 10:21:19 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id C2C3437CF;
+ Tue, 12 Mar 2019 19:21:15 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Tue, 12 Mar 2019 19:21:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ message-id:in-reply-to:references:date:from:to:cc:subject
+ :content-type; s=fm2; bh=hsySSPXg2xSoBsvzudPGFUA79X04wcB931dlPSB
+ nyhg=; b=VXC1k3So2RGEtW1uyI4sBkLB78XFA562ORBHnjIFoMwo4ecP843fdmO
+ SGLgHI2ZcXCoru/ZOoJ5ONtkzHbInJHLtKSA5xEmnd6RIljY27deb0Q//238SlLu
+ vC9IdSr1u3MKgBR7zT/ajxs/WjaPLvh3SBUK8CgiWZCcr6ZUWvUB6rGrhnADZQ5y
+ XnCG4QYpBJ8wBa592FIIPQdGRZn9EAj2jGhYtkMGMsazebKrS4cOc8CH1DpstCoT
+ y4LHY7CZhCJAqjoax1k9IHUcVOWTFOB3RQOWzZ4gB47/QfQ0HSxUs69xCq7lX2rB
+ IHtSdaic4iQfyzFss5Riy/Si2WIwpDA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:references:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=hsySSPXg2xSoBsvzu
+ dPGFUA79X04wcB931dlPSBnyhg=; b=KFaMOyTgmNcC4XaUcpUKJz+qgTw+ubxx4
+ II/yT8CpICm4HHy0qKulssxQNf3DAFBV1dCQ3QTk8uaSJ3t8XzB7/9ZzgYC0hw0q
+ AQd+EsHOsZp3zlJUtXwH1jt2j5nLRiLZmfEn9i8bvNYnU6U/dz8C/F2xa8/qcy1G
+ n5o+fwpRLOJMmTf9JallSoz5aF+zfHMOmZWjUHcHv33hk0K2VcYW8G3kgbBJHYJV
+ obJbH5bRL6gMZj5zh7PWcBdwrnNtOeA49+t7zy6SeEWsalkludLgQgw5DGlog0wO
+ fJKAI0B3jVRqs4XlLIIc5gop5PwLRpg13iPVbm/rQ5RBXUpzYSlFA==
+X-ME-Sender: <xms:6j6IXLzhyHGWJQ-PmN_nE50Lyv2tLu5KWPD-VPtDY-NvGp2TMHSD8Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrgeelgddtjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgurhgv
+ ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmh
+ epmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfu
+ ihiivgeptd
+X-ME-Proxy: <xmx:6j6IXHj6y689GrNDlbFYhwKNWxWUvWHCH5yFxrFbqwQCoNU2p_coDw>
+ <xmx:6j6IXAViLNXQ4P-OtzVVIAmtEmF9WvS6piDfhddHzEMm1vULk_U4Fw>
+ <xmx:6j6IXJ1DkWWGAQ36ado1hR4fpaOzMYM8SfEvFZaGvGguiWQlw5lkSw>
+ <xmx:6z6IXGDv-tjijgU_461Imo1u_TwT1YiPc4tDHXEtNgsY5EpK2FsVng>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 1673D7C4CE; Tue, 12 Mar 2019 19:21:14 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
+X-Me-Personality: 52947553
+Message-Id: <34738643-a98f-480b-8a76-afdc9cb478e5@www.fastmail.com>
+In-Reply-To: <1552409402-15881-1-git-send-email-anoo@linux.ibm.com>
+References: <1552409402-15881-1-git-send-email-anoo@linux.ibm.com>
+Date: Tue, 12 Mar 2019 19:21:13 -0400
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Adriana Kobylak" <anoo@linux.ibm.com>, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
+Cc: "Edward A. James" <eajames@us.ibm.com>
+Subject: Re: [PATCH] ARM: dts: Aspeed: Witherspoon: Update BMC partitioning
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,749 +78,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Mar 2019 21:47:19 -0000
+X-List-Received-Date: Tue, 12 Mar 2019 23:21:24 -0000
 
 
-On 3/5/2019 3:07 PM, Adriana Kobylak wrote:
-> The Swift BMC is an ASPEED ast2500 based BMC that is part of
-> a Power9 server. This adds the device tree description for
-> most upstream components.
-> There's a pending TODO to create the flash layout for its
-> 16GB NAND flash chip. Use the default 32MB NOR flash chip
-> for this initial commit.
->
-> Signed-off-by: Adriana Kobylak <anoo@linux.ibm.com>
+
+On Wed, 13 Mar 2019, at 03:21, Adriana Kobylak wrote:
+> From: "Edward A. James" <eajames@us.ibm.com>
+> 
+> Add simplified partitions for BMC and alternate flash. Include these by
+> default in Witherspoon.
+> 
+> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
+
+Yes please! Lets apply this so I can stop bashing my head against the desk when doing
+kernel work on a Witherspoon.
+
 > ---
->   arch/arm/boot/dts/Makefile                 |   1 +
->   arch/arm/boot/dts/aspeed-bmc-opp-swift.dts | 702 +++++++++++++++++++++++++++++
->   2 files changed, 703 insertions(+)
->   create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
->
-> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> index 1a2db60..2e0011b 100644
-> --- a/arch/arm/boot/dts/Makefile
-> +++ b/arch/arm/boot/dts/Makefile
-> @@ -1204,6 +1204,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->   	aspeed-bmc-opp-lanyang.dtb \
->   	aspeed-bmc-opp-palmetto.dtb \
->   	aspeed-bmc-opp-romulus.dtb \
-> +	aspeed-bmc-opp-swift.dtb \
->   	aspeed-bmc-opp-witherspoon.dtb \
->   	aspeed-bmc-opp-zaius.dtb \
->   	aspeed-bmc-portwell-neptune.dtb \
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>  .../boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi  | 18 ++++++++++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi | 18 ++++++++++++++++++
+>  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts       |  3 ++-
+>  3 files changed, 38 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
+>  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+> 
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi 
+> b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
 > new file mode 100644
-> index 0000000..27459b7
+> index 0000000..9277599
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
-> @@ -0,0 +1,702 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/dts-v1/;
-> +#include "aspeed-g5.dtsi"
-> +#include <dt-bindings/gpio/aspeed-gpio.h>
-> +#include <dt-bindings/leds/leds-pca955x.h>
-> +
-> +/ {
-> +	model = "Swift BMC";
-> +	compatible = "ibm,swift-bmc", "aspeed,ast2500";
-> +
-> +	chosen {
-> +		stdout-path = &uart5;
-> +		bootargs = "console=ttyS4,115200 earlyprintk";
-> +	};
-> +
-> +	memory@80000000 {
-> +		reg = <0x80000000 0x20000000>;
-> +	};
-> +
-> +	reserved-memory {
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges;
-> +
-> +		flash_memory: region@98000000 {
-> +			no-map;
-> +			reg = <0x98000000 0x04000000>; /* 64M */
+> +++ b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
+> @@ -0,0 +1,18 @@
+> +		label = "alt-bmc";
+> +		partitions {
+> +				#address-cells = < 1 >;
+> +				#size-cells = < 1 >;
+> +				compatible = "fixed-partitions";
+> +				u-boot@0 {
+> +					reg = < 0 0x60000 >;
+> +					label = "alt-u-boot";
+> +				};
+> +				u-boot-env@60000 {
+> +					reg = < 0x60000 0x20000 >;
+> +					label = "alt-u-boot-env";
+> +				};
+> +				obmc-ubi@80000 {
+> +					reg = < 0x80000 0x1F80000 >;
+> +					label = "alt-obmc-ubi";
+> +				};
 > +		};
-> +
-> +		gfx_memory: framebuffer {
-> +			size = <0x01000000>;
-> +			alignment = <0x01000000>;
-> +			compatible = "shared-dma-pool";
-> +			reusable;
-> +		};
-> +	};
-> +
-> +	gpio-keys {
-> +		compatible = "gpio-keys";
-> +
-> +		air-water {
-> +			label = "air-water";
-> +			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
-> +			linux,code = <ASPEED_GPIO(B, 5)>;
-> +		};
-> +
-> +		checkstop {
-> +			label = "checkstop";
-> +			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
-> +			linux,code = <ASPEED_GPIO(J, 2)>;
-> +		};
-> +
-> +		ps0-presence {
-> +			label = "ps0-presence";
-> +			gpios = <&gpio ASPEED_GPIO(R, 7) GPIO_ACTIVE_LOW>;
-> +			linux,code = <ASPEED_GPIO(R, 7)>;
-> +		};
-> +
-> +		ps1-presence {
-> +			label = "ps1-presence";
-> +			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
-> +			linux,code = <ASPEED_GPIO(N, 0)>;
-> +		};
-> +	};
-> +
-> +	iio-hwmon-battery {
-> +		compatible = "iio-hwmon";
-> +		io-channels = <&adc 12>;
-> +	};
-> +
-> +	gpio-keys-polled {
-> +		compatible = "gpio-keys-polled";
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		poll-interval = <1000>;
-> +
-> +		fan0-presence {
-> +			label = "fan0-presence";
-> +			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
-> +			linux,code = <5>;
-> +		};
-> +
-> +		fan1-presence {
-> +			label = "fan1-presence";
-> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
-> +			linux,code = <6>;
-> +		};
-> +
-> +		fan2-presence {
-> +			label = "fan2-presence";
-> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
-> +			linux,code = <7>;
-> +		};
-> +
-> +		fan3-presence {
-> +			label = "fan3-presence";
-> +			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
-> +			linux,code = <8>;
-> +		};
-> +
-> +		fanboost-presence {
-> +			label = "fanboost-presence";
-> +			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
-> +			linux,code = <9>;
-> +		};
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +
-> +		fan0 {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		fan1 {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		fan2 {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		fan3 {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		fanboost {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		front-fault {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		front-power {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		front-id {
-> +			retain-state-shutdown;
-> +			default-state = "keep";
-> +			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		rear-fault {
-> +			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		rear-id {
-> +			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
-> +		};
-> +
-> +		rear-power {
-> +			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
-> +		};
-> +	};
-> +
-> +	fsi: gpio-fsi {
-> +		compatible = "fsi-master-gpio", "fsi-master";
-> +		#address-cells = <2>;
-> +		#size-cells = <0>;
-> +		no-gpio-delays;
-> +
-> +		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-> +		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
-> +		mux-gpios = <&gpio ASPEED_GPIO(P, 4) GPIO_ACTIVE_HIGH>;
-> +		enable-gpios = <&gpio ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
-> +		trans-gpios = <&gpio ASPEED_GPIO(P, 3) GPIO_ACTIVE_HIGH>;
-> +	};
-> +
-> +	iio-hwmon-dps310 {
-> +		compatible = "iio-hwmon";
-> +		io-channels = <&dps 0>;
-> +	};
-> +
-> +};
-> +
-> +/* TODO Update flash layout for 16GB NAND */
-> +&fmc {
-> +	status = "okay";
-> +	flash@0 {
-> +		status = "okay";
-> +		m25p,fast-read;
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi 
+> b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+> new file mode 100644
+> index 0000000..0059ad1
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+> @@ -0,0 +1,18 @@
 > +		label = "bmc";
-> +		spi-max-frequency = <50000000>;
-> +#include "openbmc-flash-layout.dtsi"
-> +	};
-> +};
-> +
-> +&spi1 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_spi1_default>;
-> +
-> +	flash@0 {
-> +		status = "okay";
-> +		label = "pnor";
-> +		m25p,fast-read;
-> +		spi-max-frequency = <100000000>;
-> +	};
-> +};
-> +
-> +&uart1 {
-> +	/* Rear RS-232 connector */
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_txd1_default
-> +			&pinctrl_rxd1_default
-> +			&pinctrl_nrts1_default
-> +			&pinctrl_ndtr1_default
-> +			&pinctrl_ndsr1_default
-> +			&pinctrl_ncts1_default
-> +			&pinctrl_ndcd1_default
-> +			&pinctrl_nri1_default>;
-> +};
-> +
-> +&uart2 {
-> +	/* APSS */
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
-> +};
-> +
-> +&uart5 {
-> +	status = "okay";
-> +};
-> +
-> +&lpc_ctrl {
-> +	status = "okay";
-> +	memory-region = <&flash_memory>;
-> +	flash = <&spi1>;
-> +};
-> +
-> +&mbox {
-> +	status = "okay";
-> +};
-> +
-> +&mac0 {
-> +	status = "okay";
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_rmii1_default>;
-> +	use-ncsi;
-> +};
-> +
-> +&i2c2 {
-> +	status = "okay";
-> +
-> +	/* MUX ->
-> +	 *    Samtec 1
-> +	 *    Samtec 2
-> +	 */
-> +};
-> +
-> +&i2c3 {
-> +	status = "okay";
-> +
-> +	max31785@52 {
-> +		compatible = "maxim,max31785a";
-> +		reg = <0x52>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		fan@0 {
-> +			compatible = "pmbus-fan";
-> +			reg = <0>;
-> +			tach-pulses = <2>;
-> +			maxim,fan-rotor-input = "tach";
-> +			maxim,fan-pwm-freq = <25000>;
-> +			maxim,fan-dual-tach;
-
-
-The 4 main fans are single rotor, so you don't need the fan-dual-tach 
-line on them.
-
-I'm not sure about that booster fan though.
-
-
-> +			maxim,fan-no-watchdog;
-> +			maxim,fan-no-fault-ramp;
-> +			maxim,fan-ramp = <2>;
-> +			maxim,fan-fault-pin-mon;
+> +		partitions {
+> +				#address-cells = < 1 >;
+> +				#size-cells = < 1 >;
+> +				compatible = "fixed-partitions";
+> +				u-boot@0 {
+> +					reg = < 0 0x60000 >;
+> +					label = "u-boot";
+> +				};
+> +				u-boot-env@60000 {
+> +					reg = < 0x60000 0x20000 >;
+> +					label = "u-boot-env";
+> +				};
+> +				obmc-ubi@80000 {
+> +					reg = < 0x80000 0x1F80000 >;
+> +					label = "obmc-ubi";
+> +				};
 > +		};
-> +
-> +		fan@1 {
-> +			compatible = "pmbus-fan";
-> +			reg = <1>;
-> +			tach-pulses = <2>;
-> +			maxim,fan-rotor-input = "tach";
-> +			maxim,fan-pwm-freq = <25000>;
-> +			maxim,fan-dual-tach;
-> +			maxim,fan-no-watchdog;
-> +			maxim,fan-no-fault-ramp;
-> +			maxim,fan-ramp = <2>;
-> +			maxim,fan-fault-pin-mon;
-> +		};
-> +
-> +		fan@2 {
-> +			compatible = "pmbus-fan";
-> +			reg = <2>;
-> +			tach-pulses = <2>;
-> +			maxim,fan-rotor-input = "tach";
-> +			maxim,fan-pwm-freq = <25000>;
-> +			maxim,fan-dual-tach;
-> +			maxim,fan-no-watchdog;
-> +			maxim,fan-no-fault-ramp;
-> +			maxim,fan-ramp = <2>;
-> +			maxim,fan-fault-pin-mon;
-> +		};
-> +
-> +		fan@3 {
-> +			compatible = "pmbus-fan";
-> +			reg = <3>;
-> +			tach-pulses = <2>;
-> +			maxim,fan-rotor-input = "tach";
-> +			maxim,fan-pwm-freq = <25000>;
-> +			maxim,fan-dual-tach;
-> +			maxim,fan-no-watchdog;
-> +			maxim,fan-no-fault-ramp;
-> +			maxim,fan-ramp = <2>;
-> +			maxim,fan-fault-pin-mon;
-> +		};
-> +
-> +		fan@4 {
-> +			compatible = "pmbus-fan";
-> +			reg = <4>;
-> +			tach-pulses = <2>;
-> +			maxim,fan-rotor-input = "tach";
-> +			maxim,fan-pwm-freq = <25000>;
-> +			maxim,fan-dual-tach;
-> +			maxim,fan-no-watchdog;
-> +			maxim,fan-no-fault-ramp;
-> +			maxim,fan-ramp = <2>;
-> +			maxim,fan-fault-pin-mon;
-> +		};
-> +	};
-> +
-> +	pca0: pca9552@60 {
-> +		compatible = "nxp,pca9552";
-> +		reg = <0x60>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +
-> +		gpio@0 {
-> +			reg = <0>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@1 {
-> +			reg = <1>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@2 {
-> +			reg = <2>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@3 {
-> +			reg = <3>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@4 {
-> +			reg = <4>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@5 {
-> +			reg = <5>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@6 {
-> +			reg = <6>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@7 {
-> +			reg = <7>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@8 {
-> +			reg = <8>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@9 {
-> +			reg = <9>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@10 {
-> +			reg = <10>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@11 {
-> +			reg = <11>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@12 {
-> +			reg = <12>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@13 {
-> +			reg = <13>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@14 {
-> +			reg = <14>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@15 {
-> +			reg = <15>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +	};
-> +
-> +	power-supply@68 {
-> +		compatible = "ibm,cffps1";
-> +		reg = <0x68>;
-> +	};
-> +
-> +	eeprom@50 {
-> +		compatible = "atmel,24c64";
-> +		reg = <0x50>;
-> +	};
-> +
-> +	power-supply@69 {
-> +		compatible = "ibm,cffps1";
-> +		reg = <0x69>;
-> +	};
-> +
-> +	eeprom@51 {
-> +		compatible = "atmel,24c64";
-> +		reg = <0x51>;
-> +	};
-> +};
-> +
-> +&i2c7 {
-> +	status = "okay";
-> +
-> +	dps: dps310@76 {
-> +		compatible = "infineon,dps310";
-> +		reg = <0x76>;
-> +		#io-channel-cells = <0>;
-> +	};
-> +
-> +	tmp275@48 {
-> +		compatible = "ti,tmp275";
-> +		reg = <0x48>;
-> +	};
-> +
-> +	si7021a20@20 {
-> +		compatible = "si,si7021a20";
-> +		reg = <0x20>;
-> +	};
-> +
-> +	eeprom@50 {
-> +		compatible = "atmel,24c64";
-> +		reg = <0x50>;
-> +	};
-> +
-> +	pca9551@60 {
-> +		compatible = "nxp,pca9551";
-> +		reg = <0x60>;
-> +	};
-> +};
-> +
-> +&i2c8 {
-> +	status = "okay";
-> +
-> +	pca9552: pca9552@60 {
-> +		compatible = "nxp,pca9552";
-> +		reg = <0x60>;
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		gpio-controller;
-> +		#gpio-cells = <2>;
-> +
-> +		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
-> +			"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
-> +			"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
-> +			"P9_SCM0_PRES",	"P9_SCM1_PRES",
-> +			"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
-> +			"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
-> +			"PRESENT_VRM_CP0_N", "PRESENT_VRM_CP1_N",
-> +			"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
-> +
-> +		gpio@0 {
-> +			reg = <0>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@1 {
-> +			reg = <1>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@2 {
-> +			reg = <2>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@3 {
-> +			reg = <3>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@4 {
-> +			reg = <4>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@5 {
-> +			reg = <5>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@6 {
-> +			reg = <6>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@7 {
-> +			reg = <7>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@8 {
-> +			reg = <8>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@9 {
-> +			reg = <9>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@10 {
-> +			reg = <10>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@11 {
-> +			reg = <11>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@12 {
-> +			reg = <12>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@13 {
-> +			reg = <13>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@14 {
-> +			reg = <14>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +
-> +		gpio@15 {
-> +			reg = <15>;
-> +			type = <PCA955X_TYPE_GPIO>;
-> +		};
-> +	};
-> +
-> +	rtc@32 {
-> +		compatible = "epson,rx8900";
-> +		reg = <0x32>;
-> +	};
-> +
-> +	eeprom@51 {
-> +		compatible = "atmel,24c64";
-> +		reg = <0x51>;
-> +	};
-> +
-> +	ucd90160@64 {
-> +		compatible = "ti,ucd90160";
-> +		reg = <0x64>;
-> +	};
-> +};
-> +
-> +&i2c9 {
-> +	status = "okay";
-> +
-> +	tmp423a@4c {
-> +		compatible = "ti,tmp423";
-> +		reg = <0x4c>;
-> +	};
-> +
-> +	ir35221@71 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0x71>;
-> +	};
-> +
-> +	ir35221@72 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0x72>;
-> +	};
-> +};
-> +
-> +&i2c10 {
-> +	status = "okay";
-> +
-> +	tmp423a@4c {
-> +		compatible = "ti,tmp423";
-> +		reg = <0x4c>;
-> +	};
-> +
-> +	ir35221@71 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0x71>;
-> +	};
-> +
-> +	ir35221@72 {
-> +		compatible = "infineon,ir35221";
-> +		reg = <0x72>;
-> +	};
-> +};
-> +
-> +&i2c11 {
-> +	/* MUX
-> +	 *   -> PCIe Slot 0
-> +	 *   -> PCIe Slot 1
-> +	 *   -> PCIe Slot 2
-> +	 *   -> PCIe Slot 3
-> +	 */
-> +	status = "okay";
-> +};
-> +
-> +&i2c12 {
-> +	status = "okay";
-> +
-> +	tmp275@48 {
-> +		compatible = "ti,tmp275";
-> +		reg = <0x48>;
-> +	};
-> +
-> +	tmp275@4a {
-> +		compatible = "ti,tmp275";
-> +		reg = <0x4a>;
-> +	};
-> +};
-> +
-> +&i2c13 {
-> +	status = "okay";
-> +};
-> +
-> +&vuart {
-> +	status = "okay";
-> +};
-> +
-> +&gfx {
-> +	status = "okay";
-> +	memory-region = <&gfx_memory>;
-> +};
-> +
-> +&pinctrl {
-> +	aspeed,external-nodes = <&gfx &lhc>;
-> +};
-> +
-> +&wdt1 {
-> +	aspeed,reset-type = "none";
-> +	aspeed,external-signal;
-> +	aspeed,ext-push-pull;
-> +	aspeed,ext-active-high;
-> +
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_wdtrst1_default>;
-> +};
-> +
-> +&wdt2 {
-> +	aspeed,alt-boot;
-> +};
-> +
-> +&ibt {
-> +	status = "okay";
-> +};
-> +
-> +&adc {
-> +	status = "okay";
-> +};
-> +
-> +#include "ibm-power9-dual.dtsi"
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts 
+> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> index c51e3e8..058b9b7 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+> @@ -191,7 +191,7 @@
+>  		label = "bmc";
+>  		m25p,fast-read;
+>  		spi-max-frequency = <50000000>;
+> -#include "openbmc-flash-layout.dtsi"
+> +#include "aspeed-bmc-opp-flash-layout-ubi.dtsi"
+>  	};
+>  
+>  	flash@1 {
+> @@ -199,6 +199,7 @@
+>  		label = "alt";
+>  		m25p,fast-read;
+>  		spi-max-frequency = <50000000>;
+> +#include "aspeed-bmc-alt-opp-flash-layout-ubi.dtsi"
+>  	};
+>  };
+>  
+> -- 
+> 1.8.3.1
+> 
+>
