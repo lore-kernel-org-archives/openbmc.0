@@ -1,88 +1,56 @@
-Return-Path: <eajames@linux.vnet.ibm.com>
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c35; helo=mail-yw1-xc35.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="NrI/TWYu"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc35.google.com (mail-yw1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44JkTK1v4jzDqC5
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 05:46:28 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2CIiNGd088943
- for <openbmc@lists.ozlabs.org>; Tue, 12 Mar 2019 14:46:26 -0400
-Received: from e11.ny.us.ibm.com (e11.ny.us.ibm.com [129.33.205.201])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r6gq9e3yb-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 12 Mar 2019 14:46:25 -0400
-Received: from localhost
- by e11.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.vnet.ibm.com>;
- Tue, 12 Mar 2019 18:46:24 -0000
-Received: from b01cxnp23034.gho.pok.ibm.com (9.57.198.29)
- by e11.ny.us.ibm.com (146.89.104.198) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 12 Mar 2019 18:46:20 -0000
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2CIkJwd11993294
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 12 Mar 2019 18:46:19 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 28612124058;
- Tue, 12 Mar 2019 18:46:19 +0000 (GMT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5D358124054;
- Tue, 12 Mar 2019 18:46:18 +0000 (GMT)
-Received: from [9.41.179.222] (unknown [9.41.179.222])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 12 Mar 2019 18:46:18 +0000 (GMT)
-Subject: Re: [PATCH 2/6] drivers/misc: Add Aspeed XDMA engine driver
-To: Arnd Bergmann <arnd@arndb.de>, Eddie James <eajames@linux.ibm.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, DTML <devicetree@vger.kernel.org>,
- linux-aspeed@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
- gregkh <gregkh@linuxfoundation.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>
-References: <1551735420-16202-1-git-send-email-eajames@linux.ibm.com>
- <1551735420-16202-3-git-send-email-eajames@linux.ibm.com>
- <CAK8P3a0eS11_T9wk4iLRT7A94Lh9gSf5QNGH4--pdA5HdEGMCw@mail.gmail.com>
- <84551e54-0382-6042-48cb-842d79214a98@linux.ibm.com>
- <CAK8P3a2kcaVGXifqrBLt9PfD1n2M6WCBxDDcaF8d7EdYxGRvVg@mail.gmail.com>
-From: Eddie James <eajames@linux.vnet.ibm.com>
-Date: Tue, 12 Mar 2019 13:46:17 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Jljb3jQ0zDq7h
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 06:42:08 +1100 (AEDT)
+Received: by mail-yw1-xc35.google.com with SMTP id j66so3099563ywc.10
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Mar 2019 12:42:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=tx+RL9Fk/IGpmEdjZsYa6yMtLsh9vDrdAqA78l/el1o=;
+ b=NrI/TWYujswqwxDTQVq2fQG3ZfKy+bdgfIdFnx1/RXwp0mS+Gx7tJGdTYstHgWWgdp
+ m+4XJ0aeewUi+iRJBm0nZY9UWULFvW8PgaFLiyo8dzHqn9SH68+zYwIEWMst9dVTz/VL
+ y+AnL9W5DxpiObMpXJx/cyBWi/eio7DFDDiWaphECsQUsp48BzaJSZ6eILxcDrp8C1bF
+ rhtD25BU3i58QtYc7UtzHKxeQcCyiVaSgq/KmZH+Mr4iSGGb0XPAHAEIGa6GYDzvzuNE
+ tvryJ9WxXgZlOuqKD4mGjtW43+wpDPLm59jHdP89/G2H+/BJAEAIY4WbI9C7h0Od9zqX
+ Cxuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to
+ :content-transfer-encoding;
+ bh=tx+RL9Fk/IGpmEdjZsYa6yMtLsh9vDrdAqA78l/el1o=;
+ b=mfpDhAJVVBY/0zM8KRcq88c23GUMo3K7AUJgtjMSeEVWCnPzt+fhxWXUtaNNVQNRsT
+ Sb/TWNJ4t8weDN0l9mS2X8mCoDWDPP3b4lRv8nUpLpFbSP9hl4jbonlwhq4aKHxP3sLZ
+ UCoidg/xtzcq2xxeu9/OgCH4Zoo3nLMftfaMFarZC1PoUWxb6f7+kmeE0ennbQWTvNWQ
+ txkHTN0UXNixFiS9ORLLArOqO//BF2giiUPphKutwCy7hpyVBiwHRSZSaRuapcwrCJTj
+ vdFNdHXwjBenZLZgJnIe60VcHuwhg5nDG4qUeSTzarWZfZvHmKfRQibpghPB7ZDJgIZ7
+ D1CA==
+X-Gm-Message-State: APjAAAXyPejooOuPFTbRBQ3+PVPNFMk3hWNkQEZCZ1wgLZDHS7cuhQLK
+ UW3KzJxTjVaIQDAgBBBWZSAeJwlWrZKtna64bI2L6ycE
+X-Google-Smtp-Source: APXvYqwE+RdtZ7H+Bq9JL6uMYZeuvxn5de+xXLUehZFl3od0UlmTytoBSxRDywXPQyMpXGV2yIrFRUzQ3fEn/OfxvhY=
+X-Received: by 2002:a25:65d4:: with SMTP id
+ z203mr33277254ybb.370.1552419722923; 
+ Tue, 12 Mar 2019 12:42:02 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAK8P3a2kcaVGXifqrBLt9PfD1n2M6WCBxDDcaF8d7EdYxGRvVg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19031218-2213-0000-0000-0000036251B1
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010746; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01173405; UDB=6.00613501; IPR=6.00954064; 
- MB=3.00025950; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-12 18:46:22
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19031218-2214-0000-0000-00005DA5901C
-Message-Id: <2bc14947-1656-0819-c7a4-98548e50e945@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-12_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903120127
+From: Jandra A <jandraara@gmail.com>
+Date: Tue, 12 Mar 2019 14:41:52 -0500
+Message-ID: <CAMTupoQpdx2Hw=dy_pWsMYHbHvbYjj5L6j36Tp=WNnTOPDMrLg@mail.gmail.com>
+Subject: Restore MAC address to factory settings
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,129 +62,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Mar 2019 18:46:29 -0000
+X-List-Received-Date: Tue, 12 Mar 2019 19:42:13 -0000
 
+Hello all,
 
-On 3/6/19 4:48 AM, Arnd Bergmann wrote:
-> On Tue, Mar 5, 2019 at 10:45 PM Eddie James <eajames@linux.ibm.com> wrote:
->> On 3/5/19 2:01 AM, Arnd Bergmann wrote:
->>> On Mon, Mar 4, 2019 at 10:37 PM Eddie James <eajames@linux.ibm.com> wrote:
->>>> The XDMA engine embedded in the AST2500 SOC performs PCI DMA operations
->>>> between the SOC (acting as a BMC) and a host processor in a server.
->>>>
->>>> This commit adds a driver to control the XDMA engine and adds functions
->>>> to initialize the hardware and memory and start DMA operations.
->>>>
->>>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
->>> Hi Eddie,
->>>
->>> Thanks for your submission! Overall this looks well-implemented, but
->>> I fear we already have too many ways of doing the same thing at
->>> the moment, and I would hope to avoid adding yet another user space
->>> interface for a specific hardware that does this.
->>>
->>> Your interface appears to be a fairly low-level variant, just doing
->>> single DMA transfers through ioctls, but configuring the PCIe
->>> endpoint over sysfs.
->> Hi, thanks for the quick response!
->>
->> There is actually no PCIe configuration done in this driver. The two
->> sysfs entries control the system control unit (SCU) on the AST2500
->> purely to enable and disable entire PCIe devices. It might be possible
->> to control those devices more finely with a PCI endpoint driver, but
->> there is no need to do so. The XDMA engine does that by itself to
->> perform DMA fairly automatically.
->>
->> If the sysfs entries are really troublesome, we can probably remove
->> those and find another way to control the SCU.
-> I think the main advantage of tying this to a PCIe endpoint driver
-> is that this would give us a logical object in the kernel that we
-> can add the user space interface to, and have the protocol on
-> top of it be portable between different SoCs.
->
->>> Please have a look at the drivers/pci/endpoint framework first
->>> and see if you can work on top of that interface instead.
->>> Even if it doesn't quite do what you need here, we may be
->>> able to extend it in a way that works for you, and lets others
->>> use the same user interface extensions in the future.
->>>
->>> It may also be necessary to split out the DMA engine portion
->>> into a regular drivers/dma/ back-end to make that fit in with
->>> the PCIe endpoint framework.
->> Right, I did look into the normal DMA framework. There were a couple of
->> problems. First and foremost, the "device" (really, host processor)
->> address that we use is 64 bit, but the AST2500 is of course 32 bit. So I
->> couldn't find a good way to get the address through the DMA API into the
->> driver. It's entirely possible I missed something there though.
-> 32-bit ARM SoCs can be built with a 64-bit dma_addr_t. Would that
-> help you here?
+I=E2=80=99d like your input on the value you see =E2=80=93 if any =E2=80=93=
+ in the ability for
+a user to restore a MAC Address to the factory default via the GUI
+(Network Settings).
 
-Yep, thanks, that's helpful.
+BACKGROUND: Several end users have told us that they RARELY need to
+change their MAC Address, if at all. However, we=E2=80=99ve heard from seve=
+ral
+subject-matter experts that there IS value in making the MAC Address
+editable as well as having a way to restore it to the factory default.
 
->
->> The other issue was that the vast majority of the DMA framework was
->> unused, resulting in a large amount of boilerplate that did nothing
->> except satisfy the API... I thought simplicity would be better in this case.
-> Simplicity is important indeed, but we have to weigh it against
-> having a consistent interface. What the dmaengine driver would
-> give us in combination with the PCIe endpoint driver is that it abstracts
-> the hardware from the protocol on top, which could then be done
-> in a way that is not specific to an AST2xxx chip.
->
->> Let me know what you think... I could certainly switch to ioctl instead
->> of the write() if that's better. Or if you really think the DMA
->> framework is required here, let me know.
-> I don't think that replacing the ioctl() with a write() call specifically
-> would make much of a difference here. The question I'd like to
-> discuss further is what high-level user space interface you actually
-> need in order to implement what kind of functionality. We can then
-> look at whether this interface can be implemented on top of a
-> PCIe endpoint and a dmaengine driver in a portable way. If all
-> of those are true, then I'd definitely go with the modular approach
-> of having two standard drivers for the PCIe endpoint (should be
-> a trivial wrapper) and the dma engine (not trivial, but there are
-> many examples), plus a generic front-end in
-> drivers/pci/endpoint/functions/.
+QUESTION: Is there value for the end user in being able to edit a MAC
+address? What about restoring it to the factory default?
 
-Hi Arnd,
+VIEW CURRENT DESIGN:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutl=
+iple_VLAN
 
-Let me describe the top level interface we really need. The objective is 
-just to transfer arbitrary data between the two memory spaces (memory on 
-the AST2500 as the BMC, where the driver is running, and the memory on 
-the host processor). The user on the BMC (in user space; I can't think 
-of a use case for another driver needing to access this interface) has 
-the host address, transfer size, and, if it's a write, the data. User 
-needs to pass this into the driver and, if it's a read, retrieve the 
-transferred data.
-
-I did start trying to implement the dmaengine framework, and I think it 
-could technically work. The addressing is no longer a problem, thanks to 
-your tip. However, I realized there are some other issues.
-
-The main problem is that the only memory that the XDMA engine hardware 
-can access is the VGA reserved memory area on the AST2xxx. So I don't 
-see how it can ever be a pure dmaengine driver; it would always need an 
-additional interface or something to handle that memory area. If I 
-completed the dmaengine framework, any and all users would be required 
-to go through an additional step to get memory in the reserved area and 
-copy in/out of there. The way the driver stands, this memory management 
-is integrated, resulting in a fairly clean interface, though of course 
-it is unique.
-
-As for the PCIe endpoint part, I'm not sure it fits this driver. I could 
-drop the sysfs entries and find another way to configure the SCU for 
-now... this driver really doesn't have anything to do with PCIe, except 
-for the fact that the XDMA hardware uses PCIe to do the actual work of 
-the data transfer.
-
-What do you think? One other thought I had was that the driver might be 
-more suitable to go in drivers/soc/ as it is very specific to the 
-AST2xxx. But, up to you.
-
-Thanks,
-
-Eddie
-
->
->       Arnd
->
+Appreciate all thoughts on this.
