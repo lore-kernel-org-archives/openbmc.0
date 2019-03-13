@@ -1,72 +1,49 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <ryan_chen@aspeedtech.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="VXC1k3So"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="KFaMOyTg"; dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
+ spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
+ (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
+ envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44JrZS0FJ7zDqF6;
- Wed, 13 Mar 2019 10:21:19 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id C2C3437CF;
- Tue, 12 Mar 2019 19:21:15 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Tue, 12 Mar 2019 19:21:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- message-id:in-reply-to:references:date:from:to:cc:subject
- :content-type; s=fm2; bh=hsySSPXg2xSoBsvzudPGFUA79X04wcB931dlPSB
- nyhg=; b=VXC1k3So2RGEtW1uyI4sBkLB78XFA562ORBHnjIFoMwo4ecP843fdmO
- SGLgHI2ZcXCoru/ZOoJ5ONtkzHbInJHLtKSA5xEmnd6RIljY27deb0Q//238SlLu
- vC9IdSr1u3MKgBR7zT/ajxs/WjaPLvh3SBUK8CgiWZCcr6ZUWvUB6rGrhnADZQ5y
- XnCG4QYpBJ8wBa592FIIPQdGRZn9EAj2jGhYtkMGMsazebKrS4cOc8CH1DpstCoT
- y4LHY7CZhCJAqjoax1k9IHUcVOWTFOB3RQOWzZ4gB47/QfQ0HSxUs69xCq7lX2rB
- IHtSdaic4iQfyzFss5Riy/Si2WIwpDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:references:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=hsySSPXg2xSoBsvzu
- dPGFUA79X04wcB931dlPSBnyhg=; b=KFaMOyTgmNcC4XaUcpUKJz+qgTw+ubxx4
- II/yT8CpICm4HHy0qKulssxQNf3DAFBV1dCQ3QTk8uaSJ3t8XzB7/9ZzgYC0hw0q
- AQd+EsHOsZp3zlJUtXwH1jt2j5nLRiLZmfEn9i8bvNYnU6U/dz8C/F2xa8/qcy1G
- n5o+fwpRLOJMmTf9JallSoz5aF+zfHMOmZWjUHcHv33hk0K2VcYW8G3kgbBJHYJV
- obJbH5bRL6gMZj5zh7PWcBdwrnNtOeA49+t7zy6SeEWsalkludLgQgw5DGlog0wO
- fJKAI0B3jVRqs4XlLIIc5gop5PwLRpg13iPVbm/rQ5RBXUpzYSlFA==
-X-ME-Sender: <xms:6j6IXLzhyHGWJQ-PmN_nE50Lyv2tLu5KWPD-VPtDY-NvGp2TMHSD8Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrgeelgddtjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgurhgv
- ficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrhgrmh
- epmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfu
- ihiivgeptd
-X-ME-Proxy: <xmx:6j6IXHj6y689GrNDlbFYhwKNWxWUvWHCH5yFxrFbqwQCoNU2p_coDw>
- <xmx:6j6IXAViLNXQ4P-OtzVVIAmtEmF9WvS6piDfhddHzEMm1vULk_U4Fw>
- <xmx:6j6IXJ1DkWWGAQ36ado1hR4fpaOzMYM8SfEvFZaGvGguiWQlw5lkSw>
- <xmx:6z6IXGDv-tjijgU_461Imo1u_TwT1YiPc4tDHXEtNgsY5EpK2FsVng>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 1673D7C4CE; Tue, 12 Mar 2019 19:21:14 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-925-g644bf8c-fmstable-20190228v5
-X-Me-Personality: 52947553
-Message-Id: <34738643-a98f-480b-8a76-afdc9cb478e5@www.fastmail.com>
-In-Reply-To: <1552409402-15881-1-git-send-email-anoo@linux.ibm.com>
-References: <1552409402-15881-1-git-send-email-anoo@linux.ibm.com>
-Date: Tue, 12 Mar 2019 19:21:13 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Adriana Kobylak" <anoo@linux.ibm.com>, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org
-Cc: "Edward A. James" <eajames@us.ibm.com>
-Subject: Re: [PATCH] ARM: dts: Aspeed: Witherspoon: Update BMC partitioning
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Jt5T6kJLzDqG1
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 11:29:48 +1100 (AEDT)
+Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id x2D0PUCk014028;
+ Wed, 13 Mar 2019 08:25:30 +0800 (GMT-8)
+ (envelope-from ryan_chen@aspeedtech.com)
+Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 13 Mar
+ 2019 08:29:28 +0800
+Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
+ TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
+ 15.00.0620.020; Wed, 13 Mar 2019 08:29:28 +0800
+From: Ryan Chen <ryan_chen@aspeedtech.com>
+To: Alexander Amelkin <a.amelkin@yadro.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
+Thread-Topic: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
+Thread-Index: AQHUHZ/LUpmNI+PCHEW9/Kir2UVl7aXhcycAgAFK+wCAJhtogIABUb5Q
+Date: Wed, 13 Mar 2019 00:29:27 +0000
+Message-ID: <480daa1f8e784aad881ecb0daad62272@TWMBX02.aspeed.com>
+References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
+ <ef432789-cbfe-9adf-2562-296abc261582@yadro.com>
+ <00a601d4c5bf$c01a9520$404fbf60$@aspeedtech.com>
+ <a534e022-46c2-646c-9ea6-a1a2fd6ea7dd@yadro.com>
+In-Reply-To: <a534e022-46c2-646c-9ea6-a1a2fd6ea7dd@yadro.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.0.81]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com x2D0PUCk014028
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,105 +55,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 12 Mar 2019 23:21:24 -0000
+X-List-Received-Date: Wed, 13 Mar 2019 00:29:50 -0000
 
-
-
-On Wed, 13 Mar 2019, at 03:21, Adriana Kobylak wrote:
-> From: "Edward A. James" <eajames@us.ibm.com>
-> 
-> Add simplified partitions for BMC and alternate flash. Include these by
-> default in Witherspoon.
-> 
-> Signed-off-by: Edward A. James <eajames@us.ibm.com>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
-
-Yes please! Lets apply this so I can stop bashing my head against the desk when doing
-kernel work on a Witherspoon.
-
-> ---
->  .../boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi  | 18 ++++++++++++++++++
->  arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi | 18 ++++++++++++++++++
->  arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts       |  3 ++-
->  3 files changed, 38 insertions(+), 1 deletion(-)
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
->  create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi 
-> b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
-> new file mode 100644
-> index 0000000..9277599
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
-> @@ -0,0 +1,18 @@
-> +		label = "alt-bmc";
-> +		partitions {
-> +				#address-cells = < 1 >;
-> +				#size-cells = < 1 >;
-> +				compatible = "fixed-partitions";
-> +				u-boot@0 {
-> +					reg = < 0 0x60000 >;
-> +					label = "alt-u-boot";
-> +				};
-> +				u-boot-env@60000 {
-> +					reg = < 0x60000 0x20000 >;
-> +					label = "alt-u-boot-env";
-> +				};
-> +				obmc-ubi@80000 {
-> +					reg = < 0x80000 0x1F80000 >;
-> +					label = "alt-obmc-ubi";
-> +				};
-> +		};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi 
-> b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
-> new file mode 100644
-> index 0000000..0059ad1
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
-> @@ -0,0 +1,18 @@
-> +		label = "bmc";
-> +		partitions {
-> +				#address-cells = < 1 >;
-> +				#size-cells = < 1 >;
-> +				compatible = "fixed-partitions";
-> +				u-boot@0 {
-> +					reg = < 0 0x60000 >;
-> +					label = "u-boot";
-> +				};
-> +				u-boot-env@60000 {
-> +					reg = < 0x60000 0x20000 >;
-> +					label = "u-boot-env";
-> +				};
-> +				obmc-ubi@80000 {
-> +					reg = < 0x80000 0x1F80000 >;
-> +					label = "obmc-ubi";
-> +				};
-> +		};
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts 
-> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> index c51e3e8..058b9b7 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-> @@ -191,7 +191,7 @@
->  		label = "bmc";
->  		m25p,fast-read;
->  		spi-max-frequency = <50000000>;
-> -#include "openbmc-flash-layout.dtsi"
-> +#include "aspeed-bmc-opp-flash-layout-ubi.dtsi"
->  	};
->  
->  	flash@1 {
-> @@ -199,6 +199,7 @@
->  		label = "alt";
->  		m25p,fast-read;
->  		spi-max-frequency = <50000000>;
-> +#include "aspeed-bmc-alt-opp-flash-layout-ubi.dtsi"
->  	};
->  };
->  
-> -- 
-> 1.8.3.1
-> 
->
+SGVsbG8gQWxleGFuZGVyLA0KCQlUaGUgb3JpZ2luYWwgdmVyc2lvbiBpcyBwYXRjaCBvbiB2NC4x
+Ny40LCBpdCBjYW4gYnVpbGQgd2l0aCB0aGUgcGF0Y2guIERvZXMgdGhlcmUgaGF2ZSBhbnkgbWVz
+c2FnZT8gDQoJCUN1cnJlbnRseSBJIGFtIG9uZ29pbmcgb24gbmV3IHZlcnNpb24gU09DIGNoaXAg
+YWxzbyB3aXRoIG5ldyBhZGhjaSwgYW5kIHdpbGwgYXBwbHkgcGF0Y2ggYXQgSnVuZS4gDQpSeWFu
+DQoNCj4+SG93IGlzIGl0IGdvaW5nPyBXZSd2ZSB0cmllZCB0aGUgb3JpZ2luYWwgdmVyc2lvbiBv
+ZiB5b3VyIHBhdGNoIGFuZCBpdCBkaWRuJ3QgYXBwbHkgZm9yIHVzIGR1ZSB0byBhIHR5cG8uIFdl
+J3ZlIGZpeGVkIHRoZSB0eXBvLCBidXQgaXQgc3RpbGwgZG9lc24ndCB3b3JrLiA+PldlJ3JlIG5v
+dCBzdXJlIHlldCB3aHkuIEhhdmUgeW91IHZlcmlmaWVkIHRoYXQgb2xkIHBhdGNoIG9uIGFueSBy
+ZWFsIGhhcmR3YXJlPyBXaGVuIGRvIHlvdSB0aGluayB5b3UnbGwgYmUgYWJsZSB0byBjb21lIHVw
+IHdpdGggdGhlIG5ldyB2ZXJzaW9uIG9mID4+dGhlIHBhdGNoPw0KDQo+PlRoYW5rIHlvdS4NCg0K
+Pj5BbGV4YW5kZXIuDQoNCjE2LjAyLjIwMTkgOToyMCwgUnlhbiBDaGVuIHdyb3RlOg0KPiBIZWxs
+bywNCj4gCUkgZ290IHNvbWUgZmVlZGJhY2sgZnJvbSBtYWludGFpbmVyLiBJIHdpbGwgbW9kaWZ5
+IGZvciBuZXcgYXJjaGl0ZWN0dXJlLCBob3BlZnVsLCBJIHdpbGwgYXBwbHkgbmV3IHBhdGNoIGF0
+IE1hcmNoLiAgDQo+DQo+IFJheW4NCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
+RnJvbTogb3BlbmJtYyANCj4gW21haWx0bzpvcGVuYm1jLWJvdW5jZXMrcnlhbl9jaGVuPWFzcGVl
+ZHRlY2guY29tQGxpc3RzLm96bGFicy5vcmddIE9uIA0KPiBCZWhhbGYgT2YgQWxleGFuZGVyIEFt
+ZWxraW4NCj4gU2VudDogRnJpZGF5LCBGZWJydWFyeSAxNSwgMjAxOSA2OjM2IFBNDQo+IFRvOiBv
+cGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSHYyIGxpbnV4IGRl
+di00LjE3IDAvN10gbW1jL2hvc3Q6IEFkZCBBc3BlZWQgU0RJTyANCj4gZHJpdmVyDQo+DQo+IEd1
+eXMsIHdoYXQncyB0aGUgZmF0ZSBvZiB0aGlzIHBhdGNoIHNldD8NCj4gSXMgZ29pbmcgdG8gYmUg
+bWVyZ2VkIGludG8gb3BlbmJtYyBsaW51eD8NCj4gV2UgaGF2ZSBhbiBTRCBjYXJkIHNsb3Qgb24g
+b3VyIEJNQyBjYXJkIGFuZCBzbyB3b3VsZCBsaWtlIHRvIGtub3cgd2hldGhlciBvciBub3QgdG8g
+YXdhaXQgYXJyaXZhbCBvZiBTRElPIHN1cHBvcnQgZnJvbSB1cHN0cmVhbSBvciBpbXBvcnQgdGhp
+cyBwYXRjaCBzZXQgbG9jYWxseS4NCj4NCj4gVGhhbmsgeW91Lg0KPg0KPiAxNy4wNy4yMDE4IDEw
+OjI2LCBSeWFuIENoZW4gd3JvdGU6DQo+PiBUaGlzIHNlcmllcyBpbXBsZW1lbnRzIEFzcGVlZCBT
+RElPIGRyaXZlci4gSW4gQXNwZWVkIFNESU8gY29udHJvbGxlciANCj4+IHdpdGggdHdvIHNsb3Rz
+IGFuZCBoYXZlIGEgZ2xvYmFsIHJlZ2lzdGVyIGZvciBpbnRlcnJ1cHQgc3RhdHVzIGFuZCANCj4+
+IG90aGVyIGdlbmVyYWwgaW5mb3JtYXRpb24uDQo+Pg0KPj4gdjINCj4+IENoYW5nZSBpcnFjaGlw
+IGRyaXZlcihpcnEtYXNwZWVkLXNkaGNpLWljLmMpIHRvIGFzcGVlZCBzZGhjaSBjb3JlIA0KPj4g
+ZHJpdmVyIGFzcGVlZC1zZGhjaS1jb3JlLmMNCj4+DQo+PiB2MA0KPj4gRm9yIGltcGxlbWVudHMg
+dGhpcywgaXQgd2lsbCBoYXZlIGhhdmUgaXJxLWFzcGVlZC1zZGhjaS1pYy5jIGZvciANCj4+IHNk
+aGNpIGVhY2ggc2xvdCBpcnEgZGlzcGF0Y2gsIGFuZCB0aGVuIGdvIHRvIHNkaGNpIGRyaXZlciBo
+YW5kbGUgKHNkaGNpLmMpLg0KPj4NCj4+IEFub3RoZXIgaXMgc2RoY2ktb2YtYXNwZWVkLmMgZm9y
+IHNwZWNpZmljIGZ1bmN0aW9uIGNhbGwuDQo+Pg0KPj4NCj4+IFJ5YW4gQ2hlbg0KPj4NCj4+DQo+
+PiBSeWFuIENoZW4gKDcpOg0KPj4gICBjbGs6IEFzcGVlZDogTW9kaWZ5IGNsay1hc3BlZWQuYyBk
+cml2ZXIgcHJvYmUgc2VxdWVuY2UNCj4+ICAgY2xrOiBBc3BlZWQ6IEFkZCBzZGhjaSByZXNldCBh
+bmQgY2xvY2sNCj4+ICAgbW1jOiBBc3BlZWQ6IEFkZCBBc3BlZWQgc2RoY2kgY29yZSBkcml2ZXIN
+Cj4+ICAgbW1jOiBBc3BlZWQ6IEFkZCBkcml2ZXIgZm9yIEFzcGVlZCBzZGhjaQ0KPj4gICBkdHM6
+IEFzcGVlZDogQWRkIGRldmljZXRyZWUgZm9yIEFzcGVlZCBzZGhjaQ0KPj4gICBEb2N1bWVudGF0
+aW9uOiBtbWM6IGFkZCBhc3BlZWQgc2RoY2kgYmluZGluZyBkb2N1bWVudA0KPj4gICBjb25maWdz
+OiBBc3BlZWQ6IGVuYWJsZSBtbWMgaG9zdCBpbiBkZWZjb25maWcNCj4+DQo+PiAgLi4uL2JpbmRp
+bmdzL21tYy9hc3BlZWQsYXNwZWVkLXNkaGNpLnR4dCAgICAgICAgICAgfCAgNTQgKysrKysrKw0K
+Pj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1hc3QyNTAwLWV2Yi5kdHMgICAgICAgICAgIHwg
+IDE0ICsrDQo+PiAgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc0LmR0c2kgICAgICAgICAgICAg
+ICAgICAgfCAgNDAgKysrKysNCj4+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaSAg
+ICAgICAgICAgICAgICAgICB8ICA0MCArKysrKw0KPj4gIGFyY2gvYXJtL2NvbmZpZ3MvYXNwZWVk
+X2c1X2RlZmNvbmZpZyAgICAgICAgICAgICAgIHwgICA2ICsNCj4+ICBkcml2ZXJzL2Nsay9jbGst
+YXNwZWVkLmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICA1MSArKystLS0NCj4+ICBkcml2
+ZXJzL2lycWNoaXAvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiArLQ0K
+Pj4gIGRyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
+IDEyICsrDQo+PiAgZHJpdmVycy9tbWMvaG9zdC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAgIDEgKw0KPj4gIGRyaXZlcnMvbW1jL2hvc3QvYXNwZWVkLXNkaGNpLWNvcmUuYyAg
+ICAgICAgICAgICAgIHwgMTQ3ICsrKysrKysrKysrKysrKysrDQo+PiAgZHJpdmVycy9tbWMvaG9z
+dC9zZGhjaS1vZi1hc3BlZWQuYyAgICAgICAgICAgICAgICAgfCAxNzggKysrKysrKysrKysrKysr
+KysrKysrDQo+PiAgaW5jbHVkZS9kdC1iaW5kaW5ncy9jbG9jay9hc3BlZWQtY2xvY2suaCAgICAg
+ICAgICAgfCAgIDIgKy0NCj4+ICBpbmNsdWRlL2xpbnV4L21tYy9zZGhjaS1hc3BlZWQtZGF0YS5o
+ICAgICAgICAgICAgICB8ICAyOCArKysrDQo+PiAgMTMgZmlsZXMgY2hhbmdlZCwgNTUzIGluc2Vy
+dGlvbnMoKyksIDIyIGRlbGV0aW9ucygtKSAgY3JlYXRlIG1vZGUNCj4+IDEwMDY0NCBEb2N1bWVu
+dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbW1jL2FzcGVlZCxhc3BlZWQtc2RoY2kudHh0DQo+
+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvbW1jL2hvc3QvYXNwZWVkLXNkaGNpLWNvcmUu
+Yw0KPj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL21tYy9ob3N0L3NkaGNpLW9mLWFzcGVl
+ZC5jDQo+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvbGludXgvbW1jL3NkaGNpLWFzcGVl
+ZC1kYXRhLmgNCj4+DQoNCg==
