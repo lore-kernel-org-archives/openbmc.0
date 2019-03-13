@@ -1,58 +1,78 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <stewart@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::736; helo=mail-qk1-x736.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="oS8uJqkv"; 
- dkim-atps=neutral
-Received: from mail-qk1-x736.google.com (mail-qk1-x736.google.com
- [IPv6:2607:f8b0:4864:20::736])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44KL5l5fWFzDqJg
- for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 05:31:37 +1100 (AEDT)
-Received: by mail-qk1-x736.google.com with SMTP id n6so1732530qkf.1
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 11:31:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=2aetLbnNZrTOFkAD5PTGKYH3QG7gIuovrFieCu4xdUs=;
- b=oS8uJqkv5oEQ3fcgMDzo3Jsin3DkJeJaKdrFBG6zhI8TciUxzoY50ZyITprs59nh2U
- n2+kfAfr7YtS2bVXSvu9PJSr01Z8FSw8EPEn37qUwgyJ6LKYzYvlW/n/OpuSvKBUD42Q
- huN5Kh5JPCPzkrdHoE5k7hMr+FcsjXMQO43KOOsMEeYQaXELcmjUgp9owoy+WMEwXBG5
- te+8yskMoUL7smQgBfzmIQ5oajiBF8PbkWD/xQEYEiFtOhKCBiJib1EHOgwi+5juZ7gm
- oVuGkzov55xhWJJ2wpyU/LdQV8S9cqwYdprlG+AZvrMSXO6vKvlXul9VydWL6sgIriTz
- Jppg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=2aetLbnNZrTOFkAD5PTGKYH3QG7gIuovrFieCu4xdUs=;
- b=Xdk0AsERq7p1rvouiwrgQ1/MF2SoYf6dDT6gvjR3jVkiKRVs8aiXYyMdTl60h904H+
- ihFs0TX1ISTLFfm5ZdIpaRpbsRG+Q3rzquZq/W6W24cQ+0shzOTs1hyRsSTndhiwOOm8
- 9tk4obsyHVJWDaKJHdkqlzPONSsMUl2izhsCET8uqiu6kOqqHUcB1TGQ2mXCKgoBruZ/
- Ij+z0fJsz9130x1UDIOJhNb5oIvWD3UZ2FOXx3E0J/OwNB8Xaj1ZBYrN5VmURvQ5gUAU
- FQdOVMJvHb/M/WsdyR9Xv6QOnv6s13tB/lJSLozKfvTWFeh1OOtahANsB0CxZHh0Vovp
- MPAw==
-X-Gm-Message-State: APjAAAXmxrR226v3J1Xp2orsxke2KjElDFM7NQT/hdld60NA9yJSWs+x
- 4TgUPM8xNFWb2vgXUBn6I5KWZYp/DP2iETX+P2JnOw==
-X-Google-Smtp-Source: APXvYqwWzmodL1NGR7Gf8y2u35XDPw5jG7O1uZMq7t30iBIgHtrtRghnsF6ztCfN0L2dt7ht231U/9rmsP4UpJHFNaQ=
-X-Received: by 2002:a37:c80d:: with SMTP id c13mr13448504qkj.224.1552501893658; 
- Wed, 13 Mar 2019 11:31:33 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44KQck5R39zDqKv
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 08:55:18 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x2DLrS9u092503
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 17:55:15 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r7738r9ca-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 17:55:15 -0400
+Received: from localhost
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
+ Wed, 13 Mar 2019 21:55:14 -0000
+Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 13 Mar 2019 21:55:10 -0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x2DLt9kg25100398
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 13 Mar 2019 21:55:09 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 629C7AC06C;
+ Wed, 13 Mar 2019 21:55:09 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6B809AC062;
+ Wed, 13 Mar 2019 21:55:08 +0000 (GMT)
+Received: from birb.localdomain (unknown [9.81.208.163])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with SMTP;
+ Wed, 13 Mar 2019 21:55:08 +0000 (GMT)
+Received: by birb.localdomain (Postfix, from userid 1000)
+ id B58804EC639; Thu, 14 Mar 2019 08:55:06 +1100 (AEDT)
+From: Stewart Smith <stewart@linux.ibm.com>
+To: Lei YU <mine260309@gmail.com>, Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Cc: "openbmc\@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Static code analysis tool for openbmc
+In-Reply-To: <CAARXrt=knVzKw8HeiRi=XzZy322Sw12sevrWdgnuK82YHm1kiQ@mail.gmail.com>
+References: <de550e08-2338-9438-6021-b2b6ef130bdd@linux.vnet.ibm.com>
+ <CAARXrt=knVzKw8HeiRi=XzZy322Sw12sevrWdgnuK82YHm1kiQ@mail.gmail.com>
+Date: Thu, 14 Mar 2019 08:55:06 +1100
 MIME-Version: 1.0
-References: <CAMTupoQpdx2Hw=dy_pWsMYHbHvbYjj5L6j36Tp=WNnTOPDMrLg@mail.gmail.com>
-In-Reply-To: <CAMTupoQpdx2Hw=dy_pWsMYHbHvbYjj5L6j36Tp=WNnTOPDMrLg@mail.gmail.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Wed, 13 Mar 2019 11:31:22 -0700
-Message-ID: <CAJoAoZnUxBzsXRS_o-E4Z8mmDdxSA2M+BS5yo-f1RYPi5pGu-g@mail.gmail.com>
-Subject: Re: Restore MAC address to factory settings
-To: Jandra A <jandraara@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
+X-TM-AS-GCONF: 00
+x-cbid: 19031321-0068-0000-0000-000003A5282F
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010752; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000281; SDB=6.01173943; UDB=6.00613826; IPR=6.00954607; 
+ MB=3.00025967; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-13 21:55:12
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19031321-0069-0000-0000-000047CF494A
+Message-Id: <87lg1i4eyt.fsf@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-13_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903130149
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,37 +84,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2019 18:31:41 -0000
+X-List-Received-Date: Wed, 13 Mar 2019 21:55:19 -0000
 
-We have a use case for editing MAC. I don't know about factory
-default.  So there's one (rather large) end user who would get value
-:)
+Lei YU <mine260309@gmail.com> writes:
+> On Wed, Mar 13, 2019 at 6:15 PM Ratan Gupta <ratagupt@linux.vnet.ibm.com> wrote:
+>> Is there any plan to use any static code analysis tool in openbmc? I
+>
+> In Jenkins job, we have cppcheck to do checks on the code.
+>
+>> find one of the tool which is good and used in multiple opensource
+>> projects is "coverity".
+>
+> I would prefer clang static analyzer, but other tools like coverity is also
+> welcome.
+> And if possible, there is much stronger analyzer PVS-Studio Analyzer (need
+> license though). I read [PVS-Studio's blog][1] and that tool is really really
+> good.
+>
+> But I think the main question is, what to do with issues found by the static
+> analyzer? We need to define some rule to fix or ignore the issues.
 
-On Tue, Mar 12, 2019 at 12:42 PM Jandra A <jandraara@gmail.com> wrote:
->
-> Hello all,
->
-> I=E2=80=99d like your input on the value you see =E2=80=93 if any =E2=80=
-=93 in the ability for
-> a user to restore a MAC Address to the factory default via the GUI
-> (Network Settings).
->
-> BACKGROUND: Several end users have told us that they RARELY need to
-> change their MAC Address, if at all. However, we=E2=80=99ve heard from se=
-veral
-> subject-matter experts that there IS value in making the MAC Address
-> editable as well as having a way to restore it to the factory default.
->
-> QUESTION: Is there value for the end user in being able to edit a MAC
-> address? What about restoring it to the factory default?
->
-> VIEW CURRENT DESIGN:
-> https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mu=
-tliple_VLAN
->
-> Appreciate all thoughts on this.
+In my experience with host firmware on OpenPOWER, each tool gets a
+different set of things that it catches. Even the humble sparse catches
+things that other tools do not (notably endian screw-ups).
 
+A big advantage of Coverity is the tooling around it, the web site where
+you can mark things permanently as a false positive, assign things to
+people, etc. For other tools that you just run in a jenkins job, it's
+way too easy to not see things grow, or just have a large list of false
+positives you get used to ignoring.
 
-
---=20
-Emily Shaffer
+-- 
+Stewart Smith
+OPAL Architect, IBM.
