@@ -1,49 +1,72 @@
-Return-Path: <ryan_chen@aspeedtech.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=aspeedtech.com
- (client-ip=211.20.114.71; helo=twspam01.aspeedtech.com;
- envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=aspeedtech.com
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Jt5T6kJLzDqG1
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 11:29:48 +1100 (AEDT)
-Received: from mail.aspeedtech.com (twmbx02.aspeed.com [192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id x2D0PUCk014028;
- Wed, 13 Mar 2019 08:25:30 +0800 (GMT-8)
- (envelope-from ryan_chen@aspeedtech.com)
-Received: from TWMBX02.aspeed.com (192.168.0.24) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.620.29; Wed, 13 Mar
- 2019 08:29:28 +0800
-Received: from TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7]) by
- TWMBX02.aspeed.com ([fe80::997d:c0a7:f01f:e1a7%12]) with mapi id
- 15.00.0620.020; Wed, 13 Mar 2019 08:29:28 +0800
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Alexander Amelkin <a.amelkin@yadro.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
-Thread-Topic: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
-Thread-Index: AQHUHZ/LUpmNI+PCHEW9/Kir2UVl7aXhcycAgAFK+wCAJhtogIABUb5Q
-Date: Wed, 13 Mar 2019 00:29:27 +0000
-Message-ID: <480daa1f8e784aad881ecb0daad62272@TWMBX02.aspeed.com>
-References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
- <ef432789-cbfe-9adf-2562-296abc261582@yadro.com>
- <00a601d4c5bf$c01a9520$404fbf60$@aspeedtech.com>
- <a534e022-46c2-646c-9ea6-a1a2fd6ea7dd@yadro.com>
-In-Reply-To: <a534e022-46c2-646c-9ea6-a1a2fd6ea7dd@yadro.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.0.81]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44K74v0V9VzDqKT
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 21:15:10 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x2DAEUNh015329
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 06:15:07 -0400
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2r6y6va8ce-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 06:15:06 -0400
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Wed, 13 Mar 2019 10:15:04 -0000
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 13 Mar 2019 10:15:02 -0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x2DAF1QY28573704
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL)
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 10:15:01 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2D33CAE056
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 10:15:01 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 702F8AE051
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 10:15:00 +0000 (GMT)
+Received: from [9.85.137.156] (unknown [9.85.137.156])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 10:15:00 +0000 (GMT)
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Subject: Static code analysis tool for openbmc
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Wed, 13 Mar 2019 15:44:57 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.4.0
 MIME-Version: 1.0
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com x2D0PUCk014028
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19031310-0012-0000-0000-000003020B7C
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19031310-0013-0000-0000-0000213930BE
+Message-Id: <de550e08-2338-9438-6021-b2b6ef130bdd@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-13_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=907 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903130075
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,68 +78,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2019 00:29:50 -0000
+X-List-Received-Date: Wed, 13 Mar 2019 10:15:11 -0000
 
-SGVsbG8gQWxleGFuZGVyLA0KCQlUaGUgb3JpZ2luYWwgdmVyc2lvbiBpcyBwYXRjaCBvbiB2NC4x
-Ny40LCBpdCBjYW4gYnVpbGQgd2l0aCB0aGUgcGF0Y2guIERvZXMgdGhlcmUgaGF2ZSBhbnkgbWVz
-c2FnZT8gDQoJCUN1cnJlbnRseSBJIGFtIG9uZ29pbmcgb24gbmV3IHZlcnNpb24gU09DIGNoaXAg
-YWxzbyB3aXRoIG5ldyBhZGhjaSwgYW5kIHdpbGwgYXBwbHkgcGF0Y2ggYXQgSnVuZS4gDQpSeWFu
-DQoNCj4+SG93IGlzIGl0IGdvaW5nPyBXZSd2ZSB0cmllZCB0aGUgb3JpZ2luYWwgdmVyc2lvbiBv
-ZiB5b3VyIHBhdGNoIGFuZCBpdCBkaWRuJ3QgYXBwbHkgZm9yIHVzIGR1ZSB0byBhIHR5cG8uIFdl
-J3ZlIGZpeGVkIHRoZSB0eXBvLCBidXQgaXQgc3RpbGwgZG9lc24ndCB3b3JrLiA+PldlJ3JlIG5v
-dCBzdXJlIHlldCB3aHkuIEhhdmUgeW91IHZlcmlmaWVkIHRoYXQgb2xkIHBhdGNoIG9uIGFueSBy
-ZWFsIGhhcmR3YXJlPyBXaGVuIGRvIHlvdSB0aGluayB5b3UnbGwgYmUgYWJsZSB0byBjb21lIHVw
-IHdpdGggdGhlIG5ldyB2ZXJzaW9uIG9mID4+dGhlIHBhdGNoPw0KDQo+PlRoYW5rIHlvdS4NCg0K
-Pj5BbGV4YW5kZXIuDQoNCjE2LjAyLjIwMTkgOToyMCwgUnlhbiBDaGVuIHdyb3RlOg0KPiBIZWxs
-bywNCj4gCUkgZ290IHNvbWUgZmVlZGJhY2sgZnJvbSBtYWludGFpbmVyLiBJIHdpbGwgbW9kaWZ5
-IGZvciBuZXcgYXJjaGl0ZWN0dXJlLCBob3BlZnVsLCBJIHdpbGwgYXBwbHkgbmV3IHBhdGNoIGF0
-IE1hcmNoLiAgDQo+DQo+IFJheW4NCj4NCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4g
-RnJvbTogb3BlbmJtYyANCj4gW21haWx0bzpvcGVuYm1jLWJvdW5jZXMrcnlhbl9jaGVuPWFzcGVl
-ZHRlY2guY29tQGxpc3RzLm96bGFicy5vcmddIE9uIA0KPiBCZWhhbGYgT2YgQWxleGFuZGVyIEFt
-ZWxraW4NCj4gU2VudDogRnJpZGF5LCBGZWJydWFyeSAxNSwgMjAxOSA2OjM2IFBNDQo+IFRvOiBv
-cGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gU3ViamVjdDogUmU6IFtQQVRDSHYyIGxpbnV4IGRl
-di00LjE3IDAvN10gbW1jL2hvc3Q6IEFkZCBBc3BlZWQgU0RJTyANCj4gZHJpdmVyDQo+DQo+IEd1
-eXMsIHdoYXQncyB0aGUgZmF0ZSBvZiB0aGlzIHBhdGNoIHNldD8NCj4gSXMgZ29pbmcgdG8gYmUg
-bWVyZ2VkIGludG8gb3BlbmJtYyBsaW51eD8NCj4gV2UgaGF2ZSBhbiBTRCBjYXJkIHNsb3Qgb24g
-b3VyIEJNQyBjYXJkIGFuZCBzbyB3b3VsZCBsaWtlIHRvIGtub3cgd2hldGhlciBvciBub3QgdG8g
-YXdhaXQgYXJyaXZhbCBvZiBTRElPIHN1cHBvcnQgZnJvbSB1cHN0cmVhbSBvciBpbXBvcnQgdGhp
-cyBwYXRjaCBzZXQgbG9jYWxseS4NCj4NCj4gVGhhbmsgeW91Lg0KPg0KPiAxNy4wNy4yMDE4IDEw
-OjI2LCBSeWFuIENoZW4gd3JvdGU6DQo+PiBUaGlzIHNlcmllcyBpbXBsZW1lbnRzIEFzcGVlZCBT
-RElPIGRyaXZlci4gSW4gQXNwZWVkIFNESU8gY29udHJvbGxlciANCj4+IHdpdGggdHdvIHNsb3Rz
-IGFuZCBoYXZlIGEgZ2xvYmFsIHJlZ2lzdGVyIGZvciBpbnRlcnJ1cHQgc3RhdHVzIGFuZCANCj4+
-IG90aGVyIGdlbmVyYWwgaW5mb3JtYXRpb24uDQo+Pg0KPj4gdjINCj4+IENoYW5nZSBpcnFjaGlw
-IGRyaXZlcihpcnEtYXNwZWVkLXNkaGNpLWljLmMpIHRvIGFzcGVlZCBzZGhjaSBjb3JlIA0KPj4g
-ZHJpdmVyIGFzcGVlZC1zZGhjaS1jb3JlLmMNCj4+DQo+PiB2MA0KPj4gRm9yIGltcGxlbWVudHMg
-dGhpcywgaXQgd2lsbCBoYXZlIGhhdmUgaXJxLWFzcGVlZC1zZGhjaS1pYy5jIGZvciANCj4+IHNk
-aGNpIGVhY2ggc2xvdCBpcnEgZGlzcGF0Y2gsIGFuZCB0aGVuIGdvIHRvIHNkaGNpIGRyaXZlciBo
-YW5kbGUgKHNkaGNpLmMpLg0KPj4NCj4+IEFub3RoZXIgaXMgc2RoY2ktb2YtYXNwZWVkLmMgZm9y
-IHNwZWNpZmljIGZ1bmN0aW9uIGNhbGwuDQo+Pg0KPj4NCj4+IFJ5YW4gQ2hlbg0KPj4NCj4+DQo+
-PiBSeWFuIENoZW4gKDcpOg0KPj4gICBjbGs6IEFzcGVlZDogTW9kaWZ5IGNsay1hc3BlZWQuYyBk
-cml2ZXIgcHJvYmUgc2VxdWVuY2UNCj4+ICAgY2xrOiBBc3BlZWQ6IEFkZCBzZGhjaSByZXNldCBh
-bmQgY2xvY2sNCj4+ICAgbW1jOiBBc3BlZWQ6IEFkZCBBc3BlZWQgc2RoY2kgY29yZSBkcml2ZXIN
-Cj4+ICAgbW1jOiBBc3BlZWQ6IEFkZCBkcml2ZXIgZm9yIEFzcGVlZCBzZGhjaQ0KPj4gICBkdHM6
-IEFzcGVlZDogQWRkIGRldmljZXRyZWUgZm9yIEFzcGVlZCBzZGhjaQ0KPj4gICBEb2N1bWVudGF0
-aW9uOiBtbWM6IGFkZCBhc3BlZWQgc2RoY2kgYmluZGluZyBkb2N1bWVudA0KPj4gICBjb25maWdz
-OiBBc3BlZWQ6IGVuYWJsZSBtbWMgaG9zdCBpbiBkZWZjb25maWcNCj4+DQo+PiAgLi4uL2JpbmRp
-bmdzL21tYy9hc3BlZWQsYXNwZWVkLXNkaGNpLnR4dCAgICAgICAgICAgfCAgNTQgKysrKysrKw0K
-Pj4gIGFyY2gvYXJtL2Jvb3QvZHRzL2FzcGVlZC1hc3QyNTAwLWV2Yi5kdHMgICAgICAgICAgIHwg
-IDE0ICsrDQo+PiAgYXJjaC9hcm0vYm9vdC9kdHMvYXNwZWVkLWc0LmR0c2kgICAgICAgICAgICAg
-ICAgICAgfCAgNDAgKysrKysNCj4+ICBhcmNoL2FybS9ib290L2R0cy9hc3BlZWQtZzUuZHRzaSAg
-ICAgICAgICAgICAgICAgICB8ICA0MCArKysrKw0KPj4gIGFyY2gvYXJtL2NvbmZpZ3MvYXNwZWVk
-X2c1X2RlZmNvbmZpZyAgICAgICAgICAgICAgIHwgICA2ICsNCj4+ICBkcml2ZXJzL2Nsay9jbGst
-YXNwZWVkLmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICA1MSArKystLS0NCj4+ICBkcml2
-ZXJzL2lycWNoaXAvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMiArLQ0K
-Pj4gIGRyaXZlcnMvbW1jL2hvc3QvS2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgIHwg
-IDEyICsrDQo+PiAgZHJpdmVycy9tbWMvaG9zdC9NYWtlZmlsZSAgICAgICAgICAgICAgICAgICAg
-ICAgICAgfCAgIDEgKw0KPj4gIGRyaXZlcnMvbW1jL2hvc3QvYXNwZWVkLXNkaGNpLWNvcmUuYyAg
-ICAgICAgICAgICAgIHwgMTQ3ICsrKysrKysrKysrKysrKysrDQo+PiAgZHJpdmVycy9tbWMvaG9z
-dC9zZGhjaS1vZi1hc3BlZWQuYyAgICAgICAgICAgICAgICAgfCAxNzggKysrKysrKysrKysrKysr
-KysrKysrDQo+PiAgaW5jbHVkZS9kdC1iaW5kaW5ncy9jbG9jay9hc3BlZWQtY2xvY2suaCAgICAg
-ICAgICAgfCAgIDIgKy0NCj4+ICBpbmNsdWRlL2xpbnV4L21tYy9zZGhjaS1hc3BlZWQtZGF0YS5o
-ICAgICAgICAgICAgICB8ICAyOCArKysrDQo+PiAgMTMgZmlsZXMgY2hhbmdlZCwgNTUzIGluc2Vy
-dGlvbnMoKyksIDIyIGRlbGV0aW9ucygtKSAgY3JlYXRlIG1vZGUNCj4+IDEwMDY0NCBEb2N1bWVu
-dGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbW1jL2FzcGVlZCxhc3BlZWQtc2RoY2kudHh0DQo+
-PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGRyaXZlcnMvbW1jL2hvc3QvYXNwZWVkLXNkaGNpLWNvcmUu
-Yw0KPj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBkcml2ZXJzL21tYy9ob3N0L3NkaGNpLW9mLWFzcGVl
-ZC5jDQo+PiAgY3JlYXRlIG1vZGUgMTAwNjQ0IGluY2x1ZGUvbGludXgvbW1jL3NkaGNpLWFzcGVl
-ZC1kYXRhLmgNCj4+DQoNCg==
+Hi Team,
+
+Is there any plan to use any static code analysis tool in openbmc? I 
+find one of the tool which is good and used in multiple opensource 
+projects is "coverity".
+
+Regards
+Ratan Gupta
