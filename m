@@ -1,78 +1,53 @@
-Return-Path: <stewart@linux.ibm.com>
+Return-Path: <1450335857@qq.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=stewart@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=qq.com
+ (client-ip=113.96.223.80; helo=qq.com; envelope-from=1450335857@qq.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=none dis=none) header.from=qq.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=qq.com header.i=@qq.com header.b="vsbv63VR"; 
+ dkim-atps=neutral
+X-Greylist: delayed 451 seconds by postgrey-1.36 at bilbo;
+ Thu, 14 Mar 2019 13:29:34 AEDT
+Received: from qq.com (unknown [113.96.223.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44KQck5R39zDqKv
- for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 08:55:18 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2DLrS9u092503
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 17:55:15 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r7738r9ca-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 Mar 2019 17:55:15 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <stewart@linux.ibm.com>;
- Wed, 13 Mar 2019 21:55:14 -0000
-Received: from b01cxnp22035.gho.pok.ibm.com (9.57.198.25)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 13 Mar 2019 21:55:10 -0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2DLt9kg25100398
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 13 Mar 2019 21:55:09 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 629C7AC06C;
- Wed, 13 Mar 2019 21:55:09 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6B809AC062;
- Wed, 13 Mar 2019 21:55:08 +0000 (GMT)
-Received: from birb.localdomain (unknown [9.81.208.163])
- by b01ledav006.gho.pok.ibm.com (Postfix) with SMTP;
- Wed, 13 Mar 2019 21:55:08 +0000 (GMT)
-Received: by birb.localdomain (Postfix, from userid 1000)
- id B58804EC639; Thu, 14 Mar 2019 08:55:06 +1100 (AEDT)
-From: Stewart Smith <stewart@linux.ibm.com>
-To: Lei YU <mine260309@gmail.com>, Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Cc: "openbmc\@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Static code analysis tool for openbmc
-In-Reply-To: <CAARXrt=knVzKw8HeiRi=XzZy322Sw12sevrWdgnuK82YHm1kiQ@mail.gmail.com>
-References: <de550e08-2338-9438-6021-b2b6ef130bdd@linux.vnet.ibm.com>
- <CAARXrt=knVzKw8HeiRi=XzZy322Sw12sevrWdgnuK82YHm1kiQ@mail.gmail.com>
-Date: Thu, 14 Mar 2019 08:55:06 +1100
-MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-AS-GCONF: 00
-x-cbid: 19031321-0068-0000-0000-000003A5282F
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010752; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01173943; UDB=6.00613826; IPR=6.00954607; 
- MB=3.00025967; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-13 21:55:12
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19031321-0069-0000-0000-000047CF494A
-Message-Id: <87lg1i4eyt.fsf@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-13_13:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903130149
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44KXjB2y9VzDqLH
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 13:29:32 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1552530078; bh=MYUmR98bUUdQpiBZHazFLR60/8ztmqyvUIXw5BVeMF4=;
+ h=From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
+ b=vsbv63VRmi1wZPxeqRMw22r0ZY37W/T+NHdL1xpslOUizF6jJf2gZ9sncF+b5JVMU
+ b+u+MlwfhCfUuZ1Wsnohgku0WsAg43AYDOBZzbYnpPxTpuDHkPBOfhXDXiIaRbyy04
+ ARiVgqkHfnCcdhByhg6/phpSdmAguOhAlz6uIs3Y=
+X-QQ-SSF: 00000000000000F000000000000000H
+X-HAS-ATTACH: no
+X-QQ-BUSINESS-ORIGIN: 2
+X-Originating-IP: 218.247.157.87
+X-QQ-STYLE: 
+X-QQ-mid: webenglish1t1552530077t806297
+From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
+To: "=?ISO-8859-1?B?amFlLmh5dW4ueW9v?=" <jae.hyun.yoo@linux.intel.com>,
+ "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
+ "=?ISO-8859-1?B?ZWQ=?=" <ed@tanous.net>,
+ "=?ISO-8859-1?B?RWRkaWUgSmFtZXM=?=" <eajames@linux.vnet.ibm.com>
+Subject: Does obmc-ikvm work with bmcweb?
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_5C89BA9D_0AE987D0_4977D892"
+Content-Transfer-Encoding: 8Bit
+Date: Thu, 14 Mar 2019 10:21:17 +0800
+X-Priority: 3
+Message-ID: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Thu, 14 Mar 2019 10:21:18 +0800 (CST)
+Feedback-ID: webenglish:qq.com:bgforeign:bgforeign4
+X-QQ-Bgrelay: 1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,36 +59,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 Mar 2019 21:55:19 -0000
+X-List-Received-Date: Thu, 14 Mar 2019 02:29:39 -0000
 
-Lei YU <mine260309@gmail.com> writes:
-> On Wed, Mar 13, 2019 at 6:15 PM Ratan Gupta <ratagupt@linux.vnet.ibm.com> wrote:
->> Is there any plan to use any static code analysis tool in openbmc? I
->
-> In Jenkins job, we have cppcheck to do checks on the code.
->
->> find one of the tool which is good and used in multiple opensource
->> projects is "coverity".
->
-> I would prefer clang static analyzer, but other tools like coverity is also
-> welcome.
-> And if possible, there is much stronger analyzer PVS-Studio Analyzer (need
-> license though). I read [PVS-Studio's blog][1] and that tool is really really
-> good.
->
-> But I think the main question is, what to do with issues found by the static
-> analyzer? We need to define some rule to fix or ignore the issues.
+This is a multi-part message in MIME format.
 
-In my experience with host firmware on OpenPOWER, each tool gets a
-different set of things that it catches. Even the humble sparse catches
-things that other tools do not (notably endian screw-ups).
+------=_NextPart_5C89BA9D_0AE987D0_4977D892
+Content-Type: text/plain;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
 
-A big advantage of Coverity is the tooling around it, the web site where
-you can mark things permanently as a false positive, assign things to
-people, etc. For other tools that you just run in a jenkins job, it's
-way too easy to not see things grow, or just have a large list of false
-positives you get used to ignoring.
+SGkgSmFlLCBFZCwNCiAgICBJIHVwZGF0ZWQgdGhlIHNvdXJjZSB0byBvcGVuYm1jIGxhdGVz
+dCB2ZXJzaW9uIHdoaWNoIHVzZXMgYm1jd2ViIGluc3RlYWQgb2YgcGhvc3Bob3ItcmVzdC4N
+CiAgIEl0IHNlZW1lZCB0aGF0IGlrdm0gY2Fubm90IHdvcmsgb24gYm1jd2ViLg0KVGhlIHdl
+YnNpdCBlcnJvcjoNCmFwcC5idW5kbGUuanM6NDMgUmVmdXNlZCB0byBjb25uZWN0IHRvICd3
+c3M6Ly8xOTIuMTY4LjIwMC4xMzIva3ZtLzAnIGJlY2F1c2UgaXQgdmlvbGF0ZXMgdGhlIGZv
+bGxvd2luZyBDb250ZW50IFNlY3VyaXR5IFBvbGljeSBkaXJlY3RpdmU6ICJkZWZhdWx0LXNy
+YyAnc2VsZiciLiBOb3RlIHRoYXQgJ2Nvbm5lY3Qtc3JjJyB3YXMgbm90IGV4cGxpY2l0bHkg
+c2V0LCBzbyAnZGVmYXVsdC1zcmMnIGlzIHVzZWQgYXMgYSBmYWxsYmFjay4NClRoZW4gSSBt
+b2RpZnkgdGhlIGJtY3dlYiBmaWxlIGluY2x1ZGUvc2VjdXJpdHlfaGVhZGVyc19taWRkbGV3
+YXJlLmhwcCBMNDA6DQogICAgICAgIC8vIFRoZSBLVk0gY3VycmVudGx5IG5lZWRzIHRvIGxv
+YWQgaW1hZ2VzIGZyb20gYmFzZTY0IGVuY29kZWQgc3RyaW5ncy4NCiAgICAgICAgLy8gaW1n
+LXNyYyAnc2VsZicgZGF0YTogaXMgdXNlZCB0byBhbGxvdyB0aGF0Lg0KICAgICAgICAvLyBo
+dHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xODQ0Nzk3MC9jb250ZW50LXNl
+Y3VyaXR5LXBvbGljeS1kYXRhLW5vdC13b3JraW5nLWZvci1iYXNlNjQtaW1hZ2VzLWluLWNo
+cm9tZS0yOA0KICAgICAgICByZXMuYWRkSGVhZGVyKCJDb250ZW50LVNlY3VyaXR5LVBvbGlj
+eSIsDQogICAgICAgICAgICAgICAgICAgICAgImRlZmF1bHQtc3JjICdzZWxmJzsgaW1nLXNy
+YyAnc2VsZicgZGF0YToiKTsNCg0KdG86DQpwb2xpY3ktZGF0YS1ub3Qtd29ya2luZy1mb3It
+YmFzZTY0LWltYWdlcy1pbi1jaHJvbWUtMjgNCiAgICAgICAgcmVzLmFkZEhlYWRlcigiQ29u
+dGVudC1TZWN1cml0eS1Qb2xpY3kiLA0KICAgICAgICAgICAgICAgICAgICAgICJzY3JpcHQt
+c3JjICdzZWxmJzsgaW1nLXNyYyAnc2VsZicgZGF0YToiKTsNCg0KDQoNClRoZSB3ZWJzaXRl
+IGVycm86DQoiYXBwLmJ1bmRsZS5qczo0MyBXZWJTb2NrZXQgb24tZXJyb3IgZXZlbnQiDQoi
+V2ViU29ja2V0IGNvbm5lY3Rpb24gdG8gJ3dzczovLzE5Mi4xNjguMjAwLjEzMi9rdm13cycg
+ZmFpbGVkOiBXZWJTb2NrZXQgb3BlbmluZyBoYW5kc2hha2UgdGltZWQgb3V0Ig0KICBXaGF0
+IGlzIHdyb25nIHdpdGggaXQ/DQogICBCZXN0LA0KWGl1emhp
 
--- 
-Stewart Smith
-OPAL Architect, IBM.
+------=_NextPart_5C89BA9D_0AE987D0_4977D892
+Content-Type: text/html;
+	charset="ISO-8859-1"
+Content-Transfer-Encoding: base64
+
+PGRpdj5IaSBKYWUsIEVkLDwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyBJIHVwZGF0ZWQgdGhl
+IHNvdXJjZSB0byBvcGVuYm1jIGxhdGVzdCB2ZXJzaW9uIHdoaWNoIHVzZXMgYm1jd2ViIGlu
+c3RlYWQgb2YgcGhvc3Bob3ItcmVzdC48L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtJdCBzZWVt
+ZWQgdGhhdCBpa3ZtIGNhbm5vdCB3b3JrIG9uIGJtY3dlYi48L2Rpdj48ZGl2PlRoZSB3ZWJz
+aXQgZXJyb3I6PC9kaXY+PGRpdj5hcHAuYnVuZGxlLmpzOjQzIFJlZnVzZWQgdG8gY29ubmVj
+dCB0byAnd3NzOi8vMTkyLjE2OC4yMDAuMTMyL2t2bS8wJyBiZWNhdXNlIGl0IHZpb2xhdGVz
+IHRoZSBmb2xsb3dpbmcgQ29udGVudCBTZWN1cml0eSBQb2xpY3kgZGlyZWN0aXZlOiAiZGVm
+YXVsdC1zcmMgJ3NlbGYnIi4gTm90ZSB0aGF0ICdjb25uZWN0LXNyYycgd2FzIG5vdCBleHBs
+aWNpdGx5IHNldCwgc28gJ2RlZmF1bHQtc3JjJyBpcyB1c2VkIGFzIGEgZmFsbGJhY2suPC9k
+aXY+PGRpdj5UaGVuIEkgbW9kaWZ5IHRoZSBibWN3ZWIgZmlsZSBpbmNsdWRlL3NlY3VyaXR5
+X2hlYWRlcnNfbWlkZGxld2FyZS5ocHAgTDQwOjwvZGl2PjxkaXY+PGRpdj4mbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgLy8gVGhlIEtWTSBjdXJyZW50bHkgbmVlZHMgdG8gbG9hZCBp
+bWFnZXMgZnJvbSBiYXNlNjQgZW5jb2RlZCBzdHJpbmdzLjwvZGl2PjxkaXY+Jm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7IC8vIGltZy1zcmMgJ3NlbGYnIGRhdGE6IGlzIHVzZWQgdG8g
+YWxsb3cgdGhhdC48L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAvLyBo
+dHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8xODQ0Nzk3MC9jb250ZW50LXNl
+Y3VyaXR5LXBvbGljeS1kYXRhLW5vdC13b3JraW5nLWZvci1iYXNlNjQtaW1hZ2VzLWluLWNo
+cm9tZS0yODwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHJlcy5hZGRI
+ZWFkZXIoIkNvbnRlbnQtU2VjdXJpdHktUG9saWN5Iiw8L2Rpdj48ZGl2PiZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgImRlZmF1bHQtc3JjICdzZWxmJzsgaW1nLXNyYyAnc2VsZicgZGF0YToi
+KTs8L2Rpdj48L2Rpdj48ZGl2PnRvOjwvZGl2PjxkaXY+PGRpdj5wb2xpY3ktZGF0YS1ub3Qt
+d29ya2luZy1mb3ItYmFzZTY0LWltYWdlcy1pbi1jaHJvbWUtMjg8L2Rpdj48ZGl2PiZuYnNw
+OyAmbmJzcDsgJm5ic3A7ICZuYnNwOyByZXMuYWRkSGVhZGVyKCJDb250ZW50LVNlY3VyaXR5
+LVBvbGljeSIsPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICJzY3JpcHQtc3Jj
+ICdzZWxmJzsgaW1nLXNyYyAnc2VsZicgZGF0YToiKTs8L2Rpdj48L2Rpdj48ZGl2Pjxicj48
+L2Rpdj48ZGl2PlRoZSB3ZWJzaXRlIGVycm86PC9kaXY+PGRpdj4iYXBwLmJ1bmRsZS5qczo0
+MyBXZWJTb2NrZXQgb24tZXJyb3IgZXZlbnQiPC9kaXY+PGRpdj4iV2ViU29ja2V0IGNvbm5l
+Y3Rpb24gdG8gJ3dzczovLzE5Mi4xNjguMjAwLjEzMi9rdm13cycgZmFpbGVkOiBXZWJTb2Nr
+ZXQgb3BlbmluZyBoYW5kc2hha2UgdGltZWQgb3V0IjwvZGl2PjxkaXY+Jm5ic3A7IFdoYXQg
+aXMgd3Jvbmcgd2l0aCBpdD88L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDtCZXN0LDwvZGl2Pjxk
+aXY+WGl1emhpPC9kaXY+PGRpdj48YnI+PC9kaXY+
+
+------=_NextPart_5C89BA9D_0AE987D0_4977D892--
