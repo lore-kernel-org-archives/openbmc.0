@@ -1,56 +1,39 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::429; helo=mail-pf1-x429.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="S5W3NKR0"; 
- dkim-atps=neutral
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44KwB36w0vzDq5x
- for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 04:07:23 +1100 (AEDT)
-Received: by mail-pf1-x429.google.com with SMTP id y124so4258092pfy.7
- for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 10:07:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=qeE8msP5I8J74cjzM6fOLYKS+QHiePlChYo6sLEI34w=;
- b=S5W3NKR052YsNaxb7TZHI7CJXSQUCunJFC9wBTViR6Mlv0Q7iUVF1iO62qIMgT6wzR
- 2QC2EFCQCKxWWYhjFobngCbQw2AEl0ZdjoaJhatLqBzV3SJ1k+jZ0ZtLM4ygSvukoo7p
- jbIbXrPpPFWWDrpVtT+qLNisxeKdTeSACSX9nbOL5QdM/OhzE6UJhaZdl0x2cTikhQjy
- ELsfBtLIS37c96coX1litaKxWjG78RE5ipsBrSt4xI/FUF1oJIF2n/5OS8uMMXhiRHSd
- Nu3Q5t8GlUCj25rpf6EdQB8cyAUDJ+9mC92Zb2qh2kIOhWOzH3RKAtn/V4mIWt9nye5T
- ALMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=qeE8msP5I8J74cjzM6fOLYKS+QHiePlChYo6sLEI34w=;
- b=DxB+c68WGikTUBk4bMlhsVpM0bPD5brEDL30yoOIXv+rWomLpMuNYIWkldFUFJbAi4
- pLLD9EcCBGhFgctLHRvNz3UwqiIrsjrV3UAFS/XbWV2dL8dJFTF42XwgXhU0FmqqP97M
- aNW5jVfGZQE9o+EBv+dMbe1zKD/HOPYN66eFaK79x05HE9ZZTBAjAwkowtyud1tBpoL7
- 54LWf+Ip9NZEXbG5cRVbguCf0mmFvem9dhBDhu00yUyU64PYSzZVtlCuxfsqJ8RZ9KTC
- iFLimd19Fblo5jWrp+lo5LIrF2DJiZx8FZVSxEOafzZxoc7wRhpu4MTGbI1uut3csupQ
- W+oQ==
-X-Gm-Message-State: APjAAAV6VVifcGEK8u7rVeG533DDCb9L/U/VgiTWBtSqSj7BTAKu9CDW
- DM4kwx94FPsyitHlKWFgg/HUBn8BHIejqcIeHXmtkQ==
-X-Google-Smtp-Source: APXvYqyl2S9G65ENo/aqb9+xDtQr9iOcz9/j1I0AGn0XEdpTJ23ozOXyoQDuUO4AKAaHKVtDnS8QzHj4rHFcHjreMXg=
-X-Received: by 2002:a63:3648:: with SMTP id d69mr46225892pga.314.1552583241087; 
- Thu, 14 Mar 2019 10:07:21 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44KxC45dhbzDqN6
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 04:53:19 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2019 10:53:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,478,1544515200"; d="scan'208";a="282711617"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga004.jf.intel.com with ESMTP; 14 Mar 2019 10:53:15 -0700
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
+ ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+Date: Thu, 14 Mar 2019 10:53:15 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-References: <CALLMt=qZOxWDH8eDqv6JYbkvgk10mR1K_REgnE-DkssLWD=iVg@mail.gmail.com>
-In-Reply-To: <CALLMt=qZOxWDH8eDqv6JYbkvgk10mR1K_REgnE-DkssLWD=iVg@mail.gmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 14 Mar 2019 10:07:10 -0700
-Message-ID: <CAO=noty9OxEw2ZFF2cFz8Y9F96UwyTMy71wGYhd39UQGrxRhHQ@mail.gmail.com>
-Subject: Re: CI to stop testing meta-* layers not in tested machine
-To: Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,56 +45,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2019 17:07:25 -0000
+X-List-Received-Date: Thu, 14 Mar 2019 17:53:22 -0000
 
-On Thu, Mar 14, 2019 at 6:39 AM Andrew Geissler <geissonator@gmail.com> wrote:
->
-> I took an action item from last weeks Infrastructure Workgroup.
->
-> The point was we're wasting CI resources by testing meta-*
-> commits that are not actually tested by any of the machines in the
-> CI job. We're also falsely marking those commits as Verified because
-> if they are not in any of the systems under test, they're not being
-> tested at all.
->
-> The systems currently run as a part of the meta-* CI jobs are here:
-> https://openpower.xyz/view/CI/job/run-meta-ci/
->
-> Some quick grepping indicates the following meta-* repos are not
-> being tested:
->
-> meta-arm
-> meta-evb
-> meta-google
-> meta-hxt
-> meta-inspur
-> meta-intel
-> meta-inventec
-> meta-mellanox
-> meta-nuvoton
-> meta-portwell
-> meta-qualcomm
-> meta-quanta
-> meta-raspberrypi
-> meta-security
-> meta-x86
-> meta-xilinx
->
-> This would mean the maintainers of the above repos would need to +1
-> Verify the changes to these layers before merging.
->
-> Are there any advantages to running CI against meta-* layers that
-> are not in a machine being built? Are there other machines we can
-> add to CI that would cover some of the meta layers above? The
-> general criteria for getting a machine added to CI is that it's actively
-> being developed and supported. We also need to balance our
-> CI compute resources so the overall goal (in my mind) would be
-> to pick the machines that cover the most meta layers.
+Hi xiuzhi,
 
-@OCP Summit today talking to Brad.  It's possible I'll end up pushing
-up a machine configuration that'll use meta-google.  However, as far
-as not testing it during a build, I think yeah, with limited compute
-resources, there's only so much we can do.
+These are my repo information:
+bmcweb: 9474b3788017bddd70e493e2b9b7674be30abc87
+phosphor-webui: 511a2bbc5540fccb883b8d0005c2b387a23c9d05
+                 Cherry picked 
+https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/
+libvncserver: 3348a7e42e86dfb98dd7458ad29def476cf6096f
+obmc-ikvm: 2bc661d34abd1fda92a9d2b256ed88ca0e90d09a
 
->
-> Andrew
+I can see working KVM through https://my.bmc.ip.addr/#/server-control/kvm
+
+-Jae
+
+On 3/13/2019 7:21 PM, xiuzhi wrote:
+> Hi Jae, Ed,
+>      I updated the source to openbmc latest version which uses bmcweb 
+> instead of phosphor-rest.
+>     It seemed that ikvm cannot work on bmcweb.
+> The websit error:
+> app.bundle.js:43 Refused to connect to 'wss://192.168.200.132/kvm/0' 
+> because it violates the following Content Security Policy directive: 
+> "default-src 'self'". Note that 'connect-src' was not explicitly set, so 
+> 'default-src' is used as a fallback.
+> Then I modify the bmcweb file include/security_headers_middleware.hpp L40:
+>          // The KVM currently needs to load images from base64 encoded 
+> strings.
+>          // img-src 'self' data: is used to allow that.
+>          // 
+> https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
+>          res.addHeader("Content-Security-Policy",
+>                        "default-src 'self'; img-src 'self' data:");
+> to:
+> policy-data-not-working-for-base64-images-in-chrome-28
+>          res.addHeader("Content-Security-Policy",
+>                        "script-src 'self'; img-src 'self' data:");
+> 
+> The website erro:
+> "app.bundle.js:43 WebSocket on-error event"
+> "WebSocket connection to 'wss://192.168.200.132/kvmws' failed: WebSocket 
+> opening handshake timed out"
+>    What is wrong with it?
+>     Best,
+> Xiuzhi
+> 
