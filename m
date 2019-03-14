@@ -1,39 +1,57 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c34; helo=mail-yw1-xc34.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="VB2aPH5o"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc34.google.com (mail-yw1-xc34.google.com
+ [IPv6:2607:f8b0:4864:20::c34])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44KxC45dhbzDqN6
- for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 04:53:19 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2019 10:53:15 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,478,1544515200"; d="scan'208";a="282711617"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga004.jf.intel.com with ESMTP; 14 Mar 2019 10:53:15 -0700
-Subject: Re: Does obmc-ikvm work with bmcweb?
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
-Date: Thu, 14 Mar 2019 10:53:15 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44KxWt4XndzDqGW
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 05:07:54 +1100 (AEDT)
+Received: by mail-yw1-xc34.google.com with SMTP id j66so5157027ywc.10
+ for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 11:07:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QsklLqokTZxrFgJJw1uWZ0Bp5oaN5A+5I9vSH83uuRM=;
+ b=VB2aPH5oBpm4Lz2Jm2xlbBmsgnPI05z6UBWQJFMuz6Vdglv9b2K8EPWKs7UTD/YQX6
+ MGbwBWYsafrY7IFzy1s95BkhSl3KNQAw1BrvcYEnhBWv5sfKxfwnP6ejrVLiFquKDrnA
+ XMQlPj5V/hLQYqu3e/V+t8WDoXy0g/5AJ+yrrxga67/vftBIDqstB0a3pXC9xGLt2kJY
+ KXwYPT2YoM7Wa9sKLf5EnBYXo+/+8VnDI4lCpwrmT21TnFyoB9K93aoQAmqjFjz7Vm39
+ zTI5ZeKTa2Edbd3muFhDlxUCtZikmk7lZIVWd4c2bruW4O+0MjU/si/VqTZ8Rusj3OWP
+ XZ3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QsklLqokTZxrFgJJw1uWZ0Bp5oaN5A+5I9vSH83uuRM=;
+ b=Gn9O3zwCvY9M1G4O7tOUceRS5ipjNvBOWQSfgIoUGZMt2xmxovwE4bG/NCpYyzdnq9
+ MXFlAdlJxdQD1JRER95Yid3ysDfXqhxd4J1QHakhHI/yjEAQud95ibLXlrOhddGnLqhA
+ QQ+RkXNsceFUfyAHP1ssyava3Yz6fyvU+LStRa3Nay9UfQllXxbG9LU0ztT/HFkEyfMV
+ Gweg8IH8qz1UExnvXRr1NyEg1Jua4JhfcT2WFeXxQZbMzBqEx0y/wxfTpl3Z2gRV/L2+
+ UT9CbPs5z29shwrfLnXZADOwYYy1JX/qR7tjjfq0B7IHQtFI0v18x08NZn8ZUGQ08xAC
+ FfQg==
+X-Gm-Message-State: APjAAAXdKlQ3feB1k9U8q5okf6DAFblZLxdhv25gRSaQ0mbKjL7JpZR2
+ xFJSyOSzPT38caTs+vkEZzLSvsoNOTgx/lDf3F4=
+X-Google-Smtp-Source: APXvYqzNS0TEoybmR+vQOdKGF2KioPvaj5utMMEdWbw2ZdQoZGWZ2ZtapfRcoSuT2N4KRPzAMryIWqsSy7HbhItAl4k=
+X-Received: by 2002:a81:1693:: with SMTP id 141mr1421045yww.448.1552586870577; 
+ Thu, 14 Mar 2019 11:07:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <CAMTupoQpdx2Hw=dy_pWsMYHbHvbYjj5L6j36Tp=WNnTOPDMrLg@mail.gmail.com>
+ <CAJoAoZnUxBzsXRS_o-E4Z8mmDdxSA2M+BS5yo-f1RYPi5pGu-g@mail.gmail.com>
+In-Reply-To: <CAJoAoZnUxBzsXRS_o-E4Z8mmDdxSA2M+BS5yo-f1RYPi5pGu-g@mail.gmail.com>
+From: Jandra A <jandraara@gmail.com>
+Date: Thu, 14 Mar 2019 13:07:39 -0500
+Message-ID: <CAMTupoSJkv25HXUrNH4pCrjrkXhDNecykKN34j6Z7feE=Dhyug@mail.gmail.com>
+Subject: Re: Restore MAC address to factory settings
+To: Emily Shaffer <emilyshaffer@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000e75e00058411cc36"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,50 +63,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2019 17:53:22 -0000
+X-List-Received-Date: Thu, 14 Mar 2019 18:07:55 -0000
 
-Hi xiuzhi,
+--000000000000e75e00058411cc36
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-These are my repo information:
-bmcweb: 9474b3788017bddd70e493e2b9b7674be30abc87
-phosphor-webui: 511a2bbc5540fccb883b8d0005c2b387a23c9d05
-                 Cherry picked 
-https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-webui/+/10268/
-libvncserver: 3348a7e42e86dfb98dd7458ad29def476cf6096f
-obmc-ikvm: 2bc661d34abd1fda92a9d2b256ed88ca0e90d09a
+> We have a use case for editing MAC. I don't know about factory
+> default.  So there's one (rather large) end user who would get value
 
-I can see working KVM through https://my.bmc.ip.addr/#/server-control/kvm
 
--Jae
+Thanks Emily! Were you able to look over the design proposal? I'd love to
+get your feedback.
 
-On 3/13/2019 7:21 PM, xiuzhi wrote:
-> Hi Jae, Ed,
->      I updated the source to openbmc latest version which uses bmcweb 
-> instead of phosphor-rest.
->     It seemed that ikvm cannot work on bmcweb.
-> The websit error:
-> app.bundle.js:43 Refused to connect to 'wss://192.168.200.132/kvm/0' 
-> because it violates the following Content Security Policy directive: 
-> "default-src 'self'". Note that 'connect-src' was not explicitly set, so 
-> 'default-src' is used as a fallback.
-> Then I modify the bmcweb file include/security_headers_middleware.hpp L40:
->          // The KVM currently needs to load images from base64 encoded 
-> strings.
->          // img-src 'self' data: is used to allow that.
->          // 
-> https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
->          res.addHeader("Content-Security-Policy",
->                        "default-src 'self'; img-src 'self' data:");
-> to:
-> policy-data-not-working-for-base64-images-in-chrome-28
->          res.addHeader("Content-Security-Policy",
->                        "script-src 'self'; img-src 'self' data:");
-> 
-> The website erro:
-> "app.bundle.js:43 WebSocket on-error event"
-> "WebSocket connection to 'wss://192.168.200.132/kvmws' failed: WebSocket 
-> opening handshake timed out"
->    What is wrong with it?
->     Best,
-> Xiuzhi
-> 
+
+
+
+> On Tue, Mar 12, 2019 at 12:42 PM Jandra A <jandraara@gmail.com> wrote:
+> >
+> > Hello all,
+> >
+> > I=E2=80=99d like your input on the value you see =E2=80=93 if any =E2=
+=80=93 in the ability for
+> > a user to restore a MAC Address to the factory default via the GUI
+> > (Network Settings).
+> >
+> > BACKGROUND: Several end users have told us that they RARELY need to
+> > change their MAC Address, if at all. However, we=E2=80=99ve heard from =
+several
+> > subject-matter experts that there IS value in making the MAC Address
+> > editable as well as having a way to restore it to the factory default.
+> >
+> > QUESTION: Is there value for the end user in being able to edit a MAC
+> > address? What about restoring it to the factory default?
+> >
+> > VIEW CURRENT DESIGN:
+> >
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutl=
+iple_VLAN
+> >
+> > Appreciate all thoughts on this.
+>
+>
+>
+> --
+> Emily Shaffer
+
+--000000000000e75e00058411cc36
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">&gt; We have a use case for editing MAC. I don&#39;t know =
+about factory<br>&gt; default.=C2=A0 So there&#39;s one (rather large) end =
+user who would get value<br><br><br>Thanks Emily! Were you able to look ove=
+r the design proposal? I&#39;d love to get your feedback. <br>=C2=A0<br><br=
+><br><br>&gt; On Tue, Mar 12, 2019 at 12:42 PM Jandra A &lt;<a href=3D"mail=
+to:jandraara@gmail.com">jandraara@gmail.com</a>&gt; wrote:<br>&gt; &gt;<br>=
+&gt; &gt; Hello all,<br>&gt; &gt;<br>&gt; &gt; I=E2=80=99d like your input =
+on the value you see =E2=80=93 if any =E2=80=93 in the ability for<br>&gt; =
+&gt; a user to restore a MAC Address to the factory default via the GUI<br>=
+&gt; &gt; (Network Settings).<br>&gt; &gt;<br>&gt; &gt; BACKGROUND: Several=
+ end users have told us that they RARELY need to<br>&gt; &gt; change their =
+MAC Address, if at all. However, we=E2=80=99ve heard from several<br>&gt; &=
+gt; subject-matter experts that there IS value in making the MAC Address<br=
+>&gt; &gt; editable as well as having a way to restore it to the factory de=
+fault.<br>&gt; &gt;<br>&gt; &gt; QUESTION: Is there value for the end user =
+in being able to edit a MAC<br>&gt; &gt; address? What about restoring it t=
+o the factory default?<br>&gt; &gt;<br>&gt; &gt; VIEW CURRENT DESIGN:<br>&g=
+t; &gt; <a href=3D"https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386=
+_V2_Networking_Mutliple_VLAN">https://ibm.invisionapp.com/share/RQNYHJ0VBDY=
+#/319002386_V2_Networking_Mutliple_VLAN</a><br>&gt; &gt;<br>&gt; &gt; Appre=
+ciate all thoughts on this.<br>&gt;<br>&gt;<br>&gt;<br>&gt; --<br>&gt; Emil=
+y Shaffer</div>
+
+--000000000000e75e00058411cc36--
