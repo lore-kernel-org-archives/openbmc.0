@@ -1,38 +1,53 @@
-Return-Path: <james.feist@linux.intel.com>
+Return-Path: <ed.tanous@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Ktdb38KqzDq7d
- for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 02:57:38 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44KvGj2Sh3zDqNF
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 03:26:14 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 14 Mar 2019 08:57:34 -0700
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga101.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 14 Mar 2019 09:26:11 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.58,478,1544515200"; d="scan'208";a="125469625"
-Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
- by orsmga008.jf.intel.com with ESMTP; 14 Mar 2019 08:57:34 -0700
-Subject: Re: How to use fru-device
-To: openbmc@lists.ozlabs.org
-References: <CAHkHK09KjAKpOGYySXTSB6KsrNOCCYcRVvJYFdt2O8_KPJFMDg@mail.gmail.com>
-Cc: Amithash Prasad <amithash@fb.com>
-From: James Feist <james.feist@linux.intel.com>
-Message-ID: <1b52f199-a97f-0a78-3fe7-f57606902b5b@linux.intel.com>
-Date: Thu, 14 Mar 2019 08:57:34 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.1
-MIME-Version: 1.0
-In-Reply-To: <CAHkHK09KjAKpOGYySXTSB6KsrNOCCYcRVvJYFdt2O8_KPJFMDg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+X-IronPort-AV: E=Sophos;i="5.58,478,1544515200"; d="scan'208";a="134357903"
+Received: from orsmsx106.amr.corp.intel.com ([10.22.225.133])
+ by fmsmga007.fm.intel.com with ESMTP; 14 Mar 2019 09:26:11 -0700
+Received: from orsmsx124.amr.corp.intel.com (10.22.240.120) by
+ ORSMSX106.amr.corp.intel.com (10.22.225.133) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Thu, 14 Mar 2019 09:26:10 -0700
+Received: from orsmsx114.amr.corp.intel.com ([169.254.8.54]) by
+ ORSMSX124.amr.corp.intel.com ([169.254.2.79]) with mapi id 14.03.0415.000;
+ Thu, 14 Mar 2019 09:26:10 -0700
+From: "Tanous, Ed" <ed.tanous@intel.com>
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Static code analysis tool for openbmc
+Thread-Topic: Static code analysis tool for openbmc
+Thread-Index: AQHU2YW+F9GDQGq6Xkyp8WQVI93y3qYLT9Dw
+Date: Thu, 14 Mar 2019 16:26:10 +0000
+Message-ID: <7E9441B1E5EFFD4681F54958E821699345A2E1CF@ORSMSX114.amr.corp.intel.com>
+References: <de550e08-2338-9438-6021-b2b6ef130bdd@linux.vnet.ibm.com>
+In-Reply-To: <de550e08-2338-9438-6021-b2b6ef130bdd@linux.vnet.ibm.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNzc0ODg0MTQtZmJhOS00ZDlkLWJmMjEtNzE4MzA5ZDUyN2VjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiSWZMSHdoREszZzhiaWF6RlZGdGd4K1pKSHdZVGw0ME92bHd6QnZMRDlTSVlXZ25LN3F6OVdRZ05GK0VUZU5wXC8ifQ==
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: request-justification,no-action
+x-originating-ip: [10.22.254.140]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,43 +59,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2019 15:57:40 -0000
+X-List-Received-Date: Thu, 14 Mar 2019 16:26:22 -0000
 
-On 3/14/19 3:41 AM, John Wang wrote:
-> Hi all
-> 
-> I have now encountered a problem with fru-device (entity-manager).
-> 
-> 1 Make the fru.bin file /etc/fru/baseboard.fru.bin for
-> testing,Everything looks great
-> 2 dd if/etc/fru/baseboard.fru.bin of=/sys/class/i2c-dev/xxxxx/eeprom,
-> busctrl tree xyz.openbmc_project.FruDevice will appear
-> /xyz/openbmc_project/FruDevice/____________product_manufacturer_______________________________
-> Similar path. View the properties through busctl introspect and find
-> that the property values are also garbled.
-> 3 Delete the eeprom node in the dts file and still have this problem.
-> 
-> Note:  eeprom at24c512 16bit
-
-FruDevice has primarly been used with 8bit eeproms up to this point, 
-Amithash is adding 16 bit support but I'm not sure how well it works yet.
-
-https://gerrit.openbmc-project.xyz/#/c/openbmc/entity-manager/+/18783/
-
-
-If you compile with DEBUG = true 
-https://github.com/openbmc/entity-manager/blob/master/src/FruDevice.cpp#L42 
-you might get some better debug.
-
-Thanks,
-
-James
-
-> 
-> Does anyone help me to point out where I should pay attention when
-> debugging, how should I solve this problem?
-> 
-> Best Regards
-> 
-> John
-> 
+PiANCj4gSXMgdGhlcmUgYW55IHBsYW4gdG8gdXNlIGFueSBzdGF0aWMgY29kZSBhbmFseXNpcyB0
+b29sIGluIG9wZW5ibWM/IEkgZmluZCBvbmUNCj4gb2YgdGhlIHRvb2wgd2hpY2ggaXMgZ29vZCBh
+bmQgdXNlZCBpbiBtdWx0aXBsZSBvcGVuc291cmNlIHByb2plY3RzIGlzDQo+ICJjb3Zlcml0eSIu
+DQo+IA0KDQpJJ20gaW4gZnVsbCBzdXBwb3J0IG9mIGdldHRpbmcgY292ZXJpdHkgc3RhcnRlZC4g
+IEkgaGFkIHNvbWUgdHJvdWJsZXMgd2l0aCBwZXJmb3JtYW5jZSAodGhlIGFuYWx5c2lzIGZvciBh
+IHNpbmdsZSBhcHAgdGFrZXMgYSB2ZXJ5IGxvbmcgdGltZSkgYW5kIHVuZXhwZWN0ZWQgZmFsc2Ug
+cG9zaXRpdmVzIHdoZW4gSSBhdHRlbXB0ZWQgaXQgYSB3aGlsZSBiYWNrLCBhbmQgZ2F2ZSB1cCBh
+dCB0aGUgdGltZS4gIE9uZSBwZXJzb24gYWxzbyBkaWQgZ2V0IHRoZSBGYWNlYm9vayBzdGF0aWMg
+YW5hbHl6ZXIsIGluZmVyLCBydW5uaW5nIHJlY2VudGx5IG9uIGFuIE9wZW5CTUMgcHJvamVjdCBh
+bmQgaXQgc2VlbWVkIHRvIGdpdmUgc29tZSByZXN1bHRzLCBhYm91dCAxMCUgb2Ygd2hpY2ggd2Vy
+ZSBhY3Rpb25hYmxlLCBhbmQgZ2VuZXJhdGVkIHNvbWUgY29tbWl0cyB0byBPcGVuQk1DLiAgSSdt
+IG5vdCBzdXJlIEknZCBhZHZvY2F0ZSBmb3IgaXQsIGJ1dCBpdCdzIGNlcnRhaW5seSBhbm90aGVy
+IG9wdGlvbi4NCg0KLUVkDQo=
