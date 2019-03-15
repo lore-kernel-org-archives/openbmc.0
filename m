@@ -1,77 +1,40 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <richard.marian.thomaiyar@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44L3lg3rygzDqPb
- for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 09:48:31 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2EMhncp096319
- for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 18:48:27 -0400
-Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2r7xj7kqwt-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 14 Mar 2019 18:48:26 -0400
-Received: from localhost
- by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Thu, 14 Mar 2019 22:48:24 -0000
-Received: from b06cxnps4076.portsmouth.uk.ibm.com (9.149.109.198)
- by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 14 Mar 2019 22:48:20 -0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4076.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2EMmJuV30867512
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
- Thu, 14 Mar 2019 22:48:20 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D28BCAE051;
- Thu, 14 Mar 2019 22:48:19 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6ED69AE045;
- Thu, 14 Mar 2019 22:48:17 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.79.249.172])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Thu, 14 Mar 2019 22:48:16 +0000 (GMT)
-Subject: Re: [OCP] Open Source Firmware Meetup@OCP Global Summit
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "OCP-Security@OCP-All.groups.io" <OCP-Security@OCP-All.groups.io>,
- "OpenRMC@OCP-All.groups.io" <OpenRMC@OCP-All.groups.io>,
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44LGwJ4X62zDqRX
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 18:11:43 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Mar 2019 00:11:39 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.58,481,1544515200"; 
+ d="scan'208,217";a="140958319"
+Received: from rthomaiy-mobl2.gar.corp.intel.com (HELO [10.67.163.239])
+ ([10.67.163.239])
+ by FMSMGA003.fm.intel.com with ESMTP; 15 Mar 2019 00:11:38 -0700
+Subject: Re: Default root password: 2.4 vs. 2.6
+To: David Thompson <dthompson@mellanox.com>,
  "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <9D7F7790-90A4-4312-B714-F948FD6251F7@fb.com>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Thu, 14 Mar 2019 15:48:15 -0700
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.5.3
+References: <VI1PR0502MB3869542E3098EFB729045C0EDD4B0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
+Message-ID: <06734015-2e4f-1d89-0ed0-8b41b06ac60a@linux.intel.com>
+Date: Fri, 15 Mar 2019 12:41:36 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.2
 MIME-Version: 1.0
-In-Reply-To: <9D7F7790-90A4-4312-B714-F948FD6251F7@fb.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <VI1PR0502MB3869542E3098EFB729045C0EDD4B0@VI1PR0502MB3869.eurprd05.prod.outlook.com>
+Content-Type: multipart/alternative;
+ boundary="------------C49C1E4DABE89BB26723B86E"
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-x-cbid: 19031422-0020-0000-0000-000003237125
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19031422-0021-0000-0000-0000217577A5
-Message-Id: <54b69e7f-5dbb-4e15-b295-3166c0d1f992@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-14_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903140153
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,33 +46,216 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 Mar 2019 22:48:32 -0000
+X-List-Received-Date: Fri, 15 Mar 2019 07:11:45 -0000
 
-On 11/03/19 10:37 PM, Sai Dasari wrote:
-> Team,
-> 
-> For those of you planning to attend OCP Global summit **this** week @ 
-> 2019 OCP Global Summit 
-> <https://www.opencompute.org/summit/global-summit>, please check out the 
-> post about the meetup @
-> 
-> https://www.opencompute.org/news/open-source-firmware-meetup-at-the-2019-ocp-global-summit-call-for-participation.
-> 
-> Community members came up with few topic streams for this meetup 
-> opportunity are captured @ 
-> https://docs.google.com/spreadsheets/d/1cKAYFP2fEhgBoEBjGrCrOAq6-01nyX53M9rrLaJxlk4/edit#gid=0 
-> 
-> 
-> Will look forward to meeting you at this meetup to accelerate efforts in 
-> open source firmware. Please reach out to me and/or project leads for 
-> more info.
-> 
-> Thanks,
-> 
-> Sai.
+This is a multi-part message in MIME format.
+--------------C49C1E4DABE89BB26723B86E
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-We were planning on talking PLDM/MCTP at 11 on 15th March, at the Open 
-Source Firmware Meetup. Please join if you're interested!
+Hi Dave,
 
-Thanks,
-Deepak
+you should be able to override it in your local.conf.sample, please make 
+sure you are using append and correct image name
+
+
+(in local.conf.sample)
+
+INHERIT += "extrausers"
+
+EXTRA_USERS_PARAMS_append_pn-obmc-phosphor-image  = " \
+
+usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root; \
+
+"
+
+or add your own image name (instead of obmc-phosphor-image after 
+append_pn) for which you are building. With this it will override.
+
+Let me know if you are facing any problem with this method.
+
+
+regards,
+
+Richard
+
+
+On 3/15/2019 12:05 AM, David Thompson wrote:
+>
+> When we transitioned our OpenBMC baseline from 2.4 to 2.6
+>
+> we noticed that the default root password for our platform has
+>
+> changed to “0penBmc”.  This appears to come from the file:
+>
+> meta-phosphor/conf/distro/include/phosphor-defaults.inc:
+>
+> /usermod -p '\$1\$UGMqyqdG\$FZiylVFmRRfl9Z0Ue8G7e/' root;/
+>
+> And this password setting overrides the password we had chosen
+>
+> in our machine’s local.conf.sample.    We experimented but could not
+>
+> find a way to prevent this override behavior.
+>
+> Is this the intent with this change in 2.6 that all platforms by default
+>
+> have root password of “0penBmc”?  Is there a way to have a platform
+>
+> specific root password without changing “phosphor-defaults.inc”?
+>
+> Regards,
+>
+> Dave
+>
+
+--------------C49C1E4DABE89BB26723B86E
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: base64
+
+PGh0bWw+DQogIDxoZWFkPg0KICAgIDxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOw0KICAgICAgY2hhcnNldD13aW5kb3dzLTEyNTIiPg0KICA8
+L2hlYWQ+DQogIDxib2R5IHRleHQ9IiMwMDAwMDAiIGJnY29sb3I9IiNGRkZGRkYiPg0KICAg
+IDxwPkhpIERhdmUsoDwvcD4NCiAgICA8cD55b3Ugc2hvdWxkIGJlIGFibGUgdG8gb3ZlcnJp
+ZGUgaXQgaW4geW91ciBsb2NhbC5jb25mLnNhbXBsZSwNCiAgICAgIHBsZWFzZSBtYWtlIHN1
+cmUgeW91IGFyZSB1c2luZyBhcHBlbmQgYW5kIGNvcnJlY3QgaW1hZ2UgbmFtZSA8YnI+DQog
+ICAgPC9wPg0KICAgIDxwPjxicj4NCiAgICA8L3A+DQogICAgPHA+KGluIGxvY2FsLmNvbmYu
+c2FtcGxlKTxicj4NCiAgICA8L3A+DQogICAgPHA+SU5IRVJJVCArPSAiZXh0cmF1c2VycyI8
+L3A+DQogICAgPHA+RVhUUkFfVVNFUlNfUEFSQU1TX2FwcGVuZF9wbi1vYm1jLXBob3NwaG9y
+LWltYWdloCA9ICIgXDwvcD4NCiAgICA8cD51c2VybW9kIC1wICdcJDFcJFVHTXF5cWRHXCRG
+Wml5bFZGbVJSZmw5WjBVZThHN2UvJyByb290OyBcPC9wPg0KICAgIDxwPiI8YnI+DQogICAg
+PC9wPg0KICAgIDxwPm9yIGFkZCB5b3VyIG93biBpbWFnZSBuYW1lIChpbnN0ZWFkIG9mIG9i
+bWMtcGhvc3Bob3ItaW1hZ2UgYWZ0ZXINCiAgICAgIGFwcGVuZF9wbikgZm9yIHdoaWNoIHlv
+dSBhcmUgYnVpbGRpbmcuIFdpdGggdGhpcyBpdCB3aWxsIG92ZXJyaWRlLg0KICAgICAgPGJy
+Pg0KICAgIDwvcD4NCiAgICA8cD5MZXQgbWUga25vdyBpZiB5b3UgYXJlIGZhY2luZyBhbnkg
+cHJvYmxlbSB3aXRoIHRoaXMgbWV0aG9kLjwvcD4NCiAgICA8cD48YnI+DQogICAgPC9wPg0K
+ICAgIDxwPnJlZ2FyZHMsIDxicj4NCiAgICA8L3A+DQogICAgPHA+UmljaGFyZDxicj4NCiAg
+ICAgIDxzcGFuIGNsYXNzPSJwbC1zMSB4IiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJv
+eDsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDE3MiwgMjQyLCAxODkpOyBjb2xvcjogcmdiKDM2
+LCA0MSwgNDYpOyBmb250LWZhbWlseTogU0ZNb25vLVJlZ3VsYXIsIENvbnNvbGFzLCAmcXVv
+dDtMaWJlcmF0aW9uIE1vbm8mcXVvdDssIE1lbmxvLCBDb3VyaWVyLCBtb25vc3BhY2U7IGZv
+bnQtc2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtbGlnYXR1
+cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiA0
+MDA7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IHN0
+YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3Bh
+Y2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRl
+eHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDsg
+dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsOyI+PC9zcGFuPjxzcGFuIGNsYXNzPSJw
+bC1lbiB4IiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgY29sb3I6IHJnYigzNiwg
+NDEsIDQ2KTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDE3MiwgMjQyLCAxODkpOyBmb250LWZh
+bWlseTogU0ZNb25vLVJlZ3VsYXIsIENvbnNvbGFzLCAmcXVvdDtMaWJlcmF0aW9uIE1vbm8m
+cXVvdDssIE1lbmxvLCBDb3VyaWVyLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTJweDsgZm9u
+dC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQt
+dmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiA0MDA7IGxldHRlci1zcGFjaW5n
+OiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDog
+MHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRv
+d3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAw
+cHg7IHRleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLWNv
+bG9yOiBpbml0aWFsOyI+PC9zcGFuPjxzcGFuIGNsYXNzPSJwbC1zMSB4IiBzdHlsZT0iYm94
+LXNpemluZzogYm9yZGVyLWJveDsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDE3MiwgMjQyLCAx
+ODkpOyBjb2xvcjogcmdiKDM2LCA0MSwgNDYpOyBmb250LWZhbWlseTogU0ZNb25vLVJlZ3Vs
+YXIsIENvbnNvbGFzLCAmcXVvdDtMaWJlcmF0aW9uIE1vbm8mcXVvdDssIE1lbmxvLCBDb3Vy
+aWVyLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBm
+b250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3Jt
+YWw7IGZvbnQtd2VpZ2h0OiA0MDA7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6
+IDI7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9y
+bTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2lu
+ZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlv
+bi1zdHlsZTogaW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsOyI+PC9z
+cGFuPjxzcGFuIGNsYXNzPSJwbC1lbiB4IiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJv
+eDsgY29sb3I6IHJnYigzNiwgNDEsIDQ2KTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDE3Miwg
+MjQyLCAxODkpOyBmb250LWZhbWlseTogU0ZNb25vLVJlZ3VsYXIsIENvbnNvbGFzLCAmcXVv
+dDtMaWJlcmF0aW9uIE1vbm8mcXVvdDssIE1lbmxvLCBDb3VyaWVyLCBtb25vc3BhY2U7IGZv
+bnQtc2l6ZTogMTJweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtbGlnYXR1
+cmVzOiBub3JtYWw7IGZvbnQtdmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiA0
+MDA7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IHN0
+YXJ0OyB0ZXh0LWluZGVudDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3Bh
+Y2U6IHByZS13cmFwOyB3aWRvd3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRl
+eHQtc3Ryb2tlLXdpZHRoOiAwcHg7IHRleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDsg
+dGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsOyI+PC9zcGFuPjxzcGFuIGNsYXNzPSJw
+bC1zMSB4IiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgYmFja2dyb3VuZC1jb2xv
+cjogcmdiKDE3MiwgMjQyLCAxODkpOyBjb2xvcjogcmdiKDM2LCA0MSwgNDYpOyBmb250LWZh
+bWlseTogU0ZNb25vLVJlZ3VsYXIsIENvbnNvbGFzLCAmcXVvdDtMaWJlcmF0aW9uIE1vbm8m
+cXVvdDssIE1lbmxvLCBDb3VyaWVyLCBtb25vc3BhY2U7IGZvbnQtc2l6ZTogMTJweDsgZm9u
+dC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQtbGlnYXR1cmVzOiBub3JtYWw7IGZvbnQt
+dmFyaWFudC1jYXBzOiBub3JtYWw7IGZvbnQtd2VpZ2h0OiA0MDA7IGxldHRlci1zcGFjaW5n
+OiBub3JtYWw7IG9ycGhhbnM6IDI7IHRleHQtYWxpZ246IHN0YXJ0OyB0ZXh0LWluZGVudDog
+MHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3aWRv
+d3M6IDI7IHdvcmQtc3BhY2luZzogMHB4OyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAw
+cHg7IHRleHQtZGVjb3JhdGlvbi1zdHlsZTogaW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLWNv
+bG9yOiBpbml0aWFsOyI+PC9zcGFuPjxzcGFuIGNsYXNzPSJwbC1lbiIgc3R5bGU9ImJveC1z
+aXppbmc6IGJvcmRlci1ib3g7IGNvbG9yOiByZ2IoMTExLCA2NiwgMTkzKTsgZm9udC1mYW1p
+bHk6IFNGTW9uby1SZWd1bGFyLCBDb25zb2xhcywgJnF1b3Q7TGliZXJhdGlvbiBNb25vJnF1
+b3Q7LCBNZW5sbywgQ291cmllciwgbW9ub3NwYWNlOyBmb250LXNpemU6IDEycHg7IGZvbnQt
+c3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50LWxpZ2F0dXJlczogbm9ybWFsOyBmb250LXZh
+cmlhbnQtY2Fwczogbm9ybWFsOyBmb250LXdlaWdodDogNDAwOyBsZXR0ZXItc3BhY2luZzog
+bm9ybWFsOyBvcnBoYW5zOiAyOyB0ZXh0LWFsaWduOiBzdGFydDsgdGV4dC1pbmRlbnQ6IDBw
+eDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsgd2lkb3dz
+OiAyOyB3b3JkLXNwYWNpbmc6IDBweDsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDogMHB4
+OyBiYWNrZ3JvdW5kLWNvbG9yOiByZ2IoMjMwLCAyNTUsIDIzNyk7IHRleHQtZGVjb3JhdGlv
+bi1zdHlsZTogaW5pdGlhbDsgdGV4dC1kZWNvcmF0aW9uLWNvbG9yOiBpbml0aWFsOyI+PHNw
+YW4gY2xhc3M9InggeC1sYXN0IiBzdHlsZT0iYm94LXNpemluZzogYm9yZGVyLWJveDsgYm9y
+ZGVyLWJvdHRvbS1yaWdodC1yYWRpdXM6IDAuMmVtOyBib3JkZXItdG9wLXJpZ2h0LXJhZGl1
+czogMC4yZW07IGJhY2tncm91bmQtY29sb3I6IHJnYigxNzIsIDI0MiwgMTg5KTsgY29sb3I6
+IHJnYigzNiwgNDEsIDQ2KTsiPjwvc3Bhbj48L3NwYW4+PC9wPg0KICAgIDxwPjxicj4NCiAg
+ICA8L3A+DQogICAgPGRpdiBjbGFzcz0ibW96LWNpdGUtcHJlZml4Ij5PbiAzLzE1LzIwMTkg
+MTI6MDUgQU0sIERhdmlkIFRob21wc29uDQogICAgICB3cm90ZTo8YnI+DQogICAgPC9kaXY+
+DQogICAgPGJsb2NrcXVvdGUgdHlwZT0iY2l0ZSINCmNpdGU9Im1pZDpWSTFQUjA1MDJNQjM4
+Njk1NDJFMzA5OEVGQjcyOTA0NUMwRURENEIwQFZJMVBSMDUwMk1CMzg2OS5ldXJwcmQwNS5w
+cm9kLm91dGxvb2suY29tIj4NCiAgICAgIDxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlw
+ZSIgY29udGVudD0idGV4dC9odG1sOw0KICAgICAgICBjaGFyc2V0PXdpbmRvd3MtMTI1MiI+
+DQogICAgICA8bWV0YSBuYW1lPSJHZW5lcmF0b3IiIGNvbnRlbnQ9Ik1pY3Jvc29mdCBXb3Jk
+IDE1IChmaWx0ZXJlZA0KICAgICAgICBtZWRpdW0pIj4NCiAgICAgIDxzdHlsZT48IS0tDQov
+KiBGb250IERlZmluaXRpb25zICovDQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJDYW1i
+cmlhIE1hdGgiOw0KCXBhbm9zZS0xOjIgNCA1IDMgNSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseTpDYWxpYnJpOw0KCXBhbm9zZS0xOjIgMTUgNSAyIDIgMiA0IDMg
+MiA0O30NCi8qIFN0eWxlIERlZmluaXRpb25zICovDQpwLk1zb05vcm1hbCwgbGkuTXNvTm9y
+bWFsLCBkaXYuTXNvTm9ybWFsDQoJe21hcmdpbjowaW47DQoJbWFyZ2luLWJvdHRvbTouMDAw
+MXB0Ow0KCWZvbnQtc2l6ZToxMS4wcHQ7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMt
+c2VyaWY7fQ0KYTpsaW5rLCBzcGFuLk1zb0h5cGVybGluaw0KCXttc28tc3R5bGUtcHJpb3Jp
+dHk6OTk7DQoJY29sb3I6IzA1NjNDMTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30N
+CmE6dmlzaXRlZCwgc3Bhbi5Nc29IeXBlcmxpbmtGb2xsb3dlZA0KCXttc28tc3R5bGUtcHJp
+b3JpdHk6OTk7DQoJY29sb3I6Izk1NEY3MjsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5l
+O30NCnNwYW4uRW1haWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLWNvbXBv
+c2U7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNhbnMtc2VyaWY7DQoJY29sb3I6d2luZG93
+dGV4dDt9DQouTXNvQ2hwRGVmYXVsdA0KCXttc28tc3R5bGUtdHlwZTpleHBvcnQtb25seTsN
+Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpAcGFnZSBXb3JkU2VjdGlv
+bjENCgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEu
+MGluO30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9z
+dHlsZT48IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9
+ImVkaXQiIHNwaWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0
+ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFw
+IHY6ZXh0PSJlZGl0IiBkYXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2Vu
+ZGlmXS0tPg0KICAgICAgPGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCiAgICAgICAgPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+V2hlbiB3ZSB0cmFuc2l0aW9uZWQgb3VyIE9wZW5CTUMgYmFz
+ZWxpbmUNCiAgICAgICAgICBmcm9tIDIuNCB0byAyLjY8bzpwPjwvbzpwPjwvcD4NCiAgICAg
+ICAgPHAgY2xhc3M9Ik1zb05vcm1hbCI+d2Ugbm90aWNlZCB0aGF0IHRoZSBkZWZhdWx0IHJv
+b3QgcGFzc3dvcmQNCiAgICAgICAgICBmb3Igb3VyIHBsYXRmb3JtIGhhczxvOnA+PC9vOnA+
+PC9wPg0KICAgICAgICA8cCBjbGFzcz0iTXNvTm9ybWFsIj5jaGFuZ2VkIHRvIJMwcGVuQm1j
+lC6gIFRoaXMgYXBwZWFycyB0byBjb21lDQogICAgICAgICAgZnJvbSB0aGUgZmlsZTo8bzpw
+PjwvbzpwPjwvcD4NCiAgICAgICAgPHAgY2xhc3M9Ik1zb05vcm1hbCI+bWV0YS1waG9zcGhv
+ci9jb25mL2Rpc3Ryby9pbmNsdWRlL3Bob3NwaG9yLWRlZmF1bHRzLmluYzqgDQogICAgICAg
+ICAgPG86cD4NCiAgICAgICAgICA8L286cD48L3A+DQogICAgICAgIDxwIGNsYXNzPSJNc29O
+b3JtYWwiIHN0eWxlPSJ0ZXh0LWluZGVudDouNWluIj48aT51c2VybW9kIC1wDQogICAgICAg
+ICAgICAnXCQxXCRVR01xeXFkR1wkRlppeWxWRm1SUmZsOVowVWU4RzdlLycgcm9vdDs8bzpw
+PjwvbzpwPjwvaT48L3A+DQogICAgICAgIDxwIGNsYXNzPSJNc29Ob3JtYWwiPkFuZCB0aGlz
+IHBhc3N3b3JkIHNldHRpbmcgb3ZlcnJpZGVzIHRoZQ0KICAgICAgICAgIHBhc3N3b3JkIHdl
+IGhhZCBjaG9zZW48bzpwPjwvbzpwPjwvcD4NCiAgICAgICAgPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+aW4gb3VyIG1hY2hpbmWScyBsb2NhbC5jb25mLnNhbXBsZS6gIKCgV2UNCiAgICAgICAg
+ICBleHBlcmltZW50ZWQgYnV0IGNvdWxkIG5vdDxvOnA+PC9vOnA+PC9wPg0KICAgICAgICA8
+cCBjbGFzcz0iTXNvTm9ybWFsIj5maW5kIGEgd2F5IHRvIHByZXZlbnQgdGhpcyBvdmVycmlk
+ZQ0KICAgICAgICAgIGJlaGF2aW9yLjxvOnA+PC9vOnA+PC9wPg0KICAgICAgICA8cCBjbGFz
+cz0iTXNvTm9ybWFsIj48bzpwPqA8L286cD48L3A+DQogICAgICAgIDxwIGNsYXNzPSJNc29O
+b3JtYWwiPklzIHRoaXMgdGhlIGludGVudCB3aXRoIHRoaXMgY2hhbmdlIGluIDIuNg0KICAg
+ICAgICAgIHRoYXQgYWxsIHBsYXRmb3JtcyBieSBkZWZhdWx0PG86cD48L286cD48L3A+DQog
+ICAgICAgIDxwIGNsYXNzPSJNc29Ob3JtYWwiPmhhdmUgcm9vdCBwYXNzd29yZCBvZiCTMHBl
+bkJtY5Q/oCBJcyB0aGVyZQ0KICAgICAgICAgIGEgd2F5IHRvIGhhdmUgYSBwbGF0Zm9ybTxv
+OnA+PC9vOnA+PC9wPg0KICAgICAgICA8cCBjbGFzcz0iTXNvTm9ybWFsIj5zcGVjaWZpYyBy
+b290IHBhc3N3b3JkIHdpdGhvdXQgY2hhbmdpbmcNCiAgICAgICAgICCTcGhvc3Bob3ItZGVm
+YXVsdHMuaW5jlD88bzpwPjwvbzpwPjwvcD4NCiAgICAgICAgPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PG86cD6gPC9vOnA+PC9wPg0KICAgICAgICA8cCBjbGFzcz0iTXNvTm9ybWFsIj5SZWdh
+cmRzLDxvOnA+PC9vOnA+PC9wPg0KICAgICAgICA8cCBjbGFzcz0iTXNvTm9ybWFsIj5EYXZl
+PG86cD48L286cD48L3A+DQogICAgICAgIDxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+oDwv
+bzpwPjwvcD4NCiAgICAgIDwvZGl2Pg0KICAgIDwvYmxvY2txdW90ZT4NCiAgPC9ib2R5Pg0K
+PC9odG1sPg0K
+--------------C49C1E4DABE89BB26723B86E--
