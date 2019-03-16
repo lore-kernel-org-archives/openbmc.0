@@ -1,53 +1,50 @@
-Return-Path: <venture@google.com>
+Return-Path: <prvs=971b26aa4=P.K.Lee@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::429; helo=mail-pf1-x429.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=971b26aa4=p.k.lee@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="SbGtBhdF"; 
- dkim-atps=neutral
-Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
- [IPv6:2607:f8b0:4864:20::429])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Lbsf6yLTzDqSC
- for <openbmc@lists.ozlabs.org>; Sat, 16 Mar 2019 06:55:34 +1100 (AEDT)
-Received: by mail-pf1-x429.google.com with SMTP id 8so3644297pfr.4
- for <openbmc@lists.ozlabs.org>; Fri, 15 Mar 2019 12:55:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=zbNUPEUqIZSKK2frRQ1iHCc4BIGUBkg3EIogKHQ7rUo=;
- b=SbGtBhdFCdQfotSNKX34nVLebSma6ud6Rl1jryHJmayfrU+FGEL+HhirLyw7Lr9DYP
- MQJp2+ajbHVUk5RnZULKDftqafW6gag9l5mKg5nyN6BokDbU8NpLM2IznPLw/kB1KHGX
- 2T36M0DTUgd0oRu/aIwcyby9fLkaDnVY1nDKG08X9zR32+BcpsV5Uwj8ojwVxcYLFFXH
- 3YYZJINiH+kpStlKuroZLXgt1FxXlK5g8tEwqyZSOAVYVD4XgJJWnuIpqLUiElG0mEIV
- onvDpUlOgrMLVYeeB0qi0VoLORFanfXaziXTjBjxixELdQfgHKw+NmheOutKoonSO7UZ
- BU2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=zbNUPEUqIZSKK2frRQ1iHCc4BIGUBkg3EIogKHQ7rUo=;
- b=XTu1MukKe3Alz7NXiOdzk06F9i7JuYOoDP7Z1hA92mHjCD7gS3H7HfJqq2jYtIGGno
- DSwCohl1TwqrBvUTT9q4mDy0dPBY1xnjZ6EWm1dyPfwMrzB1I6VBNSzTt2jgoKciSkCd
- nD2wK3EAY+1gMUskTvdxS+PrC6OUL9WUJ3SOcyUQsGoccl/tv5fNMEJwBl5Hufpw3aAC
- AN8GNP5UGd4SrLXGUXi/6VVdBhJk66NylL7HZM8SdX17MGAEmEsY8cEzoC1WAkADdwVV
- rU3sZ8JX0o2zkWN7AtlzIJBl95r0OFnLe5hKMbwdYVPlhIOIRnM3QAhRMOYjwz55/zhK
- TV7A==
-X-Gm-Message-State: APjAAAV96WFaKJMs9NTppnqHitcx9XrFIyDVw8IpZGi/bB7SGjrGWez9
- Iia467XzWb+u0hVKzLKG+sDz4om5WIM1QC2RjSuwHA==
-X-Google-Smtp-Source: APXvYqy4VYG7mDJSdpJK/Q3I+NuX8TBYnVv+ER1TBOixiO7rNkM7UUkZ2yp3/GT7EfdzEHf0CtPe9jHqHHilDK6/Cr0=
-X-Received: by 2002:a17:902:1486:: with SMTP id k6mr6008699pla.3.1552679730748; 
- Fri, 15 Mar 2019 12:55:30 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44M2jZ2HgKzDqLX
+ for <openbmc@lists.ozlabs.org>; Sun, 17 Mar 2019 00:04:58 +1100 (AEDT)
+Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
+ by mx02.quantatw.com with ESMTP; 16 Mar 2019 21:04:55 +0800
+Received: from mailbx07.quanta.corp (10.243.91.102) by mailbx08.quanta.corp
+ (10.243.91.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Sat, 16 Mar
+ 2019 21:04:54 +0800
+Received: from mailbx07.quanta.corp ([fe80::9d6:a261:b1d9:59bd]) by
+ mailbx07.quanta.corp ([fe80::9d6:a261:b1d9:59bd%4]) with mapi id
+ 15.01.1713.004; Sat, 16 Mar 2019 21:04:54 +0800
+From: =?utf-8?B?UC4gSy4gTGVlICjmnY7mn4/lr6wp?= <P.K.Lee@quantatw.com>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: To restrict IPMI commands
+Thread-Topic: To restrict IPMI commands
+Thread-Index: AQHUylskvUTKJWIDpEOZnUXqsK3TfKXruSqAgCIdtIA=
+Date: Sat, 16 Mar 2019 13:04:53 +0000
+Message-ID: <9674FC29-B121-444E-A123-E99A31181766@quantatw.com>
+References: <939F2F2B-6C7E-4EDE-A755-CFFADAD6F1D3@quantatw.com>
+ <20190222200545.GA44612@mauery.jf.intel.com>
+In-Reply-To: <20190222200545.GA44612@mauery.jf.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24490.004
+x-tm-as-result: No--8.019000-0.000000-31
+x-tm-as-matchedid: 140026-150567-701625-704425-700685-700274-700994-707163-7
+ 00023-105250-705508-703788-700756-707451-702358-702527-709584-701914-139010
+ -700648-700075-702050-709908-704421-708797-105640-139705-704341-703674-8991
+ 68-190077-148004-148133-29106-42000-42003-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <46EED95112D3E540B247987882F5DC7A@quantatw.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Fri, 15 Mar 2019 12:55:19 -0700
-Message-ID: <CAO=notzWU-9gr99FoxL=9XbewvwsKTY8fMTLeAjfLGRsH+PFqQ@mail.gmail.com>
-Subject: Proposal for automated documentation
-To: Vijay Khemka <vijaykhemka@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,8 +56,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 Mar 2019 19:55:36 -0000
+X-List-Received-Date: Sat, 16 Mar 2019 13:05:07 -0000
 
-https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/19286
-
-PTAL
+SGkgVmVybm9uLA0KDQpUaGFuayB5b3UgZm9yIHByb3ZpZGluZyBhIG5ldyBmaWx0ZXJpbmcgbWVj
+aGFuaXNtIHRoYXQgbG9va3MgdmVyeSBmbGV4aWJsZSwgYnV0IEkgaGF2ZSBhIHF1ZXN0aW9uLg0K
+SSBoYXZlIHRyaWVkIHRoZSBmaWx0ZXIgdGhhdCBhbGxvd3MgZmlsdGVyaW5nIG9mIGNvbW1hbmRz
+IGJ5IHdoaXRlbGlzdEZpbHRlciwgYnV0IHRoZSBjaGFubmVsIG9mIHJlcXVlc3QgbXVzdCBiZSBj
+aGFubmVsU3lzdGVtSWZhYyB0byBjaGVjayB0aGUgY29udGVudHMgb2YgdGhlIHdoaXRlbGlzdC4N
+CldoYXQgcHV6emxlcyBtZSBpcyB3aHkgY2hhbm5lbFN5c3RlbUlmYWMgaXMgaW4gdGhlIGNvbnN0
+cmFpbnQ/IFRoaXMgY29uc3RyYWludCB3aWxsIGNhdXNlIHRoZSB3aGl0ZWxpc3QgdG8gZmFpbCB3
+aGVuIHRoZSB1c2VyIGNhbGxzIHRoZSBJUE1JIGNvbW1hbmQgdmlhIHRoZSBMQU4uDQpJZiB0aGUg
+dXNlciB3YW50cyB0byB1c2UgdGhlIHdoaXRlbGlzdCB2aXMgdGhlIExBTiwgaXMgdGhlcmUgYSBi
+ZXR0ZXIgd2F5IGV4Y2VwdCBmb3IgcmVtb3ZpbmcgdGhlIGNoYW5uZWxTeXN0ZW1JZmFjIHJlc3Ry
+aWN0aW9uPw0KRG8gSSBuZWVkIHRvIGNyZWF0ZSBhbm90aGVyIHdoaXRlbGlzdCBmaWx0ZXIgZm9y
+IHRoZSBMQU4/DQoNClJlZ2FyZHMsDQpQSw0KDQo+IE9uIEZlYiAyMywgMjAxOSwgYXQgMDQ6MDUs
+IFZlcm5vbiBNYXVlcnkgPHZlcm5vbi5tYXVlcnlAbGludXguaW50ZWwuY29tPiB3cm90ZToNCj4g
+DQo+IE9uIDIyLUZlYi0yMDE5IDAzOjAzIEFNLCBQLiBLLiBMZWUgKOadjuafj+WvrCkgd3JvdGU6
+DQo+PiBIaSwNCj4+IA0KPj4gRG9lcyBhbnlvbmUga25vdyBob3cgdG8gcmVzdHJpY3QgdGhlIElQ
+TUkgY29tbWFuZCBleGVjdXRpb24gdmlhIG91dC1vZi1iYW5kPw0KPj4gDQo+PiBJIGtub3cgdGhh
+dCB0aGUgSVBNSSBjb21tYW5kcyB2aWEgaW4tYmFuZCBjYW4gdXNlIHRoZSB3aGl0ZWxpc3QgbWVj
+aGFuaXNtIHRvIHJlc3RyaWN0IHdoZXRoZXIgdGhlIGNvbW1hbmRzIGNhbiBhY2Nlc3MgdGhlIEJN
+QywgYnV0IEkgY2FuJ3QgdXNlIHRoaXMgZm9yIHRoZSBvdXQtb2YtYmFuZC4NCj4+IA0KPj4gSWYg
+dGhlcmUgaXMgY3VycmVudGx5IG5vIHJlc3RyaWN0aW9uIG1lY2hhbmlzbSBmb3IgdGhlIG91dC1v
+Zi1iYW5kLCBJIHdpbGwgdHJ5IHRvIGFkZCB0aGUgd2hpdGVsaXN0IGZ1bmN0aW9uIGZvciBpdCBq
+dXN0IGxpa2UgdGhlIGluLWJhbmQuDQo+IA0KPiBUaGVyZSBpcyBhIG1lY2hhbmlzbSBpbiB0aGUg
+d29ya3MgZm9yIHRoaXMgYWxyZWFkeS4gSXQgaXMgYSBnZW5lcmljIGZpbHRlciBwcm92aWRlciB0
+aGF0IGFsbG93cyBmaWx0ZXJpbmcgb2YgY29tbWFuZHMgYmFzZWQgb24gYW55IGNyaXRlcmlhLiBT
+ZWUgaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1wcm9qZWN0Lnh5ei9jL29wZW5ibWMvcGhvc3Bob3It
+aG9zdC1pcG1pZC8rLzEzODk2IGZvciB0aGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbi4NCj4gDQo+
+IC0tVmVybm9uDQoNCg==
