@@ -9,17 +9,22 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44NCGv51fkzDqHV
- for <openbmc@lists.ozlabs.org>; Mon, 18 Mar 2019 21:34:31 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44NFF66cYVzDqHV
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Mar 2019 23:03:04 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 18 Mar 2019 06:35:04 -0400
+Date: Mon, 18 Mar 2019 08:03:36 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: openbmc@lists.ozlabs.org
-Subject: API authentication
-Message-ID: <20190318103504.zcfgdmgqfhi63jte@thinkpad>
+To: Patrick Venture <venture@google.com>
+Cc: zshelle <zshelle@linux.vnet.ibm.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: requirements for new repos
+Message-ID: <20190318120336.pbbpwqygfo26u6i7@thinkpad>
+References: <c07297eeb5a0a7415a250a1a9e77e5e2@linux.vnet.ibm.com>
+ <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
+In-Reply-To: <CAO=notyvofZyhDJ-uZ1euNL=tXNHckNjNPtfVQuq5GR6WgEfKA@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -31,26 +36,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Mar 2019 10:34:32 -0000
+X-List-Received-Date: Mon, 18 Mar 2019 12:03:08 -0000
 
-I am looking for ideas on how to implement a mechanism to restrict access to
-specific methods of a service/API (e.g. Redfish).
+On Thu, Mar 07, 2019 at 11:24:34AM -0800, Patrick Venture wrote:
+>On Thu, Mar 7, 2019 at 8:43 AM zshelle <zshelle@linux.vnet.ibm.com> wrote:
+>>
+>> Besides the license and maintainers files, are there any other general
+>> requirements for each repo?
+>
+>You'll want a bootstrap.sh script for the CI to hit.  This'll run our
+>normal validation.  
 
-This would be orthogonal to role-based authorization - e.g. the authorization
-would be provided by someone other than the system administrator - e.g. the
-system manufacturer.
+William added support to CI for Meson - I'd suggest having a look at
+that in place of autotools.  Here is a sample openbmc project using
+Meson:
 
-I think I want OAuth for this with these definitions:
-
-resource owner: system manufacturer
-client: any user of the API (could be application specific but not required)
-resource: data flowing over the API being authorized
-
-Could the system manufacturer authorize clients on non-internet connected BMCs?
-
-Is there a better way to go about this?
-
-Does anyone have any experience with something like this?  I would love to be
-pointed to further reading, code, or just your thoughts in general.
-
-thx - Brad
+https://gerrit.openbmc-project.xyz/#/c/openbmc/stdplus/+/17853/
