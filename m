@@ -9,14 +9,14 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44NB2j6tTyzDqJP
- for <openbmc@lists.ozlabs.org>; Mon, 18 Mar 2019 20:38:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44NCGv51fkzDqHV
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Mar 2019 21:34:31 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 18 Mar 2019 05:39:23 -0400
+Date: Mon, 18 Mar 2019 06:35:04 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: openbmc@lists.ozlabs.org
-Subject: Pressure (altitude) sensors
-Message-ID: <20190318093923.2fget5dy3msm5vxd@thinkpad>
+Subject: API authentication
+Message-ID: <20190318103504.zcfgdmgqfhi63jte@thinkpad>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
@@ -31,10 +31,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 Mar 2019 09:38:54 -0000
+X-List-Received-Date: Mon, 18 Mar 2019 10:34:32 -0000
 
-Does anyone have any experience with using pressure/altitude sensors in fan
-control algorithms?
+I am looking for ideas on how to implement a mechanism to restrict access to
+specific methods of a service/API (e.g. Redfish).
 
-Today we have the hwmon <-> dbus bridge for temps and pwm - one idea here is to
-have an iio <-> dbus (Sensor.Value) bridge.  Are there other ideas out there?
+This would be orthogonal to role-based authorization - e.g. the authorization
+would be provided by someone other than the system administrator - e.g. the
+system manufacturer.
+
+I think I want OAuth for this with these definitions:
+
+resource owner: system manufacturer
+client: any user of the API (could be application specific but not required)
+resource: data flowing over the API being authorized
+
+Could the system manufacturer authorize clients on non-internet connected BMCs?
+
+Is there a better way to go about this?
+
+Does anyone have any experience with something like this?  I would love to be
+pointed to further reading, code, or just your thoughts in general.
+
+thx - Brad
