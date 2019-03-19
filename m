@@ -1,47 +1,30 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <dthompson@mellanox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44P1Jw1TQ0zDqHq
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 05:09:03 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Mar 2019 11:09:00 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,245,1549958400"; d="scan'208";a="124013186"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
- ([10.7.153.147])
- by orsmga007.jf.intel.com with ESMTP; 19 Mar 2019 11:09:00 -0700
-Subject: Re: Does obmc-ikvm work with bmcweb?
-To: Lei YU <mine260309@gmail.com>
-Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
- <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
- <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
- <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
- <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
-Date: Tue, 19 Mar 2019 11:09:00 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
-MIME-Version: 1.0
-In-Reply-To: <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ spf=pass (mailfrom) smtp.mailfrom=mellanox.com
+ (client-ip=193.47.165.129; helo=mellanox.co.il;
+ envelope-from=dthompson@mellanox.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=mellanox.com
+Received: from mellanox.co.il (mail-il-dmz.mellanox.com [193.47.165.129])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44P1Qk0f8GzDqHq
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 05:13:55 +1100 (AEDT)
+Received: from Internal Mail-Server by MTLPINE1 (envelope-from
+ dthompson@mellanox.com)
+ with ESMTPS (AES256-SHA encrypted); 19 Mar 2019 20:13:50 +0200
+Received: from farm-1.mtbu.labs.mlnx (farm-1.mtbu.labs.mlnx [10.15.2.31])
+ by mtbu-labmailer.labs.mlnx (8.14.4/8.14.4) with ESMTP id x2JIDmAo009063;
+ Tue, 19 Mar 2019 14:13:48 -0400
+Received: (from dthompson@localhost)
+ by farm-1.mtbu.labs.mlnx (8.14.7/8.13.8/Submit) id x2JIDmtQ029173;
+ Tue, 19 Mar 2019 14:13:48 -0400
+From: David Thompson <dthompson@mellanox.com>
+To: andrew@aj.id.au.joel@jms.id.au.dthompson@mellanox.com
+Cc: openbmc@lists.ozlabs.org, David Thompson <dthompson@mellanox.com>
+Subject: [Patch U-Boot v2] aspeed/ast-scu.c: add ast_get_m_pll_clk() for
+ AST_SOC_G5
+Date: Tue, 19 Mar 2019 14:13:42 -0400
+Message-Id: <e78f778a53ac5a2bf13d463e12de0d6fd08f4138.1553018953.git.dthompson@mellanox.com>
+X-Mailer: git-send-email 2.1.2
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,44 +36,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2019 18:09:05 -0000
+X-List-Received-Date: Tue, 19 Mar 2019 18:14:07 -0000
 
-Hi Lei,
+This code change adds the AST_SOC_G5 version of ast_get_m_pll_clk(),
+which is relevant to AST1520, AST2500, and AST3200 devices.
 
-On 3/19/2019 2:22 AM, Lei YU wrote:
-> Hi Jae,
-> 
-> Thanks for sharing the detailed information.
-> I managed to do a build on Romulus and see the KVM partially working:
-> * I can see the video output in the KVM page;
-> * I am unable to do any operation, e.g. pressing a key does not seem to be
->    sent to host
+This change properly enables the AST_SOC_G5 logic in print_cpuinfo(),
+which can be turned on by defining CONFIG_DISPLAY_CPUINFO.
 
-Check if there are /dev/hidg0 and /dev/hidg1. If not, check kernel
-configs again.
-Also, check 'start-ipkvm.service' file whether that launches obmc-ikvm
-using this options:
-ExecStart=/usr/bin/env obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p 
-/dev/hidg1
+Signed-off-by: David Thompson <dthompson@mellanox.com>
+Reviewed-by: Shravan Ramani <sramani@mellanox.com>
+---
+v2: Move info in commit msg to code comments, re-word commit msg
+---
+ arch/arm/include/asm/arch-aspeed/ast_scu.h |  1 +
+ arch/arm/mach-aspeed/ast-scu.c             | 42 ++++++++++++++++++++++++++++++
+ 2 files changed, 43 insertions(+)
 
-> * When I browse to another page and browse back to KVM page, it displays a
->    small black block, instead of showing correct KVM view.
-
-Try this patch:
-https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
-
-Cheers,
-Jae
-
-> Did you meet such issue before and do you happen to know how to fix this?
-> 
-> Thanks a lot!
-> 
-> On Tue, Mar 19, 2019 at 1:33 AM Jae Hyun Yoo
-> <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> Attaching a patch file for back porting of Eddie's aspeed-video driver.
->> Diff in below doesn't include the newly created file so I'm attaching it
->> as a patch.
->>
->> -Jae
+diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+index d248416..dcbc673 100644
+--- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
++++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
+@@ -37,6 +37,7 @@ extern void ast_scu_get_who_init_dram(void);
+ 
+ extern u32 ast_get_clk_source(void);
+ extern u32 ast_get_h_pll_clk(void);
++extern u32 ast_get_m_pll_clk(void);
+ extern u32 ast_get_ahbclk(void);
+ 
+ extern u32 ast_scu_get_vga_memsize(void);
+diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
+index 0cc0d67..12de9b8 100644
+--- a/arch/arm/mach-aspeed/ast-scu.c
++++ b/arch/arm/mach-aspeed/ast-scu.c
+@@ -72,6 +72,12 @@ struct soc_id {
+ 
+ #define SOC_ID(str, rev) { .name = str, .rev_id = rev, }
+ 
++/*
++ * The values for the silicon revision IDs shown below are from
++ * the ASPEED Technology document "AST2500/AST2520 Integrated
++ * Remote Management Processor A2 Datasheet", v1.6, pp 373-374.
++ */
++
+ static struct soc_id soc_map_table[] = {
+ 	SOC_ID("AST1100/AST2050-A0", 0x00000200),
+ 	SOC_ID("AST1100/AST2050-A1", 0x00000201),
+@@ -100,6 +106,10 @@ static struct soc_id soc_map_table[] = {
+ 	SOC_ID("AST2510-A1", 0x04010103),
+ 	SOC_ID("AST2520-A1", 0x04010203),
+ 	SOC_ID("AST2530-A1", 0x04010403),
++	SOC_ID("AST2500-A2", 0x04030303),
++	SOC_ID("AST2510-A2", 0x04030103),
++	SOC_ID("AST2520-A2", 0x04030203),
++	SOC_ID("AST2530-A2", 0x04030403),
+ };
+ 
+ void ast_scu_init_eth(u8 num)
+@@ -235,6 +245,38 @@ u32 ast_get_h_pll_clk(void)
+ 	return clk;
+ }
+ 
++/*
++ * The source code for ast_get_m_pll_clk() is adapted from
++ * the file "arch/arm/mach-aspeed/ast-bmc-scu.c" contained
++ * in the bootloader portion of the ASPEED AST2500 SDK, v4.05
++ */
++
++u32 ast_get_m_pll_clk(void)
++{
++	u32 clk = 0;
++	u32 m_pll_set = ast_scu_read(AST_SCU_M_PLL);
++
++	if (m_pll_set & SCU_M_PLL_OFF)
++		return 0;
++
++	/* Programming */
++	clk = ast_get_clk_source();
++	if (m_pll_set & SCU_M_PLL_BYPASS) {
++		return clk;
++	} else {
++		/* P = SCU20[13:18]
++		 * M = SCU20[5:12]
++		 * N = SCU20[0:4]
++		 * mpll = 24MHz * [(M+1) /(N+1)] / (P+1)
++		 */
++		clk = ((clk * (SCU_M_PLL_GET_MNUM(m_pll_set) + 1)) /
++			   (SCU_M_PLL_GET_NNUM(m_pll_set) + 1)) /
++			(SCU_M_PLL_GET_PDNUM(m_pll_set) + 1);
++	}
++	debug("m_pll = %d\n", clk);
++	return clk;
++}
++
+ u32 ast_get_ahbclk(void)
+ {
+ 	unsigned int axi_div, ahb_div, hpll;
+-- 
+2.1.2
