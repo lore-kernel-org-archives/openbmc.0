@@ -1,74 +1,52 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::834; helo=mail-qt1-x834.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XDC1cyAz"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="m/iGzFni"; dkim-atps=neutral
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="F79jzJST"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
+ [IPv6:2607:f8b0:4864:20::834])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44NYrV2JPPzDqDG
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 11:31:21 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 705E13729;
- Mon, 18 Mar 2019 20:31:18 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 18 Mar 2019 20:31:18 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=dCA6DCfIVUEZqYEUV2BVgOhBZtsxZsi
- erL4lkWnB9h4=; b=XDC1cyAzgQsZkTGBBgNYmjwrxIVwlOi7d2DfFPAmSClzeiX
- /mRo+OiSzQRxqh1k6K0RuHvgEEDaMLuiv7lv38mKFTHWEyA0kkds8r+9NWy181ul
- 6YeBeU84SZ3+hUk+gm51MBC1/2EtpqrHKp3D2psxIZRQ2win4rLO3Z/p2s+4D1Yh
- dySlxJU17Dv93N7hT59G5GnGg0ntb5w6y/fcEca/0mC9AJ+4XZCOUqDGPk3x8HLE
- 1iaVCrtxs1CAhnqfWh3kRTUb1NqjNb2cyTt3V0m37071gY/4Il20yjqxgIKs/qoR
- ExEjqDRRkwkwCrqv+UXyBcTTUpHJjUSMiNg7XWw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=dCA6DC
- fIVUEZqYEUV2BVgOhBZtsxZsierL4lkWnB9h4=; b=m/iGzFniizCFA4497CmHQv
- jBDE12oaT2+Tl65O50T4OdzBnN16t3WRNd5fQ92RxGzL04oFtAy0JFQHTGvsAGxs
- 6h4TLGeHGVfU61mLo3d1yLGvV/77YnF/xUFDI7AvqwvGIObYIappBpWl4ivhq89n
- wAugntH0RHeXnXyxD/16Puaxv4sNp/oz35yceW7zVq2I9Q2RZDFrY8cUH+KN4cfM
- EkPxjs/YaCTfeBL9ciNAV81500CspIk2GK275Br9jWTbpfg3YjGUvK6Qx+fPzKgF
- Vao9cf0Mrbf/u5wEsA6kEmCVpEIeZe7E6JgQrFxVs5qNm9gyudMVddLiuzYHLMQw
- ==
-X-ME-Sender: <xms:VTiQXDZOlB70L08GJ8iowyfuqO2HaLv9W21k56rU6K8MaTyOYvl5Ig>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedutddrieefgddugecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
- hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
- ufhiiigvpedt
-X-ME-Proxy: <xmx:VTiQXGrGVtKVH_IfPyVoy5MDbwoQ0fTY65xdgx5cVbITCfuJSPS5-g>
- <xmx:VTiQXA-kmBzIqDt61sbJzY3OsqogvG330VB0S7128IE2fj5_UombXw>
- <xmx:VTiQXN9dNp8oCw0Z2l-ml8aQc6yl5VJuyfvMThRkXuQF2uLdqAFCPw>
- <xmx:VjiQXFeqIf-i250mTBQyO4uAxInbXcJ03tdCp7ZRO264KoFpoR0Jeg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 028027C651; Mon, 18 Mar 2019 20:31:17 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.5-976-g376b1f3-fmstable-20190314v3
-Mime-Version: 1.0
-X-Me-Personality: 52947553
-Message-Id: <0160aa1e-f52b-46e8-b71b-086a1dc93f0c@www.fastmail.com>
-In-Reply-To: <b0566f5d7195c4f2dba0343e02ca96635c36a7c2.1550259966.git.dthompson@mellanox.com>
-References: <b0566f5d7195c4f2dba0343e02ca96635c36a7c2.1550259966.git.dthompson@mellanox.com>
-Date: Mon, 18 Mar 2019 20:31:16 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "David Thompson" <dthompson@mellanox.com>, "Joel Stanley" <joel@jms.id.au>
-Cc: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_U-Boot_v1]_aspeed/ast-scu.c:_add_ast=5Fget=5Fm=5Fpl?=
- =?UTF-8?Q?l=5Fclk()_support?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44NdC027JYzDqH6
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 14:02:32 +1100 (AEDT)
+Received: by mail-qt1-x834.google.com with SMTP id t28so20546856qte.6
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Mar 2019 20:02:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=T7KfzykoZcWsgvMoVucJw0rhAOjWIvsfxUdaYnH0oQI=;
+ b=F79jzJSTyxG4sUQuPaC7CbXu/IlQ0qw70/x6/93xuBmixctgGeNDu46QDF9b7FxD94
+ NFyp3OThI/0efjhDrUYSIQ104SRHJX7OWGakxtbKIHole1PM91ydC59B59n+figt8wV7
+ zZI9hNek4iWfL1yNxTXOv8aOrIjgl37si5eR+LCuukz/r/jWAqkFqofVHm9AXRdlE2PG
+ RT7Tx2J4rlhaPFgp46ZXqtRn1T5WpE48UnUzpdmUAkUMnBXJ1/Yu8MB7NSkyqv+aqkMT
+ PBcNCO+3LhFvSzhewju+hXjX+8aa38Z1+aEr2mPydP4LtmZt0SM/ssOG6jalB9FGBDu9
+ uCcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=T7KfzykoZcWsgvMoVucJw0rhAOjWIvsfxUdaYnH0oQI=;
+ b=leJU9dfBwV2DsBSHIbK6KGpqRT8tzG9EzYJ0ji0VUsFbtqz682NUbfT1kBLTZd7IOG
+ 3XRVMBS1AE2qmTlOGB3sKwbF6JCjnC6UhBjdAh0JIhQYsgoLMBP7O6IuQXYvOmpWzaMD
+ nEQ6L19AqW1H4r4QyO7eOEzJE3uNcyxJ61wye6EXjYtoxwSVBnqay9B64fcc+jpakbEE
+ VRYxR10Ip/mkr2vwV5wPO5Xef+8FwYQIFuA2XqnohYSWF+8lmTpzH607vMjBXS+aOCqv
+ UZSD9AOZaRls81nbIvEWubkZ4kIS1xo6hBm8omkERAYh9al5UsGXWQ4ccFuxFxpVPbMJ
+ Ur5A==
+X-Gm-Message-State: APjAAAUmQzQ1twEXWRqKWrm8ojp3bcH6K0KhXHjtKSOJiGTLYmwDEtt5
+ 1bAhF0DAMBOHhDEZflncrnmOuOLxgUmlabY+DdvJVub6
+X-Google-Smtp-Source: APXvYqysrT6Uc3Hzsx7LwANTKLF/tzOTeOKivYaLRoYNK7PxgBw9V0MZJC70ZXHGwqlIOARV5K9oUzC52nAiQDs8rtA=
+X-Received: by 2002:aed:2232:: with SMTP id n47mr151619qtc.63.1552964548599;
+ Mon, 18 Mar 2019 20:02:28 -0700 (PDT)
+MIME-Version: 1.0
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Tue, 19 Mar 2019 11:02:17 +0800
+Message-ID: <CAG9c7cD-x3sAO_F+=2Qi-NKOoOmLp5P-i_vnzSgnuvr047xCUw@mail.gmail.com>
+Subject: Phosphor Hwmon not work
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000044a4e0058469bc58"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,104 +58,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2019 00:31:23 -0000
+X-List-Received-Date: Tue, 19 Mar 2019 03:02:38 -0000
 
-Hi David,
+--00000000000044a4e0058469bc58
+Content-Type: text/plain; charset="UTF-8"
 
-Apologies for the long turn-around time.
+Hi All,
 
-On Sat, 16 Feb 2019, at 06:56, David Thompson wrote:
-> The source code for ast_get_m_pll_clk() is adapted from
-> the file "arch/arm/mach-aspeed/ast-bmc-scu.c" contained
-> in the bootloader portion of the ASPEED AST2500 SDK.
-> 
-> The values for "A2" silicon revision IDs are from the
-> document "AST2500/AST2520 Integrated Remote Management
-> Processor A2 Datasheet", version 1.6, pages 373-374.
+We found the 'Phosphor Hwmon Poller' would terminate with the error message.
 
-This tells us the what but doesn't tell us the why. A lot of what's
-in the commit message would be more useful as comments in the
-code in the appropriate places. The only reference I've found in
-the source is in arch/arm/mach-aspeed/cpuinfo.c which is only
-required if CONFIG_DISPLAY_CPUINFO is enabled.  Is the
-motivation for the patch that you want to enable
-CONFIG_DISPLAY_CPUINFO, or something else?
+Mar 15 09:45:04  systemd[1]: Started Phosphor Hwmon Poller.
+Mar 15 09:45:06  phosphor-hwmon-readd[1137]: terminate called after
+throwing an instance of 'std::filesystem::__cxx11::filesystem_error'
+Mar 15 09:45:06  phosphor-hwmon-readd[1137]:   what():  filesystem error:
+recursive directory iterator cannot open directory: No such file or
+directory [/ahb/a
+pb/i2c@1e78a000/i2c-bus@1c0/tmp421@4f]
+Mar 15 09:45:07  systemd[1]:
+[[0;1;39m[[0;1;31m[[0;1;39mxyz.openbmc_project.Hwmon@
+-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Main process exited,
+code=killed, status=6/ABRT[[0m
+Mar 15 09:45:07  systemd[1]:
+[[0;1;39m[[0;1;31m[[0;1;39mxyz.openbmc_project.Hwmon@
+-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Failed with result
+'s
+ignal'.[[0m
+Mar 15 09:45:08  systemd[1]: xyz.openbmc_project.Hwmon@
+-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Service
+RestartSec=1s expired, scheduling restar
+t.
+Mar 15 09:45:08  systemd[1]: xyz.openbmc_project.Hwmon@
+-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Scheduled restart
+job, restart counter is at 2.
+Mar 15 09:45:10  systemd[1]: Stopped Phosphor Hwmon Poller.
 
-> 
-> Signed-off-by: David Thompson <dthompson@mellanox.com>
-> Reviewed-by: Shravan Ramani <sramani@mellanox.com>
-> ---
->  arch/arm/include/asm/arch-aspeed/ast_scu.h |  1 +
->  arch/arm/mach-aspeed/ast-scu.c             | 30 ++++++++++++++++++++++++++++++
->  2 files changed, 31 insertions(+)
-> 
-> diff --git a/arch/arm/include/asm/arch-aspeed/ast_scu.h 
-> b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> index d248416..dcbc673 100644
-> --- a/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> +++ b/arch/arm/include/asm/arch-aspeed/ast_scu.h
-> @@ -37,6 +37,7 @@ extern void ast_scu_get_who_init_dram(void);
->  
->  extern u32 ast_get_clk_source(void);
->  extern u32 ast_get_h_pll_clk(void);
-> +extern u32 ast_get_m_pll_clk(void);
->  extern u32 ast_get_ahbclk(void);
->  
->  extern u32 ast_scu_get_vga_memsize(void);
-> diff --git a/arch/arm/mach-aspeed/ast-scu.c b/arch/arm/mach-aspeed/ast-scu.c
-> index 0cc0d67..6184ff4 100644
-> --- a/arch/arm/mach-aspeed/ast-scu.c
-> +++ b/arch/arm/mach-aspeed/ast-scu.c
-> @@ -100,6 +100,10 @@ static struct soc_id soc_map_table[] = {
->  	SOC_ID("AST2510-A1", 0x04010103),
->  	SOC_ID("AST2520-A1", 0x04010203),
->  	SOC_ID("AST2530-A1", 0x04010403),
-> +	SOC_ID("AST2500-A2", 0x04030303),
-> +	SOC_ID("AST2510-A2", 0x04030103),
-> +	SOC_ID("AST2520-A2", 0x04030203),
-> +	SOC_ID("AST2530-A2", 0x04030403),
->  };
->  
->  void ast_scu_init_eth(u8 num)
-> @@ -235,6 +239,32 @@ u32 ast_get_h_pll_clk(void)
->  	return clk;
->  }
->  
-> +u32 ast_get_m_pll_clk(void)
-> +{
-> +	u32 clk = 0;
-> +	u32 m_pll_set = ast_scu_read(AST_SCU_M_PLL);
-> +
-> +	if (m_pll_set & SCU_M_PLL_OFF)
-> +		return 0;
-> +
-> +	/* Programming */
-> +	clk = ast_get_clk_source();
-> +	if (m_pll_set & SCU_M_PLL_BYPASS) {
-> +		return clk;
-> +	} else {
-> +		/* P = SCU20[13:18]
-> +		 * M = SCU20[5:12]
-> +		 * N = SCU20[0:4]
-> +		 * mpll = 24MHz * [(M+1) /(N+1)] / (P+1)
-> +		 */
-> +		clk = ((clk * (SCU_M_PLL_GET_MNUM(m_pll_set) + 1)) /
-> +			   (SCU_M_PLL_GET_NNUM(m_pll_set) + 1)) /
-> +			(SCU_M_PLL_GET_PDNUM(m_pll_set) + 1);
-> +	}
-> +	debug("m_pll = %d\n", clk);
-> +	return clk;
-> +}
-> +
+We confirmed it's caused by the latest commit of phosphor-hwmon repository
 
-The implementation itself looks correct to me.
+commit 9e997b4da98725401769ef82fe26e11c46a059d9
+Author: Patrick Venture <venture@google.com>
+Date:   Fri Mar 8 13:42:10 2019 -0800
 
-Andrew
+    use filesystem instead of experimental
 
->  u32 ast_get_ahbclk(void)
->  {
->  	unsigned int axi_div, ahb_div, hpll;
-> -- 
-> 2.1.2
-> 
->
+    Use filesystem now that it should be available instead of
+    experimental::filesystem.
+
+    Change-Id: I62838b343ce34f85a47661f1eaaff3c7e6338bbf
+    Signed-off-by: Patrick Venture <venture@google.com>
+
+it would work if we reverted that commit.
+
+# ps | grep readd
+    2 root         0 SW   [kthreadd]
+ 1106 root      7668 S    phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000
+/i2c-bus@1c0/tmp421@4f
+
+Can anyone give the suggestion?
+
+Thanks.
+
+--00000000000044a4e0058469bc58
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
+r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div><div>Hi All,</div><div><br=
+></div><div>We found the &#39;Phosphor Hwmon Poller&#39; would terminate wi=
+th the error message.</div><div><br></div><div>Mar 15 09:45:04=C2=A0 system=
+d[1]: Started Phosphor Hwmon Poller.</div><div>Mar 15 09:45:06=C2=A0 phosph=
+or-hwmon-readd[1137]: terminate called after throwing an instance of &#39;s=
+td::filesystem::__cxx11::filesystem_error&#39;</div><div>Mar 15 09:45:06=C2=
+=A0 phosphor-hwmon-readd[1137]:=C2=A0 =C2=A0what():=C2=A0 filesystem error:=
+ recursive directory iterator cannot open directory: No such file or direct=
+ory [/ahb/a</div><div>pb/i2c@1e78a000/i2c-bus@1c0/tmp421@4f]</div><div>Mar =
+15 09:45:07=C2=A0 systemd[1]: [[0;1;39m[[0;1;31m[[0;1;39mxyz.openbmc_projec=
+t.Hwmon@-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Main proces=
+s exited,</div><div>code=3Dkilled, status=3D6/ABRT[[0m</div><div>Mar 15 09:=
+45:07=C2=A0 systemd[1]: [[0;1;39m[[0;1;31m[[0;1;39mxyz.openbmc_project.Hwmo=
+n@-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Failed with resul=
+t &#39;s</div><div>ignal&#39;.[[0m</div><div>Mar 15 09:45:08=C2=A0 systemd[=
+1]: xyz.openbmc_project.Hwmon@-ahb-apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4=
+f.service: Service RestartSec=3D1s expired, scheduling restar</div><div>t.<=
+/div><div>Mar 15 09:45:08=C2=A0 systemd[1]: xyz.openbmc_project.Hwmon@-ahb-=
+apb-i2c@1e78a000-i2c\x2dbus@1c0-tmp421@4f.service: Scheduled restart job, r=
+estart counter is at 2.</div><div>Mar 15 09:45:10=C2=A0 systemd[1]: Stopped=
+ Phosphor Hwmon Poller.</div><div><br></div><div>We confirmed it&#39;s caus=
+ed by the latest commit of phosphor-hwmon repository</div><div><br></div><d=
+iv>commit 9e997b4da98725401769ef82fe26e11c46a059d9</div><div>Author: Patric=
+k Venture &lt;<a href=3D"mailto:venture@google.com">venture@google.com</a>&=
+gt;</div><div>Date:=C2=A0 =C2=A0Fri Mar 8 13:42:10 2019 -0800</div><div><br=
+></div><div>=C2=A0 =C2=A0 use filesystem instead of experimental</div><div>=
+<br></div><div>=C2=A0 =C2=A0 Use filesystem now that it should be available=
+ instead of</div><div>=C2=A0 =C2=A0 experimental::filesystem.</div><div><br=
+></div><div>=C2=A0 =C2=A0 Change-Id: I62838b343ce34f85a47661f1eaaff3c7e6338=
+bbf</div><div>=C2=A0 =C2=A0 Signed-off-by: Patrick Venture &lt;<a href=3D"m=
+ailto:venture@google.com">venture@google.com</a>&gt;</div><div><br></div><d=
+iv>it would work if we reverted that commit.</div><div><br></div><div># ps =
+| grep readd</div><div>=C2=A0 =C2=A0 2 root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A00 SW=C2=A0 =C2=A0[kthreadd]</div><div>=C2=A01106 root=C2=A0 =C2=A0 =C2=
+=A0 7668 S=C2=A0 =C2=A0 phosphor-hwmon-readd -o /ahb/apb/i2c@1e78a000/i2c-b=
+us@1c0/tmp421@4f</div><div><br></div><div>Can anyone give the suggestion?</=
+div><div><br></div><div>Thanks.</div><div><br></div></div></div></div></div=
+></div></div></div></div>
+
+--00000000000044a4e0058469bc58--
