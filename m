@@ -1,57 +1,63 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::832; helo=mail-qt1-x832.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::134; helo=mail-it1-x134.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fwHS5py2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="R23RmYbt"; 
  dkim-atps=neutral
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
+Received: from mail-it1-x134.google.com (mail-it1-x134.google.com
+ [IPv6:2607:f8b0:4864:20::134])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44NmK95GqnzDqKW
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 19:23:25 +1100 (AEDT)
-Received: by mail-qt1-x832.google.com with SMTP id y36so11335141qtb.3
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 01:23:25 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Nnf96sLLzDqC7
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 20:23:13 +1100 (AEDT)
+Received: by mail-it1-x134.google.com with SMTP id e24so24923173itl.1
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 02:23:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=geHlEuXOR4O1Ara5Z3JVGc/stNRI4/cELOTfUgyDXr8=;
- b=fwHS5py2ACIzPG8nKoR5HUA+ov8zZ3dcmswGoremjql6IRHhfxL+oVWoLpKShoNZS8
- mXFPa40WxCV2VUD3nKSNXtaUzs05X3Dvjbe520WXwOtIJSwx9hWqSriIdKKa+Wktk/S+
- /awQfR+SHdBBKVuft9QWHbdevs1wEr41BKTxHLHimQFS+jbVGiLFrGeCEAIcn8EdG85H
- Jc9Kj0O7qPqUltw4j2DbVu3fY9NZlygmCv4a2LtlHu49DXudylF0jeeBSGcS/jUPoq8D
- M95fH3XyzgVS9e218/uxH09pZsMRBNefhlLgqt+haRubQ53C7mM1cQKjC3N4IYb8GhGP
- /Mdg==
+ :cc; bh=vYMudnpcuoE9mriHRXTprDfbEGug6HmDOfY/0ZBNHSs=;
+ b=R23RmYbtLhCkVn1hVpD7vTNHgWEdyu8YRBKemoePXmkql6kGsQsFCnu4kW3CKk50IF
+ P6Dyy61Vph9ZyTPS0/ZDQoT4/CC6ceqBpaTRBZPfomJB3I7AoZU45V++T9vB0D22DHi+
+ 3Im+QvL05fuRSDCek6OZl80OP2mjerPYJ9Ogrt/JBEKeQ9onBUM3Jz9kOHCRo5Mz0MNQ
+ A1PwXeDG3w/O6T+pEkZUB+pnMk1Gali6oHK4UhXZY263qCNp/kMRdFTd9lwjQLoiUHJ6
+ DI03e6N4Yzsq39kJkJQwpskj057uE20deXX42xow48iP3lJ4Y/PpRDeOfN3RpmdeeRxs
+ vD5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=geHlEuXOR4O1Ara5Z3JVGc/stNRI4/cELOTfUgyDXr8=;
- b=bUia0YEyEttGyQZhd1il6glW+J5GGgZ/IJcMzUEChOxgrWvZpFkBmBQIk1T4TAAPzB
- Odq7RJrbay5/Wp/IjwwRz6B+Z2LhAHkDKqLYKZLuIh2qOnLaZQ8Fkpyc925dlM8w6vYs
- 3pE+Bv/KBuD3L7nn0R7GGmlAKVKVBicaoclyMzG8yfEmhkycgPB5vfiR7hkgD2MqNwH1
- nJg3GaHDjpQy9s9vMdr4UfrGXboUwXK0rDar6yjMaGTTG2VHz5ttzmmqZAbuyx6jRcCA
- k7/RlpEvaEtrPBRkpS4mu2WEP3Kmu4bfxfVx7EzVJO4FBNVk1RpCD6wEDULSLIzD3xGu
- LYJg==
-X-Gm-Message-State: APjAAAWG8TyLvSuuAlKOZY9/UXpYB3Z8ijq8rRgYMnkZrv9r+M1DEbxV
- 5SXC5LzmEpVyWm5H6wahwICd3EMUcfpjPDu8g6FHLQ==
-X-Google-Smtp-Source: APXvYqzEJBzaKMKTo+hN3V+vmvtJYMmRIG4sTO4JswSea4ANgG60xwxya2c7kd5TldWy1pFuGMLEpe2fieHES+xj3Zg=
-X-Received: by 2002:a0c:92e7:: with SMTP id c36mr835469qvc.80.1552983803059;
- Tue, 19 Mar 2019 01:23:23 -0700 (PDT)
+ bh=vYMudnpcuoE9mriHRXTprDfbEGug6HmDOfY/0ZBNHSs=;
+ b=BLzmZMOSZ/Tk8gxL3hAaEqRr2GUEULsna5YCdTUCwnbzf2vVgHcOlsEnSBmusP9ljB
+ c5qHVMhQEAW7xaqzM0BxGRAvCRXz4ImNhIsO/XgOjwzZ6oPY7/IAOqbeid7Qd7aBfV29
+ 0zXPXF0BnIQ9ZA3pZpzuftJGnG48HrlLXEE0mhbkrWAh66kfSfQZLxKBD2emuEwwLsNM
+ P10OO72uLd0Oz/LDcfsuILW8tQpcv6XtBaYmYh0eyltGK+7nxXwNRqTLnXdqWasbmXca
+ k4PGGbdfEwuSZDqWcf0eJrxFzlkh069vC8JK04fUNVSIVAzTPLmWBk6SnxWmWmjt9Jad
+ 9zGg==
+X-Gm-Message-State: APjAAAVAZ3+Glx8hdKDlSeGsd/dD1owooTM56Ch6AmmLYCjz9ezL8/5J
+ nAxuxnAMB/c8x4icjxxXWIkzpwAcHrA53axFqQM=
+X-Google-Smtp-Source: APXvYqxt0y3Bh7GoiQSdlncb2ntuOGfVFdeAkzinThjpwXy5ccYMtZezZxBg4aPYEa1/yJsjAGWhuqJIBf1gkK18T1s=
+X-Received: by 2002:a24:d244:: with SMTP id z65mr574315itf.76.1552987388762;
+ Tue, 19 Mar 2019 02:23:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAG9c7cD-x3sAO_F+=2Qi-NKOoOmLp5P-i_vnzSgnuvr047xCUw@mail.gmail.com>
- <CAARXrtkh_-bH+_DETtB0vUjQHwPUJmakX+p9tihaNgYcmnhoUQ@mail.gmail.com>
-In-Reply-To: <CAARXrtkh_-bH+_DETtB0vUjQHwPUJmakX+p9tihaNgYcmnhoUQ@mail.gmail.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Tue, 19 Mar 2019 16:23:12 +0800
-Message-ID: <CAG9c7cBZtD4hQszVYMCMW_Kx0nmw-WcOy9XU8sv-sT-jD9V5Ow@mail.gmail.com>
-Subject: Re: Phosphor Hwmon not work
-To: Lei YU <mine260309@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000ec635805846e372e"
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+ <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+ <tencent_77BC148C0E378EFD5F488CE6@qq.com>
+ <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
+ <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
+ <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
+ <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+In-Reply-To: <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 19 Mar 2019 17:22:55 +0800
+Message-ID: <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
+ ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,39 +69,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2019 08:23:26 -0000
+X-List-Received-Date: Tue, 19 Mar 2019 09:23:15 -0000
 
---000000000000ec635805846e372e
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Hi Jae,
 
-Got it, thanks for your help.
+Thanks for sharing the detailed information.
+I managed to do a build on Romulus and see the KVM partially working:
+* I can see the video output in the KVM page;
+* I am unable to do any operation, e.g. pressing a key does not seem to be
+  sent to host
+* When I browse to another page and browse back to KVM page, it displays a
+  small black block, instead of showing correct KVM view.
 
-Lei YU <mine260309@gmail.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=8819=E6=97=A5 =
-=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=8811:06=E5=AF=AB=E9=81=93=EF=BC=9A
+Did you meet such issue before and do you happen to know how to fix this?
 
-> > Can anyone give the suggestion?
+Thanks a lot!
+
+On Tue, Mar 19, 2019 at 1:33 AM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
 >
-> The same issue as https://github.com/openbmc/openbmc/issues/3499 and it
-> already has a fix.
+> Attaching a patch file for back porting of Eddie's aspeed-video driver.
+> Diff in below doesn't include the newly created file so I'm attaching it
+> as a patch.
 >
-
---000000000000ec635805846e372e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Got it, thanks for your help.<br></div><br><div class=3D"g=
-mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Lei YU &lt;<a href=3D"mai=
-lto:mine260309@gmail.com">mine260309@gmail.com</a>&gt; =E6=96=BC 2019=E5=B9=
-=B43=E6=9C=8819=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=8811:06=E5=AF=
-=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" style=3D"m=
-argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
-:1ex">&gt; Can anyone give the suggestion?<br>
-<br>
-The same issue as <a href=3D"https://github.com/openbmc/openbmc/issues/3499=
-" rel=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/openbmc/i=
-ssues/3499</a> and it<br>
-already has a fix.<br>
-</blockquote></div>
-
---000000000000ec635805846e372e--
+> -Jae
