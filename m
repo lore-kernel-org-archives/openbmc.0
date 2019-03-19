@@ -1,42 +1,58 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=162.243.126.186; helo=vip.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::22f; helo=mail-oi1-x22f.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="m2WLsrSl"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x22f.google.com (mail-oi1-x22f.google.com
+ [IPv6:2607:f8b0:4864:20::22f])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Nr0n5Kj4zDqJH
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 22:09:27 +1100 (AEDT)
-Received: from ([60.208.111.195])
- by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id KOV37337
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 19:02:37 +0800
-Received: from mail-lf1-f42.google.com (10.100.1.52) by
- jtjnmail201608.home.langchao.com (10.100.2.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1591.10; Tue, 19 Mar 2019 19:02:16 +0800
-Received: by mail-lf1-f42.google.com with SMTP id d18so14091415lfn.3
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 04:02:35 -0700 (PDT)
-X-Gm-Message-State: APjAAAWvJIAA8MEA7vInXAvHHcO1CfSfbvcR9/CHe9TyuUyn/UXcOzgC
- 2GW7YUhFtGb70OmnTElG6jSGZUMLOr+izNi+uD0=
-X-Google-Smtp-Source: APXvYqwfoYL5v9cUXXxdQW6B6Tpc4lfAbOEUwOH1MCP0CxpYDtW3OtAjO3YK7GLL0iLpGc8sJ67Sq2pTecXeoBBRy/g=
-X-Received: by 2002:ac2:4304:: with SMTP id l4mr12095102lfh.168.1552993353418; 
- Tue, 19 Mar 2019 04:02:33 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44NypP567BzDqGP
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 03:15:57 +1100 (AEDT)
+Received: by mail-oi1-x22f.google.com with SMTP id w139so7659141oie.9
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 09:15:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=vWAYYoLbI837iwjSYTTipC4l7ZAW1U7b8/bJuZVGPI8=;
+ b=m2WLsrSlb2+rQHlEVM60MTX52DvvOGy+ShTAWi2KFYzBLbf5CQOEeReonX1TnZMyUQ
+ NFh+96EMwSTXGcHT9u0RjKEu0jKOy7xZK34H1vQrK4MVUj7Beop6DvFXsXa3rliHC8Tq
+ YEZvO+9OVwbLBT2luO0aUWLWXO6EDSJuHHn0sKI3rBMXPNqHsRAkmciShXxt1fuqInUs
+ EvB+sqXUPaDvqnGhZbJECffmnkhEMiU2L3o0OmKOASbh8LBjYxT9kRFYXHzhaG8vtoPP
+ ewT7W89mDpUbX2Ekw+NPc1zWFEZYztWiJOijDBAGQF/vB33d5w2ozadL5ULN/AFaKGFE
+ FMow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=vWAYYoLbI837iwjSYTTipC4l7ZAW1U7b8/bJuZVGPI8=;
+ b=NLJbE7cj6PFo1gX3BOMPLWVXugtjD3QQAAq8NclOBVl40RBetAbHx/UxxiBhTLTZnI
+ +MYXn/Pii+ixhn6B+7DdlQqfKteh3M5ElPwdATPaQTCtFtJJy8J6rbxO3fj1IJNJ6O3R
+ PeMmZ43pT/kA9hZ9B9O3dKNbqOO2p9EGT2lmFu/s+SHM6G9sSUk9J9ddYd1A0FTzZxU/
+ YOwwzSquyJiJ6g2nGi8KCImfx1WN/4k7wx4LUf+LMeGC02M5llWNaRH4uYw+9olPGxDp
+ 3QPWhy5BigSsrxN2UtVMW23XE6xs57oLxvEdjSPotaI8dFzkM9mpvq1DgzyjEEpHyDsu
+ 8t8Q==
+X-Gm-Message-State: APjAAAXdALtvUICf9Oo1rlxzel4h+32J03jsriX92sElyNIiLlyBjWGU
+ zRFkHARa4yAmH4ZC+Vzz0jWVSWVj7wFUwPUsdFM=
+X-Google-Smtp-Source: APXvYqwqmq6VChxDdFqAzXNIkeV9KQ/gOvpfeah+JEbQ9bpuZkjGr9rphV88/oRWCE+F56hgVwpV6XGfIN9xilaa+DU=
+X-Received: by 2002:aca:c002:: with SMTP id q2mr1835751oif.145.1553012153854; 
+ Tue, 19 Mar 2019 09:15:53 -0700 (PDT)
 MIME-Version: 1.0
-From: John Wang <wangzqbj@inspur.com>
-Date: Tue, 19 Mar 2019 19:02:22 +0800
-X-Gmail-Original-Message-ID: <CAHkHK08Otxm88OQGjG+b0QEgv_mExyObqOj6aZGSwmzMfZO_mw@mail.gmail.com>
-Message-ID: <CAHkHK08Otxm88OQGjG+b0QEgv_mExyObqOj6aZGSwmzMfZO_mw@mail.gmail.com>
-Subject: [fru-device and intel-ipmi-oem] ipmitool fru print can not output psu
- information
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CALLMt=rz5Mvohzhavhm+D3Q8g=EZGVyubi+rsMZ3CFV_PHUfPg@mail.gmail.com>
+ <CAARXrtmFGBc1dLHSuFY71E=J2RwepmG0Ko=qFTBHT5W0Gv23sQ@mail.gmail.com>
+ <CALLMt=q6LDSGK=BhV4R66uSUj3UkMjB1J1gSf1GLbpFcj8G1zQ@mail.gmail.com>
+In-Reply-To: <CALLMt=q6LDSGK=BhV4R66uSUj3UkMjB1J1gSf1GLbpFcj8G1zQ@mail.gmail.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 19 Mar 2019 11:15:37 -0500
+Message-ID: <CALLMt=r+AmvwWY-U+PDGQDQ7mrEEX1p=vyhpa7MbBDQY4kcs6A@mail.gmail.com>
+Subject: Re: New Gerrit Upgrade Coming - 2.16.6
+To: Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Originating-IP: [10.100.1.52]
-X-ClientProxiedBy: jtjnmail201608.home.langchao.com (10.100.2.8) To
- jtjnmail201608.home.langchao.com (10.100.2.8)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,84 +64,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2019 11:09:31 -0000
+X-List-Received-Date: Tue, 19 Mar 2019 16:15:59 -0000
 
-By checking the code, I found that fru-device seems to need to be used
-with intel-ipmi-oem,
-and it seems that no additional configuration is required(correct??).
+On Mon, Mar 18, 2019 at 10:26 AM Andrew Geissler <geissonator@gmail.com> wrote:
+>
+> On Mon, Mar 11, 2019 at 8:59 PM Lei YU <mine260309@gmail.com> wrote:
+> >
+> > > Gerrit 2.16 has moved to the new polygerrit based view by default. It
+> > > has some neat new features, although does take a little time to get used
+> > > to.
+> >
+> > It looks modern, and has better notification, that when I login to the new
+> > gerrit, it gives me below message.
+> >
+> >    You have draft comments on closed changes. (view all)
+> >
+> > It helps me to find that I have some comments drafted, but forgot to send.
+> > This is really good!
+>
+> Thanks for taking a look Lei. My plan is to do the upgrade tomorrow morning,
+> 3/19, 7-9am US Central time.
 
-On my machine,there are two FRU,one is /etc/fru/baseboard.fru.bin,the
-other is psu fru.
-(There is only one psu).
+It was not without a bit of pain but the gerrit server is back up and running
+with 2.16.7. If you happened to push some code up when I thought all
+was good between 8:45am to 9:45 CT, then I'm sorry. In order to get
+the new gerrit groups working we created for CI authentication I had to roll
+back to the gerrit data I had when I started the upgrade. The simplest
+solution seems to be to just make a misc update to your patch and
+push it up again to get a new commit id.
 
-But,ipmitool fru print can only output the fru of baseboard.
-$ ipmitool -I lanplus -H 100.2.76.213 -U root -P 0penBmc fru print
-FRU Device Description : Builtin FRU Device (ID 0)
-
-fru-device found psu itself and had the correct output on dbus:
-busctl tree xyz.openbmc_project.FruDevice
-=E2=94=94=E2=94=80/xyz
-  =E2=94=94=E2=94=80/xyz/openbmc_project
-    =E2=94=94=E2=94=80/xyz/openbmc_project/FruDevice
-      =E2=94=9C=E2=94=80/xyz/openbmc_project/FruDevice/DPS_800AB_16_A
-      =E2=94=94=E2=94=80/xyz/openbmc_project/FruDevice/ON5263M5
-busctl introspect xyz.openbmc_project.FruDevice
-/xyz/openbmc_project/FruDevice/DPS_800AB_16_A:      -
-.ADDRESS                            property  u         80
-  emits-change
-.BUS                                property  u         5
-  emits-change
-.Common_Format_Version              property  s         "1"
-  emits-change
-.PRODUCT_LANGUAGE_CODE              property  s         "25"
-  emits-change
-.PRODUCT_MANUFACTURER               property  s         "DELTA"
-  emits-change
-.PRODUCT_PART_NUMBER                property  s         "          "
-  emits-change
-.PRODUCT_PRODUCT_NAME               property  s         "DPS-800AB-16
-A" emits-change
-.PRODUCT_SERIAL_NUMBER              property  s
-"HERD1629002309" emits-change
-.PRODUCT_VERSION                    property  s         "S2F"
-  emits-change
-
-Intel-ipmi-oem:
-Commit fcce83df799d9580f48b7f793989c9c96bc882e0
-Author: James Feist <james.feist@linux.intel.com>
-Date: Fri Mar 1 15:46:19 2019 -0800
-
-The configuration of psu in entity-manager is as follows:
-[
-    {
-        "Exposes": [
-            {
-                "Address": "0x58",
-                "Bus": "$bus",
-                "Name": "Delta DPS-800AB-16 PSU Device",
-                "Type": "pmbus"
-            },
-{
-                "Address": "$address",
-                "Bus": "$bus",
-                "Name": "Delta DPS-800AB-16 PSU FRU",
-                "Type": "EEPROM"
-            }
-
-        ],
-        "Name": "PSU",
-        "Probe":
-"xyz.openbmc_project.FruDevice({'PRODUCT_PRODUCT_NAME': 'DPS-800AB-16
-A'})",
-        "Type": "PowerSupply",
-        "xyz.openbmc_project.Inventory.Decorator.Asset": {
-            "Manufacturer": "$PRODUCT_MANUFACTURER",
-            "Model": "$PRODUCT_PRODUCT_NAME",
-            "PartNumber": "$PRODUCT_PART_NUMBER",
-            "SerialNumber": "$PRODUCT_SERIAL_NUMBER"
-        }
-    }
-]
-
-
-Can anyone help me figure out what configuration information is missing?
+>
+> Andrew
