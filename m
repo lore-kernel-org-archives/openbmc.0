@@ -1,63 +1,42 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <wangzqbj@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::134; helo=mail-it1-x134.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=162.243.126.186; helo=vip.corpemail.net;
+ envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="R23RmYbt"; 
- dkim-atps=neutral
-Received: from mail-it1-x134.google.com (mail-it1-x134.google.com
- [IPv6:2607:f8b0:4864:20::134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=inspur.com
+Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Nnf96sLLzDqC7
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 20:23:13 +1100 (AEDT)
-Received: by mail-it1-x134.google.com with SMTP id e24so24923173itl.1
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 02:23:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vYMudnpcuoE9mriHRXTprDfbEGug6HmDOfY/0ZBNHSs=;
- b=R23RmYbtLhCkVn1hVpD7vTNHgWEdyu8YRBKemoePXmkql6kGsQsFCnu4kW3CKk50IF
- P6Dyy61Vph9ZyTPS0/ZDQoT4/CC6ceqBpaTRBZPfomJB3I7AoZU45V++T9vB0D22DHi+
- 3Im+QvL05fuRSDCek6OZl80OP2mjerPYJ9Ogrt/JBEKeQ9onBUM3Jz9kOHCRo5Mz0MNQ
- A1PwXeDG3w/O6T+pEkZUB+pnMk1Gali6oHK4UhXZY263qCNp/kMRdFTd9lwjQLoiUHJ6
- DI03e6N4Yzsq39kJkJQwpskj057uE20deXX42xow48iP3lJ4Y/PpRDeOfN3RpmdeeRxs
- vD5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vYMudnpcuoE9mriHRXTprDfbEGug6HmDOfY/0ZBNHSs=;
- b=BLzmZMOSZ/Tk8gxL3hAaEqRr2GUEULsna5YCdTUCwnbzf2vVgHcOlsEnSBmusP9ljB
- c5qHVMhQEAW7xaqzM0BxGRAvCRXz4ImNhIsO/XgOjwzZ6oPY7/IAOqbeid7Qd7aBfV29
- 0zXPXF0BnIQ9ZA3pZpzuftJGnG48HrlLXEE0mhbkrWAh66kfSfQZLxKBD2emuEwwLsNM
- P10OO72uLd0Oz/LDcfsuILW8tQpcv6XtBaYmYh0eyltGK+7nxXwNRqTLnXdqWasbmXca
- k4PGGbdfEwuSZDqWcf0eJrxFzlkh069vC8JK04fUNVSIVAzTPLmWBk6SnxWmWmjt9Jad
- 9zGg==
-X-Gm-Message-State: APjAAAVAZ3+Glx8hdKDlSeGsd/dD1owooTM56Ch6AmmLYCjz9ezL8/5J
- nAxuxnAMB/c8x4icjxxXWIkzpwAcHrA53axFqQM=
-X-Google-Smtp-Source: APXvYqxt0y3Bh7GoiQSdlncb2ntuOGfVFdeAkzinThjpwXy5ccYMtZezZxBg4aPYEa1/yJsjAGWhuqJIBf1gkK18T1s=
-X-Received: by 2002:a24:d244:: with SMTP id z65mr574315itf.76.1552987388762;
- Tue, 19 Mar 2019 02:23:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Nr0n5Kj4zDqJH
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 22:09:27 +1100 (AEDT)
+Received: from ([60.208.111.195])
+ by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id KOV37337
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 19:02:37 +0800
+Received: from mail-lf1-f42.google.com (10.100.1.52) by
+ jtjnmail201608.home.langchao.com (10.100.2.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1591.10; Tue, 19 Mar 2019 19:02:16 +0800
+Received: by mail-lf1-f42.google.com with SMTP id d18so14091415lfn.3
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 04:02:35 -0700 (PDT)
+X-Gm-Message-State: APjAAAWvJIAA8MEA7vInXAvHHcO1CfSfbvcR9/CHe9TyuUyn/UXcOzgC
+ 2GW7YUhFtGb70OmnTElG6jSGZUMLOr+izNi+uD0=
+X-Google-Smtp-Source: APXvYqwfoYL5v9cUXXxdQW6B6Tpc4lfAbOEUwOH1MCP0CxpYDtW3OtAjO3YK7GLL0iLpGc8sJ67Sq2pTecXeoBBRy/g=
+X-Received: by 2002:ac2:4304:: with SMTP id l4mr12095102lfh.168.1552993353418; 
+ Tue, 19 Mar 2019 04:02:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
- <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
- <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
- <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
-In-Reply-To: <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 19 Mar 2019 17:22:55 +0800
-Message-ID: <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
-Subject: Re: Does obmc-ikvm work with bmcweb?
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
+From: John Wang <wangzqbj@inspur.com>
+Date: Tue, 19 Mar 2019 19:02:22 +0800
+X-Gmail-Original-Message-ID: <CAHkHK08Otxm88OQGjG+b0QEgv_mExyObqOj6aZGSwmzMfZO_mw@mail.gmail.com>
+Message-ID: <CAHkHK08Otxm88OQGjG+b0QEgv_mExyObqOj6aZGSwmzMfZO_mw@mail.gmail.com>
+Subject: [fru-device and intel-ipmi-oem] ipmitool fru print can not output psu
+ information
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Originating-IP: [10.100.1.52]
+X-ClientProxiedBy: jtjnmail201608.home.langchao.com (10.100.2.8) To
+ jtjnmail201608.home.langchao.com (10.100.2.8)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,27 +48,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 19 Mar 2019 09:23:15 -0000
+X-List-Received-Date: Tue, 19 Mar 2019 11:09:31 -0000
 
-Hi Jae,
+By checking the code, I found that fru-device seems to need to be used
+with intel-ipmi-oem,
+and it seems that no additional configuration is required(correct??).
 
-Thanks for sharing the detailed information.
-I managed to do a build on Romulus and see the KVM partially working:
-* I can see the video output in the KVM page;
-* I am unable to do any operation, e.g. pressing a key does not seem to be
-  sent to host
-* When I browse to another page and browse back to KVM page, it displays a
-  small black block, instead of showing correct KVM view.
+On my machine,there are two FRU,one is /etc/fru/baseboard.fru.bin,the
+other is psu fru.
+(There is only one psu).
 
-Did you meet such issue before and do you happen to know how to fix this?
+But,ipmitool fru print can only output the fru of baseboard.
+$ ipmitool -I lanplus -H 100.2.76.213 -U root -P 0penBmc fru print
+FRU Device Description : Builtin FRU Device (ID 0)
 
-Thanks a lot!
+fru-device found psu itself and had the correct output on dbus:
+busctl tree xyz.openbmc_project.FruDevice
+=E2=94=94=E2=94=80/xyz
+  =E2=94=94=E2=94=80/xyz/openbmc_project
+    =E2=94=94=E2=94=80/xyz/openbmc_project/FruDevice
+      =E2=94=9C=E2=94=80/xyz/openbmc_project/FruDevice/DPS_800AB_16_A
+      =E2=94=94=E2=94=80/xyz/openbmc_project/FruDevice/ON5263M5
+busctl introspect xyz.openbmc_project.FruDevice
+/xyz/openbmc_project/FruDevice/DPS_800AB_16_A:      -
+.ADDRESS                            property  u         80
+  emits-change
+.BUS                                property  u         5
+  emits-change
+.Common_Format_Version              property  s         "1"
+  emits-change
+.PRODUCT_LANGUAGE_CODE              property  s         "25"
+  emits-change
+.PRODUCT_MANUFACTURER               property  s         "DELTA"
+  emits-change
+.PRODUCT_PART_NUMBER                property  s         "          "
+  emits-change
+.PRODUCT_PRODUCT_NAME               property  s         "DPS-800AB-16
+A" emits-change
+.PRODUCT_SERIAL_NUMBER              property  s
+"HERD1629002309" emits-change
+.PRODUCT_VERSION                    property  s         "S2F"
+  emits-change
 
-On Tue, Mar 19, 2019 at 1:33 AM Jae Hyun Yoo
-<jae.hyun.yoo@linux.intel.com> wrote:
->
-> Attaching a patch file for back porting of Eddie's aspeed-video driver.
-> Diff in below doesn't include the newly created file so I'm attaching it
-> as a patch.
->
-> -Jae
+Intel-ipmi-oem:
+Commit fcce83df799d9580f48b7f793989c9c96bc882e0
+Author: James Feist <james.feist@linux.intel.com>
+Date: Fri Mar 1 15:46:19 2019 -0800
+
+The configuration of psu in entity-manager is as follows:
+[
+    {
+        "Exposes": [
+            {
+                "Address": "0x58",
+                "Bus": "$bus",
+                "Name": "Delta DPS-800AB-16 PSU Device",
+                "Type": "pmbus"
+            },
+{
+                "Address": "$address",
+                "Bus": "$bus",
+                "Name": "Delta DPS-800AB-16 PSU FRU",
+                "Type": "EEPROM"
+            }
+
+        ],
+        "Name": "PSU",
+        "Probe":
+"xyz.openbmc_project.FruDevice({'PRODUCT_PRODUCT_NAME': 'DPS-800AB-16
+A'})",
+        "Type": "PowerSupply",
+        "xyz.openbmc_project.Inventory.Decorator.Asset": {
+            "Manufacturer": "$PRODUCT_MANUFACTURER",
+            "Model": "$PRODUCT_PRODUCT_NAME",
+            "PartNumber": "$PRODUCT_PART_NUMBER",
+            "SerialNumber": "$PRODUCT_SERIAL_NUMBER"
+        }
+    }
+]
+
+
+Can anyone help me figure out what configuration information is missing?
