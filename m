@@ -1,71 +1,40 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44PWkg0329zDqMn
- for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 00:59:37 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2KDtDA2105810
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 09:59:35 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.91])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rbnvn4eag-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 09:59:35 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Wed, 20 Mar 2019 13:59:34 -0000
-Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 20 Mar 2019 13:59:30 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp08.a3.dal06.isc4sb.com
- with ESMTP id 2019032013593022-554710 ;
- Wed, 20 Mar 2019 13:59:30 +0000 
-In-Reply-To: 
-Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
- https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
- Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
- Code)-64800002 For eg. (Bengaluru - 080-64800002)
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Wed, 20 Mar 2019 13:59:29 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PZmy5sGMzDqMC
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 03:16:49 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Mar 2019 09:16:46 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,249,1549958400"; d="scan'208";a="135713284"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga003.jf.intel.com with ESMTP; 20 Mar 2019 09:16:46 -0700
+Subject: Re: [PATCH linux dev-4.19 00/12] PECI device driver introduction
+To: Henbin Chang <henbinchang@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAG9c7cBOEd3rD5zmgXVMx6m7sUHtt2ts4_H=8B8KxZ7iGMcvUA@mail.gmail.com>
+ <CAG9c7cAkdE=EcKAMn+E0gfKbQ1eeNeZopLjgG_YEs0W7M_6Tcg@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <f7615ad5-e80b-f198-7fcc-3fdc33da57e1@linux.intel.com>
+Date: Wed, 20 Mar 2019 09:16:46 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
- SCN1812108_20180501T0841_FP30 February 15, 2019 at 14:01
-X-LLNOutbound: False
-X-Disclaimed: 20555
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 19032013-9951-0000-0000-00000BC2F32B
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.073040
-X-IBM-SpamModules-Versions: BY=3.00010789; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000281; SDB=6.01177092; UDB=6.00615735; IPR=6.00957788; 
- BA=6.00006263; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00026072; XFM=3.00000015;
- UTC=2019-03-20 13:59:34
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-03-20 13:12:49 - 6.00009718
-x-cbparentid: 19032013-9952-0000-0000-00001C0D167B
-Message-Id: <OFA89D3513.263E8FD6-ON002583C3.004CB587-002583C3.004CDBC5@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-20_08:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+In-Reply-To: <CAG9c7cAkdE=EcKAMn+E0gfKbQ1eeNeZopLjgG_YEs0W7M_6Tcg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,158 +46,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 13:59:39 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 16:16:51 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear All,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Just a reminder for tomorrow's Test work group meeting.</=
-div>
-<div dir=3D"ltr" >Pls join. And if you have any thing to be discussed, pls =
-feel free to add it in our wiki</div>
-<div dir=3D"ltr" ><span><font size=3D"2" face=3D"Default Sans Serif,Verdana=
-,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,V=
-erdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans S=
-erif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default =
-Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"De=
-fault Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://gi=
-thub.com/openbmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https:/=
-/github.com/openbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></=
-font></font></font></span></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >To be discussed:</div>
-<div dir=3D"ltr" >As DST Changed, Also can we change the test work group me=
-eting to advance 1 hour from next to next instance onwards.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Mar 21, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
-ine-block" >(applies to 24 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
-ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
-t></span></div>
-<div>&nbsp;</div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
-</font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
- you wants to update the agenda. </font></font></font></font></font></span>=
-</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
-/font></span></div></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
-enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
-hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
-github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
- >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
-</span>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
-.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
-"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
-CI/view?usp=3Dsharing</a></font></span></p>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
-le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
-it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
-in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
-heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
-target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
-Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Quality at the first place: Unit test results needed at th=
-e time of gerrit code review</font></span></div>
-<div>&nbsp;</div></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
- owner</font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
- Intel going to sign on this. ?</font></span></div></div></div></div></div>=
-</div></div></div></div></blockquote></div><BR>
+Hi Henbin,
+
+No, PECI hwmon can't be created by the udev->start_hwmon.sh.
+To create PECI hwmon, you might need to use these two packages:
+https://github.com/openbmc/entity-manager
+https://github.com/openbmc/dbus-sensors
+
+PECI hwmon needs runtime creation because it needs to collect CPU
+package information such as core numbers and installed DIMMs.
+
+If you want to create PECI hwmon manually, you can try:
+echo 'peci-client 0x30' > /sys/bus/peci/devices/peci-0/new_device
+echo 'peci-client 0x30' > /sys/bus/peci/devices/peci-0/delete_device
+
+Make sure that the host should be powered on when you create it.
+
+Cheers,
+Jae
+
+On 3/19/2019 10:50 PM, Henbin Chang wrote:
+> Hi Jae,
+> 
+> Can you give some suggestion for my question?
+> Thanks.
+> 
+> BRs
+> 
+> Henbin Chang <henbinchang@gmail.com <mailto:henbinchang@gmail.com>> 於 
+> 2019年3月19日 週二 下午4:22寫道：
+> 
+>     Hi,
+> 
+>     We would like to create CPU temperature sensor.
+>     We could see the hwmon file in the /sys/class/hwmon/
+>     But we found the content of uevent file was empty.
+>     That meant the sensor wasn't created through udev->start_hwmon.sh
+>     Can you give some suggestion?
+> 
+>     root@tiogapass:/sys/class/hwmon/hwmon4# cat name
+>     peci_cputemp.cpu0
+>     root@tiogapass:/sys/class/hwmon/hwmon4# cat uevent
+>     root@tiogapass:/sys/class/hwmon/hwmon4#
+>     root@tiogapass:/sys/class/hwmon/hwmon4#
+> 
