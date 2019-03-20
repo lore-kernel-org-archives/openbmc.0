@@ -1,25 +1,52 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c33; helo=mail-yw1-xc33.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="G3gdmKaq"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc33.google.com (mail-yw1-xc33.google.com
+ [IPv6:2607:f8b0:4864:20::c33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Pdmb1znRzDqPQ
- for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 05:31:41 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Wed, 20 Mar 2019 14:32:15 -0400
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: openbmc@lists.ozlabs.org
-Subject: dropping support for pwrbutton and rstbutton
-Message-ID: <20190320183215.wp7al25drp5z4qwp@thinkpad>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PgsX3ggZzDqLx
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 07:06:08 +1100 (AEDT)
+Received: by mail-yw1-xc33.google.com with SMTP id j128so3011164ywg.12
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 13:06:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=ZqxEm3UZZIpTNxAWbPMWi9c4+c5AtkqkNArPNDto9w4=;
+ b=G3gdmKaqIKSqOlvPPDBxc7DUGBgB+xrqmW6xgtCgvcwMovEq3S+pKwnE2c4Rfw180+
+ 2I7OJ6LmcE/xSTWhA8UGznUw9FoLEfA8PfiQkRPw7PgmLjnqlYDHBO4pvRVRmuW104HG
+ aXF7+ysAA4MF/H+eVHoUfmK7xePr03PMT8Yvt/OeaUJMNIIfn0+7DMfyJUvExemaAt8K
+ ndcYGp2VYpFfhwZuI3HlYLScn0oDgrb7zAZBpqzB/DesyJ7ZkOSjDbwMNA/NxZONA+tL
+ elYjG2rBnSnUpDjxMdpESx9unCjk4JXd/SZ8GURcHC3Tmz3SBrz9T6bGJk3YEZPwJcJD
+ SYUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=ZqxEm3UZZIpTNxAWbPMWi9c4+c5AtkqkNArPNDto9w4=;
+ b=n+U6Vt87a3d/dtrE039+xE979tAluoLgQsG/hPedP9/S2U6xpBIycmgiARWDXRqN80
+ HUQno8XEos0W5fjMOC7wMMD7vZ1LXJX+TjQGu51oALvTvsJ2/z+/awIdNJUSF0enOOvs
+ pcriqCmsHp/PD+Yq7VTB2aT8sdn4hfo3zxC3IqP9WSdqBzMh7Qi9TgboTycLNrKR6gYL
+ sRfWJS/rO+4avIa/ut7Qbrl60cTd5Be5JjqEvhY3YH47EU5N5HYyEvHVXu/NiCVPJVqG
+ HURLQQY8QLblfsZErHo4d56zHG79o6TMepo2Q6oPHBUVOa+GoghJKLihSo4S/TLPECXm
+ 5P6w==
+X-Gm-Message-State: APjAAAWZSQI1w0a/X0e344SlWTaknHca3cVwbPUCYQ9BU4Kkz1r+4tWk
+ GcEWBsUMaQAFBC5spO5uwEODAxCvIJxn1/7IMyR/Djl+
+X-Google-Smtp-Source: APXvYqyxjmHWcBh9YG+8nICmvOU2UwMy5Khfn+wvhoCl7/0u/dIvPOqhl5J4NmoBUD491VgneztsWMJFPbnhjnY3jzU=
+X-Received: by 2002:a81:6b41:: with SMTP id g62mr8519817ywc.154.1553112364471; 
+ Wed, 20 Mar 2019 13:06:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
+From: Jandra A <jandraara@gmail.com>
+Date: Wed, 20 Mar 2019 15:05:53 -0500
+Message-ID: <CAMTupoSb=1Yrw8qRB+-deY5cv-=8A+ievx3552=Q45J8VLUtqw@mail.gmail.com>
+Subject: LDAP - final UI design proposal
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000c7dcce05848c2663"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -31,11 +58,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 18:31:44 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 20:06:08 -0000
 
-There are a couple button applications I'd like to suggest we stop supporting.
-Please have a look and speak up if you use these applications:
+--000000000000c7dcce05848c2663
+Content-Type: text/plain; charset="UTF-8"
 
-https://gerrit.openbmc-project.xyz/q/topic:%22obmcutil%22+(status:open%20OR%20status:merged)
+Hello all,
 
-Thanks - brad
+We want to share with you the final UI design proposal for LDAP. We have
+consulted multiple end-users as well as subject matter experts; if you were
+one of them, your feedback was tremendously helpful and want to thank you
+for it.
+
+Please view final designs at:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/318942513_LDAP_Disabled
+
+Now we can start developing the front end.
+
+Regards,
+- GUI Design Team
+
+--000000000000c7dcce05848c2663
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hello all,<div><br></div><div>We want to =
+share with you the final UI design proposal for LDAP. We have consulted mul=
+tiple end-users as well as subject matter experts; if you were one of them,=
+ your feedback was tremendously helpful and want to thank you for it.=C2=A0=
+</div><div><br></div><div>Please view final designs at:=C2=A0 <a href=3D"ht=
+tps://ibm.invisionapp.com/share/RQNYHJ0VBDY#/318942513_LDAP_Disabled">https=
+://ibm.invisionapp.com/share/RQNYHJ0VBDY#/318942513_LDAP_Disabled</a><br><b=
+r></div><div>Now we can start developing the front end.</div><div><br></div=
+><div>Regards,</div><div>- GUI Design Team</div></div></div>
+
+--000000000000c7dcce05848c2663--
