@@ -1,44 +1,30 @@
-Return-Path: <prvs=97506736c=George.Hung@quantatw.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=97506736c=george.hung@quantatw.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44PVXr5lZlzDqNH
- for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 00:05:56 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx02.quantatw.com with ESMTP; 20 Mar 2019 21:05:53 +0800
-Received: from george-Quanta.com.com (10.243.91.252) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 20 Mar
- 2019 21:05:51 +0800
-From: George Hung <george.hung@quantatw.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: <openbmc@lists.ozlabs.org>, <emilyshaffer@google.com>,
- <benjaminfair@google.com>, <Avi.Fishman@nuvoton.com>,
- <ofer.eilon@nuvoton.com>
-Subject: [PATCH dev-4.19 v2] EDAC: Add Nuvoton NPCM7xx EDAC driver
-Date: Wed, 20 Mar 2019 21:02:47 +0800
-Message-ID: <20190320130247.25195-1-george.hung@quantatw.com>
-X-Mailer: git-send-email 2.21.0
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PVq648TbzDqCW;
+ Thu, 21 Mar 2019 00:18:25 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Wed, 20 Mar 2019 09:18:59 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Joseph Reynolds <jrey@linux.ibm.com>
+Cc: openbmc@lists.ozlabs.org,
+ openbmc <openbmc-bounces+jrey=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: API authentication
+Message-ID: <20190320131858.yziiadaogwcl2hfz@thinkpad>
+References: <20190318103504.zcfgdmgqfhi63jte@thinkpad>
+ <91edbcb6aa1390130fb15b11f35e48bd@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.243.91.252]
-X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
- mailbx05.quanta.corp (10.243.91.100)
-X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24500.005
-X-TM-AS-Result: No--9.488800-0.000000-31
-X-TM-AS-MatchedID: 704421-708060-701236-300015-702898-708797-700016-703529-1
- 88019-705414-701016-845348-704425-700324-121336-863519-700648-700918-708712
- -700264-701220-700057-700476-701296-702098-709584-706290-188199-702426-7044
- 96-700767-105250-780052-711106-701594-701944-703454-780012-704318-701053-71
- 0739-707163-121367-707788-780011-712058-701384-701708-703378-705450-105630-
- 106420-703969-704568-148004-148036-29997-42000-42003-63
-X-TM-AS-User-Approved-Sender: Yes
-X-TM-AS-User-Blocked-Sender: No
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <91edbcb6aa1390130fb15b11f35e48bd@linux.vnet.ibm.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,479 +36,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 13:06:07 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 13:18:28 -0000
 
-Add support for the Nuvoton NPCM7xx SoC EDAC driver
+On Mon, Mar 18, 2019 at 09:58:33AM -0500, Joseph Reynolds wrote:
+>On 2019-03-18 05:35, Brad Bishop wrote:
+>>I am looking for ideas on how to implement a mechanism to restrict 
+>>access to
+>>specific methods of a service/API (e.g. Redfish).
+>>
+>>This would be orthogonal to role-based authorization - e.g. the 
+>>authorization
+>>would be provided by someone other than the system administrator - 
+>>e.g. the
+>>system manufacturer.
+>
+>Is this a followup to the March 4 OpenBMC Community call?  
+>https://github.com/openbmc/openbmc/wiki/Weekly-Community-Telecon
+>
+>My understanding is that we would design and code the BMC with 
+>functions for things like manufacturing test and specialized 
+>diagnostics ... functions which could harm the device, etc.   So we 
+>want the functions to be present for manufacturing test and service 
+>calls, but locked out for all other users.  Is that what this 
+>mechanism is for?
 
-Signed-off-by: George Hung <george.hung@quantatw.com>
----
-v1->v2:
- * Change CONFIG_EDAC_NUVOTON as CONFIG_EDAC_NPCM7XX
- * Change ecc_synd to ecc_id (typo)
- * Move 'enable interrupt' to the last stage of irq function
- * Add the bit definition for ECC interrupt bitwise value 
-
- drivers/edac/Kconfig        |   7 +
- drivers/edac/Makefile       |   2 +
- drivers/edac/npcm7xx_edac.c | 424 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 433 insertions(+)
- create mode 100644 drivers/edac/npcm7xx_edac.c
-
-diff --git a/drivers/edac/Kconfig b/drivers/edac/Kconfig
-index 57304b2e989f..e132f5616583 100644
---- a/drivers/edac/Kconfig
-+++ b/drivers/edac/Kconfig
-@@ -460,4 +460,11 @@ config EDAC_TI
- 	  Support for error detection and correction on the
-           TI SoCs.
- 
-+config EDAC_NPCM7XX
-+	tristate "Nuvoton NPCM7xx DDR Memory Controller"
-+	depends on ARCH_NPCM7XX
-+	help
-+	  Support for error detection and correction on the
-+	  Nuvoton NPCM7xx DDR memory controller.
-+
- endif # EDAC
-diff --git a/drivers/edac/Makefile b/drivers/edac/Makefile
-index 02b43a7d8c3e..1236f490bec7 100644
---- a/drivers/edac/Makefile
-+++ b/drivers/edac/Makefile
-@@ -77,3 +77,5 @@ obj-$(CONFIG_EDAC_ALTERA)		+= altera_edac.o
- obj-$(CONFIG_EDAC_SYNOPSYS)		+= synopsys_edac.o
- obj-$(CONFIG_EDAC_XGENE)		+= xgene_edac.o
- obj-$(CONFIG_EDAC_TI)			+= ti_edac.o
-+
-+obj-$(CONFIG_EDAC_NPCM7XX)		+= npcm7xx_edac.o
-diff --git a/drivers/edac/npcm7xx_edac.c b/drivers/edac/npcm7xx_edac.c
-new file mode 100644
-index 000000000000..bab25a4308be
---- /dev/null
-+++ b/drivers/edac/npcm7xx_edac.c
-@@ -0,0 +1,424 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 Quanta Computer lnc.
-+ */
-+
-+#include <linux/edac.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/of_address.h>
-+#include <linux/of_device.h>
-+
-+#include "edac_module.h"
-+
-+#define ECC_ENABLE                     BIT(24)
-+#define ECC_EN_INT_MASK                0x7fffff87
-+
-+#define INT_STATUS_ADDR                116
-+#define INT_ACK_ADDR                   117
-+#define INT_MASK_ADDR                  118
-+
-+#define ECC_EN_ADDR                    93
-+#define ECC_C_ADDR_ADDR                98
-+#define ECC_C_DATA_ADDR                100
-+#define ECC_C_ID_ADDR                  101
-+#define ECC_C_SYND_ADDR                99
-+#define ECC_U_ADDR_ADDR                95
-+#define ECC_U_DATA_ADDR                97
-+#define ECC_U_ID_ADDR                  101
-+#define ECC_U_SYND_ADDR                96
-+
-+#define ECC_ERROR                      -1
-+#define EDAC_MSG_SIZE                  256
-+#define EDAC_MOD_NAME                  "npcm7xx-edac"
-+
-+struct ecc_error_signature_info {
-+	u32 ecc_addr;
-+	u32 ecc_data;
-+	u32 ecc_id;
-+	u32 ecc_synd;
-+};
-+
-+struct npcm7xx_ecc_int_status {
-+	u32 int_mask;
-+	u32 int_status;
-+	u32 int_ack;
-+	u32 ce_cnt;
-+	u32 ue_cnt;
-+	struct ecc_error_signature_info ceinfo;
-+	struct ecc_error_signature_info ueinfo;
-+};
-+
-+struct npcm7xx_edac_priv {
-+	void __iomem *baseaddr;
-+	char message[EDAC_MSG_SIZE];
-+	struct npcm7xx_ecc_int_status stat;
-+};
-+
-+/**
-+ * npcm7xx_edac_get_ecc_syndrom - Get the current ecc error info
-+ * @base:	Pointer to the base address of the ddr memory controller
-+ * @p:		Pointer to the Nuvoton ecc status structure
-+ *
-+ * Determines there is any ecc error or not
-+ *
-+ * Return: ECC detection status
-+ */
-+static int npcm7xx_edac_get_ecc_syndrom(void __iomem *base,
-+					struct npcm7xx_ecc_int_status *p)
-+{
-+	int status = 0;
-+	u32 int_status = 0;
-+
-+	int_status = readl(base + 4*INT_STATUS_ADDR);
-+	writel(int_status, base + 4*INT_ACK_ADDR);
-+	edac_dbg(3, "int_status: %#08x\n", int_status);
-+
-+	if ((int_status & (1 << 6)) == (1 << 6)) {
-+		edac_dbg(3, "6-Mult uncorrectable detected.\n");
-+		p->ue_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 5)) == (1 << 5)) {
-+		edac_dbg(3, "5-An uncorrectable detected\n");
-+		p->ue_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 4)) == (1 << 4)) {
-+		edac_dbg(3, "4-mult correctable detected.\n");
-+		p->ce_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 3)) == (1 << 3)) {
-+		edac_dbg(3, "3-A correctable detected.\n");
-+		p->ce_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if (status == ECC_ERROR) {
-+		u32 ecc_id;
-+
-+		p->ceinfo.ecc_addr = readl(base + 4*ECC_C_ADDR_ADDR);
-+		p->ceinfo.ecc_data = readl(base + 4*ECC_C_DATA_ADDR);
-+		p->ceinfo.ecc_synd = readl(base + 4*ECC_C_SYND_ADDR);
-+
-+		p->ueinfo.ecc_addr = readl(base + 4*ECC_U_ADDR_ADDR);
-+		p->ueinfo.ecc_data = readl(base + 4*ECC_U_DATA_ADDR);
-+		p->ueinfo.ecc_synd = readl(base + 4*ECC_U_SYND_ADDR);
-+
-+		/* ECC_C_ID_ADDR has same value as ECC_U_ID_ADDR */
-+		ecc_id = readl(base + 4*ECC_C_ID_ADDR);
-+		p->ueinfo.ecc_id = ecc_id & 0xffff;
-+		p->ceinfo.ecc_id = ecc_id >> 16;
-+	}
-+
-+	return status;
-+}
-+
-+/**
-+ * npcm7xx_edac_handle_error - Handle controller error types CE and UE
-+ * @mci:	Pointer to the edac memory controller instance
-+ * @p:		Pointer to the Nuvoton ecc status structure
-+ *
-+ * Handles the controller ECC correctable and un correctable error.
-+ */
-+static void npcm7xx_edac_handle_error(struct mem_ctl_info *mci,
-+				    struct npcm7xx_ecc_int_status *p)
-+{
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+	u32 page, offset;
-+
-+	if (p->ce_cnt) {
-+		snprintf(priv->message, EDAC_MSG_SIZE,
-+			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
-+			p->ceinfo.ecc_synd, p->ceinfo.ecc_addr,
-+			p->ceinfo.ecc_data, p->ceinfo.ecc_id);
-+
-+		page = p->ceinfo.ecc_addr >> PAGE_SHIFT;
-+		offset = p->ceinfo.ecc_addr & ~PAGE_MASK;
-+		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
-+				     p->ce_cnt, page, offset,
-+				     p->ceinfo.ecc_synd,
-+				     0, 0, -1,
-+				     priv->message, "");
-+	}
-+
-+	if (p->ue_cnt) {
-+		snprintf(priv->message, EDAC_MSG_SIZE,
-+			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
-+			p->ueinfo.ecc_synd, p->ueinfo.ecc_addr,
-+			p->ueinfo.ecc_data, p->ueinfo.ecc_id);
-+
-+		page = p->ueinfo.ecc_addr >> PAGE_SHIFT;
-+		offset = p->ueinfo.ecc_addr & ~PAGE_MASK;
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
-+				     p->ue_cnt, page, offset,
-+				     p->ueinfo.ecc_synd,
-+				     0, 0, -1,
-+				     priv->message, "");
-+	}
-+
-+	memset(p, 0, sizeof(*p));
-+}
-+
-+/**
-+ * npcm7xx_edac_check - Check controller for ECC errors
-+ * @mci:	Pointer to the edac memory controller instance
-+ *
-+ * This routine is used to check and post ECC errors and is called by
-+ * this driver's CE and UE interrupt handler.
-+ */
-+static void npcm7xx_edac_check(struct mem_ctl_info *mci)
-+{
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+	int status = 0;
-+
-+	status = npcm7xx_edac_get_ecc_syndrom(priv->baseaddr, &priv->stat);
-+	if (status != ECC_ERROR)
-+		return;
-+
-+	npcm7xx_edac_handle_error(mci, &priv->stat);
-+}
-+
-+/**
-+ * npcm7xx_edac_isr - CE/UE interrupt service routine
-+ * @irq:    The virtual interrupt number being serviced.
-+ * @dev_id: A pointer to the EDAC memory controller instance
-+ *          associated with the interrupt being handled.
-+ *
-+ * This routine implements the interrupt handler for both correctable
-+ * (CE) and uncorrectable (UE) ECC errors for the Nuvoton Cadence DDR
-+ * controller. It simply calls through to the routine used to check,
-+ * report and clear the ECC status.
-+ *
-+ * Unconditionally returns IRQ_HANDLED.
-+ */
-+static irqreturn_t npcm7xx_edac_isr(int irq, void *dev_id)
-+{
-+	struct mem_ctl_info *mci = dev_id;
-+	int npcm_edac_report = 0;
-+
-+	npcm_edac_report = edac_get_report_status();
-+	if (npcm_edac_report != EDAC_REPORTING_DISABLED)
-+		npcm7xx_edac_check(mci);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int npcm7xx_edac_register_irq(struct mem_ctl_info *mci,
-+					struct platform_device *pdev)
-+{
-+	int status = 0;
-+	int mc_irq;
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+
-+	mc_irq = platform_get_irq(pdev, 0);
-+
-+	if (!mc_irq) {
-+		edac_printk(KERN_ERR, EDAC_MC, "Unable to map interrupts.\n");
-+		status = -ENODEV;
-+		goto fail;
-+	}
-+
-+	status = devm_request_irq(&pdev->dev, mc_irq, npcm7xx_edac_isr, 0,
-+			       "npcm-memory-controller", mci);
-+
-+	if (status < 0) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+				      "Unable to request irq %d for ECC",
-+				      mc_irq);
-+		status = -ENODEV;
-+		goto fail;
-+	}
-+
-+	/* Only enable MC interrupts with ECC - clear int_mask[6:3] */
-+	writel(ECC_EN_INT_MASK, priv->baseaddr + 4*INT_MASK_ADDR);
-+
-+	return 0;
-+
-+fail:
-+	return status;
-+}
-+
-+static const struct of_device_id npcm7xx_edac_of_match[] = {
-+	{ .compatible = "nuvoton,npcm7xx-sdram-edac"},
-+	{ /* end of table */ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, npcm7xx_edac_of_match);
-+
-+/**
-+ * npcm7xx_edac_mc_init - Initialize driver instance
-+ * @mci:	Pointer to the edac memory controller instance
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Performs initialization of the EDAC memory controller instance and
-+ * related driver-private data associated with the memory controller the
-+ * instance is bound to.
-+ *
-+ * Returns 0 if OK; otherwise, < 0 on error.
-+ */
-+static int npcm7xx_edac_mc_init(struct mem_ctl_info *mci,
-+				 struct platform_device *pdev)
-+{
-+	const struct of_device_id *id;
-+
-+	id = of_match_device(npcm7xx_edac_of_match, &pdev->dev);
-+	if (!id)
-+		return -ENODEV;
-+
-+	/* Initialize controller capabilities and configuration */
-+	mci->mtype_cap = MEM_FLAG_DDR4;
-+	mci->edac_ctl_cap = EDAC_FLAG_SECDED;
-+	mci->edac_cap = EDAC_FLAG_SECDED;
-+	mci->scrub_cap = SCRUB_FLAG_HW_SRC;
-+	mci->scrub_mode = SCRUB_HW_SRC;
-+	mci->ctl_name = id->compatible;
-+	mci->dev_name = dev_name(&pdev->dev);
-+	mci->mod_name = EDAC_MOD_NAME;
-+
-+	edac_op_state = EDAC_OPSTATE_INT;
-+
-+	return 0;
-+}
-+
-+/**
-+ * npcm7xx_edac_get_eccstate - Return the controller ecc enable/disable status
-+ * @base:	Pointer to the ddr memory controller base address
-+ *
-+ * Get the ECC enable/disable status for the controller
-+ *
-+ * Return: a ecc status boolean i.e true/false - enabled/disabled.
-+ */
-+static bool npcm7xx_edac_get_eccstate(void __iomem *base)
-+{
-+	u32 ecc_en;
-+	bool state = false;
-+
-+	ecc_en = readl(base + 4*ECC_EN_ADDR);
-+	if (ecc_en & ECC_ENABLE) {
-+		edac_printk(KERN_INFO, EDAC_MC, "ECC reporting and correcting on. ");
-+		state = true;
-+	}
-+
-+	return state;
-+}
-+
-+/**
-+ * npcm7xx_edac_mc_probe - Check controller and bind driver
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Probes a specific controller instance for binding with the driver.
-+ *
-+ * Return: 0 if the controller instance was successfully bound to the
-+ * driver; otherwise, < 0 on error.
-+ */
-+static int npcm7xx_edac_mc_probe(struct platform_device *pdev)
-+{
-+	struct mem_ctl_info *mci;
-+	struct edac_mc_layer layers[1];
-+	struct npcm7xx_edac_priv *priv;
-+	struct resource *res;
-+	void __iomem *baseaddr;
-+	int rc;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	baseaddr = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(baseaddr)) {
-+		edac_printk(KERN_ERR, EDAC_MOD_NAME,
-+			    "DDR controller regs not defined\n");
-+		return PTR_ERR(baseaddr);
-+	}
-+
-+	/*
-+	 * Check if ECC is enabled.
-+	 * If not, there is no useful monitoring that can be done
-+	 * for this controller.
-+	 */
-+	if (!npcm7xx_edac_get_eccstate(baseaddr)) {
-+		edac_printk(KERN_INFO, EDAC_MC, "ECC disabled\n");
-+		return -ENXIO;
-+	}
-+
-+	/*
-+	 * Allocate an EDA controller instance and perform the appropriate
-+	 * initialization.
-+	 */
-+	layers[0].type = EDAC_MC_LAYER_ALL_MEM;
-+	layers[0].size = 1;
-+
-+	mci = edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
-+			    sizeof(struct npcm7xx_edac_priv));
-+	if (!mci) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed memory allocation for mc instance\n");
-+		return -ENOMEM;
-+	}
-+
-+	mci->pdev = &pdev->dev;
-+	priv = mci->pvt_info;
-+	priv->baseaddr = baseaddr;
-+	platform_set_drvdata(pdev, mci);
-+
-+	rc = npcm7xx_edac_mc_init(mci, pdev);
-+	if (rc) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed to initialize instance\n");
-+		goto free_edac_mc;
-+	}
-+
-+	/* Attempt to register it with the EDAC subsystem */
-+	rc = edac_mc_add_mc(mci);
-+	if (rc) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed to register with EDAC core\n");
-+		goto free_edac_mc;
-+	}
-+
-+	/* Register interrupts */
-+	rc = npcm7xx_edac_register_irq(mci, pdev);
-+	if (rc)
-+		goto free_edac_mc;
-+
-+	return 0;
-+
-+free_edac_mc:
-+	edac_mc_free(mci);
-+
-+	return rc;
-+}
-+
-+/**
-+ * npcm7xx_edac_mc_remove - Unbind driver from controller
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Return: Unconditionally 0
-+ */
-+static int npcm7xx_edac_mc_remove(struct platform_device *pdev)
-+{
-+	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
-+
-+	edac_mc_del_mc(&pdev->dev);
-+	edac_mc_free(mci);
-+
-+	return 0;
-+}
-+
-+static struct platform_driver npcm7xx_edac_driver = {
-+	.probe = npcm7xx_edac_mc_probe,
-+	.remove = npcm7xx_edac_mc_remove,
-+	.driver = {
-+		   .name = EDAC_MOD_NAME,
-+		   .of_match_table = npcm7xx_edac_of_match,
-+	},
-+};
-+
-+module_platform_driver(npcm7xx_edac_driver);
-+
-+MODULE_AUTHOR("Quanta Computer Inc.");
-+MODULE_DESCRIPTION("Nuvoton NPCM7xx EDAC Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-2.21.0
+I hadn't thought of mfg mode commands as a use case for this but on the
+surface it does seem to be a match.
