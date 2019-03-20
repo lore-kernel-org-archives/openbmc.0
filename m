@@ -1,65 +1,55 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::142; helo=mail-it1-x142.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::82f; helo=mail-qt1-x82f.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="KZFF3wgE"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIV5qwgQ"; 
  dkim-atps=neutral
-Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
- [IPv6:2607:f8b0:4864:20::142])
+Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
+ [IPv6:2607:f8b0:4864:20::82f])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44PJRs2mgLzDq5W
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 16:31:04 +1100 (AEDT)
-Received: by mail-it1-x142.google.com with SMTP id h9so8544612itl.1
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 22:31:04 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PJtc2GvbzDqB4
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 16:50:47 +1100 (AEDT)
+Received: by mail-qt1-x82f.google.com with SMTP id v20so1147448qtv.12
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 22:50:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=CgHS5dzYyfuY6qw4cSO6OFkcSkULRrRwTGovEPrcT3w=;
- b=KZFF3wgEFBD34/qXtO/6OhfkaQWgsYO6Th5lLHhck763LGSsZn1PsVF1woeNzbGOWO
- ZO9sM5//+XXVxzSB1KRKUAkfdRtULkovIUGN5exG3ciGCkVvnY4T/jBLQvnRdKcgyWgr
- EQmLplD0FBtgS/jW3y4vZtMYmYUAcg6qNem1UFQX/4rH2kvYyC+XaZdUR8zCyfAusbZ8
- nEKn62wFtehi/kiDwJetLCz1/US8hEJMi9ncA676+O6LdEIfglsqRI3Eu1eEOCCuSTDX
- ON0wi4BR5Wish6OcB7P8SZD2ry0cmScgBdeY1JHbtE9ZnlBem222mqCbOcEEblVN7K+L
- kCXQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=0Cbr4ybBzkcD6RwCfIHRo4DfqCSTpKBEyt8g9iBgl2g=;
+ b=bIV5qwgQWCttDdJliAMlAtMaYJlVkZDhYSZmZVIzJllJm0S0PRoWeacz5EXOGcOx/B
+ FtgrGlF2CXFowbmnIiEPLmBuqWkd2QTEr6U6m3ghR4UK2BqXSiekH4oFIB5NZPXh3lGx
+ RQoAnU+BmPumm24b9ypBiFKhT+Pq8yVa6CM3rPETGYBROP2mNrK8/Px2hglVID2BaCen
+ 1aH+1aWvAW7buq/5XL7AC1uDiOkDGQeON5M77aGUNEDH9O+rJgP1l+3jsC8qT8lXUdbT
+ PjMBj77uItGfLNnlIgvYuzAcFoABBfkrSdH8ja3XUftOI5+BTgJkO2HDEnZmld3qRA0I
+ V2yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=CgHS5dzYyfuY6qw4cSO6OFkcSkULRrRwTGovEPrcT3w=;
- b=Nms0g7RPXqQG510G0zGRJqvOdnoGJ/1jz9DW55cymZ2O6fhHGuGEru5HnLu9mQ68cU
- XbqpF6gqwhiVsDHiRBFsl82YUTubrUk9BT/JkfpiJ4y4RXedxHgSst3brLx5JvqCsZ4o
- 9A469zWzqQ4WnAVUyGi8UgO51mPpJnku9ABQlks5Www1PKhN5/+EwW6ngb9cRdiYMODz
- fKn3vlT6FyuYjGGnygYIKBWwoYf4NUfEtAUdGR3hzfgz09FJJWrQ2pMAgNGei9ZMVDr5
- m8v+Kq+EJrj0Anlc2G+reyMEkNd0uUVKhwFn8EYJPXLUbRQk3VPeOjk9VFr+jGqNmxMV
- 0DGg==
-X-Gm-Message-State: APjAAAWHy2gTOXRpqIucvemKBNn95Lbhl/h7+VDtF59Wtym4YZPUdN9Z
- 49oIly9K/ZSFOXASrzhX0UJymQBkt28gLOjamPw=
-X-Google-Smtp-Source: APXvYqyNQvEllyGLDZG8mwKmc2JnjXQB+YTvYRN5htnuNr9jvMrSgrCG4RFTX54VlIkw4SvqLCc6rxNXkM6bhn28BA0=
-X-Received: by 2002:a24:5f52:: with SMTP id r79mr4033936itb.125.1553059862994; 
- Tue, 19 Mar 2019 22:31:02 -0700 (PDT)
+ :message-id:subject:to;
+ bh=0Cbr4ybBzkcD6RwCfIHRo4DfqCSTpKBEyt8g9iBgl2g=;
+ b=R8qzWHyFPjzhgPSAZ7MS0HgWzOR+mGWyDrAdooWS6qEyeVM1RtWLR/Zj9C4pO0Iy9m
+ CyWDeWXhoyHnKeUw/aFxdrSMeq41+X3CXCsKgEwEtKlRBaDlERx8xN7Dq4YHdOv/t04s
+ 6432ZQKs1x0fP/RcNmPKLTwrN1JRkF8oLnHjf2FmpSULehDlDfjdJ47ppD5tE2o4Rz1Q
+ eBK/MH/sIQcteAsbxyduoYJlZe8PyKLFCYzdcwQGhy8QDJ6NWMaZARMmvPGChTsgpPKc
+ sDf4f0ScrIMaTnmTcucuaG+gWZV9mJJNNQGFc4tDqy1bj4+T0CqVO2oLjufBhpjLetEg
+ Eolw==
+X-Gm-Message-State: APjAAAUTqfKm8Oum9DO76aBSh1RgqOUagxnnSM7BxiPA5p2DNsS95Csu
+ FYQsLnt3UNTJimu+EIuh1PKqR+G7ipXSvipWECRRGw==
+X-Google-Smtp-Source: APXvYqz3dT4RCfzeHpdr+WTXLZ/qmDCSijLhO4TIwP38O7EefDe1NQ4tfR853meueYIelVQKaFlx05OO9sn4GL/MzEo=
+X-Received: by 2002:ac8:72d3:: with SMTP id o19mr5484875qtp.274.1553061043863; 
+ Tue, 19 Mar 2019 22:50:43 -0700 (PDT)
 MIME-Version: 1.0
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
- <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
- <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
- <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
- <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
- <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
-In-Reply-To: <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 20 Mar 2019 13:30:47 +0800
-Message-ID: <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
-Subject: Re: Does obmc-ikvm work with bmcweb?
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+References: <CAG9c7cBOEd3rD5zmgXVMx6m7sUHtt2ts4_H=8B8KxZ7iGMcvUA@mail.gmail.com>
+In-Reply-To: <CAG9c7cBOEd3rD5zmgXVMx6m7sUHtt2ts4_H=8B8KxZ7iGMcvUA@mail.gmail.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Wed, 20 Mar 2019 13:50:32 +0800
+Message-ID: <CAG9c7cAkdE=EcKAMn+E0gfKbQ1eeNeZopLjgG_YEs0W7M_6Tcg@mail.gmail.com>
+Subject: Re: [PATCH linux dev-4.19 00/12] PECI device driver introduction
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jae.hyun.yoo@linux.intel.com
+Content-Type: multipart/alternative; boundary="000000000000d5854505848033ec"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,21 +61,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 05:31:06 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 05:50:52 -0000
 
-> Check if there are /dev/hidg0 and /dev/hidg1. If not, check kernel
-> configs again.
-> Also, check 'start-ipkvm.service' file whether that launches obmc-ikvm
-> using this options:
-> ExecStart=/usr/bin/env obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p
-> /dev/hidg1
+--000000000000d5854505848033ec
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Confirmed that both /dev/hidg0 and /dev/hidg1 are created, and the service is
-started with obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p /dev/hidg1.
+Hi Jae,
 
+Can you give some suggestion for my question?
+Thanks.
+
+BRs
+
+Henbin Chang <henbinchang@gmail.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=8819=E6=
+=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=884:22=E5=AF=AB=E9=81=93=EF=BC=9A
+
+> Hi,
 >
-> Try this patch:
-> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+> We would like to create CPU temperature sensor.
+> We could see the hwmon file in the /sys/class/hwmon/
+> But we found the content of uevent file was empty.
+> That meant the sensor wasn't created through udev->start_hwmon.sh
+> Can you give some suggestion?
+>
+> root@tiogapass:/sys/class/hwmon/hwmon4# cat name
+> peci_cputemp.cpu0
+> root@tiogapass:/sys/class/hwmon/hwmon4# cat uevent
+> root@tiogapass:/sys/class/hwmon/hwmon4#
+> root@tiogapass:/sys/class/hwmon/hwmon4#
+>
 
-Unfortunately, the patch does not fix the issue, the KVM page still shows a
-small black block when browsed to another page and back.
+--000000000000d5854505848033ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Jae,<div><br></div><div>Can you give some suggestion fo=
+r my question?</div><div>Thanks.</div><div><br></div><div>BRs</div></div><b=
+r><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Henbin C=
+hang &lt;<a href=3D"mailto:henbinchang@gmail.com">henbinchang@gmail.com</a>=
+&gt; =E6=96=BC 2019=E5=B9=B43=E6=9C=8819=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=
+=8B=E5=8D=884:22=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"g=
+mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
+,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hi,<div><br><=
+/div><div>We would like to create CPU temperature sensor.</div><div>We coul=
+d see the hwmon file in the /sys/class/hwmon/=C2=A0</div><div>But we found =
+the content of uevent file was empty.</div><div>That meant the sensor wasn&=
+#39;t created through udev-&gt;start_hwmon.sh</div><div>Can you give some s=
+uggestion?</div><div><br></div><div><div>root@tiogapass:/sys/class/hwmon/hw=
+mon4# cat name</div><div>peci_cputemp.cpu0</div><div>root@tiogapass:/sys/cl=
+ass/hwmon/hwmon4# cat uevent</div><div>root@tiogapass:/sys/class/hwmon/hwmo=
+n4#</div><div>root@tiogapass:/sys/class/hwmon/hwmon4#</div></div></div></di=
+v>
+</blockquote></div>
+
+--000000000000d5854505848033ec--
