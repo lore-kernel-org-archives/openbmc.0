@@ -1,55 +1,54 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::82f; helo=mail-qt1-x82f.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::82a; helo=mail-qt1-x82a.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="bIV5qwgQ"; 
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="WmSqxJ4N"; 
  dkim-atps=neutral
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
+Received: from mail-qt1-x82a.google.com (mail-qt1-x82a.google.com
+ [IPv6:2607:f8b0:4864:20::82a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44PJtc2GvbzDqB4
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 16:50:47 +1100 (AEDT)
-Received: by mail-qt1-x82f.google.com with SMTP id v20so1147448qtv.12
- for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 22:50:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PLMJ1JDlzDqDQ
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 17:57:15 +1100 (AEDT)
+Received: by mail-qt1-x82a.google.com with SMTP id h39so1340291qte.2
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Mar 2019 23:57:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=0Cbr4ybBzkcD6RwCfIHRo4DfqCSTpKBEyt8g9iBgl2g=;
- b=bIV5qwgQWCttDdJliAMlAtMaYJlVkZDhYSZmZVIzJllJm0S0PRoWeacz5EXOGcOx/B
- FtgrGlF2CXFowbmnIiEPLmBuqWkd2QTEr6U6m3ghR4UK2BqXSiekH4oFIB5NZPXh3lGx
- RQoAnU+BmPumm24b9ypBiFKhT+Pq8yVa6CM3rPETGYBROP2mNrK8/Px2hglVID2BaCen
- 1aH+1aWvAW7buq/5XL7AC1uDiOkDGQeON5M77aGUNEDH9O+rJgP1l+3jsC8qT8lXUdbT
- PjMBj77uItGfLNnlIgvYuzAcFoABBfkrSdH8ja3XUftOI5+BTgJkO2HDEnZmld3qRA0I
- V2yw==
+ bh=zQ3nOmhvHPRgOegrn7lX1/ohQ0ZE0tJLny/Ck1fqt7M=;
+ b=WmSqxJ4Nd+r43Wy6syPAFfioR9VttkCY3akEnnVO2u3bM6sn62JKJUupF4L6lqh8/O
+ RO7DAqFvNoWsDzzEvE5yMW+gbaTkjcIqmSzT3WkYetfasZchKI7MzyDrkWVXJatKoVgW
+ Bj2Y5+UJTmoU6f0VsWWwz8wVFYkdHCRYzEorc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to;
- bh=0Cbr4ybBzkcD6RwCfIHRo4DfqCSTpKBEyt8g9iBgl2g=;
- b=R8qzWHyFPjzhgPSAZ7MS0HgWzOR+mGWyDrAdooWS6qEyeVM1RtWLR/Zj9C4pO0Iy9m
- CyWDeWXhoyHnKeUw/aFxdrSMeq41+X3CXCsKgEwEtKlRBaDlERx8xN7Dq4YHdOv/t04s
- 6432ZQKs1x0fP/RcNmPKLTwrN1JRkF8oLnHjf2FmpSULehDlDfjdJ47ppD5tE2o4Rz1Q
- eBK/MH/sIQcteAsbxyduoYJlZe8PyKLFCYzdcwQGhy8QDJ6NWMaZARMmvPGChTsgpPKc
- sDf4f0ScrIMaTnmTcucuaG+gWZV9mJJNNQGFc4tDqy1bj4+T0CqVO2oLjufBhpjLetEg
- Eolw==
-X-Gm-Message-State: APjAAAUTqfKm8Oum9DO76aBSh1RgqOUagxnnSM7BxiPA5p2DNsS95Csu
- FYQsLnt3UNTJimu+EIuh1PKqR+G7ipXSvipWECRRGw==
-X-Google-Smtp-Source: APXvYqz3dT4RCfzeHpdr+WTXLZ/qmDCSijLhO4TIwP38O7EefDe1NQ4tfR853meueYIelVQKaFlx05OO9sn4GL/MzEo=
-X-Received: by 2002:ac8:72d3:: with SMTP id o19mr5484875qtp.274.1553061043863; 
- Tue, 19 Mar 2019 22:50:43 -0700 (PDT)
+ bh=zQ3nOmhvHPRgOegrn7lX1/ohQ0ZE0tJLny/Ck1fqt7M=;
+ b=epbPUCgIgY/mtUFI/4Cw9MEx1ryCQbtYst3nNVoB9AECmNXxSY9k5Wu5aMmEfi+zLT
+ WLZCOKU3TAVeRZxtEzRoBpd7DLREkbXDvMkZZ6f0luTPe932hftMH3kSRnMXqDFFp6ie
+ 4CpcU+/ohS4CkQk2y5gTfTxKpsgFt63Q0Blx07kZBH8KorhfPJwPjteMGjcU3z2sffNi
+ Y/ONwyi0SLCQ6UhGQ2Yp2ZeYyzcjL385L6bekhanVFV5nBl498PROoliGUyK4C7g3XeA
+ w1qMLH9OvZb2elBYxQOaaT7e+eTxyTkBl7wex7aSZmaSVOOtGaVO1myw+rJx19uyBows
+ 4fGQ==
+X-Gm-Message-State: APjAAAVDenmZW23ka6LzT+49mO94ZBeeJXzLOPpsKfiR8896e95dal6u
+ c1TAMH3Nywjx7xim8zMbFLyR4IHxCsQPv5b5IBE=
+X-Google-Smtp-Source: APXvYqz25tR/cPIkWb5fXx1zxrVJEn0PSOcnPxbVAHAunepOXLMcIoUzgb0A9YJOAvIiMx6eFvRrlY0Iw7SBl96Y/co=
+X-Received: by 2002:aed:3641:: with SMTP id e59mr5460445qtb.235.1553065030938; 
+ Tue, 19 Mar 2019 23:57:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAG9c7cBOEd3rD5zmgXVMx6m7sUHtt2ts4_H=8B8KxZ7iGMcvUA@mail.gmail.com>
-In-Reply-To: <CAG9c7cBOEd3rD5zmgXVMx6m7sUHtt2ts4_H=8B8KxZ7iGMcvUA@mail.gmail.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Wed, 20 Mar 2019 13:50:32 +0800
-Message-ID: <CAG9c7cAkdE=EcKAMn+E0gfKbQ1eeNeZopLjgG_YEs0W7M_6Tcg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-4.19 00/12] PECI device driver introduction
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jae.hyun.yoo@linux.intel.com
-Content-Type: multipart/alternative; boundary="000000000000d5854505848033ec"
+References: <CACPK8XdnESPUxPqX005x64sCehJTPyBw9vnCyHk7UP8vMrz1vg@mail.gmail.com>
+ <819d0ff4-7ed5-8527-bd92-1ff468f699ed@linux.intel.com>
+In-Reply-To: <819d0ff4-7ed5-8527-bd92-1ff468f699ed@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 20 Mar 2019 06:56:59 +0000
+Message-ID: <CACPK8XdkV=n6WRZXQv3OX=F=AVUhy2ULjCT_ceU3eCc9DahOMQ@mail.gmail.com>
+Subject: Re: Moving to Linux Kernel 5.0
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Tao Ren <taoren@fb.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,58 +60,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 05:50:52 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 06:57:17 -0000
 
---000000000000d5854505848033ec
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Jae,
-
-Can you give some suggestion for my question?
-Thanks.
-
-BRs
-
-Henbin Chang <henbinchang@gmail.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=8819=E6=
-=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=884:22=E5=AF=AB=E9=81=93=EF=BC=9A
-
-> Hi,
+On Mon, 18 Mar 2019 at 22:29, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+> > It's been a few releases since we bumped, so I'm going to publish a
+> > 5.0 based tree this week. I've done some testing on the machine I have
+> > (OpenPower Romulus ast2500) and it looks good.
+> >
+> > I'll be rebasing without discarding patches for this release. That
+> > means if you have non-mainline patches it will still be there for
+> > dev-5.0. Next release we will do a cleanout, so please ensure your out
+> > of tree patches are on the upstream lists for 5.2 now.
+> >
+> I see the out of tree PECI patches are still in dev-5.0. Thanks much
+> for rebasing it while you make the kernel update. I checked that
+> dev-5.0 kernel works well in my machine.
 >
-> We would like to create CPU temperature sensor.
-> We could see the hwmon file in the /sys/class/hwmon/
-> But we found the content of uevent file was empty.
-> That meant the sensor wasn't created through udev->start_hwmon.sh
-> Can you give some suggestion?
->
-> root@tiogapass:/sys/class/hwmon/hwmon4# cat name
-> peci_cputemp.cpu0
-> root@tiogapass:/sys/class/hwmon/hwmon4# cat uevent
-> root@tiogapass:/sys/class/hwmon/hwmon4#
-> root@tiogapass:/sys/class/hwmon/hwmon4#
->
+> Again, thanks for your effort!
 
---000000000000d5854505848033ec
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks for the kind words Tao and Jae.
 
-<div dir=3D"ltr">Hi Jae,<div><br></div><div>Can you give some suggestion fo=
-r my question?</div><div>Thanks.</div><div><br></div><div>BRs</div></div><b=
-r><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Henbin C=
-hang &lt;<a href=3D"mailto:henbinchang@gmail.com">henbinchang@gmail.com</a>=
-&gt; =E6=96=BC 2019=E5=B9=B43=E6=9C=8819=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=
-=8B=E5=8D=884:22=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"g=
-mail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204=
-,204,204);padding-left:1ex"><div dir=3D"ltr"><div dir=3D"ltr">Hi,<div><br><=
-/div><div>We would like to create CPU temperature sensor.</div><div>We coul=
-d see the hwmon file in the /sys/class/hwmon/=C2=A0</div><div>But we found =
-the content of uevent file was empty.</div><div>That meant the sensor wasn&=
-#39;t created through udev-&gt;start_hwmon.sh</div><div>Can you give some s=
-uggestion?</div><div><br></div><div><div>root@tiogapass:/sys/class/hwmon/hw=
-mon4# cat name</div><div>peci_cputemp.cpu0</div><div>root@tiogapass:/sys/cl=
-ass/hwmon/hwmon4# cat uevent</div><div>root@tiogapass:/sys/class/hwmon/hwmo=
-n4#</div><div>root@tiogapass:/sys/class/hwmon/hwmon4#</div></div></div></di=
-v>
-</blockquote></div>
+I've done some further testing on Palmetto (ast2400) as well as
+Romulus, and with Jae's testing I think it looks good to go. I have
+pushed the dev-5.0 branch to openbmc github, and submitted a patch to
+Gerrit to move us to this new base:
 
---000000000000d5854505848033ec--
+ https://gerrit.openbmc-project.xyz/c/openbmc/meta-aspeed/+/19335
+
+The 4.19 tree is now closed. Please address future patches to the 5.0 tree.
+
+Cheers,
+
+Joel
