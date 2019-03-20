@@ -1,67 +1,44 @@
-Return-Path: <tajudheenk@gmail.com>
+Return-Path: <prvs=97506736c=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::341; helo=mail-wm1-x341.google.com;
- envelope-from=tajudheenk@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=97506736c=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="fj8sGB7z"; 
- dkim-atps=neutral
-Received: from mail-wm1-x341.google.com (mail-wm1-x341.google.com
- [IPv6:2a00:1450:4864:20::341])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44PS2b3XtvzDqGQ
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 22:13:08 +1100 (AEDT)
-Received: by mail-wm1-x341.google.com with SMTP id v14so11154450wmf.2
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 04:13:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=OHLRqgQ8Kp4bUsHzu+5XK5KywObUlY0iG0jHp1Z5eCQ=;
- b=fj8sGB7zTp2i0DHB/Sr83qsQqYawfiW09ahbsCzqLxZ8klVqDrWYnrHb58o3vjkEVw
- so7DphZxX102ZMHXVW5wFkQLHz8gBKZJSfhuQfiVYa8r1JOfKWt56X0OFsi7p54Nsux6
- V74vqd6xMniYN4109qr8o6ldz23a3wPIQNTrS++5nll4y8umDspo/XFgHVZJIVr60yQF
- XaAgiWpMRK0sDwC+fcSqQGvf6hsB3qNGWg5nRyV3/l6jYj9A2hCOTorruiwOVxh0h1bO
- HYRRDhBiuP2G+vLJB2EBV8ERvIuuoWfS5i7TY5BzaILVa/CwDJ7WOtPdLI6KRKR8K8OG
- EBOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=OHLRqgQ8Kp4bUsHzu+5XK5KywObUlY0iG0jHp1Z5eCQ=;
- b=fIfXhxPOmrgijTQsKsdmiz4ebiKerJ+NuWBw5EMGEPy39hlO5di7dvtijk8qPgkw0B
- jwn9/VPWLLxyCoTUUg5ETX0PSz3NZirQBL6NsBszF1nPcFUxaorB3Sr86EIvzuccFaXd
- Xn1ARFYFk/rr5giHVeZvrOqUVW6Dt+7XJXrPfLSf0fa67j319Ul8DJh2tCxXZuvm9yVp
- tQa0D+Td86uf6J+lx5qSUeB/yslFygTqKGoi+B9pnPT0iGERWvLxfRir59Xfx6QMQ5Kg
- 7rmT6IuVy2zqUwCCU7HvdxidOvow4+IyEshGTuwKBmhfiQxxTZkVHX6knQU60t4qvBlm
- G2Wg==
-X-Gm-Message-State: APjAAAWkSKQ0T5uD586KJt3tPCBWCiPctQryaeoF6a72dyEQTJfuFAra
- WWbfaV0t7/WbWeWKe6JsBS5EXF0ypSUAFhJkI7A=
-X-Google-Smtp-Source: APXvYqwjQR1nRECNeM5Rewhm5TIvK7gPiDBS1mGerAZn8A3DnBlEQy5xx2YYTQdvGtl39xQ7S42rDSDAPPOEdrbOtRo=
-X-Received: by 2002:a7b:c34e:: with SMTP id l14mr8273569wmj.68.1553080384238; 
- Wed, 20 Mar 2019 04:13:04 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44PVXr5lZlzDqNH
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 00:05:56 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx02.quantatw.com with ESMTP; 20 Mar 2019 21:05:53 +0800
+Received: from george-Quanta.com.com (10.243.91.252) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Wed, 20 Mar
+ 2019 21:05:51 +0800
+From: George Hung <george.hung@quantatw.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: <openbmc@lists.ozlabs.org>, <emilyshaffer@google.com>,
+ <benjaminfair@google.com>, <Avi.Fishman@nuvoton.com>,
+ <ofer.eilon@nuvoton.com>
+Subject: [PATCH dev-4.19 v2] EDAC: Add Nuvoton NPCM7xx EDAC driver
+Date: Wed, 20 Mar 2019 21:02:47 +0800
+Message-ID: <20190320130247.25195-1-george.hung@quantatw.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
- <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
- <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
- <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
- <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
- <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
- <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
-In-Reply-To: <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
-From: Thaju <tajudheenk@gmail.com>
-Date: Wed, 20 Mar 2019 16:42:53 +0530
-Message-ID: <CAH2KKeajTT96Y6rOdKGct+EBLdbFxGo97SEfWzMrcu0hqRh_Hw@mail.gmail.com>
-Subject: Re: Does obmc-ikvm work with bmcweb?
-To: Lei YU <mine260309@gmail.com>
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, xiuzhi <1450335857@qq.com>, 
- openbmc <openbmc@lists.ozlabs.org>, ed <ed@tanous.net>, 
- Eddie James <eajames@linux.vnet.ibm.com>
-Content-Type: multipart/alternative; boundary="0000000000009c3b19058484b44f"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.243.91.252]
+X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
+ mailbx05.quanta.corp (10.243.91.100)
+X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24500.005
+X-TM-AS-Result: No--9.488800-0.000000-31
+X-TM-AS-MatchedID: 704421-708060-701236-300015-702898-708797-700016-703529-1
+ 88019-705414-701016-845348-704425-700324-121336-863519-700648-700918-708712
+ -700264-701220-700057-700476-701296-702098-709584-706290-188199-702426-7044
+ 96-700767-105250-780052-711106-701594-701944-703454-780012-704318-701053-71
+ 0739-707163-121367-707788-780011-712058-701384-701708-703378-705450-105630-
+ 106420-703969-704568-148004-148036-29997-42000-42003-63
+X-TM-AS-User-Approved-Sender: Yes
+X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,166 +50,479 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Mar 2019 11:13:12 -0000
+X-List-Received-Date: Wed, 20 Mar 2019 13:06:07 -0000
 
---0000000000009c3b19058484b44f
-Content-Type: text/plain; charset="UTF-8"
+Add support for the Nuvoton NPCM7xx SoC EDAC driver
 
-Hi Jae/Xiuzhi,
+Signed-off-by: George Hung <george.hung@quantatw.com>
+---
+v1->v2:
+ * Change CONFIG_EDAC_NUVOTON as CONFIG_EDAC_NPCM7XX
+ * Change ecc_synd to ecc_id (typo)
+ * Move 'enable interrupt' to the last stage of irq function
+ * Add the bit definition for ECC interrupt bitwise value 
 
-I have tried enabling KVM as mentioned in the mail thread. But unable to
-get the video in the web. Also tried using vnc viewer, but connection
-refused.
+ drivers/edac/Kconfig        |   7 +
+ drivers/edac/Makefile       |   2 +
+ drivers/edac/npcm7xx_edac.c | 424 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 433 insertions(+)
+ create mode 100644 drivers/edac/npcm7xx_edac.c
 
-I see the following:
-
-# obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p /dev/hidg1
-26/02/2019 09:41:04 Unable to establish connection with systemd socket
-26/02/2019 09:41:04 Listening for VNC connections on TCP port 5900
-26/02/2019 09:41:04 Listening for VNC connections on TCP6 port 5900
-26/02/2019 09:42:17 Got connection from client 127.0.0.1
-26/02/2019 09:42:17   other clients:
-26/02/2019 09:42:17 Normal socket connection
-
-# dmesg | grep video
-[   18.921547] aspeed-video 1e700000.video: assigned reserved memory node
-framebuffer
-[   59.799015] aspeed-video 1e700000.video: Timed out; first mode detect
-
-obmc-ikvm recipe:
-
-SUMMARY = "obmc kvm application"
-DESCRIPTION = "Interfaces video device and USB HID device on BMC"
-
-FILESEXTRAPATHS_append := ":${THISDIR}/${PN}"
-
-inherit systemd
-inherit obmc-phosphor-systemd
-inherit autotools pkgconfig
-
-LICENSE = "Apache-2.0"
-LIC_FILES_CHKSUM = "file://LICENSE;md5=e3fc50a88d0a364313df4b21ef20c29e"
-
-PV = "1.0+git${SRCPV}"
-
-SRC_URI = "git://github.com/openbmc/obmc-ikvm \
-        file://Fix_video_restarting_sync_issue.patch \
-        "
-SRCREV = "2bc661d34abd1fda92a9d2b256ed88ca0e90d09a"
-
-DEPENDS += "autoconf-archive"
-DEPENDS += "libvncserver"
-DEPENDS += "sdbusplus"
-DEPENDS += "sdeventplus"
-DEPENDS += "phosphor-logging"
-DEPENDS += "phosphor-dbus-interfaces"
-DEPENDS += "systemd"
-
-S = "${WORKDIR}/git"
-
-SERVICE_FILE = "start-ipkvm.service"
-SYSTEMD_PACKAGES = "${PN}"
-SYSTEMD_SERVICE_${PN} += "${SERVICE_FILE}"
-SYSTEMD_DEFAULT_TARGET ?= "${SYSTEMD_DEFAULT_TARGET}"
-
-What am I doing wrong here?
-Do we need to set "-DBMCWEB_ENABLE_KVM=ON" in bmcweb?
-
-Regards,
-Thaj
-
-On Wed, Mar 20, 2019 at 11:01 AM Lei YU <mine260309@gmail.com> wrote:
-
-> > Check if there are /dev/hidg0 and /dev/hidg1. If not, check kernel
-> > configs again.
-> > Also, check 'start-ipkvm.service' file whether that launches obmc-ikvm
-> > using this options:
-> > ExecStart=/usr/bin/env obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p
-> > /dev/hidg1
->
-> Confirmed that both /dev/hidg0 and /dev/hidg1 are created, and the service
-> is
-> started with obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p /dev/hidg1.
->
-> >
-> > Try this patch:
-> > https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
->
-> Unfortunately, the patch does not fix the issue, the KVM page still shows a
-> small black block when browsed to another page and back.
->
-
---0000000000009c3b19058484b44f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr">Hi Jae/Xiuzhi,<div><br></div><div>I have tried enabling KVM as me=
-ntioned in the mail thread. But unable to get the video in the web. Also tr=
-ied using vnc viewer, but connection refused.</div><div><br></div><div>I se=
-e the following:</div><div><br></div><div><div># obmc-ikvm -v /dev/video0 -=
-f 10 -k /dev/hidg0 -p /dev/hidg1</div><div>26/02/2019 09:41:04 Unable to es=
-tablish connection with systemd socket</div><div>26/02/2019 09:41:04 Listen=
-ing for VNC connections on TCP port 5900</div><div>26/02/2019 09:41:04 List=
-ening for VNC connections on TCP6 port 5900</div><div>26/02/2019 09:42:17 G=
-ot connection from client 127.0.0.1</div><div>26/02/2019 09:42:17=C2=A0 =C2=
-=A0other clients:</div><div>26/02/2019 09:42:17 Normal socket connection</d=
-iv></div><div><br></div><div><div># dmesg | grep video</div><div>[=C2=A0 =
-=C2=A018.921547] aspeed-video 1e700000.video: assigned reserved memory node=
- framebuffer</div><div>[=C2=A0 =C2=A059.799015] aspeed-video 1e700000.video=
-: Timed out; first mode detect</div></div><div><br></div><div><div>obmc-ikv=
-m recipe:<br></div><div><br></div><div>SUMMARY =3D &quot;obmc kvm applicati=
-on&quot;</div><div>DESCRIPTION =3D &quot;Interfaces video device and USB HI=
-D device on BMC&quot;</div><div><br></div><div>FILESEXTRAPATHS_append :=3D =
-&quot;:${THISDIR}/${PN}&quot;</div><div><br></div><div>inherit systemd</div=
-><div>inherit obmc-phosphor-systemd</div><div>inherit autotools pkgconfig</=
-div><div><br></div><div>LICENSE =3D &quot;Apache-2.0&quot;</div><div>LIC_FI=
-LES_CHKSUM =3D &quot;file://LICENSE;md5=3De3fc50a88d0a364313df4b21ef20c29e&=
-quot;</div><div><br></div><div>PV =3D &quot;1.0+git${SRCPV}&quot;</div><div=
-><br></div><div>SRC_URI =3D &quot;git://<a href=3D"http://github.com/openbm=
-c/obmc-ikvm">github.com/openbmc/obmc-ikvm</a> \</div><div>=C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 file://Fix_video_restarting_sync_issue.patch \</div><div>=C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 &quot;</div><div>SRCREV =3D &quot;2bc661d34abd1fda92a9=
-d2b256ed88ca0e90d09a&quot;</div><div><br></div><div>DEPENDS +=3D &quot;auto=
-conf-archive&quot;</div><div>DEPENDS +=3D &quot;libvncserver&quot;</div><di=
-v>DEPENDS +=3D &quot;sdbusplus&quot;</div><div>DEPENDS +=3D &quot;sdeventpl=
-us&quot;</div><div>DEPENDS +=3D &quot;phosphor-logging&quot;</div><div>DEPE=
-NDS +=3D &quot;phosphor-dbus-interfaces&quot;</div><div>DEPENDS +=3D &quot;=
-systemd&quot;</div><div><br></div><div>S =3D &quot;${WORKDIR}/git&quot;</di=
-v><div><br></div><div>SERVICE_FILE =3D &quot;start-ipkvm.service&quot;</div=
-><div>SYSTEMD_PACKAGES =3D &quot;${PN}&quot;</div><div>SYSTEMD_SERVICE_${PN=
-} +=3D &quot;${SERVICE_FILE}&quot;</div><div>SYSTEMD_DEFAULT_TARGET ?=3D &q=
-uot;${SYSTEMD_DEFAULT_TARGET}&quot;</div></div><div><br></div><div>What am =
-I doing wrong here?</div><div>Do we need to set=C2=A0&quot;-DBMCWEB_ENABLE_=
-KVM=3DON&quot; in bmcweb?</div><div><br></div><div>Regards,</div><div>Thaj<=
-/div></div></div></div></div></div><br><div class=3D"gmail_quote"><div dir=
-=3D"ltr" class=3D"gmail_attr">On Wed, Mar 20, 2019 at 11:01 AM Lei YU &lt;<=
-a href=3D"mailto:mine260309@gmail.com">mine260309@gmail.com</a>&gt; wrote:<=
-br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8e=
-x;border-left:1px solid rgb(204,204,204);padding-left:1ex">&gt; Check if th=
-ere are /dev/hidg0 and /dev/hidg1. If not, check kernel<br>
-&gt; configs again.<br>
-&gt; Also, check &#39;start-ipkvm.service&#39; file whether that launches o=
-bmc-ikvm<br>
-&gt; using this options:<br>
-&gt; ExecStart=3D/usr/bin/env obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 =
--p<br>
-&gt; /dev/hidg1<br>
-<br>
-Confirmed that both /dev/hidg0 and /dev/hidg1 are created, and the service =
-is<br>
-started with obmc-ikvm -v /dev/video0 -f 10 -k /dev/hidg0 -p /dev/hidg1.<br=
->
-<br>
-&gt;<br>
-&gt; Try this patch:<br>
-&gt; <a href=3D"https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19=
-392" rel=3D"noreferrer" target=3D"_blank">https://gerrit.openbmc-project.xy=
-z/c/openbmc/obmc-ikvm/+/19392</a><br>
-<br>
-Unfortunately, the patch does not fix the issue, the KVM page still shows a=
-<br>
-small black block when browsed to another page and back.<br>
-</blockquote></div>
-
---0000000000009c3b19058484b44f--
+diff --git a/drivers/edac/Kconfig b/drivers/edac/Kconfig
+index 57304b2e989f..e132f5616583 100644
+--- a/drivers/edac/Kconfig
++++ b/drivers/edac/Kconfig
+@@ -460,4 +460,11 @@ config EDAC_TI
+ 	  Support for error detection and correction on the
+           TI SoCs.
+ 
++config EDAC_NPCM7XX
++	tristate "Nuvoton NPCM7xx DDR Memory Controller"
++	depends on ARCH_NPCM7XX
++	help
++	  Support for error detection and correction on the
++	  Nuvoton NPCM7xx DDR memory controller.
++
+ endif # EDAC
+diff --git a/drivers/edac/Makefile b/drivers/edac/Makefile
+index 02b43a7d8c3e..1236f490bec7 100644
+--- a/drivers/edac/Makefile
++++ b/drivers/edac/Makefile
+@@ -77,3 +77,5 @@ obj-$(CONFIG_EDAC_ALTERA)		+= altera_edac.o
+ obj-$(CONFIG_EDAC_SYNOPSYS)		+= synopsys_edac.o
+ obj-$(CONFIG_EDAC_XGENE)		+= xgene_edac.o
+ obj-$(CONFIG_EDAC_TI)			+= ti_edac.o
++
++obj-$(CONFIG_EDAC_NPCM7XX)		+= npcm7xx_edac.o
+diff --git a/drivers/edac/npcm7xx_edac.c b/drivers/edac/npcm7xx_edac.c
+new file mode 100644
+index 000000000000..bab25a4308be
+--- /dev/null
++++ b/drivers/edac/npcm7xx_edac.c
+@@ -0,0 +1,424 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) 2019 Quanta Computer lnc.
++ */
++
++#include <linux/edac.h>
++#include <linux/interrupt.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/of_address.h>
++#include <linux/of_device.h>
++
++#include "edac_module.h"
++
++#define ECC_ENABLE                     BIT(24)
++#define ECC_EN_INT_MASK                0x7fffff87
++
++#define INT_STATUS_ADDR                116
++#define INT_ACK_ADDR                   117
++#define INT_MASK_ADDR                  118
++
++#define ECC_EN_ADDR                    93
++#define ECC_C_ADDR_ADDR                98
++#define ECC_C_DATA_ADDR                100
++#define ECC_C_ID_ADDR                  101
++#define ECC_C_SYND_ADDR                99
++#define ECC_U_ADDR_ADDR                95
++#define ECC_U_DATA_ADDR                97
++#define ECC_U_ID_ADDR                  101
++#define ECC_U_SYND_ADDR                96
++
++#define ECC_ERROR                      -1
++#define EDAC_MSG_SIZE                  256
++#define EDAC_MOD_NAME                  "npcm7xx-edac"
++
++struct ecc_error_signature_info {
++	u32 ecc_addr;
++	u32 ecc_data;
++	u32 ecc_id;
++	u32 ecc_synd;
++};
++
++struct npcm7xx_ecc_int_status {
++	u32 int_mask;
++	u32 int_status;
++	u32 int_ack;
++	u32 ce_cnt;
++	u32 ue_cnt;
++	struct ecc_error_signature_info ceinfo;
++	struct ecc_error_signature_info ueinfo;
++};
++
++struct npcm7xx_edac_priv {
++	void __iomem *baseaddr;
++	char message[EDAC_MSG_SIZE];
++	struct npcm7xx_ecc_int_status stat;
++};
++
++/**
++ * npcm7xx_edac_get_ecc_syndrom - Get the current ecc error info
++ * @base:	Pointer to the base address of the ddr memory controller
++ * @p:		Pointer to the Nuvoton ecc status structure
++ *
++ * Determines there is any ecc error or not
++ *
++ * Return: ECC detection status
++ */
++static int npcm7xx_edac_get_ecc_syndrom(void __iomem *base,
++					struct npcm7xx_ecc_int_status *p)
++{
++	int status = 0;
++	u32 int_status = 0;
++
++	int_status = readl(base + 4*INT_STATUS_ADDR);
++	writel(int_status, base + 4*INT_ACK_ADDR);
++	edac_dbg(3, "int_status: %#08x\n", int_status);
++
++	if ((int_status & (1 << 6)) == (1 << 6)) {
++		edac_dbg(3, "6-Mult uncorrectable detected.\n");
++		p->ue_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 5)) == (1 << 5)) {
++		edac_dbg(3, "5-An uncorrectable detected\n");
++		p->ue_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 4)) == (1 << 4)) {
++		edac_dbg(3, "4-mult correctable detected.\n");
++		p->ce_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if ((int_status & (1 << 3)) == (1 << 3)) {
++		edac_dbg(3, "3-A correctable detected.\n");
++		p->ce_cnt++;
++		status = ECC_ERROR;
++	}
++
++	if (status == ECC_ERROR) {
++		u32 ecc_id;
++
++		p->ceinfo.ecc_addr = readl(base + 4*ECC_C_ADDR_ADDR);
++		p->ceinfo.ecc_data = readl(base + 4*ECC_C_DATA_ADDR);
++		p->ceinfo.ecc_synd = readl(base + 4*ECC_C_SYND_ADDR);
++
++		p->ueinfo.ecc_addr = readl(base + 4*ECC_U_ADDR_ADDR);
++		p->ueinfo.ecc_data = readl(base + 4*ECC_U_DATA_ADDR);
++		p->ueinfo.ecc_synd = readl(base + 4*ECC_U_SYND_ADDR);
++
++		/* ECC_C_ID_ADDR has same value as ECC_U_ID_ADDR */
++		ecc_id = readl(base + 4*ECC_C_ID_ADDR);
++		p->ueinfo.ecc_id = ecc_id & 0xffff;
++		p->ceinfo.ecc_id = ecc_id >> 16;
++	}
++
++	return status;
++}
++
++/**
++ * npcm7xx_edac_handle_error - Handle controller error types CE and UE
++ * @mci:	Pointer to the edac memory controller instance
++ * @p:		Pointer to the Nuvoton ecc status structure
++ *
++ * Handles the controller ECC correctable and un correctable error.
++ */
++static void npcm7xx_edac_handle_error(struct mem_ctl_info *mci,
++				    struct npcm7xx_ecc_int_status *p)
++{
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++	u32 page, offset;
++
++	if (p->ce_cnt) {
++		snprintf(priv->message, EDAC_MSG_SIZE,
++			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
++			p->ceinfo.ecc_synd, p->ceinfo.ecc_addr,
++			p->ceinfo.ecc_data, p->ceinfo.ecc_id);
++
++		page = p->ceinfo.ecc_addr >> PAGE_SHIFT;
++		offset = p->ceinfo.ecc_addr & ~PAGE_MASK;
++		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
++				     p->ce_cnt, page, offset,
++				     p->ceinfo.ecc_synd,
++				     0, 0, -1,
++				     priv->message, "");
++	}
++
++	if (p->ue_cnt) {
++		snprintf(priv->message, EDAC_MSG_SIZE,
++			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
++			p->ueinfo.ecc_synd, p->ueinfo.ecc_addr,
++			p->ueinfo.ecc_data, p->ueinfo.ecc_id);
++
++		page = p->ueinfo.ecc_addr >> PAGE_SHIFT;
++		offset = p->ueinfo.ecc_addr & ~PAGE_MASK;
++		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
++				     p->ue_cnt, page, offset,
++				     p->ueinfo.ecc_synd,
++				     0, 0, -1,
++				     priv->message, "");
++	}
++
++	memset(p, 0, sizeof(*p));
++}
++
++/**
++ * npcm7xx_edac_check - Check controller for ECC errors
++ * @mci:	Pointer to the edac memory controller instance
++ *
++ * This routine is used to check and post ECC errors and is called by
++ * this driver's CE and UE interrupt handler.
++ */
++static void npcm7xx_edac_check(struct mem_ctl_info *mci)
++{
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++	int status = 0;
++
++	status = npcm7xx_edac_get_ecc_syndrom(priv->baseaddr, &priv->stat);
++	if (status != ECC_ERROR)
++		return;
++
++	npcm7xx_edac_handle_error(mci, &priv->stat);
++}
++
++/**
++ * npcm7xx_edac_isr - CE/UE interrupt service routine
++ * @irq:    The virtual interrupt number being serviced.
++ * @dev_id: A pointer to the EDAC memory controller instance
++ *          associated with the interrupt being handled.
++ *
++ * This routine implements the interrupt handler for both correctable
++ * (CE) and uncorrectable (UE) ECC errors for the Nuvoton Cadence DDR
++ * controller. It simply calls through to the routine used to check,
++ * report and clear the ECC status.
++ *
++ * Unconditionally returns IRQ_HANDLED.
++ */
++static irqreturn_t npcm7xx_edac_isr(int irq, void *dev_id)
++{
++	struct mem_ctl_info *mci = dev_id;
++	int npcm_edac_report = 0;
++
++	npcm_edac_report = edac_get_report_status();
++	if (npcm_edac_report != EDAC_REPORTING_DISABLED)
++		npcm7xx_edac_check(mci);
++
++	return IRQ_HANDLED;
++}
++
++static int npcm7xx_edac_register_irq(struct mem_ctl_info *mci,
++					struct platform_device *pdev)
++{
++	int status = 0;
++	int mc_irq;
++	struct npcm7xx_edac_priv *priv = mci->pvt_info;
++
++	mc_irq = platform_get_irq(pdev, 0);
++
++	if (!mc_irq) {
++		edac_printk(KERN_ERR, EDAC_MC, "Unable to map interrupts.\n");
++		status = -ENODEV;
++		goto fail;
++	}
++
++	status = devm_request_irq(&pdev->dev, mc_irq, npcm7xx_edac_isr, 0,
++			       "npcm-memory-controller", mci);
++
++	if (status < 0) {
++		edac_printk(KERN_ERR, EDAC_MC,
++				      "Unable to request irq %d for ECC",
++				      mc_irq);
++		status = -ENODEV;
++		goto fail;
++	}
++
++	/* Only enable MC interrupts with ECC - clear int_mask[6:3] */
++	writel(ECC_EN_INT_MASK, priv->baseaddr + 4*INT_MASK_ADDR);
++
++	return 0;
++
++fail:
++	return status;
++}
++
++static const struct of_device_id npcm7xx_edac_of_match[] = {
++	{ .compatible = "nuvoton,npcm7xx-sdram-edac"},
++	{ /* end of table */ }
++};
++
++MODULE_DEVICE_TABLE(of, npcm7xx_edac_of_match);
++
++/**
++ * npcm7xx_edac_mc_init - Initialize driver instance
++ * @mci:	Pointer to the edac memory controller instance
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Performs initialization of the EDAC memory controller instance and
++ * related driver-private data associated with the memory controller the
++ * instance is bound to.
++ *
++ * Returns 0 if OK; otherwise, < 0 on error.
++ */
++static int npcm7xx_edac_mc_init(struct mem_ctl_info *mci,
++				 struct platform_device *pdev)
++{
++	const struct of_device_id *id;
++
++	id = of_match_device(npcm7xx_edac_of_match, &pdev->dev);
++	if (!id)
++		return -ENODEV;
++
++	/* Initialize controller capabilities and configuration */
++	mci->mtype_cap = MEM_FLAG_DDR4;
++	mci->edac_ctl_cap = EDAC_FLAG_SECDED;
++	mci->edac_cap = EDAC_FLAG_SECDED;
++	mci->scrub_cap = SCRUB_FLAG_HW_SRC;
++	mci->scrub_mode = SCRUB_HW_SRC;
++	mci->ctl_name = id->compatible;
++	mci->dev_name = dev_name(&pdev->dev);
++	mci->mod_name = EDAC_MOD_NAME;
++
++	edac_op_state = EDAC_OPSTATE_INT;
++
++	return 0;
++}
++
++/**
++ * npcm7xx_edac_get_eccstate - Return the controller ecc enable/disable status
++ * @base:	Pointer to the ddr memory controller base address
++ *
++ * Get the ECC enable/disable status for the controller
++ *
++ * Return: a ecc status boolean i.e true/false - enabled/disabled.
++ */
++static bool npcm7xx_edac_get_eccstate(void __iomem *base)
++{
++	u32 ecc_en;
++	bool state = false;
++
++	ecc_en = readl(base + 4*ECC_EN_ADDR);
++	if (ecc_en & ECC_ENABLE) {
++		edac_printk(KERN_INFO, EDAC_MC, "ECC reporting and correcting on. ");
++		state = true;
++	}
++
++	return state;
++}
++
++/**
++ * npcm7xx_edac_mc_probe - Check controller and bind driver
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Probes a specific controller instance for binding with the driver.
++ *
++ * Return: 0 if the controller instance was successfully bound to the
++ * driver; otherwise, < 0 on error.
++ */
++static int npcm7xx_edac_mc_probe(struct platform_device *pdev)
++{
++	struct mem_ctl_info *mci;
++	struct edac_mc_layer layers[1];
++	struct npcm7xx_edac_priv *priv;
++	struct resource *res;
++	void __iomem *baseaddr;
++	int rc;
++
++	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
++	baseaddr = devm_ioremap_resource(&pdev->dev, res);
++	if (IS_ERR(baseaddr)) {
++		edac_printk(KERN_ERR, EDAC_MOD_NAME,
++			    "DDR controller regs not defined\n");
++		return PTR_ERR(baseaddr);
++	}
++
++	/*
++	 * Check if ECC is enabled.
++	 * If not, there is no useful monitoring that can be done
++	 * for this controller.
++	 */
++	if (!npcm7xx_edac_get_eccstate(baseaddr)) {
++		edac_printk(KERN_INFO, EDAC_MC, "ECC disabled\n");
++		return -ENXIO;
++	}
++
++	/*
++	 * Allocate an EDA controller instance and perform the appropriate
++	 * initialization.
++	 */
++	layers[0].type = EDAC_MC_LAYER_ALL_MEM;
++	layers[0].size = 1;
++
++	mci = edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
++			    sizeof(struct npcm7xx_edac_priv));
++	if (!mci) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed memory allocation for mc instance\n");
++		return -ENOMEM;
++	}
++
++	mci->pdev = &pdev->dev;
++	priv = mci->pvt_info;
++	priv->baseaddr = baseaddr;
++	platform_set_drvdata(pdev, mci);
++
++	rc = npcm7xx_edac_mc_init(mci, pdev);
++	if (rc) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed to initialize instance\n");
++		goto free_edac_mc;
++	}
++
++	/* Attempt to register it with the EDAC subsystem */
++	rc = edac_mc_add_mc(mci);
++	if (rc) {
++		edac_printk(KERN_ERR, EDAC_MC,
++			    "Failed to register with EDAC core\n");
++		goto free_edac_mc;
++	}
++
++	/* Register interrupts */
++	rc = npcm7xx_edac_register_irq(mci, pdev);
++	if (rc)
++		goto free_edac_mc;
++
++	return 0;
++
++free_edac_mc:
++	edac_mc_free(mci);
++
++	return rc;
++}
++
++/**
++ * npcm7xx_edac_mc_remove - Unbind driver from controller
++ * @pdev:	Pointer to the platform_device struct
++ *
++ * Return: Unconditionally 0
++ */
++static int npcm7xx_edac_mc_remove(struct platform_device *pdev)
++{
++	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
++
++	edac_mc_del_mc(&pdev->dev);
++	edac_mc_free(mci);
++
++	return 0;
++}
++
++static struct platform_driver npcm7xx_edac_driver = {
++	.probe = npcm7xx_edac_mc_probe,
++	.remove = npcm7xx_edac_mc_remove,
++	.driver = {
++		   .name = EDAC_MOD_NAME,
++		   .of_match_table = npcm7xx_edac_of_match,
++	},
++};
++
++module_platform_driver(npcm7xx_edac_driver);
++
++MODULE_AUTHOR("Quanta Computer Inc.");
++MODULE_DESCRIPTION("Nuvoton NPCM7xx EDAC Driver");
++MODULE_LICENSE("GPL v2");
+-- 
+2.21.0
