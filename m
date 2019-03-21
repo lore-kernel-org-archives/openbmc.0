@@ -1,105 +1,54 @@
-Return-Path: <prvs=898379357d=sdasari@fb.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=898379357d=sdasari@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="EWkkaXgX"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="Urko0x0s"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44QJ9v3HgwzDqSJ
- for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 07:22:25 +1100 (AEDT)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.16.0.27/8.16.0.27) with SMTP id x2LKLbmN018634;
- Thu, 21 Mar 2019 13:22:22 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type :
- mime-version; s=facebook; bh=c8M7OolthQJ1cpBPkNIlklT3yKMSyUf3rghokkp4XPw=;
- b=EWkkaXgXFoWYrDJ3fZ1rLjZBIYQ3LjxHi8sUA3yNR4ixjUT00R2m8WLBQGTKYzZBpEgU
- nJJDWXEi+ZOZXtRHHC3bq8MW7ngMVOLy0zN4E3yQG7UmkM5VOJ9bljrSfUzi04E+5VpI
- S99+X4OUfVj3ONjNM/BtdHMo4XqfhV0GBfU= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by m0001303.ppops.net with ESMTP id 2rc85tj735-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Thu, 21 Mar 2019 13:22:22 -0700
-Received: from prn-hub05.TheFacebook.com (2620:10d:c081:35::129) by
- prn-hub02.TheFacebook.com (2620:10d:c081:35::126) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1713.5; Thu, 21 Mar 2019 13:22:21 -0700
-Received: from NAM03-CO1-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.29) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1713.5
- via Frontend Transport; Thu, 21 Mar 2019 13:22:21 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c8M7OolthQJ1cpBPkNIlklT3yKMSyUf3rghokkp4XPw=;
- b=Urko0x0sgF9wBFNbYjfiap5n2EUPfGtYGYLtF9wKUIz7AsrBDrVT9ZIzQ2x+go4EXUMnnRm5cX0y1vDBgGFhsQCYtdzujz5IiVAhOTFA0+Y0YGL4Vuj899CQUcMM8c8chc90M24Au4gS0GN6ioDjQeNqwgglqUEw/Fu0S/HPWTg=
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
- MWHPR15MB1742.namprd15.prod.outlook.com (10.174.255.7) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1730.15; Thu, 21 Mar 2019 20:22:20 +0000
-Received: from MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::f076:5b71:62a6:2f47]) by MWHPR15MB1789.namprd15.prod.outlook.com
- ([fe80::f076:5b71:62a6:2f47%8]) with mapi id 15.20.1730.013; Thu, 21 Mar 2019
- 20:22:20 +0000
-From: Sai Dasari <sdasari@fb.com>
-To: "jainmjo@gmail.com" <jainmjo@gmail.com>
-CC: Openbmc <openbmc@lists.ozlabs.org>
-Subject: Re: OpenBMC Development Kit
-Thread-Topic: OpenBMC Development Kit
-Thread-Index: AQHU3/qC2n6pMJMV4kuFFW2xGmbJOqYV31wAgAB+qoD//7Q7AA==
-Date: Thu, 21 Mar 2019 20:22:19 +0000
-Message-ID: <F5052DB3-5AEC-4BF5-AA67-96036250B97A@fb.com>
-References: <CADc45smtLBVn9vSh3uEcMWEwcnUo+asYZR5pXgFKP+5xkuK7vw@mail.gmail.com>
- <4A255327-67C2-4F1F-A8C4-7795CE7F9C47@fb.com>
- <CADc45skOCs1t77ahfcjcjxHF9PfLgK+4-3XTEt+aEHRCGjwzpQ@mail.gmail.com>
-In-Reply-To: <CADc45skOCs1t77ahfcjcjxHF9PfLgK+4-3XTEt+aEHRCGjwzpQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::3:d463]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 6fb1a187-f6c8-4b01-ba7e-08d6ae3aeb7e
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600127)(711020)(4605104)(2017052603328)(7153060)(7193020);
- SRVR:MWHPR15MB1742; 
-x-ms-traffictypediagnostic: MWHPR15MB1742:
-x-ms-exchange-purlcount: 3
-x-microsoft-antispam-prvs: <MWHPR15MB17429F171FA35FB419D03F2DCE420@MWHPR15MB1742.namprd15.prod.outlook.com>
-x-forefront-prvs: 0983EAD6B2
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(136003)(39860400002)(346002)(396003)(366004)(376002)(129404003)(53754006)(199004)(189003)(1361003)(478600001)(46003)(5660300002)(1411001)(8676002)(2616005)(316002)(53376002)(36756003)(8936002)(476003)(966005)(1730700003)(6116002)(790700001)(81156014)(82746002)(4326008)(11346002)(81166006)(186003)(6916009)(71200400001)(7736002)(71190400001)(2906002)(7116003)(25786009)(6436002)(97736004)(2501003)(83716004)(68736007)(606006)(5640700003)(33656002)(76176011)(236005)(86362001)(446003)(6306002)(99286004)(6512007)(6486002)(256004)(229853002)(14454004)(6506007)(53936002)(3480700005)(105586002)(106356001)(6246003)(486006)(102836004)(53546011)(2351001)(15188155005)(14444005)(54896002)(16799955002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1742;
- H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: 6z1ZUFtzyRRcpoWjtKdSwljDlrq2vGCVtX0jhaW4D3zgL0EZht8MFGMU0a+3VevXhmxZWAh+MLXnXZ0PzUNb/dDOLWYZO+cRqc7+sQU6JOgs3EbSVHTC43Iq0UF/O/hMwI+cTx3g8kWLe77xGoVCNagVyDGdaVMmsJ1M0ninZs/4uzcWZrLLxTRNsB5XbysIUWOqJJqxZjjh8HU7fZyGuK1AKLEDeylc+ZYRLkqzwo2AH7Whht1sJj7KMyStyHwlNW5qsmQ5atCNVWD+0aNR8dkiOuMt3FYVXh3MKtdur619204FFJR54dQORnjjjtoCTv3MVU5xTZkywqncMIYbb8LEB41W+qJgQmmv9Px757PQll7MNBWtPBZ2u4Lt3JZBrSsl6dUbRhQNc0W+JtEvkz4zj1HopYna/lUmnHzJhy4=
-Content-Type: multipart/alternative;
- boundary="_000_F5052DB35AEC4BF5AA6796036250B97Afbcom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44QKjd3mhkzDqH5
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 08:31:31 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2019 14:31:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,254,1549958400"; d="scan'208";a="144096757"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga002.jf.intel.com with ESMTP; 21 Mar 2019 14:31:29 -0700
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: Thaju <tajudheenk@gmail.com>
+Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
+ ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+ <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+ <tencent_77BC148C0E378EFD5F488CE6@qq.com>
+ <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
+ <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
+ <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
+ <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+ <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
+ <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
+ <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
+ <CAH2KKeajTT96Y6rOdKGct+EBLdbFxGo97SEfWzMrcu0hqRh_Hw@mail.gmail.com>
+ <77cb1f2b-96c5-bd14-eab7-0da527343ce1@linux.intel.com>
+ <CAARXrtnAURfEDzTHZLHgOojRuD9T4DbUmuQLwvwsS4hvW-Sk_Q@mail.gmail.com>
+ <bbc0ffe8-b30d-7d64-807a-b179a596a9ff@linux.intel.com>
+ <CAH2KKeb2Jw+j4wOSEHY1HQwnyHxq9-9RSRKQ-shvdiBOvUf14w@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <97a9e5c4-c2d0-41bb-14ea-0405609929a2@linux.intel.com>
+Date: Thu, 21 Mar 2019 14:31:28 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fb1a187-f6c8-4b01-ba7e-08d6ae3aeb7e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2019 20:22:20.1070 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1742
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-21_09:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+In-Reply-To: <CAH2KKeb2Jw+j4wOSEHY1HQwnyHxq9-9RSRKQ-shvdiBOvUf14w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,188 +60,166 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Mar 2019 20:22:28 -0000
+X-List-Received-Date: Thu, 21 Mar 2019 21:31:34 -0000
 
---_000_F5052DB35AEC4BF5AA6796036250B97Afbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi Thaju,
 
-DQoNCkZyb206ICJqYWlubWpvQGdtYWlsLmNvbSIgPGphaW5tam9AZ21haWwuY29tPg0KRGF0ZTog
-VGh1cnNkYXksIE1hcmNoIDIxLCAyMDE5IGF0IDEwOjU0IEFNDQpUbzogU2FpIERhc2FyaSA8c2Rh
-c2FyaUBmYi5jb20+DQpDYzogT3BlbmJtYyA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3Vi
-amVjdDogUmU6IE9wZW5CTUMgRGV2ZWxvcG1lbnQgS2l0DQoNCg0KDQpPbiBUaHUsIE1hciAyMSwg
-MjAxOSBhdCAxMDo1MCBQTSBTYWkgRGFzYXJpIDxzZGFzYXJpQGZiLmNvbTxtYWlsdG86c2Rhc2Fy
-aUBmYi5jb20+PiB3cm90ZToNCg0KDQpGcm9tOiBvcGVuYm1jIDxvcGVuYm1jLWJvdW5jZXMrc2Rh
-c2FyaT1mYi5jb21AbGlzdHMub3psYWJzLm9yZzxtYWlsdG86ZmIuY29tQGxpc3RzLm96bGFicy5v
-cmc+PiBvbiBiZWhhbGYgb2YgImphaW5tam9AZ21haWwuY29tPG1haWx0bzpqYWlubWpvQGdtYWls
-LmNvbT4iIDxqYWlubWpvQGdtYWlsLmNvbTxtYWlsdG86amFpbm1qb0BnbWFpbC5jb20+Pg0KRGF0
-ZTogVGh1cnNkYXksIE1hcmNoIDIxLCAyMDE5IGF0IDg6MjYgQU0NClRvOiBPcGVuYm1jIDxvcGVu
-Ym1jQGxpc3RzLm96bGFicy5vcmc8bWFpbHRvOm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4+DQpT
-dWJqZWN0OiBPcGVuQk1DIERldmVsb3BtZW50IEtpdA0KDQpIaSBhbGwsDQoNCk15IHRlYW0gYXQg
-RmxpcGthcnQgaXMgd29ya2luZyBvbiBwb3J0aW5nIE9wZW5CTUMgdG8gb3VyIHNlcnZlcnMuDQpK
-YWluLCBXZWxjb21lIEZsaXBrYXJ0IHRvIE9wZW5CTUMgY29tbXVuaXR5IHByb2plY3QuDQoNClRo
-YW5rIHlvdSENCg0KDQpEbyB5b3UgcmVjb21tZW5kIGdldHRpbmcgUG9ydHdlbGwncyBOZXB0dW5l
-IEFscGhhIE9wZW5CTUMgZGV2IGtpdCB0byBwbGF5IGFyb3VuZCB3aXRoIE9wZW5CTUMgYW5kIGdl
-dCBmYW1pbGlhcmlzZWQgd2l0aCBpdCBiZWZvcmUganVtcGluZyB0byBhY3R1YWwgc2VydmVycz8N
-CkhvcGUgeW91IGhhdmUgdGFrZW4gYSBsb29rIGF0IGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1j
-L2RvY3MvdHJlZS9tYXN0ZXIvZGV2ZWxvcG1lbnQuIFdvdWxkIHN1Z2dlc3QgdG8gdHJ5IE9wZW5C
-TUMgU0RLIHVzaW5nIFFFTVUgZm9sbG93ZWQgYnkgZmV3IEVWQnMgZnJvbSBCTUMgU29DIHZlbmRv
-cnMgQCBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEt
-ZXZiLiBIb3BlIHRoaXMgaGVscHMhDQoNClllcy4gSSBoYXZlIGFscmVhZHkgdHJpZWQgdGhlIFNE
-SyB3aXRoIFFFTVUuIFdlIHVzZSBBU1QyNTAwIGJhc2VkIHN5c3RlbXMuIEJ5ICJBU1QyNTAwIEVW
-QiIsIGRvIHlvdSBtZWFuIHRoZSBQb3J0d2VsbCBraXQgb3Igc29tZXRoaW5nIGVsc2U/DQpJIG1l
-YW50IEVWQnMgcHJvdmlkZWQgYnkgQk1DIFZlbmRvcnMgKGUuZy4gQXNwZWVkIGFuZCBOdXZvdG9u
-KSBhbmQgSSBzdWdnZXN0IHRvIGNoZWNrIHdpdGggdGhvc2UgdmVuZG9yIGZvciBnZXR0aW5nIGFj
-Y2VzcyB0byB0aGVzZSBFVkJzLg0KDQpQb3J0d2VsbCBLaXQgaXMgZGVzaWduZWQgYmFzZWQgb24g
-QVNUMjUwMCBFVkIgYW5kIGFkZHMgYSBDT00tRXhwcmVzcyBjb25uZWN0b3IgdG8gY29ubmVjdCBo
-b3N0IENQVSBwcm9jZXNzb3IuIFRoaXMgd2lsbCBhbGxvdyB0byB0ZXN0IHRoZSBjb21tdW5pY2F0
-aW9uIHBhdGggYmV0d2VlbiBob3N0Q1BVLT5CTUMuIFBvcnR3ZWxsIGtpdCB3aWxsIGJlIHVzZWZ1
-bCBpbiBjYXNlIHlvdSB3b3VsZCBsaWtlIHRvIHRlc3QgdGhlc2UgaG9zdC0+Qk1DIGNvbW11bmlj
-YXRpb24gZmVhdHVyZXMuIChlLmcuIFVFRkktPkJNQywgUE9TVCBjb2RlcywgZXJyb3IgbG9nZ2lu
-ZyB2aWEgU0VMLCBpcG1pdG9vbCBvdmVyIEtDUy9MUEMgZXRjLikuIEZvciBnZXR0aW5nIGFjY2Vz
-cyB0byB0aGlzIGJvYXJkIHlvdSBjYW4gY29udGFjdCBwb3J0d2VsbCBAIGh0dHA6Ly9wb3J0d2Vs
-bC5jb20vc29sdXRpb25zL29wZW5CTUMucGhwLg0KDQoNClRoYW5rcw0KSmFpbg0KDQo=
+It's really good to hear that you can see the working KVM in your
+machine. Thanks for sharing the result.
 
---_000_F5052DB35AEC4BF5AA6796036250B97Afbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <4AF73F22CE86D64F96EF58B1056F9070@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+I saw the video waking up issue on Ubuntu 18 too. Need debugging on it.
+I'll share if I find something.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
-YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
-IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
-IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
-Zm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQph
-OmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xv
-cjpibHVlOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFuLk1z
-b0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjpwdXJw
-bGU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpwLm1zb25vcm1hbDAsIGxpLm1zb25v
-cm1hbDAsIGRpdi5tc29ub3JtYWwwDQoJe21zby1zdHlsZS1uYW1lOm1zb25vcm1hbDsNCgltc28t
-bWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6MGluOw0KCW1zby1tYXJnaW4tYm90
-dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZv
-bnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCnNwYW4uRW1haWxTdHlsZTE4DQoJe21z
-by1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5z
-LXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0NocERlZmF1bHQNCgl7bXNvLXN0eWxl
-LXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBwdDt9DQpAcGFnZSBXb3JkU2VjdGlv
-bjENCgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEuMGluIDEuMGluIDEuMGluIDEuMGlu
-O30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2VjdGlvbjE7fQ0KLS0+PC9zdHlsZT48
-IS0tW2lmIGd0ZSBtc28gOV0+PHhtbD4NCjxvOnNoYXBlZGVmYXVsdHMgdjpleHQ9ImVkaXQiIHNw
-aWRtYXg9IjEwMjYiIC8+DQo8L3htbD48IVtlbmRpZl0tLT48IS0tW2lmIGd0ZSBtc28gOV0+PHht
-bD4NCjxvOnNoYXBlbGF5b3V0IHY6ZXh0PSJlZGl0Ij4NCjxvOmlkbWFwIHY6ZXh0PSJlZGl0IiBk
-YXRhPSIxIiAvPg0KPC9vOnNoYXBlbGF5b3V0PjwveG1sPjwhW2VuZGlmXS0tPg0KPC9oZWFkPg0K
-PGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9ImJsdWUiIHZsaW5rPSJwdXJwbGUiPg0KPGRpdiBjbGFz
-cz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
-PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2IHN0
-eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzoz
-LjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0i
-Zm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+RnJvbTogPC9zcGFuPjwvYj48c3BhbiBzdHls
-ZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+JnF1b3Q7amFpbm1qb0BnbWFpbC5jb20m
-cXVvdDsgJmx0O2phaW5tam9AZ21haWwuY29tJmd0Ozxicj4NCjxiPkRhdGU6IDwvYj5UaHVyc2Rh
-eSwgTWFyY2ggMjEsIDIwMTkgYXQgMTA6NTQgQU08YnI+DQo8Yj5UbzogPC9iPlNhaSBEYXNhcmkg
-Jmx0O3NkYXNhcmlAZmIuY29tJmd0Ozxicj4NCjxiPkNjOiA8L2I+T3BlbmJtYyAmbHQ7b3BlbmJt
-Y0BsaXN0cy5vemxhYnMub3JnJmd0Ozxicj4NCjxiPlN1YmplY3Q6IDwvYj5SZTogT3BlbkJNQyBE
-ZXZlbG9wbWVudCBLaXQ8bzpwPjwvbzpwPjwvc3Bhbj48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBj
-bGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0K
-PHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2Pg0KPGRpdj4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPk9uIFRodSwgTWFyIDIxLCAyMDE5IGF0IDEwOjUwIFBNIFNh
-aSBEYXNhcmkgJmx0OzxhIGhyZWY9Im1haWx0bzpzZGFzYXJpQGZiLmNvbSI+c2Rhc2FyaUBmYi5j
-b208L2E+Jmd0OyB3cm90ZTo8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5
-bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzow
-aW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVmdDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxk
-aXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFs
-dDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28t
-bWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86cD48L286cD48L3A+DQo8ZGl2IHN0eWxl
-PSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzozLjBw
-dCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10
-b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPjxiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5Gcm9tOg0KPC9zcGFuPjwvYj48c3BhbiBzdHls
-ZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+b3BlbmJtYyAmbHQ7b3BlbmJtYy1ib3Vu
-Y2VzJiM0MztzZGFzYXJpPTxhIGhyZWY9Im1haWx0bzpmYi5jb21AbGlzdHMub3psYWJzLm9yZyIg
-dGFyZ2V0PSJfYmxhbmsiPmZiLmNvbUBsaXN0cy5vemxhYnMub3JnPC9hPiZndDsgb24gYmVoYWxm
-IG9mICZxdW90OzxhIGhyZWY9Im1haWx0bzpqYWlubWpvQGdtYWlsLmNvbSIgdGFyZ2V0PSJfYmxh
-bmsiPmphaW5tam9AZ21haWwuY29tPC9hPiZxdW90Ow0KICZsdDs8YSBocmVmPSJtYWlsdG86amFp
-bm1qb0BnbWFpbC5jb20iIHRhcmdldD0iX2JsYW5rIj5qYWlubWpvQGdtYWlsLmNvbTwvYT4mZ3Q7
-PGJyPg0KPGI+RGF0ZTogPC9iPlRodXJzZGF5LCBNYXJjaCAyMSwgMjAxOSBhdCA4OjI2IEFNPGJy
-Pg0KPGI+VG86IDwvYj5PcGVuYm1jICZsdDs8YSBocmVmPSJtYWlsdG86b3BlbmJtY0BsaXN0cy5v
-emxhYnMub3JnIiB0YXJnZXQ9Il9ibGFuayI+b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPC9hPiZn
-dDs8YnI+DQo8Yj5TdWJqZWN0OiA8L2I+T3BlbkJNQyBEZXZlbG9wbWVudCBLaXQ8L3NwYW4+PG86
-cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0i
-bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNw
-OzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5
-bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRvO21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj5I
-aSBhbGwsDQo8bzpwPjwvbzpwPjwvcD4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHls
-ZT0ibXNvLW1hcmdpbi10b3AtYWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZu
-YnNwOzxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJt
-c28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+TXkgdGVh
-bSBhdCBGbGlwa2FydCBpcyB3b3JraW5nIG9uIHBvcnRpbmcgT3BlbkJNQyB0byBvdXIgc2VydmVy
-cy48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0
-eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+
-SmFpbiwgV2VsY29tZSBGbGlwa2FydCB0byBPcGVuQk1DIGNvbW11bml0eSBwcm9qZWN0LjxvOnA+
-PC9vOnA+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYmxv
-Y2txdW90ZT4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwv
-cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRoYW5rIHlvdSE8bzpwPjwv
-bzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7
-PC9vOnA+PC9wPg0KPC9kaXY+DQo8YmxvY2txdW90ZSBzdHlsZT0iYm9yZGVyOm5vbmU7Ym9yZGVy
-LWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBpbiAwaW4gMGluIDYuMHB0O21hcmdp
-bi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPGRp
-dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3AtYWx0
-OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0K
-PGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0
-bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+RG8geW91IHJlY29tbWVuZCBnZXR0aW5nIFBv
-cnR3ZWxsJ3MgTmVwdHVuZSBBbHBoYSBPcGVuQk1DIGRldiBraXQgdG8gcGxheSBhcm91bmQgd2l0
-aCBPcGVuQk1DIGFuZCBnZXQgZmFtaWxpYXJpc2VkIHdpdGggaXQgYmVmb3JlIGp1bXBpbmcgdG8g
-YWN0dWFsIHNlcnZlcnM/PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPGRpdj4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzttc28tbWFy
-Z2luLWJvdHRvbS1hbHQ6YXV0byI+SG9wZSB5b3UgaGF2ZSB0YWtlbiBhIGxvb2sgYXQNCjxhIGhy
-ZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvdHJlZS9tYXN0ZXIvZGV2ZWxvcG1l
-bnQiIHRhcmdldD0iX2JsYW5rIj4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL2RvY3MvdHJl
-ZS9tYXN0ZXIvZGV2ZWxvcG1lbnQ8L2E+LiBXb3VsZCBzdWdnZXN0IHRvIHRyeSBPcGVuQk1DIFNE
-SyB1c2luZyBRRU1VIGZvbGxvd2VkIGJ5IGZldyBFVkJzIGZyb20gQk1DIFNvQyB2ZW5kb3JzIEAN
-CjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvdHJlZS9tYXN0ZXIv
-bWV0YS1ldmIiIHRhcmdldD0iX2JsYW5rIj4NCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29w
-ZW5ibWMvdHJlZS9tYXN0ZXIvbWV0YS1ldmI8L2E+LiBIb3BlIHRoaXMgaGVscHMhPG86cD48L286
-cD48L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1
-b3RlPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0K
-PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+WWVzLiBJIGhhdmUgYWxyZWFkeSB0
-cmllZCB0aGUgU0RLIHdpdGggUUVNVS4gV2UgdXNlIEFTVDI1MDAgYmFzZWQgc3lzdGVtcy4gQnkg
-JnF1b3Q7QVNUMjUwMCBFVkImcXVvdDssIGRvIHlvdSBtZWFuIHRoZSBQb3J0d2VsbCBraXQgb3Ig
-c29tZXRoaW5nIGVsc2U/PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5JIG1l
-YW50IEVWQnMgcHJvdmlkZWQgYnkgQk1DIFZlbmRvcnMgKGUuZy4gQXNwZWVkIGFuZCBOdXZvdG9u
-KSBhbmQgSSBzdWdnZXN0IHRvIGNoZWNrIHdpdGggdGhvc2UgdmVuZG9yIGZvciBnZXR0aW5nIGFj
-Y2VzcyB0byB0aGVzZSBFVkJzLjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PG86cD4mbmJzcDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Qb3J0d2VsbCBLaXQg
-aXMgZGVzaWduZWQgYmFzZWQgb24gQVNUMjUwMCBFVkIgYW5kIGFkZHMgYSBDT00tRXhwcmVzcyBj
-b25uZWN0b3IgdG8gY29ubmVjdCBob3N0IENQVSBwcm9jZXNzb3IuIFRoaXMgd2lsbCBhbGxvdyB0
-byB0ZXN0IHRoZSBjb21tdW5pY2F0aW9uIHBhdGggYmV0d2VlbiBob3N0Q1BVLSZndDtCTUMuIFBv
-cnR3ZWxsIGtpdCB3aWxsIGJlIHVzZWZ1bCBpbiBjYXNlIHlvdSB3b3VsZCBsaWtlIHRvIHRlc3QN
-CiB0aGVzZSBob3N0LSZndDtCTUMgY29tbXVuaWNhdGlvbiBmZWF0dXJlcy4gKGUuZy4gVUVGSS0m
-Z3Q7Qk1DLCBQT1NUIGNvZGVzLCBlcnJvciBsb2dnaW5nIHZpYSBTRUwsIGlwbWl0b29sIG92ZXIg
-S0NTL0xQQyBldGMuKS4gRm9yIGdldHRpbmcgYWNjZXNzIHRvIHRoaXMgYm9hcmQgeW91IGNhbiBj
-b250YWN0IHBvcnR3ZWxsIEANCjxhIGhyZWY9Imh0dHA6Ly9wb3J0d2VsbC5jb20vc29sdXRpb25z
-L29wZW5CTUMucGhwIj5odHRwOi8vcG9ydHdlbGwuY29tL3NvbHV0aW9ucy9vcGVuQk1DLnBocDwv
-YT4uPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpw
-PjwvcD4NCjwvZGl2Pg0KPGJsb2NrcXVvdGUgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci1sZWZ0
-OnNvbGlkICNDQ0NDQ0MgMS4wcHQ7cGFkZGluZzowaW4gMGluIDBpbiA2LjBwdDttYXJnaW4tbGVm
-dDo0LjhwdDttYXJnaW4tcmlnaHQ6MGluIj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxkaXY+DQo8
-ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1zby1tYXJnaW4tdG9wLWFsdDphdXRv
-O21zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2
-Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRvcC1hbHQ6
-YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+VGhhbmtzPG86cD48L286cD48L3A+DQo8
-L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibXNvLW1hcmdpbi10b3At
-YWx0OmF1dG87bXNvLW1hcmdpbi1ib3R0b20tYWx0OmF1dG8iPkphaW48bzpwPjwvbzpwPjwvcD4N
-CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtc28tbWFyZ2luLXRv
-cC1hbHQ6YXV0bzttc28tbWFyZ2luLWJvdHRvbS1hbHQ6YXV0byI+Jm5ic3A7PG86cD48L286cD48
-L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ibG9ja3F1b3Rl
-Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9ib2R5Pg0KPC9odG1sPg0K
+Regards,
+Jae
 
---_000_F5052DB35AEC4BF5AA6796036250B97Afbcom_--
+On 3/21/2019 9:27 AM, Thaju wrote:
+> Hi Jae,
+> 
+> It works. Found one issue which is explained below.
+> 
+> I have applied below 3 patches:
+> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19393
+> 
+> I can confirm that:
+> 1. KVM video appears fine in webui
+> 2. All keyboard characters works fine.
+> 3. Both mouse buttons works fine (with patch)
+> 
+> Now the issue is when host OS ( RHEL 7.5 in my case ) goes to power 
+> saving mode (black screen) after some N mins (depends on OS settings), 
+> looks like it does not accept the KVM HID events, it doesn't wake up 
+> from power saving mode through KVM. I see below error when this happens.
+> 
+> Mar 21 09:31:43  obmc-ikvm[1408]: Failed to query timings
+> Mar 21 09:31:43  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> Mar 21 09:31:44  kernel: aspeed-video 1e700000.video: Timed out when 
+> stopping streaming
+> Mar 21 09:31:45  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> Mar 21 09:31:46  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> Mar 21 09:31:47  env[1408]: 21/03/2019 09:31:47 Sending 
+> rfbEncodingNewFBSize for resize to (640x480)
+> Mar 21 09:31:48  obmc-ikvm[1408]: Failed to query timings
+> Mar 21 09:31:49  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> Mar 21 09:31:50  obmc-ikvm[1408]: Failed to query timings
+> Mar 21 09:31:51  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> Mar 21 09:31:52  obmc-ikvm[1408]: Failed to query timings
+> Mar 21 09:31:53  kernel: aspeed-video 1e700000.video: Timed out; first 
+> mode detect
+> 
+> On this state, I used physical keyboard on the host OS to bring it back 
+> from power saving mode and I see KVM also comes back. I have also tried 
+> setting the power saving timeout to "never". It works fine.
+> 
+> To recreate this issue
+> 1. Set power saving timeout to 1 min. (In RHEL 7.5, Settings > Power > 
+> Blank Screen)
+> 2. Leave the host OS to idle for 1 min.
+> 3. You will see screen goes black after 1 min and KVM stops responding.
+> 
+> Hope you understood the issue. Thanks for your support.
+> 
+> Regards,
+> Thaj
+> 
+> On Thu, Mar 21, 2019 at 9:49 PM Jae Hyun Yoo 
+> <jae.hyun.yoo@linux.intel.com <mailto:jae.hyun.yoo@linux.intel.com>> wrote:
+> 
+>     Hi Lei,
+> 
+>     Are you using a web browser from Windows OS? It seems that there is an
+>     issue of Windows websockify/novnc. Use a browser from OS other than
+>     Windows til the issue is resolved.
+> 
+>     Did you test it using Tight VNC viewer after enabling external
+>     connection? The reason why I suggested that is to identify whether
+>     this issue comes from KVM web proxy or from KVM server.
+> 
+>     Need more information of your test environment.
+>     Server platform:
+>     BMC SoC:
+>     Host OS:
+> 
+>     Regards,
+>     Jae
+> 
+>     On 3/21/2019 12:02 AM, Lei YU wrote:
+>      >> Check journal (journalctl -f) while you're testing KVM if there
+>     is any
+>      >> suspicious error. In normal opration, you should see logs like
+>     below:
+>      >
+>      > I see the same logs as Thaj, only below logs show when the issue
+>     occurs.
+>      >
+>      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Unable to
+>      > establish connection with systemd socket
+>      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+>      > VNC connections on TCP port 5900
+>      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+>      > VNC connections on TCP6 port 5900
+>      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Got connection
+>      > from client 127.0.0.1
+>      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06   other
+>     clients:
+>      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Normal
+>     socket connection
+>      >
+>      > And sometimes it works, then I see logs like:
+>      >
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Normal
+>     socket connection
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Client
+>     Protocol
+>      > Version 3.8
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Protocol
+>      > version sent 3.8, using 3.8
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+>      > rfbProcessClientSecurityType: executing handler for type 1
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+>      > rfbProcessClientSecurityType: returning securityResult for client rfb
+>      > version >= 3.8
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Pixel format
+>      > for client 192.168.10.11 <http://192.168.10.11>:
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   32 bpp,
+>     depth
+>      > 24, little endian
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   true colour:
+>      > max r 255 g 255 b 255, shift r 16 g 8 b 0
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using
+>      > compression level 1 for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using image
+>      > quality level 6 for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using JPEG
+>      > subsampling 0, Q79 for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>      > X-style cursor updates for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>      > full-color cursor updates for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>     cursor
+>      > position updates for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>      > LastRect protocol extension for client 192.168.10.11
+>      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using tight
+>      > encoding for client 192.168.10.11
+>      >
+>      > It's found that the VNC server may work when the screen is
+>     changed, e.g.
+>      > reboot the OS, or enter the OS.
+>      > When OS is in idle, usually it will not work.
+>      >
+>      >> Also, try these two patches. I added one more patch.
+>      >> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+>      >> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+>      >
+>      > Tried the patches, still the same issue as above.
+>      >
+> 
