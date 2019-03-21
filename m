@@ -1,68 +1,52 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.5; helo=cpsmtpb-ews02.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="WLrchbYw"; 
- dkim-atps=neutral
-Received: from cpsmtpb-ews02.kpnxchange.com (cpsmtpb-ews02.kpnxchange.com
- [213.75.39.5])
- by lists.ozlabs.org (Postfix) with ESMTP id 44QBCW58jxzDqSY
- for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 02:53:25 +1100 (AEDT)
-Received: from cpsps-ews26.kpnxchange.com ([10.94.84.192]) by
- cpsmtpb-ews02.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Thu, 21 Mar 2019 16:53:19 +0100
-X-Brand: /q/rzKX13g==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=IZVWplia c=1 sm=1 tr=0 cx=a_idp_e
- a=qDt3RXe/W/RMJVjRtURR+Q==:117 a=+94oq0dzjs5YbdIDA+8OCg==:17
- a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
- a=NTGMnVQrEZIA:10 a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=EhcD180WAAAA:20
- a=uoIxLzx0AAAA:20 a=WEaZBa3fPe1FPyTFQJsA:9 a=mFL4UGny2b1gzOZj:21
- a=4_UxgdlKDtCnssSE:21 a=CjuIK1q_8ugA:10 a=tQDfTFm-_g4A:10
- a=hKc7EnmM1UwA:10 a=IC2XNlieTeVoXbcui8wp:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from CPSMTPM-CMT106.kpnxchange.com ([195.121.3.22]) by
- cpsps-ews26.kpnxchange.com with Microsoft SMTPSVC(8.5.9600.16384); 
- Thu, 21 Mar 2019 16:53:19 +0100
-Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-DKIM-Signature: v=1; a=rsa-sha256; d=kpnmail.nl; s=kpnmail01;
- c=relaxed/relaxed; t=1553183599;
- h=mime-version:date:message-id:subject:from:to:content-type;
- bh=ngfnNnNkbzRHZpAD2GWJVD6gO3m0/YP201bWh704Mmc=;
- b=WLrchbYwOAocO4S+nlziBi6TJFsvooO9m3RW9D60SsQGGA20PnNS+4Y3cVEx8VC11INAhT97V9U
- okd3ButEe+2c+R3JeuW6U+Xf5HKbbF9hoU2V4lMh3JdERR1YYgwZvlqa8lq8l7Tkw37f9jeFFw+Zg
- vVjA21yts1QMwvoMYLk=
-Received: from Eltsrv03.Eltan.local ([84.85.114.86]) by
- CPSMTPM-CMT106.kpnxchange.com over TLS secured channel with Microsoft
- SMTPSVC(8.5.9600.16384); Thu, 21 Mar 2019 16:53:19 +0100
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 21 Mar
- 2019 16:52:40 +0100
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Thu, 21 Mar 2019 16:52:21 +0100
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Intel-BMC on github
-Thread-Topic: Intel-BMC on github
-Thread-Index: AdTf/IltDAWI0MW3SQaS17IFStXdww==
-Date: Thu, 21 Mar 2019 15:52:21 +0000
-Message-ID: <fcb1a7d84270488fa573ec25efe76443@Eltsrv03.Eltan.local>
-Accept-Language: nl-NL, en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44QBnF0NNPzDqMq
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 03:19:11 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 21 Mar 2019 09:19:04 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,253,1549958400"; d="scan'208";a="144018698"
+Received: from unknown (HELO [10.7.153.147]) ([10.7.153.147])
+ by orsmga002.jf.intel.com with ESMTP; 21 Mar 2019 09:19:04 -0700
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: Lei YU <mine260309@gmail.com>
+Cc: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
+ ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>,
+ Thaju <tajudheenk@gmail.com>
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+ <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+ <tencent_77BC148C0E378EFD5F488CE6@qq.com>
+ <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
+ <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
+ <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
+ <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+ <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
+ <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
+ <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
+ <CAH2KKeajTT96Y6rOdKGct+EBLdbFxGo97SEfWzMrcu0hqRh_Hw@mail.gmail.com>
+ <77cb1f2b-96c5-bd14-eab7-0da527343ce1@linux.intel.com>
+ <CAARXrtnAURfEDzTHZLHgOojRuD9T4DbUmuQLwvwsS4hvW-Sk_Q@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <bbc0ffe8-b30d-7d64-807a-b179a596a9ff@linux.intel.com>
+Date: Thu, 21 Mar 2019 09:19:04 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-X-OriginalArrivalTime: 21 Mar 2019 15:53:19.0374 (UTC)
- FILETIME=[345C52E0:01D4DFFE]
-X-RcptDomain: lists.ozlabs.org
+In-Reply-To: <CAARXrtnAURfEDzTHZLHgOojRuD9T4DbUmuQLwvwsS4hvW-Sk_Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,133 +58,85 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Mar 2019 15:53:30 -0000
+X-List-Received-Date: Thu, 21 Mar 2019 16:19:14 -0000
 
-Hello James,
+Hi Lei,
 
-Good to see the Intel BMC code is on github so we can give it a try and use=
- it.
+Are you using a web browser from Windows OS? It seems that there is an
+issue of Windows websockify/novnc. Use a browser from OS other than
+Windows til the issue is resolved.
 
-In the mean time we downloaded and built the image without problem.
+Did you test it using Tight VNC viewer after enabling external
+connection? The reason why I suggested that is to identify whether
+this issue comes from KVM web proxy or from KVM server.
 
-The issue is that we don't have a Wolfpass board. In order to get around th=
-is I create a woldpass-bmc devices in the OpenBMC qemu.
+Need more information of your test environment.
+Server platform:
+BMC SoC:
+Host OS:
 
-As far as I now the major difference is in the flash size(I added a 64 MB p=
-art), I also updated the strapping according to the schematic.
+Regards,
+Jae
 
-I can use this device in Qemu and it starts the image I built for the s2600=
-wf (if I catenate two of them to achieve the 64MB).
-
-The issue is that if I try the wolfpass image u-boot is starting,  it also =
-reports the kernel is loaded etc but it freezes after is passes control to =
-the kernel.
-
-I included the qemu logging below:
-
-U-Boot 2016.07 (Mar 21 2019 - 14:30:46 +0000)
-
-SOC : AST2500-A1
-RST : 0x01
-PLL :     25 MHz
-CPU :    825 MHz
-MEM :	2.333 MHz, EEC: Disable, Cache: Disable=20
-VGA :    16 MiB
-DRAM :   init by SOC
-       Watchdog enabled
-DRAM:  112 MiB
-Flash: 64 MiB
-*** Warning - bad CRC, using default environment
-
-In:    serial
-Out:   serial
-Err:   serial
-Net:   MAC0 : RMII/NCSI
-MAC1 : RGMII
-FTGMAC100#0
-Error: FTGMAC100#0 address not set.
-, FTGMAC100#1
-Error: FTGMAC100#1 address not set.
-
-Hit any key to stop autoboot:  0=20
-## Loading kernel from FIT Image at 20080000 ...
-   Using 'conf@aspeed-bmc-intel-purley.dtb' configuration
-   Trying 'kernel@1' kernel subimage
-     Description:  Linux kernel
-     Type:         Kernel Image
-     Compression:  uncompressed
-     Data Start:   0x20080110
-     Data Size:    2670096 Bytes =3D 2.5 MiB
-     Architecture: ARM
-     OS:           Linux
-     Load Address: 0x80001000
-     Entry Point:  0x80001000
-   Verifying Hash Integrity ... OK
-## Loading ramdisk from FIT Image at 20080000 ...
-   Using 'conf@aspeed-bmc-intel-purley.dtb' configuration
-   Trying 'ramdisk@1' ramdisk subimage
-     Description:  obmc-phosphor-initramfs
-     Type:         RAMDisk Image
-     Compression:  uncompressed
-     Data Start:   0x2031897c
-     Data Size:    21827584 Bytes =3D 20.8 MiB
-     Architecture: ARM
-     OS:           Linux
-     Load Address: unavailable
-     Entry Point:  unavailable
-   Verifying Hash Integrity ... OK
-## Loading fdt from FIT Image at 20080000 ...
-   Using 'conf@aspeed-bmc-intel-purley.dtb' configuration
-   Trying 'fdt@aspeed-bmc-intel-purley.dtb' fdt subimage
-     Description:  Flattened Device Tree blob
-     Type:         Flat Device Tree
-     Compression:  uncompressed
-     Data Start:   0x2030bfe8
-     Data Size:    51480 Bytes =3D 50.3 KiB
-     Architecture: ARM
-   Verifying Hash Integrity ... OK
-   Booting using the fdt blob at 0x2030bfe8
-   Loading Kernel Image ... OK
-   Loading Ramdisk to 856c0000, end 86b91000 ... OK
-   Loading Device Tree to 856b0000, end 856bf917 ... OK
-## Transferring control to Linux (at address 80001000)...
-
-Starting kernel ...
-
-## youhou 2...
-## Transferring control to Linux (at address 80001000)...
-
-
-
-
-
-
-Message: 4
-Date: Tue, 19 Mar 2019 19:34:02 +0000
-From: "Mihm, James" <james.mihm@intel.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Intel-BMC on github
-Message-ID:
-	<C599FC839619124CAC44E062ABB7DFE2D7A61D0F@ORSMSX115.amr.corp.intel.com>
-=09
-Content-Type: text/plain; charset=3D"us-ascii"
-
-Intel announces that its internal repository based on the OpenBMC project i=
-s being made public on github under the organization name of Intel-BMC.
-
-Intel is sharing the latest internal repositories in response to requests f=
-rom partners and customers to be able to build an OpenBMC firmware image th=
-at will run on an existing Intel server platform. The repositories include =
-content that has not yet been upstreamed to the LF OpenBMC project.
-
-Currently the only supported platform is the Wolf Pass platform (S2600WF). =
-Support for more platforms will be added in the future.
-
-The Intel-BMC can be found at https://github.com/Intel-BMC<https://github.c=
-om/Intel-BMC/openbmc>.
-For further information, please refer to the readme file (https://github.co=
-m/Intel-BMC/openbmc/blob/intel/README.md).
-
-James Mihm
-Intel DCG BMC Core Firmware
-(503) 264-5129
+On 3/21/2019 12:02 AM, Lei YU wrote:
+>> Check journal (journalctl -f) while you're testing KVM if there is any
+>> suspicious error. In normal opration, you should see logs like below:
+> 
+> I see the same logs as Thaj, only below logs show when the issue occurs.
+> 
+> Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Unable to
+> establish connection with systemd socket
+> Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+> VNC connections on TCP port 5900
+> Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+> VNC connections on TCP6 port 5900
+> Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Got connection
+> from client 127.0.0.1
+> Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06   other clients:
+> Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Normal socket connection
+> 
+> And sometimes it works, then I see logs like:
+> 
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Normal socket connection
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Client Protocol
+> Version 3.8
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Protocol
+> version sent 3.8, using 3.8
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+> rfbProcessClientSecurityType: executing handler for type 1
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+> rfbProcessClientSecurityType: returning securityResult for client rfb
+> version >= 3.8
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Pixel format
+> for client 192.168.10.11:
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   32 bpp, depth
+> 24, little endian
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   true colour:
+> max r 255 g 255 b 255, shift r 16 g 8 b 0
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using
+> compression level 1 for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using image
+> quality level 6 for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using JPEG
+> subsampling 0, Q79 for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+> X-style cursor updates for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+> full-color cursor updates for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling cursor
+> position updates for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+> LastRect protocol extension for client 192.168.10.11
+> Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using tight
+> encoding for client 192.168.10.11
+> 
+> It's found that the VNC server may work when the screen is changed, e.g.
+> reboot the OS, or enter the OS.
+> When OS is in idle, usually it will not work.
+> 
+>> Also, try these two patches. I added one more patch.
+>> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+>> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+> 
+> Tried the patches, still the same issue as above.
+> 
