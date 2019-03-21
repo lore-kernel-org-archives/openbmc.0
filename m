@@ -1,53 +1,106 @@
-Return-Path: <kunyi@google.com>
+Return-Path: <prvs=898379357d=sdasari@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::141; helo=mail-it1-x141.google.com;
- envelope-from=kunyi@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=898379357d=sdasari@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ByOc3dxk"; 
- dkim-atps=neutral
-Received: from mail-it1-x141.google.com (mail-it1-x141.google.com
- [IPv6:2607:f8b0:4864:20::141])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="lnbxkSWw"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="ORfBJxz0"; dkim-atps=neutral
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44QCXk0MS5zDqSg
- for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 03:53:23 +1100 (AEDT)
-Received: by mail-it1-x141.google.com with SMTP id z124so5168555itc.2
- for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 09:53:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=4GZWUc85i18fO8xXG8j+n30pOCfuKt5x67i7Rj6wPhU=;
- b=ByOc3dxkrk37XRaCQ42xC7lj2leO5OpU5ckJkdPhMU6aMiRFMlyZgYZ+PwW1UqokYd
- HQuo8UqJIrJA89xmXb+nhkkPz0RU6CbS9GbhROHP7PMaDcFyXdhpvgsagoHuVmXwwrOd
- YG4+exQfZmZFOVElYDMsn649xqyLqWVN7wmxd+gvJbQVGDqAsHeK+QIpGVoQgqNzwYcJ
- Vvgi0nm5sNlAYh+IOEEmx+MZSjazSUgsQ5d/3ylrOHDPgxl57aSylQ7OyXxJTpuAGo5w
- 78Ahx55+XsimKTpZiVSZs5agInfDs2TBEC6uJg4BBe7CrBxQ+q36B3NtUdYPMyNJ83+s
- /whw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=4GZWUc85i18fO8xXG8j+n30pOCfuKt5x67i7Rj6wPhU=;
- b=oDUDG08oUlbA0okI9K8LnzmYv5Unsm/ygCa77CbMIUWZ1q5GAZKdh+yMhKBVjUPfFl
- g9IKswePZIG2YRwC+bm+q+afoSVB2on51A75NuIoELD9hwtHCoVKGXYriB/g6aP7VVQq
- wgeh/uqM0ErUtq3/dIMuwQ4zJwgy/c0QuPY07shFq70Tciy293qMyQZUJbKqOR7ggQ2s
- 7SnOYSKgvda9a07vnqV1Go44e/kxMytShJNA+drsMhI37v2+WYqxbU45Rc/JzSM7tvQf
- Z75MEUAA30Ga6dNm9XuBPrY5M3pN23R+RzvzmRbkWS2W7rD027ystuuBJy9dmqDL1JDr
- 4dOw==
-X-Gm-Message-State: APjAAAUrPRP/Gwm1llIw0q3BP1BSfsz/xLTN8wKnbA528hl3l71AJUSy
- q9cWPDQinKPcTiRJj1nV53fTW/xeGEAtrF1vt4qjNLsSYkgjew==
-X-Google-Smtp-Source: APXvYqz/mt2cqGrK3WA6oBAMKn1IpfIXHmonwpywfq/KRwyFhrkeziAbWbwexHo/w1A96ndSSjiYOjiYnJmJXc63NX8=
-X-Received: by 2002:a05:660c:1:: with SMTP id q1mr3151168itj.98.1553187199607; 
- Thu, 21 Mar 2019 09:53:19 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44QD7m4GTNzDqTk
+ for <openbmc@lists.ozlabs.org>; Fri, 22 Mar 2019 04:20:15 +1100 (AEDT)
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x2LHD7I9020531; Thu, 21 Mar 2019 10:20:12 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=22Bzw0GUCu9dNeevKpYPf+MjReioz174MfNXcJYy3tw=;
+ b=lnbxkSWw2NmUeuvl1LpZldVlCFOGbu/Af1vTOiKmUAhHMyRYD8PhN5oCVVRPtWEFYKWY
+ 6YhzjPOc4QwEs9HXYUukZd5DQZ6ggXgqCLsLX4uYtscGpjQW7w2d/qwBojKl4w2IKOB0
+ 3suMwVnVOel10gMKehXOwG7JgDQ1Np8FJvc= 
+Received: from mail.thefacebook.com ([199.201.64.23])
+ by mx0a-00082601.pphosted.com with ESMTP id 2rcepfr24k-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
+ Thu, 21 Mar 2019 10:20:12 -0700
+Received: from prn-mbx04.TheFacebook.com (2620:10d:c081:6::18) by
+ prn-hub04.TheFacebook.com (2620:10d:c081:35::128) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1713.5; Thu, 21 Mar 2019 10:20:11 -0700
+Received: from prn-hub04.TheFacebook.com (2620:10d:c081:35::128) by
+ prn-mbx04.TheFacebook.com (2620:10d:c081:6::18) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.1.1713.5; Thu, 21 Mar 2019 10:20:11 -0700
+Received: from NAM02-CY1-obe.outbound.protection.outlook.com (192.168.54.28)
+ by o365-in.thefacebook.com (192.168.16.28) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1713.5
+ via Frontend Transport; Thu, 21 Mar 2019 10:20:11 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=22Bzw0GUCu9dNeevKpYPf+MjReioz174MfNXcJYy3tw=;
+ b=ORfBJxz0D4MUVYpMJr570Bigp/SG2ReidsKs57CgNKgQqVouGC2x2IEWpF/QrjKvR7uPLEe9tOQQ+mszL4NCZh42tZx/ZWuHO5FbrguJ2BzJfy5S8+Cau0yJ3uJ4YGwSTuY+0XhkiCupsjjhI2mHotdLl3CnzpgnoXjMPKj3ya0=
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com (10.174.255.18) by
+ MWHPR15MB1598.namprd15.prod.outlook.com (10.173.235.147) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1709.13; Thu, 21 Mar 2019 17:20:10 +0000
+Received: from MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::f076:5b71:62a6:2f47]) by MWHPR15MB1789.namprd15.prod.outlook.com
+ ([fe80::f076:5b71:62a6:2f47%8]) with mapi id 15.20.1730.013; Thu, 21 Mar 2019
+ 17:20:09 +0000
+From: Sai Dasari <sdasari@fb.com>
+To: "jainmjo@gmail.com" <jainmjo@gmail.com>, Openbmc <openbmc@lists.ozlabs.org>
+Subject: Re: OpenBMC Development Kit
+Thread-Topic: OpenBMC Development Kit
+Thread-Index: AQHU3/qC2n6pMJMV4kuFFW2xGmbJOqYV31wA
+Date: Thu, 21 Mar 2019 17:20:09 +0000
+Message-ID: <4A255327-67C2-4F1F-A8C4-7795CE7F9C47@fb.com>
+References: <CADc45smtLBVn9vSh3uEcMWEwcnUo+asYZR5pXgFKP+5xkuK7vw@mail.gmail.com>
+In-Reply-To: <CADc45smtLBVn9vSh3uEcMWEwcnUo+asYZR5pXgFKP+5xkuK7vw@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [2620:10d:c090:200::3:d463]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b8162db6-9413-419a-cda0-08d6ae217893
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600127)(711020)(4605104)(2017052603328)(7153060)(7193020);
+ SRVR:MWHPR15MB1598; 
+x-ms-traffictypediagnostic: MWHPR15MB1598:
+x-ms-exchange-purlcount: 2
+x-microsoft-antispam-prvs: <MWHPR15MB1598FACC183EFEE815A10877CE420@MWHPR15MB1598.namprd15.prod.outlook.com>
+x-forefront-prvs: 0983EAD6B2
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(376002)(396003)(366004)(39860400002)(136003)(129404003)(53754006)(189003)(199004)(53546011)(476003)(99286004)(110136005)(256004)(316002)(33656002)(6116002)(97736004)(606006)(8676002)(36756003)(81166006)(81156014)(82746002)(25786009)(102836004)(186003)(7736002)(8936002)(2501003)(6506007)(76176011)(478600001)(68736007)(229853002)(2906002)(53936002)(6246003)(3480700005)(11346002)(71190400001)(7116003)(790700001)(2616005)(83716004)(6436002)(966005)(4744005)(46003)(14454004)(71200400001)(5660300002)(106356001)(6306002)(6512007)(86362001)(236005)(6486002)(446003)(54896002)(486006)(105586002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1598;
+ H:MWHPR15MB1789.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: jdG/zQyoBxzjpC5T4ZJph2PCl7WwQTWdrlX4uXS2dmdhy6DYZ+fZcL+e6WR+o0aS39eowRQcgixA0+tGp4s+wqmikQa/hJdRwmqKSktjvQUU5X1XMfsRFDEBHZl+onrRdiiY8WyxhmFdyA8uaDEyZApoDsB3rxfBT9WvkRLHOvGTtDWXPPIAzKXpYudE4LF+ykXI2ZyNNa54haidLwBRWrAZACgw4ADm6ArCUe7bhhxZ2Ne6tcRiqe0wewXw6unAK9y791ddXOBljzMj0TeTCVlOJTYgw1HwFh028u1QMon0+Yc5AbllM0yvnO21Ilzg+FGbNlGO+at+EmkFRNK3qA/nzSwqyUWdzeMEscLi4wv8HDn1AY0piwRmmdi5W3QY4+44eRyYEQx/+nFH7w08W9r6YrxNwiH1HoaAaZuotas=
+Content-Type: multipart/alternative;
+ boundary="_000_4A25532767C24F1FA8C47795CE7F9C47fbcom_"
 MIME-Version: 1.0
-From: Kun Yi <kunyi@google.com>
-Date: Thu, 21 Mar 2019 09:52:53 -0700
-Message-ID: <CAGMNF6W+m-AjmJVwP1U=Pbv7-Ww4L2w5JYvH124hZ70xz30B1w@mail.gmail.com>
-Subject: Phosphor inventory random failure and generating file names with
- weird characters?
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000004debc405849d9389"
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8162db6-9413-419a-cda0-08d6ae217893
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Mar 2019 17:20:09.7478 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1598
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-21_07:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
+X-FB-Internal: Safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,171 +112,98 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Mar 2019 16:53:26 -0000
+X-List-Received-Date: Thu, 21 Mar 2019 17:20:21 -0000
 
---0000000000004debc405849d9389
-Content-Type: text/plain; charset="UTF-8"
+--_000_4A25532767C24F1FA8C47795CE7F9C47fbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hello friends,
+DQoNCkZyb206IG9wZW5ibWMgPG9wZW5ibWMtYm91bmNlcytzZGFzYXJpPWZiLmNvbUBsaXN0cy5v
+emxhYnMub3JnPiBvbiBiZWhhbGYgb2YgImphaW5tam9AZ21haWwuY29tIiA8amFpbm1qb0BnbWFp
+bC5jb20+DQpEYXRlOiBUaHVyc2RheSwgTWFyY2ggMjEsIDIwMTkgYXQgODoyNiBBTQ0KVG86IE9w
+ZW5ibWMgPG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZz4NClN1YmplY3Q6IE9wZW5CTUMgRGV2ZWxv
+cG1lbnQgS2l0DQoNCkhpIGFsbCwNCg0KTXkgdGVhbSBhdCBGbGlwa2FydCBpcyB3b3JraW5nIG9u
+IHBvcnRpbmcgT3BlbkJNQyB0byBvdXIgc2VydmVycy4NCkphaW4sIFdlbGNvbWUgRmxpcGthcnQg
+dG8gT3BlbkJNQyBjb21tdW5pdHkgcHJvamVjdC4NCg0KRG8geW91IHJlY29tbWVuZCBnZXR0aW5n
+IFBvcnR3ZWxsJ3MgTmVwdHVuZSBBbHBoYSBPcGVuQk1DIGRldiBraXQgdG8gcGxheSBhcm91bmQg
+d2l0aCBPcGVuQk1DIGFuZCBnZXQgZmFtaWxpYXJpc2VkIHdpdGggaXQgYmVmb3JlIGp1bXBpbmcg
+dG8gYWN0dWFsIHNlcnZlcnM/DQpIb3BlIHlvdSBoYXZlIHRha2VuIGEgbG9vayBhdCBodHRwczov
+L2dpdGh1Yi5jb20vb3BlbmJtYy9kb2NzL3RyZWUvbWFzdGVyL2RldmVsb3BtZW50LiBXb3VsZCBz
+dWdnZXN0IHRvIHRyeSBPcGVuQk1DIFNESyB1c2luZyBRRU1VIGZvbGxvd2VkIGJ5IGZldyBFVkJz
+IGZyb20gQk1DIFNvQyB2ZW5kb3JzIEAgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJt
+Yy90cmVlL21hc3Rlci9tZXRhLWV2Yi4gSG9wZSB0aGlzIGhlbHBzIQ0KDQpUaGFua3MNCkphaW4N
+Cg0K
 
-I'm seeing a weird error and need your help. Basically I saw two symptoms
-that may or may not be related, and seems no one has reported them yet in
-Github issues. The BMC software stack is based on 2.6 release.
+--_000_4A25532767C24F1FA8C47795CE7F9C47fbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <0F5D9173517D684ABDB75A685952DB6A@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-1. With repeated BMC reboot occasionally obmc-read-eeprom will fail to get
-the result from a mapper DBus call:
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+IkNhbWJyaWEgTWF0aCI7DQoJcGFub3NlLTE6MiA0IDUgMyA1IDQgNiAzIDIgNDt9DQpAZm9udC1m
+YWNlDQoJe2ZvbnQtZmFtaWx5OkNhbGlicmk7DQoJcGFub3NlLTE6MiAxNSA1IDIgMiAyIDQgMyAy
+IDQ7fQ0KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWws
+IGRpdi5Nc29Ob3JtYWwNCgl7bWFyZ2luOjBpbjsNCgltYXJnaW4tYm90dG9tOi4wMDAxcHQ7DQoJ
+Zm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQph
+OmxpbmssIHNwYW4uTXNvSHlwZXJsaW5rDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xv
+cjojMDU2M0MxOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KYTp2aXNpdGVkLCBzcGFu
+Lk1zb0h5cGVybGlua0ZvbGxvd2VkDQoJe21zby1zdHlsZS1wcmlvcml0eTo5OTsNCgljb2xvcjoj
+OTU0RjcyOw0KCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQ0KcC5tc29ub3JtYWwwLCBsaS5t
+c29ub3JtYWwwLCBkaXYubXNvbm9ybWFsMA0KCXttc28tc3R5bGUtbmFtZTptc29ub3JtYWw7DQoJ
+bXNvLW1hcmdpbi10b3AtYWx0OmF1dG87DQoJbWFyZ2luLXJpZ2h0OjBpbjsNCgltc28tbWFyZ2lu
+LWJvdHRvbS1hbHQ6YXV0bzsNCgltYXJnaW4tbGVmdDowaW47DQoJZm9udC1zaXplOjExLjBwdDsN
+Cglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpzcGFuLkVtYWlsU3R5bGUxOA0K
+CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250LWZhbWlseToiQ2FsaWJyaSIs
+c2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29DaHBEZWZhdWx0DQoJe21zby1z
+dHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4wcHQ7fQ0KQHBhZ2UgV29yZFNl
+Y3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAx
+LjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5
+bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0
+IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5kaWZdLS0+PCEtLVtpZiBndGUgbXNvIDld
+Pjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRpdCI+DQo8bzppZG1hcCB2OmV4dD0iZWRp
+dCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48L3htbD48IVtlbmRpZl0tLT4NCjwvaGVh
+ZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSIjMDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8
+ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJz
+cDs8L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
+CjxkaXYgc3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtw
+YWRkaW5nOjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFu
+IHN0eWxlPSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5Gcm9tOiA8L3NwYW4+PC9iPjxz
+cGFuIHN0eWxlPSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5vcGVuYm1jICZsdDtvcGVu
+Ym1jLWJvdW5jZXMmIzQzO3NkYXNhcmk9ZmIuY29tQGxpc3RzLm96bGFicy5vcmcmZ3Q7IG9uIGJl
+aGFsZiBvZiAmcXVvdDtqYWlubWpvQGdtYWlsLmNvbSZxdW90OyAmbHQ7amFpbm1qb0BnbWFpbC5j
+b20mZ3Q7PGJyPg0KPGI+RGF0ZTogPC9iPlRodXJzZGF5LCBNYXJjaCAyMSwgMjAxOSBhdCA4OjI2
+IEFNPGJyPg0KPGI+VG86IDwvYj5PcGVuYm1jICZsdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcm
+Z3Q7PGJyPg0KPGI+U3ViamVjdDogPC9iPk9wZW5CTUMgRGV2ZWxvcG1lbnQgS2l0PG86cD48L286
+cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4m
+bmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5IaSBh
+bGwsIDxvOnA+PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5i
+c3A7PC9vOnA+PC9wPg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPk15IHRlYW0gYXQgRmxp
+cGthcnQgaXMgd29ya2luZyBvbiBwb3J0aW5nIE9wZW5CTUMgdG8gb3VyIHNlcnZlcnMuPG86cD48
+L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5KYWluLCBXZWxj
+b21lIEZsaXBrYXJ0IHRvIE9wZW5CTUMgY29tbXVuaXR5IHByb2plY3QuPG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8cCBj
+bGFzcz0iTXNvTm9ybWFsIj5EbyB5b3UgcmVjb21tZW5kIGdldHRpbmcgUG9ydHdlbGwncyBOZXB0
+dW5lIEFscGhhIE9wZW5CTUMgZGV2IGtpdCB0byBwbGF5IGFyb3VuZCB3aXRoIE9wZW5CTUMgYW5k
+IGdldCBmYW1pbGlhcmlzZWQgd2l0aCBpdCBiZWZvcmUganVtcGluZyB0byBhY3R1YWwgc2VydmVy
+cz88bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05v
+cm1hbCI+SG9wZSB5b3UgaGF2ZSB0YWtlbiBhIGxvb2sgYXQgPGEgaHJlZj0iaHR0cHM6Ly9naXRo
+dWIuY29tL29wZW5ibWMvZG9jcy90cmVlL21hc3Rlci9kZXZlbG9wbWVudCI+DQpodHRwczovL2dp
+dGh1Yi5jb20vb3BlbmJtYy9kb2NzL3RyZWUvbWFzdGVyL2RldmVsb3BtZW50PC9hPi4gV291bGQg
+c3VnZ2VzdCB0byB0cnkgT3BlbkJNQyBTREsgdXNpbmcgUUVNVSBmb2xsb3dlZCBieSBmZXcgRVZC
+cyBmcm9tIEJNQyBTb0MgdmVuZG9ycyBADQo8YSBocmVmPSJodHRwczovL2dpdGh1Yi5jb20vb3Bl
+bmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtZXZiIj5odHRwczovL2dpdGh1Yi5jb20vb3Bl
+bmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtZXZiPC9hPi4gSG9wZSB0aGlzIGhlbHBzITxv
+OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+
+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5UaGFua3M8bzpwPjwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkphaW48bzpwPjwvbzpwPjwv
+cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+
+PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-$ systemctl status obmc-read-eeprom@system-chassis-motherboard.service
-
-Mar 07 21:36:04  systemd[1]: Starting Read system/chassis/motherboard
-EEPROM...
-Mar 07 21:36:06  phosphor-read-eeprom[2598]: FRU Data
-Mar 07 21:36:06  phosphor-read-eeprom[2598]: Successfully verified area.
-Mar 07 21:36:06  phosphor-read-eeprom[2598]: Populated FRU areas
-Mar 07 21:36:13  phosphor-read-eeprom[2598]:
-[[0;1;31m[[0;1;39m[[0;1;31mException from sdbus call[[0m
-Mar 07 21:36:13  phosphor-read-eeprom[2598]: sd_bus_call:
-org.freedesktop.DBus.Error.FileNotFound: path or object not found
-Mar 07 21:36:13  phosphor-read-eeprom[2598]:
-[[0;1;31m[[0;1;39m[[0;1;31mError updating inventory.[[0m
-Mar 07 21:36:13  systemd[1]:
-[[0;1;39m[[0;1;31m[[0;1;39mobmc-read-eeprom@system-chassis-motherboard.service:
-Main process exit
-ed, code=exited, status=1/FAILURE[[0m
-
-this is a call to mapper "GetObject sas /xyz/openbmc_project/inventory 1
-xyz.openbmc_project.Inventory.Manager". However both the mapper and
-inventory manager seem to run fine, and
-mapper-wait-xyz.openbmc_project.Inventory.Manager exits correctly
-before obmc-read-eeprom is started.
-
-At this point, I'm not sure whether it's a problem with the object mapper,
-inventory manager, or something else.
-
-2. Upon closer inspection, the system has had many weird filenames in its
-RW partition where the inventory serialization data is stored:
-
-/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system:
-drwxr-xr-x    3 root     root             0 Mar  8 00:38 chassis
--rw-r--r--    1 root     root            81 Mar  8 00:38
-xyz.openOby?:w=?xyz.Invebmc_?8?$xyz.tor.AssetTag
--rw-r--r--    1 root     root            81 Mar 21 03:17
-xyz.openbmc_project.Inventory.Decorator.AssetTag
--rw-r--r--    1 root     root            81 Mar 20 23:29
-xyz.openbmc_projxyz.Inventory.Deect.tor.AssetTag
--rw-r--r--    1 root     root            81 Mar 20 17:44
-xyz.openbmc_projxyz.Inventory.Dexyz.tor.AssetTag
--rw-r--r--    1 root     root            81 Mar  8 00:38
-xyz.openbmc_????xyz.Inventor???{xyz.tor.AssetTag
--rw-r--r--    1 root     root            81 Mar  8 00:38
-xyz.open???t's??xyz.Invebmc_?7V?xyz.tor.AssetTag
-
-/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis:
-drwxr-xr-x    2 root     root             0 Mar 20 21:35 motherboard
-
-/var/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chassis/motherboard:
--rw-r--r--    1 root     root           223 Mar  8 00:38
-xyz.open6????d?!xyz.Invebmc_y??mxyz.tor.Asset
--rw-r--r--    1 root     root           223 Mar  8 00:38
-xyz.openEyU?4]#?xyz.Inve???????Oxyz.tor.Asset
--rw-r--r--    1 root     root           223 Mar 20 21:42
-xyz.openbmc_project.Inventory.Decorator.Asset
--rw-r--r--    1 root     root           113 Mar 20 21:42
-xyz.openbmc_project.Inventory.Item
--rw-r--r--    1 root     root           223 Mar 20 17:45
-xyz.openbmc_projxyz.Inventory.Deect.tor.Asset
--rw-r--r--    1 root     root           223 Mar 20 23:29
-xyz.open????y??mxyz.Invebmc_project.tor.Asset
--rw-r--r--    1 root     root           223 Mar  8 00:38
-xyz.open??N6m???xyz.Inve?n{??FT?xyz.tor.Asset
-
-Is this expected? I deleted the directory for serialized data and rebooted
-the BMC, and it only generates one item with valid names.
-
-Any suggestions on how to debug these? I will convert these to Github
-issues and append my findings if any.
-
--- 
-Regards,
-Kun
-
---0000000000004debc405849d9389
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hello friends,=
-<div><br></div><div>I&#39;m seeing a weird error and need your help. Basica=
-lly I saw two symptoms that may or may not be related, and seems no one has=
- reported them yet in Github issues. The BMC software stack is based on 2.6=
- release.</div><div><br></div><div>1. With repeated BMC reboot occasionally=
-=C2=A0obmc-read-eeprom will fail to get the result from a mapper DBus call:=
-</div><div><br></div><div><div>$ systemctl status obmc-read-eeprom@system-c=
-hassis-motherboard.service</div><div><br></div><div>Mar 07 21:36:04=C2=A0 s=
-ystemd[1]: Starting Read system/chassis/motherboard EEPROM...</div><div>Mar=
- 07 21:36:06=C2=A0 phosphor-read-eeprom[2598]: FRU Data</div><div>Mar 07 21=
-:36:06=C2=A0 phosphor-read-eeprom[2598]: Successfully verified area.</div><=
-div>Mar 07 21:36:06=C2=A0 phosphor-read-eeprom[2598]: Populated FRU areas</=
-div><div>Mar 07 21:36:13=C2=A0 phosphor-read-eeprom[2598]: [[0;1;31m[[0;1;3=
-9m[[0;1;31mException from sdbus call[[0m</div><div>Mar 07 21:36:13=C2=A0 ph=
-osphor-read-eeprom[2598]: sd_bus_call: org.freedesktop.DBus.Error.FileNotFo=
-und: path or object not found</div><div>Mar 07 21:36:13=C2=A0 phosphor-read=
--eeprom[2598]: [[0;1;31m[[0;1;39m[[0;1;31mError updating inventory.[[0m</di=
-v><div>Mar 07 21:36:13=C2=A0 systemd[1]: [[0;1;39m[[0;1;31m[[0;1;39mobmc-re=
-ad-eeprom@system-chassis-motherboard.service: Main process exit</div><div>e=
-d, code=3Dexited, status=3D1/FAILURE[[0m</div></div><div><br></div><div>thi=
-s is a call to mapper &quot;GetObject sas /xyz/openbmc_project/inventory 1 =
-xyz.openbmc_project.Inventory.Manager&quot;. However both the mapper and in=
-ventory manager seem to run fine, and mapper-wait-xyz.openbmc_project.Inven=
-tory.Manager exits correctly before=C2=A0obmc-read-eeprom is started.</div>=
-<div><br></div><div>At this point, I&#39;m not sure whether it&#39;s a prob=
-lem with the object mapper, inventory manager, or something else.</div><div=
-><br></div><div>2. Upon closer inspection, the system has had many weird fi=
-lenames in its RW partition where the inventory serialization data is store=
-d:</div><div><br></div><div><div>/var/lib/phosphor-inventory-manager/xyz/op=
-enbmc_project/inventory/system:</div><div>drwxr-xr-x=C2=A0 =C2=A0 3 root=C2=
-=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A00 Mar=
-=C2=A0 8 00:38 chassis</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=
-=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 81 Mar=C2=A0 8 00:3=
-8 xyz.openOby?:w=3D?xyz.Invebmc_?8?$xyz.tor.AssetTag</div><div>-rw-r--r--=
-=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 81 Mar 21 03:17 xyz.openbmc_project.Inventory.Decorator.AssetTag=
-</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 81 Mar 20 23:29 xyz.openbmc_projxyz.Invento=
-ry.Deect.tor.AssetTag</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0=
- =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 81 Mar 20 17:44 xyz.op=
-enbmc_projxyz.Inventory.Dexyz.tor.AssetTag</div><div>-rw-r--r--=C2=A0 =C2=
-=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0=
- 81 Mar=C2=A0 8 00:38 xyz.openbmc_????xyz.Inventor???{xyz.tor.AssetTag</div=
-><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 81 Mar=C2=A0 8 00:38 xyz.open???t&#39;s??xyz.In=
-vebmc_?7V?xyz.tor.AssetTag</div><div><br></div><div>/var/lib/phosphor-inven=
-tory-manager/xyz/openbmc_project/inventory/system/chassis:</div><div>drwxr-=
-xr-x=C2=A0 =C2=A0 2 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0=
- =C2=A0 =C2=A0 =C2=A00 Mar 20 21:35 motherboard</div><div><br></div><div>/v=
-ar/lib/phosphor-inventory-manager/xyz/openbmc_project/inventory/system/chas=
-sis/motherboard:</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=
-=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0223 Mar=C2=A0 8 00:38 xyz.o=
-pen6????d?!xyz.Invebmc_y??mxyz.tor.Asset</div><div>-rw-r--r--=C2=A0 =C2=A0 =
-1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0223 =
-Mar=C2=A0 8 00:38 xyz.openEyU?4]#?xyz.Inve???????Oxyz.tor.Asset</div><div>-=
-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0223 Mar 20 21:42 xyz.openbmc_project.Inventory.Decorato=
-r.Asset</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0113 Mar 20 21:42 xyz.openbmc_project.=
-Inventory.Item</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0=
-root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0223 Mar 20 17:45 xyz.openbmc_p=
-rojxyz.Inventory.Deect.tor.Asset</div><div>-rw-r--r--=C2=A0 =C2=A0 1 root=
-=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0223 Mar 20=
- 23:29 xyz.open????y??mxyz.Invebmc_project.tor.Asset</div><div>-rw-r--r--=
-=C2=A0 =C2=A0 1 root=C2=A0 =C2=A0 =C2=A0root=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0223 Mar=C2=A0 8 00:38 xyz.open??N6m???xyz.Inve?n{??FT?xyz.tor.Ass=
-et</div></div><div><br></div><div>Is this expected? I deleted the directory=
- for serialized data and rebooted the BMC, and it only generates one item w=
-ith valid names.</div><div><br></div><div>Any suggestions on how to debug t=
-hese? I will convert these to Github issues and append my findings if any.<=
-/div><div></div><div><div><br></div>-- <br><div dir=3D"ltr" class=3D"gmail-=
-m_-4760977766139129335gmail_signature"><div dir=3D"ltr">Regards,<div>Kun</d=
-iv></div></div></div></div></div></div></div></div></div></div></div>
-
---0000000000004debc405849d9389--
+--_000_4A25532767C24F1FA8C47795CE7F9C47fbcom_--
