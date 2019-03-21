@@ -1,58 +1,69 @@
 Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d33; helo=mail-io1-xd33.google.com;
+ (client-ip=2607:f8b0:4864:20::d2c; helo=mail-io1-xd2c.google.com;
  envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="h7FCyxDs"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mq555RbD"; 
  dkim-atps=neutral
-Received: from mail-io1-xd33.google.com (mail-io1-xd33.google.com
- [IPv6:2607:f8b0:4864:20::d33])
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Pr3j1fRszDqNt
- for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 13:15:28 +1100 (AEDT)
-Received: by mail-io1-xd33.google.com with SMTP id s7so3968038iom.12
- for <openbmc@lists.ozlabs.org>; Wed, 20 Mar 2019 19:15:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44PyQm0jsDzDqQg
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 18:02:23 +1100 (AEDT)
+Received: by mail-io1-xd2c.google.com with SMTP id b9so4358709iot.13
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Mar 2019 00:02:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=dBTU+r+0NwwzfyBZDgQ9FJ/hAbDbVnHkPHjWl69gu2Y=;
- b=h7FCyxDslrMxRvtY/PPHZOl9PWFvOS9A3pjMIyuFf3lK7AeUIXkxQi+LYQ/V/pV/8W
- kT9gf5ipq1OWJDDiEOaRI2rhMo1hIsm79bVnbqRB/A4ZwQOZFGyHXPcIFmC7uPkc3Zrx
- cCkEMWxslkeWOBBdMfy98WaiZ+UIP85ZX+cvgngjasbF1yemoVhvyGGYNTF9cvYa7pxQ
- /au5VMnv+PN5OuVyuGhnhcWe8hQpSgWN22P9i/gP1peIT+SN5nFDcUw9w2IRWeKUVVEC
- dij3VLV9rzUbSiB+vajGP2BehSLR2Ovz4Z7cI0FMU7VFf5LiASo5/GKdg4Ovk1aESgZp
- 62fQ==
+ :cc; bh=QMndZFCV9p6tpO7O5LVdcCuMoteaowChLqs46taFDgw=;
+ b=mq555RbDkOCkHM/Aa2P4ypaf9fYAz850i5oggr5EqdOrv/uR18pWEOja/IHc+yF5Qx
+ ahDuewftmuF0TccNTfCmjk2cv+QfKPPL+B+kiT6q7wQYVJYkcpAUM0qnC7B5BJQSk9GD
+ QT4ywWJY5X3HqvVc8LCljJmhLOHGfnB2NHpGGve0bWaDZzh5fOlmfFuywdnvVriugdjd
+ V5O6Q49qMs5C/7A2WvwxMPIO2RfCpNEee0rEe5vSF0TynG0BlzKF1fch/fwoHR7s9n2f
+ pSuXAbckQKqAOwnI6iyOkh5tlBIkLBxAuAo4nJCKQg5cyB/YmtX0NqMfbfaRoBRCOVqs
+ zhvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=dBTU+r+0NwwzfyBZDgQ9FJ/hAbDbVnHkPHjWl69gu2Y=;
- b=oneAxmjHc0jiSZjmLM3f/VStsUQDPam2z3OW644NJj0MRikDrBFnUtSpcDMuFiFCfn
- E9MZo90SUunGyLRjCAPBG3kDDnAnAQE0c4r0WlC5rx14qN77puy1emWxrVeP9RpMGLby
- CYyiK8Dm84mQC3Mlz0JfOPxKCCzySh886FSBa+Y6fWIRW08JYQvQXxO8c90rKdQ3dnmW
- A6av6BTpB8Mkg7uEelfDCsWmYQ31Bjm0zZVyN50/NI4hSmohVl3VMyf/1qv4paUh9YnV
- ypHXEhsT7YdhkRHsBRr3zopAg+OatwX9h8sgbrPI6LbR6NiguXsBckG168B1Og+MgLh/
- Ff5w==
-X-Gm-Message-State: APjAAAXTBpg5Iup+W7U3B1i0KL1eMNvYUAPEzcEf6umVJ07VOcyKmjrr
- E3r37FiCth1KQ2q1JG57Hfogh8SgdZ9Ogf++KHmQ4N9W6f4=
-X-Google-Smtp-Source: APXvYqz4cTX/RrqjnmPRHVZYAGYUkcdN5j6yuSMTXsowK9x7r+mCACQaMfVEwynD0Bs1DrrQHCqYClf8g2eDENOdUFM=
-X-Received: by 2002:a5e:9e0d:: with SMTP id i13mr997417ioq.156.1553134525344; 
- Wed, 20 Mar 2019 19:15:25 -0700 (PDT)
+ :message-id:subject:to:cc;
+ bh=QMndZFCV9p6tpO7O5LVdcCuMoteaowChLqs46taFDgw=;
+ b=CLDsYhAzaRNTSXqWNKXQPo0gMDCKbLuDxoZJ9gOOe++uH73NOotxPPtWQlA/7OdUfj
+ Z6w88puFQ/UmTKmsXfHEMnAf6ayuqy1LVwvCc89jPboe9yCcPPOEaKUth4BhFJSQDTo6
+ 0j/IhQVz68wSfw9tqbJnrfzjmOYbK7IYZHfcbtpmd0NkSsV9Jx8B6/gj20gVCwM56OWT
+ v+FnrR6F4qJKf8bEz/rCZ2/MpB15Fr5/ysns8W9t4lFj0meRaznv3r3mfH/6U/Sa6Nd7
+ zJAAFi7D2h59OpbABxwQqdMduMoORpTS9CGiEB0iw0aYFRS4UxnvDJ8ED3ibf0RwRxx/
+ s+qw==
+X-Gm-Message-State: APjAAAWeKE1iO8k8wJmRcwY3opjkK+m7269iV5zVJnyLJtC1qKWtvd9t
+ WF55+4wV8fgJgtuLhMI1BGf9vkO04fZ76s3/jsw=
+X-Google-Smtp-Source: APXvYqyd09nPOtWHlvcXGsxi57rB5Q7+8yMCZfNUojRpXXJR3jtjfFJnvyP4+u8BC9WBxi9/CgxiWgmtNxIfAYLVMc8=
+X-Received: by 2002:a6b:ef12:: with SMTP id k18mr1568704ioh.171.1553151739871; 
+ Thu, 21 Mar 2019 00:02:19 -0700 (PDT)
 MIME-Version: 1.0
-References: <AM0PR04MB5218E40914AEB17922205F60C9410@AM0PR04MB5218.eurprd04.prod.outlook.com>
-In-Reply-To: <AM0PR04MB5218E40914AEB17922205F60C9410@AM0PR04MB5218.eurprd04.prod.outlook.com>
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+ <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+ <tencent_77BC148C0E378EFD5F488CE6@qq.com>
+ <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
+ <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
+ <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
+ <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+ <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
+ <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
+ <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
+ <CAH2KKeajTT96Y6rOdKGct+EBLdbFxGo97SEfWzMrcu0hqRh_Hw@mail.gmail.com>
+ <77cb1f2b-96c5-bd14-eab7-0da527343ce1@linux.intel.com>
+In-Reply-To: <77cb1f2b-96c5-bd14-eab7-0da527343ce1@linux.intel.com>
 From: Lei YU <mine260309@gmail.com>
-Date: Thu, 21 Mar 2019 10:15:08 +0800
-Message-ID: <CAARXrtmbcihFe2WgudbQOdcz4okBBy0-oBLiOLBNKehmFoig9Q@mail.gmail.com>
-Subject: Re: A few questions regarding porting to a new board
-To: Stephen Boylan <sboylan@ircona.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Thu, 21 Mar 2019 15:02:01 +0800
+Message-ID: <CAARXrtnAURfEDzTHZLHgOojRuD9T4DbUmuQLwvwsS4hvW-Sk_Q@mail.gmail.com>
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Thaju <tajudheenk@gmail.com>, xiuzhi <1450335857@qq.com>,
+ ed <ed@tanous.net>, 
+ openbmc <openbmc@lists.ozlabs.org>, Eddie James <eajames@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,41 +75,65 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 Mar 2019 02:15:30 -0000
+X-List-Received-Date: Thu, 21 Mar 2019 07:02:24 -0000
 
-> Here are some issues I=E2=80=99ve run into and I=E2=80=99m wondering if a=
-nyone has any answers or tips they could help out with.
+> Check journal (journalctl -f) while you're testing KVM if there is any
+> suspicious error. In normal opration, you should see logs like below:
 
-> I=E2=80=99ve been trying to set up some GPIOs and I was able to add LED a=
-nd GPIO Keys, but I=E2=80=99m having trouble with power related pins. I add=
-ed a gpio_defs.json file and tried a rebuild but noticed that it wasn=E2=80=
-=99t ending up in the target rootfs. I noticed then that by including conf/=
-machine/include/openpower.inc in my machine.conf file that it would.
->
-> Is the workbook still a requirement? Do I need to make a .py file as my w=
-orkbook? Is there one location where all GPIOs should be defined or are the=
-y separated out into different services now?
-> Should conf/machine/include/openpower.inc be the first thing to add to a =
-machine.conf file or is it better to select the features manually?
->
-> Are there any default configurations that are needed in new machines? Fro=
-m looking at a few different ones (ast2500/Romulus/etc) there doesn=E2=80=
-=99t seem to me to be a standard structure.
+I see the same logs as Thaj, only below logs show when the issue occurs.
 
-The doc [add-new-system.md][1] is updated to include these topics.
-You could refer to the LED, GPIO sections.
+Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Unable to
+establish connection with systemd socket
+Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+VNC connections on TCP port 5900
+Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Listening for
+VNC connections on TCP6 port 5900
+Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Got connection
+from client 127.0.0.1
+Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06   other clients:
+Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Normal socket connection
 
->
-> From what I can tell I have phosphor-state-manager included in my build, =
-but obmcutil is not present. Is there a way to verify that I=E2=80=99m usin=
-g the correct phosphor-state-manager and to include obmcutil?
+And sometimes it works, then I see logs like:
 
-obmcutil is a standalone utility, not part of phosphor-state-manager.
-It is defined in meta-phosphor/recipes-phosphor/devtools/obmc-pydevtools_gi=
-t.bb,
-and installed by
-meta-openpower/recipes-phosphor/packagegroups/packagegroup-obmc-apps.bbappe=
-nd
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Normal socket connection
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Client Protocol
+Version 3.8
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Protocol
+version sent 3.8, using 3.8
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+rfbProcessClientSecurityType: executing handler for type 1
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+rfbProcessClientSecurityType: returning securityResult for client rfb
+version >= 3.8
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Pixel format
+for client 192.168.10.11:
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   32 bpp, depth
+24, little endian
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   true colour:
+max r 255 g 255 b 255, shift r 16 g 8 b 0
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using
+compression level 1 for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using image
+quality level 6 for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using JPEG
+subsampling 0, Q79 for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+X-style cursor updates for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+full-color cursor updates for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling cursor
+position updates for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+LastRect protocol extension for client 192.168.10.11
+Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using tight
+encoding for client 192.168.10.11
 
-[1]: https://github.com/openbmc/docs/blob/master/development/add-new-system=
-.md
+It's found that the VNC server may work when the screen is changed, e.g.
+reboot the OS, or enter the OS.
+When OS is in idle, usually it will not work.
+
+> Also, try these two patches. I added one more patch.
+> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+
+Tried the patches, still the same issue as above.
