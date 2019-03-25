@@ -1,45 +1,54 @@
-Return-Path: <prvs=9805c9079=P.K.Lee@quantatw.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=9805c9079=p.k.lee@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::134; helo=mail-it1-x134.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44SRL130mhzDqDZ
- for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 18:51:45 +1100 (AEDT)
-Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
- by mx02.quantatw.com with ESMTP; 25 Mar 2019 15:51:42 +0800
-Received: from mailbx07.quanta.corp (10.243.91.102) by mailbx08.quanta.corp
- (10.243.91.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 25 Mar
- 2019 15:51:29 +0800
-Received: from mailbx07.quanta.corp ([fe80::6c28:4dd7:a1eb:d720]) by
- mailbx07.quanta.corp ([fe80::6c28:4dd7:a1eb:d720%4]) with mapi id
- 15.01.1713.004; Mon, 25 Mar 2019 15:51:29 +0800
-From: =?big5?B?UC4gSy4gTGVlICin9axmvGUp?= <P.K.Lee@quantatw.com>
-To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: New repo request
-Thread-Topic: New repo request
-Thread-Index: AQHU4t+OuZuRh3jGU0O6iyG05hCeug==
-Date: Mon, 25 Mar 2019 07:51:29 +0000
-Message-ID: <35BF8A4D-F416-4F61-8DA4-1C26DFA027FE@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24508.001
-x-tm-as-result: No--4.198300-0.000000-31
-x-tm-as-matchedid: 140026-701625-704425-700685-701153-106230-863519-700476-1
- 48004-148133-30049-30063-41000-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
-Content-ID: <CCCFF74E7D0C34449E7601C36ED76A6E@quantatw.com>
-Content-Transfer-Encoding: base64
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="s9Dmioff"; 
+ dkim-atps=neutral
+Received: from mail-it1-x134.google.com (mail-it1-x134.google.com
+ [IPv6:2607:f8b0:4864:20::134])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44SS0l5ykYzDqKT
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 19:21:58 +1100 (AEDT)
+Received: by mail-it1-x134.google.com with SMTP id l4so6575826ite.1
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 01:21:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=vgGl87P/sqNer9f1dVkOnqtIHUfnC6TIVzAuAr/kn7Q=;
+ b=s9DmioffIU5p/geJY4T8PViCkiAcRWXMeozgecD7pqv/KpdjSH6H2TQRvqfihMdTq9
+ N/zcbZjc1Ml3gGEpiR9TZLkh4XpKyApjrvXQKeThaN32H0XTzWu4mLtCxfgOuSVNf6Uy
+ bvyEUx7hWz3XlrSd3ILWRkxmd5Gx5SmbZYgsh+Y1P0qFit6MO7aZNiA1TN5lW6Xz6NWx
+ ZZONRtsn/K2WIvCRvuJOeoWu5gclKy4B9trYCknCK//RQsHuq/w52hZShGJ5jHHq3Zfj
+ Dts0h3Fvrt2iUn4fAbS3V/annQEZBSL0wH2Go584sokVijivkdwzucdhZXcrTX3ZWpds
+ DB2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=vgGl87P/sqNer9f1dVkOnqtIHUfnC6TIVzAuAr/kn7Q=;
+ b=cRhGFJd1HzSDQHWeARJruTkX2hqUqsc9iBXGXrurzuYiJQTLcHpg2kNg3rzc21PRHQ
+ VXuyCa3wkIi0xKdVQ5fbSx0ZCHe4ZhU92bMMLbETMpefRJ+3ahvQ5dwSfo/MUXDzWubn
+ GXzKLcJwU3chmePtXs+CgcPNkWOnqVCCVLFLBq7TyLvMitEz4E4hTA9i3ntbPDl6K7yw
+ fGn6ggha7hBmOv6yvWtBztcilLoh0RU70kkYDbb1srSDxpTk15mJAwTjIroxyf17yika
+ SCLOsQz4DKOQ4g5jAfUti1JawGhl2+sWLHcmba6WC44k/GXcpfZteCIYY0Z1WsQlDgQ+
+ 2DRA==
+X-Gm-Message-State: APjAAAWHZqXJQbENhE2xyp4wB5/WJzFGXk9XAAyAlTrsvRGbNznYzsoW
+ ZVlaE9MEart+FIbJfNClzFmeg/thdZsSoxFiHrI=
+X-Google-Smtp-Source: APXvYqzzbeAYWViUND68cLeOqc2zdTCFdcCubN+zmMXk10hdlxag+iYVYR3E7lt4GuGJD707Qq3rWbF94JSYNZvmxgk=
+X-Received: by 2002:a24:df87:: with SMTP id r129mr9952503itg.178.1553502114691; 
+ Mon, 25 Mar 2019 01:21:54 -0700 (PDT)
 MIME-Version: 1.0
+From: Lei YU <mine260309@gmail.com>
+Date: Mon, 25 Mar 2019 16:21:42 +0800
+Message-ID: <CAARXrtmNL+Px7vk4mA++yzO22nUWqmBnL3hn6oedB8d9516pvg@mail.gmail.com>
+Subject: Userspace matching of hwmon devices to hardware
+To: Hardware Monitoring <linux-hwmon@vger.kernel.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,8 +60,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2019 07:51:54 -0000
+X-List-Received-Date: Mon, 25 Mar 2019 08:22:00 -0000
 
-RGVhciBCcmFkLA0KDQpDb3VsZCB5b3UgcGxlYXNlIGhlbHAgdXMgdG8gY3JlYXRlIGEgbmV3IHJl
-cG8gcXVhbnRhLWlwbWktb2VtIGZvciBxdWFudGEgT0VNIElQTUkgbWVzc2FnZSBoYW5kbGluZy4N
-Cg0KQmVzdCwNClBL
+This email is to ask/discuss if there is a stable path/name (or whatever) for
+hwmon devices in the different versions of kernels.
+
+In OpenBMC, the service phosphor-hwmon reads the sensors' value and expose to
+DBus, depending on a configure file that matches the device tree path.
+
+The service is started by udev rule, called with the DEVPATH and OF_FULLNAME,
+so it knows where to find the configure file depending on DEVPATH or
+OF_FULLNAME.
+
+E.g. on Romulus BMC, the w83773 sensor has OF_FULLNAME at
+   /ahb/apb/i2c@1e78a000/i2c-bus@440/w83773g@4c,
+and the service knows the config is matched from path
+   /etc/default/obmc/hwmon/ahb/apb/i2c@1e78a000/i2c-bus@440/w83773g@4c.conf
+
+However, the DEVPATH or OF_FULLNAME is not stable in different kernels:
+* In 4.1x kernel, the path is as above.
+* In 5.0 kernel, "i2c@1e78a000" is changed to "bus@1e78a000" in the path.
+
+This breaks the userspace's phosphor-hwmon.
+If we fix the issue by updating the configure files' path in userspace, it
+means the userspace only with the new 5.x kernel.
+
+So the question here is, it there a stable way for userspace to match a hwmon
+device?
+
+Thanks!
+
+--
+BRs,
+Lei YU
