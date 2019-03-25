@@ -1,60 +1,46 @@
-Return-Path: <artemsen@gmail.com>
+Return-Path: <prvs=980992fdf=Will.Liang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::231; helo=mail-lj1-x231.google.com;
- envelope-from=artemsen@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=980992fdf=will.liang@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="SKnPKOzd"; 
- dkim-atps=neutral
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com
- [IPv6:2a00:1450:4864:20::231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44SXRZ161gzDqFw
- for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 22:42:01 +1100 (AEDT)
-Received: by mail-lj1-x231.google.com with SMTP id r24so6435247ljg.3
- for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 04:42:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:subject:message-id:mime-version:content-disposition
- :user-agent; bh=Pa1CT1OwOem+kV7GnnlY8PnDnLX6Pq4WHpex4pTYvY0=;
- b=SKnPKOzdbaf3OBuDfw54ZoP+LP8BpSJzhke49+piqqfyWNry2hWMgPZDdUv/hGK4vU
- Rwm0IX+AyXUl59yK5SgFDmfZFfjOzaIxGE7G/YB7gkJdWyZdPcON7iKzcW+8PfbeXi9P
- obBF+8Xvtayp/OH3o6vD1Xsq951cwn+pHx5DMHvqo57eVPa7eoTh3tSANxhmiuWij/tJ
- mZ3KYa+9PjTRwWcosVeRrBXInqnBYMTcBX+0gnN6XFIKBlPfgQYoLZtrWH0NAUD9IbkR
- r1F2amPhhYCwqACtWJPKziieShaNuubsEJrTlbjPfGYAor39l6/Pc9LJV+jxB+xpSv3L
- n3aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=Pa1CT1OwOem+kV7GnnlY8PnDnLX6Pq4WHpex4pTYvY0=;
- b=S0TumHkWnf3ozY1YSY9wDpVXnvMuGGkhZ28hVYND81/JwWTWWF037vqBXmHwrTgiTg
- ohaO975xNq+r8OCQJO3yrQQbncYsUWZhgx8DTXWptFx8fxBJyzI1NXCj619xZyjaOlgr
- qLdSXPFYlhLWaasg0yqSrAR+kXHCtNsf5kC+WlSZ4T6Q56ayWr0Sa2LVc2KBktOuBytV
- eRMUGEmMwYxAA2ue/VbY+3raMP/FE0heaMh8j/e5eyM8231Kpq+K6UEEtLWvx0o+xyrN
- iG09+eyblBdONiPoED//WwqpLzTOl1YpQae6VjTNJLsbgdz9nFkvFN+9T9XdB+fGdYIy
- FUMw==
-X-Gm-Message-State: APjAAAX/YRp0IhSNj2xhdkeegFASlHpkGNlUMOruse8b3QmArTiEb8Rv
- tuQm9GYr8Ya1EWiZzbQjCw8JhkZF
-X-Google-Smtp-Source: APXvYqzhvoZ5wU6MoBOGkm0i/s3mBB0xOffmAWV36BJsI2UpEciL1jyQXvZbOPUHNbK5d/M0/Zo32Q==
-X-Received: by 2002:a2e:894e:: with SMTP id b14mr3853726ljk.158.1553514116813; 
- Mon, 25 Mar 2019 04:41:56 -0700 (PDT)
-Received: from gmail.com ([89.207.88.249])
- by smtp.gmail.com with ESMTPSA id z83sm3422096ljb.48.2019.03.25.04.41.55
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Mon, 25 Mar 2019 04:41:55 -0700 (PDT)
-Date: Mon, 25 Mar 2019 14:41:55 +0300
-From: Artem Senichev <artemsen@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: OpenPOWER eSEL registration
-Message-ID: <20190325114155.d7l3pogbq4b4pt56@gmail.com>
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44Sb9y4Tt0zDqGY
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 00:45:21 +1100 (AEDT)
+Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
+ by mx02.quantatw.com with ESMTP; 25 Mar 2019 21:45:19 +0800
+Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
+ (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 25 Mar
+ 2019 21:45:17 +0800
+Received: from mailbx08.quanta.corp ([fe80::7852:659e:2c18:affd]) by
+ mailbx08.quanta.corp ([fe80::7852:659e:2c18:affd%11]) with mapi id
+ 15.01.1713.004; Mon, 25 Mar 2019 21:45:17 +0800
+From: =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>
+To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Fwd: Repository for phosphor-ecc and phosphor-nvme
+Thread-Topic: Repository for phosphor-ecc and phosphor-nvme
+Thread-Index: AdTYrXonJsKQH9PWQsuLXOt1+yrxEgFjnQ7wATVDJUo=
+Date: Mon, 25 Mar 2019 13:45:17 +0000
+Message-ID: <8ABD022A-3F8D-457A-BF55-9F4B33A09C6E@quantatw.com>
+References: <cccab160db264695bb086521e722f71f@quantatw.com>
+In-Reply-To: <cccab160db264695bb086521e722f71f@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
+x-tm-as-result: No--8.104600-0.000000-31
+x-tm-as-matchedid: 140026-150540-701625-704425-700685-106230-700812-703788-1
+ 39010-702020-700752-707163-700551-703330-700040-139705-704341-703674-700107
+ -899168-190077-148004-148133-20043-29106-42000-42003-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: NeoMutt/20180716
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,34 +52,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2019 11:42:02 -0000
+X-List-Received-Date: Mon, 25 Mar 2019 13:45:27 -0000
 
-Hi All,
-
-I noticed that several months ago OpenBMC had stopped handle
-eSEL messages from OpenPOWER.
-
-In fact, eSEL message is sent, recieved by IPMI daemon and written to
-/tmp/esel file, but phoshor log contains only one empty event:
-org.open_power.Host.Boot.Error.Checkstop
-There is no any entries with eSEL dump.
-
-System logs contains these messages:
-Mar 25 10:38:52 vesnin checkstop_app[1192]: Host checkstop condition detected
-Mar 25 10:38:52 vesnin phosphor-log-manager[920]: Failed to find metadata
-Mar 25 10:38:52 vesnin phosphor-fru-fault-monitor[1008]: /xyz/openbmc_project/logging/entry/5 created
-
-File with eSEL dump:
-vesnin:~ # ls -l /tmp/e*
--rw-r--r--    1 root     root          1960 Mar 25 10:39 /tmp/esel
-
-OpenBMC version: 2.7.0-dev-156-g2ef13c18a
-
-Is there a bug in DBus interfaces or something else?
-Which project is intended to handle and register eSEL?
-Is it openpower-host-ipmi-oem or phosphor-host-ipmid?
-
--- 
-Regards,
-Artem Senichev
-Software Engineer, YADRO.
+SGkgQnJhZCwNCndvdWxkIHlvdSBwbGVhc2UgYWR2aXNlIG1lIHdoZW4gdGhlc2UgdHdvIHJlcG9z
+aXRvcmllcyBjYW4gYmUgY3JlYXRlZD8NCg0KQlJzLA0KV2lsbA0KDQo+IEhpIEJyYWQsDQo+IA0K
+PiBXZSBhcmUgc3RpbGwgd2FpdGluZyBmb3IgeW91ciBoZWxwLg0KPiANCj4gRG8geW91IGhhdmUg
+YW55IGNvbmNlcm4gb3Igc3VnZ2VzdGlvbiBhYm91dCBvdXIgcmVxdWVzdD8gDQo+IA0KPiBCUnMs
+DQo+IFdpbGwNCj4gDQo+PiANCj4+IEhpIEJyYWQsDQo+PiANCj4+IENvdWxkIHlvdSBoZWxwIGNy
+ZWF0ZSByZXBvc2l0b3JpZXMgZm9yICJwaG9zcGhvci1lY2MiIGFuZCAicGhvc3Bob3ItbnZtZSI/
+DQo+PiBCb3RoIHByb3Bvc2FscyBhcmUgYWxzbyBwdXNoZWQgdG8gb3BlbWJtYy9kb2NzIG9uIEdl
+cnJpdC4NCj4+IA0KPj4gcGhvc3Bob3ItZWNjOg0KPj4gaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1w
+cm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9kb2NzLysvMTg2ODQvDQo+PiANCj4+IHBob3NwaG9yLW52
+bWU6DQo+PiBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL2Rv
+Y3MvKy8xOTA2MS8NCj4+IA0KPj4gVGhlc2UgcHJvcG9zYWxzIGFyZSBzdGlsbCB1bmRlciByZXZp
+ZXcgb24gR2Vycml0Lg0KPj4gDQo+PiBUaGFua3MsDQo+PiBXaWxsDQo=
