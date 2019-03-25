@@ -1,73 +1,52 @@
-Return-Path: <sboylan@ircona.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (helo)
- smtp.helo=eur03-am5-obe.outbound.protection.outlook.com
- (client-ip=40.107.3.108; helo=eur03-am5-obe.outbound.protection.outlook.com;
- envelope-from=sboylan@ircona.com; receiver=<UNKNOWN>)
+Return-Path: <jandraara@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ircona.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=Ircona.onmicrosoft.com header.i=@Ircona.onmicrosoft.com
- header.b="qioq5bSu"; dkim-atps=neutral
-Received: from EUR03-AM5-obe.outbound.protection.outlook.com
- (mail-eopbgr30108.outbound.protection.outlook.com [40.107.3.108])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::c2b; helo=mail-yw1-xc2b.google.com;
+ envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="cJvOVEmu"; 
+ dkim-atps=neutral
+Received: from mail-yw1-xc2b.google.com (mail-yw1-xc2b.google.com
+ [IPv6:2607:f8b0:4864:20::c2b])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44SjJ95kJrzDqGC
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 05:21:11 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=Ircona.onmicrosoft.com; s=selector1-ircona-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/PuRxI1W21xFKZ2XT1kut0ddR38ooqz/cW+ISeMFY3E=;
- b=qioq5bSubNrLM35wfzeL5mF6k2eEgMSfUWodchAEuhgQgeYwDZLUZThD7eqan5bJP/WTsTWk9dA5rhckVPXC4xcSx2Tsj+KX3cNJROh1w60k4+rnCj6RVYx3GQPkDf+GYgbPAZNUI4yRxk6D7r/Mb3d71PwtSqXeYlcb15CLAv8=
-Received: from AM0PR04MB5218.eurprd04.prod.outlook.com (20.176.215.146) by
- AM0PR04MB5457.eurprd04.prod.outlook.com (20.178.113.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1730.18; Mon, 25 Mar 2019 18:21:05 +0000
-Received: from AM0PR04MB5218.eurprd04.prod.outlook.com
- ([fe80::3487:b417:ff4d:6fe0]) by AM0PR04MB5218.eurprd04.prod.outlook.com
- ([fe80::3487:b417:ff4d:6fe0%4]) with mapi id 15.20.1730.019; Mon, 25 Mar 2019
- 18:21:05 +0000
-From: Stephen Boylan <sboylan@ircona.com>
-To: "'openbmc@lists.ozlabs.org'" <openbmc@lists.ozlabs.org>
-Subject: Issue powering on - org.openbmc.control.Power & pgood_wait
-Thread-Topic: Issue powering on - org.openbmc.control.Power & pgood_wait
-Thread-Index: AQHU4zPgI/FVUBX2406zmXyR/NT8+A==
-Date: Mon, 25 Mar 2019 18:21:05 +0000
-Message-ID: <AM0PR04MB5218589AFDE438AB4927EF89C95E0@AM0PR04MB5218.eurprd04.prod.outlook.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-GB
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=sboylan@ircona.com; 
-x-originating-ip: [2a02:8084:26c2:c900:7db9:7a99:d126:7497]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 47f92691-ebfb-460d-695c-08d6b14ea4ed
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(7021145)(8989299)(4534185)(7022145)(4603075)(4627221)(201702281549075)(8990200)(7048125)(7024125)(7027125)(7023125)(5600127)(711020)(4605104)(2017052603328)(7153060)(7193020);
- SRVR:AM0PR04MB5457; 
-x-ms-traffictypediagnostic: AM0PR04MB5457:
-x-microsoft-antispam-prvs: <AM0PR04MB5457F4D61247726FB89630E5C95E0@AM0PR04MB5457.eurprd04.prod.outlook.com>
-x-forefront-prvs: 0987ACA2E2
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(346002)(396003)(376002)(39830400003)(136003)(366004)(53754006)(199004)(189003)(5660300002)(256004)(7736002)(81156014)(486006)(97736004)(7696005)(2906002)(54896002)(81166006)(74316002)(14454004)(6436002)(25786009)(9686003)(8676002)(6506007)(33656002)(186003)(14444005)(508600001)(52536014)(86362001)(6916009)(55016002)(99286004)(8936002)(71190400001)(105586002)(106356001)(71200400001)(53936002)(316002)(105004)(6116002)(46003)(476003)(102836004)(19627405001)(68736007)(491001);
- DIR:OUT; SFP:1102; SCL:1; SRVR:AM0PR04MB5457;
- H:AM0PR04MB5218.eurprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: ircona.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: uyCg0Bj55H3Z8pcfdNJUrhV+Wrs4qwVj+rFT6yQzWdXVzOI8K3DImEI3ajbb1gV20HWD80HPOwmvlzZgpAx6PPQ+5yn0H0tvi6kgMDCqlrMzfqiAxpPaGPLSMp7timniAnNsU1Swf51dXe4GLU865+g+AdLWkbG83RLvajdvTFioSYenrgSoh4ZeEUwAD+9n05MwAebKi9hSHxLBY52zoxxm3vx/+lMlc0cEkWugZseUxnV7phkRZm1PODzeukaXOI+Y2VDOwESpYtaNgEg4rBY9WvBEqJSe9N5oSPWabsEQK6kWa65PGoPkvoQw57jCR2RifeNTqItWk1nHl9uJG3vacKLTZf4lN6zBOVeS2BYRSKX2u+s8qbNxexhN9OXdsiSGUlE0FJRiE+A/UZpL7T6oVxI5Dep73Jrka+LLkS8=
-Content-Type: multipart/alternative;
- boundary="_000_AM0PR04MB5218589AFDE438AB4927EF89C95E0AM0PR04MB5218eurp_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Sm6r4VPVzDqGW
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 07:28:18 +1100 (AEDT)
+Received: by mail-yw1-xc2b.google.com with SMTP id j128so8062250ywg.12
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 13:28:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Ha6MRGtr+Rda75z/wsKJqNHTWJACYYeJ7XJnOfAnBZc=;
+ b=cJvOVEmua9NRyb68N1PZZkUL8kbDGV9CMOrVx3E8Riu3C/S/xkkfgz8DPsWtQ/zEqh
+ 8IWgP9bPm77r7SsMfCQX9nBPzJtj8mPQYW7WUYdFdhCKPzPS/+JIqnVAK84VBwo22oEG
+ K2OjosFRjDpj2fSgGrbEwSTwKQh/Uvs84H1ORQaCgYVbfXPGcFLv/+gi1zI66YFKUOfF
+ Ms5RdtMyKDDPdqWsTbZPn+z8K5EGj/NAY+/FWDXh4mERqME6JC6sNr6BI1o4WMwMN3CA
+ TRamhKVJ2bbAcN/fyXUgp7a04Y+gH2e7adSYcj1QeSFQwSY835RqVALhDzhv/t0esbVm
+ X94g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Ha6MRGtr+Rda75z/wsKJqNHTWJACYYeJ7XJnOfAnBZc=;
+ b=Q4XYZC4CLOZPrv7gjFFSRsbh9gwhSPo7hB7D3J2Z3K/Z5U1kuAkGEDuxNt/fTkfuFZ
+ U0ksxZk+fw+VtWYDUKUBmgG8N70dBHs4mwZjzdxystDqUDwM7/ti3ks95nXbdaSFQvrX
+ 9B3s9BLSWnlpQ32iKjxCFoRrc8wxFSf9CBhrwLaI4xAt13GGtEl9aJnbBS40UJJURYKp
+ OYotyDS/IiSSkGqG6EaaeJZ/QY5wGgaWtqcOOz1weNcR2xdVJKnOYlf4LfpkC7E/v8t4
+ fSMbXU4bTVdz7AEcSye6mN0hzKfy1wL8KNzAg5vQRtlr5waiIuvjABZr4Pc0DvXE3UrY
+ Z33w==
+X-Gm-Message-State: APjAAAW75q4c+Qe2edYQCsnmQa7lO8S7HyTLYIlHkGDupH8diy6tP5/3
+ +tHl6+MdTVbhOWNosYUTHzgK+wohrybVOK4Po7xaXw0I
+X-Google-Smtp-Source: APXvYqzAtnYg42ypE65V6BjkteADjXdONkKknnJ5EftWtLMQKMixcZ9Nljy00GNo9gk7ciuHJSFUduSJhRhLNrMJEvA=
+X-Received: by 2002:a81:1693:: with SMTP id 141mr10218263yww.448.1553545694478; 
+ Mon, 25 Mar 2019 13:28:14 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: ircona.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47f92691-ebfb-460d-695c-08d6b14ea4ed
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2019 18:21:05.0190 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b5c9eba5-d9aa-4fea-9ead-d4e7d7f623f9
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB5457
+From: Jandra A <jandraara@gmail.com>
+Date: Mon, 25 Mar 2019 15:28:03 -0500
+Message-ID: <CAMTupoQw2r=6DZ1FDh6iSeJF7SgQT0Uy20qFk22_bH_s5dJ98w@mail.gmail.com>
+Subject: GUI Workgroup Notes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000004304020584f10b8d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,155 +58,159 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2019 18:21:15 -0000
+X-List-Received-Date: Mon, 25 Mar 2019 20:28:21 -0000
 
---_000_AM0PR04MB5218589AFDE438AB4927EF89C95E0AM0PR04MB5218eurp_
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+--0000000000004304020584f10b8d
+Content-Type: text/plain; charset="UTF-8"
 
 Hello all,
 
-On the board I'm using - based on the evb2500 phosphor build - I've run int=
-o an issue trying to power the system on. Here is what I've noticed occurri=
-ng
+Here are the notes from the GUI Workgroup meeting that took place last
+Wednesday March 20th.
 
-A basic overview of the power on request - the AST2500 sends a PWR_ON signa=
-l to an FPGA to request that the server power on. The FPGA sends back PGOOD=
- and powers on the system. If the FPGA receives a continuous PWR_ON signal =
-for more than 4 seconds, it will immediately shut down the server.
+Attendees: Becca Shaw, Nicole Conser, Jandra Aranguren, Ryan Arnell, Appu
+Puli, Rahul Maheshwari
 
-When I momentarily press the power button on the server or issue an "ipmito=
-ol chassis power on" command I see the following occurring by monitoring th=
-e pin of each related signal
+Notes:
+- IBM shared proposed designs for Network Settings. Current design
+proposals can be viewed at:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN
 
-  1.  "power_up_outs" GPIOs get asserted as per the configuration from gpio=
-_defs.json
-  2.  The FPGA starts to power the system up and asserts it's PGOOD pin, ti=
-ed to "power_good_in".
-  3.  "power_up_outs" remain asserted and cross over the 4 second limit.
-  4.  The FPGA de-asserts "power_good_in" and immediately turns the system =
-off.
-  5.  A short time after the FPGA de-asserts "power_good_in", the "reset_ou=
-ts" pins are asserted.
-  6.  The "power_up_outs" signals stay asserted for 30 seconds, until the p=
-good_wait service times out, then they de-assert.
+- Discussed the time of the meeting. Concluded that changing it back to
+7:30 AM CST would be best to accommodate for India and China geos.
 
-Additionally I can view /org/openbmc/control/power0 and see pgood in the da=
-ta change to reflect the state of the pin.
+- Discussed how companies share what they are working on in relation to the
+GUI. Concluded that everything must be documented in an issue in the
+phosphor repo (https://github.com/openbmc/phosphor-webui) so that everyone
+is aware of what is being worked on at any given moment. This discussion
+will be continued during the next session.
 
-My understanding is that pgood_wait is meant to signal that pgood has been =
-received and then de-assert the "power_up_outs", however this is not happen=
-ing. I can also see a message via journalctl about it timing out.
+- Demonstrated how to use InVision to provide comments on wireframes (no
+license needed to view/comment)
 
-Does anyone have any idea why despite me seeing the pin receive the signal,=
- that pgood_wait isn't recognising the change and triggering?
-
-If I manually drive the power_up_outs pins to high and low within 1 second,=
- using something like "echo 1 > gpio#/value ; sleep 1 ; echo 0 > gpio#/valu=
-e" then everything works fine and the system will power up.
-
-Regards,
-Stephen Boylan
+- Decided to share current firmware design proposals next meeting so that
+people in China can also give their feedback. Current design proposals can
+be viewed at:
+https://ibm.invisionapp.com/share/RQNYHJ0VBDY#/319006100_V2-1-_Firmware
 
 
---_000_AM0PR04MB5218589AFDE438AB4927EF89C95E0AM0PR04MB5218eurp_
-Content-Type: text/html; charset="iso-8859-1"
+The next workgroup meeting will be Wednesday, April 3rd. Please add any
+items you wish to discuss to the agenda:
+https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
+
+
+Best,
+GUI Design Team
+
+--0000000000004304020584f10b8d
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-Hello all,&nbsp;</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><span s=
+tyle=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&q=
+uot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-=
+size:13.6px">Hello all,</span><div><span style=3D"background-color:transpar=
+ent;color:rgb(36,41,46);font-family:SFMono-Regular,Consolas,&quot;Liberatio=
+n Mono&quot;,Menlo,Courier,monospace;font-size:13.6px"><br></span></div><di=
+v><span style=3D"background-color:transparent;color:rgb(36,41,46);font-fami=
+ly:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monosp=
+ace;font-size:13.6px">Here are the notes from the GUI Workgroup meeting tha=
+t took place last Wednesday March 20th.=C2=A0</span></div><div><span style=
+=3D"background-color:transparent;color:rgb(36,41,46);font-family:SFMono-Reg=
+ular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;font-size=
+:13.6px"><br></span></div><div><span style=3D"background-color:transparent;=
+color:rgb(36,41,46);font-family:SFMono-Regular,Consolas,&quot;Liberation Mo=
+no&quot;,Menlo,Courier,monospace;font-size:13.6px">Attendees:=C2=A0</span><=
+span style=3D"background-color:transparent;font-family:SFMono-Regular,Conso=
+las,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46)=
+;font-size:13.6px">Becca Shaw, Nicole Conser, Jandra Aranguren, Ryan Arnell=
+, Appu Puli,=C2=A0</span><span style=3D"background-color:transparent;font-f=
+amily:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,mon=
+ospace;color:rgb(36,41,46);font-size:13.6px">Rahul Maheshwari</span></div><=
+div><br></div><div><span style=3D"background-color:transparent;color:rgb(36=
+,41,46);font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Men=
+lo,Courier,monospace;font-size:13.6px">Notes:=C2=A0</span></div><div><span =
+style=3D"background-color:transparent;color:rgb(36,41,46);font-family:SFMon=
+o-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;font=
+-size:13.6px">- IBM shared proposed designs for Network Settings.=C2=A0</sp=
+an><span style=3D"color:rgb(36,41,46);font-family:SFMono-Regular,Consolas,&=
+quot;Liberation Mono&quot;,Menlo,Courier,monospace;font-size:13.6px">Curren=
+t design proposals can be viewed at:=C2=A0</span><span style=3D"font-size:1=
+3.6px;color:rgb(36,41,46);font-family:SFMono-Regular,Consolas,&quot;Liberat=
+ion Mono&quot;,Menlo,Courier,monospace"><a href=3D"https://ibm.invisionapp.=
+com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN">https://ibm.i=
+nvisionapp.com/share/RQNYHJ0VBDY#/319002386_V2_Networking_Mutliple_VLAN</a>=
+</span></div><div><div><font color=3D"#24292e" face=3D"SFMono-Regular, Cons=
+olas, Liberation Mono, Menlo, Courier, monospace"><span style=3D"font-size:=
+13.6px"><br></span></font><div><span style=3D"background-color:transparent;=
+font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Couri=
+er,monospace;color:rgb(36,41,46);font-size:13.6px">- Discussed the time of =
+the meeting. Concluded that changing it back to 7:30 AM=C2=A0</span><span s=
+tyle=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&q=
+uot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-=
+size:13.6px">CST would be best to accommodate for India and China geos.</sp=
+an></div><div><span style=3D"background-color:transparent;font-family:SFMon=
+o-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;colo=
+r:rgb(36,41,46);font-size:13.6px"><br></span></div><div><span style=3D"back=
+ground-color:transparent;font-family:SFMono-Regular,Consolas,&quot;Liberati=
+on Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-size:13.6px"=
+>- Discussed how companies share what they are working on in relation to th=
+e GUI.=C2=A0</span><span style=3D"background-color:transparent;font-family:=
+SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace=
+;color:rgb(36,41,46);font-size:13.6px">Concluded that everything must be do=
+cumented in an issue in the phosphor repo=C2=A0</span><span style=3D"backgr=
+ound-color:transparent;font-family:SFMono-Regular,Consolas,&quot;Liberation=
+ Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-size:13.6px">(=
+<a href=3D"https://github.com/openbmc/phosphor-webui">https://github.com/op=
+enbmc/phosphor-webui</a>) so that everyone is aware of what=C2=A0</span><sp=
+an style=3D"background-color:transparent;font-family:SFMono-Regular,Consola=
+s,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);f=
+ont-size:13.6px">is being worked on at any given moment. This discussion wi=
+ll be continued during the next session.=C2=A0</span></div><div><span style=
+=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&quot;=
+Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-size=
+:13.6px"><br></span></div><div><span style=3D"background-color:transparent;=
+font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Couri=
+er,monospace;color:rgb(36,41,46);font-size:13.6px">- Demonstrated how to us=
+e InVision to provide comments on wireframes (no license needed to view/com=
+ment)</span></div><div><span style=3D"background-color:transparent;font-fam=
+ily:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monos=
+pace;color:rgb(36,41,46);font-size:13.6px"><br></span></div><div><span styl=
+e=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&quot=
+;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-siz=
+e:13.6px">- Decided to share current firmware design proposals next meeting=
+ so that people=C2=A0</span><span style=3D"background-color:transparent;fon=
+t-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,=
+monospace;color:rgb(36,41,46);font-size:13.6px">in China can also give thei=
+r feedback. Current design proposals can be viewed at:=C2=A0</span><font co=
+lor=3D"#24292e" face=3D"SFMono-Regular, Consolas, Liberation Mono, Menlo, C=
+ourier, monospace"><span style=3D"font-size:13.6px"><a href=3D"https://ibm.=
+invisionapp.com/share/RQNYHJ0VBDY#/319006100_V2-1-_Firmware">https://ibm.in=
+visionapp.com/share/RQNYHJ0VBDY#/319006100_V2-1-_Firmware</a></span></font>=
+</div></div></div><div><span style=3D"background-color:transparent;font-fam=
+ily:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,monos=
+pace;color:rgb(36,41,46);font-size:13.6px"><br></span></div><div><span styl=
+e=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&quot=
+;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-siz=
+e:13.6px"><br></span></div><div><span style=3D"background-color:transparent=
+;font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Cour=
+ier,monospace;color:rgb(36,41,46);font-size:13.6px">The next workgroup meet=
+ing will be Wednesday, April 3rd. Please add any items you wish to discuss =
+to the agenda:=C2=A0</span><font color=3D"#24292e" face=3D"SFMono-Regular, =
+Consolas, Liberation Mono, Menlo, Courier, monospace"><span style=3D"font-s=
+ize:13.6px"><a href=3D"https://github.com/openbmc/openbmc/wiki/GUI-Design-w=
+ork-group">https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group</a=
+></span></font></div><div><span style=3D"background-color:transparent;font-=
+family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,Courier,mo=
+nospace;color:rgb(36,41,46);font-size:13.6px"><br></span></div><div><span s=
+tyle=3D"background-color:transparent;font-family:SFMono-Regular,Consolas,&q=
+uot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41,46);font-=
+size:13.6px"><br></span></div><div><span style=3D"background-color:transpar=
+ent;font-family:SFMono-Regular,Consolas,&quot;Liberation Mono&quot;,Menlo,C=
+ourier,monospace;color:rgb(36,41,46);font-size:13.6px">Best,</span></div><d=
+iv><span style=3D"background-color:transparent;font-family:SFMono-Regular,C=
+onsolas,&quot;Liberation Mono&quot;,Menlo,Courier,monospace;color:rgb(36,41=
+,46);font-size:13.6px">GUI Design Team=C2=A0</span></div></div></div></div>=
 </div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-On the board I'm using - based on the evb2500 phosphor build - I've run int=
-o an issue trying to power the system on. Here is what I've noticed occurri=
-ng</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-A basic overview of the power on request - the AST2500 sends a PWR_ON signa=
-l to an FPGA to request that the server power on. The FPGA sends back PGOOD=
- and powers on the system. If the FPGA receives a continuous PWR_ON signal =
-for more than 4 seconds, it will
- immediately shut down the server.</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-<span style=3D"color: rgb(0, 0, 0); font-family: calibri, arial, helvetica,=
- sans-serif; font-size: 12pt;"><br>
-</span></div>
-<div style=3D""><span style=3D"color: rgb(0, 0, 0); font-family: calibri, a=
-rial, helvetica, sans-serif; font-size: 12pt;">When I momentarily press the=
- power button on the server or issue an &quot;ipmitool chassis power on&quo=
-t; command I see the following&nbsp;</span><font color=3D"#000000" face=3D"=
-calibri, arial, helvetica, sans-serif">occurring
- by monitoring the pin of each related signal</font></div>
-<div style=3D"">
-<ol>
-<li style=3D"font-family: calibri, arial, helvetica, sans-serif; font-size:=
- 12pt; color: rgb(0, 0, 0);">
-&quot;power_up_outs&quot; GPIOs get asserted as per the configuration from =
-gpio_defs.json<br>
-</li><li style=3D"font-family: calibri, arial, helvetica, sans-serif; font-=
-size: 12pt; color: rgb(0, 0, 0);">
-The FPGA starts to power the system up and asserts it's PGOOD pin, tied to =
-&quot;power_good_in&quot;.</li><li style=3D"font-family: calibri, arial, he=
-lvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-&quot;power_up_outs&quot; remain asserted and cross over the 4 second limit=
-.</li><li style=3D"font-family: calibri, arial, helvetica, sans-serif; font=
--size: 12pt; color: rgb(0, 0, 0);">
-The FPGA de-asserts &quot;power_good_in&quot; and immediately turns the sys=
-tem off.</li><li style=3D"font-family: calibri, arial, helvetica, sans-seri=
-f; font-size: 12pt; color: rgb(0, 0, 0);">
-A short time after the FPGA de-asserts &quot;power_good_in&quot;, the &quot=
-;reset_outs&quot; pins are asserted.&nbsp;</li><li style=3D"font-family: ca=
-libri, arial, helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);"=
->
-The &quot;power_up_outs&quot; signals stay asserted for 30 seconds, until t=
-he pgood_wait service times out, then they de-assert.</li></ol>
-<div>Additionally I can view&nbsp;/org/openbmc/control/power0 and see pgood=
- in the data change to reflect the state of the pin.&nbsp;</div>
-<div><br>
-</div>
-<div>My understanding is that pgood_wait is meant to signal that pgood has =
-been received and then de-assert the &quot;power_up_outs&quot;, however thi=
-s is not happening. I can also see a message via journalctl about it timing=
- out.&nbsp;</div>
-<div><br>
-</div>
-<div>Does anyone have any idea why despite me seeing the pin receive the si=
-gnal, that pgood_wait isn't recognising the change and triggering?<br>
-<br>
-If I manually drive the power_up_outs pins to high and low within 1 second,=
- using something like &quot;echo 1 &gt; gpio#/value ; sleep 1 ; echo 0 &gt;=
- gpio#/value&quot; then everything works fine and the system will power up.=
-&nbsp;</div>
-<div><br>
-</div>
-<div>Regards,</div>
-<div>Stephen Boylan<br>
-<br>
-</div>
-<font color=3D"#000000" face=3D"calibri, arial, helvetica, sans-serif"></fo=
-nt></div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
-</div>
-</body>
-</html>
 
---_000_AM0PR04MB5218589AFDE438AB4927EF89C95E0AM0PR04MB5218eurp_--
+--0000000000004304020584f10b8d--
