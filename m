@@ -1,46 +1,54 @@
-Return-Path: <prvs=980992fdf=Will.Liang@quantatw.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=980992fdf=will.liang@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44Sb9y4Tt0zDqGY
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 00:45:21 +1100 (AEDT)
-Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
- by mx02.quantatw.com with ESMTP; 25 Mar 2019 21:45:19 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
- (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 25 Mar
- 2019 21:45:17 +0800
-Received: from mailbx08.quanta.corp ([fe80::7852:659e:2c18:affd]) by
- mailbx08.quanta.corp ([fe80::7852:659e:2c18:affd%11]) with mapi id
- 15.01.1713.004; Mon, 25 Mar 2019 21:45:17 +0800
-From: =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>
-To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Fwd: Repository for phosphor-ecc and phosphor-nvme
-Thread-Topic: Repository for phosphor-ecc and phosphor-nvme
-Thread-Index: AdTYrXonJsKQH9PWQsuLXOt1+yrxEgFjnQ7wATVDJUo=
-Date: Mon, 25 Mar 2019 13:45:17 +0000
-Message-ID: <8ABD022A-3F8D-457A-BF55-9F4B33A09C6E@quantatw.com>
-References: <cccab160db264695bb086521e722f71f@quantatw.com>
-In-Reply-To: <cccab160db264695bb086521e722f71f@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
-x-tm-as-result: No--8.104600-0.000000-31
-x-tm-as-matchedid: 140026-150540-701625-704425-700685-106230-700812-703788-1
- 39010-702020-700752-707163-700551-703330-700040-139705-704341-703674-700107
- -899168-190077-148004-148133-20043-29106-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="dwe2TPek"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ShkH64S6zDqHp
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 04:55:19 +1100 (AEDT)
+Received: by mail-pl1-x635.google.com with SMTP id p19so301102plo.2
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 10:55:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=zgATO/VOZf1cZJ+jIUPtBd2LV8lbRsah2PDjv+Zuv7A=;
+ b=dwe2TPekhjrtMJA26KhlBrmX2KGC8oegsEiIBG0DZJnVzR6FrYfacEFqH551TWhA1i
+ CIzZoArMfzHHe8MUux/JrVEvqKtuXYBXzU5HNZDGC+e47jdquXGRThQA0s6EhzIvuzMa
+ PUM58uZoTVhdQe0Zo5S1wpnyvUSxLbGo1eUha3dpa1MjejhaPw+2FYzvqbisUEw7cASR
+ 64T2Y9Ly5Znt9oc2tdswwZD358UshkLMnAl5wO2sw7fK8YGTTYm+6NUeC2Yq8AEUAOew
+ KWpeXeyvRdC2cP3ezScYEmAPxd4F9aHvKBjk5EkPZOjWFebngHGFTjHwFMu+YtkfbUUP
+ DazQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=zgATO/VOZf1cZJ+jIUPtBd2LV8lbRsah2PDjv+Zuv7A=;
+ b=mPgipNo3gSJXTf2SxlpGT/Sdj1EaTLnNIpzxFkBI3YJwWL7O+1uXnlNQEPOyx6cegi
+ F5voND7rlYv7gFdCFB7bnFwcNf6h99rRoYtG8uumk+fPPHsVhsinbPn3pfkupaRObHUh
+ iShdxfekrLF84j7ZxsH1agKMh3ep0dGQPrQ0pPb3M9LnJYKHd+KqgDRlacBPrWo1Osqw
+ 3JFR4mSskuiU3774rKGjjhXlHyixb0rA8ZhVMIll1OOg0IzeO0MOkwt75i/ushtkE/aq
+ cMGxJdYoWVXkBMmdNMAdWuOdwmazIR3Beu29Uw0a3ZS+OOVw0B5LON5Jjo8N2n9HX7uW
+ BseA==
+X-Gm-Message-State: APjAAAXosxxr5I6wKmFgl3p2O4/wr6vmcKm3adv1TCGfkVMWRQepKttR
+ B4MHjoJmSZ2Z6QZ6FWItlkxtrvjj7mCsL7U1eMjYrlcP99pbuA==
+X-Google-Smtp-Source: APXvYqzOuMUylo+afzibYDYCghHtAou7+0Qd9XECcU3FrdC7iKTPyhlgzZKpCuYBUZjx27omx12NAA2+XRESdffNpHQ=
+X-Received: by 2002:a17:902:2aca:: with SMTP id
+ j68mr26579139plb.233.1553536515889; 
+ Mon, 25 Mar 2019 10:55:15 -0700 (PDT)
 MIME-Version: 1.0
+From: Patrick Venture <venture@google.com>
+Date: Mon, 25 Mar 2019 10:55:04 -0700
+Message-ID: <CAO=noty70BK52++Cj5TVg_xB-VbRy6-CnJ1zn-EzR7cwmBzxhw@mail.gmail.com>
+Subject: i2c@ renamed to bus@ in g4/g5 dtsi
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,17 +60,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2019 13:45:27 -0000
+X-List-Received-Date: Mon, 25 Mar 2019 17:55:20 -0000
 
-SGkgQnJhZCwNCndvdWxkIHlvdSBwbGVhc2UgYWR2aXNlIG1lIHdoZW4gdGhlc2UgdHdvIHJlcG9z
-aXRvcmllcyBjYW4gYmUgY3JlYXRlZD8NCg0KQlJzLA0KV2lsbA0KDQo+IEhpIEJyYWQsDQo+IA0K
-PiBXZSBhcmUgc3RpbGwgd2FpdGluZyBmb3IgeW91ciBoZWxwLg0KPiANCj4gRG8geW91IGhhdmUg
-YW55IGNvbmNlcm4gb3Igc3VnZ2VzdGlvbiBhYm91dCBvdXIgcmVxdWVzdD8gDQo+IA0KPiBCUnMs
-DQo+IFdpbGwNCj4gDQo+PiANCj4+IEhpIEJyYWQsDQo+PiANCj4+IENvdWxkIHlvdSBoZWxwIGNy
-ZWF0ZSByZXBvc2l0b3JpZXMgZm9yICJwaG9zcGhvci1lY2MiIGFuZCAicGhvc3Bob3ItbnZtZSI/
-DQo+PiBCb3RoIHByb3Bvc2FscyBhcmUgYWxzbyBwdXNoZWQgdG8gb3BlbWJtYy9kb2NzIG9uIEdl
-cnJpdC4NCj4+IA0KPj4gcGhvc3Bob3ItZWNjOg0KPj4gaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1w
-cm9qZWN0Lnh5ei8jL2Mvb3BlbmJtYy9kb2NzLysvMTg2ODQvDQo+PiANCj4+IHBob3NwaG9yLW52
-bWU6DQo+PiBodHRwczovL2dlcnJpdC5vcGVuYm1jLXByb2plY3QueHl6LyMvYy9vcGVuYm1jL2Rv
-Y3MvKy8xOTA2MS8NCj4+IA0KPj4gVGhlc2UgcHJvcG9zYWxzIGFyZSBzdGlsbCB1bmRlciByZXZp
-ZXcgb24gR2Vycml0Lg0KPj4gDQo+PiBUaGFua3MsDQo+PiBXaWxsDQo=
+With 5.0 linux, all the sensor configs that are under i2c are invalid.
+They can be fixed by renaming the config path accordingly.
+
+I've submitted one patchset for review along these lines.  Brad has
+also submitted one of these, I think it would be helpful to use a
+topic "i2c_bus_rename_patches" for these patches.
+
+Patrick
