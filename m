@@ -1,44 +1,59 @@
-Return-Path: <prvs=981a4a1c7=Hank.Liou@quantatw.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=981a4a1c7=hank.liou@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44T9zn0slxzDqDS
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 23:53:39 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx01.quantatw.com with ESMTP; 26 Mar 2019 20:53:35 +0800
-Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 26 Mar
- 2019 20:53:34 +0800
-Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
- mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
- 15.01.1713.004; Tue, 26 Mar 2019 20:53:34 +0800
-From: =?big5?B?SGFuayBMaW91ICi8Qq7Kv6sp?= <Hank.Liou@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: [phosphor-pid-control] discuss the code in /pid/buildjson.cpp
-Thread-Topic: [phosphor-pid-control] discuss the code in /pid/buildjson.cpp
-Thread-Index: AQHU49It+E8nyHkZWkix+kYaqumljQ==
-Date: Tue, 26 Mar 2019 12:53:34 +0000
-Message-ID: <75d8c71fe0684d6ebc3710bada61b79f@quantatw.com>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
-x-tm-as-result: No-0.357800-0.000000-31
-x-tm-as-matchedid: 111600-111604-188119-705718-701827-702638-111605-700074-7
- 00264-700732-700345-700450-138503-700949-188116-700057-187067-704496-701604
- -861059-709584-701747-863519-188144-111601-148004-148050-42000-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: multipart/alternative;
- boundary="_000_75d8c71fe0684d6ebc3710bada61b79fquantatwcom_"
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="r7tDyzYF"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44TCTJ2vQ4zDqJR
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2019 01:00:51 +1100 (AEDT)
+Received: by mail-pl1-x635.google.com with SMTP id b65so1681837plb.6
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 07:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=D9JQB/gZcKeEY+x9ZHkS5a15wBSosHPyFeNlEB3j61E=;
+ b=r7tDyzYFZfVwPTUmxiWVoA/vX6Dt1S8aZZvAEg3HzOa3CV/CTFhd9hGh5/i+AfJhBk
+ BrvsqvRRxM9aAi63lSnhGS/DBlOrpOYRQRuZ9JD1VqHGAJ5rgBU2WP6mTcbSs1d2MR0X
+ IXR9uLlXcfkhsfh9RLkmgs00KgpeV69zm2+i6uhKyOHIMp4Vfw+gLFvJN3lGeLcMMGWn
+ yI6XVGTzZO3X8dRbjHWOBotVbK7lqL57L83ESJr4R+ik93dgIbvUwrxSHN9XT2W4xKNu
+ yRUD3es7qf40Dk8eGHLi6uQTeTuzBeA8X7+8c9ksa98V6Lwo/jB/xOf9ExE7Z5B0uSQc
+ 7sNw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=D9JQB/gZcKeEY+x9ZHkS5a15wBSosHPyFeNlEB3j61E=;
+ b=EQgG/1ZhOrx0aCicwZBJlV76h6Vfi8D+FXV+8B5PnJmf2bJAwRdycRO6SYVpz3w5FA
+ Q7GGSZoyhfOIVTOknANF3vZys7iYl2teB1TtyaxX1z+q5F5qKIsSKqiQ7XG1G9yBb/RC
+ tB+K7Kmhk9MAmpcajG9JityjgvOS1Xc4Irm52+fHn4GNgjzYZIFMcqAYOlNzHb9I6p2U
+ 2u9g59NHoR/0hxaoK9RUv31JgGSEiaOEwv72SbuA0qlRTT+zoZoAHIJS5fRqDIpzVBDn
+ hph9PtGq269lW4j4VFD0XPHLCK8BocE8vohyTwZWmFt87KX7rfjmpVcYRuAzFr9sEadx
+ fpGA==
+X-Gm-Message-State: APjAAAUKCzcaGZaIWkjgDA7NQJyVK5e24OEPi8niv3e3IuJRG20q+UIN
+ 3iwxbSRJd+cBmjYL2tDbHHfOuUBA5jYwvW+sdYzRe2QmxYM=
+X-Google-Smtp-Source: APXvYqznTfl8yq5Tgg3sO+eJb45B78nYTf0vBAP+i0CoV220tFR/kOk836ZCJvmCEcut9hLIUL/XYIpNph7aX1Kc4XQ=
+X-Received: by 2002:a17:902:864b:: with SMTP id
+ y11mr1185426plt.1.1553608848578; 
+ Tue, 26 Mar 2019 07:00:48 -0700 (PDT)
 MIME-Version: 1.0
+References: <75d8c71fe0684d6ebc3710bada61b79f@quantatw.com>
+In-Reply-To: <75d8c71fe0684d6ebc3710bada61b79f@quantatw.com>
+From: Patrick Venture <venture@google.com>
+Date: Tue, 26 Mar 2019 07:00:37 -0700
+Message-ID: <CAO=notwZHO5St-L_Ke=fADi3nd-XJoSeGvYHpqymAG85-pPP-Q@mail.gmail.com>
+Subject: Re: [phosphor-pid-control] discuss the code in /pid/buildjson.cpp
+To: =?UTF-8?B?SGFuayBMaW91ICjlionmmYnnv7Ap?= <Hank.Liou@quantatw.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,69 +65,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 12:53:42 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 14:00:53 -0000
 
---_000_75d8c71fe0684d6ebc3710bada61b79fquantatwcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Tue, Mar 26, 2019 at 5:54 AM Hank Liou (=E5=8A=89=E6=99=89=E7=BF=B0) <Ha=
+nk.Liou@quantatw.com> wrote:
+>
+> Hi all,
+>
+> Sorry for insufficient info about my question.
+>
+> I am reading the source code of /pid/buildjson.cpp in phosphor-pid-contro=
+l.
+>
+>
+> Is there an error in line 59 and 69? To be precise, I think j should be p=
+ since only p has elements positiveHysteresis and negativeHysteresis.
 
-SGkgYWxsLA0KDQpTb3JyeSBmb3IgaW5zdWZmaWNpZW50IGluZm8gYWJvdXQgbXkgcXVlc3Rpb24u
-DQoNCkkgYW0gcmVhZGluZyB0aGUgc291cmNlIGNvZGUgb2YgL3BpZC9idWlsZGpzb24uY3BwIGlu
-IHBob3NwaG9yLXBpZC1jb250cm9sLg0KDQoNCklzIHRoZXJlIGFuIGVycm9yIGluIGxpbmUgNTkg
-YW5kIDY5PyBUbyBiZSBwcmVjaXNlLCBJIHRoaW5rIGogc2hvdWxkIGJlIHAgc2luY2Ugb25seSBw
-IGhhcyBlbGVtZW50cyBwb3NpdGl2ZUh5c3RlcmVzaXMgYW5kIG5lZ2F0aXZlSHlzdGVyZXNpcy4N
-Cg0KU2luY2VyZWx5LA0KDQpIYW5rIExpb3UNClF1YW50YSBDb21wdXRlciBJbmMuDQo=
+Looks like it.  I'll submit a patchset.
 
---_000_75d8c71fe0684d6ebc3710bada61b79fquantatwcom_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
--family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
-<p><span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, Emoji=
-Font; font-size: 16px;">Hi all,</span><br style=3D"font-family: Calibri, He=
-lvetica, sans-serif, serif, EmojiFont; font-size: 16px;">
-<br>
-Sorry for&nbsp;<span>insufficient info about my question.</span><br>
-<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
- font-size: 16px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
-t; font-size: 16px;">I am reading the source code of
-<span style=3D"color: rgb(0, 111, 201);">/pid/buildjson.cpp</span> in&nbsp;=
-<span style=3D"color: rgb(255, 255, 255); background-color: rgb(255, 0, 255=
-);"><span style=3D"background-color: rgb(255, 255, 255); color: rgb(0, 111,=
- 201);">phosphor-pid-contro</span><span style=3D"background-color: rgb(255,=
- 255, 255); color: rgb(0, 111, 201);">l</span></span>.&nbsp;</span></p>
-<p><span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, Emoji=
-Font; font-size: 16px;"><br>
-</span></p>
-<p><span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, Emoji=
-Font; font-size: 16px;">Is there an error in line 59 and 69? To be precise,=
- I think j should be p since only p has elements positiveHysteresis and neg=
-ativeHysteresis.</span><br style=3D"font-family: Calibri, Helvetica, sans-s=
-erif, serif, EmojiFont; font-size: 16px;">
-<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
- font-size: 16px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
-t; font-size: 16px;">Sincerely,</span><br style=3D"font-family: Calibri, He=
-lvetica, sans-serif, serif, EmojiFont; font-size: 16px;">
-<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
- font-size: 16px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
-t; font-size: 16px;">Hank Liou</span><br style=3D"font-family: Calibri, Hel=
-vetica, sans-serif, serif, EmojiFont; font-size: 16px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
-t; font-size: 16px;">Quanta Computer Inc.</span><br>
-</p>
-</div>
-</body>
-</html>
-
---_000_75d8c71fe0684d6ebc3710bada61b79fquantatwcom_--
+>
+> Sincerely,
+>
+> Hank Liou
+> Quanta Computer Inc.
