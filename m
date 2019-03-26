@@ -1,59 +1,71 @@
-Return-Path: <venture@google.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="r7tDyzYF"; 
- dkim-atps=neutral
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44TCTJ2vQ4zDqJR
- for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2019 01:00:51 +1100 (AEDT)
-Received: by mail-pl1-x635.google.com with SMTP id b65so1681837plb.6
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 07:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=D9JQB/gZcKeEY+x9ZHkS5a15wBSosHPyFeNlEB3j61E=;
- b=r7tDyzYFZfVwPTUmxiWVoA/vX6Dt1S8aZZvAEg3HzOa3CV/CTFhd9hGh5/i+AfJhBk
- BrvsqvRRxM9aAi63lSnhGS/DBlOrpOYRQRuZ9JD1VqHGAJ5rgBU2WP6mTcbSs1d2MR0X
- IXR9uLlXcfkhsfh9RLkmgs00KgpeV69zm2+i6uhKyOHIMp4Vfw+gLFvJN3lGeLcMMGWn
- yI6XVGTzZO3X8dRbjHWOBotVbK7lqL57L83ESJr4R+ik93dgIbvUwrxSHN9XT2W4xKNu
- yRUD3es7qf40Dk8eGHLi6uQTeTuzBeA8X7+8c9ksa98V6Lwo/jB/xOf9ExE7Z5B0uSQc
- 7sNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=D9JQB/gZcKeEY+x9ZHkS5a15wBSosHPyFeNlEB3j61E=;
- b=EQgG/1ZhOrx0aCicwZBJlV76h6Vfi8D+FXV+8B5PnJmf2bJAwRdycRO6SYVpz3w5FA
- Q7GGSZoyhfOIVTOknANF3vZys7iYl2teB1TtyaxX1z+q5F5qKIsSKqiQ7XG1G9yBb/RC
- tB+K7Kmhk9MAmpcajG9JityjgvOS1Xc4Irm52+fHn4GNgjzYZIFMcqAYOlNzHb9I6p2U
- 2u9g59NHoR/0hxaoK9RUv31JgGSEiaOEwv72SbuA0qlRTT+zoZoAHIJS5fRqDIpzVBDn
- hph9PtGq269lW4j4VFD0XPHLCK8BocE8vohyTwZWmFt87KX7rfjmpVcYRuAzFr9sEadx
- fpGA==
-X-Gm-Message-State: APjAAAUKCzcaGZaIWkjgDA7NQJyVK5e24OEPi8niv3e3IuJRG20q+UIN
- 3iwxbSRJd+cBmjYL2tDbHHfOuUBA5jYwvW+sdYzRe2QmxYM=
-X-Google-Smtp-Source: APXvYqznTfl8yq5Tgg3sO+eJb45B78nYTf0vBAP+i0CoV220tFR/kOk836ZCJvmCEcut9hLIUL/XYIpNph7aX1Kc4XQ=
-X-Received: by 2002:a17:902:864b:: with SMTP id
- y11mr1185426plt.1.1553608848578; 
- Tue, 26 Mar 2019 07:00:48 -0700 (PDT)
-MIME-Version: 1.0
-References: <75d8c71fe0684d6ebc3710bada61b79f@quantatw.com>
-In-Reply-To: <75d8c71fe0684d6ebc3710bada61b79f@quantatw.com>
-From: Patrick Venture <venture@google.com>
-Date: Tue, 26 Mar 2019 07:00:37 -0700
-Message-ID: <CAO=notwZHO5St-L_Ke=fADi3nd-XJoSeGvYHpqymAG85-pPP-Q@mail.gmail.com>
-Subject: Re: [phosphor-pid-control] discuss the code in /pid/buildjson.cpp
-To: =?UTF-8?B?SGFuayBMaW91ICjlionmmYnnv7Ap?= <Hank.Liou@quantatw.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44TDCF5jLbzDqJT
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2019 01:33:44 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x2QERHF5027512
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 10:33:41 -0400
+Received: from e14.ny.us.ibm.com (e14.ny.us.ibm.com [129.33.205.204])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2rfmymkcve-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 10:33:40 -0400
+Received: from localhost
+ by e14.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Tue, 26 Mar 2019 14:33:31 -0000
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e14.ny.us.ibm.com (146.89.104.201) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Tue, 26 Mar 2019 14:33:29 -0000
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x2QEXSZx21954594
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 26 Mar 2019 14:33:28 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6AD6EAE05C;
+ Tue, 26 Mar 2019 14:33:28 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 22A07AE063;
+ Tue, 26 Mar 2019 14:33:28 +0000 (GMT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 26 Mar 2019 14:33:28 +0000 (GMT)
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
+Subject: [PATCH] witherspoon.dts: Enable the USB vhub (device)
+Date: Tue, 26 Mar 2019 09:33:23 -0500
+X-Mailer: git-send-email 2.7.4
+X-TM-AS-GCONF: 00
+x-cbid: 19032614-0052-0000-0000-000003A156D2
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010818; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000282; SDB=6.01179960; UDB=6.00617468; IPR=6.00960675; 
+ MB=3.00026164; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-26 14:33:31
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19032614-0053-0000-0000-00006047D32C
+Message-Id: <1553610803-65797-1-git-send-email-anoo@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-03-26_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=926 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1903260101
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,26 +77,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 14:00:53 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 14:33:46 -0000
 
-On Tue, Mar 26, 2019 at 5:54 AM Hank Liou (=E5=8A=89=E6=99=89=E7=BF=B0) <Ha=
-nk.Liou@quantatw.com> wrote:
->
-> Hi all,
->
-> Sorry for insufficient info about my question.
->
-> I am reading the source code of /pid/buildjson.cpp in phosphor-pid-contro=
-l.
->
->
-> Is there an error in line 59 and 69? To be precise, I think j should be p=
- since only p has elements positiveHysteresis and negativeHysteresis.
+The Aspeed vhub device driver is already enabled in
+the defconfig, make use of it in the witherspoon platform.
 
-Looks like it.  I'll submit a patchset.
+Signed-off-by: Adriana Kobylak <anoo@linux.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
 
->
-> Sincerely,
->
-> Hank Liou
-> Quanta Computer Inc.
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+index b933ced..8ebe35e 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+@@ -634,6 +634,10 @@
+ 	memory-region = <&gfx_memory>;
+ };
+ 
++&vhub {
++	status = "okay";
++};
++
+ &pinctrl {
+ 	aspeed,external-nodes = <&gfx &lhc>;
+ };
+-- 
+1.8.3.1
