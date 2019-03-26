@@ -1,59 +1,43 @@
-Return-Path: <prvs=98122a04e=George.Hung@quantatw.com>
+Return-Path: <prvs=981a4a1c7=Hank.Liou@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=quantatw.com
  (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=98122a04e=george.hung@quantatw.com; receiver=<UNKNOWN>)
+ envelope-from=prvs=981a4a1c7=hank.liou@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=quantatw.com
 Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44T1NS5jdRzDqBV
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 17:25:55 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTP id 44T1Y22vWZzDqBH
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 17:33:24 +1100 (AEDT)
 Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx02.quantatw.com with ESMTP; 26 Mar 2019 14:25:52 +0800
+ by mx02.quantatw.com with ESMTP; 26 Mar 2019 14:33:21 +0800
 Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
  (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 26 Mar
- 2019 14:25:48 +0800
+ 2019 14:33:19 +0800
 Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
  mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
- 15.01.1713.004; Tue, 26 Mar 2019 14:25:48 +0800
-From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, "emilyshaffer@google.com"
- <emilyshaffer@google.com>, "benjaminfair@google.com"
- <benjaminfair@google.com>
-CC: =?big5?B?UmljaGFyZCBUdW5nICi4s6vbq8wp?= <Richard.Tung@quantatw.com>,
- =?big5?B?QnVkZHkgSHVhbmcgKLbApNHCRSk=?= <Buddy.Huang@quantatw.com>,
- =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>,
- =?big5?B?RnJhbiBIc3UgKK59u3jBvik=?= <Fran.Hsu@quantatw.com>
-Subject: RE: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
- value of getScaledIPMIValue
-Thread-Topic: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
- value of getScaledIPMIValue
-Thread-Index: AQHU4QGW23iVmLiBAkad5ZbdqduRt6YboDCQ
-Date: Tue, 26 Mar 2019 06:25:47 +0000
-Message-ID: <cf6a2226b21a4784af8c55b8eaa52901@quantatw.com>
-References: <31685a6a49d14c1ea599921946d9eb49@quantatw.com>
- <2509b486-bca6-1a2c-50a2-4d4a9992db18@linux.intel.com>
-In-Reply-To: <2509b486-bca6-1a2c-50a2-4d4a9992db18@linux.intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
+ 15.01.1713.004; Tue, 26 Mar 2019 14:33:19 +0800
+From: =?big5?B?SGFuayBMaW91ICi8Qq7Kv6sp?= <Hank.Liou@quantatw.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: discuss buildjson code
+Thread-Topic: discuss buildjson code
+Thread-Index: AQHU452UaX+iPxpDEk6sHvFRkwhzDA==
+Date: Tue, 26 Mar 2019 06:33:19 +0000
+Message-ID: <e031e16dfaee4709825bce55601317c2@quantatw.com>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-originating-ip: [10.243.91.252]
 x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
-x-tm-as-result: No--18.556000-0.000000-31
-x-tm-as-matchedid: 140026-150567-701625-704425-700685-709584-705718-711900-7
- 02807-704421-187056-705388-700107-702020-780022-700949-704568-704751-702423
- -106580-121133-863519-301328-139006-700648-700724-700308-712209-712203-1066
- 60-701249-187067-703041-706564-700075-139010-700752-704341-707410-702358-70
- 0038-703283-707788-708797-702598-700767-701604-711664-105250-705178-701506-
- 700476-701914-105700-139703-703454-106230-105630-710970-701837-701395-39029
- 9-147019-148035-148133-20043-23116-42002-42003-63
+x-tm-as-result: No--4.662200-0.000000-31
+x-tm-as-matchedid: 111600-111604-188119-705718-701827-702638-111605-700074-7
+ 00264-700732-700345-700450-187067-704496-701604-709584-701747-863519-188144
+ -111601-148004-148050-42000-63
 x-tm-as-user-approved-sender: Yes
 x-tm-as-user-blocked-sender: No
-Content-Type: multipart/mixed;
- boundary="_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_"
+Content-Type: multipart/alternative;
+ boundary="_000_e031e16dfaee4709825bce55601317c2quantatwcom_"
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -66,137 +50,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 06:26:02 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 06:33:27 -0000
 
---_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_
+--_000_e031e16dfaee4709825bce55601317c2quantatwcom_
 Content-Type: text/plain; charset="big5"
 Content-Transfer-Encoding: base64
 
-SGkgYWxsLA0KIA0KQ29uc2lkZXJpbmcgdGhlcmUgYXJlIHR3byBzdHlsZSBvZiBzZW5zb3JzIChz
-Y2FsZWQgaW50NjQgYW5kIGRvdWJsZSB2YWx1ZXMpIGZvciBzZW5zb3IgdmFsdWUgREJ1cyBwcm9w
-ZXJ0aWVzLCB3ZSB3b3VsZCBsaWtlIHRvIGFkZCBib3RoIG9mIHRoZW0gc3VwcG9ydCBmb3IgcGhv
-c3Bob3Itc2VsLWxvZ2dlci4NCg0KVGhlIGF0dGFjaGVkIGZpbGUgaXMgdGhlIHBhdGNoIGZvciBt
-YWtpbmcgc2VsLWxvZ2dlciB3b3JrIHdpdGggaW50NjQgYW5kIGRvdWJsZS4NCg0KSWYgaXQncyBP
-SywgSSB3aWxsIHB1c2ggdGhlIHBhdGNoIHRvIE9wZW5CTUMgR2Vycml0Lg0KDQpIaSBKYXNvbiwN
-Cg0KVGhhbmtzIGZvciB5b3VyIGtpbmQgYWR2aWNlcy4NCg0KQWJvdXQgdGhlIGZpcnN0IHF1ZXN0
-aW9uIEkgbWVudGlvbmVkIGJlZm9yZSwgIlRoZSBzZW5zb3IgREJ1cyBwcm9wZXJ0aWVzICwgoacv
-TWF4VmFsdWUvTWluVmFsdWUvVmFsdWUvoaggYXJlIGFsd2F5cyAwIiwgaXQncyBiZWNhdXNlIHR5
-cGUgY29udmVyc2lvbiBjYXVzZSBhbHdheXMgZ2V0IDAsIG5vdCB0aGVpciB2YWx1ZXMgYXJlIGlu
-dmFsaWQuIEknbSBzb3JyeSBmb3IgbXkgY29uZnVzZWQgZGVzY3JpcHRpb24uDQoNCg0KVGhhbmtz
-Lg0KDQpCZXN0IFJlZ2FyZCANCkdlb3JnZSBIdW5nDQpSZXNlYXJjaCBEaXZpc2lvbiAtIFNvZnR3
-YXJlIEVuZ2luZWVyDQpDbG91ZCBDb21wdXRpbmcgQnVzaW5lc3MgVW5pdA0KUXVhbnRhIENvbXB1
-dGVyIEluYy4NCkV4dDogMTY4MzANCkUtTWFpbCA6IEdlb3JnZS5IdW5nQFF1YW50YVRXLmNvbQ0K
-DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogQmlsbHMsIEphc29uIE0gW21haWx0
-bzpqYXNvbi5tLmJpbGxzQGxpbnV4LmludGVsLmNvbV0gDQpTZW50OiBTYXR1cmRheSwgTWFyY2gg
-MjMsIDIwMTkgNjo1MCBBTQ0KVG86IEdlb3JnZSBIdW5nICiseKm+t3EpDQpDYzogUmljaGFyZCBU
-dW5nICi4s6vbq8wpOyBCdWRkeSBIdWFuZyAotsCk0cJFKTsgV2lsbCBMaWFuZyAoseelw7liKTsg
-RnJhbiBIc3UgKK59u3jBvikNClN1YmplY3Q6IFJlOiBbT3BlbkJNQ10gW3Bob3NwaG9yLXNlbC1s
-b2dnZXJdIFByb3BlcnR5IHR5cGUgY29udmVyc2lvbiBhbmQgdGhlIHZhbHVlIG9mIGdldFNjYWxl
-ZElQTUlWYWx1ZQ0KDQpIaSBHZW9yZ2UsDQoNCkl0IGlzIGJldHRlciB0byBwb3N0IHRoZXNlIHR5
-cGVzIG9mIHF1ZXN0aW9ucyB0byB0aGUgZnVsbCBtYWlsaW5nIGxpc3QgYXMgSSBhbSBub3QgdGhl
-IHJpZ2h0IHBlcnNvbiB0byBhbnN3ZXIgYWxsIG9mIHRoZW0uDQoNCk9uIDMvMjIvMjAxOSAxMjoy
-MCBBTSwgR2VvcmdlIEh1bmcgKKx4qb63cSkgd3JvdGU6DQo+IEhpIEphc29uLA0KPiANCj4gU2lu
-Y2Ugb3VyIE9wZW5CTUMgcHJvamVjdCBuZWVkcyB0byBzdXBwb3J0IElQTUkgU0VMLCBJIHRyeSB0
-byB1c2UgDQo+IHBob3NwaG9yLXNlbC1sb2dnZXIgdG8gYWRkIG5ldyBJUE1JIFNFTCB0byBqb3Vy
-bmFsLCBidXQgSSBmb3VuZCBzb21lIA0KPiBpc3N1ZXMgbmVlZCB0byBkaXNjdXNzOg0KPiANCj4g
-MS5UaGUgc2Vuc29yIERCdXMgcHJvcGVydGllcyAsIKGnL01heFZhbHVlL01pblZhbHVlL1ZhbHVl
-L6GoIGFyZSBhbHdheXMgDQo+IDANCg0KVGhpcyBtZWFucyB0aGF0IHNvbWV0aGluZyBpcyB3cm9u
-ZyBpbiB0aGUgc2Vuc29yIGNvbmZpZ3VyYXRpb24uICBUaGVzZSB2YWx1ZXMgc2hvdWxkIGFsbCBi
-ZSB2YWxpZC4NCj4gDQo+IDIuVGhlIC92YWx1ZS8gcGFyYW1ldGVyIG9mIC9nZXRTY2FsZWRJUE1J
-VmFsdWUvIGZ1bmN0aW9uIHVzZXMgdGhlIA0KPiBzY2FsZWQgdmFsdWUsIG5vdCBhY3R1YWwgdmFs
-dWUsDQoNClRoZSB0aHJlc2hvbGQgZXZlbnQgbW9uaXRvciBpcyBjdXJyZW50bHkgZGVzaWduZWQg
-dG8gbW9uaXRvciBvbmx5IHRoZSBkb3VibGUtc3R5bGUgc2Vuc29ycyB0aGF0IHN0b3JlIHRoZSBh
-Y3R1YWwgdmFsdWUuDQo+IA0KPiBpdCBtYXkgY2F1c2UgdGhlIHJlc3VsdCBvZiAvc2NhbGVJUE1J
-VmFsdWVGcm9tRG91YmxlIC9mdW5jdGlvbiBpcyANCj4goad2YWx1ZSBvdXQgb2YgcmFuZ2WhqA0K
-PiANCj4gQWZ0ZXIgdHJhY2luZyB0aGUgY29kZSwgd2UgbWF5IGZpbmQgdGhlIHJvb3QgY2F1c2Us
-IGJ1dCBuZWVkIHlvdXIgaGVscCANCj4gdG8gY2hlY2sgaWYgaXShpnMgdGhlIGNvcnJlY3QgZml4
-LiBJIGxpc3RlZCBhcyBmb2xsb3dzOg0KPiANCj4gMS5UaGUgb3JpZ2luYWwgdHlwZSBkZWNsYXJh
-dGlvbiBpcw0KPiChp3NkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudDxkb3VibGU+oagsIGJ1dCBz
-aG91bGQgYmUgDQo+IKGnc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50PGludDY0X3Q+oagNCg0K
-VGhlcmUgYXJlIHR3byBzdHlsZXMgb2Ygc2Vuc29ycywgb25lIHN0eWxlIHN0b3JlcyBzY2FsZWQg
-aW50NjQgdmFsdWVzIGFuZCBhbm90aGVyIHN0eWxlIHN0b3JlcyBhY3R1YWwgZG91YmxlIHZhbHVl
-cy4gIFRoZSB0aHJlc2hvbGQgZXZlbnQgbW9uaXRvciBjdXJyZW50bHkgaGFuZGxlcyBvbmx5IGRv
-dWJsZSBzdHlsZSBzZW5zb3JzLg0KDQpJZiB5b3UgbmVlZCB0byBzdXBwb3J0IGJvdGggc3R5bGVz
-IG9mIHNlbnNvcnMsIHlvdSBjYW4gbG9vayBoZXJlIGZvciBhbiBleGFtcGxlIHZpc2l0b3IgdGhh
-dCBjYW4gaGFuZGxlIGJvdGggaW50NjQgYW5kIGRvdWJsZTogDQpodHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9waG9zcGhvci1waWQtY29udHJvbC9jb21taXQvYzA2NWNmMWIxOTVmOWNjZDhmZWE4
-ODJjZTc2NDE2NDczZDRmZWU3Yy4NCj4gDQo+IDIuTW9kaWZ5IHRvIHVzZSBhY3R1YWwgc2Vuc29y
-IHZhbHVlIGZvciChp2dldFNjYWxlZElQTUlWYWx1ZaGoIGZ1bmN0aW9uDQo+IA0KPiBUaGUgYXR0
-YWNoZWQgZmlsZSBpcyB0aGUgZml4IHBhdGNoLCBpdCBzaG91bGQgYmUgbW9yZSBjbGVhci4NCj4g
-DQo+IElmIGl0oaZzIHRoZSBjb3JyZWN0IGZpeCwgd2lsbCB5b3UgcGF0Y2ggdG8gT3BlbkJNQyBH
-ZXJyaXQsIG9yIHdlIGRvIGl0IA0KPiBkaXJlY3RseSA/DQoNClBsZWFzZSBmZWVsIGZyZWUgdG8g
-cHVzaCB5b3VyIHBhdGNoIHRvIE9wZW5CTUMgR2Vycml0IGZvciByZXZpZXcgYW5kIGRpc2N1c3Np
-b24uDQo+IA0KPiBCVFcsIHRoZSBwaG9zcGhvci1zZWwtbG9nZ2VyIHN1cHBvcnRzIGFkZCBJUE1J
-IFNFTCB0byBqb3VybmFsLCBidXQgDQo+IHNlZW1zIG9ubHkgdGhyZXNob2xkLWJhc2VkIHNlbnNv
-ciBldmVudCBsb2dzLCBubyBkaXNjcmV0ZSBzZW5zb3JzIGV2ZW50IGxvZ3MuDQoNClRoYXQgaXMg
-Y29ycmVjdC4NCj4gDQo+IElzIHRoZXJlIGFueSBwbGFuIHRvIGFkZCBkaXNjcmV0ZSBzZW5zb3Jz
-IGV2ZW50IGxvZ3MgdG8gDQo+IHBob3NwaG9yLXNlbC1sb2dnZXIgPw0KDQpJbnRlbCBwbGFucyB0
-byBvbmx5IHN1cHBvcnQgdGhyZXNob2xkIHNlbnNvciBldmVudHMgaW4gdGhlIElQTUkgU0VMLiAN
-ClRoZSBwaG9zcGhvci1zZWwtbG9nZ2VyIHNob3VsZCBiZSBleHRlbnNpYmxlIHRvIHN1cHBvcnQg
-YWRkaXRpb25hbCB0eXBlcyBvZiBldmVudHMuDQo=
+SGkgYWxsLA0KDQpJIGFtIHJlYWRpbmcgYXQgdGhlIHNvdXJjZSBjb2RlIG9mIC9waWQvYnVpbGRq
+c29uLmNwcC4gSXMgdGhlcmUgYW4gZXJyb3IgaW4gbGluZSA1OSBhbmQgNjk/IFRvIGJlIHByZWNp
+c2UsIEkgdGhpbmsgaiBzaG91bGQgYmUgcCBzaW5jZSBvbmx5IHAgaGFzIGVsZW1lbnRzIHBvc2l0
+aXZlSHlzdGVyZXNpcyBhbmQgbmVnYXRpdmVIeXN0ZXJlc2lzLg0KDQpTaW5jZXJlbHksDQoNCkhh
+bmsgTGlvdQ0KUXVhbnRhIENvbXB1dGVyIEluYy4NCg==
 
---_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_
-Content-Type: application/octet-stream;
-	name="Support-both-double-and-int64-sensor-values.patch"
-Content-Description: Support-both-double-and-int64-sensor-values.patch
-Content-Disposition: attachment;
-	filename="Support-both-double-and-int64-sensor-values.patch"; size=2990;
-	creation-date="Tue, 26 Mar 2019 06:25:04 GMT";
-	modification-date="Tue, 26 Mar 2019 06:20:50 GMT"
-Content-Transfer-Encoding: base64
+--_000_e031e16dfaee4709825bce55601317c2quantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-RnJvbSAwNGIyZWE0Mjk0OWEzZDE5Y2ViMmZjZDEzMmQwZTA3MTQ2MzlhYWYwIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBHZW9yZ2UgSHVuZyA8Z2VvcmdlLmh1bmdAcXVhbnRhdHcuY29t
-PgpEYXRlOiBUdWUsIDI2IE1hciAyMDE5IDE0OjE1OjI1ICswODAwClN1YmplY3Q6IFtQQVRDSF0g
-U3VwcG9ydCBib3RoIGRvdWJsZSBhbmQgaW50NjQgc2Vuc29yIHZhbHVlcwoKVGhlcmUgYXJlIHR3
-byBzdHlsZSBvZiBzZW5zb3JzLCBvbmUgaXMgc3RvcmVkCnNjYWxlZCBpbnQ2NCB2YWx1ZSBhbmQg
-YW5vdGhlciBpcyBhY3R1YWwgZG91YmxlCnZhbHVlLiBBZGQgdG8gaGFuZGxlIGJvdGggb2Ygc3R5
-bGUgc2Vuc29ycyBhbmQKaWYgaXQncyBpbnQ2NCwgYXBwbHkgdGhlIHNjYWxlIHRvIGl0LgoKU2ln
-bmVkLW9mZi1ieTogR2VvcmdlIEh1bmcgPGdlb3JnZS5odW5nQHF1YW50YXR3LmNvbT4KLS0tCiBp
-bmNsdWRlL3RocmVzaG9sZF9ldmVudF9tb25pdG9yLmhwcCB8IDE2ICsrKysrKysrKysrKysrLS0K
-IDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
-LWdpdCBhL2luY2x1ZGUvdGhyZXNob2xkX2V2ZW50X21vbml0b3IuaHBwIGIvaW5jbHVkZS90aHJl
-c2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKaW5kZXggOTM1MjgwNS4uMDBkYmEzMiAxMDA2NDQKLS0t
-IGEvaW5jbHVkZS90aHJlc2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKKysrIGIvaW5jbHVkZS90aHJl
-c2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKQEAgLTExNSw3ICsxMTUsNyBAQCBpbmxpbmUgc3RhdGlj
-IHNkYnVzcGx1czo6YnVzOjptYXRjaDo6bWF0Y2ggc3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3Io
-CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIm9yZy5mcmVlZGVza3RvcC5EQnVz
-LlByb3BlcnRpZXMiLCAiR2V0QWxsIik7CiAgICAgICAgIGdldFNlbnNvclZhbHVlLmFwcGVuZCgi
-eHl6Lm9wZW5ibWNfcHJvamVjdC5TZW5zb3IuVmFsdWUiKTsKICAgICAgICAgYm9vc3Q6OmNvbnRh
-aW5lcjo6ZmxhdF9tYXA8c3RkOjpzdHJpbmcsCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudDxkb3VibGU+PgorICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnQ8ZG91Ymxl
-LCBpbnQ2NF90Pj4KICAgICAgICAgICAgIHNlbnNvclZhbHVlOwogICAgICAgICB0cnkKICAgICAg
-ICAgewpAQCAtMTM1LDYgKzEzNSwxNCBAQCBpbmxpbmUgc3RhdGljIHNkYnVzcGx1czo6YnVzOjpt
-YXRjaDo6bWF0Y2ggc3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3IoCiAgICAgICAgICAgICBpcG1p
-OjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNvclZhbHVlWyJNaW5WYWx1ZSJdKTsKICAg
-ICAgICAgZG91YmxlIHNlbnNvclZhbCA9IHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudF9uczo6
-dmlzaXQoCiAgICAgICAgICAgICBpcG1pOjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNv
-clZhbHVlWyJWYWx1ZSJdKTsKKyAgICAgICAgZG91YmxlIHNjYWxlID0gMDsKKyAgICAgICAgaWYo
-c2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjpnZXRfaWY8aW50NjRfdD4oCisgICAgICAg
-ICAgICZzZW5zb3JWYWx1ZVsiVmFsdWUiXSkpCisgICAgICAgIHsKKyAgICAgICAgICAgIHNjYWxl
-ID0gc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgKKyAgICAgICAgICAgICAg
-ICBpcG1pOjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNvclZhbHVlWyJTY2FsZSJdKTsK
-KyAgICAgICAgICAgIHNlbnNvclZhbCAqPSBzdGQ6OnBvdygxMCwgc2NhbGUpOworICAgICAgICB9
-CiAgICAgICAgIHRyeQogICAgICAgICB7CiAgICAgICAgICAgICBldmVudERhdGFbMV0gPSBpcG1p
-OjpnZXRTY2FsZWRJUE1JVmFsdWUoc2Vuc29yVmFsLCBtYXgsIG1pbik7CkBAIC0xNTgsNyArMTY2
-LDcgQEAgaW5saW5lIHN0YXRpYyBzZGJ1c3BsdXM6OmJ1czo6bWF0Y2g6Om1hdGNoIHN0YXJ0VGhy
-ZXNob2xkRXZlbnRNb25pdG9yKAogICAgICAgICAgICAgY29ubi0+bmV3X21ldGhvZF9jYWxsKG1z
-Zy5nZXRfc2VuZGVyKCksIG1zZy5nZXRfcGF0aCgpLAogICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICJvcmcuZnJlZWRlc2t0b3AuREJ1cy5Qcm9wZXJ0aWVzIiwgIkdldCIpOwogICAg
-ICAgICBnZXRUaHJlc2hvbGQuYXBwZW5kKHRocmVzaG9sZEludGVyZmFjZSwgZXZlbnQpOwotICAg
-ICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnQ8ZG91YmxlPiB0aHJlc2hvbGRWYWx1ZTsK
-KyAgICAgICAgc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50PGRvdWJsZSwgaW50NjRfdD4gdGhy
-ZXNob2xkVmFsdWU7CiAgICAgICAgIHRyeQogICAgICAgICB7CiAgICAgICAgICAgICBzZGJ1c3Bs
-dXM6Om1lc3NhZ2U6Om1lc3NhZ2UgZ2V0VGhyZXNob2xkUmVzcCA9CkBAIC0xNzMsNiArMTgxLDEw
-IEBAIGlubGluZSBzdGF0aWMgc2RidXNwbHVzOjpidXM6Om1hdGNoOjptYXRjaCBzdGFydFRocmVz
-aG9sZEV2ZW50TW9uaXRvcigKICAgICAgICAgfQogICAgICAgICBkb3VibGUgdGhyZXNob2xkVmFs
-ID0gc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgKICAgICAgICAgICAgIGlw
-bWk6OlZhcmlhbnRUb0RvdWJsZVZpc2l0b3IoKSwgdGhyZXNob2xkVmFsdWUpOworICAgICAgICBp
-ZihzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnRfbnM6OmdldF9pZjxpbnQ2NF90PigmdGhyZXNo
-b2xkVmFsdWUpKQorICAgICAgICB7CisgICAgICAgICAgICB0aHJlc2hvbGRWYWwgKj0gc3RkOjpw
-b3coMTAsIHNjYWxlKTsKKyAgICAgICAgfQogICAgICAgICB0cnkKICAgICAgICAgewogICAgICAg
-ICAgICAgZXZlbnREYXRhWzJdID0gaXBtaTo6Z2V0U2NhbGVkSVBNSVZhbHVlKHRocmVzaG9sZFZh
-bCwgbWF4LCBtaW4pOwotLSAKMi4yMS4wCgo=
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
+n-bottom:0;} --></style>
+</head>
+<body dir=3D"ltr">
+<div id=3D"divtagdefaultwrapper" style=3D"font-size:12pt;color:#000000;font=
+-family:Calibri,Helvetica,sans-serif;" dir=3D"ltr">
+<p><span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, Emoji=
+Font; font-size: 16px;">Hi all,</span><br style=3D"font-family: Calibri, He=
+lvetica, sans-serif, serif, EmojiFont; font-size: 16px;">
+<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
+ font-size: 16px;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
+t; font-size: 16px;">I am reading at the source code of /pid/buildjson.cpp.=
+ Is there an error in line 59 and 69? To be precise, I think j should be p =
+since only p has elements positiveHysteresis
+ and negativeHysteresis.</span><br style=3D"font-family: Calibri, Helvetica=
+, sans-serif, serif, EmojiFont; font-size: 16px;">
+<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
+ font-size: 16px;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
+t; font-size: 16px;">Sincerely,</span><br style=3D"font-family: Calibri, He=
+lvetica, sans-serif, serif, EmojiFont; font-size: 16px;">
+<br style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFont;=
+ font-size: 16px;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
+t; font-size: 16px;">Hank Liou</span><br style=3D"font-family: Calibri, Hel=
+vetica, sans-serif, serif, EmojiFont; font-size: 16px;">
+<span style=3D"font-family: Calibri, Helvetica, sans-serif, serif, EmojiFon=
+t; font-size: 16px;">Quanta Computer Inc.</span><br>
+</p>
+</div>
+</body>
+</html>
 
---_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_--
+--_000_e031e16dfaee4709825bce55601317c2quantatwcom_--
