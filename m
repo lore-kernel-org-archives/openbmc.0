@@ -1,106 +1,61 @@
-Return-Path: <prvs=8987fb08b7=vijaykhemka@fb.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=8987fb08b7=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::831; helo=mail-qt1-x831.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="TZ8Mgmtv"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="G09aHt3X"; dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="PMvb3mKn"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Sqc80VJFzDqG6
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 10:05:23 +1100 (AEDT)
-Received: from pps.filterd (m0044008.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2PN49nu007746; Mon, 25 Mar 2019 16:05:19 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type :
- mime-version; s=facebook; bh=XwrfesUHiB2D6BX3tDrvy5s/f0hxGrOZ9Tp+x2EnIAM=;
- b=TZ8MgmtvEU2FwaQ5ztl2RWKNamQCRZAewiVQioltb09DA4OCwh9qFFMN7f7sJadU/wbO
- 8+LkF7n0YIefT8I3KFKHZXAlHEIDTV1xkC3KudugQAZAxnTW93kgv5psQwCytimllvR6
- CUUuSvjfHf9t7gBHUQp0p0rmByLK+UZrIfY= 
-Received: from mail.thefacebook.com ([199.201.64.23])
- by mx0a-00082601.pphosted.com with ESMTP id 2rf4uy8wg6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Mon, 25 Mar 2019 16:05:19 -0700
-Received: from prn-hub05.TheFacebook.com (2620:10d:c081:35::129) by
- prn-hub02.TheFacebook.com (2620:10d:c081:35::126) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.1.1713.5; Mon, 25 Mar 2019 16:05:19 -0700
-Received: from NAM01-BN3-obe.outbound.protection.outlook.com (192.168.54.28)
- by o365-in.thefacebook.com (192.168.16.29) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.1.1713.5
- via Frontend Transport; Mon, 25 Mar 2019 16:05:18 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XwrfesUHiB2D6BX3tDrvy5s/f0hxGrOZ9Tp+x2EnIAM=;
- b=G09aHt3XeKC9BL5LMyxuRVOdxwxCIW9PZMootq3RFA3OhqkFRbA2bKYPVG89+PStYi4u3KBM6n4rakkVi5liwnSquegEcT5/5UvlsfMNV4S6fE3fce1EHRjY1SE6ZMCSxblfVsrixDndTeZgffobvcL67MHW6h7+yb3uhuYabHs=
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com (10.172.177.11) by
- CY4PR15MB1542.namprd15.prod.outlook.com (10.172.160.9) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1730.18; Mon, 25 Mar 2019 23:05:17 +0000
-Received: from CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::adbc:85e5:68d3:ac2d]) by CY4PR15MB1269.namprd15.prod.outlook.com
- ([fe80::adbc:85e5:68d3:ac2d%3]) with mapi id 15.20.1730.017; Mon, 25 Mar 2019
- 23:05:17 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: Henbin Chang <henbinchang@gmail.com>
-CC: James Feist <james.feist@linux.intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: Re: Some problems about FruDevice in the entity-manager
-Thread-Topic: Some problems about FruDevice in the entity-manager
-Thread-Index: AQHU4HIjSu1jDji9X0W42n4qWwRLc6YXzkGA//+wbwCABBeHgIAA8fcA
-Date: Mon, 25 Mar 2019 23:05:17 +0000
-Message-ID: <2B1545B0-29CC-4E8C-85B5-317A2E5AD5D9@fb.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44StBs64cJzDq60
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 12:02:13 +1100 (AEDT)
+Received: by mail-qt1-x831.google.com with SMTP id d13so8011944qth.5
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 18:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Sw48ECHdwv9616JHUDLnPDj4UC/WV/6BhQQEcN5KNgs=;
+ b=PMvb3mKnmW05o48ZWi2IPHtloPTDtpegdvPWK3G5Y9CHTN9MRP8wAlh1IsL41jTwiv
+ U/GCNTHsCek+DGqNV4o1ag5QCUg0qITNM50uQ2BSLXAb3VaDc2jJNosogXqoYBejviCp
+ tiG9U7wuKB96Qt+xuZCAgnwHkrxjRw0+ZLR2P9UaA5Ey3QSZZ/DWrZ76IjaP3k1ci4wm
+ BazEWsA1ssYgWtLuSgx7mjbGPVvEQV8+ts1YuzH9Ww8DpfATqTzeOeC0BkZLHvHJw+p5
+ tUtgmmig1/9kLUaoRvFCx9YJK6s9wuOJk/4jZhsr32W8EdedRmDpvs+HUayuCsCEptVx
+ Qt1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Sw48ECHdwv9616JHUDLnPDj4UC/WV/6BhQQEcN5KNgs=;
+ b=FeM3uYQz4JnIPIcgfA3ZwBDFSPBQeQYkO47mT1U2HsfEgulD/sF6EUD9ub/6bSI8n/
+ UuAf9c7zYTaqSAcsMMw2D9yVWYucznCEA8BVfpBfj49N3Gf0BOKwcmg7UMH8COkV1kmL
+ MmV/Z2v1kt6PY4UfV/wprSsbRkK7qKj7OmDaliiafZ/4z3YYj1OmpQLY21zHGosk+td5
+ DY0kgOgcrgE5YKzggjHSLI+tKgenFgiYq2jyTRPY+EbvjqVhqAhWfaVE0mdVmkNQSo0g
+ oUqoCdJhzryJUVmiA/WjCvS2DRTAsv0TnOHsUuBjs6atZkukz1WKWjDwFxcruxFQIxvM
+ Xk2w==
+X-Gm-Message-State: APjAAAXQloknQPXufWRK5RzUVG90+bWSqSsGKmPFlxjG+jEaQUfV9NL+
+ 8Og4gi+PBY+FCeT/K5Ls4RnFCgp73QS5ZQsr8eQ=
+X-Google-Smtp-Source: APXvYqz98C+oCt9k8MD219Zyl0vE1IIaoMlt9SbA3FlZmvvLJJNWUpdkybubw+U7x7MBHaEVD8KHslLIDt5alkAa4rI=
+X-Received: by 2002:a0c:b14d:: with SMTP id r13mr17224503qvc.80.1553562129512; 
+ Mon, 25 Mar 2019 18:02:09 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAG9c7cDQc=o_=vEFRAjRRq9bV2Fz6ZD7Osp+vkd2QRgxmGcXGg@mail.gmail.com>
  <bee0622c-8ae6-3db3-b7f7-9d48651cf907@linux.intel.com>
  <740E00DF-F233-41A1-B894-9DB98A9AD62A@fb.com>
  <CAG9c7cAHLdfqDMjWRnqbpw=VcA5zX96Sx2tqJ5TOMw9mKU7X=w@mail.gmail.com>
-In-Reply-To: <CAG9c7cAHLdfqDMjWRnqbpw=VcA5zX96Sx2tqJ5TOMw9mKU7X=w@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::3:89f6]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 9dabba54-4949-44ab-2b84-08d6b17658f8
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(5600127)(711020)(4605104)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(2017052603328)(7153060)(7193020);
- SRVR:CY4PR15MB1542; 
-x-ms-traffictypediagnostic: CY4PR15MB1542:
-x-microsoft-antispam-prvs: <CY4PR15MB1542DDC6CA356EC339F858D4DD5E0@CY4PR15MB1542.namprd15.prod.outlook.com>
-x-forefront-prvs: 0987ACA2E2
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(376002)(136003)(396003)(39860400002)(346002)(189003)(199004)(54906003)(25786009)(1411001)(9326002)(106356001)(2906002)(316002)(93886005)(82746002)(478600001)(81156014)(36756003)(76176011)(81166006)(8676002)(8936002)(6436002)(105586002)(83716004)(6486002)(53546011)(6506007)(229853002)(4326008)(446003)(71190400001)(11346002)(14454004)(46003)(102836004)(54896002)(68736007)(6306002)(71200400001)(86362001)(476003)(2616005)(97736004)(486006)(256004)(99286004)(6246003)(5660300002)(7736002)(6116002)(53936002)(6916009)(33656002)(186003)(6512007);
- DIR:OUT; SFP:1102; SCL:1; SRVR:CY4PR15MB1542;
- H:CY4PR15MB1269.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: oZ6D0Y37FrPBnFhMOkxwqtOXUlMO9kIVatFoGE5hHidMfLsKii/s66CEN4JAiTv+9iZziHsZAv92+nxDLtQjhf4dBf25FADb4jljtJ4pCWkz6rTIemLTmOGbkPkJv4YvdMBSgN98HaXQmeSLplUkthDOvxdukXwK3U3BmX2GYmv98lXaP/64gukiagLpRRSxTYw0ZK3Vzkq41F/gaYpEdpgW72gKYVr8IH1zT5PEOveFWItPqEoUTBnEkImR83fqC1bzHtDGYC23kAgnrtnl1Five8JiPPAo0VYCm3dXkTZ9FZRmhHYHinTpw2PoiWzDr7DGeA6lUIZm1WM1JeSsBaG0NI46JQ49ElyrBp74OdNWVUr5LJmTAhH9Ba1kP1RDCOK8xW379LP7N4lFJ6IKo16dm+srmW0TzeYTQCdq99o=
-Content-Type: multipart/alternative;
- boundary="_000_2B1545B029CC4E8C85B5317A2E5AD5D9fbcom_"
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9dabba54-4949-44ab-2b84-08d6b17658f8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 25 Mar 2019 23:05:17.5219 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR15MB1542
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-25_13:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+ <2B1545B0-29CC-4E8C-85B5-317A2E5AD5D9@fb.com>
+In-Reply-To: <2B1545B0-29CC-4E8C-85B5-317A2E5AD5D9@fb.com>
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Tue, 26 Mar 2019 09:01:57 +0800
+Message-ID: <CAG9c7cC3iWdQizTEthsM3J-BjSxJV_Btioz+WM_owYhsLo6HjA@mail.gmail.com>
+Subject: Re: Some problems about FruDevice in the entity-manager
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: James Feist <james.feist@linux.intel.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000ddbce40584f4de1b"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,167 +67,353 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 25 Mar 2019 23:05:30 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 01:02:15 -0000
 
---_000_2B1545B029CC4E8C85B5317A2E5AD5D9fbcom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+--000000000000ddbce40584f4de1b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgSGVuYmluLA0KSSBhbSBhc3N1bWluZyB5b3VyIGRldmljZSBpcyAxNiBiaXQgYW5kIGluIHlv
-dXIgbGFzdCBlbWFpbCB5b3Ugc2FpZCAxNmJpdCBjaGVjayBpcyBmYWlsaW5nLiBJZiB0aGF0IGNo
-ZWNrIGZhaWxzIHRoZW4gZm9sbG93aW5nIGNvZGUgd2lsbCBub3QgZ2V0IGV4ZWN1dGVkLiBBbHNv
-IHdoaWxlIGxvb3AgaXMgc2FtZSBhcyBpMmNfc21idXNfcmVhZF9pMmNfYmxvY2tfZGF0YSgpLg0K
-DQpJIHdvdWxkIHN1Z2dlc3Qgb25lIHRoaW5nLCBpZiB5b3VyIDE2Yml0IGNoZWNrIGlzIHBhc3Np
-bmcgYW5kIHN0aWxsIHlvdSBkb27igJl0IHNlZSBmcnUgZGV2aWNlLCBwbGVhc2UgbWFrZSBvbmx5
-IG9uZSBsaW5lIGNoYW5nZSBiZWxvdyBhbmQgdGVzdC4NCiAgICBpbnQgcmV0ID0gaTJjX3NtYnVz
-X3dyaXRlX2J5dGVfZGF0YShmaWxlLCBoaWdoX2FkZHIsIGxvd19hZGRyKTsNCiAgICAvL2ludCBy
-ZXQgPSBpMmNfc21idXNfd3JpdGVfYnl0ZV9kYXRhKGZpbGUsIDAsIGxvd19hZGRyKTsNCg0KUGxl
-YXNlIGxldCBtZSBrbm93IHJlc3VsdC4NCg0KUmVnYXJkcw0KLVZpamF5DQoNCg0KRnJvbTogSGVu
-YmluIENoYW5nIDxoZW5iaW5jaGFuZ0BnbWFpbC5jb20+DQpEYXRlOiBTdW5kYXksIE1hcmNoIDI0
-LCAyMDE5IGF0IDY6MzkgUE0NClRvOiBWaWpheSBLaGVta2EgPHZpamF5a2hlbWthQGZiLmNvbT4N
-CkNjOiBKYW1lcyBGZWlzdCA8amFtZXMuZmVpc3RAbGludXguaW50ZWwuY29tPiwgT3BlbkJNQyBN
-YWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IFNvbWUgcHJv
-YmxlbXMgYWJvdXQgRnJ1RGV2aWNlIGluIHRoZSBlbnRpdHktbWFuYWdlcg0KDQpUaGFua3MgZm9y
-IHlvdXIgcmVzcG9uc2UuDQoNCkkgYWxzbyBlbmNvdW50ZXJlZCBhbm90aGVyIHByb2JsZW0uDQoN
-ClRoYXQncywgIEkgZm91bmQgdGhlIGNvbnRlbnQgb2YgMTYtYml0IEVFUFJPTSB0aHJvdWdoIHRo
-ZSBjb21iaW5hdGlvbiBvZiB0aGUgU01CVVMgQVBJcyB3YXMgbm90IGluY29ycmVjdC4NCg0KICAg
-IC8qIFRoaXMgaXMgZm9yIDE2IGJpdCBhZGRyZXNzaW5nIEVFUFJPTSBkZXZpY2UuIEZpcnN0IGFu
-IG9mZnNldA0KICAgICAqIG5lZWRzIHRvIGJlIHdyaXR0ZW4gYmVmb3JlIHJlYWQgZGF0YSBmcm9t
-IGEgb2Zmc2V0DQogICAgICovDQogICAgaW50IHJldCA9IGkyY19zbWJ1c193cml0ZV9ieXRlX2Rh
-dGEoZmlsZSwgMCwgbG93X2FkZHIpOw0KICAgIGlmIChyZXQgPCAwKQ0KICAgIHsNCiAgICAgICAg
-cmV0dXJuIHJldDsNCiAgICB9DQoNCiAgICByZXR1cm4gaTJjX3NtYnVzX3JlYWRfaTJjX2Jsb2Nr
-X2RhdGEoZmlsZSwgaGlnaF9hZGRyLCBsZW4sIGJ1Zik7DQoNClNvIEkgcmVmZXJyZWQgdG8gaTJj
-LXRvb2xzIHRvIG1vZGlmeSB0aGVtLg0KQW5kIHRoZW4gSSBjb3VsZCBzZWUgbXkgRlJVIHVuZGVy
-IHRoZSB0cmVlIG9mICd4eXovb3BlbmJtY19wcm9qZWN0L0ZydURldmljZS8nDQoNCiAgICBpbnQg
-cmV0ID0gaTJjX3NtYnVzX3dyaXRlX2J5dGVfZGF0YShmaWxlLCBoaWdoX2FkZHIsIGxvd19hZGRy
-KTsNCiAgICAvL2ludCByZXQgPSBpMmNfc21idXNfd3JpdGVfYnl0ZV9kYXRhKGZpbGUsIDAsIGxv
-d19hZGRyKTsNCiAgICBpZiAocmV0IDwgMCkNCiAgICB7DQogICAgICAgIHJldHVybiByZXQ7DQog
-ICAgfQ0KICAgIHdoaWxlIChpbmRleCA8IGxlbil7DQpidWZbaW5kZXhdID0gaTJjX3NtYnVzX3Jl
-YWRfYnl0ZShmaWxlKTsNCmluZGV4Kys7DQogICAgfQ0KDQogICAgLy9yZXR1cm4gaTJjX3NtYnVz
-X3JlYWRfaTJjX2Jsb2NrX2RhdGEoZmlsZSwgaGlnaF9hZGRyLCBsZW4sIGJ1Zik7DQogICAgcmV0
-dXJuIGxlbjsNCg0KTGV0IG1lIGtub3cgaWYgeW91IGhhdmUgYW55IGNvbW1lbnRzLg0KDQpUaGFu
-a3MuDQo=
+Hi Vijay,
+Currently, I bypass the 8/16bit checking to try dbus-sensor.
 
---_000_2B1545B029CC4E8C85B5317A2E5AD5D9fbcom_
-Content-Type: text/html; charset="utf-8"
-Content-ID: <7D1DE7F944C47640AD8E32E2DD95B3F8@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+I just followed your suggestion and only changed the one line.
+But I couldn't find the fru device under the tree of
+/xyz/openbmc_project/FruDevice/
 
-PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
-bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
-dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
-dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
-dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
-dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
-bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
-ZQ0KCXtmb250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2
-IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToy
-IDE1IDUgMiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3Jt
-YWwsIGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1i
-b3R0b206LjAwMDFwdDsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJp
-IixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXBy
-aW9yaXR5Ojk5Ow0KCWNvbG9yOiMwNTYzQzE7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
-DQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9y
-aXR5Ojk5Ow0KCWNvbG9yOiM5NTRGNzI7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQpw
-Lm1zb25vcm1hbDAsIGxpLm1zb25vcm1hbDAsIGRpdi5tc29ub3JtYWwwDQoJe21zby1zdHlsZS1u
-YW1lOm1zb25vcm1hbDsNCgltc28tbWFyZ2luLXRvcC1hbHQ6YXV0bzsNCgltYXJnaW4tcmlnaHQ6
-MGluOw0KCW1zby1tYXJnaW4tYm90dG9tLWFsdDphdXRvOw0KCW1hcmdpbi1sZWZ0OjBpbjsNCglm
-b250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmO30NCnNw
-YW4uRW1haWxTdHlsZTE4DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQt
-ZmFtaWx5OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOndpbmRvd3RleHQ7fQ0KLk1zb0No
-cERlZmF1bHQNCgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1zaXplOjEwLjBw
-dDt9DQpAcGFnZSBXb3JkU2VjdGlvbjENCgl7c2l6ZTo4LjVpbiAxMS4waW47DQoJbWFyZ2luOjEu
-MGluIDEuMGluIDEuMGluIDEuMGluO30NCmRpdi5Xb3JkU2VjdGlvbjENCgl7cGFnZTpXb3JkU2Vj
-dGlvbjE7fQ0KLS0+PC9zdHlsZT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSIj
-MDU2M0MxIiB2bGluaz0iIzk1NEY3MiI+DQo8ZGl2IGNsYXNzPSJXb3JkU2VjdGlvbjEiPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+SGkgSGVuYmluLDxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+SSBhbSBhc3N1bWluZyB5b3VyIGRldmljZSBpcyAxNiBiaXQgYW5kIGluIHlvdXIg
-bGFzdCBlbWFpbCB5b3Ugc2FpZCAxNmJpdCBjaGVjayBpcyBmYWlsaW5nLiBJZiB0aGF0IGNoZWNr
-IGZhaWxzIHRoZW4gZm9sbG93aW5nIGNvZGUgd2lsbCBub3QgZ2V0IGV4ZWN1dGVkLiBBbHNvIHdo
-aWxlIGxvb3AgaXMgc2FtZSBhcyBpMmNfc21idXNfcmVhZF9pMmNfYmxvY2tfZGF0YSgpLg0KPG86
-cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4N
-CjxwIGNsYXNzPSJNc29Ob3JtYWwiPkkgd291bGQgc3VnZ2VzdCBvbmUgdGhpbmcsIGlmIHlvdXIg
-MTZiaXQgY2hlY2sgaXMgcGFzc2luZyBhbmQgc3RpbGwgeW91IGRvbuKAmXQgc2VlIGZydSBkZXZp
-Y2UsIHBsZWFzZSBtYWtlIG9ubHkgb25lIGxpbmUgY2hhbmdlIGJlbG93IGFuZCB0ZXN0LjxvOnA+
-PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7ICZuYnNwOyBpbnQgcmV0ID0g
-aTJjX3NtYnVzX3dyaXRlX2J5dGVfZGF0YShmaWxlLCBoaWdoX2FkZHIsIGxvd19hZGRyKTs8bzpw
-PjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOyAmbmJzcDsgLy9pbnQgcmV0
-ID0gaTJjX3NtYnVzX3dyaXRlX2J5dGVfZGF0YShmaWxlLCAwLCBsb3dfYWRkcik7PG86cD48L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNs
-YXNzPSJNc29Ob3JtYWwiPlBsZWFzZSBsZXQgbWUga25vdyByZXN1bHQuPG86cD48L286cD48L3A+
-DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPlJlZ2FyZHM8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPi1W
-aWpheTxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286
-cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXYg
-c3R5bGU9ImJvcmRlcjpub25lO2JvcmRlci10b3A6c29saWQgI0I1QzRERiAxLjBwdDtwYWRkaW5n
-OjMuMHB0IDBpbiAwaW4gMGluIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxzcGFuIHN0eWxl
-PSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5Gcm9tOiA8L3NwYW4+PC9iPjxzcGFuIHN0
-eWxlPSJmb250LXNpemU6MTIuMHB0O2NvbG9yOmJsYWNrIj5IZW5iaW4gQ2hhbmcgJmx0O2hlbmJp
-bmNoYW5nQGdtYWlsLmNvbSZndDs8YnI+DQo8Yj5EYXRlOiA8L2I+U3VuZGF5LCBNYXJjaCAyNCwg
-MjAxOSBhdCA2OjM5IFBNPGJyPg0KPGI+VG86IDwvYj5WaWpheSBLaGVta2EgJmx0O3ZpamF5a2hl
-bWthQGZiLmNvbSZndDs8YnI+DQo8Yj5DYzogPC9iPkphbWVzIEZlaXN0ICZsdDtqYW1lcy5mZWlz
-dEBsaW51eC5pbnRlbC5jb20mZ3Q7LCBPcGVuQk1DIE1haWxsaXN0ICZsdDtvcGVuYm1jQGxpc3Rz
-Lm96bGFicy5vcmcmZ3Q7PGJyPg0KPGI+U3ViamVjdDogPC9iPlJlOiBTb21lIHByb2JsZW1zIGFi
-b3V0IEZydURldmljZSBpbiB0aGUgZW50aXR5LW1hbmFnZXI8bzpwPjwvbzpwPjwvc3Bhbj48L3A+
-DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwv
-cD4NCjwvZGl2Pg0KPGRpdj4NCjxkaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
-YWwiPlRoYW5rcyBmb3IgeW91ciByZXNwb25zZS4gPG86cD48L286cD48L3A+DQo8ZGl2Pg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8
-cCBjbGFzcz0iTXNvTm9ybWFsIj5JIGFsc28gZW5jb3VudGVyZWQgYW5vdGhlciBwcm9ibGVtLjxv
-OnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4m
-bmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5UaGF0
-J3MsJm5ic3A7IEkgZm91bmQgdGhlIGNvbnRlbnQgb2YgMTYtYml0IEVFUFJPTSB0aHJvdWdoIHRo
-ZSZuYnNwO2NvbWJpbmF0aW9uIG9mIHRoZSBTTUJVUyBBUElzIHdhcyBub3QgaW5jb3JyZWN0Ljxv
-OnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PjxvOnA+Jm5ic3A7PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+Jm5ic3A7ICZuYnNwOyAvKiBUaGlzIGlzIGZvciAxNiBiaXQgYWRkcmVzc2luZyBFRVBST00g
-ZGV2aWNlLiBGaXJzdCBhbiBvZmZzZXQ8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxw
-IGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOyAmbmJzcDsgJm5ic3A7KiBuZWVkcyB0byBiZSB3cml0
-dGVuIGJlZm9yZSByZWFkIGRhdGEgZnJvbSBhIG9mZnNldDxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+
-DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7ICZuYnNwOyAmbmJzcDsqLzxvOnA+
-PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7ICZu
-YnNwOyBpbnQgcmV0ID0gaTJjX3NtYnVzX3dyaXRlX2J5dGVfZGF0YShmaWxlLCAwLCBsb3dfYWRk
-cik7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4m
-bmJzcDsgJm5ic3A7IGlmIChyZXQgJmx0OyAwKTxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7ICZuYnNwOyB7PG86cD48L286cD48L3A+DQo8
-L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgcmV0dXJuIHJldDs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNz
-PSJNc29Ob3JtYWwiPiZuYnNwOyAmbmJzcDsgfTxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2
-Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDsgJm5ic3A7IHJldHVybiBpMmNfc21idXNf
-cmVhZF9pMmNfYmxvY2tfZGF0YShmaWxlLCBoaWdoX2FkZHIsIGxlbiwgYnVmKTs8bzpwPjwvbzpw
-PjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4m
-bmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5TbyBJ
-IHJlZmVycmVkIHRvIGkyYy10b29scyB0byBtb2RpZnkgdGhlbS4mbmJzcDs8bzpwPjwvbzpwPjwv
-cD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkFuZCB0aGVuIEkgY291bGQg
-c2VlIG15IEZSVSB1bmRlciB0aGUgdHJlZSBvZiAneHl6L29wZW5ibWNfcHJvamVjdC9GcnVEZXZp
-Y2UvJzxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+
-PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
-b05vcm1hbCI+Jm5ic3A7ICZuYnNwOyBpbnQgcmV0ID0gaTJjX3NtYnVzX3dyaXRlX2J5dGVfZGF0
-YShmaWxlLCBoaWdoX2FkZHIsIGxvd19hZGRyKTs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRp
-dj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOyAmbmJzcDsgLy9pbnQgcmV0ID0gaTJjX3Nt
-YnVzX3dyaXRlX2J5dGVfZGF0YShmaWxlLCAwLCBsb3dfYWRkcik7PG86cD48L286cD48L3A+DQo8
-L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDsgJm5ic3A7IGlmIChyZXQg
-Jmx0OyAwKTxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+Jm5ic3A7ICZuYnNwOyB7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgcmV0dXJuIHJldDs8bzpw
-PjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOyAm
-bmJzcDsgfTxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+Jm5ic3A7ICZuYnNwOyB3aGlsZSAoaW5kZXggJmx0OyBsZW4pezxvOnA+PC9vOnA+PC9wPg0K
-PC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+YnVmW2luZGV4XSA9IGkyY19zbWJ1
-c19yZWFkX2J5dGUoZmlsZSk7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFz
-cz0iTXNvTm9ybWFsIj5pbmRleCYjNDM7JiM0Mzs7PG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxk
-aXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDsgJm5ic3A7IH08bzpwPjwvbzpwPjwvcD4N
-CjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxvOnA+Jm5ic3A7PC9vOnA+PC9w
-Pg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7ICZuYnNwOyAvL3Jl
-dHVybiBpMmNfc21idXNfcmVhZF9pMmNfYmxvY2tfZGF0YShmaWxlLCBoaWdoX2FkZHIsIGxlbiwg
-YnVmKTs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwi
-PiZuYnNwOyAmbmJzcDsgcmV0dXJuIGxlbjs8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+
-DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rp
-dj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5MZXQgbWUga25vdyBpZiB5b3UgaGF2ZSBh
-bnkgY29tbWVudHMuPG86cD48L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJN
-c29Ob3JtYWwiPlRoYW5rcy48bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4N
-CjwvZGl2Pg0KPC9kaXY+DQo8L2Rpdj4NCjwvYm9keT4NCjwvaHRtbD4NCg==
+There was the below error message in the journal.
+Mar 26 08:17:56 henbin fru-device[1111]: failed to format fru for device at
+bus 6address 50
 
---_000_2B1545B029CC4E8C85B5317A2E5AD5D9fbcom_--
+Please let me know if you want to try other.
+
+BRs.
+Henbin.
+
+Vijay Khemka <vijaykhemka@fb.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=8826=E6=97=
+=A5 =E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=887:05=E5=AF=AB=E9=81=93=EF=BC=9A
+
+> Hi Henbin,
+>
+> I am assuming your device is 16 bit and in your last email you said 16bit
+> check is failing. If that check fails then following code will not get
+> executed. Also while loop is same as i2c_smbus_read_i2c_block_data().
+>
+>
+>
+> I would suggest one thing, if your 16bit check is passing and still you
+> don=E2=80=99t see fru device, please make only one line change below and =
+test.
+>
+>     int ret =3D i2c_smbus_write_byte_data(file, high_addr, low_addr);
+>
+>     //int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
+>
+>
+>
+> Please let me know result.
+>
+>
+>
+> Regards
+>
+> -Vijay
+>
+>
+>
+>
+>
+> *From: *Henbin Chang <henbinchang@gmail.com>
+> *Date: *Sunday, March 24, 2019 at 6:39 PM
+> *To: *Vijay Khemka <vijaykhemka@fb.com>
+> *Cc: *James Feist <james.feist@linux.intel.com>, OpenBMC Maillist <
+> openbmc@lists.ozlabs.org>
+> *Subject: *Re: Some problems about FruDevice in the entity-manager
+>
+>
+>
+> Thanks for your response.
+>
+>
+>
+> I also encountered another problem.
+>
+>
+>
+> That's,  I found the content of 16-bit EEPROM through the combination of
+> the SMBUS APIs was not incorrect.
+>
+>
+>
+>     /* This is for 16 bit addressing EEPROM device. First an offset
+>
+>      * needs to be written before read data from a offset
+>
+>      */
+>
+>     int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
+>
+>     if (ret < 0)
+>
+>     {
+>
+>         return ret;
+>
+>     }
+>
+>
+>
+>     return i2c_smbus_read_i2c_block_data(file, high_addr, len, buf);
+>
+>
+>
+> So I referred to i2c-tools to modify them.
+>
+> And then I could see my FRU under the tree of
+> 'xyz/openbmc_project/FruDevice/'
+>
+>
+>
+>     int ret =3D i2c_smbus_write_byte_data(file, high_addr, low_addr);
+>
+>     //int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
+>
+>     if (ret < 0)
+>
+>     {
+>
+>         return ret;
+>
+>     }
+>
+>     while (index < len){
+>
+> buf[index] =3D i2c_smbus_read_byte(file);
+>
+> index++;
+>
+>     }
+>
+>
+>
+>     //return i2c_smbus_read_i2c_block_data(file, high_addr, len, buf);
+>
+>     return len;
+>
+>
+>
+> Let me know if you have any comments.
+>
+>
+>
+> Thanks.
+>
+
+--000000000000ddbce40584f4de1b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi Vija=
+y,</div><div>Currently, I bypass the 8/16bit checking to try dbus-sensor.</=
+div><div><br></div><div>I just followed your suggestion and only changed th=
+e one line.</div><div>But I couldn&#39;t find the fru device under the tree=
+ of /xyz/openbmc_project/FruDevice/</div><div><br></div><div>There was the =
+below error message in the journal.</div><div><div>Mar 26 08:17:56 henbin f=
+ru-device[1111]: failed to format fru for device at bus 6address 50<br></di=
+v></div><div><br></div><div>Please let me know if you want to try other.</d=
+iv><div><br></div><div>BRs.</div><div>Henbin.</div><div><br></div><div clas=
+s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Vijay Khemka &lt;<a=
+ href=3D"mailto:vijaykhemka@fb.com">vijaykhemka@fb.com</a>&gt; =E6=96=BC 20=
+19=E5=B9=B43=E6=9C=8826=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=887:05=
+=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" styl=
+e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
+g-left:1ex">
+
+
+
+
+
+<div lang=3D"EN-US">
+<div class=3D"gmail-m_-6690780380188087163WordSection1">
+<p class=3D"MsoNormal">Hi Henbin,<u></u><u></u></p>
+<p class=3D"MsoNormal">I am assuming your device is 16 bit and in your last=
+ email you said 16bit check is failing. If that check fails then following =
+code will not get executed. Also while loop is same as i2c_smbus_read_i2c_b=
+lock_data(). <u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">I would suggest one thing, if your 16bit check is pa=
+ssing and still you don=E2=80=99t see fru device, please make only one line=
+ change below and test.<u></u><u></u></p>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
+file, high_addr, low_addr);<u></u><u></u></p>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 //int ret =3D i2c_smbus_write_byte_dat=
+a(file, 0, low_addr);<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Please let me know result.<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal">Regards<u></u><u></u></p>
+<p class=3D"MsoNormal">-Vijay<u></u><u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
+top:1pt solid rgb(181,196,223);padding:3pt 0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:12pt;color:black">From: =
+</span></b><span style=3D"font-size:12pt;color:black">Henbin Chang &lt;<a h=
+ref=3D"mailto:henbinchang@gmail.com" target=3D"_blank">henbinchang@gmail.co=
+m</a>&gt;<br>
+<b>Date: </b>Sunday, March 24, 2019 at 6:39 PM<br>
+<b>To: </b>Vijay Khemka &lt;<a href=3D"mailto:vijaykhemka@fb.com" target=3D=
+"_blank">vijaykhemka@fb.com</a>&gt;<br>
+<b>Cc: </b>James Feist &lt;<a href=3D"mailto:james.feist@linux.intel.com" t=
+arget=3D"_blank">james.feist@linux.intel.com</a>&gt;, OpenBMC Maillist &lt;=
+<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists=
+.ozlabs.org</a>&gt;<br>
+<b>Subject: </b>Re: Some problems about FruDevice in the entity-manager<u><=
+/u><u></u></span></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<div>
+<div>
+<div>
+<p class=3D"MsoNormal">Thanks for your response. <u></u><u></u></p>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">I also encountered another problem.<u></u><u></u></p=
+>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">That&#39;s,=C2=A0 I found the content of 16-bit EEPR=
+OM through the=C2=A0combination of the SMBUS APIs was not incorrect.<u></u>=
+<u></u></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 /* This is for 16 bit addressing EEPRO=
+M device. First an offset<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0* needs to be written before rea=
+d data from a offset<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0*/<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
+file, 0, low_addr);<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 if (ret &lt; 0)<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 {<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<u></u><u></u=
+></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 return i2c_smbus_read_i2c_block_data(f=
+ile, high_addr, len, buf);<u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">So I referred to i2c-tools to modify them.=C2=A0<u><=
+/u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">And then I could see my FRU under the tree of &#39;x=
+yz/openbmc_project/FruDevice/&#39;<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
+file, high_addr, low_addr);<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 //int ret =3D i2c_smbus_write_byte_dat=
+a(file, 0, low_addr);<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 if (ret &lt; 0)<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 {<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<u></u><u></u=
+></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 while (index &lt; len){<u></u><u></u><=
+/p>
+</div>
+<div>
+<p class=3D"MsoNormal">buf[index] =3D i2c_smbus_read_byte(file);<u></u><u><=
+/u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">index++;<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 //return i2c_smbus_read_i2c_block_data=
+(file, high_addr, len, buf);<u></u><u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">=C2=A0 =C2=A0 return len;<u></u><u></u></p>
+</div>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Let me know if you have any comments.<u></u><u></u><=
+/p>
+</div>
+<div>
+<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
+</div>
+<div>
+<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</blockquote></div></div></div></div>
+
+--000000000000ddbce40584f4de1b--
