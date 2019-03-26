@@ -1,60 +1,62 @@
-Return-Path: <prvs=98122a04e=George.Hung@quantatw.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=98122a04e=george.hung@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::d29; helo=mail-io1-xd29.google.com;
+ envelope-from=tmaimon77@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44T1mP1MkyzDqC5
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 17:43:15 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx01.quantatw.com with ESMTP; 26 Mar 2019 14:43:12 +0800
-Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 26 Mar
- 2019 14:43:12 +0800
-Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
- mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
- 15.01.1713.004; Tue, 26 Mar 2019 14:43:11 +0800
-From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, "emilyshaffer@google.com"
- <emilyshaffer@google.com>, "benjaminfair@google.com"
- <benjaminfair@google.com>
-CC: =?big5?B?UmljaGFyZCBUdW5nICi4s6vbq8wp?= <Richard.Tung@quantatw.com>,
- =?big5?B?QnVkZHkgSHVhbmcgKLbApNHCRSk=?= <Buddy.Huang@quantatw.com>,
- =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>,
- =?big5?B?RnJhbiBIc3UgKK59u3jBvik=?= <Fran.Hsu@quantatw.com>
-Subject: RE: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
- value of getScaledIPMIValue
-Thread-Topic: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
- value of getScaledIPMIValue
-Thread-Index: AQHU4QGW23iVmLiBAkad5ZbdqduRt6YboDCQgAHaCKA=
-Date: Tue, 26 Mar 2019 06:43:11 +0000
-Message-ID: <1493589c638b4fa2868b1f0a8612e3ad@quantatw.com>
-References: <31685a6a49d14c1ea599921946d9eb49@quantatw.com>
- <2509b486-bca6-1a2c-50a2-4d4a9992db18@linux.intel.com> 
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
-x-tm-as-result: No--20.577300-0.000000-31
-x-tm-as-matchedid: 140026-150567-701625-704425-700685-700949-780030-702358-1
- 87056-701249-705718-704421-780022-701236-701506-705388-700767-188019-706290
- -703674-704341-707415-710739-700862-709251-700476-700693-700107-704751-7024
- 23-106580-121133-863519-301328-139006-700724-700308-712209-712203-106660-70
- 9584-711900-702807-702020-704568-700648-187067-703041-706564-700075-139010-
- 700752-707410-700038-703283-707788-708797-702598-701604-711664-105250-70517
- 8-701914-105700-139703-703454-106230-105630-710970-701837-701395-390299-148
- 004-148133-20043-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZNdmyCaG"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd29.google.com (mail-io1-xd29.google.com
+ [IPv6:2607:f8b0:4864:20::d29])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44T9343VY1zDqHg
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 23:11:27 +1100 (AEDT)
+Received: by mail-io1-xd29.google.com with SMTP id f6so10540995iop.3
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 05:11:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=tq+iFEj70yf/Zij+14A0S7bVMe4ODnBFcePKRW8W82U=;
+ b=ZNdmyCaGWY4z4BnHwCBLX8lbhgXO0cZu6PIQPYAoc3W9K+8olAdAFO1tZMuDSqdrRF
+ 43nxlMessLKa1xyjsUj+x+0Q3BlEVkHT65Uf2NRtlcc5cayIzAB2m5hLGDqwcHXUJtzu
+ 0CtNJ4k5TorNMpW49Bqw8coWgbsSZ8XtaIBWmSr9AknZcS1PL5msHO33gKsA8LOd7Uvo
+ RwCPXwvMpxka9AbF28ZzHHqMmQisB6Vw4c+/MB0Vf93751DmVNCH5RQhbEPSYQGvd8Wo
+ Xjnxd+TVPfqoPnR0lsVysMxK0XytyWhUkmnAc3TK2M/ot9hkIBdeoWONqFp4yxdVOBAV
+ 4FHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=tq+iFEj70yf/Zij+14A0S7bVMe4ODnBFcePKRW8W82U=;
+ b=fHNHGheXdpYSgqKaMjmmsDTaoGoVPzL1TmSpo2g2m8sW+3NQA+nf24SSctNr1zifH3
+ weEaGFXjl95uDzGpEpVWa2TLMSKNv95HX4x4/eIZ/rxk1Z8i5UQMaGFoe49MfIm4h/RI
+ waNMtaAz6/V11MJG6EMMf+5U+NlBgB5RMdFG7jMqX4WMg+DwXClaIDCl484pyoVwLxbX
+ QFxoRqxB91t61wPVu9nC19uKk6QeaIcNHIT8j8GNzt6GpQyGOl3HmVR500JFLddGy2MN
+ 1uks3kLuz3HBxTOwh8o7/nBqT3hngLgshHx9HfX2dv1vyj8dHS2xypGGu0jLVyDYLZ5C
+ pRLA==
+X-Gm-Message-State: APjAAAVz20p8pwtQ3hwsBP5tIlpWJ9bQiI77YSYEerRY9rSD6Qetz7jW
+ a0XeMWYOzvKb0UYts+72ItcDqizP1s5f/hP3+3c=
+X-Google-Smtp-Source: APXvYqwapJe37jE/4lhBc6kH1tXAFjrIeaB0k/BUQ460dna8oMa+kbNG6v5UGJn3iIaj3pBlWrAErH47zmpIn3B1zDI=
+X-Received: by 2002:a5e:981a:: with SMTP id s26mr1897434ioj.90.1553602282436; 
+ Tue, 26 Mar 2019 05:11:22 -0700 (PDT)
 MIME-Version: 1.0
+References: <7cd8d12f59bcacd18a78f599b46dac555f7f16c0.camel@perches.com>
+ <20190325212446.25795-1-joe@perches.com>
+In-Reply-To: <20190325212446.25795-1-joe@perches.com>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Tue, 26 Mar 2019 14:18:33 +0200
+Message-ID: <CAP6Zq1g62wiDTd9zn5dhwsfK6Rr52+ishU_=cO+G0Rm3Cs7kbQ@mail.gmail.com>
+Subject: Re: Bad file pattern in MAINTAINERS section 'ARM/NUVOTON NPCM
+ ARCHITECTURE'
+To: Joe Perches <joe@perches.com>
+Cc: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, 
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+ Brendan Higgins <brendanhiggins@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Arnd Bergmann <arnd@arndb.de>
+Content-Type: multipart/alternative; boundary="0000000000002ac0b30584fe381f"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,129 +68,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 06:43:18 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 12:11:29 -0000
 
-SGkgYWxsLA0KDQpTb3JyeSBmb3IgdGhlIHByZXZpb3VzIG1haWwsIEkgc2hvdWxkIG5vdCB1c2Ug
-dGhlIGF0dGFjaGVkIGZpbGUgZm9yIHRoZSBtYWlsaW5nIGxpc3QuIEkgcmUtZGVzY3JpYmUgd2hh
-dCB3ZSB3b3VsZCBsaWtlIHRvIGRvOg0KDQpDdXJyZW50bHkgcGhvc3Bob3Itc2VsLWxvZ2dlciBz
-dXBwb3J0IGhhbmRsZXMgb25seSBkb3VibGUgc3R5bGUgc2Vuc29ycywgYW5kIHdlIHdvdWxkIGxp
-a2UgdG8gYWRkIGJvdGggb2YgZG91YmxlIGFuZCBpbjY0IHN1cHBvcnQgZm9yIHBob3NwaG9yLXNl
-bC1sb2dnZXIuDQoNCkJ1dCBJJ20gbm90IHN1cmUgbXkgY2hhbmdlIGlzIE9LIGFuZCBwb3N0IG15
-IG1vZGlmaWNhdGlvbiBhcyBmb2xsb3dzIGZpcnN0OiAgKG1ha2luZyBzZWwtbG9nZ2VyIHdvcmsg
-d2l0aCBpbnQ2NCBhbmQgZG91YmxlLikNCg0KZGlmZiAtLWdpdCBhL2luY2x1ZGUvdGhyZXNob2xk
-X2V2ZW50X21vbml0b3IuaHBwIGIvaW5jbHVkZS90aHJlc2hvbGRfZXZlbnRfbW9uaXRvci5ocHAN
-CmluZGV4IDkzNTI4MDUuLjAwZGJhMzIgMTAwNjQ0DQotLS0gYS9pbmNsdWRlL3RocmVzaG9sZF9l
-dmVudF9tb25pdG9yLmhwcA0KKysrIGIvaW5jbHVkZS90aHJlc2hvbGRfZXZlbnRfbW9uaXRvci5o
-cHANCkBAIC0xMTUsNyArMTE1LDcgQEAgaW5saW5lIHN0YXRpYyBzZGJ1c3BsdXM6OmJ1czo6bWF0
-Y2g6Om1hdGNoIHN0YXJ0VGhyZXNob2xkRXZlbnRNb25pdG9yKA0KICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAib3JnLmZyZWVkZXNrdG9wLkRCdXMuUHJvcGVydGllcyIsICJHZXRB
-bGwiKTsNCiAgICAgICAgIGdldFNlbnNvclZhbHVlLmFwcGVuZCgieHl6Lm9wZW5ibWNfcHJvamVj
-dC5TZW5zb3IuVmFsdWUiKTsNCiAgICAgICAgIGJvb3N0Ojpjb250YWluZXI6OmZsYXRfbWFwPHN0
-ZDo6c3RyaW5nLA0KLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgc2RidXNwbHVz
-OjptZXNzYWdlOjp2YXJpYW50PGRvdWJsZT4+DQorICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnQ8ZG91YmxlLCBpbnQ2NF90Pj4NCiAg
-ICAgICAgICAgICBzZW5zb3JWYWx1ZTsNCiAgICAgICAgIHRyeQ0KICAgICAgICAgew0KQEAgLTEz
-NSw2ICsxMzUsMTQgQEAgaW5saW5lIHN0YXRpYyBzZGJ1c3BsdXM6OmJ1czo6bWF0Y2g6Om1hdGNo
-IHN0YXJ0VGhyZXNob2xkRXZlbnRNb25pdG9yKA0KICAgICAgICAgICAgIGlwbWk6OlZhcmlhbnRU
-b0RvdWJsZVZpc2l0b3IoKSwgc2Vuc29yVmFsdWVbIk1pblZhbHVlIl0pOw0KICAgICAgICAgZG91
-YmxlIHNlbnNvclZhbCA9IHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudF9uczo6dmlzaXQoDQog
-ICAgICAgICAgICAgaXBtaTo6VmFyaWFudFRvRG91YmxlVmlzaXRvcigpLCBzZW5zb3JWYWx1ZVsi
-VmFsdWUiXSk7DQorICAgICAgICBkb3VibGUgc2NhbGUgPSAwOw0KKyAgICAgICAgaWYoc2RidXNw
-bHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjpnZXRfaWY8aW50NjRfdD4oDQorICAgICAgICAgICAm
-c2Vuc29yVmFsdWVbIlZhbHVlIl0pKQ0KKyAgICAgICAgew0KKyAgICAgICAgICAgIHNjYWxlID0g
-c2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgNCisgICAgICAgICAgICAgICAg
-aXBtaTo6VmFyaWFudFRvRG91YmxlVmlzaXRvcigpLCBzZW5zb3JWYWx1ZVsiU2NhbGUiXSk7DQor
-ICAgICAgICAgICAgc2Vuc29yVmFsICo9IHN0ZDo6cG93KDEwLCBzY2FsZSk7DQorICAgICAgICB9
-DQogICAgICAgICB0cnkNCiAgICAgICAgIHsNCiAgICAgICAgICAgICBldmVudERhdGFbMV0gPSBp
-cG1pOjpnZXRTY2FsZWRJUE1JVmFsdWUoc2Vuc29yVmFsLCBtYXgsIG1pbik7DQpAQCAtMTU4LDcg
-KzE2Niw3IEBAIGlubGluZSBzdGF0aWMgc2RidXNwbHVzOjpidXM6Om1hdGNoOjptYXRjaCBzdGFy
-dFRocmVzaG9sZEV2ZW50TW9uaXRvcigNCiAgICAgICAgICAgICBjb25uLT5uZXdfbWV0aG9kX2Nh
-bGwobXNnLmdldF9zZW5kZXIoKSwgbXNnLmdldF9wYXRoKCksDQogICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICJvcmcuZnJlZWRlc2t0b3AuREJ1cy5Qcm9wZXJ0aWVzIiwgIkdldCIp
-Ow0KICAgICAgICAgZ2V0VGhyZXNob2xkLmFwcGVuZCh0aHJlc2hvbGRJbnRlcmZhY2UsIGV2ZW50
-KTsNCi0gICAgICAgIHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudDxkb3VibGU+IHRocmVzaG9s
-ZFZhbHVlOw0KKyAgICAgICAgc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50PGRvdWJsZSwgaW50
-NjRfdD4gdGhyZXNob2xkVmFsdWU7DQogICAgICAgICB0cnkNCiAgICAgICAgIHsNCiAgICAgICAg
-ICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6Om1lc3NhZ2UgZ2V0VGhyZXNob2xkUmVzcCA9DQpAQCAt
-MTczLDYgKzE4MSwxMCBAQCBpbmxpbmUgc3RhdGljIHNkYnVzcGx1czo6YnVzOjptYXRjaDo6bWF0
-Y2ggc3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3IoDQogICAgICAgICB9DQogICAgICAgICBkb3Vi
-bGUgdGhyZXNob2xkVmFsID0gc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgN
-CiAgICAgICAgICAgICBpcG1pOjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHRocmVzaG9sZFZh
-bHVlKTsNCisgICAgICAgIGlmKHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudF9uczo6Z2V0X2lm
-PGludDY0X3Q+KCZ0aHJlc2hvbGRWYWx1ZSkpDQorICAgICAgICB7DQorICAgICAgICAgICAgdGhy
-ZXNob2xkVmFsICo9IHN0ZDo6cG93KDEwLCBzY2FsZSk7DQorICAgICAgICB9DQogICAgICAgICB0
-cnkNCiAgICAgICAgIHsNCiAgICAgICAgICAgICBldmVudERhdGFbMl0gPSBpcG1pOjpnZXRTY2Fs
-ZWRJUE1JVmFsdWUodGhyZXNob2xkVmFsLCBtYXgsIG1pbik7DQotLQ0KDQpJZiBpdCdzIE9LLCBJ
-IHdpbGwgcHVzaCB0aGUgcGF0Y2ggdG8gT3BlbkJNQyBHZXJyaXQuDQoNClRoYW5rcy4NCg0KQmVz
-dCBSZWdhcmQgDQpHZW9yZ2UgSHVuZw0KUmVzZWFyY2ggRGl2aXNpb24gLSBTb2Z0d2FyZSBFbmdp
-bmVlcg0KQ2xvdWQgQ29tcHV0aW5nIEJ1c2luZXNzIFVuaXQNClF1YW50YSBDb21wdXRlciBJbmMu
-DQpFeHQ6IDE2ODMwDQpFLU1haWwgOiBHZW9yZ2UuSHVuZ0BRdWFudGFUVy5jb20NCg0KDQotLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogR2VvcmdlIEh1bmcgKKx4qb63cSkgDQpTZW50
-OiBUdWVzZGF5LCBNYXJjaCAyNiwgMjAxOSAyOjI2IFBNDQpUbzogJ0JpbGxzLCBKYXNvbiBNJzsg
-T3BlbkJNQyBNYWlsbGlzdDsgZW1pbHlzaGFmZmVyQGdvb2dsZS5jb207IGJlbmphbWluZmFpckBn
-b29nbGUuY29tDQpDYzogUmljaGFyZCBUdW5nICi4s6vbq8wpOyBCdWRkeSBIdWFuZyAotsCk0cJF
-KTsgV2lsbCBMaWFuZyAoseelw7liKTsgRnJhbiBIc3UgKK59u3jBvikNClN1YmplY3Q6IFJFOiBb
-T3BlbkJNQ10gW3Bob3NwaG9yLXNlbC1sb2dnZXJdIFByb3BlcnR5IHR5cGUgY29udmVyc2lvbiBh
-bmQgdGhlIHZhbHVlIG9mIGdldFNjYWxlZElQTUlWYWx1ZQ0KDQpIaSBhbGwsDQogDQpDb25zaWRl
-cmluZyB0aGVyZSBhcmUgdHdvIHN0eWxlIG9mIHNlbnNvcnMgKHNjYWxlZCBpbnQ2NCBhbmQgZG91
-YmxlIHZhbHVlcykgZm9yIHNlbnNvciB2YWx1ZSBEQnVzIHByb3BlcnRpZXMsIHdlIHdvdWxkIGxp
-a2UgdG8gYWRkIGJvdGggb2YgdGhlbSBzdXBwb3J0IGZvciBwaG9zcGhvci1zZWwtbG9nZ2VyLg0K
-DQpUaGUgYXR0YWNoZWQgZmlsZSBpcyB0aGUgcGF0Y2ggZm9yIG1ha2luZyBzZWwtbG9nZ2VyIHdv
-cmsgd2l0aCBpbnQ2NCBhbmQgZG91YmxlLg0KDQpJZiBpdCdzIE9LLCBJIHdpbGwgcHVzaCB0aGUg
-cGF0Y2ggdG8gT3BlbkJNQyBHZXJyaXQuDQoNCkhpIEphc29uLA0KDQpUaGFua3MgZm9yIHlvdXIg
-a2luZCBhZHZpY2VzLg0KDQpBYm91dCB0aGUgZmlyc3QgcXVlc3Rpb24gSSBtZW50aW9uZWQgYmVm
-b3JlLCAiVGhlIHNlbnNvciBEQnVzIHByb3BlcnRpZXMgLCChpy9NYXhWYWx1ZS9NaW5WYWx1ZS9W
-YWx1ZS+hqCBhcmUgYWx3YXlzIDAiLCBpdCdzIGJlY2F1c2UgdHlwZSBjb252ZXJzaW9uIGNhdXNl
-IGFsd2F5cyBnZXQgMCwgbm90IHRoZWlyIHZhbHVlcyBhcmUgaW52YWxpZC4gSSdtIHNvcnJ5IGZv
-ciBteSBjb25mdXNlZCBkZXNjcmlwdGlvbi4NCg0KDQpUaGFua3MuDQoNCkJlc3QgUmVnYXJkDQpH
-ZW9yZ2UgSHVuZw0KUmVzZWFyY2ggRGl2aXNpb24gLSBTb2Z0d2FyZSBFbmdpbmVlcg0KQ2xvdWQg
-Q29tcHV0aW5nIEJ1c2luZXNzIFVuaXQNClF1YW50YSBDb21wdXRlciBJbmMuDQpFeHQ6IDE2ODMw
-DQpFLU1haWwgOiBHZW9yZ2UuSHVuZ0BRdWFudGFUVy5jb20NCg0KLS0tLS1PcmlnaW5hbCBNZXNz
-YWdlLS0tLS0NCkZyb206IEJpbGxzLCBKYXNvbiBNIFttYWlsdG86amFzb24ubS5iaWxsc0BsaW51
-eC5pbnRlbC5jb21dDQpTZW50OiBTYXR1cmRheSwgTWFyY2ggMjMsIDIwMTkgNjo1MCBBTQ0KVG86
-IEdlb3JnZSBIdW5nICiseKm+t3EpDQpDYzogUmljaGFyZCBUdW5nICi4s6vbq8wpOyBCdWRkeSBI
-dWFuZyAotsCk0cJFKTsgV2lsbCBMaWFuZyAoseelw7liKTsgRnJhbiBIc3UgKK59u3jBvikNClN1
-YmplY3Q6IFJlOiBbT3BlbkJNQ10gW3Bob3NwaG9yLXNlbC1sb2dnZXJdIFByb3BlcnR5IHR5cGUg
-Y29udmVyc2lvbiBhbmQgdGhlIHZhbHVlIG9mIGdldFNjYWxlZElQTUlWYWx1ZQ0KDQpIaSBHZW9y
-Z2UsDQoNCkl0IGlzIGJldHRlciB0byBwb3N0IHRoZXNlIHR5cGVzIG9mIHF1ZXN0aW9ucyB0byB0
-aGUgZnVsbCBtYWlsaW5nIGxpc3QgYXMgSSBhbSBub3QgdGhlIHJpZ2h0IHBlcnNvbiB0byBhbnN3
-ZXIgYWxsIG9mIHRoZW0uDQoNCk9uIDMvMjIvMjAxOSAxMjoyMCBBTSwgR2VvcmdlIEh1bmcgKKx4
-qb63cSkgd3JvdGU6DQo+IEhpIEphc29uLA0KPiANCj4gU2luY2Ugb3VyIE9wZW5CTUMgcHJvamVj
-dCBuZWVkcyB0byBzdXBwb3J0IElQTUkgU0VMLCBJIHRyeSB0byB1c2UgDQo+IHBob3NwaG9yLXNl
-bC1sb2dnZXIgdG8gYWRkIG5ldyBJUE1JIFNFTCB0byBqb3VybmFsLCBidXQgSSBmb3VuZCBzb21l
-IA0KPiBpc3N1ZXMgbmVlZCB0byBkaXNjdXNzOg0KPiANCj4gMS5UaGUgc2Vuc29yIERCdXMgcHJv
-cGVydGllcyAsIKGnL01heFZhbHVlL01pblZhbHVlL1ZhbHVlL6GoIGFyZSBhbHdheXMNCj4gMA0K
-DQpUaGlzIG1lYW5zIHRoYXQgc29tZXRoaW5nIGlzIHdyb25nIGluIHRoZSBzZW5zb3IgY29uZmln
-dXJhdGlvbi4gIFRoZXNlIHZhbHVlcyBzaG91bGQgYWxsIGJlIHZhbGlkLg0KPiANCj4gMi5UaGUg
-L3ZhbHVlLyBwYXJhbWV0ZXIgb2YgL2dldFNjYWxlZElQTUlWYWx1ZS8gZnVuY3Rpb24gdXNlcyB0
-aGUgDQo+IHNjYWxlZCB2YWx1ZSwgbm90IGFjdHVhbCB2YWx1ZSwNCg0KVGhlIHRocmVzaG9sZCBl
-dmVudCBtb25pdG9yIGlzIGN1cnJlbnRseSBkZXNpZ25lZCB0byBtb25pdG9yIG9ubHkgdGhlIGRv
-dWJsZS1zdHlsZSBzZW5zb3JzIHRoYXQgc3RvcmUgdGhlIGFjdHVhbCB2YWx1ZS4NCj4gDQo+IGl0
-IG1heSBjYXVzZSB0aGUgcmVzdWx0IG9mIC9zY2FsZUlQTUlWYWx1ZUZyb21Eb3VibGUgL2Z1bmN0
-aW9uIGlzIA0KPiChp3ZhbHVlIG91dCBvZiByYW5nZaGoDQo+IA0KPiBBZnRlciB0cmFjaW5nIHRo
-ZSBjb2RlLCB3ZSBtYXkgZmluZCB0aGUgcm9vdCBjYXVzZSwgYnV0IG5lZWQgeW91ciBoZWxwIA0K
-PiB0byBjaGVjayBpZiBpdKGmcyB0aGUgY29ycmVjdCBmaXguIEkgbGlzdGVkIGFzIGZvbGxvd3M6
-DQo+IA0KPiAxLlRoZSBvcmlnaW5hbCB0eXBlIGRlY2xhcmF0aW9uIGlzDQo+IKGnc2RidXNwbHVz
-OjptZXNzYWdlOjp2YXJpYW50PGRvdWJsZT6hqCwgYnV0IHNob3VsZCBiZSANCj4goadzZGJ1c3Bs
-dXM6Om1lc3NhZ2U6OnZhcmlhbnQ8aW50NjRfdD6hqA0KDQpUaGVyZSBhcmUgdHdvIHN0eWxlcyBv
-ZiBzZW5zb3JzLCBvbmUgc3R5bGUgc3RvcmVzIHNjYWxlZCBpbnQ2NCB2YWx1ZXMgYW5kIGFub3Ro
-ZXIgc3R5bGUgc3RvcmVzIGFjdHVhbCBkb3VibGUgdmFsdWVzLiAgVGhlIHRocmVzaG9sZCBldmVu
-dCBtb25pdG9yIGN1cnJlbnRseSBoYW5kbGVzIG9ubHkgZG91YmxlIHN0eWxlIHNlbnNvcnMuDQoN
-CklmIHlvdSBuZWVkIHRvIHN1cHBvcnQgYm90aCBzdHlsZXMgb2Ygc2Vuc29ycywgeW91IGNhbiBs
-b29rIGhlcmUgZm9yIGFuIGV4YW1wbGUgdmlzaXRvciB0aGF0IGNhbiBoYW5kbGUgYm90aCBpbnQ2
-NCBhbmQgZG91YmxlOiANCmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3Bob3NwaG9yLXBpZC1j
-b250cm9sL2NvbW1pdC9jMDY1Y2YxYjE5NWY5Y2NkOGZlYTg4MmNlNzY0MTY0NzNkNGZlZTdjLg0K
-PiANCj4gMi5Nb2RpZnkgdG8gdXNlIGFjdHVhbCBzZW5zb3IgdmFsdWUgZm9yIKGnZ2V0U2NhbGVk
-SVBNSVZhbHVloaggZnVuY3Rpb24NCj4gDQo+IFRoZSBhdHRhY2hlZCBmaWxlIGlzIHRoZSBmaXgg
-cGF0Y2gsIGl0IHNob3VsZCBiZSBtb3JlIGNsZWFyLg0KPiANCj4gSWYgaXShpnMgdGhlIGNvcnJl
-Y3QgZml4LCB3aWxsIHlvdSBwYXRjaCB0byBPcGVuQk1DIEdlcnJpdCwgb3Igd2UgZG8gaXQgDQo+
-IGRpcmVjdGx5ID8NCg0KUGxlYXNlIGZlZWwgZnJlZSB0byBwdXNoIHlvdXIgcGF0Y2ggdG8gT3Bl
-bkJNQyBHZXJyaXQgZm9yIHJldmlldyBhbmQgZGlzY3Vzc2lvbi4NCj4gDQo+IEJUVywgdGhlIHBo
-b3NwaG9yLXNlbC1sb2dnZXIgc3VwcG9ydHMgYWRkIElQTUkgU0VMIHRvIGpvdXJuYWwsIGJ1dCAN
-Cj4gc2VlbXMgb25seSB0aHJlc2hvbGQtYmFzZWQgc2Vuc29yIGV2ZW50IGxvZ3MsIG5vIGRpc2Ny
-ZXRlIHNlbnNvcnMgZXZlbnQgbG9ncy4NCg0KVGhhdCBpcyBjb3JyZWN0Lg0KPiANCj4gSXMgdGhl
-cmUgYW55IHBsYW4gdG8gYWRkIGRpc2NyZXRlIHNlbnNvcnMgZXZlbnQgbG9ncyB0byANCj4gcGhv
-c3Bob3Itc2VsLWxvZ2dlciA/DQoNCkludGVsIHBsYW5zIHRvIG9ubHkgc3VwcG9ydCB0aHJlc2hv
-bGQgc2Vuc29yIGV2ZW50cyBpbiB0aGUgSVBNSSBTRUwuIA0KVGhlIHBob3NwaG9yLXNlbC1sb2dn
-ZXIgc2hvdWxkIGJlIGV4dGVuc2libGUgdG8gc3VwcG9ydCBhZGRpdGlvbmFsIHR5cGVzIG9mIGV2
-ZW50cy4NCg==
+--0000000000002ac0b30584fe381f
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Joe,
+
+Thanks for sending the notice.
+
+We will send a fix this week.
+
+Tomer
+
+On Mon, 25 Mar 2019 at 23:24, Joe Perches <joe@perches.com> wrote:
+
+> A file pattern line in this section of the MAINTAINERS file in linux-next
+> does not have a match in the linux source files.
+>
+> This could occur because a matching filename was never added, was deleted
+> or renamed in some other commit.
+>
+> The commits that added and if found renamed or removed the file pattern
+> are shown below.
+>
+> Please fix this defect appropriately.
+>
+> 1:
+> ---------------------------------------------------------------------------
+>
+> linux-next MAINTAINERS section:
+>
+>         1893    ARM/NUVOTON NPCM ARCHITECTURE
+>         1894    M:      Avi Fishman <avifishman70@gmail.com>
+>         1895    M:      Tomer Maimon <tmaimon77@gmail.com>
+>         1896    R:      Patrick Venture <venture@google.com>
+>         1897    R:      Nancy Yuen <yuenn@google.com>
+>         1898    R:      Brendan Higgins <brendanhiggins@google.com>
+>         1899    L:      openbmc@lists.ozlabs.org (moderated for
+> non-subscribers)
+>         1900    S:      Supported
+>         1901    F:      arch/arm/mach-npcm/
+>         1902    F:      arch/arm/boot/dts/nuvoton-npcm*
+> -->     1903    F:      include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+>         1904    F:      drivers/*/*npcm*
+>         1905    F:      Documentation/devicetree/bindings/*/*npcm*
+>         1906    F:      Documentation/devicetree/bindings/*/*/*npcm*
+>
+> 2:
+> ---------------------------------------------------------------------------
+>
+> The most recent commit that added or modified file pattern
+> 'include/dt-bindings/clock/nuvoton,npcm7xx-clks.h':
+>
+> commit 6a498e06ba22872d3a27cc0dae77b9314b1de48b
+> Author: Brendan Higgins <brendanhiggins@google.com>
+> Date:   Thu Aug 17 09:44:32 2017 -0700
+>
+>     MAINTAINERS: Add entry for the Nuvoton NPCM architecture
+>
+>     Add maintainers and reviewers for the Nuvoton NPCM architecture.
+>
+>     Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+>     Reviewed-by: Tomer Maimon <tmaimon77@gmail.com>
+>     Reviewed-by: Avi Fishman <avifishman70@gmail.com>
+>     Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>
+>  MAINTAINERS | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> 3:
+> ---------------------------------------------------------------------------
+>
+> No commit with file pattern
+> 'include/dt-bindings/clock/nuvoton,npcm7xx-clks.h' was found
+>
+
+--0000000000002ac0b30584fe381f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi Joe,<div><br></div><div>Thanks for sending the notice.<=
+/div><div><br></div><div>We will send a fix this week.</div><div><br></div>=
+<div>Tomer</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=
+=3D"gmail_attr">On Mon, 25 Mar 2019 at 23:24, Joe Perches &lt;<a href=3D"ma=
+ilto:joe@perches.com">joe@perches.com</a>&gt; wrote:<br></div><blockquote c=
+lass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px soli=
+d rgb(204,204,204);padding-left:1ex">A file pattern line in this section of=
+ the MAINTAINERS file in linux-next<br>
+does not have a match in the linux source files.<br>
+<br>
+This could occur because a matching filename was never added, was deleted<b=
+r>
+or renamed in some other commit.<br>
+<br>
+The commits that added and if found renamed or removed the file pattern<br>
+are shown below.<br>
+<br>
+Please fix this defect appropriately.<br>
+<br>
+1: ------------------------------------------------------------------------=
+---<br>
+<br>
+linux-next MAINTAINERS section:<br>
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1893=C2=A0 =C2=A0 ARM/NUVOTON NPCM ARCHITECTURE=
+<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1894=C2=A0 =C2=A0 M:=C2=A0 =C2=A0 =C2=A0 Avi Fi=
+shman &lt;<a href=3D"mailto:avifishman70@gmail.com" target=3D"_blank">avifi=
+shman70@gmail.com</a>&gt;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1895=C2=A0 =C2=A0 M:=C2=A0 =C2=A0 =C2=A0 Tomer =
+Maimon &lt;<a href=3D"mailto:tmaimon77@gmail.com" target=3D"_blank">tmaimon=
+77@gmail.com</a>&gt;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1896=C2=A0 =C2=A0 R:=C2=A0 =C2=A0 =C2=A0 Patric=
+k Venture &lt;<a href=3D"mailto:venture@google.com" target=3D"_blank">ventu=
+re@google.com</a>&gt;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1897=C2=A0 =C2=A0 R:=C2=A0 =C2=A0 =C2=A0 Nancy =
+Yuen &lt;<a href=3D"mailto:yuenn@google.com" target=3D"_blank">yuenn@google=
+.com</a>&gt;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1898=C2=A0 =C2=A0 R:=C2=A0 =C2=A0 =C2=A0 Brenda=
+n Higgins &lt;<a href=3D"mailto:brendanhiggins@google.com" target=3D"_blank=
+">brendanhiggins@google.com</a>&gt;<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1899=C2=A0 =C2=A0 L:=C2=A0 =C2=A0 =C2=A0 <a hre=
+f=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlab=
+s.org</a> (moderated for non-subscribers)<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1900=C2=A0 =C2=A0 S:=C2=A0 =C2=A0 =C2=A0 Suppor=
+ted<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1901=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 arch/a=
+rm/mach-npcm/<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1902=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 arch/a=
+rm/boot/dts/nuvoton-npcm*<br>
+--&gt;=C2=A0 =C2=A0 =C2=A01903=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 include/=
+dt-bindings/clock/nuvoton,npcm7xx-clks.h<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1904=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 driver=
+s/*/*npcm*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1905=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 Docume=
+ntation/devicetree/bindings/*/*npcm*<br>
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 1906=C2=A0 =C2=A0 F:=C2=A0 =C2=A0 =C2=A0 Docume=
+ntation/devicetree/bindings/*/*/*npcm*<br>
+<br>
+2: ------------------------------------------------------------------------=
+---<br>
+<br>
+The most recent commit that added or modified file pattern &#39;include/dt-=
+bindings/clock/nuvoton,npcm7xx-clks.h&#39;:<br>
+<br>
+commit 6a498e06ba22872d3a27cc0dae77b9314b1de48b<br>
+Author: Brendan Higgins &lt;<a href=3D"mailto:brendanhiggins@google.com" ta=
+rget=3D"_blank">brendanhiggins@google.com</a>&gt;<br>
+Date:=C2=A0 =C2=A0Thu Aug 17 09:44:32 2017 -0700<br>
+<br>
+=C2=A0 =C2=A0 MAINTAINERS: Add entry for the Nuvoton NPCM architecture<br>
+<br>
+=C2=A0 =C2=A0 Add maintainers and reviewers for the Nuvoton NPCM architectu=
+re.<br>
+<br>
+=C2=A0 =C2=A0 Signed-off-by: Brendan Higgins &lt;<a href=3D"mailto:brendanh=
+iggins@google.com" target=3D"_blank">brendanhiggins@google.com</a>&gt;<br>
+=C2=A0 =C2=A0 Reviewed-by: Tomer Maimon &lt;<a href=3D"mailto:tmaimon77@gma=
+il.com" target=3D"_blank">tmaimon77@gmail.com</a>&gt;<br>
+=C2=A0 =C2=A0 Reviewed-by: Avi Fishman &lt;<a href=3D"mailto:avifishman70@g=
+mail.com" target=3D"_blank">avifishman70@gmail.com</a>&gt;<br>
+=C2=A0 =C2=A0 Signed-off-by: Arnd Bergmann &lt;<a href=3D"mailto:arnd@arndb=
+.de" target=3D"_blank">arnd@arndb.de</a>&gt;<br>
+<br>
+=C2=A0MAINTAINERS | 14 ++++++++++++++<br>
+=C2=A01 file changed, 14 insertions(+)<br>
+<br>
+3: ------------------------------------------------------------------------=
+---<br>
+<br>
+No commit with file pattern &#39;include/dt-bindings/clock/nuvoton,npcm7xx-=
+clks.h&#39; was found<br>
+</blockquote></div>
+
+--0000000000002ac0b30584fe381f--
