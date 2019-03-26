@@ -1,61 +1,60 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <prvs=98122a04e=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::831; helo=mail-qt1-x831.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=98122a04e=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="PMvb3mKn"; 
- dkim-atps=neutral
-Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
- [IPv6:2607:f8b0:4864:20::831])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44StBs64cJzDq60
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 12:02:13 +1100 (AEDT)
-Received: by mail-qt1-x831.google.com with SMTP id d13so8011944qth.5
- for <openbmc@lists.ozlabs.org>; Mon, 25 Mar 2019 18:02:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=Sw48ECHdwv9616JHUDLnPDj4UC/WV/6BhQQEcN5KNgs=;
- b=PMvb3mKnmW05o48ZWi2IPHtloPTDtpegdvPWK3G5Y9CHTN9MRP8wAlh1IsL41jTwiv
- U/GCNTHsCek+DGqNV4o1ag5QCUg0qITNM50uQ2BSLXAb3VaDc2jJNosogXqoYBejviCp
- tiG9U7wuKB96Qt+xuZCAgnwHkrxjRw0+ZLR2P9UaA5Ey3QSZZ/DWrZ76IjaP3k1ci4wm
- BazEWsA1ssYgWtLuSgx7mjbGPVvEQV8+ts1YuzH9Ww8DpfATqTzeOeC0BkZLHvHJw+p5
- tUtgmmig1/9kLUaoRvFCx9YJK6s9wuOJk/4jZhsr32W8EdedRmDpvs+HUayuCsCEptVx
- Qt1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=Sw48ECHdwv9616JHUDLnPDj4UC/WV/6BhQQEcN5KNgs=;
- b=FeM3uYQz4JnIPIcgfA3ZwBDFSPBQeQYkO47mT1U2HsfEgulD/sF6EUD9ub/6bSI8n/
- UuAf9c7zYTaqSAcsMMw2D9yVWYucznCEA8BVfpBfj49N3Gf0BOKwcmg7UMH8COkV1kmL
- MmV/Z2v1kt6PY4UfV/wprSsbRkK7qKj7OmDaliiafZ/4z3YYj1OmpQLY21zHGosk+td5
- DY0kgOgcrgE5YKzggjHSLI+tKgenFgiYq2jyTRPY+EbvjqVhqAhWfaVE0mdVmkNQSo0g
- oUqoCdJhzryJUVmiA/WjCvS2DRTAsv0TnOHsUuBjs6atZkukz1WKWjDwFxcruxFQIxvM
- Xk2w==
-X-Gm-Message-State: APjAAAXQloknQPXufWRK5RzUVG90+bWSqSsGKmPFlxjG+jEaQUfV9NL+
- 8Og4gi+PBY+FCeT/K5Ls4RnFCgp73QS5ZQsr8eQ=
-X-Google-Smtp-Source: APXvYqz98C+oCt9k8MD219Zyl0vE1IIaoMlt9SbA3FlZmvvLJJNWUpdkybubw+U7x7MBHaEVD8KHslLIDt5alkAa4rI=
-X-Received: by 2002:a0c:b14d:: with SMTP id r13mr17224503qvc.80.1553562129512; 
- Mon, 25 Mar 2019 18:02:09 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44T1NS5jdRzDqBV
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 17:25:55 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx02.quantatw.com with ESMTP; 26 Mar 2019 14:25:52 +0800
+Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 26 Mar
+ 2019 14:25:48 +0800
+Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
+ mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
+ 15.01.1713.004; Tue, 26 Mar 2019 14:25:48 +0800
+From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
+To: "Bills, Jason M" <jason.m.bills@linux.intel.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, "emilyshaffer@google.com"
+ <emilyshaffer@google.com>, "benjaminfair@google.com"
+ <benjaminfair@google.com>
+CC: =?big5?B?UmljaGFyZCBUdW5nICi4s6vbq8wp?= <Richard.Tung@quantatw.com>,
+ =?big5?B?QnVkZHkgSHVhbmcgKLbApNHCRSk=?= <Buddy.Huang@quantatw.com>,
+ =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>,
+ =?big5?B?RnJhbiBIc3UgKK59u3jBvik=?= <Fran.Hsu@quantatw.com>
+Subject: RE: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
+ value of getScaledIPMIValue
+Thread-Topic: [OpenBMC] [phosphor-sel-logger] Property type conversion and the
+ value of getScaledIPMIValue
+Thread-Index: AQHU4QGW23iVmLiBAkad5ZbdqduRt6YboDCQ
+Date: Tue, 26 Mar 2019 06:25:47 +0000
+Message-ID: <cf6a2226b21a4784af8c55b8eaa52901@quantatw.com>
+References: <31685a6a49d14c1ea599921946d9eb49@quantatw.com>
+ <2509b486-bca6-1a2c-50a2-4d4a9992db18@linux.intel.com>
+In-Reply-To: <2509b486-bca6-1a2c-50a2-4d4a9992db18@linux.intel.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24510.006
+x-tm-as-result: No--18.556000-0.000000-31
+x-tm-as-matchedid: 140026-150567-701625-704425-700685-709584-705718-711900-7
+ 02807-704421-187056-705388-700107-702020-780022-700949-704568-704751-702423
+ -106580-121133-863519-301328-139006-700648-700724-700308-712209-712203-1066
+ 60-701249-187067-703041-706564-700075-139010-700752-704341-707410-702358-70
+ 0038-703283-707788-708797-702598-700767-701604-711664-105250-705178-701506-
+ 700476-701914-105700-139703-703454-106230-105630-710970-701837-701395-39029
+ 9-147019-148035-148133-20043-23116-42002-42003-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: multipart/mixed;
+ boundary="_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_"
 MIME-Version: 1.0
-References: <CAG9c7cDQc=o_=vEFRAjRRq9bV2Fz6ZD7Osp+vkd2QRgxmGcXGg@mail.gmail.com>
- <bee0622c-8ae6-3db3-b7f7-9d48651cf907@linux.intel.com>
- <740E00DF-F233-41A1-B894-9DB98A9AD62A@fb.com>
- <CAG9c7cAHLdfqDMjWRnqbpw=VcA5zX96Sx2tqJ5TOMw9mKU7X=w@mail.gmail.com>
- <2B1545B0-29CC-4E8C-85B5-317A2E5AD5D9@fb.com>
-In-Reply-To: <2B1545B0-29CC-4E8C-85B5-317A2E5AD5D9@fb.com>
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Tue, 26 Mar 2019 09:01:57 +0800
-Message-ID: <CAG9c7cC3iWdQizTEthsM3J-BjSxJV_Btioz+WM_owYhsLo6HjA@mail.gmail.com>
-Subject: Re: Some problems about FruDevice in the entity-manager
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: James Feist <james.feist@linux.intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000ddbce40584f4de1b"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,353 +66,137 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 01:02:15 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 06:26:02 -0000
 
---000000000000ddbce40584f4de1b
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-Hi Vijay,
-Currently, I bypass the 8/16bit checking to try dbus-sensor.
+SGkgYWxsLA0KIA0KQ29uc2lkZXJpbmcgdGhlcmUgYXJlIHR3byBzdHlsZSBvZiBzZW5zb3JzIChz
+Y2FsZWQgaW50NjQgYW5kIGRvdWJsZSB2YWx1ZXMpIGZvciBzZW5zb3IgdmFsdWUgREJ1cyBwcm9w
+ZXJ0aWVzLCB3ZSB3b3VsZCBsaWtlIHRvIGFkZCBib3RoIG9mIHRoZW0gc3VwcG9ydCBmb3IgcGhv
+c3Bob3Itc2VsLWxvZ2dlci4NCg0KVGhlIGF0dGFjaGVkIGZpbGUgaXMgdGhlIHBhdGNoIGZvciBt
+YWtpbmcgc2VsLWxvZ2dlciB3b3JrIHdpdGggaW50NjQgYW5kIGRvdWJsZS4NCg0KSWYgaXQncyBP
+SywgSSB3aWxsIHB1c2ggdGhlIHBhdGNoIHRvIE9wZW5CTUMgR2Vycml0Lg0KDQpIaSBKYXNvbiwN
+Cg0KVGhhbmtzIGZvciB5b3VyIGtpbmQgYWR2aWNlcy4NCg0KQWJvdXQgdGhlIGZpcnN0IHF1ZXN0
+aW9uIEkgbWVudGlvbmVkIGJlZm9yZSwgIlRoZSBzZW5zb3IgREJ1cyBwcm9wZXJ0aWVzICwgoacv
+TWF4VmFsdWUvTWluVmFsdWUvVmFsdWUvoaggYXJlIGFsd2F5cyAwIiwgaXQncyBiZWNhdXNlIHR5
+cGUgY29udmVyc2lvbiBjYXVzZSBhbHdheXMgZ2V0IDAsIG5vdCB0aGVpciB2YWx1ZXMgYXJlIGlu
+dmFsaWQuIEknbSBzb3JyeSBmb3IgbXkgY29uZnVzZWQgZGVzY3JpcHRpb24uDQoNCg0KVGhhbmtz
+Lg0KDQpCZXN0IFJlZ2FyZCANCkdlb3JnZSBIdW5nDQpSZXNlYXJjaCBEaXZpc2lvbiAtIFNvZnR3
+YXJlIEVuZ2luZWVyDQpDbG91ZCBDb21wdXRpbmcgQnVzaW5lc3MgVW5pdA0KUXVhbnRhIENvbXB1
+dGVyIEluYy4NCkV4dDogMTY4MzANCkUtTWFpbCA6IEdlb3JnZS5IdW5nQFF1YW50YVRXLmNvbQ0K
+DQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogQmlsbHMsIEphc29uIE0gW21haWx0
+bzpqYXNvbi5tLmJpbGxzQGxpbnV4LmludGVsLmNvbV0gDQpTZW50OiBTYXR1cmRheSwgTWFyY2gg
+MjMsIDIwMTkgNjo1MCBBTQ0KVG86IEdlb3JnZSBIdW5nICiseKm+t3EpDQpDYzogUmljaGFyZCBU
+dW5nICi4s6vbq8wpOyBCdWRkeSBIdWFuZyAotsCk0cJFKTsgV2lsbCBMaWFuZyAoseelw7liKTsg
+RnJhbiBIc3UgKK59u3jBvikNClN1YmplY3Q6IFJlOiBbT3BlbkJNQ10gW3Bob3NwaG9yLXNlbC1s
+b2dnZXJdIFByb3BlcnR5IHR5cGUgY29udmVyc2lvbiBhbmQgdGhlIHZhbHVlIG9mIGdldFNjYWxl
+ZElQTUlWYWx1ZQ0KDQpIaSBHZW9yZ2UsDQoNCkl0IGlzIGJldHRlciB0byBwb3N0IHRoZXNlIHR5
+cGVzIG9mIHF1ZXN0aW9ucyB0byB0aGUgZnVsbCBtYWlsaW5nIGxpc3QgYXMgSSBhbSBub3QgdGhl
+IHJpZ2h0IHBlcnNvbiB0byBhbnN3ZXIgYWxsIG9mIHRoZW0uDQoNCk9uIDMvMjIvMjAxOSAxMjoy
+MCBBTSwgR2VvcmdlIEh1bmcgKKx4qb63cSkgd3JvdGU6DQo+IEhpIEphc29uLA0KPiANCj4gU2lu
+Y2Ugb3VyIE9wZW5CTUMgcHJvamVjdCBuZWVkcyB0byBzdXBwb3J0IElQTUkgU0VMLCBJIHRyeSB0
+byB1c2UgDQo+IHBob3NwaG9yLXNlbC1sb2dnZXIgdG8gYWRkIG5ldyBJUE1JIFNFTCB0byBqb3Vy
+bmFsLCBidXQgSSBmb3VuZCBzb21lIA0KPiBpc3N1ZXMgbmVlZCB0byBkaXNjdXNzOg0KPiANCj4g
+MS5UaGUgc2Vuc29yIERCdXMgcHJvcGVydGllcyAsIKGnL01heFZhbHVlL01pblZhbHVlL1ZhbHVl
+L6GoIGFyZSBhbHdheXMgDQo+IDANCg0KVGhpcyBtZWFucyB0aGF0IHNvbWV0aGluZyBpcyB3cm9u
+ZyBpbiB0aGUgc2Vuc29yIGNvbmZpZ3VyYXRpb24uICBUaGVzZSB2YWx1ZXMgc2hvdWxkIGFsbCBi
+ZSB2YWxpZC4NCj4gDQo+IDIuVGhlIC92YWx1ZS8gcGFyYW1ldGVyIG9mIC9nZXRTY2FsZWRJUE1J
+VmFsdWUvIGZ1bmN0aW9uIHVzZXMgdGhlIA0KPiBzY2FsZWQgdmFsdWUsIG5vdCBhY3R1YWwgdmFs
+dWUsDQoNClRoZSB0aHJlc2hvbGQgZXZlbnQgbW9uaXRvciBpcyBjdXJyZW50bHkgZGVzaWduZWQg
+dG8gbW9uaXRvciBvbmx5IHRoZSBkb3VibGUtc3R5bGUgc2Vuc29ycyB0aGF0IHN0b3JlIHRoZSBh
+Y3R1YWwgdmFsdWUuDQo+IA0KPiBpdCBtYXkgY2F1c2UgdGhlIHJlc3VsdCBvZiAvc2NhbGVJUE1J
+VmFsdWVGcm9tRG91YmxlIC9mdW5jdGlvbiBpcyANCj4goad2YWx1ZSBvdXQgb2YgcmFuZ2WhqA0K
+PiANCj4gQWZ0ZXIgdHJhY2luZyB0aGUgY29kZSwgd2UgbWF5IGZpbmQgdGhlIHJvb3QgY2F1c2Us
+IGJ1dCBuZWVkIHlvdXIgaGVscCANCj4gdG8gY2hlY2sgaWYgaXShpnMgdGhlIGNvcnJlY3QgZml4
+LiBJIGxpc3RlZCBhcyBmb2xsb3dzOg0KPiANCj4gMS5UaGUgb3JpZ2luYWwgdHlwZSBkZWNsYXJh
+dGlvbiBpcw0KPiChp3NkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudDxkb3VibGU+oagsIGJ1dCBz
+aG91bGQgYmUgDQo+IKGnc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50PGludDY0X3Q+oagNCg0K
+VGhlcmUgYXJlIHR3byBzdHlsZXMgb2Ygc2Vuc29ycywgb25lIHN0eWxlIHN0b3JlcyBzY2FsZWQg
+aW50NjQgdmFsdWVzIGFuZCBhbm90aGVyIHN0eWxlIHN0b3JlcyBhY3R1YWwgZG91YmxlIHZhbHVl
+cy4gIFRoZSB0aHJlc2hvbGQgZXZlbnQgbW9uaXRvciBjdXJyZW50bHkgaGFuZGxlcyBvbmx5IGRv
+dWJsZSBzdHlsZSBzZW5zb3JzLg0KDQpJZiB5b3UgbmVlZCB0byBzdXBwb3J0IGJvdGggc3R5bGVz
+IG9mIHNlbnNvcnMsIHlvdSBjYW4gbG9vayBoZXJlIGZvciBhbiBleGFtcGxlIHZpc2l0b3IgdGhh
+dCBjYW4gaGFuZGxlIGJvdGggaW50NjQgYW5kIGRvdWJsZTogDQpodHRwczovL2dpdGh1Yi5jb20v
+b3BlbmJtYy9waG9zcGhvci1waWQtY29udHJvbC9jb21taXQvYzA2NWNmMWIxOTVmOWNjZDhmZWE4
+ODJjZTc2NDE2NDczZDRmZWU3Yy4NCj4gDQo+IDIuTW9kaWZ5IHRvIHVzZSBhY3R1YWwgc2Vuc29y
+IHZhbHVlIGZvciChp2dldFNjYWxlZElQTUlWYWx1ZaGoIGZ1bmN0aW9uDQo+IA0KPiBUaGUgYXR0
+YWNoZWQgZmlsZSBpcyB0aGUgZml4IHBhdGNoLCBpdCBzaG91bGQgYmUgbW9yZSBjbGVhci4NCj4g
+DQo+IElmIGl0oaZzIHRoZSBjb3JyZWN0IGZpeCwgd2lsbCB5b3UgcGF0Y2ggdG8gT3BlbkJNQyBH
+ZXJyaXQsIG9yIHdlIGRvIGl0IA0KPiBkaXJlY3RseSA/DQoNClBsZWFzZSBmZWVsIGZyZWUgdG8g
+cHVzaCB5b3VyIHBhdGNoIHRvIE9wZW5CTUMgR2Vycml0IGZvciByZXZpZXcgYW5kIGRpc2N1c3Np
+b24uDQo+IA0KPiBCVFcsIHRoZSBwaG9zcGhvci1zZWwtbG9nZ2VyIHN1cHBvcnRzIGFkZCBJUE1J
+IFNFTCB0byBqb3VybmFsLCBidXQgDQo+IHNlZW1zIG9ubHkgdGhyZXNob2xkLWJhc2VkIHNlbnNv
+ciBldmVudCBsb2dzLCBubyBkaXNjcmV0ZSBzZW5zb3JzIGV2ZW50IGxvZ3MuDQoNClRoYXQgaXMg
+Y29ycmVjdC4NCj4gDQo+IElzIHRoZXJlIGFueSBwbGFuIHRvIGFkZCBkaXNjcmV0ZSBzZW5zb3Jz
+IGV2ZW50IGxvZ3MgdG8gDQo+IHBob3NwaG9yLXNlbC1sb2dnZXIgPw0KDQpJbnRlbCBwbGFucyB0
+byBvbmx5IHN1cHBvcnQgdGhyZXNob2xkIHNlbnNvciBldmVudHMgaW4gdGhlIElQTUkgU0VMLiAN
+ClRoZSBwaG9zcGhvci1zZWwtbG9nZ2VyIHNob3VsZCBiZSBleHRlbnNpYmxlIHRvIHN1cHBvcnQg
+YWRkaXRpb25hbCB0eXBlcyBvZiBldmVudHMuDQo=
 
-I just followed your suggestion and only changed the one line.
-But I couldn't find the fru device under the tree of
-/xyz/openbmc_project/FruDevice/
+--_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_
+Content-Type: application/octet-stream;
+	name="Support-both-double-and-int64-sensor-values.patch"
+Content-Description: Support-both-double-and-int64-sensor-values.patch
+Content-Disposition: attachment;
+	filename="Support-both-double-and-int64-sensor-values.patch"; size=2990;
+	creation-date="Tue, 26 Mar 2019 06:25:04 GMT";
+	modification-date="Tue, 26 Mar 2019 06:20:50 GMT"
+Content-Transfer-Encoding: base64
 
-There was the below error message in the journal.
-Mar 26 08:17:56 henbin fru-device[1111]: failed to format fru for device at
-bus 6address 50
+RnJvbSAwNGIyZWE0Mjk0OWEzZDE5Y2ViMmZjZDEzMmQwZTA3MTQ2MzlhYWYwIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBHZW9yZ2UgSHVuZyA8Z2VvcmdlLmh1bmdAcXVhbnRhdHcuY29t
+PgpEYXRlOiBUdWUsIDI2IE1hciAyMDE5IDE0OjE1OjI1ICswODAwClN1YmplY3Q6IFtQQVRDSF0g
+U3VwcG9ydCBib3RoIGRvdWJsZSBhbmQgaW50NjQgc2Vuc29yIHZhbHVlcwoKVGhlcmUgYXJlIHR3
+byBzdHlsZSBvZiBzZW5zb3JzLCBvbmUgaXMgc3RvcmVkCnNjYWxlZCBpbnQ2NCB2YWx1ZSBhbmQg
+YW5vdGhlciBpcyBhY3R1YWwgZG91YmxlCnZhbHVlLiBBZGQgdG8gaGFuZGxlIGJvdGggb2Ygc3R5
+bGUgc2Vuc29ycyBhbmQKaWYgaXQncyBpbnQ2NCwgYXBwbHkgdGhlIHNjYWxlIHRvIGl0LgoKU2ln
+bmVkLW9mZi1ieTogR2VvcmdlIEh1bmcgPGdlb3JnZS5odW5nQHF1YW50YXR3LmNvbT4KLS0tCiBp
+bmNsdWRlL3RocmVzaG9sZF9ldmVudF9tb25pdG9yLmhwcCB8IDE2ICsrKysrKysrKysrKysrLS0K
+IDEgZmlsZSBjaGFuZ2VkLCAxNCBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2luY2x1ZGUvdGhyZXNob2xkX2V2ZW50X21vbml0b3IuaHBwIGIvaW5jbHVkZS90aHJl
+c2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKaW5kZXggOTM1MjgwNS4uMDBkYmEzMiAxMDA2NDQKLS0t
+IGEvaW5jbHVkZS90aHJlc2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKKysrIGIvaW5jbHVkZS90aHJl
+c2hvbGRfZXZlbnRfbW9uaXRvci5ocHAKQEAgLTExNSw3ICsxMTUsNyBAQCBpbmxpbmUgc3RhdGlj
+IHNkYnVzcGx1czo6YnVzOjptYXRjaDo6bWF0Y2ggc3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3Io
+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIm9yZy5mcmVlZGVza3RvcC5EQnVz
+LlByb3BlcnRpZXMiLCAiR2V0QWxsIik7CiAgICAgICAgIGdldFNlbnNvclZhbHVlLmFwcGVuZCgi
+eHl6Lm9wZW5ibWNfcHJvamVjdC5TZW5zb3IuVmFsdWUiKTsKICAgICAgICAgYm9vc3Q6OmNvbnRh
+aW5lcjo6ZmxhdF9tYXA8c3RkOjpzdHJpbmcsCi0gICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudDxkb3VibGU+PgorICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnQ8ZG91Ymxl
+LCBpbnQ2NF90Pj4KICAgICAgICAgICAgIHNlbnNvclZhbHVlOwogICAgICAgICB0cnkKICAgICAg
+ICAgewpAQCAtMTM1LDYgKzEzNSwxNCBAQCBpbmxpbmUgc3RhdGljIHNkYnVzcGx1czo6YnVzOjpt
+YXRjaDo6bWF0Y2ggc3RhcnRUaHJlc2hvbGRFdmVudE1vbml0b3IoCiAgICAgICAgICAgICBpcG1p
+OjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNvclZhbHVlWyJNaW5WYWx1ZSJdKTsKICAg
+ICAgICAgZG91YmxlIHNlbnNvclZhbCA9IHNkYnVzcGx1czo6bWVzc2FnZTo6dmFyaWFudF9uczo6
+dmlzaXQoCiAgICAgICAgICAgICBpcG1pOjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNv
+clZhbHVlWyJWYWx1ZSJdKTsKKyAgICAgICAgZG91YmxlIHNjYWxlID0gMDsKKyAgICAgICAgaWYo
+c2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjpnZXRfaWY8aW50NjRfdD4oCisgICAgICAg
+ICAgICZzZW5zb3JWYWx1ZVsiVmFsdWUiXSkpCisgICAgICAgIHsKKyAgICAgICAgICAgIHNjYWxl
+ID0gc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgKKyAgICAgICAgICAgICAg
+ICBpcG1pOjpWYXJpYW50VG9Eb3VibGVWaXNpdG9yKCksIHNlbnNvclZhbHVlWyJTY2FsZSJdKTsK
+KyAgICAgICAgICAgIHNlbnNvclZhbCAqPSBzdGQ6OnBvdygxMCwgc2NhbGUpOworICAgICAgICB9
+CiAgICAgICAgIHRyeQogICAgICAgICB7CiAgICAgICAgICAgICBldmVudERhdGFbMV0gPSBpcG1p
+OjpnZXRTY2FsZWRJUE1JVmFsdWUoc2Vuc29yVmFsLCBtYXgsIG1pbik7CkBAIC0xNTgsNyArMTY2
+LDcgQEAgaW5saW5lIHN0YXRpYyBzZGJ1c3BsdXM6OmJ1czo6bWF0Y2g6Om1hdGNoIHN0YXJ0VGhy
+ZXNob2xkRXZlbnRNb25pdG9yKAogICAgICAgICAgICAgY29ubi0+bmV3X21ldGhvZF9jYWxsKG1z
+Zy5nZXRfc2VuZGVyKCksIG1zZy5nZXRfcGF0aCgpLAogICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICJvcmcuZnJlZWRlc2t0b3AuREJ1cy5Qcm9wZXJ0aWVzIiwgIkdldCIpOwogICAg
+ICAgICBnZXRUaHJlc2hvbGQuYXBwZW5kKHRocmVzaG9sZEludGVyZmFjZSwgZXZlbnQpOwotICAg
+ICAgICBzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnQ8ZG91YmxlPiB0aHJlc2hvbGRWYWx1ZTsK
+KyAgICAgICAgc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50PGRvdWJsZSwgaW50NjRfdD4gdGhy
+ZXNob2xkVmFsdWU7CiAgICAgICAgIHRyeQogICAgICAgICB7CiAgICAgICAgICAgICBzZGJ1c3Bs
+dXM6Om1lc3NhZ2U6Om1lc3NhZ2UgZ2V0VGhyZXNob2xkUmVzcCA9CkBAIC0xNzMsNiArMTgxLDEw
+IEBAIGlubGluZSBzdGF0aWMgc2RidXNwbHVzOjpidXM6Om1hdGNoOjptYXRjaCBzdGFydFRocmVz
+aG9sZEV2ZW50TW9uaXRvcigKICAgICAgICAgfQogICAgICAgICBkb3VibGUgdGhyZXNob2xkVmFs
+ID0gc2RidXNwbHVzOjptZXNzYWdlOjp2YXJpYW50X25zOjp2aXNpdCgKICAgICAgICAgICAgIGlw
+bWk6OlZhcmlhbnRUb0RvdWJsZVZpc2l0b3IoKSwgdGhyZXNob2xkVmFsdWUpOworICAgICAgICBp
+ZihzZGJ1c3BsdXM6Om1lc3NhZ2U6OnZhcmlhbnRfbnM6OmdldF9pZjxpbnQ2NF90PigmdGhyZXNo
+b2xkVmFsdWUpKQorICAgICAgICB7CisgICAgICAgICAgICB0aHJlc2hvbGRWYWwgKj0gc3RkOjpw
+b3coMTAsIHNjYWxlKTsKKyAgICAgICAgfQogICAgICAgICB0cnkKICAgICAgICAgewogICAgICAg
+ICAgICAgZXZlbnREYXRhWzJdID0gaXBtaTo6Z2V0U2NhbGVkSVBNSVZhbHVlKHRocmVzaG9sZFZh
+bCwgbWF4LCBtaW4pOwotLSAKMi4yMS4wCgo=
 
-Please let me know if you want to try other.
-
-BRs.
-Henbin.
-
-Vijay Khemka <vijaykhemka@fb.com> =E6=96=BC 2019=E5=B9=B43=E6=9C=8826=E6=97=
-=A5 =E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=887:05=E5=AF=AB=E9=81=93=EF=BC=9A
-
-> Hi Henbin,
->
-> I am assuming your device is 16 bit and in your last email you said 16bit
-> check is failing. If that check fails then following code will not get
-> executed. Also while loop is same as i2c_smbus_read_i2c_block_data().
->
->
->
-> I would suggest one thing, if your 16bit check is passing and still you
-> don=E2=80=99t see fru device, please make only one line change below and =
-test.
->
->     int ret =3D i2c_smbus_write_byte_data(file, high_addr, low_addr);
->
->     //int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
->
->
->
-> Please let me know result.
->
->
->
-> Regards
->
-> -Vijay
->
->
->
->
->
-> *From: *Henbin Chang <henbinchang@gmail.com>
-> *Date: *Sunday, March 24, 2019 at 6:39 PM
-> *To: *Vijay Khemka <vijaykhemka@fb.com>
-> *Cc: *James Feist <james.feist@linux.intel.com>, OpenBMC Maillist <
-> openbmc@lists.ozlabs.org>
-> *Subject: *Re: Some problems about FruDevice in the entity-manager
->
->
->
-> Thanks for your response.
->
->
->
-> I also encountered another problem.
->
->
->
-> That's,  I found the content of 16-bit EEPROM through the combination of
-> the SMBUS APIs was not incorrect.
->
->
->
->     /* This is for 16 bit addressing EEPROM device. First an offset
->
->      * needs to be written before read data from a offset
->
->      */
->
->     int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
->
->     if (ret < 0)
->
->     {
->
->         return ret;
->
->     }
->
->
->
->     return i2c_smbus_read_i2c_block_data(file, high_addr, len, buf);
->
->
->
-> So I referred to i2c-tools to modify them.
->
-> And then I could see my FRU under the tree of
-> 'xyz/openbmc_project/FruDevice/'
->
->
->
->     int ret =3D i2c_smbus_write_byte_data(file, high_addr, low_addr);
->
->     //int ret =3D i2c_smbus_write_byte_data(file, 0, low_addr);
->
->     if (ret < 0)
->
->     {
->
->         return ret;
->
->     }
->
->     while (index < len){
->
-> buf[index] =3D i2c_smbus_read_byte(file);
->
-> index++;
->
->     }
->
->
->
->     //return i2c_smbus_read_i2c_block_data(file, high_addr, len, buf);
->
->     return len;
->
->
->
-> Let me know if you have any comments.
->
->
->
-> Thanks.
->
-
---000000000000ddbce40584f4de1b
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr">Hi Vija=
-y,</div><div>Currently, I bypass the 8/16bit checking to try dbus-sensor.</=
-div><div><br></div><div>I just followed your suggestion and only changed th=
-e one line.</div><div>But I couldn&#39;t find the fru device under the tree=
- of /xyz/openbmc_project/FruDevice/</div><div><br></div><div>There was the =
-below error message in the journal.</div><div><div>Mar 26 08:17:56 henbin f=
-ru-device[1111]: failed to format fru for device at bus 6address 50<br></di=
-v></div><div><br></div><div>Please let me know if you want to try other.</d=
-iv><div><br></div><div>BRs.</div><div>Henbin.</div><div><br></div><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">Vijay Khemka &lt;<a=
- href=3D"mailto:vijaykhemka@fb.com">vijaykhemka@fb.com</a>&gt; =E6=96=BC 20=
-19=E5=B9=B43=E6=9C=8826=E6=97=A5 =E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=887:05=
-=E5=AF=AB=E9=81=93=EF=BC=9A<br></div><blockquote class=3D"gmail_quote" styl=
-e=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);paddin=
-g-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US">
-<div class=3D"gmail-m_-6690780380188087163WordSection1">
-<p class=3D"MsoNormal">Hi Henbin,<u></u><u></u></p>
-<p class=3D"MsoNormal">I am assuming your device is 16 bit and in your last=
- email you said 16bit check is failing. If that check fails then following =
-code will not get executed. Also while loop is same as i2c_smbus_read_i2c_b=
-lock_data(). <u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">I would suggest one thing, if your 16bit check is pa=
-ssing and still you don=E2=80=99t see fru device, please make only one line=
- change below and test.<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
-file, high_addr, low_addr);<u></u><u></u></p>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 //int ret =3D i2c_smbus_write_byte_dat=
-a(file, 0, low_addr);<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Please let me know result.<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Regards<u></u><u></u></p>
-<p class=3D"MsoNormal">-Vijay<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<div style=3D"border-right:none;border-bottom:none;border-left:none;border-=
-top:1pt solid rgb(181,196,223);padding:3pt 0in 0in">
-<p class=3D"MsoNormal"><b><span style=3D"font-size:12pt;color:black">From: =
-</span></b><span style=3D"font-size:12pt;color:black">Henbin Chang &lt;<a h=
-ref=3D"mailto:henbinchang@gmail.com" target=3D"_blank">henbinchang@gmail.co=
-m</a>&gt;<br>
-<b>Date: </b>Sunday, March 24, 2019 at 6:39 PM<br>
-<b>To: </b>Vijay Khemka &lt;<a href=3D"mailto:vijaykhemka@fb.com" target=3D=
-"_blank">vijaykhemka@fb.com</a>&gt;<br>
-<b>Cc: </b>James Feist &lt;<a href=3D"mailto:james.feist@linux.intel.com" t=
-arget=3D"_blank">james.feist@linux.intel.com</a>&gt;, OpenBMC Maillist &lt;=
-<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists=
-.ozlabs.org</a>&gt;<br>
-<b>Subject: </b>Re: Some problems about FruDevice in the entity-manager<u><=
-/u><u></u></span></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<div>
-<div>
-<div>
-<p class=3D"MsoNormal">Thanks for your response. <u></u><u></u></p>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">I also encountered another problem.<u></u><u></u></p=
->
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">That&#39;s,=C2=A0 I found the content of 16-bit EEPR=
-OM through the=C2=A0combination of the SMBUS APIs was not incorrect.<u></u>=
-<u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 /* This is for 16 bit addressing EEPRO=
-M device. First an offset<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0* needs to be written before rea=
-d data from a offset<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0*/<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
-file, 0, low_addr);<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 if (ret &lt; 0)<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 {<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<u></u><u></u=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 return i2c_smbus_read_i2c_block_data(f=
-ile, high_addr, len, buf);<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">So I referred to i2c-tools to modify them.=C2=A0<u><=
-/u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">And then I could see my FRU under the tree of &#39;x=
-yz/openbmc_project/FruDevice/&#39;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 int ret =3D i2c_smbus_write_byte_data(=
-file, high_addr, low_addr);<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 //int ret =3D i2c_smbus_write_byte_dat=
-a(file, 0, low_addr);<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 if (ret &lt; 0)<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 {<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 =C2=A0 =C2=A0 return ret;<u></u><u></u=
-></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 while (index &lt; len){<u></u><u></u><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal">buf[index] =3D i2c_smbus_read_byte(file);<u></u><u><=
-/u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">index++;<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 }<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 //return i2c_smbus_read_i2c_block_data=
-(file, high_addr, len, buf);<u></u><u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">=C2=A0 =C2=A0 return len;<u></u><u></u></p>
-</div>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Let me know if you have any comments.<u></u><u></u><=
-/p>
-</div>
-<div>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-</div>
-<div>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-</blockquote></div></div></div></div>
-
---000000000000ddbce40584f4de1b--
+--_002_cf6a2226b21a4784af8c55b8eaa52901quantatwcom_--
