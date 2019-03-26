@@ -1,52 +1,63 @@
-Return-Path: <venture@google.com>
+Return-Path: <brendanhiggins@google.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::341; helo=mail-ot1-x341.google.com;
+ envelope-from=brendanhiggins@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="mcZGIFJa"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="KPaErm2M"; 
  dkim-atps=neutral
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44TJBN4KFbzDq60
- for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2019 04:33:15 +1100 (AEDT)
-Received: by mail-pf1-x435.google.com with SMTP id c8so8378852pfd.10
- for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 10:33:15 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44TJNX1S8hzDqCc
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Mar 2019 04:41:57 +1100 (AEDT)
+Received: by mail-ot1-x341.google.com with SMTP id o74so12291189ota.3
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Mar 2019 10:41:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=6Y7wMizfhlHrMmr1R4ciMbZVZ5M6k4i11kLJOYaAWs8=;
- b=mcZGIFJaBmnULxnRz4UOeH8Bdwb0eFfemWu6XjM7tbMSGOSo3Q3MlP/G051v/6lfjM
- mZHKEuDBULXJ8RWO2B5V4Ve0XSjdMVfWl4h2jv/Lv5J2UmAQFuSYaQowLf6JYmF9+YI8
- PGXUjSapcJWGma6EN7PWWbLuIynz4YOfjXKTHpXNcTJ0pEyaJiZZAki704oWQ1E9Odm0
- WkKcSCTEylceYlJL60bO0saaaZdRWX/0LRF7HZujjlCnjxdKY2b/J7142RbdiJIlYOA9
- yDwXUXiR1hE0Va9FciY8lY3IHt0Fx4iVXem2W7EU/4yh46nXxsrTeqU+EEa3QLrdGXH4
- u43A==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=13g8DOyZDfMxmWogI9dENc8mQIBbIGzhWqp70P2HsrU=;
+ b=KPaErm2MV8OaGrMvyRRYAtuGBQja+veykRvl75T77WgEbywAgnsLzgUSYX8YBncc/L
+ nvFvLPwurHACBJPiYZGCpvqxXLcNscN5HrXxrH0IIi6EbeI/wkU7En5pNLH11dzJqbTA
+ eqit7SAFazqQVNPC2B5Hes2fYnIiaqrcgjtXAJ86IjNPNdztcxZwzC4T45cR2VkdyKlT
+ o2EDaKftDBxtd6QOAcpsR1LBdOM2Lb4/jxMZM8yxgut8Gko8S9eZlnm8Smtb6rGarpuu
+ oo9V3MKAaUxGACT/25uXS6rUYUDsesT2loKDO+pnns3NokykBZJGQJuedA2NYNBY7EsO
+ Gd8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=6Y7wMizfhlHrMmr1R4ciMbZVZ5M6k4i11kLJOYaAWs8=;
- b=rcmOFolPPFZyUTjao/4JG8jylEFTaqCSNI97ItS4kaF+FY7tUYTdoQA7U1tNnv2rF+
- u+Mrv66AFSAKJsHY+XVJbvw26GaEmjWjMJLpWpJXNj4fNJE5xEGhmXFM40vDWhoBxJca
- PuWG0tPtxTRZ1XvamXgCB/IvKf6UbQUHP54249+hVIXFd3I/yf8s8WXVeC4MyV4MmnW+
- vuJX5es3YFuQ+bT9fuytMTn75w/w4zRmcSCMpmDgGi+mp5JHjlDvCIBCABZVbz4As/T8
- I16Fvvxdry5Oyzq6fkmUQ0NmZYh0lz+0AEt53ucXGMs5G3Ru0hmj7H062xKqzBIzwZK5
- G2IA==
-X-Gm-Message-State: APjAAAW7EhuvG8wWId4j7895kl69IzAkuDC7hJRsl2ODeSK96IDcZ3Im
- ynXvymrTSO+w/lv09Gq6qtXLn+V69TsarkuVQE8XYw==
-X-Google-Smtp-Source: APXvYqya9Kohz4tmOcB1I0Tf3ED+uDMsxzHqUMSZ5bCiRqD41YGercAL792NBP14LdyrkDqDb0NgO6TPxhBVoo9ipgA=
-X-Received: by 2002:a62:b602:: with SMTP id j2mr17944050pff.68.1553621592186; 
- Tue, 26 Mar 2019 10:33:12 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=13g8DOyZDfMxmWogI9dENc8mQIBbIGzhWqp70P2HsrU=;
+ b=hLg07NqE/f4i6fsg6wpjDC4bX4VzAYFWIuPJk/uvwHvQ0yJJ8O3ydGr14jz5LVrN+h
+ YngK/qTEpe+zjudMGw8Mxh787duJfeSZqGIZXU7+19+0pjyCcIq52p+VZP6p9bGnNQs/
+ bqpnldDJGrwObtBNbahyhP1dgopBiH27pT3BGk72ymes1jqLPQKByVnk7FBu9Q+1TcmU
+ 30IPxnS8hE0pGavmgQLRiS0FiVsJO3P0vzJm3Zz2/6b94RvUCmx3H09GKelxM45ERWMu
+ uYlwbz1kZ3GxnuYSfN9eYO3ZNSVx/RWXEXFc2yoPikhmijAiAzCgKzpq8GcpqPU2NPpT
+ YU/Q==
+X-Gm-Message-State: APjAAAU4PVhqOnTNNf2Zu0NViNV7esRTph9IANKZW0AyKYce5A0Fnj2r
+ iOJEcq0Arlue8NZje2pxhex/ypkvxZf+iyJZP94tSQ==
+X-Google-Smtp-Source: APXvYqxxAlv2H+DzRqn070vzVwlaxgPJ4k/57vrfDwq3XWpnWqopr0qXXQ8rJ0mG3fcA8w5+OwCGgliBaBo7voRTqh8=
+X-Received: by 2002:a9d:51ca:: with SMTP id d10mr22065819oth.83.1553622114149; 
+ Tue, 26 Mar 2019 10:41:54 -0700 (PDT)
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Tue, 26 Mar 2019 10:33:01 -0700
-Message-ID: <CAO=notxq+sAhdN5kJ2BFYreCDeSo633KPZM1-f-M9LXdUJzS3w@mail.gmail.com>
-Subject: usr/sbin vs usr/bin
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <7cd8d12f59bcacd18a78f599b46dac555f7f16c0.camel@perches.com>
+ <20190325212446.25795-1-joe@perches.com>
+ <CAP6Zq1g62wiDTd9zn5dhwsfK6Rr52+ishU_=cO+G0Rm3Cs7kbQ@mail.gmail.com>
+In-Reply-To: <CAP6Zq1g62wiDTd9zn5dhwsfK6Rr52+ishU_=cO+G0Rm3Cs7kbQ@mail.gmail.com>
+From: Brendan Higgins <brendanhiggins@google.com>
+Date: Tue, 26 Mar 2019 10:41:42 -0700
+Message-ID: <CAFd5g47LVZ6xtfcAx4GDO-bg1QsovMauiBqUHOk6JPT4fNPTqg@mail.gmail.com>
+Subject: Re: Bad file pattern in MAINTAINERS section 'ARM/NUVOTON NPCM
+ ARCHITECTURE'
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Joe Perches <joe@perches.com>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, 
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Benjamin Fair <benjaminfair@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -59,17 +70,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 26 Mar 2019 17:33:17 -0000
+X-List-Received-Date: Tue, 26 Mar 2019 17:42:04 -0000
 
-Brad,
+On Tue, Mar 26, 2019 at 5:11 AM Tomer Maimon <tmaimon77@gmail.com> wrote:
+>
+> Hi Joe,
+>
+> Thanks for sending the notice.
+>
+> We will send a fix this week.
+>
+> Tomer
+>
+> On Mon, 25 Mar 2019 at 23:24, Joe Perches <joe@perches.com> wrote:
+>>
+>> A file pattern line in this section of the MAINTAINERS file in linux-next
+>> does not have a match in the linux source files.
 
-Reading the anti-pattern, I was going to start moving some things out
-of sbin and into bin, I had considered why not just leave out the path
-in the service file (as a step 1) - since systemd which just load the
-first match in path, but the anti-pattern above indicates we should
-use the full path in the service file, to make sure it runs the
-correct one -- at least that's how I am paraphrasing it.
+Hi Tomer,
 
-Please advise.
+Just thought I mentioned that I posted a fix here[1] sometime ago. The
+patch should still apply cleanly.
 
-Patrick
+On a side note, it would probably good to send a follow up patch that
+removes me as a reviewer, and adds Benjamin Fair (CC'ed) as a
+reviewer.
+
+Cheers
+
+[1] https://www.spinics.net/lists/kernel/msg2925741.html
