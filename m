@@ -6,48 +6,50 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="LvkoLow1"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="cRuiiMqQ"; 
  dkim-atps=neutral
 Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
  [IPv6:2607:f8b0:4864:20::433])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Vclv6k21zDqQg
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 08:03:23 +1100 (AEDT)
-Received: by mail-pf1-x433.google.com with SMTP id 188so6473595pfd.8
- for <openbmc@lists.ozlabs.org>; Thu, 28 Mar 2019 14:03:23 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Vddw6PGFzDqP1
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 08:43:16 +1100 (AEDT)
+Received: by mail-pf1-x433.google.com with SMTP id c207so11966810pfc.7
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Mar 2019 14:43:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oQyKpjZGr9zoJw0oxKRsQm2Vs0TEShDuB+g3HdmKuGY=;
- b=LvkoLow1DHMF/PMqSN9jCEmffQsGSYIrW50vm0anxx8TmOLul2TzlfrKYWW4K5Iq/m
- E6mMpET6/seTmCfXOMBK4YHGrdsd5rQkm4EAmtOpdEeBJn4rZpUmZrrBE4dEtFZDlM0A
- YGvDzPXj/NdgGK7kWUCQ3qDYUQ9BfEP/oDEKnOLEIzGD8/qp8FCxbt/a01GLnMjqNT7k
- QiW+aoP1zW6LNuu6CYx88kzgoOSJaexqifrY9xy36Z7QiPCad2KH2qUAHcshtTIzz+8+
- vmKJ9IX/tQgSE6nwIphIGt77LKjinj4sblwkaIVE5KV37MaCeqBEqz9eKUMbJHbXQCjd
- nW/g==
+ :cc; bh=qCPJpx6eo8izfXQwNFvJRYyZ1CxCjYpDxqtG6sMURic=;
+ b=cRuiiMqQRJ+xaokAyPxIBqvfMRF6kVLrOwsBlA+Zyk5wW8BjeX+wgjDwZ+FX4kCi9O
+ 73x+7VcjEio1LRUJ6PxWqsh/0qDtvI31BZzn+PLgMjVbSeSrnfTcKhokMlbiNNLCw3gY
+ DpOCu9vSyrIZkrl8VC+lCM++VJ1hFXWNuu9X9qdqTNPFFPNzPDcICA0V+grtZrUBPLmJ
+ o8nVFLpZTeOKwVEZ/bCjarUSlfMsaSxGUe43+7YQH7tbU5RyS+rKhIr33ei3j17V5vAr
+ xdNfesYV2SBUdV1cgeL9gkDKZYm8Vm5Ba4j+oXme5EFfb5Fxyr+GGczb953z+qDeOdIi
+ cTGg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=oQyKpjZGr9zoJw0oxKRsQm2Vs0TEShDuB+g3HdmKuGY=;
- b=s0NgpKMFFOB3ibZfPZlbWh1EeaCvOMSUZZvsNiAKOmJubUYpBLF8Fba13FBDQk8cPG
- NdX/CkWKEfG27UalNOmTI9CCpA+F/ARCsoCwNSg+o+vSctT23OWS0m2KxoS2nvuPgS5r
- iqTVSfak3Edsx43ZB0TjvyklwrY3wjaqManZJfPHINyml+3Ufv9pZTAiR++FSA9hJJ46
- T52Sw9vb0Ubma/QcwcvMZWyBoMzjpCpoCR/MKkRKGH74WqLPSrcIiP1CoScFuWiQhzus
- 2aLkNp4s4UPE5MQBVrbKmhUOx0ijrP81fAZz7LgMOJiUTmb3DeK68L7mdHA5nFPNRu2Y
- wC+g==
-X-Gm-Message-State: APjAAAX7ZhiKRIpH+0u8bVgDDtFtN9YBUcJFlswmub0w+8UqWUgF5q+Z
- PPivFZj/L8sgaMxU3i+5h/rsNUCsjYyI/EkQBy/Vvd639+Q=
-X-Google-Smtp-Source: APXvYqwlJuuEUaZA9v4Be5eWNz1kd+qY5waQWlItzdJesxSjndwDFkORPlAq2/dhTb/vxR4vOFFtQuirN1ROyitmFYw=
-X-Received: by 2002:a63:5061:: with SMTP id q33mr16260150pgl.218.1553806999742; 
- Thu, 28 Mar 2019 14:03:19 -0700 (PDT)
+ bh=qCPJpx6eo8izfXQwNFvJRYyZ1CxCjYpDxqtG6sMURic=;
+ b=kPAMpSk/xB+/elxOZjP9hpguuVxspqbjlbSFIIt7KAIXTul+clWkXwyVItAKQhDd+a
+ nfjoFWyp3HSUCpMxRN02TUABSN+lWluuzzvEmeBtmplpiW3wjxIpTuYRQfjTvMxGEb4u
+ XtkW/h35mrydL3LB2v8GbuZ/kqkb2gSn1vLDDhvndgXXQZ+zc5BgGV6qW1gRM2KDV1db
+ JZWkBZRzy7h3SykYgX0Ael2IgX/FDHIginrX6RQvt1Q9J4oYgj6M6oFWZNX2SyMXwCex
+ wVAXMqTdN5YAO3sQOxEG3t5DJcAS4/Xp6yUmwMtyCxxaoAfBqh2+ovRy33I0gpXzbWbd
+ hDLw==
+X-Gm-Message-State: APjAAAWfLgz14YpFjA2D8Fs9p4d7kGyee+EnbUBQIJ5VdSgraZ5iPZ3Q
+ s3ak7VcSAsg+diqRBq26kzf2UnrI5kISqu8y5UA1FA==
+X-Google-Smtp-Source: APXvYqzgirClt3dLzzRFDNw1g6dDgHELhareK8U53eZbZ906nLTTeARO9NVWnfSf/6AdrQPoW7zkRJ/au2MLo3BbJrc=
+X-Received: by 2002:a63:78ce:: with SMTP id
+ t197mr29220365pgc.314.1553809394107; 
+ Thu, 28 Mar 2019 14:43:14 -0700 (PDT)
 MIME-Version: 1.0
 References: <CAO=notyUi=12Xi+cWMVf6uK5dgvq-d5zhHunBanxZ9QwwzhDzQ@mail.gmail.com>
  <20190328205110.g7f75url4pnixava@thinkpad>
-In-Reply-To: <20190328205110.g7f75url4pnixava@thinkpad>
+ <CAO=notzRT3gMRbgT_cpdKr0swW0sgUUoYgE27fqkR_=Hr9ZaAg@mail.gmail.com>
+In-Reply-To: <CAO=notzRT3gMRbgT_cpdKr0swW0sgUUoYgE27fqkR_=Hr9ZaAg@mail.gmail.com>
 From: Patrick Venture <venture@google.com>
-Date: Thu, 28 Mar 2019 14:03:08 -0700
-Message-ID: <CAO=notzRT3gMRbgT_cpdKr0swW0sgUUoYgE27fqkR_=Hr9ZaAg@mail.gmail.com>
+Date: Thu, 28 Mar 2019 14:43:02 -0700
+Message-ID: <CAO=notzJG+Ny9L+exGP1ZVf-kMSdEA=ER8_JcUG2XBNtx4iCJQ@mail.gmail.com>
 Subject: Re: moving out of sbin
 To: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
@@ -63,24 +65,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Mar 2019 21:03:25 -0000
+X-List-Received-Date: Thu, 28 Mar 2019 21:43:17 -0000
 
-On Thu, Mar 28, 2019 at 1:50 PM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+On Thu, Mar 28, 2019 at 2:03 PM Patrick Venture <venture@google.com> wrote:
 >
-> On Thu, Mar 28, 2019 at 11:37:54AM -0700, Patrick Venture wrote:
-> >I've started staging patches that move the installation of daemons and
-> >scripts out of sbin.  For each of these patchset I have verified the
-> >service file is either already safe or I updated it.  Safe here means
-> >that it won't break.  Moving the service files to the repositories is
-> >a future step.  More fun to come.
+> On Thu, Mar 28, 2019 at 1:50 PM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+> >
+> > On Thu, Mar 28, 2019 at 11:37:54AM -0700, Patrick Venture wrote:
+> > >I've started staging patches that move the installation of daemons and
+> > >scripts out of sbin.  For each of these patchset I have verified the
+> > >service file is either already safe or I updated it.  Safe here means
+> > >that it won't break.  Moving the service files to the repositories is
+> > >a future step.  More fun to come.
+>
+> 99% are staged.  I also went back through and fixed up any service
+> files I had path-chopped.
+>
+> >
+> > Thanks for doing this Patrick!
+>
+> No problem.
 
-99% are staged.  I also went back through and fixed up any service
-files I had path-chopped.
+FYI, I'm watching for autobumps for these packages to then fix any
+references in meta-phosphor.
 
 >
-> Thanks for doing this Patrick!
-
-No problem.
-
->
-> -brad
+> >
+> > -brad
