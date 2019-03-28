@@ -1,37 +1,40 @@
-Return-Path: <prvs=983ff241d=Hank.Liou@quantatw.com>
+Return-Path: <wangzqbj@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=983ff241d=hank.liou@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=162.243.126.186; helo=vip.corpemail.net;
+ envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44VMG24lRqzDqNg
- for <openbmc@lists.ozlabs.org>; Thu, 28 Mar 2019 21:54:55 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx02.quantatw.com with ESMTP; 28 Mar 2019 18:54:52 +0800
-Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 28 Mar
- 2019 18:54:51 +0800
-Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
- mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
- 15.01.1713.004; Thu, 28 Mar 2019 18:54:51 +0800
-From: =?big5?B?SGFuayBMaW91ICi8Qq7Kv6sp?= <Hank.Liou@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: [phosphor-pid-control] scaling issue
-Thread-Topic: [phosphor-pid-control] scaling issue
-Thread-Index: AQHU5Sj9loI9dbbDpkixezz7G113kw==
-Date: Thu, 28 Mar 2019 10:54:51 +0000
-Message-ID: <1f94cb30fe624740b2ad67438b643266@quantatw.com>
-Accept-Language: en-US, zh-TW
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-Content-Type: multipart/alternative;
- boundary="_000_1f94cb30fe624740b2ad67438b643266quantatwcom_"
+ dmarc=none (p=none dis=none) header.from=inspur.com
+Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44VQ4v4Dl6zDq7k
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 00:02:21 +1100 (AEDT)
+Received: from ([60.208.111.195])
+ by unicom146.biz-email.net (Antispam) with ASMTP (SSL) id TPH38601
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Mar 2019 20:57:01 +0800
+Received: from mail-lj1-f171.google.com (10.100.1.52) by
+ jtjnmail201602.home.langchao.com (10.100.2.2) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1591.10; Thu, 28 Mar 2019 20:57:40 +0800
+Received: by mail-lj1-f171.google.com with SMTP id r24so16472436ljg.3
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Mar 2019 05:56:35 -0700 (PDT)
+X-Gm-Message-State: APjAAAUBArapcYjJ0FSVVdxg1GZn3O0Vu+WZflUsDNDbBDXTY/eEAo27
+ TcdJoV+TUi4EeNdN99gAbsRGHXu/UkHrYpI2Hek=
+X-Google-Smtp-Source: APXvYqytSQ9tsWjBMeDsuT37RtwKFOZAsCD1TZqFYdc1g4tBKgcl50RIC15WrsE22EKK2epEStmqvfX7Rpv5H0G8gmw=
+X-Received: by 2002:a2e:9e89:: with SMTP id f9mr22908567ljk.28.1553777792716; 
+ Thu, 28 Mar 2019 05:56:32 -0700 (PDT)
 MIME-Version: 1.0
+From: John Wang <wangzqbj@inspur.com>
+Date: Thu, 28 Mar 2019 20:56:21 +0800
+X-Gmail-Original-Message-ID: <CAHkHK09mDPscFDRG=_z3biKchg0pNv9urSWacjyYmq2W9Rt0pQ@mail.gmail.com>
+Message-ID: <CAHkHK09mDPscFDRG=_z3biKchg0pNv9urSWacjyYmq2W9Rt0pQ@mail.gmail.com>
+Subject: questions about host-state-manager on x86 platform
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000065131905852715c6"
+X-Originating-IP: [10.100.1.52]
+X-ClientProxiedBy: jtjnmail201601.home.langchao.com (10.100.2.1) To
+ jtjnmail201602.home.langchao.com (10.100.2.2)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,67 +46,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Mar 2019 10:55:07 -0000
+X-List-Received-Date: Thu, 28 Mar 2019 13:02:25 -0000
 
---_000_1f94cb30fe624740b2ad67438b643266quantatwcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+--00000000000065131905852715c6
+Content-Type: text/plain; charset="UTF-8"
 
-SGkgQWxsLA0KDQoNClRoaXMgaXNzdWUgaXMgcmVsYXRlZCB0byB0aGUgcmVwb3NpdG9yeSBwaG9z
-cGhvci1waWQtY29udHJvbDxodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9waG9zcGhvci1waWQt
-Y29udHJvbD4uDQoNCg0KSXQgaXMgaW4gY29tbWl0IGRidXNwYXNzaXZlOiBhbGxvdyBzY2FsaW5n
-PGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL3Bob3NwaG9yLXBpZC1jb250cm9sL2NvbW1pdC83
-NWViNzY5ZDM1MTQzNDU0Nzg5OTE4NmY3M2ZmNzBhZTAwZDc5MzRhPiB0aGF0IG9uZSBhZGRlZCBz
-Y2FsaW5nIG1lY2hhbmlzbS4gSG93ZXZlciB3aGVuIGl0IGNvbWVzIHRvIHBpZC5jcHA8aHR0cHM6
-Ly9naXRodWIuY29tL29wZW5ibWMvcGhvc3Bob3ItcGlkLWNvbnRyb2wvYmxvYi9tYXN0ZXIvcGlk
-L2VjL3BpZC5jcHA+LCBpdCBtYXkgZW5jb3VudGVyIHNjYWxpbmcgbWlzbWF0Y2guIFRoYXQgaXMg
-dG8gc2F5LCAoaW4gZmFuIGNvbnRyb2wgc3RhZ2UpIHRoZSBwaWQgdGFrZXMgdGhlIHNjYWxlZCB2
-YWx1ZXMgYXMgaW5wdXRzLCBidXQgaXQgdXRpbGl6ZXMgdW5zY2FsZWQgc2V0cG9pbnRzIHJlc3Vs
-dGluZyB3cm9uZyBlcnJvciB0ZXJtcy4gT3IganVzdCBjaGFuZ2UgdGhlIHNldHBvaW50IHZhbHVl
-Pw0KDQoNClRoYW5rcywNCg0KDQpIYW5rIExpb3UNCg0KUXVhbnRhIENvbXB1dGVyIEluYy4NCg==
+I found that on my machine (x86), phosphor-state-manager(host) doesn't work
+as expected.
+I have a problem when debugging. I hope someone can help me.
 
---_000_1f94cb30fe624740b2ad67438b643266quantatwcom_
-Content-Type: text/html; charset="big5"
+When `obmcutil poweroff` is executed, it calls `obmc-host-shutdown@0.target
+`
+and  will change the CurrentHostState by judging whether
+obmc-host-stop@0.target is executed or not.
+
+However,On my machine, obmc-host-stop@0.target has never been executed.
+
+$systemctl status obmc-host-shutdown@0.target
+obmc-host-shutdown@0.target - Power0 Host Off
+   Loaded: loaded (/lib/systemd/system/obmc-host-shutdown@.target; static;
+vendor preset: enabled)
+   Active: active
+
+on5263m5 systemd[1]: Reached target Power0 Host Off.
+
+$systemctl status obmc-host-stop@0.target
+Obmc-host-stop@0.target - Stop Host0
+   Loaded: loaded (/lib/systemd/system/obmc-host-stop@.target; static;
+vendor preset: enabled)
+   Active: inactive (dead)
+
+There is such a comment in the code
+
+host-shutdown notifies host of shutdown and that leads to host-stop being
+called so initiate a host shutdown with the -shutdown target and consider
+the
+host shut down when the -stop target is complete
+
+But I have not figured out how -stop target is called.
+
+In addition, if the shutdown is performed on the host operating system,
+is it impossible for host-state-manager to know that it is currently shut
+down?
+In this case, how is openbmc handled? Which module should I refer to?
+
+Thanks
+
+John
+
+--00000000000065131905852715c6
+Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<style type=3D"text/css" style=3D"display:none;"><!-- P {margin-top:0;margi=
-n-bottom:0;} --></style>
-</head>
-<body dir=3D"ltr">
-<div id=3D"divtagdefaultwrapper" dir=3D"ltr" style=3D"font-size: 12pt; colo=
-r: rgb(0, 0, 0); font-family: Calibri, Helvetica, sans-serif, EmojiFont, &q=
-uot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, NotoColorEmoji, &q=
-uot;Segoe UI Symbol&quot;, &quot;Android Emoji&quot;, EmojiSymbols;">
-<p>Hi All,</p>
-<p><br>
-</p>
-<p>This issue is related to the&nbsp;repository <a href=3D"https://github.c=
-om/openbmc/phosphor-pid-control" class=3D"OWAAutoLink">
-phosphor-pid-control</a>.</p>
-<p><br>
-</p>
-<p>It is in commit&nbsp;<span><a href=3D"https://github.com/openbmc/phospho=
-r-pid-control/commit/75eb769d351434547899186f73ff70ae00d7934a" class=3D"OWA=
-AutoLink">dbuspassive: allow scaling</a>&nbsp;that one&nbsp;added scaling m=
-echanism. However when it comes to
-<a href=3D"https://github.com/openbmc/phosphor-pid-control/blob/master/pid/=
-ec/pid.cpp" class=3D"OWAAutoLink">
-pid.cpp</a>, it may encounter scaling mismatch. That is to say, (in fan con=
-trol stage)&nbsp;the pid takes the scaled values as inputs, but it utilizes=
- unscaled&nbsp;<span>setpoints resulting&nbsp;wrong error terms. Or just ch=
-ange the setpoint value?</span></span></p>
-<p><span><span><br>
-</span></span></p>
-<p><span><span>Thanks,</span></span></p>
-<p><span><span><br>
-</span></span></p>
-<p>Hank Liou</p>
-<p>Quanta Computer Inc.</p>
-</div>
-</body>
-</html>
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>I =
+found that on my machine (x86), phosphor-state-manager(host) doesn&#39;t wo=
+rk as expected.=C2=A0</div><div>I have a problem when debugging. I hope som=
+eone can help me.=C2=A0</div><div><br></div><div>When `obmcutil poweroff` i=
+s executed, it calls `obmc-host-shutdown@0.target`=C2=A0</div><div>and=C2=
+=A0 will change the CurrentHostState by judging whether obmc-host-stop@0.ta=
+rget is executed or not.</div><div><br></div><div>However,On my machine, ob=
+mc-host-stop@0.target has never been executed.</div><div><br></div><div>$sy=
+stemctl status obmc-host-shutdown@0.target<br></div><div><div>obmc-host-shu=
+tdown@0.target - Power0 Host Off</div><div>=C2=A0 =C2=A0Loaded: loaded (/li=
+b/systemd/system/obmc-host-shutdown@.target; static; vendor preset: enabled=
+)</div><div>=C2=A0 =C2=A0Active: active</div><div><br></div><div>on5263m5 s=
+ystemd[1]: Reached target Power0 Host Off.<br></div></div><div><br></div><d=
+iv>$systemctl status obmc-host-stop@0.target</div><div>Obmc-host-stop@0.tar=
+get - Stop Host0</div><div>=C2=A0 =C2=A0Loaded: loaded (/lib/systemd/system=
+/obmc-host-stop@.target; static; vendor preset: enabled)</div><div>=C2=A0 =
+=C2=A0Active: inactive (dead)</div><div><br></div><div>There is such a comm=
+ent in the code</div><div><br></div><div>host-shutdown notifies host of shu=
+tdown and that leads to host-stop being</div><div>called so initiate a host=
+ shutdown with the -shutdown target and consider the=C2=A0</div><div>host s=
+hut down when the -stop target is complete</div><div><br></div><div>But I h=
+ave not figured out how -stop target is called.</div><div><br></div><div>In=
+ addition, if the shutdown is performed on the host operating system,=C2=A0=
+</div><div>is it impossible for host-state-manager to know that it is curre=
+ntly shut down?=C2=A0</div><div>In this case, how is openbmc handled? Which=
+ module should I refer to?</div><div><br></div><div>Thanks</div><div><br></=
+div><div>John</div></div></div></div></div>
 
---_000_1f94cb30fe624740b2ad67438b643266quantatwcom_--
+--00000000000065131905852715c6--
