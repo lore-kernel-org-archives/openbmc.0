@@ -9,13 +9,13 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Vhdv52vvzDqGp
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 10:58:27 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Vhdw5GSDzDqHj
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 10:58:28 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x2SNSAxk000523;
- Fri, 29 Mar 2019 01:28:10 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x2SNS8pE000520;
+ Fri, 29 Mar 2019 01:28:08 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id EA27E63000; Fri, 29 Mar 2019 01:58:06 +0200 (IST)
+ id 4923E63000; Fri, 29 Mar 2019 01:58:05 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: joe@perches.com, avifishman70@gmail.com, venture@google.com,
  yuenn@google.com, benjaminfair@google.com, brendanhiggins@google.com,
@@ -23,13 +23,10 @@ To: joe@perches.com, avifishman70@gmail.com, venture@google.com,
  gregkh@linuxfoundation.org
 Cc: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v2 2/2] MAINTAINERS: Add maintainer and replacing reviewer
- ARM/NUVOTON NPCM
-Date: Fri, 29 Mar 2019 01:57:52 +0200
-Message-Id: <20190328235752.334462-2-tmaimon77@gmail.com>
+Subject: [PATCH v2 1/2] MAINTAINERS: fix bad pattern in ARM/NUVOTON NPCM
+Date: Fri, 29 Mar 2019 01:57:51 +0200
+Message-Id: <20190328235752.334462-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20190328235752.334462-1-tmaimon77@gmail.com>
-References: <20190328235752.334462-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,33 +38,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 28 Mar 2019 23:58:28 -0000
+X-List-Received-Date: Thu, 28 Mar 2019 23:58:29 -0000
 
-Adding Tali Perry as Nuvoton NPCM maintainer
-Replacing Brendan Higgins Nuvoton NPCM reviewer with
-Benjamin Fair.
+In the process of upstreaming architecture support for ARM/NUVOTON NPCM
+include/dt-bindings/clock/nuvoton,npcm7xx-clks.h was renamed
+include/dt-bindings/clock/nuvoton,npcm7xx-clock.h without updating
+MAINTAINERS. This updates the MAINTAINERS pattern to match the new name
+of this file.
 
+Fixes: 6a498e06ba22 ("MAINTAINERS: Add entry for the Nuvoton NPCM architecture")
+Reported-by: Joe Perches <joe@perches.com>
+Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
-Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
 ---
- MAINTAINERS | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ MAINTAINERS | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 8b305d2f2a8a..4ece87fcc166 100644
+index 3e5a5d263f29..8b305d2f2a8a 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -1893,9 +1893,10 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
- ARM/NUVOTON NPCM ARCHITECTURE
- M:	Avi Fishman <avifishman70@gmail.com>
- M:	Tomer Maimon <tmaimon77@gmail.com>
-+M:	Tali Perry <tali.perry1@gmail.com>
- R:	Patrick Venture <venture@google.com>
- R:	Nancy Yuen <yuenn@google.com>
--R:	Brendan Higgins <brendanhiggins@google.com>
-+R:	Benjamin Fair <benjaminfair@google.com>
- L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
+@@ -1900,7 +1900,7 @@ L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
  S:	Supported
  F:	arch/arm/mach-npcm/
+ F:	arch/arm/boot/dts/nuvoton-npcm*
+-F:	include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
++F:	include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+ F:	drivers/*/*npcm*
+ F:	Documentation/devicetree/bindings/*/*npcm*
+ F:	Documentation/devicetree/bindings/*/*/*npcm*
 -- 
 2.14.1
