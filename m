@@ -1,34 +1,38 @@
-Return-Path: <prvs=9843ce68d=George.Hung@quantatw.com>
+Return-Path: <pmenzel@molgen.mpg.de>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=9843ce68d=george.hung@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=molgen.mpg.de
+ (client-ip=141.14.17.11; helo=mx1.molgen.mpg.de;
+ envelope-from=pmenzel@molgen.mpg.de; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44VwcN4PXYzDqDb
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 19:57:48 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx01.quantatw.com with ESMTP; 29 Mar 2019 16:57:43 +0800
-Received: from george-Quanta.com.com (10.243.91.252) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 29 Mar
- 2019 16:57:42 +0800
-From: George Hung <george.hung@quantatw.com>
-To: Joel Stanley <joel@jms.id.au>
-CC: <openbmc@lists.ozlabs.org>, <emilyshaffer@google.com>,
- <benjaminfair@google.com>, <Avi.Fishman@nuvoton.com>,
- <ofer.eilon@nuvoton.com>, <tomer.maimon@nuvoton.com>
-Subject: [PATCH dev-5.0 v1] EDAC: Add Nuvoton NPCM7xx EDAC driver
-Date: Fri, 29 Mar 2019 16:54:33 +0800
-Message-ID: <20190329085433.27583-1-george.hung@quantatw.com>
-X-Mailer: git-send-email 2.21.0
+ dmarc=none (p=none dis=none) header.from=molgen.mpg.de
+X-Greylist: delayed 412 seconds by postgrey-1.36 at bilbo;
+ Fri, 29 Mar 2019 21:22:15 AEDT
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44VyTg5M2TzDqB7
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 21:22:14 +1100 (AEDT)
+Received: from pummeluff.molgen.mpg.de (pummeluff.molgen.mpg.de [141.14.18.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested) (Authenticated sender: pmenzel)
+ by mx.molgen.mpg.de (Postfix) with ESMTPSA id 8E949604E3A68;
+ Fri, 29 Mar 2019 11:15:17 +0100 (CET)
+Subject: Re: [PATCH dev-5.0 v1] EDAC: Add Nuvoton NPCM7xx EDAC driver
+To: George Hung <george.hung@quantatw.com>
+Cc: Joel Stanley <joel@jms.id.au>, Emily Shaffer <emilyshaffer@google.com>,
+ benjaminfair@google.com, ofer.eilon@nuvoton.com, openbmc@lists.ozlabs.org,
+ Avi Fishman <avi.fishman@nuvoton.com>,
+ Tomer Maimon <tomer.maimon@nuvoton.com>
+References: <20190329085433.27583-1-george.hung@quantatw.com>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+Message-ID: <980e1d8a-4275-cd33-925f-5d8e9f1a1ade@molgen.mpg.de>
+Date: Fri, 29 Mar 2019 11:15:17 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101
+ Thunderbird/52.9.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.243.91.252]
-X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
- mailbx05.quanta.corp (10.243.91.100)
+In-Reply-To: <20190329085433.27583-1-george.hung@quantatw.com>
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="------------ms050906090809070501020406"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,497 +44,152 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Mar 2019 08:57:58 -0000
+X-List-Received-Date: Fri, 29 Mar 2019 10:22:17 -0000
 
-Add support for the Nuvoton NPCM7xx SoC EDAC driver
+This is a cryptographically signed message in MIME format.
 
-Signed-off-by: George Hung <george.hung@quantatw.com>
----
- .../bindings/edac/npcm7xx-sdram-edac.txt      |  17 +
- drivers/edac/Kconfig                          |   7 +
- drivers/edac/Makefile                         |   1 +
- drivers/edac/npcm7xx_edac.c                   | 424 ++++++++++++++++++
- 4 files changed, 449 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/edac/npcm7xx-sdram-edac.txt
- create mode 100644 drivers/edac/npcm7xx_edac.c
+--------------ms050906090809070501020406
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/Documentation/devicetree/bindings/edac/npcm7xx-sdram-edac.txt b/Documentation/devicetree/bindings/edac/npcm7xx-sdram-edac.txt
-new file mode 100644
-index 000000000000..dd4dac59a5bd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/edac/npcm7xx-sdram-edac.txt
-@@ -0,0 +1,17 @@
-+Nuvoton NPCM7xx SoC EDAC device driver
-+
-+The Nuvoton NPCM7xx SoC supports DDR4 memory with/without ECC and the driver
-+uses the EDAC framework to implement the ECC detection and corrtection.
-+
-+Required properties:
-+- compatible:	should be "nuvoton,npcm7xx-sdram-edac"
-+- reg:		Memory controller register set should be <0xf0824000 0x1000>
-+- interrupts:	should be MC interrupt #25
-+
-+Example:
-+
-+	mc: memory-controller@f0824000 {
-+		compatible = "nuvoton,npcm7xx-sdram-edac";
-+		reg = <0xf0824000 0x1000>;
-+		interrupts = <0 25 4>;
-+	};
-diff --git a/drivers/edac/Kconfig b/drivers/edac/Kconfig
-index e286b5b99003..a078a1b56d94 100644
---- a/drivers/edac/Kconfig
-+++ b/drivers/edac/Kconfig
-@@ -475,4 +475,11 @@ config EDAC_QCOM
- 	  For debugging issues having to do with stability and overall system
- 	  health, you should probably say 'Y' here.
- 
-+config EDAC_NPCM7XX
-+        tristate "Nuvoton NPCM7xx DDR Memory Controller"
-+        depends on ARCH_NPCM7XX
-+        help
-+          Support for error detection and correction on the
-+          Nuvoton NPCM7xx DDR memory controller.
-+
- endif # EDAC
-diff --git a/drivers/edac/Makefile b/drivers/edac/Makefile
-index 716096d08ea0..c8a6b7a4215d 100644
---- a/drivers/edac/Makefile
-+++ b/drivers/edac/Makefile
-@@ -78,3 +78,4 @@ obj-$(CONFIG_EDAC_SYNOPSYS)		+= synopsys_edac.o
- obj-$(CONFIG_EDAC_XGENE)		+= xgene_edac.o
- obj-$(CONFIG_EDAC_TI)			+= ti_edac.o
- obj-$(CONFIG_EDAC_QCOM)			+= qcom_edac.o
-+obj-$(CONFIG_EDAC_NPCM7XX)		+= npcm7xx_edac.o
-diff --git a/drivers/edac/npcm7xx_edac.c b/drivers/edac/npcm7xx_edac.c
-new file mode 100644
-index 000000000000..bab25a4308be
---- /dev/null
-+++ b/drivers/edac/npcm7xx_edac.c
-@@ -0,0 +1,424 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2019 Quanta Computer lnc.
-+ */
-+
-+#include <linux/edac.h>
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/of_address.h>
-+#include <linux/of_device.h>
-+
-+#include "edac_module.h"
-+
-+#define ECC_ENABLE                     BIT(24)
-+#define ECC_EN_INT_MASK                0x7fffff87
-+
-+#define INT_STATUS_ADDR                116
-+#define INT_ACK_ADDR                   117
-+#define INT_MASK_ADDR                  118
-+
-+#define ECC_EN_ADDR                    93
-+#define ECC_C_ADDR_ADDR                98
-+#define ECC_C_DATA_ADDR                100
-+#define ECC_C_ID_ADDR                  101
-+#define ECC_C_SYND_ADDR                99
-+#define ECC_U_ADDR_ADDR                95
-+#define ECC_U_DATA_ADDR                97
-+#define ECC_U_ID_ADDR                  101
-+#define ECC_U_SYND_ADDR                96
-+
-+#define ECC_ERROR                      -1
-+#define EDAC_MSG_SIZE                  256
-+#define EDAC_MOD_NAME                  "npcm7xx-edac"
-+
-+struct ecc_error_signature_info {
-+	u32 ecc_addr;
-+	u32 ecc_data;
-+	u32 ecc_id;
-+	u32 ecc_synd;
-+};
-+
-+struct npcm7xx_ecc_int_status {
-+	u32 int_mask;
-+	u32 int_status;
-+	u32 int_ack;
-+	u32 ce_cnt;
-+	u32 ue_cnt;
-+	struct ecc_error_signature_info ceinfo;
-+	struct ecc_error_signature_info ueinfo;
-+};
-+
-+struct npcm7xx_edac_priv {
-+	void __iomem *baseaddr;
-+	char message[EDAC_MSG_SIZE];
-+	struct npcm7xx_ecc_int_status stat;
-+};
-+
-+/**
-+ * npcm7xx_edac_get_ecc_syndrom - Get the current ecc error info
-+ * @base:	Pointer to the base address of the ddr memory controller
-+ * @p:		Pointer to the Nuvoton ecc status structure
-+ *
-+ * Determines there is any ecc error or not
-+ *
-+ * Return: ECC detection status
-+ */
-+static int npcm7xx_edac_get_ecc_syndrom(void __iomem *base,
-+					struct npcm7xx_ecc_int_status *p)
-+{
-+	int status = 0;
-+	u32 int_status = 0;
-+
-+	int_status = readl(base + 4*INT_STATUS_ADDR);
-+	writel(int_status, base + 4*INT_ACK_ADDR);
-+	edac_dbg(3, "int_status: %#08x\n", int_status);
-+
-+	if ((int_status & (1 << 6)) == (1 << 6)) {
-+		edac_dbg(3, "6-Mult uncorrectable detected.\n");
-+		p->ue_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 5)) == (1 << 5)) {
-+		edac_dbg(3, "5-An uncorrectable detected\n");
-+		p->ue_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 4)) == (1 << 4)) {
-+		edac_dbg(3, "4-mult correctable detected.\n");
-+		p->ce_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if ((int_status & (1 << 3)) == (1 << 3)) {
-+		edac_dbg(3, "3-A correctable detected.\n");
-+		p->ce_cnt++;
-+		status = ECC_ERROR;
-+	}
-+
-+	if (status == ECC_ERROR) {
-+		u32 ecc_id;
-+
-+		p->ceinfo.ecc_addr = readl(base + 4*ECC_C_ADDR_ADDR);
-+		p->ceinfo.ecc_data = readl(base + 4*ECC_C_DATA_ADDR);
-+		p->ceinfo.ecc_synd = readl(base + 4*ECC_C_SYND_ADDR);
-+
-+		p->ueinfo.ecc_addr = readl(base + 4*ECC_U_ADDR_ADDR);
-+		p->ueinfo.ecc_data = readl(base + 4*ECC_U_DATA_ADDR);
-+		p->ueinfo.ecc_synd = readl(base + 4*ECC_U_SYND_ADDR);
-+
-+		/* ECC_C_ID_ADDR has same value as ECC_U_ID_ADDR */
-+		ecc_id = readl(base + 4*ECC_C_ID_ADDR);
-+		p->ueinfo.ecc_id = ecc_id & 0xffff;
-+		p->ceinfo.ecc_id = ecc_id >> 16;
-+	}
-+
-+	return status;
-+}
-+
-+/**
-+ * npcm7xx_edac_handle_error - Handle controller error types CE and UE
-+ * @mci:	Pointer to the edac memory controller instance
-+ * @p:		Pointer to the Nuvoton ecc status structure
-+ *
-+ * Handles the controller ECC correctable and un correctable error.
-+ */
-+static void npcm7xx_edac_handle_error(struct mem_ctl_info *mci,
-+				    struct npcm7xx_ecc_int_status *p)
-+{
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+	u32 page, offset;
-+
-+	if (p->ce_cnt) {
-+		snprintf(priv->message, EDAC_MSG_SIZE,
-+			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
-+			p->ceinfo.ecc_synd, p->ceinfo.ecc_addr,
-+			p->ceinfo.ecc_data, p->ceinfo.ecc_id);
-+
-+		page = p->ceinfo.ecc_addr >> PAGE_SHIFT;
-+		offset = p->ceinfo.ecc_addr & ~PAGE_MASK;
-+		edac_mc_handle_error(HW_EVENT_ERR_CORRECTED, mci,
-+				     p->ce_cnt, page, offset,
-+				     p->ceinfo.ecc_synd,
-+				     0, 0, -1,
-+				     priv->message, "");
-+	}
-+
-+	if (p->ue_cnt) {
-+		snprintf(priv->message, EDAC_MSG_SIZE,
-+			"DDR ECC: synd=%#08x addr=%#08x data=%#08x source_id=%#08x ",
-+			p->ueinfo.ecc_synd, p->ueinfo.ecc_addr,
-+			p->ueinfo.ecc_data, p->ueinfo.ecc_id);
-+
-+		page = p->ueinfo.ecc_addr >> PAGE_SHIFT;
-+		offset = p->ueinfo.ecc_addr & ~PAGE_MASK;
-+		edac_mc_handle_error(HW_EVENT_ERR_UNCORRECTED, mci,
-+				     p->ue_cnt, page, offset,
-+				     p->ueinfo.ecc_synd,
-+				     0, 0, -1,
-+				     priv->message, "");
-+	}
-+
-+	memset(p, 0, sizeof(*p));
-+}
-+
-+/**
-+ * npcm7xx_edac_check - Check controller for ECC errors
-+ * @mci:	Pointer to the edac memory controller instance
-+ *
-+ * This routine is used to check and post ECC errors and is called by
-+ * this driver's CE and UE interrupt handler.
-+ */
-+static void npcm7xx_edac_check(struct mem_ctl_info *mci)
-+{
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+	int status = 0;
-+
-+	status = npcm7xx_edac_get_ecc_syndrom(priv->baseaddr, &priv->stat);
-+	if (status != ECC_ERROR)
-+		return;
-+
-+	npcm7xx_edac_handle_error(mci, &priv->stat);
-+}
-+
-+/**
-+ * npcm7xx_edac_isr - CE/UE interrupt service routine
-+ * @irq:    The virtual interrupt number being serviced.
-+ * @dev_id: A pointer to the EDAC memory controller instance
-+ *          associated with the interrupt being handled.
-+ *
-+ * This routine implements the interrupt handler for both correctable
-+ * (CE) and uncorrectable (UE) ECC errors for the Nuvoton Cadence DDR
-+ * controller. It simply calls through to the routine used to check,
-+ * report and clear the ECC status.
-+ *
-+ * Unconditionally returns IRQ_HANDLED.
-+ */
-+static irqreturn_t npcm7xx_edac_isr(int irq, void *dev_id)
-+{
-+	struct mem_ctl_info *mci = dev_id;
-+	int npcm_edac_report = 0;
-+
-+	npcm_edac_report = edac_get_report_status();
-+	if (npcm_edac_report != EDAC_REPORTING_DISABLED)
-+		npcm7xx_edac_check(mci);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int npcm7xx_edac_register_irq(struct mem_ctl_info *mci,
-+					struct platform_device *pdev)
-+{
-+	int status = 0;
-+	int mc_irq;
-+	struct npcm7xx_edac_priv *priv = mci->pvt_info;
-+
-+	mc_irq = platform_get_irq(pdev, 0);
-+
-+	if (!mc_irq) {
-+		edac_printk(KERN_ERR, EDAC_MC, "Unable to map interrupts.\n");
-+		status = -ENODEV;
-+		goto fail;
-+	}
-+
-+	status = devm_request_irq(&pdev->dev, mc_irq, npcm7xx_edac_isr, 0,
-+			       "npcm-memory-controller", mci);
-+
-+	if (status < 0) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+				      "Unable to request irq %d for ECC",
-+				      mc_irq);
-+		status = -ENODEV;
-+		goto fail;
-+	}
-+
-+	/* Only enable MC interrupts with ECC - clear int_mask[6:3] */
-+	writel(ECC_EN_INT_MASK, priv->baseaddr + 4*INT_MASK_ADDR);
-+
-+	return 0;
-+
-+fail:
-+	return status;
-+}
-+
-+static const struct of_device_id npcm7xx_edac_of_match[] = {
-+	{ .compatible = "nuvoton,npcm7xx-sdram-edac"},
-+	{ /* end of table */ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, npcm7xx_edac_of_match);
-+
-+/**
-+ * npcm7xx_edac_mc_init - Initialize driver instance
-+ * @mci:	Pointer to the edac memory controller instance
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Performs initialization of the EDAC memory controller instance and
-+ * related driver-private data associated with the memory controller the
-+ * instance is bound to.
-+ *
-+ * Returns 0 if OK; otherwise, < 0 on error.
-+ */
-+static int npcm7xx_edac_mc_init(struct mem_ctl_info *mci,
-+				 struct platform_device *pdev)
-+{
-+	const struct of_device_id *id;
-+
-+	id = of_match_device(npcm7xx_edac_of_match, &pdev->dev);
-+	if (!id)
-+		return -ENODEV;
-+
-+	/* Initialize controller capabilities and configuration */
-+	mci->mtype_cap = MEM_FLAG_DDR4;
-+	mci->edac_ctl_cap = EDAC_FLAG_SECDED;
-+	mci->edac_cap = EDAC_FLAG_SECDED;
-+	mci->scrub_cap = SCRUB_FLAG_HW_SRC;
-+	mci->scrub_mode = SCRUB_HW_SRC;
-+	mci->ctl_name = id->compatible;
-+	mci->dev_name = dev_name(&pdev->dev);
-+	mci->mod_name = EDAC_MOD_NAME;
-+
-+	edac_op_state = EDAC_OPSTATE_INT;
-+
-+	return 0;
-+}
-+
-+/**
-+ * npcm7xx_edac_get_eccstate - Return the controller ecc enable/disable status
-+ * @base:	Pointer to the ddr memory controller base address
-+ *
-+ * Get the ECC enable/disable status for the controller
-+ *
-+ * Return: a ecc status boolean i.e true/false - enabled/disabled.
-+ */
-+static bool npcm7xx_edac_get_eccstate(void __iomem *base)
-+{
-+	u32 ecc_en;
-+	bool state = false;
-+
-+	ecc_en = readl(base + 4*ECC_EN_ADDR);
-+	if (ecc_en & ECC_ENABLE) {
-+		edac_printk(KERN_INFO, EDAC_MC, "ECC reporting and correcting on. ");
-+		state = true;
-+	}
-+
-+	return state;
-+}
-+
-+/**
-+ * npcm7xx_edac_mc_probe - Check controller and bind driver
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Probes a specific controller instance for binding with the driver.
-+ *
-+ * Return: 0 if the controller instance was successfully bound to the
-+ * driver; otherwise, < 0 on error.
-+ */
-+static int npcm7xx_edac_mc_probe(struct platform_device *pdev)
-+{
-+	struct mem_ctl_info *mci;
-+	struct edac_mc_layer layers[1];
-+	struct npcm7xx_edac_priv *priv;
-+	struct resource *res;
-+	void __iomem *baseaddr;
-+	int rc;
-+
-+	res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	baseaddr = devm_ioremap_resource(&pdev->dev, res);
-+	if (IS_ERR(baseaddr)) {
-+		edac_printk(KERN_ERR, EDAC_MOD_NAME,
-+			    "DDR controller regs not defined\n");
-+		return PTR_ERR(baseaddr);
-+	}
-+
-+	/*
-+	 * Check if ECC is enabled.
-+	 * If not, there is no useful monitoring that can be done
-+	 * for this controller.
-+	 */
-+	if (!npcm7xx_edac_get_eccstate(baseaddr)) {
-+		edac_printk(KERN_INFO, EDAC_MC, "ECC disabled\n");
-+		return -ENXIO;
-+	}
-+
-+	/*
-+	 * Allocate an EDA controller instance and perform the appropriate
-+	 * initialization.
-+	 */
-+	layers[0].type = EDAC_MC_LAYER_ALL_MEM;
-+	layers[0].size = 1;
-+
-+	mci = edac_mc_alloc(0, ARRAY_SIZE(layers), layers,
-+			    sizeof(struct npcm7xx_edac_priv));
-+	if (!mci) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed memory allocation for mc instance\n");
-+		return -ENOMEM;
-+	}
-+
-+	mci->pdev = &pdev->dev;
-+	priv = mci->pvt_info;
-+	priv->baseaddr = baseaddr;
-+	platform_set_drvdata(pdev, mci);
-+
-+	rc = npcm7xx_edac_mc_init(mci, pdev);
-+	if (rc) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed to initialize instance\n");
-+		goto free_edac_mc;
-+	}
-+
-+	/* Attempt to register it with the EDAC subsystem */
-+	rc = edac_mc_add_mc(mci);
-+	if (rc) {
-+		edac_printk(KERN_ERR, EDAC_MC,
-+			    "Failed to register with EDAC core\n");
-+		goto free_edac_mc;
-+	}
-+
-+	/* Register interrupts */
-+	rc = npcm7xx_edac_register_irq(mci, pdev);
-+	if (rc)
-+		goto free_edac_mc;
-+
-+	return 0;
-+
-+free_edac_mc:
-+	edac_mc_free(mci);
-+
-+	return rc;
-+}
-+
-+/**
-+ * npcm7xx_edac_mc_remove - Unbind driver from controller
-+ * @pdev:	Pointer to the platform_device struct
-+ *
-+ * Return: Unconditionally 0
-+ */
-+static int npcm7xx_edac_mc_remove(struct platform_device *pdev)
-+{
-+	struct mem_ctl_info *mci = platform_get_drvdata(pdev);
-+
-+	edac_mc_del_mc(&pdev->dev);
-+	edac_mc_free(mci);
-+
-+	return 0;
-+}
-+
-+static struct platform_driver npcm7xx_edac_driver = {
-+	.probe = npcm7xx_edac_mc_probe,
-+	.remove = npcm7xx_edac_mc_remove,
-+	.driver = {
-+		   .name = EDAC_MOD_NAME,
-+		   .of_match_table = npcm7xx_edac_of_match,
-+	},
-+};
-+
-+module_platform_driver(npcm7xx_edac_driver);
-+
-+MODULE_AUTHOR("Quanta Computer Inc.");
-+MODULE_DESCRIPTION("Nuvoton NPCM7xx EDAC Driver");
-+MODULE_LICENSE("GPL v2");
--- 
-2.21.0
+Dear George,
+
+
+Thank you for your patch.
+
+First question, did you send this upstream already? See entry EDAC-CORE
+in `MAINTAINERS`.
+
+On 03/29/19 09:54, George Hung wrote:
+> Add support for the Nuvoton NPCM7xx SoC EDAC driver
+
+Could you please add the datasheet name and version to the commit message=
+=2E
+Also, how did you test this?
+
+> Signed-off-by: George Hung <george.hung@quantatw.com>
+> ---
+>  .../bindings/edac/npcm7xx-sdram-edac.txt      |  17 +
+>  drivers/edac/Kconfig                          |   7 +
+>  drivers/edac/Makefile                         |   1 +
+>  drivers/edac/npcm7xx_edac.c                   | 424 ++++++++++++++++++=
+
+>  4 files changed, 449 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/edac/npcm7xx-sdra=
+m-edac.txt
+>  create mode 100644 drivers/edac/npcm7xx_edac.c
+
+Could you please also add an entry to the file `MAINTAINERS`?
+
+[=E2=80=A6]
+
+
+Kind regards,
+
+Paul
+
+
+--------------ms050906090809070501020406
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCC
+EFowggUSMIID+qADAgECAgkA4wvV+K8l2YEwDQYJKoZIhvcNAQELBQAwgYIxCzAJBgNVBAYT
+AkRFMSswKQYDVQQKDCJULVN5c3RlbXMgRW50ZXJwcmlzZSBTZXJ2aWNlcyBHbWJIMR8wHQYD
+VQQLDBZULVN5c3RlbXMgVHJ1c3QgQ2VudGVyMSUwIwYDVQQDDBxULVRlbGVTZWMgR2xvYmFs
+Um9vdCBDbGFzcyAyMB4XDTE2MDIyMjEzMzgyMloXDTMxMDIyMjIzNTk1OVowgZUxCzAJBgNV
+BAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1dHNjaGVu
+IEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNVBAMTJERG
+Ti1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjCCASIwDQYJKoZIhvcNAQEBBQAD
+ggEPADCCAQoCggEBAMtg1/9moUHN0vqHl4pzq5lN6mc5WqFggEcVToyVsuXPztNXS43O+FZs
+FVV2B+pG/cgDRWM+cNSrVICxI5y+NyipCf8FXRgPxJiZN7Mg9mZ4F4fCnQ7MSjLnFp2uDo0p
+eQcAIFTcFV9Kltd4tjTTwXS1nem/wHdN6r1ZB+BaL2w8pQDcNb1lDY9/Mm3yWmpLYgHurDg0
+WUU2SQXaeMpqbVvAgWsRzNI8qIv4cRrKO+KA3Ra0Z3qLNupOkSk9s1FcragMvp0049ENF4N1
+xDkesJQLEvHVaY4l9Lg9K7/AjsMeO6W/VRCrKq4Xl14zzsjz9AkH4wKGMUZrAcUQDBHHWekC
+AwEAAaOCAXQwggFwMA4GA1UdDwEB/wQEAwIBBjAdBgNVHQ4EFgQUk+PYMiba1fFKpZFK4OpL
+4qIMz+EwHwYDVR0jBBgwFoAUv1kgNgB5oKAia4zV8mHSuCzLgkowEgYDVR0TAQH/BAgwBgEB
+/wIBAjAzBgNVHSAELDAqMA8GDSsGAQQBga0hgiwBAQQwDQYLKwYBBAGBrSGCLB4wCAYGZ4EM
+AQICMEwGA1UdHwRFMEMwQaA/oD2GO2h0dHA6Ly9wa2kwMzM2LnRlbGVzZWMuZGUvcmwvVGVs
+ZVNlY19HbG9iYWxSb290X0NsYXNzXzIuY3JsMIGGBggrBgEFBQcBAQR6MHgwLAYIKwYBBQUH
+MAGGIGh0dHA6Ly9vY3NwMDMzNi50ZWxlc2VjLmRlL29jc3ByMEgGCCsGAQUFBzAChjxodHRw
+Oi8vcGtpMDMzNi50ZWxlc2VjLmRlL2NydC9UZWxlU2VjX0dsb2JhbFJvb3RfQ2xhc3NfMi5j
+ZXIwDQYJKoZIhvcNAQELBQADggEBAIcL/z4Cm2XIVi3WO5qYi3FP2ropqiH5Ri71sqQPrhE4
+eTizDnS6dl2e6BiClmLbTDPo3flq3zK9LExHYFV/53RrtCyD2HlrtrdNUAtmB7Xts5et6u5/
+MOaZ/SLick0+hFvu+c+Z6n/XUjkurJgARH5pO7917tALOxrN5fcPImxHhPalR6D90Bo0fa3S
+PXez7vTXTf/D6OWST1k+kEcQSrCFWMBvf/iu7QhCnh7U3xQuTY+8npTD5+32GPg8SecmqKc2
+2CzeIs2LgtjZeOJVEqM7h0S2EQvVDFKvaYwPBt/QolOLV5h7z/0HJPT8vcP9SpIClxvyt7bP
+ZYoaorVyGTkwggWNMIIEdaADAgECAgwcOtRQhH7u81j4jncwDQYJKoZIhvcNAQELBQAwgZUx
+CzAJBgNVBAYTAkRFMUUwQwYDVQQKEzxWZXJlaW4genVyIEZvZXJkZXJ1bmcgZWluZXMgRGV1
+dHNjaGVuIEZvcnNjaHVuZ3NuZXR6ZXMgZS4gVi4xEDAOBgNVBAsTB0RGTi1QS0kxLTArBgNV
+BAMTJERGTi1WZXJlaW4gQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkgMjAeFw0xNjExMDMxNTI0
+NDhaFw0zMTAyMjIyMzU5NTlaMGoxCzAJBgNVBAYTAkRFMQ8wDQYDVQQIDAZCYXllcm4xETAP
+BgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxhbmNrLUdlc2VsbHNjaGFmdDEVMBMG
+A1UEAwwMTVBHIENBIC0gRzAyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnhx4
+59Lh4WqgOs/Md04XxU2yFtfM15ZuJV0PZP7BmqSJKLLPyqmOrADfNdJ5PIGBto2JBhtRRBHd
+G0GROOvTRHjzOga95WOTeura79T21FWwwAwa29OFnD3ZplQs6HgdwQrZWNi1WHNJxn/4mA19
+rNEBUc5urSIpZPvZi5XmlF3v3JHOlx3KWV7mUteB4pwEEfGTg4npPAJbp2o7arxQdoIq+Pu2
+OsvqhD7Rk4QeaX+EM1QS4lqd1otW4hE70h/ODPy1xffgbZiuotWQLC6nIwa65Qv6byqlIX0q
+Zuu99Vsu+r3sWYsL5SBkgecNI7fMJ5tfHrjoxfrKl/ErTAt8GQIDAQABo4ICBTCCAgEwEgYD
+VR0TAQH/BAgwBgEB/wIBATAOBgNVHQ8BAf8EBAMCAQYwKQYDVR0gBCIwIDANBgsrBgEEAYGt
+IYIsHjAPBg0rBgEEAYGtIYIsAQEEMB0GA1UdDgQWBBTEiKUH7rh7qgwTv9opdGNSG0lwFjAf
+BgNVHSMEGDAWgBST49gyJtrV8UqlkUrg6kviogzP4TCBjwYDVR0fBIGHMIGEMECgPqA8hjpo
+dHRwOi8vY2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jcmwvY2Fjcmwu
+Y3JsMECgPqA8hjpodHRwOi8vY2RwMi5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1
+Yi9jcmwvY2FjcmwuY3JsMIHdBggrBgEFBQcBAQSB0DCBzTAzBggrBgEFBQcwAYYnaHR0cDov
+L29jc3AucGNhLmRmbi5kZS9PQ1NQLVNlcnZlci9PQ1NQMEoGCCsGAQUFBzAChj5odHRwOi8v
+Y2RwMS5wY2EuZGZuLmRlL2dsb2JhbC1yb290LWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNy
+dDBKBggrBgEFBQcwAoY+aHR0cDovL2NkcDIucGNhLmRmbi5kZS9nbG9iYWwtcm9vdC1nMi1j
+YS9wdWIvY2FjZXJ0L2NhY2VydC5jcnQwDQYJKoZIhvcNAQELBQADggEBABLpeD5FygzqOjj+
+/lAOy20UQOGWlx0RMuPcI4nuyFT8SGmK9lD7QCg/HoaJlfU/r78ex+SEide326evlFAoJXIF
+jVyzNltDhpMKrPIDuh2N12zyn1EtagqPL6hu4pVRzcBpl/F2HCvtmMx5K4WN1L1fmHWLcSap
+dhXLvAZ9RG/B3rqyULLSNN8xHXYXpmtvG0VGJAndZ+lj+BH7uvd3nHWnXEHC2q7iQlDUqg0a
+wIqWJgdLlx1Q8Dg/sodv0m+LN0kOzGvVDRCmowBdWGhhusD+duKV66pBl+qhC+4LipariWaM
+qK5ppMQROATjYeNRvwI+nDcEXr2vDaKmdbxgDVwwggWvMIIEl6ADAgECAgweKlJIhfynPMVG
+/KIwDQYJKoZIhvcNAQELBQAwajELMAkGA1UEBhMCREUxDzANBgNVBAgMBkJheWVybjERMA8G
+A1UEBwwITXVlbmNoZW4xIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MRUwEwYD
+VQQDDAxNUEcgQ0EgLSBHMDIwHhcNMTcxMTE0MTEzNDE2WhcNMjAxMTEzMTEzNDE2WjCBizEL
+MAkGA1UEBhMCREUxIDAeBgNVBAoMF01heC1QbGFuY2stR2VzZWxsc2NoYWZ0MTQwMgYDVQQL
+DCtNYXgtUGxhbmNrLUluc3RpdHV0IGZ1ZXIgbW9sZWt1bGFyZSBHZW5ldGlrMQ4wDAYDVQQL
+DAVNUElNRzEUMBIGA1UEAwwLUGF1bCBNZW56ZWwwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQDIh/UR/AX/YQ48VWWDMLTYtXjYJyhRHMc81ZHMMoaoG66lWB9MtKRTnB5lovLZ
+enTIUyPsCrMhTqV9CWzDf6v9gOTWVxHEYqrUwK5H1gx4XoK81nfV8oGV4EKuVmmikTXiztGz
+peyDmOY8o/EFNWP7YuRkY/lPQJQBeBHYq9AYIgX4StuXu83nusq4MDydygVOeZC15ts0tv3/
+6WmibmZd1OZRqxDOkoBbY3Djx6lERohs3IKS6RKiI7e90rCSy9rtidJBOvaQS9wvtOSKPx0a
++2pAgJEVzZFjOAfBcXydXtqXhcpOi2VCyl+7+LnnTz016JJLsCBuWEcB3kP9nJYNAgMBAAGj
+ggIxMIICLTAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIF4DAdBgNVHSUEFjAUBggrBgEFBQcD
+AgYIKwYBBQUHAwQwHQYDVR0OBBYEFHM0Mc3XjMLlhWpp4JufRELL4A/qMB8GA1UdIwQYMBaA
+FMSIpQfuuHuqDBO/2il0Y1IbSXAWMCAGA1UdEQQZMBeBFXBtZW56ZWxAbW9sZ2VuLm1wZy5k
+ZTB9BgNVHR8EdjB0MDigNqA0hjJodHRwOi8vY2RwMS5wY2EuZGZuLmRlL21wZy1nMi1jYS9w
+dWIvY3JsL2NhY3JsLmNybDA4oDagNIYyaHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzIt
+Y2EvcHViL2NybC9jYWNybC5jcmwwgc0GCCsGAQUFBwEBBIHAMIG9MDMGCCsGAQUFBzABhido
+dHRwOi8vb2NzcC5wY2EuZGZuLmRlL09DU1AtU2VydmVyL09DU1AwQgYIKwYBBQUHMAKGNmh0
+dHA6Ly9jZHAxLnBjYS5kZm4uZGUvbXBnLWcyLWNhL3B1Yi9jYWNlcnQvY2FjZXJ0LmNydDBC
+BggrBgEFBQcwAoY2aHR0cDovL2NkcDIucGNhLmRmbi5kZS9tcGctZzItY2EvcHViL2NhY2Vy
+dC9jYWNlcnQuY3J0MEAGA1UdIAQ5MDcwDwYNKwYBBAGBrSGCLAEBBDARBg8rBgEEAYGtIYIs
+AQEEAwYwEQYPKwYBBAGBrSGCLAIBBAMGMA0GCSqGSIb3DQEBCwUAA4IBAQCQs6bUDROpFO2F
+Qz2FMgrdb39VEo8P3DhmpqkaIMC5ZurGbbAL/tAR6lpe4af682nEOJ7VW86ilsIJgm1j0ueY
+aOuL8jrN4X7IF/8KdZnnNnImW3QVni6TCcc+7+ggci9JHtt0IDCj5vPJBpP/dKXLCN4M+exl
+GXYpfHgxh8gclJPY1rquhQrihCzHfKB01w9h9tWZDVMtSoy9EUJFhCXw7mYUsvBeJwZesN2B
+fndPkrXx6XWDdU3S1LyKgHlLIFtarLFm2Hb5zAUR33h+26cN6ohcGqGEEzgIG8tXS8gztEaj
+1s2RyzmKd4SXTkKR3GhkZNVWy+gM68J7jP6zzN+cMYIDmjCCA5YCAQEwejBqMQswCQYDVQQG
+EwJERTEPMA0GA1UECAwGQmF5ZXJuMREwDwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4
+LVBsYW5jay1HZXNlbGxzY2hhZnQxFTATBgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzF
+RvyiMA0GCWCGSAFlAwQCAQUAoIIB8TAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqG
+SIb3DQEJBTEPFw0xOTAzMjkxMDE1MTdaMC8GCSqGSIb3DQEJBDEiBCDUuvFJ0MWykBh2ZT1K
+kP/yJ+9xnTeyFov7alTrP4v9njBsBgkqhkiG9w0BCQ8xXzBdMAsGCWCGSAFlAwQBKjALBglg
+hkgBZQMEAQIwCgYIKoZIhvcNAwcwDgYIKoZIhvcNAwICAgCAMA0GCCqGSIb3DQMCAgFAMAcG
+BSsOAwIHMA0GCCqGSIb3DQMCAgEoMIGJBgkrBgEEAYI3EAQxfDB6MGoxCzAJBgNVBAYTAkRF
+MQ8wDQYDVQQIDAZCYXllcm4xETAPBgNVBAcMCE11ZW5jaGVuMSAwHgYDVQQKDBdNYXgtUGxh
+bmNrLUdlc2VsbHNjaGFmdDEVMBMGA1UEAwwMTVBHIENBIC0gRzAyAgweKlJIhfynPMVG/KIw
+gYsGCyqGSIb3DQEJEAILMXygejBqMQswCQYDVQQGEwJERTEPMA0GA1UECAwGQmF5ZXJuMREw
+DwYDVQQHDAhNdWVuY2hlbjEgMB4GA1UECgwXTWF4LVBsYW5jay1HZXNlbGxzY2hhZnQxFTAT
+BgNVBAMMDE1QRyBDQSAtIEcwMgIMHipSSIX8pzzFRvyiMA0GCSqGSIb3DQEBAQUABIIBACWy
+CC98hICckNE5bpIthdIErThrSXX/03mD2nZCRdZV6lUMN3NFrnQzOR5kTEwAb5B9zBkcL0oq
+yTkOAm8JF0xF9BnfScYKtj0O4XzecB9HojnBmMkXgQcMP4/u69X3xnOxO72frne4mOMbNMl4
+yer5xcd3J6h1fpwqltg0go90fbCMTuvwj7EhPxAmZ1arwl7nX2gr8z/5yprrbEaEm6Ts7HKY
+0Bt7QmNGX3qXZAMGwpAhm1Fb2vsf4KMw86jDdAGQPTAiAEKZSj7MYSkkDmKK9xnWYZscjTLU
+7nPIC/Mr/Nn+3kocoxjdHB07yxcxEaY8SWdiRmugxP56AoN7K74AAAAAAAA=
+--------------ms050906090809070501020406--
