@@ -1,83 +1,62 @@
-Return-Path: <gmills@linux.vnet.ibm.com>
+Return-Path: <benjaminfair@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=gmills@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::142; helo=mail-it1-x142.google.com;
+ envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="abgA4ldZ"; 
+ dkim-atps=neutral
+Received: from mail-it1-x142.google.com (mail-it1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44W7Zq5w4dzDq6B
- for <openbmc@lists.ozlabs.org>; Sat, 30 Mar 2019 04:12:13 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2TH99Zw076648
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 13:12:11 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rhpvf213c-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 13:12:11 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <gmills@linux.vnet.ibm.com>;
- Fri, 29 Mar 2019 17:12:11 -0000
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 29 Mar 2019 17:12:08 -0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2THC7hC59637786
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:12:07 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3A42CBE053
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:12:07 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 15AD9BE058
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:12:06 +0000 (GMT)
-Received: from [9.10.100.31] (unknown [9.10.100.31])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:12:06 +0000 (GMT)
-Subject: Re: Using Stale bot to clean up issues
-From: Gunnar Mills <gmills@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org
-References: <01b53196-6c78-b004-8cd0-8534c516cbaf@linux.vnet.ibm.com>
- <df81f451-6982-6fd8-8acd-ab24b8f4c88f@intel.com>
- <5f203acc-f41d-cbae-1b1d-4c0af9d51b6e@linux.vnet.ibm.com>
- <9384d805-8ce2-a3b9-4406-06cf4f775306@gmail.com>
- <17b83fbc-247f-dee2-9fc3-2dd3efdee670@linux.vnet.ibm.com>
- <9e2daca4-c082-0bf7-071f-62c2af9129e7@linux.vnet.ibm.com>
-Date: Fri, 29 Mar 2019 12:12:07 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44W81j2bRJzDqD3
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Mar 2019 04:32:00 +1100 (AEDT)
+Received: by mail-it1-x142.google.com with SMTP id z126so4967020itd.5
+ for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 10:32:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CT1S4WF0PIybjWUgCPksx4RM1Wndcf68hwh+FEW6MXI=;
+ b=abgA4ldZi3N3dPN71bFforMewAWVB1+KtCrRIXK33x0pZigw3We+wcKM2MeTKlbVov
+ Oo4efh+1Q/9s+AjzpU+EUYx8JSNn1T/jk5JtayUN91+XFtt2spn+l0bIl6uJpk2rybbv
+ IRCVUv9yzs5jHN5pzerQebb7tCA/oWWE0pI5wLFQEleCYl+ZgAlUii0FhCGPqUI4lgKP
+ sNnwPD926dxTr780XbhWL6oyenFdSEYtKownpv3IEVRbsYkNyxsv+WoNo/o1lWex6Jg0
+ O2OiQVLL2OK1ec7jp53TQajWh/n+4FSWlwKlnX3xLrNjmnH+/p8FnvGp9pAHMb3CF27w
+ nL7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CT1S4WF0PIybjWUgCPksx4RM1Wndcf68hwh+FEW6MXI=;
+ b=qzxqVrcpB2iAcIHMiD+/pClGD4Gx/s0x7GgJaWGcVHSBbsQaPeBwKlDlwb3Nz/4+Cw
+ HeKrsHKMdi232vtgnhMHrYABWyg7LgYh3HZgyU5r51f1Jf1oaiOKy27LFJHokICWT9xS
+ zmy+X3rzISbVaiVxQqXvSFMd4o3ItSj/Uh4Anl6O8ltZhhlhfuqu23/liARPI4+VC7rL
+ RM6q/YdmK2bK8iCODphVvHQ/Y/+LTKdQZJFYbDmRNPMT5t+vu97uaQDQeaOiNu6z5S8w
+ 85PHIZqzFlG93P28BxiYemwBqOOFRUKdeaZkEZxr99f/QtrD9RuwqKOx74YAqXbEQURy
+ tH+A==
+X-Gm-Message-State: APjAAAVTBrgRpNMhLrDAdxUAx+fH0kYKS05S6Do6eNCpwi6UDsGNzIQn
+ bPA0DtO1w1gZoK7trFOmdkykZqyHr+UcMquDOIXmZA==
+X-Google-Smtp-Source: APXvYqwZDaHtoEgwaQZKQCWm9v61QfGQhTZwtqSauDzO4SWQvc1ajeBDJO5nN3YH1UxEFW7O9l3FtuG1XWHJtI+GIbs=
+X-Received: by 2002:a05:660c:346:: with SMTP id
+ b6mr5126683itl.40.1553880717087; 
+ Fri, 29 Mar 2019 10:31:57 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <9e2daca4-c082-0bf7-071f-62c2af9129e7@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19032917-0036-0000-0000-00000A9F88C2
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010835; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000283; SDB=6.01181445; UDB=6.00618364; IPR=6.00962166; 
- MB=3.00026212; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-29 17:12:09
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19032917-0037-0000-0000-00004B334690
-Message-Id: <4a98cba5-0dc0-6d3b-289f-c483aa5f28e0@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-29_09:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=839 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903290121
+References: <20190328235752.334462-1-tmaimon77@gmail.com>
+ <367707d3-9f3f-e15b-1db3-eedb2e23981d@codeaurora.org>
+In-Reply-To: <367707d3-9f3f-e15b-1db3-eedb2e23981d@codeaurora.org>
+From: Benjamin Fair <benjaminfair@google.com>
+Date: Fri, 29 Mar 2019 10:31:20 -0700
+Message-ID: <CADKL2t6yRietvA5QrAroLxNOKYaS17k=sEjZXtVGCJZ43x_0jg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] MAINTAINERS: fix bad pattern in ARM/NUVOTON NPCM
+To: Mukesh Ojha <mojha@codeaurora.org>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, joe@perches.com, avifishman70@gmail.com,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>, 
+ Brendan Higgins <brendanhiggins@google.com>, Tali Perry <tali.perry1@gmail.com>,
+ akpm@linux-foundation.org, gregkh@linuxfoundation.org, 
+ linux-kernel@vger.kernel.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,17 +68,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Mar 2019 17:12:20 -0000
+X-List-Received-Date: Fri, 29 Mar 2019 17:32:10 -0000
 
-On 2/26/2019 4:03 PM, Gunnar Mills wrote:
-
->
-> Are there still concerns or can we install this Stale bot?
-> https://github.com/apps/stale
+On Fri, Mar 29, 2019 at 7:07 AM Mukesh Ojha <mojha@codeaurora.org> wrote:
 >
 >
-Stale bot was installed on openbmc/openbmc. If any issues get tagged 
-'stale' that you would like *not* to see closed, just add a comment. :)
+> On 3/29/2019 5:27 AM, Tomer Maimon wrote:
+> > In the process of upstreaming architecture support for ARM/NUVOTON NPCM
+> > include/dt-bindings/clock/nuvoton,npcm7xx-clks.h was renamed
+> > include/dt-bindings/clock/nuvoton,npcm7xx-clock.h without updating
+> > MAINTAINERS. This updates the MAINTAINERS pattern to match the new name
+> > of this file.
+> >
+> > Fixes: 6a498e06ba22 ("MAINTAINERS: Add entry for the Nuvoton NPCM architecture")
+> > Reported-by: Joe Perches <joe@perches.com>
+> > Signed-off-by: Brendan Higgins <brendanhiggins@google.com>
+> > Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+>
+>
+> Reviewed-by: Mukesh Ojha <mojha@codeaurora.org>
+>
 
-Thanks,
-Gunnar
+Reviewed-by: Benjamin Fair <benjaminfair@google.com>
+
+> Cheers,
+> -Mukesh
+>
+> > ---
+> >   MAINTAINERS | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index 3e5a5d263f29..8b305d2f2a8a 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -1900,7 +1900,7 @@ L:      openbmc@lists.ozlabs.org (moderated for non-subscribers)
+> >   S:  Supported
+> >   F:  arch/arm/mach-npcm/
+> >   F:  arch/arm/boot/dts/nuvoton-npcm*
+> > -F:   include/dt-bindings/clock/nuvoton,npcm7xx-clks.h
+> > +F:   include/dt-bindings/clock/nuvoton,npcm7xx-clock.h
+> >   F:  drivers/*/*npcm*
+> >   F:  Documentation/devicetree/bindings/*/*npcm*
+> >   F:  Documentation/devicetree/bindings/*/*/*npcm*
