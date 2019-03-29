@@ -1,73 +1,39 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44WDzz1Xg7zDqXG
- for <openbmc@lists.ozlabs.org>; Sat, 30 Mar 2019 08:15:59 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x2TL3cDf078710
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:15:56 -0400
-Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rhqac9xhj-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 29 Mar 2019 17:15:56 -0400
-Received: from localhost
- by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
- Fri, 29 Mar 2019 21:15:55 -0000
-Received: from b01cxnp23033.gho.pok.ibm.com (9.57.198.28)
- by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Fri, 29 Mar 2019 21:15:52 -0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x2TLFpqU19988502
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 29 Mar 2019 21:15:51 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 12804112064;
- Fri, 29 Mar 2019 21:15:51 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D09A511206F;
- Fri, 29 Mar 2019 21:15:50 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.3.116.186])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 29 Mar 2019 21:15:50 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH dev-5.0 v2 5/5] ARM: dts: romulus: Enable video engine
-Date: Fri, 29 Mar 2019 21:15:43 +0000
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44WGKG0lwPzDqQ9
+ for <openbmc@lists.ozlabs.org>; Sat, 30 Mar 2019 09:16:00 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2019 15:15:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,286,1549958400"; d="scan'208";a="146454186"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga002.jf.intel.com with ESMTP; 29 Mar 2019 15:15:58 -0700
+Subject: Re: [PATCH dev-5.0 v2 2/5] clk: Aspeed: Setup video engine clocking
+To: Eddie James <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
 References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
-X-TM-AS-GCONF: 00
-x-cbid: 19032921-0068-0000-0000-000003AD246C
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010836; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000283; SDB=6.01181526; UDB=6.00618413; IPR=6.00962247; 
- MB=3.00026214; MTD=3.00000008; XFM=3.00000015; UTC=2019-03-29 21:15:53
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19032921-0069-0000-0000-000047FA7765
-Message-Id: <1553894143-559-6-git-send-email-eajames@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-03-29_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=890 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1903290145
+ <1553894143-559-3-git-send-email-eajames@linux.ibm.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <d30b303f-e0ae-d8bd-f457-22db780075f4@linux.intel.com>
+Date: Fri, 29 Mar 2019 15:15:57 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
+MIME-Version: 1.0
+In-Reply-To: <1553894143-559-3-git-send-email-eajames@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,42 +45,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 29 Mar 2019 21:15:59 -0000
+X-List-Received-Date: Fri, 29 Mar 2019 22:16:03 -0000
 
-Enable the video engine and add it's required reserved memory region.
+Hi Eddie,
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+On 3/29/2019 2:15 PM, Eddie James wrote:
+>   static const struct aspeed_gate_data aspeed_gates[] = {
+>   	/*				 clk rst   name			parent	flags */
+> -	[ASPEED_CLK_GATE_ECLK] =	{  0, -1, "eclk-gate",		"eclk",	0 }, /* Video Engine */
+> +	[ASPEED_CLK_GATE_ECLK] =	{  0,  6, "eclk-gate",		"eclk",	0 }, /* Video Engine */
+>   	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
+>   	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
+>   	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-index ee1a460..54427f4 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-@@ -42,6 +42,13 @@
- 			compatible = "shared-dma-pool";
- 			reusable;
- 		};
-+
-+		ve_memory: jpegbuffer {
-+			size = <0x04000000>;	/* 64M */
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
- 	};
- 
- 	leds {
-@@ -315,4 +322,9 @@
-      memory-region = <&gfx_memory>;
- };
- 
-+&video {
-+	status = "okay";
-+	memory-region = <&ve_memory>;
-+};
-+
- #include "ibm-power9-dual.dtsi"
--- 
-1.8.3.1
+With this change, both eclk and vclk will be coupled with reset bit '6'.
+Actually, the reset bit 6 is for video engine so this change seems
+correct to me, but I think you should replace reset bit of vclk with -1
+instead.
+
+Cheers,
+Jae
