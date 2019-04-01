@@ -1,43 +1,52 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <susantjasinski@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
+ envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="B6gWX/4I"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Xzkv2N99zDqL2
- for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 04:25:41 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2019 10:25:37 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,297,1549958400"; d="scan'208";a="132016825"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
- ([10.7.153.148])
- by orsmga006.jf.intel.com with ESMTP; 01 Apr 2019 10:25:38 -0700
-Subject: Re: [PATCH dev-5.0 v2 1/5] media: platform: Aspeed: Remove use of
- reset line
-To: Eddie James <eajames@linux.vnet.ibm.com>,
- Eddie James <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
-References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
- <1553894143-559-2-git-send-email-eajames@linux.ibm.com>
- <41569937-f8bc-b391-8b19-c931a11e20d8@linux.intel.com>
- <ee4ae2fb-624d-d1d1-ef9f-b35de3c4f458@linux.vnet.ibm.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <958a300d-e767-2589-f074-183ba761c129@linux.intel.com>
-Date: Mon, 1 Apr 2019 10:25:38 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Y0ql433CzDqJV
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 05:14:59 +1100 (AEDT)
+Received: by mail-pg1-x52e.google.com with SMTP id b12so5186646pgk.0
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 11:14:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=hh18tZiwIlC5qwUO2c/qR292H2uYPi+3XkcXL7OdWKs=;
+ b=B6gWX/4IBQiT1/g/9gF15u0rn5QOkk1MxONEfsrTiFxFX/9uucTb90tbu8oiQYZ92J
+ fRXwFqx6dz5HIxKsc/v7w3zbNym9EPRQwmXpONV8gnNSc8gW11e7jUlIqX3o8M07BOdJ
+ a76LrFcO+n5YQKQc8k2UoPxia/7B89t3hT7iGKTXUdRIW1PBgJpzCdjkm3nQsCy/0YJo
+ hSM6KEODwBF69mcRZWk/7k0VZRsJUpZW+g/9UKS4spDAkBcQ4ZZE9GrIOPolygo/HdiZ
+ Khy+f/rDlbAiG80Uc+TU6IVfF0LtkdlbtEWYup/4AZCM9aoe9i0xhwXsMVeEzda9L6e5
+ TjjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=hh18tZiwIlC5qwUO2c/qR292H2uYPi+3XkcXL7OdWKs=;
+ b=e8B+TNWMYCe30qDge8TpxDkNW/PRrmsIJmm722L1gIAYPId+Q9mMeu7f3d8pamZtBo
+ zvTEL2jvWVaDvKVa1f0RjO9LdNnlkjTcvXYNWpE+suV41+j6PKfLGP4Y5zjYizj4YARN
+ VCOKUTuecshpgAxeFtikt2Cn76j+0mvzUWGkW/qMccDOs0wkSD34vwaDv4Y/3tuskOAI
+ 7qaYalTNBeRrCdGCAc1F2a9KkDi4WATkrTrdn6Gh380OxH93/UsTEZhyvedL//qhb0Gm
+ /T8eQhVGQ/sg2w1bL09h/6ciwqMy56bWNKAojlwD1HX9JyJGOlXCekGsPA2EgoJ51dij
+ 9/zQ==
+X-Gm-Message-State: APjAAAVGmGlgG318O86TJjaxY07bx18TDUQcEZzjuSIdJzIMd9Ml9cyM
+ R0GF4dm0uEakDmvcA9pdi+22Tjgo+mUXW7m7hZADhL2g
+X-Google-Smtp-Source: APXvYqyIUYiwQnIKe67cpPU9XPBt8+tn6TngQZWGLIlXe7YdfJDE3k/wn0T1osBkMIfC8bSyTtEeQ4Iv9D+RfmKO4CU=
+X-Received: by 2002:aa7:82cb:: with SMTP id f11mr58143349pfn.0.1554142496229; 
+ Mon, 01 Apr 2019 11:14:56 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <ee4ae2fb-624d-d1d1-ef9f-b35de3c4f458@linux.vnet.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+From: susan jasinski <susantjasinski@gmail.com>
+Date: Mon, 1 Apr 2019 13:14:45 -0500
+Message-ID: <CANT4Nr+ueeb1qGcWFeYuGHrtoovMvxdgP6+vKpJN+bKKDEUpwA@mail.gmail.com>
+Subject: PLEASE ATTEND: GUI Work Group -- Wednesday April 3 at 7:30AM CT
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="0000000000006b0e0205857bffa2"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,80 +58,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 17:25:44 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 18:15:00 -0000
 
+--0000000000006b0e0205857bffa2
+Content-Type: text/plain; charset="UTF-8"
 
+This is a reminder that the GUI Design Workgroup is this Wednesday, *March
+20 at 7:30 am CT*.
 
-On 4/1/2019 8:11 AM, Eddie James wrote:
-> 
-> On 3/29/19 6:54 PM, Jae Hyun Yoo wrote:
->>>   static void aspeed_video_off(struct aspeed_video *video)
->>>   {
->>> -    aspeed_video_reset(video);
->>> +    /* Disable interrupts */
->>> +    aspeed_video_write(video, VE_INTERRUPT_CTRL, 0);
->>>         /* Turn off the relevant clocks */
->>>       clk_disable_unprepare(video->vclk);
->>> @@ -508,7 +497,13 @@ static void aspeed_video_on(struct aspeed_video 
->>> *video)
->>>       clk_prepare_enable(video->eclk);
->>>       clk_prepare_enable(video->vclk);
->>>   -    aspeed_video_reset(video);
->>> +    /*
->>> +     * Delay (and don't sleep in case in interrupt context) to let the
->>> +     * clocks stabilize. Without this, mode detection sometimes fails.
->>> +     * Possibly the registers don't update too soon after clocks are
->>> +     * enabled.
->>> +     */
->>> +    udelay(100);
->>>   }
->>
->> aspeed_video_off() will be called from interrupt context too. Are you
->> sure that this 100us delay is needed at here? If it's actually needed,
->> would it be batter to use devm_request_threaded_irq() instead of
->> devm_request_irq() in aspeed_video_init() function?
-> 
-> Well this isn't new to this patchset, it delayed 100us before in 
-> aspeed_video_reset.
-> 
-> I am quite sure it's needed.
+Web conference:
+https://ibm.webex.com/meet/susantj
 
-This is previous code of aspeed_video_reset():
-static void aspeed_video_reset(struct aspeed_video *video)
-{
-	/* Reset the engine */
-	reset_control_assert(video->rst);
+Anyone can add feature or panel designs to the agenda here:
+https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group
 
-	/* Don't usleep here; function may be called in interrupt context */
-	udelay(100);
-	reset_control_deassert(video->rst);
-}
+So far we will be looking at
+- *Firmware *panel redesign
+- (new) *Backup and Restore* design and GUI panel
+- (new) *Remote Logging* Server Configuration design and GUI panel
 
-The delay was added between assert and deassert to shape the reset
-signal up, but the delay in this patch set is after the deasserting of
-reset signal. Now in this patch set, you are going to use reset control
-using the way that clk-aspeed module provides. The module already has
-a 10msec delay in aspeed_clk_enable() for making the reset pulse so
-you don't need to add an additional delay at here.
+Thank you, Susan Jasinski
 
-Practically, I tested this patch after removing the 100usec delay and
-checked that this driver works well.
+--0000000000006b0e0205857bffa2
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Since the ast2500 has only one logical processor, I'm not sure a 
-> threaded irq would function any differently.
+<div dir=3D"ltr"><div dir=3D"ltr">This is a reminder that the GUI=C2=A0Desi=
+gn Workgroup is this Wednesday,=C2=A0<b>March 20 at 7:30 am CT</b>.<br></di=
+v><div dir=3D"ltr"><br>Web conference:<br><a href=3D"https://ibm.webex.com/=
+meet/susantj" rel=3D"noreferrer" target=3D"_blank">https://ibm.webex.com/me=
+et/susantj</a><br><br>Anyone can add feature or panel designs to the agenda=
+ here:<br><a href=3D"https://github.com/openbmc/openbmc/wiki/GUI-Design-wor=
+k-group" rel=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/op=
+enbmc/wiki/GUI-Design-work-group</a><br><br>So far we will be looking at<br=
+>- <b>Firmware </b>panel redesign<div>- (new) <b>Backup and Restore</b> des=
+ign and=C2=A0GUI panel<br>- (new) <b>Remote Logging</b> Server Configuratio=
+n design and=C2=A0GUI panel</div><div><br></div><div>Thank you, Susan Jasin=
+ski</div></div></div>
 
-Yes, good point. Differently from other Aspeed driver modules, it calls
-clk_prepare_enable() in interrupt context which will cause at least
-10msecs of busy waiting thru aspeed_clk_enable() in isr. In UP kernel,
-this will disturb handling of most of all other interrupts so it's the
-reason why I suggested threaded irq instead.
-
-Try this change in aspeed_video_init():
-rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
-			       IRQF_ONESHOT | IRQF_SHARED, DEVICE_NAME,
-			       video);
-
-This threaded irq handling works well in my H/W.
-
-Cheers,
-Jae
+--0000000000006b0e0205857bffa2--
