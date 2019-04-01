@@ -1,54 +1,38 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <prvs=9877b4cea=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=9877b4cea=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="CPF+jwZH"; 
- dkim-atps=neutral
-Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
- [IPv6:2607:f8b0:4864:20::842])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Xj7G6x7gzDqBP
- for <openbmc@lists.ozlabs.org>; Mon,  1 Apr 2019 17:27:20 +1100 (AEDT)
-Received: by mail-qt1-x842.google.com with SMTP id t28so9495618qte.6
- for <openbmc@lists.ozlabs.org>; Sun, 31 Mar 2019 23:27:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=iPhbP6IFxfLnRL0yoF3EaGNY8CgSKnZXXx91lGYRdcU=;
- b=CPF+jwZH5xDGMwzq57OaX9m9Kn91jy9qPhM7vj8NWE2vqFOuTXHBY2zQ4ZHHymThnd
- Ha2Qc1fxgJu0WkROIp2MHkzWcUqklOVJFM5V1nYNUeTDzv4hzGRxgV/Nw1TbYbu8appt
- wVUXZ1D2b1YQNgSBtAASf9y8yXSlTd0uZEFVg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=iPhbP6IFxfLnRL0yoF3EaGNY8CgSKnZXXx91lGYRdcU=;
- b=qXfPBaW2hYgLL05TEXwIUnmOs7FNhdxXcHW4XTR9J8DKxnM70mpG/UaXlj6QoNQiPG
- uBS0uMHg/+71WDunY3gT/UW+p20Gt1oqxq+YOkFCY8Tns+qTXj7AChKhDFj+fyiAqrsx
- UO/AHTtaHsrD0d8L6d5y/9flCYOSrO8dI3HKkZv0NVWxVlm/f8QDyYPj59IjLUMmTTea
- WfXCOtEzdTEq49ZFeX7du7faNfUaJV0xrh5SVj1Defd5ly+c3lkruamRx1+Tp2qHFKR9
- EUuvtU0h7Ql7AU4SPEi9T7xpxVNsK8++wsp0mBwO68O89BpTYwsqPIoLaA4xIhtqtkA4
- lQeg==
-X-Gm-Message-State: APjAAAXw7y0ekyjrbHe1CVBfi9sF9btN7aNtc7qOU9khmHur5JA5k686
- 0KP1Y6DU1pq6esYbGnCDWegJHyKMnxXvqNdLIMY=
-X-Google-Smtp-Source: APXvYqwvIKy9U9MOCgHoSjTt7A4DI1BbDCOXhp5ZYFF0hZmbwCj40Sl7tBRKcN52X6RneGdMOfnMX5ixaNnptN6erNw=
-X-Received: by 2002:ac8:26e7:: with SMTP id 36mr52565570qtp.37.1554100037701; 
- Sun, 31 Mar 2019 23:27:17 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44XkC73xg4zDqKy
+ for <openbmc@lists.ozlabs.org>; Mon,  1 Apr 2019 18:15:45 +1100 (AEDT)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx02.quantatw.com with ESMTP; 01 Apr 2019 15:15:44 +0800
+Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 1 Apr 2019
+ 15:15:43 +0800
+Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
+ mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
+ 15.01.1713.004; Mon, 1 Apr 2019 15:15:43 +0800
+From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
+To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
+CC: "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>
+Subject: I have no Jenkis build after pushing code to Gerrit
+Thread-Topic: I have no Jenkis build after pushing code to Gerrit
+Thread-Index: AdToWfdxhqMseamJSCOuMH9sHLnaPw==
+Date: Mon, 1 Apr 2019 07:15:43 +0000
+Message-ID: <1c72193eaccf493d9192b831a21be539@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_1c72193eaccf493d9192b831a21be539quantatwcom_"
 MIME-Version: 1.0
-References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
- <1553894143-559-6-git-send-email-eajames@linux.ibm.com>
-In-Reply-To: <1553894143-559-6-git-send-email-eajames@linux.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 1 Apr 2019 06:27:06 +0000
-Message-ID: <CACPK8Xf_yDn4Ss=tBHCWZQEw3C8K_wcBpKBh+AjP0wq0g7pOqQ@mail.gmail.com>
-Subject: Re: [PATCH dev-5.0 v2 5/5] ARM: dts: romulus: Enable video engine
-To: Eddie James <eajames@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,55 +44,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 06:27:23 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 07:15:48 -0000
 
-On Fri, 29 Mar 2019 at 21:15, Eddie James <eajames@linux.ibm.com> wrote:
+--_000_1c72193eaccf493d9192b831a21be539quantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
+
+RGVhciBCcmFkLA0KDQpJIGhhdmUgbm8gSmVua2lzIGJ1aWxkIGFmdGVyIHB1c2hpbmcgY29kZSB0
+byBHZXJyaXQuIEl0IHJlc3BvbnNlZCChp1VzZXIgbm90IGFwcHJvdmVkLCBzZWUgYWRtaW4sIG5v
+IENJoagNCklzIHRoZXJlIHRoZSBjb25maWd1cmF0aW9uIEkgbWlzc2VkIG9yIGl0IG5lY2Vzc2Fy
+eSB0byBhZGQgdGhlIHBlcm1pc3Npb24gPw0KDQpUaGFua3MuDQoNCkJlc3QgUmVnYXJkDQpHZW9y
+Z2UgSHVuZw0KUmVzZWFyY2ggRGl2aXNpb24gLSBTb2Z0d2FyZSBFbmdpbmVlcg0KQ2xvdWQgQ29t
+cHV0aW5nIEJ1c2luZXNzIFVuaXQNClF1YW50YSBDb21wdXRlciBJbmMuDQpFeHQ6IDE2ODMwDQpF
+LU1haWwgOiBHZW9yZ2UuSHVuZ0BRdWFudGFUVy5jb208bWFpbHRvOmdlb3JnZS5odW5nQHF1YW50
+YXR3LmNvbT4NCg0K
+
+--_000_1c72193eaccf493d9192b831a21be539quantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Comic Sans MS";
+	panose-1:3 15 7 2 3 3 2 2 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
+rim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Dear Brad,<o:p></o:p></span></p=
 >
-> Enable the video engine and add it's required reserved memory region.
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I have no Jenkis build after pu=
+shing code to Gerrit. It responsed =A1=A7User not approved, see admin, no C=
+I=A1=A8<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Is there the configuration I mi=
+ssed or it necessary to add the permission ?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;layout-grid-mode:char"=
+><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Comic San=
+s MS&quot;">Best Regard
+<br>
+George Hung<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-=
+family:&quot;Comic Sans MS&quot;">Research Division - Software Engineer<br>
+Cloud Computing Business Unit<br>
+Quanta Computer Inc.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-=
+family:&quot;Comic Sans MS&quot;">Ext: 16830<br>
+E-Mail : </span><span lang=3D"EN-US" style=3D"font-family:&quot;Times New R=
+oman&quot;,&quot;serif&quot;"><a href=3D"mailto:george.hung@quantatw.com" t=
+itle=3D"blocked::mailto:Fran.Hsu@QuantaTW.com"><span style=3D"font-size:10.=
+0pt;font-family:&quot;Comic Sans MS&quot;;color:blue">George.Hung@QuantaTW.=
+com</span></a></span><span lang=3D"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
 
-The upstream bindings don't mention the reserved memory region at all.
-
->
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
->
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> index ee1a460..54427f4 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
-> @@ -42,6 +42,13 @@
->                         compatible = "shared-dma-pool";
->                         reusable;
->                 };
-> +
-> +               ve_memory: jpegbuffer {
-
-video_memory or video_engine_memory
-
-> +                       size = <0x04000000>;    /* 64M */
-
-How do we get to 64MB?
-
-
-> +                       alignment = <0x01000000>;
-> +                       compatible = "shared-dma-pool";
-> +                       reusable;
-> +               };
->         };
->
->         leds {
-> @@ -315,4 +322,9 @@
->       memory-region = <&gfx_memory>;
->  };
->
-> +&video {
-> +       status = "okay";
-> +       memory-region = <&ve_memory>;
-> +};
-> +
->  #include "ibm-power9-dual.dtsi"
-> --
-> 1.8.3.1
->
+--_000_1c72193eaccf493d9192b831a21be539quantatwcom_--
