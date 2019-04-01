@@ -1,57 +1,57 @@
-Return-Path: <susantjasinski@gmail.com>
+Return-Path: <sharad.khetan@intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com;
- envelope-from=susantjasinski@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=intel.com
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
+ envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="acrRPsK1"; 
- dkim-atps=neutral
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44XyQB6c5QzDqLV
- for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 03:26:10 +1100 (AEDT)
-Received: by mail-pf1-x435.google.com with SMTP id 9so4811553pfj.13
- for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 09:26:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=k87HKFM8gE93ayNFcD2ur2K5L7xadw0cNBKFnCFairc=;
- b=acrRPsK1kyDNz5zmVx0SrrrAecuGNKy3ya09aq3t9TmZg5wwDVpicyoiEZVek15UKX
- XOqVuLV+O7Um4DeghOVTwcp5JmbRxe9LuDu1lUmm0OrT85X/GFcZQk11H7S0GoVp+Pvy
- kThM87Xpe0V7M4b4y0zSiZWvVK2gEb1xbrHOt3669ts/qvlgEsmkeKAeJW4uo967hY1v
- HExbJtmaX6tc5+QWheQueXxmlXNmwoUpmAXntjJxMDibIMpJ6x30xpRcpEgmTWEPl2TZ
- qgV2aMNkCyqKrwtRatYAUcdo9QYrB5SWCRSM1vHdzpjx58jh02ngieSsvn7zvjIPKXKS
- raKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=k87HKFM8gE93ayNFcD2ur2K5L7xadw0cNBKFnCFairc=;
- b=IXzDBsb/Ex+L2rPCWBZbjjJK4U3Vm7VAHBon3u1FgZlWFE02GoH6EyKfa/YXU2Xp02
- LYotinacQjDFRGQUfAfSF5C3kwL/msvK0G0EQJYFqjxg1KaEwRwv5iAbuEIYBiL/8q0D
- bnEw9FCK837v7qgnu9zYNPBo7kOmQ6m4YAV3CHHfbAFRGzsBbrmSK5AIJRwC2AJ7bt94
- J8Rx1CunM1Ok3EzXGgFM0/HfaDuE7ODi57EXzxxZoKq8qdbiBxmESSMSW7bFec2NvPmB
- iHymfHNWwbhn4u7l1KqG5iEJtpwjLVTErHqa+WFA8CoBQWc0D8ATR6e68B8YEo5fsDcK
- 16Rw==
-X-Gm-Message-State: APjAAAXudx9fgchkqmWS+R1addj12ShMd0Ujx76uU6vFsqw7wKcxnSs9
- Z0/KX3OiLZpOJqa5sXAVGMmad1hVy/2XCtHO+lgj7uci
-X-Google-Smtp-Source: APXvYqy6BlwlJSKYMHpuCpk83Z4wUSRRMPvQVwL3RU36LZBLqeU12e1TSmLmrdpZ5R7QFC7NSJtN8cImYh0iwD0Rt5c=
-X-Received: by 2002:a63:4e64:: with SMTP id o36mr60059616pgl.213.1554135965035; 
- Mon, 01 Apr 2019 09:26:05 -0700 (PDT)
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Xyrx0qDWzDqMW
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 03:45:46 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2019 09:45:43 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,297,1549958400"; 
+ d="scan'208,217";a="139220672"
+Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
+ by fmsmga007.fm.intel.com with ESMTP; 01 Apr 2019 09:45:43 -0700
+Received: from FMSMSX110.amr.corp.intel.com (10.18.116.10) by
+ fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
+ id 14.3.408.0; Mon, 1 Apr 2019 09:45:43 -0700
+Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.222]) by
+ FMSMSX110.amr.corp.intel.com ([169.254.14.3]) with mapi id 14.03.0415.000;
+ Mon, 1 Apr 2019 09:45:42 -0700
+From: "Khetan, Sharad" <sharad.khetan@intel.com>
+To: 'susan jasinski' <susantjasinski@gmail.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Subject: RE: OpenBMC GUI navigation -- User vs Security
+Thread-Topic: OpenBMC GUI navigation -- User vs Security
+Thread-Index: AQHU5dexRJQWaNOAaEumRpZZd5KYGaYiDo1agAFn8gCABIJSAP//jlZw
+Date: Mon, 1 Apr 2019 16:45:42 +0000
+Message-ID: <865C376D1B77624AAA570EFEF73CE52F94537DF0@fmsmsx118.amr.corp.intel.com>
 References: <CANT4NrJdiFyJBR9SA-jVA0JZ8C=cf7HvBXjxaiHHBEocxaWR6Q@mail.gmail.com>
  <592E3848-A5D7-45DA-8E20-A3315BE359D9@intel.com>
  <006052f8-dce3-d523-6d7e-8bb610648deb@intel.com>
-In-Reply-To: <006052f8-dce3-d523-6d7e-8bb610648deb@intel.com>
-From: susan jasinski <susantjasinski@gmail.com>
-Date: Mon, 1 Apr 2019 11:25:54 -0500
-Message-ID: <CANT4NrKDC92KOmUcsdP6hWarJKuRP7VTZSwD-F32g+Loqe4VEA@mail.gmail.com>
-Subject: Re: OpenBMC GUI navigation -- User vs Security
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000020f03705857a7ae8"
+ <CANT4NrKDC92KOmUcsdP6hWarJKuRP7VTZSwD-F32g+Loqe4VEA@mail.gmail.com>
+In-Reply-To: <CANT4NrKDC92KOmUcsdP6hWarJKuRP7VTZSwD-F32g+Loqe4VEA@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiN2NjODY1NGEtMTVhNy00NTFmLWJhNzQtNzU4NDA3ZGUzYTQ2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoia2I2RUZGU0NpNzdHZ2dWN2NMamtQSW1FZHcxNFBmeHU2djZzSXkwaktXS0JYcWtJRDhsZ0tFOUdpZ2xGNWdYUSJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.400.15
+dlp-reaction: no-action
+x-originating-ip: [10.1.200.108]
+Content-Type: multipart/alternative;
+ boundary="_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,56 +63,94 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 16:26:11 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 16:45:54 -0000
 
---00000000000020f03705857a7ae8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+--_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
->
-> Typically in server management the notion of security is different than
-> user management. Perhaps =E2=80=9CAuthentication=E2=80=9D or =E2=80=9CAcc=
-ess Control=E2=80=9D or =E2=80=9CAccess
-> Management=E2=80=9D can be a category for the items you list.
+DQpUeXBpY2FsbHkgaW4gc2VydmVyIG1hbmFnZW1lbnQgdGhlIG5vdGlvbiBvZiBzZWN1cml0eSBp
+cyBkaWZmZXJlbnQgdGhhbiB1c2VyIG1hbmFnZW1lbnQuIFBlcmhhcHMg4oCcQXV0aGVudGljYXRp
+b27igJ0gb3Ig4oCcQWNjZXNzIENvbnRyb2zigJ0gb3Ig4oCcQWNjZXNzIE1hbmFnZW1lbnTigJ0g
+Y2FuIGJlIGEgY2F0ZWdvcnkgZm9yIHRoZSBpdGVtcyB5b3UgbGlzdC4NCg0KT2ssIEkgbGlrZSDi
+gJxBY2Nlc3MgQ29udHJvbOKAnS4gRG8geW91IGFncmVlPw0KDQpJIGFncmVlLiAgSSB3b3VsZCBh
+ZGQgdGhhdCDigJxBY2Nlc3MgQ29udHJvbOKAnSBpcyBhIGdlbmVyaWMgdGVybSAoYXMgb3Bwb3Nl
+ZCB0byDigJxVc2VyIE1hbmFnZW1lbnTigJ0pLiBUaGlzIG1lYW5zIHNvbWUgb3RoZXIgaXRlbXMg
+bWF5IHBvdGVudGlhbGx5IGZhbGwgaW50byB0aGlzIGNhdGVnb3J5Lg0KDQpPbiBGcmksIE1hciAy
+OSwgMjAxOSBhdCAyOjM1IFBNIEVkIFRhbm91cyA8ZWQudGFub3VzQGludGVsLmNvbTxtYWlsdG86
+ZWQudGFub3VzQGludGVsLmNvbT4+IHdyb3RlOg0KPg0KPiBPbiAzLzI4LzE5IDEwOjA2IFBNLCBL
+aGV0YW4sIFNoYXJhZCB3cm90ZToNCj4gPiBIaSBTdXNhbiwNCj4gPiBUeXBpY2FsbHkgaW4gc2Vy
+dmVyIG1hbmFnZW1lbnQgdGhlIG5vdGlvbiBvZiBzZWN1cml0eSBpcyBkaWZmZXJlbnQgdGhhbiB1
+c2VyIG1hbmFnZW1lbnQuIFBlcmhhcHMg4oCcQXV0aGVudGljYXRpb27igJ0gb3Ig4oCcQWNjZXNz
+IENvbnRyb2zigJ0gb3Ig4oCcQWNjZXNzIE1hbmFnZW1lbnTigJ0gY2FuIGJlIGEgY2F0ZWdvcnkg
+Zm9yIHRoZSBpdGVtcyB5b3UgbGlzdC4NCj4gPiBUaGFua3MsDQo+ID4gLVNoYXJhZA0KPg0KPiAr
+MSAgIlVzZXIgbWFuYWdlbWVudCIgaXMgYSB2ZXJ5IGRpZmZlcmVudCBjb25jZXB0IHRoYW4gIlNl
+Y3VyaXR5IiBhbmQgSQ0KPiB3b3VsZCBhZHZvY2F0ZSB1c2luZyBhIGRpZmZlcmVudCB0ZXJtIG9u
+IHRoZSB0b3AgbGV2ZWwgbWVudS4NCg==
 
+--_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Ok, I like =E2=80=9CAccess Control=E2=80=9D. Do you agree?
+PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
+bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
+YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
+cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
+VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
+Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
+ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
+PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
+TWFuZ2FsOw0KCXBhbm9zZS0xOjAgMCA0IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFjZQ0KCXtm
+b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
+O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
+MiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxp
+Lk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206
+LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9t
+YW4iLHNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9y
+aXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZp
+c2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5
+Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnNwYW4uRW1h
+aWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5
+OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0KLk1zb0NocERlZmF1bHQN
+Cgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNh
+bnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1h
+cmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6
+V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpz
+aGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5k
+aWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRp
+dCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48
+L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVl
+IiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8YmxvY2txdW90ZSBzdHls
+ZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBp
+biAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAg
+Y2xhc3M9Ik1zb05vcm1hbCI+VHlwaWNhbGx5IGluIHNlcnZlciBtYW5hZ2VtZW50IHRoZSBub3Rp
+b24gb2Ygc2VjdXJpdHkgaXMgZGlmZmVyZW50IHRoYW4gdXNlciBtYW5hZ2VtZW50LiBQZXJoYXBz
+IOKAnEF1dGhlbnRpY2F0aW9u4oCdIG9yIOKAnEFjY2VzcyBDb250cm9s4oCdIG9yIOKAnEFjY2Vz
+cyBNYW5hZ2VtZW504oCdIGNhbiBiZSBhIGNhdGVnb3J5IGZvciB0aGUgaXRlbXMgeW91IGxpc3Qu
+PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
+bWFsIj5PaywgSSBsaWtlIOKAnEFjY2VzcyBDb250cm9s4oCdLiBEbyB5b3UmbmJzcDthZ3JlZT88
+bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxp
+PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
+cXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
+L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJjb2xvcjojMUY0
+OTdEIj5JIGFncmVlLiAmbmJzcDtJIHdvdWxkIGFkZCB0aGF0IOKAnEFjY2VzcyBDb250cm9s4oCd
+IGlzIGEgZ2VuZXJpYyB0ZXJtIChhcyBvcHBvc2VkIHRvIOKAnFVzZXIgTWFuYWdlbWVudOKAnSku
+IFRoaXMgbWVhbnMgc29tZSBvdGhlciBpdGVtcyBtYXkgcG90ZW50aWFsbHkgZmFsbCBpbnRvIHRo
+aXMgY2F0ZWdvcnkuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48YnI+DQpPbiBGcmksIE1hciAyOSwgMjAxOSBhdCAyOjM1IFBNIEVkIFRhbm91cyAm
+bHQ7PGEgaHJlZj0ibWFpbHRvOmVkLnRhbm91c0BpbnRlbC5jb20iPmVkLnRhbm91c0BpbnRlbC5j
+b208L2E+Jmd0OyB3cm90ZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBPbiAzLzI4LzE5IDEwOjA2IFBN
+LCBLaGV0YW4sIFNoYXJhZCB3cm90ZTo8YnI+DQomZ3Q7ICZndDsgSGkgU3VzYW4sPGJyPg0KJmd0
+OyAmZ3Q7IFR5cGljYWxseSBpbiBzZXJ2ZXIgbWFuYWdlbWVudCB0aGUgbm90aW9uIG9mIHNlY3Vy
+aXR5IGlzIGRpZmZlcmVudCB0aGFuIHVzZXIgbWFuYWdlbWVudC4gUGVyaGFwcyDigJxBdXRoZW50
+aWNhdGlvbuKAnSBvciDigJxBY2Nlc3MgQ29udHJvbOKAnSBvciDigJxBY2Nlc3MgTWFuYWdlbWVu
+dOKAnSBjYW4gYmUgYSBjYXRlZ29yeSBmb3IgdGhlIGl0ZW1zIHlvdSBsaXN0Ljxicj4NCiZndDsg
+Jmd0OyBUaGFua3MsPGJyPg0KJmd0OyAmZ3Q7IC1TaGFyYWQ8YnI+DQomZ3Q7PGJyPg0KJmd0OyAm
+IzQzOzEgJm5ic3A7JnF1b3Q7VXNlciBtYW5hZ2VtZW50JnF1b3Q7IGlzIGEgdmVyeSBkaWZmZXJl
+bnQgY29uY2VwdCB0aGFuICZxdW90O1NlY3VyaXR5JnF1b3Q7IGFuZCBJPGJyPg0KJmd0OyB3b3Vs
+ZCBhZHZvY2F0ZSB1c2luZyBhIGRpZmZlcmVudCB0ZXJtIG9uIHRoZSB0b3AgbGV2ZWwgbWVudS48
+bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
 
-
-On Fri, Mar 29, 2019 at 2:35 PM Ed Tanous <ed.tanous@intel.com> wrote:
->
-> On 3/28/19 10:06 PM, Khetan, Sharad wrote:
-> > Hi Susan,
-> > Typically in server management the notion of security is different than
-user management. Perhaps =E2=80=9CAuthentication=E2=80=9D or =E2=80=9CAcces=
-s Control=E2=80=9D or =E2=80=9CAccess
-Management=E2=80=9D can be a category for the items you list.
-> > Thanks,
-> > -Sharad
->
-> +1  "User management" is a very different concept than "Security" and I
-> would advocate using a different term on the top level menu.
-
---00000000000020f03705857a7ae8
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">Typicall=
-y in server management the notion of security is different than user manage=
-ment. Perhaps =E2=80=9CAuthentication=E2=80=9D or =E2=80=9CAccess Control=
-=E2=80=9D or =E2=80=9CAccess Management=E2=80=9D can be a category for the =
-items you list.</blockquote><div><br></div><div>Ok, I like =E2=80=9CAccess =
-Control=E2=80=9D. Do you=C2=A0agree?</div><div><br></div><br>On Fri, Mar 29=
-, 2019 at 2:35 PM Ed Tanous &lt;<a href=3D"mailto:ed.tanous@intel.com">ed.t=
-anous@intel.com</a>&gt; wrote:<br>&gt;<br>&gt; On 3/28/19 10:06 PM, Khetan,=
- Sharad wrote:<br>&gt; &gt; Hi Susan,<br>&gt; &gt; Typically in server mana=
-gement the notion of security is different than user management. Perhaps =
-=E2=80=9CAuthentication=E2=80=9D or =E2=80=9CAccess Control=E2=80=9D or =E2=
-=80=9CAccess Management=E2=80=9D can be a category for the items you list.<=
-br>&gt; &gt; Thanks,<br>&gt; &gt; -Sharad<br>&gt;<br>&gt; +1 =C2=A0&quot;Us=
-er management&quot; is a very different concept than &quot;Security&quot; a=
-nd I<br>&gt; would advocate using a different term on the top level menu.</=
-div>
-
---00000000000020f03705857a7ae8--
+--_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_--
