@@ -1,47 +1,59 @@
-Return-Path: <prvs=987c3de4d=Fran.Hsu@quantatw.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=987c3de4d=fran.hsu@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::22e; helo=mail-oi1-x22e.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44Xx4x588DzDqHh
- for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 02:26:08 +1100 (AEDT)
-Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
- by mx02.quantatw.com with ESMTP; 01 Apr 2019 23:26:06 +0800
-Received: from mailbx06.quanta.corp (10.243.91.101) by mailbx05.quanta.corp
- (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 1 Apr 2019
- 23:26:06 +0800
-Received: from mailbx06.quanta.corp ([fe80::82f:9da6:2335:5c10]) by
- mailbx06.quanta.corp ([fe80::82f:9da6:2335:5c10%5]) with mapi id
- 15.01.1713.004; Mon, 1 Apr 2019 23:26:06 +0800
-From: =?utf-8?B?RnJhbiBIc3UgKOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>
-To: Tomer Maimon <tmaimon77@gmail.com>, Benjamin Fair <benjaminfair@google.com>
-CC: Emily Shaffer <emilyshaffer@google.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: [PATCH dev-5.0 v1 2/3] ARM: dts: nuvoton: Add Quanta GSJ BMC
- machine.
-Thread-Topic: [PATCH dev-5.0 v1 2/3] ARM: dts: nuvoton: Add Quanta GSJ BMC
- machine.
-Thread-Index: AQHU5Xe+V63f/iwBO0e1Dy8DsRXtCaYivYmAgAJCWoCAAmqZwIAACDtA
-Date: Mon, 1 Apr 2019 15:26:05 +0000
-Message-ID: <c751cf73e00843f8a9af8d4b56af775a@quantatw.com>
-References: <20190328150548.3279-1-fran.hsu@quantatw.com>
- <20190328150548.3279-2-fran.hsu@quantatw.com>
- <CADKL2t5TR6XqJc7nqdrtB0Y7r3NwNRJPufUuAY9pC2E-1CbPVw@mail.gmail.com>
- <CAP6Zq1jOi0WpX5XExxqu61GXgr5X0NThqh0+G7hJT_MMgXvMMA@mail.gmail.com>
- <0e83b98fe2cf4b41a15546651e73d79d@quantatw.com>
-In-Reply-To: <0e83b98fe2cf4b41a15546651e73d79d@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="fdo0Dpmz"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
+ [IPv6:2607:f8b0:4864:20::22e])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Xxnj1c7FzDqKP
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 02:57:59 +1100 (AEDT)
+Received: by mail-oi1-x22e.google.com with SMTP id l203so7043222oia.3
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 08:57:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=azxyBG+7tZ6bYXmh2YEZYX83icN8AHrB4tlLdGGbchA=;
+ b=fdo0Dpmz6yDVO/rTVSbSoLRpzYwqRFonHfjmIGeMUYpFHpvb8WqA14avfLnppK3daC
+ rSoNkKnC35LJfG6hJbUztz0096yYxGGBlPy0HBBypXU1z3ir760wbB0zeLfwTFValt3n
+ wKN8XrZDE7v9o1wHIDZDBArELK7gm3ufHwb9EG0FIQrZ9H6b7pDF5NHWkm24pt3U1Uy7
+ 5VyIpoiiYrmZM+/WA3MLYAK8XNuk8U6YdevAJQQGSxgSP4WXL8dAVjBTqvcy/7kcGzaq
+ ssmXmVN058+BsJN76ci/FwjDscBpZ3GSHmfz1NO8PmRuq2UIYzCHSZJ8c+8g96ckcdXU
+ dPLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=azxyBG+7tZ6bYXmh2YEZYX83icN8AHrB4tlLdGGbchA=;
+ b=uQ/AKMWr9MJdbpGHL2lvthlddJ6HHKurGM62Qba8fLkxncbgX+a6HUFGPsxgOXTop5
+ ivsDy5+T07tnqzQhUzOZTIAEvRdfxDxJBqGPTyAEn2EivtDTDjrwudfeMoBwXSTVNq7r
+ Iy0HL/E0g91qmavXRkObV4Opewu30VfsfUP/vhSpoRfpRY2oeZeig7AIuXZ32bV358H8
+ etI0jStpyXOg3lAzYulY4mRR12GwS0DuITmkGsIIpNXlMxv6ynm6ft4GA0tnuqvOMF10
+ ZpwzbQRZC6Eno5xhexQGyUr5t5YyOxrJet/xdOIKEknqlknPkhyuJwidu3oU/+5UBp+Y
+ Bo8w==
+X-Gm-Message-State: APjAAAWUIV96bmE9B0J5jtYad5QVAko+AvkXFy+5V3nl1TLf68vq/8UB
+ wLyienQeh288wRQderV4y8wkD3rSqQ6ioEUo2xWONklnpjk=
+X-Google-Smtp-Source: APXvYqytaBPjoVYB8nATUzwwNvO7ghSa3PG2fG2kYJ1ByKF8E767MzGr3dYZyJU3PgXZqbMl3ZkpOmmExKu/hsFdGJQ=
+X-Received: by 2002:aca:310a:: with SMTP id x10mr9067805oix.161.1554134275654; 
+ Mon, 01 Apr 2019 08:57:55 -0700 (PDT)
 MIME-Version: 1.0
+References: <1c72193eaccf493d9192b831a21be539@quantatw.com>
+In-Reply-To: <1c72193eaccf493d9192b831a21be539@quantatw.com>
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Mon, 1 Apr 2019 10:57:39 -0500
+Message-ID: <CALLMt=osTywPibRfe=UyqNxJS0AacOKpYbSCEvwH-iescee7VA@mail.gmail.com>
+Subject: Re: I have no Jenkis build after pushing code to Gerrit
+To: =?UTF-8?B?R2VvcmdlIEh1bmcgKOa0quW/oOaVrCk=?= <George.Hung@quantatw.com>
+Cc: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>, 
+ "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +65,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 15:26:11 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 15:58:01 -0000
 
-SGkgVG9tZXIsDQoJSSB0aGluayB0aGUgbWFpbiBpZGVhIGlzIHRvIHByb3ZpZGUgYSBmdWxsIGFu
-ZCBjb21tb24gcGluY3RybCBmaWxlIChqdXN0IGxpa2UgbnV2b3Rvbi1ucGNtN3h4LWdwaW8uZHRz
-aSkgZm9yIGVhY2ggTlBDTTd4eCBCTUMgZmFtaWx5Lg0KVGhlIGRldmljZSB0cmVlIG1haW50YWlu
-ZXJzIGNhbiByZWZlcmVuY2UgdGhlIEdQSU8gY29uZmlndXJhdGlvbiBmcm9tIHRoaXMgZmlsZSB3
-aGF0IHRoZXkgbmVlZGVkLg0KT25jZSBpZiB0aGUgZHJpdmVyIGlzIGNoYW5nZWQsIG1heWJlIHRo
-ZSBvbmx5IGNoYW5nZSBpcyB0aGUgY29tbW9uIHBpbmN0cmwgZmlsZS4NCkJ1dCBpZiB0aGVyZSBp
-cyBubyBjb21tb24gcGluY3RybCBmaWxlLCBlYWNoIGRldmljZSB0cmVlIG1haW50YWluZXJzIGhh
-dmUgdG8gbW9kaWZ5IHRoZSBncGlvLWR0c2kgZmlsZS4NCkFuZCBhcyB5b3VyIG9waW5pb24sIHRo
-ZXJlIHdpbGwgYmUgYSBsb3RzIG9mIGdwaW8tZHRzaSBmaWxlcyBmb3IgZGlmZmVyZW50IGJvYXJk
-cyBvciBkaWZmZXJlbnQgdmVuZG9ycy4NCkFuZCBtb3N0IG9mIGdwaW8tZHRzaSBmaWxlcyB3aWxs
-IGluY2x1ZGUgc2FtZSBHUElPIHNldHRpbmcuDQoNClRoYW5rcywNCkZyYW4NCg0KPg0KPkhpIEJl
-bmphbWluLA0KPg0KPk9uIFNhdCwgMzAgTWFyIDIwMTkgYXQgMDI6MzEsIEJlbmphbWluIEZhaXIN
-CjxtYWlsdG86YmVuamFtaW5mYWlyQGdvb2dsZS5jb20+IHdyb3RlOg0KPkhpIEZyYW4sDQo+DQo+
-VGhhbmtzIGZvciBzZW5kaW5nIHRoZXNlIHBhdGNoZXMhDQo+DQo+T24gVGh1LCBNYXIgMjgsIDIw
-MTkgYXQgODowNiBBTSA8bWFpbHRvOmZyYW4uaHN1QHF1YW50YXR3LmNvbT4gd3JvdGU6DQo+Pg0K
-Pj4gRnJvbTogRnJhbkhzdSA8bWFpbHRvOkZyYW4uSHN1QHF1YW50YXR3LmNvbT4NCj4+DQo+PiBB
-ZGQgcGluY3RybCBkZWZpbml0aW9uIGZpbGUgZm9yIHF1YW50YS1nc2ogQk1DIGRldmljZSB0cmVl
-Lg0KPj4NCj4+IFNpZ25lZC1vZmYtYnk6IEZyYW5Ic3UgPG1haWx0bzpGcmFuLkhzdUBxdWFudGF0
-dy5jb20+DQo+PiAtLS0NCj4+ICAuLi4vYm9vdC9kdHMvbnV2b3Rvbi1ucGNtNzMwLWdzai1ncGlv
-LmR0c2kgICAgfCAyNTkxDQorKysrKysrKysrKysrKysrKw0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAy
-NTkxIGluc2VydGlvbnMoKykNCj4+ICBjcmVhdGUgbW9kZSAxMDA2NDQgYXJjaC9hcm0vYm9vdC9k
-dHMvbnV2b3Rvbi1ucGNtNzMwLWdzai1ncGlvLmR0c2kNCj4NCj5Xb3VsZCBpdCBtYWtlIG1vcmUg
-c2Vuc2UgdG8gbWVyZ2UgdGhpcyBpbnRvIHRoZSBleGlzdGluZw0KPm51dm90b24tbnBjbTc1MC1n
-cGlvLmR0c2kgZmlsZT8gVGhhdCBzZWVtcyBsaWtlIGl0IHdvdWxkIG1ha2UgaXQgZWFzaWVyIHRv
-DQo+bWFpbnRhaW4gdGhlIGRlZmluaXRpb25zIGFuZCB0aGVzZSBhcmUgYSBzdXBlcnNldCBvZiB0
-aGUgZXhpc3Rpbmcgb25lcywgc28gaXQNCj5zaG91bGRuJ3QgY29uZmxpY3QuDQo+DQo+dGhlIEdQ
-SU8gY29uZmlndXJhdGlvbiBkZXBlbmQgb24gdGhlIHNlcnZlciBib2FyZCB0aGF0IHVzaW5nIGl0
-LCB3ZSB0aGluayBpdCBpcw0KYmV0dGVyIHRoYXQgZWFjaA0KPnNlcnZlciBib2FyZCBvciBhIGZh
-bWlseSBvZiBzZXJ2ZXIgYm9hcmRzIHdpbGwgaGF2ZSBpdHMgb3duIEdQSU8gZGV2aWNlIHRyZWUN
-CmRlZmluaXRpb24uDQo+DQo+V2Uga25vdyB0aGF0IHRoZSBHUElPIGRldmljZSB0cmVlIG5hbWUg
-YW5kIHBsYWNlbWVudCBpcyBjb25mdXNpbmcsDQpiZWNhdXNlIGlzIGNhbGxlZCBudXZvdG9uLW5w
-Y203NTAtZ3Bpby5kdHNpIGFuZCBub3QNCm51dm90b24tbnBjbTc1MC1ncGlvLWV2Yi5kdHNpDQo+
-YW5kIHBsYWNlZCBhdCBudXZvdG9uLW5wY203NTAuZHRzaSBidXQgc2hvdWxkIG1vdmUgdGhlDQpu
-dXZvdG9uLW5wY203NTAtZXZiLmR0cyBmaWxlLg0KPg0KPndlIHdpbGwgbW9kaWZ5IHRoZSBncGlv
-IG5wY203NTAgZGV2aWNlIHRyZWUgc29vbi4NCj4NCj5GcmFuLA0KPg0KPkRvZXMgdGhlIG51dm90
-b24tbnBjbTczMC1nc2otZ3Bpby5kdHNpIHNldCBHUElPIGNvbmZpZ3VyYXRpb24geW91IGFyZSB1
-c2luZw0Kb3Igd2lsbCB1c2UgaW4gdGhlIGZ1dHVyZSBvbiBRdWFudGEgc2VydmVyIGJvYXJkcz8N
-Cj5Gb3IgZXhhbXBsZSBJIHNlZSB5b3UgZGVmaW5lZCAiZ3BpbzBvX3BpbnMiIHBpbiBjb25maWd1
-cmF0aW9uLCBhbmQgeW91IGFyZQ0Kbm90IHVzaW5nIGl0IGluIHlvdXIgZHRzIGZpbGUuIHdpbGwg
-eW91IHVzZSBpdCBpbiB0aGUgZnV0dXJlIG9yIGluIG90aGVyIFF1YW50YQ0KYmFzZWQgTlBDTTd4
-eCBCTUMgYm9hcmRzPw0KPmlmIG5vdCBJIHRoaW5rIHlvdSBzaG91bGQgcmVtb3ZlIGl0LiBlcXR1
-bGx5IEkgdGhpbmsgeW91IHNob3VsZCBkZWZpbmVkIG9ubHkgdGhlDQpHUElPL1BJTiBjb25maWd1
-cmF0aW9uIHlvdSBhcmUgdXNpbmcsIChJIGF0dGVuZCB0byBkbyBpdCBhdA0KbnV2b3Rvbi1ucGNt
-NzUwLWdwaW8uZHRzaSBhcyB3ZWxsKQ0KPg0KPg0KPj4NCj4+IGRpZmYgLS1naXQgYS9hcmNoL2Fy
-bS9ib290L2R0cy9udXZvdG9uLW5wY203MzAtZ3NqLWdwaW8uZHRzaQ0KYi9hcmNoL2FybS9ib290
-L2R0cy9udXZvdG9uLW5wY203MzAtZ3NqLWdwaW8uZHRzaQ0KPj4gbmV3IGZpbGUgbW9kZSAxMDA2
-NDQNCj4+IGluZGV4IDAwMDAwMDAwMDAwMC4uYjY2ZWE1MDk5ZTVlDQo+PiAtLS0gL2Rldi9udWxs
-DQo+PiArKysgYi9hcmNoL2FybS9ib290L2R0cy9udXZvdG9uLW5wY203MzAtZ3NqLWdwaW8uZHRz
-aQ0KPj4gQEAgLTAsMCArMSwyNTkxIEBADQo+PiArLy8gU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6
-IEdQTC0yLjANCj4+ICsvLyBDb3B5cmlnaHQgKGMpIDIwMTggTnV2b3RvbiBUZWNobm9sb2d5DQpt
-YWlsdG86dG9tZXIubWFpbW9uQG51dm90b24uY29tDQo+PiArDQo+PiArLyB7DQo+PiArICAgICAg
-IHBpbmN0cmw6IHBpbmN0cmxAZjA4MDAwMDAgew0KPj4gKyAgICAgICAgICAgICAgIGdwaW8wb19w
-aW5zOiBncGlvMG8tcGlucyB7DQo+PiArICAgICAgICAgICAgICAgICAgICAgICBwaW5zID0gIkdQ
-SU8wL0lPWDFESSI7DQo+PiArICAgICAgICAgICAgICAgICAgICAgICBiaWFzLWRpc2FibGU7DQo+
-PiArICAgICAgICAgICAgICAgICAgICAgICBvdXRwdXQtaGlnaDsNCj4+ICsgICAgICAgICAgICAg
-ICB9Ow0KPj4gKyAgICAgICAgICAgICAgIGdwaW8wb2xfcGluczogZ3BpbzBvbC1waW5zIHsNCj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIHBpbnMgPSAiR1BJTzAvSU9YMURJIjsNCj4+ICsgICAg
-ICAgICAgICAgICAgICAgICAgIGJpYXMtZGlzYWJsZTsNCj4+ICsgICAgICAgICAgICAgICAgICAg
-ICAgIG91dHB1dC1sb3c7DQo+PiArICAgICAgICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgICAg
-ICBncGlvMG9kX3BpbnM6IGdwaW8wb2QtcGlucyB7DQo+PiArICAgICAgICAgICAgICAgICAgICAg
-ICBwaW5zID0gIkdQSU8wL0lPWDFESSI7DQo+PiArICAgICAgICAgICAgICAgICAgICAgICBiaWFz
-LWRpc2FibGU7DQo+PiArICAgICAgICAgICAgICAgICAgICAgICBkcml2ZS1vcGVuLWRyYWluOw0K
-Pj4gKyAgICAgICAgICAgICAgIH07DQo+PiArICAgICAgICAgICAgICAgZ3BpbzBwcF9waW5zOiBn
-cGlvMHBwLXBpbnMgew0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcGlucyA9ICJHUElPMC9J
-T1gxREkiOw0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYmlhcy1kaXNhYmxlOw0KPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgZHJpdmUtcHVzaC1wdWxsOw0KPj4gKyAgICAgICAgICAgICAg
-IH07DQo+PiArICAgICAgICAgICAgICAgZ3BpbzFfcGluczogZ3BpbzEtcGlucyB7DQo+PiArICAg
-ICAgICAgICAgICAgICAgICAgICBwaW5zID0gIkdQSU8xL0lPWDFMRCI7DQo+PiArICAgICAgICAg
-ICAgICAgICAgICAgICBiaWFzLWRpc2FibGU7DQo+PiArICAgICAgICAgICAgICAgICAgICAgICBp
-bnB1dC1lbmFibGU7DQo+PiArICAgICAgICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgICAgICBn
-cGlvMW9fcGluczogZ3BpbzFvLXBpbnMgew0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgcGlu
-cyA9ICJHUElPMS9JT1gxTEQiOw0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgYmlhcy1kaXNh
-YmxlOw0KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgb3V0cHV0LWhpZ2g7DQo+PiArICAgICAg
-ICAgICAgICAgfTsNCj4+ICsgICAgICAgICAgICAgICBncGlvMW9sX3BpbnM6IGdwaW8xb2wtcGlu
-cyB7DQo=
+On Mon, Apr 1, 2019 at 2:16 AM George Hung (=E6=B4=AA=E5=BF=A0=E6=95=AC)
+<George.Hung@quantatw.com> wrote:
+>
+> Dear Brad,
+>
+> I have no Jenkis build after pushing code to Gerrit. It responsed =E2=80=
+=9CUser not approved, see admin, no CI=E2=80=9D
+> Is there the configuration I missed or it necessary to add the permission=
+ ?
+
+Hi George, looks like Brad got you added to the needed group in gerrit
+https://gerrit.openbmc-project.xyz/admin/groups/8,members
+
+I confirmed your ID is now approved for CI in
+https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-sel-logger/+/19705
+
+>
+> Thanks.
+>
+>
+>
+> Best Regard
+> George Hung
+>
+> Research Division - Software Engineer
+> Cloud Computing Business Unit
+> Quanta Computer Inc.
+>
+> Ext: 16830
+> E-Mail : George.Hung@QuantaTW.com
+>
+>
