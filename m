@@ -1,57 +1,43 @@
-Return-Path: <sharad.khetan@intel.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Xyrx0qDWzDqMW
- for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 03:45:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Xzkv2N99zDqL2
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 04:25:41 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga007.fm.intel.com ([10.253.24.52])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2019 09:45:43 -0700
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 01 Apr 2019 10:25:37 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,297,1549958400"; 
- d="scan'208,217";a="139220672"
-Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
- by fmsmga007.fm.intel.com with ESMTP; 01 Apr 2019 09:45:43 -0700
-Received: from FMSMSX110.amr.corp.intel.com (10.18.116.10) by
- fmsmsx107.amr.corp.intel.com (10.18.124.205) with Microsoft SMTP Server (TLS)
- id 14.3.408.0; Mon, 1 Apr 2019 09:45:43 -0700
-Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.222]) by
- FMSMSX110.amr.corp.intel.com ([169.254.14.3]) with mapi id 14.03.0415.000;
- Mon, 1 Apr 2019 09:45:42 -0700
-From: "Khetan, Sharad" <sharad.khetan@intel.com>
-To: 'susan jasinski' <susantjasinski@gmail.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: OpenBMC GUI navigation -- User vs Security
-Thread-Topic: OpenBMC GUI navigation -- User vs Security
-Thread-Index: AQHU5dexRJQWaNOAaEumRpZZd5KYGaYiDo1agAFn8gCABIJSAP//jlZw
-Date: Mon, 1 Apr 2019 16:45:42 +0000
-Message-ID: <865C376D1B77624AAA570EFEF73CE52F94537DF0@fmsmsx118.amr.corp.intel.com>
-References: <CANT4NrJdiFyJBR9SA-jVA0JZ8C=cf7HvBXjxaiHHBEocxaWR6Q@mail.gmail.com>
- <592E3848-A5D7-45DA-8E20-A3315BE359D9@intel.com>
- <006052f8-dce3-d523-6d7e-8bb610648deb@intel.com>
- <CANT4NrKDC92KOmUcsdP6hWarJKuRP7VTZSwD-F32g+Loqe4VEA@mail.gmail.com>
-In-Reply-To: <CANT4NrKDC92KOmUcsdP6hWarJKuRP7VTZSwD-F32g+Loqe4VEA@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiN2NjODY1NGEtMTVhNy00NTFmLWJhNzQtNzU4NDA3ZGUzYTQ2IiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoia2I2RUZGU0NpNzdHZ2dWN2NMamtQSW1FZHcxNFBmeHU2djZzSXkwaktXS0JYcWtJRDhsZ0tFOUdpZ2xGNWdYUSJ9
-dlp-product: dlpe-windows
-dlp-version: 11.0.400.15
-dlp-reaction: no-action
-x-originating-ip: [10.1.200.108]
-Content-Type: multipart/alternative;
- boundary="_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_"
+X-IronPort-AV: E=Sophos;i="5.60,297,1549958400"; d="scan'208";a="132016825"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
+ ([10.7.153.148])
+ by orsmga006.jf.intel.com with ESMTP; 01 Apr 2019 10:25:38 -0700
+Subject: Re: [PATCH dev-5.0 v2 1/5] media: platform: Aspeed: Remove use of
+ reset line
+To: Eddie James <eajames@linux.vnet.ibm.com>,
+ Eddie James <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
+References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
+ <1553894143-559-2-git-send-email-eajames@linux.ibm.com>
+ <41569937-f8bc-b391-8b19-c931a11e20d8@linux.intel.com>
+ <ee4ae2fb-624d-d1d1-ef9f-b35de3c4f458@linux.vnet.ibm.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <958a300d-e767-2589-f074-183ba761c129@linux.intel.com>
+Date: Mon, 1 Apr 2019 10:25:38 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
+In-Reply-To: <ee4ae2fb-624d-d1d1-ef9f-b35de3c4f458@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,94 +49,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 16:45:54 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 17:25:44 -0000
 
---_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
 
-DQpUeXBpY2FsbHkgaW4gc2VydmVyIG1hbmFnZW1lbnQgdGhlIG5vdGlvbiBvZiBzZWN1cml0eSBp
-cyBkaWZmZXJlbnQgdGhhbiB1c2VyIG1hbmFnZW1lbnQuIFBlcmhhcHMg4oCcQXV0aGVudGljYXRp
-b27igJ0gb3Ig4oCcQWNjZXNzIENvbnRyb2zigJ0gb3Ig4oCcQWNjZXNzIE1hbmFnZW1lbnTigJ0g
-Y2FuIGJlIGEgY2F0ZWdvcnkgZm9yIHRoZSBpdGVtcyB5b3UgbGlzdC4NCg0KT2ssIEkgbGlrZSDi
-gJxBY2Nlc3MgQ29udHJvbOKAnS4gRG8geW91IGFncmVlPw0KDQpJIGFncmVlLiAgSSB3b3VsZCBh
-ZGQgdGhhdCDigJxBY2Nlc3MgQ29udHJvbOKAnSBpcyBhIGdlbmVyaWMgdGVybSAoYXMgb3Bwb3Nl
-ZCB0byDigJxVc2VyIE1hbmFnZW1lbnTigJ0pLiBUaGlzIG1lYW5zIHNvbWUgb3RoZXIgaXRlbXMg
-bWF5IHBvdGVudGlhbGx5IGZhbGwgaW50byB0aGlzIGNhdGVnb3J5Lg0KDQpPbiBGcmksIE1hciAy
-OSwgMjAxOSBhdCAyOjM1IFBNIEVkIFRhbm91cyA8ZWQudGFub3VzQGludGVsLmNvbTxtYWlsdG86
-ZWQudGFub3VzQGludGVsLmNvbT4+IHdyb3RlOg0KPg0KPiBPbiAzLzI4LzE5IDEwOjA2IFBNLCBL
-aGV0YW4sIFNoYXJhZCB3cm90ZToNCj4gPiBIaSBTdXNhbiwNCj4gPiBUeXBpY2FsbHkgaW4gc2Vy
-dmVyIG1hbmFnZW1lbnQgdGhlIG5vdGlvbiBvZiBzZWN1cml0eSBpcyBkaWZmZXJlbnQgdGhhbiB1
-c2VyIG1hbmFnZW1lbnQuIFBlcmhhcHMg4oCcQXV0aGVudGljYXRpb27igJ0gb3Ig4oCcQWNjZXNz
-IENvbnRyb2zigJ0gb3Ig4oCcQWNjZXNzIE1hbmFnZW1lbnTigJ0gY2FuIGJlIGEgY2F0ZWdvcnkg
-Zm9yIHRoZSBpdGVtcyB5b3UgbGlzdC4NCj4gPiBUaGFua3MsDQo+ID4gLVNoYXJhZA0KPg0KPiAr
-MSAgIlVzZXIgbWFuYWdlbWVudCIgaXMgYSB2ZXJ5IGRpZmZlcmVudCBjb25jZXB0IHRoYW4gIlNl
-Y3VyaXR5IiBhbmQgSQ0KPiB3b3VsZCBhZHZvY2F0ZSB1c2luZyBhIGRpZmZlcmVudCB0ZXJtIG9u
-IHRoZSB0b3AgbGV2ZWwgbWVudS4NCg==
 
---_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_
-Content-Type: text/html; charset="utf-8"
-Content-Transfer-Encoding: base64
+On 4/1/2019 8:11 AM, Eddie James wrote:
+> 
+> On 3/29/19 6:54 PM, Jae Hyun Yoo wrote:
+>>>   static void aspeed_video_off(struct aspeed_video *video)
+>>>   {
+>>> -    aspeed_video_reset(video);
+>>> +    /* Disable interrupts */
+>>> +    aspeed_video_write(video, VE_INTERRUPT_CTRL, 0);
+>>>         /* Turn off the relevant clocks */
+>>>       clk_disable_unprepare(video->vclk);
+>>> @@ -508,7 +497,13 @@ static void aspeed_video_on(struct aspeed_video 
+>>> *video)
+>>>       clk_prepare_enable(video->eclk);
+>>>       clk_prepare_enable(video->vclk);
+>>>   -    aspeed_video_reset(video);
+>>> +    /*
+>>> +     * Delay (and don't sleep in case in interrupt context) to let the
+>>> +     * clocks stabilize. Without this, mode detection sometimes fails.
+>>> +     * Possibly the registers don't update too soon after clocks are
+>>> +     * enabled.
+>>> +     */
+>>> +    udelay(100);
+>>>   }
+>>
+>> aspeed_video_off() will be called from interrupt context too. Are you
+>> sure that this 100us delay is needed at here? If it's actually needed,
+>> would it be batter to use devm_request_threaded_irq() instead of
+>> devm_request_irq() in aspeed_video_init() function?
+> 
+> Well this isn't new to this patchset, it delayed 100us before in 
+> aspeed_video_reset.
+> 
+> I am quite sure it's needed.
 
-PGh0bWwgeG1sbnM6dj0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm89InVy
-bjpzY2hlbWFzLW1pY3Jvc29mdC1jb206b2ZmaWNlOm9mZmljZSIgeG1sbnM6dz0idXJuOnNjaGVt
-YXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6d29yZCIgeG1sbnM6bT0iaHR0cDovL3NjaGVtYXMubWlj
-cm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcv
-VFIvUkVDLWh0bWw0MCI+DQo8aGVhZD4NCjxtZXRhIGh0dHAtZXF1aXY9IkNvbnRlbnQtVHlwZSIg
-Y29udGVudD0idGV4dC9odG1sOyBjaGFyc2V0PXV0Zi04Ij4NCjxtZXRhIG5hbWU9IkdlbmVyYXRv
-ciIgY29udGVudD0iTWljcm9zb2Z0IFdvcmQgMTUgKGZpbHRlcmVkIG1lZGl1bSkiPg0KPHN0eWxl
-PjwhLS0NCi8qIEZvbnQgRGVmaW5pdGlvbnMgKi8NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6
-TWFuZ2FsOw0KCXBhbm9zZS0xOjAgMCA0IDAgMCAwIDAgMCAwIDA7fQ0KQGZvbnQtZmFjZQ0KCXtm
-b250LWZhbWlseToiQ2FtYnJpYSBNYXRoIjsNCglwYW5vc2UtMToyIDQgNSAzIDUgNCA2IDMgMiA0
-O30NCkBmb250LWZhY2UNCgl7Zm9udC1mYW1pbHk6Q2FsaWJyaTsNCglwYW5vc2UtMToyIDE1IDUg
-MiAyIDIgNCAzIDIgNDt9DQovKiBTdHlsZSBEZWZpbml0aW9ucyAqLw0KcC5Nc29Ob3JtYWwsIGxp
-Lk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbA0KCXttYXJnaW46MGluOw0KCW1hcmdpbi1ib3R0b206
-LjAwMDFwdDsNCglmb250LXNpemU6MTIuMHB0Ow0KCWZvbnQtZmFtaWx5OiJUaW1lcyBOZXcgUm9t
-YW4iLHNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxlLXByaW9y
-aXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9DQphOnZp
-c2l0ZWQsIHNwYW4uTXNvSHlwZXJsaW5rRm9sbG93ZWQNCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5
-Ow0KCWNvbG9yOnB1cnBsZTsNCgl0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lO30NCnNwYW4uRW1h
-aWxTdHlsZTE3DQoJe21zby1zdHlsZS10eXBlOnBlcnNvbmFsLXJlcGx5Ow0KCWZvbnQtZmFtaWx5
-OiJDYWxpYnJpIixzYW5zLXNlcmlmOw0KCWNvbG9yOiMxRjQ5N0Q7fQ0KLk1zb0NocERlZmF1bHQN
-Cgl7bXNvLXN0eWxlLXR5cGU6ZXhwb3J0LW9ubHk7DQoJZm9udC1mYW1pbHk6IkNhbGlicmkiLHNh
-bnMtc2VyaWY7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1h
-cmdpbjoxLjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6
-V29yZFNlY3Rpb24xO30NCi0tPjwvc3R5bGU+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpz
-aGFwZWRlZmF1bHRzIHY6ZXh0PSJlZGl0IiBzcGlkbWF4PSIxMDI2IiAvPg0KPC94bWw+PCFbZW5k
-aWZdLS0+PCEtLVtpZiBndGUgbXNvIDldPjx4bWw+DQo8bzpzaGFwZWxheW91dCB2OmV4dD0iZWRp
-dCI+DQo8bzppZG1hcCB2OmV4dD0iZWRpdCIgZGF0YT0iMSIgLz4NCjwvbzpzaGFwZWxheW91dD48
-L3htbD48IVtlbmRpZl0tLT4NCjwvaGVhZD4NCjxib2R5IGxhbmc9IkVOLVVTIiBsaW5rPSJibHVl
-IiB2bGluaz0icHVycGxlIj4NCjxkaXYgY2xhc3M9IldvcmRTZWN0aW9uMSI+DQo8cCBjbGFzcz0i
-TXNvTm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxkaXY+DQo8YmxvY2txdW90ZSBzdHls
-ZT0iYm9yZGVyOm5vbmU7Ym9yZGVyLWxlZnQ6c29saWQgI0NDQ0NDQyAxLjBwdDtwYWRkaW5nOjBp
-biAwaW4gMGluIDYuMHB0O21hcmdpbi1sZWZ0OjQuOHB0O21hcmdpbi1yaWdodDowaW4iPg0KPHAg
-Y2xhc3M9Ik1zb05vcm1hbCI+VHlwaWNhbGx5IGluIHNlcnZlciBtYW5hZ2VtZW50IHRoZSBub3Rp
-b24gb2Ygc2VjdXJpdHkgaXMgZGlmZmVyZW50IHRoYW4gdXNlciBtYW5hZ2VtZW50LiBQZXJoYXBz
-IOKAnEF1dGhlbnRpY2F0aW9u4oCdIG9yIOKAnEFjY2VzcyBDb250cm9s4oCdIG9yIOKAnEFjY2Vz
-cyBNYW5hZ2VtZW504oCdIGNhbiBiZSBhIGNhdGVnb3J5IGZvciB0aGUgaXRlbXMgeW91IGxpc3Qu
-PG86cD48L286cD48L3A+DQo8L2Jsb2NrcXVvdGU+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1zb05vcm1h
-bCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxkaXY+DQo8cCBjbGFzcz0iTXNvTm9y
-bWFsIj5PaywgSSBsaWtlIOKAnEFjY2VzcyBDb250cm9s4oCdLiBEbyB5b3UmbmJzcDthZ3JlZT88
-bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPGRpdj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxiPjxp
-PjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTEuMHB0O2ZvbnQtZmFtaWx5OiZxdW90O0NhbGlicmkm
-cXVvdDssc2Fucy1zZXJpZjtjb2xvcjojMUY0OTdEIj48bzpwPiZuYnNwOzwvbzpwPjwvc3Bhbj48
-L2k+PC9iPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJjb2xvcjojMUY0
-OTdEIj5JIGFncmVlLiAmbmJzcDtJIHdvdWxkIGFkZCB0aGF0IOKAnEFjY2VzcyBDb250cm9s4oCd
-IGlzIGEgZ2VuZXJpYyB0ZXJtIChhcyBvcHBvc2VkIHRvIOKAnFVzZXIgTWFuYWdlbWVudOKAnSku
-IFRoaXMgbWVhbnMgc29tZSBvdGhlciBpdGVtcyBtYXkgcG90ZW50aWFsbHkgZmFsbCBpbnRvIHRo
-aXMgY2F0ZWdvcnkuPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPC9kaXY+DQo8cCBjbGFzcz0iTXNv
-Tm9ybWFsIj48YnI+DQpPbiBGcmksIE1hciAyOSwgMjAxOSBhdCAyOjM1IFBNIEVkIFRhbm91cyAm
-bHQ7PGEgaHJlZj0ibWFpbHRvOmVkLnRhbm91c0BpbnRlbC5jb20iPmVkLnRhbm91c0BpbnRlbC5j
-b208L2E+Jmd0OyB3cm90ZTo8YnI+DQomZ3Q7PGJyPg0KJmd0OyBPbiAzLzI4LzE5IDEwOjA2IFBN
-LCBLaGV0YW4sIFNoYXJhZCB3cm90ZTo8YnI+DQomZ3Q7ICZndDsgSGkgU3VzYW4sPGJyPg0KJmd0
-OyAmZ3Q7IFR5cGljYWxseSBpbiBzZXJ2ZXIgbWFuYWdlbWVudCB0aGUgbm90aW9uIG9mIHNlY3Vy
-aXR5IGlzIGRpZmZlcmVudCB0aGFuIHVzZXIgbWFuYWdlbWVudC4gUGVyaGFwcyDigJxBdXRoZW50
-aWNhdGlvbuKAnSBvciDigJxBY2Nlc3MgQ29udHJvbOKAnSBvciDigJxBY2Nlc3MgTWFuYWdlbWVu
-dOKAnSBjYW4gYmUgYSBjYXRlZ29yeSBmb3IgdGhlIGl0ZW1zIHlvdSBsaXN0Ljxicj4NCiZndDsg
-Jmd0OyBUaGFua3MsPGJyPg0KJmd0OyAmZ3Q7IC1TaGFyYWQ8YnI+DQomZ3Q7PGJyPg0KJmd0OyAm
-IzQzOzEgJm5ic3A7JnF1b3Q7VXNlciBtYW5hZ2VtZW50JnF1b3Q7IGlzIGEgdmVyeSBkaWZmZXJl
-bnQgY29uY2VwdCB0aGFuICZxdW90O1NlY3VyaXR5JnF1b3Q7IGFuZCBJPGJyPg0KJmd0OyB3b3Vs
-ZCBhZHZvY2F0ZSB1c2luZyBhIGRpZmZlcmVudCB0ZXJtIG9uIHRoZSB0b3AgbGV2ZWwgbWVudS48
-bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0KPC9kaXY+DQo8L2JvZHk+DQo8L2h0bWw+DQo=
+This is previous code of aspeed_video_reset():
+static void aspeed_video_reset(struct aspeed_video *video)
+{
+	/* Reset the engine */
+	reset_control_assert(video->rst);
 
---_000_865C376D1B77624AAA570EFEF73CE52F94537DF0fmsmsx118amrcor_--
+	/* Don't usleep here; function may be called in interrupt context */
+	udelay(100);
+	reset_control_deassert(video->rst);
+}
+
+The delay was added between assert and deassert to shape the reset
+signal up, but the delay in this patch set is after the deasserting of
+reset signal. Now in this patch set, you are going to use reset control
+using the way that clk-aspeed module provides. The module already has
+a 10msec delay in aspeed_clk_enable() for making the reset pulse so
+you don't need to add an additional delay at here.
+
+Practically, I tested this patch after removing the 100usec delay and
+checked that this driver works well.
+
+> Since the ast2500 has only one logical processor, I'm not sure a 
+> threaded irq would function any differently.
+
+Yes, good point. Differently from other Aspeed driver modules, it calls
+clk_prepare_enable() in interrupt context which will cause at least
+10msecs of busy waiting thru aspeed_clk_enable() in isr. In UP kernel,
+this will disturb handling of most of all other interrupts so it's the
+reason why I suggested threaded irq instead.
+
+Try this change in aspeed_video_init():
+rc = devm_request_threaded_irq(dev, irq, NULL, aspeed_video_irq,
+			       IRQF_ONESHOT | IRQF_SHARED, DEVICE_NAME,
+			       video);
+
+This threaded irq handling works well in my H/W.
+
+Cheers,
+Jae
