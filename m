@@ -1,50 +1,56 @@
-Return-Path: <prvs=9877b4cea=George.Hung@quantatw.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=9877b4cea=george.hung@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::844; helo=mail-qt1-x844.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44Xdsw1wWJzDqLT
- for <openbmc@lists.ozlabs.org>; Mon,  1 Apr 2019 15:00:34 +1100 (AEDT)
-Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
- by mx02.quantatw.com with ESMTP; 01 Apr 2019 12:00:29 +0800
-Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx06.quanta.corp
- (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 1 Apr 2019
- 12:00:28 +0800
-Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
- mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
- 15.01.1713.004; Mon, 1 Apr 2019 12:00:28 +0800
-From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
-To: "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>
-CC: "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>, 
- "emilyshaffer@google.com" <emilyshaffer@google.com>,
- "benjaminfair@google.com" <benjaminfair@google.com>
-Subject: [phosphor-host-ipmid] register google-ipmi-i2c
-Thread-Topic: [phosphor-host-ipmid] register google-ipmi-i2c
-Thread-Index: AdToOcM0mgHNXnAeTx+Ko0s6LmNJZg==
-Date: Mon, 1 Apr 2019 04:00:28 +0000
-Message-ID: <b122af4ade8f43eb9c5b9d737f3a0984@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24524.003
-x-tm-as-result: No--32.532900-0.000000-31
-x-tm-as-matchedid: 140026-151186-139704-113220-780058-111604-700362-705718-7
- 00345-700157-700450-701827-700264-702497-700732-701012-701306-709859-111605
- -700074-700402-700656-303242-701153-102356-700398-707451-702358-701143-7026
- 43-703788-711664-701594-707163-709584-701021-848362-705388-704425-188124-70
- 0107-700079-703529-704751-702423-106580-121133-863519-301328-712203-111610-
- 188093-148004-148054-20020-42000
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: multipart/alternative;
- boundary="_000_b122af4ade8f43eb9c5b9d737f3a0984quantatwcom_"
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="KGxKFovz"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Xj3Z5Dg9zDqLN
+ for <openbmc@lists.ozlabs.org>; Mon,  1 Apr 2019 17:24:10 +1100 (AEDT)
+Received: by mail-qt1-x844.google.com with SMTP id w5so9216063qtb.11
+ for <openbmc@lists.ozlabs.org>; Sun, 31 Mar 2019 23:24:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Clibf4YEFqaBoaddPaAB8IpWYI0gtyPufewMgNso4Kg=;
+ b=KGxKFovz4mx6WPRmrurchCOa4QR2PRlV/GCVcSUDbW/m78A9z3VBDoMr2sMJ+WqujE
+ 62fUOu6Vsbv/d0ieq2UpmeTdgtqtL07Vn9hjoXjEDTopPR2NFcp1QHr33RCX4tgNuzYt
+ UOrJ6UdEZSbB7uZOlH0R1lATUIlOsp852eiQo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Clibf4YEFqaBoaddPaAB8IpWYI0gtyPufewMgNso4Kg=;
+ b=lWSHbPaP6IrX4gHtTJo0QmUAEAsWiAsyDpc50wWyFgYDOqBhouY9Wl752P2XigYROs
+ sS8eALvWbqKAY+GeI9/RQBgTLiDn8zJQ9VMQH5HUAxQmacKzBBed8yLbPmWnDp0bTIcj
+ 3ck/y8QLM41lfJgiO/Y8VtvEkhmYUOTNQ5Pvxj2UqvThBBspMUeb2mrEu9FrLREUuzUc
+ RVnVhkQce+VUa1LFNDV/NbB7tUr2pKKNu4ZRZnsDSTMBu57vVym/LvOx5NY0z8e4Z58v
+ 2eEPC2C/uY92eFDOd1pZHlE9nv/GSvIxroeqP2mOu8MN3PKFdSxLg++Xu5Mfl5t5iktg
+ d7fQ==
+X-Gm-Message-State: APjAAAXar9cLBysj75OnlwUlJrPVy86LLVutmIZgBxazw/V74m0anSIb
+ 9za39X6jn+rnzDOTrplgI1mJr/ka2CiIOfcXZic=
+X-Google-Smtp-Source: APXvYqwvSu2URqxggnb1F0CMt6wcUF8GgCRaNswBTuByfhVavk0ObXRuIhCJjQORqHvIWEk3z71g0AMinohK8oAAEXs=
+X-Received: by 2002:ac8:26e7:: with SMTP id 36mr52557146qtp.37.1554099846859; 
+ Sun, 31 Mar 2019 23:24:06 -0700 (PDT)
 MIME-Version: 1.0
+References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
+ <1553894143-559-2-git-send-email-eajames@linux.ibm.com>
+In-Reply-To: <1553894143-559-2-git-send-email-eajames@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 1 Apr 2019 06:23:55 +0000
+Message-ID: <CACPK8Xd3YUmDZYOaXm7OBtM_PT9P=mCqdwozCjQCGB2opSrkow@mail.gmail.com>
+Subject: Re: [PATCH dev-5.0 v2 1/5] media: platform: Aspeed: Remove use of
+ reset line
+To: Eddie James <eajames@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,135 +62,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 04:00:37 -0000
+X-List-Received-Date: Mon, 01 Apr 2019 06:24:11 -0000
 
---_000_b122af4ade8f43eb9c5b9d737f3a0984quantatwcom_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+On Fri, 29 Mar 2019 at 21:15, Eddie James <eajames@linux.ibm.com> wrote:
+>
+> The reset line is toggled by enabling the clocks, so it's not necessary
+> to manually toggle the reset as well.
 
-RGVhciBWZXJub24sDQoNClNpbmNlIHBob3NwaG9yLWhvc3QtaXBtaWQgZG9lc26hpnQgaGF2ZSBJ
-MkMgbWFzdGVyIHdyaXRlLXJlYWQgaXBtaSBjb21tYW5kLCB3ZSB3b3VsZCBsaWtlIHRvIHVzZSBn
-b29nbGUtaXBtaS1pMmMgaW5zdGVhZC4NCg0KQnV0IHdlIGZvdW5kIHRob3VnaCBpdCBjYW4gYmUg
-cmVnaXN0ZXJlZCB0byBwaG9zcGhvci1ob3N0LWlwbWlkICwgaXQgd291bGQgYWx3YXlzIHJlc3Bv
-bnNlIDB4ZmYgKFVuc3BlY2lmaWVkIGVycm9yKSB3aGVuIHNlbmRpbmcgY29tbWFuZHMgYnkgaXBt
-aXRvb2wuDQoNClRoZSByb290IGNhdXNlIHdlIGZvdW5kIGlzIHRoYXQgaXQgZG9lc26hpnQgaGFu
-ZGxlIG9lbSBJQU5BIG51bWJlciBhbmQgdXNlIHRoZW0gYXMgcmVxdWVzdCBkYXRhIGRpcmVjdGx5
-Lg0KDQpJcyB0aGVyZSBhbnl0aGluZyBJIGRpZG6hpnQgY29uZmlndXJlIG9yIG5vdGljZSBzbyB0
-aGF0IGl0IGNhbqGmdCB3b3JrIG5vcm1hbGx5ID8gQmVjYXVzZSBJIHJlbWVtYmVyIGl0IGNhbiB3
-b3JrIG5vcm1hbGx5IGJlZm9yZSBpcG1pZCB1c2luZyB0aGUgbmV3IGFyY2hpdGVjdHVyZS4NCg0K
-DQpUaGFua3MuDQoNCkJlc3QgUmVnYXJkDQpHZW9yZ2UgSHVuZw0KUmVzZWFyY2ggRGl2aXNpb24g
-LSBTb2Z0d2FyZSBFbmdpbmVlcg0KQ2xvdWQgQ29tcHV0aW5nIEJ1c2luZXNzIFVuaXQNClF1YW50
-YSBDb21wdXRlciBJbmMuDQpFeHQ6IDE2ODMwDQpFLU1haWwgOiBHZW9yZ2UuSHVuZ0BRdWFudGFU
-Vy5jb208bWFpbHRvOmdlb3JnZS5odW5nQHF1YW50YXR3LmNvbT4NCg0K
+Hi Eddie,
 
---_000_b122af4ade8f43eb9c5b9d737f3a0984quantatwcom_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
+You didn't include a changelog here. You said last week that without
+the extra reset line toggle you would get interrupt storms. Can you
+fill us in on what changed?
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Comic Sans MS";
-	panose-1:3 15 7 2 3 3 2 2 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri","sans-serif";}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:blue;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:purple;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri","sans-serif";
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri","sans-serif";}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-TW" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
-rim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Dear Vernon,<o:p></o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Since phosphor-host-ipmid doesn=
-=A1=A6t have I2C master write-read ipmi command, we would like to use googl=
-e-ipmi-i2c instead.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">But we found though it can be r=
-egistered to phosphor-host-ipmid , it would always response 0xff (Unspecifi=
-ed error) when sending commands by ipmitool.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">The root cause we found is that=
- it doesn=A1=A6t handle oem IANA number and use them as request data direct=
-ly.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Is there anything I didn=A1=A6t=
- configure or notice so that it can=A1=A6t work normally ? Because I rememb=
-er it can work normally before ipmid using the new architecture.<o:p></o:p>=
-</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;layout-grid-mode:char"=
-><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Comic San=
-s MS&quot;">Best Regard
-<br>
-George Hung<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-=
-family:&quot;Comic Sans MS&quot;">Research Division - Software Engineer<br>
-Cloud Computing Business Unit<br>
-Quanta Computer Inc.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-=
-family:&quot;Comic Sans MS&quot;">Ext: 16830<br>
-E-Mail : </span><span lang=3D"EN-US" style=3D"font-family:&quot;Times New R=
-oman&quot;,&quot;serif&quot;"><a href=3D"mailto:george.hung@quantatw.com" t=
-itle=3D"blocked::mailto:Fran.Hsu@QuantaTW.com"><span style=3D"font-size:10.=
-0pt;font-family:&quot;Comic Sans MS&quot;;color:blue">George.Hung@QuantaTW.=
-com</span></a></span><span lang=3D"EN-US"><o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-</div>
-</body>
-</html>
+>  #define INVALID_RESOLUTION_DELAY       msecs_to_jiffies(250)
+> -#define RESOLUTION_CHANGE_DELAY                msecs_to_jiffies(500)
+> -#define MODE_DETECT_TIMEOUT            msecs_to_jiffies(500)
+> -#define STOP_TIMEOUT                   msecs_to_jiffies(1000)
+> +#define RESOLUTION_CHANGE_DELAY                msecs_to_jiffies(750)
+> +#define MODE_DETECT_TIMEOUT            msecs_to_jiffies(1000)
+> +#define STOP_TIMEOUT                   msecs_to_jiffies(1500)
 
---_000_b122af4ade8f43eb9c5b9d737f3a0984quantatwcom_--
+These numbers changed but you didn't mention why.
+
+>  #define DIRECT_FETCH_THRESHOLD         0x0c0000 /* 1024 * 768 */
+>
+>  #define VE_MAX_SRC_BUFFER_SIZE         0x8ca000 /* 1920 * 1200, 32bpp */
+> @@ -208,7 +207,6 @@ struct aspeed_video {
+>         void __iomem *base;
+>         struct clk *eclk;
+>         struct clk *vclk;
+> -       struct reset_control *rst;
+>
+>         struct device *dev;
+>         struct v4l2_ctrl_handler ctrl_handler;
+> @@ -483,19 +481,10 @@ static void aspeed_video_enable_mode_detect(struct aspeed_video *video)
+>         aspeed_video_update(video, VE_SEQ_CTRL, 0, VE_SEQ_CTRL_TRIG_MODE_DET);
+>  }
+>
+> -static void aspeed_video_reset(struct aspeed_video *video)
+> -{
+> -       /* Reset the engine */
+> -       reset_control_assert(video->rst);
+> -
+> -       /* Don't usleep here; function may be called in interrupt context */
+> -       udelay(100);
+> -       reset_control_deassert(video->rst);
+> -}
+> -
+>  static void aspeed_video_off(struct aspeed_video *video)
+>  {
+
+> -       aspeed_video_reset(video);
+> +       /*
+> +        * Delay (and don't sleep in case in interrupt context) to let the
+> +        * clocks stabilize. Without this, mode detection sometimes fails.
+> +        * Possibly the registers don't update too soon after clocks are
+> +        * enabled.
+> +        */
+> +       udelay(100);
+
+How did you get to 100us?
+
+> @@ -1464,7 +1459,9 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
+
+> -               aspeed_video_reset(video);
+> +               aspeed_video_off(video);
+> +               aspeed_video_on(video);
+> +
+
+This includes 5.1ms of sleeping in the clock driver's enable path; are
+you sure we need to turn clocks off and on again? Can we avoid the
+full reset by instead resetting the registers to a specific state?
