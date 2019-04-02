@@ -9,58 +9,58 @@ Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44YD5f24lnzDqM5
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44YD5g0L0qzDqL7
  for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 13:42:46 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x322YCQX027878
- for <openbmc@lists.ozlabs.org>; Mon, 1 Apr 2019 22:42:43 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rkxdp1vtf-1
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x322YFfx072477
+ for <openbmc@lists.ozlabs.org>; Mon, 1 Apr 2019 22:42:44 -0400
+Received: from e34.co.us.ibm.com (e34.co.us.ibm.com [32.97.110.152])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2rktuc22y1-1
  (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 22:42:43 -0400
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 22:42:44 -0400
 Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ by e34.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
  Violators will be prosecuted
  for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
- Tue, 2 Apr 2019 03:42:42 +0100
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Tue, 2 Apr 2019 03:42:43 +0100
+Received: from b03cxnp08028.gho.boulder.ibm.com (9.17.130.20)
+ by e34.co.us.ibm.com (192.168.1.134) with IBM ESMTP SMTP Gateway: Authorized
  Use Only! Violators will be prosecuted; 
  (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 2 Apr 2019 03:42:40 +0100
+ Tue, 2 Apr 2019 03:42:42 +0100
 Received: from b03ledav001.gho.boulder.ibm.com
  (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x322gdCm62259406
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x322gfCW29032472
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 2 Apr 2019 02:42:40 GMT
+ Tue, 2 Apr 2019 02:42:41 GMT
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CF1256E04C;
- Tue,  2 Apr 2019 02:42:39 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 340156E04E;
+ Tue,  2 Apr 2019 02:42:41 +0000 (GMT)
 Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 908886E054;
- Tue,  2 Apr 2019 02:42:39 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id EA5516E04C;
+ Tue,  2 Apr 2019 02:42:40 +0000 (GMT)
 Received: from localhost.localdomain (unknown [9.3.116.186])
  by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue,  2 Apr 2019 02:42:39 +0000 (GMT)
+ Tue,  2 Apr 2019 02:42:40 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, jae.hyun.yoo@linux.intel.com
-Subject: [PATCH dev-5.0 v4 6/7] ARM: dts: witherspoon: Enable video engine
-Date: Tue,  2 Apr 2019 02:42:29 +0000
+Subject: [PATCH dev-5.0 v4 7/7] ARM: dts: romulus: Enable video engine
+Date: Tue,  2 Apr 2019 02:42:30 +0000
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1554172950-2072-1-git-send-email-eajames@linux.ibm.com>
 References: <1554172950-2072-1-git-send-email-eajames@linux.ibm.com>
 X-TM-AS-GCONF: 00
-x-cbid: 19040202-0036-0000-0000-00000AA337BE
+x-cbid: 19040202-0016-0000-0000-0000099B36F2
 X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00010858; HX=3.00000242; KW=3.00000007;
  PH=3.00000004; SC=3.00000283; SDB=6.01183052; UDB=6.00619336; IPR=6.00963797; 
- MB=3.00026252; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-02 02:42:42
+ MB=3.00026252; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-02 02:42:43
 X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19040202-0037-0000-0000-00004B3D5438
-Message-Id: <1554172950-2072-7-git-send-email-eajames@linux.ibm.com>
+x-cbparentid: 19040202-0017-0000-0000-000042AA52D3
+Message-Id: <1554172950-2072-8-git-send-email-eajames@linux.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-04-02_01:, , signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
@@ -92,29 +92,29 @@ buffers, each at most 1/8th the size of the source buffer.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 12 ++++++++++++
+ arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts | 12 ++++++++++++
  1 file changed, 12 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index 1cdc96d..e09863c 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -33,6 +33,13 @@
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+index ee1a460..8c47c60 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
+@@ -42,6 +42,13 @@
  			compatible = "shared-dma-pool";
  			reusable;
  		};
 +
 +		video_engine_memory: jpegbuffer {
-+			size = <0x02000000>;	/* 32MM */
++			size = <0x02000000>;	/* 32M */
 +			alignment = <0x01000000>;
 +			compatible = "shared-dma-pool";
 +			reusable;
 +		};
  	};
  
- 	gpio-keys {
-@@ -664,4 +671,9 @@
- 	status = "okay";
+ 	leds {
+@@ -315,4 +322,9 @@
+      memory-region = <&gfx_memory>;
  };
  
 +&video {
