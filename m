@@ -1,39 +1,59 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="LcNVONRc"; 
+ dkim-atps=neutral
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Y4FJ6RRYzDqHj
- for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 07:48:51 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 Apr 2019 13:48:47 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,297,1549958400"; d="scan'208";a="147135124"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
- ([10.7.153.148])
- by orsmga002.jf.intel.com with ESMTP; 01 Apr 2019 13:48:47 -0700
-Subject: Re: [PATCH dev-5.0 v3 4/7] clk: Aspeed: Setup video engine clocking
-To: Eddie James <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
-References: <1554150230-24335-1-git-send-email-eajames@linux.ibm.com>
- <1554150230-24335-5-git-send-email-eajames@linux.ibm.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <8d21b65e-f70d-c44e-6153-fb966137cff1@linux.intel.com>
-Date: Mon, 1 Apr 2019 13:48:47 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44YBj64FtszDqKf
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Apr 2019 12:39:54 +1100 (AEDT)
+Received: by mail-qk1-x744.google.com with SMTP id z76so6919604qkb.12
+ for <openbmc@lists.ozlabs.org>; Mon, 01 Apr 2019 18:39:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UmtxGJPEz31XPAYYewuAYV6KmA3MXdkBoAat+vCtHh4=;
+ b=LcNVONRc4mZEzXVr1anGnOTs1d99xnMOUEGZY7OZl0DvvQzzai6boFZJ6WtxHWonNp
+ 8Pi+JrukWUjHk1DSvBO277Y62CElytyyDaoMeUEnZP0sKLdUJ4NVGe/Q8p7o76dcyy8L
+ kke3AupgVPJCHjKDF7WGRO97qlVi2NoiFuA8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UmtxGJPEz31XPAYYewuAYV6KmA3MXdkBoAat+vCtHh4=;
+ b=YP3UAGYbdw03Iqxk+TtRrwXtWKDvr3i4pH1jcc+l6vKpoStdrUN2K/vsmsTX/3Oo1B
+ +lgxE+HoaOqHjhA7s4D3453LyKREx/eKiWP26tSLQIpSfPQwNS5avbX7+OepAYzcosKZ
+ CBz7cSRZ7S09d14MQXKJCbX0DzAmxI7GXzxPbBqKBm+Ul3YY0ns0gWTS8SYuPc2bUBiK
+ Fccszbtnd/2Cs5oVM3DGhmJP1iLVRlp/zzjsh4/keDvG1Kw8eH+Itb065Vu5vo4LbFFw
+ w57QsfGTObO8FYnjxhRUohy53D9nUaYuJciyNLLTmz38pW8n/TZnckDU8rtGnDI2itMk
+ kBGw==
+X-Gm-Message-State: APjAAAUzW9gaSsUbZuoOUA7YJECpYmw983/uJZQNuhsa6s7vqTfMS5vU
+ QU6/zbF+fdzIMUnO3RqQoi1RPYnAp25h1egpKjU=
+X-Google-Smtp-Source: APXvYqxt1UiwFCeb511aHd3QcqRluXVqgXUeYKteZ+lct/AUCAuaOjThGHXe+Q4+n6C1QyKzFL6KIuRpX2j0lNfrE2I=
+X-Received: by 2002:a05:620a:126e:: with SMTP id
+ b14mr53014114qkl.49.1554169190372; 
+ Mon, 01 Apr 2019 18:39:50 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1554150230-24335-5-git-send-email-eajames@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <1553894143-559-1-git-send-email-eajames@linux.ibm.com>
+ <1553894143-559-2-git-send-email-eajames@linux.ibm.com>
+ <CACPK8Xd3YUmDZYOaXm7OBtM_PT9P=mCqdwozCjQCGB2opSrkow@mail.gmail.com>
+ <6ff90bb3-f460-0670-5a63-ea1e9f4203d4@linux.ibm.com>
+In-Reply-To: <6ff90bb3-f460-0670-5a63-ea1e9f4203d4@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 2 Apr 2019 01:39:38 +0000
+Message-ID: <CACPK8Xf6UW=jvD9RNg0esig1B332wxcXQ00hVmQsxC4TNpV9OA@mail.gmail.com>
+Subject: Re: [PATCH dev-5.0 v2 1/5] media: platform: Aspeed: Remove use of
+ reset line
+To: Eddie James <eajames@linux.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,122 +65,96 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 01 Apr 2019 20:48:54 -0000
+X-List-Received-Date: Tue, 02 Apr 2019 01:39:55 -0000
 
-On 4/1/2019 1:23 PM, Eddie James wrote:
-> Add eclk mux and clock divider table.
-> 
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
->   drivers/clk/clk-aspeed.c | 40 ++++++++++++++++++++++++++++++++++++++--
->   1 file changed, 38 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-> index 5961367..133e80c 100644
-> --- a/drivers/clk/clk-aspeed.c
-> +++ b/drivers/clk/clk-aspeed.c
-> @@ -87,7 +87,7 @@ struct aspeed_clk_gate {
->   /* TODO: ask Aspeed about the actual parent data */
->   static const struct aspeed_gate_data aspeed_gates[] = {
->   	/*				 clk rst   name			parent	flags */
-> -	[ASPEED_CLK_GATE_ECLK] =	{  0, -1, "eclk-gate",		"eclk",	0 }, /* Video Engine */
-> +	[ASPEED_CLK_GATE_ECLK] =	{  0,  6, "eclk-gate",		"eclk",	0 }, /* Video Engine */
->   	[ASPEED_CLK_GATE_GCLK] =	{  1,  7, "gclk-gate",		NULL,	0 }, /* 2D engine */
->   	[ASPEED_CLK_GATE_MCLK] =	{  2, -1, "mclk-gate",		"mpll",	CLK_IS_CRITICAL }, /* SDRAM */
->   	[ASPEED_CLK_GATE_VCLK] =	{  3,  6, "vclk-gate",		NULL,	0 }, /* Video Capture */
+On Mon, 1 Apr 2019 at 14:32, Eddie James <eajames@linux.ibm.com> wrote:
+>
+>
+> On 4/1/19 1:23 AM, Joel Stanley wrote:
+> > On Fri, 29 Mar 2019 at 21:15, Eddie James <eajames@linux.ibm.com> wrote:
+> >> The reset line is toggled by enabling the clocks, so it's not necessary
+> >> to manually toggle the reset as well.
+> > Hi Eddie,
+> >
+> > You didn't include a changelog here. You said last week that without
+> > the extra reset line toggle you would get interrupt storms. Can you
+> > fill us in on what changed?
+> I disabled interrupts before turning the clocks off. That wasn't the
+> only issue, so I had to add the delay after turning clocks on in order
+> to reliably get the resolution.
+> >
+> >>   #define INVALID_RESOLUTION_DELAY       msecs_to_jiffies(250)
+> >> -#define RESOLUTION_CHANGE_DELAY                msecs_to_jiffies(500)
+> >> -#define MODE_DETECT_TIMEOUT            msecs_to_jiffies(500)
+> >> -#define STOP_TIMEOUT                   msecs_to_jiffies(1000)
+> >> +#define RESOLUTION_CHANGE_DELAY                msecs_to_jiffies(750)
+> >> +#define MODE_DETECT_TIMEOUT            msecs_to_jiffies(1000)
+> >> +#define STOP_TIMEOUT                   msecs_to_jiffies(1500)
+> > These numbers changed but you didn't mention why.
+> Increasing these helped improve stability when changing resolution.
 
-Hi Eddie,
+You need to mention why in your commit message.
 
-I already left a comment on it but you probably didn't see that.
-With this change, both eclk and vclk will be coupled with reset bit '6'.
-Actually, the reset bit 6 is for video engine so this change seems
-correct, but you should replace reset bit of vclk with -1 instead
-otherwise the video engine reset will be triggered twice and it will
-take at least total 20ms of delay time which is a bad idea in case if
-aspeed_clk_enable is called from interrupt context.
+> >
+> >>   #define DIRECT_FETCH_THRESHOLD         0x0c0000 /* 1024 * 768 */
+> >>
+> >>   #define VE_MAX_SRC_BUFFER_SIZE         0x8ca000 /* 1920 * 1200, 32bpp */
+> >> @@ -208,7 +207,6 @@ struct aspeed_video {
+> >>          void __iomem *base;
+> >>          struct clk *eclk;
+> >>          struct clk *vclk;
+> >> -       struct reset_control *rst;
+> >>
+> >>          struct device *dev;
+> >>          struct v4l2_ctrl_handler ctrl_handler;
+> >> @@ -483,19 +481,10 @@ static void aspeed_video_enable_mode_detect(struct aspeed_video *video)
+> >>          aspeed_video_update(video, VE_SEQ_CTRL, 0, VE_SEQ_CTRL_TRIG_MODE_DET);
+> >>   }
+> >>
+> >> -static void aspeed_video_reset(struct aspeed_video *video)
+> >> -{
+> >> -       /* Reset the engine */
+> >> -       reset_control_assert(video->rst);
+> >> -
+> >> -       /* Don't usleep here; function may be called in interrupt context */
+> >> -       udelay(100);
+> >> -       reset_control_deassert(video->rst);
+> >> -}
+> >> -
+> >>   static void aspeed_video_off(struct aspeed_video *video)
+> >>   {
+> >> -       aspeed_video_reset(video);
+> >> +       /*
+> >> +        * Delay (and don't sleep in case in interrupt context) to let the
+> >> +        * clocks stabilize. Without this, mode detection sometimes fails.
+> >> +        * Possibly the registers don't update too soon after clocks are
+> >> +        * enabled.
+> >> +        */
+> >> +       udelay(100);
+> > How did you get to 100us?
+>
+> I used the delay from between the reset assert/deassert used in the old
+> aspeed_video_reset function.
 
-Test it again after changing the vclk rst setting to '-1' on top of this
-patch series. It worked well in my H/W.
+Is this what aspeed said we needed? What happens when it's less?
 
-Cheers,
-Jae
+>
+> >
+> >> @@ -1464,7 +1459,9 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
+> >> -               aspeed_video_reset(video);
+> >> +               aspeed_video_off(video);
+> >> +               aspeed_video_on(video);
+> >> +
+> > This includes 5.1ms of sleeping in the clock driver's enable path; are
+> > you sure we need to turn clocks off and on again? Can we avoid the
+> > full reset by instead resetting the registers to a specific state?
+>
+> In this case the engine has failed to stop streaming, so it's not
+> obeying commands via the registers. Only option is to reset the engine.
+> It's an error condition.
 
-> @@ -113,6 +113,24 @@ struct aspeed_clk_gate {
->   	[ASPEED_CLK_GATE_LHCCLK] =	{ 28, -1, "lhclk-gate",		"lhclk", 0 }, /* LPC master/LPC+ */
->   };
->   
-> +static const char * const eclk_parent_names[] = {
-> +	"mpll",
-> +	"hpll",
-> +	"dpll",
-> +};
-> +
-> +static const struct clk_div_table ast2500_eclk_div_table[] = {
-> +	{ 0x0, 2 },
-> +	{ 0x1, 2 },
-> +	{ 0x2, 3 },
-> +	{ 0x3, 4 },
-> +	{ 0x4, 5 },
-> +	{ 0x5, 6 },
-> +	{ 0x6, 7 },
-> +	{ 0x7, 8 },
-> +	{ 0 }
-> +};
-> +
->   static const struct clk_div_table ast2500_mac_div_table[] = {
->   	{ 0x0, 4 }, /* Yep, really. Aspeed confirmed this is correct */
->   	{ 0x1, 4 },
-> @@ -192,18 +210,21 @@ static struct clk_hw *aspeed_ast2500_calc_pll(const char *name, u32 val)
->   
->   struct aspeed_clk_soc_data {
->   	const struct clk_div_table *div_table;
-> +	const struct clk_div_table *eclk_div_table;
->   	const struct clk_div_table *mac_div_table;
->   	struct clk_hw *(*calc_pll)(const char *name, u32 val);
->   };
->   
->   static const struct aspeed_clk_soc_data ast2500_data = {
->   	.div_table = ast2500_div_table,
-> +	.eclk_div_table = ast2500_eclk_div_table,
->   	.mac_div_table = ast2500_mac_div_table,
->   	.calc_pll = aspeed_ast2500_calc_pll,
->   };
->   
->   static const struct aspeed_clk_soc_data ast2400_data = {
->   	.div_table = ast2400_div_table,
-> +	.eclk_div_table = ast2400_div_table,
->   	.mac_div_table = ast2400_div_table,
->   	.calc_pll = aspeed_ast2400_calc_pll,
->   };
-> @@ -522,6 +543,22 @@ static int aspeed_clk_probe(struct platform_device *pdev)
->   		return PTR_ERR(hw);
->   	aspeed_clk_data->hws[ASPEED_CLK_24M] = hw;
->   
-> +	hw = clk_hw_register_mux(dev, "eclk-mux", eclk_parent_names,
-> +				 ARRAY_SIZE(eclk_parent_names), 0,
-> +				 scu_base + ASPEED_CLK_SELECTION, 2, 0x3, 0,
-> +				 &aspeed_clk_lock);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +	aspeed_clk_data->hws[ASPEED_CLK_ECLK_MUX] = hw;
-> +
-> +	hw = clk_hw_register_divider_table(dev, "eclk", "eclk-mux", 0,
-> +					   scu_base + ASPEED_CLK_SELECTION, 28,
-> +					   3, 0, soc_data->eclk_div_table,
-> +					   &aspeed_clk_lock);
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +	aspeed_clk_data->hws[ASPEED_CLK_ECLK] = hw;
-> +
->   	/*
->   	 * TODO: There are a number of clocks that not included in this driver
->   	 * as more information is required:
-> @@ -531,7 +568,6 @@ static int aspeed_clk_probe(struct platform_device *pdev)
->   	 *   RGMII
->   	 *   RMII
->   	 *   UART[1..5] clock source mux
-> -	 *   Video Engine (ECLK) mux and clock divider
->   	 */
->   
->   	for (i = 0; i < ARRAY_SIZE(aspeed_gates); i++) {
-> 
+This would be a good comment to add to the source code.
+
+>
+> >
+>
