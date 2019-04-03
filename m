@@ -1,51 +1,55 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <35jSkXAwKB8ssv40r3z4wrz8x55x2v.t5356v4s3t2z9A9.5G2rs9.58x@flex--benjaminfair.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=flex--benjaminfair.bounces.google.com
+ (client-ip=2607:f8b0:4864:20::a4a; helo=mail-vk1-xa4a.google.com;
+ envelope-from=35jskxawkb8ssv40r3z4wrz8x55x2v.t5356v4s3t2z9a9.5g2rs9.58x@flex--benjaminfair.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::131; helo=mail-it1-x131.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Bv+l5g9G"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="DvnADh6s"; 
  dkim-atps=neutral
-Received: from mail-it1-x131.google.com (mail-it1-x131.google.com
- [IPv6:2607:f8b0:4864:20::131])
+Received: from mail-vk1-xa4a.google.com (mail-vk1-xa4a.google.com
+ [IPv6:2607:f8b0:4864:20::a4a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44YsW369Q9zDqPy
- for <openbmc@lists.ozlabs.org>; Wed,  3 Apr 2019 14:48:31 +1100 (AEDT)
-Received: by mail-it1-x131.google.com with SMTP id w15so9055188itc.0
- for <openbmc@lists.ozlabs.org>; Tue, 02 Apr 2019 20:48:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=ABalFz4T080jmAugl++0wAu2YXdjl9SHJCVVZx5d2cs=;
- b=Bv+l5g9GmLrZya/XZykX3JbYz1SpHaMtXaT5feGS1WlF81FZ8syujkwNOEdela6o1B
- A8QzMbPQh6vyjDly9g+NDkfr6nrc42lhrRMzozUSes7Dh9Nzsg+iTIwlsB12hvFNGFri
- ekd1GCRjOl8DZfFJqKpN3YWJAzwX8EXk7tae2jKiS1swtKkhiXg7ujuoGgr1muq9yaBO
- 23bFnC6fOkFofBItMvnwwXM5WM0iKcky+7QQVPyV4yGREsTyKHL5wo2t0PtgrEOshJmp
- khlxeTCK94Wuxu3Hrk1kIxisZxdOhyzE/6Dp0k1GYSxILOXC1hsijKTTUD0+g+8wH0UB
- u2zA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44YtFt1dD2zDqFD
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Apr 2019 15:22:01 +1100 (AEDT)
+Received: by mail-vk1-xa4a.google.com with SMTP id z75so7428832vkd.2
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Apr 2019 21:22:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=LyjH/f743G58PT+FcjGvXuZZHM7ot7ocEx3DQTHM658=;
+ b=DvnADh6sr2VXZ0YvFMBado0ADjhBNsTJGcj5iDgE6CL4piHBT16PurZxNxJvzWEFVk
+ qN+4E5H5velLXbIfTb5K1LGzi52bIT6m/R4Eom/gaIZ5kmY8VLxBdRM+iQxRAEzX1Xhs
+ vo+UTeRY2Zg5tlnqm+TVOZe/pjAfeLPKmjEqb/cpUse6QxGSiajS1rR129MiRzAG+Mo4
+ Hd9quD1y851UqK8Ff7sQp8AWfrwMNJ9ct8d0JK5aKmc3soawg10nv4IkpjgOSo8mFWLU
+ Ybe1M6DWzgL4lD8zeI4WyBUW2Onpd4Wmsiqruh9owPq+109EIzj3XpKluu+Gn7Nhwubt
+ 0VGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=ABalFz4T080jmAugl++0wAu2YXdjl9SHJCVVZx5d2cs=;
- b=nCrDorye6DnxzVwHTK3UCBw2CJ39qod90aArn3m4co7IqxKoy7scyS44ZDDWc8N4fd
- 3LslzQ+3Y8pRsjakD4+MjGXqesSy0U7KezCAtcy87Ufvs4VyuFPB/fRV2oIt4ESgEq69
- C72onJKEC3+F42Wg6iuzfmN3iNr96CriX9qsf6pF73YBM7n1GxN19oMP/V12TWTmHspt
- tSuFZCrhfDkXN21aufxCx99vhOUCoSAhmoZy7lRQmiN681fcq5PrtbVtSirKmMAQeH7x
- /a193PKFJ3SgZwBJ7oZpiqz2d0IkqpUiG0rC62FQ7/I578UEJlZrUF0rQj5M8i3y5S1z
- kvrA==
-X-Gm-Message-State: APjAAAULwP4VC5Y5FlYJQhZGSsP0FwI9Rbnq8AQ1VuH17se4IrkEybBI
- jy7brEcYu5slQlurtqRB0ZiD11NJ8PqRt/vipz4gnJ2xbYo=
-X-Google-Smtp-Source: APXvYqz5GYvSOxcLGCz9ek79TcP3XZiWZN6usDhC/f9WsszAmWXprqOEAhGRVSPAF66I2THeqBBVryEhv3w1cMC8+u0=
-X-Received: by 2002:a24:6fce:: with SMTP id x197mr266061itb.108.1554263307998; 
- Tue, 02 Apr 2019 20:48:27 -0700 (PDT)
-MIME-Version: 1.0
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 3 Apr 2019 11:48:03 +0800
-Message-ID: <CAARXrt=oNUnnPHXnbybAPAvdq9PvxHe4B3GiX0BYw6rdoXgDqw@mail.gmail.com>
-Subject: Proposal for removing legacy code update services
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=LyjH/f743G58PT+FcjGvXuZZHM7ot7ocEx3DQTHM658=;
+ b=IsAc77rhwJYs4bC4b+1EKZfHG3m0vUsbjhK2A6byj0mzJ+I12PAFr0sPX+e7UzPgq6
+ vwcBRcbRbm8Hzg8nD0YcXx6na6ddcSXuPLncrI15to5RL6A06cRjnOiJ+HcCg4n475c9
+ HssNSZDwNR8gOMboUSVEUjcHHUJDtepfQLcEQMGZa75Wqw/E5U7d+oEywdccFJGTRBaM
+ LeiDBFpyhdHm0ZaxAWYrOcVoqx9CzIws7a6pJ9QoVeChMl32+Azgjx+4ZMDd4PYVH+wi
+ bxOPtNio+zsVqszk/8C4XOaUD9DV/k+hpo35hz0P5MekIk613kfk/IVFZGvvNx6PLMA1
+ qohQ==
+X-Gm-Message-State: APjAAAXytcSNDvwhMd/zCj0T3ZN13MYymhv5yGCq6Kvu0tLF0TLn4blP
+ rtAvxFz0TWiwaQ9q7Fm93lBe8+24//bbrXAEuW0=
+X-Google-Smtp-Source: APXvYqxOOTuQr63BDdwKvTlf7SFIOESPUULaAPvnYLL2szYNx75Kym8zo7NmxMbP5DRJCV7XR65zHhZH7eL15mEvAuM=
+X-Received: by 2002:ab0:2856:: with SMTP id c22mr9600066uaq.13.1554265318200; 
+ Tue, 02 Apr 2019 21:21:58 -0700 (PDT)
+Date: Tue,  2 Apr 2019 21:20:52 -0700
+Message-Id: <20190403042051.105948-1-benjaminfair@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.21.0.392.gf8f6787159e-goog
+Subject: [PATCH dev-5.0] net: npcm: use bitmap functions on link mode params
+From: Benjamin Fair <benjaminfair@google.com>
+To: joel@jms.id.au
+Cc: Avi Fishman <avifishman70@gmail.com>, openbmc@lists.ozlabs.org, 
+ Tomer Maimon <tmaimon77@gmail.com>, Benjamin Fair <benjaminfair@google.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -58,26 +62,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Apr 2019 03:48:32 -0000
+X-List-Received-Date: Wed, 03 Apr 2019 04:22:11 -0000
 
-Hi All,
+This fixes a compilation error caused by the phy_device "supported" and
+"advertising" parameters switching from u32 to bitmap.
 
-With 3ba97559e, OpenBMC supports PNOR code update by
-org.open_power.Software.Host.Updater.service, with the steps described in
-[host-code-update.md][1]
+Fixes: 35998b5c4073 ("net: npcm: add NPCM7xx Ethernet MAC controller")
 
-And before that OpenBMC already supports BMC code update by
-xyz.openbmc_project.Software.BMC.Updater.service as well, with the steps
-described in [ubi-code-update.md][2]
+Signed-off-by: Benjamin Fair <benjaminfair@google.com>
+---
+ drivers/net/ethernet/nuvoton/npcm7xx_emc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-So it's time to remove the legacy services that could be replaced:
-- org.openbmc.control.BmcFlash.service
-- org.openbmc.control.Flash.service
-- org.openbmc.managers.Download.service
-
-What do you think?
-
-Thanks!
-
-[1]: https://github.com/openbmc/docs/blob/master/code-update/host-code-update.md
-[2]: https://github.com/openbmc/docs/blob/master/code-update/ubi-code-update.md
+diff --git a/drivers/net/ethernet/nuvoton/npcm7xx_emc.c b/drivers/net/ethernet/nuvoton/npcm7xx_emc.c
+index 3615e227545e..efb441d511c5 100644
+--- a/drivers/net/ethernet/nuvoton/npcm7xx_emc.c
++++ b/drivers/net/ethernet/nuvoton/npcm7xx_emc.c
+@@ -1829,8 +1829,8 @@ static int npcm7xx_mii_setup(struct net_device *dev)
+ 		goto out3;
+ 	}
+ 
+-	phydev->supported &= PHY_BASIC_FEATURES;
+-	phydev->advertising = phydev->supported;
++	linkmode_and(phydev->supported, phydev->supported, PHY_BASIC_FEATURES);
++	linkmode_copy(phydev->advertising, phydev->supported);
+ 	ether->phy_dev = phydev;
+ 
+ 	return 0;
+-- 
+2.21.0.392.gf8f6787159e-goog
