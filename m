@@ -9,20 +9,20 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ZB276qvqzDq9n
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ZB276nlFzDq9C
  for <openbmc@lists.ozlabs.org>; Thu,  4 Apr 2019 03:13:01 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x33Fgls1025905;
- Wed, 3 Apr 2019 18:42:47 +0300
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x33FgmAZ025906;
+ Wed, 3 Apr 2019 18:42:48 +0300
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id D09E863002; Wed,  3 Apr 2019 19:12:44 +0300 (IDT)
+ id 360BA63003; Wed,  3 Apr 2019 19:12:45 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: openbmc@lists.ozlabs.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [linux dev-5.0 v1 3/4] dts: npcm7xx: add PECI support to NPCM7xx
- device tree
-Date: Wed,  3 Apr 2019 19:12:41 +0300
-Message-Id: <20190403161242.38159-3-tmaimon77@gmail.com>
+Subject: [linux dev-5.0 v1 4/4] config: npcm7xx: add PECI support to npcm7xx
+ defconfig
+Date: Wed,  3 Apr 2019 19:12:42 +0300
+Message-Id: <20190403161242.38159-4-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.14.1
 In-Reply-To: <20190403161242.38159-1-tmaimon77@gmail.com>
 References: <20190403161242.38159-1-tmaimon77@gmail.com>
@@ -41,53 +41,21 @@ X-List-Received-Date: Wed, 03 Apr 2019 16:13:04 -0000
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 10 ++++++++++
- arch/arm/boot/dts/nuvoton-npcm750-evb.dts     | 12 ++++++++++++
- 2 files changed, 22 insertions(+)
+ arch/arm/configs/npcm7xx_defconfig | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-index a24a06170660..04e842f460a9 100644
---- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -341,6 +341,16 @@
- 				};
- 			};
- 
-+			peci: peci-bus@100000 {
-+				compatible = "nuvoton,npcm750-peci";
-+				reg = <0x100000 0x200>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clk NPCM7XX_CLK_APB3>;
-+				status = "disabled";
-+			};
-+
- 			spi0: spi@200000 {
- 				compatible = "nuvoton,npcm750-pspi";
- 				reg = <0x200000 0x1000>;
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-index d951ac997872..7728f7b69d13 100644
---- a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-+++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
-@@ -492,6 +492,18 @@
- 				};
- 			};
- 
-+			peci: peci-bus@100000 {
-+				cmd-timeout-ms = <1000>;
-+				pull-down = <0>;
-+				host-neg-bit-rate = <15>;
-+				status = "okay";
-+				intel-peci-dimmtemp@30 {
-+					compatible = "intel,peci-client";
-+					reg = <0x30>;
-+					status = "okay";
-+				};
-+			};
-+
- 			spi0: spi@200000 {
- 				cs-gpios = <&gpio6 11 GPIO_ACTIVE_LOW>;
- 				status = "okay";
+diff --git a/arch/arm/configs/npcm7xx_defconfig b/arch/arm/configs/npcm7xx_defconfig
+index afddb4e88300..62aaffdba4dd 100644
+--- a/arch/arm/configs/npcm7xx_defconfig
++++ b/arch/arm/configs/npcm7xx_defconfig
+@@ -120,3 +120,8 @@ CONFIG_CRYPTO_LZO=y
+ CONFIG_CRYPTO_USER_API_SKCIPHER=y
+ CONFIG_CRYPTO_DEV_NPCMX50=y
+ CONFIG_ARM_CRYPTO=y
++CONFIG_PECI=y
++CONFIG_PECI_NPCM=y
++CONFIG_MFD_INTEL_PECI_CLIENT=y
++CONFIG_SENSORS_PECI_CPUTEMP=y
++CONFIG_SENSORS_PECI_DIMMTEMP=y
 -- 
 2.14.1
