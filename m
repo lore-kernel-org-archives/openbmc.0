@@ -1,71 +1,82 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
  (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44Z9Tv1mJBzDq8W
- for <openbmc@lists.ozlabs.org>; Thu,  4 Apr 2019 02:48:34 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Z9Xt1wpCzDqGn
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Apr 2019 02:51:10 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x33FkZ0N051018
- for <openbmc@lists.ozlabs.org>; Wed, 3 Apr 2019 11:48:31 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.93])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rmxq1ksfn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 03 Apr 2019 11:48:31 -0400
+ x33FjD2S109855
+ for <openbmc@lists.ozlabs.org>; Wed, 3 Apr 2019 11:51:08 -0400
+Received: from e15.ny.us.ibm.com (e15.ny.us.ibm.com [129.33.205.205])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2rmyht10p1-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 03 Apr 2019 11:51:07 -0400
 Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Wed, 3 Apr 2019 15:48:30 -0000
-Received: from us1a3-smtp06.a3.dal06.isc4sb.com (10.146.103.243)
- by smtp.notes.na.collabserv.com (10.106.227.39) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 3 Apr 2019 15:48:28 -0000
-Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
- by us1a3-smtp06.a3.dal06.isc4sb.com
- with ESMTP id 2019040315482819-695557 ;
- Wed, 3 Apr 2019 15:48:28 +0000 
-In-Reply-To: 
-Subject: Fw: Reminder for tomorrow's meeting.  - Webex link:
- https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
- Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
- Code)-64800002 For eg. (Bengaluru - 080-64800002)
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Wed, 3 Apr 2019 15:48:27 +0000
-Sensitivity: 
-References: 
+ by e15.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Wed, 3 Apr 2019 16:51:06 +0100
+Received: from b01cxnp22036.gho.pok.ibm.com (9.57.198.26)
+ by e15.ny.us.ibm.com (146.89.104.202) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 3 Apr 2019 16:51:05 +0100
+Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
+ [9.57.199.110])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x33Fp49523462108
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 3 Apr 2019 15:51:04 GMT
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 82147AE05C;
+ Wed,  3 Apr 2019 15:51:04 +0000 (GMT)
+Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id DAC17AE06A;
+ Wed,  3 Apr 2019 15:51:03 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed,  3 Apr 2019 15:51:03 +0000 (GMT)
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17009-1545 | IBM Domino Build
- SCN1812108_20180501T0841_FP35 March 19, 2019 at 07:18
-X-LLNOutbound: False
-X-Disclaimed: 30087
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 19040315-1799-0000-0000-00000B0ECC90
-X-IBM-SpamModules-Scores: BY=0.293334; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.120899
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Wed, 03 Apr 2019 10:51:48 -0500
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: Eddie James <eajames@linux.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ linux-aspeed@lists.ozlabs.org
+Subject: Re: [PATCH] ARM: dts: Aspeed: Witherspoon: Update BMC partitioning
+In-Reply-To: <cd769312-732d-fb7a-ca50-e5b29eac235b@linux.ibm.com>
+References: <1552409402-15881-1-git-send-email-anoo@linux.ibm.com>
+ <CACPK8Xer53amWbQ-6dvEaXfHu=grk3ZWsH9NKCa_Xi_JKUnCMg@mail.gmail.com>
+ <cd769312-732d-fb7a-ca50-e5b29eac235b@linux.ibm.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19040315-0068-0000-0000-000003AFFE38
+X-IBM-SpamModules-Scores: 
 X-IBM-SpamModules-Versions: BY=3.00010867; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000284; SDB=6.01183788; UDB=6.00619781; IPR=6.00964539; 
- BA=6.00006273; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00026279; XFM=3.00000015;
- UTC=2019-04-03 15:48:29
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-04-03 08:41:46 - 6.00009761
-x-cbparentid: 19040315-1800-0000-0000-0000FEA0E916
-Message-Id: <OFB6FA41F8.8508FF7F-ON002583D1.00568D95-002583D1.0056D580@notes.na.collabserv.com>
+ PH=3.00000004; SC=3.00000284; SDB=6.01183789; UDB=6.00619782; IPR=6.00964540; 
+ MB=3.00026279; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-03 15:51:06
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19040315-0069-0000-0000-00004807BB3D
+Message-Id: <962b866599ac4dfd866d7433b7ddb276@linux.vnet.ibm.com>
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
  definitions=2019-04-03_09:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904030106
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,265 +88,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Apr 2019 15:48:35 -0000
+X-List-Received-Date: Wed, 03 Apr 2019 15:51:11 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear All,&nbsp;</=
-div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Tomorrow test work-group meeting will follow new timing w=
-ith an hour advance.</div>
-<div dir=3D"ltr" >Starts at 9PM IST.&nbsp; Just an reminder and if you have=
- an agenda, Feel free to update at</div>
-<div dir=3D"ltr" ><span><font size=3D"2" face=3D"Default Sans Serif,Verdana=
-,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,V=
-erdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans S=
-erif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default =
-Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"De=
-fault Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://gi=
-thub.com/openbmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https:/=
-/github.com/openbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></=
-font></font></font></span></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><a href=3D"https://ibm.webex.com/meet/sivas.srr" >webex: =
-https://ibm.webex.com/meet/sivas.srr</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"border-left:solid #aaaaaa 2px; margin-left:5px; paddi=
-ng-left:5px; direction:ltr; margin-right:0px" >----- Original message -----=
-<br>From: Sivas Srr/India/IBM<br>To: openbmc@lists.ozlabs.org<br>Cc:<br>Sub=
-ject: Fw: MoM of 21 Mar 2019 OpenBMC Test Work group meeting update: - Webe=
-x link: https://ibm.webex.com/meet/sivas.srr Telephone access is: United St=
-ates Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD C=
-ode)-64800002 For eg. (Bengaluru - 080-64800002)<br>Date: Thu, Mar 28, 2019=
- 10:46 AM<br>&nbsp;
-<div dir=3D"ltr" style=3D"font-family:Arial, Helvetica, sans-serif;font-siz=
-e:10.5pt" ><div dir=3D"ltr" >Dear All</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><u><strong>MoM of 21 Mar 2019</strong></u></div>
-<div dir=3D"ltr" >Attendees:&nbsp; Nancy, Geoge, Rahul and Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<ul dir=3D"ltr" >        <li>IPMI issue with 5.0 openbmc kernel exist in Za=
-ius
-        <ul>                <li>Nancy responded that they are not using new=
- kernel yet</li>                <li>netipmid is disabled in Zaius</li>     =
-           <li>if the bug is opened need to assign to William Kennington - =
-AI George</li>                <li>&nbsp;</li>        </ul>        </li>    =
-    <li><span>Higher priority openbmc item design / test plan discussion<sp=
-an>&nbsp; </span></span></li></ul>
-<div dir=3D"ltr" style=3D"margin-left: 40px;" ><span style=3D"font-size:1em=
-;" >- Decided to have IP KVM design walk thru with team</span></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<ul dir=3D"ltr" >        <li>Update on Release work group meeting:</li></ul>
-<div dir=3D"ltr" style=3D"margin-left: 40px;" >- Offline update from Joseph=
-:</div>
-<div dir=3D"ltr" ><div style=3D"margin-left: 40px;" >- <span style=3D"font-=
-size:1em;" >Hello Sivas. I asked about&nbsp;<code style=3D"box-sizing: bord=
-er-box; font-family: SFMono-Regular, Consolas, &quot;Liberation Mono&quot;,=
- Menlo, Courier, monospace; font-size: 13.6px; background-color: rgba(27, 3=
-1, 35, 0.05); border-radius: 3px; margin: 0px; padding: 0.2em 0.4em;" >IP K=
-VM</code>&nbsp;at the Monday's Release Planning meeting. Maury said the fol=
-lowing:</span></div>
-<ul>        <li style=3D"box-sizing: border-box; margin-left: 40px;" ><span=
- style=3D"font-size:1em;" >This feature is intended to be part of OpenBMC r=
-elease 2.7.</span></li>        <li style=3D"box-sizing: border-box; margin-=
-top: 0.25em; margin-left: 40px;" ><span style=3D"font-size:1em;" >We need k=
-ernel 5.1 drivers to be released, which we intend to back-port to 5.0 by mi=
-d March 2019.</span></li>        <li style=3D"box-sizing: border-box; margi=
-n-top: 0.25em; margin-left: 40px;" ><span style=3D"font-size:1em;" >When th=
-e port is done, we anticipate quickly having the IP KVM support ready.</spa=
-n></li></ul></div>
-<ul dir=3D"ltr" >        <li>Number of people minimum needed as maintainer =
-/ reviewer :</li></ul>
-<div dir=3D"ltr" style=3D"margin-left: 40px;" >- <span style=3D"font-size:1=
-em;" >2 maintainer&nbsp; and 2 reviewer in minimum</span></div>
-<ul dir=3D"ltr" >        <li><span>Advance 1 hour earlier to start test wor=
-kgroup meeting to match with DST on</span></li></ul>
-<div dir=3D"ltr" style=3D"margin-left: 40px;" ><span style=3D"font-size:1em=
-;" ><span>-&nbsp; Will move one hour earlier&nbsp; </span>- AI Sivas</span>=
-</div>
-<ul dir=3D"ltr" >        <li><span>Test case results to be updated in gerri=
-t / using some repository by hiding internal info.</span>
-        <ul>                <li style=3D"box-sizing: border-box;" >Openbmc =
-code is open source, test automation code is open source,</li>             =
-   <li style=3D"box-sizing: border-box; margin-top: 0.25em;" >Leverage tool=
- like<span>&nbsp;</span><a href=3D"https://github.com/openbmc/openbmc-test-=
-automation/blob/master/tools/convert=5Fip=5Fto=5Fdummy" style=3D"box-sizing=
-: border-box; background-color: transparent; color: rgb(3, 102, 214); text-=
-decoration: none;" target=3D"=5Fblank" >https://github.com/openbmc/openbmc-=
-test-automation/blob/master/tools/convert=5Fip=5Fto=5Fdummy</a></li>       =
-         <li style=3D"box-sizing: border-box; margin-top: 0.25em;" >Help in=
- better code review. ( Some cases where no test result updated for test cas=
-e automation code which is coming for review)</li>                <li style=
-=3D"box-sizing: border-box; margin-top: 0.25em;" >Nancy highlighted that so=
-me of the development changes they are following updating unit test results=
-. Like this, Test also we can follow it</li>                <li style=3D"bo=
-x-sizing: border-box; margin-top: 0.25em;" >Need to talk to infrastructure =
-group to get infrastructure for testing automatically the openbmc-test-auto=
-mation code</li>                <li style=3D"box-sizing: border-box; margin=
--top: 0.25em;" >Nancy may provide some server (May be X86 based) for this p=
-urpose - AI Nancy</li>                <li style=3D"box-sizing: border-box; =
-margin-top: 0.25em;" >Question is where to put the server ? Sivas suggested=
- to openpower.xyz&nbsp; - But Nancy said there could be restriction from Go=
-ogle.</li>                <li style=3D"box-sizing: border-box; margin-top: =
-0.25em;" >Nancy to explore other similar opensource projects and will let k=
-now.&nbsp; -&nbsp; AI Nancy</li>        </ul>        </li></ul>
-<ul dir=3D"ltr" >        <li style=3D"box-sizing: border-box; margin-top: 0=
-.25em;" ><span>New GUI Design walk thru from GUI team<span>&nbsp;</span></s=
-pan>
-        <ul>                <li style=3D"box-sizing: border-box; margin-top=
-: 0.25em;" >Updated discussion with Susan, Susan to check with Gunnar and c=
-ome back on this.&nbsp; - AI Susan</li>        </ul>        </li></ul>
-<div dir=3D"ltr" style=3D"box-sizing: border-box; margin-top: 0.25em;" >&nb=
-sp;</div>
-<div dir=3D"ltr" style=3D"box-sizing: border-box; margin-top: 0.25em;" >Not=
-e: For those who missed to attend:</div>
-<div dir=3D"ltr" style=3D"box-sizing: border-box; margin-top: 0.25em;" >Det=
-ail video is kept at</div>
-<div dir=3D"ltr" style=3D"box-sizing: border-box; margin-top: 0.25em;" ><a =
-href=3D"https://drive.google.com/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmF=
-QBtYa?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >https://drive.go=
-ogle.com/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmFQBtYa?usp=3Dsharing</a><=
-/div>
-<div dir=3D"ltr" style=3D"box-sizing: border-box; margin-top: 0.25em;" ><a =
-href=3D"https://drive.google.com/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmF=
-QBtYa" target=3D"=5Fblank" >https://drive.google.com/drive/folders/1Cps88uP=
-HB87RkQY3uDFKdVwrTmFQBtYa&nbsp; - Mar 21 Test work group session</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, Mar 21, 2019 10:00 PM - 11:00 PM</span> <span style=3D"display:inl=
-ine-block" >(applies to 24 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
-ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
-t></span></div>
-<div>&nbsp;</div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
-</font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
- you wants to update the agenda. </font></font></font></font></font></span>=
-</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
-/font></span></div></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
-enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
-hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
-github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
- >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
-</span>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
-.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
-"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
-CI/view?usp=3Dsharing</a></font></span></p>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
-le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
-it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
-in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
-heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
-target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
-Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Quality at the first place: Unit test results needed at th=
-e time of gerrit code review</font></span></div>
-<div>&nbsp;</div></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
- owner</font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
- Intel going to sign on this. ?</font></span></div></div></div></div></div>=
-</div></div></div></div></blockquote></div></blockquote>
-<div dir=3D"ltr" >&nbsp;</div></div><BR>
+On 2019-03-27 10:10, Eddie James wrote:
+> On 3/27/19 1:20 AM, Joel Stanley wrote:
+>> On Tue, 12 Mar 2019 at 16:50, Adriana Kobylak <anoo@linux.ibm.com> 
+>> wrote:
+>>> From: "Edward A. James" <eajames@us.ibm.com>
+>>> 
+>>> Add simplified partitions for BMC and alternate flash. Include these 
+>>> by
+>>> default in Witherspoon.
+>>> 
+>>> Signed-off-by: Edward A. James <eajames@us.ibm.com>
+>>> Signed-off-by: Joel Stanley <joel@jms.id.au>
+>>> ---
+>>>   .../boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi  | 18 
+>>> ++++++++++++++++++
+>>>   arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi | 18 
+>>> ++++++++++++++++++
+>>>   arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts       |  3 ++-
+>>>   3 files changed, 38 insertions(+), 1 deletion(-)
+>>>   create mode 100644 
+>>> arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
+>>>   create mode 100644 
+>>> arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+>>> 
+>>> diff --git 
+>>> a/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi 
+>>> b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
+>>> new file mode 100644
+>>> index 0000000..9277599
+>>> --- /dev/null
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-alt-opp-flash-layout-ubi.dtsi
+>> As there are no other machines that use this layout, I think you
+>> should have the layout in the dts file.
+> 
+> I think the idea was we might have more machines that use this layout
+> in the future...
+> 
+Yeah that was the idea. Although since Witherspoon is the only machine
+using this layout I can move it to its dts file, and the layout can be
+moved out if/when another machine needs it. Will re-submit a v2.
+>> 
+>>> @@ -0,0 +1,18 @@
+>>> +               label = "alt-bmc";
+>>> +               partitions {
+>>> +                               #address-cells = < 1 >;
+>>> +                               #size-cells = < 1 >;
+>>> +                               compatible = "fixed-partitions";
+>>> +                               u-boot@0 {
+>>> +                                       reg = < 0 0x60000 >;
+>>> +                                       label = "alt-u-boot";
+>>> +                               };
+>>> +                               u-boot-env@60000 {
+>>> +                                       reg = < 0x60000 0x20000 >;
+>>> +                                       label = "alt-u-boot-env";
+>>> +                               };
+>>> +                               obmc-ubi@80000 {
+>>> +                                       reg = < 0x80000 0x1F80000 >;
+>>> +                                       label = "alt-obmc-ubi";
+>>> +                               };
+>>> +               };
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi 
+>>> b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+>>> new file mode 100644
+>>> index 0000000..0059ad1
+>>> --- /dev/null
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-flash-layout-ubi.dtsi
+>>> @@ -0,0 +1,18 @@
+>>> +               label = "bmc";
+>>> +               partitions {
+>>> +                               #address-cells = < 1 >;
+>>> +                               #size-cells = < 1 >;
+>>> +                               compatible = "fixed-partitions";
+>>> +                               u-boot@0 {
+>>> +                                       reg = < 0 0x60000 >;
+>>> +                                       label = "u-boot";
+>>> +                               };
+>>> +                               u-boot-env@60000 {
+>>> +                                       reg = < 0x60000 0x20000 >;
+>>> +                                       label = "u-boot-env";
+>>> +                               };
+>>> +                               obmc-ubi@80000 {
+>>> +                                       reg = < 0x80000 0x1F80000 >;
+>>> +                                       label = "obmc-ubi";
+>>> +                               };
+>>> +               };
+>>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts 
+>>> b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> index c51e3e8..058b9b7 100644
+>>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
+>>> @@ -191,7 +191,7 @@
+>>>                  label = "bmc";
+>>>                  m25p,fast-read;
+>>>                  spi-max-frequency = <50000000>;
+>>> -#include "openbmc-flash-layout.dtsi"
+>>> +#include "aspeed-bmc-opp-flash-layout-ubi.dtsi"
+>>>          };
+>>> 
+>>>          flash@1 {
+>>> @@ -199,6 +199,7 @@
+>>>                  label = "alt";
+>>>                  m25p,fast-read;
+>>>                  spi-max-frequency = <50000000>;
+>>> +#include "aspeed-bmc-alt-opp-flash-layout-ubi.dtsi"
+>>>          };
+>>>   };
+>>> 
+>>> --
+>>> 1.8.3.1
+>>> 
