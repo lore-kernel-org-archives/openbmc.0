@@ -1,54 +1,28 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="XQhQisBU"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44YxBc6YWYzDqJl
- for <openbmc@lists.ozlabs.org>; Wed,  3 Apr 2019 17:34:32 +1100 (AEDT)
-Received: by mail-qt1-x841.google.com with SMTP id x12so18235943qts.7
- for <openbmc@lists.ozlabs.org>; Tue, 02 Apr 2019 23:34:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=IXEKU93/+XsjBfsmJAL4MqKOWiuBauRQ5/Pcl1zNgQ0=;
- b=XQhQisBU9mOf/4SF4CEJx6tKE/HpleXIDJLFh0llBHUG+8PjolbbnCyYCYmJjB0Y0e
- aa31i56gfXKdXgshMQvUBQ3U7hlUENBvpu9+KyvpzjI1BvNtpjiPKuIPLNShtHYDHC9m
- XWvGLgody1I77PvcFtgc5dFEMmVTqaWMxFqGw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=IXEKU93/+XsjBfsmJAL4MqKOWiuBauRQ5/Pcl1zNgQ0=;
- b=GJWj0xDDJVHxMt0TBKZYPT4w28EYTey+/Y+m3A4YedsTzFUZuAsmdMKJmzyvf6S9pN
- GXz0tY0FSKDCbtUhjG3s6VB6OWdFL28TpCjUeibQOrVawBzUg9fBymM4ufERM7K6W3P/
- UCr3m8Fy2LWN21+XJfVlOQhOCqqmW3MWYJNzPpkal5BVhzv/Kz9i1M76RA4j6eqLpcfP
- wyW86JMSs0RRB6+oE1QdgpV57NRY1+9HlVYo2RdQI9lbbSkZoYFgcaK6ElK3ZHBqa/lz
- BoF2+K3+e93uktEncwXXimAa/Gy3gvKeCUscjzTDYM6GtUlbrFCEXESBo8OSQysV+PrJ
- jPDQ==
-X-Gm-Message-State: APjAAAUBUfb9m2LVin71D3KrJ3XSOaEWN/gjP2POnlFh7LGAZmtioadA
- NoD+OhdiaHRscgEZqFRyyuayuh4KAuOvjP5M5XZRRgV8UxBrAA==
-X-Google-Smtp-Source: APXvYqyqb2HCQu0A1k4P8T8QNEdgn8kVKqsQi9B5FT+VEEvDtTPlTXzJEWk0OqMmMn7q1p4OfEwx5aNzaCziOSkHgng=
-X-Received: by 2002:ac8:54a:: with SMTP id c10mr62373839qth.43.1554273266776; 
- Tue, 02 Apr 2019 23:34:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Z5CG6Q2yzDqHZ
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Apr 2019 23:35:37 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Wed, 3 Apr 2019 08:36:14 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, Adriana Kobylak <anoo@us.linux.com>
+Subject: Re: [PATCH u-boot] aspeed: flash: Add MT25QL01GB chip
+Message-ID: <20190403123614.4lxtjomfxinky6rc@thinkpad>
+References: <1549646915-5300-1-git-send-email-anoo@linux.ibm.com>
 MIME-Version: 1.0
-References: <1554172950-2072-1-git-send-email-eajames@linux.ibm.com>
-In-Reply-To: <1554172950-2072-1-git-send-email-eajames@linux.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 3 Apr 2019 06:34:15 +0000
-Message-ID: <CACPK8Xfn6-_zKpY9ga38Pwv74kKQ-Wi7FkXs03nUV4m=0p9r7g@mail.gmail.com>
-Subject: Re: [PATCH dev-5.0 v4 0/7] Enable video engine
-To: Eddie James <eajames@linux.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <1549646915-5300-1-git-send-email-anoo@linux.ibm.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,17 +34,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 03 Apr 2019 06:34:34 -0000
+X-List-Received-Date: Wed, 03 Apr 2019 12:35:39 -0000
 
-On Tue, 2 Apr 2019 at 02:42, Eddie James <eajames@linux.ibm.com> wrote:
+On Fri, Feb 08, 2019 at 11:28:35AM -0600, Adriana Kobylak wrote:
+>From: Adriana Kobylak <anoo@us.linux.com>
 >
-> This series adds the necessary clocks for the video engine to the Aspeed clock
-> driver. It also adds the video engine node to the AST2500 dts and enables that
-> node in the witherspoon and romulus dts. It also removes the use of the reset
-> line in the video engine driver.
+>The MT25QL01GB is a 128MB NOR flash chip planned to be used on
+>a Witherspoon system (AST2500).
+>
+>Signed-off-by: Adriana Kobylak <anoo@us.linux.com>
+>---
+> arch/arm/mach-aspeed/flash.c | 14 ++++++++++++++
+> 1 file changed, 14 insertions(+)
+>
+>diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
+>index 907e785..54a6059 100644
+>--- a/arch/arm/mach-aspeed/flash.c
+>+++ b/arch/arm/mach-aspeed/flash.c
+>@@ -83,6 +83,7 @@ flash_info_t flash_info[CONFIG_SYS_MAX_FLASH_BANKS];		/* FLASH chips info */
+> #define SST25VF040B		0x8d25bf
+> #define AT25DF161		0x02461F
+> #define AT25DF321		0x01471F
+>+#define MT25QL01GB		0x21ba20
+>
+> /* SPI Define */
+> #define CS0_CTRL			0x10
+>@@ -1141,6 +1142,19 @@ static ulong flash_get_size (ulong base, flash_info_t *info)
+> 			ReadClk  = 50;
+> 			break;
+>
+>+		case MT25QL01GB:
+>+			info->sector_count = 2048;
+>+			info->size = 0x8000000;
+>+			erase_region_size  = 0x10000;
+>+			info->readcmd = 0x0b;
+>+			info->dualport = 0;
+>+			info->dummybyte = 1;
+>+			info->buffersize = 1;
+>+			WriteClk = 50;
+>+			EraseClk = 25;
+>+			ReadClk  = 50;
+>+			break;
+>+
+> 		default:	/* use JEDEC ID */
+> 			printf("Unsupported SPI Flash!! 0x%08lx\n", info->flash_id);
+> 			erase_region_size  = 0x10000;
+>-- 
+>1.8.3.1
 
-I've booted your patches on my system. How do you test this feature?
+Hi Joel
 
-Cheers,
+Would you be willing to carry this u-boot patch and if so, what all
+would you like to see from our end to enable that?
 
-Joel
+thx - Brad
