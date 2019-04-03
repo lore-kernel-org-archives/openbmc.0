@@ -1,74 +1,68 @@
-Return-Path: <jakub.kicinski@netronome.com>
+Return-Path: <josef@toxicpanda.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=netronome.com
- (client-ip=2607:f8b0:4864:20::742; helo=mail-qk1-x742.google.com;
- envelope-from=jakub.kicinski@netronome.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=netronome.com
+ spf=none (mailfrom) smtp.mailfrom=toxicpanda.com
+ (client-ip=2607:f8b0:4864:20::744; helo=mail-qk1-x744.google.com;
+ envelope-from=josef@toxicpanda.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=toxicpanda.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=netronome-com.20150623.gappssmtp.com
- header.i=@netronome-com.20150623.gappssmtp.com header.b="c9yHI+eo"; 
+ unprotected) header.d=toxicpanda-com.20150623.gappssmtp.com
+ header.i=@toxicpanda-com.20150623.gappssmtp.com header.b="aDYM57vo"; 
  dkim-atps=neutral
-Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
- [IPv6:2607:f8b0:4864:20::742])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44pjLR4jv4zDqM9
- for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 11:25:33 +1000 (AEST)
-Received: by mail-qk1-x742.google.com with SMTP id y5so9848999qkc.11
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 18:25:33 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ZD9D3rkTzDqDK
+ for <openbmc@lists.ozlabs.org>; Thu,  4 Apr 2019 04:49:15 +1100 (AEDT)
+Received: by mail-qk1-x744.google.com with SMTP id k130so10715841qke.3
+ for <openbmc@lists.ozlabs.org>; Wed, 03 Apr 2019 10:49:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=netronome-com.20150623.gappssmtp.com; s=20150623;
- h=date:from:to:cc:subject:message-id:in-reply-to:references
- :organization:mime-version:content-transfer-encoding;
- bh=iEeZgL0VLnAFC2YaL3OKxz1fZYNN/AJX7WfyiHQRd2c=;
- b=c9yHI+eo9azROJYdTqJXAZ12f4+oRqiVSL3JKSjX/2aIvNqkrsd5ZoZd38FU1SKi+b
- Jw+EyoFhKlTRuJzu4xx4Pkxr43qViXxqX9tZqwfb5WGitY7UgvJTWG8IXcFzxV5v/W/+
- EiFCK5TY5YXUiLLHg4MFHMZGFacnIOH6Ccmix7rRyiHrA5ien5jJINTa/TZyYDt9udYd
- oKdEzXrYWC1ArHqVIVt6TOWQdCtHmPJ1WzVCPd3be+Tdyy/nSOC7jS9zZf4DIxLBLAs5
- 3ynK4dBy9lXhhTY2a+YFWpgdTawoKsNTpLfTGJ5hGL2RNgAU3waFJ1H7Fh3VOP7oXpIb
- pJiQ==
+ d=toxicpanda-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=+514+2lqNMNTuj5sabZ2RkXSxdhWR/VQGts8wdfq6AA=;
+ b=aDYM57vo/h3E5OZ4fkR0ji2SMTjIxbLCU7upfbDF5883YqMYAlvzh+axC9ewpv1WmB
+ 3BkfrM/5NZnzowHYAip7/Fh2gkk9hSH2SD87jqZ2vq2HYevFzrM3ooGA8MCZPJeXoBuZ
+ uv9aVPoVfZQaYdnvV2g/9S6WxKsGIU9J6uq+0M0naBWqTyV+cKEUH3xr5iwc2lY56a41
+ GW9L8XFtEeSln+lAZsSAp2qj2zP1yCgpuCo0cUp4zbQ0iuqZWKvRxo86C9Z3+Gf2dUvO
+ tN09BgKAy2Yzi5zmWciFFNydtFUCUB8GHowG35EKlGVinDCn0KK+Y18y8f0dEgyNOkS/
+ EPzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
- :references:organization:mime-version:content-transfer-encoding;
- bh=iEeZgL0VLnAFC2YaL3OKxz1fZYNN/AJX7WfyiHQRd2c=;
- b=RYB7LOxvsPb8RtAHykxDHI+ErQKEr9c1iKEtqY60kamkF33mqtpjjZ+ZGj/zAoj3nn
- xI1P5cchUru3N/GzC298UFI+n3juKCu6/UHvibRE2EEJth6xVAq+yW3JMUA7MC6ECarq
- 2io4i96s/EnvAFQTOfeZun4ouzf9/guJMnE3y8YIdnNaQrwZRe0TcZZB2M5thrJ4A1fw
- Cmd76uY3XIcn3t+o3yGCuu5rRvvWst81okItuFlbOKMgcY3bt+7/FBTp9EzE7rSTaZGT
- Sz5fsQgGPsn+v+sGRgOyUE9A/pH2+1Bb3niCkcnSP1vjJhp8qSd5t4AYqTqb3hQNyzR0
- cyNQ==
-X-Gm-Message-State: APjAAAWbcc0VNSfLEI1XKRNVUdFDXU/YgaXAM5/jB3roY7NbQPoOGcB+
- 1kD89AYEnavtSmAa0hVQ++hnQw==
-X-Google-Smtp-Source: APXvYqy9cpqCoo3NZxMDHXid22XhjI0797hHPARLSj3YZXEDWX6Qrtus5svvzsUaaEXAoyvRjfPj1A==
-X-Received: by 2002:ae9:e506:: with SMTP id w6mr22900147qkf.167.1556069129964; 
- Tue, 23 Apr 2019 18:25:29 -0700 (PDT)
-Received: from cakuba.netronome.com ([66.60.152.14])
- by smtp.gmail.com with ESMTPSA id s2sm8275350qkg.67.2019.04.23.18.25.28
- (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
- Tue, 23 Apr 2019 18:25:29 -0700 (PDT)
-From: Jakub Kicinski <jakub.kicinski@netronome.com>
-To: Tao Ren <taoren@fb.com>
-Cc: "David S . Miller" <davem@davemloft.net>, Maxim Mikityanskiy
- <maximmi@mellanox.com>, Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Samuel
- Mendoza-Jonas" <sam@mendozajonas.com>, Joel Stanley <joel@jms.id.au>,
- "Andrew Jeffery" <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: Re: [PATCH net 1/2] net: add eth_addr_inc in etherdevice.h
-Message-ID: <20190423182450.27b403d3@cakuba.netronome.com>
-In-Reply-To: <2b3935f9-fbf9-6baa-570c-dcd6382518c4@fb.com>
-References: <20190423224138.1295-1-taoren@fb.com>
- <20190423161502.5d3e9c36@cakuba.netronome.com>
- <2b3935f9-fbf9-6baa-570c-dcd6382518c4@fb.com>
-Organization: Netronome Systems, Ltd.
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=+514+2lqNMNTuj5sabZ2RkXSxdhWR/VQGts8wdfq6AA=;
+ b=XGsrNn4P2z8zoRhEBrBbhQZFum3gt71OKKcfFtanBMbspIpunlklhoujfBT0g4SqyZ
+ NcXLEddR4CZRicUaoNZUuRhY/kKo4kmlc8DN/1UhbEkS1OTPdDwJ3ymbEtbMwzgZyX7n
+ CMFdzVYuCj95YYGUwZvD1U6B7jbShiYp4EADl/01aSH0ueYI2bmQgH1+2TzFcRS12g4n
+ FXYW2Vj9RzRnQXRGurXfwKHl/A/BpTcj4GK8sPrAr0nZgrtncvWJVqCzA4iY5jl0MEBj
+ UN5m5GHS0lucG+TKjad0aBtp7OB6ZlCyhDrQ1EeO9WjH+pnr48YNH5VXntuQvouRdGFJ
+ 8iOw==
+X-Gm-Message-State: APjAAAWwEvuoLBUbqnykMguxMIv3stZhcD1reEJFCCkvbVgUCrKlKTAx
+ gFPPnkZhf0np/zYOrKCrNZutLA==
+X-Google-Smtp-Source: APXvYqyP6vQYoDaZm+jvFCOAoIAKFB44H4O+dwpNwG7a7dXM9U2S8GWq4xZPrCH5MRKVfaNmWg9vGw==
+X-Received: by 2002:a37:69c3:: with SMTP id e186mr1252442qkc.308.1554313751651; 
+ Wed, 03 Apr 2019 10:49:11 -0700 (PDT)
+Received: from localhost ([107.15.81.208])
+ by smtp.gmail.com with ESMTPSA id 11sm11759536qtu.5.2019.04.03.10.49.10
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 03 Apr 2019 10:49:10 -0700 (PDT)
+From: Josef Bacik <josef@toxicpanda.com>
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: josef@toxicpanda.com, axboe@kernel.dk, medadyoung@gmail.com,
+ openbmc@lists.ozlabs.org, nbd@other.debian.org, linux-block@vger.kernel.org
+Subject: Re: [PATCH] nbd:clear NBD_BOUND flag when NBD connection is closed
+Message-ID: <20190403174908.jk6xuhzvn2gm2l2g@MacBook-Pro-91.local>
+References: <1544509023-18923-1-git-send-email-medadyoung@gmail.com>
+ <a1da3fff285fe13d04522f1a6e72bdc1@linux.vnet.ibm.com>
+ <7e192d24976532141c8c985329f5ca1c@linux.vnet.ibm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Thu, 09 May 2019 16:11:00 +1000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <7e192d24976532141c8c985329f5ca1c@linux.vnet.ibm.com>
+User-Agent: NeoMutt/20180716
+X-Mailman-Approved-At: Thu, 09 May 2019 16:11:01 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,22 +74,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Wed, 24 Apr 2019 01:25:36 -0000
-X-Original-Date: Tue, 23 Apr 2019 18:24:50 -0700
-X-List-Received-Date: Wed, 24 Apr 2019 01:25:36 -0000
+Date: Wed, 03 Apr 2019 17:49:21 -0000
+X-Original-Date: Wed, 3 Apr 2019 13:49:09 -0400
+X-List-Received-Date: Wed, 03 Apr 2019 17:49:21 -0000
 
-On Wed, 24 Apr 2019 00:59:52 +0000, Tao Ren wrote:
-> > Please see:  Documentation/doc-guide/kernel-doc.rst
-> > 
-> > Here we need:
-> >  - "()" after function name;
-> >  - no extra line between function name and argument description.  
+On Wed, Apr 03, 2019 at 12:13:53PM -0500, Adriana Kobylak wrote:
+> Adding Josef (updated email address in the maintainers file).
 > 
-> Thank you for pointing it out (I didn't know the doc-guide). Given I copied the function comment from eth_addr_dec(), I will also fix the format for eth_addr_eth() then.
-> 
-> BTW, "()" is missing from all the other functions' comment in etherdevice.h, so maybe we should fix that in a separate patch?
+> On 2018-12-13 08:21, Adriana Kobylak wrote:
+> > On 2018-12-11 00:17, medadyoung@gmail.com wrote:
+> > > From: Medad <medadyoung@gmail.com>
+> > > 
+> > >     If we do NOT clear NBD_BOUND flag when NBD connection is closed,
+> > >     then the original NBD device could not be used again.
+> > > 
+> > > Signed-off-by: Medad <medadyoung@gmail.com>
 
-Possibly, I'm just trying to make sure the new stuff we add follows the
-official guidelines :)  For the old stuff we need to way it with
-potential merge conflicts and muddied git history so the case is not as
-clear cut.
+This doesn't sound right, this is just making sure we don't use the IOCTL
+configuration stuff with the netlink stuff.  Once the disconnect happens the
+configuration should go away and it doesn't matter anymore.  What are you doing
+to reproduce this problem?  Thanks,
+
+Josef
