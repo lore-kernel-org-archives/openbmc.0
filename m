@@ -1,42 +1,65 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <benjaminfair@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::144; helo=mail-it1-x144.google.com;
+ envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="I939hF22"; 
+ dkim-atps=neutral
+Received: from mail-it1-x144.google.com (mail-it1-x144.google.com
+ [IPv6:2607:f8b0:4864:20::144])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ZqNq6PJtzDqGv
- for <openbmc@lists.ozlabs.org>; Fri,  5 Apr 2019 04:16:27 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 04 Apr 2019 10:16:24 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,309,1549958400"; d="scan'208";a="140017191"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
- ([10.7.153.148])
- by orsmga003.jf.intel.com with ESMTP; 04 Apr 2019 10:16:24 -0700
-Subject: Re: ikvm refresh failed on host screen 1680x1050 resolution
-To: xiuzhi <1450335857@qq.com>, openbmc <openbmc@lists.ozlabs.org>,
- ed <ed@tanous.net>, Eddie James <eajames@linux.vnet.ibm.com>
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <tencent_5AE0AA7B303EB67F5ABF0001@qq.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <aeb75f12-b36e-73bf-29c9-2e64692ea3fc@linux.intel.com>
-Date: Thu, 4 Apr 2019 10:16:24 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.5.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44Zrgv59bzzDqPm
+ for <openbmc@lists.ozlabs.org>; Fri,  5 Apr 2019 05:14:33 +1100 (AEDT)
+Received: by mail-it1-x144.google.com with SMTP id u65so5266511itc.2
+ for <openbmc@lists.ozlabs.org>; Thu, 04 Apr 2019 11:14:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=jrzaH3AFrCMxGy3AoMYn/DdcKy7hCJb7BxYU/pUyAR8=;
+ b=I939hF22vqsqSPahI4Zbs92jQYaEOpqfbNeWkt1+WIFLPKtFz0cweepxvEPrk87nRE
+ y8+5vnGD6MX10rotI1pssfwer9dJbGuJ+p7ujg/SRiwXYfjjHJyF/nPGjmi84OZvxrmK
+ JRhmbNa2TWMTSYnK2kP64EDnRe0SDiOK9R5keppfJlk3tKMRgH0wFIFLyl2oTljyJckC
+ JsJ8yLNvfGO6bVeaDPEliMwuD7S6FmmewgbHSeZKxa+68QJAKSwEdy+woFbZE2ozjh6g
+ I3pZlWXotsW8kfAgqIbiE9NQpnLcavduSlelGqC+jecqrUO3wwzbEgbas3/0pxgucfVV
+ 3jOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=jrzaH3AFrCMxGy3AoMYn/DdcKy7hCJb7BxYU/pUyAR8=;
+ b=Tk6quZChP98I96XaSshUKX1VyqOtWkY7WWRrdmROuOyoCACxeOhGp8YOG8ch8jHR4/
+ g19yFkRQZmMzcYEEOH+LsxC32H7M8KRQSgowQ0qpdBETskUCTXhsPPQNwS3NXCXSFbXG
+ W5EQ/FRip6tCNkccsjOVjcdYV+CVMmVddC79Tf708P1bn5G5CHWRf3sFwT/0wIWZwGK/
+ +iKSE6zuTHD/jFFnlLIRb9Vp+Sq1i9PWDawazYQaz8+fx++G1jTqM8AGCZHYZrM16v/9
+ OUa2cR+VDH89SVQUZ2a66m9WXVSPS1m2HuL4l/6wN0XCdBXC2iz8xzkfe7jUPpYdqfzP
+ CjBQ==
+X-Gm-Message-State: APjAAAWg4IvoEX4dWPNvIZMoTJluZLIJX3TuM+DvMxKH1vOTfUj4ce8g
+ pcKoBpoduPRDUBs7tp7sTEndLYBWWNrddaCka9f/BQ==
+X-Google-Smtp-Source: APXvYqy0YuDveiavcAbz4tkDOFHrewYQ/Os5kCZ8MnrM5csLsOrK7l5xyNI3Xkqrlw8B/2brNt+ed5NdAv0Pg5rqAuU=
+X-Received: by 2002:a02:938f:: with SMTP id z15mr5827329jah.108.1554401669729; 
+ Thu, 04 Apr 2019 11:14:29 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <tencent_5AE0AA7B303EB67F5ABF0001@qq.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+References: <264283F7338E734E863366C752FEABBC417FE18A@CNMAILEX01.lenovo.com>
+In-Reply-To: <264283F7338E734E863366C752FEABBC417FE18A@CNMAILEX01.lenovo.com>
+From: Benjamin Fair <benjaminfair@google.com>
+Date: Thu, 4 Apr 2019 11:13:53 -0700
+Message-ID: <CADKL2t7yjnSj85uiC=7hv8skG4b3=3AGzBrDQHJ4NCgDoY1Wsg@mail.gmail.com>
+Subject: Re: [PATCH v1] ARM: dts: aspeed: Add lenovo hr630 BMC machine
+To: Andrew MS1 Peng <pengms1@lenovo.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "robh+dt@kernel.org" <robh+dt@kernel.org>, 
+ "mark.rutland@arm.com" <mark.rutland@arm.com>,
+ "joel@jms.id.au" <joel@jms.id.au>, "andrew@aj.id.au" <andrew@aj.id.au>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, 
+ "llinux-aspeed@lists.ozlabs.org" <llinux-aspeed@lists.ozlabs.org>,
+ Lisa YJ19 Liu <liuyj19@lenovo.com>, 
+ Duke KH Du <dukh@lenovo.com>, Yonghui YH21 Liu <liuyh21@lenovo.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,23 +71,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 04 Apr 2019 17:16:29 -0000
+X-List-Received-Date: Thu, 04 Apr 2019 18:14:36 -0000
 
-On 4/3/2019 10:21 PM, xiuzhi wrote:
-> Hi Jae, Ed,
->      The ikvm screen cann't refresh on ikvm webui screen when setting 
-> the host screen resolution to 1680*1050 . I must click the "Refresh" 
-> button to get the new host screen.  Other resolutions works very well.
->    Please check it.
+On Thu, Apr 4, 2019 at 1:05 AM Andrew MS1 Peng <pengms1@lenovo.com> wrote:
+>
+> The Hr630 platform use ASPEED ast2500 based BMC, add the device tree for this initial commit.
 
-Hi Xiuzhi,
+Hi Andrew,
 
-I can't see the resolution option in Ubuntu 18.03. What host OS did you
-use for the test? Let me clarify one more. Do you mean the "Refresh"
-button in KVM web page, or reload button of the web browser?
+Thanks for sending this patch!
 
-Thanks,
-Jae
+Unfortunately, this format makes it difficult to review, so please resend it in
+plaintext rather than as an attachment. I recommend using 'git send-email' to
+do that.
 
-> Best,
-> xiuzhi
+There are explanations of the Linux development process in
+Documentation/process within the Linux source tree, including a guide for
+submitting patches and hints for configuring your email client.
+
+Benjamin
