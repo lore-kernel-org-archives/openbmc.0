@@ -1,30 +1,32 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44bxnT5pJrzDqPP
- for <openbmc@lists.ozlabs.org>; Sun,  7 Apr 2019 00:08:12 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Sat, 6 Apr 2019 09:08:52 -0400
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: tracking master of upstream openbmc/openbmc subtrees
-Message-ID: <20190406130852.xlhoeue5qiz2o46d@thinkpad>
-References: <20190204210735.6wgh7br7l45bj5xc@thinkpad.dyn.fuzziesquirrel.com>
- <20190405180457.m57lsbn6wu6tvjdr@thinkpad>
- <CAO=notxjMG0tHXOKFoWHsnjOhM-GhHBtD2YxPjcmNADfv6FLew@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CAO=notxjMG0tHXOKFoWHsnjOhM-GhHBtD2YxPjcmNADfv6FLew@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44cRLt6jjkzDqLL
+ for <openbmc@lists.ozlabs.org>; Sun,  7 Apr 2019 18:20:19 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x377nY46006873;
+ Sun, 7 Apr 2019 10:49:34 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 1F71763000; Sun,  7 Apr 2019 11:19:31 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: gregkh@linuxfoundation.org, jic23@kernel.org, knaack.h@gmx.de,
+ lars@metafoo.de, pmeerw@pmeerw.net, yuenn@google.com,
+ venture@google.com, brendanhiggins@google.com, avifishman70@gmail.com,
+ joel@jms.id.au
+Cc: linux-iio@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v1] iio: adc: modify NPCM ADC read reference voltage
+Date: Sun,  7 Apr 2019 11:19:28 +0300
+Message-Id: <20190407081928.72250-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.14.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -36,80 +38,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 06 Apr 2019 13:08:14 -0000
+X-List-Received-Date: Sun, 07 Apr 2019 08:20:23 -0000
 
-On Fri, Apr 05, 2019 at 06:40:53PM -0700, Patrick Venture wrote:
->On Fri, Apr 5, 2019 at 11:04 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->>
->> On Mon, Feb 04, 2019 at 04:07:35PM -0500, Brad Bishop wrote:
->> >Hi everyone
->> >
->> >Just a heads up - in the very near future I'd like to start tracking the
->> >master branch of our upstream subtrees - poky, meta-openembedded,
->> >meta-security, meta-raspberrypi and meta-xilinx:
->> >
->> >https://gerrit.openbmc-project.xyz/17387
->> >
->> >This removes the need to backport fixes from these projects and thinking
->> >generally, might increase the collaboration between the OpenBMC
->> >community and the upstream communities on which our project so
->> >fundamentally depends.
->> >
->> >In practice this will really just look like:
->> >
->> >https://github.com/openbmc/openbmc/commit/cdf4859f9e74293090d79c02949fa6a694bdb1d5
->> >
->> >but the commits will have more content and happen more frequently.
->> >
->> >There are a couple caveats - one, upstream may break more frequently
->> >than it does on the stable branches, and two, given the location of
->> >these projects in the stack (low), more frequent rebases will result in
->> >some impact to the development workflow (more time building because a
->> >patch was applied to gcc, etc).
->> >
->> >To mitigate number one, I will submit rebases as patches to gerrit where
->> >our CI tests can run.  If they find any problems, I won't merge the
->> >rebase until a resolution is found.  Additionally if you find any
->> >problems via some other channel than our CI, let me know and again I
->> >won't apply the rebase until a resolution can be found.  Put another way
->> >I don't intend to rebase onto upstreams with known problems for us.
->> >
->> >To mitigate number two, I was thinking I'd just submit rebases weekly.
->> >
->> >Questions/concerns?
->> >
->> >thx - brad
->>
->> Just a quick update - Thanks to some help and motivation from William
->> and others, this will (probably) happen/begin today.  A couple things to
->> note.
->>
->> 1 - If you maintain a layer, you'll need to update your layer
->> compatibility like this:
->>
->> https://gerrit.openbmc-project.xyz/20150
->
->Found some other layers that needed updating.  One of which because
->it's part of the CI.  Sent patches for review with the same topic.
+Checking if regulator is valid before reading
+NPCM ADC regulator voltage to avoid system crash
+in a case the regulator is not valid.
 
-Thanks Patrick.  Somehow I didn't realize that tiogapass had been turned
-on :-(
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ drivers/iio/adc/npcm_adc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
->Thanks
->
->>
->> Although you won't need to keep thud compatibility like that commit
->> does.
->>
->> 2 - I decided to remove rsyslog inclusion by default
->> https://gerrit.openbmc-project.xyz/20214 because of
->> https://github.com/openbmc/phosphor-logging/issues/19.  This allows us
->> to move our upstream subtrees forward and debug
->> openbmc/phosphor-logging#19 in parallel - I expect there aren't too many
->> users of rsyslog anyway.  If I'm wrong about that please let me know but
->> I also expect that issue to get fixed up in the next couple weeks
->> regardless.
->>
->> Please let me know if I've caused anyone pain with any of this.
->>
->> thx - brad
+diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
+index 9e25bbec9c70..193b3b81de4d 100644
+--- a/drivers/iio/adc/npcm_adc.c
++++ b/drivers/iio/adc/npcm_adc.c
+@@ -149,7 +149,7 @@ static int npcm_adc_read_raw(struct iio_dev *indio_dev,
+ 		}
+ 		return IIO_VAL_INT;
+ 	case IIO_CHAN_INFO_SCALE:
+-		if (info->vref) {
++		if (!IS_ERR(info->vref)) {
+ 			vref_uv = regulator_get_voltage(info->vref);
+ 			*val = vref_uv / 1000;
+ 		} else {
+-- 
+2.14.1
