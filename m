@@ -1,60 +1,68 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=59.36.132.88; helo=qq.com; envelope-from=1450335857@qq.com;
- receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.13; helo=cpsmtpb-ews08.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
+ dmarc=fail (p=none dis=none) header.from=eltan.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="aGYUDDuk"; 
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="CIPDc7IU"; 
  dkim-atps=neutral
-X-Greylist: delayed 438 seconds by postgrey-1.36 at bilbo;
- Mon, 08 Apr 2019 11:22:38 AEST
-Received: from qq.com (smtpbg477.qq.com [59.36.132.88])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ct2Q185WzDqGX
- for <openbmc@lists.ozlabs.org>; Mon,  8 Apr 2019 11:22:37 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1554686098; bh=uEyrZpFNcuadfE5efMAj5Nq/BJ0pipHmsoBFbT+dCkg=;
- h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=aGYUDDukw9vfEKgbYeYnxyDR1XeVPM8889FB8D9YIlty0Ah13okuT22z7GDkeIEVW
- HFDtnNq9sBQMx1FNA8oPWmjaDdLkpzrk9NBEqKe9f8/ZPJ44R6yUVEBFegdMWghdKx
- d2abDy1JSyJ+IA0jZZpdH5C8utkmjykolfT/Sjfg=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-In-Reply-To: <aeb75f12-b36e-73bf-29c9-2e64692ea3fc@linux.intel.com>
-References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
- <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
- <tencent_77BC148C0E378EFD5F488CE6@qq.com>
- <tencent_5AE0AA7B303EB67F5ABF0001@qq.com>
- <aeb75f12-b36e-73bf-29c9-2e64692ea3fc@linux.intel.com>
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1554686097t716671
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?amFlLmh5dW4ueW9v?=" <jae.hyun.yoo@linux.intel.com>,
- "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>,
- "=?ISO-8859-1?B?ZWQ=?=" <ed@tanous.net>,
- "=?ISO-8859-1?B?RWRkaWUgSmFtZXM=?=" <eajames@linux.vnet.ibm.com>
-Subject: Re: ikvm refresh failed on host screen 1680x1050 resolution
-Mime-Version: 1.0
+Received: from cpsmtpb-ews08.kpnxchange.com (cpsmtpb-ews08.kpnxchange.com
+ [213.75.39.13])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44dBTT2WjFzDqFZ
+ for <openbmc@lists.ozlabs.org>; Mon,  8 Apr 2019 23:43:37 +1000 (AEST)
+Received: from cpsps-ews01.kpnxchange.com ([10.94.84.168]) by
+ cpsmtpb-ews08.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Mon, 8 Apr 2019 15:43:31 +0200
+X-Brand: +YTO/YbK+g==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=FsrUAFjq c=1 sm=1 tr=0 cx=a_idp_e
+ a=YnLMpE5S06+Zisl5ga1zfg==:117 a=YnLMpE5S06+Zisl5ga1zfg==:17
+ a=eIHzyqS2sMcA:10 a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10
+ a=cSfiejd8TR4Vru4FoyIA:9 a=CjuIK1q_8ugA:10 a=yMhMjlubAAAA:8
+ a=SSmOFEACAAAA:8 a=aMOTY0kcs8ohME4JZqMA:9 a=gKO2Hq4RSVkA:10
+ a=UiCQ7L4-1S4A:10 a=hTZeC7Yk6K0A:10 a=frz4AuCg-hUA:10
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.46]) by cpsps-ews01.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Mon, 8 Apr 2019 15:43:32 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=vqY99w41UBNzH19oQzfdr13HwxtV2xMtnFbEbIk4FtQ=;
+ b=CIPDc7IU9+/gmpY64l/BqqowqFZxA17Sd4H3Z/fnjdv9JWdK6rfW6afzbV9VCY7uaw9J4FZh899tb
+ 8Ym2M7Uma1mdIxMD5l6P5p22OwoCiC/eiUJICaFAaXHv5DgTfYKIzIdBTZrWcvmqPWToaoIvMPcGjf
+ 62pedYAS0sLXhcOA=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id 4c87b8a3-5a04-11e9-8484-005056ab7584;
+ Mon, 08 Apr 2019 15:43:32 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Mon, 8 Apr
+ 2019 15:42:59 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Mon, 8 Apr 2019 15:42:41 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: using phosphor-dbus-monitor
+Thread-Topic: using phosphor-dbus-monitor
+Thread-Index: AdTuEGrG+gJJ+lgAS6eE4IA4ANXSuA==
+Date: Mon, 8 Apr 2019 13:42:40 +0000
+Message-ID: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
 Content-Type: multipart/alternative;
- boundary="----=_NextPart_5CAAA091_0B5AFC38_05702F7E"
-Content-Transfer-Encoding: 8Bit
-Date: Mon, 8 Apr 2019 09:14:57 +0800
-X-Priority: 3
-Message-ID: <tencent_6A1487B12DD85E265185856C@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-ReplyHash: 2082129066
-X-QQ-SENDSIZE: 520
-Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
- id ; Mon, 08 Apr 2019 09:14:57 +0800 (CST)
-Feedback-ID: webenglish:qq.com:bgforeign:bgforeign4
-X-QQ-Bgrelay: 1
+ boundary="_000_8daf9ac9deee4bc0808a55733681d67eEltsrv03Eltanlocal_"
+MIME-Version: 1.0
+X-OriginalArrivalTime: 08 Apr 2019 13:43:32.0564 (UTC)
+ FILETIME=[0E7EE940:01D4EE11]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,69 +74,116 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 08 Apr 2019 01:22:42 -0000
+X-List-Received-Date: Mon, 08 Apr 2019 13:43:44 -0000
 
-This is a multi-part message in MIME format.
+--_000_8daf9ac9deee4bc0808a55733681d67eEltsrv03Eltanlocal_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-------=_NextPart_5CAAA091_0B5AFC38_05702F7E
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+Hello,
 
-SGkgSmFlLA0KICAgTXkgaG9zdCBPUyBpcyBSZWRIYXQ3LiANCkJvdGggIlJlZnJlc2giIGJ1
-dHRvbiBvbiBpa3ZtIHdlYiBQYWdlIGFuZCAiVmlldy0tUmVsb2FkIFRoaXMgUGFnZSIgb3Ig
-cmVsb2FkIGJ1dHRvbiBvbiBjaHJvbWUgYnJvd3NlciBtZW51IHdvcmtzLg0KWGl1emhpDQoN
-Cg0KLS0tLS0tLS0tLS0tLS0tLS0tIE9yaWdpbmFsIC0tLS0tLS0tLS0tLS0tLS0tLQ0KRnJv
-bTogICJqYWUuaHl1bi55b28iOzxqYWUuaHl1bi55b29AbGludXguaW50ZWwuY29tPjsNCkRh
-dGU6ICBBcHIgNSwgMjAxOQ0KVG86ICAieGl1emhpIjwxNDUwMzM1ODU3QHFxLmNvbT47ICJv
-cGVuYm1jIjxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+OyAiZWQiPGVkQHRhbm91cy5uZXQ+
-OyAiRWRkaWUgSmFtZXMiPGVhamFtZXNAbGludXgudm5ldC5pYm0uY29tPjsgDQoNClN1Ympl
-Y3Q6ICBSZTogaWt2bSByZWZyZXNoIGZhaWxlZCBvbiBob3N0IHNjcmVlbiAxNjgweDEwNTAg
-cmVzb2x1dGlvbg0KDQoNCg0KT24gNC8zLzIwMTkgMTA6MjEgUE0sIHhpdXpoaSB3cm90ZToN
-Cj4gSGkgSmFlLCBFZCwNCj4gICAgICBUaGUgaWt2bSBzY3JlZW4gY2Fubid0IHJlZnJlc2gg
-b24gaWt2bSB3ZWJ1aSBzY3JlZW4gd2hlbiBzZXR0aW5nIA0KPiB0aGUgaG9zdCBzY3JlZW4g
-cmVzb2x1dGlvbiB0byAxNjgwKjEwNTAgLiBJIG11c3QgY2xpY2sgdGhlICJSZWZyZXNoIiAN
-Cj4gYnV0dG9uIHRvIGdldCB0aGUgbmV3IGhvc3Qgc2NyZWVuLiAgT3RoZXIgcmVzb2x1dGlv
-bnMgd29ya3MgdmVyeSB3ZWxsLg0KPiAgICBQbGVhc2UgY2hlY2sgaXQuDQoNCkhpIFhpdXpo
-aSwNCg0KSSBjYW4ndCBzZWUgdGhlIHJlc29sdXRpb24gb3B0aW9uIGluIFVidW50dSAxOC4w
-My4gV2hhdCBob3N0IE9TIGRpZCB5b3UNCnVzZSBmb3IgdGhlIHRlc3Q/IExldCBtZSBjbGFy
-aWZ5IG9uZSBtb3JlLiBEbyB5b3UgbWVhbiB0aGUgIlJlZnJlc2giDQpidXR0b24gaW4gS1ZN
-IHdlYiBwYWdlLCBvciByZWxvYWQgYnV0dG9uIG9mIHRoZSB3ZWIgYnJvd3Nlcj8NCg0KVGhh
-bmtzLA0KSmFlDQoNCj4gQmVzdCwNCj4geGl1emhp
+I am trying to use phosphor-dbus-monitor to create logging of sensor except=
+ions like a Critical state on a specific sensor.
 
-------=_NextPart_5CAAA091_0B5AFC38_05702F7E
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+I am able to create a solution with a building yaml but at the end it doesn=
+'t deliver me the desired result.
 
-PGRpdj5IaSBKYWUsPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7TXkgaG9zdCBPUyBpcyBSZWRI
-YXQ3LiZuYnNwOzwvZGl2PjxkaXY+Qm90aCAiUmVmcmVzaCIgYnV0dG9uIG9uIGlrdm0gd2Vi
-IFBhZ2UgYW5kICJWaWV3LS1SZWxvYWQgVGhpcyBQYWdlIiBvciByZWxvYWQgYnV0dG9uIG9u
-IGNocm9tZSBicm93c2VyIG1lbnUgd29ya3MuPC9kaXY+PGRpdj48ZGl2PlhpdXpoaTwvZGl2
-PjxkaXY+PGJyPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMTJweDtmb250LWZhbWls
-eTogQXJpYWwgTmFycm93O3BhZGRpbmc6MnB4IDAgMnB4IDA7Ij4tLS0tLS0tLS0tLS0tLS0t
-LS0mbmJzcDtPcmlnaW5hbCZuYnNwOy0tLS0tLS0tLS0tLS0tLS0tLTwvZGl2PjxkaXYgc3R5
-bGU9ImZvbnQtc2l6ZTogMTJweDtiYWNrZ3JvdW5kOiNlZmVmZWY7cGFkZGluZzo4cHg7Ij48
-ZGl2PjxiPkZyb206IDwvYj4mbmJzcDsiamFlLmh5dW4ueW9vIjsmbHQ7amFlLmh5dW4ueW9v
-QGxpbnV4LmludGVsLmNvbSZndDs7PC9kaXY+PGRpdj48Yj5EYXRlOiA8L2I+Jm5ic3A7QXBy
-IDUsIDIwMTk8L2Rpdj48ZGl2PjxiPlRvOiA8L2I+Jm5ic3A7InhpdXpoaSImbHQ7MTQ1MDMz
-NTg1N0BxcS5jb20mZ3Q7OyAib3BlbmJtYyImbHQ7b3BlbmJtY0BsaXN0cy5vemxhYnMub3Jn
-Jmd0OzsgImVkIiZsdDtlZEB0YW5vdXMubmV0Jmd0OzsgIkVkZGllIEphbWVzIiZsdDtlYWph
-bWVzQGxpbnV4LnZuZXQuaWJtLmNvbSZndDs7IDx3YnI+PC9kaXY+PGRpdj48L2Rpdj48ZGl2
-PjxiPlN1YmplY3Q6IDwvYj4mbmJzcDtSZTogaWt2bSByZWZyZXNoIGZhaWxlZCBvbiBob3N0
-IHNjcmVlbiAxNjgweDEwNTAgcmVzb2x1dGlvbjwvZGl2PjwvZGl2PjxkaXY+PGJyPjwvZGl2
-Pk9uIDQvMy8yMDE5IDEwOjIxIFBNLCB4aXV6aGkgd3JvdGU6PGJyPiZndDsgSGkgSmFlLCBF
-ZCw8YnI+Jmd0OyZuYnNwOyAmbmJzcDsgJm5ic3A7IFRoZSBpa3ZtIHNjcmVlbiBjYW5uJ3Qg
-cmVmcmVzaCBvbiBpa3ZtIHdlYnVpIHNjcmVlbiB3aGVuIHNldHRpbmcgPGJyPiZndDsgdGhl
-IGhvc3Qgc2NyZWVuIHJlc29sdXRpb24gdG8gMTY4MCoxMDUwIC4gSSBtdXN0IGNsaWNrIHRo
-ZSAiUmVmcmVzaCIgPGJyPiZndDsgYnV0dG9uIHRvIGdldCB0aGUgbmV3IGhvc3Qgc2NyZWVu
-LiZuYnNwOyBPdGhlciByZXNvbHV0aW9ucyB3b3JrcyB2ZXJ5IHdlbGwuPGJyPiZndDsmbmJz
-cDsgJm5ic3A7IFBsZWFzZSBjaGVjayBpdC48YnI+PGJyPkhpIFhpdXpoaSw8YnI+PGJyPkkg
-Y2FuJ3Qgc2VlIHRoZSByZXNvbHV0aW9uIG9wdGlvbiBpbiBVYnVudHUgMTguMDMuIFdoYXQg
-aG9zdCBPUyBkaWQgeW91PGJyPnVzZSBmb3IgdGhlIHRlc3Q/IExldCBtZSBjbGFyaWZ5IG9u
-ZSBtb3JlLiBEbyB5b3UgbWVhbiB0aGUgIlJlZnJlc2giPGJyPmJ1dHRvbiBpbiBLVk0gd2Vi
-IHBhZ2UsIG9yIHJlbG9hZCBidXR0b24gb2YgdGhlIHdlYiBicm93c2VyPzxicj48YnI+VGhh
-bmtzLDxicj5KYWU8YnI+PGJyPiZndDsgQmVzdCw8YnI+Jmd0OyB4aXV6aGk8YnI+PC9kaXY+
+As there are very limited examples (on a few in the witherspoon) it is very=
+ hard to figure out where the mistake is.
+
+Are there any tools that can be used to make this easier?
+
+Additionally is this the correct method to achieve this goal or should I us=
+e something else to define conditions for logging?
+
+Best regards,
+
+Wim Vervoorn
 
 
-------=_NextPart_5CAAA091_0B5AFC38_05702F7E--
+--_000_8daf9ac9deee4bc0808a55733681d67eEltsrv03Eltanlocal_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am trying to use phosphor-dbus-monitor to create l=
+ogging of sensor exceptions like a Critical state on a specific sensor.<o:p=
+></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am able to create a solution with a building yaml =
+but at the end it doesn&#8217;t deliver me the desired result.<o:p></o:p></=
+p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">As there are very limited examples (on a few in the =
+witherspoon) it is very hard to figure out where the mistake is.<o:p></o:p>=
+</p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Are there any tools that can be used to make this ea=
+sier? <o:p>
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Additionally is this the correct method to achieve t=
+his goal or should I use something else to define conditions for logging?<o=
+:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best regards,<o:p></o:p></p>
+<p class=3D"MsoNormal"><br>
+Wim Vervoorn<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_8daf9ac9deee4bc0808a55733681d67eEltsrv03Eltanlocal_--
