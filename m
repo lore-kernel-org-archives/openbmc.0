@@ -1,83 +1,74 @@
-Return-Path: <msbarth@linux.ibm.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=msbarth@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.4; helo=cpsmtpb-ews01.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44dq4R4hPNzDqJL
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 00:12:32 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x39E5vdq141291
- for <openbmc@lists.ozlabs.org>; Tue, 9 Apr 2019 10:12:29 -0400
-Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2rrup5mtxj-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 09 Apr 2019 10:12:27 -0400
-Received: from localhost
- by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <msbarth@linux.ibm.com>;
- Tue, 9 Apr 2019 15:12:25 +0100
-Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
- by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Tue, 9 Apr 2019 15:12:24 +0100
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x39ECNrt43778122
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 9 Apr 2019 14:12:23 GMT
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EAB0A6A047;
- Tue,  9 Apr 2019 14:12:22 +0000 (GMT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A81E16A058;
- Tue,  9 Apr 2019 14:12:22 +0000 (GMT)
-Received: from [9.10.99.66] (unknown [9.10.99.66])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue,  9 Apr 2019 14:12:22 +0000 (GMT)
-Subject: Re: using phosphor-dbus-monitor
-To: Matt Spinler <mspinler@linux.ibm.com>, Wim Vervoorn <wvervoorn@eltan.com>,
- Lei YU <mine260309@gmail.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="mDivkeB/"; 
+ dkim-atps=neutral
+Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
+ [213.75.39.4])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44dqJG2CLQzDqKH
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 00:22:51 +1000 (AEST)
+Received: from cpsps-ews09.kpnxchange.com ([10.94.84.176]) by
+ cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Tue, 9 Apr 2019 16:22:47 +0200
+X-Brand: +YTO/YbK+g==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=dcxRIkfe c=1 sm=1 tr=0 cx=a_idp_e
+ a=YnLMpE5S06+Zisl5ga1zfg==:117 a=YnLMpE5S06+Zisl5ga1zfg==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10
+ a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10 a=VnNF1IyMAAAA:8 a=X5F7dNyOAAAA:8
+ a=pGLkceISAAAA:8 a=voM4FWlXAAAA:8 a=peDeANYtAAAA:20
+ a=FK12Ryp_QqXTxois7D4A:9 a=QEXdDO2ut3YA:10 a=pS7LufLo7ZPxIL5li5Lt:22
+ a=IC2XNlieTeVoXbcui8wp:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.46]) by cpsps-ews09.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Tue, 9 Apr 2019 16:22:47 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=SIPfE9sAAZZlgPsBBsjBAznXw8hq59emapVXv9r8VYY=;
+ b=mDivkeB/BFinuapeBAd19aiqNXk1fhevbtg99w+TQ3sxthoYK5WGLEVI1jzv2Uev3ggPFoOrAkHYE
+ MGMxkYnpYAvziITP3ayAjs9wkWke17WlyMYK7hHOLouCpN6IMAtEmDnqv7KDI5q4XXNIAvi53VrdPi
+ 0WElsk+SUnyEapkQ=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id f2974950-5ad2-11e9-b931-005056ab7584;
+ Tue, 09 Apr 2019 16:22:47 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Tue, 9 Apr
+ 2019 16:22:40 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Tue, 9 Apr 2019 16:22:40 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: Matthew Barth <msbarth@linux.ibm.com>, Matt Spinler
+ <mspinler@linux.ibm.com>, Lei YU <mine260309@gmail.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: using phosphor-dbus-monitor
+Thread-Topic: using phosphor-dbus-monitor
+Thread-Index: AdTuEGrG+gJJ+lgAS6eE4IA4ANXSuAAZVliAAAu1tjAACXWxAAAAwpwAAARLuxA=
+Date: Tue, 9 Apr 2019 14:22:40 +0000
+Message-ID: <3576a4c7b34049e0b896f8ebd9635ad4@Eltsrv03.Eltan.local>
 References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
- <CAARXrtmt9ObNmmkS2H2Qmon6qXVHiSjVmuyrfLXpzsSqP7j5PA@mail.gmail.com>
- <bdc0e08ece734d44b8eebad84eb5db35@Eltsrv03.Eltan.local>
- <0f2fc6f7-be66-ab65-7b90-b0bdd45d5fcd@linux.ibm.com>
-From: Matthew Barth <msbarth@linux.ibm.com>
-Date: Tue, 9 Apr 2019 09:12:22 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <0f2fc6f7-be66-ab65-7b90-b0bdd45d5fcd@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+ <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
+In-Reply-To: <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
+Accept-Language: nl-NL, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 19040914-8235-0000-0000-00000E7C1F3D
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010895; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000284; SDB=6.01186610; UDB=6.00621488; IPR=6.00967371; 
- MB=3.00026361; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-09 14:12:25
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19040914-8236-0000-0000-000045148251
-Message-Id: <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-09_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904090090
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginalArrivalTime: 09 Apr 2019 14:22:47.0567 (UTC)
+ FILETIME=[B49999F0:01D4EEDF]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,67 +80,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Apr 2019 14:12:44 -0000
+X-List-Received-Date: Tue, 09 Apr 2019 14:22:55 -0000
 
-
-
-On 4/9/19 8:50 AM, Matt Spinler wrote:
-> Hi Wim,
-> 
-> If you could post your YAML somewhere, I could take a look for any 
-> obvious problems.
-If you could also provide a little more details on the error your 
-attempting to log would be helpful (i.e. is there a dbus interface?).
-> 
-> On 4/9/2019 2:23 AM, Wim Vervoorn wrote:
->> Hello Lei,
->>
->> Thanks for your response. I know this example too and it helps a bit 
->> but it doesn’t really clarify all issues.
->>
->> As you've worked with this as well. Do you understand the meta item? 
->> The example indicates it has different meaning but doesn't provide any 
->> pointers to what those meanings are. Have you been able to find out?
-What meta item are you referring to?
->>
->> Best Regards,
->> Wim Vervoorn
->>
->> -----Original Message-----
->> From: Lei YU [mailto:mine260309@gmail.com]
->> Sent: Tuesday, April 9, 2019 5:44 AM
->> To: Wim Vervoorn <wvervoorn@eltan.com>; Matthew Barth 
->> <msbarth@linux.ibm.com>
->> Cc: openbmc@lists.ozlabs.org
->> Subject: Re: using phosphor-dbus-monitor
->>
->>> I am trying to use phosphor-dbus-monitor to create logging of sensor 
->>> exceptions like a Critical state on a specific sensor.
->>> I am able to create a solution with a building yaml but at the end it 
->>> doesn’t deliver me the desired result.
->>> As there are very limited examples (on a few in the witherspoon) it 
->>> is very hard to figure out where the mistake is.
->> There is an example yaml config in the repo:
->> https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/example/example.yaml 
->>
->>
->> And I have the same feeling that it's hard to know what's wrong if 
->> something is wrong.ei
->>
->>> Are there any tools that can be used to make this easier?
->> @Matthew Barth Could you kindly help to add some doc/tool to make it 
->> easier to use?
-Originally, the example yaml was meant to be the document which I 
-understand is probably not the greatest form when it comes to this. 
-Unfortunately enhancing the documentation would be a low priority at 
-this time but feel free to create/update the documentation from your 
-findings and push them up for review if you'd like.
->>
->>> Additionally is this the correct method to achieve this goal or 
->>> should I use something else to define conditions for logging?
->> I think so. This repo is intended to watch the dbus and do stuff as 
->> yaml config.
-Correct. This repo was intended to perform error logging and/or system 
-level actions, such as a shutdown, based on object properties on dbus.
->>
->>
+SGVsbG8gTWF0dCwNCg0KSW4gdGhpcyBjYXNlIGl0J3MganVzdCB0cnlpbmcgdG8gbWFrZSBzdXJl
+IHRoZSBsb2dnaW5nIGlzIGFsd2F5cyB0cmlnZ2VyZWQuIEl0IHRoZSBjb25kaXRpb24gaXMgdG8g
+bG9nIGlmIHRoZSB2b2x0YWdlIG9uIHRoaXMgc2Vuc29yIGlzIGFib3ZlIHNvbWUgdmVyeSBsb3cg
+dmFsdWUgd2hpY2ggSSBrbm93IGl0IHdpbGwgYmUuIEkgY3JlYXRlZCB0aGlzIGluIHRoZSBhc3N1
+bXB0aW9uIGl0IHdvdWxkIGFsd2F5cyB0cmlnZ2VyLg0KDQpUaGUgcmVhbCB0aGluZyBJIGFtIHRy
+eWluZyB0byBkbyBpcyB0byB0cmlnZ2VyIGlmIGEgZmV3IHNlbnNvcnMgYXJlIHJlcG9ydGluZyBj
+cml0aWNhbCB2YWx1ZXMuIEkgaW5jbHVkZWQgdGhpcyBoZXJlOg0KDQotIG5hbWU6IHZvbHRhZ2Ug
+c2Vuc29yIHBhdGggZ3JvdXANCiAgY2xhc3M6IGdyb3VwDQogIGdyb3VwOiBwYXRoDQogIG1lbWJl
+cnM6DQogICAgLSBtZXRhOiBTRU5TT1INCiAgICAgIHBhdGg6IC94eXovb3BlbmJtY19wcm9qZWN0
+L3NlbnNvcnMvdm9sdGFnZS9QVk5OX1BDSF9BVVgNCiAgICAtIG1ldGE6IFNFTlNPUg0KICAgICAg
+cGF0aDogL3h5ei9vcGVuYm1jX3Byb2plY3Qvc2Vuc29ycy92b2x0YWdlL1AzVkJBVA0KDQotIG5h
+bWU6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBkZXNjcmlwdGlvbjogPg0KICAg
+ICdzZW5zb3Igc3RhdGUuJw0KICBjbGFzczogZ3JvdXANCiAgZ3JvdXA6IHByb3BlcnR5DQogIHR5
+cGU6IGJvb2xlYW4NCiAgbWVtYmVyczoNCiAgICAtIGludGVyZmFjZTogeHl6Lm9wZW5ibWNfcHJv
+amVjdC5TZW5zb3JzLlRocmVzaG9sZC5Dcml0aWNhbA0KICAgICAgbWV0YTogUFJPUEVSVFkNCiAg
+ICAgIHByb3BlcnR5OiBDcml0aWNhbEFsYXJtSGlnaA0KICAgIC0gaW50ZXJmYWNlOiB4eXoub3Bl
+bmJtY19wcm9qZWN0LlNlbnNvcnMuVGhyZXNob2xkLkNyaXRpY2FsDQogICAgICBtZXRhOiBQUk9Q
+RVJUWQ0KICAgICAgcHJvcGVydHk6IENyaXRpY2FsQWxhcm1Mb3cNCg0KLSBuYW1lOiB3YXRjaCBz
+ZW5zb3Igc3RhdGUNCiAgZGVzY3JpcHRpb246ID4NCiAgICAnVHJpZ2dlciBsb2dpYyBvbiBzZW5z
+b3Igc3RhdGUuJw0KICBjbGFzczogd2F0Y2gNCiAgd2F0Y2g6IHByb3BlcnR5DQogIHBhdGhzOiB2
+b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBw
+cm9wZXJ0eSBncm91cA0KICBjYWxsYmFjazogc2Vuc29yIGNvdW50IGNvbmRpdGlvbg0KDQotIG5h
+bWU6IHNlbnNvciBjb3VudCBjb25kaXRpb24NCiAgZGVzY3JpcHRpb246ID4NCiAgICAnY2hlY2sg
+Y3JpdGljYWwgY29uZGl0aW9uIG9mIHRoZSBzZW5zb3JzLicNCiAgY2xhc3M6IGNvbmRpdGlvbg0K
+ICBjb25kaXRpb246IGNvdW50DQogIHBhdGhzOiB2b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQog
+IHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBjYWxsYmFjazog
+bG9nIGFuZCBzaHV0ZG93bg0KICBjb3VudG9wOiAnPicNCiAgY291bnRib3VuZDogMA0KICBvcDog
+Jz09Jw0KICBib3VuZDogdHJ1ZQ0KIA0KLSBuYW1lOiBsb2cgYW5kIHNodXRkb3duDQogIGRlc2Ny
+aXB0aW9uOiA+DQogICAgJ1NodXQgdGhlIHN5c3RlbSBkb3duIGFuZCBsb2cgYW4gZXZlbnQuJw0K
+ICBjbGFzczogY2FsbGJhY2sNCiAgY2FsbGJhY2s6IGdyb3VwDQogIG1lbWJlcnM6DQogICAgLSBl
+eGFtcGxlIGpvdXJuYWwgY2FsbGJhY2sNCiAgICAtIHNlbnNvciBjcml0aWNhbCBlcnJvcg0KICAg
+IC0gY3JlYXRlIHNodXRkb3duIGVycm9yDQoNCi0gbmFtZTogZXhhbXBsZSBqb3VybmFsIGNhbGxi
+YWNrDQogIGRlc2NyaXB0aW9uOiA+DQogICAgJyBleGFtcGxlIGpvdXJuYWwgY2FsbGJhY2snDQog
+IGNsYXNzOiBjYWxsYmFjaw0KICBjYWxsYmFjazogam91cm5hbA0KICBwYXRoczogdm9sdGFnZSBz
+ZW5zb3IgcGF0aCBncm91cA0KICBwcm9wZXJ0aWVzOiBzZW5zb3IgY3JpdGljYWwgcHJvcGVydHkg
+Z3JvdXANCiAgc2V2ZXJpdHk6IElORk8NCiAgbWVzc2FnZTogSGVsbG8gd29ybGQgZnJvbSBQRE0h
+DQoNCi0gbmFtZTogc2Vuc29yIGNyaXRpY2FsIGVycm9yDQogIGNsYXNzOiBjYWxsYmFjaw0KICBj
+YWxsYmFjazogZWxvZ193aXRoX21ldGFkYXRhDQogIHBhdGhzOiB2b2x0YWdlIHNlbnNvciBwYXRo
+IGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBl
+cnJvcjogeHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6VGhyZXNob2xkOjpFcnJvcjo6Q3Jp
+dGljYWxIaWdoDQogIG1ldGFkYXRhOiB4eXo6Om9wZW5ibWNfcHJvamVjdDo6U2Vuc29yOjpUaHJl
+c2hvbGQ6OkNyaXRpY2FsSGlnaDo6U0VOU09SX0RBVEENCg0KLSBuYW1lOiBjcmVhdGUgc2h1dGRv
+d24gZXJyb3INCiAgZGVzY3JpcHRpb246ID4NCiAgICAnQ3JlYXRlIGEgU3lzdGVtU2h1dGRvd24g
+RXJyb3IgbG9nLicNCiAgY2xhc3M6IGNhbGxiYWNrDQogIGNhbGxiYWNrOiBlbG9nDQogIHBhdGhz
+OiB2b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNh
+bCBwcm9wZXJ0eSBncm91cA0KICBlcnJvcjogeHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6
+VGhyZXNob2xkOjpFcnJvcjo6Q3JpdGljYWxIaWdoDQogIG1ldGFkYXRhOg0KICAgIC0gbmFtZTog
+eHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6VGhyZXNob2xkOjpDcml0aWNhbEhpZ2g6OlNF
+TlNPUl9EQVRBDQogICAgICB2YWx1ZTogdGVzdGluZy4uLg0KICAgICAgdHlwZTogc3RyaW5nDQoN
+Cg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTWF0dGhldyBCYXJ0aCBbbWFp
+bHRvOm1zYmFydGhAbGludXguaWJtLmNvbV0gDQpTZW50OiBUdWVzZGF5LCBBcHJpbCA5LCAyMDE5
+IDQ6MTIgUE0NClRvOiBNYXR0IFNwaW5sZXIgPG1zcGlubGVyQGxpbnV4LmlibS5jb20+OyBXaW0g
+VmVydm9vcm4gPHd2ZXJ2b29ybkBlbHRhbi5jb20+OyBMZWkgWVUgPG1pbmUyNjAzMDlAZ21haWwu
+Y29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KU3ViamVjdDogUmU6IHVzaW5nIHBo
+b3NwaG9yLWRidXMtbW9uaXRvcg0KDQoNCg0KT24gNC85LzE5IDg6NTAgQU0sIE1hdHQgU3Bpbmxl
+ciB3cm90ZToNCj4gSGkgV2ltLA0KPiANCj4gSWYgeW91IGNvdWxkIHBvc3QgeW91ciBZQU1MIHNv
+bWV3aGVyZSwgSSBjb3VsZCB0YWtlIGEgbG9vayBmb3IgYW55IA0KPiBvYnZpb3VzIHByb2JsZW1z
+Lg0KSWYgeW91IGNvdWxkIGFsc28gcHJvdmlkZSBhIGxpdHRsZSBtb3JlIGRldGFpbHMgb24gdGhl
+IGVycm9yIHlvdXIgYXR0ZW1wdGluZyB0byBsb2cgd291bGQgYmUgaGVscGZ1bCAoaS5lLiBpcyB0
+aGVyZSBhIGRidXMgaW50ZXJmYWNlPykuDQo+IA0KPiBPbiA0LzkvMjAxOSAyOjIzIEFNLCBXaW0g
+VmVydm9vcm4gd3JvdGU6DQo+PiBIZWxsbyBMZWksDQo+Pg0KPj4gVGhhbmtzIGZvciB5b3VyIHJl
+c3BvbnNlLiBJIGtub3cgdGhpcyBleGFtcGxlIHRvbyBhbmQgaXQgaGVscHMgYSBiaXQgDQo+PiBi
+dXQgaXQgZG9lc27igJl0IHJlYWxseSBjbGFyaWZ5IGFsbCBpc3N1ZXMuDQo+Pg0KPj4gQXMgeW91
+J3ZlIHdvcmtlZCB3aXRoIHRoaXMgYXMgd2VsbC4gRG8geW91IHVuZGVyc3RhbmQgdGhlIG1ldGEg
+aXRlbT8gDQo+PiBUaGUgZXhhbXBsZSBpbmRpY2F0ZXMgaXQgaGFzIGRpZmZlcmVudCBtZWFuaW5n
+IGJ1dCBkb2Vzbid0IHByb3ZpZGUgDQo+PiBhbnkgcG9pbnRlcnMgdG8gd2hhdCB0aG9zZSBtZWFu
+aW5ncyBhcmUuIEhhdmUgeW91IGJlZW4gYWJsZSB0byBmaW5kIG91dD8NCldoYXQgbWV0YSBpdGVt
+IGFyZSB5b3UgcmVmZXJyaW5nIHRvPw0KPj4NCj4+IEJlc3QgUmVnYXJkcywNCj4+IFdpbSBWZXJ2
+b29ybg0KPj4NCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBMZWkgWVUg
+W21haWx0bzptaW5lMjYwMzA5QGdtYWlsLmNvbV0NCj4+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDks
+IDIwMTkgNTo0NCBBTQ0KPj4gVG86IFdpbSBWZXJ2b29ybiA8d3ZlcnZvb3JuQGVsdGFuLmNvbT47
+IE1hdHRoZXcgQmFydGggDQo+PiA8bXNiYXJ0aEBsaW51eC5pYm0uY29tPg0KPj4gQ2M6IG9wZW5i
+bWNAbGlzdHMub3psYWJzLm9yZw0KPj4gU3ViamVjdDogUmU6IHVzaW5nIHBob3NwaG9yLWRidXMt
+bW9uaXRvcg0KPj4NCj4+PiBJIGFtIHRyeWluZyB0byB1c2UgcGhvc3Bob3ItZGJ1cy1tb25pdG9y
+IHRvIGNyZWF0ZSBsb2dnaW5nIG9mIHNlbnNvciANCj4+PiBleGNlcHRpb25zIGxpa2UgYSBDcml0
+aWNhbCBzdGF0ZSBvbiBhIHNwZWNpZmljIHNlbnNvci4NCj4+PiBJIGFtIGFibGUgdG8gY3JlYXRl
+IGEgc29sdXRpb24gd2l0aCBhIGJ1aWxkaW5nIHlhbWwgYnV0IGF0IHRoZSBlbmQgDQo+Pj4gaXQg
+ZG9lc27igJl0IGRlbGl2ZXIgbWUgdGhlIGRlc2lyZWQgcmVzdWx0Lg0KPj4+IEFzIHRoZXJlIGFy
+ZSB2ZXJ5IGxpbWl0ZWQgZXhhbXBsZXMgKG9uIGEgZmV3IGluIHRoZSB3aXRoZXJzcG9vbikgaXQg
+DQo+Pj4gaXMgdmVyeSBoYXJkIHRvIGZpZ3VyZSBvdXQgd2hlcmUgdGhlIG1pc3Rha2UgaXMuDQo+
+PiBUaGVyZSBpcyBhbiBleGFtcGxlIHlhbWwgY29uZmlnIGluIHRoZSByZXBvOg0KPj4gaHR0cHM6
+Ly9naXRodWIuY29tL29wZW5ibWMvcGhvc3Bob3ItZGJ1cy1tb25pdG9yL2Jsb2IvbWFzdGVyL3Ny
+Yy9leGFtDQo+PiBwbGUvZXhhbXBsZS55YW1sDQo+Pg0KPj4NCj4+IEFuZCBJIGhhdmUgdGhlIHNh
+bWUgZmVlbGluZyB0aGF0IGl0J3MgaGFyZCB0byBrbm93IHdoYXQncyB3cm9uZyBpZiANCj4+IHNv
+bWV0aGluZyBpcyB3cm9uZy5laQ0KPj4NCj4+PiBBcmUgdGhlcmUgYW55IHRvb2xzIHRoYXQgY2Fu
+IGJlIHVzZWQgdG8gbWFrZSB0aGlzIGVhc2llcj8NCj4+IEBNYXR0aGV3IEJhcnRoIENvdWxkIHlv
+dSBraW5kbHkgaGVscCB0byBhZGQgc29tZSBkb2MvdG9vbCB0byBtYWtlIGl0IA0KPj4gZWFzaWVy
+IHRvIHVzZT8NCk9yaWdpbmFsbHksIHRoZSBleGFtcGxlIHlhbWwgd2FzIG1lYW50IHRvIGJlIHRo
+ZSBkb2N1bWVudCB3aGljaCBJIHVuZGVyc3RhbmQgaXMgcHJvYmFibHkgbm90IHRoZSBncmVhdGVz
+dCBmb3JtIHdoZW4gaXQgY29tZXMgdG8gdGhpcy4gDQpVbmZvcnR1bmF0ZWx5IGVuaGFuY2luZyB0
+aGUgZG9jdW1lbnRhdGlvbiB3b3VsZCBiZSBhIGxvdyBwcmlvcml0eSBhdCB0aGlzIHRpbWUgYnV0
+IGZlZWwgZnJlZSB0byBjcmVhdGUvdXBkYXRlIHRoZSBkb2N1bWVudGF0aW9uIGZyb20geW91ciBm
+aW5kaW5ncyBhbmQgcHVzaCB0aGVtIHVwIGZvciByZXZpZXcgaWYgeW91J2QgbGlrZS4NCj4+DQo+
+Pj4gQWRkaXRpb25hbGx5IGlzIHRoaXMgdGhlIGNvcnJlY3QgbWV0aG9kIHRvIGFjaGlldmUgdGhp
+cyBnb2FsIG9yIA0KPj4+IHNob3VsZCBJIHVzZSBzb21ldGhpbmcgZWxzZSB0byBkZWZpbmUgY29u
+ZGl0aW9ucyBmb3IgbG9nZ2luZz8NCj4+IEkgdGhpbmsgc28uIFRoaXMgcmVwbyBpcyBpbnRlbmRl
+ZCB0byB3YXRjaCB0aGUgZGJ1cyBhbmQgZG8gc3R1ZmYgYXMgDQo+PiB5YW1sIGNvbmZpZy4NCkNv
+cnJlY3QuIFRoaXMgcmVwbyB3YXMgaW50ZW5kZWQgdG8gcGVyZm9ybSBlcnJvciBsb2dnaW5nIGFu
+ZC9vciBzeXN0ZW0gbGV2ZWwgYWN0aW9ucywgc3VjaCBhcyBhIHNodXRkb3duLCBiYXNlZCBvbiBv
+YmplY3QgcHJvcGVydGllcyBvbiBkYnVzLg0KPj4NCj4+DQoNCg0KDQo=
