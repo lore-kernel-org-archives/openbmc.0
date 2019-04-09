@@ -1,58 +1,46 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12d; helo=mail-it1-x12d.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.75.36; helo=2.mo3.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vk7QFWic"; 
- dkim-atps=neutral
-Received: from mail-it1-x12d.google.com (mail-it1-x12d.google.com
- [IPv6:2607:f8b0:4864:20::12d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44dY7x3M8GzDqM1
- for <openbmc@lists.ozlabs.org>; Tue,  9 Apr 2019 13:44:44 +1000 (AEST)
-Received: by mail-it1-x12d.google.com with SMTP id z17so1664078itc.1
- for <openbmc@lists.ozlabs.org>; Mon, 08 Apr 2019 20:44:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=U6haIJtqV0vxW1QVEiPG6rbcScIyS2543aeV3Ypzd88=;
- b=Vk7QFWicRe9ZpNQ24EDETttwHDmhCwBcsp0dSCS2xjhGPRdS4loLLegvZhTgFn0D+/
- TjvqyEPILN/5gk3iky9S7HvlT+VFpW6gKeUWbDZKqy4L6msvVA+WlK/SOz5kUo1d60qY
- mt7TUfIhGnsjIUbIL3fNAU1REg7mmjgMaSGtUllVHXUMZaRUNUy/z+dVTlOI5CStX1O7
- pbcBYJDWsagrg5Zb3ANy++2aqkltvkZk6ageVC2Q7WK/iFchKAwJG27iBc9Jj+MngWJr
- 3fn5NvsbMbaIgUtqoa46rdezrReR79xHB5rW3KtD1sM4k3N5/g6sLvk97V4txUyCjlcZ
- 651A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=U6haIJtqV0vxW1QVEiPG6rbcScIyS2543aeV3Ypzd88=;
- b=VezJN4QgEelr03aXCCgMoygRsROwKsttPimFKu65UXR68ZkkKF+MlaCkU3J3Z/+dih
- U3CrjOs3zBW3IhzgEzXQTXjpi+zda0xJnnmPvwUWkIVVQI4r9Bt8IeLQjTAIp/6UIL3k
- /pSbw0WaVDbRHil2Nfy0CVrFpXLm6rbosIZ1RerRGqQrH8l5f4HwVjrkNT5YfcJoOcb5
- Gd3JeCHcW5E264ggd3LosIhCVYkiKLDjsC20YV6UpyS8YRXMC/TQA/6MOj9bzpIitdyz
- aF0C60iNOPGPKlcx+U6F5PAhj8ZF7F2uHtT0fXx8hzBCBRjXJ4fUM3KDZUUKsn7GX4kl
- 0lIA==
-X-Gm-Message-State: APjAAAWyUfhKIQzbmElTnPBY6IQ1sibWqFOxOGH1Z9f0KmMv7QPPjOfe
- mvwPNXMPoT8uimtrgn/cnMYBD/7xO//d3Qu3NStHH4zKyQ0=
-X-Google-Smtp-Source: APXvYqyuVH61rDbK9pBdJ+FNJvglKWpRRNHN7imLJYqf7eZaxF3IE0vsOG+s3spGQh+AXuJbFCYtSMLPFioNNgebrF4=
-X-Received: by 2002:a24:e14b:: with SMTP id n72mr21080784ith.34.1554781480901; 
- Mon, 08 Apr 2019 20:44:40 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 495 seconds by postgrey-1.36 at bilbo;
+ Tue, 09 Apr 2019 16:20:57 AEST
+Received: from 2.mo3.mail-out.ovh.net (2.mo3.mail-out.ovh.net [46.105.75.36])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44dcc95HtFzDq96
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Apr 2019 16:20:54 +1000 (AEST)
+Received: from player755.ha.ovh.net (unknown [10.109.160.239])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id D8FDF2079BA
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Apr 2019 08:12:32 +0200 (CEST)
+Received: from kaod.org (lfbn-tou-1-40-22.w86-201.abo.wanadoo.fr
+ [86.201.133.22]) (Authenticated sender: clg@kaod.org)
+ by player755.ha.ovh.net (Postfix) with ESMTPSA id 7DD744A630ED;
+ Tue,  9 Apr 2019 06:12:28 +0000 (UTC)
+Subject: Re: QEMU and CI
+To: Joel Stanley <joel@jms.id.au>,
+ "Bills, Jason M" <jason.m.bills@linux.intel.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <bae4a921-6e20-899e-5139-4d479ffd9f47@linux.intel.com>
+ <03df9961-3cb8-467b-adab-743544a05963@www.fastmail.com>
+ <CACPK8XdpUh52GVEfH6KYrNV7zgLhLVuJtmpg4dNpQ2CdNfGVhg@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <e90ee19f-99b0-cdfb-fdf0-48a53be3098a@kaod.org>
+Date: Tue, 9 Apr 2019 08:12:27 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
-In-Reply-To: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
-From: Lei YU <mine260309@gmail.com>
-Date: Tue, 9 Apr 2019 11:44:27 +0800
-Message-ID: <CAARXrtmt9ObNmmkS2H2Qmon6qXVHiSjVmuyrfLXpzsSqP7j5PA@mail.gmail.com>
-Subject: Re: using phosphor-dbus-monitor
-To: Wim Vervoorn <wvervoorn@eltan.com>, Matthew Barth <msbarth@linux.ibm.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CACPK8XdpUh52GVEfH6KYrNV7zgLhLVuJtmpg4dNpQ2CdNfGVhg@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 4021714470475696898
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrudeggddutdefucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,29 +52,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Apr 2019 03:44:46 -0000
+X-List-Received-Date: Tue, 09 Apr 2019 06:20:58 -0000
 
-> I am trying to use phosphor-dbus-monitor to create logging of sensor exce=
-ptions like a Critical state on a specific sensor.
-> I am able to create a solution with a building yaml but at the end it doe=
-sn=E2=80=99t deliver me the desired result.
-> As there are very limited examples (on a few in the witherspoon) it is ve=
-ry hard to figure out where the mistake is.
+On 4/9/19 4:55 AM, Joel Stanley wrote:
+> On Tue, 9 Apr 2019 at 00:46, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>
+>> Hi Jason,
+>>
+>> On Tue, 9 Apr 2019, at 04:56, Bills, Jason M wrote:
+>>> Hello,
+>>>
+>>> I'm looking into what it might take to get the Intel S2600WF (Wolf Pass)
+>>> board running in QEMU and possibly CI.
+> 
+> You can boot your wolf pass image in the current qemu. To demonstrate
+> I grabbed a tiogapass flash image from CI and booted it:
+> 
+> $ arm-softmmu/qemu-system-arm -M ast2500-evb -drive
+> file=flash-tiogapass,format=raw,if=mtd -serial mon:stdio  -nographic
+> ...
+> root@tiogapass:~# cat /etc/os-release
+> ID="openbmc-phosphor"
+> NAME="Phosphor OpenBMC (Phosphor OpenBMC Project Reference Distro)"
+> VERSION="2.7.0-dev"
+> VERSION_ID="2.7.0-dev-347-gd631110d4"
+> PRETTY_NAME="Phosphor OpenBMC (Phosphor OpenBMC Project Reference
+> Distro) 2.7.0-dev"
+> BUILD_ID="2.7.0-dev"
+> OPENBMC_TARGET_MACHINE="tiogapass"
+> 
+> As Andrew said, your next step would be to add a wolfpass machine type
+> to upstream qemu. Take a look at the aspeed_boards array in
+> hw/arm/aspeed.c.
 
-There is an example yaml config in the repo:
-https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/example/ex=
-ample.yaml
+Yes. it should be relatively easy to add the machine.   
 
-And I have the same feeling that it's hard to know what's wrong if
-something is wrong.
+> From there the next step is to add the peripherals that your machine
+> has. This will involve writing models for the i2c devices you have
+> attached, and perhaps emulators for host connected devices (PECI?).
+> This could be more involved so please use the list to discuss your
+> plans.
 
-> Are there any tools that can be used to make this easier?
+Yes please. It would be nice to have better support for I2C devices
+and work on a simple interface (QMP based) to interact with them, so
+that we can exercise the monitoring done by OpenBMC. PSU devices are
+a good topic for that.
 
-@Matthew Barth Could you kindly help to add some doc/tool to make it
-easier to use?
+> There are also a large number of peripherals inside the ASPEED SoC
+> that lack models. Let us know on the list if you think you will start
+> working on one so we don't duplicate efforts.
+> 
+> Submit your patches against the upstream qemu tree. Andrew, Cedric and
+> I are the upstream maintainers so we will be on cc there.
 
-> Additionally is this the correct method to achieve this goal or should I =
-use something else to define conditions for logging?
+We are keeping the models in development under in this tree :
+  
+   https://github.com/openbmc/qemu
 
-I think so. This repo is intended to watch the dbus and do stuff as yaml co=
-nfig.
+Some have been there a bit too long because we lacked time to make
+them ready but please prefer mainline. We rebase quite often anyhow.
+I should push today a new version on 4.0-rc3.  
+
+Check out this page before sending :
+
+   https://wiki.qemu.org/Contribute/SubmitAPatch
+
+
+Thanks,
+
+C.   
