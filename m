@@ -1,74 +1,54 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.4; helo=cpsmtpb-ews01.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::333; helo=mail-ot1-x333.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="mDivkeB/"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="YueeNzYj"; 
  dkim-atps=neutral
-Received: from cpsmtpb-ews01.kpnxchange.com (cpsmtpb-ews01.kpnxchange.com
- [213.75.39.4])
- by lists.ozlabs.org (Postfix) with ESMTP id 44dqJG2CLQzDqKH
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 00:22:51 +1000 (AEST)
-Received: from cpsps-ews09.kpnxchange.com ([10.94.84.176]) by
- cpsmtpb-ews01.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Tue, 9 Apr 2019 16:22:47 +0200
-X-Brand: +YTO/YbK+g==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=dcxRIkfe c=1 sm=1 tr=0 cx=a_idp_e
- a=YnLMpE5S06+Zisl5ga1zfg==:117 a=YnLMpE5S06+Zisl5ga1zfg==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10
- a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10 a=VnNF1IyMAAAA:8 a=X5F7dNyOAAAA:8
- a=pGLkceISAAAA:8 a=voM4FWlXAAAA:8 a=peDeANYtAAAA:20
- a=FK12Ryp_QqXTxois7D4A:9 a=QEXdDO2ut3YA:10 a=pS7LufLo7ZPxIL5li5Lt:22
- a=IC2XNlieTeVoXbcui8wp:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from smtp.kpnmail.nl ([195.121.84.46]) by cpsps-ews09.kpnxchange.com
- over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
- Tue, 9 Apr 2019 16:22:47 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kpnmail.nl; s=kpnmail01;
- h=mime-version:content-type:message-id:date:subject:to:from;
- bh=SIPfE9sAAZZlgPsBBsjBAznXw8hq59emapVXv9r8VYY=;
- b=mDivkeB/BFinuapeBAd19aiqNXk1fhevbtg99w+TQ3sxthoYK5WGLEVI1jzv2Uev3ggPFoOrAkHYE
- MGMxkYnpYAvziITP3ayAjs9wkWke17WlyMYK7hHOLouCpN6IMAtEmDnqv7KDI5q4XXNIAvi53VrdPi
- 0WElsk+SUnyEapkQ=
-Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
- by smtp.kpnmail.nl (Halon) with ESMTPS
- id f2974950-5ad2-11e9-b931-005056ab7584;
- Tue, 09 Apr 2019 16:22:47 +0200 (CEST)
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Tue, 9 Apr
- 2019 16:22:40 +0200
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Tue, 9 Apr 2019 16:22:40 +0200
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: Matthew Barth <msbarth@linux.ibm.com>, Matt Spinler
- <mspinler@linux.ibm.com>, Lei YU <mine260309@gmail.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: using phosphor-dbus-monitor
-Thread-Topic: using phosphor-dbus-monitor
-Thread-Index: AdTuEGrG+gJJ+lgAS6eE4IA4ANXSuAAZVliAAAu1tjAACXWxAAAAwpwAAARLuxA=
-Date: Tue, 9 Apr 2019 14:22:40 +0000
-Message-ID: <3576a4c7b34049e0b896f8ebd9635ad4@Eltsrv03.Eltan.local>
-References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
- <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
-In-Reply-To: <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
-Accept-Language: nl-NL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-ot1-x333.google.com (mail-ot1-x333.google.com
+ [IPv6:2607:f8b0:4864:20::333])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44dsWy2vcwzDqKN
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 02:03:07 +1000 (AEST)
+Received: by mail-ot1-x333.google.com with SMTP id e5so16022062otk.12
+ for <openbmc@lists.ozlabs.org>; Tue, 09 Apr 2019 09:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=tIVccPKj9Ex6vNkBIexM3N9ztC3SyA2/X3BgQ+2VmCY=;
+ b=YueeNzYj/2/VHheAV+w3T8om5axKlumOy/QyLIfwMwl/fmbVmcCzeFSlYm4E4isPuy
+ b8SO6J2XIuFq+muAdTgjOWBjDAutDfg+EtpZD5niYzUc2HGu5On5QoTXIG0wBKr1t7OA
+ w4r2d6Quoqs1KMQv2q4COQIObMFWlWhIpqkHdb4MO5nH5D59UeLi40TSwNwk7yGWOUFv
+ LEfShSo9fzgBPjipD4TFvc7sGLAabehv28G/Pu8FG0sNtvYJhXw3lME8+YGZ4emVtFdB
+ Y7IKUc3BX+xfvYJxcI03DiKcWbwx90wwOqt0V4NByvfB8Kaum5OHpZaI4h+xTK6q39jJ
+ FTbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=tIVccPKj9Ex6vNkBIexM3N9ztC3SyA2/X3BgQ+2VmCY=;
+ b=Bp7LnC8nMapVGswqyBtup4A4FDflN41kIiqCKOZNMssmSnGBZwQsL7dDgXSZoDgSyk
+ QUDxsef1IUSR+Hv2oTfqm3DpIZ2eY8XLe/GCjjDBlmc56WsdGirFG/h9Aux3SPZtppmC
+ ycKHFbs89J/Mr5VWj+DOmS8D/RgB32s500W6umSkNq60/TQ0EOhjUwOlhMa56IT3WrPQ
+ 1zd9ZeFI7Wb7g4wYOhyn+3ujCTMRzMm8C5ghkf6Yw0qMUsi5AR7lWL6rqP0ciRy70ZKM
+ 5QU0FdcZoaUm7UhUSKX8yFNUDoxcI9eTOI9IhQnadHUKq/8JiBqFngDhaFDbHqsgP1sR
+ +/Rg==
+X-Gm-Message-State: APjAAAUQxzD3OMN1QGB9v+Tc69Xvb3fG/Ntz9VDG617xWPkW3f1NHmog
+ UU1UcSDaX4/RfHHM3WpCdYRIvvdKc3XRNxTVdcw=
+X-Google-Smtp-Source: APXvYqzddAz94CxeLvXFdJoz530vz9wRjHU4ESo5oS3vZR/S6ski6zorZrV3+YwvDpma8tu6eAAArWHgUscMyoCpc7Y=
+X-Received: by 2002:a9d:6292:: with SMTP id x18mr23275997otk.224.1554825784247; 
+ Tue, 09 Apr 2019 09:03:04 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginalArrivalTime: 09 Apr 2019 14:22:47.0567 (UTC)
- FILETIME=[B49999F0:01D4EEDF]
-X-RcptDomain: lists.ozlabs.org
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 9 Apr 2019 11:02:48 -0500
+Message-ID: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+Subject: ipmitool recipe update needed?
+To: Alexander Amelkin <a.amelkin@yadro.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: William Kennington <wak@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,105 +60,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 09 Apr 2019 14:22:55 -0000
+X-List-Received-Date: Tue, 09 Apr 2019 16:03:11 -0000
 
-SGVsbG8gTWF0dCwNCg0KSW4gdGhpcyBjYXNlIGl0J3MganVzdCB0cnlpbmcgdG8gbWFrZSBzdXJl
-IHRoZSBsb2dnaW5nIGlzIGFsd2F5cyB0cmlnZ2VyZWQuIEl0IHRoZSBjb25kaXRpb24gaXMgdG8g
-bG9nIGlmIHRoZSB2b2x0YWdlIG9uIHRoaXMgc2Vuc29yIGlzIGFib3ZlIHNvbWUgdmVyeSBsb3cg
-dmFsdWUgd2hpY2ggSSBrbm93IGl0IHdpbGwgYmUuIEkgY3JlYXRlZCB0aGlzIGluIHRoZSBhc3N1
-bXB0aW9uIGl0IHdvdWxkIGFsd2F5cyB0cmlnZ2VyLg0KDQpUaGUgcmVhbCB0aGluZyBJIGFtIHRy
-eWluZyB0byBkbyBpcyB0byB0cmlnZ2VyIGlmIGEgZmV3IHNlbnNvcnMgYXJlIHJlcG9ydGluZyBj
-cml0aWNhbCB2YWx1ZXMuIEkgaW5jbHVkZWQgdGhpcyBoZXJlOg0KDQotIG5hbWU6IHZvbHRhZ2Ug
-c2Vuc29yIHBhdGggZ3JvdXANCiAgY2xhc3M6IGdyb3VwDQogIGdyb3VwOiBwYXRoDQogIG1lbWJl
-cnM6DQogICAgLSBtZXRhOiBTRU5TT1INCiAgICAgIHBhdGg6IC94eXovb3BlbmJtY19wcm9qZWN0
-L3NlbnNvcnMvdm9sdGFnZS9QVk5OX1BDSF9BVVgNCiAgICAtIG1ldGE6IFNFTlNPUg0KICAgICAg
-cGF0aDogL3h5ei9vcGVuYm1jX3Byb2plY3Qvc2Vuc29ycy92b2x0YWdlL1AzVkJBVA0KDQotIG5h
-bWU6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBkZXNjcmlwdGlvbjogPg0KICAg
-ICdzZW5zb3Igc3RhdGUuJw0KICBjbGFzczogZ3JvdXANCiAgZ3JvdXA6IHByb3BlcnR5DQogIHR5
-cGU6IGJvb2xlYW4NCiAgbWVtYmVyczoNCiAgICAtIGludGVyZmFjZTogeHl6Lm9wZW5ibWNfcHJv
-amVjdC5TZW5zb3JzLlRocmVzaG9sZC5Dcml0aWNhbA0KICAgICAgbWV0YTogUFJPUEVSVFkNCiAg
-ICAgIHByb3BlcnR5OiBDcml0aWNhbEFsYXJtSGlnaA0KICAgIC0gaW50ZXJmYWNlOiB4eXoub3Bl
-bmJtY19wcm9qZWN0LlNlbnNvcnMuVGhyZXNob2xkLkNyaXRpY2FsDQogICAgICBtZXRhOiBQUk9Q
-RVJUWQ0KICAgICAgcHJvcGVydHk6IENyaXRpY2FsQWxhcm1Mb3cNCg0KLSBuYW1lOiB3YXRjaCBz
-ZW5zb3Igc3RhdGUNCiAgZGVzY3JpcHRpb246ID4NCiAgICAnVHJpZ2dlciBsb2dpYyBvbiBzZW5z
-b3Igc3RhdGUuJw0KICBjbGFzczogd2F0Y2gNCiAgd2F0Y2g6IHByb3BlcnR5DQogIHBhdGhzOiB2
-b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBw
-cm9wZXJ0eSBncm91cA0KICBjYWxsYmFjazogc2Vuc29yIGNvdW50IGNvbmRpdGlvbg0KDQotIG5h
-bWU6IHNlbnNvciBjb3VudCBjb25kaXRpb24NCiAgZGVzY3JpcHRpb246ID4NCiAgICAnY2hlY2sg
-Y3JpdGljYWwgY29uZGl0aW9uIG9mIHRoZSBzZW5zb3JzLicNCiAgY2xhc3M6IGNvbmRpdGlvbg0K
-ICBjb25kaXRpb246IGNvdW50DQogIHBhdGhzOiB2b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQog
-IHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBjYWxsYmFjazog
-bG9nIGFuZCBzaHV0ZG93bg0KICBjb3VudG9wOiAnPicNCiAgY291bnRib3VuZDogMA0KICBvcDog
-Jz09Jw0KICBib3VuZDogdHJ1ZQ0KIA0KLSBuYW1lOiBsb2cgYW5kIHNodXRkb3duDQogIGRlc2Ny
-aXB0aW9uOiA+DQogICAgJ1NodXQgdGhlIHN5c3RlbSBkb3duIGFuZCBsb2cgYW4gZXZlbnQuJw0K
-ICBjbGFzczogY2FsbGJhY2sNCiAgY2FsbGJhY2s6IGdyb3VwDQogIG1lbWJlcnM6DQogICAgLSBl
-eGFtcGxlIGpvdXJuYWwgY2FsbGJhY2sNCiAgICAtIHNlbnNvciBjcml0aWNhbCBlcnJvcg0KICAg
-IC0gY3JlYXRlIHNodXRkb3duIGVycm9yDQoNCi0gbmFtZTogZXhhbXBsZSBqb3VybmFsIGNhbGxi
-YWNrDQogIGRlc2NyaXB0aW9uOiA+DQogICAgJyBleGFtcGxlIGpvdXJuYWwgY2FsbGJhY2snDQog
-IGNsYXNzOiBjYWxsYmFjaw0KICBjYWxsYmFjazogam91cm5hbA0KICBwYXRoczogdm9sdGFnZSBz
-ZW5zb3IgcGF0aCBncm91cA0KICBwcm9wZXJ0aWVzOiBzZW5zb3IgY3JpdGljYWwgcHJvcGVydHkg
-Z3JvdXANCiAgc2V2ZXJpdHk6IElORk8NCiAgbWVzc2FnZTogSGVsbG8gd29ybGQgZnJvbSBQRE0h
-DQoNCi0gbmFtZTogc2Vuc29yIGNyaXRpY2FsIGVycm9yDQogIGNsYXNzOiBjYWxsYmFjaw0KICBj
-YWxsYmFjazogZWxvZ193aXRoX21ldGFkYXRhDQogIHBhdGhzOiB2b2x0YWdlIHNlbnNvciBwYXRo
-IGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNhbCBwcm9wZXJ0eSBncm91cA0KICBl
-cnJvcjogeHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6VGhyZXNob2xkOjpFcnJvcjo6Q3Jp
-dGljYWxIaWdoDQogIG1ldGFkYXRhOiB4eXo6Om9wZW5ibWNfcHJvamVjdDo6U2Vuc29yOjpUaHJl
-c2hvbGQ6OkNyaXRpY2FsSGlnaDo6U0VOU09SX0RBVEENCg0KLSBuYW1lOiBjcmVhdGUgc2h1dGRv
-d24gZXJyb3INCiAgZGVzY3JpcHRpb246ID4NCiAgICAnQ3JlYXRlIGEgU3lzdGVtU2h1dGRvd24g
-RXJyb3IgbG9nLicNCiAgY2xhc3M6IGNhbGxiYWNrDQogIGNhbGxiYWNrOiBlbG9nDQogIHBhdGhz
-OiB2b2x0YWdlIHNlbnNvciBwYXRoIGdyb3VwDQogIHByb3BlcnRpZXM6IHNlbnNvciBjcml0aWNh
-bCBwcm9wZXJ0eSBncm91cA0KICBlcnJvcjogeHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6
-VGhyZXNob2xkOjpFcnJvcjo6Q3JpdGljYWxIaWdoDQogIG1ldGFkYXRhOg0KICAgIC0gbmFtZTog
-eHl6OjpvcGVuYm1jX3Byb2plY3Q6OlNlbnNvcjo6VGhyZXNob2xkOjpDcml0aWNhbEhpZ2g6OlNF
-TlNPUl9EQVRBDQogICAgICB2YWx1ZTogdGVzdGluZy4uLg0KICAgICAgdHlwZTogc3RyaW5nDQoN
-Cg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTWF0dGhldyBCYXJ0aCBbbWFp
-bHRvOm1zYmFydGhAbGludXguaWJtLmNvbV0gDQpTZW50OiBUdWVzZGF5LCBBcHJpbCA5LCAyMDE5
-IDQ6MTIgUE0NClRvOiBNYXR0IFNwaW5sZXIgPG1zcGlubGVyQGxpbnV4LmlibS5jb20+OyBXaW0g
-VmVydm9vcm4gPHd2ZXJ2b29ybkBlbHRhbi5jb20+OyBMZWkgWVUgPG1pbmUyNjAzMDlAZ21haWwu
-Y29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KU3ViamVjdDogUmU6IHVzaW5nIHBo
-b3NwaG9yLWRidXMtbW9uaXRvcg0KDQoNCg0KT24gNC85LzE5IDg6NTAgQU0sIE1hdHQgU3Bpbmxl
-ciB3cm90ZToNCj4gSGkgV2ltLA0KPiANCj4gSWYgeW91IGNvdWxkIHBvc3QgeW91ciBZQU1MIHNv
-bWV3aGVyZSwgSSBjb3VsZCB0YWtlIGEgbG9vayBmb3IgYW55IA0KPiBvYnZpb3VzIHByb2JsZW1z
-Lg0KSWYgeW91IGNvdWxkIGFsc28gcHJvdmlkZSBhIGxpdHRsZSBtb3JlIGRldGFpbHMgb24gdGhl
-IGVycm9yIHlvdXIgYXR0ZW1wdGluZyB0byBsb2cgd291bGQgYmUgaGVscGZ1bCAoaS5lLiBpcyB0
-aGVyZSBhIGRidXMgaW50ZXJmYWNlPykuDQo+IA0KPiBPbiA0LzkvMjAxOSAyOjIzIEFNLCBXaW0g
-VmVydm9vcm4gd3JvdGU6DQo+PiBIZWxsbyBMZWksDQo+Pg0KPj4gVGhhbmtzIGZvciB5b3VyIHJl
-c3BvbnNlLiBJIGtub3cgdGhpcyBleGFtcGxlIHRvbyBhbmQgaXQgaGVscHMgYSBiaXQgDQo+PiBi
-dXQgaXQgZG9lc27igJl0IHJlYWxseSBjbGFyaWZ5IGFsbCBpc3N1ZXMuDQo+Pg0KPj4gQXMgeW91
-J3ZlIHdvcmtlZCB3aXRoIHRoaXMgYXMgd2VsbC4gRG8geW91IHVuZGVyc3RhbmQgdGhlIG1ldGEg
-aXRlbT8gDQo+PiBUaGUgZXhhbXBsZSBpbmRpY2F0ZXMgaXQgaGFzIGRpZmZlcmVudCBtZWFuaW5n
-IGJ1dCBkb2Vzbid0IHByb3ZpZGUgDQo+PiBhbnkgcG9pbnRlcnMgdG8gd2hhdCB0aG9zZSBtZWFu
-aW5ncyBhcmUuIEhhdmUgeW91IGJlZW4gYWJsZSB0byBmaW5kIG91dD8NCldoYXQgbWV0YSBpdGVt
-IGFyZSB5b3UgcmVmZXJyaW5nIHRvPw0KPj4NCj4+IEJlc3QgUmVnYXJkcywNCj4+IFdpbSBWZXJ2
-b29ybg0KPj4NCj4+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+PiBGcm9tOiBMZWkgWVUg
-W21haWx0bzptaW5lMjYwMzA5QGdtYWlsLmNvbV0NCj4+IFNlbnQ6IFR1ZXNkYXksIEFwcmlsIDks
-IDIwMTkgNTo0NCBBTQ0KPj4gVG86IFdpbSBWZXJ2b29ybiA8d3ZlcnZvb3JuQGVsdGFuLmNvbT47
-IE1hdHRoZXcgQmFydGggDQo+PiA8bXNiYXJ0aEBsaW51eC5pYm0uY29tPg0KPj4gQ2M6IG9wZW5i
-bWNAbGlzdHMub3psYWJzLm9yZw0KPj4gU3ViamVjdDogUmU6IHVzaW5nIHBob3NwaG9yLWRidXMt
-bW9uaXRvcg0KPj4NCj4+PiBJIGFtIHRyeWluZyB0byB1c2UgcGhvc3Bob3ItZGJ1cy1tb25pdG9y
-IHRvIGNyZWF0ZSBsb2dnaW5nIG9mIHNlbnNvciANCj4+PiBleGNlcHRpb25zIGxpa2UgYSBDcml0
-aWNhbCBzdGF0ZSBvbiBhIHNwZWNpZmljIHNlbnNvci4NCj4+PiBJIGFtIGFibGUgdG8gY3JlYXRl
-IGEgc29sdXRpb24gd2l0aCBhIGJ1aWxkaW5nIHlhbWwgYnV0IGF0IHRoZSBlbmQgDQo+Pj4gaXQg
-ZG9lc27igJl0IGRlbGl2ZXIgbWUgdGhlIGRlc2lyZWQgcmVzdWx0Lg0KPj4+IEFzIHRoZXJlIGFy
-ZSB2ZXJ5IGxpbWl0ZWQgZXhhbXBsZXMgKG9uIGEgZmV3IGluIHRoZSB3aXRoZXJzcG9vbikgaXQg
-DQo+Pj4gaXMgdmVyeSBoYXJkIHRvIGZpZ3VyZSBvdXQgd2hlcmUgdGhlIG1pc3Rha2UgaXMuDQo+
-PiBUaGVyZSBpcyBhbiBleGFtcGxlIHlhbWwgY29uZmlnIGluIHRoZSByZXBvOg0KPj4gaHR0cHM6
-Ly9naXRodWIuY29tL29wZW5ibWMvcGhvc3Bob3ItZGJ1cy1tb25pdG9yL2Jsb2IvbWFzdGVyL3Ny
-Yy9leGFtDQo+PiBwbGUvZXhhbXBsZS55YW1sDQo+Pg0KPj4NCj4+IEFuZCBJIGhhdmUgdGhlIHNh
-bWUgZmVlbGluZyB0aGF0IGl0J3MgaGFyZCB0byBrbm93IHdoYXQncyB3cm9uZyBpZiANCj4+IHNv
-bWV0aGluZyBpcyB3cm9uZy5laQ0KPj4NCj4+PiBBcmUgdGhlcmUgYW55IHRvb2xzIHRoYXQgY2Fu
-IGJlIHVzZWQgdG8gbWFrZSB0aGlzIGVhc2llcj8NCj4+IEBNYXR0aGV3IEJhcnRoIENvdWxkIHlv
-dSBraW5kbHkgaGVscCB0byBhZGQgc29tZSBkb2MvdG9vbCB0byBtYWtlIGl0IA0KPj4gZWFzaWVy
-IHRvIHVzZT8NCk9yaWdpbmFsbHksIHRoZSBleGFtcGxlIHlhbWwgd2FzIG1lYW50IHRvIGJlIHRo
-ZSBkb2N1bWVudCB3aGljaCBJIHVuZGVyc3RhbmQgaXMgcHJvYmFibHkgbm90IHRoZSBncmVhdGVz
-dCBmb3JtIHdoZW4gaXQgY29tZXMgdG8gdGhpcy4gDQpVbmZvcnR1bmF0ZWx5IGVuaGFuY2luZyB0
-aGUgZG9jdW1lbnRhdGlvbiB3b3VsZCBiZSBhIGxvdyBwcmlvcml0eSBhdCB0aGlzIHRpbWUgYnV0
-IGZlZWwgZnJlZSB0byBjcmVhdGUvdXBkYXRlIHRoZSBkb2N1bWVudGF0aW9uIGZyb20geW91ciBm
-aW5kaW5ncyBhbmQgcHVzaCB0aGVtIHVwIGZvciByZXZpZXcgaWYgeW91J2QgbGlrZS4NCj4+DQo+
-Pj4gQWRkaXRpb25hbGx5IGlzIHRoaXMgdGhlIGNvcnJlY3QgbWV0aG9kIHRvIGFjaGlldmUgdGhp
-cyBnb2FsIG9yIA0KPj4+IHNob3VsZCBJIHVzZSBzb21ldGhpbmcgZWxzZSB0byBkZWZpbmUgY29u
-ZGl0aW9ucyBmb3IgbG9nZ2luZz8NCj4+IEkgdGhpbmsgc28uIFRoaXMgcmVwbyBpcyBpbnRlbmRl
-ZCB0byB3YXRjaCB0aGUgZGJ1cyBhbmQgZG8gc3R1ZmYgYXMgDQo+PiB5YW1sIGNvbmZpZy4NCkNv
-cnJlY3QuIFRoaXMgcmVwbyB3YXMgaW50ZW5kZWQgdG8gcGVyZm9ybSBlcnJvciBsb2dnaW5nIGFu
-ZC9vciBzeXN0ZW0gbGV2ZWwgYWN0aW9ucywgc3VjaCBhcyBhIHNodXRkb3duLCBiYXNlZCBvbiBv
-YmplY3QgcHJvcGVydGllcyBvbiBkYnVzLg0KPj4NCj4+DQoNCg0KDQo=
+Hi Alexander,
+
+A while back we had some intermittent CI failures when
+trying to retrieve the ipmitool package from sourceforge.
+
+The link for ipmitool on sourceforge shows it's been moved
+to github. Are there plans to update the recipe upstream to
+use github? William noted in the infrastructure workgroup that
+you'll probably have to provide the package in the expected
+format on github for it to work.
+
+The recipe is:
+meta-openembedded/meta-oe/recipes-kernel/ipmitool/ipmitool_1.8.18.bb
+
+Andrew
