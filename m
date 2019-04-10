@@ -1,73 +1,55 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::842; helo=mail-qt1-x842.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="R7RgLmXN"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44fPKG6mmpzDqCt
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 22:55:45 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3ACscdC124847
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 08:55:41 -0400
-Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rsey0dwmk-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 08:55:41 -0400
-Received: from localhost
- by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
- Wed, 10 Apr 2019 13:55:39 +0100
-Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
- by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Wed, 10 Apr 2019 13:55:38 +0100
-Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
- [9.149.105.232])
- by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x3ACtbVL57933852
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 10 Apr 2019 12:55:37 GMT
-Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4DE85205F;
- Wed, 10 Apr 2019 12:55:36 +0000 (GMT)
-Received: from [9.85.139.199] (unknown [9.85.139.199])
- by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTPS id 61E2552050;
- Wed, 10 Apr 2019 12:55:35 +0000 (GMT)
-Subject: Re: Switching to static network address issues
-To: gmills@us.ibm.com, openbmc@lists.ozlabs.org
-References: <CAN9Jwz1y3q3msG28uck2_0oyqNwmACbixHCRiF-hbshZ7ZLTJg@mail.gmail.com>
- <CAPnigKkYwyMKR3Wb2ehajEfmKjHgFdgHTZRXYcsF_RSyBiiKeg@mail.gmail.com>
- <CAN9Jwz3=X-FMaCgG9YNiU3VgtvqA34XRdfaS8rGDXdVgswKS4w@mail.gmail.com>
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Date: Wed, 10 Apr 2019 18:25:32 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44fQ0x3h8nzDqNN
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 23:26:41 +1000 (AEST)
+Received: by mail-qt1-x842.google.com with SMTP id z17so2721218qts.13
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 06:26:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=pKbq6W5n8dGMmRV06rUmCNgaCIhmtBLSqoVITCIi4bs=;
+ b=R7RgLmXNTC+CYEhJACF+DxosDDEtQkPTBh5yQFiGvpbFPZKdslXCJVxRCXWv7PHJoh
+ 7/rKE4Ld7e25M+trkOqokao69Hjm7rbWF0cIRqP3p+ETYgJLzKS9a3+S17selfUmwFS1
+ 3cRnskQt0jXs2ZIfaOL69z0zj/Tli4dskT3zw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=pKbq6W5n8dGMmRV06rUmCNgaCIhmtBLSqoVITCIi4bs=;
+ b=LA7op4ybY83Ps60WlOuFRvOD30Yuy9nLzeMvWE+7Cytco1eO8JfAJnBmpt32ciHvGo
+ eyUgNFJ4/2pDTiRFXKHRWn8I38qlS4SzmDl5/VLA3gME00bz0mILi0S0qHUPEjq77Tjw
+ jI9bLax6a9oXiquOboI8cduUC4Mqz/STlyFzeVae+1e2DHO4CCP2ltQfmT0lFHdBY0Yi
+ 9g1Ux+MKuDd2J/WgWVFEheZTRojKhVvqZ9GIBiI4aD7XPgZ9OB7vjQP6pGj6CeuShovJ
+ LURC4kHK49g7kRtXQ8QxRHg5p/er6jlyRxd1Jg2E4qNqMVglI/b0G1J0scFIx6Uw6fkb
+ Oc1Q==
+X-Gm-Message-State: APjAAAVvHn1Fiy5B6g+qLw9rfVWUfZr79Bl0p/1Ndu0bMup8WA+KCwmP
+ s7a5ZrzcQ+AEuZsogJtuHQu9O6OauhYxqKmjAvJJHb4A
+X-Google-Smtp-Source: APXvYqwuGlcmhemUEpcNV+uD5iGlfug91i2qq9rucMa0XOj5sxBA6jTw32MOzHqoTVUnDeYCBVBx7E9YbDkXbdmMycQ=
+X-Received: by 2002:ad4:42cb:: with SMTP id f11mr35015583qvr.53.1554902797156; 
+ Wed, 10 Apr 2019 06:26:37 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <CAN9Jwz3=X-FMaCgG9YNiU3VgtvqA34XRdfaS8rGDXdVgswKS4w@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19041012-0020-0000-0000-0000032E512D
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19041012-0021-0000-0000-000021807C24
-Message-Id: <3e535745-9cc8-3289-61a7-8ad7a0bb9f9e@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-10_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904100092
+References: <20190409192059.1160-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20190409192059.1160-1-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 10 Apr 2019 13:26:25 +0000
+Message-ID: <CACPK8XeuVj8tZu48Ci59GGMJE9TtEP0kRZEDFhp789qQbw7Dwg@mail.gmail.com>
+Subject: Re: [PATCH dev-5.0 0/3] Improve stability of Aspeed video engine
+ driver
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Eddie James <eajames@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,62 +61,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Apr 2019 12:55:47 -0000
+X-List-Received-Date: Wed, 10 Apr 2019 13:26:43 -0000
 
-Hi Gunnar,
+Hi Jae,
 
-Can you take a look at what are the rest url which is being executed 
-underneath?
-
-Ratan
-
-
-On 10/04/19 3:39 PM, Troy Lee wrote:
-> Hi William,
+On Tue, 9 Apr 2019 at 19:21, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
 >
-> This issue could be reproduce with WebUI or REST interface.
-> 1. Starts up romulus-bmc qemu as normal, so the IP address is acquired
-> from DHCP by default, let's say "10.1.1.2".
-> 2. Open the browser and login to https://10.1.1.2/,
-> 3. Switch to [Server Configuration] tab.
->      Then you will see the current setting is "OBTAIN AN IP ADDRESS
-> AUTOMATICALLY USING DHCP".
-> 4. Click on checkbox "ASSIGN A STATIC IP ADDRESS, and DO NOT CHANGE
-> the IP address, leave it the same as DHCP IP address "10.1.1.2".
-> 5. Click on "Save settings" button.
+> This patch series improves stability of Aspeed video engine driver by fixing
+> clock control and irq handling logic in the driver.
 >
-> Thanks,
-> Vertiv Avocent
-> Troy Lee
+> Jae Hyun Yoo (3):
+>   media: platform: aspeed: fix a kernel warning on clk control
+>   media: platform: aspeed: refine clock control logic
+>   media: platform: aspeed: change irq to threaded irq
+
+I had a glance at these patches and they look okay to me. Thanks for
+the testing and sending fixes. Can you please send them upstream?
+
+I can apply them to the openbmc tree once we have Eddie's ack.
+
 >
-> William Kennington <wak@google.com> 於 2019年4月10日 週三 下午5:45寫道：
->> What are the configuration steps you are using to achieve this?
->>
->> On Wed, Apr 10, 2019 at 2:36 AM Troy Lee <leetroy@gmail.com> wrote:
->>> Hi there,
->>>
->>> We met an issue about switching network address from DHCP to static issue.
->>> If we manually set the new static IP address which is the same as
->>> DHCP, the network setting will be dropped.
->>> This issue could be reproduced on qemu with romulus-bmc daily build image.
->>>
->>> root@romulus:~# cat /etc/systemd/network/00-bmc-eth0.network
->>> [Match]
->>> Name=eth0
->>> [Network]
->>> LinkLocalAddressing=yes
->>> IPv6AcceptRA=false
->>> DHCP=false
->>> Gateway=10.1.1.1
->>> [DHCP]
->>> ClientIdentifier=mac
->>> UseDNS=true
->>> UseNTP=true
->>> UseHostname=true
->>> SendHostname=true
->>>
->>> Thanks,
->>> Vertiv Avocent
->>> Troy Lee
->>> --
->>> Yu-Ting Lee (Troy Lee) <LeeTroy@gmail.com>
+>  drivers/media/platform/aspeed-video.c | 75 ++++++++++++++++++++++-----
+>  1 file changed, 61 insertions(+), 14 deletions(-)
+>
+> --
+> 2.21.0
+>
