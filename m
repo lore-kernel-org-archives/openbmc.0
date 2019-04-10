@@ -1,54 +1,75 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="Kq0g2gdL"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44f7970wB6zDqHG
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 12:17:46 +1000 (AEST)
-Received: by mail-qt1-x841.google.com with SMTP id k14so1169058qtb.0
- for <openbmc@lists.ozlabs.org>; Tue, 09 Apr 2019 19:17:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=vWz/cmoN/LqeWgniTppKDgWtaiomZIQWBOseoR7PThw=;
- b=Kq0g2gdL/YYRhUhnJ3j1smuAr4KA1D3UU2ZCTCmiviPuJaVmRsOI0HpojPFnOrxhTw
- bpiPr4z/4G875O+dC0oXnO5g9BPzp7YzO30eqpCgqI9p5jlDGN7tYB9ZI0cp7kDD9W4L
- GQQnwW27i1LPd4o11eM6vZ5SWbkL6iY41vn8g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=vWz/cmoN/LqeWgniTppKDgWtaiomZIQWBOseoR7PThw=;
- b=dFXollEnzqfDaNHJikbdcqNPD0ssHBvN2YdnGIZ3hygl7BLNRPZKaPlxwXNJ310U4y
- C3KYY25lDlYNB6tiG8MmUI45GIcDIqD8WfF1q3IdevNdDUHUgBzmYVkAusrq3uPwNq9N
- c1rdmwKdKSTBpaFVn7nyGjk4UGcu17EHE4H4VUzmvg345/2lSV9ZxB2632x9ElaTSI0f
- gstR/Ip2AEgBgEx4HVz46adhcS92l7cS8nHsR08qeqPWSI+BjqzB/8CQLdJwose/VQzn
- hwokEddQ5PAv8mOTG60uDSU17rE1Fyd6nhRYrcX3geSEniJUlPD3AWtG/Dyc0P+PEz4y
- H4SA==
-X-Gm-Message-State: APjAAAUnoUXnw03xmJI7Op+ilSq4RLirlU0e9B68RdX3cMw8vjUmMJWI
- LUghJBd8PnTJwJWsCAj1XunkqMlrPmrIga8EN9s=
-X-Google-Smtp-Source: APXvYqwke+cVhA0Ilx+IJH71enZ3aFOZq+/WgBLWKKzKQsQXrfllve2n8pbnbU2PDxawpqC916B8Ki12qrMvXD+Qgoo=
-X-Received: by 2002:ac8:2f85:: with SMTP id l5mr34165295qta.269.1554862662675; 
- Tue, 09 Apr 2019 19:17:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44fBd85DRGzDqHR
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 14:53:48 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3A4rhjV026483
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 00:53:45 -0400
+Received: from e06smtp05.uk.ibm.com (e06smtp05.uk.ibm.com [195.75.94.101])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2rs8383jmc-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 00:53:44 -0400
+Received: from localhost
+ by e06smtp05.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Wed, 10 Apr 2019 05:53:38 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp05.uk.ibm.com (192.168.101.135) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 10 Apr 2019 05:53:36 +0100
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+ [9.149.105.58])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3A4raFC61014210
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 04:53:36 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E72C44C050
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 04:53:35 +0000 (GMT)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 97DEF4C040
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 04:53:35 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.20])
+ by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 04:53:35 +0000 (GMT)
+Subject: Re: Sending the FD over D-bus
+To: openbmc@lists.ozlabs.org
+References: <d27b3022-cf65-80e3-fcea-8e7e9027acaa@linux.vnet.ibm.com>
+ <CAPnigKkHnc_zWQDw2XzgUdGLn2rUar7tgwuXsh4rO6L7vCiJ6g@mail.gmail.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Wed, 10 Apr 2019 10:23:40 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <CAO=notxhe24e8-1dTcspD_H7xTy49yEnnn-gJbUciekirzKC_w@mail.gmail.com>
-In-Reply-To: <CAO=notxhe24e8-1dTcspD_H7xTy49yEnnn-gJbUciekirzKC_w@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 10 Apr 2019 02:17:31 +0000
-Message-ID: <CACPK8XfwP_DwqthSwgFGMjqRepGkC1XdziZ+eEds=6ND_Ov71Q@mail.gmail.com>
-Subject: Re: transitioning from 4.17.18 to 5.0.6
-To: Patrick Venture <venture@google.com>, Jeremy Kerr <jk@ozlabs.org>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CAPnigKkHnc_zWQDw2XzgUdGLn2rUar7tgwuXsh4rO6L7vCiJ6g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+x-cbid: 19041004-0020-0000-0000-0000032E25E4
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041004-0021-0000-0000-000021804E4F
+Message-Id: <cbd4d001-b440-756e-4a08-55d864d00c46@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-10_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904100035
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,30 +81,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Apr 2019 02:17:48 -0000
+X-List-Received-Date: Wed, 10 Apr 2019 04:53:50 -0000
 
-On Tue, 9 Apr 2019 at 16:35, Patrick Venture <venture@google.com> wrote:
->
-> HI, I ran into some weirdness when transitioning from 4.17.18 to 5.0.6
-> with the quanta-q71l board.  More specifically now my host can't talk
-> to the BMC via ipmi-bt.  All it returns is 0xd5.  on the BMC itself, I
-> can talk to ipmid file via dbus, and btbridge is running.
->
-> Has anyone else run into weirdness?
+On 10/04/19 7:43 AM, William Kennington wrote:
+> What is the issue with just sending them over d-bus? The only party
+> that can view the messages outside of the normal unicast partner is
+> the dbus-broker process. You are still trusting the dbus-broker in the
+> file descriptor case. On top of that you are probably still trusting
+> the mapper to give you the correct service name prior to sending the
+> secrets.
 
-I've not seen that.
 
-My only guess is there is an issue with clocking. Can you try booting
-the machine with clk_ignore_unused in your kernel command line?
++1
 
->
-> I am seeing:
->
-> [    4.645814] ipmi-bt-host 1e789140.ibt: Found bt bmc device
-> [    4.650341] ipmi-bt-host 1e789140.ibt: Using IRQ 32
->
-> The dts file I'm using is basically identical to the upstream one, and
-> my defconfig is also nearly identical to what's in meta-aspeed for the
-> ast2400.
->
-> Patrick
+
+Ratan,
+
+In case bmcweb makes a D-Bus method call to phosphor-user-manager, and 
+one of the args of that method call is the password, is the value of 
+that argument even visible to other processes connected to the system 
+bus? If it is, two processes can talk to each other directly using 
+libdbus, that wouldn't even involve the system d-bus daemon/dbus-broker 
+I guess.
+
+Regards,
+Deepak
+
+> On Tue, Apr 9, 2019 at 12:49 PM Ratan Gupta <ratagupt@linux.vnet.ibm.com> wrote:
+>>
+>> Hi All,
+>>
+>> As Discussed in yesterday community call, I did some POC to send the
+>> unix FD object over the D-Bus.
+>>
+>> BackGround: We are exploring the possibilities how to send the secrets
+>> from one process to other process,
+>>
+>> a) If the IPC is D-bus
+>>
+>> b) Calling process doesn't have the root permission to write the secrets
+>> in the configuration file.
+>>
+>> One of the proposal came, Can the calling process  send the unix fd over
+>> the D-Bus instead of sending the actual password
+>>
+>> and receiving process reads the data from the sent fd.?
+>>
+>> There was a confusion if some other app can snoop the D-bus message and
+>> get the FD and read it.I tried to simulate the same
+>>
+>> behavior in the POC but not sure whether it is correct or not.
+>>
+>> This POC has two files which is attached with this mail.
+>>
+>> Dbus-Service(dbus-service-fd-test.py):  Method(readFD) which takes the
+>> unix fd as parameter reads it and send the data back
+>>
+>> Dbus-Client(dbus-client-fd-test.py): Writes dummy data in the file, then
+>> opens the file and send the fd over D-bus.
+>>
+>>
+>> After sending the data over D-bus , I introduced a sleep of 15 sec so
+>> that I can try to open the same fd from other
+>>
+>> process,I open the python shell and try to open the shared FD but
+>> couldn't open it.
+>>
+>> Ratan
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+> 
