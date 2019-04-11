@@ -1,56 +1,41 @@
-Return-Path: <3eJmvXAcKB1UI1AGHE13BB381.zB9BC1Ay9z85FGF.BM8xyF.BE3@flex--venture.bounces.google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::44a; helo=mail-pf1-x44a.google.com;
- envelope-from=3ejmvxackb1ui1aghe13bb381.zb9bc1ay9z85fgf.bm8xyf.be3@flex--venture.bounces.google.com;
- receiver=<UNKNOWN>)
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="dAA7wpXn"; 
- dkim-atps=neutral
-Received: from mail-pf1-x44a.google.com (mail-pf1-x44a.google.com
- [IPv6:2607:f8b0:4864:20::44a])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44gBNN2LYmzDqS4
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 05:46:04 +1000 (AEST)
-Received: by mail-pf1-x44a.google.com with SMTP id u78so4866509pfa.12
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 12:46:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=bOUegwfXNh+pk6vbSUWT6G5mVy/gXi/mLOHQhF5Bjt0=;
- b=dAA7wpXnFR6NeHp85zjUKRWGrZYLALZe2dD4DnQfx8Yuev/kP9HntOLNQ2p01uJVWj
- g+01KKD2R1GDt34AXmFHV2ELytvrH0dc5SrFX12w/Pp6tz6TAdQEXE5E3WOO7l/3ibiY
- dpWiEdQxnqDDAat2s5GyQdiycWgzoeX9O0s32D+CXlZVK7p5wxb3qaCUdbQxWSurJhQy
- 1m1pxS+IyOV6hrDZZb54VSDk6QEMHWGdB0kDklDGqK/2KFZ6utbzxHDTChI/x7EQgAUR
- 3qIlUP6JSxMDcTztzV4sqNkVQ/vauanq4CHU2plHuLdXmqKlH/qYslNPVNSmIqYZg3om
- NLDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=bOUegwfXNh+pk6vbSUWT6G5mVy/gXi/mLOHQhF5Bjt0=;
- b=l9Jt7UMCKryVBcv093Mp2PKYDg5jDyt0CjHNjDVqqhs9SPcJDWqudrggX/r/hKwaa/
- PnEhfKUD6TqsDytC+kgs3UFlfbFRq4i0frA98VU1eJcWr+4oLo55VM5dkYtMd/RSQqS5
- la6qdCZKOUv/eqUZyWK1+YDZVywu5oey7i//0Qz+8NJ0PgWMVg7GkAddHXaQNpxRv2HP
- BQcwTVofxfwJLt068mYkIWNWyy8/Q3LOgW+xfGH76CaTcF8PoyCe3ElQUPvCYqxqC3TB
- j/Mr8hQGj7wO/6qpcsPqdVSrNXp7nodr7vREqa6qM2NEWL+emuRJ7r1f1w3ZvDIQhmuv
- tilg==
-X-Gm-Message-State: APjAAAXd4GJXH5r5ymT+ZR7EHevROBNGR44FX/vjcumwYI5JmAogLfZy
- OiRFmoKRv8ptC2Urww0yQIiZgTqR/tLR
-X-Google-Smtp-Source: APXvYqxRv7bNpVeflft6+0QvV/fOQh1EigiInIv32etcLfOCnFILwHxDTW2vk9Jpr2ym/Xw+1JTAaPCU3/ir
-X-Received: by 2002:a62:d241:: with SMTP id c62mr1542920pfg.110.1555011960787; 
- Thu, 11 Apr 2019 12:46:00 -0700 (PDT)
-Date: Thu, 11 Apr 2019 12:45:57 -0700
-Message-Id: <20190411194557.65574-1-venture@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.392.gf8f6787159e-goog
-Subject: [PATCH dev-5.0] hwmon: (pmbus/ir38064): Add driver for Infineon
- IR38064 Voltage Regulator
-From: Patrick Venture <venture@google.com>
-To: venture@google.com, joel@jms.id.au, andrew@aj.id.au
-Cc: Maxim Sloyko <maxims@google.com>, openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44gBSF4xzlzDqSQ
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 05:49:32 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2019 12:49:30 -0700
+X-IronPort-AV: E=Sophos;i="5.60,338,1549958400"; d="scan'208";a="222707122"
+Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
+ ([10.7.150.62])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 11 Apr 2019 12:49:30 -0700
+Date: Thu, 11 Apr 2019 12:49:29 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Alexander Amelkin <a.amelkin@yadro.com>
+Cc: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ William Kennington <wak@google.com>
+Subject: Re: ipmitool recipe update needed?
+Message-ID: <20190411194929.GD15959@mauery.jf.intel.com>
+References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+ <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,118 +47,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 19:46:13 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 19:49:34 -0000
 
-From: Maxim Sloyko <maxims@google.com>
+On 11-Apr-2019 02:08 PM, Alexander Amelkin wrote:
+>Hi, Andrew!
+>
+>Yes, I've seen that recipe and planned to update it, just didn't have time to. You may do so yourself if you want.
+>
+>Releases are automatically packaged by GitHub according to tags and the tags in the project are like IPMITOOL_1_8_18, so the packaged release is https://github.com/ipmitool/ipmitool/archive/IPMITOOL_1_8_18.tar.gz
+>
+>For future releases I planned to continue using the same tagging scheme.
 
-Add the pmbus driver for the Infineon ir38064 voltage regulator.
+Would it be better to just point at the upstream release tag instead of 
+the release tarball?
 
-Signed-off-by: Maxim Sloyko <maxims@google.com>
-Signed-off-by: Patrick Venture <venture@google.com>
----
- drivers/hwmon/pmbus/Kconfig   |  9 ++++++
- drivers/hwmon/pmbus/Makefile  |  1 +
- drivers/hwmon/pmbus/ir38064.c | 60 +++++++++++++++++++++++++++++++++++
- 3 files changed, 70 insertions(+)
- create mode 100644 drivers/hwmon/pmbus/ir38064.c
+Along these lines, if we can get my pending dbus interface pull-request 
+merged, openbmc can use the upstream ipmitool with only one patch to 
+change the default interface (which is on my list to make a --configure 
+option at some point).
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 15c197f1c4c4..b6c228a55da2 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -64,6 +64,15 @@ config SENSORS_ISL68137
- 	  This driver can also be built as a module. If so, the module will
- 	  be called isl68137.
- 
-+config SENSORS_IR38064
-+	tristate "Infineon IR38064"
-+	help
-+	  If you say yes here you get hardware monitoring support for Infineon
-+	  IR38064.
-+
-+	  This driver can also be built as a module. If so, the module will
-+	  be called ir38064.
-+
- config SENSORS_LM25066
- 	tristate "National Semiconductor LM25066 and compatibles"
- 	help
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 0684b35216da..8ee236b1d986 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -9,6 +9,7 @@ obj-$(CONFIG_SENSORS_ADM1275)	+= adm1275.o
- obj-$(CONFIG_SENSORS_IBM_CFFPS)	+= ibm-cffps.o
- obj-$(CONFIG_SENSORS_IR35221)	+= ir35221.o
- obj-$(CONFIG_SENSORS_ISL68137)	+= isl68137.o
-+obj-$(CONFIG_SENSORS_IR38064)	+= ir38064.o
- obj-$(CONFIG_SENSORS_LM25066)	+= lm25066.o
- obj-$(CONFIG_SENSORS_LTC2978)	+= ltc2978.o
- obj-$(CONFIG_SENSORS_LTC3815)	+= ltc3815.o
-diff --git a/drivers/hwmon/pmbus/ir38064.c b/drivers/hwmon/pmbus/ir38064.c
-new file mode 100644
-index 000000000000..4b957ebb6fa7
---- /dev/null
-+++ b/drivers/hwmon/pmbus/ir38064.c
-@@ -0,0 +1,60 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon IR38064
-+ *
-+ * Copyright (c) 2017 Google Inc
-+ *
-+ */
-+
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include "pmbus.h"
-+
-+static struct pmbus_driver_info ir38064_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN] = linear,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_CURRENT_OUT] = linear,
-+	.format[PSC_POWER] = linear,
-+	.format[PSC_TEMPERATURE] = linear,
-+	.m[PSC_VOLTAGE_OUT] = 256,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+	.R[PSC_VOLTAGE_OUT] = 0,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_STATUS_INPUT
-+	    | PMBUS_HAVE_TEMP | PMBUS_HAVE_STATUS_TEMP
-+	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT
-+	    | PMBUS_HAVE_POUT,
-+};
-+
-+static int ir38064_probe(struct i2c_client *client,
-+			 const struct i2c_device_id *id)
-+{
-+	return pmbus_do_probe(client, id, &ir38064_info);
-+}
-+
-+static const struct i2c_device_id ir38064_id[] = {
-+	{"ir38064", 0},
-+	{}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, ir38064_id);
-+
-+/* This is the driver that will be inserted */
-+static struct i2c_driver ir38064_driver = {
-+	.driver = {
-+		   .name = "ir38064",
-+		   },
-+	.probe = ir38064_probe,
-+	.remove = pmbus_do_remove,
-+	.id_table = ir38064_id,
-+};
-+
-+module_i2c_driver(ir38064_driver);
-+
-+MODULE_AUTHOR("Maxim Sloyko <maxims@google.com>");
-+MODULE_DESCRIPTION("PMBus driver for Infineon IR38064");
-+MODULE_LICENSE("GPL");
--- 
-2.21.0.392.gf8f6787159e-goog
+--Vernon
+
+>Alexander.
+>
+>09.04.2019 19:02, Andrew Geissler wrote:
+>> Hi Alexander,
+>>
+>> A while back we had some intermittent CI failures when
+>> trying to retrieve the ipmitool package from sourceforge.
+>>
+>> The link for ipmitool on sourceforge shows it's been moved
+>> to github. Are there plans to update the recipe upstream to
+>> use github? William noted in the infrastructure workgroup that
+>> you'll probably have to provide the package in the expected
+>> format on github for it to work.
+>>
+>> The recipe is:
+>> meta-openembedded/meta-oe/recipes-kernel/ipmitool/ipmitool_1.8.18.bb
+>>
+>> Andrew
+>
