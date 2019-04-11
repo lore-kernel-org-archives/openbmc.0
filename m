@@ -1,52 +1,82 @@
-Return-Path: <jandraara@gmail.com>
+Return-Path: <mspinler@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::b2c; helo=mail-yb1-xb2c.google.com;
- envelope-from=jandraara@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hb8R9W6y"; 
- dkim-atps=neutral
-Received: from mail-yb1-xb2c.google.com (mail-yb1-xb2c.google.com
- [IPv6:2607:f8b0:4864:20::b2c])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44g5Z34wMvzDqSf
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 02:09:15 +1000 (AEST)
-Received: by mail-yb1-xb2c.google.com with SMTP id w206so2420740ybg.5
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 09:09:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=TgunAJMoEhbdjg6s7xmbQqIugUuTCMnjSm0VT4EOEDo=;
- b=Hb8R9W6yATyM8M7GrNP57pqkAdlZATAKNxK9g2CyXD1KCsOXDMJybc2ysj58zqjRs6
- sINt/o4B536a1BFWRAIhLyX9YI7Ek7qJr94fbeWqIGY+VeXTP60u0kFkRIW5pKPWxY8A
- zkty3i+9CeZJzxEIlfdqU5nO9duBEAHQhObDcWd6ldnk2YfHNZylSHU7dMurQwQ5fKHM
- KYuDTWuDM5BaI7Dw1nHDoXaK3pF8JkRpaBNOlH5y8gopK6aQ+e/QtOaODTTtE93yHSRD
- CO5m50Vrxf8NNn+nCN9cP/84mV8Dqo/HrkbySYNrBvCpFrwdgBbM+uw0RyOcmSW6Tw0N
- RdCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=TgunAJMoEhbdjg6s7xmbQqIugUuTCMnjSm0VT4EOEDo=;
- b=gqsN7akUSgGFG/LMqTdF789NnpJmPDcydIH6QlBrmmYL5g8uaF0Z4/j4iyHLWfXcBq
- 0m3LcqgzdYAZGvQ3KKn3uqfUUlIiQCbn4KYpal2OgQe/uQKIME9vflHvGx3v65qeaghT
- PPceGKGPHgbnlN7pA3bWw4oP4YwGb5JvTdr3e9I9nWMzXII3Ts7VM3iPvXEJBzEbosWj
- w23Jqu1Ko1kjdn85HAhoSmULp8llOuRq4MBvwJ5ZIOyziO+HAR3ZD3QHYzyWzx55kbXs
- cBTvn8QdzjU5tzPAfzZKkqDhYb97QMxj0MGTuebtEQdGnvqkyxqmR3bKtFGPuoI6wn9M
- S8dw==
-X-Gm-Message-State: APjAAAVhBsYzXCKIshy1ZCgNLKLpkjPAaED9Nq/YdIoNHd/OLx5Kuc38
- FwL8YLFRxK0sG5GOduucp7E83E1jCAacHBPVoOtp7cDx
-X-Google-Smtp-Source: APXvYqxO3iMfAo3NXvy6A3mQTea/el98AXDZAR6MG2y7GVxKwZ2U6W9rwY7KFqPgI4yiG73lo+1xgDnR6PAmEO6vfV4=
-X-Received: by 2002:a25:db51:: with SMTP id g78mr15593922ybf.146.1554998951312; 
- Thu, 11 Apr 2019 09:09:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44g5yK6SkJzDqLZ
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 02:26:49 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3BGN2Iw090962
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 12:26:46 -0400
+Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2rt841bumh-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 12:26:46 -0400
+Received: from localhost
+ by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
+ Thu, 11 Apr 2019 17:26:45 +0100
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 11 Apr 2019 17:26:43 +0100
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3BGQgDX29032554
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 11 Apr 2019 16:26:43 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C9131BE054;
+ Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 98C6FBE05B;
+ Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
+Received: from [9.10.99.36] (unknown [9.10.99.36])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
+Subject: Re: using phosphor-dbus-monitor
+To: Wim Vervoorn <wvervoorn@eltan.com>, Lei YU <mine260309@gmail.com>
+Cc: Matthew Barth <msbarth@linux.ibm.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
+ <CAARXrtkjzG80mWxR=rjYX7WeMBz4JMVz-HB1aZcjbQzE4O3zng@mail.gmail.com>
+ <39cdf20b2c8e4b528109b88bb16d3274@Eltsrv03.Eltan.local>
+From: Matt Spinler <mspinler@linux.ibm.com>
+Date: Thu, 11 Apr 2019 11:26:44 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.0
 MIME-Version: 1.0
-From: Jandra A <jandraara@gmail.com>
-Date: Thu, 11 Apr 2019 11:08:59 -0500
-Message-ID: <CAMTupoQx93hnYS1=PrFLidr+901DJnp2k4xPghVDO8B9r2QBAw@mail.gmail.com>
-Subject: Generate Certificates - GUI Design Proposals
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000001e81e6058643689d"
+In-Reply-To: <39cdf20b2c8e4b528109b88bb16d3274@Eltsrv03.Eltan.local>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19041116-0036-0000-0000-00000AA77276
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010909; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000284; SDB=6.01187605; UDB=6.00622089; IPR=6.00968368; 
+ MB=3.00026395; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-11 16:26:44
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041116-0037-0000-0000-00004B59E9B1
+Message-Id: <051affae-335d-37f6-35c4-544caecdd1c8@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-11_10:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904110109
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,43 +88,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 16:09:16 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 16:26:50 -0000
 
---0000000000001e81e6058643689d
-Content-Type: text/plain; charset="UTF-8"
 
-Hello all,
-
-We've created some initial design mockups for Generate Certificates and
-included some questions in the comments section. Please review and provide
-feedback.
-https://ibm.invisionapp.com/share/K8NYRVZVEC5#/319042048_1-_Generate_Certificates
-
-As a reminder: Use the right and left arrow keyboard to navigate through
-the mockups. To comment, click on the bottom right of the screen where it
-says '# Comments'
-
-Thank you Jayanth and Devender for helping us develop and understanding for
-this topic.
-
-Regards,
-GUI Design Team
-
---0000000000001e81e6058643689d
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><div>Hello all,</div><div><br></div><div>=
-We&#39;ve created some initial design mockups for Generate Certificates and=
- included some questions in the comments section. Please review and provide=
- feedback.</div><div><a href=3D"https://ibm.invisionapp.com/share/K8NYRVZVE=
-C5#/319042048_1-_Generate_Certificates">https://ibm.invisionapp.com/share/K=
-8NYRVZVEC5#/319042048_1-_Generate_Certificates</a></div><div><br></div><div=
->As a reminder: Use the right and left arrow keyboard to navigate through t=
-he mockups. To comment, click on the bottom right of the screen where it sa=
-ys &#39;# Comments&#39;</div><div><br></div><div>Thank you Jayanth and Deve=
-nder for helping us develop and understanding for this topic.=C2=A0</div><d=
-iv><br></div><div>Regards,</div><div>GUI Design Team=C2=A0</div></div></div=
+On 4/11/2019 8:05 AM, Wim Vervoorn wrote:
+> I just found filed an issue because phosphor-dbus-monitor doesn't support "double" values this is required to make it work when dbus-sensors is used.
 >
+> I also made 2 pull requests to resolve this.
 
---0000000000001e81e6058643689d--
+
+That's great!.
+
+Note that OpenBMC doesn't use pull requests - we do our reviews all on 
+gerrit.
+
+https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md has the details.
+
+
+>
+> Best regards,
+>
+> Wim Vervoorn
+>
+> -----Original Message-----
+> From: Lei YU [mailto:mine260309@gmail.com]
+> Sent: Thursday, April 11, 2019 2:38 PM
+> To: Wim Vervoorn <wvervoorn@eltan.com>
+> Cc: Matthew Barth <msbarth@linux.ibm.com>; Matt Spinler <mspinler@linux.ibm.com>; openbmc@lists.ozlabs.org
+> Subject: Re: using phosphor-dbus-monitor
+>
+>> I just found the reason why this wasn’t working. I overlooked a typo in the interface : Sensors instead of Sensor.
+> This is the sign of what needs to be improved. Either make it report error at compile time, or at least have a tool to verify the yaml.
+>
+>
