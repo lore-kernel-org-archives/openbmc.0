@@ -1,38 +1,77 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <ratagupt@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.120; helo=mga04.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=ratagupt@linux.vnet.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44g7DF40qlzDqS3
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 03:23:57 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 11 Apr 2019 10:23:51 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,338,1549958400"; d="scan'208";a="141947482"
-Received: from maru.jf.intel.com ([10.54.51.75])
- by orsmga003.jf.intel.com with ESMTP; 11 Apr 2019 10:23:50 -0700
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org
-Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Wolfram Sang <wsa@the-dreams.de>
-Subject: [PATCH dev-5.0 2/2] i2c: aspeed: Add multi-master use case support
-Date: Thu, 11 Apr 2019 10:23:50 -0700
-Message-Id: <20190411172350.11956-3-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190411172350.11956-1-jae.hyun.yoo@linux.intel.com>
-References: <20190411172350.11956-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44g7nq04vNzDqS3
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 03:49:34 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3BHdgMd106556
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 13:49:32 -0400
+Received: from e06smtp01.uk.ibm.com (e06smtp01.uk.ibm.com [195.75.94.97])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2rt8p6wmkc-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 13:49:30 -0400
+Received: from localhost
+ by e06smtp01.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Thu, 11 Apr 2019 18:49:28 +0100
+Received: from b06cxnps4074.portsmouth.uk.ibm.com (9.149.109.196)
+ by e06smtp01.uk.ibm.com (192.168.101.131) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 11 Apr 2019 18:49:27 +0100
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com
+ (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3BHnRL644892164
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 11 Apr 2019 17:49:27 GMT
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EAA34A405B;
+ Thu, 11 Apr 2019 17:49:26 +0000 (GMT)
+Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 400C9A405F;
+ Thu, 11 Apr 2019 17:49:25 +0000 (GMT)
+Received: from [9.85.130.91] (unknown [9.85.130.91])
+ by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 11 Apr 2019 17:49:24 +0000 (GMT)
+Subject: Re: Sending the FD over D-bus
+To: vishwa <vishwa@linux.vnet.ibm.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <d27b3022-cf65-80e3-fcea-8e7e9027acaa@linux.vnet.ibm.com>
+ <51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Thu, 11 Apr 2019 23:19:21 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com>
+Content-Type: multipart/alternative;
+ boundary="------------1E6EAF8A1858ABBD2B184603"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19041117-4275-0000-0000-00000326DB3A
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041117-4276-0000-0000-00003835FCBA
+Message-Id: <026ee4cc-7fd2-17a7-146c-08e1000439dd@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-11_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904110118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,289 +83,246 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 17:23:58 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 17:49:35 -0000
 
-In multi-master environment, this driver's master cannot know
-exactly when a peer master sends data to this driver's slave so
-cases can be happened that this master tries sending data through
-the master_xfer function but slave data from a peer master is still
-being processed or slave xfer is started by a peer immediately
-after it queues a master command. To support multi-master use cases
-properly, this H/W provides arbitration in physical level and it
-provides priority based command handling too to avoid conflicts in
-multi-master environment, means that if a master and a slave events
-happen at the same time, H/W will handle a higher priority event
-first and a pending event will be handled when bus comes back to
-the idle state.
+This is a multi-part message in MIME format.
+--------------1E6EAF8A1858ABBD2B184603
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-To support this H/W feature properly, this patch adds the 'pending'
-state of master and its handling code so that the pending master
-xfer can be continued after slave operation properly.
 
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-Signed-off-by: Wolfram Sang <wsa@the-dreams.de>
----
- drivers/i2c/busses/i2c-aspeed.c | 119 +++++++++++++++++++++++++-------
- 1 file changed, 93 insertions(+), 26 deletions(-)
+On 11/04/19 1:21 PM, vishwa wrote:
+> Unless I am missing something fundamental, are we saying this ?
+>
+> Process-1:
+>
+> fd = open(foo);
+>
+> send(fd) to another process over D-Bus.
+>
+> -------------------------------
+>
+> Process-2:
+>
+> read the "fd" from D-Bus
+>
+> read(fd,..)
+>
+> The process-2 would not even have entries in file desc table to map 
+> fd. So it would return EBADF. If the read succeeds, then it would be a 
+> read from a locally opened file that returned the same fd number part 
+> of open();
 
-diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index 833b6b6a4c7e..6c8b38fd6e64 100644
---- a/drivers/i2c/busses/i2c-aspeed.c
-+++ b/drivers/i2c/busses/i2c-aspeed.c
-@@ -117,6 +117,7 @@
- 
- enum aspeed_i2c_master_state {
- 	ASPEED_I2C_MASTER_INACTIVE,
-+	ASPEED_I2C_MASTER_PENDING,
- 	ASPEED_I2C_MASTER_START,
- 	ASPEED_I2C_MASTER_TX_FIRST,
- 	ASPEED_I2C_MASTER_TX,
-@@ -126,12 +127,13 @@ enum aspeed_i2c_master_state {
- };
- 
- enum aspeed_i2c_slave_state {
--	ASPEED_I2C_SLAVE_STOP,
-+	ASPEED_I2C_SLAVE_INACTIVE,
- 	ASPEED_I2C_SLAVE_START,
- 	ASPEED_I2C_SLAVE_READ_REQUESTED,
- 	ASPEED_I2C_SLAVE_READ_PROCESSED,
- 	ASPEED_I2C_SLAVE_WRITE_REQUESTED,
- 	ASPEED_I2C_SLAVE_WRITE_RECEIVED,
-+	ASPEED_I2C_SLAVE_STOP,
- };
- 
- struct aspeed_i2c_bus {
-@@ -156,6 +158,8 @@ struct aspeed_i2c_bus {
- 	int				cmd_err;
- 	/* Protected only by i2c_lock_bus */
- 	int				master_xfer_result;
-+	/* Multi-master */
-+	bool				multi_master;
- #if IS_ENABLED(CONFIG_I2C_SLAVE)
- 	struct i2c_client		*slave;
- 	enum aspeed_i2c_slave_state	slave_state;
-@@ -251,7 +255,7 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 	}
- 
- 	/* Slave is not currently active, irq was for someone else. */
--	if (bus->slave_state == ASPEED_I2C_SLAVE_STOP)
-+	if (bus->slave_state == ASPEED_I2C_SLAVE_INACTIVE)
- 		return irq_handled;
- 
- 	dev_dbg(bus->dev, "slave irq status 0x%08x, cmd 0x%08x\n",
-@@ -277,16 +281,15 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 		irq_handled |= ASPEED_I2CD_INTR_NORMAL_STOP;
- 		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
- 	}
--	if (irq_status & ASPEED_I2CD_INTR_TX_NAK) {
-+	if (irq_status & ASPEED_I2CD_INTR_TX_NAK &&
-+	    bus->slave_state == ASPEED_I2C_SLAVE_READ_PROCESSED) {
- 		irq_handled |= ASPEED_I2CD_INTR_TX_NAK;
- 		bus->slave_state = ASPEED_I2C_SLAVE_STOP;
- 	}
--	if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
--		irq_handled |= ASPEED_I2CD_INTR_TX_ACK;
- 
- 	switch (bus->slave_state) {
- 	case ASPEED_I2C_SLAVE_READ_REQUESTED:
--		if (irq_status & ASPEED_I2CD_INTR_TX_ACK)
-+		if (unlikely(irq_status & ASPEED_I2CD_INTR_TX_ACK))
- 			dev_err(bus->dev, "Unexpected ACK on read request.\n");
- 		bus->slave_state = ASPEED_I2C_SLAVE_READ_PROCESSED;
- 		i2c_slave_event(slave, I2C_SLAVE_READ_REQUESTED, &value);
-@@ -294,9 +297,12 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 		writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
- 		break;
- 	case ASPEED_I2C_SLAVE_READ_PROCESSED:
--		if (!(irq_status & ASPEED_I2CD_INTR_TX_ACK))
-+		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
- 			dev_err(bus->dev,
- 				"Expected ACK after processed read.\n");
-+			break;
-+		}
-+		irq_handled |= ASPEED_I2CD_INTR_TX_ACK;
- 		i2c_slave_event(slave, I2C_SLAVE_READ_PROCESSED, &value);
- 		writel(value, bus->base + ASPEED_I2C_BYTE_BUF_REG);
- 		writel(ASPEED_I2CD_S_TX_CMD, bus->base + ASPEED_I2C_CMD_REG);
-@@ -310,10 +316,15 @@ static u32 aspeed_i2c_slave_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 		break;
- 	case ASPEED_I2C_SLAVE_STOP:
- 		i2c_slave_event(slave, I2C_SLAVE_STOP, &value);
-+		bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
-+		break;
-+	case ASPEED_I2C_SLAVE_START:
-+		/* Slave was just started. Waiting for the next event. */;
- 		break;
- 	default:
--		dev_err(bus->dev, "unhandled slave_state: %d\n",
-+		dev_err(bus->dev, "unknown slave_state: %d\n",
- 			bus->slave_state);
-+		bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
- 		break;
- 	}
- 
-@@ -329,6 +340,17 @@ static void aspeed_i2c_do_start(struct aspeed_i2c_bus *bus)
- 	u8 slave_addr = i2c_8bit_addr_from_msg(msg);
- 
- 	bus->master_state = ASPEED_I2C_MASTER_START;
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	/*
-+	 * If it's requested in the middle of a slave session, set the master
-+	 * state to 'pending' then H/W will continue handling this master
-+	 * command when the bus comes back to the idle state.
-+	 */
-+	if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
-+		bus->master_state = ASPEED_I2C_MASTER_PENDING;
-+#endif /* CONFIG_I2C_SLAVE */
-+
- 	bus->buf_index = 0;
- 
- 	if (msg->flags & I2C_M_RD) {
-@@ -384,10 +406,6 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
- 		irq_handled |= ASPEED_I2CD_INTR_BUS_RECOVER_DONE;
- 		goto out_complete;
--	} else {
--		/* Master is not currently active, irq was for someone else. */
--		if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE)
--			goto out_no_complete;
- 	}
- 
- 	/*
-@@ -399,11 +417,32 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 	if (ret) {
- 		dev_dbg(bus->dev, "received error interrupt: 0x%08x\n",
- 			irq_status);
--		bus->cmd_err = ret;
--		bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
- 		irq_handled |= (irq_status & ASPEED_I2CD_INTR_MASTER_ERRORS);
--		goto out_complete;
-+		if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
-+			bus->cmd_err = ret;
-+			bus->master_state = ASPEED_I2C_MASTER_INACTIVE;
-+			goto out_complete;
-+		}
-+	}
-+
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+	/*
-+	 * A pending master command will be started by H/W when the bus comes
-+	 * back to idle state after completing a slave operation so change the
-+	 * master state from 'pending' to 'start' at here if slave is inactive.
-+	 */
-+	if (bus->master_state == ASPEED_I2C_MASTER_PENDING) {
-+		if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
-+			goto out_no_complete;
-+
-+		bus->master_state = ASPEED_I2C_MASTER_START;
- 	}
-+#endif /* CONFIG_I2C_SLAVE */
-+
-+	/* Master is not currently active, irq was for someone else. */
-+	if (bus->master_state == ASPEED_I2C_MASTER_INACTIVE ||
-+	    bus->master_state == ASPEED_I2C_MASTER_PENDING)
-+		goto out_no_complete;
- 
- 	/* We are in an invalid state; reset bus to a known state. */
- 	if (!bus->msgs) {
-@@ -423,6 +462,20 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
- 	 * then update the state and handle the new state below.
- 	 */
- 	if (bus->master_state == ASPEED_I2C_MASTER_START) {
-+#if IS_ENABLED(CONFIG_I2C_SLAVE)
-+		/*
-+		 * If a peer master starts a xfer immediately after it queues a
-+		 * master command, change its state to 'pending' then H/W will
-+		 * continue the queued master xfer just after completing the
-+		 * slave mode session.
-+		 */
-+		if (unlikely(irq_status & ASPEED_I2CD_INTR_SLAVE_MATCH)) {
-+			bus->master_state = ASPEED_I2C_MASTER_PENDING;
-+			dev_dbg(bus->dev,
-+				"master goes pending due to a slave start\n");
-+			goto out_no_complete;
-+		}
-+#endif /* CONFIG_I2C_SLAVE */
- 		if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_ACK))) {
- 			if (unlikely(!(irq_status & ASPEED_I2CD_INTR_TX_NAK))) {
- 				bus->cmd_err = -ENXIO;
-@@ -566,7 +619,8 @@ static irqreturn_t aspeed_i2c_bus_irq(int irq, void *dev_id)
- 	 * interrupt bits. Each case needs to be handled using corresponding
- 	 * handlers depending on the current state.
- 	 */
--	if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE) {
-+	if (bus->master_state != ASPEED_I2C_MASTER_INACTIVE &&
-+	    bus->master_state != ASPEED_I2C_MASTER_PENDING) {
- 		irq_handled = aspeed_i2c_master_irq(bus, irq_remaining);
- 		irq_remaining &= ~irq_handled;
- 		if (irq_remaining)
-@@ -601,15 +655,16 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
- {
- 	struct aspeed_i2c_bus *bus = i2c_get_adapdata(adap);
- 	unsigned long time_left, flags;
--	int ret = 0;
- 
- 	spin_lock_irqsave(&bus->lock, flags);
- 	bus->cmd_err = 0;
- 
--	/* If bus is busy, attempt recovery. We assume a single master
--	 * environment.
--	 */
--	if (readl(bus->base + ASPEED_I2C_CMD_REG) & ASPEED_I2CD_BUS_BUSY_STS) {
-+	/* If bus is busy in a single master environment, attempt recovery. */
-+	if (!bus->multi_master &&
-+	    (readl(bus->base + ASPEED_I2C_CMD_REG) &
-+	     ASPEED_I2CD_BUS_BUSY_STS)) {
-+		int ret;
-+
- 		spin_unlock_irqrestore(&bus->lock, flags);
- 		ret = aspeed_i2c_recover_bus(bus);
- 		if (ret)
-@@ -629,10 +684,20 @@ static int aspeed_i2c_master_xfer(struct i2c_adapter *adap,
- 	time_left = wait_for_completion_timeout(&bus->cmd_complete,
- 						bus->adap.timeout);
- 
--	if (time_left == 0)
-+	if (time_left == 0) {
-+		/*
-+		 * If timed out and bus is still busy in a multi master
-+		 * environment, attempt recovery at here.
-+		 */
-+		if (bus->multi_master &&
-+		    (readl(bus->base + ASPEED_I2C_CMD_REG) &
-+		     ASPEED_I2CD_BUS_BUSY_STS))
-+			aspeed_i2c_recover_bus(bus);
-+
- 		return -ETIMEDOUT;
--	else
--		return bus->master_xfer_result;
-+	}
-+
-+	return bus->master_xfer_result;
- }
- 
- static u32 aspeed_i2c_functionality(struct i2c_adapter *adap)
-@@ -672,7 +737,7 @@ static int aspeed_i2c_reg_slave(struct i2c_client *client)
- 	__aspeed_i2c_reg_slave(bus, client->addr);
- 
- 	bus->slave = client;
--	bus->slave_state = ASPEED_I2C_SLAVE_STOP;
-+	bus->slave_state = ASPEED_I2C_SLAVE_INACTIVE;
- 	spin_unlock_irqrestore(&bus->lock, flags);
- 
- 	return 0;
-@@ -827,7 +892,9 @@ static int aspeed_i2c_init(struct aspeed_i2c_bus *bus,
- 	if (ret < 0)
- 		return ret;
- 
--	if (!of_property_read_bool(pdev->dev.of_node, "multi-master"))
-+	if (of_property_read_bool(pdev->dev.of_node, "multi-master"))
-+		bus->multi_master = true;
-+	else
- 		fun_ctrl_reg |= ASPEED_I2CD_MULTI_MASTER_DIS;
- 
- 	/* Enable Master Mode */
--- 
-2.21.0
+Yes, it is true that one process(D-Bus service) can send the FD to other 
+process(D-Bus service), How this is achieves internally through D-Bus 
+implementation, I have not gone through it, But the spec suggest the same.
+
+|UNIX_FD| 	|h| (104) 	Unsigned 32-bit integer representing an index into 
+an out-of-band array of file descriptors, transferred via some 
+platform-specific mechanism (mnemonic: h for handle)
+
+Please have a look at the poc also, which I shared. Process 2 doesn't 
+have any open file, still it reads the data from the shared fd.
+
+>
+> !! Vishwa !!
+>
+> On 4/10/19 3:47 AM, Ratan Gupta wrote:
+>> Hi All,
+>>
+>> As Discussed in yesterday community call, I did some POC to send the 
+>> unix FD object over the D-Bus.
+>>
+>> BackGround: We are exploring the possibilities how to send the 
+>> secrets from one process to other process,
+>>
+>> a) If the IPC is D-bus
+>>
+>> b) Calling process doesn't have the root permission to write the 
+>> secrets in the configuration file.
+>>
+>> One of the proposal came, Can the calling process  send the unix fd 
+>> over the D-Bus instead of sending the actual password
+>>
+>> and receiving process reads the data from the sent fd.?
+>>
+>> There was a confusion if some other app can snoop the D-bus message 
+>> and get the FD and read it.I tried to simulate the same
+>>
+>> behavior in the POC but not sure whether it is correct or not.
+>>
+>> This POC has two files which is attached with this mail.
+>>
+>> Dbus-Service(dbus-service-fd-test.py):  Method(readFD) which takes 
+>> the unix fd as parameter reads it and send the data back
+>>
+>> Dbus-Client(dbus-client-fd-test.py): Writes dummy data in the file, 
+>> then opens the file and send the fd over D-bus.
+>>
+>>
+>> After sending the data over D-bus , I introduced a sleep of 15 sec so 
+>> that I can try to open the same fd from other
+>>
+>> process,I open the python shell and try to open the shared FD but 
+>> couldn't open it.
+>>
+>> Ratan
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+>>
+Ratan
+
+--------------1E6EAF8A1858ABBD2B184603
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <br>
+    <div class="moz-cite-prefix">On 11/04/19 1:21 PM, vishwa wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com">Unless
+      I am missing something fundamental, are we saying this ?
+      <br>
+      <br>
+      Process-1:
+      <br>
+      <br>
+      fd = open(foo);
+      <br>
+      <br>
+      send(fd) to another process over D-Bus.
+      <br>
+      <br>
+      -------------------------------
+      <br>
+      <br>
+      Process-2:
+      <br>
+      <br>
+      read the "fd" from D-Bus
+      <br>
+      <br>
+      read(fd,..)
+      <br>
+      <br>
+      The process-2 would not even have entries in file desc table to
+      map fd. So it would return EBADF. If the read succeeds, then it
+      would be a read from a locally opened file that returned the same
+      fd number part of open();
+      <br>
+    </blockquote>
+    <p>Yes, it is true that one process(D-Bus service) can send the FD
+      to other process(D-Bus service), How this is achieves internally
+      through D-Bus implementation, I have not gone through it, But the
+      spec suggest the same.<br>
+    </p>
+    <table class="informaltable" border="1">
+      <tbody>
+        <tr>
+          <td><code class="literal">UNIX_FD</code></td>
+          <td><code class="literal">h</code> (104)</td>
+          <td>Unsigned 32-bit integer representing an index into an
+            out-of-band array of file descriptors, transferred via some
+            platform-specific mechanism (mnemonic: h for handle)</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>Please have a look at the poc also, which I shared. Process 2
+      doesn't have any open file, still it reads the data from the
+      shared fd.<br>
+    </p>
+    <blockquote type="cite"
+      cite="mid:51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com">
+      <br>
+      !! Vishwa !!
+      <br>
+      <br>
+      On 4/10/19 3:47 AM, Ratan Gupta wrote:
+      <br>
+      <blockquote type="cite">Hi All,
+        <br>
+        <br>
+        As Discussed in yesterday community call, I did some POC to send
+        the unix FD object over the D-Bus.
+        <br>
+        <br>
+        BackGround: We are exploring the possibilities how to send the
+        secrets from one process to other process,
+        <br>
+        <br>
+        a) If the IPC is D-bus
+        <br>
+        <br>
+        b) Calling process doesn't have the root permission to write the
+        secrets in the configuration file.
+        <br>
+        <br>
+        One of the proposal came, Can the calling process  send the unix
+        fd over the D-Bus instead of sending the actual password
+        <br>
+        <br>
+        and receiving process reads the data from the sent fd.?
+        <br>
+        <br>
+        There was a confusion if some other app can snoop the D-bus
+        message and get the FD and read it.I tried to simulate the same
+        <br>
+        <br>
+        behavior in the POC but not sure whether it is correct or not.
+        <br>
+        <br>
+        This POC has two files which is attached with this mail.
+        <br>
+        <br>
+        Dbus-Service(dbus-service-fd-test.py):  Method(readFD) which
+        takes the unix fd as parameter reads it and send the data back
+        <br>
+        <br>
+        Dbus-Client(dbus-client-fd-test.py): Writes dummy data in the
+        file, then opens the file and send the fd over D-bus.
+        <br>
+        <br>
+        <br>
+        After sending the data over D-bus , I introduced a sleep of 15
+        sec so that I can try to open the same fd from other
+        <br>
+        <br>
+        process,I open the python shell and try to open the shared FD
+        but couldn't open it.
+        <br>
+        <br>
+        Ratan
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      </blockquote>
+    </blockquote>
+    Ratan<br>
+  </body>
+</html>
+
+--------------1E6EAF8A1858ABBD2B184603--
