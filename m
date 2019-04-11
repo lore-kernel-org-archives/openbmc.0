@@ -1,59 +1,62 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::d2a; helo=mail-io1-xd2a.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="USPzgypt"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="G8wprP8Q"; 
  dkim-atps=neutral
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
+Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
+ [IPv6:2607:f8b0:4864:20::d2a])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44g0nS67r7zDqSY
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 22:33:48 +1000 (AEST)
-Received: by mail-qt1-x843.google.com with SMTP id s15so6825761qtn.3
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 05:33:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44g0tt1M7JzDqCk
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 22:38:29 +1000 (AEST)
+Received: by mail-io1-xd2a.google.com with SMTP id d201so5176151iof.7
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 05:38:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8n5J3n6/GiElmI6DG9UOmB8mw8JiBCrjfpez8xRj6yU=;
- b=USPzgyptRzZaj/qUluPTfNV8O/knCd4Svzl9tRLp9W8sSf8UlxEpra7EWqGnXI8L/v
- 4XeCisYoPv3i1ToWiuhze+mGXmAhUdoawstMPVtcJjL3XK3sgkuGNhA5xvod0TRI110o
- CqFgN2Qe0lIdVZVS2rDGpgXJ2wZU06K0DJHSo=
+ :cc:content-transfer-encoding;
+ bh=rZbpc/fsOKIqQ6ed17NJph7aSPPXT6DcOjCNOeTRSvM=;
+ b=G8wprP8QLIUor5uSf2nNHRKig3J2PMSsKHpGSPibdghTMumxEjLPwsA9TbC+pF6Kgd
+ qCjk+YZmTsUUnX7IV/x2jXvYvzicW2guHx4Udggnx3CLrIXnGRumHu7js9se/ENkKMnJ
+ D4gBlRrvjoNp8avsqf3n4ceE9SuYv1gB4NHyzRhHL5wbkXdZ56zfIfWxRGgk7ROS0vNf
+ cAumTeUzZ/FQQc0L0TWcFUuM/wvEr5vnOCS4jBhF+TAqSKnub+rblJDx+xOqWlNH6ciC
+ kjAZc4FY4t73qpOl5hRBceVPOMTya2ZTAqU3Xf3sv3lVNZlCtuI8okXFh9bgHXongSAZ
+ UUxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=8n5J3n6/GiElmI6DG9UOmB8mw8JiBCrjfpez8xRj6yU=;
- b=NaqhcVGDXxWpJ/rG/uN3qjWWemF0alPjvkwP8XQjecwms2t4V6abiNYdMttbBJoUrP
- DrsDXvwaE4ovW7MD1FQC1Wt1c2Pg0HAQ+mYQ1rQVY2Sd5mdLofaDIas679kiwEjaSo6B
- ZWcKPLb1JMpIFw1Yax4m/xp4C8Hw85NvK+DnqEnboQpZKfmnJzvou2jfT+AywU0spYdL
- KtJ8b+DAKEFoWNj9KnB3pKjE63BBzRlXll1cKL6P71K+KqYMXFAt9cwQZsjiqMe5gEK3
- EQ9q1dOVs92JUsTZFxtFhbAwbPkKevgj+t5urtP9SmsXfz6kw2PImMeYOnYvI0WXIJFa
- R4FQ==
-X-Gm-Message-State: APjAAAUzZPnled39/DN+sRlszOzG8Z1h/0fZbjlamjb+RAJmnxZumnh5
- BVSWyUMz666WBd/Dl+ZpLdXNQu8+gKbxe2+3jQo=
-X-Google-Smtp-Source: APXvYqxtWF47kv3O2lEG8pT4MOoApEGjm3n1fGhyo7dLmK82WkT01GIji+/o//KBwS/l58TWN4OoQGqtG2nbYSZt/h4=
-X-Received: by 2002:ac8:2c72:: with SMTP id e47mr41130710qta.189.1554986023036; 
- Thu, 11 Apr 2019 05:33:43 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=rZbpc/fsOKIqQ6ed17NJph7aSPPXT6DcOjCNOeTRSvM=;
+ b=LLuPccF7BAL2XVA9xxDxHCieUTWo5uQk0DJNIEme0o7cbsaEopA/BIwOUo82VBGBHZ
+ THgpBGvDBGpmnZEKjF8X9vkFOSv/bsjadeYuXHBaiIWN76xnJ63M1n132cfz87f6IeQv
+ LBi8F3bCJgKCoXvcvoDHHXxiqOXfQQUQWK7IgsByU+UYMgsjMZ+zAEwYRCchJpjT2PYQ
+ jiMXGufw0MJudMTLFleVa0nu7jsgI0aLYakAPXHjd4Fqq1oXVsY2muoAROZwbwz0jYSS
+ L5ZXet0KXvo7lrlp8lUHFny3MHb0/kjNpmMy2W6ZHrRcI3q6BDnAUIDbIj4pbJyg0rF9
+ X/Qw==
+X-Gm-Message-State: APjAAAUtbUSUE3dUFnokudHJKFUbuwsw6+kf/M7gntIvctCLrCSbXchR
+ yQdvnfldqHg4z6oJtcl1EyqEGPSTL0TF+nhlvGLej42riIg=
+X-Google-Smtp-Source: APXvYqxGi84c2qqJLzKe2ga1LF9mAPxY77Z4gWvf4EyzmfcHhoEKklIyK93X+xeZkl3/u+rwNV4kZd52tchPDYac3YY=
+X-Received: by 2002:a6b:7015:: with SMTP id l21mr12824730ioc.12.1554986306231; 
+ Thu, 11 Apr 2019 05:38:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <1531812378-14316-1-git-send-email-ryanchen.aspeed@gmail.com>
- <ef432789-cbfe-9adf-2562-296abc261582@yadro.com>
- <00a601d4c5bf$c01a9520$404fbf60$@aspeedtech.com>
- <a534e022-46c2-646c-9ea6-a1a2fd6ea7dd@yadro.com>
- <480daa1f8e784aad881ecb0daad62272@TWMBX02.aspeed.com>
- <d21990db-e81a-030c-1cee-4f29ce29c76b@yadro.com>
-In-Reply-To: <d21990db-e81a-030c-1cee-4f29ce29c76b@yadro.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 Apr 2019 22:03:30 +0930
-Message-ID: <CACPK8XfNyXsS3tyS8jsh60n_fiv=gtqcmZ7c5VzDJqOHCESLDg@mail.gmail.com>
-Subject: Re: [PATCHv2 linux dev-4.17 0/7] mmc/host: Add Aspeed SDIO driver
-To: Alexander Amelkin <a.amelkin@yadro.com>
-Cc: Ryan Chen <ryan_chen@aspeedtech.com>, 
+References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
+ <cd7788f6-1f41-0ab7-aebf-fed6f2a675d7@linux.ibm.com>
+ <eb2c8def113944bfacad1d5aeafb94af@Eltsrv03.Eltan.local>
+In-Reply-To: <eb2c8def113944bfacad1d5aeafb94af@Eltsrv03.Eltan.local>
+From: Lei YU <mine260309@gmail.com>
+Date: Thu, 11 Apr 2019 20:38:08 +0800
+Message-ID: <CAARXrtkjzG80mWxR=rjYX7WeMBz4JMVz-HB1aZcjbQzE4O3zng@mail.gmail.com>
+Subject: Re: using phosphor-dbus-monitor
+To: Wim Vervoorn <wvervoorn@eltan.com>
+Cc: Matthew Barth <msbarth@linux.ibm.com>,
+ Matt Spinler <mspinler@linux.ibm.com>, 
  "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,19 +68,11 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 12:33:49 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 12:38:30 -0000
 
-On Fri, 22 Mar 2019 at 23:00, Alexander Amelkin <a.amelkin@yadro.com> wrote:
-> After fixing a typo in your patch (ASPEED_CLK_GATE_SDCLKLK instead of ASPEED_CLK_GATE_SDCLK) and building the driver,
-> we've found a minor hardware issue in our design that prevented the driver from working with our board.
-> We've fixed it and it works for us now. Anyway, it would be great to see the driver upstreamed.
+> I just found the reason why this wasn=E2=80=99t working. I overlooked a t=
+ypo in the interface : Sensors instead of Sensor.
 
-We can apply it to the openbmc tree if that would help. I can't seem
-to find Ryan's v2.
-
-Alexander, if you want to post the version that you tested to the
-openbmc list I can apply that.
-
-Cheers,
-
-Joel
+This is the sign of what needs to be improved. Either make it report error =
+at
+compile time, or at least have a tool to verify the yaml.
