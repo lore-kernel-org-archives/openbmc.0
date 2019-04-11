@@ -1,69 +1,105 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.13; helo=cpsmtpb-ews08.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
+ dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="fsZ/vyTZ"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="be7+Vxv0"; 
  dkim-atps=neutral
-Received: from cpsmtpb-ews08.kpnxchange.com (cpsmtpb-ews08.kpnxchange.com
- [213.75.39.13])
- by lists.ozlabs.org (Postfix) with ESMTP id 44fyRf4nwszDqPC
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 20:48:11 +1000 (AEST)
-Received: from cpsps-ews09.kpnxchange.com ([10.94.84.176]) by
- cpsmtpb-ews08.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Thu, 11 Apr 2019 12:48:05 +0200
-X-Brand: 7Ljiz6bi2A==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=CfzZG4jl c=1 sm=1 tr=0 cx=a_idp_e
- a=/dHbpd/3q0lrH6oA/zwSgQ==:117 a=/dHbpd/3q0lrH6oA/zwSgQ==:17
- a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
- a=oexKYjalfGEA:10 a=VnNF1IyMAAAA:8 a=X5F7dNyOAAAA:8 a=pGLkceISAAAA:8
- a=voM4FWlXAAAA:8 a=peDeANYtAAAA:20 a=cJK8_A0x6vM5VSn16oIA:9
- a=CjuIK1q_8ugA:10 a=pS7LufLo7ZPxIL5li5Lt:22 a=IC2XNlieTeVoXbcui8wp:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from smtp.kpnmail.nl ([195.121.84.45]) by cpsps-ews09.kpnxchange.com
- over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
- Thu, 11 Apr 2019 12:48:05 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kpnmail.nl; s=kpnmail01;
- h=mime-version:content-type:message-id:date:subject:to:from;
- bh=Wd0l73q2jDEy1kdELmvB4tEbFwPZ/H41OtBpUJepfLU=;
- b=fsZ/vyTZjAiZWOnrOEbuEXyzNLW6YAD3/JUVzLa09slyDugVL/6emISRctzVCZ5dYknc95cMpE5P3
- voaq04ukr71Ii6JrBZvYMh9xPwRtI0w0F4FwY2LYq0kfhJ8TOrixONjXUqrKaYpA47w5URaAF/sPw4
- WD8AfeqJec8IxhFE=
-Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
- by smtp.kpnmail.nl (Halon) with ESMTPS
- id 48db4e14-5c47-11e9-8eb5-005056ab7447;
- Thu, 11 Apr 2019 12:48:04 +0200 (CEST)
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 11 Apr
- 2019 12:47:10 +0200
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Thu, 11 Apr 2019 12:46:58 +0200
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Matthew Barth
- <msbarth@linux.ibm.com>, Matt Spinler <mspinler@linux.ibm.com>
-Subject: Subject: RE: using phosphor-dbus-monitor
-Thread-Topic: Subject: RE: using phosphor-dbus-monitor
-Thread-Index: AdTwUwl25SBFFPV9RSmn8I3aFheCbg==
-Date: Thu, 11 Apr 2019 10:46:58 +0000
-Message-ID: <093a51cc056240c1ac677531f578e105@Eltsrv03.Eltan.local>
-Accept-Language: nl-NL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44fyvB5HnFzDqQX
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 21:08:37 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 84D20419A0;
+ Thu, 11 Apr 2019 11:08:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:from:from:references:subject:subject
+ :received:received:received; s=mta-01; t=1554980909; x=
+ 1556795310; bh=TqDCWc8cVSymAEx81VBiYfhXpH863e1imZoFaWI1Zj0=; b=b
+ e7+Vxv0x7+pmsP3P0MgPGVpdO+yk01IqnPFuORwhjY0aKKT+sqiy1h4PZFlIueLY
+ UrU2zwS8hkoH1R/4wY+Fer9307x/eQwMJ0mzT9wjUInac+cZH0p++fMCalwz0Pcw
+ 1it+UbWDD+xPpsvNMfo0Gt8t2+lQFgcLsBpSQc3uA8=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id 2dqZkU1SG7iw; Thu, 11 Apr 2019 14:08:29 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 3D1264197C;
+ Thu, 11 Apr 2019 14:08:29 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 11
+ Apr 2019 14:08:28 +0300
+Subject: Re: ipmitool recipe update needed?
+To: Andrew Geissler <geissonator@gmail.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+CC: William Kennington <wak@google.com>
+References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Message-ID: <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+Date: Thu, 11 Apr 2019 14:08:28 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
 MIME-Version: 1.0
-X-OriginalArrivalTime: 11 Apr 2019 10:48:05.0117 (UTC)
- FILETIME=[0AE33AD0:01D4F054]
-X-RcptDomain: lists.ozlabs.org
+In-Reply-To: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="lZ57ZDgbaN1O04ZHYwFrROxdV4dwvYxMk"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,113 +111,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 10:48:17 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 11:08:40 -0000
 
-Hello,
+--lZ57ZDgbaN1O04ZHYwFrROxdV4dwvYxMk
+Content-Type: multipart/mixed; boundary="Qg6ATJ5nd4G8UWsu1RmiTJpfZpYhz8uEU";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: William Kennington <wak@google.com>
+Message-ID: <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+Subject: Re: ipmitool recipe update needed?
+References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+In-Reply-To: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
 
-I ran into another issue with the phosphor-dbus-monitor. The mechanism is w=
-orking fine for me as long as I am using Boolean items like CriticalAlarmHi=
-gh etc.
+--Qg6ATJ5nd4G8UWsu1RmiTJpfZpYhz8uEU
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-For some reason it doesn't work if I try to use a real Value like the Value=
- in the xyz.openbmc_project.Sensor.Value interface or  the CriticalHigh in =
-the xyz.openbmc_project.Sensor.Threshold.Critical interface.
+Hi, Andrew!
 
-If I do this the "get value" always returns 0 (while in the case of the Boo=
-lean it correctly returns either 0 or 1.
+Yes, I've seen that recipe and planned to update it, just didn't have tim=
+e to. You may do so yourself if you want.
 
-One thing to mention is that I am using dbus-sensors. As far as I can see t=
-his always deals with "double" Values and I can't specify this in the yaml =
-so I used a uint64 instead.
+Releases are automatically packaged by GitHub according to tags and the t=
+ags in the project are like IPMITOOL_1_8_18, so the packaged release is h=
+ttps://github.com/ipmitool/ipmitool/archive/IPMITOOL_1_8_18.tar.gz
 
-Any suggestions?
+For future releases I planned to continue using the same tagging scheme.
 
-Best regards,
+Alexander.
 
-Wim Vervoorn
-
------Original Message-----
-Subject: RE: using phosphor-dbus-monitor
-Message-ID: <eb2c8def113944bfacad1d5aeafb94af@Eltsrv03.Eltan.local>
-Content-Type: text/plain; charset=3D"utf-8"
-
-Hello Matt,
-
-I just found the reason why this wasn?t working. I overlooked a typo in the=
- interface : Sensors instead of Sensor.
-
-Best ergards,
-
-Wim Vervoorn
-
------Original Message-----
-From: Matthew Barth [mailto:msbarth@linux.ibm.com]
-Sent: Tuesday, April 9, 2019 4:12 PM
-To: Matt Spinler <mspinler@linux.ibm.com>; Wim Vervoorn <wvervoorn@eltan.co=
-m>; Lei YU <mine260309@gmail.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: using phosphor-dbus-monitor
+09.04.2019 19:02, Andrew Geissler wrote:
+> Hi Alexander,
+>
+> A while back we had some intermittent CI failures when
+> trying to retrieve the ipmitool package from sourceforge.
+>
+> The link for ipmitool on sourceforge shows it's been moved
+> to github. Are there plans to update the recipe upstream to
+> use github? William noted in the infrastructure workgroup that
+> you'll probably have to provide the package in the expected
+> format on github for it to work.
+>
+> The recipe is:
+> meta-openembedded/meta-oe/recipes-kernel/ipmitool/ipmitool_1.8.18.bb
+>
+> Andrew
 
 
+--Qg6ATJ5nd4G8UWsu1RmiTJpfZpYhz8uEU--
 
-On 4/9/19 8:50 AM, Matt Spinler wrote:
-> Hi Wim,
->=20
-> If you could post your YAML somewhere, I could take a look for any=20
-> obvious problems.
-If you could also provide a little more details on the error your attemptin=
-g to log would be helpful (i.e. is there a dbus interface?).
->=20
-> On 4/9/2019 2:23 AM, Wim Vervoorn wrote:
->> Hello Lei,
->>
->> Thanks for your response. I know this example too and it helps a bit=20
->> but it doesn?t really clarify all issues.
->>
->> As you've worked with this as well. Do you understand the meta item?=20
->> The example indicates it has different meaning but doesn't provide=20
->> any pointers to what those meanings are. Have you been able to find out?
-What meta item are you referring to?
->>
->> Best Regards,
->> Wim Vervoorn
->>
->> -----Original Message-----
->> From: Lei YU [mailto:mine260309@gmail.com]
->> Sent: Tuesday, April 9, 2019 5:44 AM
->> To: Wim Vervoorn <wvervoorn@eltan.com>; Matthew Barth=20
->> <msbarth@linux.ibm.com>
->> Cc: openbmc@lists.ozlabs.org
->> Subject: Re: using phosphor-dbus-monitor
->>
->>> I am trying to use phosphor-dbus-monitor to create logging of sensor=20
->>> exceptions like a Critical state on a specific sensor.
->>> I am able to create a solution with a building yaml but at the end=20
->>> it doesn?t deliver me the desired result.
->>> As there are very limited examples (on a few in the witherspoon) it=20
->>> is very hard to figure out where the mistake is.
->> There is an example yaml config in the repo:
->> https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/exam
->> ple/example.yaml
->>
->>
->> And I have the same feeling that it's hard to know what's wrong if=20
->> something is wrong.ei
->>
->>> Are there any tools that can be used to make this easier?
->> @Matthew Barth Could you kindly help to add some doc/tool to make it=20
->> easier to use?
-Originally, the example yaml was meant to be the document which I understan=
-d is probably not the greatest form when it comes to this.=20
-Unfortunately enhancing the documentation would be a low priority at this t=
-ime but feel free to create/update the documentation from your findings and=
- push them up for review if you'd like.
->>
->>> Additionally is this the correct method to achieve this goal or=20
->>> should I use something else to define conditions for logging?
->> I think so. This repo is intended to watch the dbus and do stuff as=20
->> yaml config.
-Correct. This repo was intended to perform error logging and/or system leve=
-l actions, such as a shutdown, based on object properties on dbus.
->>
->>
+--lZ57ZDgbaN1O04ZHYwFrROxdV4dwvYxMk
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJcryAsAAoJEOiTWHtbdBeNC04P/je9jrO8uZTbIceSeg+F8c0t
+YsWCF/qqurADhT3JrcA+p2SJpkjCbW1D5BV3tqjP8hecm1eX9dEPBuGSy0m7mA4C
+LthtS2OCiiTfqERRzlazo494L09qMJgoKdQdNBf+N01wgwGzNHaHojocaT4wdm0I
+nRp71snV4f26diIANjezlyYGi5XzfRn5A/kEX4/gXblnIyM/jFNzLlrAIv89wsh0
+/Vwg5TsESBw6UWqSozwfVyostMGZjTRhcQHpLhtRhVl7hrO1BgeGDzJl+T14B09o
+bKLMr8CfV+3uij+oPKmfQfpWYUWfPw/d077B5V2d3DAML1Q04fkrvy5rHPytBl7e
+lffxLHvcIH0dyR8ola/CTWt7ZTzME3+by6KBj9/zpEI9eHEgZutSyWUSbJ1ERbAZ
+gEmJITtafe6lYL+V9KYxkOJ8hyOCWQEydaOXFv2YMxHAqC7pnOLXY4SnsZiDcoet
+9xu2VCIDkynLk8siD0Nd/WTdkDDwFfyvVh1fQbAbYcyx09mPbLOK2T2KRd9xWC6R
+XfAOvlOtSHeyO4fydhP2JFQYI+O50BODiDoOcifJcu9IHfLyfxBFJrCtX59B0/WS
+91iIipD/jY8+i54LlwT55UQ0e2GgvNDbsMzHqpb1PDRyIsUPNbf/KK50rPfQdzT6
+zOr//CCxf9Ym6hRvVONH
+=uhWe
+-----END PGP SIGNATURE-----
+
+--lZ57ZDgbaN1O04ZHYwFrROxdV4dwvYxMk--
