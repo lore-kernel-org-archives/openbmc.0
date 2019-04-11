@@ -1,57 +1,73 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <vishwa@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="TPgotO0t"; 
- dkim-atps=neutral
-Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
- [IPv6:2607:f8b0:4864:20::843])
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=vishwa@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ftJx3jvTzDqBG
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 17:42:09 +1000 (AEST)
-Received: by mail-qt1-x843.google.com with SMTP id s15so6026030qtn.3
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 00:42:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=47WXQ5H2gC7EYEgt9FWea71xFdlR2XJzuSeYVd1SNeE=;
- b=TPgotO0tengme0WnzwJ6YF8H9HZ+oF8bsmvKDbfWZJTY7NCJj+CEhM3rStREiQxUQg
- pIC3wLzprFHfcY1YZaUaqvgcmCa9G0bVOa2orWehmpVZTwU5gJlLBgfdif8rofBQizkP
- j7y6aEvRWSe51euwxk78U0cWJKPhtYoufwwUM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=47WXQ5H2gC7EYEgt9FWea71xFdlR2XJzuSeYVd1SNeE=;
- b=RTq98bR5xowX3mS7+6lH3LwnFRLQ198p6gTB/3+JL/wlU5jobuFkmHXCoKgSCM2zF4
- UE+g2fsrYjoQtaj0m5+7H/q7iVY4mYxcUCs8ibbIYlEsAmiV70ISnq2hysa6Oj+CiiC0
- SN6oMDjmVu/DvRrwh5OHl+MPKwkpKf+DxDsfkMyZLHNIzDsCH5i0bhesdMMzOGlXgPwK
- Q594uIEXeSGwhhv313j8ajCzRTBjvmdofDUHHrnrVhKrJlSw6GaKl7cjGFMePQ0VnkCp
- F6UOm3HW65oNDKbqKJ8GSdunqVDrsdFiX1vm8p1KF8LSVS538Tcf0eAuYSFAClLWyD0N
- x78A==
-X-Gm-Message-State: APjAAAVKXaublCm+aVov4VUwWkhXezeNvoDtILvbKp+DLkiSvHWsBBQf
- bXSr90xg4QPVlgPiFHDsyo36swRm3E4aD3LEsOI=
-X-Google-Smtp-Source: APXvYqyhtLb7wcu7Sm4PPAud9R4gkQ6CMlERJ03sAaNbnrbLVwnfSNn6Dc6bi82Qr0aH8Z1N5kkMH1WIG74hYvRbSRQ=
-X-Received: by 2002:aed:35e3:: with SMTP id d32mr39285025qte.43.1554968525878; 
- Thu, 11 Apr 2019 00:42:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ftX15ZJNzDqN6
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 17:51:38 +1000 (AEST)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3B7okXL035096
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 03:51:35 -0400
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2rt0dbkht1-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 03:51:34 -0400
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <vishwa@linux.vnet.ibm.com>;
+ Thu, 11 Apr 2019 08:51:33 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 11 Apr 2019 08:51:31 +0100
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+ [9.149.105.232])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3B7pU7S47579212
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 11 Apr 2019 07:51:30 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7B6B452050;
+ Thu, 11 Apr 2019 07:51:30 +0000 (GMT)
+Received: from [9.181.94.194] (unknown [9.181.94.194])
+ by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id 325675204F;
+ Thu, 11 Apr 2019 07:51:28 +0000 (GMT)
+Subject: Re: Sending the FD over D-bus
+To: Ratan Gupta <ratagupt@linux.vnet.ibm.com>,
+ "Tanous, Ed" <ed.tanous@intel.com>, bradleyb@fuzziesquirrel.com,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <d27b3022-cf65-80e3-fcea-8e7e9027acaa@linux.vnet.ibm.com>
+From: vishwa <vishwa@linux.vnet.ibm.com>
+Date: Thu, 11 Apr 2019 15:51:27 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190410153158.152020-1-venture@google.com>
- <8c591930-a8de-40a1-a2cb-ca77cbef55e9@www.fastmail.com>
-In-Reply-To: <8c591930-a8de-40a1-a2cb-ca77cbef55e9@www.fastmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 11 Apr 2019 07:41:54 +0000
-Message-ID: <CACPK8Xf1wQmo+ppa4zvOkSZ-scjtaqE-aCf9HSzZPu0HYK-9AQ@mail.gmail.com>
-Subject: Re: [PATCH dev-5.0] hwmon: (pmbus/isl68137): Add driver for Intersil
- ISL68137 PWM Controller
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Patrick Venture <venture@google.com>, Maxim Sloyko <maxims@google.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Robert Lippert <rlippert@google.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <d27b3022-cf65-80e3-fcea-8e7e9027acaa@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19041107-0012-0000-0000-0000030D9F16
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041107-0013-0000-0000-00002145C61F
+Message-Id: <51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-11_05:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904110056
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,31 +79,79 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 07:42:10 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 07:51:46 -0000
 
-On Thu, 11 Apr 2019 at 00:33, Andrew Jeffery <andrew@aj.id.au> wrote:
-> On Thu, 11 Apr 2019, at 01:02, Patrick Venture wrote:
-> > From: Maxim Sloyko <maxims@google.com>
-> >
-> > Adds the pmbus driver for the Intersil ISL68137 PWM Controller.
-> >
-> > Signed-off-by: Maxim Sloyko <maxims@google.com>
-> > Signed-off-by: Robert Lippert <rlippert@google.com>
-> > Signed-off-by: Patrick Venture <venture@google.com>
+Unless I am missing something fundamental, are we saying this ?
+
+Process-1:
+
+fd = open(foo);
+
+send(fd) to another process over D-Bus.
+
+-------------------------------
+
+Process-2:
+
+read the "fd" from D-Bus
+
+read(fd,..)
+
+The process-2 would not even have entries in file desc table to map fd. 
+So it would return EBADF. If the read succeeds, then it would be a read 
+from a locally opened file that returned the same fd number part of open();
+
+!! Vishwa !!
+
+On 4/10/19 3:47 AM, Ratan Gupta wrote:
+> Hi All,
 >
-> Please send it upstream for feedback, then send a backport once upstream
-> are happy.
-
-FYI, I found that one of your workmates sent the Intersil ISL68137
-patch upstream last year:
-
- https://lore.kernel.org/lkml/20181017225603.7782-1-kunyi@google.com/
-
-Guenter gave some review to fix really trivial things. I suspect with
-the two tiny changes he will accept it:
-
- https://lore.kernel.org/lkml/51dbddbc-0e92-7bb5-03c7-4bad3a0af029@roeck-us.net/
-
-Cheers,
-
-Joel
+> As Discussed in yesterday community call, I did some POC to send the 
+> unix FD object over the D-Bus.
+>
+> BackGround: We are exploring the possibilities how to send the secrets 
+> from one process to other process,
+>
+> a) If the IPC is D-bus
+>
+> b) Calling process doesn't have the root permission to write the 
+> secrets in the configuration file.
+>
+> One of the proposal came, Can the calling process  send the unix fd 
+> over the D-Bus instead of sending the actual password
+>
+> and receiving process reads the data from the sent fd.?
+>
+> There was a confusion if some other app can snoop the D-bus message 
+> and get the FD and read it.I tried to simulate the same
+>
+> behavior in the POC but not sure whether it is correct or not.
+>
+> This POC has two files which is attached with this mail.
+>
+> Dbus-Service(dbus-service-fd-test.py):  Method(readFD) which takes the 
+> unix fd as parameter reads it and send the data back
+>
+> Dbus-Client(dbus-client-fd-test.py): Writes dummy data in the file, 
+> then opens the file and send the fd over D-bus.
+>
+>
+> After sending the data over D-bus , I introduced a sleep of 15 sec so 
+> that I can try to open the same fd from other
+>
+> process,I open the python shell and try to open the shared FD but 
+> couldn't open it.
+>
+> Ratan
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
