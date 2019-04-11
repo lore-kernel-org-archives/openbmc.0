@@ -1,46 +1,73 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.253.128; helo=13.mo1.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 20999 seconds by postgrey-1.36 at bilbo;
- Thu, 11 Apr 2019 11:30:58 AEST
-Received: from 13.mo1.mail-out.ovh.net (13.mo1.mail-out.ovh.net
- [178.33.253.128])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZYMyLMzJ"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="QK9ExMOR"; dkim-atps=neutral
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44fk4f3TPQzDq9n
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 11:30:54 +1000 (AEST)
-Received: from player735.ha.ovh.net (unknown [10.109.146.173])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id E42DF168C58
- for <openbmc@lists.ozlabs.org>; Wed, 10 Apr 2019 18:02:03 +0200 (CEST)
-Received: from kaod.org (lfbn-tou-1-40-22.w86-201.abo.wanadoo.fr
- [86.201.133.22]) (Authenticated sender: clg@kaod.org)
- by player735.ha.ovh.net (Postfix) with ESMTPSA id 82D214A5D2BB;
- Wed, 10 Apr 2019 16:01:59 +0000 (UTC)
-Subject: Re: transitioning from 4.17.18 to 5.0.6
-To: Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CAO=notxhe24e8-1dTcspD_H7xTy49yEnnn-gJbUciekirzKC_w@mail.gmail.com>
- <CACPK8XfwP_DwqthSwgFGMjqRepGkC1XdziZ+eEds=6ND_Ov71Q@mail.gmail.com>
- <CAO=notwAcxqFTN31Ecfd50rkjKm9X7PQsTFAP4Rc_xvN0wALUQ@mail.gmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <e44834c9-2755-1d05-1df1-d0fa930d48bd@kaod.org>
-Date: Wed, 10 Apr 2019 18:01:58 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <CAO=notwAcxqFTN31Ecfd50rkjKm9X7PQsTFAP4Rc_xvN0wALUQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-Ovh-Tracer-Id: 1403715709209316098
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrudejgdelkecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44fpp864pLzDqPS
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 15:03:43 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 5C87221B30;
+ Thu, 11 Apr 2019 01:03:40 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Thu, 11 Apr 2019 01:03:40 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:date:from:to:cc:subject:content-type; s=
+ fm2; bh=jlwRrmn5UnbT89LyMJZ+9z/syBSMTnA8PRR3CKsXQIE=; b=ZYMyLMzJ
+ OP2CfHgaTwinFWedORrIVf8154Mz0KArw/N8YELUQle+zFMQ3NXC/jNzTce2vLLB
+ FgZGfz0gM3UIbtH5iVR39s4OuNV8Ha4kykRFuybf2u6B8pV0Y80D0ZCxOzlaf/PD
+ J/x3LINbCfa3ez+Tf/8QXxqL7/XV8v2N7yI4mKiU5jF9QlwR6EJQRYQS+dgcJmH4
+ cJfgiLvD0u5VJI+pxENJQBECov2gmB1E9T8grbLTKT6ESuDPjNyvupxSkzD6W8OL
+ 8uY4rHOqr3mo05GN3gv1reVjGziACA5EZwa5l4n1yOwfR6r/po1hpsIwFDwKWWfw
+ B0VDAXhPcFvbaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:message-id
+ :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; bh=jlwRrmn5UnbT89LyMJZ+9z/syBSMT
+ nA8PRR3CKsXQIE=; b=QK9ExMORpO+NCdzXFDiAExjEqppsXtx/VF5xnzR+fA37h
+ md33cQbH/zKrNv5LNenY6RptIOCh7mmYBOgOUeXcncEbz5WS6RUQwq1wAcb+UH4Y
+ RrY3DbvW3mYCnixC3zMdu3bvPTXzMj3xvviMxH93vjY5TdwJCZDdkZRdGE7b9D7b
+ sh4wFVHsawwRJDiSUAF7ls7rRyKFTuLn1Nwho0vE5Ws/yAUzLauEX+QdA+jq6fZm
+ PaCCInbHU+GrbrkassoL0YBJAewqdcwloKUpYztndhzFxxSuq6BD7RKvv59dI9+I
+ 8uaSnu+KsIi6PbWS4+eptsbR0Mo6oIhPvo7FyaLgg==
+X-ME-Sender: <xms:q8quXLXUNNnuoeeEdOeDGJpFeIYn1hSgnfTbE52EFi7bMzjsWJpTpA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudekgdekhecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
+ hrlhcuvffnffculddvfedmnecujfgurhepofgfggfkfffhvffutgesthdtredtreerjeen
+ ucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrih
+ gurdgruheqnecuffhomhgrihhnpehophgvnhgsmhgtqdhprhhojhgvtghtrdighiiinecu
+ rfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluh
+ hsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:rMquXACwBOMD-R2NjN0p7-iddHF4Z2k7KbX7dT89fMfQGEb_Do-RLQ>
+ <xmx:rMquXOo6_Sm1kWyzTi_mbxQe9jLK1cu78H03ziJJswnd1XTEl4hK1Q>
+ <xmx:rMquXM1tzVwmymXu62bfj3hzxMm7iQzC2U6FipRZUf5Lwf7uQlgv6A>
+ <xmx:rMquXJJdiKP7xvul9_weTPK7I0QAqFSp7zlgEn5kudB08_umFJEbbQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id E212A7C131; Thu, 11 Apr 2019 01:03:39 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.6-329-gf4aae99-fmstable-20190329v1
+Mime-Version: 1.0
+X-Me-Personality: 52947553
+Message-Id: <cd75d086-fdc0-4c83-8094-c3b802f6ad37@www.fastmail.com>
+Date: Thu, 11 Apr 2019 01:02:23 -0400
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
+ "Andrew Geissler" <geissonator@gmail.com>, wak@google.com
+Subject: =?UTF-8?Q?Using_D-Bus_well-known_service_names_and_deprecating_mapper_se?=
+ =?UTF-8?Q?rvice_lookups?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,44 +79,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 01:30:59 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 05:03:48 -0000
 
-On 4/10/19 4:39 PM, Patrick Venture wrote:
-> On Tue, Apr 9, 2019 at 7:17 PM Joel Stanley <joel@jms.id.au> wrote:
->>
->> On Tue, 9 Apr 2019 at 16:35, Patrick Venture <venture@google.com> wrote:
->>>
->>> HI, I ran into some weirdness when transitioning from 4.17.18 to 5.0.6
->>> with the quanta-q71l board.  More specifically now my host can't talk
->>> to the BMC via ipmi-bt.  All it returns is 0xd5.  on the BMC itself, I
->>> can talk to ipmid file via dbus, and btbridge is running.
->>>
->>> Has anyone else run into weirdness?
->>
->> I've not seen that.
->>
->> My only guess is there is an issue with clocking. Can you try booting
->> the machine with clk_ignore_unused in your kernel command line?
-> 
-> I'll give it a shot, although IPMI not working is odd since the
-> LPC_CLK is enabled.  But yeah, I'll try that today and reply back,
-> thanks.
+Hello,
 
-I don't see this issue on a palmetto, BMC running with 5.0.5.
+Recently Andrew Geissler, William and myself have been running into limitations of the mapper's service lookups. In my opinion we should move to use well known service names and avoiding reliance on the mapper to determine who to talk to.
 
-C. 
+My issues with using the mapper for service dependencies are:
 
+1. Ambiguities in the way `mapper wait` functions
+2. Race conditions between bus name announcement, mapper introspection and inbound service lookups
+3. Increased IPC traffic (decreasing performance).
 
-> 
->>
->>>
->>> I am seeing:
->>>
->>> [    4.645814] ipmi-bt-host 1e789140.ibt: Found bt bmc device
->>> [    4.650341] ipmi-bt-host 1e789140.ibt: Using IRQ 32
->>>
->>> The dts file I'm using is basically identical to the upstream one, and
->>> my defconfig is also nearly identical to what's in meta-aspeed for the
->>> ast2400.
->>>
->>> Patrick
+Expanding on 1, `mapper wait` takes a path name argument and waits until the path is available on a bus connection. The problem here is that multiple connections can (and do) implement objects under a given path, so the successful exit of `mapper wait` with the expectation that a given service is available can be an undefined result, as it's possible the *wrong* service was used to resolve the wait.
+
+Where this hits home is that we currently have a systemd service, mapper-wait@.service, that allows units to depend on the presence of a service providing a required path. With the ambiguity outlined above it's possible that dependent services are started earlier than they should be due to `mapper wait` falsely exiting success with respect to the dependent's actual requirement.
+
+A quick grep of the openbmc tree gives an idea of the potential problem size:
+
+$ git ls-files -- recipes-phosphor/ | grep '\.service$' | wc -l
+98
+$ git ls-files -- recipes-phosphor/ | grep '\.service$' | xargs grep -li mapper-wait | wc -l
+32
+
+So about a 1/3 generic services are potentially exposed.
+
+Point 2 leads to patches like [1] where we wind up implementing a fallback to a well-known service name if we get issues with a mapper lookup. If this is a valid approach then we should just avoid looking up the service altogether; implementing this fallback approach everywhere seems tedious and error-prone, and the lookup is a waste of resources if the fallback works regardless.
+
+By moving to well known service names we can exploit more of systemd's D-Bus integration with units of Type=dbus, and depending either on unit names aliased to D-Bus service names, or on D-Bus service activation, and receive reliable behaviour for D-Bus-based dependencies.
+
+Point 3 is something William has complained about, and I think it's a good point - avoiding IPC where we can is a good thing no matter what we're doing.
+
+I'm kicking this thread off because it's something that's bothered me for a while. I've complained about it to various people in private but have never taken it any further. My impression is that there's support for the idea that we move away from the mapper for service lookups (though we can't eliminate it entirely, we still need the interface reverse mapping feature), and I want to gauge how much support it has and whether there are solid counter-arguments.
+
+Cheers,
+
+Andrew
+
+[1] https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-state-manager/+/20460
