@@ -1,73 +1,57 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.25; helo=out1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ZYMyLMzJ"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="QK9ExMOR"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="TPgotO0t"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44fpp864pLzDqPS
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 15:03:43 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 5C87221B30;
- Thu, 11 Apr 2019 01:03:40 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 11 Apr 2019 01:03:40 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:date:from:to:cc:subject:content-type; s=
- fm2; bh=jlwRrmn5UnbT89LyMJZ+9z/syBSMTnA8PRR3CKsXQIE=; b=ZYMyLMzJ
- OP2CfHgaTwinFWedORrIVf8154Mz0KArw/N8YELUQle+zFMQ3NXC/jNzTce2vLLB
- FgZGfz0gM3UIbtH5iVR39s4OuNV8Ha4kykRFuybf2u6B8pV0Y80D0ZCxOzlaf/PD
- J/x3LINbCfa3ez+Tf/8QXxqL7/XV8v2N7yI4mKiU5jF9QlwR6EJQRYQS+dgcJmH4
- cJfgiLvD0u5VJI+pxENJQBECov2gmB1E9T8grbLTKT6ESuDPjNyvupxSkzD6W8OL
- 8uY4rHOqr3mo05GN3gv1reVjGziACA5EZwa5l4n1yOwfR6r/po1hpsIwFDwKWWfw
- B0VDAXhPcFvbaQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:message-id
- :mime-version:subject:to:x-me-proxy:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; bh=jlwRrmn5UnbT89LyMJZ+9z/syBSMT
- nA8PRR3CKsXQIE=; b=QK9ExMORpO+NCdzXFDiAExjEqppsXtx/VF5xnzR+fA37h
- md33cQbH/zKrNv5LNenY6RptIOCh7mmYBOgOUeXcncEbz5WS6RUQwq1wAcb+UH4Y
- RrY3DbvW3mYCnixC3zMdu3bvPTXzMj3xvviMxH93vjY5TdwJCZDdkZRdGE7b9D7b
- sh4wFVHsawwRJDiSUAF7ls7rRyKFTuLn1Nwho0vE5Ws/yAUzLauEX+QdA+jq6fZm
- PaCCInbHU+GrbrkassoL0YBJAewqdcwloKUpYztndhzFxxSuq6BD7RKvv59dI9+I
- 8uaSnu+KsIi6PbWS4+eptsbR0Mo6oIhPvo7FyaLgg==
-X-ME-Sender: <xms:q8quXLXUNNnuoeeEdOeDGJpFeIYn1hSgnfTbE52EFi7bMzjsWJpTpA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudekgdekhecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculddvfedmnecujfgurhepofgfggfkfffhvffutgesthdtredtreerjeen
- ucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrih
- gurdgruheqnecuffhomhgrihhnpehophgvnhgsmhgtqdhprhhojhgvtghtrdighiiinecu
- rfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluh
- hsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:rMquXACwBOMD-R2NjN0p7-iddHF4Z2k7KbX7dT89fMfQGEb_Do-RLQ>
- <xmx:rMquXOo6_Sm1kWyzTi_mbxQe9jLK1cu78H03ziJJswnd1XTEl4hK1Q>
- <xmx:rMquXM1tzVwmymXu62bfj3hzxMm7iQzC2U6FipRZUf5Lwf7uQlgv6A>
- <xmx:rMquXJJdiKP7xvul9_weTPK7I0QAqFSp7zlgEn5kudB08_umFJEbbQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id E212A7C131; Thu, 11 Apr 2019 01:03:39 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-329-gf4aae99-fmstable-20190329v1
-Mime-Version: 1.0
-X-Me-Personality: 52947553
-Message-Id: <cd75d086-fdc0-4c83-8094-c3b802f6ad37@www.fastmail.com>
-Date: Thu, 11 Apr 2019 01:02:23 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
- "Andrew Geissler" <geissonator@gmail.com>, wak@google.com
-Subject: =?UTF-8?Q?Using_D-Bus_well-known_service_names_and_deprecating_mapper_se?=
- =?UTF-8?Q?rvice_lookups?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ftJx3jvTzDqBG
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 17:42:09 +1000 (AEST)
+Received: by mail-qt1-x843.google.com with SMTP id s15so6026030qtn.3
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 00:42:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=47WXQ5H2gC7EYEgt9FWea71xFdlR2XJzuSeYVd1SNeE=;
+ b=TPgotO0tengme0WnzwJ6YF8H9HZ+oF8bsmvKDbfWZJTY7NCJj+CEhM3rStREiQxUQg
+ pIC3wLzprFHfcY1YZaUaqvgcmCa9G0bVOa2orWehmpVZTwU5gJlLBgfdif8rofBQizkP
+ j7y6aEvRWSe51euwxk78U0cWJKPhtYoufwwUM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=47WXQ5H2gC7EYEgt9FWea71xFdlR2XJzuSeYVd1SNeE=;
+ b=RTq98bR5xowX3mS7+6lH3LwnFRLQ198p6gTB/3+JL/wlU5jobuFkmHXCoKgSCM2zF4
+ UE+g2fsrYjoQtaj0m5+7H/q7iVY4mYxcUCs8ibbIYlEsAmiV70ISnq2hysa6Oj+CiiC0
+ SN6oMDjmVu/DvRrwh5OHl+MPKwkpKf+DxDsfkMyZLHNIzDsCH5i0bhesdMMzOGlXgPwK
+ Q594uIEXeSGwhhv313j8ajCzRTBjvmdofDUHHrnrVhKrJlSw6GaKl7cjGFMePQ0VnkCp
+ F6UOm3HW65oNDKbqKJ8GSdunqVDrsdFiX1vm8p1KF8LSVS538Tcf0eAuYSFAClLWyD0N
+ x78A==
+X-Gm-Message-State: APjAAAVKXaublCm+aVov4VUwWkhXezeNvoDtILvbKp+DLkiSvHWsBBQf
+ bXSr90xg4QPVlgPiFHDsyo36swRm3E4aD3LEsOI=
+X-Google-Smtp-Source: APXvYqyhtLb7wcu7Sm4PPAud9R4gkQ6CMlERJ03sAaNbnrbLVwnfSNn6Dc6bi82Qr0aH8Z1N5kkMH1WIG74hYvRbSRQ=
+X-Received: by 2002:aed:35e3:: with SMTP id d32mr39285025qte.43.1554968525878; 
+ Thu, 11 Apr 2019 00:42:05 -0700 (PDT)
+MIME-Version: 1.0
+References: <20190410153158.152020-1-venture@google.com>
+ <8c591930-a8de-40a1-a2cb-ca77cbef55e9@www.fastmail.com>
+In-Reply-To: <8c591930-a8de-40a1-a2cb-ca77cbef55e9@www.fastmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 11 Apr 2019 07:41:54 +0000
+Message-ID: <CACPK8Xf1wQmo+ppa4zvOkSZ-scjtaqE-aCf9HSzZPu0HYK-9AQ@mail.gmail.com>
+Subject: Re: [PATCH dev-5.0] hwmon: (pmbus/isl68137): Add driver for Intersil
+ ISL68137 PWM Controller
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Patrick Venture <venture@google.com>, Maxim Sloyko <maxims@google.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Robert Lippert <rlippert@google.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +63,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 05:03:48 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 07:42:10 -0000
 
-Hello,
+On Thu, 11 Apr 2019 at 00:33, Andrew Jeffery <andrew@aj.id.au> wrote:
+> On Thu, 11 Apr 2019, at 01:02, Patrick Venture wrote:
+> > From: Maxim Sloyko <maxims@google.com>
+> >
+> > Adds the pmbus driver for the Intersil ISL68137 PWM Controller.
+> >
+> > Signed-off-by: Maxim Sloyko <maxims@google.com>
+> > Signed-off-by: Robert Lippert <rlippert@google.com>
+> > Signed-off-by: Patrick Venture <venture@google.com>
+>
+> Please send it upstream for feedback, then send a backport once upstream
+> are happy.
 
-Recently Andrew Geissler, William and myself have been running into limitations of the mapper's service lookups. In my opinion we should move to use well known service names and avoiding reliance on the mapper to determine who to talk to.
+FYI, I found that one of your workmates sent the Intersil ISL68137
+patch upstream last year:
 
-My issues with using the mapper for service dependencies are:
+ https://lore.kernel.org/lkml/20181017225603.7782-1-kunyi@google.com/
 
-1. Ambiguities in the way `mapper wait` functions
-2. Race conditions between bus name announcement, mapper introspection and inbound service lookups
-3. Increased IPC traffic (decreasing performance).
+Guenter gave some review to fix really trivial things. I suspect with
+the two tiny changes he will accept it:
 
-Expanding on 1, `mapper wait` takes a path name argument and waits until the path is available on a bus connection. The problem here is that multiple connections can (and do) implement objects under a given path, so the successful exit of `mapper wait` with the expectation that a given service is available can be an undefined result, as it's possible the *wrong* service was used to resolve the wait.
-
-Where this hits home is that we currently have a systemd service, mapper-wait@.service, that allows units to depend on the presence of a service providing a required path. With the ambiguity outlined above it's possible that dependent services are started earlier than they should be due to `mapper wait` falsely exiting success with respect to the dependent's actual requirement.
-
-A quick grep of the openbmc tree gives an idea of the potential problem size:
-
-$ git ls-files -- recipes-phosphor/ | grep '\.service$' | wc -l
-98
-$ git ls-files -- recipes-phosphor/ | grep '\.service$' | xargs grep -li mapper-wait | wc -l
-32
-
-So about a 1/3 generic services are potentially exposed.
-
-Point 2 leads to patches like [1] where we wind up implementing a fallback to a well-known service name if we get issues with a mapper lookup. If this is a valid approach then we should just avoid looking up the service altogether; implementing this fallback approach everywhere seems tedious and error-prone, and the lookup is a waste of resources if the fallback works regardless.
-
-By moving to well known service names we can exploit more of systemd's D-Bus integration with units of Type=dbus, and depending either on unit names aliased to D-Bus service names, or on D-Bus service activation, and receive reliable behaviour for D-Bus-based dependencies.
-
-Point 3 is something William has complained about, and I think it's a good point - avoiding IPC where we can is a good thing no matter what we're doing.
-
-I'm kicking this thread off because it's something that's bothered me for a while. I've complained about it to various people in private but have never taken it any further. My impression is that there's support for the idea that we move away from the mapper for service lookups (though we can't eliminate it entirely, we still need the interface reverse mapping feature), and I want to gauge how much support it has and whether there are solid counter-arguments.
+ https://lore.kernel.org/lkml/51dbddbc-0e92-7bb5-03c7-4bad3a0af029@roeck-us.net/
 
 Cheers,
 
-Andrew
-
-[1] https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-state-manager/+/20460
+Joel
