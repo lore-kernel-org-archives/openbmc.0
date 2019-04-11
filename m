@@ -1,59 +1,69 @@
-Return-Path: <wak@google.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::236; helo=mail-lj1-x236.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.13; helo=cpsmtpb-ews08.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="R9HLq7V5"; 
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="fsZ/vyTZ"; 
  dkim-atps=neutral
-Received: from mail-lj1-x236.google.com (mail-lj1-x236.google.com
- [IPv6:2a00:1450:4864:20::236])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ftyg4qnQzDqPK
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 18:11:21 +1000 (AEST)
-Received: by mail-lj1-x236.google.com with SMTP id h21so4586748ljk.13
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 01:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=gfiRNvxD/s3zS0vNkRaNo7F210Rrcm9HzDM58J/0rQQ=;
- b=R9HLq7V5y7WEETSZ6lvuYf8wL3GjA4XsO248i8PiZwuPXZS7S6WY2CcyBGdqg+s/jB
- g1ctSOjNPN0LIDTAUT2L5tAS8aIzBjKxwWuYhkTNUes15M5FGYFDYuvxuPdwlTsP8XQN
- pMIecLWUAaqWZXRQ5Shzl5VCAuN8V1Ljy400CW0vpV1bAZbtUoNKsArb+EgWbbMwlTpa
- dFL01CPm7fUdps59eBX1RgBjt7FSCBHTIvPU5mdHKIr86HrzvlrjBMzELQHn/bQEYLjj
- 7RLIT1/GsJrAmAK8zsOA5vvHDTMmzAGGa/ouN8SIzGrZU50JJ0xszB+a9nW1HMuIg7Bv
- 7HVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=gfiRNvxD/s3zS0vNkRaNo7F210Rrcm9HzDM58J/0rQQ=;
- b=WpfXnSm/m5xs2dX2reHAO6SHfUSvwXZODI37+JAjd7LhEfeOMCZG+vY1SH1nqXeQgy
- yxKDQdTR+Rq49SY/2gKve6RIpA/WwxbrtvZugcKNduNpGT2fyhOZpNY8P2dVRMJAVum/
- R6Z/PqWOEzQrSOpExFm8yrowriPXDOEuLfi/uRaNhaKDhJxciiyqj7t1pGawbCOhQDCr
- MAVQ/zH4A8OAmO4K2EXgk/CoR8MVOH4rYunFcrwxRPMNWKN60Y6LXae3dDMrGoOpm4PC
- cJFjCEQWVuW+10j6V9s7RBSVhwtvNyUGPByBTOJdu1ODnjUJWIJesY1RZU6oJsBdgO8T
- T4+g==
-X-Gm-Message-State: APjAAAVcNDs8WVzLdFIWyfZ9AZFBUOxD4CmxXEjxN/JfPFUR1vFz1HxE
- 5QBF3FFbPSyvzB76UDfvpcqPiAkLCt+d0N5SiZ1oNA==
-X-Google-Smtp-Source: APXvYqyFTK+qY/859HZCKxo3TaWcfU7XrAbScCTrEeNuBd22ALVzPmI47mcjDhgWv/tq5JU1PyWgcSN+DIuHphsRx0s=
-X-Received: by 2002:a2e:22c4:: with SMTP id i187mr25132593lji.94.1554970276119; 
- Thu, 11 Apr 2019 01:11:16 -0700 (PDT)
+Received: from cpsmtpb-ews08.kpnxchange.com (cpsmtpb-ews08.kpnxchange.com
+ [213.75.39.13])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44fyRf4nwszDqPC
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 20:48:11 +1000 (AEST)
+Received: from cpsps-ews09.kpnxchange.com ([10.94.84.176]) by
+ cpsmtpb-ews08.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Thu, 11 Apr 2019 12:48:05 +0200
+X-Brand: 7Ljiz6bi2A==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=CfzZG4jl c=1 sm=1 tr=0 cx=a_idp_e
+ a=/dHbpd/3q0lrH6oA/zwSgQ==:117 a=/dHbpd/3q0lrH6oA/zwSgQ==:17
+ a=eIHzyqS2sMcA:10 a=kj9zAlcOel0A:10 a=xqWC_Br6kY4A:10
+ a=oexKYjalfGEA:10 a=VnNF1IyMAAAA:8 a=X5F7dNyOAAAA:8 a=pGLkceISAAAA:8
+ a=voM4FWlXAAAA:8 a=peDeANYtAAAA:20 a=cJK8_A0x6vM5VSn16oIA:9
+ a=CjuIK1q_8ugA:10 a=pS7LufLo7ZPxIL5li5Lt:22 a=IC2XNlieTeVoXbcui8wp:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.45]) by cpsps-ews09.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Thu, 11 Apr 2019 12:48:05 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=Wd0l73q2jDEy1kdELmvB4tEbFwPZ/H41OtBpUJepfLU=;
+ b=fsZ/vyTZjAiZWOnrOEbuEXyzNLW6YAD3/JUVzLa09slyDugVL/6emISRctzVCZ5dYknc95cMpE5P3
+ voaq04ukr71Ii6JrBZvYMh9xPwRtI0w0F4FwY2LYq0kfhJ8TOrixONjXUqrKaYpA47w5URaAF/sPw4
+ WD8AfeqJec8IxhFE=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id 48db4e14-5c47-11e9-8eb5-005056ab7447;
+ Thu, 11 Apr 2019 12:48:04 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 11 Apr
+ 2019 12:47:10 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Thu, 11 Apr 2019 12:46:58 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Matthew Barth
+ <msbarth@linux.ibm.com>, Matt Spinler <mspinler@linux.ibm.com>
+Subject: Subject: RE: using phosphor-dbus-monitor
+Thread-Topic: Subject: RE: using phosphor-dbus-monitor
+Thread-Index: AdTwUwl25SBFFPV9RSmn8I3aFheCbg==
+Date: Thu, 11 Apr 2019 10:46:58 +0000
+Message-ID: <093a51cc056240c1ac677531f578e105@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <d27b3022-cf65-80e3-fcea-8e7e9027acaa@linux.vnet.ibm.com>
- <51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com>
-In-Reply-To: <51da69bb-1cfc-fac2-0bad-f0ad5556ffcb@linux.vnet.ibm.com>
-From: William Kennington <wak@google.com>
-Date: Thu, 11 Apr 2019 01:11:04 -0700
-Message-ID: <CAPnigKk3frQfFbt8zUtVYaUm5YLPkP1zmnnF36SS0sG=raZNJA@mail.gmail.com>
-Subject: Re: Sending the FD over D-bus
-To: vishwa <vishwa@linux.vnet.ibm.com>
-Cc: Ratan Gupta <ratagupt@linux.vnet.ibm.com>, "Tanous,
- Ed" <ed.tanous@intel.com>, Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-OriginalArrivalTime: 11 Apr 2019 10:48:05.0117 (UTC)
+ FILETIME=[0AE33AD0:01D4F054]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,87 +75,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 08:11:24 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 10:48:17 -0000
 
-Yes, this is what is being said. d-bus supports this and is based on
-http://man7.org/linux/man-pages/man3/cmsg.3.html type of fd passing.
-It's not actually the same fd number for both processes, but the
-backing resource for the fd is the same.
+Hello,
 
-On Thu, Apr 11, 2019 at 12:52 AM vishwa <vishwa@linux.vnet.ibm.com> wrote:
->
-> Unless I am missing something fundamental, are we saying this ?
->
-> Process-1:
->
-> fd = open(foo);
->
-> send(fd) to another process over D-Bus.
->
-> -------------------------------
->
-> Process-2:
->
-> read the "fd" from D-Bus
->
-> read(fd,..)
->
-> The process-2 would not even have entries in file desc table to map fd.
-> So it would return EBADF. If the read succeeds, then it would be a read
-> from a locally opened file that returned the same fd number part of open();
->
-> !! Vishwa !!
->
-> On 4/10/19 3:47 AM, Ratan Gupta wrote:
-> > Hi All,
-> >
-> > As Discussed in yesterday community call, I did some POC to send the
-> > unix FD object over the D-Bus.
-> >
-> > BackGround: We are exploring the possibilities how to send the secrets
-> > from one process to other process,
-> >
-> > a) If the IPC is D-bus
-> >
-> > b) Calling process doesn't have the root permission to write the
-> > secrets in the configuration file.
-> >
-> > One of the proposal came, Can the calling process  send the unix fd
-> > over the D-Bus instead of sending the actual password
-> >
-> > and receiving process reads the data from the sent fd.?
-> >
-> > There was a confusion if some other app can snoop the D-bus message
-> > and get the FD and read it.I tried to simulate the same
-> >
-> > behavior in the POC but not sure whether it is correct or not.
-> >
-> > This POC has two files which is attached with this mail.
-> >
-> > Dbus-Service(dbus-service-fd-test.py):  Method(readFD) which takes the
-> > unix fd as parameter reads it and send the data back
-> >
-> > Dbus-Client(dbus-client-fd-test.py): Writes dummy data in the file,
-> > then opens the file and send the fd over D-bus.
-> >
-> >
-> > After sending the data over D-bus , I introduced a sleep of 15 sec so
-> > that I can try to open the same fd from other
-> >
-> > process,I open the python shell and try to open the shared FD but
-> > couldn't open it.
-> >
-> > Ratan
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
-> >
->
+I ran into another issue with the phosphor-dbus-monitor. The mechanism is w=
+orking fine for me as long as I am using Boolean items like CriticalAlarmHi=
+gh etc.
+
+For some reason it doesn't work if I try to use a real Value like the Value=
+ in the xyz.openbmc_project.Sensor.Value interface or  the CriticalHigh in =
+the xyz.openbmc_project.Sensor.Threshold.Critical interface.
+
+If I do this the "get value" always returns 0 (while in the case of the Boo=
+lean it correctly returns either 0 or 1.
+
+One thing to mention is that I am using dbus-sensors. As far as I can see t=
+his always deals with "double" Values and I can't specify this in the yaml =
+so I used a uint64 instead.
+
+Any suggestions?
+
+Best regards,
+
+Wim Vervoorn
+
+-----Original Message-----
+Subject: RE: using phosphor-dbus-monitor
+Message-ID: <eb2c8def113944bfacad1d5aeafb94af@Eltsrv03.Eltan.local>
+Content-Type: text/plain; charset=3D"utf-8"
+
+Hello Matt,
+
+I just found the reason why this wasn?t working. I overlooked a typo in the=
+ interface : Sensors instead of Sensor.
+
+Best ergards,
+
+Wim Vervoorn
+
+-----Original Message-----
+From: Matthew Barth [mailto:msbarth@linux.ibm.com]
+Sent: Tuesday, April 9, 2019 4:12 PM
+To: Matt Spinler <mspinler@linux.ibm.com>; Wim Vervoorn <wvervoorn@eltan.co=
+m>; Lei YU <mine260309@gmail.com>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: using phosphor-dbus-monitor
+
+
+
+On 4/9/19 8:50 AM, Matt Spinler wrote:
+> Hi Wim,
+>=20
+> If you could post your YAML somewhere, I could take a look for any=20
+> obvious problems.
+If you could also provide a little more details on the error your attemptin=
+g to log would be helpful (i.e. is there a dbus interface?).
+>=20
+> On 4/9/2019 2:23 AM, Wim Vervoorn wrote:
+>> Hello Lei,
+>>
+>> Thanks for your response. I know this example too and it helps a bit=20
+>> but it doesn?t really clarify all issues.
+>>
+>> As you've worked with this as well. Do you understand the meta item?=20
+>> The example indicates it has different meaning but doesn't provide=20
+>> any pointers to what those meanings are. Have you been able to find out?
+What meta item are you referring to?
+>>
+>> Best Regards,
+>> Wim Vervoorn
+>>
+>> -----Original Message-----
+>> From: Lei YU [mailto:mine260309@gmail.com]
+>> Sent: Tuesday, April 9, 2019 5:44 AM
+>> To: Wim Vervoorn <wvervoorn@eltan.com>; Matthew Barth=20
+>> <msbarth@linux.ibm.com>
+>> Cc: openbmc@lists.ozlabs.org
+>> Subject: Re: using phosphor-dbus-monitor
+>>
+>>> I am trying to use phosphor-dbus-monitor to create logging of sensor=20
+>>> exceptions like a Critical state on a specific sensor.
+>>> I am able to create a solution with a building yaml but at the end=20
+>>> it doesn?t deliver me the desired result.
+>>> As there are very limited examples (on a few in the witherspoon) it=20
+>>> is very hard to figure out where the mistake is.
+>> There is an example yaml config in the repo:
+>> https://github.com/openbmc/phosphor-dbus-monitor/blob/master/src/exam
+>> ple/example.yaml
+>>
+>>
+>> And I have the same feeling that it's hard to know what's wrong if=20
+>> something is wrong.ei
+>>
+>>> Are there any tools that can be used to make this easier?
+>> @Matthew Barth Could you kindly help to add some doc/tool to make it=20
+>> easier to use?
+Originally, the example yaml was meant to be the document which I understan=
+d is probably not the greatest form when it comes to this.=20
+Unfortunately enhancing the documentation would be a low priority at this t=
+ime but feel free to create/update the documentation from your findings and=
+ push them up for review if you'd like.
+>>
+>>> Additionally is this the correct method to achieve this goal or=20
+>>> should I use something else to define conditions for logging?
+>> I think so. This repo is intended to watch the dbus and do stuff as=20
+>> yaml config.
+Correct. This repo was intended to perform error logging and/or system leve=
+l actions, such as a shutdown, based on object properties on dbus.
+>>
+>>
