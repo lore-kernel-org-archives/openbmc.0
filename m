@@ -1,82 +1,34 @@
-Return-Path: <mspinler@linux.ibm.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.120; helo=mga04.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44g5yK6SkJzDqLZ
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 02:26:49 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3BGN2Iw090962
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 12:26:46 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rt841bumh-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 11 Apr 2019 12:26:46 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
- Thu, 11 Apr 2019 17:26:45 +0100
-Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 11 Apr 2019 17:26:43 +0100
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x3BGQgDX29032554
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 11 Apr 2019 16:26:43 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C9131BE054;
- Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 98C6FBE05B;
- Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
-Received: from [9.10.99.36] (unknown [9.10.99.36])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 11 Apr 2019 16:26:42 +0000 (GMT)
-Subject: Re: using phosphor-dbus-monitor
-To: Wim Vervoorn <wvervoorn@eltan.com>, Lei YU <mine260309@gmail.com>
-Cc: Matthew Barth <msbarth@linux.ibm.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <8daf9ac9deee4bc0808a55733681d67e@Eltsrv03.Eltan.local>
- <CAARXrtkjzG80mWxR=rjYX7WeMBz4JMVz-HB1aZcjbQzE4O3zng@mail.gmail.com>
- <39cdf20b2c8e4b528109b88bb16d3274@Eltsrv03.Eltan.local>
-From: Matt Spinler <mspinler@linux.ibm.com>
-Date: Thu, 11 Apr 2019 11:26:44 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44g7DB6SqnzDqS3
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 03:23:53 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 11 Apr 2019 10:23:51 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,338,1549958400"; d="scan'208";a="141947480"
+Received: from maru.jf.intel.com ([10.54.51.75])
+ by orsmga003.jf.intel.com with ESMTP; 11 Apr 2019 10:23:50 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ openbmc@lists.ozlabs.org
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH dev-5.0 0/2] i2c: aspeed: backport I2C patches from v5.1
+Date: Thu, 11 Apr 2019 10:23:48 -0700
+Message-Id: <20190411172350.11956-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-In-Reply-To: <39cdf20b2c8e4b528109b88bb16d3274@Eltsrv03.Eltan.local>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-x-cbid: 19041116-0036-0000-0000-00000AA77276
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010909; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000284; SDB=6.01187605; UDB=6.00622089; IPR=6.00968368; 
- MB=3.00026395; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-11 16:26:44
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19041116-0037-0000-0000-00004B59E9B1
-Message-Id: <051affae-335d-37f6-35c4-544caecdd1c8@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-11_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904110109
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,36 +40,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 11 Apr 2019 16:26:50 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 17:23:56 -0000
+X-List-Received-Date: Thu, 11 Apr 2019 17:23:56 -0000
 
+This patch series backports changes on Aspeed I2C driver from upstream
+v5.1 tree to support multi-master bus environment stably.
 
-On 4/11/2019 8:05 AM, Wim Vervoorn wrote:
-> I just found filed an issue because phosphor-dbus-monitor doesn't support "double" values this is required to make it work when dbus-sensors is used.
->
-> I also made 2 pull requests to resolve this.
+To enable the multi-master configuration with this patch, each platform's
+dt overlay should have 'multi-master' setting like below example:
 
+&i2c5 {
+	multi-master;
+	status = "okay";
+};
 
-That's great!.
+Jae Hyun Yoo (2):
+  i2c: aspeed: Remove hard-coded bus timeout value setting
+  i2c: aspeed: Add multi-master use case support
 
-Note that OpenBMC doesn't use pull requests - we do our reviews all on 
-gerrit.
+ drivers/i2c/busses/i2c-aspeed.c | 120 +++++++++++++++++++++++++-------
+ 1 file changed, 93 insertions(+), 27 deletions(-)
 
-https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md has the details.
-
-
->
-> Best regards,
->
-> Wim Vervoorn
->
-> -----Original Message-----
-> From: Lei YU [mailto:mine260309@gmail.com]
-> Sent: Thursday, April 11, 2019 2:38 PM
-> To: Wim Vervoorn <wvervoorn@eltan.com>
-> Cc: Matthew Barth <msbarth@linux.ibm.com>; Matt Spinler <mspinler@linux.ibm.com>; openbmc@lists.ozlabs.org
-> Subject: Re: using phosphor-dbus-monitor
->
->> I just found the reason why this wasn’t working. I overlooked a typo in the interface : Sensors instead of Sensor.
-> This is the sign of what needs to be improved. Either make it report error at compile time, or at least have a tool to verify the yaml.
->
->
+-- 
+2.21.0
