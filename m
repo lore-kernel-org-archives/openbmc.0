@@ -1,59 +1,42 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <prvs=998d34902=Fran.Hsu@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::22a; helo=mail-oi1-x22a.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=998d34902=fran.hsu@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jDMDK2JV"; 
- dkim-atps=neutral
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44gdNZ6Z3mzDqSJ
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 23:02:52 +1000 (AEST)
-Received: by mail-oi1-x22a.google.com with SMTP id i21so7830209oib.11
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 06:02:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=aqw8JTSGohYgAYsi4BxJIRJsue1HJz6utFQUoUM1Pcc=;
- b=jDMDK2JV6WdNDGGx5VICtB9NL5rYRwfh3Z7Yh1Pyc8sOacpK45D48hqotNPbcN29YO
- ECFGHAKEK4gQ3mhr7OOT5iN0KzOqZEUSBSHQ1UA/Hg8OYi0rW4n8LZMnbwITy2UisnX7
- XfzA78xaZKF6JWr9zeEqUTQuHOYzGogoIyJ74WvGGK9GUHPIViNcR5512y2EnxSsKk+9
- Nm2opjBJYIBngbmSwqHA+PudOpue9wV99zMrv2SIhagcNMV4wm0eKk49ULNChcvaY7bo
- ZhHYCP8uqIbwlpp/d19FAPyqZqUvrIN2mCUgAYAlsSpY5jIx3aBplE7Ucr6vZGNkOSg9
- A9Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=aqw8JTSGohYgAYsi4BxJIRJsue1HJz6utFQUoUM1Pcc=;
- b=cUg88Qq9PYWO2MtuMTl46TA/zT1VLbwD45ytGXpjYkFXyx+sw3ZkL7Mq3/lSp5G9Ow
- m84Xk7fNd5FUZ444SbyR1Yp+P6wQs2pcpa9C77cRjpfvo/OVsFVQHAo1+4bYQGxsdmAQ
- CsJMKaK4kRGhPZC/SOTASFTqx6aPcQWT/RJ17nZ8CYKvydUme0YUu/uU7MVHjPBNLH5V
- sukzdn1mC0//5jjgjyYyLHFsorTM9sYhBAf//8QceKKtEw7AkzDvaXtRF59exWR1uh3w
- cuBkAV/EIs0iHkZCM3bHm2v7ovtXn1b881rbZ9xatAtPAXKO1//sGxVZWF4K3WVcRfWU
- kknQ==
-X-Gm-Message-State: APjAAAXtVp1OvJYx9+eISMtYEIhkjrT7MTqxAJ/fw2HVZcE3sdAT3XBt
- VqmHQzSfQuW2vX08YJ7rKnIcPzD1bGFsuI8MlFs=
-X-Google-Smtp-Source: APXvYqyUCV+1UUCPAmotAeEchadcZbcwCiW7QdA4OLP+OvDTwl0umv6azJg2lFjkUqHeEb102iIT5JxU6j4wG1ZLByM=
-X-Received: by 2002:aca:bcc1:: with SMTP id
- m184mr10096100oif.158.1555074170168; 
- Fri, 12 Apr 2019 06:02:50 -0700 (PDT)
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44gfhY1cvMzDqRy
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:44 +1000 (AEST)
+Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
+ by mx01.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
+Received: from localhost.localdomain (10.243.91.252) by mailbx06.quanta.corp
+ (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 12 Apr
+ 2019 22:01:40 +0800
+From: <fran.hsu@quantatw.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: <openbmc@lists.ozlabs.org>, <benjaminfair@google.com>, FranHsu
+ <Fran.Hsu@quantatw.com>
+Subject: [PATCH dev-5.0 v2 2/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine.
+Date: Fri, 12 Apr 2019 22:01:30 +0800
+Message-ID: <20190412140132.39764-2-fran.hsu@quantatw.com>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190412140132.39764-1-fran.hsu@quantatw.com>
+References: <20190412140132.39764-1-fran.hsu@quantatw.com>
 MIME-Version: 1.0
-References: <CAGMNF6VHifnF8qC61HN2bboY8duArOuQ1FvK3mP1gA6Xbazcow@mail.gmail.com>
-In-Reply-To: <CAGMNF6VHifnF8qC61HN2bboY8duArOuQ1FvK3mP1gA6Xbazcow@mail.gmail.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Fri, 12 Apr 2019 08:02:34 -0500
-Message-ID: <CALLMt=pr8dtGZFvd17nt3qC7ebOvrkMQC8E+h==P4FSNkGDAtA@mail.gmail.com>
-Subject: Re: BMC health metrics (again!)
-To: Kun Yi <kunyi@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.243.91.252]
+X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
+ mailbx06.quanta.corp (10.243.91.101)
+X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24544.006
+X-TM-AS-Result: No--5.281900-0.000000-31
+X-TM-AS-MatchedID: 712203-704421-863519-708712-188019-703529-701016-704425-7
+ 00324-121336-702796-780011-701499-701437-700383-702898-148004-148036-42000-
+ 42003-63
+X-TM-AS-User-Approved-Sender: Yes
+X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,81 +48,500 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2019 13:02:55 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
 
-On Tue, Apr 9, 2019 at 11:26 AM Kun Yi <kunyi@google.com> wrote:
->
-> Hello there,
->
-> This topic has been brought up several times on the mailing list and offl=
-ine, but in general seems we as a community didn't reach a consensus on wha=
-t things would be the most valuable to monitor, and how to monitor them. Wh=
-ile it seems a general purposed monitoring infrastructure for OpenBMC is a =
-hard problem, I have some simple ideas that I hope can provide immediate an=
-d direct benefits.
+From: FranHsu <Fran.Hsu@quantatw.com>
 
-I like it, start simple and we can build from there.
+Add pinctrl definition file for quanta-gsj BMC device tree.
 
->
-> 1. Monitoring host IPMI link reliability (host side)
->
-> The essentials I want are "IPMI commands sent" and "IPMI commands succeed=
-ed" counts over time. More metrics like response time would be helpful as w=
-ell. The issue to address here: when some IPMI sensor readings are flaky, i=
-t would be really helpful to tell from IPMI command stats to determine whet=
-her it is a hardware issue, or IPMI issue. Moreover, it would be a very use=
-ful regression test metric for rolling out new BMC software.
+Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
+---
+ .../boot/dts/nuvoton-npcm730-gsj-gpio.dtsi    | 477 ++++++++++++++++++
+ 1 file changed, 477 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
 
-Are you thinking this is mostly for out of band IPMI? Or in-band as
-well? I can't say I've looked into this much but are there known
-issues in this area? The only time I've run into IPMI issues are
-usually when communicating with the host firmware. We've hit a variety
-of race conditions and timeouts in that path.
-
->
-> Looking at the host IPMI side, there is some metrics exposed through /pro=
-c/ipmi/0/si_stats if ipmi_si driver is used, but I haven't dug into whether=
- it contains information mapping to the interrupts. Time to read the source=
- code I guess.
->
-> Another idea would be to instrument caller libraries like the interfaces =
-in ipmitool, though I feel that approach is harder due to fragmentation of =
-IPMI libraries.
->
-> 2. Read and expose core BMC performance metrics from procfs
->
-> This is straightforward: have a smallish daemon (or bmc-state-manager) re=
-ad,parse, and process procfs and put values on D-Bus. Core metrics I'm inte=
-rested in getting through this way: load average, memory, disk used/availab=
-le, net stats... The values can then simply be exported as IPMI sensors or =
-Redfish resource properties.
-
-Yes, I would def be interested in being able to look at these things.
-I assume the sampling rate would be configurable? We could build this
-into our CI images and collect the information for each run. I'm not
-sure if we'd use this in production due to the additional resources it
-will consume but I could see it being very useful in lab/debug/CI
-areas.
-
-> A nice byproduct of this effort would be a procfs parsing library. Since =
-different platforms would probably have different monitoring requirements a=
-nd procfs output format has no standard, I'm thinking the user would just p=
-rovide a configuration file containing list of (procfs path, property regex=
-, D-Bus property name), and the compile-time generated code to provide an o=
-bject for each property.
-
-Sounds flexible and reasonable to me.
-
-> All of this is merely thoughts and nothing concrete. With that said, it w=
-ould be really great if you could provide some feedback such as "I want thi=
-s, but I really need that feature", or let me know it's all implemented alr=
-eady :)
->
-> If this seems valuable, after gathering more feedback of feature requirem=
-ents, I'm going to turn them into design docs and upload for review.
-
-Perfect
-
-> --
-> Regards,
-> Kun
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+new file mode 100644
+index 000000000000..53cfd15fa03f
+--- /dev/null
++++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+@@ -0,0 +1,477 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
++
++/ {
++	pinctrl: pinctrl@f0800000 {
++		gpio0pp_pins: gpio0pp-pins {
++			pins = "GPIO0/IOX1DI";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio1pp_pins: gpio1pp-pins {
++			pins = "GPIO1/IOX1LD";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio2pp_pins: gpio2pp-pins {
++			pins = "GPIO2/IOX1CK";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio3pp_pins: gpio3pp-pins {
++			pins = "GPIO3/IOX1D0";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio4pp_pins: gpio4pp-pins {
++			pins = "GPIO4/IOX2DI/SMB1DSDA";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio5pp_pins: gpio5pp-pins {
++			pins = "GPIO5/IOX2LD/SMB1DSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio6pp_pins: gpio6pp-pins {
++			pins = "GPIO6/IOX2CK/SMB2DSDA";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio7pp_pins: gpio7pp-pins {
++			pins = "GPIO7/IOX2D0/SMB2DSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio8_pins: gpio8-pins {
++			pins = "GPIO8/LKGPO1";
++			bias-disable;
++			input-enable;
++		};
++		gpio9_pins: gpio9-pins {
++			pins = "GPIO9/LKGPO2";
++			bias-disable;
++			input-enable;
++		};
++		gpio10pp_pins: gpio10pp-pins {
++			pins = "GPIO10/IOXHLD";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio11pp_pins: gpio11pp-pins {
++			pins = "GPIO11/IOXHCK";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio12_pins: gpio12-pins {
++			pins = "GPIO12/GSPICK/SMB5BSCL";
++			bias-disable;
++			input-enable;
++		};
++		gpio13_pins: gpio13-pins {
++			pins = "GPIO13/GSPIDO/SMB5BSDA";
++			bias-disable;
++			input-enable;
++		};
++		gpio14_pins: gpio14-pins {
++			pins = "GPIO14/GSPIDI/SMB5CSCL";
++			bias-disable;
++			input-enable;
++		};
++		gpio15od_pins: gpio15od-pins {
++			pins = "GPIO15/GSPICS/SMB5CSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio17pp_pins: gpio17pp-pins {
++			pins = "GPIO17/PSPI2DI/SMB4DEN";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio18pp_pins: gpio18pp-pins {
++			pins = "GPIO18/PSPI2D0/SMB4BSDA";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio19pp_pins: gpio19pp-pins {
++			pins = "GPIO19/PSPI2CK/SMB4BSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio24pp_pins: gpio24pp-pins {
++			pins = "GPIO24/IOXHDO";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio25pp_pins: gpio25pp-pins {
++			pins = "GPIO25/IOXHDI";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio37od_pins: gpio37od-pins {
++			pins = "GPIO37/SMB3CSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio59pp_pins: gpio59pp-pins {
++			pins = "GPIO59/SMB3DSDA";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio60_pins: gpio60-pins {
++			pins = "GPIO60/SMB3DSCL";
++			bias-disable;
++			input-enable;
++		};
++		gpio72od_pins: gpio72od-pins {
++			pins = "GPIO72/FANIN8";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio73od_pins: gpio73od-pins {
++			pins = "GPIO73/FANIN9";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio74od_pins: gpio74od-pins {
++			pins = "GPIO74/FANIN10";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio75od_pins: gpio75od-pins {
++			pins = "GPIO75/FANIN11";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio76od_pins: gpio76od-pins {
++			pins = "GPIO76/FANIN12";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio77od_pins: gpio77od-pins {
++			pins = "GPIO77/FANIN13";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio78od_pins: gpio78od-pins {
++			pins = "GPIO78/FANIN14";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio79od_pins: gpio79od-pins {
++			pins = "GPIO79/FANIN15";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio83_pins: gpio83-pins {
++			pins = "GPIO83/PWM3";
++			bias-disable;
++			input-enable;
++		};
++		gpio84pp_pins: gpio84pp-pins {
++			pins = "GPIO84/R2TXD0";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio85pp_pins: gpio85pp-pins {
++			pins = "GPIO85/R2TXD1";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio86pp_pins: gpio86pp-pins {
++			pins = "GPIO86/R2TXEN";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio87pp_pins: gpio87pp-pins {
++			pins = "GPIO87/R2RXD0";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio88pp_pins: gpio88pp-pins {
++			pins = "GPIO88/R2RXD1";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio89pp_pins: gpio89pp-pins {
++			pins = "GPIO89/R2CRSDV";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio90pp_pins: gpio90pp-pins {
++			pins = "GPIO90/R2RXERR";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio91_pins: gpio91-pins {
++			pins = "GPIO91/R2MDC";
++			bias-disable;
++			input-enable;
++		};
++		gpio92_pins: gpio92-pins {
++			pins = "GPIO92/R2MDIO";
++			bias-disable;
++			input-enable;
++		};
++		gpio93pp_pins: gpio93pp-pins {
++			pins = "GPIO93/GA20/SMB5DSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio94pp_pins: gpio94pp-pins {
++			pins = "GPIO94/nKBRST/SMB5DSDA";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio95_pins: gpio95-pins {
++			pins = "GPIO95/nLRESET/nESPIRST";
++			bias-disable;
++			input-enable;
++		};
++		gpio125pp_pins: gpio125pp-pins {
++			pins = "GPIO125/SMB1CSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio126od_pins: gpio126od-pins {
++			pins = "GPIO126/SMB1BSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio127od_pins: gpio127od-pins {
++			pins = "GPIO127/SMB1BSCL";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio136_pins: gpio136-pins {
++			pins = "GPIO136/SD1DT0";
++			bias-disable;
++			input-enable;
++		};
++		gpio137_pins: gpio137-pins {
++			pins = "GPIO137/SD1DT1";
++			bias-disable;
++			input-enable;
++		};
++		gpio141_pins: gpio141-pins {
++			pins = "GPIO141/SD1WP";
++			bias-disable;
++			input-enable;
++		};
++		gpio142od_pins: gpio142od-pins {
++			pins = "GPIO142/SD1CMD";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio143ol_pins: gpio143ol-pins {
++			pins = "GPIO143/SD1CD/SD1PWR";
++			bias-disable;
++			output-low;
++		};
++		gpio144_pins: gpio144-pins {
++			pins = "GPIO144/PWM4";
++			bias-disable;
++			input-enable;
++		};
++		gpio145_pins: gpio145-pins {
++			pins = "GPIO145/PWM5";
++			bias-disable;
++			input-enable;
++		};
++		gpio146_pins: gpio146-pins {
++			pins = "GPIO146/PWM6";
++			bias-disable;
++			input-enable;
++		};
++		gpio147_pins: gpio147-pins {
++			pins = "GPIO147/PWM7";
++			bias-disable;
++			input-enable;
++		};
++		gpio148_pins: gpio148-pins {
++			pins = "GPIO148/MMCDT4";
++			bias-disable;
++			input-enable;
++		};
++		gpio149_pins: gpio149-pins {
++			pins = "GPIO149/MMCDT5";
++			bias-disable;
++			input-enable;
++		};
++		gpio150_pins: gpio150-pins {
++			pins = "GPIO150/MMCDT6";
++			bias-disable;
++			input-enable;
++		};
++		gpio151_pins: gpio151-pins {
++			pins = "GPIO151/MMCDT7";
++			bias-disable;
++			input-enable;
++		};
++		gpio152_pins: gpio152-pins {
++			pins = "GPIO152/MMCCLK";
++			bias-disable;
++			input-enable;
++		};
++		gpio153_pins: gpio153-pins {
++			pins = "GPIO153/MMCWP";
++			bias-disable;
++			input-enable;
++		};
++		gpio154_pins: gpio154-pins {
++			pins = "GPIO154/MMCCMD";
++			bias-disable;
++			input-enable;
++		};
++		gpio155_pins: gpio155-pins {
++			pins = "GPIO155/nMMCCD/nMMCRST";
++			bias-disable;
++			input-enable;
++		};
++		gpio156_pins: gpio156-pins {
++			pins = "GPIO156/MMCDT0";
++			bias-disable;
++			input-enable;
++		};
++		gpio157_pins: gpio157-pins {
++			pins = "GPIO157/MMCDT1";
++			bias-disable;
++			input-enable;
++		};
++		gpio158_pins: gpio158-pins {
++			pins = "GPIO158/MMCDT2";
++			bias-disable;
++			input-enable;
++		};
++		gpio159_pins: gpio159-pins {
++			pins = "GPIO159/MMCDT3";
++			bias-disable;
++			input-enable;
++		};
++		gpio161_pins: gpio161-pins {
++			pins = "GPIO161/nLFRAME/nESPICS";
++			bias-disable;
++			input-enable;
++		};
++		gpio162_pins: gpio162-pins {
++			pins = "GPIO162/SERIRQ";
++			bias-disable;
++			input-enable;
++		};
++		gpio163_pins: gpio163-pins {
++			pins = "GPIO163/LCLK/ESPICLK";
++			bias-disable;
++			input-enable;
++		};
++		gpio164_pins: gpio164-pins {
++			pins = "GPIO164/LAD0/ESPI_IO0";
++			bias-disable;
++			input-enable;
++		};
++		gpio165_pins: gpio165-pins {
++			pins = "GPIO165/LAD1/ESPI_IO1";
++			bias-disable;
++			input-enable;
++		};
++		gpio166_pins: gpio166-pins {
++			pins = "GPIO166/LAD2/ESPI_IO2";
++			bias-disable;
++			input-enable;
++		};
++		gpio167_pins: gpio167-pins {
++			pins = "GPIO167/LAD3/ESPI_IO3";
++			bias-disable;
++			input-enable;
++		};
++		gpio168_pins: gpio168-pins {
++			pins = "GPIO168/nCLKRUN/nESPIALERT";
++			bias-disable;
++			input-enable;
++		};
++		gpio169_pins: gpio169-pins {
++			pins = "GPIO169/nSCIPME";
++			bias-disable;
++			input-enable;
++		};
++		gpio170_pins: gpio170-pins {
++			pins = "GPIO170/nSMI";
++			bias-disable;
++			input-enable;
++		};
++		gpio175od_pins: gpio175od-pins {
++			pins = "GPIO175/PSPI1CK/FANIN19";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio176od_pins: gpio176od-pins {
++			pins = "GPIO176/PSPI1DO/FANIN18";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio177_pins: gpio177-pins {
++			pins = "GPIO177/PSPI1DI/FANIN17";
++			bias-disable;
++			input-enable;
++		};
++		gpio190od_pins: gpio190od-pins {
++			pins = "GPIO190/nPRD_SMI";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio191_pins: gpio191-pins {
++			pins = "GPIO191";
++			bias-disable;
++			input-enable;
++		};
++		gpio192_pins: gpio192-pins {
++			pins = "GPIO192";
++			bias-disable;
++			input-enable;
++		};
++		gpio194pp_pins: gpio194pp-pins {
++			pins = "GPIO194/SMB0BSCL";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio195od_pins: gpio195od-pins {
++			pins = "GPIO195/SMB0BSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio196od_pins: gpio196od-pins {
++			pins = "GPIO196/SMB0CSCL";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio197od_pins: gpio197od-pins {
++			pins = "GPIO197/SMB0DEN";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio198od_pins: gpio198od-pins {
++			pins = "GPIO198/SMB0DSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio199od_pins: gpio199od-pins {
++			pins = "GPIO199/SMB0DSCL";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio200pp_pins: gpio200pp-pins {
++			pins = "GPIO200/R2CK";
++			bias-disable;
++			drive-push-pull;
++		};
++		gpio202od_pins: gpio202od-pins {
++			pins = "GPIO202/SMB0CSDA";
++			bias-disable;
++			drive-open-drain;
++		};
++		gpio203_pins: gpio203-pins {
++			pins = "GPIO203/FANIN16";
++			bias-disable;
++			input-enable;
++		};
++	};
++};
+-- 
+2.21.0
