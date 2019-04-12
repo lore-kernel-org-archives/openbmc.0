@@ -6,8 +6,8 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=quantatw.com
 Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44gfhZ69CZzDqRx
- for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTP id 44gfhc0HS6zDqRs
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:51 +1000 (AEST)
 Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
  by mx01.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
 Received: from localhost.localdomain (10.243.91.252) by mailbx06.quanta.corp
@@ -18,10 +18,12 @@ From: <fran.hsu@quantatw.com>
 To: Joel Stanley <joel@jms.id.au>
 CC: <openbmc@lists.ozlabs.org>, <benjaminfair@google.com>, FranHsu
  <Fran.Hsu@quantatw.com>
-Subject: [PATCH dev-5.0 v2 1/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine
-Date: Fri, 12 Apr 2019 22:01:29 +0800
-Message-ID: <20190412140132.39764-1-fran.hsu@quantatw.com>
+Subject: [PATCH dev-5.0 v2 4/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine.
+Date: Fri, 12 Apr 2019 22:01:32 +0800
+Message-ID: <20190412140132.39764-4-fran.hsu@quantatw.com>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190412140132.39764-1-fran.hsu@quantatw.com>
+References: <20190412140132.39764-1-fran.hsu@quantatw.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -29,10 +31,11 @@ X-Originating-IP: [10.243.91.252]
 X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
  mailbx06.quanta.corp (10.243.91.101)
 X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24544.006
-X-TM-AS-Result: No--4.290900-0.000000-31
-X-TM-AS-MatchedID: 712203-704421-708712-701016-703529-704425-188019-700324-1
- 21336-702796-700264-702898-700019-847298-780012-148004-148036-10013-42000-4
- 2003-63
+X-TM-AS-Result: No--7.521900-0.000000-31
+X-TM-AS-MatchedID: 712203-704421-708712-863519-700918-710718-780005-701796-7
+ 01016-703529-704425-188019-700324-121336-711871-701040-700019-702358-702609
+ -700264-186003-700802-780016-702495-780012-711031-703965-704473-121169-1881
+ 98-700648-702829-703410-148004-148036-42000-42003-63
 X-TM-AS-User-Approved-Sender: Yes
 X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -46,78 +49,596 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:51 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:53 -0000
 
 From: FranHsu <Fran.Hsu@quantatw.com>
 
-Add a common device tree include file for NPCM730.
+Add device tree for quanta-gsj BMC module.
+Tested: Build Quanta GSJ image and load on the GSJ BMC module.
+Ensure that BMC boots to console successful.
 
 Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
 ---
- arch/arm/boot/dts/nuvoton-npcm730.dtsi | 57 ++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm730.dtsi
+ arch/arm/boot/dts/nuvoton-npcm730-gsj.dts | 573 ++++++++++++++++++++++
+ 1 file changed, 573 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
 
-diff --git a/arch/arm/boot/dts/nuvoton-npcm730.dtsi b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
 new file mode 100644
-index 000000000000..20e13489b993
+index 000000000000..cbbe928db86f
 --- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
-@@ -0,0 +1,57 @@
++++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
+@@ -0,0 +1,573 @@
 +// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
-+// Copyright 2018 Google, Inc.
++// Copyright (c) 2019 Quanta Computer lnc. Fran.Hsu@quantatw.com
 +
-+#include "nuvoton-common-npcm7xx.dtsi"
-+
++/dts-v1/;
++#include "nuvoton-npcm730.dtsi"
++#include "nuvoton-npcm730-gsj-gpio.dtsi"
 +/ {
-+	#address-cells = <1>;
-+	#size-cells = <1>;
-+	interrupt-parent = <&gic>;
++	model = "Quanta GSJ Board (Device Tree v9)";
++	compatible = "nuvoton,npcm750";
 +
-+	cpus {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		enable-method = "nuvoton,npcm750-smp";
-+
-+		cpu@0 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <0>;
-+			next-level-cache = <&l2>;
-+		};
-+
-+		cpu@1 {
-+			device_type = "cpu";
-+			compatible = "arm,cortex-a9";
-+			clocks = <&clk NPCM7XX_CLK_CPU>;
-+			clock-names = "clk_cpu";
-+			reg = <1>;
-+			next-level-cache = <&l2>;
-+		};
++	aliases {
++		ethernet0 = &emc0;
++		ethernet1 = &gmac0;
++		serial3 = &serial3;
++		udc9 = &udc9;
++		i2c0 = &i2c0;
++		i2c1 = &i2c1;
++		i2c2 = &i2c2;
++		i2c3 = &i2c3;
++		i2c4 = &i2c4;
++		i2c5 = &i2c5;
++		i2c6 = &i2c6;
++		i2c7 = &i2c7;
++		i2c8 = &i2c8;
++		i2c9 = &i2c9;
++		i2c10 = &i2c10;
++		i2c11 = &i2c11;
++		i2c12 = &i2c12;
++		i2c13 = &i2c13;
++		i2c14 = &i2c14;
++		i2c15 = &i2c15;
++		fiu0 = &fiu0;
 +	};
 +
-+	soc {
-+		timer@3fe600 {
-+			compatible = "arm,cortex-a9-twd-timer";
-+			reg = <0x3fe600 0x20>;
-+			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
-+						  IRQ_TYPE_LEVEL_HIGH)>;
-+			clocks = <&clk NPCM7XX_CLK_AHB>;
-+		};
++	chosen {
++		stdout-path = &serial3;
++	};
++
++	memory {
++		reg = <0 0x40000000>;
 +	};
 +
 +	ahb {
++		gmac0: eth@f0802000 {
++			phy-mode = "rgmii-id";
++			status = "okay";
++		};
++
++		mc: memory-controller@f0824000 {
++			compatible = "nuvoton,npcm7xx-sdram-edac";
++			reg = <0xf0824000 0x1000>;
++			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		emc0: eth@f0825000 {
++			phy-mode = "rmii";
++			use-ncsi;
++			status = "okay";
++		};
++
++		ehci1: usb@f0806000 {
++			status = "okay";
++		};
++
++		ohci1: ohci@f0807000 {
++			status = "okay";
++		};
++
 +		udc9:udc@f0839000 {
-+			compatible = "nuvoton,npcm750-udc";
-+			reg = <0xf0839000 0x1000
-+			       0xfffd0000 0x800>;
-+			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+			status = "disabled";
-+			clocks = <&clk NPCM7XX_CLK_SU>;
-+			clock-names = "clk_usb_bridge";
++			status = "okay";
++		};
++
++		aes:aes@f0858000 {
++			status = "okay";
++		};
++
++		sha:sha@f085a000 {
++			status = "okay";
++		};
++
++		fiu0: fiu@fb000000 {
++			pinctrl-names = "default";
++			pinctrl-0 = <&spi0cs1_pins>;
++			status = "okay";
++			spi-nor@0 {
++				compatible = "jedec,spi-nor";
++				#address-cells = <1>;
++				#size-cells = <1>;
++				reg = <0>;
++				spi-rx-bus-width = <2>;
++#include "nuvoton-npcm730-gsj-flash-layout.dtsi"
++			};
++		};
++
++		pcimbox: pcimbox@f0848000 {
++			status = "okay";
++		};
++
++		apb {
++
++			watchdog1: watchdog@901C {
++				status = "okay";
++			};
++
++			rng: rng@b000 {
++				status = "okay";
++			};
++
++			serial0: serial@1000 {
++				status = "okay";
++			};
++
++			serial1: serial@2000 {
++				status = "okay";
++			};
++
++			serial2: serial@3000 {
++				status = "okay";
++			};
++
++			serial3: serial@4000 {
++				status = "okay";
++			};
++
++			adc: adc@c000 {
++				status = "okay";
++			};
++			otp:otp@189000 {
++				status = "okay";
++			};
++
++			i2c0: i2c@80000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "disabled";
++			};
++
++			i2c1: i2c@81000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				lm75@5c {
++					compatible = "maxim,max31725";
++					reg = <0x5c>;
++					status = "okay";
++				};
++			};
++
++			i2c2: i2c@82000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				lm75@5c {
++					compatible = "maxim,max31725";
++					reg = <0x5c>;
++					status = "okay";
++				};
++			};
++
++			i2c3: i2c@83000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				lm75@5c {
++					compatible = "maxim,max31725";
++					reg = <0x5c>;
++					status = "okay";
++				};
++			};
++
++			i2c4: i2c@84000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				lm75@5c {
++					compatible = "maxim,max31725";
++					reg = <0x5c>;
++					status = "okay";
++				};
++			};
++			i2c5: i2c@85000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "disabled";
++			};
++			i2c6: i2c@86000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "disabled";
++			};
++
++			i2c7: i2c@87000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "disabled";
++			};
++
++			i2c8: i2c@88000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++			};
++
++			i2c9: i2c@89000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				eeprom@55 {
++					compatible = "atmel,24c64";
++					reg = <0x55>;
++				};
++			};
++
++			i2c10: i2c@8a000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++				eeprom@55 {
++					compatible = "atmel,24c64";
++					reg = <0x55>;
++				};
++			};
++
++			i2c11: i2c@8b000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++
++				/* P12V Quarter Brick DC/DC Power Module Q54SH12050 @60 */
++				power-brick@36 {
++					compatible = "delta,dps800";
++					reg = <0x36>;
++				};
++
++				hotswap@15 {
++					compatible = "ti,lm5066i";
++					reg = <0x15>;
++				};
++			};
++
++			i2c12: i2c@8c000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++			};
++
++			i2c13: i2c@8d000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++
++				ipmb@40000010 {
++					compatible = "slave-mqueue";
++					reg = <0x40000010>;
++					status = "okay";
++				};
++			};
++
++			i2c14: i2c@8e000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++
++				ipmb@40000012 {
++					compatible = "slave-mqueue";
++					reg = <0x40000012>;
++					status = "okay";
++				};
++			};
++
++			i2c15: i2c@8f000 {
++				#address-cells = <1>;
++				#size-cells = <0>;
++				bus-frequency = <100000>;
++				status = "okay";
++
++				i2c-switch@75 {
++					compatible = "nxp,pca9548";
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0x75>;
++					i2c-mux-idle-disconnect;
++
++					i2c_u20: i2c@0 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <0>;
++					};
++
++					i2c_u21: i2c@1 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <1>;
++					};
++
++					i2c_u22: i2c@2 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <2>;
++					};
++
++					i2c_u23: i2c@3 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <3>;
++					};
++
++					i2c_u24: i2c@4 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <4>;
++					};
++
++					i2c_u25: i2c@5 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <5>;
++					};
++
++					i2c_u26: i2c@6 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <6>;
++					};
++
++					i2c_u27: i2c@7 {
++						#address-cells = <1>;
++						#size-cells = <0>;
++						reg = <7>;
++					};
++				};
++			};
++
++			pwm_fan:pwm-fan-controller@103000 {
++				pinctrl-names = "default";
++				pinctrl-0 = <&pwm0_pins &pwm1_pins &pwm2_pins
++						&fanin0_pins &fanin1_pins
++						&fanin2_pins &fanin3_pins
++						&fanin4_pins &fanin5_pins>;
++				status = "okay";
++				fan@0 {
++					reg = <0x00>;
++					fan-tach-ch = /bits/ 8 <0x00 0x01>;
++					cooling-levels = <127 255>;
++				};
++				fan@1 {
++					reg = <0x01>;
++					fan-tach-ch = /bits/ 8 <0x02 0x03>;
++					cooling-levels = /bits/ 8 <127 255>;
++				};
++				fan@2 {
++					reg = <0x02>;
++					fan-tach-ch = /bits/ 8 <0x04 0x05>;
++					cooling-levels = /bits/ 8 <127 255>;
++				};
++			};
++
++		};
++	};
++
++	pinctrl: pinctrl@f0800000 {
++		pinctrl-names = "default";
++		pinctrl-0 = <
++				/* GPI pins*/
++				&gpio8_pins
++				&gpio9_pins
++				&gpio12_pins
++				&gpio13_pins
++				&gpio14_pins
++				&gpio60_pins
++				&gpio83_pins
++				&gpio91_pins
++				&gpio92_pins
++				&gpio95_pins
++				&gpio136_pins
++				&gpio137_pins
++				&gpio141_pins
++				&gpio144_pins
++				&gpio145_pins
++				&gpio146_pins
++				&gpio147_pins
++				&gpio148_pins
++				&gpio149_pins
++				&gpio150_pins
++				&gpio151_pins
++				&gpio152_pins
++				&gpio153_pins
++				&gpio154_pins
++				&gpio155_pins
++				&gpio156_pins
++				&gpio157_pins
++				&gpio158_pins
++				&gpio159_pins
++				&gpio161_pins
++				&gpio162_pins
++				&gpio163_pins
++				&gpio164_pins
++				&gpio165_pins
++				&gpio166_pins
++				&gpio167_pins
++				&gpio168_pins
++				&gpio169_pins
++				&gpio170_pins
++				&gpio177_pins
++				&gpio191_pins
++				&gpio192_pins
++				&gpio203_pins
++				/* GPO pins*/
++				&gpio0pp_pins
++				&gpio1pp_pins
++				&gpio2pp_pins
++				&gpio3pp_pins
++				&gpio4pp_pins
++				&gpio5pp_pins
++				&gpio6pp_pins
++				&gpio7pp_pins
++				&gpio10pp_pins
++				&gpio11pp_pins
++				&gpio15od_pins
++				&gpio17pp_pins
++				&gpio18pp_pins
++				&gpio19pp_pins
++				&gpio24pp_pins
++				&gpio25pp_pins
++				&gpio37od_pins
++				&gpio59pp_pins
++				&gpio72od_pins
++				&gpio73od_pins
++				&gpio74od_pins
++				&gpio75od_pins
++				&gpio76od_pins
++				&gpio77od_pins
++				&gpio78od_pins
++				&gpio79od_pins
++				&gpio84pp_pins
++				&gpio85pp_pins
++				&gpio86pp_pins
++				&gpio87pp_pins
++				&gpio88pp_pins
++				&gpio89pp_pins
++				&gpio90pp_pins
++				&gpio93pp_pins
++				&gpio94pp_pins
++				&gpio125pp_pins
++				&gpio126od_pins
++				&gpio127od_pins
++				&gpio142od_pins
++				&gpio143ol_pins
++				&gpio175od_pins
++				&gpio176od_pins
++				&gpio190od_pins
++				&gpio194pp_pins
++				&gpio195od_pins
++				&gpio196od_pins
++				&gpio197od_pins
++				&gpio198od_pins
++				&gpio199od_pins
++				&gpio200pp_pins
++				&gpio202od_pins
++				>;
++	};
++
++
++
++	leds {
++		compatible = "gpio-leds";
++
++		led-bmc-live {
++			gpios = <&gpio4 15 GPIO_ACTIVE_HIGH>;
++			linux,default-trigger = "heartbeat";
++		};
++
++		LED_U2_0_LOCATE {
++			gpios = <&gpio0 0 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_1_LOCATE {
++			gpios = <&gpio0 1 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_2_LOCATE {
++			gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_3_LOCATE {
++			gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_4_LOCATE {
++			gpios = <&gpio0 10 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_5_LOCATE {
++			gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_BMC_TRAY_PWRGD {
++			gpios = <&gpio0 19 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_7_FAULT {
++			gpios = <&gpio6 8 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_6_LOCATE {
++			gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_7_LOCATE {
++			gpios = <&gpio0 25 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_0_FAULT {
++			gpios = <&gpio2 20 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_1_FAULT {
++			gpios = <&gpio2 21 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_2_FAULT {
++			gpios = <&gpio2 22 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_3_FAULT {
++			gpios = <&gpio2 23 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_4_FAULT {
++			gpios = <&gpio2 24 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_5_FAULT {
++			gpios = <&gpio2 25 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++		};
++
++		LED_U2_6_FAULT {
++			gpios = <&gpio2 26 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
 +		};
 +	};
 +};
