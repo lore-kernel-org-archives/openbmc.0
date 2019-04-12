@@ -1,64 +1,57 @@
-Return-Path: <venture@google.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::62c; helo=mail-pl1-x62c.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+Return-Path: <3waOwXAcKB7Yrajpqnackkcha.YkiklajXiYheopo.kvhWXo.knc@flex--venture.bounces.google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
+ smtp.mailfrom=flex--venture.bounces.google.com
+ (client-ip=2607:f8b0:4864:20::d49; helo=mail-io1-xd49.google.com;
+ envelope-from=3waowxackb7yrajpqnackkcha.ykiklajxiyheopo.kvhwxo.knc@flex--venture.bounces.google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="bWU+TA0a"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="MZ/eks22"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62c.google.com (mail-pl1-x62c.google.com
- [IPv6:2607:f8b0:4864:20::62c])
+Received: from mail-io1-xd49.google.com (mail-io1-xd49.google.com
+ [IPv6:2607:f8b0:4864:20::d49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44gg9p1hlkzDqSl
- for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:23:41 +1000 (AEST)
-Received: by mail-pl1-x62c.google.com with SMTP id t16so5231119plo.0
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 07:23:41 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44ggbL4fM4zDqT7
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:42:14 +1000 (AEST)
+Received: by mail-io1-xd49.google.com with SMTP id s184so7841637iod.23
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 07:42:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=KbiISPbH7Jqiwf8En4lh3iez9OQxxAQepHS7FZwZi2g=;
- b=bWU+TA0aihG8mahiwokpJo7t+sYnO1ebKp2vpu2JIrHBvWJz2LZwzovdGLvD0+shP4
- C0kVMcpc0YaYoJtdw73XsTZNrqIHx7dOg/2tocDaM/dI5GTMtwFKIAm/CO2J79rcXJxn
- OQ74JHurNyH3oT5F0zqvvd7vOJAd5cx2kd4TAaN+m5+Za724xwC/YSAF+gTltBs6kSTZ
- hjN54+6S0TfqoYPfE+L+fa5SWO4DjNVD+O6gPzce1sU5XGkPrBHkNhI19QWwa7elk3VO
- B8R6C6LcJlOB1/VVJkeYZb8nR0fQJ4605r0H2FrL3/f6lIYGgZg/1G+RX3hp7fRYpTBt
- 0A8w==
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=hGzgN49n7uFe23dGriYnes1KlLm6j27b0lKBjr/kq3M=;
+ b=MZ/eks2275L56WZJH7tL8kyTNH/kcDQ+PNEzpJmODGk1StfNXB9vkKIkxyjQZgFvSz
+ rfPeRjyvWz2J19lSZTilWEEdKj4uVE6DYVy0KUfMqxyRUlDuDJpIrCcbKqxl0e5j0L3v
+ Og/+XQsFZ98tnsNqE/upnEfZZuYr7E1Ll8mWYF9o8m84JyLB9BDsmT0Hbmfx7BW01fxB
+ CduJ3euN8WYRySI+0H4c9ktXfmmsrzlur6LE6Bo+B2SVAc1BGXQMSx+3XJ19Ln+5jxzB
+ H1UGOz3Dm6bAtiIUy2TN/UvSYSoFDrSJr77lPIpDDv2o+TfjZ+pqpgjt1Smui0xTFD9J
+ sG/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=KbiISPbH7Jqiwf8En4lh3iez9OQxxAQepHS7FZwZi2g=;
- b=pA5He1ASzXZNakHCtGmtcSzo1fC6SBtCSe94n9SgGnqGpWJcim5YAz+njsi6vDXALG
- o3VnNhBu5KYEuQF93hXKKa6cCguD4SgTvCY9GsluvnB4lHUzKLW9hTC/jDx/le6lYlhG
- FrSo4fRoE+ycmdDqM99bF+Qv4/hFjdLKCLrf/oNVof3jL5dezGrKpHQQYb0yCZnJiqJZ
- K4KLanqClbw7fKX3lRfXXsgkzKnHFOb+Zy9+ON+MGh7dgWzUvWoiCei6NOHcPBfj0Yav
- 7GQwFHCx7j5EVhzTYZauPWjGwg4+/4kj9E/yea61YTzFKNoMSW1o+iHY4lqTqhMqLwP9
- Okkg==
-X-Gm-Message-State: APjAAAXEr7ccHACmni12NGCyGYqg+aN/U1bdWtKm0i2+fCZNPUg3223F
- hBbwVcXTYniSYjSi4CUyesncq3sCf/GJvgqs3+dd6A==
-X-Google-Smtp-Source: APXvYqwbQkwmbZXj7gyC1V6u5gAyjZMVTFEJvDhkw5A5vV4XibvRpYpddPNT4oKgtBLUoXRh/lgEYA5kgwFp01P4qvo=
-X-Received: by 2002:a17:902:854c:: with SMTP id
- d12mr10423253plo.150.1555079017158; 
- Fri, 12 Apr 2019 07:23:37 -0700 (PDT)
-MIME-Version: 1.0
-References: <81e4866b111a47d991f767df3c6b4b0a@quantatw.com>
-In-Reply-To: <81e4866b111a47d991f767df3c6b4b0a@quantatw.com>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=hGzgN49n7uFe23dGriYnes1KlLm6j27b0lKBjr/kq3M=;
+ b=QxIIE7hJqmEHfN7Ty3FH6VC6xpOgCRO5svFwHTenB6YEJaA3oNKg2Bi3+31c0wfZ1V
+ mVdk36bxgpUBYSyewvMxZ4W4rcYmYTvLw5UXDopib6Pd/bxlzg+TIUBnUO7QUeIS8xJZ
+ nrhJV3W8JNNYtRC7qq6YqtXGOnoXB0bMDZOoNXe6MZgyUbx6gPOmx/7WpPr17uIcIU8Y
+ VL1TbKkGmc52pVXMqgyhY7QPRXL9jv/cbi9lpa/SHbe7AW4D1GtFJlc7U2m32J92C2Fd
+ 6CRb1q/wHHI9Swih5saTqjjFa49L6E4JzQmZOOkkqlWjBgZnWeXS1sXBNE25PSDhzz67
+ Yzkw==
+X-Gm-Message-State: APjAAAWZFHS+7BDs1BAveC/EypiA8S1h5MMYg5vK2FHbptu0GYz9LkCE
+ IksIQzpBhJxVER19X2IhQqO6TKfRrqDK
+X-Google-Smtp-Source: APXvYqzjBQeOncmQazMv/PN6aBlE+ZmIB00+rL3URfF5zfg/8ECet/uapGa+z3r8vh9Iv9ftcOzOrBfAyw+X
+X-Received: by 2002:a24:434f:: with SMTP id s76mr3638901itb.8.1555080129955;
+ Fri, 12 Apr 2019 07:42:09 -0700 (PDT)
+Date: Fri, 12 Apr 2019 07:42:06 -0700
+Message-Id: <20190412144206.68324-1-venture@google.com>
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.21.0.392.gf8f6787159e-goog
+Subject: [PATCH dev-5.0] ARM: dts: aspeed: zaius: add Infineon and Intersil
+ regulators
 From: Patrick Venture <venture@google.com>
-Date: Fri, 12 Apr 2019 07:23:25 -0700
-Message-ID: <CAO=notw_E+LJJ5jMmdACajshiTebufgZgwDOGa6op8f1-Phkxw@mail.gmail.com>
-Subject: Re: Sending I2C command via google-ipmi i2c
-To: =?UTF-8?B?R2VvcmdlIEh1bmcgKOa0quW/oOaVrCk=?= <George.Hung@quantatw.com>
-Cc: "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>, 
- "Patrick Venture (venture@google.com)" <venture@google.com>,
- "emilyshaffer@google.com" <emilyshaffer@google.com>, 
- "benjaminfair@google.com" <benjaminfair@google.com>, 
- "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>,
- tomjoseph@in.ibm.com
+To: venture@google.com, joel@jms.id.au, andrew@aj.id.au
+Cc: Maxim Sloyko <maxims@google.com>, openbmc@lists.ozlabs.org, 
+ Robert Lippert <rlippert@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,71 +63,108 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2019 14:23:43 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:42:24 -0000
 
-On Thu, Apr 11, 2019 at 10:46 PM George Hung (=E6=B4=AA=E5=BF=A0=E6=95=AC)
-<George.Hung@quantatw.com> wrote:
->
-> Hi all,
->
->
->
-> I=E2=80=99m trying to sending ipmi I2C command via google-ipmi-i2c extens=
-ion,
->
-> but I will get the response error, =E2=80=9CUnspecified error=E2=80=9D fr=
-om ipmitool.
->
->
->
-> There are the command and response example below:
->
->
->
-> # ipmitool raw 0x2e 0x02 0x79 0x2b 0x00 1 0 0x98 0 1 0 0x99 0 2
->
-> Unable to send RAW command (channel=3D0x0 netfn=3D0x2e lun=3D0x0 cmd=3D0x=
-2 rsp=3D0xff): Unspecified error
->
->
->
-> I check the error message from journal and it indicates that cannot open =
-/dev/i2c-121 and I think it used the first byte of IANA number (0x79) as bu=
-s number.
+From: Maxim Sloyko <maxims@google.com>
 
-I have a little breakout I use:
-ipmitool -I dbus raw 0x2e 0x05 0xcf 0xc2 0x00 0x00 0x02 0x00 0x00 0x00
-                                 |--|    |--|    |------------|
-|----------------------|
-                                 |       |        |              |   reqBuf
-                                 |       |        | oem group
-                                 |       | command
-                                 | netfn for oem
+Add the nodes for the ir38064 and isl68137 devices on the Zaius board.
 
-So 0x2e is the netfn, properly parsed.
-So 0x02 is the command, properly parsed.
-So 0x79 0x2b 0x00 is the OEM group
-So 0x00 1 0 0x98 0 1 0 0x99 0 2 is the command payload
+Signed-off-by: Maxim Sloyko <maxims@google.com>
+Signed-off-by: Robert Lippert <rlippert@google.com>
+Signed-off-by: Patrick Venture <venture@google.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 65 ++++++++++++++++++++--
+ 1 file changed, 60 insertions(+), 5 deletions(-)
 
-As you say, it sounds like there's a bug in parsing the length of the
-OEM group number.  We haven't rebased onto the newest ipmid
-downstream, so we haven't tested it ourselves.  But this sounds like a
-bug in the new ipmid.
-
-IIRC, they weren't properly handling OEM groups and recently fixed it.
-Please specify the SHA1 of the phosphor-host-ipmid source you're using
-to build this.
-
->
->
->
-> Has anyone ever met this situation ? or something I have to configure for=
- phosphor-ipmi-host / google-ipmi-i2c ?
->
->
->
->
->
-> Best Regards
->
-> George Hung
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 0c0ea41cbe27..53751adebf17 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -301,6 +301,32 @@
+ 				reg = <0x54>;
+ 			};
+ 		};
++
++	};
++
++	vrm@64 {
++		compatible = "intersil,isl68137";
++		reg = <0x64>;
++	};
++
++	vrm@40 {
++		compatible = "intersil,isl68137";
++		reg = <0x40>;
++	};
++
++	vrm@60 {
++		compatible = "intersil,isl68137";
++		reg = <0x60>;
++	};
++
++	vrm@43 {
++		compatible = "infineon,ir38064";
++		reg = <0x43>;
++	};
++
++	vrm@41 {
++		compatible = "intersil,isl68137";
++		reg = <0x41>;
+ 	};
+ 
+ 	/* Master selector PCA9541A @70h (other master: CPU0)
+@@ -316,18 +342,47 @@
+ 	/* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
+ 	/* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
+ 	/* CPU0 VR ISL68137 0.8V PMBUS @60h */
+-	/* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @41h */
++	/* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @43h */
+ 	/* CPU0 VR ISL68137 1.2V CH47 PMBUS @41h */
++	/* Master selector PCA9541A @70h (other master: CPU0)
++	 *   LM5066I PMBUS @10h
++	 */
++	/* 12V SMPS Q54SH12050NNDH @61h */
+ };
+ 
+ &i2c8 {
+ 	status = "okay";
+ 
+-	/* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @65h */
+-	/* CPU1 VR ISL68137 1.2V CH03 PMBUS @44h */
+-	/* CPU1 VR ISL68137 0.8V PMBUS @61h */
++	vrm@64 {
++		compatible = "intersil,isl68137";
++		reg = <0x64>;
++	};
++
++	vrm@40 {
++		compatible = "intersil,isl68137";
++		reg = <0x40>;
++	};
++
++	vrm@41 {
++		compatible = "intersil,isl68137";
++		reg = <0x41>;
++	};
++
++	vrm@42 {
++		compatible = "infineon,ir38064";
++		reg = <0x42>;
++	};
++
++	vrm@60 {
++		compatible = "intersil,isl68137";
++		reg = <0x60>;
++	};
++
++	/* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @64h */
++	/* CPU1 VR ISL68137 1.2V CH03 PMBUS @40h */
++	/* CPU1 VR ISL68137 1.2V CH47 PMBUS @41h */
+ 	/* CPU1 VR 1.0V IR38064 I2C @12h, PMBUS @42h */
+-	/* CPU0 VR ISL68137 1.2V CH47 PMBUS @45h */
++	/* CPU1 VR ISL68137 0.8V PMBUS @60h */
+ };
+ 
+ 
+-- 
+2.21.0.392.gf8f6787159e-goog
