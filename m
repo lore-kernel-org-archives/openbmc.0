@@ -1,15 +1,15 @@
 Return-Path: <prvs=998d34902=Fran.Hsu@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
  envelope-from=prvs=998d34902=fran.hsu@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44gfhY1cvMzDqRy
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44gfhY1csMzDqRx
  for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:44 +1000 (AEST)
 Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
- by mx01.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
+ by mx02.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
 Received: from localhost.localdomain (10.243.91.252) by mailbx06.quanta.corp
  (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 12 Apr
@@ -18,9 +18,9 @@ From: <fran.hsu@quantatw.com>
 To: Joel Stanley <joel@jms.id.au>
 CC: <openbmc@lists.ozlabs.org>, <benjaminfair@google.com>, FranHsu
  <Fran.Hsu@quantatw.com>
-Subject: [PATCH dev-5.0 v2 2/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine.
-Date: Fri, 12 Apr 2019 22:01:30 +0800
-Message-ID: <20190412140132.39764-2-fran.hsu@quantatw.com>
+Subject: [PATCH dev-5.0 v2 3/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine.
+Date: Fri, 12 Apr 2019 22:01:31 +0800
+Message-ID: <20190412140132.39764-3-fran.hsu@quantatw.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190412140132.39764-1-fran.hsu@quantatw.com>
 References: <20190412140132.39764-1-fran.hsu@quantatw.com>
@@ -31,10 +31,9 @@ X-Originating-IP: [10.243.91.252]
 X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
  mailbx06.quanta.corp (10.243.91.101)
 X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24544.006
-X-TM-AS-Result: No--5.281900-0.000000-31
-X-TM-AS-MatchedID: 712203-704421-863519-708712-188019-703529-701016-704425-7
- 00324-121336-702796-780011-701499-701437-700383-702898-148004-148036-42000-
- 42003-63
+X-TM-AS-Result: No--10.400300-0.000000-31
+X-TM-AS-MatchedID: 712203-704421-780016-863519-188019-703529-701016-704425-7
+ 00324-121336-700624-700264-703523-700838-148004-148036-42000-42003-63
 X-TM-AS-User-Approved-Sender: Yes
 X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -49,499 +48,63 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
 
 From: FranHsu <Fran.Hsu@quantatw.com>
 
-Add pinctrl definition file for quanta-gsj BMC device tree.
+Add a flash layout dtsi file for Quanta GSJ BMC.
 
 Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
 ---
- .../boot/dts/nuvoton-npcm730-gsj-gpio.dtsi    | 477 ++++++++++++++++++
- 1 file changed, 477 insertions(+)
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+ .../dts/nuvoton-npcm730-gsj-flash-layout.dtsi | 36 +++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
 
-diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi b/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
 new file mode 100644
-index 000000000000..53cfd15fa03f
+index 000000000000..6c406fb8504c
 --- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj-gpio.dtsi
-@@ -0,0 +1,477 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
++++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
+@@ -0,0 +1,36 @@
++// SPDX-License-Identifier: GPL-2.0+
 +
-+/ {
-+	pinctrl: pinctrl@f0800000 {
-+		gpio0pp_pins: gpio0pp-pins {
-+			pins = "GPIO0/IOX1DI";
-+			bias-disable;
-+			drive-push-pull;
++partitions@80000000 {
++		compatible = "fixed-partitions";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		bmc@0{
++			label = "bmc";
++			reg = <0x000000 0x2000000>;
++		};
++		u-boot@0 {
++			label = "u-boot";
++			reg = <0x0000000 0x80000>;
++			read-only;
++		};
++		u-boot-env@100000{
++			label = "u-boot-env";
++			reg = <0x00100000 0x40000>;
++		};
++		kernel@200000 {
++			label = "kernel";
++			reg = <0x0200000 0x600000>;
++		};
++		rofs@800000 {
++			label = "rofs";
++			reg = <0x800000 0x1400000>;
++		};
++		rwfs@1c00000 {
++			label = "rwfs";
++			reg = <0x1c00000 0x300000>;
++		};
++		reserved@1f00000 {
++			label = "reserved";
++			reg = <0x1f00000 0x100000>;
 +		};
-+		gpio1pp_pins: gpio1pp-pins {
-+			pins = "GPIO1/IOX1LD";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio2pp_pins: gpio2pp-pins {
-+			pins = "GPIO2/IOX1CK";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio3pp_pins: gpio3pp-pins {
-+			pins = "GPIO3/IOX1D0";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio4pp_pins: gpio4pp-pins {
-+			pins = "GPIO4/IOX2DI/SMB1DSDA";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio5pp_pins: gpio5pp-pins {
-+			pins = "GPIO5/IOX2LD/SMB1DSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio6pp_pins: gpio6pp-pins {
-+			pins = "GPIO6/IOX2CK/SMB2DSDA";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio7pp_pins: gpio7pp-pins {
-+			pins = "GPIO7/IOX2D0/SMB2DSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio8_pins: gpio8-pins {
-+			pins = "GPIO8/LKGPO1";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio9_pins: gpio9-pins {
-+			pins = "GPIO9/LKGPO2";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio10pp_pins: gpio10pp-pins {
-+			pins = "GPIO10/IOXHLD";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio11pp_pins: gpio11pp-pins {
-+			pins = "GPIO11/IOXHCK";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio12_pins: gpio12-pins {
-+			pins = "GPIO12/GSPICK/SMB5BSCL";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio13_pins: gpio13-pins {
-+			pins = "GPIO13/GSPIDO/SMB5BSDA";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio14_pins: gpio14-pins {
-+			pins = "GPIO14/GSPIDI/SMB5CSCL";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio15od_pins: gpio15od-pins {
-+			pins = "GPIO15/GSPICS/SMB5CSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio17pp_pins: gpio17pp-pins {
-+			pins = "GPIO17/PSPI2DI/SMB4DEN";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio18pp_pins: gpio18pp-pins {
-+			pins = "GPIO18/PSPI2D0/SMB4BSDA";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio19pp_pins: gpio19pp-pins {
-+			pins = "GPIO19/PSPI2CK/SMB4BSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio24pp_pins: gpio24pp-pins {
-+			pins = "GPIO24/IOXHDO";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio25pp_pins: gpio25pp-pins {
-+			pins = "GPIO25/IOXHDI";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio37od_pins: gpio37od-pins {
-+			pins = "GPIO37/SMB3CSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio59pp_pins: gpio59pp-pins {
-+			pins = "GPIO59/SMB3DSDA";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio60_pins: gpio60-pins {
-+			pins = "GPIO60/SMB3DSCL";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio72od_pins: gpio72od-pins {
-+			pins = "GPIO72/FANIN8";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio73od_pins: gpio73od-pins {
-+			pins = "GPIO73/FANIN9";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio74od_pins: gpio74od-pins {
-+			pins = "GPIO74/FANIN10";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio75od_pins: gpio75od-pins {
-+			pins = "GPIO75/FANIN11";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio76od_pins: gpio76od-pins {
-+			pins = "GPIO76/FANIN12";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio77od_pins: gpio77od-pins {
-+			pins = "GPIO77/FANIN13";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio78od_pins: gpio78od-pins {
-+			pins = "GPIO78/FANIN14";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio79od_pins: gpio79od-pins {
-+			pins = "GPIO79/FANIN15";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio83_pins: gpio83-pins {
-+			pins = "GPIO83/PWM3";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio84pp_pins: gpio84pp-pins {
-+			pins = "GPIO84/R2TXD0";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio85pp_pins: gpio85pp-pins {
-+			pins = "GPIO85/R2TXD1";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio86pp_pins: gpio86pp-pins {
-+			pins = "GPIO86/R2TXEN";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio87pp_pins: gpio87pp-pins {
-+			pins = "GPIO87/R2RXD0";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio88pp_pins: gpio88pp-pins {
-+			pins = "GPIO88/R2RXD1";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio89pp_pins: gpio89pp-pins {
-+			pins = "GPIO89/R2CRSDV";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio90pp_pins: gpio90pp-pins {
-+			pins = "GPIO90/R2RXERR";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio91_pins: gpio91-pins {
-+			pins = "GPIO91/R2MDC";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio92_pins: gpio92-pins {
-+			pins = "GPIO92/R2MDIO";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio93pp_pins: gpio93pp-pins {
-+			pins = "GPIO93/GA20/SMB5DSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio94pp_pins: gpio94pp-pins {
-+			pins = "GPIO94/nKBRST/SMB5DSDA";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio95_pins: gpio95-pins {
-+			pins = "GPIO95/nLRESET/nESPIRST";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio125pp_pins: gpio125pp-pins {
-+			pins = "GPIO125/SMB1CSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio126od_pins: gpio126od-pins {
-+			pins = "GPIO126/SMB1BSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio127od_pins: gpio127od-pins {
-+			pins = "GPIO127/SMB1BSCL";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio136_pins: gpio136-pins {
-+			pins = "GPIO136/SD1DT0";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio137_pins: gpio137-pins {
-+			pins = "GPIO137/SD1DT1";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio141_pins: gpio141-pins {
-+			pins = "GPIO141/SD1WP";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio142od_pins: gpio142od-pins {
-+			pins = "GPIO142/SD1CMD";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio143ol_pins: gpio143ol-pins {
-+			pins = "GPIO143/SD1CD/SD1PWR";
-+			bias-disable;
-+			output-low;
-+		};
-+		gpio144_pins: gpio144-pins {
-+			pins = "GPIO144/PWM4";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio145_pins: gpio145-pins {
-+			pins = "GPIO145/PWM5";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio146_pins: gpio146-pins {
-+			pins = "GPIO146/PWM6";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio147_pins: gpio147-pins {
-+			pins = "GPIO147/PWM7";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio148_pins: gpio148-pins {
-+			pins = "GPIO148/MMCDT4";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio149_pins: gpio149-pins {
-+			pins = "GPIO149/MMCDT5";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio150_pins: gpio150-pins {
-+			pins = "GPIO150/MMCDT6";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio151_pins: gpio151-pins {
-+			pins = "GPIO151/MMCDT7";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio152_pins: gpio152-pins {
-+			pins = "GPIO152/MMCCLK";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio153_pins: gpio153-pins {
-+			pins = "GPIO153/MMCWP";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio154_pins: gpio154-pins {
-+			pins = "GPIO154/MMCCMD";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio155_pins: gpio155-pins {
-+			pins = "GPIO155/nMMCCD/nMMCRST";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio156_pins: gpio156-pins {
-+			pins = "GPIO156/MMCDT0";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio157_pins: gpio157-pins {
-+			pins = "GPIO157/MMCDT1";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio158_pins: gpio158-pins {
-+			pins = "GPIO158/MMCDT2";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio159_pins: gpio159-pins {
-+			pins = "GPIO159/MMCDT3";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio161_pins: gpio161-pins {
-+			pins = "GPIO161/nLFRAME/nESPICS";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio162_pins: gpio162-pins {
-+			pins = "GPIO162/SERIRQ";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio163_pins: gpio163-pins {
-+			pins = "GPIO163/LCLK/ESPICLK";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio164_pins: gpio164-pins {
-+			pins = "GPIO164/LAD0/ESPI_IO0";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio165_pins: gpio165-pins {
-+			pins = "GPIO165/LAD1/ESPI_IO1";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio166_pins: gpio166-pins {
-+			pins = "GPIO166/LAD2/ESPI_IO2";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio167_pins: gpio167-pins {
-+			pins = "GPIO167/LAD3/ESPI_IO3";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio168_pins: gpio168-pins {
-+			pins = "GPIO168/nCLKRUN/nESPIALERT";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio169_pins: gpio169-pins {
-+			pins = "GPIO169/nSCIPME";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio170_pins: gpio170-pins {
-+			pins = "GPIO170/nSMI";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio175od_pins: gpio175od-pins {
-+			pins = "GPIO175/PSPI1CK/FANIN19";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio176od_pins: gpio176od-pins {
-+			pins = "GPIO176/PSPI1DO/FANIN18";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio177_pins: gpio177-pins {
-+			pins = "GPIO177/PSPI1DI/FANIN17";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio190od_pins: gpio190od-pins {
-+			pins = "GPIO190/nPRD_SMI";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio191_pins: gpio191-pins {
-+			pins = "GPIO191";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio192_pins: gpio192-pins {
-+			pins = "GPIO192";
-+			bias-disable;
-+			input-enable;
-+		};
-+		gpio194pp_pins: gpio194pp-pins {
-+			pins = "GPIO194/SMB0BSCL";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio195od_pins: gpio195od-pins {
-+			pins = "GPIO195/SMB0BSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio196od_pins: gpio196od-pins {
-+			pins = "GPIO196/SMB0CSCL";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio197od_pins: gpio197od-pins {
-+			pins = "GPIO197/SMB0DEN";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio198od_pins: gpio198od-pins {
-+			pins = "GPIO198/SMB0DSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio199od_pins: gpio199od-pins {
-+			pins = "GPIO199/SMB0DSCL";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio200pp_pins: gpio200pp-pins {
-+			pins = "GPIO200/R2CK";
-+			bias-disable;
-+			drive-push-pull;
-+		};
-+		gpio202od_pins: gpio202od-pins {
-+			pins = "GPIO202/SMB0CSDA";
-+			bias-disable;
-+			drive-open-drain;
-+		};
-+		gpio203_pins: gpio203-pins {
-+			pins = "GPIO203/FANIN16";
-+			bias-disable;
-+			input-enable;
-+		};
-+	};
 +};
 -- 
 2.21.0
