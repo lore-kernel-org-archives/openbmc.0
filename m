@@ -1,15 +1,15 @@
 Return-Path: <prvs=998d34902=Fran.Hsu@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
  envelope-from=prvs=998d34902=fran.hsu@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44gfhY1csMzDqRx
- for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:44 +1000 (AEST)
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44gfhZ69CZzDqRx
+ for <openbmc@lists.ozlabs.org>; Sat, 13 Apr 2019 00:01:50 +1000 (AEST)
 Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
- by mx02.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
+ by mx01.quantatw.com with ESMTP; 12 Apr 2019 22:01:41 +0800
 Received: from localhost.localdomain (10.243.91.252) by mailbx06.quanta.corp
  (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 12 Apr
@@ -18,12 +18,10 @@ From: <fran.hsu@quantatw.com>
 To: Joel Stanley <joel@jms.id.au>
 CC: <openbmc@lists.ozlabs.org>, <benjaminfair@google.com>, FranHsu
  <Fran.Hsu@quantatw.com>
-Subject: [PATCH dev-5.0 v2 3/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine.
-Date: Fri, 12 Apr 2019 22:01:31 +0800
-Message-ID: <20190412140132.39764-3-fran.hsu@quantatw.com>
+Subject: [PATCH dev-5.0 v2 1/4] ARM: dts: nuvoton: Add Quanta GSJ BMC machine
+Date: Fri, 12 Apr 2019 22:01:29 +0800
+Message-ID: <20190412140132.39764-1-fran.hsu@quantatw.com>
 X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190412140132.39764-1-fran.hsu@quantatw.com>
-References: <20190412140132.39764-1-fran.hsu@quantatw.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -31,9 +29,10 @@ X-Originating-IP: [10.243.91.252]
 X-ClientProxiedBy: mailbx05.quanta.corp (10.243.91.100) To
  mailbx06.quanta.corp (10.243.91.101)
 X-TM-AS-Product-Ver: SMEX-12.0.0.1727-8.200.1013-24544.006
-X-TM-AS-Result: No--10.400300-0.000000-31
-X-TM-AS-MatchedID: 712203-704421-780016-863519-188019-703529-701016-704425-7
- 00324-121336-700624-700264-703523-700838-148004-148036-42000-42003-63
+X-TM-AS-Result: No--4.290900-0.000000-31
+X-TM-AS-MatchedID: 712203-704421-708712-701016-703529-704425-188019-700324-1
+ 21336-702796-700264-702898-700019-847298-780012-148004-148036-10013-42000-4
+ 2003-63
 X-TM-AS-User-Approved-Sender: Yes
 X-TM-AS-User-Blocked-Sender: No
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -47,64 +46,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
-X-List-Received-Date: Fri, 12 Apr 2019 14:01:50 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 14:01:51 -0000
 
 From: FranHsu <Fran.Hsu@quantatw.com>
 
-Add a flash layout dtsi file for Quanta GSJ BMC.
+Add a common device tree include file for NPCM730.
 
 Signed-off-by: FranHsu <Fran.Hsu@quantatw.com>
 ---
- .../dts/nuvoton-npcm730-gsj-flash-layout.dtsi | 36 +++++++++++++++++++
- 1 file changed, 36 insertions(+)
- create mode 100644 arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
+ arch/arm/boot/dts/nuvoton-npcm730.dtsi | 57 ++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730.dtsi
 
-diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi b/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730.dtsi b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
 new file mode 100644
-index 000000000000..6c406fb8504c
+index 000000000000..20e13489b993
 --- /dev/null
-+++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj-flash-layout.dtsi
-@@ -0,0 +1,36 @@
-+// SPDX-License-Identifier: GPL-2.0+
++++ b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
++// Copyright 2018 Google, Inc.
 +
-+partitions@80000000 {
-+		compatible = "fixed-partitions";
++#include "nuvoton-common-npcm7xx.dtsi"
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&gic>;
++
++	cpus {
 +		#address-cells = <1>;
-+		#size-cells = <1>;
-+		bmc@0{
-+			label = "bmc";
-+			reg = <0x000000 0x2000000>;
++		#size-cells = <0>;
++		enable-method = "nuvoton,npcm750-smp";
++
++		cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <0>;
++			next-level-cache = <&l2>;
 +		};
-+		u-boot@0 {
-+			label = "u-boot";
-+			reg = <0x0000000 0x80000>;
-+			read-only;
++
++		cpu@1 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <1>;
++			next-level-cache = <&l2>;
 +		};
-+		u-boot-env@100000{
-+			label = "u-boot-env";
-+			reg = <0x00100000 0x40000>;
++	};
++
++	soc {
++		timer@3fe600 {
++			compatible = "arm,cortex-a9-twd-timer";
++			reg = <0x3fe600 0x20>;
++			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
++						  IRQ_TYPE_LEVEL_HIGH)>;
++			clocks = <&clk NPCM7XX_CLK_AHB>;
 +		};
-+		kernel@200000 {
-+			label = "kernel";
-+			reg = <0x0200000 0x600000>;
++	};
++
++	ahb {
++		udc9:udc@f0839000 {
++			compatible = "nuvoton,npcm750-udc";
++			reg = <0xf0839000 0x1000
++			       0xfffd0000 0x800>;
++			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++			clocks = <&clk NPCM7XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
 +		};
-+		rofs@800000 {
-+			label = "rofs";
-+			reg = <0x800000 0x1400000>;
-+		};
-+		rwfs@1c00000 {
-+			label = "rwfs";
-+			reg = <0x1c00000 0x300000>;
-+		};
-+		reserved@1f00000 {
-+			label = "reserved";
-+			reg = <0x1f00000 0x100000>;
-+		};
++	};
 +};
 -- 
 2.21.0
