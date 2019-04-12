@@ -1,78 +1,41 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <prvs=998c01c0b=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=998c01c0b=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="ob5q/6dm"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="BdKkHlNb"; dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44gP464VctzDqSM
- for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 13:47:50 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C739F21C1C;
- Thu, 11 Apr 2019 23:47:47 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 11 Apr 2019 23:47:47 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=GUVutWyIQz0MH04xQSiaIosZQTF26aP
- QSETkLHAzDnY=; b=ob5q/6dmTDTEJ0DqTqCOIEzUDxyqR+/d4VTPXZCecN7HyoT
- K/kiWVUY9Jp3yr0cNVvg5bZKOeGkuUZRpFSni2b6V6rpN7lrAWtoXanv5P8ottiv
- bczt8g056SQC+gDO4x1DfUWSWHdtEc7lHgJNMOqKPacprmqBxMqm8vchlyc5Vgme
- 6WiaAIJT/fihjES2cK+P6ttwjuwjLdK9zgVVuTAZcD5v/M3UlouQEIoVqodfRNL1
- ll/URmNcB/oQyVUHZb1UjddzNB0aZIdFgN2MkT4RO81p5bmVdEqNAgenSPDUyS2Y
- 9jXLzGMTAywMrmpbWoecLT2q/4FAOEt6PfOWKRQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=GUVutW
- yIQz0MH04xQSiaIosZQTF26aPQSETkLHAzDnY=; b=BdKkHlNbq68dYqZ2s6o61k
- 9brU0SmpghjYSfe7KdyvoDBrrp3QGlhltsAbo23ZLrbP5CWgFW7b3xiznBk0XcgG
- B6K3q9U+fSVVtrAFq10upVX2Sk6zy9crMP11DElvlyRGqgEbnKQPK0zb8GaKgGZU
- i+kY29nCKE3ShHftnJYRiLUaYemdQrCQoWuQrIWo62/FCkugPQswXGYeTTLFd8C1
- NCoD2YzjoS61KPgP7ePCXrl0NRnjrLpLu1FnwNnLGeMFmp6jsU2Mat6y74ZcVwAE
- hss+7pB76sg6ja/tYHHqELy86c6SasTVIRZVi6jbHjzyRlejKAAQ4r3lM3AFvzaA
- ==
-X-ME-Sender: <xms:YwqwXCVgjm3LfgvI6vqEbGy2qSa9JMUbXUal_VfQ4ApCaEcMqAtw9g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrvddtgdejvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculddvfedmnecujfgurhepofgfggfkjghffffhvffutgesthdtredtreer
- jeenucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjh
- drihgurdgruheqnecuffhomhgrihhnpehophgvnhgsmhgtqdhprhhojhgvtghtrdighiii
- necurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuve
- hluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:YwqwXFaTPOw1QTPFX6Qc6GUrCCCJ3AmjaOzZjoblLq5uWTonxKoEuQ>
- <xmx:YwqwXPWV_0ZN71_63eTvAvBEVCZCaCRv0teoaDhtvb6aMST1glQTVQ>
- <xmx:YwqwXMLCaqd-sQRLq6mYkXpn03pgZ2OWq1KIJouk9cxeCLw9QGyjPw>
- <xmx:YwqwXBVdCrzEXeb5jGstxk6M3T6xj6L6elpF9Gd4lul8ZcKSB9ulQQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 438547C132; Thu, 11 Apr 2019 23:47:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-332-g22ddc6a-fmstable-20190412v1
-Mime-Version: 1.0
-X-Me-Personality: 52947553
-Message-Id: <5ac645f2-1e7c-4c2a-b6f2-e794da2fd875@www.fastmail.com>
-In-Reply-To: <CALLMt=oxk3Bevbop-VLG6X2rpWf-fpbf2=KV9SWMWERWFfY_Eg@mail.gmail.com>
-References: <cd75d086-fdc0-4c83-8094-c3b802f6ad37@www.fastmail.com>
- <CALLMt=oxk3Bevbop-VLG6X2rpWf-fpbf2=KV9SWMWERWFfY_Eg@mail.gmail.com>
-Date: Thu, 11 Apr 2019 23:47:46 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Andrew Geissler" <geissonator@gmail.com>
-Cc: "OpenBMC Maillist" <openbmc@lists.ozlabs.org>,
- "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
- "William Kennington" <wak@google.com>
-Subject: =?UTF-8?Q?Re:_Using_D-Bus_well-known_service_names_and_deprecating_mappe?=
- =?UTF-8?Q?r_service_lookups?=
-Content-Type: text/plain
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44gRjT0mjTzDqT9
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Apr 2019 15:46:44 +1000 (AEST)
+Received: from unknown (HELO mailbx05.quanta.corp) ([10.243.91.100])
+ by mx02.quantatw.com with ESMTP; 12 Apr 2019 13:46:40 +0800
+Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx05.quanta.corp
+ (10.243.91.100) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 12 Apr
+ 2019 13:46:40 +0800
+Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
+ mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
+ 15.01.1713.004; Fri, 12 Apr 2019 13:46:40 +0800
+From: =?big5?B?R2VvcmdlIEh1bmcgKKx4qb63cSk=?= <George.Hung@quantatw.com>
+To: "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>
+CC: "Patrick Venture (venture@google.com)" <venture@google.com>,
+ "emilyshaffer@google.com" <emilyshaffer@google.com>,
+ "benjaminfair@google.com" <benjaminfair@google.com>,
+ "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>
+Subject: Sending I2C command via google-ipmi i2c
+Thread-Topic: Sending I2C command via google-ipmi i2c
+Thread-Index: AdTw8EoDd/GzPV2YRl6DkvM55JZalA==
+Date: Fri, 12 Apr 2019 05:46:40 +0000
+Message-ID: <81e4866b111a47d991f767df3c6b4b0a@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_81e4866b111a47d991f767df3c6b4b0aquantatwcom_"
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,103 +47,123 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 12 Apr 2019 03:47:51 -0000
+X-List-Received-Date: Fri, 12 Apr 2019 05:46:54 -0000
 
+--_000_81e4866b111a47d991f767df3c6b4b0aquantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
+SGkgYWxsLA0KDQpJoaZtIHRyeWluZyB0byBzZW5kaW5nIGlwbWkgSTJDIGNvbW1hbmQgdmlhIGdv
+b2dsZS1pcG1pLWkyYyBleHRlbnNpb24sDQpidXQgSSB3aWxsIGdldCB0aGUgcmVzcG9uc2UgZXJy
+b3IsIKGnVW5zcGVjaWZpZWQgZXJyb3KhqCBmcm9tIGlwbWl0b29sLg0KDQpUaGVyZSBhcmUgdGhl
+IGNvbW1hbmQgYW5kIHJlc3BvbnNlIGV4YW1wbGUgYmVsb3c6DQoNCiMgaXBtaXRvb2wgcmF3IDB4
+MmUgMHgwMiAweDc5IDB4MmIgMHgwMCAxIDAgMHg5OCAwIDEgMCAweDk5IDAgMg0KVW5hYmxlIHRv
+IHNlbmQgUkFXIGNvbW1hbmQgKGNoYW5uZWw9MHgwIG5ldGZuPTB4MmUgbHVuPTB4MCBjbWQ9MHgy
+IHJzcD0weGZmKTogVW5zcGVjaWZpZWQgZXJyb3INCg0KSSBjaGVjayB0aGUgZXJyb3IgbWVzc2Fn
+ZSBmcm9tIGpvdXJuYWwgYW5kIGl0IGluZGljYXRlcyB0aGF0IGNhbm5vdCBvcGVuIC9kZXYvaTJj
+LTEyMSBhbmQgSSB0aGluayBpdCB1c2VkIHRoZSBmaXJzdCBieXRlIG9mIElBTkEgbnVtYmVyICgw
+eDc5KSBhcyBidXMgbnVtYmVyLg0KDQpIYXMgYW55b25lIGV2ZXIgbWV0IHRoaXMgc2l0dWF0aW9u
+ID8gb3Igc29tZXRoaW5nIEkgaGF2ZSB0byBjb25maWd1cmUgZm9yIHBob3NwaG9yLWlwbWktaG9z
+dCAvIGdvb2dsZS1pcG1pLWkyYyA/DQoNCg0KQmVzdCBSZWdhcmRzDQpHZW9yZ2UgSHVuZw0K
 
-On Fri, 12 Apr 2019, at 01:21, Andrew Geissler wrote:
-> On Thu, Apr 11, 2019 at 12:03 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-> >
-> > Hello,
-> >
-> > Recently Andrew Geissler, William and myself have been running into limitations of the mapper's service lookups. In my opinion we should move to use well known service names and avoiding reliance on the mapper to determine who to talk to.
-> 
-> One thing to ask ourselves is what are the advantages to mapper and
-> the GetObject concept (I think we all agree(?) that features like
-> getting the subtree and associations are still useful).
-> For GetObject the main thing I see as an advantage is actually
-> relevant in my patch you linked. My code wants to talk to the host.
-> The interface to talk to the host is currently provided by ipmid but
-> at some point in the future that may move to the pldm daemon. Using
-> mapper to get the object that provides my interface abstract that from
-> me. Will the pldm daemon use the same well-know name as ipmid does
-> now? 
+--_000_81e4866b111a47d991f767df3c6b4b0aquantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-Only if it at least implements the same set of object paths and interfaces
-on those objects. I'm not convinced it will (yet).
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 14 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Comic Sans MS";
+	panose-1:3 15 7 2 3 3 2 2 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri","sans-serif";}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri","sans-serif";
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"blue" vlink=3D"purple" style=3D"text-justify-t=
+rim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi all,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I=A1=A6m trying to sending ipmi=
+ I2C command via google-ipmi-i2c extension,
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">but I will get the response err=
+or, =A1=A7Unspecified error=A1=A8 from ipmitool.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">There are the command and respo=
+nse example below:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"># ipmitool raw 0x2e 0x02 0x79 0=
+x2b 0x00 1 0 0x98 0 1 0 0x99 0 2<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Unable to send RAW command (cha=
+nnel=3D0x0 netfn=3D0x2e lun=3D0x0 cmd=3D0x2 rsp=3D0xff): Unspecified error<=
+o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I check the error message from =
+journal and it indicates that cannot open /dev/i2c-121 and I think it used =
+the first byte of IANA number (0x79) as bus number.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Has anyone ever met this situat=
+ion ? or something I have to configure for phosphor-ipmi-host / google-ipmi=
+-i2c ?<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;layout-grid-mode:char"=
+><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Comic San=
+s MS&quot;">Best Regards<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt;layout-grid-mode:char"=
+><span lang=3D"EN-US" style=3D"font-size:10.0pt;font-family:&quot;Comic San=
+s MS&quot;">George Hung<o:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-> I'm not so sure about that. I know ipmid does currently implement
-> two well known names, so we could potentially move it.
-> 
-> Another feature we've thought about would be if we some day support
-> multi-BMC distributed systems. Having something like mapper
-> abstracting cross BMC communication could be useful (i.e. process A
-> just knows it needs to talk to interface B, mapper could route process
-> A through a dbus proxy in another BMC without process A having any
-> knowledge of that). Not really a fully a formed thought but just
-> something we kicked around a bit when talking about distributed BMC's.
-
-I looked into this briefly and doing federated D-Bus seemed pretty ugly.
-I feel that inter-BMC communication needs a lot more thought than
-anyone has given it (to my knowledge).
-
-My gut feeling is we might be better served by another approach.
-
-> 
-> >
-> > My issues with using the mapper for service dependencies are:
-> >
-> > 1. Ambiguities in the way `mapper wait` functions
-> > 2. Race conditions between bus name announcement, mapper introspection and inbound service lookups
-> > 3. Increased IPC traffic (decreasing performance).
-> >
-> > Expanding on 1, `mapper wait` takes a path name argument and waits until the path is available on a bus connection. The problem here is that multiple connections can (and do) implement objects under a given path, so the successful exit of `mapper wait` with the expectation that a given service is available can be an undefined result, as it's possible the *wrong* service was used to resolve the wait.
-> >
-> > Where this hits home is that we currently have a systemd service, mapper-wait@.service, that allows units to depend on the presence of a service providing a required path. With the ambiguity outlined above it's possible that dependent services are started earlier than they should be due to `mapper wait` falsely exiting success with respect to the dependent's actual requirement.
-> >
-> > A quick grep of the openbmc tree gives an idea of the potential problem size:
-> >
-> > $ git ls-files -- recipes-phosphor/ | grep '\.service$' | wc -l
-> > 98
-> > $ git ls-files -- recipes-phosphor/ | grep '\.service$' | xargs grep -li mapper-wait | wc -l
-> > 32
-> >
-> > So about a 1/3 generic services are potentially exposed.
-> 
-> Yes, this has been hounding me for a while now. We had a discussion in
-> IRC a few months ago about having mapper stop doing introspection and
-> move to using the InterfacesAdded signal. This would improve
-> performance (introspection is resource intensive) and it would
-> severely limit (if not fix) the race condition issues. I took a stab
-> at a patch 
-> (https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-objmgr/+/17837)
-> but have been running into some weird issues I haven't gotten to the
-> bottom of yet.
-
-Have you documented the weird issues anywhere? This seems like
-a nice optimisation, would be good to resolve whatever the problems
-are.
-
-> 
-> >
-> > Point 2 leads to patches like [1] where we wind up implementing a fallback to a well-known service name if we get issues with a mapper lookup. If this is a valid approach then we should just avoid looking up the service altogether; implementing this fallback approach everywhere seems tedious and error-prone, and the lookup is a waste of resources if the fallback works regardless.
-> >
-> > By moving to well known service names we can exploit more of systemd's D-Bus integration with units of Type=dbus, and depending either on unit names aliased to D-Bus service names, or on D-Bus service activation, and receive reliable behaviour for D-Bus-based dependencies.
-> >
-> > Point 3 is something William has complained about, and I think it's a good point - avoiding IPC where we can is a good thing no matter what we're doing.
-> >
-> > I'm kicking this thread off because it's something that's bothered me for a while. I've complained about it to various people in private but have never taken it any further. My impression is that there's support for the idea that we move away from the mapper for service lookups (though we can't eliminate it entirely, we still need the interface reverse mapping feature), and I want to gauge how much support it has and whether there are solid counter-arguments.
-> 
-> Thanks for getting this started. Definitely something that's been
-> bothering me more and more lately as some of the issues you've noted
-> above have become more prevalent. I agree that I'd like to transition
-> away form GetObject usage in our process's. I'd be interested in the
-> history from Brad on the reasons this was initially created and
-> whether they are still relevant though.
-
-Great! Yeah, I think getting Brad's input is important here.
-
-Thanks for the response. I was intending to Cc you but apparently
-didn't, sorry about that.
-
-Andrew
+--_000_81e4866b111a47d991f767df3c6b4b0aquantatwcom_--
