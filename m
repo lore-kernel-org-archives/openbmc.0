@@ -1,58 +1,56 @@
-Return-Path: <kurt.r.taylor@gmail.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::92c; helo=mail-ua1-x92c.google.com;
- envelope-from=kurt.r.taylor@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lIR7LANN"; 
- dkim-atps=neutral
-Received: from mail-ua1-x92c.google.com (mail-ua1-x92c.google.com
- [IPv6:2607:f8b0:4864:20::92c])
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jdVV0Lt6zDqDf
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 05:14:57 +1000 (AEST)
-Received: by mail-ua1-x92c.google.com with SMTP id a46so5898783uae.2
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 12:14:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=+KOigUY958qLdF2jFnrZyZpoY4aOyXa9PD/YJ8FTSOU=;
- b=lIR7LANNX/YlB7yN/7WZUUa8mqZsh/AKqZXfZMfVpjdF/I76YVwlzS9pzQgDXI6X42
- 32XHyVIVe23Csdw1pImacaMH8cGGhJfqUCu/3AGABALJBrX84Ju/sfVfzbEtBFqXkN6x
- eYE02ife5FMPb8ADHgWRQRyHBDPDZ1LCcgHv60RyHJz52C223MEk2hVqN8FHeIfUEF9h
- yG8IPK5hWyXgUDVIVz8xTFZ0DOtWMOgW/rWCnQlHyYf/ZaaftquYOCXgt3IQUVWjRwN3
- I6ntOR/gipcYipKWyekNvVuOhbhcyNPkxUD3vGdxjrQUfzVG1dxaJSAYEaEPvE6yt+yh
- b9JQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=+KOigUY958qLdF2jFnrZyZpoY4aOyXa9PD/YJ8FTSOU=;
- b=JcuZjvzxezVkjzmgS1Qo3N1+60YfrmKyIXQ2Z9bq1H5Lfzz1aCORNQozTOIp9Jro4v
- irEpBwKmUilxmb7LFvYruW2PBkl3HWbG4SnasxmpUHbGomSav7EouEToTND0kJjvwI7R
- RX5TfEv7Q2ElDEdEtcCz9YgHEoOOo4GsaJWWMuu/i3Uxh7IBOMJ41xdIZrYqdlD96vXK
- lGOTPbyeCZVoUa/ZuPagAsQmiYdKTIlsCY3P/9GnFyMk0w2amQ8YsdgGVCLuqtZ9HoKr
- RvyLBQ09Y5is30porotIifHUpq3uO0AR2YB8OAd3D2LECqPmBgWH1isX2qlErqpieNJf
- S9xg==
-X-Gm-Message-State: APjAAAVIl1vPSXveEQQ6xSFEMq7XdbnLO7Hk4Xt1Sr+LoncDQPium/Kk
- GHQCtsAfaBQnVC1cgtgS5wuDmxqnrkg1bnfhKmygtg==
-X-Google-Smtp-Source: APXvYqyy0LZsVELZT+TApyZhE1LfoBXWgeFt3YSSqLXqKUg4OPiwclbc9b5RkZ7NsNaiw+z4w8wwbTlaMnXku+hasYs=
-X-Received: by 2002:ab0:7686:: with SMTP id v6mr38106843uaq.77.1555355694516; 
- Mon, 15 Apr 2019 12:14:54 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jdm70XC6zDqDr
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 05:26:45 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Apr 2019 12:26:42 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.60,354,1549958400"; d="scan'208";a="142966975"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
+ ([10.7.153.148])
+ by orsmga003.jf.intel.com with ESMTP; 15 Apr 2019 12:26:42 -0700
+Subject: Re: Does obmc-ikvm work with bmcweb?
+To: xiuzhi <1450335857@qq.com>, Thaju <tajudheenk@gmail.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>, ed <ed@tanous.net>,
+ Eddie James <eajames@linux.vnet.ibm.com>
+References: <tencent_2EF1C4452C43ADF74A37DF04@qq.com>
+ <fa618273-b2e8-3d53-9c28-91f01fd83c05@linux.intel.com>
+ <tencent_77BC148C0E378EFD5F488CE6@qq.com>
+ <fa79e3d3-cc85-ba90-42b7-2e6ef69f6653@linux.intel.com>
+ <CAARXrtn+ghtcdPLBDVMrMtX31==ZufsuPDCKm11dd92zQwm22A@mail.gmail.com>
+ <fb4ea162-ae50-5c02-eea6-3adb200e6ed8@linux.intel.com>
+ <e592f504-b7b4-ff40-543c-84e99502e1d1@linux.intel.com>
+ <CAARXrt=wgz7zqDWpx3inzBnMJJdxQ=b5ebLrna1H8A5kXc4r5w@mail.gmail.com>
+ <2d44c252-94b6-6441-d3e8-a8200d89aaa5@linux.intel.com>
+ <CAARXrtkkmxHcgvkp1Mi8esY0onqdHxRzaymcf8NaBZSM9uVYRQ@mail.gmail.com>
+ <CAH2KKeajTT96Y6rOdKGct+EBLdbFxGo97SEfWzMrcu0hqRh_Hw@mail.gmail.com>
+ <77cb1f2b-96c5-bd14-eab7-0da527343ce1@linux.intel.com>
+ <CAARXrtnAURfEDzTHZLHgOojRuD9T4DbUmuQLwvwsS4hvW-Sk_Q@mail.gmail.com>
+ <bbc0ffe8-b30d-7d64-807a-b179a596a9ff@linux.intel.com>
+ <CAH2KKeb2Jw+j4wOSEHY1HQwnyHxq9-9RSRKQ-shvdiBOvUf14w@mail.gmail.com>
+ <97a9e5c4-c2d0-41bb-14ea-0405609929a2@linux.intel.com>
+ <tencent_58A595653775F39B2E3C0970@qq.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <ddd5bccb-8612-6388-0326-b5d56ed224aa@linux.intel.com>
+Date: Mon, 15 Apr 2019 12:26:42 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.5.0
 MIME-Version: 1.0
-References: <9F16AAB7177A1645BBAFF66396C46B0E7A310105@CNMAILEX03.lenovo.com>
-In-Reply-To: <9F16AAB7177A1645BBAFF66396C46B0E7A310105@CNMAILEX03.lenovo.com>
-From: Kurt Taylor <kurt.r.taylor@gmail.com>
-Date: Mon, 15 Apr 2019 14:14:43 -0500
-Message-ID: <CAG5OiwhQqLsUQ15QJawK_kZhSb6sn8dBhD+RFyecM6Oz9YRTRQ@mail.gmail.com>
-Subject: Re: Add member into Lenovo designated employees list
-To: Duke KH Du <dukh@lenovo.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <tencent_58A595653775F39B2E3C0970@qq.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,61 +62,197 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 19:14:58 -0000
+X-List-Received-Date: Mon, 15 Apr 2019 19:26:47 -0000
 
-Done. I have created a new version of your CCLA and have added Lisa Liu to =
-it.
+Hi Xiuzhi,
 
-Thank you for keeping this document up to date.
+Please try this patch:
+https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/20593
 
-Kurt Taylor (krtaylor)
+Thanks,
+Jae
 
-On Mon, Apr 8, 2019 at 10:44 PM Duke KH Du <dukh@lenovo.com> wrote:
->
-> Hi master,
->
->
->
-> I would like to add our new member in Lenovo designated employees list as=
- below in RED color.
->
->
->
-> Could you help on it?
->
-> Thanks.
->
->
->
-> Schedule A
->
-> Initial list of designated employees. NB: authorization is not tied to pa=
-rticular Contributions.
->
-> Please indicate =E2=80=9CCLA Manager=E2=80=9D next to the name of any emp=
-loyees listed below that are
->
-> authorized to add or remove designated employees from this list in the fu=
-ture.
->
->
->
-> CLA Manager:
->
-> Duke Du dukh@lenovo.com
->
->
->
-> Other designated employees:
->
-> Andrew Peng pengms1@lenovo.com
->
->
->
-> Yonghui Liu liuyh21@lenovo.com
->
->
->
-> Lisa Liu liuyj19@lenovo.com
->
->
+On 4/14/2019 12:12 AM, xiuzhi wrote:
+> Hi Jae, Ed,
+>     Are there any updates for the  video waking up issue?
+>   Best,
+> Xiuzhi
+> 
+> 
+> ------------------ Original ------------------
+> *From: * "jae.hyun.yoo";<jae.hyun.yoo@linux.intel.com>;
+> *Send time:* Friday, Mar 22, 2019 5:31 AM
+> *To:* "Thaju"<tajudheenk@gmail.com>;
+> *Cc:* "xiuzhi"<1450335857@qq.com>; "openbmc"<openbmc@lists.ozlabs.org>; 
+> "ed"<ed@tanous.net>; "Eddie James"<eajames@linux.vnet.ibm.com>;
+> *Subject: * Re: Does obmc-ikvm work with bmcweb?
+> 
+> Hi Thaju,
+> 
+> It's really good to hear that you can see the working KVM in your
+> machine. Thanks for sharing the result.
+> 
+> I saw the video waking up issue on Ubuntu 18 too. Need debugging on it.
+> I'll share if I find something.
+> 
+> Regards,
+> Jae
+> 
+> On 3/21/2019 9:27 AM, Thaju wrote:
+>  > Hi Jae,
+>  >
+>  > It works. Found one issue which is explained below.
+>  >
+>  > I have applied below 3 patches:
+>  > https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+>  > https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+>  > https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19393
+>  >
+>  > I can confirm that:
+>  > 1. KVM video appears fine in webui
+>  > 2. All keyboard characters works fine.
+>  > 3. Both mouse buttons works fine (with patch)
+>  >
+>  > Now the issue is when host OS ( RHEL 7.5 in my case ) goes to power
+>  > saving mode (black screen) after some N mins (depends on OS settings),
+>  > looks like it does not accept the KVM HID events, it doesn't wake up
+>  > from power saving mode through KVM. I see below error when this happens.
+>  >
+>  > Mar 21 09:31:43  obmc-ikvm[1408]: Failed to query timings
+>  > Mar 21 09:31:43  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  > Mar 21 09:31:44  kernel: aspeed-video 1e700000.video: Timed out when
+>  > stopping streaming
+>  > Mar 21 09:31:45  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  > Mar 21 09:31:46  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  > Mar 21 09:31:47  env[1408]: 21/03/2019 09:31:47 Sending
+>  > rfbEncodingNewFBSize for resize to (640x480)
+>  > Mar 21 09:31:48  obmc-ikvm[1408]: Failed to query timings
+>  > Mar 21 09:31:49  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  > Mar 21 09:31:50  obmc-ikvm[1408]: Failed to query timings
+>  > Mar 21 09:31:51  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  > Mar 21 09:31:52  obmc-ikvm[1408]: Failed to query timings
+>  > Mar 21 09:31:53  kernel: aspeed-video 1e700000.video: Timed out; first
+>  > mode detect
+>  >
+>  > On this state, I used physical keyboard on the host OS to bring it back
+>  > from power saving mode and I see KVM also comes back. I have also tried
+>  > setting the power saving timeout to "never". It works fine.
+>  >
+>  > To recreate this issue
+>  > 1. Set power saving timeout to 1 min. (In RHEL 7.5, Settings > Power >
+>  > Blank Screen)
+>  > 2. Leave the host OS to idle for 1 min.
+>  > 3. You will see screen goes black after 1 min and KVM stops responding.
+>  >
+>  > Hope you understood the issue. Thanks for your support.
+>  >
+>  > Regards,
+>  > Thaj
+>  >
+>  > On Thu, Mar 21, 2019 at 9:49 PM Jae Hyun Yoo
+>  > <jae.hyun.yoo@linux.intel.com <mailto:jae.hyun.yoo@linux.intel.com>> 
+> wrote:
+>  >
+>  >     Hi Lei,
+>  >
+>  >     Are you using a web browser from Windows OS? It seems that there 
+> is an
+>  >     issue of Windows websockify/novnc. Use a browser from OS other than
+>  >     Windows til the issue is resolved.
+>  >
+>  >     Did you test it using Tight VNC viewer after enabling external
+>  >     connection? The reason why I suggested that is to identify whether
+>  >     this issue comes from KVM web proxy or from KVM server.
+>  >
+>  >     Need more information of your test environment.
+>  >     Server platform:
+>  >     BMC SoC:
+>  >     Host OS:
+>  >
+>  >     Regards,
+>  >     Jae
+>  >
+>  >     On 3/21/2019 12:02 AM, Lei YU wrote:
+>  >      >> Check journal (journalctl -f) while you're testing KVM if there
+>  >     is any
+>  >      >> suspicious error. In normal opration, you should see logs like
+>  >     below:
+>  >      >
+>  >      > I see the same logs as Thaj, only below logs show when the issue
+>  >     occurs.
+>  >      >
+>  >      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 Unable to
+>  >      > establish connection with systemd socket
+>  >      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 
+> Listening for
+>  >      > VNC connections on TCP port 5900
+>  >      > Mar 21 05:26:02 romulus env[1564]: 21/03/2019 05:26:02 
+> Listening for
+>  >      > VNC connections on TCP6 port 5900
+>  >      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Got 
+> connection
+>  >      > from client 127.0.0.1
+>  >      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06   other
+>  >     clients:
+>  >      > Mar 21 05:26:06 romulus env[1564]: 21/03/2019 05:26:06 Normal
+>  >     socket connection
+>  >      >
+>  >      > And sometimes it works, then I see logs like:
+>  >      >
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Normal
+>  >     socket connection
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Client
+>  >     Protocol
+>  >      > Version 3.8
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Protocol
+>  >      > version sent 3.8, using 3.8
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+>  >      > rfbProcessClientSecurityType: executing handler for type 1
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12
+>  >      > rfbProcessClientSecurityType: returning securityResult for 
+> client rfb
+>  >      > version >= 3.8
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Pixel 
+> format
+>  >      > for client 192.168.10.11 <http://192.168.10.11>:
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   32 bpp,
+>  >     depth
+>  >      > 24, little endian
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12   true 
+> colour:
+>  >      > max r 255 g 255 b 255, shift r 16 g 8 b 0
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using
+>  >      > compression level 1 for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using image
+>  >      > quality level 6 for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using JPEG
+>  >      > subsampling 0, Q79 for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>  >      > X-style cursor updates for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>  >      > full-color cursor updates for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>  >     cursor
+>  >      > position updates for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Enabling
+>  >      > LastRect protocol extension for client 192.168.10.11
+>  >      > Mar 21 06:54:12 romulus env[1957]: 21/03/2019 06:54:12 Using tight
+>  >      > encoding for client 192.168.10.11
+>  >      >
+>  >      > It's found that the VNC server may work when the screen is
+>  >     changed, e.g.
+>  >      > reboot the OS, or enter the OS.
+>  >      > When OS is in idle, usually it will not work.
+>  >      >
+>  >      >> Also, try these two patches. I added one more patch.
+>  >      >> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19392
+>  >      >> https://gerrit.openbmc-project.xyz/c/openbmc/obmc-ikvm/+/19433
+>  >      >
+>  >      > Tried the patches, still the same issue as above.
+>  >      >
+>  >
