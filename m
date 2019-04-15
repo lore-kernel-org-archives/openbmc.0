@@ -1,56 +1,76 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::835; helo=mail-qt1-x835.google.com;
- envelope-from=emilyshaffer@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="SKr3vMGl"; 
- dkim-atps=neutral
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jc554bd8zDqFZ
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 04:11:20 +1000 (AEST)
-Received: by mail-qt1-x835.google.com with SMTP id h39so20279380qte.2
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 11:11:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4SRgMak7QYMiV35EOJbcM/ayu8FBgIkApDO0eGueVf0=;
- b=SKr3vMGlqF28e9lin3KnyBq2ZVi2ilOKycvDML5HE28SHjkfQkiAMiw9hlh90bJ3Sd
- lp0nCDzgt2/MaRr5pAIdncRhjA01qOn9y0G5+2gOlfwpjfMyoXncuOo5D2xSpQkgMv7u
- 72bs3sudA8yhniZ+I0T4T2z7Ez38m8jo2SOJIlg4GEHNEZemKfEulc2BIolMO222CdCC
- iMz1cFG/lGantddNSBwEDvoj1qeqUHwG8GnxstS4dtCXM72HB2TaN3gqrI7J02C2Epot
- SE6ENTKElmuf4K7VbcZ38S25GCcE8fGetOVgXNOtThLcAoCzxZaSRV3+2DzQzUQ+5KLx
- q1EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4SRgMak7QYMiV35EOJbcM/ayu8FBgIkApDO0eGueVf0=;
- b=pTEAjhAuqW0s4upZ8jTIdl/QQ7Y3dI4w5oE8hbWxX9bf3uir6YXQzuGMZ4zhu3aVr0
- h8JjxNy8kbRDciQZgxV13dpVEcKRBKqJPiYjTtKfRx7BGM4989DTH6SIQI0mD0fyYCgu
- bxKlkA7z3t3peyHexypR5/hyblnu+J9S139mIlmLkEX+czBfHYd2tjA2cUzJcy3Fh+4W
- tulcRjMgei50fS2Q9Y6YdlgfDLhL3fgN6wgl/sUidwgqFrok+qDHAr8LnPYSps0tdC2Q
- m59nKGuzG+tzS3xF4idlIQaByQyFPctPL9p3jcGZdvnqGlW5HL79p203KDKt8IjPnSTP
- bmJw==
-X-Gm-Message-State: APjAAAUl7/nGDVpEIXiYHbFnm/CPUyWKowfX4UKYDLcStLRJz4821aqQ
- k0Tgs03cfbJtczLJyFx22biQhzHSQLWeAaOOAWXGoQ==
-X-Google-Smtp-Source: APXvYqyoMP1H3SqZ02NUYy9Z9EaFVudMCBij2BE/2LXKPejxNE3tREgV6/xAMV6Vl9zIF+Tk4W2LtoFYh5OZPrqe2Us=
-X-Received: by 2002:aed:3c75:: with SMTP id u50mr60789861qte.128.1555351876885; 
- Mon, 15 Apr 2019 11:11:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jcwb1MTnzDqHF
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 04:49:01 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3FIdirF084234
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 14:48:57 -0400
+Received: from e12.ny.us.ibm.com (e12.ny.us.ibm.com [129.33.205.202])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2rvxue9uut-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 14:48:56 -0400
+Received: from localhost
+ by e12.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Mon, 15 Apr 2019 19:48:56 +0100
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e12.ny.us.ibm.com (146.89.104.199) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 15 Apr 2019 19:48:54 +0100
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3FImrxE15925480
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:48:53 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4BD9A28059
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:48:53 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 106602805C
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:48:53 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:48:52 +0000 (GMT)
 MIME-Version: 1.0
-References: <CAG5Oiwi4iEc3nv3S5eJL-WYP2NrMA1oYe5nA2XrU5LRWi88s-Q@mail.gmail.com>
-In-Reply-To: <CAG5Oiwi4iEc3nv3S5eJL-WYP2NrMA1oYe5nA2XrU5LRWi88s-Q@mail.gmail.com>
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Mon, 15 Apr 2019 11:11:05 -0700
-Message-ID: <CAJoAoZnFbQYT1T5MtHswC5a+iu_+Dj0f=50p+HMRTK9EqXJRAg@mail.gmail.com>
-Subject: Re: OpenBMC website updates coming soon
-To: Kurt Taylor <kurt.r.taylor@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 15 Apr 2019 13:50:08 -0500
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: Openbmc <openbmc@lists.ozlabs.org>
+Subject: Security Working Group meeting this Wednesday
+X-Sender: jrey@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+x-cbid: 19041518-0060-0000-0000-0000032D3620
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010933; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000284; SDB=6.01189548; UDB=6.00623270; IPR=6.00970334; 
+ MB=3.00026455; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-15 18:48:54
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041518-0061-0000-0000-000048F67662
+Message-Id: <9a66211701128e036381fc9de498e4ae@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-15_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=620 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904150129
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,25 +82,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 18:11:22 -0000
+X-List-Received-Date: Mon, 15 Apr 2019 18:49:04 -0000
 
-Hey Kurt, could you point the Code of Conduct link in the footer to
-the modified CoC in the source?
-https://github.com/openbmc/docs/blob/master/code-of-conduct.md
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday April 17 at 10:00am PDT.
 
-On Mon, Apr 8, 2019 at 12:08 PM Kurt Taylor <kurt.r.taylor@gmail.com> wrote:
->
-> I now have access to our openbmc.org wordpress account and have
-> already updated the broken link there. I plan on adding links to our
-> community project info. I'll also be adding news there about upcoming
-> events, releases and so on.
->
-> Let me know if you have anything that you would like to announce there
-> and I'll get it done.
->
-> Kurt Taylor (krtaylor)
+Current topics:
+- development items with security impact
+- *Next* meeting 2019-05-01 ~~ Eclypsium to present their research 
+related to chipset
+- Security test plans and other end-of-release security activity
+- D-Bus snooping for secrets
+- Logging secrets and sensitive data (such as userids)
 
+Access, agenda, and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group
 
-
--- 
-Emily Shaffer
+- Joseph
