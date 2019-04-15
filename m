@@ -1,32 +1,52 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <henbinchang@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::830; helo=mail-qt1-x830.google.com;
+ envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="jmcckb77"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
+ [IPv6:2607:f8b0:4864:20::830])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jCjT5zZJzDqJf
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 12:53:00 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Message-ID: <89b3cb8651223f7093e0e89372018cffc02e3760.camel@fuzziesquirrel.com>
-Subject: Re: Using D-Bus well-known service names and deprecating mapper
- service lookups
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Andrew Jeffery <andrew@aj.id.au>, Andrew Geissler <geissonator@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, William Kennington
- <wak@google.com>
-Date: Sun, 14 Apr 2019 22:52:55 -0400
-In-Reply-To: <5ac645f2-1e7c-4c2a-b6f2-e794da2fd875@www.fastmail.com>
-References: <cd75d086-fdc0-4c83-8094-c3b802f6ad37@www.fastmail.com>
- <CALLMt=oxk3Bevbop-VLG6X2rpWf-fpbf2=KV9SWMWERWFfY_Eg@mail.gmail.com>
- <5ac645f2-1e7c-4c2a-b6f2-e794da2fd875@www.fastmail.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jHwc6wFkzDqJP
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 16:02:56 +1000 (AEST)
+Received: by mail-qt1-x830.google.com with SMTP id k14so17869333qtb.0
+ for <openbmc@lists.ozlabs.org>; Sun, 14 Apr 2019 23:02:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=3AMx5GxJCqoHwBURW7bXRxT02Vu6f/207l3/KbP48+Q=;
+ b=jmcckb77vlP1lHFNsQBoZ2x6Wf4IhRvMfEfsT+fptazHogHDDeXMh0oYyEdlGaLHWR
+ EbmqneVWYRcgkkXbyrDUvQScUyet+XeSxN0347xSWfmzY2FJSvsxTj3o4W9ROn+jOI2O
+ rC3jrW6Kytp+ACX/Rt870TECGHQsqUmQtIJQaBQ45TNgbm3ZN6HHZN1IZCFN7gGP57Oh
+ VHzWPHJZvjmpgMu+YhZkuFrnyYfq9SYJ8An8M2lHFiKtlI3tvmGBct8Uy9ZmY1Pcz2Kp
+ MEaOUo4qzFLH4tPw/ztJFxWQ5cp8yd2WSLH0Z0OPmKPowwyD+FOmujLI/UnkU6dhqtuV
+ r30g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=3AMx5GxJCqoHwBURW7bXRxT02Vu6f/207l3/KbP48+Q=;
+ b=MwOyg5PyqbkoQGNFPGD7GXcZmRN9v7CSzdKTk/J4rnfSCYxnUN88Y6pAyanrnIMKDL
+ QqBQmFSwtIbpiqRb+JmFhIW9EM+OFw63Gh/A53PofjINaLXyDB/JnL4uiXmeRz9AwVkh
+ 2+D9lDZjpmG9modcXMxBNJtZ1wVWkBjr0HWCBfU3rWK1JvfbULfmXNwdgQgZkwiAnqsM
+ lDTK63sMN31XqFTgP5L6YSypioZDkzq/naMi1mLHhWStqL+dLbIkDAkHfNIc5c63qIs3
+ Vymyjx1sDNsMkXjsOA/8XYLCCJV+jQhDmSJDBLomrFfYqe8jWl1UOPVFoYF58K4QVa8+
+ NZFA==
+X-Gm-Message-State: APjAAAWxN32jETnUoqs6yjM/XE79GHk+OjGlfAO5JQekOoN5Iu1XiVCj
+ pgnJw2XHImn0iukN8sUvdu452hvCz2rH4L0O5lnigfRG
+X-Google-Smtp-Source: APXvYqyKCxA109uuiuTPC1pXszKVblc1Kp/ogDBfr8yUHS+yZ/jvbd+1aISkwRMvcebfyKUJrC2y14Q7lSREGlh/ZVw=
+X-Received: by 2002:aed:3ee7:: with SMTP id o36mr60189844qtf.355.1555308171068; 
+ Sun, 14 Apr 2019 23:02:51 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+From: Henbin Chang <henbinchang@gmail.com>
+Date: Mon, 15 Apr 2019 14:02:40 +0800
+Message-ID: <CAG9c7cDzNFK-g-SsDu+QLsryMAHQaS4Lhc68+0F4=yVzD8njAg@mail.gmail.com>
+Subject: The Firmware Revision of 'ipmitool mc info'
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000000d883405868b6773"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -38,74 +58,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 02:53:02 -0000
+X-List-Received-Date: Mon, 15 Apr 2019 06:02:58 -0000
 
-On Thu, 2019-04-11 at 23:47 -0400, Andrew Jeffery wrote:
-> 
-> On Fri, 12 Apr 2019, at 01:21, Andrew Geissler wrote:
-> > On Thu, Apr 11, 2019 at 12:03 AM Andrew Jeffery <andrew@aj.id.au>
-> > wrote:
-> > > 
-> > > I'm kicking this thread off because it's something that's
-> > > bothered me for a while. I've complained about it to various
-> > > people in private but have never taken it any further. My
-> > > impression is that there's support for the idea that we move away
-> > > from the mapper for service lookups (though we can't eliminate it
-> > > entirely, we still need the interface reverse mapping feature), 
+--0000000000000d883405868b6773
+Content-Type: text/plain; charset="UTF-8"
 
-I'd like to eliminate the mapper entirely someday, if we can.  Can you
-elaborate on why you think we can't?  I'm not sure I understand what
-you mean by the interface reverse mapping feature.
+Hi All,
 
-> > > and I want to gauge how much support it has and whether there are
-> > > solid counter-arguments.
-> > 
-> > Thanks for getting this started. Definitely something that's been
-> > bothering me more and more lately as some of the issues you've
-> > noted
-> > above have become more prevalent. I agree that I'd like to
-> > transition
-> > away form GetObject usage in our process's. I'd be interested in
-> > the
-> > history from Brad on the reasons this was initially created and
-> > whether they are still relevant though.
-> 
-> Great! Yeah, I think getting Brad's input is important here.
+As I know, the Firmware Revision of 'ipmitool mc info' is determined by the
+OpenBMC release tag's name.
 
-Doing lookups based on well-known bus names would make DBus programming
-in OpenBMC more like DBus programming on the desktop, and that is a win
-IMO.
+According to the comment in the apphandler.cpp (phosphor-ipmi-host), only
+the vx.x-x-[-x] and v1.x.x-x-[-x] formats are support currently.
 
-FWIW the mapper was conceived (back in 2015) as a means to provide
-flexibility in where (which process) objects are implemented, yet still
-enable client reuse across those different implementations.  Want to
-implement all your sensors in a single application?  No problem.  Want
-to implement one application for each type of sensor?  No problem. 
-Want to implement an application for every sensor instance?  No
-problem.
+But the latest release tag is named by the different format. As below,
+2.6.0
+2.6.0-rc1
+2.6.0.rc1
+2.7.0-dev
 
-Here is another way to look at it.  If we start applying a schema to
-the well-known bus name as is normal in desktop-land, what would the
-scope be?  Consider sensors.  You could have either specific or general
-scope e.g. bus names like:
+Can anyone give the suggestion?
 
-xyz.openbmc_project.sensors (general)
+Thanks.
 
--or-
+--0000000000000d883405868b6773
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-xyz.openbmc_project.nvme (specific)
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
+r=3D"ltr">Hi All,<div><br></div><div>As I know, the Firmware Revision of &#=
+39;ipmitool mc info&#39; is determined by the OpenBMC release tag&#39;s nam=
+e.<br></div><div><br></div><div>According to the comment in the apphandler.=
+cpp (phosphor-ipmi-host), only the vx.x-x-[-x] and v1.x.x-x-[-x] formats ar=
+e support currently.</div><div><br></div><div>But the latest=C2=A0release t=
+ag is named by the different format. As below,</div><div><div>2.6.0</div><d=
+iv>2.6.0-rc1</div><div>2.6.0.rc1</div><div>2.7.0-dev</div></div><div><br></=
+div><div>Can anyone give the suggestion?</div><div><br></div><div>Thanks.</=
+div><div><br></div></div></div></div></div></div>
 
-In the case of the former, every sensor in a system has to be
-implemented by a single process.  That isn't workable is it?
-
-In the case of the latter, every client application looking for sensors
-in the general sense (it doesn't care that it is a sensor on an nvme
-drive that talks nvme-mi over i2c) has to introspect this bus, along
-with every other bus to find any objects that implement a sensor
-interface.
-
-OpenBMC still needs a way to address these issues today - that hasn't
-changed I don't think.  Is the mapper the best possible solution? 
-Probably not.
-
--brad
+--0000000000000d883405868b6773--
