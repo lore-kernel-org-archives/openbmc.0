@@ -1,40 +1,69 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=162.243.126.186; helo=vip.corpemail.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.10; helo=cpsmtpb-ews07.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jMFD00sJzDqGT
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:32:29 +1000 (AEST)
-Received: from ([60.208.111.195])
- by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id GMQ75208
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 16:27:08 +0800
-Received: from mail-lj1-f170.google.com (10.100.1.52) by
- jtjnmail201601.home.langchao.com (10.100.2.1) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1591.10; Mon, 15 Apr 2019 16:26:36 +0800
-Received: by mail-lj1-f170.google.com with SMTP id v22so14754486lje.9
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 01:27:06 -0700 (PDT)
-X-Gm-Message-State: APjAAAVBKOiQN1o3dUdNd2ov2fHMRf7zbstrCbYu2rh6M1C9srr3RyHA
- yMQqjS6KqvgY7BGPKrLxhrAW3G1ceTI3gZQA4vU=
-X-Google-Smtp-Source: APXvYqyMMG8C1oa7S3yfIhj27VrCDJfFNG4EzKwO7yFINtmKPu5EI5qMk9cWFbRHN9qw7rsVHiEhxbQme0xZg9wzjeY=
-X-Received: by 2002:a2e:99c5:: with SMTP id l5mr10793494ljj.55.1555316823623; 
- Mon, 15 Apr 2019 01:27:03 -0700 (PDT)
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="LF/f0rJ+"; 
+ dkim-atps=neutral
+Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
+ [213.75.39.10])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44jNzf62fFzDqFm
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 19:50:51 +1000 (AEST)
+Received: from cpsps-ews14.kpnxchange.com ([10.94.84.181]) by
+ cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Mon, 15 Apr 2019 11:50:46 +0200
+X-Brand: 4ZrJ
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=CfzZG4jl c=1 sm=1 tr=0 cx=a_idp_e
+ a=/dHbpd/3q0lrH6oA/zwSgQ==:117 a=/dHbpd/3q0lrH6oA/zwSgQ==:17
+ a=eIHzyqS2sMcA:10 a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10
+ a=8SWBkYfPpbeUO7exqZ0A:9 a=CjuIK1q_8ugA:10 a=yMhMjlubAAAA:8
+ a=SSmOFEACAAAA:8 a=gKO2Hq4RSVkA:10 a=UiCQ7L4-1S4A:10
+ a=hTZeC7Yk6K0A:10 a=frz4AuCg-hUA:10 a=pHzHmUro8NiASowvMSCR:22
+ a=n87TN5wuljxrRezIQYnT:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.45]) by cpsps-ews14.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Mon, 15 Apr 2019 11:50:45 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=FXJ8Ru3v1BleKcwaNKEfSZmPJu/haNv+vHT2OP07yzM=;
+ b=LF/f0rJ+phsg6GTyH9q4ImHFpYS3dtHoma3JRK205BdFL7P1wrXOrAnWcFQoUcNjZcRuYpyVHc1HM
+ 6XiwjlcatoolppamS4DMIlKj3OKI82tIKVYHGyHjUonB8qk3MUbCmf84tqNfR1UulPDLhJPKtJL5Pl
+ QtpbQ3sJF+L9jNvo=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id f0ca7bc4-5f63-11e9-8eb5-005056ab7447;
+ Mon, 15 Apr 2019 11:50:45 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Mon, 15 Apr
+ 2019 11:50:22 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Mon, 15 Apr 2019 11:50:22 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: which licenses are allowed for OpenBMC projects
+Thread-Topic: which licenses are allowed for OpenBMC projects
+Thread-Index: AdTzcAvehfjbpZNJRdCoEuf1eymngQ==
+Date: Mon, 15 Apr 2019 09:50:22 +0000
+Message-ID: <cfdea58494de44aa8e30b18799b24aa3@Eltsrv03.Eltan.local>
+Accept-Language: nl-NL, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+Content-Type: multipart/alternative;
+ boundary="_000_cfdea58494de44aa8e30b18799b24aa3Eltsrv03Eltanlocal_"
 MIME-Version: 1.0
-From: John Wang <wangzqbj@inspur.com>
-Date: Mon, 15 Apr 2019 16:26:52 +0800
-X-Gmail-Original-Message-ID: <CAHkHK09fXHS6wH5rvvm1G45z0nmooa29qRnk1Lb+DzZhWmYfLw@mail.gmail.com>
-Message-ID: <CAHkHK09fXHS6wH5rvvm1G45z0nmooa29qRnk1Lb+DzZhWmYfLw@mail.gmail.com>
-Subject: dbus sensors how to determine power on/off state
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000c90eb205868d6a48"
-X-Originating-IP: [10.100.1.52]
-X-ClientProxiedBy: jtjnmail201607.home.langchao.com (10.100.2.7) To
- jtjnmail201601.home.langchao.com (10.100.2.1)
+X-OriginalArrivalTime: 15 Apr 2019 09:50:45.0934 (UTC)
+ FILETIME=[B2A08CE0:01D4F370]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,49 +75,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 08:32:33 -0000
+X-List-Received-Date: Mon, 15 Apr 2019 09:50:58 -0000
 
---000000000000c90eb205868d6a48
-Content-Type: text/plain; charset="UTF-8"
-
-I noticed that dbus-sensors determines the power/on status
-by getting the value of pgood in the
-xyz.openbmc_project.Chassis.Control.Power interface.
-
-but, refer to
-https://github.com/openbmc/phosphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e21f/xyz/openbmc_project/Chassis/Control/Power.interface.yaml#L17
-
-It's PGood not pgood
-
-
-There is a patch here[
-https://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-phosphor/dbus/phosphor-dbus-interfaces/0003-Chassis-Power-Control-are-implemented.patch],it
-seems to work well with dbus-sensors
-
-Is there a plan to merge this patch to the trunk, or let the dbus-sensors
-get the power on/off status via other interfaces?
-
---000000000000c90eb205868d6a48
-Content-Type: text/html; charset="UTF-8"
+--_000_cfdea58494de44aa8e30b18799b24aa3Eltsrv03Eltanlocal_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>I noticed that dbus=
--sensors determines the power/on status=C2=A0</div><div>by getting the valu=
-e of pgood in the xyz.openbmc_project.Chassis.Control.Power interface.</div=
-><div><br></div><div>but, refer to <a href=3D"https://github.com/openbmc/ph=
-osphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e21f/xyz/op=
-enbmc_project/Chassis/Control/Power.interface.yaml#L17">https://github.com/=
-openbmc/phosphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e=
-21f/xyz/openbmc_project/Chassis/Control/Power.interface.yaml#L17</a></div><=
-div><br></div><div>It&#39;s PGood not pgood<br></div><div><br></div><div><b=
-r></div><div>There is a patch here[<a href=3D"https://github.com/Intel-BMC/=
-openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-phosphor/dbus/phos=
-phor-dbus-interfaces/0003-Chassis-Power-Control-are-implemented.patch">http=
-s://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/r=
-ecipes-phosphor/dbus/phosphor-dbus-interfaces/0003-Chassis-Power-Control-ar=
-e-implemented.patch</a>],it seems to work well with dbus-sensors</div><div>=
-<br></div><div>Is there a plan to merge this patch to the trunk, or let the=
- dbus-sensors get the power on/off status via other interfaces?=C2=A0</div>=
-</div></div></div>
+Hello,
 
---000000000000c90eb205868d6a48--
+I have a non-technical question about the OpenBMC project.
+
+If we create a custom implementation for an OpenBMC project which we delive=
+r to a customer can we include parts that are under a BSD or a proprietary =
+license? In this case the Yocto files would be in the tree but the code pul=
+led in could be binary or a BSD repository?
+
+For us it's important to make sure we understand correctly what the possibi=
+lities are.
+
+Best regards,
+
+Wim Vervoorn
+
+
+--_000_cfdea58494de44aa8e30b18799b24aa3Eltsrv03Eltanlocal_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hello,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I have a non-technical question about the OpenBMC pr=
+oject.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">If we create a custom implementation for an OpenBMC =
+project which we deliver to a customer can we include parts that are under =
+a BSD or a proprietary license? In this case the Yocto files would be in th=
+e tree but the code pulled in could
+ be binary or a BSD repository?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">For us it&#8217;s important to make sure we understa=
+nd correctly what the possibilities are.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Best regards,<o:p></o:p></p>
+<p class=3D"MsoNormal"><br>
+Wim Vervoorn<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_cfdea58494de44aa8e30b18799b24aa3Eltsrv03Eltanlocal_--
