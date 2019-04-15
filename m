@@ -1,52 +1,40 @@
-Return-Path: <henbinchang@gmail.com>
+Return-Path: <wangzqbj@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::830; helo=mail-qt1-x830.google.com;
- envelope-from=henbinchang@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=162.243.126.186; helo=vip.corpemail.net;
+ envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="jmcckb77"; 
- dkim-atps=neutral
-Received: from mail-qt1-x830.google.com (mail-qt1-x830.google.com
- [IPv6:2607:f8b0:4864:20::830])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=inspur.com
+Received: from vip.corpemail.net (vip.corpemail.net [162.243.126.186])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jHwc6wFkzDqJP
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 16:02:56 +1000 (AEST)
-Received: by mail-qt1-x830.google.com with SMTP id k14so17869333qtb.0
- for <openbmc@lists.ozlabs.org>; Sun, 14 Apr 2019 23:02:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=3AMx5GxJCqoHwBURW7bXRxT02Vu6f/207l3/KbP48+Q=;
- b=jmcckb77vlP1lHFNsQBoZ2x6Wf4IhRvMfEfsT+fptazHogHDDeXMh0oYyEdlGaLHWR
- EbmqneVWYRcgkkXbyrDUvQScUyet+XeSxN0347xSWfmzY2FJSvsxTj3o4W9ROn+jOI2O
- rC3jrW6Kytp+ACX/Rt870TECGHQsqUmQtIJQaBQ45TNgbm3ZN6HHZN1IZCFN7gGP57Oh
- VHzWPHJZvjmpgMu+YhZkuFrnyYfq9SYJ8An8M2lHFiKtlI3tvmGBct8Uy9ZmY1Pcz2Kp
- MEaOUo4qzFLH4tPw/ztJFxWQ5cp8yd2WSLH0Z0OPmKPowwyD+FOmujLI/UnkU6dhqtuV
- r30g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=3AMx5GxJCqoHwBURW7bXRxT02Vu6f/207l3/KbP48+Q=;
- b=MwOyg5PyqbkoQGNFPGD7GXcZmRN9v7CSzdKTk/J4rnfSCYxnUN88Y6pAyanrnIMKDL
- QqBQmFSwtIbpiqRb+JmFhIW9EM+OFw63Gh/A53PofjINaLXyDB/JnL4uiXmeRz9AwVkh
- 2+D9lDZjpmG9modcXMxBNJtZ1wVWkBjr0HWCBfU3rWK1JvfbULfmXNwdgQgZkwiAnqsM
- lDTK63sMN31XqFTgP5L6YSypioZDkzq/naMi1mLHhWStqL+dLbIkDAkHfNIc5c63qIs3
- Vymyjx1sDNsMkXjsOA/8XYLCCJV+jQhDmSJDBLomrFfYqe8jWl1UOPVFoYF58K4QVa8+
- NZFA==
-X-Gm-Message-State: APjAAAWxN32jETnUoqs6yjM/XE79GHk+OjGlfAO5JQekOoN5Iu1XiVCj
- pgnJw2XHImn0iukN8sUvdu452hvCz2rH4L0O5lnigfRG
-X-Google-Smtp-Source: APXvYqyKCxA109uuiuTPC1pXszKVblc1Kp/ogDBfr8yUHS+yZ/jvbd+1aISkwRMvcebfyKUJrC2y14Q7lSREGlh/ZVw=
-X-Received: by 2002:aed:3ee7:: with SMTP id o36mr60189844qtf.355.1555308171068; 
- Sun, 14 Apr 2019 23:02:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jMFD00sJzDqGT
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:32:29 +1000 (AEST)
+Received: from ([60.208.111.195])
+ by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id GMQ75208
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 16:27:08 +0800
+Received: from mail-lj1-f170.google.com (10.100.1.52) by
+ jtjnmail201601.home.langchao.com (10.100.2.1) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1591.10; Mon, 15 Apr 2019 16:26:36 +0800
+Received: by mail-lj1-f170.google.com with SMTP id v22so14754486lje.9
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 01:27:06 -0700 (PDT)
+X-Gm-Message-State: APjAAAVBKOiQN1o3dUdNd2ov2fHMRf7zbstrCbYu2rh6M1C9srr3RyHA
+ yMQqjS6KqvgY7BGPKrLxhrAW3G1ceTI3gZQA4vU=
+X-Google-Smtp-Source: APXvYqyMMG8C1oa7S3yfIhj27VrCDJfFNG4EzKwO7yFINtmKPu5EI5qMk9cWFbRHN9qw7rsVHiEhxbQme0xZg9wzjeY=
+X-Received: by 2002:a2e:99c5:: with SMTP id l5mr10793494ljj.55.1555316823623; 
+ Mon, 15 Apr 2019 01:27:03 -0700 (PDT)
 MIME-Version: 1.0
-From: Henbin Chang <henbinchang@gmail.com>
-Date: Mon, 15 Apr 2019 14:02:40 +0800
-Message-ID: <CAG9c7cDzNFK-g-SsDu+QLsryMAHQaS4Lhc68+0F4=yVzD8njAg@mail.gmail.com>
-Subject: The Firmware Revision of 'ipmitool mc info'
+From: John Wang <wangzqbj@inspur.com>
+Date: Mon, 15 Apr 2019 16:26:52 +0800
+X-Gmail-Original-Message-ID: <CAHkHK09fXHS6wH5rvvm1G45z0nmooa29qRnk1Lb+DzZhWmYfLw@mail.gmail.com>
+Message-ID: <CAHkHK09fXHS6wH5rvvm1G45z0nmooa29qRnk1Lb+DzZhWmYfLw@mail.gmail.com>
+Subject: dbus sensors how to determine power on/off state
 To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000000d883405868b6773"
+Content-Type: multipart/alternative; boundary="000000000000c90eb205868d6a48"
+X-Originating-IP: [10.100.1.52]
+X-ClientProxiedBy: jtjnmail201607.home.langchao.com (10.100.2.7) To
+ jtjnmail201601.home.langchao.com (10.100.2.1)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,42 +46,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 06:02:58 -0000
+X-List-Received-Date: Mon, 15 Apr 2019 08:32:33 -0000
 
---0000000000000d883405868b6773
+--000000000000c90eb205868d6a48
 Content-Type: text/plain; charset="UTF-8"
 
-Hi All,
+I noticed that dbus-sensors determines the power/on status
+by getting the value of pgood in the
+xyz.openbmc_project.Chassis.Control.Power interface.
 
-As I know, the Firmware Revision of 'ipmitool mc info' is determined by the
-OpenBMC release tag's name.
+but, refer to
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e21f/xyz/openbmc_project/Chassis/Control/Power.interface.yaml#L17
 
-According to the comment in the apphandler.cpp (phosphor-ipmi-host), only
-the vx.x-x-[-x] and v1.x.x-x-[-x] formats are support currently.
+It's PGood not pgood
 
-But the latest release tag is named by the different format. As below,
-2.6.0
-2.6.0-rc1
-2.6.0.rc1
-2.7.0-dev
 
-Can anyone give the suggestion?
+There is a patch here[
+https://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-phosphor/dbus/phosphor-dbus-interfaces/0003-Chassis-Power-Control-are-implemented.patch],it
+seems to work well with dbus-sensors
 
-Thanks.
+Is there a plan to merge this patch to the trunk, or let the dbus-sensors
+get the power on/off status via other interfaces?
 
---0000000000000d883405868b6773
+--000000000000c90eb205868d6a48
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div di=
-r=3D"ltr">Hi All,<div><br></div><div>As I know, the Firmware Revision of &#=
-39;ipmitool mc info&#39; is determined by the OpenBMC release tag&#39;s nam=
-e.<br></div><div><br></div><div>According to the comment in the apphandler.=
-cpp (phosphor-ipmi-host), only the vx.x-x-[-x] and v1.x.x-x-[-x] formats ar=
-e support currently.</div><div><br></div><div>But the latest=C2=A0release t=
-ag is named by the different format. As below,</div><div><div>2.6.0</div><d=
-iv>2.6.0-rc1</div><div>2.6.0.rc1</div><div>2.7.0-dev</div></div><div><br></=
-div><div>Can anyone give the suggestion?</div><div><br></div><div>Thanks.</=
-div><div><br></div></div></div></div></div></div>
+<div dir=3D"ltr"><div dir=3D"ltr"><div dir=3D"ltr"><div>I noticed that dbus=
+-sensors determines the power/on status=C2=A0</div><div>by getting the valu=
+e of pgood in the xyz.openbmc_project.Chassis.Control.Power interface.</div=
+><div><br></div><div>but, refer to <a href=3D"https://github.com/openbmc/ph=
+osphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e21f/xyz/op=
+enbmc_project/Chassis/Control/Power.interface.yaml#L17">https://github.com/=
+openbmc/phosphor-dbus-interfaces/blob/a641728c6923d9fb374f973b1c216515a082e=
+21f/xyz/openbmc_project/Chassis/Control/Power.interface.yaml#L17</a></div><=
+div><br></div><div>It&#39;s PGood not pgood<br></div><div><br></div><div><b=
+r></div><div>There is a patch here[<a href=3D"https://github.com/Intel-BMC/=
+openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-phosphor/dbus/phos=
+phor-dbus-interfaces/0003-Chassis-Power-Control-are-implemented.patch">http=
+s://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/r=
+ecipes-phosphor/dbus/phosphor-dbus-interfaces/0003-Chassis-Power-Control-ar=
+e-implemented.patch</a>],it seems to work well with dbus-sensors</div><div>=
+<br></div><div>Is there a plan to merge this patch to the trunk, or let the=
+ dbus-sensors get the power on/off status via other interfaces?=C2=A0</div>=
+</div></div></div>
 
---0000000000000d883405868b6773--
+--000000000000c90eb205868d6a48--
