@@ -1,34 +1,108 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="Gm/QAf51"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k2rv2h0MzDqCl
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 21:17:17 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x3GAkakx014006;
- Tue, 16 Apr 2019 13:46:36 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 3F6FE63002; Tue, 16 Apr 2019 14:16:33 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: gregkh@linuxfoundation.org, arnd@arnd.de, robh+dt@kernel.org,
- mark.rutland@arm.com, yuenn@google.com, venture@google.com,
- brendanhiggins@google.com, avifishman70@gmail.com, joel@jms.id.au
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v2 2/2] misc: npcm: add NPCM LPC BPC driver
-Date: Tue, 16 Apr 2019 14:16:31 +0300
-Message-Id: <20190416111631.356803-3-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.14.1
-In-Reply-To: <20190416111631.356803-1-tmaimon77@gmail.com>
-References: <20190416111631.356803-1-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k5bG2R3MzDqCt
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 23:20:42 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 174DA41980;
+ Tue, 16 Apr 2019 13:20:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:in-reply-to:mime-version:user-agent
+ :date:date:message-id:organization:from:from:references:subject
+ :subject:received:received:received; s=mta-01; t=1555420836; x=
+ 1557235237; bh=KceDgHqGJ7k5H7eB4sDTUetOpFaVosr+XEj2eUMR+co=; b=G
+ m/QAf51tY1PhtXo/pZfugHl0tmYsazuIXXCNqV6n8J2/Ejv7+u4ZWR39Ot+lH7V0
+ PWNP23/Lz6+6O/QZ+eKZ+h1aBb66wZs+F0w51aBMxV/Csc4SFT+Fgh2RDbmg1lqz
+ 40C5NbMd/5Q/gj4zU60LBoSwabcxtWVatyxxz8NT54=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id yrgQnA4EYArc; Tue, 16 Apr 2019 16:20:36 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 011C74194E;
+ Tue, 16 Apr 2019 16:20:35 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
+ Apr 2019 16:20:35 +0300
+Subject: Re: ipmitool recipe update needed?
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+CC: Andrew Geissler <geissonator@gmail.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>, William Kennington <wak@google.com>
+References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+ <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+ <20190411194929.GD15959@mauery.jf.intel.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Organization: YADRO
+Message-ID: <03bcef91-3d4b-35cd-c92a-4fa8e48d6839@yadro.com>
+Date: Tue, 16 Apr 2019 16:20:35 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
+MIME-Version: 1.0
+In-Reply-To: <20190411194929.GD15959@mauery.jf.intel.com>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -40,442 +114,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 11:17:20 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 13:20:44 -0000
 
-Add Nuvoton BMC NPCM BIOS post code (BPC) driver.
+--sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb
+Content-Type: multipart/mixed; boundary="h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+Cc: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ William Kennington <wak@google.com>
+Message-ID: <03bcef91-3d4b-35cd-c92a-4fa8e48d6839@yadro.com>
+Subject: Re: ipmitool recipe update needed?
+References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
+ <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
+ <20190411194929.GD15959@mauery.jf.intel.com>
+In-Reply-To: <20190411194929.GD15959@mauery.jf.intel.com>
 
-The NPCM BPC monitoring two I/O address written by
-the host on the Low Pin Count (LPC) bus, the capure
-data stored in 128-word FIFO.
+--h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- drivers/misc/Kconfig              |   8 +
- drivers/misc/Makefile             |   1 +
- drivers/misc/npcm-lpc-bpc-snoop.c | 385 ++++++++++++++++++++++++++++++++++++++
- 3 files changed, 394 insertions(+)
- create mode 100644 drivers/misc/npcm-lpc-bpc-snoop.c
+11.04.2019 22:49, Vernon Mauery wrote:
+>
+> Would it be better to just point at the upstream release tag instead of=
+ the release tarball?
 
-diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 42ab8ec92a04..320a1d0083d2 100644
---- a/drivers/misc/Kconfig
-+++ b/drivers/misc/Kconfig
-@@ -532,6 +532,14 @@ config PVPANIC
- 	  a paravirtualized device provided by QEMU; it lets a virtual machine
- 	  (guest) communicate panic events to the host.
- 
-+config NPCM_LPC_BPC_SNOOP
-+	tristate "NPCM LPC BIOS Post Code snoop support"
-+	depends on (ARCH_NPCM || COMPILE_TEST)
-+	help
-+	  Provides a NPCM BMC driver to control the LPC BIOS Post Code
-+	  interface which allows the BMC to monitoring and save
-+	  the data written by the host to an arbitrary LPC I/O port.
-+
- source "drivers/misc/c2port/Kconfig"
- source "drivers/misc/eeprom/Kconfig"
- source "drivers/misc/cb710/Kconfig"
-diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index d5b7d3404dc7..5dd0bff75b60 100644
---- a/drivers/misc/Makefile
-+++ b/drivers/misc/Makefile
-@@ -59,5 +59,6 @@ obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
- obj-$(CONFIG_PCI_ENDPOINT_TEST)	+= pci_endpoint_test.o
- obj-$(CONFIG_OCXL)		+= ocxl/
- obj-y				+= cardreader/
-+obj-$(CONFIG_NPCM_LPC_BPC_SNOOP) += npcm-lpc-bpc-snoop.o
- obj-$(CONFIG_PVPANIC)   	+= pvpanic.o
- obj-$(CONFIG_HABANA_AI)		+= habanalabs/
-diff --git a/drivers/misc/npcm-lpc-bpc-snoop.c b/drivers/misc/npcm-lpc-bpc-snoop.c
-new file mode 100644
-index 000000000000..9b7f7313e14d
---- /dev/null
-+++ b/drivers/misc/npcm-lpc-bpc-snoop.c
-@@ -0,0 +1,385 @@
-+// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2014-2018 Nuvoton Technology corporation.
-+
-+#include <linux/fs.h>
-+#include <linux/bitops.h>
-+#include <linux/interrupt.h>
-+#include <linux/kfifo.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/miscdevice.h>
-+#include <linux/poll.h>
-+
-+#define DEVICE_NAME	"npcm-lpc-bpc"
-+
-+#define NUM_BPC_CHANNELS		2
-+#define DW_PAD_SIZE			3
-+
-+/* BIOS POST Code FIFO Registers */
-+#define NPCM_BPCFA2L_REG	0x2 //BIOS POST Code FIFO Address 2 LSB
-+#define NPCM_BPCFA2M_REG	0x4 //BIOS POST Code FIFO Address 2 MSB
-+#define NPCM_BPCFEN_REG	0x6 //BIOS POST Code FIFO Enable
-+#define NPCM_BPCFSTAT_REG	0x8 //BIOS POST Code FIFO Status
-+#define NPCM_BPCFDATA_REG	0xA //BIOS POST Code FIFO Data
-+#define NPCM_BPCFMSTAT_REG	0xC //BIOS POST Code FIFO Miscellaneous Status
-+#define NPCM_BPCFA1L_REG	0x10 //BIOS POST Code FIFO Address 1 LSB
-+#define NPCM_BPCFA1M_REG	0x12 //BIOS POST Code FIFO Address 1 MSB
-+
-+/*BIOS regiser data*/
-+#define FIFO_IOADDR1_ENABLE	0x80
-+#define FIFO_IOADDR2_ENABLE	0x40
-+
-+/* BPC interface package and structure definition */
-+#define BPC_KFIFO_SIZE		0x400
-+
-+/*BPC regiser data*/
-+#define FIFO_DATA_VALID		0x80
-+#define FIFO_OVERFLOW		0x20
-+#define FIFO_READY_INT_ENABLE	0x8
-+#define FIFO_DWCAPTURE		0x4
-+#define FIFO_ADDR_DECODE	0x1
-+
-+/*Host Reset*/
-+#define HOST_RESET_INT_ENABLE	0x10
-+#define HOST_RESET_CHANGED	0x40
-+
-+struct npcm_bpc_channel {
-+	struct npcm_bpc	*data;
-+	struct kfifo		fifo;
-+	wait_queue_head_t	wq;
-+	bool			host_reset;
-+	struct miscdevice	miscdev;
-+};
-+
-+struct npcm_bpc {
-+	void __iomem			*base;
-+	int				irq;
-+	bool				en_dwcap;
-+	struct npcm_bpc_channel	ch[NUM_BPC_CHANNELS];
-+};
-+
-+static struct npcm_bpc_channel *npcm_file_to_ch(struct file *file)
-+{
-+	return container_of(file->private_data, struct npcm_bpc_channel,
-+			    miscdev);
-+}
-+
-+static ssize_t npcm_bpc_read(struct file *file, char __user *buffer,
-+			     size_t count, loff_t *ppos)
-+{
-+	struct npcm_bpc_channel *chan = npcm_file_to_ch(file);
-+	struct npcm_bpc *lpc_bpc = chan->data;
-+	unsigned int copied;
-+	int ret = 0;
-+	int cond_size = 1;
-+
-+	if (lpc_bpc->en_dwcap)
-+		cond_size = 3;
-+
-+	if (kfifo_len(&chan->fifo) < cond_size) {
-+		if (file->f_flags & O_NONBLOCK)
-+			return -EAGAIN;
-+
-+		ret = wait_event_interruptible
-+			(chan->wq, kfifo_len(&chan->fifo) > cond_size);
-+		if (ret == -ERESTARTSYS)
-+			return -EINTR;
-+	}
-+
-+	ret = kfifo_to_user(&chan->fifo, buffer, count, &copied);
-+
-+	return ret ? ret : copied;
-+}
-+
-+static __poll_t npcm_bpc_poll(struct file *file, struct poll_table_struct *pt)
-+{
-+	struct npcm_bpc_channel *chan = npcm_file_to_ch(file);
-+	__poll_t mask = 0;
-+
-+	poll_wait(file, &chan->wq, pt);
-+	if (!kfifo_is_empty(&chan->fifo))
-+		mask |= POLLIN;
-+
-+	if (chan->host_reset) {
-+		mask |= POLLHUP;
-+		chan->host_reset = false;
-+	}
-+
-+	return mask;
-+}
-+
-+static const struct file_operations npcm_bpc_fops = {
-+	.owner		= THIS_MODULE,
-+	.read		= npcm_bpc_read,
-+	.poll		= npcm_bpc_poll,
-+	.llseek		= noop_llseek,
-+};
-+
-+static irqreturn_t npcm_bpc_irq(int irq, void *arg)
-+{
-+	struct npcm_bpc *lpc_bpc = arg;
-+	u8 fifo_st;
-+	u8 host_st;
-+	u8 addr_index = 0;
-+	u8 Data;
-+	u8 padzero[3] = {0};
-+	u8 last_addr_bit = 0;
-+	bool isr_flag = false;
-+
-+	fifo_st = ioread8(lpc_bpc->base + NPCM_BPCFSTAT_REG);
-+	while (FIFO_DATA_VALID & fifo_st) {
-+		 /* If dwcapture enabled only channel 0 (FIFO 0) used */
-+		if (!lpc_bpc->en_dwcap)
-+			addr_index = fifo_st & FIFO_ADDR_DECODE;
-+		else
-+			last_addr_bit = fifo_st & FIFO_ADDR_DECODE;
-+
-+		/*Read data from FIFO to clear interrupt*/
-+		Data = ioread8(lpc_bpc->base + NPCM_BPCFDATA_REG);
-+		if (kfifo_is_full(&lpc_bpc->ch[addr_index].fifo))
-+			kfifo_skip(&lpc_bpc->ch[addr_index].fifo);
-+		kfifo_put(&lpc_bpc->ch[addr_index].fifo, Data);
-+		if (fifo_st & FIFO_OVERFLOW)
-+			pr_info("BIOS Post Codes FIFO Overflow!!!\n");
-+
-+		fifo_st = ioread8(lpc_bpc->base + NPCM_BPCFSTAT_REG);
-+		if (lpc_bpc->en_dwcap && last_addr_bit) {
-+			if ((fifo_st & FIFO_ADDR_DECODE) ||
-+			    ((FIFO_DATA_VALID & fifo_st) == 0)) {
-+				while (kfifo_avail(&lpc_bpc->ch[addr_index].fifo) < DW_PAD_SIZE)
-+					kfifo_skip(&lpc_bpc->ch[addr_index].fifo);
-+				kfifo_in(&lpc_bpc->ch[addr_index].fifo,
-+					 padzero, DW_PAD_SIZE);
-+			}
-+		}
-+		isr_flag = true;
-+	}
-+
-+	host_st = ioread8(lpc_bpc->base + NPCM_BPCFMSTAT_REG);
-+	if (host_st & HOST_RESET_CHANGED) {
-+		iowrite8(HOST_RESET_CHANGED,
-+			 lpc_bpc->base + NPCM_BPCFMSTAT_REG);
-+		lpc_bpc->ch[addr_index].host_reset = true;
-+		isr_flag = true;
-+	}
-+
-+	if (isr_flag) {
-+		wake_up_interruptible(&lpc_bpc->ch[addr_index].wq);
-+		return IRQ_HANDLED;
-+	}
-+
-+	return IRQ_NONE;
-+}
-+
-+static int npcm_bpc_config_irq(struct npcm_bpc *lpc_bpc,
-+			       struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int rc;
-+
-+	lpc_bpc->irq = platform_get_irq(pdev, 0);
-+	if (lpc_bpc->irq < 0) {
-+		dev_err(dev, "get IRQ failed\n");
-+		return lpc_bpc->irq;
-+	}
-+
-+	rc = devm_request_irq(dev, lpc_bpc->irq,
-+			      npcm_bpc_irq, IRQF_SHARED,
-+			      DEVICE_NAME, lpc_bpc);
-+	if (rc < 0) {
-+		dev_warn(dev, "Unable to request IRQ %d\n", lpc_bpc->irq);
-+		return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+static int npcm_enable_bpc(struct npcm_bpc *lpc_bpc, struct device *dev,
-+			   int channel, u16 lpc_port)
-+{
-+	int rc;
-+	u8 addr_en, reg_en;
-+
-+	init_waitqueue_head(&lpc_bpc->ch[channel].wq);
-+
-+	rc = kfifo_alloc(&lpc_bpc->ch[channel].fifo,
-+			 BPC_KFIFO_SIZE, GFP_KERNEL);
-+	if (rc)
-+		return rc;
-+
-+	lpc_bpc->ch[channel].miscdev.minor = MISC_DYNAMIC_MINOR;
-+	lpc_bpc->ch[channel].miscdev.name =
-+		devm_kasprintf(dev, GFP_KERNEL, "%s%d", DEVICE_NAME, channel);
-+	lpc_bpc->ch[channel].miscdev.fops = &npcm_bpc_fops;
-+	lpc_bpc->ch[channel].miscdev.parent = dev;
-+	rc = misc_register(&lpc_bpc->ch[channel].miscdev);
-+	if (rc)
-+		return rc;
-+
-+	lpc_bpc->ch[channel].data = lpc_bpc;
-+	lpc_bpc->ch[channel].host_reset = false;
-+
-+	/* Enable LPC snoop channel at requested port */
-+	switch (channel) {
-+	case 0:
-+		addr_en = FIFO_IOADDR1_ENABLE;
-+		iowrite8((u8)lpc_port & 0xFF,
-+			 lpc_bpc->base + NPCM_BPCFA1L_REG);
-+		iowrite8((u8)(lpc_port >> 8),
-+			 lpc_bpc->base + NPCM_BPCFA1M_REG);
-+		break;
-+	case 1:
-+		addr_en = FIFO_IOADDR2_ENABLE;
-+		iowrite8((u8)lpc_port & 0xFF,
-+			 lpc_bpc->base + NPCM_BPCFA2L_REG);
-+		iowrite8((u8)(lpc_port >> 8),
-+			 lpc_bpc->base + NPCM_BPCFA2M_REG);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (lpc_bpc->en_dwcap)
-+		addr_en = FIFO_DWCAPTURE;
-+
-+	/*
-+	 * Enable FIFO Ready Interrupt, FIFO Capture of I/O addr,
-+	 * and Host Reset
-+	 */
-+	reg_en = ioread8(lpc_bpc->base + NPCM_BPCFEN_REG);
-+	iowrite8(reg_en | addr_en | FIFO_READY_INT_ENABLE |
-+		 HOST_RESET_INT_ENABLE, lpc_bpc->base + NPCM_BPCFEN_REG);
-+
-+	return 0;
-+}
-+
-+static void npcm_disable_bpc(struct npcm_bpc *lpc_bpc, int channel)
-+{
-+	u8 reg_en;
-+
-+	switch (channel) {
-+	case 0:
-+		reg_en = ioread8(lpc_bpc->base + NPCM_BPCFEN_REG);
-+		if (lpc_bpc->en_dwcap)
-+			iowrite8(reg_en & ~FIFO_DWCAPTURE,
-+				 lpc_bpc->base + NPCM_BPCFEN_REG);
-+		else
-+			iowrite8(reg_en & ~FIFO_IOADDR1_ENABLE,
-+				 lpc_bpc->base + NPCM_BPCFEN_REG);
-+		break;
-+	case 1:
-+		reg_en = ioread8(lpc_bpc->base + NPCM_BPCFEN_REG);
-+		iowrite8(reg_en & ~FIFO_IOADDR2_ENABLE,
-+			 lpc_bpc->base + NPCM_BPCFEN_REG);
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	if (!(reg_en & (FIFO_IOADDR1_ENABLE | FIFO_IOADDR2_ENABLE)))
-+		iowrite8(reg_en &
-+			 ~(FIFO_READY_INT_ENABLE | HOST_RESET_INT_ENABLE),
-+			 lpc_bpc->base + NPCM_BPCFEN_REG);
-+
-+	kfifo_free(&lpc_bpc->ch[channel].fifo);
-+	misc_deregister(&lpc_bpc->ch[channel].miscdev);
-+}
-+
-+static int npcm_bpc_probe(struct platform_device *pdev)
-+{
-+	struct npcm_bpc *lpc_bpc;
-+	struct device *dev;
-+	u32 port;
-+	int rc;
-+
-+	dev = &pdev->dev;
-+
-+	lpc_bpc = devm_kzalloc(dev, sizeof(*lpc_bpc), GFP_KERNEL);
-+	if (!lpc_bpc)
-+		return -ENOMEM;
-+
-+	lpc_bpc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(lpc_bpc->base))
-+		return PTR_ERR(lpc_bpc->base);
-+
-+	dev_set_drvdata(&pdev->dev, lpc_bpc);
-+
-+	rc = of_property_read_u32_index(dev->of_node, "snoop-ports", 0,
-+					&port);
-+	if (rc) {
-+		dev_err(dev, "no snoop ports configured\n");
-+		return -ENODEV;
-+	}
-+
-+	lpc_bpc->en_dwcap =
-+		of_property_read_bool(dev->of_node, "nuvoton,lpc-en-dwcapture");
-+
-+	rc = npcm_bpc_config_irq(lpc_bpc, pdev);
-+	if (rc)
-+		return rc;
-+
-+	rc = npcm_enable_bpc(lpc_bpc, dev, 0, port);
-+	if (rc) {
-+		dev_err(dev, "Enable BIOS post code I/O port 0 failed\n");
-+		return rc;
-+	}
-+
-+	/*
-+	 * Configuration of second BPC channel port is optional
-+	 * Double-Word Capture ignoring address 2
-+	 */
-+	if (!lpc_bpc->en_dwcap) {
-+		if (of_property_read_u32_index(dev->of_node, "snoop-ports",
-+					       1, &port) == 0) {
-+			rc = npcm_enable_bpc(lpc_bpc, dev, 1, port);
-+			if (rc) {
-+				dev_err(dev, "Enable BIOS post code I/O port 1 failed, disable I/O port 0\n");
-+				npcm_disable_bpc(lpc_bpc, 0);
-+				return rc;
-+			}
-+		}
-+	}
-+
-+	pr_info("NPCM BIOS post code probe\n");
-+
-+	return rc;
-+}
-+
-+static int npcm_bpc_remove(struct platform_device *pdev)
-+{
-+	struct npcm_bpc *lpc_bpc = dev_get_drvdata(&pdev->dev);
-+	u8 reg_en;
-+
-+	reg_en = ioread8(lpc_bpc->base + NPCM_BPCFEN_REG);
-+
-+	if (reg_en & FIFO_IOADDR1_ENABLE)
-+		npcm_disable_bpc(lpc_bpc, 0);
-+	if (reg_en & FIFO_IOADDR2_ENABLE)
-+		npcm_disable_bpc(lpc_bpc, 1);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id npcm_bpc_match[] = {
-+	{ .compatible = "nuvoton,npcm750-lpc-bpc-snoop" },
-+	{ },
-+};
-+
-+static struct platform_driver npcm_bpc_driver = {
-+	.driver = {
-+		.name		= DEVICE_NAME,
-+		.of_match_table = npcm_bpc_match,
-+	},
-+	.probe = npcm_bpc_probe,
-+	.remove = npcm_bpc_remove,
-+};
-+
-+module_platform_driver(npcm_bpc_driver);
-+
-+MODULE_DEVICE_TABLE(of, npcm_bpc_match);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Tomer Maimon <tomer.maimon@nuvoton.com>");
-+MODULE_DESCRIPTION("Linux driver to control NPCM LPC BIOS post code snooping");
--- 
-2.14.1
+Indeed that could be the right approach for petitboot.
+
+>
+> Along these lines, if we can get my pending dbus interface pull-request=
+ merged, openbmc can use the upstream ipmitool with only one patch to cha=
+nge the default interface (which is on my list to make a --configure opti=
+on at some point).
+>
+Both your patches are now merged, so no patches on the buildroot side are=
+ needed if git is used.
+
+Alexander.
+
+
+
+--h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi--
+
+--sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
+
+iQIcBAEBCAAGBQJctdajAAoJEOiTWHtbdBeNdmUP/0MfjDmk32doL+qTHchktLz/
+QTEptKjVvIhxVPLeTtrfk42I0COajYhTVv6zclzNdvtA8kwRfFt5Bq2eELmZ7qbY
+q3oO4UMBwFT68dJA3tEsv/5KWFamw9EODEvJ0tfN3iDHK3hQXgmuCqMi+X21ehAT
+jw53mFwNKTfi5oMNR48/9SLB4tJPrHUJeDgcZuDiPVNIW/4Epi/NkUwIsiD94iHn
+VsfEGFGuAB1LlYobnO59ryxoQX7CTwk12rEiMlVTtJxZNcyK0XTXQSU1RDBmLc3k
+jfAzqmJBks9R7SbEArsGq4SZ34uoRlvq4eeKWfD+5ovK5UjfU6EMO29tTDX73pox
+NTNMEwQ1p1JoV7Sxe4TH0/9O+wfeGWL5pqxMFugY9245cUkiR1pnlOHfDKEZvLYM
+b1C+qRSqLx05UNQb+q+/d8Nu8C4uj62e2qNNNh94VK7TBVsNqp28J1DWvHyewOUW
++U6mKACV2mc26COI4ctcs1gVHVhff31Qusa9gjsHIjAAnBVRr3W3uYfLCZlA5Jga
+BwjrxBrAUv7lerm0k9whO/LYNIFpb+q72CJYQu3OVlfGoHkJS8+qnDNUNekBIjv9
+NDjKY2F7hHWyCKWRRv44ckJaMgrBwvIAeu0aZQrt0+W2Gifb2ZmaMcH9S9GmVYjw
+W63v5xIFJqegXtj75MM5
+=PkqC
+-----END PGP SIGNATURE-----
+
+--sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb--
