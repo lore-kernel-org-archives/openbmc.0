@@ -6,41 +6,41 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="dujmOxQc"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="ENkqERAe"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k2QM429FzDqF1
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k2QV4CN8zDqDl
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:53 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 0F5DB41980;
- Tue, 16 Apr 2019 10:57:44 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 3B3BA41980;
+ Tue, 16 Apr 2019 10:57:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:organization:references:subject:subject
- :from:from:received:received:received; s=mta-01; t=1555412262;
- x=1557226663; bh=EKgqzpeMl2avF2mT4VneuI2zvcB34rvWwCOfUtLkIco=; b=
- dujmOxQccnxMyC8weBr5HbM2MsbaIeDdPJR2YxMaANuXi2oE6eeFzsSJ1rGxKA5S
- VIxz2WujvAWCKu9UhACNJjRdt1/2Bh9A4E9pb58F3Vfc8sJgYLbgzJtCDYM14lNd
- GDU17DXXmQCN0LOiM5eonwxlMYiqup6FFfE3DUVG5+M=
+ :from:from:received:received:received; s=mta-01; t=1555412269;
+ x=1557226670; bh=6zrqy9i5RmWIDiN9QtXIsoVeVKt5LUZSV/D+Wge0c+g=; b=
+ ENkqERAeSQgRUaCONUY6AXq0JRpgL3aWtX57/IzwEQd0AXAN6WroagbSJelwET9D
+ qv2aiQtK93x4B4Lzxta00QxqHI5YakAUGWvMikvHJDkOFC2V7Thwzi3pbX5h/jTz
+ 9+2f3AtFNP6VEnPrBiKWAqTCsenJWUBPRENKfFh2BhU=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id AKW2yBIGIi0H; Tue, 16 Apr 2019 13:57:42 +0300 (MSK)
+ with ESMTP id YRlF46lrFTmB; Tue, 16 Apr 2019 13:57:49 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 5DF2141943;
- Tue, 16 Apr 2019 13:57:42 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 15FA141943;
+ Tue, 16 Apr 2019 13:57:49 +0300 (MSK)
 Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
- Apr 2019 13:57:42 +0300
+ Apr 2019 13:57:48 +0300
 From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 3/7] irqchip: Aspeed: Add Aspeed sdhci irq
- driver
+Subject: [PATCHv2-modified dev-4.19 4/7] dts: Aspeed: Add Aspeed sdhci dts
+ document
 To: Joel Stanley <joel@jms.id.au>
 CC: OpenBMC Mailing List <openbmc@lists.ozlabs.org>, Ryan Chen
  <ryan_chen@aspeedtech.com>
@@ -90,15 +90,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
 Organization: YADRO
-Message-ID: <102a7818-09c6-d084-e458-3873032afe28@yadro.com>
-Date: Tue, 16 Apr 2019 13:57:41 +0300
+Message-ID: <fb0e9958-777c-f1fb-fad1-a41cfa91cdeb@yadro.com>
+Date: Tue, 16 Apr 2019 13:57:48 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ayGXQkOi3xmT3N8q3zog7wBl44S2AHSX1"
+ boundary="ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6"
 X-Originating-IP: [172.17.14.197]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -113,259 +113,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 10:57:48 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 10:57:55 -0000
 
---ayGXQkOi3xmT3N8q3zog7wBl44S2AHSX1
-Content-Type: multipart/mixed; boundary="IhlMDTIlhdHWaWpPiwtD9S0BAmJ3AeprH";
+--ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6
+Content-Type: multipart/mixed; boundary="XMTZINzgUxduMExdwSpw9fiJXBOiccG2v";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Mailing List <openbmc@lists.ozlabs.org>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Message-ID: <102a7818-09c6-d084-e458-3873032afe28@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 3/7] irqchip: Aspeed: Add Aspeed sdhci irq
- driver
+Message-ID: <fb0e9958-777c-f1fb-fad1-a41cfa91cdeb@yadro.com>
+Subject: [PATCHv2-modified dev-4.19 4/7] dts: Aspeed: Add Aspeed sdhci dts
+ document
 References: <cover.1555409110.git.a.amelkin@yadro.com>
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 
---IhlMDTIlhdHWaWpPiwtD9S0BAmJ3AeprH
+--XMTZINzgUxduMExdwSpw9fiJXBOiccG2v
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 From: Ryan Chen <ryanchen.aspeed@gmail.com>
 
-In Aspeed SoC's sdhci have two slots and have a interrupt status and
-general information in top for register. so it need a sdhci irq driver
-probe defore sdhci driver probe
+This add Aspeed sdhci irq driver's dts file and devicetree document
 
 Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
 ---
- drivers/irqchip/Makefile              |   2 +-
- drivers/irqchip/irq-aspeed-sdhci-ic.c | 147 ++++++++++++++++++++++++++++=
+ .../aspeed,aspeed-sdhci-ic.txt                     | 25 ++++++++++++++++=
 ++++++
- include/linux/mmc/sdhci-aspeed-data.h |  28 +++++++
- 3 files changed, 176 insertions(+), 1 deletion(-)
- create mode 100644 drivers/irqchip/irq-aspeed-sdhci-ic.c
- create mode 100644 include/linux/mmc/sdhci-aspeed-data.h
+ arch/arm/boot/dts/aspeed-g4.dtsi                   | 20 ++++++++++++++++=
++
+ arch/arm/boot/dts/aspeed-g5.dtsi                   | 20 ++++++++++++++++=
++
+ 3 files changed, 65 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
+r/aspeed,aspeed-sdhci-ic.txt
 
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index fbd1ec8..57e9f8d 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -78,7 +78,7 @@ obj-$(CONFIG_MVEBU_ODMI)		+=3D irq-mvebu-odmi.o
- obj-$(CONFIG_MVEBU_PIC)			+=3D irq-mvebu-pic.o
- obj-$(CONFIG_LS_SCFG_MSI)		+=3D irq-ls-scfg-msi.o
- obj-$(CONFIG_EZNPS_GIC)			+=3D irq-eznps.o
--obj-$(CONFIG_ARCH_ASPEED)		+=3D irq-aspeed-vic.o irq-aspeed-i2c-ic.o
-+obj-$(CONFIG_ARCH_ASPEED)		+=3D irq-aspeed-vic.o irq-aspeed-i2c-ic.o irq=
--aspeed-sdhci-ic.o
- obj-$(CONFIG_STM32_EXTI) 		+=3D irq-stm32-exti.o
- obj-$(CONFIG_QCOM_IRQ_COMBINER)		+=3D qcom-irq-combiner.o
- obj-$(CONFIG_IRQ_UNIPHIER_AIDET)	+=3D irq-uniphier-aidet.o
-diff --git a/drivers/irqchip/irq-aspeed-sdhci-ic.c b/drivers/irqchip/irq-=
-aspeed-sdhci-ic.c
+diff --git a/Documentation/devicetree/bindings/interrupt-controller/aspee=
+d,aspeed-sdhci-ic.txt b/Documentation/devicetree/bindings/interrupt-contr=
+oller/aspeed,aspeed-sdhci-ic.txt
 new file mode 100644
-index 0000000..c3d9d45
+index 0000000..87b042c
 --- /dev/null
-+++ b/drivers/irqchip/irq-aspeed-sdhci-ic.c
-@@ -0,0 +1,147 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * SDHCI IRQCHIP driver for the Aspeed SoC
-+ *
-+ * Copyright (C) ASPEED Technology Inc.
-+ * Ryan Chen <ryan_chen@aspeedtech.com>
-+ *
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License as published by
-+ * the Free Software Foundation; either version 2 of the License, or (at=
-
-+ * your option) any later version.
-+ *
-+ */
++++ b/Documentation/devicetree/bindings/interrupt-controller/aspeed,aspee=
+d-sdhci-ic.txt
+@@ -0,0 +1,25 @@
++Device tree configuration for the SDHCI Interrupt Controller on the AST2=
+4XX and
++AST25XX SoCs.
 +
-+#include <linux/platform_device.h>
-+#include <linux/module.h>
-+#include <linux/delay.h>
-+#include <linux/irq.h>
-+#include <linux/irqchip.h>
-+#include <linux/irqchip/chained_irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/of.h>
-+#include <linux/io.h>
-+#include <linux/clk.h>
-+#include <linux/mmc/sdhci-aspeed-data.h>
++Required Properties:
++- #address-cells	: should be 1
++- #size-cells 		: should be 1
++- #interrupt-cells 	: should be 1
++- compatible 		: should be "aspeed,aspeed-sdhci-ic"
++- reg			: address start and range of controller
++- interrupts		: interrupt number
++- interrupt-controller	: denotes that the controller receives and fires
++			  new interrupts for child busses
 +
-+#define ASPEED_SDHCI_SLOT_NUM			2
++Example:
 +
-+static void aspeed_sdhci_irq_handler(struct irq_desc *desc)
-+{
-+	struct aspeed_sdhci_irq *sdhci_irq =3D irq_desc_get_handler_data(desc);=
-
-+	struct irq_chip *chip =3D irq_desc_get_chip(desc);
-+	unsigned long bit, status;
-+	unsigned int slot_irq;
++sdhci_ic: interrupt-controller@0 {
++	#interrupt-cells =3D <1>;
++	#size-cells =3D <1>;
++	#interrupt-cells =3D <1>;
++	compatible =3D "aspeed,aspeed-sdhci-irq";
++	reg =3D <0x0 0x100>;
++	interrupts =3D <26>;
++	interrupt-controller;
++	clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
++};
+\ No newline at end of file
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-=
+g4.dtsi
+index 52c7515..f637a80 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -191,6 +191,13 @@
+ 				reg =3D <0x1e720000 0x8000>;	// 32K
+ 			};
+=20
++			sdhci: sdhci@1e740000 {
++				compatible =3D "simple-bus";
++				#address-cells =3D <1>;
++				#size-cells =3D <1>;
++				ranges =3D <0 0x1e740000 0x1000>;
++			};
 +
-+	chained_irq_enter(chip, desc);
-+	status =3D readl(sdhci_irq->regs + ASPEED_SDHCI_ISR);
-+	for_each_set_bit(bit, &status, ASPEED_SDHCI_SLOT_NUM) {
-+		slot_irq =3D irq_find_mapping(sdhci_irq->irq_domain, bit);
-+		generic_handle_irq(slot_irq);
-+	}
-+	chained_irq_exit(chip, desc);
-+}
+ 			gpio: gpio@1e780000 {
+ 				#gpio-cells =3D <2>;
+ 				gpio-controller;
+@@ -406,6 +413,19 @@
+ 	};
+ };
+=20
++&sdhci {
 +
-+static void noop(struct irq_data *data) { }
++	sdhci_ic: interrupt-controller@0 {
++		#interrupt-cells =3D <1>;
++		compatible =3D "aspeed,aspeed-sdhci-irq";
++		reg =3D <0x0 0x100>;
++		interrupts =3D <26>;
++		interrupt-controller;
++		clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
++	};
 +
-+static unsigned int noop_ret(struct irq_data *data)
-+{
-+	return 0;
-+}
-+
-+struct irq_chip sdhci_irq_chip =3D {
-+	.name		=3D "sdhci-ic",
-+	.irq_startup	=3D noop_ret,
-+	.irq_shutdown	=3D noop,
-+	.irq_enable	=3D noop,
-+	.irq_disable	=3D noop,
-+	.irq_ack	=3D noop,
-+	.irq_mask	=3D noop,
-+	.irq_unmask	=3D noop,
-+	.flags		=3D IRQCHIP_SKIP_SET_WAKE,
 +};
 +
-+static int ast_sdhci_map_irq_domain(struct irq_domain *domain,
-+				    unsigned int irq, irq_hw_number_t hwirq)
-+{
-+	irq_set_chip_and_handler(irq, &sdhci_irq_chip, handle_simple_irq);
-+	irq_set_chip_data(irq, domain->host_data);
+ &i2c {
+ 	i2c_ic: interrupt-controller@0 {
+ 		#interrupt-cells =3D <1>;
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
+g5.dtsi
+index d8a9d20..53292f4 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -257,6 +257,13 @@
+ 				reg =3D <0x1e720000 0x9000>;	// 36K
+ 			};
+=20
++			sdhci: sdhci@1e740000 {
++				compatible =3D "simple-bus";
++				#address-cells =3D <1>;
++				#size-cells =3D <1>;
++				ranges =3D <0 0x1e740000 0x1000>;
++			};
 +
-+	return 0;
-+}
+ 			gpio: gpio@1e780000 {
+ 				#gpio-cells =3D <2>;
+ 				gpio-controller;
+@@ -510,6 +517,19 @@
+ 	};
+ };
+=20
++&sdhci {
 +
-+static const struct irq_domain_ops aspeed_sdhci_irq_domain_ops =3D {
-+	.map =3D ast_sdhci_map_irq_domain,
++	sdhci_ic: interrupt-controller@0 {
++		#interrupt-cells =3D <1>;
++		compatible =3D "aspeed,aspeed-sdhci-irq";
++		reg =3D <0x0 0x100>;
++		interrupts =3D <26>;
++		interrupt-controller;
++		clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
++	};
++
 +};
 +
-+static int irq_aspeed_sdhci_probe(struct platform_device *pdev)
-+{
-+	struct aspeed_sdhci_irq *sdhci_irq;
-+	struct clk *sdclk;
-+
-+	sdhci_irq =3D kzalloc(sizeof(*sdhci_irq), GFP_KERNEL);
-+	if (!sdhci_irq)
-+		return -ENOMEM;
-+
-+	platform_set_drvdata(pdev, sdhci_irq);
-+	//node->data =3D sdhci_irq;
-+	pdev->dev.of_node->data =3D sdhci_irq;
-+
-+	sdhci_irq->regs =3D of_iomap(pdev->dev.of_node, 0);
-+	if (IS_ERR(sdhci_irq->regs))
-+		return PTR_ERR(sdhci_irq->regs);
-+
-+	sdclk =3D devm_clk_get(&pdev->dev, NULL);
-+	if (IS_ERR(sdclk)) {
-+		dev_err(&pdev->dev, "no sdclk clock defined\n");
-+		return PTR_ERR(sdclk);
-+	}
-+
-+	clk_prepare_enable(sdclk);
-+
-+	sdhci_irq->parent_irq =3D irq_of_parse_and_map(pdev->dev.of_node, 0);
-+	if (sdhci_irq->parent_irq < 0)
-+		return sdhci_irq->parent_irq;
-+
-+	sdhci_irq->irq_domain =3D irq_domain_add_linear(
-+					pdev->dev.of_node, ASPEED_SDHCI_SLOT_NUM,
-+					&aspeed_sdhci_irq_domain_ops, NULL);
-+	if (!sdhci_irq->irq_domain)
-+		return -ENOMEM;
-+
-+	sdhci_irq->irq_domain->name =3D "aspeed-sdhci-irq";
-+
-+	irq_set_chained_handler_and_data(sdhci_irq->parent_irq,
-+					 aspeed_sdhci_irq_handler, sdhci_irq);
-+
-+	pr_info("sdhci irq controller registered, irq %d\n", sdhci_irq->parent_=
-irq);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id irq_aspeed_sdhci_dt_ids[] =3D {
-+	{ .compatible =3D "aspeed,aspeed-sdhci-irq", },
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, irq_aspeed_sdhci_dt_ids);
-+
-+static struct platform_driver irq_aspeed_sdhci_device_driver =3D {
-+	.probe		=3D irq_aspeed_sdhci_probe,
-+	.driver		=3D {
-+		.name   =3D KBUILD_MODNAME,
-+		.of_match_table	=3D irq_aspeed_sdhci_dt_ids,
-+	}
-+};
-+
-+static int __init irq_aspeed_sdhci_init(void)
-+{
-+	return platform_driver_register(&irq_aspeed_sdhci_device_driver);
-+}
-+core_initcall(irq_aspeed_sdhci_init);
-+
-+MODULE_AUTHOR("Ryan Chen");
-+MODULE_DESCRIPTION("ASPEED SOC SDHCI IRQ Driver");
-+MODULE_LICENSE("GPL v2");
-diff --git a/include/linux/mmc/sdhci-aspeed-data.h b/include/linux/mmc/sd=
-hci-aspeed-data.h
-new file mode 100644
-index 0000000..fba2bf2
---- /dev/null
-+++ b/include/linux/mmc/sdhci-aspeed-data.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef LINUX_MMC_SDHCI_ASPEED_DATA_H
-+#define LINUX_MMC_SDHCI_ASPEED_DATA_H
-+
-+#include <linux/io.h>
-+
-+#define ASPEED_SDHCI_INFO			0x00
-+#define  ASPEED_SDHCI_S1MMC8			BIT(25)
-+#define  ASPEED_SDHCI_S0MMC8			BIT(24)
-+#define ASPEED_SDHCI_BLOCK			0x04
-+#define ASPEED_SDHCI_CTRL			0xF0
-+#define ASPEED_SDHCI_ISR			0xFC
-+
-+struct aspeed_sdhci_irq {
-+	void __iomem *regs;
-+	int parent_irq;
-+	struct irq_domain *irq_domain;
-+};
-+
-+static inline void aspeed_sdhci_set_8bit_mode(struct aspeed_sdhci_irq *s=
-dhci_irq, int mode)
-+{
-+	if (mode)
-+		writel(ASPEED_SDHCI_S0MMC8 | readl(sdhci_irq->regs), sdhci_irq->regs);=
-
-+	else
-+		writel(~ASPEED_SDHCI_S0MMC8 & readl(sdhci_irq->regs), sdhci_irq->regs)=
-;
-+}
-+
-+#endif
+ &i2c {
+ 	i2c_ic: interrupt-controller@0 {
+ 		#interrupt-cells =3D <1>;
 --=20
 2.7.4
 
 
 
---IhlMDTIlhdHWaWpPiwtD9S0BAmJ3AeprH--
+--XMTZINzgUxduMExdwSpw9fiJXBOiccG2v--
 
---ayGXQkOi3xmT3N8q3zog7wBl44S2AHSX1
+--ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -373,19 +278,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJctbUlAAoJEOiTWHtbdBeNDiQQAMWdXbyRkn3Bav4z1MVWo0pn
-nkLMZuioG3Yqhjgws6ulMeK4gieczlN6r8dYKy5DdBPhKzmqi8+7hvA7JGlJrSKY
-UXB65Qq8BHOcSBVS/WL5V1Xidp7GyaHo65tSnwmHo6bHfetmv79DT/zWSXz3jKMM
-Po2F2qGqSSWRF3i1s5CQqwZLZUYT7zLaq+rOsAWqoPR/VZuBoUdKCpwpMvRvBpVQ
-jbOxOS8hmqrX3f+fZ3tZObbqH3rc1CY5Q4w/5Wvz3NDnISv2fzSLyQvKuIF7Jz/Y
-KRFpVy+6Nak1ZMvB6WJmuOPIOmJsa9j7UfHmILSAHuxeeJnxs2dG+xiPivrAeECu
-2DBmXdVrmvRWNiXogc4pHPOvsQfJN2gUZ0kn9ZfKHUXjHPe5MEnoPn0OSbKxMffP
-cFGiRBGMRmjbqlB6Bhvnstb9CtRHmo/+1j9XWuJzgwAm3odNnbmpKp93hbD1mpoV
-leRfCCbU/J51qCcIKFcHnNIElHZldADPXnZJald/YgLXwH5e9KOsdW9ELBA6TehB
-qpEtgTaezK5VILuH3GsogMfezo40pub5nKsOAFV6JBGwvwaFAjwhdXd69KnQAJDE
-7qW4J5ZWbTkNM6UplYTH2Az6PqrftxoQQsZ2P42ou7/Ux/2mJ8qgcKUn5VMWY/Lm
-0k32/nvcc6SwkOnKLJ56
-=VpEi
+iQIcBAEBCAAGBQJctbUsAAoJEOiTWHtbdBeN1VEP/irXEfEpsgNIvHEjwMycnaYZ
+Tk5E8BiFFoOddiy5ax2NHQifefWGG83mnq4r7JG1fJ4rL7O467zvtCBqCwP6FYyC
+Vu03xKd/evsUdWeQ2gHhfSXYlXJg0tTX4zD3HrRtNfagAMewkjzXNCwRB3nAYsGt
+DQ85op3Sk6Hlo1oeDhmNpb12t71G09AZXYunAL679IVPbkHGW/lvMbL5QHLl/KZa
+Wbj0W8fklJzqpzbp7Mjd7g7gC1fKmHluujY+xRdxhFvVsZHmLqPh636fPf1oIiak
+XCSZDBseO3hXSUWRVanu2mAA2pcFql9zs/V8QgJw171gymFItEfjfyF4fKGU6aMQ
+Cw4rYpZlI4cIfyrGrijk8HocyRMVUkUYTf/OC1CBeNOKmaPXhp6D+ijsljOv6S0P
+U/lL7qye6qd95mKpZmag1bvWkNjjLzaaVk9DXjZY3lSgJgDOFhUQif+N9uLROJu+
+RoTPcOgmrVjqqpDKiTQSMe8kWot/axOMn88RZQ0B5/3hFfQ0EKrdujhJ89OMk81j
+2VUpehO54sUZAdxx6BS1Ur0DA+ILF8d5o7hrZehhf29nuT4oGd0Hqezd86F8UySF
+nGfNmiBQifM/8ioxl+bx+d/S/oOc1d28Qjsd0o2aT5KHgTrKqyoF1McQX4tIsoAF
+iLuylxcAcQLp3Gf8cHM6
+=7qHi
 -----END PGP SIGNATURE-----
 
---ayGXQkOi3xmT3N8q3zog7wBl44S2AHSX1--
+--ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6--
