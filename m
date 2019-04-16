@@ -1,82 +1,54 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <prvs=002ed725b=George.Hung@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=002ed725b=george.hung@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="avxXWXRB"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Wt4Z3hsn"; dkim-atps=neutral
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jqx85BJGzDqFH
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 13:05:16 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 7410E61F;
- Mon, 15 Apr 2019 23:05:13 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 15 Apr 2019 23:05:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type:content-transfer-encoding; s=fm2; bh=yebB4
- CKu1LUTL+Ox34gt4MQMR8DVtlBCgbdI6Mfoa6w=; b=avxXWXRB71KiWzB6iu3mv
- DUC7eaiZT0o9C2X9XQNjN62x6fs4Vjx8qvnpMIRmRphYxnKWfrH39lJwZCygBLcU
- ATEqezSNIc+YjeB0z2Oqdrqp7tUxpwKdC+xGCzv616UawKe0mdnE9NSpo4klzAOh
- mALNeHOFXQKoZTEstk3gwJhyu5FGAX2Kx8NePRddgFg3npf5gT60r6evS8ITT8mq
- XGj9760uGPlG5u17DcGrfYnBYVk7rwqFQhmOC0e5NtnFDBKWFjYYn3Lt9+LUHpsW
- iwGpu0fHPmsm2FD5RrHMn3nFlImjYqIUVaY5Ta9ISLOILe/8rVRwPHUiEw/u4y2b
- A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=yebB4CKu1LUTL+Ox34gt4MQMR8DVtlBCgbdI6Mfoa
- 6w=; b=Wt4Z3hsnTalPqwTkgh/cZL4RPkV5mm16hUjmafzMZ1IEVtJacFqeLYBCJ
- Wv8w3djHSw/3U2kUZuRJWsfVTXk/4Jmov/CQoUo8l0PA68b3DJjcKKE7P/RY47ST
- TTje4S3/me1nn0Qqs2hBJ/FNC6VG7TMzGIrBLdBq+NWWIDIX1v5U1EU84EImxZ5z
- o2QDdDt1Vq9K9SamB3ZuwMGHWgPA4dZxM4mil/dku/BM41NG8aoSADNG79G8UhWg
- wCtNL95xUgoYH0cqkZDhOpQ8vyVwW8oem6SnkYBdP1XvGoObntTkKm8L+ZY2Aa79
- nJ12uB8epfEBjFlZe3QgFyC79j8TA==
-X-ME-Sender: <xms:aEa1XIw4cCDu9WRH4in3_JwmuyYycYXO3jsWiHrl5PphRB0J-J8Y4Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfedtgdeihecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtgfesthhqredtreerjeenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
- grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
- rhfuihiivgeptd
-X-ME-Proxy: <xmx:aEa1XP8cFyNQScHONc5PnodZCHrrGZHdtm-wPm0qEo8O2N87JMxj2Q>
- <xmx:aEa1XELNu9omK_Lk-ZmDn9nvLCDRYDUnFfVvoYSOzL8vo8tL2rkv7Q>
- <xmx:aEa1XNcgJTX83AAAlQNgdH0pexzvYYpp_qdy3ikZHSiql1V8ecu9wQ>
- <xmx:aUa1XMHU19kNywKCUTxImGNlqh232iXJuUS_2N2Gx7BfCqCgZz9SvA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 51B187C199; Mon, 15 Apr 2019 23:05:12 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-332-g22ddc6a-fmstable-20190412v1
-Mime-Version: 1.0
-X-Me-Personality: 52947553
-Message-Id: <d5906e53-9e7a-44f3-b8af-c09e7c4db62a@www.fastmail.com>
-In-Reply-To: <CAO=notx6cuUuARoDLrcrMX0fVQdVYahfvUbDNOwj588_0q-Bbg@mail.gmail.com>
-References: <CAO=notxhe24e8-1dTcspD_H7xTy49yEnnn-gJbUciekirzKC_w@mail.gmail.com>
- <CACPK8XfwP_DwqthSwgFGMjqRepGkC1XdziZ+eEds=6ND_Ov71Q@mail.gmail.com>
- <CAO=notwAcxqFTN31Ecfd50rkjKm9X7PQsTFAP4Rc_xvN0wALUQ@mail.gmail.com>
- <e44834c9-2755-1d05-1df1-d0fa930d48bd@kaod.org>
- <CAO=notxCM7hR7bXXOi3Z86PikHxAj7CXSDWda-KV9wWxKSwBdg@mail.gmail.com>
- <CAO=notx6cuUuARoDLrcrMX0fVQdVYahfvUbDNOwj588_0q-Bbg@mail.gmail.com>
-Date: Mon, 15 Apr 2019 23:05:11 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Patrick Venture" <venture@google.com>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Cc: "Joel Stanley" <joel@jms.id.au>,
- "OpenBMC Maillist" <openbmc@lists.ozlabs.org>
-Subject: Re: transitioning from 4.17.18 to 5.0.6
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44jrgM688FzDq6q
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 13:38:19 +1000 (AEST)
+Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
+ by mx01.quantatw.com with ESMTP; 16 Apr 2019 11:38:16 +0800
+Received: from mailbx05.quanta.corp (10.243.91.100) by mailbx06.quanta.corp
+ (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Tue, 16 Apr
+ 2019 11:38:15 +0800
+Received: from mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc]) by
+ mailbx05.quanta.corp ([fe80::34d4:593b:40f8:a9bc%4]) with mapi id
+ 15.01.1713.004; Tue, 16 Apr 2019 11:38:15 +0800
+From: =?utf-8?B?R2VvcmdlIEh1bmcgKOa0quW/oOaVrCk=?= <George.Hung@quantatw.com>
+To: Patrick Venture <venture@google.com>
+CC: "OpenBMC Maillist (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>, 
+ "emilyshaffer@google.com" <emilyshaffer@google.com>,
+ "benjaminfair@google.com" <benjaminfair@google.com>,
+ "vernon.mauery@linux.intel.com" <vernon.mauery@linux.intel.com>,
+ "tomjoseph@in.ibm.com" <tomjoseph@in.ibm.com>
+Subject: RE: Sending I2C command via google-ipmi i2c
+Thread-Topic: Sending I2C command via google-ipmi i2c
+Thread-Index: AQHU8TtTbcluPTqM8U6VWcws9ejeS6Y+JFXA
+Date: Tue, 16 Apr 2019 03:38:15 +0000
+Message-ID: <beecc86d0b8d41b88a96a8b06846a28f@quantatw.com>
+References: <81e4866b111a47d991f767df3c6b4b0a@quantatw.com>
+ <CAO=notw_E+LJJ5jMmdACajshiTebufgZgwDOGa6op8f1-Phkxw@mail.gmail.com>
+In-Reply-To: <CAO=notw_E+LJJ5jMmdACajshiTebufgZgwDOGa6op8f1-Phkxw@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24552.004
+x-tm-as-result: No--21.577500-0.000000-31
+x-tm-as-matchedid: 140026-150567-701625-704425-700685-139006-139010-710556-7
+ 00648-700574-106660-707451-700075-110462-702643-709584-121169-701053-105250
+ -700476-701594-702358-700869-121536-701513-708303-707617-700185-700624-1062
+ 30-121624-704496-702037-702050-704102-701021-148004-148133-20043-42000-4200
+ 3-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,64 +60,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 03:05:20 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 03:38:25 -0000
 
-On Tue, 16 Apr 2019, at 01:06, Patrick Venture wrote:
-> On Wed, Apr 10, 2019 at 10:13 AM Patrick Venture <venture@google.com> =
-wrote:
-> >
-> > On Wed, Apr 10, 2019 at 9:02 AM C=C3=A9dric Le Goater <clg@kaod.org>=
- wrote:
-> > >
-> > > On 4/10/19 4:39 PM, Patrick Venture wrote:
-> > > > On Tue, Apr 9, 2019 at 7:17 PM Joel Stanley <joel@jms.id.au> wro=
-te:
-> > > >>
-> > > >> On Tue, 9 Apr 2019 at 16:35, Patrick Venture <venture@google.co=
-m> wrote:
-> > > >>>
-> > > >>> HI, I ran into some weirdness when transitioning from 4.17.18 =
-to 5.0.6
-> > > >>> with the quanta-q71l board.  More specifically now my host can=
-'t talk
-> > > >>> to the BMC via ipmi-bt.  All it returns is 0xd5.  on the BMC i=
-tself, I
-> > > >>> can talk to ipmid file via dbus, and btbridge is running.
-> > > >>>
-> > > >>> Has anyone else run into weirdness?
-> > > >>
-> > > >> I've not seen that.
-> > > >>
-> > > >> My only guess is there is an issue with clocking. Can you try b=
-ooting
-> > > >> the machine with clk_ignore_unused in your kernel command line?=
-
-> > > >
-> > > > I'll give it a shot, although IPMI not working is odd since the
-> > > > LPC_CLK is enabled.  But yeah, I'll try that today and reply bac=
-k,
-> > > > thanks.
-> >
-> > root@localhost:~# cat /proc/cmdline
-> > console=3DttyS4,115200n8 root=3D/dev/ram rw clk_ignore_unused
-> >
-> > ./gbmctool -command firmware -action get -field version
-> > Get Device ID command failed: 0xd5 Command not supported in present =
-state
-> > E0410 10:12:01.640883  456408 real_main.cc:53] Unable to send code:
-> > Command not supported in present state
-> >
-> > So that didn't fix it unless I need to reboot the host as well.
-> >
-> > >
-> > > I don't see this issue on a palmetto, BMC running with 5.0.5.
->=20
-> Looks like the issue is 5.0.6 doesn't have the lpc parameter optional =
-patchset.
-
-The only place I've found the patch applied is in one of Joel's personal=
- trees.
-
-Seems bizarre.
-
-Andrew
+PiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBQYXRyaWNrIFZlbnR1cmUgW21h
+aWx0bzp2ZW50dXJlQGdvb2dsZS5jb21dDQo+IFNlbnQ6IEZyaWRheSwgQXByaWwgMTIsIDIwMTkg
+MTA6MjMgUE0NCj4gVG86IEdlb3JnZSBIdW5nICjmtKrlv6DmlawpDQo+IENjOiBPcGVuQk1DIE1h
+aWxsaXN0IChvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcpOyBQYXRyaWNrIFZlbnR1cmUNCj4gKHZl
+bnR1cmVAZ29vZ2xlLmNvbSk7IGVtaWx5c2hhZmZlckBnb29nbGUuY29tOw0KPiBiZW5qYW1pbmZh
+aXJAZ29vZ2xlLmNvbTsgdmVybm9uLm1hdWVyeUBsaW51eC5pbnRlbC5jb207DQo+IHRvbWpvc2Vw
+aEBpbi5pYm0uY29tDQo+IFN1YmplY3Q6IFJlOiBTZW5kaW5nIEkyQyBjb21tYW5kIHZpYSBnb29n
+bGUtaXBtaSBpMmMNCj4gDQo+IE9uIFRodSwgQXByIDExLCAyMDE5IGF0IDEwOjQ2IFBNIEdlb3Jn
+ZSBIdW5nICjmtKrlv6DmlawpDQo+IDxHZW9yZ2UuSHVuZ0BxdWFudGF0dy5jb20+IHdyb3RlOg0K
+PiA+DQo+ID4gSGkgYWxsLA0KPiA+DQo+ID4NCj4gPg0KPiA+IEnigJltIHRyeWluZyB0byBzZW5k
+aW5nIGlwbWkgSTJDIGNvbW1hbmQgdmlhIGdvb2dsZS1pcG1pLWkyYyBleHRlbnNpb24sDQo+ID4N
+Cj4gPiBidXQgSSB3aWxsIGdldCB0aGUgcmVzcG9uc2UgZXJyb3IsIOKAnFVuc3BlY2lmaWVkIGVy
+cm9y4oCdIGZyb20gaXBtaXRvb2wuDQo+ID4NCj4gPg0KPiA+DQo+ID4gVGhlcmUgYXJlIHRoZSBj
+b21tYW5kIGFuZCByZXNwb25zZSBleGFtcGxlIGJlbG93Og0KPiA+DQo+ID4NCj4gPg0KPiA+ICMg
+aXBtaXRvb2wgcmF3IDB4MmUgMHgwMiAweDc5IDB4MmIgMHgwMCAxIDAgMHg5OCAwIDEgMCAweDk5
+IDAgMg0KPiA+DQo+ID4gVW5hYmxlIHRvIHNlbmQgUkFXIGNvbW1hbmQgKGNoYW5uZWw9MHgwIG5l
+dGZuPTB4MmUgbHVuPTB4MCBjbWQ9MHgyDQo+ID4gcnNwPTB4ZmYpOiBVbnNwZWNpZmllZCBlcnJv
+cg0KPiA+DQo+ID4NCj4gPg0KPiA+IEkgY2hlY2sgdGhlIGVycm9yIG1lc3NhZ2UgZnJvbSBqb3Vy
+bmFsIGFuZCBpdCBpbmRpY2F0ZXMgdGhhdCBjYW5ub3Qgb3Blbg0KPiAvZGV2L2kyYy0xMjEgYW5k
+IEkgdGhpbmsgaXQgdXNlZCB0aGUgZmlyc3QgYnl0ZSBvZiBJQU5BIG51bWJlciAoMHg3OSkgYXMg
+YnVzDQo+IG51bWJlci4NCj4gDQo+IEkgaGF2ZSBhIGxpdHRsZSBicmVha291dCBJIHVzZToNCj4g
+aXBtaXRvb2wgLUkgZGJ1cyByYXcgMHgyZSAweDA1IDB4Y2YgMHhjMiAweDAwIDB4MDAgMHgwMiAw
+eDAwIDB4MDAgMHgwMA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8LS18ICAg
+IHwtLXwgICAgfC0tLS0tLS0tLS0tLXwNCj4gfC0tLS0tLS0tLS0tLS0tLS0tLS0tLS18DQo+ICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgfCAgICAgICAgfA0KPiB8ICAg
+cmVxQnVmDQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAgICAgfCAgICAg
+ICAgfCBvZW0gZ3JvdXANCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAg
+ICB8IGNvbW1hbmQNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCBuZXRmbiBm
+b3Igb2VtDQo+IA0KPiBTbyAweDJlIGlzIHRoZSBuZXRmbiwgcHJvcGVybHkgcGFyc2VkLg0KPiBT
+byAweDAyIGlzIHRoZSBjb21tYW5kLCBwcm9wZXJseSBwYXJzZWQuDQo+IFNvIDB4NzkgMHgyYiAw
+eDAwIGlzIHRoZSBPRU0gZ3JvdXANCj4gU28gMHgwMCAxIDAgMHg5OCAwIDEgMCAweDk5IDAgMiBp
+cyB0aGUgY29tbWFuZCBwYXlsb2FkDQo+IA0KPiBBcyB5b3Ugc2F5LCBpdCBzb3VuZHMgbGlrZSB0
+aGVyZSdzIGEgYnVnIGluIHBhcnNpbmcgdGhlIGxlbmd0aCBvZiB0aGUgT0VNIGdyb3VwDQo+IG51
+bWJlci4gIFdlIGhhdmVuJ3QgcmViYXNlZCBvbnRvIHRoZSBuZXdlc3QgaXBtaWQgZG93bnN0cmVh
+bSwgc28gd2UNCj4gaGF2ZW4ndCB0ZXN0ZWQgaXQgb3Vyc2VsdmVzLiAgQnV0IHRoaXMgc291bmRz
+IGxpa2UgYSBidWcgaW4gdGhlIG5ldyBpcG1pZC4NCj4gDQo+IElJUkMsIHRoZXkgd2VyZW4ndCBw
+cm9wZXJseSBoYW5kbGluZyBPRU0gZ3JvdXBzIGFuZCByZWNlbnRseSBmaXhlZCBpdC4NCj4gUGxl
+YXNlIHNwZWNpZnkgdGhlIFNIQTEgb2YgdGhlIHBob3NwaG9yLWhvc3QtaXBtaWQgc291cmNlIHlv
+dSdyZSB1c2luZyB0bw0KPiBidWlsZCB0aGlzLg0KDQpTSEExIFJldmlzaW9uOiBjNDZmNmNkN2Rj
+NDdjY2FmY2QyZTg2ZTE2MGEzMmZlMWJlNDA0ZTdlDQoNCj4gDQo+ID4NCj4gPg0KPiA+DQo+ID4g
+SGFzIGFueW9uZSBldmVyIG1ldCB0aGlzIHNpdHVhdGlvbiA/IG9yIHNvbWV0aGluZyBJIGhhdmUg
+dG8gY29uZmlndXJlIGZvcg0KPiBwaG9zcGhvci1pcG1pLWhvc3QgLyBnb29nbGUtaXBtaS1pMmMg
+Pw0KPiA+DQo+ID4NCj4gPg0KPiA+DQo+ID4NCj4gPiBCZXN0IFJlZ2FyZHMNCj4gPg0KPiA+IEdl
+b3JnZSBIdW5nDQoNCg0KQlJzDQoNCkdlb3JnZSBIdW5nDQo=
