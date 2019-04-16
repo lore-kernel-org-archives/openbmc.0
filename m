@@ -1,73 +1,81 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.229; helo=new3-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="kvCi4rC4"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="udv84xKi"; dkim-atps=neutral
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jjn674bwzDqGv
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 08:27:54 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3FMEVgZ049373
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:27:48 -0400
-Received: from e33.co.us.ibm.com (e33.co.us.ibm.com [32.97.110.151])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2rw2cr8srb-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 15 Apr 2019 18:27:48 -0400
-Received: from localhost
- by e33.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <eajames@linux.ibm.com>;
- Mon, 15 Apr 2019 23:27:47 +0100
-Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
- by e33.co.us.ibm.com (192.168.1.133) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Mon, 15 Apr 2019 23:27:46 +0100
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x3FMRiuI62062802
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 15 Apr 2019 22:27:44 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C9589BE051;
- Mon, 15 Apr 2019 22:27:44 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 93D93BE04F;
- Mon, 15 Apr 2019 22:27:44 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.3.116.186])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 15 Apr 2019 22:27:44 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH dev-5.0 1/2] hwmon (occ): Store error condition for
- rate-limited polls
-Date: Mon, 15 Apr 2019 22:27:40 +0000
-X-Mailer: git-send-email 2.7.4
-X-TM-AS-GCONF: 00
-x-cbid: 19041522-0036-0000-0000-00000AA90CC3
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010934; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000284; SDB=6.01189621; UDB=6.00623314; IPR=6.00970407; 
- MB=3.00026458; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-15 22:27:47
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19041522-0037-0000-0000-00004B670AE9
-Message-Id: <1555367261-4299-1-git-send-email-eajames@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-15_08:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=1 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904150151
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jnGH1fLrzDqHF
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 11:04:53 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 84BE81303C;
+ Mon, 15 Apr 2019 21:04:50 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Mon, 15 Apr 2019 21:04:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=jodmyKZ4yhotSimlkvvA8TxyKuJ+LFH
+ q9t7n5EWIY0k=; b=kvCi4rC4t+aQxH6yaY7DpBsXfSgs8IgXR11u5uoC2ocAZnM
+ kZQuJyC2lIKjWgVRiLGM0xWfs96k9zYK0Os8fsbUNpPfc2yU71cBzOpPcN+8Mhdk
+ XVGMRudIpsaWDd7ci6QezYa+GiQcPVJbsRT7VhuifK5JDgXdb/0FA7jHk4NN5XiM
+ IaCVIvbaFgf8WKj4BstWFwHVdxuNH+QsI2E/lk55HGfVxV8t8Df/YAch1vFdgAue
+ djq155Bm5EU8wcnszKJhZ5Rc8bdu5DrKdN4JphqMQzoJF2lVsKOwpQ39MnZrTKYE
+ RjTW8N9eBSeXByF8jaePKWi4fiFeSGfSE2Yj5bQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=jodmyK
+ Z4yhotSimlkvvA8TxyKuJ+LFHq9t7n5EWIY0k=; b=udv84xKi5kx7WrzLSEzMvF
+ LXvfyqlafNN6OZ+9BGcpWu5SQCCmtkBmzf3lLb/4DScWa952Uxj/VzVk1DF1u/Iy
+ OzgUjEpRtpxrD4C8+NIh0oAgo1tf7yX7T9/oASIPY1sdtE4vmnMwkoRnnXTuG8ZO
+ AJM9O0Kl6bNGEjQNycS+PnCrxt/K+0FEr6VFzWdc3HxEU0AYrgT4Vsl7yp0WgyLx
+ j/KN2uAWjDj82/2OLFnO5jtO45Di1EbS8OZ0ZUg+qp1gyl23a+0VqzVYNoibU1LW
+ 5CVnaXNkh/H2nnxEaNbMYWGhqvcowHv0HMF6Xcbd9ph4ajOheZYNZCLhRg9wRR5w
+ ==
+X-ME-Sender: <xms:MSq1XH2-An056Lh2O8Y5Kkqlu8AtAQM0xWrBdrCuF3BtpVeZzZ_86g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfedtgdegtdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
+ hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
+ ufhiiigvpedt
+X-ME-Proxy: <xmx:MSq1XKsKuidZNWpAzP1aoOI4AhDiGYwZOMaVKDvawA3ShbL-Ni_mXg>
+ <xmx:MSq1XADEAOvn_hChNpTjoHsg6_nYQ0sGxqD-bTw2hUf0xMdVoW6s6w>
+ <xmx:MSq1XG-CSMNziSoTQcwRVI6cJmglumhXjZEgg786_pUbvACcqwIDNg>
+ <xmx:Miq1XD7lBnHkxIHWg2MQr9i4iG2OX47X8BEh8di_nV8kbdw66RuRiA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 3F2907C199; Mon, 15 Apr 2019 21:04:49 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.6-332-g22ddc6a-fmstable-20190412v1
+Mime-Version: 1.0
+X-Me-Personality: 52947553
+Message-Id: <93fd2cb2-b3cd-4b7f-b187-eec62ce49723@www.fastmail.com>
+In-Reply-To: <20190415121235.255028-2-tmaimon77@gmail.com>
+References: <20190415121235.255028-1-tmaimon77@gmail.com>
+ <20190415121235.255028-2-tmaimon77@gmail.com>
+Date: Mon, 15 Apr 2019 21:04:48 -0400
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Tomer Maimon" <tmaimon77@gmail.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, arnd@arnd.de,
+ "Rob Herring" <robh+dt@kernel.org>, mark.rutland@arm.com,
+ "Nancy Yuen" <yuenn@google.com>, "Patrick Venture" <venture@google.com>,
+ "Brendan Higgins" <brendanhiggins@google.com>,
+ "Avi Fishman" <avifishman70@gmail.com>, "Joel Stanley" <joel@jms.id.au>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: =?UTF-8?Q?Re:_[PATCH_v1_1/2]_dt-binding:_misc:_Add_common_LPC_snoop_docu?=
+ =?UTF-8?Q?mentation?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,61 +87,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 15 Apr 2019 22:27:55 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 01:04:59 -0000
 
-The OCC driver limits the rate of sending poll commands to the OCC. If a
-user reads a hwmon entry after a poll response resulted in an error and
-is rate-limited, the error is invisible to the user. Fix this by storing
-the last error and returning that in the rate-limited case.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- drivers/hwmon/occ/common.c | 4 ++++
- drivers/hwmon/occ/common.h | 3 ++-
- 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index c888f4a..0e812ef 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -138,6 +138,7 @@ static int occ_poll(struct occ *occ)
- 	/* mutex should already be locked if necessary */
- 	rc = occ->send_cmd(occ, cmd);
- 	if (rc) {
-+		occ->last_error = rc;
- 		if (occ->error_count++ > OCC_ERROR_COUNT_THRESHOLD)
- 			occ->error = rc;
- 
-@@ -146,6 +147,7 @@ static int occ_poll(struct occ *occ)
- 
- 	/* clear error since communication was successful */
- 	occ->error_count = 0;
-+	occ->last_error = 0;
- 	occ->error = 0;
- 
- 	/* check for safe state */
-@@ -207,6 +209,8 @@ int occ_update_response(struct occ *occ)
- 	if (time_after(jiffies, occ->last_update + OCC_UPDATE_FREQUENCY)) {
- 		rc = occ_poll(occ);
- 		occ->last_update = jiffies;
-+	} else {
-+		rc = occ->last_error;
- 	}
- 
- 	mutex_unlock(&occ->lock);
-diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
-index 7c44df3..c676e48 100644
---- a/drivers/hwmon/occ/common.h
-+++ b/drivers/hwmon/occ/common.h
-@@ -105,7 +105,8 @@ struct occ {
- 	struct attribute_group group;
- 	const struct attribute_group *groups[2];
- 
--	int error;                      /* latest transfer error */
-+	int error;                      /* final transfer error after retry */
-+	int last_error;			/* latest transfer error */
- 	unsigned int error_count;       /* number of xfr errors observed */
- 	unsigned long last_safe;        /* time OCC entered "safe" state */
- 
--- 
-2.7.4
+On Mon, 15 Apr 2019, at 21:51, Tomer Maimon wrote:
+> Added device tree binding documentation for Nuvoton BMC
+> NPCM BIOS Post Code (BPC) and Apeed AST2500 LPC snoop.
+> The LPC snoop monitoring two configurable I/O addresses
+> written by the host on Low Pin Count (LPC) bus.
+> 
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  .../devicetree/bindings/misc/lpc-snoop.txt         | 27 ++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/misc/lpc-snoop.txt
+> 
+> diff --git a/Documentation/devicetree/bindings/misc/lpc-snoop.txt 
+> b/Documentation/devicetree/bindings/misc/lpc-snoop.txt
+> new file mode 100644
+> index 000000000000..7deac244ef9d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/misc/lpc-snoop.txt
+> @@ -0,0 +1,27 @@
+> +LPC snoop interface
+> +
+> +The LPC snoop (BIOS Post Code) interface can monitor
+> +two configurable I/O addresses written by the host on
+> +the Low Pin Count (LPC) bus.
+
+Wrapping looks kind of odd and there's a missing newline at the
+end of the file, but for the content:
+
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+
+> +
+> +Nuvoton NPCM7xx LPC snoop supports capture double words,
+> +when using capture double word only I/O address 1 is monitored.
+> +
+> +Required properties for lpc-snoop node
+> +- compatible   : "nuvoton,npcm750-lpc-bpc-snoop" for Poleg NPCM7XX
+> +                 "aspeed,ast2500-lpc-snoop" for Aspeed AST2500.
+> +- reg          : specifies physical base address and size of the 
+> registers.
+> +- interrupts   : contain the LPC snoop interrupt with flags for 
+> falling edge.
+> +- snoop-ports  : contain monitor I/O addresses, at least one monitor 
+> I/O
+> +                 address required
+> +
+> +Optional property for NPCM7xx lpc-snoop node
+> +- nuvoton,lpc-en-dwcapture : enable capture double words support.
+> +
+> +Example:
+> +	lpc-snoop: lpc_snoop@f0007040 {
+> +		compatible = "nuvoton,npcm750-lpc-bpc-snoop";
+> +		reg = <0xf0007040 0x14>;
+> +		snoop-ports = <0x80>;
+> +		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
+> +	};
+> \ No newline at end of file
+> -- 
+> 2.14.1
+> 
+>
