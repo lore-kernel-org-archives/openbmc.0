@@ -6,41 +6,40 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="H+9qU4MC"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="Hc0bUAB5"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k2Q42pQvzDqDf
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:32 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k2QD0YpyzDqF1
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:40 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 78BE041980;
- Tue, 16 Apr 2019 10:57:29 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 21C4141980;
+ Tue, 16 Apr 2019 10:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:organization:references:subject:subject
- :from:from:received:received:received; s=mta-01; t=1555412248;
- x=1557226649; bh=6nY2s/f/28N91jFQluy86ZzxRJNgwvwQupVfQw7ZqsI=; b=
- H+9qU4MCtqjMQ0zw9AaH6KMX7+VlueuudAtXofXP2TJ8hopdThMwUVk7dA52Qb9B
- j+lA0R+EJWO6o3o4uWGF7EFvQaGXW8O7GPUOky09reYw4mxXYlpwxVsgmMdHnlu6
- GCGlXMmVAZddnvOap45BYESFZ5L94LmeswB+dt2Do2w=
+ :from:from:received:received:received; s=mta-01; t=1555412256;
+ x=1557226657; bh=mwEx01U7czGsOG0ZovxYOzR6G7ZBTZFEwBYLqX81MaQ=; b=
+ Hc0bUAB5u53e6TCBzMgWlYJ0vAc3FrM+Rwr1/0sIUe4O2I8rMDImKa0+YQT09pjc
+ 9siYQg6gOf6Y502g/wiSK4grrZdf+9uKmKVdE3ja7csMsSn0WQstkrs8pmyoDciv
+ wpDbp1pBs/nWw5jWGbv0wNDaVqpJnFoEFfmhfQUXpNE=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id 6Q4xVwWnpcUR; Tue, 16 Apr 2019 13:57:28 +0300 (MSK)
+ with ESMTP id yuqLb2VDv9uX; Tue, 16 Apr 2019 13:57:36 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 7C64B41943;
- Tue, 16 Apr 2019 13:57:28 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 161D241943;
+ Tue, 16 Apr 2019 13:57:36 +0300 (MSK)
 Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
- Apr 2019 13:57:28 +0300
+ Apr 2019 13:57:35 +0300
 From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 1/7] clk: Aspeed: Modify clk-aspeed.c
- driver probe sequence
+Subject: [PATCHv2-modified dev-4.19 2/7] clk: Aspeed: Add sdhci reset and clock
 To: Joel Stanley <joel@jms.id.au>
 CC: OpenBMC Mailing List <openbmc@lists.ozlabs.org>, Ryan Chen
  <ryan_chen@aspeedtech.com>
@@ -90,15 +89,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
 Organization: YADRO
-Message-ID: <7e73f7fb-c9de-5ac4-0d5a-3d24cbed4b5c@yadro.com>
-Date: Tue, 16 Apr 2019 13:57:27 +0300
+Message-ID: <0021cf73-afee-ee0f-74d6-1a2f3034c5fe@yadro.com>
+Date: Tue, 16 Apr 2019 13:57:35 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5"
+ boundary="6xf2RU8KCqchI7Mz8lYBD29eEHDGwxycJ"
 X-Originating-IP: [172.17.14.197]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -113,64 +112,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 10:57:33 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 10:57:41 -0000
 
---KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5
-Content-Type: multipart/mixed; boundary="YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon";
+--6xf2RU8KCqchI7Mz8lYBD29eEHDGwxycJ
+Content-Type: multipart/mixed; boundary="VYr1k10nvU4RBgPX6FGkKciSWTeZUHDXE";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Mailing List <openbmc@lists.ozlabs.org>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Message-ID: <7e73f7fb-c9de-5ac4-0d5a-3d24cbed4b5c@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 1/7] clk: Aspeed: Modify clk-aspeed.c
- driver probe sequence
+Message-ID: <0021cf73-afee-ee0f-74d6-1a2f3034c5fe@yadro.com>
+Subject: [PATCHv2-modified dev-4.19 2/7] clk: Aspeed: Add sdhci reset and
+ clock
 References: <cover.1555409110.git.a.amelkin@yadro.com>
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 
---YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon
+--VYr1k10nvU4RBgPX6FGkKciSWTeZUHDXE
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 From: Ryan Chen <ryanchen.aspeed@gmail.com>
 
-In Aspeed's SoC, all IP clk gating and pll parameter is in scu
-controller, before IP driver probe, scu driver need prepare for it.
-So buildin_platform_driver to core_initcall.
+1.Add Aspeed sdhci reset for SCU04 bit 16
+2.Aspeed sdhci have two clock one is for controller clock,
+another is for SD card clock. so when enable sdhci need enable
+both.
 
 Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
 ---
- drivers/clk/clk-aspeed.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/clk/clk-aspeed.c                 | 8 +++++++-
+ include/dt-bindings/clock/aspeed-clock.h | 2 +-
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
-index 5961367..9cddd40 100644
+index 9cddd40..387d82a 100644
 --- a/drivers/clk/clk-aspeed.c
 +++ b/drivers/clk/clk-aspeed.c
-@@ -573,7 +573,12 @@ static struct platform_driver aspeed_clk_driver =3D =
-{
- 		.suppress_bind_attrs =3D true,
- 	},
- };
--builtin_platform_driver(aspeed_clk_driver);
-+
-+static int __init aspeed_clk_init(void)
-+{
-+	return platform_driver_register(&aspeed_clk_driver);
-+}
-+core_initcall(aspeed_clk_init);
+@@ -20,6 +20,7 @@
 =20
- static void __init aspeed_ast2400_cc(struct regmap *map)
- {
+ #define ASPEED_RESET_CTRL	0x04
+ #define ASPEED_CLK_SELECTION	0x08
++#define  ASPEED_SDIO_CLK_EN BIT(15)
+ #define ASPEED_CLK_STOP_CTRL	0x0c
+ #define ASPEED_MPLL_PARAM	0x20
+ #define ASPEED_HPLL_PARAM	0x24
+@@ -260,6 +261,11 @@ static int aspeed_clk_enable(struct clk_hw *hw)
+ 	enval =3D (gate->flags & CLK_GATE_SET_TO_DISABLE) ? 0 : clk;
+ 	regmap_update_bits(gate->map, ASPEED_CLK_STOP_CTRL, clk, enval);
+=20
++	/* sd ext clk */
++	if (gate->reset_idx =3D=3D 16) {
++		regmap_update_bits(gate->map, ASPEED_CLK_SELECTION, ASPEED_SDIO_CLK_EN=
+, ASPEED_SDIO_CLK_EN);
++	}
++
+ 	if (gate->reset_idx >=3D 0) {
+ 		/* A delay of 10ms is specified by the ASPEED docs */
+ 		mdelay(10);
+@@ -317,7 +323,7 @@ static const u8 aspeed_resets[] =3D {
+ 	[ASPEED_RESET_PECI]	=3D 10,
+ 	[ASPEED_RESET_I2C]	=3D  2,
+ 	[ASPEED_RESET_AHB]	=3D  1,
+-
++	[ASPEED_RESET_SDHCI]	=3D 16,
+ 	/*
+ 	 * SCUD4 resets start at an offset to separate them from
+ 	 * the SCU04 resets.
+diff --git a/include/dt-bindings/clock/aspeed-clock.h b/include/dt-bindin=
+gs/clock/aspeed-clock.h
+index f437386..0fd6cba 100644
+--- a/include/dt-bindings/clock/aspeed-clock.h
++++ b/include/dt-bindings/clock/aspeed-clock.h
+@@ -50,5 +50,5 @@
+ #define ASPEED_RESET_I2C		7
+ #define ASPEED_RESET_AHB		8
+ #define ASPEED_RESET_CRT1		9
+-
++#define ASPEED_RESET_SDHCI		10
+ #endif
 --=20
 2.7.4
 
 
 
---YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon--
+--VYr1k10nvU4RBgPX6FGkKciSWTeZUHDXE--
 
---KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5
+--6xf2RU8KCqchI7Mz8lYBD29eEHDGwxycJ
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -178,19 +206,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJctbUXAAoJEOiTWHtbdBeNxbAQALtCo8IpZyXvfbDIxrAsuQxo
-Igp/omy8k7taRg+dL9oO7SSHrzTL/2D6krb7MA5NucfvRpMXzsQvTRVhJ+L1XIDc
-ZNQQjIjcQL1DCaXyh9u2DVBZx12wvdnmyO7vrpKyz7OS5GBtqWYa+/Hj0F+qyKmm
-MOjLg4vsm3wYFtJwiPDsEgeQC/hptjqA0ieCaojCZv3fv81NVQYjN/HVyxrLOx3g
-nI3TP0GIIn2QI5YQ6fFc5g62piysKqCX0h2MxnHefjnw5xnrIJnTjneecWts08KZ
-LYU8dp/nZyQFduBF/6jUT3fE0lcHQCEWc92LsMRejdG7a5cOwwfLTlhKeOvEmFKO
-GxHq3rn1q+lezpKnNrIR6PSSQe0hz9k/+fJRBv9EROPi2eWd+EY7zAlLqJsrYXoz
-iWSSKsjOHLu1QlNda5YUYCgQpeBvutIPdhLorSh55S/ej9/oTwdqm5DU+1F0pHyR
-61auJS6lIpS4vN2P+p/fpzTi1rsFiuHvDV+BU36p/3lM9hzI2cpt0FsyUncHog5x
-0oze4lnka9GO635MgDhVSFgSbQAqTNJjuJ4SBNLiQa4siri1k+klUOmViMSEUOrn
-PJqXBZgnD/0jjp1hQ3q0Te6wURLpqgc9JCecPJS+iCKyo/u0zI0HI2xd6/xlmElI
-zjzuBcVuX/LiqtJl/ldW
-=ROSb
+iQIcBAEBCAAGBQJctbUfAAoJEOiTWHtbdBeNfykP/0Buj9ppQglAULvjoT/N0cEW
+IxApVwqlux36YRq3OzC0HHNqq+asYJtEaEh0Qb4drwJLqWJGSPd6uVQRVJAy7t2+
+Xv++zqWDp6K4YOSCYjnfzKWGEcxStM0tCgz10xIoT7Lc+oocYhkW1bfDfJlRRD2O
+qU+9pGsCqO3+oZFjGPpOaGGfeKyuEyEohkwmnaMVF4pr8JrNG+G1u0ogYcIhdttR
+uivNhPwdyD51D/tpmmg5oXHKi3XHa8AKMOaQc1wDmU6xgmOtn/IygTghEB3w7TTm
+1AksFwQdxU8lb/FSdnTG6ks4vCCUW6LCg4piF9c9E04sNczMV5rQgkfSQ70Q9CaH
+n8oKvtg+cT9tNFQUmupXXd18EAPZ9g5a39Pgsa/tCOPiYg3LhGuH4jT/VP9xdXg8
+Iz8BeZyxkmhd+p9wkdRO5qLUQtByiUPGVJYh358lsiMtpUGAb3KRYAYNOj28FfCz
+lIXkaiMxaeBArfkec2VlS9jBVIZ8cTkmbp8r7TG+bEEpzdzIIvqRjdfYyQEtl4uF
+eOb23qBz9/nJJphqh+Jd3QmYG0kgOPkXTznl4nIDJAZS2A+9TR46TZ5EzEv8ovZs
+L7DSuV3Z7mMv6520a40q7eP6TgTXGAMtW5ftkXqzlFBWeUz9t7pcMzUAH2R7dzWF
+eX1spla8mLDl2g5pypc3
+=uBHX
 -----END PGP SIGNATURE-----
 
---KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5--
+--6xf2RU8KCqchI7Mz8lYBD29eEHDGwxycJ--
