@@ -6,45 +6,45 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="Gm/QAf51"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="O5T22LMG"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k5bG2R3MzDqCt
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 23:20:42 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k5ks0dLdzDq7h
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 23:27:17 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 174DA41980;
- Tue, 16 Apr 2019 13:20:37 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 2944841980;
+ Tue, 16 Apr 2019 13:27:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:organization:from:from:references:subject
- :subject:received:received:received; s=mta-01; t=1555420836; x=
- 1557235237; bh=KceDgHqGJ7k5H7eB4sDTUetOpFaVosr+XEj2eUMR+co=; b=G
- m/QAf51tY1PhtXo/pZfugHl0tmYsazuIXXCNqV6n8J2/Ejv7+u4ZWR39Ot+lH7V0
- PWNP23/Lz6+6O/QZ+eKZ+h1aBb66wZs+F0w51aBMxV/Csc4SFT+Fgh2RDbmg1lqz
- 40C5NbMd/5Q/gj4zU60LBoSwabcxtWVatyxxz8NT54=
+ :subject:received:received:received; s=mta-01; t=1555421232; x=
+ 1557235633; bh=CkC1JWOudfq3eIZA9ysr2kgH/saB+WYSa4V07Dfuq34=; b=O
+ 5T22LMGRNfAF6BFPf1p8L+xoDSMUaQurj+qPkwy+S2rHXhlIDn7Z75ZIYmjm/ycR
+ 9eMie/T7XxeA1rNvS+hyCMaNYghT5VBS66L5SNSclJMW8XsERj1j0W45EnkOtBS1
+ kiVQk4dMgxeYPMEIOhnDaDmBaBB2Jua9RrhMMDg6jM=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id yrgQnA4EYArc; Tue, 16 Apr 2019 16:20:36 +0300 (MSK)
+ with ESMTP id 10MwbYjkEq2a; Tue, 16 Apr 2019 16:27:12 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 011C74194E;
- Tue, 16 Apr 2019 16:20:35 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id C183A4194E;
+ Tue, 16 Apr 2019 16:27:12 +0300 (MSK)
 Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
- Apr 2019 16:20:35 +0300
+ Apr 2019 16:27:12 +0300
 Subject: Re: ipmitool recipe update needed?
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: William Kennington <wak@google.com>
 CC: Andrew Geissler <geissonator@gmail.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, William Kennington <wak@google.com>
+ <openbmc@lists.ozlabs.org>
 References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
  <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
- <20190411194929.GD15959@mauery.jf.intel.com>
+ <CAPnigKmYG_zqE6c6QJGL_uqfTAELWs8zKSPxAJqE4xz9oU-ssA@mail.gmail.com>
 From: Alexander Amelkin <a.amelkin@yadro.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
@@ -91,15 +91,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
 Organization: YADRO
-Message-ID: <03bcef91-3d4b-35cd-c92a-4fa8e48d6839@yadro.com>
-Date: Tue, 16 Apr 2019 16:20:35 +0300
+Message-ID: <98a9215e-5e9e-ac2a-da6a-2bce9a97b9c2@yadro.com>
+Date: Tue, 16 Apr 2019 16:27:12 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
-In-Reply-To: <20190411194929.GD15959@mauery.jf.intel.com>
+In-Reply-To: <CAPnigKmYG_zqE6c6QJGL_uqfTAELWs8zKSPxAJqE4xz9oU-ssA@mail.gmail.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb"
+ boundary="UEaHC7bNmOIYgD5pSTZ81OY5EAjR55qCV"
 X-Originating-IP: [172.17.14.197]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -114,51 +114,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 13:20:44 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 13:27:17 -0000
 
---sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb
-Content-Type: multipart/mixed; boundary="h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi";
+--UEaHC7bNmOIYgD5pSTZ81OY5EAjR55qCV
+Content-Type: multipart/mixed; boundary="rihfp4G4qjfONsJLxIZk9sdQOQAAxAICn";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
-To: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: William Kennington <wak@google.com>
 Cc: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- William Kennington <wak@google.com>
-Message-ID: <03bcef91-3d4b-35cd-c92a-4fa8e48d6839@yadro.com>
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <98a9215e-5e9e-ac2a-da6a-2bce9a97b9c2@yadro.com>
 Subject: Re: ipmitool recipe update needed?
 References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
  <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
- <20190411194929.GD15959@mauery.jf.intel.com>
-In-Reply-To: <20190411194929.GD15959@mauery.jf.intel.com>
+ <CAPnigKmYG_zqE6c6QJGL_uqfTAELWs8zKSPxAJqE4xz9oU-ssA@mail.gmail.com>
+In-Reply-To: <CAPnigKmYG_zqE6c6QJGL_uqfTAELWs8zKSPxAJqE4xz9oU-ssA@mail.gmail.com>
 
---h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi
+--rihfp4G4qjfONsJLxIZk9sdQOQAAxAICn
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Content-Language: en-US
 
-11.04.2019 22:49, Vernon Mauery wrote:
->
-> Would it be better to just point at the upstream release tag instead of=
- the release tarball?
+11.04.2019 22:07, William Kennington wrote:
+> The problem with the archive tarballs is that their contents are not
+> stable (they are autogenerated when needed from git), and they aren't
+> dist tarballs so they haven't been run over `./bootstrap.sh;
+> ./configure; make dist` yet.
 
-Indeed that could be the right approach for petitboot.
+Well, they are stable enough because they are autogenerated from the same=
+ git hash each time.
 
->
-> Along these lines, if we can get my pending dbus interface pull-request=
- merged, openbmc can use the upstream ipmitool with only one patch to cha=
-nge the default interface (which is on my list to make a --configure opti=
-on at some point).
->
-Both your patches are now merged, so no patches on the buildroot side are=
- needed if git is used.
+As to not being 'dist' tarballs, is that actually a problem (at least for=
+ op-build) ?
+Release tarballs on sourceforge haven't been run through bootstrap and co=
+nfigure as well, because that's useless.
+You would need to re-run it on your target build system anyway.
 
-Alexander.
+As Vernon suggested, using git instead of tarballs would be even better. =
+The code in the repository has been significantly improved since 1.8.18 a=
+lready, yet I don't feel so far like tagging a new release. Nonetheless, =
+I don't see why the top of trunk couldn't be used for op-build.
+
+With best regards,
+Alexander Amelkin,
+Leading BMC Software Engineer, YADRO
+https://yadro.com
 
 
 
---h8GNzU6NmshL1yYbHDoUaokgJulfXt4Oi--
+--rihfp4G4qjfONsJLxIZk9sdQOQAAxAICn--
 
---sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb
+--UEaHC7bNmOIYgD5pSTZ81OY5EAjR55qCV
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -166,19 +172,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJctdajAAoJEOiTWHtbdBeNdmUP/0MfjDmk32doL+qTHchktLz/
-QTEptKjVvIhxVPLeTtrfk42I0COajYhTVv6zclzNdvtA8kwRfFt5Bq2eELmZ7qbY
-q3oO4UMBwFT68dJA3tEsv/5KWFamw9EODEvJ0tfN3iDHK3hQXgmuCqMi+X21ehAT
-jw53mFwNKTfi5oMNR48/9SLB4tJPrHUJeDgcZuDiPVNIW/4Epi/NkUwIsiD94iHn
-VsfEGFGuAB1LlYobnO59ryxoQX7CTwk12rEiMlVTtJxZNcyK0XTXQSU1RDBmLc3k
-jfAzqmJBks9R7SbEArsGq4SZ34uoRlvq4eeKWfD+5ovK5UjfU6EMO29tTDX73pox
-NTNMEwQ1p1JoV7Sxe4TH0/9O+wfeGWL5pqxMFugY9245cUkiR1pnlOHfDKEZvLYM
-b1C+qRSqLx05UNQb+q+/d8Nu8C4uj62e2qNNNh94VK7TBVsNqp28J1DWvHyewOUW
-+U6mKACV2mc26COI4ctcs1gVHVhff31Qusa9gjsHIjAAnBVRr3W3uYfLCZlA5Jga
-BwjrxBrAUv7lerm0k9whO/LYNIFpb+q72CJYQu3OVlfGoHkJS8+qnDNUNekBIjv9
-NDjKY2F7hHWyCKWRRv44ckJaMgrBwvIAeu0aZQrt0+W2Gifb2ZmaMcH9S9GmVYjw
-W63v5xIFJqegXtj75MM5
-=PkqC
+iQIcBAEBCAAGBQJctdgwAAoJEOiTWHtbdBeNfoAP/26ALuNzooMYRYcbrgdh7gM5
+MpYgS3fxGbxCT4m1y2sMqOtcP/WOvr2oCxLyz5D4CdEPnRQWGonSIaxA6l3fUNks
+DHXj5xXrznk76KZp4HjW3oG9d81dEfqp7MGYdr7+1sf6Jxztovdy4qZfcttZoX6I
+6Qk6fvF1zIXXWs6QWXNY0sKyEDBEQXjve1WYa3nqpzsrH4enGCHoeWmDChzPu8cX
+dRZH/O0CKrUUlDkBZg9oIufyn/AXgqQCO+srZuZYCDEkYABLB1rYZkJaLY7rlk6E
+PtR09IMs1iekOaxlwDzpDGqioa5J969QxTyPTTKH8w5Wkrw1SHvnOe60VFuqIF0b
+46Ze4PQuYk6uKaGSup4o/EsDVDYfEkeDzIhYpehuuhRCIx3Uy6GoiUIyKhKSmez9
+2fe4cUWtPClnQp9t8sJokQwrnmR5QY/U+THo6WnGF63mr8agx5ABQo3lLo9GNIaj
+vIsg9NUCCMW1bRJVWOyg9nrKxQj2KcEhEAvkRYNOQc5hPnq3apM+v6JQa128+qQc
+wugWCci7MoJbDnCdnOcmU643pVVRlSlnhYTmJPhOcb6tow7ewOw3cYVzmhn1tSTG
+TxRvAaMltNmmHxXq9UHdOgYE3bcgELb2ohzax2ziNxBPa3TFczzlqbOhKLL+yXkw
+32XcZw8TLIeowoAXEhZc
+=h2bE
 -----END PGP SIGNATURE-----
 
---sF1pDlrqijMhJtKDDI5KGclagFO5AbzKb--
+--UEaHC7bNmOIYgD5pSTZ81OY5EAjR55qCV--
