@@ -1,42 +1,53 @@
-Return-Path: <vernon.mauery@linux.intel.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::229; helo=mail-oi1-x229.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="mCT2cDOr"; 
+ dkim-atps=neutral
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k9FR0KmjzDqMG
- for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 02:05:30 +1000 (AEST)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
-X-Amp-File-Uploaded: False
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
- by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 16 Apr 2019 09:05:27 -0700
-X-IronPort-AV: E=Sophos;i="5.60,358,1549958400"; d="scan'208";a="165251113"
-Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
- ([10.7.150.62])
- by fmsmga001-auth.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
- 16 Apr 2019 09:05:27 -0700
-Date: Tue, 16 Apr 2019 09:05:26 -0700
-From: Vernon Mauery <vernon.mauery@linux.intel.com>
-To: Alexander Amelkin <a.amelkin@yadro.com>
-Cc: William Kennington <wak@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: ipmitool recipe update needed?
-Message-ID: <20190416160526.GF15959@mauery.jf.intel.com>
-References: <CALLMt=pNyYZTmkR=w1+jDDwQHxWRUjEWKxCx=Oe_bhPyoMaeHA@mail.gmail.com>
- <b5501dfe-4b78-adb6-73e5-1b07b3d35d1c@yadro.com>
- <CAPnigKmYG_zqE6c6QJGL_uqfTAELWs8zKSPxAJqE4xz9oU-ssA@mail.gmail.com>
- <98a9215e-5e9e-ac2a-da6a-2bce9a97b9c2@yadro.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44kF9b1QVYzDqGp
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 05:02:26 +1000 (AEST)
+Received: by mail-oi1-x229.google.com with SMTP id a6so17912678oie.5
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 12:02:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=2xFVuROxNGl2R58KGrGcsuJMKdYi5j7/8QSOffrK1rE=;
+ b=mCT2cDOrpIFTyYD5mdPnG23Z67/ZOKJH7t34kai1a7eUEtmpTVCo+L/fXKyRI0e7nK
+ RE8j+oLTadByHe0u0j/9oeqoecOJUSJfTcDSuRKr0XNPSwu7vi62NRxZkQK0D7N8wITy
+ TB9XHEAoYdUqb3HCTnrilenbKdGNR+HJeXWkQZVBFw4tUx5CMzAFfkX02FiWNO1eXweV
+ qC0iobCR+31BoLIhB8QAI2x8uB0RoRQGYKx4pV0j5gg8Y8DFE6Rzua+4ZmQTf2TrjTJ5
+ gLx8Niu8xMxHWO6297GrrcGMmt+Eo+VRk5laz8cTi2JCqa9pUpfZgNm6d8TrhgaN1GCR
+ Hbbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=2xFVuROxNGl2R58KGrGcsuJMKdYi5j7/8QSOffrK1rE=;
+ b=EO3NKQDLWtb5fex4UpZ9rWp3SGMzZGe7vRqH+sWj+btk7hRgECyVIA+eHcps6OygYb
+ p9WVqvKwUzimlyRpVbIIyWOj2Y6bCPzMSBNLRPMlChonP1L7HcsCvJnh9r94LpPnjfSH
+ UxRrsj8i/J5QvZ+bEGQVC7AtRjjhNXVOYP9HhcWfp5uS6ijzgo6zxSiK9xehpHQxJEi0
+ AsDDglgCHHifQ6lYRXSJJTB3H1vz3Ob93Jm381neB75b/hq1a0RpVNUdL0D1JsyGLxmR
+ LEbAk1oqN0y6eFFxASzSx3eP/Sa2ZASCkQ41PNEF0GZ7cdiNtR+nyVJBEnSFLaj++a2k
+ 6Nfw==
+X-Gm-Message-State: APjAAAWN/27myWyX0z3mT9HW9ZaRvARsZ2lDUktmyr9cQS9RDMImEU+e
+ 0sJkpgCQVhcJo60IOg1PlOvbdx4BZ4cwnurlFkzZBNCI2kk=
+X-Google-Smtp-Source: APXvYqz3pUV9jo6nXE4tif0Lnd7OZpwLcIxfhySbaNuwbWrdUBx204a1Km4xeu4Lsha/0YpRdKFIByWSn1/bfzelrvc=
+X-Received: by 2002:aca:6084:: with SMTP id
+ u126mr23797202oib.145.1555441343266; 
+ Tue, 16 Apr 2019 12:02:23 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <98a9215e-5e9e-ac2a-da6a-2bce9a97b9c2@yadro.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Tue, 16 Apr 2019 14:02:07 -0500
+Message-ID: <CALLMt=qEtkfBwBcV1WzsGuCozyT1Fs8+1d+nUPPScxq1ZpihJQ@mail.gmail.com>
+Subject: Redfish OEM commands in OpenBMC
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,25 +59,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 16:05:32 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 19:02:27 -0000
 
-On 16-Apr-2019 04:27 PM, Alexander Amelkin wrote:
->11.04.2019 22:07, William Kennington wrote:
->> The problem with the archive tarballs is that their contents are not
->> stable (they are autogenerated when needed from git), and they aren't
->> dist tarballs so they haven't been run over `./bootstrap.sh;
->> ./configure; make dist` yet.
->
->Well, they are stable enough because they are autogenerated from the same git hash each time.
->
->As to not being 'dist' tarballs, is that actually a problem (at least for op-build) ?
->Release tarballs on sourceforge haven't been run through bootstrap and configure as well, because that's useless.
->You would need to re-run it on your target build system anyway.
->
->As Vernon suggested, using git instead of tarballs would be even better. The code in the repository has been significantly improved since 1.8.18 already, yet I don't feel so far like tagging a new release. Nonetheless, I don't see why the top of trunk couldn't be used for op-build.
+Greetings,
 
-I have pushed a patch to meta-oe that just uses a recent hash from the 
-upstream git. Ideally, it would go tag to tag or something like that. I 
-am not sure about the tagging or release schedule for ipmitool.
+As more and more of us are implementing Redfish within OpenBMC we are starting
+to run into situations where the function we need to implement is not available
+in the current Redfish schemas.
 
---Vernon
+We've been joining DMTF workgroups and starting to get familiar with the process
+but, if OpenBMC upstreaming is considered slow, it's looking like upstreaming
+to the DMTF could be even slower.
+
+So my question is, are we taking a no OEM policy within OpenBMC? Or are we going
+to take a more flexible approach. Similar to openbmc/linux, as long as you're
+working upstream with the DMTF on your changes, OEM would be acceptable?
+
+From what I've seen so far, it looks like a lot of companies have gone the OEM
+route initially. They then use that experience to guide the discussion with the
+DMTF workgroups.
+
+There could be some gray areas. For example, I want to add a Priority
+property to the UpdateService [1]. Maybe this would be ok to carry as an OEM
+for a bit? Adriana wants to propose a whole new backup and restore design [2].
+Maybe that needs a bit more traction upstream to ensure it's going in the right
+direction for something DMTF would approve first? If we start limiting ourselves
+as a community on what DMTF has approved, I think we're going to struggle to
+deliver certain new functions.
+
+Andrew
+
+[1] https://github.com/DMTF/Redfish/issues/3357 (can only see with DMTF access)
+[2] https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/18163
