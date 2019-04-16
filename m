@@ -6,41 +6,41 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="ENkqERAe"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="Zgvc4p5n"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k2QV4CN8zDqDl
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k2Qp34sgzDqCw
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:58:10 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 3B3BA41980;
- Tue, 16 Apr 2019 10:57:50 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 87FF64198D;
+ Tue, 16 Apr 2019 10:58:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:organization:references:subject:subject
- :from:from:received:received:received; s=mta-01; t=1555412269;
- x=1557226670; bh=6zrqy9i5RmWIDiN9QtXIsoVeVKt5LUZSV/D+Wge0c+g=; b=
- ENkqERAeSQgRUaCONUY6AXq0JRpgL3aWtX57/IzwEQd0AXAN6WroagbSJelwET9D
- qv2aiQtK93x4B4Lzxta00QxqHI5YakAUGWvMikvHJDkOFC2V7Thwzi3pbX5h/jTz
- 9+2f3AtFNP6VEnPrBiKWAqTCsenJWUBPRENKfFh2BhU=
+ :from:from:received:received:received; s=mta-01; t=1555412286;
+ x=1557226687; bh=WAajfpcFIDJWR3x3FdRkrMTkvC8ZuElgNgACNOHEeP0=; b=
+ Zgvc4p5nOzI2mU9JCleuxcKlKzys3t2vMjX7XVkN9n/i+8Ew75e/lhC9xfRMYdaG
+ AHfrqmnWR7edQcZwblTcHHvOI4Xi2bMAqUZOVy8l+B7H1RFFPnb8KzNCsdSWz/0K
+ jsGn4lbEW44z63UGwIbbZksgjnaatWI+L5FP2XH2bws=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id YRlF46lrFTmB; Tue, 16 Apr 2019 13:57:49 +0300 (MSK)
+ with ESMTP id vZYgR7MofS14; Tue, 16 Apr 2019 13:58:06 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 15FA141943;
- Tue, 16 Apr 2019 13:57:49 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 1FCD741980;
+ Tue, 16 Apr 2019 13:58:06 +0300 (MSK)
 Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
- Apr 2019 13:57:48 +0300
+ Apr 2019 13:58:05 +0300
 From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 4/7] dts: Aspeed: Add Aspeed sdhci dts
- document
+Subject: [PATCHv2-modified dev-4.19 5/7] mmc: Aspeed: Add driver for Aspeed
+ sdhci
 To: Joel Stanley <joel@jms.id.au>
 CC: OpenBMC Mailing List <openbmc@lists.ozlabs.org>, Ryan Chen
  <ryan_chen@aspeedtech.com>
@@ -90,15 +90,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
 Organization: YADRO
-Message-ID: <fb0e9958-777c-f1fb-fad1-a41cfa91cdeb@yadro.com>
-Date: Tue, 16 Apr 2019 13:57:48 +0300
+Message-ID: <db7af000-7302-c8c5-0f24-9af9a2d1209e@yadro.com>
+Date: Tue, 16 Apr 2019 13:58:05 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6"
+ boundary="6IipvASjdGlCxwqnZjF9TbaNfzSmmdBxC"
 X-Originating-IP: [172.17.14.197]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -113,164 +113,275 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 10:57:55 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 10:58:11 -0000
 
---ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6
-Content-Type: multipart/mixed; boundary="XMTZINzgUxduMExdwSpw9fiJXBOiccG2v";
+--6IipvASjdGlCxwqnZjF9TbaNfzSmmdBxC
+Content-Type: multipart/mixed; boundary="YFQqyS3v7ueg70GBLECw8p4Y6NWwePiIF";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Mailing List <openbmc@lists.ozlabs.org>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Message-ID: <fb0e9958-777c-f1fb-fad1-a41cfa91cdeb@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 4/7] dts: Aspeed: Add Aspeed sdhci dts
- document
+Message-ID: <db7af000-7302-c8c5-0f24-9af9a2d1209e@yadro.com>
+Subject: [PATCHv2-modified dev-4.19 5/7] mmc: Aspeed: Add driver for Aspeed
+ sdhci
 References: <cover.1555409110.git.a.amelkin@yadro.com>
 In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 
---XMTZINzgUxduMExdwSpw9fiJXBOiccG2v
+--YFQqyS3v7ueg70GBLECw8p4Y6NWwePiIF
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
 From: Ryan Chen <ryanchen.aspeed@gmail.com>
 
-This add Aspeed sdhci irq driver's dts file and devicetree document
+Add a driver for Aspeed's sdhci controller core.
 
 Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
 ---
- .../aspeed,aspeed-sdhci-ic.txt                     | 25 ++++++++++++++++=
+ drivers/mmc/host/Kconfig           |  12 +++
+ drivers/mmc/host/Makefile          |   1 +
+ drivers/mmc/host/sdhci-of-aspeed.c | 178 +++++++++++++++++++++++++++++++=
 ++++++
- arch/arm/boot/dts/aspeed-g4.dtsi                   | 20 ++++++++++++++++=
-+
- arch/arm/boot/dts/aspeed-g5.dtsi                   | 20 ++++++++++++++++=
-+
- 3 files changed, 65 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
-r/aspeed,aspeed-sdhci-ic.txt
+ 3 files changed, 191 insertions(+)
+ create mode 100644 drivers/mmc/host/sdhci-of-aspeed.c
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/aspee=
-d,aspeed-sdhci-ic.txt b/Documentation/devicetree/bindings/interrupt-contr=
-oller/aspeed,aspeed-sdhci-ic.txt
+diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
+index 694d082..9ca8265 100644
+--- a/drivers/mmc/host/Kconfig
++++ b/drivers/mmc/host/Kconfig
+@@ -142,6 +142,18 @@ config MMC_SDHCI_OF_ARASAN
+=20
+ 	  If unsure, say N.
+=20
++config MMC_SDHCI_OF_ASPEED
++	tristate "SDHCI OF support for the ASPEED SDHCI controller"
++	depends on MMC_SDHCI_PLTFM
++	depends on OF
++	help
++	  This selects the ASPEED Secure Digital Host Controller Interface.
++
++	  If you have a controller with this interface, say Y or M here. You
++	  also need to enable an appropriate bus interface.
++
++	  If unsure, say N.
++
+ config MMC_SDHCI_OF_AT91
+ 	tristate "SDHCI OF support for the Atmel SDMMC controller"
+ 	depends on MMC_SDHCI_PLTFM
+diff --git a/drivers/mmc/host/Makefile b/drivers/mmc/host/Makefile
+index ce8398e..0b349d4 100644
+--- a/drivers/mmc/host/Makefile
++++ b/drivers/mmc/host/Makefile
+@@ -80,6 +80,7 @@ obj-$(CONFIG_MMC_SDHCI_ESDHC_IMX)	+=3D sdhci-esdhc-imx.=
+o
+ obj-$(CONFIG_MMC_SDHCI_DOVE)		+=3D sdhci-dove.o
+ obj-$(CONFIG_MMC_SDHCI_TEGRA)		+=3D sdhci-tegra.o
+ obj-$(CONFIG_MMC_SDHCI_OF_ARASAN)	+=3D sdhci-of-arasan.o
++obj-$(CONFIG_MMC_SDHCI_OF_ASPEED)	+=3D sdhci-of-aspeed.o
+ obj-$(CONFIG_MMC_SDHCI_OF_AT91)		+=3D sdhci-of-at91.o
+ obj-$(CONFIG_MMC_SDHCI_OF_ESDHC)	+=3D sdhci-of-esdhc.o
+ obj-$(CONFIG_MMC_SDHCI_OF_HLWD)		+=3D sdhci-of-hlwd.o
+diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-=
+of-aspeed.c
 new file mode 100644
-index 0000000..87b042c
+index 0000000..8e609e1
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/aspeed,aspee=
-d-sdhci-ic.txt
-@@ -0,0 +1,25 @@
-+Device tree configuration for the SDHCI Interrupt Controller on the AST2=
-4XX and
-+AST25XX SoCs.
++++ b/drivers/mmc/host/sdhci-of-aspeed.c
+@@ -0,0 +1,178 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * ASPEED Secure Digital Host Controller Interface.
++ * Copyright (C) ASPEED Technology Inc.
++ * Ryan Chen <ryan_chen@aspeedtech.com>
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or (at=
+
++ * your option) any later version.
++ *
++ */
 +
-+Required Properties:
-+- #address-cells	: should be 1
-+- #size-cells 		: should be 1
-+- #interrupt-cells 	: should be 1
-+- compatible 		: should be "aspeed,aspeed-sdhci-ic"
-+- reg			: address start and range of controller
-+- interrupts		: interrupt number
-+- interrupt-controller	: denotes that the controller receives and fires
-+			  new interrupts for child busses
++#include <linux/dma-mapping.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/mmc/host.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_gpio.h>
++#include <linux/mmc/sdhci-aspeed-data.h>
++#include <linux/reset.h>
++#include "sdhci-pltfm.h"
 +
-+Example:
++static void sdhci_aspeed_set_clock(struct sdhci_host *host, unsigned int=
+ clock)
++{
++	int div;
++	u16 clk;
++	unsigned long timeout;
 +
-+sdhci_ic: interrupt-controller@0 {
-+	#interrupt-cells =3D <1>;
-+	#size-cells =3D <1>;
-+	#interrupt-cells =3D <1>;
-+	compatible =3D "aspeed,aspeed-sdhci-irq";
-+	reg =3D <0x0 0x100>;
-+	interrupts =3D <26>;
-+	interrupt-controller;
-+	clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
++	if (clock =3D=3D host->clock)
++		return;
++
++	sdhci_writew(host, 0, SDHCI_CLOCK_CONTROL);
++
++	if (clock =3D=3D 0)
++		goto out;
++
++	for (div =3D 1; div < 256; div *=3D 2) {
++		if ((host->max_clk / div) <=3D clock)
++			break;
++	}
++	div >>=3D 1;
++
++	clk =3D div << SDHCI_DIVIDER_SHIFT;
++	clk |=3D SDHCI_CLOCK_INT_EN;
++	sdhci_writew(host, clk, SDHCI_CLOCK_CONTROL);
++
++	/* Wait max 20 ms */
++	timeout =3D 20;
++	while (!((clk =3D sdhci_readw(host, SDHCI_CLOCK_CONTROL))
++		 & SDHCI_CLOCK_INT_STABLE)) {
++		if (timeout =3D=3D 0) {
++			pr_err("%s: Internal clock never stabilised.\n",
++			       mmc_hostname(host->mmc));
++			return;
++		}
++		timeout--;
++		mdelay(1);
++	}
++
++	clk |=3D SDHCI_CLOCK_CARD_EN;
++	sdhci_writew(host, clk, SDHCI_CLOCK_CONTROL);
++
++out:
++	host->clock =3D clock;
++}
++
++static void sdhci_aspeed_set_bus_width(struct sdhci_host *host, int widt=
+h)
++{
++	struct sdhci_pltfm_host *pltfm_priv =3D sdhci_priv(host);
++	struct aspeed_sdhci_irq *sdhci_irq =3D sdhci_pltfm_priv(pltfm_priv);
++
++	u8 ctrl =3D sdhci_readb(host, SDHCI_HOST_CONTROL);
++
++	if (sdhci_irq->regs) {
++		if (width =3D=3D MMC_BUS_WIDTH_8)
++			aspeed_sdhci_set_8bit_mode(sdhci_irq, 1);
++		else
++			aspeed_sdhci_set_8bit_mode(sdhci_irq, 0);
++	}
++	if (width =3D=3D MMC_BUS_WIDTH_4)
++		ctrl |=3D SDHCI_CTRL_4BITBUS;
++	else
++		ctrl &=3D ~SDHCI_CTRL_4BITBUS;
++
++	sdhci_writeb(host, ctrl, SDHCI_HOST_CONTROL);
++
++}
++
++static struct sdhci_ops  sdhci_aspeed_ops =3D {
++	.set_clock =3D sdhci_aspeed_set_clock,
++	.get_max_clock =3D sdhci_pltfm_clk_get_max_clock,
++	.set_bus_width =3D sdhci_aspeed_set_bus_width,
++	.get_timeout_clock =3D sdhci_pltfm_clk_get_max_clock,
++	.reset =3D sdhci_reset,
++	.set_uhs_signaling =3D sdhci_set_uhs_signaling,
 +};
-\ No newline at end of file
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-=
-g4.dtsi
-index 52c7515..f637a80 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -191,6 +191,13 @@
- 				reg =3D <0x1e720000 0x8000>;	// 32K
- 			};
-=20
-+			sdhci: sdhci@1e740000 {
-+				compatible =3D "simple-bus";
-+				#address-cells =3D <1>;
-+				#size-cells =3D <1>;
-+				ranges =3D <0 0x1e740000 0x1000>;
-+			};
 +
- 			gpio: gpio@1e780000 {
- 				#gpio-cells =3D <2>;
- 				gpio-controller;
-@@ -406,6 +413,19 @@
- 	};
- };
-=20
-+&sdhci {
-+
-+	sdhci_ic: interrupt-controller@0 {
-+		#interrupt-cells =3D <1>;
-+		compatible =3D "aspeed,aspeed-sdhci-irq";
-+		reg =3D <0x0 0x100>;
-+		interrupts =3D <26>;
-+		interrupt-controller;
-+		clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
-+	};
-+
++static struct sdhci_pltfm_data sdhci_aspeed_pdata =3D {
++	.ops =3D &sdhci_aspeed_ops,
++	.quirks =3D SDHCI_QUIRK_CAP_CLOCK_BASE_BROKEN,
++	.quirks2 =3D SDHCI_QUIRK2_CLOCK_DIV_ZERO_BROKEN,
 +};
 +
- &i2c {
- 	i2c_ic: interrupt-controller@0 {
- 		#interrupt-cells =3D <1>;
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-=
-g5.dtsi
-index d8a9d20..53292f4 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -257,6 +257,13 @@
- 				reg =3D <0x1e720000 0x9000>;	// 36K
- 			};
-=20
-+			sdhci: sdhci@1e740000 {
-+				compatible =3D "simple-bus";
-+				#address-cells =3D <1>;
-+				#size-cells =3D <1>;
-+				ranges =3D <0 0x1e740000 0x1000>;
-+			};
++static int sdhci_aspeed_probe(struct platform_device *pdev)
++{
++	struct sdhci_host *host;
++	struct device_node *pnode;
++	struct device_node *np =3D pdev->dev.of_node;
++	struct sdhci_pltfm_host *pltfm_host;
++	struct aspeed_sdhci_irq *sdhci_irq;
 +
- 			gpio: gpio@1e780000 {
- 				#gpio-cells =3D <2>;
- 				gpio-controller;
-@@ -510,6 +517,19 @@
- 	};
- };
-=20
-+&sdhci {
++	int ret;
 +
-+	sdhci_ic: interrupt-controller@0 {
-+		#interrupt-cells =3D <1>;
-+		compatible =3D "aspeed,aspeed-sdhci-irq";
-+		reg =3D <0x0 0x100>;
-+		interrupts =3D <26>;
-+		interrupt-controller;
-+		clocks =3D <&syscon ASPEED_CLK_GATE_SDCLK>;
-+	};
++	host =3D sdhci_pltfm_init(pdev, &sdhci_aspeed_pdata, sizeof(struct aspe=
+ed_sdhci_irq));
++	if (IS_ERR(host))
++		return PTR_ERR(host);
 +
++	pltfm_host =3D sdhci_priv(host);
++	sdhci_irq =3D sdhci_pltfm_priv(pltfm_host);
++
++	sdhci_get_of_property(pdev);
++
++	pltfm_host->clk =3D devm_clk_get(&pdev->dev, NULL);
++
++	pnode =3D of_parse_phandle(np, "interrupt-parent", 0);
++	if (pnode)
++		memcpy(sdhci_irq, pnode->data, sizeof(struct aspeed_sdhci_irq));
++
++	ret =3D mmc_of_parse(host->mmc);
++	if (ret)
++		goto err_sdhci_add;
++
++	ret =3D sdhci_add_host(host);
++	if (ret)
++		goto err_sdhci_add;
++
++	return 0;
++
++err_sdhci_add:
++	sdhci_pltfm_free(pdev);
++	return ret;
++}
++
++static int sdhci_aspeed_remove(struct platform_device *pdev)
++{
++	struct sdhci_host	*host =3D platform_get_drvdata(pdev);
++	int dead =3D (readl(host->ioaddr + SDHCI_INT_STATUS) =3D=3D 0xffffffff)=
+;
++
++	sdhci_remove_host(host, dead);
++	sdhci_pltfm_free(pdev);
++	return 0;
++}
++
++static const struct of_device_id sdhci_aspeed_of_match[] =3D {
++	{ .compatible =3D "aspeed,sdhci-ast2400", .data =3D &sdhci_aspeed_pdata=
+ },
++	{ .compatible =3D "aspeed,sdhci-ast2500", .data =3D &sdhci_aspeed_pdata=
+ },
++	{}
 +};
 +
- &i2c {
- 	i2c_ic: interrupt-controller@0 {
- 		#interrupt-cells =3D <1>;
++MODULE_DEVICE_TABLE(of, sdhci_aspeed_of_match);
++
++static struct platform_driver sdhci_aspeed_driver =3D {
++	.driver		=3D {
++		.name	=3D "sdhci-aspeed",
++		.pm	=3D &sdhci_pltfm_pmops,
++		.of_match_table =3D sdhci_aspeed_of_match,
++	},
++	.probe		=3D sdhci_aspeed_probe,
++	.remove		=3D sdhci_aspeed_remove,
++};
++
++module_platform_driver(sdhci_aspeed_driver);
++
++MODULE_DESCRIPTION("Driver for the ASPEED SDHCI Controller");
++MODULE_AUTHOR("Ryan Chen <ryan_chen@aspeedtech.com>");
++MODULE_LICENSE("GPL v2");
 --=20
 2.7.4
 
 
 
---XMTZINzgUxduMExdwSpw9fiJXBOiccG2v--
+--YFQqyS3v7ueg70GBLECw8p4Y6NWwePiIF--
 
---ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6
+--6IipvASjdGlCxwqnZjF9TbaNfzSmmdBxC
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -278,19 +389,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJctbUsAAoJEOiTWHtbdBeN1VEP/irXEfEpsgNIvHEjwMycnaYZ
-Tk5E8BiFFoOddiy5ax2NHQifefWGG83mnq4r7JG1fJ4rL7O467zvtCBqCwP6FYyC
-Vu03xKd/evsUdWeQ2gHhfSXYlXJg0tTX4zD3HrRtNfagAMewkjzXNCwRB3nAYsGt
-DQ85op3Sk6Hlo1oeDhmNpb12t71G09AZXYunAL679IVPbkHGW/lvMbL5QHLl/KZa
-Wbj0W8fklJzqpzbp7Mjd7g7gC1fKmHluujY+xRdxhFvVsZHmLqPh636fPf1oIiak
-XCSZDBseO3hXSUWRVanu2mAA2pcFql9zs/V8QgJw171gymFItEfjfyF4fKGU6aMQ
-Cw4rYpZlI4cIfyrGrijk8HocyRMVUkUYTf/OC1CBeNOKmaPXhp6D+ijsljOv6S0P
-U/lL7qye6qd95mKpZmag1bvWkNjjLzaaVk9DXjZY3lSgJgDOFhUQif+N9uLROJu+
-RoTPcOgmrVjqqpDKiTQSMe8kWot/axOMn88RZQ0B5/3hFfQ0EKrdujhJ89OMk81j
-2VUpehO54sUZAdxx6BS1Ur0DA+ILF8d5o7hrZehhf29nuT4oGd0Hqezd86F8UySF
-nGfNmiBQifM/8ioxl+bx+d/S/oOc1d28Qjsd0o2aT5KHgTrKqyoF1McQX4tIsoAF
-iLuylxcAcQLp3Gf8cHM6
-=7qHi
+iQIcBAEBCAAGBQJctbU9AAoJEOiTWHtbdBeN/8oP/RGWplA+IOGhXYHsrcf/mIJP
+bUlWcMoZdqe2WFoJfeY6BBr2HxWIURMHa5f/1cZM0ZUNXc/HFXrfnL062PUahBmI
+6N0McMcjdbmIDkNZfnImrNYdGp5q1kEe8cQCLcb5SIAn1h6eR3+8r5QPIfmEyrRj
+/wG9h0o2hdYQNIvna8Wu9WNOR0pxTJcIkEMJRQrDG43NVnJTU2hkF/XoOMopgnik
+oQgKKDHLxFsSlA/KpClkR5DajzxatfWgzGKeAvacfmKvju0KA8C964RlXt1qH+iR
+Hmh8KcOi+Gf/b492b4MKZw4LWkDnchy2QNDUlj9a45tSAIA0grwN8bO0T99FduyJ
+JIWVxuBNFPHew5Edlu79icHQVfzur0s1wJ+W0jr1vS5Vk815M7ibl4QRklJfqoxw
+neo9imvhRoJjwnPmOmOHGKxqrE8KUVOGA8wSppbZFwgDdBbzKBgIbM6fGIK6DaEH
+IZl5jUTIoF/quqWMkNGKhXYJbSeRB+XHxFqSKv0nfQ0kbOKiP9TMAY0g5j7dFu+L
+aGAH+ZCYIXlZu13zlOHbarWTnKGAy0fjO2lIrV/t1QQe0RTj3JxiB9IQureCcvcY
+BTOeH7RLNC0M+szH6h6h+kXuIUsFCGbjxXl3YwBsLcdcxEKZhdLdwd2Jz+jkz0Vp
+oxSHagtFAjKFtQsIT8Gs
+=oWhe
 -----END PGP SIGNATURE-----
 
---ZoJkwXCcWW3z5PgLyjecxLNGzeyS6vPW6--
+--6IipvASjdGlCxwqnZjF9TbaNfzSmmdBxC--
