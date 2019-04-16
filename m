@@ -1,80 +1,73 @@
 Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.229; helo=new3-smtp.messagingengine.com;
+ (client-ip=64.147.123.19; helo=wout3-smtp.messagingengine.com;
  envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="kvCi4rC4"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="pw7kMRkV"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="udv84xKi"; dkim-atps=neutral
-Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
- [66.111.4.229])
+ header.b="Tn0GQFGK"; dkim-atps=neutral
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44jnGH1fLrzDqHF
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 11:04:53 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44jnbh2cypzDqDb
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 11:20:00 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailnew.nyi.internal (Postfix) with ESMTP id 84BE81303C;
- Mon, 15 Apr 2019 21:04:50 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 5E89F657;
+ Mon, 15 Apr 2019 21:19:56 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 15 Apr 2019 21:04:50 -0400
+ by compute4.internal (MEProxy); Mon, 15 Apr 2019 21:19:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=jodmyKZ4yhotSimlkvvA8TxyKuJ+LFH
- q9t7n5EWIY0k=; b=kvCi4rC4t+aQxH6yaY7DpBsXfSgs8IgXR11u5uoC2ocAZnM
- kZQuJyC2lIKjWgVRiLGM0xWfs96k9zYK0Os8fsbUNpPfc2yU71cBzOpPcN+8Mhdk
- XVGMRudIpsaWDd7ci6QezYa+GiQcPVJbsRT7VhuifK5JDgXdb/0FA7jHk4NN5XiM
- IaCVIvbaFgf8WKj4BstWFwHVdxuNH+QsI2E/lk55HGfVxV8t8Df/YAch1vFdgAue
- djq155Bm5EU8wcnszKJhZ5Rc8bdu5DrKdN4JphqMQzoJF2lVsKOwpQ39MnZrTKYE
- RjTW8N9eBSeXByF8jaePKWi4fiFeSGfSE2Yj5bQ==
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm2; bh=+cp0C2VJiUPTWO4+0D6SkzDfyvaVY60
+ z0FNrUm8gb+Q=; b=pw7kMRkVULgUr/juhpKeaZWkNyhzhNayqzkKfJ9wUUjoWzD
+ u86Op5ogQBKMI7quRoKtGn7Uc7Ol5qnkk+E3vd8fcwLragI21a4vho3OczKscuvY
+ lu6pUHLylirViEIaRoMNYrWs0ti2BKzT+ZxrvOhRt8NGlWY9ZXOb1IV9lg9/sIsp
+ YKA1yaDMP9Oq8Wcq6CTBqMZtrYIkc+mkRQI3ae8oPuH9lAYzOSc/WzGuK780tgT3
+ 1DzzN9MCmAMzygr7koRSy6VUGJMP2VB/HOh3edRGI8zaumauNLK7iGAp3ADRClKd
+ OqMXduJmTY173t0Z6qdEPOaJv6BV6uk59/e6joQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=jodmyK
- Z4yhotSimlkvvA8TxyKuJ+LFHq9t7n5EWIY0k=; b=udv84xKi5kx7WrzLSEzMvF
- LXvfyqlafNN6OZ+9BGcpWu5SQCCmtkBmzf3lLb/4DScWa952Uxj/VzVk1DF1u/Iy
- OzgUjEpRtpxrD4C8+NIh0oAgo1tf7yX7T9/oASIPY1sdtE4vmnMwkoRnnXTuG8ZO
- AJM9O0Kl6bNGEjQNycS+PnCrxt/K+0FEr6VFzWdc3HxEU0AYrgT4Vsl7yp0WgyLx
- j/KN2uAWjDj82/2OLFnO5jtO45Di1EbS8OZ0ZUg+qp1gyl23a+0VqzVYNoibU1LW
- 5CVnaXNkh/H2nnxEaNbMYWGhqvcowHv0HMF6Xcbd9ph4ajOheZYNZCLhRg9wRR5w
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=+cp0C2
+ VJiUPTWO4+0D6SkzDfyvaVY60z0FNrUm8gb+Q=; b=Tn0GQFGKLFziugGqW06QL5
+ M1KHOR3nj/y1K56Z1PMt0ywv9kQIcXRWaUaDuVaqf9VXdf0wyZE/SxGWH9Gfs6x/
+ M5FeBD9FNlSsDaX0r9GjE+17FWU4Me8LrPGFcs4OD35khqC7ofIq63XdlcKB+6CP
+ CoovxzyW3GdxrTOrR5d9NamgHF4nhaa+TJZxlk2AbGma3dSx1Ebximln4SngkymK
+ Mp2oMUMcrortiUI8f99IjarQFWubWeQdnctHLFKDBdpZOJrfFOO0w20wSNR5qth8
+ NnbKL44nBMwDXr0etzta7UIAjQ0qN0i3Su/Y2AA6hvAJlTFjhAxD/eugtDTXKdiQ
  ==
-X-ME-Sender: <xms:MSq1XH2-An056Lh2O8Y5Kkqlu8AtAQM0xWrBdrCuF3BtpVeZzZ_86g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfedtgdegtdcutefuodetggdotefrodftvf
+X-ME-Sender: <xms:ui21XO2iop2HXwfUwwhTCwOqsefVmV9Z-Fa-NzdarpRivvIWzDLrKg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfedtgdegvdcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
- hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
- ufhiiigvpedt
-X-ME-Proxy: <xmx:MSq1XKsKuidZNWpAzP1aoOI4AhDiGYwZOMaVKDvawA3ShbL-Ni_mXg>
- <xmx:MSq1XADEAOvn_hChNpTjoHsg6_nYQ0sGxqD-bTw2hUf0xMdVoW6s6w>
- <xmx:MSq1XG-CSMNziSoTQcwRVI6cJmglumhXjZEgg786_pUbvACcqwIDNg>
- <xmx:Miq1XD7lBnHkxIHWg2MQr9i4iG2OX47X8BEh8di_nV8kbdw66RuRiA>
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucffohhmrg
+ hinheprghtthhrrdhnrghmvgenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgif
+ segrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:ui21XMyaH4q0UTUrT71tVjvPQJAmVhPnzn-3X0MEoD_cHDW9eV_nTg>
+ <xmx:ui21XKjO04qv45f-CBihPO0PX9-WCu1KCqYYo2xRXOrAi7TZ79obSg>
+ <xmx:ui21XAG8u4c9-XyZs_q_Db1uMtLoMcKUB2ELrqeqgYC-l68iyzZh-w>
+ <xmx:uy21XKJ0_ZohRzivl_hgWVZOWApq11eyJ7jBwo4jz5AclD8WYAVRfg>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 3F2907C199; Mon, 15 Apr 2019 21:04:49 -0400 (EDT)
+ id D7FF27C199; Mon, 15 Apr 2019 21:19:54 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.6-332-g22ddc6a-fmstable-20190412v1
 Mime-Version: 1.0
 X-Me-Personality: 52947553
-Message-Id: <93fd2cb2-b3cd-4b7f-b187-eec62ce49723@www.fastmail.com>
-In-Reply-To: <20190415121235.255028-2-tmaimon77@gmail.com>
-References: <20190415121235.255028-1-tmaimon77@gmail.com>
- <20190415121235.255028-2-tmaimon77@gmail.com>
-Date: Mon, 15 Apr 2019 21:04:48 -0400
+Message-Id: <04deb130-7ee8-4cb0-9fb3-b37c9b62350c@www.fastmail.com>
+In-Reply-To: <1555367261-4299-2-git-send-email-eajames@linux.ibm.com>
+References: <1555367261-4299-1-git-send-email-eajames@linux.ibm.com>
+ <1555367261-4299-2-git-send-email-eajames@linux.ibm.com>
+Date: Mon, 15 Apr 2019 21:19:54 -0400
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Tomer Maimon" <tmaimon77@gmail.com>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, arnd@arnd.de,
- "Rob Herring" <robh+dt@kernel.org>, mark.rutland@arm.com,
- "Nancy Yuen" <yuenn@google.com>, "Patrick Venture" <venture@google.com>,
- "Brendan Higgins" <brendanhiggins@google.com>,
- "Avi Fishman" <avifishman70@gmail.com>, "Joel Stanley" <joel@jms.id.au>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: =?UTF-8?Q?Re:_[PATCH_v1_1/2]_dt-binding:_misc:_Add_common_LPC_snoop_docu?=
- =?UTF-8?Q?mentation?=
+To: "Eddie James" <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
+Subject: =?UTF-8?Q?Re:_[PATCH_dev-5.0_2/2]_hwmon_(occ):_Prevent_sysfs_error_attri?=
+ =?UTF-8?Q?bute_from_returning_error?=
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -87,67 +80,86 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 01:04:59 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 01:20:01 -0000
 
 
 
-On Mon, 15 Apr 2019, at 21:51, Tomer Maimon wrote:
-> Added device tree binding documentation for Nuvoton BMC
-> NPCM BIOS Post Code (BPC) and Apeed AST2500 LPC snoop.
-> The LPC snoop monitoring two configurable I/O addresses
-> written by the host on Low Pin Count (LPC) bus.
+On Tue, 16 Apr 2019, at 07:58, Eddie James wrote:
+> The error sysfs attribute returns the stored error state of the OCC and
+> doesn't depend on the OCC poll response. Therefore, split the error
+> attribute into it's own function to avoid failing out of the function if
+> the poll response fails.
 > 
-> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+
+Should this be sent upstream?
+
 > ---
->  .../devicetree/bindings/misc/lpc-snoop.txt         | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/lpc-snoop.txt
+>  drivers/hwmon/occ/sysfs.c | 19 +++++++++++++------
+>  1 file changed, 13 insertions(+), 6 deletions(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/misc/lpc-snoop.txt 
-> b/Documentation/devicetree/bindings/misc/lpc-snoop.txt
-> new file mode 100644
-> index 000000000000..7deac244ef9d
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/lpc-snoop.txt
-> @@ -0,0 +1,27 @@
-> +LPC snoop interface
+> diff --git a/drivers/hwmon/occ/sysfs.c b/drivers/hwmon/occ/sysfs.c
+> index 743b26ec..9bf1526 100644
+> --- a/drivers/hwmon/occ/sysfs.c
+> +++ b/drivers/hwmon/occ/sysfs.c
+> @@ -71,9 +71,6 @@ static ssize_t occ_sysfs_show(struct device *dev,
+>  		else
+>  			val = 1;
+>  		break;
+> -	case 8:
+> -		val = occ->error;
+> -		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
+> @@ -81,6 +78,16 @@ static ssize_t occ_sysfs_show(struct device *dev,
+>  	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
+>  }
+>  
+> +static ssize_t occ_sysfs_error(struct device *dev,
+> +			       struct device_attribute *attr, char *buf)
+> +{
+> +	struct occ *occ = dev_get_drvdata(dev);
 > +
-> +The LPC snoop (BIOS Post Code) interface can monitor
-> +two configurable I/O addresses written by the host on
-> +the Low Pin Count (LPC) bus.
-
-Wrapping looks kind of odd and there's a missing newline at the
-end of the file, but for the content:
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
+> +	occ_update_response(occ);
 > +
-> +Nuvoton NPCM7xx LPC snoop supports capture double words,
-> +when using capture double word only I/O address 1 is monitored.
+> +	return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
+> +}
 > +
-> +Required properties for lpc-snoop node
-> +- compatible   : "nuvoton,npcm750-lpc-bpc-snoop" for Poleg NPCM7XX
-> +                 "aspeed,ast2500-lpc-snoop" for Aspeed AST2500.
-> +- reg          : specifies physical base address and size of the 
-> registers.
-> +- interrupts   : contain the LPC snoop interrupt with flags for 
-> falling edge.
-> +- snoop-ports  : contain monitor I/O addresses, at least one monitor 
-> I/O
-> +                 address required
-> +
-> +Optional property for NPCM7xx lpc-snoop node
-> +- nuvoton,lpc-en-dwcapture : enable capture double words support.
-> +
-> +Example:
-> +	lpc-snoop: lpc_snoop@f0007040 {
-> +		compatible = "nuvoton,npcm750-lpc-bpc-snoop";
-> +		reg = <0xf0007040 0x14>;
-> +		snoop-ports = <0x80>;
-> +		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
-> +	};
-> \ No newline at end of file
+>  static SENSOR_DEVICE_ATTR(occ_master, 0444, occ_sysfs_show, NULL, 0);
+>  static SENSOR_DEVICE_ATTR(occ_active, 0444, occ_sysfs_show, NULL, 1);
+>  static SENSOR_DEVICE_ATTR(occ_dvfs_overtemp, 0444, occ_sysfs_show, 
+> NULL, 2);
+> @@ -89,7 +96,7 @@ static SENSOR_DEVICE_ATTR(occ_mem_throttle, 0444, 
+> occ_sysfs_show, NULL, 4);
+>  static SENSOR_DEVICE_ATTR(occ_quick_pwr_drop, 0444, occ_sysfs_show, 
+> NULL, 5);
+>  static SENSOR_DEVICE_ATTR(occ_state, 0444, occ_sysfs_show, NULL, 6);
+>  static SENSOR_DEVICE_ATTR(occs_present, 0444, occ_sysfs_show, NULL, 7);
+> -static SENSOR_DEVICE_ATTR(occ_error, 0444, occ_sysfs_show, NULL, 8);
+> +static DEVICE_ATTR(occ_error, 0444, occ_sysfs_error, NULL);
+>  
+>  static struct attribute *occ_attributes[] = {
+>  	&sensor_dev_attr_occ_master.dev_attr.attr,
+> @@ -100,7 +107,7 @@ static struct attribute *occ_attributes[] = {
+>  	&sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr,
+>  	&sensor_dev_attr_occ_state.dev_attr.attr,
+>  	&sensor_dev_attr_occs_present.dev_attr.attr,
+> -	&sensor_dev_attr_occ_error.dev_attr.attr,
+> +	&dev_attr_occ_error.attr,
+>  	NULL
+>  };
+>  
+> @@ -164,7 +171,7 @@ void occ_sysfs_poll_done(struct occ *occ)
+>  	}
+>  
+>  	if (occ->error && occ->error != occ->prev_error) {
+> -		name = sensor_dev_attr_occ_error.dev_attr.attr.name;
+> +		name = dev_attr_occ_error.attr.name;
+>  		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
+>  	}
+>  
 > -- 
-> 2.14.1
+> 2.7.4
 > 
 >
