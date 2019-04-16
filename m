@@ -6,45 +6,45 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=yadro.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="NUrZvOXy"; 
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="H+9qU4MC"; 
  dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44k2Pp270CzDqDh
- for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:17 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44k2Q42pQvzDqDf
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Apr 2019 20:57:32 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id B47A341980;
- Tue, 16 Apr 2019 10:57:12 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 78BE041980;
+ Tue, 16 Apr 2019 10:57:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:in-reply-to:mime-version:user-agent
  :date:date:message-id:organization:references:subject:subject
- :from:from:received:received:received; s=mta-01; t=1555412231;
- x=1557226632; bh=fdvVlI8D3sm5s95ho7Ub+i4fzQGeH9XM5IzCASAyJq8=; b=
- NUrZvOXysRycVSoncgRPHQCJ61XIVsQGHYH5Db+Ez1ud4hhLb2OUVdGmSe3fH8Db
- qQHOruCJDU6POeZUMFVwNZV56CxVzWIx2JTc4rra0Za/sqRlMOsVJyEc3lqWBMa0
- 2zPN0fejMkF0bCwvC/gnapXJc1V5hk0bUgXvkccgpqI=
+ :from:from:received:received:received; s=mta-01; t=1555412248;
+ x=1557226649; bh=6nY2s/f/28N91jFQluy86ZzxRJNgwvwQupVfQw7ZqsI=; b=
+ H+9qU4MCtqjMQ0zw9AaH6KMX7+VlueuudAtXofXP2TJ8hopdThMwUVk7dA52Qb9B
+ j+lA0R+EJWO6o3o4uWGF7EFvQaGXW8O7GPUOky09reYw4mxXYlpwxVsgmMdHnlu6
+ GCGlXMmVAZddnvOap45BYESFZ5L94LmeswB+dt2Do2w=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id BpIhrzRHP-5s; Tue, 16 Apr 2019 13:57:11 +0300 (MSK)
+ with ESMTP id 6Q4xVwWnpcUR; Tue, 16 Apr 2019 13:57:28 +0300 (MSK)
 Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
  [172.17.10.102])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 0048941943;
- Tue, 16 Apr 2019 13:57:10 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 7C64B41943;
+ Tue, 16 Apr 2019 13:57:28 +0300 (MSK)
 Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
  (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 16
- Apr 2019 13:57:10 +0300
+ Apr 2019 13:57:28 +0300
 From: Alexander Amelkin <a.amelkin@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 0/7] Add support for ASPEED SDHCI
- controller
+Subject: [PATCHv2-modified dev-4.19 1/7] clk: Aspeed: Modify clk-aspeed.c
+ driver probe sequence
 To: Joel Stanley <joel@jms.id.au>
 CC: OpenBMC Mailing List <openbmc@lists.ozlabs.org>, Ryan Chen
  <ryan_chen@aspeedtech.com>
-References: <CACPK8XfNyXsS3tyS8jsh60n_fiv=gtqcmZ7c5VzDJqOHCESLDg@mail.gmail.com>
+References: <cover.1555409110.git.a.amelkin@yadro.com>
 Openpgp: preference=signencrypt
 Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  mQINBFj0jdkBEADhQF4vZuu9vFfzxchRQtU/ys62Z13HTaYK/VCQKzPnm2mf593Il61FP9WV
@@ -90,15 +90,15 @@ Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
  KijxDkPtWeXDLbMgH1kA46gTPJWxsm0c45w7c3aXhXl4hOgXp+iWDTOT83tJU0zoD9hYlpZf
  dTYsE5wSxM06T2l/MILupCNZ7A==
 Organization: YADRO
-Message-ID: <13436c7f-ced3-2bcb-b368-cc75accf2040@yadro.com>
-Date: Tue, 16 Apr 2019 13:57:09 +0300
+Message-ID: <7e73f7fb-c9de-5ac4-0d5a-3d24cbed4b5c@yadro.com>
+Date: Tue, 16 Apr 2019 13:57:27 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.2.1
 MIME-Version: 1.0
-In-Reply-To: <CACPK8XfNyXsS3tyS8jsh60n_fiv=gtqcmZ7c5VzDJqOHCESLDg@mail.gmail.com>
+In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature";
- boundary="vYJAPC2di1pbpHFV1obmnNCcMkKSOJE6W"
+ boundary="KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5"
 X-Originating-IP: [172.17.14.197]
 X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
  T-EXCH-02.corp.yadro.com (172.17.10.102)
@@ -113,102 +113,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Apr 2019 10:57:19 -0000
+X-List-Received-Date: Tue, 16 Apr 2019 10:57:33 -0000
 
---vYJAPC2di1pbpHFV1obmnNCcMkKSOJE6W
-Content-Type: multipart/mixed; boundary="GCqIMp29NZAl9NRzZBOIv1r4b4n62CZct";
+--KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5
+Content-Type: multipart/mixed; boundary="YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon";
  protected-headers="v1"
 From: Alexander Amelkin <a.amelkin@yadro.com>
 To: Joel Stanley <joel@jms.id.au>
 Cc: OpenBMC Mailing List <openbmc@lists.ozlabs.org>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Message-ID: <13436c7f-ced3-2bcb-b368-cc75accf2040@yadro.com>
-Subject: [PATCHv2-modified dev-4.19 0/7] Add support for ASPEED SDHCI
- controller
-References: <CACPK8XfNyXsS3tyS8jsh60n_fiv=gtqcmZ7c5VzDJqOHCESLDg@mail.gmail.com>
-In-Reply-To: <CACPK8XfNyXsS3tyS8jsh60n_fiv=gtqcmZ7c5VzDJqOHCESLDg@mail.gmail.com>
+Message-ID: <7e73f7fb-c9de-5ac4-0d5a-3d24cbed4b5c@yadro.com>
+Subject: [PATCHv2-modified dev-4.19 1/7] clk: Aspeed: Modify clk-aspeed.c
+ driver probe sequence
+References: <cover.1555409110.git.a.amelkin@yadro.com>
+In-Reply-To: <cover.1555409110.git.a.amelkin@yadro.com>
 
---GCqIMp29NZAl9NRzZBOIv1r4b4n62CZct
+--YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon
 Content-Type: text/plain; charset=utf-8
 Content-Language: en-US
 Content-Transfer-Encoding: quoted-printable
 
-11.04.2019 15:33, Joel Stanley wrote:
-> Alexander, if you want to post the version that you tested to the
-> openbmc list I can apply that.
+From: Ryan Chen <ryanchen.aspeed@gmail.com>
 
-Sure, Joel, that would be great!
+In Aspeed's SoC, all IP clk gating and pll parameter is in scu
+controller, before IP driver probe, scu driver need prepare for it.
+So buildin_platform_driver to core_initcall.
 
-This series of patches is based on the original patchwork submitted
-by Ryan Chen here: https://patchwork.ozlabs.org/cover/942313/
+Signed-off-by: Ryan Chen <ryanchen.aspeed@gmail.com>
+---
+ drivers/clk/clk-aspeed.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-The patch set has been updated by YADRO to cleanly apply and build
-for dev-4.19 branch of OpenBMC linux kernel.
-
-This patch works fine for us with our AST2400 BMC on VESNIN.
-
-With best regards,
-Alexander Amelkin,
-Leading BMC Software Engineer,
-YADRO, https://yadro.com
-
-Original cover letter:
-----------------------------
-This series implements Aspeed SDIO driver. In Aspeed SDIO controller
-with two slots and have a global register for interrupt status and other
-general information.
-
-For implements this, it will have have irq-aspeed-sdhci-ic.c for sdhci
-each slot irq dispatch, and then go to sdhci driver handle (sdhci.c).
-
-Another is sdhci-of-aspeed.c for specific function call.
-
-Ryan Chen
-----------------------------
-
-
-Ryan Chen (7):
-  clk: Aspeed: Modify clk-aspeed.c driver probe sequence
-  clk: Aspeed: Add sdhci reset and clock
-  irqchip: Aspeed: Add Aspeed sdhci irq driver
-  dts: Aspeed: Add Aspeed sdhci dts document
-  mmc: Aspeed: Add driver for Aspeed sdhci
-  dts: Aspeed: Add devicetree for Aspeed sdhci
-  configs: Aspeed: enable mmc host in defconfig
-
- .../aspeed,aspeed-sdhci-ic.txt                     |  25 +++
- .../bindings/mmc/aspeed,aspeed-sdhci.txt           |  42 +++++
- arch/arm/boot/dts/aspeed-ast2500-evb.dts           |  14 ++
- arch/arm/boot/dts/aspeed-g4.dtsi                   |  40 +++++
- arch/arm/boot/dts/aspeed-g5.dtsi                   |  40 +++++
- arch/arm/configs/aspeed_g5_defconfig               |   6 +
- drivers/clk/clk-aspeed.c                           |  15 +-
- drivers/irqchip/Makefile                           |   2 +-
- drivers/irqchip/irq-aspeed-sdhci-ic.c              | 147 +++++++++++++++=
-++
- drivers/mmc/host/Kconfig                           |  12 ++
- drivers/mmc/host/Makefile                          |   1 +
- drivers/mmc/host/sdhci-of-aspeed.c                 | 178 +++++++++++++++=
-++++++
- include/dt-bindings/clock/aspeed-clock.h           |   2 +-
- include/linux/mmc/sdhci-aspeed-data.h              |  28 ++++
- 14 files changed, 548 insertions(+), 4 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
-r/aspeed,aspeed-sdhci-ic.txt
- create mode 100644 Documentation/devicetree/bindings/mmc/aspeed,aspeed-s=
-dhci.txt
- create mode 100644 drivers/irqchip/irq-aspeed-sdhci-ic.c
- create mode 100644 drivers/mmc/host/sdhci-of-aspeed.c
- create mode 100644 include/linux/mmc/sdhci-aspeed-data.h
-
+diff --git a/drivers/clk/clk-aspeed.c b/drivers/clk/clk-aspeed.c
+index 5961367..9cddd40 100644
+--- a/drivers/clk/clk-aspeed.c
++++ b/drivers/clk/clk-aspeed.c
+@@ -573,7 +573,12 @@ static struct platform_driver aspeed_clk_driver =3D =
+{
+ 		.suppress_bind_attrs =3D true,
+ 	},
+ };
+-builtin_platform_driver(aspeed_clk_driver);
++
++static int __init aspeed_clk_init(void)
++{
++	return platform_driver_register(&aspeed_clk_driver);
++}
++core_initcall(aspeed_clk_init);
+=20
+ static void __init aspeed_ast2400_cc(struct regmap *map)
+ {
 --=20
 2.7.4
 
 
 
---GCqIMp29NZAl9NRzZBOIv1r4b4n62CZct--
+--YpHbiRykUzBVCstrnAyBCKnQbvk1A9Qon--
 
---vYJAPC2di1pbpHFV1obmnNCcMkKSOJE6W
+--KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -216,19 +178,19 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v2
 
-iQIcBAEBCAAGBQJctbUFAAoJEOiTWHtbdBeNrR0P/3RIZTpcTtbwqIcUFgZa90+1
-9XL/CVIkEyKP1nhHrkyIOlmtiOfQks0dP5WBbBUBt9sAY98l0CV1BSlAwuzVtMtr
-OB6nQIwV68wx1DW/CzKYoRSnVHupN/zqBbYNr2J7/gLeT27i0vCQoYfqNTnnvVDr
-vVzPZnhSjPB+pENTM7b3k9YxpkWk6cL66qJ3ka3xeFAN672RBIUaolUV0oM/wEU5
-0+OiTuUEKNJjQWlhv+W11Pfaboa+U1CNHUuf2ovfiuaG6VIenJ4AX0Lg1RqpRRRw
-sEaqi76cSFU58yhrdly2mjituSh0KN9aA0bi4By2cx5y2bG/uFY5FXmLrgbnOr6G
-5NXi/le5QLiW1jSxzEtGdIRUkkenk0l41ofRLc7Ky+M8I0r3G82SbyI0QNQSzigu
-2n5gJyYVBHQwEXafczWiRGt07fZupJmD+Vrt7i+pnLMhm5YNepIfdrg8mtFOxUkc
-XdFSGrk7dI0P00tyOs2oEhyeLigMjARhABAK5VDcFr95zAuDfyOBJ+zsQYA/11OJ
-vDt/WUfSjbxW4pQKt3BaMC1Rwz1HMgDmuSzc6JSILeuZ5wrSVQXXptgVQR/4g5MU
-902QaqvlHvh1pBX1k3hDJYCgn9xre8tCD3Ked5rDdPNOVYnYGIHF050wVxrCbnB2
-LX+lYm3/2S3+AUKHWIR0
-=MS0q
+iQIcBAEBCAAGBQJctbUXAAoJEOiTWHtbdBeNxbAQALtCo8IpZyXvfbDIxrAsuQxo
+Igp/omy8k7taRg+dL9oO7SSHrzTL/2D6krb7MA5NucfvRpMXzsQvTRVhJ+L1XIDc
+ZNQQjIjcQL1DCaXyh9u2DVBZx12wvdnmyO7vrpKyz7OS5GBtqWYa+/Hj0F+qyKmm
+MOjLg4vsm3wYFtJwiPDsEgeQC/hptjqA0ieCaojCZv3fv81NVQYjN/HVyxrLOx3g
+nI3TP0GIIn2QI5YQ6fFc5g62piysKqCX0h2MxnHefjnw5xnrIJnTjneecWts08KZ
+LYU8dp/nZyQFduBF/6jUT3fE0lcHQCEWc92LsMRejdG7a5cOwwfLTlhKeOvEmFKO
+GxHq3rn1q+lezpKnNrIR6PSSQe0hz9k/+fJRBv9EROPi2eWd+EY7zAlLqJsrYXoz
+iWSSKsjOHLu1QlNda5YUYCgQpeBvutIPdhLorSh55S/ej9/oTwdqm5DU+1F0pHyR
+61auJS6lIpS4vN2P+p/fpzTi1rsFiuHvDV+BU36p/3lM9hzI2cpt0FsyUncHog5x
+0oze4lnka9GO635MgDhVSFgSbQAqTNJjuJ4SBNLiQa4siri1k+klUOmViMSEUOrn
+PJqXBZgnD/0jjp1hQ3q0Te6wURLpqgc9JCecPJS+iCKyo/u0zI0HI2xd6/xlmElI
+zjzuBcVuX/LiqtJl/ldW
+=ROSb
 -----END PGP SIGNATURE-----
 
---vYJAPC2di1pbpHFV1obmnNCcMkKSOJE6W--
+--KPgFVlUPNAvXnZZhXVWsoMytdnhEMNai5--
