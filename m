@@ -1,57 +1,52 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <geissonator@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.251; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::22d; helo=mail-oi1-x22d.google.com;
+ envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="aC8tGkab"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="A+THLeTX"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44kg1W3gvNzDqLt
- for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 21:26:55 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 5DEF8418A4;
- Wed, 17 Apr 2019 11:26:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:mime-version:x-mailer:message-id:date
- :date:subject:subject:from:from:received:received:received; s=
- mta-01; t=1555500411; x=1557314812; bh=t8iDtAW+nK3U0b+PHwzP8FAKL
- YD0E6VVW10KI8evMPE=; b=aC8tGkab6AwGvmjU/6X55jtEQJtLLWTpQllrNm+kg
- PIAZcLWwQi+S9/+rQEuK48NbwBqsvsbCiea16+pMwW43fhD6imMDth7SJJzmUzzK
- /UalcVrqCS6VJm2fkwdXevPY+WfsuNrIoM8qn8Hq6Xn5tFl5MTwxYmnxqyfFTgjr
- 24=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id U4Cjeh5uPKlU; Wed, 17 Apr 2019 14:26:51 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 962CD41896;
- Wed, 17 Apr 2019 14:26:50 +0300 (MSK)
-Received: from cinnamon.dev.yadro.com (172.17.14.197) by
- T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Wed, 17 Apr 2019 14:26:50 +0300
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: <linux-hwmon@vger.kernel.org>
-CC: <openbmc@lists.ozlabs.org>, Alexander Soldatov <a.soldatov@yadro.com>,
- Alexander Amelkin <a.amelkin@yadro.com>, "Edward A . James"
- <eajames@us.ibm.com>, Joel Stanley <joel@jms.id.au>
-Subject: [PATCH 1/1] hwmon (occ): Add temp sensor value check
-Date: Wed, 17 Apr 2019 14:26:36 +0300
-Message-ID: <1555500396-11976-1-git-send-email-a.amelkin@yadro.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44kj7T4x7pzDqM7
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 23:02:13 +1000 (AEST)
+Received: by mail-oi1-x22d.google.com with SMTP id j132so19955601oib.2
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 06:02:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=HqSRUi1Q5aETq3rVr7V/u/pL2MyJlYLgzJF8/HB5yuc=;
+ b=A+THLeTXGkLZlBkzHlAmyz/BAslXlMw+/oOj9pn+wthD0njQxgImbozGeJPMkmiwVX
+ prG2/dL29LEtBivHC1cFVZ5U74hhPbnooYJe8rShWm9cd0LAxmVuqUloWJV6oPsGTReL
+ KgD0f6maWsJWKF3C8Vk8dBgzRRL7uafFKN2nrv7ZX8ox5+4op4O6VIuFDDTexGcsow2E
+ WqZ6mAxre4DQBPOUnBVzyALhQuhVUk5qzUzwIRPjIla0VrhzEhVYuoFmWX61mKFv6kNu
+ qwwH8Ho4QCzRFMc6FQWzS/3546L3In6W//Pr2HxnU8pZ+SbOyJwTYpEY4+slKySbBc2a
+ XMxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=HqSRUi1Q5aETq3rVr7V/u/pL2MyJlYLgzJF8/HB5yuc=;
+ b=mS32uRIzX4nmWUcxorpQDhEROqu29ddepLFjW5MyZ548aF2Z7B1sLAQ6MTCTZ1F0rl
+ kRR3UcfwAoK2htUxDGnDrOhc1I21IlShDgmM5Ajw9cg55XSBdhv1bVTZkyJK2lCB4Y/K
+ 8YofxoyF7hU1bJ5sG6f2OQuZrFxifj2G62KQbwgQFUz773O7IkN9xA6ZjdrdDGfW4vvL
+ F4ypJi70zFQfhBYE8PXlqMLFhbVxfturAnb3RYryAMmDPgu5s/imLXZ3p4yR3yKrsoj1
+ wIH2S+uH5iM/LJ9OgI83IePGSodiJPOuEw0OHt6WYyZja010yu7u54tgKHTgX98hCqpj
+ 42+A==
+X-Gm-Message-State: APjAAAWM9MdsKhlJiWpDT/sq+/sqev0m0PuBZPBBNihc+6hiF3ag6uLG
+ Rocy/9xpaLPx7CyRPf9vOyBNT6NGH0XCnKDHGMpA/8qm
+X-Google-Smtp-Source: APXvYqxFxAXGYPMOViqddrXiwzywdeLku8RjCpJnpkVrAgCE8VMD9twOv4jiRN0vAIql3vAcdBqPO1oKONr5ctpa1T8=
+X-Received: by 2002:aca:310a:: with SMTP id x10mr28115364oix.161.1555506130900; 
+ Wed, 17 Apr 2019 06:02:10 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+From: Andrew Geissler <geissonator@gmail.com>
+Date: Wed, 17 Apr 2019 08:01:55 -0500
+Message-ID: <CALLMt=rKjZJuRsZQe7R7kCDQ39FZ97C5mZ1Ngr_ymJgH0Rx1Eg@mail.gmail.com>
+Subject: OpenBMC Infrastructure Workgroup - Cancelled today
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,48 +58,6 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Apr 2019 11:26:56 -0000
+X-List-Received-Date: Wed, 17 Apr 2019 13:02:14 -0000
 
-From: Alexander Soldatov <a.soldatov@yadro.com>
-
-The occ driver supports two formats for the temp sensor value.
-
-The OCC firmware for P8 supports only the first format, for which
-no range checking or error processing is performed in the driver.
-Inspecting the OCC sources for P8 reveals that OCC may send
-a special value 0xFFFF to indicate that a sensor read timeout
-has occured, see
-
-https://github.com/open-power/occ/blob/master_p8/src/occ/cmdh/cmdh_fsp_cmds.c#L395
-
-That situation wasn't handled in the driver. This patch adds invalid
-temp value check for the sensor data format 1 and handles it the same
-way as it is done for the format 2, where EREMOTEIO is reported for
-this case.
-
-Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
-Signed-off-by: Alexander Amelkin <a.amelkin@yadro.com>
-Reviewed-by: Alexander Amelkin <a.amelkin@yadro.com>
-Cc: Edward A. James <eajames@us.ibm.com>
-Cc: Joel Stanley <joel@jms.id.au>
----
- drivers/hwmon/occ/common.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
-index 4679acb..825631c 100644
---- a/drivers/hwmon/occ/common.c
-+++ b/drivers/hwmon/occ/common.c
-@@ -235,6 +235,10 @@ static ssize_t occ_show_temp_1(struct device *dev,
- 		val = get_unaligned_be16(&temp->sensor_id);
- 		break;
- 	case 1:
-+		/* If a sensor timed out long enough,
-+		   OCC returns 0xFFFF for that sensor.*/
-+		if (temp->value == 0xFFFF)
-+			return -EREMOTEIO;
- 		val = get_unaligned_be16(&temp->value) * 1000;
- 		break;
- 	default:
--- 
-2.7.4
+The agenda is pretty light so lets just get back together in a few weeks.
