@@ -1,76 +1,106 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <a.amelkin@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=aj.id.au
- (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
- envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="oTIc0tpA"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="JUOEy7sy"; dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27])
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="nEgSg2on"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44kdbM3816zDqM0
- for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 20:22:38 +1000 (AEST)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 71551239FB
- for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 06:22:35 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Wed, 17 Apr 2019 06:22:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type:content-transfer-encoding; s=fm2; bh=K0ywi
- /MGHbDv9OpIdIcyfxuIyTcevdF3OOQyGIjnbwY=; b=oTIc0tpAjyhVexjI1CD7m
- uucB0gUWXmxmkG7DupyHAHkAxWAYR3CyQqOcSjnGeR6bWVYA2dWvMGir0jXTaS5E
- T35dC2xz4ZIPPkWEFbja5O1eXHrX+JX2inC1vXDo6ju2eWM2WvoUN2hJ6R9tTsUn
- K5r3+mc+xBJqXQhKw9plTXjsf85zQYloT6sTOYadIPX6PEXVRaJu6XRYRWY9inal
- cWqpmsUWxK/l24ph94K4aEDuUuu7Pe+xaF+WxC/s6XRuES9GoWvHsLT92B7Svmt8
- vRDm4dHeUidCtJjBflRwUmjmMvkTdL8oQzTjBe7rCTnuFOwzcQ5WNbU1f4de5oAF
- w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=K0ywi/MGHbDv9OpIdIcyfxuIyTcevdF3OOQyGIjnb
- wY=; b=JUOEy7sy/nFwmVo7Nz0FJXoAjnqai09jzwBrbHROumO/OX33qbv55sXag
- 0PIW2tffUkwYAlwxlCUGatYkaaQt/HFUePM9TZJrIDIdDkVv2FepgGuki22NdIu1
- 3bDz0WSOmw6dEK3OHhmluaXGDnoUHZEEjkFBpJXZqoAicND8C+zmSAc2Vhb5Jc5V
- fBO56Ws3bwRUZV1JkZMUivAP1FSE5OvqY48+60nyUlWIV9gYqaTB9RiFbmQxSIgo
- gVotrIw5JWI8x9HT0v48dyvHN8MFlu9areZI9vGw2H1U3NGnnPXAlvJt/HG8ucVs
- II8N/0Tg/v0ut91t4fdoxbpy6icMA==
-X-ME-Sender: <xms:av62XA00XzBr6V-t3nruHsIfBGkAAwB9znEUIng2urjsHTBsAvcKKg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfeefgddvjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgfgsehtqh
- ertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
- fiesrghjrdhiugdrrghuqeenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifse
- grjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:av62XAF1bqkHTw1R2Nw51MkwEz95wWdmS5fQ_xJ5PFnhBZrDAAWH2A>
- <xmx:av62XJx-fzdHKinwZ9Z8b_HCSG8mkOsbUGTdRa7GRT5NbqI4CILTVg>
- <xmx:av62XPlTlwHMkwhgfemE6FUHsk_gV8dGxzeVkH-8IXvJBceXVko-YQ>
- <xmx:a_62XOy8qx5e25fns-xIaOsvNWuK0lc1LhuLo2xZ4HBpelDvKwzPJw>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id C58CF7C50A; Wed, 17 Apr 2019 06:22:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.6-443-g918f9d3-fmstable-20190416v3
-Mime-Version: 1.0
-X-Me-Personality: 52947553
-Message-Id: <a3599da5-eeea-4bcf-854d-83357de97ae2@www.fastmail.com>
-In-Reply-To: <5987b5b3-1f0f-4085-833b-4c95ccb9ee85@www.fastmail.com>
-References: <20190417054511.29291-1-andrew@aj.id.au>
- <dff802e2-6e47-1179-9bb9-283953a5d36e@kaod.org>
- <5987b5b3-1f0f-4085-833b-4c95ccb9ee85@www.fastmail.com>
-Date: Wed, 17 Apr 2019 06:22:34 -0400
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH]_Revert_"mtd:_spi-nor:_Add_a_post_BFPT_fixup_for_MX?=
- =?UTF-8?Q?25L25635E"?=
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44kdyV6SYzzDqM1
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 20:39:14 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id C89BB41931;
+ Wed, 17 Apr 2019 10:39:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:mime-version:user-agent:date:date
+ :message-id:organization:subject:subject:from:from:received
+ :received:received; s=mta-01; t=1555497549; x=1557311950; bh=2hO
+ LOnA6ZNyZG79stYirz/W/sDC7AsPl/i99qKvxtEw=; b=nEgSg2ongs5PY8QzsEw
+ jUY8+77BsJCCrMiYsNsXjbyuGmXTFmn9zuhtfRsXlT7TbIDF3Uudww81jJbKbWC0
+ x5HJQ2JMx6F/8s5+tJef7tPX65A7fg+fBBYGK4m1Ul6X12GVqD6gxUCWDj0594S6
+ EJIvZZHsRzaPALfdgxamt2MI=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id MD7mBNFpsUvA; Wed, 17 Apr 2019 13:39:09 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 59E6E41911;
+ Wed, 17 Apr 2019 13:39:09 +0300 (MSK)
+Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 17
+ Apr 2019 13:39:09 +0300
+To: Vernon Mauery <vernon.mauery@linux.intel.com>, Emily Shaffer
+ <emilyshaffer@google.com>, Tom Joseph <tomjose@linux.vnet.ibm.com>, Brad
+ Bishop <bradleyb@fuzziesquirrel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Subject: MultiRecord FRU support
+Openpgp: preference=signencrypt
+Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
+ 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
+ dTYsE5wSxM06T2l/MILupCNZ7A==
+Organization: YADRO
+X-Priority: 2 (High)
+Message-ID: <a035bf7e-2d5e-9cbd-82a9-2cd748d13071@yadro.com>
+Date: Wed, 17 Apr 2019 13:39:08 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.2.1
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="es2jUhXBsSnI1hensYHvrBvb4jpYg0Oty"
+X-Originating-IP: [172.17.14.197]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,244 +112,72 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Apr 2019 10:22:43 -0000
+X-List-Received-Date: Wed, 17 Apr 2019 10:39:16 -0000
+
+--es2jUhXBsSnI1hensYHvrBvb4jpYg0Oty
+Content-Type: multipart/mixed; boundary="z8fMpytKJAqc9TABMF2dZB7CepPfpkMKo";
+ protected-headers="v1"
+From: Alexander Amelkin <a.amelkin@yadro.com>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Emily Shaffer <emilyshaffer@google.com>,
+ Tom Joseph <tomjose@linux.vnet.ibm.com>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Message-ID: <a035bf7e-2d5e-9cbd-82a9-2cd748d13071@yadro.com>
+Subject: MultiRecord FRU support
+
+--z8fMpytKJAqc9TABMF2dZB7CepPfpkMKo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-Language: en-US
+
+Guys, would you be so kind to take another look at the updated change set=
+s regarding implementation of MultiRecord FRU Area parsing?
+
+https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/2=
+0588 - The interface definition
+https://gerrit.openbmc-project.xyz/c/openbmc/ipmi-fru-parser/+/11532 - Th=
+e implementation
+
+This change has been trying to get through for 4 months already, and we'd=
+ really want it to finally land in the upstream.
+
+Please let me know if anything else needs to be done on our side in this =
+regard.
+
+Thank you!
+
+--=20
+With best regards,
+Alexander Amelkin,
+Leading BMC Software Engineer, YADRO
+https://yadro.com
 
 
 
-On Wed, 17 Apr 2019, at 15:53, Andrew Jeffery wrote:
->=20
->=20
-> On Wed, 17 Apr 2019, at 15:41, C=C3=A9dric Le Goater wrote:
-> > On 4/17/19 7:45 AM, Andrew Jeffery wrote:
-> > > This reverts commit 2bffa65da43e399079dad5947c6aa9ab3cfa4ad4.
-> > >=20
-> > > 5.0.x fails to boot on Witherspoon machines after an AC-cycle, wit=
-h the
-> > > following error:
-> > >=20
-> > >> [    4.337766] ubi0: default fastmap pool size: 25
-> > >> [    4.342321] ubi0: default fastmap WL pool size: 12
-> > >> [    4.347232] ubi0: attaching mtd3
-> > >> [    4.361487] ubi0: scanning is finished
-> > >> [    4.365525] ubi0 error: ubi_read_volume_table: the layout volu=
-me was not found
-> > >> [    4.372989] ubi0 error: ubi_attach_mtd_dev: failed to attach m=
-td3, error -22
-> > >> [    4.380193] UBI error: cannot attach mtd3
-> > >=20
-> > > Which leads to:
-> > >=20
-> > >> [    4.553478] VFS: Cannot open root device "ubiblock0_1" or unkn=
-own-block(0,0): error -6
-> > >> [    4.561550] Please append a correct "root=3D" boot option; her=
-e are the available partitions:
-> > >> [    4.570029] 1f00           32768 mtdblock0
-> > >> [    4.570038]  (driver?)
-> > >> [    4.576671] 1f01             384 mtdblock1
-> > >> [    4.576680]  (driver?)
-> > >> [    4.583234] 1f02             128 mtdblock2
-> > >> [    4.583240]  (driver?)
-> > >> [    4.589883] 1f03           32256 mtdblock3
-> > >> [    4.589892]  (driver?)
-> > >> [    4.596520] 1f04           32768 mtdblock4
-> > >> [    4.596529]  (driver?)
-> > >> [    4.603080] 1f05             384 mtdblock5
-> > >> [    4.603085]  (driver?)
-> > >> [    4.609711] 1f06             128 mtdblock6
-> > >> [    4.609719]  (driver?)
-> > >> [    4.616338] 1f07           32256 mtdblock7
-> > >> [    4.616347]  (driver?)
-> > >> [    4.622901] 1f08          131072 mtdblock8
-> > >> [    4.622907]  (driver?)
-> > >> [    4.629539] Kernel panic - not syncing: VFS: Unable to mount r=
-oot fs on unknown-block(0,0)
-> > >=20
-> > > A hint is provided earlier in the boot process:
-> > >=20
-> > >> [    0.920597] aspeed-smc 1e620000.spi: Using 50 MHz SPI frequenc=
-y
-> > >> [    0.926753] aspeed-smc 1e620000.spi: mx25l25635e (32768 Kbytes=
-)
-> > >> [    0.932704] aspeed-smc 1e620000.spi: CE0 window [ 0x20000000 -=
- 0x22000000 ] 32MB
-> > >> [    0.940230] aspeed-smc 1e620000.spi: CE1 window [ 0x22000000 -=
- 0x2a000000 ] 128MB
-> > >> [    0.947812] aspeed-smc 1e620000.spi: read control register: 20=
-3c0641
-> > >> [    1.435022] 3 fixed-partitions partitions found on MTD device =
-bmc
-> > >> [    1.441249] Creating 3 MTD partitions on "bmc":
-> > >> [    1.445911] 0x000000000000-0x000000060000 : "u-boot"
-> > >> [    1.455264] 0x000000060000-0x000000080000 : "u-boot-env"
-> > >> [    1.465042] 0x000000080000-0x000002000000 : "obmc-ubi"
-> > >> [    1.474914] aspeed-smc 1e620000.spi: Using 50 MHz SPI frequenc=
-y
-> > >> [    1.481102] aspeed-smc 1e620000.spi: mx25l25635e (32768 Kbytes=
-)
-> > >> [    1.487175] aspeed-smc 1e620000.spi: CE1 window [ 0x22000000 -=
- 0x24000000 ] 32MB
-> > >> [    1.494592] aspeed-smc 1e620000.spi: CE2 window [ 0x24000000 -=
- 0x2c000000 ] 128MB
-> > >> [    1.502173] aspeed-smc 1e620000.spi: read control register: 20=
-3c0041
-> > >> [    1.705799] aspeed-smc 1e620000.spi: No good frequency, using =
-dumb slow
-> > >> [    1.717393] 3 fixed-partitions partitions found on MTD device =
-alt-bmc
-> > >> [    1.723851] Creating 3 MTD partitions on "alt-bmc":
-> > >> [    1.728890] 0x000000000000-0x000000060000 : "alt-u-boot"
-> > >> [    1.738950] 0x000000060000-0x000000080000 : "alt-u-boot-env"
-> > >> [    1.748975] 0x000000080000-0x000002000000 : "alt-obmc-ubi"
-> > >=20
-> > > Specifically, the control register state is exposed as:
-> > >=20
-> > >> [    0.947812] aspeed-smc 1e620000.spi: read control register: 20=
-3c0641
-> > >=20
-> > > The 0x3c opcode translates to DREAD4B for the mx25l25635f part, wh=
-ich is
-> > > what is detected. The post BFPT fixup implemented in commit 2bffa6=
-5da43e
-> > > ("mtd: spi-nor: Add a post BFPT fixup for MX25L25635E") detects th=
-e 'e'
-> > > vs 'f' part based on the reported support for
-> > > BFPT_DWORD5_FAST_READ_4_4_4, which implies 4B opcodes are supporte=
-d
-> > > (e.g. DREAD4B), however the aspeed-smc driver fails to put the
-> > > controller into the right addressing mode to support sending DREAD=
-4B, and
-> > > so we reach a bad state.
-> >=20
-> > It's more complex than that but I haven't quite cornered the problem=
-.=20
-> >=20
-> > When doing the link training, the first read for the golden image is=
-=20
-> > done in slow mode and it misses the first byte for some reason. So t=
-he=20
-> > gold image is incorrect (cough) but other images are correct (cough =
-cough)
-> >=20
-> > Why is this first byte being dropped is the question. The flash modu=
-le=20
-> > might have entered 4B mode ? is it expecting a dummy ?=20
-> >=20
-> > For the moment, this is fine for a workaround but we will need to fu=
-lly=20
-> > support 4B opcodes (which we do without training). Another solution =
-is=20
-> > to use the kernel command line switch "optimize_read=3Dfalse" and al=
-l=20
-> > works fine, perfectly fine. Which is kind of frustrating.
->=20
-> Hmm, okay. Sounds like I didn't track it down as well as I thought the=
-n.
->=20
-> I figured we'd need to set CONTROL_IO_DUAL_ADDR_DATA to send a
-> DREAD4B, but we never put the controller into that mode: there's only
-> one call to aspeed_smc_set_io_mode(), in aspeed_smc_read_user(),
-> which is only called if `io_mode =3D=3D CONTROL_IO_DUAL_DATA` holds,
-> and we set the IO mode to CONTROL_IO_DUAL_DATA.
->=20
-> Suggestions for rewording the commit message? Should I just replace
-> some of it with your words above?
+--z8fMpytKJAqc9TABMF2dZB7CepPfpkMKo--
 
-Inside word is that C=C3=A9dric has found the root cause, I'll be abando=
-ning this work-around in anticipation of a proper fix. The issue actuall=
-y appears to be with the link training assuming EN4B mode which is not t=
-he configured when 4B opcodes are enabled.
+--es2jUhXBsSnI1hensYHvrBvb4jpYg0Oty
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
 
-Andrew
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v2
 
-> Andrew
->=20
-> >=20
-> > Thanks for the patch.
-> >=20
-> > C.
-> >=20
-> >=20
-> > >=20
-> > > In the interim, revert the upstream patch adding 'e' vs 'f' detect=
-ion to
-> > > avoid sending 4B opcodes.
-> > >=20
-> > > The revert has been tested on a freshly flashed and power-cycled
-> > > Witherspoon, both with and without the patch applied, confirming t=
-he
-> > > broken behaviour in the former case and a successful boot in the l=
-atter.
-> > >=20
-> > > Cc: Andrew Geissler <geissonator@gmail.com>
-> > > Reported-by: George Keishing <gkeishin@in.ibm.com>
-> > > Investigated-by: C=C3=A9dric Le Goater <clg@kaod.org>
-> > > Investigated-by: Eddie James <eajames@linux.ibm.com>
-> > > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > > ---
-> > >  drivers/mtd/spi-nor/spi-nor.c | 29 +----------------------------
-> > >  1 file changed, 1 insertion(+), 28 deletions(-)
-> > >=20
-> > > diff --git a/drivers/mtd/spi-nor/spi-nor.c b/drivers/mtd/spi-nor/s=
-pi-nor.c
-> > > index 5a5a47651bf9..9f85ab5fc569 100644
-> > > --- a/drivers/mtd/spi-nor/spi-nor.c
-> > > +++ b/drivers/mtd/spi-nor/spi-nor.c
-> > > @@ -1681,31 +1681,6 @@ static int sr2_bit7_quad_enable(struct spi_=
-nor *nor)
-> > >  		.addr_width =3D 3,					\
-> > >  		.flags =3D SPI_NOR_NO_FR | SPI_S3AN,
-> > > =20
-> > > -static int
-> > > -mx25l25635_post_bfpt_fixups(struct spi_nor *nor,
-> > > -			    const struct sfdp_parameter_header *bfpt_header,
-> > > -			    const struct sfdp_bfpt *bfpt,
-> > > -			    struct spi_nor_flash_parameter *params)
-> > > -{
-> > > -	/*
-> > > -	 * MX25L25635F supports 4B opcodes but MX25L25635E does not.
-> > > -	 * Unfortunately, Macronix has re-used the same JEDEC ID for bot=
-h
-> > > -	 * variants which prevents us from defining a new entry in the p=
-arts
-> > > -	 * table.
-> > > -	 * We need a way to differentiate MX25L25635E and MX25L25635F, a=
-nd it
-> > > -	 * seems that the F version advertises support for Fast Read 4-4=
--4 in
-> > > -	 * its BFPT table.
-> > > -	 */
-> > > -	if (bfpt->dwords[BFPT_DWORD(5)] & BFPT_DWORD5_FAST_READ_4_4_4)
-> > > -		nor->flags |=3D SNOR_F_4B_OPCODES;
-> > > -
-> > > -	return 0;
-> > > -}
-> > > -
-> > > -static struct spi_nor_fixups mx25l25635_fixups =3D {
-> > > -	.post_bfpt =3D mx25l25635_post_bfpt_fixups,
-> > > -};
-> > > -
-> > >  /* NOTE: double check command sets and memory organization when y=
-ou add
-> > >   * more nor chips.  This current list focusses on newer chips, wh=
-ich
-> > >   * have been converging on command sets which including JEDEC ID.=
+iQIcBAEBCAAGBQJctwJMAAoJEOiTWHtbdBeN1nUP/jvoJ6ogZvl/+z+E3azliZfz
+OYoU54jFjRqcu8mxEDkkxrf+adV39zAVaK6TpIRxjw3R66AnIcPIzpMKtfugEMuo
+fnJJIZEF8oIIuHNS9zLBC7Ax4iGJs0uOyyJtGo/8JTPaPmtHzCAfpLOln4+ogLB/
+n8FcmtkQqoA+6iZ+cvW9B+QXcFwgLgC2592EYPS/Xz8UFyY8YbWcZUfQxX3PfJd/
+gAY9DPEGybZF+Hnex1u9+TO0M7cBlAJ1YLdpssqpitimVdzduv6l+LqHopIOxYgw
+vmUlo03St+xgF4Pu6arjJBB8j2PvCY0VyKGWgUOVx8LVVklpaSHDxulax5i3rWhl
+F0Q4EEXTkPZf76um336bH32RkGzQXIRgwJhV+h+W3inDY/gEqTRwTdqmkdBY/e4o
+2NC27B1Ltke8kZpSmbuL7PQilPDwsdsGuERHBl+TtUAh5Hflba4JK3OUt6NzGpLj
+GxB2jEt8rQc0kLYVQfocsFh8kfFqvDtGj20lgnrzzjgDgQhjswzOArB0I7brutv9
+/EPb0dNKKbVrneIr21jyXOZhTZnMBCGsVSa/lF/W6lJg8R0F5HLMuVLFpLANxCeV
+Ruo8p9oKp3DuzexQBm0ePNAxCIPZ4cKI2MncUq9/7EMueaYyKEONkNRmTDG0GisG
+fDyMDU2Wja8UIqEE05DW
+=SrcZ
+-----END PGP SIGNATURE-----
 
-> > > @@ -1843,9 +1818,7 @@ static const struct flash_info spi_nor_ids[]=
- =3D {
-> > >  	{ "mx25l12855e", INFO(0xc22618, 0, 64 * 1024, 256, 0) },
-> > >  	{ "mx25u12835f", INFO(0xc22538, 0, 64 * 1024, 256,
-> > >  			 SECT_4K | SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ) },
-> > > -	{ "mx25l25635e", INFO(0xc22019, 0, 64 * 1024, 512,
-> > > -			 SPI_NOR_DUAL_READ | SPI_NOR_QUAD_READ)
-> > > -			 .fixups =3D &mx25l25635_fixups },
-> > > +	{ "mx25l25635e", INFO(0xc22019, 0, 64 * 1024, 512, SPI_NOR_DUAL_=
-READ | SPI_NOR_QUAD_READ) },
-> > >  	{ "mx25u25635f", INFO(0xc22539, 0, 64 * 1024, 512, SECT_4K | SPI=
-_NOR_4B_OPCODES) },
-> > >  	{ "mx25l25655e", INFO(0xc22619, 0, 64 * 1024, 512, 0) },
-> > >  	{ "mx66l51235f", INFO(0xc2201a, 0, 64 * 1024, 1024, SPI_NOR_DUAL=
-_READ | SPI_NOR_QUAD_READ) },
-> > >=20
-> >=20
-> >
->
+--es2jUhXBsSnI1hensYHvrBvb4jpYg0Oty--
