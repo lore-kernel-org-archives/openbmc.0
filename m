@@ -1,43 +1,55 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <derick.montague@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.251.173; helo=1.mo69.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2a00:1450:4864:20::433; helo=mail-wr1-x433.google.com;
+ envelope-from=derick.montague@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 1197 seconds by postgrey-1.36 at bilbo;
- Thu, 18 Apr 2019 00:17:58 AEST
-Received: from 1.mo69.mail-out.ovh.net (1.mo69.mail-out.ovh.net
- [178.33.251.173])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="N7zj0J34"; 
+ dkim-atps=neutral
+Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
+ [IPv6:2a00:1450:4864:20::433])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44kkpt2rxBzDqMn
- for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 00:17:55 +1000 (AEST)
-Received: from player795.ha.ovh.net (unknown [10.108.42.73])
- by mo69.mail-out.ovh.net (Postfix) with ESMTP id B9C394EDE2
- for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 15:39:58 +0200 (CEST)
-Received: from kaod.org (lfbn-1-10649-41.w90-89.abo.wanadoo.fr [90.89.235.41])
- (Authenticated sender: clg@kaod.org)
- by player795.ha.ovh.net (Postfix) with ESMTPSA id 4B2B44CFDE82;
- Wed, 17 Apr 2019 13:39:54 +0000 (UTC)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH dev-5.0 1/4] mtd: spi-nor: aspeed: introduce a
- aspeed_smc_default_read() helper
-Date: Wed, 17 Apr 2019 15:39:38 +0200
-Message-Id: <20190417133941.22962-2-clg@kaod.org>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190417133941.22962-1-clg@kaod.org>
-References: <20190417133941.22962-1-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44kqL3055szDqG8
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 03:41:43 +1000 (AEST)
+Received: by mail-wr1-x433.google.com with SMTP id s15so33019891wra.12
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Apr 2019 10:41:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=J5x94n8nBjuWSeizRlViAkykWnlLlqIlIBMsf/vefV0=;
+ b=N7zj0J3459rT2Pj7HHpd/27Jt11SuffTk2MB2Ijp+Wy/s0PwkDoAsfi9VcQoh4nhhF
+ Pv/k2ldYKK1zYb2nfaghloBKQ7LWpXjWlHQ3R0MMmKL1lHm5OeqTdxijFWytmvb4jeLQ
+ /dhWzpCD7G/0tRlk2fQPmFZpUvrIqG+YGmtYvdZFT59gaTr1l2gTRAAggNxdMKbHx466
+ cVB8HpcO2biYT8j+0c6PkomXqEni619tPx+gOBleQ+jF6o29VUd4A803KP/S1u/PGhtp
+ YJF4ByZFM1vaLLEOJZZyIRzqNYQr5sK0AqhzsqqZ5cEqpbm4lPlhNkZt5lrWoTXhAvlR
+ Qbzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=J5x94n8nBjuWSeizRlViAkykWnlLlqIlIBMsf/vefV0=;
+ b=PSHVEqDIEOU6th89GoYud7/x9vDYaeFipuPJd6C8dkLyD8jxuLeL9mlZ9WW/P43mcC
+ NybD0HSf49E0YIJF4W21MEUHKaF6tJN4EiX9xHK4wIqzWnm4CEi+ighMKzneLidosKI7
+ yl/mdX5CRrmPgPSi5pbxAj+vs+deO5awXF9isgMOLKmVVyJEF9EWDdEFaRROCu7c3GrE
+ 2s8TemqO2fgHKd6dgTgc/a2zRHKeekZEZLPsTko9zneS8O4EZhA2liehhU40P6jTFYz+
+ aD3yWqPFifiG0U1QQd8j3MzKGJf73I+b9DDGRz1JfjabbHOQWYtNUap5ALEPpSVoI7BC
+ Bykg==
+X-Gm-Message-State: APjAAAWSMrit6Z7WXzhATf6alu0f7Euel2LLmO3nBBXWu5svMfrKvaDC
+ rz643cD39TpvEdoflBU4PTLbTU1yAWHH6Ilsuq6qICov
+X-Google-Smtp-Source: APXvYqyv/hw01EzMCjOSa/45MhCGTOkPvVEkFiNYTpQBlb4KOP6bZ4ATK84WB5nyiJvs9LV7CT5WxOv/9AghrqEMnsE=
+X-Received: by 2002:a5d:62cc:: with SMTP id o12mr3694467wrv.142.1555522898749; 
+ Wed, 17 Apr 2019 10:41:38 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 3219510785184074498
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrfeefgdeiiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+References: <CAMTupoQw2r=6DZ1FDh6iSeJF7SgQT0Uy20qFk22_bH_s5dJ98w@mail.gmail.com>
+In-Reply-To: <CAMTupoQw2r=6DZ1FDh6iSeJF7SgQT0Uy20qFk22_bH_s5dJ98w@mail.gmail.com>
+From: Derick <derick.montague@gmail.com>
+Date: Wed, 17 Apr 2019 12:41:27 -0500
+Message-ID: <CAOUmYFRDNJdOkLoK2MWi+0Yxv7dT2skLpyyJjduKcJ8kAkuHHw@mail.gmail.com>
+Subject: GUI Workgroup Notes
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,49 +61,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 17 Apr 2019 14:17:59 -0000
+X-List-Received-Date: Wed, 17 Apr 2019 17:41:47 -0000
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
----
- drivers/mtd/spi-nor/aspeed-smc.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+Hello Everyone!
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index ddf7ae78aa0a..ee3059b27c07 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -882,6 +882,17 @@ static const uint32_t aspeed_smc_hclk_divs[] = {
- };
- #define ASPEED_SMC_HCLK_DIV(i) (aspeed_smc_hclk_divs[(i) - 1] << 8)
- 
-+static u32 aspeed_smc_default_read(struct aspeed_smc_chip *chip)
-+{
-+	return (chip->ctl_val[smc_read] & 0x2000) |
-+		(0x00 << 28) | /* Single bit */
-+		(0x00 << 24) | /* CE# max */
-+		(0x03 << 16) | /* use normal reads */
-+		(0x00 <<  8) | /* HCLK/16 */
-+		(0x00 <<  6) | /* no dummy cycle */
-+		(0x00);        /* normal mode */
-+}
-+
- static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
- 				     u32 max_freq)
- {
-@@ -898,13 +909,7 @@ static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
- 	/* We start with the dumbest setting (keep 4Byte bit) and read
- 	 * some data
- 	 */
--	chip->ctl_val[smc_read] = (chip->ctl_val[smc_read] & 0x2000) |
--		(0x00 << 28) | /* Single bit */
--		(0x00 << 24) | /* CE# max */
--		(0x03 << 16) | /* use normal reads */
--		(0x00 <<  8) | /* HCLK/16 */
--		(0x00 <<  6) | /* no dummy cycle */
--		(0x00);        /* normal read */
-+	chip->ctl_val[smc_read] = aspeed_smc_default_read(chip);
- 
- 	writel(chip->ctl_val[smc_read], chip->ctl);
- 
--- 
-2.20.1
+Here are the notes from the GUI Workgroup meeting that took place
+today, Wednesday April, 17th.
+
+Attendees: Attendees: Jandra Aranguren (IBM), Ryan Arnell (IBM),
+Kuiying Wang (Intel), Appu Puli (Intel), Dixsie Wolmers (IBM), Derick
+Montague (IBM)
+
+Agenda:
+1. Discuss transparency of work
+2. Review Generate Certificate UI
+
+Notes:
+Intel
+    - Is working toward Q2 customer requirements and bugs discovered
+upstream and will share details of that plan
+    - Plan to use the design prototypes to complete the customer requirements
+    - Unclear how to add new icons or where icons in design are located
+
+Need for Transparency of Work
+    - It is unclear when a design story is ready for implementation or
+actively being worked on
+    - Discussed process to create transparency around issues tracked
+outside of phosphor-webui
+
+Icon Discussion
+    - Previous agreement to use Carbon Design elements
+(https://github.com/IBM/carbon-icons)
+    - Brief discussion on custom downstream icons. Previous agreements
+were that all icons would come from one open library unless that icon
+didn't exist.
+    - Any work to implement icons should be documented and tracked in
+phosphor-webui
+
+Design Reviews
+    - Style guide
+(https://ibm.invisionapp.com/d/main#/console/15339466/318902250/preview)
+    - Generate Certificates prototype
+(https://ibm.invisionapp.com/share/K8NYRVZVEC5#/319081092_1A--)
+
+This is a high-level overview. Go to the wiki
+(https://github.com/openbmc/openbmc/wiki/GUI-Design-work-group) for
+detailed information, announcements, and action items.
+
+The next meeting will be on Wednesday, May 1st.
+
+Best,
+GUI Design Team
