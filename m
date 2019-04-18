@@ -6,72 +6,79 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="paUT379d"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="u7pOdwTa"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="jwgxHBGX"; dkim-atps=neutral
+ header.b="mIHanfBY"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44l85d2D3zzDqCR
- for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:17:09 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44l8982xx9zDqB5
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:20:12 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id DD5BB21C08;
- Thu, 18 Apr 2019 02:17:06 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id CD421221B2;
+ Thu, 18 Apr 2019 02:20:09 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:17:06 -0400
+ by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:20:09 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=9smq9zHxY5fn4b7FEXOn9/kH6TfGbMr
- H2WcnGRh61lQ=; b=paUT379dQ3W/bVxHGajavbBzDq2cTLZq3lU3rIpATIf7tpE
- 5+SX5nnW99raC0nIBv9+gdHI5SP4L+ZihCdw6Q39CXGc4M7KHLUHY6gfx5fSqd0x
- MbgZxrHRELUuJ3s+bYhRAK43HO8aXsYSjMw7nMsOZN3DdexCjZ1tAoQr/Yd3Q5/H
- VcduW+IZ7DHMtMCd/gr7AUTLOg6AbCEBz0LbZAn4PDiyWRMlLaeJB9lVs6wbotKe
- BrxOfht5LAY/b7wC4Ph1trKW9ZbwLZqXtLBXNN/A2vqfgOqxduj8Mg2GpE/WNRss
- nBVlQ+FPYhTJpOpa6sQGPIyzs0z/1jAxgOFBAng==
+ :subject:content-type:content-transfer-encoding; s=fm2; bh=ldWf2
+ RCiNPwSe+BGxqVQ7ucaJZfEnca/qZKoSoH9f+8=; b=u7pOdwTaktS5lZ9CqR9NS
+ Rtla4wgiaIrH0nLlcvsuuIChuwUjteI8AMuZE4f66NTsP+0+jebHoxHDiBg+y5/E
+ 8ta1SeJnSx7QGoCroYb+Tlee5DK6zTwMaduMT+GyiEZDxIjl5KyQs8K1iCqxcTed
+ yl97smyRM3xrYwKEZ5uW1UEkuphru5DtFFWzYRvWN8iswxSjE+lizT2SVaNSwfxX
+ lSrUKaHxl00Qu7aVtxjRWdA/PbArb0RM4WpIrQPH51o/aB6U6Pj4W2pCtQDPrjqa
+ 1f5nwZbV7wh6Q3z4d27lxGfJ6Ae5+Xqvy6tHwbtMX9pVo5H1BE+dQQsJ1Foau9U+
+ w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=9smq9z
- HxY5fn4b7FEXOn9/kH6TfGbMrH2WcnGRh61lQ=; b=jwgxHBGXCPW9Dop85Wj38e
- U2cCZPdmyjG1ZdZTHEhB1rjoO6qaxkLQJV91SNGTlN10eTqILtxsd1CusqIjkR52
- rkdNPRPWALoxSKlVIGSjgeQPTxlmyZhgWYdUdn61PfkwC4pSzn2nX0rqpLxNvLkM
- icrDgheoiQBUyXF65UyLTPUGqqlc/kbD2acKkyDNqS+Sfxdsgr3J2gtnzwvMbpcr
- I5+bhXSbDSBxPeSa5A+Tl+BwdK2mzkmy4krT7GLITMc00+jEBAFW8TFA/eLICHwK
- Rb//tnj7dpmM9fytVBr5geuOPrkszGHUl5SOAR6UzHxUt9JyK1SUW6z/AeYTKk0g
- ==
-X-ME-Sender: <xms:YRa4XEVDiEQAdWRo8r4Ou2vLt6iuz7lnmAmNC-IKo87wT9YSq_RjPA>
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=ldWf2RCiNPwSe+BGxqVQ7ucaJZfEnca/qZKoSoH9f
+ +8=; b=mIHanfBYf83CgLELyqUt9knxr9FLXueFFtZRa1kUQh6RYZPUC5xt4Jshz
+ SVyhxAfj1YchFJixJxe7NR/aEnhmswLzoVjb2CkeH75vyU3Dif6E9DICOS3IQMgf
+ rf/OS1Rcrr9zCl9gSWS56RsV8cDWSWoqH3S92PBdTGGKwAwXqP9cLKp1Xwh0K7kG
+ JJcRb3QL4SX6u4RDV712FWN07FoGs30/GKPAKXP1feGXINljB2fpHFbQDxgoQ7VP
+ z2c6ayHZczBOHPL3E+BZ1FNWRBx+FFGiyCPY5/svz5TCyTlng4rjiCNlWGjwDG49
+ sEl0F2o/G7oszbNiwXVgecWAuzTIA==
+X-ME-Sender: <xms:GBe4XINQaojMuwmzfkndDqIhyQEzwN-XEOgyRzQItgJWJAV4WEIltA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfeeggddutdefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
- grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
- rhfuihiivgeptd
-X-ME-Proxy: <xmx:YRa4XC3bARBNK7gI-L4rTN1est2ZYSyPXAPidkTr_yIT5RoYr77R0Q>
- <xmx:YRa4XHVsdYxlw7z7jMH-bOsKqnImRRwaLXDrhvXT399o1paXBsznwQ>
- <xmx:YRa4XK9qi92l365i5qx0noMbxl-7VYI2GTPM5yu7IVTdXnN6YTtCWQ>
- <xmx:Yha4XB-7prU64BcnacDef9X6AtYygh9eH7vc4Sa3NyZENcsdro5BKw>
+ cujfgurhepofgfggfkjghffffhvffutgfgsehtqhertderreejnecuhfhrohhmpedftehn
+ ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrg
+ hrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushht
+ vghrufhiiigvpedt
+X-ME-Proxy: <xmx:GBe4XGoQ_17-m9jLMQFfGksXjtQsSrj2DKHtUoozyUz2WHEj8HyxIg>
+ <xmx:GBe4XBdJvwsCuBcVoww3J0_TaZgPyP9ARAjN4iFkDc6FIbOD67RBNw>
+ <xmx:GBe4XPZN-vfbtupWH_5LqZP-BP1dKoYFdwpzNzCNFqUMjwgnksUSqQ>
+ <xmx:GRe4XHaRSmDh64moXqO34hXcsc4BFr538ZBb9b1Q4VSlrCs3FOSlww>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 611E87C132; Thu, 18 Apr 2019 02:17:05 -0400 (EDT)
+ id 1C35B7C199; Thu, 18 Apr 2019 02:20:08 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.6-443-g918f9d3-fmstable-20190416v3
 Mime-Version: 1.0
 X-Me-Personality: 52947553
-Message-Id: <8b0798ab-dfa8-4762-a2f0-c5bc742f9cc4@www.fastmail.com>
-In-Reply-To: <CAO=notx11Vp2arQFSQ8oN0sba8XJZnrGNEpWfRtDN1no-CY-Fg@mail.gmail.com>
-References: <20190412144206.68324-1-venture@google.com>
- <CAO=notx11Vp2arQFSQ8oN0sba8XJZnrGNEpWfRtDN1no-CY-Fg@mail.gmail.com>
-Date: Thu, 18 Apr 2019 02:17:04 -0400
+Message-Id: <66a33cb9-19fe-4ccb-8449-76d2ba807cb1@www.fastmail.com>
+In-Reply-To: <CAO=notwm0eqmk1G+B-YziEf0Y=6PjAPM-Pu=d1Kc6Q_3QD0B7g@mail.gmail.com>
+References: <CAO=notxhe24e8-1dTcspD_H7xTy49yEnnn-gJbUciekirzKC_w@mail.gmail.com>
+ <CACPK8XfwP_DwqthSwgFGMjqRepGkC1XdziZ+eEds=6ND_Ov71Q@mail.gmail.com>
+ <CAO=notwAcxqFTN31Ecfd50rkjKm9X7PQsTFAP4Rc_xvN0wALUQ@mail.gmail.com>
+ <e44834c9-2755-1d05-1df1-d0fa930d48bd@kaod.org>
+ <CAO=notxCM7hR7bXXOi3Z86PikHxAj7CXSDWda-KV9wWxKSwBdg@mail.gmail.com>
+ <CAO=notx6cuUuARoDLrcrMX0fVQdVYahfvUbDNOwj588_0q-Bbg@mail.gmail.com>
+ <d5906e53-9e7a-44f3-b8af-c09e7c4db62a@www.fastmail.com>
+ <CAO=notwm0eqmk1G+B-YziEf0Y=6PjAPM-Pu=d1Kc6Q_3QD0B7g@mail.gmail.com>
+Date: Thu, 18 Apr 2019 02:20:07 -0400
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Patrick Venture" <venture@google.com>, "Joel Stanley" <joel@jms.id.au>
-Cc: "Maxim Sloyko" <maxims@google.com>,
- "OpenBMC Maillist" <openbmc@lists.ozlabs.org>,
- "Robert Lippert" <rlippert@google.com>
-Subject: =?UTF-8?Q?Re:_[PATCH_dev-5.0]_ARM:_dts:_aspeed:_zaius:_add_Infineon_and_?=
- =?UTF-8?Q?Intersil_regulators?=
-Content-Type: text/plain
+To: "Patrick Venture" <venture@google.com>
+Cc: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>,
+ "Joel Stanley" <joel@jms.id.au>,
+ "OpenBMC Maillist" <openbmc@lists.ozlabs.org>
+Subject: Re: transitioning from 4.17.18 to 5.0.6
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,124 +90,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 06:17:10 -0000
+X-List-Received-Date: Thu, 18 Apr 2019 06:20:13 -0000
 
 
 
-On Wed, 17 Apr 2019, at 01:00, Patrick Venture wrote:
-> On Fri, Apr 12, 2019 at 7:42 AM Patrick Venture <venture@google.com> wrote:
+On Tue, 16 Apr 2019, at 23:56, Patrick Venture wrote:
+> On Mon, Apr 15, 2019 at 8:05 PM Andrew Jeffery <andrew@aj.id.au> wrote=
+:
 > >
-> > From: Maxim Sloyko <maxims@google.com>
+> > On Tue, 16 Apr 2019, at 01:06, Patrick Venture wrote:
+> > > On Wed, Apr 10, 2019 at 10:13 AM Patrick Venture <venture@google.c=
+om> wrote:
+> > > >
+> > > > On Wed, Apr 10, 2019 at 9:02 AM C=C3=A9dric Le Goater <clg@kaod.=
+org> wrote:
+> > > > >
+> > > > > On 4/10/19 4:39 PM, Patrick Venture wrote:
+> > > > > > On Tue, Apr 9, 2019 at 7:17 PM Joel Stanley <joel@jms.id.au>=
+ wrote:
+> > > > > >>
+> > > > > >> On Tue, 9 Apr 2019 at 16:35, Patrick Venture <venture@googl=
+e.com> wrote:
+> > > > > >>>
+> > > > > >>> HI, I ran into some weirdness when transitioning from 4.17=
+.18 to 5.0.6
+> > > > > >>> with the quanta-q71l board.  More specifically now my host=
+ can't talk
+> > > > > >>> to the BMC via ipmi-bt.  All it returns is 0xd5.  on the B=
+MC itself, I
+> > > > > >>> can talk to ipmid file via dbus, and btbridge is running.
+> > > > > >>>
+> > > > > >>> Has anyone else run into weirdness?
+> > > > > >>
+> > > > > >> I've not seen that.
+> > > > > >>
+> > > > > >> My only guess is there is an issue with clocking. Can you t=
+ry booting
+> > > > > >> the machine with clk_ignore_unused in your kernel command l=
+ine?
+> > > > > >
+> > > > > > I'll give it a shot, although IPMI not working is odd since =
+the
+> > > > > > LPC_CLK is enabled.  But yeah, I'll try that today and reply=
+ back,
+> > > > > > thanks.
+> > > >
+> > > > root@localhost:~# cat /proc/cmdline
+> > > > console=3DttyS4,115200n8 root=3D/dev/ram rw clk_ignore_unused
+> > > >
+> > > > ./gbmctool -command firmware -action get -field version
+> > > > Get Device ID command failed: 0xd5 Command not supported in pres=
+ent state
+> > > > E0410 10:12:01.640883  456408 real_main.cc:53] Unable to send co=
+de:
+> > > > Command not supported in present state
+> > > >
+> > > > So that didn't fix it unless I need to reboot the host as well.
+> > > >
+> > > > >
+> > > > > I don't see this issue on a palmetto, BMC running with 5.0.5.
+> > >
+> > > Looks like the issue is 5.0.6 doesn't have the lpc parameter optio=
+nal patchset.
 > >
-> > Add the nodes for the ir38064 and isl68137 devices on the Zaius board.
+> > The only place I've found the patch applied is in one of Joel's pers=
+onal trees.
+>=20
+> That would explain why I couldn't find it in the usual places.
+>=20
 > >
-> > Signed-off-by: Maxim Sloyko <maxims@google.com>
-> > Signed-off-by: Robert Lippert <rlippert@google.com>
-> > Signed-off-by: Patrick Venture <venture@google.com>
-> > ---
-> >  arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 65 ++++++++++++++++++++--
-> >  1 file changed, 60 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > index 0c0ea41cbe27..53751adebf17 100644
-> > --- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
-> > @@ -301,6 +301,32 @@
-> >                                 reg = <0x54>;
-> >                         };
-> >                 };
-> > +
-> > +       };
-> > +
-> > +       vrm@64 {
-> > +               compatible = "intersil,isl68137";
-> s/intersil/isil/g
+> > Seems bizarre.
+>=20
+> Sorry, I stopped following that patchset a while back, I just assumed
+> it landed.  Was there some push back?
 
-Hrm, I didn't see this follow up and applied the patch as is.
+Not that I'm aware of. Vijay has been pinging Joel periodically, I'm not=
 
-Can you send a fix-up if necessary?
+sure why he hasn't merged it. I'd like to wait until Joel can respond in=
+
+case there's something I've missed here.
 
 Andrew
-
-> 
-> > +               reg = <0x64>;
-> > +       };
-> > +
-> > +       vrm@40 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x40>;
-> > +       };
-> > +
-> > +       vrm@60 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x60>;
-> > +       };
-> > +
-> > +       vrm@43 {
-> > +               compatible = "infineon,ir38064";
-> > +               reg = <0x43>;
-> > +       };
-> > +
-> > +       vrm@41 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x41>;
-> >         };
-> >
-> >         /* Master selector PCA9541A @70h (other master: CPU0)
-> > @@ -316,18 +342,47 @@
-> >         /* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
-> >         /* CPU0 VR ISL68137 1.2V CH03 PMBUS @40h */
-> >         /* CPU0 VR ISL68137 0.8V PMBUS @60h */
-> > -       /* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @41h */
-> > +       /* CPU0 VR 1.0V IR38064 I2C @11h, PMBUS @43h */
-> >         /* CPU0 VR ISL68137 1.2V CH47 PMBUS @41h */
-> > +       /* Master selector PCA9541A @70h (other master: CPU0)
-> > +        *   LM5066I PMBUS @10h
-> > +        */
-> > +       /* 12V SMPS Q54SH12050NNDH @61h */
-> >  };
-> >
-> >  &i2c8 {
-> >         status = "okay";
-> >
-> > -       /* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @65h */
-> > -       /* CPU1 VR ISL68137 1.2V CH03 PMBUS @44h */
-> > -       /* CPU1 VR ISL68137 0.8V PMBUS @61h */
-> > +       vrm@64 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x64>;
-> > +       };
-> > +
-> > +       vrm@40 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x40>;
-> > +       };
-> > +
-> > +       vrm@41 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x41>;
-> > +       };
-> > +
-> > +       vrm@42 {
-> > +               compatible = "infineon,ir38064";
-> > +               reg = <0x42>;
-> > +       };
-> > +
-> > +       vrm@60 {
-> > +               compatible = "intersil,isl68137";
-> > +               reg = <0x60>;
-> > +       };
-> > +
-> > +       /* CPU1 VR ISL68137 0.7V, 0.96V PMBUS @64h */
-> > +       /* CPU1 VR ISL68137 1.2V CH03 PMBUS @40h */
-> > +       /* CPU1 VR ISL68137 1.2V CH47 PMBUS @41h */
-> >         /* CPU1 VR 1.0V IR38064 I2C @12h, PMBUS @42h */
-> > -       /* CPU0 VR ISL68137 1.2V CH47 PMBUS @45h */
-> > +       /* CPU1 VR ISL68137 0.8V PMBUS @60h */
-> >  };
-> >
-> >
-> > --
-> > 2.21.0.392.gf8f6787159e-goog
-> >
->
