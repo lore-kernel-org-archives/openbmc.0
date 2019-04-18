@@ -1,57 +1,74 @@
-Return-Path: <3You4XAcKB0c4nw230npxxpun.lxvxynwkvlur121.x8ujk1.x0p@flex--venture.bounces.google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
- smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::749; helo=mail-qk1-x749.google.com;
- envelope-from=3you4xackb0c4nw230npxxpun.lxvxynwkvlur121.x8ujk1.x0p@flex--venture.bounces.google.com;
- receiver=<UNKNOWN>)
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="g9Ezh24i"; 
- dkim-atps=neutral
-Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
- [IPv6:2607:f8b0:4864:20::749])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lM9h6f2jzDqPG
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 00:36:21 +1000 (AEST)
-Received: by mail-qk1-x749.google.com with SMTP id f196so1893045qke.4
- for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 07:36:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=MiZNqRZtGoJwmS7EKgIPf4gB7YbObKyCWvCAoHnMSwg=;
- b=g9Ezh24iBm4rfXkQeHHe23o8/vbrXQmSn22UMWcd/wBuFF9zslmsZRK8u90ETyVPfI
- Rppvp7jCRumZauQf7hj9zjng0Zov/eHPPcdULhW76EmeKpK59smjduaaxWY+DpKzTgVf
- wH4OJbPpu5pL+j6PabSDwTNdFd2J82OCuXOTNBAv8qNQzpHYpohZMFE5xp95UldeZ1KA
- Ke83p/b3jOhIrMXDS0GbhUVbHGo2fPZwmk3Br7bgs+Uqnso0rgyYolS/twzDp9kuqDhd
- jgzXFGogszYigMg66i5HAJOLKJx12o/pcKcRVl5yBRhWmbqB9FkwL2IqtU7cRcv7VYIt
- Bgqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=MiZNqRZtGoJwmS7EKgIPf4gB7YbObKyCWvCAoHnMSwg=;
- b=Ghv661lub0TCOvjs81ewrWKTGkGonfR57V5PF1C+7by2SLONx6NWnbxzo9EevrTadV
- RGIjzVcH5Is5yuX3a2EVVW28/WNL//eZBwZYwAgID7Y0NtvhaHEZq1wrgjyOcqdEXLvS
- 5B2W1nQv8+pktts5XCMX55aCBm25u8cKKZpQc5ddh+tj2y6yxq5NFDSe+e30CfU8utBH
- GoKnQsXtRwNnaihHm1/CZCmZFWyh5fWlyFG27+d3e7VoESM07urMs5ozCdIzSQHlYSTe
- 47u+niDyrf65NeQSvMc7fzz33kKk5Q2OPst1LKR+AsZkizas6kHNmoRkbZnGlGdLpBOj
- hClQ==
-X-Gm-Message-State: APjAAAWaksKPNqZo4TY5bZTZHwSh4c9vsrsG/YaMud+SHbOD57kInJfS
- uFu2FgiEl2vHs04xkk2Xx7qIQeNOqhvH
-X-Google-Smtp-Source: APXvYqy5kyqw5mQb/wcRdeBpF+6J1KEbbgv2FrgqkPRvIbN+1tUdBqw0Fz3sFB82hQqRdcqNl69BvA+bT/mD
-X-Received: by 2002:a0c:d04b:: with SMTP id d11mr77501283qvh.63.1555598178889; 
- Thu, 18 Apr 2019 07:36:18 -0700 (PDT)
-Date: Thu, 18 Apr 2019 07:36:13 -0700
-Message-Id: <20190418143613.28516-1-venture@google.com>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
-Subject: [PATCH dev-5.0 2/2] fixup! hwmon: (pmbus/isl68137): Add driver for
- Intersil ISL68137 PWM Controller
-From: Patrick Venture <venture@google.com>
-To: venture@google.com, joel@jms.id.au, andrew@aj.id.au
-Cc: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lQ0m6xBkzDq9R
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 02:43:52 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3IGdcKP019516
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 12:43:49 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2rxstpt06j-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 12:43:48 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <anoo@linux.ibm.com>;
+ Thu, 18 Apr 2019 17:43:47 +0100
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 18 Apr 2019 17:43:45 +0100
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3IGhgH927328606
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 18 Apr 2019 16:43:43 GMT
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B55746A051;
+ Thu, 18 Apr 2019 16:43:42 +0000 (GMT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E6386A04D;
+ Thu, 18 Apr 2019 16:43:42 +0000 (GMT)
+Received: from habcap11p1.aus.stglabs.ibm.com (unknown [9.41.164.53])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 18 Apr 2019 16:43:42 +0000 (GMT)
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org
+Cc: Adriana Kobylak <anoo@us.ibm.com>
+Subject: [PATCH dev-5.0 v2] ARM: dts: aspeed: Add Swift BMC machine
+Date: Thu, 18 Apr 2019 11:43:35 -0500
+X-Mailer: git-send-email 2.7.4
+In-Reply-To: <02b66794-19bf-a042-66a9-00fc712355f5@linux.ibm.com>
+References: <02b66794-19bf-a042-66a9-00fc712355f5@linux.ibm.com>
+X-TM-AS-GCONF: 00
+x-cbid: 19041816-0004-0000-0000-000014FF27A8
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010950; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000285; SDB=6.01190922; UDB=6.00624102; IPR=6.00971719; 
+ MB=3.00026503; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-18 16:43:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19041816-0005-0000-0000-00008B4F20AC
+Message-Id: <1555605815-31386-1-git-send-email-anoo@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-18_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904180107
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,353 +80,820 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 14:36:25 -0000
+X-List-Received-Date: Thu, 18 Apr 2019 16:43:53 -0000
 
-Apply differences from hwmon review to bring the driver code to the same
-point.  There were some key differences regarding attribute placement
-from the review, beyond the normal cleanup.
+From: Adriana Kobylak <anoo@us.ibm.com>
 
-Signed-off-by: Patrick Venture <venture@google.com>
+The Swift BMC is an ASPEED ast2500 based BMC that is part of
+a Power9 server. This adds the device tree description for
+most upstream components.
+
+Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
 ---
- Documentation/hwmon/isl68137   |  72 +++++++++++++
- drivers/hwmon/pmbus/isl68137.c | 188 ++++++++++++++-------------------
- 2 files changed, 149 insertions(+), 111 deletions(-)
- create mode 100644 Documentation/hwmon/isl68137
+ arch/arm/boot/dts/Makefile                 |   1 +
+ arch/arm/boot/dts/aspeed-bmc-opp-swift.dts | 782 +++++++++++++++++++++++++++++
+ 2 files changed, 783 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
 
-diff --git a/Documentation/hwmon/isl68137 b/Documentation/hwmon/isl68137
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index bd40148..b82a24d 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1244,6 +1244,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-lanyang.dtb \
+ 	aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-romulus.dtb \
++	aspeed-bmc-opp-swift.dtb \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-portwell-neptune.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
 new file mode 100644
-index 000000000000..92e5c5fc5b77
+index 0000000..1921a50
 --- /dev/null
-+++ b/Documentation/hwmon/isl68137
-@@ -0,0 +1,72 @@
-+Kernel driver isl68137
-+======================
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+@@ -0,0 +1,782 @@
++// SPDX-License-Identifier: GPL-2.0+
++/dts-v1/;
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/leds/leds-pca955x.h>
 +
-+Supported chips:
-+  * Intersil ISL68137
-+    Prefix: 'isl68137'
-+    Addresses scanned: -
-+    Datasheet: Publicly available at the Intersil website
-+      https://www.intersil.com/content/dam/Intersil/documents/isl6/isl68137.pdf
++/ {
++	model = "Swift BMC";
++	compatible = "ibm,swift-bmc", "aspeed,ast2500";
 +
-+Authors:
-+        Maxim Sloyko <maxims@google.com>
-+        Robert Lippert <rlippert@google.com>
-+        Patrick Venture <venture@google.com>
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
 +
-+Description
-+-----------
++	memory@80000000 {
++		reg = <0x80000000 0x20000000>;
++	};
 +
-+Intersil ISL68137 is a digital output 7-phase configurable PWM
-+controller with an AVSBus interface.
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
 +
-+Usage Notes
-+-----------
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x04000000>; /* 64M */
++		};
 +
-+This driver does not probe for PMBus devices. You will have to instantiate
-+devices explicitly.
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
 +
-+The ISL68137 AVS operation mode must be enabled/disabled at runtime.
++	gpio-keys {
++		compatible = "gpio-keys";
 +
-+Beyond the normal sysfs pmbus attributes, the driver exposes a control attribute.
++		air-water {
++			label = "air-water";
++			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(B, 5)>;
++		};
 +
-+Additional Sysfs attributes
-+---------------------------
++		checkstop {
++			label = "checkstop";
++			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(J, 2)>;
++		};
 +
-+avs(0|1)_enable		Controls the AVS state of each rail.
++		ps0-presence {
++			label = "ps0-presence";
++			gpios = <&gpio ASPEED_GPIO(R, 7) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(R, 7)>;
++		};
 +
-+curr1_label		"iin"
-+curr1_input		Measured input current
-+curr1_crit		Critical maximum current
-+curr1_crit_alarm	Current critical high alarm
++		ps1-presence {
++			label = "ps1-presence";
++			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(N, 0)>;
++		};
++	};
 +
-+curr[2-3]_label		"iout[1-2]"
-+curr[2-3]_input		Measured output current
-+curr[2-3]_crit		Critical maximum current
-+curr[2-3]_crit_alarm	Current critical high alarm
++	iio-hwmon-battery {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 12>;
++	};
 +
-+in1_label		"vin"
-+in1_input		Measured input voltage
-+in1_lcrit		Critical minimum input voltage
-+in1_lcrit_alarm		Input voltage critical low alarm
-+in1_crit		Critical maximum input voltage
-+in1_crit_alarm		Input voltage critical high alarm
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		poll-interval = <1000>;
 +
-+in[2-3]_label		"vout[1-2]"
-+in[2-3]_input		Measured output voltage
-+in[2-3]_lcrit		Critical minimum output voltage
-+in[2-3]_lcrit_alarm	Output voltage critical low alarm
-+in[2-3]_crit		Critical maximum output voltage
-+in[2-3]_crit_alarm	Output voltage critical high alarm
++		fan0-presence {
++			label = "fan0-presence";
++			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
++			linux,code = <5>;
++		};
 +
-+power1_label		"pin"
-+power1_input		Measured input power
-+power1_alarm		Input power high alarm
++		fan1-presence {
++			label = "fan1-presence";
++			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
++			linux,code = <6>;
++		};
 +
-+power[2-3]_label	"pout[1-2]"
-+power[2-3]_input	Measured output power
++		fan2-presence {
++			label = "fan2-presence";
++			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
++			linux,code = <7>;
++		};
 +
-+temp[1-3]_input		Measured temperature
-+temp[1-3]_crit		Critical high temperature
-+temp[1-3]_crit_alarm	Chip temperature critical high alarm
-+temp[1-3]_max		Maximum temperature
-+temp[1-3]_max_alarm	Chip temperature high alarm
-diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
-index ccac14bdb985..515596c92fe1 100644
---- a/drivers/hwmon/pmbus/isl68137.c
-+++ b/drivers/hwmon/pmbus/isl68137.c
-@@ -4,61 +4,19 @@
-  *
-  * Copyright (c) 2017 Google Inc
-  *
-- * This program is free software; you can redistribute it and/or modify
-- * it under the terms of the GNU General Public License as published by
-- * the Free Software Foundation; either version 2 of the License, or
-- * (at your option) any later version.
-- *
-- * This program is distributed in the hope that it will be useful,
-- * but WITHOUT ANY WARRANTY; without even the implied warranty of
-- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-- * GNU General Public License for more details.
-  */
- 
--#include <linux/kernel.h>
--#include <linux/module.h>
--#include <linux/init.h>
- #include <linux/err.h>
--#include <linux/i2c.h>
- #include <linux/hwmon-sysfs.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/string.h>
-+#include <linux/sysfs.h>
- #include "pmbus.h"
- 
--#define ISL68137_VOUT_AVS 0x30
--
--static struct pmbus_driver_info isl68137_info = {
--	.pages = 2,
--	.format[PSC_VOLTAGE_IN] = direct,
--	.format[PSC_VOLTAGE_OUT] = direct,
--	.format[PSC_CURRENT_IN] = direct,
--	.format[PSC_CURRENT_OUT] = direct,
--	.format[PSC_POWER] = direct,
--	.format[PSC_TEMPERATURE] = direct,
--	.m[PSC_VOLTAGE_IN] = 1,
--	.b[PSC_VOLTAGE_IN] = 0,
--	.R[PSC_VOLTAGE_IN] = 3,
--	.m[PSC_VOLTAGE_OUT] = 1,
--	.b[PSC_VOLTAGE_OUT] = 0,
--	.R[PSC_VOLTAGE_OUT] = 3,
--	.m[PSC_CURRENT_IN] = 1,
--	.b[PSC_CURRENT_IN] = 0,
--	.R[PSC_CURRENT_IN] = 2,
--	.m[PSC_CURRENT_OUT] = 1,
--	.b[PSC_CURRENT_OUT] = 0,
--	.R[PSC_CURRENT_OUT] = 1,
--	.m[PSC_POWER] = 1,
--	.b[PSC_POWER] = 0,
--	.R[PSC_POWER] = 0,
--	.m[PSC_TEMPERATURE] = 1,
--	.b[PSC_TEMPERATURE] = 0,
--	.R[PSC_TEMPERATURE] = 0,
--	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN
--	    | PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2
--	    | PMBUS_HAVE_TEMP3 | PMBUS_HAVE_STATUS_TEMP
--	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
--	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
--	.func[1] = PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
--	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
--};
-+#define ISL68137_VOUT_AVS	0x30
- 
- static ssize_t isl68137_avs_enable_show_page(struct i2c_client *client,
- 					     int page,
-@@ -75,23 +33,13 @@ static ssize_t isl68137_avs_enable_store_page(struct i2c_client *client,
- 					      const char *buf, size_t count)
- {
- 	int rc, op_val;
-+	bool result;
- 
--	if (count < 1) {
--		rc = -EINVAL;
--		goto out;
--	}
-+	rc = kstrtobool(buf, &result);
-+	if (rc)
-+		return rc;
- 
--	switch (buf[0]) {
--	case '0':
--		op_val = 0;
--		break;
--	case '1':
--		op_val = ISL68137_VOUT_AVS;
--		break;
--	default:
--		rc = -EINVAL;
--		goto out;
--	}
-+	op_val = result ? ISL68137_VOUT_AVS : 0;
- 
- 	/*
- 	 * Writes to VOUT setpoint over AVSBus will persist after the VRM is
-@@ -101,27 +49,28 @@ static ssize_t isl68137_avs_enable_store_page(struct i2c_client *client,
- 	 * enabling AVS control is the workaround.
- 	 */
- 	if (op_val == ISL68137_VOUT_AVS) {
--		int vout_command = pmbus_read_word_data(client, page,
--							PMBUS_VOUT_COMMAND);
-+		rc = pmbus_read_word_data(client, page, PMBUS_VOUT_COMMAND);
-+		if (rc < 0)
-+			return rc;
++		fan3-presence {
++			label = "fan3-presence";
++			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
++			linux,code = <8>;
++		};
 +
- 		rc = pmbus_write_word_data(client, page, PMBUS_VOUT_COMMAND,
--					   vout_command);
--		if (rc)
--			goto out;
-+					   rc);
-+		if (rc < 0)
-+			return rc;
- 	}
- 
- 	rc = pmbus_update_byte_data(client, page, PMBUS_OPERATION,
- 				    ISL68137_VOUT_AVS, op_val);
- 
--out:
--	return rc < 0 ? rc : count;
-+	return (rc < 0) ? rc : count;
- }
- 
- static ssize_t isl68137_avs_enable_show(struct device *dev,
- 					struct device_attribute *devattr,
- 					char *buf)
- {
--	struct i2c_client *client = kobj_to_i2c_client(&dev->kobj);
--	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
-+	struct i2c_client *client = to_i2c_client(dev->parent);
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 
- 	return isl68137_avs_enable_show_page(client, attr->index, buf);
- }
-@@ -130,53 +79,70 @@ static ssize_t isl68137_avs_enable_store(struct device *dev,
- 				struct device_attribute *devattr,
- 				const char *buf, size_t count)
- {
--	struct i2c_client *client = kobj_to_i2c_client(&dev->kobj);
--	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
-+	struct i2c_client *client = to_i2c_client(dev->parent);
-+	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
- 
- 	return isl68137_avs_enable_store_page(client, attr->index, buf, count);
- }
- 
--static SENSOR_DEVICE_ATTR_2(avs0_enabled, 0644,
--			    isl68137_avs_enable_show, isl68137_avs_enable_store,
--			    0, 0);
--static SENSOR_DEVICE_ATTR_2(avs1_enabled, 0644,
--			    isl68137_avs_enable_show, isl68137_avs_enable_store,
--			    0, 1);
-+static SENSOR_DEVICE_ATTR_RW(avs0_enable, isl68137_avs_enable, 0);
-+static SENSOR_DEVICE_ATTR_RW(avs1_enable, isl68137_avs_enable, 1);
- 
--static int isl68137_remove(struct i2c_client *client);
--
--static int isl68137_probe(struct i2c_client *client,
--			  const struct i2c_device_id *id)
--{
--	int rc;
--
--	rc = pmbus_do_probe(client, id, &isl68137_info);
--	if (rc)
--		return rc;
-+static struct attribute *enable_attrs[] = {
-+	&sensor_dev_attr_avs0_enable.dev_attr.attr,
-+	&sensor_dev_attr_avs1_enable.dev_attr.attr,
-+	NULL,
++		fanboost-presence {
++			label = "fanboost-presence";
++			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
++			linux,code = <9>;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		fan0 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
++		};
++
++		fan1 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
++		};
++
++		fan2 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
++		};
++
++		fan3 {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
++		};
++
++		fanboost {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
++		};
++
++		front-fault {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca1 2 GPIO_ACTIVE_LOW>;
++		};
++
++		front-power {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca1 3 GPIO_ACTIVE_LOW>;
++		};
++
++		front-id {
++			retain-state-shutdown;
++			default-state = "keep";
++			gpios = <&pca1 0 GPIO_ACTIVE_LOW>;
++		};
++
++		rear-fault {
++			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
++		};
++
++		rear-id {
++			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
++		};
++
++		rear-power {
++			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	fsi: gpio-fsi {
++		compatible = "fsi-master-gpio", "fsi-master";
++		#address-cells = <2>;
++		#size-cells = <0>;
++		no-gpio-delays;
++
++		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
++		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
++		mux-gpios = <&gpio ASPEED_GPIO(P, 4) GPIO_ACTIVE_HIGH>;
++		enable-gpios = <&gpio ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
++		trans-gpios = <&gpio ASPEED_GPIO(P, 3) GPIO_ACTIVE_HIGH>;
++	};
++
++	iio-hwmon-dps310 {
++		compatible = "iio-hwmon";
++		io-channels = <&dps 0>;
++	};
++
 +};
- 
--	rc = device_create_file(&client->dev,
--				&sensor_dev_attr_avs0_enabled.dev_attr);
--	if (rc)
--		goto out_fail;
--	rc = device_create_file(&client->dev,
--				&sensor_dev_attr_avs1_enabled.dev_attr);
--	if (rc)
--		goto out_fail;
-+static const struct attribute_group enable_group = {
-+	.attrs = enable_attrs,
++
++&fmc {
++	status = "okay";
++
++	flash@0 {
++		status = "okay";
++		label = "bmc";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++		partitions {
++			#address-cells = < 1 >;
++			#size-cells = < 1 >;
++			compatible = "fixed-partitions";
++			u-boot@0 {
++				reg = < 0 0x60000 >;
++				label = "u-boot";
++			};
++			u-boot-env@60000 {
++				reg = < 0x60000 0x20000 >;
++				label = "u-boot-env";
++			};
++			obmc-ubi@80000 {
++				reg = < 0x80000 0x7F80000>;
++				label = "obmc-ubi";
++			};
++		};
++	};
++
++	flash@1 {
++		status = "okay";
++		label = "alt-bmc";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++		partitions {
++			#address-cells = < 1 >;
++			#size-cells = < 1 >;
++			compatible = "fixed-partitions";
++			u-boot@0 {
++				reg = < 0 0x60000 >;
++				label = "alt-u-boot";
++			};
++			u-boot-env@60000 {
++				reg = < 0x60000 0x20000 >;
++				label = "alt-u-boot-env";
++			};
++			obmc-ubi@80000 {
++				reg = < 0x80000 0x7F80000>;
++				label = "alt-obmc-ubi";
++			};
++		};
++	};
 +};
- 
--	return rc;
-+static const struct attribute_group *attribute_groups[] = {
-+	&enable_group,
-+	NULL,
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		label = "pnor";
++		m25p,fast-read;
++		spi-max-frequency = <100000000>;
++	};
 +};
- 
--out_fail:
--	isl68137_remove(client);
--	return rc;
--}
-+static struct pmbus_driver_info isl68137_info = {
-+	.pages = 2,
-+	.format[PSC_VOLTAGE_IN] = direct,
-+	.format[PSC_VOLTAGE_OUT] = direct,
-+	.format[PSC_CURRENT_IN] = direct,
-+	.format[PSC_CURRENT_OUT] = direct,
-+	.format[PSC_POWER] = direct,
-+	.format[PSC_TEMPERATURE] = direct,
-+	.m[PSC_VOLTAGE_IN] = 1,
-+	.b[PSC_VOLTAGE_IN] = 0,
-+	.R[PSC_VOLTAGE_IN] = 3,
-+	.m[PSC_VOLTAGE_OUT] = 1,
-+	.b[PSC_VOLTAGE_OUT] = 0,
-+	.R[PSC_VOLTAGE_OUT] = 3,
-+	.m[PSC_CURRENT_IN] = 1,
-+	.b[PSC_CURRENT_IN] = 0,
-+	.R[PSC_CURRENT_IN] = 2,
-+	.m[PSC_CURRENT_OUT] = 1,
-+	.b[PSC_CURRENT_OUT] = 0,
-+	.R[PSC_CURRENT_OUT] = 1,
-+	.m[PSC_POWER] = 1,
-+	.b[PSC_POWER] = 0,
-+	.R[PSC_POWER] = 0,
-+	.m[PSC_TEMPERATURE] = 1,
-+	.b[PSC_TEMPERATURE] = 0,
-+	.R[PSC_TEMPERATURE] = 0,
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_IIN | PMBUS_HAVE_PIN
-+	    | PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2
-+	    | PMBUS_HAVE_TEMP3 | PMBUS_HAVE_STATUS_TEMP
-+	    | PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
-+	.func[1] = PMBUS_HAVE_VOUT | PMBUS_HAVE_STATUS_VOUT
-+	    | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT | PMBUS_HAVE_POUT,
-+	.groups = attribute_groups,
++
++&uart1 {
++	/* Rear RS-232 connector */
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++			&pinctrl_rxd1_default
++			&pinctrl_nrts1_default
++			&pinctrl_ndtr1_default
++			&pinctrl_ndsr1_default
++			&pinctrl_ncts1_default
++			&pinctrl_ndcd1_default
++			&pinctrl_nri1_default>;
 +};
- 
--static int isl68137_remove(struct i2c_client *client)
-+static int isl68137_probe(struct i2c_client *client,
-+			  const struct i2c_device_id *id)
- {
--	device_remove_file(&client->dev,
--			   &sensor_dev_attr_avs1_enabled.dev_attr);
--	device_remove_file(&client->dev,
--			   &sensor_dev_attr_avs0_enabled.dev_attr);
--	return pmbus_do_remove(client);
-+	return pmbus_do_probe(client, id, &isl68137_info);
- }
- 
- static const struct i2c_device_id isl68137_id[] = {
-@@ -192,7 +158,7 @@ static struct i2c_driver isl68137_driver = {
- 		   .name = "isl68137",
- 		   },
- 	.probe = isl68137_probe,
--	.remove = isl68137_remove,
-+	.remove = pmbus_do_remove,
- 	.id_table = isl68137_id,
- };
- 
++
++&uart2 {
++	/* APSS */
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
++&mbox {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&i2c2 {
++	status = "okay";
++
++	/* MUX ->
++	 *    Samtec 1
++	 *    Samtec 2
++	 */
++};
++
++&i2c3 {
++	status = "okay";
++
++	max31785@52 {
++		compatible = "maxim,max31785a";
++		reg = <0x52>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		fan@0 {
++			compatible = "pmbus-fan";
++			reg = <0>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@1 {
++			compatible = "pmbus-fan";
++			reg = <1>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@2 {
++			compatible = "pmbus-fan";
++			reg = <2>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@3 {
++			compatible = "pmbus-fan";
++			reg = <3>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++
++		fan@4 {
++			compatible = "pmbus-fan";
++			reg = <4>;
++			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
++		};
++	};
++
++	pca0: pca9552@60 {
++		compatible = "nxp,pca9552";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	power-supply@68 {
++		compatible = "ibm,cffps1";
++		reg = <0x68>;
++	};
++
++	eeprom@50 {
++		compatible = "atmel,24c64";
++		reg = <0x50>;
++	};
++
++	power-supply@69 {
++		compatible = "ibm,cffps1";
++		reg = <0x69>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c64";
++		reg = <0x51>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	dps: dps310@76 {
++		compatible = "infineon,dps310";
++		reg = <0x76>;
++		#io-channel-cells = <0>;
++	};
++
++	tmp275@48 {
++		compatible = "ti,tmp275";
++		reg = <0x48>;
++	};
++
++	si7021a20@20 {
++		compatible = "si,si7021a20";
++		reg = <0x20>;
++	};
++
++	eeprom@50 {
++		compatible = "atmel,24c64";
++		reg = <0x50>;
++	};
++
++	pca1: pca9551@60 {
++		compatible = "nxp,pca9551";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++};
++
++&i2c8 {
++	status = "okay";
++
++	pca9552: pca9552@60 {
++		compatible = "nxp,pca9552";
++		reg = <0x60>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
++			"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
++			"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
++			"P9_SCM0_PRES",	"P9_SCM1_PRES",
++			"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
++			"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
++			"PRESENT_VRM_CP0_N", "PRESENT_VRM_CP1_N",
++			"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	rtc@32 {
++		compatible = "epson,rx8900";
++		reg = <0x32>;
++	};
++
++	eeprom@51 {
++		compatible = "atmel,24c64";
++		reg = <0x51>;
++	};
++
++	ucd90160@64 {
++		compatible = "ti,ucd90160";
++		reg = <0x64>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++
++	tmp423a@4c {
++		compatible = "ti,tmp423";
++		reg = <0x4c>;
++	};
++
++	ir35221@71 {
++		compatible = "infineon,ir35221";
++		reg = <0x71>;
++	};
++
++	ir35221@72 {
++		compatible = "infineon,ir35221";
++		reg = <0x72>;
++	};
++};
++
++&i2c10 {
++	status = "okay";
++
++	tmp423a@4c {
++		compatible = "ti,tmp423";
++		reg = <0x4c>;
++	};
++
++	ir35221@71 {
++		compatible = "infineon,ir35221";
++		reg = <0x71>;
++	};
++
++	ir35221@72 {
++		compatible = "infineon,ir35221";
++		reg = <0x72>;
++	};
++};
++
++&i2c11 {
++	/* MUX
++	 *   -> PCIe Slot 0
++	 *   -> PCIe Slot 1
++	 *   -> PCIe Slot 2
++	 *   -> PCIe Slot 3
++	 */
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++
++	tmp275@48 {
++		compatible = "ti,tmp275";
++		reg = <0x48>;
++	};
++
++	tmp275@4a {
++		compatible = "ti,tmp275";
++		reg = <0x4a>;
++	};
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&wdt1 {
++	aspeed,reset-type = "none";
++	aspeed,external-signal;
++	aspeed,ext-push-pull;
++	aspeed,ext-active-high;
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdtrst1_default>;
++};
++
++&wdt2 {
++	aspeed,alt-boot;
++};
++
++&ibt {
++	status = "okay";
++};
++
++&adc {
++	status = "okay";
++};
++
++#include "ibm-power9-dual.dtsi"
 -- 
-2.21.0.593.g511ec345e18-goog
+1.8.3.1
