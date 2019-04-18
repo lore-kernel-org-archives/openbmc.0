@@ -1,73 +1,73 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::443; helo=mail-pf1-x443.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::441; helo=mail-pf1-x441.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="rqjoxiyN"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="MbH1S6za"; 
  dkim-atps=neutral
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-pf1-x441.google.com (mail-pf1-x441.google.com
+ [IPv6:2607:f8b0:4864:20::441])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKQ58g7zDqSS;
- Fri, 19 Apr 2019 05:58:34 +1000 (AEST)
-Received: by mail-pf1-x443.google.com with SMTP id c207so1573930pfc.7;
- Thu, 18 Apr 2019 12:58:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=B+LNAKL2mwreepfAxVSDlLeu1nTRg9NDiYI0VC4TC00=;
- b=rqjoxiyNXurY80FdMqb1XIcVY1Nud70uNtYmfruRMk2u2YXL4fTnC7SeQsHVDfnZIv
- +2wwohnJUklymDYYzMcsp0nJDENdX0qkePVfhDHjPngp88FT+qHbXcQNgUVft7MUszgD
- BhlRol4n1F82v74M5vehGKqa01BQy1u+S0ospxjCt+ZHr4NIBNpq0TCN28WsZ0j8lmVZ
- tl+khSzxsQIk4LG5374Sd2h6C3YAhNHv2WooJRvYf/LZUUvPKDOLCg2TqmL2tNKrfKa0
- pnRm/jqjXJ58kgtDS3oQacPwWYljpZN6GmieljHz1cnbDVJCd3DHWGIJFCYn+c66KCP0
- nZOw==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lW8P6kKczDqRs
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 06:35:47 +1000 (AEST)
+Received: by mail-pf1-x441.google.com with SMTP id t21so1625586pfh.2
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 13:35:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=BbxZ1Wm3vrcS9rLeR0qxSNVZn0SFBfcNjWi2YkD4UlA=;
+ b=MbH1S6za1ShbicEWvBz4SvdQrGZEtT2+ggWSg/UIQoXd/22DBvpUlLbUamWzGMGZU6
+ Xjy6X2VgGHPCwwlJJ+EFTgj9GA40yTdwhK6uQu3wplSyCVb0dODkl2COmAod+1kn5SZS
+ p/PpQWsHKmzWdBJ2ZslhHdNHypKgHSmfeAoy+0I834YIQp/shyH/Nl8dr1ki2RSY8Xru
+ uyUhs9QQWCOL24hZZmOpYfBaf+uTUcEMxUu0syEHqk4R2wT4bM45VpFLC6wHvWqO1xfA
+ lBOzlXU/V0l7DKbVEVopqf/4knCZz2FzM53ZoXkZgSghf2N6ByBfVLgeG1HZGROSw1Nb
+ YYUw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references;
- bh=B+LNAKL2mwreepfAxVSDlLeu1nTRg9NDiYI0VC4TC00=;
- b=hpf451TpnWj+a89MN+zaxWN0y4dGp4SOq9IbZEPofJhzJtQwZpLp80Wsk8MawsjgcP
- JDKjzSjdT3hKPey5UjsKQgGI+VJNd7/b27NBWzoq7YO1yr1RhL5UtteJh+ES2Sf0XMdl
- M0FCtvrixdNSeWpiJqns9IA+tZshkfQmTh8vLVhuQo3DzGjGsJFsAdoDyH2N7zDupaVr
- ahUePC6Dq4tzUOLn0ojNbgSuYQC7EeWkmBnCJaLJbpBsB8tm+UbZPlzadRRoBJ5rDauo
- D7QZLfjRkRWN2GaGHZWKDAaM9eMGRC2/aK4lS90+7sg3Kuos5euY2gpxCFoBOL35/mLH
- kgOA==
-X-Gm-Message-State: APjAAAXUvCxcEQsrBzVpljmOnbr/joGW6Ik437uNpMaG5eMMn9RrK92Q
- ngIPYMS/bjXX8owrBImVSig=
-X-Google-Smtp-Source: APXvYqyrcCmw+O4OFChgOEXhNjU0JwgPzu/CWUETVfyzN5U3Q8MjuDahbKsOjMdag3oLd5f74B99MA==
-X-Received: by 2002:a65:6144:: with SMTP id o4mr90124351pgv.247.1555617512356; 
- Thu, 18 Apr 2019 12:58:32 -0700 (PDT)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id s9sm4219784pfe.183.2019.04.18.12.58.31
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 18 Apr 2019 12:58:31 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-To: linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-pm@vger.kernel.org
-Cc: Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Avi Fishman <avifishman70@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, Kamil Debski <kamil@wypas.org>,
- Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
- Zhang Rui <rui.zhang@intel.com>, Eduardo Valentin <edubezval@gmail.com>,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Lukasz Majewski <l.majewski@samsung.com>
-Subject: [PATCH 6/6] hwmon: (pwm-fan) Use
- devm_thermal_of_cooling_device_register
-Date: Thu, 18 Apr 2019 12:58:20 -0700
-Message-Id: <1555617500-10862-7-git-send-email-linux@roeck-us.net>
-X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=BbxZ1Wm3vrcS9rLeR0qxSNVZn0SFBfcNjWi2YkD4UlA=;
+ b=mr23Kra9cDbPRAGQLCpfFkxyWgf8pibvs2so5gTJJlCqrOOOTP5jQeTvtOI/IuVpoY
+ dkyKZT1rhHofGqdE0E5sdNx8h2xTKPe79Wxy9+B/Ud8IDBOcNKhCiM6Y/Jvj+uu6DFjv
+ Gb+jhGhNr23BnbOzA1FMOsINBpthAENWkQdaoR5hHlZf+h8DXO/Um3uKU6cNT6nmM5XA
+ cQ4vua6E3/vtr1+faJB5jes4pxQx4X6oacH6ggM8CU/Ko17Z2AbRc9j7rz5xS9PmODa0
+ 2FCV1S4MCg6BUl8tX/CUwKmvE9Iu4L3ycSLziFvboJYWEUtAwuYnfGeogKl8r4IZXuCD
+ 4QIw==
+X-Gm-Message-State: APjAAAUl4365SfrVhS/01CYZeb2A0m6nbeVl4S5xxqdXjEnDVDW7b7Rx
+ GezknfMDXsNwEaevdMgRIkNQght6eXZt7pzMI9AG4Q==
+X-Google-Smtp-Source: APXvYqwJu5yh75P2ZTkxNCKTm19mCqS0f4dpN9Cz+/MNhiMAUzkgt2ELcK9WvoF55QgihDmewEjQ5sRxNZQ3THh5GlU=
+X-Received: by 2002:a63:e850:: with SMTP id a16mr86906748pgk.195.1555619742538; 
+ Thu, 18 Apr 2019 13:35:42 -0700 (PDT)
+MIME-Version: 1.0
 References: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
+ <1555617500-10862-3-git-send-email-linux@roeck-us.net>
+In-Reply-To: <1555617500-10862-3-git-send-email-linux@roeck-us.net>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 18 Apr 2019 13:35:31 -0700
+Message-ID: <CAO=notxzQUyRJ4L7w6o4Cdbwp-Sg4FXyMDgJUN-7YPm9JgiQuw@mail.gmail.com>
+Subject: Re: [PATCH 2/6] hwmon: (aspeed-pwm-tacho) Use
+ devm_thermal_of_cooling_device_register
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, 
+ "moderated list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>, linux-aspeed@lists.ozlabs.org, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
+ linux-pm@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Joel Stanley <joel@jms.id.au>, 
+ Andrew Jeffery <andrew@aj.id.au>, Avi Fishman <avifishman70@gmail.com>, 
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Kamil Debski <kamil@wypas.org>,
+ Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>, 
+ Zhang Rui <rui.zhang@intel.com>, Eduardo Valentin <edubezval@gmail.com>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Mykola Kostenok <c_mykolak@mellanox.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,173 +79,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 19:58:34 -0000
+X-List-Received-Date: Thu, 18 Apr 2019 20:35:50 -0000
 
-Use devm_thermal_of_cooling_device_register() to register the cooling
-device. Also use devm_add_action_or_reset() to stop the fan on device
-removal, and to disable the pwm. Introduce a local 'dev' variable in
-the probe function to make the code easier to read.
+On Thu, Apr 18, 2019 at 12:58 PM Guenter Roeck <linux@roeck-us.net> wrote:
+>
+> Use devm_thermal_of_cooling_device_register() to register the cooling
+> device. As a side effect, this fixes a driver bug:
+> thermal_cooling_device_unregister() was not called on removal.
+>
+> Fixes: f198907d2ff6d ("hwmon: (aspeed-pwm-tacho) cooling device support.")
+> Cc: Mykola Kostenok <c_mykolak@mellanox.com>
+> Cc: Joel Stanley <joel@jms.id.au>
+> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-As a side effect, this fixes a bug seen if pwm_fan_of_get_cooling_data()
-returned an error. In that situation, the pwm was not disabled, and
-the fan was not stopped. Using devm functions also ensures that the
-pwm is disabled and that the fan is stopped only after the hwmon device
-has been unregistered.
+Reviewed-by: Patrick Venture <venture@google.com>
 
-Cc: Lukasz Majewski <l.majewski@samsung.com>
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
----
- drivers/hwmon/pwm-fan.c | 73 ++++++++++++++++++++-----------------------------
- 1 file changed, 29 insertions(+), 44 deletions(-)
-
-diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index 167221c7628a..0243ba70107e 100644
---- a/drivers/hwmon/pwm-fan.c
-+++ b/drivers/hwmon/pwm-fan.c
-@@ -207,33 +207,44 @@ static int pwm_fan_of_get_cooling_data(struct device *dev,
- 	return 0;
- }
- 
-+static void pwm_fan_regulator_disable(void *data)
-+{
-+	regulator_disable(data);
-+}
-+
-+static void pwm_fan_pwm_disable(void *data)
-+{
-+	pwm_disable(data);
-+}
-+
- static int pwm_fan_probe(struct platform_device *pdev)
- {
- 	struct thermal_cooling_device *cdev;
-+	struct device *dev = &pdev->dev;
- 	struct pwm_fan_ctx *ctx;
- 	struct device *hwmon;
- 	int ret;
- 	struct pwm_state state = { };
- 
--	ctx = devm_kzalloc(&pdev->dev, sizeof(*ctx), GFP_KERNEL);
-+	ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
- 	if (!ctx)
- 		return -ENOMEM;
- 
- 	mutex_init(&ctx->lock);
- 
--	ctx->pwm = devm_of_pwm_get(&pdev->dev, pdev->dev.of_node, NULL);
-+	ctx->pwm = devm_of_pwm_get(dev, dev->of_node, NULL);
- 	if (IS_ERR(ctx->pwm)) {
- 		ret = PTR_ERR(ctx->pwm);
- 
- 		if (ret != -EPROBE_DEFER)
--			dev_err(&pdev->dev, "Could not get PWM: %d\n", ret);
-+			dev_err(dev, "Could not get PWM: %d\n", ret);
- 
- 		return ret;
- 	}
- 
- 	platform_set_drvdata(pdev, ctx);
- 
--	ctx->reg_en = devm_regulator_get_optional(&pdev->dev, "fan");
-+	ctx->reg_en = devm_regulator_get_optional(dev, "fan");
- 	if (IS_ERR(ctx->reg_en)) {
- 		if (PTR_ERR(ctx->reg_en) != -ENODEV)
- 			return PTR_ERR(ctx->reg_en);
-@@ -242,10 +253,11 @@ static int pwm_fan_probe(struct platform_device *pdev)
- 	} else {
- 		ret = regulator_enable(ctx->reg_en);
- 		if (ret) {
--			dev_err(&pdev->dev,
--				"Failed to enable fan supply: %d\n", ret);
-+			dev_err(dev, "Failed to enable fan supply: %d\n", ret);
- 			return ret;
- 		}
-+		devm_add_action_or_reset(dev, pwm_fan_regulator_disable,
-+					 ctx->reg_en);
- 	}
- 
- 	ctx->pwm_value = MAX_PWM;
-@@ -257,62 +269,36 @@ static int pwm_fan_probe(struct platform_device *pdev)
- 
- 	ret = pwm_apply_state(ctx->pwm, &state);
- 	if (ret) {
--		dev_err(&pdev->dev, "Failed to configure PWM\n");
--		goto err_reg_disable;
-+		dev_err(dev, "Failed to configure PWM\n");
-+		return ret;
- 	}
-+	devm_add_action_or_reset(dev, pwm_fan_pwm_disable, ctx->pwm);
- 
--	hwmon = devm_hwmon_device_register_with_groups(&pdev->dev, "pwmfan",
-+	hwmon = devm_hwmon_device_register_with_groups(dev, "pwmfan",
- 						       ctx, pwm_fan_groups);
- 	if (IS_ERR(hwmon)) {
--		dev_err(&pdev->dev, "Failed to register hwmon device\n");
--		ret = PTR_ERR(hwmon);
--		goto err_pwm_disable;
-+		dev_err(dev, "Failed to register hwmon device\n");
-+		return PTR_ERR(hwmon);
- 	}
- 
--	ret = pwm_fan_of_get_cooling_data(&pdev->dev, ctx);
-+	ret = pwm_fan_of_get_cooling_data(dev, ctx);
- 	if (ret)
- 		return ret;
- 
- 	ctx->pwm_fan_state = ctx->pwm_fan_max_state;
- 	if (IS_ENABLED(CONFIG_THERMAL)) {
--		cdev = thermal_of_cooling_device_register(pdev->dev.of_node,
--							  "pwm-fan", ctx,
--							  &pwm_fan_cooling_ops);
-+		cdev = devm_thermal_of_cooling_device_register(dev,
-+			dev->of_node, "pwm-fan", ctx, &pwm_fan_cooling_ops);
- 		if (IS_ERR(cdev)) {
--			dev_err(&pdev->dev,
-+			dev_err(dev,
- 				"Failed to register pwm-fan as cooling device");
--			ret = PTR_ERR(cdev);
--			goto err_pwm_disable;
-+			return PTR_ERR(cdev);
- 		}
- 		ctx->cdev = cdev;
- 		thermal_cdev_update(cdev);
- 	}
- 
- 	return 0;
--
--err_pwm_disable:
--	state.enabled = false;
--	pwm_apply_state(ctx->pwm, &state);
--
--err_reg_disable:
--	if (ctx->reg_en)
--		regulator_disable(ctx->reg_en);
--
--	return ret;
--}
--
--static int pwm_fan_remove(struct platform_device *pdev)
--{
--	struct pwm_fan_ctx *ctx = platform_get_drvdata(pdev);
--
--	thermal_cooling_device_unregister(ctx->cdev);
--	if (ctx->pwm_value)
--		pwm_disable(ctx->pwm);
--
--	if (ctx->reg_en)
--		regulator_disable(ctx->reg_en);
--
--	return 0;
- }
- 
- #ifdef CONFIG_PM_SLEEP
-@@ -380,7 +366,6 @@ MODULE_DEVICE_TABLE(of, of_pwm_fan_match);
- 
- static struct platform_driver pwm_fan_driver = {
- 	.probe		= pwm_fan_probe,
--	.remove		= pwm_fan_remove,
- 	.driver	= {
- 		.name		= "pwm-fan",
- 		.pm		= &pwm_fan_pm,
--- 
-2.7.4
+> ---
+>  drivers/hwmon/aspeed-pwm-tacho.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
+>
+> diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+> index c4dd6301e7c8..0daf0b32aa4a 100644
+> --- a/drivers/hwmon/aspeed-pwm-tacho.c
+> +++ b/drivers/hwmon/aspeed-pwm-tacho.c
+> @@ -830,10 +830,8 @@ static int aspeed_create_pwm_cooling(struct device *dev,
+>         }
+>         snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%pOFn%d", child, pwm_port);
+>
+> -       cdev->tcdev = thermal_of_cooling_device_register(child,
+> -                                                        cdev->name,
+> -                                                        cdev,
+> -                                                        &aspeed_pwm_cool_ops);
+> +       cdev->tcdev = devm_thermal_of_cooling_device_register(dev, child,
+> +                                       cdev->name, cdev, &aspeed_pwm_cool_ops);
+>         if (IS_ERR(cdev->tcdev))
+>                 return PTR_ERR(cdev->tcdev);
+>
+> --
+> 2.7.4
+>
