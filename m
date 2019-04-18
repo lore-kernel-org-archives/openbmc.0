@@ -6,71 +6,68 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Mq8vOMN/"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="UiCSZb2o"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="BFQwQ486"; dkim-atps=neutral
+ header.b="baCRJWPI"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44l7yK2X6ZzDqNL
- for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:10:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44l7z55qYPzDqRm
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:11:29 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 4F6F4220CB;
- Thu, 18 Apr 2019 02:10:45 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 799ED220CB;
+ Thu, 18 Apr 2019 02:11:27 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:10:45 -0400
+ by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:11:27 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type:content-transfer-encoding; s=fm2; bh=d4YQI
- Ph5yvhdBgFqRMNCtwK9sVN4PLyeSD6zhbPLOn4=; b=Mq8vOMN/PRxkOD6iwE2T7
- ziwdDpzVBTOv5KL/Vs7d/GFVs1md28eKVjyfx+fenVoasLqIaVn7xlR+iKTin42D
- UypP2GztomZOWXRfC1o+spKXa4vJjIanpVZfuI5umbAdcRW2CD8uA6R1qRqol8hL
- lWz3JyhZK+VGcUyxsOeBFVOoCCo69F7Me098rcYyCpShAliBsHiSmptR/V14rLkv
- JdSmkmusHIr0sg9dU9HoqFmAJumGuyjUwPB9Z/+p0BrV+T6yEoW0lHvN2kf9lkbU
- ur2KM7LyaKJ+BV+mif7Z1DJ0KQDSnJuf4rtgoKfzL/tNa3R0TA6HjqS6iJfapXpE
- A==
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm2; bh=zqcg5RWTLmjVb2vz+VBSAdH9QP9gKSN
+ Fru1Qr2AjS4k=; b=UiCSZb2oom6EnkKW2GiGAySNzEKBFnstMWB9TvA7kcjyOX1
+ nV+ySDCLA7efIPTg/JCLxQeAqlX/CajFs4RJ4ZCej5f4/yTvmuealzIkfbrMeAZX
+ QDOUxfiPhUW++DEUokphGhyeHjmlHxDUvDJ3dpM0L1bRtnU88oYruKssesELZ7xw
+ Vrs1GTJbNGdBExHNzpghmEppRQw3rjkAU1d5iDVDJ5zgzKZ34v+dDHMuKP76vLOv
+ 3xtVeW2rZbRJQZ2v0Ap+E5l2YAITbF0+MFZLipcfpuQyoG/Biqp45SOVgzxBlIRW
+ ePb2bUzujDFGNk9Ggo6KoVPAFGzrysv9dcssZIQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=d4YQIPh5yvhdBgFqRMNCtwK9sVN4PLyeSD6zhbPLO
- n4=; b=BFQwQ486/+c8iptfZphh7LasOxh4YH1LVM+nduJn5+LmkTn2w7FnO//+G
- SiTg8+6mVu5C2/nva5tC2s/uJ1f/ZbFI5L8Zqz4UFtbiqwA9J5FKk+Vp2fR9uDzr
- 6o3rmPe73sOMmLOWpJOkwpgF+meGGJfyfjX5Xhb+99nDF2Iy8j5k1towJZN31OzQ
- qKKmhiSTPczkBNklygATM2C3cDNVyh1Pyyu+HKdkVO6uilRAHrGeTBBI5cgEW1AZ
- sSouWproPLbueiA9RiC+ImDRV9Ym0gw3wyzgTocEBswONF8GvrURxC88aScKjRY6
- QDS9s4eY3zllAqibrJAURVV9pYRtQ==
-X-ME-Sender: <xms:5RS4XN9XApmU_bANES_Pe5G1p9a8ojzULEpNQgqXd82ixtJwrlOTzw>
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zqcg5R
+ WTLmjVb2vz+VBSAdH9QP9gKSNFru1Qr2AjS4k=; b=baCRJWPIJrG0QR/tRX41+g
+ hX1L8ARhH1FXRHIYA1zUKd7eizY02HCuulehHAfeI7u+nJkRMOPJuvbzIkgEFz8+
+ QUbfEFQqSxbSVF2hAkF83NrflLXhEQ00NvInOqHKFVVt04u3qITOEQkSu8CZBYBC
+ gRh2rhSEjWLFmF3SaxkMMSdu/CLJqnF5T6sXBQ2+wTdBFQLf9QcFdZZ/Z+3NTwlK
+ CE/XpH1AZMiVdWqzzClFztinOSfkQ8jLVL7AZK0GzSiRG39q/XiBTXwJILJ8dM4z
+ leADmWukggpdtlrgnBtJHWCq2nja/QJbDVkWNyF0ZMPsErygKGAPTa2QdqrgUD7A
+ ==
+X-ME-Sender: <xms:DxW4XHUia3DOHQPbvY3plS5feXjTecC9d1suHALGu_G8yvqujzp6Mg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfeeggddutddvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgfgsehtqhertderreejnecuhfhrohhmpedftehn
- ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrg
- hrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushht
- vghrufhiiigvpedt
-X-ME-Proxy: <xmx:5RS4XKy59P0iXKV28jDmzw35oMP3lQ7B76InkrZJqIPAJ1v3xTJTIA>
- <xmx:5RS4XEHz_1ajHqXW8wBIhmfYuKER8nVaYavwdCYY_TcD0_MwWH-uXQ>
- <xmx:5RS4XNN3Vb4eGfhltrrdJpGZukr5XBbSWf0INMYu9eGvaUkgDTLPIg>
- <xmx:5RS4XKkLT--htp66-qqTQZq4ohVZKEJN6bBT2PSCLBj0A8LDtc8N2Q>
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:DxW4XLZpNQUDJ-3HCj9XtJpJhCrdSzD0B_kH7YmHrSiUQwfNIAp12w>
+ <xmx:DxW4XJ2q5pdRV8EzQjU-qy3Z-kPHdMJ74TfJmW781XndjnD3xEPt4A>
+ <xmx:DxW4XPC3Zu2Ff6Dowe2nd3KSMnbchktrW9AifzKgaHIKsOQe65eRdg>
+ <xmx:DxW4XOEFFcpGlPORvkr9-6jLhevewBXyG1RhlX3BabMG7UsER_D8Yw>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 11D1D7C50A; Thu, 18 Apr 2019 02:10:45 -0400 (EDT)
+ id 083CC7C199; Thu, 18 Apr 2019 02:11:27 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.6-443-g918f9d3-fmstable-20190416v3
 Mime-Version: 1.0
 X-Me-Personality: 52947553
-Message-Id: <1bc914b9-8a5f-4933-a341-f743714de894@www.fastmail.com>
-In-Reply-To: <20190417133941.22962-5-clg@kaod.org>
-References: <20190417133941.22962-1-clg@kaod.org>
- <20190417133941.22962-5-clg@kaod.org>
-Date: Thu, 18 Apr 2019 02:10:44 -0400
+Message-Id: <89b5ffc8-93d5-4bff-9bd2-12a1a058cbbf@www.fastmail.com>
+In-Reply-To: <1555429864-23291-1-git-send-email-eajames@linux.ibm.com>
+References: <1555429864-23291-1-git-send-email-eajames@linux.ibm.com>
+Date: Thu, 18 Apr 2019 02:11:26 -0400
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_dev-5.0_4/4]_mtd:_spi-nor:_aspeed:_add_support_for_?=
- =?UTF-8?Q?the_4B_opcodes?=
-Content-Type: text/plain;charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+To: "Eddie James" <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
+Subject: =?UTF-8?Q?Re:_[PATCH_dev-5.0_v2_1/2]_hwmon_(occ):_Store_error_condition_?=
+ =?UTF-8?Q?for_rate-limited_polls?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,54 +79,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 06:10:50 -0000
+X-List-Received-Date: Thu, 18 Apr 2019 06:11:30 -0000
 
-
-
-On Wed, 17 Apr 2019, at 23:10, C=C3=A9dric Le Goater wrote:
-> Switch the default controller value to use the read mode in order to
-> customize the command and use SPINOR_OP_READ_4B (0x13) when the chip
-> supports 4B opcodes.
->=20
-> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+On Wed, 17 Apr 2019, at 01:22, Eddie James wrote:
+> The OCC driver limits the rate of sending poll commands to the OCC. If a
+> user reads a hwmon entry after a poll response resulted in an error and
+> is rate-limited, the error is invisible to the user. Fix this by storing
+> the last error and returning that in the rate-limited case.
+> 
+> Signed-off-by: Eddie James <eajames@linux.ibm.com>
 > ---
->  drivers/mtd/spi-nor/aspeed-smc.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c=20
-> b/drivers/mtd/spi-nor/aspeed-smc.c
-> index 7e289ecb1c99..1200b23416e3 100644
-> --- a/drivers/mtd/spi-nor/aspeed-smc.c
-> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
-> @@ -890,14 +890,21 @@ static u32 aspeed_smc_default_read(struct=20
-> aspeed_smc_chip *chip)
->  	 */
->  	u32 ctl_mask =3D chip->controller->info =3D=3D &spi_2400_info ?
->  		 CONTROL_IO_ADDRESS_4B : 0;
-> +	u8 cmd =3D chip->nor.flags & SNOR_F_4B_OPCODES ? SPINOR_OP_READ_4B :=
-
-> +		SPINOR_OP_READ;
-> =20
-> +	/*
-> +	 * Use the "read command" mode to customize the opcode. In
-> +	 * normal command mode, the value is necessarily READ (0x3) on
-> +	 * the AST2400/2500 SoCs.
-> +	 */
->  	return (chip->ctl_val[smc_read] & ctl_mask) |
->  		(0x00 << 28) | /* Single bit */
->  		(0x00 << 24) | /* CE# max */
-> -		(0x03 << 16) | /* use normal reads */
-> +		(cmd  << 16) | /* use read mode to support 4B opcode */
->  		(0x00 <<  8) | /* HCLK/16 */
->  		(0x00 <<  6) | /* no dummy cycle */
-> -		(0x00);        /* normal mode */
-> +		(0x01);        /* read mode */
->  }
-> =20
->  static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
-> --=20
-> 2.20.1
->=20
+>  drivers/hwmon/occ/common.c | 4 ++++
+>  drivers/hwmon/occ/common.h | 3 ++-
+>  2 files changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> index c888f4a..0e812ef 100644
+> --- a/drivers/hwmon/occ/common.c
+> +++ b/drivers/hwmon/occ/common.c
+> @@ -138,6 +138,7 @@ static int occ_poll(struct occ *occ)
+>  	/* mutex should already be locked if necessary */
+>  	rc = occ->send_cmd(occ, cmd);
+>  	if (rc) {
+> +		occ->last_error = rc;
+>  		if (occ->error_count++ > OCC_ERROR_COUNT_THRESHOLD)
+>  			occ->error = rc;
+>  
+> @@ -146,6 +147,7 @@ static int occ_poll(struct occ *occ)
+>  
+>  	/* clear error since communication was successful */
+>  	occ->error_count = 0;
+> +	occ->last_error = 0;
+>  	occ->error = 0;
+>  
+>  	/* check for safe state */
+> @@ -207,6 +209,8 @@ int occ_update_response(struct occ *occ)
+>  	if (time_after(jiffies, occ->last_update + OCC_UPDATE_FREQUENCY)) {
+>  		rc = occ_poll(occ);
+>  		occ->last_update = jiffies;
+> +	} else {
+> +		rc = occ->last_error;
+>  	}
+>  
+>  	mutex_unlock(&occ->lock);
+> diff --git a/drivers/hwmon/occ/common.h b/drivers/hwmon/occ/common.h
+> index 7c44df3..c676e48 100644
+> --- a/drivers/hwmon/occ/common.h
+> +++ b/drivers/hwmon/occ/common.h
+> @@ -105,7 +105,8 @@ struct occ {
+>  	struct attribute_group group;
+>  	const struct attribute_group *groups[2];
+>  
+> -	int error;                      /* latest transfer error */
+> +	int error;                      /* final transfer error after retry */
+> +	int last_error;			/* latest transfer error */
+>  	unsigned int error_count;       /* number of xfr errors observed */
+>  	unsigned long last_safe;        /* time OCC entered "safe" state */
+>  
+> -- 
+> 2.7.4
+> 
 >
 
 Applied to dev-5.0.
