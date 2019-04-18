@@ -6,68 +6,72 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lMFsWwcl"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="BEl5FBuG"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Iy32mErH"; dkim-atps=neutral
+ header.b="Lo77qv7z"; dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44l7zc5PMBzDqSC
- for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:11:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44l81T5HsQzDqQN
+ for <openbmc@lists.ozlabs.org>; Thu, 18 Apr 2019 16:13:33 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 55D4F21321;
- Thu, 18 Apr 2019 02:11:54 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 014FF21FBA;
+ Thu, 18 Apr 2019 02:13:31 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:11:54 -0400
+ by compute4.internal (MEProxy); Thu, 18 Apr 2019 02:13:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm2; bh=4EU3bB1ya0dZR7cNopgb3xobIUdItzC
- aphchwZdogZw=; b=lMFsWwclAZYKv5ikq2Oa4K+YZzhk1HwOBJ3huNn440l9uGa
- i9RNe4r+E1F5Ol9TdKs+oz9WBbgs42mRVOH56uM65feQFZ6vQJpfr6Mtq71FThCk
- 3hxFP9Pdh5nOdpCSogrVjgPokkC9BafGzIGEhyVyMj4Oke9qobW72YS416Ere6xi
- OcrqceTku7VKXeQ+2hgA601+IriryV/K1fedQxvejWwOc+lshu1LSReiNbmr5PE9
- c91OCIx0yK/67x3ALp/+GTMoxT64b12eAH271Gv9rvfbSp0vxH8mSXfaSTMSf6pC
- huovhiR9UJee4Ib4llhVTXWuErwoX/vdBDsmZnQ==
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=CSBkmiFbkIg7HsMq+/E9ZsRsqSlF4QG
+ BZJx4FtPSDeM=; b=BEl5FBuGKgkJltPdnKXRf92X4poQwG0NlmiYj3n1B12cxFO
+ +7WguAOiJfZ94GrLSuqlFEW/h1C4Yb4L1iycuNOkbGaoe+Pckx9Zojc5+5NtMFkA
+ 1toZVd2b+q/19aT1zWmlZTI8dlIZ/gnHCz+k84N+QvKs2HQUV2mojwihHAQZlGGd
+ FLslhm9ii5IccnauGcuLaCPq3WOHo95na2gBJjpmmiiK24W2UBNJu0o75fOGU9Bl
+ x9CRMECrHJXFFYvTvH4KPIrzBmkpwQyezsvwBBlkrEfT+F4Jooyd4mhZlmmIQQhD
+ v0Y8mzbuRyu5ufNIncDAJscvc5c2bKoGqAdHvuw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=4EU3bB
- 1ya0dZR7cNopgb3xobIUdItzCaphchwZdogZw=; b=Iy32mErHFmCDXlOnECLGXN
- OZf7oWwWEesz4y918k9bLWYi706Sh/useRUWZdun/+WIw0ogR0xlVBWgCCn05L8E
- pY/DyDePu5th5pu5Kcm+q01gO3jfD4MzXpJqdSE+1FhXFZzUBR8MggKZnOeUFMm6
- N4K8FMTm7RzIC2avyPsbBxx5fsxoQ9+uiPPaGZxxIJXhWmITtD+WWUp+1kslncoF
- aH/vYdsRl4xEhEE2HCxr0OGSlYBF+YRTkcHRdwrkmOcQvpoMps0wFb/ycPK3Ctbz
- M3wBEefFM2KhjfE8cIEz9IVGdH4N8Bbuq1pqHQ/3GPXIbnVPD7NiG9epnEqj06Rg
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=CSBkmi
+ FbkIg7HsMq+/E9ZsRsqSlF4QGBZJx4FtPSDeM=; b=Lo77qv7zFdDKybpDMkZow+
+ FqcCrS/v+L37mSsfQwtPt+gMLdrfhCPDaAeqBydcgiWDuQKgmd2qUz8LS8xdRxx4
+ 1bfA3vPNDZr+EFyx5iD0rJum3JZ7Z7N9j8ahu9XLdT5lQTo/sR5pmfhA9A1EgUId
+ RdDfLc+ZGEkQpEPx+rJ6jYX5BBodC1SUMfgZlQGO8bMrskzatHuulivXBaVkXw51
+ HBTmm31VXvXkdaK7DhZN+SgqjrtVcZwvBiDAlQEEmU8nQKbSy4bbT8dEzV/W2svM
+ sWzDE63RqOv7EsvrRX59VleqO6mQ1ba9+4bMYV96pLkNrgeazsrQfATu747jCb2Q
  ==
-X-ME-Sender: <xms:KhW4XK-qGzaVSTTguRav3NfDg5ZrPe3dutkC6m_4RWpjtJyODF42kQ>
+X-ME-Sender: <xms:iRW4XK3m1KAnkyHl192Fh6oWVe2pvrR1psfJQIXjdPHfFRXjyD0G0w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrfeeggddutddvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
  rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuffhomh
- grihhnpegrthhtrhdrnhgrmhgvnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgv
- fiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:KhW4XEAY0_HhPl2XCoyPNz7emnNHWrYFiNbfngduBahXIx-wX1YcyA>
- <xmx:KhW4XIA8fMPzgTNyLwVFGu0CAxH-XCQ6ZUFjFT4BGjUXXyhUyCebnw>
- <xmx:KhW4XMIhUOSW4Vay0iPRepL8iBLffBnHiEy67VI-3FGYPfkjNcYRmQ>
- <xmx:KhW4XOkDUOzJZ5GuHAZkrQh9U9lGYk3p_afGS1Z7cI_d9z_2xw61Cg>
+ grihhnpehgihhthhhusgdrtghomhenucfrrghrrghmpehmrghilhhfrhhomheprghnughr
+ vgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:ihW4XJaSDDFLC8ECRjpcoK-KAG6-GvcZJjFcHGl4_8z7onn8mKR2eQ>
+ <xmx:ihW4XFo3VHOhrhb_u4N-kPN6l26Si9OqLWhtod_d34ZNwUGlMidYxw>
+ <xmx:ihW4XNoMIrDvLAvc82bozyyAJFX245kwXlmsGXs61JRwKyCyyLrEWA>
+ <xmx:ihW4XMkUzJK-EEjLEiKcAJAF0Jh1qTZt-UN4UvlQuzy_OXJBfoKPhQ>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 06B8B7C50A; Thu, 18 Apr 2019 02:11:54 -0400 (EDT)
+ id C96557C50A; Thu, 18 Apr 2019 02:13:29 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.6-443-g918f9d3-fmstable-20190416v3
 Mime-Version: 1.0
 X-Me-Personality: 52947553
-Message-Id: <83b1aecf-e279-4840-903e-a8df56286820@www.fastmail.com>
-In-Reply-To: <1555429864-23291-2-git-send-email-eajames@linux.ibm.com>
-References: <1555429864-23291-1-git-send-email-eajames@linux.ibm.com>
- <1555429864-23291-2-git-send-email-eajames@linux.ibm.com>
-Date: Thu, 18 Apr 2019 02:11:53 -0400
+Message-Id: <ad65dfe7-ef82-4a71-8c3f-3fceb13e0789@www.fastmail.com>
+In-Reply-To: <20190417193614.GB23825@roeck-us.net>
+References: <6a6dd936-9f97-dcfe-65a1-d724a7c20297@yadro.com>
+ <1555524209-26997-1-git-send-email-a.amelkin@yadro.com>
+ <48e874f0-c865-12c7-cf93-5e569c27f877@linux.ibm.com>
+ <20190417193614.GB23825@roeck-us.net>
+Date: Thu, 18 Apr 2019 02:13:29 -0400
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Eddie James" <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_dev-5.0_v2_2/2]_hwmon_(occ):_Prevent_sysfs_error_at?=
- =?UTF-8?Q?tribute_from_returning_error?=
+To: "Eddie James" <eajames@linux.ibm.com>,
+ "Alexander Amelkin" <a.amelkin@yadro.com>,
+ "Alexander Soldatov" <a.soldatov@yadro.com>
+Cc: "Edward A. James" <eajames@us.ibm.com>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v2 1/1] hwmon (occ): Add temp sensor value check
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -80,93 +84,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Apr 2019 06:11:57 -0000
+X-List-Received-Date: Thu, 18 Apr 2019 06:13:34 -0000
 
 
 
-On Wed, 17 Apr 2019, at 01:22, Eddie James wrote:
-> The error sysfs attribute returns the stored error state of the OCC and
-> doesn't depend on the OCC poll response. Therefore, split the error
-> attribute into it's own function to avoid failing out of the function if
-> the poll response fails.
+On Thu, 18 Apr 2019, at 05:07, Guenter Roeck wrote:
+> On Wed, Apr 17, 2019 at 01:35:41PM -0500, Eddie James wrote:
+> > 
+> > On 4/17/19 1:03 PM, Alexander Amelkin wrote:
+> > >From: Alexander Soldatov <a.soldatov@yadro.com>
+> > >
+> > >The occ driver supports two formats for the temp sensor value.
+> > >
+> > >The OCC firmware for P8 supports only the first format, for which
+> > >no range checking or error processing is performed in the driver.
+> > >Inspecting the OCC sources for P8 reveals that OCC may send
+> > >a special value 0xFFFF to indicate that a sensor read timeout
+> > >has occurred, see
+> > >
+> > >https://github.com/open-power/occ/blob/master_p8/src/occ/cmdh/cmdh_fsp_cmds.c#L395
+> > >
+> > >That situation wasn't handled in the driver. This patch adds invalid
+> > >temp value check for the sensor data format 1 and handles it the same
+> > >way as it is done for the format 2, where EREMOTEIO is reported for
+> > >this case.
+> > 
+> > 
+> > Thanks Alexander and Guenter.
+> > 
+> > 
+> > Reviewed-by: Eddie James <eajames@linux.ibm.com>
+> > 
 > 
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
-> Changes since v1 (to match what went upstream):
->  - renamed occ_sysfs_error to occ_error_show
->  - switched to DEVICE_ATTR_RO for occ_error
-> 
->  drivers/hwmon/occ/sysfs.c | 19 +++++++++++++------
->  1 file changed, 13 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/hwmon/occ/sysfs.c b/drivers/hwmon/occ/sysfs.c
-> index f04f502..1b599f4 100644
-> --- a/drivers/hwmon/occ/sysfs.c
-> +++ b/drivers/hwmon/occ/sysfs.c
-> @@ -71,9 +71,6 @@ static ssize_t occ_sysfs_show(struct device *dev,
->  		else
->  			val = 1;
->  		break;
-> -	case 8:
-> -		val = occ->error;
-> -		break;
->  	default:
->  		return -EINVAL;
->  	}
-> @@ -81,6 +78,16 @@ static ssize_t occ_sysfs_show(struct device *dev,
->  	return snprintf(buf, PAGE_SIZE - 1, "%d\n", val);
->  }
->  
-> +static ssize_t occ_error_show(struct device *dev,
-> +			      struct device_attribute *attr, char *buf)
-> +{
-> +	struct occ *occ = dev_get_drvdata(dev);
-> +
-> +	occ_update_response(occ);
-> +
-> +	return snprintf(buf, PAGE_SIZE - 1, "%d\n", occ->error);
-> +}
-> +
->  static SENSOR_DEVICE_ATTR(occ_master, 0444, occ_sysfs_show, NULL, 0);
->  static SENSOR_DEVICE_ATTR(occ_active, 0444, occ_sysfs_show, NULL, 1);
->  static SENSOR_DEVICE_ATTR(occ_dvfs_overtemp, 0444, occ_sysfs_show, 
-> NULL, 2);
-> @@ -89,7 +96,7 @@ static SENSOR_DEVICE_ATTR(occ_mem_throttle, 0444, 
-> occ_sysfs_show, NULL, 4);
->  static SENSOR_DEVICE_ATTR(occ_quick_pwr_drop, 0444, occ_sysfs_show, 
-> NULL, 5);
->  static SENSOR_DEVICE_ATTR(occ_state, 0444, occ_sysfs_show, NULL, 6);
->  static SENSOR_DEVICE_ATTR(occs_present, 0444, occ_sysfs_show, NULL, 7);
-> -static SENSOR_DEVICE_ATTR(occ_error, 0444, occ_sysfs_show, NULL, 8);
-> +static DEVICE_ATTR_RO(occ_error);
->  
->  static struct attribute *occ_attributes[] = {
->  	&sensor_dev_attr_occ_master.dev_attr.attr,
-> @@ -100,7 +107,7 @@ static struct attribute *occ_attributes[] = {
->  	&sensor_dev_attr_occ_quick_pwr_drop.dev_attr.attr,
->  	&sensor_dev_attr_occ_state.dev_attr.attr,
->  	&sensor_dev_attr_occs_present.dev_attr.attr,
-> -	&sensor_dev_attr_occ_error.dev_attr.attr,
-> +	&dev_attr_occ_error.attr,
->  	NULL
->  };
->  
-> @@ -164,7 +171,7 @@ void occ_sysfs_poll_done(struct occ *occ)
->  	}
->  
->  	if (occ->error && occ->error != occ->prev_error) {
-> -		name = sensor_dev_attr_occ_error.dev_attr.attr.name;
-> +		name = dev_attr_occ_error.attr.name;
->  		sysfs_notify(&occ->bus_dev->kobj, NULL, name);
->  	}
->  
-> -- 
-> 2.7.4
-> 
->
+> Applied.
 
-Applied to dev-5.0.
+I've backported and applied this to dev-5.0.
 
 Cheers,
 
 Andrew
+
+> 
+> Thanks,
+> Guenter
+> 
+> > 
+> > >
+> > >Signed-off-by: Alexander Soldatov <a.soldatov@yadro.com>
+> > >Signed-off-by: Alexander Amelkin <a.amelkin@yadro.com>
+> > >Reviewed-by: Alexander Amelkin <a.amelkin@yadro.com>
+> > >Cc: Edward A. James <eajames@us.ibm.com>
+> > >Cc: Joel Stanley <joel@jms.id.au>
+> > >---
+> > >  drivers/hwmon/occ/common.c | 4 ++++
+> > >  1 file changed, 4 insertions(+)
+> > >
+> > >diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+> > >index 4679acb..825631c 100644
+> > >--- a/drivers/hwmon/occ/common.c
+> > >+++ b/drivers/hwmon/occ/common.c
+> > >@@ -235,6 +235,12 @@ static ssize_t occ_show_temp_1(struct device *dev,
+> > >  		val = get_unaligned_be16(&temp->sensor_id);
+> > >  		break;
+> > >  	case 1:
+> > >+		/*
+> > >+		 * If a sensor reading has expired and couldn't be refreshed,
+> > >+		 * OCC returns 0xFFFF for that sensor.
+> > >+		 */
+> > >+		if (temp->value == 0xFFFF)
+> > >+			return -EREMOTEIO;
+> > >  		val = get_unaligned_be16(&temp->value) * 1000;
+> > >  		break;
+> > >  	default:
+> > 
+>
