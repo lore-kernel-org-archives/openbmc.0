@@ -6,46 +6,46 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="aw4PbPE2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWr34zd2"; 
  dkim-atps=neutral
 Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
  [IPv6:2607:f8b0:4864:20::544])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKK1SCczDqSR;
- Fri, 19 Apr 2019 05:58:28 +1000 (AEST)
-Received: by mail-pg1-x544.google.com with SMTP id p6so1657113pgh.9;
- Thu, 18 Apr 2019 12:58:28 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKK0CYjzDqRg;
+ Fri, 19 Apr 2019 05:58:27 +1000 (AEST)
+Received: by mail-pg1-x544.google.com with SMTP id e6so1670486pgc.4;
+ Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=P2kSmkr0gjxDrzltwWGdPiHLXWPJpXIu1nScfCyroiQ=;
- b=aw4PbPE2LbcT7H4oTgNGIFAcjm+SZXbSWJcBJtNUrPH25VznEczbSeJ40NXsVwaMtx
- h6y3WWQzakymz1v9uoaJ+dbywvlrNiry1RccU8/skfi5CL4Vz3CaOoWOE7pyFskOJGme
- VOf9/JgETdp70sq0dVR6mv7ot3zZY+pKRTRtUFmhdr788n34/Y4G8wJOUVbmdktSV6iW
- TYcmy2Ow0VuVtGlgxYZirN62xuRxV2sICTJkCbsH+jBd8LPZCHBhL3IHbvEQpMmyqzxD
- oc3O2D6vdravLNIs9ZNnsLCcF+nTexby1/A5gq3A98N7xUJc7jnTPlE0yLXXNBBiK0l9
- HYaA==
+ bh=6m+z7g3EFd1rannjYRxmeahgviDOKxTIyUAGSrZVUCA=;
+ b=DWr34zd2tlqExXIm3WBesOBARj1noCVmsnJd9sB4CDKcOPTFqM+mKUpAYwtPhEeyUK
+ eQUwJfUy6GuchtcHO/xBbVV+QtX03Cdg9bDdoNcpb0HnpEYol8CZhZ1D3wEGET1PfCFg
+ xlYKBLXb9+v09AVZDTsYtz+AXXhBLyqmrgpNhnRSHP6FLuFtd5p0gW20z0Vy3V1BAxP9
+ k00xbnz9WEh1o4/bfg4R9jy5rrF4jFdQ8AdTVd12tXqWcnmATpI4JpftmM4VQOW1wE3s
+ ffyZUxqJ+bvzxQNW3bCO0AKsusxKbzJVtMelj0BxD7Lk8GzHQLnjkl2ERGCWeS5clFGF
+ Ct/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references;
- bh=P2kSmkr0gjxDrzltwWGdPiHLXWPJpXIu1nScfCyroiQ=;
- b=H0VTsTPQCnlr53q0uGRKAS5wQXnVhwGjuaYpUTbBCM1YxnSy5uiLbFjoGbLvd9ZzNJ
- 2dAVzA4zrlUdohZtCemlzUxgm+MAU4vgvGR5Y6CTqDrEWfu5N0UZDboz+eXgfjfkR443
- JIhVkyKaPbs0Per0zWJ2XIwbgOdEBKDrqrJ/91ActUtdvZcr0UovaYXs9E+icnP0712+
- vT0MILum7UyWGJbdJ+tSntWnGdnDP6/HuAf+wmUQ0dv1cgCYy8Cr0A/tn18+mBHQJJFk
- QG8K/IIVmT9+aUPWMOyMJhRRqpmg6P4ZzSWHmJCDEZHS5WyKLNNkLi/48O9E/1G7ZkPC
- 2BYg==
-X-Gm-Message-State: APjAAAUkldgmlT7b8TRFwTGtbsY1hBSoF0KL+mFG8na6LDbw6JO1qC3p
- 9UJumALZtJt6qBEYjk4MlgQ=
-X-Google-Smtp-Source: APXvYqxpLyKpYoSfcl1WD6JN0XXUOmrDmvDwdlk09zltzORJYfgVRH8R3VUDuCoLqBR4k7NGttb+Fw==
-X-Received: by 2002:a63:c61:: with SMTP id 33mr84153243pgm.293.1555617506752; 
- Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
+ bh=6m+z7g3EFd1rannjYRxmeahgviDOKxTIyUAGSrZVUCA=;
+ b=fu7YkmiZAh4oxuSOIE9G25zm3beUgPzFYe0eSH95xGT8RDOVG+Ufa406ArBQIvsRyK
+ yp26SBu6LFL4nxLnwPOSnaUk0LmyfpiS5s/6j7HzuWqDCUZXqsLHHEK5Xb3TIplf07Af
+ k41wTgp/W1QsS+4hf6UbxoVHQV/Xe3vW5OaQmxAxThG/ceWJAKZJwmW3++2YdT5mlF1W
+ jNVZlhACLUe8l4j4AHjI2ouI0PWjfaiz4TcuPyTWP7t4XATtzFqLb9tiEK0Ex3B2Zcy3
+ x1YUXmbP+XfQyReTWRXkkD3qY78cO5yCP1FGZW3wIS6FKX2/3AVitb4aKdHHp+P9+jmc
+ YV3w==
+X-Gm-Message-State: APjAAAWiaWpJ8hD4fXkGTB9f/g0MEcLFnR/W/Y4WFlRwwFWPtDdbICWY
+ AtKSJNfwNVqTqgrU8N7/9us=
+X-Google-Smtp-Source: APXvYqwRbJbOKlDFm46pI/cvEGKc9r+XfEiAOCA821wqhwOJr0hWPsAe8hjISyMmbuCrtzlsKv2aGg==
+X-Received: by 2002:a63:f444:: with SMTP id p4mr92599928pgk.32.1555617505235; 
+ Thu, 18 Apr 2019 12:58:25 -0700 (PDT)
 Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id h10sm4335474pfj.79.2019.04.18.12.58.25
+ by smtp.gmail.com with ESMTPSA id c17sm3830791pfd.76.2019.04.18.12.58.24
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
+ Thu, 18 Apr 2019 12:58:24 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
 From: Guenter Roeck <linux@roeck-us.net>
 To: linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -59,12 +59,10 @@ Cc: Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
  Zhang Rui <rui.zhang@intel.com>, Eduardo Valentin <edubezval@gmail.com>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>,
- Mykola Kostenok <c_mykolak@mellanox.com>
-Subject: [PATCH 2/6] hwmon: (aspeed-pwm-tacho) Use
- devm_thermal_of_cooling_device_register
-Date: Thu, 18 Apr 2019 12:58:16 -0700
-Message-Id: <1555617500-10862-3-git-send-email-linux@roeck-us.net>
+ Guenter Roeck <linux@roeck-us.net>
+Subject: [PATCH 1/6] thermal: Introduce devm_thermal_of_cooling_device_register
+Date: Thu, 18 Apr 2019 12:58:15 -0700
+Message-Id: <1555617500-10862-2-git-send-email-linux@roeck-us.net>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
 References: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
@@ -81,34 +79,101 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 18 Apr 2019 19:58:30 -0000
 
-Use devm_thermal_of_cooling_device_register() to register the cooling
-device. As a side effect, this fixes a driver bug:
-thermal_cooling_device_unregister() was not called on removal.
+thermal_of_cooling_device_register() and thermal_cooling_device_register()
+are typically called from driver probe functions, and
+thermal_cooling_device_unregister() is called from remove functions. This
+makes both a perfect candidate for device managed functions.
 
-Fixes: f198907d2ff6d ("hwmon: (aspeed-pwm-tacho) cooling device support.")
-Cc: Mykola Kostenok <c_mykolak@mellanox.com>
-Cc: Joel Stanley <joel@jms.id.au>
+Introduce devm_thermal_of_cooling_device_register(). This function can
+also be used to replace thermal_cooling_device_register() by passing a NULL
+pointer as device node. The new function requires both struct device *
+and struct device_node * as parameters since the struct device_node *
+parameter is not always identical to dev->of_node.
+
+Don't introduce a device managed remove function since it is not needed
+at this point.
+
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/aspeed-pwm-tacho.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/thermal/thermal_core.c | 49 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/thermal.h        |  5 +++++
+ 2 files changed, 54 insertions(+)
 
-diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
-index c4dd6301e7c8..0daf0b32aa4a 100644
---- a/drivers/hwmon/aspeed-pwm-tacho.c
-+++ b/drivers/hwmon/aspeed-pwm-tacho.c
-@@ -830,10 +830,8 @@ static int aspeed_create_pwm_cooling(struct device *dev,
- 	}
- 	snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%pOFn%d", child, pwm_port);
+diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_core.c
+index 6590bb5cb688..e0b530603db6 100644
+--- a/drivers/thermal/thermal_core.c
++++ b/drivers/thermal/thermal_core.c
+@@ -1046,6 +1046,55 @@ thermal_of_cooling_device_register(struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(thermal_of_cooling_device_register);
  
--	cdev->tcdev = thermal_of_cooling_device_register(child,
--							 cdev->name,
--							 cdev,
--							 &aspeed_pwm_cool_ops);
-+	cdev->tcdev = devm_thermal_of_cooling_device_register(dev, child,
-+					cdev->name, cdev, &aspeed_pwm_cool_ops);
- 	if (IS_ERR(cdev->tcdev))
- 		return PTR_ERR(cdev->tcdev);
- 
++static void thermal_cooling_device_release(struct device *dev, void *res)
++{
++	thermal_cooling_device_unregister(
++				*(struct thermal_cooling_device **)res);
++}
++
++/**
++ * devm_thermal_of_cooling_device_register() - register an OF thermal cooling
++ *					       device
++ * @dev:	a valid struct device pointer of a sensor device.
++ * @np:		a pointer to a device tree node.
++ * @type:	the thermal cooling device type.
++ * @devdata:	device private data.
++ * @ops:	standard thermal cooling devices callbacks.
++ *
++ * This function will register a cooling device with device tree node reference.
++ * This interface function adds a new thermal cooling device (fan/processor/...)
++ * to /sys/class/thermal/ folder as cooling_device[0-*]. It tries to bind itself
++ * to all the thermal zone devices registered at the same time.
++ *
++ * Return: a pointer to the created struct thermal_cooling_device or an
++ * ERR_PTR. Caller must check return value with IS_ERR*() helpers.
++ */
++struct thermal_cooling_device *
++devm_thermal_of_cooling_device_register(struct device *dev,
++				struct device_node *np,
++				char *type, void *devdata,
++				const struct thermal_cooling_device_ops *ops)
++{
++	struct thermal_cooling_device **ptr, *tcd;
++
++	ptr = devres_alloc(thermal_cooling_device_release, sizeof(*ptr),
++			   GFP_KERNEL);
++	if (!ptr)
++		return ERR_PTR(-ENOMEM);
++
++	tcd = __thermal_cooling_device_register(np, type, devdata, ops);
++	if (IS_ERR(tcd)) {
++		devres_free(ptr);
++		return tcd;
++	}
++
++	*ptr = tcd;
++	devres_add(dev, ptr);
++
++	return tcd;
++}
++EXPORT_SYMBOL_GPL(devm_thermal_of_cooling_device_register);
++
+ static void __unbind(struct thermal_zone_device *tz, int mask,
+ 		     struct thermal_cooling_device *cdev)
+ {
+diff --git a/include/linux/thermal.h b/include/linux/thermal.h
+index 5f4705f46c2f..43cf4fdd71d4 100644
+--- a/include/linux/thermal.h
++++ b/include/linux/thermal.h
+@@ -447,6 +447,11 @@ struct thermal_cooling_device *thermal_cooling_device_register(char *, void *,
+ struct thermal_cooling_device *
+ thermal_of_cooling_device_register(struct device_node *np, char *, void *,
+ 				   const struct thermal_cooling_device_ops *);
++struct thermal_cooling_device *
++devm_thermal_of_cooling_device_register(struct device *dev,
++				struct device_node *np,
++				char *type, void *devdata,
++				const struct thermal_cooling_device_ops *ops);
+ void thermal_cooling_device_unregister(struct thermal_cooling_device *);
+ struct thermal_zone_device *thermal_zone_get_zone_by_name(const char *name);
+ int thermal_zone_get_temp(struct thermal_zone_device *tz, int *temp);
 -- 
 2.7.4
