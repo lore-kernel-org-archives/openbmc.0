@@ -1,51 +1,51 @@
 Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::544; helo=mail-pg1-x544.google.com;
+ (client-ip=2607:f8b0:4864:20::541; helo=mail-pg1-x541.google.com;
  envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DWr34zd2"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="CSc5OwYj"; 
  dkim-atps=neutral
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKK0CYjzDqRg;
- Fri, 19 Apr 2019 05:58:27 +1000 (AEST)
-Received: by mail-pg1-x544.google.com with SMTP id e6so1670486pgc.4;
- Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKL4Q6hzDqRg;
+ Fri, 19 Apr 2019 05:58:30 +1000 (AEST)
+Received: by mail-pg1-x541.google.com with SMTP id z9so1654269pgu.10;
+ Thu, 18 Apr 2019 12:58:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=6m+z7g3EFd1rannjYRxmeahgviDOKxTIyUAGSrZVUCA=;
- b=DWr34zd2tlqExXIm3WBesOBARj1noCVmsnJd9sB4CDKcOPTFqM+mKUpAYwtPhEeyUK
- eQUwJfUy6GuchtcHO/xBbVV+QtX03Cdg9bDdoNcpb0HnpEYol8CZhZ1D3wEGET1PfCFg
- xlYKBLXb9+v09AVZDTsYtz+AXXhBLyqmrgpNhnRSHP6FLuFtd5p0gW20z0Vy3V1BAxP9
- k00xbnz9WEh1o4/bfg4R9jy5rrF4jFdQ8AdTVd12tXqWcnmATpI4JpftmM4VQOW1wE3s
- ffyZUxqJ+bvzxQNW3bCO0AKsusxKbzJVtMelj0BxD7Lk8GzHQLnjkl2ERGCWeS5clFGF
- Ct/w==
+ bh=o9fJRFSOZLju8sjZtfd/SYS114IRI/a2eHFNikMSeJ0=;
+ b=CSc5OwYjhlpzfCi/xFEhMOqpL44cDXcE/EKUkfp189qVXzK8LSvRQfHA1GS/gdQc6T
+ xj5RYFKVWMlWYal6BkaRgJ39Bin8s/MfkWGwqivLDjqzeV6YJkW99z68l/xA70+rxWiG
+ q5dbhhgqXk890XuNRQJMZ2gAGrboTwMi+eN4zp+jKLFJBv12/Q4qWLvr8fgqal+d/WGE
+ QWkcgNc5a9JyA5KqNFAaaQgw9Oli+9kcSA5C9jlSow4Jx7ntlxf6mldf3WY+rE8uMOC0
+ dqhku51RD46LVG/BswRt4t/GvmgK+Xaqo5XuqkB318zsHnvjjJLkRxtSJgjxs6cOg4r+
+ wwcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references;
- bh=6m+z7g3EFd1rannjYRxmeahgviDOKxTIyUAGSrZVUCA=;
- b=fu7YkmiZAh4oxuSOIE9G25zm3beUgPzFYe0eSH95xGT8RDOVG+Ufa406ArBQIvsRyK
- yp26SBu6LFL4nxLnwPOSnaUk0LmyfpiS5s/6j7HzuWqDCUZXqsLHHEK5Xb3TIplf07Af
- k41wTgp/W1QsS+4hf6UbxoVHQV/Xe3vW5OaQmxAxThG/ceWJAKZJwmW3++2YdT5mlF1W
- jNVZlhACLUe8l4j4AHjI2ouI0PWjfaiz4TcuPyTWP7t4XATtzFqLb9tiEK0Ex3B2Zcy3
- x1YUXmbP+XfQyReTWRXkkD3qY78cO5yCP1FGZW3wIS6FKX2/3AVitb4aKdHHp+P9+jmc
- YV3w==
-X-Gm-Message-State: APjAAAWiaWpJ8hD4fXkGTB9f/g0MEcLFnR/W/Y4WFlRwwFWPtDdbICWY
- AtKSJNfwNVqTqgrU8N7/9us=
-X-Google-Smtp-Source: APXvYqwRbJbOKlDFm46pI/cvEGKc9r+XfEiAOCA821wqhwOJr0hWPsAe8hjISyMmbuCrtzlsKv2aGg==
-X-Received: by 2002:a63:f444:: with SMTP id p4mr92599928pgk.32.1555617505235; 
- Thu, 18 Apr 2019 12:58:25 -0700 (PDT)
+ bh=o9fJRFSOZLju8sjZtfd/SYS114IRI/a2eHFNikMSeJ0=;
+ b=iJBEWbmx8MAUEoQkIjioPbk7+vfI8L8HCe2qiHG0TeL2Mj+rAf4GmSZ5SfA2bjl4PB
+ sx+EppU072bB0rZYZm3awStWKhYSWVXCx6q9UvFmkAZqwuqjds3oMgblJYke8PSLlzLg
+ bfoVLXkCyCwWebIYhULOWlkj0b04owZQ/mGkF4ScL+Zl+qyEaxbAoJAd3SVvaWwo1osK
+ 36B/PEmW3C4m+L9xOwg0trQLnYes1lZViWQ920yB/+92sDCQK6vAxMVIwlERHaiEUVQd
+ 9B1yEk/Bevz58LZIuFCZh3i2wnEqUjSD5wkzyF8otHPUsTgkyaAfSMTpR4rTeeo1OYxh
+ bFCw==
+X-Gm-Message-State: APjAAAXLcjcFbDQ86P4F6psrP1/H0bwXQmGEqt64ebr6n84Ir6zZWU1G
+ e5UDhMHYyp2nRk4lwcOxsHY=
+X-Google-Smtp-Source: APXvYqzyhJqPMn9FBvqGzySGiBJ+Q7z53ajueAKrEkJzo4dOkvO+Mv621oLJ2FDa1foVZKDV8TJU/w==
+X-Received: by 2002:a65:4343:: with SMTP id k3mr7139829pgq.384.1555617508148; 
+ Thu, 18 Apr 2019 12:58:28 -0700 (PDT)
 Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id c17sm3830791pfd.76.2019.04.18.12.58.24
+ by smtp.gmail.com with ESMTPSA id p6sm3621380pfd.122.2019.04.18.12.58.27
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 18 Apr 2019 12:58:24 -0700 (PDT)
+ Thu, 18 Apr 2019 12:58:27 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
 From: Guenter Roeck <linux@roeck-us.net>
 To: linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -60,9 +60,10 @@ Cc: Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
  Zhang Rui <rui.zhang@intel.com>, Eduardo Valentin <edubezval@gmail.com>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
  Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 1/6] thermal: Introduce devm_thermal_of_cooling_device_register
-Date: Thu, 18 Apr 2019 12:58:15 -0700
-Message-Id: <1555617500-10862-2-git-send-email-linux@roeck-us.net>
+Subject: [PATCH 3/6] hwmon: (gpio-fan) Use
+ devm_thermal_of_cooling_device_register
+Date: Thu, 18 Apr 2019 12:58:17 -0700
+Message-Id: <1555617500-10862-4-git-send-email-linux@roeck-us.net>
 X-Mailer: git-send-email 2.7.4
 In-Reply-To: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
 References: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
@@ -79,101 +80,83 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 18 Apr 2019 19:58:30 -0000
 
-thermal_of_cooling_device_register() and thermal_cooling_device_register()
-are typically called from driver probe functions, and
-thermal_cooling_device_unregister() is called from remove functions. This
-makes both a perfect candidate for device managed functions.
-
-Introduce devm_thermal_of_cooling_device_register(). This function can
-also be used to replace thermal_cooling_device_register() by passing a NULL
-pointer as device node. The new function requires both struct device *
-and struct device_node * as parameters since the struct device_node *
-parameter is not always identical to dev->of_node.
-
-Don't introduce a device managed remove function since it is not needed
-at this point.
+Call devm_thermal_of_cooling_device_register() to register the cooling
+device. Also use devm_add_action_or_reset() to stop the fan on device
+removal. This fixes a race condition since the fan was stopped before
+the hwmon device was removed.
 
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/thermal/thermal_core.c | 49 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/thermal.h        |  5 +++++
- 2 files changed, 54 insertions(+)
+ drivers/hwmon/gpio-fan.c | 25 +++++++++----------------
+ 1 file changed, 9 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/thermal/thermal_core.c b/drivers/thermal/thermal_core.c
-index 6590bb5cb688..e0b530603db6 100644
---- a/drivers/thermal/thermal_core.c
-+++ b/drivers/thermal/thermal_core.c
-@@ -1046,6 +1046,55 @@ thermal_of_cooling_device_register(struct device_node *np,
- }
- EXPORT_SYMBOL_GPL(thermal_of_cooling_device_register);
+diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
+index f1bf67aca9e8..3f6e5b4e3997 100644
+--- a/drivers/hwmon/gpio-fan.c
++++ b/drivers/hwmon/gpio-fan.c
+@@ -498,6 +498,11 @@ static const struct of_device_id of_gpio_fan_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, of_gpio_fan_match);
  
-+static void thermal_cooling_device_release(struct device *dev, void *res)
++static void gpio_fan_stop(void *data)
 +{
-+	thermal_cooling_device_unregister(
-+				*(struct thermal_cooling_device **)res);
++	set_fan_speed(data, 0);
 +}
 +
-+/**
-+ * devm_thermal_of_cooling_device_register() - register an OF thermal cooling
-+ *					       device
-+ * @dev:	a valid struct device pointer of a sensor device.
-+ * @np:		a pointer to a device tree node.
-+ * @type:	the thermal cooling device type.
-+ * @devdata:	device private data.
-+ * @ops:	standard thermal cooling devices callbacks.
-+ *
-+ * This function will register a cooling device with device tree node reference.
-+ * This interface function adds a new thermal cooling device (fan/processor/...)
-+ * to /sys/class/thermal/ folder as cooling_device[0-*]. It tries to bind itself
-+ * to all the thermal zone devices registered at the same time.
-+ *
-+ * Return: a pointer to the created struct thermal_cooling_device or an
-+ * ERR_PTR. Caller must check return value with IS_ERR*() helpers.
-+ */
-+struct thermal_cooling_device *
-+devm_thermal_of_cooling_device_register(struct device *dev,
-+				struct device_node *np,
-+				char *type, void *devdata,
-+				const struct thermal_cooling_device_ops *ops)
-+{
-+	struct thermal_cooling_device **ptr, *tcd;
-+
-+	ptr = devres_alloc(thermal_cooling_device_release, sizeof(*ptr),
-+			   GFP_KERNEL);
-+	if (!ptr)
-+		return ERR_PTR(-ENOMEM);
-+
-+	tcd = __thermal_cooling_device_register(np, type, devdata, ops);
-+	if (IS_ERR(tcd)) {
-+		devres_free(ptr);
-+		return tcd;
-+	}
-+
-+	*ptr = tcd;
-+	devres_add(dev, ptr);
-+
-+	return tcd;
-+}
-+EXPORT_SYMBOL_GPL(devm_thermal_of_cooling_device_register);
-+
- static void __unbind(struct thermal_zone_device *tz, int mask,
- 		     struct thermal_cooling_device *cdev)
+ static int gpio_fan_probe(struct platform_device *pdev)
  {
-diff --git a/include/linux/thermal.h b/include/linux/thermal.h
-index 5f4705f46c2f..43cf4fdd71d4 100644
---- a/include/linux/thermal.h
-+++ b/include/linux/thermal.h
-@@ -447,6 +447,11 @@ struct thermal_cooling_device *thermal_cooling_device_register(char *, void *,
- struct thermal_cooling_device *
- thermal_of_cooling_device_register(struct device_node *np, char *, void *,
- 				   const struct thermal_cooling_device_ops *);
-+struct thermal_cooling_device *
-+devm_thermal_of_cooling_device_register(struct device *dev,
-+				struct device_node *np,
-+				char *type, void *devdata,
-+				const struct thermal_cooling_device_ops *ops);
- void thermal_cooling_device_unregister(struct thermal_cooling_device *);
- struct thermal_zone_device *thermal_zone_get_zone_by_name(const char *name);
- int thermal_zone_get_temp(struct thermal_zone_device *tz, int *temp);
+ 	int err;
+@@ -532,6 +537,7 @@ static int gpio_fan_probe(struct platform_device *pdev)
+ 		err = fan_ctrl_init(fan_data);
+ 		if (err)
+ 			return err;
++		devm_add_action_or_reset(dev, gpio_fan_stop, fan_data);
+ 	}
+ 
+ 	/* Make this driver part of hwmon class. */
+@@ -543,32 +549,20 @@ static int gpio_fan_probe(struct platform_device *pdev)
+ 		return PTR_ERR(fan_data->hwmon_dev);
+ 
+ 	/* Optional cooling device register for Device tree platforms */
+-	fan_data->cdev = thermal_of_cooling_device_register(np,
+-							    "gpio-fan",
+-							    fan_data,
+-							    &gpio_fan_cool_ops);
++	fan_data->cdev = devm_thermal_of_cooling_device_register(dev, np,
++				"gpio-fan", fan_data, &gpio_fan_cool_ops);
+ 
+ 	dev_info(dev, "GPIO fan initialized\n");
+ 
+ 	return 0;
+ }
+ 
+-static int gpio_fan_remove(struct platform_device *pdev)
++static void gpio_fan_shutdown(struct platform_device *pdev)
+ {
+ 	struct gpio_fan_data *fan_data = platform_get_drvdata(pdev);
+ 
+-	if (!IS_ERR(fan_data->cdev))
+-		thermal_cooling_device_unregister(fan_data->cdev);
+-
+ 	if (fan_data->gpios)
+ 		set_fan_speed(fan_data, 0);
+-
+-	return 0;
+-}
+-
+-static void gpio_fan_shutdown(struct platform_device *pdev)
+-{
+-	gpio_fan_remove(pdev);
+ }
+ 
+ #ifdef CONFIG_PM_SLEEP
+@@ -602,7 +596,6 @@ static SIMPLE_DEV_PM_OPS(gpio_fan_pm, gpio_fan_suspend, gpio_fan_resume);
+ 
+ static struct platform_driver gpio_fan_driver = {
+ 	.probe		= gpio_fan_probe,
+-	.remove		= gpio_fan_remove,
+ 	.shutdown	= gpio_fan_shutdown,
+ 	.driver	= {
+ 		.name	= "gpio-fan",
 -- 
 2.7.4
