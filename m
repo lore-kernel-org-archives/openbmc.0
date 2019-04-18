@@ -6,45 +6,46 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LIz5pksk"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="aw4PbPE2"; 
  dkim-atps=neutral
 Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
  [IPv6:2607:f8b0:4864:20::544])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKK0fntzDqSP;
- Fri, 19 Apr 2019 05:58:27 +1000 (AEST)
-Received: by mail-pg1-x544.google.com with SMTP id y3so1652364pgk.12;
- Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lVKK1SCczDqSR;
+ Fri, 19 Apr 2019 05:58:28 +1000 (AEST)
+Received: by mail-pg1-x544.google.com with SMTP id p6so1657113pgh.9;
+ Thu, 18 Apr 2019 12:58:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id;
- bh=5vClmzB5ruRG5DfpQI3+/6Tcg0frA3QH3vJ0qCG0ZNU=;
- b=LIz5pkskdLDTvf/wpQtdZB/Rdb3xa6hScC/e0SIcu2CaAAmqoolajQgaIxB3XS92e8
- ivmN4MYM6C6JpabkO9zXBwHUAl0bMfvZaTO0KI2ylmuV+yE8C09qbN6uQBtccQ2iUbEW
- 6gMp3VbJEjR0iCRLD3tsNHcPZ3UaDn6Dc4bZ2suoddCPXgNAvum5AC04rixylKsRX+Ct
- JimXJmeBemDobvjQo7ZeRetTLLKtLdqIRLc686g4ag58bNpSKMOWtBpc0oiYJDKzsTId
- IKU3mcxm1P9YugE5CL889/DQJrZcO0N3ZHS7XIiwwJY1Llhr5AZGAH6+zQCffXoEGSNI
- phLg==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=P2kSmkr0gjxDrzltwWGdPiHLXWPJpXIu1nScfCyroiQ=;
+ b=aw4PbPE2LbcT7H4oTgNGIFAcjm+SZXbSWJcBJtNUrPH25VznEczbSeJ40NXsVwaMtx
+ h6y3WWQzakymz1v9uoaJ+dbywvlrNiry1RccU8/skfi5CL4Vz3CaOoWOE7pyFskOJGme
+ VOf9/JgETdp70sq0dVR6mv7ot3zZY+pKRTRtUFmhdr788n34/Y4G8wJOUVbmdktSV6iW
+ TYcmy2Ow0VuVtGlgxYZirN62xuRxV2sICTJkCbsH+jBd8LPZCHBhL3IHbvEQpMmyqzxD
+ oc3O2D6vdravLNIs9ZNnsLCcF+nTexby1/A5gq3A98N7xUJc7jnTPlE0yLXXNBBiK0l9
+ HYaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id;
- bh=5vClmzB5ruRG5DfpQI3+/6Tcg0frA3QH3vJ0qCG0ZNU=;
- b=TFp3mpfDlaFJ4QeckTx3uKHXBOCVkVzxQEVNWITUs8mHi8E0nbZ2fQnZLOJBv3VsYb
- 5MBR3Hp5DbtvNeTGtmRVnAfgACyt40OLZD7M9WyFcziaajeR2RB3I8Pj4RCM9GBtifXa
- iV46E+DQ2CcB8emmmwKe703koJKsi1yDTEkQt5TA6ujVwfFdti7q18wqumZnHoeoK3+u
- vcuobqR+zeEZVlBYRocLX7AZeaM//k8W9yMXwwyGSWF/i1FZ3Odl356CZ2y3w7a5oZOa
- KfQlC2t1m+FVfXHf6YL8GyEhHoncLe3Vcz4RTssBNy9XiYVrjdct7mdM5tw48RW+ypXG
- YkaQ==
-X-Gm-Message-State: APjAAAX2XLgfSUyXI3pLXFL5QFmmiMHOwHAKEj5/I0FCofEwGB4tYHG3
- V/PsKK5rZtXbcG7flfmi+gE=
-X-Google-Smtp-Source: APXvYqz9KqL2njowruKOC8kSeVieLJgnycGmub6FNz59l+ivj2LAy9fGa31n4qrBCOJcJJmyVt89KA==
-X-Received: by 2002:a62:565c:: with SMTP id k89mr97032823pfb.175.1555617503748; 
- Thu, 18 Apr 2019 12:58:23 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references;
+ bh=P2kSmkr0gjxDrzltwWGdPiHLXWPJpXIu1nScfCyroiQ=;
+ b=H0VTsTPQCnlr53q0uGRKAS5wQXnVhwGjuaYpUTbBCM1YxnSy5uiLbFjoGbLvd9ZzNJ
+ 2dAVzA4zrlUdohZtCemlzUxgm+MAU4vgvGR5Y6CTqDrEWfu5N0UZDboz+eXgfjfkR443
+ JIhVkyKaPbs0Per0zWJ2XIwbgOdEBKDrqrJ/91ActUtdvZcr0UovaYXs9E+icnP0712+
+ vT0MILum7UyWGJbdJ+tSntWnGdnDP6/HuAf+wmUQ0dv1cgCYy8Cr0A/tn18+mBHQJJFk
+ QG8K/IIVmT9+aUPWMOyMJhRRqpmg6P4ZzSWHmJCDEZHS5WyKLNNkLi/48O9E/1G7ZkPC
+ 2BYg==
+X-Gm-Message-State: APjAAAUkldgmlT7b8TRFwTGtbsY1hBSoF0KL+mFG8na6LDbw6JO1qC3p
+ 9UJumALZtJt6qBEYjk4MlgQ=
+X-Google-Smtp-Source: APXvYqxpLyKpYoSfcl1WD6JN0XXUOmrDmvDwdlk09zltzORJYfgVRH8R3VUDuCoLqBR4k7NGttb+Fw==
+X-Received: by 2002:a63:c61:: with SMTP id 33mr84153243pgm.293.1555617506752; 
+ Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
 Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id p66sm5820800pfb.4.2019.04.18.12.58.21
+ by smtp.gmail.com with ESMTPSA id h10sm4335474pfj.79.2019.04.18.12.58.25
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 18 Apr 2019 12:58:22 -0700 (PDT)
+ Thu, 18 Apr 2019 12:58:26 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
 From: Guenter Roeck <linux@roeck-us.net>
 To: linux-hwmon@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
@@ -58,11 +59,15 @@ Cc: Jean Delvare <jdelvare@suse.com>, Joel Stanley <joel@jms.id.au>,
  Bartlomiej Zolnierkiewicz <b.zolnierkie@samsung.com>,
  Zhang Rui <rui.zhang@intel.com>, Eduardo Valentin <edubezval@gmail.com>,
  Daniel Lezcano <daniel.lezcano@linaro.org>,
- Guenter Roeck <linux@roeck-us.net>
-Subject: [PATCH 0/6] thermal: Introduce devm_thermal_of_cooling_device_register
-Date: Thu, 18 Apr 2019 12:58:14 -0700
-Message-Id: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
+ Guenter Roeck <linux@roeck-us.net>,
+ Mykola Kostenok <c_mykolak@mellanox.com>
+Subject: [PATCH 2/6] hwmon: (aspeed-pwm-tacho) Use
+ devm_thermal_of_cooling_device_register
+Date: Thu, 18 Apr 2019 12:58:16 -0700
+Message-Id: <1555617500-10862-3-git-send-email-linux@roeck-us.net>
 X-Mailer: git-send-email 2.7.4
+In-Reply-To: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
+References: <1555617500-10862-1-git-send-email-linux@roeck-us.net>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,19 +81,34 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 18 Apr 2019 19:58:30 -0000
 
-thermal_of_cooling_device_register() and thermal_cooling_device_register()
-are typically called from driver probe functions, and
-thermal_cooling_device_unregister() is called from remove functions. This
-makes both a perfect candidate for device managed functions.
+Use devm_thermal_of_cooling_device_register() to register the cooling
+device. As a side effect, this fixes a driver bug:
+thermal_cooling_device_unregister() was not called on removal.
 
-Introduce devm_thermal_of_cooling_device_register(). This function can
-also be used to replace thermal_cooling_device_register() by passing a NULL
-pointer as device node. The new function requires both struct device *
-and struct device_node * as parameters since the struct device_node *
-parameter is not always identical to dev->of_node.
+Fixes: f198907d2ff6d ("hwmon: (aspeed-pwm-tacho) cooling device support.")
+Cc: Mykola Kostenok <c_mykolak@mellanox.com>
+Cc: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+---
+ drivers/hwmon/aspeed-pwm-tacho.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Don't introduce a device managed remove function since it is not needed
-at this point.
-
-The patch series introduces the new function and then converts various
-hwmon drivers to use it.
+diff --git a/drivers/hwmon/aspeed-pwm-tacho.c b/drivers/hwmon/aspeed-pwm-tacho.c
+index c4dd6301e7c8..0daf0b32aa4a 100644
+--- a/drivers/hwmon/aspeed-pwm-tacho.c
++++ b/drivers/hwmon/aspeed-pwm-tacho.c
+@@ -830,10 +830,8 @@ static int aspeed_create_pwm_cooling(struct device *dev,
+ 	}
+ 	snprintf(cdev->name, MAX_CDEV_NAME_LEN, "%pOFn%d", child, pwm_port);
+ 
+-	cdev->tcdev = thermal_of_cooling_device_register(child,
+-							 cdev->name,
+-							 cdev,
+-							 &aspeed_pwm_cool_ops);
++	cdev->tcdev = devm_thermal_of_cooling_device_register(dev, child,
++					cdev->name, cdev, &aspeed_pwm_cool_ops);
+ 	if (IS_ERR(cdev->tcdev))
+ 		return PTR_ERR(cdev->tcdev);
+ 
+-- 
+2.7.4
