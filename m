@@ -1,49 +1,48 @@
-Return-Path: <1450335857@qq.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=qq.com
- (client-ip=184.105.206.26; helo=smtpbg303.qq.com;
- envelope-from=1450335857@qq.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=178.32.108.172; helo=9.mo1.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=qq.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=qq.com header.i=@qq.com header.b="PIS7yhcz"; 
- dkim-atps=neutral
-Received: from smtpbg303.qq.com (smtpbg303.qq.com [184.105.206.26])
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 3593 seconds by postgrey-1.36 at bilbo;
+ Fri, 19 Apr 2019 19:25:53 AEST
+Received: from 9.mo1.mail-out.ovh.net (9.mo1.mail-out.ovh.net [178.32.108.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lrCm1nR8zDqTG
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 19:24:51 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1555665881; bh=KVI10h61bQrZfAvGroh25dBOzPQpq9fhmjV9lNgjrRg=;
- h=In-Reply-To:References:From:To:Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:Message-ID;
- b=PIS7yhczDcbmp0VBlhbNDBOf9sxfgorKBcVSuMOA1IXZo5KYt7jTbJQ25eX7hDqJ3
- DGSOMEkcmDHP2IAWlh1xCZj5c2aKHpDsrBBProyvsRxqGg8tS3/4mDa88zQ9Sil7Hx
- gyJDj3+uEt3cm6WUd6W6GvX4COuGRL0wQft5ky3c=
-X-QQ-SSF: 00000000000000F000000000000000H
-X-HAS-ATTACH: no
-X-QQ-BUSINESS-ORIGIN: 2
-X-Originating-IP: 218.247.157.87
-In-Reply-To: <tencent_32CE53DB1CC7BB226A3EE7F5@qq.com>
-References: <tencent_32CE53DB1CC7BB226A3EE7F5@qq.com>
-X-QQ-STYLE: 
-X-QQ-mid: webenglish1t1555665876t704044
-From: "=?ISO-8859-1?B?eGl1emhp?=" <1450335857@qq.com>
-To: "=?ISO-8859-1?B?b3BlbmJtYw==?=" <openbmc@lists.ozlabs.org>
-Subject: How to config  IPV6 to  login openbmc webui 
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_5CB993D4_0D44CC60_6986CC7C"
-Content-Transfer-Encoding: 8Bit
-Date: Fri, 19 Apr 2019 17:24:36 +0800
-X-Priority: 3
-Message-ID: <tencent_093AB03F7125ADE027CD1776@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-ReplyHash: 402737053
-X-QQ-SENDSIZE: 520
-X-QQ-FName: BA790CD82045494DA1CEDED57C88AAAB
-X-QQ-LocalIP: 10.198.131.167
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lrDx0BPlzDqV6
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 19:25:50 +1000 (AEST)
+Received: from player762.ha.ovh.net (unknown [10.109.146.211])
+ by mo1.mail-out.ovh.net (Postfix) with ESMTP id 706E316B676
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 10:09:21 +0200 (CEST)
+Received: from kaod.org (lfbn-1-10649-41.w90-89.abo.wanadoo.fr [90.89.235.41])
+ (Authenticated sender: clg@kaod.org)
+ by player762.ha.ovh.net (Postfix) with ESMTPSA id 562984EFFE53;
+ Fri, 19 Apr 2019 08:09:17 +0000 (UTC)
+Subject: Re: [PATCH dev-5.0 3/4] mtd: spi-nor: aspeed: use memcpy_fromio() to
+ capture the optimization buffer
+To: Andrew Jeffery <andrew@aj.id.au>, Milton Miller II <miltonm@us.ibm.com>
+Cc: openbmc@lists.ozlabs.org
+References: <20190417133941.22962-4-clg@kaod.org>
+ <20190417133941.22962-1-clg@kaod.org>
+ <OF33F9274D.5DFDAC84-ON002583E0.00758962-002583E0.0075896A@notes.na.collabserv.com>
+ <a8ab1055-64c6-4763-b244-2a17e70a10a1@www.fastmail.com>
+ <d3ca43d0-0b47-bcd4-c2ae-d70226b5d12f@kaod.org>
+ <090455f7-21dd-4e96-888e-1b23592bdfa3@www.fastmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <a914efb5-758f-b586-15f8-460ea6cbb225@kaod.org>
+Date: Fri, 19 Apr 2019 10:09:17 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <090455f7-21dd-4e96-888e-1b23592bdfa3@www.fastmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 9381279499045210882
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrfeeigddutdegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,56 +54,211 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Apr 2019 09:24:56 -0000
+X-List-Received-Date: Fri, 19 Apr 2019 09:25:54 -0000
 
-This is a multi-part message in MIME format.
+On 4/19/19 9:23 AM, Andrew Jeffery wrote:
+> Hi Cédric
+> 
+> On Fri, 19 Apr 2019, at 15:32, Cédric Le Goater wrote:
+>> On 4/19/19 3:03 AM, Andrew Jeffery wrote:
+>>>
+>>>
+>>> On Fri, 19 Apr 2019, at 06:53, Milton Miller II wrote:
+>>>> About 04/17/2019 09:20AM in some timezone, Cédric Le Goater wrote:
+>>>>
+>>>>
+>>>>> aspeed_smc_read_from_ahb() only reads the first word which is not
+>>>>> what
+>>>>> we want. We want to capture a CALIBRATE_BUF_SIZE size window of the
+>>>>> flash contents to optimize the read.
+>>>>>
+>>>>
+>>>> NACK
+>>>>
+>>>> This justifcation is false.  The routine reads the whole buffer
+>>>> because it calls the _rep routine and takes the size.
+>>
+>> It doesn't AFAICT looking at other drivers and also from my test.
+>>
+>>>> In addition, the comment just before aspeed_smc_read_from_ahb
+>>>> tells why memcpy_fromio and memcpy_toio are broken on 32 bit
+>>
+>> That might have been the case on Linux 4.7. It doesn't seem to be 
+>> the case anymore. See below.
+>>
+>>>> arm, and this is still the case judging from the recent bug
+>>>> reportfrom a Nuvaton user [1].
+>>>>
+>>>> [1] https://github.com/openbmc/openbmc/issues/3521
+>>>>
+>>>> Andrew, Please revert this patch.
+>>
+>> I don't think you have enough convincing arguments for that.
+> 
+> That may be the case, but having seen the pain of the original corruption
+> problems that drove the ioreadX_rep() implementation above, Milton's
+> protest combined with my initial, briefly nagging concern was enough for
+> me to revert. Two things here:
+> 
+> 1. We've run without this patch for quite some time. Despite oddities,
+> the existing implementation has been stable
+> 2. With patch 4/4, you've resolved the 4B corruption problem. This was
+> the immediate concern, as it was impacting teams developing and
+> testing OpenBMC master. I appreciate the effort you put into hunting
+> that down, the root cause was certainly not obvious.
+> 
+> From *my* testing we appear to be stable both with and without this
+> change, however my concern is that *my* testing is not complete enough
+> to be confident that we're not going to hit the subtle corruption problems
+> that drove the introduction of the existing code.
 
-------=_NextPart_5CB993D4_0D44CC60_6986CC7C
-Content-Type: text/plain;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+QEMU would have caught this regression if SFDP was modeled. It does today
+if 4B opcodes are forced on the mx25l25635e. Given the time the team spent
+on this, I would say 1 or 2PM overall, QEMU is a good investment. 
+                                                  ^
+                                                  |
+Managers are you reading this ? ------------------+ 
 
-SGkgYWxsLA0KICAgV2hvIGtub3cgaG93IHRvIGNvbmZpZyBJUFY2IHRvIGxvbmdpbiB0aGUg
-b3BlbmJtYyB3ZWJ1aT8NCiAgICBJIGNhbid0IGxvZ2luIHRoZSBvcGVuYm1jIHdlYnVpIHdo
-ZW4gSSBjb25maWd1cmVkIHRoZSBJUCAgIHdpdGggSVBWNi4NCk15IHRlc3RpbmcgZW52aXJv
-bm1lbnQgaXMgYXMgZm9sbG93aW5nIDoNCjEpIC9ldGMvc3lzdGVtZC9uZXR3b3JrLzAwLWJt
-Yy1ldGgwLm5ldHdvcms6DQpbTWF0Y2hdDQpOYW1lPWV0aDANCltOZXR3b3JrXQ0KQWRkcmVz
-cz0yMDAyOjEwMDE6MTAwMToxMDAxOjEwMDE6MTAwMToxMDAxOjEwMDEvNjQNCltESENQXSAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgDQpDbGllbnRJZGVu
-dGlmaWVyPW1hYw0KDQoyKSBzeXN0ZW1jdGwgcmVzdGFydCBzeXN0ZW1kLW5ldHdvcmtkDQoz
-KW15IGJtYyB3ZWJ1aSBJUFY2IElQOg0KMjAwMjoxMDAxOjEwMDE6MTAwMToxMDAxOjEwMDE6
-MTAwMToxMDAyLzY0DQo0KSBwaW5nNiAyMDAyOjEwMDE6MTAwMToxMDAxOjEwMDE6MTAwMTox
-MDAxOjEwMDEgIG9uIGJtYyB3ZWJ1aSBQQyA6ICBjb25uZWN0IGdvb2QuDQoNCjUpIGxvZ2lu
-IGJtYyB3ZWJ1aSA6ZmFpbGVkDQoNCg0KSXMgdGhlcmUgYW55dGhpbmcgd3Jvbmcgd2l0aCBt
-eSBjb25maWd1cmF0aW9uPw0KDQpJIHNhdyB0aGUgaXNzdWUgaHR0cHM6Ly9naXRodWIuY29t
-L29wZW5ibWMvcGhvc3Bob3Itd2VidWkvaXNzdWVzLzE0IA0KSXMgdGhlcmUgYSBzaGVkdWxl
-IHRvIHN1cHBvcnQgSVBWNiA/DQoNCkJlc3QsDQp4aXV6aGk=
+> For some additional context, I'm now on leave until the 30th, and Joel to
+> the 29th. These patches have been through a process that has proceeded
+> much more hastily than I would have liked, and that's lead to where we
+> are now.
+> 
+> With that in mind, less change is better, and so I have decided to back
+> this patch out. It's a risk-based decision, not a reflection of the effort,
+> desires or technicalities involved.
 
-------=_NextPart_5CB993D4_0D44CC60_6986CC7C
-Content-Type: text/html;
-	charset="ISO-8859-1"
-Content-Transfer-Encoding: base64
+Back to where we were before, it's fine as it works. 
 
-PGRpdj5IaSBhbGwsPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7V2hvIGtub3cgaG93IHRvIGNv
-bmZpZyBJUFY2IHRvIGxvbmdpbiB0aGUgb3BlbmJtYyB3ZWJ1aT88L2Rpdj48ZGl2PjxkaXY+
-Jm5ic3A7ICZuYnNwOyBJIGNhbid0IGxvZ2luIHRoZSBvcGVuYm1jIHdlYnVpIHdoZW4gSSBj
-b25maWd1cmVkIHRoZSBJUCAmbmJzcDsgd2l0aCBJUFY2LjwvZGl2PjxkaXY+PGRpdj5NeSB0
-ZXN0aW5nIGVudmlyb25tZW50IGlzIGFzIGZvbGxvd2luZyA6PGJyPjEpIC9ldGMvc3lzdGVt
-ZC9uZXR3b3JrLzAwLWJtYy1ldGgwLm5ldHdvcms6PGJyPltNYXRjaF08L2Rpdj48ZGl2Pk5h
-bWU9ZXRoMDwvZGl2PjxkaXY+W05ldHdvcmtdPC9kaXY+PGRpdj5BZGRyZXNzPTIwMDI6MTAw
-MToxMDAxOjEwMDE6MTAwMToxMDAxOjEwMDE6MTAwMS82NDwvZGl2PjxkaXY+W0RIQ1BdJm5i
-c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
-bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
-ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IDwvZGl2PjxkaXY+
-Q2xpZW50SWRlbnRpZmllcj1tYWM8L2Rpdj48L2Rpdj48ZGl2PjIpIHN5c3RlbWN0bCByZXN0
-YXJ0IHN5c3RlbWQtbmV0d29ya2Q8L2Rpdj48ZGl2PjMpbXkgYm1jIHdlYnVpIElQVjYgSVA6
-PC9kaXY+PGRpdj4yMDAyOjEwMDE6MTAwMToxMDAxOjEwMDE6MTAwMToxMDAxOjEwMDIvNjQ8
-L2Rpdj48ZGl2PjQpIHBpbmc2IDIwMDI6MTAwMToxMDAxOjEwMDE6MTAwMToxMDAxOjEwMDE6
-MTAwMSZuYnNwOyBvbiBibWMgd2VidWkgUEMgOiZuYnNwOyBjb25uZWN0IGdvb2QuPGJyPjwv
-ZGl2PjxkaXY+NSkgbG9naW4gYm1jIHdlYnVpIDpmYWlsZWQ8YnI+PC9kaXY+PGJyPklzIHRo
-ZXJlIGFueXRoaW5nIHdyb25nIHdpdGggbXkgY29uZmlndXJhdGlvbj88YnI+PGJyPkkgc2F3
-IHRoZSBpc3N1ZSBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9waG9zcGhvci13ZWJ1aS9p
-c3N1ZXMvMTQgPGJyPklzIHRoZXJlIGEgc2hlZHVsZSB0byBzdXBwb3J0IElQVjYgPzxicj48
-YnI+QmVzdCw8YnI+eGl1emhpPGJyPjwvZGl2Pg==
+The optimize reads are just reading the first 4 bytes :
 
-------=_NextPart_5CB993D4_0D44CC60_6986CC7C--
+[   14.130480] aspeed-smc 1e630000.spi: mx25l25635e (32768 Kbytes)
+[   14.136664] aspeed-smc 1e630000.spi: write control register: 00122302
+[   14.143326] aspeed-smc 1e630000.spi: read control register: 203c2341
+[   14.149750] aspeed-smc 1e630000.spi: AHB frequency: 192 MHz
+[   14.181561] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.188894] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.196230] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.203558] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.210751] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.218067] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.225397] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.232722] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.239912] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+[   14.247232] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
+
+with memcpy_fromio :
+
+[   13.779087] aspeed-smc 1e630000.spi: mx25l25635e (32768 Kbytes)
+[   13.785255] aspeed-smc 1e630000.spi: write control register: 00122302
+[   13.791762] aspeed-smc 1e630000.spi: read control register: 203c2341
+[   13.798326] aspeed-smc 1e630000.spi: AHB frequency: 192 MHz
+[   13.815420] 50 41 52 54 00 00 00 01 00 00 00 01 00 00 00 80  PART............
+[   13.822759] 00 00 00 1b 00 00 10 00 00 00 20 00 00 00 00 00  .......... .....
+[   13.829946] 00 00 00 00 00 00 00 00 00 00 00 00 50 41 62 cf  ............PAb.
+[   13.837266] 70 61 72 74 00 00 00 00 00 00 00 00 00 00 00 00  part............
+[   13.844597] 00 00 00 00 00 00 00 01 ff ff ff ff 00 00 00 01  ................
+[   13.851788] 00 00 00 03 00 00 00 01 00 00 10 00 00 00 00 00  ................
+[   13.859105] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[   13.866433] 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00  .@..............
+[   13.873759] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[   13.880951] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+[   13.888267] 00 00 00 00 00 00 00 00 00 00 00 00 8f de 9d 89  ................
+[   13.895591] 48 42 49 00 00 00 00 00 00 00 00 00 00 00 00 00  HBI.............
+[   13.902917] 00 00 00 10 00 00 05 a0 ff ff ff ff 00 00 00 02  ................
+
+
+I should have added these tests in the commit log. Sorry about that.
+We will see later on. There are no hurries for this fix. Optimization
+is still being done.
+
+Thanks,
+
+C.
+
+
+> So there are lessons in this for me too as I've felt squeezed by the
+> impact the 4B corruption bug has had on teams testing master, and
+> my impending leave. With that reasoning and 20/20 hindsight I should
+> probably have held off to begin with. Next time. Some reflection is in
+> order.
+> 
+> Anyway, I hope that helps clarify. Time to resolve the disagreement here.
+> 
+> Milton: Given your protest, can you please verify whether there continue
+> to be issues with memcpy_fromio() that prevent us from making use of it.
+> As Cédric points out we do make heavy use of it anyway, and using a
+> well-worn implementation rather than something bespoke for this particular
+> case would improve maintainability.
+> 
+> Cheers,
+> 
+> Andrew
+>  
+>>
+>>> Yeah, I had a briefly nagging thought about this when I applied it. I
+>>> should have gone with that gut instinct and inspected it in more
+>>> depth.
+>>>
+>>> Thanks for calling it out.
+>>
+>> I think this needs more thinking and tests. Witherspoon and palmetto
+>> are fine. What's the problem.
+>>
+>>> Reverting for dev-5.0, this is an isolated issue (arguably should have
+>>> been separated from the current series).
+>>
+>> We have been using memcpy_fromio for reads for a very long time 
+>> since 4.13 in the Aspeed SMC driver on *all* platforms*. 
+>>
+>> See aspeed_smc_read() for the "Command mode".
+>>
+>> C.
+>>
+>>
+>>
+>>
+>>>
+>>> Andrew
+>>>
+>>>>
+>>>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>>>>> ---
+>>>>> drivers/mtd/spi-nor/aspeed-smc.c | 6 ++----
+>>>>> 1 file changed, 2 insertions(+), 4 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c
+>>>>> b/drivers/mtd/spi-nor/aspeed-smc.c
+>>>>> index 1437732fdea1..7e289ecb1c99 100644
+>>>>> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+>>>>> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+>>>>> @@ -796,8 +796,7 @@ static bool aspeed_smc_check_reads(struct
+>>>>> aspeed_smc_chip *chip,
+>>>>> 	int i;
+>>>>>
+>>>>> 	for (i = 0; i < 10; i++) {
+>>>>> -		aspeed_smc_read_from_ahb(test_buf, chip->ahb_base,
+>>>>> -					 CALIBRATE_BUF_SIZE);
+>>>>> +		memcpy_fromio(test_buf, chip->ahb_base, CALIBRATE_BUF_SIZE);
+>>>>> 		if (memcmp(test_buf, golden_buf, CALIBRATE_BUF_SIZE) != 0)
+>>>>> 			return false;
+>>>>> 	}
+>>>>> @@ -921,8 +920,7 @@ static int aspeed_smc_optimize_read(struct
+>>>>> aspeed_smc_chip *chip,
+>>>>>
+>>>>> 	writel(chip->ctl_val[smc_read], chip->ctl);
+>>>>>
+>>>>> -	aspeed_smc_read_from_ahb(golden_buf, chip->ahb_base,
+>>>>> -				 CALIBRATE_BUF_SIZE);
+>>>>> +	memcpy_fromio(golden_buf, chip->ahb_base, CALIBRATE_BUF_SIZE);
+>>>>>
+>>>>> 	/* Establish our read mode with freq field set to 0 (HCLK/16) */
+>>>>> 	chip->ctl_val[smc_read] = save_read_val & 0xfffff0ff;
+>>>>> -- 
+>>>>> 2.20.1
+>>>>>
+>>>>>
+>>>>
+>>>>
+>>
+>>
