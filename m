@@ -1,48 +1,64 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <pengms1@lenovo.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.32.108.172; helo=9.mo1.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=lenovo.com
+ (client-ip=67.219.246.116; helo=mail1.bemta23.messagelabs.com;
+ envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 3593 seconds by postgrey-1.36 at bilbo;
- Fri, 19 Apr 2019 19:25:53 AEST
-Received: from 9.mo1.mail-out.ovh.net (9.mo1.mail-out.ovh.net [178.32.108.172])
+ dmarc=pass (p=none dis=none) header.from=lenovo.com
+Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
+ [67.219.246.116])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lrDx0BPlzDqV6
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 19:25:50 +1000 (AEST)
-Received: from player762.ha.ovh.net (unknown [10.109.146.211])
- by mo1.mail-out.ovh.net (Postfix) with ESMTP id 706E316B676
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 10:09:21 +0200 (CEST)
-Received: from kaod.org (lfbn-1-10649-41.w90-89.abo.wanadoo.fr [90.89.235.41])
- (Authenticated sender: clg@kaod.org)
- by player762.ha.ovh.net (Postfix) with ESMTPSA id 562984EFFE53;
- Fri, 19 Apr 2019 08:09:17 +0000 (UTC)
-Subject: Re: [PATCH dev-5.0 3/4] mtd: spi-nor: aspeed: use memcpy_fromio() to
- capture the optimization buffer
-To: Andrew Jeffery <andrew@aj.id.au>, Milton Miller II <miltonm@us.ibm.com>
-Cc: openbmc@lists.ozlabs.org
-References: <20190417133941.22962-4-clg@kaod.org>
- <20190417133941.22962-1-clg@kaod.org>
- <OF33F9274D.5DFDAC84-ON002583E0.00758962-002583E0.0075896A@notes.na.collabserv.com>
- <a8ab1055-64c6-4763-b244-2a17e70a10a1@www.fastmail.com>
- <d3ca43d0-0b47-bcd4-c2ae-d70226b5d12f@kaod.org>
- <090455f7-21dd-4e96-888e-1b23592bdfa3@www.fastmail.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <a914efb5-758f-b586-15f8-460ea6cbb225@kaod.org>
-Date: Fri, 19 Apr 2019 10:09:17 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <090455f7-21dd-4e96-888e-1b23592bdfa3@www.fastmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 9381279499045210882
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrfeeigddutdegucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lv3Z1YBgzDqTv;
+ Fri, 19 Apr 2019 21:32:56 +1000 (AEST)
+Received: from [67.219.246.198] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-5.bemta.az-c.us-east-1.aws.symcld.net id EE/D0-24715-3E1B9BC5;
+ Fri, 19 Apr 2019 11:32:51 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprNIsWRWlGSWpSXmKPExsWS8eIht+7jjTt
+ jDBZ9lLbYdZnDYsbeB8wW84+cY7X4ff4vs8Wmx9dYLZpXn2O2uLxrDpvF0usXmSxOtbxgsWjd
+ e4Tdgcvjavsudo8189YweizYVOpx8eMxZo9NqzrZPDYvqfc4P2Mho8fnTXIBHFGsmXlJ+RUJr
+ Bn7/9UUTGtirNi4aC17A+OKzC5GLg4hgQ4miZcnO5khnPmMEjvPPGTtYuTkYBNQkzg5+x4rSE
+ JE4A6jxOSN18GqmAUmMUo0fLnCDFIlLOAqMWnJHhYQm0VAVaJ1/gsmEJtXwFni/8VrYDUSAnI
+ SN891Mk9g5FzAyLCK0SypKDM9oyQ3MTNH19DAQNfQ0EjXRNfQxEAvsUo3Wa+0WDc1sbhE11Av
+ sbxYr7gyNzknRS8vtWQTIzDQUgpYenYwHluafohRkoNJSZQ3t3xnjBBfUn5KZUZicUZ8UWlOa
+ vEhRhkODiUJXmtg4AoJFqWmp1akZeYAQx4mLcHBoyTC+2IDUJq3uCAxtzgzHSJ1ilFRSpzXF6
+ RPACSRUZoH1waLs0uMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHl/gIznycwrgZv+CmgxE9D
+ iKTqrQRaXJCKkpBoY2W10fVl+3jjWpv87oy41JchozaMdrU0KkbVTxD51fHmt8dxiz/EFu9ew
+ 3Zm1zTVJY6N2H2+trW2SKINtTdbKvvDglyWVCfa7i2bcrVvP6CmSsrD81PSv+tWL/mr3fvopJ
+ fRSZ+53vUr1uOUt97oXVl7WmNTXteZOzZbmp/ULVynOuRN5pExdiaU4I9FQi7moOBEA8tyxPa
+ 4CAAA=
+X-Env-Sender: pengms1@lenovo.com
+X-Msg-Ref: server-2.tower-406.messagelabs.com!1555673571!6170547!1
+X-Originating-IP: [104.232.225.11]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.31.5; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 13329 invoked from network); 19 Apr 2019 11:32:51 -0000
+Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.11)
+ by server-2.tower-406.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
+ SMTP; 19 Apr 2019 11:32:51 -0000
+Received: from smtpinternal.lenovo.com (unknown [10.96.80.15])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by Forcepoint Email with ESMTPS id 1960AC81E290CCBCF081;
+ Fri, 19 Apr 2019 07:21:23 -0400 (EDT)
+Received: from localhost.localdomain (unknown [10.245.100.154])
+ by Forcepoint Email with ESMTP id 422D026D4E03A77C04BD;
+ Fri, 19 Apr 2019 19:32:46 +0800 (CST)
+From: Andrew Peng <pengms1@lenovo.com>
+To: benjaminfair@google.com, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, andrew@aj.id.au, mark.rutland@arm.com,
+ robh+dt@kernel.org
+Cc: pengms1@lenovo.com, liuyj19@lenovo.com, dukh@lenovo.com,
+ liuyh21@lenovo.com, hsung1@lenovo.com, joel@jms.id.au,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH] [PATCH v1] ARM: dts: aspeed: Adding Lenovo Hr630 BMC
+Date: Fri, 19 Apr 2019 19:32:36 +0800
+Message-Id: <1555673556-419097-1-git-send-email-pengms1@lenovo.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,211 +70,925 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Apr 2019 09:25:54 -0000
+X-List-Received-Date: Fri, 19 Apr 2019 11:32:59 -0000
 
-On 4/19/19 9:23 AM, Andrew Jeffery wrote:
-> Hi Cédric
-> 
-> On Fri, 19 Apr 2019, at 15:32, Cédric Le Goater wrote:
->> On 4/19/19 3:03 AM, Andrew Jeffery wrote:
->>>
->>>
->>> On Fri, 19 Apr 2019, at 06:53, Milton Miller II wrote:
->>>> About 04/17/2019 09:20AM in some timezone, Cédric Le Goater wrote:
->>>>
->>>>
->>>>> aspeed_smc_read_from_ahb() only reads the first word which is not
->>>>> what
->>>>> we want. We want to capture a CALIBRATE_BUF_SIZE size window of the
->>>>> flash contents to optimize the read.
->>>>>
->>>>
->>>> NACK
->>>>
->>>> This justifcation is false.  The routine reads the whole buffer
->>>> because it calls the _rep routine and takes the size.
->>
->> It doesn't AFAICT looking at other drivers and also from my test.
->>
->>>> In addition, the comment just before aspeed_smc_read_from_ahb
->>>> tells why memcpy_fromio and memcpy_toio are broken on 32 bit
->>
->> That might have been the case on Linux 4.7. It doesn't seem to be 
->> the case anymore. See below.
->>
->>>> arm, and this is still the case judging from the recent bug
->>>> reportfrom a Nuvaton user [1].
->>>>
->>>> [1] https://github.com/openbmc/openbmc/issues/3521
->>>>
->>>> Andrew, Please revert this patch.
->>
->> I don't think you have enough convincing arguments for that.
-> 
-> That may be the case, but having seen the pain of the original corruption
-> problems that drove the ioreadX_rep() implementation above, Milton's
-> protest combined with my initial, briefly nagging concern was enough for
-> me to revert. Two things here:
-> 
-> 1. We've run without this patch for quite some time. Despite oddities,
-> the existing implementation has been stable
-> 2. With patch 4/4, you've resolved the 4B corruption problem. This was
-> the immediate concern, as it was impacting teams developing and
-> testing OpenBMC master. I appreciate the effort you put into hunting
-> that down, the root cause was certainly not obvious.
-> 
-> From *my* testing we appear to be stable both with and without this
-> change, however my concern is that *my* testing is not complete enough
-> to be confident that we're not going to hit the subtle corruption problems
-> that drove the introduction of the existing code.
+Initial introduction of Lenovo Hr630 family equipped with
+Aspeed 2500 BMC SoC. Hr630 is a x86 server development kit
+with a ASPEED ast2500 BMC manufactured by Lenovo.
+Specifically, This adds the Hr630 platform device tree file
+used by the Hr630 BMC machines.
 
-QEMU would have caught this regression if SFDP was modeled. It does today
-if 4B opcodes are forced on the mx25l25635e. Given the time the team spent
-on this, I would say 1 or 2PM overall, QEMU is a good investment. 
-                                                  ^
-                                                  |
-Managers are you reading this ? ------------------+ 
+This also adds an entry of Hr630 device tree file in Makefile
 
-> For some additional context, I'm now on leave until the 30th, and Joel to
-> the 29th. These patches have been through a process that has proceeded
-> much more hastily than I would have liked, and that's lead to where we
-> are now.
-> 
-> With that in mind, less change is better, and so I have decided to back
-> this patch out. It's a risk-based decision, not a reflection of the effort,
-> desires or technicalities involved.
+Signed-off-by: Andrew Peng <pengms1@lenovo.com>
+Signed-off-by: Yonghui Liu <liuyh21@lenovo.com>
+Signed-off-by: Lisa Liu <liuyj19@lenovo.com>
+---
+ arch/arm/boot/dts/Makefile                    |   3 +-
+ arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts | 884 ++++++++++++++++++++++++++
+ 2 files changed, 886 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
 
-Back to where we were before, it's fine as it works. 
-
-The optimize reads are just reading the first 4 bytes :
-
-[   14.130480] aspeed-smc 1e630000.spi: mx25l25635e (32768 Kbytes)
-[   14.136664] aspeed-smc 1e630000.spi: write control register: 00122302
-[   14.143326] aspeed-smc 1e630000.spi: read control register: 203c2341
-[   14.149750] aspeed-smc 1e630000.spi: AHB frequency: 192 MHz
-[   14.181561] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.188894] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.196230] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.203558] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.210751] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.218067] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.225397] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.232722] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.239912] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-[   14.247232] 50 41 52 54 50 41 52 54 50 41 52 54 50 41 52 54  PARTPARTPARTPART
-
-with memcpy_fromio :
-
-[   13.779087] aspeed-smc 1e630000.spi: mx25l25635e (32768 Kbytes)
-[   13.785255] aspeed-smc 1e630000.spi: write control register: 00122302
-[   13.791762] aspeed-smc 1e630000.spi: read control register: 203c2341
-[   13.798326] aspeed-smc 1e630000.spi: AHB frequency: 192 MHz
-[   13.815420] 50 41 52 54 00 00 00 01 00 00 00 01 00 00 00 80  PART............
-[   13.822759] 00 00 00 1b 00 00 10 00 00 00 20 00 00 00 00 00  .......... .....
-[   13.829946] 00 00 00 00 00 00 00 00 00 00 00 00 50 41 62 cf  ............PAb.
-[   13.837266] 70 61 72 74 00 00 00 00 00 00 00 00 00 00 00 00  part............
-[   13.844597] 00 00 00 00 00 00 00 01 ff ff ff ff 00 00 00 01  ................
-[   13.851788] 00 00 00 03 00 00 00 01 00 00 10 00 00 00 00 00  ................
-[   13.859105] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-[   13.866433] 00 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00  .@..............
-[   13.873759] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-[   13.880951] 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-[   13.888267] 00 00 00 00 00 00 00 00 00 00 00 00 8f de 9d 89  ................
-[   13.895591] 48 42 49 00 00 00 00 00 00 00 00 00 00 00 00 00  HBI.............
-[   13.902917] 00 00 00 10 00 00 05 a0 ff ff ff ff 00 00 00 02  ................
-
-
-I should have added these tests in the commit log. Sorry about that.
-We will see later on. There are no hurries for this fix. Optimization
-is still being done.
-
-Thanks,
-
-C.
-
-
-> So there are lessons in this for me too as I've felt squeezed by the
-> impact the 4B corruption bug has had on teams testing master, and
-> my impending leave. With that reasoning and 20/20 hindsight I should
-> probably have held off to begin with. Next time. Some reflection is in
-> order.
-> 
-> Anyway, I hope that helps clarify. Time to resolve the disagreement here.
-> 
-> Milton: Given your protest, can you please verify whether there continue
-> to be issues with memcpy_fromio() that prevent us from making use of it.
-> As Cédric points out we do make heavy use of it anyway, and using a
-> well-worn implementation rather than something bespoke for this particular
-> case would improve maintainability.
-> 
-> Cheers,
-> 
-> Andrew
->  
->>
->>> Yeah, I had a briefly nagging thought about this when I applied it. I
->>> should have gone with that gut instinct and inspected it in more
->>> depth.
->>>
->>> Thanks for calling it out.
->>
->> I think this needs more thinking and tests. Witherspoon and palmetto
->> are fine. What's the problem.
->>
->>> Reverting for dev-5.0, this is an isolated issue (arguably should have
->>> been separated from the current series).
->>
->> We have been using memcpy_fromio for reads for a very long time 
->> since 4.13 in the Aspeed SMC driver on *all* platforms*. 
->>
->> See aspeed_smc_read() for the "Command mode".
->>
->> C.
->>
->>
->>
->>
->>>
->>> Andrew
->>>
->>>>
->>>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
->>>>> ---
->>>>> drivers/mtd/spi-nor/aspeed-smc.c | 6 ++----
->>>>> 1 file changed, 2 insertions(+), 4 deletions(-)
->>>>>
->>>>> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c
->>>>> b/drivers/mtd/spi-nor/aspeed-smc.c
->>>>> index 1437732fdea1..7e289ecb1c99 100644
->>>>> --- a/drivers/mtd/spi-nor/aspeed-smc.c
->>>>> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
->>>>> @@ -796,8 +796,7 @@ static bool aspeed_smc_check_reads(struct
->>>>> aspeed_smc_chip *chip,
->>>>> 	int i;
->>>>>
->>>>> 	for (i = 0; i < 10; i++) {
->>>>> -		aspeed_smc_read_from_ahb(test_buf, chip->ahb_base,
->>>>> -					 CALIBRATE_BUF_SIZE);
->>>>> +		memcpy_fromio(test_buf, chip->ahb_base, CALIBRATE_BUF_SIZE);
->>>>> 		if (memcmp(test_buf, golden_buf, CALIBRATE_BUF_SIZE) != 0)
->>>>> 			return false;
->>>>> 	}
->>>>> @@ -921,8 +920,7 @@ static int aspeed_smc_optimize_read(struct
->>>>> aspeed_smc_chip *chip,
->>>>>
->>>>> 	writel(chip->ctl_val[smc_read], chip->ctl);
->>>>>
->>>>> -	aspeed_smc_read_from_ahb(golden_buf, chip->ahb_base,
->>>>> -				 CALIBRATE_BUF_SIZE);
->>>>> +	memcpy_fromio(golden_buf, chip->ahb_base, CALIBRATE_BUF_SIZE);
->>>>>
->>>>> 	/* Establish our read mode with freq field set to 0 (HCLK/16) */
->>>>> 	chip->ctl_val[smc_read] = save_read_val & 0xfffff0ff;
->>>>> -- 
->>>>> 2.20.1
->>>>>
->>>>>
->>>>
->>>>
->>
->>
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index f4f5aea..375e53b 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1261,4 +1261,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-portwell-neptune.dtb \
+-	aspeed-bmc-quanta-q71l.dtb
++	aspeed-bmc-quanta-q71l.dtb \
++	aspeed-bmc-lenovo-hr630.dtb
+diff --git a/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
+new file mode 100644
+index 0000000..ca80509
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
+@@ -0,0 +1,884 @@
++// SPDX-License-Identifier: GPL-2.0+
++//"Copyright ? 2019-present Lenovo
++//Licensed under GPL v2, see COPYING file for details."
++
++
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "HR630 BMC";
++	compatible = "lenovo,hr630-bmc", "aspeed,ast2500";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=tty0 console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x00100000>; /* 1M */
++		};
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		heartbeat {
++			gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_LOW>;
++		};
++
++		fault {
++			gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++		<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++		<&adc 8>, <&adc 9>, <&adc 10>,
++		<&adc 12>, <&adc 13>, <&adc 14>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&uart2 {
++	status = "okay";
++};
++
++&uart3 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&ibt {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&adc {
++	status = "okay";
++};
++
++&i2c0 {
++	status = "okay";
++	/* temp1 inlet */
++	tmp75@4e {
++		compatible = "national,lm75";
++		reg = <0x4e>;
++	};
++};
++
++&i2c1 {
++	status = "okay";
++	/* temp2 outlet */
++	tmp75@4d {
++		compatible = "national,lm75";
++		reg = <0x4d>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++	/*
++	 *eeprom@50 {
++	 *	compatible = "atmel,24c08";
++	 *	reg = <0x50>;
++	 *	pagesize = <16>;
++	 *};
++	 */
++};
++
++&i2c6 {
++	status = "okay";
++	/*	Slot 0,
++	 *	Slot 1,
++	 *	Slot 2,
++	 *	Slot 3
++	 */
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9545";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;	/* may use mux@70 next. */
++
++		i2c_rbp: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c_fbp1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c_fbp2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c_fbp3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	/*	Slot 0,
++	 *	Slot 1,
++	 *	Slot 2,
++	 *	Slot 3
++	 */
++	i2c-switch@76 {
++		compatible = "nxp,pca9546";
++		reg = <0x76>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;  /* may use mux@76 next. */
++
++		i2c_riser2: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c_pcie4: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c_riser1: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c_ocp: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c8 {
++	status = "okay";
++
++	eeprom@57 {
++		compatible = "atmel,24c256";
++		reg = <0x57>;
++		pagesize = <16>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++/*
++ * Enable port A as device (via the virtual hub) and port B as
++ * host by default on the eval board. This can be easily changed
++ * by replacing the override below with &ehci0 { ... } to enable
++ * host on both ports.
++ */
++&vhub {
++	status = "okay";
++};
++
++&ehci1 {
++	status = "okay";
++};
++
++&uhci {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default
++	&pinctrl_pwm1_default
++	&pinctrl_pwm2_default
++	&pinctrl_pwm3_default
++	&pinctrl_pwm4_default
++	&pinctrl_pwm5_default
++	&pinctrl_pwm6_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++
++	fan@2 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
++	};
++
++	fan@3 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
++	};
++
++	fan@4 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
++	};
++
++	fan@5 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
++	};
++
++	fan@6 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
++	};
++
++	fan@7 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
++	};
++
++	fan@8 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x08>;
++	};
++
++	fan@9 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x09>;
++	};
++
++	fan@10 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0a>;
++	};
++
++	fan@11 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0b>;
++	};
++
++	fan@12 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0c>;
++	};
++
++	fan@13 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0d>;
++	};
++};
++
++&gpio {
++
++	pin_gpio_a0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MAC1_INT_N";
++	};
++
++	pin_gpio_a1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MEZZ_C_PRESENT_N";
++	};
++
++	pin_gpio_a2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_PRST";
++	};
++
++	pin_gpio_a3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_PRST";
++	};
++
++	pin_gpio_b5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "IRQ_BMC_PCH_SMI_LPC_N";
++	};
++
++	pin_gpio_f0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "IRQ_BMC_PCH_NMI_R";
++	};
++
++	pin_gpio_f1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU1_DISABLE_COD_N";
++	};
++
++	pin_gpio_f2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "SMB_LAN_ALERT_N_MEZZ";
++	};
++
++	pin_gpio_f3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_BUS0_RST_OUT_N";
++	};
++
++	pin_gpio_f4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "FM_SKT0_FAULT_LED";
++	};
++
++	pin_gpio_f5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "FM_SKT1_FAULT_LED";
++	};
++
++	pin_gpio_f6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_BMC_CPLD_NMI";
++	};
++
++	pin_gpio_f7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_ALERT_N";
++	};
++
++	pin_gpio_g0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU_ERR2_LVT3_N";
++	};
++
++	pin_gpio_g1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU_MSMI_CATERR_LVT3_N";
++	};
++
++	pin_gpio_g2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PCH_BMC_THERMTRIP_N";
++	};
++
++	pin_gpio_g3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_I2C_BUS7_INT_N";
++	};
++
++	pin_gpio_g4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "FAN_PWR_CTL_N";
++	};
++
++	pin_gpio_g5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "NFC_FD_N";
++	};
++
++	pin_gpio_g6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_NMI_EVENT_N";
++	};
++
++	pin_gpio_g7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 7) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "RST_BMC_PCIE_I2CMUX_N";
++	};
++
++	pin_gpio_h0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_EPOW_N_R";
++	};
++
++	pin_gpio_h1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_EPOW_N_R";
++	};
++
++	pin_gpio_h2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PSU1_FFS_N_R";
++	};
++
++	pin_gpio_h3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PSU2_FFS_N_R";
++	};
++
++	pin_gpio_h4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_THROTTLE_N_R";
++	};
++
++	pin_gpio_h5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_THROTTLE_N_R";
++	};
++
++	pin_gpio_h6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_SMB_RESET_N";
++	};
++
++	pin_gpio_h7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_SMB_RESET_N";
++	};
++
++	pin_gpio_i1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FP_PWR_BTN_N";
++	};
++
++	pin_gpio_i2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BIOS_RCVR_N";
++	};
++
++	pin_gpio_i3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_INTRUDED_COVER";
++	};
++
++	pin_gpio_j2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_BIOS_UPDATE_N";
++	};
++
++	pin_gpio_j3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(J, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "RST_BMC_HDD_I2CMUX_N";
++	};
++
++	pin_gpio_q4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MEZZ_A_PRESENT_N";
++	};
++
++	pin_gpio_q5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "VGA_FRONT_PRES_N";
++	};
++
++	pin_gpio_q6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "I2C_RISER1_INT_N";
++	};
++
++	pin_gpio_q7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "NCSI_CABLE_DET_N";
++	};
++
++	pin_gpio_r0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FP_RST_BTN_N";
++	};
++
++	pin_gpio_r2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG1_DETECT_N";
++	};
++
++	pin_gpio_r3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG2_DETECT_N";
++	};
++
++	pin_gpio_r4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG3_DETECT_N";
++	};
++
++	pin_gpio_r5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "VIDEO_CABLE_DETECT_N";
++	};
++
++	pin_gpio_s0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_PS_RAPIDON_WAKE_R_N";
++	};
++
++	pin_gpio_s1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HOST_TPM_PP_BUF";
++	};
++
++	pin_gpio_s2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_VGA_SW";
++	};
++
++	pin_gpio_s3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_SML0_ALERT_MUX_N";
++	};
++
++	pin_gpio_s4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 4) GPIO_ACTIVE_HIGH>;
++		output;
++		line-name = "VBAT_EN_N";
++	};
++
++	pin_gpio_s5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_4";
++	};
++
++	pin_gpio_s6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 6) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PU_BMC_GPIOS6";
++	};
++
++	pin_gpio_s7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "I2C_BUS7_RESET_N";
++	};
++
++	pin_gpio_y0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_NCSI_MUX_CTL_S0";
++	};
++
++	pin_gpio_y1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 1) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_NCSI_MUX_CTL_S1";
++	};
++
++	pin_gpio_y2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "UID_ALERT_N";
++	};
++
++	pin_gpio_z0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 0) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_RISER2_INT_N";
++	};
++
++	pin_gpio_z2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_RISER2_RESET_N";
++	};
++
++	pin_gpio_z3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "FM_BMC_PCH_SCI_LPC_N";
++	};
++
++	pin_gpio_z4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_17";
++	};
++
++	pin_gpio_z6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_20";
++	};
++
++	pin_gpio_z7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 7) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_POST_CMPLT_N";
++	};
++
++	pin_gpio_aa0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "HOST_BMC_USB_SEL";
++	};
++
++	pin_gpio_aa1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_ALERT_N";
++	};
++
++	pin_gpio_aa2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PVCCIN_CPU0_PWR_IN_ALERT_N";
++	};
++
++	pin_gpio_aa3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PVCCIN_CPU1_PWR_IN_ALERT_N";
++	};
++
++	pin_gpio_aa4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "USB_CABLE_DETECT_N";
++	};
++
++	pin_gpio_aa5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 5) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_BUS1_RST_OUT_N";
++	};
++
++	pin_gpio_aa6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_SMI_ACTIVE_N";
++	};
++
++	pin_gpio_aa7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_BIOS_POST_CMPLT_N";
++	};
++
++	pin_gpio_ab0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_TPM_MOD_PRES_N";
++	};
++
++	pin_gpio_ab1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FORCE_NMI_SW_FPGA_N";
++	};
++
++	pin_gpio_ab2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "1U_2U_PCBA_SEL_R";
++	};
++
++	pin_gpio_ab3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "INTRUDED_PRES_N";
++	};
++};
+-- 
+2.7.4
