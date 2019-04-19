@@ -1,52 +1,55 @@
-Return-Path: <3Fdy5XAcKB6AVENTUREGOOGLE.COMOPENBMCLISTS.OZLABS.ORG@flex--venture.bounces.google.com>
+Return-Path: <3ad25XAcKB_Ytclrspcemmejc.amkmnclZkajgqrq.mxjYZq.mpe@flex--venture.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::649; helo=mail-pl1-x649.google.com;
- envelope-from=3fdy5xackb6aventuregoogle.comopenbmclists.ozlabs.org@flex--venture.bounces.google.com;
+ (client-ip=2607:f8b0:4864:20::249; helo=mail-oi1-x249.google.com;
+ envelope-from=3ad25xackb_ytclrspcemmejc.amkmnclzkajgqrq.mxjyzq.mpe@flex--venture.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Ar+wgEmy"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="We8aQxtp"; 
  dkim-atps=neutral
-Received: from mail-pl1-x649.google.com (mail-pl1-x649.google.com
- [IPv6:2607:f8b0:4864:20::649])
+Received: from mail-oi1-x249.google.com (mail-oi1-x249.google.com
+ [IPv6:2607:f8b0:4864:20::249])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lz3P2PZMzDqTv
- for <openbmc@lists.ozlabs.org>; Sat, 20 Apr 2019 00:32:57 +1000 (AEST)
-Received: by mail-pl1-x649.google.com with SMTP id p11so3601849plr.3
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 07:32:56 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lzB63w0WzDqBN
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Apr 2019 00:38:48 +1000 (AEST)
+Received: by mail-oi1-x249.google.com with SMTP id x125so2282006oix.17
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 07:38:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=sSRHZ+zdOR0Fuw/mRbsW2wNy2XknL3g7+iyrJIV+Gmg=;
- b=Ar+wgEmy6V4Z3AKHFl5zjgZ2AA5YTC+1/spkKpk/MZaqujxV9RVQ0+lzUhGAZhS6Ma
- zRY6aNhNhc+IkDGjWsMh4PdWPRsu8UoxQOZWNS3WOgzBGPtUBGQPTqNdn7kHEucDE5Eu
- 7AM6zogi5XOeSxC2yt4+nvV13LEaJ/V+pdizDOrLGTE62zdz7SGJxhds2aDDkojuH938
- EhOkINeE/6TnXiDZ12dv3x1tHj8Lc+D9P4QHO9r4bKihnXGdoV6p3rw6096NIc/8wL+t
- BBq7+7VSZFYB1zSqWLaU65UdST8HIfNJ0fXLp8HkYqomMwAJV2TTLQZd/8stGUh6vI/R
- JyhA==
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=KXmmBkW8DPzMFPyQQK2m+Vr5EWw6pvM3wHUEjdsyITk=;
+ b=We8aQxtpwlmjBKndUj8KgtSAnNo1HNGk9dB9zqxradLGK7HRYXKzoTA/OF6bwF53eG
+ YdlYsVX9tV6cBqkqzL10r1Bs16rorgTezTMOgm//AgAzM2sW2zA5pr/v34byoZxafAYo
+ /i3DRJV8YneaSEdTwIRWx/D8KxmMd6Y0ZXn9bgJ0ROidjmScOUc2rJ5/I4VGP1onujUK
+ MGqWgF0KkX0Or8KTfOOO+bHzj922Tr5ytaVB4QbQFNSn9pJ87f/YG30w8OCOIFVPK96J
+ KMpG0XM/OYG90KGHG37N8nlaysOkmHcCMdJrTKV/Xa7RTW58xeUbPPk92PTM8ljvKzg6
+ 3B6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=sSRHZ+zdOR0Fuw/mRbsW2wNy2XknL3g7+iyrJIV+Gmg=;
- b=c20T0n2V8UYtZ8BwE0ubDjkpo2IdqhVtxmJqK9HcGlMZC2iCIvWm+NP1oKhrq+HXy/
- WlYTcZ3/sQHUlq9nlhcYoB/TcOXeN9hW5zymLdvSZbPPKjRz9Dff03ESp9qf9vYqNDKo
- fVQ+CVvCPX/DlqB514A6vbG9Y1ok6H9CgwtzPFOD0XT29o6aRL5o5znNt/lTdxZibnHK
- ANLVREO1tADJ343fzUL5+L3Ieo0+1s7lpB2CawNhlG580nx5OS5mo5ijRFCofaJ3Obkz
- WqCiG8OZ6T9JmcKWBfCqBbOI9Xmp2tL302hftr6RRNwjqMHJhBIMipqu0RfB4tvj1u5q
- qXPg==
-X-Gm-Message-State: APjAAAWUMnYVH+rakAha/8AZAPwm7XONxWy/eNkT7gTcV3bkqyocwybZ
- SXmCdeiEy+llxJ2e/FqgHJ/3h6a8171S
-X-Google-Smtp-Source: APXvYqyV6lz0nIsO4DexBN9igfW+dt5Fa92M2YJuFQDFSlcPyrVWmw7aQATXkYBp5z1BGaMEvynS/SS8nPMg
-X-Received: by 2002:a63:ad4b:: with SMTP id y11mr4183634pgo.405.1555684373361; 
- Fri, 19 Apr 2019 07:32:53 -0700 (PDT)
-Date: Fri, 19 Apr 2019 07:32:49 -0700
-Message-Id: <20190419143249.230002-1-venture@google.com>
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=KXmmBkW8DPzMFPyQQK2m+Vr5EWw6pvM3wHUEjdsyITk=;
+ b=Gn4o8SOoPcFlwSlN9cKJyasTM5gNdjsJGg0B9zadRcRRpNp5xcpqKB5tOlNoxd/fa8
+ RWSpaSxkhJv5IILFCumU7TQ3HTJmee7lnqZpIBD9jfF+6Il7/eVmeOSMmV5QbbmqDydB
+ 2xivsXotwB7jBjg2jHYC7TaPrgeeI0AdURXM7m+gNh37rYUjNi/Eiy6LFjrIlSYeH0yk
+ 7bVHmRC6c2fYw88pE9EE6tHfjaVig05fBT4P8/78V7VbtOD+4Zgz53/CKdlSayX+JzHH
+ bu1v+klJTuESW7Si31Iz9nM+PSQR2gF87XVjBGF8Ifkhv96mWws6A3/3ESp311Ka9zmV
+ kDmw==
+X-Gm-Message-State: APjAAAUI9pVbK5n+6p04vFWo6C77C9W3T0wV251MrpxA3460Nqtvrd+A
+ lHmsk+c7mnVc7/b/ijazVjnqJZG7DiVT
+X-Google-Smtp-Source: APXvYqwGjT37fmiFDz+Eou3yIVnSSVFXHkocWsTzBUw/L5A75CK/kQ9TUoX1/arFFQsfRjtnVqqm1+0w+Sbh
+X-Received: by 2002:a9d:19af:: with SMTP id k44mr2302513otk.300.1555684713808; 
+ Fri, 19 Apr 2019 07:38:33 -0700 (PDT)
+Date: Fri, 19 Apr 2019 07:37:59 -0700
+In-Reply-To: <20190419143757.232387-1-venture@google.com>
+Message-Id: <20190419143757.232387-2-venture@google.com>
 Mime-Version: 1.0
+References: <20190419143757.232387-1-venture@google.com>
 X-Mailer: git-send-email 2.21.0.392.gf8f6787159e-goog
-Subject: [PATCH dev-5.0] hwmon: (pmbus/isl68137): Remove default y in Kconfig
+Subject: [PATCH dev-5.0 2/2] dt-bindings: Add isl68137 as a trivial device
 From: Patrick Venture <venture@google.com>
 To: venture@google.com, andrew@aj.id.au, joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
@@ -62,30 +65,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Apr 2019 14:33:06 -0000
+X-List-Received-Date: Fri, 19 Apr 2019 14:38:55 -0000
 
-Remove the default y in the Kconfig so this driver isn't always built
-into a system.
-
-Note: This was caught by the upstream review but missed when I applied
-the other changes to this driver's primary patchset.
+The isl68137 is a digital output 7-phrase configurable PWM controller
+with an AVSBus interface from Intersil.
 
 Signed-off-by: Patrick Venture <venture@google.com>
 ---
- drivers/hwmon/pmbus/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index b6c228a55da2..965efe1d13c1 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -56,7 +56,6 @@ config SENSORS_IR35221
- 
- config SENSORS_ISL68137
- 	tristate "Intersil ISL68137"
--	default y
- 	help
- 	  If you say yes here you get hardware monitoring support for Intersil
- 	  ISL68137.
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index c01dcacde198..eae6103a30d0 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -104,6 +104,8 @@ properties:
+           - isil,isl29028
+             # Intersil ISL29030 Ambient Light and Proximity Sensor
+           - isil,isl29030
++            # Intersil ISL68137 Digital Output Configurable PWM Controller
++          - isil,isl68137
+             # 5 Bit Programmable, Pulse-Width Modulator
+           - maxim,ds1050
+             # Low-Power, 4-/12-Channel, 2-Wire Serial, 12-Bit ADCs
 -- 
 2.21.0.392.gf8f6787159e-goog
