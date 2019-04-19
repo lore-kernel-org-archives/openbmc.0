@@ -9,55 +9,51 @@ Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
  [67.219.246.116])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lv3Z1YBgzDqTv;
- Fri, 19 Apr 2019 21:32:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lv542BpTzDqVJ
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 21:34:15 +1000 (AEST)
 Received: from [67.219.246.198] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-5.bemta.az-c.us-east-1.aws.symcld.net id EE/D0-24715-3E1B9BC5;
- Fri, 19 Apr 2019 11:32:51 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprNIsWRWlGSWpSXmKPExsWS8eIht+7jjTt
- jDBZ9lLbYdZnDYsbeB8wW84+cY7X4ff4vs8Wmx9dYLZpXn2O2uLxrDpvF0usXmSxOtbxgsWjd
- e4Tdgcvjavsudo8189YweizYVOpx8eMxZo9NqzrZPDYvqfc4P2Mho8fnTXIBHFGsmXlJ+RUJr
- Bn7/9UUTGtirNi4aC17A+OKzC5GLg4hgQ4miZcnO5khnPmMEjvPPGTtYuTkYBNQkzg5+x4rSE
- JE4A6jxOSN18GqmAUmMUo0fLnCDFIlLOAqMWnJHhYQm0VAVaJ1/gsmEJtXwFni/8VrYDUSAnI
- SN891Mk9g5FzAyLCK0SypKDM9oyQ3MTNH19DAQNfQ0EjXRNfQxEAvsUo3Wa+0WDc1sbhE11Av
- sbxYr7gyNzknRS8vtWQTIzDQUgpYenYwHluafohRkoNJSZQ3t3xnjBBfUn5KZUZicUZ8UWlOa
- vEhRhkODiUJXmtg4AoJFqWmp1akZeYAQx4mLcHBoyTC+2IDUJq3uCAxtzgzHSJ1ilFRSpzXF6
- RPACSRUZoH1waLs0uMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHl/gIznycwrgZv+CmgxE9D
- iKTqrQRaXJCKkpBoY2W10fVl+3jjWpv87oy41JchozaMdrU0KkbVTxD51fHmt8dxiz/EFu9ew
- 3Zm1zTVJY6N2H2+trW2SKINtTdbKvvDglyWVCfa7i2bcrVvP6CmSsrD81PSv+tWL/mr3fvopJ
- fRSZ+53vUr1uOUt97oXVl7WmNTXteZOzZbmp/ULVynOuRN5pExdiaU4I9FQi7moOBEA8tyxPa
- 4CAAA=
+ by server-5.bemta.az-c.us-east-1.aws.symcld.net id F8/A3-24715-532B9BC5;
+ Fri, 19 Apr 2019 11:34:13 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrALMWRWlGSWpSXmKPExsWSLveKVdd0084
+ Yg/7tyhYz9j5gtvh9/i+zxamWFywOzB4LNpV6XPx4jNnj/IyFjAHMUayZeUn5FQmsGZ3ntrIW
+ TGtirPjV/IG9gXFFZhcjF4eQQAeTxIZdXewQznxGiYMrpwM5nBxsAmoSJ2ffY+1i5OAQEQiTe
+ PUhFyTMLFAi8fH8NkYQW1ggWOLnpH5mEJtFQFXi+LanYDavgLPE/+k7WUFsCQE5iZvnOpknMH
+ IuYGRYxWiWVJSZnlGSm5iZo2toYKBraGika6prZGyol1ilm6xXWqybmlhcogvklhfrFVfmJue
+ k6OWllmxiBPo8pYD1+Q7GecvTDzFKcjApifLmlu+MEeJLyk+pzEgszogvKs1JLT7EKMPBoSTB
+ a70RKCdYlJqeWpGWmQMMPpi0BAePkgjviw1Aad7igsTc4sx0iNQpRkUpcV5fkD4BkERGaR5cG
+ yzgLzHKSgnzMjIwMAjxFKQW5WaWoMq/YhTnYFQS5v0BMp4nM68EbvoroMVMQIun6KwGWVySiJ
+ CSamBcfkK1/mbIhwsz94ideXNFYtc2I5mTvcfmBdg4tmgutGkWDrk797NE/b7X158+btFWbSy
+ /cj6/Kvxg4STuaQe13A2Kg1hvzT5zxfTS++srf4fk1WwzsG0NDPgX2/wv8t9uhhPsvAZG6fbT
+ IqJfzNgq87RW95HWls4svUDNukNs12JzlH4z2G1RYinOSDTUYi4qTgQAS/4reHMCAAA=
 X-Env-Sender: pengms1@lenovo.com
-X-Msg-Ref: server-2.tower-406.messagelabs.com!1555673571!6170547!1
-X-Originating-IP: [104.232.225.11]
+X-Msg-Ref: server-7.tower-406.messagelabs.com!1555673646!6179611!1
+X-Originating-IP: [103.30.234.5]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.31.5; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 13329 invoked from network); 19 Apr 2019 11:32:51 -0000
-Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.11)
- by server-2.tower-406.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
- SMTP; 19 Apr 2019 11:32:51 -0000
+Received: (qmail 19564 invoked from network); 19 Apr 2019 11:34:12 -0000
+Received: from unknown (HELO apsmtp.lenovo.com) (103.30.234.5)
+ by server-7.tower-406.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
+ SMTP; 19 Apr 2019 11:34:12 -0000
 Received: from smtpinternal.lenovo.com (unknown [10.96.80.15])
  (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by Forcepoint Email with ESMTPS id 1960AC81E290CCBCF081;
- Fri, 19 Apr 2019 07:21:23 -0400 (EDT)
+ by Forcepoint Email with ESMTPS id 81BF5804AF69D745A327;
+ Fri, 19 Apr 2019 19:34:05 +0800 (CST)
 Received: from localhost.localdomain (unknown [10.245.100.154])
- by Forcepoint Email with ESMTP id 422D026D4E03A77C04BD;
- Fri, 19 Apr 2019 19:32:46 +0800 (CST)
+ by Forcepoint Email with ESMTP id 1E5859ACB9D3A17669D8;
+ Fri, 19 Apr 2019 19:34:05 +0800 (CST)
 From: Andrew Peng <pengms1@lenovo.com>
-To: benjaminfair@google.com, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, andrew@aj.id.au, mark.rutland@arm.com,
- robh+dt@kernel.org
-Cc: pengms1@lenovo.com, liuyj19@lenovo.com, dukh@lenovo.com,
- liuyh21@lenovo.com, hsung1@lenovo.com, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Subject: [PATCH] [PATCH v1] ARM: dts: aspeed: Adding Lenovo Hr630 BMC
-Date: Fri, 19 Apr 2019 19:32:36 +0800
-Message-Id: <1555673556-419097-1-git-send-email-pengms1@lenovo.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
+ benjaminfair@google.com
+Cc: Andrew Peng <pengms1@lenovo.com>, liuyj19@lenovo.com, dukh@lenovo.com,
+ liuyh21@lenovo.com, hsung1@lenovo.com
+Subject: [PATCH linux dev-5.0] [PATCH v1] ARM: dts: aspeed: Adding Lenovo
+ Hr630 BMC
+Date: Fri, 19 Apr 2019 19:33:34 +0800
+Message-Id: <1555673614-419143-1-git-send-email-pengms1@lenovo.com>
 X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -70,7 +66,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Apr 2019 11:32:59 -0000
+X-List-Received-Date: Fri, 19 Apr 2019 11:34:17 -0000
 
 Initial introduction of Lenovo Hr630 family equipped with
 Aspeed 2500 BMC SoC. Hr630 is a x86 server development kit
@@ -90,10 +86,10 @@ Signed-off-by: Lisa Liu <liuyj19@lenovo.com>
  create mode 100644 arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index f4f5aea..375e53b 100644
+index bd40148..b5d32a0 100644
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1261,4 +1261,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+@@ -1247,4 +1247,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
  	aspeed-bmc-opp-witherspoon.dtb \
  	aspeed-bmc-opp-zaius.dtb \
  	aspeed-bmc-portwell-neptune.dtb \
