@@ -1,58 +1,56 @@
-Return-Path: <3ad25XAcKB_Ytclrspcemmejc.amkmnclZkajgqrq.mxjYZq.mpe@flex--venture.bounces.google.com>
+Return-Path: <3Lt65XAcKB70yhqwxuhjrrjoh.frprshqepfolvwv.r2odev.ruj@flex--venture.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::249; helo=mail-oi1-x249.google.com;
- envelope-from=3ad25xackb_ytclrspcemmejc.amkmnclzkajgqrq.mxjyzq.mpe@flex--venture.bounces.google.com;
+ (client-ip=2607:f8b0:4864:20::749; helo=mail-qk1-x749.google.com;
+ envelope-from=3lt65xackb70yhqwxuhjrrjoh.frprshqepfolvwv.r2odev.ruj@flex--venture.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="We8aQxtp"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="PaoLMNei"; 
  dkim-atps=neutral
-Received: from mail-oi1-x249.google.com (mail-oi1-x249.google.com
- [IPv6:2607:f8b0:4864:20::249])
+Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
+ [IPv6:2607:f8b0:4864:20::749])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44lzB63w0WzDqBN
- for <openbmc@lists.ozlabs.org>; Sat, 20 Apr 2019 00:38:48 +1000 (AEST)
-Received: by mail-oi1-x249.google.com with SMTP id x125so2282006oix.17
- for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 07:38:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44lzFh5rCgzDqBN
+ for <openbmc@lists.ozlabs.org>; Sat, 20 Apr 2019 00:41:54 +1000 (AEST)
+Received: by mail-qk1-x749.google.com with SMTP id d8so4395070qkk.17
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Apr 2019 07:41:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=KXmmBkW8DPzMFPyQQK2m+Vr5EWw6pvM3wHUEjdsyITk=;
- b=We8aQxtpwlmjBKndUj8KgtSAnNo1HNGk9dB9zqxradLGK7HRYXKzoTA/OF6bwF53eG
- YdlYsVX9tV6cBqkqzL10r1Bs16rorgTezTMOgm//AgAzM2sW2zA5pr/v34byoZxafAYo
- /i3DRJV8YneaSEdTwIRWx/D8KxmMd6Y0ZXn9bgJ0ROidjmScOUc2rJ5/I4VGP1onujUK
- MGqWgF0KkX0Or8KTfOOO+bHzj922Tr5ytaVB4QbQFNSn9pJ87f/YG30w8OCOIFVPK96J
- KMpG0XM/OYG90KGHG37N8nlaysOkmHcCMdJrTKV/Xa7RTW58xeUbPPk92PTM8ljvKzg6
- 3B6Q==
+ h=date:message-id:mime-version:subject:from:to:cc;
+ bh=BelyAusOx0YfiakkT+ISkR4vR8JMKkPLQAmRbMojJck=;
+ b=PaoLMNei7CdzPdNJd5KxBljKRUrjESo2OrqBvVZZtBM+5Q56WARgxtjDWUimF9Qy/h
+ B3/hJCDefSxKko8gUoWwejE0uCM/yDYcb5TeQ1FghiL1cTOvLPwkeYhy8exTpKdZeVF6
+ zD8TsmHjgaJSfsQ+rtOX8cHQ8J84U4eVSnRN1Ag+k9QLg5u1LDlMJ+nz9y0kFVm+YjC6
+ CM3RaBt5AiSC+3yfQ1ys1zIl8Qi6HtyXuIVdX7pNmzEuQckmmeJxT9o8n6UrJp1RCgr6
+ fSEyS+Gj88EUEKLfeXfz7PTMaMSLuk4gD+1KyEQpmZ0kWBVWP9kGwjvPbsVBL7cuiulY
+ FS0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:in-reply-to:message-id:mime-version
- :references:subject:from:to:cc;
- bh=KXmmBkW8DPzMFPyQQK2m+Vr5EWw6pvM3wHUEjdsyITk=;
- b=Gn4o8SOoPcFlwSlN9cKJyasTM5gNdjsJGg0B9zadRcRRpNp5xcpqKB5tOlNoxd/fa8
- RWSpaSxkhJv5IILFCumU7TQ3HTJmee7lnqZpIBD9jfF+6Il7/eVmeOSMmV5QbbmqDydB
- 2xivsXotwB7jBjg2jHYC7TaPrgeeI0AdURXM7m+gNh37rYUjNi/Eiy6LFjrIlSYeH0yk
- 7bVHmRC6c2fYw88pE9EE6tHfjaVig05fBT4P8/78V7VbtOD+4Zgz53/CKdlSayX+JzHH
- bu1v+klJTuESW7Si31Iz9nM+PSQR2gF87XVjBGF8Ifkhv96mWws6A3/3ESp311Ka9zmV
- kDmw==
-X-Gm-Message-State: APjAAAUI9pVbK5n+6p04vFWo6C77C9W3T0wV251MrpxA3460Nqtvrd+A
- lHmsk+c7mnVc7/b/ijazVjnqJZG7DiVT
-X-Google-Smtp-Source: APXvYqwGjT37fmiFDz+Eou3yIVnSSVFXHkocWsTzBUw/L5A75CK/kQ9TUoX1/arFFQsfRjtnVqqm1+0w+Sbh
-X-Received: by 2002:a9d:19af:: with SMTP id k44mr2302513otk.300.1555684713808; 
- Fri, 19 Apr 2019 07:38:33 -0700 (PDT)
-Date: Fri, 19 Apr 2019 07:37:59 -0700
-In-Reply-To: <20190419143757.232387-1-venture@google.com>
-Message-Id: <20190419143757.232387-2-venture@google.com>
+ h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
+ bh=BelyAusOx0YfiakkT+ISkR4vR8JMKkPLQAmRbMojJck=;
+ b=BKYkC6w8PiQIepN+XE+aPdGDvog6zqylG/71K0Mvu8hlHysAkgUT7ZxO40SRzg0Phn
+ /OTPf+gGnsNvYLS08k+/njgxSUZfeRyzDyoO08nsQNPRQGpBH0fCSq0rQ2YzVTrBrrB5
+ 3ZbrClbgLru7fslpZ7wB+/2GXC1i87byfGx+vo4RM4g4XIoeTYShG5BcEsap3b2qv5KC
+ rfxOJSt8cguoE3VtQ6gRoFMzSYLcD+qVeNkK2V2TCMmHkjorxRSPZKQMl9mgTIOi9WgD
+ I3qQ2t6DMQ9IwVNzkgZoASzlGlYmZTBHYQ26lwMoMZMGWIZgIcoOUtMZ5WDGUG93vANo
+ VGTA==
+X-Gm-Message-State: APjAAAW4z82AUXyvg6N43EYaboCbLWkSK68w8WlRPZ6YAoClZjyfh9RU
+ RVW5sdlXI5pdDPIfkyAYKFRyDyC+X4C/
+X-Google-Smtp-Source: APXvYqyhwHVlOE48V7YMdCz2Jfj5ICcAIg5fnHiXv5M+Vi0LggkU/rGtjLKDs8aLkxjw4ik/tZEajNDQa8B5
+X-Received: by 2002:ac8:1185:: with SMTP id d5mr2869078qtj.260.1555684910631; 
+ Fri, 19 Apr 2019 07:41:50 -0700 (PDT)
+Date: Fri, 19 Apr 2019 07:41:44 -0700
+Message-Id: <20190419144144.255631-1-venture@google.com>
 Mime-Version: 1.0
-References: <20190419143757.232387-1-venture@google.com>
 X-Mailer: git-send-email 2.21.0.392.gf8f6787159e-goog
-Subject: [PATCH dev-5.0 2/2] dt-bindings: Add isl68137 as a trivial device
+Subject: [PATCH dev-5.0 1/2] ARM: dts: aspeed: zaius: update 12V brick I2C
+ address
 From: Patrick Venture <venture@google.com>
 To: venture@google.com, andrew@aj.id.au, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
+Cc: Robert Lippert <rlippert@google.com>, openbmc@lists.ozlabs.org
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -65,28 +63,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 19 Apr 2019 14:38:55 -0000
+X-List-Received-Date: Fri, 19 Apr 2019 14:42:01 -0000
 
-The isl68137 is a digital output 7-phrase configurable PWM controller
-with an AVSBus interface from Intersil.
+From: Robert Lippert <rlippert@google.com>
 
+The I2C address of the brick is different depending on the board SKU.
+
+Update the values to instantiate addresses which work for most boards.
+
+Signed-off-by: Robert Lippert <rlippert@google.com>
 Signed-off-by: Patrick Venture <venture@google.com>
 ---
- Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
-index c01dcacde198..eae6103a30d0 100644
---- a/Documentation/devicetree/bindings/trivial-devices.yaml
-+++ b/Documentation/devicetree/bindings/trivial-devices.yaml
-@@ -104,6 +104,8 @@ properties:
-           - isil,isl29028
-             # Intersil ISL29030 Ambient Light and Proximity Sensor
-           - isil,isl29030
-+            # Intersil ISL68137 Digital Output Configurable PWM Controller
-+          - isil,isl68137
-             # 5 Bit Programmable, Pulse-Width Modulator
-           - maxim,ds1050
-             # Low-Power, 4-/12-Channel, 2-Wire Serial, 12-Bit ADCs
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+index 63e892f16d050..51265af622574 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-zaius.dts
+@@ -328,10 +328,21 @@
+ 	 *   LM5066I PMBUS @10h
+ 	 */
+ 
+-	/* 12V Quarter Brick DC/DC Converter Q54SJ12050 @61h */
+-	power-brick@61 {
++	/*
++	 * Brick will be one of these types/addresses.  Depending
++	 * on the board SKU only one is actually present and will successfully
++	 * instantiate while the others will fail the probe operation.
++	 * These are the PVT (and presumably beyond) addresses:
++	 *    12V Quarter Brick DC/DC Converter Q54SJ12050 @6Ah
++	 *    12V Quarter Brick DC/DC Converter Q54SH12050 @30h
++	 */
++	power-brick@6a {
++		compatible = "delta,dps800";
++		reg = <0x6a>;
++	};
++	power-brick@30 {
+ 		compatible = "delta,dps800";
+-		reg = <0x61>;
++		reg = <0x30>;
+ 	};
+ 
+ 	/* CPU0 VR ISL68137 0.7V, 0.96V PMBUS @64h */
+@@ -342,7 +353,6 @@
+ 	/* Master selector PCA9541A @70h (other master: CPU0)
+ 	 *   LM5066I PMBUS @10h
+ 	 */
+-	/* 12V SMPS Q54SH12050NNDH @61h */
+ };
+ 
+ &i2c8 {
 -- 
 2.21.0.392.gf8f6787159e-goog
