@@ -1,75 +1,70 @@
-Return-Path: <mojha@codeaurora.org>
+Return-Path: <jakub.kicinski@netronome.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=codeaurora.org
- (client-ip=198.145.29.96; helo=smtp.codeaurora.org;
- envelope-from=mojha@codeaurora.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=codeaurora.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="FTQr6Kw4"; 
- dkim=pass (1024-bit key) header.d=codeaurora.org header.i=@codeaurora.org
- header.b="FTQr6Kw4"; dkim-atps=neutral
-Received: from smtp.codeaurora.org (smtp.codeaurora.org [198.145.29.96])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=netronome.com
+ (client-ip=2607:f8b0:4864:20::844; helo=mail-qt1-x844.google.com;
+ envelope-from=jakub.kicinski@netronome.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=netronome.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=netronome-com.20150623.gappssmtp.com
+ header.i=@netronome-com.20150623.gappssmtp.com header.b="mE9OADSk"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44WDld67fxzDqX9
- for <openbmc@lists.ozlabs.org>; Sat, 30 Mar 2019 08:05:17 +1100 (AEDT)
-Received: by smtp.codeaurora.org (Postfix, from userid 1000)
- id F0A9E60790; Fri, 29 Mar 2019 21:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1553893514;
- bh=Bm+FhgcWpIOxRWZE783xh+grrAzGVTZ46mPn0ETr6Eg=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=FTQr6Kw4PEkGKhKQjiXqbt+EFixyNyzCr5goqfjpMQbtaeZOvJDnERHpr/x+4dhC8
- efBq8miCtuK8hLoez4sqwE9ks/ALxxEGMgLowqNsk1WfGBCKRN20EftdRtAaEjUQ8V
- l67avATSmU4p9KYZM/oS0jVpBpx84fWxhpMUvbkA=
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
- pdx-caf-mail.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-2.7 required=2.0 tests=ALL_TRUSTED,BAYES_00,
- DKIM_INVALID,DKIM_SIGNED autolearn=no autolearn_force=no version=3.4.0
-Received: from [10.79.168.116]
- (blr-bdr-fw-01_globalnat_allzones-outside.qualcomm.com [103.229.18.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- (Authenticated sender: mojha@smtp.codeaurora.org)
- by smtp.codeaurora.org (Postfix) with ESMTPSA id 79C40602FC;
- Fri, 29 Mar 2019 21:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=codeaurora.org;
- s=default; t=1553893514;
- bh=Bm+FhgcWpIOxRWZE783xh+grrAzGVTZ46mPn0ETr6Eg=;
- h=Subject:To:Cc:References:From:Date:In-Reply-To:From;
- b=FTQr6Kw4PEkGKhKQjiXqbt+EFixyNyzCr5goqfjpMQbtaeZOvJDnERHpr/x+4dhC8
- efBq8miCtuK8hLoez4sqwE9ks/ALxxEGMgLowqNsk1WfGBCKRN20EftdRtAaEjUQ8V
- l67avATSmU4p9KYZM/oS0jVpBpx84fWxhpMUvbkA=
-DMARC-Filter: OpenDMARC Filter v1.3.2 smtp.codeaurora.org 79C40602FC
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- dmarc=none (p=none dis=none) header.from=codeaurora.org
-Authentication-Results: pdx-caf-mail.web.codeaurora.org;
- spf=none smtp.mailfrom=mojha@codeaurora.org
-Subject: Re: [PATCH v2 2/2] MAINTAINERS: Add maintainer and replacing reviewer
- ARM/NUVOTON NPCM
-To: Benjamin Fair <benjaminfair@google.com>, Tomer Maimon <tmaimon77@gmail.com>
-Cc: joe@perches.com, avifishman70@gmail.com,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Brendan Higgins <brendanhiggins@google.com>,
- Tali Perry <tali.perry1@gmail.com>, akpm@linux-foundation.org,
- gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <20190328235752.334462-1-tmaimon77@gmail.com>
- <20190328235752.334462-2-tmaimon77@gmail.com>
- <CADKL2t5VuWA=Cx9q9Ddx+rZGbe1YoRKMWwfdFOCyxuGiMCOiPg@mail.gmail.com>
-From: Mukesh Ojha <mojha@codeaurora.org>
-Message-ID: <3fbe0a4e-bb9f-3a20-32e4-6ea0d3155a04@codeaurora.org>
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44p0jq4WpTzDqMH
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 07:54:52 +1000 (AEST)
+Received: by mail-qt1-x844.google.com with SMTP id g7so6428426qtc.0
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 14:54:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=netronome-com.20150623.gappssmtp.com; s=20150623;
+ h=date:from:to:cc:subject:message-id:in-reply-to:references
+ :organization:mime-version:content-transfer-encoding;
+ bh=kTvA5Kmg+3HcCF2yD6g76qbiLSinUsBTi2zmCwQo+eU=;
+ b=mE9OADSk7Pcwd3TLJ1zXHvja36Lr+xMve74Fs6czDBIaY1ZxTh1lQV8YRek2tx40z+
+ W8g/Xju0X4GPbBOWK3IiI+wCxMIAR12cYP/NKO50Fbx2aMrdsQdGSVPzHl4dbPkTYPuR
+ v5a9gwNQlc/us+HTKKPsGYsw5PpMArHHBH+oMluoqM6hb7o1jawVsrboLg08QNJu0U5m
+ iUxz9PXn7LyRbFjIuNn4VJD/zXAhPkDnOEC6ZmtG6B1iQkHLpQpEDQ5lg0w5i1va5SnO
+ /MavESFE1QxuuKbNWkXZY4Z9aneBaOAIU6yNw4OBsRDgFnn+8lu4GO2AMCKMHWssMNzB
+ FA1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:in-reply-to
+ :references:organization:mime-version:content-transfer-encoding;
+ bh=kTvA5Kmg+3HcCF2yD6g76qbiLSinUsBTi2zmCwQo+eU=;
+ b=i4cCA1xIIVErbD0c2PCw+DKCbV9e0l5mNJMm4EWe4MP4oRoT0MNEP1xtwqQtkIZeA4
+ OtO/JDsXj/khmZGWsLQxr1Iw3lURjXhPu5h8xzvhCbusEGPWvC7MRqcO7ja/Jez5XqzD
+ cPwjCskJUbY72bl7zxACGEib1uHdpGpMo8zjXsq7O6Ld47beOcV1ZX0a/Pl6rBUg1WMM
+ CPAK2tp0fbXdc1uJy+Jt4mBT6jbvn6HE8OAkec9OPb3bMOudOQ8yTSYA0n1fX2J7v4Kg
+ BDO0+HlHYHGzgW10kpWrmFojxeD+dIbYM/tFK0B/M7zWUPFkWsuDC8XWbyp2Fbs/bOQD
+ ZoiA==
+X-Gm-Message-State: APjAAAUdVbAZKtv7jB36t19nVI4RrFqFXih3V+VOq08h/vtFOzCe2U2v
+ ot9llnZQnmcWD99ujqQ4WYOEjA==
+X-Google-Smtp-Source: APXvYqwuB3b1JbRgFtNOCcFHWud7XtM69Tk41Ids7cLqJ2nu2ueDsd8+G4Yxr9kWiKWsWBqE54WvQg==
+X-Received: by 2002:aed:2307:: with SMTP id h7mr17582700qtc.87.1555970088440; 
+ Mon, 22 Apr 2019 14:54:48 -0700 (PDT)
+Received: from cakuba.netronome.com ([66.60.152.14])
+ by smtp.gmail.com with ESMTPSA id f65sm6939392qkb.83.2019.04.22.14.54.47
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 22 Apr 2019 14:54:48 -0700 (PDT)
+From: Jakub Kicinski <jakub.kicinski@netronome.com>
+To: Tao Ren <taoren@fb.com>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, "David S . Miller"
+ <davem@davemloft.net>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
+ Jeffery <andrew@aj.id.au>, <openbmc@lists.ozlabs.org>
+Subject: Re: [PATCH net] net/ncsi: handle overflow when incrementing mac
+ address
+Message-ID: <20190422145443.6391eaf8@cakuba.netronome.com>
+In-Reply-To: <20190422172754.1011894-1-taoren@fb.com>
+References: <20190422172754.1011894-1-taoren@fb.com>
+Organization: Netronome Systems, Ltd.
 MIME-Version: 1.0
-In-Reply-To: <CADKL2t5VuWA=Cx9q9Ddx+rZGbe1YoRKMWwfdFOCyxuGiMCOiPg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Content-Language: en-US
-X-Mailman-Approved-At: Thu, 09 May 2019 16:11:01 +1000
+X-Mailman-Approved-At: Thu, 09 May 2019 16:11:00 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,45 +76,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Fri, 29 Mar 2019 21:05:18 -0000
-X-Original-Date: Sat, 30 Mar 2019 02:35:03 +0530
-X-List-Received-Date: Fri, 29 Mar 2019 21:05:18 -0000
+Date: Mon, 22 Apr 2019 21:54:56 -0000
+X-Original-Date: Mon, 22 Apr 2019 14:54:43 -0700
+X-List-Received-Date: Mon, 22 Apr 2019 21:54:56 -0000
 
+On Mon, 22 Apr 2019 10:27:54 -0700, Tao Ren wrote:
+> Previously BMC's MAC address is calculated by simply adding 1 to the
+> last byte of network controller's MAC address, and it produces incorrect
+> result when network controller's MAC address ends with 0xFF.
+> The problem is fixed by detecting integer overflow when incrementing MAC
+> address and adding the carry bit (if any) to the next/left bytes of the
+> MAC address.
+> 
 
-On 3/29/2019 11:02 PM, Benjamin Fair wrote:
-> On Thu, Mar 28, 2019 at 4:58 PM Tomer Maimon <tmaimon77@gmail.com> wrote:
->> Adding Tali Perry as Nuvoton NPCM maintainer
->> Replacing Brendan Higgins Nuvoton NPCM reviewer with
->> Benjamin Fair.
->>
->> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
->> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
-> Reviewed-by: Benjamin Fair <benjaminfair@google.com>
+It'd be good to have a Fixes tag, if it's worth going to the net tree.
 
+> Signed-off-by: Tao Ren <taoren@fb.com>
+> ---
+>  net/ncsi/ncsi-rsp.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+> index dc07fcc7938e..eb42bbdb7501 100644
+> --- a/net/ncsi/ncsi-rsp.c
+> +++ b/net/ncsi/ncsi-rsp.c
+> @@ -658,7 +658,8 @@ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
+>  	const struct net_device_ops *ops = ndev->netdev_ops;
+>  	struct ncsi_rsp_oem_pkt *rsp;
+>  	struct sockaddr saddr;
+> -	int ret = 0;
+> +	int ret, offset;
+> +	u16 carry = 1;
+>  
+>  	/* Get the response header */
+>  	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
+> @@ -667,7 +668,12 @@ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
+>  	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
+>  	memcpy(saddr.sa_data, &rsp->data[BCM_MAC_ADDR_OFFSET], ETH_ALEN);
+>  	/* Increase mac address by 1 for BMC's address */
+> -	saddr.sa_data[ETH_ALEN - 1]++;
+> +	offset = ETH_ALEN - 1;
+> +	do {
+> +		carry += (u8)saddr.sa_data[offset];
+> +		saddr.sa_data[offset] = (char)carry;
+> +		carry = carry >> 8;
+> +	} while (carry != 0 && --offset >= 0);
 
-Reviewed-by: Mukesh Ojha <mojha@codeaurora.org>
+We have eth_addr_dec(), perhaps it'd be good to add an eth_addr_inc()
+equivalent?  (I'm not sure if it'd have to be in net-next, it's a tiny
+function, and OK for net for my taste, but I had been wrong before).
 
->
->> ---
->>   MAINTAINERS | 3 ++-
->>   1 file changed, 2 insertions(+), 1 deletion(-)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index 8b305d2f2a8a..4ece87fcc166 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -1893,9 +1893,10 @@ T:       git git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-nomadik.git
->>   ARM/NUVOTON NPCM ARCHITECTURE
->>   M:     Avi Fishman <avifishman70@gmail.com>
->>   M:     Tomer Maimon <tmaimon77@gmail.com>
->> +M:     Tali Perry <tali.perry1@gmail.com>
->>   R:     Patrick Venture <venture@google.com>
->>   R:     Nancy Yuen <yuenn@google.com>
->> -R:     Brendan Higgins <brendanhiggins@google.com>
->> +R:     Benjamin Fair <benjaminfair@google.com>
->>   L:     openbmc@lists.ozlabs.org (moderated for non-subscribers)
->>   S:     Supported
->>   F:     arch/arm/mach-npcm/
->> --
->> 2.14.1
->>
+If I'm allowed to be paranoid I'd also advise checking the resulting
+MAC is a valid ethernet unicast addr.
+
+>  	ret = ops->ndo_set_mac_address(ndev, &saddr);
+>  	if (ret < 0)
+>  		netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
