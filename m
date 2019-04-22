@@ -1,38 +1,80 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <mkbrown32@hotmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=hotmail.com
+ (client-ip=40.92.9.49; helo=nam04-bn3-obe.outbound.protection.outlook.com;
+ envelope-from=mkbrown32@hotmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="NEAI58Aa"; 
+ dkim-atps=neutral
+Received: from NAM04-BN3-obe.outbound.protection.outlook.com
+ (mail-oln040092009049.outbound.protection.outlook.com [40.92.9.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44nsH23gmKzDqL9
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 02:19:40 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 22 Apr 2019 09:19:38 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,382,1549958400"; d="scan'208";a="142648706"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga008.fm.intel.com with ESMTP; 22 Apr 2019 09:19:37 -0700
-Subject: Re: Redfish OEM commands in OpenBMC
-To: Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-References: <CALLMt=qEtkfBwBcV1WzsGuCozyT1Fs8+1d+nUPPScxq1ZpihJQ@mail.gmail.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <5978896f-712d-a2b7-3f94-3a23e7a86003@intel.com>
-Date: Mon, 22 Apr 2019 09:19:37 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <CALLMt=qEtkfBwBcV1WzsGuCozyT1Fs8+1d+nUPPScxq1ZpihJQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44nsKR1bm4zDqL9
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 02:21:46 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M+nMKfLGJH/tHGHFYV/7t0Dad6nqJ15tN9HvFFo2Us4=;
+ b=NEAI58AaG1AE2krnaaU2UURsq0qoHe4lVUjmU07Z3baEjoZqW+YrTnN9poljaZmd6ahJu/6GfaZoZ7S7iZ2yjwe73wpOMYNbufj0NX0+sRmqppGSYIz6ro7RL+KJyIfVJg48scl5oCLfvtaN2YNfAm0JydBOKO+tknX5eFefQ8vzVGvq1hb84FniX4S+7LIkKhzforyXFRFCFBV2XSf+QNaMNbS+JzXEYcukYlo3Qd7pjjOx1xPf6519iS8uGy9Ojz8LTPp98GlqkzR9SKpCU9zw9Pu70BqvTYCpS31lTDKYrXCLNoNCmTVFaMeaVV/NUJrtF/QgmBTDN+3RhRUG/g==
+Received: from BN3NAM04FT018.eop-NAM04.prod.protection.outlook.com
+ (10.152.92.56) by BN3NAM04HT074.eop-NAM04.prod.protection.outlook.com
+ (10.152.93.30) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.1771.16; Mon, 22 Apr
+ 2019 16:21:41 +0000
+Received: from BYAPR02MB5847.namprd02.prod.outlook.com (10.152.92.52) by
+ BN3NAM04FT018.mail.protection.outlook.com (10.152.92.162) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ 15.20.1771.16 via Frontend Transport; Mon, 22 Apr 2019 16:21:41 +0000
+Received: from BYAPR02MB5847.namprd02.prod.outlook.com
+ ([fe80::458:7638:5c3d:4ec1]) by BYAPR02MB5847.namprd02.prod.outlook.com
+ ([fe80::458:7638:5c3d:4ec1%6]) with mapi id 15.20.1813.017; Mon, 22 Apr 2019
+ 16:21:41 +0000
+From: Mark Brown <mkbrown32@hotmail.com>
+To: Patrick Venture <venture@google.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Seeking openbmc programmer's editor info
+Thread-Topic: Seeking openbmc programmer's editor info
+Thread-Index: AQHU99lZjX3kq29ZfEeJqOC6txbbb6ZIPvCAgAAbJzqAAAPLAIAAAJwM
+Date: Mon, 22 Apr 2019 16:21:41 +0000
+Message-ID: <BYAPR02MB58475342BB3F33226E6446C9AE220@BYAPR02MB5847.namprd02.prod.outlook.com>
+References: <CAO=notwmhWoeCry_Z+xL=7N1Pp+74tJ9BCF7nr4Jq1MwqRjfOA@mail.gmail.com>
+ <BYAPR02MB58478B07866A63D01DA3EB25AE210@BYAPR02MB5847.namprd02.prod.outlook.com>
+ <CAO=notzqWthZ29ghauXdzS7Y8WYeVrnMbbmz6Tgt=R6n_mRRAA@mail.gmail.com>
+ <BYAPR02MB5847D889707010DEF7F58A95AE220@BYAPR02MB5847.namprd02.prod.outlook.com>,
+ <CAO=notyZ8Qj96iGYqcPMnkMFSL-Q38-OC8F88oAgpsmu030pxQ@mail.gmail.com>
+In-Reply-To: <CAO=notyZ8Qj96iGYqcPMnkMFSL-Q38-OC8F88oAgpsmu030pxQ@mail.gmail.com>
+Accept-Language: en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-incomingtopheadermarker: OriginalChecksum:75DD9125146AED6776A5D2937E276449B58B0B0C6AC88E19313A8F68C8C5B2E8;
+ UpperCasedChecksum:4F67A0550658FEABC1FCA630AEF40992C2BD8E0A72651057E09F2955418074FA;
+ SizeAsReceived:7120; Count:44
+x-ms-exchange-messagesentrepresentingtype: 1
+x-tmn: [c3akDG743BsyHk/eP7L2X8pdVlUx/nJ9]
+x-ms-publictraffictype: Email
+x-incomingheadercount: 44
+x-eopattributedmessage: 0
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(5050001)(7020095)(20181119110)(201702061078)(5061506573)(5061507331)(1603103135)(2017031320274)(2017031323274)(2017031324274)(2017031322404)(1601125500)(1603101475)(1701031045);
+ SRVR:BN3NAM04HT074; 
+x-ms-traffictypediagnostic: BN3NAM04HT074:
+x-ms-exchange-purlcount: 2
+x-microsoft-antispam-message-info: D0Tbx0NB6/v/rGPF4IYo1IejbMY2V8ejg5urRoYgjrp1djI0KYRn85IcWny+HSDlHuv9gCdQT1LB9eR3iH/0mCGNPhUHG4JKG6ipOv+RfquU9h04zNPSy5fVwJWvsScSg7CZiOmQqU9IQ5Tdk2nHriXsFyJEsPlLSmwaZTXHqVJn9l10GeR1M9nfexN281hI
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: hotmail.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1bbc916-9496-4f77-2608-08d6c73e9a70
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2019 16:21:41.1493 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Internet
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3NAM04HT074
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,133 +86,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Apr 2019 16:19:43 -0000
+X-List-Received-Date: Mon, 22 Apr 2019 16:21:50 -0000
 
-First of all, thank you for asking this question.  It's been a long time
-coming.  I'm for one surprised we've avoided it for so long.  With that
-said, lets dig in.
-
-On 4/16/19 12:02 PM, Andrew Geissler wrote:
-> Greetings,
-> 
-> As more and more of us are implementing Redfish within OpenBMC we are starting
-> to run into situations where the function we need to implement is not available
-> in the current Redfish schemas.
-> 
-> We've been joining DMTF workgroups and starting to get familiar with the process
-> but, if OpenBMC upstreaming is considered slow, it's looking like upstreaming
-> to the DMTF could be even slower.
-
-It's slow because most of the interfaces being added are required to:
-1. Prove utility to multiple members of the Redfish community that have
-implementations.
-2. Provide adequate, and unambiguous documentation on what the property
-is for, and how it's intended to be used.
-3. Get the associated metadata files in order, to enable the validators
-to work.
-4. Prototype, and make sure it meets the need.
-5. Wait for a merge/release window.
-
-If I look at some of the recent initiatives, certificates, composable
-systems, and update, I would argue they're no slower than OpenBMC, they
-just require a level of documentation and discussion that's a bit of a
-higher bar than a "normal" OpenBMC feature.  As OpenBMC progresses, we
-seem to be ratcheting up the rules around required documentation and
-discussion, so I wonder if we'll get to that same level at some point as
-well.
-
-> 
-> So my question is, are we taking a no OEM policy within OpenBMC? Or are we going
-> to take a more flexible approach. Similar to openbmc/linux, as long as you're
-> working upstream with the DMTF on your changes, OEM would be acceptable?
-
-My overall goal when we first discussed this in the Redfish working
-group was that the OpenBMC OEM schemas are common among all OpenBMC
-implementations.  Said another way, if we're implementing an Oem schema,
-it should be under the "OpenBMC" namespace, and we as a community should
-have enough agreement to implement it in a way that works for the people
-that need it.  The one exception to this is if we're implementing to
-someone elses specification, which might call out specific namespaces
-for the specification.
-
-We have 1 OEM schema today for phosphor-pid-control, and it already
-causes heartache for people implementing against it.  I'm tempted to
-remove it before it actually makes it into an official release, so we
-don't have to support it long term.  This is a discussion for another
-thread.
-
-> 
-> From what I've seen so far, it looks like a lot of companies have gone the OEM
-> route initially. They then use that experience to guide the discussion with the
-> DMTF workgroups.
-
-Some of the issue with this is that user-facing applications get written
-against the OEM implementation, and now that OEM implementation has to
-live forever, and support the same API.  This is great for companies
-hoping to get lock-in on their products, but I really suspect it's not
-what we want for OpenBMC.
-
-The other thing to remember:  This is the public facing API that OpenBMC
-exposes to users.  It is forever.  Think of it like the kernel userspace
-API, and the guarantees that provides.  With that constraint, the
-approach of "going the OEM route initially" doesn't really feel in line
-with what OpenBMCs goals are.  I would much rather a standardized
-solution that's 12 months after the spec releases, than an OEM solution
-12 months early that we have to break often.
-
-> 
-> There could be some gray areas. For example, I want to add a Priority
-> property to the UpdateService [1]. Maybe this would be ok to carry as an OEM
-> for a bit?
-Before I give +1 or -1 to the proposal, I've been meaning to really
-understand what we think we're solving with priority, and why the
-existing redfish mechanisms don't meet the need.  If I understand the
-use correctly (which it's very likely I don't) posting to the target URI
-property could cause the system to flip image priority.  This is
-slightly less granular than an integer priority, but the use case you
-gave only had 2 images, so it's very possible I'm missing something.
-See above, there's no such thing as "carry as an OEM".
-
-> Adriana wants to propose a whole new backup and restore design [2].
-I believe there are redfish mechanisms for arbitrary "settings" type
-interfaces that would probably be the recommended way.  To my
-understanding, this is how systems currently implement BIOS settings,
-which I think has roughly the same use case as BMC settings.  With that
-said, this is better discussed in the Redfish forum, as there are more
-experts present.
-
-
-> Maybe that needs a bit more traction upstream to ensure it's going in the right
-> direction for something DMTF would approve first? If we start limiting ourselves
-> as a community on what DMTF has approved, I think we're going to struggle to
-> deliver certain new functions.
-
-From my perspective, there are a lot of development options that would
-let us build code that doesn't necessarily get turned on.  Configure
-options for implementing examples of new DMTF schemas could certainly be
-done which would let people develop out ideas, but not affect OpenBMC
-mainline until it's been included in part of the specification.
-
-One thing to remember here: APIs are forever.  I would rather merge a
-long-lived API "late" than fight with changing API behavior every release.
-
-> 
-> Andrew
-> 
-> [1] https://github.com/DMTF/Redfish/issues/3357 (can only see with DMTF access)
-> [2] https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/18163
-> 
-
-I'll answer one of the questions I saw raised on the call: Should we
-implement pluggable OEM handlers.
-
-No. (full stop)
-
-In my mind, this defeats most of the of the purpose of having an OpenBMC
-community in the first place.  When I ask most of the "consumers" of
-OpenBMC why they want to use it, usually the first or second answer is
-around "standardization".  They want to be able to jump between hardware
-vendors without all their public facing APIs breaking.  If I ask them
-why Redfish doesn't meet the need, they talk specifically about OEM
-parameters and schemas, and how implementations aren't standard enough
-for their needs.
+On the official github   openbmc/openbmc   page:=0A=
+=0A=
+https://github.com/openbmc/openbmc=0A=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=0A=
+1) Prerequisite=0A=
+Ubuntu 14.04=0A=
+sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk chrp=
+ath diffstat=0A=
+Fedora 28=0A=
+sudo dnf install -y git patch diffstat texinfo chrpath SDL-devel bitbake rp=
+cgen=0A=
+sudo dnf groupinstall "C Development Tools and Libraries"=0A=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=0A=
+=0A=
+________________________________________=0A=
+From: Patrick Venture <venture@google.com>=0A=
+Sent: Monday, April 22, 2019 9:16 AM=0A=
+To: Mark Brown=0A=
+Cc: OpenBMC Maillist=0A=
+Subject: Re: Seeking openbmc programmer's editor info=0A=
+=0A=
++ openbmc mailing list=0A=
+=0A=
+On Mon, Apr 22, 2019 at 9:11 AM Mark Brown <mkbrown32@hotmail.com> wrote:=
+=0A=
+>=0A=
+> The openbmc build instructions state that Ubuntu 14=0A=
+> should be used.=0A=
+> Are you saying that you read, navigate, modify source code=0A=
+> in a different development platform from the build ?=0A=
+=0A=
+Yes, what documentation are you reading that says to use ubuntu 14?=0A=
+It's likely just out of date.=0A=
+=0A=
+>=0A=
+> Also, someone else mentioned Vim/C-scope -- however, I experience=0A=
+> many "cannot find file" errors and then hangs of the Term window=0A=
+> under C-scope.=0A=
+=0A=
+I don't use C-scope.=0A=
+=0A=
+>=0A=
+>=0A=
+> ________________________________________=0A=
+> From: Patrick Venture <venture@google.com>=0A=
+> Sent: Monday, April 22, 2019 7:26 AM=0A=
+> To: Mark Brown=0A=
+> Subject: Re: Seeking openbmc programmer's editor info=0A=
+>=0A=
+> I don't use Ubuntu 14, but generally grep/sed/vim are used most.=0A=
+>=0A=
+> On Sat, Apr 20, 2019 at 5:30 PM Mark Brown <mkbrown32@hotmail.com> wrote:=
+=0A=
+> >=0A=
+> > I am a firmware guy watching the traffic on this email list.=0A=
+> > I am interested to know what programmer's editor is most useful,=0A=
+> > under Ubuntu 14,=0A=
+> > to navigate and read the source code here, perform multi-file searches,=
+=0A=
+> > and help find bugs.=0A=
+> > Which editor is most commonly used here ?=0A=
+> >=0A=
+> > Mark=0A=
+> >=0A=
+> > ________________________________________=0A=
+> > From: openbmc <openbmc-bounces+mkbrown32=3Dhotmail.com@lists.ozlabs.org=
+> on behalf of Patrick Venture <venture@google.com>=0A=
+> > Sent: Friday, April 19, 2019 12:43 PM=0A=
+> > To: Joel Stanley; Brad Bishop; Andrew Jeffery=0A=
+> > Cc: OpenBMC Maillist=0A=
+> > Subject: meta-ingrasys patches required for new merged drivers=0A=
+> >=0A=
+> > If you don't work on or maintain meta-ingrasys/meta-zaius you can stop=
+=0A=
+> > reading and go on with your Friday. :D=0A=
+> >=0A=
+> > All;=0A=
+> >=0A=
+> > https://gerrit.openbmc-project.xyz/20692 and below are all ready-to-go=
+=0A=
+> > and some are required for the meta-aspeed bump staged for=0A=
+> > openbmc/openbmc.=0A=
+> >=0A=
+> > I wanted to throw this into an email to it jumps out more.=0A=
+> >=0A=
+> > Patrick=0A=
