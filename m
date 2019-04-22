@@ -1,83 +1,81 @@
-Return-Path: <mkbrown32@hotmail.com>
+Return-Path: <mspinler@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=hotmail.com
- (client-ip=40.92.9.17; helo=nam04-bn3-obe.outbound.protection.outlook.com;
- envelope-from=mkbrown32@hotmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=hotmail.com header.i=@hotmail.com header.b="NkhR18hk"; 
- dkim-atps=neutral
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com
- (mail-oln040092009017.outbound.protection.outlook.com [40.92.9.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44nwST4SnKzDqH4
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 04:43:04 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xclw6rXfrbR4uXQyfizRnODrs9iUJYEPnmYFiGRBfaE=;
- b=NkhR18hkhf8k2EebV7bq0CcFWqdIXGgKyKAOYdFjN3eMoiRHvhHEYfMQLsZrV8HtGkVJWXstYxtssx4nWCdA39JzcbPxNJr0yjHDGyI9qx+3PisrZ+azHusmsA/VFqPcgH6CM+g6loz65+tHt3owF6RTKhi3/Ql9lrctWo8es2lRnr2DSY3SM9gOXwDTLeL2PhM+L9YFbEatF2Fj/sBhQmJ7jHi+kK735v3x4imvBkOFEO191rB1P3vqbzaedW3i/4IEI4MyIr9fJMitgRm5W8Gd6CeAWQfkYvUPfDl8Dnv3Fll3tX3KwQiDy4woi3pFUTAkpsToE63LJzz1PhOY5Q==
-Received: from BN3NAM04FT041.eop-NAM04.prod.protection.outlook.com
- (10.152.92.55) by BN3NAM04HT100.eop-NAM04.prod.protection.outlook.com
- (10.152.92.251) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.20.1771.16; Mon, 22 Apr
- 2019 18:42:58 +0000
-Received: from BYAPR02MB5847.namprd02.prod.outlook.com (10.152.92.51) by
- BN3NAM04FT041.mail.protection.outlook.com (10.152.93.42) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
- 15.20.1771.16 via Frontend Transport; Mon, 22 Apr 2019 18:42:58 +0000
-Received: from BYAPR02MB5847.namprd02.prod.outlook.com
- ([fe80::458:7638:5c3d:4ec1]) by BYAPR02MB5847.namprd02.prod.outlook.com
- ([fe80::458:7638:5c3d:4ec1%6]) with mapi id 15.20.1813.017; Mon, 22 Apr 2019
- 18:42:58 +0000
-From: Mark Brown <mkbrown32@hotmail.com>
-To: Emily Shaffer <emilyshaffer@google.com>
-CC: Patrick Venture <venture@google.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: Re: Seeking openbmc programmer's editor info
-Thread-Topic: Seeking openbmc programmer's editor info
-Thread-Index: AQHU99lZjX3kq29ZfEeJqOC6txbbb6ZIPvCAgAAbJzqAAAPLAIAAAJwMgAAdGoCAAAikqA==
-Date: Mon, 22 Apr 2019 18:42:58 +0000
-Message-ID: <BYAPR02MB58475E4DBCCE9FEB3C5DA17CAE220@BYAPR02MB5847.namprd02.prod.outlook.com>
-References: <CAO=notwmhWoeCry_Z+xL=7N1Pp+74tJ9BCF7nr4Jq1MwqRjfOA@mail.gmail.com>
- <BYAPR02MB58478B07866A63D01DA3EB25AE210@BYAPR02MB5847.namprd02.prod.outlook.com>
- <CAO=notzqWthZ29ghauXdzS7Y8WYeVrnMbbmz6Tgt=R6n_mRRAA@mail.gmail.com>
- <BYAPR02MB5847D889707010DEF7F58A95AE220@BYAPR02MB5847.namprd02.prod.outlook.com>
- <CAO=notyZ8Qj96iGYqcPMnkMFSL-Q38-OC8F88oAgpsmu030pxQ@mail.gmail.com>
- <BYAPR02MB58475342BB3F33226E6446C9AE220@BYAPR02MB5847.namprd02.prod.outlook.com>,
- <CAJoAoZnBEWP+x_R=55Cp9rh=iyh7QZMqfvMrnWqAjmjQ=qvvGw@mail.gmail.com>
-In-Reply-To: <CAJoAoZnBEWP+x_R=55Cp9rh=iyh7QZMqfvMrnWqAjmjQ=qvvGw@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-incomingtopheadermarker: OriginalChecksum:36AA5A79B46478D4E264479F7F5BDEFFDEAD3CDFF0BC5BFE44007B5C442F7FD1;
- UpperCasedChecksum:15B8026F4C863F9F320984DE2C8E107FC6522D0D5C05D2A5F812975C5D547D10;
- SizeAsReceived:7327; Count:44
-x-ms-exchange-messagesentrepresentingtype: 1
-x-tmn: [YS3aZoq0tig+bz9JT9KUFbkMpYCVoR5V]
-x-ms-publictraffictype: Email
-x-incomingheadercount: 44
-x-eopattributedmessage: 0
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(5050001)(7020095)(20181119110)(201702061078)(5061506573)(5061507331)(1603103135)(2017031320274)(2017031323274)(2017031324274)(2017031322404)(1601125500)(1603101475)(1701031045);
- SRVR:BN3NAM04HT100; 
-x-ms-traffictypediagnostic: BN3NAM04HT100:
-x-ms-exchange-purlcount: 3
-x-microsoft-antispam-message-info: lICgxFPafjhpEU05dwQ2AnH1q9F+atD7QONeq5ZNnsoE7nFmlOgiTjX2dlEbfCkbdZB+v2gBNUTN60Cklrmtc7QbCmr8BP83OHG+VySlniIsrqFjJZGBrtIpomtbbXHZFth+ZErsTcqAQC30ox5BlQ4Kkfo5eGMDmkkqlOtfpUreObSYBI2WPw3rDErJT3CM
-Content-Type: text/plain; charset="Windows-1252"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44nwpj6MQKzDqHb
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 04:58:53 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3MIsNt8131449
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 14:58:49 -0400
+Received: from e16.ny.us.ibm.com (e16.ny.us.ibm.com [129.33.205.206])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2s1g2wscg1-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 14:58:49 -0400
+Received: from localhost
+ by e16.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
+ Mon, 22 Apr 2019 19:58:48 +0100
+Received: from b01cxnp22034.gho.pok.ibm.com (9.57.198.24)
+ by e16.ny.us.ibm.com (146.89.104.203) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Mon, 22 Apr 2019 19:58:45 +0100
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3MIwiO924903698
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 22 Apr 2019 18:58:44 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 72DB8124052;
+ Mon, 22 Apr 2019 18:58:44 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2A291124058;
+ Mon, 22 Apr 2019 18:58:44 +0000 (GMT)
+Received: from [9.10.99.36] (unknown [9.10.99.36])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 22 Apr 2019 18:58:44 +0000 (GMT)
+Subject: Re: [PATCH dev-5.0 v2] ARM: dts: aspeed: Add Swift BMC machine
+To: Adriana Kobylak <anoo@linux.ibm.com>, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
+Cc: Adriana Kobylak <anoo@us.ibm.com>
+References: <02b66794-19bf-a042-66a9-00fc712355f5@linux.ibm.com>
+ <1555605815-31386-1-git-send-email-anoo@linux.ibm.com>
+From: Matt Spinler <mspinler@linux.ibm.com>
+Date: Mon, 22 Apr 2019 13:58:45 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-X-OriginatorOrg: hotmail.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6318b119-b26a-49e9-476b-08d6c7525713
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Apr 2019 18:42:58.0760 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Internet
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN3NAM04HT100
+In-Reply-To: <1555605815-31386-1-git-send-email-anoo@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19042218-0072-0000-0000-0000041D271B
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010975; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000285; SDB=6.01192867; UDB=6.00625282; IPR=6.00973684; 
+ MB=3.00026546; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-22 18:58:46
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19042218-0073-0000-0000-00004BEB821B
+Message-Id: <5bbc8649-5a38-fe38-9a97-9c4ec582b511@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-22_01:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904220142
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,289 +87,843 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Apr 2019 18:43:07 -0000
+X-List-Received-Date: Mon, 22 Apr 2019 18:58:54 -0000
 
-Thanks for your response.=0A=
-Are there updated openbmc build instructions that the new developer=0A=
-should follow, posted elsewhere ?=0A=
-=0A=
-Here is the C-scope errors paste, =0A=
-I sent to someone else here but,  you are right,=0A=
-it is unclear whether someone who may post here pervasively=0A=
-is more of an administrative person (e.g. git project manager) ,=0A=
-and may not be familiar with the issue raised.=0A=
-=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-Cscope 15.8a   generated a lot of errors -- maybe Vim  7.4.52   =0A=
-is not compatible with Ubuntu 14.04.6 .=0A=
-Any ideas ?=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-markbmc@markbmc-Precision-5520:~$=0A=
-markbmc@markbmc-Precision-5520:~$ wget -P ~/.vim/plugin http://cscope.sourc=
-eforge.net/cscope_maps.vim=0A=
---2019-04-18 01:09:51--  http://cscope.sourceforge.net/cscope_maps.vim=0A=
-Resolving cscope.sourceforge.net (cscope.sourceforge.net)... 216.105.38.10=
-=0A=
-Connecting to cscope.sourceforge.net (cscope.sourceforge.net)|216.105.38.10=
-|:80... connected.=0A=
-HTTP request sent, awaiting response... 200 OK=0A=
-Length: 7336 (7.2K)=0A=
-Saving to: =91/home/markbmc/.vim/plugin/cscope_maps.vim=92=0A=
-=0A=
-100%[=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D>] 7,336       --.-K/s   in 0s=0A=
-=0A=
-2019-04-18 01:09:51 (1.21 GB/s) - =91/home/markbmc/.vim/plugin/cscope_maps.=
-vim=92 saved [7336/7336]=0A=
-=0A=
-markbmc@markbmc-Precision-5520:~$=0A=
-markbmc@markbmc-Precision-5520:~$=0A=
-markbmc@markbmc-Precision-5520:~$=0A=
-markbmc@markbmc-Precision-5520:~$ cd openbmc=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$ find . -type f -print | grep -E '=
-\.(c(pp)?|h)$' > cscope.files=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$ ls -la=0A=
-total 124420=0A=
-drwxrwxr-x 29 markbmc markbmc      4096 Apr 18 01:30 .=0A=
-drwxr-xr-x 22 markbmc markbmc      4096 Apr 18 01:01 ..=0A=
-lrwxrwxrwx  1 markbmc markbmc        13 Apr 11 09:45 bitbake -> poky/bitbak=
-e/=0A=
-drwxrwxr-x  7 markbmc markbmc      4096 Apr 11 13:35 build=0A=
--rw-rw-r--  1 markbmc markbmc 127253925 Apr 18 01:42 cscope.files=0A=
-drwxrwxr-x  8 markbmc markbmc      4096 Apr 11 13:21 .git=0A=
-drwxrwxr-x  2 markbmc markbmc      4096 Apr 11 09:45 .github=0A=
--rw-rw-r--  1 markbmc markbmc        31 Apr 11 09:45 .gitignore=0A=
--rw-rw-r--  1 markbmc markbmc       101 Apr 11 09:45 .gitreview=0A=
-lrwxrwxrwx  1 markbmc markbmc        12 Apr 11 09:45 LICENSE -> poky/LICENS=
-E=0A=
--rw-rw-r--  1 markbmc markbmc      2000 Apr 11 09:45 MAINTAINERS=0A=
-lrwxrwxrwx  1 markbmc markbmc         9 Apr 11 09:45 meta -> poky/meta=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-arm=0A=
-drwxrwxr-x  6 markbmc markbmc      4096 Apr 11 09:45 meta-aspeed=0A=
-drwxrwxr-x  7 markbmc markbmc      4096 Apr 11 09:45 meta-evb=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-facebook=0A=
-drwxrwxr-x  5 markbmc markbmc      4096 Apr 11 09:45 meta-google=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-hxt=0A=
-drwxrwxr-x  9 markbmc markbmc      4096 Apr 11 09:45 meta-ibm=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-ingrasys=0A=
-drwxrwxr-x  5 markbmc markbmc      4096 Apr 11 09:45 meta-inspur=0A=
-drwxrwxr-x  5 markbmc markbmc      4096 Apr 11 09:45 meta-intel=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-inventec=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-mellanox=0A=
-drwxrwxr-x  5 markbmc markbmc      4096 Apr 11 09:45 meta-nuvoton=0A=
-drwxrwxr-x 14 markbmc markbmc      4096 Apr 11 09:45 meta-openembedded=0A=
-drwxrwxr-x  6 markbmc markbmc      4096 Apr 11 09:45 meta-openpower=0A=
-drwxrwxr-x 15 markbmc markbmc      4096 Apr 11 09:45 meta-phosphor=0A=
-lrwxrwxrwx  1 markbmc markbmc        15 Apr 11 09:45 meta-poky -> poky/meta=
--poky/=0A=
-drwxrwxr-x  3 markbmc markbmc      4096 Apr 11 09:45 meta-portwell=0A=
-drwxrwxr-x  4 markbmc markbmc      4096 Apr 11 09:45 meta-qualcomm=0A=
-drwxrwxr-x  7 markbmc markbmc      4096 Apr 11 09:45 meta-quanta=0A=
-drwxrwxr-x 17 markbmc markbmc      4096 Apr 11 09:45 meta-raspberrypi=0A=
-drwxrwxr-x 14 markbmc markbmc      4096 Apr 11 09:45 meta-security=0A=
-lrwxrwxrwx  1 markbmc markbmc        18 Apr 11 09:45 meta-skeleton -> poky/=
-meta-skeleton=0A=
-drwxrwxr-x  3 markbmc markbmc      4096 Apr 11 09:45 meta-x86=0A=
-drwxrwxr-x  5 markbmc markbmc      4096 Apr 11 09:45 meta-xilinx=0A=
-lrwxrwxrwx  1 markbmc markbmc        22 Apr 11 09:45 oe-init-build-env -> p=
-oky/oe-init-build-env=0A=
--rw-rw-r--  1 markbmc markbmc       327 Apr 11 09:45 openbmc-env=0A=
-drwxrwxr-x 10 markbmc markbmc      4096 Apr 11 09:45 poky=0A=
--rw-rw-r--  1 markbmc markbmc      4177 Apr 11 09:45 README.md=0A=
-lrwxrwxrwx  1 markbmc markbmc        13 Apr 11 09:45 scripts -> poky/script=
-s/=0A=
--rwxrwxr-x  1 markbmc markbmc      1609 Apr 11 09:45 setup=0A=
--rw-rw-r--  1 markbmc markbmc        49 Apr 11 09:45 .templateconf=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$=0A=
-markbmc@markbmc-Precision-5520:~/openbmc$ cscope -bq=0A=
-cscope: cannot find file build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
-r-debug-collector/1.0+gitAUTOINC+fa180596fe-r1/packages-split/phosphor-debu=
-g-collector-src/usr/src/debug/phosphor-debug-collector/1.0+gitAUTOINC+fa180=
-596fe-r1/build/xyz/openbmc_project/Dump/Internal=0A=
-cscope: cannot find file /Create/server.cpp=0A=
-cscope: cannot find file build/tmp/work/armv6-openbmc-linux-gnueabi/openpow=
-er-debug-collector/1.0+gitAUTOINC+b618ccbaa7-r1/packages-split/openpower-de=
-bug-collector-src/usr/src/debug/openpower-debug-collector/1.0+gitAUTOINC+b6=
-18ccbaa7-r1/build/org/open_power/Host/Boot/error=0A=
-cscope: cannot find file .cpp=0A=
-cscope: cannot find file build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
-r-led-manager/1.0+gitAUTOINC+ab3b247f04-r1/packages-split/phosphor-led-mana=
-ger-src/usr/src/debug/phosphor-led-manager/1.0+gitAUTOINC+ab3b247f04-r1/bui=
-ld/fault-monitor/xyz/openbmc_project/Led/Fru/Mon=0A=
-cscope: cannot find file itor/error.cpp=0A=
-cscope: cannot find file build/tmp/work/armv6-openbmc-linux-gnueabi/phospho=
-r-led-manager/1.0+gitAUTOINC+ab3b247f04-r1/packages-split/phosphor-led-mana=
-ger-src/usr/src/debug/phosphor-led-manager/1.0+gitAUTOINC+ab3b247f04-r1/bui=
-ld/fault-monitor/xyz/openbmc_project/Led/Mapper=0A=
-cscope: cannot find file error.cpp=0A=
-cscope: cannot find file build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0-r0=
-/image/home/markbmc/openbmc/build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0=
--r0/recipe-sysroot-native/usr/lib/arm-openbmc-linux-gnueabi/gcc/arm-openbmc=
--linux-gnueabi/8.3.0/plugin/include/gimple-build=0A=
-cscope: cannot find file er.h=0A=
-cscope: cannot find file build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0-r0=
-/image/home/markbmc/openbmc/build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0=
--r0/recipe-sysroot-native/usr/lib/arm-openbmc-linux-gnueabi/gcc/arm-openbmc=
--linux-gnueabi/8.3.0/plugin/include/gt-fortran-t=0A=
-cscope: cannot find file rans-stmt.h=0A=
-cscope: cannot find file build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0-r0=
-/image/home/markbmc/openbmc/build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0=
--r0/recipe-sysroot-native/usr/lib/arm-openbmc-linux-gnueabi/gcc/arm-openbmc=
--linux-gnueabi/8.3.0/plugin/include/gt-cp-method=0A=
-cscope: cannot find file .h=0A=
-cscope: cannot find file build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0-r0=
-/image/home/markbmc/openbmc/build/tmp/work/x86_64-linux/gcc-cross-arm/8.3.0=
--r0/recipe-sysroot-native/usr/lib/arm-openbmc-linux-gnueabi/gcc/arm-openbmc=
--linux-gnueabi/8.3.0/plugin/include/cp/name-look=0A=
-...=0A=
-...=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=0A=
-=0A=
-________________________________________=0A=
-From: Emily Shaffer <emilyshaffer@google.com>=0A=
-Sent: Monday, April 22, 2019 11:03 AM=0A=
-To: Mark Brown=0A=
-Cc: Patrick Venture; OpenBMC Maillist=0A=
-Subject: Re: Seeking openbmc programmer's editor info=0A=
-=0A=
-OpenBMC is cross-compiled to target the embedded chip that it will run=0A=
-on (often an Aspeed or Nuvoton part). I really doubt anybody is doing=0A=
-their coding on an AST2400 :) Those stale-Ubuntu-targeted instructions=0A=
-might still work, and if they don't, please let us know which=0A=
-libraries are missing.=0A=
-=0A=
-I use a Debian derivative and Vim. However, it's worth noting that=0A=
-openbmc/openbmc references a bunch of other Git repos. Bitbake will=0A=
-pull these down and build for you, but if you want to edit anything,=0A=
-you'll need to either check them out on your own or use devtool.=0A=
-=0A=
-Can you paste the errors you're seeing with C-Scope? (I don't use it,=0A=
-but the text of the error might help us suss out what's going wrong.)=0A=
-=0A=
-By the way, even for questions like this, it's better to mail the=0A=
-entire list than choose one person at random to ask in a direct email.=0A=
-Later developers may have the same question and your email will help=0A=
-answer it for them. :)=0A=
-=0A=
-Welcome to the project!=0A=
-=0A=
-On Mon, Apr 22, 2019 at 9:22 AM Mark Brown <mkbrown32@hotmail.com> wrote:=
-=0A=
->=0A=
-> On the official github   openbmc/openbmc   page:=0A=
->=0A=
-> https://github.com/openbmc/openbmc=0A=
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=0A=
-> 1) Prerequisite=0A=
-> Ubuntu 14.04=0A=
-> sudo apt-get install -y git build-essential libsdl1.2-dev texinfo gawk ch=
-rpath diffstat=0A=
-> Fedora 28=0A=
-> sudo dnf install -y git patch diffstat texinfo chrpath SDL-devel bitbake =
-rpcgen=0A=
-> sudo dnf groupinstall "C Development Tools and Libraries"=0A=
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=0A=
->=0A=
-> ________________________________________=0A=
-> From: Patrick Venture <venture@google.com>=0A=
-> Sent: Monday, April 22, 2019 9:16 AM=0A=
-> To: Mark Brown=0A=
-> Cc: OpenBMC Maillist=0A=
-> Subject: Re: Seeking openbmc programmer's editor info=0A=
->=0A=
-> + openbmc mailing list=0A=
->=0A=
-> On Mon, Apr 22, 2019 at 9:11 AM Mark Brown <mkbrown32@hotmail.com> wrote:=
-=0A=
-> >=0A=
-> > The openbmc build instructions state that Ubuntu 14=0A=
-> > should be used.=0A=
-> > Are you saying that you read, navigate, modify source code=0A=
-> > in a different development platform from the build ?=0A=
->=0A=
-> Yes, what documentation are you reading that says to use ubuntu 14?=0A=
-> It's likely just out of date.=0A=
->=0A=
-> >=0A=
-> > Also, someone else mentioned Vim/C-scope -- however, I experience=0A=
-> > many "cannot find file" errors and then hangs of the Term window=0A=
-> > under C-scope.=0A=
->=0A=
-> I don't use C-scope.=0A=
->=0A=
-> >=0A=
-> >=0A=
-> > ________________________________________=0A=
-> > From: Patrick Venture <venture@google.com>=0A=
-> > Sent: Monday, April 22, 2019 7:26 AM=0A=
-> > To: Mark Brown=0A=
-> > Subject: Re: Seeking openbmc programmer's editor info=0A=
-> >=0A=
-> > I don't use Ubuntu 14, but generally grep/sed/vim are used most.=0A=
-> >=0A=
-> > On Sat, Apr 20, 2019 at 5:30 PM Mark Brown <mkbrown32@hotmail.com> wrot=
-e:=0A=
-> > >=0A=
-> > > I am a firmware guy watching the traffic on this email list.=0A=
-> > > I am interested to know what programmer's editor is most useful,=0A=
-> > > under Ubuntu 14,=0A=
-> > > to navigate and read the source code here, perform multi-file searche=
-s,=0A=
-> > > and help find bugs.=0A=
-> > > Which editor is most commonly used here ?=0A=
-> > >=0A=
-> > > Mark=0A=
-> > >=0A=
-> > > ________________________________________=0A=
-> > > From: openbmc <openbmc-bounces+mkbrown32=3Dhotmail.com@lists.ozlabs.o=
-rg> on behalf of Patrick Venture <venture@google.com>=0A=
-> > > Sent: Friday, April 19, 2019 12:43 PM=0A=
-> > > To: Joel Stanley; Brad Bishop; Andrew Jeffery=0A=
-> > > Cc: OpenBMC Maillist=0A=
-> > > Subject: meta-ingrasys patches required for new merged drivers=0A=
-> > >=0A=
-> > > If you don't work on or maintain meta-ingrasys/meta-zaius you can sto=
-p=0A=
-> > > reading and go on with your Friday. :D=0A=
-> > >=0A=
-> > > All;=0A=
-> > >=0A=
-> > > https://gerrit.openbmc-project.xyz/20692 and below are all ready-to-g=
-o=0A=
-> > > and some are required for the meta-aspeed bump staged for=0A=
-> > > openbmc/openbmc.=0A=
-> > >=0A=
-> > > I wanted to throw this into an email to it jumps out more.=0A=
-> > >=0A=
-> > > Patrick=0A=
-=0A=
-=0A=
-=0A=
---=0A=
-Emily Shaffer=0A=
+
+On 4/18/2019 11:43 AM, Adriana Kobylak wrote:
+> From: Adriana Kobylak <anoo@us.ibm.com>
+>
+> The Swift BMC is an ASPEED ast2500 based BMC that is part of
+> a Power9 server. This adds the device tree description for
+> most upstream components.
+>
+> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+> ---
+>   arch/arm/boot/dts/Makefile                 |   1 +
+>   arch/arm/boot/dts/aspeed-bmc-opp-swift.dts | 782 +++++++++++++++++++++++++++++
+>   2 files changed, 783 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>
+> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+> index bd40148..b82a24d 100644
+> --- a/arch/arm/boot/dts/Makefile
+> +++ b/arch/arm/boot/dts/Makefile
+> @@ -1244,6 +1244,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+>   	aspeed-bmc-opp-lanyang.dtb \
+>   	aspeed-bmc-opp-palmetto.dtb \
+>   	aspeed-bmc-opp-romulus.dtb \
+> +	aspeed-bmc-opp-swift.dtb \
+>   	aspeed-bmc-opp-witherspoon.dtb \
+>   	aspeed-bmc-opp-zaius.dtb \
+>   	aspeed-bmc-portwell-neptune.dtb \
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+> new file mode 100644
+> index 0000000..1921a50
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+> @@ -0,0 +1,782 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/dts-v1/;
+> +#include "aspeed-g5.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +#include <dt-bindings/leds/leds-pca955x.h>
+> +
+> +/ {
+> +	model = "Swift BMC";
+> +	compatible = "ibm,swift-bmc", "aspeed,ast2500";
+> +
+> +	chosen {
+> +		stdout-path = &uart5;
+> +		bootargs = "console=ttyS4,115200 earlyprintk";
+> +	};
+> +
+> +	memory@80000000 {
+> +		reg = <0x80000000 0x20000000>;
+> +	};
+> +
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		flash_memory: region@98000000 {
+> +			no-map;
+> +			reg = <0x98000000 0x04000000>; /* 64M */
+> +		};
+> +
+> +		gfx_memory: framebuffer {
+> +			size = <0x01000000>;
+> +			alignment = <0x01000000>;
+> +			compatible = "shared-dma-pool";
+> +			reusable;
+> +		};
+> +	};
+> +
+> +	gpio-keys {
+> +		compatible = "gpio-keys";
+> +
+> +		air-water {
+> +			label = "air-water";
+> +			gpios = <&gpio ASPEED_GPIO(B, 5) GPIO_ACTIVE_LOW>;
+> +			linux,code = <ASPEED_GPIO(B, 5)>;
+> +		};
+> +
+> +		checkstop {
+> +			label = "checkstop";
+> +			gpios = <&gpio ASPEED_GPIO(J, 2) GPIO_ACTIVE_LOW>;
+> +			linux,code = <ASPEED_GPIO(J, 2)>;
+> +		};
+> +
+> +		ps0-presence {
+> +			label = "ps0-presence";
+> +			gpios = <&gpio ASPEED_GPIO(R, 7) GPIO_ACTIVE_LOW>;
+> +			linux,code = <ASPEED_GPIO(R, 7)>;
+> +		};
+> +
+> +		ps1-presence {
+> +			label = "ps1-presence";
+> +			gpios = <&gpio ASPEED_GPIO(N, 0) GPIO_ACTIVE_LOW>;
+> +			linux,code = <ASPEED_GPIO(N, 0)>;
+> +		};
+
+
+Can you also add the entries for the op-panel and CAPI riser presence 
+detects?
+
+
+> +	};
+> +
+> +	iio-hwmon-battery {
+> +		compatible = "iio-hwmon";
+> +		io-channels = <&adc 12>;
+> +	};
+> +
+> +	gpio-keys-polled {
+> +		compatible = "gpio-keys-polled";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		poll-interval = <1000>;
+> +
+
+
+The SCM and VRM presence detects from the pca9552 on bus 8 below
+
+I think we also want listed here?
+
+
+> +		fan0-presence {
+> +			label = "fan0-presence";
+> +			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
+> +			linux,code = <5>;
+> +		};
+> +
+> +		fan1-presence {
+> +			label = "fan1-presence";
+> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
+> +			linux,code = <6>;
+> +		};
+> +
+> +		fan2-presence {
+> +			label = "fan2-presence";
+> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
+> +			linux,code = <7>;
+> +		};
+> +
+> +		fan3-presence {
+> +			label = "fan3-presence";
+> +			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
+> +			linux,code = <8>;
+> +		};
+> +
+> +		fanboost-presence {
+> +			label = "fanboost-presence";
+> +			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
+> +			linux,code = <9>;
+> +		};
+> +	};
+> +
+> +	leds {
+> +		compatible = "gpio-leds";
+> +
+> +		fan0 {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca0 0 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		fan1 {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		fan2 {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca0 2 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		fan3 {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca0 3 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		fanboost {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca0 4 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		front-fault {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca1 2 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		front-power {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca1 3 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		front-id {
+> +			retain-state-shutdown;
+> +			default-state = "keep";
+> +			gpios = <&pca1 0 GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		rear-fault {
+> +			gpios = <&gpio ASPEED_GPIO(N, 2) GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		rear-id {
+> +			gpios = <&gpio ASPEED_GPIO(N, 4) GPIO_ACTIVE_LOW>;
+> +		};
+> +
+> +		rear-power {
+> +			gpios = <&gpio ASPEED_GPIO(N, 3) GPIO_ACTIVE_LOW>;
+> +		};
+> +	};
+> +
+> +	fsi: gpio-fsi {
+> +		compatible = "fsi-master-gpio", "fsi-master";
+> +		#address-cells = <2>;
+> +		#size-cells = <0>;
+> +		no-gpio-delays;
+> +
+> +		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+> +		data-gpios = <&gpio ASPEED_GPIO(E, 0) GPIO_ACTIVE_HIGH>;
+> +		mux-gpios = <&gpio ASPEED_GPIO(P, 4) GPIO_ACTIVE_HIGH>;
+> +		enable-gpios = <&gpio ASPEED_GPIO(P, 0) GPIO_ACTIVE_HIGH>;
+> +		trans-gpios = <&gpio ASPEED_GPIO(P, 3) GPIO_ACTIVE_HIGH>;
+> +	};
+> +
+> +	iio-hwmon-dps310 {
+> +		compatible = "iio-hwmon";
+> +		io-channels = <&dps 0>;
+> +	};
+> +
+> +};
+> +
+> +&fmc {
+> +	status = "okay";
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		label = "bmc";
+> +		m25p,fast-read;
+> +		spi-max-frequency = <100000000>;
+> +		partitions {
+> +			#address-cells = < 1 >;
+> +			#size-cells = < 1 >;
+> +			compatible = "fixed-partitions";
+> +			u-boot@0 {
+> +				reg = < 0 0x60000 >;
+> +				label = "u-boot";
+> +			};
+> +			u-boot-env@60000 {
+> +				reg = < 0x60000 0x20000 >;
+> +				label = "u-boot-env";
+> +			};
+> +			obmc-ubi@80000 {
+> +				reg = < 0x80000 0x7F80000>;
+> +				label = "obmc-ubi";
+> +			};
+> +		};
+> +	};
+> +
+> +	flash@1 {
+> +		status = "okay";
+> +		label = "alt-bmc";
+> +		m25p,fast-read;
+> +		spi-max-frequency = <100000000>;
+> +		partitions {
+> +			#address-cells = < 1 >;
+> +			#size-cells = < 1 >;
+> +			compatible = "fixed-partitions";
+> +			u-boot@0 {
+> +				reg = < 0 0x60000 >;
+> +				label = "alt-u-boot";
+> +			};
+> +			u-boot-env@60000 {
+> +				reg = < 0x60000 0x20000 >;
+> +				label = "alt-u-boot-env";
+> +			};
+> +			obmc-ubi@80000 {
+> +				reg = < 0x80000 0x7F80000>;
+> +				label = "alt-obmc-ubi";
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&spi1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_spi1_default>;
+> +
+> +	flash@0 {
+> +		status = "okay";
+> +		label = "pnor";
+> +		m25p,fast-read;
+> +		spi-max-frequency = <100000000>;
+> +	};
+> +};
+> +
+> +&uart1 {
+> +	/* Rear RS-232 connector */
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_txd1_default
+> +			&pinctrl_rxd1_default
+> +			&pinctrl_nrts1_default
+> +			&pinctrl_ndtr1_default
+> +			&pinctrl_ndsr1_default
+> +			&pinctrl_ncts1_default
+> +			&pinctrl_ndcd1_default
+> +			&pinctrl_nri1_default>;
+> +};
+> +
+> +&uart2 {
+> +	/* APSS */
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_txd2_default &pinctrl_rxd2_default>;
+> +};
+> +
+> +&uart5 {
+> +	status = "okay";
+> +};
+> +
+> +&lpc_ctrl {
+> +	status = "okay";
+> +	memory-region = <&flash_memory>;
+> +	flash = <&spi1>;
+> +};
+> +
+> +&mbox {
+> +	status = "okay";
+> +};
+> +
+> +&mac0 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rmii1_default>;
+> +	use-ncsi;
+> +};
+> +
+> +&i2c2 {
+> +	status = "okay";
+> +
+> +	/* MUX ->
+> +	 *    Samtec 1
+> +	 *    Samtec 2
+> +	 */
+> +};
+> +
+> +&i2c3 {
+> +	status = "okay";
+> +
+> +	max31785@52 {
+> +		compatible = "maxim,max31785a";
+> +		reg = <0x52>;
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		fan@0 {
+> +			compatible = "pmbus-fan";
+> +			reg = <0>;
+> +			tach-pulses = <2>;
+> +			maxim,fan-rotor-input = "tach";
+> +			maxim,fan-pwm-freq = <25000>;
+> +			maxim,fan-no-watchdog;
+> +			maxim,fan-no-fault-ramp;
+> +			maxim,fan-ramp = <2>;
+> +			maxim,fan-fault-pin-mon;
+> +		};
+> +
+> +		fan@1 {
+> +			compatible = "pmbus-fan";
+> +			reg = <1>;
+> +			tach-pulses = <2>;
+> +			maxim,fan-rotor-input = "tach";
+> +			maxim,fan-pwm-freq = <25000>;
+> +			maxim,fan-no-watchdog;
+> +			maxim,fan-no-fault-ramp;
+> +			maxim,fan-ramp = <2>;
+> +			maxim,fan-fault-pin-mon;
+> +		};
+> +
+> +		fan@2 {
+> +			compatible = "pmbus-fan";
+> +			reg = <2>;
+> +			tach-pulses = <2>;
+> +			maxim,fan-rotor-input = "tach";
+> +			maxim,fan-pwm-freq = <25000>;
+> +			maxim,fan-no-watchdog;
+> +			maxim,fan-no-fault-ramp;
+> +			maxim,fan-ramp = <2>;
+> +			maxim,fan-fault-pin-mon;
+> +		};
+> +
+> +		fan@3 {
+> +			compatible = "pmbus-fan";
+> +			reg = <3>;
+> +			tach-pulses = <2>;
+> +			maxim,fan-rotor-input = "tach";
+> +			maxim,fan-pwm-freq = <25000>;
+> +			maxim,fan-no-watchdog;
+> +			maxim,fan-no-fault-ramp;
+> +			maxim,fan-ramp = <2>;
+> +			maxim,fan-fault-pin-mon;
+> +		};
+> +
+> +		fan@4 {
+> +			compatible = "pmbus-fan";
+> +			reg = <4>;
+> +			tach-pulses = <2>;
+> +			maxim,fan-rotor-input = "tach";
+> +			maxim,fan-pwm-freq = <25000>;
+> +			maxim,fan-no-watchdog;
+> +			maxim,fan-no-fault-ramp;
+> +			maxim,fan-ramp = <2>;
+> +			maxim,fan-fault-pin-mon;
+> +		};
+> +	};
+> +
+> +	pca0: pca9552@60 {
+> +		compatible = "nxp,pca9552";
+> +		reg = <0x60>;
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +
+> +		gpio@0 {
+> +			reg = <0>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@1 {
+> +			reg = <1>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@2 {
+> +			reg = <2>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@3 {
+> +			reg = <3>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@4 {
+> +			reg = <4>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@5 {
+> +			reg = <5>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@6 {
+> +			reg = <6>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@7 {
+> +			reg = <7>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@8 {
+> +			reg = <8>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@9 {
+> +			reg = <9>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@10 {
+> +			reg = <10>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@11 {
+> +			reg = <11>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@12 {
+> +			reg = <12>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@13 {
+> +			reg = <13>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@14 {
+> +			reg = <14>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@15 {
+> +			reg = <15>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +	};
+> +
+> +	power-supply@68 {
+> +		compatible = "ibm,cffps1";
+> +		reg = <0x68>;
+> +	};
+> +
+> +	eeprom@50 {
+> +		compatible = "atmel,24c64";
+> +		reg = <0x50>;
+> +	};
+> +
+> +	power-supply@69 {
+> +		compatible = "ibm,cffps1";
+> +		reg = <0x69>;
+> +	};
+> +
+> +	eeprom@51 {
+> +		compatible = "atmel,24c64";
+> +		reg = <0x51>;
+> +	};
+> +};
+> +
+> +&i2c7 {
+> +	status = "okay";
+> +
+> +	dps: dps310@76 {
+> +		compatible = "infineon,dps310";
+> +		reg = <0x76>;
+> +		#io-channel-cells = <0>;
+> +	};
+> +
+> +	tmp275@48 {
+> +		compatible = "ti,tmp275";
+> +		reg = <0x48>;
+> +	};
+> +
+> +	si7021a20@20 {
+> +		compatible = "si,si7021a20";
+> +		reg = <0x20>;
+> +	};
+> +
+> +	eeprom@50 {
+> +		compatible = "atmel,24c64";
+> +		reg = <0x50>;
+> +	};
+> +
+> +	pca1: pca9551@60 {
+> +		compatible = "nxp,pca9551";
+> +		reg = <0x60>;
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +
+> +		gpio@0 {
+> +			reg = <0>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@1 {
+> +			reg = <1>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@2 {
+> +			reg = <2>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@3 {
+> +			reg = <3>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@4 {
+> +			reg = <4>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@5 {
+> +			reg = <5>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@6 {
+> +			reg = <6>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@7 {
+> +			reg = <7>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +	};
+> +};
+> +
+> +&i2c8 {
+> +	status = "okay";
+> +
+> +	pca9552: pca9552@60 {
+> +		compatible = "nxp,pca9552";
+> +		reg = <0x60>;
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +
+> +		gpio-line-names = "PS_SMBUS_RESET_N", "APSS_RESET_N",
+> +			"GPU0_TH_OVERT_N_BUFF",	"GPU1_TH_OVERT_N_BUFF",
+> +			"GPU2_TH_OVERT_N_BUFF", "GPU3_TH_OVERT_N_BUFF",
+> +			"P9_SCM0_PRES",	"P9_SCM1_PRES",
+> +			"GPU0_PWR_GOOD_BUFF", "GPU1_PWR_GOOD_BUFF",
+> +			"GPU2_PWR_GOOD_BUFF", "GPU3_PWR_GOOD_BUFF",
+> +			"PRESENT_VRM_CP0_N", "PRESENT_VRM_CP1_N",
+> +			"12V_BREAKER_FLT_N", "THROTTLE_UNLATCHED_N";
+> +
+> +		gpio@0 {
+> +			reg = <0>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@1 {
+> +			reg = <1>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@2 {
+> +			reg = <2>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@3 {
+> +			reg = <3>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@4 {
+> +			reg = <4>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@5 {
+> +			reg = <5>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@6 {
+> +			reg = <6>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@7 {
+> +			reg = <7>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@8 {
+> +			reg = <8>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@9 {
+> +			reg = <9>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@10 {
+> +			reg = <10>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@11 {
+> +			reg = <11>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@12 {
+> +			reg = <12>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@13 {
+> +			reg = <13>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@14 {
+> +			reg = <14>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +
+> +		gpio@15 {
+> +			reg = <15>;
+> +			type = <PCA955X_TYPE_GPIO>;
+> +		};
+> +	};
+> +
+> +	rtc@32 {
+> +		compatible = "epson,rx8900";
+> +		reg = <0x32>;
+> +	};
+> +
+> +	eeprom@51 {
+> +		compatible = "atmel,24c64";
+> +		reg = <0x51>;
+> +	};
+> +
+> +	ucd90160@64 {
+> +		compatible = "ti,ucd90160";
+> +		reg = <0x64>;
+> +	};
+> +};
+> +
+> +&i2c9 {
+> +	status = "okay";
+> +
+> +	tmp423a@4c {
+> +		compatible = "ti,tmp423";
+> +		reg = <0x4c>;
+> +	};
+> +
+> +	ir35221@71 {
+> +		compatible = "infineon,ir35221";
+> +		reg = <0x71>;
+> +	};
+> +
+> +	ir35221@72 {
+> +		compatible = "infineon,ir35221";
+> +		reg = <0x72>;
+> +	};
+
+
+Can you add the EEPROM for this CPU0 VRM here?
+
+
+> +};
+> +
+> +&i2c10 {
+> +	status = "okay";
+> +
+> +	tmp423a@4c {
+> +		compatible = "ti,tmp423";
+> +		reg = <0x4c>;
+> +	};
+> +
+> +	ir35221@71 {
+> +		compatible = "infineon,ir35221";
+> +		reg = <0x71>;
+> +	};
+> +
+> +	ir35221@72 {
+> +		compatible = "infineon,ir35221";
+> +		reg = <0x72>;
+> +	};
+
+
+Can you add the EEPROM for this CPU1 VRM here?
+
+
+> +};
+> +
+> +&i2c11 {
+> +	/* MUX
+> +	 *   -> PCIe Slot 0
+> +	 *   -> PCIe Slot 1
+> +	 *   -> PCIe Slot 2
+> +	 *   -> PCIe Slot 3
+> +	 */
+> +	status = "okay";
+> +};
+> +
+> +&i2c12 {
+> +	status = "okay";
+> +
+> +	tmp275@48 {
+> +		compatible = "ti,tmp275";
+> +		reg = <0x48>;
+> +	};
+> +
+> +	tmp275@4a {
+> +		compatible = "ti,tmp275";
+> +		reg = <0x4a>;
+> +	};
+> +};
+> +
+> +&i2c13 {
+> +	status = "okay";
+> +};
+> +
+> +&vuart {
+> +	status = "okay";
+> +};
+> +
+> +&gfx {
+> +	status = "okay";
+> +	memory-region = <&gfx_memory>;
+> +};
+> +
+> +&pinctrl {
+> +	aspeed,external-nodes = <&gfx &lhc>;
+> +};
+> +
+> +&wdt1 {
+> +	aspeed,reset-type = "none";
+> +	aspeed,external-signal;
+> +	aspeed,ext-push-pull;
+> +	aspeed,ext-active-high;
+> +
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_wdtrst1_default>;
+> +};
+> +
+> +&wdt2 {
+> +	aspeed,alt-boot;
+> +};
+> +
+> +&ibt {
+> +	status = "okay";
+> +};
+> +
+> +&adc {
+> +	status = "okay";
+> +};
+> +
+> +#include "ibm-power9-dual.dtsi"
