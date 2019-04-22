@@ -1,59 +1,53 @@
-Return-Path: <prvs=9015ffae35=taoren@fb.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=9015ffae35=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::434; helo=mail-pf1-x434.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="Sjg8klS9"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="YjcYykU9"; 
  dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44ntp30H3zzDqL9
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 03:28:06 +1000 (AEST)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.16.0.27/8.16.0.27) with SMTP id x3MHIXa0009292
- for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 10:28:03 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=ggkFPjU/Ne5UtSggqEaeg9mpDeASwYIDmOn8efG8i/Q=;
- b=Sjg8klS96z95lPkfZvb1uVAu9t+BpLLT5PMA0enSq0u2AKGnYpFqGk/bG09Z96FE8o44
- gUyfHeXwy9oejNED2421021fUwQqCNNummPpRS+413+6H5kAgkj+ZkIuiUIvacjmrndL
- xroJaemAWIG6e2fU3IHYMKnKD3op8evvbUM= 
-Received: from maileast.thefacebook.com ([199.201.65.23])
- by m0001303.ppops.net with ESMTP id 2ryy3cqaf2-8
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 10:28:03 -0700
-Received: from mx-out.facebook.com (2620:10d:c0a1:3::13) by
- mail.thefacebook.com (2620:10d:c021:18::171) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1713.5;
- Mon, 22 Apr 2019 10:27:57 -0700
-Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
- id DFEF413A2728A; Mon, 22 Apr 2019 10:27:56 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Tao Ren <taoren@fb.com>
-Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
-To: Samuel Mendoza-Jonas <sam@mendozajonas.com>, "David S . Miller"
- <davem@davemloft.net>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, <openbmc@lists.ozlabs.org>
-CC: Tao Ren <taoren@fb.com>
-Smtp-Origin-Cluster: prn1c35
-Subject: [PATCH net] net/ncsi: handle overflow when incrementing mac address
-Date: Mon, 22 Apr 2019 10:27:54 -0700
-Message-ID: <20190422172754.1011894-1-taoren@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44nv7069CjzDqHb
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 03:42:52 +1000 (AEST)
+Received: by mail-pf1-x434.google.com with SMTP id 9so6023134pfj.13
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Apr 2019 10:42:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=uI8pMQuiJ424iiixV/X4sardSaEkTdL6oRdf8LMGlAE=;
+ b=YjcYykU9z0//1Ki9PMdVYlHCL9a386bfxBU0IgnwKVrn4foTIJ4xwzGiKG/TuCa1tj
+ UcxpuHrLV5vcK/r7f0eS5Xh40Ozw2LuMcqb0VkpUqdwCBbwWka1srLH4UFlNh4flnrAd
+ e665TOfsGC/ykjS3LnS1fmC3HQlUXMueAH7tKpGLcuxFf9BenA+doG9HWiHbNCsnvRFs
+ CaVkYhWw5q+oY2fJb/3LDCIEKCxfBBIbQqRrjZXL6UsLL/0vKcp6T03U0afN2npJxw9p
+ GLZ0uk2YU7k2ZaOkUx8RxPJAIFzaOrtFY8mIXB9q/0nBRRh2c+sF5aeUJf+wfLWqxm+T
+ KQBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=uI8pMQuiJ424iiixV/X4sardSaEkTdL6oRdf8LMGlAE=;
+ b=KkXxC4r8MAS15IjfXj2Mb1/QTXXQeL0hWR4GIyBZYO2VpUP1fiNiP9DA3hA20yWnMA
+ 4POnPe+BCuNll31JEB5huEXMQsCQiLt9unFi0TYpuVJmOUTPC/POp3hI4F+NXKCPPo6b
+ Z8mQzncu8ejxLtNXKEv7mj4I4eYH1oxYQyYKWkRlvoRxiqO89ZS8sJfrNzGXLa7SZFrH
+ s4JvXUpg+TCg19QR1j7X/hYyDll769s5lLz+TtPSwfP4Ozue2rmkFONcLyHIcpZejODo
+ 1r22Jp96cUSw06zSommTry5Q+vjZV9+g67GxzguYnhTjz8OquFHjaI45GGKPJ59MkrXs
+ +bdA==
+X-Gm-Message-State: APjAAAXLpEmwfkwjjB7FHaHeYa09BI9P+mHOIDtYhHA4rVtWjv5faNLm
+ Vc7KQJFgjcPDGHqPrIgll1NRJbKPDN6CwfZnTNnNNBSLCsLV6g==
+X-Google-Smtp-Source: APXvYqxzSjSqN1NBYVTdSqnyCvW0Z/syRxxn85JqIqdqYOu2+XfYUXhE5MNBkVQ1xrXwH2jBekclv7baqI2BLkq5aAM=
+X-Received: by 2002:a63:5059:: with SMTP id q25mr13263992pgl.314.1555954968367; 
+ Mon, 22 Apr 2019 10:42:48 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-22_01:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
-X-FB-Internal: Safe
+From: Patrick Venture <venture@google.com>
+Date: Mon, 22 Apr 2019 10:42:37 -0700
+Message-ID: <CAO=noty=gy4Bqkj3vscBCnvt8ASLEPCbnq1_3AHGN455rAWVqg@mail.gmail.com>
+Subject: new aspeed drivers
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,47 +59,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Apr 2019 17:28:12 -0000
+X-List-Received-Date: Mon, 22 Apr 2019 17:42:53 -0000
 
-Previously BMC's MAC address is calculated by simply adding 1 to the
-last byte of network controller's MAC address, and it produces incorrect
-result when network controller's MAC address ends with 0xFF.
-The problem is fixed by detecting integer overflow when incrementing MAC
-address and adding the carry bit (if any) to the next/left bytes of the
-MAC address.
+I've submitted a patch upstream for review that creates an ASPEED
+specific SoC folder for drivers that only work on that part or parts
+(ast2400/2500/2600, etc).
 
-Signed-off-by: Tao Ren <taoren@fb.com>
----
- net/ncsi/ncsi-rsp.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+https://patchwork.kernel.org/patch/10911303/
 
-diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
-index dc07fcc7938e..eb42bbdb7501 100644
---- a/net/ncsi/ncsi-rsp.c
-+++ b/net/ncsi/ncsi-rsp.c
-@@ -658,7 +658,8 @@ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
- 	const struct net_device_ops *ops = ndev->netdev_ops;
- 	struct ncsi_rsp_oem_pkt *rsp;
- 	struct sockaddr saddr;
--	int ret = 0;
-+	int ret, offset;
-+	u16 carry = 1;
- 
- 	/* Get the response header */
- 	rsp = (struct ncsi_rsp_oem_pkt *)skb_network_header(nr->rsp);
-@@ -667,7 +668,12 @@ static int ncsi_rsp_handler_oem_bcm_gma(struct ncsi_request *nr)
- 	ndev->priv_flags |= IFF_LIVE_ADDR_CHANGE;
- 	memcpy(saddr.sa_data, &rsp->data[BCM_MAC_ADDR_OFFSET], ETH_ALEN);
- 	/* Increase mac address by 1 for BMC's address */
--	saddr.sa_data[ETH_ALEN - 1]++;
-+	offset = ETH_ALEN - 1;
-+	do {
-+		carry += (u8)saddr.sa_data[offset];
-+		saddr.sa_data[offset] = (char)carry;
-+		carry = carry >> 8;
-+	} while (carry != 0 && --offset >= 0);
- 	ret = ops->ndo_set_mac_address(ndev, &saddr);
- 	if (ret < 0)
- 		netdev_warn(ndev, "NCSI: 'Writing mac address to device failed\n");
--- 
-2.17.1
+If you're currently working on an Aspeed driver, it may be worth
+watching that patchset to see where it goes -- whether it lands.
+
+Patrick
