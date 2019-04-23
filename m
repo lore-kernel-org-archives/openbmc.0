@@ -5,34 +5,31 @@ Authentication-Results: lists.ozlabs.org;
  envelope-from=paul.gortmaker@windriver.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=windriver.com
-X-Greylist: delayed 2926 seconds by postgrey-1.36 at bilbo;
- Wed, 24 Apr 2019 02:39:59 AEST
 Received: from mail5.wrs.com (mail5.windriver.com [192.103.53.11])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44pTgz2HvPzDq9H
- for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 02:39:57 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44pThV4cN0zDqH2
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 02:40:25 +1000 (AEST)
 Received: from ALA-HCA.corp.ad.wrs.com (ala-hca.corp.ad.wrs.com
  [147.11.189.40])
- by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x3NFmwNX005137
+ by mail5.wrs.com (8.15.2/8.15.2) with ESMTPS id x3NFmwNQ005137
  (version=TLSv1 cipher=AES128-SHA bits=128 verify=FAIL);
- Tue, 23 Apr 2019 08:50:17 -0700
+ Tue, 23 Apr 2019 08:49:08 -0700
 Received: from yow-cube1.wrs.com (128.224.56.98) by ALA-HCA.corp.ad.wrs.com
  (147.11.189.40) with Microsoft SMTP Server id 14.3.439.0; Tue, 23 Apr 2019
- 08:50:13 -0700
+ 08:48:48 -0700
 From: Paul Gortmaker <paul.gortmaker@windriver.com>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
  <linux@roeck-us.net>
 CC: <linux-watchdog@vger.kernel.org>, Paul Gortmaker
- <paul.gortmaker@windriver.com>, Avi Fishman <avifishman70@gmail.com>,
- "Tomer Maimon" <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- "Patrick Venture" <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH 3/5] watchdog: npcm: make it explicitly non-modular
-Message-ID: <1556034515-28792-4-git-send-email-paul.gortmaker@windriver.com>
+ <paul.gortmaker@windriver.com>, Benjamin Fair <benjaminfair@google.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Nancy Yuen <yuenn@google.com>, <openbmc@lists.ozlabs.org>,
+ Patrick Venture <venture@google.com>, Tali Perry <tali.perry1@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Wim Van Sebroeck <wim@iguana.be>
+Subject: [PATCH 0/5] wdt: clean up unused modular infrastructure
+Message-ID: <1556034515-28792-1-git-send-email-paul.gortmaker@windriver.com>
 X-Mailer: git-send-email 2.7.4
-In-Reply-To: <1556034515-28792-1-git-send-email-paul.gortmaker@windriver.com>
-References: <1556034515-28792-1-git-send-email-paul.gortmaker@windriver.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 09 May 2019 16:11:46 +1000
@@ -47,82 +44,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Tue, 23 Apr 2019 16:40:25 -0000
-X-Original-Date: Tue, 23 Apr 2019 11:48:33 -0400
-X-List-Received-Date: Tue, 23 Apr 2019 16:40:25 -0000
+Date: Tue, 23 Apr 2019 16:40:48 -0000
+X-Original-Date: Tue, 23 Apr 2019 11:48:30 -0400
+X-List-Received-Date: Tue, 23 Apr 2019 16:40:48 -0000
 
-The Kconfig currently controlling compilation of this code is:
+People can embed modular includes and modular exit functions into code
+that never use any of it, and they won't get any errors or warnings.
 
-config NPCM7XX_WATCHDOG
-       bool "Nuvoton NPCM750 watchdog"
+Using modular infrastructure in non-modules might seem harmless, but some
+of the downfalls this leads to are:
 
-...meaning that it currently is not being built as a module by anyone.
+ (1) it is easy to accidentally write unused module_exit/remove code
+ (2) it can be misleading when reading the source, thinking a driver can
+     be modular when the Makefile and/or Kconfig prohibit it
+ (3) an unused include of the module.h header file will in turn
+     include nearly everything else; adding a lot to CPP overhead.
+ (4) it gets copied/replicated into other drivers and can spread.
 
-Lets remove the modular code that is essentially orphaned, so that
-when reading the driver there is no doubt it is builtin-only.
+As a data point for #3 above, an empty C file that just includes the
+module.h header generates over 750kB of CPP output.  Repeating the same
+experiment with init.h and the result is less than 12kB; with export.h
+it is only about 1/2kB; with both it still is less than 12kB.
 
-Since module_platform_driver() uses the same init level priority as
-builtin_platform_driver() the init ordering remains unchanged with
-this commit.
+Here, In this series, we do what has been done for other subsystems,
+like, net, x86, mfd, iommu....  and audit for uses of modular
+infrastructure inside code that currently can't be built as a module.
 
-Also note that MODULE_DEVICE_TABLE is a no-op for non-modular code.
+As always, the option exists for driver authors to convert their code
+to tristate, if there is a valid use case for it to be so.  But since
+I don't have the context for each driver to know if such a use case
+exists, I limit myself to simply removing the unused code in order to
+make the driver consistent with the Makefile/Kconfig settings that
+control it.
 
-We also delete the MODULE_LICENSE tag etc. since all that information
-was (or is now) contained at the top of the file in the comments.
+Paul.
 
-Cc: Avi Fishman <avifishman70@gmail.com>
-Cc: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Tali Perry <tali.perry1@gmail.com>
-Cc: Patrick Venture <venture@google.com>
-Cc: Nancy Yuen <yuenn@google.com>
-Cc: Benjamin Fair <benjaminfair@google.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: Guenter Roeck <linux@roeck-us.net>
-Cc: openbmc@lists.ozlabs.org
-Cc: linux-watchdog@vger.kernel.org
-Signed-off-by: Paul Gortmaker <paul.gortmaker@windriver.com>
 ---
- drivers/watchdog/npcm_wdt.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
-index 0d4213652ecc..44d305683ab6 100644
---- a/drivers/watchdog/npcm_wdt.c
-+++ b/drivers/watchdog/npcm_wdt.c
-@@ -2,11 +2,15 @@
- // Copyright (c) 2018 Nuvoton Technology corporation.
- // Copyright (c) 2018 IBM Corp.
- 
-+/*
-+ * Watchdog driver for NPCM
-+ * Author: Joel Stanley
-+ */
-+
- #include <linux/bitops.h>
- #include <linux/delay.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
--#include <linux/module.h>
- #include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <linux/slab.h>
-@@ -237,7 +241,6 @@ static const struct of_device_id npcm_wdt_match[] = {
- 	{.compatible = "nuvoton,npcm750-wdt"},
- 	{},
- };
--MODULE_DEVICE_TABLE(of, npcm_wdt_match);
- #endif
- 
- static struct platform_driver npcm_wdt_driver = {
-@@ -247,8 +250,4 @@ static struct platform_driver npcm_wdt_driver = {
- 		.of_match_table = of_match_ptr(npcm_wdt_match),
- 	},
- };
--module_platform_driver(npcm_wdt_driver);
--
--MODULE_AUTHOR("Joel Stanley");
--MODULE_DESCRIPTION("Watchdog driver for NPCM");
--MODULE_LICENSE("GPL v2");
-+builtin_platform_driver(npcm_wdt_driver);
+Cc: Benjamin Fair <benjaminfair@google.com>
+Cc: Guenter Roeck <linux@roeck-us.net>
+Cc: Linus Walleij <linus.walleij@linaro.org>
+Cc: linux-watchdog@vger.kernel.org
+Cc: Nancy Yuen <yuenn@google.com>
+Cc: openbmc@lists.ozlabs.org
+Cc: Patrick Venture <venture@google.com>
+Cc: Tali Perry <tali.perry1@gmail.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>
+Cc: Wim Van Sebroeck <wim@iguana.be>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+
+
+Paul Gortmaker (5):
+  watchdog: rtd119x: drop unused module.h include
+  watchdog: watchdog_core: make it explicitly non-modular
+  watchdog: npcm: make it explicitly non-modular
+  watchdog: intel_scu: make it explicitly non-modular
+  watchdog: coh901327: make it explicitly non-modular
+
+ drivers/watchdog/coh901327_wdt.c      | 24 ++++--------------------
+ drivers/watchdog/intel_scu_watchdog.c | 18 ------------------
+ drivers/watchdog/npcm_wdt.c           | 13 ++++++-------
+ drivers/watchdog/rtd119x_wdt.c        |  1 -
+ drivers/watchdog/watchdog_core.c      | 15 +--------------
+ 5 files changed, 11 insertions(+), 60 deletions(-)
+
 -- 
 2.7.4
