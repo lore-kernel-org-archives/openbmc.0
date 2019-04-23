@@ -1,67 +1,64 @@
-Return-Path: <chou.brad@gmail.com>
+Return-Path: <pengms1@lenovo.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::529; helo=mail-pg1-x529.google.com;
- envelope-from=chou.brad@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=lenovo.com
+ (client-ip=67.219.246.1; helo=mail1.bemta23.messagelabs.com;
+ envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="QBVSbLXQ"; 
- dkim-atps=neutral
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=lenovo.com
+Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
+ [67.219.246.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44pFPh3Bg0zDqDG
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 17:26:46 +1000 (AEST)
-Received: by mail-pg1-x529.google.com with SMTP id y3so7128093pgk.12
- for <openbmc@lists.ozlabs.org>; Tue, 23 Apr 2019 00:26:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=IIUXrQcu7Q+mDLZupIIx8w5IUYcVnPaPmCM9Hqsc8uM=;
- b=QBVSbLXQdq0ada9ka8sQ2R2oi3QMZpnCv0ozVAXBUQAvBUlvG5p7aGpAEUT8Irw5nQ
- hIttYtS3oqbxEAWaq2bCo9he9OkZQWYcDyJMFzsa+UAWjcvQG9HBZELdz1rFcZw7/k85
- b3/SDbNNbAzojsYz5gzOT7j2hTODcDxx9Z7UIcrzSmvlpqupvhlNBctUkIPhR33E9lDb
- mDjl+M7ZC4DWfFKC57YdawljzyxZDJfcATc27Fdp3B9AVdO1qbsQiabCN1mL5RgvpuDk
- ORzsK3ZH7vZny5oLk5ob66I8a+s9Tw5RaHjZJm4T2XAQD2wCIBjXX2+Os5cqhJnIYKqB
- xYow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=IIUXrQcu7Q+mDLZupIIx8w5IUYcVnPaPmCM9Hqsc8uM=;
- b=NYZ0RYcB+hlKgF//OLpe4ixTEM7ZWbV0NJErjHTzmi8zAIT/0WLno2l0PWJezGgTAM
- rxjkMQ1i1iTqnqKJY8DhEq0ZxOToYxlmNCv8L1GgId1+NxSgHH04TTy4x4pbNhCOABue
- QPqojlctZX2jxCOnYSp2Nse2WCC3lvqLElRjSyIZqfwY6yi0U3gFXp37gYKxPEESRDOb
- AJfIrcMD4+c9xW0amXlVXXVBH8E1ph1esgtVBUs6b3l55EjOU+vwE3lSgcJRdkLTmrXg
- 8VXkPpUWJ1E8EElpmyifRXt6YsNlWbLtz7T1tYusgCVVj9Ddvxto2KXyKqbTnlNO3Pmv
- l4MA==
-X-Gm-Message-State: APjAAAWWliwVekJLrcYlsz6F5VtZzzk2pJL6nEalkNRATrrjkr/o0/fk
- 6vPK5lT+jg5oq9nAYaXeqtM=
-X-Google-Smtp-Source: APXvYqyaRU9svgZ0qigcmNQkYmxYGj1j1QmLAHpJeTKXexJ5fc7GBuW1xLVXIM/NcsyqUN6lXPJFRg==
-X-Received: by 2002:a63:5405:: with SMTP id i5mr22894821pgb.212.1556004403930; 
- Tue, 23 Apr 2019 00:26:43 -0700 (PDT)
-Received: from [192.168.1.2] ([220.130.36.2])
- by smtp.gmail.com with ESMTPSA id 71sm42078237pfs.36.2019.04.23.00.26.42
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 23 Apr 2019 00:26:42 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 11.5 \(3445.9.1\))
-Subject: Re: phosphor-fan-presence-tach failed with DBusMethodError
-From: Brad Chou <chou.brad@gmail.com>
-In-Reply-To: <FA53D6AD-E6AF-44C1-B2A0-0342A9551E57@gmail.com>
-Date: Tue, 23 Apr 2019 15:26:39 +0800
-Cc: openbmc@lists.ozlabs.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <3E49DBB7-6746-40E6-9527-2B87E430730A@gmail.com>
-References: <79ECCA67-5A36-48A7-B5DF-5840DC390D8C@gmail.com>
- <c7688048-6b3e-3b18-9b4d-919479bce043@linux.ibm.com>
- <FA53D6AD-E6AF-44C1-B2A0-0342A9551E57@gmail.com>
-To: Matthew Barth <msbarth@linux.ibm.com>
-X-Mailer: Apple Mail (2.3445.9.1)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44pMMG0RYczDq6K;
+ Tue, 23 Apr 2019 21:55:04 +1000 (AEST)
+Received: from [67.219.246.102] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-1.bemta.az-b.us-east-1.aws.symcld.net id 96/33-23849-F0DFEBC5;
+ Tue, 23 Apr 2019 11:54:55 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprHIsWRWlGSWpSXmKPExsWS8eIhly7/330
+ xBrfXcVvsusxhMWPvA2aL+UfOsVr8Pv+X2WLT42usFs2rzzFbXN41h81i6fWLTBanWl6wWLTu
+ PcJusffARhYHbo+r7bvYPdbMW8PosWBTqcfFj8eYPTat6mTz2Lyk3uP8jIWMHp83yQVwRLFm5
+ iXlVySwZjS9TShY1MRY8XBrfQPjpswuRi4OIYEOJomOS4tYIJz5jBKd63+zdzFycrAJqEmcnH
+ 2PFSQhIvCRUeL/yTtsIA6zwCRGiYYvV5hBqoQFbCU+XzzPBmKzCKhKNPz4yghi8wo4SzQfWA1
+ mSwjISdw818k8gZFzASPDKkbTpKLM9IyS3MTMHF1DAwNdQ0MjXSNdM0O9xCrdJL3SYt3UxOIS
+ XSC3vFivuDI3OSdFLy+1ZBMjMNxSCphsdzDuWJp+iFGSg0lJlLcsa2+MEF9SfkplRmJxRnxRa
+ U5q8SFGGQ4OJQnevt/7YoQEi1LTUyvSMnOAgQ+TluDgURLh3fUHKM1bXJCYW5yZDpE6xagoJc
+ 57DSQhAJLIKM2Da4NF2yVGWSlhXkYGBgYhnoLUotzMElT5V4ziHIxKwrynQabwZOaVwE1/BbS
+ YCWjxFJ3VIItLEhFSUg2M8hYvTx1jfNB9a1JLTdEX40kul6Q9GMo3eOZxe6mu/jNNsnxi6kLz
+ TuZ3tUvj3opHT9j4cLLKhhoTr72XcrlPF5f+LVIXi2QJW6EpYfn8jsgCzawlj3hmTzj5f30lO
+ 3OyZ0NL/RYL9SsV1spbW22Pzp2oZJA+acPbkPUdlZ6fjnDM8nl43SBOiaU4I9FQi7moOBEAjP
+ BVvLECAAA=
+X-Env-Sender: pengms1@lenovo.com
+X-Msg-Ref: server-6.tower-386.messagelabs.com!1556020495!6650813!1
+X-Originating-IP: [104.232.225.10]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.31.5; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 1950 invoked from network); 23 Apr 2019 11:54:55 -0000
+Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.10)
+ by server-6.tower-386.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
+ SMTP; 23 Apr 2019 11:54:55 -0000
+Received: from smtpinternal.lenovo.com (unknown [10.96.80.15])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by Forcepoint Email with ESMTPS id 97BD843680CF0F0AECF0;
+ Tue, 23 Apr 2019 07:50:32 -0400 (EDT)
+Received: from localhost.localdomain (unknown [10.245.100.154])
+ by Forcepoint Email with ESMTP id D2ABF4E5C157DCE96F5F;
+ Tue, 23 Apr 2019 19:54:49 +0800 (CST)
+From: Andrew Peng <pengms1@lenovo.com>
+To: venture@google.com, benjaminfair@google.com, linux-kernel@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, andrew@aj.id.au, mark.rutland@arm.com,
+ robh+dt@kernel.org
+Cc: pengms1@lenovo.com, liuyj19@lenovo.com, dukh@lenovo.com,
+ liuyh21@lenovo.com, hsung1@lenovo.com, joel@jms.id.au,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH v2] ARM: dts: aspeed: Adding Lenovo Hr630 BMC
+Date: Tue, 23 Apr 2019 19:54:44 +0800
+Message-Id: <1556020484-440225-1-git-send-email-pengms1@lenovo.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,798 +70,927 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 23 Apr 2019 07:26:49 -0000
+X-List-Received-Date: Tue, 23 Apr 2019 11:55:07 -0000
 
-Hi Matthew,
-I found it is released to entity-manager and dbus-sensors.
-Because I add it into my packagegroup as :
-RDEPENDS_${PN}-system =3D " \
-        systemd-analyze \
-		entity-manager \
-		dbus-sensors \
-        "
+Initial introduction of Lenovo Hr630 family equipped with
+Aspeed 2500 BMC SoC. Hr630 is a x86 server development kit
+with a ASPEED ast2500 BMC manufactured by Lenovo.
+Specifically, This adds the Hr630 platform device tree file
+used by the Hr630 BMC machines.
 
-After remove them from my packagegroup, I don=E2=80=99t see =
-DBusMethodError anymore.
-But I don=E2=80=99t have any idea why entity-manager and dbus-sensors =
-make it wrong.
+This also adds an entry of Hr630 device tree file in Makefile
 
-Thanks.
+Signed-off-by: Andrew Peng <pengms1@lenovo.com>
+Signed-off-by: Yonghui Liu <liuyh21@lenovo.com>
+Signed-off-by: Lisa Liu <liuyj19@lenovo.com>
+---
+ arch/arm/boot/dts/Makefile                    |   3 +-
+ arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts | 886 ++++++++++++++++++++++++++
+ 2 files changed, 888 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
 
-
-> On Apr 19, 2019, at 3:19 PM, Brad Chou <chou.brad@gmail.com> wrote:
->=20
-> Hi Matthew,
-> This is the log of journalctl -u phosphor-fan-presence-tach@0.service =
--o json-pretty
->=20
-> {
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"__REALTIME_TIMESTAMP" : "1555568618101923",
-> 	"CODE_FUNC" : "job_log_done_status_message",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568618101833",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_COMM" : "systemd",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"CODE_FILE" : "../git/src/core/job.c",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"MESSAGE" : "Started Phosphor Fan Presence Tach Daemon.",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D519;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D836e180;t=3D586c80ae7dca3;x=3Da5277960ea22abcd",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_GID" : "0",
-> 	"JOB_RESULT" : "done",
-> 	"_PID" : "1",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"MESSAGE_ID" : "39f53479d3a045ac8e11786248231fbf",
-> 	"JOB_TYPE" : "start",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"CODE_LINE" : "950",
-> 	"__MONOTONIC_TIMESTAMP" : "137814400",
-> 	"JOB_ID" : "1011",
-> 	"_HOSTNAME" : "mingder",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"PRIORITY" : "6",
-> 	"_TRANSPORT" : "journal",
-> 	"_UID" : "0"
-> }
-> {
-> 	"__REALTIME_TIMESTAMP" : "1555568618911936",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D51f;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8433d9c;t=3D586c80af438c0;x=3D93f1aa23393a811f",
-> 	"_STREAM_ID" : "47100c2027b549cfa790b02dd6699d78",
-> 	"__MONOTONIC_TIMESTAMP" : "138624412",
-> 	"_PID" : "2337",
-> 	"_COMM" : "phosphor-fan-pr",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_SYSTEMD_UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"SYSLOG_IDENTIFIER" : "phosphor-fan-presence-tach",
-> 	"MESSAGE" : "terminate called after throwing an instance of =
-'phosphor::fan::util::DBusMethodError'",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_SYSTEMD_CGROUP" : =
-"/system.slice/system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice/phospho=
-r-fan-presence-tach@0.service",
-> 	"_UID" : "0",
-> 	"_SYSTEMD_SLICE" : =
-"system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice",
-> 	"_GID" : "0",
-> 	"_EXE" : "/usr/sbin/phosphor-fan-presence-tach",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_TRANSPORT" : "stdout",
-> 	"_CMDLINE" : "phosphor-fan-presence-tach",
-> 	"PRIORITY" : "6",
-> 	"_SYSTEMD_INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"_HOSTNAME" : "mingder"
-> }
-> {
-> 	"_COMM" : "phosphor-fan-pr",
-> 	"__REALTIME_TIMESTAMP" : "1555568618921247",
-> 	"_GID" : "0",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D520;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D84361f5;t=3D586c80af45d1f;x=3D8f95fe0699c6e8a7",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_CMDLINE" : "phosphor-fan-presence-tach",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_STREAM_ID" : "47100c2027b549cfa790b02dd6699d78",
-> 	"_EXE" : "/usr/sbin/phosphor-fan-presence-tach",
-> 	"_SYSTEMD_SLICE" : =
-"system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice",
-> 	"_SYSTEMD_INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"__MONOTONIC_TIMESTAMP" : "138633717",
-> 	"_UID" : "0",
-> 	"_TRANSPORT" : "stdout",
-> 	"SYSLOG_IDENTIFIER" : "phosphor-fan-presence-tach",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_SYSTEMD_UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"MESSAGE" : "  what():  DBus method call failed",
-> 	"PRIORITY" : "6",
-> 	"_HOSTNAME" : "mingder",
-> 	"_PID" : "2337",
-> 	"_SYSTEMD_CGROUP" : =
-"/system.slice/system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice/phospho=
-r-fan-presence-tach@0.service"
-> }
-> {
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568619532708",
-> 	"PRIORITY" : "4",
-> 	"_UID" : "0",
-> 	"CODE_FUNC" : "unit_log_process_exit",
-> 	"MESSAGE_ID" : "98e322203f7a4ed290d09fe03c09fe15",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_PID" : "1",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"COMMAND" : "ExecStart",
-> 	"__MONOTONIC_TIMESTAMP" : "139245283",
-> 	"CODE_LINE" : "5537",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"_TRANSPORT" : "journal",
-> 	"EXIT_CODE" : "killed",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"__REALTIME_TIMESTAMP" : "1555568619532806",
-> 	"_GID" : "0",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D521;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D84cb6e3;t=3D586c80afdb206;x=3Da2e66b415469912b",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Main process =
-exited, code=3Dkilled, status=3D6/ABRT",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_COMM" : "systemd",
-> 	"EXIT_STATUS" : "6",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_HOSTNAME" : "mingder",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7"
-> }
-> {
-> 	"_TRANSPORT" : "journal",
-> 	"CODE_LINE" : "5508",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"UNIT_RESULT" : "signal",
-> 	"MESSAGE_ID" : "d9b373ed55a64feb8242e02dbe79a49c",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"PRIORITY" : "4",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"__REALTIME_TIMESTAMP" : "1555568619542496",
-> 	"_GID" : "0",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D522;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D84cdcb7;t=3D586c80afdd7e0;x=3D4a46ee5bdffab5af",
-> 	"__MONOTONIC_TIMESTAMP" : "139254967",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"_HOSTNAME" : "mingder",
-> 	"_UID" : "0",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_COMM" : "systemd",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"CODE_FUNC" : "unit_log_failure",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Failed with =
-result 'signal'.",
-> 	"_PID" : "1",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568619541125"
-> }
-> {
-> 	"CODE_LINE" : "3558",
-> 	"PRIORITY" : "6",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_UID" : "0",
-> 	"_TRANSPORT" : "journal",
-> 	"_COMM" : "systemd",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D527;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D86787b2;t=3D586c80b1882d6;x=3D16bce9a8a50a44e7",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_HOSTNAME" : "mingder",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_GID" : "0",
-> 	"CODE_FILE" : "../git/src/core/service.c",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Service =
-RestartSec=3D1s expired, scheduling restart.",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"__MONOTONIC_TIMESTAMP" : "141002674",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"__REALTIME_TIMESTAMP" : "1555568621290198",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"CODE_FUNC" : "service_dispatch_timer",
-> 	"_PID" : "1",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568621290104"
-> }
-> {
-> 	"CODE_FILE" : "../git/src/core/service.c",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_COMM" : "systemd",
-> 	"CODE_LINE" : "2172",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"CODE_FUNC" : "service_enter_restart",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"__MONOTONIC_TIMESTAMP" : "141044909",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568621332340",
-> 	"MESSAGE_ID" : "5eb03494b6584870a536b337290809b3",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_HOSTNAME" : "mingder",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Scheduled =
-restart job, restart counter is at 1.",
-> 	"_GID" : "0",
-> 	"_TRANSPORT" : "journal",
-> 	"PRIORITY" : "6",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D528;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8682cad;t=3D586c80b1927cf;x=3D88ee0587d013ab68",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"N_RESTARTS" : "1",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_UID" : "0",
-> 	"__REALTIME_TIMESTAMP" : "1555568621332431",
-> 	"_PID" : "1"
-> }
-> {
-> 	"JOB_RESULT" : "done",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"MESSAGE" : "Stopped Phosphor Fan Presence Tach Daemon.",
-> 	"_GID" : "0",
-> 	"_PID" : "1",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568621463958",
-> 	"_TRANSPORT" : "journal",
-> 	"_HOSTNAME" : "mingder",
-> 	"PRIORITY" : "6",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"INVOCATION_ID" : "96facc9c420a4f3091e051b99910cbe3",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_COMM" : "systemd",
-> 	"__REALTIME_TIMESTAMP" : "1555568621464285",
-> 	"CODE_LINE" : "950",
-> 	"_UID" : "0",
-> 	"CODE_FUNC" : "job_log_done_status_message",
-> 	"CODE_FILE" : "../git/src/core/job.c",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D52a;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D86a2fb3;t=3D586c80b1b2add;x=3D53fd37e81b1c0559",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"MESSAGE_ID" : "9d1aaa27d60140bd96365438aad20286",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"__MONOTONIC_TIMESTAMP" : "141176755",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"JOB_TYPE" : "restart",
-> 	"JOB_ID" : "1998",
-> 	"_SYSTEMD_SLICE" : "-.slice"
-> }
-> {
-> 	"_UID" : "0",
-> 	"JOB_RESULT" : "done",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"CODE_LINE" : "950",
-> 	"MESSAGE" : "Started Phosphor Fan Presence Tach Daemon.",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"JOB_TYPE" : "start",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_PID" : "1",
-> 	"CODE_FUNC" : "job_log_done_status_message",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"_GID" : "0",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"PRIORITY" : "6",
-> 	"_HOSTNAME" : "mingder",
-> 	"JOB_ID" : "1998",
-> 	"__REALTIME_TIMESTAMP" : "1555568621508089",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"MESSAGE_ID" : "39f53479d3a045ac8e11786248231fbf",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D52b;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D86adad6;t=3D586c80b1bd5f9;x=3D769420352032c3b3",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568621508006",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"__MONOTONIC_TIMESTAMP" : "141220566",
-> 	"CODE_FILE" : "../git/src/core/job.c",
-> 	"_COMM" : "systemd",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_TRANSPORT" : "journal",
-> 	"_SYSTEMD_UNIT" : "init.scope"
-> }
-> {
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D532;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D86f7e5f;t=3D586c80b207982;x=3D5e8f66bc3dae9aaa",
-> 	"_SYSTEMD_SLICE" : =
-"system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_CMDLINE" : "phosphor-fan-presence-tach",
-> 	"__REALTIME_TIMESTAMP" : "1555568621812098",
-> 	"_HOSTNAME" : "mingder",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_GID" : "0",
-> 	"SYSLOG_IDENTIFIER" : "phosphor-fan-presence-tach",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"MESSAGE" : "terminate called after throwing an instance of =
-'phosphor::fan::util::DBusMethodError'",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_TRANSPORT" : "stdout",
-> 	"_PID" : "2359",
-> 	"__MONOTONIC_TIMESTAMP" : "141524575",
-> 	"_SYSTEMD_INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"PRIORITY" : "6",
-> 	"_EXE" : "/usr/sbin/phosphor-fan-presence-tach",
-> 	"_SYSTEMD_CGROUP" : =
-"/system.slice/system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice/phospho=
-r-fan-presence-tach@0.service",
-> 	"_STREAM_ID" : "6a2b58209654429bbca1b7c6bf181604",
-> 	"_COMM" : "phosphor-fan-pr",
-> 	"_UID" : "0",
-> 	"_SYSTEMD_UNIT" : "phosphor-fan-presence-tach@0.service"
-> }
-> {
-> 	"_SYSTEMD_CGROUP" : =
-"/system.slice/system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice/phospho=
-r-fan-presence-tach@0.service",
-> 	"SYSLOG_IDENTIFIER" : "phosphor-fan-presence-tach",
-> 	"_EXE" : "/usr/sbin/phosphor-fan-presence-tach",
-> 	"__MONOTONIC_TIMESTAMP" : "141582711",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"PRIORITY" : "6",
-> 	"_HOSTNAME" : "mingder",
-> 	"_STREAM_ID" : "6a2b58209654429bbca1b7c6bf181604",
-> 	"__REALTIME_TIMESTAMP" : "1555568621870233",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_CMDLINE" : "phosphor-fan-presence-tach",
-> 	"_SYSTEMD_INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_TRANSPORT" : "stdout",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D533;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8706177;t=3D586c80b215c99;x=3D42eb32999d52f312",
-> 	"_PID" : "2359",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_UID" : "0",
-> 	"_SYSTEMD_SLICE" : =
-"system-phosphor\\x2dfan\\x2dpresence\\x2dtach.slice",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"MESSAGE" : "  what():  DBus method call failed",
-> 	"_COMM" : "phosphor-fan-pr",
-> 	"_SYSTEMD_UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_GID" : "0"
-> }
-> {
-> 	"_TRANSPORT" : "journal",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568622203107",
-> 	"EXIT_STATUS" : "6",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Main process =
-exited, code=3Dkilled, status=3D6/ABRT",
-> 	"__REALTIME_TIMESTAMP" : "1555568622203204",
-> 	"PRIORITY" : "4",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"MESSAGE_ID" : "98e322203f7a4ed290d09fe03c09fe15",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_UID" : "0",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_GID" : "0",
-> 	"_PID" : "1",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_COMM" : "systemd",
-> 	"EXIT_CODE" : "killed",
-> 	"COMMAND" : "ExecStart",
-> 	"__MONOTONIC_TIMESTAMP" : "141915681",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"CODE_FUNC" : "unit_log_process_exit",
-> 	"_HOSTNAME" : "mingder",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D538;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8757621;t=3D586c80b267144;x=3D50dbb59748c240cb",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"CODE_LINE" : "5537",
-> 	"_SYSTEMD_UNIT" : "init.scope"
-> }
-> {
-> 	"CODE_FUNC" : "unit_log_failure",
-> 	"UNIT_RESULT" : "signal",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_GID" : "0",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D539;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D875b376;t=3D586c80b26ae98;x=3D7ceede57b1cf63c5",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"__REALTIME_TIMESTAMP" : "1555568622218904",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"_COMM" : "systemd",
-> 	"__MONOTONIC_TIMESTAMP" : "141931382",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568622218809",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_PID" : "1",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_TRANSPORT" : "journal",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"CODE_LINE" : "5508",
-> 	"_HOSTNAME" : "mingder",
-> 	"_UID" : "0",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"MESSAGE_ID" : "d9b373ed55a64feb8242e02dbe79a49c",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Failed with =
-result 'signal'.",
-> 	"PRIORITY" : "4",
-> 	"_SYSTEMD_SLICE" : "-.slice"
-> }
-> {
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D556;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8858d4f;t=3D586c80b368870;x=3Dbd285be09a2b202c",
-> 	"PRIORITY" : "6",
-> 	"_TRANSPORT" : "journal",
-> 	"_COMM" : "systemd",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_UID" : "0",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Service =
-RestartSec=3D1s expired, scheduling restart.",
-> 	"_PID" : "1",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_GID" : "0",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568623255178",
-> 	"CODE_FUNC" : "service_dispatch_timer",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"__MONOTONIC_TIMESTAMP" : "142970191",
-> 	"CODE_LINE" : "3558",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"CODE_FILE" : "../git/src/core/service.c",
-> 	"_HOSTNAME" : "mingder",
-> 	"__REALTIME_TIMESTAMP" : "1555568623257712"
-> }
-> {
-> 	"SYSLOG_FACILITY" : "3",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"N_RESTARTS" : "2",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"MESSAGE_ID" : "5eb03494b6584870a536b337290809b3",
-> 	"_TRANSPORT" : "journal",
-> 	"CODE_LINE" : "2172",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"CODE_FILE" : "../git/src/core/service.c",
-> 	"_HOSTNAME" : "mingder",
-> 	"PRIORITY" : "6",
-> 	"_UID" : "0",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"__MONOTONIC_TIMESTAMP" : "143105318",
-> 	"CODE_FUNC" : "service_enter_restart",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_GID" : "0",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"__REALTIME_TIMESTAMP" : "1555568623392846",
-> 	"_COMM" : "systemd",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Scheduled =
-restart job, restart counter is at 2.",
-> 	"_PID" : "1",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D55b;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8879d26;t=3D586c80b38984e;x=3Dcbae35c18148d750",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568623392516",
-> 	"_CMDLINE" : "/sbin/init"
-> }
-> {
-> 	"_UID" : "0",
-> 	"_COMM" : "systemd",
-> 	"__REALTIME_TIMESTAMP" : "1555568624108590",
-> 	"CODE_LINE" : "950",
-> 	"_PID" : "1",
-> 	"CODE_FUNC" : "job_log_done_status_message",
-> 	"MESSAGE_ID" : "9d1aaa27d60140bd96365438aad20286",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D566;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D892890b;t=3D586c80b43842e;x=3D562735cdc759ad4c",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"MESSAGE" : "Stopped Phosphor Fan Presence Tach Daemon.",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568624108502",
-> 	"__MONOTONIC_TIMESTAMP" : "143821067",
-> 	"CODE_FILE" : "../git/src/core/job.c",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_GID" : "0",
-> 	"PRIORITY" : "6",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_HOSTNAME" : "mingder",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_TRANSPORT" : "journal",
-> 	"JOB_TYPE" : "restart",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"JOB_RESULT" : "done",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"JOB_ID" : "2233"
-> }
-> {
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_PID" : "1",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_TRANSPORT" : "journal",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"CODE_LINE" : "1680",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568624111946",
-> 	"_UID" : "0",
-> 	"__REALTIME_TIMESTAMP" : "1555568624112066",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"__MONOTONIC_TIMESTAMP" : "143824543",
-> 	"_GID" : "0",
-> 	"_COMM" : "systemd",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Start request =
-repeated too quickly.",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"PRIORITY" : "4",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"CODE_FUNC" : "unit_start_limit_test",
-> 	"_HOSTNAME" : "mingder",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D567;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D892969f;t=3D586c80b4391c2;x=3D6bda45b32807d5a2",
-> 	"_CMDLINE" : "/sbin/init"
-> }
-> {
-> 	"_HOSTNAME" : "mingder",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"__MONOTONIC_TIMESTAMP" : "143830627",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"_GID" : "0",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"CODE_FUNC" : "unit_log_failure",
-> 	"_PID" : "1",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"MESSAGE_ID" : "d9b373ed55a64feb8242e02dbe79a49c",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"CODE_LINE" : "5508",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"__REALTIME_TIMESTAMP" : "1555568624118149",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568624114749",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D568;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D892ae63;t=3D586c80b43a985;x=3D48d7d6d11e761693",
-> 	"UNIT_RESULT" : "signal",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"_UID" : "0",
-> 	"CODE_FILE" : "../git/src/core/unit.c",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_TRANSPORT" : "journal",
-> 	"_COMM" : "systemd",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"MESSAGE" : "phosphor-fan-presence-tach@0.service: Failed with =
-result 'signal'.",
-> 	"PRIORITY" : "4"
-> }
-> {
-> 	"MESSAGE" : "Failed to start Phosphor Fan Presence Tach =
-Daemon.",
-> 	"_SYSTEMD_CGROUP" : "/init.scope",
-> 	"__MONOTONIC_TIMESTAMP" : "143882036",
-> 	"PRIORITY" : "3",
-> 	"UNIT" : "phosphor-fan-presence-tach@0.service",
-> 	"JOB_RESULT" : "failed",
-> 	"_GID" : "0",
-> 	"CODE_FILE" : "../git/src/core/job.c",
-> 	"_EXE" : "/lib/systemd/systemd",
-> 	"_CMDLINE" : "/sbin/init",
-> 	"_COMM" : "systemd",
-> 	"CODE_FUNC" : "job_log_done_status_message",
-> 	"_MACHINE_ID" : "fa1a707917fa4b75a16ab529dc09c8ce",
-> 	"_SYSTEMD_UNIT" : "init.scope",
-> 	"CODE_LINE" : "950",
-> 	"JOB_TYPE" : "start",
-> 	"_BOOT_ID" : "94b392ebfa2147b6b28f32ce1c87d8a7",
-> 	"INVOCATION_ID" : "bd4bdaf8c8f04f17a5f7d8d2b9c8b7ce",
-> 	"SYSLOG_IDENTIFIER" : "systemd",
-> 	"_TRANSPORT" : "journal",
-> 	"_PID" : "1",
-> 	"_SOURCE_REALTIME_TIMESTAMP" : "1555568624169239",
-> 	"_HOSTNAME" : "mingder",
-> 	"__REALTIME_TIMESTAMP" : "1555568624169565",
-> 	"SYSLOG_FACILITY" : "3",
-> 	"_CAP_EFFECTIVE" : "3fffffffff",
-> 	"_SYSTEMD_SLICE" : "-.slice",
-> 	"JOB_ID" : "2233",
-> 	"MESSAGE_ID" : "be02cf6855d2428ba40df7e9d022f03d",
-> 	"__CURSOR" : =
-"s=3D6362c6cda2b64a3eb14f6aa46acd1d7a;i=3D569;b=3D94b392ebfa2147b6b28f32ce=
-1c87d8a7;m=3D8937734;t=3D586c80b44725d;x=3D99dec20be5513aa5",
-> 	"_UID" : "0"
-> }
->=20
->=20
->=20
->=20
->> On Apr 16, 2019, at 10:21 PM, Matthew Barth <msbarth@linux.ibm.com> =
-wrote:
->>=20
->>=20
->>=20
->> On 4/16/19 4:53 AM, Brad Chou wrote:
->>> Hi All,
->>> The phosphor-fan-presence-tach failed as :
->>> root@mingder:~# systemctl status =
-phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service> --no-pager
->>> ? phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service> - Phosphor Fan Presence =
-Tach Daemon
->>>   Loaded: loaded =
-(/lib/systemd/system/obmc-chassis-poweron@0.target.requires =
-<mailto:lib/systemd/system/obmc-chassis-poweron@0.target.requires>/../phos=
-phor-fan-presence-tach@.service; static; vendor preset: enabled)
->>>   Active: failed (Result: signal) since Tue 2019-04-16 15:34:06 UTC; =
-1min 21s ago
->>>  Process: 2183 ExecStart=3D/usr/bin/env phosphor-fan-presence-tach =
-(code=3Dkilled, signal=3DABRT)
->>> Main PID: 2183 (code=3Dkilled, signal=3DABRT)
->>> Apr 16 15:34:05 mingder systemd[1]: =
-phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service>: Service RestartSec=3D1s =
-expired, scheduling restart.
->>> Apr 16 15:34:05 mingder systemd[1]: =
-phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service>: Scheduled restart job, =
-restart counter is at 2.
->>> Apr 16 15:34:06 mingder systemd[1]: Stopped Phosphor Fan Presence =
-Tach Daemon.
->>> Apr 16 15:34:06 mingder systemd[1]: =
-phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service>: Start request repeated =
-too quickly.
->>> Apr 16 15:34:06 mingder systemd[1]: =
-phosphor-fan-presence-tach@0.service =
-<mailto:phosphor-fan-presence-tach@0.service>: Failed with result =
-'signal'.
->>> Apr 16 15:34:06 mingder systemd[1]: Failed to start Phosphor Fan =
-Presence Tach Daemon.
->>> root@mingder:~#
->>> After trying to execute it manually, I got this error:
->>> root@mingder:~# /usr/bin/env phosphor-fan-presence-tach
->>> terminate called after throwing an instance of =
-'phosphor::fan::util::DBusMethodError'
->>>  what():  DBus method call failed
->>> Aborted
->>> root@mingder:~#
->> Could you provide the journal pretty output after running it manually =
-for the entries in regard to phosphor-fan-presence-tach?
->> 	`journalctl -o json-pretty`
->> This may help show what object is failing the method call to dbus.
->>> My config.yaml for phosphor-fan-presence-config-native/ is :
->>> - name: fan1
->>>  path: /system/chassis/motherboard/fan1
->>>  methods:
->>>    - type: tach
->>>      sensors:
->>>        - FAN1_L
->>> - name: fan2
->>>  path: /system/chassis/motherboard/fan2
->>>  methods:
->>>    - type: tach
->>>      sensors:
->>>        - FAN2_L
->>> - name: fan3
->>>  path: /system/chassis/motherboard/fan3
->>>  methods:
->>>    - type: tach
->>>      sensors:
->>>        - FAN3_L
->>> - name: fan4
->>>  path: /system/chassis/motherboard/fan4
->>>  methods:
->>>    - type: tach
->>>      sensors:
->>>        - FAN4_L
->>> The /system/chassis/motherboard/fanX can be seen as :
->>> [bradchou@localhost ~]$ curl -b cjar -k =
-https://${bmc}/xyz/openbmc_project/inventory/system/chassis/motherboard/en=
-umerate
->>> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1": {
->>>      "Functional": true,
->>>      "Present": true,
->>>      "PrettyName": "fan1"
->>>    },
->>>    "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan2": =
-{
->>>      "Functional": true,
->>>      "Present": true,
->>>      "PrettyName": "fan2"
->>>    },
->>>    "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan3": =
-{
->>>      "Functional": true,
->>>      "Present": true,
->>>      "PrettyName": "fan3"
->>>    },
->>>    "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan4": =
-{
->>>      "Functional": true,
->>>      "Present": true,
->>>      "PrettyName": "fan4"
->>>    },
->>> I can also get the sensors for each FAN:
->>> [bradchou@localhost ~]$ curl -b cjar -k =
-https://${bmc}/xyz/openbmc_project/sensors/fan_tach/enumerate
->>> "data": {
->>>    "/xyz/openbmc_project/sensors/fan_tach/FAN1_L": {
->>>      "CriticalAlarmHigh": false,
->>>      "CriticalAlarmLow": false,
->>>      "CriticalHigh": 20000,
->>>      "CriticalLow": 1200,
->>>      "MaxValue": 0,
->>>      "MinValue": 0,
->>>      "Scale": 0,
->>>      "Target": 128,
->>>      "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
->>>      "Value": 10485
->>>    },
->>> It seems the sensor is ok and the inventory object for fan is also =
-created.
->>> But the phosphor-fan-presence-tach still failed.
->>> Can anyone help me to figurate out what=E2=80=99s going wrong ?
->>> Thanks.
->>=20
->=20
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index f4f5aea..375e53b 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1261,4 +1261,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-opp-witherspoon.dtb \
+ 	aspeed-bmc-opp-zaius.dtb \
+ 	aspeed-bmc-portwell-neptune.dtb \
+-	aspeed-bmc-quanta-q71l.dtb
++	aspeed-bmc-quanta-q71l.dtb \
++	aspeed-bmc-lenovo-hr630.dtb
+diff --git a/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
+new file mode 100644
+index 0000000..3322f83
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
+@@ -0,0 +1,886 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Device Tree file for Lenovo Hr630 platform
++ *
++ * Copyright (C) 2019-present Lenovo
++ */
++
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "HR630 BMC";
++	compatible = "lenovo,hr630-bmc", "aspeed,ast2500";
++
++	aliases {
++		i2c_rbp = &i2c_rbp;
++		i2c_fbp1 = &i2c_fbp1;
++		i2c_fbp2 = &i2c_fbp2;
++		i2c_fbp3 = &i2c_fbp3;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=tty0 console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0x80000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x00100000>; /* 1M */
++		};
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		heartbeat {
++			gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_LOW>;
++		};
++
++		fault {
++			gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++		<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++		<&adc 8>, <&adc 9>, <&adc 10>,
++		<&adc 12>, <&adc 13>, <&adc 14>;
++	};
++
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&uart2 {
++	status = "okay";
++};
++
++&uart3 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&ibt {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&adc {
++	status = "okay";
++};
++
++&i2c0 {
++	status = "okay";
++	/* temp1 inlet */
++	tmp75@4e {
++		compatible = "national,lm75";
++		reg = <0x4e>;
++	};
++};
++
++&i2c1 {
++	status = "okay";
++	/* temp2 outlet */
++	tmp75@4d {
++		compatible = "national,lm75";
++		reg = <0x4d>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++	/*	Slot 0,
++	 *	Slot 1,
++	 *	Slot 2,
++	 *	Slot 3
++	 */
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9545";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;	/* may use mux@70 next. */
++
++		i2c_rbp: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c_fbp1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c_fbp2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c_fbp3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	/*	Slot 0,
++	 *	Slot 1,
++	 *	Slot 2,
++	 *	Slot 3
++	 */
++	i2c-switch@76 {
++		compatible = "nxp,pca9546";
++		reg = <0x76>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;  /* may use mux@76 next. */
++
++		i2c_riser2: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c_pcie4: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c_riser1: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c_ocp: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c8 {
++	status = "okay";
++
++	eeprom@57 {
++		compatible = "atmel,24c256";
++		reg = <0x57>;
++		pagesize = <16>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++/*
++ * Enable port A as device (via the virtual hub) and port B as
++ * host by default on the eval board. This can be easily changed
++ * by replacing the override below with &ehci0 { ... } to enable
++ * host on both ports.
++ */
++&vhub {
++	status = "okay";
++};
++
++&ehci1 {
++	status = "okay";
++};
++
++&uhci {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default
++	&pinctrl_pwm1_default
++	&pinctrl_pwm2_default
++	&pinctrl_pwm3_default
++	&pinctrl_pwm4_default
++	&pinctrl_pwm5_default
++	&pinctrl_pwm6_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++
++	fan@2 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
++	};
++
++	fan@3 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
++	};
++
++	fan@4 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
++	};
++
++	fan@5 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
++	};
++
++	fan@6 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
++	};
++
++	fan@7 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
++	};
++
++	fan@8 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x08>;
++	};
++
++	fan@9 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x09>;
++	};
++
++	fan@10 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0a>;
++	};
++
++	fan@11 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0b>;
++	};
++
++	fan@12 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0c>;
++	};
++
++	fan@13 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0d>;
++	};
++};
++
++&gpio {
++
++	pin_gpio_a0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MAC1_INT_N";
++	};
++
++	pin_gpio_a1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MEZZ_C_PRESENT_N";
++	};
++
++	pin_gpio_a2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_PRST";
++	};
++
++	pin_gpio_a3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(A, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_PRST";
++	};
++
++	pin_gpio_b5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "IRQ_BMC_PCH_SMI_LPC_N";
++	};
++
++	pin_gpio_f0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "IRQ_BMC_PCH_NMI_R";
++	};
++
++	pin_gpio_f1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU1_DISABLE_COD_N";
++	};
++
++	pin_gpio_f2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "SMB_LAN_ALERT_N_MEZZ";
++	};
++
++	pin_gpio_f3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_BUS0_RST_OUT_N";
++	};
++
++	pin_gpio_f4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "FM_SKT0_FAULT_LED";
++	};
++
++	pin_gpio_f5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "FM_SKT1_FAULT_LED";
++	};
++
++	pin_gpio_f6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_BMC_CPLD_NMI";
++	};
++
++	pin_gpio_f7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_ALERT_N";
++	};
++
++	pin_gpio_g0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU_ERR2_LVT3_N";
++	};
++
++	pin_gpio_g1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_CPU_MSMI_CATERR_LVT3_N";
++	};
++
++	pin_gpio_g2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PCH_BMC_THERMTRIP_N";
++	};
++
++	pin_gpio_g3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_I2C_BUS7_INT_N";
++	};
++
++	pin_gpio_g4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "FAN_PWR_CTL_N";
++	};
++
++	pin_gpio_g5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "NFC_FD_N";
++	};
++
++	pin_gpio_g6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_NMI_EVENT_N";
++	};
++
++	pin_gpio_g7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(G, 7) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "RST_BMC_PCIE_I2CMUX_N";
++	};
++
++	pin_gpio_h0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_EPOW_N_R";
++	};
++
++	pin_gpio_h1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_EPOW_N_R";
++	};
++
++	pin_gpio_h2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PSU1_FFS_N_R";
++	};
++
++	pin_gpio_h3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PSU2_FFS_N_R";
++	};
++
++	pin_gpio_h4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_THROTTLE_N_R";
++	};
++
++	pin_gpio_h5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_THROTTLE_N_R";
++	};
++
++	pin_gpio_h6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_SMB_RESET_N";
++	};
++
++	pin_gpio_h7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU2_SMB_RESET_N";
++	};
++
++	pin_gpio_i1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FP_PWR_BTN_N";
++	};
++
++	pin_gpio_i2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BIOS_RCVR_N";
++	};
++
++	pin_gpio_i3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_INTRUDED_COVER";
++	};
++
++	pin_gpio_j2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_BIOS_UPDATE_N";
++	};
++
++	pin_gpio_j3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(J, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "RST_BMC_HDD_I2CMUX_N";
++	};
++
++	pin_gpio_q4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "MEZZ_A_PRESENT_N";
++	};
++
++	pin_gpio_q5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "VGA_FRONT_PRES_N";
++	};
++
++	pin_gpio_q6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "I2C_RISER1_INT_N";
++	};
++
++	pin_gpio_q7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "NCSI_CABLE_DET_N";
++	};
++
++	pin_gpio_r0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FP_RST_BTN_N";
++	};
++
++	pin_gpio_r2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG1_DETECT_N";
++	};
++
++	pin_gpio_r3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG2_DETECT_N";
++	};
++
++	pin_gpio_r4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HDDSIG3_DETECT_N";
++	};
++
++	pin_gpio_r5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(R, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "VIDEO_CABLE_DETECT_N";
++	};
++
++	pin_gpio_s0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_PS_RAPIDON_WAKE_R_N";
++	};
++
++	pin_gpio_s1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "HOST_TPM_PP_BUF";
++	};
++
++	pin_gpio_s2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "BMC_VGA_SW";
++	};
++
++	pin_gpio_s3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_SML0_ALERT_MUX_N";
++	};
++
++	pin_gpio_s4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 4) GPIO_ACTIVE_HIGH>;
++		output;
++		line-name = "VBAT_EN_N";
++	};
++
++	pin_gpio_s5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 5) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_4";
++	};
++
++	pin_gpio_s6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 6) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "PU_BMC_GPIOS6";
++	};
++
++	pin_gpio_s7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(S, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "I2C_BUS7_RESET_N";
++	};
++
++	pin_gpio_y0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_NCSI_MUX_CTL_S0";
++	};
++
++	pin_gpio_y1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 1) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_NCSI_MUX_CTL_S1";
++	};
++
++	pin_gpio_y2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Y, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "UID_ALERT_N";
++	};
++
++	pin_gpio_z0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 0) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_RISER2_INT_N";
++	};
++
++	pin_gpio_z2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_RISER2_RESET_N";
++	};
++
++	pin_gpio_z3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 3) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "FM_BMC_PCH_SCI_LPC_N";
++	};
++
++	pin_gpio_z4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_17";
++	};
++
++	pin_gpio_z6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "BMC_HW_STRAP_20";
++	};
++
++	pin_gpio_z7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(Z, 7) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "BMC_POST_CMPLT_N";
++	};
++
++	pin_gpio_aa0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
++		output-low;
++		line-name = "HOST_BMC_USB_SEL";
++	};
++
++	pin_gpio_aa1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "PSU1_ALERT_N";
++	};
++
++	pin_gpio_aa2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PVCCIN_CPU0_PWR_IN_ALERT_N";
++	};
++
++	pin_gpio_aa3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_PVCCIN_CPU1_PWR_IN_ALERT_N";
++	};
++
++	pin_gpio_aa4 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 4) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "USB_CABLE_DETECT_N";
++	};
++
++	pin_gpio_aa5 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 5) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "I2C_BUS1_RST_OUT_N";
++	};
++
++	pin_gpio_aa6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "IRQ_SMI_ACTIVE_N";
++	};
++
++	pin_gpio_aa7 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_BIOS_POST_CMPLT_N";
++	};
++
++	pin_gpio_ab0 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FM_TPM_MOD_PRES_N";
++	};
++
++	pin_gpio_ab1 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 1) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "FORCE_NMI_SW_FPGA_N";
++	};
++
++	pin_gpio_ab2 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 2) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "1U_2U_PCBA_SEL_R";
++	};
++
++	pin_gpio_ab3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(AB, 3) GPIO_ACTIVE_HIGH>;
++		input;
++		line-name = "INTRUDED_PRES_N";
++	};
++};
+-- 
+2.7.4
