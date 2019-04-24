@@ -1,53 +1,35 @@
-Return-Path: <akashgj91@gmail.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::22e; helo=mail-oi1-x22e.google.com;
- envelope-from=akashgj91@gmail.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DHylpO4l"; 
- dkim-atps=neutral
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44pybG1YbwzDqSB
- for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 21:22:30 +1000 (AEST)
-Received: by mail-oi1-x22e.google.com with SMTP id l12so3016560oie.13
- for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 04:22:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=8VtlF5cA4Vx23MmcoFKQg1GoGA2lMUb+OHkcdCaNXOY=;
- b=DHylpO4lYJxVF78rZHSMVcvIfgA0r0ztuWkBqQHa/0oWhP9egtD7/VlXOmOjVTh5tt
- Vv3gq/CLPTMGMjGN7d7rGjy9f+ITEeea9qMDqgl0GTrBSvOoeECEzuOpJywGDG7grrFZ
- wdGZ+bYgo720wUe2iHEKgYwo0OBUa4WCRNTweM2knutIdqq7/6iXYdXPwx0n8Q3RVfMD
- Fi41PZawaA14bKKgX9X/N+xm2jxmLRdzqVmwu6UYidPmojqtMaSHFmJYYCtcpTi9XjFq
- oojy4bpl04ppXkDxpN5cTkuNR2dAALxQjIUq4iCjdStKnyBzRwNwkuEGl6wL4MVW/O6Q
- bWYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=8VtlF5cA4Vx23MmcoFKQg1GoGA2lMUb+OHkcdCaNXOY=;
- b=mrYy3qJSb9Hb3gALeOx+dy3kTEtd6ETDqMi4sckH5NyYn7XYF8qqBhOApiJlSznTjm
- NYCW7ZyCJVt+IdPSMoWzZnQ5wFd2M2ih2egRj4Ngi6wONPIsEELMn1Zl0gZOyWGaI3vg
- bQOmgXenSNQhfsqNzhM3wZl62mf94YAmp1SUGIveJUvyKq3u8+wNqpquC2ar7niSLcY0
- st0V+oslJ32AtjSyv6QAKHFoubbxKlxxIVSTIlut8jUVqeBAHwM3FS+X1Az5mA5UJZxH
- f3oxYZ7ZnL67cRwq/eN/cAtjPWt9Z2tKozyvHbPNm5zPmBV8PYK5OrY91hB9OAxkoaxY
- cHPQ==
-X-Gm-Message-State: APjAAAXhrRyiOuIWiShwuNBReMTyvuBTqw74D9hxz10kF9iXpSpoFSbg
- e5hK+c1WwVUf6z4GCy7MJT6ks9WYFKPJ20rpuTFDPg==
-X-Google-Smtp-Source: APXvYqxsjEq1Txu2dw6ZkZOSWoaVmvPn/X+j09cFLg4wrxe27hfgD/sq+6Z0qsdC5y6UPKYSmjO18uq1zY4rFXnF/AU=
-X-Received: by 2002:aca:3306:: with SMTP id z6mr5193661oiz.25.1556104947039;
- Wed, 24 Apr 2019 04:22:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44pzlJ19DnzDqTX
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 22:14:35 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Date: Wed, 24 Apr 2019 08:15:13 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Andrew Geissler <geissonator@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ William Kennington <wak@google.com>
+Subject: Re: Using D-Bus well-known service names and deprecating mapper
+ service lookups
+Message-ID: <20190424121513.uiw5hjmezdfli3yw@thinkpad.dyn.fuzziesquirrel.com>
+References: <cd75d086-fdc0-4c83-8094-c3b802f6ad37@www.fastmail.com>
+ <CALLMt=oxk3Bevbop-VLG6X2rpWf-fpbf2=KV9SWMWERWFfY_Eg@mail.gmail.com>
+ <5ac645f2-1e7c-4c2a-b6f2-e794da2fd875@www.fastmail.com>
+ <89b3cb8651223f7093e0e89372018cffc02e3760.camel@fuzziesquirrel.com>
+ <737313fb-6836-405f-a53b-01f7dbce5091@www.fastmail.com>
 MIME-Version: 1.0
-From: AKASH G J <akashgj91@gmail.com>
-Date: Wed, 24 Apr 2019 16:51:24 +0530
-Message-ID: <CAE33tLHQnthxB0oqq_inqBbyfq0Lfut0Bq6usjhB3=ZV6jiivw@mail.gmail.com>
-Subject: Unable to store persistent changes.
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="0000000000009a0235058744ea6f"
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <737313fb-6836-405f-a53b-01f7dbce5091@www.fastmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,31 +41,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Apr 2019 11:22:35 -0000
+X-List-Received-Date: Wed, 24 Apr 2019 12:14:36 -0000
 
---0000000000009a0235058744ea6f
-Content-Type: text/plain; charset="UTF-8"
+On Mon, Apr 15, 2019 at 09:51:19PM -0400, Andrew Jeffery wrote:
+>
+>
+>On Mon, 15 Apr 2019, at 12:23, Brad Bishop wrote:
+>> OpenBMC still needs a way to address these issues today - that hasn't
+>> changed I don't think.  Is the mapper the best possible solution?
+>> Probably not.
+>
+>So I think you've painted a reasonable picture of the problem here,
+>however I also think that the solution to this specific problem has
+>been over-generalised to the point of pervasive use in OpenBMC,
+>and my argument is I don't think that's necessary.
 
-Hi All,
+Agreed.  FWIW in the past there was a heavy tendency to solve problems
+that didn't necessarily exist yet.
 
-Using OpenBMC firmware, I created new users and changed the password of
-existing user. After powered off the BMC and turned on, the changes made
-was disappeared.
+>
+>Backing up, the motivation for this thread was that I wanted to know
+>whether phosphor-ipmi-host had got to the point of being considered
+>"on the bus". I knew we had the mapper-wait@ systemd service that
+>several units already used, so I gave that a go, and found that it didn't
+>behave as I expected (as outlined in the original message). From there
+>I moved on to poking at systemd and dbus-activation. The point is that
+>we're using the mapper in a lot of places where it should be
+>unnecessary. Having a well-defined schema and hence a well-known
+>bus name for ipmid doesn't seem too far fetched. The practical reality
+>of the implementation is it's done as a single process.
+>
+>I'm not arguing that we eliminate the mapper entirely, your scenario
+>above does a good job of motivating its existence. I'm just arguing that
+>we should rely on it less, and do a better job of defining what services
+>should have the benefit of a well-known bus names, as this enables
+>reliable dependency management without hacks like mapper-wait@.
 
-I think the file system is read-only. How to make it read/write mode ?
+Agreed.
 
+>
+>Maybe we could put together a list of what could benefit from well
+>known bus names and what requires the mapper? Might help us
+>understand the scope and whether any of this is a useful idea.
 
-Thanks in advance.
+It certainly can't hurt to have something like this.
 
---0000000000009a0235058744ea6f
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div>Hi All,</div><div><br></div><div>Using OpenBMC firmwa=
-re, I created new users and changed the password of existing user. After po=
-wered off the BMC and turned on, the changes made was disappeared. <br></di=
-v><div><br></div><div>I think the file system is read-only. How to make it =
-read/write mode ?</div><div><br></div><div><br></div><div>Thanks in advance=
-.<br></div></div>
-
---0000000000009a0235058744ea6f--
+>
+>Cheers,
+>
+>Andrew
