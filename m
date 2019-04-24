@@ -1,61 +1,81 @@
-Return-Path: <pengms1@lenovo.com>
+Return-Path: <msbarth@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=lenovo.com
- (client-ip=67.219.250.5; helo=mail1.bemta24.messagelabs.com;
- envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=msbarth@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=lenovo.com
-Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
- [67.219.250.5])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44q6yb4FpxzDqYS
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:39:51 +1000 (AEST)
-Received: from [67.219.250.102] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-5.bemta.az-a.us-west-2.aws.symcld.net id 51/A9-26731-56F90CC5;
- Wed, 24 Apr 2019 17:39:49 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCLMWRWlGSWpSXmKPExsWSLveKRTdl/oE
- Yg+e/zSxm7H3AbPH7/F9mi1MtL1gs9h7YyOLA4rFgU6nHxY/HmD3Oz1jIGMAcxZqZl5RfkcCa
- cfzrLcaCma2MFW2LuRsYn2V3MXJxCAl0MEnMn7SQFcKZzyhx6l4rSxcjJwebgJrEydn3WEFsE
- YFsiZtvF7GB2MwCJRIfz29jBLGFBYIlrp35wtTFyMHBIqAq8XuuBYjJK+As0bWxEqRCQkBO4u
- a5TuYJjJwLGBlWMZonFWWmZ5TkJmbm6BoaGOgaGhrpGhob6FoY6yVW6SbqlRbrlqcWl+ga6SW
- WF+sVV+Ym56To5aWWbGIE+j6loCl4B+OF5emHGCU5mJREeZd2HogR4kvKT6nMSCzOiC8qzUkt
- PsQow8GhJMG7di5QTrAoNT21Ii0zBxiEMGkJDh4lEV4JkDRvcUFibnFmOkTqFKOilDivKEhCA
- CSRUZoH1wYL/EuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHlzQabwZOaVwE1/BbSYCWhxvQ
- XY4pJEhJRUA+POa0/+SL0/EvREaltM4VGTa9z6EXwr1uh7zlxtybFXoUznU1CVaoXv4jkhqtk
- yNj+1Xkc8bVkyK6l8sfXDtX1LOqb/C9IMalhi1HGBv3SOzbd+7feTvmmX6PEk52/mM74v3iJ7
- 9nR7vsyzVStm6vzZkHNPhvf0n7zTnX0Xbk6ZPouzau9DsSdKLMUZiYZazEXFiQD5yftBdwIAA
- A==
-X-Env-Sender: pengms1@lenovo.com
-X-Msg-Ref: server-20.tower-326.messagelabs.com!1556127586!6526860!1
-X-Originating-IP: [103.30.234.4]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.31.5; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 9542 invoked from network); 24 Apr 2019 17:39:48 -0000
-Received: from unknown (HELO apsmtp.lenovo.com) (103.30.234.4)
- by server-20.tower-326.messagelabs.com with DHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 24 Apr 2019 17:39:48 -0000
-Received: from smtpinternal.lenovo.com (unknown [10.96.80.33])
- (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by Forcepoint Email with ESMTPS id 8FDEDEB098D0DB8A8D09;
- Thu, 25 Apr 2019 01:39:45 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.245.100.154])
- by Forcepoint Email with ESMTP id 327BA57F352D96D53B95;
- Thu, 25 Apr 2019 01:39:45 +0800 (CST)
-From: Andrew Peng <pengms1@lenovo.com>
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
- benjaminfair@google.com, venture@google.com
-Cc: Andrew Peng <pengms1@lenovo.com>, liuyj19@lenovo.com, dukh@lenovo.com,
- liuyh21@lenovo.com, hsung1@lenovo.com
-Subject: [PATCH linux dev-5.0] [PATCH v4] ARM: dts: aspeed: Adding Lenovo
- Hr630 BMC
-Date: Thu, 25 Apr 2019 01:39:43 +0800
-Message-Id: <1556127583-234836-1-git-send-email-pengms1@lenovo.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44q7c65vsjzDqWG
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 04:08:53 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3OHrnUY121269
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 14:08:51 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2s2v4w9usu-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 14:08:51 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.ibm.com>;
+ Wed, 24 Apr 2019 19:08:50 +0100
+Received: from b03cxnp07029.gho.boulder.ibm.com (9.17.130.16)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 24 Apr 2019 19:08:49 +0100
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3OI8mrx24510618
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 24 Apr 2019 18:08:48 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 1CE6A7805E;
+ Wed, 24 Apr 2019 18:08:48 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CFEC57806B;
+ Wed, 24 Apr 2019 18:08:47 +0000 (GMT)
+Received: from [9.10.99.66] (unknown [9.10.99.66])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed, 24 Apr 2019 18:08:47 +0000 (GMT)
+Subject: Re: Fan control service issues - service will not start "Uncaught
+ DBus service lookup failure exception"
+To: Patrick Venture <venture@google.com>, Stephen Boylan <sboylan@ircona.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <AM6PR04MB5224A33032E47CE691601881C93C0@AM6PR04MB5224.eurprd04.prod.outlook.com>
+ <CAO=notzd6KOAqoYE_BXsrCDts6gGv7OOROKRgKMaLayAqEPESw@mail.gmail.com>
+From: Matthew Barth <msbarth@linux.ibm.com>
+Date: Wed, 24 Apr 2019 13:08:47 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+MIME-Version: 1.0
+In-Reply-To: <CAO=notzd6KOAqoYE_BXsrCDts6gGv7OOROKRgKMaLayAqEPESw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 19042418-8235-0000-0000-00000E8669A0
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010988; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000285; SDB=6.01193804; UDB=6.00625847; IPR=6.00974627; 
+ MB=3.00026579; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-24 18:08:50
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19042418-8236-0000-0000-00004546C927
+Message-Id: <8edee610-90b5-5a77-6732-356a2719eba6@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-24_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904240131
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,940 +87,256 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Apr 2019 17:39:52 -0000
+X-List-Received-Date: Wed, 24 Apr 2019 18:08:55 -0000
 
-Initial introduction of Lenovo Hr630 family equipped with
-Aspeed 2500 BMC SoC. Hr630 is a x86 server development kit
-with a ASPEED ast2500 BMC manufactured by Lenovo.
-Specifically, This adds the Hr630 platform device tree file
-used by the Hr630 BMC machines.
 
-This also adds an entry of Hr630 device tree file in Makefile
 
-Signed-off-by: Andrew Peng <pengms1@lenovo.com>
-Signed-off-by: Yonghui Liu <liuyh21@lenovo.com>
-Signed-off-by: Lisa Liu <liuyj19@lenovo.com>
----
-Changes in v4:
- - add pca9546 switch aliases name.
-Changes in v3:
- - revise i2c switch aliases name.
-Changes in v2:
- - add i2c switch aliases name.
- - remove the unused eeprom device from DT file.
- - remove "Licensed under..." sentence.
+On 4/24/19 11:38 AM, Patrick Venture wrote:
+> On Wed, Apr 24, 2019 at 9:25 AM Stephen Boylan <sboylan@ircona.com> wrote:
+>>
+>> Hello all,
+>>
+>> I’ve run into an issue with my fan control. I have a simple two fan system which is failing to start phosphor-fan-control@.service
+>>
+>>
+>>
+>> This is the status
+>>
+>> root@evb-ast2500:/lib/systemd/system# systemctl status phosphor-fan-control@0.service --no-page
+>>
+>> ? phosphor-fan-control@0.service - Phosphor Fan Control Daemon
+>>
+>>     Loaded: loaded (/lib/systemd/system/phosphor-fan-control@.service; static; vendor preset: enabled)
+>>
+>>     Active: failed (Result: exit-code) since Wed 2019-04-24 16:22:36 UTC; 16s ago
+>>
+>>    Process: 1218 ExecStart=/usr/bin/env phosphor-fan-control --control (code=exited, status=1/FAILURE)
+>>
+>> Main PID: 1218 (code=exited, status=1/FAILURE)
+>>
+>>
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: phosphor-fan-control@0.service: Service RestartSec=1s expired, scheduling restart.
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: phosphor-fan-control@0.service: Scheduled restart job, restart counter is at 2.
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: Stopped Phosphor Fan Control Daemon.
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: phosphor-fan-control@0.service: Start request repeated too quickly.
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: phosphor-fan-control@0.service: Failed with result 'exit-code'.
+>>
+>> Apr 24 16:22:36 evb-ast2500 systemd[1]: Failed to start Phosphor Fan Control Daemon.
+>>
+>>
+>>
+>> And I noticed this in the journalctl
+>>
+>> {
+>>
+>>          "__CURSOR" : "s=efc0b033c5f243798b56446bcaffc0f5;i=23d;b=2de3ccbcea7940f5b51652e55e900cd2;m=2f22198c;t=5874871dec1c2;x=f1ba902c2ec1feae",
+>>
+>>          "__REALTIME_TIMESTAMP" : "1556120101372354",
+>>
+>>          "__MONOTONIC_TIMESTAMP" : "790763916",
+>>
+>>          "_BOOT_ID" : "2de3ccbcea7940f5b51652e55e900cd2",
+>>
+>>          "_UID" : "0",
+>>
+>>          "_GID" : "0",
+>>
+>>          "_MACHINE_ID" : "4c5bf4049b5e4751b70a17eaeeb55a49",
+>>
+>>          "_HOSTNAME" : "evb-ast2500",
+>>
+>>          "_TRANSPORT" : "journal",
+>>
+>>          "_CAP_EFFECTIVE" : "3fffffffff",
+>>
+>>          "CODE_FILE" : "/home/ircadmin/OpenBMC/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-fan/1.0+gitAUTOINC+4b258ac8b6-r1/recipe-sysroot/usr
+>>
+>> /include/phosphor-logging/log.hpp",
+>>
+>>          "CODE_LINE" : "105",
+>>
+>>          "CODE_FUNC" : "helper_log",
+>>
+>>          "PRIORITY" : "3",
+>>
+>>          "MESSAGE" : "Uncaught DBus service lookup failure exception",
+>>
+>>          "TRANSACTION_ID" : "114915536",
+>>
+>>          "PATH" : "/xyz/openbmc_project/sensors/fan_tach/fan0",
+>>
+>>          "INTERFACE" : "xyz.openbmc_project.Control.FanPwm",
+>>
+>>          "SYSLOG_IDENTIFIER" : "phosphor-fan-control",
+>>
+>>          "_PID" : "1273",
+>>
+>>          "_COMM" : "phosphor-fan-co",
+>>
+>>          "_EXE" : "/usr/sbin/phosphor-fan-control",
+>>
+>>          "_CMDLINE" : "phosphor-fan-control --control",
+>>
+>>          "_SYSTEMD_CGROUP" : "/system.slice/system-phosphor\\x2dfan\\x2dcontrol.slice/phosphor-fan-control@0.service",
+>>
+>>          "_SYSTEMD_UNIT" : "phosphor-fan-control@0.service",
+>>
+>>          "_SYSTEMD_SLICE" : "system-phosphor\\x2dfan\\x2dcontrol.slice",
+>>
+>>          "_SYSTEMD_INVOCATION_ID" : "21572a9f879c44cab2b9b6b4c5e9a504",
+>>
+>>          "_SOURCE_REALTIME_TIMESTAMP" : "1556120101372269"
+>>
+>> }
+>>
+>>
+>>
+>> I know the PATH exists, though I’m not entirely sure about the INTERFACE. I’ve checked systemctl to see if I can find it and I don’t see it. Should I be checking elsewhere for it?
+>>
+>>
+>>
+>>
+>>
+>> I can see my fan_tach sensors and my chassis entries as such
+>>
+>> /xyz/openbmc_project/sensors/fan_tach/enumerate
+>>
+>> {
+>>
+>>      "data": {
+>>
+>>          "/xyz/openbmc_project/sensors/fan_tach/fan0": {
+>>
+>>              "CriticalAlarmHigh": false,
+>>
+>>              "CriticalAlarmLow": false,
+>>
+>>              "CriticalHigh": 5500,
+>>
+>>              "CriticalLow": 1000,
+>>
+>>              "MaxValue": 0,
+>>
+>>              "MinValue": 0,
+>>
+>>              "Scale": 0,
+>>
+>>              "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
+>>
+>>              "Value": 4292,
+>>
+>>              "WarningAlarmHigh": false,
+>>
+>>              "WarningAlarmLow": false,
+>>
+>>              "WarningHigh": 5000,
+>>
+>>              "WarningLow": 1500
+>>
+>>          },
+>>
+>>          "/xyz/openbmc_project/sensors/fan_tach/fan1": {
+>>
+>>              "CriticalAlarmHigh": false,
+>>
+>>              "CriticalAlarmLow": false,
+>>
+>>              "CriticalHigh": 5500,
+>>
+>>              "CriticalLow": 1000,
+>>
+>>              "MaxValue": 0,
+>>
+>>              "MinValue": 0,
+>>
+>>              "Scale": 0,
+>>
+>>              "Target": 255,
+>>
+>>              "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
+>>
+>>              "Value": 3551,
+>>
+>>              "WarningAlarmHigh": false,
+>>
+>>              "WarningAlarmLow": false,
+>>
+>>              "WarningHigh": 5000,
+>>
+>>              "WarningLow": 1500
+>>
+>>          }
+>>
+>>      },
+>>
+>>      "message": "200 OK",
+>>
+>>      "status": "ok"
+>>
+>> }
+>>
+>>
+>>
+>> /xyz/openbmc_project/inventory/system/chassis/motherboard/enumerate
+>>
+>> {
+>>
+>>      "data": {
+>>
+>>          "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0": {
+>>
+>>              "Functional": true,
+>>
+>>              "Present": true,
+>>
+>>             "PrettyName": "fan0"
+>>
+>>          },
+>>
+>>          "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0": {
+>>
+>>              "Functional": true
+>>
+>>          },
+>>
+>>          "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1": {
+>>
+>>              "Functional": true,
+>>
+>>              "Present": true,
+>>
+>>              "PrettyName": "fan1"
+>>
+>>          },
+>>
+>>          "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1/fan1": {
+>>
+>>              "Functional": true
+>>
+>>          }
+>>
+>>      },
+>>
+>>      "message": "200 OK",
+>>
+>>      "status": "ok"
+>>
+>> }
+> 
+> It looks like they don't have that PWM interface.  You can check if
+> the pwm files exist under /sys/class/hwmon/hwmon*/  for the hwmon*
+> that has your fans.
 
- arch/arm/boot/dts/Makefile                    |   3 +-
- arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts | 890 ++++++++++++++++++++++++++
- 2 files changed, 892 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
+Also, what target mode do you have configured for the hwmon instance? 
+The *.Control.FanPWM interface is created for the fan objects by the 
+hwmon instance, when `TARGET_MODE = "PWM"` in the config.
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index bd40148..b5d32a0 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1247,4 +1247,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-opp-witherspoon.dtb \
- 	aspeed-bmc-opp-zaius.dtb \
- 	aspeed-bmc-portwell-neptune.dtb \
--	aspeed-bmc-quanta-q71l.dtb
-+	aspeed-bmc-quanta-q71l.dtb \
-+	aspeed-bmc-lenovo-hr630.dtb
-diff --git a/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
-new file mode 100644
-index 0000000..41d5689
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
-@@ -0,0 +1,890 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Device Tree file for Lenovo Hr630 platform
-+ *
-+ * Copyright (C) 2019-present Lenovo
-+ */
-+
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "HR630 BMC";
-+	compatible = "lenovo,hr630-bmc", "aspeed,ast2500";
-+
-+	aliases {
-+		pca9545_i2c0 = &i2c_rbp;
-+		pca9545_i2c1 = &i2c_fbp1;
-+		pca9545_i2c2 = &i2c_fbp2;
-+		pca9545_i2c3 = &i2c_fbp3;
-+		pca9546_i2c0 = &i2c_riser2;
-+		pca9546_i2c1 = &i2c_pcie4;
-+		pca9546_i2c2 = &i2c_riser1;
-+		pca9546_i2c3 = &i2c_ocp;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=tty0 console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		flash_memory: region@98000000 {
-+			no-map;
-+			reg = <0x98000000 0x00100000>; /* 1M */
-+		};
-+
-+		gfx_memory: framebuffer {
-+			size = <0x01000000>;
-+			alignment = <0x01000000>;
-+			compatible = "shared-dma-pool";
-+			reusable;
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		heartbeat {
-+			gpios = <&gpio ASPEED_GPIO(J, 1) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		fault {
-+			gpios = <&gpio ASPEED_GPIO(J, 0) GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-+		<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
-+		<&adc 8>, <&adc 9>, <&adc 10>,
-+		<&adc 12>, <&adc 13>, <&adc 14>;
-+	};
-+
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+	flash = <&spi1>;
-+};
-+
-+&uart1 {
-+	status = "okay";
-+};
-+
-+&uart2 {
-+	status = "okay";
-+};
-+
-+&uart3 {
-+	status = "okay";
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&vuart {
-+	status = "okay";
-+};
-+
-+&ibt {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&mac1 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
-+};
-+
-+&adc {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	/* temp1 inlet */
-+	tmp75@4e {
-+		compatible = "national,lm75";
-+		reg = <0x4e>;
-+	};
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+	/* temp2 outlet */
-+	tmp75@4d {
-+		compatible = "national,lm75";
-+		reg = <0x4d>;
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+	/*	Slot 0,
-+	 *	Slot 1,
-+	 *	Slot 2,
-+	 *	Slot 3
-+	 */
-+
-+	i2c-switch@70 {
-+		compatible = "nxp,pca9545";
-+		reg = <0x70>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;	/* may use mux@70 next. */
-+
-+		i2c_rbp: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c_fbp1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c_fbp2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c_fbp3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+
-+	/*	Slot 0,
-+	 *	Slot 1,
-+	 *	Slot 2,
-+	 *	Slot 3
-+	 */
-+	i2c-switch@76 {
-+		compatible = "nxp,pca9546";
-+		reg = <0x76>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;  /* may use mux@76 next. */
-+
-+		i2c_riser2: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c_pcie4: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c_riser1: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c_ocp: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+	};
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+
-+	eeprom@57 {
-+		compatible = "atmel,24c256";
-+		reg = <0x57>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+};
-+
-+/*
-+ * Enable port A as device (via the virtual hub) and port B as
-+ * host by default on the eval board. This can be easily changed
-+ * by replacing the override below with &ehci0 { ... } to enable
-+ * host on both ports.
-+ */
-+&vhub {
-+	status = "okay";
-+};
-+
-+&ehci1 {
-+	status = "okay";
-+};
-+
-+&uhci {
-+	status = "okay";
-+};
-+
-+&gfx {
-+	status = "okay";
-+	memory-region = <&gfx_memory>;
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default
-+	&pinctrl_pwm1_default
-+	&pinctrl_pwm2_default
-+	&pinctrl_pwm3_default
-+	&pinctrl_pwm4_default
-+	&pinctrl_pwm5_default
-+	&pinctrl_pwm6_default>;
-+
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x02>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x02>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+	};
-+
-+	fan@6 {
-+		reg = <0x03>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x06>;
-+	};
-+
-+	fan@7 {
-+		reg = <0x03>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x07>;
-+	};
-+
-+	fan@8 {
-+		reg = <0x04>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x08>;
-+	};
-+
-+	fan@9 {
-+		reg = <0x04>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x09>;
-+	};
-+
-+	fan@10 {
-+		reg = <0x05>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x0a>;
-+	};
-+
-+	fan@11 {
-+		reg = <0x05>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x0b>;
-+	};
-+
-+	fan@12 {
-+		reg = <0x06>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x0c>;
-+	};
-+
-+	fan@13 {
-+		reg = <0x06>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x0d>;
-+	};
-+};
-+
-+&gpio {
-+
-+	pin_gpio_a0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(A, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "MAC1_INT_N";
-+	};
-+
-+	pin_gpio_a1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(A, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "MEZZ_C_PRESENT_N";
-+	};
-+
-+	pin_gpio_a2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(A, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU1_PRST";
-+	};
-+
-+	pin_gpio_a3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(A, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU2_PRST";
-+	};
-+
-+	pin_gpio_b5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(B, 5) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "IRQ_BMC_PCH_SMI_LPC_N";
-+	};
-+
-+	pin_gpio_f0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 0) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "IRQ_BMC_PCH_NMI_R";
-+	};
-+
-+	pin_gpio_f1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_CPU1_DISABLE_COD_N";
-+	};
-+
-+	pin_gpio_f2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "SMB_LAN_ALERT_N_MEZZ";
-+	};
-+
-+	pin_gpio_f3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 3) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "I2C_BUS0_RST_OUT_N";
-+	};
-+
-+	pin_gpio_f4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 4) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "FM_SKT0_FAULT_LED";
-+	};
-+
-+	pin_gpio_f5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 5) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "FM_SKT1_FAULT_LED";
-+	};
-+
-+	pin_gpio_f6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "IRQ_BMC_CPLD_NMI";
-+	};
-+
-+	pin_gpio_f7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(F, 7) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU2_ALERT_N";
-+	};
-+
-+	pin_gpio_g0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_CPU_ERR2_LVT3_N";
-+	};
-+
-+	pin_gpio_g1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_CPU_MSMI_CATERR_LVT3_N";
-+	};
-+
-+	pin_gpio_g2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_PCH_BMC_THERMTRIP_N";
-+	};
-+
-+	pin_gpio_g3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BMC_I2C_BUS7_INT_N";
-+	};
-+
-+	pin_gpio_g4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 4) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "FAN_PWR_CTL_N";
-+	};
-+
-+	pin_gpio_g5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 5) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "NFC_FD_N";
-+	};
-+
-+	pin_gpio_g6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "IRQ_NMI_EVENT_N";
-+	};
-+
-+	pin_gpio_g7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(G, 7) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "RST_BMC_PCIE_I2CMUX_N";
-+	};
-+
-+	pin_gpio_h0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU1_EPOW_N_R";
-+	};
-+
-+	pin_gpio_h1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU2_EPOW_N_R";
-+	};
-+
-+	pin_gpio_h2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 2) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "PSU1_FFS_N_R";
-+	};
-+
-+	pin_gpio_h3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 3) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "PSU2_FFS_N_R";
-+	};
-+
-+	pin_gpio_h4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 4) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU1_THROTTLE_N_R";
-+	};
-+
-+	pin_gpio_h5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 5) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU2_THROTTLE_N_R";
-+	};
-+
-+	pin_gpio_h6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU1_SMB_RESET_N";
-+	};
-+
-+	pin_gpio_h7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU2_SMB_RESET_N";
-+	};
-+
-+	pin_gpio_i1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(I, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FP_PWR_BTN_N";
-+	};
-+
-+	pin_gpio_i2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(I, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BIOS_RCVR_N";
-+	};
-+
-+	pin_gpio_i3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "BMC_INTRUDED_COVER";
-+	};
-+
-+	pin_gpio_j2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "BMC_BIOS_UPDATE_N";
-+	};
-+
-+	pin_gpio_j3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(J, 3) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "RST_BMC_HDD_I2CMUX_N";
-+	};
-+
-+	pin_gpio_q4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Q, 4) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "MEZZ_A_PRESENT_N";
-+	};
-+
-+	pin_gpio_q5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Q, 5) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "VGA_FRONT_PRES_N";
-+	};
-+
-+	pin_gpio_q6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Q, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "I2C_RISER1_INT_N";
-+	};
-+
-+	pin_gpio_q7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "NCSI_CABLE_DET_N";
-+	};
-+
-+	pin_gpio_r0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FP_RST_BTN_N";
-+	};
-+
-+	pin_gpio_r2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "HDDSIG1_DETECT_N";
-+	};
-+
-+	pin_gpio_r3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(R, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "HDDSIG2_DETECT_N";
-+	};
-+
-+	pin_gpio_r4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(R, 4) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "HDDSIG3_DETECT_N";
-+	};
-+
-+	pin_gpio_r5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(R, 5) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "VIDEO_CABLE_DETECT_N";
-+	};
-+
-+	pin_gpio_s0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BMC_PS_RAPIDON_WAKE_R_N";
-+	};
-+
-+	pin_gpio_s1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "HOST_TPM_PP_BUF";
-+	};
-+
-+	pin_gpio_s2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 2) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "BMC_VGA_SW";
-+	};
-+
-+	pin_gpio_s3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "IRQ_SML0_ALERT_MUX_N";
-+	};
-+
-+	pin_gpio_s4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 4) GPIO_ACTIVE_HIGH>;
-+		output;
-+		line-name = "VBAT_EN_N";
-+	};
-+
-+	pin_gpio_s5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 5) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BMC_HW_STRAP_4";
-+	};
-+
-+	pin_gpio_s6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 6) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "PU_BMC_GPIOS6";
-+	};
-+
-+	pin_gpio_s7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(S, 7) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "I2C_BUS7_RESET_N";
-+	};
-+
-+	pin_gpio_y0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Y, 0) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "BMC_NCSI_MUX_CTL_S0";
-+	};
-+
-+	pin_gpio_y1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Y, 1) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "BMC_NCSI_MUX_CTL_S1";
-+	};
-+
-+	pin_gpio_y2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Y, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "UID_ALERT_N";
-+	};
-+
-+	pin_gpio_z0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 0) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "I2C_RISER2_INT_N";
-+	};
-+
-+	pin_gpio_z2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 2) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "I2C_RISER2_RESET_N";
-+	};
-+
-+	pin_gpio_z3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 3) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "FM_BMC_PCH_SCI_LPC_N";
-+	};
-+
-+	pin_gpio_z4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 4) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BMC_HW_STRAP_17";
-+	};
-+
-+	pin_gpio_z6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "BMC_HW_STRAP_20";
-+	};
-+
-+	pin_gpio_z7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(Z, 7) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "BMC_POST_CMPLT_N";
-+	};
-+
-+	pin_gpio_aa0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "HOST_BMC_USB_SEL";
-+	};
-+
-+	pin_gpio_aa1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "PSU1_ALERT_N";
-+	};
-+
-+	pin_gpio_aa2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_PVCCIN_CPU0_PWR_IN_ALERT_N";
-+	};
-+
-+	pin_gpio_aa3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_PVCCIN_CPU1_PWR_IN_ALERT_N";
-+	};
-+
-+	pin_gpio_aa4 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 4) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "USB_CABLE_DETECT_N";
-+	};
-+
-+	pin_gpio_aa5 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 5) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "I2C_BUS1_RST_OUT_N";
-+	};
-+
-+	pin_gpio_aa6 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 6) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "IRQ_SMI_ACTIVE_N";
-+	};
-+
-+	pin_gpio_aa7 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_BIOS_POST_CMPLT_N";
-+	};
-+
-+	pin_gpio_ab0 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AB, 0) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FM_TPM_MOD_PRES_N";
-+	};
-+
-+	pin_gpio_ab1 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AB, 1) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "FORCE_NMI_SW_FPGA_N";
-+	};
-+
-+	pin_gpio_ab2 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AB, 2) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "1U_2U_PCBA_SEL_R";
-+	};
-+
-+	pin_gpio_ab3 {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(AB, 3) GPIO_ACTIVE_HIGH>;
-+		input;
-+		line-name = "INTRUDED_PRES_N";
-+	};
-+};
--- 
-2.7.4
+> 
+>>
+>>
+> 
