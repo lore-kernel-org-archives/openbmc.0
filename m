@@ -9,20 +9,21 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44q4nG237wzDq9m
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 02:01:37 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44q4zr0RqbzDqMr
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 02:10:47 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Wed, 24 Apr 2019 12:02:16 -0400
+Date: Wed, 24 Apr 2019 12:11:27 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: Patrick Venture <venture@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: tightly coupled fan-presence bump
-Message-ID: <20190424160215.aenlfpdk6v4fqs63@thinkpad.dyn.fuzziesquirrel.com>
-References: <CAO=notxquVk+kOqYax7RqHrXpr4T0Ws4TZs7L=5kqzzKbGDg1Q@mail.gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, jk@ozlabs.org,
+ joel@jms.id.au, andrew@aj.id.au
+Subject: Re: inarp package
+Message-ID: <20190424161127.bzi74nsp7kzotazm@thinkpad.dyn.fuzziesquirrel.com>
+References: <CAO=notxPYxa8oxQXkSLKNhTy3mZV8TOWeYyX=8Cxecz8fpAQWg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <CAO=notxquVk+kOqYax7RqHrXpr4T0Ws4TZs7L=5kqzzKbGDg1Q@mail.gmail.com>
+In-Reply-To: <CAO=notxPYxa8oxQXkSLKNhTy3mZV8TOWeYyX=8Cxecz8fpAQWg@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,23 +35,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Apr 2019 16:01:39 -0000
+X-List-Received-Date: Wed, 24 Apr 2019 16:10:48 -0000
 
-On Tue, Apr 16, 2019 at 12:06:11PM -0700, Patrick Venture wrote:
->there's a patchset in meta-ibm that is tightly coupled with one in
->meta-phosphor such that neither will pass the CI real hardware test
->without the other:
->
->https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/19882
->https://gerrit.openbmc-project.xyz/c/openbmc/meta-ibm/+/19933
->
->Is there a special process to get these tested together?
+On Sat, Apr 20, 2019 at 08:16:22AM -0700, Patrick Venture wrote:
+>The inarp packages isn't picked up currently by any meta layer and
+>doesn't build (it needs some gcc related updates missed by its
+>non-inclusion).  Brad, I see you're the maintainer, should we archive
+>this package or bring it up to date?
 >
 >Patrick
 
 Hi Patrick
 
-This was merged this morning.  Thanks for providing the summary and
-making it easy for me!
+Thanks for noticing this.  I'm not the maintainer - what are you reading
+that indicates this?  
 
--brad
+Now that you've pointed it out, Lets wait a couple months to see if
+anyone fixes the problems and if that doesn't happen I'll go ahead and
+archive the repository and we can remove the recipe.  Sound OK?
+
+thx - brad
