@@ -1,63 +1,60 @@
 Return-Path: <pengms1@lenovo.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=lenovo.com
- (client-ip=67.219.250.211; helo=mail1.bemta24.messagelabs.com;
+ (client-ip=67.219.250.5; helo=mail1.bemta24.messagelabs.com;
  envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=lenovo.com
 Received: from mail1.bemta24.messagelabs.com (mail1.bemta24.messagelabs.com
- [67.219.250.211])
+ [67.219.250.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44q6yD0vqhzDqS4;
- Thu, 25 Apr 2019 03:39:31 +1000 (AEST)
-Received: from [67.219.251.54] (using TLSv1.2 with cipher
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44q6yb4FpxzDqYS
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:39:51 +1000 (AEST)
+Received: from [67.219.250.102] (using TLSv1.2 with cipher
  DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-4.bemta.az-c.us-west-2.aws.symcld.net id CF/F4-08672-E4F90CC5;
- Wed, 24 Apr 2019 17:39:26 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrMIsWRWlGSWpSXmKPExsWSLveKVddv/oE
- Yg8XvpS12XeawmLH3AbPF/CPnWC1+n//LbLHp8TVWi+bV55gtLu+aw2ax9PpFJotTLS9YLFr3
- HmG32HtgI4sDt8fV9l3sHmvmrWH0WLCp1OPix2PMHptWdbJ5bF5S73F+xkJGj8+b5AI4olgz8
- 5LyKxJYM77v6WcsmNnKWHF7yS72BsZn2V2MXBxCAh1MEruXPGeHcOYzSqy+sw7I4eRgE1CTOD
- n7HitIQkTgI6PE/5N32EAcZoFJjBINX64wg1QJC9hKdKw+zQJiswioSjybv5YRxOYVcJa4OuE
- rE4gtISAncfNcJ/MERs4FjAyrGC2SijLTM0pyEzNzdA0NDHQNDY10DY0tdQ0tjfQSq3ST9UqL
- dctTi0t0gdzyYr3iytzknBS9vNSSTYzAwEsp6D6wg/HdivRDjJIcTEqivEs7D8QI8SXlp1RmJ
- BZnxBeV5qQWH2KU4eBQkuD9Nw8oJ1iUmp5akZaZA4wBmLQEB4+SCG8ySJq3uCAxtzgzHSJ1il
- FRSpw3GiQhAJLIKM2Da4PF3SVGWSlhXkYGBgYhnoLUotzMElT5V4ziHIxKwrwnQKbwZOaVwE1
- /BbSYCWhxvQXY4pJEhJRUA6PL6RcH3899dcb9HV9i8InLFT76Ox4/M2x7yvp4dbyZsY86n0ir
- jdm9J9eecvNsyK/siWo8axM59c3HXUuDGzeVMkmvndT//e6tvAU75eqeXK/6eC1t5coDi3/Pn
- jbvjtGuWRyveedzFRXppJjsUtOKcN1q/EZvikWp0mtTRfYbvxY0cgQtndyoxFKckWioxVxUnA
- gAdc36wrYCAAA=
+ by server-5.bemta.az-a.us-west-2.aws.symcld.net id 51/A9-26731-56F90CC5;
+ Wed, 24 Apr 2019 17:39:49 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrCLMWRWlGSWpSXmKPExsWSLveKRTdl/oE
+ Yg+e/zSxm7H3AbPH7/F9mi1MtL1gs9h7YyOLA4rFgU6nHxY/HmD3Oz1jIGMAcxZqZl5RfkcCa
+ cfzrLcaCma2MFW2LuRsYn2V3MXJxCAl0MEnMn7SQFcKZzyhx6l4rSxcjJwebgJrEydn3WEFsE
+ YFsiZtvF7GB2MwCJRIfz29jBLGFBYIlrp35wtTFyMHBIqAq8XuuBYjJK+As0bWxEqRCQkBO4u
+ a5TuYJjJwLGBlWMZonFWWmZ5TkJmbm6BoaGOgaGhrpGhob6FoY6yVW6SbqlRbrlqcWl+ga6SW
+ WF+sVV+Ym56To5aWWbGIE+j6loCl4B+OF5emHGCU5mJREeZd2HogR4kvKT6nMSCzOiC8qzUkt
+ PsQow8GhJMG7di5QTrAoNT21Ii0zBxiEMGkJDh4lEV4JkDRvcUFibnFmOkTqFKOilDivKEhCA
+ CSRUZoH1wYL/EuMslLCvIwMDAxCPAWpRbmZJajyrxjFORiVhHlzQabwZOaVwE1/BbSYCWhxvQ
+ XY4pJEhJRUA+POa0/+SL0/EvREaltM4VGTa9z6EXwr1uh7zlxtybFXoUznU1CVaoXv4jkhqtk
+ yNj+1Xkc8bVkyK6l8sfXDtX1LOqb/C9IMalhi1HGBv3SOzbd+7feTvmmX6PEk52/mM74v3iJ7
+ 9nR7vsyzVStm6vzZkHNPhvf0n7zTnX0Xbk6ZPouzau9DsSdKLMUZiYZazEXFiQD5yftBdwIAA
+ A==
 X-Env-Sender: pengms1@lenovo.com
-X-Msg-Ref: server-7.tower-366.messagelabs.com!1556127563!2454202!1
-X-Originating-IP: [103.30.234.5]
+X-Msg-Ref: server-20.tower-326.messagelabs.com!1556127586!6526860!1
+X-Originating-IP: [103.30.234.4]
 X-SYMC-ESS-Client-Auth: outbound-route-from=pass
 X-StarScan-Received: 
 X-StarScan-Version: 9.31.5; banners=-,-,-
 X-VirusChecked: Checked
-Received: (qmail 26466 invoked from network); 24 Apr 2019 17:39:25 -0000
-Received: from unknown (HELO apsmtp.lenovo.com) (103.30.234.5)
- by server-7.tower-366.messagelabs.com with DHE-RSA-AES256-GCM-SHA384 encrypted
- SMTP; 24 Apr 2019 17:39:25 -0000
-Received: from smtpinternal.lenovo.com (unknown [10.96.80.15])
+Received: (qmail 9542 invoked from network); 24 Apr 2019 17:39:48 -0000
+Received: from unknown (HELO apsmtp.lenovo.com) (103.30.234.4)
+ by server-20.tower-326.messagelabs.com with DHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 24 Apr 2019 17:39:48 -0000
+Received: from smtpinternal.lenovo.com (unknown [10.96.80.33])
  (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by Forcepoint Email with ESMTPS id 99AF7F2340F99A0CEF25;
- Thu, 25 Apr 2019 01:39:22 +0800 (CST)
+ by Forcepoint Email with ESMTPS id 8FDEDEB098D0DB8A8D09;
+ Thu, 25 Apr 2019 01:39:45 +0800 (CST)
 Received: from localhost.localdomain (unknown [10.245.100.154])
- by Forcepoint Email with ESMTP id 3718ED2413E745C53151;
- Thu, 25 Apr 2019 01:39:22 +0800 (CST)
+ by Forcepoint Email with ESMTP id 327BA57F352D96D53B95;
+ Thu, 25 Apr 2019 01:39:45 +0800 (CST)
 From: Andrew Peng <pengms1@lenovo.com>
-To: venture@google.com, benjaminfair@google.com, linux-kernel@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, andrew@aj.id.au, mark.rutland@arm.com,
- robh+dt@kernel.org
-Cc: pengms1@lenovo.com, liuyj19@lenovo.com, dukh@lenovo.com,
- liuyh21@lenovo.com, hsung1@lenovo.com, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Subject: [PATCH v4] ARM: dts: aspeed: Adding Lenovo Hr630 BMC
-Date: Thu, 25 Apr 2019 01:39:10 +0800
-Message-Id: <1556127550-234791-1-git-send-email-pengms1@lenovo.com>
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
+ benjaminfair@google.com, venture@google.com
+Cc: Andrew Peng <pengms1@lenovo.com>, liuyj19@lenovo.com, dukh@lenovo.com,
+ liuyh21@lenovo.com, hsung1@lenovo.com
+Subject: [PATCH linux dev-5.0] [PATCH v4] ARM: dts: aspeed: Adding Lenovo
+ Hr630 BMC
+Date: Thu, 25 Apr 2019 01:39:43 +0800
+Message-Id: <1556127583-234836-1-git-send-email-pengms1@lenovo.com>
 X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -70,7 +67,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Apr 2019 17:39:33 -0000
+X-List-Received-Date: Wed, 24 Apr 2019 17:39:52 -0000
 
 Initial introduction of Lenovo Hr630 family equipped with
 Aspeed 2500 BMC SoC. Hr630 is a x86 server development kit
@@ -99,10 +96,10 @@ Changes in v2:
  create mode 100644 arch/arm/boot/dts/aspeed-bmc-lenovo-hr630.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index f4f5aea..375e53b 100644
+index bd40148..b5d32a0 100644
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -1261,4 +1261,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+@@ -1247,4 +1247,5 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
  	aspeed-bmc-opp-witherspoon.dtb \
  	aspeed-bmc-opp-zaius.dtb \
  	aspeed-bmc-portwell-neptune.dtb \
