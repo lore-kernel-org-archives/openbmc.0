@@ -1,83 +1,72 @@
-Return-Path: <msbarth@linux.ibm.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=msbarth@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.6; helo=cpsmtpb-ews03.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qg801PzNzDqXm
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 00:49:51 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3PEhXPv070113
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 10:49:48 -0400
-Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2s3dp9mcfd-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 10:49:47 -0400
-Received: from localhost
- by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <msbarth@linux.ibm.com>;
- Thu, 25 Apr 2019 15:49:36 +0100
-Received: from b03cxnp08025.gho.boulder.ibm.com (9.17.130.17)
- by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
- Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 25 Apr 2019 15:49:33 +0100
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x3PEnNqh9109838
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 25 Apr 2019 14:49:28 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 91BCEBE075;
- Thu, 25 Apr 2019 14:49:11 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 46DDABE05F;
- Thu, 25 Apr 2019 14:49:11 +0000 (GMT)
-Received: from [9.10.99.66] (unknown [9.10.99.66])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 25 Apr 2019 14:49:11 +0000 (GMT)
-Subject: Re: Fan control service issues - service will not start "Uncaught
- DBus service lookup failure exception"
-To: Stephen Boylan <sboylan@ircona.com>, Patrick Venture <venture@google.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <AM6PR04MB5224A33032E47CE691601881C93C0@AM6PR04MB5224.eurprd04.prod.outlook.com>
- <CAO=notzd6KOAqoYE_BXsrCDts6gGv7OOROKRgKMaLayAqEPESw@mail.gmail.com>
- <8edee610-90b5-5a77-6732-356a2719eba6@linux.ibm.com>
- <AM0PR04MB521859872EEEFC9332114A6CC93D0@AM0PR04MB5218.eurprd04.prod.outlook.com>
-From: Matthew Barth <msbarth@linux.ibm.com>
-Date: Thu, 25 Apr 2019 09:49:10 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-MIME-Version: 1.0
-In-Reply-To: <AM0PR04MB521859872EEEFC9332114A6CC93D0@AM0PR04MB5218.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="pA9T55Ie"; 
+ dkim-atps=neutral
+Received: from cpsmtpb-ews03.kpnxchange.com (cpsmtpb-ews03.kpnxchange.com
+ [213.75.39.6])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44qgmY47cZzDqW2
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 01:18:02 +1000 (AEST)
+Received: from cpsps-ews03.kpnxchange.com ([10.94.84.170]) by
+ cpsmtpb-ews03.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Thu, 25 Apr 2019 17:17:56 +0200
+X-Brand: 7abm2Q==
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=FsrUAFjq c=1 sm=1 tr=0 cx=a_idp_e
+ a=WB5lYbMG1jvHJ1f8o08CVQ==:117 a=WB5lYbMG1jvHJ1f8o08CVQ==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10
+ a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10 a=1XWaLZrsAAAA:8 a=X5F7dNyOAAAA:8
+ a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=yKsw5dxF_gn_QvkelAYA:9
+ a=QEXdDO2ut3YA:10 a=pS7LufLo7ZPxIL5li5Lt:22 a=IC2XNlieTeVoXbcui8wp:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.14]) by cpsps-ews03.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Thu, 25 Apr 2019 17:17:56 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=j4dt8RFq79r/mrtgNIEshdZXrqQmpXobtMhqpkC4Tow=;
+ b=pA9T55IePwSnLEjCns3wGcxPihkd6FADe5Vf+8ucDKPcp4vp+l6D5hdJINHaX5TJwySmTQNZQauGL
+ U9q4XEHWiTomN9cWVquWND6UtO/3bkYN1L4EPoIt4ji/jSp2YMJg7XhbhyuzP0U0fo0QDtQcm+ifT7
+ 26OLpsVXdb2j0pV0=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id 4da9070d-676d-11e9-aeb7-00505699d6e5;
+ Thu, 25 Apr 2019 17:17:56 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 25 Apr
+ 2019 17:17:16 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Thu, 25 Apr 2019 17:16:57 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: Patrick Venture <venture@google.com>, "Tanous, Ed" <ed.tanous@intel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: bmcweb image upload
+Thread-Topic: bmcweb image upload
+Thread-Index: AdT7RR7Sx7OXAFpqTk6JS5P32JibBAAHY92AAAWw7cA=
+Date: Thu, 25 Apr 2019 15:16:56 +0000
+Message-ID: <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
+References: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
+ <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
+In-Reply-To: <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
+Accept-Language: nl-NL, en-US
 Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 19042514-0004-0000-0000-00001503DF88
-X-IBM-SpamModules-Scores: 
-X-IBM-SpamModules-Versions: BY=3.00010993; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000285; SDB=6.01194211; UDB=6.00626096; IPR=6.00975039; 
- MB=3.00026594; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-25 14:49:34
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19042514-0005-0000-0000-00008B669463
-Message-Id: <269e980d-875c-7e91-3fae-6a5adb7e2a4a@linux.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-25_12:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904250091
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginalArrivalTime: 25 Apr 2019 15:17:56.0991 (UTC)
+ FILETIME=[0FC7A0F0:01D4FB7A]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,466 +78,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 14:49:52 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 15:18:08 -0000
 
-
-
-On 4/25/19 4:56 AM, Stephen Boylan wrote:
-> After looking at my configuration file for 
-> /sensors/phosphor-hwmon/obmc/hwmon/ahb/apb/ I noticed I had in an error 
-> to try fix an issue I set PWM_TARGET_fan1 = “0”. Since I changed this 
-> back to what is below, now I get the following error when trying to 
-> start fan control services, similar to the original one but for a 
-> different fan.
-> 
-> {
-> 
->          "__CURSOR" : 
-> "s=fdd5653de8ca4f298bf0d04f018a68d7;i=219;b=445f19f9668b4129b216ec827ed31ddb;m=ad54afd;t=58757bd23b204;x=757e520ccf3b4259",
-> 
->          "__REALTIME_TIMESTAMP" : "1556185788690948",
-> 
->          "__MONOTONIC_TIMESTAMP" : "181750525",
-> 
->          "_BOOT_ID" : "445f19f9668b4129b216ec827ed31ddb",
-> 
->          "_UID" : "0",
-> 
->          "_GID" : "0",
-> 
->          "_MACHINE_ID" : "a361a071fa454d939ee5c5a7324cf2de",
-> 
->          "_HOSTNAME" : "evb-ast2500",
-> 
->          "_TRANSPORT" : "journal",
-> 
->          "_CAP_EFFECTIVE" : "3fffffffff",
-> 
->          "CODE_FILE" : 
-> "/home/ircadmin/OpenBMC/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-fan/1.0+gitAUTOINC+4b258ac8b6-r1/recipe-sysroot/usr
-> 
-> /include/phosphor-logging/log.hpp",
-> 
->          "CODE_LINE" : "105",
-> 
->          "CODE_FUNC" : "helper_log",
-> 
->          "PRIORITY" : "3",
-> 
->          "MESSAGE" : "Uncaught DBus service lookup failure exception",
-> 
->          "TRANSACTION_ID" : "2273921040",
-> 
->          "PATH" : "/xyz/openbmc_project/sensors/fan_tach/fan2",
-> 
->          "INTERFACE" : "xyz.openbmc_project.Control.FanPwm",
-> 
->          "SYSLOG_IDENTIFIER" : "phosphor-fan-control",
-> 
->          "_PID" : "1198",
-> 
->          "_COMM" : "phosphor-fan-co",
-> 
->          "_EXE" : "/usr/sbin/phosphor-fan-control",
-> 
->          "_CMDLINE" : "phosphor-fan-control --control",
-> 
->          "_SYSTEMD_CGROUP" : 
-> "/system.slice/system-phosphor\\x2dfan\\x2dcontrol.slice/phosphor-fan-control@0.service",
-> 
->          "_SYSTEMD_UNIT" : "phosphor-fan-control@0.service",
-> 
->          "_SYSTEMD_SLICE" : "system-phosphor\\x2dfan\\x2dcontrol.slice",
-> 
->          "_SYSTEMD_INVOCATION_ID" : "140d38d6360847c389c67d0bfa162589",
-> 
->          "_SOURCE_REALTIME_TIMESTAMP" : "1556185788690865"
-> 
-> }
-> 
-> What I don’t understand here is why it’s trying to access fan2 at all? I 
-> know that path does not exist and as far as I understand it I haven’t 
-> tried to set it up through any configuration file.
-
-What does your `fans.yaml` contain? Is there a "sensors:" entry with 
-"fan2" defined similar to romulus? If this does not contain it, would it 
-be possible to push your openbmc repo to github containing all of your 
-configs?
-> 
->> Also, what target mode do you have configured for the hwmon instance?
->>The *.Control.FanPWM interface is created for the fan objects by the 
->>hwmon instance, when `TARGET_MODE = "PWM"` in the config.
-> 
-> Here is my configuration file for the fans, it's primarily based on the 
-> meta-romulus .conf file
-> 
->    1 LABEL_fan1 = "fan0"
-> 
->    2 LABEL_fan2 = "fan1"
-> 
->    3
-> 
->    4 PWM_TARGET_fan1 = "1"
-> 
->    5 PWM_TARGET_fan2 = "2"
-> 
->    6
-> 
->    7 WARNLO_fan1 = 1500
-> 
->    8 WARNHI_fan1 = 5000
-> 
->    9 CRITLO_fan1 = 1000
-> 
->   10 CRITHI_fan1 = 5500
-> 
->   11
-> 
->   12 WARNLO_fan2 = 1500
-> 
->   13 WARNHI_fan2 = 5000
-> 
->   14 CRITLO_fan2 = 1000
-> 
->   15 CRITHI_fan2 = 5500
-> 
-> Here is the pwm_tacho section of my dts file
-> 
-> 153 &pwm_tacho {
-> 
-> 154         status = "okay";
-> 
-> 155         pinctrl-names = "default";
-> 
-> 156         pinctrl-0 = <&pinctrl_pwm0_default
-> 
-> 157         &pinctrl_pwm1_default>;
-> 
-> 158
-> 
-> 159         fan@0 {
-> 
-> 160                 reg = <0x00>;
-> 
-> 161                 aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-> 
-> 162         };
-> 
-> 163
-> 
-> 164         fan@1 {
-> 
-> 165                 reg = <0x01>;
-> 
-> 166                 aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-> 
-> 167         };
-> 
-> 168 };
-> 
->> It looks like they don't have that PWM interface.  You can check if
->> the pwm files exist under /sys/class/hwmon/hwmon*/  for the hwmon*
->> that has your fans.
-> 
-> Here's the contents of hwmon0. I know I can manually echo values into 
-> pwm1 and pwm2 and I can see the effect on the fans as they spin.
-> 
-> root@evb-ast2500:/sys/class/hwmon/hwmon0# ls
-> 
-> device      fan1_input  fan2_input  name        of_node     pwm1       
->   pwm2        subsystem   uevent
-> 
-> My understanding is that through the DTS file I’ve set up fan0 and fan1. 
-> These are represented in sys/class/hwmon/hwmon0 as fan1_input and 
-> fan2_input. Though the conf file set up in 
-> /sensors/phosphor-hwmon/obmc/hwmon/ahb/apb/ I’ve assigned a “pretty 
-> name” of fan0 and fan1 to
-> 
-> LABEL_fan1 and LABEL_fan2. Those “pretty name” values are used 
-> throughout the various configuration files for monitor/presence and control.
-> 
-> ------------------------------------------------------------------------
-> 
-> *From:*Matthew Barth <msbarth@linux.ibm.com>
-> *Sent:* 24 April 2019 18:08
-> *To:* Patrick Venture; Stephen Boylan
-> *Cc:* openbmc@lists.ozlabs.org
-> *Subject:* Re: Fan control service issues - service will not start 
-> "Uncaught DBus service lookup failure exception"
-> 
-> 
-> 
-> On 4/24/19 11:38 AM, Patrick Venture wrote:
->  > On Wed, Apr 24, 2019 at 9:25 AM Stephen Boylan <sboylan@ircona.com> 
-> wrote:
->  >>
->  >> Hello all,
->  >>
->  >> I’ve run into an issue with my fan control. I have a simple two fan 
-> system which is failing to start phosphor-fan-control@.service
->  >>
->  >>
->  >>
->  >> This is the status
->  >>
->  >> root@evb-ast2500:/lib/systemd/system# systemctl status 
-> phosphor-fan-control@0.service --no-page
->  >>
->  >> ? phosphor-fan-control@0.service - Phosphor Fan Control Daemon
->  >>
->  >>     Loaded: loaded 
-> (/lib/systemd/system/phosphor-fan-control@.service; static; vendor 
-> preset: enabled)
->  >>
->  >>     Active: failed (Result: exit-code) since Wed 2019-04-24 16:22:36 
-> UTC; 16s ago
->  >>
->  >>    Process: 1218 ExecStart=/usr/bin/env phosphor-fan-control 
-> --control (code=exited, status=1/FAILURE)
->  >>
->  >> Main PID: 1218 (code=exited, status=1/FAILURE)
->  >>
->  >>
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: 
-> phosphor-fan-control@0.service: Service RestartSec=1s expired, 
-> scheduling restart.
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: 
-> phosphor-fan-control@0.service: Scheduled restart job, restart counter 
-> is at 2.
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: Stopped Phosphor Fan Control 
-> Daemon.
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: 
-> phosphor-fan-control@0.service: Start request repeated too quickly.
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: 
-> phosphor-fan-control@0.service: Failed with result 'exit-code'.
->  >>
->  >> Apr 24 16:22:36 evb-ast2500 systemd[1]: Failed to start Phosphor Fan 
-> Control Daemon.
->  >>
->  >>
->  >>
->  >> And I noticed this in the journalctl
->  >>
->  >> {
->  >>
->  >>          "__CURSOR" : 
-> "s=efc0b033c5f243798b56446bcaffc0f5;i=23d;b=2de3ccbcea7940f5b51652e55e900cd2;m=2f22198c;t=5874871dec1c2;x=f1ba902c2ec1feae",
->  >>
->  >>          "__REALTIME_TIMESTAMP" : "1556120101372354",
->  >>
->  >>          "__MONOTONIC_TIMESTAMP" : "790763916",
->  >>
->  >>          "_BOOT_ID" : "2de3ccbcea7940f5b51652e55e900cd2",
->  >>
->  >>          "_UID" : "0",
->  >>
->  >>          "_GID" : "0",
->  >>
->  >>          "_MACHINE_ID" : "4c5bf4049b5e4751b70a17eaeeb55a49",
->  >>
->  >>          "_HOSTNAME" : "evb-ast2500",
->  >>
->  >>          "_TRANSPORT" : "journal",
->  >>
->  >>          "_CAP_EFFECTIVE" : "3fffffffff",
->  >>
->  >>          "CODE_FILE" : 
-> "/home/ircadmin/OpenBMC/openbmc/build/tmp/work/armv6-openbmc-linux-gnueabi/phosphor-fan/1.0+gitAUTOINC+4b258ac8b6-r1/recipe-sysroot/usr
->  >>
->  >> /include/phosphor-logging/log.hpp",
->  >>
->  >>          "CODE_LINE" : "105",
->  >>
->  >>          "CODE_FUNC" : "helper_log",
->  >>
->  >>          "PRIORITY" : "3",
->  >>
->  >>          "MESSAGE" : "Uncaught DBus service lookup failure exception",
->  >>
->  >>          "TRANSACTION_ID" : "114915536",
->  >>
->  >>          "PATH" : "/xyz/openbmc_project/sensors/fan_tach/fan0",
->  >>
->  >>          "INTERFACE" : "xyz.openbmc_project.Control.FanPwm",
->  >>
->  >>          "SYSLOG_IDENTIFIER" : "phosphor-fan-control",
->  >>
->  >>          "_PID" : "1273",
->  >>
->  >>          "_COMM" : "phosphor-fan-co",
->  >>
->  >>          "_EXE" : "/usr/sbin/phosphor-fan-control",
->  >>
->  >>          "_CMDLINE" : "phosphor-fan-control --control",
->  >>
->  >>          "_SYSTEMD_CGROUP" : 
-> "/system.slice/system-phosphor\\x2dfan\\x2dcontrol.slice/phosphor-fan-control@0.service",
->  >>
->  >>          "_SYSTEMD_UNIT" : "phosphor-fan-control@0.service",
->  >>
->  >>          "_SYSTEMD_SLICE" : "system-phosphor\\x2dfan\\x2dcontrol.slice",
->  >>
->  >>          "_SYSTEMD_INVOCATION_ID" : "21572a9f879c44cab2b9b6b4c5e9a504",
->  >>
->  >>          "_SOURCE_REALTIME_TIMESTAMP" : "1556120101372269"
->  >>
->  >> }
->  >>
->  >>
->  >>
->  >> I know the PATH exists, though I’m not entirely sure about the 
-> INTERFACE. I’ve checked systemctl to see if I can find it and I don’t 
-> see it. Should I be checking elsewhere for it?
->  >>
->  >>
->  >>
->  >>
->  >>
->  >> I can see my fan_tach sensors and my chassis entries as such
->  >>
->  >> /xyz/openbmc_project/sensors/fan_tach/enumerate
->  >>
->  >> {
->  >>
->  >>      "data": {
->  >>
->  >>          "/xyz/openbmc_project/sensors/fan_tach/fan0": {
->  >>
->  >>              "CriticalAlarmHigh": false,
->  >>
->  >>              "CriticalAlarmLow": false,
->  >>
->  >>              "CriticalHigh": 5500,
->  >>
->  >>              "CriticalLow": 1000,
->  >>
->  >>              "MaxValue": 0,
->  >>
->  >>              "MinValue": 0,
->  >>
->  >>              "Scale": 0,
->  >>
->  >>              "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
->  >>
->  >>              "Value": 4292,
->  >>
->  >>              "WarningAlarmHigh": false,
->  >>
->  >>              "WarningAlarmLow": false,
->  >>
->  >>              "WarningHigh": 5000,
->  >>
->  >>              "WarningLow": 1500
->  >>
->  >>          },
->  >>
->  >>          "/xyz/openbmc_project/sensors/fan_tach/fan1": {
->  >>
->  >>              "CriticalAlarmHigh": false,
->  >>
->  >>              "CriticalAlarmLow": false,
->  >>
->  >>              "CriticalHigh": 5500,
->  >>
->  >>              "CriticalLow": 1000,
->  >>
->  >>              "MaxValue": 0,
->  >>
->  >>              "MinValue": 0,
->  >>
->  >>              "Scale": 0,
->  >>
->  >>              "Target": 255,
->  >>
->  >>              "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
->  >>
->  >>              "Value": 3551,
->  >>
->  >>              "WarningAlarmHigh": false,
->  >>
->  >>              "WarningAlarmLow": false,
->  >>
->  >>              "WarningHigh": 5000,
->  >>
->  >>              "WarningLow": 1500
->  >>
->  >>          }
->  >>
->  >>      },
->  >>
->  >>      "message": "200 OK",
->  >>
->  >>      "status": "ok"
->  >>
->  >> }
->  >>
->  >>
->  >>
->  >> /xyz/openbmc_project/inventory/system/chassis/motherboard/enumerate
->  >>
->  >> {
->  >>
->  >>      "data": {
->  >>
->  >>          
-> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0": {
->  >>
->  >>              "Functional": true,
->  >>
->  >>              "Present": true,
->  >>
->  >>             "PrettyName": "fan0"
->  >>
->  >>          },
->  >>
->  >>          
-> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0": {
->  >>
->  >>              "Functional": true
->  >>
->  >>          },
->  >>
->  >>          
-> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1": {
->  >>
->  >>              "Functional": true,
->  >>
->  >>              "Present": true,
->  >>
->  >>              "PrettyName": "fan1"
->  >>
->  >>          },
->  >>
->  >>          
-> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1/fan1": {
->  >>
->  >>              "Functional": true
->  >>
->  >>          }
->  >>
->  >>      },
->  >>
->  >>      "message": "200 OK",
->  >>
->  >>      "status": "ok"
->  >>
->  >> }
->  >
->  > It looks like they don't have that PWM interface.  You can check if
->  > the pwm files exist under /sys/class/hwmon/hwmon*/  for the hwmon*
->  > that has your fans.
-> 
-> Also, what target mode do you have configured for the hwmon instance?
-> The *.Control.FanPWM interface is created for the fan objects by the
-> hwmon instance, when `TARGET_MODE = "PWM"` in the config.
-> 
->  >
->  >>
->  >>
->  >
-> 
+SGVsbG8gUGF0cmljaywNCg0KVGhhbmtzIGZvciB0aGUgcmVzcG9uc2UuIEkgd2lsbCB0cnkgdGhp
+cy4gU29tZSBvdGhlciB0aGluZyBJIG5vdGljZWQgaXMgdGhhdCB0aGUgaW1hZ2UgdXBkYXRlIG5v
+dyB1c2VzIGEgVEFSIGZpbGUuIEJhc2ljYWxseSBpdCB0cmFuc2ZlcnMgdGhlIFRBUiB0byB0aGUg
+c3lzdGVtLCB0aGVuIHVudGFycyB0aGUgZmlsZSBhbmQgdXNlcyBpdC4gVGhpcyBtZWFucyB0aGUg
+bWVjaGFuaXNtIHJlcXVpcmVzIHR3aWNlIHRoZSBzaXplIG9mIHRoZSBUQVIgZmlsZS4NCg0KSSBh
+bSBub3cgY29uc2lkZXJpbmcgdG8gdXNlIGFuIElTTyBmaWxlIGFuZCBtb3VudCB0aGlzIHRoaXMg
+d2lsbCByZXF1aXJlIGxlc3MgbWVtb3J5LiBXaGF0IGRvIHlvdSB0aGluayBhYm91dCB0aGlzLCBk
+byBJIG92ZXJsb29rIHNvbWV0aGluZyBvciBjYW4gdGhpcyBiZSBhIHZpYWJsZSBzb2x1dGlvbj8N
+Cg0KQmVzdCBSZWdhcmRzLA0KV2ltIFZlcnZvb3JuDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
+Z2UtLS0tLQ0KRnJvbTogUGF0cmljayBWZW50dXJlIFttYWlsdG86dmVudHVyZUBnb29nbGUuY29t
+XSANClNlbnQ6IFRodXJzZGF5LCBBcHJpbCAyNSwgMjAxOSA0OjMxIFBNDQpUbzogV2ltIFZlcnZv
+b3JuIDx3dmVydm9vcm5AZWx0YW4uY29tPjsgVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNv
+bT4NCkNjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBibWN3ZWIgaW1h
+Z2UgdXBsb2FkDQoNCk9uIFRodSwgQXByIDI1LCAyMDE5IGF0IDI6MDMgQU0gV2ltIFZlcnZvb3Ju
+IDx3dmVydm9vcm5AZWx0YW4uY29tPiB3cm90ZToNCj4NCj4gSGVsbG8sDQo+DQo+IEkgaGF2ZSBh
+biBBU1QyNDAwIE9wZW5CbWMgd2l0aCAxMjggTUIgb2YgUkFNLiBJIGZvdW5kIHRoYXQgdGhlIGZp
+cm13YXJlIHVwbG9hZCB1c2luZyBXZWJVSSAoYW5kIFJlZGZpc2gpIGRvZXNuJ3Qgd29yay4gQm1j
+d2ViIGlzIGtpbGxlZCBkdWUgdG8gYW4gb3V0IG9mIG1lbW9yeSBjb25kaXRpb24uDQo+DQo+IElm
+IGZvdW5kIG91dCB0aGlzIGlzIGR1ZSB0byB0aGUgbGFyZ2UgcmVxdWVzdCBzaXplIG9mIDMwIE1C
+LiBXaWxsIHRoZXJlIGJlIGFuIHVwZGF0ZSB0byB0aGUgdXBsb2FkIG1lY2hhbmlzbSB0byByZXNv
+bHZlIHRoaXMgbGFyZ2UgbWVtb3J5IHJlcXVpcmVtZW50Pw0KDQpJJ20gc28gZXhjaXRlZCBmb3Ig
+eW91ciBlbWFpbCEgIEZvciBhIHRpbWUsIEkgd2FzIHRoZSBvbmx5IHBlcnNvbiBtYWludGFpbmlu
+ZyBhbiBhc3QyNDAwIHdpdGggMTI4TUIgb2YgUkFNLg0KDQpIZXJlIGFyZSBzb21lIHRoaW5ncyB0
+byBkbyBzdHJhaWdodCBhd2F5Og0KbG9vayBhdCB5b3VyIGJtYyBpbWFnZSBhbmQgcmVtb3ZlIGFu
+eSBpbWFnZV9mZWF0dXJlcyB5b3UncmUgbm90IHVzaW5nDQotLSBpZiBwb3NzaWJsZS4NCg0KVGhh
+dCdsbCBoZWxwIHdpdGggdGhlIHByb2JsZW0gaW4gZ2VuZXJhbC4NCg0KVG8gZG8gdXBkYXRlcyBv
+biBvdXIgZW5kLCB3ZSBoYXZlIGEgc2VydmljZSB0cmlnZ2VyZWQgYnkgYSBkaWZmZXJlbnQgdXBk
+YXRlIG1lY2hhbmlzbSB0aGF0IGNsZWFycyB0aGUgY2FjaGVzLCB0aGlzIGZyZWVzIHVwIGNyaXRp
+Y2FsIG1lbW9yeSBmb3IgdGhlIHN5c3RlbS4gIEkgZG9uJ3Qga25vdyBlbm91Z2ggYWJvdXQgdGhl
+IHJlZGZpc2ggYXBwcm9hY2gsIGJ1dCBwZXJoYXBzIGl0IGNvdWxkIGJlIHByb2dyYW1tZWQgdG8g
+Y2FsbCBhIHNpbWlsYXIgc2VydmljZSBiZWZvcmUgcmVjZWl2aW5nIHRoZSBpbWFnZSB3aGVuIHRo
+ZSByZXF1ZXN0IGlzIHJlY2VpdmVkLg0KDQpPdXIgcGFja2FnZSwgImdvb2dsZS1wcmVwYXJlLXVw
+ZGF0ZSIgaXMganVzdDoNCg0KcHJlcGFyZV91cGRhdGUuc2VydmljZToNCltVbml0XQ0KRGVzY3Jp
+cHRpb249UHVyZ2UgTWVtb3J5IENhY2hlcw0KW1NlcnZpY2VdDQpUeXBlPW9uZXNob3QNCkV4ZWNT
+dGFydD0vdXNyL3NiaW4vcHVyZ2VfY2FjaGUuc2gNCg0KcHVyZ2VfY2FjaGUuc2g6DQojIS9iaW4v
+YmFzaA0KIyBSdW4gc3luYyBjb21tYW5kLg0Kc3luYw0KIyBQdXJnZSB0aGUgdGhyZWUgY2FjaGVz
+Lg0KZWNobyAzID4gL3Byb2Mvc3lzL3ZtL2Ryb3BfY2FjaGVzDQojIERvbmUNCmV4aXQgMA0KDQo+
+DQo+IEJlc3QgcmVnYXJkcywNCj4NCj4gV2ltIFZlcnZvb3JuDQo+DQo+DQoNCg0KDQo=
