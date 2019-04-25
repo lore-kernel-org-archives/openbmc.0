@@ -1,58 +1,76 @@
-Return-Path: <venture@google.com>
+Return-Path: <mspinler@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::442; helo=mail-pf1-x442.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Pf9wU8HM"; 
- dkim-atps=neutral
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qlSX2BbGzDqdD
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 04:04:27 +1000 (AEST)
-Received: by mail-pf1-x442.google.com with SMTP id e24so278999pfi.12
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 11:04:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nsOqLp+Owi3851IilBJIA/UxmncsqRJvv61ck3rT8LQ=;
- b=Pf9wU8HMMalAvemvT88UDWB9ltUoaUPbH0x3j8Q6YLDRWIiz7GGPzRNkVFgpZQVWro
- Jtlck0QkzRlLlBPCnOKGbToHUeg8oFHXSO3tfw01hZEzQ0biPPcmBeS8Tc95BXopbBNx
- sX7CP7L75hTFs0nx56u1LAWI/+cc5f09QC2DBJDkErWpzpkjQeCjWR5R5Ss2s8XpwFAv
- +AvD+Kq8BcQCJqGyzy2HTGCTgt/Uv4CQh/IFsbO7Vvj9mMgXBZGY/j66aJxKWJho5b/a
- vL5tMFtqrvogVvWl76jkAbiYSBXFiqRS1sUS6wYVkSKdfd5dsA+TjffLk6BjJivuBgBf
- tEgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nsOqLp+Owi3851IilBJIA/UxmncsqRJvv61ck3rT8LQ=;
- b=f9UcbnxIlCDfN+Pv0DwreID1lDAUmLfY8JA1YBEwEXrJvrMdJOm1Kh/IUXvQLR7xvs
- oiNOUiEWHO2DsAOwj9A4wNRkTYFOZzS2z+my1CU5/SKpvHzTCKIbIcytqwCnBAOMx7zS
- 9e2aMo67e7mr7XmxlSqj7MMmUbWvqbW0vRYYHnZux7rkotLSRrMX5HH9DWlLit3c0pX8
- 8/pQmWxhvf+r3R+SpfQVQUreFvVpo6RWrmqm/vzFXC31KUH2/3BmPdCTw8Gi7a/ocgpw
- IAkaiPmXLH1u0a4mGiUIFy6VSLy/Senvt8mf2yBUgwZoOvqb+YrPMbHJnVrFC92d6Bbd
- +i3A==
-X-Gm-Message-State: APjAAAVFpw8hmV+wCSD50g1WmHPFiw8+51rz5a3gMJ/fyNgbmSY5ZQFI
- cGD3nb7W43hmEuosByBVdCeP7NbEBU0mFe0uWSH8UtyjGTULfg==
-X-Google-Smtp-Source: APXvYqztoVd5qsraGMfDMju3IL0XtQJhbyGohp9EMjX7dHNA1UNksWsvq7NPwhsHamjza4KIdJwGd8lZWfyzNu1dxfY=
-X-Received: by 2002:a62:b602:: with SMTP id j2mr41771008pff.68.1556215464091; 
- Thu, 25 Apr 2019 11:04:24 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qld253v8zDqdD
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 04:11:49 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3PI8t0H067628
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 14:11:46 -0400
+Received: from e32.co.us.ibm.com (e32.co.us.ibm.com [32.97.110.150])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2s3fcf6qx3-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 14:11:46 -0400
+Received: from localhost
+ by e32.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <mspinler@linux.ibm.com>;
+ Thu, 25 Apr 2019 19:11:45 +0100
+Received: from b03cxnp08026.gho.boulder.ibm.com (9.17.130.18)
+ by e32.co.us.ibm.com (192.168.1.132) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 25 Apr 2019 19:11:43 +0100
+Received: from b03ledav003.gho.boulder.ibm.com
+ (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3PIBgo24850020
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 18:11:42 GMT
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7FF436A04D
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 18:11:42 +0000 (GMT)
+Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E6F26A047
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 18:11:42 +0000 (GMT)
+Received: from [9.10.99.36] (unknown [9.10.99.36])
+ by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 18:11:42 +0000 (GMT)
+From: Matt Spinler <mspinler@linux.ibm.com>
+Subject: phosphor-logging plugins vs new daemons
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Date: Thu, 25 Apr 2019 13:11:44 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <CAO=notxWQFgmgJUUVXDZun1FR9jZ1+hhD-5mdWjNttcxKiwwcg@mail.gmail.com>
- <c5373614-4965-4cba-b68c-c114389a315e@www.fastmail.com>
-In-Reply-To: <c5373614-4965-4cba-b68c-c114389a315e@www.fastmail.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 25 Apr 2019 11:04:12 -0700
-Message-ID: <CAO=notyVNDMvNDzVDz-nELDRuThWQ3CEWs4qecy6YPT5iF4Zmg@mail.gmail.com>
-Subject: Re: Requesting Patchset to linux
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19042518-0004-0000-0000-00001503F846
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010994; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000285; SDB=6.01194278; UDB=6.00626136; IPR=6.00975107; 
+ MB=3.00026596; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-25 18:11:44
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19042518-0005-0000-0000-00008B672EDB
+Message-Id: <f3aae448-3f19-ddff-af67-1c2f85b38a6f@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-25_15:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=973 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904250112
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,33 +82,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 18:04:29 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 18:11:51 -0000
 
-On Thu, Apr 25, 2019 at 10:59 AM Andrew Jeffery <andrew@aj.id.au> wrote:
->
-> On Thu, 25 Apr 2019, at 10:54, Patrick Venture wrote:
-> > Hi,
-> >
-> > I was curious, when sending a patchset to openbmc/linux that is
-> > already staged elsewhere in a maintainer's repo -- should we just send
-> > an email with a link to the patchset or the full patch email?
-> >
-> > I've done the patch email for this in the past, but wanted to ask.
->
-> It's easiest if you send us the backported patches based on top of whatever
-> the latest OpenBMC dev branch is (dev-5.0 right now), that way if there are
-> any conflicts it's the subject matter expert dealing with cleaning them up.
->
-> When you backport your patches, please use `git cherry-pick -x $SHA`, as
-> this will embed the commit ID of the upstream change in the footer of
-> the commit message of the cherry-picked change. This allows us to easily
-> track the origin of your patch back upstream if necessary (handy for
-> Fixes: lines).
+Hi,
 
-Thanks.  And I just saw the --suppress-cc option so I won't spam
-others as I have in the past.
+We have some work coming up where we need to create different formats of
+error logs based on the phosphor logging error log items that are created.
+We can accomplish this by either creating a separate daemon that listens
+for D-Bus signals for new log entries, or we come up with a plugin
+architecture for phosphor-log-manager where we let libs register functions
+in certain points, like before/after a log is created/deleted.
 
->
-> Cheers,
->
-> Andrew
+At this point we are leaning toward the plugin route, as apparently
+there was some discussion at the last OCP that recommended this.
+
+I'm just wondering if anyone has any leanings either way, or any other
+ideas before we start on a design document?
+
+Thanks!
+Matt
