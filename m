@@ -1,44 +1,74 @@
-Return-Path: <wangzqbj@inspur.com>
+Return-Path: <dkodihal@linux.vnet.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=inspur.com
- (client-ip=210.51.26.145; helo=unicom145.biz-email.net;
- envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=inspur.com
-X-Greylist: delayed 127 seconds by postgrey-1.36 at bilbo;
- Thu, 25 Apr 2019 11:47:39 AEST
-Received: from unicom145.biz-email.net (unicom145.biz-email.net
- [210.51.26.145])
- (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qKnS03k8zDqXR
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 11:47:39 +1000 (AEST)
-Received: from ([218.57.135.44])
- by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id QFS08416;
- Thu, 25 Apr 2019 09:45:16 +0800
-Received: from jtjnmailbox08.home.langchao.com ([fe80::285c:2908:729d:66eb])
- by jtjncas02.home.langchao.com ([::1]) with mapi id 14.03.0415.000; Thu, 25
- Apr 2019 09:45:15 +0800
-From: =?gb2312?B?Sm9obiB3YW5nKM311r7Hvyk=?= <wangzqbj@inspur.com>
-To: Andrew Geissler <geissonator@gmail.com>, Brad Bishop
- <bradleyb@fuzziesquirrel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Request to be added to the OpenBmc CI group
-Thread-Topic: Request to be added to the OpenBmc CI group
-Thread-Index: AQHU+s8ifEyaPry2TEO7onOZxz4mIqZLLayAgADsXjU=
-Date: Thu, 25 Apr 2019 01:45:15 +0000
-Message-ID: <9DB908537676EC43880B57502661748CE7B4BE99@jtjnmailbox08.home.langchao.com>
-References: <e2d95b63b787a620c870af209b7f4763@sslemail.net>,
- <CALLMt=ryYesr29nQcBMfiM6JdUYoTMmw_qBA_2Mvx-bH5AaSmQ@mail.gmail.com>
-In-Reply-To: <CALLMt=ryYesr29nQcBMfiM6JdUYoTMmw_qBA_2Mvx-bH5AaSmQ@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.100.2.4]
-Content-Type: text/plain; charset="gb2312"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qMW0141dzDqZb
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 13:05:14 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3P2xRgO030517
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 23:05:08 -0400
+Received: from e06smtp04.uk.ibm.com (e06smtp04.uk.ibm.com [195.75.94.100])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2s33td9rvv-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 23:05:08 -0400
+Received: from localhost
+ by e06smtp04.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
+ Thu, 25 Apr 2019 04:05:07 +0100
+Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
+ by e06smtp04.uk.ibm.com (192.168.101.134) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 25 Apr 2019 04:05:06 +0100
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+ [9.149.105.61])
+ by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3P355J242663984
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:05:05 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0F48F11C058
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:05:05 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8788511C052
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:05:04 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.78.201.254])
+ by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 03:05:04 +0000 (GMT)
+Subject: Re: One-way dbus properties
+To: openbmc@lists.ozlabs.org
+References: <a25981c28a179307d5b8135e32a072ff@linux.vnet.ibm.com>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Date: Thu, 25 Apr 2019 08:35:03 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
+ Gecko/20100101 Thunderbird/60.6.1
 MIME-Version: 1.0
+In-Reply-To: <a25981c28a179307d5b8135e32a072ff@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 19042503-0016-0000-0000-00000273E993
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19042503-0017-0000-0000-000032D05E5F
+Message-Id: <9f3a6ca3-8b6c-242d-dfb7-f63139b68d98@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-25_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=621 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904250019
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,29 +80,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 01:47:42 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 03:05:16 -0000
 
-K29wZW5ibWMNCg0KVGhhbmtzIA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXw0KRnJvbTogQW5kcmV3IEdlaXNzbGVyIFtnZWlzc29uYXRvckBnbWFpbC5jb21dDQpTZW50
-OiBUaHVyc2RheSwgQXByaWwgMjUsIDIwMTkgMzozNA0KVG86IEJyYWQgQmlzaG9wDQpDYzogSm9o
-biB3YW5nKM311r7HvykNClN1YmplY3Q6IFJlOiBSZXF1ZXN0IHRvIGJlIGFkZGVkIHRvIHRoZSBP
-cGVuQm1jIENJIGdyb3VwDQoNCk9uIFdlZCwgQXByIDI0LCAyMDE5IGF0IDE6NTIgUE0gQnJhZCBC
-aXNob3AgPGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4gd3JvdGU6DQo+DQo+IE9uIEZyaSwg
-QXByIDE5LCAyMDE5IGF0IDA4OjQ5OjM1QU0gKzA4MDAsIEpvaG4gV2FuZyB3cm90ZToNCj4gPkhp
-IEJyYWQNCj4gPg0KPiA+V2hlbiBJIHJlY2VudGx5IHVzZWQgb3BlbmJtYywgSSBvY2Nhc2lvbmFs
-bHkgc3VibWl0dGVkIHNvbWUgcGF0Y2hlcyB0byBzb21lDQo+ID5jb2RlIHJlcG9zaXRvcmllcy4g
-Q2FuIHlvdSBhZGQgbWUgdG8gdGhlIENJIGdyb3VwIG9mIG9wZW5ibWM/IElmIHBvc3NpYmxlLA0K
-PiA+dGhlIG1haW50YWluZXIgY29kZSByZXZpZXcgc2hvdWxkIGJlIGNvbnZlbmllbnQuDQo+ID4N
-Cj4gPlRoYW5rcw0KPiA+DQo+ID5Kb2huDQo+DQo+IEhpIEpvaG4NCj4NCj4gSSBhZGRlZCB5b3Ug
-dG8gdGhlIGluc3B1ci9jaS1hdXRob3JpemVkIGdyb3VwIG9uIE1hcmNoIDI5LiAgQXJlIHlvdQ0K
-PiBzdGlsbCBub3Qgc2VlaW5nIENJIHJ1biBhdXRvbWF0aWNhbGx5IHdoZW4geW91IHN1Ym1pdCBw
-YXRjaGVzPyAgV2hpY2gNCj4gcmVwb3NpdG9yeSBkb2Vzbid0IHdvcms/DQoNCkFoaCB5ZXAsIHdp
-dGggdGhhdCBsYXN0IGdlcnJpdCBzZXJ2ZXIgdXBncmFkZSB0aGUgcmVjdXJzaXZlIG9wdGlvbiBi
-cm9rZQ0Kc28gSSBoYXZlIHRvIGhhbmQgY29kZSBlYWNoIG5ldyBncm91cCBpbnRvIHRoZSBqb2Ig
-OigNCg0KSSBhZGRlZCBpbiBpbnNwdXIgc28gc2hvdWxkIGJlIGdvb2Qgbm93Lg0KDQo+IEFsc28s
-IGlmIHlvdSBjb3VsZCBjb3B5IHRoZSBwcm9qZWN0IG1haWxpbmcgbGlzdCB3aGVuIHNlbmRpbmcg
-ZW1haWwNCj4gYWJvdXQgT3BlbkJNQyBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcgdGhhdCB3b3Vs
-ZCBiZSBnb29kLiAgSXQgbGV0cw0KPiBldmVyeW9uZSBrbm93IHRoYXQgSW5zcHVyIGlzIGNvbnRy
-aWJ1dGluZyB0byB0aGUgY29tbXVuaXR5LCBhbmQgaXQgZ2l2ZXMNCj4gb3RoZXJzIGEgY2hhbmNl
-IHRvIHNlZSBhbmQgcGVyaGFwcyBvZmZlciBhc3Npc3RhbmNlIHdpdGggdGhlIHByb2JsZW1zIHdl
-DQo+IGFsbCBmYWNlIHRvZ2V0aGVyLg0KPg0KPiB0aHggLSBicmFkDQo=
+On 24/04/19 8:47 PM, Adriana Kobylak wrote:
+> Wanted to get thoughts on how attempting to clear one-way dbus 
+> properties should be handled.
+> 
+> There are some properties like Field Mode that are intended to be 
+> one-way, meaning that you can set them but not clear them:
+> 
+> - 
+> https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/FieldMode.interface.yaml 
+> 
+>        description: >
+>            Keeps track of whether the BMC is in field mode. Enabling 
+> field mode
+>            is intended to be a one-way operation.
+> 
+> If there's a call to clear the property value, currently this is a no-op 
+> and the REST call returns success but the value is not changed.
+> Should an error be returned to the user?
+
+I think an error (NotAllowed) should be thrown back.
+
+Thanks,
+Deepak
