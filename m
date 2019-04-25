@@ -1,53 +1,52 @@
-Return-Path: <3JSnCXAcKB2wfOXdebOQYYQVO.MYWYZOXLWMVScdc.YjVKLc.YbQ@flex--venture.bounces.google.com>
+Return-Path: <3LynCXAcKB3YpYhnolYaiiafY.WigijYhVgWfcmnm.itfUVm.ila@flex--venture.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--venture.bounces.google.com
- (client-ip=2607:f8b0:4864:20::24a; helo=mail-oi1-x24a.google.com;
- envelope-from=3jsncxackb2wfoxdeboqyyqvo.mywyzoxlwmvscdc.yjvklc.ybq@flex--venture.bounces.google.com;
+ (client-ip=2607:f8b0:4864:20::949; helo=mail-ua1-x949.google.com;
+ envelope-from=3lyncxackb3ypyhnolyaiiafy.wigijyhvgwfcmnm.itfuvm.ila@flex--venture.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="UzoErBRL"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="nkkdQKVP"; 
  dkim-atps=neutral
-Received: from mail-oi1-x24a.google.com (mail-oi1-x24a.google.com
- [IPv6:2607:f8b0:4864:20::24a])
+Received: from mail-ua1-x949.google.com (mail-ua1-x949.google.com
+ [IPv6:2607:f8b0:4864:20::949])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qrFC55bSzDqbB
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 07:39:52 +1000 (AEST)
-Received: by mail-oi1-x24a.google.com with SMTP id d198so551958oih.6
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 14:39:52 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qrFN0ZRCzDqdw
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 07:40:01 +1000 (AEST)
+Received: by mail-ua1-x949.google.com with SMTP id x48so304063uac.23
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 14:40:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:message-id:mime-version:subject:from:to:cc;
- bh=yHLXlA/NxedR7DWXIwVPp4SGeiulaPxtZOhwVJEzE3g=;
- b=UzoErBRL/TyFb0ihpfQvqZKCULRtoiuAHxbqAgdgEjiQxoD7k4U+j5nGVyFPboGT3i
- i1iT3waqxNTPiCulyS2YOhPIU5qi+aed8ny3iNxc4JG2i1fPO/ibV/jUjGEegjqK7Fjs
- hC/c2MQIy41g9G8E5WmMnON+OCRSCwnW+ki2ksDHkaRjGAcs9vJyE8bFQXqymxxCJ4Ju
- 5fFE8QBCnbxEX9IcEKNDoTduUPua/oozMsm2t9TkvPDkUf2y0ZJLaIf3vmF1ldc/hAC1
- LTPxC9AMHN6Ml90/XPlrL5dOhlrBX+W5Mm86qiLDmOUTyzo7B1/boZp1Pku9Gxw4szlw
- h8pQ==
+ bh=ibgJ3i4cV/NbxILk6+saIIhEWTvJTmE9VQOQoZzOktA=;
+ b=nkkdQKVPgZnWLiZeYdWGdRoXbwbl7CY9Y9Jo+SZZzjvd3gXyk8h9l/+7gmYkt+EvIG
+ JLNaUp66mY3d/YYG4VhpCLnCivJg+/pik8vjMrN49uKudwaD7b06Mn5QSrqij/lnk5jC
+ EOlR4kZquKyKHToQBCNON016AS8uINryTGoQvCTpKklUlzXTzsn0a+diUQpvqkcAQOwR
+ kQGzIzo4GWuXTfooBu+Cos5aswEkNU4jO0BL4J2+UOGG2S1N6zuGA2nPuEVmbxUiz4nI
+ SNeaNTXeaYZXMVyJSJLgADoAb2lIZ2RSjuUoBt/EX1m00AK5xNHbbQrtmh5bW4M8ERKT
+ Q75A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=yHLXlA/NxedR7DWXIwVPp4SGeiulaPxtZOhwVJEzE3g=;
- b=n7WFas2/TExGrxIj68lxF8MF8eSIyuAGLgP0qT4xYbk6YCKUo2VVYbfBBU2FSvDLso
- xBmthHb1N0/ulGKUbvrzWS+S2D0ytF4nmPP0HDriZDSh9t61cG4gjkfj2EeMzsbXDVjv
- 9OXOdqEgPnA9JGV/TbiGkUiCQJSIMp87DdT+OOn66mECLtPk592gY3i3xJ8JaV9R7b/K
- dSqKWwdT9fkW8Uql0JdJxry8f0SLVg2xXOcV4XK5OjTUyMXrhKCmMFNLWwhQR6iOOfKE
- xXOrWUD9vTgBZyB99XstZVgcI11uDiAhRJQyGh9+ktWft6pbiS8/rJp1RG6EEhTgF4T/
- 50QQ==
-X-Gm-Message-State: APjAAAWqpb7vMwGTmLm9Y31xuTCUbAL7hnkvqVHu/vnyxVs7tr/jRzan
- h2IIkiEHoMQBbRXeMqJgqrNUX5EmK3FA
-X-Google-Smtp-Source: APXvYqz7F4LeTq1AH4mG1OZZWiLNZaNuDu//dWvhNinE/MW8HKrnipxkBSe+A6ol67zJ7QQnqe2S1UNlNNZ2
-X-Received: by 2002:a05:6808:97:: with SMTP id
- s23mr4908002oic.71.1556228389627; 
- Thu, 25 Apr 2019 14:39:49 -0700 (PDT)
-Date: Thu, 25 Apr 2019 14:39:43 -0700
-Message-Id: <20190425213943.111641-1-venture@google.com>
+ bh=ibgJ3i4cV/NbxILk6+saIIhEWTvJTmE9VQOQoZzOktA=;
+ b=aeD9dafoZ37Mwbip5Ql/Df/JJt50q032UT16mXI6YqQB9ZfDugTr2ALDM151kooqAJ
+ cvL5ilAP4G32KKudC0if1gNzc3x2lX0G0Vbh8qIeYO/wq+BLTMDO+AycpkEawpnLGcVr
+ U1WR8aFcAdUsrmBBw4uKox9nydcAsOdEFC4J2giDBOD1VnNg56AmM5z/sQT1nPDuJQk2
+ xDuSV7m9VnVekr5Mv+F/NjwHN8ptjcD2ZYF/Hn/DQFfZyP0ORLR5WjkxpA1/2TflBoCS
+ cLJLxuLqEUWfw2vuaReLMCYlR+fnk5E10hcN95xrIvBRVzXXnFfEh3LI+j8g/NeTA5sU
+ ktlw==
+X-Gm-Message-State: APjAAAWssXr7HCFtO4cWdLOH6uCu3SY2QpsFGo4ChrlbvzNwjCnaZAnL
+ DqYW3csvU23O5fUJEwAqBWohUgs8U+0G
+X-Google-Smtp-Source: APXvYqyEUA6sc4IMImsHHgHT1+41GzTFFoaVBWbc7VHlywB1s9UIY7NlbnKjdd6sEjNY430JqeTws9InoyUt
+X-Received: by 2002:ab0:7008:: with SMTP id k8mr21527346ual.40.1556228399246; 
+ Thu, 25 Apr 2019 14:39:59 -0700 (PDT)
+Date: Thu, 25 Apr 2019 14:39:55 -0700
+Message-Id: <20190425213955.112511-1-venture@google.com>
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.21.0.593.g511ec345e18-goog
-Subject: [PATCH dev-5.0 1/2] ARM: dts: aspeed: Add aspeed-p2a-ctrl node
+Subject: [PATCH dev-5.0 2/2] ARM: dts: aspeed: quanta-q71: Enable p2a node
 From: Patrick Venture <venture@google.com>
 To: venture@google.com, joel@jms.id.au, andrew@aj.id.au
 Cc: openbmc@lists.ozlabs.org
@@ -63,48 +62,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 21:40:00 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 21:40:08 -0000
 
-Add a node for the aspeed-p2a-ctrl module.  This node, when enabled will
-disable the PCI-to-AHB bridge and then allow control of this bridge via
-ioctls, and access via mmap.
+Enable the aspeed-p2a-ctrl node and configure with memory-region to
+enable mmap access.
 
 Signed-off-by: Patrick Venture <venture@google.com>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 4 ++++
- arch/arm/boot/dts/aspeed-g5.dtsi | 5 +++++
- 2 files changed, 9 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index 3990aed25ee6..6011692df15a 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -168,6 +168,10 @@
- 					compatible = "aspeed,g4-pinctrl";
- 				};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+index 385c0f4b69ee..080d7c844c54 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-quanta-q71l.dts
+@@ -112,6 +112,11 @@
+ 			&pinctrl_ddcclk_default &pinctrl_ddcdat_default>;
+ };
  
-+				p2a: p2a-control {
-+					compatible = "aspeed,ast2400-p2a-ctrl";
-+					status = "disabled";
-+				};
- 			};
- 
- 			rng: hwrng@1e6e2078 {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index d11c07888f01..674746513031 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -224,6 +224,11 @@
- 				vga_scratch: scratch {
- 					compatible = "aspeed,bmc-misc";
- 				};
++&p2a {
++	status = "okay";
++	memory-region = <&vga_memory>;
++};
 +
-+				p2a: p2a-control {
-+					compatible = "aspeed,ast2500-p2a-ctrl";
-+					status = "disabled";
-+				};
- 			};
- 
- 			rng: hwrng@1e6e2078 {
+ &ibt {
+ 	status = "okay";
+ };
 -- 
 2.21.0.593.g511ec345e18-goog
