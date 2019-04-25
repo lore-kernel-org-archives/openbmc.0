@@ -1,58 +1,85 @@
-Return-Path: <venture@google.com>
+Return-Path: <msbarth@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::544; helo=mail-pg1-x544.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=msbarth@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="elzZ3uoi"; 
- dkim-atps=neutral
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qnTQ5tnmzDqV8
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 05:35:20 +1000 (AEST)
-Received: by mail-pg1-x544.google.com with SMTP id l18so340182pgj.6
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 12:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FcHzkzhvxF2Pg32/byVxBPcHf49meN2s4OAuxLXWO3Y=;
- b=elzZ3uoiB+7jDN1exfCZc33+mtjjDsv6kHCqbJLKlv55epVl4egpYjtD0TfxzzYqIY
- puPwK3WN5RjFQ7VZpvVtMxsq14jcxT1/OPCXJGGRgdGnbODknl/cEACSSwnZMFX6T3zK
- lFBK4pLMtDNmQbfJt/FbMfKYwPKElc7Yno5h7NUsv2bDlVYaBYtI1wDDzraI/dX0cMvA
- 3n3JyBOH9FQvZVABKHiBTnKqV3q2RTlkalDNCBkQwocAnkdW4psIrxJ/ZTaQxNDCXWT+
- opKvNkCeXXRW0R9kRt2X0dBPlJAq6PvesIKU4MAzoiaTZsYO6lwwigVPM7E5ZBLuZqHw
- N4xA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=FcHzkzhvxF2Pg32/byVxBPcHf49meN2s4OAuxLXWO3Y=;
- b=SvG829InH6hlkaOycPyTQLr1w6RsRkg75+WSay2gr3k7115pXW679Pijoig9rqaR70
- E9GZM7y5y4uo4j6G+mDIVQkI9zL+qcdBjxHClkt8HCgmuRt/TeuTVkqIkA694l3juftP
- UhO3UM4SKssHlDw1My77nk9VEM1WB+C8RSKh/khwDLOdCwoNH3LCnzWmUeH99RMPW8tP
- 9wYacXMa3d3y6/FTtJz2HbNpf94CDXm+qIX1qA6jfU/JT72VZWaTEyes5kBiz2Ddk8fE
- gF/4/yfj4TgLuvGtf6svqMecnT8FU6M6U/CdPiwB8i+Ls5fsvSqQ1gkcDKKYFLyBrSn9
- XxRg==
-X-Gm-Message-State: APjAAAWL7muaDl7YmFnNPmuYbzdir9fbhS/fRC9X8AkK8NXFN1FgpKDD
- w4MiHdjqRiFUEtkpUNRbK6JAdNex15PddO8Y85PQ/w==
-X-Google-Smtp-Source: APXvYqwiSm1VORuZ+UNejCWpVNkwDEXwWOmyLk30T/K7dKPgEtyAKLTKHMOFSgD/NRosjzfVFgWSIDcAUqn6crwnUXM=
-X-Received: by 2002:a62:415d:: with SMTP id o90mr41844519pfa.236.1556220916246; 
- Thu, 25 Apr 2019 12:35:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qnng5r4nzDqc2
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 05:49:27 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3PJj50W120975
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 15:49:24 -0400
+Received: from e31.co.us.ibm.com (e31.co.us.ibm.com [32.97.110.149])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2s3hf9my56-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 15:49:23 -0400
+Received: from localhost
+ by e31.co.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <msbarth@linux.ibm.com>;
+ Thu, 25 Apr 2019 20:49:23 +0100
+Received: from b03cxnp08027.gho.boulder.ibm.com (9.17.130.19)
+ by e31.co.us.ibm.com (192.168.1.131) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 25 Apr 2019 20:49:21 +0100
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x3PJnKNV6095200
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 25 Apr 2019 19:49:20 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8657FBE053;
+ Thu, 25 Apr 2019 19:49:20 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2DB1DBE04F;
+ Thu, 25 Apr 2019 19:49:20 +0000 (GMT)
+Received: from [9.10.99.66] (unknown [9.10.99.66])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu, 25 Apr 2019 19:49:20 +0000 (GMT)
+Subject: Re: Fan control service issues - service will not start "Uncaught
+ DBus service lookup failure exception"
+To: Stephen Boylan <sboylan@ircona.com>, Patrick Venture <venture@google.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <AM6PR04MB5224A33032E47CE691601881C93C0@AM6PR04MB5224.eurprd04.prod.outlook.com>
+ <CAO=notzd6KOAqoYE_BXsrCDts6gGv7OOROKRgKMaLayAqEPESw@mail.gmail.com>
+ <8edee610-90b5-5a77-6732-356a2719eba6@linux.ibm.com>
+ <AM0PR04MB521859872EEEFC9332114A6CC93D0@AM0PR04MB5218.eurprd04.prod.outlook.com>
+ <269e980d-875c-7e91-3fae-6a5adb7e2a4a@linux.ibm.com>
+ <AM0PR04MB5218C2DCDA42D3A688FB200EC93D0@AM0PR04MB5218.eurprd04.prod.outlook.com>
+From: Matthew Barth <msbarth@linux.ibm.com>
+Date: Thu, 25 Apr 2019 14:49:19 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <20190425181949.145852-1-venture@google.com>
-In-Reply-To: <20190425181949.145852-1-venture@google.com>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 25 Apr 2019 12:35:04 -0700
-Message-ID: <CAO=notx4PK4e_vrdkjkDTTpT8++=N=P2hR+r6tW_mwvNy4NH6Q@mail.gmail.com>
-Subject: Re: [PATCH dev-5.0 2/2] drivers/misc: Add Aspeed P2A control driver
-To: Patrick Venture <venture@google.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <AM0PR04MB5218C2DCDA42D3A688FB200EC93D0@AM0PR04MB5218.eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+x-cbid: 19042519-8235-0000-0000-00000E872B24
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00010994; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000285; SDB=6.01194311; UDB=6.00626155; IPR=6.00975139; 
+ MB=3.00026597; MTD=3.00000008; XFM=3.00000015; UTC=2019-04-25 19:49:22
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19042519-8236-0000-0000-0000454B1E0F
+Message-Id: <2236078a-d199-caf3-4f16-400cc65a7d91@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-25_17:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904250121
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,605 +91,420 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 19:35:23 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 19:49:28 -0000
 
-On Thu, Apr 25, 2019 at 11:19 AM Patrick Venture <venture@google.com> wrote:
->
-> The ASPEED AST2400, and AST2500 in some configurations include a
-> PCI-to-AHB MMIO bridge.  This bridge allows a server to read and write
-> in the BMC's physical address space.  This feature is especially useful
-> when using this bridge to send large files to the BMC.
->
-> The host may use this to send down a firmware image by staging data at a
-> specific memory address, and in a coordinated effort with the BMC's
-> software stack and kernel, transmit the bytes.
->
-> This driver enables the BMC to unlock the PCI bridge on demand, and
-> configure it via ioctl to allow the host to write bytes to an agreed
-> upon location.  In the primary use-case, the region to use is known
-> apriori on the BMC, and the host requests this information.  Once this
-> request is received, the BMC's software stack will enable the bridge and
-> the region and then using some software flow control (possibly via IPMI
-> packets), copy the bytes down.  Once the process is complete, the BMC
-> will disable the bridge and unset any region involved.
->
-> The default behavior of this bridge when present is: enabled and all
-> regions marked read-write.  This driver will fix the regions to be
-> read-only and then disable the bridge entirely.
->
-> The memory regions protected are:
->  * BMC flash MMIO window
->  * System flash MMIO windows
->  * SOC IO (peripheral MMIO)
->  * DRAM
->
-> The DRAM region itself is all of DRAM and cannot be further specified.
-> Once the PCI bridge is enabled, the host can read all of DRAM, and if
-> the DRAM section is write-enabled, then it can write to all of it.
->
-> Signed-off-by: Patrick Venture <venture@google.com>
-> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> (cherry picked from commit 01c60dcea9f7a97ed0e94245e425002a8ddd6c17)
-> ---
->  drivers/misc/Kconfig                 |   8 +
->  drivers/misc/Makefile                |   1 +
->  drivers/misc/aspeed-p2a-ctrl.c       | 443 +++++++++++++++++++++++++++
->  include/uapi/linux/aspeed-p2a-ctrl.h |  62 ++++
->  4 files changed, 514 insertions(+)
->  create mode 100644 drivers/misc/aspeed-p2a-ctrl.c
->  create mode 100644 include/uapi/linux/aspeed-p2a-ctrl.h
->
-> diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-> index bde3073131ab..31361d7046cb 100644
-> --- a/drivers/misc/Kconfig
-> +++ b/drivers/misc/Kconfig
-> @@ -485,6 +485,14 @@ config VEXPRESS_SYSCFG
->           bus. System Configuration interface is one of the possible means
->           of generating transactions on this bus.
->
-> +config ASPEED_P2A_CTRL
-> +       depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
-> +       tristate "Aspeed ast2400/2500 HOST P2A VGA MMIO to BMC bridge control"
-> +       help
-> +         Control Aspeed ast2400/2500 HOST P2A VGA MMIO to BMC mappings through
-> +         ioctl()s, the driver also provides an interface for userspace mappings to
-> +         a pre-defined region.
-> +
->  config ASPEED_LPC_CTRL
->         depends on (ARCH_ASPEED || COMPILE_TEST) && REGMAP && MFD_SYSCON
->         tristate "Aspeed ast2400/2500 HOST LPC to BMC bridge control"
-> diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-> index 45987f520587..d0c495886720 100644
-> --- a/drivers/misc/Makefile
-> +++ b/drivers/misc/Makefile
-> @@ -56,6 +56,7 @@ obj-$(CONFIG_CXL_BASE)                += cxl/
->  obj-$(CONFIG_ASPEED_LPC_CTRL)  += aspeed-lpc-ctrl.o
->  obj-$(CONFIG_ASPEED_LPC_SNOOP) += aspeed-lpc-snoop.o
->  obj-$(CONFIG_ASPEED_LPC_MBOX)  += aspeed-lpc-mbox.o
-> +obj-$(CONFIG_ASPEED_P2A_CTRL)  += aspeed-p2a-ctrl.o
->  obj-$(CONFIG_PCI_ENDPOINT_TEST)        += pci_endpoint_test.o
->  obj-$(CONFIG_OCXL)             += ocxl/
->  obj-y                          += cardreader/
-> diff --git a/drivers/misc/aspeed-p2a-ctrl.c b/drivers/misc/aspeed-p2a-ctrl.c
-> new file mode 100644
-> index 000000000000..c0521b2ffc6a
-> --- /dev/null
-> +++ b/drivers/misc/aspeed-p2a-ctrl.c
-> @@ -0,0 +1,443 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2019 Google Inc
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + *
-> + * Provides a simple driver to control the ASPEED P2A interface which allows
-> + * the host to read and write to various regions of the BMC's memory.
-> + */
-> +
-> +#include <linux/fs.h>
-> +#include <linux/io.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/miscdevice.h>
-> +#include <linux/mm.h>
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/of_address.h>
-> +#include <linux/of_device.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/slab.h>
-> +#include <linux/uaccess.h>
-> +
-> +#include <linux/aspeed-p2a-ctrl.h>
-> +
-> +#define DEVICE_NAME    "aspeed-p2a-ctrl"
-> +
-> +/* SCU2C is a Misc. Control Register. */
-> +#define SCU2C 0x2c
-> +/* SCU180 is the PCIe Configuration Setting Control Register. */
-> +#define SCU180 0x180
-> +/* Bit 1 controls the P2A bridge, while bit 0 controls the entire VGA device
-> + * on the PCI bus.
-> + */
-> +#define SCU180_ENP2A BIT(1)
-> +
-> +/* The ast2400/2500 both have six ranges. */
-> +#define P2A_REGION_COUNT 6
-> +
-> +struct region {
-> +       u64 min;
-> +       u64 max;
-> +       u32 bit;
-> +};
-> +
-> +struct aspeed_p2a_model_data {
-> +       /* min, max, bit */
-> +       struct region regions[P2A_REGION_COUNT];
-> +};
-> +
-> +struct aspeed_p2a_ctrl {
-> +       struct miscdevice miscdev;
-> +       struct regmap *regmap;
-> +
-> +       const struct aspeed_p2a_model_data *config;
-> +
-> +       /* Access to these needs to be locked, held via probe, mapping ioctl,
-> +        * and release, remove.
-> +        */
-> +       struct mutex tracking;
-> +       u32 readers;
-> +       u32 readerwriters[P2A_REGION_COUNT];
-> +
-> +       phys_addr_t mem_base;
-> +       resource_size_t mem_size;
-> +};
-> +
-> +struct aspeed_p2a_user {
-> +       struct file *file;
-> +       struct aspeed_p2a_ctrl *parent;
-> +
-> +       /* The entire memory space is opened for reading once the bridge is
-> +        * enabled, therefore this needs only to be tracked once per user.
-> +        * If any user has it open for read, the bridge must stay enabled.
-> +        */
-> +       u32 read;
-> +
-> +       /* Each entry of the array corresponds to a P2A Region.  If the user
-> +        * opens for read or readwrite, the reference goes up here.  On
-> +        * release, this array is walked and references adjusted accordingly.
-> +        */
-> +       u32 readwrite[P2A_REGION_COUNT];
-> +};
-> +
-> +static void aspeed_p2a_enable_bridge(struct aspeed_p2a_ctrl *p2a_ctrl)
-> +{
-> +       regmap_update_bits(p2a_ctrl->regmap,
-> +               SCU180, SCU180_ENP2A, SCU180_ENP2A);
-> +}
-> +
-> +static void aspeed_p2a_disable_bridge(struct aspeed_p2a_ctrl *p2a_ctrl)
-> +{
-> +       regmap_update_bits(p2a_ctrl->regmap, SCU180, SCU180_ENP2A, 0);
-> +}
-> +
-> +static int aspeed_p2a_mmap(struct file *file, struct vm_area_struct *vma)
-> +{
-> +       struct aspeed_p2a_user *priv = file->private_data;
-> +       struct aspeed_p2a_ctrl *ctrl = priv->parent;
-> +
-> +       if (ctrl->mem_base == 0 && ctrl->mem_size == 0)
-> +               return -EINVAL;
-> +
-> +       unsigned long vsize = vma->vm_end - vma->vm_start;
-> +       pgprot_t prot = vma->vm_page_prot;
-> +
-> +       if (vma->vm_pgoff + vsize > ctrl->mem_base + ctrl->mem_size)
-> +               return -EINVAL;
-> +
-> +       /* ast2400/2500 AHB accesses are not cache coherent */
-> +       prot = pgprot_noncached(prot);
-> +
-> +       if (remap_pfn_range(vma, vma->vm_start,
-> +               (ctrl->mem_base >> PAGE_SHIFT) + vma->vm_pgoff,
-> +               vsize, prot))
-> +               return -EAGAIN;
-> +
-> +       return 0;
-> +}
-> +
-> +static bool aspeed_p2a_region_acquire(struct aspeed_p2a_user *priv,
-> +               struct aspeed_p2a_ctrl *ctrl,
-> +               struct aspeed_p2a_ctrl_mapping *map)
-> +{
-> +       int i;
-> +       u64 base, end;
-> +       bool matched = false;
-> +
-> +       base = map->addr;
-> +       end = map->addr + (map->length - 1);
-> +
-> +       /* If the value is a legal u32, it will find a match. */
-> +       for (i = 0; i < P2A_REGION_COUNT; i++) {
-> +               const struct region *curr = &ctrl->config->regions[i];
-> +
-> +               /* If the top of this region is lower than your base, skip it.
-> +                */
-> +               if (curr->max < base)
-> +                       continue;
-> +
-> +               /* If the bottom of this region is higher than your end, bail.
-> +                */
-> +               if (curr->min > end)
-> +                       break;
-> +
-> +               /* Lock this and update it, therefore it someone else is
-> +                * closing their file out, this'll preserve the increment.
-> +                */
-> +               mutex_lock(&ctrl->tracking);
-> +               ctrl->readerwriters[i] += 1;
-> +               mutex_unlock(&ctrl->tracking);
-> +
-> +               /* Track with the user, so when they close their file, we can
-> +                * decrement properly.
-> +                */
-> +               priv->readwrite[i] += 1;
-> +
-> +               /* Enable the region as read-write. */
-> +               regmap_update_bits(ctrl->regmap, SCU2C, curr->bit, 0);
-> +               matched = true;
-> +       }
-> +
-> +       return matched;
-> +}
-> +
-> +static long aspeed_p2a_ioctl(struct file *file, unsigned int cmd,
-> +               unsigned long data)
-> +{
-> +       struct aspeed_p2a_user *priv = file->private_data;
-> +       struct aspeed_p2a_ctrl *ctrl = priv->parent;
-> +       void __user *arg = (void __user *)data;
-> +       struct aspeed_p2a_ctrl_mapping map;
-> +
-> +       if (copy_from_user(&map, arg, sizeof(map)))
-> +               return -EFAULT;
-> +
-> +       switch (cmd) {
-> +       case ASPEED_P2A_CTRL_IOCTL_SET_WINDOW:
-> +               /* If they want a region to be read-only, since the entire
-> +                * region is read-only once enabled, we just need to track this
-> +                * user wants to read from the bridge, and if it's not enabled.
-> +                * Enable it.
-> +                */
-> +               if (map.flags == ASPEED_P2A_CTRL_READ_ONLY) {
-> +                       mutex_lock(&ctrl->tracking);
-> +                       ctrl->readers += 1;
-> +                       mutex_unlock(&ctrl->tracking);
-> +
-> +                       /* Track with the user, so when they close their file,
-> +                        * we can decrement properly.
-> +                        */
-> +                       priv->read += 1;
-> +               } else if (map.flags == ASPEED_P2A_CTRL_READWRITE) {
-> +                       /* If we don't acquire any region return error. */
-> +                       if (!aspeed_p2a_region_acquire(priv, ctrl, &map)) {
-> +                               return -EINVAL;
-> +                       }
-> +               } else {
-> +                       /* Invalid map flags. */
-> +                       return -EINVAL;
-> +               }
-> +
-> +               aspeed_p2a_enable_bridge(ctrl);
-> +               return 0;
-> +       case ASPEED_P2A_CTRL_IOCTL_GET_MEMORY_CONFIG:
-> +               /* This is a request for the memory-region and corresponding
-> +                * length that is used by the driver for mmap.
-> +                */
-> +
-> +               map.flags = 0;
-> +               map.addr = ctrl->mem_base;
-> +               map.length = ctrl->mem_size;
-> +
-> +               return copy_to_user(arg, &map, sizeof(map)) ? -EFAULT : 0;
-> +       }
-> +
-> +       return -EINVAL;
-> +}
-> +
-> +
-> +/*
-> + * When a user opens this file, we create a structure to track their mappings.
-> + *
-> + * A user can map a region as read-only (bridge enabled), or read-write (bit
-> + * flipped, and bridge enabled).  Either way, this tracking is used, s.t. when
-> + * they release the device references are handled.
-> + *
-> + * The bridge is not enabled until a user calls an ioctl to map a region,
-> + * simply opening the device does not enable it.
-> + */
-> +static int aspeed_p2a_open(struct inode *inode, struct file *file)
-> +{
-> +       struct aspeed_p2a_user *priv;
-> +
-> +       priv = kmalloc(sizeof(*priv), GFP_KERNEL);
-> +       if (!priv)
-> +               return -ENOMEM;
-> +
-> +       priv->file = file;
-> +       priv->read = 0;
-> +       memset(priv->readwrite, 0, sizeof(priv->readwrite));
-> +
-> +       /* The file's private_data is initialized to the p2a_ctrl. */
-> +       priv->parent = file->private_data;
-> +
-> +       /* Set the file's private_data to the user's data. */
-> +       file->private_data = priv;
-> +
-> +       return 0;
-> +}
-> +
-> +/*
-> + * This will close the users mappings.  It will go through what they had opened
-> + * for readwrite, and decrement those counts.  If at the end, this is the last
-> + * user, it'll close the bridge.
-> + */
-> +static int aspeed_p2a_release(struct inode *inode, struct file *file)
-> +{
-> +       int i;
-> +       u32 value;
-> +       u32 bits = 0;
-> +       bool open_regions = false;
-> +       struct aspeed_p2a_user *priv = file->private_data;
-> +
-> +       /* Lock others from changing these values until everything is updated
-> +        * in one pass.
-> +        */
-> +       mutex_lock(&priv->parent->tracking);
-> +
-> +       priv->parent->readers -= priv->read;
-> +
-> +       for (i = 0; i < P2A_REGION_COUNT; i++) {
-> +               priv->parent->readerwriters[i] -= priv->readwrite[i];
-> +
-> +               if (priv->parent->readerwriters[i] > 0)
-> +                       open_regions = true;
-> +               else
-> +                       bits |= priv->parent->config->regions[i].bit;
-> +       }
-> +
-> +       /* Setting a bit to 1 disables the region, so let's just OR with the
-> +        * above to disable any.
-> +        */
-> +
-> +       /* Note, if another user is trying to ioctl, they can't grab tracking,
-> +        * and therefore can't grab either register mutex.
-> +        * If another user is trying to close, they can't grab tracking either.
-> +        */
-> +       regmap_update_bits(priv->parent->regmap, SCU2C, bits, bits);
-> +
-> +       /* If parent->readers is zero and open windows is 0, disable the
-> +        * bridge.
-> +        */
-> +       if (!open_regions && priv->parent->readers == 0)
-> +               aspeed_p2a_disable_bridge(priv->parent);
-> +
-> +       mutex_unlock(&priv->parent->tracking);
-> +
-> +       kfree(priv);
-> +
-> +       return 0;
-> +}
-> +
-> +static const struct file_operations aspeed_p2a_ctrl_fops = {
-> +       .owner = THIS_MODULE,
-> +       .mmap = aspeed_p2a_mmap,
-> +       .unlocked_ioctl = aspeed_p2a_ioctl,
-> +       .open = aspeed_p2a_open,
-> +       .release = aspeed_p2a_release,
-> +};
-> +
-> +/* The regions are controlled by SCU2C */
-> +static void aspeed_p2a_disable_all(struct aspeed_p2a_ctrl *p2a_ctrl)
-> +{
-> +       int i;
-> +       u32 value = 0;
-> +
-> +       for (i = 0; i < P2A_REGION_COUNT; i++)
-> +               value |= p2a_ctrl->config->regions[i].bit;
-> +
-> +       regmap_update_bits(p2a_ctrl->regmap, SCU2C, value, value);
-> +
-> +       /* Disable the bridge. */
-> +       aspeed_p2a_disable_bridge(p2a_ctrl);
-> +}
-> +
-> +static int aspeed_p2a_ctrl_probe(struct platform_device *pdev)
-> +{
-> +       struct aspeed_p2a_ctrl *misc_ctrl;
-> +       struct device *dev;
-> +       struct resource *res, resm;
-> +       struct device_node *node;
-> +       int rc = 0;
-> +
-> +       dev = &pdev->dev;
-> +
-> +       misc_ctrl = devm_kzalloc(dev, sizeof(*misc_ctrl), GFP_KERNEL);
-> +       if (!misc_ctrl)
-> +               return -ENOMEM;
-> +
-> +       mutex_init(&misc_ctrl->tracking);
-> +
-> +       /* optional. */
-> +       node = of_parse_phandle(dev->of_node, "memory-region", 0);
-> +       if (node) {
-> +               rc = of_address_to_resource(node, 0, &resm);
-> +               of_node_put(node);
-> +               if (rc) {
-> +                       dev_err(dev, "Couldn't address to resource for reserved memory\n");
-> +                       return -ENODEV;
-> +               }
-> +
-> +               misc_ctrl->mem_size = resource_size(&resm);
-> +               misc_ctrl->mem_base = resm.start;
-> +       }
-> +
-> +       misc_ctrl->regmap = syscon_node_to_regmap(pdev->dev.parent->of_node);
-> +       if (IS_ERR(misc_ctrl->regmap)) {
-> +               dev_err(dev, "Couldn't get regmap\n");
-> +               return -ENODEV;
-> +       }
-> +
-> +       misc_ctrl->config = of_device_get_match_data(dev);
-> +
-> +       dev_set_drvdata(&pdev->dev, misc_ctrl);
-> +
-> +       aspeed_p2a_disable_all(misc_ctrl);
-> +
-> +       misc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
-> +       misc_ctrl->miscdev.name = DEVICE_NAME;
-> +       misc_ctrl->miscdev.fops = &aspeed_p2a_ctrl_fops;
-> +       misc_ctrl->miscdev.parent = dev;
-> +
-> +       rc = misc_register(&misc_ctrl->miscdev);
-> +       if (rc)
-> +               dev_err(dev, "Unable to register device\n");
-> +
-> +       return rc;
-> +}
-> +
-> +static int aspeed_p2a_ctrl_remove(struct platform_device *pdev)
-> +{
-> +       struct aspeed_p2a_ctrl *p2a_ctrl = dev_get_drvdata(&pdev->dev);
-> +
-> +       misc_deregister(&p2a_ctrl->miscdev);
-> +
-> +       return 0;
-> +}
-> +
-> +#define SCU2C_DRAM     BIT(25)
-> +#define SCU2C_SPI      BIT(24)
-> +#define SCU2C_SOC      BIT(23)
-> +#define SCU2C_FLASH    BIT(22)
-> +
-> +static const struct aspeed_p2a_model_data ast2400_model_data = {
-> +       .regions = {
-> +               {0x00000000, 0x17FFFFFF, SCU2C_FLASH},
-> +               {0x18000000, 0x1FFFFFFF, SCU2C_SOC},
-> +               {0x20000000, 0x2FFFFFFF, SCU2C_FLASH},
-> +               {0x30000000, 0x3FFFFFFF, SCU2C_SPI},
-> +               {0x40000000, 0x5FFFFFFF, SCU2C_DRAM},
-> +               {0x60000000, 0xFFFFFFFF, SCU2C_SOC},
-> +       }
-> +};
-> +
-> +static const struct aspeed_p2a_model_data ast2500_model_data = {
-> +       .regions = {
-> +               {0x00000000, 0x0FFFFFFF, SCU2C_FLASH},
-> +               {0x10000000, 0x1FFFFFFF, SCU2C_SOC},
-> +               {0x20000000, 0x3FFFFFFF, SCU2C_FLASH},
-> +               {0x40000000, 0x5FFFFFFF, SCU2C_SOC},
-> +               {0x60000000, 0x7FFFFFFF, SCU2C_SPI},
-> +               {0x80000000, 0xFFFFFFFF, SCU2C_DRAM},
-> +       }
-> +};
-> +
-> +static const struct of_device_id aspeed_p2a_ctrl_match[] = {
-> +       { .compatible = "aspeed,ast2400-p2a-ctrl",
-> +         .data = &ast2400_model_data },
-> +       { .compatible = "aspeed,ast2500-p2a-ctrl",
-> +         .data = &ast2500_model_data },
-> +       { },
-> +};
-> +
-> +static struct platform_driver aspeed_p2a_ctrl_driver = {
-> +       .driver = {
-> +               .name           = DEVICE_NAME,
-> +               .of_match_table = aspeed_p2a_ctrl_match,
-> +       },
-> +       .probe = aspeed_p2a_ctrl_probe,
-> +       .remove = aspeed_p2a_ctrl_remove,
-> +};
-> +
-> +module_platform_driver(aspeed_p2a_ctrl_driver);
-> +
-> +MODULE_DEVICE_TABLE(of, aspeed_p2a_ctrl_match);
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Patrick Venture <venture@google.com>");
-> +MODULE_DESCRIPTION("Control for aspeed 2400/2500 P2A VGA HOST to BMC mappings");
-> diff --git a/include/uapi/linux/aspeed-p2a-ctrl.h b/include/uapi/linux/aspeed-p2a-ctrl.h
-> new file mode 100644
-> index 000000000000..033355552a6e
-> --- /dev/null
-> +++ b/include/uapi/linux/aspeed-p2a-ctrl.h
-> @@ -0,0 +1,62 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note */
-> +/*
-> + * Copyright 2019 Google Inc
-> + *
-> + * This program is free software; you can redistribute it and/or
-> + * modify it under the terms of the GNU General Public License
-> + * as published by the Free Software Foundation; either version
-> + * 2 of the License, or (at your option) any later version.
-> + *
-> + * Provides a simple driver to control the ASPEED P2A interface which allows
-> + * the host to read and write to various regions of the BMC's memory.
-> + */
-> +
-> +#ifndef _UAPI_LINUX_ASPEED_P2A_CTRL_H
-> +#define _UAPI_LINUX_ASPEED_P2A_CTRL_H
-> +
-> +#include <linux/ioctl.h>
-> +#include <linux/types.h>
-> +
-> +#define ASPEED_P2A_CTRL_READ_ONLY 0
-> +#define ASPEED_P2A_CTRL_READWRITE 1
-> +
-> +/*
-> + * This driver provides a mechanism for enabling or disabling the read-write
-> + * property of specific windows into the ASPEED BMC's memory.
-> + *
-> + * A user can map a region of the BMC's memory as read-only or read-write, with
-> + * the caveat that once any region is mapped, all regions are unlocked for
-> + * reading.
-> + */
-> +
-> +/*
-> + * Unlock a region of BMC physical memory for access from the host.
-> + *
-> + * Also used to read back the optional memory-region configuration for the
-> + * driver.
-> + */
-> +struct aspeed_p2a_ctrl_mapping {
-> +       __u64 addr;
-> +       __u32 length;
-> +       __u32 flags;
-> +};
-> +
-> +#define __ASPEED_P2A_CTRL_IOCTL_MAGIC 0xb3
-> +
-> +/*
-> + * This IOCTL is meant to configure a region or regions of memory given a
-> + * starting address and length to be readable by the host, or
-> + * readable-writeable.
-> + */
-> +#define ASPEED_P2A_CTRL_IOCTL_SET_WINDOW _IOW(__ASPEED_P2A_CTRL_IOCTL_MAGIC, \
-> +               0x00, struct aspeed_p2a_ctrl_mapping)
-> +
-> +/*
-> + * This IOCTL is meant to read back to the user the base address and length of
-> + * the memory-region specified to the driver for use with mmap.
-> + */
-> +#define ASPEED_P2A_CTRL_IOCTL_GET_MEMORY_CONFIG \
-> +       _IOWR(__ASPEED_P2A_CTRL_IOCTL_MAGIC, \
-> +               0x01, struct aspeed_p2a_ctrl_mapping)
-> +
-> +#endif /* _UAPI_LINUX_ASPEED_P2A_CTRL_H */
-> --
-> 2.21.0.593.g511ec345e18-goog
 
-A couple build issues snuck in, will be applying fix upstream and here.
->
+
+On 4/25/19 10:42 AM, Stephen Boylan wrote:
+> Here's my fans.yaml, which doesn't contain any reference to a fan2
+> 
+> fans:
+>    - inventory: /system/chassis/motherboard/fan0
+>      cooling_zone: 0
+>      sensors:
+>        - fan0
+>      target_interface: xyz.openbmc_project.Control.FanPwm
+>    - inventory: /system/chassis/motherboard/fan1
+>      cooling_zone: 0
+>      sensors:
+>        - fan1
+>      target_interface: xyz.openbmc_project.Control.FanPwm
+> 
+> I've pushed my changes into the following repo as requested
+> https://github.com/JesusPhish/openbmc/tree/master/meta-evb/meta-evb-aspeed/meta-evb-ast2500/recipes-phosphor/fans?fbclid=IwAR3VgrLDBqzncNMhfuLZMAnZS4xopyfxTLfIC3IJHYxLKKxX3eqAL4x0oCE
+
+I pulled down your repo, built phosphor-fan, and none of the generated 
+code has a reference to fan2 other than the example yamls. Could you 
+check that the generated code for fan control does not contain a 
+reference to fan2? Its located within your bitbake build directory under 
+`tmp/work/armv6-openbmc-linux-gnueabi/phosphor-fan/1.0+gitAUTOINC+71779ab4b3-r1/git/control/`. 
+The "fan_zone_defs.cpp" contains what is generated from your configs.
+
+If this doesnt contain any reference to fan2, then it would seem the 
+built phosphor-fan-control application on your BMC was built with a 
+reference to fan2. Maybe do a `cleanall` on your image, rebuild, check 
+the generated code, and reinstall on your BMC?
+> 
+> -----Original Message-----
+> From: Matthew Barth <msbarth@linux.ibm.com>
+> Sent: 25 April 2019 15:49
+> To: Stephen Boylan <sboylan@ircona.com>; Patrick Venture <venture@google.com>
+> Cc: openbmc@lists.ozlabs.org
+> Subject: Re: Fan control service issues - service will not start "Uncaught DBus service lookup failure exception"
+> 
+> 
+> 
+> On 4/25/19 4:56 AM, Stephen Boylan wrote:
+>> After looking at my configuration file for
+>> /sensors/phosphor-hwmon/obmc/hwmon/ahb/apb/ I noticed I had in an
+>> error to try fix an issue I set PWM_TARGET_fan1 = "0". Since I changed
+>> this back to what is below, now I get the following error when trying
+>> to start fan control services, similar to the original one but for a
+>> different fan.
+>>
+>> {
+>>
+>>           "__CURSOR" :
+>> "s=fdd5653de8ca4f298bf0d04f018a68d7;i=219;b=445f19f9668b4129b216ec827e
+>> d31ddb;m=ad54afd;t=58757bd23b204;x=757e520ccf3b4259",
+>>
+>>           "__REALTIME_TIMESTAMP" : "1556185788690948",
+>>
+>>           "__MONOTONIC_TIMESTAMP" : "181750525",
+>>
+>>           "_BOOT_ID" : "445f19f9668b4129b216ec827ed31ddb",
+>>
+>>           "_UID" : "0",
+>>
+>>           "_GID" : "0",
+>>
+>>           "_MACHINE_ID" : "a361a071fa454d939ee5c5a7324cf2de",
+>>
+>>           "_HOSTNAME" : "evb-ast2500",
+>>
+>>           "_TRANSPORT" : "journal",
+>>
+>>           "_CAP_EFFECTIVE" : "3fffffffff",
+>>
+>>           "CODE_FILE" :
+>> "/home/ircadmin/OpenBMC/openbmc/build/tmp/work/armv6-openbmc-linux-gnu
+>> eabi/phosphor-fan/1.0+gitAUTOINC+4b258ac8b6-r1/recipe-sysroot/usr
+>>
+>> /include/phosphor-logging/log.hpp",
+>>
+>>           "CODE_LINE" : "105",
+>>
+>>           "CODE_FUNC" : "helper_log",
+>>
+>>           "PRIORITY" : "3",
+>>
+>>           "MESSAGE" : "Uncaught DBus service lookup failure exception",
+>>
+>>           "TRANSACTION_ID" : "2273921040",
+>>
+>>           "PATH" : "/xyz/openbmc_project/sensors/fan_tach/fan2",
+>>
+>>           "INTERFACE" : "xyz.openbmc_project.Control.FanPwm",
+>>
+>>           "SYSLOG_IDENTIFIER" : "phosphor-fan-control",
+>>
+>>           "_PID" : "1198",
+>>
+>>           "_COMM" : "phosphor-fan-co",
+>>
+>>           "_EXE" : "/usr/sbin/phosphor-fan-control",
+>>
+>>           "_CMDLINE" : "phosphor-fan-control --control",
+>>
+>>           "_SYSTEMD_CGROUP" :
+>> "/system.slice/system-phosphor\\x2dfan\\x2dcontrol.slice/phosphor-fan-
+>> control@0.service",
+>>
+>>           "_SYSTEMD_UNIT" : "phosphor-fan-control@0.service",
+>>
+>>           "_SYSTEMD_SLICE" :
+>> "system-phosphor\\x2dfan\\x2dcontrol.slice",
+>>
+>>           "_SYSTEMD_INVOCATION_ID" :
+>> "140d38d6360847c389c67d0bfa162589",
+>>
+>>           "_SOURCE_REALTIME_TIMESTAMP" : "1556185788690865"
+>>
+>> }
+>>
+>> What I don't understand here is why it's trying to access fan2 at all?
+>> I know that path does not exist and as far as I understand it I
+>> haven't tried to set it up through any configuration file.
+> 
+> What does your `fans.yaml` contain? Is there a "sensors:" entry with "fan2" defined similar to romulus? If this does not contain it, would it be possible to push your openbmc repo to github containing all of your configs?
+>>
+>>> Also, what target mode do you have configured for the hwmon instance?
+>>> The *.Control.FanPWM interface is created for the fan objects by the
+>>> hwmon instance, when `TARGET_MODE = "PWM"` in the config.
+>>
+>> Here is my configuration file for the fans, it's primarily based on
+>> the meta-romulus .conf file
+>>
+>>     1 LABEL_fan1 = "fan0"
+>>
+>>     2 LABEL_fan2 = "fan1"
+>>
+>>     3
+>>
+>>     4 PWM_TARGET_fan1 = "1"
+>>
+>>     5 PWM_TARGET_fan2 = "2"
+>>
+>>     6
+>>
+>>     7 WARNLO_fan1 = 1500
+>>
+>>     8 WARNHI_fan1 = 5000
+>>
+>>     9 CRITLO_fan1 = 1000
+>>
+>>    10 CRITHI_fan1 = 5500
+>>
+>>    11
+>>
+>>    12 WARNLO_fan2 = 1500
+>>
+>>    13 WARNHI_fan2 = 5000
+>>
+>>    14 CRITLO_fan2 = 1000
+>>
+>>    15 CRITHI_fan2 = 5500
+>>
+>> Here is the pwm_tacho section of my dts file
+>>
+>> 153 &pwm_tacho {
+>>
+>> 154         status = "okay";
+>>
+>> 155         pinctrl-names = "default";
+>>
+>> 156         pinctrl-0 = <&pinctrl_pwm0_default
+>>
+>> 157         &pinctrl_pwm1_default>;
+>>
+>> 158
+>>
+>> 159         fan@0 {
+>>
+>> 160                 reg = <0x00>;
+>>
+>> 161                 aspeed,fan-tach-ch = /bits/ 8 <0x00>;
+>>
+>> 162         };
+>>
+>> 163
+>>
+>> 164         fan@1 {
+>>
+>> 165                 reg = <0x01>;
+>>
+>> 166                 aspeed,fan-tach-ch = /bits/ 8 <0x01>;
+>>
+>> 167         };
+>>
+>> 168 };
+>>
+>>> It looks like they don't have that PWM interface.  You can check if
+>>> the pwm files exist under /sys/class/hwmon/hwmon*/  for the hwmon*
+>>> that has your fans.
+>>
+>> Here's the contents of hwmon0. I know I can manually echo values into
+>> pwm1 and pwm2 and I can see the effect on the fans as they spin.
+>>
+>> root@evb-ast2500:/sys/class/hwmon/hwmon0# ls
+>>
+>> device      fan1_input  fan2_input  name        of_node     pwm1
+>>    pwm2        subsystem   uevent
+>>
+>> My understanding is that through the DTS file I've set up fan0 and fan1.
+>> These are represented in sys/class/hwmon/hwmon0 as fan1_input and
+>> fan2_input. Though the conf file set up in
+>> /sensors/phosphor-hwmon/obmc/hwmon/ahb/apb/ I've assigned a "pretty
+>> name" of fan0 and fan1 to
+>>
+>> LABEL_fan1 and LABEL_fan2. Those "pretty name" values are used
+>> throughout the various configuration files for monitor/presence and control.
+>>
+>> ----------------------------------------------------------------------
+>> --
+>>
+>> *From:*Matthew Barth <msbarth@linux.ibm.com>
+>> *Sent:* 24 April 2019 18:08
+>> *To:* Patrick Venture; Stephen Boylan
+>> *Cc:* openbmc@lists.ozlabs.org
+>> *Subject:* Re: Fan control service issues - service will not start
+>> "Uncaught DBus service lookup failure exception"
+>>
+>>
+>>
+>> On 4/24/19 11:38 AM, Patrick Venture wrote:
+>>   > On Wed, Apr 24, 2019 at 9:25 AM Stephen Boylan <sboylan@ircona.com>
+>> wrote:
+>>   >>
+>>   >> Hello all,
+>>   >>
+>>   >> I've run into an issue with my fan control. I have a simple two
+>> fan system which is failing to start phosphor-fan-control@.service  >>
+>>>>   >>  >> This is the status  >>  >>
+>> root@evb-ast2500:/lib/systemd/system# systemctl status
+>> phosphor-fan-control@0.service --no-page  >>  >> ?
+>> phosphor-fan-control@0.service - Phosphor Fan Control Daemon  >>  >>
+>> Loaded: loaded (/lib/systemd/system/phosphor-fan-control@.service;
+>> static; vendor
+>> preset: enabled)
+>>   >>
+>>   >>     Active: failed (Result: exit-code) since Wed 2019-04-24
+>> 16:22:36 UTC; 16s ago  >>  >>    Process: 1218 ExecStart=/usr/bin/env
+>> phosphor-fan-control --control (code=exited, status=1/FAILURE)  >>  >>
+>> Main PID: 1218 (code=exited, status=1/FAILURE)  >>  >>  >>  >> Apr 24
+>> 16:22:36 evb-ast2500 systemd[1]:
+>> phosphor-fan-control@0.service: Service RestartSec=1s expired,
+>> scheduling restart.
+>>   >>
+>>   >> Apr 24 16:22:36 evb-ast2500 systemd[1]:
+>> phosphor-fan-control@0.service: Scheduled restart job, restart counter
+>> is at 2.
+>>   >>
+>>   >> Apr 24 16:22:36 evb-ast2500 systemd[1]: Stopped Phosphor Fan
+>> Control Daemon.
+>>   >>
+>>   >> Apr 24 16:22:36 evb-ast2500 systemd[1]:
+>> phosphor-fan-control@0.service: Start request repeated too quickly.
+>>   >>
+>>   >> Apr 24 16:22:36 evb-ast2500 systemd[1]:
+>> phosphor-fan-control@0.service: Failed with result 'exit-code'.
+>>   >>
+>>   >> Apr 24 16:22:36 evb-ast2500 systemd[1]: Failed to start Phosphor
+>> Fan Control Daemon.
+>>   >>
+>>   >>
+>>   >>
+>>   >> And I noticed this in the journalctl  >>  >> {  >>  >>
+>> "__CURSOR" :
+>> "s=efc0b033c5f243798b56446bcaffc0f5;i=23d;b=2de3ccbcea7940f5b51652e55e
+>> 900cd2;m=2f22198c;t=5874871dec1c2;x=f1ba902c2ec1feae",
+>>   >>
+>>   >>          "__REALTIME_TIMESTAMP" : "1556120101372354",  >>  >>
+>> "__MONOTONIC_TIMESTAMP" : "790763916",  >>  >>          "_BOOT_ID" :
+>> "2de3ccbcea7940f5b51652e55e900cd2",
+>>   >>
+>>   >>          "_UID" : "0",
+>>   >>
+>>   >>          "_GID" : "0",
+>>   >>
+>>   >>          "_MACHINE_ID" : "4c5bf4049b5e4751b70a17eaeeb55a49",
+>>   >>
+>>   >>          "_HOSTNAME" : "evb-ast2500",  >>  >>
+>> "_TRANSPORT" : "journal",  >>  >>          "_CAP_EFFECTIVE" :
+>> "3fffffffff",  >>  >>          "CODE_FILE" :
+>> "/home/ircadmin/OpenBMC/openbmc/build/tmp/work/armv6-openbmc-linux-gnu
+>> eabi/phosphor-fan/1.0+gitAUTOINC+4b258ac8b6-r1/recipe-sysroot/usr
+>>   >>
+>>   >> /include/phosphor-logging/log.hpp",
+>>   >>
+>>   >>          "CODE_LINE" : "105",
+>>   >>
+>>   >>          "CODE_FUNC" : "helper_log",  >>  >>          "PRIORITY" :
+>> "3",  >>  >>          "MESSAGE" : "Uncaught DBus service lookup
+>> failure exception",  >>  >>          "TRANSACTION_ID" : "114915536",
+>>>>   >>          "PATH" : "/xyz/openbmc_project/sensors/fan_tach/fan0",
+>>   >>
+>>   >>          "INTERFACE" : "xyz.openbmc_project.Control.FanPwm",
+>>   >>
+>>   >>          "SYSLOG_IDENTIFIER" : "phosphor-fan-control",  >>  >>
+>> "_PID" : "1273",  >>  >>          "_COMM" : "phosphor-fan-co",  >>  >>
+>> "_EXE" : "/usr/sbin/phosphor-fan-control",  >>  >>          "_CMDLINE"
+>> : "phosphor-fan-control --control",  >>  >>          "_SYSTEMD_CGROUP"
+>> :
+>> "/system.slice/system-phosphor\\x2dfan\\x2dcontrol.slice/phosphor-fan-
+>> control@0.service",
+>>   >>
+>>   >>          "_SYSTEMD_UNIT" : "phosphor-fan-control@0.service",  >>
+>>>>            "_SYSTEMD_SLICE" :
+>> "system-phosphor\\x2dfan\\x2dcontrol.slice",
+>>   >>
+>>   >>          "_SYSTEMD_INVOCATION_ID" :
+>> "21572a9f879c44cab2b9b6b4c5e9a504",
+>>   >>
+>>   >>          "_SOURCE_REALTIME_TIMESTAMP" : "1556120101372269"
+>>   >>
+>>   >> }
+>>   >>
+>>   >>
+>>   >>
+>>   >> I know the PATH exists, though I'm not entirely sure about the
+>> INTERFACE. I've checked systemctl to see if I can find it and I don't
+>> see it. Should I be checking elsewhere for it?
+>>   >>
+>>   >>
+>>   >>
+>>   >>
+>>   >>
+>>   >> I can see my fan_tach sensors and my chassis entries as such  >>
+>>>> /xyz/openbmc_project/sensors/fan_tach/enumerate
+>>   >>
+>>   >> {
+>>   >>
+>>   >>      "data": {
+>>   >>
+>>   >>          "/xyz/openbmc_project/sensors/fan_tach/fan0": {  >>  >>
+>> "CriticalAlarmHigh": false,  >>  >>              "CriticalAlarmLow":
+>> false,  >>  >>              "CriticalHigh": 5500,  >>  >>
+>> "CriticalLow": 1000,  >>  >>              "MaxValue": 0,  >>  >>
+>> "MinValue": 0,  >>  >>              "Scale": 0,  >>  >>
+>> "Unit": "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
+>>   >>
+>>   >>              "Value": 4292,
+>>   >>
+>>   >>              "WarningAlarmHigh": false,  >>  >>
+>> "WarningAlarmLow": false,  >>  >>              "WarningHigh": 5000,
+>>>>   >>              "WarningLow": 1500  >>  >>          },  >>  >>
+>> "/xyz/openbmc_project/sensors/fan_tach/fan1": {  >>  >>
+>> "CriticalAlarmHigh": false,  >>  >>              "CriticalAlarmLow":
+>> false,  >>  >>              "CriticalHigh": 5500,  >>  >>
+>> "CriticalLow": 1000,  >>  >>              "MaxValue": 0,  >>  >>
+>> "MinValue": 0,  >>  >>              "Scale": 0,  >>  >>
+>> "Target": 255,  >>  >>              "Unit":
+>> "xyz.openbmc_project.Sensor.Value.Unit.RPMS",
+>>   >>
+>>   >>              "Value": 3551,
+>>   >>
+>>   >>              "WarningAlarmHigh": false,  >>  >>
+>> "WarningAlarmLow": false,  >>  >>              "WarningHigh": 5000,
+>>>>   >>              "WarningLow": 1500  >>  >>          }  >>  >>
+>> },  >>  >>      "message": "200 OK",  >>  >>      "status": "ok"
+>>   >>
+>>   >> }
+>>   >>
+>>   >>
+>>   >>
+>>   >>
+>> /xyz/openbmc_project/inventory/system/chassis/motherboard/enumerate
+>>   >>
+>>   >> {
+>>   >>
+>>   >>      "data": {
+>>   >>
+>>   >>
+>> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0": {
+>>>>   >>              "Functional": true,  >>  >>
+>> "Present": true,  >>  >>             "PrettyName": "fan0"
+>>   >>
+>>   >>          },
+>>   >>
+>>   >>
+>> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan0/fan0":
+>> {  >>  >>              "Functional": true  >>  >>          },  >>
+>>   >>
+>> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1": {
+>>>>   >>              "Functional": true,  >>  >>
+>> "Present": true,  >>  >>              "PrettyName": "fan1"
+>>   >>
+>>   >>          },
+>>   >>
+>>   >>
+>> "/xyz/openbmc_project/inventory/system/chassis/motherboard/fan1/fan1":
+>> {  >>  >>              "Functional": true  >>  >>          }  >>  >>
+>> },  >>  >>      "message": "200 OK",  >>  >>      "status": "ok"
+>>   >>
+>>   >> }
+>>   >
+>>   > It looks like they don't have that PWM interface.  You can check if
+>>> the pwm files exist under /sys/class/hwmon/hwmon*/  for the hwmon*
+>>> that has your fans.
+>>
+>> Also, what target mode do you have configured for the hwmon instance?
+>> The *.Control.FanPWM interface is created for the fan objects by the
+>> hwmon instance, when `TARGET_MODE = "PWM"` in the config.
+>>
+>>   >
+>>   >>
+>>   >>
+>>   >
+>>
+> 
