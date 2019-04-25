@@ -1,72 +1,62 @@
-Return-Path: <wvervoorn@eltan.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=eltan.com
- (client-ip=213.75.39.6; helo=cpsmtpb-ews03.kpnxchange.com;
- envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::52e; helo=mail-pg1-x52e.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=eltan.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="pA9T55Ie"; 
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="RQ1PVQBY"; 
  dkim-atps=neutral
-Received: from cpsmtpb-ews03.kpnxchange.com (cpsmtpb-ews03.kpnxchange.com
- [213.75.39.6])
- by lists.ozlabs.org (Postfix) with ESMTP id 44qgmY47cZzDqW2
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 01:18:02 +1000 (AEST)
-Received: from cpsps-ews03.kpnxchange.com ([10.94.84.170]) by
- cpsmtpb-ews03.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
- Thu, 25 Apr 2019 17:17:56 +0200
-X-Brand: 7abm2Q==
-X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
- te;BM:NotScanned;FinalVerdict:Clean
-X-CMAE-Analysis: v=2.3 cv=FsrUAFjq c=1 sm=1 tr=0 cx=a_idp_e
- a=WB5lYbMG1jvHJ1f8o08CVQ==:117 a=WB5lYbMG1jvHJ1f8o08CVQ==:17
- a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10
- a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10 a=1XWaLZrsAAAA:8 a=X5F7dNyOAAAA:8
- a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=yKsw5dxF_gn_QvkelAYA:9
- a=QEXdDO2ut3YA:10 a=pS7LufLo7ZPxIL5li5Lt:22 a=IC2XNlieTeVoXbcui8wp:22
-X-CM-AcctID: kpn@feedback.cloudmark.com
-Received: from smtp.kpnmail.nl ([195.121.84.14]) by cpsps-ews03.kpnxchange.com
- over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
- Thu, 25 Apr 2019 17:17:56 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kpnmail.nl; s=kpnmail01;
- h=mime-version:content-type:message-id:date:subject:to:from;
- bh=j4dt8RFq79r/mrtgNIEshdZXrqQmpXobtMhqpkC4Tow=;
- b=pA9T55IePwSnLEjCns3wGcxPihkd6FADe5Vf+8ucDKPcp4vp+l6D5hdJINHaX5TJwySmTQNZQauGL
- U9q4XEHWiTomN9cWVquWND6UtO/3bkYN1L4EPoIt4ji/jSp2YMJg7XhbhyuzP0U0fo0QDtQcm+ifT7
- 26OLpsVXdb2j0pV0=
-Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
- by smtp.kpnmail.nl (Halon) with ESMTPS
- id 4da9070d-676d-11e9-aeb7-00505699d6e5;
- Thu, 25 Apr 2019 17:17:56 +0200 (CEST)
-Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
- (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Thu, 25 Apr
- 2019 17:17:16 +0200
-Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
- Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
- 15.00.0847.040; Thu, 25 Apr 2019 17:16:57 +0200
-From: Wim Vervoorn <wvervoorn@eltan.com>
-To: Patrick Venture <venture@google.com>, "Tanous, Ed" <ed.tanous@intel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: bmcweb image upload
-Thread-Topic: bmcweb image upload
-Thread-Index: AdT7RR7Sx7OXAFpqTk6JS5P32JibBAAHY92AAAWw7cA=
-Date: Thu, 25 Apr 2019 15:16:56 +0000
-Message-ID: <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
+Received: from mail-pg1-x52e.google.com (mail-pg1-x52e.google.com
+ [IPv6:2607:f8b0:4864:20::52e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qh6c5V9HzDqWc
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 01:33:44 +1000 (AEST)
+Received: by mail-pg1-x52e.google.com with SMTP id d31so28490pgl.7
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 08:33:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=piFRS6v9/FX00QrZt6mFDtCSuor42Ek6XFw78alF75A=;
+ b=RQ1PVQBYKHndUYz9NuWRPQYGW9rei7g/z6oaJXNoWdiuDBfwxqCcuWvPUKV8c18Oc7
+ BOkk7Xx8NcFTRADkb06tGzwktMCwvePes9XSyOpDiTJ+TV4LB3Svt0er7/R8LpeQ9UCB
+ 0zXbTtmZ2f0HjuQd898Pn4ZM54KPqIY3sOfyrLhTeQBXpInCzfX6yUF+BlW5KL9sxi+0
+ /xmLEphRTMahF4aUqny0IKiDzb0Wl+CQOnen7QooX+HCZULUkc+K8SC9DnTivuJc1aOe
+ bZFbjndfYEibxFhJ8J6u/nyfgzmKSSkMSfeqqQLGnR7qWa6+/q3ldo9mC37N84TLAoR3
+ pLAw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=piFRS6v9/FX00QrZt6mFDtCSuor42Ek6XFw78alF75A=;
+ b=t+jq2/o4KIeor9gty2eVHsL2MC+r+rBQSWCl9q2gt9m3MV16QVLt0swnl6fQ/smcP+
+ li9RpOqUibGVU4k82VQdRLWkVWV6Mf+NSsFxluvHlEKFakhtYxcao+7Zoxdjds6FyN7l
+ yO04H5KmZfjqFE3gE+UyVainMYJQTnANRMRG9jHgBmLzP1XCj5aiXkQbU5CrzwnPP96S
+ 7FzP7nBVtFwbr/nPXHri9graPu49yeiLV+wpI24eHqFNJSW3wCMgMfF9h/43qI50ElJz
+ xympPUIKEDY12HFN1+Ovtj4hF7M/Z/eRYv3QnVSE8WPp5FYAaauyplE3b8WiFt8c2900
+ U3XQ==
+X-Gm-Message-State: APjAAAXUPzS5AL2lHVccL8tI4QxR6RXDujr8yVvRRPYffMFk79MMC2wf
+ k1gI6FPKA2DA9LCSelMJ2nfepjGoKXJAm8pobfbNPqIoNX8=
+X-Google-Smtp-Source: APXvYqxsoQkkw4M8SDtB3KLB5ZguqEfVhRyy1uLrl5fFYas38mnkS87UCs+tbl+vRp/bAY4LmyR6Y3H/YOKtCeVcMTc=
+X-Received: by 2002:a62:415d:: with SMTP id o90mr40565194pfa.236.1556206420784; 
+ Thu, 25 Apr 2019 08:33:40 -0700 (PDT)
+MIME-Version: 1.0
 References: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
  <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
-In-Reply-To: <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
-Accept-Language: nl-NL, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [192.168.100.108]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginalArrivalTime: 25 Apr 2019 15:17:56.0991 (UTC)
- FILETIME=[0FC7A0F0:01D4FB7A]
-X-RcptDomain: lists.ozlabs.org
+ <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
+In-Reply-To: <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
+From: Patrick Venture <venture@google.com>
+Date: Thu, 25 Apr 2019 08:33:29 -0700
+Message-ID: <CAO=notyfFvATQceE4XkDOQXncB2pN65ODB_O+3ucF4QtTRTQSA@mail.gmail.com>
+Subject: Re: bmcweb image upload
+To: Wim Vervoorn <wvervoorn@eltan.com>
+Cc: "Tanous, Ed" <ed.tanous@intel.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,43 +68,99 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 15:18:08 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 15:33:46 -0000
 
-SGVsbG8gUGF0cmljaywNCg0KVGhhbmtzIGZvciB0aGUgcmVzcG9uc2UuIEkgd2lsbCB0cnkgdGhp
-cy4gU29tZSBvdGhlciB0aGluZyBJIG5vdGljZWQgaXMgdGhhdCB0aGUgaW1hZ2UgdXBkYXRlIG5v
-dyB1c2VzIGEgVEFSIGZpbGUuIEJhc2ljYWxseSBpdCB0cmFuc2ZlcnMgdGhlIFRBUiB0byB0aGUg
-c3lzdGVtLCB0aGVuIHVudGFycyB0aGUgZmlsZSBhbmQgdXNlcyBpdC4gVGhpcyBtZWFucyB0aGUg
-bWVjaGFuaXNtIHJlcXVpcmVzIHR3aWNlIHRoZSBzaXplIG9mIHRoZSBUQVIgZmlsZS4NCg0KSSBh
-bSBub3cgY29uc2lkZXJpbmcgdG8gdXNlIGFuIElTTyBmaWxlIGFuZCBtb3VudCB0aGlzIHRoaXMg
-d2lsbCByZXF1aXJlIGxlc3MgbWVtb3J5LiBXaGF0IGRvIHlvdSB0aGluayBhYm91dCB0aGlzLCBk
-byBJIG92ZXJsb29rIHNvbWV0aGluZyBvciBjYW4gdGhpcyBiZSBhIHZpYWJsZSBzb2x1dGlvbj8N
-Cg0KQmVzdCBSZWdhcmRzLA0KV2ltIFZlcnZvb3JuDQoNCg0KDQotLS0tLU9yaWdpbmFsIE1lc3Nh
-Z2UtLS0tLQ0KRnJvbTogUGF0cmljayBWZW50dXJlIFttYWlsdG86dmVudHVyZUBnb29nbGUuY29t
-XSANClNlbnQ6IFRodXJzZGF5LCBBcHJpbCAyNSwgMjAxOSA0OjMxIFBNDQpUbzogV2ltIFZlcnZv
-b3JuIDx3dmVydm9vcm5AZWx0YW4uY29tPjsgVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNv
-bT4NCkNjOiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBibWN3ZWIgaW1h
-Z2UgdXBsb2FkDQoNCk9uIFRodSwgQXByIDI1LCAyMDE5IGF0IDI6MDMgQU0gV2ltIFZlcnZvb3Ju
-IDx3dmVydm9vcm5AZWx0YW4uY29tPiB3cm90ZToNCj4NCj4gSGVsbG8sDQo+DQo+IEkgaGF2ZSBh
-biBBU1QyNDAwIE9wZW5CbWMgd2l0aCAxMjggTUIgb2YgUkFNLiBJIGZvdW5kIHRoYXQgdGhlIGZp
-cm13YXJlIHVwbG9hZCB1c2luZyBXZWJVSSAoYW5kIFJlZGZpc2gpIGRvZXNuJ3Qgd29yay4gQm1j
-d2ViIGlzIGtpbGxlZCBkdWUgdG8gYW4gb3V0IG9mIG1lbW9yeSBjb25kaXRpb24uDQo+DQo+IElm
-IGZvdW5kIG91dCB0aGlzIGlzIGR1ZSB0byB0aGUgbGFyZ2UgcmVxdWVzdCBzaXplIG9mIDMwIE1C
-LiBXaWxsIHRoZXJlIGJlIGFuIHVwZGF0ZSB0byB0aGUgdXBsb2FkIG1lY2hhbmlzbSB0byByZXNv
-bHZlIHRoaXMgbGFyZ2UgbWVtb3J5IHJlcXVpcmVtZW50Pw0KDQpJJ20gc28gZXhjaXRlZCBmb3Ig
-eW91ciBlbWFpbCEgIEZvciBhIHRpbWUsIEkgd2FzIHRoZSBvbmx5IHBlcnNvbiBtYWludGFpbmlu
-ZyBhbiBhc3QyNDAwIHdpdGggMTI4TUIgb2YgUkFNLg0KDQpIZXJlIGFyZSBzb21lIHRoaW5ncyB0
-byBkbyBzdHJhaWdodCBhd2F5Og0KbG9vayBhdCB5b3VyIGJtYyBpbWFnZSBhbmQgcmVtb3ZlIGFu
-eSBpbWFnZV9mZWF0dXJlcyB5b3UncmUgbm90IHVzaW5nDQotLSBpZiBwb3NzaWJsZS4NCg0KVGhh
-dCdsbCBoZWxwIHdpdGggdGhlIHByb2JsZW0gaW4gZ2VuZXJhbC4NCg0KVG8gZG8gdXBkYXRlcyBv
-biBvdXIgZW5kLCB3ZSBoYXZlIGEgc2VydmljZSB0cmlnZ2VyZWQgYnkgYSBkaWZmZXJlbnQgdXBk
-YXRlIG1lY2hhbmlzbSB0aGF0IGNsZWFycyB0aGUgY2FjaGVzLCB0aGlzIGZyZWVzIHVwIGNyaXRp
-Y2FsIG1lbW9yeSBmb3IgdGhlIHN5c3RlbS4gIEkgZG9uJ3Qga25vdyBlbm91Z2ggYWJvdXQgdGhl
-IHJlZGZpc2ggYXBwcm9hY2gsIGJ1dCBwZXJoYXBzIGl0IGNvdWxkIGJlIHByb2dyYW1tZWQgdG8g
-Y2FsbCBhIHNpbWlsYXIgc2VydmljZSBiZWZvcmUgcmVjZWl2aW5nIHRoZSBpbWFnZSB3aGVuIHRo
-ZSByZXF1ZXN0IGlzIHJlY2VpdmVkLg0KDQpPdXIgcGFja2FnZSwgImdvb2dsZS1wcmVwYXJlLXVw
-ZGF0ZSIgaXMganVzdDoNCg0KcHJlcGFyZV91cGRhdGUuc2VydmljZToNCltVbml0XQ0KRGVzY3Jp
-cHRpb249UHVyZ2UgTWVtb3J5IENhY2hlcw0KW1NlcnZpY2VdDQpUeXBlPW9uZXNob3QNCkV4ZWNT
-dGFydD0vdXNyL3NiaW4vcHVyZ2VfY2FjaGUuc2gNCg0KcHVyZ2VfY2FjaGUuc2g6DQojIS9iaW4v
-YmFzaA0KIyBSdW4gc3luYyBjb21tYW5kLg0Kc3luYw0KIyBQdXJnZSB0aGUgdGhyZWUgY2FjaGVz
-Lg0KZWNobyAzID4gL3Byb2Mvc3lzL3ZtL2Ryb3BfY2FjaGVzDQojIERvbmUNCmV4aXQgMA0KDQo+
-DQo+IEJlc3QgcmVnYXJkcywNCj4NCj4gV2ltIFZlcnZvb3JuDQo+DQo+DQoNCg0KDQo=
+On Thu, Apr 25, 2019 at 8:17 AM Wim Vervoorn <wvervoorn@eltan.com> wrote:
+>
+> Hello Patrick,
+>
+> Thanks for the response. I will try this. Some other thing I noticed is t=
+hat the image update now uses a TAR file. Basically it transfers the TAR to=
+ the system, then untars the file and uses it. This means the mechanism req=
+uires twice the size of the TAR file.
+
+Yikes, that's absolutely true and unusable.  We only do image uploads
+over in-band mechanisms today for our platforms.  And in the future,
+that is likely going to stay the same for the ast2400s -- although
+good to know this issue.
+
+The tar is used for UBI, IIRC< and not a static image layout -- with
+the static image layout, does it still use a tarball?  We've stuck
+with static layout instead of using UBI for unrelated reasons.
+
+>
+> I am now considering to use an ISO file and mount this this will require =
+less memory. What do you think about this, do I overlook something or can t=
+his be a viable solution?
+
+We just use the actually image-bmc that's generated and a signature
+file for the updates, but the code to handle this isn't fully upstream
+yet (WIP openbmc/phosphor-ipmi-flash).
+
+>
+> Best Regards,
+> Wim Vervoorn
+>
+>
+>
+> -----Original Message-----
+> From: Patrick Venture [mailto:venture@google.com]
+> Sent: Thursday, April 25, 2019 4:31 PM
+> To: Wim Vervoorn <wvervoorn@eltan.com>; Tanous, Ed <ed.tanous@intel.com>
+> Cc: openbmc@lists.ozlabs.org
+> Subject: Re: bmcweb image upload
+>
+> On Thu, Apr 25, 2019 at 2:03 AM Wim Vervoorn <wvervoorn@eltan.com> wrote:
+> >
+> > Hello,
+> >
+> > I have an AST2400 OpenBmc with 128 MB of RAM. I found that the firmware=
+ upload using WebUI (and Redfish) doesn't work. Bmcweb is killed due to an =
+out of memory condition.
+> >
+> > If found out this is due to the large request size of 30 MB. Will there=
+ be an update to the upload mechanism to resolve this large memory requirem=
+ent?
+>
+> I'm so excited for your email!  For a time, I was the only person maintai=
+ning an ast2400 with 128MB of RAM.
+>
+> Here are some things to do straight away:
+> look at your bmc image and remove any image_features you're not using
+> -- if possible.
+>
+> That'll help with the problem in general.
+>
+> To do updates on our end, we have a service triggered by a different upda=
+te mechanism that clears the caches, this frees up critical memory for the =
+system.  I don't know enough about the redfish approach, but perhaps it cou=
+ld be programmed to call a similar service before receiving the image when =
+the request is received.
+>
+> Our package, "google-prepare-update" is just:
+>
+> prepare_update.service:
+> [Unit]
+> Description=3DPurge Memory Caches
+> [Service]
+> Type=3Doneshot
+> ExecStart=3D/usr/sbin/purge_cache.sh
+>
+> purge_cache.sh:
+> #!/bin/bash
+> # Run sync command.
+> sync
+> # Purge the three caches.
+> echo 3 > /proc/sys/vm/drop_caches
+> # Done
+> exit 0
+>
+> >
+> > Best regards,
+> >
+> > Wim Vervoorn
+> >
+> >
+>
+>
+>
