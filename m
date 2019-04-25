@@ -1,58 +1,44 @@
-Return-Path: <venture@google.com>
+Return-Path: <prvs=0117f0c40=Will.Liang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::435; helo=mail-pf1-x435.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=0117f0c40=will.liang@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Z60KlBQO"; 
- dkim-atps=neutral
-Received: from mail-pf1-x435.google.com (mail-pf1-x435.google.com
- [IPv6:2607:f8b0:4864:20::435])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qD8B375JzDqWB
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 07:33:28 +1000 (AEST)
-Received: by mail-pf1-x435.google.com with SMTP id 10so9985819pfo.5
- for <openbmc@lists.ozlabs.org>; Wed, 24 Apr 2019 14:33:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=xveuq4WBgmIViBSDxa3mbTDDwZjWpxuQwPmcK+Vpl1g=;
- b=Z60KlBQOhGjc8WgTeeE9IscWaCwxI3E7LvO38UYd668qZH5JZ5kcPJMQI8gdB3thdj
- OxiRNNL5CxJPw7ydWVtdE3La96OaNh16SyHHohAj1H/PJdjGB9ix4N9uS8559l8lgJv5
- TQawMTZ1RITfjq5l5C6TPH8B3xmZJvEYgDD4W9fxtzNrANL2O1d+arm1UI2b/1byD88g
- ciAHKw2TUsGonpJbAjkGBLwTqoJB2lDrSWPhDSyxIVoAYVn1d2AXyrspVMmdj+BPpKVw
- P4lTFQkFrH5Ca1ZdgPpYTbOrgn5r8Q4Bghlpb5+y+inu+lgP1R1Lzl7BlF4fY6Uf8dfS
- on7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=xveuq4WBgmIViBSDxa3mbTDDwZjWpxuQwPmcK+Vpl1g=;
- b=ZAYXhSnv1gLsRYd/h+6LGLwoUurV1gmwHdcA0EUenECA32wOW4iyNdCfh0K4TIQy/O
- rfDpqmYhghItg1YyJLKgq/DxLFbjtI7cbnOyLokKb5eyraQUc8A/Jm7F5H3ckn+EGH4s
- MTCPSeB5C4ChyXC87ZcNtuBicu6Twn9nn8zk6VDo12067ARAbR1Et8EJAO7A+zM8BsXo
- PUOv/lOfbWas82gmIuBgsbEbUOLrdOkRaOGDkjKSgBxY7u3rmBcOnBegsSsotLLmJHPz
- RpbKzAq1ABl2AEF+ROy+QMQaHPRvCF/oBCQ/WYNuzcyKF7vkJXvw9dFDIIb0LPJ0+v21
- /STQ==
-X-Gm-Message-State: APjAAAWj9EEjshHPxdqAEPpqvZYz+wJCIztsoNYO4lvRm+MIdeizkDZ6
- 49u9VT3Q2FRgcW9UPo89dNVAL4M/tPntT4NJSkFmmovNvpo=
-X-Google-Smtp-Source: APXvYqyWcxI/dgcw6vvaEysclPcqiqtGGPwmAF8TcymsIr7tH8U7ktebEnC4NSnTOn4tY4nlDwTXbzSViWEAQtiZK10=
-X-Received: by 2002:a63:5059:: with SMTP id q25mr26219035pgl.314.1556141604185; 
- Wed, 24 Apr 2019 14:33:24 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAO=notxquVk+kOqYax7RqHrXpr4T0Ws4TZs7L=5kqzzKbGDg1Q@mail.gmail.com>
- <20190424160215.aenlfpdk6v4fqs63@thinkpad.dyn.fuzziesquirrel.com>
-In-Reply-To: <20190424160215.aenlfpdk6v4fqs63@thinkpad.dyn.fuzziesquirrel.com>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 24 Apr 2019 14:33:12 -0700
-Message-ID: <CAO=notzS2O54hLZo_A+y=igNTueh8ybwuRU4amwXG-WHDpQzxw@mail.gmail.com>
-Subject: Re: tightly coupled fan-presence bump
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44qKdg5xzpzDqXP
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 11:40:50 +1000 (AEST)
+Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
+ by mx01.quantatw.com with ESMTP; 25 Apr 2019 09:40:36 +0800
+Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx08.quanta.corp
+ (10.243.91.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 25 Apr
+ 2019 09:40:34 +0800
+Received: from mailbx08.quanta.corp ([192.168.1.8]) by mailbx08.quanta.corp
+ ([192.168.1.8]) with mapi id 15.01.1713.004; Thu, 25 Apr 2019 09:40:34 +0800
+From: =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>
 To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: Repository for phosphor-ecc 
+Thread-Topic: Repository for phosphor-ecc 
+Thread-Index: AdT4p7t1cWCax25bRS2sxgB6RBd/jQCX3mvQ
+Date: Thu, 25 Apr 2019 01:40:34 +0000
+Message-ID: <baa383a5f03e417aa0bb21c86022eb9e@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24566.005
+x-tm-as-result: No--0.475300-0.000000-31
+x-tm-as-matchedid: 140026-150567-150588-701625-704425-700685-701618-702020-7
+ 11953-139705-704341-703674-700040-700107-139010-139006-710556-106660-707565
+ -701604-899168-190077-148004-148133-29106-42000-42003-63
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,28 +50,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 24 Apr 2019 21:33:31 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 01:40:56 -0000
 
-On Wed, Apr 24, 2019 at 9:01 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
->
-> On Tue, Apr 16, 2019 at 12:06:11PM -0700, Patrick Venture wrote:
-> >there's a patchset in meta-ibm that is tightly coupled with one in
-> >meta-phosphor such that neither will pass the CI real hardware test
-> >without the other:
-> >
-> >https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/19882
-> >https://gerrit.openbmc-project.xyz/c/openbmc/meta-ibm/+/19933
-> >
-> >Is there a special process to get these tested together?
-> >
-> >Patrick
->
-> Hi Patrick
->
-> This was merged this morning.  Thanks for providing the summary and
-> making it easy for me!
-
-Yay, I saw it go through. :D Thanks
-
->
-> -brad
+SGkgQnJhZCwgDQoNCk15IHByb3Bvc2FsIGhhcyBiZWVuIG1lcmdlZCBhbmQgSSBuZWVkIHlvdXIg
+aGVscCB0byBjcmVhdGUgdGhlIHJlcG9zaXRvcnkuDQooaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1w
+cm9qZWN0Lnh5ei9jL29wZW5ibWMvZG9jcy8rLzE4Njg0KQ0KDQpUaGFua3MuDQoNCkJScywNCldp
+bGwNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogV2lsbCBMaWFuZyAoseel
+w7liKQ0KPiBTZW50OiBNb25kYXksIEFwcmlsIDIyLCAyMDE5IDk6MTUgQU0NCj4gVG86IEJyYWQg
+QmlzaG9wIDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20+DQo+IENjOiBPcGVuQk1DIE1haWxs
+aXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6IFJlcG9zaXRvcnkgZm9y
+IHBob3NwaG9yLWVjYw0KPiANCj4gSGkgQnJhZCwNCj4gDQo+IENvdWxkIHlvdSBoZWxwIGNyZWF0
+ZSByZXBvc2l0b3J5IGZvciAicGhvc3Bob3ItZWNjIj8NCj4gVGhlIHByb3Bvc2FsIGhhcyBiZWVu
+IGFncmVlZCBhbmQgSSBuZWVkIGEgcmVwb3NpdG9yeSB0byBwdXNoIHRoZSBjb2RlLg0KPiANCj4g
+QlJzLA0KPiBXaWxsDQo=
