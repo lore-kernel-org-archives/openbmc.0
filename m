@@ -1,42 +1,42 @@
-Return-Path: <prvs=0117f0c40=Will.Liang@quantatw.com>
+Return-Path: <wangzqbj@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=219.87.191.90; helo=mx01.quantatw.com;
- envelope-from=prvs=0117f0c40=will.liang@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=210.51.26.145; helo=unicom145.biz-email.net;
+ envelope-from=wangzqbj@inspur.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
- by lists.ozlabs.org (Postfix) with ESMTP id 44qKdg5xzpzDqXP
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 11:40:50 +1000 (AEST)
-Received: from unknown (HELO mailbx08.quanta.corp) ([10.243.91.103])
- by mx01.quantatw.com with ESMTP; 25 Apr 2019 09:40:36 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx08.quanta.corp
- (10.243.91.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Thu, 25 Apr
- 2019 09:40:34 +0800
-Received: from mailbx08.quanta.corp ([192.168.1.8]) by mailbx08.quanta.corp
- ([192.168.1.8]) with mapi id 15.01.1713.004; Thu, 25 Apr 2019 09:40:34 +0800
-From: =?big5?B?V2lsbCBMaWFuZyAoseelw7liKQ==?= <Will.Liang@quantatw.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: Repository for phosphor-ecc 
-Thread-Topic: Repository for phosphor-ecc 
-Thread-Index: AdT4p7t1cWCax25bRS2sxgB6RBd/jQCX3mvQ
-Date: Thu, 25 Apr 2019 01:40:34 +0000
-Message-ID: <baa383a5f03e417aa0bb21c86022eb9e@quantatw.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
+ dmarc=none (p=none dis=none) header.from=inspur.com
+X-Greylist: delayed 127 seconds by postgrey-1.36 at bilbo;
+ Thu, 25 Apr 2019 11:47:39 AEST
+Received: from unicom145.biz-email.net (unicom145.biz-email.net
+ [210.51.26.145])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qKnS03k8zDqXR
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 11:47:39 +1000 (AEST)
+Received: from ([218.57.135.44])
+ by unicom145.biz-email.net (Antispam) with ASMTP (SSL) id QFS08416;
+ Thu, 25 Apr 2019 09:45:16 +0800
+Received: from jtjnmailbox08.home.langchao.com ([fe80::285c:2908:729d:66eb])
+ by jtjncas02.home.langchao.com ([::1]) with mapi id 14.03.0415.000; Thu, 25
+ Apr 2019 09:45:15 +0800
+From: =?gb2312?B?Sm9obiB3YW5nKM311r7Hvyk=?= <wangzqbj@inspur.com>
+To: Andrew Geissler <geissonator@gmail.com>, Brad Bishop
+ <bradleyb@fuzziesquirrel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Request to be added to the OpenBmc CI group
+Thread-Topic: Request to be added to the OpenBmc CI group
+Thread-Index: AQHU+s8ifEyaPry2TEO7onOZxz4mIqZLLayAgADsXjU=
+Date: Thu, 25 Apr 2019 01:45:15 +0000
+Message-ID: <9DB908537676EC43880B57502661748CE7B4BE99@jtjnmailbox08.home.langchao.com>
+References: <e2d95b63b787a620c870af209b7f4763@sslemail.net>,
+ <CALLMt=ryYesr29nQcBMfiM6JdUYoTMmw_qBA_2Mvx-bH5AaSmQ@mail.gmail.com>
+In-Reply-To: <CALLMt=ryYesr29nQcBMfiM6JdUYoTMmw_qBA_2Mvx-bH5AaSmQ@mail.gmail.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24566.005
-x-tm-as-result: No--0.475300-0.000000-31
-x-tm-as-matchedid: 140026-150567-150588-701625-704425-700685-701618-702020-7
- 11953-139705-704341-703674-700040-700107-139010-139006-710556-106660-707565
- -701604-899168-190077-148004-148133-29106-42000-42003-63
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="big5"
+x-originating-ip: [10.100.2.4]
+Content-Type: text/plain; charset="gb2312"
 Content-Transfer-Encoding: base64
 MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -50,16 +50,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 01:40:56 -0000
+X-List-Received-Date: Thu, 25 Apr 2019 01:47:42 -0000
 
-SGkgQnJhZCwgDQoNCk15IHByb3Bvc2FsIGhhcyBiZWVuIG1lcmdlZCBhbmQgSSBuZWVkIHlvdXIg
-aGVscCB0byBjcmVhdGUgdGhlIHJlcG9zaXRvcnkuDQooaHR0cHM6Ly9nZXJyaXQub3BlbmJtYy1w
-cm9qZWN0Lnh5ei9jL29wZW5ibWMvZG9jcy8rLzE4Njg0KQ0KDQpUaGFua3MuDQoNCkJScywNCldp
-bGwNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogV2lsbCBMaWFuZyAoseel
-w7liKQ0KPiBTZW50OiBNb25kYXksIEFwcmlsIDIyLCAyMDE5IDk6MTUgQU0NCj4gVG86IEJyYWQg
-QmlzaG9wIDxicmFkbGV5YkBmdXp6aWVzcXVpcnJlbC5jb20+DQo+IENjOiBPcGVuQk1DIE1haWxs
-aXN0IDxvcGVuYm1jQGxpc3RzLm96bGFicy5vcmc+DQo+IFN1YmplY3Q6IFJlcG9zaXRvcnkgZm9y
-IHBob3NwaG9yLWVjYw0KPiANCj4gSGkgQnJhZCwNCj4gDQo+IENvdWxkIHlvdSBoZWxwIGNyZWF0
-ZSByZXBvc2l0b3J5IGZvciAicGhvc3Bob3ItZWNjIj8NCj4gVGhlIHByb3Bvc2FsIGhhcyBiZWVu
-IGFncmVlZCBhbmQgSSBuZWVkIGEgcmVwb3NpdG9yeSB0byBwdXNoIHRoZSBjb2RlLg0KPiANCj4g
-QlJzLA0KPiBXaWxsDQo=
+K29wZW5ibWMNCg0KVGhhbmtzIA0KX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fXw0KRnJvbTogQW5kcmV3IEdlaXNzbGVyIFtnZWlzc29uYXRvckBnbWFpbC5jb21dDQpTZW50
+OiBUaHVyc2RheSwgQXByaWwgMjUsIDIwMTkgMzozNA0KVG86IEJyYWQgQmlzaG9wDQpDYzogSm9o
+biB3YW5nKM311r7HvykNClN1YmplY3Q6IFJlOiBSZXF1ZXN0IHRvIGJlIGFkZGVkIHRvIHRoZSBP
+cGVuQm1jIENJIGdyb3VwDQoNCk9uIFdlZCwgQXByIDI0LCAyMDE5IGF0IDE6NTIgUE0gQnJhZCBC
+aXNob3AgPGJyYWRsZXliQGZ1enppZXNxdWlycmVsLmNvbT4gd3JvdGU6DQo+DQo+IE9uIEZyaSwg
+QXByIDE5LCAyMDE5IGF0IDA4OjQ5OjM1QU0gKzA4MDAsIEpvaG4gV2FuZyB3cm90ZToNCj4gPkhp
+IEJyYWQNCj4gPg0KPiA+V2hlbiBJIHJlY2VudGx5IHVzZWQgb3BlbmJtYywgSSBvY2Nhc2lvbmFs
+bHkgc3VibWl0dGVkIHNvbWUgcGF0Y2hlcyB0byBzb21lDQo+ID5jb2RlIHJlcG9zaXRvcmllcy4g
+Q2FuIHlvdSBhZGQgbWUgdG8gdGhlIENJIGdyb3VwIG9mIG9wZW5ibWM/IElmIHBvc3NpYmxlLA0K
+PiA+dGhlIG1haW50YWluZXIgY29kZSByZXZpZXcgc2hvdWxkIGJlIGNvbnZlbmllbnQuDQo+ID4N
+Cj4gPlRoYW5rcw0KPiA+DQo+ID5Kb2huDQo+DQo+IEhpIEpvaG4NCj4NCj4gSSBhZGRlZCB5b3Ug
+dG8gdGhlIGluc3B1ci9jaS1hdXRob3JpemVkIGdyb3VwIG9uIE1hcmNoIDI5LiAgQXJlIHlvdQ0K
+PiBzdGlsbCBub3Qgc2VlaW5nIENJIHJ1biBhdXRvbWF0aWNhbGx5IHdoZW4geW91IHN1Ym1pdCBw
+YXRjaGVzPyAgV2hpY2gNCj4gcmVwb3NpdG9yeSBkb2Vzbid0IHdvcms/DQoNCkFoaCB5ZXAsIHdp
+dGggdGhhdCBsYXN0IGdlcnJpdCBzZXJ2ZXIgdXBncmFkZSB0aGUgcmVjdXJzaXZlIG9wdGlvbiBi
+cm9rZQ0Kc28gSSBoYXZlIHRvIGhhbmQgY29kZSBlYWNoIG5ldyBncm91cCBpbnRvIHRoZSBqb2Ig
+OigNCg0KSSBhZGRlZCBpbiBpbnNwdXIgc28gc2hvdWxkIGJlIGdvb2Qgbm93Lg0KDQo+IEFsc28s
+IGlmIHlvdSBjb3VsZCBjb3B5IHRoZSBwcm9qZWN0IG1haWxpbmcgbGlzdCB3aGVuIHNlbmRpbmcg
+ZW1haWwNCj4gYWJvdXQgT3BlbkJNQyBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcgdGhhdCB3b3Vs
+ZCBiZSBnb29kLiAgSXQgbGV0cw0KPiBldmVyeW9uZSBrbm93IHRoYXQgSW5zcHVyIGlzIGNvbnRy
+aWJ1dGluZyB0byB0aGUgY29tbXVuaXR5LCBhbmQgaXQgZ2l2ZXMNCj4gb3RoZXJzIGEgY2hhbmNl
+IHRvIHNlZSBhbmQgcGVyaGFwcyBvZmZlciBhc3Npc3RhbmNlIHdpdGggdGhlIHByb2JsZW1zIHdl
+DQo+IGFsbCBmYWNlIHRvZ2V0aGVyLg0KPg0KPiB0aHggLSBicmFkDQo=
