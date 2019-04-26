@@ -1,118 +1,75 @@
-Return-Path: <prvs=9019cfc672=taoren@fb.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=9019cfc672=taoren@fb.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="LSkRCAm/"; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.b="C9oPVrHB"; dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="smtOQxDy"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="GFvj97bL"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44rLKZ3L52zDqBW
- for <openbmc@lists.ozlabs.org>; Sat, 27 Apr 2019 03:15:22 +1000 (AEST)
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x3QHD8ZD010881
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 10:15:18 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : subject :
- date : message-id : references : in-reply-to : content-type : content-id :
- content-transfer-encoding : mime-version; s=facebook;
- bh=85kr6YAduJXiPAR3EMFkF21SrNCApzDnRZPRmfKOhcQ=;
- b=LSkRCAm/1CGeRbTsDry0Z83tHFBb5C119+IhX9TpDW/kMGcKwuM+tpyWhSMFhp0HB2W5
- wZtPURAnrrMvw51RUPvA1Mn6FdGBZ8USMRIyDZLr9udnM/HeAGniBE5WAXoASUPFl45c
- BI/5HI2z0Fdpf/sNE1uU/RKSMlMuf3FMQ5k= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com with ESMTP id 2s3mcc35tx-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 10:15:18 -0700
-Received: from ash-exhub202.TheFacebook.com (2620:10d:c0a8:83::6) by
- ash-exhub103.TheFacebook.com (2620:10d:c0a8:82::c) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Fri, 26 Apr 2019 10:15:17 -0700
-Received: from NAM01-BY2-obe.outbound.protection.outlook.com (100.104.31.183)
- by o365-in.thefacebook.com (100.104.36.103) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
- via Frontend Transport; Fri, 26 Apr 2019 10:15:17 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector1-fb-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=85kr6YAduJXiPAR3EMFkF21SrNCApzDnRZPRmfKOhcQ=;
- b=C9oPVrHBVOSwegGh4g1b6Fp8zKZG9dJcymE+Mav9ZpIASQoo05wAPCfsD3XTAC9NtjZSvuAvjduErOI80v/SepUMzn9KeZpB78je61HYJ4PCj2frNe8zdEvhjCeNA4tUuYDIFFi8/EdrYy1maPriz4XIaGasCx2T7Qtx42ruWMw=
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
- MWHPR15MB1151.namprd15.prod.outlook.com (10.175.2.17) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.1835.13; Fri, 26 Apr 2019 17:15:16 +0000
-Received: from MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::9ccc:f6fa:40e2:f1cd]) by MWHPR15MB1216.namprd15.prod.outlook.com
- ([fe80::9ccc:f6fa:40e2:f1cd%10]) with mapi id 15.20.1835.010; Fri, 26 Apr
- 2019 17:15:16 +0000
-From: Tao Ren <taoren@fb.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: linux kernel compiler warnings ignored
-Thread-Topic: linux kernel compiler warnings ignored
-Thread-Index: AQHU/EEdc8Tcdc3JpkWpJ8UfFS0t06ZOjPYAgAAI+ACAABjHgA==
-Date: Fri, 26 Apr 2019 17:15:16 +0000
-Message-ID: <3e70541e-f308-1f50-1792-6c6b483a047c@fb.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44rVTh4gTWzDqTq
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Apr 2019 09:23:02 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 6A43B22165;
+ Fri, 26 Apr 2019 19:22:59 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Fri, 26 Apr 2019 19:22:59 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=Vn79VgmTuXJH7eCTb5t+80vK3C0cytb
+ ++7nCd7/KjfA=; b=smtOQxDyNhOM98SIPztiA4ZduulQFaYyuXSqRHiiTIUFOOy
+ 0DL3GkQhCa8kk574hLxye2L1gNyV0zWToWtOY9QnydYQyPj5kHjz7NsW3xf2MZHR
+ Nmdlhzahgc1OWwkqCZ1z/AR8ZXvkghf1fjy88lBHPziy/T1m5NJL+rHffCDTPk7M
+ 4ElGXcYDM+buphO++apsqaRTW18xY1EulM7WD17v7qfGQn4UiPR5WDtKoAdkNz87
+ LmCNnzk0nzbaxaLEsUI/UO279L8HQd4j6JSJTGzRZB2/R2Yqj7q3oqD78XYKka9F
+ yoUrPDgb7dOqIIYM5gd6dcC9Ss2ERmfRSt9kHog==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Vn79Vg
+ mTuXJH7eCTb5t+80vK3C0cytb++7nCd7/KjfA=; b=GFvj97bLXnNEVkKCbJQy2N
+ i1UW7yvJmAS0MdmggvPz8ekfVIAIDPw336qto82xS1FuggoMBK4cJH3if2QxHLzM
+ 1mApNcCSHkgk4puE3cBkrZ5ZLyrgXTJg8lO9iPa311Hkp6db2F9zZWDdb88uq6KG
+ WylFrj8Jvnicszd9d1PC6p0X7mQUTNzqXEpZ7Z5WppbyVaq+ngcDPq9WwBDWLb3Z
+ GbI1agBDQDOhI2lOF7wJYyMiu/EwH2Q79ub5q2xCbHrVkG05M/WoIs8Jln4VjmZg
+ uWblEfZR5/WZU1N2k1rxtpeivep4qWkGxIu1SdTyuIDuG+eAXdISw97vjXNm7lFw
+ ==
+X-ME-Sender: <xms:0pLDXNQ7rE-YpapB_ov7Fj5rAza15vu9jXeCU_HWU-pM_8zU3zfueA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrheejgddvgecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
+ hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
+ ufhiiigvpedt
+X-ME-Proxy: <xmx:0pLDXMIEcTHbtL9sdWkWvJW3lnX4NR_JKIbrTpzkKLssEwaomkYQag>
+ <xmx:0pLDXDA5alEwtvIfDcW_AHyRfprNUdErBXsgjA3wEsDyhYII34u6qw>
+ <xmx:0pLDXFAM7hSCaNd-n00MXixZCnV99lYpDRs8vKbuzVOciB0RI5grVQ>
+ <xmx:05LDXMIMcyEV1clwhizYL7y7H-1DnGRDawW44L2kjlSRiQN3yZtgSQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 076527C199; Fri, 26 Apr 2019 19:22:58 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.6-444-g755619f-fmstable-20190423v1
+Mime-Version: 1.0
+Message-Id: <e898d5c9-132b-4ba5-ac64-ed25bac2807a@www.fastmail.com>
+In-Reply-To: <CAO=notx9iWQoOLPxKiHm-V=B5b99XZhLQE5PkgNEPg-J_9apiQ@mail.gmail.com>
 References: <CAO=notxyVAx=LY+5tCUWaezZP67JKy7z3NT3SAUcKR64W8Pk_w@mail.gmail.com>
  <d4abbc06-a4ea-4cd0-95f7-b32cd388293e@www.fastmail.com>
  <CAO=notx9iWQoOLPxKiHm-V=B5b99XZhLQE5PkgNEPg-J_9apiQ@mail.gmail.com>
-In-Reply-To: <CAO=notx9iWQoOLPxKiHm-V=B5b99XZhLQE5PkgNEPg-J_9apiQ@mail.gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-clientproxiedby: MWHPR08CA0013.namprd08.prod.outlook.com
- (2603:10b6:301:5f::26) To MWHPR15MB1216.namprd15.prod.outlook.com
- (2603:10b6:320:23::18)
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
-x-ms-exchange-messagesentrepresentingtype: 1
-x-originating-ip: [2620:10d:c090:200::2:b23c]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 7ca160f8-1116-43b5-831a-08d6ca6ac01d
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
- SRVR:MWHPR15MB1151; 
-x-ms-traffictypediagnostic: MWHPR15MB1151:
-x-microsoft-antispam-prvs: <MWHPR15MB11513AE27C5A0C093E78A895B23E0@MWHPR15MB1151.namprd15.prod.outlook.com>
-x-forefront-prvs: 001968DD50
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(346002)(376002)(366004)(396003)(136003)(39860400002)(189003)(199004)(31686004)(11346002)(97736004)(76176011)(5640700003)(478600001)(6246003)(476003)(64126003)(2501003)(486006)(2906002)(52116002)(53936002)(256004)(68736007)(6436002)(99286004)(86362001)(31696002)(71200400001)(6916009)(229853002)(6486002)(71190400001)(66446008)(2351001)(66946007)(66556008)(36756003)(64756008)(66476007)(58126008)(6512007)(81166006)(8676002)(1730700003)(5660300002)(81156014)(65956001)(73956011)(65806001)(8936002)(6116002)(46003)(65826007)(446003)(14454004)(6506007)(386003)(102836004)(53546011)(7736002)(305945005)(2616005)(186003)(25786009)(316002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1151;
- H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: dN+BQZFx8KJfaL2iPF+97HTSRfU8F5wDDSvvFFoYGWe8WguwvLu7siQxXOiWYzjVJpm3e4gCewkukJCPWxmslkBVhuxuo1qXgm/V+TwKiiIbzoj9WG6dQgSGHjg779zLkaF3VQ9m+aQ9WhT5g1mEPX2SffhEr7UGb2s9sFm8TBD4xayoLQT9S0MC7oiv0kw+L4M2l+ddOSca/NBNyFa2aThQke5w5ScJipv6J5j4Yg8qJX8twY7dTJeZWWbgdxFPG+hnZiXRbD8gvCBAUgdqpCon3wX55ULLFC50WWDd5OCtbNKYdsKvSrV9R7hzzGwp05mMg8LrTw1oggZbTD8sAB7PSzCXJuM3ln0MNzQhPONBvxT4i5zA1nwmNe5cHqMB+HKtN112hQxZIvhDYfgUW6jEHB8i8fV+zzYQGpP+9Ak=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F97873BB3B57F94CB15C1EBD45FAD653@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca160f8-1116-43b5-831a-08d6ca6ac01d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Apr 2019 17:15:16.3312 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1151
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-04-26_11:, , signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1904260118
-X-FB-Internal: deliver
+Date: Fri, 26 Apr 2019 19:22:56 -0400
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Patrick Venture" <venture@google.com>
+Cc: "OpenBMC Maillist" <openbmc@lists.ozlabs.org>,
+ "Joel Stanley" <joel@jms.id.au>
+Subject: Re: linux kernel compiler warnings ignored
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,28 +81,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Apr 2019 17:15:32 -0000
+X-List-Received-Date: Fri, 26 Apr 2019 23:23:08 -0000
 
-T24gNC8yNi8xOSA4OjQ2IEFNLCBQYXRyaWNrIFZlbnR1cmUgd3JvdGU6DQo+IE9uIEZyaSwgQXBy
-IDI2LCAyMDE5IGF0IDg6MTQgQU0gQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4gd3Jv
-dGU6DQo+Pg0KPj4NCj4+DQo+PiBPbiBGcmksIDI2IEFwciAyMDE5LCBhdCAwODowMSwgUGF0cmlj
-ayBWZW50dXJlIHdyb3RlOg0KPj4+IEknbSBnZXR0aW5nIGZlZWRiYWNrIGZyb20gYSBwYXRjaHNl
-dCBJIHNlbnQgdXBzdHJlYW0gdGhhdCB0aGVyZSBhcmUNCj4+PiBjb21waWxlciB3YXJuaW5ncy4g
-IFdoaWNoIHN1cnByaXNlZCBtZSBiZWNhdXNlIG15IE9wZW5CTUMgYnVpbGRzIHdpdGgNCj4+PiB0
-aG9zZSBwYXRjaGVzIGRvbid0IGNvbXBsYWluLiAgSSBpbWFnaW5lIHRoZXJlZm9yZSB3ZSBoYXZl
-IHRoZW0NCj4+PiBzaWxlbmNlZCBhbmQgd2FzIGN1cmlvdXMgd2hlcmUgd2Ugc2lsZW5jZSB0aGVt
-Lg0KPj4NCj4+IEhvdyBhcmUgeW91IGJ1aWxkaW5nIHRoZSBrZXJuZWw/DQo+Pg0KPj4gSSBzdHJv
-bmdseSByZWNvbW1lbmQgeW91IGJ1aWxkIGtlcm5lbHMgZGlyZWN0bHkgZnJvbSB0aGUga2VybmVs
-IHNvdXJjZSB0cmVlIHJhdGhlciB0aGFuIHVzaW5nIGJpdGJha2UsIGlmIHRoYXQncyB3aGF0IHlv
-dSdyZSBkb2luZy4NCj4gDQo+IEknbSBidWlsZGluZyB0aGUga2VybmVsIHZpYSBiaXRiYWtlIGFz
-IHlvdSBzdXJtaXNlZC4NCj4gDQo+Pg0KPj4gSW4gdGhlIGtlcm5lbCBzb3VyY2UgdHJlZSwgZG86
-DQo+Pg0KPj4gJCBleHBvcnQgQVJDSD1hcm0NCj4+ICQgZXhwb3J0IENST1NTX0NPTVBJTEU9YXJt
-LWxpbnV4LWdudWVhYmktDQo+PiAkIG1ha2UgYXNwZWVkX2c1X2RlZmNvbmZpZw0KPj4gJCBtYWtl
-IFc9MSAtaiQobnByb2MpDQo+Pg0KPj4gVGhpcyBleHBvcnRzIGFyZSBmcm9tIG1lbW9yeSwgeW1t
-di4NCj4gDQo+IFRoYW5rcy4gSSd2ZSBmaXJlZCBvZmYgYSBjb21wbGV0ZSBidWlsZCBvZiB0aGUg
-a2VybmVsIHRvIGNhdGNoIHRoaXMuDQo+IEkgZG9uJ3QgaGF2ZSB0aGUgb3BlbmJtYyBTREsgdG9v
-bGNoYWluIGluc3RhbGxlZCBhdCB0aGUgbW9tZW50LCBidXQNCj4gdGhhdCdzIG5vdCBhIGRpZmZp
-Y3VsdCB0YXNrLg0KDQpJIGFsc28gbm90aWNlZCB0aGUgaXNzdWUgZWFybGllciB0aGlzIHdlZWsg
-KGJpdGJha2UgZG9lc24ndCByZXBvcnQgdW51c2VkIHZhcmlhYmxlcyBpbiBteSBwYXRjaCkuIFRo
-YW5rIHlvdSBBbmRyZXcgYW5kIFBhdHJpY2sgZm9yIHJhaXNpbmcgdGhlIHRvcGljIGFuZCBzaGFy
-aW5nIHNvbHV0aW9ucy4NCg0KQ2hlZXJzLA0KDQpUYW8gDQo=
+
+
+On Fri, 26 Apr 2019, at 08:46, Patrick Venture wrote:
+> On Fri, Apr 26, 2019 at 8:14 AM Andrew Jeffery <andrew@aj.id.au> wrote:
+> >
+> >
+> >
+> > On Fri, 26 Apr 2019, at 08:01, Patrick Venture wrote:
+> > > I'm getting feedback from a patchset I sent upstream that there are
+> > > compiler warnings.  Which surprised me because my OpenBMC builds with
+> > > those patches don't complain.  I imagine therefore we have them
+> > > silenced and was curious where we silence them.
+> >
+> > How are you building the kernel?
+> >
+> > I strongly recommend you build kernels directly from the kernel source tree rather than using bitbake, if that's what you're doing.
+> 
+> I'm building the kernel via bitbake as you surmised.
+> 
+> >
+> > In the kernel source tree, do:
+> >
+> > $ export ARCH=arm
+> > $ export CROSS_COMPILE=arm-linux-gnueabi-
+> > $ make aspeed_g5_defconfig
+> > $ make W=1 -j$(nproc)
+> >
+> > This exports are from memory, ymmv.
+> 
+> Thanks. I've fired off a complete build of the kernel to catch this.
+> I don't have the openbmc SDK toolchain installed at the moment, but
+> that's not a difficult task.
+
+I recommend installing your distro's arm cross toolchain if that's possible. It's a much less invasive solution than sourcing the sdk's environment script.
+
+Andrew
+
+> 
+> >
+> > In addition to giving you more output than Greg is after, it has a much lower write/compile/test latency.
+> >
+> > Hope that helps,
+> >
+> > Andrew
+> >
+> > >
+> > > Patrick
+> > >
+>
