@@ -1,64 +1,72 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <wvervoorn@eltan.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::12a; helo=mail-it1-x12a.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=softfail (mailfrom) smtp.mailfrom=eltan.com
+ (client-ip=213.75.39.10; helo=cpsmtpb-ews07.kpnxchange.com;
+ envelope-from=wvervoorn@eltan.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="D7jI5v3B"; 
+ dmarc=fail (p=none dis=none) header.from=eltan.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=kpnmail.nl header.i=@kpnmail.nl header.b="iy6IwSMm"; 
  dkim-atps=neutral
-Received: from mail-it1-x12a.google.com (mail-it1-x12a.google.com
- [IPv6:2607:f8b0:4864:20::12a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qz2Y61hhzDqcx
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 12:46:13 +1000 (AEST)
-Received: by mail-it1-x12a.google.com with SMTP id y10so3532563itc.1
- for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 19:46:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=1uqxwrZyfNJWtv1hO0dk0sfcNJsYoh8ddvN0QsddYUM=;
- b=D7jI5v3BhYldDV8XWdDwU3X8Od3w+5HP4yvkb0zngZqOAImNvO92+KfafJpbeAgHxn
- Ox2IdDxPyfJP6cl0tehG/gERA87Wl5MRSdFvKuAXJfBXAkPNRFbD6ZABwWpwIX0QKPbG
- 9injCWxa6I3rEgQUR408p/xt0pfbXkVS4dTJ5ErOQvfYiJu73N1hqt2npFrZiaXa/9Zm
- 9zpi9Y9UycSr9uYH61nuBsKuGtCSYdmzSkkzw0z5wXYgE0hYsbJYCQOiTPf+9UGQmN9D
- JX3GfgAU91sv0IJLPvh0dKCIgLFm8z+4BnihgVMPGCiw2ZbyhGIINBD22YqoVYWigurB
- xcHw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=1uqxwrZyfNJWtv1hO0dk0sfcNJsYoh8ddvN0QsddYUM=;
- b=qIIXHXAo3cDDzWiH7EefwePXDYVQ9QJlV6frhn8/apGlRWEvuOFGULh8B2dONFudjv
- 3DNun9Pb93hwGu/WilxQOliaVG6vqjdCq4squKFLUPb8Hvsp4i8sxX95Jq5NxwI5scAp
- cIXW0Oiew8Usac+Yb9tlTzUc2qqfkbDnt18IPR1YW+90G2G3tcozHBafZ42WdnwEy+OG
- m1k+vjTkGZEiVa1gsknBzfYBipY/aRa74vEL+n+56PhyG1uyYBnOqJCSonhrg4sC9Jc2
- y1JphjEux39OK7cJw8HmsUIvQIxErUWi4iLU4AgRvVOlVOQK2GylGSa4g/SPGgnJcRv9
- OTiQ==
-X-Gm-Message-State: APjAAAW/B8et33lOUPh8GHbiKR4116/Cj0+14qkYyVJl3Knya3SZenh9
- u0sYoQPC6df9inX6iMFLe6mZ3FavTLfpLqV1RYM=
-X-Google-Smtp-Source: APXvYqwsAUwDpsl3j+8zc0RWb9m/kHiuB3UWd9tNMrtN5CX27+jeixDgHfrjHRsziGRucW6K+B6shiAKkb7f3KnwJX8=
-X-Received: by 2002:a24:1492:: with SMTP id 140mr5836407itg.76.1556246769941; 
- Thu, 25 Apr 2019 19:46:09 -0700 (PDT)
-MIME-Version: 1.0
+Received: from cpsmtpb-ews07.kpnxchange.com (cpsmtpb-ews07.kpnxchange.com
+ [213.75.39.10])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44r8v76lbLzDqTN
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 20:10:24 +1000 (AEST)
+Received: from cpsps-ews27.kpnxchange.com ([10.94.84.193]) by
+ cpsmtpb-ews07.kpnxchange.com with Microsoft SMTPSVC(7.5.7601.17514); 
+ Fri, 26 Apr 2019 12:10:19 +0200
+X-Brand: 4ZrJ
+X-KPN-SpamVerdict: e1=0;e2=0;e3=0;e4=(e4=10;e1=10;e3=10;e2=11);EVW:Whi
+ te;BM:NotScanned;FinalVerdict:Clean
+X-CMAE-Analysis: v=2.3 cv=K87z4BeI c=1 sm=1 tr=0 cx=a_idp_e
+ a=LO2mTXPAMClkaqVt2RTykg==:117 a=LO2mTXPAMClkaqVt2RTykg==:17
+ a=jpOVt7BSZ2e4Z31A5e1TngXxSK0=:19 a=eIHzyqS2sMcA:10 a=IkcTkHD0fZMA:10
+ a=xqWC_Br6kY4A:10 a=oexKYjalfGEA:10 a=X5F7dNyOAAAA:8 a=1XWaLZrsAAAA:8
+ a=QyXUC8HyAAAA:8 a=voM4FWlXAAAA:8 a=yKsw5dxF_gn_QvkelAYA:9
+ a=QEXdDO2ut3YA:10 a=pS7LufLo7ZPxIL5li5Lt:22 a=IC2XNlieTeVoXbcui8wp:22
+X-CM-AcctID: kpn@feedback.cloudmark.com
+Received: from smtp.kpnmail.nl ([195.121.84.12]) by cpsps-ews27.kpnxchange.com
+ over TLS secured channel with Microsoft SMTPSVC(8.5.9600.16384); 
+ Fri, 26 Apr 2019 12:10:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=kpnmail.nl; s=kpnmail01;
+ h=mime-version:content-type:message-id:date:subject:to:from;
+ bh=B3ttfq+xdb3A2bBqYNxiT6c49Tdt3veYrrFM/Pdvfrk=;
+ b=iy6IwSMmh5gEeZKo6LaHBhxp0iImEOVAjQPPNDA32WUiSrkQVKhpgcbNHe2ADkBt21AMZol0jEnOL
+ 2gXcfHu2qUtzLfpilT2tRkmitYNwxtzX/AeBi2tSo6KDqJWmidwXySIt8nYwzgo4CVpQOSV0/F05Ot
+ KgK6M0ZG3iZT5b94=
+Received: from Eltsrv03.Eltan.local (unknown [84.85.114.86])
+ by smtp.kpnmail.nl (Halon) with ESMTPS
+ id 7ea2b8eb-680b-11e9-96e0-00505699772e;
+ Fri, 26 Apr 2019 12:10:19 +0200 (CEST)
+Received: from Eltsrv03.Eltan.local (192.168.100.3) by Eltsrv03.Eltan.local
+ (192.168.100.3) with Microsoft SMTP Server (TLS) id 15.0.847.32; Fri, 26 Apr
+ 2019 12:10:02 +0200
+Received: from Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8]) by
+ Eltsrv03.Eltan.local ([fe80::24e7:1cc6:a76a:a3a8%12]) with mapi id
+ 15.00.0847.040; Fri, 26 Apr 2019 12:10:02 +0200
+From: Wim Vervoorn <wvervoorn@eltan.com>
+To: Patrick Venture <venture@google.com>, "Tanous, Ed" <ed.tanous@intel.com>
+CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: bmcweb image upload
+Thread-Topic: bmcweb image upload
+Thread-Index: AdT7RR7Sx7OXAFpqTk6JS5P32JibBAAHY92AAC1bi6A=
+Date: Fri, 26 Apr 2019 10:10:02 +0000
+Message-ID: <a5d4f0468d6b4ea984273a86e9ed8695@Eltsrv03.Eltan.local>
 References: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
  <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
- <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
- <CAO=notyfFvATQceE4XkDOQXncB2pN65ODB_O+3ucF4QtTRTQSA@mail.gmail.com>
-In-Reply-To: <CAO=notyfFvATQceE4XkDOQXncB2pN65ODB_O+3ucF4QtTRTQSA@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 26 Apr 2019 10:45:51 +0800
-Message-ID: <CAARXrt=X6Y=jinvBayc9gaArDasKgZjqr43L=7o56xB=Rj=E5Q@mail.gmail.com>
-Subject: Re: bmcweb image upload
-To: Patrick Venture <venture@google.com>
-Cc: Wim Vervoorn <wvervoorn@eltan.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Tanous,
- Ed" <ed.tanous@intel.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
+Accept-Language: nl-NL, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [192.168.100.108]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginalArrivalTime: 26 Apr 2019 10:10:19.0310 (UTC)
+ FILETIME=[408EC4E0:01D4FC18]
+X-RcptDomain: lists.ozlabs.org
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,48 +78,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Apr 2019 02:46:14 -0000
+X-List-Received-Date: Fri, 26 Apr 2019 10:10:31 -0000
 
-On Fri, Apr 26, 2019 at 12:22 AM Patrick Venture <venture@google.com> wrote=
-:
->
-> On Thu, Apr 25, 2019 at 8:17 AM Wim Vervoorn <wvervoorn@eltan.com> wrote:
-> >
-> > Hello Patrick,
-> >
-> > Thanks for the response. I will try this. Some other thing I noticed is=
- that the image update now uses a TAR file. Basically it transfers the TAR =
-to the system, then untars the file and uses it. This means the mechanism r=
-equires twice the size of the TAR file.
-
-This really is a problem for small RAM system.
-
-> Yikes, that's absolutely true and unusable.  We only do image uploads
-> over in-band mechanisms today for our platforms.  And in the future,
-> that is likely going to stay the same for the ast2400s -- although
-> good to know this issue.
->
-> The tar is used for UBI, IIRC< and not a static image layout -- with
-> the static image layout, does it still use a tarball?  We've stuck
-> with static layout instead of using UBI for unrelated reasons.
->
-
-Actually, we have tarball like <machine>-<date>.tar for static layout as we=
-ll
-now, containing separated image-xxx, manifest and signatures.
-And we could use the same method as UBI to do code update for static layout=
-.
-
-> >
-> > I am now considering to use an ISO file and mount this this will requir=
-e less memory. What do you think about this, do I overlook something or can=
- this be a viable solution?
->
-
-Yup, this is doable (not necessary ISO though), as long as the free memory =
-is
-enough for the BMC code itself.
-
-> We just use the actually image-bmc that's generated and a signature
-> file for the updates, but the code to handle this isn't fully upstream
-> yet (WIP openbmc/phosphor-ipmi-flash).
+SGVsbG8gUGF0cmljaywNCg0KVGhhbmtzIGZvciB5b3VyIHN1Z2dlc3Rpb24uIEkgd2lsbCBsb29r
+IGF0IHRoaXMuDQoNCkJlc3QgUmVnYXJkcywNCldpbSBWZXJ2b29ybg0KDQpFbHRhbiBCLlYuDQpB
+bWJhY2h0c3RyYWF0IDIzDQo1NDgxIFNNIFNjaGlqbmRlbA0KVGhlIE5ldGhlcmxhbmRzDQoNClQg
+OiArMzEtKDApNzMtNTk0IDQ2IDY0DQpFIDogd3ZlcnZvb3JuQGVsdGFuLmNvbQ0KVyA6IGh0dHA6
+Ly93d3cuZWx0YW4uY29tDQoNCg0KIlRISVMgTUVTU0FHRSBDT05UQUlOUyBDT05GSURFTlRJQUwg
+SU5GT1JNQVRJT04uIFVOTEVTUyBZT1UgQVJFIFRIRSBJTlRFTkRFRCBSRUNJUElFTlQgT0YgVEhJ
+UyBNRVNTQUdFLCBBTlkgVVNFIE9GIFRISVMgTUVTU0FHRSBJUyBTVFJJQ1RMWSBQUk9ISUJJVEVE
+LiBJRiBZT1UgSEFWRSBSRUNFSVZFRCBUSElTIE1FU1NBR0UgSU4gRVJST1IsIFBMRUFTRSBJTU1F
+RElBVEVMWSBOT1RJRlkgVEhFIFNFTkRFUiBCWSBURUxFUEhPTkUgKzMxLSgwKTczLTU5NDQ2NjQg
+T1IgUkVQTFkgRU1BSUwsIEFORCBJTU1FRElBVEVMWSBERUxFVEUgVEhJUyBNRVNTQUdFIEFORCBB
+TEwgQ09QSUVTLiLCoA0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogUGF0cmlj
+ayBWZW50dXJlIFttYWlsdG86dmVudHVyZUBnb29nbGUuY29tXSANClNlbnQ6IFRodXJzZGF5LCBB
+cHJpbCAyNSwgMjAxOSA0OjMxIFBNDQpUbzogV2ltIFZlcnZvb3JuIDx3dmVydm9vcm5AZWx0YW4u
+Y29tPjsgVGFub3VzLCBFZCA8ZWQudGFub3VzQGludGVsLmNvbT4NCkNjOiBvcGVuYm1jQGxpc3Rz
+Lm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBibWN3ZWIgaW1hZ2UgdXBsb2FkDQoNCk9uIFRodSwg
+QXByIDI1LCAyMDE5IGF0IDI6MDMgQU0gV2ltIFZlcnZvb3JuIDx3dmVydm9vcm5AZWx0YW4uY29t
+PiB3cm90ZToNCj4NCj4gSGVsbG8sDQo+DQo+IEkgaGF2ZSBhbiBBU1QyNDAwIE9wZW5CbWMgd2l0
+aCAxMjggTUIgb2YgUkFNLiBJIGZvdW5kIHRoYXQgdGhlIGZpcm13YXJlIHVwbG9hZCB1c2luZyBX
+ZWJVSSAoYW5kIFJlZGZpc2gpIGRvZXNuJ3Qgd29yay4gQm1jd2ViIGlzIGtpbGxlZCBkdWUgdG8g
+YW4gb3V0IG9mIG1lbW9yeSBjb25kaXRpb24uDQo+DQo+IElmIGZvdW5kIG91dCB0aGlzIGlzIGR1
+ZSB0byB0aGUgbGFyZ2UgcmVxdWVzdCBzaXplIG9mIDMwIE1CLiBXaWxsIHRoZXJlIGJlIGFuIHVw
+ZGF0ZSB0byB0aGUgdXBsb2FkIG1lY2hhbmlzbSB0byByZXNvbHZlIHRoaXMgbGFyZ2UgbWVtb3J5
+IHJlcXVpcmVtZW50Pw0KDQpJJ20gc28gZXhjaXRlZCBmb3IgeW91ciBlbWFpbCEgIEZvciBhIHRp
+bWUsIEkgd2FzIHRoZSBvbmx5IHBlcnNvbiBtYWludGFpbmluZyBhbiBhc3QyNDAwIHdpdGggMTI4
+TUIgb2YgUkFNLg0KDQpIZXJlIGFyZSBzb21lIHRoaW5ncyB0byBkbyBzdHJhaWdodCBhd2F5Og0K
+bG9vayBhdCB5b3VyIGJtYyBpbWFnZSBhbmQgcmVtb3ZlIGFueSBpbWFnZV9mZWF0dXJlcyB5b3Un
+cmUgbm90IHVzaW5nDQotLSBpZiBwb3NzaWJsZS4NCg0KVGhhdCdsbCBoZWxwIHdpdGggdGhlIHBy
+b2JsZW0gaW4gZ2VuZXJhbC4NCg0KVG8gZG8gdXBkYXRlcyBvbiBvdXIgZW5kLCB3ZSBoYXZlIGEg
+c2VydmljZSB0cmlnZ2VyZWQgYnkgYSBkaWZmZXJlbnQgdXBkYXRlIG1lY2hhbmlzbSB0aGF0IGNs
+ZWFycyB0aGUgY2FjaGVzLCB0aGlzIGZyZWVzIHVwIGNyaXRpY2FsIG1lbW9yeSBmb3IgdGhlIHN5
+c3RlbS4gIEkgZG9uJ3Qga25vdyBlbm91Z2ggYWJvdXQgdGhlIHJlZGZpc2ggYXBwcm9hY2gsIGJ1
+dCBwZXJoYXBzIGl0IGNvdWxkIGJlIHByb2dyYW1tZWQgdG8gY2FsbCBhIHNpbWlsYXIgc2Vydmlj
+ZSBiZWZvcmUgcmVjZWl2aW5nIHRoZSBpbWFnZSB3aGVuIHRoZSByZXF1ZXN0IGlzIHJlY2VpdmVk
+Lg0KDQpPdXIgcGFja2FnZSwgImdvb2dsZS1wcmVwYXJlLXVwZGF0ZSIgaXMganVzdDoNCg0KcHJl
+cGFyZV91cGRhdGUuc2VydmljZToNCltVbml0XQ0KRGVzY3JpcHRpb249UHVyZ2UgTWVtb3J5IENh
+Y2hlcw0KW1NlcnZpY2VdDQpUeXBlPW9uZXNob3QNCkV4ZWNTdGFydD0vdXNyL3NiaW4vcHVyZ2Vf
+Y2FjaGUuc2gNCg0KcHVyZ2VfY2FjaGUuc2g6DQojIS9iaW4vYmFzaA0KIyBSdW4gc3luYyBjb21t
+YW5kLg0Kc3luYw0KIyBQdXJnZSB0aGUgdGhyZWUgY2FjaGVzLg0KZWNobyAzID4gL3Byb2Mvc3lz
+L3ZtL2Ryb3BfY2FjaGVzDQojIERvbmUNCmV4aXQgMA0KDQo+DQo+IEJlc3QgcmVnYXJkcywNCj4N
+Cj4gV2ltIFZlcnZvb3JuDQo+DQo+DQoNCg0KDQo=
