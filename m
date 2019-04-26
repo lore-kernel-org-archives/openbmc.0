@@ -1,48 +1,64 @@
-Return-Path: <prvs=01264508d=Will.Liang@quantatw.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=01264508d=will.liang@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::12a; helo=mail-it1-x12a.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 44qwpw19WDzDqX6
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 11:05:55 +1000 (AEST)
-Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
- by mx02.quantatw.com with ESMTP; 26 Apr 2019 09:05:52 +0800
-Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
- (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 26 Apr
- 2019 09:05:50 +0800
-Received: from mailbx08.quanta.corp ([192.168.1.8]) by mailbx08.quanta.corp
- ([192.168.1.8]) with mapi id 15.01.1713.004; Fri, 26 Apr 2019 09:05:51 +0800
-From: =?utf-8?B?V2lsbCBMaWFuZyAo5qKB5rC46YmJKQ==?= <Will.Liang@quantatw.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: Repository for phosphor-ecc
-Thread-Topic: Repository for phosphor-ecc
-Thread-Index: AdT4p7t1cWCax25bRS2sxgB6RBd/jQCX3mvQABYFB4AAGvgHQA==
-Date: Fri, 26 Apr 2019 01:05:51 +0000
-Message-ID: <70a9f53573c4443ba0d70aa5c3793e59@quantatw.com>
-References: <baa383a5f03e417aa0bb21c86022eb9e@quantatw.com>
- <20190425200616.mavvuzbfds75dne3@thinkpad>
-In-Reply-To: <20190425200616.mavvuzbfds75dne3@thinkpad>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24572.004
-x-tm-as-result: No--20.097700-0.000000-31
-x-tm-as-matchedid: 140026-150567-701625-704425-700685-139010-700075-701618-7
- 02020-711953-139705-704341-703674-700040-187067-184142-707969-706719-703788
- -701142-106230-184200-852663-700295-121119-704421-701437-705969-863519-7071
- 63-899168-190077-148004-148133-20043-24831-29106-42000-42003-63-190014
-x-tm-as-user-approved-sender: Yes
-x-tm-as-user-blocked-sender: No
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="D7jI5v3B"; 
+ dkim-atps=neutral
+Received: from mail-it1-x12a.google.com (mail-it1-x12a.google.com
+ [IPv6:2607:f8b0:4864:20::12a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44qz2Y61hhzDqcx
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 12:46:13 +1000 (AEST)
+Received: by mail-it1-x12a.google.com with SMTP id y10so3532563itc.1
+ for <openbmc@lists.ozlabs.org>; Thu, 25 Apr 2019 19:46:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=1uqxwrZyfNJWtv1hO0dk0sfcNJsYoh8ddvN0QsddYUM=;
+ b=D7jI5v3BhYldDV8XWdDwU3X8Od3w+5HP4yvkb0zngZqOAImNvO92+KfafJpbeAgHxn
+ Ox2IdDxPyfJP6cl0tehG/gERA87Wl5MRSdFvKuAXJfBXAkPNRFbD6ZABwWpwIX0QKPbG
+ 9injCWxa6I3rEgQUR408p/xt0pfbXkVS4dTJ5ErOQvfYiJu73N1hqt2npFrZiaXa/9Zm
+ 9zpi9Y9UycSr9uYH61nuBsKuGtCSYdmzSkkzw0z5wXYgE0hYsbJYCQOiTPf+9UGQmN9D
+ JX3GfgAU91sv0IJLPvh0dKCIgLFm8z+4BnihgVMPGCiw2ZbyhGIINBD22YqoVYWigurB
+ xcHw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=1uqxwrZyfNJWtv1hO0dk0sfcNJsYoh8ddvN0QsddYUM=;
+ b=qIIXHXAo3cDDzWiH7EefwePXDYVQ9QJlV6frhn8/apGlRWEvuOFGULh8B2dONFudjv
+ 3DNun9Pb93hwGu/WilxQOliaVG6vqjdCq4squKFLUPb8Hvsp4i8sxX95Jq5NxwI5scAp
+ cIXW0Oiew8Usac+Yb9tlTzUc2qqfkbDnt18IPR1YW+90G2G3tcozHBafZ42WdnwEy+OG
+ m1k+vjTkGZEiVa1gsknBzfYBipY/aRa74vEL+n+56PhyG1uyYBnOqJCSonhrg4sC9Jc2
+ y1JphjEux39OK7cJw8HmsUIvQIxErUWi4iLU4AgRvVOlVOQK2GylGSa4g/SPGgnJcRv9
+ OTiQ==
+X-Gm-Message-State: APjAAAW/B8et33lOUPh8GHbiKR4116/Cj0+14qkYyVJl3Knya3SZenh9
+ u0sYoQPC6df9inX6iMFLe6mZ3FavTLfpLqV1RYM=
+X-Google-Smtp-Source: APXvYqwsAUwDpsl3j+8zc0RWb9m/kHiuB3UWd9tNMrtN5CX27+jeixDgHfrjHRsziGRucW6K+B6shiAKkb7f3KnwJX8=
+X-Received: by 2002:a24:1492:: with SMTP id 140mr5836407itg.76.1556246769941; 
+ Thu, 25 Apr 2019 19:46:09 -0700 (PDT)
 MIME-Version: 1.0
+References: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
+ <CAO=notz9eixtsv48gnJgqsNBK8jx9tLR_vwuL41dZy7pAtpvZw@mail.gmail.com>
+ <a666a65dca65479aac93175385efd027@Eltsrv03.Eltan.local>
+ <CAO=notyfFvATQceE4XkDOQXncB2pN65ODB_O+3ucF4QtTRTQSA@mail.gmail.com>
+In-Reply-To: <CAO=notyfFvATQceE4XkDOQXncB2pN65ODB_O+3ucF4QtTRTQSA@mail.gmail.com>
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 26 Apr 2019 10:45:51 +0800
+Message-ID: <CAARXrt=X6Y=jinvBayc9gaArDasKgZjqr43L=7o56xB=Rj=E5Q@mail.gmail.com>
+Subject: Re: bmcweb image upload
+To: Patrick Venture <venture@google.com>
+Cc: Wim Vervoorn <wvervoorn@eltan.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Tanous,
+ Ed" <ed.tanous@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,26 +70,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Apr 2019 01:06:01 -0000
+X-List-Received-Date: Fri, 26 Apr 2019 02:46:14 -0000
 
-SGkgQnJhZA0KDQo+IE9uIFRodSwgQXByIDI1LCAyMDE5IGF0IDAxOjQwOjM0QU0gKzAwMDAsIFdp
-bGwgTGlhbmcgKOaigeawuOmJiSkgd3JvdGU6DQo+ID5IaSBCcmFkLA0KPiA+DQo+ID5NeSBwcm9w
-b3NhbCBoYXMgYmVlbiBtZXJnZWQgYW5kIEkgbmVlZCB5b3VyIGhlbHAgdG8gY3JlYXRlIHRoZSBy
-ZXBvc2l0b3J5Lg0KPiA+KGh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovYy9vcGVu
-Ym1jL2RvY3MvKy8xODY4NCkNCj4gDQo+IEhpIFdpbGwNCj4gDQo+IEkndmUgY3JlYXRlZCB0aGUg
-cmVwb3NpdG9yeSBvbiBHaXRodWIuICBJIGFtIG5vdCBhYmxlIHRvIGltcG9ydCB0aGUgcmVwb3Np
-dG9yeQ0KPiBpbnRvIEdlcnJpdCByaWdodCBub3cgYmVjYXVzZSB0aGUgR2Vycml0L0dpdGh1YiBp
-bnRlZ3JhdGlvbiBwbHVnaW4gYnJva2UNCj4gKGFkZGluZyBuZXcgcmVwb3NpdG9yaWVzKSB3aGVu
-IHdlIHVwZGF0ZWQgdGhlIEdlcnJpdA0KPiBzZXJ2ZXI6DQo+IGh0dHBzOi8vYnVncy5jaHJvbWl1
-bS5vcmcvcC9nZXJyaXQvaXNzdWVzL2RldGFpbD9pZD0xMDY1NyZxPWNvbXBvbmVudCUzQQ0KPiBw
-bHVnaW5zJTNFZ2l0aHViJTIwJmNvbHNwZWM9SUQlMjBUeXBlJTIwU3RhcnMlMjBNaWxlc3RvbmUl
-MjBTdGF0dXMlDQo+IDIwUHJpb3JpdHklMjBPd25lciUyMFN1bW1hcnkNCj4gDQo+IFBsZWFzZSBs
-ZXQgbWUga25vdyB5b3VyIEdpdGh1YiB1c2VybmFtZSBzbyBJIGNhbiBzZW5kIHlvdSBhbiBpbnZp
-dGUgdG8gdGhlDQo+IE9wZW5CTUMgR2l0aHViIG9yZ2FuaXphdGlvbiBhbmQgYWRkIHlvdSB0byB0
-aGUgbWFpbnRhaW5lcnMgbGlzdCBmb3INCj4gcGhvc3Bob3ItZWNjLg0KDQpNeSBHaXRodWIgdXNl
-cm5hbWUgOiBZSExpYW5nODUNCg0KPiBGb3Igbm93IHlvdSBjYW4gZG8gR2l0aHViIHB1bGwgcmVx
-dWVzdHMgdG8gcGhvc3Bob3ItZWNjIChhcyB3ZWxsIGFzDQo+IHF1YW50YS1pcG1pLW9lbSkgYW5k
-IHdoZW4gd2UgYXJlIGFibGUgdG8gZmlndXJlIG91dCB3aHkgdGhlIEdpdGh1YiBwbHVnaW4NCj4g
-c3RvcHBlZCB3b3JraW5nIHdlIGNhbiBkbyB0aGUgaW1wb3J0IG92ZXIgdG8gR2Vycml0Lg0KPiAN
-Cj4gdGh4IC0gYnJhZA0KT0shIGkgd2lsbCBkbyBHaXRodWIgcHVsbCByZXF1ZXN0IGZpcnN0LiAN
-Cg==
+On Fri, Apr 26, 2019 at 12:22 AM Patrick Venture <venture@google.com> wrote=
+:
+>
+> On Thu, Apr 25, 2019 at 8:17 AM Wim Vervoorn <wvervoorn@eltan.com> wrote:
+> >
+> > Hello Patrick,
+> >
+> > Thanks for the response. I will try this. Some other thing I noticed is=
+ that the image update now uses a TAR file. Basically it transfers the TAR =
+to the system, then untars the file and uses it. This means the mechanism r=
+equires twice the size of the TAR file.
+
+This really is a problem for small RAM system.
+
+> Yikes, that's absolutely true and unusable.  We only do image uploads
+> over in-band mechanisms today for our platforms.  And in the future,
+> that is likely going to stay the same for the ast2400s -- although
+> good to know this issue.
+>
+> The tar is used for UBI, IIRC< and not a static image layout -- with
+> the static image layout, does it still use a tarball?  We've stuck
+> with static layout instead of using UBI for unrelated reasons.
+>
+
+Actually, we have tarball like <machine>-<date>.tar for static layout as we=
+ll
+now, containing separated image-xxx, manifest and signatures.
+And we could use the same method as UBI to do code update for static layout=
+.
+
+> >
+> > I am now considering to use an ISO file and mount this this will requir=
+e less memory. What do you think about this, do I overlook something or can=
+ this be a viable solution?
+>
+
+Yup, this is doable (not necessary ISO though), as long as the free memory =
+is
+enough for the BMC code itself.
+
+> We just use the actually image-bmc that's generated and a signature
+> file for the updates, but the code to handle this isn't fully upstream
+> yet (WIP openbmc/phosphor-ipmi-flash).
