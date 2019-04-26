@@ -1,38 +1,48 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <prvs=01264508d=Will.Liang@quantatw.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=134.134.136.100; helo=mga07.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=quantatw.com
+ (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=01264508d=will.liang@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44qtZ02NgQzDqd9
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 09:24:32 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Apr 2019 16:24:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,395,1549958400"; d="scan'208";a="143685267"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by fmsmga008.fm.intel.com with ESMTP; 25 Apr 2019 16:24:29 -0700
-Subject: Re: bmcweb image upload
-To: Wim Vervoorn <wvervoorn@eltan.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <df18326e-d3ff-0725-2960-03aaa606792b@intel.com>
-Date: Thu, 25 Apr 2019 16:24:29 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.6.1
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 44qwpw19WDzDqX6
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 11:05:55 +1000 (AEST)
+Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
+ by mx02.quantatw.com with ESMTP; 26 Apr 2019 09:05:52 +0800
+Received: from mailbx08.quanta.corp (10.243.91.103) by mailbx07.quanta.corp
+ (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Fri, 26 Apr
+ 2019 09:05:50 +0800
+Received: from mailbx08.quanta.corp ([192.168.1.8]) by mailbx08.quanta.corp
+ ([192.168.1.8]) with mapi id 15.01.1713.004; Fri, 26 Apr 2019 09:05:51 +0800
+From: =?utf-8?B?V2lsbCBMaWFuZyAo5qKB5rC46YmJKQ==?= <Will.Liang@quantatw.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: RE: Repository for phosphor-ecc
+Thread-Topic: Repository for phosphor-ecc
+Thread-Index: AdT4p7t1cWCax25bRS2sxgB6RBd/jQCX3mvQABYFB4AAGvgHQA==
+Date: Fri, 26 Apr 2019 01:05:51 +0000
+Message-ID: <70a9f53573c4443ba0d70aa5c3793e59@quantatw.com>
+References: <baa383a5f03e417aa0bb21c86022eb9e@quantatw.com>
+ <20190425200616.mavvuzbfds75dne3@thinkpad>
+In-Reply-To: <20190425200616.mavvuzbfds75dne3@thinkpad>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+x-tm-as-product-ver: SMEX-12.0.0.1727-8.200.1013-24572.004
+x-tm-as-result: No--20.097700-0.000000-31
+x-tm-as-matchedid: 140026-150567-701625-704425-700685-139010-700075-701618-7
+ 02020-711953-139705-704341-703674-700040-187067-184142-707969-706719-703788
+ -701142-106230-184200-852663-700295-121119-704421-701437-705969-863519-7071
+ 63-899168-190077-148004-148133-20043-24831-29106-42000-42003-63-190014
+x-tm-as-user-approved-sender: Yes
+x-tm-as-user-blocked-sender: No
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-In-Reply-To: <4ddbeb3bc1b64b1097775eddf9608cd9@Eltsrv03.Eltan.local>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,41 +54,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 25 Apr 2019 23:24:41 -0000
+X-List-Received-Date: Fri, 26 Apr 2019 01:06:01 -0000
 
-On 4/25/19 2:01 AM, Wim Vervoorn wrote:
-> Hello,
-> 
-> I have an AST2400 OpenBmc with 128 MB of RAM. I found that the firmware upload using WebUI (and Redfish) doesn't work. Bmcweb is killed due to an out of memory condition.
-> 
-> If found out this is due to the large request size of 30 MB. Will there be an update to the upload mechanism to resolve this large memory requirement?
-> 
-
-Running bmcweb on a 128MB ram system has been on my list to try for a
-long time.  It's good to know at least some things function.
-
-I don't know of anyone planning on improving the memory usage at this
-point.  The systems I support have 512MB of ram, so our systems have
-plenty of headroom.  The existing mechanism was definitely a cop-out
-from a memory perspective when the implementation was first done;  The
-whole payload was buffered in memory before writing to the filesystem,
-mostly because of history: Crow didn't have support for incremental
-upload or streaming of "normal" HTTP requests or chunk transfer
-encoding.  These days the boost::beast internals can support streaming
-the payload directly to somewhere, we would just need to expose the
-appropriate buffers to bmcweb.
-
-This could definitely be improved.
-
-If I were to go about fixing this, my plan would be:
-1. Come up with an amended DBus/filesystem interface that allows
-chunking a response directly into flash.  This would probably be a unix
-socket, or chunk based dbus interface like venture uses.  As you've
-already found, internally the update packages use tarball, so we would
-have to stream the decompression of files in the tarball, or use a
-different format.
-2. Expose a new url registration type in bmcweb that can accept a socket
-or buffer object as a parameter.  This is similar to how websocket
-upgrade works, just in different conditions when it would get invoked.
-3. ??????
-4. Profit.
+SGkgQnJhZA0KDQo+IE9uIFRodSwgQXByIDI1LCAyMDE5IGF0IDAxOjQwOjM0QU0gKzAwMDAsIFdp
+bGwgTGlhbmcgKOaigeawuOmJiSkgd3JvdGU6DQo+ID5IaSBCcmFkLA0KPiA+DQo+ID5NeSBwcm9w
+b3NhbCBoYXMgYmVlbiBtZXJnZWQgYW5kIEkgbmVlZCB5b3VyIGhlbHAgdG8gY3JlYXRlIHRoZSBy
+ZXBvc2l0b3J5Lg0KPiA+KGh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovYy9vcGVu
+Ym1jL2RvY3MvKy8xODY4NCkNCj4gDQo+IEhpIFdpbGwNCj4gDQo+IEkndmUgY3JlYXRlZCB0aGUg
+cmVwb3NpdG9yeSBvbiBHaXRodWIuICBJIGFtIG5vdCBhYmxlIHRvIGltcG9ydCB0aGUgcmVwb3Np
+dG9yeQ0KPiBpbnRvIEdlcnJpdCByaWdodCBub3cgYmVjYXVzZSB0aGUgR2Vycml0L0dpdGh1YiBp
+bnRlZ3JhdGlvbiBwbHVnaW4gYnJva2UNCj4gKGFkZGluZyBuZXcgcmVwb3NpdG9yaWVzKSB3aGVu
+IHdlIHVwZGF0ZWQgdGhlIEdlcnJpdA0KPiBzZXJ2ZXI6DQo+IGh0dHBzOi8vYnVncy5jaHJvbWl1
+bS5vcmcvcC9nZXJyaXQvaXNzdWVzL2RldGFpbD9pZD0xMDY1NyZxPWNvbXBvbmVudCUzQQ0KPiBw
+bHVnaW5zJTNFZ2l0aHViJTIwJmNvbHNwZWM9SUQlMjBUeXBlJTIwU3RhcnMlMjBNaWxlc3RvbmUl
+MjBTdGF0dXMlDQo+IDIwUHJpb3JpdHklMjBPd25lciUyMFN1bW1hcnkNCj4gDQo+IFBsZWFzZSBs
+ZXQgbWUga25vdyB5b3VyIEdpdGh1YiB1c2VybmFtZSBzbyBJIGNhbiBzZW5kIHlvdSBhbiBpbnZp
+dGUgdG8gdGhlDQo+IE9wZW5CTUMgR2l0aHViIG9yZ2FuaXphdGlvbiBhbmQgYWRkIHlvdSB0byB0
+aGUgbWFpbnRhaW5lcnMgbGlzdCBmb3INCj4gcGhvc3Bob3ItZWNjLg0KDQpNeSBHaXRodWIgdXNl
+cm5hbWUgOiBZSExpYW5nODUNCg0KPiBGb3Igbm93IHlvdSBjYW4gZG8gR2l0aHViIHB1bGwgcmVx
+dWVzdHMgdG8gcGhvc3Bob3ItZWNjIChhcyB3ZWxsIGFzDQo+IHF1YW50YS1pcG1pLW9lbSkgYW5k
+IHdoZW4gd2UgYXJlIGFibGUgdG8gZmlndXJlIG91dCB3aHkgdGhlIEdpdGh1YiBwbHVnaW4NCj4g
+c3RvcHBlZCB3b3JraW5nIHdlIGNhbiBkbyB0aGUgaW1wb3J0IG92ZXIgdG8gR2Vycml0Lg0KPiAN
+Cj4gdGh4IC0gYnJhZA0KT0shIGkgd2lsbCBkbyBHaXRodWIgcHVsbCByZXF1ZXN0IGZpcnN0LiAN
+Cg==
