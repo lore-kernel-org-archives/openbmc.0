@@ -1,61 +1,118 @@
-Return-Path: <osk@google.com>
+Return-Path: <prvs=9019cfc672=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::542; helo=mail-ed1-x542.google.com;
- envelope-from=osk@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
+ envelope-from=prvs=9019cfc672=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="lmnsGAiT"; 
- dkim-atps=neutral
-Received: from mail-ed1-x542.google.com (mail-ed1-x542.google.com
- [IPv6:2a00:1450:4864:20::542])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="LSkRCAm/"; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.b="C9oPVrHB"; dkim-atps=neutral
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44rJsH1lKBzDqVB
- for <openbmc@lists.ozlabs.org>; Sat, 27 Apr 2019 02:09:22 +1000 (AEST)
-Received: by mail-ed1-x542.google.com with SMTP id d1so3568560edd.13
- for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 09:09:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ws9fZfcfwnBN5onE1G4mSFwv+iMr3+0ibhGtS12/lDM=;
- b=lmnsGAiTTKS0Om6pjplgiy7f36O2UnwBS8nY6KHwW6C0ONDEh6mXUy00ly5qjYYfJC
- 5gHiTUNWeF9j+3svJjwo4kg3HyW6slUiE0ceakKR5dT34IC3eC8po3Xx9WX8NJX0qzQ3
- DOb4S3X9qhDj1WDiqXc8HEVnphnBrg78ZY1BdO8uIzEBQ6Me1j6YI536uyh+uymvEp63
- wl2+7G6GuBhWK+Rr6ePqfpxhUSG+q2WBxCRqOvTtx/SjeXEgVKniNTJ4s2/DSpDMoez6
- uBHVn3v0IOJ9tcG7PFDmmf2pOyc8BnZo18kNnlPTymUn94JiizrGIKoqprX3VNfuZBEe
- 4Esg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ws9fZfcfwnBN5onE1G4mSFwv+iMr3+0ibhGtS12/lDM=;
- b=hEc6Zn8lY42/hiEpvlnyDkUpt4yVqIe1SKEEwflFFUchgkoZTrX4tg0H27IN+lr5uc
- LMDkMN+Ba0GP3z67j7uzDk5KUmq7+jyb4ZTya3DSVTrPZSJPfnRWqc9S5G2zqpeEstpd
- d1V9//F7WFk5Kw+Ra/ysWP2ypwZ34EYlHGY3XNEpTSvvPF3XEOINJu514KmoA28nuVJ6
- 1MTiprQf7v6Pj0kftZ7OdQTfX/b3fvjoV9BgQ8TzN0ORmzNLC/iOvtLwz7cHPbWHMpbQ
- VgnhNzvb6qcYxgte8eliBsNcMjW6H/XNy5g0ufiuKTBdNy/leh9ThSVK/cuRjdYLV1ka
- UyGg==
-X-Gm-Message-State: APjAAAVK/ucM6oqTlrU4Thr4CfIcF5DS6JFv+Jfwd85/B5exQZRMizC1
- pQ7y+G0syxtE1JkOAsjykoaXP4gRrDvuephn9VxXAg==
-X-Google-Smtp-Source: APXvYqyX4T3+EMaiVFMekGwtj7RxuVpvJjFK7ovifdE0Xn2hhvlS32JRY0NMMU0GJPEuJH9ivdmOsLtKW8fZrBXqRQg=
-X-Received: by 2002:a50:9172:: with SMTP id f47mr29030707eda.233.1556294959549; 
- Fri, 26 Apr 2019 09:09:19 -0700 (PDT)
-MIME-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44rLKZ3L52zDqBW
+ for <openbmc@lists.ozlabs.org>; Sat, 27 Apr 2019 03:15:22 +1000 (AEST)
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x3QHD8ZD010881
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 10:15:18 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : subject :
+ date : message-id : references : in-reply-to : content-type : content-id :
+ content-transfer-encoding : mime-version; s=facebook;
+ bh=85kr6YAduJXiPAR3EMFkF21SrNCApzDnRZPRmfKOhcQ=;
+ b=LSkRCAm/1CGeRbTsDry0Z83tHFBb5C119+IhX9TpDW/kMGcKwuM+tpyWhSMFhp0HB2W5
+ wZtPURAnrrMvw51RUPvA1Mn6FdGBZ8USMRIyDZLr9udnM/HeAGniBE5WAXoASUPFl45c
+ BI/5HI2z0Fdpf/sNE1uU/RKSMlMuf3FMQ5k= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+ by mx0a-00082601.pphosted.com with ESMTP id 2s3mcc35tx-3
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Apr 2019 10:15:18 -0700
+Received: from ash-exhub202.TheFacebook.com (2620:10d:c0a8:83::6) by
+ ash-exhub103.TheFacebook.com (2620:10d:c0a8:82::c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Fri, 26 Apr 2019 10:15:17 -0700
+Received: from NAM01-BY2-obe.outbound.protection.outlook.com (100.104.31.183)
+ by o365-in.thefacebook.com (100.104.36.103) with Microsoft SMTP
+ Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5
+ via Frontend Transport; Fri, 26 Apr 2019 10:15:17 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector1-fb-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=85kr6YAduJXiPAR3EMFkF21SrNCApzDnRZPRmfKOhcQ=;
+ b=C9oPVrHBVOSwegGh4g1b6Fp8zKZG9dJcymE+Mav9ZpIASQoo05wAPCfsD3XTAC9NtjZSvuAvjduErOI80v/SepUMzn9KeZpB78je61HYJ4PCj2frNe8zdEvhjCeNA4tUuYDIFFi8/EdrYy1maPriz4XIaGasCx2T7Qtx42ruWMw=
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com (10.175.2.146) by
+ MWHPR15MB1151.namprd15.prod.outlook.com (10.175.2.17) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.1835.13; Fri, 26 Apr 2019 17:15:16 +0000
+Received: from MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::9ccc:f6fa:40e2:f1cd]) by MWHPR15MB1216.namprd15.prod.outlook.com
+ ([fe80::9ccc:f6fa:40e2:f1cd%10]) with mapi id 15.20.1835.010; Fri, 26 Apr
+ 2019 17:15:16 +0000
+From: Tao Ren <taoren@fb.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: linux kernel compiler warnings ignored
+Thread-Topic: linux kernel compiler warnings ignored
+Thread-Index: AQHU/EEdc8Tcdc3JpkWpJ8UfFS0t06ZOjPYAgAAI+ACAABjHgA==
+Date: Fri, 26 Apr 2019 17:15:16 +0000
+Message-ID: <3e70541e-f308-1f50-1792-6c6b483a047c@fb.com>
 References: <CAO=notxyVAx=LY+5tCUWaezZP67JKy7z3NT3SAUcKR64W8Pk_w@mail.gmail.com>
  <d4abbc06-a4ea-4cd0-95f7-b32cd388293e@www.fastmail.com>
- <CABoTLcSi0DvcqAdrd7QumCotZDAE6VvF+SGu-gtKz_ZRWvsoWg@mail.gmail.com>
- <CAO=notw+eP=xNWMk=LjB-HhsqjjEp3cpS-SjA4EsCN1g-S4GTw@mail.gmail.com>
-In-Reply-To: <CAO=notw+eP=xNWMk=LjB-HhsqjjEp3cpS-SjA4EsCN1g-S4GTw@mail.gmail.com>
-From: Oskar Senft <osk@google.com>
-Date: Fri, 26 Apr 2019 11:09:02 -0500
-Message-ID: <CABoTLcSw6AuBLsE3s8XGY69ioJLyvc3bUjf8mC7UEUPkBa01gA@mail.gmail.com>
-Subject: Re: linux kernel compiler warnings ignored
-To: Patrick Venture <venture@google.com>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Joel Stanley <joel@jms.id.au>
-Content-Type: multipart/alternative; boundary="0000000000003b46780587712876"
+ <CAO=notx9iWQoOLPxKiHm-V=B5b99XZhLQE5PkgNEPg-J_9apiQ@mail.gmail.com>
+In-Reply-To: <CAO=notx9iWQoOLPxKiHm-V=B5b99XZhLQE5PkgNEPg-J_9apiQ@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-clientproxiedby: MWHPR08CA0013.namprd08.prod.outlook.com
+ (2603:10b6:301:5f::26) To MWHPR15MB1216.namprd15.prod.outlook.com
+ (2603:10b6:320:23::18)
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
+x-ms-exchange-messagesentrepresentingtype: 1
+x-originating-ip: [2620:10d:c090:200::2:b23c]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 7ca160f8-1116-43b5-831a-08d6ca6ac01d
+x-microsoft-antispam: BCL:0; PCL:0;
+ RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600141)(711020)(4605104)(2017052603328)(7193020);
+ SRVR:MWHPR15MB1151; 
+x-ms-traffictypediagnostic: MWHPR15MB1151:
+x-microsoft-antispam-prvs: <MWHPR15MB11513AE27C5A0C093E78A895B23E0@MWHPR15MB1151.namprd15.prod.outlook.com>
+x-forefront-prvs: 001968DD50
+x-forefront-antispam-report: SFV:NSPM;
+ SFS:(10019020)(346002)(376002)(366004)(396003)(136003)(39860400002)(189003)(199004)(31686004)(11346002)(97736004)(76176011)(5640700003)(478600001)(6246003)(476003)(64126003)(2501003)(486006)(2906002)(52116002)(53936002)(256004)(68736007)(6436002)(99286004)(86362001)(31696002)(71200400001)(6916009)(229853002)(6486002)(71190400001)(66446008)(2351001)(66946007)(66556008)(36756003)(64756008)(66476007)(58126008)(6512007)(81166006)(8676002)(1730700003)(5660300002)(81156014)(65956001)(73956011)(65806001)(8936002)(6116002)(46003)(65826007)(446003)(14454004)(6506007)(386003)(102836004)(53546011)(7736002)(305945005)(2616005)(186003)(25786009)(316002);
+ DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1151;
+ H:MWHPR15MB1216.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
+ PTR:InfoNoRecords; MX:1; A:1; 
+received-spf: None (protection.outlook.com: fb.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam-message-info: dN+BQZFx8KJfaL2iPF+97HTSRfU8F5wDDSvvFFoYGWe8WguwvLu7siQxXOiWYzjVJpm3e4gCewkukJCPWxmslkBVhuxuo1qXgm/V+TwKiiIbzoj9WG6dQgSGHjg779zLkaF3VQ9m+aQ9WhT5g1mEPX2SffhEr7UGb2s9sFm8TBD4xayoLQT9S0MC7oiv0kw+L4M2l+ddOSca/NBNyFa2aThQke5w5ScJipv6J5j4Yg8qJX8twY7dTJeZWWbgdxFPG+hnZiXRbD8gvCBAUgdqpCon3wX55ULLFC50WWDd5OCtbNKYdsKvSrV9R7hzzGwp05mMg8LrTw1oggZbTD8sAB7PSzCXJuM3ln0MNzQhPONBvxT4i5zA1nwmNe5cHqMB+HKtN112hQxZIvhDYfgUW6jEHB8i8fV+zzYQGpP+9Ak=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <F97873BB3B57F94CB15C1EBD45FAD653@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ca160f8-1116-43b5-831a-08d6ca6ac01d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Apr 2019 17:15:16.3312 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1151
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-04-26_11:, , signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1904260118
+X-FB-Internal: deliver
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,161 +124,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 26 Apr 2019 16:09:24 -0000
+X-List-Received-Date: Fri, 26 Apr 2019 17:15:32 -0000
 
---0000000000003b46780587712876
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Patrick
-
-I'm not sure I follow ... Is that documented somewhere or can you elaborate?
-
-I was hoping that I could build the kernel separately (as Andrew described)
-and then combine that with "something" to end up with an image similar to
-"obmc-phosphor-image-${MACHINE}.static.mtd".
-
-Or is there an even easier way without having to build and flash a new
-.static.mtd?
-
-Thanks
-Oskar.
-
-On Fri, Apr 26, 2019 at 10:45 AM Patrick Venture <venture@google.com> wrote:
-
-> On Fri, Apr 26, 2019 at 8:25 AM Oskar Senft <osk@google.com> wrote:
-> >
-> > Thank you!
-> >
-> > Is there an "easy" way to bake the resulting kernel image into an image
-> for the SPI flash chip?
-> >
-> > I often make kernel-only changes and usually run through the whole
-> process of committing to a local repo, then running bit bake and waiting
-> for all the other stuff it also does. If there was a way to just build the
-> kernel and replace the one in the SPI flash image with the new one, that
-> would be awesome.
->
-> Oskar, if you're using static-images still, there's an image-kernel
-> file output from the build process.  this is supported if you drop it
-> into /run/initramfs/ and reboot similarly to image-bmc.
->
-> >
-> > Oskar.
-> >
-> > On Fri, Apr 26, 2019 at 10:15 AM Andrew Jeffery <andrew@aj.id.au> wrote:
-> >>
-> >>
-> >>
-> >> On Fri, 26 Apr 2019, at 08:01, Patrick Venture wrote:
-> >> > I'm getting feedback from a patchset I sent upstream that there are
-> >> > compiler warnings.  Which surprised me because my OpenBMC builds with
-> >> > those patches don't complain.  I imagine therefore we have them
-> >> > silenced and was curious where we silence them.
-> >>
-> >> How are you building the kernel?
-> >>
-> >> I strongly recommend you build kernels directly from the kernel source
-> tree rather than using bitbake, if that's what you're doing.
-> >>
-> >> In the kernel source tree, do:
-> >>
-> >> $ export ARCH=arm
-> >> $ export CROSS_COMPILE=arm-linux-gnueabi-
-> >> $ make aspeed_g5_defconfig
-> >> $ make W=1 -j$(nproc)
-> >>
-> >> This exports are from memory, ymmv.
-> >>
-> >> In addition to giving you more output than Greg is after, it has a much
-> lower write/compile/test latency.
-> >>
-> >> Hope that helps,
-> >>
-> >> Andrew
-> >>
-> >> >
-> >> > Patrick
-> >> >
->
-
---0000000000003b46780587712876
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr">Hi Patrick<br><div><br></div><div>I&#39;m=
- not sure I follow ... Is that documented somewhere or can you elaborate?</=
-div><div><br></div><div>I was hoping that I could build the kernel separate=
-ly (as Andrew described) and then combine that with &quot;something&quot; t=
-o end up with an image similar to &quot;obmc-phosphor-image-${MACHINE}.stat=
-ic.mtd&quot;.</div><div><br></div><div>Or is there an even easier way witho=
-ut having to build and flash a new .static.mtd?</div><div><br></div><div>Th=
-anks</div><div>Oskar.</div></div></div><br><div class=3D"gmail_quote"><div =
-dir=3D"ltr" class=3D"gmail_attr">On Fri, Apr 26, 2019 at 10:45 AM Patrick V=
-enture &lt;<a href=3D"mailto:venture@google.com">venture@google.com</a>&gt;=
- wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
-0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On Fri, =
-Apr 26, 2019 at 8:25 AM Oskar Senft &lt;<a href=3D"mailto:osk@google.com" t=
-arget=3D"_blank">osk@google.com</a>&gt; wrote:<br>
-&gt;<br>
-&gt; Thank you!<br>
-&gt;<br>
-&gt; Is there an &quot;easy&quot; way to bake the resulting kernel image in=
-to an image for the SPI flash chip?<br>
-&gt;<br>
-&gt; I often make kernel-only changes and usually run through the whole pro=
-cess of committing to a local repo, then running bit bake and waiting for a=
-ll the other stuff it also does. If there was a way to just build the kerne=
-l and replace the one in the SPI flash image with the new one, that would b=
-e awesome.<br>
-<br>
-Oskar, if you&#39;re using static-images still, there&#39;s an image-kernel=
-<br>
-file output from the build process.=C2=A0 this is supported if you drop it<=
-br>
-into /run/initramfs/ and reboot similarly to image-bmc.<br>
-<br>
-&gt;<br>
-&gt; Oskar.<br>
-&gt;<br>
-&gt; On Fri, Apr 26, 2019 at 10:15 AM Andrew Jeffery &lt;<a href=3D"mailto:=
-andrew@aj.id.au" target=3D"_blank">andrew@aj.id.au</a>&gt; wrote:<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt;<br>
-&gt;&gt; On Fri, 26 Apr 2019, at 08:01, Patrick Venture wrote:<br>
-&gt;&gt; &gt; I&#39;m getting feedback from a patchset I sent upstream that=
- there are<br>
-&gt;&gt; &gt; compiler warnings.=C2=A0 Which surprised me because my OpenBM=
-C builds with<br>
-&gt;&gt; &gt; those patches don&#39;t complain.=C2=A0 I imagine therefore w=
-e have them<br>
-&gt;&gt; &gt; silenced and was curious where we silence them.<br>
-&gt;&gt;<br>
-&gt;&gt; How are you building the kernel?<br>
-&gt;&gt;<br>
-&gt;&gt; I strongly recommend you build kernels directly from the kernel so=
-urce tree rather than using bitbake, if that&#39;s what you&#39;re doing.<b=
-r>
-&gt;&gt;<br>
-&gt;&gt; In the kernel source tree, do:<br>
-&gt;&gt;<br>
-&gt;&gt; $ export ARCH=3Darm<br>
-&gt;&gt; $ export CROSS_COMPILE=3Darm-linux-gnueabi-<br>
-&gt;&gt; $ make aspeed_g5_defconfig<br>
-&gt;&gt; $ make W=3D1 -j$(nproc)<br>
-&gt;&gt;<br>
-&gt;&gt; This exports are from memory, ymmv.<br>
-&gt;&gt;<br>
-&gt;&gt; In addition to giving you more output than Greg is after, it has a=
- much lower write/compile/test latency.<br>
-&gt;&gt;<br>
-&gt;&gt; Hope that helps,<br>
-&gt;&gt;<br>
-&gt;&gt; Andrew<br>
-&gt;&gt;<br>
-&gt;&gt; &gt;<br>
-&gt;&gt; &gt; Patrick<br>
-&gt;&gt; &gt;<br>
-</blockquote></div>
-
---0000000000003b46780587712876--
+T24gNC8yNi8xOSA4OjQ2IEFNLCBQYXRyaWNrIFZlbnR1cmUgd3JvdGU6DQo+IE9uIEZyaSwgQXBy
+IDI2LCAyMDE5IGF0IDg6MTQgQU0gQW5kcmV3IEplZmZlcnkgPGFuZHJld0Bhai5pZC5hdT4gd3Jv
+dGU6DQo+Pg0KPj4NCj4+DQo+PiBPbiBGcmksIDI2IEFwciAyMDE5LCBhdCAwODowMSwgUGF0cmlj
+ayBWZW50dXJlIHdyb3RlOg0KPj4+IEknbSBnZXR0aW5nIGZlZWRiYWNrIGZyb20gYSBwYXRjaHNl
+dCBJIHNlbnQgdXBzdHJlYW0gdGhhdCB0aGVyZSBhcmUNCj4+PiBjb21waWxlciB3YXJuaW5ncy4g
+IFdoaWNoIHN1cnByaXNlZCBtZSBiZWNhdXNlIG15IE9wZW5CTUMgYnVpbGRzIHdpdGgNCj4+PiB0
+aG9zZSBwYXRjaGVzIGRvbid0IGNvbXBsYWluLiAgSSBpbWFnaW5lIHRoZXJlZm9yZSB3ZSBoYXZl
+IHRoZW0NCj4+PiBzaWxlbmNlZCBhbmQgd2FzIGN1cmlvdXMgd2hlcmUgd2Ugc2lsZW5jZSB0aGVt
+Lg0KPj4NCj4+IEhvdyBhcmUgeW91IGJ1aWxkaW5nIHRoZSBrZXJuZWw/DQo+Pg0KPj4gSSBzdHJv
+bmdseSByZWNvbW1lbmQgeW91IGJ1aWxkIGtlcm5lbHMgZGlyZWN0bHkgZnJvbSB0aGUga2VybmVs
+IHNvdXJjZSB0cmVlIHJhdGhlciB0aGFuIHVzaW5nIGJpdGJha2UsIGlmIHRoYXQncyB3aGF0IHlv
+dSdyZSBkb2luZy4NCj4gDQo+IEknbSBidWlsZGluZyB0aGUga2VybmVsIHZpYSBiaXRiYWtlIGFz
+IHlvdSBzdXJtaXNlZC4NCj4gDQo+Pg0KPj4gSW4gdGhlIGtlcm5lbCBzb3VyY2UgdHJlZSwgZG86
+DQo+Pg0KPj4gJCBleHBvcnQgQVJDSD1hcm0NCj4+ICQgZXhwb3J0IENST1NTX0NPTVBJTEU9YXJt
+LWxpbnV4LWdudWVhYmktDQo+PiAkIG1ha2UgYXNwZWVkX2c1X2RlZmNvbmZpZw0KPj4gJCBtYWtl
+IFc9MSAtaiQobnByb2MpDQo+Pg0KPj4gVGhpcyBleHBvcnRzIGFyZSBmcm9tIG1lbW9yeSwgeW1t
+di4NCj4gDQo+IFRoYW5rcy4gSSd2ZSBmaXJlZCBvZmYgYSBjb21wbGV0ZSBidWlsZCBvZiB0aGUg
+a2VybmVsIHRvIGNhdGNoIHRoaXMuDQo+IEkgZG9uJ3QgaGF2ZSB0aGUgb3BlbmJtYyBTREsgdG9v
+bGNoYWluIGluc3RhbGxlZCBhdCB0aGUgbW9tZW50LCBidXQNCj4gdGhhdCdzIG5vdCBhIGRpZmZp
+Y3VsdCB0YXNrLg0KDQpJIGFsc28gbm90aWNlZCB0aGUgaXNzdWUgZWFybGllciB0aGlzIHdlZWsg
+KGJpdGJha2UgZG9lc24ndCByZXBvcnQgdW51c2VkIHZhcmlhYmxlcyBpbiBteSBwYXRjaCkuIFRo
+YW5rIHlvdSBBbmRyZXcgYW5kIFBhdHJpY2sgZm9yIHJhaXNpbmcgdGhlIHRvcGljIGFuZCBzaGFy
+aW5nIHNvbHV0aW9ucy4NCg0KQ2hlZXJzLA0KDQpUYW8gDQo=
