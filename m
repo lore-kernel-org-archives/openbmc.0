@@ -8,25 +8,25 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44vX1g1wdvzDqGm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44vX1h11hbzDqHP
  for <openbmc@lists.ozlabs.org>; Thu,  2 May 2019 07:42:47 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 May 2019 14:42:42 -0700
+ 01 May 2019 14:42:46 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,419,1549958400"; d="scan'208";a="136063318"
+X-IronPort-AV: E=Sophos;i="5.60,419,1549958400"; d="scan'208";a="136063324"
 Received: from maru.jf.intel.com ([10.54.51.75])
- by orsmga007.jf.intel.com with ESMTP; 01 May 2019 14:42:42 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 May 2019 14:42:46 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>
 Cc: openbmc@lists.ozlabs.org,
 	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH v2 dev-5.0 2/4] media: aspeed: reduce noisy log printing outs
-Date: Wed,  1 May 2019 14:37:48 -0700
-Message-Id: <20190501213750.28751-3-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH v2 dev-5.0 4/4] media: aspeed: refine interrupt handling logic
+Date: Wed,  1 May 2019 14:37:50 -0700
+Message-Id: <20190501213750.28751-5-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190501213750.28751-1-jae.hyun.yoo@linux.intel.com>
 References: <20190501213750.28751-1-jae.hyun.yoo@linux.intel.com>
@@ -43,71 +43,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 May 2019 21:42:48 -0000
+X-List-Received-Date: Wed, 01 May 2019 21:42:49 -0000
 
-Currently, this driver prints out too much log messages when a
-mode change happens, video turned off by screen saver and etc.
-Actually, all cases are reported to user space properly. Also,
-these are not critical errors but recoverable things, so this
-commit changes the log level of some noisy printing outs.
+There are cases that interrupt bits are cleared by a 500ms delayed
+work which causes unnecessary irq calls. Also, the current
+interrupt handler returns IRQ_HANDLED always but it should return
+IRQ_NONE if there is any unhandled interrupt. So this commit
+refines the interrupt handling logic to fix these issues.
 
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Eddie James <eajames@linux.ibm.com>
 ---
 Changes since v1:
- None
+ * Moved bits clearing point to aspeed_video_off().
+ * Made irq handler return IRQ_NONE when there is any remaining bit.
 
- drivers/media/platform/aspeed-video.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/platform/aspeed-video.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index 4475c6e6d0ae..429f676f9dea 100644
+index 77c209a472ca..1bb863b32836 100644
 --- a/drivers/media/platform/aspeed-video.c
 +++ b/drivers/media/platform/aspeed-video.c
-@@ -441,7 +441,7 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
+@@ -488,6 +488,7 @@ static void aspeed_video_off(struct aspeed_video *video)
  
- 	if (!(seq_ctrl & VE_SEQ_CTRL_COMP_BUSY) ||
- 	    !(seq_ctrl & VE_SEQ_CTRL_CAP_BUSY)) {
--		dev_err(video->dev, "Engine busy; don't start frame\n");
-+		dev_dbg(video->dev, "Engine busy; don't start frame\n");
- 		return -EBUSY;
+ 	/* Disable interrupts */
+ 	aspeed_video_write(video, VE_INTERRUPT_CTRL, 0);
++	aspeed_video_write(video, VE_INTERRUPT_STATUS, 0xffffffff);
+ 
+ 	/* Turn off the relevant clocks */
+ 	clk_disable(video->vclk);
+@@ -556,7 +557,7 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
+ 					    VE_INTERRUPT_MODE_DETECT, 0);
+ 			aspeed_video_write(video, VE_INTERRUPT_STATUS,
+ 					   VE_INTERRUPT_MODE_DETECT);
+-
++			sts &= ~VE_INTERRUPT_MODE_DETECT;
+ 			set_bit(VIDEO_MODE_DETECT_DONE, &video->flags);
+ 			wake_up_interruptible_all(&video->wait);
+ 		} else {
+@@ -601,12 +602,12 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
+ 				    VE_INTERRUPT_COMP_COMPLETE, 0);
+ 		aspeed_video_write(video, VE_INTERRUPT_STATUS,
+ 				   VE_INTERRUPT_COMP_COMPLETE);
+-
++		sts &= ~VE_INTERRUPT_COMP_COMPLETE;
+ 		if (test_bit(VIDEO_STREAMING, &video->flags) && buf)
+ 			aspeed_video_start_frame(video);
  	}
  
-@@ -771,7 +771,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
- 						      res_check(video),
- 						      MODE_DETECT_TIMEOUT);
- 		if (!rc) {
--			dev_err(video->dev, "Timed out; first mode detect\n");
-+			dev_dbg(video->dev, "Timed out; first mode detect\n");
- 			clear_bit(VIDEO_RES_DETECT, &video->flags);
- 			return;
- 		}
-@@ -789,7 +789,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
- 						      MODE_DETECT_TIMEOUT);
- 		clear_bit(VIDEO_RES_DETECT, &video->flags);
- 		if (!rc) {
--			dev_err(video->dev, "Timed out; second mode detect\n");
-+			dev_dbg(video->dev, "Timed out; second mode detect\n");
- 			return;
- 		}
+-	return IRQ_HANDLED;
++	return sts ? IRQ_NONE : IRQ_HANDLED;
+ }
  
-@@ -823,7 +823,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
- 	} while (invalid_resolution && (tries++ < INVALID_RESOLUTION_RETRIES));
- 
- 	if (invalid_resolution) {
--		dev_err(video->dev, "Invalid resolution detected\n");
-+		dev_dbg(video->dev, "Invalid resolution detected\n");
- 		return;
- 	}
- 
-@@ -1471,7 +1471,7 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
- 				!test_bit(VIDEO_FRAME_INPRG, &video->flags),
- 				STOP_TIMEOUT);
- 	if (!rc) {
--		dev_err(video->dev, "Timed out when stopping streaming\n");
-+		dev_dbg(video->dev, "Timed out when stopping streaming\n");
- 
- 		/*
- 		 * Need to force stop any DMA and try and get HW into a good
+ static void aspeed_video_check_and_set_polarity(struct aspeed_video *video)
 -- 
 2.21.0
