@@ -8,26 +8,25 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 44vX1g36Q0zDqHP
+ by lists.ozlabs.org (Postfix) with ESMTPS id 44vX1g1wdvzDqGm
  for <openbmc@lists.ozlabs.org>; Thu,  2 May 2019 07:42:47 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 01 May 2019 14:42:43 -0700
+ 01 May 2019 14:42:42 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.60,419,1549958400"; d="scan'208";a="136063319"
+X-IronPort-AV: E=Sophos;i="5.60,419,1549958400"; d="scan'208";a="136063318"
 Received: from maru.jf.intel.com ([10.54.51.75])
- by orsmga007.jf.intel.com with ESMTP; 01 May 2019 14:42:43 -0700
+ by orsmga007.jf.intel.com with ESMTP; 01 May 2019 14:42:42 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>
 Cc: openbmc@lists.ozlabs.org,
 	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH v2 dev-5.0 3/4] media: aspeed: remove checking of
- VE_INTERRUPT_CAPTURE_COMPLETE
-Date: Wed,  1 May 2019 14:37:49 -0700
-Message-Id: <20190501213750.28751-4-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH v2 dev-5.0 2/4] media: aspeed: reduce noisy log printing outs
+Date: Wed,  1 May 2019 14:37:48 -0700
+Message-Id: <20190501213750.28751-3-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190501213750.28751-1-jae.hyun.yoo@linux.intel.com>
 References: <20190501213750.28751-1-jae.hyun.yoo@linux.intel.com>
@@ -46,16 +45,11 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 01 May 2019 21:42:48 -0000
 
-VE_INTERRUPT_CAPTURE_COMPLETE and VE_INTERRUPT_COMP_COMPLETE are
-not set at the same time but the current interrupt handling
-mechanism of this driver doesn't clear the interrupt flag until
-both two are set, and this behavior causes unnecessary interrupt
-handler calls. In fact, this driver provides JPEG format only so
-taking care of the VE_INTERRUPT_COMP_COMPLETE is enough for getting
-compressed image frame so this commit gets rid of the
-VE_INTERRUPT_CAPTURE_COMPLETE checking logic to simplify the logic.
-Handling of VE_INTERRUPT_CAPTURE_COMPLETE could be added back later
-when it's actually needed.
+Currently, this driver prints out too much log messages when a
+mode change happens, video turned off by screen saver and etc.
+Actually, all cases are reported to user space properly. Also,
+these are not critical errors but recoverable things, so this
+commit changes the log level of some noisy printing outs.
 
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Reviewed-by: Eddie James <eajames@linux.ibm.com>
@@ -63,46 +57,57 @@ Reviewed-by: Eddie James <eajames@linux.ibm.com>
 Changes since v1:
  None
 
- drivers/media/platform/aspeed-video.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/media/platform/aspeed-video.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index 429f676f9dea..77c209a472ca 100644
+index 4475c6e6d0ae..429f676f9dea 100644
 --- a/drivers/media/platform/aspeed-video.c
 +++ b/drivers/media/platform/aspeed-video.c
-@@ -463,8 +463,7 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
- 	aspeed_video_write(video, VE_COMP_ADDR, addr);
+@@ -441,7 +441,7 @@ static int aspeed_video_start_frame(struct aspeed_video *video)
  
- 	aspeed_video_update(video, VE_INTERRUPT_CTRL, 0,
--			    VE_INTERRUPT_COMP_COMPLETE |
--			    VE_INTERRUPT_CAPTURE_COMPLETE);
-+			    VE_INTERRUPT_COMP_COMPLETE);
- 
- 	aspeed_video_update(video, VE_SEQ_CTRL, 0,
- 			    VE_SEQ_CTRL_TRIG_CAPTURE | VE_SEQ_CTRL_TRIG_COMP);
-@@ -570,8 +569,7 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
- 		}
+ 	if (!(seq_ctrl & VE_SEQ_CTRL_COMP_BUSY) ||
+ 	    !(seq_ctrl & VE_SEQ_CTRL_CAP_BUSY)) {
+-		dev_err(video->dev, "Engine busy; don't start frame\n");
++		dev_dbg(video->dev, "Engine busy; don't start frame\n");
+ 		return -EBUSY;
  	}
  
--	if ((sts & VE_INTERRUPT_COMP_COMPLETE) &&
--	    (sts & VE_INTERRUPT_CAPTURE_COMPLETE)) {
-+	if (sts & VE_INTERRUPT_COMP_COMPLETE) {
- 		struct aspeed_video_buffer *buf;
- 		u32 frame_size = aspeed_video_read(video,
- 						   VE_OFFSET_COMP_STREAM);
-@@ -600,11 +598,9 @@ static irqreturn_t aspeed_video_irq(int irq, void *arg)
- 				    VE_SEQ_CTRL_FORCE_IDLE |
- 				    VE_SEQ_CTRL_TRIG_COMP, 0);
- 		aspeed_video_update(video, VE_INTERRUPT_CTRL,
--				    VE_INTERRUPT_COMP_COMPLETE |
--				    VE_INTERRUPT_CAPTURE_COMPLETE, 0);
-+				    VE_INTERRUPT_COMP_COMPLETE, 0);
- 		aspeed_video_write(video, VE_INTERRUPT_STATUS,
--				   VE_INTERRUPT_COMP_COMPLETE |
--				   VE_INTERRUPT_CAPTURE_COMPLETE);
-+				   VE_INTERRUPT_COMP_COMPLETE);
+@@ -771,7 +771,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      res_check(video),
+ 						      MODE_DETECT_TIMEOUT);
+ 		if (!rc) {
+-			dev_err(video->dev, "Timed out; first mode detect\n");
++			dev_dbg(video->dev, "Timed out; first mode detect\n");
+ 			clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 			return;
+ 		}
+@@ -789,7 +789,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 						      MODE_DETECT_TIMEOUT);
+ 		clear_bit(VIDEO_RES_DETECT, &video->flags);
+ 		if (!rc) {
+-			dev_err(video->dev, "Timed out; second mode detect\n");
++			dev_dbg(video->dev, "Timed out; second mode detect\n");
+ 			return;
+ 		}
  
- 		if (test_bit(VIDEO_STREAMING, &video->flags) && buf)
- 			aspeed_video_start_frame(video);
+@@ -823,7 +823,7 @@ static void aspeed_video_get_resolution(struct aspeed_video *video)
+ 	} while (invalid_resolution && (tries++ < INVALID_RESOLUTION_RETRIES));
+ 
+ 	if (invalid_resolution) {
+-		dev_err(video->dev, "Invalid resolution detected\n");
++		dev_dbg(video->dev, "Invalid resolution detected\n");
+ 		return;
+ 	}
+ 
+@@ -1471,7 +1471,7 @@ static void aspeed_video_stop_streaming(struct vb2_queue *q)
+ 				!test_bit(VIDEO_FRAME_INPRG, &video->flags),
+ 				STOP_TIMEOUT);
+ 	if (!rc) {
+-		dev_err(video->dev, "Timed out when stopping streaming\n");
++		dev_dbg(video->dev, "Timed out when stopping streaming\n");
+ 
+ 		/*
+ 		 * Need to force stop any DMA and try and get HW into a good
 -- 
 2.21.0
