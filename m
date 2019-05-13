@@ -1,46 +1,46 @@
-Return-Path: <tomer.maimon@nuvoton.com>
+Return-Path: <Hongweiz@ami.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=ami.com
+ (client-ip=63.147.10.42; helo=atlmailgw2.ami.com;
+ envelope-from=hongweiz@ami.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=nuvoton.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=ami.com
+Received: from atlmailgw2.ami.com (atlmailgw2.ami.com [63.147.10.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4529gY43M2zDqJ5
- for <openbmc@lists.ozlabs.org>; Mon, 13 May 2019 03:20:02 +1000 (AEST)
-Received: from NTILML02.nuvoton.com (212.199.177.21.static.012.net.il
- [212.199.177.21])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x4CHJln0019302
- for <openbmc@lists.ozlabs.org>; Sun, 12 May 2019 20:19:47 +0300
-Received: from NTILML02.nuvoton.com (10.190.1.46) by NTILML02.nuvoton.com
- (10.190.1.46) with Microsoft SMTP Server (TLS) id 15.0.1130.7; Sun, 12 May
- 2019 20:19:46 +0300
-Received: from NTILML02.nuvoton.com ([::1]) by NTILML02.nuvoton.com ([::1])
- with mapi id 15.00.1130.005; Sun, 12 May 2019 20:19:46 +0300
-From: <tomer.maimon@nuvoton.com>
-To: <joel@jms.id.au>
-CC: <openbmc@lists.ozlabs.org>, <jae.hyun.yoo@linux.intel.com>
-Subject: RE: Moving kernel to 5.1
-Thread-Topic: Moving kernel to 5.1
-Thread-Index: AQHVBXhJ8svVcELBDkig3D3KSViQqaZhkVQAgAIYxoCABBbBYA==
-Date: Sun, 12 May 2019 17:19:46 +0000
-Message-ID: <b211f8797d984e45bc50f65547863a39@NTILML02.nuvoton.com>
-References: <CACPK8XeSFx7LUKch3Vy+OVKaV=3P4UVWOXBkUF0WO3iKx47NVw@mail.gmail.com>
- <9a1adf03-ee54-0674-54bc-d5c37a9ae516@linux.intel.com>
- <CACPK8XfQVySsmzUGLenPA5cM2AdCfgTzf1hO2cbqg1_D62tK8w@mail.gmail.com>
-In-Reply-To: <CACPK8XfQVySsmzUGLenPA5cM2AdCfgTzf1hO2cbqg1_D62tK8w@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.191.10.124]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 452pw461h1zDq9M
+ for <openbmc@lists.ozlabs.org>; Tue, 14 May 2019 04:18:11 +1000 (AEST)
+X-AuditID: ac10606f-0adff700000054ce-c2-5cd9b4de927e
+Received: from atlms1.us.megatrends.com (atlms1.us.megatrends.com
+ [172.16.96.144])
+ (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by atlmailgw2.ami.com (Symantec Messaging Gateway) with SMTP id
+ DF.58.21710.ED4B9DC5; Mon, 13 May 2019 14:18:07 -0400 (EDT)
+Received: from hongweiz-Ubuntu-AMI.us.megatrends.com (172.16.98.93) by
+ atlms1.us.megatrends.com (172.16.96.144) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Mon, 13 May 2019 14:18:06 -0400
+From: Hongwei Zhang <hongweiz@ami.com>
+To: Joel Stanley <joel@jms.id.au>, <openbmc@lists.ozlabs.org>
+CC: Hongwei Zhang <hongweiz@ami.com>, Andrew Jeffery <andrew@aj.id.au>, Brad
+ Bishop <bradleyb@fuzziesquirrel.com>
+Subject: [PATCH linux dev-5.0] ARM: dts: aspeed: Add Microsoft Olympus BMC
+Date: Mon, 13 May 2019 14:17:17 -0400
+Message-ID: <1557771437-26366-1-git-send-email-hongweiz@ami.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
+Content-Type: text/plain
+X-Originating-IP: [172.16.98.93]
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrILMWRmVeSWpSXmKPExsWyRiBhgu79LTdjDNacYbXYdZnDYunNK2wW
+ v8//ZbY41fKCxYHF42r7LnaP29ub2D0ufjzG7HF+xkLGAJYoLpuU1JzMstQifbsErowr0zvZ
+ C64pVpya95CxgbFBqouRk0NCwETiYvtR9i5GLg4hgV1MEi1/jrFCOIcZJdrefGMDqWITUJPY
+ u3kOE4gtImAr8WTvZXYQm1mgWGL5wzOMILawgJfE5ek/weIsAqoSF29tZAWxeQUcJJY3/WaE
+ 2CYncfNcJzNEXFDi5MwnLBBzJCQOvngBFhcSkJW4degxE0S9gsTzvscsExj5ZiFpmYWkZQEj
+ 0ypGocSSnNzEzJz0ciO9xNxMveT83E2MkIDL38H48aP5IUYBDkYlHt6EeTdjhFgTy4orcw8x
+ SnAwK4nwRineiBHiTUmsrEotyo8vKs1JLT7EKM3BoiTOOyPkcoyQQHpiSWp2ampBahFMlomD
+ U6qBMd4jWoGv9927nW5XeOdbfXn9UMFXaAmzr4Upe2/jxtnzz/5nv3vER/NP9x7/tr9LBZu2
+ 3373KD9K7YDtqQe3naYx3r4c+zea5ybHYZ7vXuUun95OKVfTcVbr8vwQuvLllzXcBgY7N+U3
+ m2Yw2tjxmehO/n+pafsn+8cvl+l+v3R8gXtmYtu2KUosxRmJhlrMRcWJAMfu5es0AgAA
 X-Mailman-Approved-At: Tue, 14 May 2019 11:23:06 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -53,54 +53,239 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 12 May 2019 17:20:12 -0000
+X-List-Received-Date: Mon, 13 May 2019 18:18:14 -0000
 
-SGkgSm9lbCwNCg0KU29ycnkgZm9yIHRoZSBsYXRlIHJlcGx5LCB3ZSB3ZXJlIG9uIGhvbGlkYXku
-DQoNCldlIGhhZCBjaGVja2VkIGRldi01LjEgb24gTnV2b3RvbiBOUENNNzUwIEVWQiBhbmQgaXQg
-bG9va3MgZmluZS4NClRoZXJlIGlzIGEgbWlub3IgY2hhbmdlIHRoYXQgbmVlZCB0byBkb25lIGlu
-IHRoZSBzcGkgbm9kZSBpbiB0aGUgZHRzIGZpbGUuDQoNCkFib3V0IE51dm90b24gZHJpdmVyczoN
-CjEuIEV0aGVybmV0IG1hYyAoRU1DKSAtIG9uIHdvcmssIGhvcGVmdWxseSBmaXJzdCB1cHN0cmVh
-bSB2ZXJzaW9uIHdpbGwgc2VudCBzb29uLg0KMi4gSTJDIC0gb24gdXBzdHJlYW0gcHJvY2Vzcywg
-dGhlIG1haW50YWluZXIgaGF2ZSBub3Qgc2VuZCBmZWVkYmFjayB5ZXQuDQozLiBQQ0kgbWFpbGJv
-eCAtIGNhbm5vdCB1cHN0cmVhbSwgaXQgdGhlIHNhbWUgcmVhc29uIGFzIEFzcGVlZC4NCjQuIEJJ
-T1MgcG9zdCBjb2RlIC0gb24gdXBzdHJlYW0gcHJvY2VzcywgdGhlIG1haW50YWluZXIgaGF2ZSBu
-b3Qgc2VuZCBmZWVkYmFjayB5ZXQuDQo1LiBTUEktTk9SIC0gaG9wZWZ1bGx5IGZpcnN0IHVwc3Ry
-ZWFtIHZlcnNpb24gdG8gU1BJIHdpbGwgc2VudCBzb29uLg0KDQpUaGFua3MsDQoNClRvbWVyDQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBKb2VsIFN0YW5sZXkgPGpvZWxAam1z
-LmlkLmF1Pg0KU2VudDogRnJpZGF5LCAxMCBNYXkgMjAxOSA4OjQ2DQpUbzogSmFlIEh5dW4gWW9v
-IDxqYWUuaHl1bi55b29AbGludXguaW50ZWwuY29tPg0KQ2M6IE9wZW5CTUMgTWFpbGxpc3QgPG9w
-ZW5ibWNAbGlzdHMub3psYWJzLm9yZz47IElTMjAgVG9tZXIgTWFpbW9uIDx0b21lci5tYWltb25A
-bnV2b3Rvbi5jb20+DQpTdWJqZWN0OiBSZTogTW92aW5nIGtlcm5lbCB0byA1LjENCg0KT24gV2Vk
-LCA4IE1heSAyMDE5IGF0IDIxOjQ1LCBKYWUgSHl1biBZb28gPGphZS5oeXVuLnlvb0BsaW51eC5p
-bnRlbC5jb20+IHdyb3RlOg0KPg0KPiBPbiA1LzgvMjAxOSAxOjI5IEFNLCBKb2VsIFN0YW5sZXkg
-d3JvdGU6DQo+ID4gSGVsbG8gT3BlbkJNQyBkZXZlbG9wZXJzLA0KPiA+DQo+ID4gTGludXggNS4x
-IHdhcyB0YWdnZWQgYSBmZXcgZGF5cyBhZ28uIEkndmUgcmViYXNlZCB0aGUgb3BlbmJtYyB0cmVl
-DQo+ID4gb24gdGhpcyByZWxlYXNlIGFuZCBwdXNoZWQgYSBkZXYtNS4xIGJyYW5jaCB0byBnaXRo
-dWIuDQo+ID4NCj4gPiBQbGVhc2UgdGFrZSBhIGxvb2sgYXQgdGhlIGJ1bXAgY29tbWl0LCBnaXZl
-IGl0IGEgc3BpbiBvbiB5b3VyDQo+ID4gaGFyZHdhcmUsIGFuZCArMSBpZiBpdCBsb29rcyBnb29k
-IHRvIHlvdToNCj4gPg0KPiA+DQo+ID4gaHR0cHM6Ly91cmxkZWZlbnNlLnByb29mcG9pbnQuY29t
-L3YyL3VybD91PWh0dHBzLTNBX19nZXJyaXQub3BlbmJtYy0NCj4gPiAyRHByb2plY3QueHl6X2Nf
-b3BlbmJtY19tZXRhLTJEYXNwZWVkXy0yQl8yMTIxMiZkPUR3SUJhUSZjPXVlOG1POHpnQw0KPiA+
-IDRWWjRxX2FOVkt0OEc5TUMwMVVGRG1pc3ZNUjFrLUVvRE0mcj1XSlctdlBGTlRjZktIYjQydlRj
-NHkzSUJRN2FraEk3DQo+ID4gd0MxMU84Rm4wZjdNJm09aGJ6TTEyaFFVRWlSRzNLQ21xam92azBJ
-ZE44Q1NMV1FXeTAxQTlVdE5jayZzPVZ0ZUJVWG0NCj4gPiBYTGFhcVpWZmlEbDVtNHJZTXp5MDlT
-ekEydlFCcHR3RFc1Y3MmZT0NCj4NCj4gSW50ZWwgcGxhdGZvcm1zIGJvb3RlZCB3ZWxsLiBUaGFu
-a3MgYSBsb3QhDQoNClRoYW5rcyB0byBKYWUsIFRhbyBhbmQgUGF0cmljayBmb3IgdGhlIHRlc3Rp
-bmcuIEdlb3JnZSBhbHNvIHRlc3RlZCBXaXRoZXJzcG9vbiBhbmQgcmVwb3J0ZWQgYWxsIGdvb2Qu
-DQoNCldlJ3ZlIG5vdyBtZXJnZWQgdGhlIGJ1bXAgZm9yIHRoZSBhc3BlZWQga2VybmVsIGludG8g
-bWFzdGVyLg0KDQpOdXZvdG9uIHdpbGwgYmUgbWVyZ2VkIG9uY2Ugc29tZW9uZSB3aXRoIGhhcmR3
-YXJlIHJlcG9ydHMgaW4uDQoNCkNoZWVycywNCg0KSm9lbA0KDQoNCj09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT0NClRoZSBwcml2aWxlZ2VkIGNvbmZpZGVudGlhbCBpbmZvcm1hdGlv
-biBjb250YWluZWQgaW4gdGhpcyBlbWFpbCBpcyBpbnRlbmRlZCBmb3IgdXNlIG9ubHkgYnkgdGhl
-IGFkZHJlc3NlZXMgYXMgaW5kaWNhdGVkIGJ5IHRoZSBvcmlnaW5hbCBzZW5kZXIgb2YgdGhpcyBl
-bWFpbC4gSWYgeW91IGFyZSBub3QgdGhlIGFkZHJlc3NlZSBpbmRpY2F0ZWQgaW4gdGhpcyBlbWFp
-bCBvciBhcmUgbm90IHJlc3BvbnNpYmxlIGZvciBkZWxpdmVyeSBvZiB0aGUgZW1haWwgdG8gc3Vj
-aCBhIHBlcnNvbiwgcGxlYXNlIGtpbmRseSByZXBseSB0byB0aGUgc2VuZGVyIGluZGljYXRpbmcg
-dGhpcyBmYWN0IGFuZCBkZWxldGUgYWxsIGNvcGllcyBvZiBpdCBmcm9tIHlvdXIgY29tcHV0ZXIg
-YW5kIG5ldHdvcmsgc2VydmVyIGltbWVkaWF0ZWx5LiBZb3VyIGNvb3BlcmF0aW9uIGlzIGhpZ2hs
-eSBhcHByZWNpYXRlZC4gSXQgaXMgYWR2aXNlZCB0aGF0IGFueSB1bmF1dGhvcml6ZWQgdXNlIG9m
-IGNvbmZpZGVudGlhbCBpbmZvcm1hdGlvbiBvZiBOdXZvdG9uIGlzIHN0cmljdGx5IHByb2hpYml0
-ZWQ7IGFuZCBhbnkgaW5mb3JtYXRpb24gaW4gdGhpcyBlbWFpbCBpcnJlbGV2YW50IHRvIHRoZSBv
-ZmZpY2lhbCBidXNpbmVzcyBvZiBOdXZvdG9uIHNoYWxsIGJlIGRlZW1lZCBhcyBuZWl0aGVyIGdp
-dmVuIG5vciBlbmRvcnNlZCBieSBOdXZvdG9uLg0K
+Olympus is a Microsoft OCP platform equipped with Aspeed 2400 BMC
+Soc.
+
+Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
+---
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts | 204 +++++++++++++++++++++
+ 2 files changed, 205 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index c01a7b1..072725a 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1242,6 +1242,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-facebook-tiogapass.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+ 	aspeed-bmc-lenovo-hr630.dtb \
++	aspeed-bmc-microsoft-olympus.dtb \
+ 	aspeed-bmc-opp-lanyang.dtb \
+ 	aspeed-bmc-opp-palmetto.dtb \
+ 	aspeed-bmc-opp-romulus.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+new file mode 100644
+index 0000000..ed25fac
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+@@ -0,0 +1,204 @@
++//SPDX-License-Identifier: GPL-2.0+
++/*
++ * Device Tree file for Microsoft Olympus platform.
++ */
++
++/dts-v1/;
++
++#include "aspeed-g4.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++
++/ {
++	model = "Olympus BMC";
++	compatible = "microsoft,olympus-bmc", "aspeed,ast2400";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@40000000 {
++		reg = <0x40000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@5f000000 {
++			no-map;
++			reg = <0x5f000000 0x01000000>; /* 16M */
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		bmc_heartbeat {
++			gpios = <&gpio ASPEED_GPIO(B, 0) GPIO_ACTIVE_LOW>;
++		};
++
++		power_green {
++			gpios = <&gpio ASPEED_GPIO(U, 2) GPIO_ACTIVE_HIGH>;
++		};
++
++		power_amber {
++			gpios = <&gpio ASPEED_GPIO(U, 3) GPIO_ACTIVE_HIGH>;
++		};
++
++		identify {
++			gpios = <&gpio ASPEED_GPIO(Q, 5) GPIO_ACTIVE_LOW>;
++		};
++
++		fault {
++			gpios = <&gpio ASPEED_GPIO(A, 1) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++		<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
++	};
++};
++
++&adc {
++	status = "okay";
++};
++
++&fmc {
++	status = "okay";
++
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi {
++	status = "okay";
++	pinctrl-names = "default";
++
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++
++	tmp421@4c {
++		compatible = "ti,tmp421";
++		reg = <0x4c>;
++	};
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++};
++
++&i2c4 {
++	status = "okay";
++	clock-frequency = <100000>;
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++
++	tmp421@4c {
++		compatible = "ti,tmp421";
++		reg = <0x4c>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&vuart {
++	status = "okay";
++};
++
++&wdt2 {
++	status = "okay";
++};
++
++&lpc_ctrl {
++	status = "okay";
++};
++
++&mbox {
++	status = "okay";
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 =    <&pinctrl_pwm0_default
++			&pinctrl_pwm1_default
++			&pinctrl_pwm2_default
++			&pinctrl_pwm3_default
++			&pinctrl_pwm4_default
++			&pinctrl_pwm5_default
++			&pinctrl_pwm6_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++
++	fan@2 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
++	};
++
++	fan@3 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
++	};
++
++	fan@4 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
++	};
++
++	fan@5 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
++	};
++
++};
+-- 
+2.7.4
