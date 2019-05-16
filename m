@@ -1,75 +1,67 @@
-Return-Path: <dkodihal@linux.vnet.ibm.com>
+Return-Path: <franhsutw@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.vnet.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=dkodihal@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::444; helo=mail-pf1-x444.google.com;
+ envelope-from=franhsutw@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z0BUt97l"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 454MBj1fGpzDqJs
- for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 16:36:12 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4G6Xqrc118665
- for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 02:36:09 -0400
-Received: from e06smtp02.uk.ibm.com (e06smtp02.uk.ibm.com [195.75.94.98])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2sh0byneq2-1
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 02:36:08 -0400
-Received: from localhost
- by e06smtp02.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
- Violators will be prosecuted
- for <openbmc@lists.ozlabs.org> from <dkodihal@linux.vnet.ibm.com>;
- Thu, 16 May 2019 07:36:07 +0100
-Received: from b06cxnps3075.portsmouth.uk.ibm.com (9.149.109.195)
- by e06smtp02.uk.ibm.com (192.168.101.132) with IBM ESMTP SMTP Gateway:
- Authorized Use Only! Violators will be prosecuted; 
- (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
- Thu, 16 May 2019 07:36:03 +0100
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com
- (b06wcsmtp001.portsmouth.uk.ibm.com [9.149.105.160])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x4G6a2as44630064
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 May 2019 06:36:02 GMT
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A6B0DA405C;
- Thu, 16 May 2019 06:36:02 +0000 (GMT)
-Received: from b06wcsmtp001.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 33C52A4062;
- Thu, 16 May 2019 06:36:02 +0000 (GMT)
-Received: from Deepaks-MacBook-Pro.local (unknown [9.199.203.20])
- by b06wcsmtp001.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Thu, 16 May 2019 06:36:02 +0000 (GMT)
-Subject: Re: Add support to debug unresponsive host
-To: Jayanth Othayoth <ojayanth@gmail.com>
-References: <CACkAXSqktuOVy02_R9q4iWcTL=_v7iOrxoBOOCMb5xTAXnxREg@mail.gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Date: Thu, 16 May 2019 12:06:01 +0530
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:60.0)
- Gecko/20100101 Thunderbird/60.6.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 454Q4X32VhzDqZG
+ for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 18:46:00 +1000 (AEST)
+Received: by mail-pf1-x444.google.com with SMTP id y11so1463169pfm.13
+ for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 01:46:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=d4h1E/yatgT+rf64kqBXtFAoUtOpyZWwvUrP9czpAvI=;
+ b=Z0BUt97ltZg99BehhCXN3Ak8MP2/HCthPxj21aeFCscJ8MnyfjmVdi7lP2aq4T8no3
+ U3dyHsuQDUxTQwY5y/Tc0XiirUuDiEl7BY1IodgJeyuxznPjKMdyuWhGPHmgZ2KCrQuY
+ PaO03/nFBWIrWoQczqSGl8X6EltwmyyAzy+12BpM2ifAqilIvfQInnz8SHSusRmIQ8vA
+ 2P5cXlDYGpV1q09WZE63/mEWpcl50Ln2S+zeO114KuZLpTC8ddWpWdGtDlrEhpZdh5Mf
+ DEpvhnwkaufSGhdXZxuU5ZW0uOillnopnXkWz3UwsU0xLqrsMk0QEwNVjL2REV5hBGx9
+ lQxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=d4h1E/yatgT+rf64kqBXtFAoUtOpyZWwvUrP9czpAvI=;
+ b=c7cUJNyjG4GCuxjnKkuybVv7YsgLOu4uFJTIF9WzUnaaVnt+zCyZV1XXxnQWMxSOdm
+ 0vuCizUtcXAC2qPI6UpVY6DS09xTFIfrDHjwgdKRMZSzxID90WaDzwkUgPxb2DaZRPur
+ uh2Wc5VJE4hgboCyEpyAgIxH8l3sXA5g9czHOD1Pr/R7nwEzuWisCWdoRHhM7grNZP4l
+ 0M/MM1PzZNAqCgkNQBvYkVTGIPK8Ic302yQ9VP23xG5Mu+doZ3ClD36Tow+3fC0bqm/e
+ VsNHDmio9er0DaBqOHMqCjvg1Jn8P5bvJEcu44nCSAoX8gSh9dHG1+uW5W+JhH1aPfWi
+ DYNw==
+X-Gm-Message-State: APjAAAXNGnEIcMsJdadiAtYuhE0OlGWulnGch8yINLqlmX+M2EiLQeOO
+ oN3FmIG9F3/Lp0DJjwRg6jw=
+X-Google-Smtp-Source: APXvYqzkzVnFx29SGXQ9AsUIRsGdN4SimB6+OAH7zHYvn75KX4U0d1ybPoA2U4y0H8cHe9ge1SUmcw==
+X-Received: by 2002:a62:5581:: with SMTP id
+ j123mr53116524pfb.102.1557996357774; 
+ Thu, 16 May 2019 01:45:57 -0700 (PDT)
+Received: from localhost.localdomain (220-135-135-179.HINET-IP.hinet.net.
+ [220.135.135.179])
+ by smtp.gmail.com with ESMTPSA id b186sm6233286pga.5.2019.05.16.01.45.56
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-SHA bits=128/128);
+ Thu, 16 May 2019 01:45:57 -0700 (PDT)
+From: Fran Hsu <franhsutw@gmail.com>
+To: Joel Stanley <joel@jms.id.au>
+Cc: openbmc@lists.ozlabs.org, benjaminfair@google.com,
+ Fran Hsu <Fran.Hsu@quantatw.com>
+Subject: [PATCH dev-5.1 v3 3/3] ARM: dts: nuvoton: Add NPCM730 common device
+ tree include file.
+Date: Thu, 16 May 2019 16:43:49 +0800
+Message-Id: <20190516084349.11556-3-franhsutw@gmail.com>
+X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190516084349.11556-1-franhsutw@gmail.com>
+References: <20190516084349.11556-1-franhsutw@gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CACkAXSqktuOVy02_R9q4iWcTL=_v7iOrxoBOOCMb5xTAXnxREg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-x-cbid: 19051606-0008-0000-0000-000002E733D9
-X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
-x-cbparentid: 19051606-0009-0000-0000-00002253D719
-Message-Id: <c8826cab-42d1-85d7-4eb0-50e79857a205@linux.vnet.ibm.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-16_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1810050000 definitions=main-1905160046
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,56 +73,81 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 May 2019 06:36:13 -0000
+X-List-Received-Date: Thu, 16 May 2019 08:46:05 -0000
 
-On 15/05/19 6:09 PM, Jayanth Othayoth wrote:
-> ## Problem Description
-> Issue #457:  Add support to debug unresponsive host.
-> 
-> Scope: High level design direction to solve this problem,
-> 
-> ## Background and References
-> There are situation at customer places where OPAL/Linux goes 
-> unresponsive causing a system hang. And there is no way to figure out 
-> what went wrong with Linux kernel or OPAL. Looking for a way to trigger 
-> a dump capture on Linux host so that we can capture the OS dump for post 
-> analysis.
-> 
-> ## Proposed Design for POWER processor based systems:
-> Get all Host CPUs in reset vector and Linux then has a mechanism to 
-> patch it into panic-kdump path to trigger dump capture. This will enable 
-> us to analyze and fix customer issue where we see Linux hang and 
-> unresponsive system.
-> 
-> ### Redfish Schema used:
-> * Reference: DSP2046 2018.3,
-> * ComputerSystem 1.6.0 schema provides an action called 
-> #ComputerSystem.Reset”, This action is used to reset the system. 
-> ResetType parameter is used  for indicating type of reset need to be 
-> performed. In this use case we can use “Nmi” type
->      * Nmi: Generate a Diagnostic Interrupt (usually an NMI on x86 
-> systems) to cease normal operations, perform diagnostic actions and 
-> typically halt the system.  
-> * ### d-bus :
-> 
-> Option 1:   Extending  the existing  d-bus interface  state.Host  name 
-> space ( 
-> /openbmc/phosphor-dbus-interfaces/xyz/openbmc_project/State/Host.interface.yaml 
-> ) to support new RequestedHostTransition property called  “Nmi”.   d-bus 
-> backend can internally invoke processor specific target to do Sreset( 
-> equivalent to x86 NMI) and associated  actions.
+From: Fran Hsu <Fran.Hsu@quantatw.com>
 
-I don't prefer this option, because this would mean adding host specific 
-code in phoshor-state-manager, which I think until now is host agnostic. 
-So for that reason, Option 2 sounds better. There are some good 
-questions from Neeraj as well, so I would suggest adding this as a 
-design template on Gerrit to gather better feedback.
+Quanta GSJ BMC uses the Nuvoton NPCM730 BMC processor.
+This file describes the common setting for NPCM730.
 
-Thanks,
-Deepak
+Signed-off-by: Fran Hsu <Fran.Hsu@quantatw.com>
+---
+ arch/arm/boot/dts/nuvoton-npcm730.dtsi | 57 ++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730.dtsi
 
-> Option 2: Introducing new d-bus interface in the control.state namespace 
-> ( 
-> /openbmc/phosphor-dbus-interfaces/xyz/openbmc_project/Control/Host/NMI.interface.yaml) 
-> namespace and implement the new d-bus back-end for respective  processor 
-> specific targets.
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730.dtsi b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+new file mode 100644
+index 000000000000..20e13489b993
+--- /dev/null
++++ b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2018 Nuvoton Technology tomer.maimon@nuvoton.com
++// Copyright 2018 Google, Inc.
++
++#include "nuvoton-common-npcm7xx.dtsi"
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&gic>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		enable-method = "nuvoton,npcm750-smp";
++
++		cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <0>;
++			next-level-cache = <&l2>;
++		};
++
++		cpu@1 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <1>;
++			next-level-cache = <&l2>;
++		};
++	};
++
++	soc {
++		timer@3fe600 {
++			compatible = "arm,cortex-a9-twd-timer";
++			reg = <0x3fe600 0x20>;
++			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
++						  IRQ_TYPE_LEVEL_HIGH)>;
++			clocks = <&clk NPCM7XX_CLK_AHB>;
++		};
++	};
++
++	ahb {
++		udc9:udc@f0839000 {
++			compatible = "nuvoton,npcm750-udc";
++			reg = <0xf0839000 0x1000
++			       0xfffd0000 0x800>;
++			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++			status = "disabled";
++			clocks = <&clk NPCM7XX_CLK_SU>;
++			clock-names = "clk_usb_bridge";
++		};
++	};
++};
+-- 
+2.21.0
