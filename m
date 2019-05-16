@@ -1,61 +1,41 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::234; helo=mail-oi1-x234.google.com;
- envelope-from=geissonator@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=188.165.43.98; helo=14.mo3.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="ncwKZLjW"; 
- dkim-atps=neutral
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 605 seconds by postgrey-1.36 at bilbo;
+ Fri, 17 May 2019 02:31:38 AEST
+Received: from 14.mo3.mail-out.ovh.net (14.mo3.mail-out.ovh.net
+ [188.165.43.98])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 454Wl40hrVzDqb1
- for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 23:01:19 +1000 (AEST)
-Received: by mail-oi1-x234.google.com with SMTP id a132so2446890oib.2
- for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 06:01:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=ZrLIkedvgLUtU0vOg22+UhwNBWCvMEOU3nBz4z4tkwA=;
- b=ncwKZLjWPczXCkmAqDahG5WpXxu2zXMVWivAZWSrCtkk2HjcV1hJHmBZ9iK5KxBlFv
- qtVOGsb7JF1aDQm+DmBEES4r2J9CKp7j9IN1rGvWJkKPofjd29oMWfolfgfVWxJY39Ys
- uWiKwiO6zHBYgdOv0tYxPd62lEpwU3pt4qfGJpNw9ijwnx8ebxK9FlDfYNDA/JbIIlsI
- y4nqBYq6ZqlvyB0V3I58soalccb7iJE/VE7dHwxLdg0ZXjMrQsfeQN86e5va/1hfflVg
- qPP7S+CElVgCy5DJ78JO2rA/wZQgyLe7XCdO0lusjgKVztHhwcJiOiIbVmjnXPa+QtKi
- mMZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=ZrLIkedvgLUtU0vOg22+UhwNBWCvMEOU3nBz4z4tkwA=;
- b=IYt3kjIWeQHcaAmQkzg5B94LosM1BqqT/gb/Vw99R81RQsC/NFInYa3SkbV3cQ/re9
- 9sNQOP6K7I+4I6RhKcTvF0X/WwPlWNVlmK4UCia0uO3ri431tfHDyVTxs0RP9O6sp0Kx
- jIzV58n0hyKriW+hPspZOpokwsbK2rOH1QmnZmpfopEr7JdUZ26fJBiCI+IbH+eIK7oT
- Gy89jn1yv7YrU6LwXeZVHHs8su7pv+6JX20wS54H3RhQr/ABn5O1RUD2sj3cJ64ur02Z
- r7whjwC8SqdTCAzu75UN+++blJxO1QgEIPaglb9oNoJE9cAaSftecpZFWz/c8JO+wYCh
- vMkA==
-X-Gm-Message-State: APjAAAVyqcsRohETi6o00E92AhM0gxn4tvjqBlGPt0Hx+575WN1rmcUr
- 6hkVYDwVDv8/2jQ3yP9pCQu0jL4kvohRXkNCmk8=
-X-Google-Smtp-Source: APXvYqysOy9l3CSdy7nB8csdsdzXFlBOXok2x2boe51t4iFQZE6JDoccVc9FVyenvrldgUYlAj7ohZLVoayfscGcb5Q=
-X-Received: by 2002:aca:3289:: with SMTP id y131mr2503434oiy.42.1558011676211; 
- Thu, 16 May 2019 06:01:16 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 454cPk2WgdzDqLT
+ for <openbmc@lists.ozlabs.org>; Fri, 17 May 2019 02:31:35 +1000 (AEST)
+Received: from player694.ha.ovh.net (unknown [10.109.143.238])
+ by mo3.mail-out.ovh.net (Postfix) with ESMTP id C75EF2143E9
+ for <openbmc@lists.ozlabs.org>; Thu, 16 May 2019 18:13:37 +0200 (CEST)
+Received: from kaod.org (deibp9eh1--blueice1n0.emea.ibm.com [195.212.29.162])
+ (Authenticated sender: clg@kaod.org)
+ by player694.ha.ovh.net (Postfix) with ESMTPSA id 5AF615C66557;
+ Thu, 16 May 2019 16:13:32 +0000 (UTC)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+To: openbmc@lists.ozlabs.org
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Adriana Kobylak <anoo@us.ibm.com>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH u-boot] aspeed/flash: fix definition of the MT25QL01GB chip
+Date: Thu, 16 May 2019 18:13:30 +0200
+Message-Id: <20190516161330.32029-1-clg@kaod.org>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-References: <CACkAXSqktuOVy02_R9q4iWcTL=_v7iOrxoBOOCMb5xTAXnxREg@mail.gmail.com>
- <c8826cab-42d1-85d7-4eb0-50e79857a205@linux.vnet.ibm.com>
-In-Reply-To: <c8826cab-42d1-85d7-4eb0-50e79857a205@linux.vnet.ibm.com>
-From: Andrew Geissler <geissonator@gmail.com>
-Date: Thu, 16 May 2019 08:01:00 -0500
-Message-ID: <CALLMt=q+PHM09zDeM5hBGRm7sTmPF42QSo6fYB=CmL5DHP_rKg@mail.gmail.com>
-Subject: Re: Add support to debug unresponsive host
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
-Cc: Jayanth Othayoth <ojayanth@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 10101855439946287874
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddruddttddgleehucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,80 +47,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 16 May 2019 13:01:21 -0000
+X-List-Received-Date: Thu, 16 May 2019 16:31:40 -0000
 
-On Thu, May 16, 2019 at 1:36 AM Deepak Kodihalli
-<dkodihal@linux.vnet.ibm.com> wrote:
->
-> On 15/05/19 6:09 PM, Jayanth Othayoth wrote:
-> > ## Problem Description
-> > Issue #457:  Add support to debug unresponsive host.
-> >
-> > Scope: High level design direction to solve this problem,
-> >
-> > ## Background and References
-> > There are situation at customer places where OPAL/Linux goes
-> > unresponsive causing a system hang. And there is no way to figure out
-> > what went wrong with Linux kernel or OPAL. Looking for a way to trigger
-> > a dump capture on Linux host so that we can capture the OS dump for pos=
-t
-> > analysis.
-> >
-> > ## Proposed Design for POWER processor based systems:
-> > Get all Host CPUs in reset vector and Linux then has a mechanism to
-> > patch it into panic-kdump path to trigger dump capture. This will enabl=
-e
-> > us to analyze and fix customer issue where we see Linux hang and
-> > unresponsive system.
-> >
-> > ### Redfish Schema used:
-> > * Reference: DSP2046 2018.3,
-> > * ComputerSystem 1.6.0 schema provides an action called
-> > #ComputerSystem.Reset=E2=80=9D, This action is used to reset the system=
-.
-> > ResetType parameter is used  for indicating type of reset need to be
-> > performed. In this use case we can use =E2=80=9CNmi=E2=80=9D type
-> >      * Nmi: Generate a Diagnostic Interrupt (usually an NMI on x86
-> > systems) to cease normal operations, perform diagnostic actions and
-> > typically halt the system.
-> > * ### d-bus :
-> >
-> > Option 1:   Extending  the existing  d-bus interface  state.Host  name
-> > space (
-> > /openbmc/phosphor-dbus-interfaces/xyz/openbmc_project/State/Host.interf=
-ace.yaml
-> > ) to support new RequestedHostTransition property called  =E2=80=9CNmi=
-=E2=80=9D.   d-bus
-> > backend can internally invoke processor specific target to do Sreset(
-> > equivalent to x86 NMI) and associated  actions.
->
-> I don't prefer this option, because this would mean adding host specific
-> code in phoshor-state-manager, which I think until now is host agnostic.
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+Fixes: 3c33d1e84ebb ("aspeed/flash: Add MT25QL01GB chip")
+---
 
-Yeah, this was my main concern with tying it into phosphor-state-manager.
-The fact Redfish put it in with their other state related commands (which
-are implemented by phosphor-state-manager) is the only reason I'm a little
-wishy-washy here. We could just create a generic systemd target "host-nmi"
-or something and phosphor-state-manager could just call that to abstract
-any of the specifics, but it sill doesn't really feel like it fits to me.
+ It should fix https://github.com/openbmc/u-boot/issues/18
 
-I think I prefer option 2, and then we can just map bmcweb to that API when
-the Redfish command comes in. Sounds like for ppc64 systems we can just
-use pdbg to issue the NMI.
+ arch/arm/mach-aspeed/flash.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-> So for that reason, Option 2 sounds better. There are some good
-> questions from Neeraj as well, so I would suggest adding this as a
-> design template on Gerrit to gather better feedback.
->
-> Thanks,
-> Deepak
->
-> > Option 2: Introducing new d-bus interface in the control.state namespac=
-e
-> > (
-> > /openbmc/phosphor-dbus-interfaces/xyz/openbmc_project/Control/Host/NMI.=
-interface.yaml)
-> > namespace and implement the new d-bus back-end for respective  processo=
-r
-> > specific targets.
->
+diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
+index 54a6059f4216..db69d514952f 100644
+--- a/arch/arm/mach-aspeed/flash.c
++++ b/arch/arm/mach-aspeed/flash.c
+@@ -1149,10 +1149,11 @@ static ulong flash_get_size (ulong base, flash_info_t *info)
+ 			info->readcmd = 0x0b;
+ 			info->dualport = 0;
+ 			info->dummybyte = 1;
+-			info->buffersize = 1;
++			info->buffersize = 256;
+ 			WriteClk = 50;
+ 			EraseClk = 25;
+ 			ReadClk  = 50;
++			info->address32 = 1;
+ 			break;
+ 
+ 		default:	/* use JEDEC ID */
+-- 
+2.20.1
