@@ -1,58 +1,47 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=178.33.251.173; helo=1.mo69.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="hiUppQIK"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=kaod.org
+Received: from 1.mo69.mail-out.ovh.net (1.mo69.mail-out.ovh.net
+ [178.33.251.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4582mF649qzDqLW
- for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 16:29:33 +1000 (AEST)
-Received: by mail-qt1-x841.google.com with SMTP id o7so1052214qtp.4
- for <openbmc@lists.ozlabs.org>; Tue, 21 May 2019 23:29:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=4cAH0eIRU1jlE5KEzavwREFGDTv7Q0lk8GnQDdW0pkY=;
- b=hiUppQIKXIdZeLDy+2LTz816GYzgPVQ5+YBhnT+8PiJ7/htE5H8a0ykmrBnL5QZjTS
- //Gf+B6CpmDRQDE7WYAj4w/71eV1dGYmSHJ7tmozIoJ774snj1T90eXkHInovDp7+df2
- pdsvv/Wj8w0PyNlnGX3xZiSAzhJVLe/FiTJPk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=4cAH0eIRU1jlE5KEzavwREFGDTv7Q0lk8GnQDdW0pkY=;
- b=EJ3/o3c7v+WQf5ws539nYv33/Ue2N3Pb+qRPK6UHenyQDP+d1IlBI3t5vT2Tnnpxy+
- kqcqiug/7SEeoqx1/CpAybVSJTSWrNDMBnSnyWYyggBXfaQSoStLussQDz2IbDZaSUbj
- SY2awvuafsHEqZKBS3Cx/w/V1L2xHkkH5vhUBuDhsrXEyKSkdd9I/3GICXQVZjHuSYaG
- JD0zK0Axvvoe2uHY+hptZkpGobkJ3y8RpN/6po/4+gAAqGrd37XSy9UXrpbwJV0rKltL
- 4w7KzWGSXBQYOiAkpuRGsKO3CBD6HsOCSQFgI4bSrVNfI4odJ+lTEIoa+JaFjHtvyEZK
- XEhw==
-X-Gm-Message-State: APjAAAUwY4Q1kIB9MrovDm+7/48nszxX2PP28WZzwUCvtIaZQif+MMZn
- BNpfIlBBUrik5IFKpJ9dROS1jrEnxtFaXgdueAY=
-X-Google-Smtp-Source: APXvYqzisw2mZ3uh3cWOzgzLVw6HfwGPvFi3lgftgflo11pQe90NQMiNOetOv9P9hFoXMJtiiVxWnX/DlPQ7AhimxhU=
-X-Received: by 2002:a0c:d17d:: with SMTP id c58mr60334230qvh.172.1558506570829; 
- Tue, 21 May 2019 23:29:30 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4583H765TxzDqJK
+ for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 16:52:47 +1000 (AEST)
+Received: from player698.ha.ovh.net (unknown [10.108.54.156])
+ by mo69.mail-out.ovh.net (Postfix) with ESMTP id 03A445907C
+ for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 08:14:12 +0200 (CEST)
+Received: from kaod.org (lfbn-1-10649-41.w90-89.abo.wanadoo.fr [90.89.235.41])
+ (Authenticated sender: clg@kaod.org)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id 0B9F360243BE;
+ Wed, 22 May 2019 06:14:08 +0000 (UTC)
+Subject: Re: [PATCH qemu] aspeed: add support for a witherspoon-bmc board with
+ 128MB flash chip
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Adriana Kobylak <anoo@us.ibm.com>
+References: <20190516161148.31062-1-clg@kaod.org>
+ <005d7fc6-ce77-4209-b37e-5aaefb066ebf@www.fastmail.com>
+ <f1bb8a3f-7e98-7b13-2ccc-1b58262e9bde@kaod.org>
+ <10007aac-28a5-47d7-be66-a8f9cd4941b1@www.fastmail.com>
+ <CACPK8Xe4b9MvdendfEbN3LAxaaSC0V6V56FzvuFPpPruCXqQXw@mail.gmail.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <3fff6467-4167-3b23-07b0-77329df511a8@kaod.org>
+Date: Wed, 22 May 2019 08:14:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.6.1
 MIME-Version: 1.0
-References: <1558475264-29119-1-git-send-email-hongweiz@ami.com>
- <d1d3f7b3-b989-4e6e-ad52-239b6ac8aa48@www.fastmail.com>
-In-Reply-To: <d1d3f7b3-b989-4e6e-ad52-239b6ac8aa48@www.fastmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 22 May 2019 06:29:18 +0000
-Message-ID: <CACPK8Xf6cQJQ+jyxmkveUqAV1jzeo1OePOURtRMdTieO-utxmw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.0 v3] ARM: dts: aspeed: Add Microsoft Olympus
- BMC
-To: Andrew Jeffery <andrew@aj.id.au>
-Cc: Hongwei Zhang <hongweiz@ami.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- Brad Bishop <bradleyb@fuzziesquirrel.com>
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <CACPK8Xe4b9MvdendfEbN3LAxaaSC0V6V56FzvuFPpPruCXqQXw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 16768027315277302664
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddrudduuddguddthecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,18 +53,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 May 2019 06:29:34 -0000
+X-List-Received-Date: Wed, 22 May 2019 06:52:52 -0000
 
-On Wed, 22 May 2019 at 00:03, Andrew Jeffery <andrew@aj.id.au> wrote:
->
->
->
-> On Wed, 22 May 2019, at 07:18, Hongwei Zhang wrote:
-> > Olympus is a Microsoft OCP platform equipped with Aspeed 1250 or
-> > 2400 BMC SoC.
-> >
-> > Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
->
-> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+On 5/22/19 7:37 AM, Joel Stanley wrote:
+> On Mon, 20 May 2019 at 00:56, Andrew Jeffery <andrew@aj.id.au> wrote:
+>>
+>>
+>>
+>> On Fri, 17 May 2019, at 15:56, Cédric Le Goater wrote:
+>>> On 5/17/19 1:00 AM, Andrew Jeffery wrote:
+>>>>
+>>>>
+>>>> On Fri, 17 May 2019, at 01:42, Cédric Le Goater wrote:
+>>>>> Some Witherspoon boards are shipped with a mt25ql01g flash chip
+>>>>> holding the BMC firmware.
+>>>>>
+>>>>> Signed-off-by: Cédric Le Goater <clg@kaod.org>
+>>>>
+>>>> "witherspoon128-bmc" is not very creative, but I can't blame you for that :D
+>>>
+>>> he.
+>>>
+>>> Should we introduce a machine option to set the model name of the
+>>> FMC flash chip ? I think I tried that in the past but at the block
+>>> level and mainline did not like it. But we could try at the machine
+>>> level.
+>>>
+>>> Anyhow, it's a good way to debug flash issues on real HW.
+>>
+>> Eh. I'm not fussed by a new machine. I wouldn't do anything for the moment.
+> 
+> We could instead add a swift machine with the 128MB NOR. When we get a
+> model for the SD/MMC it would use that too.
 
-Thanks, merged into dev-5.1.
+OK. That's a good direction. 
+
+C.
