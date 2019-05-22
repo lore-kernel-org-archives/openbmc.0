@@ -1,47 +1,59 @@
-Return-Path: <Hongweiz@ami.com>
+Return-Path: <a.filippov@yadro.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=ami.com
- (client-ip=63.147.10.40; helo=atlmailgw1.ami.com;
- envelope-from=hongweiz@ami.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=yadro.com
+ (client-ip=89.207.88.251; helo=mta-01.yadro.com;
+ envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=ami.com
-Received: from atlmailgw1.ami.com (atlmailgw1.ami.com [63.147.10.40])
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.b="DGHVOhj1"; 
+ dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-01.yadro.com [89.207.88.251])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 457qC41ldtzDqM7
- for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 07:48:29 +1000 (AEST)
-X-AuditID: ac1060b2-d3bff700000059e1-8d-5ce472282d10
-Received: from atlms1.us.megatrends.com (atlms1.us.megatrends.com
- [172.16.96.144])
- (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by atlmailgw1.ami.com (Symantec Messaging Gateway) with SMTP id
- 5D.C2.23009.82274EC5; Tue, 21 May 2019 17:48:25 -0400 (EDT)
-Received: from hongweiz-Ubuntu-AMI.us.megatrends.com (172.16.98.93) by
- atlms1.us.megatrends.com (172.16.96.144) with Microsoft SMTP Server (TLS) id
- 14.3.408.0; Tue, 21 May 2019 17:48:21 -0400
-From: Hongwei Zhang <hongweiz@ami.com>
-To: Joel Stanley <joel@jms.id.au>, <openbmc@lists.ozlabs.org>
-CC: Hongwei Zhang <hongweiz@ami.com>, Andrew Jeffery <andrew@aj.id.au>, Brad
- Bishop <bradleyb@fuzziesquirrel.com>
-Subject: [PATCH linux dev-5.0 v3] ARM: dts: aspeed: Add Microsoft Olympus BMC
-Date: Tue, 21 May 2019 17:47:44 -0400
-Message-ID: <1558475264-29119-1-git-send-email-hongweiz@ami.com>
-X-Mailer: git-send-email 2.7.4
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4585YG3MvTzDqBG
+ for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 18:35:14 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 10817412D6
+ for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 08:35:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ user-agent:in-reply-to:content-disposition:content-type
+ :content-type:mime-version:references:message-id:subject:subject
+ :from:from:date:date:received:received:received; s=mta-01; t=
+ 1558514108; x=1560328509; bh=9+V0pd66dAm9pUZbDI4ML6G1xOLsV7rL85n
+ inJFp7Lk=; b=DGHVOhj1Q1af3VW9mC4iyWKGfjTWkr5+2CIrybjLNQxHbrdYxHD
+ xhF6VKDXS+ZNzA+jWJ4Z/NP+XFtGH1VqH/Wv2Brz3Ag1paurpCAJtOfz1dH3mzL+
+ NuRUVh1SHIRXP5CoJaz7t1UPhNQ38XLsnr/KKkOtEsLkeYF6JQZ7TlJM=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id At-MgKOOzW4I for <openbmc@lists.ozlabs.org>;
+ Wed, 22 May 2019 11:35:08 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 7FB794120A
+ for <openbmc@lists.ozlabs.org>; Wed, 22 May 2019 11:35:08 +0300 (MSK)
+Received: from localhost (172.17.14.115) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 22
+ May 2019 11:35:08 +0300
+Date: Wed, 22 May 2019 11:35:07 +0300
+From: "Alexander A. Filippov" <a.filippov@yadro.com>
+To: <openbmc@lists.ozlabs.org>
+Subject: Re: Design: Setting a unique hostname to the BMC machine on first boot
+Message-ID: <20190522083507.GA8496@bbwork.lan>
+References: <CANGK-S5uWkTdA1NJ1d5E5WtawK5Wpv=9GfV0JJ3HWfnNTYYMGw@mail.gmail.com>
+ <20190521084658.GA28585@bbwork.lan>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [172.16.98.93]
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrILMWRmVeSWpSXmKPExsWyRiBhgq5m0ZMYgw/HWC12XeawWHrzCpvF
- 7/N/mS1OtbxgcWDxuNq+i93j9vYmdo+LH48xe5yfsZAxgCWKyyYlNSezLLVI3y6BK+Pl9C7W
- gtPKFdMfTWBqYDwr3cXIySEhYCJx98ofxi5GLg4hgV1MEutnHmeDcA4zSvz98JINpIpNQE1i
- 7+Y5TCC2iICtxJO9l9lBbGaBYonlD88wgtjCAr4SnRt6wOIsAqoSq8/9ZAWxeQUcJLZ972aC
- 2CYncfNcJzNEXFDi5MwnLBBzJCQOvngBFhcSkJW4degxVL2CxPO+xywTGPlmIWmZhaRlASPT
- KkahxJKc3MTMnPRyQ73E3Ey95PzcTYyQgNu0g7HlovkhRgEORiUe3nf5T2KEWBPLiitzDzFK
- cDArifCePvUoRog3JbGyKrUoP76oNCe1+BCjNAeLkjjvjJDLMUIC6YklqdmpqQWpRTBZJg5O
- qQbGQ3wuHhdfT3GYPZvXzrFvncsRwY28wVNmMucI9yS9XPvLgk0t+0yxxZPj0ypvHrEU+xkT
- 6lj1wkNIp3nr3o1qF6e3nZ9y7s6cXOvru6647njZmxx9vZJD61/glQPODf3HDrtztXm0MUat
- /iHTnjshI2G34jz291mbeG7qTZjyxt/Y21I9YJGWEktxRqKhFnNRcSIA5amKSzQCAAA=
-X-Mailman-Approved-At: Wed, 22 May 2019 17:12:17 +1000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <20190521084658.GA28585@bbwork.lan>
+User-Agent: Mutt/1.11.3 (2019-02-01)
+X-Originating-IP: [172.17.14.115]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,246 +65,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 21 May 2019 21:48:33 -0000
+X-List-Received-Date: Wed, 22 May 2019 08:35:15 -0000
 
-Olympus is a Microsoft OCP platform equipped with Aspeed 1250 or
-2400 BMC SoC.
+On Tue, May 21, 2019 at 11:46:58AM +0300, Alexander A. Filippov wrote:
+> On Tue, May 21, 2019 at 01:05:36PM +0530, Asmitha Karunanithi wrote:
+> > Hi Team,
+> > 
+> > I have been facing a problem and the details of which is mentioned below.
+> > 
+> > Problem Description:
+> > In OpenBMC, the hostname discovery is done by the avahi Dbus service at the
+> > startup. In a network where there are multiple OpenBMC machines, avahi keeps
+> > getting the hostname conflict and the service name conflict. Hence, the
+> > problem is to find a solution that resolves these conflicts.
+> > 
+> > Background and References:
+> > The detailed issue regarding the hostname and service name conflicts is
+> > described in the following links.
+> > https://github.com/openbmc/openbmc/issues/1741.
+> > https://lists.freedesktop.org/archives/avahi/2018-January/002492.html
+> > https://github.com/lathiat/avahi/issues/117
+> > 
+> > Requirements:
+> > None.
+> > 
+> > Proposed Design:
+> > To solve this, we are proposing a service which assigns a unique hostname to
+> > the BMC and runs on the very first boot. one of the ways to generate the
+> > unique
+> > hostname is to append the machine UUID to the existing default hostname.
+> 
+> We have already done it for our hardware, but we used the BMC's Serial Number
+> instead of UUID.
+> 
+> This service is very similar to meta-opepower/recipes-phosphor/network/first-boot-set-mac
+> 
+> How it works:
+> - openpower-vpd-parser read content of EEPROM VPD and fill corresponded fields
+>   in the inventory.
+> - the service reads serial number via DBus  and append it to the hostname if
+>   it has default value.
 
-Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
----
- arch/arm/boot/dts/Makefile                         |   1 +
- arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts | 211 +++++++++++++++++++++
- 2 files changed, 212 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+I've posted our solution to 
+https://gerrit.openbmc-project.xyz/c/openbmc/meta-openpower/+/21808
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index c01a7b1..072725a 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1242,6 +1242,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-facebook-tiogapass.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-lenovo-hr630.dtb \
-+	aspeed-bmc-microsoft-olympus.dtb \
- 	aspeed-bmc-opp-lanyang.dtb \
- 	aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-romulus.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
-new file mode 100644
-index 0000000..a3d6b71
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
-@@ -0,0 +1,211 @@
-+//SPDX-License-Identifier: GPL-2.0+
-+
-+/dts-v1/;
-+
-+#include "aspeed-g4.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+
-+/ {
-+	model = "Olympus BMC";
-+	compatible = "microsoft,olympus-bmc", "aspeed,ast2400";
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200 earlyprintk";
-+	};
-+
-+	memory@40000000 {
-+		reg = <0x40000000 0x20000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		vga_memory: framebuffer@5f000000 {
-+			no-map;
-+			reg = <0x5f000000 0x01000000>; /* 16M */
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		bmc_heartbeat {
-+			gpios = <&gpio ASPEED_GPIO(B, 0) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		power_green {
-+			gpios = <&gpio ASPEED_GPIO(U, 2) GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		power_amber {
-+			gpios = <&gpio ASPEED_GPIO(U, 3) GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		identify {
-+			gpios = <&gpio ASPEED_GPIO(Q, 5) GPIO_ACTIVE_LOW>;
-+		};
-+
-+		fault {
-+			gpios = <&gpio ASPEED_GPIO(A, 1) GPIO_ACTIVE_LOW>;
-+		};
-+	};
-+
-+
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
-+		<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>;
-+	};
-+};
-+
-+&adc {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 =    <&pinctrl_adc0_default
-+			&pinctrl_adc1_default
-+			&pinctrl_adc2_default
-+			&pinctrl_adc3_default
-+			&pinctrl_adc4_default
-+			&pinctrl_adc5_default
-+			&pinctrl_adc6_default
-+			&pinctrl_adc7_default>;
-+};
-+
-+&fmc {
-+	status = "okay";
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+	};
-+};
-+
-+&uart5 {
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rgmii1_default &pinctrl_mdio1_default>;
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	status = "okay";
-+
-+	tmp421@4c {
-+		compatible = "ti,tmp421";
-+		reg = <0x4c>;
-+	};
-+};
-+
-+&i2c2 {
-+	status = "okay";
-+};
-+
-+&i2c3 {
-+	status = "okay";
-+};
-+
-+&i2c4 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+};
-+
-+&i2c5 {
-+	status = "okay";
-+};
-+
-+&i2c6 {
-+	status = "okay";
-+
-+	tmp421@4c {
-+		compatible = "ti,tmp421";
-+		reg = <0x4c>;
-+	};
-+};
-+
-+&i2c7 {
-+	status = "okay";
-+};
-+
-+&vuart {
-+	status = "okay";
-+};
-+
-+&wdt2 {
-+	status = "okay";
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+};
-+
-+&mbox {
-+	status = "okay";
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 =    <&pinctrl_pwm0_default
-+			&pinctrl_pwm1_default
-+			&pinctrl_pwm2_default
-+			&pinctrl_pwm3_default
-+			&pinctrl_pwm4_default
-+			&pinctrl_pwm5_default
-+			&pinctrl_pwm6_default>;
-+
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+
-+	fan@1 {
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+
-+	fan@2 {
-+		reg = <0x02>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x02>;
-+	};
-+
-+	fan@3 {
-+		reg = <0x03>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x03>;
-+	};
-+
-+	fan@4 {
-+		reg = <0x04>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x04>;
-+	};
-+
-+	fan@5 {
-+		reg = <0x05>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x05>;
-+	};
-+
-+};
--- 
-2.7.4
+> 
+> > 
+> > Alternatives Considered:
+> > None.
+> > 
+> > Impacts:
+> > None.
+> > 
+> > Testing:
+> > None.
+> > 
+> > If you have any suggestions, please feel free to let me know.
+> > -- 
+> > Thanks & Regards,
+> > Asmitha Karunanithi
+> 
+> --
+> Regards,
+> Alexander Filippov
+> Software Engineer, YADRO
