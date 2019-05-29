@@ -1,73 +1,53 @@
-Return-Path: <sivas.srr@in.ibm.com>
+Return-Path: <tyler.sabdon@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::132; helo=mail-it1-x132.google.com;
+ envelope-from=tyler.sabdon@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="LmniPp4M"; 
+ dkim-atps=neutral
+Received: from mail-it1-x132.google.com (mail-it1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45DKNy5S55zDqLV
- for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 15:42:42 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x4T5XVqc053464
- for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 01:42:39 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.119])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2sskwsrgm0-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 01:42:39 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
- Wed, 29 May 2019 05:42:38 -0000
-Received: from us1b3-smtp02.a3dr.sjc01.isc4sb.com (10.122.7.175)
- by smtp.notes.na.collabserv.com (10.122.182.123) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 29 May 2019 05:42:36 -0000
-Received: from us1b3-mail65.a3dr.sjc01.isc4sb.com ([10.122.7.228])
- by us1b3-smtp02.a3dr.sjc01.isc4sb.com
- with ESMTP id 2019052905423613-88657 ;
- Wed, 29 May 2019 05:42:36 +0000 
-In-Reply-To: 
-Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
- https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
- Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
- Code)-64800002 For eg. (Bengaluru - 080-64800002)
-From: "Sivas Srr" <sivas.srr@in.ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Wed, 29 May 2019 05:42:35 +0000
-Sensitivity: 
-References: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45DRGC5YYszDqFp
+ for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 20:07:14 +1000 (AEST)
+Received: by mail-it1-x132.google.com with SMTP id h20so2730969itk.4
+ for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 03:07:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=U2jcK5ZfhaDmPQoABYQPL2AHjRySCrT3U8u8PBn3I3Q=;
+ b=LmniPp4MXws68DKphRR4qTGygyuaTs10E9Ovlknd95vPs9vpPC7H/30Xr32Mam4fbr
+ pI1QIlU4Z8RxWeWf/ys2t/1m8iojWGpAEqcoB8QyRwT6P4AxfWYXzmFGCx4FoG5ERKuP
+ r2rmc1ejX/1i/+Ac2um/0SJVnAxLAgZXDC6Z+mAhRgBe6tvyRqMJfJdNH8hL0WcOQZp0
+ WgekuuQbi3EIhYwrKds/0UlqwASO6S3iT+zqsdxCofzeFOOjnXJJDX1ErZolNCfLA8es
+ WlK4DK1vT2CYEA91m/MyQcFSAfInSQUhM8531R2jgA6XQE8OQtpMsRKqEiSmTzVK/yiq
+ NYHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=U2jcK5ZfhaDmPQoABYQPL2AHjRySCrT3U8u8PBn3I3Q=;
+ b=nuaQdGrOPObiNkCjqettopUfvRmI/ZPB5CYQkzkf4zlQ3S2vP2nx+nbUVHsNZPeF62
+ K9ith4CF+evvJPGBgOMpSPxIMRyzY6tMep5PDJr0gaUCwPvRWsDNBfAIpADgKSJ1lAh0
+ oQP0q8uW/y+z/YGCP6EZeZR1AduVpIw5FrpDPrn0shAwKWnuLybzDktjY3Cerm5eM2ty
+ lOp4fYVMEhr+PLDefwvO8cEDz7gM5x9SSylahwBs3K2TgngzRBFVoxBhJ2LjrPwlz8Fl
+ 6vjuXF8XFrrCrizBqeMsmCby24hJOU2Ow/QB6trHD6oCPGS1g0Y1B8x5ZBo+HyEtsXg5
+ KBNw==
+X-Gm-Message-State: APjAAAVhMuHz73w/VBPIQG0pOjDPVod9qypPEG7HD94zPNH1hGWey4TB
+ 28dDzzgnJNcnM2OPHlLI2IlAEzlqHWhLDy/Quc7lrN16
+X-Google-Smtp-Source: APXvYqzYgxyKbllwuJHYCFgAjPaYvqbsvdCbH4HIc3dc+YPr+SwQUvFUJWyiFVketKvCclG7zejpmUuDEhJOGVXnBks=
+X-Received: by 2002:a02:3b12:: with SMTP id c18mr40565869jaa.44.1559124430377; 
+ Wed, 29 May 2019 03:07:10 -0700 (PDT)
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17394-1588 | IBM Domino Build
- SCN1812108_20180501T0841_FP38 April 10, 2019 at 11:56
-X-KeepSent: 97F11158:8108885E-00258409:001F517A;
- type=4; name=$KeepSent
-X-LLNOutbound: False
-X-Disclaimed: 18071
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 19052905-6115-0000-0000-000006095F1D
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.397008; ST=0; TS=0; UL=0; ISC=; MB=0.053766
-X-IBM-SpamModules-Versions: BY=3.00011177; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000286; SDB=6.01210123; UDB=6.00635758; IPR=6.00991156; 
- BA=6.00006321; NDR=6.00000001; ZLA=6.00000005; ZF=6.00000009; ZB=6.00000000;
- ZP=6.00000000; ZH=6.00000000; ZU=6.00000002; MB=3.00027096; XFM=3.00000015;
- UTC=2019-05-29 05:42:38
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-05-28 23:50:21 - 6.00009981
-x-cbparentid: 19052905-6116-0000-0000-0000ECA98925
-Message-Id: <OF97F11158.8108885E-ON00258409.001F517A-00258409.001F5D8C@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-05-29_03:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+From: Deng Tyler <tyler.sabdon@gmail.com>
+Date: Wed, 29 May 2019 18:07:12 +0800
+Message-ID: <CAO9PYRLdxqjbMHgsMoEY7m0ygwchLQk=7GOQr_itjqor=AMqfA@mail.gmail.com>
+Subject: Flash bmc fail due to partition incorrect
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="000000000000d5572f058a03f10a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,146 +59,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 May 2019 05:42:43 -0000
+X-List-Received-Date: Wed, 29 May 2019 10:07:16 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear all,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Gentle reminder for tomorrow's test work group meeting. I=
-t is on.</div>
-<div dir=3D"ltr" >If you have any agenda please update it at our wiki <a hr=
-ef=3D"https://github.com/openbmc/openbmc/wiki/Test-work-group" >https://git=
-hub.com/openbmc/openbmc/wiki/Test-work-group.</a></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >With regards,</div>
-<div dir=3D"ltr" >Sivas</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
-<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
-Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
- 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
-" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
-t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
-ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
-- 080-64800002)</h2></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
-Sivas Srr/India/IBM</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
-o: </span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
-span></div></div></div>
-<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
-l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
-bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
-" >Comments from Sivas Srr:</span></div></div>
-<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
-rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
-ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
-pan>Thu, May 30, 2019 9:00 PM - 10:00 PM</span> <span style=3D"display:inli=
-ne-block" >(applies to 18 instances)</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
-</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
-8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
-scode: 928 662 307</span></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
-n></div>
-<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
-/span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
-ting name: </span> <span>OpenBMC Test Group meeting </span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
-ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
-: </span> <span>928 662 307</span></div>
-<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
-</span> <span>sivas</span></div></div>
-<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
-17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
-top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
-10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
-pan></div>
-<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
-pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
-bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
-m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
-Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
-chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
-ia/IBM, yuenn@google.com</span></div></div>
-<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
-ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
-: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
-ont-weight: bold" >Optional: </span></div>
-<div>&nbsp;</div></div>
-<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
-lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
-ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
-eight: bold" >FYI: </span></div>
-<div>&nbsp;</div></div></div>
-<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
-ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
-n: left; color: #666;" >Description:</span></div>
-<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
-ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
-ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
-t></span></div>
-<div>&nbsp;</div>
-<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
-elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
-rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
-dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
-if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
-ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
-</font></font></font></font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
- you wants to update the agenda. </font></font></font></font></font></span>=
-</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
-Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
-Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
-rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
-rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
-bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
-penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
-/font></span></div></div>
-<div>&nbsp;</div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
-enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
-hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
-github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
- >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
-</span>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
-.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
-"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
-CI/view?usp=3Dsharing</a></font></span></p>
-<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
-a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
-le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
-it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
-in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
-heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
-target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
-Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >Quality at the first place: Unit test results needed at th=
-e time of gerrit code review</font></span></div>
-<div>&nbsp;</div></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
- owner</font></span></div>
-<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
-ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
- Intel going to sign on this. ?</font></span></div></div></div></div></div>=
-</div></div></div></div></blockquote></div><BR>
+--000000000000d5572f058a03f10a
+Content-Type: text/plain; charset="UTF-8"
+
+Hi all:
+    I encounter bmc firmware update fail issue and message is "Verify
+error: update: --no-flash --ignore-mount --no-save-files --no-restore-files
+--no-clean-saved-files\nERROR: Unable to find mtd partition for
+image-bmc.\n".
+
+I check my flash partition and found that I lost "bmc" partition as below:
+
+
+I tried to add bmc partition in dts
+&bootspi {
+        status = "okay";
+        flash@0 {
+                status = "okay";
+                m25p,fast-read;
+                label = "bmc";
+                spi-max-frequency = <50000000>;
+#include "openbmc-flash-layout.dtsi"
+        };
+};
+
+but there still is no "bmc" partition. Could someone give any suggestion?
+thanks.
+
+Tyler
+
+--000000000000d5572f058a03f10a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi all:<div>=C2=A0 =C2=A0 I encounter bmc firmware update =
+fail issue and message is &quot;Verify error: update: --no-flash --ignore-m=
+ount --no-save-files --no-restore-files --no-clean-saved-files\nERROR: Unab=
+le to find mtd partition for image-bmc.\n&quot;.</div><div><br></div><div>I=
+ check my flash partition and found that I lost &quot;bmc&quot; partition a=
+s below:</div><div><br></div><div><br></div><div>I tried to add bmc partiti=
+on in dts=C2=A0</div><div>&amp;bootspi {<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 sta=
+tus =3D &quot;okay&quot;;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 flash@0 {<br>=C2=
+=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 status =3D &quot;okay&=
+quot;;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 m25p,fast=
+-read;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 label =3D=
+ &quot;bmc&quot;;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 spi-max-frequency =3D &lt;50000000&gt;;<br>#include &quot;openbmc-flash=
+-layout.dtsi&quot;<br>=C2=A0 =C2=A0 =C2=A0 =C2=A0 };<br>};<br></div><div><b=
+r></div><div>but there still is no &quot;bmc&quot; partition. Could someone=
+ give any suggestion? thanks.</div><div><br></div><div>Tyler</div></div>
+
+--000000000000d5572f058a03f10a--
