@@ -1,44 +1,54 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <benjaminfair@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.72.44; helo=9.mo173.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::130; helo=mail-it1-x130.google.com;
+ envelope-from=benjaminfair@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 4629 seconds by postgrey-1.36 at bilbo;
- Thu, 30 May 2019 06:38:03 AEST
-Received: from 9.mo173.mail-out.ovh.net (9.mo173.mail-out.ovh.net
- [46.105.72.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="m57En7Vp"; 
+ dkim-atps=neutral
+Received: from mail-it1-x130.google.com (mail-it1-x130.google.com
+ [IPv6:2607:f8b0:4864:20::130])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45DjG35ctyzDqCh
- for <openbmc@lists.ozlabs.org>; Thu, 30 May 2019 06:37:59 +1000 (AEST)
-Received: from player691.ha.ovh.net (unknown [10.108.42.239])
- by mo173.mail-out.ovh.net (Postfix) with ESMTP id 1E14310B4CD
- for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 21:20:44 +0200 (CEST)
-Received: from kaod.org (lfbn-1-10649-41.w90-89.abo.wanadoo.fr [90.89.235.41])
- (Authenticated sender: clg@kaod.org)
- by player691.ha.ovh.net (Postfix) with ESMTPSA id 92F036681DE9;
- Wed, 29 May 2019 19:20:40 +0000 (UTC)
-Subject: Re: [PATCH qemu] aspeed: Add support for the swift-bmc board
-To: Adriana Kobylak <anoo@linux.ibm.com>, joel@jms.id.au,
- openbmc@lists.ozlabs.org
-Cc: Adriana Kobylak <anoo@us.ibm.com>
-References: <1559156960-61184-1-git-send-email-anoo@linux.ibm.com>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <2208594f-3020-bfa9-81eb-0c14dc333ca8@kaod.org>
-Date: Wed, 29 May 2019 21:20:40 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45DpyV10tbzDqGS
+ for <openbmc@lists.ozlabs.org>; Thu, 30 May 2019 10:54:57 +1000 (AEST)
+Received: by mail-it1-x130.google.com with SMTP id j204so1380610ite.4
+ for <openbmc@lists.ozlabs.org>; Wed, 29 May 2019 17:54:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=7WUIPfWEexXqVwRkDk86OoyQxPOI5vkBL9avUmnrrEo=;
+ b=m57En7VpEOPfUTJmQ2pVdTSF9Bg797UMybX6tjARYr/c029q5eDb8ZKTlMDutWPCtS
+ e9PujINvBLCeQQXU0Eo41fewWjtPwuqoM/eqNnb72WKLhtlOyXiKowH533i6EkJfhHcq
+ 8AagRLZRk8FclmSTMqCN/66B/T374dRLOSmKllXbtjNH5k+rwjwHMMaxI9Yu34x7n1hs
+ BBE8A3H080PHQNMBGIpsmcl/pw1LHd0nWvGFkggYYkerOtS9U0IW3vauELRqn07KAojs
+ gEpCxX4ZTS2ZLdpG6VDt/recxHRkJn/HeGpOYVjjtxPS6Jp4DGSfp5oO/mBxvabKt4uz
+ Smag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=7WUIPfWEexXqVwRkDk86OoyQxPOI5vkBL9avUmnrrEo=;
+ b=YqZRfoHllofer+TIt+CESsntlZ2lt/3Fn7Dyk7MaumAINJ4Mui0/kNb816VOXqN8iC
+ gmovr8qFhLZh9K+EXT2XzqZtO/apaG6vy7+onVTzZBpZaV2np5YbG/V2M2T1AOO6s8sL
+ 4F54c3PVbdOgcc4mSCyPx3b/U/w62dsCXpUAUs9JyiH/X5Cv3KE9wzHawT5GEBLmktXG
+ V/V+BgtKnYe90W5b1XefYXENFG41B3wNNLWsTm+Bocz4tCypqaNyOoMXxTsl3Ic13FrU
+ t4r5byy3RVq9IjtToIRPiY7Iqrr6GGcwzyHTgTyjyC7v/i6z03Gdj+nl/DD3OC0Qh2fX
+ Z73A==
+X-Gm-Message-State: APjAAAU8wjmZfyVMqrqqWz2P/pcH3sRz92S7qhNNHh0rZjCFWA9+/sud
+ 6yL0NMdaOSdEHN9/tpq/agDRsno14uAN764CPgbiwDVOpec=
+X-Google-Smtp-Source: APXvYqw/ipRUBIq8qaDcfh+kK581GGTN8m9csa5EGdHMEWxskpwbDfnsMWWTZWavneY8ipHdGydhkF1nmsia3FJ9aCU=
+X-Received: by 2002:a24:3014:: with SMTP id q20mr987760itq.4.1559177693811;
+ Wed, 29 May 2019 17:54:53 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <1559156960-61184-1-git-send-email-anoo@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15820019591561907080
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: 0
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduuddruddvjedgudeflecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecu
+From: Benjamin Fair <benjaminfair@google.com>
+Date: Wed, 29 May 2019 17:54:17 -0700
+Message-ID: <CADKL2t4950qyjasc+MDH6ET+ndswPvOsNwgtx30rVMV3jhA-0w@mail.gmail.com>
+Subject: meta-lenovo subtree in openbmc repo
+To: bradleyb@fuzziesquirrel.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,98 +60,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 May 2019 20:38:05 -0000
+X-List-Received-Date: Thu, 30 May 2019 00:54:59 -0000
 
-On 29/05/2019 21:09, Adriana Kobylak wrote:
-> From: Adriana Kobylak <anoo@us.ibm.com>
-> 
-> The Swift board is an OpenPOWER system hosting POWER processors.
-> Add support for their BMC including the I2C devices as found on HW.
-> 
-> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+Hi Brad,
 
-This looks good ! 
-
-Could you please run ./scripts/checkpatch.pl on your patch and send 
-to mainline ? You will need to copy a few people and mailing lists.
-Run ./scripts/get_maintainer.pl to know who. 
-
-When done, you can add :
-
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
+Now that the meta-lenovo repository has been created and contains
+initial configuration, what's the process to add it as a subtree to
+the main openbmc/openbmc repository?
 
 Thanks,
-
-C.
-
-> ---
->  hw/arm/aspeed.c | 41 +++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 41 insertions(+)
-> 
-> diff --git a/hw/arm/aspeed.c b/hw/arm/aspeed.c
-> index 465e65f..db68bbf 100644
-> --- a/hw/arm/aspeed.c
-> +++ b/hw/arm/aspeed.c
-> @@ -70,6 +70,9 @@ struct AspeedBoardState {
->          SCU_AST2500_HW_STRAP_ACPI_ENABLE |                              \
->          SCU_HW_STRAP_SPI_MODE(SCU_HW_STRAP_SPI_MASTER))
->  
-> +/* TODO: Swift hardware value: ? (use romulus definition for now) */
-> +#define SWIFT_BMC_HW_STRAP1 ROMULUS_BMC_HW_STRAP1
-> +
->  /* Witherspoon hardware value: 0xF10AD216 (but use romulus definition) */
->  #define WITHERSPOON_BMC_HW_STRAP1 ROMULUS_BMC_HW_STRAP1
->  
-> @@ -290,6 +293,35 @@ static void romulus_bmc_i2c_init(AspeedBoardState *bmc)
->      i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 11), "ds1338", 0x32);
->  }
->  
-> +static void swift_bmc_i2c_init(AspeedBoardState *bmc)
-> +{
-> +    AspeedSoCState *soc = &bmc->soc;
-> +
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 3), "pca9552", 0x60);
-> +
-> +    /* The swift board expects a TMP275 but a TMP105 is compatible */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 7), "tmp105", 0x48);
-> +    /* The swift board expects a pca9551 but a pca9552 is compatible */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 7), "pca9552", 0x60);
-> +
-> +    /* The swift board expects an Epson RX8900 I2C RTC but a ds1338 is
-> +     * good enough */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 8), "ds1338", 0x32);
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 8), "pca9552", 0x60);
-> +
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 9), "tmp423", 0x4c);
-> +    /* The swift board expects a pca9539 but a pca9552 is compatible */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 9), "pca9552", 0x74);
-> +
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 10), "tmp423", 0x4c);
-> +    /* The swift board expects a pca9539 but a pca9552 is compatible */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 10), "pca9552", 0x74);
-> +
-> +    /* The swift board expects a TMP275 but a TMP105 is compatible */
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 12), "tmp105", 0x48);
-> +    i2c_create_slave(aspeed_i2c_get_bus(DEVICE(&soc->i2c), 12), "tmp105", 0x4a);
-> +}
-> +
->  static void witherspoon_bmc_i2c_init(AspeedBoardState *bmc)
->  {
->      AspeedSoCState *soc = &bmc->soc;
-> @@ -400,6 +432,15 @@ static const AspeedBoardConfig aspeed_boards[] = {
->          .num_cs    = 2,
->          .i2c_init  = romulus_bmc_i2c_init,
->      }, {
-> +        .name      = MACHINE_TYPE_NAME("swift-bmc"),
-> +        .desc      = "OpenPOWER Swift BMC (ARM1176)",
-> +        .soc_name  = "ast2500-a1",
-> +        .hw_strap1 = SWIFT_BMC_HW_STRAP1,
-> +        .fmc_model = "mx66l1g45g",
-> +        .spi_model = "mx66l1g45g",
-> +        .num_cs    = 2,
-> +        .i2c_init  = swift_bmc_i2c_init,
-> +    }, {
->          .name      = MACHINE_TYPE_NAME("witherspoon-bmc"),
->          .desc      = "OpenPOWER Witherspoon BMC (ARM1176)",
->          .soc_name  = "ast2500-a1",
-> 
+Benjamin
