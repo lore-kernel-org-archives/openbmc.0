@@ -1,28 +1,39 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <vernon.mauery@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=vernon.mauery@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+ header.from=linux.intel.com
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45F5fS5HvpzDqFG
- for <openbmc@lists.ozlabs.org>; Thu, 30 May 2019 21:57:03 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Thu, 30 May 2019 07:57:42 -0400
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: "Mihm, James" <james.mihm@intel.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Please invite new Intel developers to the organization
-Message-ID: <20190530115742.f6nt6qph7yiqymbh@thinkpad.dyn.fuzziesquirrel.com>
-References: <C599FC839619124CAC44E062ABB7DFE2D7AD2AC3@ORSMSX115.amr.corp.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45FDqH0q1xzDqWm;
+ Fri, 31 May 2019 03:20:09 +1000 (AEST)
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 May 2019 10:20:05 -0700
+Received: from vmauery-desk.jf.intel.com (HELO mauery.jf.intel.com)
+ ([10.7.150.62])
+ by orsmga007-auth.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 30 May 2019 10:20:05 -0700
+Date: Thu, 30 May 2019 10:20:04 -0700
+From: Vernon Mauery <vernon.mauery@linux.intel.com>
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: OpenBMC Development <openbmc@lists.ozlabs.org>,
+ openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: U-Boot environment management from userspace
+Message-ID: <20190530172004.GA46814@mauery.jf.intel.com>
+References: <20190528183802.GH15959@mauery.jf.intel.com>
+ <e42fb92effbc990f60239377b05e3f4e@linux.vnet.ibm.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <C599FC839619124CAC44E062ABB7DFE2D7AD2AC3@ORSMSX115.amr.corp.intel.com>
+In-Reply-To: <e42fb92effbc990f60239377b05e3f4e@linux.vnet.ibm.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,30 +45,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 May 2019 11:57:05 -0000
+X-List-Received-Date: Thu, 30 May 2019 17:20:12 -0000
 
-On Thu, May 30, 2019 at 12:56:36AM +0000, Mihm, James wrote:
->Brad,
+On 29-May-2019 10:30 AM, Adriana Kobylak wrote:
+>>Am I the only one that has a need for this or is there a wider
+>>audience that would benefit?
 >
->Please invite the following Intel developers to the OpenBMC organization.
+>The software manager (phosphor-bmc-code-mgmt) relies on U-Boot 
+>environment
+>variables for managing the images like for determining which image to 
+>boot
+>from.
 >
->Name                                Email address                                      github userid
->Yuan Li                           yuan.li@linux.intel.com<mailto:yuan.li@linux.intel.com>                     yli-i
->Nilan Naidoo                 nilan.naidoo@intel.com<mailto:nilan.naidoo@intel.com>                    nilanintc
->Pawel Rapkiewicz          pawel.rapkiewicz@intel.com<mailto:pawel.rapkiewicz@intel.com>             prapkiewicz
->Vikram Bodireddy         vikram.bodireddy@intel.com<mailto:vikram.bodireddy@intel.com>
->Saravanan Palanisamy  saravanan.palanisamy@intel.com<mailto:saravanan.palanisamy@intel.com>    saravanan-palanisamy
->Smriti Ayushi                 smriti.ayushi@intel.com<mailto:smriti.ayushi@intel.com>                    Smriti-Ayushi
->Sumanth Bhat               sumanth.bhat@intel.com<mailto:sumanth.bhat@intel.com>                  sumbhat90
->Suryakanth Sekar          suryakanth.sekar@intel.com<mailto:suryakanth.sekar@intel.com>
->Anil Kumar Appana      anil.kumarx.appana@intel.com<mailto:anil.kumarx.appana@intel.com>
+>>3) Use a one-shot service that parses the 'instance' to extract a
+>>variable name and variable value. Then the variable could be activated
+>>by launching ubootenv@foo=bar.service. This would require some fancy
+>>parameter encoding to make it all work correctly to avoid string
+>>injections.
 >
->Thanks,
->James Mihm
->Intel DCG BMC Core Firmware
->(503) 264-5129
+>Yeah, we went that route with an obmc-flash-bmc-setenv@.service[1], with
+>like you mentioned uses some 'fancy parameter encoding', ex:
+>"obmc-flash-bmc-setenv@" + entryId + "\\x3d" + std::to_string(value) + 
+>".service";
+>
+>This has worked so far but I'd be open on having a mapping of the env
+>variables to D-Bus properties.
+>
+>>Reading U-Boot environment variables from userspace is not difficult,
+>>but to do it in a standard way, (fw_printenv), it requires a fork and
+>>exec.
+>
+>We're actually reading the mtd device to get the values of the variables
+>to avoid having a 'system' or 'fork/exec' call, then we put those values
+>in D-Bus properties under the software/ path. Having some other app do 
+>that
+>parsing would be nice especially if we're to expand the use of the 
+>U-Boot
+>env vars.
+>
+>---
+>[1] https://github.com/openbmc/phosphor-bmc-code-mgmt/blob/master/obmc-flash-bmc-setenv%40.service
+>
 >
 
-Awesome!  Done!
+Brad,
 
--brad
+It sounds like Intel is not the only ones that might benefit from a 
+service like this, so it might be a good time for a new project/repo. 
+
+Could you create a new repo for us: phosphor-u-boot-env-mgr
+
+--Vernon
