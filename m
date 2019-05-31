@@ -1,60 +1,44 @@
-Return-Path: <manager@lfprojects.org>
+Return-Path: <zhuysh@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=softfail (mailfrom) smtp.mailfrom=lfprojects.org
- (client-ip=2a00:1450:4864:20::134; helo=mail-lf1-x134.google.com;
- envelope-from=manager@lfprojects.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=lfprojects.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=lfprojects-org.20150623.gappssmtp.com
- header.i=@lfprojects-org.20150623.gappssmtp.com header.b="Rr5jPLlx"; 
- dkim-atps=neutral
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=210.51.26.146; helo=unicom146.biz-email.net;
+ envelope-from=zhuysh@inspur.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=inspur.com
+X-Greylist: delayed 127 seconds by postgrey-1.36 at bilbo;
+ Fri, 31 May 2019 10:28:21 AEST
+Received: from unicom146.biz-email.net (unicom146.biz-email.net
+ [210.51.26.146])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45FL4H2NcMzDqQM
- for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 07:16:42 +1000 (AEST)
-Received: by mail-lf1-x134.google.com with SMTP id r15so6142910lfm.11
- for <openbmc@lists.ozlabs.org>; Thu, 30 May 2019 14:16:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=lfprojects-org.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=n+orujHmP10OnNremQPCvUn3K4iD9oBUY0GNkm/X9Bw=;
- b=Rr5jPLlxcxrbfME6bQmhLF1+cAgJf9aB9RmxM6LEtfFOEqWDIXKqgVoR3bbJBEc5xM
- RHFBhBopcvyfVyrq06PMh6XC01bAXZjrcDUSpleN4jqD2zACQ2sPHrAVGIMfz4WJQ3wx
- j1c2vdMOQMFrNkv/caT5nsiyvbABAVwsCHbCvhkB2VPl82AOLiBqfRKiY228sH9R/Qfx
- /ily4PEBKzPV0GnNbHZTwcCYP43CXPf6wpD7vYO9smQNkHC+8LNGxo1+71Cbg/4lhafj
- GZVmJWc0Ue/4IxjDd+2NdJNbAxgwQVybwbVk+D/1CzyIdauIugC28ulQJzXWu9cy1uhC
- 6DLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=n+orujHmP10OnNremQPCvUn3K4iD9oBUY0GNkm/X9Bw=;
- b=q3ZRoGYttb7mNgV+k7o2bAnbOxx4dqRbtnV6TEG6OjgzW4zpXyNbjomtd41Y09+Dph
- nMVpIuGT+Ls+kraCGDbpxXVO3iXTO/XaonbP/X6q4jHxSH8D1kuPFrlXwvytgrhJtIFm
- 3cWffCYeqr6QzJPCU2ePp33K+P221JfQYYYWniXttIxgteclRDrHlvsmG811tRYx7jIz
- geSEfKn6OauH4wWod4/5efMxac7pkw4SoLAsXmQb0R8b941Qb5ri6pJOAfrGQ6Q23MZx
- 6bQbOPOscYs8hrsv0m9MGvtYvzIF61911GA9WrlaVcf456XxbbQid4CcJKX5OkreLxU/
- lGyw==
-X-Gm-Message-State: APjAAAUPag+hk3TJumSDvuze8//DtG1J6Cfcr3saH7oZ8HFup4ymYf6z
- 3HK0V3cfXo6mA4DS5F4BsRud9DVqqcY8b7s+XjaHTQ==
-X-Google-Smtp-Source: APXvYqwoPmMnSJkKWkL2cHjwPttcHSGP4Qac76LBDT97qhbGrOBvGf0E39q9vG5C0XFqaE7lZ4hqKWf548PezMMXtqk=
-X-Received: by 2002:a19:ed07:: with SMTP id y7mr3506668lfy.56.1559250997407;
- Thu, 30 May 2019 14:16:37 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45FQKK3RDRzDqXW
+ for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 10:28:20 +1000 (AEST)
+Received: from ([58.56.96.28])
+ by unicom146.biz-email.net (Antispam) with ASMTP (SSL) id WFF16404
+ for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 08:26:04 +0800
+Received: from jtjnmail201601.home.langchao.com (10.100.2.1) by
+ jtjnmail201605.home.langchao.com (10.100.2.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1591.10; Fri, 31 May 2019 08:26:03 +0800
+Received: from jtjnmail201601.home.langchao.com ([fe80::1d84:2ff3:ead2:1c78])
+ by jtjnmail201601.home.langchao.com ([fe80::1d84:2ff3:ead2:1c78%8])
+ with mapi id 15.01.1591.008; Fri, 31 May 2019 08:26:03 +0800
+From: =?gb2312?B?U2ltb24gWmh1KNbs06Lk+Ck=?= <zhuysh@inspur.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Questions about changing default username or password
+Thread-Topic: Questions about changing default username or password
+Thread-Index: AQHVF0duABVahmCLMU2DXyKV7nA01A==
+Date: Fri, 31 May 2019 00:26:03 +0000
+Message-ID: <FF401BD5-4C8A-4F01-8B6B-3138E4A458DB@inspur.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.100.1.52]
+Content-Type: multipart/signed;
+ boundary="Apple-Mail=_A0E03F56-0C28-437E-A0CC-AF7183E3E4A7";
+ protocol="application/pkcs7-signature"; micalg=sha-256
 MIME-Version: 1.0
-References: <96a177bb54474ad0944934a0efe8ddf6@wistron.com>
-In-Reply-To: <96a177bb54474ad0944934a0efe8ddf6@wistron.com>
-From: Mike Dolan <manager@lfprojects.org>
-Date: Thu, 30 May 2019 17:16:25 -0400
-Message-ID: <CALVHhedPVn8bkC3hed9_6w6O9YDhw==T_vrwSfS4+gnEUnFfQQ@mail.gmail.com>
-Subject: Re: Signed CLA from Wistron
-To: Claire_Ku@wistron.com
-Cc: openbmc@lists.ozlabs.org, Timothy_Huang@wistron.com
-Content-Type: multipart/alternative; boundary="000000000000d1082b058a2169dd"
-X-Mailman-Approved-At: Fri, 31 May 2019 10:25:29 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,106 +50,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 May 2019 21:16:48 -0000
+X-List-Received-Date: Fri, 31 May 2019 00:28:22 -0000
 
---000000000000d1082b058a2169dd
-Content-Type: text/plain; charset="UTF-8"
-
-Hi, this file does not appear to be signed.
-
-Thanks,
-
-Mike
-
-On Wed, May 29, 2019 at 5:39 AM <Claire_Ku@wistron.com> wrote:
-
-> Dear Sir/Madam,
->
->
->
-> Here is the signed CLA from Wistron Corporation.
->
-> Please help to approve it.
->
-> Thank you very much.
->
->
->
-> Yours faithfully,
->
-> Claire Ku
->
->
->
->
-> *---------------------------------------------------------------------------------------------------------------------------------------------------------------*
->
-> *This email contains confidential or legally privileged information and is
-> for the sole use of its intended recipient. *
->
-> *Any unauthorized review, use, copying or distribution of this email or
-> the content of this email is strictly prohibited.*
->
-> *If you are not the intended recipient, you may reply to the sender and
-> should delete this e-mail immediately.*
->
->
-> *---------------------------------------------------------------------------------------------------------------------------------------------------------------*
->
-
---000000000000d1082b058a2169dd
-Content-Type: text/html; charset="UTF-8"
+--Apple-Mail=_A0E03F56-0C28-437E-A0CC-AF7183E3E4A7
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;
+	charset=gb2312
 
-<div dir=3D"ltr">Hi, this file does not appear to be signed.=C2=A0<div><br>=
-</div><div>Thanks,</div><div><br></div><div>Mike</div></div><br><div class=
-=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, May 29, 2019=
- at 5:39 AM &lt;<a href=3D"mailto:Claire_Ku@wistron.com">Claire_Ku@wistron.=
-com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">
+Hello ,
 
+	I want to change default username and password in =
+local.conf.sample.
 
+	But caused an invalid username error.
 
+	I fixed it in the following way in =
+/openbmc/openbmc/meta/recipes-extended/shadow/shadow.inc:
+	I moved the patch shadow-relaxed-usernames.patch from =
+SRC_URI_append_class-target to SRC_URI.
+=09
 
+	And If I changed the default username or password, I failed to =
+use IPMI through lanplus interface because of authentication failure.=20
+	I need to generate my own ipmi_pass and install it to =
+/etc/ipmi_pass=A1=A3
 
-<div lang=3D"ZH-TW">
-<div class=3D"gmail-m_-6404953693796521501WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Dear Sir/Madam,<u></u><u></u></=
-span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Here is the signed CLA from Wis=
-tron Corporation.<u></u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Please help to approve it.<u></=
-u><u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thank you very much.<u></u><u><=
-/u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Yours faithfully,<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Claire Ku<u></u><u></u></span><=
-/p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><u></u>=C2=A0<u></u></span></p>
-</div>
+	Do these two issues need to be fixed?
 
-<p><span style=3D"font-family:Calibri;font-size:11pt;color:rgb(0,0,0)"><b>-=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
---------</b></span></p>
-<p><span style=3D"font-family:Calibri;font-size:11pt;color:rgb(0,0,0)"><b>T=
-his email contains confidential or legally privileged information and is fo=
-r the sole use of its intended recipient. </b></span></p>
-<p><span style=3D"font-family:Calibri;font-size:11pt;color:rgb(0,0,0)"><b>A=
-ny unauthorized review, use, copying or distribution of this email or the c=
-ontent of this email is strictly prohibited.</b></span></p>
-<p><span style=3D"font-family:Calibri;font-size:11pt;color:rgb(0,0,0)"><b>I=
-f you are not the intended recipient, you may reply to the sender and shoul=
-d delete this e-mail immediately.</b></span></p>
-<p><span style=3D"font-family:Calibri;font-size:11pt;color:rgb(0,0,0)"><b>-=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
---------</b></span></p></div>
+Best regards,
 
-</blockquote></div>
+Simon=
 
---000000000000d1082b058a2169dd--
+--Apple-Mail=_A0E03F56-0C28-437E-A0CC-AF7183E3E4A7
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCCBz8w
+ggc7MIIGI6ADAgECAgpqPjdoAAEAAbdAMA0GCSqGSIb3DQEBBQUAMFsxEzARBgoJkiaJk/IsZAEZ
+FgNjb20xGDAWBgoJkiaJk/IsZAEZFghsYW5nY2hhbzEUMBIGCgmSJomT8ixkARkWBGhvbWUxFDAS
+BgNVBAMTC0xhbmdDaGFvLUNBMB4XDTE0MTIwOTA3MjM1MFoXDTE5MTIwODA3MjM1MFowgZIxEzAR
+BgoJkiaJk/IsZAEZFgNjb20xGDAWBgoJkiaJk/IsZAEZFghsYW5nY2hhbzEUMBIGCgmSJomT8ixk
+ARkWBGhvbWUxFTATBgNVBAsMDOa1qua9ruS/oeaBrzESMBAGA1UEAwwJ5pyx6Iux5r6NMSAwHgYJ
+KoZIhvcNAQkBFhF6aHV5c2hAaW5zcHVyLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoC
+ggEBANcl7k0O5Ddj8YZ7jFzneSe7nPVnP6CiFRYhW3ZckZhQ2VUSkkE2TgwxPbydHbR6njQZci3A
+soufiilTcWrz5gIexwCUPtpf4rg/CSMXdeOQCLR8rHwPahR1tY6EGgYRQGu1KfT6iGOs/of0+ufY
+FfpzxvoGfJ11q19Oro3Lrlf1fuA6FCVXTgLIIGHa5pBcDymFr6sS23qTtTnWXyfkDvpWEtGMKhPl
+as7ND5pT0LnjNV9/krBcBxUwlkUb30ZWxZJGqP7L3jq5+PWDjJzMLNWjbSPdF8doV81meVVNUz0y
+FB4mK8L0kK/2ePkhW/OuPQqnc928wn53u8oBISTUn4MCAwEAAaOCA8cwggPDMAsGA1UdDwQEAwIF
+oDA+BgkrBgEEAYI3FQcEMTAvBicrBgEEAYI3FQiC8qkfhIHXeoapkT2GgPcVg9iPXIFKhqKtHYbX
+lCwCAWQCARgwRAYJKoZIhvcNAQkPBDcwNTAOBggqhkiG9w0DAgICAIAwDgYIKoZIhvcNAwQCAgCA
+MAcGBSsOAwIHMAoGCCqGSIb3DQMHMB0GA1UdDgQWBBRakw7MI3vEw/JZItkKOHzlYEs4HTAfBgNV
+HSMEGDAWgBTGbsOiE24avQY6XrcvNNjg05z7IzCCARUGA1UdHwSCAQwwggEIMIIBBKCCAQCggf2G
+gbxsZGFwOi8vL0NOPUxhbmdDaGFvLUNBLENOPWp0am5jYTAxLENOPUNEUCxDTj1QdWJsaWMlMjBL
+ZXklMjBTZXJ2aWNlcyxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPWhvbWUsREM9bGFu
+Z2NoYW8sREM9Y29tP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RDbGFzcz1j
+UkxEaXN0cmlidXRpb25Qb2ludIY8aHR0cDovL2p0am5jYTAxLmhvbWUubGFuZ2NoYW8uY29tL0Nl
+cnRFbnJvbGwvTGFuZ0NoYW8tQ0EuY3JsMIIBMAYIKwYBBQUHAQEEggEiMIIBHjCBswYIKwYBBQUH
+MAKGgaZsZGFwOi8vL0NOPUxhbmdDaGFvLUNBLENOPUFJQSxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2
+aWNlcyxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPWhvbWUsREM9bGFuZ2NoYW8sREM9
+Y29tP2NBQ2VydGlmaWNhdGU/YmFzZT9vYmplY3RDbGFzcz1jZXJ0aWZpY2F0aW9uQXV0aG9yaXR5
+MGYGCCsGAQUFBzAChlpodHRwOi8vanRqbmNhMDEuaG9tZS5sYW5nY2hhby5jb20vQ2VydEVucm9s
+bC9qdGpuY2EwMS5ob21lLmxhbmdjaGFvLmNvbV9MYW5nQ2hhby1DQSgxKS5jcnQwKQYDVR0lBCIw
+IAYIKwYBBQUHAwIGCCsGAQUFBwMEBgorBgEEAYI3CgMEMDUGCSsGAQQBgjcVCgQoMCYwCgYIKwYB
+BQUHAwIwCgYIKwYBBQUHAwQwDAYKKwYBBAGCNwoDBDA/BgNVHREEODA2oCEGCisGAQQBgjcUAgOg
+EwwRemh1eXNoQGluc3B1ci5jb22BEXpodXlzaEBpbnNwdXIuY29tMA0GCSqGSIb3DQEBBQUAA4IB
+AQBuOubBOCkBWe+svIPrF5VWulW0HevKWzd4xg5Q1Y0h+2sQogGK1wxuKJSWC4aW8N9z6wFRHL9+
+ULXrSPpY6VRv89ZLUrGiVt1kfx1hkKvfXcgqtoMRRbSBIegY3mNWgJa/4q1nKAAF8a5enoRotbT3
+3VIowB84sDIF++pgixrJ4jjnXbYDhHDhdOWIY/Jt1Drn53hqbIOve0ZZBhfWNE40ag8RzjA6xquZ
+zGVC6dGEBVOjYg1heD1i7SsHWYauIGBbzUedq0QPiaotT0m9++X9IRuxjpCS3IJDaNm8jx6U6WH8
+XdS6CzYepNoOC2pI5X6LOCooK49ZK7BWpNtEpNSMMYIC9zCCAvMCAQEwaTBbMRMwEQYKCZImiZPy
+LGQBGRYDY29tMRgwFgYKCZImiZPyLGQBGRYIbGFuZ2NoYW8xFDASBgoJkiaJk/IsZAEZFgRob21l
+MRQwEgYDVQQDEwtMYW5nQ2hhby1DQQIKaj43aAABAAG3QDANBglghkgBZQMEAgEFAKCCAV8wGAYJ
+KoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkwNTMxMDAyNjAzWjAvBgkq
+hkiG9w0BCQQxIgQgDvY6sL7Z+GauHIhlICOnGlU/O+5kgc5GUQPXwIJWQhUweAYJKwYBBAGCNxAE
+MWswaTBbMRMwEQYKCZImiZPyLGQBGRYDY29tMRgwFgYKCZImiZPyLGQBGRYIbGFuZ2NoYW8xFDAS
+BgoJkiaJk/IsZAEZFgRob21lMRQwEgYDVQQDEwtMYW5nQ2hhby1DQQIKaj43aAABAAG3QDB6Bgsq
+hkiG9w0BCRACCzFroGkwWzETMBEGCgmSJomT8ixkARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxh
+bmdjaGFvMRQwEgYKCZImiZPyLGQBGRYEaG9tZTEUMBIGA1UEAxMLTGFuZ0NoYW8tQ0ECCmo+N2gA
+AQABt0AwDQYJKoZIhvcNAQEBBQAEggEANa+TQqVI0YxiYDmkEmYc4snZ3nFQ9CpuyEIfVK8SZecI
+KBYNUn3gOv+3r/zfqekOJp2MKKnP54W0p6rxmpXAjf8SvIASQ36oShoA5IDotDgqE/4QHZrssMLq
+u+MNH+AvbhtPx/haVTAJae9lChwaMd0LPKusdPKJH3nSQA6Eah8U+DCMIO3CINIzmHHBFNP3tpE1
+HWguR3/UNgFARdkAD1IqqgWNXGJ62rQEWdpF0ToW+DVhF29ycLQtC4VuvjZSAwpgPb0Tr0ZeK0O3
+hBQoGZDIRrtb8d+M3XRdoLjos9IT0XjY3AqO6HMSybvkA2eKm4B49VPy6EIOn8JbrtLyLgAAAAAA
+AA==
+
+--Apple-Mail=_A0E03F56-0C28-437E-A0CC-AF7183E3E4A7--
