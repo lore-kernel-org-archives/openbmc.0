@@ -1,74 +1,66 @@
-Return-Path: <franhsutw@gmail.com>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com;
- envelope-from=franhsutw@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="LhY+slKU"; 
- dkim-atps=neutral
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45FlmR5MGbzDq99
- for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 23:34:31 +1000 (AEST)
-Received: by mail-pg1-x543.google.com with SMTP id h17so4094923pgv.0
- for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 06:34:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:references:in-reply-to:subject:date:message-id
- :mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=Y3cQeTRV8MUZszig/0BI4IRgN5xVvldg8h1oDX1OvbU=;
- b=LhY+slKUpXpWmdIkiikiHdLft1Sh8rQnoukPTzAEjXAdyHkvyZXeqjkw6z+gJSqygh
- WZtCrHZSKSXE59QnFy2VgH2n1DFqD3Yv2J5irB56lYb7mFFNiol/TqTI42Jx9cgru8or
- FNNwV6vdFPjjBU6EhupWV1WXBD7i7MDUN70OMyyJvkA0NjT0AduYh5gA108eLcySelWD
- Lpy10XecUfH7VNQEeu1eDPN869IT5/6OOTjSIBd4zolrGZWlUPxqim6jJN6torCrgmwi
- /c0a0Cmeuwo7jWgj/euDMS/4pPA1ewmQQUYk/qhb9RbSaXlo+BH20ImUjY3fDJPkFSbT
- /McA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:references:in-reply-to:subject:date
- :message-id:mime-version:content-transfer-encoding:thread-index
- :content-language;
- bh=Y3cQeTRV8MUZszig/0BI4IRgN5xVvldg8h1oDX1OvbU=;
- b=T74rGdCHCljfL/T8x8timevV73FU8g5W7q1m4wh9r0Ci11Y8MpX/CgT1TqIKGpFqbm
- DQRJr0Z9IoBxG2AG+O3BC7LoZtSTTG+FKOmBDYyETLDPL5DsAL5YZaqd8hzh98mHEBK6
- 4R0pRDVP/KPgk53aUIU2qm6eG+LjWhphvIXNGnCSPoIRMN8ChMagSlrF02ofhCbdAUqs
- DWVRFWxwODyWBIH8VDkmkhJUAnrCGTMUrUv3Vgwe0c31W8UfOzbhGA9CRKucTAASTg+9
- ZUNcLjxbjbL601tz8/OpUuECDRixZ1SupjZiIYASQ9cGCtIVmxuVg4YTNK4XQZjwNUBj
- UfEA==
-X-Gm-Message-State: APjAAAUG3N3SFY66LbbDukDz7EfK6dvFkOpZ6lq2OsKaGrJ/j7q6VWCs
- M73RcdFkIiT3Q9bp/i/TzrAZMR6fxTk=
-X-Google-Smtp-Source: APXvYqzSNZO0j/yhkOGoq+9vFKNynady1lF634ibH7zRrHn9OiYAA5KQRvnySa+ZstOKjJ32zXK82g==
-X-Received: by 2002:a65:4c07:: with SMTP id u7mr8940640pgq.93.1559309668048;
- Fri, 31 May 2019 06:34:28 -0700 (PDT)
-Received: from FranNI7 (220-135-135-179.HINET-IP.hinet.net. [220.135.135.179])
- by smtp.gmail.com with ESMTPSA id
- z4sm6122053pfa.142.2019.05.31.06.34.26
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 31 May 2019 06:34:27 -0700 (PDT)
-From: franhsutw@gmail.com
-X-Google-Original-From: <FranHsuTW@gmail.com>
-To: "'Benjamin Fair'" <benjaminfair@google.com>
-Cc: "'Joel Stanley'" <joel@jms.id.au>,
- "'OpenBMC Maillist'" <openbmc@lists.ozlabs.org>
-References: <20190516111200.13859-1-franhsutw@gmail.com>
- <CADKL2t7N1dLHCjnrWD61KsdD1CmQm3AK2HhxoXvcVAqVG7rE_g@mail.gmail.com>
-In-Reply-To: <CADKL2t7N1dLHCjnrWD61KsdD1CmQm3AK2HhxoXvcVAqVG7rE_g@mail.gmail.com>
-Subject: RE: [PATCH dev-5.1 v4 1/4] ARM: dts: nuvoton: Add Quanta GSJ BMC
- Device Tree.
-Date: Fri, 31 May 2019 21:34:06 +0800
-Message-ID: <095301d517b5$9296e660$b7c4b320$@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45Fp1w0KLkzDqXX
+ for <openbmc@lists.ozlabs.org>; Sat,  1 Jun 2019 01:16:19 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x4VFDfbN076803
+ for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 11:16:15 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.73])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2su6per6bu-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Fri, 31 May 2019 11:16:15 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Fri, 31 May 2019 15:16:14 -0000
+Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
+ by smtp.notes.na.collabserv.com (10.106.227.90) with
+ smtp.notes.na.collabserv.com ESMTP; Fri, 31 May 2019 15:16:11 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp03.a3.dal06.isc4sb.com
+ with ESMTP id 2019053115161008-1937159 ;
+ Fri, 31 May 2019 15:16:10 +0000 
+In-Reply-To: 
+Subject: Fw: OpenBMC Test Work group meeting:  MoM of 30 May 2019 instance
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Fri, 31 May 2019 15:16:10 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain;
-	charset="utf-8"
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 17652-1619 | IBM Domino Build
+ SCN1812108_20180501T0841_FP55 May 22, 2019 at 11:09
+X-LLNOutbound: False
+X-Disclaimed: 47259
+X-TNEFEvaluated: 1
 Content-Transfer-Encoding: quoted-printable
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQKlCxHSu/TciL2atq77UwL6tSNlOAJhhBBVpNJHkmA=
-Content-Language: zh-tw
+Content-Type: text/html; charset=UTF-8
+x-cbid: 19053115-8877-0000-0000-00000004AE77
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.220623
+X-IBM-SpamModules-Versions: BY=3.00011191; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000286; SDB=6.01211269; UDB=6.00636449; IPR=6.00992305; 
+ MB=3.00027133; MTD=3.00000008; XFM=3.00000015; UTC=2019-05-31 15:16:12
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-05-31 11:23:29 - 6.00009991
+x-cbparentid: 19053115-8878-0000-0000-00000008CBF1
+Message-Id: <OF94CB576A.2BCD1094-ON0025840B.005284C4-0025840B.0053E0BA@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-05-31_09:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,543 +72,225 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 31 May 2019 13:34:32 -0000
+X-List-Received-Date: Fri, 31 May 2019 15:16:20 -0000
 
-HI Benjamin,
-	Thanks for your comments, I had sent out the [PATCH dev-5.1 v5] for =
-reviewing.
-
-Fran
-
-> -----Original Message-----
-> From: Benjamin Fair <benjaminfair@google.com>
-> Sent: Friday, May 31, 2019 2:16 AM
-> To: Fran Hsu <franhsutw@gmail.com>
-> Cc: Joel Stanley <joel@jms.id.au>; OpenBMC Maillist
-> <openbmc@lists.ozlabs.org>
-> Subject: Re: [PATCH dev-5.1 v4 1/4] ARM: dts: nuvoton: Add Quanta GSJ =
-BMC
-> Device Tree.
->=20
-> Hi Fran,
->=20
-> This is looking good. Just a few small changes.
->=20
-> On Thu, May 16, 2019 at 4:14 AM Fran Hsu <franhsutw@gmail.com> wrote:
-> >
-> > Quanta GSJ BMC uses the Nuvoton NPCM730 soc.
-> > Commit the Quanta GSJ device tree for Arm dts.
-> > Also adds an entry of Quanta GSJ device tree file in Makefile.
-> > This is the part-1 of nuvoton-npcm730-gsj.dts.
-> >
-> > Including features:
-> > 1. Image partitions
-> > 2. pwm fan controller
-> > 3. usb device
-> > 4. serial port
-> > 5. fiu
-> >
-> > Tested:
-> >   Build Quanta GSJ image and load on the GSJ BMC module.
-> >   Ensure that BMC boots to console successful.
-> >
-> > Signed-off-by: Fran Hsu <franhsutw@gmail.com>
-> > ---
-> >  arch/arm/boot/dts/Makefile                |   3 +-
-> >  arch/arm/boot/dts/nuvoton-npcm730-gsj.dts | 413
-> > ++++++++++++++++++++++
-> >  2 files changed, 415 insertions(+), 1 deletion(-)  create mode =
-100644
-> > arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> >
-> > diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-> > index 127616746486..f55eedcdfec9 100644
-> > --- a/arch/arm/boot/dts/Makefile
-> > +++ b/arch/arm/boot/dts/Makefile
-> > @@ -321,7 +321,8 @@ dtb-$(CONFIG_ARCH_LPC32XX) +=3D \
-> >         lpc3250-ea3250.dtb \
-> >         lpc3250-phy3250.dtb
-> >  dtb-$(CONFIG_ARCH_NPCM7XX) +=3D \
-> > -       nuvoton-npcm750-evb.dtb
-> > +       nuvoton-npcm750-evb.dtb \
-> > +       nuvoton-npcm730-gsj.dtb
-> >  dtb-$(CONFIG_MACH_MESON6) +=3D \
-> >         meson6-atv1200.dtb
-> >  dtb-$(CONFIG_MACH_MESON8) +=3D \
-> > diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> > b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> > new file mode 100644
-> > index 000000000000..7cac83c6566b
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
-> > @@ -0,0 +1,413 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +// Copyright (c) 2019 Quanta Computer lnc. Fran.Hsu@quantatw.com
-> > +
-> > +/dts-v1/;
-> > +#include "nuvoton-npcm730.dtsi"
-> > +#include "nuvoton-npcm730-gsj-gpio.dtsi"
->=20
-> These include files don't exist yet. Make sure to order your patches =
-so that the
-> kernel can build at each commit.
->=20
-> > +/ {
-> > +       model =3D "Quanta GSJ Board (Device Tree v11)";
-> > +       compatible =3D "nuvoton,npcm750";
-> > +
-> > +       aliases {
-> > +               ethernet0 =3D &emc0;
-> > +               ethernet1 =3D &gmac0;
-> > +               serial3 =3D &serial3;
-> > +               udc9 =3D &udc9;
-> > +               i2c0 =3D &i2c0;
-> > +               i2c1 =3D &i2c1;
-> > +               i2c2 =3D &i2c2;
-> > +               i2c3 =3D &i2c3;
-> > +               i2c4 =3D &i2c4;
-> > +               i2c5 =3D &i2c5;
-> > +               i2c6 =3D &i2c6;
-> > +               i2c7 =3D &i2c7;
-> > +               i2c8 =3D &i2c8;
-> > +               i2c9 =3D &i2c9;
-> > +               i2c10 =3D &i2c10;
-> > +               i2c11 =3D &i2c11;
-> > +               i2c12 =3D &i2c12;
-> > +               i2c13 =3D &i2c13;
-> > +               i2c14 =3D &i2c14;
-> > +               i2c15 =3D &i2c15;
-> > +               fiu0 =3D &fiu0;
-> > +       };
-> > +
-> > +       chosen {
-> > +               stdout-path =3D &serial3;
-> > +       };
-> > +
-> > +       memory {
-> > +               reg =3D <0 0x40000000>;
-> > +       };
-> > +
-> > +       ahb {
-> > +               gmac0: eth@f0802000 {
-> > +                       phy-mode =3D "rgmii-id";
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               mc: memory-controller@f0824000 {
-> > +                       compatible =3D "nuvoton,npcm7xx-sdram-edac";
-> > +                       reg =3D <0xf0824000 0x1000>;
-> > +                       interrupts =3D <GIC_SPI 25
-> IRQ_TYPE_LEVEL_HIGH>;
-> > +               };
-> > +
-> > +               emc0: eth@f0825000 {
-> > +                       use-ncsi;
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               ehci1: usb@f0806000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               ohci1: ohci@f0807000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               udc9:udc@f0839000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               aes:aes@f0858000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               sha:sha@f085a000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               fiu0: fiu@fb000000 {
-> > +                       pinctrl-names =3D "default";
-> > +                       pinctrl-0 =3D <&spi0cs1_pins>;
-> > +                       status =3D "okay";
-> > +                       spi-nor@0 {
-> > +                               compatible =3D "jedec,spi-nor";
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <1>;
-> > +                               reg =3D <0>;
-> > +                               spi-rx-bus-width =3D <2>;
-> > +                               partitions@80000000 {
-> > +                                       compatible =3D
-> "fixed-partitions";
-> > +                                       #address-cells =3D <1>;
-> > +                                       #size-cells =3D <1>;
-> > +                                       bmc@0{
-> > +                                               label =3D "bmc";
-> > +                                               reg =3D <0x000000
-> 0x2000000>;
-> > +                                       };
-> > +                                       u-boot@0 {
-> > +                                               label =3D "u-boot";
-> > +                                               reg =3D <0x0000000
-> 0x80000>;
-> > +                                               read-only;
-> > +                                       };
-> > +                                       u-boot-env@100000{
-> > +                                               label =3D
-> "u-boot-env";
-> > +                                               reg =3D
-> <0x00100000 0x40000>;
-> > +                                       };
-> > +                                       kernel@200000 {
-> > +                                               label =3D "kernel";
-> > +                                               reg =3D <0x0200000
-> 0x600000>;
-> > +                                       };
-> > +                                       rofs@800000 {
-> > +                                               label =3D "rofs";
-> > +                                               reg =3D <0x800000
-> 0x1400000>;
-> > +                                       };
-> > +                                       rwfs@1c00000 {
-> > +                                               label =3D "rwfs";
-> > +                                               reg =3D <0x1c00000
-> 0x300000>;
-> > +                                       };
-> > +                                       reserved@1f00000 {
-> > +                                               label =3D
-> "reserved";
-> > +                                               reg =3D <0x1f00000
-> 0x100000>;
-> > +                                       };
-> > +                               };
-> > +                       };
-> > +               };
-> > +
-> > +               pcimbox: pcimbox@f0848000 {
-> > +                       status =3D "okay";
-> > +               };
-> > +
-> > +               apb {
-> > +
-> > +                       watchdog1: watchdog@901C {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       rng: rng@b000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       serial0: serial@1000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       serial1: serial@2000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       serial2: serial@3000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       serial3: serial@4000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       adc: adc@c000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +                       otp:otp@189000 {
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       i2c0: i2c@80000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "disabled";
-> > +                       };
-> > +
-> > +                       i2c1: i2c@81000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               lm75@5c {
-> > +                                       compatible =3D
-> "maxim,max31725";
-> > +                                       reg =3D <0x5c>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c2: i2c@82000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               lm75@5c {
-> > +                                       compatible =3D
-> "maxim,max31725";
-> > +                                       reg =3D <0x5c>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c3: i2c@83000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               lm75@5c {
-> > +                                       compatible =3D
-> "maxim,max31725";
-> > +                                       reg =3D <0x5c>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c4: i2c@84000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               lm75@5c {
-> > +                                       compatible =3D
-> "maxim,max31725";
-> > +                                       reg =3D <0x5c>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
->=20
-> Please be consistent with newlines between blocks as it makes it =
-easier to
-> read.
->=20
-> > +                       i2c5: i2c@85000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "disabled";
-> > +                       };
-> > +                       i2c6: i2c@86000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "disabled";
-> > +                       };
-> > +
-> > +                       i2c7: i2c@87000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "disabled";
-> > +                       };
-> > +
-> > +                       i2c8: i2c@88000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                       };
-> > +
-> > +                       i2c9: i2c@89000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               eeprom@55 {
-> > +                                       compatible =3D
-> "atmel,24c64";
-> > +                                       reg =3D <0x55>;
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c10: i2c@8a000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               eeprom@55 {
-> > +                                       compatible =3D
-> "atmel,24c64";
-> > +                                       reg =3D <0x55>;
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c11: i2c@8b000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +
-> > +                               /* P12V Quarter Brick DC/DC Power
-> Module Q54SH12050 @60 */
-> > +                               power-brick@36 {
-> > +                                       compatible =3D
-> "delta,dps800";
-> > +                                       reg =3D <0x36>;
-> > +                               };
-> > +
-> > +                               hotswap@15 {
-> > +                                       compatible =3D "ti,lm5066i";
-> > +                                       reg =3D <0x15>;
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c12: i2c@8c000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +                               ucd90160@6b {
-> > +                                       compatible =3D =
-"ti,ucd90160";
-> > +                                       reg =3D <0x6b>;
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c13: i2c@8d000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +
-> > +                               ipmb@40000010 {
-> > +                                       compatible =3D
-> "slave-mqueue";
-> > +                                       reg =3D <0x40000010>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c14: i2c@8e000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +
-> > +                               ipmb@40000012 {
-> > +                                       compatible =3D
-> "slave-mqueue";
-> > +                                       reg =3D <0x40000012>;
-> > +                                       status =3D "okay";
-> > +                               };
-> > +                       };
-> > +
-> > +                       i2c15: i2c@8f000 {
-> > +                               #address-cells =3D <1>;
-> > +                               #size-cells =3D <0>;
-> > +                               bus-frequency =3D <100000>;
-> > +                               status =3D "okay";
-> > +
-> > +                               i2c-switch@75 {
-> > +                                       compatible =3D
-> "nxp,pca9548";
-> > +                                       #address-cells =3D <1>;
-> > +                                       #size-cells =3D <0>;
-> > +                                       reg =3D <0x75>;
-> > +                                       i2c-mux-idle-disconnect;
-> > +
-> > +                                       i2c_u20: i2c@0 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <0>;
-> > +                                       };
-> > +
-> > +                                       i2c_u21: i2c@1 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <1>;
-> > +                                       };
-> > +
-> > +                                       i2c_u22: i2c@2 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <2>;
-> > +                                       };
-> > +
-> > +                                       i2c_u23: i2c@3 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <3>;
-> > +                                       };
-> > +
-> > +                                       i2c_u24: i2c@4 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <4>;
-> > +                                       };
-> > +
-> > +                                       i2c_u25: i2c@5 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <5>;
-> > +                                       };
-> > +
-> > +                                       i2c_u26: i2c@6 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <6>;
-> > +                                       };
-> > +
-> > +                                       i2c_u27: i2c@7 {
-> > +                                               #address-cells =3D
-> <1>;
-> > +                                               #size-cells =3D <0>;
-> > +                                               reg =3D <7>;
-> > +                                       };
-> > +                               };
-> > +                       };
-> > +
-> > +                       pwm_fan:pwm-fan-controller@103000 {
-> > +                               pinctrl-names =3D "default";
-> > +                               pinctrl-0 =3D <&pwm0_pins
-> &pwm1_pins &pwm2_pins
-> > +                                               &fanin0_pins
-> &fanin1_pins
-> > +                                               &fanin2_pins
-> &fanin3_pins
-> > +                                               &fanin4_pins
-> &fanin5_pins>;
-> > +                               status =3D "okay";
-> > +                               fan@0 {
-> > +                                       reg =3D <0x00>;
-> > +                                       fan-tach-ch =3D /bits/ 8 =
-<0x00
-> 0x01>;
-> > +                                       cooling-levels =3D <127 =
-255>;
-> > +                               };
-> > +                               fan@1 {
-> > +                                       reg =3D <0x01>;
-> > +                                       fan-tach-ch =3D /bits/ 8 =
-<0x02
-> 0x03>;
-> > +                                       cooling-levels =3D /bits/ 8
-> <127 255>;
-> > +                               };
-> > +                               fan@2 {
-> > +                                       reg =3D <0x02>;
-> > +                                       fan-tach-ch =3D /bits/ 8 =
-<0x04
-> 0x05>;
-> > +                                       cooling-levels =3D /bits/ 8
-> <127 255>;
-> > +                               };
-> > +                       };
-> > +
-> > +               };
-> > +       };
-> > +
-> > +
-> > +};
-> > --
-> > 2.21.0
-> >
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10.5pt" ><div dir=3D"ltr" >Dear All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Here with sending MoM of last instance of test work group=
+ meeting.</div>
+<div dir=3D"ltr" >Attendees: Joseph Reynold, Rahul Maheswari and Sivas:</di=
+v>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Agenda:</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >a) Security WG update and security testing: Joseph Reynol=
+ds:</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" ><div>Joseph walked thru security workgroup wiki</div>
+<div><a href=3D"https://github.com/openbmc/openbmc/wiki/Security-working-gr=
+oup" >https://github.com/openbmc/openbmc/wiki/Security-working-group</a></d=
+iv>
+<div>Sivas to check with community and our test team to help on testing.</d=
+iv>
+<div><button class=3D"f6 mx-auto btn-link muted-link js-wiki-more-pages-lin=
+k" style=3D"box-sizing: border-box; font-style: inherit; font-variant: inhe=
+rit; font-weight: inherit; font-stretch: inherit; font-size: 12px !importan=
+t; line-height: inherit; font-family: inherit; margin-top: 0px; margin-righ=
+t: auto !important; margin-bottom: 0px; margin-left: auto !important; overf=
+low: visible; text-transform: none; -webkit-appearance: button; border-radi=
+us: 0px; cursor: pointer; background-color: transparent; border: 0px; color=
+: rgb(88, 96, 105) !important; display: inline-block; padding: 0px; text-de=
+coration: none; user-select: none; white-space: nowrap;" type=3D"button" ><=
+/button></div>
+<div>b) Update on test specification document by Sivas</div>
+<div><a href=3D"https://github.com/openbmc/openbmc-test-automation/issues/1=
+769" style=3D"box-sizing: border-box; background-color: rgb(255, 255, 255);=
+ color: rgb(3, 102, 214); text-decoration: underline; outline-width: 0px; f=
+ont-family: -apple-system, system-ui, &quot;Segoe UI&quot;, Helvetica, Aria=
+l, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &=
+quot;Segoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-varia=
+nt-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-s=
+pacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-trans=
+form: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text=
+-stroke-width: 0px;" >https://github.com/openbmc/openbmc-test-automation/is=
+sues/1769</a></div>
+<div>&nbsp;</div>
+<div>Working on converting word document into md format.</div>
+<div>&nbsp;</div>
+<div>c) Update on test in progress in work in progress wiki</div>
+<div><a href=3D"https://github.com/openbmc/openbmc/wiki/Work-in-progress" s=
+tyle=3D"box-sizing: border-box; background-color: rgb(255, 255, 255); color=
+: rgb(3, 102, 214); text-decoration: underline; outline-width: 0px; font-fa=
+mily: -apple-system, system-ui, &quot;Segoe UI&quot;, Helvetica, Arial, san=
+s-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;, &quot;S=
+egoe UI Symbol&quot;; font-size: 16px; font-style: normal; font-variant-lig=
+atures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing=
+: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: =
+none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-strok=
+e-width: 0px;" >https://github.com/openbmc/openbmc/wiki/Work-in-progress</a=
+><span style=3D"color: rgb(36, 41, 46); font-family: -apple-system, system-=
+ui, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color E=
+moji&quot;, &quot;Segoe UI Emoji&quot;, &quot;Segoe UI Symbol&quot;; font-s=
+ize: 16px; font-style: normal; font-variant-ligatures: normal; font-variant=
+-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-a=
+lign: start; text-indent: 0px; text-transform: none; white-space: normal; w=
+idows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-col=
+or: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-col=
+or: initial; display: inline !important; float: none;" ><span>&nbsp; </span=
+></span></div>
+<div>and function test which is done is updated in changelog wiki</div>
+<div><a href=3D"https://github.com/openbmc/openbmc/wiki/Changelog" >https:/=
+/github.com/openbmc/openbmc/wiki/Changelog</a></div>
+<div>&nbsp;</div>
+<div>d)&nbsp; Need help on when the code changes will be available for issu=
+e</div>
+<div><a href=3D"https://github.com/openbmc/bmcweb/issues/62" >https://githu=
+b.com/openbmc/bmcweb/issues/62</a> - Thank you Rahul for bringing it in.</d=
+iv>
+<div>Kurt, Could you pls help here in case if you have target date. Thank y=
+ou in advance.</div>
+<div>&nbsp;</div>
+<div>Those who are contributing to test so far, Thank you team for all your=
+ contribution.</div>
+<div>Need more contribution from other community as well.</div>
+<div>&nbsp;</div></div>
+<div dir=3D"ltr" >Google Drive MoM video link: <a href=3D"https://drive.goo=
+gle.com/open?id=3D1lVXp-0XWd8YZe5Xspi6qZD2XbxchZhcB" >https://drive.google.=
+com/open?id=3D1lVXp-0XWd8YZe5Xspi6qZD2XbxchZhcB</a></div>
+<div dir=3D"ltr" >All other MoM folder: <a href=3D"https://drive.google.com=
+/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmFQBtYa" >https://drive.google.com=
+/drive/folders/1Cps88uPHB87RkQY3uDFKdVwrTmFQBtYa</a></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >With regards,</div>
+<div dir=3D"ltr" >Sivas</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
+ dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
+<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
+Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
+ 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
+" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
+t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
+ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
+- 080-64800002)</h2></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
+Sivas Srr/India/IBM</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
+o: </span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
+span></div></div></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
+" >Comments from Sivas Srr:</span></div></div>
+<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
+rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
+ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
+pan>Thu, May 30, 2019 9:00 PM - 10:00 PM</span> <span style=3D"display:inli=
+ne-block" >(applies to 18 instances)</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
+</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
+8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
+scode: 928 662 307</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
+n></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
+/span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
+ting name: </span> <span>OpenBMC Test Group meeting </span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
+ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
+: </span> <span>928 662 307</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
+</span> <span>sivas</span></div></div>
+<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
+17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
+top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
+10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
+pan></div>
+<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
+pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
+bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
+m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
+Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
+chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
+ia/IBM, yuenn@google.com</span></div></div>
+<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
+ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
+: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
+ont-weight: bold" >Optional: </span></div>
+<div>&nbsp;</div></div>
+<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
+lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
+ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
+eight: bold" >FYI: </span></div>
+<div>&nbsp;</div></div></div>
+<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
+ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
+n: left; color: #666;" >Description:</span></div>
+<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
+ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
+ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
+t></span></div>
+<div>&nbsp;</div>
+<div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,H=
+elvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,A=
+rial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ver=
+dana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sa=
+ns Serif,Verdana,Arial,Helvetica,sans-serif" >General Agenda:&nbsp; </font>=
+</font></font></font></font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" >Feel free to update in case any of=
+ you wants to update the agenda. </font></font></font></font></font></span>=
+</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,=
+Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Verdana,=
+Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,Ve=
+rdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Se=
+rif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://github.com/open=
+bmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https://github.com/o=
+penbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></font></font><=
+/font></span></div></div>
+<div>&nbsp;</div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Dreport instead of MYFFDC <a href=3D"https://github.com/op=
+enbmc/openbmc-test-automation/issues/1118" target=3D"=5Fblank" >https://git=
+hub.com/openbmc/openbmc-test-automation/issues/1118</a> <a href=3D"https://=
+github.com/openbmc/openbmc-test-automation/issues/1091" target=3D"=5Fblank"=
+ >https://github.com/openbmc/openbmc-test-automation/issues/1091</a></font>=
+</span>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC Feature Test Sign-on <a href=3D"https://drive.google=
+.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYPCI/view?usp=3Dsharing" target=3D=
+"=5Fblank" >https://drive.google.com/file/d/1-BuVY802-WRqBlrRmIPOKowEqQ-oYP=
+CI/view?usp=3Dsharing</a></font></span></p>
+<p><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvetic=
+a,sans-serif" >OpenBMC test cases in XL sheet: <a href=3D"https://docs.goog=
+le.com/spreadsheets/d/14UFFokv6kifk=5F2leUU=5F77yOFSNkv7sCE=5FKEAhaYXkyg/ed=
+it?usp=3Dsharing" rel=3D"nofollow" target=3D"=5Fblank" >OpenBMC test cases =
+in XL sheet</a> Updated Version: <a href=3D"https://docs.google.com/spreads=
+heets/d/1TW706qauln3EPQNd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing" =
+target=3D"=5Fblank" >https://docs.google.com/spreadsheets/d/1TW706qauln3EPQ=
+Nd11lOzvnRVM8=5F-ll-WCvdxm5NR6Y/edit?usp=3Dsharing</a></font></span></p>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >Quality at the first place: Unit test results needed at th=
+e time of gerrit code review</font></span></div>
+<div>&nbsp;</div></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI Inband code update -&nbsp; Nancy to come back on test=
+ owner</font></span></div>
+<div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Arial,Helvet=
+ica,sans-serif" >IPMI User management -&nbsp; Anup Pandya - Is any one from=
+ Intel going to sign on this. ?</font></span></div></div></div></div></div>=
+</div></div></div></div></blockquote></div><BR>
