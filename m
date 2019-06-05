@@ -1,54 +1,47 @@
-Return-Path: <derick.montague@gmail.com>
+Return-Path: <Hongweiz@ami.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2a00:1450:4864:20::433; helo=mail-wr1-x433.google.com;
- envelope-from=derick.montague@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=ami.com
+ (client-ip=63.147.10.42; helo=atlmailgw2.ami.com;
+ envelope-from=hongweiz@ami.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="APdOivxa"; 
- dkim-atps=neutral
-Received: from mail-wr1-x433.google.com (mail-wr1-x433.google.com
- [IPv6:2a00:1450:4864:20::433])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=ami.com
+Received: from atlmailgw2.ami.com (atlmailgw2.ami.com [63.147.10.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45Kmrx3rlTzDqnw
- for <openbmc@lists.ozlabs.org>; Fri,  7 Jun 2019 12:37:20 +1000 (AEST)
-Received: by mail-wr1-x433.google.com with SMTP id r18so531768wrm.10
- for <openbmc@lists.ozlabs.org>; Thu, 06 Jun 2019 19:37:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=9l1TytNkDXzKE0fof1Yb2loRfG+JHaN8mbR+fee992I=;
- b=APdOivxaIkKZtIRyuFCeta+HKrYrUKOzUwybo33SxOxKOkQWeF8b/3XxTdF6rx+zVK
- lA2u3C6Qv383WagrjvjLwKy7YF8Hna8u4XQlXtnCYeRuFhhaXOlv7ZzBjptk+8R5j4ug
- s4tzYNGhihRXq2GjxafKi/2sP/fqG4FpubjqntE/bwmTppWQMvyzp+cSoUaOkS7IIFDA
- flf3I4zrdmpSoZ65qM8MzYCkXZ1pQA40jl0VRQQf7PZfdrMXjo9SSxpeUowJGQ2myIgx
- cfpbXYrhl1XRG00oEMH2yNgYYBFhQRPzvtsKmk0KU6SfUPZJJKS0p6/C+73v3pT6KemZ
- 4wyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=9l1TytNkDXzKE0fof1Yb2loRfG+JHaN8mbR+fee992I=;
- b=cz0S7te17cRgR+UT7NFwOVZY8KF7VWltmV4WnilWYuUw2CdbGAsxGFmuFdq8SydECL
- TvBfncU4zP9sXvalhTx3ncBD157Yq5CEYdPvR1TQlGVI63gSEWzCFzhuRxhVMJITdAVC
- eo03HX/uaLafpR0t7i6Yx55HyXzaC1b0tgm6YWlnrmW2g+tkb6nEz1dh8liVfZMsjiY1
- ZRp6Ifb41Q/E/7ZHqMyL/2tx4n5eWod6KttMiPhC1Ge9AEZT1scxyYbwbjrGgq8o6ZoC
- AnB88g2xRRt5tSXP5/Bb/+z3lf5rgxbG6dV+ImRZ98kurxGYdAO4lL88Tq+jRuG+48Ir
- jWkw==
-X-Gm-Message-State: APjAAAVKQCEcM+8cB5R6NpsQlHPiIgKq+t5C9WPL+E65PJbKXWOPfuBQ
- /f7QIqc+AYyGOlobx2V2JygVi9dOby6B9nsnF7QZ42NicXM=
-X-Google-Smtp-Source: APXvYqz70g7LFvr06gRejK3C+X1ysjpfPyd/4pAJNA8be7gz3nTqgKORsAM0e3Muec2aZzpS6zPUxkMSq09zDDHnO4Y=
-X-Received: by 2002:adf:afd5:: with SMTP id y21mr31125903wrd.12.1559875034814; 
- Thu, 06 Jun 2019 19:37:14 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45K1G931jlzDqX3
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Jun 2019 06:53:03 +1000 (AEST)
+X-AuditID: ac10606f-bbfff70000003de9-e1-5cf82bac9c0c
+Received: from atlms1.us.megatrends.com (atlms1.us.megatrends.com
+ [172.16.96.144])
+ (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (Client did not present a certificate)
+ by atlmailgw2.ami.com (Symantec Messaging Gateway) with SMTP id
+ 4E.88.15849.CAB28FC5; Wed,  5 Jun 2019 16:53:00 -0400 (EDT)
+Received: from hongweiz-Ubuntu-AMI.us.megatrends.com (172.16.98.93) by
+ atlms1.us.megatrends.com (172.16.96.144) with Microsoft SMTP Server (TLS) id
+ 14.3.408.0; Wed, 5 Jun 2019 16:52:59 -0400
+From: Hongwei Zhang <hongweiz@ami.com>
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
+CC: Hongwei Zhang <hongweiz@ami.com>, <openbmc@lists.ozlabs.org>
+Subject: [u-boot,
+ v2016.07-aspeed-openbmc v1] aspeed/flash: add winbond SPI support
+Date: Wed, 5 Jun 2019 16:52:45 -0400
+Message-ID: <1559767965-21037-1-git-send-email-hongweiz@ami.com>
+X-Mailer: git-send-email 2.7.4
 MIME-Version: 1.0
-From: Derick <derick.montague@gmail.com>
-Date: Thu, 6 Jun 2019 21:37:03 -0500
-Message-ID: <CAOUmYFRfVQha0NCZd2aLTc-EC2GNF8wuXqnAyWNMCpzcecQUKw@mail.gmail.com>
-Subject: Proposal to replace Clang Format with ESLint and Prettier in
- phosphor-webui
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain
+X-Originating-IP: [172.16.98.93]
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupkluLIzCtJLcpLzFFi42JZI5AwQXeN9o8Yg6W9Uha7LnNY/D7/l9ni
+ VMsLFgdmj6vtu9g9Ln48xuxxfsZCxgDmKC6blNSczLLUIn27BK6MW8tesRZc5ayYu+AvWwPj
+ VfYuRk4OCQETiRX3PzJ1MXJxCAnsYpL4PnsRO4RziFGif+J3NpAqNgE1ib2b5zCB2CICzhJz
+ V5xkBrGZBRwkPu/aC2YLCwRJ9LzoZwWxWQRUJDad3ckCYvMC1dw7uZEJYpucxM1zncwQcUGJ
+ kzOfsEDMkZA4+OIFWFxIQFbi1qHHUPUKEs/7HrNMYOSbhaRlFpKWBYxMqxiFEktychMzc9LL
+ jfQSczP1kvNzNzFCgit/B+PHj+aHGJk4GIEe4mBWEuFNvP0lRog3JbGyKrUoP76oNCe1+BCj
+ NAeLkjjvqjXfYoQE0hNLUrNTUwtSi2CyTBycUg2Msz2876w5KLWIT0r4ph73nUW7lXadXXV8
+ S6rrBjWd4ilZ/jNzFA2VrM4L+m+se93orPnhyv6nUxIzQ81/r0m4aDPr41c2x3eTDNht1dJb
+ WM1WBoSsOHt4Ubjt6kaDN3rBWRI3jYPYTe5curdwa0uv97sJ0hGvquZN4fz4IVPokFTfkkPX
+ 3y7SV2Ipzkg01GIuKk4EACJR8PgcAgAA
+X-Mailman-Approved-At: Fri, 07 Jun 2019 13:30:27 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,33 +53,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Jun 2019 02:37:22 -0000
+X-List-Received-Date: Wed, 05 Jun 2019 20:53:07 -0000
 
-Hello,
+Add Winbond SPI flash W25M512JV support to u-boot.
 
-I propose we replace Clang Format in the phosphor-webui with an ESLint
-and Prettier configuration. Clang format handles formatting reasonably
-well, but it doesn't offer the ability to help identify potential
-errors.
+Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
+---
+ a/arch/arm/mach-aspeed/flash.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-We can run ESLint and Prettier from the command-line and integrate
-them into our editors. I have included links to the documentation for
-the resources and would like to continue the conversation in the
-Gerrit (https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366).
-
-My initial goal was to use the Angular 1 Style Guide's shared eslint
-and the ESLint recommended configurations. However, those options
-require a considerable amount of effort to update and regression test
-to be compliant. For now,  I have added a few Angular and ESLint rules
-to the configuration that are categorized either as possible errors or
-best practices. If we decide the AngularJS community's suggested best
-practices will improve our code base, we can develop a plan to
-implement those changes in a phased approach.
-
-- ESLint: https://eslint.org/
-- Prettier: https://prettier.io/
-- ESLlint Angular Plugin: https://www.npmjs.com/package/eslint-plugin-angular
-- Angular 1 Style Guide:
-https://github.com/johnpapa/angular-styleguide/tree/master/a1
-- Gerrit Review:
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366
+diff --git a/arch/arm/mach-aspeed/flash.c b/arch/arm/mach-aspeed/flash.c
+index db69d51..eefa6cd 100644
+--- a/arch/arm/mach-aspeed/flash.c
++++ b/arch/arm/mach-aspeed/flash.c
+@@ -84,6 +84,7 @@ flash_info_t flash_info[CONFIG_SYS_MAX_FLASH_BANKS];		/* FLASH chips info */
+ #define AT25DF161		0x02461F
+ #define AT25DF321		0x01471F
+ #define MT25QL01GB		0x21ba20
++#define W25M512JV		0x1971ef
+ 
+ /* SPI Define */
+ #define CS0_CTRL			0x10
+@@ -1156,6 +1157,20 @@ static ulong flash_get_size (ulong base, flash_info_t *info)
+ 			info->address32 = 1;
+ 			break;
+ 
++		case W25M512JV:
++			info->sector_count = 512;
++			info->size = 0x2000000;
++			erase_region_size  = 0x10000;
++			info->readcmd = 0x0b;
++			info->dualport = 1;
++			info->dummybyte = 1;
++			info->buffersize = 256;
++			WriteClk = 50;
++			EraseClk = 20;
++			ReadClk  = 50;
++			info->address32 = 1;
++			break;
++
+ 		default:	/* use JEDEC ID */
+ 			printf("Unsupported SPI Flash!! 0x%08lx\n", info->flash_id);
+ 			erase_region_size  = 0x10000;
+-- 
+2.7.4
