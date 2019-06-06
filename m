@@ -7,62 +7,66 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=mendozajonas.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="ZOo591oj"; dkim=pass (2048-bit key;
+ header.b="RgVS8GOL"; dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="Se/oG8Uk"; dkim-atps=neutral
+ header.b="E/8ARIdm"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45KCrh0dCLzDqf1
- for <openbmc@lists.ozlabs.org>; Thu,  6 Jun 2019 14:50:11 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45KCrm1DYyzDqf1
+ for <openbmc@lists.ozlabs.org>; Thu,  6 Jun 2019 14:50:16 +1000 (AEST)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 8A38F221F9;
- Thu,  6 Jun 2019 00:50:08 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id EA7862213A;
+ Thu,  6 Jun 2019 00:50:13 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Thu, 06 Jun 2019 00:50:08 -0400
+ by compute2.internal (MEProxy); Thu, 06 Jun 2019 00:50:13 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  mendozajonas.com; h=from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding; s=fm3; bh=rggHtVpvlfGA6
- LiTFSty0yqBLsB4HLGqaSfF+ldeDX0=; b=ZOo591ojGjX+BYPIi5LmTJjJK1ZG4
- agYqKu2KZFWsv1aFRQRgignGihKREKBUlPIZmKSKXhYOSVfZlfH/V//lXrYrScNb
- qIZmMBaeGxFnxcFIqFQ+fGW5M38aaCuQWLYRb5Fn9f5BZS9zGjER8003Pu/506RC
- f5wOUPzv20ILQb1xkmfi54VxuHhqG06e9NQBkNdINCIedngMHmkSPT7J6/FyFHoh
- dNEH4k514o8d0BmlcmuI/Z2GutzEHGsSageGZe1KtJk2suXt3H+SC7ZXDWT74vbt
- XN0uDtIZCrqRpGk1WY1Pji6lskhDvgfXgkaStJ5nd0FKH6Y3Sc+LZ1sLQ==
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ s=fm3; bh=IWpdLjUzvoRnVVXjHpowZ4+f3XTXwLw24SEBMuioU4o=; b=RgVS8
+ GOLL2mmPhmyKmCRgS/fU2ekgWDxzNOhDFlJpH45Nz3/H+4YNXhFLW0h3k/uEPwqG
+ H7ytoM/8WoU/rgfkkSY98r9UVQ2vM1YR7Hv9bTZBJTspKi4S0wkvstI4TC47/Szc
+ EETffXvpPwjzujYnIE/+dnar398gIKdUqlRlz2qvBhPn05Llql9sLig19Wz6aOEQ
+ VEu4fmc9T3cGRCjP1X9F4LrPASLet4vxrMDAwlYcJgwIM2VoaxlPt2s1yWQTnqdO
+ 7+HNoK7PutcnO2qpcAXo09dtKBwC60q6RMWTkBxL4JBspkLfOHV4OlyfLtolfAT1
+ I2KZ7tPWY8+eEk8Xw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=rggHtVpvlfGA6LiTF
- Sty0yqBLsB4HLGqaSfF+ldeDX0=; b=Se/oG8UkRMph0UoSvw+GoBdMrr8W32WTm
- 5sa1O1NHO8PuFmlQgQ47XZw+wlF4W6+JxL8QX6Pkzgw70lru32qjra154UHfHaRM
- nhlovJM3S7S4Zuv3OfqGpfouLlQ9SgLZ9m2brqKIRnO+RvOeKen5tYxBHRymslGJ
- O5gr4NroWxTQdNOEEZ0O+NoA/5cwfShymkg85960G5ZCYRuxDO7GfsKsRg/JAqgK
- e4P13CCe+rA/MNInkSuZXvcWPVmGIONRmzyb+KjJ6mH8XR31XC5UjV0ycrCEmI8h
- qft9BI7Xk0RER7BH31UVbmUGnKYpQldE5K4TCAUpDqpvap3WLWmdA==
-X-ME-Sender: <xms:f5v4XJZBjEf6b4P8MiMEz-FJ4mPYh1hZ5ZFyF8JVbj8rIuPUv-ejgw>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=IWpdLjUzvoRnVVXjHpowZ4+f3XTXwLw24SEBMuioU4o=; b=E/8ARIdm
+ PJsFmsjZx7HYSrWE+4W3lrMy34p9au4YVMP6DilxHvbFEVRRHhLUgWSr5zAPl6jh
+ sFuTfCdY2xiN8rKhtpL9rDssIPBe3TX/dTx10Rp3Sa5BCIg+idoLa7FD4kZ+Ngjw
+ sGj+jnFC44qxSE2u+S9BRvNHsXsS+e28nsZwn7ouprNBTQHn0GJl/wJUywHliEUc
+ wiVX+s5r6+FQafLIDo9rStd0EPdzU1Q4KgQpG8eXnweAlas4jIptSWX5BOKW3DSJ
+ kDpLyaWH64ygwacz2x098e80UYjtuZBMdFqXhpOUiPZ8Kg3Sp/Uf/EgV3yRPU8/X
+ g4qNsfLTaBe9oA==
+X-ME-Sender: <xms:hZv4XNmQVlxCxDQpsc380GIDxzEPwkTnuor5vbcQqBtxn5xKRWp4DA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduuddrudegfedgkeekucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomhepufgrmhhuvghlucfovghnughoiigrqdflohhnrghsuceoshgrmhes
- mhgvnhguohiirghjohhnrghsrdgtohhmqeenucffohhmrghinhepohiilhgrsghsrdhorh
- hgnecukfhppeduvddvrdelledrkedvrddutdenucfrrghrrghmpehmrghilhhfrhhomhep
- shgrmhesmhgvnhguohiirghjohhnrghsrdgtohhmnecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:f5v4XOX4JVp8goq9ZXUtOdA3xt0w5P9hqBzEiqEtue5HUj3rthBGxw>
- <xmx:f5v4XOT4VYBTV3aMBISldlyx1OQYK5agla2lt1HLvY2H6Rjr-hqwJg>
- <xmx:f5v4XMMrK1XTnZAPqSImOtW4cB7Xc8lWJftpY-0nLD-CjDxsTW4zrA>
- <xmx:gJv4XGmo5iWaeEXIIGjrOblHqxbF2xi1OXuuSSnz3ikJd0ViIUI9nQ>
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomhepufgrmhhuvghlucfovghnughoiigrqdflohhnrghsuceoshgr
+ mhesmhgvnhguohiirghjohhnrghsrdgtohhmqeenucfkphepuddvvddrleelrdekvddrud
+ dtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehsrghmsehmvghnughoiigrjhhonhgrshdr
+ tghomhenucevlhhushhtvghrufhiiigvpedt
+X-ME-Proxy: <xmx:hZv4XHSfzaAcTYA3n3eeHfJJCgqpcGMexxC-oQNg9KA0Co8iE8su6w>
+ <xmx:hZv4XGandOi34hw23U6DUFANWzmYivPMqVOI2IKL7hqEcIaK6ZTvWg>
+ <xmx:hZv4XCawj-VGAWe1ZxxNop1ITBpZxfgN7FxLtPyZx19H-f2v4-W-Pw>
+ <xmx:hZv4XAsFM2xophLSOsGx_P1ylh687NltI5UQkNjKhCCxgYa1ozv6nw>
 Received: from v4.ozlabs.ibm.com (unknown [122.99.82.10])
- by mail.messagingengine.com (Postfix) with ESMTPA id 06590380084;
- Thu,  6 Jun 2019 00:50:04 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 4334F380073;
+ Thu,  6 Jun 2019 00:50:11 -0400 (EDT)
 From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
 To: u-boot@lists.denx.de
 Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, joel@jms.id.au, clg@kaod.org,
  openbmc@lists.ozlabs.org, joe.hershberger@ni.com, sjg@chromium.org
-Subject: [PATCH 0/4] NC-SI PHY Support
-Date: Thu,  6 Jun 2019 14:49:46 +1000
-Message-Id: <20190606044950.5930-1-sam@mendozajonas.com>
+Subject: [PATCH 2/4] phy: Include NC-SI in phy setup
+Date: Thu,  6 Jun 2019 14:49:48 +1000
+Message-Id: <20190606044950.5930-3-sam@mendozajonas.com>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190606044950.5930-1-sam@mendozajonas.com>
+References: <20190606044950.5930-1-sam@mendozajonas.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -76,60 +80,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 06 Jun 2019 04:50:15 -0000
+X-List-Received-Date: Thu, 06 Jun 2019 04:50:16 -0000
 
-This series introduces support for the NC-SI protocol to u-boot,
-functionality which so far has only been available in vendor trees.
+Add NC-SI to the usual phy handling. This makes two notable changes:
+- Somewhat similar to a fixed phy, phy_connect() will create an NC-SI
+phy if CONFIG_PHY_NCSI is defined.
+- An early return is added to phy_read() and phy_write() to handle a
+case like the NC-SI phy which does not define a bus.
 
-NC-SI (Network Controller Sideband Interface) is a protocol to manage a
-sideband connection to a proper network interface, for example a BMC
-(Baseboard Management Controller) sharing the NIC of the host system.
-Probing and configuration occurs by communicating with the "remote" NIC
-via NC-SI control frames (Ethernet header 0x88f8).
+Signed-off-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+---
+ drivers/net/phy/phy.c   |  8 ++++++++
+ include/phy.h           | 11 +++++++++++
+ include/phy_interface.h |  2 ++
+ 3 files changed, 21 insertions(+)
 
-Since the RFC[0] the changes have been split out into a few different
-patches to make the overall changes more obvious. Additionally a few
-small improvements have been added including adding a check to see if
-NC-SI is already configured, and marking the PHY bus "reset" as invalid
-since it does not define a bus.
-
-An example of NC-SI setup before a normal network command:
-
-=> dhcp
-net_loop: configuring NCSI first
-ethernet@1e660000: link up, 100 Mbps full-duplex mac:0c:c4:7a:d5:48:43
-NCSI: probing channels
-NCSI: configuring channel 0
-NCSI: configuration done!
-BOOTP broadcast 1
-BOOTP broadcast 2
-DHCP client bound to address 10.61.161.188 (255 ms)
-
-[0]: https://patchwork.ozlabs.org/patch/1107087/
-
-Samuel Mendoza-Jonas (4):
-  phy: Add support for the NC-SI protocol
-  phy: Include NC-SI in phy setup
-  net/ftgmac100: Add NC-SI mode support
-  net: NC-SI setup and handling
-
- cmd/Kconfig              |   6 +
- cmd/net.c                |  18 +
- drivers/net/ftgmac100.c  |  39 +-
- drivers/net/phy/Kconfig  |   4 +
- drivers/net/phy/Makefile |   1 +
- drivers/net/phy/ncsi.c   | 892 +++++++++++++++++++++++++++++++++++++++
- drivers/net/phy/phy.c    |   8 +
- include/net.h            |   3 +-
- include/net/ncsi-pkt.h   | 415 ++++++++++++++++++
- include/net/ncsi.h       |  14 +
- include/phy.h            |  12 +
- include/phy_interface.h  |   2 +
- net/net.c                |  27 +-
- 13 files changed, 1429 insertions(+), 12 deletions(-)
- create mode 100644 drivers/net/phy/ncsi.c
- create mode 100644 include/net/ncsi-pkt.h
- create mode 100644 include/net/ncsi.h
-
+diff --git a/drivers/net/phy/phy.c b/drivers/net/phy/phy.c
+index cda4caa803..c2bc57c45d 100644
+--- a/drivers/net/phy/phy.c
++++ b/drivers/net/phy/phy.c
+@@ -527,6 +527,9 @@ int phy_init(void)
+ #endif
+ #ifdef CONFIG_PHY_FIXED
+ 	phy_fixed_init();
++#endif
++#ifdef CONFIG_PHY_NCSI
++	phy_ncsi_init();
+ #endif
+ 	return 0;
+ }
+@@ -902,6 +905,11 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
+ 		sn = fdt_next_subnode(gd->fdt_blob, sn);
+ 	}
+ #endif
++
++#ifdef CONFIG_PHY_NCSI
++	phydev = phy_device_create(bus, 0, PHY_NCSI_ID, interface);
++#endif
++
+ 	if (!phydev)
+ 		phydev = phy_find_by_mask(bus, 1 << addr, interface);
+ 
+diff --git a/include/phy.h b/include/phy.h
+index f0c9df46c6..e1d546a81f 100644
+--- a/include/phy.h
++++ b/include/phy.h
+@@ -154,6 +154,11 @@ static inline int phy_read(struct phy_device *phydev, int devad, int regnum)
+ {
+ 	struct mii_dev *bus = phydev->bus;
+ 
++	if (!bus || !bus->read) {
++		debug("%s: No bus configured\n", __func__);
++		return -1;
++	}
++
+ 	return bus->read(bus, phydev->addr, devad, regnum);
+ }
+ 
+@@ -162,6 +167,11 @@ static inline int phy_write(struct phy_device *phydev, int devad, int regnum,
+ {
+ 	struct mii_dev *bus = phydev->bus;
+ 
++	if (!bus || !bus->read) {
++		debug("%s: No bus configured\n", __func__);
++		return -1;
++	}
++
+ 	return bus->write(bus, phydev->addr, devad, regnum, val);
+ }
+ 
+@@ -241,6 +251,7 @@ int phy_vitesse_init(void);
+ int phy_xilinx_init(void);
+ int phy_mscc_init(void);
+ int phy_fixed_init(void);
++int phy_ncsi_init(void);
+ 
+ int board_phy_config(struct phy_device *phydev);
+ int get_phy_id(struct mii_dev *bus, int addr, int devad, u32 *phy_id);
+diff --git a/include/phy_interface.h b/include/phy_interface.h
+index c6823189f8..9e334bb47d 100644
+--- a/include/phy_interface.h
++++ b/include/phy_interface.h
+@@ -31,6 +31,7 @@ typedef enum {
+ 	PHY_INTERFACE_MODE_XLAUI,
+ 	PHY_INTERFACE_MODE_CAUI2,
+ 	PHY_INTERFACE_MODE_CAUI4,
++	PHY_INTERFACE_MODE_NCSI,
+ 	PHY_INTERFACE_MODE_NONE,	/* Must be last */
+ 
+ 	PHY_INTERFACE_MODE_COUNT,
+@@ -58,6 +59,7 @@ static const char * const phy_interface_strings[] = {
+ 	[PHY_INTERFACE_MODE_XLAUI]		= "xlaui4",
+ 	[PHY_INTERFACE_MODE_CAUI2]		= "caui2",
+ 	[PHY_INTERFACE_MODE_CAUI4]		= "caui4",
++	[PHY_INTERFACE_MODE_NCSI]		= "NC-SI",
+ 	[PHY_INTERFACE_MODE_NONE]		= "",
+ };
+ 
 -- 
 2.21.0
