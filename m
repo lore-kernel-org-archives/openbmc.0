@@ -1,110 +1,53 @@
-Return-Path: <a.amelkin@yadro.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=yadro.com
- (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::132; helo=mail-it1-x132.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.b="CKxBaZ/L"; 
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="qzOC3kOr"; 
  dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-it1-x132.google.com (mail-it1-x132.google.com
+ [IPv6:2607:f8b0:4864:20::132])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45NP9X3CGjzDqL9
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2019 19:00:48 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id D880F41908
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2019 08:51:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:in-reply-to:mime-version:user-agent
- :date:date:message-id:organization:from:from:references:subject
- :subject:received:received:received; s=mta-01; t=1560243066; x=
- 1562057467; bh=gizqjm0vWYfBvEPmZjlhihkgXrWWZMH8xam/91EDR0w=; b=C
- KxBaZ/LIFhXURj3ovXJ0M4Rm9RslmCFP3xPqcNiIlVBCd0YKfpDqPSntusynAg7d
- ZS29+yY1LbbUoVs5h0oku6ax37maInmls98oBDZgJBkJsoVN9Km9S1BL8tLvjmpO
- MtcHgv/KzBkHoEadpciZ0vzG3Cd9GKz5iP5nZaBcD4=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id tIGF-r9jmWIP for <openbmc@lists.ozlabs.org>;
- Tue, 11 Jun 2019 11:51:06 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 9114C404CB
- for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2019 11:51:06 +0300 (MSK)
-Received: from [172.17.14.197] (172.17.14.197) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 11
- Jun 2019 11:51:06 +0300
-Subject: Re: Platform telemetry and health monitoring
-To: <openbmc@lists.ozlabs.org>
-References: <BL0PR2101MB0932AE0C63ADC3CBDAE0CF16C8060@BL0PR2101MB0932.namprd21.prod.outlook.com>
- <4d082cf8-c99c-22ac-9a60-85f70abb8bd6@linux.vnet.ibm.com>
- <CAGMNF6W+W1VPnqa3J1Y_wqc=BcnkBCi4-h9rG4tjUUrCk3zR8g@mail.gmail.com>
- <CALXe31mBvxQTaUkuFJsMozBYLiVTur18pMsTUfHY2t02Xp34wg@mail.gmail.com>
- <CAGMNF6XSD2U-qAe5ibotCkYW-U21vV+tL5-rJwvjPUvWwHA1hw@mail.gmail.com>
- <20190605124935.ywwwoj26fk46e6qu@thinkpad.dyn.fuzziesquirrel.com>
-From: Alexander Amelkin <a.amelkin@yadro.com>
-Openpgp: preference=signencrypt
-Autocrypt: addr=a.amelkin@yadro.com; prefer-encrypt=mutual; keydata=
- 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
- dTYsE5wSxM06T2l/MILupCNZ7A==
-Organization: YADRO
-Message-ID: <ab42831d-e2a9-c13d-9061-fd39b807ace2@yadro.com>
-Date: Tue, 11 Jun 2019 11:51:05 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.2.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45NPpW62nHzDqMW
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2019 19:29:20 +1000 (AEST)
+Received: by mail-it1-x132.google.com with SMTP id r135so3646833ith.1
+ for <openbmc@lists.ozlabs.org>; Tue, 11 Jun 2019 02:29:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=j7rQqpEN4L9+87c5pf4WdPfRT+VSELnGyUu9+7y/Ak0=;
+ b=qzOC3kOrXlL9K7v3Y8tulr1iivF8gwjycli5cUPPt6GnP8daybR6mosTUKZwY/viRh
+ /u/g44v79Ig+7V4c4qr9GSzByNWwRWunoCw8MaFD2jR4gy2wqPoxkN9NyLbqcnOLQxR+
+ oDoWRhwTEq4awVR0cVdsjwHR0oqNPlElHWrv/bvYcX4nsoI4lGN3uQ4UfSywDB0AMnzi
+ u9HCMS7pLBoS/8fh295B9mD9mfRibos2mZy0Ds/j+SS8wPOq7neEAt0/Ef52cjuf11RI
+ XDYOsbhTmyNdAlxWXrfgnE/vMYSYMt7bkv1U1kbukw3AFTqYQ8WmM4JoJqgPwcXP6XP1
+ koQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=j7rQqpEN4L9+87c5pf4WdPfRT+VSELnGyUu9+7y/Ak0=;
+ b=lT1cYxVKzb2YLZC0r5L8tHUTwLBXg5lLJ6xKIhmQrN6OXoN8t/0nNbq5nBWnktcBVt
+ 0YstrcvFPkidxd9ki1S/aKzi0DdQ3OxnJCe03AFPyIUivapcWC30GoMhrsgY0JIzsvfB
+ 1VQEv98c7PjG89vhveXPBFnmzG8MqkO9TAiwQhB/azjYi50huPEEhDe6FdVamNd3DGX5
+ ztDX4Hg4GyMBpScQa8bpe1azmAtZyZlpKBUXMxRnkSu+Q0l97VlcxoASq5ei910HAtd9
+ cNYGU4ZnLDphhlRhu44ONO4cqFClTIBRNvb0+6sOjGnhNbRCnm0kW6i2s/4SEul5sHOp
+ Qcsw==
+X-Gm-Message-State: APjAAAXFpX6uD4SAJnpBLc6EWSsPOY3UxGK+ZSZ13zd5xZibCHNUorcL
+ I0q8Vv6prv1mN1aZeP6jqyHdHgoGElS0RsugJ2NGH4J2qME1nQ==
+X-Google-Smtp-Source: APXvYqx7R0XWTVlLCfKzQtNqj/bXjGtYrvhM+IUPaqBZUVSbL0aZMqqxpZx9KX+QMiYxwr7i0TrD8EOCrmsoBeNGWaY=
+X-Received: by 2002:a24:b106:: with SMTP id o6mr840056itf.97.1560245356940;
+ Tue, 11 Jun 2019 02:29:16 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190605124935.ywwwoj26fk46e6qu@thinkpad.dyn.fuzziesquirrel.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="Bxju9AikVXqMkW2peoRg3zPhxXLgWg20z"
-X-Originating-IP: [172.17.14.197]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+From: Lei YU <mine260309@gmail.com>
+Date: Tue, 11 Jun 2019 17:29:07 +0800
+Message-ID: <CAARXrtkeMTts2GXpqjwNM6danj0jZoZVnkvJLKgo=416LheqRQ@mail.gmail.com>
+Subject: About the external project of sdbusplus in bmcweb
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,82 +59,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 11 Jun 2019 09:00:49 -0000
+X-List-Received-Date: Tue, 11 Jun 2019 09:29:25 -0000
 
---Bxju9AikVXqMkW2peoRg3zPhxXLgWg20z
-Content-Type: multipart/mixed; boundary="dirxjJIwmXKU0zUCqumJHEW9CbPHT395c";
- protected-headers="v1"
-From: Alexander Amelkin <a.amelkin@yadro.com>
-To: openbmc@lists.ozlabs.org
-Message-ID: <ab42831d-e2a9-c13d-9061-fd39b807ace2@yadro.com>
-Subject: Re: Platform telemetry and health monitoring
-References: <BL0PR2101MB0932AE0C63ADC3CBDAE0CF16C8060@BL0PR2101MB0932.namprd21.prod.outlook.com>
- <4d082cf8-c99c-22ac-9a60-85f70abb8bd6@linux.vnet.ibm.com>
- <CAGMNF6W+W1VPnqa3J1Y_wqc=BcnkBCi4-h9rG4tjUUrCk3zR8g@mail.gmail.com>
- <CALXe31mBvxQTaUkuFJsMozBYLiVTur18pMsTUfHY2t02Xp34wg@mail.gmail.com>
- <CAGMNF6XSD2U-qAe5ibotCkYW-U21vV+tL5-rJwvjPUvWwHA1hw@mail.gmail.com>
- <20190605124935.ywwwoj26fk46e6qu@thinkpad.dyn.fuzziesquirrel.com>
-In-Reply-To: <20190605124935.ywwwoj26fk46e6qu@thinkpad.dyn.fuzziesquirrel.com>
+While I was adding some new function in sdbusplus, it's found that bmcweb is
+not working correctly, that it always gives errors like below.
 
---dirxjJIwmXKU0zUCqumJHEW9CbPHT395c
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Content-Language: en-US
+    Jun 11 09:14:26 romulus bmcweb[1501]: terminate called after
+throwing an instance of 'sdbusplus::exception::SdBusError'
+    Jun 11 09:14:26 romulus bmcweb[1501]:   what():  sd_bus_process
+discard: org.freedesktop.DBus.Error.AccessDenied: Operation not
+permitted
 
-I second the idea of reusing collectd. It's pretty standard and popular.
+Then it's noticed that bmcweb is using its own revision of sdbusplus during
+build, as external project in "CMakeLists.txt.in"
 
-With best regards,
-Alexander Amelkin,
-Leading BMC Software Engineer, YADRO
-https://yadro.com
+It's worrying that one should expect that the whole build of OpenBMC should
+use a single sdbusplus lib defined in
+meta-phosphor/recipes-extended/sdbusplus/sdbusplus_git.bb, but apparently
+it's not for bmcweb, and that results in the weird behavior.
 
-05.06.2019 15:49, Brad Bishop wrote:
-> On Tue, Jun 04, 2019 at 12:35:05PM -0700, Kun Yi wrote:
->> FYI: Srinivas, Neeraj, and I are finalizing a time slot for the kick o=
-ff
->> meeting. We are thinking about a bi-weekly discussion.
->>
->> Also, I'm drafting a version of BMC metrics collection daemon. The fir=
-st
->> draft is up on https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/222=
-57,
->> which we probably will go over during the meeting.
->
-> I just wanted to point out the collectd project:=C2=A0 https://collectd=
-=2Eorg/
->
-> I'm not sure if it is suitable or not but it seems like a pretty close =
-match to what you are trying to do and it would be a lot of code you don'=
-t have to write.
->
-> Just something to consider.
->
-> thx - brad
+When I change the "CMakeLists.txt.in" to use the same revision as the one in
+sdbusplus_git.bb, the issue is gone and bmcweb behaves normally.
 
+So the question is, why bmcweb uses sdbusplus this way? Is it possible to make
+it just link against sdbusplus like other repos?
 
---dirxjJIwmXKU0zUCqumJHEW9CbPHT395c--
-
---Bxju9AikVXqMkW2peoRg3zPhxXLgWg20z
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2
-
-iQIcBAEBCAAGBQJc/2t5AAoJEOiTWHtbdBeNJ8sP/1/YsWVW5YzESBv3DoKHDpSY
-RuPEpGovgg64MnXIy4rMZKeGPRN7xvAFaJcAA7PnCB9DleuYV6HBhSvKOlPRp2OQ
-RqqZ74eDg11w+Jpqi7JDaU+E5kGeKrcUCN8HBEL+FDibeA7LwrtwXDuWx65lEGM2
-t6kVzu7SQ/ty+dLtK7B1TgrDCwnHmDfFU57Yukw8n0KV/tDb74eWqvdeMv2RyBhQ
-OcTQQdTeGzauH8o73IbQd4MX0WxVBRqu4Ue4jfouzEJCygfmOLAWeYVzWyKJaqd1
-fpZNhiivGmXppxHsNebdK2Ra4UL8+p5HZOWRUYsLZKUvYKQlXBpXBvv899PHTTCV
-bi/MEcTfXfg+2z0vBKRDgYsumWC5+bH3+ZtnNnqqGdQjJPNCsL7NPhUqNdklKiZz
-gMI1fwkt1Iv0yFZFxs7rfH71jKIDCFcHkxrUytC+vCJ2lNKbutZ9k04b03R/Dvjp
-dDTC8ZpG34SQIwxWl0y4xAuLzZd+QceGApfM4xt45AesWLznuun3jBv+Lf73dFYK
-Ti/5MPPHNSTgGMY2YiM7BlUaTqj/42xSpTU96d+rD/Yh9bkOrm6mWxpewr2zbHw9
-kw0hJ4okM1aNKzHFNx3Z5bHtaNz1FE1gnLJ5DVRhZrbY2kt5xXOPn9vjWMBmJGSg
-qpkzz81Z5IzVR7hgpxi/
-=lvCA
------END PGP SIGNATURE-----
-
---Bxju9AikVXqMkW2peoRg3zPhxXLgWg20z--
+Thanks!
