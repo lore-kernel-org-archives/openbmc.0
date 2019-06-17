@@ -1,45 +1,67 @@
-Return-Path: <Claire_Ku@wistron.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=wistron.com
- (client-ip=103.200.3.19; helo=segapp03.wistron.com;
- envelope-from=claire_ku@wistron.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=wistron.com
-Received: from segapp03.wistron.com (segapp02.wistron.com [103.200.3.19])
- by lists.ozlabs.org (Postfix) with ESMTP id 45S5GX3VH4zDqS8
- for <openbmc@lists.ozlabs.org>; Mon, 17 Jun 2019 19:17:54 +1000 (AEST)
-Received: from EXCHAPP02.whq.wistron (unverified [10.37.38.25]) by
- TWNHUMSW4.wistron.com (Clearswift SMTPRS 5.6.0) with ESMTP id
- <Td872daafd9c0a8167217a4@TWNHUMSW4.wistron.com>; 
- Mon, 17 Jun 2019 17:17:50 +0800
-Received: from EXCHAPP02.whq.wistron (10.37.38.25) by EXCHAPP02.whq.wistron
- (10.37.38.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 17 Jun
- 2019 17:17:49 +0800
-Received: from EXCHAPP02.whq.wistron ([fe80::99f:669:fb69:25de]) by
- EXCHAPP02.whq.wistron ([fe80::99f:669:fb69:25de%5]) with mapi id
- 15.01.1713.004; Mon, 17 Jun 2019 17:17:49 +0800
-From: <Claire_Ku@wistron.com>
-To: <openbmc@lists.ozlabs.org>
-CC: <shyulei@cn.ibm.com>, <wangat@tw.ibm.com>, <bradleyb@fuzziesquirrel.com>
-Subject: RE: Signed CLA from Wistron
-Thread-Topic: Signed CLA from Wistron
-Thread-Index: AdUV+ravBGFdMF5cRNuU5AxLY9kQZwA7ysyAACoDNgACvI0bUA==
-Date: Mon, 17 Jun 2019 09:17:49 +0000
-Message-ID: <5ad89c721a254ed5b5bafe338aeb82b6@wistron.com>
-References: <96a177bb54474ad0944934a0efe8ddf6@wistron.com>
- <CALVHhedPVn8bkC3hed9_6w6O9YDhw==T_vrwSfS4+gnEUnFfQQ@mail.gmail.com>
- <dc4eea14-ace1-1ad6-e1d7-3e0a4a9787a3@gmail.com>
-In-Reply-To: <dc4eea14-ace1-1ad6-e1d7-3e0a4a9787a3@gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.37.38.230]
-x-tm-snts-smtp: 5D16277AA0C402CC7E5E4CBF26D8223B8C4852D69210A454AD9FD35E3700C2962000:8
-Content-Type: multipart/mixed;
- boundary="_002_5ad89c721a254ed5b5bafe338aeb82b6wistroncom_"
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45SGlz4Sw2zDqTM
+ for <openbmc@lists.ozlabs.org>; Tue, 18 Jun 2019 02:25:34 +1000 (AEST)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x5HGLdB3091767; Mon, 17 Jun 2019 12:25:26 -0400
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2t6d0yc2u0-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Jun 2019 12:25:26 -0400
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x5HGNYuJ022227;
+ Mon, 17 Jun 2019 16:25:25 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma04dal.us.ibm.com with ESMTP id 2t4ra62mrp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 17 Jun 2019 16:25:25 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x5HGPNEp27918822
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 17 Jun 2019 16:25:23 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 710AE6E058;
+ Mon, 17 Jun 2019 16:25:23 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 40EB96E052;
+ Mon, 17 Jun 2019 16:25:23 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon, 17 Jun 2019 16:25:23 +0000 (GMT)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 17 Jun 2019 11:26:55 -0500
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: openbmc@lists.ozlabs.org, joel@jms.id.au, bradleyb@fuzziesquirrel.com
+Subject: OpenBMC on eMMC NAND
+Message-ID: <2e42e3a31de54d202fb5a9d867414a87@linux.vnet.ibm.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-17_07:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=763 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1906170145
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,94 +73,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 17 Jun 2019 09:17:57 -0000
+X-List-Received-Date: Mon, 17 Jun 2019 16:25:36 -0000
 
---_002_5ad89c721a254ed5b5bafe338aeb82b6wistroncom_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Hi all,
 
-RGVhciBTaXIvTWFkYW0sDQoNCkNvdWxkIHlvdSBwbGVhc2UgaGVscCB0byBjcmVhdGUgbWV0YS13
-aXN0cm9uIHJlcG8gZm9yIHVzPw0KV2UgYXJlIGdvaW5nIHRvIHJ1biBuZXcgcHJvamVjdHMgdGhh
-dCB3aWxsIG5lZWQgdG8gdXBzdHJlYW0gc291cmNlIGNvZGUgdG8gR2l0SHViIGluIGZ1dHVyZSBz
-b29uLg0KVGhhbmsgeW91IHZlcnkgbXVjaC4NCg0KWW91cnMgZmFpdGhmdWxseSwNCg0KQ2xhaXJl
-IEt1DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBrcnRheWxvciA8a3VydC5y
-LnRheWxvckBnbWFpbC5jb20+IA0KU2VudDogU2F0dXJkYXksIEp1bmUgMSwgMjAxOSAxOjE5IEFN
-DQpUbzogQ2xhaXJlIEt1L1dIUS9XaXN0cm9uIDxDbGFpcmVfS3VAd2lzdHJvbi5jb20+DQpDYzog
-TWlrZSBEb2xhbiA8bWFuYWdlckBsZnByb2plY3RzLm9yZz47IG9wZW5ibWNAbGlzdHMub3psYWJz
-Lm9yZzsgVGltb3RoeSBIdWFuZy9XSFEvV2lzdHJvbiA8VGltb3RoeV9IdWFuZ0B3aXN0cm9uLmNv
-bT4NClN1YmplY3Q6IFJlOiBTaWduZWQgQ0xBIGZyb20gV2lzdHJvbg0KDQpPbiA1LzMwLzE5IDQ6
-MTYgUE0sIE1pa2UgRG9sYW4gd3JvdGU6DQo+IEhpLCB0aGlzIGZpbGUgZG9lcyBub3QgYXBwZWFy
-IHRvIGJlIHNpZ25lZC4NCg0KV2VsY29tZSEgSSBoYXZlIHJlY2VpdmVkIHRoZSBzaWduZWQgdmVy
-c2lvbi4gWW91ciBDQ0xBIGhhcyBiZWVuIGFjY2VwdGVkLg0KDQpLdXJ0IFRheWxvciAoa3J0YXls
-b3IpDQoNCj4gDQo+IFRoYW5rcywNCj4gDQo+IE1pa2UNCj4gDQo+IE9uIFdlZCwgTWF5IDI5LCAy
-MDE5IGF0IDU6MzkgQU0gPENsYWlyZV9LdUB3aXN0cm9uLmNvbSANCj4gPG1haWx0bzpDbGFpcmVf
-S3VAd2lzdHJvbi5jb20+PiB3cm90ZToNCj4gDQo+ICAgICBEZWFyIFNpci9NYWRhbSxfX19fDQo+
-IA0KPiAgICAgX18gX18NCj4gDQo+ICAgICBIZXJlIGlzIHRoZSBzaWduZWQgQ0xBIGZyb20gV2lz
-dHJvbiBDb3Jwb3JhdGlvbi5fX19fDQo+IA0KPiAgICAgUGxlYXNlIGhlbHAgdG8gYXBwcm92ZSBp
-dC5fX19fDQo+IA0KPiAgICAgVGhhbmsgeW91IHZlcnkgbXVjaC5fX19fDQo+IA0KPiAgICAgX18g
-X18NCj4gDQo+ICAgICBZb3VycyBmYWl0aGZ1bGx5LF9fX18NCj4gDQo+ICAgICBDbGFpcmUgS3Vf
-X19fDQo+IA0KPiAgICAgX18gX18NCj4gDQo+ICAgICANCj4gKi0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAtLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tDQo+IC0tLS0tLS0tLS0tLS0tLS0tLS0tKg0KPiANCj4gICAgICpUaGlzIGVtYWls
-IGNvbnRhaW5zIGNvbmZpZGVudGlhbCBvciBsZWdhbGx5IHByaXZpbGVnZWQgaW5mb3JtYXRpb24N
-Cj4gICAgIGFuZCBpcyBmb3IgdGhlIHNvbGUgdXNlIG9mIGl0cyBpbnRlbmRlZCByZWNpcGllbnQu
-ICoNCj4gDQo+ICAgICAqQW55IHVuYXV0aG9yaXplZCByZXZpZXcsIHVzZSwgY29weWluZyBvciBk
-aXN0cmlidXRpb24gb2YgdGhpcyBlbWFpbA0KPiAgICAgb3IgdGhlIGNvbnRlbnQgb2YgdGhpcyBl
-bWFpbCBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLioNCj4gDQo+ICAgICAqSWYgeW91IGFyZSBub3Qg
-dGhlIGludGVuZGVkIHJlY2lwaWVudCwgeW91IG1heSByZXBseSB0byB0aGUgc2VuZGVyDQo+ICAg
-ICBhbmQgc2hvdWxkIGRlbGV0ZSB0aGlzIGUtbWFpbCBpbW1lZGlhdGVseS4qDQo+IA0KPiAgICAg
-DQo+ICotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0NCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiAtLS0tLS0tLS0tLS0tLS0tLS0t
-LSoNCj4gDQoNCg==
+Joel and I have been working on getting OpenBMC to run on an eMMC NAND.
+For the kernel, there'll be some patches coming to support it.
+For the rootfs, the proposal is to have an ext4 filesystem, and use lvm 
+for volume management, which allows for dynamic partitioning.
+For proof of concept, we're starting to build an ext4 BMC image for 
+IBM's system Swift[1]. Up next is creating an initramfs that supports 
+lvm, and update the code update apps to handle ext4 images and lvm 
+volumes. Thinking of creating an 'lvm' or 'ext4' distro feature like the 
+'ubi' one to enable this new support during build time.
+Let us know if there are any opinions, questions, or interest. Look for 
+updates on the mailing list as we continue to make progress.
 
---_002_5ad89c721a254ed5b5bafe338aeb82b6wistroncom_
-Content-Type: application/octet-stream; name="MAINTAINERS"
-Content-Description: MAINTAINERS
-Content-Disposition: attachment; filename="MAINTAINERS"; size=2185;
-	creation-date="Mon, 17 Jun 2019 08:17:34 GMT";
-	modification-date="Mon, 17 Jun 2019 08:17:34 GMT"
-Content-Transfer-Encoding: base64
 
-SG93IHRvIHVzZSB0aGlzIGxpc3Q6DQogICAgRmluZCB0aGUgbW9zdCBzcGVjaWZpYyBzZWN0aW9u
-IGVudHJ5IChkZXNjcmliZWQgYmVsb3cpIHRoYXQgbWF0Y2hlcyB3aGVyZQ0KICAgIHlvdXIgY2hh
-bmdlIGxpdmVzIGFuZCBhZGQgdGhlIHJldmlld2VycyAoUikgYW5kIG1haW50YWluZXJzIChNKSBh
-cw0KICAgIHJldmlld2Vycy4gWW91IGNhbiB1c2UgdGhlIHNhbWUgbWV0aG9kIHRvIHRyYWNrIGRv
-d24gd2hvIGtub3dzIGEgcGFydGljdWxhcg0KICAgIGNvZGUgYmFzZSBiZXN0Lg0KDQogICAgWW91
-ciBjaGFuZ2UvcXVlcnkgbWF5IHNwYW4gbXVsdGlwbGUgZW50cmllczsgdGhhdCBpcyBva2F5Lg0K
-DQogICAgSWYgeW91IGRvIG5vdCBmaW5kIGFuIGVudHJ5IHRoYXQgZGVzY3JpYmVzIHlvdXIgcmVx
-dWVzdCBhdCBhbGwsIHNvbWVvbmUNCiAgICBmb3Jnb3QgdG8gdXBkYXRlIHRoaXMgbGlzdDsgcGxl
-YXNlIGF0IGxlYXN0IGZpbGUgYW4gaXNzdWUgb3Igc2VuZCBhbiBlbWFpbA0KICAgIHRvIGEgbWFp
-bnRhaW5lciwgYnV0IHByZWZlcmFibHkgeW91IHNob3VsZCBqdXN0IHVwZGF0ZSB0aGlzIGRvY3Vt
-ZW50Lg0KDQpEZXNjcmlwdGlvbiBvZiBzZWN0aW9uIGVudHJpZXM6DQoNCiAgICBTZWN0aW9uIGVu
-dHJpZXMgYXJlIHN0cnVjdHVyZWQgYWNjb3JkaW5nIHRvIHRoZSBmb2xsb3dpbmcgc2NoZW1lOg0K
-DQogICAgWDogIE5BTUUgPEVNQUlMX1VTRVJOQU1FQERPTUFJTj4gPElSQ19VU0VSTkFNRSE+DQog
-ICAgWDogIC4uLg0KICAgIC4NCiAgICAuDQogICAgLg0KDQogICAgV2hlcmUgUkVQT19OQU1FIGlz
-IHRoZSBuYW1lIG9mIHRoZSByZXBvc2l0b3J5IHdpdGhpbiB0aGUgT3BlbkJNQyBHaXRIdWINCiAg
-ICBvcmdhbml6YXRpb247IEZJTEVfUEFUSCBpcyBhIGZpbGUgcGF0aCB3aXRoaW4gdGhlIHJlcG9z
-aXRvcnksIHBvc3NpYmx5IHdpdGgNCiAgICB3aWxkY2FyZHM7IFggaXMgYSB0YWcgb2Ygb25lIG9m
-IHRoZSBmb2xsb3dpbmcgdHlwZXM6DQoNCiAgICBNOiAgRGVub3RlcyBtYWludGFpbmVyOyBoYXMg
-ZmllbGRzIE5BTUUgPEVNQUlMX1VTRVJOQU1FQERPTUFJTj4gPElSQ19VU0VSTkFNRSE+Ow0KICAg
-ICAgICBpZiBvbWl0dGVkIGZyb20gYW4gZW50cnksIGFzc3VtZSBvbmUgb2YgdGhlIG1haW50YWlu
-ZXJzIGZyb20gdGhlDQogICAgICAgIE1BSU5UQUlORVJTIGVudHJ5Lg0KICAgIFI6ICBEZW5vdGVz
-IHJldmlld2VyOyBoYXMgZmllbGRzIE5BTUUgPEVNQUlMX1VTRVJOQU1FQERPTUFJTj4gPElSQ19V
-U0VSTkFNRSE+Ow0KICAgICAgICB0aGVzZSBwZW9wbGUgYXJlIHRvIGJlIGFkZGVkIGFzIHJldmll
-d2VycyBmb3IgYSBjaGFuZ2UgbWF0Y2hpbmcgdGhlIHJlcG8NCiAgICAgICAgcGF0aC4NCiAgICBG
-OiAgRGVub3RlcyBmb3JrZWQgZnJvbSBhbiBleHRlcm5hbCByZXBvc2l0b3J5OyBoYXMgZmllbGRz
-IFVSTC4NCg0KICAgIExpbmUgY29tbWVudHMgYXJlIHRvIGJlIGRlbm90ZWQgIiMgU09NRSBDT01N
-RU5UIiAodHlwaWNhbCBzaGVsbCBzdHlsZQ0KICAgIGNvbW1lbnQpOyBpdCBpcyBpbXBvcnRhbnQg
-dG8gZm9sbG93IHRoZSBjb3JyZWN0IHN5bnRheCBhbmQgc2VtYW50aWNzIGFzIHdlDQogICAgbWF5
-IHdhbnQgdG8gdXNlIGF1dG9tYXRlZCB0b29scyB3aXRoIHRoaXMgZmlsZSBpbiB0aGUgZnV0dXJl
-Lg0KDQogICAgQSBjaGFuZ2UgY2Fubm90IGJlIGFkZGVkIHRvIGFuIE9wZW5CTUMgcmVwb3NpdG9y
-eSB3aXRob3V0IGEgTUFJTlRBSU5FUidzDQogICAgYXBwcm92YWw7IHRodXMsIGEgTUFJTlRBSU5F
-UiBzaG91bGQgYWx3YXlzIGJlIGxpc3RlZCBhcyBhIHJldmlld2VyLg0KDQpTVEFSVCBPRiBNQUlO
-VEFJTkVSUyBMSVNUDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCk06ICBUaW1vdGh5IEh1
-YW5nIDxUaW1vdGh5X0h1YW5nQHdpc3Ryb24uY29tPiA8bWFvbWFvaHVhbmchPg0KTTogIEJlbiBQ
-YWkgPEJlbl9QYWlAd2lzdHJvbi5jb20+IDxCZW5QYWk5OSE+DQpNOiAgQm9iIEtpbmcgPEJvYl9L
-aW5nQHdpc3Ryb24uY29tPiA8Ym9ia2luZ2trcCE+DQpNOiAgSm9saWUgS3UgPEpvbGllX0t1QHdp
-c3Ryb24uY29tPiA8Sm9saWVLdSE+DQpNOiAgQW5keSBZRiBXYW5nIDxBbmR5X1lGX1dhbmdAd2lz
-dHJvbi5jb20+IDxBbmR5WUZXYW5nIT4NClI6ICBDbGFpcmUgS3UgPGNsYWlyZV9rdUB3aXN0cm9u
-LmNvbT4gPGNsYWlyZWZpc2ghPg==
-
---_002_5ad89c721a254ed5b5bafe338aeb82b6wistroncom_--
+[1] https://gerrit.openbmc-project.xyz/c/openbmc/meta-ibm/+/22436
