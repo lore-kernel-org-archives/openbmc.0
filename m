@@ -1,42 +1,68 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <prvs=107391e0c1=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=107391e0c1=taoren@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="YEo/HSPd"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45TVnr3KbhzDqDy
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 02:31:26 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga002.jf.intel.com ([10.7.209.21])
- by fmsmga107.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 19 Jun 2019 09:31:10 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,392,1557212400"; d="scan'208";a="170611741"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
- ([10.7.153.148])
- by orsmga002.jf.intel.com with ESMTP; 19 Jun 2019 09:31:10 -0700
-Subject: Re: One question is regarding of PECI driver.
-To: Derek Lin23 <dlin23@lenovo.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Cc: Duke KH Du <dukh@lenovo.com>, Andrew MS1 Peng <pengms1@lenovo.com>,
- Harry Sung1 <hsung1@lenovo.com>, Haitao HT11 Wang <wanght11@lenovo.com>,
- Yonghui YH21 Liu <liuyh21@lenovo.com>, Lisa YJ19 Liu <liuyj19@lenovo.com>
-References: <1616aac7ca904100be2e0a7dddcc6127@lenovo.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <b01e1e4e-e723-bae2-32e0-20b47d38efcf@linux.intel.com>
-Date: Wed, 19 Jun 2019 09:31:10 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45Tcmr398ZzDqsK
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 07:00:58 +1000 (AEST)
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+ by m0089730.ppops.net (8.16.0.27/8.16.0.27) with SMTP id x5JKwoZh030674
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jun 2019 14:00:57 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=r7JuZr+R8cAQf0CwlWsiXVI+rKV4iYlulYGHumQSQ9g=;
+ b=YEo/HSPdagpqcGICFuaSTAyHkPgRUBPjoNMQ2s2nfb3/la8NjZddgvcFr1gO/34e/CfL
+ Poh00ndBUE5okev6A7HsCD0p4z//Xa7tx6FiKFW8v0rEmL2cljJxb4gTuAmPcZlHK66M
+ a9jJ7Wwf0LQMKcuRd5daPN7q+/lVovgCX94= 
+Received: from mail.thefacebook.com (mailout.thefacebook.com [199.201.64.23])
+ by m0089730.ppops.net with ESMTP id 2t7s8xgrwf-8
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 19 Jun 2019 14:00:56 -0700
+Received: from mx-out.facebook.com (2620:10d:c081:10::13) by
+ mail.thefacebook.com (2620:10d:c081:35::128) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA) id 15.1.1713.5;
+ Wed, 19 Jun 2019 14:00:52 -0700
+Received: by devvm24792.prn1.facebook.com (Postfix, from userid 150176)
+ id 3183D164B5293; Wed, 19 Jun 2019 13:50:20 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm24792.prn1.facebook.com
+To: Brendan Higgins <brendanhiggins@google.com>, Benjamin Herrenschmidt
+ <benh@kernel.crashing.org>, Joel Stanley <joel@jms.id.au>, Andrew Jeffery
+ <andrew@aj.id.au>, Rob Herring <robh+dt@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>,
+ <linux-i2c@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
+ <linux-arm-kernel@lists.infradead.org>,
+ <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
+ <devicetree@vger.kernel.org>
+CC: Tao Ren <taoren@fb.com>
+Smtp-Origin-Cluster: prn1c35
+Subject: [PATCH 2/2] dt-bindings: i2c: aspeed: add base-clock-divisor property
+Date: Wed, 19 Jun 2019 13:50:18 -0700
+Message-ID: <20190619205018.4177192-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-In-Reply-To: <1616aac7ca904100be2e0a7dddcc6127@lenovo.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-06-19_13:, , signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=541 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1906190172
+X-FB-Internal: deliver
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,43 +74,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 19 Jun 2019 16:31:29 -0000
+X-List-Received-Date: Wed, 19 Jun 2019 21:01:01 -0000
 
-On 6/14/2019 2:24 AM, Derek Lin23 wrote:
-> Hi team:
-> 
->            We have a question for PECI driver, hope we can have some 
-> inputs and feedbacks.
-> 
->            When PECI driver starts, it checks the availabilities for 
-> CPUs by the addresses defining in the device tree.
+"base-clock-divisor" allows people to customize ASPEED I2C Controller's
+Base Clock, which in turn adjusts all other I2C AC timing settings.
 
-Yes, it's what PECI driver does.
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ Documentation/devicetree/bindings/i2c/i2c-aspeed.txt | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
->            But, when none of the CPUs are available, in our cases, CPUs 
-> are powered off, PECI driver responses with error messages of PECI 
-> clients and devices are not registered.
-
-It's an expected result because PECI works only when the host CPU is
-powered on.
-
->            Is it possible that PECI driver would listen the events for 
-> power-on? So, PECI driver would be reloaded and PECI clients and devices 
-> become available.
-
-No. Instead, we are using CPU ping from user space and register PECI
-clients at run time. Please check these services:
-
-https://github.com/openbmc/dbus-sensors
-https://github.com/openbmc/entity-manager
-
-Thanks,
-Jae
-
->            Or, other thoughts and ideas?
-> 
-> Thank you,
-> 
-> 
-> Derek Lin
-> 
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+index 8fbd8633a387..0c08df847c6f 100644
+--- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
++++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+@@ -13,9 +13,11 @@ Required Properties:
+ - interrupts		: interrupt number
+ 
+ Optional Properties:
+-- bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
+-		  specified
+-- multi-master	: states that there is another master active on this bus.
++- bus-frequency		: frequency of the bus clock in Hz defaults to 100 kHz
++			  when not specified
++- multi-master		: states that there is another master active on this bus.
++- base-clock-divisor	: the divisor defines the frequency of Base Clock which
++			  is divided from APB bus clock. Valid values are 0-15.
+ 
+ Example:
+ 
+-- 
+2.17.1
