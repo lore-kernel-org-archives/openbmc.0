@@ -1,97 +1,42 @@
-Return-Path: <neladk@microsoft.com>
+Return-Path: <suxiao@inspur.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=microsoft.com
- (client-ip=40.107.70.114; helo=nam04-sn1-obe.outbound.protection.outlook.com;
- envelope-from=neladk@microsoft.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none)
- header.from=microsoft.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=microsoft.com header.i=@microsoft.com
- header.b="EbJVdto1"; dkim-atps=neutral
-Received: from NAM04-SN1-obe.outbound.protection.outlook.com
- (mail-eopbgr700114.outbound.protection.outlook.com [40.107.70.114])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=inspur.com
+ (client-ip=210.51.61.248; helo=ssh248.corpemail.net;
+ envelope-from=suxiao@inspur.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=inspur.com
+X-Greylist: delayed 135 seconds by postgrey-1.36 at bilbo;
+ Thu, 20 Jun 2019 17:57:54 AEST
+Received: from ssh248.corpemail.net (ssh248.corpemail.net [210.51.61.248])
+ (using TLSv1 with cipher ECDHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45TsFf5ymBzDqBW
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 16:23:17 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=testarcselector01; d=microsoft.com; cv=none;
- b=N2qBRKG9Lr2NaIZshFSpf2oDsPqTqRU9Je3U5E77S0vjd4oTCS1j5GIFIkHjHyX9Yq6LWQPWPBAyjpysEilYqj3NSGXbhOxvlutkBQS/gD4tA3233Ax9SV+qg7I0Orx1QmHk5XsnH4Pfg5SbL0StV9cQhFrv3fTd5dFlhcXiYZM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=testarcselector01;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ef60O3SxYEMxddK9dQz+PdJYCPTMQ0HEnJxuT5QFf5c=;
- b=XE6ojTrVm1ArXhKLTnpW44WvnfZ11bD3MkTD1za022YqV7te9CbWKCp7BshkbIvtTqNf/Z1NUCRuLzNDStk5QFyMyXIogJtdcoT4xJu2hdYXku22rQGQJG6ntRBZJ/I9MwcSKBjvJtdm545t1ie/xJF+9CIUVoVfmtUeIAFUh7w=
-ARC-Authentication-Results: i=1; test.office365.com
- 1;spf=none;dmarc=none;dkim=none;arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ef60O3SxYEMxddK9dQz+PdJYCPTMQ0HEnJxuT5QFf5c=;
- b=EbJVdto1aoalaHiCHG2bxpk4Gf0ks25YPJs1KHnakNvD2CC5RwC3HWrUqNVVyo3huH7lixXzK7tI1nGuhmbF/pxuv4VqTLeTKiNudNqTpz0AyT0Q2yYZxklWI/h8ClYVrGpOQXVFzERwxKqnFtyc3vok0JWaxvjyVVitnCHcZg0=
-Received: from SN6PR2101MB0943.namprd21.prod.outlook.com (52.132.114.20) by
- SN6PR2101MB1055.namprd21.prod.outlook.com (52.132.115.16) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2008.4; Thu, 20 Jun 2019 06:23:09 +0000
-Received: from SN6PR2101MB0943.namprd21.prod.outlook.com
- ([fe80::f515:8559:732f:930e]) by SN6PR2101MB0943.namprd21.prod.outlook.com
- ([fe80::f515:8559:732f:930e%8]) with mapi id 15.20.2032.005; Thu, 20 Jun 2019
- 06:23:09 +0000
-From: Neeraj Ladkani <neladk@microsoft.com>
-To: Patrick Venture <venture@google.com>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>
-Subject: RE: phosphor-ipmi-flash making progress!
-Thread-Topic: phosphor-ipmi-flash making progress!
-Thread-Index: AQHVIYQAUgxH9LDCREqvqwOwXfgzG6akHSIQ
-Date: Thu, 20 Jun 2019 06:23:09 +0000
-Message-ID: <SN6PR2101MB0943F194BD7DF1868ADED4DDC8E40@SN6PR2101MB0943.namprd21.prod.outlook.com>
-References: <CAO=notz0NB0+A6LivrKs7+i4nkWE_dWjBP8qV-q41FesZRsUeg@mail.gmail.com>
-In-Reply-To: <CAO=notz0NB0+A6LivrKs7+i4nkWE_dWjBP8qV-q41FesZRsUeg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45TvLp4wHKzDrC7
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 17:57:54 +1000 (AEST)
+Received: from ([60.208.111.195])
+ by ssh248.corpemail.net (Antispam) with ASMTP (SSL) id LNX37818
+ for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 15:55:18 +0800
+Received: from jtjnmail201608.home.langchao.com (10.100.2.8) by
+ jtjnmail201611.home.langchao.com (10.100.2.11) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1591.10; Thu, 20 Jun 2019 15:55:14 +0800
+Received: from jtjnmail201608.home.langchao.com ([fe80::d834:149d:9ffa:ea88])
+ by jtjnmail201608.home.langchao.com ([fe80::d834:149d:9ffa:ea88%2])
+ with mapi id 15.01.1591.008; Thu, 20 Jun 2019 15:55:14 +0800
+From: =?utf-8?B?Q2FydGVyIFN1KOiLj+WtnSk=?= <suxiao@inspur.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re: Move away from default password
+Thread-Topic: Move away from default password
+Thread-Index: AdUnO8JPewLMJ13ARFaZCEPpJN6U4Q==
+Date: Thu, 20 Jun 2019 07:55:13 +0000
+Message-ID: <ca82e6a6ab5440e3b9f9754a66d5452c@inspur.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=True;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Owner=neladk@microsoft.com;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2019-06-20T06:23:07.6799279Z;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=General;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Application=Microsoft Azure
- Information Protection;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=7a533b3f-c13d-4db1-8797-9558665ff4fd;
- MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Extended_MSFT_Method=Automatic
-authentication-results: spf=none (sender IP is )
- smtp.mailfrom=neladk@microsoft.com; 
-x-originating-ip: [50.47.128.230]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: ef48435c-d104-403b-208f-08d6f547c3c8
-x-ms-office365-filtering-ht: Tenant
-x-microsoft-antispam: BCL:0; PCL:0;
- RULEID:(2390118)(7020095)(4652040)(8989299)(4534185)(4627221)(201703031133081)(201702281549075)(8990200)(5600148)(711020)(4605104)(1401327)(4618075)(2017052603328)(7193020);
- SRVR:SN6PR2101MB1055; 
-x-ms-traffictypediagnostic: SN6PR2101MB1055:
-x-microsoft-antispam-prvs: <SN6PR2101MB105590BB13B2D2DEC729F124C8E40@SN6PR2101MB1055.namprd21.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-forefront-prvs: 0074BBE012
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(396003)(346002)(39860400002)(376002)(136003)(189003)(13464003)(199004)(6246003)(73956011)(305945005)(81156014)(7696005)(6436002)(486006)(53936002)(7736002)(76176011)(66066001)(74316002)(8676002)(66946007)(66556008)(81166006)(229853002)(446003)(3846002)(186003)(64756008)(6116002)(11346002)(52536014)(66446008)(76116006)(8936002)(33656002)(68736007)(476003)(86362001)(102836004)(55016002)(5660300002)(14454004)(25786009)(8990500004)(9686003)(53546011)(10090500001)(478600001)(66476007)(6506007)(26005)(22452003)(14444005)(256004)(316002)(110136005)(10290500003)(3480700005)(71190400001)(71200400001)(99286004)(2906002);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SN6PR2101MB1055;
- H:SN6PR2101MB0943.namprd21.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: microsoft.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam-message-info: cdor2O1DrAxm4nZKJMajyRusI7YSFD3Pfu+6AeA6R9KGTveUUoQO5MSV7QZxSnt/mARbqtFziqdrErfkZR4hszbiQpKdWxzOBCkMf3UfkRDAGrp8kL80vk/9iZZcVD6lKTdh1muso/Qwb4wRtAKdH8qxaGAE/1wV1YTHJlGUkeZl6SVjiiTYF2t3Oi4TbOXJ+Rm1wWKS65HZd80X2r7cPzT4VyXNfggfnVPcdLlOeA7uaz2di5f3LnV6w2nkoo8LNMOMtW+M3ZZSoAfGH7RpPBhlFsb4GPvRSNRRJZ1B4MalGHjNj3QVVt0M1cFlZJA/fHpdWdCZ8HPQe/W6br1BPwoOqnG2j8DHnscAIXGsWtuZ89vqSRoG3WyjyPstlLxUDXGdy2kPtgq0g58vGAr7CBEW0oMCQQ+BHfLj2trcEik=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-originating-ip: [10.100.1.52]
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature";
+ micalg=SHA1; boundary="----=_NextPart_000_094E_01D52780.8B406CD0"
 MIME-Version: 1.0
-X-OriginatorOrg: microsoft.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ef48435c-d104-403b-208f-08d6f547c3c8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jun 2019 06:23:09.4480 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: neladk@microsoft.com
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN6PR2101MB1055
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,65 +48,133 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jun 2019 06:23:20 -0000
+X-List-Received-Date: Thu, 20 Jun 2019 07:57:56 -0000
 
-V2hhdCBhcmUgaW4tYmFuZCB1cGRhdGUgbWV0aG9kcyBmb3IgT3BlbkJNQz8gSSBzZWUgdGhpcyhw
-aG9zcGhvci1pcG1pLWZsYXNoKSBjYW4gdGFrZSB0YWtlcyB+MyBob3VycyBvdmVyIElQTUkuIFdo
-YXQgaXMgdGhlIHNvbHV0aW9uIGZvciBpbi1iYW5kIHVwZGF0ZT8gIHdoYXQgdG9vbHMgY2FuIGJl
-IHVzZWQ/DQoNCk5lZXJhag0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogb3Bl
-bmJtYyA8b3BlbmJtYy1ib3VuY2VzK25lbGFkaz1taWNyb3NvZnQuY29tQGxpc3RzLm96bGFicy5v
-cmc+IE9uIEJlaGFsZiBPZiBQYXRyaWNrIFZlbnR1cmUNClNlbnQ6IFdlZG5lc2RheSwgSnVuZSAx
-MiwgMjAxOSA2OjA0IFBNDQpUbzogT3BlbkJNQyBNYWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxh
-YnMub3JnPg0KU3ViamVjdDogcGhvc3Bob3ItaXBtaS1mbGFzaCBtYWtpbmcgcHJvZ3Jlc3MhDQoN
-CkZvciB0aG9zZSBpbnRlcmVzdGVkIHBhcnRpZXMsIHBob3NwaG9yLWlwbWktZmxhc2ggd2hpY2gg
-cHJvdmlkZXMgYSB2YXJpZXR5IG9mIG91dC1vZi1iYW5kIG1lY2hhbmlzbXMgZm9yIHVwZGF0aW5n
-IHRoZSBCTUMgaW4gYSBmdWxseS1jb25maWd1cmFibGUgbWFubmVyIGlzIG5lYXJseSByZWFkeSBm
-b3Igd2lkZSBkaXN0cmlidXRpb24uDQoNCkN1cnJlbnRseSBzdXBwb3J0ZWQ6IGFzcGVlZC1wMmEt
-Y3RybCAoaXBtaXBjaSksIGFuZCBpbmJhbmQgKGlwbWlidCkqIFNob3J0bHkgc3VwcG9ydGVkOiBh
-c3BlZWQtbHBjLWN0cmwgKGlwbWlscGMpDQoNCipUaGVyZSBpcyBhIGJ1ZyBpbiB0aGUgdHJhbnNt
-aXQgYnVmZmVyIHNpemUgZGVwZW5kaW5nIG9uIHdoZXRoZXIgaXQncyBvdmVyIEtDUyB2ZXJzdXMg
-YWN0dWFsbHkgQlQgc2luY2UgQlQgaGFzIGEgc21hbGxlciBidWZmZXIgcmVxdWlyZW1lbnQuDQoN
-ClVCSSBUYXJiYWxsIHVwZGF0ZXMgYXJlbid0IHlldCBzdXBwb3J0ZWQsIGJ1dCB0aGF0J3Mgb25s
-eSBhIG1hdHRlciBvZiBzb21lb25lIHdyaXRpbmcgYW4gdXBkYXRlIGhhbmRsZXIuICBUaGUgZmly
-bXdhcmUgaGFuZGxlciBvbiB0aGUgQk1DIGNhbiBiZSBleHRlbmRlZCBlYXNpbHkgdG8gc3VwcG9y
-dCBhIHZhcmlldHkgb2YgdmVyaWZpY2F0aW9uIGFuZCB1cGRhdGUgbWVjaGFuaXNtcy4gIFRoZSBk
-ZWZhdWx0IGJlaGF2aW9yIGlzIHRvIGxldmVyYWdlIGEgc2VydmljZSBmb3IgZWFjaCBvZiB0aGVz
-ZSB0aGluZ3MuICBPbmUgY2FuIGltcGxlbWVudCB3aGF0ZXZlciB0aGV5IHJlYWxseSB3YW50IGZv
-ciBlYWNoIHNlcnZpY2UuDQoNClRoZSBmaWxlIHNlbnQgdG8gdGhlIEJNQyBpc24ndCByZXF1aXJl
-ZCB0byBoYXZlIGEgc2lnbmF0dXJlIGZpbGUuICBPbmUgY291bGQgc2ltcGx5IHNraXAgc2VuZGlu
-ZyB0aGUgaGFzaCBmaWxlIGFuZCBoYXZlIGEgdmVyaWZpY2F0aW9uIHN0ZXAgdGhhdCBkb2Vzbid0
-IGRvIGFueXRoaW5nIHNwZWNpYWwuICBTbywgaXQncyB2ZXJ5IGZsZXhpYmxlLg0KDQpIZXJlJ3Mg
-c29tZSBvdXRwdXQ6DQoNCiQgLi9waG9zcGhvcl9pcG1pX2ZsYXNoX3Rvb2wgLS1jb21tYW5kIHVw
-ZGF0ZSAtLWludGVyZmFjZSBpcG1pcGNpIC0taW1hZ2UgaW1hZ2UtYm1jIC0tc2lnIGltYWdlLWJt
-Yy5zaWcNCg0KU2VuZGluZyBvdmVyIHRoZSBmaXJtd2FyZSBpbWFnZS4NClsweDFhMDMgMHgyMDAw
-XQ0KVGhlIGJyaWRnZSBpcyBlbmFibGVkIQ0KUmVjZWl2ZWQgYWRkcmVzczogMHg0N2ZmMDAwMA0K
-U2VuZGluZyBvdmVyIHRoZSBoYXNoIGZpbGUuDQpbMHgxYTAzIDB4MjAwMF0NClRoZSBicmlkZ2Ug
-aXMgZW5hYmxlZCENClJlY2VpdmVkIGFkZHJlc3M6IDB4NDdmZjAwMDANCg0KT3BlbmluZyB0aGUg
-dmVyaWZpY2F0aW9uIGZpbGUNCkNvbW1pdHRpbmcgdG8gL2ZsYXNoL3ZlcmlmeSBmaWxlIHRvIHRy
-aWdnZXIgc2VydmljZSBDYWxsaW5nIHN0YXQgb24gL2ZsYXNoL3ZlcmlmeSBzZXNzaW9uIHRvIGNo
-ZWNrIHN0YXR1cyBvdGhlciBydW5uaW5nIHJ1bm5pbmcgc3VjY2VzcyBSZXR1cm5lZCBzdWNjZXNz
-IHN1Y2NlZWRlZA0KDQpPcGVuaW5nIHRoZSB1cGRhdGUgZmlsZQ0KQ29tbWl0dGluZyB0byAvZmxh
-c2gvdXBkYXRlIGZpbGUgdG8gdHJpZ2dlciBzZXJ2aWNlIENhbGxpbmcgc3RhdCBvbiAvZmxhc2gv
-dXBkYXRlIHNlc3Npb24gdG8gY2hlY2sgc3RhdHVzIHJ1bm5pbmcgRXhjZXB0aW9uIHJlY2VpdmVk
-OiBibG9iIGV4Y2VwdGlvbiByZWNlaXZlZDogUmVjZWl2ZWQgSVBNSV9DQzogYnVzeQ0KDQpPbiB0
-aGUgQk1DOg0Kc2h1dGRvd246IHJlYm9vdCAtLXRpbWVvdXQgOTAwMDAwMDB1cyAtLWxvZy1sZXZl
-bCA2IC0tbG9nLXRhcmdldCBrbXNnIC0tbG9nLWNvbG9yDQorIGF3ayAnL29sZHJvb3R8bW50LyB7
-IHByaW50ICQyIH0nDQorIHNvcnQgLXINCisgdW1vdW50IC9vbGRyb290L3N5cy9rZXJuZWwvZGVi
-dWcNCisgdW1vdW50IC9vbGRyb290L3N5cy9mcy9jZ3JvdXAvdW5pZmllZA0KKyB1bW91bnQgL29s
-ZHJvb3Qvc3lzL2ZzL2Nncm91cC9zeXN0ZW1kDQorIHVtb3VudCAvb2xkcm9vdC9zeXMvZnMvY2dy
-b3VwDQorIHVtb3VudCAvb2xkcm9vdC9zeXMvZnMvYnBmDQorIHVtb3VudCAvb2xkcm9vdC9zeXMN
-CisgdW1vdW50IC9vbGRyb290L3Byb2MNCisgdW1vdW50IC9vbGRyb290L2Rldi9zaG0NCisgdW1v
-dW50IC9vbGRyb290L2Rldi9wdHMNCisgdW1vdW50IC9vbGRyb290L2Rldg0KKyB1bW91bnQgL29s
-ZHJvb3QNCisgdW1vdW50IC9tbnQvaW5pdHJhbWZzL3J3DQorIHVtb3VudCAvbW50L2luaXRyYW1m
-cy9ybw0KKyB1bW91bnQgL21udA0KKyBzZXQgK3gNClBpbmdpbmcgd2F0Y2hkb2cgd2l0aCBhcmdz
-IC10IDEgLVQgNQ0KdXBkYXRlOiAtLWNsZWFuLXNhdmVkLWZpbGVzDQpbIDgyNDAuODE3ODAxXSBq
-ZmZzMjogbm90aWNlOiAoMTE3MSkgamZmczJfYnVpbGRfeGF0dHJfc3Vic3lzdGVtOg0KY29tcGxl
-dGUgYnVpbGRpbmcgeGF0dHIgc3Vic3lzdGVtLCAxNyBvZiB4ZGF0dW0gKDE1IHVuY2hlY2tlZCwg
-MQ0Kb3JwaGFuKSBhbmQgMzAgb2YgeHJlZiAoMSBkZWFkLCAwIG9ycGhhbikgZm91bmQuDQpVcGRh
-dGluZyBibWMuLi4NCkVyYXNpbmcgYmxvY2s6IDY5LzUxMiAoMTMlKQ0KDQpHaXZlbiBhIEJNQyBj
-b25maWd1cmF0aW9uOg0KRVhUUkFfT0VDT05GX2FwcGVuZF9xdWFudGEtcTcxbCA9ICIgLS1lbmFi
-bGUtc3RhdGljLWxheW91dCINCkVYVFJBX09FQ09ORl9hcHBlbmRfcXVhbnRhLXE3MWwgPSAiIC0t
-ZW5hYmxlLXBjaS1icmlkZ2UiDQpFWFRSQV9PRUNPTkZfYXBwZW5kX3F1YW50YS1xNzFsID0gIiAt
-LWVuYWJsZS1hc3BlZWQtcDJhIg0KRVhUUkFfT0VDT05GX2FwcGVuZF9xdWFudGEtcTcxbCA9ICIg
-LS1lbmFibGUtcmVib290LXVwZGF0ZSINCkVYVFJBX09FQ09ORl9hcHBlbmRfcXVhbnRhLXE3MWwg
-PSAiIE1BUFBFRF9BRERSRVNTPTB4NDdGRjAwMDAiDQoNCg0KUGF0cmljaw0K
+------=_NextPart_000_094E_01D52780.8B406CD0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+
+Having a default password is a security risk, but if per BMC has an =
+unique password, it may not very convenient for customer to use.
+Customers will change the default password when they install new =
+machinery, or they may creat new account and password for BMC to use.
+
+
+Carter Su
+
+
+---------- Forwarded message ---------
+From: Stewart Smith <stewart@linux.ibm.com>
+Date: Tue, Jun 18, 2019 at 6:59 AM
+Subject: Re: Move away from default password
+To: Adriana Kobylak <anoo@linux.ibm.com>, Joseph Reynolds =
+<jrey@linux.ibm.com>
+Cc: openbmc <openbmc-bounces+anoo=3Dlinux.ibm.com@lists.ozlabs.org>,
+Openbmc <openbmc@lists.ozlabs.org>, Thomaiyar, Richard Marian =
+<richard.marian.thomaiyar@linux.intel.com>
+
+
+Adriana Kobylak <anoo@linux.ibm.com> writes:
+>>> 1. Unique password per BMC.
+>>> In this approach, there is a way to change the factory default=20
+>>> password.  Example flow: assemble the BMC, test it, factory reset,=20
+>>> generate unique password (such as `pwgen`), then use a new function=20
+>>> =E2=80=9Csave factory default settings=E2=80=9D which would save the =
+current setting=20
+>>> into a new =E2=80=9Cfactory settings=E2=80=9D flash partition. After =
+that, a factory=20
+>>> reset would reset to the factory installed password, not to the=20
+>>> setting in the source code.
+>
+> How would this new "factory settings" flash partition be protected=20
+> against being modified by an unauthorized or malicious user?
+
+My guess would be it'd be protected the same way that the default =
+password is today: not at all. If an attacker can write to flash, the =
+only way to reset the box is to dediprog the BMC flash chip.
+
+--
+Stewart Smith
+OPAL Architect, IBM.
+
+------=_NextPart_000_094E_01D52780.8B406CD0
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+MIAGCSqGSIb3DQEHAqCAMIACAQExCzAJBgUrDgMCGgUAMIAGCSqGSIb3DQEHAQAAoIIMOTCCBOgw
+ggPQoAMCAQICEHJZ3dAghQm7TR3WtIciZWowDQYJKoZIhvcNAQEFBQAwWzETMBEGCgmSJomT8ixk
+ARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxhbmdjaGFvMRQwEgYKCZImiZPyLGQBGRYEaG9tZTEU
+MBIGA1UEAxMLTGFuZ0NoYW8tQ0EwHhcNMDUwMTEyMDcyNTIyWhcNMjQxMTA3MTcyNjM4WjBbMRMw
+EQYKCZImiZPyLGQBGRYDY29tMRgwFgYKCZImiZPyLGQBGRYIbGFuZ2NoYW8xFDASBgoJkiaJk/Is
+ZAEZFgRob21lMRQwEgYDVQQDEwtMYW5nQ2hhby1DQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCC
+AQoCggEBAMvRSQUPw6jL6C6jqLQaQW3/yXkiew6X5DFftp11ymCmwpOEKEAHQEsOqiha/Lkj8ORt
+6KjfEHc1Z4AYgzXz9YJx0lJGoM27U/o07gu73XKTYTLEbs+MCb9Juq52ptSsRsZHBb0n4AfBjFON
+8gzgDmTg9TRyM2yNXDHoA1pSrHYvNT37urklW4XorW5DeMGohxlpOApkhsqlGpS2w7C2ZAR82NCp
++80yCDXraDZ5cCOhQAyZ6qHcWJIloyi8+gwzJi1MqWB91JjE4wicxof9SCyNtdbx2XwKxSL5U0zM
+sZQJ+201lvmaqCrPSMcoUdZxWWKM2yYtro7oEiwB/4jpaHsCAwEAAaOCAaYwggGiMBMGCSsGAQQB
+gjcUAgQGHgQAQwBBMAsGA1UdDwQEAwIBhjAPBgNVHRMBAf8EBTADAQH/MB0GA1UdDgQWBBTGbsOi
+E24avQY6XrcvNNjg05z7IzCCARUGA1UdHwSCAQwwggEIMIIBBKCCAQCggf2GgbxsZGFwOi8vL0NO
+PUxhbmdDaGFvLUNBLENOPWp0am5jYTAxLENOPUNEUCxDTj1QdWJsaWMlMjBLZXklMjBTZXJ2aWNl
+cyxDTj1TZXJ2aWNlcyxDTj1Db25maWd1cmF0aW9uLERDPWhvbWUsREM9bGFuZ2NoYW8sREM9Y29t
+P2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RDbGFzcz1jUkxEaXN0cmlidXRp
+b25Qb2ludIY8aHR0cDovL2p0am5jYTAxLmhvbWUubGFuZ2NoYW8uY29tL0NlcnRFbnJvbGwvTGFu
+Z0NoYW8tQ0EuY3JsMBAGCSsGAQQBgjcVAQQDAgEBMCMGCSsGAQQBgjcVAgQWBBRYQgrth4/MB0pS
+3hx7TTpz3BidCDANBgkqhkiG9w0BAQUFAAOCAQEAWjsuzhyiArAxdntQqbkoOaDt/caM2xEA3hWn
+gjl4yJeKxxuU0U5KLs7wcaVYantJjeL7jb9r29Aeb5lRzcUHodJgk2xvNYAI0s7ZkmahMSbPIMha
+w6sKSiq2bI08u7cyPoW5HxVJz3pEM4IkuLaWmMm/I3BUUQE3rxUdXy7iq2CE7KPNKIf+wDuouDgm
+bWItUuIev5toOR37MxpPS02Ci1H2KxOGkMDFAWJawNgzseRaRqEJdgMelpS46KnBaT3uFI/wqG+0
+1pMVfldgzOBA9Jaj4AC/AWU+v8Ks6+yX8/14Se7bkRltLqmXI6EGHo6KBiIAP2uGHg7lGzCmR/Ja
+dTCCB0kwggYxoAMCAQICCmqv3UcAAQABuGAwDQYJKoZIhvcNAQEFBQAwWzETMBEGCgmSJomT8ixk
+ARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxhbmdjaGFvMRQwEgYKCZImiZPyLGQBGRYEaG9tZTEU
+MBIGA1UEAxMLTGFuZ0NoYW8tQ0EwHhcNMTQxMjA5MDkyNzU4WhcNMTkxMjA4MDkyNzU4WjCBoDET
+MBEGCgmSJomT8ixkARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxhbmdjaGFvMRQwEgYKCZImiZPy
+LGQBGRYEaG9tZTEVMBMGA1UECwwM5rWq5r2u5L+h5oGvMQ8wDQYDVQQLDAbnlKjmiLcxDzANBgNV
+BAMMBuiLj+WtnTEgMB4GCSqGSIb3DQEJARYRc3V4aWFvQGluc3B1ci5jb20wggEiMA0GCSqGSIb3
+DQEBAQUAA4IBDwAwggEKAoIBAQCpbUD0W0y6Lg5GB/bXz4rEhZFfa+F0u6hz8Ngadu0KHSUMlZsW
+y9RX95a0IOGVqYzxEcyAPc30KUNa0xFn0qGOlDNBQm9KiQfGr52CGJQRlQoQG2ew7oPUPK4BnDpt
+NYapuKelJ5v1fnotykKrJM0MQFhj4IeSl1jUgBNHdMLJ4atTj5f81jLcxopTBFOX6DuQYYMwsYRy
+O209vUDlbfULUBRF0YQkWipi6Uco7BlUDsj2ODZzknYNzBEPFrlu+30CfM4K3ZE64O2IF5+YvVYN
+bmq6NEoFcZlvQA2VYX9Q5JM8cIKV5eadBKcJGhk+gYBA9glBWag9BJBF0PHAw+snAgMBAAGjggPH
+MIIDwzALBgNVHQ8EBAMCBaAwPgYJKwYBBAGCNxUHBDEwLwYnKwYBBAGCNxUIgvKpH4SB13qGqZE9
+hoD3FYPYj1yBSoairR2G15QsAgFkAgEYMEQGCSqGSIb3DQEJDwQ3MDUwDgYIKoZIhvcNAwICAgCA
+MA4GCCqGSIb3DQMEAgIAgDAHBgUrDgMCBzAKBggqhkiG9w0DBzAdBgNVHQ4EFgQUrlqThnV3wKMe
+46sD0xnYaGq/LVQwHwYDVR0jBBgwFoAUxm7DohNuGr0GOl63LzTY4NOc+yMwggEVBgNVHR8EggEM
+MIIBCDCCAQSgggEAoIH9hoG8bGRhcDovLy9DTj1MYW5nQ2hhby1DQSxDTj1qdGpuY2EwMSxDTj1D
+RFAsQ049UHVibGljJTIwS2V5JTIwU2VydmljZXMsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlv
+bixEQz1ob21lLERDPWxhbmdjaGFvLERDPWNvbT9jZXJ0aWZpY2F0ZVJldm9jYXRpb25MaXN0P2Jh
+c2U/b2JqZWN0Q2xhc3M9Y1JMRGlzdHJpYnV0aW9uUG9pbnSGPGh0dHA6Ly9qdGpuY2EwMS5ob21l
+LmxhbmdjaGFvLmNvbS9DZXJ0RW5yb2xsL0xhbmdDaGFvLUNBLmNybDCCATAGCCsGAQUFBwEBBIIB
+IjCCAR4wgbMGCCsGAQUFBzAChoGmbGRhcDovLy9DTj1MYW5nQ2hhby1DQSxDTj1BSUEsQ049UHVi
+bGljJTIwS2V5JTIwU2VydmljZXMsQ049U2VydmljZXMsQ049Q29uZmlndXJhdGlvbixEQz1ob21l
+LERDPWxhbmdjaGFvLERDPWNvbT9jQUNlcnRpZmljYXRlP2Jhc2U/b2JqZWN0Q2xhc3M9Y2VydGlm
+aWNhdGlvbkF1dGhvcml0eTBmBggrBgEFBQcwAoZaaHR0cDovL2p0am5jYTAxLmhvbWUubGFuZ2No
+YW8uY29tL0NlcnRFbnJvbGwvanRqbmNhMDEuaG9tZS5sYW5nY2hhby5jb21fTGFuZ0NoYW8tQ0Eo
+MSkuY3J0MCkGA1UdJQQiMCAGCCsGAQUFBwMCBggrBgEFBQcDBAYKKwYBBAGCNwoDBDA1BgkrBgEE
+AYI3FQoEKDAmMAoGCCsGAQUFBwMCMAoGCCsGAQUFBwMEMAwGCisGAQQBgjcKAwQwPwYDVR0RBDgw
+NqAhBgorBgEEAYI3FAIDoBMMEXN1eGlhb0BpbnNwdXIuY29tgRFzdXhpYW9AaW5zcHVyLmNvbTAN
+BgkqhkiG9w0BAQUFAAOCAQEAVD/fSXQevnpNB3dZ7y/3Cn9As9+ujNiIMGCuP2rV29Z2GY5gsJFV
+4P5NkinQdE0Adkb2M9Smb6fCjYKZhE25c8LE96QfCWfglCn3mFjGZNUfwwrWFCRaSUyMBsM5soCo
+mMi9CYFQ7ADgeNS9t8EhCHlgDqnvpQ2vkVlse1i4TwfCU5yeZ5fI5SFHV162Ob9WjHTb/68cmS2N
+11b0Xodm6IoKMml6moyr8DmGmCDgB8c8/uJZHy36FinwOfKcWG4dAnmJB/irl9OmuKrIcaXtQSJk
+0voaIEPchLEZFEd6Be/glucWOeprFjySvn7vrMsgAxDQZZ53v2EtQGUk0KylCTGCA30wggN5AgEB
+MGkwWzETMBEGCgmSJomT8ixkARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxhbmdjaGFvMRQwEgYK
+CZImiZPyLGQBGRYEaG9tZTEUMBIGA1UEAxMLTGFuZ0NoYW8tQ0ECCmqv3UcAAQABuGAwCQYFKw4D
+AhoFAKCCAekwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTkwNjIw
+MDc1NTEyWjAjBgkqhkiG9w0BCQQxFgQUilkYgd8TyXijZb/pao4IdSBws3wweAYJKwYBBAGCNxAE
+MWswaTBbMRMwEQYKCZImiZPyLGQBGRYDY29tMRgwFgYKCZImiZPyLGQBGRYIbGFuZ2NoYW8xFDAS
+BgoJkiaJk/IsZAEZFgRob21lMRQwEgYDVQQDEwtMYW5nQ2hhby1DQQIKaq/dRwABAAG4YDB6Bgsq
+hkiG9w0BCRACCzFroGkwWzETMBEGCgmSJomT8ixkARkWA2NvbTEYMBYGCgmSJomT8ixkARkWCGxh
+bmdjaGFvMRQwEgYKCZImiZPyLGQBGRYEaG9tZTEUMBIGA1UEAxMLTGFuZ0NoYW8tQ0ECCmqv3UcA
+AQABuGAwgZMGCSqGSIb3DQEJDzGBhTCBgjALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAoGCCqG
+SIb3DQMHMAsGCWCGSAFlAwQBAjAOBggqhkiG9w0DAgICAIAwDQYIKoZIhvcNAwICAUAwBwYFKw4D
+AhowCwYJYIZIAWUDBAIDMAsGCWCGSAFlAwQCAjALBglghkgBZQMEAgEwDQYJKoZIhvcNAQEBBQAE
+ggEAiSSSmBL6nZglaOvhvTAZ9eXQWikkWqrZj4guXWBYw9gUbn6CloRjtlPoe1FG+I3ugU0Feoqj
+BEtZKwBshoacJwaUwT9aD8tBmSBCbt+WY57+XudYm8q6DqUe+ZUOsE5QDYN+j2TIV6R26NxTp9AM
+7b+ETksoB8rYh2kMAemY7ZAX0njuntJqd2UhI5JzkBYH+z3d3WtV7oPQWzX5PmguxW7kYIkeZDNu
+hDUWtJtwVAc2zJQgUR5N0HXjKNa0V4GEmd/NOutJgZtDWfIknlgyoSLuWPCL2yfwaglppi6snuZL
+V0NwGfLi1Ep5imiriEXfi0zeUOt/fW+D/r7wKcYefgAAAAAAAA==
+
+------=_NextPart_000_094E_01D52780.8B406CD0--
