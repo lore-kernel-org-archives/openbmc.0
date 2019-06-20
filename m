@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45VC7w4srlzDrJt
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jun 2019 05:49:32 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45VC7x5qVJzDrJt
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Jun 2019 05:49:33 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 20 Jun 2019 12:49:26 -0700
+ 20 Jun 2019 12:49:29 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,398,1557212400"; d="scan'208";a="154232461"
+X-IronPort-AV: E=Sophos;i="5.63,398,1557212400"; d="scan'208";a="154232474"
 Received: from maru.jf.intel.com ([10.54.51.75])
- by orsmga008.jf.intel.com with ESMTP; 20 Jun 2019 12:49:26 -0700
+ by orsmga008.jf.intel.com with ESMTP; 20 Jun 2019 12:49:29 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Brendan Higgins <brendanhiggins@google.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
@@ -26,10 +26,10 @@ To: Brendan Higgins <brendanhiggins@google.com>,
  Andrew Jeffery <andrew@aj.id.au>
 Cc: openbmc@lists.ozlabs.org,
 	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [RFC PATCH dev-5.1 1/6] dt-bindings: i2c: aspeed: add buffer and DMA
- mode transfer support
-Date: Thu, 20 Jun 2019 12:49:17 -0700
-Message-Id: <20190620194922.15093-2-jae.hyun.yoo@linux.intel.com>
+Subject: [RFC PATCH dev-5.1 3/6] irqchip/aspeed-i2c-ic: add I2C SRAM enabling
+ control
+Date: Thu, 20 Jun 2019 12:49:19 -0700
+Message-Id: <20190620194922.15093-4-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20190620194922.15093-1-jae.hyun.yoo@linux.intel.com>
 References: <20190620194922.15093-1-jae.hyun.yoo@linux.intel.com>
@@ -46,102 +46,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jun 2019 19:49:33 -0000
+X-List-Received-Date: Thu, 20 Jun 2019 19:49:34 -0000
 
-Append bindings to support buffer mode and DMA mode transfer.
+This commit adds I2C SRAM enabling control for AST2500 SoC to
+support buffer mode and DMA mode transfer. The SRAM is enabled by
+default in AST2400 SoC.
 
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 ---
- .../devicetree/bindings/i2c/i2c-aspeed.txt    | 52 +++++++++++++++++--
- 1 file changed, 49 insertions(+), 3 deletions(-)
+ drivers/irqchip/irq-aspeed-i2c-ic.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-index 8fbd8633a387..4fb04b580c42 100644
---- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-+++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
-@@ -3,7 +3,11 @@ Device tree configuration for the I2C busses on the AST24XX and AST25XX SoCs.
- Required Properties:
- - #address-cells	: should be 1
- - #size-cells		: should be 0
--- reg			: address offset and range of bus
-+- reg			: address offset and range of bus registers and buffer
-+- reg-names		: "bus-regs" and "buf" are recognized by Aspeed I2C
-+			  driver. "bus-regs" is default. "buf" is optional in
-+			  case of enabling I2C dedicated SRAM for buffer mode
-+			  transfer support
- - compatible		: should be "aspeed,ast2400-i2c-bus"
- 			  or "aspeed,ast2500-i2c-bus"
- - clocks		: root clock of bus, should reference the APB
-@@ -16,6 +20,16 @@ Optional Properties:
- - bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
- 		  specified
- - multi-master	: states that there is another master active on this bus.
-+- aspeed,dma-buf-size	: should be 4096 in case of AST2500.
-+			  Only AST2500 supports DMA mode under some limitations:
-+			  I2C is sharing the DMA H/W with UHCI host controller
-+			  and MCTP controller. Since those controllers operate
-+			  with DMA mode only, I2C has to use buffer mode or byte
-+			  mode instead if one of those controllers is enabled.
-+			  Also make sure that if SD/eMMC or Port80 snoop uses
-+			  DMA mode instead of PIO or FIFO respectively, I2C
-+			  can't use DMA mode. IF both DMA and buffer modes are
-+			  enabled, DMA mode will be selected.
+diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c b/drivers/irqchip/irq-aspeed-i2c-ic.c
+index f20200af0992..99985b22a9fa 100644
+--- a/drivers/irqchip/irq-aspeed-i2c-ic.c
++++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
+@@ -18,6 +18,9 @@
+ #include <linux/of_irq.h>
+ #include <linux/io.h>
  
- Example:
++/* I2C Global Control Register (AST2500) */
++#define ASPEED_I2C_GLOBAL_CTRL_REG	0xc
++#define  ASPEED_I2C_SRAM_BUFFER_EN	BIT(0)
  
-@@ -27,7 +41,7 @@ i2c {
+ #define ASPEED_I2C_IC_NUM_BUS 14
  
- 	i2c_ic: interrupt-controller@0 {
- 		#interrupt-cells = <1>;
--		compatible = "aspeed,ast2400-i2c-ic";
-+		compatible = "aspeed,ast2500-i2c-ic";
- 		reg = <0x0 0x40>;
- 		interrupts = <12>;
- 		interrupt-controller;
-@@ -38,11 +52,43 @@ i2c {
- 		#size-cells = <0>;
- 		#interrupt-cells = <1>;
- 		reg = <0x40 0x40>;
--		compatible = "aspeed,ast2400-i2c-bus";
-+		reg-names = "bus-regs";
-+		compatible = "aspeed,ast2500-i2c-bus";
- 		clocks = <&syscon ASPEED_CLK_APB>;
- 		resets = <&syscon ASPEED_RESET_I2C>;
- 		bus-frequency = <100000>;
- 		interrupts = <0>;
- 		interrupt-parent = <&i2c_ic>;
- 	};
+@@ -100,6 +103,11 @@ static int __init aspeed_i2c_ic_of_init(struct device_node *node,
+ 	irq_set_chained_handler_and_data(i2c_ic->parent_irq,
+ 					 aspeed_i2c_ic_irq_handler, i2c_ic);
+ 
++	/* Enable I2C SRAM buffer in case of AST2500 */
++	if (of_device_is_compatible(node, "aspeed,ast2500-i2c-ic"))
++		writel(ASPEED_I2C_SRAM_BUFFER_EN,
++		       i2c_ic->base + ASPEED_I2C_GLOBAL_CTRL_REG);
 +
-+	/* buffer mode transfer enabled */
-+	i2c1: i2c-bus@80 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		#interrupt-cells = <1>;
-+		reg = <0x80 0x40>, <0x210 0x10>;
-+		reg-names = "bus-regs", "buf";
-+		compatible = "aspeed,ast2500-i2c-bus";
-+		clocks = <&syscon ASPEED_CLK_APB>;
-+		resets = <&syscon ASPEED_RESET_I2C>;
-+		bus-frequency = <100000>;
-+		interrupts = <1>;
-+		interrupt-parent = <&i2c_ic>;
-+	};
-+
-+	/* DMA mode transfer enabled */
-+	i2c2: i2c-bus@c0 {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		#interrupt-cells = <1>;
-+		reg = <0xc0 0x40>;
-+		reg-names = "bus-regs";
-+		aspeed,dma-buf-size = <4096>;
-+		compatible = "aspeed,ast2500-i2c-bus";
-+		clocks = <&syscon ASPEED_CLK_APB>;
-+		resets = <&syscon ASPEED_RESET_I2C>;
-+		bus-frequency = <100000>;
-+		interrupts = <2>;
-+		interrupt-parent = <&i2c_ic>;
-+	};
- };
+ 	pr_info("i2c controller registered, irq %d\n", i2c_ic->parent_irq);
+ 
+ 	return 0;
 -- 
 2.22.0
