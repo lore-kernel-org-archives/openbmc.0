@@ -1,54 +1,39 @@
-Return-Path: <venture@google.com>
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com;
- envelope-from=venture@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="Ct+3Yyyp"; 
- dkim-atps=neutral
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45V8bY1f3gzDrCC
- for <openbmc@lists.ozlabs.org>; Fri, 21 Jun 2019 03:54:46 +1000 (AEST)
-Received: by mail-pl1-x635.google.com with SMTP id b7so1694983pls.6
- for <openbmc@lists.ozlabs.org>; Thu, 20 Jun 2019 10:54:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=5Pe91UUzRN+xBrav++21sER9CyY7eCA7DQYfcewLn+g=;
- b=Ct+3YyypR0GElGA7R1XYHBbvfu6hlWuC8LjIUjDMKfDMz/9jHC9fyUinxPrKptDXYh
- mXo1IuUkGl22xss5WYZMXHOmRDSSOA9mS7flTW/DHD7yJ5dDYnNKD5nUAoTUTspkSom7
- 2gWZRwaJ54kFPa2HJHGo3AqgWDJDOdt2UGuSA0Mst9C231G96NIG1byHxritakg7ESn3
- nTL6nmSTuG2MKZdinnnTlPP9B5EyV/pYFbagPF8KzWwpeyZlcxT7a4va9XPDjG0xzNHR
- WVQCeHqivpMvNZJkVCETToREe9jnW/Zr23HjG+XruTWsSGNQ1PpLOzr74ac/Bn36ZkTg
- Tn1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=5Pe91UUzRN+xBrav++21sER9CyY7eCA7DQYfcewLn+g=;
- b=MzegQz0aqUN6VrrNu5RHXdtOSLlyYvfmNnw5TxFwIdh75RraSVGFjhVIMVVjdUG7qD
- TS/5GIXAJSA7LYnNx1ghQZht7DPHZ1CJG4fNLBedBgkKsQHx/I8Q88/iE9JpXH4slcMI
- wyOdr7SA72gCexSp/0G7ugrGY7eCKI5iHY8/YAr82hoDfnIY98+nlZHmkPjkczst0HK0
- fTGKQeNQwDeL8ng8emtinDpaEeJWUcU2bcBwmYZ5e58AWRKVzmHrS0njO29+ZjYjtUo4
- fnn+hcBlGxrDY4UIpjJY5jXVgNWi5MXpPUWcA3PgiJw9c8V21RjP/l+cXJmxlvo3OLDM
- 9V8Q==
-X-Gm-Message-State: APjAAAUodtgJYYMtV3jSKssQUdSCQS7iCi7+1mJK9kLxVLLSHYPtLNjY
- xIeCDpSVZQUFEExVsqKEcbvFzpBmeEcJsSgrL1mtRj9JY1s=
-X-Google-Smtp-Source: APXvYqz+AnPw8EwfKqhr8oC3rLi0PzyaWtO+ckGiSacpsRSeyaxeRc1MbfhL2gQnoKuCpD58u68aNtXAKbalLKygKhI=
-X-Received: by 2002:a17:902:9897:: with SMTP id
- s23mr58710767plp.47.1561053282371; 
- Thu, 20 Jun 2019 10:54:42 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45VC7w5113zDrJv
+ for <openbmc@lists.ozlabs.org>; Fri, 21 Jun 2019 05:49:32 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 20 Jun 2019 12:49:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.63,398,1557212400"; d="scan'208";a="154232470"
+Received: from maru.jf.intel.com ([10.54.51.75])
+ by orsmga008.jf.intel.com with ESMTP; 20 Jun 2019 12:49:28 -0700
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Brendan Higgins <brendanhiggins@google.com>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ C?ric Le Goater <clg@kaod.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org,
+	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [RFC PATCH dev-5.1 2/6] ARM: dts: aspeed: add I2C buffer mode support
+Date: Thu, 20 Jun 2019 12:49:18 -0700
+Message-Id: <20190620194922.15093-3-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20190620194922.15093-1-jae.hyun.yoo@linux.intel.com>
+References: <20190620194922.15093-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-From: Patrick Venture <venture@google.com>
-Date: Thu, 20 Jun 2019 10:54:28 -0700
-Message-ID: <CAO=notwO_0MNFY-70bGRwmQZGG4_Wm-=2zddmncKYkT-QkBx0g@mail.gmail.com>
-Subject: reduced contributing availability
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,24 +45,327 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 20 Jun 2019 17:54:50 -0000
+X-List-Received-Date: Thu, 20 Jun 2019 19:49:33 -0000
 
-Hi fellow-openbmc'ers
+Byte mode currently this driver uses makes lots of interrupt call
+which isn't good for performance and it makes the driver very
+timing sensitive. To improve performance of the driver, this commit
+adds buffer mode transfer support which uses I2C SRAM buffer
+instead of using a single byte buffer.
 
-I will have fewer cycles to contribute to OpenBMC moving forward.
-It's unclear yet how it'll settle out, likely just a few hours per
-week.  Enough to finish current things, and review incoming patches
-(pid-control/hwmon/ipmi-blobs-stuff).  Unlikely to contribute to new
-long-term efforts or long bug arcs (epics).
+AST2400:
+It has 2 KBytes (256 Bytes x 8 pages) of I2C SRAM buffer pool from
+0x1e78a800 to 0x1e78afff that can be used for all busses with
+buffer pool manipulation. To simplify implementation for supporting
+both AST2400 and AST2500, it assigns each 128 Bytes per bus without
+using buffer pool manipulation so total 1792 Bytes of I2C SRAM
+buffer will be used.
 
-Watching this program grow as it has over the past couple years has
-been excellent and I'm excited to see the community continue to
-accelerate in growth and contributions.
+AST2500:
+It has 16 Bytes of individual I2C SRAM buffer per each bus and its
+range is from 0x1e78a200 to 0x1e78a2df, so it doesn't have 'buffer
+page selection' bit field in the Function control register, and
+neither 'base address pointer' bit field in the Pool buffer control
+register it has. To simplify implementation for supporting both
+AST2400 and AST2500, it writes zeros on those register bit fields
+but it's okay because it does nothing in AST2500.
 
-I will also be on the mailing list a little less actively, just
-by-the-way.  Where I am handing off maintainer-ship, there will be
-patches and github changes but in addition I will likely shoot out an
-email to assist in leading future questions to the right person.
+This commit fixes all I2C bus nodes to support buffer mode
+transfer.
 
-Regards,
-Patrick
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+---
+ arch/arm/boot/dts/aspeed-g4.dtsi | 42 +++++++++++++++++++++-----------
+ arch/arm/boot/dts/aspeed-g5.dtsi | 42 +++++++++++++++++++++-----------
+ 2 files changed, 56 insertions(+), 28 deletions(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index 6011692df15a..041985fc8acf 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -424,7 +424,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x40 0x40>;
++		reg = <0x40 0x40>, <0x800 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -440,7 +441,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x80 0x40>;
++		reg = <0x80 0x40>, <0x880 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -456,7 +458,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0xc0 0x40>;
++		reg = <0xc0 0x40>, <0x900 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -473,7 +476,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x100 0x40>;
++		reg = <0x100 0x40>, <0x980 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -490,7 +494,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x140 0x40>;
++		reg = <0x140 0x40>, <0xa00 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -507,7 +512,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x180 0x40>;
++		reg = <0x180 0x40>, <0xa80 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -524,7 +530,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x1c0 0x40>;
++		reg = <0x1c0 0x40>, <0xb00 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -541,7 +548,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x300 0x40>;
++		reg = <0x300 0x40>, <0xb80 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -558,7 +566,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x340 0x40>;
++		reg = <0x340 0x40>, <0xc00 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -575,7 +584,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x380 0x40>;
++		reg = <0x380 0x40>, <0xc80 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -592,7 +602,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x3c0 0x40>;
++		reg = <0x3c0 0x40>, <0xd00 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -609,7 +620,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x400 0x40>;
++		reg = <0x400 0x40>, <0xd80 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -626,7 +638,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x440 0x40>;
++		reg = <0x440 0x40>, <0xe00 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -643,7 +656,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x480 0x40>;
++		reg = <0x480 0x40>, <0xe80 0x80>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2400-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 383510d47140..8bc002d3fb0a 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -546,7 +546,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x40 0x40>;
++		reg = <0x40 0x40>, <0x200 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -562,7 +563,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x80 0x40>;
++		reg = <0x80 0x40>, <0x210 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -578,7 +580,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0xc0 0x40>;
++		reg = <0xc0 0x40>, <0x220 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -595,7 +598,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x100 0x40>;
++		reg = <0x100 0x40>, <0x230 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -612,7 +616,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x140 0x40>;
++		reg = <0x140 0x40>, <0x240 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -629,7 +634,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x180 0x40>;
++		reg = <0x180 0x40>, <0x250 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -646,7 +652,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x1c0 0x40>;
++		reg = <0x1c0 0x40>, <0x260 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -663,7 +670,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x300 0x40>;
++		reg = <0x300 0x40>, <0x270 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -680,7 +688,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x340 0x40>;
++		reg = <0x340 0x40>, <0x280 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -697,7 +706,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x380 0x40>;
++		reg = <0x380 0x40>, <0x290 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -714,7 +724,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x3c0 0x40>;
++		reg = <0x3c0 0x40>, <0x2a0 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -731,7 +742,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x400 0x40>;
++		reg = <0x400 0x40>, <0x2b0 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -748,7 +760,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x440 0x40>;
++		reg = <0x440 0x40>, <0x2c0 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+@@ -765,7 +778,8 @@
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 
+-		reg = <0x480 0x40>;
++		reg = <0x480 0x40>, <0x2d0 0x10>;
++		reg-names = "bus-regs", "buf";
+ 		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+-- 
+2.22.0
