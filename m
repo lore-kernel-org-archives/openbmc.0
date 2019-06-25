@@ -8,39 +8,33 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45YCfc5TYzzDqP9
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jun 2019 03:23:03 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45YJGs56smzDqTP
+ for <openbmc@lists.ozlabs.org>; Wed, 26 Jun 2019 06:51:17 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
  by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 25 Jun 2019 10:23:00 -0700
+ 25 Jun 2019 13:51:13 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,416,1557212400"; d="scan'208";a="155576059"
-Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.156])
- ([10.7.153.156])
- by orsmga008.jf.intel.com with ESMTP; 25 Jun 2019 10:23:00 -0700
-Subject: Re: [RFC PATCH dev-5.1 3/6] irqchip/aspeed-i2c-ic: add I2C SRAM
- enabling control
+X-IronPort-AV: E=Sophos;i="5.63,417,1557212400"; d="scan'208";a="164115958"
+Received: from maru.jf.intel.com ([10.54.51.75])
+ by orsmga003.jf.intel.com with ESMTP; 25 Jun 2019 13:51:12 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Ryan Chen <ryan_chen@aspeedtech.com>,
- Brendan Higgins <brendanhiggins@google.com>,
+To: Brendan Higgins <brendanhiggins@google.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- C?ric Le Goater <clg@kaod.org>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <20190620194922.15093-1-jae.hyun.yoo@linux.intel.com>
- <20190620194922.15093-4-jae.hyun.yoo@linux.intel.com>
- <c64ab19a31d1495f8e137d5ac58645b2@TWMBX02.aspeed.com>
- <2539f657-1966-c00d-dace-fa382bd1b85f@linux.intel.com>
-Message-ID: <ba119b24-6f5d-f25c-fe63-3b3c05d70152@linux.intel.com>
-Date: Tue, 25 Jun 2019 10:23:00 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.1
+ Cedric Le Goater <clg@kaod.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
+ Tao Ren <taoren@fb.com>
+Cc: openbmc@lists.ozlabs.org,
+	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [RFC v2 dev-5.1 1/5] dt-bindings: i2c: aspeed: add buffer and DMA
+ mode transfer support
+Date: Tue, 25 Jun 2019 13:51:05 -0700
+Message-Id: <20190625205109.27672-2-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20190625205109.27672-1-jae.hyun.yoo@linux.intel.com>
+References: <20190625205109.27672-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <2539f657-1966-c00d-dace-fa382bd1b85f@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -53,83 +47,124 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 25 Jun 2019 17:23:05 -0000
+X-List-Received-Date: Tue, 25 Jun 2019 20:51:18 -0000
 
-On 6/21/2019 11:41 AM, Jae Hyun Yoo wrote:
-> On 6/20/2019 5:33 PM, Ryan Chen wrote:
->> Hello Jae,
->>     The i2c register setting must after scu reset. - 
->> APEED_I2C_SRAM_BUFFER_EN
->>     My recommend aspeed-i2c-ic.c need be probe after scu reset. And 
->> all others i2c bus is no needed for scu reset.
-> 
-> Hello Ryan,
-> 
-> This module is registered after the SCU reset.
-> Thank you for the information.
-> 
-> Regards,
-> Jae
+Append bindings to support buffer mode and DMA mode transfer.
 
-Hello Ryan,
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+---
+v1 -> v2:
+ - Added i2c-global-regs node in example to provide access of global ctrl reg.
+ - Fixed DMA buffer size in dt from 4096 to 4095 which H/W actually supports.
 
-I got your point now. You meant the I2C H/W reset through SCU04
-register, right? I'll move the SRAM buffer enable control from
-irq-aspeed-i2c-ic module to i2c-aspeed module so that the SRAM can be
-enabled correctly.
+ .../devicetree/bindings/i2c/i2c-aspeed.txt    | 69 +++++++++++++++++--
+ 1 file changed, 62 insertions(+), 7 deletions(-)
 
-Thanks for your pointing it out.
-
-Jae
-
->>
->> Ryan
->>
->> -----Original Message-----
->> From: openbmc 
->> [mailto:openbmc-bounces+ryan_chen=aspeedtech.com@lists.ozlabs.org] On 
->> Behalf Of Jae Hyun Yoo
->> Sent: Friday, June 21, 2019 3:49 AM
->> To: Brendan Higgins <brendanhiggins@google.com>; Benjamin 
->> Herrenschmidt <benh@kernel.crashing.org>; C?ric Le Goater 
->> <clg@kaod.org>; Joel Stanley <joel@jms.id.au>; Andrew Jeffery 
->> <andrew@aj.id.au>
->> Cc: openbmc@lists.ozlabs.org; Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> Subject: [RFC PATCH dev-5.1 3/6] irqchip/aspeed-i2c-ic: add I2C SRAM 
->> enabling control
->>
->> This commit adds I2C SRAM enabling control for AST2500 SoC to support 
->> buffer mode and DMA mode transfer. The SRAM is enabled by default in 
->> AST2400 SoC.
->>
->> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->> ---
->>   drivers/irqchip/irq-aspeed-i2c-ic.c | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/drivers/irqchip/irq-aspeed-i2c-ic.c 
->> b/drivers/irqchip/irq-aspeed-i2c-ic.c
->> index f20200af0992..99985b22a9fa 100644
->> --- a/drivers/irqchip/irq-aspeed-i2c-ic.c
->> +++ b/drivers/irqchip/irq-aspeed-i2c-ic.c
->> @@ -18,6 +18,9 @@
->>   #include <linux/of_irq.h>
->>   #include <linux/io.h>
->> +/* I2C Global Control Register (AST2500) */
->> +#define ASPEED_I2C_GLOBAL_CTRL_REG    0xc
->> +#define  ASPEED_I2C_SRAM_BUFFER_EN    BIT(0)
->>   #define ASPEED_I2C_IC_NUM_BUS 14
->> @@ -100,6 +103,11 @@ static int __init aspeed_i2c_ic_of_init(struct 
->> device_node *node,
->>       irq_set_chained_handler_and_data(i2c_ic->parent_irq,
->>                        aspeed_i2c_ic_irq_handler, i2c_ic);
->> +    /* Enable I2C SRAM buffer in case of AST2500 */
->> +    if (of_device_is_compatible(node, "aspeed,ast2500-i2c-ic"))
->> +        writel(ASPEED_I2C_SRAM_BUFFER_EN,
->> +               i2c_ic->base + ASPEED_I2C_GLOBAL_CTRL_REG);
->> +
->>       pr_info("i2c controller registered, irq %d\n", i2c_ic->parent_irq);
->>       return 0;
->> -- 
->> 2.22.0
->>
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+index 8fbd8633a387..bb34ca5f0cc1 100644
+--- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
++++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+@@ -3,7 +3,11 @@ Device tree configuration for the I2C busses on the AST24XX and AST25XX SoCs.
+ Required Properties:
+ - #address-cells	: should be 1
+ - #size-cells		: should be 0
+-- reg			: address offset and range of bus
++- reg			: address offset and range of bus registers and buffer
++- reg-names		: "bus-regs" and "buf" are recognized by Aspeed I2C
++			  driver. "bus-regs" is default. "buf" is optional in
++			  case of enabling I2C dedicated SRAM for buffer mode
++			  transfer support
+ - compatible		: should be "aspeed,ast2400-i2c-bus"
+ 			  or "aspeed,ast2500-i2c-bus"
+ - clocks		: root clock of bus, should reference the APB
+@@ -16,6 +20,16 @@ Optional Properties:
+ - bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
+ 		  specified
+ - multi-master	: states that there is another master active on this bus.
++- aspeed,dma-buf-size	: should be 4096 in case of AST2500.
++			  Only AST2500 supports DMA mode under some limitations:
++			  I2C is sharing the DMA H/W with UHCI host controller
++			  and MCTP controller. Since those controllers operate
++			  with DMA mode only, I2C has to use buffer mode or byte
++			  mode instead if one of those controllers is enabled.
++			  Also make sure that if SD/eMMC or Port80 snoop uses
++			  DMA mode instead of PIO or FIFO respectively, I2C
++			  can't use DMA mode. IF both DMA and buffer modes are
++			  enabled, DMA mode will be selected.
+ 
+ Example:
+ 
+@@ -25,12 +39,21 @@ i2c {
+ 	#size-cells = <1>;
+ 	ranges = <0 0x1e78a000 0x1000>;
+ 
+-	i2c_ic: interrupt-controller@0 {
+-		#interrupt-cells = <1>;
+-		compatible = "aspeed,ast2400-i2c-ic";
++	i2c_gr: i2c-global-regs@0 {
++		compatible = "aspeed,ast2500-i2c-gr", "syscon";
+ 		reg = <0x0 0x40>;
+-		interrupts = <12>;
+-		interrupt-controller;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0x0 0x0 0x40>;
++
++		i2c_ic: interrupt-controller@0 {
++			#interrupt-cells = <1>;
++			compatible = "aspeed,ast2500-i2c-ic";
++			reg = <0x0 0x4>;
++			interrupts = <12>;
++			interrupt-controller;
++		};
+ 	};
+ 
+ 	i2c0: i2c-bus@40 {
+@@ -38,11 +61,43 @@ i2c {
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+ 		reg = <0x40 0x40>;
+-		compatible = "aspeed,ast2400-i2c-bus";
++		reg-names = "bus-regs";
++		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+ 		bus-frequency = <100000>;
+ 		interrupts = <0>;
+ 		interrupt-parent = <&i2c_ic>;
+ 	};
++
++	/* buffer mode transfer enabled */
++	i2c1: i2c-bus@80 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		#interrupt-cells = <1>;
++		reg = <0x80 0x40>, <0x210 0x10>;
++		reg-names = "bus-regs", "buf";
++		compatible = "aspeed,ast2500-i2c-bus";
++		clocks = <&syscon ASPEED_CLK_APB>;
++		resets = <&syscon ASPEED_RESET_I2C>;
++		bus-frequency = <100000>;
++		interrupts = <1>;
++		interrupt-parent = <&i2c_ic>;
++	};
++
++	/* DMA mode transfer enabled */
++	i2c2: i2c-bus@c0 {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		#interrupt-cells = <1>;
++		reg = <0xc0 0x40>;
++		reg-names = "bus-regs";
++		aspeed,dma-buf-size = <4095>;
++		compatible = "aspeed,ast2500-i2c-bus";
++		clocks = <&syscon ASPEED_CLK_APB>;
++		resets = <&syscon ASPEED_RESET_I2C>;
++		bus-frequency = <100000>;
++		interrupts = <2>;
++		interrupt-parent = <&i2c_ic>;
++	};
+ };
+-- 
+2.22.0
