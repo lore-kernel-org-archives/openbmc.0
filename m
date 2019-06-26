@@ -1,59 +1,77 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d41; helo=mail-io1-xd41.google.com;
- envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.230; helo=new4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="lROd+WYH"; 
- dkim-atps=neutral
-Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
- [IPv6:2607:f8b0:4864:20::d41])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="jgTqN9Qt"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="Mf2hR8iR"; dkim-atps=neutral
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45YZ1R74zGzDqW2
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jun 2019 17:10:34 +1000 (AEST)
-Received: by mail-io1-xd41.google.com with SMTP id w25so243312ioc.8
- for <openbmc@lists.ozlabs.org>; Wed, 26 Jun 2019 00:10:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=c26NsIrGBTv3I2BcvRNSo945qiITPCLqsIRvILjvNR4=;
- b=lROd+WYHS+y86aeGsWoYDd4BfAxFZ80Fjh6nEvqTkrN/VSvjnPIxMWWF9e5YZZEUq6
- PAgq9M0YGlu3v2KCzBuMA+Jd1NPt6FlSN+MK+1dsmMwJyYfU8YM2Ng3D3Lwv5I7ukF3k
- aikOPib8bj61HzCJVJYR3cQ4N/NaaSvruA6bC+5gr9jwZ05iuAz7gWdicPGEQ7bD5UW+
- uCGWnYAT8MWAFF3e0TxVdUbh2A0zDwE4mPT5Hdd1UO/oIkHVnaLjL0+Fl8eDvzsMJXpg
- r8soa1KZ/LIR3oEVs1mVlmnpj8FVfjFgTZZonoLAg1AxtsMPVKx8kJg694LOFfrnydOd
- ICgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=c26NsIrGBTv3I2BcvRNSo945qiITPCLqsIRvILjvNR4=;
- b=OOu+VaKfEp0VMEACWhQGwI86piJbIrRqVM4LVD5JS/MX55c6a//+ink2vrSsM4iiCk
- NbBcVdo7FCVqL2GIEO52F1gmhLcaVBPtxkLePdPRWCQGaPRpxJuBXqOpl9KgHa92mU3M
- GiQgCpEm3q52NwD2BgjQ22B2xnSnou9vvLNmcrbvOuw4k45choLHMmUZKIfDuBJsbmIQ
- QsKFavtDRZxHEj1+v14KOEUV+OMuWd0VwwLZiLiWzXyZu2Q7PNpJAHG6iVSFKlI9ESz3
- 5Etw6tzN51wduoEB6pYdHkFYCfA4i4Hl8YBh59QwdmRJ6aDDmH1IC1R1jEKc+NwZSSJO
- unmQ==
-X-Gm-Message-State: APjAAAXvISJZBzkcHWIbOq+A7I9dEL8azjnic4eEG/4X7khNqU3Eqt23
- 7wXghiQE0WtFEIK7qwz1xEE2MJbSz1JSkmCkdbE=
-X-Google-Smtp-Source: APXvYqyxZ2zwCF/KfKD5CKol5U0dYwAyXOYc6p+CvHaOlfvcI4RHWJzBKz58EDJR7qCXbzYosuQklQps5cXBYzApDms=
-X-Received: by 2002:a02:aa8f:: with SMTP id u15mr3098726jai.39.1561533031300; 
- Wed, 26 Jun 2019 00:10:31 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45YZ7S2RQ0zDqW5;
+ Wed, 26 Jun 2019 17:15:48 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailnew.nyi.internal (Postfix) with ESMTP id EEAB61721;
+ Wed, 26 Jun 2019 03:15:45 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Wed, 26 Jun 2019 03:15:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=bDsw6KjgIezE4
+ hKWkzgtOU4DL3U+oK1ddciLPL0D0S8=; b=jgTqN9Qt0tKbDlrYNXZVyNrppjk4m
+ 6CXWrAXgwqZaLY4QPjt5tXHK7UUtZGyI8ugpEaBm6puCMqsfd3QSHF/DLq6nCs6B
+ 8XcRBVaptjMcMKdv+Hw1KMRevzD+e467BNY4EJ6GADwDfeTfOKcr7VBpM0/Szdaf
+ +lhBKsUtgSdRwOFGp9mLqqZH71Vh1yV4JYu3lxONUbHvz69bK3SHjbOrf6B8R4/9
+ /Foai8Sf2FZx/JXH7WmU3NtsB7qcgMWseJqA2WDz84N95U1P7qQ6r3JwdeoV30+a
+ RmIawYcwV5nnKBj2AQtD8PX90Ia8vVFXDjzCL2v8YlDVFOmIO/LNCvarg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=bDsw6KjgIezE4hKWkzgtOU4DL3U+oK1ddciLPL0D0S8=; b=Mf2hR8iR
+ wZj13vNy+U9ofaOoVPHadePDABhAjysADa5xu7FXU/SUubGr19fXXUqwUz5wTWVP
+ bvLp9t90Mbpi3QEJWb0S8bVLbxaGl76J1COJcX1bRaLFsdaksvMF+V9nmgP1Q42q
+ DfJeKq1PLjR4sysLuVqPgCZaW6EH94u6YClOYiiN0ha6LVbEld48wvD398SrY2zO
+ shWO8KkPgGKUMugqVWH248/TRFqpKrAV0FO0iBiBjkk8DJUzl7XIxdrI6GXeEScH
+ VjjhVffB+t2OjJvVP9s3VbMCGHHm5wUZUMe/CufRmiCBzCSR6JmvqRsN24zyJs6V
+ Lx4wnfho/oqcdg==
+X-ME-Sender: <xms:oRsTXcyFO1kJUgG0daPO_LgVBeMgDelLnuzUkEviJqxDb34x5UlHFg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudehgdduudejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrg
+ hilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigv
+ pedt
+X-ME-Proxy: <xmx:oRsTXcias8y2_Rv88h13RPQg4Vz1pbXWdgNMFREyLhofO64D2fVWVA>
+ <xmx:oRsTXUlVgHMjzU9HOopndEOFDJhFkxOXJHQUDls8jtThFzLHh1ut_w>
+ <xmx:oRsTXYKHQ8XXElm0-l45r7flU65FKRCCZP7JW-XclM_R9S1ekkgJzw>
+ <xmx:oRsTXWLMjniddxG_YKQDBlR1cgwRFJ08CinFuvbbEUu8_1ncc_LBMg>
+Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 0D486380083;
+ Wed, 26 Jun 2019 03:15:41 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux-gpio@vger.kernel.org
+Cc: ryan_chen@aspeedtech.com, Andrew Jeffery <andrew@aj.id.au>,
+ linus.walleij@linaro.org, robh+dt@kernel.org, mark.rutland@arm.com,
+ joel@jms.id.au, linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH 1/8] dt-bindings: pinctrl: aspeed: Split bindings document in
+ two
+Date: Wed, 26 Jun 2019 16:44:23 +0930
+Message-Id: <20190626071430.28556-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190626071430.28556-1-andrew@aj.id.au>
+References: <20190626071430.28556-1-andrew@aj.id.au>
 MIME-Version: 1.0
-References: <8f7ab4ab-99fe-edeb-f0dd-5eb38c480f79@linux.intel.com>
-In-Reply-To: <8f7ab4ab-99fe-edeb-f0dd-5eb38c480f79@linux.intel.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 26 Jun 2019 15:10:20 +0800
-Message-ID: <CAARXrtkyGn6ZxGPeCwFLbAtvQW44O=5sDyjvTHQci7E6CmwfEg@mail.gmail.com>
-Subject: Re: Reg sdbusplus - async handlers - D-Bus error not getting reflected
-To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
-Cc: William Kennington <wak@google.com>,
- Vernon Mauery <vernon.mauery@linux.intel.com>, 
- "Tanous, Ed" <ed.tanous@intel.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,56 +83,199 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Jun 2019 07:10:36 -0000
+X-List-Received-Date: Wed, 26 Jun 2019 07:15:49 -0000
 
-On Wed, Jun 26, 2019 at 12:19 AM Thomaiyar, Richard Marian
-<richard.marian.thomaiyar@linux.intel.com> wrote:
->
-> Hi,
->
-> In sdbusplus code, async_send_handler callback() uses the
-> sdbusplus::message::message.get_errorno()
-> https://github.com/openbmc/sdbusplus/blob/master/sdbusplus/asio/detail/async_send_handler.hpp#L66
-> function to instantiate the boost::system::error_code. Unfortunately,
-> none of our D-Bus exception throwing functionality sets the error_no to
-> a proper one, but instead updates only the error_message field
-> https://github.com/openbmc/sdbusplus/blob/master/tools/sdbusplus/templates/method.mako.prototype.hpp.in#L171
-> causing the error_code instance to always return a generic error code
-> value, instead of a proper one. Because of this applications which uses
-> the asio logic will not be able to differentiate between exceptions
-> thrown / errors from D-Bus.
->
-> Planning to fix the same in 2 step,
->
-> 1. To make all D-Bus exception to set the errorno properly using
-> sd_bus_error_set_errno and getting the error from the yaml if available
-> else return generic one (so that no change in existing daemon will be
-> required).
->
-> 2. make change in async_send_handler_callaback, such that derived class
-> of boost::system::error_code is returned, which will hold the error
-> message too. Any daemon which uses asio logic, can depend on ec.value()
-> as primary exception identifier or ec.message() for any detailed
-> exception thrown.
->
-> Let me know your thoughts , and if agree, will start implementing the same.
->
-> Regards,
->
-> Richard
+Have one for each of the AST2400 and AST2500. The only thing that was
+common was the fact that both support ASPEED BMC SoCs.
 
-I am glad that you feel the same way!
-The patch https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/21611 was
-submitted trying to resolve the issue.
-And during review, it's noticed that there is a better way to achieve the goal,
-that the DBus error is returned by the message.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ .../pinctrl/aspeed,ast2400-pinctrl.txt        | 80 +++++++++++++++++++
+ ...-aspeed.txt => aspeed,ast2500-pinctrl.txt} | 63 ++-------------
+ 2 files changed, 85 insertions(+), 58 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.txt
+ rename Documentation/devicetree/bindings/pinctrl/{pinctrl-aspeed.txt => aspeed,ast2500-pinctrl.txt} (66%)
 
-So we have https://gerrit.openbmc-project.xyz/c/openbmc/sdbusplus/+/22481
-
-Now in sdbusplus, message::get_error() is added, and the caller could get the
-sd_bus_error* from the returned message, and get the DBus exception details
-from the sd_bus_error.
-
-See examples at
-https://github.com/openbmc/bmcweb/blob/e4a4b9a95622b8e1c1bae93718699ad19f4882ac/include/openbmc_dbus_rest.hpp#L1385-L1403
-https://github.com/openbmc/bmcweb/blob/e4a4b9a95622b8e1c1bae93718699ad19f4882ac/include/openbmc_dbus_rest.hpp#L1882-L1893
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.txt b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.txt
+new file mode 100644
+index 000000000000..67e0325ccf2e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.txt
+@@ -0,0 +1,80 @@
++=============================
++Aspeed AST2400 Pin Controller
++=============================
++
++Required properties for the AST2400:
++- compatible : 			Should be one of the following:
++				"aspeed,ast2400-pinctrl"
++				"aspeed,g4-pinctrl"
++
++The pin controller node should be the child of a syscon node with the required
++property:
++
++- compatible : 		Should be one of the following:
++			"aspeed,ast2400-scu", "syscon", "simple-mfd"
++			"aspeed,g4-scu", "syscon", "simple-mfd"
++
++Refer to the the bindings described in
++Documentation/devicetree/bindings/mfd/syscon.txt
++
++Subnode Format
++==============
++
++The required properties of pinmux child nodes are:
++- function: the mux function to select
++- groups  : the list of groups to select with this function
++
++Required properties of pinconf child nodes are:
++- groups: A list of groups to select (either this or "pins" must be
++          specified)
++- pins  : A list of ball names as strings, eg "D14" (either this or "groups"
++          must be specified)
++
++Optional properties of pinconf child nodes are:
++- bias-disable  : disable any pin bias
++- bias-pull-down: pull down the pin
++- drive-strength: sink or source at most X mA
++
++Definitions are as specified in
++Documentation/devicetree/bindings/pinctrl/pinctrl-bindings.txt, with any
++further limitations as described above.
++
++For pinmux, each mux function has only one associated pin group. Each group is
++named by its function. The following values for the function and groups
++properties are supported:
++
++ACPI ADC0 ADC1 ADC10 ADC11 ADC12 ADC13 ADC14 ADC15 ADC2 ADC3 ADC4 ADC5 ADC6
++ADC7 ADC8 ADC9 BMCINT DDCCLK DDCDAT EXTRST FLACK FLBUSY FLWP GPID GPID0 GPID2
++GPID4 GPID6 GPIE0 GPIE2 GPIE4 GPIE6 I2C10 I2C11 I2C12 I2C13 I2C14 I2C3 I2C4
++I2C5 I2C6 I2C7 I2C8 I2C9 LPCPD LPCPME LPCRST LPCSMI MAC1LINK MAC2LINK MDIO1
++MDIO2 NCTS1 NCTS2 NCTS3 NCTS4 NDCD1 NDCD2 NDCD3 NDCD4 NDSR1 NDSR2 NDSR3 NDSR4
++NDTR1 NDTR2 NDTR3 NDTR4 NDTS4 NRI1 NRI2 NRI3 NRI4 NRTS1 NRTS2 NRTS3 OSCCLK PWM0
++PWM1 PWM2 PWM3 PWM4 PWM5 PWM6 PWM7 RGMII1 RGMII2 RMII1 RMII2 ROM16 ROM8 ROMCS1
++ROMCS2 ROMCS3 ROMCS4 RXD1 RXD2 RXD3 RXD4 SALT1 SALT2 SALT3 SALT4 SD1 SD2 SGPMCK
++SGPMI SGPMLD SGPMO SGPSCK SGPSI0 SGPSI1 SGPSLD SIOONCTRL SIOPBI SIOPBO SIOPWREQ
++SIOPWRGD SIOS3 SIOS5 SIOSCI SPI1 SPI1DEBUG SPI1PASSTHRU SPICS1 TIMER3 TIMER4
++TIMER5 TIMER6 TIMER7 TIMER8 TXD1 TXD2 TXD3 TXD4 UART6 USB11D1 USB11H2 USB2D1
++USB2H1 USBCKI VGABIOS_ROM VGAHS VGAVS VPI18 VPI24 VPI30 VPO12 VPO24 WDTRST1
++WDTRST2
++
++Example
++=======
++
++syscon: scu@1e6e2000 {
++	compatible = "aspeed,ast2400-scu", "syscon", "simple-mfd";
++	reg = <0x1e6e2000 0x1a8>;
++
++	pinctrl: pinctrl {
++		compatible = "aspeed,g4-pinctrl";
++
++		pinctrl_i2c3_default: i2c3_default {
++			function = "I2C3";
++			groups = "I2C3";
++		};
++
++		pinctrl_gpioh0_unbiased_default: gpioh0 {
++			pins = "A8";
++			bias-disable;
++		};
++	};
++};
+diff --git a/Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.txt
+similarity index 66%
+rename from Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt
+rename to Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.txt
+index 3b7266c7c438..2f16e401338a 100644
+--- a/Documentation/devicetree/bindings/pinctrl/pinctrl-aspeed.txt
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.txt
+@@ -1,14 +1,6 @@
+-======================
+-Aspeed Pin Controllers
+-======================
+-
+-The Aspeed SoCs vary in functionality inside a generation but have a common mux
+-device register layout.
+-
+-Required properties for g4:
+-- compatible : 			Should be one of the following:
+-				"aspeed,ast2400-pinctrl"
+-				"aspeed,g4-pinctrl"
++=============================
++Aspeed AST2500 Pin Controller
++=============================
+ 
+ Required properties for g5:
+ - compatible : 			Should be one of the following:
+@@ -23,8 +15,6 @@ The pin controller node should be the child of a syscon node with the required
+ property:
+ 
+ - compatible : 		Should be one of the following:
+-			"aspeed,ast2400-scu", "syscon", "simple-mfd"
+-			"aspeed,g4-scu", "syscon", "simple-mfd"
+ 			"aspeed,ast2500-scu", "syscon", "simple-mfd"
+ 			"aspeed,g5-scu", "syscon", "simple-mfd"
+ 
+@@ -57,24 +47,6 @@ For pinmux, each mux function has only one associated pin group. Each group is
+ named by its function. The following values for the function and groups
+ properties are supported:
+ 
+-aspeed,ast2400-pinctrl, aspeed,g4-pinctrl:
+-
+-ACPI ADC0 ADC1 ADC10 ADC11 ADC12 ADC13 ADC14 ADC15 ADC2 ADC3 ADC4 ADC5 ADC6
+-ADC7 ADC8 ADC9 BMCINT DDCCLK DDCDAT EXTRST FLACK FLBUSY FLWP GPID GPID0 GPID2
+-GPID4 GPID6 GPIE0 GPIE2 GPIE4 GPIE6 I2C10 I2C11 I2C12 I2C13 I2C14 I2C3 I2C4
+-I2C5 I2C6 I2C7 I2C8 I2C9 LPCPD LPCPME LPCRST LPCSMI MAC1LINK MAC2LINK MDIO1
+-MDIO2 NCTS1 NCTS2 NCTS3 NCTS4 NDCD1 NDCD2 NDCD3 NDCD4 NDSR1 NDSR2 NDSR3 NDSR4
+-NDTR1 NDTR2 NDTR3 NDTR4 NDTS4 NRI1 NRI2 NRI3 NRI4 NRTS1 NRTS2 NRTS3 OSCCLK PWM0
+-PWM1 PWM2 PWM3 PWM4 PWM5 PWM6 PWM7 RGMII1 RGMII2 RMII1 RMII2 ROM16 ROM8 ROMCS1
+-ROMCS2 ROMCS3 ROMCS4 RXD1 RXD2 RXD3 RXD4 SALT1 SALT2 SALT3 SALT4 SD1 SD2 SGPMCK
+-SGPMI SGPMLD SGPMO SGPSCK SGPSI0 SGPSI1 SGPSLD SIOONCTRL SIOPBI SIOPBO SIOPWREQ
+-SIOPWRGD SIOS3 SIOS5 SIOSCI SPI1 SPI1DEBUG SPI1PASSTHRU SPICS1 TIMER3 TIMER4
+-TIMER5 TIMER6 TIMER7 TIMER8 TXD1 TXD2 TXD3 TXD4 UART6 USB11D1 USB11H2 USB2D1
+-USB2H1 USBCKI VGABIOS_ROM VGAHS VGAVS VPI18 VPI24 VPI30 VPO12 VPO24 WDTRST1
+-WDTRST2
+-
+-aspeed,ast2500-pinctrl, aspeed,g5-pinctrl:
+-
+ ACPI ADC0 ADC1 ADC10 ADC11 ADC12 ADC13 ADC14 ADC15 ADC2 ADC3 ADC4 ADC5 ADC6
+ ADC7 ADC8 ADC9 BMCINT DDCCLK DDCDAT ESPI FWSPICS1 FWSPICS2 GPID0 GPID2 GPID4
+ GPID6 GPIE0 GPIE2 GPIE4 GPIE6 I2C10 I2C11 I2C12 I2C13 I2C14 I2C3 I2C4 I2C5 I2C6
+@@ -90,33 +62,8 @@ SPI2CS1 SPI2MISO SPI2MOSI TIMER3 TIMER4 TIMER5 TIMER6 TIMER7 TIMER8 TXD1 TXD2
+ TXD3 TXD4 UART6 USB11BHID USB2AD USB2AH USB2BD USB2BH USBCKI VGABIOSROM VGAHS
+ VGAVS VPI24 VPO WDTRST1 WDTRST2
+ 
+-Examples
+-========
+-
+-g4 Example
+-----------
+-
+-syscon: scu@1e6e2000 {
+-	compatible = "aspeed,ast2400-scu", "syscon", "simple-mfd";
+-	reg = <0x1e6e2000 0x1a8>;
+-
+-	pinctrl: pinctrl {
+-		compatible = "aspeed,g4-pinctrl";
+-
+-		pinctrl_i2c3_default: i2c3_default {
+-			function = "I2C3";
+-			groups = "I2C3";
+-		};
+-
+-		pinctrl_gpioh0_unbiased_default: gpioh0 {
+-			pins = "A8";
+-			bias-disable;
+-		};
+-	};
+-};
+-
+-g5 Example
+-----------
++Example
++=======
+ 
+ ahb {
+ 	apb {
+-- 
+2.20.1
