@@ -1,63 +1,56 @@
-Return-Path: <nishkadg.linux@gmail.com>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com;
- envelope-from=nishkadg.linux@gmail.com; receiver=<UNKNOWN>)
+ (client-ip=2607:f8b0:4864:20::344; helo=mail-ot1-x344.google.com;
+ envelope-from=mine260309@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="MWBa7uPh"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="V8Nc6PnZ"; 
  dkim-atps=neutral
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from mail-ot1-x344.google.com (mail-ot1-x344.google.com
+ [IPv6:2607:f8b0:4864:20::344])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45gskZ32hmzDqQw
- for <openbmc@lists.ozlabs.org>; Sat,  6 Jul 2019 23:19:28 +1000 (AEST)
-Received: by mail-pl1-x641.google.com with SMTP id 9so5895377ple.5
- for <openbmc@lists.ozlabs.org>; Sat, 06 Jul 2019 06:19:27 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45hzGF3430zDq9G
+ for <openbmc@lists.ozlabs.org>; Mon,  8 Jul 2019 18:32:21 +1000 (AEST)
+Received: by mail-ot1-x344.google.com with SMTP id s20so15364603otp.4
+ for <openbmc@lists.ozlabs.org>; Mon, 08 Jul 2019 01:32:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SnNOt2zXGFNIELEcQnQ7yz3b9EGM1OUPYo7bpfq0Rr0=;
- b=MWBa7uPhQPJiiG4LdsXWu1DV74PtmqVMjIdejdxJMvLdMRmppuB7FI9A1uzAKR/wSx
- BD4YlNV3iPW3b3sh5hakELVuLzcQQF40dAh7BmXkKjQGxtTvQHigiPeM0KGf1kGu7J02
- IPS8349S3qI4t4vrQHYs51E8XuUkM6kfkDSJ5LteWL2WowkeCvI5xeE+6Gcbzg3vQhM5
- lUFmvMZykidFK1OFT+HS02FWfCr46bCaA1a7IylbG3/ipNgRYQN2G6GC7ftgLRDBMvvI
- OBeLiiUuU3stC4g9kcAx7A9kOc9iE0YwcGREVhjNgCEujfvqkKs4bPGUCWBb49VnJqHI
- GDLQ==
+ h=from:to:cc:subject:date:message-id;
+ bh=5dDBBh5wf/ZKKDSQTTNMvbsF4VqPQmM/SoWmEGDB6Pg=;
+ b=V8Nc6PnZgB6sYgOVjdd5HIpJRyz3dO22DSwaA0Aeq2qdlBULUGStRHFXcZ8Ad4/95a
+ +0DQ66Rct50xPoGEqwmEL1tj3/5cLyZ7fQKMDWiODpfkqU6Mm3hLela/KUl2InjRrsR+
+ hdvNzenhg6s/VkwLwYvDq2ljuzYPbXfT7kS1fISP9v1O8qzp4xtts8vMFXmnRtVTDLIK
+ rYyHVm/AqrV/nXeeS5ZX4RQcoNT1UPkA6QPj8nFwhQgEaesr8vq3cZ9tttEjCVYdr/BT
+ 2LLp3aNg82w85XYRRnvjJgkVqryaZ39vGOK8Krz59x6+A5iGm5oQEoA4vICCmsgJyS0J
+ zNSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=SnNOt2zXGFNIELEcQnQ7yz3b9EGM1OUPYo7bpfq0Rr0=;
- b=mSUNcoa3lLRloTELApjKWUpqXvkgZyJB8VJaZmGdkVsirE0Xkjhnxu7/o5t9BbQ9tu
- gA81j7H+WYQBNR6yWDBzTGZRs9z/uVbL5camJ3qvrrLw0abgR4eenbPS4EeF4C56ucAt
- OuzCJfqyYCW260XqZjGQ4wpEu3V3AcL9h5XmSuibCVCb5YSlT8Wjo84Op1qPUSWeoqFX
- m6hqmVvRx4bBI60UA6fg6CXjypS+88PqcTaeyrHAm5vMLCFJRY1LJDuJz3AHlqrdB9tN
- unIhm7vEh+nyQlEg8LjGYDQvbeoF8toQVxAcsfRlGdoG8TlDXLYnGlkqLyIi7XkOzC79
- LvKA==
-X-Gm-Message-State: APjAAAUPQWeqSvaKn3ikzmKDJ16vEIziF+dZv+OkjWoarzJvn+kSK6lb
- MvbLpqfbtU6w/mYrqYye6qo=
-X-Google-Smtp-Source: APXvYqy9dzozHCInt1iC7ZBcsFD6SL09tUCt9Bi1ouWM/k31j8u9R19oSTBiK4ygdVEfjxZ440TjXA==
-X-Received: by 2002:a17:902:7087:: with SMTP id
- z7mr11325613plk.184.1562419164725; 
- Sat, 06 Jul 2019 06:19:24 -0700 (PDT)
-Received: from localhost.localdomain ([122.163.64.117])
- by smtp.gmail.com with ESMTPSA id l23sm11471402pgh.68.2019.07.06.06.19.22
- (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
- Sat, 06 Jul 2019 06:19:24 -0700 (PDT)
-From: Nishka Dasgupta <nishkadg.linux@gmail.com>
-To: eajames@linux.ibm.com, linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org
-Cc: Nishka Dasgupta <nishkadg.linux@gmail.com>
-Subject: [PATCH] i2c: busses: i2c-fsi.c: Add of_put_node() before break
-Date: Sat,  6 Jul 2019 18:49:11 +0530
-Message-Id: <20190706131911.3068-1-nishkadg.linux@gmail.com>
-X-Mailer: git-send-email 2.19.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 08 Jul 2019 15:38:32 +1000
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=5dDBBh5wf/ZKKDSQTTNMvbsF4VqPQmM/SoWmEGDB6Pg=;
+ b=kBMcfiAhpiON5B4B2db3Psr0L3daPat+1HooKcyUoUyf+UW9thF5L5MhEU9DdAgPkB
+ mGKv2zn8Pecbu6zLh0uRjTVkxMeJLr1P0RAnzUSzQuciTRrrElBwPIRIDr3X2VOSX299
+ pMo676AzPjsd1N5by4fxjhQXoLI9TEu1Q8F4okOQ3NDdqSHhdoAIjEHROBCDyYlaH8GT
+ R+dh9PSambcNDqDsvsV466lDdap9QFw1KB10udtQxWMFSuKuwYSRxWI64jx6rfZrRfcL
+ rd5H/Id/0+Te8eSJuAwCB5QvD4dGVfhO4ciAQjii5gkt56XliQy3cLXNIi44Oh6jddsW
+ rFjw==
+X-Gm-Message-State: APjAAAXXIEGkIYrtFObC/mYnGOcymfC1Pa+aydbdMxPo9TyCni0DDAAa
+ NBCQwbuxWzvnWI4BQC9uSuA3aZWxkvI=
+X-Google-Smtp-Source: APXvYqxUpdMRTDqatmfjSNXwGGJ0CjAhbOndlFqwLiaFhuUyDyyMtAadwApnnNP+6jPTtwZrLYjVsQ==
+X-Received: by 2002:a9d:4c8b:: with SMTP id m11mr14074405otf.293.1562574737692; 
+ Mon, 08 Jul 2019 01:32:17 -0700 (PDT)
+Received: from localhost ([32.97.110.56])
+ by smtp.gmail.com with ESMTPSA id i21sm5577681otl.24.2019.07.08.01.32.16
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 08 Jul 2019 01:32:17 -0700 (PDT)
+From: Lei YU <mine260309@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.1] hwmon (occ): Fix division by zero issue
+Date: Mon,  8 Jul 2019 16:32:01 +0800
+Message-Id: <1562574721-125584-1-git-send-email-mine260309@gmail.com>
+X-Mailer: git-send-email 2.7.4
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,34 +62,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sat, 06 Jul 2019 13:19:35 -0000
+X-List-Received-Date: Mon, 08 Jul 2019 08:32:22 -0000
 
-Each iteration of for_each_available_childe_of_node puts the previous
-node, but in the case of a break from the middle of the loop, there
-is no put, thus causing a memory leak. Add an of_node_put before the
-break.
-Issue found with Coccinelle.
+The code in occ_get_powr_avg() invokes div64_u64() without checking the
+divisor. In case the divisor is zero, kernel gets an "Division by zero
+in kernel" error.
 
-Signed-off-by: Nishka Dasgupta <nishkadg.linux@gmail.com>
+Check the divisor and make it return 0 if the divisor is 0.
+
+Signed-off-by: Lei YU <mine260309@gmail.com>
 ---
- drivers/i2c/busses/i2c-fsi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/hwmon/occ/common.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-fsi.c b/drivers/i2c/busses/i2c-fsi.c
-index 1e2be2219a60..5e01875082c3 100644
---- a/drivers/i2c/busses/i2c-fsi.c
-+++ b/drivers/i2c/busses/i2c-fsi.c
-@@ -685,8 +685,10 @@ static int fsi_i2c_probe(struct device *dev)
- 			continue;
+diff --git a/drivers/hwmon/occ/common.c b/drivers/hwmon/occ/common.c
+index e9d7167..15c5d43 100644
+--- a/drivers/hwmon/occ/common.c
++++ b/drivers/hwmon/occ/common.c
+@@ -406,8 +406,10 @@ static ssize_t occ_show_power_1(struct device *dev,
  
- 		port = kzalloc(sizeof(*port), GFP_KERNEL);
--		if (!port)
-+		if (!port) {
-+			of_node_put(np);
- 			break;
-+		}
+ static u64 occ_get_powr_avg(u64 *accum, u32 *samples)
+ {
+-	return div64_u64(get_unaligned_be64(accum) * 1000000ULL,
+-			 get_unaligned_be32(samples));
++	u64 divisor = get_unaligned_be32(samples);
++
++	return (divisor == 0) ? 0 :
++		div64_u64(get_unaligned_be64(accum) * 1000000ULL, divisor);
+ }
  
- 		port->master = i2c;
- 		port->port = port_no;
+ static ssize_t occ_show_power_2(struct device *dev,
 -- 
-2.19.1
+2.7.4
