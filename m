@@ -1,43 +1,36 @@
-Return-Path: <ed.tanous@intel.com>
+Return-Path: <yangliu1@zd-tech.com.cn>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=intel.com
- (client-ip=192.55.52.43; helo=mga05.intel.com;
- envelope-from=ed.tanous@intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45kT4v1vlBzDqfc
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2019 04:59:20 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 10 Jul 2019 11:59:17 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.63,475,1557212400"; d="scan'208";a="173939602"
-Received: from hades.jf.intel.com (HELO [10.54.51.78]) ([10.54.51.78])
- by FMSMGA003.fm.intel.com with ESMTP; 10 Jul 2019 11:59:17 -0700
-Subject: Re: Proposal to replace Clang Format with ESLint and Prettier in
- phosphor-webui
+ spf=pass (mailfrom) smtp.mailfrom=zd-tech.com.cn
+ (client-ip=220.181.97.177; helo=m97177.mail.qiye.163.com;
+ envelope-from=yangliu1@zd-tech.com.cn; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
+ header.from=zd-tech.com.cn
+X-Greylist: delayed 329 seconds by postgrey-1.36 at bilbo;
+ Tue, 09 Jul 2019 18:02:20 AEST
+Received: from m97177.mail.qiye.163.com (m97177.mail.qiye.163.com
+ [220.181.97.177])
+ by lists.ozlabs.org (Postfix) with ESMTP id 45jZY82TSVzDqRh
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Jul 2019 18:02:17 +1000 (AEST)
+Received: from yangliu1$zd-tech.com.cn ( [218.247.145.2] ) by
+ ajax-webmail-wmsvr17 (Coremail) ; Tue, 9 Jul 2019 15:56:31 +0800 (CST)
+X-Originating-IP: [218.247.145.2]
+Date: Tue, 9 Jul 2019 15:56:31 +0800 (CST)
+From: =?GBK?B?wfXR9A==?= <yangliu1@zd-tech.com.cn>
 To: openbmc@lists.ozlabs.org
-References: <CAOUmYFRfVQha0NCZd2aLTc-EC2GNF8wuXqnAyWNMCpzcecQUKw@mail.gmail.com>
- <6f963ba0-467f-14fe-ac0b-7c09b547d109@intel.com>
- <CAOUmYFRHh3bQSwmFMEcvokd6_yFxPE7-X+UmBTcFxMegHdX0eA@mail.gmail.com>
- <26aeae20-6815-d160-584f-c9252ec6a568@intel.com>
- <CAOUmYFTj37WtKAs+RdjXPabEjVKj859=j2e5v0NWBc5n81VcUA@mail.gmail.com>
- <CAOUmYFSPoDhDrTqhNv+ehtJmj3E6qw2cyUKSQGp26nyFH_VAaA@mail.gmail.com>
-From: Ed Tanous <ed.tanous@intel.com>
-Message-ID: <d453defc-d076-5077-1e6c-ea7b50789efb@intel.com>
-Date: Wed, 10 Jul 2019 11:59:17 -0700
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
- Thunderbird/60.7.2
+Cc: subscribed@noreply.github.com
+Subject: How to set BMC NCSI use two ports in the same IP address?
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+ 20190614(cb3344cf) Copyright (c) 2002-2019 www.mailtech.cn 163-hosting
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_108216_882585963.1562658991417"
 MIME-Version: 1.0
-In-Reply-To: <CAOUmYFSPoDhDrTqhNv+ehtJmj3E6qw2cyUKSQGp26nyFH_VAaA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+Message-ID: <35a93598.9f8b.16bd5bbed3a.Coremail.yangliu1@zd-tech.com.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: seCowADH4tqvSCRdHSHWAA--.16344W
+X-CM-SenderInfo: p1dqwzdlxrq63gnwvu3kof0zgofq/1tbiPAXscVyqDrs4+wABsl
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Mailman-Approved-At: Thu, 11 Jul 2019 09:08:06 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,44 +42,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2019 18:59:28 -0000
+X-List-Received-Date: Tue, 09 Jul 2019 08:02:22 -0000
 
-On 7/10/19 10:17 AM, Derick wrote:
-> Thanks Ed for the reviews and support on the GUI tools work! I ran into a
-> roadblock with the format-code.sh call. I am not finding Prettier as an
-> Ubuntu
-> package and won't be able to make the call during the build process.
+------=_Part_108216_882585963.1562658991417
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Not surprising;  Prettier is an npm package, not specific to Ubuntu.
+SGkgQWxsLAogICAgIEkgYW0gd29ya2luZyBvbiB0aGUgMi42IHJlbGVhc2UgaW4gb3BlbmJtYy4g
+SSBoYXZlIGEgcXVlc3Rpb24gYWJvdXQgTkNTSSBuZXR3b3JrLgogICAgVGhlIE5DU0kgaXMgd29y
+a2luZyBpbiBCQ00gbmljLCB3aG9zZSB2ZXJzaW9uIGlzIEJSQ00gMTBHIDJQIDU3NDE2IE9DUCBN
+ZXp6LgpUaGVyZSBhcmUgY3VycmVudGx5IHR3byBwb3J0cyBvbiB0aGlzIG5ldHdvcmsgY2FyZCwg
+b25lIG9mIHdoaWNoIGlzIGF2YWlsYWJsZSBhbmQgdGhlIG90aGVyIAppcyBub3Qgd2hlbiBibWMg
+IGlzIHJ1bm5pbmcuIFRoZSBVLWJvb3QgSSB1c2UgMjAxNi4wNy5iYiBhbmQgIHRoZSBrZXJuZWwg
+aXMgNC4xOC4xNi4gVGhlIGR0cyAKaW5jbHVkZSBtYWMwIGNvbmZpZ3VyZSwgd2hpY2ggaXMgdXNl
+IG5jc2kuCiAgICAgSSBuZWVkIGJvdGggcG9ydHMgYXZhaWxhYmxlIGFuZCB1c2luZyB0aGUgc2Ft
+ZSBJUCwgYnV0IEkgZG9uJ3Qga25vdyBIb3cgdG8gZG8gaXQ/CgoKUmVnYXJkcywKWWFuZw==
+------=_Part_108216_882585963.1562658991417
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-sudo npm install --global prettier
-
-Should give you the result you want.
-
-> However,
-> I am able to use a Git hook to test the code prior to commit and/or push.
-
-That's great that this is available, but I'm not really comfortable if
-it can't be enforced in CI.  That would mean someone needs to pull down
-each commit and verify it manually.  That doesn't really scale IMO, and
-considering that the incumbent (clang-format) can already integrate
-properly, it's hard to justify going backwards.
-
-> 
-> I added the npm scripts that can be called for testing and fixing (if
-> auto-fixable)
-> so that they can be run from the command line for anyone that doesn't
-> Prettier
-> integrated with their code editor (it even has VIM support). 
-
-They'll still need to have it installed globally, which could be added
-as part of the main webui install, but I'm not sure that would be worth it.
-
-> 
->  I have these changes in the Gerrit
-> review https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366
-> and am hoping that this is an acceptable solution. 
-
-My main sticking point is the significant manual testing that's going to
-have to take place, for a relatively modest increase in productivity.
-If that can be resolved, I would support you moving this change forward.
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXYgc3R5bGU9ImxpbmUtaGVpZ2h0OiAxLjc7Ij48ZGl2IHN0
+eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTog
+MTRweDsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDE4cHg7Ij5IaSBBbGwsPC9zcGFuPjwvZGl2
+PjxkaXYgc3R5bGU9ImNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBBcmlhbDsgZm9u
+dC1zaXplOiAxNHB4OyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTogMThweDsiPiZuYnNwOyAmbmJz
+cDsgJm5ic3A7SSBhbSB3b3JraW5nIG9uIHRoZSAyLjYgcmVsZWFzZSBpbiBvcGVuYm1jLiBJIGhh
+dmUgYSBxdWVzdGlvbiBhYm91dCBOQ1NJIG5ldHdvcmsuPC9zcGFuPjwvZGl2PjxkaXYgc3R5bGU9
+ImNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4
+OyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTogMThweDsiPiZuYnNwOyAmbmJzcDsgVGhlIE5DU0kg
+aXMgd29ya2luZyBpbiBCQ00gbmljLCB3aG9zZSB2ZXJzaW9uIGlzIEJSQ00gMTBHIDJQIDU3NDE2
+IE9DUCBNZXp6Ljwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyBm
+b250LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsiPjxzcGFuIHN0eWxlPSJmb250LXNp
+emU6IDE4cHg7Ij5UaGVyZSBhcmUgY3VycmVudGx5IHR3byBwb3J0cyBvbiB0aGlzIG5ldHdvcmsg
+Y2FyZCwgb25lIG9mIHdoaWNoIGlzIGF2YWlsYWJsZSBhbmQgdGhlIG90aGVyJm5ic3A7PC9zcGFu
+PjwvZGl2PjxkaXYgc3R5bGU9IiI+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMCwgMCwgMCk7IGZv
+bnQtZmFtaWx5OiBBcmlhbDsgZm9udC1zaXplOiAxOHB4OyI+aXMgbm90IHdoZW4gYm1jJm5ic3A7
+IGlzIHJ1bm5pbmcuIFRoZSBVLWJvb3QgSSB1c2UmbmJzcDs8L3NwYW4+PHNwYW4gc3R5bGU9ImZv
+bnQtc2l6ZTogMThweDsiPjIwMTYuMDcuYmIgYW5kJm5ic3A7IHRoZSBrZXJuZWwgaXMmbmJzcDs0
+LjE4LjE2LiBUaGUgZHRzJm5ic3A7PC9zcGFuPjwvZGl2PjxkaXYgc3R5bGU9IiI+PHNwYW4gc3R5
+bGU9ImZvbnQtc2l6ZTogMThweDsiPmluY2x1ZGUgbWFjMCBjb25maWd1cmUsIHdoaWNoIGlzIHVz
+ZSBuY3NpLjwvc3Bhbj48L2Rpdj48ZGl2IHN0eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyBmb250
+LWZhbWlseTogQXJpYWw7IGZvbnQtc2l6ZTogMTRweDsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6
+IDE4cHg7Ij4mbmJzcDsgJm5ic3A7ICZuYnNwO0kgbmVlZCBib3RoIHBvcnRzIGF2YWlsYWJsZSBh
+bmQgdXNpbmcgdGhlIHNhbWUgSVAsIGJ1dCBJIGRvbid0IGtub3cgSG93IHRvIGRvIGl0Pzwvc3Bh
+bj48L2Rpdj48ZGl2IHN0eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogQXJp
+YWw7IGZvbnQtc2l6ZTogMTRweDsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDE4cHg7Ij48YnI+
+PC9zcGFuPjwvZGl2PjxkaXYgc3R5bGU9ImNvbG9yOiByZ2IoMCwgMCwgMCk7IGZvbnQtZmFtaWx5
+OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4OyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTogMThweDsi
+PlJlZ2FyZHMsPC9zcGFuPjwvZGl2PjxkaXYgc3R5bGU9ImNvbG9yOiByZ2IoMCwgMCwgMCk7IGZv
+bnQtZmFtaWx5OiBBcmlhbDsgZm9udC1zaXplOiAxNHB4OyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
+ZTogMThweDsiPllhbmc8L3NwYW4+PC9kaXY+PC9kaXY+PC9kaXY+
+------=_Part_108216_882585963.1562658991417--
