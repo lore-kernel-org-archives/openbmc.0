@@ -1,54 +1,72 @@
-Return-Path: <joe@perches.com>
+Return-Path: <anoo@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=perches.com
- (client-ip=216.40.44.152; helo=smtprelay.hostedemail.com;
- envelope-from=joe@perches.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=anoo@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=perches.com
-Received: from smtprelay.hostedemail.com (smtprelay0152.hostedemail.com
- [216.40.44.152])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45kPDn1yl1zDqqK
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2019 02:01:35 +1000 (AEST)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay03.hostedemail.com (Postfix) with ESMTP id A05E28368EF4;
- Wed, 10 Jul 2019 16:01:31 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Spam-Summary: 
-X-HE-Tag: balls52_46dfd74d6cd5c
-X-Filterd-Recvd-Size: 2713
-Received: from XPS-9350.home (cpe-23-242-196-136.socal.res.rr.com
- [23.242.196.136]) (Authenticated sender: joe@perches.com)
- by omf18.hostedemail.com (Postfix) with ESMTPA;
- Wed, 10 Jul 2019 16:01:26 +0000 (UTC)
-Message-ID: <c94a0a50c41c7530354b4a662ee945212424c8c7.camel@perches.com>
-Subject: Re: [PATCH 00/12] treewide: Fix GENMASK misuses
-From: Joe Perches <joe@perches.com>
-To: Russell King - ARM Linux admin <linux@armlinux.org.uk>, Johannes Berg
- <johannes@sipsolutions.net>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Patrick Venture
- <venture@google.com>, Nancy Yuen <yuenn@google.com>, Benjamin Fair
- <benjaminfair@google.com>, Andrew Jeffery <andrew@aj.id.au>, 
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- linux-aspeed@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, netdev@vger.kernel.org, 
- linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,  linux-wireless@vger.kernel.org,
- linux-media@vger.kernel.org,  linux-iio@vger.kernel.org,
- devel@driverdev.osuosl.org,  alsa-devel@alsa-project.org,
- linux-mmc@vger.kernel.org,  dri-devel@lists.freedesktop.org
-Date: Wed, 10 Jul 2019 09:01:25 -0700
-In-Reply-To: <b9c3b83c9be50286062ae8cefd5d38e2baa0fb22.camel@perches.com>
-References: <cover.1562734889.git.joe@perches.com>
- <5fa1fa6998332642c49e2d5209193ffe2713f333.camel@sipsolutions.net>
- <20190710094337.wf2lftxzfjq2etro@shell.armlinux.org.uk>
- <b9c3b83c9be50286062ae8cefd5d38e2baa0fb22.camel@perches.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.30.5-0ubuntu0.18.10.1 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45kPRk6Fh6zDq7h;
+ Thu, 11 Jul 2019 02:15:30 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6AGDheM108876; Wed, 10 Jul 2019 12:15:21 -0400
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2tngx670ac-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jul 2019 12:15:21 -0400
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x6AG5Ghu015791;
+ Wed, 10 Jul 2019 16:15:20 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma03dal.us.ibm.com with ESMTP id 2tjk96vyp9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Jul 2019 16:15:20 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x6AGFJRt11011056
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 10 Jul 2019 16:15:19 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C9B9F112065;
+ Wed, 10 Jul 2019 16:15:19 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6B759112067;
+ Wed, 10 Jul 2019 16:15:19 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 10 Jul 2019 16:15:19 +0000 (GMT)
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+Date: Wed, 10 Jul 2019 11:17:49 -0500
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org, openbmc
+ <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>
+Subject: Re: [PATCH linux dev-5.2] ARM: dts: aspeed: Remove mbox node from
+ device tree
+In-Reply-To: <142fc044-fdc9-4a3b-a0eb-6034c1bd86b2@www.fastmail.com>
+References: <20190708024749.22039-1-joel@jms.id.au>
+ <142fc044-fdc9-4a3b-a0eb-6034c1bd86b2@www.fastmail.com>
+Message-ID: <fc343b6b89f70cbf8fa53db62cdbb5f6@linux.vnet.ibm.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-10_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1907100184
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +78,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2019 16:06:02 -0000
+X-List-Received-Date: Wed, 10 Jul 2019 16:15:31 -0000
 
-On Wed, 2019-07-10 at 08:45 -0700, Joe Perches wrote:
-> On Wed, 2019-07-10 at 10:43 +0100, Russell King - ARM Linux admin wrote:
-> > On Wed, Jul 10, 2019 at 11:17:31AM +0200, Johannes Berg wrote:
-> > > On Tue, 2019-07-09 at 22:04 -0700, Joe Perches wrote:
-> > > > These GENMASK uses are inverted argument order and the
-> > > > actual masks produced are incorrect.  Fix them.
-> > > > 
-> > > > Add checkpatch tests to help avoid more misuses too.
-> > > > 
-> > > > Joe Perches (12):
-> > > >   checkpatch: Add GENMASK tests
-> > > 
-> > > IMHO this doesn't make a lot of sense as a checkpatch test - just throw
-> > > in a BUILD_BUG_ON()?
+On 2019-07-08 19:03, Andrew Jeffery wrote:
+> On Mon, 8 Jul 2019, at 12:18, Joel Stanley wrote:
+>> This device driver was never upstreamed and so it has been dropped 
+>> from
+>> the tree. Remove the node from systems that had it enabled.
+>> 
+>> Signed-off-by: Joel Stanley <joel@jms.id.au>
 > 
-> I tried that.
+> Acked-by: Andrew Jeffery <andrew@aj.id.au>
 > 
-> It'd can't be done as it's used in declarations
-> and included in asm files and it uses the UL()
-> macro.
-> 
-> I also tried just making it do the right thing
-> whatever the argument order.
 
-I forgot.
+Acked-by: Adriana Kobylak <anoo@us.ibm.com>
 
-I also made all those arguments when it was
-introduced in 2013.
-
-https://lore.kernel.org/patchwork/patch/414248/
-
-> Oh well.
-
-yeah.
+>> ---
+>>  arch/arm/boot/dts/aspeed-bmc-inspur-fp5280g2.dts   | 4 ----
+>>  arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts | 4 ----
+>>  arch/arm/boot/dts/aspeed-bmc-opp-swift.dts         | 4 ----
+>>  3 files changed, 12 deletions(-)
+>> 
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-fp5280g2.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-inspur-fp5280g2.dts
+>> index c762c02dc716..628195b66d46 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-inspur-fp5280g2.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-inspur-fp5280g2.dts
+>> @@ -235,10 +235,6 @@
+>>  	flash = <&spi1>;
+>>  };
+>> 
+>> -&mbox {
+>> -	status = "okay";
+>> -};
+>> -
+>>  &mac0 {
+>>  	status = "okay";
+>>  	pinctrl-names = "default";
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+>> index a3d6b71518fc..73319917cb74 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-microsoft-olympus.dts
+>> @@ -163,10 +163,6 @@
+>>  	status = "okay";
+>>  };
+>> 
+>> -&mbox {
+>> -	status = "okay";
+>> -};
+>> -
+>>  &pwm_tacho {
+>>  	status = "okay";
+>>  	pinctrl-names = "default";
+>> diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>> b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>> index 270c9236deff..caac895c60b4 100644
+>> --- a/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>> +++ b/arch/arm/boot/dts/aspeed-bmc-opp-swift.dts
+>> @@ -317,10 +317,6 @@
+>>  	flash = <&spi1>;
+>>  };
+>> 
+>> -&mbox {
+>> -	status = "okay";
+>> -};
+>> -
+>>  &mac0 {
+>>  	status = "okay";
+>>  	pinctrl-names = "default";
+>> --
+>> 2.20.1
+>> 
+>> 
