@@ -1,70 +1,69 @@
-Return-Path: <linux+openbmc=lists.ozlabs.org@armlinux.org.uk>
+Return-Path: <sivas.srr@in.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=armlinux.org.uk
- (client-ip=2001:4d48:ad52:3201:214:fdff:fe10:1be6;
- helo=pandora.armlinux.org.uk;
- envelope-from=linux+openbmc=lists.ozlabs.org@armlinux.org.uk;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=armlinux.org.uk
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=armlinux.org.uk header.i=@armlinux.org.uk
- header.b="SuuW/7NN"; dkim-atps=neutral
-X-Greylist: delayed 463 seconds by postgrey-1.36 at bilbo;
- Wed, 10 Jul 2019 19:51:58 AEST
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk
- [IPv6:2001:4d48:ad52:3201:214:fdff:fe10:1be6])
+ spf=pass (mailfrom) smtp.mailfrom=in.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=sivas.srr@in.ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=in.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45kDxB2NpMzDqZb
- for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 19:51:56 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=j/WSDXca8rXK9NsDZMmI4ZGVD5lmMYmQNn9cX+c1P0c=; b=SuuW/7NN1z53N126yQd0mfU0n
- ntWsBeL22jFfrqe6UV7yYYjaWAb/mGvo82v/VpffWPeHAXC8qvHdMVqjvTeqQYorTqKjPyjcVkd0Y
- ehhidoReYAcrBOGYvK5hg+mxgyuD5Njr2SLIjID07Kvs0w8adz+Czb2UlD+NlXUjcnJQShORaFQ6X
- Xl3J1vYZGJzoNp6wHmHn8OimwqiNyO9IG6bSDFpjxItLMpKnIWdEU05QuowI2tkahamV/uty376Ez
- mf5JMQomwfeTQc+3SQ9pZj0NiYOkjfuIR3hSKUK/aQunmlQ7Q5KSFX7XpTfFzFgMc9EjJ+4N1wSfg
- nEpyIjNkA==;
-Received: from shell.armlinux.org.uk
- ([2001:4d48:ad52:3201:5054:ff:fe00:4ec]:59340)
- by pandora.armlinux.org.uk with esmtpsa
- (TLSv1.2:ECDHE-RSA-AES256-GCM-SHA384:256) (Exim 4.90_1)
- (envelope-from <linux@armlinux.org.uk>)
- id 1hl98c-0005tt-RN; Wed, 10 Jul 2019 10:43:47 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.89)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1hl98T-0003nw-5z; Wed, 10 Jul 2019 10:43:37 +0100
-Date: Wed, 10 Jul 2019 10:43:37 +0100
-From: Russell King - ARM Linux admin <linux@armlinux.org.uk>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Joe Perches <joe@perches.com>, Andrew Morton <akpm@linux-foundation.org>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>,
- Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, netdev@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-wireless@vger.kernel.org, linux-media@vger.kernel.org,
- linux-iio@vger.kernel.org, devel@driverdev.osuosl.org,
- alsa-devel@alsa-project.org, linux-mmc@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 00/12] treewide: Fix GENMASK misuses
-Message-ID: <20190710094337.wf2lftxzfjq2etro@shell.armlinux.org.uk>
-References: <cover.1562734889.git.joe@perches.com>
- <5fa1fa6998332642c49e2d5209193ffe2713f333.camel@sipsolutions.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45kNCW4tg9zDqHp
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2019 01:19:50 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6AF7mdp056665
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 11:19:47 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.82])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2tngjy68xm-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 11:19:47 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <sivas.srr@in.ibm.com>;
+ Wed, 10 Jul 2019 15:19:46 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
+ by smtp.notes.na.collabserv.com (10.106.227.105) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 10 Jul 2019 15:19:40 -0000
+Received: from us1a3-mail65.a3.dal09.isc4sb.com ([10.142.3.169])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2019071015193974-676786 ;
+ Wed, 10 Jul 2019 15:19:39 +0000 
+In-Reply-To: 
+Subject: Fw: OpenBMC Test Work group meeting: - Webex link:
+ https://ibm.webex.com/meet/sivas.srr  Telephone access is: United States
+ Toll Free 1-844-531-0958 (Toll - +1-669-234-1178) India Toll - 0(STD
+ Code)-64800002 For eg. (Bengaluru - 080-64800002)
+From: "Sivas Srr" <sivas.srr@in.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Wed, 10 Jul 2019 15:19:39 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5fa1fa6998332642c49e2d5209193ffe2713f333.camel@sipsolutions.net>
-User-Agent: NeoMutt/20170113 (1.7.2)
-Sender: Russell King - ARM Linux admin <linux@armlinux.org.uk>
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 17652-1619 | IBM Domino Build
+ SCN1812108_20180501T0841_FP55 May 22, 2019 at 11:09
+X-LLNOutbound: False
+X-Disclaimed: 56855
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 19071015-9463-0000-0000-00000020DAA3
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.407427; ST=0; TS=0; UL=0; ISC=; MB=0.003244
+X-IBM-SpamModules-Versions: BY=3.00011405; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000286; SDB=6.01230206; UDB=6.00647955; IPR=6.01011475; 
+ MB=3.00027667; MTD=3.00000008; XFM=3.00000015; UTC=2019-07-10 15:19:44
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-07-10 08:42:01 - 6.00010147
+x-cbparentid: 19071015-9464-0000-0000-00000033F7CF
+Message-Id: <OF28DF219E.35FF97B2-ON00258433.0053DF01-00258433.0054329D@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-10_06:, , signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,55 +75,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2019 09:52:01 -0000
+X-List-Received-Date: Wed, 10 Jul 2019 15:19:52 -0000
 
-On Wed, Jul 10, 2019 at 11:17:31AM +0200, Johannes Berg wrote:
-> On Tue, 2019-07-09 at 22:04 -0700, Joe Perches wrote:
-> > These GENMASK uses are inverted argument order and the
-> > actual masks produced are incorrect.  Fix them.
-> > 
-> > Add checkpatch tests to help avoid more misuses too.
-> > 
-> > Joe Perches (12):
-> >   checkpatch: Add GENMASK tests
-> 
-> IMHO this doesn't make a lot of sense as a checkpatch test - just throw
-> in a BUILD_BUG_ON()?
-
-My personal take on this is that GENMASK() is really not useful, it's
-just pure obfuscation and leads to exactly these kinds of mistakes.
-
-Yes, I fully understand the argument that you can just specify the
-start and end bits, and it _in theory_ makes the code more readable.
-
-However, the problem is when writing code.  GENMASK(a, b).  Is a the
-starting bit or ending bit?  Is b the number of bits?  It's confusing
-and causes mistakes resulting in incorrect code.  A BUILD_BUG_ON()
-can catch some of the cases, but not all of them.
-
-For example:
-
-	GENMASK(6, 2)
-
-would satisify the requirement that a > b, so a BUILD_BUG_ON() will
-not trigger, but was the author meaning 0x3c or 0xc0?
-
-Personally, I've decided I am _not_ going to use GENMASK() in my code
-because I struggle to get the macro arguments correct - I'm _much_
-happier, and it is way more reliable for me to write the mask in hex
-notation.
-
-I think this is where use of a ternary operator would come in use.  The
-normal way of writing a number of bits tends to be "a:b", so if GENMASK
-took something like GENMASK(6:2), then I'd have less issue with it,
-because it's argument is then in a familiar notation.
-
-Yes, I'm sure that someone will point out that the GENMASK arguments
-are just in the same order, but that doesn't prevent _me_ frequently
-getting it wrong - and that's the point.  The macro seems to me to
-cause more problems than it solves.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTC broadband for 0.8mile line in suburbia: sync at 12.1Mbps down 622kbps up
-According to speedtest.net: 11.9Mbps down 500kbps up
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
+elvetica, sans-serif;font-size:10pt" ><div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Dear All,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Just a reminder on tomorrow's test work group meeting.</d=
+iv>
+<div dir=3D"ltr" >Any inputs on how to get more contribution from industry =
+and how to make them to use our automation repository.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Either you can add it in mail discussion or put it in our=
+ wiki</div>
+<div dir=3D"ltr" ><span><font size=3D"2" face=3D"Default Sans Serif,Verdana=
+,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans Serif,V=
+erdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default Sans S=
+erif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"Default =
+Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><font size=3D"2" face=3D"De=
+fault Sans Serif,Verdana,Arial,Helvetica,sans-serif" ><a href=3D"https://gi=
+thub.com/openbmc/openbmc/wiki/Test-work-group" target=3D"=5Fblank" >https:/=
+/github.com/openbmc/openbmc/wiki/Test-work-group&nbsp; </a></font></font></=
+font></font></font></span></div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >Appreciate your help / inputs and take openbmc-test-autom=
+ation / openbmc towards better quality product.</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >With regards,</div>
+<div dir=3D"ltr" >Sivas</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
+ dir=3D"ltr" style=3D"" >----- Original message -----<br><br>&nbsp;
+<div role=3D"region" ><div><div><div><div data-dojo-attach-point=3D"subject=
+Node" ><h2 role=3D"heading" style=3D"font-weight: 300;margin: 0; max-width:=
+ 100%;font-size: 22px;line-height: 28px;padding-bottom:10px;color: #4b4b4c;=
+" >OpenBMC Test Work group meeting: - Webex link: https://ibm.webex.com/mee=
+t/sivas.srr Telephone access is: United States Toll Free 1-844-531-0958 (To=
+ll - +1-669-234-1178) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru =
+- 080-64800002)</h2></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div><span style=3D"font-weight: bold" >Chair: </span> <span>=
+Sivas Srr/India/IBM</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Delegated t=
+o: </span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Send by: </=
+span></div></div></div>
+<div style=3D"font-size: 12px; white-space: nowrap;text-align: left;vertica=
+l-align: top;font-weight: normal;color: #666;display: inline-block;padding-=
+bottom:10px" ><div style=3D"display:none" ><span style=3D"font-weight: bold=
+" >Comments from Sivas Srr:</span></div></div>
+<div><div style=3D"font-size: 12px; white-space: nowrap;text-align: left;ve=
+rtical-align: top;font-weight: normal;color: #666;display: inline-block;pad=
+ding-bottom:10px" ><div><span style=3D"font-weight: bold" >Time: </span> <s=
+pan>Thu, Jul 11, 2019 9:00 PM - 10:00 PM</span> <span style=3D"display:inli=
+ne-block" >(applies to 14 instances)</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Location: =
+</span> <span>United States Toll Free 1-844-531-0958 (Toll - +1-669-234-117=
+8) India Toll - 0(STD Code)-64800002 For eg. (Bengaluru - 080-64800002) Pas=
+scode: 928 662 307</span></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Room: </spa=
+n></div>
+<div style=3D"display:none" ><span style=3D"font-weight: bold" >Resource: <=
+/span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online Mee=
+ting name: </span> <span>OpenBMC Test Group meeting </span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Online mee=
+ting: </span> <span>https://ibm.webex.com/meet/sivas.srr</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Meeting ID=
+: </span> <span>928 662 307</span></div>
+<div style=3D"display:block" ><span style=3D"font-weight: bold" >Password: =
+</span> <span>sivas</span></div></div>
+<div style=3D"font-weight: normal;color: #666;font-size: 12px;line-height: =
+17px;" ><div style=3D"white-space: nowrap;text-align: left;vertical-align: =
+top;font-weight: normal;color: #666;display: inline-block; padding-bottom: =
+10px; display: block" ><div><span style=3D"font-weight: bold" >Required:</s=
+pan></div>
+<div><span style=3D"padding-left: 20px;" >Andrew Geissler/Austin/IBM, anup.=
+pandya@intel.com, Arpana M Durgaprasad/India/IBM, benjaminfair@google.com, =
+bradleyb@fuzziesquirrel.com, Deepak Kodihalli/India/IBM, ed.tanous@intel.co=
+m, George Keishing/India/IBM, Joseph Reynolds/Rochester/Contr/IBM, Kaushik =
+Venkatesh/India/IBM, kurt.r.taylor@gmail.com, Maury Zipse/Rochester/IBM, Mi=
+chael Walsh/Rochester/IBM, rahulmaheshwari01@gmail.com, Ravindra S Rao1/Ind=
+ia/IBM, yuenn@google.com</span></div></div>
+<div data-dojo-attach-point=3D"optionalNode" style=3D"white-space: nowrap;t=
+ext-align: left;vertical-align: top;font-weight: normal;color: #666;display=
+: inline-block; padding-bottom: 10px; display: none" ><div><span style=3D"f=
+ont-weight: bold" >Optional: </span></div>
+<div>&nbsp;</div></div>
+<div data-dojo-attach-point=3D"FYINode" style=3D"white-space: nowrap;text-a=
+lign: left;vertical-align: top;font-weight: normal;color: #666;display: inl=
+ine-block; padding-bottom: 10px; display: none" ><div><span style=3D"font-w=
+eight: bold" >FYI: </span></div>
+<div>&nbsp;</div></div></div>
+<div><div data-dojo-attach-point=3D"descNode" ><div><span style=3D"font-wei=
+ght: bold; font-size: 12px;line-height: 17px; white-space: nowrap;text-alig=
+n: left; color: #666;" >Description:</span></div>
+<div><div><div><span><font size=3D"2" face=3D"Default Sans Serif,Verdana,Ar=
+ial,Helvetica,sans-serif" ><font size=3D"2" ><font face=3D"Default Sans Ser=
+if,Verdana,Arial,Helvetica,sans-serif" >Based on the last instance of meeti=
+ng, it is agreed to have meeting from Jan 10th on-wards.</font></font></fon=
+t></span></div>
+<div>&nbsp;</div></div></div></div></div></div></div></div></div></blockquo=
+te></div><BR>
