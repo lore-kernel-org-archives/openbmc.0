@@ -1,62 +1,81 @@
-Return-Path: <derick.montague@gmail.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::d2a; helo=mail-io1-xd2a.google.com;
- envelope-from=derick.montague@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Pamm9TQk"; 
- dkim-atps=neutral
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45kQq2182hzDqpJ
- for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2019 03:17:16 +1000 (AEST)
-Received: by mail-io1-xd2a.google.com with SMTP id z3so6452177iog.0
- for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 10:17:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=aboJj+Wlo940ltaG86ffQX7jEoh2mHJ2yuz9PhSABlA=;
- b=Pamm9TQk7ZT2HgO+QGaT5w1debiJWnAF450dErLSf/CSYXVo9VZqtxECqJVlcE/hr9
- vkh/EvkLmVlHE6nfgUxS8I4XDc9waNObe0owkUgfQOi/paylDohEd+OHAREYCBmlIfY6
- csWGtFbu1rvKPDxWYSMBYNrTC6plCkUjvfyEytSKTm2aSORZdJkiGqiOH6GLY93rZujh
- OCPkvTgiWQgUMIcFQg5oni1fuJeqlEkgHtMp1LjkAPIiG7Ga5s+1qeXRWwavCxQXZNJD
- TvuROcsGNmXIfMYUAQtojpKZd4ZUjIuM/bp54ynz6Esok4flByII+L5Vw4/McUAf/Liu
- nnSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=aboJj+Wlo940ltaG86ffQX7jEoh2mHJ2yuz9PhSABlA=;
- b=qcaX+wXt2apC0BouP/f1yaT/QKtamb0kRvLkEkNcGL+4xPDHuFSEI6nxqAdiG3CNVr
- eprvu5d7BagSvLVHsB+HhN68H4/egNCaWZH9STKFUv6YBobOM2+9gXYi42OwQaRYqUtZ
- ageGykAFtrYQDcWsTbn7Z41bVLFLzEBjMGBTc0Yf/TpTrkUbg3RwfnI4Qv3KqPZoXcKC
- xoe9BqwCvfsnSGJaqqTbxJxWVTyfT8J/x1bWOX2giqoZQCU2whXfNSxeVuV5otVeIBGn
- VNKEs/+Hg9GvqAtXnYgSKobxXz4hm4/YXc19jBhu7iR2KcET/to4kiCjQmb0CVRH4RCZ
- G3ag==
-X-Gm-Message-State: APjAAAX+uTlVQOCTEH2B4wdjQpDO0rwrDcXYthu+3LcqVvBLGLiq012S
- UzHeb2mrRD9jXMt81o6cqJzkf+oiXfUDdJnIlVw=
-X-Google-Smtp-Source: APXvYqwK421ikk19GLCHMKctm8wsK27jKoHYtvXxHL4E/xjBy/omFyR0WsbzvQEH/V5Bn1AMN7v7d6hZ3Yf5dyhxB2Y=
-X-Received: by 2002:a5d:960e:: with SMTP id w14mr8942793iol.189.1562779032823; 
- Wed, 10 Jul 2019 10:17:12 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45kRQd3qlVzDqJk
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Jul 2019 03:44:41 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x6AFvQl3104353
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 12:01:37 -0400
+Received: from e13.ny.us.ibm.com (e13.ny.us.ibm.com [129.33.205.203])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2tnjkusqyn-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Jul 2019 12:01:37 -0400
+Received: from localhost
+ by e13.ny.us.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <jrey@linux.ibm.com>;
+ Wed, 10 Jul 2019 17:01:33 +0100
+Received: from b01cxnp23032.gho.pok.ibm.com (9.57.198.27)
+ by e13.ny.us.ibm.com (146.89.104.200) with IBM ESMTP SMTP Gateway: Authorized
+ Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Wed, 10 Jul 2019 17:01:30 +0100
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x6AG1TCZ54329672
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 10 Jul 2019 16:01:29 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5181FB2068;
+ Wed, 10 Jul 2019 16:01:29 +0000 (GMT)
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 20EF5B2066;
+ Wed, 10 Jul 2019 16:01:29 +0000 (GMT)
+Received: from demeter.rchland.ibm.com (unknown [9.10.254.219])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTPS;
+ Wed, 10 Jul 2019 16:01:29 +0000 (GMT)
+Subject: Re: Questions about changing default username or password
+To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>,
+ =?UTF-8?B?U2ltb24gWmh1KOacseiLsea+jSk=?= <zhuysh@inspur.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <FF401BD5-4C8A-4F01-8B6B-3138E4A458DB@inspur.com>
+ <680f0ea6-c986-42f2-1185-dcd62c7db1ba@linux.intel.com>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Date: Wed, 10 Jul 2019 11:01:28 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
+ Gecko/20100101 Thunderbird/60.7.2
 MIME-Version: 1.0
-References: <CAOUmYFRfVQha0NCZd2aLTc-EC2GNF8wuXqnAyWNMCpzcecQUKw@mail.gmail.com>
- <6f963ba0-467f-14fe-ac0b-7c09b547d109@intel.com>
- <CAOUmYFRHh3bQSwmFMEcvokd6_yFxPE7-X+UmBTcFxMegHdX0eA@mail.gmail.com>
- <26aeae20-6815-d160-584f-c9252ec6a568@intel.com>
- <CAOUmYFTj37WtKAs+RdjXPabEjVKj859=j2e5v0NWBc5n81VcUA@mail.gmail.com>
-In-Reply-To: <CAOUmYFTj37WtKAs+RdjXPabEjVKj859=j2e5v0NWBc5n81VcUA@mail.gmail.com>
-From: Derick <derick.montague@gmail.com>
-Date: Wed, 10 Jul 2019 12:17:01 -0500
-Message-ID: <CAOUmYFSPoDhDrTqhNv+ehtJmj3E6qw2cyUKSQGp26nyFH_VAaA@mail.gmail.com>
-Subject: Re: Proposal to replace Clang Format with ESLint and Prettier in
- phosphor-webui
-To: Ed Tanous <ed.tanous@intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000001d2c62058d56d9c7"
+In-Reply-To: <680f0ea6-c986-42f2-1185-dcd62c7db1ba@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19071016-0064-0000-0000-000003F96590
+X-IBM-SpamModules-Scores: 
+X-IBM-SpamModules-Versions: BY=3.00011405; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000286; SDB=6.01230220; UDB=6.00647963; IPR=6.01011489; 
+ MB=3.00027667; MTD=3.00000008; XFM=3.00000015; UTC=2019-07-10 16:01:31
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19071016-0065-0000-0000-00003E351171
+Message-Id: <4b6dd8b3-a191-7b35-11e2-6986f5d78018@linux.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-07-10_06:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1810050000 definitions=main-1907100181
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,44 +87,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 10 Jul 2019 17:17:18 -0000
+X-List-Received-Date: Wed, 10 Jul 2019 17:44:42 -0000
 
---0000000000001d2c62058d56d9c7
-Content-Type: text/plain; charset="UTF-8"
+I believe we share the desire for network access to the BMC to be secure 
+by default, specifically to move away from the model where a well-known 
+userid has a default password (#1 below).  I understand an [OpenBMC 
+Security modes 
+design](https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/21195) 
+document, currently in review, addresses host access to the BMC. 
+Although that design addresses a related topic, am I restricting myself 
+to the BMC's network operations.
 
-Thanks Ed for the reviews and support on the GUI tools work! I ran into a
-roadblock with the format-code.sh call. I am not finding Prettier as an
-Ubuntu
-package and won't be able to make the call during the build process.
-However,
-I am able to use a Git hook to test the code prior to commit and/or push.
+Here are several models -- with my comments:
 
-I added the npm scripts that can be called for testing and fixing (if
-auto-fixable)
-so that they can be run from the command line for anyone that doesn't
-Prettier
-integrated with their code editor (it even has VIM support).
+1. The userid has a default password. -- This is what we have now and it 
+is not secure.  Note that merely changing to a different default 
+password in your customized firmware image is also not secure because 
+that password will become known to attackers
 
- I have these changes in the Gerrit review
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366
-and am hoping that this is an acceptable solution.
+2. Each BMC device has an unique password. -- This may be difficult to 
+consume for large scale deployments
 
---0000000000001d2c62058d56d9c7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+3. The userid has a default expired password which does not let you use 
+the device until you change the password.
 
-<div dir=3D"ltr"><div>Thanks Ed for the reviews and support on the GUI tool=
-s work! I ran into a</div><div>roadblock with the format-code.sh call. I am=
- not finding Prettier as an Ubuntu</div><div>package and won&#39;t be able =
-to make the call during the build process. However,</div><div>I am able to =
-use a Git hook to test the code prior to commit and/or push.</div><div></di=
-v><div><br></div><div>I added the npm scripts that can be called for testin=
-g and fixing (if auto-fixable)</div><div>so that they can be run from the c=
-ommand line for anyone that doesn&#39;t Prettier</div><div>integrated with =
-their code editor (it even has VIM support).=C2=A0</div><div><br></div><div=
-><div>=C2=A0I have these changes in the Gerrit review=C2=A0<a href=3D"https=
-://gerrit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366">https://ger=
-rit.openbmc-project.xyz/c/openbmc/phosphor-webui/+/22366</a></div><div>and =
-am hoping that this is an acceptable solution.=C2=A0</div></div></div>
+4. The device has an initial setup which challenges you to change the 
+password. -- Example: 
+https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/6
 
---0000000000001d2c62058d56d9c7--
+5. The userid has no password access, and uses only certificate-based 
+authentication.
+
+These models have different security characteristics.  For example, the 
+expired password model  (#3 above) and the initial setup model (#4 
+above) work by reducing the time window an attacker has, with the 
+explicit assumption that the BMC is configured soon after powering it 
+on.  The unique password model (#2 above) and the certificate auth (#5 
+above) requires a way to generate and set the credentials, and then 
+communicate them to the new device owner.
+
+Which model seems best to you?
+
+It may be that we support multiple models.  Whatever happens, I would 
+like to eventually move away from supporting the default password model 
+(#1 above).
+
+I am exploring the "expired password" model (#3 above) and plan to push 
+a design for review.
+
+A challenge to make this work is to tie together BMCWeb, IPMI, and SSH 
+access.  For example, it won't help to secure BMCWeb and network IPMI 
+but leave a default SSH password.  Also, some installations enable a 
+subset of the function (example: disable network IPMI and SSH, leaving 
+only BMCWeb), so the function to let you change the password has to be 
+on the interfaces which are still enabled (example: BMCWeb).
+
+Please let me know your thoughts.
+
+- Joseph
+
+
+On 6/2/19 1:25 PM, Thomaiyar, Richard Marian wrote:
+>
+> For #1 --> you can inherit extrausers class and override the users 
+> accordingly, and the password
+>
+> For #2 --> There is no direct way to update /etc/ipmi_pass, but once 
+> this image is flashed, login to bmc serial console, then try to 
+> execute passwd and update the password to the desired one (during this 
+> scenario, the new password is stored back in /etc/ipmi_pass). Now copy 
+> this /etc/ipmi_pass from your BMC to your development environment, and 
+> override it using bbappend.
+>
+> Note: Our ultimate goal is to get rid of the default user name and 
+> password from the system (to whichever project it is feasible for 
+> security reason -- 
+> https://github.com/openbmc/docs/blob/master/user_management.md#deployment---out-of-factory) 
+>
+>
+> Let me know if you need any further clarifications
+>
+> Regards,
+>
+> Richard
+>
+>
+> On 5/31/2019 5:56 AM, Simon Zhu(朱英澍) wrote:
+>> Hello ,
+>>
+>>     I want to change default username and password in local.conf.sample.
+>>
+>>     But caused an invalid username error.
+>>
+>>     I fixed it in the following way in 
+>> /openbmc/openbmc/meta/recipes-extended/shadow/shadow.inc:
+>>     I moved the patch shadow-relaxed-usernames.patch from 
+>> SRC_URI_append_class-target to SRC_URI.
+>>
+>>
+>>     And If I changed the default username or password, I failed to 
+>> use IPMI through lanplus interface because of authentication failure.
+>>     I need to generate my own ipmi_pass and install it to 
+>> /etc/ipmi_pass。
+>>
+>>     Do these two issues need to be fixed?
+>>
+>> Best regards,
+>>
+>> Simon
+>
