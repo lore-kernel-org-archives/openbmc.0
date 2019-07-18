@@ -8,17 +8,17 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45qPVv6CkBzDqf3
- for <openbmc@lists.ozlabs.org>; Fri, 19 Jul 2019 05:35:34 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45qPVz2WHvzDqdt
+ for <openbmc@lists.ozlabs.org>; Fri, 19 Jul 2019 05:35:39 +1000 (AEST)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 18 Jul 2019 12:35:31 -0700
+ 18 Jul 2019 12:35:38 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.64,279,1559545200"; d="scan'208";a="187852027"
+X-IronPort-AV: E=Sophos;i="5.64,279,1559545200"; d="scan'208";a="187852070"
 Received: from maru.jf.intel.com ([10.54.51.77])
- by fmsmga001.fm.intel.com with ESMTP; 18 Jul 2019 12:35:30 -0700
+ by fmsmga001.fm.intel.com with ESMTP; 18 Jul 2019 12:35:38 -0700
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Brendan Higgins <brendanhiggins@google.com>,
  Benjamin Herrenschmidt <benh@kernel.crashing.org>,
@@ -27,10 +27,12 @@ To: Brendan Higgins <brendanhiggins@google.com>,
  Tao Ren <taoren@fb.com>
 Cc: openbmc@lists.ozlabs.org,
 	Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [RFC v3 dev-5.2 0/5] Aspeed I2C buffer/DMA mode support
-Date: Thu, 18 Jul 2019 12:35:15 -0700
-Message-Id: <20190718193520.17058-1-jae.hyun.yoo@linux.intel.com>
+Subject: [RFC v3 dev-5.2 3/5] i2c: aspeed: fix master pending state handling
+Date: Thu, 18 Jul 2019 12:35:18 -0700
+Message-Id: <20190718193520.17058-4-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20190718193520.17058-1-jae.hyun.yoo@linux.intel.com>
+References: <20190718193520.17058-1-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -44,74 +46,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 18 Jul 2019 19:35:37 -0000
-X-List-Received-Date: Thu, 18 Jul 2019 19:35:37 -0000
-X-List-Received-Date: Thu, 18 Jul 2019 19:35:37 -0000
+X-List-Received-Date: Thu, 18 Jul 2019 19:35:40 -0000
 
-This patch series adds buffer mode and DMA mode transfer support for the
-Aspeed I2C driver. With this change, default transfer mode will be set to
-buffer mode for better performance, and DMA mode can be selectively used
-depends on platform configuration.
+In case of master pending state, it should not trigger the master
+command because this H/W is sharing the same data buffer for slave
+and master operations, so this commit fixes the issue with making
+the master command triggering happen when the state goes to active
+state.
 
-* Buffer mode
-  AST2400:
-    It has 2 KBytes (256 Bytes x 8 pages) of I2C SRAM buffer pool from
-    0x1e78a800 to 0x1e78afff that can be used for all busses with
-    buffer pool manipulation. To simplify implementation for supporting
-    both AST2400 and AST2500, it assigns each 128 Bytes per bus without
-    using buffer pool manipulation so total 1792 Bytes of I2C SRAM
-    buffer will be used.
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+---
+v2 -> v3:
+ None.
 
-  AST2500:
-    It has 16 Bytes of individual I2C SRAM buffer per each bus and its
-    range is from 0x1e78a200 to 0x1e78a2df, so it doesn't have 'buffer
-    page selection' bit field in the Function control register, and
-    neither 'base address pointer' bit field in the Pool buffer control
-    register it has. To simplify implementation for supporting both
-    AST2400 and AST2500, it writes zeros on those register bit fields
-    but it's okay because it does nothing in AST2500.
+v1 -> v2:
+ None.
 
-* DMA mode
-  Only AST2500 supports DMA mode under some limitations:
-    I2C is sharing the DMA H/W with UHCI host controller and MCTP
-    controller. Since those controllers operate with DMA mode only, I2C
-    has to use buffer mode or byte mode instead if one of those
-    controllers is enabled. Also make sure that if SD/eMMC or Port80
-    snoop uses DMA mode instead of PIO or FIFO respectively, I2C can't
-    use DMA mode.
+ drivers/i2c/busses/i2c-aspeed.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-I'm submitting this series as an RFC because it needs more test on real
-AST2400 BMC machines, also it needs to check if QEMU can handle this change
-so please review and test it.
-
--Jae
-
-Changes since v2:
- - Removed 'reg-names' from device tree to make driver compatible with old
-   device tree.
- - Fixed resource getting logic using indices instead of reg-names to make
-   this driver compatible with old device trees.
- - Refined slave RX flow to get rid of duplicate read on the first byte of
-   received data.
-
-Changes since v1:
-- Moved I2C SRAM enabling code from irq-aspeed-i2c-ic module to i2c-aspeed
-  module.
-- Added I2C global register node in device tree.
-- Fixed DMA buffer size in dt from 4096 to 4095 which H/W actually supports.
-
-Jae Hyun Yoo (5):
-  dt-bindings: i2c: aspeed: add buffer and DMA mode transfer support
-  ARM: dts: aspeed: add I2C buffer mode support
-  i2c: aspeed: fix master pending state handling
-  i2c: aspeed: add buffer mode transfer support
-  i2c: aspeed: add DMA mode transfer support
-
- .../devicetree/bindings/i2c/i2c-aspeed.txt    |  65 ++-
- arch/arm/boot/dts/aspeed-g4.dtsi              |  47 +-
- arch/arm/boot/dts/aspeed-g5.dtsi              |  47 +-
- drivers/i2c/busses/i2c-aspeed.c               | 510 ++++++++++++++++--
- 4 files changed, 583 insertions(+), 86 deletions(-)
-
+diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
+index fa66951b05d0..40f6cf98d32e 100644
+--- a/drivers/i2c/busses/i2c-aspeed.c
++++ b/drivers/i2c/busses/i2c-aspeed.c
+@@ -336,18 +336,19 @@ static void aspeed_i2c_do_start(struct aspeed_i2c_bus *bus)
+ 	struct i2c_msg *msg = &bus->msgs[bus->msgs_index];
+ 	u8 slave_addr = i2c_8bit_addr_from_msg(msg);
+ 
+-	bus->master_state = ASPEED_I2C_MASTER_START;
+-
+ #if IS_ENABLED(CONFIG_I2C_SLAVE)
+ 	/*
+ 	 * If it's requested in the middle of a slave session, set the master
+ 	 * state to 'pending' then H/W will continue handling this master
+ 	 * command when the bus comes back to the idle state.
+ 	 */
+-	if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
++	if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE) {
+ 		bus->master_state = ASPEED_I2C_MASTER_PENDING;
++		return;
++	}
+ #endif /* CONFIG_I2C_SLAVE */
+ 
++	bus->master_state = ASPEED_I2C_MASTER_START;
+ 	bus->buf_index = 0;
+ 
+ 	if (msg->flags & I2C_M_RD) {
+@@ -432,7 +433,7 @@ static u32 aspeed_i2c_master_irq(struct aspeed_i2c_bus *bus, u32 irq_status)
+ 		if (bus->slave_state != ASPEED_I2C_SLAVE_INACTIVE)
+ 			goto out_no_complete;
+ 
+-		bus->master_state = ASPEED_I2C_MASTER_START;
++		aspeed_i2c_do_start(bus);
+ 	}
+ #endif /* CONFIG_I2C_SLAVE */
+ 
 -- 
 2.22.0
