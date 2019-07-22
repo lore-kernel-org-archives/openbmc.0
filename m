@@ -1,71 +1,60 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <olof@lixom.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::443; helo=mail-pf1-x443.google.com;
- envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=lixom.net
+ (client-ip=2607:f8b0:4864:20::d41; helo=mail-io1-xd41.google.com;
+ envelope-from=olof@lixom.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=none (p=none dis=none) header.from=lixom.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="b8HWUQlF"; 
+ unprotected) header.d=lixom-net.20150623.gappssmtp.com
+ header.i=@lixom-net.20150623.gappssmtp.com header.b="A3UBj/Oy"; 
  dkim-atps=neutral
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+Received: from mail-io1-xd41.google.com (mail-io1-xd41.google.com
+ [IPv6:2607:f8b0:4864:20::d41])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45st0j5STWzDqVc;
- Tue, 23 Jul 2019 06:06:27 +1000 (AEST)
-Received: by mail-pf1-x443.google.com with SMTP id i189so17894919pfg.10;
- Mon, 22 Jul 2019 13:06:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=dc1nDbjKpnpP+a+/MmVe5NpW+Or0aQ+dHKZXZgx9JfE=;
- b=b8HWUQlFI4Bi3Vsm9h3pIL1BtPQ+jCsskWoS3LtjbQqMzNMt/ByjHN8SUdmCg4wCvg
- 56aMy7KRNlT5Nyv+O+oWRkgwIWjVJ2hfQ7yczoZweGJLJbOe914LSiJsaHRGx1lr1FEp
- kC9Nx9QUUS8SrXKa1bvAwrbSDDSaqBTJf3vN7+Y9D1MKF5fnMwXNinoN/Q6WIk6TAK31
- Oyh8D5d5wUR/yIWMJzLhxnW5kMJ8eC5r+RY7gIrkOtwVc9IcKgB7bzqnOE/g1m/CMBl4
- rX5e6DeeEXM4oGUG5qWj0EvzUlLdkjOqwsn9BvkYvFtenYXanekOBprQdaWBcQktjGdG
- EBsA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45stN7355pzDqW2
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Jul 2019 06:23:18 +1000 (AEST)
+Received: by mail-io1-xd41.google.com with SMTP id m24so76922664ioo.2
+ for <openbmc@lists.ozlabs.org>; Mon, 22 Jul 2019 13:23:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=lixom-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=Xh7VZmkbjwrBgayZ7b6xtD8WVEMS58rBjXLVPr4+QKE=;
+ b=A3UBj/OyBJI/LYvN4Fbj2VbsI0NL07wC8qJGMNrKr9ob9nG3Ra36iFQwW3TU33Blux
+ j3uAhD/lAp75l/WK7ILT8TM/o8BVuSH0w98G86pJT77QPCE1syd2o4Kg3zfHdlLIaHAZ
+ /TN/V7KnoWIerNT6AaF+4n7LQHjxnsfpwnn8AGC6hiMLvgqwpVfornpWuvQwZ11zTriN
+ CVR5fBmmoVyydoVA0SSSmzR2iANHprSMQnwwX4S+7wgUyT/FDAZRLLSWoIPMufTCmpza
+ 12n6HyAQUN27O8cHaWfYxK0KZS/5KrbT9p9cjTTF2IGxSL/Sj6bf4PHgDekr8i8Y0krI
+ aQkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to:user-agent;
- bh=dc1nDbjKpnpP+a+/MmVe5NpW+Or0aQ+dHKZXZgx9JfE=;
- b=oUfZCOpkqPrlSZ0KYkmQomG7qjOAxf36aexTp1vAwL8p8udi/oj2KwCe60oThKFb4l
- kgFsC/dEh+tFjdN8Y5Zp5qA1jUjtTl2JJDXEd+/lxVSmWy9wojqGXoYxWndIuMkhcOHx
- h+nHfLE58us6RBZC3D3/JeS4l3OiAEsqTJtYaE3jxd6RPI+o9td9yBLZU5DEzM1Qe1mK
- hlke+9ZB4IwCCsHtO6LApSK5XDPwHtaMiORZO9rTbuoYr/6izlnBMSbfsOSUOCxs9boA
- 85ByzjEz6614eHcy+poJjngg1dzWqML4qMZ4lMfa78JBU2mXjB4eCYupey4zw0nLdJM3
- 4zfw==
-X-Gm-Message-State: APjAAAV+eohGifVAhQi/gs2HoNqutsZT0YL91Zgc0L9tLujXLbHRnS90
- SA3ZjSZcaERF6WwEvWosjqg=
-X-Google-Smtp-Source: APXvYqwrrfr8vZZ2zi0ljFQ1dG1N1h86xfW6V0hOrIDJx0pWBHs5P2AHff6cpF9shtD3j/eNTJY0qA==
-X-Received: by 2002:a63:1046:: with SMTP id 6mr75083719pgq.111.1563825984205; 
- Mon, 22 Jul 2019 13:06:24 -0700 (PDT)
-Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id b26sm44559517pfo.129.2019.07.22.13.06.22
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 22 Jul 2019 13:06:23 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 22 Jul 2019 13:06:22 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: Jean Delvare <jdelvare@suse.com>, Rob Herring <robh+dt@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>, sdasari@fb.com
-Subject: Re: [PATCH] dt-bindings: hwmon: Add binding for pxe1610
-Message-ID: <20190722200622.GA20435@roeck-us.net>
-References: <20190722192451.1947348-1-vijaykhemka@fb.com>
- <20190722192451.1947348-2-vijaykhemka@fb.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=Xh7VZmkbjwrBgayZ7b6xtD8WVEMS58rBjXLVPr4+QKE=;
+ b=Rw3aZv+WeAEmbm7HgUoHnlCnLq21QTVxE3wjs4cFkGiR5+C9QPt3eVqUbijwxl/4KG
+ ZC7qy//H7PjBS+fW42k0SGmcyQ5AGMAx+AWx9EHTI3LBkWJFYSvkoYMldSbg0m+mESuO
+ RxLKIXpk3CyNizAEkO1+wld2O+7hW7/XFHcfl0AZGznRsGi+URc7KThxN5SvV0OieVEU
+ 1irkSOgkbeOO5aAgknozASxQdhNgf8z6RhemImOryg5ut0MBO6Ig/V7yF8GetRpNCeiz
+ z70AWOx4F2PKNLLnXVzHScL2AnBjUuQEQkknQOXWJNZkos3Fw0MpndMyh9Vd3LVv3Hx4
+ t2nQ==
+X-Gm-Message-State: APjAAAX756qj/zj8BbVLGjXkugWVXopcyFDRnt0YF1Lbnd9EQNKy1dp6
+ elIKVqowvTWqCFs0JPsnXyGvpDHdOxmEkrzVFqo=
+X-Google-Smtp-Source: APXvYqxJpepQ9VQoAAc07ujRiGJYpdX3gf8KpVTLJVLZzcSeVsr0TxUgUDnv1zP688nUQIe9u44KNb4m+xHpj3P0O5k=
+X-Received: by 2002:a6b:ee15:: with SMTP id i21mr33273959ioh.281.1563826995537; 
+ Mon, 22 Jul 2019 13:23:15 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190722192451.1947348-2-vijaykhemka@fb.com>
-User-Agent: Mutt/1.5.24 (2015-08-30)
+References: <20190719203037.11795-1-mspinler@linux.ibm.com>
+In-Reply-To: <20190719203037.11795-1-mspinler@linux.ibm.com>
+From: Olof Johansson <olof@lixom.net>
+Date: Mon, 22 Jul 2019 13:23:04 -0700
+Message-ID: <CAOesGMhf984ic0O4zhNGo=SfrqDX2wDkYxyfga81JDXkUyciqw@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.2] ARM: dts: aspeed: swift: Fix FSI GPIOs
+To: Matt Spinler <mspinler@linux.ibm.com>
+Cc: Joel Stanley <joel@jms.id.au>, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, Matt Spinler <spinler@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,41 +66,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Jul 2019 20:06:30 -0000
+X-List-Received-Date: Mon, 22 Jul 2019 20:23:20 -0000
 
-On Mon, Jul 22, 2019 at 12:24:48PM -0700, Vijay Khemka wrote:
-> Added new DT binding document for Infineon PXE1610 devices.
-> 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
-> ---
->  .../devicetree/bindings/hwmon/pxe1610.txt         | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/pxe1610.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pxe1610.txt b/Documentation/devicetree/bindings/hwmon/pxe1610.txt
-> new file mode 100644
-> index 000000000000..635daf4955db
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pxe1610.txt
-> @@ -0,0 +1,15 @@
-> +pxe1610 properties
-> +
-> +Required properties:
-> +- compatible: Must be one of the following:
-> +	- "infineon,pxe1610" for pxe1610
-> +	- "infineon,pxe1110" for pxe1610
-> +	- "infineon,pxm1310" for pxm1310
-> +- reg: I2C address
-> +
-> +Example:
-> +
-> +vr@48 {
-> +	compatible = "infineon,pxe1610";
-> +	reg = <0x48>;
-> +};
+On Fri, Jul 19, 2019 at 1:31 PM Matt Spinler <mspinler@linux.ibm.com> wrote:
+>
+> From: Matt Spinler <spinler@us.ibm.com>
+>
+> Change the FSI clock and data GPIOs to match what the hardware turned
+> out to use.
+>
+> Signed-off-by: Matt Spinler <spinler@us.ibm.com>
 
-Wouldn't it be better to add this to
-./Documentation/devicetree/bindings/trivial-devices.txt ?
+Hi,
 
-Thanks,
-Guenter
+This is not a comment on this patch specifically, just an overall
+request for people to adjust how they post patches:
+
+When running get_maintainer.pl on
+arch/arm/boot/dts/aspeed-bmc-opp-swift.dts, I get the following:
+
+[...]
+linux-arm-kernel@lists.infradead.org (moderated list:ARM/ASPEED MACHINE SUPPORT)
+linux-aspeed@lists.ozlabs.org (moderated list:ARM/ASPEED MACHINE SUPPORT)
+[...]
+
+Please include both of them on patches. Lots of people aren't
+subscribed to the aspeed-only mailing list, so coming back later to
+reply to a patch is hard when it hasn't made it into your mailboxes.
+
+
+Thanks!
+
+-Olof
