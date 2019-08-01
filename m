@@ -1,33 +1,42 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <davem@davemloft.net>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=davemloft.net
+ (client-ip=2620:137:e000::1:9; helo=shards.monkeyblade.net;
+ envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=davemloft.net
+Received: from shards.monkeyblade.net (shards.monkeyblade.net
+ [IPv6:2620:137:e000::1:9])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 45zsW76Dn7zDqVD
- for <openbmc@lists.ozlabs.org>; Fri,  2 Aug 2019 00:05:05 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x71E4LrY012596;
- Thu, 1 Aug 2019 17:04:21 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 279DB62A2E; Thu,  1 Aug 2019 17:04:21 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: broonie@kernel.org, robh+dt@kernel.org, mark.rutland@arm.com,
- vigneshr@ti.com, bbrezillon@kernel.org, avifishman70@gmail.com,
- tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
- benjaminfair@google.com
-Cc: linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 0/2] spi: add NPCM FIU controller driver 
-Date: Thu,  1 Aug 2019 17:04:17 +0300
-Message-Id: <20190801140419.58029-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.18.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 45zwgz4xVbzDqfy
+ for <openbmc@lists.ozlabs.org>; Fri,  2 Aug 2019 02:27:56 +1000 (AEST)
+Received: from localhost (unknown [IPv6:2603:3004:624:eb00::2d06])
+ (using TLSv1 with cipher AES256-SHA (256/256 bits))
+ (Client did not present a certificate)
+ (Authenticated sender: davem-davemloft)
+ by shards.monkeyblade.net (Postfix) with ESMTPSA id CB304153EF902;
+ Thu,  1 Aug 2019 09:27:48 -0700 (PDT)
+Date: Thu, 01 Aug 2019 12:27:45 -0400 (EDT)
+Message-Id: <20190801.122745.9301893283319822.davem@davemloft.net>
+To: avifishman70@gmail.com
+Cc: venture@google.com, yuenn@google.com, benjaminfair@google.com,
+ robh+dt@kernel.org, mark.rutland@arm.com, gregkh@linuxfoundation.org,
+ tmaimon77@gmail.com, tali.perry1@gmail.com, openbmc@lists.ozlabs.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, tglx@linutronix.de
+Subject: Re: [PATCH v1 2/2] net: npcm: add NPCM7xx EMC 10/100 Ethernet driver
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <20190801072611.27935-3-avifishman70@gmail.com>
+References: <20190801072611.27935-1-avifishman70@gmail.com>
+ <20190801072611.27935-3-avifishman70@gmail.com>
+X-Mailer: Mew version 6.8 on Emacs 26.1
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.5.12
+ (shards.monkeyblade.net [149.20.54.216]);
+ Thu, 01 Aug 2019 09:27:49 -0700 (PDT)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,50 +48,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 01 Aug 2019 14:05:10 -0000
+X-List-Received-Date: Thu, 01 Aug 2019 16:28:00 -0000
 
-This patch set adds Flash Interface Unit(FIU) SPI 
-master support for the Nuvoton NPCM Baseboard 
-Management Controller (BMC).
+From: Avi Fishman <avifishman70@gmail.com>
+Date: Thu,  1 Aug 2019 10:26:11 +0300
 
-The FIU supports single, dual or quad communication interface.
+> +#Eternet 10/100 EMC
 
-the FIU controller can operate in following modes:
-- User Mode Access(UMA): provides flash access by using an
-  indirect address/data mechanism.
-- direct rd/wr mode: maps the flash memory into the core
-  address space.
-- SPI-X mode: used for an expansion bus to an ASIC or CPLD.
+"Ethernet"
 
-The NPCM750/730/715/710 supports up to three FIU devices:
-- FIU0 supports two chip select.
-- FIU3 supports four chip select.
-- FIUX supports two chip select.
+> +#ifdef CONFIG_NPCM7XX_EMC_ETH_DEBUG
+> +#define DEBUG
+> +#endif
 
-The NPCM FIU driver tested on NPCM750 evaluation board. 
+Please don't control the DEBUG define in this way.
 
-The FIU controller driver using direct map API SPI-MEM
-interface and tested with the latest m25p80 driver patch
-https://www.spinics.net/lists/linux-mtd/msg07358.html
+> +#if defined CONFIG_NPCM7XX_EMC_ETH_DEBUG || defined CONFIG_DEBUG_FS
+> +#define REG_PRINT(reg_name) {t = scnprintf(next, size, "%-10s = %08X\n", \
+> +	#reg_name, readl(ether->reg + (reg_name))); size -= t;	next += t; }
+> +#define DUMP_PRINT(f, x...) {t = scnprintf(next, size, f, ## x); size -= t; \
+> +	next += t; }
 
-According a conversion about direct SPI-MEM API
-https://www.spinics.net/lists/linux-mtd/msg08225.html
+Really, get rid of this custom debugging infrastructure and just use
+generic facilities the kernel has for this, as designed.
 
-The m25p80 driver will merge to the spi-nor driver we
-need to make sure the m25p80 direct SPI-MEM will merge
-as well.
+> +static int npcm7xx_info_dump(char *buf, int count, struct net_device *netdev)
+> +{
+> +	struct npcm7xx_ether *ether = netdev_priv(netdev);
+> +	struct npcm7xx_txbd *txbd;
+> +	struct npcm7xx_rxbd *rxbd;
+> +	unsigned long flags;
+> +	unsigned int i, cur, txd_offset, rxd_offset;
+> +	char *next = buf;
+> +	unsigned int size = count;
+> +	int t;
+> +	int is_locked = spin_is_locked(&ether->lock);
 
-Tomer Maimon (2):
-  dt-binding: spi: add NPCM FIU controller
-  spi: npcm-fiu: add NPCM FIU controller driver
+Reverse christmas tree (longest to shortest) ordering for local variables
+please.
 
- .../bindings/spi/nuvoton,npcm-fiu.txt         |  47 ++
- drivers/spi/Kconfig                           |  10 +
- drivers/spi/Makefile                          |   1 +
- drivers/spi/spi-npcm-fiu.c                    | 760 ++++++++++++++++++
- 4 files changed, 818 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,npcm-fiu.txt
- create mode 100644 drivers/spi/spi-npcm-fiu.c
-
--- 
-2.18.0
+Audit your entire submission for this problem.
