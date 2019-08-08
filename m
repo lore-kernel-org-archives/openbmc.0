@@ -1,59 +1,65 @@
-Return-Path: <broonie@sirena.co.uk>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=sirena.co.uk
- (client-ip=2a01:7e01::f03c:91ff:fed4:a3b6; helo=heliosphere.sirena.org.uk;
- envelope-from=broonie@sirena.co.uk; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::444; helo=mail-pf1-x444.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
- header.b="rQyhzfUB"; dkim-atps=neutral
-X-Greylist: delayed 2458 seconds by postgrey-1.36 at bilbo;
- Fri, 09 Aug 2019 00:08:50 AEST
-Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
- [IPv6:2a01:7e01::f03c:91ff:fed4:a3b6])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ERPVmc/7"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x444.google.com (mail-pf1-x444.google.com
+ [IPv6:2607:f8b0:4864:20::444])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4649GB4DvYzDqHK
- for <openbmc@lists.ozlabs.org>; Fri,  9 Aug 2019 00:08:50 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=sirena.org.uk; s=20170815-heliosphere; h=In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=egMV3q9uEBW5xiJ68iYvqE6+ywPdvkHsBfVwqjoD4mc=; b=rQyhzfUBYPLZwvKm+PR5EX4zO
- zq0eKrBDfmA2kQ1AA00oDjwN1lSG+ZeH8DGBC1KIZsgvcoERHOuS9Yog1x7aEoPEok2MYmrykWaNw
- MOxo54qFXdL0FVZya2kLH4FS5OK/c2ewtxggnhYU+/8LASoTKYNq1fjICbyIdeVR1UQ4g=;
-Received: from cpc102320-sgyl38-2-0-cust46.18-2.cable.virginm.net
- ([82.37.168.47] helo=ypsilon.sirena.org.uk)
- by heliosphere.sirena.org.uk with esmtpsa
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <broonie@sirena.co.uk>)
- id 1hviSD-000309-0I; Thu, 08 Aug 2019 13:27:41 +0000
-Received: by ypsilon.sirena.org.uk (Postfix, from userid 1000)
- id 1B7F82742B42; Thu,  8 Aug 2019 14:27:40 +0100 (BST)
-Date: Thu, 8 Aug 2019 14:27:40 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: robh+dt@kernel.org, mark.rutland@arm.com, vigneshr@ti.com,
- bbrezillon@kernel.org, avifishman70@gmail.com,
- tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
- benjaminfair@google.com, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] spi: npcm-fiu: add NPCM FIU controller driver
-Message-ID: <20190808132740.GG3795@sirena.co.uk>
-References: <20190808131448.349161-1-tmaimon77@gmail.com>
- <20190808131448.349161-3-tmaimon77@gmail.com>
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4649N15qhvzDqYk
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Aug 2019 00:13:53 +1000 (AEST)
+Received: by mail-pf1-x444.google.com with SMTP id r7so44185714pfl.3
+ for <openbmc@lists.ozlabs.org>; Thu, 08 Aug 2019 07:13:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Cp1i3+0DEmZNwBIERzqlGf/Xkabog066G60lOMCkiCQ=;
+ b=ERPVmc/7SUnJQbK1FF76nM2T9Kw5xkZDz3u3Y5VCdonTwR1kv4QfGNQ+GYt2VkJxCe
+ 5N8sFwFr+jVO7+ZVnQfJ2K7hSgMoe5e8iQ1n/Tfgy3DR0ZS+pAHrixgiNWo3ZhGetEno
+ VCcoF//yE9dmgBUTx2H3BfLJrd+5fmck9RZzLA/awoQicocqsNzYxp9FYMCsH9sB+BkZ
+ Qp0p+H5KU7eCyI/UJW/+xnYhrqPjjc9zzsh0ViHMC+WPTTQMa3SMBkiyp67KBjJDR3l9
+ 1hU9V/mbiEmBrZwzd33kDV8FCwK3Rd84MGIGGchqzn8aK/5Dyabfg6y0ktQAROvxHMJe
+ lIaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=Cp1i3+0DEmZNwBIERzqlGf/Xkabog066G60lOMCkiCQ=;
+ b=Ko3xII8M8wusa2nWYifXiu8X9b68nYE+QaCwZzlPu5k4h5BE+b1yuw3CoaGWbsDg+5
+ 6Xb9ceDBP2rlPgB6z328x8CfUMaGkOZ9KTlEctjm3CCQmFXtq0ZcM5seg+L5QefO6iVn
+ +IcgdiF0uSHYrErd0EP1S2K9EV+/wrTxzFz6YTmuTeIyloGNJnd4hiQ1CyieM6gJxZby
+ qEYsNJ70dtBvRszd9rownUieCjzc6aJyW2nLnlk6xua3EKOMvSW9MUK4UTvQw3KTvBl/
+ avLwwiBiRo/2GEB+e1UieFOqLnp+2qkMvFcRSw/0OG3blIyNkrt0exF3AFJMkR4rdbM/
+ Rk/g==
+X-Gm-Message-State: APjAAAUtWzv9w/jyGX662nOAmylM0idSdGZwCKs+3K2s4sjRiU3/eSJF
+ DS1WrSReFXV2tqsEzboFMzNA4u2j
+X-Google-Smtp-Source: APXvYqzNaR88P5gPtnOomikOAFv6TWv1UsqzbNobPe3mCLwYjMygS+7I3Ix8zDpNF+hvRe30lABH0g==
+X-Received: by 2002:a63:1f03:: with SMTP id f3mr12716220pgf.249.1565273629262; 
+ Thu, 08 Aug 2019 07:13:49 -0700 (PDT)
+Received: from voyager.iht.com.au (210-10-229-158.cust.static-ipl.aapt.com.au.
+ [210.10.229.158])
+ by smtp.gmail.com with ESMTPSA id v185sm106416782pfb.14.2019.08.08.07.13.46
+ (version=TLS1_3 cipher=AEAD-AES256-GCM-SHA384 bits=256/256);
+ Thu, 08 Aug 2019 07:13:48 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Eddie James <eajames@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH linux dev-5.2 0/2] i2c: aspeed: Disable buffer mode
+Date: Thu,  8 Aug 2019 23:43:35 +0930
+Message-Id: <20190808141337.27355-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="S5HS5MvDw4DmbRmb"
-Content-Disposition: inline
-In-Reply-To: <20190808131448.349161-3-tmaimon77@gmail.com>
-X-Cookie: I think we're in trouble.
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,41 +71,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 08 Aug 2019 14:08:51 -0000
+X-List-Received-Date: Thu, 08 Aug 2019 14:13:54 -0000
 
+This series does two things:
 
---S5HS5MvDw4DmbRmb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+ - moves the OpenBMC to RFC v3 of Jae's i2c series
 
-On Thu, Aug 08, 2019 at 04:14:48PM +0300, Tomer Maimon wrote:
+ - disables the use of buffer mode by reverting the device tree patch
 
-> +	ctrl->mode_bits =3D SPI_RX_DUAL | SPI_RX_QUAD
-> +		| SPI_TX_DUAL | SPI_TX_QUAD;
-> +	ctrl->setup =3D npcm_fiu_setup;
+Buffer mode is not supported in Qemu, leading to a crash. As OpenBMC
+changes are gated on a successful boot in Qemu, we cannot merge kernel
+changes that break booting.
 
-I'm not seeing where we implement dual or quad modes in the driver?
-There's some=20
+In the future the Qemu i2c model will be enhanced so we can support
+buffer mode, at which time the device tree revert can be reverted.
 
-> +	dev_info(dev, "NPCM %s probe succeed\n", fiu->info->name);
+Joel Stanley (2):
+  i2c: aspeed: Update to v3 of buffer and dma support
+  Revert "ARM: dts: aspeed: add I2C buffer mode support"
 
-Just remove this, it makes the log more verbose but doesn't really add
-any information.
+ .../devicetree/bindings/i2c/i2c-aspeed.txt    | 14 ++--
+ arch/arm/boot/dts/aspeed-g4.dtsi              | 61 ++++++-----------
+ arch/arm/boot/dts/aspeed-g5.dtsi              | 61 ++++++-----------
+ drivers/i2c/busses/i2c-aspeed.c               | 67 ++++++++++---------
+ 4 files changed, 80 insertions(+), 123 deletions(-)
 
---S5HS5MvDw4DmbRmb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAl1MI0sACgkQJNaLcl1U
-h9Cu2wf9FI8ekzKOtKPknDdXJFSkW34/Y7Fa6IFFOzRNy/zJa/KK4039pd967txp
-uqy4z1++x9xd9hct1F2qFzJRRAAfKHxCQVjwfxfXKf5kwHLS/tP9Q3LQtI4Curae
-jmY4wrFeNsDTGDtA9BFQFdDbDUp1nNETnWzNPBijNo9cuzTlCsTEEhBpOM5HhhJS
-E5i/L3B/If5JDs18ULa4B7vsL4oqMxgHw6ztC2EwkxcNl0/8ymCTzHI8D1kpl/+c
-nJ/cX59A4kqGn42v5Zw/dt1zrqAL5lPTywW2RL/WbS7IiDjREsFoHrF4vtnKHJAJ
-VEB121JZAJjasaLrxwfT/dO0JDeQFw==
-=tVs8
------END PGP SIGNATURE-----
-
---S5HS5MvDw4DmbRmb--
+-- 
+2.20.1
