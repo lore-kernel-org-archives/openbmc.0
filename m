@@ -1,71 +1,68 @@
-Return-Path: <miltonm@us.ibm.com>
+Return-Path: <prvs=31263c8021=taoren@fb.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=us.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=miltonm@us.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=31263c8021=taoren@fb.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=us.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=pass (p=none dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.b="M5l2N9re"; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 466DqL6HCRzDqZB
- for <openbmc@lists.ozlabs.org>; Mon, 12 Aug 2019 08:56:13 +1000 (AEST)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x7BMpddG002041
- for <openbmc@lists.ozlabs.org>; Sun, 11 Aug 2019 18:56:10 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.91])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2uab8u0pyp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Sun, 11 Aug 2019 18:56:09 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Sun, 11 Aug 2019 22:56:09 -0000
-Received: from us1a3-smtp05.a3.dal06.isc4sb.com (10.146.71.159)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Sun, 11 Aug 2019 22:55:58 -0000
-Received: from us1a3-mail228.a3.dal06.isc4sb.com ([10.146.103.71])
- by us1a3-smtp05.a3.dal06.isc4sb.com
- with ESMTP id 2019081122555865-484507 ;
- Sun, 11 Aug 2019 22:55:58 +0000 
-In-Reply-To: <20190810095406.5509-1-wangzqbj@inspur.com>
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: John Wang <wangzqbj@inspur.com>
-Cc: <jdelvare@suse.com>, <linux@roeck-us.net>, <corbet@lwn.net>,
- <linux-hwmon@vger.kernel.org>, <linux-doc@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>,
- <duanzhijia01@inspur.com>, <mine260309@gmail.com>
-Date: Sun, 11 Aug 2019 22:55:57 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 466Frh3jM7zDqdv
+ for <openbmc@lists.ozlabs.org>; Mon, 12 Aug 2019 09:42:25 +1000 (AEST)
+Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x7BNgJrL013309
+ for <openbmc@lists.ozlabs.org>; Sun, 11 Aug 2019 16:42:23 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : mime-version : content-type; s=facebook;
+ bh=MrZKlAH9JnSrKEaObAOABlgYJDtjm+iuZCQm//AVx9g=;
+ b=M5l2N9re4yvBPDqpHk89qmCwrCH5xfd/8fp83gtcbrtXK7eKfCvHDhF4p8BuqkRmvr9I
+ D3tH5LoIrIustYq/F51/NF2o+AzcrkCSJz66ZG4wyY3mQoWBBnbIXoq+Qwjjc5dNzSjJ
+ YcOYIzqty6LqfAF7084RlCX5p9hooBSM1mw= 
+Received: from maileast.thefacebook.com ([163.114.130.16])
+ by mx0a-00082601.pphosted.com with ESMTP id 2uagfjhpnk-10
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Sun, 11 Aug 2019 16:42:23 -0700
+Received: from mx-out.facebook.com (2620:10d:c0a8:1b::d) by
+ mail.thefacebook.com (2620:10d:c0a8:83::6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Sun, 11 Aug 2019 16:42:18 -0700
+Received: by devvm1794.vll1.facebook.com (Postfix, from userid 150176)
+ id 807AF7BE8A9; Sun, 11 Aug 2019 16:40:11 -0700 (PDT)
+Smtp-Origin-Hostprefix: devvm
+From: Tao Ren <taoren@fb.com>
+Smtp-Origin-Hostname: devvm1794.vll1.facebook.com
+To: Andrew Lunn <andrew@lunn.ch>, Florian Fainelli <f.fainelli@gmail.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, "David S . Miller"
+ <davem@davemloft.net>, Vladimir Oltean <olteanv@gmail.com>,
+ Arun Parameswaran <arun.parameswaran@broadcom.com>,
+ Justin Chen <justinpopo6@gmail.com>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>
+CC: Tao Ren <taoren@fb.com>
+Smtp-Origin-Cluster: vll1c12
+Subject: [PATCH net-next v7 2/3] net: phy: add support for clause 37
+ auto-negotiation
+Date: Sun, 11 Aug 2019 16:40:10 -0700
+Message-ID: <20190811234010.3673592-1-taoren@fb.com>
+X-Mailer: git-send-email 2.17.1
+X-FB-Internal: Safe
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <20190810095406.5509-1-wangzqbj@inspur.com>
-X-Mailer: IBM iNotes ($HaikuForm 1054) | IBM Domino Build
- SCN1812108_20180501T0841_FP55 May 22, 2019 at 11:09
-X-LLNOutbound: False
-X-Disclaimed: 21851
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 19081122-2475-0000-0000-0000004A6100
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.150957
-X-IBM-SpamModules-Versions: BY=3.00011583; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000287; SDB=6.01245464; UDB=6.00657172; IPR=6.01026961; 
- MB=3.00028138; MTD=3.00000008; XFM=3.00000015; UTC=2019-08-11 22:56:06
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-08-11 22:01:25 - 6.00010274
-x-cbparentid: 19081122-2476-0000-0000-00000071745F
-Message-Id: <OFD41F14A3.C9368CBA-ON00258453.007B620B-00258453.007DF926@notes.na.collabserv.com>
-Subject: Re: [PATCH v2 2/2] hwmon: pmbus: Add Inspur Power System power supply
- driver
+Content-Type: text/plain
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-08-11_11:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+ definitions=2019-08-11_12:, , signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=914 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1906280000 definitions=main-1908110265
+X-FB-Internal: deliver
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,323 +74,208 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 11 Aug 2019 22:56:15 -0000
+X-List-Received-Date: Sun, 11 Aug 2019 23:42:29 -0000
+X-List-Received-Date: Sun, 11 Aug 2019 23:42:29 -0000
 
-Around 08/10/2019 04:55AM in some time zone, John Wang wrote:
->
->Add the driver to monitor Inspur Power System power supplies
->with hwmon over pmbus.
->
->This driver adds sysfs attributes for additional power supply data,
->including vendor, model, part=5Fnumber, serial number,
->firmware revision, hardware revision, and psu mode(active/standby).
->
->Signed-off-by: John Wang <wangzqbj@inspur.com>
->---
->v2:
->    - Fix typos in commit message
->    - Invert Christmas tree
->    - Configure device with sysfs attrs, not debugfs entries
->    - Fix errno in fw=5Fversion=5Fread, ENODATA to EPROTO
->    - Change the print format of fw-version
->    - Use sysfs=5Fstreq instead of strcmp("xxx" "\n", "xxx")
->    - Document sysfs attributes
->---
-> Documentation/hwmon/inspur-ipsps1.rst |  79 +++++++++
-> drivers/hwmon/pmbus/Kconfig           |   9 +
-> drivers/hwmon/pmbus/Makefile          |   1 +
-> drivers/hwmon/pmbus/inspur-ipsps.c    | 236
->++++++++++++++++++++++++++
-> 4 files changed, 325 insertions(+)
-> create mode 100644 Documentation/hwmon/inspur-ipsps1.rst
-> create mode 100644 drivers/hwmon/pmbus/inspur-ipsps.c
->
->diff --git a/Documentation/hwmon/inspur-ipsps1.rst
->b/Documentation/hwmon/inspur-ipsps1.rst
-....
->diff --git a/drivers/hwmon/pmbus/Kconfig>b/drivers/hwmon/pmbus/Kconfig
->index 30751eb9550a..c09357c26b10 100644
->--- a/drivers/hwmon/pmbus/Kconfig
->+++ b/drivers/hwmon/pmbus/Kconfig
->@@ -203,4 +203,13 @@ config SENSORS=5FZL6100
-> 	  This driver can also be built as a module. If so, the module will
-> 	  be called zl6100.
->=20
->+config SENSORS=5FINSPUR=5FIPSPS
->+	tristate "INSPUR Power System Power Supply"
+From: Heiner Kallweit <hkallweit1@gmail.com>
 
-The entries in this file are sorted alphabetically.
+This patch adds support for clause 37 1000Base-X auto-negotiation.
 
->diff --git a/drivers/hwmon/pmbus/Makefile>b/drivers/hwmon/pmbus/Makefile
->index 2219b9300316..fde2d10cd05c 100644
->--- a/drivers/hwmon/pmbus/Makefile
->+++ b/drivers/hwmon/pmbus/Makefile
->@@ -23,3 +23,4 @@ obj-$(CONFIG=5FSENSORS=5FTPS53679)	+=3D tps53679.o
-> obj-$(CONFIG=5FSENSORS=5FUCD9000)	+=3D ucd9000.o
-> obj-$(CONFIG=5FSENSORS=5FUCD9200)	+=3D ucd9200.o
-> obj-$(CONFIG=5FSENSORS=5FZL6100)	+=3D zl6100.o
->+obj-$(CONFIG=5FSENSORS=5FINSPUR=5FIPSPS)	+=3D inspur-ipsps.o
->diff --git a/drivers/hwmon/pmbus/inspur-ipsps.c
->b/drivers/hwmon/pmbus/inspur-ipsps.c
->new file mode 100644
->index 000000000000..f6dd10a62aef
->--- /dev/null
->+++ b/drivers/hwmon/pmbus/inspur-ipsps.c
->@@ -0,0 +1,236 @@
->+// SPDX-License-Identifier: GPL-2.0-or-later
->+/*
->+ * Copyright 2019 Inspur Corp.
->+ */
->+
->+#include <linux/debugfs.h>
->+#include <linux/device.h>
->+#include <linux/fs.h>
->+#include <linux/i2c.h>
->+#include <linux/module.h>
->+#include <linux/pmbus.h>
->+#include <linux/hwmon-sysfs.h>
->+
->+#include "pmbus.h"
->+
->+#define IPSPS=5FREG=5FVENDOR=5FID	0x99
->+#define IPSPS=5FREG=5FMODEL		0x9A
->+#define IPSPS=5FREG=5FFW=5FVERSION	0x9B
->+#define IPSPS=5FREG=5FPN		0x9C
->+#define IPSPS=5FREG=5FSN		0x9E
->+#define IPSPS=5FREG=5FHW=5FVERSION	0xB0
->+#define IPSPS=5FREG=5FMODE		0xFC
->+
->+#define MODE=5FACTIVE		0x55
->+#define MODE=5FSTANDBY		0x0E
->+#define MODE=5FREDUNDANCY		0x00
->+
->+#define MODE=5FACTIVE=5FSTRING		"active"
->+#define MODE=5FSTANDBY=5FSTRING		"standby"
->+#define MODE=5FREDUNDANCY=5FSTRING		"redundancy"
->+
->+enum ipsps=5Findex {
->+	vendor,
->+	model,
->+	fw=5Fversion,
->+	part=5Fnumber,
->+	serial=5Fnumber,
->+	hw=5Fversion,
->+	mode,
->+	num=5Fregs,
->+};
->+
->+static const u8 ipsps=5Fregs[num=5Fregs] =3D {
->+	[vendor] =3D IPSPS=5FREG=5FVENDOR=5FID,
->+	[model] =3D IPSPS=5FREG=5FMODEL,
->+	[fw=5Fversion] =3D IPSPS=5FREG=5FFW=5FVERSION,
->+	[part=5Fnumber] =3D IPSPS=5FREG=5FPN,
->+	[serial=5Fnumber] =3D IPSPS=5FREG=5FSN,
->+	[hw=5Fversion] =3D IPSPS=5FREG=5FHW=5FVERSION,
->+	[mode] =3D IPSPS=5FREG=5FMODE,
->+};
->+
->+static ssize=5Ft ipsps=5Fstring=5Fshow(struct device *dev,
->+				 struct device=5Fattribute *devattr,
->+				 char *buf)
->+{
->+	u8 reg;
->+	int rc, i;
->+	char data[I2C=5FSMBUS=5FBLOCK=5FMAX + 1] =3D { 0 };
+Signed-off-by: Heiner Kallweit <hkallweit1@gmail.com>
+Signed-off-by: Tao Ren <taoren@fb.com>
+---
+ Changes in v7:
+  - Update "if (AUTONEG_ENABLE != phydev->autoneg)" to
+    "if (phydev->autoneg != AUTONEG_ENABLE)" so checkpatch.pl is happy.
+ Changes in v6:
+  - add "Signed-off-by: Tao Ren <taoren@fb.com>"
+ Changes in v1-v5:
+  - nothing changed. It's given v5 just to align with the version of
+    patch series.
 
-Shouldn't need to initialize this.
+ drivers/net/phy/phy_device.c | 139 +++++++++++++++++++++++++++++++++++
+ include/linux/phy.h          |   5 ++
+ 2 files changed, 144 insertions(+)
 
->+	struct i2c=5Fclient *client =3D to=5Fi2c=5Fclient(dev->parent);>+	struct=
- sensor=5Fdevice=5Fattribute *attr =3D to=5Fsensor=5Fdev=5Fattr(devattr);
->+
->+	reg =3D ipsps=5Fregs[attr->index];
->+	rc =3D i2c=5Fsmbus=5Fread=5Fblock=5Fdata(client, reg, data);
->+	if (rc < 0)
->+		return rc;
->+
->+	for (i =3D 0; i < rc; i++) {
->+		/* filled with printable characters, ending with # */
->+		if (data[i] =3D=3D '#')
->+			break;
->+	}
-
-This seems to be p =3D memscan(data, '#', rc);
-
->+>+	data[i] =3D '\0';
->+
->+	return snprintf(buf, PAGE=5FSIZE, "%s\n", data);
->+}
->+
->+static ssize=5Ft ipsps=5Ffw=5Fversion=5Fshow(struct device *dev,
->+				     struct device=5Fattribute *devattr,
->+				     char *buf)
->+{
->+	u8 reg;
->+	int rc;
->+	u8 data[I2C=5FSMBUS=5FBLOCK=5FMAX] =3D { 0 };
->+	struct i2c=5Fclient *client =3D to=5Fi2c=5Fclient(dev->parent);
->+	struct sensor=5Fdevice=5Fattribute *attr =3D to=5Fsensor=5Fdev=5Fattr(de=
-vattr);
->+
->+	reg =3D ipsps=5Fregs[attr->index];
->+	rc =3D i2c=5Fsmbus=5Fread=5Fblock=5Fdata(client, reg, data);
->+	if (rc < 0)
->+		return rc;
->+
->+	if (rc !=3D 6)
->+		return -EPROTO;
->+
->+	return snprintf(buf, PAGE=5FSIZE, "%u.%02u%u-%u.%02u\n",
->+			data[1], data[2]/* < 100 */, data[3]/*< 10*/,
->+			data[4], data[5]/* < 100 */);
->+}
->+
->+static ssize=5Ft ipsps=5Fmode=5Fshow(struct device *dev,
->+			       struct device=5Fattribute *devattr, char *buf)
->+{
->+	u8 reg;
->+	int rc;
->+	struct i2c=5Fclient *client =3D to=5Fi2c=5Fclient(dev->parent);
->+	struct sensor=5Fdevice=5Fattribute *attr =3D to=5Fsensor=5Fdev=5Fattr(de=
-vattr);
->+
->+	reg =3D ipsps=5Fregs[attr->index];
->+	rc =3D i2c=5Fsmbus=5Fread=5Fbyte=5Fdata(client, reg);
->+	if (rc < 0)
->+		return rc;
->+
->+	switch (rc) {
->+	case MODE=5FACTIVE:
->+		return snprintf(buf, PAGE=5FSIZE, "[%s] %s %s\n",
->+				MODE=5FACTIVE=5FSTRING,
->+				MODE=5FSTANDBY=5FSTRING, MODE=5FREDUNDANCY=5FSTRING);
->+	case MODE=5FSTANDBY:
->+		return snprintf(buf, PAGE=5FSIZE, "%s [%s] %s\n",
->+				MODE=5FACTIVE=5FSTRING,
->+				MODE=5FSTANDBY=5FSTRING, MODE=5FREDUNDANCY=5FSTRING);
->+	case MODE=5FREDUNDANCY:
->+		return snprintf(buf, PAGE=5FSIZE, "%s %s [%s]\n",
->+				MODE=5FACTIVE=5FSTRING,
->+				MODE=5FSTANDBY=5FSTRING, MODE=5FREDUNDANCY=5FSTRING);
->+	default:
->+		return snprintf(buf, PAGE=5FSIZE, "unspecified\n");
->+	}
->+}
->+
->+static ssize=5Ft ipsps=5Fmode=5Fstore(struct device *dev,
->+				struct device=5Fattribute *devattr,
->+				const char *buf, size=5Ft count)
->+{
->+	u8 reg;
->+	int rc;
->+	struct i2c=5Fclient *client =3D to=5Fi2c=5Fclient(dev->parent);
->+	struct sensor=5Fdevice=5Fattribute *attr =3D to=5Fsensor=5Fdev=5Fattr(de=
-vattr);
->+
->+	reg =3D ipsps=5Fregs[attr->index];
->+	if (sysfs=5Fstreq(MODE=5FSTANDBY=5FSTRING, buf)) {
->+		rc =3D i2c=5Fsmbus=5Fwrite=5Fbyte=5Fdata(client, reg,
->+					       MODE=5FSTANDBY);
->+		if (rc < 0)
->+			return rc;
->+		return count;
->+	} else if (sysfs=5Fstreq(MODE=5FACTIVE=5FSTRING, buf)) {
->+		rc =3D i2c=5Fsmbus=5Fwrite=5Fbyte=5Fdata(client, reg,
->+					       MODE=5FACTIVE);
->+		if (rc < 0)
->+			return rc;
->+		return count;
->+	}
->+
->+	return -EINVAL;
->+}
->+
->+static SENSOR=5FDEVICE=5FATTR=5FRO(vendor, ipsps=5Fstring, vendor);
->+static SENSOR=5FDEVICE=5FATTR=5FRO(model, ipsps=5Fstring, model);
->+static SENSOR=5FDEVICE=5FATTR=5FRO(part=5Fnumber, ipsps=5Fstring,
->part=5Fnumber);
->+static SENSOR=5FDEVICE=5FATTR=5FRO(serial=5Fnumber, ipsps=5Fstring,
->serial=5Fnumber);
->+static SENSOR=5FDEVICE=5FATTR=5FRO(hw=5Fversion, ipsps=5Fstring, hw=5Fver=
-sion);
->+static SENSOR=5FDEVICE=5FATTR=5FRO(fw=5Fversion, ipsps=5Ffw=5Fversion,
->fw=5Fversion);
->+static SENSOR=5FDEVICE=5FATTR=5FRW(mode, ipsps=5Fmode, mode);
->+
->+static struct attribute *enable=5Fattrs[] =3D {
->+	&sensor=5Fdev=5Fattr=5Fvendor.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Fmodel.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Fpart=5Fnumber.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Fserial=5Fnumber.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Fhw=5Fversion.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Ffw=5Fversion.dev=5Fattr.attr,
->+	&sensor=5Fdev=5Fattr=5Fmode.dev=5Fattr.attr,
->+	NULL,
->+};
->+
->+static const struct attribute=5Fgroup enable=5Fgroup =3D {
->+	.attrs =3D enable=5Fattrs,
->+};
->+
->+static const struct attribute=5Fgroup *attribute=5Fgroups[] =3D {
->+	&enable=5Fgroup,
->+	NULL,
->+};
-
-ATTRIBUTE=5FGROUPS(enable);
-
->+
->+static struct pmbus=5Fdriver=5Finfo ipsps=5Finfo =3D {
->+	.pages =3D 1,
->+	.func[0] =3D PMBUS=5FHAVE=5FVIN | PMBUS=5FHAVE=5FVOUT | PMBUS=5FHAVE=5FI=
-OUT |
->+		PMBUS=5FHAVE=5FIIN | PMBUS=5FHAVE=5FPOUT | PMBUS=5FHAVE=5FPIN |
->+		PMBUS=5FHAVE=5FFAN12 | PMBUS=5FHAVE=5FTEMP | PMBUS=5FHAVE=5FTEMP2 |
->+		PMBUS=5FHAVE=5FTEMP3 | PMBUS=5FHAVE=5FSTATUS=5FVOUT |
->+		PMBUS=5FHAVE=5FSTATUS=5FIOUT | PMBUS=5FHAVE=5FSTATUS=5FINPUT |
->+		PMBUS=5FHAVE=5FSTATUS=5FTEMP | PMBUS=5FHAVE=5FSTATUS=5FFAN12,
->+	.groups =3D attribute=5Fgroups,
->+};
->+
->+static struct pmbus=5Fplatform=5Fdata ipsps=5Fpdata =3D {
->+	.flags =3D PMBUS=5FSKIP=5FSTATUS=5FCHECK,
->+};
->+
->+static int ipsps=5Fprobe(struct i2c=5Fclient *client,
->+		       const struct i2c=5Fdevice=5Fid *id)
->+{
->+	client->dev.platform=5Fdata =3D &ipsps=5Fpdata;
->+	return pmbus=5Fdo=5Fprobe(client, id, &ipsps=5Finfo);
->+}
->+
->+static const struct i2c=5Fdevice=5Fid ipsps=5Fid[] =3D {
->+	{ "inspur=5Fipsps1", 0 },
->+	{}
->+};
->+MODULE=5FDEVICE=5FTABLE(i2c, ipsps=5Fid);
->+
->+static const struct of=5Fdevice=5Fid ipsps=5Fof=5Fmatch[] =3D {
->+	{ .compatible =3D "inspur,ipsps1" },
->+	{}
->+};
->+MODULE=5FDEVICE=5FTABLE(of, ipsps=5Fof=5Fmatch);
->+
->+static struct i2c=5Fdriver ipsps=5Fdriver =3D {
->+	.driver =3D {
->+		.name =3D "inspur-ipsps",
->+		.of=5Fmatch=5Ftable =3D ipsps=5Fof=5Fmatch,
->+	},
->+	.probe =3D ipsps=5Fprobe,
->+	.remove =3D pmbus=5Fdo=5Fremove,
->+	.id=5Ftable =3D ipsps=5Fid,
->+};
->+
->+module=5Fi2c=5Fdriver(ipsps=5Fdriver);
->+
->+MODULE=5FAUTHOR("John Wang");
->+MODULE=5FDESCRIPTION("PMBus driver for Inspur Power System power
->supplies");
->+MODULE=5FLICENSE("GPL");
->--=20
->2.17.1
->
->
+diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
+index 252a712d1b2b..301a794b2963 100644
+--- a/drivers/net/phy/phy_device.c
++++ b/drivers/net/phy/phy_device.c
+@@ -1617,6 +1617,40 @@ static int genphy_config_advert(struct phy_device *phydev)
+ 	return changed;
+ }
+ 
++/**
++ * genphy_c37_config_advert - sanitize and advertise auto-negotiation parameters
++ * @phydev: target phy_device struct
++ *
++ * Description: Writes MII_ADVERTISE with the appropriate values,
++ *   after sanitizing the values to make sure we only advertise
++ *   what is supported.  Returns < 0 on error, 0 if the PHY's advertisement
++ *   hasn't changed, and > 0 if it has changed. This function is intended
++ *   for Clause 37 1000Base-X mode.
++ */
++static int genphy_c37_config_advert(struct phy_device *phydev)
++{
++	u16 adv = 0;
++
++	/* Only allow advertising what this PHY supports */
++	linkmode_and(phydev->advertising, phydev->advertising,
++		     phydev->supported);
++
++	if (linkmode_test_bit(ETHTOOL_LINK_MODE_1000baseX_Full_BIT,
++			      phydev->advertising))
++		adv |= ADVERTISE_1000XFULL;
++	if (linkmode_test_bit(ETHTOOL_LINK_MODE_Pause_BIT,
++			      phydev->advertising))
++		adv |= ADVERTISE_1000XPAUSE;
++	if (linkmode_test_bit(ETHTOOL_LINK_MODE_Asym_Pause_BIT,
++			      phydev->advertising))
++		adv |= ADVERTISE_1000XPSE_ASYM;
++
++	return phy_modify_changed(phydev, MII_ADVERTISE,
++				  ADVERTISE_1000XFULL | ADVERTISE_1000XPAUSE |
++				  ADVERTISE_1000XHALF | ADVERTISE_1000XPSE_ASYM,
++				  adv);
++}
++
+ /**
+  * genphy_config_eee_advert - disable unwanted eee mode advertisement
+  * @phydev: target phy_device struct
+@@ -1726,6 +1760,54 @@ int genphy_config_aneg(struct phy_device *phydev)
+ }
+ EXPORT_SYMBOL(genphy_config_aneg);
+ 
++/**
++ * genphy_c37_config_aneg - restart auto-negotiation or write BMCR
++ * @phydev: target phy_device struct
++ *
++ * Description: If auto-negotiation is enabled, we configure the
++ *   advertising, and then restart auto-negotiation.  If it is not
++ *   enabled, then we write the BMCR. This function is intended
++ *   for use with Clause 37 1000Base-X mode.
++ */
++int genphy_c37_config_aneg(struct phy_device *phydev)
++{
++	int err, changed;
++
++	if (phydev->autoneg != AUTONEG_ENABLE)
++		return genphy_setup_forced(phydev);
++
++	err = phy_modify(phydev, MII_BMCR, BMCR_SPEED1000 | BMCR_SPEED100,
++			 BMCR_SPEED1000);
++	if (err)
++		return err;
++
++	changed = genphy_c37_config_advert(phydev);
++	if (changed < 0) /* error */
++		return changed;
++
++	if (!changed) {
++		/* Advertisement hasn't changed, but maybe aneg was never on to
++		 * begin with?  Or maybe phy was isolated?
++		 */
++		int ctl = phy_read(phydev, MII_BMCR);
++
++		if (ctl < 0)
++			return ctl;
++
++		if (!(ctl & BMCR_ANENABLE) || (ctl & BMCR_ISOLATE))
++			changed = 1; /* do restart aneg */
++	}
++
++	/* Only restart aneg if we are advertising something different
++	 * than we were before.
++	 */
++	if (changed > 0)
++		return genphy_restart_aneg(phydev);
++
++	return 0;
++}
++EXPORT_SYMBOL(genphy_c37_config_aneg);
++
+ /**
+  * genphy_aneg_done - return auto-negotiation status
+  * @phydev: target phy_device struct
+@@ -1864,6 +1946,63 @@ int genphy_read_status(struct phy_device *phydev)
+ }
+ EXPORT_SYMBOL(genphy_read_status);
+ 
++/**
++ * genphy_c37_read_status - check the link status and update current link state
++ * @phydev: target phy_device struct
++ *
++ * Description: Check the link, then figure out the current state
++ *   by comparing what we advertise with what the link partner
++ *   advertises. This function is for Clause 37 1000Base-X mode.
++ */
++int genphy_c37_read_status(struct phy_device *phydev)
++{
++	int lpa, err, old_link = phydev->link;
++
++	/* Update the link, but return if there was an error */
++	err = genphy_update_link(phydev);
++	if (err)
++		return err;
++
++	/* why bother the PHY if nothing can have changed */
++	if (phydev->autoneg == AUTONEG_ENABLE && old_link && phydev->link)
++		return 0;
++
++	phydev->duplex = DUPLEX_UNKNOWN;
++	phydev->pause = 0;
++	phydev->asym_pause = 0;
++
++	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
++		lpa = phy_read(phydev, MII_LPA);
++		if (lpa < 0)
++			return lpa;
++
++		linkmode_mod_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
++				 phydev->lp_advertising, lpa & LPA_LPACK);
++		linkmode_mod_bit(ETHTOOL_LINK_MODE_1000baseX_Full_BIT,
++				 phydev->lp_advertising, lpa & LPA_1000XFULL);
++		linkmode_mod_bit(ETHTOOL_LINK_MODE_Pause_BIT,
++				 phydev->lp_advertising, lpa & LPA_1000XPAUSE);
++		linkmode_mod_bit(ETHTOOL_LINK_MODE_Asym_Pause_BIT,
++				 phydev->lp_advertising,
++				 lpa & LPA_1000XPAUSE_ASYM);
++
++		phy_resolve_aneg_linkmode(phydev);
++	} else if (phydev->autoneg == AUTONEG_DISABLE) {
++		int bmcr = phy_read(phydev, MII_BMCR);
++
++		if (bmcr < 0)
++			return bmcr;
++
++		if (bmcr & BMCR_FULLDPLX)
++			phydev->duplex = DUPLEX_FULL;
++		else
++			phydev->duplex = DUPLEX_HALF;
++	}
++
++	return 0;
++}
++EXPORT_SYMBOL(genphy_c37_read_status);
++
+ /**
+  * genphy_soft_reset - software reset the PHY via BMCR_RESET bit
+  * @phydev: target phy_device struct
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index 462b90b73f93..81a2921512ee 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -1077,6 +1077,11 @@ int genphy_suspend(struct phy_device *phydev);
+ int genphy_resume(struct phy_device *phydev);
+ int genphy_loopback(struct phy_device *phydev, bool enable);
+ int genphy_soft_reset(struct phy_device *phydev);
++
++/* Clause 37 */
++int genphy_c37_config_aneg(struct phy_device *phydev);
++int genphy_c37_read_status(struct phy_device *phydev);
++
+ static inline int genphy_no_soft_reset(struct phy_device *phydev)
+ {
+ 	return 0;
+-- 
+2.17.1
