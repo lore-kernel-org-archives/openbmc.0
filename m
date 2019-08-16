@@ -1,63 +1,50 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <shobe@dropbox.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::641; helo=mail-pl1-x641.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=dropbox.com
+ (client-ip=2a00:1450:4864:20::434; helo=mail-wr1-x434.google.com;
+ envelope-from=shobe@dropbox.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="DjYmX7pk"; 
+ dmarc=pass (p=reject dis=none) header.from=dropbox.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=dropbox.com header.i=@dropbox.com header.b="oASf52ph"; 
  dkim-atps=neutral
-Received: from mail-pl1-x641.google.com (mail-pl1-x641.google.com
- [IPv6:2607:f8b0:4864:20::641])
+Received: from mail-wr1-x434.google.com (mail-wr1-x434.google.com
+ [IPv6:2a00:1450:4864:20::434])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46M9v517jgzDqRm
- for <openbmc@lists.ozlabs.org>; Mon,  2 Sep 2019 10:29:20 +1000 (AEST)
-Received: by mail-pl1-x641.google.com with SMTP id t14so5823863plr.11
- for <openbmc@lists.ozlabs.org>; Sun, 01 Sep 2019 17:29:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=kUGL/sDDx56rfMUFQdsjRHuEUsNKQm1oITc8vkLtzkQ=;
- b=DjYmX7pk2IJ0VZ3ysgtiwECr5hu9mQv6+3kzengGjKc0FRQYXE4vl6Tztp6Bx9z8dB
- yDf+Tznncmd7AtaL2dQEQwArOoA1wsFPPy2R7w9/XJ15PKk9IGIKb6Sbv5kVxqIZRujW
- QtqfUvAxMFjezG/+VwMioQc7tfYNOnI2T8Xa/dql23dh5Bn1SMo/5jU8vr5GAgk+GO4z
- wj/flItMS1v6wcQP9A0OH0Dt11scvhhQlqzySB1AYBj3DfFHGiysUuxNKBARrRvfIiCR
- RKDKzlGKwYkt6kRF1HHVvXP8Pzox2bv1JAPsSP+ez70XzBhznwHFih0y7lcC6ZRfz5+r
- 6A3Q==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 468pzs52sfzDr0m
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Aug 2019 13:42:29 +1000 (AEST)
+Received: by mail-wr1-x434.google.com with SMTP id y8so186874wrn.10
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Aug 2019 20:42:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dropbox.com; s=corp;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=Xs6dG3DhgGisUrJy13+7eYanjcelANiFXhPUs15UPxU=;
+ b=oASf52pho8GUwmqcvWhPl8FPI/NlkQkr1rhzb9omxrq0i96IBH5cWdX23cnzgEbmEa
+ nyoMCGjoF38U/RrZoFVT9/tEUgmtLGJeOzmCsAhSg9kcPwLXVx1jnBaWFLjZuz6S58r6
+ bi25J0OBx6uA6jK75y0n+vk84n9kkRJ44h0C8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=kUGL/sDDx56rfMUFQdsjRHuEUsNKQm1oITc8vkLtzkQ=;
- b=ZsuZpymlAbzWw7SZzVusjIIhNMhza6Kyhia1qt5D2IICJSGYUjGgk9xUJ2D7ooVd0j
- ikygPb2e5bdHnoezuoa7iEY4qS1vbSWB5oAnYr7BhWtwcAaHbnF0gYuVOPKsRpWhS+3W
- IJkil2Ekz23DNfUyfGLtS1btpucapEDhxBAEDuBOYGaiOPU+Mw2pPIwUBsHHxeA+xvfs
- 1LLKRvqRZUZukeSdEnhkUjIk2NBM+8/A7Ki9u8s3Kdw2kPEmxOaBsAsg4tVFPwicmb1Y
- IYHH1Evzou3JNf9htHRGwxr1xsfLKFEIxC1/yzGq0NaAgsyQq9FFKa5qznDaxFQgT1DF
- tqCA==
-X-Gm-Message-State: APjAAAUJTBrStSs2nK5j8Lorc0mbWo3gpsVy+U0xZs+0iAq2wvMrg/VK
- wTV5KAs2CsPL+XpCcshS2Kj2zHa0/JM=
-X-Google-Smtp-Source: APXvYqwNFcjFm7QICvXI917R1hORaZJLvAqQ9GgUtE0bg7CQU2pCJNnptScHxOhVZnhLJ9hhwscuiQ==
-X-Received: by 2002:a17:902:2b81:: with SMTP id
- l1mr27197976plb.107.1567384157256; 
- Sun, 01 Sep 2019 17:29:17 -0700 (PDT)
-Received: from voyager.lan ([45.124.203.19])
- by smtp.gmail.com with ESMTPSA id e13sm27346332pfl.130.2019.09.01.17.29.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Sep 2019 17:29:16 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-5.2] ARM: dts: aspeed: Add Tacoma machine
-Date: Mon,  2 Sep 2019 09:59:11 +0930
-Message-Id: <20190902002911.18717-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.23.0.rc1
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=Xs6dG3DhgGisUrJy13+7eYanjcelANiFXhPUs15UPxU=;
+ b=mVkCMTzbE6Vtl0f3VtJMeIypdjM3uBSEECcEeNyLizzZsMHQLuf4P0aXJ6Dsssz2Or
+ f7m+KnchprhBW92FYY+yOMf7YtBtwHKOkzFlrHXKwyCmZrRphufJolO3317VL9NkT317
+ IrJgbSExgxtSZEmZacHfvlGZluyb0C28NJDvoCm3L6W5KKhIGLZoMsByjJP+XS8ffOiO
+ 0Z0GlnoiSBnDP13jjDE69yMyUKJgdCnf0w8NLXgJMZl0x14AAx1xvTRscm+uVfktjBuy
+ eFFOaVlmspw1Hl6kuWiTXTzYAT9kHoHmXaIiKRxNaAxhB5QFLY4cqlS8dzWkaVeJ+xx3
+ 3zYQ==
+X-Gm-Message-State: APjAAAW1AH5i0Q5DGiS8N+Uk8qI1WcxUsJ+Q9ruJhZZ/qPuH7437JLwD
+ 8Fovp0N49RIrw44FNcMn+5QtPLlDXtPXjkvhr1w0
+X-Google-Smtp-Source: APXvYqxtlD2ZTTgxCc+2fpxXP3nwGVnsd667umtYDoh075F4GRlVBioKzAt9afq2PBkoANcY0zLg8GTz1Yth0iag66c=
+X-Received: by 2002:a5d:6606:: with SMTP id n6mr8466540wru.346.1565926942345; 
+ Thu, 15 Aug 2019 20:42:22 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Eric Shobe <shobe@dropbox.com>
+Message-ID: <CALo0W=u_Cznj5dtzh0Cc5u9M80WZDMRQ4R0zhbTsRkCT5XAMgA@mail.gmail.com>
+Subject: The RunBMC Specification has been published!
+To: Jared Mednick <jaredm@dropbox.com>
+Content-Type: multipart/alternative; boundary="00000000000024a83b059033c778"
+X-Mailman-Approved-At: Mon, 02 Sep 2019 10:34:52 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,73 +56,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Sep 2019 00:29:21 -0000
+Date: Fri, 16 Aug 2019 03:42:34 -0000
+X-Original-Date: Thu, 15 Aug 2019 20:42:10 -0700
+X-List-Received-Date: Fri, 16 Aug 2019 03:42:34 -0000
 
-This is an AST2600 based BMC card for a Power9 system.
+--00000000000024a83b059033c778
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/Makefile                  |  1 +
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 39 +++++++++++++++++++++
- 2 files changed, 40 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
+Esteemed colleagues,
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 1b45e790e1e3..180405378b86 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1280,6 +1280,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-opp-palmetto.dtb \
- 	aspeed-bmc-opp-romulus.dtb \
- 	aspeed-bmc-opp-swift.dtb \
-+	aspeed-bmc-opp-tacoma.dtb \
- 	aspeed-bmc-opp-vesnin.dtb \
- 	aspeed-bmc-opp-witherspoon.dtb \
- 	aspeed-bmc-opp-zaius.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-new file mode 100644
-index 000000000000..9ccd4c3db81a
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-@@ -0,0 +1,39 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2019 IBM Corp.
-+/dts-v1/;
-+
-+#include "aspeed-g6.dtsi"
-+
-+/ {
-+	model = "Tacoma";
-+	compatible = "ibm,tacoma-bmc", "aspeed,ast2600";
-+
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x80000000>;
-+	};
-+};
-+
-+&mac2 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii3_default>;
-+	use-ncsi;
-+};
-+
-+&emmc {
-+	status = "okay";
-+};
-+
-+&fsim0 {
-+	status = "okay";
-+};
--- 
-2.23.0.rc1
+We are most pleased to announce that RunBMC,an open Hardware Standard that
+defines the interface between the Baseboard Management Controller(BMC)
+subsystem and OCP hardware platform - such as network or compute
+motherboards, has been officially accepted to the Open Compute Project.  Li=
+nk
+to the RunBMC 1.4.1 Specification.
+<https://www.opencompute.org/documents/ocp-runbmc-daughterboard-card-design=
+-specification-v1-4-1-pdf>
+
+We owe credit and thanks to our collaborators at Quanta, Nuvoton, Hyve,
+Intel, Aspeed, Facebook, Google, Salesforce, and Microsoft.  I think we can
+confidently say that the collaborative spirit meant to be fostered by OCP
+is alive and well.
+
+Our next steps are to draft and complete a User=E2=80=99s Guide for the Bri=
+ng-Up
+Vehicle and work with our partners to submit their designs for
+daughter-cards based on the AST2500 and Poleg.  We look forward to seeing
+the progress of this effort realized through these contributions.
+
+Thanks!
+
+--00000000000024a83b059033c778
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><span class=3D"gmail-m_2563781303913535005gmail-autho=
+r-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz6=
+6zz87z3z76zmz69z3z85zz69zr">Esteemed=C2=A0</span><span class=3D"gmail-m_256=
+3781303913535005gmail-thread-140947146019351338598583 gmail-m_2563781303913=
+535005gmail-attrcomment gmail-m_2563781303913535005gmail-attrcommentfirst g=
+mail-m_2563781303913535005gmail-thread-140947146019351338598583-first gmail=
+-m_2563781303913535005gmail-author-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qoxvz75z=
+fxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz69z3z85zz69zr"><span class=3D=
+"gmail-m_2563781303913535005gmail-comment-extra-inner-span">colleagues</spa=
+n></span><span class=3D"gmail-m_2563781303913535005gmail-author-d-1gg9uz65z=
+1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz=
+69z3z85zz69zr">,</span></div><div><span class=3D"gmail-m_256378130391353500=
+5gmail-author-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85=
+z1le4iz70zz66zz87z3z76zmz69z3z85zz69zr"><br></span></div><div></div><div><s=
+pan class=3D"gmail-m_2563781303913535005gmail-author-d-1gg9uz65z1iz85zgdz68=
+zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz69z3z85zz69=
+zr">We are most pleased to announce that RunBMC,an open Hardware Standard t=
+hat defines the interface between the Baseboard Management Controller(BMC) =
+subsystem and OCP hardware platform - such as network or compute motherboar=
+ds, has been officially accepted to the Open Compute Project. =C2=A0</span>=
+<span class=3D"gmail-m_2563781303913535005gmail-attrlink gmail-m_2563781303=
+913535005gmail-url gmail-m_2563781303913535005gmail-author-d-1gg9uz65z1iz85=
+zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz69z3z=
+85zz69zr"><a class=3D"gmail-m_2563781303913535005gmail-attrlink" href=3D"ht=
+tps://www.opencompute.org/documents/ocp-runbmc-daughterboard-card-design-sp=
+ecification-v1-4-1-pdf" rel=3D"noreferrer nofollow noopener" target=3D"_bla=
+nk">Link to the RunBMC 1.4.1 Specification.</a></span></div><div><br></div>=
+<div></div><div><span class=3D"gmail-m_2563781303913535005gmail-author-d-1g=
+g9uz65z1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z=
+3z76zmz69z3z85zz69zr">We owe credit and thanks to our collaborators at Quan=
+ta, Nuvoton, Hyve, Intel, Aspeed, Facebook, Google, Salesforce, and Microso=
+ft.=C2=A0 I think we can confidently say that the collaborative spirit mean=
+t to be fostered by OCP is alive and well.</span></div><div><span class=3D"=
+gmail-m_2563781303913535005gmail-author-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qox=
+vz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz69z3z85zz69zr"><br></spa=
+n></div><div></div><div><span class=3D"gmail-m_2563781303913535005gmail-aut=
+hor-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70z=
+z66zz87z3z76zmz69z3z85zz69zr">Our next steps are to draft and complete a Us=
+er=E2=80=99s Guide for the Bring-Up Vehicle and work with our partners to s=
+ubmit their designs for daughter-cards based on the AST2500 and Poleg.=C2=
+=A0 We look forward to seeing the progress of this effort realized through =
+these contributions.</span></div><div><span class=3D"gmail-m_25637813039135=
+35005gmail-author-d-1gg9uz65z1iz85zgdz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80=
+zz85z1le4iz70zz66zz87z3z76zmz69z3z85zz69zr"><br></span></div><div></div><di=
+v><span class=3D"gmail-m_2563781303913535005gmail-author-d-1gg9uz65z1iz85zg=
+dz68zmqkz84zo2qoxvz75zfxfz86zgwm2hpwz80zz85z1le4iz70zz66zz87z3z76zmz69z3z85=
+zz69zr">Thanks!</span></div></div>
+
+--00000000000024a83b059033c778--
