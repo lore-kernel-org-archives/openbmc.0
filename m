@@ -1,77 +1,60 @@
-Return-Path: <mspinler@linux.ibm.com>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=mspinler@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2607:f8b0:4864:20::534; helo=mail-pg1-x534.google.com;
+ envelope-from=venture@google.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="JxnvuMis"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x534.google.com (mail-pg1-x534.google.com
+ [IPv6:2607:f8b0:4864:20::534])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46943y0wplzDr70
- for <openbmc@lists.ozlabs.org>; Fri, 16 Aug 2019 23:31:55 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x7GDRv45034055; Fri, 16 Aug 2019 09:31:48 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2udtecpywq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Aug 2019 09:31:48 -0400
-Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x7GDRwI3034097;
- Fri, 16 Aug 2019 09:31:47 -0400
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2udtecpyvx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Aug 2019 09:31:47 -0400
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x7GDVOBO021417;
- Fri, 16 Aug 2019 13:31:46 GMT
-Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
- [9.57.198.24]) by ppma01wdc.us.ibm.com with ESMTP id 2u9nj79wm8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Aug 2019 13:31:46 +0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x7GDVjJ744106074
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Aug 2019 13:31:45 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AAE3228058;
- Fri, 16 Aug 2019 13:31:45 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7B9BD2805A;
- Fri, 16 Aug 2019 13:31:45 +0000 (GMT)
-Received: from [9.10.99.36] (unknown [9.10.99.36])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Fri, 16 Aug 2019 13:31:45 +0000 (GMT)
-Subject: Re: where to store application json
-To: Andrew Jeffery <andrew@aj.id.au>, Andrew Geissler <geissonator@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4695625CbpzDrfb
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Aug 2019 00:18:50 +1000 (AEST)
+Received: by mail-pg1-x534.google.com with SMTP id u17so3022199pgi.6
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Aug 2019 07:18:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=JzVM+S0RsxGThJUI9CZpn6L9yPCMDBeV9CUb22EXHPI=;
+ b=JxnvuMislrYsBGpmcMxg1xVl0nsuYApDK8WAmrRwYZI97v5Gxh1079xCyojZ6eyYh/
+ wg5BPbbJWoyQ/Ht13bQV52ZmeHax7B0CIj94bWahafcCfgWqfUxm6LslZIzolWPbYJm3
+ xz+hXQvl7pMUXd+ypCYsollevFMpyuF+B+1gWKWAxGJ6QuBEBeEbOl+PTBgGLhsOmfs4
+ DnfSjozS20a3QAN+YtUEPKMGMGT6UvNuNNFmOsUW4cEbNXhsOO1xIfWSE1DeZRW/VuXw
+ 8btoLlSnUU/2t7emMkEN3PaMeVPS1Afojm9eF08uxp24xYB65Dq4+ssdWIBDZ1NTAm2E
+ 9qpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=JzVM+S0RsxGThJUI9CZpn6L9yPCMDBeV9CUb22EXHPI=;
+ b=YED4atQ5796QJj7wBrAuAlf+DlZ9WX2OkgI5dH3kqaG2bvQ+1uL27snHXXCLK8WixS
+ r1HbBwSQ2PknHjs0XC2vtQML0vx4tKgJN/dJzVmKNN6EujTeCP2L4awkw91V6DLJAlJH
+ 9Ba6SyJjBC7qwMNd97+Z+fFBr9K9KftdV4Wemlg5bLWsBMjUtpwvVyeUnw25uTixFM6G
+ pUXW+J3wVnzfjQ/2RtVWYUSX5GzHuejrf/QTAsuvT94oyu3igR9sFUX7oBgR9zvvdUAW
+ s7bsi4tlHQ+X86dwg0bgot6fvR2LxN05d01WVzF+RMUrflYsgMmn4gcOLIryBaS5QP7s
+ KYcg==
+X-Gm-Message-State: APjAAAVssu34m8vg7bZmPRQa1DZFThEZfWnr5eCj0ZGYOnfaBlrLcKzf
+ OYU2tCZgfEB6+Wab0W18tMqE+cFK5iGYnYhIzcLNhQ==
+X-Google-Smtp-Source: APXvYqwYtnYh7XMeYovjlHkg8qqzBFaYZ7nsCvWeYACD/Fop0Qc1jYmk5uyBKu+8pXnGthLy1z9a75/rkyxHTBGuaH4=
+X-Received: by 2002:a65:6288:: with SMTP id f8mr7876968pgv.292.1565965127477; 
+ Fri, 16 Aug 2019 07:18:47 -0700 (PDT)
+MIME-Version: 1.0
 References: <CALLMt=pv9GdHmv7ZJOBK+Z1wqAh4DmOzVR8ud=+KefddvEkreg@mail.gmail.com>
  <9ad991fb-13fe-42fa-b5b6-48fd069342f9@www.fastmail.com>
-From: Matt Spinler <mspinler@linux.ibm.com>
-Message-ID: <e4636a3c-82b8-0f35-ebad-6b23e304dc3d@linux.ibm.com>
-Date: Fri, 16 Aug 2019 08:31:46 -0500
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <9ad991fb-13fe-42fa-b5b6-48fd069342f9@www.fastmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-08-16_06:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1906280000 definitions=main-1908160140
+ <e4636a3c-82b8-0f35-ebad-6b23e304dc3d@linux.ibm.com>
+In-Reply-To: <e4636a3c-82b8-0f35-ebad-6b23e304dc3d@linux.ibm.com>
+From: Patrick Venture <venture@google.com>
+Date: Fri, 16 Aug 2019 07:18:35 -0700
+Message-ID: <CAO=notzP-6i-YaS-LyB8u3w3qm7v4Vqqhxcnz1XN5W3sgZD-FA@mail.gmail.com>
+Subject: Re: where to store application json
+To: Matt Spinler <mspinler@linux.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Andrew Geissler <geissonator@gmail.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,45 +66,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 16 Aug 2019 13:31:59 -0000
+X-List-Received-Date: Fri, 16 Aug 2019 14:18:52 -0000
 
-
-
-On 8/15/2019 6:59 PM, Andrew Jeffery wrote:
+On Fri, Aug 16, 2019 at 6:33 AM Matt Spinler <mspinler@linux.ibm.com> wrote:
 >
-> On Fri, 16 Aug 2019, at 07:01, Andrew Geissler wrote:
->> As we start moving more and more of our applications to using runtime parsed
->> json files, it seems like a good time to come up with a standard location to put
->> the json files. I think a requirement is they be in a writeable filesystem
->> (although that may bring security concerns) so that you can edit and restart
->> services that use them on the fly for bringup and debug.
->>
->> /etc seems like the right spot. But if so, where in /etc
-
-While convenient to the developer for testing, to me it doesn't sound 
-like good practice to put read
-only, critical files into a writeable spot?  How could we even trust 
-data that comes back to us from
-the field when a user that can get into their BMC can just change 
-these?  Or accidentally
-delete a file?
-
-
-
->> ?
->>
->> Adriana pointed me to the FSH guidelines[1] in a review which has the following:
->> "It is recommended that files be stored in subdirectories of /etc rather than
->> directly in /etc.".
->>
->> /etc/opt ?
->> /etc/opt/phosphor/ ?
->> /etc/opt/phosphor/<repository name>/ ?
-> Where did the "/opt/" bit come from? Please lets drop that.
 >
-> IMO we should be using /etc/<application name>. Be mindful that one repository
-> can produce multiple applications, but what application sits in which repository
-> is a code organisation problem and not something that we should tie into system
-> configuration.
 >
-> Andrew
+> On 8/15/2019 6:59 PM, Andrew Jeffery wrote:
+> >
+> > On Fri, 16 Aug 2019, at 07:01, Andrew Geissler wrote:
+> >> As we start moving more and more of our applications to using runtime parsed
+> >> json files, it seems like a good time to come up with a standard location to put
+> >> the json files. I think a requirement is they be in a writeable filesystem
+> >> (although that may bring security concerns) so that you can edit and restart
+> >> services that use them on the fly for bringup and debug.
+> >>
+> >> /etc seems like the right spot. But if so, where in /etc
+>
+> While convenient to the developer for testing, to me it doesn't sound
+> like good practice to put read
+> only, critical files into a writeable spot?  How could we even trust
+> data that comes back to us from
+> the field when a user that can get into their BMC can just change
+> these?  Or accidentally
+> delete a file?
+>
+>
+>
+> >> ?
+> >>
+> >> Adriana pointed me to the FSH guidelines[1] in a review which has the following:
+> >> "It is recommended that files be stored in subdirectories of /etc rather than
+> >> directly in /etc.".
+> >>
+> >> /etc/opt ?
+> >> /etc/opt/phosphor/ ?
+> >> /etc/opt/phosphor/<repository name>/ ?
+> > Where did the "/opt/" bit come from? Please lets drop that.
+> >
+> > IMO we should be using /etc/<application name>. Be mindful that one repository
+> > can produce multiple applications, but what application sits in which repository
+> > is a code organisation problem and not something that we should tie into system
+> > configuration.
+> >
+> > Andrew
+
+A lot of stuff is in /usr/share -- but I think /etc is a reasonable place too.
+
+>
