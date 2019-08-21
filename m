@@ -1,43 +1,56 @@
-Return-Path: <peterz@infradead.org>
+Return-Path: <groeck7@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=infradead.org
- (client-ip=2001:8b0:10b:1231::1; helo=merlin.infradead.org;
- envelope-from=peterz@infradead.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::642; helo=mail-pl1-x642.google.com;
+ envelope-from=groeck7@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=infradead.org
-Received: from merlin.infradead.org (merlin.infradead.org
- [IPv6:2001:8b0:10b:1231::1])
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="WLYmJXxA"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46D7Pn6R49zDr02;
- Wed, 21 Aug 2019 23:13:01 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=merlin.20170209; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3W7OIKWVX6WxkwIdgHyI0+xyh1dbNAC13qBYkWnh7Cg=; b=tD8p42oCitFiAd2hUZ+Uji3Q1
- UTEhTTlglHM2ajMFxM1/ed7h1OwiAn6VBoxeCJpSpFu6TxU9vl6pO5FOLDo/8pBOscWUF4+erLsKE
- DVD9OKxaoc74XOPq06NOx3kB+TM8L6TWfESV6B5H1lteMlHNTmc3MCUI+2FfmvgNUaDzqWbmfsyPU
- NHXcDSCT88u0KJbPatcwVHSfJyJm2OV7aeB5Z68YOUtMczSrgcW8TMpwCa1uRyvnXMKRjiHnnIdMW
- ERlrM+sksfjGoxMgu5/kM55o7iHgBv4Zy6FJTkno4qJN8Y21+XQlvmG0At3fEOWf++QvOvmrkFKBo
- hbmWgU+DA==;
-Received: from j217100.upc-j.chello.nl ([24.132.217.100]
- helo=noisy.programming.kicks-ass.net)
- by merlin.infradead.org with esmtpsa (Exim 4.92 #3 (Red Hat Linux))
- id 1i0QOy-00077n-17; Wed, 21 Aug 2019 13:11:49 +0000
-Received: from hirez.programming.kicks-ass.net
- (hirez.programming.kicks-ass.net [192.168.1.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (Client did not present a certificate)
- by noisy.programming.kicks-ass.net (Postfix) with ESMTPS id 49C5330759B;
- Wed, 21 Aug 2019 15:11:09 +0200 (CEST)
-Received: by hirez.programming.kicks-ass.net (Postfix, from userid 1000)
- id BF01120F0D378; Wed, 21 Aug 2019 15:11:40 +0200 (CEST)
-Date: Wed, 21 Aug 2019 15:11:40 +0200
-From: Peter Zijlstra <peterz@infradead.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46D9mN31RqzDqy9;
+ Thu, 22 Aug 2019 00:59:16 +1000 (AEST)
+Received: by mail-pl1-x642.google.com with SMTP id c2so1460694plz.13;
+ Wed, 21 Aug 2019 07:59:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=MGu3Yx6P1oW2dkVZJ8rQOp/8pAXcm/B2IMgoDlOEKl4=;
+ b=WLYmJXxArkZ+xpZrPWfZ85MRzNzUcKTIsk882+RxQxxR3Az/71RvVWigMyyc3o9qDg
+ mtvIRNq6XqeN1cOcZdrxEKMDHffD2FSe6/WbeP3fCJsQQUwFHkNqyr1s3s/9l6wOl4hi
+ i61XL/Ai4/XENarTcYSqmmmeNxx7hyK+c8wCDaxPxncIttf7Mf8ZvxfKx2BB2nHOHoC4
+ c0aMh+x4BaABVYpPLLtW5xg8u7M3ZX6mQoBFs4WrPYllZko4hPmPVVPlY8U86SnB4jfI
+ OfGoENjS2m5V/qu3I2HjQjjnojwvAqezsZODeJIns7mWjTQGdm1PNzNZCvBa11J0X1NP
+ 9Ryw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=MGu3Yx6P1oW2dkVZJ8rQOp/8pAXcm/B2IMgoDlOEKl4=;
+ b=ilhisAh4BQgDAEa8wJitFG7bimupAj/uwLqVLa83XjJNswHnydYDM51pOMpgf5jXpG
+ Zkfr3CntZSEUGNm2CA/BjSzOAJ+f6w9WIXkSFUP3zfNmvzMvJBvEuAfZh3KA6y9LFzs1
+ KTFGLcfYoAo8i/2pD1XLhksOLBijUe4mQtANqeRVO0mvnFdbP+HQ+lA12CGqWafQCQWr
+ d9iPgyfphvnZGaECI/vk4DA3fpfkpn4iYBRGpYb/S/N3RjL1nXXrm/qTqGEB67EVRdQp
+ 4zt5ZiDEoW6tDy0d4k3SfuvV8sIA+3TNbYmPb9Pz7kaht3SQxXNWiPsYbUHbcyWu3+Kx
+ YafQ==
+X-Gm-Message-State: APjAAAU/ETJ2hgIzVzcvya/+uA0bQgjPFH5sNdPnrH/klJrn9l6MCTVa
+ 7HKGiyyzpcUA5nnRpVyiHYI=
+X-Google-Smtp-Source: APXvYqxUP8xkNyQZWYrRIamXP/wMkzF1WMKVh7TUKjSQXGKEymiVCjMrEbQg8CoUx7Bzq7phU6wEqA==
+X-Received: by 2002:a17:902:44f:: with SMTP id
+ 73mr34838894ple.192.1566399552898; 
+ Wed, 21 Aug 2019 07:59:12 -0700 (PDT)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id m145sm27713891pfd.68.2019.08.21.07.59.11
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 21 Aug 2019 07:59:12 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 21 Aug 2019 07:59:11 -0700
+From: Guenter Roeck <linux@roeck-us.net>
 To: Matthias Maennich <maennich@google.com>
 Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, arnd@arndb.de,
  geert@linux-m68k.org, gregkh@linuxfoundation.org, hpa@zytor.com,
@@ -51,46 +64,62 @@ Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, arnd@arndb.de,
  sam@ravnborg.org, sspatil@google.com, stern@rowland.harvard.edu,
  tglx@linutronix.de, usb-storage@lists.one-eyed-alien.net,
  x86@kernel.org, yamada.masahiro@socionext.com,
- Adrian Reber <adrian@lisas.de>, Alexey Gladkov <gladkov.alexey@gmail.com>,
- Andrew Jeffery <andrew@aj.id.au>,
- Andrew Morton <akpm@linux-foundation.org>,
- Ard Biesheuvel <ard.biesheuvel@linaro.org>,
- bcm-kernel-feedback-list@broadcom.com,
- Benjamin Fair <benjaminfair@google.com>, cocci@systeme.lip6.fr,
- Dan Williams <dan.j.williams@intel.com>,
- David Howells <dhowells@redhat.com>,
- "David S. Miller" <davem@davemloft.net>,
- Fabio Estevam <festevam@gmail.com>,
- Gleb Fotengauer-Malinovskiy <glebfm@altlinux.org>,
- Ingo Molnar <mingo@kernel.org>, Jani Nikula <jani.nikula@intel.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Julia Lawall <julia.lawall@lip6.fr>,
- linux-amlogic@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, linux-hwmon@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org, linux-rtc@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-tegra@vger.kernel.org, linux-watchdog@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
- Michael Ellerman <mpe@ellerman.id.au>, Nancy Yuen <yuenn@google.com>,
+ Jean Delvare <jdelvare@suse.com>, Alessandro Zummo <a.zummo@towertech.it>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  Nicolas Ferre <nicolas.ferre@microchip.com>,
- Nicolas Pitre <nico@fluxnic.net>,
- NXP Linux Team <linux-imx@nxp.com>, openbmc@lists.ozlabs.org,
- patches@opensource.cirrus.com, Patrick Bellasi <patrick.bellasi@arm.com>,
- Patrick Venture <venture@google.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ bcm-kernel-feedback-list@broadcom.com,
+ Support Opensource <support.opensource@diasemi.com>,
+ Baruch Siach <baruch@tkos.co.il>,
+ William Breathitt Gray <vilhelm.gray@gmail.com>,
+ Jerry Hoemann <jerry.hoemann@hpe.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Richard Guy Briggs <rgb@redhat.com>, Tejun Heo <tj@kernel.org>,
- Toru Komatsu <k0ma@utam0k.jp>, Will Deacon <will@kernel.org>
-Subject: Re: [PATCH v3 00/11] Symbol Namespaces
-Message-ID: <20190821131140.GC2349@hirez.programming.kicks-ass.net>
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
+ Vladimir Zapolskiy <vz@mleia.com>, Tomas Winkler <tomas.winkler@intel.com>,
+ Johannes Thumshirn <morbidrsa@gmail.com>,
+ Andreas Werner <andreas.werner@men.de>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>,
+ Michal Simek <michal.simek@xilinx.com>,
+ Andy Gross <agross@kernel.org>, Kukjin Kim <kgene@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Barry Song <baohua@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
+ Baolin Wang <baolin.wang@linaro.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
+ Patrice Chotard <patrice.chotard@st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
+ Marc Gonzalez <marc.w.gonzalez@free.fr>, Mans Rullgard <mans@mansr.com>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-hwmon@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
+ linux-arm-msm@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-tegra@vger.kernel.org, patches@opensource.cirrus.com
+Subject: Re: [PATCH v3 11/11] RFC: watchdog: export core symbols in
+ WATCHDOG_CORE namespace
+Message-ID: <20190821145911.GA6521@roeck-us.net>
 References: <20190813121733.52480-1-maennich@google.com>
  <20190821114955.12788-1-maennich@google.com>
+ <20190821114955.12788-12-maennich@google.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20190821114955.12788-1-maennich@google.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20190821114955.12788-12-maennich@google.com>
+User-Agent: Mutt/1.5.24 (2015-08-30)
 X-Mailman-Approved-At: Mon, 02 Sep 2019 10:34:52 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -103,43 +132,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2019 13:13:07 -0000
+X-List-Received-Date: Wed, 21 Aug 2019 14:59:16 -0000
 
-On Wed, Aug 21, 2019 at 12:49:15PM +0100, Matthias Maennich wrote:
-> As of Linux 5.3-rc5, there are 31205 [1] exported symbols in the kernel.
-> That is a growth of roughly 1000 symbols since 4.17 (30206 [2]).  There
-> seems to be some consensus amongst kernel devs that the export surface
-> is too large, and hard to reason about.
+On Wed, Aug 21, 2019 at 12:49:26PM +0100, Matthias Maennich wrote:
+> Modules using these symbols are required to explicitly import the
+> namespace. This patch was generated with the following steps and serves
+> as a reference to use the symbol namespace feature:
 > 
-> Generally, these symbols fall in one of these categories:
-> 1) Symbols actually meant for drivers
-> 2) Symbols that are only exported because functionality is split over
->    multiple modules, yet they really shouldn't be used by modules outside
->    of their own subsystem
-> 3) Symbols really only meant for in-tree use
+>  1) Use EXPORT_SYMBOL_NS* macros instead of EXPORT_SYMBOL* for symbols
+>     in watchdog_core.c
+>  2) make  (see warnings during modpost about missing imports)
+>  3) make nsdeps
 > 
-> When module developers try to upstream their code, it regularly turns
-> out that they are using exported symbols that they really shouldn't be
-> using. This problem is even bigger for drivers that are currently
-> out-of-tree, which may be using many symbols that they shouldn't be
-> using, and that break when those symbols are removed or modified.
+> I used 'allmodconfig' for the above steps to ensure all occurrences are
+> patched.
 > 
-> This patch allows subsystem maintainers to partition their exported
-> symbols into separate namespaces, and module authors to import such
-> namespaces only when needed.
+> Defining DEFAULT_SYMBOL_NAMESPACE in the Makefile is not trivial in this
+> case as not only watchdog_core is defined in drivers/watchdog/Makefile.
+> Hence this patch uses the variant of using the EXPORT_SYMBOL_NS* macros
+> to export into a different namespace.
 > 
-> This allows subsystem maintainers to more easily limit availability of
-> these namespaced symbols to other parts of the kernel. It can also be
-> used to partition the set of exported symbols for documentation
-> purposes; for example, a set of symbols that is really only used for
-> debugging could be in a "SUBSYSTEM_DEBUG" namespace.
+I don't have the context, and thus I am missing the point of this patch
+set. Whatever it is supposed to accomplish, it seems extreme to me
+to require extra code in each driver for it.
 
-I'm missing how one can prohibit these random out of tree modules from
-doing MODULE_IMPORT_NS().
+Anyway, WATCHDOG_CORE would be the default namespace (if it is what
+I think it is) for watchdog drivers, even though not all watchdog drivers
+use it. As such, I am missing an explanation why defining it in Makefile
+is not trivial. "... as not only watchdog_core is defined in
+drivers/watchdog/Makefile" does not mean anything to me and is not a real
+explanation. Also, it is not immediately obvious to me why "select
+WATCHDOG_CORE" in Kconfig would not automatically imply that WATCHDOG_CORE
+is used by a given driver, and why it is impossible to use that
+information to avoid the per-driver changes.
 
-That is; suppose I stick all the preempt_notifier symbols in a KVM
-namespace, how do I enforce no out-of-tree modules ever do
-MODULE_IMPORT_NS(KVM) and gain access?
+I am also missing an explanation why WATCHDOG_CORE is going to be a
+separate namespace to start with. Maybe that discussion has happened,
+but I don't recall being advised or asked or told about it. Are we also
+going to have a new HWMON_CORE namespace ? And the same for each other
+subsystem in the kernel ?
 
-(the above would basically break virtualbox, which I knows uses preempt
-notifiers too, but I don't give a rats arse about that)
+Since this is being added to the watchdog API, it will have to be
+documented accordingly. Watchdog driver writers, both inside and outside
+the watchdog subsystem, will need to know that they now have to add an
+additional boilerplate declaration into their drivers.
+
+Last but not least, combining patches affecting multiple subsystems in a
+single patch will make it difficult to apply and will likely result in
+conflicts. Personally I would prefer a split into one patch per affected
+subsystem. Also, please keep in mind that new pending watchdog drivers
+won't have the new boilerplate.
+
+Thanks,
+Guenter
