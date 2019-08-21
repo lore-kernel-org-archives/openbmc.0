@@ -1,102 +1,101 @@
-Return-Path: <gregkh@linuxfoundation.org>
+Return-Path: <nico@fluxnic.net>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linuxfoundation.org
- (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=gregkh@linuxfoundation.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linuxfoundation.org
+ spf=pass (mailfrom) smtp.mailfrom=fluxnic.net
+ (client-ip=64.147.108.86; helo=pb-sasl-trial2.pobox.com;
+ envelope-from=nico@fluxnic.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=fluxnic.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.b="TupyVj17"; 
+ unprotected) header.d=pobox.com header.i=@pobox.com header.b="c1PME/SJ"; 
+ dkim=fail reason="key not found in DNS" (0-bit key;
+ secure) header.d=fluxnic.net header.i=@fluxnic.net header.b="u8QzXJ4j"; 
  dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+X-Greylist: delayed 493 seconds by postgrey-1.36 at bilbo;
+ Wed, 21 Aug 2019 23:13:43 AEST
+Received: from pb-sasl-trial2.pobox.com (pb-sasl-trial2.pobox.com
+ [64.147.108.86])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46D6gF2K6zzDqLf;
- Wed, 21 Aug 2019 22:39:37 +1000 (AEST)
-Received: from localhost (unknown [12.166.174.13])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46D7Qb5WTVzDr02;
+ Wed, 21 Aug 2019 23:13:43 +1000 (AEST)
+Received: from pb-sasl-trial2.pobox.com (localhost.local [127.0.0.1])
+ by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id 61EBA1840C;
+ Wed, 21 Aug 2019 09:05:22 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=pobox.com; h=date:from:to
+ :cc:subject:in-reply-to:message-id:references:mime-version
+ :content-type; s=sasl; bh=8OJtyeNZ9sCoH4BVmhH8yW8Bvtc=; b=c1PME/
+ SJzr4aFk09ikfKp1bezTdBSw1zwNS3hrdNtoOqlYZR7yA8XltYBalyFTKDMKbjP0
+ N65/OlgmcPY1jK1+z15I44JCS9KM0+7x8/h7bHxlIX4/NT+azCbj5YqM8+gMtbTp
+ uXIkLMunbK+ZmjnijFcehZ1TUdsCiepGgzujk=
+Received: from pb-smtp1.nyi.icgroup.com (pb-smtp1.pobox.com [10.90.30.53])
+ by pb-sasl-trial2.pobox.com (Postfix) with ESMTP id 3E97C1840B;
+ Wed, 21 Aug 2019 09:05:22 -0400 (EDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed; d=fluxnic.net;
+ h=date:from:to:cc:subject:in-reply-to:message-id:references:mime-version:content-type;
+ s=2016-12.pbsmtp; bh=V25/yKN9jlMjRVCEXCSuKB+Re2Fd96dfPM01Z+/Jqwg=;
+ b=u8QzXJ4jPt13KgiTpgzojpKoWuF5UnQufQIrmIF1V1GDjy6AYPilfpABHbSnzJ1cD46DKsQ+JPEMRPYBtPL2vVu09z8iN4C6o7z6Kg63KVX0atNi1l+zBI4OCk5fsPv9COf6vzghotcslIvOnBR1dt1b3O/PjBpbMEOUK+25Eh8=
+Received: from yoda.home (unknown [24.203.50.76])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 81D002341E;
- Wed, 21 Aug 2019 12:39:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1566391173;
- bh=9bKz63tfFMpFQqEEIloPUowFJ5JwR4y30ptvJscL/Iw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=TupyVj17ES+TfT+ew5wxVn8/RoB+TY3kzi7v4OUpPABmXN54r5OmVi6tbiKQX/bZY
- 5gCzoLUZziA2oHRwBivvPBaJ3vxbNxMmuKTqKq08ygNvwKx22cXMo1ObY0kyFKURpq
- clArw0ZdRLuq6XCWIqAV2EpnFRwl4GNUZtxnjD1Y=
-Date: Wed, 21 Aug 2019 05:39:33 -0700
-From: Greg KH <gregkh@linuxfoundation.org>
+ by pb-smtp1.pobox.com (Postfix) with ESMTPSA id 0BFFA157B47;
+ Wed, 21 Aug 2019 08:46:49 -0400 (EDT)
+Received: from xanadu.home (xanadu.home [192.168.2.2])
+ by yoda.home (Postfix) with ESMTPSA id 0CE5A2DA023B;
+ Wed, 21 Aug 2019 08:46:48 -0400 (EDT)
+Date: Wed, 21 Aug 2019 08:46:47 -0400 (EDT)
+From: Nicolas Pitre <nico@fluxnic.net>
 To: Matthias Maennich <maennich@google.com>
-Cc: linux-kernel@vger.kernel.org, kernel-team@android.com, arnd@arndb.de,
- geert@linux-m68k.org, hpa@zytor.com, jeyu@kernel.org,
- joel@joelfernandes.org, kstewart@linuxfoundation.org,
- linux-arch@vger.kernel.org, linux-kbuild@vger.kernel.org,
- linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org,
- lucas.de.marchi@gmail.com, maco@android.com, maco@google.com,
- michal.lkml@markovi.net, mingo@redhat.com, oneukum@suse.com,
- pombredanne@nexb.com, sam@ravnborg.org, sspatil@google.com,
- stern@rowland.harvard.edu, tglx@linutronix.de,
- usb-storage@lists.one-eyed-alien.net, x86@kernel.org,
- yamada.masahiro@socionext.com, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Alessandro Zummo <a.zummo@towertech.it>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Ludovic Desroches <ludovic.desroches@microchip.com>,
- Eric Anholt <eric@anholt.net>, Stefan Wahren <wahrenst@gmx.net>,
- Florian Fainelli <f.fainelli@gmail.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- bcm-kernel-feedback-list@broadcom.com,
- Support Opensource <support.opensource@diasemi.com>,
- Baruch Siach <baruch@tkos.co.il>,
- William Breathitt Gray <vilhelm.gray@gmail.com>,
- Jerry Hoemann <jerry.hoemann@hpe.com>, Shawn Guo <shawnguo@kernel.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>,
- Vladimir Zapolskiy <vz@mleia.com>, Tomas Winkler <tomas.winkler@intel.com>,
- Johannes Thumshirn <morbidrsa@gmail.com>,
- Andreas Werner <andreas.werner@men.de>,
- Kevin Hilman <khilman@baylibre.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Andy Gross <agross@kernel.org>, Kukjin Kim <kgene@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Barry Song <baohua@kernel.org>, Orson Zhai <orsonzhai@gmail.com>,
- Baolin Wang <baolin.wang@linaro.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Patrice Chotard <patrice.chotard@st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>,
- Maxime Ripard <maxime.ripard@bootlin.com>, Chen-Yu Tsai <wens@csie.org>,
- Marc Gonzalez <marc.w.gonzalez@free.fr>, Mans Rullgard <mans@mansr.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-hwmon@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
- linux-rpi-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
- linux-arm-msm@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-tegra@vger.kernel.org, patches@opensource.cirrus.com
-Subject: Re: [PATCH v3 11/11] RFC: watchdog: export core symbols in
- WATCHDOG_CORE namespace
-Message-ID: <20190821123933.GC4059@kroah.com>
+cc: linux-kernel@vger.kernel.org, kernel-team@android.com, 
+ Arnd Bergmann <arnd@arndb.de>, geert@linux-m68k.org, 
+ gregkh@linuxfoundation.org, hpa@zytor.com, jeyu@kernel.org, 
+ joel@joelfernandes.org, kstewart@linuxfoundation.org, 
+ linux-arch@vger.kernel.org, linux-kbuild@vger.kernel.org, 
+ linux-m68k@lists.linux-m68k.org, linux-modules@vger.kernel.org, 
+ linux-scsi@vger.kernel.org, linux-usb@vger.kernel.org, 
+ lucas.de.marchi@gmail.com, maco@android.com, maco@google.com, 
+ michal.lkml@markovi.net, mingo@redhat.com, oneukum@suse.com, 
+ pombredanne@nexb.com, sam@ravnborg.org, sspatil@google.com, 
+ stern@rowland.harvard.edu, tglx@linutronix.de, 
+ usb-storage@lists.one-eyed-alien.net, x86@kernel.org, 
+ yamada.masahiro@socionext.com, Adrian Reber <adrian@lisas.de>, 
+ Alexey Gladkov <gladkov.alexey@gmail.com>, 
+ Andrew Jeffery <andrew@aj.id.au>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ Ard Biesheuvel <ard.biesheuvel@linaro.org>, 
+ bcm-kernel-feedback-list@broadcom.com, 
+ Benjamin Fair <benjaminfair@google.com>, cocci@systeme.lip6.fr, 
+ Dan Williams <dan.j.williams@intel.com>, 
+ David Howells <dhowells@redhat.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Gleb Fotengauer-Malinovskiy <glebfm@altlinux.org>, 
+ Ingo Molnar <mingo@kernel.org>, Jani Nikula <jani.nikula@intel.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Julia Lawall <julia.lawall@lip6.fr>, 
+ linux-amlogic@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-arm-msm@vger.kernel.org, linux-aspeed@lists.ozlabs.org, 
+ linux-hwmon@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-rtc@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-tegra@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, 
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+ Michael Ellerman <mpe@ellerman.id.au>, Nancy Yuen <yuenn@google.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>, 
+ NXP Linux Team <linux-imx@nxp.com>, openbmc@lists.ozlabs.org, 
+ patches@opensource.cirrus.com, Patrick Bellasi <patrick.bellasi@arm.com>, 
+ Patrick Venture <venture@google.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Richard Guy Briggs <rgb@redhat.com>, Tejun Heo <tj@kernel.org>, 
+ Toru Komatsu <k0ma@utam0k.jp>, Will Deacon <will@kernel.org>
+Subject: Re: [PATCH v3 00/11] Symbol Namespaces
+In-Reply-To: <20190821114955.12788-1-maennich@google.com>
+Message-ID: <nycvar.YSQ.7.76.1908210840490.19480@knanqh.ubzr>
 References: <20190813121733.52480-1-maennich@google.com>
  <20190821114955.12788-1-maennich@google.com>
- <20190821114955.12788-12-maennich@google.com>
+User-Agent: Alpine 2.21 (LFD 202 2017-01-01)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20190821114955.12788-12-maennich@google.com>
-User-Agent: Mutt/1.12.1 (2019-06-15)
+Content-Type: text/plain; charset=US-ASCII
+X-Pobox-Relay-ID: BDE512AC-C411-11E9-A63C-46F8B7964D18-78420484!pb-smtp1.pobox.com
 X-Mailman-Approved-At: Mon, 02 Sep 2019 10:34:53 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -109,39 +108,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 21 Aug 2019 12:39:39 -0000
+X-List-Received-Date: Wed, 21 Aug 2019 13:13:45 -0000
 
-On Wed, Aug 21, 2019 at 12:49:26PM +0100, Matthias Maennich wrote:
-> Modules using these symbols are required to explicitly import the
-> namespace. This patch was generated with the following steps and serves
-> as a reference to use the symbol namespace feature:
-> 
->  1) Use EXPORT_SYMBOL_NS* macros instead of EXPORT_SYMBOL* for symbols
->     in watchdog_core.c
->  2) make  (see warnings during modpost about missing imports)
->  3) make nsdeps
-> 
-> I used 'allmodconfig' for the above steps to ensure all occurrences are
-> patched.
-> 
-> Defining DEFAULT_SYMBOL_NAMESPACE in the Makefile is not trivial in this
-> case as not only watchdog_core is defined in drivers/watchdog/Makefile.
-> Hence this patch uses the variant of using the EXPORT_SYMBOL_NS* macros
-> to export into a different namespace.
-> 
-> An alternative to this patch would be a single definition line before
-> any use of EXPORT_SYMBOL*:
->  #define DEFAULT_SYMBOL_NAMESPACE WATCHDOG_CORE
-> 
-> Signed-off-by: Matthias Maennich <maennich@google.com>
+On Wed, 21 Aug 2019, Matthias Maennich wrote:
 
-As we talked in chat, the cc: list for this patch was crazy :)
+> As of Linux 5.3-rc5, there are 31205 [1] exported symbols in the kernel.
+> That is a growth of roughly 1000 symbols since 4.17 (30206 [2]).  There
+> seems to be some consensus amongst kernel devs that the export surface
+> is too large, and hard to reason about.
 
-If you end up resending this (as odds are the mailing lists will trash
-it for too many recipients), feel free to add:
+This is good work.
 
-Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+One solution for drastically reducing the effective export surface is to 
+have CONFIG_TRIM_UNUSED_KSYMS=y. This is more extreme than symbol 
+namespace, but might be worth mentioning nevertheless.
 
-Great work,
 
-greg k-h
+Nicolas
