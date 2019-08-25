@@ -1,59 +1,60 @@
 Return-Path: <akuster808@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::62a; helo=mail-pl1-x62a.google.com;
+ (client-ip=2607:f8b0:4864:20::533; helo=mail-pg1-x533.google.com;
  envelope-from=akuster808@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wp5/y7XZ"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZMB2cjLM"; 
  dkim-atps=neutral
-Received: from mail-pl1-x62a.google.com (mail-pl1-x62a.google.com
- [IPv6:2607:f8b0:4864:20::62a])
+Received: from mail-pg1-x533.google.com (mail-pg1-x533.google.com
+ [IPv6:2607:f8b0:4864:20::533])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46F6tw3TYczDrPP
- for <openbmc@lists.ozlabs.org>; Fri, 23 Aug 2019 13:53:09 +1000 (AEST)
-Received: by mail-pl1-x62a.google.com with SMTP id d3so4779670plr.1
- for <openbmc@lists.ozlabs.org>; Thu, 22 Aug 2019 20:53:09 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46GjLd07bjzDqfC
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Aug 2019 03:49:12 +1000 (AEST)
+Received: by mail-pg1-x533.google.com with SMTP id x15so8976741pgg.8
+ for <openbmc@lists.ozlabs.org>; Sun, 25 Aug 2019 10:49:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:openpgp:autocrypt:message-id:date
  :user-agent:mime-version:in-reply-to:content-transfer-encoding
  :content-language;
- bh=BmMVr7SMfjGHJhsMzFt1c2UfvQZX7luX8CsiI7kjqgU=;
- b=Wp5/y7XZhXdLKhDstbLmzOaR02z2dicw+/NDd8P95jjeoIf2g1hAr0PUuexE5/nC2Y
- QU6zryfDP3A4VENQhr2T8yJ84/OdUT517zk5BGIpDdJavyfVFU2sYbb+8pClb62S1E79
- e+2djZZSGoS8HrrAaut9tYKf6/W/XBPR0tYmed95flz4PB6Un76uF028qs39hrHpFQCw
- PWJw5fZ2FPHkixr1gdN0p4q8EHSoSY7LkpUm+YLEqQ27uHtFfnByrbOm/luukT1OI7NF
- IjmGqTd4uJ6GPFQf7G1b/cfTiCOZeB2+D4HhzlWBh//c8AGzMLQdbo9/it99UnRMH5af
- gmPg==
+ bh=oUP/CufSFWxbDAs64LYnk4fcaFzjOEUfT3CKpdcSQ8o=;
+ b=ZMB2cjLMjdkeGfC5mEyFhTz3gNoM3qfsmFxKTGgvtP7L8nPVfJnKvaCo3bJY17p3K5
+ y9WxdNNzh5Op2zshRjSmurr8sgiycxJ0C+4cuCi+xTyY46CZVbpzkIMluX84mGrsGdXE
+ Bs4MQx0MgyNWuG9s57B4ExX95IXMLgDPm5PHj5Q0LdoXofhn8AtQDiWauqxDDLuHbhZq
+ O4335rKunOWNbbtVu/3c81K8MQn+rbYhKWZ0pzVpuzFMJNQF/yq5Ojo1qn66O3NQBSii
+ NuaOeEFckLuo/YO5w6HsL7QuiC1Zs/E9MsnZ6mgf3PMvA2b4/PnhE85hY8M7LX13fxuo
+ jPIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:openpgp:autocrypt
  :message-id:date:user-agent:mime-version:in-reply-to
  :content-transfer-encoding:content-language;
- bh=BmMVr7SMfjGHJhsMzFt1c2UfvQZX7luX8CsiI7kjqgU=;
- b=mVNuRueAbcd7pSqUh/bJtYCQRQTgQXbnnT85qxaBYpId0fAvm8sNUHSQArFu5bH11z
- pGHGVbgLhPn5iWkxmAMDtwxpbL0QQArQIx15eJR1M5jWx93ht80L7VAqaY33hiy3iQ7R
- RUVuF3bno3ZzUr0E322HbP3tOpKC3Z+fzg40ml4yMd826MypxCcoJbLWreJ2eUij1eFr
- kbmtXUF9ax+DKmRNVNhAJ/KRONYyD9oL7M7ovUmOoL6gTBrYjo9h36rEZWgMVBr1cK3w
- dmdEfG2asO8q0z65e3Q5prfJhmu/FGNQseT+ihym2hfKVBciTIYA5zRCsKXC8bWQbYz1
- qvsQ==
-X-Gm-Message-State: APjAAAX41BmgKHTQNelJnQQiktUYtx9Gz7tEbwgb1pON4wpm7fL0kflB
- k/5WGS5mu8CiQOT1CPNXJ0A=
-X-Google-Smtp-Source: APXvYqxKGTDEj2rmDDEX0Nb7+yq/gd2dVNVJZ5/M7+yXPazyTea/75Exu+WyU0ycA2PzYYwqRaFv4Q==
-X-Received: by 2002:a17:902:7c8a:: with SMTP id
- y10mr2311702pll.65.1566532386640; 
- Thu, 22 Aug 2019 20:53:06 -0700 (PDT)
-Received: from [172.20.6.109] ([12.235.222.84])
- by smtp.gmail.com with ESMTPSA id x1sm923263pfj.182.2019.08.22.20.53.05
+ bh=oUP/CufSFWxbDAs64LYnk4fcaFzjOEUfT3CKpdcSQ8o=;
+ b=CXKwTSqL6wzKLekvHxICOoTrGHYvuxZFd2DS+KETfjuSus9k+FjphZlzsMU4e0bjmO
+ /96/4lkxaCGg2yLqX6oAkK0lHEHOVBx8/dPEf28I+P3Szf5myTZP7got9QeRq0ZVFrR0
+ WCQxsNXsEGfCEhCiZBG8LnRYi1msT8cEnGjW7spHWCdHSY2JVG6g+hlkbNuJq/lb6il5
+ 7HxyECBItoA6WhWi+ZSvnyF0LTXX3yrk7yFrvb8twOHm8/N0R92Fx6Rlwt5vR3Ihgm1j
+ u+Lu8rojRAvMyHYzs4Q668WXYff1lDMWap6BtzNxTrckXAmod79bphfzTRSGGvyayN+b
+ p2RA==
+X-Gm-Message-State: APjAAAXEIJIApeNyBE/eTCjJQ8kk0stxP06T4Wn6Qbdg5wCDdDKU18XS
+ bVdvQt7DvsVZWbXQHTqVy0c=
+X-Google-Smtp-Source: APXvYqw7oS2OnyktUFnQWUMCzq8uwLYT53shSrWHgGpHBMSpdP62Q9zuDA7czt9ni/ZHVnH+TuFN9w==
+X-Received: by 2002:a17:90a:e28a:: with SMTP id
+ d10mr16042268pjz.107.1566755348744; 
+ Sun, 25 Aug 2019 10:49:08 -0700 (PDT)
+Received: from ?IPv6:2601:202:4180:c33:d435:11b7:8108:4569?
+ ([2601:202:4180:c33:d435:11b7:8108:4569])
+ by smtp.gmail.com with ESMTPSA id c13sm9772936pfi.17.2019.08.25.10.49.07
  (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 22 Aug 2019 20:53:05 -0700 (PDT)
-Subject: Re: Build break in the latest openbmc tree.
+ Sun, 25 Aug 2019 10:49:08 -0700 (PDT)
+Subject: Re: [yocto] Build break in the latest openbmc tree.
 To: Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, yocto@yoctoproject.org,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, akuster808@gmail.com
+Cc: yocto@yoctoproject.org, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  James Feist <james.feist@linux.intel.com>
 References: <038f49d9-099e-dabd-2957-d31e7b8bbf41@linux.intel.com>
  <628d5b4c-63d4-78b6-83d8-1781cbc86e0f@linux.intel.com>
@@ -103,14 +104,14 @@ Autocrypt: addr=akuster808@gmail.com; prefer-encrypt=mutual; keydata=
  PNHndk8VBTpzrmOaJxrebNL/W6C8JCmbLM11TAUMmHYi9JDytN8Au78hWpDbIdKwg1LeSxpw
  ZZD/OqOc0DBvHOpQhzkSrtR1lVlDV/+9E8J1T4uDhrGmZwYV+4xQetypHax8aAHisYbjXdVa
  8CS2NxU=
-Message-ID: <ddea7d78-c68a-f143-40fe-615086d83b0c@gmail.com>
-Date: Thu, 22 Aug 2019 20:53:04 -0700
+Message-ID: <fbcfc988-687f-55ad-1ca9-ace092f09a99@gmail.com>
+Date: Sun, 25 Aug 2019 10:49:07 -0700
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.8.0
 MIME-Version: 1.0
 In-Reply-To: <7694CCA3-89BD-44FE-90D1-99569476E980@fuzziesquirrel.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
 X-Mailman-Approved-At: Mon, 02 Sep 2019 10:34:53 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -124,9 +125,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 23 Aug 2019 03:53:13 -0000
+X-List-Received-Date: Sun, 25 Aug 2019 17:49:14 -0000
 
+the meta-security layer should be fix now.
 
+please update and let me know if not.
+
+-armin
 
 On 8/22/19 6:09 PM, Brad Bishop wrote:
 > at 6:38 PM, James Feist <james.feist@linux.intel.com> wrote:
@@ -138,8 +143,7 @@ On 8/22/19 6:09 PM, Brad Bishop wrote:
 >>
 >>> We met a build break while making Intel platform builds.
 >>> ERROR: No recipes available for:
->>> /home/yoojae/workspace/openbmc/meta-security/recipes-kernel/linux/lin=
-ux-stable_5.2.bbappend
+>>> /home/yoojae/workspace/openbmc/meta-security/recipes-kernel/linux/linux-stable_5.2.bbappend
 >>> It was added by the subtree update patch but there is no main recipe
 >>> for it. Did we miss something?
 >>> Thanks,
@@ -150,24 +154,12 @@ ux-stable_5.2.bbappend
 > linux-stable is in meta-odroid:
 > https://lists.yoctoproject.org/pipermail/yocto/2019-August/046424.html
 >
-> It isn=E2=80=99t clear to me if meta-security is supposed to have a har=
-d
+> It isn’t clear to me if meta-security is supposed to have a hard
 > dependency on meta-odroid or not.
-It should not. The is bad behavior and I wanted to avoid such an issue.
-meta-security is a s/w layer and should be BSP neutral.=C2=A0 I did not
-achieve that.
 >
 > Hi Armin
 >
 > Could you suggest what the right thing to do here might be?
-Yeah, i believe the recipe in meta-security should be linux-%.* . My
-testing unfortunately kept the meta-odroid layer included so its a false
-positive. Not my intent . I know the qemu machines should build clean
-with any changes in that layer.
-
-I am testing changes now to correct his issue.
-
-- armin
 >
 > thx!
 > brad
