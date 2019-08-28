@@ -1,35 +1,39 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46JWNt5LSKzDr8H
- for <openbmc@lists.ozlabs.org>; Thu, 29 Aug 2019 02:27:22 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x7SGQIxP004238;
- Wed, 28 Aug 2019 19:26:19 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id D77DF628F1; Wed, 28 Aug 2019 19:26:18 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: mpm@selenic.com, herbert@gondor.apana.org.au, arnd@arndb.de,
- gregkh@linuxfoundation.org, robh+dt@kernel.org, mark.rutland@arm.com,
- avifishman70@gmail.com, tali.perry1@gmail.com, venture@google.com,
- yuenn@google.com, benjaminfair@google.com, sumit.garg@linaro.org,
- jens.wiklander@linaro.org, vkoul@kernel.org, tglx@linutronix.de,
- joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, openbmc@lists.ozlabs.org,
- Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 0/2] hwrng: npcm: add NPCM RNG driver support
-Date: Wed, 28 Aug 2019 19:26:15 +0300
-Message-Id: <20190828162617.237398-1-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.18.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46JWVJ4LqZzDq9b
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Aug 2019 02:29:51 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2019 09:29:47 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,441,1559545200"; d="scan'208";a="380458181"
+Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
+ by fmsmga005.fm.intel.com with ESMTP; 28 Aug 2019 09:29:47 -0700
+Subject: Re: Entity-Manager's Configuration Generation leaves address as string
+To: Patrick Venture <venture@google.com>,
+ Peter Lundgren <peterlundgren@google.com>, Kun Yi <kunyi@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+References: <CAO=notzA5GNeAbNxvrDs3gwORnjx36d5oPa5R=D-oajCxBC2Ow@mail.gmail.com>
+From: James Feist <james.feist@linux.intel.com>
+Message-ID: <6ab26e95-a327-9263-c1f3-9ba02333913d@linux.intel.com>
+Date: Wed, 28 Aug 2019 09:29:46 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
+MIME-Version: 1.0
+In-Reply-To: <CAO=notzA5GNeAbNxvrDs3gwORnjx36d5oPa5R=D-oajCxBC2Ow@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -41,27 +45,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 28 Aug 2019 16:27:27 -0000
+X-List-Received-Date: Wed, 28 Aug 2019 16:32:09 -0000
 
-This patch set adds Randon Number Generator (RNG) support 
-for the Nuvoton NPCM Baseboard Management Controller (BMC).
+On 8/28/19 7:27 AM, Patrick Venture wrote:
+> I think I've figured out what's happening.
+> 
+> If a configuration has no fields that are changed by the template code
+> (or possibly even in that case), nothing happens to the values.  So,
+> the property Address is left "0x54" if that's what it is.  And the
+> code is templated, so it just adds that property of type string to the
+> dbus sensor configuration.  As this is definitely what I'm seeing.
+> Json doesn't support ints that are written raw as hex, so wrapping
+> them as strings is what's required to make the json parse.  I've
+> worked around this problem by just using decimal everywhere, but
+> that's harder to read when comparing to schematics.
 
-The RNG driver we use power consumption when the RNG 
-is not required.
+Based on this, I think this line might be your issue:
 
-The NPCM RNG driver tested on NPCM750 evaluation board.
+https://github.com/openbmc/entity-manager/blob/3b80d7c51ff5d5859c0ca1f2b517c18f4766a1a6/src/EntityManager.cpp#L1336
 
-Tomer Maimon (2):
-  dt-binding: hwrng: add NPCM RNG documentation
-  hwrng: npcm: add NPCM RNG driver
 
- .../bindings/rng/nuvoton,npcm-rng.txt         |  17 ++
- drivers/char/hw_random/Kconfig                |  13 ++
- drivers/char/hw_random/Makefile               |   1 +
- drivers/char/hw_random/npcm-rng.c             | 207 ++++++++++++++++++
- 4 files changed, 238 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
- create mode 100644 drivers/char/hw_random/npcm-rng.c
+If found device is nullopt, you still want to call this line, but you 
+want to call it with an empty flat_map.
 
--- 
-2.18.0
+I verified if this happens it should work here:
+
+https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/24787
+
+
+
+> 
+> Would it make sense to make the add property code less field agnostic
+> so that if the field is Address and the Interface for
+> configuration.XXX that it checks to see if it's a hex string?  Or,
+> maybe the templateChar replace -- if that supports converting the hex
+> string to a raw integer value type should always get hit?
+> 
+> Thanks,
+> Patrick
+> 
