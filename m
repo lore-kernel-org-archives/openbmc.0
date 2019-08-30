@@ -6,63 +6,63 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JCTmQVcf"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JkbP/Lse"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GMzKbBxR"; dkim-atps=neutral
+ header.b="Z/sxAgZi"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46KYHB2JXYzDqxB
- for <openbmc@lists.ozlabs.org>; Fri, 30 Aug 2019 18:56:04 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46KYQn4HF5zDqB5
+ for <openbmc@lists.ozlabs.org>; Fri, 30 Aug 2019 19:02:41 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 165DD22077;
- Fri, 30 Aug 2019 04:56:01 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Fri, 30 Aug 2019 04:56:01 -0400
+ by mailout.nyi.internal (Postfix) with ESMTP id 218A121C7D;
+ Fri, 30 Aug 2019 05:02:39 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 30 Aug 2019 05:02:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
  :to:cc:subject:date:message-id:mime-version
  :content-transfer-encoding; s=fm3; bh=YfOg6kVFIxpytB8V2lWuqBjFpG
- J3tyADqfZr0OoUVzw=; b=JCTmQVcf+BVnSidizgsvxAtdnisg4F4XQAEoQWdBUu
- 5D5FqBBas/2l9RWqkgPEPuDhQhLvZcTOC+gBznvTct0PXWnNOE/mLabZ7XVnUeqt
- DjxJq6/OSlrGfXfTIcSyGqeqg2yKRCUsTYSitKwztE5shDRb8yic+9Q7maVm6WYh
- YJG2U9Qi0lo1Zs8woejOreMMRNC0PrXUYgBRcyDVMfYKR7fn7JHKrBNgT31Lsu5I
- HeD0X3ubWUvkNI2Rnzyi1l8PEjLIzx7Z0VEL6Ru25+P2tqMAreDznjJFRRcSj/ky
- cZM8DTDEFrkvV9ibR54YtXB1MFhzzTwFT347VDgUq3sg==
+ J3tyADqfZr0OoUVzw=; b=JkbP/LseMrHG5PW3n0Agrw8nb0d9uueY13qlov1T8C
+ ZPV9Uu+7dU/8f7dOoW/vuV+Spco5mJun9GypANZTa5IM3H1isw0PZc10d4WANsGT
+ hjoURgshUxPFQBJgAjQCV+3/qXD4OCTIhy8Q9UWuW0ZwosBUVD7w7Z8k+x0Q4hxJ
+ Bs54+9QRTLdXSgWZh4GgHzpCHRHOZuSdmjaQKiuwXSWFlznzkWvE+9Z8rsFbOyBC
+ K/Vht316rPd4xiIgUx0LJuwZuulvCY6aYreEapy5q06EmigPhJltMJsCoARzdFqr
+ ebhV1qkTtyKBS1E3hhXrSPqtFZcuaa9XbuDJ+eK5cSSg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
  :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=YfOg6kVFIxpytB8V2
- lWuqBjFpGJ3tyADqfZr0OoUVzw=; b=GMzKbBxRsMDMmSTmpNmdEMwl3boJ1yfB/
- /EpNP4/czanIZEfhZnoGq86nS+vZffduapysVln6CTtKTJ+XYNf/JsiBRED+TOvF
- 7Q3hr7dXvLnkTGXW7aCfPusaswW2jscgJ/4Suojl2m37xy0ptZ6jINZzMKhfI5Az
- 9Htou2lwzpI3qsCH9vpeXbxo405BrXWb4ZjsE6wcnU/uBb/1TMiVwWSb4L2lrqk8
- 9PD1dj9CZLvTVDThCVcfVqGWSxCeoZD+S5DaFtybezXD1nLbrDPhS3aTg+TIZlIr
- n1EPl78idf7AjhxtREOc82m93VKz/4GH1PbkxCUhsDpmxtRY3Qgug==
-X-ME-Sender: <xms:oORoXf5JXd-tJognjJpEFURTmm3jYd4sTSBTbZkQRapX20pqCnmGQg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeigedgtdelucetufdoteggodetrfdotf
+ lWuqBjFpGJ3tyADqfZr0OoUVzw=; b=Z/sxAgZiXbo9U0yFM5cb2pVKjPaq4RyYH
+ fSLquQjh0baELrBs/PqOsWDOOAbzpV3z2aNGOYKkbkET/jmZUPn2wusYwRkoJHb8
+ yl+6xB76HzyOwEBU1i6k2YSIET3o03tEo4JxGSPnQY4UvSFY5R9kxgh9UxD0sz/Q
+ CezRaQ/a1XvTap6BThCKXE5RD1cCmqYf69N9Wk9x9OqzA/01f/9iAzpBdqPJG7pp
+ xffn4k9OsMi5JQMIHxG1NyUTm/tPfniYS/3EtjGQLzoTp4T69vgSQSDzYXYVJmkh
+ 60wCHtOdvvyB2ODt6nUXPLcWfrkGHHbBaEFrkMMHpmZos2AkgvTFw==
+X-ME-Sender: <xms:LuZoXZBSImUPsI4CY1EoDiJg6qSc9ItFdti0meUQXW1x4pknT-KhjQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeigedgudduucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
  dttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdr
  ihgurdgruheqnecuffhomhgrihhnpehoiihlrggsshdrohhrghenucfkphepvddtfedrhe
  ejrddvudehrddujeeknecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
  rdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:oORoXToaPrm5Of_sCAL8tVb-BVWw9-bG-xR8LC5ol6TajWqNiAykEw>
- <xmx:oORoXbA9-Xp8Rcrr1fbPlSmcBrKDLGnSwvSu4XBa5F2MF2Hpi4nWVQ>
- <xmx:oORoXcNYrZx7taIUp0omm9NXjL43hfatq6Yn_1n3M-hErx-2vZgDCQ>
- <xmx:oeRoXe-ii3vVNoMhkXIjxEYdSUhyVpf7vb_YQ547jmAWnTSEZXyNjA>
+X-ME-Proxy: <xmx:LuZoXX9O9_35ahkvBjpXZqT7QQWncVj23y4ZNP_qRlc9pJU9w8akqg>
+ <xmx:LuZoXaDJpKa59j1-iNb2FKsIPkzmIRJaikRDwsv4BNb5sk4heqt79Q>
+ <xmx:LuZoXRvwB7cjA2WS-nEKbJXyojP2LHOZTqlBi7DogX6ZaCkvh54-_A>
+ <xmx:L-ZoXdrd6EHKGr0-zgvXnWpQN2STbNz3HxvCepyu3nVnc6YBBltXNQ>
 Received: from localhost.localdomain (203-57-215-178.dyn.iinet.net.au
  [203.57.215.178])
- by mail.messagingengine.com (Postfix) with ESMTPA id A4D1680062;
- Fri, 30 Aug 2019 04:55:58 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 7ADA4D60063;
+ Fri, 30 Aug 2019 05:02:36 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	joel@jms.id.au
 Subject: [PATCH 0/5] mmc: sdhci-of-aspeed: Fixes for AST2600 eMMC
-Date: Fri, 30 Aug 2019 18:26:27 +0930
-Message-Id: <20190830085632.12928-1-andrew@aj.id.au>
+Date: Fri, 30 Aug 2019 18:32:39 +0930
+Message-Id: <20190830090244.13566-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -77,7 +77,8 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 30 Aug 2019 08:56:10 -0000
+X-List-Received-Date: Fri, 30 Aug 2019 09:02:42 -0000
+X-List-Received-Date: Fri, 30 Aug 2019 09:02:42 -0000
 
 Hello,
 
