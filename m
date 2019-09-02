@@ -1,78 +1,77 @@
-Return-Path: <pengms1@lenovo.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=lenovo.com
- (client-ip=67.219.246.209; helo=mail1.bemta23.messagelabs.com;
- envelope-from=pengms1@lenovo.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=64.147.123.20; helo=wout4-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=lenovo.com
-Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
- [67.219.246.209])
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="lOjcO9cl"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="vqgvK4r6"; dkim-atps=neutral
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46MFVt278szDqZj
- for <openbmc@lists.ozlabs.org>; Mon,  2 Sep 2019 13:12:04 +1000 (AEST)
-Received: from [67.219.247.54] (using TLSv1.2 with cipher
- DHE-RSA-AES256-GCM-SHA384 (256 bits))
- by server-2.bemta.az-d.us-east-1.aws.symcld.net id 61/DD-22799-1888C6D5;
- Mon, 02 Sep 2019 03:12:01 +0000
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrNKsWRWlGSWpSXmKPExsWS8eIhj25jR06
- swYol/BanWl6wODB6nJ+xkDGAMYo1My8pvyKBNeNo/zHWgq8yFdtXqDcwTpLqYuTiEBKYxyQx
- /dgmxi5GTiDnJaPE2xWuEIlXjBK71l5ig3B2M0p83HiLDaSKTUBLYuH/PUwgtoiApcSSB+1gc
- WEBC4nLV7ezQsRtJQ6f3MgCYetJXPy8E6yGRUBF4sj7t+wgNi9Q77wVu8FsRgFZiWmP7oPNZB
- YQl5g7bRbYHAkBAYkle84zQ9iiEi8f/4OKK0i0X2pmhahPkLh8cC4rxExBiZMzn7BMYBSahWT
- ULCRls5CUQcR1JBbs/sQGYWtLLFv4mhnGPnPgMROy+AJG9lWMpklFmekZJbmJmTm6hgYGuoaG
- RrqWuuYWeolVuil6pcW6qYnFJbqGeonlxXrFlbnJOSl6eaklmxiBsZRSwOm3g3HXrDd6hxglO
- ZiURHn5D2XHCvEl5adUZiQWZ8QXleakFh9ilOHgUJLgfdGeEyskWJSanlqRlpkDjGuYtAQHj5
- II70GQNG9xQWJucWY6ROoUoz3HhJdzFzFzHDw6D0h+XLUESH4HkUIsefl5qVLivPwgbQIgbRm
- leXBDYWnoEqOslDAvIwMDgxBPQWpRbmYJqvwrRnEORiVh3kUgU3gy80rgdgOTC9BHIrw3pmeC
- nFWSiJCSamDKn5PPdWvvtfIDlj/Tt6/SO/zd92B9zMFp/gHqzD/6fjZNrtr94tzVumS3xD1eG
- jxt2b8CorRyGV//W6xz89Qcs9stim6l/z4L3eE/fDY2aUXO6cl3XzDf4/K+MHH+p9oA3alCOx
- MeZp37Omfj9Br+lY92vnvgfs69weTCx5Tw1EPPorvFYkWfXa9sNrzq/+dBSMyrpu4N57fzPZ6
- Rs0tKXNPPXWiThPSee5/uheftdZ/P4ePrxtnw9Hm1KX+e9oH29oI9N/Te75ha235OLcKG43b/
- hQ+F9h4BHduqNiyTrVy0Uv7q7GVpixk3GNS82/pdMuu9xkLfwMV7rr1Sz1QpPp+RK911N/mxx
- t6Z98tElFiKMxINtZiLihMBM/KTiL4DAAA=
-X-Env-Sender: pengms1@lenovo.com
-X-Msg-Ref: server-32.tower-426.messagelabs.com!1567393921!319238!1
-X-Originating-IP: [104.232.225.12]
-X-SYMC-ESS-Client-Auth: outbound-route-from=pass
-X-StarScan-Received: 
-X-StarScan-Version: 9.43.12; banners=-,-,-
-X-VirusChecked: Checked
-Received: (qmail 2679 invoked from network); 2 Sep 2019 03:12:01 -0000
-Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.12)
- by server-32.tower-426.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
- encrypted SMTP; 2 Sep 2019 03:12:01 -0000
-Received: from pekwpmail04.lenovo.com (unknown [10.96.93.82])
- (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by Forcepoint Email with ESMTPS id 9B8FAFD262CC6DA2D242
- for <openbmc@lists.ozlabs.org>; Sun,  1 Sep 2019 23:12:00 -0400 (EDT)
-Received: from pekwpmail08.lenovo.com (10.96.81.160) by pekwpmail04.lenovo.com
- (10.96.93.82) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 2 Sep
- 2019 11:11:59 +0800
-Received: from pekwpmail05.lenovo.com (10.96.81.230) by pekwpmail08.lenovo.com
- (10.96.81.160) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1591.10; Mon, 2 Sep
- 2019 11:11:58 +0800
-Received: from pekwpmail05.lenovo.com ([fe80::c91f:415c:90bb:3ddf]) by
- pekwpmail05.lenovo.com ([fe80::c91f:415c:90bb:3ddf%7]) with mapi id
- 15.01.1591.008; Mon, 2 Sep 2019 11:11:58 +0800
-From: Andrew MS1 Peng <pengms1@lenovo.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: How to handle a  specific platform application?
-Thread-Topic: How to handle a  specific platform application?
-Thread-Index: AdVhOivGKaNxf267TWuqPcexuPdLng==
-Date: Mon, 2 Sep 2019 03:11:58 +0000
-Message-ID: <643a0f27aed44f9b95a1d0287c2e204d@lenovo.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.96.12.253]
-Content-Type: multipart/alternative;
- boundary="_000_643a0f27aed44f9b95a1d0287c2e204dlenovocom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46MGXf362bzDqQM;
+ Mon,  2 Sep 2019 13:58:42 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 7E3542A7;
+ Sun,  1 Sep 2019 23:58:38 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Sun, 01 Sep 2019 23:58:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=xsC+k1HwgXn/+
+ wd1iZbQwarEodEUaIr5qWO1c8wQAQI=; b=lOjcO9clPxBfdHaod1XlxFZiZI9yJ
+ dWfw0xyPK9YARHvoGsWi9bctQi2/Dn+JxE0dq7+0yYcYPOb8fqnV+epgciT4ePSu
+ m8XOIiQ/PlZeea0yrE4S8oYBGFsTs7mybJ+1tyGxXrDfM0A7p3b4KVcvO8t1fEdh
+ Z24GLhVCekRqzf0BtkH+kOwUXgDW2ZMt8tJdoyUQ9K7P9Zdts8mmIkfZIB76T9y8
+ Z+yO7XL9UYCmt8A2nidyGiL7QmI2+fYYEjLFdKofRbCrnWvD7b6WgUZhV1+c1BKA
+ zpOEsJ9K4VlH/Fopr+jBNa1hxgR6bbbHMi4N1Hbm4QeX/KzY/QbTkhcJg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=xsC+k1HwgXn/+wd1iZbQwarEodEUaIr5qWO1c8wQAQI=; b=vqgvK4r6
+ zG8NC4VfqSZe83rjyx3Zy5RVDSff8ATz5Y87iu95arfdrs+iLHnJa91Sp5I+UUoU
+ Y5HPIDp+6pdwyVuzN+kallNb+KRn/4TzUZbF5YzcId6XQEADrPJgW6hOx9lin4f0
+ 61hBYtk6s6pG8SF3XyWc464LpT6fGZwG3odxpWfvG14Ef18rrPkTA04CRFHW4WU7
+ eP5msi90hYHcS1eh1KNAqmil7gssLNT83KOWL8RMSiSfwHBjXb1lLNUhGli6sybY
+ ZqWmNcmt5pKeGf0PEzzAi/Y07zy2vmv9bdsXTdtMQyumzaF0J6WEF7DDaKTM4vHB
+ wcV4669zaUQwDg==
+X-ME-Sender: <xms:bpNsXYRuWsdWxpaEHlF-nRtRc4VNUE8-zRpqLmzZw0ssOMdbFaMlSQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduvddrudeiledgjeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecukfhppedvtdefrdehjedrvdduhedrudejkeenucfrrghrrghmpe
+ hmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhi
+ iigvpedu
+X-ME-Proxy: <xmx:bpNsXbwdflNczVdovtK10XhptWDoorBL8ki3Mb_GS2zxbfeGWa2pxg>
+ <xmx:bpNsXQr6eeD6mLegxDBwWpn9ImRt1bNebzpzSOVPiqqPIM_xs-Atyw>
+ <xmx:bpNsXe2CPhpcuWDmLlI4UybUVl3EEKqQHJh3TbxG3gdbBpSPYX8kpA>
+ <xmx:bpNsXc6DbhuHYSaH-2zbPZLq5q2VdOuir8ZVbuSTpv8A9WbkrY4NTQ>
+Received: from localhost.localdomain (203-57-215-178.dyn.iinet.net.au
+ [203.57.215.178])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 16174D6006C;
+ Sun,  1 Sep 2019 23:58:34 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: linux-mmc@vger.kernel.org
+Cc: Andrew Jeffery <andrew@aj.id.au>, adrian.hunter@intel.com,
+ ulf.hansson@linaro.org, joel@jms.id.au, openbmc@lists.ozlabs.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH v2 2/4] mmc: sdhci-of-aspeed: Drop redundant assignment to
+ host->clock
+Date: Mon,  2 Sep 2019 13:28:40 +0930
+Message-Id: <20190902035842.2747-3-andrew@aj.id.au>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190902035842.2747-1-andrew@aj.id.au>
+References: <20190902035842.2747-1-andrew@aj.id.au>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,107 +83,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 02 Sep 2019 03:12:07 -0000
+X-List-Received-Date: Mon, 02 Sep 2019 03:58:43 -0000
 
---_000_643a0f27aed44f9b95a1d0287c2e204dlenovocom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+host->clock is already managed by sdhci_set_ios().
 
-Hi Team,
+Suggested-by: Ulf Hansson <ulf.hansson@linaro.org>
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/mmc/host/sdhci-of-aspeed.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-If we implemented a specific application on our platform such as FPGA commu=
-nication tool, it's just used in our products rather than a general purpose=
- application. Could I create a repo for it on our github and create a bb fi=
-le in our OpenBmc meta-layer to fetch it? Does it need to do OpenBmc gerrit=
- code review?
-
-Thanks,
-Andrew
-
---_000_643a0f27aed44f9b95a1d0287c2e204dlenovocom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:DengXian;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:DengXian;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:DengXian;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Hi Team,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">If we implemented a specific applica=
-tion on our platform such as FPGA communication tool, it's just used in our=
- products rather than a general purpose application.
- Could I create a repo for it on our github and create a bb file in our Ope=
-nBmc meta-layer to fetch it? Does it need to do OpenBmc gerrit code review?
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Thanks,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-size:12.0pt;font-=
-family:&quot;Calibri&quot;,sans-serif">Andrew<o:p></o:p></span></p>
-</div>
-</body>
-</html>
-
---_000_643a0f27aed44f9b95a1d0287c2e204dlenovocom_--
+diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
+index 96ca494752c5..213b3dbd49ef 100644
+--- a/drivers/mmc/host/sdhci-of-aspeed.c
++++ b/drivers/mmc/host/sdhci-of-aspeed.c
+@@ -61,7 +61,7 @@ static void aspeed_sdhci_set_clock(struct sdhci_host *host, unsigned int clock)
+ 	sdhci_writew(host, 0, SDHCI_CLOCK_CONTROL);
+ 
+ 	if (clock == 0)
+-		goto out;
++		return;
+ 
+ 	for (div = 1; div < 256; div *= 2) {
+ 		if ((host->max_clk / div) <= clock)
+@@ -72,9 +72,6 @@ static void aspeed_sdhci_set_clock(struct sdhci_host *host, unsigned int clock)
+ 	clk = div << SDHCI_DIVIDER_SHIFT;
+ 
+ 	sdhci_enable_clk(host, clk);
+-
+-out:
+-	host->clock = clock;
+ }
+ 
+ static void aspeed_sdhci_set_bus_width(struct sdhci_host *host, int width)
+-- 
+2.20.1
