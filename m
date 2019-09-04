@@ -1,58 +1,76 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <dlin23@lenovo.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
- envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=lenovo.com
+ (client-ip=67.219.246.212; helo=mail1.bemta23.messagelabs.com;
+ envelope-from=dlin23@lenovo.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="S1tWJV/q"; 
- dkim-atps=neutral
-Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
- [IPv6:2607:f8b0:4864:20::841])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=lenovo.com
+Received: from mail1.bemta23.messagelabs.com (mail1.bemta23.messagelabs.com
+ [67.219.246.212])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46Nzfx72TPzDqlV
- for <openbmc@lists.ozlabs.org>; Thu,  5 Sep 2019 08:55:05 +1000 (AEST)
-Received: by mail-qt1-x841.google.com with SMTP id g13so38882qtj.4
- for <openbmc@lists.ozlabs.org>; Wed, 04 Sep 2019 15:55:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oYBKlrJ4VGx5YSv//m6I/3jCuCWM6lncqtd/Xe63sxc=;
- b=S1tWJV/qFiLaLvlrKIPn5Mxf1bqC70H0MHh72j09iPuao3Ykiyi3rziUbchtyOa7zi
- 7ftDjM1SkbgjVb3rTqYfuqkOvwTpOIR+QSjK3ajLKbHt99rs4GM9jTl5Vti1C577Wkub
- /zmOW4pRa8JgIXdhaA/nWNWkrmhdquiwvlhWk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oYBKlrJ4VGx5YSv//m6I/3jCuCWM6lncqtd/Xe63sxc=;
- b=a6IhNDAP4S5dwb0fDazSEKabb27vuEGUyQj4p8frtqCZG9Q9zWhVmidx9HX//sdn2O
- J2fY3n6WOoxBb1PwczUlatmtoLWCC0cv9Of+7ZT433pnMykVove2KQ9UWcdO6pNGIFFc
- 5HxyYqILf5+VvYTP8K7z6SMroaQTVvPTtRkyQoz8xSvfqlklI3IW2hgAuv2iMD4Mtjn6
- YfoWI/rbuv+RVLVP4vhsWEl9zTIQbkCkX4Jt5Ys+MJTuS0zJnc5unYhPiEucFT8R9PMn
- smkNYaJsNPauj8jUPFNuXD3nksrvPTjkj2F0CfJCBLW/KyssutLyKXjPKZvzNj7N6xMy
- FUlg==
-X-Gm-Message-State: APjAAAVTZPfHyK4a/TxvwnH7WM6PQsnq9Y2RbNHaShsca36EnkGXKX1G
- n7iexX0QhHx/NXfBvmS2r+rTTXaAFx0yFsbs4OE=
-X-Google-Smtp-Source: APXvYqx/vwpm59BLNFv1B2WZuCIs0NumOxvzU178gsKMy4C3b5MVTsO0eQDb/+vPUuf1IJpQ/YcvhvVU9DOUCeRnR54=
-X-Received: by 2002:ac8:4a01:: with SMTP id x1mr539647qtq.169.1567637701713;
- Wed, 04 Sep 2019 15:55:01 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46NR730npqzDqkx
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Sep 2019 11:29:01 +1000 (AEST)
+Received: from [67.219.246.102] (using TLSv1.2 with cipher
+ DHE-RSA-AES256-GCM-SHA384 (256 bits))
+ by server-2.bemta.az-b.us-east-1.aws.symcld.net id 5E/51-05674-9531F6D5;
+ Wed, 04 Sep 2019 01:28:57 +0000
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFupkleJIrShJLcpLzFFi42LJePGQRzdSOD/
+ WoGs1q8WLKYsYLU61vGBxYPKYdzLQ4/yMhYwBTFGsmXlJ+RUJrBkrP6oX3FGtuNr9j72B8aZC
+ FyMnh5BAA5PEkXdZXYxcQPYrRolJjx6xQDj7GCX2dU1j62Lk4GATUJW4P40bpEFEIFriy+MeZ
+ hBbWMBK4sjy56wQcXuJgxNeMkHYehLfTi9nAbFZBFQklqyZB1bPK2ApsW/5EzYQm1FAVuLJgm
+ dg9cwC4hLnLrayg9gSAgISS/acZ4awRSVePv7HCmErSDTvec0CUa8ncWPqFDYIW1ti2cLXUPM
+ FJU7OfMIygVFoFpKxs5C0zELSMgtJywJGllWMZklFmekZJbmJmTm6hgYGuoaGRrrGukamhnqJ
+ VbpJeqXFuqmJxSW6QG55sV5xZW5yTopeXmrJJkZgTKQUMP/ewThn1hu9Q4ySHExKoryKzXmxQ
+ nxJ+SmVGYnFGfFFpTmpxYcYZTg4lCR4SwXzY4UEi1LTUyvSMnOA8QmTluDgURLhTQJJ8xYXJO
+ YWZ6ZDpE4xWnJMeDl3ETPHwaPzgOS7n4sXMQux5OXnpUqJ83YJATUIgDRklObBjYOlkEuMslL
+ CvIwMDAxCPAWpRbmZJajyrxjFORiVhHnXgqzlycwrgdsKTBBAv4jwZvbmghxUkoiQkmpgCvzR
+ f++BAkPnvl17e09HJja+SBa4tHxLYZlG0aoPZ+YFrUmSLU6QmqMXoLvYTprphtWWlzkvNFz+b
+ bQsLTu6he3YkxdrXGvmSb2YbHd69qU3kj6HbMynX+Lc9pgxuejBi7wVq+5t/8CX3qNg+je2bd
+ +id/5vHORFjmefM25rqln+8nAqT83TmHlT9gZGpOk8yVW089aVK5jHzPN0zm/b6ESPRscTScZ
+ eSknHL37KFnisUnT29d+wvOSPBTqvlq+f2ebrwJ5uqFpwe5vC7tdcTf1rk/tNGTscIrvUNj/R
+ ldb6rcf6ZmaYXKR/8CIvrcsvZR4enOCe+XDvspeTHmfGtciEHskKYlkt+TH1BNMhJZbijERDL
+ eai4kQA5pNjjpwDAAA=
+X-Env-Sender: dlin23@lenovo.com
+X-Msg-Ref: server-50.tower-386.messagelabs.com!1567560536!492609!1
+X-Originating-IP: [104.232.225.12]
+X-SYMC-ESS-Client-Auth: outbound-route-from=pass
+X-StarScan-Received: 
+X-StarScan-Version: 9.43.12; banners=-,-,-
+X-VirusChecked: Checked
+Received: (qmail 10229 invoked from network); 4 Sep 2019 01:28:57 -0000
+Received: from unknown (HELO aesmtp.lenovo.com) (104.232.225.12)
+ by server-50.tower-386.messagelabs.com with ECDHE-RSA-AES256-GCM-SHA384
+ encrypted SMTP; 4 Sep 2019 01:28:57 -0000
+Received: from HKGWPEMAIL02.lenovo.com (unknown [10.128.3.70])
+ (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by Forcepoint Email with ESMTPS id 4D58EBA366866B07EC84;
+ Tue,  3 Sep 2019 21:28:56 -0400 (EDT)
+Received: from HKGWPEMAIL02.lenovo.com (10.128.3.70) by
+ HKGWPEMAIL02.lenovo.com (10.128.3.70) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.1591.10; Wed, 4 Sep 2019 09:28:54 +0800
+Received: from HKGWPEMAIL02.lenovo.com ([fe80::7020:5ebb:e3eb:29ba]) by
+ HKGWPEMAIL02.lenovo.com ([fe80::7020:5ebb:e3eb:29ba%12]) with mapi id
+ 15.01.1591.008; Wed, 4 Sep 2019 09:28:54 +0800
+From: Derek Lin23 <dlin23@lenovo.com>
+To: James Feist <james.feist@linux.intel.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: Question of pid-contorl on stepwise configuration
+Thread-Topic: Question of pid-contorl on stepwise configuration
+Thread-Index: AdViv4Uo72tADi5iR1GuG6RHj9F61Q==
+Date: Wed, 4 Sep 2019 01:28:54 +0000
+Message-ID: <301e59ff7dd742ac9463287d79c5991e@lenovo.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.128.115.1]
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-References: <20190904200758.5420-1-jae.hyun.yoo@linux.intel.com>
-In-Reply-To: <20190904200758.5420-1-jae.hyun.yoo@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 4 Sep 2019 22:54:50 +0000
-Message-ID: <CACPK8Xfzn3A7nCFqCbSm=6qsB-5dgJOcz1rgSGhRH=xojb4m_w@mail.gmail.com>
-Subject: Re: [PATCH dev-5.2 0/2] i2c: aspeed: Add H/W timeout support
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: Brendan Higgins <brendanhiggins@google.com>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Andrew Jeffery <andrew@aj.id.au>, 
- Ryan Chen <ryan_chen@aspeedtech.com>, Tao Ren <taoren@fb.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Thu, 05 Sep 2019 08:56:45 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,36 +82,157 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Sep 2019 22:55:06 -0000
+X-List-Received-Date: Wed, 04 Sep 2019 01:29:07 -0000
 
-Hi Jae,
 
-On Wed, 4 Sep 2019 at 20:08, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->
-> In case of multi-master environment, if a peer master incorrectly handles
-> a bus in the middle of a transaction, I2C hardware hangs in slave state
-> and it can't escape from the slave state, so this commit adds slave
-> inactive timeout support to recover the bus in the case.
->
-> By applying this change, SDA data-low and SCL clock-low timeout feature
-> also could be enabled which was disabled previously.
+> -----Original Message-----
+> From: James Feist <james.feist@linux.intel.com>
+> Sent: Wednesday, September 4, 2019 8:43 AM
+> To: Derek Lin23 <dlin23@lenovo.com>; OpenBMC Maillist
+> <openbmc@lists.ozlabs.org>
+> Subject: [External] Re: Question of pid-contorl on stepwise configuration
+>=20
+> On 8/21/2019 4:36 AM, Derek Lin23 wrote:
+> > Hi team:
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0 I have a question regarding stepwise confi=
+guration on
+> > pid-control.
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0 I have mine setup like below.
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0 =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 {
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "name": "Amb=
+ient_Temp",
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "type": "ste=
+pwise",
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "setpoint": =
+0.0,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "inputs": ["=
+Ambient_Temp"],
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 "pid": {
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"samplePeriod": 1.0,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"positiveHysteresis": 0.0,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"negativeHysteresis": 0.0,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"isCeiling": false,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"reading": {
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "0": 25,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "1": 30,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "2": 35
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+},
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
+"output": {
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "0": 15,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "1": 15,
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0 "2": 15
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }
+> >
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 }
+> >
+>=20
+> I don't use the json configuration, so you'll have to do a bit of a compa=
+rison of
+> apples and oranges, but here is an example of a stepwise
+> configuration:
+> https://github.com/openbmc/entity-manager/blob/08a5b175eec81c53506709
+> fda8a7c168748cc22d/configurations/R1000%20Chassis.json#L577
+>=20
+> Reading is the reading of the sensor, and output is the setpoint given to=
+ the fan
+> pid. Depending on how you configure your system this can either be a perc=
+ent,
+> or it can be a tach reading. When a sensor reaches a reading, the
+> corresponding output is given to the fan controller as a setpoint. So it =
+my
+> example, when we reach a temp of 30 degrees, the setpoint of 60 is given =
+to
+> the fancontroller. This 60 is unitless and depends on how the fan control=
+ler
+> configuration is implemented how it affects the fans.
+>=20
+> -James
 
-Please consider sending your RFC patches to the upstream list. You
-have a big backlog of patches now.
+Hi James:
 
-Cheers,
+	I'll give it a try.=20
 
-Joel
-
->
-> Jae Hyun Yoo (2):
->   dt-bindings: i2c: aspeed: add hardware timeout support
->   i2c: aspeed: add slave inactive timeout support
->
->  .../devicetree/bindings/i2c/i2c-aspeed.txt    |  2 +
->  drivers/i2c/busses/i2c-aspeed.c               | 79 +++++++++++++++++--
->  2 files changed, 75 insertions(+), 6 deletions(-)
->
-> --
-> 2.23.0
->
+Thanks.=20
+>=20
+> >  =A0=A0=A0=A0=A0=A0=A0=A0=A0 And, I would like to know the meaning of e=
+ach field, as far
+> > as I understand from phosphor-pid-control, "setpoint" seems not used if
+> > PID type is stepwise. Is that true? The "reading" field indicates the
+> > temperature reading from the sensor "Ambient". The "output" field shoul=
+d
+> > indicate the duty % corresponding to the fans, or should output be RPMs=
+?
+> > That gives me when a reading of 25 degree(whatever the unit is), the
+> > output duty of fans should set to 15%, or set to corresponding RPMs.
+> >
+> > Do I understand the fields correctly?
+> >
+> > Thank you,
+> >
+> > -----------------------------------------------------------------------=
+-
+> >
+> > *Derek Lin*
+> > Sr. BMC Engineer
+> > 8F,66, San Chong Rd., Nankang Software Park, Taipei.
+> > Lenovo Taiwan
+> >
+> >
+> >
+> > Phone+886281707411
+> > Emaildlin23@lenovo.com <mailto:dlin23@lenovo.com>
+> >
+> >
+> >
+> > Lenovo.com <http://www.lenovo.com/>
+> > Twitter <http://twitter.com/lenovo>=A0| Instagram
+> > <https://instagram.com/lenovo>=A0| Facebook
+> > <http://www.facebook.com/lenovo>=A0| Linkedin
+> > <http://www.linkedin.com/company/lenovo>=A0| YouTube
+> > <http://www.youtube.com/lenovovision>=A0| Privacy
+> > <https://www.lenovo.com/gb/en/privacy-selector/>
+> >
+> >
+> >
+> > ImageLogo-DCG-Honeycomb
+> >
+> >
+> >
