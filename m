@@ -1,72 +1,58 @@
-Return-Path: <jrey@linux.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="S1tWJV/q"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46Nz4T3zj6zDq8F
- for <openbmc@lists.ozlabs.org>; Thu,  5 Sep 2019 08:28:40 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x84MR8bK114663; Wed, 4 Sep 2019 18:28:35 -0400
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2utkj15bp4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Sep 2019 18:28:35 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x84MSQHW005141;
- Wed, 4 Sep 2019 22:28:34 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma02dal.us.ibm.com with ESMTP id 2uqgh7b3sk-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 04 Sep 2019 22:28:34 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x84MSXuJ66847058
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 4 Sep 2019 22:28:33 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AE0B5C6055;
- Wed,  4 Sep 2019 22:28:33 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4DB71C6059;
- Wed,  4 Sep 2019 22:28:33 +0000 (GMT)
-Received: from demeter.local (unknown [9.85.187.198])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS;
- Wed,  4 Sep 2019 22:28:33 +0000 (GMT)
-Subject: Re: BMCWeb changes login password
-To: Alexander Tereschenko <aleksandr.v.tereschenko@linux.intel.com>,
- openbmc@lists.ozlabs.org
-References: <959CAFA1E282D14FB901BE9A7BF4E7724E51562F@shsmsx102.ccr.corp.intel.com>
- <c73c4823-7fd1-0762-72d1-da1920897667@linux.ibm.com>
- <3160626c-d162-c7bb-1059-f8215dd69717@linux.intel.com>
-From: Joseph Reynolds <jrey@linux.ibm.com>
-Message-ID: <a39c9605-d216-29de-3c4d-f8ff7aff8c1f@linux.ibm.com>
-Date: Wed, 4 Sep 2019 17:28:32 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
- Gecko/20100101 Thunderbird/60.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46Nzfx72TPzDqlV
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Sep 2019 08:55:05 +1000 (AEST)
+Received: by mail-qt1-x841.google.com with SMTP id g13so38882qtj.4
+ for <openbmc@lists.ozlabs.org>; Wed, 04 Sep 2019 15:55:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=oYBKlrJ4VGx5YSv//m6I/3jCuCWM6lncqtd/Xe63sxc=;
+ b=S1tWJV/qFiLaLvlrKIPn5Mxf1bqC70H0MHh72j09iPuao3Ykiyi3rziUbchtyOa7zi
+ 7ftDjM1SkbgjVb3rTqYfuqkOvwTpOIR+QSjK3ajLKbHt99rs4GM9jTl5Vti1C577Wkub
+ /zmOW4pRa8JgIXdhaA/nWNWkrmhdquiwvlhWk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=oYBKlrJ4VGx5YSv//m6I/3jCuCWM6lncqtd/Xe63sxc=;
+ b=a6IhNDAP4S5dwb0fDazSEKabb27vuEGUyQj4p8frtqCZG9Q9zWhVmidx9HX//sdn2O
+ J2fY3n6WOoxBb1PwczUlatmtoLWCC0cv9Of+7ZT433pnMykVove2KQ9UWcdO6pNGIFFc
+ 5HxyYqILf5+VvYTP8K7z6SMroaQTVvPTtRkyQoz8xSvfqlklI3IW2hgAuv2iMD4Mtjn6
+ YfoWI/rbuv+RVLVP4vhsWEl9zTIQbkCkX4Jt5Ys+MJTuS0zJnc5unYhPiEucFT8R9PMn
+ smkNYaJsNPauj8jUPFNuXD3nksrvPTjkj2F0CfJCBLW/KyssutLyKXjPKZvzNj7N6xMy
+ FUlg==
+X-Gm-Message-State: APjAAAVTZPfHyK4a/TxvwnH7WM6PQsnq9Y2RbNHaShsca36EnkGXKX1G
+ n7iexX0QhHx/NXfBvmS2r+rTTXaAFx0yFsbs4OE=
+X-Google-Smtp-Source: APXvYqx/vwpm59BLNFv1B2WZuCIs0NumOxvzU178gsKMy4C3b5MVTsO0eQDb/+vPUuf1IJpQ/YcvhvVU9DOUCeRnR54=
+X-Received: by 2002:ac8:4a01:: with SMTP id x1mr539647qtq.169.1567637701713;
+ Wed, 04 Sep 2019 15:55:01 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <3160626c-d162-c7bb-1059-f8215dd69717@linux.intel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-09-04_05:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1906280000 definitions=main-1909040216
+References: <20190904200758.5420-1-jae.hyun.yoo@linux.intel.com>
+In-Reply-To: <20190904200758.5420-1-jae.hyun.yoo@linux.intel.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 4 Sep 2019 22:54:50 +0000
+Message-ID: <CACPK8Xfzn3A7nCFqCbSm=6qsB-5dgJOcz1rgSGhRH=xojb4m_w@mail.gmail.com>
+Subject: Re: [PATCH dev-5.2 0/2] i2c: aspeed: Add H/W timeout support
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Brendan Higgins <brendanhiggins@google.com>, 
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Andrew Jeffery <andrew@aj.id.au>, 
+ Ryan Chen <ryan_chen@aspeedtech.com>, Tao Ren <taoren@fb.com>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,28 +64,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Sep 2019 22:28:42 -0000
+X-List-Received-Date: Wed, 04 Sep 2019 22:55:06 -0000
 
+Hi Jae,
 
-On 9/4/19 9:57 AM, Alexander Tereschenko wrote:
-> On 04-Sep-19 04:06, Joseph Reynolds wrote:
->> 2. The scenario where we may want to ask for the old password is the 
->> "password change dialog".  This dialog is accessed when the user 
->> signs into the Web App login page and the web app informs the user 
->> that their password is expired and must be changed before they can 
->> access the BMC  The dialog asks for their new password (twice) ... 
->> and does it also ask for the old password? <== That's the question.
+On Wed, 4 Sep 2019 at 20:08, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
 >
-> FWIW, by the time the BMC is able to determine that user's password is 
-> expired (and make sure that's indeed that user who's accessing the web 
-> app), the user must have entered their password, so asking it once 
-> again sounds like surplus step in this particular scenario.
-I agree.  Industry standards are not clear about the best practices in 
-this situation.
+> In case of multi-master environment, if a peer master incorrectly handles
+> a bus in the middle of a transaction, I2C hardware hangs in slave state
+> and it can't escape from the slave state, so this commit adds slave
+> inactive timeout support to recover the bus in the case.
+>
+> By applying this change, SDA data-low and SCL clock-low timeout feature
+> also could be enabled which was disabled previously.
 
-- Joseph
+Please consider sending your RFC patches to the upstream list. You
+have a big backlog of patches now.
+
+Cheers,
+
+Joel
 
 >
-> regards,
-> Alexander
+> Jae Hyun Yoo (2):
+>   dt-bindings: i2c: aspeed: add hardware timeout support
+>   i2c: aspeed: add slave inactive timeout support
+>
+>  .../devicetree/bindings/i2c/i2c-aspeed.txt    |  2 +
+>  drivers/i2c/busses/i2c-aspeed.c               | 79 +++++++++++++++++--
+>  2 files changed, 75 insertions(+), 6 deletions(-)
+>
+> --
+> 2.23.0
 >
