@@ -1,56 +1,56 @@
-Return-Path: <3pR5xXQMKB5gGKC8GG8D6.4GEGH6F3E4DAKLK.GRD23K.GJ8@flex--osk.bounces.google.com>
+Return-Path: <3ph5xXQMKB5kHLD9HH9E7.5HFHI7G4F5EBLML.HSE34L.HK9@flex--osk.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (mailfrom)
  smtp.mailfrom=flex--osk.bounces.google.com (client-ip=2607:f8b0:4864:20::84a;
  helo=mail-qt1-x84a.google.com;
- envelope-from=3pr5xxqmkb5ggkc8gg8d6.4gegh6f3e4daklk.grd23k.gj8@flex--osk.bounces.google.com;
+ envelope-from=3ph5xxqmkb5khld9hh9e7.5hfhi7g4f5eblml.hse34l.hk9@flex--osk.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="BtnXfkFF"; 
+ unprotected) header.d=google.com header.i=@google.com header.b="kFQCO+IL"; 
  dkim-atps=neutral
 Received: from mail-qt1-x84a.google.com (mail-qt1-x84a.google.com
  [IPv6:2607:f8b0:4864:20::84a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46PNqN3plXzDqT4
- for <openbmc@lists.ozlabs.org>; Fri,  6 Sep 2019 00:48:46 +1000 (AEST)
-Received: by mail-qt1-x84a.google.com with SMTP id k13so2751069qtp.15
- for <openbmc@lists.ozlabs.org>; Thu, 05 Sep 2019 07:48:46 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46PNqP4JXtzDqT8
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Sep 2019 00:48:49 +1000 (AEST)
+Received: by mail-qt1-x84a.google.com with SMTP id b9so2730852qti.20
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Sep 2019 07:48:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=date:in-reply-to:message-id:mime-version:references:subject:from:to
- :cc; bh=RaOdMEdHWabRyA48tWifREdKC/PQMtkOlsK8xXnOLlg=;
- b=BtnXfkFFib9LY2N7CLMrbVvS73v4Eq6wm+VbGidSpNhFCD42EtMTDvVL8+G02UX2lJ
- 6hfjWa8pXNEsKJfxRxDoiJ6Js2le/D2knnMzOom9h3YZXu6WCmWpYxSPqhxIf8XvjDqK
- 4mY6MhLeCLz8/uWepBTNX4NevsjTbdtjpmk3VvfemuGiEPKEMVJGs1z5NKuM2TNKIIoy
- rU9+aiGOOrDooEWyk2m/Kjd8XrbaMEzSWl/SESdIm9GPtZki1ifsqtx7xqM3Ww2w7UL0
- 9GgqgjK2Efr4Fibow4GjVnEev3fd78/76t9xWzithNMZm/vJerJGWBfYf/js6NCc21jt
- WkqA==
+ :cc; bh=DBIgduCaugj8tqfaD9C0q1cOrYEMjHp+EVVP9xE+eQU=;
+ b=kFQCO+ILTxycGD0xPpwoQ2n/kJ3/gIMamkdeAtF5gZONEcygdv6B8viIrHbUn7pAn1
+ jsPrQfi+A5AUgpFzxVSBgYJY+wfn8U1b00aSKG/0puFKN9MDOdDuM3TRK06qBA8pViHf
+ S3SVzRuVjVk+odURthKdo7VMqFnql4/SSn7EuZJhMyOedA76sMhZuNiTvFoQ5UOBXjTT
+ dciBZ4RasmNWXIUULCEW+v9XFRolhBz3ew/8kAyesPCTnhxFhST6joqcANAAr6gi7w25
+ aWy9TL/ETCspFPHhrreos5OCONl4Om8cu9vActrASMUIPHSt/+I4NnxIm7a/CUywGlAI
+ Mf0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:date:in-reply-to:message-id:mime-version
  :references:subject:from:to:cc;
- bh=RaOdMEdHWabRyA48tWifREdKC/PQMtkOlsK8xXnOLlg=;
- b=cxgddhQdND3Wz/dNqiDNJjV/XauGEUa6Hvg30+fwGKL5fOciYF7eR1w14u5S6TA+G1
- btkhxV+RrV7DEtrTdywHO5uL34Z9brnwtxf+ej/lsrH+1ehUpMd62/cbOD/+Qvkhslns
- AqM834nqFPeayvZMh/L9zZNdBl+cmhnhAbw5w+ZP6/LmU6XMYO2lSZxeZOTeOFOXdVZ3
- Qybd3ThDqUhcM8hvNdyNJQmJ8jENq1d8crS7IDpX5AAbBbt5q1aSS9NWaiDx02EqKBLt
- uQzB1vSwoqR8EiWMrOFt6cjCNNasaHx/eJtVH2+UcVLDLkBvz4VvzbZsST6ET6kFZZZW
- tWCA==
-X-Gm-Message-State: APjAAAVTpkKn6zeDVWfX2xh/TlGEsjXuKjsiULljxLFyvyqsr4JcCimY
- s8OftzPnMAh8OgcoD82vwU/obU8=
-X-Google-Smtp-Source: APXvYqzkDOBp79PXpEAipYZadtwGS7ZnIH63SZDea9FHuBgDn4feswfOL5kDKxXMwh4xwbR5YKHd0wE=
-X-Received: by 2002:a37:9d3:: with SMTP id 202mr3162654qkj.391.1567694501708; 
- Thu, 05 Sep 2019 07:41:41 -0700 (PDT)
-Date: Thu,  5 Sep 2019 10:41:29 -0400
+ bh=DBIgduCaugj8tqfaD9C0q1cOrYEMjHp+EVVP9xE+eQU=;
+ b=UY6J9FQDLV/l/xVAQtFyS4nlR0fgh/0H3CwZEWHWS5FdbPGvlUUfMEkbQT2MKagi1W
+ 3cmfXykjFSNGqGFqORUCP3NuAUtL+tXVxPrf1hmId6vqiN/DI65k9DX50W6DyUt2ChDh
+ 19dK+u38eh0qLpErbUQBAd+buZJFfOLNFM9DjKKDdLV0Xv74m+DMpJDI4L2T4LaA+1Rp
+ 8u5RathjWLXq3J7XKfvHVQ3Z7ji4sSYpcYvjv3LA2c495tQ1SmFlcA8fYtZjjJeC8QLG
+ 08xzYjxJi4BZ6nZYUwK3aCO9xrZ3pyHcU35x/a1JVktfUyt8LNcT6RH/g04JHG3FiO6E
+ 9jaw==
+X-Gm-Message-State: APjAAAUtWpsvNMWP3/WT/0wt3rWKB1mATL6tsKOoYekg62ZZa1fPJOl9
+ jmL4B+IoaA+hkYB0Qd/MhQ9eLjU=
+X-Google-Smtp-Source: APXvYqyNSVOy6oyG9DD0QBvBuTaufZmFloO9JVWmWZHMU1JZn5mMUAwUE7z3OJooXuAyecAHfFp7wjQ=
+X-Received: by 2002:ac8:130d:: with SMTP id e13mr2670110qtj.287.1567694502968; 
+ Thu, 05 Sep 2019 07:41:42 -0700 (PDT)
+Date: Thu,  5 Sep 2019 10:41:30 -0400
 In-Reply-To: <20190905144130.220713-1-osk@google.com>
-Message-Id: <20190905144130.220713-2-osk@google.com>
+Message-Id: <20190905144130.220713-3-osk@google.com>
 Mime-Version: 1.0
 References: <20190905144130.220713-1-osk@google.com>
 X-Mailer: git-send-email 2.23.0.187.g17f5b7556c-goog
-Subject: [PATCH v3 2/3] dt-bindings: serial: 8250: Add aspeed,
- sirq-polarity-sense.
+Subject: [PATCH v3 3/3] arm: dts: aspeed: Add vuart aspeed, sirq-polarity-sense
+ to aspeed-g5.dtsi
 From: Oskar Senft <osk@google.com>
 To: joel@jms.id.au, andrew@aj.id.au, robh+dt@kernel.org, 
  gregkh@linuxfoundation.org, jk@ozlabs.org
@@ -71,29 +71,24 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 05 Sep 2019 14:48:49 -0000
 
-Add documentation for 8250_aspeed_vuart's aspeed,sirq-polarity-sense
-property that enables to auto-configure the VUART's SIRQ polarity.
+Enable auto-configuration of VUART SIRQ polarity on AST2500.
 
 Signed-off-by: Oskar Senft <osk@google.com>
 ---
- Documentation/devicetree/bindings/serial/8250.txt | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm/boot/dts/aspeed-g5.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.txt b/Documentation/devicetree/bindings/serial/8250.txt
-index 20d351f268ef..55700f20f6ee 100644
---- a/Documentation/devicetree/bindings/serial/8250.txt
-+++ b/Documentation/devicetree/bindings/serial/8250.txt
-@@ -56,6 +56,11 @@ Optional properties:
- - {rts,cts,dtr,dsr,rng,dcd}-gpios: specify a GPIO for RTS/CTS/DTR/DSR/RI/DCD
-   line respectively. It will use specified GPIO instead of the peripheral
-   function pin for the UART feature. If unsure, don't specify this property.
-+- aspeed,sirq-polarity-sense: Only applicable to aspeed,ast2500-vuart.
-+  phandle to aspeed,ast2500-scu compatible syscon alongside register offset
-+  and bit number to identify how the SIRQ polarity should be configured.
-+  One possible data source is the LPC/eSPI mode bit.
-+  Example: aspeed,sirq-polarity-sense = <&syscon 0x70 25>
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 5b1ca265c2ce..06e489c1d0cb 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -351,6 +351,7 @@
+ 				interrupts = <8>;
+ 				clocks = <&syscon ASPEED_CLK_APB>;
+ 				no-loopback-test;
++				aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
+ 				status = "disabled";
+ 			};
  
- Note:
- * fsl,ns16550:
 -- 
 2.23.0.187.g17f5b7556c-goog
