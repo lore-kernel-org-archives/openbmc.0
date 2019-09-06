@@ -1,53 +1,57 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=gmail.com
- (client-ip=2607:f8b0:4864:20::732; helo=mail-qk1-x732.google.com;
+ (client-ip=2607:f8b0:4864:20::733; helo=mail-qk1-x733.google.com;
  envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="UT2HyJJD"; 
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="IU2LJGmL"; 
  dkim-atps=neutral
-Received: from mail-qk1-x732.google.com (mail-qk1-x732.google.com
- [IPv6:2607:f8b0:4864:20::732])
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46Q58Y1ytSzDrB4
- for <openbmc@lists.ozlabs.org>; Sat,  7 Sep 2019 04:06:02 +1000 (AEST)
-Received: by mail-qk1-x732.google.com with SMTP id x134so6538767qkb.0
- for <openbmc@lists.ozlabs.org>; Fri, 06 Sep 2019 11:06:02 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46Q7H91cZPzDr6Z
+ for <openbmc@lists.ozlabs.org>; Sat,  7 Sep 2019 05:41:55 +1000 (AEST)
+Received: by mail-qk1-x733.google.com with SMTP id d26so6882609qkk.2
+ for <openbmc@lists.ozlabs.org>; Fri, 06 Sep 2019 12:41:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=CySawPcTztsgO8nIZRMTHxLqpTYIIc+uNAUGuJISdn0=;
- b=UT2HyJJDr9Qf2yR7yNMBLyzaFQsAtlMht3qjQX1IJXym2INwbxPqu/+7+VBSIUF7FR
- PvOH5MdpV2uc8WPAzwAgqvfXDjle3jRXZOKjl4moWI3D867j4t17NBr6lLFrc96lcTPa
- F0EsoohL9keSL7Agx8xX0pjpd70WxeTyS9sNU=
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=pXcj/FKKYni9KhSFduTA3x48XXXp+cd3zSgbiVhJtOs=;
+ b=IU2LJGmLcmlHiZpTCxCry4aS0x4CQmNQSllGUmDnJCja3B8Pr66cula3qG4eieZFmc
+ 1MNjtA0cVQcyNcoYLIIBwiSrEfoCT8CgduT+Ft3I9RxzpsefQosTB7s8O2+HXWeMvmIx
+ IIHIfUcHlVvnE7s6ytTNmZPKlX3cMCe+HrrlA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=CySawPcTztsgO8nIZRMTHxLqpTYIIc+uNAUGuJISdn0=;
- b=rPbvCMa/h6OdC/VHF3lKTKE+bUkLsb6/p36X1UoDsjsGVWVfNmpyAT2KD6GfaetNlR
- cFmaA2ykwPS+o64Cl4Zqh9sVoevynzKaj4kFeyIAG/Av8StTLm3HTLAlFs94HfrfmTLE
- KH9wAtxy2Odku8WkaF2MMimzwMzQfFQEkat5tM5CIr1LK4Ie7zAq10ZzalO8hjKJhAtO
- mGu9Bz8EoSYec0x3s4DP5XB1NfWDIS1tS5kBcIm5BYoPZVvR0MZ0vn3ePOei1Mv5lWPc
- R2VqRc60x3e5HsOaM+Tx+B0zg/OV+vpcn5jX5w2IvqPRJnsmQ2SBxuyLrNaxokOFnCRm
- Nn8w==
-X-Gm-Message-State: APjAAAWJbiIfKwLCSnX5/ZgMr9l2eh2TpbwFNrq9ESkj2ecSsJtbdG4C
- sut4Vjzb4QNeXftsXRc7Pe1XsM5dLJ0V753MBTEWOQ==
-X-Google-Smtp-Source: APXvYqzqh9p/XFtshmoru95DvqhroiUgXA5KiG5psljj41OmZF+GZvhFmrzO7zrgmXWPcJ84SCf/FN+mbL2+qH1iblk=
-X-Received: by 2002:a37:4a54:: with SMTP id x81mr10262035qka.292.1567793158032; 
- Fri, 06 Sep 2019 11:05:58 -0700 (PDT)
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=pXcj/FKKYni9KhSFduTA3x48XXXp+cd3zSgbiVhJtOs=;
+ b=it7M2oqggSszyJUlz3IjIjjdh2jKHHAs6P1/Ll5h6uSBLua0r+qMOSSnnHyB0Hq2e8
+ YoFYS3qf/DhEyZaRl3L5GW9PejrGPnd9Ssfy1KGntNjbwm480VxEEcKsg13F8/P6Nw8e
+ Do0JozpDJ8zCBvWkGCR1qO3OX9zy4Kc0qjfD9xaxOqen+9O9enEgqgQHVw6zUVmInGym
+ HiCeQh1C1nULZTEX1e2hCsve29W4ahWyYiy/uXLPWgMWty9gSiC4QJEmHWuIQeVnmdxF
+ 2ssKXvkxYmtCVdJ+z149K8+ErMdCuPB6CvMAAz/pg3w5lou/DbMA5T+ECR9PnQYxe/He
+ FAkw==
+X-Gm-Message-State: APjAAAWo9vyIQxQCCX4KVWW+2nWyJYs/eC722UErfIZWVYOr2vTJRpRR
+ twcEzo+/mJfXrQBLREtCLJu1rD1TYxwh1Z9ICFw=
+X-Google-Smtp-Source: APXvYqwXSDFR/JA2JFrZst2Sd9oxdI921O1v//xuQto9Omqfl92j2ApHde2cRt9LPxsI8bklX1NULA+E9PRHT8o2exY=
+X-Received: by 2002:a37:a44f:: with SMTP id n76mr10890737qke.414.1567798911703; 
+ Fri, 06 Sep 2019 12:41:51 -0700 (PDT)
 MIME-Version: 1.0
+References: <18e1fb68-1607-0e01-5b21-171a83f94bd9@fb.com>
+In-Reply-To: <18e1fb68-1607-0e01-5b21-171a83f94bd9@fb.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 6 Sep 2019 18:05:46 +0000
-Message-ID: <CACPK8XdHwwQwc8-5uf319tX7v3Uh7CcG1rLRmTEK9oKQPYS0hw@mail.gmail.com>
-Subject: GPIO state in qemu
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: Rashmica Gupta <rashmica.g@gmail.com>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>, 
- James Feist <james.feist@linux.intel.com>
-Content-Type: multipart/alternative; boundary="0000000000004413bc0591e64ae9"
+Date: Fri, 6 Sep 2019 19:41:39 +0000
+Message-ID: <CACPK8XcE+JMHCD_7TuH2EpWOyX14qGA6UGkGNFEsg3apA=sVpg@mail.gmail.com>
+Subject: Re: net/ncsi: BMC gets incorrect ipv6 link-local address
+To: Tao Ren <taoren@fb.com>
+Cc: Samuel Mendoza-Jonas <sam@mendozajonas.com>, Jeremy Kerr <jk@ozlabs.org>, 
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,45 +63,26 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 06 Sep 2019 18:06:06 -0000
+X-List-Received-Date: Fri, 06 Sep 2019 19:41:58 -0000
 
---0000000000004413bc0591e64ae9
-Content-Type: text/plain; charset="UTF-8"
+On Wed, 4 Sep 2019 at 21:34, Tao Ren <taoren@fb.com> wrote:
 
-At the osfc hackathon today James and I were talking about Qemu's new
-support for modelling GPIOs. Here's some documentation on how it can be
-used.
+> I enabled NCSI_OEM_CMD_GET_MAC on my Yamp BMC to update BMC's MAC address=
+ while bringing up eth0, but I notice BMC's ipv6-link-local address may be =
+derived from the old MAC address, which leads to DHCP failure when DHCPv6 s=
+erver assigns IP based on ipv6 link local address.
+>
+> Currently I workaround the issue by restarting BMC's eth0 interface (whic=
+h refreshes ipv6 link local address based on the new MAC), but I'm looking =
+for an "official" fix. For example, shall we notify network layer when BMC =
+MAC address is updated?
 
-To set a pin's state in the monitor:
+Tao and I had a look through the code and couldn't find an obvious
+call that we should change. The NCSI layer appears to be doing the
+correct thing.
 
-qom-set gpio gpioA0 true
-
-To do the equivalent in code:
-
-object_property_set_bool(OBJECT(&s->gpio), true, "gpioA0", &error_abort);
-
-Thanks Rashmica for writing the model and Cedric for the tips.
+I think the next step is to bring this up on the netdev mailing list.
 
 Cheers,
 
 Joel
-
---0000000000004413bc0591e64ae9
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"auto">At the osfc hackathon today James and I =
-were talking about Qemu&#39;s new support for modelling GPIOs. Here&#39;s s=
-ome documentation on how it can be used.<div dir=3D"auto"><br></div><div di=
-r=3D"auto">To set a pin&#39;s state in the monitor:</div><div dir=3D"auto">=
-<br></div><div dir=3D"auto">qom-set gpio gpioA0 true<br></div><div dir=3D"a=
-uto"><br></div><div dir=3D"auto">To do the equivalent in code:</div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">object_property_set_bool(OBJECT(&amp=
-;s-&gt;gpio), true, &quot;gpioA0&quot;, &amp;error_abort);<br></div><div di=
-r=3D"auto"><br></div><div dir=3D"auto">Thanks Rashmica for writing the mode=
-l and Cedric for the tips.</div><div dir=3D"auto"><br></div><div dir=3D"aut=
-o">Cheers,</div><div dir=3D"auto"><br></div><div dir=3D"auto">Joel</div><di=
-v dir=3D"auto"><br></div><div dir=3D"auto"><br></div></div>
-</div>
-
---0000000000004413bc0591e64ae9--
