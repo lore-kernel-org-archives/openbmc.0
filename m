@@ -9,13 +9,13 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46Rnmt03pSzDqCs
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46Rnms6x22zDqBg
  for <openbmc@lists.ozlabs.org>; Mon,  9 Sep 2019 22:39:55 +1000 (AEST)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x89Ccft8029013;
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x89Ccfih029012;
  Mon, 9 Sep 2019 15:38:41 +0300
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 7B83062A57; Mon,  9 Sep 2019 15:38:41 +0300 (IDT)
+ id 23293628F1; Mon,  9 Sep 2019 15:38:41 +0300 (IDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: mpm@selenic.com, herbert@gondor.apana.org.au, arnd@arndb.de,
  gregkh@linuxfoundation.org, robh+dt@kernel.org, mark.rutland@arm.com,
@@ -26,12 +26,10 @@ To: mpm@selenic.com, herbert@gondor.apana.org.au, arnd@arndb.de,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-crypto@vger.kernel.org, openbmc@lists.ozlabs.org,
  Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v2 1/2] dt-binding: hwrng: add NPCM RNG documentation
-Date: Mon,  9 Sep 2019 15:38:39 +0300
-Message-Id: <20190909123840.154745-2-tmaimon77@gmail.com>
+Subject: [PATCH v2 0/2] hwrng: npcm: add NPCM RNG driver support
+Date: Mon,  9 Sep 2019 15:38:38 +0300
+Message-Id: <20190909123840.154745-1-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.18.0
-In-Reply-To: <20190909123840.154745-1-tmaimon77@gmail.com>
-References: <20190909123840.154745-1-tmaimon77@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,37 +43,35 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Mon, 09 Sep 2019 12:39:58 -0000
 
-Added device tree binding documentation for Nuvoton BMC
-NPCM Random Number Generator (RNG).
+This patch set adds Randon Number Generator (RNG) support 
+for the Nuvoton NPCM Baseboard Management Controller (BMC).
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/rng/nuvoton,npcm-rng.txt           | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+The RNG driver we use power consumption when the RNG 
+is not required.
+
+The NPCM RNG driver tested on NPCM750 evaluation board.
+
+Addressed comments from:.
+ - Daniel Thompson, Milton Miller II : https://patchwork.ozlabs.org/patch/1154598/ 
+  
+Changes since version 1:
+ - Define timout in real-world units.
+ - Using readl_poll_timeout in rng_read function.
+ - Honor wait parameter in rng_read function.
+ - Using local variable instead of #ifndef.
+ - Remove probe print.
+
+Tomer Maimon (2):
+  dt-binding: hwrng: add NPCM RNG documentation
+  hwrng: npcm: add NPCM RNG driver
+
+ .../bindings/rng/nuvoton,npcm-rng.txt         |  17 ++
+ drivers/char/hw_random/Kconfig                |  13 ++
+ drivers/char/hw_random/Makefile               |   1 +
+ drivers/char/hw_random/npcm-rng.c             | 203 ++++++++++++++++++
+ 4 files changed, 234 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
+ create mode 100644 drivers/char/hw_random/npcm-rng.c
 
-diff --git a/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
-new file mode 100644
-index 000000000000..a697b4425fb3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/rng/nuvoton,npcm-rng.txt
-@@ -0,0 +1,17 @@
-+NPCM SoC Random Number Generator
-+
-+Required properties:
-+- compatible  : "nuvoton,npcm750-rng" for the NPCM7XX BMC.
-+- reg         : Specifies physical base address and size of the registers.
-+
-+Optional property:
-+- quality : estimated number of bits of true entropy per 1024 bits
-+			read from the rng.
-+			If this property is not defined, it defaults to 1000.
-+
-+Example:
-+
-+rng: rng@f000b000 {
-+	compatible = "nuvoton,npcm750-rng";
-+	reg = <0xf000b000 0x8>;
-+};
 -- 
 2.18.0
