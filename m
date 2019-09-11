@@ -1,58 +1,68 @@
-Return-Path: <wak@google.com>
+Return-Path: <rashmica.g@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::22f; helo=mail-lj1-x22f.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::432; helo=mail-pf1-x432.google.com;
+ envelope-from=rashmica.g@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="g9kkacNz"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="lfAI/DCk"; 
  dkim-atps=neutral
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
+Received: from mail-pf1-x432.google.com (mail-pf1-x432.google.com
+ [IPv6:2607:f8b0:4864:20::432])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46c7kY49PVzDqKh
- for <openbmc@lists.ozlabs.org>; Mon, 23 Sep 2019 12:36:50 +1000 (AEST)
-Received: by mail-lj1-x22f.google.com with SMTP id 7so12074972ljw.7
- for <openbmc@lists.ozlabs.org>; Sun, 22 Sep 2019 19:36:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=USl4MVviRuIDat+XPlJNsgMVaSeMBGql1cN72m4m9Ik=;
- b=g9kkacNzsGfwaxSYuLWA53u8lIHlREiZNc9UGY7v5EFuj6RczCQ2+rev/CbMnBzPrY
- i9TkkhI/TYnEuySkhTbNq4BgKiwfUE0I2I5G8MsrVfQxAMsuDnii6gIaVbwwqlDxrlEe
- k7MCVZjDAKpKQ8UfSx4HPnjpzDvbhiVzPm3ovdPO2efZvAPWiwW2L+gWP3y7mOWY0Mtv
- w4EZLC4ErA9e+l5O2Kiki7AeMaHQQshXHfOdztm+c4VKEnZ8tlVjX4ol+Hjwe4PbyaIq
- 8JOB6/Z7vnVFsTg6Vpr1Lc11+WubQ6gCJtxP1vBesdA13giZYCM/wFlyHzqZ0u73xoOm
- m1hg==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46SkR20kSszF1ms
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Sep 2019 11:12:43 +1000 (AEST)
+Received: by mail-pf1-x432.google.com with SMTP id q10so12589891pfl.0
+ for <openbmc@lists.ozlabs.org>; Tue, 10 Sep 2019 18:12:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=message-id:subject:from:to:date:in-reply-to:references:user-agent
+ :mime-version:content-transfer-encoding;
+ bh=EYMI5WXiWjdR6Ij+VG7m+b1+Dyii6til07Wtqhi6oB4=;
+ b=lfAI/DCkfA+6CQkXa4QkdfH2WXGLLLch7UEyqZIDOKIs5c8wlBUJhP4jdmvZFoXEjT
+ X8KofvfCXWWfm3pWu2lGM97/YWmO2g5bbvoEkstY3L/IgXI/F7TNeExKZwIyx5vgoris
+ Zr4JUyCJCVJqhEtP5ltwOfJRhuX7odO8jQX+2prKGAInPKrHzA1rWHNB7HF8pylh56v4
+ GuPxmLRPV+S2lmFb/7VeatKqYm9DpHeHJ/079BnGNyJD9r8bVAgVazaWTLOamwikx73M
+ 2j+xwNk1yIP27UmmXvmiGkEjCXs3EvzIcwaDj6fLjCbyq9+iBVtFl/aZQaSIhdnxb63R
+ cCRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=USl4MVviRuIDat+XPlJNsgMVaSeMBGql1cN72m4m9Ik=;
- b=bTrwXGhnGQRCUn2JQBPvGyXPUqauywvWLOEoDHALqZIqA899C1iEictVA7Zm0Zkd0O
- kF2LxTwnvD9sQHbc14w27Dbc2y++zsG4JQkecsLFb4eM6IHZKGHfRrZXxY5fYVuEOtvD
- I5Kr6MK2TRz5T9ckbfpbP/iw1iIJkSk1QelV9utbQRlCyf0nqF5HIBpfqeXEA5UN0HWz
- tV6DBIEn0mPefKRH8URKzK8L/kduj/GKQkIBCI/HEtdRiJz3szuO/20dFpber/UZZj6d
- 9iGZL0b70bnZYonO/8A3PYja70p9MWLa1z/visXX5DeX8VG1hUKB4iZu/7ULSa1R/1jC
- L0xw==
-X-Gm-Message-State: APjAAAXrP/uE5f5I+hksgQVBxjdPXYvzvX3No4uk7LgGyw3fE57/U+vf
- 1n0aVraZRv6Uokm90yO9vyQgsDYDmZ0NpEePjgGriw==
-X-Google-Smtp-Source: APXvYqzCMR+YsqYDthfJxqmF/QKSV8RCv3mxvky2Asr15AFus0Ob+mFNqk1FmztYgMeMFjhjdmC3yTIavpPVxMPyc2I=
-X-Received: by 2002:a05:651c:1127:: with SMTP id
- e7mr16244821ljo.186.1569206202584; 
- Sun, 22 Sep 2019 19:36:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <OFDC47175F.41C9D828-ON0025847E.0008C328-0025847E.00091D63@notes.na.collabserv.com>
-In-Reply-To: <OFDC47175F.41C9D828-ON0025847E.0008C328-0025847E.00091D63@notes.na.collabserv.com>
-From: William Kennington <wak@google.com>
-Date: Sun, 22 Sep 2019 19:36:31 -0700
-Message-ID: <CAPnigKn7OkWC9hX8Pb7LRp1uO4nUEZd7gpXthrd0pooVfOR-Jw@mail.gmail.com>
-Subject: Re: Proposal for 2 properties for Nameservers
-To: Manojkiran Eda <manojeda@in.ibm.com>
-Cc: OpenBMC Development <openbmc@lists.ozlabs.org>
+ h=x-gm-message-state:message-id:subject:from:to:date:in-reply-to
+ :references:user-agent:mime-version:content-transfer-encoding;
+ bh=EYMI5WXiWjdR6Ij+VG7m+b1+Dyii6til07Wtqhi6oB4=;
+ b=hK8vAEXOzNowcDdwJB1FAvni93BW9Bgq/avguiTHybSAhCMI0SBefTM6fIj30RQ6bL
+ +AUPn0gGVUT3iQP9VrQuN5HZ/lICudJf5Gx8Ceilx832XdZnmKaKmjbRJAlPjqjvP2BB
+ VdudUh5CNusu9S0GQdvRcfLepvvqMxmyeOI6bXwT/ECW/so0m5P56ZmYe5Qc8dYoMlU7
+ jZUVLUIOyqGMXktCLNp27nui34McvVI4r9ua75iqTaM2cLL2xtvuTrRBhajX02ybJoRX
+ SE8mQr+97nDoEHjYXBWdG0BxQ97Nk/0FE3NyVBtoEyK1d2s+UpyhEYk6DdAlS/k0qbSC
+ Qvfg==
+X-Gm-Message-State: APjAAAUFnpjstMFC3sPhVd6krdIYgbIE6TCBs4ZdLGODWfiFynr7It5T
+ FEsvUa3o8LEfKn5hPUEDBOg=
+X-Google-Smtp-Source: APXvYqzKo5JvbJKzsO99u6GXcMm9YzJqk7gyPkMpDp1kQFvdO7s6x/JZxgZei/4yJ7Wye6ZzlMED+Q==
+X-Received: by 2002:a63:494d:: with SMTP id y13mr31092966pgk.109.1568164360172; 
+ Tue, 10 Sep 2019 18:12:40 -0700 (PDT)
+Received: from rashmica.ozlabs.ibm.com ([122.99.82.10])
+ by smtp.googlemail.com with ESMTPSA id g2sm21557192pfm.32.2019.09.10.18.12.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 10 Sep 2019 18:12:39 -0700 (PDT)
+Message-ID: <a9c7851e4cd92bb2de0fb7ec8eccf2f25f652c1a.camel@gmail.com>
+Subject: Re: GPIO state in qemu
+From: Rashmica Gupta <rashmica.g@gmail.com>
+To: =?ISO-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, James Feist
+ <james.feist@linux.intel.com>, Joel Stanley <joel@jms.id.au>, OpenBMC
+ Maillist <openbmc@lists.ozlabs.org>
+Date: Wed, 11 Sep 2019 11:12:34 +1000
+In-Reply-To: <60430dd8-e3c5-e020-2ff7-cb4c536e20a0@kaod.org>
+References: <CACPK8XdHwwQwc8-5uf319tX7v3Uh7CcG1rLRmTEK9oKQPYS0hw@mail.gmail.com>
+ <6c036cfc-22d4-fd73-da83-60121e6433c2@linux.intel.com>
+ <60430dd8-e3c5-e020-2ff7-cb4c536e20a0@kaod.org>
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.30.5 (3.30.5-1.fc29) 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 23 Sep 2019 14:40:35 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +74,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 23 Sep 2019 02:36:54 -0000
+X-List-Received-Date: Wed, 11 Sep 2019 01:12:46 -0000
 
-+1
+On Mon, 2019-09-09 at 19:02 +0200, Cédric Le Goater wrote:
+> On 09/09/2019 18:20, James Feist wrote:
+> > On 9/6/19 11:05 AM, Joel Stanley wrote:
+> > > At the osfc hackathon today James and I were talking about Qemu's
+> > > new support for modelling GPIOs. Here's some documentation on how
+> > > it can be used.
+> > > 
+> > > To set a pin's state in the monitor:
+> > > 
+> > > qom-set gpio gpioA0 true
+> > > 
+> > > To do the equivalent in code:
+> > > 
+> > > object_property_set_bool(OBJECT(&s->gpio), true, "gpioA0",
+> > > &error_abort);
+> > 
+> > I'm trying to use object_property_set_bool in hw/arm/aspeed.c in an
+> > i2c_init block and I'm noticing by the time uboot is reached that
+> > the registers are reset back to the default. 
+> 
+> These routines are called before the machine and devices are reseted.
+> 
+> > If I use qom-set it seems to work correctly. 
+> 
+> The machine has been reseted.
+> 
+> > Where is the correct place to put the object_property_set_bool so
+> > that it doesn't get reset by the time it's ready to be read? Does
+> > AspeedBoardConfig need a gpio_init as well as an i2c_init?
+>  
+> we would need to change the default reset value in the reset handler
+> of the GPIO device model : aspeed_gpio_reset(). We don't have a way 
+> to set default values yet, all 0s for now.
+> 
+> Rashmica,
+> 
+> Would it be complex to add a set of default values with which we 
+> could memset the ->sets array in the reset handler() like we do 
+> for SCU ? 
+>
 
-On Sun, Sep 22, 2019 at 6:40 PM Manojkiran Eda <manojeda@in.ibm.com> wrote:
->
-> Hi All,
->
-> This mail is regarding , the proposal for adding an additional property `StaticNameservers` and also for changing the definition of the existing `Nameservers` property.
->
-> - Currently, we have a single DBUS property under Ethernet interface named `Nameservers` that captures only StaticNameservers configured on the system. It does not populate the information regarding the DNS information that is obtained by DHCP server.
->
-> It is also to be noted that the static & dynamic configuration can co-exist at the same time(means we might have the DNS set manually by user and also by the DHCP Server at the same time).
->
-> As per the discussion with Ratan & Wak(https://gerrit.openbmc-project.xyz/#/c/openbmc/phosphor-networkd/+/24224/),we had come to a conclusion that we need have two properties in the Backend for nameservers (similar to what we have in redfish):
->
-> 1. Nameservers - A read only property which captures the current nameservers on the system (which may be static or/and dynamic)
-> 2. StaticNameservers - A writeable property which captures only the static nameservers.
->
-> Please let me know, if anyone have concerns with this proposal.
->
+I think it should be pretty straightforward. Do we want one statically
+defined set of default values per SoC version?
+
+> Having a different set of default values per machine would require 
+> a second set of properties under AspeedGPIOState and some slight 
+> rework of aspeed_gpio_get/set_pin.
+> 
+
+Why would it require rework of get/set pin?
+
+> Didn't you have a patch for reset tolerant values some time ago ? 
+>  
+
+Yes, but it was a bit hacky and I didn't have a good way to test it. We
+need to share a property with the wdt and differentiate between a SoC
+reset, full system reset and a full wdt reset. Iirc we only use the
+reset tolerant values for a SoC reset? I assume we would want to set
+the default values for all three types of reset?
+
+
+
 > Thanks,
-> Manoj
->
+> 
+> C.
