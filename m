@@ -1,43 +1,72 @@
-Return-Path: <prvs=155eeae03=Duke.Du@quantatw.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=quantatw.com
- (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=155eeae03=duke.du@quantatw.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=jrey@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=quantatw.com
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 46Wtxh75gQzF18l
- for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 14:46:44 +1000 (AEST)
-Received: from unknown (HELO mailbx12.quanta.corp) ([10.243.91.109])
- by mx02.quantatw.com with ESMTP; 16 Sep 2019 10:07:27 +0800
-Received: from mailbx12.quanta.corp (10.243.91.109) by mailbx12.quanta.corp
- (10.243.91.109) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1713.5; Mon, 16 Sep
- 2019 10:07:27 +0800
-Received: from mailbx12.quanta.corp ([fe80::3581:3a50:e90e:3a05]) by
- mailbx12.quanta.corp ([fe80::3581:3a50:e90e:3a05%3]) with mapi id
- 15.01.1713.004; Mon, 16 Sep 2019 10:07:27 +0800
-From: =?big5?B?RHVrZSBEdSAop/myu7nFKQ==?= <Duke.Du@quantatw.com>
-To: "james.feist@linux.intel.com" <james.feist@linux.intel.com>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: Package dbus-sensors build fail
-Thread-Topic: Package dbus-sensors build fail
-Thread-Index: AdVnu60zQYlxEWnWSTGQxlLcEDNbzv//4b+A//7HlsCABGUUAP/6KczQ
-Date: Mon, 16 Sep 2019 02:07:27 +0000
-Message-ID: <b55444b2e0e640c79bdb21415fb76590@quantatw.com>
-References: <76010efa07d040d6abcc5a0b51740cc2@quantatw.com>
- <c8624ef8-6d81-7b8e-9f2a-060a92264add@linux.intel.com>
- <5c90ce87e4fc4cac991dcd6ddeaf7c51@quantatw.com>
- <95803393-67a5-120e-a519-3eecc98fe7b7@linux.intel.com>
-In-Reply-To: <95803393-67a5-120e-a519-3eecc98fe7b7@linux.intel.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.243.91.252]
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46Wwrh5x0NzF4Mn
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 16:12:35 +1000 (AEST)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x8G67epw046457
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 02:12:29 -0400
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2v23wuhjhb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 02:12:29 -0400
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x8G666uo009317
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:29 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma04dal.us.ibm.com with ESMTP id 2v0swhhn3q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:28 +0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x8G6CRQe32375210
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:27 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A6315C6059
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:27 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5EB05C6057
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:27 +0000 (GMT)
+Received: from demeter.local (unknown [9.85.154.204])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 06:12:27 +0000 (GMT)
+Subject: Re: Initial expired passwords - initial commit
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+References: <b15904b6-aeaa-f3b1-1a62-ba7217727b79@linux.ibm.com>
+ <38b5f461-98d8-4152-3795-cfa3e975d178@linux.vnet.ibm.com>
+ <3a5d8de0-bb39-f2de-ffbc-b1900d864f88@linux.ibm.com>
+Message-ID: <92a01ad9-ee40-1b9e-f516-764013358fe4@linux.ibm.com>
+Date: Mon, 16 Sep 2019 01:12:26 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:60.0)
+ Gecko/20100101 Thunderbird/60.9.0
 MIME-Version: 1.0
+In-Reply-To: <3a5d8de0-bb39-f2de-ffbc-b1900d864f88@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
+ definitions=2019-09-16_03:, , signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 mlxscore=0 impostorscore=0
+ mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.0.1-1908290000 definitions=main-1909160067
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,60 +78,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Sep 2019 04:46:50 -0000
+X-List-Received-Date: Mon, 16 Sep 2019 06:12:38 -0000
 
-DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogSmFtZXMgRmVpc3QgW21h
-aWx0bzpqYW1lcy5mZWlzdEBsaW51eC5pbnRlbC5jb21dDQo+IFNlbnQ6IEZyaWRheSwgU2VwdGVt
-YmVyIDEzLCAyMDE5IDEyOjIwIEFNDQo+IFRvOiBEdWtlIER1ICin+bK7ucUpIDxEdWtlLkR1QHF1
-YW50YXR3LmNvbT4NCj4gQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KPiBTdWJqZWN0OiBS
-ZTogUGFja2FnZSBkYnVzLXNlbnNvcnMgYnVpbGQgZmFpbA0KPiANCj4gT24gOS8xMC8xOSA3OjUz
-IFBNLCBEdWtlIER1ICin+bK7ucUpIHdyb3RlOg0KPiA+DQo+ID4NCj4gPj4gLS0tLS1PcmlnaW5h
-bCBNZXNzYWdlLS0tLS0NCj4gPj4gRnJvbTogSmFtZXMgRmVpc3QgW21haWx0bzpqYW1lcy5mZWlz
-dEBsaW51eC5pbnRlbC5jb21dDQo+ID4+IFNlbnQ6IFR1ZXNkYXksIFNlcHRlbWJlciAxMCwgMjAx
-OSAxMTo1MSBQTQ0KPiA+PiBUbzogRHVrZSBEdSAop/myu7nFKSA8RHVrZS5EdUBxdWFudGF0dy5j
-b20+Ow0KPiBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcNCj4gPj4gU3ViamVjdDogUmU6IFBhY2th
-Z2UgZGJ1cy1zZW5zb3JzIGJ1aWxkIGZhaWwNCj4gPj4NCj4gPj4gT24gOS8xMC8xOSAyOjQxIEFN
-LCBEdWtlIER1ICin+bK7ucUpIHdyb3RlOg0KPiA+Pj4gSGkgQWxsLA0KPiA+Pj4gICAgIEkgYml0
-YmFrZSBwYWNrYWdlIGRidXMtc2Vuc29ycyBpbiBvcGVuYm1jIHJlcG8gZmQ0Zjc1MyBpcyBPSw0K
-PiA+Pj4gWzFdLCBidXQNCj4gPj4gaW4gb3BlbmJtYyByZXBvIGM2ODM4OGYgaXMgZmFpbCBbMl0u
-IEFuZCBJIGdvdCBzb21lIGVycm9ycyBzdWNoIGFzDQo+ID4+IGNvbXBpbGUgZXJyb3JzLCBmb3Ig
-ZXhhbXBsZSwNCj4gPj4NCj4gdG1wL3dvcmsvYXJtdjdhLW9wZW5ibWMtbGludXgtZ251ZWFiaS9k
-YnVzLXNlbnNvcnMvMC4xK2dpdEFVVE9JTkMrMzUNCj4gPj4gNDZhZGI5MmItcjAvcmVjaXBlLXN5
-c3Jvb3QvdXNyL2luY2x1ZGUvYysrLzkuMi4wL2NvbXBsZXg6MTk1NTo4OiBlcnJvcjoNCj4gPj4g
-ZXhwZWN0ZWQgdW5xdWFsaWZpZWQtaWQgYmVmb3JlICduYW1lc3BhY2UnDQo+ID4+PiB8ICAxOTU1
-IHwgaW5saW5lIG5hbWVzcGFjZSBsaXRlcmFscyB7DQo+ID4+PiB8ICAgICAgIHwgICAgICAgIF5+
-fn5+fn5+fg0KPiA+Pj4gfCBuaW5qYTogYnVpbGQgc3RvcHBlZDogc3ViY29tbWFuZCBmYWlsZWQu
-DQo+ID4+Pg0KPiA+Pj4gICAgIERvIEkgbG9zZSBzb21lIHNldHRpbmdzIGZvciBkYnVzLXNlbnNv
-cnMgcGFja2FnZSwgY291bGQgeW91IGdpdmUNCj4gPj4+IG1lDQo+ID4+IHNvbWUgc3VnZ2VzdGlv
-bnMsIHRoYW5rcy4NCj4gPj4+DQo+ID4+PiBbMV0NCj4gPj4+DQo+ID4+DQo+IGh0dHBzOi8vZ2l0
-aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvY29tbWl0L2ZkNGY3NTM3ZWJlZWU0OTRkNGRkOTFiDQo+
-ID4+IDc0MzhlDQo+ID4+PiBkOTUxMmVlZGEzMDMNCj4gPj4+DQo+ID4+PiBbMl0NCj4gPj4+DQo+
-ID4+DQo+IGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvY29tbWl0L2M2ODM4OGZj
-Y2I4YzBiNWJmNGQ2YjhlZmYNCj4gPj4gZjkxDQo+ID4+PiAyMDM3OTZiZTk4YjINCj4gPj4NCj4g
-Pj4gQ2FuIHlvdSBwcm92ZSB0aGUgY29tbWl0cyBvZiBkYnVzLXNlbnNvcnMgeW91IGFyZSB1c2lu
-Zz8gVGhpcyBpc3N1ZQ0KPiA+PiB3YXMgZml4ZWQgcXVpdGUgc29tZSB0aW1lIGFnbyBJIGJlbGll
-dmUuIEkgd291bGQgc3VnZ2VzdCB0cnlpbmcgdGhlDQo+ID4+IGxhdGVzdCB2ZXJzaW9uIG9mIGRi
-dXMtc2Vuc29ycy4NCj4gPg0KPiA+IEhpIEphbWVzLA0KPiA+ICAgIFRoYW5rcyBmb3IgeW91ciBz
-dWdnZXN0aW9uLCBJIHVzZSB0aGUgbGF0ZXN0IGNvbW1pdCA3ZmExN2M0OCBvZg0KPiBkYnVzLXNl
-bnNvcnMsIGJ1dCBzdGlsbCBnZXQgdGhlIHNhbWUgZXJyb3IgYXMgZm9sbG93cyA6DQo+ID4NCj4g
-dG1wL3dvcmsvYXJtdjdhLW9wZW5ibWMtbGludXgtZ251ZWFiaS9kYnVzLXNlbnNvcnMvMC4xK2dp
-dEFVVE9JTkMrN2ZhDQo+IDE3YzQ4ODAtcjAvcmVjaXBlLXN5c3Jvb3QvdXNyL2luY2x1ZGUvYysr
-LzkuMi4wL2NvbXBsZXg6MTk1NTo4OiBlcnJvcjoNCj4gZXhwZWN0ZWQgdW5xdWFsaWZpZWQtaWQg
-YmVmb3JlICduYW1lc3BhY2UnDQo+ID4gICAxOTU1IHwgaW5saW5lIG5hbWVzcGFjZSBsaXRlcmFs
-cyB7DQo+ID4gICAgICAgIHwgICAgICAgIF5+fn5+fn5+fg0KPiA+IG5pbmphOiBidWlsZCBzdG9w
-cGVkOiBzdWJjb21tYW5kIGZhaWxlZC4NCj4gPiBXQVJOSU5HOiBleGl0IGNvZGUgMSBmcm9tIGEg
-c2hlbGwgY29tbWFuZC4NCj4gPg0KPiA+IEVSUk9SOiBMb2dmaWxlIG9mIGZhaWx1cmUgc3RvcmVk
-IGluOg0KPiA+DQo+IHRtcC93b3JrL2FybXY3YS1vcGVuYm1jLWxpbnV4LWdudWVhYmkvZGJ1cy1z
-ZW5zb3JzLzAuMStnaXRBVVRPSU5DKzdmYQ0KPiAxDQo+ID4gN2M0ODgwLXIwL3RlbXAvbG9nLmRv
-X2NvbXBpbGUuNjkwMA0KPiA+DQo+ID4gRVJST1I6IFRhc2sNCj4gKG9wZW5ibWMvbWV0YS1waG9z
-cGhvci9yZWNpcGVzLXBob3NwaG9yL3NlbnNvcnMvZGJ1cy1zZW5zb3JzX2dpdC5iYjpkbw0KPiBf
-Y29tcGlsZSkgZmFpbGVkIHdpdGggZXhpdCBjb2RlICcxJw0KPiANCj4gSSdtIGJhc2VkIG9mZiBv
-Zg0KPiBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL2NvbW1pdC85ZDIyNzA1MmJm
-NTYyYWZkNGQ1NDdmYmMNCj4gMTdhY2UzMjAyYzVjZjgwYw0KPiBhbmQgaXQgYnVpbGRzIGZvciBt
-ZS4gSXMgdGhlIHRhcmdldCB5b3UncmUgYnVpbGRpbmcgZm9yIHVwc3RyZWFtPyBDb3VsZCBiZQ0K
-PiBzb21lIGNvbXBpbGVyIGRpZmZlcmVuY2UuIA0KDQpIaSBKYW1lcywNCiAgU29ycnkgZm9yIHRo
-ZSBkZWxheSBpbiByZXNwb25kaW5nIHRvIHlvdXIgbWFpbC4gSSBoYXZlIHVwZ3JhZGVkIHRoaXMg
-YmFzZWQgb2YgaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy9jb21taXQvOWQyMjcw
-NTJiZjU2MmFmZDRkNTQ3ZmJjMTdhY2UzMjAyYzVjZjgwYyB0byBidWlsZCBzdWNjZXNzZnVsbHku
-IFRoYW5rcyBmb3IgeW91ciByZXBseSwgc2luY2VyZWx5Lg0KDQo+IA0KPiANCj4gDQo+IA0KPiA+
-DQo+ID4+Pg0KPiA+Pj4gVGhhbmtzLg0KPiA+Pj4gRHVrZSwgRHUNCj4gPj4+DQo=
+
+
+On 8/22/19 5:49 PM, Joseph Reynolds wrote:
+>
+> On 8/21/19 10:19 PM, Ratan Gupta wrote:
+>> Hi Joseph,
+>>
+>> On 19/08/19 10:32 PM, Joseph Reynolds wrote:
+>>> This is an attempt to over-communicate progress on the [Initial 
+>>> expired passwords design][], currently in review.  This email has 
+>>> the significant and tricky work items needed to implement the 
+>>> design. Emails about the BMCWeb pieces that need to be changed are 
+>>> [here][]; in contrast, this email attempts to decompose the overall 
+>>> design.
+>>>
+>>> [Initial expired passwords design]: 
+>>> https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/23849
+>>> [here][]: 
+>>> https://lists.ozlabs.org/pipermail/openbmc/2019-August/017625.html
+>>>
+>>> The "initial expired passwords design" includes the following work. 
+>>> An understanding of that design is a pre-requisite to understand the 
+>>> items here.
+>>>
+>>> 1. Implement the new EXPIRED_PASSWORD image feature (initially 
+>>> off).  This ensures the password is expired for all local users. The 
+>>> right place to do this piece is in Yocto/OpenEmbedded; see 
+>>> https://lists.yoctoproject.org/pipermail/yocto-security/2019-July/000114.html
+>>>
+>>> 2. Enhance BMCWeb to handle Redfish PasswordChangeRequired 
+>>> (reference: 
+>>> https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.7.0.pdf 
+>>> ("Redfish Specification" version 1.7.0 or later) section 13.2.6.1).
+>>> This further breaks down into:
+>>>
+>>> 2a. Add the PasswordChangeRequired field to 
+>>> /redfish/v1/SessionManager/Sessions/<session>.  This new field comes 
+>>> from PAM_NEW_AUTHTOK_REQD.
+
+The first commit for this is available in gerrit review.  It implements 
+most of parts 2 and 2a above.  The BMCWeb issue for discussion is here: 
+https://github.com/openbmc/bmcweb/issues/103#issuecomment-530969632
+
+Please review the design and the first commit.
+
+- Joseph
+
+The related GUI work for this is here: 
+https://lists.ozlabs.org/pipermail/openbmc/2019-September/018184.html
+
+A question about a potential hole in the security provided by the 
+"expired password" design is here: 
+https://lists.ozlabs.org/pipermail/openbmc/2019-September/018080.html
