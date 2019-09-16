@@ -1,78 +1,50 @@
-Return-Path: <sam@mendozajonas.com>
+Return-Path: <yong.b.li@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=mendozajonas.com
- (client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com;
- envelope-from=sam@mendozajonas.com; receiver=<UNKNOWN>)
+ spf=none (mailfrom) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.100; helo=mga07.intel.com;
+ envelope-from=yong.b.li@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=mendozajonas.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=mendozajonas.com header.i=@mendozajonas.com
- header.b="IEINNKSg"; dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="WzsJzHq8"; dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ header.from=linux.intel.com
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46WtN30gzfzF4cy;
- Mon, 16 Sep 2019 14:21:06 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 3331D2129D;
- Sun, 15 Sep 2019 22:39:15 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Sun, 15 Sep 2019 22:39:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- mendozajonas.com; h=message-id:subject:from:to:cc:date
- :in-reply-to:references:content-type:mime-version
- :content-transfer-encoding; s=fm1; bh=6OpW8HhbwXo2Hu8BU/I+PUQwOL
- AKU3qwgteJ0dZGU8o=; b=IEINNKSgO8ShfY+A4d1BkHyLrBwA9OBy53JmyZKN7s
- n73E6XtYLolR3IinvnY5aqi9DSQgbnYtqz5vooqDHeutFkfUQEJhXM50cO+O7iQO
- 1r9h2LEDH5aJS3ezGUMb/wmOteT0SRRt2HOi8uMsCMHcZz56rPYDsMKAfkfIHhuP
- d+G66OVk5O5hM4FTVs9yeaA8fdEtXfSPCN7wvIQ2t9eVoTXUBIBO9V/rOuq0PU2Y
- 2h6cuKSjM3UzgZUdzas70bdtF96C4gGkPakteE5A0bB+j/+GWdejKUvbfEBeTJgY
- 6e4ZSPIFtkutMsmMPsNfdf5vWgEWI3G2JH9mbn7qBmpw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm3; bh=6OpW8HhbwXo2Hu8BU/I+PUQwOLAKU3qwgteJ0dZGU
- 8o=; b=WzsJzHq8WWewUfKjmIcDQy9RodGsgZDWraYlrFH2hOm93T6P8VhemdQw2
- ZbgVccEupijtXIrlibI6nX0p+P39de9p06zT0Yj8uLKYwoZymgjDe79tSrWpWIKv
- OGF3ZWQhhsc3MsR52p30qiFuwXuK7OC2lYKRzP/96rZzcSphAnkujT22OFDvBl3n
- q/BQYjj6ef5rsVbUX8pCtBKjprfimCBUogiSxueUgcLfII2jYzM6UcgMYAjyCKSf
- GGTqll/SRT9MGgoulMG0GQBdpsGWxTWzVj+PU8EP+yymzXa2kxqMSluHUf7aJA4H
- XY2/nSJY+9FBjWsSf5W/nX6hHzi3g==
-X-ME-Sender: <xms:0vV-XahDiBp_lIMZE2_IbMJvCBukrZKd6IVOAHVTQrnjP2yK7aHX6w>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddvgdeivdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefkuffhvfffjghftggfggfgsehtjeertddtreejnecuhfhrohhmpefurghmuhgv
- lhcuofgvnhguohiirgdqlfhonhgrshcuoehsrghmsehmvghnughoiigrjhhonhgrshdrtg
- homheqnecukfhppedujeegrdduvdejrdduieegrdegheenucfrrghrrghmpehmrghilhhf
- rhhomhepshgrmhesmhgvnhguohiirghjohhnrghsrdgtohhmnecuvehluhhsthgvrhfuih
- iivgeptd
-X-ME-Proxy: <xmx:0vV-XdbkH6vMXjioTXH0Xh0FGix2YVyhyQk6FIZ8aWv8xIybEBQE9g>
- <xmx:0vV-XbW0BwcUWot_7z3FiIzeR_K9T76IfJ8j4jLYlmvBkmJO9-O49Q>
- <xmx:0vV-XWY6PwOGubhdKqUOiyVHcCQQiJFOA3OEdtdrkU3iN0LriU0nhQ>
- <xmx:0_V-XSj2Tix6C29ADYYCeAY837sL9-l-OfCYkj5c37WrykGZQZ-9rA>
-Received: from Singularity (unknown [174.127.164.45])
- by mail.messagingengine.com (Postfix) with ESMTPA id D930DD60057;
- Sun, 15 Sep 2019 22:39:13 -0400 (EDT)
-Message-ID: <eb370d3280327b512828adc62b64656e65b22745.camel@mendozajonas.com>
-Subject: Re: [PATCH] net/ncsi: Disable global multicast filter
-From: Samuel Mendoza-Jonas <sam@mendozajonas.com>
-To: Vijay Khemka <vijaykhemka@fb.com>, "David S. Miller"
- <davem@davemloft.net>,  netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: "openbmc @ lists . ozlabs . org" <openbmc@lists.ozlabs.org>, 
- joel@jms.id.au, linux-aspeed@lists.ozlabs.org, sdasari@fb.com, Christian
- Svensson <bluecmd@google.com>
-Date: Sun, 15 Sep 2019 19:39:13 -0700
-In-Reply-To: <20190912190451.2362220-1-vijaykhemka@fb.com>
-References: <20190912190451.2362220-1-vijaykhemka@fb.com>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.32.4 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46Wtvc3bvBzDrQ2
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Sep 2019 14:44:58 +1000 (AEST)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by orsmga105.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2019 20:07:44 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.64,489,1559545200"; 
+ d="scan'208,217";a="386070651"
+Received: from yongli3-mobl.ccr.corp.intel.com (HELO yongli3MOBL)
+ ([10.239.197.147])
+ by fmsmga005.fm.intel.com with ESMTP; 15 Sep 2019 20:07:43 -0700
+From: "Yong Li" <yong.b.li@linux.intel.com>
+To: "'Zheng Bao'" <fishbaoz@hotmail.com>, "'Andrew Jeffery'" <andrew@aj.id.au>,
+ "'AKASH G J'" <akashgj91@gmail.com>, <openbmc@lists.ozlabs.org>
+References: <CAE33tLGxcBFHYzXQ7Uqdg03ZibvS4busoJT=iGTwLMb8TMD-2g@mail.gmail.com>
+ <57995e3f-ef82-49b3-909a-054b5b9bef8e@www.fastmail.com>,
+ <000001d55efc$36c53100$a44f9300$@linux.intel.com>
+ <MN2PR04MB666979DC3506E051D6F44A54CDB50@MN2PR04MB6669.namprd04.prod.outlook.com>,
+ <000e01d56776$d87696b0$8963c410$@linux.intel.com>
+ <MN2PR04MB66693029C6009D3A03416A3FCDB00@MN2PR04MB6669.namprd04.prod.outlook.com>
+In-Reply-To: <MN2PR04MB66693029C6009D3A03416A3FCDB00@MN2PR04MB6669.namprd04.prod.outlook.com>
+Subject: RE: Enable KCS interface in zaius
+Date: Mon, 16 Sep 2019 11:07:43 +0800
+Message-ID: <001601d56c3b$e9151180$bb3f3480$@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_000_0017_01D56C7E.F739D820"
+X-Mailer: Microsoft Outlook 16.0
+Content-Language: en-us
+Thread-Index: AQJcB1X7Z8c6uIR1m/dKdfL+hCFWWQFjbNgiAoQUDF0Cosk6GAFjZc+QAmtrwqalzZsSkA==
+x-ctpclassification: CTP_NT
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiOWI2ZjJkY2QtOWFlMy00NWJjLWEwZDctNTk0ZTQ2MjIyMWFmIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiWGhqWlFNN3JLYkZiczUzN05iME9Pam5RU1Y2QnhrMno1YlU1Z2tWZWloNmFLMWdGUFlNZVl6ZU1oZ3RQSHpabCJ9
+dlp-product: dlpe-windows
+dlp-version: 11.0.600.7
+dlp-reaction: request-justification,no-action
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,237 +56,452 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 16 Sep 2019 04:21:10 -0000
+X-List-Received-Date: Mon, 16 Sep 2019 04:45:02 -0000
 
-On Thu, 2019-09-12 at 12:04 -0700, Vijay Khemka wrote:
-> Disabling multicast filtering from NCSI if it is supported. As it
-> should not filter any multicast packets. In current code, multicast
-> filter is enabled and with an exception of optional field supported
-> by device are disabled filtering.
+This is a multipart message in MIME format.
+
+------=_NextPart_000_0017_01D56C7E.F739D820
+Content-Type: text/plain;
+	charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+Just want to know did you test the image using a real hardware?
+
+ 
+
+You can check your kernel .config file in
+build/tmp/work/intel_ast2500-openbmc-linux-gnueabi/linux-aspeed/5.2+gitAUTOI
+NC+c01e98d151-r0/linux-intel_ast2500-standard-build
+
+ 
+
+CONFIG_IPMI_KCS_BMC=y
+
+CONFIG_ASPEED_KCS_IPMI_BMC=y
+
+ 
+
+Thanks,
+
+Yong
+
+From: openbmc <openbmc-bounces+yong.b.li=linux.intel.com@lists.ozlabs.org>
+On Behalf Of Zheng Bao
+Sent: Thursday, September 12, 2019 5:09 PM
+To: Yong Li <yong.b.li@linux.intel.com>; 'Andrew Jeffery' <andrew@aj.id.au>;
+'AKASH G J' <akashgj91@gmail.com>; openbmc@lists.ozlabs.org
+Subject: Re: Enable KCS interface in zaius
+
+ 
+
+I use qemu to test the image. Got the result.
+
+ 
+
+$ qemu-system-arm -m 512 -M ast2500-evb -nographic  -drive
+file=phosphor-intel-platform-1.bin,format=raw,if=mtd
+
+ 
+
+ 
+
+U-Boot 2016.07 (Sep 11 2019 - 21:38:56 +0000)
+
+ 
+
+SOC : AST2500-A1
+
+RST : 0x01
+
+PLL :     24 MHz
+
+CPU :    792 MHz
+
+MEM :   2.240 MHz, EEC: Disable, Cache: Disable
+
+VGA :    16 MiB
+
+DRAM :   init by SOC
+
+       Watchdog enabled
+
+DRAM:  496 MiB
+
+Flash: 32 MiB
+
+*** Warning - bad CRC, using default environment
+
+ 
+
+In:    serial
+
+Out:   serial
+
+Err:   serial
+
+Error: start and/or end address not on sector boundary
+
+Error: start and/or end address not on sector boundary
+
+Error: start and/or end address not on sector boundary
+
+ 
+
+ 
+
+Zheng
+
+  _____  
+
+From: Yong Li <yong.b.li@linux.intel.com <mailto:yong.b.li@linux.intel.com>
+>
+Sent: Tuesday, September 10, 2019 1:26 AM
+To: 'Zheng Bao' <fishbaoz@hotmail.com <mailto:fishbaoz@hotmail.com> >;
+'Andrew Jeffery' <andrew@aj.id.au <mailto:andrew@aj.id.au> >; 'AKASH G J'
+<akashgj91@gmail.com <mailto:akashgj91@gmail.com> >;
+openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org>
+<openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org> >
+Subject: RE: Enable KCS interface in zaius 
+
+ 
+
+I would like to know how did you perform the build? Please perform the below
+commands:
+
+ 
+
+export TEMPLATECONF=meta-openbmc-mods/meta-wht/conf
+
+source oe-init-build-env
+
+bitbake intel-platforms
+
+ 
+
+Thanks,
+
+Yong
+
+ 
+
+From: Zheng Bao <fishbaoz@hotmail.com <mailto:fishbaoz@hotmail.com> > 
+Sent: Saturday, September 7, 2019 7:34 PM
+To: Yong Li <yong.b.li@linux.intel.com <mailto:yong.b.li@linux.intel.com> >;
+'Andrew Jeffery' <andrew@aj.id.au <mailto:andrew@aj.id.au> >; 'AKASH G J'
+<akashgj91@gmail.com <mailto:akashgj91@gmail.com> >;
+openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org> 
+Subject: Re: Enable KCS interface in zaius
+
+ 
+
+I check out the https://github.com/Intel-BMC/openbmc
+
+and build the board: meta-openbmc-mods/meta-wolfpass/conf
+
+ 
+
+But got the error,
+
+dd: failed to open
+'/home/baozheng/bmc/openbmc-github/build/tmp/deploy/images/intel-ast2500/fit
+Image-rootfs-intel-ast2500.bin': No such file or directory
+
+ 
+
+Did I miss something?
+
+ 
+
+Zheng
+
+ 
+
+ 
+
+  _____  
+
+From: openbmc <openbmc-bounces+fishbaoz=hotmail.com@lists.ozlabs.org
+<mailto:openbmc-bounces+fishbaoz=hotmail.com@lists.ozlabs.org> > on behalf
+of Yong Li <yong.b.li@linux.intel.com <mailto:yong.b.li@linux.intel.com> >
+Sent: Friday, August 30, 2019 6:29 AM
+To: 'Andrew Jeffery' <andrew@aj.id.au <mailto:andrew@aj.id.au> >; 'AKASH G
+J' <akashgj91@gmail.com <mailto:akashgj91@gmail.com> >;
+openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org>
+<openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org> >
+Subject: RE: Enable KCS interface in zaius 
+
+ 
+
+It seems that the kernel needs to enable KCS, and disable BT. 
+CONFIG_ASPEED_KCS_IPMI_BMC=y
+
+Suggest to check on this: https://github.com/Intel-BMC/openbmc
+
+Thanks,
+Yong
+-----Original Message-----
+From: openbmc <openbmc-bounces+yong.b.li=linux.intel.com@lists.ozlabs.org
+<mailto:openbmc-bounces+yong.b.li=linux.intel.com@lists.ozlabs.org> >
+On Behalf Of Andrew Jeffery
+Sent: Friday, August 30, 2019 12:42 PM
+To: AKASH G J <akashgj91@gmail.com <mailto:akashgj91@gmail.com> >;
+openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org> 
+Subject: Re: Enable KCS interface in zaius
+
+
+
+On Thu, 29 Aug 2019, at 09:05, AKASH G J wrote:
+> Hi all,
 > 
-> Mainly I see if goal is to disable filtering for IPV6 packets then
-> let
-> it disabled for every other types as well. As we are seeing issues
-> with
-> LLDP not working with this enabled filtering. And there are other
-> issues
-> with IPV6.
+> I am using server platform with Intel processor and Aspeed AST-2500 
+> BMC. OpenBMC firmware with zaius configuration is used for BMC.
 > 
-> By Disabling this multicast completely, it is working for both IPV6
-> as
-> well as LLDP.
-> 
-> Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
 
-Hi Vijay,
+Zaius is an OpenPOWER platform (and our OpenPOWER platforms use the BT
+interface rather than KCS). You're using an Intel-based processor for the
+host, so perhaps it's better to start with an x86-based platform such as the
+s2600wf. This should already have KCS IPMI enabled for you.
 
-There are definitely some current issues with multicast filtering and
-IPv6 when behind NC-SI at the moment. It would be nice to make this
-configurable instead of disabling the component wholesale but I don't
-believe this actually *breaks* anyone's configuration. It would be nice
-to see some Tested-By's from the OpenBMC people though.
+Andrew
 
-I'll have a look at the multicast issues, CC'ing in Chris too who IIRC
-was looking at similar issues for u-bmc in case he got further.
 
-Acked-by: Samuel Mendoza-Jonas <sam@mendozajonas.com>
+------=_NextPart_000_0017_01D56C7E.F739D820
+Content-Type: text/html;
+	charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-> ---
->  net/ncsi/internal.h    |  7 +--
->  net/ncsi/ncsi-manage.c | 98 +++++-----------------------------------
-> --
->  2 files changed, 12 insertions(+), 93 deletions(-)
-> 
-> diff --git a/net/ncsi/internal.h b/net/ncsi/internal.h
-> index 0b3f0673e1a2..ad3fd7f1da75 100644
-> --- a/net/ncsi/internal.h
-> +++ b/net/ncsi/internal.h
-> @@ -264,9 +264,7 @@ enum {
->  	ncsi_dev_state_config_ev,
->  	ncsi_dev_state_config_sma,
->  	ncsi_dev_state_config_ebf,
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -	ncsi_dev_state_config_egmf,
-> -#endif
-> +	ncsi_dev_state_config_dgmf,
->  	ncsi_dev_state_config_ecnt,
->  	ncsi_dev_state_config_ec,
->  	ncsi_dev_state_config_ae,
-> @@ -295,9 +293,6 @@ struct ncsi_dev_priv {
->  #define NCSI_DEV_RESET		8            /* Reset state of
-> NC          */
->  	unsigned int        gma_flag;        /* OEM GMA
-> flag               */
->  	spinlock_t          lock;            /* Protect the NCSI
-> device    */
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -	unsigned int        inet6_addr_num;  /* Number of IPv6
-> addresses   */
-> -#endif
->  	unsigned int        package_probe_id;/* Current ID during
-> probe    */
->  	unsigned int        package_num;     /* Number of
-> packages         */
->  	struct list_head    packages;        /* List of
-> packages           */
-> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index 755aab66dcab..bce8b443289d 100644
-> --- a/net/ncsi/ncsi-manage.c
-> +++ b/net/ncsi/ncsi-manage.c
-> @@ -14,7 +14,6 @@
->  #include <net/sock.h>
->  #include <net/addrconf.h>
->  #include <net/ipv6.h>
-> -#include <net/if_inet6.h>
->  #include <net/genetlink.h>
->  
->  #include "internal.h"
-> @@ -978,9 +977,7 @@ static void ncsi_configure_channel(struct
-> ncsi_dev_priv *ndp)
->  	case ncsi_dev_state_config_ev:
->  	case ncsi_dev_state_config_sma:
->  	case ncsi_dev_state_config_ebf:
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -	case ncsi_dev_state_config_egmf:
-> -#endif
-> +	case ncsi_dev_state_config_dgmf:
->  	case ncsi_dev_state_config_ecnt:
->  	case ncsi_dev_state_config_ec:
->  	case ncsi_dev_state_config_ae:
-> @@ -1033,23 +1030,23 @@ static void ncsi_configure_channel(struct
-> ncsi_dev_priv *ndp)
->  		} else if (nd->state == ncsi_dev_state_config_ebf) {
->  			nca.type = NCSI_PKT_CMD_EBF;
->  			nca.dwords[0] = nc->caps[NCSI_CAP_BC].cap;
-> -			if (ncsi_channel_is_tx(ndp, nc))
-> +			/* if multicast global filtering is supported
-> then
-> +			 * disable it so that all multicast packet will
-> be
-> +			 * forwarded to management controller
-> +			 */
-> +			if (nc->caps[NCSI_CAP_GENERIC].cap &
-> +			     NCSI_CAP_GENERIC_MC)
-> +				nd->state = ncsi_dev_state_config_dgmf;
-> +			else if (ncsi_channel_is_tx(ndp, nc))
->  				nd->state = ncsi_dev_state_config_ecnt;
->  			else
->  				nd->state = ncsi_dev_state_config_ec;
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -			if (ndp->inet6_addr_num > 0 &&
-> -			    (nc->caps[NCSI_CAP_GENERIC].cap &
-> -			     NCSI_CAP_GENERIC_MC))
-> -				nd->state = ncsi_dev_state_config_egmf;
-> -		} else if (nd->state == ncsi_dev_state_config_egmf) {
-> -			nca.type = NCSI_PKT_CMD_EGMF;
-> -			nca.dwords[0] = nc->caps[NCSI_CAP_MC].cap;
-> +		} else if (nd->state == ncsi_dev_state_config_dgmf) {
-> +			nca.type = NCSI_PKT_CMD_DGMF;
->  			if (ncsi_channel_is_tx(ndp, nc))
->  				nd->state = ncsi_dev_state_config_ecnt;
->  			else
->  				nd->state = ncsi_dev_state_config_ec;
-> -#endif /* CONFIG_IPV6 */
->  		} else if (nd->state == ncsi_dev_state_config_ecnt) {
->  			if (np->preferred_channel &&
->  			    nc != np->preferred_channel)
-> @@ -1483,70 +1480,6 @@ int ncsi_process_next_channel(struct
-> ncsi_dev_priv *ndp)
->  	return -ENODEV;
->  }
->  
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -static int ncsi_inet6addr_event(struct notifier_block *this,
-> -				unsigned long event, void *data)
-> -{
-> -	struct inet6_ifaddr *ifa = data;
-> -	struct net_device *dev = ifa->idev->dev;
-> -	struct ncsi_dev *nd = ncsi_find_dev(dev);
-> -	struct ncsi_dev_priv *ndp = nd ? TO_NCSI_DEV_PRIV(nd) : NULL;
-> -	struct ncsi_package *np;
-> -	struct ncsi_channel *nc;
-> -	struct ncsi_cmd_arg nca;
-> -	bool action;
-> -	int ret;
-> -
-> -	if (!ndp || (ipv6_addr_type(&ifa->addr) &
-> -	    (IPV6_ADDR_LINKLOCAL | IPV6_ADDR_LOOPBACK)))
-> -		return NOTIFY_OK;
-> -
-> -	switch (event) {
-> -	case NETDEV_UP:
-> -		action = (++ndp->inet6_addr_num) == 1;
-> -		nca.type = NCSI_PKT_CMD_EGMF;
-> -		break;
-> -	case NETDEV_DOWN:
-> -		action = (--ndp->inet6_addr_num == 0);
-> -		nca.type = NCSI_PKT_CMD_DGMF;
-> -		break;
-> -	default:
-> -		return NOTIFY_OK;
-> -	}
-> -
-> -	/* We might not have active channel or packages. The IPv6
-> -	 * required multicast will be enabled when active channel
-> -	 * or packages are chosen.
-> -	 */
-> -	np = ndp->active_package;
-> -	nc = ndp->active_channel;
-> -	if (!action || !np || !nc)
-> -		return NOTIFY_OK;
-> -
-> -	/* We needn't enable or disable it if the function isn't
-> supported */
-> -	if (!(nc->caps[NCSI_CAP_GENERIC].cap & NCSI_CAP_GENERIC_MC))
-> -		return NOTIFY_OK;
-> -
-> -	nca.ndp = ndp;
-> -	nca.req_flags = 0;
-> -	nca.package = np->id;
-> -	nca.channel = nc->id;
-> -	nca.dwords[0] = nc->caps[NCSI_CAP_MC].cap;
-> -	ret = ncsi_xmit_cmd(&nca);
-> -	if (ret) {
-> -		netdev_warn(dev, "Fail to %s global multicast filter
-> (%d)\n",
-> -			    (event == NETDEV_UP) ? "enable" :
-> "disable", ret);
-> -		return NOTIFY_DONE;
-> -	}
-> -
-> -	return NOTIFY_OK;
-> -}
-> -
-> -static struct notifier_block ncsi_inet6addr_notifier = {
-> -	.notifier_call = ncsi_inet6addr_event,
-> -};
-> -#endif /* CONFIG_IPV6 */
-> -
->  static int ncsi_kick_channels(struct ncsi_dev_priv *ndp)
->  {
->  	struct ncsi_dev *nd = &ndp->ndev;
-> @@ -1725,11 +1658,6 @@ struct ncsi_dev *ncsi_register_dev(struct
-> net_device *dev,
->  	}
->  
->  	spin_lock_irqsave(&ncsi_dev_lock, flags);
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -	ndp->inet6_addr_num = 0;
-> -	if (list_empty(&ncsi_dev_list))
-> -		register_inet6addr_notifier(&ncsi_inet6addr_notifier);
-> -#endif
->  	list_add_tail_rcu(&ndp->node, &ncsi_dev_list);
->  	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
->  
-> @@ -1896,10 +1824,6 @@ void ncsi_unregister_dev(struct ncsi_dev *nd)
->  
->  	spin_lock_irqsave(&ncsi_dev_lock, flags);
->  	list_del_rcu(&ndp->node);
-> -#if IS_ENABLED(CONFIG_IPV6)
-> -	if (list_empty(&ncsi_dev_list))
-> -		unregister_inet6addr_notifier(&ncsi_inet6addr_notifier)
-> ;
-> -#endif
->  	spin_unlock_irqrestore(&ncsi_dev_lock, flags);
->  
->  	ncsi_unregister_netlink(nd->dev);
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
+xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
+xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
+http-equiv=3DContent-Type content=3D"text/html; =
+charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
+(filtered medium)"><!--[if !mso]><style>v\:* =
+{behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:purple;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.xmsonormal, li.xmsonormal, div.xmsonormal
+	{mso-style-name:x_msonormal;
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle21
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle22
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]--></head><body lang=3DEN-US link=3Dblue =
+vlink=3Dpurple><div class=3DWordSection1><p class=3DMsoNormal>Just want =
+to know did you test the image using a real hardware?<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>You can =
+check your kernel .config file in =
+build/tmp/work/intel_ast2500-openbmc-linux-gnueabi/linux-aspeed/5.2+gitAU=
+TOINC+c01e98d151-r0/linux-intel_ast2500-standard-build<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>CONFIG_IPMI_KCS_BMC=3Dy<o:p></o:p></p><p =
+class=3DMsoNormal>CONFIG_ASPEED_KCS_IPMI_BMC=3Dy<o:p></o:p></p><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
+class=3DMsoNormal>Thanks,<o:p></o:p></p><p =
+class=3DMsoNormal>Yong<o:p></o:p></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in'><p class=3DMsoNormal><a =
+name=3D"_____replyseparator"></a><b>From:</b> openbmc =
+&lt;openbmc-bounces+yong.b.li=3Dlinux.intel.com@lists.ozlabs.org&gt; =
+<b>On Behalf Of </b>Zheng Bao<br><b>Sent:</b> Thursday, September 12, =
+2019 5:09 PM<br><b>To:</b> Yong Li &lt;yong.b.li@linux.intel.com&gt;; =
+'Andrew Jeffery' &lt;andrew@aj.id.au&gt;; 'AKASH G J' =
+&lt;akashgj91@gmail.com&gt;; openbmc@lists.ozlabs.org<br><b>Subject:</b> =
+Re: Enable KCS interface in zaius<o:p></o:p></p></div></div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p><div><p class=3DMsoNormal>I use =
+qemu to test the image. Got the result.<o:p></o:p></p></div><div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p class=3DMsoNormal>$ =
+qemu-system-arm -m 512 -M ast2500-evb -nographic &nbsp;-drive =
+file=3Dphosphor-intel-platform-1.bin,format=3Draw,if=3Dmtd<o:p></o:p></p>=
+</div><div><p class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
+class=3DMsoNormal>U-Boot 2016.07 (Sep 11 2019 - 21:38:56 =
++0000)<o:p></o:p></p></div><div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
+class=3DMsoNormal>SOC : AST2500-A1<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>RST : 0x01<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>PLL : &nbsp; &nbsp; 24 MHz<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>CPU : &nbsp; &nbsp;792 MHz<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>MEM : &nbsp; 2.240 MHz, EEC: Disable, Cache: =
+Disable<o:p></o:p></p></div><div><p class=3DMsoNormal>VGA : &nbsp; =
+&nbsp;16 MiB<o:p></o:p></p></div><div><p class=3DMsoNormal>DRAM : &nbsp; =
+init by SOC<o:p></o:p></p></div><div><p class=3DMsoNormal>&nbsp; &nbsp; =
+&nbsp; &nbsp;Watchdog enabled<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>DRAM: &nbsp;496 MiB<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>Flash: 32 MiB<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>*** Warning - bad CRC, using default =
+environment<o:p></o:p></p></div><div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><p =
+class=3DMsoNormal>In: &nbsp; &nbsp;serial<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>Out: &nbsp; serial<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>Err: &nbsp; serial<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>Error: start and/or end address not on sector =
+boundary<o:p></o:p></p></div><div><p class=3DMsoNormal>Error: start =
+and/or end address not on sector boundary<o:p></o:p></p></div><div><p =
+class=3DMsoNormal>Error: start and/or end address not on sector =
+boundary<o:p></o:p></p></div><div><p =
+class=3DMsoNormal><o:p>&nbsp;</o:p></p></div><div><div><p =
+class=3DMsoNormal><span =
+style=3D'font-size:12.0pt;color:black'><o:p>&nbsp;</o:p></span></p></div>=
+<div><p class=3DMsoNormal><span =
+style=3D'font-size:12.0pt;color:black'>Zheng<o:p></o:p></span></p></div><=
+div class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><hr =
+size=3D3 width=3D"98%" align=3Dcenter></div><div id=3DdivRplyFwdMsg><p =
+class=3DMsoNormal><b><span style=3D'color:black'>From:</span></b><span =
+style=3D'color:black'> Yong Li &lt;<a =
+href=3D"mailto:yong.b.li@linux.intel.com">yong.b.li@linux.intel.com</a>&g=
+t;<br><b>Sent:</b> Tuesday, September 10, 2019 1:26 AM<br><b>To:</b> =
+'Zheng Bao' &lt;<a =
+href=3D"mailto:fishbaoz@hotmail.com">fishbaoz@hotmail.com</a>&gt;; =
+'Andrew Jeffery' &lt;<a =
+href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt;; 'AKASH G J' =
+&lt;<a href=3D"mailto:akashgj91@gmail.com">akashgj91@gmail.com</a>&gt;; =
+<a href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a> =
+&lt;<a =
+href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>&gt;=
+<br><b>Subject:</b> RE: Enable KCS interface in zaius</span> =
+<o:p></o:p></p><div><p =
+class=3DMsoNormal>&nbsp;<o:p></o:p></p></div></div><div><div><p =
+class=3Dxmsonormal>I would like to know how did you perform the build? =
+Please perform the below commands:<o:p></o:p></p><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p><p class=3Dxmsonormal>export =
+TEMPLATECONF=3Dmeta-openbmc-mods/meta-wht/conf<o:p></o:p></p><p =
+class=3Dxmsonormal>source oe-init-build-env<o:p></o:p></p><p =
+class=3Dxmsonormal>bitbake intel-platforms<o:p></o:p></p><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p><p =
+class=3Dxmsonormal>Thanks,<o:p></o:p></p><p =
+class=3Dxmsonormal>Yong<o:p></o:p></p><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p><div><div =
+style=3D'border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in'><p class=3Dxmsonormal><a =
+name=3D"x______replyseparator"></a><b>From:</b> Zheng Bao &lt;<a =
+href=3D"mailto:fishbaoz@hotmail.com">fishbaoz@hotmail.com</a>&gt; =
+<br><b>Sent:</b> Saturday, September 7, 2019 7:34 PM<br><b>To:</b> Yong =
+Li &lt;<a =
+href=3D"mailto:yong.b.li@linux.intel.com">yong.b.li@linux.intel.com</a>&g=
+t;; 'Andrew Jeffery' &lt;<a =
+href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt;; 'AKASH G J' =
+&lt;<a href=3D"mailto:akashgj91@gmail.com">akashgj91@gmail.com</a>&gt;; =
+<a =
+href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br>=
+<b>Subject:</b> Re: Enable KCS interface in =
+zaius<o:p></o:p></p></div></div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p><div><p class=3Dxmsonormal>I =
+check out the <a =
+href=3D"https://github.com/Intel-BMC/openbmc">https://github.com/Intel-BM=
+C/openbmc</a><o:p></o:p></p></div><div><p class=3Dxmsonormal>and build =
+the board: =
+meta-openbmc-mods/meta-wolfpass/conf<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>But got the error,<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>dd: failed to open =
+'/home/baozheng/bmc/openbmc-github/build/tmp/deploy/images/intel-ast2500/=
+fitImage-rootfs-intel-ast2500.bin': No such file or =
+directory<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>Did I miss something?<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>Zheng<o:p></o:p></p></div><div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p></div><div><div><p =
+class=3Dxmsonormal><span =
+style=3D'font-size:12.0pt;color:black'>&nbsp;</span><o:p></o:p></p></div>=
+<div class=3DMsoNormal align=3Dcenter style=3D'text-align:center'><hr =
+size=3D3 width=3D"98%" align=3Dcenter></div><div =
+id=3D"x_divRplyFwdMsg"><p class=3Dxmsonormal><b><span =
+style=3D'color:black'>From:</span></b><span style=3D'color:black'> =
+openbmc &lt;<a =
+href=3D"mailto:openbmc-bounces+fishbaoz=3Dhotmail.com@lists.ozlabs.org">o=
+penbmc-bounces+fishbaoz=3Dhotmail.com@lists.ozlabs.org</a>&gt; on behalf =
+of Yong Li &lt;<a =
+href=3D"mailto:yong.b.li@linux.intel.com">yong.b.li@linux.intel.com</a>&g=
+t;<br><b>Sent:</b> Friday, August 30, 2019 6:29 AM<br><b>To:</b> 'Andrew =
+Jeffery' &lt;<a href=3D"mailto:andrew@aj.id.au">andrew@aj.id.au</a>&gt;; =
+'AKASH G J' &lt;<a =
+href=3D"mailto:akashgj91@gmail.com">akashgj91@gmail.com</a>&gt;; <a =
+href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a> =
+&lt;<a =
+href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a>&gt;=
+<br><b>Subject:</b> RE: Enable KCS interface in zaius</span> =
+<o:p></o:p></p><div><p =
+class=3Dxmsonormal>&nbsp;<o:p></o:p></p></div></div><div><div><p =
+class=3Dxmsonormal style=3D'margin-bottom:12.0pt'>It seems that the =
+kernel needs to enable KCS, and disable BT. =
+<br>CONFIG_ASPEED_KCS_IPMI_BMC=3Dy<br><br>Suggest to check on this: <a =
+href=3D"https://github.com/Intel-BMC/openbmc">https://github.com/Intel-BM=
+C/openbmc</a><br><br>Thanks,<br>Yong<br>-----Original =
+Message-----<br>From: openbmc &lt;<a =
+href=3D"mailto:openbmc-bounces+yong.b.li=3Dlinux.intel.com@lists.ozlabs.o=
+rg">openbmc-bounces+yong.b.li=3Dlinux.intel.com@lists.ozlabs.org</a>&gt;<=
+br>On Behalf Of Andrew Jeffery<br>Sent: Friday, August 30, 2019 12:42 =
+PM<br>To: AKASH G J &lt;<a =
+href=3D"mailto:akashgj91@gmail.com">akashgj91@gmail.com</a>&gt;; <a =
+href=3D"mailto:openbmc@lists.ozlabs.org">openbmc@lists.ozlabs.org</a><br>=
+Subject: Re: Enable KCS interface in zaius<br><br><br><br>On Thu, 29 Aug =
+2019, at 09:05, AKASH G J wrote:<br>&gt; Hi all,<br>&gt; <br>&gt; I am =
+using server platform with Intel processor and Aspeed AST-2500 <br>&gt; =
+BMC. OpenBMC firmware with zaius configuration is used for BMC.<br>&gt; =
+<br><br>Zaius is an OpenPOWER platform (and our OpenPOWER platforms use =
+the BT<br>interface rather than KCS). You're using an Intel-based =
+processor for the<br>host, so perhaps it's better to start with an =
+x86-based platform such as the<br>s2600wf. This should already have KCS =
+IPMI enabled for =
+you.<br><br>Andrew<o:p></o:p></p></div></div></div></div></div></div></di=
+v></body></html>
+------=_NextPart_000_0017_01D56C7E.F739D820--
