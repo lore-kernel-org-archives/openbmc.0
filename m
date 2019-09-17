@@ -9,15 +9,17 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46XvcV69jRzF33j
- for <openbmc@lists.ozlabs.org>; Wed, 18 Sep 2019 06:20:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46XvcW0TN3zF36w
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Sep 2019 06:20:26 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 0/3] ARM: dts: aspeed-g6 lpc, rainier
-Date: Tue, 17 Sep 2019 16:20:36 -0400
-Message-Id: <20190917202039.25266-1-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH linux dev-5.3 2/3] ARM: dts: aspeed-g6: Add lpc devices
+Date: Tue, 17 Sep 2019 16:20:38 -0400
+Message-Id: <20190917202039.25266-3-bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20190917202039.25266-1-bradleyb@fuzziesquirrel.com>
+References: <20190917202039.25266-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -33,33 +35,115 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 17 Sep 2019 20:20:27 -0000
 
-Hello
+Assume everything is the same as G5, except the interrupt is updated.
 
-This is a quick attempt at wiring up some of the LPC bits on the
-AST2600, and then using it on a new board, Rainier, a new POWER system
-with an AST2600.  The only verification performed was ensuring the
-kernel still booted and the ibt device probed using the Rainier device
-tree atop the ast2600-evb qemu model.  Please review.
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+---
+ arch/arm/boot/dts/aspeed-g6.dtsi | 91 ++++++++++++++++++++++++++++++++
+ 1 file changed, 91 insertions(+)
 
-thx! - brad
-
-Brad Bishop (3):
-  ARM: aspeed-g6: lpc: add compatible strings
-  ARM: dts: aspeed-g6: Add lpc devices
-  ARM: dts: aspeed: add Rainier system
-
- .../bindings/ipmi/aspeed,ast2400-ibt-bmc.txt  |   3 +-
- .../devicetree/bindings/mfd/aspeed-lpc.txt    |   8 +-
- arch/arm/boot/dts/Makefile                    |   3 +-
- arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts  | 446 ++++++++++++++++++
- arch/arm/boot/dts/aspeed-g6.dtsi              |  91 ++++
- drivers/char/ipmi/bt-bmc.c                    |   1 +
- drivers/char/ipmi/kcs_bmc_aspeed.c            |   1 +
- drivers/reset/reset-simple.c                  |   1 +
- drivers/soc/aspeed/aspeed-lpc-ctrl.c          |   1 +
- drivers/soc/aspeed/aspeed-lpc-snoop.c         |   2 +
- 10 files changed, 554 insertions(+), 3 deletions(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
-
+diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-=
+g6.dtsi
+index 72038c16f541..b4991cbe1f36 100644
+--- a/arch/arm/boot/dts/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed-g6.dtsi
+@@ -249,6 +249,97 @@
+ 				status =3D "disabled";
+ 			};
+=20
++			lpc: lpc@1e789000 {
++				compatible =3D "aspeed,ast2600-lpc", "simple-mfd";
++				reg =3D <0x1e789000 0x1000>;
++
++				#address-cells =3D <1>;
++				#size-cells =3D <1>;
++				ranges =3D <0x0 0x1e789000 0x1000>;
++
++				lpc_bmc: lpc-bmc@0 {
++					compatible =3D "aspeed,ast2600-lpc-bmc", "simple-mfd", "syscon";
++					reg =3D <0x0 0x80>;
++					reg-io-width =3D <4>;
++
++					#address-cells =3D <1>;
++					#size-cells =3D <1>;
++					ranges =3D <0x0 0x0 0x80>;
++
++					kcs1: kcs1@0 {
++						compatible =3D "aspeed,ast2600-kcs-bmc";
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						kcs_chan =3D <1>;
++						status =3D "disabled";
++					};
++					kcs2: kcs2@0 {
++						compatible =3D "aspeed,ast2600-kcs-bmc";
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						kcs_chan =3D <2>;
++						status =3D "disabled";
++					};
++					kcs3: kcs3@0 {
++						compatible =3D "aspeed,ast2600-kcs-bmc";
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						kcs_chan =3D <3>;
++						status =3D "disabled";
++					};
++				};
++
++				lpc_host: lpc-host@80 {
++					compatible =3D "aspeed,ast2600-lpc-host", "simple-mfd", "syscon";
++					reg =3D <0x80 0x1e0>;
++					reg-io-width =3D <4>;
++
++					#address-cells =3D <1>;
++					#size-cells =3D <1>;
++					ranges =3D <0x0 0x80 0x1e0>;
++
++					kcs4: kcs4@0 {
++						compatible =3D "aspeed,ast2600-kcs-bmc";
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						kcs_chan =3D <4>;
++						status =3D "disabled";
++					};
++
++					lpc_ctrl: lpc-ctrl@0 {
++						compatible =3D "aspeed,ast2600-lpc-ctrl";
++						reg =3D <0x0 0x80>;
++						clocks =3D <&syscon ASPEED_CLK_GATE_LCLK>;
++						status =3D "disabled";
++					};
++
++					lpc_snoop: lpc-snoop@0 {
++						compatible =3D "aspeed,ast2600-lpc-snoop";
++						reg =3D <0x0 0x80>;
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						status =3D "disabled";
++					};
++
++					lhc: lhc@20 {
++						compatible =3D "aspeed,ast2600-lhc";
++						reg =3D <0x20 0x24 0x48 0x8>;
++					};
++
++					lpc_reset: reset-controller@18 {
++						compatible =3D "aspeed,ast2600-lpc-reset";
++						reg =3D <0x18 0x4>;
++						#reset-cells =3D <1>;
++					};
++
++					ibt: ibt@c0 {
++						compatible =3D "aspeed,ast2600-ibt-bmc";
++						reg =3D <0xc0 0x18>;
++						interrupts =3D <GIC_SPI 35 IRQ_TYPE_LEVEL_HIGH>;
++						status =3D "disabled";
++					};
++
++					sio_regs: regs {
++						compatible =3D "aspeed,bmc-misc";
++					};
++				};
++			};
++
+ 			sdc: sdc@1e740000 {
+ 				compatible =3D "aspeed,ast2600-sd-controller";
+ 				reg =3D <0x1e740000 0x100>;
 --=20
 2.21.0
