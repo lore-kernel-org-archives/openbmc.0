@@ -6,63 +6,67 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="H0CjEO9w"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="eq8/OFu8"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="dj4llJ4u"; dkim-atps=neutral
+ header.b="SyOWOe1M"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46bn4p4Cv9zDqLh
- for <openbmc@lists.ozlabs.org>; Sun, 22 Sep 2019 22:36:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46bn4q0SF1zDqP1
+ for <openbmc@lists.ozlabs.org>; Sun, 22 Sep 2019 22:36:26 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id CD12120D98;
- Sun, 22 Sep 2019 08:36:20 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 7597C20FE3;
+ Sun, 22 Sep 2019 08:36:24 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sun, 22 Sep 2019 08:36:20 -0400
+ by compute4.internal (MEProxy); Sun, 22 Sep 2019 08:36:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm3; bh=4FBRDPgdjwQLrSM4TumLAZBzhS
- YkeHyiFpyZm4eU8NM=; b=H0CjEO9wKhqQWBzyyekrBfjoHlXVkRHh4Jcjsz/IGY
- rN99DguvnyQkCATUwYokw5OrM5P1Jn0Hm0yZ84cbn4/g8Y6q6tx0vrLGZI6KLOkG
- 339FXQEyXYLsr1U455+im/f1PVXog5w9TRv0KOnMik8v0jHPa80Kn57G7fOif5Ws
- 0WhaKzbVzxNTNuuqh3v0B2IGUCQEIPCebJ2NocaudMlGNV9vpwV6Fs+7PSG1Ewh/
- qAZiUNo8yPKsh2c1TQkZ2pXbZLPBeU+PWuZDayXT8nCS2cZzQgPNVTfdhznIsAEM
- /dLgTVVc7VTsbYc1uZdDYAST2F2vXccr8RULH+ckEHgQ==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=4L2uciMlwPKw6
+ NVgmSskfFKGJ+TIqBRdUNzu7aGn5q0=; b=eq8/OFu80gxEylhTqToD6moii/vUq
+ ZKeq+hnrb4HCXsi8RqR0206l0lG27Eb//UikoSBg0YcfNlZEbaaMGDRybs9bjwDq
+ 8OybWgrZAxLi+JTOoPBXPDzhepldSKaBoKE+/xIX7iP/4EB80q5FZhmnbayCW7FN
+ 6SPPaQMIay8UytHfUB/pXUliFkf6OMyRheXrIvbBYkCfny+1qbWIejr6cCoj0lPj
+ De//rANEPT3aRJ7d2dSdPNjjtOSUXQnEhRvhw4CNOblial++KGH7xObtdNZbPA4R
+ g79WXCt+nXGBPOvi7mKCQd70orDN696XQgCTprbC8aNebhWw1gMQxtTPA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=4FBRDPgdjwQLrSM4T
- umLAZBzhSYkeHyiFpyZm4eU8NM=; b=dj4llJ4uIpIp8wHrpEwTz2fptcH0wCola
- NTWTlr1pYCw93BYcg6hAwT6c69gwyudZ5sXb71acRA39s8pUFWiWaN76Ll2Nv/KI
- 56V5ym7/Lo5IShpCnYeXZNTC86abhCuqntHKk0TpZgB3CwgI5F5IuFwFfQB+6p/U
- fB8O3P1df1o29sZ1SDY8ZMcE/V4HBGXGXuE8OW+LUC6bRZaWxMYq6+Em43T02tIF
- U88lBQDwIcQkxEUZXQPIs3TGy8NsYBrDrEfjPa29EogEYHCrXyNR2VPbX3v+r1xD
- 37OaVhTeMegrYw0dacXloPCTWIHjFUKStAQMycvcgh25qL5tzsObA==
-X-ME-Sender: <xms:w2qHXYUSS6MX6rj_LaoWJHkSVHyqYNBYzUHH9qgjl4G1nX2qsD9BZw>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=4L2uciMlwPKw6NVgmSskfFKGJ+TIqBRdUNzu7aGn5q0=; b=SyOWOe1M
+ NAjkQsPMU+4moN/G4eBj0d6+Loh/U6zTBEyeERg/URZ+xQkObUQwMSzcjc4ZZRQl
+ Oy0+pIgHjv0hJxSqlZ+naOn8RAMKjO6lQ1Va27jMKFDhp/aFan45RsUkv1k6TzJf
+ 8W0Imu5zlPQAbSm1JooZqNGXARma+UkhylqSO2wKwuWZ0AWQdW7jK0XrWzmd2DWq
+ lvbPTPhiS60av1WLkA2YDpeeY20CgpS4xDamj6ZCddacC2QZML0GUrMuzSCr5D/j
+ erdMN+DfNiqN4H/Gjof4EBDCBc6+gY3jGcycsx6QP94Je6sCaCRRbT+WqkRVRIcP
+ RpqunDqXwrXzTg==
+X-ME-Sender: <xms:yGqHXbtHKoBlyNC4ZY5BFeqlQ-RHuWQn6J4w37SqrVmogLSeH7KeJg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdeigdehgecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhi
- ugdrrghuqeenucfkphepvddtfedrheejrddvudehrddujeeknecurfgrrhgrmhepmhgrih
- hlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgep
- td
-X-ME-Proxy: <xmx:xGqHXQ-ahyqRwb3nqwm3zPqWgZ4CJRjy-ch_rXRvGVOnDfuGAEBQCA>
- <xmx:xGqHXaRPqCqV-yh57kMBVI5xzJMad5Fk68KUx-atm2dwLkQF6-ZfVg>
- <xmx:xGqHXVTX8Uo0nBFD8lJbMKyMdRM2pVmCJbtrysmNOyV1S1qq-O9H9A>
- <xmx:xGqHXdMBsXi2eVu6o7f0zNsuGooyWOi7KA9RJWI7U39AqcLvgMYCow>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
+ rdhiugdrrghuqeenucfkphepvddtfedrheejrddvudehrddujeeknecurfgrrhgrmhepmh
+ grihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihii
+ vgepud
+X-ME-Proxy: <xmx:yGqHXTVCNR4AUxmc-Egd6SUdw_sYt3lDM7DmRwYDUKDCPNYrg3EcPQ>
+ <xmx:yGqHXYdgK142CfcNxQjaK5cZG2bdqMiN9aUW8KZHKdPOr-PaXTL5tw>
+ <xmx:yGqHXeKMDsV3ozyzZxxfHHQ9nsjfx37iWwnayLbshFMWz094Mqii-g>
+ <xmx:yGqHXWx_MJq7CLn9M1Dhu7DgjhVgqusZC9hJqaodFl7bUu7kAJe8iA>
 Received: from mistburn.lan (203-57-215-178.dyn.iinet.net.au [203.57.215.178])
- by mail.messagingengine.com (Postfix) with ESMTPA id 4965B80059;
- Sun, 22 Sep 2019 08:36:18 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id BBB258005A;
+ Sun, 22 Sep 2019 08:36:22 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 0/6] ftgmac100: Support AST2600 RMII
-Date: Sun, 22 Sep 2019 22:06:54 +0930
-Message-Id: <20190922123700.749-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 2/6] dt-bindings: net: ftgmac100: Describe clock
+ properties
+Date: Sun, 22 Sep 2019 22:06:56 +0930
+Message-Id: <20190922123700.749-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20190922123700.749-1-andrew@aj.id.au>
+References: <20190922123700.749-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -78,33 +82,30 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Sun, 22 Sep 2019 12:36:31 -0000
 
-Hello,
+Critically, the AST2600 requires ungating the RMII RCLK if e.g. NCSI is
+in use.
 
-This series adds support for ungating RMII RCLK on the AST2600, enabling use of
-NCSI for the MACs.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ Documentation/devicetree/bindings/net/ftgmac100.txt | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-The patches have not yet been sent upstream, but I intend to do so once we're
-through the 5.4 merge window to avoid some of them disappearing into the
-net-next void.
-
-Please review!
-
-Andrew
-
-Andrew Jeffery (6):
-  dt-bindings: net: ftgmac100: Document AST2600 compatible
-  dt-bindings: net: ftgmac100: Describe clock properties
-  dt-bindings: clock: Add AST2600 RMII RCLK gate definitions
-  clk: ast2600: Add RMII RCLK gates for all four MACs
-  net: ftgmac100: Ungate RCLK for RMII on AST2600
-  ARM: dts: tacoma: Enable 50MHz RMII RCLK for NCSI
-
- .../devicetree/bindings/net/ftgmac100.txt     |  7 +++
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts   |  3 ++
- drivers/clk/clk-ast2600.c                     | 37 +++++++++++++++-
- drivers/net/ethernet/faraday/ftgmac100.c      | 43 ++++++++++++++++---
- include/dt-bindings/clock/ast2600-clock.h     |  5 +++
- 5 files changed, 87 insertions(+), 8 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/net/ftgmac100.txt b/Documentation/devicetree/bindings/net/ftgmac100.txt
+index 04cc0191b7dd..c443b0b84be5 100644
+--- a/Documentation/devicetree/bindings/net/ftgmac100.txt
++++ b/Documentation/devicetree/bindings/net/ftgmac100.txt
+@@ -24,6 +24,12 @@ Optional properties:
+ - no-hw-checksum: Used to disable HW checksum support. Here for backward
+   compatibility as the driver now should have correct defaults based on
+   the SoC.
++- clocks: In accordance with the generic clock bindings. Must describe the MAC
++  IP clock, and optionally an RMII RCLK gate for the AST2600.
++- clock-names:
++
++      - "MACCLK": The MAC IP clock
++      - "RCLK": Clock gate for the RMII RCLK
+ 
+ Example:
+ 
 -- 
 2.20.1
