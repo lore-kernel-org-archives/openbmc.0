@@ -1,64 +1,56 @@
-Return-Path: <andi@etezian.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=permerror (mailfrom) smtp.mailfrom=etezian.org
- (client-ip=87.98.178.58; helo=17.mo3.mail-out.ovh.net;
- envelope-from=andi@etezian.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=quarantine dis=none)
- header.from=etezian.org
-X-Greylist: delayed 2683 seconds by postgrey-1.36 at bilbo;
- Sun, 08 Sep 2019 10:23:58 AEST
-Received: from 17.mo3.mail-out.ovh.net (17.mo3.mail-out.ovh.net [87.98.178.58])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::841; helo=mail-qt1-x841.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="f8oegcyX"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x841.google.com (mail-qt1-x841.google.com
+ [IPv6:2607:f8b0:4864:20::841])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46QsV63jkZzDqbF
- for <openbmc@lists.ozlabs.org>; Sun,  8 Sep 2019 10:23:55 +1000 (AEST)
-Received: from player728.ha.ovh.net (unknown [10.108.54.67])
- by mo3.mail-out.ovh.net (Postfix) with ESMTP id 2237C224CB5
- for <openbmc@lists.ozlabs.org>; Sun,  8 Sep 2019 01:39:05 +0200 (CEST)
-Received: from etezian.org (81-175-223-118.bb.dnainternet.fi [81.175.223.118])
- (Authenticated sender: andi@etezian.org)
- by player728.ha.ovh.net (Postfix) with ESMTPSA id 4B47C979D591;
- Sat,  7 Sep 2019 23:38:10 +0000 (UTC)
-From: Andi Shyti <andi@etezian.org>
-To: Yuehaibing <yuehaibing@huawei.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, broonie@kernel.org,
- f.fainelli@gmail.com, rjui@broadcom.com, sbranden@broadcom.com,
- eric@anholt.net, wahrenst@gmx.net, shc_work@mail.ru,
- agross@kernel.org, khilman@baylibre.com, matthias.bgg@gmail.com,
- shawnguo@kernel.org, s.hauer@pengutronix.de, kernel@pengutronix.de,
- festevam@gmail.com, linux-imx@nxp.com, avifishman70@gmail.com,
- tmaimon77@gmail.com, tali.perry1@gmail.com, venture@google.com,
- yuenn@google.com, benjaminfair@google.com, kgene@kernel.org,
- Andi Shyti <andi@etezian.org>, palmer@sifive.com,
- paul.walmsley@sifive.com, baohua@kernel.org, mripard@kernel.org,
- wens@csie.org, ldewangan@nvidia.com, thierry.reding@gmail.com,
- jonathanh@nvidia.com, yamada.masahiro@socionext.com,
- michal.simek@xilinx.com, bcm-kernel-feedback-list@broadcom.com,
- linux-spi@vger.kernel.org,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
- linux-amlogic@lists.infradead.org,
- linux-mediatek@lists.infradead.org, openbmc@lists.ozlabs.org,
- "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
- linux-riscv@lists.infradead.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH -next 25/36] spi: s3c24xx: use
- devm_platform_ioremap_resource() to simplify code
-Message-ID: <20190907233810.GA15768@jack.zhora.eu>
-References: <20190904135918.25352-1-yuehaibing@huawei.com>
- <20190904135918.25352-26-yuehaibing@huawei.com>
- <CAJKOXPdq4as1Oe3U+9znkvP0RA=sxUoiWVBCSbzf_wq_um2t=w@mail.gmail.com>
- <3595bac1-e426-b4f9-4e24-01e104fdfe5d@huawei.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46cBrz6kVzzDqKD
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Sep 2019 14:57:37 +1000 (AEST)
+Received: by mail-qt1-x841.google.com with SMTP id x5so15653538qtr.7
+ for <openbmc@lists.ozlabs.org>; Sun, 22 Sep 2019 21:57:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=fD5V+vH7HfhL3VdB5rkAbAtoY2aDrmr/AjcDZrKVOIQ=;
+ b=f8oegcyXWbhBcA5my4S1XLW92W9ihJjjeKV9ivY7SNQ6HqTJ0+z1tD4L/8qBembPpG
+ 3LtRp7jWNTnyiRot8Gl+JLPXA/DaXnEvIsdtxhIcn76e080nUuiLicfeV88i9FXKDssr
+ zBJkplBKBWBbLxN62OcbxP9I+gwi7Z9pLTzQw=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=fD5V+vH7HfhL3VdB5rkAbAtoY2aDrmr/AjcDZrKVOIQ=;
+ b=p34KGk2vuPvm5ayWbDkZe/SjNlbqiXdpOnM1vH8bQGXhXT9TJgk0ogAn6qWQNrQCW9
+ sPKdbyQqY9pEEgX7FJM88UA/2cnHuV9EZnIIh4XrT9TmDFOg68lOnQAoMsHjWAXa8CDi
+ qZiLI5YCmMP9KlOcgu9EnOM2lEVtr9Q6hoCNop0kEeNrL4wjWArkF5SaFijxNJk3E4m8
+ eRc/X4FaOmvA6KfdAx9RrTozYvNwqIMVzCLqJPrtBd7TWZEn6Q7nkbStfAbmZoMxG6SV
+ FDgwkjMNxq6I4C+1rB6E9aVF5sr95a3Vwcp1+jBPdAo+cTlQykucuZktTlFbEccuV+nh
+ T3BA==
+X-Gm-Message-State: APjAAAULpW/+0O6voyXET/BjrdjbL/BWshPw+R6Cm4Z0FZbbEvk/1NlD
+ D2Zw39iV6I8y/z+uCGxgdEWZX/NNgDmRPxkhvXk=
+X-Google-Smtp-Source: APXvYqzkpo5EtFqieJIZgqjxShXKii1xH0rB3kHmoel3s+OX1Lrx9sx1Cg1OvPsH/UwXiS5+q10rLDJiPCGtz+8QSzw=
+X-Received: by 2002:a0c:b49a:: with SMTP id c26mr23069890qve.105.1569214653727; 
+ Sun, 22 Sep 2019 21:57:33 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3595bac1-e426-b4f9-4e24-01e104fdfe5d@huawei.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
-X-Ovh-Tracer-Id: 4582412622624637493
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduvddrudekvddgvdduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
-X-Mailman-Approved-At: Mon, 23 Sep 2019 14:40:47 +1000
+References: <20190922123700.749-1-andrew@aj.id.au>
+ <20190922123700.749-6-andrew@aj.id.au>
+In-Reply-To: <20190922123700.749-6-andrew@aj.id.au>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 23 Sep 2019 04:57:22 +0000
+Message-ID: <CACPK8XfBgGo3cg1dkY=QApEpoG8j10dZn8q2g12m7HR_M=nLyA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.3 5/6] net: ftgmac100: Ungate RCLK for RMII on
+ AST2600
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,28 +62,114 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Date: Sun, 08 Sep 2019 00:23:58 -0000
-X-Original-Date: Sun, 8 Sep 2019 02:38:10 +0300
-X-List-Received-Date: Sun, 08 Sep 2019 00:23:58 -0000
+X-List-Received-Date: Mon, 23 Sep 2019 04:57:41 -0000
 
-Hi Yuehaibing,
+On Sun, 22 Sep 2019 at 12:36, Andrew Jeffery <andrew@aj.id.au> wrote:
+>
+> The 50MHz RMII RCLK has to be enabled before the interface will function.
 
-> >> Use devm_platform_ioremap_resource() to simplify the code a bit.
-> >> This is detected by coccinelle.
-> >>
-> >> Reported-by: Hulk Robot <hulkci@huawei.com>
-> > 
-> > This tag does not look real... First of all where is the report?
-> 
-> It is our internal CI robot, which is unavailable to external temporarily.
+"... when in NCSI or RMII mode"?
 
-Hulk Robot is not a person and not accountable for his report.
-If it is your internal CI, please write a sentence stating that
-the fix has been made using Huawei internal tools.
+>
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 
-Credit must be given to tools as well, but not accounts that will
-never answer an e-mail.
+Reviewed-By: Joel Stanley <joel@jms.id.au>
 
-Otherwise, the patch would look fine.
-
-Andi
+> ---
+>  drivers/net/ethernet/faraday/ftgmac100.c | 43 ++++++++++++++++++++----
+>  1 file changed, 36 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 9b7af94a40bb..21a58aad1a19 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -90,6 +90,9 @@ struct ftgmac100 {
+>         struct mii_bus *mii_bus;
+>         struct clk *clk;
+>
+> +       /* 2600 RMII clock gate */
+> +       struct clk *rclk;
+> +
+>         /* Link management */
+>         int cur_speed;
+>         int cur_duplex;
+> @@ -1718,11 +1721,27 @@ static void ftgmac100_ncsi_handler(struct ncsi_dev *nd)
+>                    nd->link_up ? "up" : "down");
+>  }
+>
+> -static void ftgmac100_setup_clk(struct ftgmac100 *priv)
+> +static int ftgmac100_setup_clk(struct ftgmac100 *priv)
+>  {
+> -       priv->clk = devm_clk_get(priv->dev, NULL);
+> -       if (IS_ERR(priv->clk))
+> -               return;
+> +       struct clk *clk;
+> +       bool is_ast2600;
+> +
+> +       is_ast2600 = of_device_is_compatible(priv->dev->of_node,
+> +                                            "aspeed,ast2600-mac");
+> +
+> +       clk = devm_clk_get(priv->dev, NULL /* MACCLK */);
+> +       if (IS_ERR(clk))
+> +               return PTR_ERR(clk);
+> +       priv->clk = clk;
+> +
+> +       clk = devm_clk_get_optional(priv->dev, "RCLK");
+> +       if (!clk && is_ast2600 && priv->use_ncsi) {
+> +               dev_err(priv->dev, "Cannot ungate RCLK");
+> +               return -EINVAL;
+> +       }
+> +
+> +       priv->rclk = clk;
+> +       clk_prepare_enable(priv->rclk);
+>
+>         clk_prepare_enable(priv->clk);
+>
+> @@ -1732,6 +1751,8 @@ static void ftgmac100_setup_clk(struct ftgmac100 *priv)
+>          */
+>         clk_set_rate(priv->clk, priv->use_ncsi ? FTGMAC_25MHZ :
+>                         FTGMAC_100MHZ);
+> +
+> +       return 0;
+>  }
+>
+>  static int ftgmac100_probe(struct platform_device *pdev)
+> @@ -1853,8 +1874,11 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>                         goto err_setup_mdio;
+>         }
+>
+> -       if (priv->is_aspeed)
+> -               ftgmac100_setup_clk(priv);
+> +       if (priv->is_aspeed) {
+> +               err = ftgmac100_setup_clk(priv);
+> +               if (err)
+> +                       goto err_ncsi_dev;
+> +       }
+>
+>         /* Default ring sizes */
+>         priv->rx_q_entries = priv->new_rx_q_entries = DEF_RX_QUEUE_ENTRIES;
+> @@ -1886,8 +1910,11 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>
+>         return 0;
+>
+> -err_ncsi_dev:
+>  err_register_netdev:
+> +       if (priv->rclk)
+> +               clk_disable_unprepare(priv->rclk);
+> +       clk_disable_unprepare(priv->clk);
+> +err_ncsi_dev:
+>         ftgmac100_destroy_mdio(netdev);
+>  err_setup_mdio:
+>         iounmap(priv->base);
+> @@ -1909,6 +1936,8 @@ static int ftgmac100_remove(struct platform_device *pdev)
+>
+>         unregister_netdev(netdev);
+>
+> +       if (priv->rclk)
+> +               clk_disable_unprepare(priv->rclk);
+>         clk_disable_unprepare(priv->clk);
+>
+>         /* There's a small chance the reset task will have been re-queued,
+> --
+> 2.20.1
+>
