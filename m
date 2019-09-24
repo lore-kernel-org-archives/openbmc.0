@@ -9,16 +9,16 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYd5MPPzDqZx
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:49 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYf55g7zDqZx
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:50 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 linux dev-5.3 08/10] ARM: dts: aspeed-g6: Expose SuperIO
- scratch registers
-Date: Tue, 24 Sep 2019 15:47:57 -0400
-Message-Id: <20190924194759.26854-9-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v3 linux dev-5.3 09/10] ARM: dts: aspeed: rainier: Add mac
+ devices
+Date: Tue, 24 Sep 2019 15:47:58 -0400
+Message-Id: <20190924194759.26854-10-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
@@ -34,30 +34,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Sep 2019 19:47:50 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:51 -0000
+
+Rainier contains two network devices.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
 v3: new for v3
 ---
- arch/arm/boot/dts/aspeed-g6.dtsi | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-=
-g6.dtsi
-index 3b42404b2ace..d09f0bdefa43 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -333,6 +333,10 @@
- 						interrupts =3D <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
- 						status =3D "disabled";
- 					};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot=
+/dts/aspeed-bmc-ibm-rainier.dts
+index f56a7dddba62..f448fa5df43a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -55,3 +55,17 @@
+ 	status =3D "okay";
+ 	memory-region =3D <&flash_memory>;
+ };
 +
-+					sio_regs: regs {
-+						compatible =3D "aspeed,bmc-misc";
-+					};
- 				};
- 			};
-=20
++&mac2 {
++	status =3D "okay";
++	pinctrl-names =3D "default";
++	pinctrl-0 =3D <&pinctrl_rmii3_default>;
++	use-ncsi;
++};
++
++&mac3 {
++	status =3D "okay";
++	pinctrl-names =3D "default";
++	pinctrl-0 =3D <&pinctrl_rmii4_default>;
++	use-ncsi;
++};
 --=20
 2.21.0
