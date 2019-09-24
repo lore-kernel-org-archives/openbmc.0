@@ -1,60 +1,26 @@
-Return-Path: <wak@google.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=google.com
- (client-ip=2a00:1450:4864:20::12e; helo=mail-lf1-x12e.google.com;
- envelope-from=wak@google.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ADYyH0Wl"; 
- dkim-atps=neutral
-Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
- [IPv6:2a00:1450:4864:20::12e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYb1TF8zDqZx
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:44 +1000 (AEST)
-Received: by mail-lf1-x12e.google.com with SMTP id u28so2337228lfc.5
- for <openbmc@lists.ozlabs.org>; Tue, 24 Sep 2019 12:47:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=tT0pmxtV619V7Db7Fy/xwhFOtOKHsB42ZwdLIUcRJ3A=;
- b=ADYyH0Wld1bqDYGbEBSMHx8r0RV2Q19ySQkfM85BgmDlj3M9db2SuyuYE0jUWcMWF5
- RCO+PCRomjMaj1jP1glnQkIy2lv/WO3mmMMRavPfGQboRUn5XFm5n6Tt7w19tL9Mw6hy
- oMSloxaqCffFoL1vRsjN5tVxhP9CnAJu5PN4cx9bZNNS5JHFqxzDm5OKZu9zbziA74qe
- z26HlPes5Zkks8wAqAieFsH1WqVWBJe3P1r0O7crDe/YMbdex93TyZ9PCVnzODEZOoSP
- pRrlMtqy/cI84hcdoZz/919twbei2Ez+oCN5a1bwl6Ew9rHlxN/3EnCUF/zJNq0vRs9j
- zpsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=tT0pmxtV619V7Db7Fy/xwhFOtOKHsB42ZwdLIUcRJ3A=;
- b=VfiARoL3MeEJK3r43ZmzeRbFzEhpr8APOzOSZWOztPwJFLjls+rv0S6tQWDVgdguHe
- 4/PbAB5ER2lJwk2WkljZ0AGdl+WtFTnWLQgMdlaNX0YGWt5MrnfWhoEfNm8YVCXfUIZd
- WcPWKIyam7YURPDLr6p8VvkpHiA+qok5sfNy6pJpoBdEi54zQ0/0dji+ucT3kyi7UksR
- WIL9586Pb6NcpWi735Yd3fV8zxTIcCi3z7dr0pX7TIBcTUKyrUsX4DVxXPjm1w6CpK14
- H8R7RqIJbK+1WLiHPB7ISgtDx/MD0IATL6poRNfc0F73n25V/w0BPdJztPtTMgu7xijW
- rNaw==
-X-Gm-Message-State: APjAAAVP56HMWI4ijH8oerlNKh1cqU/pG8pJjVXhoLfyhk9DEECIxR+B
- 3xCT926NlQ2ySkVfpTSSBpEI/T0G4Z+aFoOaTwTkZw==
-X-Google-Smtp-Source: APXvYqxtIhKphSm3iOSEHgvhWD5oG+uGUMM/7/6TsLQk2WAurLmUuoyiP/bWSzyKkhJPYXon+g/6Xq+GqRlpjTFahO4=
-X-Received: by 2002:a19:a408:: with SMTP id q8mr2904587lfc.94.1569354459560;
- Tue, 24 Sep 2019 12:47:39 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYc3vq8zDqZx
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:48 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH v3 linux dev-5.3 07/10] ARM: dts: aspeed: Add Rainier system
+Date: Tue, 24 Sep 2019 15:47:56 -0400
+Message-Id: <20190924194759.26854-8-bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
+References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
-References: <2d7b6a6d.52d2.16d2372efd5.Coremail.xiaoqian1641@163.com>
- <CAPnigK=RCCa41ya98pgdmB+A1SK16o4XwbLBWa_g41vzgkm47g@mail.gmail.com>
- <49a51252.bd96.16d632cf2be.Coremail.xiaoqian1641@163.com>
-In-Reply-To: <49a51252.bd96.16d632cf2be.Coremail.xiaoqian1641@163.com>
-From: William Kennington <wak@google.com>
-Date: Tue, 24 Sep 2019 12:47:28 -0700
-Message-ID: <CAPnigK=YTuEese1LcdLE=wKEYHAEDWcyci59hiQAWyM=6vgvGg@mail.gmail.com>
-Subject: Re: sdbusplus make check error
-To: =?UTF-8?B?5bi45pmT5piO?= <xiaoqian1641@163.com>
-Cc: OpenBMC Development <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,93 +35,99 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 24 Sep 2019 19:47:48 -0000
 
-You might not have a session DBus that satisfies the needs of the test
-suite. I recommend running it in the docker container.
+Rainier is a new IBM server with POWER host processors and an AST2600
+BMC.
 
-On Tue, Sep 24, 2019 at 5:13 AM =E5=B8=B8=E6=99=93=E6=98=8E <xiaoqian1641@1=
-63.com> wrote:
->
-> Hi=EF=BC=8CAll,
->
-> I'm running tests in SDK . In sdbusplus, follow the steps:
->
-> ./bootstrap.sh
-> ./configure ${CONFIGURE_FLAGS} --enable-oe-sdk
-> make check
->
-> when "make check", It shows next , I don't konw what went wrong, and how =
-to fix it?
->
-> make[3]: Leaving directory `/home/root1/sdbusplus/test'
-> make  check-TESTS
-> make[3]: Entering directory `/home/root1/sdbusplus/test'
-> make[4]: Entering directory `/home/root1/sdbusplus/test'
-> FAIL: bus_list_names
-> FAIL: bus_match
-> FAIL: exception_sdbus_error
-> FAIL: message_append
-> FAIL: message_read
-> FAIL: message_native_types
-> FAIL: message_types
-> FAIL: utility_tuple_to_array
-> FAIL: utility_type_traits
-> FAIL: vtable_vtable
-> FAIL: timer
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> Testsuite summary for sdbusplus 1.0
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> # TOTAL: 11
-> # PASS:  0
-> # SKIP:  0
-> # XFAIL: 0
-> # FAIL:  11
-> # XPASS: 0
-> # ERROR: 0
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> See test/test-suite.log
-> Please report to https://github.com/openbmc/sdbusplus/issues
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D
-> make[4]: *** [test-suite.log] Error 1
-> make[4]: Leaving directory `/home/root1/sdbusplus/test'
-> make[3]: *** [check-TESTS] Error 2
-> make[3]: Leaving directory `/home/root1/sdbusplus/test'
-> make[2]: *** [check-am] Error 2
-> make[2]: Target `check' not remade because of errors.
-> make[2]: Leaving directory `/home/root1/sdbusplus/test'
-> make[1]: *** [check-recursive] Error 1
-> make[1]: Target `check' not remade because of errors.
-> make[1]: Leaving directory `/home/root1/sdbusplus'
-> make: [check-code-coverage] Error 2 (ignored)
-> make[1]: Entering directory `/home/root1/sdbusplus'
->   LCOV   --capture sdbusplus-1.0-coverage.info
-> geninfo: ERROR: no .gcda files found in .!
-> make[1]: *** [code-coverage-capture] Error 255
-> make[1]: Leaving directory `/home/root1/sdbusplus'
-> make: *** [check-code-coverage] Error 2
->
->
-> Johny
-> Thanks
->
->
->
->
->
->
->
->
->
->
->
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+---
+v3:
+  - removed i2c, mac
+  - moved reserved memory
+  - set correct memory size
+v2:
+  - reordered rainier DT elements (alphabetized).
+  - added rainier rtc, lpc-ctl, reserved memory, mac devices
+---
+ arch/arm/boot/dts/Makefile                   |  1 +
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 57 ++++++++++++++++++++
+ 2 files changed, 58 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 5af075c2f819..3ad9706337a2 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1278,6 +1278,7 @@ dtb-$(CONFIG_ARCH_ASPEED) +=3D \
+ 	aspeed-bmc-facebook-wedge40.dtb \
+ 	aspeed-bmc-facebook-wedge100.dtb \
+ 	aspeed-bmc-facebook-yamp.dtb \
++	aspeed-bmc-ibm-rainier.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+ 	aspeed-bmc-inspur-fp5280g2.dtb \
+ 	aspeed-bmc-lenovo-hr630.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot=
+/dts/aspeed-bmc-ibm-rainier.dts
+new file mode 100644
+index 000000000000..f56a7dddba62
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright 2019 IBM Corp.
++/dts-v1/;
++
++#include "aspeed-g6.dtsi"
++
++/ {
++	model =3D "Rainier";
++	compatible =3D "ibm,rainier-bmc", "aspeed,ast2600";
++
++	aliases {
++		serial4 =3D &uart5;
++	};
++
++	chosen {
++		stdout-path =3D &uart5;
++		bootargs =3D "console=3DttyS4,115200n8";
++	};
++
++	memory@80000000 {
++		device_type =3D "memory";
++		reg =3D <0x80000000 0x40000000>;
++	};
++
++	reserved-memory {
++		#address-cells =3D <1>;
++		#size-cells =3D <1>;
++		ranges;
++
++		flash_memory: region@BB000000 {
++			no-map;
++			reg =3D <0xBB000000 0x04000000>; /* 64M */
++		};
++	};
++
++};
++
++&emmc_controller {
++	status =3D "okay";
++};
++
++&emmc {
++	status =3D "okay";
++};
++
++&fsim0 {
++	status =3D "okay";
++};
++
++&ibt {
++	status =3D "okay";
++};
++
++&lpc_ctrl {
++	status =3D "okay";
++	memory-region =3D <&flash_memory>;
++};
+--=20
+2.21.0
