@@ -9,16 +9,15 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYW5wYvzDqZx
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYY0JNWzDqZx
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:44 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 linux dev-5.3 03/10] soc: aspeed: lpc: Add G6 compatible
- strings
-Date: Tue, 24 Sep 2019 15:47:52 -0400
-Message-Id: <20190924194759.26854-4-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v3 linux dev-5.3 04/10] ipmi: aspeed-g6: Add compatible strings
+Date: Tue, 24 Sep 2019 15:47:53 -0400
+Message-Id: <20190924194759.26854-5-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
@@ -34,50 +33,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Sep 2019 19:47:44 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:45 -0000
 
-The AST2600(G6) has the same lpc-ctrl and lpc-snoop devices as the
-AST2500.
+The AST2600 SoC contains the same IPMI (BT/KCS) devices as the AST2500.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-v3:
-  - move ipmi, reset to a separate patch
-v2:
-  - removed DT binding documentation changes
+v3: new for v3
 ---
- drivers/soc/aspeed/aspeed-lpc-ctrl.c  | 1 +
- drivers/soc/aspeed/aspeed-lpc-snoop.c | 2 ++
- 2 files changed, 3 insertions(+)
+ drivers/char/ipmi/bt-bmc.c         | 1 +
+ drivers/char/ipmi/kcs_bmc_aspeed.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/soc/aspeed/aspeed-lpc-ctrl.c b/drivers/soc/aspeed/as=
-peed-lpc-ctrl.c
-index 01ed21e8bfee..12e4421dee37 100644
---- a/drivers/soc/aspeed/aspeed-lpc-ctrl.c
-+++ b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
-@@ -291,6 +291,7 @@ static int aspeed_lpc_ctrl_remove(struct platform_dev=
-ice *pdev)
- static const struct of_device_id aspeed_lpc_ctrl_match[] =3D {
- 	{ .compatible =3D "aspeed,ast2400-lpc-ctrl" },
- 	{ .compatible =3D "aspeed,ast2500-lpc-ctrl" },
-+	{ .compatible =3D "aspeed,ast2600-lpc-ctrl" },
+diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+index 40b9927c072c..0e600449931b 100644
+--- a/drivers/char/ipmi/bt-bmc.c
++++ b/drivers/char/ipmi/bt-bmc.c
+@@ -513,6 +513,7 @@ static int bt_bmc_remove(struct platform_device *pdev=
+)
+ static const struct of_device_id bt_bmc_match[] =3D {
+ 	{ .compatible =3D "aspeed,ast2400-ibt-bmc" },
+ 	{ .compatible =3D "aspeed,ast2500-ibt-bmc" },
++	{ .compatible =3D "aspeed,ast2600-ibt-bmc" },
  	{ },
  };
 =20
-diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/a=
-speed-lpc-snoop.c
-index 48f7ac238861..c7b4ac066b40 100644
---- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
-+++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
-@@ -325,6 +325,8 @@ static const struct of_device_id aspeed_lpc_snoop_mat=
-ch[] =3D {
- 	  .data =3D &ast2400_model_data },
- 	{ .compatible =3D "aspeed,ast2500-lpc-snoop",
- 	  .data =3D &ast2500_model_data },
-+	{ .compatible =3D "aspeed,ast2600-lpc-snoop",
-+	  .data =3D &ast2500_model_data },
- 	{ },
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
+mc_aspeed.c
+index 3c955946e647..a0a8bb89c9b3 100644
+--- a/drivers/char/ipmi/kcs_bmc_aspeed.c
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -301,6 +301,7 @@ static int aspeed_kcs_remove(struct platform_device *=
+pdev)
+ static const struct of_device_id ast_kcs_bmc_match[] =3D {
+ 	{ .compatible =3D "aspeed,ast2400-kcs-bmc" },
+ 	{ .compatible =3D "aspeed,ast2500-kcs-bmc" },
++	{ .compatible =3D "aspeed,ast2600-kcs-bmc" },
+ 	{ }
  };
-=20
+ MODULE_DEVICE_TABLE(of, ast_kcs_bmc_match);
 --=20
 2.21.0
