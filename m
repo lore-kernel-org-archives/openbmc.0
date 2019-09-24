@@ -1,26 +1,60 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
+Return-Path: <wak@google.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
- (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
- envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=pass (mailfrom) smtp.mailfrom=google.com
+ (client-ip=2a00:1450:4864:20::12e; helo=mail-lf1-x12e.google.com;
+ envelope-from=wak@google.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.b="ADYyH0Wl"; 
+ dkim-atps=neutral
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYb2FpgzDqb0
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:47 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 linux dev-5.3 06/10] ARM: dts: aspeed-g6: Add lpc devices
-Date: Tue, 24 Sep 2019 15:47:55 -0400
-Message-Id: <20190924194759.26854-7-bradleyb@fuzziesquirrel.com>
-In-Reply-To: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
-References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYb1TF8zDqZx
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:44 +1000 (AEST)
+Received: by mail-lf1-x12e.google.com with SMTP id u28so2337228lfc.5
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Sep 2019 12:47:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=tT0pmxtV619V7Db7Fy/xwhFOtOKHsB42ZwdLIUcRJ3A=;
+ b=ADYyH0Wld1bqDYGbEBSMHx8r0RV2Q19ySQkfM85BgmDlj3M9db2SuyuYE0jUWcMWF5
+ RCO+PCRomjMaj1jP1glnQkIy2lv/WO3mmMMRavPfGQboRUn5XFm5n6Tt7w19tL9Mw6hy
+ oMSloxaqCffFoL1vRsjN5tVxhP9CnAJu5PN4cx9bZNNS5JHFqxzDm5OKZu9zbziA74qe
+ z26HlPes5Zkks8wAqAieFsH1WqVWBJe3P1r0O7crDe/YMbdex93TyZ9PCVnzODEZOoSP
+ pRrlMtqy/cI84hcdoZz/919twbei2Ez+oCN5a1bwl6Ew9rHlxN/3EnCUF/zJNq0vRs9j
+ zpsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=tT0pmxtV619V7Db7Fy/xwhFOtOKHsB42ZwdLIUcRJ3A=;
+ b=VfiARoL3MeEJK3r43ZmzeRbFzEhpr8APOzOSZWOztPwJFLjls+rv0S6tQWDVgdguHe
+ 4/PbAB5ER2lJwk2WkljZ0AGdl+WtFTnWLQgMdlaNX0YGWt5MrnfWhoEfNm8YVCXfUIZd
+ WcPWKIyam7YURPDLr6p8VvkpHiA+qok5sfNy6pJpoBdEi54zQ0/0dji+ucT3kyi7UksR
+ WIL9586Pb6NcpWi735Yd3fV8zxTIcCi3z7dr0pX7TIBcTUKyrUsX4DVxXPjm1w6CpK14
+ H8R7RqIJbK+1WLiHPB7ISgtDx/MD0IATL6poRNfc0F73n25V/w0BPdJztPtTMgu7xijW
+ rNaw==
+X-Gm-Message-State: APjAAAVP56HMWI4ijH8oerlNKh1cqU/pG8pJjVXhoLfyhk9DEECIxR+B
+ 3xCT926NlQ2ySkVfpTSSBpEI/T0G4Z+aFoOaTwTkZw==
+X-Google-Smtp-Source: APXvYqxtIhKphSm3iOSEHgvhWD5oG+uGUMM/7/6TsLQk2WAurLmUuoyiP/bWSzyKkhJPYXon+g/6Xq+GqRlpjTFahO4=
+X-Received: by 2002:a19:a408:: with SMTP id q8mr2904587lfc.94.1569354459560;
+ Tue, 24 Sep 2019 12:47:39 -0700 (PDT)
 MIME-Version: 1.0
+References: <2d7b6a6d.52d2.16d2372efd5.Coremail.xiaoqian1641@163.com>
+ <CAPnigK=RCCa41ya98pgdmB+A1SK16o4XwbLBWa_g41vzgkm47g@mail.gmail.com>
+ <49a51252.bd96.16d632cf2be.Coremail.xiaoqian1641@163.com>
+In-Reply-To: <49a51252.bd96.16d632cf2be.Coremail.xiaoqian1641@163.com>
+From: William Kennington <wak@google.com>
+Date: Tue, 24 Sep 2019 12:47:28 -0700
+Message-ID: <CAPnigK=YTuEese1LcdLE=wKEYHAEDWcyci59hiQAWyM=6vgvGg@mail.gmail.com>
+Subject: Re: sdbusplus make check error
+To: =?UTF-8?B?5bi45pmT5piO?= <xiaoqian1641@163.com>
+Cc: OpenBMC Development <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -33,117 +67,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Sep 2019 19:47:47 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:48 -0000
 
-Everything is the same as G5, except the devices have their own
-interrupt now.
+You might not have a session DBus that satisfies the needs of the test
+suite. I recommend running it in the docker container.
 
-Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
----
-v2: new for v2
-v3: fixed broken ipmi/lpc interrupts
----
- arch/arm/boot/dts/aspeed-g6.dtsi | 87 ++++++++++++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
-
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-=
-g6.dtsi
-index 72038c16f541..3b42404b2ace 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -249,6 +249,93 @@
- 				status =3D "disabled";
- 			};
-=20
-+			lpc: lpc@1e789000 {
-+				compatible =3D "aspeed,ast2600-lpc", "simple-mfd";
-+				reg =3D <0x1e789000 0x1000>;
-+
-+				#address-cells =3D <1>;
-+				#size-cells =3D <1>;
-+				ranges =3D <0x0 0x1e789000 0x1000>;
-+
-+				lpc_bmc: lpc-bmc@0 {
-+					compatible =3D "aspeed,ast2600-lpc-bmc", "simple-mfd", "syscon";
-+					reg =3D <0x0 0x80>;
-+					reg-io-width =3D <4>;
-+
-+					#address-cells =3D <1>;
-+					#size-cells =3D <1>;
-+					ranges =3D <0x0 0x0 0x80>;
-+
-+					kcs1: kcs1@0 {
-+						compatible =3D "aspeed,ast2600-kcs-bmc";
-+						interrupts =3D <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
-+						kcs_chan =3D <1>;
-+						status =3D "disabled";
-+					};
-+					kcs2: kcs2@0 {
-+						compatible =3D "aspeed,ast2600-kcs-bmc";
-+						interrupts =3D <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
-+						kcs_chan =3D <2>;
-+						status =3D "disabled";
-+					};
-+					kcs3: kcs3@0 {
-+						compatible =3D "aspeed,ast2600-kcs-bmc";
-+						interrupts =3D <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-+						kcs_chan =3D <3>;
-+						status =3D "disabled";
-+					};
-+				};
-+
-+				lpc_host: lpc-host@80 {
-+					compatible =3D "aspeed,ast2600-lpc-host", "simple-mfd", "syscon";
-+					reg =3D <0x80 0x1e0>;
-+					reg-io-width =3D <4>;
-+
-+					#address-cells =3D <1>;
-+					#size-cells =3D <1>;
-+					ranges =3D <0x0 0x80 0x1e0>;
-+
-+					kcs4: kcs4@0 {
-+						compatible =3D "aspeed,ast2600-kcs-bmc";
-+						interrupts =3D <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
-+						kcs_chan =3D <4>;
-+						status =3D "disabled";
-+					};
-+
-+					lpc_ctrl: lpc-ctrl@0 {
-+						compatible =3D "aspeed,ast2600-lpc-ctrl";
-+						reg =3D <0x0 0x80>;
-+						clocks =3D <&syscon ASPEED_CLK_GATE_LCLK>;
-+						status =3D "disabled";
-+					};
-+
-+					lpc_snoop: lpc-snoop@0 {
-+						compatible =3D "aspeed,ast2600-lpc-snoop";
-+						reg =3D <0x0 0x80>;
-+						interrupts =3D <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-+						status =3D "disabled";
-+					};
-+
-+					lhc: lhc@20 {
-+						compatible =3D "aspeed,ast2600-lhc";
-+						reg =3D <0x20 0x24 0x48 0x8>;
-+					};
-+
-+					lpc_reset: reset-controller@18 {
-+						compatible =3D "aspeed,ast2600-lpc-reset";
-+						reg =3D <0x18 0x4>;
-+						#reset-cells =3D <1>;
-+					};
-+
-+					ibt: ibt@c0 {
-+						compatible =3D "aspeed,ast2600-ibt-bmc";
-+						reg =3D <0xc0 0x18>;
-+						interrupts =3D <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
-+						status =3D "disabled";
-+					};
-+				};
-+			};
-+
- 			sdc: sdc@1e740000 {
- 				compatible =3D "aspeed,ast2600-sd-controller";
- 				reg =3D <0x1e740000 0x100>;
---=20
-2.21.0
+On Tue, Sep 24, 2019 at 5:13 AM =E5=B8=B8=E6=99=93=E6=98=8E <xiaoqian1641@1=
+63.com> wrote:
+>
+> Hi=EF=BC=8CAll,
+>
+> I'm running tests in SDK . In sdbusplus, follow the steps:
+>
+> ./bootstrap.sh
+> ./configure ${CONFIGURE_FLAGS} --enable-oe-sdk
+> make check
+>
+> when "make check", It shows next , I don't konw what went wrong, and how =
+to fix it?
+>
+> make[3]: Leaving directory `/home/root1/sdbusplus/test'
+> make  check-TESTS
+> make[3]: Entering directory `/home/root1/sdbusplus/test'
+> make[4]: Entering directory `/home/root1/sdbusplus/test'
+> FAIL: bus_list_names
+> FAIL: bus_match
+> FAIL: exception_sdbus_error
+> FAIL: message_append
+> FAIL: message_read
+> FAIL: message_native_types
+> FAIL: message_types
+> FAIL: utility_tuple_to_array
+> FAIL: utility_type_traits
+> FAIL: vtable_vtable
+> FAIL: timer
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> Testsuite summary for sdbusplus 1.0
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> # TOTAL: 11
+> # PASS:  0
+> # SKIP:  0
+> # XFAIL: 0
+> # FAIL:  11
+> # XPASS: 0
+> # ERROR: 0
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> See test/test-suite.log
+> Please report to https://github.com/openbmc/sdbusplus/issues
+> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D
+> make[4]: *** [test-suite.log] Error 1
+> make[4]: Leaving directory `/home/root1/sdbusplus/test'
+> make[3]: *** [check-TESTS] Error 2
+> make[3]: Leaving directory `/home/root1/sdbusplus/test'
+> make[2]: *** [check-am] Error 2
+> make[2]: Target `check' not remade because of errors.
+> make[2]: Leaving directory `/home/root1/sdbusplus/test'
+> make[1]: *** [check-recursive] Error 1
+> make[1]: Target `check' not remade because of errors.
+> make[1]: Leaving directory `/home/root1/sdbusplus'
+> make: [check-code-coverage] Error 2 (ignored)
+> make[1]: Entering directory `/home/root1/sdbusplus'
+>   LCOV   --capture sdbusplus-1.0-coverage.info
+> geninfo: ERROR: no .gcda files found in .!
+> make[1]: *** [code-coverage-capture] Error 255
+> make[1]: Leaving directory `/home/root1/sdbusplus'
+> make: *** [check-code-coverage] Error 2
+>
+>
+> Johny
+> Thanks
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
+>
