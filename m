@@ -9,32 +9,31 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBbh0m0GzDqc1
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:49:35 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBcf0f0LzDqXQ
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:50:25 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id D3FB81483A;
- Tue, 24 Sep 2019 15:49:32 -0400 (EDT)
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 50E1B1325D;
+ Tue, 24 Sep 2019 15:50:23 -0400 (EDT)
 Content-Type: text/plain;
-	charset=utf-8;
+	charset=us-ascii;
 	delsp=yes;
 	format=flowed
 Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
-Subject: Re: [PATCH v2 linux dev-5.3 1/4] dt-bindings: lpc: add aspeed-g6
- compatible strings
+Subject: Re: [PATCH v2 linux dev-5.3 2/4] ARM: aspeed-g6: lpc: add compatible
+ strings
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <e7171298-e99d-4d22-aeeb-b08d530cc9ee@www.fastmail.com>
-Date: Tue, 24 Sep 2019 15:49:32 -0400
-Cc: Eddie James <eajames@linux.vnet.ibm.com>, Joel Stanley <joel@jms.id.au>,
+In-Reply-To: <f2cae818-a373-4a2e-825b-e90165410758@www.fastmail.com>
+Date: Tue, 24 Sep 2019 15:50:23 -0400
+Cc: Joel Stanley <joel@jms.id.au>,
  openbmc@lists.ozlabs.org
-Message-Id: <247461E8-9B9B-4CE0-9FF9-43049A3224A3@fuzziesquirrel.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <BDEB3DAA-B1DF-44F9-8361-8B571970D460@fuzziesquirrel.com>
 References: <20190919152340.23133-1-bradleyb@fuzziesquirrel.com>
- <20190919152340.23133-7-bradleyb@fuzziesquirrel.com>
- <e56e19b0-6483-a351-cc6e-8bc2ce7e74aa@linux.vnet.ibm.com>
- <e7171298-e99d-4d22-aeeb-b08d530cc9ee@www.fastmail.com>
+ <20190919152340.23133-3-bradleyb@fuzziesquirrel.com>
+ <f2cae818-a373-4a2e-825b-e90165410758@www.fastmail.com>
 To: Andrew Jeffery <andrew@aj.id.au>
 X-Mailer: Apple Mail (2.3445.104.11)
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -46,37 +45,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Sep 2019 19:49:36 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:50:26 -0000
 
-at 2:30 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
-
-Thanks Andrew, Eddie for the review.
+at 2:31 AM, Andrew Jeffery <andrew@aj.id.au> wrote:
 
 >
 >
-> On Fri, 20 Sep 2019, at 01:55, Eddie James wrote:
->> On 9/19/19 10:23 AM, Brad Bishop wrote:
->>> Assume The AST2600 SoCs contain the same LPC devices as the AST2500.
->
-> Has anyone validated the assumption?
-
-They have the same register set in the LPC space.  This is about as far a=
-s =20
-I=E2=80=99ve gotten.
-
->
->> Reviewed-by: Eddie James <eajames@linux.ibm.com>
+> On Fri, 20 Sep 2019, at 00:53, Brad Bishop wrote:
+>> Assume the AST2600 SoC contains the same LPC devices as the AST2500.
 >>
->>
->>> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
->>> ---
->>>   .../devicetree/bindings/ipmi/aspeed,ast2400-ibt-bmc.txt   | 3 ++-
->>>   Documentation/devicetree/bindings/mfd/aspeed-lpc.txt      | 8 +++++=
-++-
+>> Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+>> ---
+>> v2:
+>>   - removed DT binding documentation changes
+>> ---
+>>  drivers/char/ipmi/bt-bmc.c            | 1 +
+>>  drivers/char/ipmi/kcs_bmc_aspeed.c    | 1 +
+>>  drivers/reset/reset-simple.c          | 1 +
+>>  drivers/soc/aspeed/aspeed-lpc-ctrl.c  | 1 +
+>>  drivers/soc/aspeed/aspeed-lpc-snoop.c | 2 ++
+>>  5 files changed, 6 insertions(+)
 >
-> This should be split in two for upstream as the IPMI changes will need =
-to =20
-> go
-> via Corey while the MFD changes go through Lee.
+> Also should be split for upstreaming, but as with the bindings the changes
+> are fine in principle.
 
-Split in two in v3.
+Split in three (ipmi, reset, socc) in v3.
