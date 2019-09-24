@@ -9,16 +9,16 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYZ3DXjzDqZx
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dBYV0h7wzDqb0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 05:47:41 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH v3 linux dev-5.3 05/10] reset: simple: Add AST2600
- compatibility string
-Date: Tue, 24 Sep 2019 15:47:54 -0400
-Message-Id: <20190924194759.26854-6-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v3 linux dev-5.3 01/10] dt-bindings: aspeed-lpc: Add G6
+ compatible strings
+Date: Tue, 24 Sep 2019 15:47:50 -0400
+Message-Id: <20190924194759.26854-2-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
@@ -34,29 +34,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 24 Sep 2019 19:47:46 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:42 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:42 -0000
+X-List-Received-Date: Tue, 24 Sep 2019 19:47:42 -0000
 
-The AST2600 SoC contains the same LPC register set as the AST2500.
+Assume everyhing is the same as the AST2500 since the AST2600 datasheet
+indicates the same register set behind the LPC controller address space.
 
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-v3: new for v3
+  v2: new for v2
+  v3: move ipmi binding updates to a separate patch
 ---
- drivers/reset/reset-simple.c | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/reset/reset-simple.c b/drivers/reset/reset-simple.c
-index 1154f7b1f4dd..2fe9c889a75a 100644
---- a/drivers/reset/reset-simple.c
-+++ b/drivers/reset/reset-simple.c
-@@ -125,6 +125,7 @@ static const struct of_device_id reset_simple_dt_ids[=
-] =3D {
- 		.data =3D &reset_simple_active_low },
- 	{ .compatible =3D "aspeed,ast2400-lpc-reset" },
- 	{ .compatible =3D "aspeed,ast2500-lpc-reset" },
-+	{ .compatible =3D "aspeed,ast2600-lpc-reset" },
- 	{ .compatible =3D "bitmain,bm1880-reset",
- 		.data =3D &reset_simple_active_low },
- 	{ /* sentinel */ },
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Docum=
+entation/devicetree/bindings/mfd/aspeed-lpc.txt
+index 86446074e206..e1197bab57bb 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -46,6 +46,7 @@ Required properties
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc", "simple-mfd"
+ 		"aspeed,ast2500-lpc", "simple-mfd"
++		"aspeed,ast2600-lpc", "simple-mfd"
+=20
+ - reg:		contains the physical address and length values of the Aspeed
+                 LPC memory region.
+@@ -64,6 +65,7 @@ BMC Node
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc-bmc"
+ 		"aspeed,ast2500-lpc-bmc"
++		"aspeed,ast2600-lpc-bmc"
+=20
+ - reg:		contains the physical address and length values of the
+                 H8S/2168-compatible LPC controller memory region
+@@ -74,6 +76,7 @@ Host Node
+ - compatible:   One of:
+ 		"aspeed,ast2400-lpc-host", "simple-mfd", "syscon"
+ 		"aspeed,ast2500-lpc-host", "simple-mfd", "syscon"
++		"aspeed,ast2600-lpc-host", "simple-mfd", "syscon"
+=20
+ - reg:		contains the address and length values of the host-related
+                 register space for the Aspeed LPC controller
+@@ -128,6 +131,7 @@ Required properties:
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc-ctrl";
+ 		"aspeed,ast2500-lpc-ctrl";
++		"aspeed,ast2600-lpc-ctrl";
+=20
+ - reg:		contains offset/length values of the host interface controller
+ 		memory regions
+@@ -168,6 +172,7 @@ Required properties:
+ - compatible:	One of:
+ 		"aspeed,ast2400-lhc";
+ 		"aspeed,ast2500-lhc";
++		"aspeed,ast2600-lhc";
+=20
+ - reg:		contains offset/length values of the LHC memory regions. In the
+ 		AST2400 and AST2500 there are two regions.
+@@ -187,7 +192,8 @@ state of the LPC bus. Some systems may chose to modif=
+y this configuration.
+=20
+ Required properties:
+=20
+- - compatible:		"aspeed,ast2500-lpc-reset" or
++ - compatible:		"aspeed,ast2600-lpc-reset" or
++			"aspeed,ast2500-lpc-reset"
+ 			"aspeed,ast2400-lpc-reset"
+  - reg:			offset and length of the IP in the LHC memory region
+  - #reset-controller	indicates the number of reset cells expected
 --=20
 2.21.0
