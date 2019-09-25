@@ -6,69 +6,69 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Ji5J1phd"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="bqZwmF7c"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="GnSLJGgY"; dkim-atps=neutral
+ header.b="TxhhV9qm"; dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dMbn2R7BzDqNQ
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 12:35:17 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dNGv51l4zDqJX
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 13:05:43 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id C92FB221D8;
- Tue, 24 Sep 2019 22:35:14 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 58953222BD;
+ Tue, 24 Sep 2019 23:05:40 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Tue, 24 Sep 2019 22:35:14 -0400
+ by compute4.internal (MEProxy); Tue, 24 Sep 2019 23:05:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm3; bh=R8hCktazs/vjO+3P4ZlFQqB242Rj8cr
- DrT4f/iJd2ZE=; b=Ji5J1phdNTNlEdISJ/qnooCAETsdXG1wfrBO1Si2JOn93y+
- n3BqEZ8yuwgzLRUF/2+RW0gqbdEpm3wFY7kNPijpwmAhYjcrN7hpiE5DjsxN1E3U
- jzmMD7+h1ZRjv6hn/9SWLOEXrE+cMZzwY8rJVbPrAaa9iS23+rKioVBtYCbrQsOy
- uq52OzT/QyXsxja8kPhMw8OMHp4F9agyhdRMpZEm4MjNedk57FIxGQjbrIhy9D/8
- ILqCEQROrGu4HOco/obMQW9WYnGGqgLIyjEtHbX5qMmvlyXvmfYlMEdwUoTk9cUa
- 0SE/9FE5HVCEDn6UYUhoYXyonixCo87iB+1JHsQ==
+ :subject:content-type; s=fm3; bh=Y+ibk0UUYEbmzKl8cfmwXCqMgHVieAb
+ FrO9zd+Qk4fs=; b=bqZwmF7ce9U8njZjQjOyqwshOxjEdbyyQfvSUWiIvstZqDs
+ zn06335sYOpeguqrvVRSFUJvzBT1T6eYOvJC9jzfCeUmyIczwdK3pgUt9tyELhhG
+ BsNok352oAc7vVMLmNdW65Vbm1/I407cU6u+D4qC057H7vH/sPT6vFf0lFRfqJ84
+ QzwRq0peOQfZquhx9rrfGJ4vB6hyMwFDYM3HWMoGIHlx1tc2hcy7+9CoU28updW4
+ PL8Mqkue/pkPCgfCDnEvt9UZVhdnw4xIg2kpovyM1bqHda9dDBEwjkAtqudymZcg
+ SERYWUKKtBBdODZRi3nJR41i1ozql0mce6D+IMA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=R8hCkt
- azs/vjO+3P4ZlFQqB242Rj8crDrT4f/iJd2ZE=; b=GnSLJGgY1hKBKjUUUeC99L
- yLbo3KCxIG6AWowVE7vaAiHMMiTkKyZFGUkR21ZfSZQwwK81VEJvnT++WuYNCYEG
- fgXc4pFK9hy4W6S1tNfNrCiYOHyUV0TpxhGQEz6dEbWjOwHN9iKPYtsjCQCPe5Y8
- 30opTriTcMVn9SxqtIMIw/AocHuM7lFltq1XlqXfEh1e/nncNWv0ZprvQRyRdc0o
- 75vBLvJ46Ki1Yn5WMOsRzWPQ8xcu8uOR8AKDEZOsHz2KDZ8DhvneXJoPg7o1z0IV
- oum0eFoVWznKB/mHHAYmjItGiSlC9Q3NLFg5vOJZTd56JtefLvmZa4aCkmLNtzew
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=Y+ibk0
+ UUYEbmzKl8cfmwXCqMgHVieAbFrO9zd+Qk4fs=; b=TxhhV9qm5YA5wDh91zUpYY
+ W9qB/oOeGZ+r6nwDbrWWZ3XPXDIQW1AD0UH4WS63T54GxX24QVuNjEqD2D4mGz0O
+ AKQvpAQc65PTtRrtWMM7MwBlrH4Oxouf1sj0zRG3pOb/HgY4i8F0VPQP8k/Fskde
+ 0yOu3tSDvpniMy58wMFERfguTeFaM6edVvPAMXqK6LEedsguwzHoHU/+Orb2iOCo
+ 6T33DZLxX0Tew+PwyyKeG8g+YFKUxG8dAtB0Il9Z7dfYy7OG3UBZR1NCQSpTplRy
+ pMk+G21KUeDknEAPj7SlbgBGR+tL5gx7cFzxH6DqV6ySAn+gAGCZRBv/bvgbuYYA
  ==
-X-ME-Sender: <xms:YdKKXWjd32AqcWyOo1bhf3_O5_hjMZb4vS7TkqC6Fz5ZXjyA3yWwMw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrfedugdeiudcutefuodetggdotefrodftvf
+X-ME-Sender: <xms:gtmKXX1UknzvcK41h7XZ8963va2rTvxFzw3MS_hLuR4ovXxE6gXJ3w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrfedugdeikecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
  fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
  vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
  hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
- ufhiiigvpedu
-X-ME-Proxy: <xmx:YdKKXeoFeKZDRu3FAwxxaZcSiO6GrxMk4F5VwfKug6ZmNvvubFI0Rw>
- <xmx:YdKKXVfPfWaRP5gtqziOwej0iY9UpsqPYikC9Sf0VTOT18ImV7-8Bw>
- <xmx:YdKKXZxfNNL9NVpnUXBcc0_4yijihANFayyoQ-p-URjneB98lZ4D3w>
- <xmx:YtKKXTheZzZfvtiqoP3CUU-bMYHIBJBEF2BxUtEjq21tSrx-qXnecQ>
+ ufhiiigvpedt
+X-ME-Proxy: <xmx:gtmKXZEDGgPqKMgSiPqZU1iAsvmhiXBHIsHE7qo1foo1RkGqYqmbag>
+ <xmx:gtmKXacvzNL0wp3ijsiwjlXSOavGirh4yzU6ylWU3INYKaMcpDoLTg>
+ <xmx:gtmKXXTHaWGZ9uNd7_OnQPBZ_PvkeS0yXvAhU1_bXs4Q3viGAyZzUQ>
+ <xmx:hNmKXetn9fCL08bZAqqQUQMBRUQKDE6a5vFh006d5r0qS7x6NVBg_A>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 52DCBE00AF; Tue, 24 Sep 2019 22:35:13 -0400 (EDT)
+ id 5B6B1E00AF; Tue, 24 Sep 2019 23:05:38 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.7-305-g4111847-fmstable-20190924v1
 Mime-Version: 1.0
-Message-Id: <398ceb70-1f6a-46d0-8c19-8c95959d2a6b@www.fastmail.com>
-In-Reply-To: <20190924194759.26854-3-bradleyb@fuzziesquirrel.com>
+Message-Id: <96c312f3-0ec1-41fc-a7c8-277aa5450459@www.fastmail.com>
+In-Reply-To: <20190924194759.26854-5-bradleyb@fuzziesquirrel.com>
 References: <20190924194759.26854-1-bradleyb@fuzziesquirrel.com>
- <20190924194759.26854-3-bradleyb@fuzziesquirrel.com>
-Date: Wed, 25 Sep 2019 12:05:56 +0930
+ <20190924194759.26854-5-bradleyb@fuzziesquirrel.com>
+Date: Wed, 25 Sep 2019 12:36:22 +0930
 From: "Andrew Jeffery" <andrew@aj.id.au>
 To: "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
  "Joel Stanley" <joel@jms.id.au>
 Cc: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_v3_linux_dev-5.3_02/10]_dt-bindings:_ipmi:_Add_aspe?=
- =?UTF-8?Q?ed-g6_compatible_strings?=
+Subject: =?UTF-8?Q?Re:_[PATCH_v3_linux_dev-5.3_04/10]_ipmi:_aspeed-g6:_Add_compat?=
+ =?UTF-8?Q?ible_strings?=
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -81,13 +81,12 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 02:35:17 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 03:05:44 -0000
 
 
 
 On Wed, 25 Sep 2019, at 05:17, Brad Bishop wrote:
-> The AST2600 SoC contains the same IPMI devices (KCS and BT) as the
-> AST2500.
+> The AST2600 SoC contains the same IPMI (BT/KCS) devices as the AST2500.
 > 
 > Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 
