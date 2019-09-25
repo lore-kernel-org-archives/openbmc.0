@@ -1,66 +1,41 @@
-Return-Path: <Derick.Montague@ibm.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=ibm.com
- (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com;
- envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=kaod.org
+ (client-ip=46.105.75.26; helo=8.mo179.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=ibm.com
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 2399 seconds by postgrey-1.36 at bilbo;
+ Thu, 26 Sep 2019 00:00:11 AEST
+Received: from 8.mo179.mail-out.ovh.net (8.mo179.mail-out.ovh.net
+ [46.105.75.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dfTX4CW6zDqQc
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 23:45:51 +1000 (AEST)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x8PDcNe2059400
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 09:45:45 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.74])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2v7kyaaqsy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 09:45:44 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
- Wed, 25 Sep 2019 13:45:40 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 25 Sep 2019 13:45:36 -0000
-Received: from us1a3-mail158.a3.dal06.isc4sb.com ([10.146.71.209])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2019092513453549-559977 ;
- Wed, 25 Sep 2019 13:45:35 +0000 
-In-Reply-To: 
-Subject: GUI Design Workgroup - Today - Wednesday 9/25
-From: "Derick Montague" <Derick.Montague@ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dfp33lHrzDqWb
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 00:00:08 +1000 (AEST)
+Received: from player698.ha.ovh.net (unknown [10.108.54.203])
+ by mo179.mail-out.ovh.net (Postfix) with ESMTP id B4280143465
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:42:57 +0200 (CEST)
+Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
+ (Authenticated sender: clg@kaod.org)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id 1397BA33DD02;
+ Wed, 25 Sep 2019 12:42:52 +0000 (UTC)
+From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
-Date: Wed, 25 Sep 2019 13:45:36 +0000
-Sensitivity: 
-References: 
+Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
+Subject: [PATCH linux dev-5.3 00/13] mtd: spi-nor: aspeed: add support for
+ ast2600
+Date: Wed, 25 Sep 2019 14:42:26 +0200
+Message-Id: <20190925124239.27897-1-clg@kaod.org>
+X-Mailer: git-send-email 2.21.0
 MIME-Version: 1.0
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17652-1619 | IBM Domino Build
- SCN1812108_20180501T0841_FP57 August 05, 2019 at 12:42
-X-LLNOutbound: False
-X-Disclaimed: 53199
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 19092513-3165-0000-0000-000001208BBD
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40304; ST=0; TS=0; UL=0; ISC=; MB=0.000031
-X-IBM-SpamModules-Versions: BY=3.00011837; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000292; SDB=6.01266372; UDB=6.00669987; IPR=6.01048342; 
- MB=3.00028803; MTD=3.00000008; XFM=3.00000015; UTC=2019-09-25 13:45:39
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2019-09-25 12:27:57 - 6.00010449
-x-cbparentid: 19092513-3166-0000-0000-000024C99929
-Message-Id: <OF4F9BEC1B.2E9D8458-ON00258480.004AF254-00258480.004B9606@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-09-25_06:, , signatures=0
-X-Proofpoint-Spam-Reason: safe
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 6976357297923721986
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfedvgdehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,16 +47,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 13:45:53 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 14:00:12 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Lucida S=
-ans Unicode, Lucida Grande, sans-serif;font-size:10pt" ><div dir=3D"ltr" >W=
-e have a GUI Design Workgroup today at 10:00 - 11:00 AM Central. We will be=
- discussing Firmware design.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><p>Meeting number: 922 477 725<br>Meeting Link:&nbsp;<a h=
-ref=3D"https://ibm.webex.com/ibm/j.php?MTID=3Dma668120f8b481aa631801a669078=
-d463" rel=3D"nofollow" >https://ibm.webex.com/ibm/j.php?MTID=3Dma668120f8b4=
-81aa631801a669078d463</a></p>
-<p>United States Toll: 1-669-234-1178<br>Access code: 922 477 725</p></div>=
-</div><BR>
+Hello,
+
+It is based on Brad Bishop series adding the Rainier system system.
+The training is still experimental and optimistic. The algorithm might
+need some more tuning when systems become available. Quad I/O support
+is not implemented.
+
+The Segment Register have a different layout on the AST2600 and the
+AHB window of CS other than the first are closed. We will need support
+from the firmware or the DT to activate multiple chips on the same
+bus.
+
+These driver extensions will not be pushed to mainline.
+
+Thanks,
+
+C.
+
+Cédric Le Goater (13):
+  ARM: dts: aspeed-g6: Add FMC and SPI devices
+  ARM: dts: aspeed: rainier: Enable FMC and SPI devices
+  ARM: dts: aspeed: rainier: Enable MAC0
+  ARM: dts: ast2600-evb: Enable FMC and SPI devices
+  mtd: spi-nor: Add support for w25q512jv
+  mtd: spi-nor: aspeed: Introduce a field for the AHB physical address
+  mtd: spi-nor: aspeed: Introduce segment operations
+  mtd: spi-nor: aspeed: add initial support for ast2600
+  mtd: spi-nor: aspeed: Check for disabled segments on the AST2600
+  mtd: spi-nor: aspeed: Introduce training operations per platform
+  mtd: spi-nor: aspeed: Introduce a HCLK mask for training
+  mtd: spi-nor: aspeed: check upper freq limit when doing training
+  mtd: spi-nor: aspeed: add support for AST2600 training
+
+ drivers/mtd/spi-nor/aspeed-smc.c             | 283 ++++++++++++++++---
+ drivers/mtd/spi-nor/spi-nor.c                |   2 +
+ arch/arm/boot/dts/aspeed-ast2600-evb.dts     |  24 ++
+ arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts |  38 +++
+ arch/arm/boot/dts/aspeed-g6.dtsi             |  79 ++++++
+ 5 files changed, 385 insertions(+), 41 deletions(-)
+
+-- 
+2.21.0
