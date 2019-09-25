@@ -1,42 +1,29 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.109.111; helo=2.mo5.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 580 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Sep 2019 22:53:42 AEST
-Received: from 2.mo5.mail-out.ovh.net (2.mo5.mail-out.ovh.net [178.33.109.111])
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddKL1pS7zDqml
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:53:40 +1000 (AEST)
-Received: from player698.ha.ovh.net (unknown [10.108.54.172])
- by mo5.mail-out.ovh.net (Postfix) with ESMTP id 51FF424DE3B
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:56 +0200 (CEST)
-Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
- (Authenticated sender: clg@kaod.org)
- by player698.ha.ovh.net (Postfix) with ESMTPSA id E509CA33E0F8;
- Wed, 25 Sep 2019 12:43:51 +0000 (UTC)
-From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-To: openbmc@lists.ozlabs.org
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-5.3 12/13] mtd: spi-nor: aspeed: check upper freq
- limit when doing training
-Date: Wed, 25 Sep 2019 14:42:38 +0200
-Message-Id: <20190925124239.27897-13-clg@kaod.org>
-X-Mailer: git-send-email 2.21.0
-In-Reply-To: <20190925124239.27897-1-clg@kaod.org>
-References: <20190925124239.27897-1-clg@kaod.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNZ6pXNzDqC0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:29 +1000 (AEST)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: joel@jms.id.au
+Cc: andrew@aj.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH v4 linuux dev-5.3 01/10] dt-bindings: aspeed-lpc: Add G6
+ compatible strings
+Date: Wed, 25 Sep 2019 08:56:01 -0400
+Message-Id: <20190925125610.12096-2-bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
+References: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6992964321742588674
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfedvgdehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,25 +35,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:53:42 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:31 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:31 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:31 -0000
 
-Signed-off-by: Cédric Le Goater <clg@kaod.org>
+The AST2600 datasheet indicates the same register set behind the LPC
+controller address space.
+
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
- drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  v4: fix commit message
+  v3: move ipmi binding updates to a separate patch
+  v2: new for v2
+---
+ Documentation/devicetree/bindings/mfd/aspeed-lpc.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
-index c6a80fdf51ef..48164d819a37 100644
---- a/drivers/mtd/spi-nor/aspeed-smc.c
-+++ b/drivers/mtd/spi-nor/aspeed-smc.c
-@@ -1075,7 +1075,7 @@ static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
- 
- 		/* Compare timing to max */
- 		freq = ahb_freq / i;
--		if (freq >= max_freq)
-+		if (freq > max_freq)
- 			continue;
- 
- 		/* Set the timing */
--- 
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Docum=
+entation/devicetree/bindings/mfd/aspeed-lpc.txt
+index 86446074e206..e1197bab57bb 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -46,6 +46,7 @@ Required properties
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc", "simple-mfd"
+ 		"aspeed,ast2500-lpc", "simple-mfd"
++		"aspeed,ast2600-lpc", "simple-mfd"
+=20
+ - reg:		contains the physical address and length values of the Aspeed
+                 LPC memory region.
+@@ -64,6 +65,7 @@ BMC Node
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc-bmc"
+ 		"aspeed,ast2500-lpc-bmc"
++		"aspeed,ast2600-lpc-bmc"
+=20
+ - reg:		contains the physical address and length values of the
+                 H8S/2168-compatible LPC controller memory region
+@@ -74,6 +76,7 @@ Host Node
+ - compatible:   One of:
+ 		"aspeed,ast2400-lpc-host", "simple-mfd", "syscon"
+ 		"aspeed,ast2500-lpc-host", "simple-mfd", "syscon"
++		"aspeed,ast2600-lpc-host", "simple-mfd", "syscon"
+=20
+ - reg:		contains the address and length values of the host-related
+                 register space for the Aspeed LPC controller
+@@ -128,6 +131,7 @@ Required properties:
+ - compatible:	One of:
+ 		"aspeed,ast2400-lpc-ctrl";
+ 		"aspeed,ast2500-lpc-ctrl";
++		"aspeed,ast2600-lpc-ctrl";
+=20
+ - reg:		contains offset/length values of the host interface controller
+ 		memory regions
+@@ -168,6 +172,7 @@ Required properties:
+ - compatible:	One of:
+ 		"aspeed,ast2400-lhc";
+ 		"aspeed,ast2500-lhc";
++		"aspeed,ast2600-lhc";
+=20
+ - reg:		contains offset/length values of the LHC memory regions. In the
+ 		AST2400 and AST2500 there are two regions.
+@@ -187,7 +192,8 @@ state of the LPC bus. Some systems may chose to modif=
+y this configuration.
+=20
+ Required properties:
+=20
+- - compatible:		"aspeed,ast2500-lpc-reset" or
++ - compatible:		"aspeed,ast2600-lpc-reset" or
++			"aspeed,ast2500-lpc-reset"
+ 			"aspeed,ast2400-lpc-reset"
+  - reg:			offset and length of the IP in the LHC memory region
+  - #reset-controller	indicates the number of reset cells expected
+--=20
 2.21.0
