@@ -9,17 +9,17 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNf07VvzDqC0
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNg3fkVzDqC0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:35 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: andrew@aj.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v4 linuux dev-5.3 05/10] reset: simple: Add AST2600
- compatibility string
-Date: Wed, 25 Sep 2019 08:56:05 -0400
-Message-Id: <20190925125610.12096-6-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v4 linuux dev-5.3 03/10] soc: aspeed: lpc: Add G6 compatible
+ strings
+Date: Wed, 25 Sep 2019 08:56:03 -0400
+Message-Id: <20190925125610.12096-4-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 References: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
@@ -35,31 +35,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:56:34 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:35 -0000
 
-The AST2600 SoC contains the same LPC register set as the AST2500.
+The AST2600(G6) has the same lpc-ctrl and lpc-snoop devices as the
+AST2500.
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 ---
-v4: add Andrew's review
-v3: new for v3
+v4:
+  - no changes
+v3:
+  - move ipmi, reset to a separate patch
+v2:
+  - removed DT binding documentation changes
 ---
- drivers/reset/reset-simple.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/soc/aspeed/aspeed-lpc-ctrl.c  | 1 +
+ drivers/soc/aspeed/aspeed-lpc-snoop.c | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/drivers/reset/reset-simple.c b/drivers/reset/reset-simple.c
-index 1154f7b1f4dd..2fe9c889a75a 100644
---- a/drivers/reset/reset-simple.c
-+++ b/drivers/reset/reset-simple.c
-@@ -125,6 +125,7 @@ static const struct of_device_id reset_simple_dt_ids[=
-] =3D {
- 		.data =3D &reset_simple_active_low },
- 	{ .compatible =3D "aspeed,ast2400-lpc-reset" },
- 	{ .compatible =3D "aspeed,ast2500-lpc-reset" },
-+	{ .compatible =3D "aspeed,ast2600-lpc-reset" },
- 	{ .compatible =3D "bitmain,bm1880-reset",
- 		.data =3D &reset_simple_active_low },
- 	{ /* sentinel */ },
+diff --git a/drivers/soc/aspeed/aspeed-lpc-ctrl.c b/drivers/soc/aspeed/as=
+peed-lpc-ctrl.c
+index 01ed21e8bfee..12e4421dee37 100644
+--- a/drivers/soc/aspeed/aspeed-lpc-ctrl.c
++++ b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
+@@ -291,6 +291,7 @@ static int aspeed_lpc_ctrl_remove(struct platform_dev=
+ice *pdev)
+ static const struct of_device_id aspeed_lpc_ctrl_match[] =3D {
+ 	{ .compatible =3D "aspeed,ast2400-lpc-ctrl" },
+ 	{ .compatible =3D "aspeed,ast2500-lpc-ctrl" },
++	{ .compatible =3D "aspeed,ast2600-lpc-ctrl" },
+ 	{ },
+ };
+=20
+diff --git a/drivers/soc/aspeed/aspeed-lpc-snoop.c b/drivers/soc/aspeed/a=
+speed-lpc-snoop.c
+index 48f7ac238861..c7b4ac066b40 100644
+--- a/drivers/soc/aspeed/aspeed-lpc-snoop.c
++++ b/drivers/soc/aspeed/aspeed-lpc-snoop.c
+@@ -325,6 +325,8 @@ static const struct of_device_id aspeed_lpc_snoop_mat=
+ch[] =3D {
+ 	  .data =3D &ast2400_model_data },
+ 	{ .compatible =3D "aspeed,ast2500-lpc-snoop",
+ 	  .data =3D &ast2500_model_data },
++	{ .compatible =3D "aspeed,ast2600-lpc-snoop",
++	  .data =3D &ast2500_model_data },
+ 	{ },
+ };
+=20
 --=20
 2.21.0
