@@ -9,16 +9,19 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNb0852zDqDl
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:29 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNd1ZjZzDqC0
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:33 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: andrew@aj.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v4 linux dev-5.3 00/10] ARM: dts: aspeed-g6 lpc, rainier
-Date: Wed, 25 Sep 2019 08:56:00 -0400
-Message-Id: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v4 linuux dev-5.3 04/10] ipmi: aspeed-g6: Add compatible
+ strings
+Date: Wed, 25 Sep 2019 08:56:04 -0400
+Message-Id: <20190925125610.12096-5-bradleyb@fuzziesquirrel.com>
+In-Reply-To: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
+References: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -32,56 +35,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:56:31 -0000
-X-List-Received-Date: Wed, 25 Sep 2019 12:56:31 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:33 -0000
 
-> This is a quick attempt at wiring up some of the LPC bits on the
-> AST2600, and then using it on a new board, Rainier, a new POWER system
-> with an AST2600.  The only verification performed was ensuring the
-> kernel still booted and the ibt device probed using the Rainier device
-> tree atop the ast2600-evb qemu model.  Please review.
+The AST2600 SoC contains the same IPMI (BT/KCS) devices as the AST2500.
 
-Changes since v3:
-  - commit message updates
-  - align rainier reserved memory
-  - reviews, acks
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
+---
+v4: add Andrew's review
+v3: new for v3
+---
+ drivers/char/ipmi/bt-bmc.c         | 1 +
+ drivers/char/ipmi/kcs_bmc_aspeed.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-Changes since v2:
-  - split lpc, ipmi binding updates into separate patches
-  - split soc, ipmi, reset compatibles into separate patches
-  - moved sio_regs to separate G6 dtsi patch
-  - moved i2c and mac additions from rainier DT to separate patches
-
-Changes since v1:
-  - split DT binding docs and driver changes into separate patches.
-  - reordered rainier DT elements (alphabetized).
-  - added rainier rtc, lpc-ctl, reserved memory, mac devices
-
-Brad Bishop (10):
-  dt-bindings: aspeed-lpc: Add G6 compatible strings
-  dt-bindings: ipmi: Add aspeed-g6 compatible strings
-  soc: aspeed: lpc: Add G6 compatible strings
-  ipmi: aspeed-g6: Add compatible strings
-  reset: simple: Add AST2600 compatibility string
-  ARM: dts: aspeed-g6: Add lpc devices
-  ARM: dts: aspeed: Add Rainier system
-  ARM: dts: aspeed-g6: Expose SuperIO scratch registers
-  ARM: dts: aspeed: rainier: Add mac devices
-  ARM: dts: aspeed: rainier: Add i2c devices
-
- .../bindings/ipmi/aspeed,ast2400-ibt-bmc.txt  |   3 +-
- .../bindings/ipmi/aspeed-kcs-bmc.txt          |   7 +-
- .../devicetree/bindings/mfd/aspeed-lpc.txt    |   8 +-
- arch/arm/boot/dts/Makefile                    |   1 +
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  | 464 ++++++++++++++++++
- arch/arm/boot/dts/aspeed-g6.dtsi              |  91 ++++
- drivers/char/ipmi/bt-bmc.c                    |   1 +
- drivers/char/ipmi/kcs_bmc_aspeed.c            |   1 +
- drivers/reset/reset-simple.c                  |   1 +
- drivers/soc/aspeed/aspeed-lpc-ctrl.c          |   1 +
- drivers/soc/aspeed/aspeed-lpc-snoop.c         |   2 +
- 11 files changed, 575 insertions(+), 5 deletions(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-
+diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
+index 40b9927c072c..0e600449931b 100644
+--- a/drivers/char/ipmi/bt-bmc.c
++++ b/drivers/char/ipmi/bt-bmc.c
+@@ -513,6 +513,7 @@ static int bt_bmc_remove(struct platform_device *pdev=
+)
+ static const struct of_device_id bt_bmc_match[] =3D {
+ 	{ .compatible =3D "aspeed,ast2400-ibt-bmc" },
+ 	{ .compatible =3D "aspeed,ast2500-ibt-bmc" },
++	{ .compatible =3D "aspeed,ast2600-ibt-bmc" },
+ 	{ },
+ };
+=20
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
+mc_aspeed.c
+index 3c955946e647..a0a8bb89c9b3 100644
+--- a/drivers/char/ipmi/kcs_bmc_aspeed.c
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -301,6 +301,7 @@ static int aspeed_kcs_remove(struct platform_device *=
+pdev)
+ static const struct of_device_id ast_kcs_bmc_match[] =3D {
+ 	{ .compatible =3D "aspeed,ast2400-kcs-bmc" },
+ 	{ .compatible =3D "aspeed,ast2500-kcs-bmc" },
++	{ .compatible =3D "aspeed,ast2600-kcs-bmc" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ast_kcs_bmc_match);
 --=20
 2.21.0
