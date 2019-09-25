@@ -1,40 +1,39 @@
 Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.39.61; helo=2.mo178.mail-out.ovh.net;
+ (client-ip=188.165.53.149; helo=2.mo2.mail-out.ovh.net;
  envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 352 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Sep 2019 22:49:15 AEST
-Received: from 2.mo178.mail-out.ovh.net (2.mo178.mail-out.ovh.net
- [46.105.39.61])
+X-Greylist: delayed 341 seconds by postgrey-1.36 at bilbo;
+ Wed, 25 Sep 2019 22:49:29 AEST
+Received: from 2.mo2.mail-out.ovh.net (2.mo2.mail-out.ovh.net [188.165.53.149])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddDC3pjKzDqhN
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:49:14 +1000 (AEST)
-Received: from player698.ha.ovh.net (unknown [10.108.57.50])
- by mo178.mail-out.ovh.net (Postfix) with ESMTP id A34457A515
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:17 +0200 (CEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddDT1wjGzDqlF
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:49:25 +1000 (AEST)
+Received: from player698.ha.ovh.net (unknown [10.109.143.225])
+ by mo2.mail-out.ovh.net (Postfix) with ESMTP id 731711AE1BC
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:42 +0200 (CEST)
 Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
  (Authenticated sender: clg@kaod.org)
- by player698.ha.ovh.net (Postfix) with ESMTPSA id E4991A33DE73;
- Wed, 25 Sep 2019 12:43:12 +0000 (UTC)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id BA484A33E03B;
+ Wed, 25 Sep 2019 12:43:37 +0000 (UTC)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-5.3 04/13] ARM: dts: ast2600-evb: Enable FMC and SPI
- devices
-Date: Wed, 25 Sep 2019 14:42:30 +0200
-Message-Id: <20190925124239.27897-5-clg@kaod.org>
+Subject: [PATCH linux dev-5.3 09/13] mtd: spi-nor: aspeed: Check for disabled
+ segments on the AST2600
+Date: Wed, 25 Sep 2019 14:42:35 +0200
+Message-Id: <20190925124239.27897-10-clg@kaod.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190925124239.27897-1-clg@kaod.org>
 References: <20190925124239.27897-1-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6981986798419086082
+X-Ovh-Tracer-Id: 6989023674974571266
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfedvgdehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -49,44 +48,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:49:16 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:49:29 -0000
+
+The segments can be disabled on the AST2600 (zero register value).
+CS0 is open by default but not the other CS. This is closing the
+access to the flash device in user mode and forbids scanning. For
+multiple CS, we will need firmware or a DT property to reopen the
+flash AHB window.
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- arch/arm/boot/dts/aspeed-ast2600-evb.dts | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ drivers/mtd/spi-nor/aspeed-smc.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2600-evb.dts b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-index da8c931c7295..7bcafb027afa 100644
---- a/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-+++ b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-@@ -88,3 +88,27 @@
- &fsim0 {
- 	status = "okay";
- };
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index 6c5ecea21882..ea9b4a157677 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -659,8 +659,15 @@ static u32 chip_set_segment(struct aspeed_smc_chip *chip, u32 cs, u32 start,
+ 	 * size, but take into account the possible overlap with the
+ 	 * previous segment
+ 	 */
+-	if (!size)
+-		size = info->segment_end(controller, seg_oldval) - start;
++	if (!size) {
++		end = info->segment_end(controller, seg_oldval);
 +
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "bmc";
-+		spi-max-frequency = <50000000>;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+		spi-max-frequency = <100000000>;
-+	};
-+};
++		/*
++		 * Check for disabled segment (AST2600).
++		 */
++		if (end != ahb_base_phy)
++			size = end - start;
++	}
+ 
+ 	/*
+ 	 * The segment cannot exceed the maximum window size of the
+@@ -689,8 +696,8 @@ static u32 chip_set_segment(struct aspeed_smc_chip *chip, u32 cs, u32 start,
+ 		size = end - start;
+ 	}
+ 
+-	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x - 0x%.8x ] %dMB",
+-		 cs, start, end, size >> 20);
++	dev_info(chip->nor.dev, "CE%d window [ 0x%.8x - 0x%.8x ] %dMB%s",
++		 cs, start, end, size >> 20, size ? "" : " (disabled)");
+ 
+ 	return size;
+ }
 -- 
 2.21.0
