@@ -1,38 +1,38 @@
 Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.75.26; helo=8.mo179.mail-out.ovh.net;
+ (client-ip=46.105.36.150; helo=17.mo6.mail-out.ovh.net;
  envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 2399 seconds by postgrey-1.36 at bilbo;
- Thu, 26 Sep 2019 00:00:11 AEST
-Received: from 8.mo179.mail-out.ovh.net (8.mo179.mail-out.ovh.net
- [46.105.75.26])
+Received: from 17.mo6.mail-out.ovh.net (17.mo6.mail-out.ovh.net
+ [46.105.36.150])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46dfp33lHrzDqWb
- for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 00:00:08 +1000 (AEST)
-Received: from player698.ha.ovh.net (unknown [10.108.54.203])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id B4280143465
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:42:57 +0200 (CEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46dhK34dHmzDqfr
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 01:08:34 +1000 (AEST)
+Received: from player698.ha.ovh.net (unknown [10.109.146.20])
+ by mo6.mail-out.ovh.net (Postfix) with ESMTP id 001831E2C25
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:06 +0200 (CEST)
 Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
  (Authenticated sender: clg@kaod.org)
- by player698.ha.ovh.net (Postfix) with ESMTPSA id 1397BA33DD02;
- Wed, 25 Sep 2019 12:42:52 +0000 (UTC)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id 61F32A33DD8D;
+ Wed, 25 Sep 2019 12:43:02 +0000 (UTC)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-5.3 00/13] mtd: spi-nor: aspeed: add support for
- ast2600
-Date: Wed, 25 Sep 2019 14:42:26 +0200
-Message-Id: <20190925124239.27897-1-clg@kaod.org>
+Subject: [PATCH linux dev-5.3 02/13] ARM: dts: aspeed: rainier: Enable FMC and
+ SPI devices
+Date: Wed, 25 Sep 2019 14:42:28 +0200
+Message-Id: <20190925124239.27897-3-clg@kaod.org>
 X-Mailer: git-send-email 2.21.0
+In-Reply-To: <20190925124239.27897-1-clg@kaod.org>
+References: <20190925124239.27897-1-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6976357297923721986
+X-Ovh-Tracer-Id: 6978890573611698946
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfedvgdehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -47,47 +47,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 14:00:12 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 15:08:40 -0000
 
-Hello,
+Signed-off-by: Cédric Le Goater <clg@kaod.org>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts | 31 ++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-It is based on Brad Bishop series adding the Rainier system system.
-The training is still experimental and optimistic. The algorithm might
-need some more tuning when systems become available. Quad I/O support
-is not implemented.
-
-The Segment Register have a different layout on the AST2600 and the
-AHB window of CS other than the first are closed. We will need support
-from the firmware or the DT to activate multiple chips on the same
-bus.
-
-These driver extensions will not be pushed to mainline.
-
-Thanks,
-
-C.
-
-Cédric Le Goater (13):
-  ARM: dts: aspeed-g6: Add FMC and SPI devices
-  ARM: dts: aspeed: rainier: Enable FMC and SPI devices
-  ARM: dts: aspeed: rainier: Enable MAC0
-  ARM: dts: ast2600-evb: Enable FMC and SPI devices
-  mtd: spi-nor: Add support for w25q512jv
-  mtd: spi-nor: aspeed: Introduce a field for the AHB physical address
-  mtd: spi-nor: aspeed: Introduce segment operations
-  mtd: spi-nor: aspeed: add initial support for ast2600
-  mtd: spi-nor: aspeed: Check for disabled segments on the AST2600
-  mtd: spi-nor: aspeed: Introduce training operations per platform
-  mtd: spi-nor: aspeed: Introduce a HCLK mask for training
-  mtd: spi-nor: aspeed: check upper freq limit when doing training
-  mtd: spi-nor: aspeed: add support for AST2600 training
-
- drivers/mtd/spi-nor/aspeed-smc.c             | 283 ++++++++++++++++---
- drivers/mtd/spi-nor/spi-nor.c                |   2 +
- arch/arm/boot/dts/aspeed-ast2600-evb.dts     |  24 ++
- arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts |  38 +++
- arch/arm/boot/dts/aspeed-g6.dtsi             |  79 ++++++
- 5 files changed, 385 insertions(+), 41 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
+index 485c8732eec1..5e5bc78bdce4 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
+@@ -444,3 +444,34 @@
+ &ibt {
+ 	status = "okay";
+ };
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout.dtsi"
++	};
++
++	flash@1 {
++		status = "okay";
++		m25p,fast-read;
++		label = "alt-bmc";
++		spi-max-frequency = <50000000>;
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++		spi-max-frequency = <100000000>;
++	};
++};
 -- 
 2.21.0
