@@ -9,17 +9,17 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNd1ZjZzDqC0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddNf07VvzDqC0
  for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:56:33 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 To: joel@jms.id.au
 Cc: andrew@aj.id.au,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH v4 linuux dev-5.3 04/10] ipmi: aspeed-g6: Add compatible
- strings
-Date: Wed, 25 Sep 2019 08:56:04 -0400
-Message-Id: <20190925125610.12096-5-bradleyb@fuzziesquirrel.com>
+Subject: [PATCH v4 linuux dev-5.3 05/10] reset: simple: Add AST2600
+ compatibility string
+Date: Wed, 25 Sep 2019 08:56:05 -0400
+Message-Id: <20190925125610.12096-6-bradleyb@fuzziesquirrel.com>
 In-Reply-To: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 References: <20190925125610.12096-1-bradleyb@fuzziesquirrel.com>
 MIME-Version: 1.0
@@ -35,9 +35,9 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:56:33 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:56:34 -0000
 
-The AST2600 SoC contains the same IPMI (BT/KCS) devices as the AST2500.
+The AST2600 SoC contains the same LPC register set as the AST2500.
 
 Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
@@ -45,36 +45,21 @@ Signed-off-by: Brad Bishop <bradleyb@fuzziesquirrel.com>
 v4: add Andrew's review
 v3: new for v3
 ---
- drivers/char/ipmi/bt-bmc.c         | 1 +
- drivers/char/ipmi/kcs_bmc_aspeed.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/reset/reset-simple.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/char/ipmi/bt-bmc.c b/drivers/char/ipmi/bt-bmc.c
-index 40b9927c072c..0e600449931b 100644
---- a/drivers/char/ipmi/bt-bmc.c
-+++ b/drivers/char/ipmi/bt-bmc.c
-@@ -513,6 +513,7 @@ static int bt_bmc_remove(struct platform_device *pdev=
-)
- static const struct of_device_id bt_bmc_match[] =3D {
- 	{ .compatible =3D "aspeed,ast2400-ibt-bmc" },
- 	{ .compatible =3D "aspeed,ast2500-ibt-bmc" },
-+	{ .compatible =3D "aspeed,ast2600-ibt-bmc" },
- 	{ },
- };
-=20
-diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_b=
-mc_aspeed.c
-index 3c955946e647..a0a8bb89c9b3 100644
---- a/drivers/char/ipmi/kcs_bmc_aspeed.c
-+++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
-@@ -301,6 +301,7 @@ static int aspeed_kcs_remove(struct platform_device *=
-pdev)
- static const struct of_device_id ast_kcs_bmc_match[] =3D {
- 	{ .compatible =3D "aspeed,ast2400-kcs-bmc" },
- 	{ .compatible =3D "aspeed,ast2500-kcs-bmc" },
-+	{ .compatible =3D "aspeed,ast2600-kcs-bmc" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ast_kcs_bmc_match);
+diff --git a/drivers/reset/reset-simple.c b/drivers/reset/reset-simple.c
+index 1154f7b1f4dd..2fe9c889a75a 100644
+--- a/drivers/reset/reset-simple.c
++++ b/drivers/reset/reset-simple.c
+@@ -125,6 +125,7 @@ static const struct of_device_id reset_simple_dt_ids[=
+] =3D {
+ 		.data =3D &reset_simple_active_low },
+ 	{ .compatible =3D "aspeed,ast2400-lpc-reset" },
+ 	{ .compatible =3D "aspeed,ast2500-lpc-reset" },
++	{ .compatible =3D "aspeed,ast2600-lpc-reset" },
+ 	{ .compatible =3D "bitmain,bm1880-reset",
+ 		.data =3D &reset_simple_active_low },
+ 	{ /* sentinel */ },
 --=20
 2.21.0
