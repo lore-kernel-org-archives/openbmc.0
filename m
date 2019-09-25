@@ -1,39 +1,39 @@
 Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=178.33.111.220; helo=1.mo179.mail-out.ovh.net;
+ (client-ip=178.33.109.111; helo=2.mo5.mail-out.ovh.net;
  envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 414 seconds by postgrey-1.36 at bilbo;
- Wed, 25 Sep 2019 22:50:12 AEST
-Received: from 1.mo179.mail-out.ovh.net (1.mo179.mail-out.ovh.net
- [178.33.111.220])
+X-Greylist: delayed 580 seconds by postgrey-1.36 at bilbo;
+ Wed, 25 Sep 2019 22:53:42 AEST
+Received: from 2.mo5.mail-out.ovh.net (2.mo5.mail-out.ovh.net [178.33.109.111])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46ddFK0JCXzDqjg
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:50:11 +1000 (AEST)
-Received: from player698.ha.ovh.net (unknown [10.109.160.5])
- by mo179.mail-out.ovh.net (Postfix) with ESMTP id E25A8143804
- for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:12 +0200 (CEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46ddKL1pS7zDqml
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 22:53:40 +1000 (AEST)
+Received: from player698.ha.ovh.net (unknown [10.108.54.172])
+ by mo5.mail-out.ovh.net (Postfix) with ESMTP id 51FF424DE3B
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Sep 2019 14:43:56 +0200 (CEST)
 Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
  (Authenticated sender: clg@kaod.org)
- by player698.ha.ovh.net (Postfix) with ESMTPSA id BEE0CA33DDFC;
- Wed, 25 Sep 2019 12:43:06 +0000 (UTC)
+ by player698.ha.ovh.net (Postfix) with ESMTPSA id E509CA33E0F8;
+ Wed, 25 Sep 2019 12:43:51 +0000 (UTC)
 From: =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
 To: openbmc@lists.ozlabs.org
 Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>
-Subject: [PATCH linux dev-5.3 03/13] ARM: dts: aspeed: rainier: Enable MAC0
-Date: Wed, 25 Sep 2019 14:42:29 +0200
-Message-Id: <20190925124239.27897-4-clg@kaod.org>
+Subject: [PATCH linux dev-5.3 12/13] mtd: spi-nor: aspeed: check upper freq
+ limit when doing training
+Date: Wed, 25 Sep 2019 14:42:38 +0200
+Message-Id: <20190925124239.27897-13-clg@kaod.org>
 X-Mailer: git-send-email 2.21.0
 In-Reply-To: <20190925124239.27897-1-clg@kaod.org>
 References: <20190925124239.27897-1-clg@kaod.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6980579424728681218
+X-Ovh-Tracer-Id: 6992964321742588674
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
 X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfedvgdehiecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -48,27 +48,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 25 Sep 2019 12:50:13 -0000
+X-List-Received-Date: Wed, 25 Sep 2019 12:53:42 -0000
 
 Signed-off-by: Cédric Le Goater <clg@kaod.org>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/mtd/spi-nor/aspeed-smc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
-index 5e5bc78bdce4..713dc64064ad 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-rainier.dts
-@@ -475,3 +475,10 @@
- 		spi-max-frequency = <100000000>;
- 	};
- };
-+
-+&mac0 {
-+	status = "okay";
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+};
+diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/aspeed-smc.c
+index c6a80fdf51ef..48164d819a37 100644
+--- a/drivers/mtd/spi-nor/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/aspeed-smc.c
+@@ -1075,7 +1075,7 @@ static int aspeed_smc_optimize_read(struct aspeed_smc_chip *chip,
+ 
+ 		/* Compare timing to max */
+ 		freq = ahb_freq / i;
+-		if (freq >= max_freq)
++		if (freq > max_freq)
+ 			continue;
+ 
+ 		/* Set the timing */
 -- 
 2.21.0
