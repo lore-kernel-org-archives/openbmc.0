@@ -6,67 +6,63 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="FGKqwAgk"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="TgE5FxKi"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="gIj6AiSa"; dkim-atps=neutral
+ header.b="SsYq0CRb"; dkim-atps=neutral
 Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
  [64.147.123.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46fGCK55gzzDqnW
- for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 23:35:41 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46fGBt241wzDqjJ
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 23:35:18 +1000 (AEST)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 91D4F711;
- Thu, 26 Sep 2019 09:35:39 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 6310C6C7;
+ Thu, 26 Sep 2019 09:35:15 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 26 Sep 2019 09:35:39 -0400
+ by compute4.internal (MEProxy); Thu, 26 Sep 2019 09:35:15 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm3; bh=KfBRrhFBf9c8i
- MsygybgqXbOkUXr/sjlQli8oIqtUDA=; b=FGKqwAgkkZg4wgARzOdFMu9Ll1Kla
- +3vIEP746D5es/BdlE580Z2GFlTjduQLWEvLO1jE8vwKHNFvLJrLdAwh59PP+dNf
- es1L2WQlzL5nsw9cjlvdOjMoJvLn8mUsnOPxd9kgX5wkTy++/H/AYhSaEh/jcLL0
- 81AdVaV30Ww0G5KgLt7m4GGtKE7/GLLsfddUrGZYap3oRkg+OHT6Z+GGosPYwoOi
- B/TRFRGt+7OexYy5OzwMzltb3vaiK99jiZk5gRSUHUmHFp/UgGmllyvwraC1hVCH
- u77FEeX1UaX7b8Vy2oAMskHjgLGCHiFiRl+TzOXteKYEbvoggW1ZEWubQ==
+ :to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm3; bh=IbxduFF9kTpJy4aT57tILWEc2n
+ WgOMaAgzcAENZMAWU=; b=TgE5FxKiAqpYNN5x9Q/AjpNyJHr+3KGA33gIkAWzy5
+ CLFyOpnMZyNyMjL+Vc+4A7RWGFZOSS36cJZhvy2OXSoxj7JatTdxZA4LXrBoKyZJ
+ QyDkeNjvRdFAJ7fpJXot4IxLbjUxJsk6HRc0SYK/vbtwff86flWpUx2h9YMAqF1n
+ hcNoUMboloDMGoCLRqofBUzmWBMyqt+CS7WhmiZ+qePMrnAiBuBnzTMXcYjg7fBM
+ erbntPfwEnuPpPFS5Q/qc4xGcRYKMiZmUCQIcYSGSF4tcLsPAPqx082dvODIGkIR
+ 9WhbdeQRezxBAXV5Od5J5ANs1z+wY9YFx4vRx9jFKeAg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; bh=KfBRrhFBf9c8iMsygybgqXbOkUXr/sjlQli8oIqtUDA=; b=gIj6AiSa
- cWSKXQKj/df8WldNeZYz7wg0cZ0fVjucHQmSBJAu1OTj6R8w12K8HSNOUPx+sETY
- fHA7iEL1SkJTQ4xRiHHoXGqxqKt9RLICJUdaNqqP2I/YY0+4c0Q7kKHSWKYfqh3h
- RjuNe5mZnuPfUKmvSmfJk15JXjUAHXzdRLq/dRvjneR0YvbqWHCDGVEzwYcW5B7/
- CjSyvJjjwB199tmeoHgm7Du+W24QlE8LCjSYwQ9O3TPkY5z0mhW3AJN/yEmXRns3
- 3uw+9ym1OWV+Z/yZMYXRE/Zqho+GGr/BqRzFqIn7GkCU94sGODKaSB4pWzBvffzz
- QC1uDu4+kxw+wA==
-X-ME-Sender: <xms:q76MXekwxfZlKVn8Nus1s_fSQUYwtUx3gr56kgO_wBvaI4odEZy3KQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrfeeggdeiiecutefuodetggdotefrodftvf
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=IbxduFF9kTpJy4aT5
+ 7tILWEc2nWgOMaAgzcAENZMAWU=; b=SsYq0CRbJQ6DPPsM7LE0xagacjIvV7Oly
+ 2BvyC+D1lMenh5gbPrNfF4bZPQr7c3CMXGKaz598wqRMf9GWv9IJa6elc7PGlVry
+ eEDNdIBMio058RKAttBxGxhAKdkCB+ISxGHEGrxjsvrN+Gx/E6lnPb2+Yx0jJuBu
+ FZg/u7mgaGYWpneXBjV9+/GboLlLLCbXowiFpzHA4DPf1lckgaFGEiik88ApDA13
+ 28o+hqkCQhTQeA78PYWyFkEMNPBYP+MsMeC6DkNdDSX2Ch9fIA+SFeD/el8UZUqB
+ 8K9Llrft8SZs+Xgc5lZa40gY2oT/fqD+r+Ti52bprLaNipzhzaxUw==
+X-ME-Sender: <xms:kr6MXb9nkHjZqox3VmAW6Ge0u38uF6Od-kyFpcFsPqpJnj7RBGSlfA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrfeeggdeihecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
- ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
- rdhiugdrrghuqeenucfkphepvddtfedrheejrddvudehrddujeeknecurfgrrhgrmhepmh
- grihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihii
- vgepje
-X-ME-Proxy: <xmx:q76MXcvu-ApN3x49hHqmHpx2Sl5ar9MrENDCHtmcbCsAUNPa00GL1Q>
- <xmx:q76MXeSyX7If2rsUKuBYX1XWG8Zg3H8nO5sKzLJ48FsypLu5grVYOw>
- <xmx:q76MXZxUkA7HQGuZ9up9saZdz8aK--9AsMUdqSn0TVa3MlRbVtgeMA>
- <xmx:q76MXcpHG1uN3O7cCjqX1G9lPYH8hbu7YDbsOoVc2tAIzkMZ16Qq9Q>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhi
+ ugdrrghuqeenucfkphepvddtfedrheejrddvudehrddujeeknecurfgrrhgrmhepmhgrih
+ hlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgep
+ td
+X-ME-Proxy: <xmx:kr6MXaGQ5yCRAaGZqmAF8GDJsu8BnXnEUKjkyI1Crf0trUJTj9VFPA>
+ <xmx:kr6MXTmVWdQoIcubuIPw3er4QZqGozZjULtd7vuQ5hpUvYBCmG51EQ>
+ <xmx:kr6MXR8iLGywQrTgWSdWuFCGir5OnuEymvi6EtBmnr-hxi1pUrT1zg>
+ <xmx:k76MXUXja2kPHnGsB9sd6QuMKLvH_3k0-Mruq4iwLhwyPdTIMdHBEQ>
 Received: from mistburn.lan (203-57-215-178.dyn.iinet.net.au [203.57.215.178])
- by mail.messagingengine.com (Postfix) with ESMTPA id 3C11ED6005F;
- Thu, 26 Sep 2019 09:35:36 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 3F104D6005B;
+ Thu, 26 Sep 2019 09:35:11 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
-Cc: johnny_huang@aspeedtech.com, openbmc@lists.ozlabs.org,
- Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-5.3 10/15] pinctrl: aspeed: Use masks to describe
- pinconf bitfields
-Date: Thu, 26 Sep 2019 23:06:03 +0930
-Message-Id: <20190926133608.30566-11-andrew@aj.id.au>
+Cc: johnny_huang@aspeedtech.com, Andrew Jeffery <andrew@aj.id.au>,
+ openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.3 00/15] pinctrl: aspeed-g6: Fixes and features
+Date: Thu, 26 Sep 2019 23:05:53 +0930
+Message-Id: <20190926133608.30566-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20190926133608.30566-1-andrew@aj.id.au>
-References: <20190926133608.30566-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -80,140 +76,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Sep 2019 13:35:42 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 13:35:19 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 13:35:19 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 13:35:19 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 13:35:19 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 13:35:19 -0000
 
-From: Johnny Huang <johnny_huang@aspeedtech.com>
+Hello,
 
-Since some of the AST2600 pinconf setting are not just single bit, modified
-aspeed_pin_config @bit to @mask and add @mask to aspeed_pin_config_map to
-support configuring multiple bits.
+This series addresses several areas of the AST2600 pin controller:
 
-Signed-off-by: Johnny Huang <johnny_huang@aspeedtech.com>
-[AJ: Tweak commit message]
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 10 +++++-----
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 10 +++++-----
- drivers/pinctrl/aspeed/pinctrl-aspeed.c    | 12 ++++++------
- drivers/pinctrl/aspeed/pinctrl-aspeed.h    |  7 ++++---
- 4 files changed, 20 insertions(+), 19 deletions(-)
+* Fixes for bugs in the existing code
+* Addition of I3C bus mux configurations
+* Addition of USB support
+* Addition of pinconf support
 
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-index 62b8aa53b627..bfed0e274643 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c
-@@ -2595,11 +2595,11 @@ static int aspeed_g4_sig_expr_set(struct aspeed_pinmux_data *ctx,
- }
- 
- static const struct aspeed_pin_config_map aspeed_g4_pin_config_map[] = {
--	{ PIN_CONFIG_BIAS_PULL_DOWN,  0, 1},
--	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 0},
--	{ PIN_CONFIG_BIAS_DISABLE,   -1, 1},
--	{ PIN_CONFIG_DRIVE_STRENGTH,  8, 0},
--	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 1},
-+	{ PIN_CONFIG_BIAS_PULL_DOWN,  0, 1, BIT_MASK(0)},
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 0, BIT_MASK(0)},
-+	{ PIN_CONFIG_BIAS_DISABLE,   -1, 1, BIT_MASK(0)},
-+	{ PIN_CONFIG_DRIVE_STRENGTH,  8, 0, BIT_MASK(0)},
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 1, BIT_MASK(0)},
- };
- 
- static const struct aspeed_pinmux_ops aspeed_g4_ops = {
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-index 2acbcf3d508a..0cab4c2576e2 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c
-@@ -2781,11 +2781,11 @@ static int aspeed_g5_sig_expr_set(struct aspeed_pinmux_data *ctx,
- }
- 
- static const struct aspeed_pin_config_map aspeed_g5_pin_config_map[] = {
--	{ PIN_CONFIG_BIAS_PULL_DOWN,  0, 1},
--	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 0},
--	{ PIN_CONFIG_BIAS_DISABLE,   -1, 1},
--	{ PIN_CONFIG_DRIVE_STRENGTH,  8, 0},
--	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 1},
-+	{ PIN_CONFIG_BIAS_PULL_DOWN,  0, 1, BIT_MASK(0)},
-+	{ PIN_CONFIG_BIAS_PULL_DOWN, -1, 0, BIT_MASK(0)},
-+	{ PIN_CONFIG_BIAS_DISABLE,   -1, 1, BIT_MASK(0)},
-+	{ PIN_CONFIG_DRIVE_STRENGTH,  8, 0, BIT_MASK(0)},
-+	{ PIN_CONFIG_DRIVE_STRENGTH, 16, 1, BIT_MASK(0)},
- };
- 
- static const struct aspeed_pinmux_ops aspeed_g5_ops = {
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.c b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-index fc68aca7b36c..b625a657171e 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.c
-@@ -464,7 +464,7 @@ int aspeed_pin_config_get(struct pinctrl_dev *pctldev, unsigned int offset,
- 		return rc;
- 
- 	pmap = find_pinconf_map(pdata, param, MAP_TYPE_VAL,
--			(val & BIT(pconf->bit)) >> pconf->bit);
-+			(val & pconf->mask) >> __ffs(pconf->mask));
- 
- 	if (!pmap)
- 		return -EINVAL;
-@@ -512,17 +512,17 @@ int aspeed_pin_config_set(struct pinctrl_dev *pctldev, unsigned int offset,
- 		if (WARN_ON(!pmap))
- 			return -EINVAL;
- 
--		val = pmap->val << pconf->bit;
-+		val = pmap->val << __ffs(pconf->mask);
- 
- 		rc = regmap_update_bits(pdata->scu, pconf->reg,
--					BIT(pconf->bit), val);
-+					pmap->mask, val);
- 
- 		if (rc < 0)
- 			return rc;
- 
--		pr_debug("%s: Set SCU%02X[%d]=%d for param %d(=%d) on pin %d\n",
--				__func__, pconf->reg, pconf->bit, pmap->val,
--				param, arg, offset);
-+		pr_debug("%s: Set SCU%02X[%lu]=%d for param %d(=%d) on pin %d\n",
-+				__func__, pconf->reg, __ffs(pconf->mask),
-+				pmap->val, param, arg, offset);
- 	}
- 
- 	return 0;
-diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed.h b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
-index 27d3929b6aca..6f0f03395617 100644
---- a/drivers/pinctrl/aspeed/pinctrl-aspeed.h
-+++ b/drivers/pinctrl/aspeed/pinctrl-aspeed.h
-@@ -24,8 +24,7 @@ struct aspeed_pin_config {
- 	enum pin_config_param param;
- 	unsigned int pins[2];
- 	unsigned int reg;
--	u8 bit;
--	u8 value;
-+	u32 mask;
- };
- 
- #define ASPEED_PINCTRL_PIN(name_) \
-@@ -39,7 +38,7 @@ struct aspeed_pin_config {
- 	.param = param_, \
- 	.pins = {pin0_, pin1_}, \
- 	.reg = reg_, \
--	.bit = bit_ \
-+	.mask = BIT_MASK(bit_) \
- }
- 
- /*
-@@ -48,6 +47,7 @@ struct aspeed_pin_config {
-  * @param: pinconf configuration parameter
-  * @arg: The supported argument for @param, or -1 if any value is supported
-  * @val: The register value to write to configure @arg for @param
-+ * @mask: The bitfield mask for @val
-  *
-  * The map is to be used in conjunction with the configuration array supplied
-  * by the driver implementation.
-@@ -56,6 +56,7 @@ struct aspeed_pin_config_map {
- 	enum pin_config_param param;
- 	s32 arg;
- 	u32 val;
-+	u32 mask;
- };
- 
- struct aspeed_pinctrl_data {
+The bulk of the series has been contributed by Johnny Huang - it's good to see
+someone else taking up the pinctrl fight :)
+
+Johnny has inspected the mux bit patterns on 2600 hardware and I've done some
+smoke testing under qemu, but I'd like to see these patches bake in the OpenBMC
+tree before I send them upstream. I'm hoping to sneak them into 5.4 still as
+it's a new driver.
+
+Andrew
+
+Andrew Jeffery (6):
+  pinctrl: aspeed-g6: Sort pins for sanity
+  pinctrl: aspeed-g6: Fix I2C14 SDA description
+  ARM: dts: aspeed-g6: Fix EMMC function in pinctrl dtsi
+  ARM: dts: aspeed-g6: Add pinctrl properties to MDIO nodes
+  ARM: dts: ast2600-evb: Add pinmux properties for enabled MACs
+  ARM: dts: aspeed-g6: Add missing pinctrl-names property to I2C nodes
+
+Johnny Huang (9):
+  pinctrl: aspeed-g6: Fix I3C3/I3C4 pinmux configuration
+  pinctrl: aspeed-g6: Fix UART13 group pinmux
+  pinctrl: aspeed-g6: Rename SD3 to EMMC and rework pin groups
+  pinctrl: aspeed-g6: Add AST2600 I3C1 and I3C2 pinmux config
+  pinctrl: aspeed-g6: Add support for the AST2600 USB pinmux
+  pinctrl: aspeed: Add ASPEED_SB_PINCONF() helper
+  pinctrl: aspeed: Move aspeed_pin_config_map to separate source file
+  pinctrl: aspeed: Use masks to describe pinconf bitfields
+  pinctrl: aspeed-g6: Add AST2600 pinconf support
+
+ arch/arm/boot/dts/aspeed-ast2600-evb.dts   |   9 +
+ arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi   |   9 +-
+ arch/arm/boot/dts/aspeed-g6.dtsi           |  23 +
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g4.c | 170 +++----
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c | 212 +++++----
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 511 ++++++++++++++++++---
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c    |  50 +-
+ drivers/pinctrl/aspeed/pinctrl-aspeed.h    |  38 +-
+ drivers/pinctrl/aspeed/pinmux-aspeed.h     |   2 +
+ 9 files changed, 724 insertions(+), 300 deletions(-)
+
 -- 
 2.20.1
