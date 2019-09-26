@@ -1,45 +1,61 @@
-Return-Path: <clg@kaod.org>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=kaod.org
- (client-ip=46.105.61.149; helo=7.mo177.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+ spf=pass (mailfrom) smtp.mailfrom=gmail.com
+ (client-ip=2607:f8b0:4864:20::843; helo=mail-qt1-x843.google.com;
+ envelope-from=joel.stan@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 64727 seconds by postgrey-1.36 at bilbo;
- Thu, 26 Sep 2019 16:41:54 AEST
-Received: from 7.mo177.mail-out.ovh.net (7.mo177.mail-out.ovh.net
- [46.105.61.149])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.b="aPeg6ccD"; 
+ dkim-atps=neutral
+Received: from mail-qt1-x843.google.com (mail-qt1-x843.google.com
+ [IPv6:2607:f8b0:4864:20::843])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46f51t3c09zDqdV
- for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 16:41:51 +1000 (AEST)
-Received: from player168.ha.ovh.net (unknown [10.109.143.146])
- by mo177.mail-out.ovh.net (Postfix) with ESMTP id 7FBAE10BFAE
- for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 08:41:46 +0200 (CEST)
-Received: from kaod.org (lfbn-1-2229-223.w90-76.abo.wanadoo.fr [90.76.50.223])
- (Authenticated sender: clg@kaod.org)
- by player168.ha.ovh.net (Postfix) with ESMTPSA id 1E548A2451CC;
- Thu, 26 Sep 2019 06:41:44 +0000 (UTC)
-Subject: Re: [PATCH linux dev-5.3 2/2] ARM: dts: aspeed: ast2600evb: Use
- custom flash layout
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>
-References: <20190926063157.22743-1-joel@jms.id.au>
- <20190926063157.22743-3-joel@jms.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <84817147-0252-b104-7d99-1d592655e01e@kaod.org>
-Date: Thu, 26 Sep 2019 08:41:43 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46f5X83Z0RzDqBP
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 17:04:40 +1000 (AEST)
+Received: by mail-qt1-x843.google.com with SMTP id c3so1537507qtv.10
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Sep 2019 00:04:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=Ak/CzoOQg1X/wQR+t/4VFV5l8lR05/WvvSzM/DEiV14=;
+ b=aPeg6ccDyjzJgYnfQ4BTtzarTtnnsAAjd19pxw6fz2ywbfYw2Q8X9HWLfPjs2L2jHx
+ gV4b6FUnOiPvPgyDsEvCEHcWcNur/GBwaO0OHdPzs83F0rIuny5FpxqDGwK/wEjvpE47
+ 2dhwhQnut2DI+Nip2DDmAjFth+SdwnR5efjrY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=Ak/CzoOQg1X/wQR+t/4VFV5l8lR05/WvvSzM/DEiV14=;
+ b=IBxwe12RCrbX0H6oQI4qRfVLEwlh/BmYXNbJGe1uxaJPRm/hgWiw+9/+opuJI5hqEU
+ +YrL8o+8V29rnu/PmBdlIaC/LjhlxtfI5MT7+9SefteL65vTbtPfVWYIRcjkQLwEINwQ
+ KhMTvWngdfYH+c/Lbq76FYvwa3Q211YcqFutxrLydIqlGnyD/EM8DdexF7BbauMi8RU8
+ xL7UnbCwxIx7r53mUoE0KBP5M7Zt1GIK/QrSl1MYiJOo4M7CwmF4qBziRSWj0Kqexybi
+ 9ndVPi4yaF54XTfRf7gypnvY9vvSZ/5DVcyaAp3beDAc8/j84a6w+/hovEwDWrpCFw5G
+ g5XA==
+X-Gm-Message-State: APjAAAVwqsAN2633bl3z8fYKyCJlyHMZ3hq/fqA+xyFN0+RWzQ/4pEJu
+ lB4OXp/ia0YFJ09PZ+N4eJM18t/zuIR7ciLsSXBG6w==
+X-Google-Smtp-Source: APXvYqyivgmX4ULme7rrV3pBtgQmGFKcvPe3ilvBTCYS1Zqy6xbT8oV3DxcxKHFjOu8gTr59+Svdh0nlb4j72m+dIAo=
+X-Received: by 2002:ad4:55b2:: with SMTP id f18mr1463850qvx.16.1569481474887; 
+ Thu, 26 Sep 2019 00:04:34 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20190926063157.22743-3-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 6749206995319098118
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedrfeefgdduudduucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddm
+References: <20190925124239.27897-1-clg@kaod.org>
+ <20190925124239.27897-14-clg@kaod.org>
+ <233401e3-9b67-42e8-b9aa-bbbef424171a@www.fastmail.com>
+ <2d6ac3ae-24d0-8949-19fd-569c6096fbbd@kaod.org>
+In-Reply-To: <2d6ac3ae-24d0-8949-19fd-569c6096fbbd@kaod.org>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 26 Sep 2019 07:04:22 +0000
+Message-ID: <CACPK8Xe3idCTK9XCg-9_t9xhUjcfqBjNNuusA014X5R4ZrZTig@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.3 13/13] mtd: spi-nor: aspeed: add support for
+ AST2600 training
+To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,69 +67,174 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 26 Sep 2019 06:41:54 -0000
+X-List-Received-Date: Thu, 26 Sep 2019 07:04:41 -0000
 
-On 26/09/2019 08:31, Joel Stanley wrote:
-> The AST2600 u-boot and kernel images have outgrown the OpenBMC layout.
-> While BMC machines use 128MB SPI NOR chips, we only have 64MB on the EVB
-> so use a layout that has a smaller region for the ro and rw filesystems.
+On Thu, 26 Sep 2019 at 06:59, C=C3=A9dric Le Goater <clg@kaod.org> wrote:
 >
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> On 26/09/2019 04:14, Andrew Jeffery wrote:
+> >
+> >
+> > On Wed, 25 Sep 2019, at 22:12, C=C3=A9dric Le Goater wrote:
+> >
+> > Would prefer some description here, this patch gets complex. At least f=
+or me,
+> > probably because I'm not familiar with the flash training routine.
+>
+> Joel, Could you please squeeze in this in the commit log ? I can resend
+> just that patch if you prefer, once you have pushed the series. This is
+> just an optimization.
 
-Perfect. We can move the layout in its own .dtsi file if some other board
-needs it one day. 
+Done.
 
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
-
-Thanks,
-
-C.
-
-> ---
->  arch/arm/boot/dts/aspeed-ast2600-evb.dts | 32 +++++++++++++++++++++++-
->  1 file changed, 31 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-ast2600-evb.dts b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-> index 7bcafb027afa..0b3d3978c4d3 100644
-> --- a/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-> +++ b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-> @@ -96,7 +96,37 @@
->  		m25p,fast-read;
->  		label = "bmc";
->  		spi-max-frequency = <50000000>;
-> -#include "openbmc-flash-layout.dtsi"
-> +
-> +		partitions {
-> +			compatible = "fixed-partitions";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			u-boot@0 {
-> +				reg = <0x0 0xe0000>; // 896KB
-> +				label = "u-boot";
-> +			};
-> +
-> +			u-boot-env@e0000 {
-> +				reg = <0xe0000 0x20000>; // 128KB
-> +				label = "u-boot-env";
-> +			};
-> +
-> +			kernel@100000 {
-> +				reg = <0x100000 0x900000>; // 9MB
-> +				label = "kernel";
-> +			};
-> +
-> +			rofs@a00000 {
-> +				reg = <0xa00000 0x2000000>; // 32MB
-> +				label = "rofs";
-> +			};
-> +
-> +			rwfs@6000000 {
-> +				reg = <0x2a00000 0x1600000>; // 22MB
-> +				label = "rwfs";
-> +			};
-> +		};
->  	};
->  };
->  
-> 
+>
+> Thanks,
+>
+> C.
+>
+>
+> The training consists in finding the appropriate read timing delays for
+> the HCLK dividers 2, 3, 4, and 5 and store the results in the Read Timing
+> Compensation register. The previous SoC AST2500 and AST2400 were covering
+> a broader HCLK range [ 1 - 5 ] because the AHB frequency was lower.
+>
+> The algo first reads a golden buffer at low speed and then performs reads
+> with different clocks and delay cycles settings to find a breaking point.
+> This selects the default clock frequency for the CEx control register.
+> The current settings are bit optimistic as we pick the first delay giving
+> good results. A safer approach would be to determine an interval and
+> choose the middle value. We might change the approach depending on the
+> results on other systems.
+>
+> Only CS0 is taken into account for the moment.
+>
+> >
+> >> Signed-off-by: C=C3=A9dric Le Goater <clg@kaod.org>
+> >> ---
+> >>  drivers/mtd/spi-nor/aspeed-smc.c | 68 +++++++++++++++++++++++++++++++=
++
+> >>  1 file changed, 68 insertions(+)
+> >>
+> >> diff --git a/drivers/mtd/spi-nor/aspeed-smc.c b/drivers/mtd/spi-nor/as=
+peed-smc.c
+> >> index 48164d819a37..e9bc89755912 100644
+> >> --- a/drivers/mtd/spi-nor/aspeed-smc.c
+> >> +++ b/drivers/mtd/spi-nor/aspeed-smc.c
+> >> @@ -142,6 +142,9 @@ static u32 aspeed_smc_segment_end_ast2600(
+> >>  static u32 aspeed_smc_segment_reg_ast2600(
+> >>      struct aspeed_smc_controller *controller, u32 start, u32 end);
+> >>
+> >> +static int aspeed_smc_calibrate_reads_ast2600(struct aspeed_smc_chip
+> >> *chip,
+> >> +          u32 hdiv, const u8 *golden_buf, u8 *test_buf);
+> >> +
+> >>  static const struct aspeed_smc_info fmc_2600_info =3D {
+> >>      .maxsize =3D 256 * 1024 * 1024,
+> >>      .nce =3D 3,
+> >> @@ -149,7 +152,11 @@ static const struct aspeed_smc_info fmc_2600_info
+> >> =3D {
+> >>      .we0 =3D 16,
+> >>      .ctl0 =3D 0x10,
+> >>      .timing =3D 0x94,
+> >> +    .hclk_mask =3D 0xf0fff0ff,
+> >> +    .hdiv_max =3D 2,
+> >>      .set_4b =3D aspeed_smc_chip_set_4b,
+> >> +    .optimize_read =3D aspeed_smc_optimize_read,
+> >> +    .calibrate =3D aspeed_smc_calibrate_reads_ast2600,
+> >>      .segment_start =3D aspeed_smc_segment_start_ast2600,
+> >>      .segment_end =3D aspeed_smc_segment_end_ast2600,
+> >>      .segment_reg =3D aspeed_smc_segment_reg_ast2600,
+> >> @@ -162,7 +169,11 @@ static const struct aspeed_smc_info spi_2600_info
+> >> =3D {
+> >>      .we0 =3D 16,
+> >>      .ctl0 =3D 0x10,
+> >>      .timing =3D 0x94,
+> >> +    .hclk_mask =3D 0xf0fff0ff,
+> >> +    .hdiv_max =3D 2,
+> >>      .set_4b =3D aspeed_smc_chip_set_4b,
+> >> +    .optimize_read =3D aspeed_smc_optimize_read,
+> >> +    .calibrate =3D aspeed_smc_calibrate_reads_ast2600,
+> >>      .segment_start =3D aspeed_smc_segment_start_ast2600,
+> >>      .segment_end =3D aspeed_smc_segment_end_ast2600,
+> >>      .segment_reg =3D aspeed_smc_segment_reg_ast2600,
+> >> @@ -1101,6 +1112,63 @@ static int aspeed_smc_optimize_read(struct
+> >> aspeed_smc_chip *chip,
+> >>      return 0;
+> >>  }
+> >>
+> >> +#define TIMING_DELAY_DI         BIT(3)
+> >> +#define TIMING_DELAY_HCYCLE_MAX     5
+> >> +
+> >> +static int aspeed_smc_calibrate_reads_ast2600(struct aspeed_smc_chip
+> >> *chip, u32 hdiv,
+> >> +                                          const u8 *golden_buf, u8 *t=
+est_buf)
+> >> +{
+> >> +    struct aspeed_smc_controller *controller =3D chip->controller;
+> >> +    const struct aspeed_smc_info *info =3D controller->info;
+> >> +    int hcycle;
+> >> +    u32 shift =3D (hdiv - 2) << 3;
+> >> +    u32 mask =3D ~(0xfu << shift);
+> >> +    u32 fread_timing_val =3D 0;
+> >> +
+> >> +    for (hcycle =3D 0; hcycle <=3D TIMING_DELAY_HCYCLE_MAX; hcycle++)=
+ {
+> >> +            int delay_ns;
+> >> +            bool pass =3D false;
+> >> +
+> >> +            fread_timing_val &=3D mask;
+> >> +            fread_timing_val |=3D hcycle << shift;
+> >> +
+> >> +            /* no DI input delay first  */
+> >> +            writel(fread_timing_val, controller->regs + info->timing)=
+;
+> >> +            pass =3D aspeed_smc_check_reads(chip, golden_buf, test_bu=
+f);
+> >> +            dev_dbg(chip->nor.dev,
+> >> +                    "  * [%08x] %d HCLK delay, DI delay none : %s",
+> >> +                    fread_timing_val, hcycle, pass ? "PASS" : "FAIL")=
+;
+> >> +            if (pass)
+> >> +                    return 0;
+> >> +
+> >> +            /* Add DI input delays  */
+> >> +            fread_timing_val &=3D mask;
+> >> +            fread_timing_val |=3D (TIMING_DELAY_DI | hcycle) << shift=
+;
+> >> +
+> >> +            for (delay_ns =3D 0; delay_ns < 0x10; delay_ns++) {
+> >> +                    fread_timing_val &=3D ~(0xf << (4 + shift));
+> >> +                    fread_timing_val |=3D delay_ns << (4 + shift);
+> >> +
+> >> +                    writel(fread_timing_val, controller->regs + info-=
+>timing);
+> >> +                    pass =3D aspeed_smc_check_reads(chip, golden_buf,=
+ test_buf);
+> >> +                    dev_dbg(chip->nor.dev,
+> >> +                            "  * [%08x] %d HCLK delay, DI delay %d.%d=
+ns : %s",
+> >> +                            fread_timing_val, hcycle, (delay_ns + 1)/=
+2,
+> >> +                            (delay_ns + 1) & 1 ? 5 : 5, pass ? "PASS"=
+ : "FAIL");
+> >> +                    /*
+> >> +                     * TODO: This is optimistic. We should look
+> >> +                     * for a working interval and save the middle
+> >> +                     * value in the read timing register.
+> >> +                     */
+> >> +                    if (pass)
+> >> +                            return 0;
+> >> +            }
+> >> +    }
+> >> +
+> >> +    /* No good setting for this frequency */
+> >> +    return -1;
+> >> +}
+> >> +
+> >>  static int aspeed_smc_chip_setup_finish(struct aspeed_smc_chip *chip)
+> >>  {
+> >>      struct aspeed_smc_controller *controller =3D chip->controller;
+> >> --
+> >> 2.21.0
+> >>
+> >>
+>
