@@ -9,29 +9,34 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46g3KS5C1QzDqx1
- for <openbmc@lists.ozlabs.org>; Sat, 28 Sep 2019 06:28:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46g3dQ6VfxzDqxg
+ for <openbmc@lists.ozlabs.org>; Sat, 28 Sep 2019 06:42:34 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 Received: from [192.168.253.30] (unknown [192.168.253.30])
- by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id 781F113984F;
- Fri, 27 Sep 2019 16:28:39 -0400 (EDT)
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id C24EB13984F;
+ Fri, 27 Sep 2019 16:42:31 -0400 (EDT)
 Content-Type: text/plain;
-	charset=utf-8;
+	charset=us-ascii;
 	delsp=yes;
 	format=flowed
 Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
 Subject: Re: witherspoon-pfault-analysis repository rename to phosphor-power
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <E413464F-B8BD-469C-8B58-432C25DEE77C@fuzziesquirrel.com>
-Date: Fri, 27 Sep 2019 16:28:39 -0400
+In-Reply-To: <CAGMNF6WsX90bDc5bLPO+f1y8MVwsEegSciyo6kiySA6fFT43gQ@mail.gmail.com>
+Date: Fri, 27 Sep 2019 16:42:31 -0400
 Cc: Shawn McCarney <shawnmm@linux.vnet.ibm.com>,
- Brandon Wyman <bjwyman@gmail.com>, Matt Spinler <mspinler@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Matt Spinler <mspinler@gmail.com>, Brandon Wyman <bjwyman@gmail.com>,
  derekh@us.ibm.com
-Message-Id: <4356A585-B928-4B27-B122-410AEAF8E632@fuzziesquirrel.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <8E8B90AC-C3C9-47B4-A083-4D43B42AA599@fuzziesquirrel.com>
 References: <E413464F-B8BD-469C-8B58-432C25DEE77C@fuzziesquirrel.com>
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ <CAARXrt=SpBeZ+kcg5zjTZ2mHr7Q1YCbNLPJrqaqsBwbv8-AfDA@mail.gmail.com>
+ <22c0f2b4-1411-5690-3d19-b0a90890e642@linux.vnet.ibm.com>
+ <D7110269-FC33-4C7F-85A6-5A2B26B7FD52@fuzziesquirrel.com>
+ <CAGMNF6WsX90bDc5bLPO+f1y8MVwsEegSciyo6kiySA6fFT43gQ@mail.gmail.com>
+To: Kun Yi <kunyi@google.com>
 X-Mailer: Apple Mail (2.3445.104.11)
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,37 +48,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Sep 2019 20:28:45 -0000
+X-List-Received-Date: Fri, 27 Sep 2019 20:42:35 -0000
 
-at 8:50 AM, Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+at 1:27 PM, Kun Yi <kunyi@google.com> wrote:
 
-> Today the witherspoon-pfault-analysis repo has =E2=80=9Cwitherspoon cen=
-tric=E2=80=9D =20
-> support for some power (as in power supply, not power processor) =20
-> functions.
+> Just found out this thread.. I'm starting to explore extending the
+> capabilities. In particular, I'm looking at VRMs which can hold device
+> specific NV fault logs and export them over D-Bus, and then realize
+> that if the NV faults can be exported to debugfs, the design would be
+> similar to what witherspoon-pfault-analysis is doing.
 >
-> Going forward, IBM is planning on porting this code to several more of =
-=20
-> our systems.  We also intend to add new features to it.  Some of our =20
-> partners have expressed interest in working in this code base as well.
->
-> There is nothing inherently power processor arch specific or even serve=
-r =20
-> specific about dealing with power.  So we=E2=80=99d welcome contributio=
-ns from =20
-> any collaborators from anywhere in the openbmc community.
->
-> Given the above and barring any objections, we=E2=80=99d like to rename=
- this repo =20
-> to phosphor-power and have it be a place to collaborate on any power =20
-> related functions.
->
-> thoughts/questions/concerns?
->
-> thx - brad
+> Brad, thanks for kicking off the effort. Was the transition already  
+> in-progress?
 
-No-one had any concerns on this so I moved on it and finally completed th=
-is =20
-migration today.  If anyone has any questions please reply.
+I finally got around to this just today.  Glad to hear about your  
+interest!  There are a number of design documents in various states of  
+merged and/or in-reivew in the power area, If you look at those it might  
+help get in sync with the work that is happening out there.
 
-thx - brad
+-brad
