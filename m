@@ -1,50 +1,71 @@
-Return-Path: <jae.hyun.yoo@linux.intel.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org;
- spf=none (mailfrom) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.31; helo=mga06.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ spf=pass (mailfrom) smtp.mailfrom=aj.id.au
+ (client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com;
+ envelope-from=andrew@aj.id.au; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="pBrsXfT0"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="oSxzDeo7"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46kCPH2qG0zDqDc;
- Thu,  3 Oct 2019 09:42:58 +1000 (AEST)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 02 Oct 2019 16:42:54 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.67,250,1566889200"; d="scan'208";a="221580529"
-Received: from cvannort-mobl2.amr.corp.intel.com (HELO [10.251.30.5])
- ([10.251.30.5])
- by fmsmga002.fm.intel.com with ESMTP; 02 Oct 2019 16:42:53 -0700
-Subject: Re: [PATCH 0/2] peci: aspeed: Add AST2600 compatible
-To: Joel Stanley <joel@jms.id.au>
-Cc: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>,
- Jason M Biils <jason.m.bills@linux.intel.com>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Andrew Jeffery <andrew@aj.id.au>,
- linux-aspeed <linux-aspeed@lists.ozlabs.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- devicetree <devicetree@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Ryan Chen <ryan_chen@aspeedtech.com>
-References: <20191002061200.29888-1-chiawei_wang@aspeedtech.com>
- <70044749-785b-6ff3-7a28-fb049dcfec54@linux.intel.com>
- <CACPK8XfBxC+4PHHCkMoXr+twjfWaovcJ5c=hfCmHRJ6LpGNeFg@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <03d21443-aa9a-a126-dc77-a21f14f708c9@linux.intel.com>
-Date: Wed, 2 Oct 2019 16:42:53 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.9.0
-MIME-Version: 1.0
-In-Reply-To: <CACPK8XfBxC+4PHHCkMoXr+twjfWaovcJ5c=hfCmHRJ6LpGNeFg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46kCPW63CYzDqDc
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Oct 2019 09:43:11 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 867E622006;
+ Wed,  2 Oct 2019 19:43:06 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Wed, 02 Oct 2019 19:43:06 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm3; bh=7JSQQhbzJoNjz9T93LNgy/CEj5GmFYn
+ 8Pk5PBNkkmCM=; b=pBrsXfT0Y81+8Ye5dYUtl2gkdegVVH8QvzSCzkensBsGVZu
+ FixCRR4WKOC2w9csDDL/VIoIh6lTu0jFVIKpxcKWrJ39YkXRVjzAO+YJJO9S+dvt
+ TRtlSz4UwyTHrSH/T36oSP+DitqFwGH514RnWj3S/jj5o08ZYvr9msmgb3PceWH6
+ 8JBWKSXtPYKgDJvE+jFxzCTOHvPhBvgET+yZNPQ/sp0rcGsHYA3Gx2W7zFcqyiAl
+ vltraQCnhBHpZutBaliUngOcQNqitRp+vOvBbWOwvBVPM/B/DQ/N7EwNqODfTLtM
+ 2CEgXDz/kozGQqLg0MXOl3IxIJD77KsdfGd2Mmg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=7JSQQh
+ bzJoNjz9T93LNgy/CEj5GmFYn8Pk5PBNkkmCM=; b=oSxzDeo7B13iceB60KU4Fr
+ qxVJ6maOu5OXEUXHwjK8kI5gW0NvzVRPCNymiR92HQXhHhTtf9JH+ctYcAn4LKjN
+ 77EdOV0DRNXDxzMLeBPeJQgd9me/CFo8Km0JviAmU6xHDz2XK4TKzDXpegPFtJh7
+ H3kO3KCT9fadv9JQjCMbclGrDxOJFwjWy2I1TV9Jricp46R7H1PLw+i8AD7l2alL
+ MqlIVt6l5qCyVe/lygwT3ZJR1ay079KzdQP507V0dJSmTHstTPGBejyflhhLIudo
+ OgXR9YEXRm6wuYPUmq/C5r9C2c5iu/IK5EYP1cLN4QZV6nftuty77lbtaXFrfLRw
+ ==
+X-ME-Sender: <xms:CTaVXc9DWWJ16HrMDkChak4duPXcH9uJXPqFsYrEVl3GCbPf-WkeIQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrgeejgddvfecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucfrrghrrg
+ hmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghr
+ ufhiiigvpedt
+X-ME-Proxy: <xmx:CTaVXY_O5rgtx76VuNQrp3kdwPWEy6fpXudGIIIf3RZFLiB3ufFFSQ>
+ <xmx:CTaVXdBZWUcjAWCPYoQVOg4qMIOqdbBCrBS3COw_Zt-xRRWsu1-GjQ>
+ <xmx:CTaVXQwne-J1t_VGASmwpwWgg6tpj87VM3ZgE1r-KzuKhmTMq_2h7A>
+ <xmx:CjaVXYJsL14H-MoZRi1cDrKtH06-rJMUoyBQd3U5W4rivXWZ1e4Ncg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 9D4A2E00A6; Wed,  2 Oct 2019 19:43:05 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.7-359-g64bf1af-fmstable-20191002v2
+Mime-Version: 1.0
+Message-Id: <704b589d-1758-4c3a-b029-9bbb0e266352@www.fastmail.com>
+In-Reply-To: <20191002121343.12424-1-joel@jms.id.au>
+References: <20191002121343.12424-1-joel@jms.id.au>
+Date: Thu, 03 Oct 2019 09:13:54 +0930
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Joel Stanley" <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH linux dev-5.3] clk: ast2600: Fix enabling of clocks
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +77,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Oct 2019 23:43:00 -0000
+X-List-Received-Date: Wed, 02 Oct 2019 23:43:15 -0000
 
-On 10/2/2019 3:05 PM, Joel Stanley wrote:
-> On Wed, 2 Oct 2019 at 18:11, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> Hi Chia-Wei,
->>
->> On 10/1/2019 11:11 PM, Chia-Wei, Wang wrote:
->>> Update the Aspeed PECI driver with the AST2600 compatible string.
->>> A new comptabile string is needed for the extended HW feature of
->>> AST2600.
->>>
->>> Chia-Wei, Wang (2):
->>>     peci: aspeed: Add AST2600 compatible string
->>>     dt-bindings: peci: aspeed: Add AST2600 compatible
->>>
->>>    Documentation/devicetree/bindings/peci/peci-aspeed.txt | 1 +
->>>    drivers/peci/peci-aspeed.c                             | 1 +
->>>    2 files changed, 2 insertions(+)
->>>
->>
->> PECI subsystem isn't in linux upstream yet so you should submit it into
->> OpenBMC dev-5.3 tree only.
+
+
+On Wed, 2 Oct 2019, at 21:43, Joel Stanley wrote:
+> The struct clk_ops enable callback for the aspeed gates mixes up the set
+> to clear and write to set registers.
 > 
-> OpenBMC has been carrying the out of tree patches for some time now. I
-> haven't seen a new version posted for a while. Do you have a timeline
-> for when you plan to submit it upstream?
+> Fixes: d3d04f6c330a ("clk: Add support for AST2600 SoC")
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Thanks for your effort for carrying the out of tree patches in OpenBMC.
-I don't have a exact timeline but I'm gonna upstream it as soon as it
-gets ready.
-
-Thanks,
-
-Jae
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
