@@ -1,59 +1,60 @@
 Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org;
  spf=pass (mailfrom) smtp.mailfrom=linux.ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com;
  envelope-from=eajames@linux.ibm.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46kCQM12hczDqWL
- for <openbmc@lists.ozlabs.org>; Thu,  3 Oct 2019 09:43:54 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x92Ng0MH028701; Wed, 2 Oct 2019 19:43:49 -0400
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2vd4tt9b1m-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46kCRB2T9hzDqWH
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Oct 2019 09:44:37 +1000 (AEST)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
+ x92Nfv90004297; Wed, 2 Oct 2019 19:44:30 -0400
+Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
+ [169.55.85.253])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2vd1sg5u93-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Oct 2019 19:43:48 -0400
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x92Ne1j9015123;
- Wed, 2 Oct 2019 23:43:48 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma02wdc.us.ibm.com with ESMTP id 2v9y58fr9r-1
+ Wed, 02 Oct 2019 19:44:30 -0400
+Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
+ by ppma01wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x92Ne5en018398;
+ Wed, 2 Oct 2019 23:44:31 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma01wdc.us.ibm.com with ESMTP id 2v9y57qu2g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 02 Oct 2019 23:43:48 +0000
+ Wed, 02 Oct 2019 23:44:31 +0000
 Received: from b03ledav005.gho.boulder.ibm.com
  (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x92NhlDc63897894
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ x92NiS6P57541090
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 2 Oct 2019 23:43:47 GMT
+ Wed, 2 Oct 2019 23:44:28 GMT
 Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6283CBE04F;
- Wed,  2 Oct 2019 23:43:47 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 5D8C0BE051;
+ Wed,  2 Oct 2019 23:44:28 +0000 (GMT)
 Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 198B9BE051;
- Wed,  2 Oct 2019 23:43:47 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 1C723BE053;
+ Wed,  2 Oct 2019 23:44:28 +0000 (GMT)
 Received: from [9.211.121.154] (unknown [9.211.121.154])
  by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed,  2 Oct 2019 23:43:46 +0000 (GMT)
-Subject: Re: [PATCH linux dev-5.3 2/4] ARM: dts: aspeed: tacoma: Enable VUART1
+ Wed,  2 Oct 2019 23:44:27 +0000 (GMT)
+Subject: Re: [PATCH linux dev-5.3 3/4] ARM: dts: tacoma: Remove incorrect i2c
+ buses
 To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>, Brad Bishop <bradleyb@fuzziesquirrel.com>
 References: <20191002102328.5196-1-joel@jms.id.au>
- <20191002102328.5196-3-joel@jms.id.au>
+ <20191002102328.5196-4-joel@jms.id.au>
 From: Eddie James <eajames@linux.ibm.com>
-Message-ID: <fac3ad3a-4ff2-f7d8-d610-603019fd52cb@linux.ibm.com>
-Date: Wed, 2 Oct 2019 18:43:46 -0500
+Message-ID: <3cc56c4c-2fdc-48d9-7572-adc9e1882492@linux.ibm.com>
+Date: Wed, 2 Oct 2019 18:44:27 -0500
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <20191002102328.5196-3-joel@jms.id.au>
+In-Reply-To: <20191002102328.5196-4-joel@jms.id.au>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
 Content-Language: en-US
@@ -77,32 +78,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 02 Oct 2019 23:43:55 -0000
+X-List-Received-Date: Wed, 02 Oct 2019 23:44:39 -0000
 
 
 On 10/2/19 5:23 AM, Joel Stanley wrote:
-> Like most OpenPower machines the VUART is expected to be at /dev/ttyS5
-> for communication with the host over LPC.
+> When adding the Tacoma system a number of I2C buses were enabled that
+> according to the schematics are either tied to ground (i2c8, i2c6) or
+> used as GPIOs (i2c14, i2c15).
 
+
+Whoops, thanks!
 
 Reviewed-by: Eddie James <eajames@linux.ibm.com>
 
 
 >
+> Fixes: 4fde000c9b28 ("ARM: dts: aspeed: tacoma: Enable I2C busses")
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 > ---
->   arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 4 ++++
->   1 file changed, 4 insertions(+)
+>   arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 16 ----------------
+>   1 file changed, 16 deletions(-)
 >
 > diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-> index 02e55c7102bd..183a8349e181 100644
+> index 183a8349e181..02eeea6a9bd2 100644
 > --- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
 > +++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-> @@ -459,3 +459,7 @@
+> @@ -298,18 +298,10 @@
+>   	};
+>   };
+>   
+> -&i2c6 {
+> -	status = "okay";
+> -};
+> -
+>   &i2c7 {
+>   	status = "okay";
+>   };
+>   
+> -&i2c8 {
+> -	status = "okay";
+> -};
+> -
+>   &i2c9 {
+>   	status = "okay";
+>   
+> @@ -448,14 +440,6 @@
+>   	status = "okay";
+>   };
+>   
+> -&i2c14 {
+> -	status = "okay";
+> -};
+> -
+> -&i2c15 {
+> -	status = "okay";
+> -};
+> -
 >   &ibt {
 >   	status = "okay";
 >   };
-> +
-> +&vuart1 {
-> +	status = "okay";
-> +};
