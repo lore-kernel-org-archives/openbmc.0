@@ -1,68 +1,39 @@
-Return-Path: <prvs=5191125d25=taoren@fb.com>
+Return-Path: <bradleyb@fuzziesquirrel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=pass (mailfrom) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=5191125d25=taoren@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.b="WGYQ2rsN"; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+ spf=pass (mailfrom) smtp.mailfrom=fuzziesquirrel.com
+ (client-ip=173.167.31.197; helo=bajor.fuzziesquirrel.com;
+ envelope-from=bradleyb@fuzziesquirrel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=fuzziesquirrel.com
+Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
+ [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46t4vm3MvHzDr7D
- for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 06:18:12 +1100 (AEDT)
-Received: from pps.filterd (m0001303.ppops.net [127.0.0.1])
- by m0001303.ppops.net (8.16.0.42/8.16.0.42) with SMTP id x9FJI0rJ012287
- for <openbmc@lists.ozlabs.org>; Tue, 15 Oct 2019 12:18:09 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-type; s=facebook;
- bh=BEV6lvATpI0k9dhTpbuX7FaHFq1khqxoje3kdOWOeUw=;
- b=WGYQ2rsNFvzpenVqeeM4aTytIEBisF8sMx0oJpHpuWn810PpRLbC1F171W/xk7CkQ/nl
- 252RIgQPVKRcfzImjRdR35y7UDdCWhIcLTIRn/QFU/PtYXBfF09e/9ijzqvBJGtlc/ZR
- R/LdTUBBUEjzUCKbqAOmabt3rgRrrXJ1rnk= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by m0001303.ppops.net with ESMTP id 2vn6m8bp25-10
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 15 Oct 2019 12:18:09 -0700
-Received: from 2401:db00:2120:81ca:face:0:31:0 (2620:10d:c0a8:1b::d) by
- mail.thefacebook.com (2620:10d:c0a8:82::e) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1713.5; Tue, 15 Oct 2019 12:17:52 -0700
-Received: by devvm1794.vll1.facebook.com (Postfix, from userid 150176)
- id 76D0E5C979D5; Tue, 15 Oct 2019 12:12:39 -0700 (PDT)
-Smtp-Origin-Hostprefix: devvm
-From: Tao Ren <taoren@fb.com>
-Smtp-Origin-Hostname: devvm1794.vll1.facebook.com
-To: "David S . Miller" <davem@davemloft.net>, Andrew Lunn <andrew@lunn.ch>,
- Florian Fainelli <f.fainelli@gmail.com>, Heiner Kallweit
- <hkallweit1@gmail.com>, Vladimir Oltean <olteanv@gmail.com>, Arun
- Parameswaran <arun.parameswaran@broadcom.com>, Justin Chen
- <justinpopo6@gmail.com>,
- Russell King <linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-CC: Tao Ren <taoren@fb.com>
-Smtp-Origin-Cluster: vll1c12
-Subject: [PATCH net-next v9 0/3] net: phy: support 1000Base-X auto-negotiation
- for BCM54616S
-Date: Tue, 15 Oct 2019 12:12:10 -0700
-Message-ID: <20191015191213.4028603-1-taoren@fb.com>
-X-Mailer: git-send-email 2.17.1
-X-FB-Internal: Safe
-MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,1.0.8
- definitions=2019-10-15_06:2019-10-15,2019-10-15 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- phishscore=0
- impostorscore=0 bulkscore=0 mlxlogscore=588 clxscore=1015 suspectscore=0
- lowpriorityscore=0 spamscore=0 priorityscore=1501 malwarescore=0
- mlxscore=0 adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1908290000 definitions=main-1910150163
-X-FB-Internal: deliver
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46t4zD2XFPzDr28
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 06:21:12 +1100 (AEDT)
+X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
+Received: from [192.168.253.30] (unknown [192.168.253.30])
+ by bajor.fuzziesquirrel.com (Postfix) with ESMTPSA id A5D3E5C08B;
+ Tue, 15 Oct 2019 15:21:08 -0400 (EDT)
+Content-Type: text/plain;
+	charset=utf-8;
+	delsp=yes;
+	format=flowed
+Mime-Version: 1.0 (Mac OS X Mail 12.4 \(3445.104.11\))
+Subject: Re: The type of sensor value in redfish should be double or int64?
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+In-Reply-To: <de3911ab-f416-cc87-3d48-b70ce5e57612@intel.com>
+Date: Tue, 15 Oct 2019 15:21:08 -0400
+Cc: Patrick Venture <venture@google.com>, Carol Wang <karo33bug@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, gmills@linux.vnet.ibm.com,
+ James Feist <james.feist@linux.intel.com>
+Message-Id: <E19C0FD2-2F95-4943-B3CC-D4447D2FABE8@fuzziesquirrel.com>
+References: <CALzeG+8HyS2xuBAoe4LN0XCC1+eW7D8uQnG9MKK=KGFN7jodZw@mail.gmail.com>
+ <CAO=notynD0EtN77y+UDqETUCo1BGixKFhaJJ3KfnQjVsv2=wTA@mail.gmail.com>
+ <de3911ab-f416-cc87-3d48-b70ce5e57612@intel.com>
+To: Ed Tanous <ed.tanous@intel.com>
+X-Mailer: Apple Mail (2.3445.104.11)
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,36 +45,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Oct 2019 19:18:13 -0000
+X-List-Received-Date: Tue, 15 Oct 2019 19:21:14 -0000
 
-This patch series aims at supporting auto negotiation when BCM54616S is
-running in 1000Base-X mode: without the patch series, BCM54616S PHY driver
-would report incorrect link speed in 1000Base-X mode.
+at 1:07 PM, Ed Tanous <ed.tanous@intel.com> wrote:
 
-Patch #1 (of 3) modifies assignment to OR when dealing with dev_flags in
-phy_attach_direct function, so that dev_flags updated in BCM54616S PHY's
-probe callback won't be lost.
+> On 10/15/19 8:17 AM, Patrick Venture wrote:
+>> On Mon, Oct 14, 2019 at 7:57 PM Carol Wang <karo33bug@gmail.com> wrote=
+:
+>>> Hi,
+>>>
+>>> I tried to override sensor values with redfish Patch, referring to th=
+e =20
+>>> Voltages example of =20
+>>> https://github.com/openbmc/bmcweb/search?q=3D413961de&type=3DCommits,=
+ but =20
+>>> met an error "Invalid argument". Comparing the code =20
+>>> https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/sensor=
+s.hpp#L2192 =20
+>>> and the doc =20
+>>> https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/o=
+penbmc_project/Sensor/Value.interface.yaml#L21, =20
+>>> the current code uses double type, but the doc says the value type =20
+>>> should be int64. It seems a scale difference. Why the code uses doubl=
+e =20
+>>> here?
+>
+> To my understanding, the phosphor-hwmon sensor system doesn't support
+> overriding sensor values at runtime, regardless of whether or not you
+> resolved the type issues with the arguments.
 
-Patch #2 (of 3) adds several genphy_c37_* functions to support clause 37
-1000Base-X auto-negotiation, and these functions are called in BCM54616S
-PHY driver.
+I=E2=80=99m just curious=E2=80=A6what is the use-case for writing a volta=
+ge sensor=E2=80=A6or any =20
+sensor for that matter?  What do you do with the user-supplied value when=
+ =20
+the sensor is a piece of hardware that does not comprehend setting a =20
+value?  This is probably my lack of Redfish-fu showing.
 
-Patch #3 (of 3) detects BCM54616S PHY's operation mode and calls according
-genphy_c37_* functions to configure auto-negotiation and parse link
-attributes (speed, duplex, and etc.) in 1000Base-X mode.
+FWIW when I originally defined the Sensor.Value interface, it was meant t=
+o =20
+be read only.  In fact the documentation says this, even if it is not =20
+enforced anywhere:
 
-Heiner Kallweit (1):
-  net: phy: add support for clause 37 auto-negotiation
+     All Sensor.Value properties are read-only.
 
-Tao Ren (2):
-  net: phy: modify assignment to OR for dev_flags in phy_attach_direct
-  net: phy: broadcom: add 1000Base-X support for BCM54616S
+If a device provides some kind of control mechanism there are other =20
+interfaces for expressing/modeling those, typically/ideally in the contro=
+l =20
+namespace.
 
- drivers/net/phy/broadcom.c   |  57 +++++++++++++-
- drivers/net/phy/phy_device.c | 141 ++++++++++++++++++++++++++++++++++-
- include/linux/brcmphy.h      |  10 ++-
- include/linux/phy.h          |   4 +
- 4 files changed, 205 insertions(+), 7 deletions(-)
-
--- 
-2.17.1
+> If your goal is just "get
+> it to work", I'd recommend switching to dbus-sensors (which I realize i=
+s
+> non-trivial for some systems).  With that said, it would be great to ge=
+t
+> this int64 to double conversion going again.
+>
+>
+>> The short answer is, code generally authored by Intel uses doubles for
+>> the sensor values, whereas the original OpenBMC sensor models used
+>> int64.
+>>
+>> A while back there was a bit of a debate about this, and it looks like
+>> we never truly resolved it.  Brad, perhaps this is a good time to?
+>> The idea is, that with the int64 storage, we store the raw value and
+>> we also store the scaling factor, so that one can scale the number if
+>> they choose to.  Sort of keeping the values as they are -- instead of
+>> operating on them before publishing them to dbus.  We do notably
+>> however, modify values in phosphor-hwmon before publishing them as
+>> often there are scaling factors and offsets, beyond the conversion
+>> from mC to C.
+>>
+>> phosphor-host-ipmid's sensor YAML requires the type to be specified
+>> for the sensor value interface already, and does validly support both
+>> types: int64_t and double (I tested it when I briefly had a mixed
+>> environment).
+>> phosphor-hwmon reports values without applying the scaling factor, but
+>> it is aware of the scaling factor, so it could.
+>> phosphor-pid-control works with both types correctly.
+>
+> bmcweb also works with both types for everything but the PATCH interfac=
+e.
+>
+>> I'm not sure about the phosphor-fan stuff, but I imagine we'll find
+>> some arithmetic we can drop where it ingests values.
+>>
+>> This change from int64 to double is big enough though that many
+>> configuration files would need to be adjusted, which is non-trivial.
+>> I argue however that having code that doesn't have a common interface
+>> or interfaces for sensors is less than ideal.  Having multiple options
+>> for talking to sensors is fine, but in my opinion this is only true if
+>> they implement different interfaces, or the same interface.  In this
+>> case, we have dbus-sensors and phosphor-hwmon which both implement the
+>> same interface, but differently: int64 vs double.
+>>
+>> I think using doubles makes sense at the dbus level because generally
+>> one wants that version of the value.  Therefore you end up with code
+>> in each daemon that reads the sensor value and the scale so that it
+>> can perform the same operation that another daemon is also going to
+>> perform, etc.  Instead of just doing it once.
+>>
+>> I'll climb off my debate box now and climb onto my voting box and say,
+>> I'd like to make phosphor-hwmon report the value as double and I'm
+>> willing to review incoming patches that address other aspects of the
+>> codebase to bring it all together -- since they'll need to be in a
+>> locked step-forward.
+>
+> Another vote for moving to double.  The systems I work on don't use
+> phosphor-hwmon, so there's not a lot of ways to test the other
+> components.  The pieces that I use (dbus-sensors, phosphor-pid-control,
+> bmcweb) all work correctly with double.
+>
+> The reviews to move to double are still open, unresolved, and James has
+> patches to several daemons that need to be converted.
+> https://gerrit.openbmc-project.xyz/q/topic:%22double-sensor%22+(status:=
+open%20OR%20status:merged)
