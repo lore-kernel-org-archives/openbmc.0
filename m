@@ -6,65 +6,66 @@ Authentication-Results: lists.ozlabs.org;
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="gB+csWRg"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="pOvZ0FZe"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="UrlWS/c2"; dkim-atps=neutral
+ header.b="ZFBL3HUg"; dkim-atps=neutral
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46t9sd35FdzDr4L
- for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 10:01:40 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46tB9R5RG5zDqyl
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 10:15:23 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id AD237668
- for <openbmc@lists.ozlabs.org>; Tue, 15 Oct 2019 19:01:36 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 8AF5E7BA
+ for <openbmc@lists.ozlabs.org>; Tue, 15 Oct 2019 19:15:21 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Tue, 15 Oct 2019 19:01:36 -0400
+ by compute4.internal (MEProxy); Tue, 15 Oct 2019 19:15:21 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm1; bh=XuzU7atM/sAvwlx/52gQvRk+fkv1a9u
- SHJyQWJjo8gg=; b=gB+csWRggTTzSvVbxvxr3213bGlJYMZcdrw6OyG4yPuYTq/
- RKFfC9CjcJy8vES7ehYF+KpT5axlzfTX3DIb00isHA3b07KXP226FIMRENttlJ5x
- kqraaz6a4v/HStgT9qysiPkv2j+H7wKjX6JYNzfRrfT0pneH5hxFW62NZTaOVDUb
- W/H3uPmbR1GvgpIxS/b5g4PU58Q8jbaJvEriSDHSdDfh+mcdxLglV1ZiFGcvIKyo
- jfpMJ0dJ1OoJ+iGh+QxM1P5jbJESjkZoI3yz7KoLsdsXnrmp8g2e0DXqHRxT6CIR
- emaJEtkAyvxvlZnrTwrxk4hHokFzWk1hDf/6CoA==
+ :subject:content-type; s=fm1; bh=rvfiWOXeJrdcxN8B7eii+1EgQMGvcV3
+ vBAxgJaEihbw=; b=pOvZ0FZe7SRZAMoPuveFl/12D124AjaIlHrqZpaLSHmhBxR
+ ddgPU4+XtQColcZMf/OIv6YSBh67h+PlCKZgS1TEx2T6yhF9T+ha6F46d19KeNIn
+ NgteyvldlxsXuu8Vdp59tWNqAPgPGz425q3XgsLNREDiFETYHKMO9qQnTDleg8AN
+ aT6u4D2og/X74yzcnCTa5RkwJuim6OqLD50YIUpllC4AT0ZQUrqAlBU8gQKaq18P
+ 6u399n34FuAv1rJmByhvMUutMiLffoKBy/GUyidsUTMBsAt4sC/DiReNCheTpBmZ
+ QMiKT573Y1hAMbbZ8EmSZ2hDC+qCWfGrJLBHTyg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=XuzU7a
- tM/sAvwlx/52gQvRk+fkv1a9uSHJyQWJjo8gg=; b=UrlWS/c2IIUgSkt2bihKkQ
- p+PVk1AqnQlx1qGVyR4YxQ4AItH1MzTMBuL1D7D6P8/rOpx+TsZHJ8zF3nFf3Z3L
- yRalisnhY2FB1H4nk51ptShpFsf9oZCHiEjBajlwWEwC2CgqObf9Mrdey5qpCx4N
- akJvFIGbtqQ9fkBif/QFqvVdoTHVe+4VZsUEOf1kkGwatBYDF3cXuKfsDIp8vflx
- KJwSsxDsoPa3+Y2fvBxgL2p6aHLQMOIRNwz/QbrZ+Hp8TemVDRnmlyo0iXcWoKyu
- RzhALTbePH6VKwQnr0IqPk5aE9at61JNL+T90txontzyxk1nnelzPllDcj/NIU9A
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=rvfiWO
+ XeJrdcxN8B7eii+1EgQMGvcV3vBAxgJaEihbw=; b=ZFBL3HUgt9j0GmCHogXt0S
+ hIxpuT4E5ZP3Fsz3+WFoNfgtuOfkXm1so4YkM2NiNdwjrwfZ9ez7VZaCPTZl5yS4
+ VXLCwIIpAK20FtsFHxBAyDpuh0wA2bb1PkPNHrn+czkey99ige+MEsgpigO/F+V9
+ L1NsC4vKF+RDtvh9xzXbPD5nC4+/zqoKg6mYcrbII9Rsw2E6i/B6e7uAINZYAvmA
+ wFy9x3XwCdM9wIV1kEizrY2oPfVSAA/cybMTUSuERLMicOHgTonJSqLaXIoikm2S
+ LIlBqqK5VwQoXUt5USnFXUFdbBcxHkwhoKccHKPKa8LGkrwc9eswvZcZuFT31hKw
  ==
-X-ME-Sender: <xms:0E-mXSo-scPJ3kEBwyL6gMQOIHTHIhuQqdIqsBh9iSPPZJbfSteRdg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeeggdduiecutefuodetggdotefrodftvf
+X-ME-Sender: <xms:CFOmXeGpFEPHJu7UNzsq2YtDCqVyQHoXaExWJvZS0WSpOa9s-ts_Vg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrjeeggddulecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgesthdtre
  dtreerjeenucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgif
- segrjhdrihgurdgruheqnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrg
- hjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:0E-mXU4pLuxe9O22Bo0faHQ1G07zSvFsYmPhOiL5hjTyFr3uQ3R-UA>
- <xmx:0E-mXSOXVoJYsXWXoNN7n2HZO8Rtx8pOPvubAcWMVJ5hbcgCye9cIA>
- <xmx:0E-mXWPV6gffnI2F8rxWhgG_mIXZgjDHkpG6JShn12QONZf5JLk92w>
- <xmx:0E-mXRBZEmO8ylnsTahf_xvjE3BqGwzmAiktQeGYp-btC1vTVSh2qg>
+ segrjhdrihgurdgruheqnecuffhomhgrihhnpehophgvnhgsmhgtrdhorhhgnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:CFOmXTlw_XqmzD5ialPK5Q6JptQKMVct3GGLy0x0DVA9aWZs-cgR7Q>
+ <xmx:CFOmXTLr8rShMSS2a6i0gOdbUlmnXLvIG6D2NgFjVDMciNAAKsqW0g>
+ <xmx:CFOmXcYZ1IdsyLJG7V3bz7kLF6fEcJNf-JhjP_pq4Ev1Ufh-DiZ4KQ>
+ <xmx:CVOmXaOg9DepJNnWH8HtygY4eMMG5XJ0rXAWGknumZ3b4gaY5kX29w>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id DED13E00A5; Tue, 15 Oct 2019 19:01:35 -0400 (EDT)
+ id 96050E00BB; Tue, 15 Oct 2019 19:15:20 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.7-360-g7dda896-fmstable-20191004v2
 Mime-Version: 1.0
-Message-Id: <cf5ea5e2-3d0d-4546-9521-59fa05798b09@www.fastmail.com>
-In-Reply-To: <8b5e67d9cd5d478b9ceb1201c56fc25a@SCL-EXCHMB-13.phoenix.com>
-References: <8b5e67d9cd5d478b9ceb1201c56fc25a@SCL-EXCHMB-13.phoenix.com>
-Date: Wed, 16 Oct 2019 09:32:33 +1030
+Message-Id: <b5413723-b877-4b48-b607-e1551399ff74@www.fastmail.com>
+In-Reply-To: <33bfd87f4c3345d28be4e8c1d64f1437@SCL-EXCHMB-13.phoenix.com>
+References: <33bfd87f4c3345d28be4e8c1d64f1437@SCL-EXCHMB-13.phoenix.com>
+Date: Wed, 16 Oct 2019 09:46:00 +1030
 From: "Andrew Jeffery" <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_"No_Hardware_Required"_qemu-system-arm_no_services_running?=
- =?UTF-8?Q?_Ports_80,__443,_and_623,_why=3F?=
+Subject: =?UTF-8?Q?Re:_Recommendations_for_development_platforms_for_the_ASPEED_A?=
+ =?UTF-8?Q?ST2500_&_AST2600=3F?=
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -77,39 +78,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 15 Oct 2019 23:01:44 -0000
+X-List-Received-Date: Tue, 15 Oct 2019 23:15:24 -0000
 
-Hi Bruce!
+Hi Bruce
 
-On Wed, 16 Oct 2019, at 05:19, Bruce Mitchell wrote:
+On Wed, 16 Oct 2019, at 05:14, Bruce Mitchell wrote:
 >  
 > Hello,
 > 
 > 
-> In the 11/3/2016 CAusten-OpenBMC.pdf presentation it is stated, on page 
-> 12 of 18, "No Hardware Required".
+> I am Bruce Mitchell and I work for Phoenix Technologies Ltd. as a BMC 
+> firmware Engineer.
 > 
-> I have obmc-phosphor-image-romulus.static.mtd and 
-> obmc-phosphor-image-s2600wf-20191004165402.static.mtd
+> Phoenix Technologies Ltd. is developing an OpenBMC 
+> (https://www.openbmc.org/ , not the Facebook flavor) product.
+
+FYI, the projects have united (and the result lives under the Linux Foundation).
 > 
-> booting with qemu-system-arm and login in, however neither have any TCP 
-> servers running on Ports 80, 443, and 623.
+> Our intent is also to be a valuable contributing member to the OpenBMC project.
+
+Great! Looking forward to your contributions.
+
 > 
 > 
-> So what am I missing in the process?
+> We will be initially developing for the ASPEED Technology Inc. AST2500 
+> followed by the AST2600 BMC SoC.
+> 
+> Do you have any suggestion of available hardware development platforms 
+> for the ASPEED AST2500 & AST2600?
 
-It's hard to say without more information. A couple of things would help:
+Unfortunately there isn't anything that is both cheap and easy to acquire that
+I'm aware of. Hopefully others can chime in if they know things that I don't, but
+this is an issue that's cropped up in the past and hasn't been resolved.
 
-1. Please paste the command line you're using to invoke qemu
-2. Please provide the output from the journal
-3. How did you obtain the obmc-phosphor-image-romulus.static.mtd and'
-obmc-phosphor-image-s2600wf-20191004165402.static.mtd images?
+I think the cheapest anyone has found was a system (motherboard, cheap x86-64
+CPU and RAM) that was about $800AU, but I'd have to dig out the details on what
+that was exactly (and it may have been AST2400-based).
 
-Generally when asking questions like yours you should try to provide enough
-information for someone to reproduce the issue you're seeing. That way
-if we _can_ reproduce it we can poke at the system to debug without delays
-or misunderstandings.
-
-Cheers,
+Sorry I don't have better answers.
 
 Andrew
