@@ -1,62 +1,65 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::643;
- helo=mail-pl1-x643.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::442;
+ helo=mail-pf1-x442.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="nnQUUo66"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wwuv8YZl"; 
  dkim-atps=neutral
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
+ [IPv6:2607:f8b0:4864:20::442])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46tWZX0NGHzDqwM
- for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 23:19:45 +1100 (AEDT)
-Received: by mail-pl1-x643.google.com with SMTP id c3so11203390plo.2
- for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 05:19:45 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46tWZb55jfzDqwM
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 23:19:51 +1100 (AEDT)
+Received: by mail-pf1-x442.google.com with SMTP id a2so14609646pfo.10
+ for <openbmc@lists.ozlabs.org>; Wed, 16 Oct 2019 05:19:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=jHSx1kU82HwaEYgco+ROH8EBnD7i7cfqPDp+KwIVfU0=;
- b=nnQUUo66Ov2lPvwLjueJX9hxm/G/3rHwLaC39TRNykr++mXaOHb1ntZ4dDQbHEGf+U
- AGtYYzBB2oY2u+BDoTKLkgO+hbQqc3/obQmL90z0ZwN4nXKg0JQmSimrVOZEMDagyHR9
- jEuEmzAR4O/zZ7iCw81rMGOlbQMjLmMBPkRSwvIiEzT56nEyUtMBOU2NXpPPvRBsQbrE
- 4QCjl72Lqae9LrOUzNBJ9MeUth3Ip9amQbVmN5wwaaFIfgCosigTjiDQ/iR6MSQY7BNJ
- wdS/if5aQxx/djHVx8GDWbdBBrjP80kZoJRBEXc//YMVzo9dvuDCCN3NzDquHjPsD48d
- eoWQ==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=1RFL4DWod3iOwHdWMx2O/EDC1gPMRd7rs1NSXqo6F7U=;
+ b=Wwuv8YZlglu3B5WYhGpiygiOfqrucm4ooSUBRvadgJWDZMH1wVe4gsMxkRHGUaP0Yq
+ v9vY3UaPm3AqQ/RRzGG7D0S0o3w4rrh+Mg1N03zFWr/xuWdreh1bRgJ0BJPkViUPEDfV
+ OZwineQ+D51R+ba4HQLEjza5mbJYzzwZpQ3Yvzfsf6Vh7SbwS7cOJOtao4rMICswMOrL
+ 6jMFi0BovcHcfD2ALln43lAe3S6cjvBxbW9qSo21X19y/hf48qnU1xCMRzvJXMi29SE/
+ MO0V+VyhA5QXkT4hoPfdJgsOWq2HTNk3KG1rL8fTW1OTm7sczg1mCJvk2qPFLPx5iZj8
+ XtGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=jHSx1kU82HwaEYgco+ROH8EBnD7i7cfqPDp+KwIVfU0=;
- b=h+9DrCLq7OolOVvSHLotRgpQE7NH8kNQKVC3Nj+AD3QJ7ktjomVrtIUZa3CPAoXMKq
- cCre/DCz/2qaTKy8MnIeBrMHwYihxiXfPvaQUmzboeWiUQmGXgQyMP4DuvAfb2iN66VE
- 8H82FDpLDgR0RzoFjZi79ljk6LwndO/VUOTrFlb1KbO+LvjzTNtaXWglaE1/BmcOe6UN
- FMVblYLM9pY2K9f3RqDBmeJ9mV61p+01ZZ5OFzxynEb4+gS0UzCt4ZjOuRDaZVsAleRo
- Vvdd4lv2S/srJzxc2mIU9ue9F+AYForsz7Uos3DLVQYKURVtR23Yqa/kCDtc9bqY6YW2
- A1Pw==
-X-Gm-Message-State: APjAAAVE58xLGXn3VnJ80n+Q+4p2207Boqp2EAyAHuO33LDt/op7adHS
- ZmD7GH9uSDcePqViKSIt7Dq/qEIZ6OE=
-X-Google-Smtp-Source: APXvYqzYj1Z1K50lo9I+shUG8jJuQNkh1Z/JXqNBKtQaffYRPPyMdOXeOZknOITErPrrs53WQ0FEtw==
-X-Received: by 2002:a17:902:8ecc:: with SMTP id
- x12mr41897834plo.189.1571228382788; 
- Wed, 16 Oct 2019 05:19:42 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=1RFL4DWod3iOwHdWMx2O/EDC1gPMRd7rs1NSXqo6F7U=;
+ b=qNj+DkjvrIkCoa7pezaBBOh5GK432wrIYM6ALoE/1PH2ulJArQCWcX9P4fH9jd65c0
+ 5oJinYmXOvs4/xD8WFNkR9Knv5W7MAOAvHBJuCAXav3dkW2g/32VXKswksUZdvTsyyix
+ VndRwWtK00BkAddqII6MskA8GqLmyPYQIEmfMQVZdzYcBP3DiyklqJVAVVdW/HUwrMy3
+ NIbi6qNzrM4do/e+4QE8fDWqlw8956qmNpAJkS3jfnKvT1fZ+QO9F9Bco/J9498DTY2P
+ C0EOpoTxBj6OJjzpY3pF+JU1lnJXnBCv0evRfaVf5RjTd4BPxYpSziq58D4OD7Bngpiy
+ fISA==
+X-Gm-Message-State: APjAAAWWCJnGtotplaRQyDBui+c6IpBwhMukiLilPBGDbv7mPvHtORNi
+ /Pazqzu8S0OOwtJK2qO9WOqdnj2F7ZI=
+X-Google-Smtp-Source: APXvYqw/0rMNRf8mwVtZy9s/VuoID+CTHoD8soCIvddf70dGxiYfNM88YXx4ocaXbFuY2dT5eVHobQ==
+X-Received: by 2002:a17:90a:2302:: with SMTP id
+ f2mr4784633pje.132.1571228388521; 
+ Wed, 16 Oct 2019 05:19:48 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id c1sm39075531pfb.135.2019.10.16.05.19.40
+ by smtp.gmail.com with ESMTPSA id c1sm39075531pfb.135.2019.10.16.05.19.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Oct 2019 05:19:41 -0700 (PDT)
+ Wed, 16 Oct 2019 05:19:48 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org
 Cc: Andrew Jeffery <andrew@aj.id.au>,
 	Jeremy Kerr <jk@ozlabs.org>
-Subject: [PATCH linux dev-5.3 0/3] FSI Tweaks
-Date: Wed, 16 Oct 2019 22:49:31 +1030
-Message-Id: <20191016121934.28481-1-joel@jms.id.au>
+Subject: [PATCH linux dev-5.3 2/3] ARM: dts: aspeed: tacoma: Use 64MB for
+ firmware memory
+Date: Wed, 16 Oct 2019 22:49:33 +1030
+Message-Id: <20191016121934.28481-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.23.0
+In-Reply-To: <20191016121934.28481-1-joel@jms.id.au>
+References: <20191016121934.28481-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -70,21 +73,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 16 Oct 2019 12:19:49 -0000
+X-List-Received-Date: Wed, 16 Oct 2019 12:19:52 -0000
 
-These patches attempt to get the FSI master working on Tacoma.
+Mbox's file mode needs a window the same size as the image being loaded.
 
-The host FSI device tree needs rethinking, which we can do when
-upstreaming the changes.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Joel Stanley (3):
-  ARM: dts: aspeed: tacoma: Add host FSI description
-  ARM: dts: aspeed: tacoma: Use 64MB for firmware memory
-  fsi: aspeed: Disable IPOLL
-
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 249 +++++++++++++++++++-
- drivers/fsi/fsi-master-aspeed.c             |   2 +-
- 2 files changed, 249 insertions(+), 2 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
+index c073ad8d071f..f0d2f741800a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
+@@ -27,7 +27,7 @@
+ 
+ 		flash_memory: region@ba000000 {
+ 			no-map;
+-			reg = <0xba000000 0x2000000>; /* 32M */
++			reg = <0xba000000 0x4000000>; /* 64M */
+ 		};
+ 	};
+ 
 -- 
 2.23.0
