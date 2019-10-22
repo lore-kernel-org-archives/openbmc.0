@@ -6,61 +6,66 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qIXAnduF"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="Ep2lcBj8"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="EvIQ17mI"; dkim-atps=neutral
+ header.b="yP0DHf1I"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FG3wC8zDqKX
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FG3zntzDqKb
  for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2019 15:46:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id D963320A14;
- Tue, 22 Oct 2019 00:46:53 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 217132129D;
+ Tue, 22 Oct 2019 00:46:56 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:53 -0400
+ by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:56 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=aerwwGD5QCZ8oSOwS7Kz7+HKKD
- YoX3T4Rm6E0cVhILQ=; b=qIXAnduF4MTbwkb1DIjPZ9sFHZcOQHjzVl0al8n8A1
- QLCgXKypgM2jAJ5ApYVvHSS2cSxQef+4J4BL1J1JmY1l1m65SEdCm+14Mdb6Om/W
- 3PuquGZIWGZS/k7HjK12pksWAxKQC3p0USOeEZCoL8t4rwDaDnN0dOUpEiUSV71h
- +LtWphfSbfiAxfXk5c66RPo8JJj4TGPIOVnjwKM/LnsuSqkAhoEEuMIyKjEOUXO6
- 596eDZMBzNePcFEz1WYCtP+LEXeuiunqJm67ZUnMIy31bWGgX8CJOblBml3tXCfv
- QE0DUfXqFO3JM1XG+0lfi76bBYEWyUk4AZzK5naDKW8Q==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=Q3ZRWiSWiGd5x
+ lMU37lgLgWXxCCauNJkSs71OkCYV8s=; b=Ep2lcBj8yAIm3MJzjYLF9iORK4xuI
+ B7nOVoezgTimxHFhK8KDhJn05U2KTZyK7bPdQIF9ilfEkSFo6GjZ2SUM/mUyYvdX
+ lSgufpkoLFgeSNYpDUc/jPVPkirxsMVoYSM3+m2CXl+XSEPD3jAah1QPbzVYdyBb
+ nbQUfVmlsO4immAgaktU0Fsj55N82Ocr/av0DezUQ/AbW85t9enjwKl3S/3PmYP+
+ qC+DMBMBRJuyOZPs0u41p3g5SOHUICsPfKuXRl88B4bwo+lfVe18H4Vpl/3Ril1w
+ 9BrEGqdGgOwDe4CcGD/r4YXaGrm9552U22ssriS2PGTos6bGoHzYpR+mQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=aerwwGD5QCZ8oSOwS
- 7Kz7+HKKDYoX3T4Rm6E0cVhILQ=; b=EvIQ17mIYnjRUeLY8oED8G5wRXnDGma8O
- ySH07coTC2CmXAQgphQ+n2fec9JVp9YTFLYFM2R51TAokvZRpZ/TFzP5+6mEWlnx
- DJasvJlpJ8vRmc/+wkDcxHWB9cE7iwOKsH1eFPQN67E9zfNSVBAW0sKv9tjAgmCE
- VZCJ7VQDa23SuxuCwmsHSTk8LeLkPYuL/Q2QtUyUUg7isT+EPZlxOnZ73pSPyyf2
- F5NYuyC48/3yj3kWD7jycjfMVw3mL/CkvJLayqJjF5evOW9sf9SWsh6UygKbhn+H
- 6adga1NzIcxys1kUXUy/LUKBtJfzylzQLy5psOAZIacgDS45BJQdw==
-X-ME-Sender: <xms:vYmuXbZpZhUAf8uzSWkHejyEjj26BTBsj2_hc5EP8hX-ryz3cqAo8g>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=Q3ZRWiSWiGd5xlMU37lgLgWXxCCauNJkSs71OkCYV8s=; b=yP0DHf1I
+ JN2lzsEuvxWKprT8AcvkfaXgLvG8BZOgRPwapbRihIKSDKHT/5zqlJdOPfOhZE9T
+ q0+xJngA3/k3cVCiE9/YmvJgiiWHYND2HEh2xfdY943XXqxGobrvXtf7biwvMGkh
+ inSl2oaqqV+iTwiBjSXcUApYIFfjsVOhGs5KgvRn5NxEH8HCj8u9bQuC9nrw7bTz
+ RvvhhM4pGD3OJFG4i+UxWyEn3t83+2H59fzSMeYw14zpYfemn1V+dKqEewe9SNlW
+ ZymCt07TXuz9JnxVCbS+wgRVan1zaHi3THqmY8KxHGFp/DRdLxMBxHYC8FKJUOnz
+ /nJQb4thTIbhcA==
+X-ME-Sender: <xms:wImuXbJkBQJ_858sFlAUE8sMMn9Fr2Dx_3zuRCfhcZq_t62pNlL8ZQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrkeeigdekjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
- dtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhi
- ugdrrghuqeenucfkphepvddtvddrkedurddukedrvdeknecurfgrrhgrmhepmhgrihhlfh
- hrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:vYmuXefJEMBanjBV7kdSzhjo21CZLqBIYt64sltOVt_Q8lODseR2Pg>
- <xmx:vYmuXfFmyMUHBHJPZedeoqGe0d2ghUjyafXWcfCdNbHkTzKjmPqzEQ>
- <xmx:vYmuXbC45Ef_46HnlDmAAYGRHbM8AAVcU7XwFy47oiZn0yigW7RW6g>
- <xmx:vYmuXYGLKEE-xTAcd_cHNn6GzR-8AGUSuHeUvMivUajRqKwsAG-fAg>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
+ ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
+ rdhiugdrrghuqeenucfkphepvddtvddrkedurddukedrvdeknecurfgrrhgrmhepmhgrih
+ hlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgep
+ td
+X-ME-Proxy: <xmx:wImuXZhQUtlN2Oftp3t3fmDMTDMT97eNiqlEnvZZMIJMctZ0rgp-3Q>
+ <xmx:wImuXUccFt5GJioq0M6uqzPjrtwB-TaUDBBZbuXGpyeOODSWfcgXgA>
+ <xmx:wImuXR7n3_q7A79e5V4y7hVIA-gMHQAiVlbTLCRIRRerrJUnxU5E7g>
+ <xmx:wImuXaV1Zy5bVyd5qjmFJc0Loo4r0HGCpq12nzYfNYLKNCpu5f2CrA>
 Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id D8D7180063;
- Tue, 22 Oct 2019 00:46:51 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id DAB1A80060;
+ Tue, 22 Oct 2019 00:46:54 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 0/4] Pinmux fixes for AST2600 LPC
-Date: Tue, 22 Oct 2019 15:47:33 +1100
-Message-Id: <20191022044737.15103-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 2/4] pinctrl: aspeed-g6: Fix LPC/eSPI mux
+ configuration
+Date: Tue, 22 Oct 2019 15:47:35 +1100
+Message-Id: <20191022044737.15103-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191022044737.15103-1-andrew@aj.id.au>
+References: <20191022044737.15103-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -76,29 +81,107 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 22 Oct 2019 04:47:01 -0000
 
-Hello,
+Early revisions of the AST2600 datasheet are conflicted about the state
+of the LPC/eSPI strapping bit (SCU510[6]). Conversations with ASPEED
+determined that the reference pinmux configuration tables were in error
+and the SCU documentation contained the correct configuration. Update
+the driver to reflect the state described in the SCU documentation.
 
-This series fixes some issues with the AST2600 pinctrl driver.
+Fixes: 2eda1cdec49f ("pinctrl: aspeed: Add AST2600 pinmux support")
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 56 ++++++++++------------
+ 1 file changed, 24 insertions(+), 32 deletions(-)
 
-Patch 1/4 backports an existing upstream fix. Patch 4/4 simply improves the
-readability of the debug output of the driver. Patches 2 and 3 fix issues with
-muxing pins for LPC, particularly for the Tacoma board.
-
-Please review.
-
-Andrew
-
-Andrew Jeffery (4):
-  pinctrl: aspeed-g6: Make SIG_DESC_CLEAR() behave intuitively
-  pinctrl: aspeed-g6: Fix LPC/eSPI mux configuration
-  ARM: dts: tacoma: Hog LPC pinmux
-  pinctrl: aspeed: Improve debug output
-
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts |  7 +++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c  | 56 +++++++++------------
- drivers/pinctrl/aspeed/pinctrl-aspeed.c     | 25 +++++++--
- drivers/pinctrl/aspeed/pinmux-aspeed.h      |  2 +-
- 4 files changed, 54 insertions(+), 36 deletions(-)
-
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index eb0c11a9fbf2..fb96e8d2e6c8 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -1098,61 +1098,53 @@ SSSF_PIN_DECL(AD15, GPIOV6, LPCPME, SIG_DESC_SET(SCU434, 14));
+ SSSF_PIN_DECL(AF15, GPIOV7, LPCSMI, SIG_DESC_SET(SCU434, 15));
+ 
+ #define AB7 176
+-SIG_EXPR_LIST_DECL_SESG(AB7, LAD0, LPC, SIG_DESC_SET(SCU434, 16),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AB7, ESPID0, ESPI, SIG_DESC_SET(SCU434, 16),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AB7, LAD0, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 16));
++SIG_EXPR_LIST_DECL_SESG(AB7, ESPID0, ESPI, SIG_DESC_SET(SCU434, 16));
+ PIN_DECL_2(AB7, GPIOW0, LAD0, ESPID0);
+ 
+ #define AB8 177
+-SIG_EXPR_LIST_DECL_SESG(AB8, LAD1, LPC, SIG_DESC_SET(SCU434, 17),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AB8, ESPID1, ESPI, SIG_DESC_SET(SCU434, 17),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AB8, LAD1, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 17));
++SIG_EXPR_LIST_DECL_SESG(AB8, ESPID1, ESPI, SIG_DESC_SET(SCU434, 17));
+ PIN_DECL_2(AB8, GPIOW1, LAD1, ESPID1);
+ 
+ #define AC8 178
+-SIG_EXPR_LIST_DECL_SESG(AC8, LAD2, LPC, SIG_DESC_SET(SCU434, 18),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AC8, ESPID2, ESPI, SIG_DESC_SET(SCU434, 18),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AC8, LAD2, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 18));
++SIG_EXPR_LIST_DECL_SESG(AC8, ESPID2, ESPI, SIG_DESC_SET(SCU434, 18));
+ PIN_DECL_2(AC8, GPIOW2, LAD2, ESPID2);
+ 
+ #define AC7 179
+-SIG_EXPR_LIST_DECL_SESG(AC7, LAD3, LPC, SIG_DESC_SET(SCU434, 19),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AC7, ESPID3, ESPI, SIG_DESC_SET(SCU434, 19),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AC7, LAD3, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 19));
++SIG_EXPR_LIST_DECL_SESG(AC7, ESPID3, ESPI, SIG_DESC_SET(SCU434, 19));
+ PIN_DECL_2(AC7, GPIOW3, LAD3, ESPID3);
+ 
+ #define AE7 180
+-SIG_EXPR_LIST_DECL_SESG(AE7, LCLK, LPC, SIG_DESC_SET(SCU434, 20),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AE7, ESPICK, ESPI, SIG_DESC_SET(SCU434, 20),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AE7, LCLK, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 20));
++SIG_EXPR_LIST_DECL_SESG(AE7, ESPICK, ESPI, SIG_DESC_SET(SCU434, 20));
+ PIN_DECL_2(AE7, GPIOW4, LCLK, ESPICK);
+ 
+ #define AF7 181
+-SIG_EXPR_LIST_DECL_SESG(AF7, LFRAME, LPC, SIG_DESC_SET(SCU434, 21),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AF7, ESPICS, ESPI, SIG_DESC_SET(SCU434, 21),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AF7, LFRAME, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 21));
++SIG_EXPR_LIST_DECL_SESG(AF7, ESPICS, ESPI, SIG_DESC_SET(SCU434, 21));
+ PIN_DECL_2(AF7, GPIOW5, LFRAME, ESPICS);
+ 
+ #define AD7 182
+-SIG_EXPR_LIST_DECL_SESG(AD7, LSIRQ, LSIRQ, SIG_DESC_SET(SCU434, 22),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AD7, ESPIALT, ESPIALT, SIG_DESC_SET(SCU434, 22),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AD7, LSIRQ, LSIRQ, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 22));
++SIG_EXPR_LIST_DECL_SESG(AD7, ESPIALT, ESPIALT, SIG_DESC_SET(SCU434, 22));
+ PIN_DECL_2(AD7, GPIOW6, LSIRQ, ESPIALT);
+ FUNC_GROUP_DECL(LSIRQ, AD7);
+ FUNC_GROUP_DECL(ESPIALT, AD7);
+ 
+ #define AD8 183
+-SIG_EXPR_LIST_DECL_SESG(AD8, LPCRST, LPC, SIG_DESC_SET(SCU434, 23),
+-			  SIG_DESC_CLEAR(SCU510, 6));
+-SIG_EXPR_LIST_DECL_SESG(AD8, ESPIRST, ESPI, SIG_DESC_SET(SCU434, 23),
+-			  SIG_DESC_SET(SCU510, 6));
++SIG_EXPR_LIST_DECL_SESG(AD8, LPCRST, LPC, SIG_DESC_SET(SCU510, 6),
++			SIG_DESC_SET(SCU434, 23));
++SIG_EXPR_LIST_DECL_SESG(AD8, ESPIRST, ESPI, SIG_DESC_SET(SCU434, 23));
+ PIN_DECL_2(AD8, GPIOW7, LPCRST, ESPIRST);
+ 
+ FUNC_GROUP_DECL(LPC, AB7, AB8, AC8, AC7, AE7, AF7, AD8);
 -- 
 2.20.1
