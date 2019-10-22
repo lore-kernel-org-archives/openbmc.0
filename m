@@ -6,63 +6,62 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="JE7KiZEQ"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="WIHwWeW9"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qJgAoDBy"; dkim-atps=neutral
+ header.b="mLBkEL8t"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FG3xhvzDqKZ
- for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2019 15:46:58 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FJ1yJ4zDqKf
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2019 15:47:00 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9A9EA21731;
- Tue, 22 Oct 2019 00:46:54 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9F06A214DB;
+ Tue, 22 Oct 2019 00:46:57 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:54 -0400
+ by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=j9GM5bHFozeg3
- ktVk83t4krQsMcyXZZlNx788hBaiCs=; b=JE7KiZEQxQ30gtl+GkMmwiq7tfv+K
- DsM7IbrPHgV2MeoVxNXG5mpWlwUrJDJs/wM7THDDmCSVpCBM4H8nsQZbB3WHK5FY
- khQWepGj48KUAhiwcfQoZrx7odbSmodNzaePX0zrDzvnMy+qn74Zrt7sJ1WJHxzb
- Uvz4JHfSQZRkZGI8BeA7TB+GNXdZwFMUK6438YU2BAduxD3M8xSOYzQglVgYaBhd
- n4XLxj0fHAwVd0K3L7yfosmEohI6IlvAcx7T1ys2GP2SyGqxSqfbFe7tUjRzVz2q
- w8YG4paGE5q9gEUZmu4jTReA3Q1NFgzjg+CBTdoqSF/3JuCpc42ELZPdA==
+ :mime-version:content-transfer-encoding; s=fm1; bh=qzsQfnMdhewZW
+ GX1d+QhaLheA7ai/xnWBuWwM4pOlMM=; b=WIHwWeW9T4OB3xbXUT2AhfIH7yy4d
+ U+yad433oaTG/vxtW8VbyhCDBtNjiDP2C1PrHUa6dkB25PVzi0Y5Gzjex/O35RRZ
+ MQRf2ykurH7lU/WgeS9zECIOR6He0l3nA2IleKYu5okkpsso/hhh9pglZXfqoeL5
+ +2iQFcuERT8e3hFbc1gLQKWTRa40GN/1tWwD88irbXg3FXF3jBnqKL7FZI/iDizY
+ wIuAA/WcMZcgr7GhEjIbsjdE11phwTpxEQALTTR4jhmP8dcpTNF8VDgCxq1FeO4r
+ mtKnFs8ZdDg3eMXHAmPxvEHltolMkJSJIgdMWjqswklO+/14xqNNjXahw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=j9GM5bHFozeg3ktVk83t4krQsMcyXZZlNx788hBaiCs=; b=qJgAoDBy
- j2/35Lk9sBobrP0h9fPy6wKzeP3xZVsbTwvqjBSJX5y46jxiQvPMQRvRcHPMtm9r
- 2g2cxsjMexjp/qozR6dVMOVSTOS9eVDDPE+XtybjN/yLexm4oZcC8PGJV7kC47i8
- nh6f9AwkRSPofnYRs3yj0CVKvgSr5c7Q9rLQJSu9+U/k/V5fvj9M6yVUFKUYnN5e
- fwcYfaPkqmgSQdyc6vjJlaZsojl9qdEGujXLuXrWfuqQ/VaNgIbxHa21PBHO5l10
- 0GSbisvV7bhC4X8/NJ05oH0K4e6bQKcd/Ncd/Pn350SjUR9ewaQgaN0ijwCAVMvp
- QGeOtzZk8VvISQ==
-X-ME-Sender: <xms:vomuXYMg1ApULZ_pZCkjr2GDsIEdxJ9fAmzz3xL9du2P0jDzad-aRg>
+ fm1; bh=qzsQfnMdhewZWGX1d+QhaLheA7ai/xnWBuWwM4pOlMM=; b=mLBkEL8t
+ IpOgZ8B5lKRUbgnzrZ9FZY47rXzxzJRO8KzfD1uNn9Q7Vj/fXQ5kUvr2P4HNDHnw
+ /XUpafGIGahLzZSN1G3wymV1loEwO9oJHnsLY5tFoE41z9Gf+zRQvZVc8frJoucF
+ wgtPBEw2ovdMZIyI0ZX1yV2JHL29APmMKJr1eHev5tncyMpJwkgklTAUE4lOuT5B
+ cfG3wbL/YVsAJZUN2RrBkdYnE0E5XZWDRfKtyEn93qOSXIabGLusa+OcqwuDBsPg
+ fBfeS64wYFIBuTUOcGSy0eBWLAhsQu0dW2RsXFQ6tosiW+oCKmr9KZHEOFLtnBEI
+ OawAOUamvxmxHQ==
+X-ME-Sender: <xms:wYmuXRMkEnPSKQfOCL7lbRi5COl8-cj5lT2WMAx832AEL-RjtMs4jw>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrkeeigdekjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
  ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
  rdhiugdrrghuqeenucfkphepvddtvddrkedurddukedrvdeknecurfgrrhgrmhepmhgrih
  hlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgep
- td
-X-ME-Proxy: <xmx:vomuXV1PkW5ahT-BnKGeJ0e3jM9pXlhCSozBR1rBbMB0EAx2ki5-iA>
- <xmx:vomuXQ79m6Pk9d9fGt4A3PdV4BaPzVLWzLIwGmzCykKdE7xzvX_Gsg>
- <xmx:vomuXX6klbq6dvK4jOf42knQpmcqi7n_U-2ICM8QwX1x6XujSjKwIQ>
- <xmx:vomuXbFqUTiBAsshM0HFjc9oTNSh5TaEZiQpOCtzClRWA3Vzed8n5Q>
+ vd
+X-ME-Proxy: <xmx:wYmuXbAzSyaE1TI2C3v4CI5lSgnRlJz11NRss-bLpktm0Vil8XoE7w>
+ <xmx:wYmuXUjT67P6PtoMyn47sgwjV4QTSJJCSD1lrSjH-DY-j7JQQRz-bg>
+ <xmx:wYmuXQeCIEJnY7GtegrOj6J-iZgSa0l0oN469Lp7L3PDWnvo2Tt1Sw>
+ <xmx:wYmuXeNUgKzW-E2JTv6S6L8E3QXqGeWbHYDNyLpVz9O8puuFkGE5ng>
 Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id 5F05D80060;
- Tue, 22 Oct 2019 00:46:53 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 62BB380060;
+ Tue, 22 Oct 2019 00:46:56 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 1/4] pinctrl: aspeed-g6: Make SIG_DESC_CLEAR()
- behave intuitively
-Date: Tue, 22 Oct 2019 15:47:34 +1100
-Message-Id: <20191022044737.15103-2-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 3/4] ARM: dts: tacoma: Hog LPC pinmux
+Date: Tue, 22 Oct 2019 15:47:36 +1100
+Message-Id: <20191022044737.15103-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191022044737.15103-1-andrew@aj.id.au>
 References: <20191022044737.15103-1-andrew@aj.id.au>
@@ -80,40 +79,31 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 22 Oct 2019 04:47:01 -0000
-X-List-Received-Date: Tue, 22 Oct 2019 04:47:01 -0000
 
-Signal descriptors can represent multi-bit bitfields and so have
-explicit "enable" and "disable" states. However many descriptor
-instances only describe a single bit, and so the SIG_DESC_SET() macro is
-provides an abstraction for the single-bit cases: Its expansion
-configures the "enable" state to set the bit and "disable" to clear.
+Requesting pinmux configuration is done at driver probe time. The LPC IP
+is composed of many sub-devices, each with their own driver, and no
+driver exists for the entire IP block. Avoid having each sub-device
+request the LPC pinmux by just hogging it in the pinctrl node.
 
-SIG_DESC_CLEAR() was introduced to provide a similar single-bit
-abstraction for for descriptors to clear the bit of interest. However
-its behaviour was defined as the literal inverse of SIG_DESC_SET() - the
-impact is the bit of interest is set in the disable path. This behaviour
-isn't intuitive and doesn't align with how we want to use the macro in
-practice, so make it clear the bit for both the enable and disable
-paths.
-
-(cherry-picked from commit c136d4c71f755a189fe13a0cd4f3e8f538dda567)
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/pinctrl/aspeed/pinmux-aspeed.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/pinctrl/aspeed/pinmux-aspeed.h b/drivers/pinctrl/aspeed/pinmux-aspeed.h
-index 31d903953c68..f86739e800c3 100644
---- a/drivers/pinctrl/aspeed/pinmux-aspeed.h
-+++ b/drivers/pinctrl/aspeed/pinmux-aspeed.h
-@@ -508,7 +508,7 @@ struct aspeed_pin_desc {
-  * @idx: The bit index in the register
-  */
- #define SIG_DESC_SET(reg, idx) SIG_DESC_IP_BIT(ASPEED_IP_SCU, reg, idx, 1)
--#define SIG_DESC_CLEAR(reg, idx) SIG_DESC_IP_BIT(ASPEED_IP_SCU, reg, idx, 0)
-+#define SIG_DESC_CLEAR(reg, idx) { ASPEED_IP_SCU, reg, BIT_MASK(idx), 0, 0 }
- 
- #define SIG_DESC_LIST_SYM(sig, group) sig_descs_ ## sig ## _ ## group
- #define SIG_DESC_LIST_DECL(sig, group, ...) \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
+index bf363a735232..e51e8839bd56 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
+@@ -792,3 +792,10 @@
+ &wdt2 {
+ 	status = "okay";
+ };
++
++&pinctrl {
++	/* Hog these as no driver is probed for the entire LPC block */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lpc_default>,
++		    <&pinctrl_lsirq_default>;
++};
 -- 
 2.20.1
