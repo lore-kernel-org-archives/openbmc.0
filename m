@@ -6,65 +6,61 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="WIHwWeW9"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="qIXAnduF"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="mLBkEL8t"; dkim-atps=neutral
+ header.b="EvIQ17mI"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FJ1yJ4zDqKf
- for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2019 15:47:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46y1FG3wC8zDqKX
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Oct 2019 15:46:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 9F06A214DB;
- Tue, 22 Oct 2019 00:46:57 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id D963320A14;
+ Tue, 22 Oct 2019 00:46:53 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:57 -0400
+ by compute4.internal (MEProxy); Tue, 22 Oct 2019 00:46:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=qzsQfnMdhewZW
- GX1d+QhaLheA7ai/xnWBuWwM4pOlMM=; b=WIHwWeW9T4OB3xbXUT2AhfIH7yy4d
- U+yad433oaTG/vxtW8VbyhCDBtNjiDP2C1PrHUa6dkB25PVzi0Y5Gzjex/O35RRZ
- MQRf2ykurH7lU/WgeS9zECIOR6He0l3nA2IleKYu5okkpsso/hhh9pglZXfqoeL5
- +2iQFcuERT8e3hFbc1gLQKWTRa40GN/1tWwD88irbXg3FXF3jBnqKL7FZI/iDizY
- wIuAA/WcMZcgr7GhEjIbsjdE11phwTpxEQALTTR4jhmP8dcpTNF8VDgCxq1FeO4r
- mtKnFs8ZdDg3eMXHAmPxvEHltolMkJSJIgdMWjqswklO+/14xqNNjXahw==
+ :to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm1; bh=aerwwGD5QCZ8oSOwS7Kz7+HKKD
+ YoX3T4Rm6E0cVhILQ=; b=qIXAnduF4MTbwkb1DIjPZ9sFHZcOQHjzVl0al8n8A1
+ QLCgXKypgM2jAJ5ApYVvHSS2cSxQef+4J4BL1J1JmY1l1m65SEdCm+14Mdb6Om/W
+ 3PuquGZIWGZS/k7HjK12pksWAxKQC3p0USOeEZCoL8t4rwDaDnN0dOUpEiUSV71h
+ +LtWphfSbfiAxfXk5c66RPo8JJj4TGPIOVnjwKM/LnsuSqkAhoEEuMIyKjEOUXO6
+ 596eDZMBzNePcFEz1WYCtP+LEXeuiunqJm67ZUnMIy31bWGgX8CJOblBml3tXCfv
+ QE0DUfXqFO3JM1XG+0lfi76bBYEWyUk4AZzK5naDKW8Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=qzsQfnMdhewZWGX1d+QhaLheA7ai/xnWBuWwM4pOlMM=; b=mLBkEL8t
- IpOgZ8B5lKRUbgnzrZ9FZY47rXzxzJRO8KzfD1uNn9Q7Vj/fXQ5kUvr2P4HNDHnw
- /XUpafGIGahLzZSN1G3wymV1loEwO9oJHnsLY5tFoE41z9Gf+zRQvZVc8frJoucF
- wgtPBEw2ovdMZIyI0ZX1yV2JHL29APmMKJr1eHev5tncyMpJwkgklTAUE4lOuT5B
- cfG3wbL/YVsAJZUN2RrBkdYnE0E5XZWDRfKtyEn93qOSXIabGLusa+OcqwuDBsPg
- fBfeS64wYFIBuTUOcGSy0eBWLAhsQu0dW2RsXFQ6tosiW+oCKmr9KZHEOFLtnBEI
- OawAOUamvxmxHQ==
-X-ME-Sender: <xms:wYmuXRMkEnPSKQfOCL7lbRi5COl8-cj5lT2WMAx832AEL-RjtMs4jw>
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=aerwwGD5QCZ8oSOwS
+ 7Kz7+HKKDYoX3T4Rm6E0cVhILQ=; b=EvIQ17mIYnjRUeLY8oED8G5wRXnDGma8O
+ ySH07coTC2CmXAQgphQ+n2fec9JVp9YTFLYFM2R51TAokvZRpZ/TFzP5+6mEWlnx
+ DJasvJlpJ8vRmc/+wkDcxHWB9cE7iwOKsH1eFPQN67E9zfNSVBAW0sKv9tjAgmCE
+ VZCJ7VQDa23SuxuCwmsHSTk8LeLkPYuL/Q2QtUyUUg7isT+EPZlxOnZ73pSPyyf2
+ F5NYuyC48/3yj3kWD7jycjfMVw3mL/CkvJLayqJjF5evOW9sf9SWsh6UygKbhn+H
+ 6adga1NzIcxys1kUXUy/LUKBtJfzylzQLy5psOAZIacgDS45BJQdw==
+X-ME-Sender: <xms:vYmuXbZpZhUAf8uzSWkHejyEjj26BTBsj2_hc5EP8hX-ryz3cqAo8g>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrkeeigdekjecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtkeertd
- ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
- rdhiugdrrghuqeenucfkphepvddtvddrkedurddukedrvdeknecurfgrrhgrmhepmhgrih
- hlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgep
- vd
-X-ME-Proxy: <xmx:wYmuXbAzSyaE1TI2C3v4CI5lSgnRlJz11NRss-bLpktm0Vil8XoE7w>
- <xmx:wYmuXUjT67P6PtoMyn47sgwjV4QTSJJCSD1lrSjH-DY-j7JQQRz-bg>
- <xmx:wYmuXQeCIEJnY7GtegrOj6J-iZgSa0l0oN469Lp7L3PDWnvo2Tt1Sw>
- <xmx:wYmuXeNUgKzW-E2JTv6S6L8E3QXqGeWbHYDNyLpVz9O8puuFkGE5ng>
+ uegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertdertd
+ dtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghjrdhi
+ ugdrrghuqeenucfkphepvddtvddrkedurddukedrvdeknecurfgrrhgrmhepmhgrihhlfh
+ hrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:vYmuXefJEMBanjBV7kdSzhjo21CZLqBIYt64sltOVt_Q8lODseR2Pg>
+ <xmx:vYmuXfFmyMUHBHJPZedeoqGe0d2ghUjyafXWcfCdNbHkTzKjmPqzEQ>
+ <xmx:vYmuXbC45Ef_46HnlDmAAYGRHbM8AAVcU7XwFy47oiZn0yigW7RW6g>
+ <xmx:vYmuXYGLKEE-xTAcd_cHNn6GzR-8AGUSuHeUvMivUajRqKwsAG-fAg>
 Received: from mistburn.bha-au.ibmmobiledemo.com (unknown [202.81.18.28])
- by mail.messagingengine.com (Postfix) with ESMTPA id 62BB380060;
- Tue, 22 Oct 2019 00:46:56 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id D8D7180063;
+ Tue, 22 Oct 2019 00:46:51 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 3/4] ARM: dts: tacoma: Hog LPC pinmux
-Date: Tue, 22 Oct 2019 15:47:36 +1100
-Message-Id: <20191022044737.15103-4-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 0/4] Pinmux fixes for AST2600 LPC
+Date: Tue, 22 Oct 2019 15:47:33 +1100
+Message-Id: <20191022044737.15103-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191022044737.15103-1-andrew@aj.id.au>
-References: <20191022044737.15103-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -80,30 +76,29 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 22 Oct 2019 04:47:01 -0000
 
-Requesting pinmux configuration is done at driver probe time. The LPC IP
-is composed of many sub-devices, each with their own driver, and no
-driver exists for the entire IP block. Avoid having each sub-device
-request the LPC pinmux by just hogging it in the pinctrl node.
+Hello,
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+This series fixes some issues with the AST2600 pinctrl driver.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-index bf363a735232..e51e8839bd56 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-@@ -792,3 +792,10 @@
- &wdt2 {
- 	status = "okay";
- };
-+
-+&pinctrl {
-+	/* Hog these as no driver is probed for the entire LPC block */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_lpc_default>,
-+		    <&pinctrl_lsirq_default>;
-+};
+Patch 1/4 backports an existing upstream fix. Patch 4/4 simply improves the
+readability of the debug output of the driver. Patches 2 and 3 fix issues with
+muxing pins for LPC, particularly for the Tacoma board.
+
+Please review.
+
+Andrew
+
+Andrew Jeffery (4):
+  pinctrl: aspeed-g6: Make SIG_DESC_CLEAR() behave intuitively
+  pinctrl: aspeed-g6: Fix LPC/eSPI mux configuration
+  ARM: dts: tacoma: Hog LPC pinmux
+  pinctrl: aspeed: Improve debug output
+
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts |  7 +++
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c  | 56 +++++++++------------
+ drivers/pinctrl/aspeed/pinctrl-aspeed.c     | 25 +++++++--
+ drivers/pinctrl/aspeed/pinmux-aspeed.h      |  2 +-
+ 4 files changed, 54 insertions(+), 36 deletions(-)
+
 -- 
 2.20.1
