@@ -1,79 +1,57 @@
-Return-Path: <shawnmm@linux.vnet.ibm.com>
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=shawnmm@linux.vnet.ibm.com;
- receiver=<UNKNOWN>)
+Return-Path: <jae.hyun.yoo@linux.intel.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.24; helo=mga09.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.from=linux.intel.com
+Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46zYk870rRzDqW9
- for <openbmc@lists.ozlabs.org>; Fri, 25 Oct 2019 04:13:52 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.27/8.16.0.27) with SMTP id
- x9OHCGu4017630; Thu, 24 Oct 2019 13:13:45 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2vufp012nj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2019 13:13:45 -0400
-Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.27/8.16.0.27) with SMTP id x9OHDL2i021980;
- Thu, 24 Oct 2019 13:13:45 -0400
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 2vufp012mx-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2019 13:13:45 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id x9OHA8ms001610;
- Thu, 24 Oct 2019 17:13:44 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma03dal.us.ibm.com with ESMTP id 2vqt47ybxu-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 24 Oct 2019 17:13:44 +0000
-Received: from b03ledav003.gho.boulder.ibm.com
- (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- x9OHDgBA46727656
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 24 Oct 2019 17:13:43 GMT
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DB1FA6A063;
- Thu, 24 Oct 2019 17:13:42 +0000 (GMT)
-Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6AE786A04D;
- Thu, 24 Oct 2019 17:13:42 +0000 (GMT)
-Received: from [9.10.99.168] (unknown [9.10.99.168])
- by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 24 Oct 2019 17:13:42 +0000 (GMT)
-Subject: Re: multiple telemetry designs
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, james.feist@linux.intel.com,
- piotr.matuszczak@intel.com, kunyi@google.com
-Cc: thalerj@linux.vnet.ibm.com, openbmc@lists.ozlabs.org, james.mihm@intel.com,
- neladk@microsoft.com
-References: <D1177195-CDC9-4BB0-B9DE-6FC99B7ADE31@fuzziesquirrel.com>
-From: Shawn McCarney <shawnmm@linux.vnet.ibm.com>
-Message-ID: <493fa207-61eb-d393-0ea9-a8296a14d256@linux.vnet.ibm.com>
-Date: Thu, 24 Oct 2019 12:13:41 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46zZ1w6lWszDqVF;
+ Fri, 25 Oct 2019 04:27:31 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga102.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 24 Oct 2019 10:27:29 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,225,1569308400"; d="scan'208";a="282007280"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
+ ([10.7.153.148])
+ by orsmga001.jf.intel.com with ESMTP; 24 Oct 2019 10:27:28 -0700
+Subject: Re: [PATCH i2c-next 1/2] dt-bindings: i2c: aspeed: add hardware
+ timeout support
+To: Brendan Higgins <brendanhiggins@google.com>, Peter Rosin <peda@axentia.se>
+Cc: Wolfram Sang <wsa@the-dreams.de>,
+ Benjamin Herrenschmidt <benh@kernel.crashing.org>,
+ Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Tao Ren <taoren@fb.com>, Cedric Le Goater <clg@kaod.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-aspeed@lists.ozlabs.org" <linux-aspeed@lists.ozlabs.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <20191021202414.17484-1-jae.hyun.yoo@linux.intel.com>
+ <20191021202414.17484-2-jae.hyun.yoo@linux.intel.com>
+ <0a629f7b-b829-c332-27d8-dc825205ff72@axentia.se>
+ <7abf933b-cb18-10af-9c1b-163ec65ffae5@linux.intel.com>
+ <b98827fa-462a-060b-efc7-27fe5d7742ff@axentia.se>
+ <7806ece8-1d7c-7aa8-20af-6f5f964bec64@linux.intel.com>
+ <6eba3e62-9215-0c39-258b-7abfb394bc48@axentia.se>
+ <CAFd5g46Zv6E=PcU6=aX65rg2TRY5y3nWB8CYjGJioU_zpfcOUw@mail.gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <5f883aea-a849-eade-5a91-3ac35d2d6b73@linux.intel.com>
+Date: Thu, 24 Oct 2019 10:27:28 -0700
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
  Thunderbird/60.9.0
 MIME-Version: 1.0
-In-Reply-To: <D1177195-CDC9-4BB0-B9DE-6FC99B7ADE31@fuzziesquirrel.com>
+In-Reply-To: <CAFd5g46Zv6E=PcU6=aX65rg2TRY5y3nWB8CYjGJioU_zpfcOUw@mail.gmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:, ,
- definitions=2019-10-24_10:, , signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 spamscore=0
- clxscore=1011 lowpriorityscore=0 mlxscore=0 impostorscore=0
- mlxlogscore=999 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.0.1-1908290000 definitions=main-1910240161
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,48 +63,148 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Oct 2019 17:13:53 -0000
+X-List-Received-Date: Thu, 24 Oct 2019 17:27:33 -0000
 
-I've reviewed both designs, although I cannot say I understand them both 
-in depth.
+On 10/23/2019 5:09 PM, Brendan Higgins wrote:
+> On Wed, Oct 23, 2019 at 2:17 PM Peter Rosin <peda@axentia.se> wrote:
+>>
+>> On 2019-10-22 19:44, Jae Hyun Yoo wrote:
+>>> On 10/22/2019 1:45 AM, Peter Rosin wrote:
+>>>> On 2019-10-21 23:57, Jae Hyun Yoo wrote:
+>>>>> Hi Peter,
+>>>>>
+>>>>> On 10/21/2019 2:05 PM, Peter Rosin wrote:
+>>>>>> On 2019-10-21 22:24, Jae Hyun Yoo wrote:
+>>>>>>> Append a binding to support hardware timeout feature.
+>>>>>>>
+>>>>>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+>>>>>>> ---
+>>>>>>>     Documentation/devicetree/bindings/i2c/i2c-aspeed.txt | 2 ++
+>>>>>>>     1 file changed, 2 insertions(+)
+>>>>>>>
+>>>>>>> diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+>>>>>>> index b47f6ccb196a..133bfedf4cdd 100644
+>>>>>>> --- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+>>>>>>> +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+>>>>>>> @@ -17,6 +17,8 @@ Optional Properties:
+>>>>>>>     - bus-frequency        : frequency of the bus clock in Hz defaults to 100 kHz when not
+>>>>>>>                      specified
+>>>>>>>     - multi-master : states that there is another master active on this bus.
+>>>>>>> +- aspeed,hw-timeout-ms   : Hardware timeout in milliseconds. If it's not
+>>>>>>> +                   specified, the H/W timeout feature will be disabled.
+>>>>>>>
+>>>>>>>     Example:
+>>>>>>>
+>>>>>>>
+>>>>>>
+>>>>>> Some SMBus clients support a smbus-timeout-disable binding for disabling
+>>>>>> timeouts like this, for cases where the I2C adapter in question on occasion
+>>>>>> is unable to keep the pace. Adding that property thus avoids undesired
+>>>>>> timeouts when the client is SMBus conformant without it. Your new binding
+>>>>>> is the reverse situation, where you want to add a timeout where one is
+>>>>>> otherwise missing.
+>>>>>>
+>>>>>> Anyway, since I2C does not have a specified lowest possible frequency, this
+>>>>>> feels like something that is more in the SMBus arena. Should the property
+>>>>>> perhaps be a generic property named smbus-timeout-ms, or something like
+>>>>>> that?
+>>>>>
+>>>>> Well, I tried upstreaming of the generic timeout property a year ago but
+>>>>> I agreed that the generic bus timeout property can be set by an ioctl
+>>>>> command so it didn't need to be added into device tree at that time. Not
+>>>>> sure if any need has come recently but I haven't heard that. This driver
+>>>>> still uses the generic timeout property which is provided by i2c core
+>>>>> for handling command timeouts, and it's out of scope from this patch
+>>>>> series.
+>>>>>
+>>>>>> If the above is not wanted or appropriate, then I would personally prefer
+>>>>>> aspeed,bus-timeout-ms over aspeed,hw-timeout-ms. To me, hw-timeout-ms sounds
+>>>>>> like a (more serious) timeout between the CPU and the I2C peripheral unit
+>>>>>> or something like that. But I don't care deeply...
+>>>>>
+>>>>> Changes I submitted in this patch set is for a different purpose which
+>>>>> is very Aspeed H/W specific, and actually it's a more serious timeout
+>>>>> setting indeed. If this H/W is used in multi-master environment, it
+>>>>> could meet a H/W hang that freezes itself in slave mode and it can't
+>>>>> escape from the state. To resolve the specific case, this H/W provides
+>>>>> self-recovery feature which monitors abnormal state of SDA, SCL and its
+>>>>> H/W state machine using the timeout setting to determine the escape
+>>>>> condition.
+>>>>
+>>>> Are you saying that the aspeed HW is buggy and that this abnormal state
+>>>> is self inflicted by the aspeed HW even if other masters on the bus
+>>>> behave sanely? Because I didn't quite read it that way at all...
+>>>
+>>> I don't think it's an Aspeed HW bug. Actually, this HW can be exposed to
+>>> very severe environments if it is used as a Baseboard Management
+>>> Controller which needs two or more multi-masters on a bus depends on
+>>> HW design. Also, it should expect unknown or buggy device attachment
+>>> on a bus through add-on card slots. Aspeed HW provides HW timeout
+>>> feature to support exceptional cases handling which comes from the
+>>> severe use cases.
+>>>
+>>>> To me, it sounded *exactly* like the state I2C clients end up in when an
+>>>> I2C master "dies" and stops communicating in the middle of a transaction.
+>>>> I.e. the thing that the SMBus timeout is designed to prevent (and the
+>>>> state the I2C nine-clk-recovery sequence addresses). The only twist (that
+>>>> I saw) was that the aspeed HW is also a master and that the aspeed master
+>>>> driver is completely locked out from the bus while some obnoxious master
+>>>> fails to complete its transaction (or whatever it was up to).
+>>>
+>>> If this HW runs on a single-master bus, any master dying issue will be
+>>> cured by recovery logic which this driver already has and the logic uses
+>>> the bus timeout setting you are saying.
+>>>
+>>> This patch set is mainly focusing on a 'slave mode hang' issue on a
+>>> 'multi-master' bus which can't be covered by the recovery logic.
+>>>
+>>>> If this can only be triggered when the HW is acting as a slave, and by
+>>>> aborted or otherwise funky master activity on the bus, then I wouldn't
+>>>> call it an HW issue. Then it would be a bus issue. I.e. something needing
+>>>> a bus-timeout instead of a hw-timeout.
+>>>
+>>> Here is an example. In a multi-node BMC system, a peer master can be
+>>> shutdown in the middle of transaction, then this Aspeed HW keeps waiting
+>>> for a next event from the peer master but it can't happen because the
+>>> peer master was already shutdown. If we enable the 'slave inactive
+>>> timeout feature' using the HW timeout setting, the this HW can escape
+>>> from the waiting state. If we don't, this HW hangs forever in the
+>>> waiting state and it's the reason why I implemented this patch set.
+>>>
+>>> The hw-timeout setting needs fine tuning depends on HW environment so
+>>> it should be different from the bus-timeout.
+>>
+>> Yeah, ok, so you're basically confirming everything I said. I do
+>> sense some confusion though, as you come across as a bit
+>> defensive and seem to think that I am against the whole notion of
+>> the patches. And that's not the case at all! My only issue is
+>> with the naming. And I happen to think hw-timeout-ms is a really
+>> bad name. It's way too broad and can mean just about anything.
+>> When I read that, I think of some workaround for broken hardware,
+>> not normal things like the other masters on the bus doing
+>> confusing things. Funky bus activity from remote masters is
+>> simply not an HW issue in my book, at least not an HW issue on
+>> the local side of the bus. It's just something you *must expect*.
+> 
+> Sorry for not jumping in earlier, but I agree with Peter.
+> 
+> I like the name bus-timeout-ms better. It was not immediately clear
+> from reading your commit descriptions what this was all about.
 
-With that disclaimer, here is my 2 cents:
+Okay, I can change the name if the 'aspeed,hw-timeout-ms' is
+inappropriate but I still doubt using of 'bus-timeout-ms'.
 
-* Both proposals are thoughtful with a lot work put into them.
+The 'bus-timeout-ms' is being used for some client drivers in hwmon
+subsystem but it's not being used for any adapter driver currently.
+Since adapter drivers also use timeout value which I2C core provides,
+it could make confusion with it if I use 'bus-timeout-ms' for an adapter
+node in DT. Though, I and Wolfram agreed last year that the adapter
+timeout property can't be added into DT because it's purely S/W property
+so using of 'bus-timeout-ms' in DT for H/W property setting of an
+adapter device could be acceptable if we make consensus here.
 
-* bmcweb has a lot of a sensor code that is quite complex that is 
-dependent on the current D-Bus sensors and associations.  It would 
-require a lot of work and re-testing to ensure a different interface to 
-sensor data doesn't break current systems.  The code would be even more 
-complex if it had to support two different sensor data interfaces.
-
-* There are sensor readings that cannot be collected by reading files in 
-the file system.  Some are collected by direct I2C reads or other 
-methods.  If my surface understanding of collectd is correct, plug-ins 
-would need to be written to handle these "non-file" sensors.
-
-* For the reasons above, I'd prefer to see D-Bus continue to be the 
-"public API" to sensor data.  D-Bus is the central data sharing 
-repository on the OpenBMC.  How the sensor data gets on D-Bus is 
-implementation detail and can vary by system and by project.  It can be 
-obtained by hwmon, collectd, and many other ways.  As long as it is 
-published on D-Bus, other applications (like bmcweb) can easily consume it.
-
-* It sounds like the RRD format would be an efficient way to store 
-sensor data.  I do worry about the space and CPU required to store 
-telemetry data.  The OpenBMC stack is going to be used on some big 
-servers, and they are going to have a large number of sensors.
-
-* Could the two proposals be merged, with D-Bus providing the public API 
-to the data?  Maybe something like the following?  1) Continue to store 
-current sensor values on D-Bus using the existing architecture.  Sensor 
-values come from a variety of sources.  2) An application obtains 
-current sensor values from D-Bus and stores them with timestamps in RRD 
-to provide efficient history/telemetry.  3) A new D-Bus interface/method 
-is created to obtain the history/telemetry data.  4) bmcweb uses the 
-current D-Bus interfaces for the Sensor URIs (as it does today) and uses 
-the new D-Bus interface/method for Telemetry URIs?
+Please share your thoughts or suggest a better name for it.
 
 Thanks,
 
-Shawn
+Jae
