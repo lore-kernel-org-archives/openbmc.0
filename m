@@ -1,34 +1,61 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <joel.stan@gmail.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::434;
+ helo=mail-pf1-x434.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="dkPevOfg"; 
+ dkim-atps=neutral
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 46zgpx3ZbTzDqdc
- for <openbmc@lists.ozlabs.org>; Fri, 25 Oct 2019 08:48:20 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x9OLlmBC022491;
- Fri, 25 Oct 2019 00:47:48 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 5839260275; Fri, 25 Oct 2019 00:47:48 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: p.zabel@pengutronix.de, robh+dt@kernel.org, mark.rutland@arm.com,
- yuenn@google.com, venture@google.com, benjaminfair@google.com,
- avifishman70@gmail.com, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v1 1/3] dt-binding: reset: add NPCM reset controller
- documentation
-Date: Fri, 25 Oct 2019 00:47:44 +0300
-Message-Id: <20191024214746.88431-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20191024214746.88431-1-tmaimon77@gmail.com>
-References: <20191024214746.88431-1-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 46zm8f1cRDzDqg9
+ for <openbmc@lists.ozlabs.org>; Fri, 25 Oct 2019 12:04:01 +1100 (AEDT)
+Received: by mail-pf1-x434.google.com with SMTP id x28so375675pfi.12
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Oct 2019 18:04:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=fy3Or77JIINBuGbnLlYQYDKujjhHfaAoXfZ1dth8eHs=;
+ b=dkPevOfg52LCSOKPzuNoodSFhR4YrNGhLXUnrTY1XZUHPl580ei8dxVBLmd/JWt7TK
+ nEFFMnAtZprB8HEwHyPbbBKPW2wYMG3UnrzckJkKD0NUNuinzoP/LnyqqnWrMRRzSyqO
+ 6lODA1gtb33J9FBERY16VGqwnqKnpPhsCPHTDHe1NOa7CPTSnq/oZDCApOTqYKTyu02z
+ clPJ1N1vgx9WwDaKIDtJxHQpkc1JJ5QwWyVB938MOGhw9tS7Rr7BlI1tSoYsChwvoX58
+ NVZSWvG/iIDmFwk0Tpnxt52sKYb9KzXV+PA3Y4VxTww2G/w/vUEu1kAJSoFgJ1a2ddT7
+ FpIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=fy3Or77JIINBuGbnLlYQYDKujjhHfaAoXfZ1dth8eHs=;
+ b=Nk8NJpdTJYWdelebHLFZK6mpvTEBpdeIj/11+/nQ7NDQIDQoezny3ssTyTf5B3lr0n
+ 9+sb0d8lYB6JVFT3Ih5iPKeluJd9WlqNyBlUE+A8TpIDeXZc9Silj+IGmWz7A1w1SwL+
+ jwW6+eqnV2yew1qM/CRZqvLw3tjtScSCoyOpIVagcFvd75CAFw3w0aRTtgwe2rt+JfQu
+ cf1Pp7hxCopfUtdINRswHftycV/oqEQPkrpg/H2ZlE9VxVQ2KdGJWm9JrbAI373fsBOx
+ M2lew4qCKTohSOLPMytm27FjE285ZJex0WXa4KHm5ZRvWIgiTV+PLnSKpI3QuAqjMTHL
+ rlJQ==
+X-Gm-Message-State: APjAAAU1bv1vE+UMrTklSdd1uOv9q6BHxYbhWJDBTQmbBCyKTjYfoNMH
+ 06oW3Y9hCR66rBAMdfHdGNQ=
+X-Google-Smtp-Source: APXvYqyYz9nPi2px9dHP7sJOLXz4tDBD79Kj607K3V8ppxAZSpZGvnFL/wybmi5g5vMCIeAG1ipkwA==
+X-Received: by 2002:aa7:96ba:: with SMTP id g26mr990716pfk.45.1571965439371;
+ Thu, 24 Oct 2019 18:03:59 -0700 (PDT)
+Received: from localhost.localdomain ([45.124.203.14])
+ by smtp.gmail.com with ESMTPSA id l22sm231786pgj.4.2019.10.24.18.03.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Oct 2019 18:03:58 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: Jeremy Kerr <jk@ozlabs.org>,
+	Andrew Jeffery <andrew@aj.id.au>
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.3 0/7] AST2600 FSI speed improvements
+Date: Fri, 25 Oct 2019 12:03:44 +1100
+Message-Id: <20191025010351.30298-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.23.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -42,57 +69,24 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 24 Oct 2019 21:48:26 -0000
+X-List-Received-Date: Fri, 25 Oct 2019 01:04:03 -0000
 
-Added device tree binding documentation for Nuvoton BMC
-NPCM reset controller.
+Here are some lightly tested improvements to the FSI driver that should
+improve throughput.
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/reset/nuvoton,npcm-reset.txt     | 35 +++++++++++++++++++
- 1 file changed, 35 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
+They apply on top of the previous FSI series I sent.
 
-diff --git a/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt b/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
-new file mode 100644
-index 000000000000..94793285a2ac
---- /dev/null
-+++ b/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
-@@ -0,0 +1,35 @@
-+Nuvoton NPCM Reset controller
-+
-+In the NPCM Reset controller boot the USB PHY, USB host
-+and USB device initialize.
-+
-+Required properties:
-+- compatible : "nuvoton,npcm750-reset" for NPCM7XX BMC
-+- reg : specifies physical base address and size of the register.
-+- #reset-cells: must be set to 1
-+
-+Optional property:
-+- nuvoton,sw-reset-number - Contains the software reset number to restart the SoC.
-+  NPCM7xx contain four software reset that represent numbers 1 to 4.
-+
-+  If 'nuvoton,sw-reset-number' is not specfied software reset is disabled.
-+
-+Example:
-+	rstc: rstc@f0801000 {
-+		compatible = "nuvoton,npcm750-reset";
-+		reg = <0xf0801000 0x70>;
-+		#reset-cells = <1>;
-+		nuvoton,sw-reset-number = <2>;
-+	};
-+
-+Specifying reset lines connected to IP NPCM7XX modules
-+======================================================
-+example:
-+
-+        spi0: spi@..... {
-+                ...
-+                resets = <&rstc NPCM7XX_RESET_PSPI1>;
-+                ...
-+        };
-+
-+The index could be found in <dt-bindings/reset/nuvoton,npcm7xx-reset.h>.
+Joel Stanley (7):
+  fsi: aspeed: busy loop in the write case
+  fsi: master: Change default divisor to 14
+  fsi: aspeed: Enable relative addressing
+  fsi: aspeed: Only select OPB0 once
+  fsi: aspeed: Avoid copying read data twice
+  fsi: aspeed: Pass fsi_master_aspeed insead of base
+  fsi: aspeed: Special case repeated full word reads
+
+ drivers/fsi/fsi-master-aspeed.c | 131 +++++++++++++++++++++++---------
+ 1 file changed, 94 insertions(+), 37 deletions(-)
+
 -- 
-2.22.0
+2.23.0
