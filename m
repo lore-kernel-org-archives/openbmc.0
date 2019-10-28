@@ -1,60 +1,36 @@
-Return-Path: <venture@google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::62e;
- helo=mail-pl1-x62e.google.com; envelope-from=venture@google.com;
- receiver=<UNKNOWN>)
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.b="ijpWwKK/"; 
- dkim-atps=neutral
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (no SPF record) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 471xzn4gNZzDrGp
- for <openbmc@lists.ozlabs.org>; Tue, 29 Oct 2019 01:33:55 +1100 (AEDT)
-Received: by mail-pl1-x62e.google.com with SMTP id x6so1620836pln.2
- for <openbmc@lists.ozlabs.org>; Mon, 28 Oct 2019 07:33:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=N5S5H1sr4bfu4c5ehS3Lvgva5tnJxahLRW+2VTzbfB8=;
- b=ijpWwKK/xwfKqL/qgB3k0kfm8X7UIgVZ+bK6CYzQYuRYngHOsNOrk5xa/ZIVV9QjHn
- cy5UNMUR4wz9coLYMZP/yqNlzHzRy7QsBwVthfPA6XJ63OwGhIDJ2K+QbVZt3fUz+9L+
- fMQyGspPwcYbfTUrpMmE7BClUXwp8BsRJt+Sjz+awtkXbDCpllWDAvMVgQyYBTPw/wCf
- Hwv/vZz0EY+0linr2Unh/l5oYz+kCaHUlt1SXp+CsWaB2jFzSjC5WvTGXQyLWKDtZD94
- +obfKYjORxG/X5ae6dj5+LGElnde83Sg88CO8KJ21XmhfAp6feRxWScrS13DVtC/6cM6
- UySQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=N5S5H1sr4bfu4c5ehS3Lvgva5tnJxahLRW+2VTzbfB8=;
- b=lkWXvsjO+G2w7E10Xj3rLlIx8eW/JpK5/6jWSPBp6+PMjvOC0sXpAytne5xO1TGAMZ
- tVIWrl3uaSYqDFQSz64J9sIzpjUxV6z0vNntvYIZWaqKWrDjETfU2J0m2hFYgQLNxXHE
- 3ixs71K1EVHcNqUutOEju/Nb3woqrzIK+Z0bakRmrBUztIbJqqsqBBE2hDwpHFhG/Zww
- 3O7ALMCkEzW0KJn+ujEwRjcbbHdUPW4SboZRtrlNB3HwLzbGMnlAmWr6LAq2t96qEZlF
- nYJRi5NJw3BxQIXQmsK/uUjpIxAbL6TSaer754BCK39PzyaekOpiUfFwzFyqWHSSRi38
- DqXQ==
-X-Gm-Message-State: APjAAAWQbAHLE3XbemSTua8csjPedKFuflzc/OnbUpbMszN+SkYTAFtj
- xf3hsTAEXg/9LWJVrSe5P+HpMi+qQtUQWOAQE0Gmaw==
-X-Google-Smtp-Source: APXvYqx4nRCV4tKpRics5DP6Xeh+J9RO/nz/E3ZdNOVR6NKlrhP6jKopTCPpsceMEdWEZU4la6HFdtb0OcX6oe6SiBU=
-X-Received: by 2002:a17:902:9b83:: with SMTP id
- y3mr18969741plp.179.1572273231271; 
- Mon, 28 Oct 2019 07:33:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 471zn04sKHzDr2d
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Oct 2019 02:54:41 +1100 (AEDT)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id x9SFs5EE001374;
+ Mon, 28 Oct 2019 17:54:05 +0200
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 3A38960327; Mon, 28 Oct 2019 17:54:05 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: p.zabel@pengutronix.de, robh+dt@kernel.org, mark.rutland@arm.com,
+ yuenn@google.com, venture@google.com, benjaminfair@google.com,
+ avifishman70@gmail.com, joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
+Subject: [PATCH v2 2/3] dt-bindings: reset: Add binding constants for NPCM7xx
+ reset controller
+Date: Mon, 28 Oct 2019 17:54:02 +0200
+Message-Id: <20191028155403.134126-3-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20191028155403.134126-1-tmaimon77@gmail.com>
+References: <20191028155403.134126-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <HK0PR02MB3348A12C43559ED44AA67D149F660@HK0PR02MB3348.apcprd02.prod.outlook.com>
-In-Reply-To: <HK0PR02MB3348A12C43559ED44AA67D149F660@HK0PR02MB3348.apcprd02.prod.outlook.com>
-From: Patrick Venture <venture@google.com>
-Date: Mon, 28 Oct 2019 07:33:40 -0700
-Message-ID: <CAO=notxVxud5HxTuDnjH46Ew=JtXVydVK0d27w44MEigyL00ig@mail.gmail.com>
-Subject: Re: How to use phosphor-ipmi-flash
-To: "Bright Cheng/WYHQ/Wiwynn" <Bright_Cheng@wiwynn.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,72 +42,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Oct 2019 14:33:58 -0000
+X-List-Received-Date: Mon, 28 Oct 2019 15:54:45 -0000
 
-On Mon, Oct 28, 2019 at 2:32 AM Bright Cheng/WYHQ/Wiwynn
-<Bright_Cheng@wiwynn.com> wrote:
->
-> Hi all,
->
->
->
-> I installed phosphor-ipmi-flash, phosphor-ipmi-blob and ipmi-blob-tool in=
- BMC and tried host-tool in Linux to update via ipmilpc.
->
->
->
-> Following are command and its response:
->
-> # ./burn_my_bmc --command update --interface ipmilpc --image /root/obmc-i=
-mage/image-bmc --sig /root/obmc-image/image-bmc.sig --type static --ignore-=
-update --address 0x1 --length 1024
->
-> /flash/static not found
->
->
->
-> Should I add =E2=80=9C/flash/static=E2=80=9D to <<config-static-bmc.json.=
-in>> for getting this =E2=80=9C/flash/static=E2=80=9D blob?
->
-> If yes, how to set <<config-static-bmc.json.in>> if I want to update BMC =
-via ipmilpc?
+Add device tree binding constants for Nuvoton BMC NPCM7xx
+reset controller.
 
-Both of these questions really point to the BMC's configuration --
-what is your recipe configuring?  For instance:
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ .../dt-bindings/reset/nuvoton,npcm7xx-reset.h | 82 +++++++++++++++++++
+ 1 file changed, 82 insertions(+)
+ create mode 100644 include/dt-bindings/reset/nuvoton,npcm7xx-reset.h
 
-PACKAGECONFIG_append_fakesystem =3D " aspeed-p2a reboot-update static-bmc"
-IPMI_FLASH_BMC_ADDRESS_fakesystem =3D "0x47FF0000"
-
-Will enable the aspeed-p2a controller, reboot-update and enable the
-config-static-bmc.json file.
-
-You can find the list of currently supports options here:
-
-https://github.com/openbmc/meta-phosphor/blob/master/recipes-phosphor/ipmi/=
-phosphor-ipmi-flash_git.bb#L21
-
->
->
->
-> One more question, how to decide address and length for lpc?
->
->
->
-> Thanks in advanced for any insight!
->
-> -------------------------------------------------------------------------=
----------------------------------------------------------------------------=
------------
->
-> This email contains confidential or legally privileged information and is=
- for the sole use of its intended recipient.
->
-> Any unauthorized review, use, copying or distribution of this email or th=
-e content of this email is strictly prohibited.
->
-> If you are not the intended recipient, you may reply to the sender and sh=
-ould delete this e-mail immediately.
->
-> -------------------------------------------------------------------------=
----------------------------------------------------------------------------=
------------
+diff --git a/include/dt-bindings/reset/nuvoton,npcm7xx-reset.h b/include/dt-bindings/reset/nuvoton,npcm7xx-reset.h
+new file mode 100644
+index 000000000000..7b7e870eac35
+--- /dev/null
++++ b/include/dt-bindings/reset/nuvoton,npcm7xx-reset.h
+@@ -0,0 +1,82 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++// Copyright (c) 2019 Nuvoton Technology corporation.
++
++#ifndef _DT_BINDINGS_NPCM7XX_RESET_H
++#define _DT_BINDINGS_NPCM7XX_RESET_H
++
++#define NPCM7XX_RESET_FIU3		1
++#define NPCM7XX_RESET_UDC1		5
++#define NPCM7XX_RESET_EMC1		6
++#define NPCM7XX_RESET_UART_2_3		7
++#define NPCM7XX_RESET_UDC2		8
++#define NPCM7XX_RESET_PECI		9
++#define NPCM7XX_RESET_AES		10
++#define NPCM7XX_RESET_UART_0_1		11
++#define NPCM7XX_RESET_MC		12
++#define NPCM7XX_RESET_SMB2		13
++#define NPCM7XX_RESET_SMB3		14
++#define NPCM7XX_RESET_SMB4		15
++#define NPCM7XX_RESET_SMB5		16
++#define NPCM7XX_RESET_PWM_M0		18
++#define NPCM7XX_RESET_TIMER_0_4		19
++#define NPCM7XX_RESET_TIMER_5_9		20
++#define NPCM7XX_RESET_EMC2		21
++#define NPCM7XX_RESET_UDC4		22
++#define NPCM7XX_RESET_UDC5		23
++#define NPCM7XX_RESET_UDC6		24
++#define NPCM7XX_RESET_UDC3		25
++#define NPCM7XX_RESET_ADC		27
++#define NPCM7XX_RESET_SMB6		28
++#define NPCM7XX_RESET_SMB7		29
++#define NPCM7XX_RESET_SMB0		30
++#define NPCM7XX_RESET_SMB1		31
++#define NPCM7XX_RESET_MFT0		32
++#define NPCM7XX_RESET_MFT1		33
++#define NPCM7XX_RESET_MFT2		34
++#define NPCM7XX_RESET_MFT3		35
++#define NPCM7XX_RESET_MFT4		36
++#define NPCM7XX_RESET_MFT5		37
++#define NPCM7XX_RESET_MFT6		38
++#define NPCM7XX_RESET_MFT7		39
++#define NPCM7XX_RESET_MMC		40
++#define NPCM7XX_RESET_SDHC		41
++#define NPCM7XX_RESET_GFX_SYS		42
++#define NPCM7XX_RESET_AHB_PCIBRG	43
++#define NPCM7XX_RESET_VDMA		44
++#define NPCM7XX_RESET_ECE		45
++#define NPCM7XX_RESET_VCD		46
++#define NPCM7XX_RESET_OTP		48
++#define NPCM7XX_RESET_SIOX1		50
++#define NPCM7XX_RESET_SIOX2		51
++#define NPCM7XX_RESET_3DES		53
++#define NPCM7XX_RESET_PSPI1		54
++#define NPCM7XX_RESET_PSPI2		55
++#define NPCM7XX_RESET_GMAC2		57
++#define NPCM7XX_RESET_USB_HOST		58
++#define NPCM7XX_RESET_GMAC1		60
++#define NPCM7XX_RESET_CP		63
++#define NPCM7XX_RESET_PWM_M1		160
++#define NPCM7XX_RESET_SMB12		161
++#define NPCM7XX_RESET_SPIX		162
++#define NPCM7XX_RESET_SMB13		163
++#define NPCM7XX_RESET_UDC0		164
++#define NPCM7XX_RESET_UDC7		165
++#define NPCM7XX_RESET_UDC8		166
++#define NPCM7XX_RESET_UDC9		167
++#define NPCM7XX_RESET_PCI_MAILBOX	169
++#define NPCM7XX_RESET_SMB14		172
++#define NPCM7XX_RESET_SHA		173
++#define NPCM7XX_RESET_SEC_ECC		174
++#define NPCM7XX_RESET_PCIE_RC		175
++#define NPCM7XX_RESET_TIMER_10_14	176
++#define NPCM7XX_RESET_RNG		177
++#define NPCM7XX_RESET_SMB15		178
++#define NPCM7XX_RESET_SMB8		179
++#define NPCM7XX_RESET_SMB9		180
++#define NPCM7XX_RESET_SMB10		181
++#define NPCM7XX_RESET_SMB11		182
++#define NPCM7XX_RESET_ESPI		183
++#define NPCM7XX_RESET_USB_PHY_1		184
++#define NPCM7XX_RESET_USB_PHY_2		185
++
++#endif
+-- 
+2.22.0
