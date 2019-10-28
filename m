@@ -1,66 +1,46 @@
-Return-Path: <navid.emamdoost@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::144;
- helo=mail-il1-x144.google.com; envelope-from=navid.emamdoost@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="OIvX0idW"; 
- dkim-atps=neutral
-Received: from mail-il1-x144.google.com (mail-il1-x144.google.com
- [IPv6:2607:f8b0:4864:20::144])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.115; helo=mga14.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4721Bt3DBMzDrZh;
- Tue, 29 Oct 2019 03:58:43 +1100 (AEDT)
-Received: by mail-il1-x144.google.com with SMTP id a13so8825425ilp.1;
- Mon, 28 Oct 2019 09:58:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=VsYOYw/63XAVKPUsYisyXnfblClorjAawHJi/it0oEA=;
- b=OIvX0idWV6esLVnTUjwsh8UX0Y3MegoKcCrUD36IazFKX/z4o4uXg0RgARV00n2l9A
- IsJFqlj41Kkp+0TO1kGJBeTa93xlWKkBk2sUsCbSx9I0xYqM23tRWBEsXzZbI9B1KdIm
- gJK5ScQ+N5hznm3+xbFwlmmllQeuPSzoTwLC2MBXy9aVrEduAt+jm+bZdVrIkQYQdipw
- eh4+A+1UszCvXqa5t2qNh0QPHipSR5BsWKa/AVAeWpl7mKf3On3n8D2TjXOvoQWqukRD
- E99/TWyhTaurLqz0QfX0oAbXkzqkEDrmroVb2688sx/hKI4ycpfahn2P7K/IBPjUdnSH
- A+iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=VsYOYw/63XAVKPUsYisyXnfblClorjAawHJi/it0oEA=;
- b=A+++74winFOBkMdMHPsq1DUGhZjr9gKlRXWcUkVFqhuMP9sUmV/hwisT0Jre42jbvB
- iQlZ3M4GDrkefE4jN7JZbB7VMt8s7vO1gZw3njSss/ppOyLIVH7Gn3kiBZb+9iaTPLSO
- CjPigtB0NdVXfh21agW1udLXDKdBCJAopgVZXudDRPvbjkzGqyir0EeQTKYfxnrhu/P6
- Mx2IZZsbn8v1B6XR846Lxh1iI7ouKlecqRpTr7N2GwUjHrhqe+Unfar+LxZTzaS6tW2l
- 3PaPotouTm8e/gucckI/ffJW0w4EUUHkm6kfWmGDqOGajk3M6NqU1eJvk+hFhhEYXZyn
- G9JA==
-X-Gm-Message-State: APjAAAVjqf7+MdDHMNhirJJfYzXMMQ3BmDEiei11dcpD6gEoISmMLb+A
- biayp70YQuDfzb7hW8MkJUE=
-X-Google-Smtp-Source: APXvYqx2qXlEPCIiPVhl6XhY2JTF9eYwSmAPTLsncPs7iDDy0d9kOOdavwbVbzeSJzJSR1vraAyjIw==
-X-Received: by 2002:a92:9a54:: with SMTP id t81mr22517749ili.197.1572281920640; 
- Mon, 28 Oct 2019 09:58:40 -0700 (PDT)
-Received: from cs-dulles.cs.umn.edu (cs-dulles.cs.umn.edu. [128.101.35.54])
- by smtp.googlemail.com with ESMTPSA id l2sm597572ilc.34.2019.10.28.09.58.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 28 Oct 2019 09:58:39 -0700 (PDT)
-From: Navid Emamdoost <navid.emamdoost@gmail.com>
-To: jae.hyun.yoo@linux.intel.com
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4721GF6pL4zDrRr;
+ Tue, 29 Oct 2019 04:01:40 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga002.jf.intel.com ([10.7.209.21])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 28 Oct 2019 10:01:32 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,240,1569308400"; d="scan'208";a="211488272"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.148])
+ ([10.7.153.148])
+ by orsmga002.jf.intel.com with ESMTP; 28 Oct 2019 10:01:19 -0700
+Subject: Re: [PATCH v2] media: aspeed-video: Fix memory leaks in
+ aspeed_video_probe
+To: Navid Emamdoost <navid.emamdoost@gmail.com>
 Cc: emamd001@umn.edu, smccaman@umn.edu, kjlu@umn.edu,
- Navid Emamdoost <navid.emamdoost@gmail.com>,
  Eddie James <eajames@linux.ibm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>, linux-media@vger.kernel.org,
  openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org,
  linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: aspeed-video: Fix memory leaks in aspeed_video_probe
-Date: Mon, 28 Oct 2019 11:58:26 -0500
-Message-Id: <20191028165827.24949-1-navid.emamdoost@gmail.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <d9c04318-586a-bfc2-fce6-6218c6bab1d6@linux.intel.com>
 References: <d9c04318-586a-bfc2-fce6-6218c6bab1d6@linux.intel.com>
+ <20191028165827.24949-1-navid.emamdoost@gmail.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <6450dbb4-aa6f-627d-7e5d-21a20f560d60@linux.intel.com>
+Date: Mon, 28 Oct 2019 10:01:19 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
+MIME-Version: 1.0
+In-Reply-To: <20191028165827.24949-1-navid.emamdoost@gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,35 +52,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Oct 2019 16:58:47 -0000
+X-List-Received-Date: Mon, 28 Oct 2019 17:01:43 -0000
 
-In the implementation of aspeed_video_probe() the allocated memory for
-video should be released if either devm_ioremap_resource()
-or aspeed_video_init() or aspeed_video_setup_video() fails. Replace
-kzalloc() with devm_kzalloc to avoid explicit release for video.
+On 10/28/2019 9:58 AM, Navid Emamdoost wrote:
+> In the implementation of aspeed_video_probe() the allocated memory for
+> video should be released if either devm_ioremap_resource()
+> or aspeed_video_init() or aspeed_video_setup_video() fails. Replace
+> kzalloc() with devm_kzalloc to avoid explicit release for video.
+> 
+> Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+> Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> ---
+> Changes in v2:
+> 	-- replace kzalloc with devm_kzalloc based on Jae Hyun Yoo
+> suggestion
+> 
+>   drivers/media/platform/aspeed-video.c | 2 +-
+>   1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+> index eb12f3793062..2aa8ea2f9824 100644
+> --- a/drivers/media/platform/aspeed-video.c
+> +++ b/drivers/media/platform/aspeed-video.c
+> @@ -1646,7 +1646,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
+>   {
+>   	int rc;
+>   	struct resource *res;
+> -	struct aspeed_video *video = kzalloc(sizeof(*video), GFP_KERNEL);
+> +	struct aspeed_video *video = devm_kzalloc(sizeof(*video), GFP_KERNEL);
 
-Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
-Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
----
-Changes in v2:
-	-- replace kzalloc with devm_kzalloc based on Jae Hyun Yoo
-suggestion
+It can't be compiled. devm_kzalloc should have 3 parameters.
 
- drivers/media/platform/aspeed-video.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Cheers,
 
-diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index eb12f3793062..2aa8ea2f9824 100644
---- a/drivers/media/platform/aspeed-video.c
-+++ b/drivers/media/platform/aspeed-video.c
-@@ -1646,7 +1646,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
- {
- 	int rc;
- 	struct resource *res;
--	struct aspeed_video *video = kzalloc(sizeof(*video), GFP_KERNEL);
-+	struct aspeed_video *video = devm_kzalloc(sizeof(*video), GFP_KERNEL);
- 
- 	if (!video)
- 		return -ENOMEM;
--- 
-2.17.1
+Jae
