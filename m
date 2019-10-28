@@ -1,51 +1,66 @@
-Return-Path: <sharad.khetan@intel.com>
+Return-Path: <navid.emamdoost@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::142;
+ helo=mail-il1-x142.google.com; envelope-from=navid.emamdoost@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JS8Fy9vg"; 
+ dkim-atps=neutral
+Received: from mail-il1-x142.google.com (mail-il1-x142.google.com
+ [IPv6:2607:f8b0:4864:20::142])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4721GH56gnzDrRW
- for <openbmc@lists.ozlabs.org>; Tue, 29 Oct 2019 04:01:39 +1100 (AEDT)
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga004.jf.intel.com ([10.7.209.38])
- by fmsmga106.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 28 Oct 2019 10:01:32 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.68,240,1569308400"; d="scan'208";a="350733598"
-Received: from fmsmsx107.amr.corp.intel.com ([10.18.124.205])
- by orsmga004.jf.intel.com with ESMTP; 28 Oct 2019 10:01:20 -0700
-Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.114]) by
- fmsmsx107.amr.corp.intel.com ([169.254.6.52]) with mapi id 14.03.0439.000;
- Mon, 28 Oct 2019 10:01:19 -0700
-From: "Khetan, Sharad" <sharad.khetan@intel.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, "Muggeridge, Matt"
- <matt.muggeridge2@hpe.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: RE: Curiosity: Why is the OpenBMC layer named "phosphor"
-Thread-Topic: Curiosity: Why is the OpenBMC layer named "phosphor"
-Thread-Index: AdWKAHHvH4cEuoZBQpKgd9B6kReChAD0/b6AAAkMUTA=
-Date: Mon, 28 Oct 2019 17:01:19 +0000
-Message-ID: <865C376D1B77624AAA570EFEF73CE52F9E04512A@fmsmsx118.amr.corp.intel.com>
-References: <DF4PR8401MB10841D9A4AB2C85B587D477FD86A0@DF4PR8401MB1084.NAMPRD84.PROD.OUTLOOK.COM>
- <D5DFCF5B-2691-4308-BB27-4E3A185EF674@fuzziesquirrel.com>
-In-Reply-To: <D5DFCF5B-2691-4308-BB27-4E3A185EF674@fuzziesquirrel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ctpclassification: CTP_NT
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL0ludGVsMyIsImlkIjoiNTNmNTgyNTktYzYyNC00YWY3LWFkYjctNDZlYjdhMDUzZjVjIiwicHJvcHMiOlt7Im4iOiJDVFBDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiQ1RQX05UIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE3LjEwLjE4MDQuNDkiLCJUcnVzdGVkTGFiZWxIYXNoIjoiaUtnSExabWM1VVwvSHVaXC9WYUxlZXZaYVRiNG5oT3lZMkN6enljdVg0bDI3ZHBYTXAxVWd2QXQ2SUE2SGN4ekF2In0=
-dlp-product: dlpe-windows
-dlp-version: 11.2.0.6
-dlp-reaction: request-justification,no-action
-x-originating-ip: [10.1.200.108]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4721Mf2RZSzDqs6;
+ Tue, 29 Oct 2019 04:06:21 +1100 (AEDT)
+Received: by mail-il1-x142.google.com with SMTP id s6so5296050iln.0;
+ Mon, 28 Oct 2019 10:06:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=qEZnOAl+fyol577/Ww6E9JnJ75gZF3IAAiee1LeCfz0=;
+ b=JS8Fy9vgAdKI1FobnGClOfeD0pP41gqq5kqD7rnWblls7q2odK63Ol6xwiCU9Zt3Kk
+ PPdk/JRUd0iUR8wz32PvlRY0otvIlahvYWrZwznaXZEVIxIn4/jPuAzFMsp5sJGVZpTY
+ /NNuHZrnpV0yV019S6CtWPQGyn2FefiJ5Rs5vXnndxT0gVUAJT3HxlNfXwaQikrI1pVp
+ +qa7kqGsaYHXdZwRLcvTnuC1c9s9lluWveBkjJVMS30yBn6FaRCZqHxiw7cO+caqI5IB
+ 8JkdkFI8+2aJKZBVCcQT62Psv92rV5tH3it3Dl6t07b6jVjVKEizlz+dOKlN2n+PL2Uv
+ fYoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=qEZnOAl+fyol577/Ww6E9JnJ75gZF3IAAiee1LeCfz0=;
+ b=dK4nwYEIG4d2XRCCIEFutmDW2LpAFeLxWol6zww1mdAAM8/vcoU1YSfr2xZazsm+u2
+ a9bbkbzuRGy+/Jgxidjkc0rpUNqp3To2jE4F7XH680womCj83jbWdn0RwA6Row+CgBpL
+ JXrkG+MOITkD+Cfs33/1NUbOGrhBTKnzCbylfw1GJXXF4pE9+DSN9FjMkguXQr4TgF06
+ y/d5Zx5VaD7pSLfcw9Cj6KofGt6xhZOfHm11vGq1HeqD5Sh57ziSijyB79ZPaeCsYsqq
+ GpBnLLyD1GiPtMksMsi4Z3fJG49LQnlg6bimZPVI5pu8ZTfUUYY2ebvIWTBzeJNm0spL
+ 4hNg==
+X-Gm-Message-State: APjAAAUmHfKh+UvM/ZJ6PgNxxpSgNjgCbakPMhNUF70+SO2Vm5Sjug9Y
+ yQHSB2AX3d2Qma+QNLaE7bX5eaK+lfvzkUoex7M=
+X-Google-Smtp-Source: APXvYqxYIzKYXKMFa2CgHK7gcirYERSxMdE2I4RnMEWEhwn3UG4OKqYAn+/jnr8wxay0EFmyz1FqWZSWRzSEPIAP5fQ=
+X-Received: by 2002:a92:6a04:: with SMTP id f4mr6280005ilc.252.1572282378109; 
+ Mon, 28 Oct 2019 10:06:18 -0700 (PDT)
 MIME-Version: 1.0
+References: <d9c04318-586a-bfc2-fce6-6218c6bab1d6@linux.intel.com>
+ <20191028165827.24949-1-navid.emamdoost@gmail.com>
+ <6450dbb4-aa6f-627d-7e5d-21a20f560d60@linux.intel.com>
+In-Reply-To: <6450dbb4-aa6f-627d-7e5d-21a20f560d60@linux.intel.com>
+From: Navid Emamdoost <navid.emamdoost@gmail.com>
+Date: Mon, 28 Oct 2019 12:06:07 -0500
+Message-ID: <CAEkB2ETFNFKtGTo+HZ4L9uzr-W1CTeuGAwfKqm8hX5fx7d8dbQ@mail.gmail.com>
+Subject: Re: [PATCH v2] media: aspeed-video: Fix memory leaks in
+ aspeed_video_probe
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Cc: Navid Emamdoost <emamd001@umn.edu>, Stephen McCamant <smccaman@umn.edu>,
+ Kangjie Lu <kjlu@umn.edu>, 
+ Eddie James <eajames@linux.ibm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ linux-media@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
+ linux-aspeed@lists.ozlabs.org, LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,26 +72,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 28 Oct 2019 17:01:45 -0000
+X-List-Received-Date: Mon, 28 Oct 2019 17:06:23 -0000
 
-VmVyeSBpbnRlcmVzdGluZy4gSSBoYXZlIHdvbmRlcmVkIGFib3V0IG5vbWVuY2xhdHVyZSBidXQg
-ZGlkbuKAmXQga25vdyB0aGUgcm9vdHMgd2VyZSBmaXNoeSDwn5iKLg0KLVNoYXJhZA0KDQotLS0t
-LU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogb3BlbmJtYyA8b3BlbmJtYy1ib3VuY2VzK3No
-YXJhZC5raGV0YW49aW50ZWwuY29tQGxpc3RzLm96bGFicy5vcmc+IE9uIEJlaGFsZiBPZiBCcmFk
-IEJpc2hvcA0KU2VudDogTW9uZGF5LCBPY3RvYmVyIDI4LCAyMDE5IDc6MTMgQU0NClRvOiBNdWdn
-ZXJpZGdlLCBNYXR0IDxtYXR0Lm11Z2dlcmlkZ2UyQGhwZS5jb20+DQpDYzogT3BlbkJNQyBNYWls
-bGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogUmU6IEN1cmlvc2l0eTog
-V2h5IGlzIHRoZSBPcGVuQk1DIGxheWVyIG5hbWVkICJwaG9zcGhvciINCg0KDQoNCj4gT24gT2N0
-IDIzLCAyMDE5LCBhdCA4OjIxIFBNLCBNdWdnZXJpZGdlLCBNYXR0IDxtYXR0Lm11Z2dlcmlkZ2Uy
-QGhwZS5jb20+IHdyb3RlOg0KPiANCj4gSSBzZWUg4oCccGhvc3Bob3LigJ0gc2hvd3MgdXAgYWxs
-IG92ZXIgdGhlIHBsYWNlIGluIG9wZW5ibWMuICBFLmcuIG1ldGEtcGhvc3Bob3IgaXMgdGhlIE9w
-ZW5CTUMgbGF5ZXIuDQo+ICANCj4gSXMgcGhvc3Bob3IgYSBwcm9qZWN0IG5hbWUgdGhhdCB3aWxs
-IGV2b2x2ZSB3aXRoIE9wZW5CTUMgZ2VuZXJhdGlvbnMgb3IgaXMgaXQgZm9yZXZlciBzdGF0aWM/
-DQoNCkF0IHRoZSBtb21lbnQgaXQgaXMgc3RhdGljIGJ1dCB0aGF0IGlzbuKAmXQgYW55IGtpbmQg
-b2YgaGFyZCBhbmQgZmFzdCBydWxlLiAgSXQgaXMgdHlwaWNhbGx5IHVzZWQgdG8gZGlzdGluZ3Vp
-c2ggYSBkZWZhdWx0IG9yIHJlZmVyZW5jZSBpbXBsZW1lbnRhdGlvbiBidXQgdGhhdCBkZWZpbml0
-aW9uIGFuZCBpdHMgdXNhZ2UgaXMgY2VydGFpbmx5IGZ1enp5Lg0KDQpUaGUgZmlyc3QgcGxhdGZv
-cm0gc3VwcG9ydGVkIGJ5IHRoaXMgcHJvamVjdCBiYWNrIGluIDIwMTUgd2FzIHRoZSBiYXJyZWxl
-eWUgc3lzdGVtLiAgQmFycmVsZXllIGlzIGEga2luZCBvZiBmaXNoIC0gaXQgaGFzIGEgcGhvc3Bo
-b3Jlc2NlbnQgZ2xvdzsgbWV0YS1waG9zcGhvciBpcyBhIG5vZCB0byB0aG9zZSByb290cyBvZiB0
-aGUgcHJvamVjdC4NCg0KdGh4IC0gYnJhZA0K
+On Mon, Oct 28, 2019 at 12:01 PM Jae Hyun Yoo
+<jae.hyun.yoo@linux.intel.com> wrote:
+>
+> On 10/28/2019 9:58 AM, Navid Emamdoost wrote:
+> > In the implementation of aspeed_video_probe() the allocated memory for
+> > video should be released if either devm_ioremap_resource()
+> > or aspeed_video_init() or aspeed_video_setup_video() fails. Replace
+> > kzalloc() with devm_kzalloc to avoid explicit release for video.
+> >
+> > Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+> > Signed-off-by: Navid Emamdoost <navid.emamdoost@gmail.com>
+> > ---
+> > Changes in v2:
+> >       -- replace kzalloc with devm_kzalloc based on Jae Hyun Yoo
+> > suggestion
+> >
+> >   drivers/media/platform/aspeed-video.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+> > index eb12f3793062..2aa8ea2f9824 100644
+> > --- a/drivers/media/platform/aspeed-video.c
+> > +++ b/drivers/media/platform/aspeed-video.c
+> > @@ -1646,7 +1646,7 @@ static int aspeed_video_probe(struct platform_device *pdev)
+> >   {
+> >       int rc;
+> >       struct resource *res;
+> > -     struct aspeed_video *video = kzalloc(sizeof(*video), GFP_KERNEL);
+> > +     struct aspeed_video *video = devm_kzalloc(sizeof(*video), GFP_KERNEL);
+>
+> It can't be compiled. devm_kzalloc should have 3 parameters.
+>
+
+Oops! my bad. Do you think such a list of parameters is fine:
+    devm_kzalloc(&pdev->dev, sizeof(*video), GFP_KERNEL);
+
+> Cheers,
+>
+> Jae
+
+
+
+-- 
+Navid.
