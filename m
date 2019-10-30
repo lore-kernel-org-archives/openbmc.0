@@ -6,63 +6,64 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="GdRwx0Bf"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="sA2uEydy"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="qmd6I+Wi"; dkim-atps=neutral
+ header.b="ChouHSs7"; dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4737Gj4QkkzF4Hq
- for <openbmc@lists.ozlabs.org>; Wed, 30 Oct 2019 23:35:57 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4737Gj0x98zF4Hm
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Oct 2019 23:35:55 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 1B01021FBF;
- Wed, 30 Oct 2019 08:35:55 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id CB63A2089D;
+ Wed, 30 Oct 2019 08:35:51 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 30 Oct 2019 08:35:55 -0400
+ by compute4.internal (MEProxy); Wed, 30 Oct 2019 08:35:51 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=ruzsgzxV1I7l8
- xGxSKeMBR1bj0RxS9+LYSK3ZuKepAc=; b=GdRwx0BfiQh9JFk3LfyjmfhCuFBg6
- mvtnkRtWAhXOkZVP8sltcOfQb4mzXm9sWcMJ1Ba3fbnoJJUxFN5LlZVcdv+7Rxao
- 7LY9TvKy+uVRQ1YWhBqtF3uXF1/oSppErcR4t1tP5e7B14J5Au3QYfnv3bmQ/baO
- 8LpB3FAePSLtUu+bpXXbB+D778yJGQnrs8BjwVlLiJBMuAI0C4Fpw0J2+8SE147m
- ysqQdnLds1+Wooak/4DZnTS9w91apLB3ZXKZugbhkUmCauPFjpqM/BR1PGXoUSwo
- wfN6IbSJgxZoHfcI2cP6rQ2nVw5yF+napAd7s7fyo9jcXDptrjMGkOFsw==
+ :mime-version:content-transfer-encoding; s=fm1; bh=IvTn8Tpx+17AZ
+ wcyPoI9nsUNch2fNgW0y55fiAf27f4=; b=sA2uEydyiWMvXkZv3vkoyXIF24WyA
+ 14t02FYiJH3yH1bMRpJxvfoBM1l+byXzF97B92NqhRuSyWzF7P0zsLWRzA/mwvab
+ Y8zPYwvLMyGw4dHhGkRvkyLwNTavif4th9Mp9BfrhRHVhADbFvX7E0Hw3xDFBYV9
+ wTMPbFwGi/tAd0eJz8FRscr/h/f90ZW6jE46AnLr7/s67jHZojEjgDCG74vGUEho
+ ZBkknSq/D7pCV+MviaL9NpCrToF0vxjrCM3R38rcDOXsy8fPsyCietJ5sxn3lvEu
+ At5uqTP94tS3pCIAUUWKSr6mBAX1GaoDa0DNwuh9J05JgsID251FVCWlw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=ruzsgzxV1I7l8xGxSKeMBR1bj0RxS9+LYSK3ZuKepAc=; b=qmd6I+Wi
- 74LMuGoCSAV5j0lexd3r+7A3yHIKDOMS2QGzJpdSGCnwDnEEbbFlFYJ+Fh8RnILs
- rBH+iHJprny6uGftJOF4aESquGxteg4mgtIQLFKaeWMdkssj+OiOFxlnWOZ2AIlv
- iJ/RCEPtz3q60vt/rFb73Y7hrygFwl9G9867abQVpdhQYq3IJHERnRUB2wMv8bWA
- wisZ3L+ZLVrcvMvxVlwex7w+i79fD9MJFIWHd1R3jmJfVdjFQbCSIXbVIRqcBdzZ
- NtNoFbZfNRGagaHW5d4ulqQkodyQW+NqitQymqoTG1udDOgoYgt5zainFFvGcBAP
- g5s4xOFHb3Xnpw==
-X-ME-Sender: <xms:q4O5XYo5I7Ronc3XldpgloKtb58j1yxtnTbWlRjhaGKdSiDTdXscCA>
+ fm1; bh=IvTn8Tpx+17AZwcyPoI9nsUNch2fNgW0y55fiAf27f4=; b=ChouHSs7
+ gzWfF0saLYz6IQiQBxAsxG9vUuhYr5JK3GJPOYDOwTdI1D483vtkwewOnrRX3Kgn
+ IlkuE3YZb86R0tQrZZBrYFJzBF9t/dlb5oI2hMlXb23/4A7Kw1zrxn+Y9Z7gQRR0
+ lK8FW1nihnHktJo/L2/2dqC1bI/KIWsqwlh3Fi91H+Kvxmpo1U+JWmDq2nlqxZZw
+ Z+b5q7Po4GNvysG7stZtB7uChu4bu+AsMR/f+2ia968fXA/5Py3KBDG79/r7iHDd
+ DmrL9CggvGyJ+wvUl/S6uSoFJO3WnkX+n04PngdGnfAfHtVdBMGSCK7+rqLH1Gbm
+ fnmucYjK2b9x9A==
+X-ME-Sender: <xms:p4O5XYCIVhD-ZCksTXL8x3QA0m_l1Q_FvxoYvch1cSD1VWFxeJoAJQ>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtfedggeefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
  jhdrihgurdgruheqnecukfhppeduudekrddvuddtrddugeejrdegheenucfrrghrrghmpe
  hmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhi
- iigvpedv
-X-ME-Proxy: <xmx:q4O5Xfsymvc4jQ1MiFIHSDmoSwt_m8jr2p89iNo9F2bk7sU6PryqHw>
- <xmx:q4O5XQIMYdbnZWGTUiA5YXl9JzxqBfr7uX9uanrUFaa1peGDsAh8-A>
- <xmx:q4O5XdkuzphOagwaYmBFljMA95BI8cfnezVhM1lMCCexe9mnJBg64A>
- <xmx:q4O5XR8b9DFcygY6om_Yqb4cLHIpD0B94egFvLJ4RXQmLfBJbobTpw>
+ iigvpedt
+X-ME-Proxy: <xmx:p4O5XZQ8XRJ0ZBZhxDLkdrU4x8bybLcjcBe62Vqqi2EgttiX0XGtoA>
+ <xmx:p4O5XbJL7cvmDrDQ_Wq9mw-20J9r2OawQQZd7LBBNKZaQcyw4NTCFw>
+ <xmx:p4O5XZFsWsv20CMgYLtmYWItnlRHRyTPOsk3T-l-1JO3pdyx723b4g>
+ <xmx:p4O5XdMhi9RMnmSW5Vf0h3vpA8KnLIbnJ5_nKz_DmLlDiPjDYtoMtQ>
 Received: from localhost.localdomain
  (ppp118-210-147-45.adl-adc-lon-bras33.tpg.internode.on.net [118.210.147.45])
- by mail.messagingengine.com (Postfix) with ESMTPA id D4516306005F;
- Wed, 30 Oct 2019 08:35:53 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 6E0BA3060063;
+ Wed, 30 Oct 2019 08:35:50 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 3/3] fsi: aspeed: Enable single byte FSI accesses
-Date: Wed, 30 Oct 2019 23:07:07 +1030
-Message-Id: <20191030123707.29110-4-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 1/3] fsi: aspeed: Implement byte and half world
+ transfers
+Date: Wed, 30 Oct 2019 23:07:05 +1030
+Message-Id: <20191030123707.29110-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191030123707.29110-1-andrew@aj.id.au>
 References: <20191030123707.29110-1-andrew@aj.id.au>
@@ -80,49 +81,94 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Wed, 30 Oct 2019 12:36:02 -0000
-X-List-Received-Date: Wed, 30 Oct 2019 12:36:02 -0000
-X-List-Received-Date: Wed, 30 Oct 2019 12:36:02 -0000
 
-The OPB0 read order selection register caused a data read register value
-of 0xffffffff to be read for single byte accesses over FSI. A value of
-0x03 for the read order byte-access slot correctly "swaps" the BE MSB
-value to the LE LSB for extraction by the APB2OPB bridge:
+From: Joel Stanley <joel@jms.id.au>
 
-    # devmem 0x1e79b05c
-    0x00030B1B
-    # dd if=raw bs=1 count=1 | hexdump -C
-                  dd-588   [000] .... 15201.144814: fsi_master_read: fsi0:00:00 00000000[1]
-                  dd-588   [000] .n.. 15201.144872: fsi_master_aspeed_opb_read: fsi: opb read: addr a0000000 size 1: result ffffffc0 status: 00000000 irq_status: 00010000
-                  dd-588   [000] .n.. 15201.144877: fsi_master_aspeed_opb_read: fsi: opb read: addr 800000d0 size 4: result 00000000 status: 00000002 irq_status: 00010000
-                  dd-588   [000] .n.. 15201.144880: fsi_master_aspeed_opb_read: fsi: opb read: addr 800000d0 size 4: result 00000000 status: 00000002 irq_status: 00010000
-                  dd-588   [000] .n.. 15201.144883: fsi_master_aspeed_opb_read: fsi: opb read: addr 800001d0 size 4: result 00000000 status: 00000002 irq_status: 00010000
-                  dd-588   [000] .n.. 15201.144885: fsi_master_aspeed_opb_error: mresp0 00000000 mstap0 00000000 mesrb0 00000000
-                  dd-588   [000] .n.. 15201.144887: fsi_master_rw_result: fsi0:00:00 00000000[1] => {c0} ret 0
-    1+0 records in
-    1+0 records out
-    00000000  c0                                                |.|
-    00000001
+The driver did not previously support non-word size transfers. The
+fsi-i2c driver attempts accesses of this size, so we require it now.
 
-While we're at it, clean up the half-word access read order selection in
-the same manner.
-
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+[AJ: rebase on dev-5.3, fix conflicts, fix warnings]
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/fsi/fsi-master-aspeed.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/fsi/fsi-master-aspeed.c | 35 ++++++++++++++++++++++++---------
+ 1 file changed, 26 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-index 6767cd89de36..ffbfb34e82f6 100644
+index 97d2cac94291..cb8064cc59c0 100644
 --- a/drivers/fsi/fsi-master-aspeed.c
 +++ b/drivers/fsi/fsi-master-aspeed.c
-@@ -605,7 +605,7 @@ static int fsi_master_aspeed_probe(struct platform_device *pdev)
- 	writel(fsi_base, aspeed->base + OPB_FSI_BASE);
+@@ -167,24 +167,39 @@ static const u32 fsi_base = 0xa0000000;
+ #define CMD_WRITE	0
  
- 	/* Set read data order */
--	writel(0x0011bb1b, aspeed->base + OPB0_R_ENDIAN);
-+	writel(0x00030b1b, aspeed->base + OPB0_R_ENDIAN);
+ /* OPBx_XFER_SIZE */
+-#define XFER_WORD	(BIT(1) | BIT(0))
+-#define XFER_NIBBLE	(BIT(0))
++#define XFER_FULLWORD	(BIT(1) | BIT(0))
++#define XFER_HALFWORD	(BIT(0))
+ #define XFER_BYTE	(0)
  
- 	/* Set write data order */
- 	writel(0x0011bb1b, aspeed->base + OPB0_W_ENDIAN);
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/fsi_master_aspeed.h>
+ 
++static int get_xfer_size(size_t size) {
++	switch (size) {
++	case 1:
++		return XFER_BYTE;
++	case 2:
++		return XFER_HALFWORD;
++	case 4:
++		return XFER_FULLWORD;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static u32 opb_write(struct fsi_master_aspeed *aspeed, uint32_t addr,
+ 		     uint32_t val, size_t size)
+ {
+ 	void __iomem *base = aspeed->base;
+ 	u32 reg, ret, status;
++	int xfer_size;
+ 
+-	/* TODO: implement other sizes, see 0x18 */
+-	WARN_ON(size != 4);
++	xfer_size = get_xfer_size(size);
++	if (xfer_size < 0)
++		return xfer_size;
+ 
+ 	writel(CMD_WRITE, base + OPB0_RW);
+-	writel(XFER_WORD, base + OPB0_XFER_SIZE);
++	writel(xfer_size, base + OPB0_XFER_SIZE);
+ 	writel(addr, base + OPB0_FSI_ADDR);
+ 	writel(val, base + OPB0_FSI_DATA_W);
+ 	writel(0x1, base + OPB_IRQ_CLEAR);
+@@ -215,12 +230,14 @@ static int opb_read(struct fsi_master_aspeed *aspeed, uint32_t addr,
+ 	void __iomem *base = aspeed->base;
+ 	u32 result, reg;
+ 	int status, ret;
++	int xfer_size;
+ 
+-	/* TODO: implement other sizes, see 0x18 */
+-	WARN_ON(size != 4);
++	xfer_size = get_xfer_size(size);
++	if (xfer_size < 0)
++		return xfer_size;
+ 
+ 	writel(CMD_READ, base + OPB0_RW);
+-	writel(XFER_WORD, base + OPB0_XFER_SIZE);
++	writel(xfer_size, base + OPB0_XFER_SIZE);
+ 	writel(addr, base + OPB0_FSI_ADDR);
+ 	writel(0x1, base + OPB_IRQ_CLEAR);
+ 	writel(0x1, base + OPB_TRIGGER);
+@@ -246,7 +263,7 @@ static int opb_read(struct fsi_master_aspeed *aspeed, uint32_t addr,
+ 		return -EIO;
+ 
+ 	if (out)
+-		*out = result;
++		memcpy(out, &result, size);
+ 
+ 	return 0;
+ }
 -- 
 2.20.1
