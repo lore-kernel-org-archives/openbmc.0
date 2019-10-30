@@ -1,74 +1,54 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <venture@google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::52d;
+ helo=mail-pg1-x52d.google.com; envelope-from=venture@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="SAPpUIRU"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="eZiwbCMQ"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=google.com header.i=@google.com header.b="HTOR1Jit"; 
+ dkim-atps=neutral
+Received: from mail-pg1-x52d.google.com (mail-pg1-x52d.google.com
+ [IPv6:2607:f8b0:4864:20::52d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4737Gj0xZKzF4Hn
- for <openbmc@lists.ozlabs.org>; Wed, 30 Oct 2019 23:35:56 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 8679121C48;
- Wed, 30 Oct 2019 08:35:53 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 30 Oct 2019 08:35:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=GnP/xy+PJN1vi
- N5YXPUCzdz4B+9b9AL5rte+h1LMcrA=; b=SAPpUIRUDY51496vCJw+yMByeq7hE
- c54oRYNgaPVhnCINM7WjdT/MqRHY0F99w8MLbnt7KKh8ywXq7RjO5tzHLsNTvF8U
- DN1WizcehONBGYqa2J+b5WJgETuiWX9vLyR8u5ZCQrbS/yZoSJ8EPLzvkx46E+27
- wPec0RCkW9i5kXIR4oXW/SAg8YW5Q9Lm9dsXqCB5fvh2B9ZPdS0YK7h72mg5NMKU
- sNcHX2KTmYOhTgdeh+khQn9m8FSNSIq73Wc5DCDo6eDjsyVmxd6PdaWgMKPdDCEE
- IglnFgZ3+SB2ginTN4VYtz+f4rmES/z/Kcig0O+tLoFkDhCGTzVa4HoHg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=GnP/xy+PJN1viN5YXPUCzdz4B+9b9AL5rte+h1LMcrA=; b=eZiwbCMQ
- jRq9hMmLJ0yrXELxffdNiyiPAzeA+RtUf+ywVyo1WGGMQ+bBKu+M+PwMYUt5XS+8
- jgxI3/1DTuHfmkOIwNd+eAD5buZngfvNYQ7GkkJDishOyTu++N5/CeFJXsf9G7ZU
- dcFuGsAUQAyan37mQ91ea7gg2q5qGH8t+ZU6l44IWApDzJUNYtM6NQMm2gf3B//g
- hYF/SV1mHDaq47cYxKwP5VAPfcxFv4AGo4nP5Geg8vswnV3WM/8E53jIAnGFBAI+
- 2iXw/gz0oSeTiX46bvWznr+2OzN+TksB5+JjdMXgI/ayTELaMV/DUjPs326DUDXy
- Ovgfb9IuROTMWw==
-X-ME-Sender: <xms:qYO5XSgwgdFyLbBRE-D8mxtNM4nozZ1wPNvlXwUGKdDgxKUmjJdRTQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtfedggeefucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
- jhdrihgurdgruheqnecukfhppeduudekrddvuddtrddugeejrdegheenucfrrghrrghmpe
- hmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhi
- iigvpedt
-X-ME-Proxy: <xmx:qYO5XUgNBx3wF7CMXxCEMfnJFPjY5L9U8lH9XRcrcqlEgyA0TZ5K7Q>
- <xmx:qYO5XXsw9YKn3KUjdIObgSXmBQtxBfTHpR1neQy02LLmZkzTpcFLcw>
- <xmx:qYO5XSvZF3TO5qWMRdZkiq8jPz3zBAEYsUD5CCBSc0ytgw-629vlUA>
- <xmx:qYO5XaObLDnxUckQ5Ie0Zvi0SK58FrvQ0XtILlSaTFTrNV6djJdHUg>
-Received: from localhost.localdomain
- (ppp118-210-147-45.adl-adc-lon-bras33.tpg.internode.on.net [118.210.147.45])
- by mail.messagingengine.com (Postfix) with ESMTPA id 45DB1306005F;
- Wed, 30 Oct 2019 08:35:51 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 2/3] fsi: aspeed: Fix buffer overrun for small
- writes
-Date: Wed, 30 Oct 2019 23:07:06 +1030
-Message-Id: <20191030123707.29110-3-andrew@aj.id.au>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191030123707.29110-1-andrew@aj.id.au>
-References: <20191030123707.29110-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 473FVw5mvzzF3rv
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 04:16:56 +1100 (AEDT)
+Received: by mail-pg1-x52d.google.com with SMTP id e4so1917062pgs.1
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Oct 2019 10:16:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to:cc;
+ bh=eHh8KtCjdbDDT2lQyA5R6TN/QMZuD2hUU3FdMQn+ZSM=;
+ b=HTOR1Jit9V2FYd67TEj4ylHQYbTKjOcqLtUFPUcs/VUU5a3IP3LoVKZU13GsQ5+z42
+ VKk2/vOrazLkqL7Ab+t3ap5qJYPiDeLPepfhHGfxwmhV7Wcqkhn4yQ1WTf2GAf/q30Ep
+ gf50AaH5PmskePF1aUfU4YwDqEVMrGBX1bOdABJSO0z+gSoislO57AhfyiyW3Ll77OUQ
+ mBg4apG9K0Zy7suYHZBmKOnvfZGiK4MA/JYzABvc9RF/lKfabDOsMLfNM+U+6qwdS5kX
+ KDhaM00GwA6D+m9HFWDGGORjlsChdtQt9PjkeIDMjod0JYoRUJPsjcfC9GEm7wHYZLV5
+ cAFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+ bh=eHh8KtCjdbDDT2lQyA5R6TN/QMZuD2hUU3FdMQn+ZSM=;
+ b=SF6ZV0a5onqYXsNloJ0NgTWeAnQ7+6dpKA/XipoYUkAhMngGHfNKq0B/nLKMur/dwk
+ RjOnJ0w/7U+18ofTl9hXr+2Sb4xlXZidvRzNHNpeZKptCfzPI38OfpPs1uC6WuJjEPea
+ 27LPVc+zh/kMZQgwMe5UA2AQlCRCv7Ez+Vw3cFjkYEdnStANzPI7V/NSM4cq82UZsvCK
+ xkAypEhaak2nd04e1OhoiXKB32b15cCzSxY9UCsK1ZHCewwVenxTH+oGcTfXcLqjZI8Z
+ Y1AQVyB9YilRypPWUu06Tqp6GquNrxVem+qsHVsmYEPogQm68bJg44AyBslCx86H1bVV
+ RYEQ==
+X-Gm-Message-State: APjAAAXcLYTjUEtdKKGr2yUspIi5wbry7wK9sovP4qD5zeCE1QDWoJW5
+ 2WThu5JUkAsmG/dFAxFYhRQucIwfy3L10AGjYBSbWw==
+X-Google-Smtp-Source: APXvYqzukw9xg9T/+UtuGdimw55XwdUhMmLb6FpQCtR3W2qHvO2lHhgK460ILJ48W+Fm3YNIslOBUxjXeuWBJ01ljqQ=
+X-Received: by 2002:a63:6f47:: with SMTP id k68mr572686pgc.92.1572455812484;
+ Wed, 30 Oct 2019 10:16:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Patrick Venture <venture@google.com>
+Date: Wed, 30 Oct 2019 10:16:41 -0700
+Message-ID: <CAO=notzWsPTty_3imuC2ChNWpEnkfGfpc0jZ_NMoL-sS3LnihQ@mail.gmail.com>
+Subject: huntergate not included in intel-ipmi-oem
+To: James Feist <james.feist@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,44 +60,19 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 30 Oct 2019 12:36:02 -0000
+X-List-Received-Date: Wed, 30 Oct 2019 17:16:57 -0000
 
-One and two byte writes read data beyond the end of the provided
-buffer.
+James;
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/fsi/fsi-master-aspeed.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+It looks ilke huntergate has a cmake file in intel-ipmi-oem but it's
+not actually explicitly included.  Is this an oversight?  Or is it
+implicitly included?
 
-diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-index cb8064cc59c0..6767cd89de36 100644
---- a/drivers/fsi/fsi-master-aspeed.c
-+++ b/drivers/fsi/fsi-master-aspeed.c
-@@ -331,7 +331,23 @@ static int aspeed_master_write(struct fsi_master *master, int link,
- 		return -EINVAL;
- 
- 	addr += link * FSI_HUB_LINK_SIZE;
--	ret = opb_write(aspeed, fsi_base + addr, *(uint32_t *)val, size);
-+
-+	switch (size) {
-+	case 1:
-+		ret = opb_write(aspeed, fsi_base + addr, *(uint8_t *)val,
-+				size);
-+		break;
-+	case 2:
-+		ret = opb_write(aspeed, fsi_base + addr, *(uint16_t *)val,
-+				size);
-+		break;
-+	case 4:
-+		ret = opb_write(aspeed, fsi_base + addr, *(uint32_t *)val,
-+				size);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
- 
- 	ret = check_errors(aspeed, ret);
- 	if (ret)
--- 
-2.20.1
+We ran into an issue with non-bitbake dependencies a while back
+(leading to: https://gerrit.openbmc-project.xyz/c/openbmc/entity-manager/+/24581)
+and I wondered if this was needed here or if huntergate was just
+present but not actually downloaded/built.
+
+Cmake is not all magic, but maybe this is magic.
+
+Patrick
