@@ -1,66 +1,62 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::642;
+ helo=mail-pl1-x642.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="HE15oaGh"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="oCeIDN4e"; dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="JiSLr8s1"; 
+ dkim-atps=neutral
+Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com
+ [IPv6:2607:f8b0:4864:20::642])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 473YQ66N0VzF5W1
- for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 16:13:50 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id DAD3B223DA;
- Thu, 31 Oct 2019 01:13:45 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 31 Oct 2019 01:13:45 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=z8ngavjpr9ZdpaCDTKopJJZw0J
- m8e6ibsBlpnhn98uE=; b=HE15oaGhz3uwSjffE7WEeYSG+ydtdUUMMgJuod+g4c
- FSQkWSGjf2QYq8goCvFGHi/zv1215RSn4ZuvRekJwRFe+Z6guF+YjFco29hMvSR/
- c/Zyr+U2cfl2rI16pV3a/2Zd9IP/8p2N0eBpZdI3Y+SeHvMcBOE8UDlEBe0yMIye
- jqgjOr0/YWWGxbNsQ9IY7viZru+T6aG9Qc7hVt0ptvck5xv0f89XLtZxi7l6Cb12
- NAQsdrSO+tTkbWKeFzKLUEs5tzwhXHynsgBTCqBlLBKU9lCT55FoDU6BtNqsesnL
- 6aTYQHELT+uhNOUYsJn/OJ1ydO/xgH5CkysqFoU9mHqw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=z8ngavjpr9ZdpaCDT
- KopJJZw0Jm8e6ibsBlpnhn98uE=; b=oCeIDN4eo/O8B1KNpWVMWwt4Zbt0QA4UC
- TyHdIERcHYm0zpVyCqWKvHxF3xEVIgGDxAVq8O4EI9owyVdcZOctqP1I1PnL103a
- I3Xe3BT4CxdqX7txAHf2mfy6V3p6tTe1pRUTDykxfT/bsWM4tTy79cKzQqa8yQAE
- M8LBS6vX2lO4DHowUXMw9IpQ9kZHpKroFJ8OvVRSFFSyGfW/hJZYdYwPJaswpyrc
- 64ilvRIFT+GRuNlX6mlwzg259FmPnvpysWf/gCoh5lWU8FBv42/4TY3UhGDFQFep
- /v+Vn7ODhKS4dV2Ney7uCsf6BnPqj7GW426rQUvRHwI0TIzWVkBAg==
-X-ME-Sender: <xms:iG26XaWDdA52vBgR9N_HJYnYU0lotG1D_t-XKfcH4NybXBZ6Yks2tw>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtgedgkedvucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdr
- ihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrghilh
- hfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigvpedt
-X-ME-Proxy: <xmx:iG26XUEu7MHizGXpIwDGriLYFCo4UGy_NbnWbOTv5mAZV0GHTC6y4w>
- <xmx:iG26XRAL0GLvsBwr-3j931lAYS5PsNU0t5qht3gH9NG2zAPfWrtsGA>
- <xmx:iG26XWxjvNb0phqbmnkmE7daDiUn9Vq_GX_HAYXR-jwSNdU0XvlZgA>
- <xmx:iW26XcuDLzMm7-DeHcDrucnlfv1c7GPBcIEyB5oWws7hZjhtpxFJSw>
-Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id D4B8B3060062;
- Thu, 31 Oct 2019 01:13:43 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
+ by lists.ozlabs.org (Postfix) with ESMTPS id 473YwV6W5RzF19q
+ for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 16:36:42 +1100 (AEDT)
+Received: by mail-pl1-x642.google.com with SMTP id x6so2158401pln.2
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Oct 2019 22:36:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=FfnlzU9b6Vn9jcRfjBg4FygqoEgW+rHKo9bjoiWYTgU=;
+ b=JiSLr8s1845pyq1QQvmqssh6OOhzgefUPfruHXSdIS6SFVD9nbYp9tUHSCidN4pzgD
+ Hnga3UAhjhJRR3nMopEdigzHhVVNpW5WpFODFQGyBm4SPbLUv7I/5D8mLlbLn8/SNUaH
+ YGcBzRSGLRtzqbTf6WQD2riuo6u/3XPXM507OMUIkSS2uWlTrhDg3Inx8MzI1YJY1wRs
+ e4lYsUk3yNgkujWawvT2lm91b8wYoM7vT057gA0QgEkgxf6JukoPwEHDy0jaNUM4bo7i
+ xZYc80ysoueI9xkzCAUTR1Mbz8Pnw7Zc3PYgS/TDGJPy6eyICSFXwd46xwmjfaawIgSz
+ 6HMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=FfnlzU9b6Vn9jcRfjBg4FygqoEgW+rHKo9bjoiWYTgU=;
+ b=rp5Q/Dxbvo3j/+CTV8zXvUedRQ5IJdEvY7n0hche+DHIYotOT3y10k/X0+pkP0wsK+
+ vWBNB394KhqN6gjERnGygvTcJqfRvnvtEfe2y7FTgDiBmG1xXOfexjFrDdK7nHYYoi7T
+ 7nWYjYHiWekP0WoT23wrUA4jBf+KvMn5pGTTBmULaBeVoryVkDt/yYtKq5rikDnZj+6h
+ 7xQYYAh2oG+yJxS9SG8c0v/N0R4z8eyWA3BkFSa07iO4aUPmsZbU58w05TZsx9k0WrSe
+ /olLX3sRQ0BXSNBIqszKBf2M0VEb3KzLHa4MAAgBZN0zuu4JITLdM62DME2L8Hfz+fce
+ d+Ew==
+X-Gm-Message-State: APjAAAWVFghmciH1lSkamCNlVD7MDaVD3eGA4tOrLjAXJnAUZKDUNnVJ
+ KSP6X4bPAVqE7mqfDIik+TrlhYztwo8=
+X-Google-Smtp-Source: APXvYqxo4U7QaAnE+UNIP/6i6y/Xi+VySoWc+2PNeB8CqEHMj9ivlDEsBgMMcZ7EI4RE+ON2iYRXGw==
+X-Received: by 2002:a17:902:9f96:: with SMTP id
+ g22mr4211843plq.286.1572500198631; 
+ Wed, 30 Oct 2019 22:36:38 -0700 (PDT)
+Received: from localhost.localdomain ([45.124.203.14])
+ by smtp.gmail.com with ESMTPSA id l72sm5337829pjb.18.2019.10.30.22.36.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 30 Oct 2019 22:36:38 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: Jeremy Kerr <jk@ozlabs.org>,
+	Andrew Jeffery <andrew@aj.id.au>
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 0/2] fsi: aspeed: Fix unaligned raw accesses
-Date: Thu, 31 Oct 2019 15:44:36 +1030
-Message-Id: <20191031051438.28589-1-andrew@aj.id.au>
-X-Mailer: git-send-email 2.20.1
+Subject: [PATCH linux dev-5.3 v2 0/8] fsi: aspeed: Access width fixes
+Date: Thu, 31 Oct 2019 16:06:17 +1030
+Message-Id: <20191031053625.422-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.24.0.rc1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -74,25 +70,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 31 Oct 2019 05:13:54 -0000
+X-List-Received-Date: Thu, 31 Oct 2019 05:36:43 -0000
 
-Hello,
+Here's v2 of Andrew's series, rewitten with a different approach.
 
-Two patches, a tracing cleanup to fix signed/unsigned print format error and a
-minor rework of the sysfs `raw` attribute read/write procedures to handle
-arbitrary offsets and sizes.
+There's also a collection of cleanups that I've been carrying around for
+a few days. Notably the driver is sparse clean now.
 
-Please review!
+Tested on Tacoma and Qemu.
 
-Andrew
+Andrew Jeffery (1):
+  fsi: aspeed: Fix endian register to enable single byte reads
 
-Andrew Jeffery (2):
-  trace: fsi: Print transfer size unsigned
-  fsi: core: Fix small accesses and unaligned offsets via sysfs
+Joel Stanley (7):
+  fsi: aspeed: Implement byte and half word writes
+  fsi: aspeed: Implement byte and half word reads
+  fsi: move defines to common header
+  fsi: aspeed: Fix types in debugfs
+  fsi: aspeed: Fix link enable
+  fsi: aspeed: Fix whitespace in check_errors
+  fsi: aspeed: Use defines for port reset
 
- drivers/fsi/fsi-core.c     | 8 ++++----
- include/trace/events/fsi.h | 6 +++---
- 2 files changed, 7 insertions(+), 7 deletions(-)
+ drivers/fsi/fsi-master-aspeed.c | 247 +++++++++++++++++---------------
+ drivers/fsi/fsi-master-hub.c    |  46 ------
+ drivers/fsi/fsi-master.h        |  71 +++++++++
+ 3 files changed, 200 insertions(+), 164 deletions(-)
 
 -- 
-2.20.1
+2.24.0.rc1
