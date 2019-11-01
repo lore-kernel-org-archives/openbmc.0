@@ -1,61 +1,73 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d42;
- helo=mail-io1-xd42.google.com; envelope-from=mine260309@gmail.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.27;
+ helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="FvqjESvx"; 
- dkim-atps=neutral
-Received: from mail-io1-xd42.google.com (mail-io1-xd42.google.com
- [IPv6:2607:f8b0:4864:20::d42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="XTXC7mKa"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="DRIbrle8"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4746Ls2pzJzF6SV
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 13:57:56 +1100 (AEDT)
-Received: by mail-io1-xd42.google.com with SMTP id s17so9346521iol.12
- for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 19:57:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=vl9DYZVbURheTw9kyAQnOgnawHOqGrg1G6Bfw1S1Wk0=;
- b=FvqjESvxa4yJwWNE2zOZWIytsVlGM01TgJe6zyz9nXFEec3oR2B8Z16bta9xECILdy
- GePU8DSbQcJ/WnLFDqwp0JJBuQNB7RjI5kyVKX0+p3ILFbYYFC1xeS0e9pgu4nKXA4L3
- lNF82WaVeGjz4e7aR2mQ2be7/nCFtgs8gsiq0Da5JDQx6HaXyzCA4YVLKTzjdQSeyNPV
- rEXMDRWbQeC9pLxtInhl9WF7sXrvuM9qAoBO/k0kW3RndeZdAgFBQ2PuPXtNsOaJ2tsx
- WIm2q3nSvDDDZq/aH5bsrBNOIusv2fWUVDZ0SJqOvV+zNjeSl7iURy6Qa82o3wKmDgTZ
- vDUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=vl9DYZVbURheTw9kyAQnOgnawHOqGrg1G6Bfw1S1Wk0=;
- b=gyf9xY8+3Ei0fWdqjBjPeJhN5sB6FrJjR9i2pRq3JRt5w5vUSh+v0upE2V7TAXnl5Z
- nOjtQ09EuOmMphicXVaXDdyo3purfDNv8fZ08plAibxuaEqyXiK0UqBg9CsgpoDPO8ed
- 4HEwaPR12ZJttMn/LNJi7rzaOAjgtknKQE8M7kpBbowxz0HOzz0KSuFfrLJnNgLYF3B7
- rk3QxmL4JVb0wWABMdJnVU04P55ljYsD3GuiYkFYHS7s9tKUol5QsmXh8tCLVRQskbZb
- 54o9wLa7YZxrQYNMpqbvPFO3R2R3lZlUHRFHSOh3kHoST4dGpQ6LlsxuVG6sW6xu6wh0
- WnYg==
-X-Gm-Message-State: APjAAAVIw1801ijN74CpFzCFDBy4j8V6HPJod4kIU3pJ6OskKUUZod/S
- ffmIgA2R6U+RBseDxT/wJuhVUMSuzpxGYfCTEHE=
-X-Google-Smtp-Source: APXvYqyMiTHMUBkV5wvSWaAJlj6fR9ACkF29Va66VdoPcnda+iGA0B92lq5HmLrMhVN61OKkbu3q82WHqri+GnGg8sQ=
-X-Received: by 2002:a5e:9e07:: with SMTP id i7mr6720052ioq.42.1572577073017;
- Thu, 31 Oct 2019 19:57:53 -0700 (PDT)
-MIME-Version: 1.0
-References: <fed4bf71fdbf452f955f527b20c36c08@lenovo.com>
- <CAO=notyoynBRNHg9fgPX1QgJ_kghX_=uKbeJ+CCmsv5mPubNKg@mail.gmail.com>
-In-Reply-To: <CAO=notyoynBRNHg9fgPX1QgJ_kghX_=uKbeJ+CCmsv5mPubNKg@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 1 Nov 2019 10:57:42 +0800
-Message-ID: <CAARXrtkEPRj+CwPr032-D5nmh_q=c_sRz6kUNu5To=LjZzS9zA@mail.gmail.com>
-Subject: Re: FanPwm interface
-To: Patrick Venture <venture@google.com>
-Cc: Derek Lin23 <dlin23@lenovo.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4746N14hc2zF6JJ
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 13:58:57 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id 55A7E20F51;
+ Thu, 31 Oct 2019 22:58:55 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Thu, 31 Oct 2019 22:58:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm1; bh=+JC2oF6nsnqeKYaDo0dWetVUa4y49Dr
+ 37lAKjuT3jD8=; b=XTXC7mKagUeQY3TcdLAf6sXZXYAncNbxwH6lBbSth6aWlmI
+ 7BfIZc0dRK9twKrZhS5q6b5M6xx/maw8gvEkkE6mnEUqr7V4lWLyRSHv8lzKR+/m
+ NzhxLRmNxF8PQ/vKUAgwLxgmdzGZWqjqN/X65pCEUIMcPlbgyudCisVyyvyxedei
+ GRt34KlOk4IEjHG0wOmNbxgrjS341BxppJwR/ZUTTuWcDtRXAbByiMlPNPvXuA0u
+ 6MxsjMFWNxD2mBJu/qCS0kCqGj28HsCcqP5UGfAzH6j82dVYYdNmBB/3YOUBwAgg
+ m/t4MfTkqVOIRD1EqfTBGI5OX6XPVWDkayrLMlQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=+JC2oF
+ 6nsnqeKYaDo0dWetVUa4y49Dr37lAKjuT3jD8=; b=DRIbrle8gRMyuB92Nl9ClK
+ 5f+ZBEQFmbbTo8ViV+nLsE12o4vwFGAnAQ1vtzzywv17IiSmkjhX0q0tNrXu+tzA
+ SEpfBE/0+18UpAq3wIbsAt+YqRQJAAluK3eUscJPgbw7KTlxUEufTC7QbGbBBqza
+ sctiI8LxHdnVD91UQeRxsWRT1895QHmaFlvzR9mmHl6/P/0L+KXdbRQVxYsm8ste
+ WbypKYbIx8DPDsnBrRTXdighRjC9pattAo0I95bvzapFGEqO3qH8WKt9dRvRoK2L
+ 9OmzmiesHPkuS/3HwhOUZOOLg0/Wu9FUFSYcw1hGlTMKFkTPQdnkpKMKBFxVaMSw
+ ==
+X-ME-Sender: <xms:b5-7XY2XLPbRfdJSDSOxjEq6R4nq5RpNyrCDO3W0z4JOv2zgm49EKQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedghedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:b5-7XfYhzJ7DFVqjEHJ1oXTCryAH--YLNfNkkzbay0D3ljeCDNauWQ>
+ <xmx:b5-7XTqDNLV-Dr4a9ucwOm1VpAMBzNaMfPCzULfbysWmtL8w_Ff28A>
+ <xmx:b5-7XTqbTXObKWbh986kiR-GsiOyN87afHqYObhDXF0lza5zxEGj4Q>
+ <xmx:b5-7XXFcnnvO1RDcBp057_hE9--qdIRDwtAKf--jKpvvV0XPkzsEvg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 22F64E00A3; Thu, 31 Oct 2019 22:58:55 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.7-509-ge3ec61c-fmstable-20191030v1
+Mime-Version: 1.0
+Message-Id: <b8d13e23-a21d-4687-8fe8-ca5110893e4b@www.fastmail.com>
+In-Reply-To: <20191031053625.422-5-joel@jms.id.au>
+References: <20191031053625.422-1-joel@jms.id.au>
+ <20191031053625.422-5-joel@jms.id.au>
+Date: Fri, 01 Nov 2019 13:30:01 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Joel Stanley" <joel@jms.id.au>, "Jeremy Kerr" <jk@ozlabs.org>
+Cc: openbmc@lists.ozlabs.org
+Subject: Re: [PATCH linux dev-5.3 v2 4/8] fsi: move defines to common header
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,47 +79,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Nov 2019 02:57:58 -0000
+X-List-Received-Date: Fri, 01 Nov 2019 02:58:58 -0000
 
-On Fri, Nov 1, 2019 at 6:32 AM Patrick Venture <venture@google.com> wrote:
->
-> On Thu, Oct 31, 2019 at 3:27 PM Derek Lin23 <dlin23@lenovo.com> wrote:
-> >
-> > Hi team:
-> >
-> >
-> >
-> >           I have a question regarding of FanPwm interface on hwmon.
-> >
-> >           Does this interface get updated while PWM is changing in sysf=
-s?
-> >
-> >           For example, if I setup a fan points to a PWM like below conf=
-iguration, now, FanPwm interface does not get updated when I update PWM in =
-sysfs, only my fan inputs (rpms) do.
-> >
-> >
-> >
-> >           Example:
-> >
-> >           LABEL_fan1 =3D "FAN0_Speed"
-> >
-> >           =E2=80=A6
-> >
-> >           PWM_TARGET_fan1 =3D "1"
-> >
-> >
-> >
-> >           Is there a configuration or label which I can use so FanPwm i=
-nterface would get updated when I change PWM in sysfs?
->
-> Unless I'm mistaken, it's currently treated only as a Target -- so
-> it's updated only via dbus calls to set it.
 
-Exactly, it will not update if you change it directly in sysfs.
-This is OK in field because a regular user should access the BMC via
-Redfish/REST API/ipmi.
 
-But for debugging purpose it does have some trouble that updating pwm
-in sysfs does not reflact on D-Bus.
-So patches are welcome :)
+On Thu, 31 Oct 2019, at 16:06, Joel Stanley wrote:
+> The FSI master registers are common to the hub and AST2600 master (and
+> the FSP2, if someone was to upstream a driver for that).
+> 
+> Add defines to the fsi-master.h header, and introduce headings to
+> delineate the existing low level details.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
