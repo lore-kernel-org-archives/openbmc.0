@@ -1,57 +1,73 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d2a;
- helo=mail-io1-xd2a.google.com; envelope-from=mine260309@gmail.com;
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.19;
+ helo=wout3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="o+c0rSnB"; 
- dkim-atps=neutral
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hHl74Sbv"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="ImbX2e0G"; dkim-atps=neutral
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47470T1cTyzF4s3
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 14:27:04 +1100 (AEDT)
-Received: by mail-io1-xd2a.google.com with SMTP id w12so9419707iol.11
- for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 20:27:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=EKarv+0RC/JWJi5/ZgwjStZtVStVfW4j/secMfJ6SlI=;
- b=o+c0rSnBw4r+3XZiNrowtRM8M5kIbVYqaBY+Z0BfQkBcKtUS5P7uTC/OBHIMwW+iAv
- 0Wl7Z0su/K6SshzkjAJpdbYFLjrRLdAi/qVTMV9vVIAHIq2XvTmEeGEIPJ9z4reZe3WJ
- a2N1peTdt9zvuaoR0gGA3zLVURhuaBKCnSCcHt/Tpbp2F4si9RSo6+d4fQyn7rNDcQao
- UAFFaJihkO9D1cZDdOc4rs8j04mRp7GhK7rXpVhuw46wMiwXfZoS1zYJc8rFISCM2AvX
- ZhlmLCo55RmUOjJ7N8bUSbiRRdPxTNQ+buNOz4ZzkJXF6fVSrkNriezCS7xk+6maaZfr
- vA0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=EKarv+0RC/JWJi5/ZgwjStZtVStVfW4j/secMfJ6SlI=;
- b=Ss8brUOQ/3aUSgRiQJ1b1y+tmfyxfg7HF/wiQIDcGoZO3k5lCZXMsRcRpmFewX7xmd
- FNsmUsNAn3VaH0+z+vqhfPS9KnfWKIL/Koirb57RzmKQAkGH1pyAcpCI4dTRKku9dvaH
- anbvJCFUT/JmUK3fCAqIFs8oBiEEY44jtw57ngDsm+ANHCOvklxt6KC3NIdDG/bTVCUd
- quYj65JKfois7SltWhj7J8kaFACteCwmBlmBL+RTOyBCor6LlmdqfOhbbOKyVUvQF92O
- j4igu2Z6ue/k8rJgXSHxPQjBpSmc/He8n6xFWNqoEKUINGEWDevja4N9YE7sS9TGpi1x
- zHOQ==
-X-Gm-Message-State: APjAAAXJyJnZ2KFh48JxPkIg74rdhcJSn9GAdvH068MfbD+7/A7kD8Mp
- Vvuu960dhEOckoJ2QBYY04dxLC1IYvQUDBelVS1KKuPRat4=
-X-Google-Smtp-Source: APXvYqw3aMnNqyKmpLe9azTo/QD8K1Gg6N8exQESf/BxEwdv6gsn+FFzvP/30iN4d2hIY9ceM36JjxO5U7x9dpUcR8s=
-X-Received: by 2002:a02:c4cd:: with SMTP id h13mr3403345jaj.33.1572578821193; 
- Thu, 31 Oct 2019 20:27:01 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 474BVv6pHQzF6W5
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:11 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id BABF3432;
+ Fri,  1 Nov 2019 02:05:09 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:09 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=wi9/jdSHNH8Df
+ 3UKCkT4WnlkD7LiEYHHkDG1adEcUbg=; b=hHl74Sbv/f7BJV9W6I5CoLUz58/ZF
+ px68KJOaCXDIrKl0nh6ZVdnHnH5xl8G5ZCE1GjmvLaaOEtSmiv//ox2Xx4ZhP3O0
+ /5jdJZIHaHfjg/COB7AdNCZb3ynEHQ+UC8FMPduXA5/YTHOlS1vAe+YNezwQHP2d
+ kAxeoWXj1PTTfFQGcpGiJEPxSsj55KqctoIqmab9It3OavOTheNPjMV5A5Ym8bFZ
+ 4rNJ7RUlJN6Ij1+H5exXn35IuOZf1eSTchBKHLwOkfjoRH/IJ8H6dj3R9xo1TmGr
+ lg8uNMuOV4nkKR+7oAB7UY/8NpiKBaiukDtE2bDQPE+hjAwUl1Z+/7dYg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=wi9/jdSHNH8Df3UKCkT4WnlkD7LiEYHHkDG1adEcUbg=; b=ImbX2e0G
+ /KvAeDJkvu7ZXhbQZMWI0Tl0iQIFeIPyRcOBC/Z+bLJhC2JFm66VymcGYaqkVva3
+ +HDBKtQ4dEXeM4yB7qTrbJO2QDeoa9VOVg0egfHuZzWwYrso+fswHfQdRFgRrktA
+ yiGbN4znJC9p3E1RF3jSKM9jDH9XXVhjlJT0AsCMGb15zs+uOMbCUmWTXfZwPov+
+ XHPqKMBynPMSvEwj7m9f03oTXjceW8MdMGtA11wec4GJrcIligi95M6BDKJqEQbA
+ 3dMKyCa0BHwMZu/dKAiNkAt76pWwCW/kcLQ5ruipKSYbIdAeruV6bT7aS0qb33dr
+ ja4VRbMt49wzvg==
+X-ME-Sender: <xms:Fcu7XS66hJOT_st32nCfNVPM70ViwHezYz-R1RJ7sBGXvXgC_wD4qQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedgledtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrg
+ hilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigv
+ pedt
+X-ME-Proxy: <xmx:Fcu7XaWW82iY49zUPSsk1-xZB6gZ6bUESpOD6hqwBFaypXlv_LjtAg>
+ <xmx:Fcu7XUPt4JsgTU6613DFu_jxBbs5nbXSZPXf6ZzQc0qf7IhKNTcKQg>
+ <xmx:Fcu7XT_9KZ8PkrCtsFmQD7LRi3gRHcW26fcdBOoVxCHona-0pZ3d7Q>
+ <xmx:Fcu7XY5Rm-Dj8rbUzLXQXQWNH6cZw4MX-t10kADv55mw5Hc-01MdHA>
+Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 2C5DC3060067;
+ Fri,  1 Nov 2019 02:05:07 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: joel@jms.id.au
+Cc: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.3 v2 3/3] fsi: core: Fix small accesses and
+ unaligned offsets via sysfs
+Date: Fri,  1 Nov 2019 16:36:01 +1030
+Message-Id: <20191101060601.24896-4-andrew@aj.id.au>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191101060601.24896-1-andrew@aj.id.au>
+References: <20191101060601.24896-1-andrew@aj.id.au>
 MIME-Version: 1.0
-References: <CANFuQ7A8xB_xaqMB0fj394Ov9E3RvhOvj7OVVXgqDfA51YDsSg@mail.gmail.com>
-In-Reply-To: <CANFuQ7A8xB_xaqMB0fj394Ov9E3RvhOvj7OVVXgqDfA51YDsSg@mail.gmail.com>
-From: Lei YU <mine260309@gmail.com>
-Date: Fri, 1 Nov 2019 11:26:50 +0800
-Message-ID: <CAARXrtnEOUuVdZpobxnQiJ-n0ve57fiP0nu8Yw-t5jMHWShXtA@mail.gmail.com>
-Subject: Re: HTTP redirect to HTTPS for web UI
-To: George Liu <liuxiwei1013@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,37 +79,102 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Nov 2019 03:27:05 -0000
+X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
+X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
 
-On Thu, Oct 31, 2019 at 9:48 PM George Liu <liuxiwei1013@gmail.com> wrote:
->
-> Hi All:
-> I'm working on http redirect to https task(https://github.com/ibm-openbmc/dev/issues/895).
-> I took a cursory look at the design(https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173) and did some testing.
->
-> In bmcweb, I find it the current communication logic can only listen to one communication protocol (http or https). If you listen to both protocols at the same time, you need to change a lot of code and communication logic.
-> If we are going to implement this feature in bmcweb, it costs extra effort and it's likely the implementation is no better than Nginx. so I prefer to use Nginx.
->
+Subtracting the offset delta from four-byte alignment lead to wrapping
+of the requested length where `count` is less than `off`. Generalise the
+length handling to enable and optimise aligned access sizes for all
+offset and size combinations. The new formula produces the following
+results for given offset and count values:
 
-From Ed's [mail in June][1], one approach is to use boost asio async_detect_ssl.
+    offset  count | length
+    --------------+-------
+    0       1     | 1
+    0       2     | 2
+    0       3     | 2
+    0       4     | 4
+    0       5     | 4
+    1       1     | 1
+    1       2     | 1
+    1       3     | 1
+    1       4     | 1
+    1       5     | 1
+    2       1     | 1
+    2       2     | 2
+    2       3     | 2
+    2       4     | 2
+    2       5     | 2
+    3       1     | 1
+    3       2     | 1
+    3       3     | 1
+    3       4     | 1
+    3       5     | 1
 
-But I agree with George here that it costs extra and unnecessary
-effort, because with nginx it is so easy to config the http->https
-redirection, and it is easy to get all the https related configs
-right, including HSTS.
-In other words, we got such features for free (except for a few binary
-size), why bother re-write it?
+We might need something like this for the cfam chardevs as well, for
+example we don't currently implement any alignment restrictions /
+handling in the hardware master driver.
 
-Considering the binary size, maybe it's worth the effort to check how
-many bytes are increased compared between:
-1. Current implement that bmcweb handles https only
-2. Enable BMCWEB_INSECURE, opt-out all https related code in bmcweb,
-adding a basic nginx and a configure file that does the https
-redirect.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/fsi/fsi-core.c | 31 +++++++++++++++++++++++++++----
+ 1 file changed, 27 insertions(+), 4 deletions(-)
 
-We could check the binary size to see if it's acceptable. Be noted
-that implementing this feature in bmcweb increases the binary size as
-well.
-
-
-[1]: https://lists.ozlabs.org/pipermail/openbmc/2019-June/016557.html
+diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
+index 1ea15621e588..f3cca350c28c 100644
+--- a/drivers/fsi/fsi-core.c
++++ b/drivers/fsi/fsi-core.c
+@@ -544,6 +544,31 @@ static int fsi_slave_scan(struct fsi_slave *slave)
+ 	return 0;
+ }
+ 
++static unsigned long aligned_access_size(size_t offset, size_t count)
++{
++	unsigned long offset_unit, count_unit;
++
++	/* Criteria:
++	 *
++	 * 1. Access size must be less than or equal to the maximum access
++	 *    width or the highest power-of-two factor of offset
++	 * 2. Access size must be less than or equal to the amount specified by
++	 *    count
++	 *
++	 * The access width is optimal if we can calculate 1 to be strictly
++	 * equal while still satisfying 2.
++	 */
++
++	/* Find 1 by the bottom bit of offset (with a 4 byte access cap) */
++	offset_unit = BIT(__builtin_ctzl(offset | 4));
++
++	/* Find 2 by the top bit of count */
++	count_unit = BIT(8 * sizeof(unsigned long) - 1 - __builtin_clzl(count));
++
++	/* Constrain the maximum access width to the minimum of both criteria */
++	return BIT(__builtin_ctzl(offset_unit | count_unit));
++}
++
+ static ssize_t fsi_slave_sysfs_raw_read(struct file *file,
+ 		struct kobject *kobj, struct bin_attribute *attr, char *buf,
+ 		loff_t off, size_t count)
+@@ -559,8 +584,7 @@ static ssize_t fsi_slave_sysfs_raw_read(struct file *file,
+ 		return -EINVAL;
+ 
+ 	for (total_len = 0; total_len < count; total_len += read_len) {
+-		read_len = min_t(size_t, count, 4);
+-		read_len -= off & 0x3;
++		read_len = aligned_access_size(off, count - total_len);
+ 
+ 		rc = fsi_slave_read(slave, off, buf + total_len, read_len);
+ 		if (rc)
+@@ -587,8 +611,7 @@ static ssize_t fsi_slave_sysfs_raw_write(struct file *file,
+ 		return -EINVAL;
+ 
+ 	for (total_len = 0; total_len < count; total_len += write_len) {
+-		write_len = min_t(size_t, count, 4);
+-		write_len -= off & 0x3;
++		write_len = aligned_access_size(off, count - total_len);
+ 
+ 		rc = fsi_slave_write(slave, off, buf + total_len, write_len);
+ 		if (rc)
+-- 
+2.20.1
