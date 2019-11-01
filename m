@@ -6,63 +6,63 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="hHl74Sbv"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="gUMBITHj"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="ImbX2e0G"; dkim-atps=neutral
+ header.b="dmj8bHr7"; dkim-atps=neutral
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 474BVv6pHQzF6W5
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:11 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 474BVt4G5dzF6W3
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:09 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id BABF3432;
- Fri,  1 Nov 2019 02:05:09 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 8CC12256;
+ Fri,  1 Nov 2019 02:05:06 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:09 -0400
+ by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:06 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
  :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=wi9/jdSHNH8Df
- 3UKCkT4WnlkD7LiEYHHkDG1adEcUbg=; b=hHl74Sbv/f7BJV9W6I5CoLUz58/ZF
- px68KJOaCXDIrKl0nh6ZVdnHnH5xl8G5ZCE1GjmvLaaOEtSmiv//ox2Xx4ZhP3O0
- /5jdJZIHaHfjg/COB7AdNCZb3ynEHQ+UC8FMPduXA5/YTHOlS1vAe+YNezwQHP2d
- kAxeoWXj1PTTfFQGcpGiJEPxSsj55KqctoIqmab9It3OavOTheNPjMV5A5Ym8bFZ
- 4rNJ7RUlJN6Ij1+H5exXn35IuOZf1eSTchBKHLwOkfjoRH/IJ8H6dj3R9xo1TmGr
- lg8uNMuOV4nkKR+7oAB7UY/8NpiKBaiukDtE2bDQPE+hjAwUl1Z+/7dYg==
+ :mime-version:content-transfer-encoding; s=fm1; bh=udYzz6uzw3q4c
+ 8LdCo531wViE7YIlthkSbUrwPGxVts=; b=gUMBITHjB4mw3LG2/Q5uSN0SoBroo
+ UEuK/I2tNWxy2zmCoLejbfGSDZSueSi3AFsDjpWfocHuyirYbkQKm68XzUNE4+DY
+ NXkXyrYSod/OJhDrzmWx131uTOZvtIqoxZz92Mrox8KxZ/QYCR9xfa4C7GmTmV7c
+ fSuRAw3rHip1qm8mad1asIgVFXZJLCe+Y9Os1MRi8cAZLnN0xqSWX2rddcqXSGnM
+ qJq8P0x0udl5x/jd7NfQnp70Q87uM6H/5NM6iksYmhBU68fcBY764DKNBAzDmKXN
+ xtqcHXLC/9dkCa9UI4J3c+xmjredumWLoRwHb6E7MwRP/HlwBpuGodbgg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
  :in-reply-to:message-id:mime-version:references:subject:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=wi9/jdSHNH8Df3UKCkT4WnlkD7LiEYHHkDG1adEcUbg=; b=ImbX2e0G
- /KvAeDJkvu7ZXhbQZMWI0Tl0iQIFeIPyRcOBC/Z+bLJhC2JFm66VymcGYaqkVva3
- +HDBKtQ4dEXeM4yB7qTrbJO2QDeoa9VOVg0egfHuZzWwYrso+fswHfQdRFgRrktA
- yiGbN4znJC9p3E1RF3jSKM9jDH9XXVhjlJT0AsCMGb15zs+uOMbCUmWTXfZwPov+
- XHPqKMBynPMSvEwj7m9f03oTXjceW8MdMGtA11wec4GJrcIligi95M6BDKJqEQbA
- 3dMKyCa0BHwMZu/dKAiNkAt76pWwCW/kcLQ5ruipKSYbIdAeruV6bT7aS0qb33dr
- ja4VRbMt49wzvg==
-X-ME-Sender: <xms:Fcu7XS66hJOT_st32nCfNVPM70ViwHezYz-R1RJ7sBGXvXgC_wD4qQ>
+ fm1; bh=udYzz6uzw3q4c8LdCo531wViE7YIlthkSbUrwPGxVts=; b=dmj8bHr7
+ 6M5uIGTFgh6td0Q8KS7NHb3z+vchKv0lFKU8sEBNy+LaP2o0f5jONGBwsk4c4mL1
+ PAIzqoyMy2UDAUfYZfv4P5tifymk96enqKeVIblwMkBn9P/63y/Ac52019kkfUS1
+ 5vabPnXiO/rAZlQJb/81ghuKl5oepJQ/7B63r7bYNuVL9RLbcjXW6sO4acTewjOf
+ 2l5Y3CTVOxQxMXxWlbbUdcDUCPdvsUeVani4FjIjlLC/dFGUy3KrRZv4bTjNaxAn
+ vw/eihMHZIl8flVOl1UdIZg7GJSPQ5iNI4yc+7CVOnZ1nLDwZdJLUNcDHX3gPlG9
+ +JY8ODcEULIWtA==
+X-ME-Sender: <xms:Esu7XV6dRlsBu9QyXF5lZjdy207CYnKFBEBlKjG7I5gnfhaTHfOnRg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedgledtucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
  dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
- jhdrihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrg
- hilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigv
- pedt
-X-ME-Proxy: <xmx:Fcu7XaWW82iY49zUPSsk1-xZB6gZ6bUESpOD6hqwBFaypXlv_LjtAg>
- <xmx:Fcu7XUPt4JsgTU6613DFu_jxBbs5nbXSZPXf6ZzQc0qf7IhKNTcKQg>
- <xmx:Fcu7XT_9KZ8PkrCtsFmQD7LRi3gRHcW26fcdBOoVxCHona-0pZ3d7Q>
- <xmx:Fcu7XY5Rm-Dj8rbUzLXQXQWNH6cZw4MX-t10kADv55mw5Hc-01MdHA>
+ jhdrihgurdgruheqnecuffhomhgrihhnpehoiihlrggsshdrohhrghenucfkphepvddtvd
+ drkedurddukedrfedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
+ rdhiugdrrghunecuvehluhhsthgvrhfuihiivgeptd
+X-ME-Proxy: <xmx:Esu7XbnCildJX-zgkl4u4_eZpEPyft9dEdIKwLgLkZJ3ixHGYNCINw>
+ <xmx:Esu7XcazGNWUi3-8NuEu1XKxv_I8OnB8EiDL6NxybR0bsPRSZkUS_Q>
+ <xmx:Esu7Xapn8iirLZwIsHJpBB5Ay6HcbCN9kRVCIMb1oWi8WuBVIbeaFg>
+ <xmx:Esu7XQwPtlrV1ePH_6xOtvyI63VUpwKyEFXdq3Lo6EmztTQF7iOE4Q>
 Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id 2C5DC3060067;
- Fri,  1 Nov 2019 02:05:07 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 04D43306005C;
+ Fri,  1 Nov 2019 02:05:04 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 v2 3/3] fsi: core: Fix small accesses and
- unaligned offsets via sysfs
-Date: Fri,  1 Nov 2019 16:36:01 +1030
-Message-Id: <20191101060601.24896-4-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 v2 1/3] fsi: aspeed: Fix OPB0 byte order
+ register values
+Date: Fri,  1 Nov 2019 16:35:59 +1030
+Message-Id: <20191101060601.24896-2-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20191101060601.24896-1-andrew@aj.id.au>
 References: <20191101060601.24896-1-andrew@aj.id.au>
@@ -80,101 +80,85 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
-X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
 
-Subtracting the offset delta from four-byte alignment lead to wrapping
-of the requested length where `count` is less than `off`. Generalise the
-length handling to enable and optimise aligned access sizes for all
-offset and size combinations. The new formula produces the following
-results for given offset and count values:
+The data byte order selection registers in the APB2OPB primarily expose some
+internal plumbing necessary to get correct write accesses onto the OPB.
+OPB write cycles require "data mirroring" across the 32-bit data bus to
+support variable data width slaves that don't implement "byte enables".
+For slaves that do implement byte enables the master can signal which
+bytes on the data bus the slave should consider valid.
 
-    offset  count | length
-    --------------+-------
-    0       1     | 1
-    0       2     | 2
-    0       3     | 2
-    0       4     | 4
-    0       5     | 4
-    1       1     | 1
-    1       2     | 1
-    1       3     | 1
-    1       4     | 1
-    1       5     | 1
-    2       1     | 1
-    2       2     | 2
-    2       3     | 2
-    2       4     | 2
-    2       5     | 2
-    3       1     | 1
-    3       2     | 1
-    3       3     | 1
-    3       4     | 1
-    3       5     | 1
+The data mirroring behaviour is specified by the following table:
 
-We might need something like this for the cfam chardevs as well, for
-example we don't currently implement any alignment restrictions /
-handling in the hardware master driver.
+    +-----------------+----------+-----------------------------------+
+    |                 |          |          32-bit Data Bus          |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |         |       |          |         |         |       |       |
+    |   ABus  | Mn_BE |  Request |   Dbus  |   Dbus  |  Dbus |  Dbus |
+    | (30:31) | (0:3) | Transfer |   0:7   |   8:15  | 16:23 | 24:31 |
+    |         |       |   Size   |  byte0  |  byte1  | byte2 | byte3 |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    00   |  1111 | fullword |  byte0  |  byte1  | byte2 | byte3 |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    00   |  1110 | halfword |  byte0  |  byte1  | byte2 |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    01   |  0111 |   byte   | _byte1_ |  byte1  | byte2 | byte3 |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    00   |  1100 | halfword |  byte0  |  byte1  |       |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    01   |  0110 |   byte   | _byte1_ |  byte1  | byte2 |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    10   |  0011 | halfword | _byte2_ | _byte3_ | byte2 | byte3 |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    00   |  1000 |   byte   |  byte0  |         |       |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    01   |  0100 |   byte   | _byte1_ |  byte1  |       |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    10   |  0010 |   byte   | _byte2_ |         | byte2 |       |
+    +---------+-------+----------+---------+---------+-------+-------+
+    |    11   |  0001 |   byte   | _byte3_ | _byte3_ |       | byte3 |
+    +---------+-------+----------+---------+---------+-------+-------+
+
+Mirrored data values are highlighted by underscores in the Dbus columns.
+The values in the ABus and Request Transfer Size columns correspond to
+values in the field names listed in the write data order select register
+descriptions.
+
+Similar configuration registers are exposed for reads which enables the
+secondary purpose of configuring hardware endian conversions. It appears the
+data bus byte order is switched around in hardware so set the registers such
+that we can access the correct values for all widths. The values were
+determined by experimentation on hardware against fixed CFAM register
+values to configure the read data order, then in combination with the
+table above and the register layout documentation in the AST2600
+datasheet performing write/read cycles to configure the write data order
+registers.
 
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- drivers/fsi/fsi-core.c | 31 +++++++++++++++++++++++++++----
- 1 file changed, 27 insertions(+), 4 deletions(-)
+Joel: Note that this replaces https://patchwork.ozlabs.org/patch/1187189/
+---
+ drivers/fsi/fsi-master-aspeed.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/fsi/fsi-core.c b/drivers/fsi/fsi-core.c
-index 1ea15621e588..f3cca350c28c 100644
---- a/drivers/fsi/fsi-core.c
-+++ b/drivers/fsi/fsi-core.c
-@@ -544,6 +544,31 @@ static int fsi_slave_scan(struct fsi_slave *slave)
- 	return 0;
- }
+diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
+index b571628be525..94e9b4f3418a 100644
+--- a/drivers/fsi/fsi-master-aspeed.c
++++ b/drivers/fsi/fsi-master-aspeed.c
+@@ -583,11 +583,11 @@ static int fsi_master_aspeed_probe(struct platform_device *pdev)
+ 	writel(fsi_base, aspeed->base + OPB_FSI_BASE);
  
-+static unsigned long aligned_access_size(size_t offset, size_t count)
-+{
-+	unsigned long offset_unit, count_unit;
-+
-+	/* Criteria:
-+	 *
-+	 * 1. Access size must be less than or equal to the maximum access
-+	 *    width or the highest power-of-two factor of offset
-+	 * 2. Access size must be less than or equal to the amount specified by
-+	 *    count
-+	 *
-+	 * The access width is optimal if we can calculate 1 to be strictly
-+	 * equal while still satisfying 2.
-+	 */
-+
-+	/* Find 1 by the bottom bit of offset (with a 4 byte access cap) */
-+	offset_unit = BIT(__builtin_ctzl(offset | 4));
-+
-+	/* Find 2 by the top bit of count */
-+	count_unit = BIT(8 * sizeof(unsigned long) - 1 - __builtin_clzl(count));
-+
-+	/* Constrain the maximum access width to the minimum of both criteria */
-+	return BIT(__builtin_ctzl(offset_unit | count_unit));
-+}
-+
- static ssize_t fsi_slave_sysfs_raw_read(struct file *file,
- 		struct kobject *kobj, struct bin_attribute *attr, char *buf,
- 		loff_t off, size_t count)
-@@ -559,8 +584,7 @@ static ssize_t fsi_slave_sysfs_raw_read(struct file *file,
- 		return -EINVAL;
+ 	/* Set read data order */
+-	writel(0x0011bb1b, aspeed->base + OPB0_R_ENDIAN);
++	writel(0x00030b1b, aspeed->base + OPB0_R_ENDIAN);
  
- 	for (total_len = 0; total_len < count; total_len += read_len) {
--		read_len = min_t(size_t, count, 4);
--		read_len -= off & 0x3;
-+		read_len = aligned_access_size(off, count - total_len);
+ 	/* Set write data order */
+-	writel(0x0011bb1b, aspeed->base + OPB0_W_ENDIAN);
+-	writel(0xffaa5500, aspeed->base + 0x50);
++	writel(0x0011101b, aspeed->base + OPB0_W_ENDIAN);
++	writel(0x0c330f3f, aspeed->base + 0x50);
  
- 		rc = fsi_slave_read(slave, off, buf + total_len, read_len);
- 		if (rc)
-@@ -587,8 +611,7 @@ static ssize_t fsi_slave_sysfs_raw_write(struct file *file,
- 		return -EINVAL;
- 
- 	for (total_len = 0; total_len < count; total_len += write_len) {
--		write_len = min_t(size_t, count, 4);
--		write_len -= off & 0x3;
-+		write_len = aligned_access_size(off, count - total_len);
- 
- 		rc = fsi_slave_write(slave, off, buf + total_len, write_len);
- 		if (rc)
+ 	/*
+ 	 * Select OPB0 for all operations.
 -- 
 2.20.1
