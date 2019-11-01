@@ -6,63 +6,65 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="LF58gqy8"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dcvyIVV3"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="H2kDe75D"; dkim-atps=neutral
+ header.b="JYWOqobI"; dkim-atps=neutral
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 474BVt4DTrzF6W2
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:09 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 474BVt4HfPzF6W4
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:10 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id C9E30429;
- Fri,  1 Nov 2019 02:05:05 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 2B54C42D;
+ Fri,  1 Nov 2019 02:05:08 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:05 -0400
+ by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:08 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm1; bh=aJ5g6/OipWkjxduib3+SNvv/Qh
- t6CuNga/TYtZnswvU=; b=LF58gqy8uj6ShZYJY5VTng41upXxpcUojlB4MuUc+Y
- g+ZgvKyrhQoOlYfxQBAVeu6yNBIzCIXEWBoJZQqxb3gYVkkAEPU1JfYS2H1YVI99
- MC9ZcUkAdoW0SDsW4aImx/kGvtltq5i5aonwzmcmtcjQjvp8LNMvb8hmQLPKlt2i
- W/BsoicJugC7/N2i30Cpbnofbcf8S0/EDYfZj1/EAjNcw7lMdVDcZUiUsAQeWJBI
- lMQQnbf5hBI9R+SnidUAtNdWOtaM30gq0W/vL0603i7Rwl5v0XAuYPH80tIfnGwr
- wU6EnXRfzRay6BFzK7LgKEO3PXsVyhpn57tAhf+AplXQ==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm1; bh=LdR6yV3wu1zoi
+ 2TK56nKINYOTd9bMOuHdUvawxGQ3YY=; b=dcvyIVV3W1CR54aPsFp6H30Hi4bNn
+ n3sawVSbKtdHAwZwwVRzq/cecXZgbnQbj+XTzUYHcSjDP5/Hch5bmjsIumhZw9xP
+ 7wuqbDXeVssxtHx1+JAPusSW9E8slh7j4GIIVnT3bVdUXH7IFGevH/DZ9Wb0TXAv
+ UvRVRWTahH+QUDnpNcCK718idYiM7N0r+0MRpB0KWEjO6LBYcVWLxloQZJC/5ZeA
+ 1ocSj6S6hDW62MiAZI78bW9rY/Q5DKFEX0e/x8lCorhCijfJ7oaP5nbFcQhNWcdr
+ aYIqHvSgUZue6OhZZd2qcJiQ20pIWpXI9StHT6hZQbYimbkD7nZW7dIDQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=aJ5g6/OipWkjxduib
- 3+SNvv/Qht6CuNga/TYtZnswvU=; b=H2kDe75DfyIp3b0bYUXGixFkornqgU7p1
- 4tlx5vXsKOGkVKg22sJOg+o+bnWwK8xnLjQBoFNRHPcNbygmQuEEFdTl+JXZhzO+
- Zw0SY3xrTnaaWvnuSjbZmmCs1CCW6dIvaxrH/pEnzq8oFA5fCOOkk9oCMj3zTpyH
- 0bQFRD2OkkVN8bpxNY3xc/vqD7PEOpV5uO9a1Iy0I+tqVos8e6+ajiL1tgL+8UWj
- jQxKdRDpDVwtqz8HcHm4Hw9ap2ttVjerYlOmgRz3lgNpYsYSGYfJp3Ub5MjT1YkE
- YmKAKprZKgHmY7HkP9Kc6UWFSyqdSzyqUnLIfMNZ7OJxJCISUg6mQ==
-X-ME-Sender: <xms:EMu7XXulGvCje4v-7lXyGten2DbCy5BKPxhfTfMBqGGvQcitZ75f6g>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm1; bh=LdR6yV3wu1zoi2TK56nKINYOTd9bMOuHdUvawxGQ3YY=; b=JYWOqobI
+ cpFqGUpWfMZJ0lssrI/dYfXF4GT5MKLK1sIktdkg1k4Zv7Xw79yuexdCa3hOAwbG
+ eLAdBE835nY4JRlwZEzuZiSDAz3jV/13OCnIN1nCa3Ac/SAANhpS6ey41wgo5y/9
+ N+xzG3lP4rQnuDCsrGxK7YFQpbx2NouNTZ7mYN33GyYRLatFKAd+iCBOXDiKb5xQ
+ HtbxKxNbuwFDtm1juBBtcHWqAPAxrAWaG79L32Hsz6XRAtiQnlZ7dnIGYM3IBI4v
+ dGbuvAoT/OQNeV8V3aBRdrHCW3dfv+pHBZvM5d/sniW/ogp4Fg66Zidcpijy8gBo
+ rtF/Nz0mk17+fw==
+X-ME-Sender: <xms:E8u7Xa0aO_wLRFhXnN6tCWY4tF9gDx0NMeHiA8fAY45K76udje-7tA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedgledtucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdr
- ihgurdgruheqnecuffhomhgrihhnpehoiihlrggsshdrohhrghenucfkphepvddtvddrke
- durddukedrfedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhi
- ugdrrghunecuvehluhhsthgvrhfuihiivgeptd
-X-ME-Proxy: <xmx:EMu7XUzkEyX6pEtfjSzcNozDbnvW5VRltfF3uoi-ouVDWD_QLqBUBQ>
- <xmx:EMu7XdiFoxXKem37A2s2fxyGp4K6vSK2Dz2RnzDO-W5DjN_2Gf280A>
- <xmx:EMu7XYCsk6yu7UIe0NOG-4fjR0Hk2PcAuiccpvLYbEbtLiutzgJhnQ>
- <xmx:Ecu7XYj6YUlp7AYnGEqLa6vb06nFviqlnJxM_LfysCDuO2v849di6w>
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrg
+ hilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigv
+ pedt
+X-ME-Proxy: <xmx:E8u7Xdb3elelrN3r4UYeGllt3Lq5oqSPPgLenoNWT0WwIP3_bziBCQ>
+ <xmx:E8u7Xait2MQOe9gld3aXI8ZNZNOMp24pUsrsEQKe-MG1R3CL5QO41Q>
+ <xmx:E8u7XWeSWA2EITaY8jMLPN5gSzYwEiTMmiPf9Zhz3bFq0KtklpGk2g>
+ <xmx:E8u7Xa9doRvAw3GKKx8x_Bu_aZb-1Js102EG_BEGI0sbQoxvHVPVpw>
 Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id 667693060064;
- Fri,  1 Nov 2019 02:05:03 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 92C033060064;
+ Fri,  1 Nov 2019 02:05:06 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
 Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 v2 0/3] fsi: aspeed: Fix unaligned raw accesses,
- OPB0 byte order registers
-Date: Fri,  1 Nov 2019 16:35:58 +1030
-Message-Id: <20191101060601.24896-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.3 v2 2/3] trace: fsi: Print transfer size unsigned
+Date: Fri,  1 Nov 2019 16:36:00 +1030
+Message-Id: <20191101060601.24896-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20191101060601.24896-1-andrew@aj.id.au>
+References: <20191101060601.24896-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -78,30 +80,43 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
 
-Hello,
+Due to other bugs I observed a spurious -1 transfer size.
 
-v2 pulls in a reworked OPB0 data byte order configuration patch in 1/3,
-superseeding those posted previously. It also fixes and optimises the unaligned
-data access width calculation as mentioned in [1] in patch 3/3.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ include/trace/events/fsi.h | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-[1] https://patchwork.ozlabs.org/patch/1187178/
-
-The series is based on top of https://patchwork.ozlabs.org/cover/1187185/ with
-the original byte order configuration patch reverted to accommodate the rework.
-
-Please review.
-
-Andrew
-
-Andrew Jeffery (3):
-  fsi: aspeed: Fix OPB0 byte order register values
-  trace: fsi: Print transfer size unsigned
-  fsi: core: Fix small accesses and unaligned offsets via sysfs
-
- drivers/fsi/fsi-core.c          | 31 +++++++++++++++++++++++++++----
- drivers/fsi/fsi-master-aspeed.c |  6 +++---
- include/trace/events/fsi.h      |  6 +++---
- 3 files changed, 33 insertions(+), 10 deletions(-)
-
+diff --git a/include/trace/events/fsi.h b/include/trace/events/fsi.h
+index 92e5e89e52ed..9832cb8e0eb0 100644
+--- a/include/trace/events/fsi.h
++++ b/include/trace/events/fsi.h
+@@ -26,7 +26,7 @@ TRACE_EVENT(fsi_master_read,
+ 		__entry->addr = addr;
+ 		__entry->size = size;
+ 	),
+-	TP_printk("fsi%d:%02d:%02d %08x[%zd]",
++	TP_printk("fsi%d:%02d:%02d %08x[%zu]",
+ 		__entry->master_idx,
+ 		__entry->link,
+ 		__entry->id,
+@@ -56,7 +56,7 @@ TRACE_EVENT(fsi_master_write,
+ 		__entry->data = 0;
+ 		memcpy(&__entry->data, data, size);
+ 	),
+-	TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
++	TP_printk("fsi%d:%02d:%02d %08x[%zu] <= {%*ph}",
+ 		__entry->master_idx,
+ 		__entry->link,
+ 		__entry->id,
+@@ -93,7 +93,7 @@ TRACE_EVENT(fsi_master_rw_result,
+ 		if (__entry->write || !__entry->ret)
+ 			memcpy(&__entry->data, data, size);
+ 	),
+-	TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
++	TP_printk("fsi%d:%02d:%02d %08x[%zu] %s {%*ph} ret %d",
+ 		__entry->master_idx,
+ 		__entry->link,
+ 		__entry->id,
 -- 
 2.20.1
