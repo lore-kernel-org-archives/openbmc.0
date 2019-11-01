@@ -1,72 +1,53 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <mine260309@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=64.147.123.19;
- helo=wout3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::d2c;
+ helo=mail-io1-xd2c.google.com; envelope-from=mine260309@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dcvyIVV3"; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="JYWOqobI"; dkim-atps=neutral
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="Miawg8ft"; 
+ dkim-atps=neutral
+Received: from mail-io1-xd2c.google.com (mail-io1-xd2c.google.com
+ [IPv6:2607:f8b0:4864:20::d2c])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 474BVt4HfPzF6W4
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 17:05:10 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 2B54C42D;
- Fri,  1 Nov 2019 02:05:08 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Fri, 01 Nov 2019 02:05:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm1; bh=LdR6yV3wu1zoi
- 2TK56nKINYOTd9bMOuHdUvawxGQ3YY=; b=dcvyIVV3W1CR54aPsFp6H30Hi4bNn
- n3sawVSbKtdHAwZwwVRzq/cecXZgbnQbj+XTzUYHcSjDP5/Hch5bmjsIumhZw9xP
- 7wuqbDXeVssxtHx1+JAPusSW9E8slh7j4GIIVnT3bVdUXH7IFGevH/DZ9Wb0TXAv
- UvRVRWTahH+QUDnpNcCK718idYiM7N0r+0MRpB0KWEjO6LBYcVWLxloQZJC/5ZeA
- 1ocSj6S6hDW62MiAZI78bW9rY/Q5DKFEX0e/x8lCorhCijfJ7oaP5nbFcQhNWcdr
- aYIqHvSgUZue6OhZZd2qcJiQ20pIWpXI9StHT6hZQbYimbkD7nZW7dIDQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm1; bh=LdR6yV3wu1zoi2TK56nKINYOTd9bMOuHdUvawxGQ3YY=; b=JYWOqobI
- cpFqGUpWfMZJ0lssrI/dYfXF4GT5MKLK1sIktdkg1k4Zv7Xw79yuexdCa3hOAwbG
- eLAdBE835nY4JRlwZEzuZiSDAz3jV/13OCnIN1nCa3Ac/SAANhpS6ey41wgo5y/9
- N+xzG3lP4rQnuDCsrGxK7YFQpbx2NouNTZ7mYN33GyYRLatFKAd+iCBOXDiKb5xQ
- HtbxKxNbuwFDtm1juBBtcHWqAPAxrAWaG79L32Hsz6XRAtiQnlZ7dnIGYM3IBI4v
- dGbuvAoT/OQNeV8V3aBRdrHCW3dfv+pHBZvM5d/sniW/ogp4Fg66Zidcpijy8gBo
- rtF/Nz0mk17+fw==
-X-ME-Sender: <xms:E8u7Xa0aO_wLRFhXnN6tCWY4tF9gDx0NMeHiA8fAY45K76udje-7tA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedgledtucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
- dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
- jhdrihgurdgruheqnecukfhppedvtddvrdekuddrudekrdeftdenucfrrghrrghmpehmrg
- hilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruhenucevlhhushhtvghrufhiiigv
- pedt
-X-ME-Proxy: <xmx:E8u7Xdb3elelrN3r4UYeGllt3Lq5oqSPPgLenoNWT0WwIP3_bziBCQ>
- <xmx:E8u7Xait2MQOe9gld3aXI8ZNZNOMp24pUsrsEQKe-MG1R3CL5QO41Q>
- <xmx:E8u7XWeSWA2EITaY8jMLPN5gSzYwEiTMmiPf9Zhz3bFq0KtklpGk2g>
- <xmx:E8u7Xa9doRvAw3GKKx8x_Bu_aZb-1Js102EG_BEGI0sbQoxvHVPVpw>
-Received: from mistburn.au.ibm.com (bh02i525f01.au.ibm.com [202.81.18.30])
- by mail.messagingengine.com (Postfix) with ESMTPA id 92C033060064;
- Fri,  1 Nov 2019 02:05:06 -0400 (EDT)
-From: Andrew Jeffery <andrew@aj.id.au>
-To: joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.3 v2 2/3] trace: fsi: Print transfer size unsigned
-Date: Fri,  1 Nov 2019 16:36:00 +1030
-Message-Id: <20191101060601.24896-3-andrew@aj.id.au>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20191101060601.24896-1-andrew@aj.id.au>
-References: <20191101060601.24896-1-andrew@aj.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 474GNQ2ncjzF6g8
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 19:59:49 +1100 (AEDT)
+Received: by mail-io1-xd2c.google.com with SMTP id h9so10199093ioh.2
+ for <openbmc@lists.ozlabs.org>; Fri, 01 Nov 2019 01:59:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=lTQorLI3XYmCEqUX36G94GB+HuU2Wqf4f3NCGGhx5m4=;
+ b=Miawg8fto0WL+8X1ncKQ9VwH9i+VF6RGI3EPB2nL1rfDwFcAI/yRga3hepxUpZUeTP
+ v46CKlgNK4OQuHeNIws6ns/zxKDJucnbwG2l039dGZp+kgPWsimzpP5oGGa3JlkX1SGW
+ uj6u4+Xuvzwesy1fTBZQUbHHx6mHmWBSTcfpg3h+d8wz0AoyqUqrWbuY/PCcbjVFB4+3
+ IviBBoM6T/mRCmWviDEtZC7DOkeqalAG+oZNWu/zmBIh6ZeeSkcN6gBxURMHAUq/0Yyq
+ LEScGOrxzNSm2WlvUFPt26seSi4vVmCyjvf5faEdiwWBfBU9eBFgaI25MXrQJM6p+ILV
+ NwGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=lTQorLI3XYmCEqUX36G94GB+HuU2Wqf4f3NCGGhx5m4=;
+ b=d+IC3EoyienJG5y7h03Q5LEhU5VwcLOrRWZMZDsbohyyVQBUv8v2QSVN09os2VwON5
+ PExakzAc9wxMoi4Dq+pRgjTAOvZt3bD1Yz2euyTN60f4aaHGDvrm/XJkynPElw9aPSmc
+ Uctug8yqzbV0Jhi257e9rPRHk1vjBFxL0lTxr2tAhJdotjK+/WGXlNtST+nW1PsopLVp
+ acS/SUfS0saV8fL/vUA2laZELO1HyoUt5UsRlsgwC8SA78444DBBEM0BhFhypUnp6Eyf
+ jnPXa/FutzIxA0XJlHVjyYkiuv3QLD8eGexuU4Sl7eh5+JlINlRPLg2RnF+xu+jmUsgw
+ x1Kg==
+X-Gm-Message-State: APjAAAWZEtXXC2Tqro4Bwqi3C/ZV6b9CdOkKQqeMJ+sIy85JVdwTdW/l
+ OTWAhu7xj5eDtx/SbECqAAqcscnE/7pLb+vVhtdvSva9Uao=
+X-Google-Smtp-Source: APXvYqxgcnJhGouYWJIcaq7w4yecp1tU7ym4HdLtT2MI59UInoHPLf6zIpLOlwfAFmhe/OSO7i2vtvkljfoVaBVDODg=
+X-Received: by 2002:a02:c4cd:: with SMTP id h13mr46031jaj.33.1572598785226;
+ Fri, 01 Nov 2019 01:59:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Lei YU <mine260309@gmail.com>
+Date: Fri, 1 Nov 2019 16:59:34 +0800
+Message-ID: <CAARXrtkwC6CoVFDYwwtD38U5whRTbuodxWUF3A0DM+XvQoPJfA@mail.gmail.com>
+Subject: How to run tests in bmcweb
+To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,45 +59,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Nov 2019 06:05:14 -0000
+X-List-Received-Date: Fri, 01 Nov 2019 08:59:51 -0000
 
-Due to other bugs I observed a spurious -1 transfer size.
+I am trying to add a unit test case in bmcweb and run it.
+With local CI, the tests are not run:
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- include/trace/events/fsi.h | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ WORKSPACE=$(pwd) UNIT_TEST_PKG=bmcweb
+./openbmc-build-scripts/run-unit-test-docker.sh
+ ...
+ [100%] Built target bmcweb
+ /home/leiyu/work/bmcweb > ctest .
+ Test project /home/leiyu/work/bmcweb
+ No tests were found!!!
+ ...
 
-diff --git a/include/trace/events/fsi.h b/include/trace/events/fsi.h
-index 92e5e89e52ed..9832cb8e0eb0 100644
---- a/include/trace/events/fsi.h
-+++ b/include/trace/events/fsi.h
-@@ -26,7 +26,7 @@ TRACE_EVENT(fsi_master_read,
- 		__entry->addr = addr;
- 		__entry->size = size;
- 	),
--	TP_printk("fsi%d:%02d:%02d %08x[%zd]",
-+	TP_printk("fsi%d:%02d:%02d %08x[%zu]",
- 		__entry->master_idx,
- 		__entry->link,
- 		__entry->id,
-@@ -56,7 +56,7 @@ TRACE_EVENT(fsi_master_write,
- 		__entry->data = 0;
- 		memcpy(&__entry->data, data, size);
- 	),
--	TP_printk("fsi%d:%02d:%02d %08x[%zd] <= {%*ph}",
-+	TP_printk("fsi%d:%02d:%02d %08x[%zu] <= {%*ph}",
- 		__entry->master_idx,
- 		__entry->link,
- 		__entry->id,
-@@ -93,7 +93,7 @@ TRACE_EVENT(fsi_master_rw_result,
- 		if (__entry->write || !__entry->ret)
- 			memcpy(&__entry->data, data, size);
- 	),
--	TP_printk("fsi%d:%02d:%02d %08x[%zd] %s {%*ph} ret %d",
-+	TP_printk("fsi%d:%02d:%02d %08x[%zu] %s {%*ph} ret %d",
- 		__entry->master_idx,
- 		__entry->link,
- 		__entry->id,
--- 
-2.20.1
+So the question is, how do I run tests in bmcweb? Should
+openbmc-build-scripts be updated to support that?
+
+Thanks!
