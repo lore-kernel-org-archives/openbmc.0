@@ -1,54 +1,74 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::834;
- helo=mail-qt1-x834.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.27;
+ helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="k7wYyUwQ"; 
- dkim-atps=neutral
-Received: from mail-qt1-x834.google.com (mail-qt1-x834.google.com
- [IPv6:2607:f8b0:4864:20::834])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="PUM2QCWF"; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.b="vxR3QxsG"; dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4744YM5DcLzF4Sl
- for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 12:36:54 +1100 (AEDT)
-Received: by mail-qt1-x834.google.com with SMTP id t26so11119259qtr.5
- for <openbmc@lists.ozlabs.org>; Thu, 31 Oct 2019 18:36:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=chHFW8I08lQlBzuMgtb41nTerNopVs6jkOaZ4A4wumo=;
- b=k7wYyUwQt7JKvElyZQ4dWqzlm4C2zIvjtRTdVhGreRYe4UeB7QGWGtTkaq+mSia/dq
- tW6BDEBm6EyZlgj8iptGIRJt94TyJrVCRbX2Hel4AbzpWYfr4u0Jw8Mk2M6s3UcwUMeI
- u1U5z1/TF/grwBiN1bi1S8ucPkZDMtCVyQ2qw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=chHFW8I08lQlBzuMgtb41nTerNopVs6jkOaZ4A4wumo=;
- b=ftdscmBMwLrHB022NCI1pwuJtyh74LIjCFcrukh/fH9NsXbrAxJMGmgbW/Jru9HzRa
- J7UsGNTjwZbHV6S3bonOJ7atVZixF3DrYGUX0XDndnRCzlz1mLATvj+2dYUUL1/JN2Vj
- Yagf3hhuZ3S359hfBU/M4+28RP3QeySm2NLL9obQuF6J0DMiYCbd933XmkiO59GsmuMp
- yn3pF/5vLcgAE4mZs8j9bzn1PBoaWIHKUQtZBL0cgWDZSQ3riwfXkAkjT9gjrBlVVqZW
- 5zvKfyvbsZJM5Bte07M6ZrMHLp4Ulycgb3IuZ0e8MIce+duSPXDAye25cP5jOlm+JOwd
- YPpg==
-X-Gm-Message-State: APjAAAWMsk5WPLGUrVm1u8oFudtyFPlEzv8Ibgv0Svtvt2eq/7fnPLgR
- 9945OIJHiugwcpejRWIqYwsmlnLOdnIzK4+wBsg=
-X-Google-Smtp-Source: APXvYqwgwLjUiaI8lvtv5XigJUnfE0opxafAYwVVaoUq0qE+XoZIpcFJ49CebbvhK+qn660PDmmFwx5buEV+WZj48dM=
-X-Received: by 2002:ac8:6bcd:: with SMTP id b13mr8777036qtt.234.1572572211029; 
- Thu, 31 Oct 2019 18:36:51 -0700 (PDT)
-MIME-Version: 1.0
-References: <06422EF3-4D9D-4880-99EA-513C41215F37@fb.com>
-In-Reply-To: <06422EF3-4D9D-4880-99EA-513C41215F37@fb.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 1 Nov 2019 01:36:39 +0000
-Message-ID: <CACPK8Xf50ud_K-OMNGDQp9NBxNF4GtG9cRRKhDPA6N1z6XBvpg@mail.gmail.com>
-Subject: Re: kernel patch pull for IPV6
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4746LQ1N7GzF5lb
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Nov 2019 13:57:33 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id DF26520F51;
+ Thu, 31 Oct 2019 22:57:30 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Thu, 31 Oct 2019 22:57:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm1; bh=cTpY/Yjm8oO4brJWeMUCOskfX1fQV70
+ PbQckN+1UOgY=; b=PUM2QCWFpc2P079Id9cUPAgXFvYL6QlR3b/76JcfPXr1lnW
+ 9RYJEYerYAa8A/yGyIcXBP02Ih3WnJIZIq5LeuP77l68MY5a5ZpilYSv5gHIzVFf
+ olphcknJEpvwHqufYMqsiohT+MYZ95f7+nOPl/8+tuOjLxsOhuculp91v+xizZ+u
+ sTS6LIIBcVkgDmCW8AIMWbZvsCCXWAF9Iudz+1bYQIw98fJXW4/fmko/hVnfJtmO
+ o+OG/ZM1k8WpudAchnOEo5RKRpIEQIAtHU0250jS067oBZv60DZ3AQoRAJLpbSG2
+ 8Y5AipgMYxNPwOm4/fbQ1ihG+dss+0uZP9Kya+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=cTpY/Y
+ jm8oO4brJWeMUCOskfX1fQV70PbQckN+1UOgY=; b=vxR3QxsG6W8qIA3UW+ZLyl
+ 3FdICyYiD3X3BQXbexe4RGsdvVif3cHbq1GU8WlWb1WNnVYgc1fVd+OryS1BZO5S
+ GgWbj7FIyVnwawoSLG8WOU46r1gGGyWxhq9WsJfZZwGAEzHCTW/tqoP3ud3//4he
+ F2ZxVmnH9ymUlfe+jlZ+7P4wXeYcM7gBL1+L4oavp13SEMrix1+8QmBWechR95bk
+ Ux3jpgBh+4Dpk3R/YcEE5H07vucwVVjPzHnkY5Ae3/EL4AaoBQdm+blMn5j/PQEc
+ dnaRjCfzdMUsbqeyB6ZwOD54xrf/Zno17RTgObMHSx4kkqmGfVOZ7bB7NJ7ghgYA
+ ==
+X-ME-Sender: <xms:GZ-7XVG5MsV-eJyYWb3N45vrZn_z_VccpyXhHgwz_ud4n0pgaGAfng>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedruddtiedghedvucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:GZ-7XcBIIDH1LfeiXXjpdM1b_SItROWy3TzTwxffkWqOzMyNgfB8-w>
+ <xmx:GZ-7XakqGno_5EVJExTL8zvTWYQG04QUsn0XKfkxF9noHLxqEyTEHA>
+ <xmx:GZ-7Xa71srpcERTfLHYKriBQKF3kG_7M-dPXcJXF58VohlseV9j5QA>
+ <xmx:Gp-7XZwiXdQLo34f8r8rQtsNdlSlp6T59HraIg--PueKIjQq_9uHhg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id DBC7AE00A3; Thu, 31 Oct 2019 22:57:29 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.7-509-ge3ec61c-fmstable-20191030v1
+Mime-Version: 1.0
+Message-Id: <5aaa8944-2c72-4d07-9686-8ab754a70067@www.fastmail.com>
+In-Reply-To: <20191031053625.422-3-joel@jms.id.au>
+References: <20191031053625.422-1-joel@jms.id.au>
+ <20191031053625.422-3-joel@jms.id.au>
+Date: Fri, 01 Nov 2019 13:28:36 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Joel Stanley" <joel@jms.id.au>, "Jeremy Kerr" <jk@ozlabs.org>
+Cc: openbmc@lists.ozlabs.org
+Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.3_v2_2/8]_fsi:_aspeed:_Implement_byte_a?=
+ =?UTF-8?Q?nd_half_word_reads?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,39 +80,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 01 Nov 2019 01:36:57 -0000
+X-List-Received-Date: Fri, 01 Nov 2019 02:57:37 -0000
 
-Hi Vijay,
 
-Please turn off HTML email when posting to the list. Thanks!
 
-On Fri, 1 Nov 2019 at 01:05, Vijay Khemka <vijaykhemka@fb.com> wrote:
->
-> Hi Joel,
->
-> Can you please pull following patch to our openbmc kernel from linux-next repository.
->
-> commit cf0eba334268563152e4a8bc9ab865d0037a7948
-> Author: Vijay Khemka <vijaykhemka@fb.com>
-> Date:   Thu Sep 12 12:04:50 2019 -0700
->
->     net/ncsi: Disable global multicast filter
+On Thu, 31 Oct 2019, at 16:06, Joel Stanley wrote:
+> A similar rationale to the writes, where we create helpers for each size
+> to ensure the callee gets type checking and allows the lookup of the size
+> to be done once, in aspeed_master_read.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Do we still need this now that Ben has fixed checksumming?
-
-Did you try testing with the checksumming patch applied and the
-multicast one reverted?
-
->
->
-> commit 88824e3bf29a2fcacfd9ebbfe03063649f0f3254
-> Author: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-> Date:   Fri Oct 25 13:47:24 2019 +1100
->
->     net: ethernet: ftgmac100: Fix DMA coherency issue with SW checksum
-
-I've applied this one.
-
-Cheers,
-
-Joel
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
