@@ -1,44 +1,45 @@
-Return-Path: <clg@kaod.org>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kaod.org (client-ip=46.105.49.208; helo=20.mo7.mail-out.ovh.net;
- envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
+Return-Path: <james.feist@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=kaod.org
-X-Greylist: delayed 2305 seconds by postgrey-1.36 at bilbo;
- Thu, 07 Nov 2019 02:18:53 AEDT
-Received: from 20.mo7.mail-out.ovh.net (20.mo7.mail-out.ovh.net
- [46.105.49.208])
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 477VYT4FfNzF3lW
- for <openbmc@lists.ozlabs.org>; Thu,  7 Nov 2019 02:18:49 +1100 (AEDT)
-Received: from player771.ha.ovh.net (unknown [10.108.42.75])
- by mo7.mail-out.ovh.net (Postfix) with ESMTP id 8995913D2E3
- for <openbmc@lists.ozlabs.org>; Wed,  6 Nov 2019 15:40:23 +0100 (CET)
-Received: from kaod.org (deibp9eh1--blueice1n4.emea.ibm.com [195.212.29.166])
- (Authenticated sender: clg@kaod.org)
- by player771.ha.ovh.net (Postfix) with ESMTPSA id C1FD4BD1CDFD;
- Wed,  6 Nov 2019 14:40:19 +0000 (UTC)
-Subject: Re: [PATCH linux dev-5.3 4/4] clocksource: fttmr010: Add support for
- ast2600
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Cc: Andrew Jeffery <andrew@aj.id.au>
-References: <20191106091705.7416-1-joel@jms.id.au>
- <20191106091705.7416-5-joel@jms.id.au>
-From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
-Message-ID: <b8e22055-4546-0a6a-3c7d-a73f6eb861bf@kaod.org>
-Date: Wed, 6 Nov 2019 15:40:18 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.1.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 477YGy4pGhzF5Zn
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Nov 2019 04:21:28 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 06 Nov 2019 09:21:25 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.68,275,1569308400"; d="scan'208";a="402431017"
+Received: from skyhawk.jf.intel.com (HELO [10.54.51.81]) ([10.54.51.81])
+ by fmsmga005.fm.intel.com with ESMTP; 06 Nov 2019 09:21:25 -0800
+Subject: Re: HTTP redirect to HTTPS for web UI
+To: George Liu <liuxiwei1013@gmail.com>, Lei YU <mine260309@gmail.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brad Bishop <bradleyb@fuzziesquirrel.com>,
+ Joseph Reynolds <jrey@linux.ibm.com>
+References: <CANFuQ7A8xB_xaqMB0fj394Ov9E3RvhOvj7OVVXgqDfA51YDsSg@mail.gmail.com>
+ <CAARXrtnEOUuVdZpobxnQiJ-n0ve57fiP0nu8Yw-t5jMHWShXtA@mail.gmail.com>
+ <E7046336-11A9-4D82-9DDC-6DB7DF94C8C5@fuzziesquirrel.com>
+ <953ff1d9-294a-025e-7c10-91ec80b81e9e@linux.intel.com>
+ <CAARXrtmYykUAGr015qhRc5VAZB20_cc7pqRXmDGYag_7vZiSvA@mail.gmail.com>
+ <CANFuQ7D07LrT4SZNWKwuQwj2rQGv+Qzn_cKWWHaqoHKdTyuG5g@mail.gmail.com>
+From: James Feist <james.feist@linux.intel.com>
+Message-ID: <817bf150-3cab-bf90-0f72-7a2d71352764@linux.intel.com>
+Date: Wed, 6 Nov 2019 09:21:25 -0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:60.0) Gecko/20100101
+ Thunderbird/60.7.1
 MIME-Version: 1.0
-In-Reply-To: <20191106091705.7416-5-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8
+In-Reply-To: <CANFuQ7D07LrT4SZNWKwuQwj2rQGv+Qzn_cKWWHaqoHKdTyuG5g@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
-X-Ovh-Tracer-Id: 15805101419091626923
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedruddujedgieelucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdqfffguegfifdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepuffvfhfhkffffgggjggtgfesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucfkpheptddrtddrtddrtddpudelhedrvdduvddrvdelrdduieeinecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhejjedurdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhrtghpthhtohepohhpvghnsghmtgeslhhishhtshdrohiilhgrsghsrdhorhhgnecuvehluhhsthgvrhfuihiivgeptd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,90 +51,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2019 15:18:54 -0000
+X-List-Received-Date: Wed, 06 Nov 2019 17:21:31 -0000
 
-On 06/11/2019 10:17, Joel Stanley wrote:
-> The ast2600 has some minor differences to previous versions. The
-> interrupt handler must acknowledge the timer interrupt in a status
-> register. Secondly the control register becomes write to set only,
-> requiring the use of a separate set to clear register.
+On 11/5/19 7:23 PM, George Liu wrote:
 > 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Reviewed-by: Cédric Le Goater <clg@kaod.org>
-
-> ---
->  drivers/clocksource/timer-fttmr010.c | 34 ++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
 > 
-> diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
-> index 8a79025339d0..688d540ebddd 100644
-> --- a/drivers/clocksource/timer-fttmr010.c
-> +++ b/drivers/clocksource/timer-fttmr010.c
-> @@ -37,6 +37,11 @@
->  #define TIMER3_MATCH2		(0x2c)
->  #define TIMER_CR		(0x30)
->  
-> +/*
-> +  Control register set to clear for ast2600 only.
-> + */
-> +#define TIMER_CR_CLR		(0x3c)
-> +
->  /*
->   * Control register (TMC30) bit fields for fttmr010/gemini/moxart timers.
->   */
-> @@ -163,6 +168,16 @@ static int fttmr010_timer_set_next_event(unsigned long cycles,
->  	return 0;
->  }
->  
-> +static int ast2600_timer_shutdown(struct clock_event_device *evt)
-> +{
-> +	struct fttmr010 *fttmr010 = to_fttmr010(evt);
-> +
-> +	/* Stop */
-> +	writel(fttmr010->t1_enable_val, fttmr010->base + TIMER_CR_CLR);
-> +
-> +	return 0;
-> +}
-> +
->  static int fttmr010_timer_shutdown(struct clock_event_device *evt)
->  {
->  	struct fttmr010 *fttmr010 = to_fttmr010(evt);
-> @@ -244,6 +259,17 @@ static irqreturn_t fttmr010_timer_interrupt(int irq, void *dev_id)
->  	return IRQ_HANDLED;
->  }
->  
-> +static irqreturn_t ast2600_timer_interrupt(int irq, void *dev_id)
-> +{
-> +	struct clock_event_device *evt = dev_id;
-> +	struct fttmr010 *fttmr010 = to_fttmr010(evt);
-> +
-> +	writel(0x1, fttmr010->base + TIMER_INTR_STATE);
-> +
-> +	evt->event_handler(evt);
-> +	return IRQ_HANDLED;
-> +}
-> +
->  static int __init fttmr010_common_init(struct device_node *np,
->  		bool is_aspeed,
->  		int (*timer_shutdown)(struct clock_event_device *),
-> @@ -404,6 +430,13 @@ static int __init fttmr010_common_init(struct device_node *np,
->  	return ret;
->  }
->  
-> +static __init int ast2600_timer_init(struct device_node *np)
-> +{
-> +	return fttmr010_common_init(np, true,
-> +			ast2600_timer_shutdown,
-> +			ast2600_timer_interrupt);
-> +}
-> +
->  static __init int aspeed_timer_init(struct device_node *np)
->  {
->  	return fttmr010_common_init(np, true,
-> @@ -423,3 +456,4 @@ TIMER_OF_DECLARE(gemini, "cortina,gemini-timer", fttmr010_timer_init);
->  TIMER_OF_DECLARE(moxart, "moxa,moxart-timer", fttmr010_timer_init);
->  TIMER_OF_DECLARE(ast2400, "aspeed,ast2400-timer", aspeed_timer_init);
->  TIMER_OF_DECLARE(ast2500, "aspeed,ast2500-timer", aspeed_timer_init);
-> +TIMER_OF_DECLARE(ast2600, "aspeed,ast2600-timer", ast2600_timer_init);
+> Lei YU <mine260309@gmail.com <mailto:mine260309@gmail.com>> 于2019年11月 
+> 6日周三 上午10:02写道：
+> 
+>     On Wed, Nov 6, 2019 at 1:20 AM James Feist
+>     <james.feist@linux.intel.com <mailto:james.feist@linux.intel.com>>
+>     wrote:
+>      >
+>      > On 11/4/19 4:36 PM, Brad Bishop wrote:
+>      > >
+>      > >
+>      > >> On Oct 31, 2019, at 11:26 PM, Lei YU <mine260309@gmail.com
+>     <mailto:mine260309@gmail.com>> wrote:
+>      > >>
+>      > >> On Thu, Oct 31, 2019 at 9:48 PM George Liu
+>     <liuxiwei1013@gmail.com <mailto:liuxiwei1013@gmail.com>> wrote:
+>      > >>>
+>      > >>> Hi All:
+>      > >>> I'm working on http redirect to https
+>     task(https://github.com/ibm-openbmc/dev/issues/895).
+>      > >>> I took a cursory look at the
+>     design(https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/24173)
+>     and did some testing.
+>      > >>>
+>      > >>> In bmcweb, I find it the current communication logic can only
+>     listen to one communication protocol (http or https). If you listen
+>     to both protocols at the same time, you need to change a lot of code
+>     and communication logic.
+>      > >>> If we are going to implement this feature in bmcweb, it costs
+>     extra effort and it's likely the implementation is no better than
+>     Nginx. so I prefer to use Nginx.
+>      > >>>
+>      > >>
+>      > >>>  From Ed's [mail in June][1], one approach is to use boost
+>     asio async_detect_ssl.
+>      > >>
+>      > >> But I agree with George here that it costs extra and unnecessary
+>      > >> effort, because with nginx it is so easy to config the http->https
+>      > >> redirection, and it is easy to get all the https related configs
+>      > >> right, including HSTS.
+>      > >> In other words, we got such features for free (except for a
+>     few binary
+>      > >> size), why bother re-write it?
+>      > >>
+>      > >> Considering the binary size, maybe it's worth the effort to
+>     check how
+>      > >> many bytes are increased compared between:
+>      > >> 1. Current implement that bmcweb handles https only
+>      > >> 2. Enable BMCWEB_INSECURE, opt-out all https related code in
+>     bmcweb,
+>      > >> adding a basic nginx and a configure file that does the https
+>      > >> redirect.
+>      > >>
+>      > >> We could check the binary size to see if it's acceptable. Be noted
+>      > >> that implementing this feature in bmcweb increases the binary
+>     size as
+>      > >> well.
+>      > >>
+>      > >>
+>      > >> [1]:
+>     https://lists.ozlabs.org/pipermail/openbmc/2019-June/016557.html
+>      > >
+>      > > FWIW I generally support solutions that re-use existing
+>     software and have large communities behind them already but I do
+>     remember Ed having some concerns about using bmcweb behind a proxy.
+>      > >
+>      > > James any chance you recall what those concerns were?  I don’t
+>     think I was ever able to wrap my head around them.  Do you share
+>     Ed’s concerns?
+>      >
+>      > I think these were the main concerns:
+>      > https://security.stackexchange.com/a/107106
+>      >
+>      > Basically that since you're using HTTP, you leave yourself open for a
+>      > man-in-the-middle attack. bmcweb does do the header trick
+>     mentioned in
+>      > this post, so once you navigate to your bmc once, the browser
+>     remembers
+>      > to always use https. I think that, along with potential binary size
+>      > increases, were the biggest concerns. We also try to keep open the
+>      > minimum number of ports in general as a best practice.
+>      >
+> 
+>     As the answer indicates "A way to mitigate this is to use an HSTS
+>     HTTP header"
+>     It's easy to configure nginx to use HSTS header, so it's no big deal.
+
+bmcweb already does this 
+https://github.com/openbmc/bmcweb/blob/07a602993f1007b0b0b764bdb3f14f302a8d2e26/http/websocket.h#L92
+
+https://github.com/openbmc/bmcweb/blob/07a602993f1007b0b0b764bdb3f14f302a8d2e26/include/security_headers_middleware.hpp#L32
+
+
+> 
+>     The potential binary size increase is a valid concern, it's worthing
+>     comparing the binary size with and without nginx.
+> 
+> 
+> Just now, I did a test.
+> 
+> I completely copied the Nginx configuration of meta-ibm and compared the 
+> rofs binary size after compilation.
+> with Nginx: 18509824
+> without Nginx: 18022400
+> 
+> refer to: 
+> https://github.com/openbmc/openbmc/tree/837851ae37a67b84f0f8c0fd310d33b5a731cc80/meta-ibm/recipes-httpd
+> 
+> 
+>      > >
+>      > > thx - brad
+>      > >
 > 
