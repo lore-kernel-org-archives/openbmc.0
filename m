@@ -1,36 +1,42 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <clg@kaod.org>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kaod.org (client-ip=46.105.74.219; helo=8.mo68.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=kaod.org
+Received: from 8.mo68.mail-out.ovh.net (8.mo68.mail-out.ovh.net
+ [46.105.74.219])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 477V0w1ZXfzF2Wc
- for <openbmc@lists.ozlabs.org>; Thu,  7 Nov 2019 01:54:05 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id xA6ErXWN026782;
- Wed, 6 Nov 2019 16:53:33 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id CAE1460329; Wed,  6 Nov 2019 16:53:33 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: p.zabel@pengutronix.de, robh+dt@kernel.org, mark.rutland@arm.com,
- yuenn@google.com, venture@google.com, benjaminfair@google.com,
- avifishman70@gmail.com, joel@jms.id.au
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
-Subject: [PATCH v5 1/3] dt-bindings: reset: add NPCM reset controller
- documentation
-Date: Wed,  6 Nov 2019 16:53:29 +0200
-Message-Id: <20191106145331.25740-2-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20191106145331.25740-1-tmaimon77@gmail.com>
-References: <20191106145331.25740-1-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 477VLk4BRFzF3T8
+ for <openbmc@lists.ozlabs.org>; Thu,  7 Nov 2019 02:09:31 +1100 (AEDT)
+Received: from player729.ha.ovh.net (unknown [10.108.54.13])
+ by mo68.mail-out.ovh.net (Postfix) with ESMTP id E6D36147FF7
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Nov 2019 15:34:14 +0100 (CET)
+Received: from kaod.org (deibp9eh1--blueice1n4.emea.ibm.com [195.212.29.166])
+ (Authenticated sender: clg@kaod.org)
+ by player729.ha.ovh.net (Postfix) with ESMTPSA id E006BBF9927F;
+ Wed,  6 Nov 2019 14:34:11 +0000 (UTC)
+Subject: Re: [PATCH linux dev-5.3 3/4] clocksource: fttmr010: Set interrupt
+ and shutdown
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org
+Cc: Andrew Jeffery <andrew@aj.id.au>
+References: <20191106091705.7416-1-joel@jms.id.au>
+ <20191106091705.7416-4-joel@jms.id.au>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <b97f0f45-24dc-f3fd-742f-36b06221c6af@kaod.org>
+Date: Wed, 6 Nov 2019 15:34:10 +0100
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.1
 MIME-Version: 1.0
+In-Reply-To: <20191106091705.7416-4-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
 Content-Transfer-Encoding: 8bit
+X-Ovh-Tracer-Id: 15701237152568150955
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgedufedruddujedgieejucetufdoteggodetrfdotffvucfrrhhofhhilhgvmecuqfggjfdqfffguegfifdpvefjgfevmfevgfenuceurghilhhouhhtmecuhedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmnecujfgurhepuffvfhfhkffffgggjggtgfesthekredttdefjeenucfhrhhomhepveorughrihgtpgfnvggpifhorghtvghruceotghlgheskhgrohgurdhorhhgqeenucfkpheptddrtddrtddrtddpudelhedrvdduvddrvdelrdduieeinecurfgrrhgrmhepmhhouggvpehsmhhtphdqohhuthdphhgvlhhopehplhgrhigvrhejvdelrdhhrgdrohhvhhdrnhgvthdpihhnvghtpedtrddtrddtrddtpdhmrghilhhfrhhomheptghlgheskhgrohgurdhorhhgpdhrtghpthhtohepohhpvghnsghmtgeslhhishhtshdrohiilhgrsghsrdhorhhgnecuvehluhhsthgvrhfuihiivgeptd
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,54 +48,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 Nov 2019 14:54:09 -0000
+X-List-Received-Date: Wed, 06 Nov 2019 15:09:35 -0000
 
-Added device tree binding documentation for Nuvoton BMC
-NPCM reset controller.
+On 06/11/2019 10:17, Joel Stanley wrote:
+> In preparation for supporting the ast2600, pass the shutdown and
+> interrupt functions to the common init callback.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- .../bindings/reset/nuvoton,npcm-reset.txt     | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
+Reviewed-by: Cédric Le Goater <clg@kaod.org>
 
-diff --git a/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt b/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
-new file mode 100644
-index 000000000000..6e802703af60
---- /dev/null
-+++ b/Documentation/devicetree/bindings/reset/nuvoton,npcm-reset.txt
-@@ -0,0 +1,32 @@
-+Nuvoton NPCM Reset controller
-+
-+Required properties:
-+- compatible : "nuvoton,npcm750-reset" for NPCM7XX BMC
-+- reg : specifies physical base address and size of the register.
-+- #reset-cells: must be set to 2
-+
-+Optional property:
-+- nuvoton,sw-reset-number - Contains the software reset number to restart the SoC.
-+  NPCM7xx contain four software reset that represent numbers 1 to 4.
-+
-+  If 'nuvoton,sw-reset-number' is not specfied software reset is disabled.
-+
-+Example:
-+	rstc: rstc@f0801000 {
-+		compatible = "nuvoton,npcm750-reset";
-+		reg = <0xf0801000 0x70>;
-+		#reset-cells = <2>;
-+		nuvoton,sw-reset-number = <2>;
-+	};
-+
-+Specifying reset lines connected to IP NPCM7XX modules
-+======================================================
-+example:
-+
-+        spi0: spi@..... {
-+                ...
-+                resets = <&rstc NPCM7XX_RESET_IPSRST2 NPCM7XX_RESET_PSPI1>;
-+                ...
-+        };
-+
-+The index could be found in <dt-bindings/reset/nuvoton,npcm7xx-reset.h>.
--- 
-2.22.0
+> ---
+>  drivers/clocksource/timer-fttmr010.c | 17 ++++++++++++-----
+>  1 file changed, 12 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/clocksource/timer-fttmr010.c b/drivers/clocksource/timer-fttmr010.c
+> index c2d30eb9dc72..8a79025339d0 100644
+> --- a/drivers/clocksource/timer-fttmr010.c
+> +++ b/drivers/clocksource/timer-fttmr010.c
+> @@ -244,7 +244,10 @@ static irqreturn_t fttmr010_timer_interrupt(int irq, void *dev_id)
+>  	return IRQ_HANDLED;
+>  }
+>  
+> -static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
+> +static int __init fttmr010_common_init(struct device_node *np,
+> +		bool is_aspeed,
+> +		int (*timer_shutdown)(struct clock_event_device *),
+> +		irq_handler_t handler)
+
+may be rename handler -> irq_handler. This is minor, just better for 
+readability.
+
+C. 
+
+>  {
+>  	struct fttmr010 *fttmr010;
+>  	int irq;
+> @@ -345,7 +348,7 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
+>  				     fttmr010->tick_rate);
+>  	}
+>  
+> -	fttmr010->timer_shutdown = fttmr010_timer_shutdown;
+> +	fttmr010->timer_shutdown = timer_shutdown;
+>  
+>  	/*
+>  	 * Setup clockevent timer (interrupt-driven) on timer 1.
+> @@ -354,7 +357,7 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
+>  	writel(0, fttmr010->base + TIMER1_LOAD);
+>  	writel(0, fttmr010->base + TIMER1_MATCH1);
+>  	writel(0, fttmr010->base + TIMER1_MATCH2);
+> -	ret = request_irq(irq, fttmr010_timer_interrupt, IRQF_TIMER,
+> +	ret = request_irq(irq, handler, IRQF_TIMER,
+>  			  "FTTMR010-TIMER1", &fttmr010->clkevt);
+>  	if (ret) {
+>  		pr_err("FTTMR010-TIMER1 no IRQ\n");
+> @@ -403,12 +406,16 @@ static int __init fttmr010_common_init(struct device_node *np, bool is_aspeed)
+>  
+>  static __init int aspeed_timer_init(struct device_node *np)
+>  {
+> -	return fttmr010_common_init(np, true);
+> +	return fttmr010_common_init(np, true,
+> +			fttmr010_timer_shutdown,
+> +			fttmr010_timer_interrupt);
+>  }
+>  
+>  static __init int fttmr010_timer_init(struct device_node *np)
+>  {
+> -	return fttmr010_common_init(np, false);
+> +	return fttmr010_common_init(np, false,
+> +			fttmr010_timer_shutdown,
+> +			fttmr010_timer_interrupt);
+>  }
+>  
+>  TIMER_OF_DECLARE(fttmr010, "faraday,fttmr010", fttmr010_timer_init);
+> 
