@@ -1,67 +1,66 @@
-Return-Path: <ulf.hansson@linaro.org>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linaro.org (client-ip=2607:f8b0:4864:20::941;
- helo=mail-ua1-x941.google.com; envelope-from=ulf.hansson@linaro.org;
- receiver=<UNKNOWN>)
+Return-Path: <Derick.Montague@ibm.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.b="dYP/0q1U"; 
- dkim-atps=neutral
-Received: from mail-ua1-x941.google.com (mail-ua1-x941.google.com
- [IPv6:2607:f8b0:4864:20::941])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47J2pQ3T1KzDqrq
- for <openbmc@lists.ozlabs.org>; Wed, 20 Nov 2019 23:59:34 +1100 (AEDT)
-Received: by mail-ua1-x941.google.com with SMTP id l38so7727195uad.4
- for <openbmc@lists.ozlabs.org>; Wed, 20 Nov 2019 04:59:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=nuqJ0vbClL23gGoYcppi0FrFy7e9Hz/yNcjMSMNBxqE=;
- b=dYP/0q1UJs+hkupL0Ks33xZa/oPu9OOQ/1POhchabco+MYLW/OVqUGMujUfpI5uX/Z
- guc95gIHgm0ENwks6ezoHMtNBDv5NpD4kZOt3rckVtc2TNrFfHdbtpCHIzg2WdJrYaXH
- /xSfomvFi7E/T0tCpoUNe3K5d8eLKhwMpXTlLq8hD5ihVf1MmjEnX8Zrc+Q4dl9OF8vp
- voHqwV0OwDc47bzLAoCx81iHGZpBIJjGrkq9aPtBI615OOd+WVm9zHE2PC2D1k+vGxR4
- 4PUF1/lLiew7UxLBcxzFkhUWuY57TX2Ka8I2YZ+NgeOlXACnlaJC6D7tFhA87pTU3x45
- HmRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=nuqJ0vbClL23gGoYcppi0FrFy7e9Hz/yNcjMSMNBxqE=;
- b=rk2qLqSu4hUS+99oP1Yhx7J+2u9in5L4DZ1IlzZCkriUZEFAbST2GExpDZWH3t2tYH
- DDENDwhjt0+Sx+/gN3mA6ELPzB+XtqME2FY6n2esx8W6aCNWIMbSzMqpwh5h0kwfB9wG
- XP179jJr/p8qYO7H2ePqTTaX5Ro7tjn24JHuDqHmYLBrMl8qN1Jn99axgSNxcXJJacVQ
- qBRb/AU9S9YclMrFr7UIxevKOo+SsOS506bjXeqbx9ejLi/mpw9JpM+a6PfgXfWTIjrm
- /FMpFfUG2hkm2ffuAX4LSj22dVwjDaXPM2n/CrzgfleD3gxW2DuzNqHrCa7Zrs36x+gZ
- Hhew==
-X-Gm-Message-State: APjAAAW4X2BKf9T0wVm09WgGAtCU74rl5yowJtib1syvPxyH/MMRZmcs
- hsgDLZXuTJnm0z2dOVL7joWEapVdnLNXiVDSL1uZFw==
-X-Google-Smtp-Source: APXvYqzczwcqmzJh3GjUqnWFQGP/+Gp7RUJwV58YrFcSe+bfPCganPSc0GYA3NZbmUkPuarP338JjoXHT98NVoW0E1U=
-X-Received: by 2002:ab0:2042:: with SMTP id g2mr1511287ual.19.1574254771069;
- Wed, 20 Nov 2019 04:59:31 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47J3db3YHYzDqkp
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Nov 2019 00:37:06 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xAKDZc0r117889
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Nov 2019 08:37:02 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.67])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2wd5s0sfp5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Nov 2019 08:37:02 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
+ Wed, 20 Nov 2019 13:37:02 -0000
+Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
+ by smtp.notes.na.collabserv.com (10.106.227.16) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 20 Nov 2019 13:36:58 -0000
+Received: from us1a3-mail158.a3.dal06.isc4sb.com ([10.146.71.209])
+ by us1a3-smtp02.a3.dal06.isc4sb.com
+ with ESMTP id 2019112013365753-499638 ;
+ Wed, 20 Nov 2019 13:36:57 +0000 
+In-Reply-To: 
+Subject: GUI Design Workgroup - Today - Wednesday 11/20
+From: "Derick Montague" <Derick.Montague@ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Wed, 20 Nov 2019 13:36:57 +0000
+Sensitivity: 
+References: 
 MIME-Version: 1.0
-References: <20191118104646.3838-1-i.mikhaylov@yadro.com>
- <20191118104646.3838-3-i.mikhaylov@yadro.com>
-In-Reply-To: <20191118104646.3838-3-i.mikhaylov@yadro.com>
-From: Ulf Hansson <ulf.hansson@linaro.org>
-Date: Wed, 20 Nov 2019 13:58:55 +0100
-Message-ID: <CAPDyKFoz3ipYBGR-6ubfqhtQVG9h16axoHNdSoo+OyNgKRs2Tw@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] mmc: sdhci-of-aspeed: enable
- CONFIG_MMC_SDHCI_IO_ACCESSORS
-To: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-Cc: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Rob Herring <robh+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- DTML <devicetree@vger.kernel.org>, 
- Linux ARM <linux-arm-kernel@lists.infradead.org>, 
- linux-aspeed <linux-aspeed@lists.ozlabs.org>, 
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, 
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Importance: Normal
+X-Priority: 3 (Normal)
+X-Mailer: IBM Verse Build 17652-1661 | IBM Domino Build
+ SCN1812108_20180501T0841_FP62 November 04, 2019 at 09:47
+X-LLNOutbound: False
+X-Disclaimed: 31215
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=UTF-8
+x-cbid: 19112013-7279-0000-0000-000001365DBB
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000017
+X-IBM-SpamModules-Versions: BY=3.00012138; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000292; SDB=6.01292838; UDB=6.00685934; IPR=6.01075061; 
+ MB=3.00029626; MTD=3.00000008; XFM=3.00000015; UTC=2019-11-20 13:37:00
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-11-20 07:45:24 - 6.00010669
+x-cbparentid: 19112013-7280-0000-0000-000011E664A8
+Message-Id: <OFACB662CD.2442A2C1-ON002584B8.004AA114-002584B8.004ACB90@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-11-20_04:2019-11-15,2019-11-20 signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,34 +72,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 20 Nov 2019 12:59:44 -0000
+X-List-Received-Date: Wed, 20 Nov 2019 13:37:08 -0000
 
-On Mon, 18 Nov 2019 at 11:47, Ivan Mikhaylov <i.mikhaylov@yadro.com> wrote:
->
-> Enable CONFIG_MMC_SDHCI_IO_ACCESSORS on the aspeed board. The read_l
-> callback is used for inverted card detection.
->
-> Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-
-Applied for next, updating the changelog according to Andrew's comments, thanks!
-
-Kind regards
-Uffe
-
-
->
-> diff --git a/drivers/mmc/host/Kconfig b/drivers/mmc/host/Kconfig
-> index 49ea02c467bf..c9c1bb722368 100644
-> --- a/drivers/mmc/host/Kconfig
-> +++ b/drivers/mmc/host/Kconfig
-> @@ -159,6 +159,7 @@ config MMC_SDHCI_OF_ASPEED
->         tristate "SDHCI OF support for the ASPEED SDHCI controller"
->         depends on MMC_SDHCI_PLTFM
->         depends on OF && OF_ADDRESS
-> +       select MMC_SDHCI_IO_ACCESSORS
->         help
->           This selects the ASPEED Secure Digital Host Controller Interface.
->
-> --
-> 2.20.1
->
+<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Lucida S=
+ans Unicode, Lucida Grande, sans-serif;font-size:10pt" ><div dir=3D"ltr" >H=
+ello,</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" >We have a GUI Design Workgroup today at 10:00 AM Central.=
+ The agenda includes:</div>
+<div dir=3D"ltr" >&nbsp;</div>
+<div dir=3D"ltr" ><div>- Discuss use of Carbon Design System for icons and =
+components</div>
+<div>- Discuss framework update from AngularJS to Vue</div>
+<div>- Discuss primary navigation changes and collaborative&nbsp;work betwe=
+en Intel and IBM</div></div></div><BR>
