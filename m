@@ -9,20 +9,20 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47MRSc2jyXzDqcl
- for <openbmc@lists.ozlabs.org>; Tue, 26 Nov 2019 12:41:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47MRSc3TdkzDqdd
+ for <openbmc@lists.ozlabs.org>; Tue, 26 Nov 2019 12:41:03 +1100 (AEDT)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
 Content-Type: text/plain;
-	charset=utf-8
+	charset=us-ascii
 Content-Transfer-Encoding: quoted-printable
 Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3601.0.10\))
-Subject: paths to configuration files in entity manager
-Message-Id: <D070EECD-8118-450C-92E7-579F86DFCDC8@fuzziesquirrel.com>
-Date: Mon, 25 Nov 2019 19:58:59 -0500
+Subject: guidelines on new entity-manager classes
+Message-Id: <FB1DE03E-092D-41CB-A655-56EFCE849E47@fuzziesquirrel.com>
+Date: Mon, 25 Nov 2019 20:02:12 -0500
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Matthew Barth <msbarth@linux.ibm.com>,
- Shawn McCarney <shawnmm@linux.vnet.ibm.com>
+ Shawn McCarney <shawnmm@linux.vnet.ibm.com>,
+ Matthew Barth <msbarth@linux.ibm.com>
 To: James Feist <james.feist@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -39,21 +39,12 @@ X-List-Received-Date: Tue, 26 Nov 2019 01:41:05 -0000
 
 Hi James
 
-We have a number of applications we are looking at converting to getting =
-their configuration from EM.  Some of the configuration data is quite =
-large and may not make sense to put on dbus.
+another EM question for you...
 
-For example=E2=80=A6
+Are there any guidelines or best practices on upstreaming EM =
+configurations?  Put another way, if I wanted to ensure that you would =
+accept my configurations with new types or classes (e.g. Pid, ADC, =
+etc..), what would I need to do up front to make that process as smooth =
+as it can be?
 
-On some POWER systems the BMC is responsible for figuring out which =
-board it is running on and selecting one of many host firmware =
-configurations to present to the host firmware.  We are considering =
-using EM to accomplish this.
-
-This is a large, binary data set and one idea to avoid putting it on =
-dbus was to just put a path to a file in the EM configuration.  Is this =
-a bad idea?
-
-Thanks!
-
--brad=
+thx - brad=
