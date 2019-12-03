@@ -1,36 +1,36 @@
 Return-Path: <rgrs@protonmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=protonmail.com (client-ip=185.70.40.135;
- helo=mail-40135.protonmail.ch; envelope-from=rgrs@protonmail.com;
+ smtp.mailfrom=protonmail.com (client-ip=185.70.40.130;
+ helo=mail-40130.protonmail.ch; envelope-from=rgrs@protonmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=quarantine dis=none)
  header.from=protonmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=protonmail.com header.i=@protonmail.com header.b="lSV0bqU+"; 
+ secure) header.d=protonmail.com header.i=@protonmail.com header.b="iMntR/EF"; 
  dkim-atps=neutral
-Received: from mail-40135.protonmail.ch (mail-40135.protonmail.ch
- [185.70.40.135])
+Received: from mail-40130.protonmail.ch (mail-40130.protonmail.ch
+ [185.70.40.130])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47S0wm2J4VzDqVc
- for <openbmc@lists.ozlabs.org>; Tue,  3 Dec 2019 23:02:44 +1100 (AEDT)
-Date: Tue, 03 Dec 2019 12:02:32 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47S11p6XKvzDqVb
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Dec 2019 23:07:10 +1100 (AEDT)
+Date: Tue, 03 Dec 2019 12:06:59 +0000
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=default; t=1575374559;
- bh=jL+QFclVBVln10SSlh4LRf5u1O0qd9xK/phBxUIUjHQ=;
+ s=default; t=1575374826;
+ bh=W9HZ+OFrKNF8YIwrZ57nBSnZF79TPhAO+h3eDEWkhd4=;
  h=Date:To:From:Reply-To:Subject:Feedback-ID:From;
- b=lSV0bqU+qJhTs1OBUm8wfYH9LegZ5ESujM+NOsh42OlPnTtRorgDSHniGjNm1pmo4
- qj0mKyHxq+T/8zvVlVffc0LhEE+wzGk8vQZKJctWnuVlSJpD9NET/wfklM8uTzQysJ
- zavbciB8pgUa06Pqf4A26G9um0xVAsaSS5ky1TvI=
+ b=iMntR/EFBqCbkjPjMRzMcZcl3AqGUdkOYLTfgqm7QzMoX/aGxMTvUjv21MPTF16Ef
+ ElY73BAU02QFctbubFchFhU7mfG0yQzcdEnwk+OchuOvWu9eM6UYi0Yd9VHeVY3iXQ
+ +M5NArpbuqaD5O2ohLKZy27XPkc+i5XRek8OcnI0=
 To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 From: rgrs <rgrs@protonmail.com>
 Reply-To: rgrs <rgrs@protonmail.com>
-Subject: BMC update via TFTP
-Message-ID: <q7_GhCRdlxUNHfFX0Y4tW7FPq5Md7qwdFWbwd39V_S5zxrSBYtoXtvlNpQdZchvPB27edbJ3-QKFyZ97kzXoeH3Bby8IIHSWhxle9jzteKA=@protonmail.com>
+Subject: Faking Sensor Readings
+Message-ID: <QVdDJHlLW9JS_3uowBPTzSCb1dwpqJjml0ORFR_aQGpuKCve1l8Qwy4GF4X0_dgJmExy8sjJQD_VjnI-o4xwoYhivHJlSPBt42fc1cuDKjw=@protonmail.com>
 Feedback-ID: N7x9TweAIUMPpfpzQuNzrCOD67M7xMEA9S-zwPBDoWaGjAvK1DkvyqGEcVQ17b2imFZOeXQ1Gawv906j51YTTw==:Ext:ProtonMail
 MIME-Version: 1.0
 Content-Type: multipart/alternative;
- boundary="b1_b169be4adf4d6887b1ff82e634b43930"
+ boundary="b1_b06657c626622b77c2346e4d3b370090"
 X-Spam-Status: No, score=-1.2 required=7.0 tests=ALL_TRUSTED,DKIM_SIGNED,
  DKIM_VALID,DKIM_VALID_AU,DKIM_VALID_EF,FREEMAIL_FROM,HTML_MESSAGE
  autolearn=ham autolearn_force=no version=3.4.2
@@ -46,39 +46,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 03 Dec 2019 12:02:51 -0000
+X-List-Received-Date: Tue, 03 Dec 2019 12:07:11 -0000
 
 This is a multi-part message in MIME format.
 
---b1_b169be4adf4d6887b1ff82e634b43930
+--b1_b06657c626622b77c2346e4d3b370090
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: base64
 
-SGksCgpJbiBCTUMgV2ViVUkgdW5kZXIgIkRvd25sb2FkIGltYWdlIGZpbGUgZnJvbSBURlRQIHNl
-cnZlciIgc2VjdGlvbiwKd2UgaGF2ZSB0ZXh0IGZpZWxkcyAiVEZUUCBTZXJ2ZXIgSVAgYWRkcmVz
-cyIgYW5kICJGaWxlIG5hbWUiLgoiRmlsZSBuYW1lIiBkb2Vzbid0IHRha2UgZm9sZGVycyBpbiBw
-YXRoLiBJcyB0aGlzIGEgYnVnIG9yIGV4cGVjdGVkIGJlaGF2aW9yPwoKVEZUUCBkb3dubG9hZHMg
-d29yayBvbmx5IGlmIGZpbGUgaXMga2VwdCBpbiByb290IG9mIHRmdHAgc2hhcmUuCgpUaGFua3Ms
-ClJhag==
+SGksCgpIb3cgZG8gSSBmYWtlIHNlbnNvciByZWFkaW5ncyBpbiBPcGVuQk1DPwpXZSdyZSB0cnlp
+bmcgdG8gZmFrZSB0ZW1wZXJhdHVyZSBzZW5zb3JzIGFuZCBtYWtlIHN1cmUgZmFucyByYW1wIHVw
+L2Rvd24gYWNjb3JkaW5nbHkuCgpQbGVhc2Ugc2hhcmUgYW55IGRvY3VtZW50cyByZWxhdGVkIHRv
+IHRoZXNlIHRlc3RzLgoKVGhhbmtzLApSYWo=
 
 
---b1_b169be4adf4d6887b1ff82e634b43930
+--b1_b06657c626622b77c2346e4d3b370090
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: base64
 
-PGRpdj5IaSw8YnI+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5JbiBCTUMgIFdlYlVJIHVuZGVy
-ICJEb3dubG9hZCBpbWFnZSBmaWxlIGZyb20gVEZUUCBzZXJ2ZXIiIHNlY3Rpb24sPGJyPjwvZGl2
-PjxkaXY+d2UgaGF2ZSB0ZXh0IGZpZWxkcyAiVEZUUCBTZXJ2ZXIgSVAgYWRkcmVzcyIgYW5kICJG
-aWxlIG5hbWUiLjxicj48L2Rpdj48ZGl2PiJGaWxlIG5hbWUiIGRvZXNuJ3QgdGFrZSBmb2xkZXJz
-IGluIHBhdGguIElzIHRoaXMgYSBidWcgb3IgZXhwZWN0ZWQgYmVoYXZpb3I/PGJyPjwvZGl2Pjxk
-aXY+PGJyPjwvZGl2PjxkaXY+VEZUUCBkb3dubG9hZHMgd29yayBvbmx5IGlmIGZpbGUgaXMga2Vw
-dCBpbiByb290IG9mIHRmdHAgc2hhcmUuPGJyPjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+VGhh
-bmtzLDxicj48L2Rpdj48ZGl2PlJhajxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2IGNsYXNz
-PSJwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jayI+PGRpdiBjbGFzcz0icHJvdG9ubWFpbF9zaWdu
-YXR1cmVfYmxvY2stdXNlciBwcm90b25tYWlsX3NpZ25hdHVyZV9ibG9jay1lbXB0eSI+PGJyPjwv
-ZGl2PjxkaXYgY2xhc3M9InByb3Rvbm1haWxfc2lnbmF0dXJlX2Jsb2NrLXByb3RvbiI+PGJyPjwv
-ZGl2PjwvZGl2PjxkaXY+PGJyPjwvZGl2Pg==
+PGRpdj5IaSw8YnI+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5Ib3cgZG8gSSBmYWtlIHNlbnNv
+ciByZWFkaW5ncyBpbiBPcGVuQk1DPzxicj48L2Rpdj48ZGl2PldlJ3JlIHRyeWluZyB0byBmYWtl
+IHRlbXBlcmF0dXJlIHNlbnNvcnMgYW5kIG1ha2Ugc3VyZSBmYW5zIHJhbXAgdXAvZG93biBhY2Nv
+cmRpbmdseS48YnI+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5QbGVhc2Ugc2hhcmUgYW55IGRv
+Y3VtZW50cyByZWxhdGVkIHRvIHRoZXNlIHRlc3RzLjxicj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48
+ZGl2PlRoYW5rcyw8YnI+UmFqPGJyPjwvZGl2Pg==
 
 
 
---b1_b169be4adf4d6887b1ff82e634b43930--
+--b1_b06657c626622b77c2346e4d3b370090--
