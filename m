@@ -1,57 +1,67 @@
-Return-Path: <jandraara@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::c31;
- helo=mail-yw1-xc31.google.com; envelope-from=jandraara@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <Derick.Montague@ibm.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="a2SnlTnA"; 
- dkim-atps=neutral
-Received: from mail-yw1-xc31.google.com (mail-yw1-xc31.google.com
- [IPv6:2607:f8b0:4864:20::c31])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
+ (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47Y8Rb2Cq6zDqn4
- for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 07:58:50 +1100 (AEDT)
-Received: by mail-yw1-xc31.google.com with SMTP id i126so9502002ywe.7
- for <openbmc@lists.ozlabs.org>; Wed, 11 Dec 2019 12:58:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=rgdF3/+RxuFnrs9k3BqyHvwPvlYauqMi5IB0ETtj0II=;
- b=a2SnlTnAfbO/gzSIMPIUj7ReiyzSwbBS24augF7FeO+MSo64z7HWwYMB9CKWbwOtqF
- 7GdhHocpTjJ/I9ptchjBAU03vedh+qN6b0MuaKucXdVW76SbeycXVPsN7AZNmufu+QdF
- VwDXS6G36B1iTfPuToJAkN5t2hi2rWzOFLzra/AOz49lfHa8kkpXW61BJT/EQml7SRg4
- 34QMUKZA3o2Kfo7B9fm/OGq0Zx2Kl4o19ryhgmNw0WgSRpHSKzkB3TFIXEha3+SQ6Xl5
- XQYIGboGParVTRhw1QT27prE3F3lWNxuvzQerjn6ArnCFir/LxyY9uDUjBnu38HW/2hv
- eWlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=rgdF3/+RxuFnrs9k3BqyHvwPvlYauqMi5IB0ETtj0II=;
- b=kwOrVGbjy9TjWsARgLfS0ZPT08y9zSOHSjID/EHf3hqKVxiiPV1Z6pStaEOix/bZT6
- LyCortM5DUWZeRPPYEUaJ+bKKaiRCC30/sg5wmOl+OX39jWRfowWy+AFmF8RF72wvkDy
- O8pA7LQnrB2kBVuQIeV9NuzIft/um9r/6Zf1hB0beZBYhXLJqcfcziihEkcE3e5fii8E
- D5TaQbevO44cLRf30TQuJO8lPRRjmmdUNkYMfsposAkLNt9f5XDYzsFnW4FtMZFnq7Cj
- o84xahJ6jEFT9kAcY8fNoxeSdGOm8QyjCTJCbs844JjZwDFRFymt41+4ZgNYqdup6dyo
- hGFA==
-X-Gm-Message-State: APjAAAUd+3Jw9yScYBOGWIEHt3CdUr8JoJXMgMzUyFQ6bQKI2YjKWEWt
- xOfTbNaXd2/L4pURLa6LZ7tQKyLH+ne+PCxBmzo=
-X-Google-Smtp-Source: APXvYqwPHp7UIWLNn/W1D2wfma4Ls+eUU+UGxAnYsbW9xwfsQNQX9+cYAl251bbn9mbQnLl2KYDn5ibltoCdMDwW91k=
-X-Received: by 2002:a81:3e1b:: with SMTP id l27mr1381854ywa.503.1576097922994; 
- Wed, 11 Dec 2019 12:58:42 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47Y8xM01njzDqlW
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 08:21:06 +1100 (AEDT)
+Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xBBLFpxo024153
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Dec 2019 16:20:56 -0500
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.81])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2wtbt2kbha-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Dec 2019 16:20:56 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
+ Wed, 11 Dec 2019 21:20:56 -0000
+Received: from us1a3-smtp07.a3.dal06.isc4sb.com (10.146.103.14)
+ by smtp.notes.na.collabserv.com (10.106.227.88) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 11 Dec 2019 21:20:51 -0000
+Received: from us1a3-mail158.a3.dal06.isc4sb.com ([10.146.71.209])
+ by us1a3-smtp07.a3.dal06.isc4sb.com
+ with ESMTP id 2019121121205155-892255 ;
+ Wed, 11 Dec 2019 21:20:51 +0000 
+In-Reply-To: <CAMTupoSUX641CPqrmekdEj4V1bE4GT-EGkxrf229jBi8O_QTbw@mail.gmail.com>
+From: "Derick Montague" <Derick.Montague@ibm.com>
+To: jandraara@gmail.com
+Cc: openbmc@lists.ozlabs.org
+Date: Wed, 11 Dec 2019 21:20:51 +0000
 MIME-Version: 1.0
-References: <OFD864BB65.24B0BA6C-ON002584C7.007F35B7-002584C7.007F8F78@notes.na.collabserv.com>
-In-Reply-To: <OFD864BB65.24B0BA6C-ON002584C7.007F35B7-002584C7.007F8F78@notes.na.collabserv.com>
-From: Jandra A <jandraara@gmail.com>
-Date: Wed, 11 Dec 2019 14:58:32 -0600
-Message-ID: <CAMTupoSUX641CPqrmekdEj4V1bE4GT-EGkxrf229jBi8O_QTbw@mail.gmail.com>
-Subject: GUI Mockups - IBM proposal
-To: Derick Montague <Derick.Montague@ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000d4d56a059973e47a"
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <CAMTupoSUX641CPqrmekdEj4V1bE4GT-EGkxrf229jBi8O_QTbw@mail.gmail.com>
+X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
+ SCN1812108_20180501T0841_FP62 November 04, 2019 at 09:47
+X-LLNOutbound: False
+X-Disclaimed: 15303
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 19121121-3067-0000-0000-000001C2875D
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.048060
+X-IBM-SpamModules-Versions: BY=3.00012227; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000292; SDB=6.01302958; UDB=6.00691996; IPR=6.01085243; 
+ MB=3.00029928; MTD=3.00000008; XFM=3.00000015; UTC=2019-12-11 21:20:54
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2019-12-11 19:37:43 - 6.00010753
+x-cbparentid: 19121121-3068-0000-0000-000052098A4B
+Message-Id: <OF857BE13A.068596C0-ON002584CD.00748200-002584CD.0075442A@notes.na.collabserv.com>
+Subject: Re:  GUI Mockups - IBM proposal
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-11_07:2019-12-11,2019-12-11 signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,66 +73,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 11 Dec 2019 20:58:55 -0000
+X-List-Received-Date: Wed, 11 Dec 2019 21:21:12 -0000
 
---000000000000d4d56a059973e47a
-Content-Type: text/plain; charset="UTF-8"
-
->
-> - Jandra and Kathy are creating mockups of the Server LED page that will
-> be used to find consensus on the differences in design of the global header
-> and primary navigation components.
->
-
-
-Hey Kathy,
-
-In InVision are mockups for what IBM would like the UI to look like in an
-ideal world. We mocked up Server Overview as well to make sure the text
-hierarchy would work on pages with more content.
-
-Server LED:
-https://ibm.invisionapp.com/share/QANZHJKP74E#/319357713_ServerLED
-<https://ibm.invisionapp.com/share/QANZHJKP74E#/319357713_ServerLED>
-Server Overview:
-https://ibm.invisionapp.com/share/QANZHJKP74E#/319357712_Overview
-<https://ibm.invisionapp.com/share/QANZHJKP74E#/319357712_Overview>
-
-During the workgroup last week, we discussed the out of box Bootstrap
-components would need to be styled so that the UI meets industry standards,
-even in the upstream branch.
-
-We realize this is an IBM centric design, and are looking forward to seeing
-what components of this we can agree on to be merged upstream, and which
-will have to be left for downstream theming.
-
-Regards,
-Jandra A
-
---000000000000d4d56a059973e47a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote class=3D"gmail_quot=
-e" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204)=
-;padding-left:1ex">- Jandra and Kathy are creating mockups of the Server LE=
-D page that will be used to find consensus on the differences in design of =
-the global header and primary navigation components.<br></blockquote><div><=
-br></div><div>=C2=A0</div><div>Hey Kathy,=C2=A0</div><div><br></div><div>In=
- InVision are mockups for what IBM would like the UI=C2=A0to look like in a=
-n ideal world. We mocked up Server Overview as well to make sure the text h=
-ierarchy would work on pages with more content.=C2=A0</div><div><br></div><=
-div>Server LED: <a href=3D"https://ibm.invisionapp.com/share/QANZHJKP74E#/3=
-19357713_ServerLED">https://ibm.invisionapp.com/share/QANZHJKP74E#/31935771=
-3_ServerLED=C2=A0</a><br></div><div>Server Overview:=C2=A0<a href=3D"https:=
-//ibm.invisionapp.com/share/QANZHJKP74E#/319357712_Overview">https://ibm.in=
-visionapp.com/share/QANZHJKP74E#/319357712_Overview=C2=A0</a></div><div><br=
-></div><div>During the workgroup last week, we discussed the out of box Boo=
-tstrap components would need to be styled so that the UI meets industry sta=
-ndards, even in the upstream branch.</div><div><br></div><div>We realize th=
-is is an IBM centric design, and are looking forward to seeing what compone=
-nts of this we can agree on to be merged upstream, and which will have to b=
-e left for downstream theming.=C2=A0</div><div><br></div><div>Regards,</div=
-><div>Jandra A</div><div><br></div></div></div>
-
---000000000000d4d56a059973e47a--
+> We realize this is an IBM centric design, and are looking forward to seei=
+ng what components of this we can agree on to be merged upstream, and which=
+ will have to be left for downstream theming.=20
+=20
+I believe our goal is to find a base design that does not look like IBM or =
+Intel. This will allow any company to use the design without change if desi=
+red. Bootstrap out of the box will not be polished enough. The Vue rewrite =
+will implement Bootsrap correctly in order to leverage custom theming. To u=
+tilize custom theming in the existing GUI, we would need to overhaul most o=
+f the application to implement Bootstrap correctly to meet this same need.
