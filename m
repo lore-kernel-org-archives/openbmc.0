@@ -1,36 +1,33 @@
-Return-Path: <andriy.shevchenko@intel.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=andriy.shevchenko@intel.com; receiver=<UNKNOWN>)
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47YSB951nzzDqRp
- for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 19:48:15 +1100 (AEDT)
-X-Amp-Result: UNKNOWN
-X-Amp-Original-Verdict: FILE UNKNOWN
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47YjZh636zzDr68
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Dec 2019 05:51:54 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from fmsmga004.fm.intel.com ([10.253.24.48])
- by orsmga106.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 12 Dec 2019 00:48:11 -0800
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by orsmga103.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 12 Dec 2019 10:51:51 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,305,1571727600"; d="scan'208";a="238866800"
-Received: from smile.fi.intel.com (HELO smile) ([10.237.68.40])
- by fmsmga004.fm.intel.com with ESMTP; 12 Dec 2019 00:47:59 -0800
-Received: from andy by smile with local (Exim 4.93-RC7)
- (envelope-from <andriy.shevchenko@intel.com>)
- id 1ifK8c-0007tI-Bw; Thu, 12 Dec 2019 10:47:58 +0200
-Date: Thu, 12 Dec 2019 10:47:58 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+X-IronPort-AV: E=Sophos;i="5.69,306,1571727600"; d="scan'208";a="364064186"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO [10.7.153.147])
+ ([10.7.153.147])
+ by orsmga004.jf.intel.com with ESMTP; 12 Dec 2019 10:51:51 -0800
+Subject: Re: [PATCH v11 06/14] peci: Add Aspeed PECI adapter driver
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
 Cc: Rob Herring <robh+dt@kernel.org>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Lee Jones <lee.jones@linaro.org>, Jean Delvare <jdelvare@suse.com>,
- Guenter Roeck <linux@roeck-us.net>,
- Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@aj.id.au>, Jonathan Corbet <corbet@lwn.net>,
+ Guenter Roeck <linux@roeck-us.net>, Mark Rutland <mark.rutland@arm.com>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ Jonathan Corbet <corbet@lwn.net>,
  Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
  Kishon Vijay Abraham I <kishon@ti.com>,
  Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>,
@@ -43,8 +40,8 @@ Cc: Rob Herring <robh+dt@kernel.org>,
  Mauro Carvalho Chehab <mchehab+samsung@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  Randy Dunlap <rdunlap@infradead.org>,
- Philippe Ombredanne <pombredanne@nexb.com>,
- Vinod Koul <vkoul@kernel.org>, Stephen Boyd <sboyd@codeaurora.org>,
+ Philippe Ombredanne <pombredanne@nexb.com>, Vinod Koul <vkoul@kernel.org>,
+ Stephen Boyd <sboyd@codeaurora.org>,
  David Kershner <david.kershner@unisys.com>,
  Uwe Kleine-Konig <u.kleine-koenig@pengutronix.de>,
  Sagar Dharia <sdharia@codeaurora.org>, Johan Hovold <johan@kernel.org>,
@@ -54,18 +51,21 @@ Cc: Rob Herring <robh+dt@kernel.org>,
  devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org,
  Robin Murphy <robin.murphy@arm.com>, Ryan Chen <ryan_chen@aspeedtech.com>
-Subject: Re: [PATCH v11 06/14] peci: Add Aspeed PECI adapter driver
-Message-ID: <20191212084758.GE32742@smile.fi.intel.com>
 References: <20191211194624.2872-1-jae.hyun.yoo@linux.intel.com>
  <20191211194624.2872-7-jae.hyun.yoo@linux.intel.com>
  <20191211202818.GD32742@smile.fi.intel.com>
  <e05cdec0-1120-7e2d-bac0-e4a1ba1ceb3d@linux.intel.com>
+ <20191212084758.GE32742@smile.fi.intel.com>
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Message-ID: <bce54a12-a58b-a4a5-4e75-103499747ca6@linux.intel.com>
+Date: Thu, 12 Dec 2019 10:51:51 -0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e05cdec0-1120-7e2d-bac0-e4a1ba1ceb3d@linux.intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <20191212084758.GE32742@smile.fi.intel.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Mon, 16 Dec 2019 15:59:38 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -78,33 +78,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2019 08:48:19 -0000
+X-List-Received-Date: Thu, 12 Dec 2019 18:51:57 -0000
 
-On Wed, Dec 11, 2019 at 04:50:04PM -0800, Jae Hyun Yoo wrote:
-> On 12/11/2019 12:28 PM, Andy Shevchenko wrote:
-> > On Wed, Dec 11, 2019 at 11:46:16AM -0800, Jae Hyun Yoo wrote:
+Hi Andy,
 
-> > Like in the previous patch...
-
-(1)
-
-> I see. I'll simplify this function like below:
+On 12/12/2019 12:47 AM, Andy Shevchenko wrote:
+> On Wed, Dec 11, 2019 at 04:50:04PM -0800, Jae Hyun Yoo wrote:
+>> On 12/11/2019 12:28 PM, Andy Shevchenko wrote:
+>>> On Wed, Dec 11, 2019 at 11:46:16AM -0800, Jae Hyun Yoo wrote:
 > 
-> #include <linux/iopoll.h>
+>>> Like in the previous patch...
 > 
-> static inline int aspeed_peci_check_idle(struct aspeed_peci *priv)
-> {
-> 	u32 cmd_sts;
+> (1)
 > 
-> 	return readl_poll_timeout(priv->base + ASPEED_PECI_CMD,
-> 				  cmd_sts,
-> 				  !(cmd_sts & ASPEED_PECI_CMD_IDLE_MASK),
-> 				  ASPEED_PECI_IDLE_CHECK_INTERVAL_USEC,
-> 				  ASPEED_PECI_IDLE_CHECK_TIMEOUT_USEC);
-> }
+>> I see. I'll simplify this function like below:
+>>
+>> #include <linux/iopoll.h>
+>>
+>> static inline int aspeed_peci_check_idle(struct aspeed_peci *priv)
+>> {
+>> 	u32 cmd_sts;
+>>
+>> 	return readl_poll_timeout(priv->base + ASPEED_PECI_CMD,
+>> 				  cmd_sts,
+>> 				  !(cmd_sts & ASPEED_PECI_CMD_IDLE_MASK),
+>> 				  ASPEED_PECI_IDLE_CHECK_INTERVAL_USEC,
+>> 				  ASPEED_PECI_IDLE_CHECK_TIMEOUT_USEC);
+>> }
+> 
+> Good for *this* case, but please fix all the rest accordingly.
 
-Good for *this* case, but please fix all the rest accordingly.
+Sure. Will do that.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Thanks,
+
+Jae
