@@ -1,54 +1,76 @@
-Return-Path: <karo33bug@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::132;
- helo=mail-lf1-x132.google.com; envelope-from=karo33bug@gmail.com;
+Return-Path: <ratagupt@linux.vnet.ibm.com>
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=ratagupt@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wjg59JrO"; 
- dkim-atps=neutral
-Received: from mail-lf1-x132.google.com (mail-lf1-x132.google.com
- [IPv6:2a00:1450:4864:20::132])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47YQbc1LRczDqxg
- for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 18:36:43 +1100 (AEDT)
-Received: by mail-lf1-x132.google.com with SMTP id y19so890170lfl.9
- for <openbmc@lists.ozlabs.org>; Wed, 11 Dec 2019 23:36:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=5cs/+JOq7lnQVG/XN/kukGB1jzN8YN7T4lWKEJUhzU4=;
- b=Wjg59JrOJVb1S+Fo3AJ6el1tT/HoYsSw8Z455f+NPqiJ/BsgUml7Mm2nmAkgZ/gjVc
- 1tgr0o8Z2JkszvIXp/tZqQ0un0UIBZBHJpDG/LxB5GVV5iVol5Mnpqdb07vgFN75LkVV
- QW1IE2hLr1R6PrlIwQxqu4coAMBJXKSUOCGxj78OmoMGGETlN1VGn4/Nu4OayZMYQ0lJ
- DvV9T7QWLVaLSNHD3VFh4nHch7mqTFvAnhAowmyBtam+Im4XtUsp/jOy2ukacnI1t6ls
- g8LsqEjWIdJcBGyx4ckUPnDDovtWm7+p5Mpvmaj/15t3pKqkGeAJxDVawHeUgxwkbvoe
- mBkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=5cs/+JOq7lnQVG/XN/kukGB1jzN8YN7T4lWKEJUhzU4=;
- b=O0RpcFjwWPKp9NopOJ/zjhyfsvnAl7ZLubzlpAD9NZraex934DTaYsyK59pvVBW5jW
- L+U4eK8GVRXM6XYKXBoNZaR6T8VSCFog493MWCO/Qb+HSQ/UwY7kL9iaHV1ax76HR/d1
- Ur3zEw7XWja5KGlJF8nocEDlBrGZp5Uhm/9JH2WYkwQ3A0b2V5ymRMXfJRpM5xT/KG/1
- vdnD0UEOse6cdmyK/tjgL+b1/b/cZ3UHrug0flKDTY8dFnP1JTilX1zb/E/bP33TT2S1
- aIVucnmtmgQyRX/HAoeeugS0KguWER/CK2UZKCNH2iMDnAHSTaPmeIHpg7PsU2SyFCMc
- Ag4g==
-X-Gm-Message-State: APjAAAWEJwQE3WIdMkk9gub6ZKMiAj8frj9JKzuY6LDwhdRJSaK6HpHo
- 8zYPIbx/SyDlV+jinhwsUtkBrn20tdkCBXjUUjiuUkytI6k=
-X-Google-Smtp-Source: APXvYqwcy89AVS31q+YgB8Se5bhJw61vaWBKOi7R7h3kEWmLX+AC/b6vzI/QfFyqkp7asECmn8tK2ZXdvyFV3RE2yOc=
-X-Received: by 2002:ac2:4834:: with SMTP id 20mr4301046lft.166.1576135823341; 
- Wed, 11 Dec 2019 23:30:23 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47YctJ5BfqzDr31
+ for <openbmc@lists.ozlabs.org>; Fri, 13 Dec 2019 02:20:07 +1100 (AEDT)
+Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ xBCFIqSL138004
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 10:20:02 -0500
+Received: from e06smtp03.uk.ibm.com (e06smtp03.uk.ibm.com [195.75.94.99])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 2wu1fnmx32-1
+ (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Dec 2019 10:20:02 -0500
+Received: from localhost
+ by e06smtp03.uk.ibm.com with IBM ESMTP SMTP Gateway: Authorized Use Only!
+ Violators will be prosecuted
+ for <openbmc@lists.ozlabs.org> from <ratagupt@linux.vnet.ibm.com>;
+ Thu, 12 Dec 2019 15:20:00 -0000
+Received: from b06cxnps4075.portsmouth.uk.ibm.com (9.149.109.197)
+ by e06smtp03.uk.ibm.com (192.168.101.133) with IBM ESMTP SMTP Gateway:
+ Authorized Use Only! Violators will be prosecuted; 
+ (version=TLSv1/SSLv3 cipher=AES256-GCM-SHA384 bits=256/256)
+ Thu, 12 Dec 2019 15:19:58 -0000
+Received: from d06av22.portsmouth.uk.ibm.com (d06av22.portsmouth.uk.ibm.com
+ [9.149.105.58])
+ by b06cxnps4075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ xBCFJuuO21561518
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 12 Dec 2019 15:19:57 GMT
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CF9974C05A;
+ Thu, 12 Dec 2019 15:19:56 +0000 (GMT)
+Received: from d06av22.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5241D4C06E;
+ Thu, 12 Dec 2019 15:19:55 +0000 (GMT)
+Received: from [9.102.55.212] (unknown [9.102.55.212])
+ by d06av22.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
+ Thu, 12 Dec 2019 15:19:54 +0000 (GMT)
+Subject: Re: SLPD multicast support
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ tyler.sabdon@gmail.com
+References: <CAO9PYRL-M2ZjPr6R+V+isDiFttkpbp2hWNHQVsPxFOV6G+mtOA@mail.gmail.com>
+ <bdb246cb-d27d-8a0a-8924-46b8838df46e@linux.ibm.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Date: Thu, 12 Dec 2019 20:49:49 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.1.0
 MIME-Version: 1.0
-From: Carol Wang <karo33bug@gmail.com>
-Date: Thu, 12 Dec 2019 15:30:12 +0800
-Message-ID: <CALzeG+-bxR0oqA_h8Gaf-RQLJygL1QYXy3y2DU=GKdLC9nhWhw@mail.gmail.com>
-Subject: Redfish: Disable/enable out of band IPMI
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Cc: "Puli, Apparao" <apparao.puli@linux.intel.com>, mine260309@gmail.com
-Content-Type: multipart/alternative; boundary="000000000000de3d7c05997cb7c1"
+In-Reply-To: <bdb246cb-d27d-8a0a-8924-46b8838df46e@linux.ibm.com>
+Content-Type: multipart/alternative;
+ boundary="------------86E93111EDBAEC1DB14FE09F"
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+x-cbid: 19121215-0012-0000-0000-000003742BD6
+X-IBM-AV-DETECTION: SAVI=unused REMOTE=unused XFE=unused
+x-cbparentid: 19121215-0013-0000-0000-000021B00860
+Message-Id: <5155704f-99e8-2099-5f74-210b85f4ce19@linux.vnet.ibm.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
+ definitions=2019-12-12_03:2019-12-12,2019-12-12 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 bulkscore=0 spamscore=0 lowpriorityscore=0
+ malwarescore=0 mlxscore=0 mlxlogscore=998 impostorscore=0 phishscore=0
+ adultscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-1910280000 definitions=main-1912120118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,57 +82,104 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 12 Dec 2019 07:36:45 -0000
+X-List-Received-Date: Thu, 12 Dec 2019 15:20:09 -0000
 
---000000000000de3d7c05997cb7c1
-Content-Type: text/plain; charset="UTF-8"
+This is a multi-part message in MIME format.
+--------------86E93111EDBAEC1DB14FE09F
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Deng,
 
-Looking to implement IPMI Enable / Disable as part of Redfish's Manager
-Network
-Protocol.
-https://redfish.dmtf.org/schemas/ManagerNetworkProtocol.v1_5_0.json
+Yes, Currently openbmc support SLP unicast not multicast.
+eg: SLP command for unicast.
+slptool -u ${ip} findsrvtypes or findsrvs
+If you are really looking for the service discovery, OpenBMC supports Avahi.
+eg: avahi-browse -rt _obmc_rest._tcp
 
-Two ways to get/set the current status of net IPMI:
-1. Add an interface in phosphor-dbus-interface to indicate the status of
-net IPMI.
-Have a daemon to monitor the status, if the status is changed, then enable
-or
-disable the net IPMI service and socket.
-2. Check the net IPMI socket state by getData()[1] in bmcweb. If the state
-is
-"running" or "listening", the net IPMI status is true, otherwise, the
-status is
-false. Then bmcweb can enable or disable the service and socket.
+Ratan
 
-Wondering if anyone has any thoughts on this feature, which way is better.
-If add interface, in which daemon this interface should be implemented?
+On 12/12/2019 1:44 AM, Joseph Reynolds wrote:
+> On 12/11/19 6:31 AM, Deng Tyler wrote:
+>> Hi All:
+>>     I have a management tool to discovery service in a subnet by slp 
+>> multicast. But I can't find any openbmc server. I check 
+>> https://github.com/openbmc/slpd-lite and find that slpd-lite didn't 
+>> support multicast but unicast. I am confused that how to leverage 
+>> unicast slp in openbmc? What is the service name in openbmc? Could 
+>> someone example a slp usage scenario in openbmc? thanks.
+>
+> I understand OpenBMC implements Avahi Zeroconf DNS service discovery. 
+> There is a doc review for it here:
+> https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/23484
+>
+> The review points to the implementation which is already merged into 
+> the project.
+>
+> - Joseph
+>
+>>
+>> Tyler
+>
 
-[1]
-https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/network_protocol.hpp#L190
+--------------86E93111EDBAEC1DB14FE09F
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Thanks,
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hi Deng,</p>
+    Yes, Currently openbmc support SLP unicast not multicast.<br>
+    eg: SLP command for unicast.<br>
+    <span style="color: rgb(29, 28, 29); font-family: Slack-Lato, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: pre-wrap; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(248, 248, 248); text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">slptool -u ${ip} findsrvtypes or findsrvs
+</span><br>
+    If you are really looking for the service discovery, OpenBMC
+    supports Avahi.<br>
+    eg: avahi-browse -rt _obmc_rest._tcp
+    <p>Ratan</p>
+    <div class="moz-cite-prefix">On 12/12/2019 1:44 AM, Joseph Reynolds
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:bdb246cb-d27d-8a0a-8924-46b8838df46e@linux.ibm.com">On
+      12/11/19 6:31 AM, Deng Tyler wrote:
+      <br>
+      <blockquote type="cite">Hi All:
+        <br>
+            I have a management tool to discovery service in a subnet by
+        slp multicast. But I can't find any openbmc server. I check
+        <a class="moz-txt-link-freetext" href="https://github.com/openbmc/slpd-lite">https://github.com/openbmc/slpd-lite</a> and find that slpd-lite
+        didn't support multicast but unicast. I am confused that how to
+        leverage unicast slp in openbmc? What is the service name in
+        openbmc? Could someone example a slp usage scenario in openbmc?
+        thanks.
+        <br>
+      </blockquote>
+      <br>
+      I understand OpenBMC implements Avahi Zeroconf DNS service
+      discovery. There is a doc review for it here:
+      <br>
+      <a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/23484">https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/23484</a>
+      <br>
+      <br>
+      The review points to the implementation which is already merged
+      into the project.
+      <br>
+      <br>
+      - Joseph
+      <br>
+      <br>
+      <blockquote type="cite">
+        <br>
+        Tyler
+        <br>
+      </blockquote>
+      <br>
+    </blockquote>
+  </body>
+</html>
 
---000000000000de3d7c05997cb7c1
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi,<br><br>Looking to implement IPMI Enable / Disable as p=
-art of Redfish&#39;s Manager Network<br>Protocol.<br><a href=3D"https://red=
-fish.dmtf.org/schemas/ManagerNetworkProtocol.v1_5_0.json">https://redfish.d=
-mtf.org/schemas/ManagerNetworkProtocol.v1_5_0.json</a><br><br>Two ways to g=
-et/set the current status of net IPMI:<br>1. Add an interface in phosphor-d=
-bus-interface to indicate the status of net IPMI.<br>Have a daemon to monit=
-or the status, if the status is changed, then enable or<br>disable the net =
-IPMI service and socket.<br>2. Check the net IPMI socket state by getData()=
-[1] in bmcweb. If the state is<br>&quot;running&quot; or &quot;listening&qu=
-ot;, the net IPMI status is true, otherwise, the status is<br>false. Then b=
-mcweb can enable or disable the service and socket.<br><br>Wondering if any=
-one has any thoughts on this feature, which way is better.<br>If add interf=
-ace, in which daemon this interface should be implemented?<br><br>[1] <a hr=
-ef=3D"https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/networ=
-k_protocol.hpp#L190">https://github.com/openbmc/bmcweb/blob/master/redfish-=
-core/lib/network_protocol.hpp#L190</a><br><br>Thanks,</div>
-
---000000000000de3d7c05997cb7c1--
+--------------86E93111EDBAEC1DB14FE09F--
