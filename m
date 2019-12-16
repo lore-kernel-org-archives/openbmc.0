@@ -1,65 +1,60 @@
-Return-Path: <manikandan.hcl.ers.epl@gmail.com>
+Return-Path: <karo33bug@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::543;
- helo=mail-pg1-x543.google.com; envelope-from=manikandan.hcl.ers.epl@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::235;
+ helo=mail-lj1-x235.google.com; envelope-from=karo33bug@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.b="HTpEumY8"; 
+ unprotected) header.d=gmail.com header.i=@gmail.com header.b="H6e4zozq"; 
  dkim-atps=neutral
-Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com
- [IPv6:2607:f8b0:4864:20::543])
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47ZBsr1TbhzDrBG;
- Sat, 14 Dec 2019 00:51:41 +1100 (AEDT)
-Received: by mail-pg1-x543.google.com with SMTP id k3so1625090pgc.3;
- Fri, 13 Dec 2019 05:51:41 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47brSD17P6zDqTJ
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Dec 2019 17:08:42 +1100 (AEDT)
+Received: by mail-lj1-x235.google.com with SMTP id m6so5437352ljc.1
+ for <openbmc@lists.ozlabs.org>; Sun, 15 Dec 2019 22:08:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=ymqyf3ZzOKHzrjO49WfBXaPmL09jcKuafUFOn/7WrR0=;
- b=HTpEumY8ELx9uGBt9g/xDzvfDgkgQfOqBchv5PjqzQeyvS5cObNggKcmCb3UNxi/jh
- lH8Wrthu3f2BvMuy4aB3YBZ/YaGj16nw4hx2gp9xqpfMEvVwjdFdG/cotnrH9kTXamPA
- VxQtwpOp5+tjW+LcTt4Oo1USXDUKnnUA2ABLI0sAsQHlF2uZV92ZQ6Kd46Mvoagp/lku
- gX7KoNvSHEiwS5YWNpnNG3lD5Lp5BXZ8D/OWs1At06bNBCYOnT8Xv6OvKda1baIT+AYi
- 1htJqU/FMpQkEYFwi05w4s8WgLjYlQpZgr59uvz7HhyglzmHD9sv/9dSziKSBfJ7JbD7
- C1yw==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=aEg+T0h2hf8px2wfYjqZFjcv4P119YJ534mj5f3kL+4=;
+ b=H6e4zozqQmLfLD42V+i7En/87KdMQ2LZzPXf24NBYj2t70LjKzeIbDCb58Xwm5QSmK
+ T/+mYBrRFDelbx/wcJv4FxUXXE3mg6NT+ODVLzTzI1Cvi4ofCi5lCtWlWBP1kFMikhat
+ lJ+D7Mn4i+BmSfHphLmbNCJOdvKP6wBLkO69DOycbuCfbHrawPahjJTqAw5gCe+7DsPO
+ WQuco1gDxkWP2CA57Wv0QBIF47GbhFhA/iR9QGkr6AWDXN6mefrIYLc+g/PQXeBLPNeg
+ CZ9FBN/aBL1+FRcEgLu5duCnGV33GlHLo9rtDT1CrW+dv1nwo384PClDqRSirvnbDqpk
+ nE3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=ymqyf3ZzOKHzrjO49WfBXaPmL09jcKuafUFOn/7WrR0=;
- b=s8IJJ8ti9jMx3bABxmZ1RU7wHcCC0K1m9a8WRdPt5CyIZXJTRSHhJXBah0SYYd36AP
- sUK4gJGschr8uGicyVAoXoAAqDqVeBTMeRSgsgtfUNXjrLuhPgZNXWNd8BDRCezncD2A
- cbpI1v5LIjUdpWhqZNa9j8qmPy4WKJxWetFJ8qSTTwuFTF51EKnebNWuhbDrUuc6wzzb
- bYsvYbOefjuHqRvhCzZmx3glcAzyr8oKbLLgIR0QtMQsYeowWh4VCjvUodW95nNVS5zs
- VYSHzOV0II4+KTgCR//bRzDN0bRefocCMfoXWccDxe4+gZEBFBk6tMxwvbW1uA7PPLuG
- cYTQ==
-X-Gm-Message-State: APjAAAUvwknDpcU/+2ZhUe9zGQeu/0gLDiS8hYExRpmoxvQNuzv3dOwe
- LVggaO2P318eHkgXRi7zVxQ=
-X-Google-Smtp-Source: APXvYqzuZ7bLsEERfyor7dwMWxIJH9JkvW3kxNrSwI6c0aHQISu84lFn0uFL6hfVfqj7GltzzZj1HQ==
-X-Received: by 2002:a62:788a:: with SMTP id
- t132mr16242050pfc.134.1576245098324; 
- Fri, 13 Dec 2019 05:51:38 -0800 (PST)
-Received: from cnn ([2402:3a80:47f:89b1:9c76:12d1:42df:9222])
- by smtp.gmail.com with ESMTPSA id p28sm10768389pgb.93.2019.12.13.05.51.35
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 13 Dec 2019 05:51:37 -0800 (PST)
-Date: Fri, 13 Dec 2019 19:21:31 +0530
-From: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
-To: andrew@aj.id.au, joel@jms.id.au
-Cc: sdasari@fb.com, vijaykhemka@fb.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- manikandan.e@hcl.com, openbmc@lists.ozlabs.org
-Subject: [PATCH v5] ARM: dts: aspeed: Adding Facebook Yosemite V2 BMC
-Message-ID: <20191213135131.GA1822@cnn>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=aEg+T0h2hf8px2wfYjqZFjcv4P119YJ534mj5f3kL+4=;
+ b=Y76DKKhwGtBMEE1BtX5WMv1TyR+QglK2bzQDciLLAJ4UNK50hf+2VyIkgXZK4swL3t
+ 2sxYW0om3H+JuUKnGlyuPOuBjeuYS+QhOo2iZU3JaPzUHoNmnW5/nbYsznOO2+sFKhGf
+ FzH4RSPQft8MTQcz2ukCUerAGOQKYTHLFxblZdf+OH2oYYKxrDT40gnzhbcwM1E9Y/mw
+ l/cngKoAuv5YSSFl+LtvnHvtM+P8D4Gl+h2TZdnEmmVUG54Efrm13ZjlCLrbmou9KLE8
+ ZlW45ycG20L6vKLqyvj3Vew9iolBIxm2Aj9DgHO2dOXoy7FAOzK3Qnfoeq8RVULmLROq
+ +ApA==
+X-Gm-Message-State: APjAAAUej6h4aDPMpWX4v8fpjT49ByTCS5nW1OfVVlF8sdQJpvxFnqIS
+ mxc5/V5i0YEvZVdd7VdrzkZZckax1zN5KyFxQCk=
+X-Google-Smtp-Source: APXvYqyhCE+F0y0IgRotLuVaBxlvgNxhE1r+IEJHYlJLG2T2JJRUVY2gG21bR8f6kKAlLNUJ7wqYxiS4q8kyOPCl3pA=
+X-Received: by 2002:a2e:99cd:: with SMTP id l13mr18216973ljj.243.1576476516336; 
+ Sun, 15 Dec 2019 22:08:36 -0800 (PST)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
-X-Mailman-Approved-At: Mon, 16 Dec 2019 15:59:38 +1100
+References: <CALzeG+-bxR0oqA_h8Gaf-RQLJygL1QYXy3y2DU=GKdLC9nhWhw@mail.gmail.com>
+ <aa329f9e-9e66-d5e7-ecac-e54c23e16a48@linux.ibm.com>
+ <d6b94dbe-a6c5-1b19-63e7-1695c3794e78@linux.ibm.com>
+In-Reply-To: <d6b94dbe-a6c5-1b19-63e7-1695c3794e78@linux.ibm.com>
+From: Carol Wang <karo33bug@gmail.com>
+Date: Mon, 16 Dec 2019 14:08:25 +0800
+Message-ID: <CALzeG+-dbvwLseu9agpKp5L8vVkNMabM76UOmuDo2sh0uS_qFA@mail.gmail.com>
+Subject: Re: Redfish: Disable/enable out of band IPMI
+To: Joseph Reynolds <jrey@linux.ibm.com>, "Puli,
+ Apparao" <apparao.puli@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,185 +66,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 13 Dec 2019 13:51:44 -0000
+X-List-Received-Date: Mon, 16 Dec 2019 06:08:44 -0000
 
-The Yosemite V2 is a facebook multi-node server
-platform that host four OCP server. The BMC
-in the Yosemite V2 platform based on AST2500 SoC.
+I didn't find the code implement about
+/xyz/openbmc_project/Control/Service/<object>.
+@Puli, Apparao
+Has it been implemented already? Where is it?
 
-This patch adds linux device tree entry related to
-Yosemite V2 specific devices connected to BMC SoC.
 
-Signed-off-by : Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
-Acked-by        : Andrew Jeffery <andrew@aj.id.au>
-Reviewed-by  : Vijay Khemka <vkhemka@fb.com>
---- 
----      v5 - Spell and contributor name correction.
----           - License identifier changed to GPL-2.0-or-later.
----           - aspeed-gpio.h removed.
----           - FAN2 tacho channel changed.
----      v4 - Bootargs removed.
----      v3 - Uart1 Debug removed .
----      v2 - LPC and VUART removed .
----      v1 - Initial draft.
---- 
- .../boot/dts/aspeed-bmc-facebook-yosemitev2.dts    | 148 +++++++++++++++++++++
- 1 file changed, 148 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
-
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
-new file mode 100644
-index 0000000..ffd7f4c
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
-@@ -0,0 +1,148 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright (c) 2018 Facebook Inc.
-+
-+/dts-v1/;
-+
-+#include "aspeed-g5.dtsi"
-+/ {
-+	model = "Facebook Yosemitev2 BMC";
-+	compatible = "facebook,yosemitev2-bmc", "aspeed,ast2500";
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+	chosen {
-+		stdout-path = &uart5;
-+	};
-+
-+	memory@80000000 {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	iio-hwmon {
-+		// VOLATAGE SENSOR
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 0> , <&adc 1> , <&adc 2> ,  <&adc 3> ,
-+		<&adc 4> , <&adc 5> , <&adc 6> ,  <&adc 7> ,
-+		<&adc 8> , <&adc 9> , <&adc 10>, <&adc 11> ,
-+		<&adc 12> , <&adc 13> , <&adc 14> , <&adc 15> ;
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+	};
-+};
-+
-+&uart5 {
-+	// BMC Console
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+};
-+
-+&adc {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc0_default
-+			&pinctrl_adc1_default
-+			&pinctrl_adc2_default
-+			&pinctrl_adc3_default
-+			&pinctrl_adc4_default
-+			&pinctrl_adc5_default
-+			&pinctrl_adc6_default
-+			&pinctrl_adc7_default
-+			&pinctrl_adc8_default
-+			&pinctrl_adc9_default
-+			&pinctrl_adc10_default
-+			&pinctrl_adc11_default
-+			&pinctrl_adc12_default
-+			&pinctrl_adc13_default
-+			&pinctrl_adc14_default
-+			&pinctrl_adc15_default>;
-+};
-+
-+&i2c8 {
-+	//FRU EEPROM
-+	status = "okay";
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&i2c9 {
-+	//INLET & OUTLET TEMP
-+	status = "okay";
-+	tmp421@4e {
-+		compatible = "ti,tmp421";
-+		reg = <0x4e>;
-+	};
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
-+};
-+
-+&i2c10 {
-+	//HSC
-+	status = "okay";
-+	adm1278@40 {
-+		compatible = "adi,adm1278";
-+		reg = <0x40>;
-+	};
-+};
-+
-+&i2c11 {
-+	//MEZZ_TEMP_SENSOR
-+	status = "okay";
-+	tmp421@1f {
-+		compatible = "ti,tmp421";
-+		reg = <0x1f>;
-+	};
-+};
-+
-+&i2c12 {
-+	//MEZZ_FRU
-+	status = "okay";
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&pwm_tacho {
-+	//FSC
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+	fan@1 {
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+};
--- 
-2.7.4
+On Sat, Dec 14, 2019 at 4:07 AM Joseph Reynolds <jrey@linux.ibm.com> wrote:
+>
+> On 12/13/19 2:02 PM, Joseph Reynolds wrote:
+> > On 12/12/19 1:30 AM, Carol Wang wrote:
+> >> Hi,
+> >>
+> >> Looking to implement IPMI Enable / Disable as part of Redfish's
+> >> Manager Network
+> >> Protocol.
+> >> https://redfish.dmtf.org/schemas/ManagerNetworkProtocol.v1_5_0.json
+> >
+> > Carol, that is good.  We are also looking to implement this protocol,
+> > plus the ability to control other services such as Avahi service
+> > discovery, and SSH access to the BMC shell.  I hope we can work together.
+> >
+> > Note that we have discussed this work in the following places:
+> > - https://github.com/openbmc/openbmc/wiki/Security-working-group
+> > - https://lists.ozlabs.org/pipermail/openbmc/2019-September/018379.html
+> > - https://github.com/ibm-openbmc/dev/issues/612
+> >
+> > With that said, I don't have an answer to your question.  Can someone
+> > who knows systemd help us determine the best way to disable/stop and
+> > re-enable/start the [phosphor-ipmi-net][2] service?  I think a D-Bus
+> > interface to represent the status of the service and be able to
+> > control it is expected.
+>
+> Maybe the D-Bus part is already done?  See [Service Management][3].
+> [3]:
+> https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Service/README.md
+>
+> > I can help with the bmcweb implementation, if needed.
+> >
+> > [2]:
+> > https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/ipmi/phosphor-ipmi-net_git.bb
+> >
+> > - Joseph
+> >> Two ways to get/set the current status of net IPMI:
+> >> 1. Add an interface in phosphor-dbus-interface to indicate the status
+> >> of net IPMI.
+> >> Have a daemon to monitor the status, if the status is changed, then
+> >> enable or
+> >> disable the net IPMI service and socket.
+> >> 2. Check the net IPMI socket state by getData()[1] in bmcweb. If the
+> >> state is
+> >> "running" or "listening", the net IPMI status is true, otherwise, the
+> >> status is
+> >> false. Then bmcweb can enable or disable the service and socket.
+> >>
+> >> Wondering if anyone has any thoughts on this feature, which way is
+> >> better.
+> >> If add interface, in which daemon this interface should be implemented?
+> >>
+> >> [1]
+> >> https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/network_protocol.hpp#L190
+> >>
+> >> Thanks,
+> >
+>
