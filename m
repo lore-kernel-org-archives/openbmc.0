@@ -1,54 +1,33 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f42;
- helo=mail-qv1-xf42.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <jae.hyun.yoo@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.b="U3HSoNHg"; 
- dkim-atps=neutral
-Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
- [IPv6:2607:f8b0:4864:20::f42])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47cx0T6QtPzDqBK
- for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 11:36:57 +1100 (AEDT)
-Received: by mail-qv1-xf42.google.com with SMTP id l14so47906qvu.12
- for <openbmc@lists.ozlabs.org>; Tue, 17 Dec 2019 16:36:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5yCcW/kYB6yXx82+ZrNkaMHcYfrF0Gi2/9bUCIUE8gw=;
- b=U3HSoNHgjuP2s3huQAd9gIuuHvyRWlJBEILZ1eC+6+roYuwECWRzHhHQYOs5Omtv0i
- +5gnNfcecqxhIpeG/wzIzw+gtRnGehZRdMOmne5IK2AXN+G0LYohksSWhCLwm+JhNHnU
- NgBpIDNnkuReCFmkNiYp12QIuzZ3fcoFuXlhY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5yCcW/kYB6yXx82+ZrNkaMHcYfrF0Gi2/9bUCIUE8gw=;
- b=Ay0ak6wsC7uVKfv/EldiaWsTuT/f0IdBToYhwLPp/b0GgiB4AbWvKxctEBdf8seRhK
- cQ6Kn/dotAhSIxONp6i0WevYSVejgTtEMmXSQ1g2ctwpr74EMfXrDWnNPH4LTq4DumrX
- Ik4+xdAyMYnOvHW3nlrrqIaxQ5Hqg5XFlO9/GHsB163Ddg9Y//4gcP7D75gqAk4grrVA
- dMEkht/HiKdL8S+Hl2tQMwr9cPhTFnXkBHqhj69cMRz3LM8wLlpbWVVEDFHurOp0NLhq
- cTl/LahP9k6VyDsBoF369f5FxFRgO3E872HYuXYxeNj6MTLGoLiYPKJtJneBS1dxBO8v
- JRdw==
-X-Gm-Message-State: APjAAAXjG/gN3WU69cGgXtITQzB9VSkaHu1jX0M0vIIyQkXyykpkcTkn
- Lni59/Ph1FIvplcSBV5FY0UE+dFtBKTsKxsfSDg=
-X-Google-Smtp-Source: APXvYqzrh/Fx8/AZ65x8UtOWXMHUBbAs7vJuFzGItsS26tKmUv0JFYAoW7L+zH6BC15nkb9ec1PIKSaKZqJgGyW/SYQ=
-X-Received: by 2002:a0c:ead1:: with SMTP id y17mr504324qvp.210.1576629413158; 
- Tue, 17 Dec 2019 16:36:53 -0800 (PST)
-MIME-Version: 1.0
-References: <20191213231803.20766-1-wak@google.com>
-In-Reply-To: <20191213231803.20766-1-wak@google.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 18 Dec 2019 00:36:41 +0000
-Message-ID: <CACPK8XfOxeDd2XnD=Gy2b4O3rAbLpx6a=6-1sgHDObEF_Uo5Sg@mail.gmail.com>
-Subject: Re: [PATCH] npcm7xx-lpc-bpc: Rework driver
-To: "William A. Kennington III" <wak@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47cy7h2SnRzDqSM
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 12:28:14 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 17 Dec 2019 17:28:11 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="390019003"
+Received: from yoojae-mobl1.amr.corp.intel.com (HELO ubuntu.jf.intel.com)
+ ([10.7.153.147])
+ by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 17:28:10 -0800
+From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ openbmc@lists.ozlabs.org
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH dev-5.4 00/14] PECI device driver introduction
+Date: Tue, 17 Dec 2019 17:27:54 -0800
+Message-Id: <20191218012808.6482-1-jae.hyun.yoo@linux.intel.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,644 +39,353 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2019 00:36:59 -0000
+X-List-Received-Date: Wed, 18 Dec 2019 01:28:18 -0000
+X-List-Received-Date: Wed, 18 Dec 2019 01:28:18 -0000
 
-Hi William,
+I'm still trying to upstream it but it would take more time so I'm sending
+it to OpenBMC list to get cherry picked in the meantime.
 
-On Fri, 13 Dec 2019 at 23:18, William A. Kennington III <wak@google.com> wrote:
->
-> This provides a number of fixes:
->  - Multiple file handles are now supported, previously using multiple
->    readers would cause a race in the kfifo and spew garbage to the
->    readers.
->  - iowrite{8,16,32} are now supported correctly. Previously, the
->    dwcapture code would get confused by values added to the fifo for 16
->    bit writes
->  - Reads from the device now only return a single post code. Previously
->    the read call would emit all of the post code data in a single
->    syscall. This was broken because it wouldn't account for partial post
->    code writes into the fifo, meaning the reader could get partial
->    4-byte codes for dwcap.
+I rebased it on dev-5.4 branch and it includes fixes for addressing
+upstream review comments I've got so far.
 
-Nice. This driver isn't upstream, so between yourself and Tomer I
-suggest you decide a direction forward. Perhaps you could take on the
-submission of the driver, with your patch included?
+Below change should be removed from the OpenBMC linux tree before applying
+it to avoid conflicts:
 
-We wanted to consolidate the small BMC drivers for LPC and similar
-functions into a drivers/soc/bmc directory. From there opportunties to
-share userspace interfaces between BMCs (Aspeed, Nuvoton, and
-potentially others) would arise.
+c31349b9039281107b948bf94ed5e53c235c8081 (ARM: dts: aspeed: peci: Add PECI node)
 
-The NPCM BPC and the Aspeed snoop drivers provide similar
-functionality, do you think they could share a single userspace
-interface?
+Thanks,
 
-Cheers,
+Jae
 
-Joel
 
->
-> Tested:
->     Ran as a module with multiple readers and saw the correct values
->     reaching all of the readers. Also tested adding and removing readers
->     at runtime and reloading the kernel module and validating the
->     register state.
->
-> Change-Id: Ic979f523ccc7cda76a2328c5f8c869aa25d7204d
-> Signed-off-by: William A. Kennington III <wak@google.com>
-> ---
->  drivers/misc/npcm7xx-lpc-bpc.c | 388 ++++++++++++++++++++-------------
->  1 file changed, 235 insertions(+), 153 deletions(-)
->
-> diff --git a/drivers/misc/npcm7xx-lpc-bpc.c b/drivers/misc/npcm7xx-lpc-bpc.c
-> index e014e07cd4a46..b04323c4f932d 100644
-> --- a/drivers/misc/npcm7xx-lpc-bpc.c
-> +++ b/drivers/misc/npcm7xx-lpc-bpc.c
-> @@ -10,6 +10,7 @@
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
-> +#include <linux/slab.h>
->  #include <linux/miscdevice.h>
->  #include <linux/poll.h>
->
-> @@ -28,270 +29,348 @@
->  #define NPCM7XX_BPCFA1L_REG    0x10 //BIOS POST Code FIFO Address 1 LSB
->  #define NPCM7XX_BPCFA1M_REG    0x12 //BIOS POST Code FIFO Address 1 MSB
->
-> -/*BIOS regiser data*/
-> +/* BIOS regiser data */
->  #define FIFO_IOADDR1_ENABLE    0x80
->  #define FIFO_IOADDR2_ENABLE    0x40
->
->  /* BPC interface package and structure definition */
-> -#define BPC_KFIFO_SIZE         0x400
-> +#define BPC_KFIFO_SIZE         0x100
->
-> -/*BPC regiser data*/
-> +/* BPC regiser data */
->  #define FIFO_DATA_VALID                0x80
->  #define FIFO_OVERFLOW          0x20
->  #define FIFO_READY_INT_ENABLE  0x8
->  #define FIFO_DWCAPTURE         0x4
->  #define FIFO_ADDR_DECODE       0x1
->
-> -/*Host Reset*/
-> +/* Host Reset */
->  #define HOST_RESET_INT_ENABLE  0x10
->  #define HOST_RESET_CHANGED     0x40
->
-> +struct npcm7xx_code {
-> +       u32 data;
-> +       u8 len;
-> +};
-> +
-> +struct npcm7xx_bpc_file_data {
-> +       struct list_head                list;
-> +       struct npcm7xx_bpc_channel      *ch;
-> +       DECLARE_KFIFO(codes, struct npcm7xx_code, BPC_KFIFO_SIZE);
-> +       bool                            host_reset;
-> +};
-> +
->  struct npcm7xx_bpc_channel {
-> -       struct npcm7xx_bpc      *data;
-> -       struct kfifo            fifo;
-> +       struct npcm7xx_bpc      *drv;
->         wait_queue_head_t       wq;
-> -       bool                    host_reset;
-> +       struct list_head        files;
->         struct miscdevice       miscdev;
->  };
->
->  struct npcm7xx_bpc {
->         void __iomem                    *base;
-> +       struct npcm7xx_bpc_channel      chs[NUM_BPC_CHANNELS];
->         int                             irq;
->         bool                            en_dwcap;
-> -       struct npcm7xx_bpc_channel      ch[NUM_BPC_CHANNELS];
->  };
->
-> -static struct npcm7xx_bpc_channel *npcm7xx_file_to_ch(struct file *file)
-> +static int npcm7xx_bpc_open(struct inode *inode, struct file *file)
->  {
-> -       return container_of(file->private_data, struct npcm7xx_bpc_channel,
-> -                           miscdev);
-> +       struct npcm7xx_bpc_file_data *data;
-> +
-> +       data = kmalloc(sizeof(*data), GFP_KERNEL);
-> +       if (!data)
-> +               return -ENOMEM;
-> +
-> +       INIT_KFIFO(data->codes);
-> +       data->ch = container_of(file->private_data,
-> +                               struct npcm7xx_bpc_channel, miscdev);
-> +       data->host_reset = false;
-> +
-> +       file->private_data = data;
-> +       list_add_rcu(&data->list, &data->ch->files);
-> +       return 0;
-> +}
-> +
-> +static int npcm7xx_bpc_release(struct inode *inode, struct file *file)
-> +{
-> +       struct npcm7xx_bpc_file_data *data = file->private_data;
-> +
-> +       if (!data)
-> +               return -EIO;
-> +
-> +       list_del_rcu(&data->list);
-> +       synchronize_rcu();
-> +
-> +       file->private_data = NULL;
-> +       kfree(data);
-> +       return 0;
->  }
->
->  static ssize_t npcm7xx_bpc_read(struct file *file, char __user *buffer,
->                                 size_t count, loff_t *ppos)
->  {
-> -       struct npcm7xx_bpc_channel *chan = npcm7xx_file_to_ch(file);
-> -       struct npcm7xx_bpc *lpc_bpc = chan->data;
-> -       unsigned int copied;
-> +       struct npcm7xx_bpc_file_data *data = file->private_data;
-> +       struct npcm7xx_code code;
->         int ret = 0;
-> -       int cond_size = 1;
-> -
-> -       if (lpc_bpc->en_dwcap)
-> -               cond_size = 3;
->
-> -       if (kfifo_len(&chan->fifo) < cond_size) {
-> +       while (!kfifo_get(&data->codes, &code)) {
->                 if (file->f_flags & O_NONBLOCK)
->                         return -EAGAIN;
->
->                 ret = wait_event_interruptible
-> -                       (chan->wq, kfifo_len(&chan->fifo) > cond_size);
-> +                       (data->ch->wq, kfifo_len(&data->codes) > 0);
->                 if (ret == -ERESTARTSYS)
->                         return -EINTR;
->         }
->
-> -       ret = kfifo_to_user(&chan->fifo, buffer, count, &copied);
-> +       if (code.len < count)
-> +               count = code.len;
->
-> -       return ret ? ret : copied;
-> +       ret = copy_to_user(buffer, &code.data, count);
-> +       if (ret != 0)
-> +               return -EFAULT;
-> +
-> +       return count;
->  }
->
->  static __poll_t npcm7xx_bpc_poll(struct file *file,
->                                  struct poll_table_struct *pt)
->  {
-> -       struct npcm7xx_bpc_channel *chan = npcm7xx_file_to_ch(file);
-> +       struct npcm7xx_bpc_file_data *data = file->private_data;
->         __poll_t mask = 0;
->
-> -       poll_wait(file, &chan->wq, pt);
-> -       if (!kfifo_is_empty(&chan->fifo))
-> +       poll_wait(file, &data->ch->wq, pt);
-> +       if (!kfifo_is_empty(&data->codes))
->                 mask |= POLLIN;
->
-> -       if (chan->host_reset) {
-> +       if (data->host_reset) {
->                 mask |= POLLHUP;
-> -               chan->host_reset = false;
-> +               data->host_reset = false;
->         }
->
->         return mask;
->  }
->
-> -static const struct file_operations npcm7xx_bpc_fops = {
-> +static const struct file_operations npcm7xx_bpc_channel_fops = {
->         .owner          = THIS_MODULE,
-> +       .open           = npcm7xx_bpc_open,
-> +       .release        = npcm7xx_bpc_release,
->         .read           = npcm7xx_bpc_read,
->         .poll           = npcm7xx_bpc_poll,
->         .llseek         = noop_llseek,
->  };
->
-> -static irqreturn_t npcm7xx_bpc_irq(int irq, void *arg)
-> +static void npcm7xx_bpc_channel_update(struct npcm7xx_bpc_channel *ch,
-> +                                      const struct npcm7xx_code *code)
->  {
-> -       struct npcm7xx_bpc *lpc_bpc = arg;
-> -       u8 fifo_st;
-> -       u8 host_st;
-> -       u8 addr_index = 0;
-> -       u8 Data;
-> -       u8 padzero[3] = {0};
-> -       u8 last_addr_bit = 0;
-> -       bool isr_flag = false;
-> -
-> -       fifo_st = ioread8(lpc_bpc->base + NPCM7XX_BPCFSTAT_REG);
-> -       while (FIFO_DATA_VALID & fifo_st) {
-> -                /* If dwcapture enabled only channel 0 (FIFO 0) used */
-> -               if (!lpc_bpc->en_dwcap)
-> -                       addr_index = fifo_st & FIFO_ADDR_DECODE;
-> -               else
-> -                       last_addr_bit = fifo_st & FIFO_ADDR_DECODE;
-> -
-> -               /*Read data from FIFO to clear interrupt*/
-> -               Data = ioread8(lpc_bpc->base + NPCM7XX_BPCFDATA_REG);
-> -               if (kfifo_is_full(&lpc_bpc->ch[addr_index].fifo))
-> -                       kfifo_skip(&lpc_bpc->ch[addr_index].fifo);
-> -               kfifo_put(&lpc_bpc->ch[addr_index].fifo, Data);
-> -               if (fifo_st & FIFO_OVERFLOW)
-> -                       pr_info("BIOS Post Codes FIFO Overflow!!!\n");
-> +       struct npcm7xx_bpc_file_data *data;
->
-> -               fifo_st = ioread8(lpc_bpc->base + NPCM7XX_BPCFSTAT_REG);
-> -               if (lpc_bpc->en_dwcap && last_addr_bit) {
-> -                       if ((fifo_st & FIFO_ADDR_DECODE) ||
-> -                           ((FIFO_DATA_VALID & fifo_st) == 0)) {
-> -                               while (kfifo_avail(&lpc_bpc->ch[addr_index].fifo) < DW_PAD_SIZE)
-> -                                       kfifo_skip(&lpc_bpc->ch[addr_index].fifo);
-> -                               kfifo_in(&lpc_bpc->ch[addr_index].fifo,
-> -                                        padzero, DW_PAD_SIZE);
-> -                       }
-> +       if (!ch->drv) {
-> +               pr_warn("BIOS Post Code Update for unconfigured channel\n");
-> +               return;
-> +       }
-> +
-> +       list_for_each_entry_rcu(data, &ch->files, list) {
-> +               if (kfifo_is_full(&data->codes))
-> +                       kfifo_skip(&data->codes);
-> +               kfifo_put(&data->codes, *code);
-> +       }
-> +}
-> +
-> +static void npcm7xx_bpc_channel_wake(struct npcm7xx_bpc_channel *ch)
-> +{
-> +       if (!ch->drv)
-> +               return;
-> +
-> +       wake_up_interruptible(&ch->wq);
-> +}
-> +
-> +static void npcm7xx_bpc_host_reset(struct npcm7xx_bpc *bpc)
-> +{
-> +       struct npcm7xx_bpc_file_data *data;
-> +       u8 i;
-> +
-> +       for (i = 0; i < NUM_BPC_CHANNELS; ++i) {
-> +               if (!bpc->chs[i].drv)
-> +                       continue;
-> +               list_for_each_entry_rcu(data, &bpc->chs[i].files, list) {
-> +                       data->host_reset = true;
->                 }
-> -               isr_flag = true;
->         }
-> +}
-> +
-> +static irqreturn_t npcm7xx_bpc_irq(int irq, void *arg)
-> +{
-> +       struct npcm7xx_bpc *bpc = arg;
-> +       struct npcm7xx_code code = {
-> +               .len = 0,
-> +               .data = 0,
-> +       };
-> +       bool ch_wake[NUM_BPC_CHANNELS] = {};
-> +       u8 read_byte;
-> +       u8 status;
-> +       u8 ch_i;
-> +       bool reg_valid;
-> +       irqreturn_t ret = IRQ_NONE;
-> +
-> +       rcu_read_lock();
-> +
-> +       while (true) {
-> +               status = ioread8(bpc->base + NPCM7XX_BPCFSTAT_REG);
-> +               reg_valid = status & FIFO_DATA_VALID;
-> +               if (code.len > 0 && (!reg_valid || !bpc->en_dwcap ||
-> +                                    status & FIFO_ADDR_DECODE)) {
-> +                       npcm7xx_bpc_channel_update(&bpc->chs[ch_i], &code);
-> +                       ch_wake[ch_i] = true;
-> +                       code.len = 0;
-> +                       code.data = 0;
-> +               }
-> +               if (!reg_valid)
-> +                       break;
->
-> -       host_st = ioread8(lpc_bpc->base + NPCM7XX_BPCFMSTAT_REG);
-> -       if (host_st & HOST_RESET_CHANGED) {
-> -               iowrite8(HOST_RESET_CHANGED,
-> -                        lpc_bpc->base + NPCM7XX_BPCFMSTAT_REG);
-> -               lpc_bpc->ch[addr_index].host_reset = true;
-> -               isr_flag = true;
-> +               if (status & FIFO_OVERFLOW)
-> +                       pr_info("BIOS Post Codes FIFO Overflow!!!\n");
-> +
-> +               ch_i = bpc->en_dwcap ? 0 : status & FIFO_ADDR_DECODE;
-> +               read_byte = ioread8(bpc->base + NPCM7XX_BPCFDATA_REG);
-> +               code.data |= read_byte << (code.len++ << 3);
->         }
->
-> -       if (isr_flag) {
-> -               wake_up_interruptible(&lpc_bpc->ch[addr_index].wq);
-> -               return IRQ_HANDLED;
-> +       status = ioread8(bpc->base + NPCM7XX_BPCFMSTAT_REG);
-> +       if (status & HOST_RESET_CHANGED) {
-> +               iowrite8(HOST_RESET_CHANGED, bpc->base + NPCM7XX_BPCFMSTAT_REG);
-> +               npcm7xx_bpc_host_reset(bpc);
-> +               for (ch_i = 0; ch_i < NUM_BPC_CHANNELS; ++ch_i)
-> +                       ch_wake[ch_i] = true;
->         }
->
-> -       return IRQ_NONE;
-> +       rcu_read_unlock();
-> +
-> +       for (ch_i = 0; ch_i < NUM_BPC_CHANNELS; ++ch_i)
-> +               if (ch_wake[ch_i]) {
-> +                       npcm7xx_bpc_channel_wake(&bpc->chs[ch_i]);
-> +                       ret = IRQ_HANDLED;
-> +               }
-> +
-> +       return ret;
->  }
->
-> -static int npcm7xx_bpc_config_irq(struct npcm7xx_bpc *lpc_bpc,
-> +static int npcm7xx_bpc_config_irq(struct npcm7xx_bpc *bpc,
->                                   struct platform_device *pdev)
->  {
->         struct device *dev = &pdev->dev;
->         int rc;
->
-> -       lpc_bpc->irq = platform_get_irq(pdev, 0);
-> -       if (lpc_bpc->irq < 0) {
-> +       bpc->irq = platform_get_irq(pdev, 0);
-> +       if (bpc->irq < 0) {
->                 dev_err(dev, "get IRQ failed\n");
-> -               return lpc_bpc->irq;
-> +               return bpc->irq;
->         }
->
-> -       rc = devm_request_irq(dev, lpc_bpc->irq,
-> +       rc = devm_request_irq(dev, bpc->irq,
->                               npcm7xx_bpc_irq, IRQF_SHARED,
-> -                             DEVICE_NAME, lpc_bpc);
-> +                             DEVICE_NAME, bpc);
->         if (rc < 0) {
-> -               dev_warn(dev, "Unable to request IRQ %d\n", lpc_bpc->irq);
-> +               dev_err(dev, "Unable to request IRQ %d\n", bpc->irq);
->                 return rc;
->         }
->
->         return 0;
->  }
->
-> -static int npcm7xx_enable_bpc(struct npcm7xx_bpc *lpc_bpc, struct device *dev,
-> -                             int channel, u16 lpc_port)
-> +static int npcm7xx_bpc_channel_enable(struct npcm7xx_bpc *bpc, struct device *dev,
-> +                                     int channel, u16 lpc_port)
->  {
-> +       struct npcm7xx_bpc_channel *ch = &bpc->chs[channel];
->         int rc;
->         u8 addr_en, reg_en;
->
-> -       init_waitqueue_head(&lpc_bpc->ch[channel].wq);
-> -
-> -       rc = kfifo_alloc(&lpc_bpc->ch[channel].fifo,
-> -                        BPC_KFIFO_SIZE, GFP_KERNEL);
-> -       if (rc)
-> -               return rc;
-> +       init_waitqueue_head(&ch->wq);
-> +       INIT_LIST_HEAD(&ch->files);
->
-> -       lpc_bpc->ch[channel].miscdev.minor = MISC_DYNAMIC_MINOR;
-> -       lpc_bpc->ch[channel].miscdev.name =
-> +       ch->miscdev.minor = MISC_DYNAMIC_MINOR;
-> +       ch->miscdev.name =
->                 devm_kasprintf(dev, GFP_KERNEL, "%s%d", DEVICE_NAME, channel);
-> -       lpc_bpc->ch[channel].miscdev.fops = &npcm7xx_bpc_fops;
-> -       lpc_bpc->ch[channel].miscdev.parent = dev;
-> -       rc = misc_register(&lpc_bpc->ch[channel].miscdev);
-> +       ch->miscdev.fops = &npcm7xx_bpc_channel_fops;
-> +       ch->miscdev.parent = dev;
-> +       rc = misc_register(&ch->miscdev);
->         if (rc)
->                 return rc;
->
-> -       lpc_bpc->ch[channel].data = lpc_bpc;
-> -       lpc_bpc->ch[channel].host_reset = false;
-> -
-> -       /* Enable LPC snoop channel at requested port */
->         switch (channel) {
->         case 0:
->                 addr_en = FIFO_IOADDR1_ENABLE;
->                 iowrite8((u8)lpc_port & 0xFF,
-> -                        lpc_bpc->base + NPCM7XX_BPCFA1L_REG);
-> +                        bpc->base + NPCM7XX_BPCFA1L_REG);
->                 iowrite8((u8)(lpc_port >> 8),
-> -                        lpc_bpc->base + NPCM7XX_BPCFA1M_REG);
-> +                        bpc->base + NPCM7XX_BPCFA1M_REG);
->                 break;
->         case 1:
->                 addr_en = FIFO_IOADDR2_ENABLE;
->                 iowrite8((u8)lpc_port & 0xFF,
-> -                        lpc_bpc->base + NPCM7XX_BPCFA2L_REG);
-> +                        bpc->base + NPCM7XX_BPCFA2L_REG);
->                 iowrite8((u8)(lpc_port >> 8),
-> -                        lpc_bpc->base + NPCM7XX_BPCFA2M_REG);
-> +                        bpc->base + NPCM7XX_BPCFA2M_REG);
->                 break;
->         default:
-> +               misc_deregister(&ch->miscdev);
->                 return -EINVAL;
->         }
->
-> -       if (lpc_bpc->en_dwcap)
-> +       if (bpc->en_dwcap)
->                 addr_en = FIFO_DWCAPTURE;
->
-> -       /*
-> -        * Enable FIFO Ready Interrupt, FIFO Capture of I/O addr,
-> -        * and Host Reset
-> -        */
-> -       reg_en = ioread8(lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> -       iowrite8(reg_en | addr_en | FIFO_READY_INT_ENABLE |
-> -                HOST_RESET_INT_ENABLE, lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> +       reg_en = ioread8(bpc->base + NPCM7XX_BPCFEN_REG);
-> +       iowrite8(reg_en | addr_en, bpc->base + NPCM7XX_BPCFEN_REG);
->
-> +       smp_mb();
-> +       ch->drv = bpc;
->         return 0;
->  }
->
-> -static void npcm7xx_disable_bpc(struct npcm7xx_bpc *lpc_bpc, int channel)
-> +static void npcm7xx_bpc_channel_disable(struct npcm7xx_bpc *bpc, int channel)
->  {
-> -       u8 reg_en;
-> +       struct npcm7xx_bpc_channel *ch = &bpc->chs[channel];
-> +       u8 reg_en = ioread8(bpc->base + NPCM7XX_BPCFEN_REG);
-> +
-> +       if (!ch->drv)
-> +               return;
-> +       ch->drv = NULL;
->
->         switch (channel) {
->         case 0:
-> -               reg_en = ioread8(lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> -               if (lpc_bpc->en_dwcap)
-> -                       iowrite8(reg_en & ~FIFO_DWCAPTURE,
-> -                                lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> -               else
-> -                       iowrite8(reg_en & ~FIFO_IOADDR1_ENABLE,
-> -                                lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> +               iowrite8(reg_en & ~(FIFO_DWCAPTURE | FIFO_IOADDR1_ENABLE),
-> +                        bpc->base + NPCM7XX_BPCFEN_REG);
->                 break;
->         case 1:
-> -               reg_en = ioread8(lpc_bpc->base + NPCM7XX_BPCFEN_REG);
->                 iowrite8(reg_en & ~FIFO_IOADDR2_ENABLE,
-> -                        lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> +                        bpc->base + NPCM7XX_BPCFEN_REG);
->                 break;
->         default:
->                 return;
->         }
->
-> -       if (!(reg_en & (FIFO_IOADDR1_ENABLE | FIFO_IOADDR2_ENABLE)))
-> -               iowrite8(reg_en &
-> -                        ~(FIFO_READY_INT_ENABLE | HOST_RESET_INT_ENABLE),
-> -                        lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> +       misc_deregister(&ch->miscdev);
-> +}
->
-> -       kfifo_free(&lpc_bpc->ch[channel].fifo);
-> -       misc_deregister(&lpc_bpc->ch[channel].miscdev);
-> +static void npcm7xx_bpc_reset(struct npcm7xx_bpc *bpc)
-> +{
-> +       u8 reg_en = ioread8(bpc->base + NPCM7XX_BPCFEN_REG);
-> +       reg_en &= ~(FIFO_IOADDR1_ENABLE | FIFO_IOADDR2_ENABLE | FIFO_DWCAPTURE |
-> +                       FIFO_READY_INT_ENABLE | HOST_RESET_INT_ENABLE);
-> +       iowrite8(reg_en, bpc->base + NPCM7XX_BPCFEN_REG);
-> +}
-> +
-> +static void npcm7xx_bpc_enable_irq(struct npcm7xx_bpc *bpc)
-> +{
-> +       u8 reg_en = ioread8(bpc->base + NPCM7XX_BPCFEN_REG);
-> +       reg_en |= FIFO_READY_INT_ENABLE | HOST_RESET_INT_ENABLE;
-> +       iowrite8(reg_en, bpc->base + NPCM7XX_BPCFEN_REG);
->  }
->
->  static int npcm7xx_bpc_probe(struct platform_device *pdev)
->  {
-> -       struct npcm7xx_bpc *lpc_bpc;
-> +       struct npcm7xx_bpc *bpc;
->         struct resource *res;
->         struct device *dev;
->         u32 port;
-> @@ -299,8 +378,8 @@ static int npcm7xx_bpc_probe(struct platform_device *pdev)
->
->         dev = &pdev->dev;
->
-> -       lpc_bpc = devm_kzalloc(dev, sizeof(*lpc_bpc), GFP_KERNEL);
-> -       if (!lpc_bpc)
-> +       bpc = devm_kzalloc(dev, sizeof(*bpc), GFP_KERNEL);
-> +       if (!bpc)
->                 return -ENOMEM;
->
->         res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-> @@ -310,11 +389,11 @@ static int npcm7xx_bpc_probe(struct platform_device *pdev)
->         }
->
->         dev_dbg(dev, "BIOS post code base resource is %pR\n", res);
-> -       lpc_bpc->base = devm_ioremap_resource(dev, res);
-> -       if (IS_ERR(lpc_bpc->base))
-> -               return PTR_ERR(lpc_bpc->base);
-> +       bpc->base = devm_ioremap_resource(dev, res);
-> +       if (IS_ERR(bpc->base))
-> +               return PTR_ERR(bpc->base);
->
-> -       dev_set_drvdata(&pdev->dev, lpc_bpc);
-> +       dev_set_drvdata(&pdev->dev, bpc);
->
->         rc = of_property_read_u32_index(dev->of_node, "monitor-ports", 0,
->                                         &port);
-> @@ -323,14 +402,16 @@ static int npcm7xx_bpc_probe(struct platform_device *pdev)
->                 return -ENODEV;
->         }
->
-> -       lpc_bpc->en_dwcap =
-> +       bpc->en_dwcap =
->                 of_property_read_bool(dev->of_node, "bpc-en-dwcapture");
->
-> -       rc = npcm7xx_bpc_config_irq(lpc_bpc, pdev);
-> +       npcm7xx_bpc_reset(bpc);
-> +       rc = npcm7xx_bpc_config_irq(bpc, pdev);
->         if (rc)
->                 return rc;
-> +       npcm7xx_bpc_enable_irq(bpc);
->
-> -       rc = npcm7xx_enable_bpc(lpc_bpc, dev, 0, port);
-> +       rc = npcm7xx_bpc_channel_enable(bpc, dev, 0, port);
->         if (rc) {
->                 dev_err(dev, "Enable BIOS post code I/O port 0 failed\n");
->                 return rc;
-> @@ -340,35 +421,36 @@ static int npcm7xx_bpc_probe(struct platform_device *pdev)
->          * Configuration of second BPC channel port is optional
->          * Double-Word Capture ignoring address 2
->          */
-> -       if (!lpc_bpc->en_dwcap) {
-> -               if (of_property_read_u32_index(dev->of_node, "monitor-ports",
-> -                                              1, &port) == 0) {
-> -                       rc = npcm7xx_enable_bpc(lpc_bpc, dev, 1, port);
-> +       rc = of_property_read_u32_index(dev->of_node, "monitor-ports", 1,
-> +                                       &port);
-> +       if (rc == 0) {
-> +               if (!bpc->en_dwcap) {
-> +                       rc = npcm7xx_bpc_channel_enable(bpc, dev, 1, port);
->                         if (rc) {
-> -                               dev_err(dev, "Enable BIOS post code I/O port 1 failed, disable I/O port 0\n");
-> -                               npcm7xx_disable_bpc(lpc_bpc, 0);
-> +                               dev_err(dev, "Enable BIOS post code I/O port 1 failed\n");
-> +                               npcm7xx_bpc_channel_disable(bpc, 0);
-> +                               npcm7xx_bpc_reset(bpc);
->                                 return rc;
->                         }
-> +               } else {
-> +                       dev_warn(dev, "Ignoring monitor port 1 with DWCAP\n");
->                 }
->         }
->
-> -       pr_info("npcm7xx BIOS post code probe\n");
-> -
-> -       return rc;
-> +       return 0;
->  }
->
->  static int npcm7xx_bpc_remove(struct platform_device *pdev)
->  {
-> -       struct npcm7xx_bpc *lpc_bpc = dev_get_drvdata(&pdev->dev);
-> -       u8 reg_en;
-> -
-> -       reg_en = ioread8(lpc_bpc->base + NPCM7XX_BPCFEN_REG);
-> +       struct npcm7xx_bpc *bpc = dev_get_drvdata(&pdev->dev);
-> +       u8 i;
->
-> -       if (reg_en & FIFO_IOADDR1_ENABLE)
-> -               npcm7xx_disable_bpc(lpc_bpc, 0);
-> -       if (reg_en & FIFO_IOADDR2_ENABLE)
-> -               npcm7xx_disable_bpc(lpc_bpc, 1);
-> +       if (!bpc)
-> +               return 0;
->
-> +       for (i = 0; i < NUM_BPC_CHANNELS; ++i)
-> +               npcm7xx_bpc_channel_disable(bpc, i);
-> +       npcm7xx_bpc_reset(bpc);
->         return 0;
->  }
->
-> --
-> 2.24.1
->
+Upstreaming cover letter
+---------------------------------------------------------------------------
+Introduction of the Platform Environment Control Interface (PECI) bus
+device driver. PECI is a one-wire bus interface that provides a
+communication channel from Intel processors and chipset components to
+external monitoring or control devices. PECI is designed to support the
+following sideband functions:
+
+* Processor and DRAM thermal management
+  - Processor fan speed control is managed by comparing Digital Thermal
+    Sensor (DTS) thermal readings acquired via PECI against the
+    processor-specific fan speed control reference point, or TCONTROL. Both
+    TCONTROL and DTS thermal readings are accessible via the processor PECI
+    client. These variables are referenced to a common temperature, the TCC
+    activation point, and are both defined as negative offsets from that
+    reference.
+  - PECI based access to the processor package configuration space provides
+    a means for Baseboard Management Controllers (BMC) or other platform
+    management devices to actively manage the processor and memory power
+    and thermal features.
+
+* Platform Manageability
+  - Platform manageability functions including thermal, power, and error
+    monitoring. Note that platform 'power' management includes monitoring
+    and control for both the processor and DRAM subsystem to assist with
+    data center power limiting.
+  - PECI allows read access to certain error registers in the processor MSR
+    space and status monitoring registers in the PCI configuration space
+    within the processor and downstream devices.
+  - PECI permits writes to certain registers in the processor PCI
+    configuration space.
+
+* Processor Interface Tuning and Diagnostics
+  - Processor interface tuning and diagnostics capabilities
+    (Intel Interconnect BIST). The processors Intel Interconnect Built In
+    Self Test (Intel IBIST) allows for infield diagnostic capabilities in
+    the Intel UPI and memory controller interfaces. PECI provides a port to
+    execute these diagnostics via its PCI Configuration read and write
+    capabilities.
+
+* Failure Analysis
+  - Output the state of the processor after a failure for analysis via
+    Crashdump.
+
+PECI uses a single wire for self-clocking and data transfer. The bus
+requires no additional control lines. The physical layer is a self-clocked
+one-wire bus that begins each bit with a driven, rising edge from an idle
+level near zero volts. The duration of the signal driven high depends on
+whether the bit value is a logic '0' or logic '1'. PECI also includes
+variable data transfer rate established with every message. In this way, it
+is highly flexible even though underlying logic is simple.
+
+The interface design was optimized for interfacing between an Intel
+processor and chipset components in both single processor and multiple
+processor environments. The single wire interface provides low board
+routing overhead for the multiple load connections in the congested routing
+area near the processor and chipset components. Bus speed, error checking,
+and low protocol overhead provides adequate link bandwidth and reliability
+to transfer critical device operating conditions and configuration
+information.
+
+This implementation provides the basic framework to add PECI extensions to
+the Linux bus and device models. A hardware specific 'Adapter' driver can
+be attached to the PECI bus to provide sideband functions described above.
+It is also possible to access all devices on an adapter from userspace
+through the /dev interface. A device specific 'Client' driver also can be
+attached to the PECI bus so each processor client's features can be
+supported by the 'Client' driver through an adapter connection in the bus.
+This patch set includes Aspeed 24xx/25xx/26xx, NPCM7xx PECI drivers and
+PECI cputemp/dimmtemp drivers as the first implementation for both adapter
+and client drivers on the PECI bus framework.
+
+Please review.
+
+Thanks,
+
+Jae
+
+Changes since v11:
+- Removed redundant setting in kconfig and added HAS_IOMEM dependency to
+  peci-aspeed and peci-npcm kconfig.
+- Simplified PECI cmd idle cheking logic.
+- Refined PECI cmd retry logic.
+- Fixed to use a define for Intel P6 family.
+- Added LE16 conversion for reading DTS.
+- Replaced hwmon temperature label table with dynamic table.
+- Added CPU model checking code into DIMM temp hwmon driver.
+- Fixed style issues.
+
+Changes since v10:
+- Split out peci-dev module from peci-core module.
+- Changed device tree bindings documents format to DT schema.
+- Changed hwmon documents format to rst.
+- Added Skylake Xeon D support in PECI hwmon drivers.
+- Added DTS temperature reading in peci-cputemp driver which is more thermal
+  control friendlier than Die temperature.
+- Added max and crit properties into peci-dimmtemp driver for temperature
+  threshold checking.
+- Refined kconfig dependencies in PECI subsystem.
+- Added PECI 4.0 command set support.
+- Refined 32-bit boundary alignment for all PECI ioctl command structs.
+- Added DMA safe command buffer handling in peci-core.
+- Added Nuvoton NPCM7xx PECI support.
+- Added Aspeed AST26xx PECI support.
+- Moved adapter drivers into 'drivers/peci/busses'.
+- Fixed minor bugs and style issues.
+- configfs support isn't added in this patch set. Will add that using a
+  separate patch set.
+
+Changes since v9:
+- Updated license identifiers to incidate 2019.
+- Removed unnecessary member variable and enum type from intel client driver.
+- Removed 'type' argument from the access_ok() function call.
+
+Changes since v8:
+- Refined descriptions in PECI device tree documents.
+- Fixed checking logic of supportable PECI commands using full revision
+  number.
+- Fixed DIB data size to u64 to make that can contain 8-bytes of information.
+- Changed PECI cdev names from pecix to peci-x where x is bus number.
+- Refined intel-peci-client driver and moved hwmon relating codes to
+  peci-hwmon.h.
+- Added missing core label strings into peci-cputemp driver.
+- Added kerneldoc comments.
+
+Changes since v7:
+- Fixed a typo in the MFD_INTEL_PECI_CLIENT description.
+- Made peci_unregister_device() NULL-aware.
+- Converted to using %pOF instead of node full name in peci-core.
+- Removed OF tables from peci-cputemp and peci-dimmtemp.
+- Removed of_compatible strings from intel-peci-client.
+- Added an access_ok() check into peci_ioctl in peci-core.
+- Changed the DT node name of peci simple-bus from 'peci' to 'bus'.
+
+Changes since v6:
+- Dropped off unnecessary examples from dt-bindings document.
+- Fixed a bug in DIMM index mask building logic.
+- Modified DIMM temp label strings to match with the way in BIOS.
+- Changed PECI ioctl base number from B6 to B7 to avoid conflict with
+  fpga-dfl.
+- Separated the PECI section in MAINTAINERS into two parts - PECI subsystem
+  and ASPEED PECI driver.
+
+Changes since v5:
+- Added more detailed descriptions for PECI client MFD documents.
+- Changed PECI client MFD souce file names.
+- Fixed DT example of PECI client MFD.
+- Removed unnecessary debug printings.
+- Moved the asm/intel-family.h inclusion place.
+
+Changes since v4:
+- Fixed an incorrect endianness handling in peci-aspeed.
+- Added a comment to explain about the asm/intel-family.h inclusion.
+- Added an MFD module to support multi-function PECI client devices.
+
+Changes since v3:
+- Made code more simple and compact.
+- Removed unused header file inclusion.
+- Fixed incorrect error return values and messages.
+- Removed DTS margin temperature from the peci-cputemp.
+- Made some magic numbers use defines.
+- Moved peci_get_cpu_id() into peci-core as a common function.
+- Replaced the cancel_delayed_work() call with a cancel_delayed_work_sync().
+- Replaced AST and Aspeed uses with ASPEED.
+- Simplified peci command timeout checking logic using
+  regmap_read_poll_timeout().
+- Simplified endian swap codes using endian handling macros.
+- Dropped regmap read/write error checking except for the first access.
+- Added a PECI reset setting in the device tree node.
+- Removed unnecessary sleep from the probe context.
+- Removed IRQF_SHARED flag from irq request code in the ASPEED PECI driver.
+- Fixed typos in documents.
+- Combined peci-bus.txt, peci-adapter.txt and peci-client.txt into peci.txt.
+- Fixed and swept documents to drop some incorrect or unnecessary
+  descriptions.
+- Fixed device tree to make unit-address format use reg contents.
+- Simplified bit manipulations using <linux/bitfield.h>.
+- Made client CPU model checking use <asm/intel-family.h> if available.
+- Modified adapter heap allocation method to use kobject reference count
+  based.
+- Added the low-level PECI xfer IOCTL again to support the Redfish
+  requirement.
+- Added PM domain attach/detach code.
+- Added logic for device instantiation through sysfs.
+- Fix a bug of interrupt status checking code in peci-aspeed driver.
+
+Changes since v2:
+- Divided peci-hwmon driver into two drivers, peci-cputemp and
+  peci-dimmtemp.
+- Added generic dt binding documents for PECI bus, adapter and client.
+- Removed in_atomic() call from the PECI core driver.
+- Improved PECI commands masking logic.
+- Added permission check logic for PECI ioctls.
+- Removed unnecessary type casts.
+- Fixed some invalid error return codes.
+- Added the mark_updated() function to improve update interval checking
+  logic.
+- Fixed a bug in populated DIMM checking function.
+- Fixed some typo, grammar and style issues in documents.
+- Rewrote hwmon drivers to use devm_hwmon_device_register_with_info API.
+- Made peci_match_id() function as a static.
+- Replaced a deprecated create_singlethread_workqueue() call with an
+  alloc_ordered_workqueue() call.
+- Reordered local variable definitions in reversed xmas tree notation.
+- Listed up client CPUs that can be supported by peci-cputemp and
+  peci-dimmtemp hwmon drivers.
+- Added CPU generation detection logic which checks CPUID signature through
+  PECI connection.
+- Improved interrupt handling logic in the Aspeed PECI adapter driver.
+- Fixed SPDX license identifier style in header files.
+- Changed some macros in peci.h to static inline functions.
+- Dropped sleepable context checking code in peci-core.
+- Adjusted rt_mutex protection scope in peci-core.
+- Moved adapter->xfer() checking code into peci_register_adapter().
+- Improved PECI command retry checking logic.
+- Changed ioctl base from 'P' to 0xb6 to avoid confiliction and updated
+  ioctl-number.txt to reflect the ioctl number of PECI subsystem.
+- Added a comment to describe PECI retry action.
+- Simplified return code handling of peci_ioctl_ping().
+- Changed type of peci_ioctl_fn[] to static const.
+- Fixed range checking code for valid PECI commands.
+- Fixed the error return code on invalid PECI commands.
+- Fixed incorrect definitions of PECI ioctl and its handling logic.
+
+Changes since v1:
+- Additionally implemented a core driver to support PECI linux bus driver
+  model.
+- Modified Aspeed PECI driver to make that to be an adapter driver in PECI
+  bus.
+- Modified PECI hwmon driver to make that to be a client driver in PECI
+  bus.
+- Simplified hwmon driver attribute labels and removed redundant strings.
+- Removed core_nums from device tree setting of hwmon driver and modified
+  core number detection logic to check the resolved_core register in client
+  CPU's local PCI configuration area.
+- Removed dimm_nums from device tree setting of hwmon driver and added
+  populated DIMM detection logic to support dynamic creation.
+- Removed indexing gap on core temperature and DIMM temperature attributes.
+- Improved hwmon registration and dynamic attribute creation logic.
+- Fixed structure definitions in PECI uapi header to make that use __u8,
+  __u16 and etc.
+- Modified wait_for_completion_interruptible_timeout error handling logic
+  in Aspeed PECI driver to deliver errors correctly.
+- Removed low-level xfer command from ioctl and kept only high-level PECI
+  command suite as ioctls.
+- Fixed I/O timeout logic in Aspeed PECI driver using ktime.
+- Added a function into hwmon driver to simplify update delay checking.
+- Added a function into hwmon driver to convert 10.6 to millidegree.
+- Dropped non-standard attributes in hwmon driver.
+- Fixed OF table for hwmon to make it indicate as a PECI client of Intel
+  CPU target.
+- Added a maintainer of PECI subsystem into MAINTAINERS document.
+
+Jae Hyun Yoo (11):
+  dt-bindings: Add PECI subsystem document
+  Documentation: ioctl: Add ioctl numbers for PECI subsystem
+  peci: Add support for PECI bus driver core
+  dt-bindings: Add bindings document of Aspeed PECI adapter
+  ARM: dts: aspeed: Add PECI node
+  peci: Add Aspeed PECI adapter driver
+  dt-bindings: mfd: Add Intel PECI client bindings document
+  mfd: intel-peci-client: Add Intel PECI client driver
+  Documentation: hwmon: Add documents for PECI hwmon drivers
+  hwmon: Add PECI cputemp driver
+  hwmon: Add PECI dimmtemp driver
+
+Tomer Maimon (3):
+  dt-bindings: peci: add NPCM PECI documentation
+  ARM: dts: npcm7xx: Add PECI node
+  peci: npcm: add NPCM PECI driver
+
+ .../bindings/mfd/intel,peci-client.yaml       |   67 +
+ .../devicetree/bindings/peci/peci-aspeed.yaml |  124 +
+ .../devicetree/bindings/peci/peci-bus.yaml    |  129 +
+ .../devicetree/bindings/peci/peci-client.yaml |   54 +
+ .../devicetree/bindings/peci/peci-npcm.yaml   |  102 +
+ Documentation/hwmon/index.rst                 |    2 +
+ Documentation/hwmon/peci-cputemp.rst          |   95 +
+ Documentation/hwmon/peci-dimmtemp.rst         |   60 +
+ Documentation/ioctl/ioctl-number.rst          |    2 +
+ arch/arm/boot/dts/aspeed-g4.dtsi              |   25 +
+ arch/arm/boot/dts/aspeed-g5.dtsi              |   25 +
+ arch/arm/boot/dts/aspeed-g6.dtsi              |   25 +
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi |   23 +-
+ drivers/Kconfig                               |    2 +
+ drivers/Makefile                              |    1 +
+ drivers/hwmon/Kconfig                         |   28 +
+ drivers/hwmon/Makefile                        |    2 +
+ drivers/hwmon/peci-cputemp.c                  |  472 ++++
+ drivers/hwmon/peci-dimmtemp.c                 |  425 ++++
+ drivers/hwmon/peci-hwmon.h                    |   48 +
+ drivers/mfd/Kconfig                           |   17 +
+ drivers/mfd/Makefile                          |    1 +
+ drivers/mfd/intel-peci-client.c               |  148 ++
+ drivers/peci/Kconfig                          |   37 +
+ drivers/peci/Makefile                         |   11 +
+ drivers/peci/busses/Kconfig                   |   34 +
+ drivers/peci/busses/Makefile                  |    7 +
+ drivers/peci/busses/peci-aspeed.c             |  484 ++++
+ drivers/peci/busses/peci-npcm.c               |  406 ++++
+ drivers/peci/peci-core.c                      | 2089 +++++++++++++++++
+ drivers/peci/peci-dev.c                       |  348 +++
+ include/linux/mfd/intel-peci-client.h         |  119 +
+ include/linux/peci.h                          |  150 ++
+ include/uapi/linux/peci-ioctl.h               |  661 ++++++
+ 34 files changed, 6216 insertions(+), 7 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/intel,peci-client.yaml
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.yaml
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-bus.yaml
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-client.yaml
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-npcm.yaml
+ create mode 100644 Documentation/hwmon/peci-cputemp.rst
+ create mode 100644 Documentation/hwmon/peci-dimmtemp.rst
+ create mode 100644 drivers/hwmon/peci-cputemp.c
+ create mode 100644 drivers/hwmon/peci-dimmtemp.c
+ create mode 100644 drivers/hwmon/peci-hwmon.h
+ create mode 100644 drivers/mfd/intel-peci-client.c
+ create mode 100644 drivers/peci/Kconfig
+ create mode 100644 drivers/peci/Makefile
+ create mode 100644 drivers/peci/busses/Kconfig
+ create mode 100644 drivers/peci/busses/Makefile
+ create mode 100644 drivers/peci/busses/peci-aspeed.c
+ create mode 100644 drivers/peci/busses/peci-npcm.c
+ create mode 100644 drivers/peci/peci-core.c
+ create mode 100644 drivers/peci/peci-dev.c
+ create mode 100644 include/linux/mfd/intel-peci-client.h
+ create mode 100644 include/linux/peci.h
+ create mode 100644 include/uapi/linux/peci-ioctl.h
+
+-- 
+2.17.1
