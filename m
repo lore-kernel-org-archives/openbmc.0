@@ -8,26 +8,26 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47cy7m0cvSzDqSQ
- for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 12:28:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47cy7m54mFzDqSg
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 12:28:20 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 17:28:17 -0800
+ 17 Dec 2019 17:28:18 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="390019029"
+X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="390019042"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO ubuntu.jf.intel.com)
  ([10.7.153.147])
- by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 17:28:17 -0800
+ by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 17:28:18 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  openbmc@lists.ozlabs.org
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH dev-5.4 08/14] ARM: dts: npcm7xx: Add PECI node
-Date: Tue, 17 Dec 2019 17:28:02 -0800
-Message-Id: <20191218012808.6482-9-jae.hyun.yoo@linux.intel.com>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH dev-5.4 10/14] dt-bindings: mfd: Add Intel PECI client
+ bindings document
+Date: Tue, 17 Dec 2019 17:28:04 -0800
+Message-Id: <20191218012808.6482-11-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191218012808.6482-1-jae.hyun.yoo@linux.intel.com>
 References: <20191218012808.6482-1-jae.hyun.yoo@linux.intel.com>
@@ -42,62 +42,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2019 01:28:20 -0000
+X-List-Received-Date: Wed, 18 Dec 2019 01:28:21 -0000
 
-From: Tomer Maimon <tmaimon77@gmail.com>
+This commit adds Intel PECI client bindings document.
 
-This commit adds PECI node for npcm7xx.
-
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 ---
 Changes since v11:
 - None
 
 Changes since v10:
-- Newly added in v11.
+- Changed documents format to DT schema format so I dropped all review tags.
+  Please review it again.
 
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+ .../bindings/mfd/intel,peci-client.yaml       | 67 +++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/mfd/intel,peci-client.yaml
 
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-index da02aa70df06..72841f54deb4
---- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -345,14 +345,11 @@
- 				};
- 			};
- 
--			peci: peci-bus@100000 {
--				compatible = "nuvoton,npcm750-peci";
--				reg = <0x100000 0x200>;
-+			peci: bus@100000 {
-+				compatible = "simple-bus";
- 				#address-cells = <1>;
--				#size-cells = <0>;
--				interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
--				clocks = <&clk NPCM7XX_CLK_APB3>;
--				status = "disabled";
-+				#size-cells = <1>;
-+				ranges = <0x0 0x100000 0x200>;
- 			};
- 
- 			spi0: spi@200000 {
-@@ -1257,3 +1254,15 @@
- 		};
- 	};
- };
+diff --git a/Documentation/devicetree/bindings/mfd/intel,peci-client.yaml b/Documentation/devicetree/bindings/mfd/intel,peci-client.yaml
+new file mode 100644
+index 000000000000..7baddce0a92c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/intel,peci-client.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: GPL-2.0
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/intel,peci-client.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+&peci {
-+	peci0: peci-bus@0 {
-+		compatible = "nuvoton,npcm750-peci";
-+		reg = <0x0 0x200>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-+		clocks = <&clk NPCM7XX_CLK_APB3>;
-+		status = "disabled";
-+	};
-+};
++title: Intel PECI Client Device Tree Bindings
++
++maintainers:
++  - Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
++
++description: |
++  PECI (Platform Environment Control Interface) is a one-wire bus interface
++  that provides a communication channel from PECI clients in Intel processors
++  and chipset components to external monitoring or control devices. PECI is
++  designed to support the following sideband functions:
++  - Processor and DRAM thermal management
++  - Platform Manageability
++  - Processor Interface Tuning and Diagnostics
++  - Failure Analysis
++
++properties:
++  compatible:
++    const: intel,peci-client
++
++  reg:
++    description: |
++      Address of a client CPU. According to the PECI specification, client
++      addresses start from 0x30.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/ast2600-clock.h>
++    peci: bus@1e78b000 {
++        compatible = "simple-bus";
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x0 0x1e78b000 0x60>;
++
++        peci0: peci-bus@0 {
++            compatible = "aspeed,ast2600-peci";
++            reg = <0x0 0x100>;
++            #address-cells = <1>;
++            #size-cells = <0>;
++            interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
++            clocks = <&syscon ASPEED_CLK_GATE_REF0CLK>;
++            resets = <&syscon ASPEED_RESET_PECI>;
++            clock-frequency = <24000000>;
++
++            peci-client@30 {
++                compatible = "intel,peci-client";
++                reg = <0x30>;
++            };
++
++            peci-client@31 {
++                compatible = "intel,peci-client";
++                reg = <0x31>;
++            };
++        };
++    };
++...
 -- 
 2.17.1
