@@ -8,26 +8,26 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47cy7m54XSzDqSM
- for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 12:28:20 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47cy7n2K3WzDqSQ
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Dec 2019 12:28:21 +1100 (AEDT)
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
- 17 Dec 2019 17:28:18 -0800
+ 17 Dec 2019 17:28:19 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="390019039"
+X-IronPort-AV: E=Sophos;i="5.69,327,1571727600"; d="scan'208";a="390019044"
 Received: from yoojae-mobl1.amr.corp.intel.com (HELO ubuntu.jf.intel.com)
  ([10.7.153.147])
- by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 17:28:18 -0800
+ by orsmga005.jf.intel.com with ESMTP; 17 Dec 2019 17:28:19 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  openbmc@lists.ozlabs.org
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Subject: [PATCH dev-5.4 09/14] peci: npcm: add NPCM PECI driver
-Date: Tue, 17 Dec 2019 17:28:03 -0800
-Message-Id: <20191218012808.6482-10-jae.hyun.yoo@linux.intel.com>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH dev-5.4 11/14] mfd: intel-peci-client: Add Intel PECI client
+ driver
+Date: Tue, 17 Dec 2019 17:28:05 -0800
+Message-Id: <20191218012808.6482-12-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20191218012808.6482-1-jae.hyun.yoo@linux.intel.com>
 References: <20191218012808.6482-1-jae.hyun.yoo@linux.intel.com>
@@ -42,474 +42,345 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 18 Dec 2019 01:28:21 -0000
+X-List-Received-Date: Wed, 18 Dec 2019 01:28:22 -0000
 
-From: Tomer Maimon <tmaimon77@gmail.com>
+This commit adds Intel PECI client driver.
 
-Add support for the Nuvoton NPCM BMC hardware to the Platform
-Environment Control Interface (PECI) subsystem.
-
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 ---
 Changes since v11:
-- Added HAS_IOMEM dependency to kconfig.
-- Fixed style issues.
-
+- Fixed to use a define for Intel P6 family.
 - Fixed style issues.
 
 Changes since v10:
-- Newly added in v11.
+- Fixed minor style issues.
 
- drivers/peci/busses/Kconfig     |  14 ++
- drivers/peci/busses/Makefile    |   1 +
- drivers/peci/busses/peci-npcm.c | 406 ++++++++++++++++++++++++++++++++
- 3 files changed, 421 insertions(+)
- create mode 100644 drivers/peci/busses/peci-npcm.c
+ drivers/mfd/Kconfig                   |  17 +++
+ drivers/mfd/Makefile                  |   1 +
+ drivers/mfd/intel-peci-client.c       | 148 ++++++++++++++++++++++++++
+ include/linux/mfd/intel-peci-client.h | 119 +++++++++++++++++++++
+ 4 files changed, 285 insertions(+)
+ create mode 100644 drivers/mfd/intel-peci-client.c
+ create mode 100644 include/linux/mfd/intel-peci-client.h
 
-diff --git a/drivers/peci/busses/Kconfig b/drivers/peci/busses/Kconfig
-index ba0b05b29100..4316234db67c 100644
---- a/drivers/peci/busses/Kconfig
-+++ b/drivers/peci/busses/Kconfig
-@@ -17,4 +17,18 @@ config PECI_ASPEED
- 	  This support is also available as a module. If so, the module
- 	  will be called peci-aspeed.
+diff --git a/drivers/mfd/Kconfig b/drivers/mfd/Kconfig
+index ae24d3ea68ea..36d85144e485 100644
+--- a/drivers/mfd/Kconfig
++++ b/drivers/mfd/Kconfig
+@@ -632,6 +632,23 @@ config MFD_INTEL_MSIC
+ 	  Passage) chip. This chip embeds audio, battery, GPIO, etc.
+ 	  devices used in Intel Medfield platforms.
  
-+config PECI_NPCM
-+	tristate "Nuvoton NPCM PECI support"
-+	select REGMAP_MMIO
-+	depends on OF
-+	depends on HAS_IOMEM
-+	depends on ARCH_NPCM || COMPILE_TEST
-+	depends on PECI
++config MFD_INTEL_PECI_CLIENT
++	tristate "Intel PECI client"
++	depends on (PECI || COMPILE_TEST)
++	select MFD_CORE
 +	help
-+	  Say Y here if you want support for the Platform Environment Control
-+	  Interface (PECI) bus adapter driver on the Nuvoton NPCM SoCs.
++	  If you say yes to this option, support will be included for the
++	  Intel PECI (Platform Environment Control Interface) client. PECI is a
++	  one-wire bus interface that provides a communication channel from PECI
++	  clients in Intel processors and chipset components to external
++	  monitoring or control devices.
 +
-+	  This support is also available as a module. If so, the module
-+	  will be called peci-npcm.
++	  Additional drivers must be enabled in order to use the functionality
++	  of the device.
 +
- endmenu
-diff --git a/drivers/peci/busses/Makefile b/drivers/peci/busses/Makefile
-index 69e31dfaca19..aa8ce3ae5947 100644
---- a/drivers/peci/busses/Makefile
-+++ b/drivers/peci/busses/Makefile
-@@ -4,3 +4,4 @@
- #
- 
- obj-$(CONFIG_PECI_ASPEED)	+= peci-aspeed.o
-+obj-$(CONFIG_PECI_NPCM)		+= peci-npcm.o
-diff --git a/drivers/peci/busses/peci-npcm.c b/drivers/peci/busses/peci-npcm.c
++	  This driver can also be built as a module. If so, the module
++	  will be called intel-peci-client.
++
+ config MFD_IPAQ_MICRO
+ 	bool "Atmel Micro ASIC (iPAQ h3100/h3600/h3700) Support"
+ 	depends on SA1100_H3100 || SA1100_H3600
+diff --git a/drivers/mfd/Makefile b/drivers/mfd/Makefile
+index c1067ea46204..07722f3d80b6 100644
+--- a/drivers/mfd/Makefile
++++ b/drivers/mfd/Makefile
+@@ -212,6 +212,7 @@ obj-$(CONFIG_MFD_INTEL_LPSS)	+= intel-lpss.o
+ obj-$(CONFIG_MFD_INTEL_LPSS_PCI)	+= intel-lpss-pci.o
+ obj-$(CONFIG_MFD_INTEL_LPSS_ACPI)	+= intel-lpss-acpi.o
+ obj-$(CONFIG_MFD_INTEL_MSIC)	+= intel_msic.o
++obj-$(CONFIG_MFD_INTEL_PECI_CLIENT)	+= intel-peci-client.o
+ obj-$(CONFIG_MFD_PALMAS)	+= palmas.o
+ obj-$(CONFIG_MFD_VIPERBOARD)    += viperboard.o
+ obj-$(CONFIG_MFD_RC5T583)	+= rc5t583.o rc5t583-irq.o
+diff --git a/drivers/mfd/intel-peci-client.c b/drivers/mfd/intel-peci-client.c
 new file mode 100644
-index 000000000000..bdebbf1ec7f1
+index 000000000000..24f15438634c
 --- /dev/null
-+++ b/drivers/peci/busses/peci-npcm.c
-@@ -0,0 +1,406 @@
++++ b/drivers/mfd/intel-peci-client.c
+@@ -0,0 +1,148 @@
 +// SPDX-License-Identifier: GPL-2.0
-+// Copyright (c) 2019 Nuvoton Technology corporation.
++// Copyright (c) 2018-2019 Intel Corporation
 +
 +#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/interrupt.h>
-+#include <linux/jiffies.h>
++#include <linux/mfd/core.h>
++#include <linux/mfd/intel-peci-client.h>
 +#include <linux/module.h>
-+#include <linux/of.h>
++#include <linux/of_device.h>
 +#include <linux/peci.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/reset.h>
 +
-+/* NPCM7xx GCR module */
-+#define NPCM7XX_INTCR3_OFFSET			0x9C
-+#define NPCM7XX_INTCR3_PECIVSEL			BIT(19)
++#define CPU_ID_MODEL_MASK	GENMASK(7, 4)
++#define CPU_ID_FAMILY_MASK	GENMASK(11, 8)
++#define CPU_ID_EXT_MODEL_MASK	GENMASK(19, 16)
++#define CPU_ID_EXT_FAMILY_MASK	GENMASK(27, 20)
 +
-+/* NPCM PECI Registers */
-+#define NPCM_PECI_CTL_STS			0x00
-+#define NPCM_PECI_RD_LENGTH			0x04
-+#define NPCM_PECI_ADDR				0x08
-+#define NPCM_PECI_CMD				0x0C
-+#define NPCM_PECI_CTL2				0x10
-+#define NPCM_PECI_WR_LENGTH			0x1C
-+#define NPCM_PECI_PDDR				0x2C
-+#define NPCM_PECI_DAT_INOUT(n)			(0x100 + ((n) * 4))
++#define LOWER_NIBBLE_MASK	GENMASK(3, 0)
++#define UPPER_NIBBLE_MASK	GENMASK(7, 4)
++#define LOWER_BYTE_MASK		GENMASK(7, 0)
++#define UPPER_BYTE_MASK		GENMASK(16, 8)
 +
-+#define NPCM_PECI_MAX_REG			0x200
-+
-+/* NPCM_PECI_CTL_STS - 0x00 : Control Register */
-+#define NPCM_PECI_CTRL_DONE_INT_EN		BIT(6)
-+#define NPCM_PECI_CTRL_ABRT_ERR			BIT(4)
-+#define NPCM_PECI_CTRL_CRC_ERR			BIT(3)
-+#define NPCM_PECI_CTRL_DONE			BIT(1)
-+#define NPCM_PECI_CTRL_START_BUSY		BIT(0)
-+
-+/* NPCM_PECI_RD_LENGTH - 0x04 : Command Register */
-+#define NPCM_PECI_RD_LEN_MASK			GENMASK(6, 0)
-+
-+/* NPCM_PECI_CMD - 0x10 : Command Register */
-+#define NPCM_PECI_CTL2_MASK			GENMASK(7, 6)
-+
-+/* NPCM_PECI_WR_LENGTH - 0x1C : Command Register */
-+#define NPCM_PECI_WR_LEN_MASK			GENMASK(6, 0)
-+
-+/* NPCM_PECI_PDDR - 0x2C : Command Register */
-+#define NPCM_PECI_PDDR_MASK			GENMASK(4, 0)
-+
-+#define NPCM_PECI_INT_MASK			\
-+	(NPCM_PECI_CTRL_ABRT_ERR | NPCM_PECI_CTRL_CRC_ERR | NPCM_PECI_CTRL_DONE)
-+
-+#define NPCM_PECI_IDLE_CHECK_TIMEOUT_USEC	50000
-+#define NPCM_PECI_IDLE_CHECK_INTERVAL_USEC	10000
-+#define NPCM_PECI_CMD_TIMEOUT_MS_DEFAULT	1000
-+#define NPCM_PECI_CMD_TIMEOUT_MS_MAX		60000
-+#define NPCM_PECI_HOST_NEG_BIT_RATE_MAX		31
-+#define NPCM_PECI_HOST_NEG_BIT_RATE_MIN		7
-+#define NPCM_PECI_HOST_NEG_BIT_RATE_DEFAULT	15
-+#define NPCM_PECI_PULL_DOWN_DEFAULT		0
-+#define NPCM_PECI_PULL_DOWN_MAX			2
-+
-+struct npcm_peci {
-+	u32			cmd_timeout_ms;
-+	u32			host_bit_rate;
-+	struct completion	xfer_complete;
-+	struct regmap		*gcr_regmap;
-+	struct peci_adapter	*adapter;
-+	struct regmap		*regmap;
-+	u32			status;
-+	spinlock_t		lock; /* to sync completion status handling */
-+	struct device		*dev;
-+	struct clk		*clk;
-+	int			irq;
++static struct mfd_cell peci_functions[] = {
++	{ .name = "peci-cputemp", },
++	{ .name = "peci-dimmtemp", },
 +};
 +
-+static int npcm_peci_xfer_native(struct npcm_peci *priv,
-+				 struct peci_xfer_msg *msg)
++static const struct cpu_gen_info cpu_gen_info_table[] = {
++	{ /* Haswell Xeon */
++		.family        = INTEL_FAM6,
++		.model         = INTEL_FAM6_HASWELL_X,
++		.core_max      = CORE_MAX_ON_HSX,
++		.chan_rank_max = CHAN_RANK_MAX_ON_HSX,
++		.dimm_idx_max  = DIMM_IDX_MAX_ON_HSX },
++	{ /* Broadwell Xeon */
++		.family        = INTEL_FAM6,
++		.model         = INTEL_FAM6_BROADWELL_X,
++		.core_max      = CORE_MAX_ON_BDX,
++		.chan_rank_max = CHAN_RANK_MAX_ON_BDX,
++		.dimm_idx_max  = DIMM_IDX_MAX_ON_BDX },
++	{ /* Skylake Xeon */
++		.family        = INTEL_FAM6,
++		.model         = INTEL_FAM6_SKYLAKE_X,
++		.core_max      = CORE_MAX_ON_SKX,
++		.chan_rank_max = CHAN_RANK_MAX_ON_SKX,
++		.dimm_idx_max  = DIMM_IDX_MAX_ON_SKX },
++	{ /* Skylake Xeon D */
++		.family        = INTEL_FAM6,
++		.model         = INTEL_FAM6_SKYLAKE_XD,
++		.core_max      = CORE_MAX_ON_SKXD,
++		.chan_rank_max = CHAN_RANK_MAX_ON_SKXD,
++		.dimm_idx_max  = DIMM_IDX_MAX_ON_SKXD },
++};
++
++static int peci_client_get_cpu_gen_info(struct peci_client_manager *priv)
 +{
-+	long err, timeout = msecs_to_jiffies(priv->cmd_timeout_ms);
-+	unsigned long flags;
-+	unsigned int msg_rd;
-+	u32 cmd_sts;
-+	int i, rc;
-+
-+	/* Check command sts and bus idle state */
-+	rc = regmap_read_poll_timeout(priv->regmap, NPCM_PECI_CTL_STS, cmd_sts,
-+				      !(cmd_sts & NPCM_PECI_CTRL_START_BUSY),
-+				      NPCM_PECI_IDLE_CHECK_INTERVAL_USEC,
-+				      NPCM_PECI_IDLE_CHECK_TIMEOUT_USEC);
-+	if (rc)
-+		return rc; /* -ETIMEDOUT */
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+	reinit_completion(&priv->xfer_complete);
-+
-+	regmap_write(priv->regmap, NPCM_PECI_ADDR, msg->addr);
-+	regmap_write(priv->regmap, NPCM_PECI_RD_LENGTH,
-+		     NPCM_PECI_WR_LEN_MASK & msg->rx_len);
-+	regmap_write(priv->regmap, NPCM_PECI_WR_LENGTH,
-+		     NPCM_PECI_WR_LEN_MASK & msg->tx_len);
-+
-+	if (msg->tx_len) {
-+		regmap_write(priv->regmap, NPCM_PECI_CMD, msg->tx_buf[0]);
-+
-+		for (i = 0; i < (msg->tx_len - 1); i++)
-+			regmap_write(priv->regmap, NPCM_PECI_DAT_INOUT(i),
-+				     msg->tx_buf[i + 1]);
-+	}
-+
-+	priv->status = 0;
-+	regmap_update_bits(priv->regmap, NPCM_PECI_CTL_STS,
-+			   NPCM_PECI_CTRL_START_BUSY,
-+			   NPCM_PECI_CTRL_START_BUSY);
-+
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+
-+	err = wait_for_completion_interruptible_timeout(&priv->xfer_complete,
-+							timeout);
-+
-+	spin_lock_irqsave(&priv->lock, flags);
-+
-+	regmap_write(priv->regmap, NPCM_PECI_CMD, 0);
-+
-+	if (err <= 0 || priv->status != NPCM_PECI_CTRL_DONE) {
-+		if (err < 0) { /* -ERESTARTSYS */
-+			rc = (int)err;
-+			goto err_irqrestore;
-+		} else if (err == 0) {
-+			dev_dbg(priv->dev, "Timeout waiting for a response!\n");
-+			rc = -ETIMEDOUT;
-+			goto err_irqrestore;
-+		}
-+
-+		dev_dbg(priv->dev, "No valid response!\n");
-+		rc = -EIO;
-+		goto err_irqrestore;
-+	}
-+
-+	for (i = 0; i < msg->rx_len; i++) {
-+		regmap_read(priv->regmap, NPCM_PECI_DAT_INOUT(i), &msg_rd);
-+		msg->rx_buf[i] = (u8)msg_rd;
-+	}
-+
-+err_irqrestore:
-+	spin_unlock_irqrestore(&priv->lock, flags);
-+	return rc;
-+}
-+
-+static irqreturn_t npcm_peci_irq_handler(int irq, void *arg)
-+{
-+	struct npcm_peci *priv = arg;
-+	u32 status_ack = 0;
-+	u32 status;
-+
-+	spin_lock(&priv->lock);
-+	regmap_read(priv->regmap, NPCM_PECI_CTL_STS, &status);
-+	priv->status |= (status & NPCM_PECI_INT_MASK);
-+
-+	if (status & NPCM_PECI_CTRL_CRC_ERR) {
-+		dev_dbg(priv->dev, "PECI_INT_W_FCS_BAD\n");
-+		status_ack |= NPCM_PECI_CTRL_CRC_ERR;
-+	}
-+
-+	if (status & NPCM_PECI_CTRL_ABRT_ERR) {
-+		dev_dbg(priv->dev, "NPCM_PECI_CTRL_ABRT_ERR\n");
-+		status_ack |= NPCM_PECI_CTRL_ABRT_ERR;
-+	}
-+
-+	/*
-+	 * All commands should be ended up with a NPCM_PECI_CTRL_DONE
-+	 * bit set even in an error case.
-+	 */
-+	if (status & NPCM_PECI_CTRL_DONE) {
-+		dev_dbg(priv->dev, "NPCM_PECI_CTRL_DONE\n");
-+		status_ack |= NPCM_PECI_CTRL_DONE;
-+		complete(&priv->xfer_complete);
-+	}
-+
-+	regmap_write_bits(priv->regmap, NPCM_PECI_CTL_STS,
-+			  NPCM_PECI_INT_MASK, status_ack);
-+
-+	spin_unlock(&priv->lock);
-+	return IRQ_HANDLED;
-+}
-+
-+static int npcm_peci_init_ctrl(struct npcm_peci *priv)
-+{
-+	u32 cmd_sts, host_neg_bit_rate = 0, pull_down = 0;
++	struct device *dev = &priv->client->dev;
++	u32 cpu_id;
++	u16 family;
++	u8 model;
 +	int ret;
++	int i;
 +
-+	priv->clk = devm_clk_get(priv->dev, NULL);
-+	if (IS_ERR(priv->clk)) {
-+		dev_err(priv->dev, "Failed to get clk source.\n");
-+		return PTR_ERR(priv->clk);
-+	}
-+
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret) {
-+		dev_err(priv->dev, "Failed to enable clock.\n");
++	ret = peci_get_cpu_id(priv->client->adapter, priv->client->addr,
++			      &cpu_id);
++	if (ret)
 +		return ret;
-+	}
 +
-+	ret = of_property_read_u32(priv->dev->of_node, "cmd-timeout-ms",
-+				   &priv->cmd_timeout_ms);
-+	if (ret || priv->cmd_timeout_ms > NPCM_PECI_CMD_TIMEOUT_MS_MAX ||
-+	    priv->cmd_timeout_ms == 0) {
-+		if (ret)
-+			dev_warn(priv->dev,
-+				 "cmd-timeout-ms not found, use default : %u\n",
-+				 NPCM_PECI_CMD_TIMEOUT_MS_DEFAULT);
-+		else
-+			dev_warn(priv->dev,
-+				 "Invalid cmd-timeout-ms : %u. Use default : %u\n",
-+				 priv->cmd_timeout_ms,
-+				 NPCM_PECI_CMD_TIMEOUT_MS_DEFAULT);
++	family = FIELD_PREP(LOWER_BYTE_MASK,
++			    FIELD_GET(CPU_ID_FAMILY_MASK, cpu_id)) |
++		 FIELD_PREP(UPPER_BYTE_MASK,
++			    FIELD_GET(CPU_ID_EXT_FAMILY_MASK, cpu_id));
++	model = FIELD_PREP(LOWER_NIBBLE_MASK,
++			   FIELD_GET(CPU_ID_MODEL_MASK, cpu_id)) |
++		FIELD_PREP(UPPER_NIBBLE_MASK,
++			   FIELD_GET(CPU_ID_EXT_MODEL_MASK, cpu_id));
 +
-+		priv->cmd_timeout_ms = NPCM_PECI_CMD_TIMEOUT_MS_DEFAULT;
-+	}
++	for (i = 0; i < ARRAY_SIZE(cpu_gen_info_table); i++) {
++		const struct cpu_gen_info *cpu_info = &cpu_gen_info_table[i];
 +
-+	if (of_device_is_compatible(priv->dev->of_node,
-+				    "nuvoton,npcm750-peci")) {
-+		priv->gcr_regmap = syscon_regmap_lookup_by_compatible
-+			("nuvoton,npcm750-gcr");
-+		if (!IS_ERR(priv->gcr_regmap)) {
-+			bool volt = of_property_read_bool(priv->dev->of_node,
-+							  "high-volt-range");
-+			if (volt)
-+				regmap_update_bits(priv->gcr_regmap,
-+						   NPCM7XX_INTCR3_OFFSET,
-+						   NPCM7XX_INTCR3_PECIVSEL,
-+						   NPCM7XX_INTCR3_PECIVSEL);
-+			else
-+				regmap_update_bits(priv->gcr_regmap,
-+						   NPCM7XX_INTCR3_OFFSET,
-+						   NPCM7XX_INTCR3_PECIVSEL, 0);
++		if (family == cpu_info->family && model == cpu_info->model) {
++			priv->gen_info = cpu_info;
++			break;
 +		}
 +	}
 +
-+	ret = of_property_read_u32(priv->dev->of_node, "pull-down",
-+				   &pull_down);
-+	if (ret || pull_down > NPCM_PECI_PULL_DOWN_MAX) {
-+		if (ret)
-+			dev_warn(priv->dev,
-+				 "pull-down not found, use default : %u\n",
-+				 NPCM_PECI_PULL_DOWN_DEFAULT);
-+		else
-+			dev_warn(priv->dev,
-+				 "Invalid pull-down : %u. Use default : %u\n",
-+				 pull_down,
-+				 NPCM_PECI_PULL_DOWN_DEFAULT);
-+		pull_down = NPCM_PECI_PULL_DOWN_DEFAULT;
-+	}
-+
-+	regmap_update_bits(priv->regmap, NPCM_PECI_CTL2, NPCM_PECI_CTL2_MASK,
-+			   pull_down << 6);
-+
-+	ret = of_property_read_u32(priv->dev->of_node, "host-neg-bit-rate",
-+				   &host_neg_bit_rate);
-+	if (ret || host_neg_bit_rate > NPCM_PECI_HOST_NEG_BIT_RATE_MAX ||
-+	    host_neg_bit_rate < NPCM_PECI_HOST_NEG_BIT_RATE_MIN) {
-+		if (ret)
-+			dev_warn(priv->dev,
-+				 "host-neg-bit-rate not found, use default : %u\n",
-+				 NPCM_PECI_HOST_NEG_BIT_RATE_DEFAULT);
-+		else
-+			dev_warn(priv->dev,
-+				 "Invalid host-neg-bit-rate : %u. Use default : %u\n",
-+				 host_neg_bit_rate,
-+				 NPCM_PECI_HOST_NEG_BIT_RATE_DEFAULT);
-+		host_neg_bit_rate = NPCM_PECI_HOST_NEG_BIT_RATE_DEFAULT;
-+	}
-+
-+	regmap_update_bits(priv->regmap, NPCM_PECI_PDDR, NPCM_PECI_PDDR_MASK,
-+			   host_neg_bit_rate);
-+
-+	priv->host_bit_rate = clk_get_rate(priv->clk) /
-+		(4 * (host_neg_bit_rate + 1));
-+
-+	ret = regmap_read_poll_timeout(priv->regmap, NPCM_PECI_CTL_STS, cmd_sts,
-+				       !(cmd_sts & NPCM_PECI_CTRL_START_BUSY),
-+				       NPCM_PECI_IDLE_CHECK_INTERVAL_USEC,
-+				       NPCM_PECI_IDLE_CHECK_TIMEOUT_USEC);
-+	if (ret)
-+		return ret; /* -ETIMEDOUT */
-+
-+	/* PECI interrupt enable */
-+	regmap_update_bits(priv->regmap, NPCM_PECI_CTL_STS,
-+			   NPCM_PECI_CTRL_DONE_INT_EN,
-+			   NPCM_PECI_CTRL_DONE_INT_EN);
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config npcm_peci_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = NPCM_PECI_MAX_REG,
-+	.fast_io = true,
-+};
-+
-+static int npcm_peci_xfer(struct peci_adapter *adapter,
-+			  struct peci_xfer_msg *msg)
-+{
-+	struct npcm_peci *priv = peci_get_adapdata(adapter);
-+
-+	return npcm_peci_xfer_native(priv, msg);
-+}
-+
-+static int npcm_peci_probe(struct platform_device *pdev)
-+{
-+	struct peci_adapter *adapter;
-+	struct npcm_peci *priv;
-+	void __iomem *base;
-+	int ret;
-+
-+	adapter = peci_alloc_adapter(&pdev->dev, sizeof(*priv));
-+	if (!adapter)
-+		return -ENOMEM;
-+
-+	priv = peci_get_adapdata(adapter);
-+	priv->adapter = adapter;
-+	priv->dev = &pdev->dev;
-+	dev_set_drvdata(&pdev->dev, priv);
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base)) {
-+		ret = PTR_ERR(base);
-+		goto err_put_adapter_dev;
-+	}
-+
-+	priv->regmap = devm_regmap_init_mmio(&pdev->dev, base,
-+					     &npcm_peci_regmap_config);
-+	if (IS_ERR(priv->regmap)) {
-+		ret = PTR_ERR(priv->regmap);
-+		goto err_put_adapter_dev;
-+	}
-+
-+	priv->irq = platform_get_irq(pdev, 0);
-+	if (!priv->irq) {
++	if (!priv->gen_info) {
++		dev_err(dev, "Can't support this CPU: 0x%x\n", cpu_id);
 +		ret = -ENODEV;
-+		goto err_put_adapter_dev;
 +	}
 +
-+	ret = devm_request_irq(&pdev->dev, priv->irq, npcm_peci_irq_handler,
-+			       0, "peci-npcm-irq", priv);
-+	if (ret)
-+		goto err_put_adapter_dev;
-+
-+	init_completion(&priv->xfer_complete);
-+	spin_lock_init(&priv->lock);
-+
-+	priv->adapter->owner = THIS_MODULE;
-+	priv->adapter->dev.of_node = of_node_get(dev_of_node(priv->dev));
-+	strlcpy(priv->adapter->name, pdev->name, sizeof(priv->adapter->name));
-+	priv->adapter->xfer = npcm_peci_xfer;
-+
-+	ret = npcm_peci_init_ctrl(priv);
-+	if (ret)
-+		goto err_put_adapter_dev;
-+
-+	ret = peci_add_adapter(priv->adapter);
-+	if (ret)
-+		goto err_put_adapter_dev;
-+
-+	dev_info(&pdev->dev, "peci bus %d registered, host negotiation bit rate %dHz",
-+		 priv->adapter->nr, priv->host_bit_rate);
-+
-+	return 0;
-+
-+err_put_adapter_dev:
-+	put_device(&adapter->dev);
 +	return ret;
 +}
 +
-+static int npcm_peci_remove(struct platform_device *pdev)
++static int peci_client_probe(struct peci_client *client)
 +{
-+	struct npcm_peci *priv = dev_get_drvdata(&pdev->dev);
++	struct device *dev = &client->dev;
++	struct peci_client_manager *priv;
++	uint cpu_no;
++	int ret;
 +
-+	clk_disable_unprepare(priv->clk);
-+	peci_del_adapter(priv->adapter);
-+	of_node_put(priv->adapter->dev.of_node);
++	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	dev_set_drvdata(dev, priv);
++	priv->client = client;
++	cpu_no = client->addr - PECI_BASE_ADDR;
++
++	ret = peci_client_get_cpu_gen_info(priv);
++	if (ret)
++		return ret;
++
++	ret = devm_mfd_add_devices(dev, cpu_no, peci_functions,
++				   ARRAY_SIZE(peci_functions), NULL, 0, NULL);
++	if (ret < 0) {
++		dev_err(dev, "Failed to register child devices: %d\n", ret);
++		return ret;
++	}
 +
 +	return 0;
 +}
 +
-+static const struct of_device_id npcm_peci_of_table[] = {
-+	{ .compatible = "nuvoton,npcm750-peci", },
++#ifdef CONFIG_OF
++static const struct of_device_id peci_client_of_table[] = {
++	{ .compatible = "intel,peci-client" },
 +	{ }
 +};
-+MODULE_DEVICE_TABLE(of, npcm_peci_of_table);
++MODULE_DEVICE_TABLE(of, peci_client_of_table);
++#endif
 +
-+static struct platform_driver npcm_peci_driver = {
-+	.probe  = npcm_peci_probe,
-+	.remove = npcm_peci_remove,
-+	.driver = {
-+		.name           = KBUILD_MODNAME,
-+		.of_match_table = of_match_ptr(npcm_peci_of_table),
++static const struct peci_device_id peci_client_ids[] = {
++	{ .name = "peci-client" },
++	{ }
++};
++MODULE_DEVICE_TABLE(peci, peci_client_ids);
++
++static struct peci_driver peci_client_driver = {
++	.probe		= peci_client_probe,
++	.id_table	= peci_client_ids,
++	.driver		= {
++		.name		= KBUILD_MODNAME,
++		.of_match_table	= of_match_ptr(peci_client_of_table),
 +	},
 +};
-+module_platform_driver(npcm_peci_driver);
++module_peci_driver(peci_client_driver);
 +
-+MODULE_AUTHOR("Tomer Maimon <tomer.maimon@nuvoton.com>");
-+MODULE_DESCRIPTION("NPCM Platform Environment Control Interface (PECI) driver");
++MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
++MODULE_DESCRIPTION("PECI client driver");
 +MODULE_LICENSE("GPL v2");
+diff --git a/include/linux/mfd/intel-peci-client.h b/include/linux/mfd/intel-peci-client.h
+new file mode 100644
+index 000000000000..7668d0cfa843
+--- /dev/null
++++ b/include/linux/mfd/intel-peci-client.h
+@@ -0,0 +1,119 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2018-2019 Intel Corporation */
++
++#ifndef __LINUX_MFD_INTEL_PECI_CLIENT_H
++#define __LINUX_MFD_INTEL_PECI_CLIENT_H
++
++#include <linux/peci.h>
++
++#if IS_ENABLED(CONFIG_X86)
++#include <asm/intel-family.h>
++#else
++/*
++ * Architectures other than x86 cannot include the header file so define these
++ * at here. These are needed for detecting type of client x86 CPUs behind a PECI
++ * connection.
++ */
++#define INTEL_FAM6_HASWELL_X		0x3F
++#define INTEL_FAM6_BROADWELL_X		0x4F
++#define INTEL_FAM6_SKYLAKE_X		0x55
++#define INTEL_FAM6_SKYLAKE_XD		0x56
++#endif
++
++#define INTEL_FAM6             6 /* P6 (Pentium Pro and later) */
++
++#define CORE_MAX_ON_HSX        18 /* Max number of cores on Haswell */
++#define CHAN_RANK_MAX_ON_HSX   8  /* Max number of channel ranks on Haswell */
++#define DIMM_IDX_MAX_ON_HSX    3  /* Max DIMM index per channel on Haswell */
++
++#define CORE_MAX_ON_BDX        24 /* Max number of cores on Broadwell */
++#define CHAN_RANK_MAX_ON_BDX   4  /* Max number of channel ranks on Broadwell */
++#define DIMM_IDX_MAX_ON_BDX    3  /* Max DIMM index per channel on Broadwell */
++
++#define CORE_MAX_ON_SKX        28 /* Max number of cores on Skylake */
++#define CHAN_RANK_MAX_ON_SKX   6  /* Max number of channel ranks on Skylake */
++#define DIMM_IDX_MAX_ON_SKX    2  /* Max DIMM index per channel on Skylake */
++
++#define CORE_MAX_ON_SKXD       16 /* Max number of cores on Skylake D */
++#define CHAN_RANK_MAX_ON_SKXD  2  /* Max number of channel ranks on Skylake D */
++#define DIMM_IDX_MAX_ON_SKXD   2  /* Max DIMM index per channel on Skylake D */
++
++#define CORE_NUMS_MAX          CORE_MAX_ON_SKX
++#define CHAN_RANK_MAX          CHAN_RANK_MAX_ON_HSX
++#define DIMM_IDX_MAX           DIMM_IDX_MAX_ON_HSX
++#define DIMM_NUMS_MAX          (CHAN_RANK_MAX * DIMM_IDX_MAX)
++
++/**
++ * struct cpu_gen_info - CPU generation specific information
++ * @family: CPU family ID
++ * @model: CPU model
++ * @core_max: max number of cores
++ * @chan_rank_max: max number of channel ranks
++ * @dimm_idx_max: max number of DIMM indices
++ *
++ * CPU generation specific information to identify maximum number of cores and
++ * DIMM slots.
++ */
++struct cpu_gen_info {
++	u16  family;
++	u8   model;
++	uint core_max;
++	uint chan_rank_max;
++	uint dimm_idx_max;
++};
++
++/**
++ * struct peci_client_manager - PECI client manager information
++ * @client; pointer to the PECI client
++ * @name: PECI client manager name
++ * @gen_info: CPU generation info of the detected CPU
++ *
++ * PECI client manager information for managing PECI sideband functions on a CPU
++ * client.
++ */
++struct peci_client_manager {
++	struct peci_client *client;
++	char name[PECI_NAME_SIZE];
++	const struct cpu_gen_info *gen_info;
++};
++
++/**
++ * peci_client_read_package_config - read from the Package Configuration Space
++ * @priv: driver private data structure
++ * @index: encoding index for the requested service
++ * @param: parameter to specify the exact data being requested
++ * @data: data buffer to store the result
++ * Context: can sleep
++ *
++ * A generic PECI command that provides read access to the
++ * "Package Configuration Space" that is maintained by the PCU, including
++ * various power and thermal management functions. Typical PCS read services
++ * supported by the processor may include access to temperature data, energy
++ * status, run time information, DIMM temperatures and so on.
++ *
++ * Return: zero on success, else a negative error code.
++ */
++static inline int
++peci_client_read_package_config(struct peci_client_manager *priv,
++				u8 index, u16 param, u8 *data)
++{
++	struct peci_rd_pkg_cfg_msg msg;
++	int ret;
++
++	msg.addr = priv->client->addr;
++	msg.index = index;
++	msg.param = param;
++	msg.rx_len = 4;
++
++	ret = peci_command(priv->client->adapter, PECI_CMD_RD_PKG_CFG, &msg);
++	if (msg.cc != PECI_DEV_CC_SUCCESS)
++		ret = -EAGAIN;
++	if (ret)
++		return ret;
++
++	memcpy(data, msg.pkg_config, 4);
++
++	return 0;
++}
++
++#endif /* __LINUX_MFD_INTEL_PECI_CLIENT_H */
 -- 
 2.17.1
