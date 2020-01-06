@@ -1,64 +1,80 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <jrey@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47s5kz6bjWzDqFw
- for <openbmc@lists.ozlabs.org>; Tue,  7 Jan 2020 06:52:27 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 006JqL31092383; Mon, 6 Jan 2020 14:52:23 -0500
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0b-001b2d01.pphosted.com with ESMTP id 2xb8s7xc66-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47s68C2tCSzDqB3
+ for <openbmc@lists.ozlabs.org>; Tue,  7 Jan 2020 07:10:50 +1100 (AEDT)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 006K34fF046878; Mon, 6 Jan 2020 15:10:42 -0500
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2xb924p39e-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jan 2020 14:52:22 -0500
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 006Jo8SR031966;
- Mon, 6 Jan 2020 19:52:21 GMT
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
- [9.57.198.28]) by ppma03dal.us.ibm.com with ESMTP id 2xajb722x7-1
+ Mon, 06 Jan 2020 15:10:42 -0500
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 006K45lX049796;
+ Mon, 6 Jan 2020 15:10:41 -0500
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 2xb924p38r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 06 Jan 2020 19:52:21 +0000
-Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
- [9.57.199.107])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 006JqKFP50987288
+ Mon, 06 Jan 2020 15:10:41 -0500
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 006KAM5o024783;
+ Mon, 6 Jan 2020 20:10:40 GMT
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29]) by ppma04wdc.us.ibm.com with ESMTP id 2xajb6my8s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 06 Jan 2020 20:10:40 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 006KAdN451904838
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 6 Jan 2020 19:52:20 GMT
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id BF2C4124052;
- Mon,  6 Jan 2020 19:52:20 +0000 (GMT)
-Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7EE03124053;
- Mon,  6 Jan 2020 19:52:20 +0000 (GMT)
-Received: from talon7.ibm.com (unknown [9.41.103.158])
- by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon,  6 Jan 2020 19:52:20 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.4 1/3] hwmon: (pmbus/ibm-cffps) Add new
- manufacturer debugfs entries
-Date: Mon,  6 Jan 2020 13:52:17 -0600
-Message-Id: <1578340339-15125-2-git-send-email-eajames@linux.ibm.com>
-X-Mailer: git-send-email 1.8.3.1
-In-Reply-To: <1578340339-15125-1-git-send-email-eajames@linux.ibm.com>
-References: <1578340339-15125-1-git-send-email-eajames@linux.ibm.com>
+ Mon, 6 Jan 2020 20:10:39 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CB7ED112065;
+ Mon,  6 Jan 2020 20:10:39 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2AB53112064;
+ Mon,  6 Jan 2020 20:10:39 +0000 (GMT)
+Received: from demeter.rchland.ibm.com (unknown [9.85.196.50])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTPS;
+ Mon,  6 Jan 2020 20:10:39 +0000 (GMT)
+Subject: Re: Gerrit review 28207 - Help define OpenBMC's security objectives
+From: Joseph Reynolds <jrey@linux.ibm.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>, Nancy Yuen <yuenn@google.com>, 
+ Supreeth Venkatesh <Supreeth.Venkatesh@arm.com>,
+ krtaylor <kurt.r.taylor@gmail.com>, Sai Dasari <sdasari@fb.com>,
+ "Mihm, James" <james.mihm@intel.com>,
+ Sagar Dharia <Sagar.Dharia@microsoft.com>,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <bc04d77e-dcab-e1dc-8579-809616d91ce0@linux.ibm.com>
+Message-ID: <d0ceb3fb-72b1-6312-d742-b8238873d811@linux.ibm.com>
+Date: Mon, 6 Jan 2020 14:10:38 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:60.0)
+ Gecko/20100101 Thunderbird/60.9.1
+MIME-Version: 1.0
+In-Reply-To: <bc04d77e-dcab-e1dc-8579-809616d91ce0@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.95,18.0.572
  definitions=2020-01-06_06:2020-01-06,2020-01-06 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015
- impostorscore=0 mlxlogscore=999 spamscore=0 mlxscore=0 priorityscore=1501
- suspectscore=1 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1910280000 definitions=main-2001060165
+ clxscore=1015 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 phishscore=0 mlxscore=0
+ mlxlogscore=758 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-1910280000 definitions=main-2001060167
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,167 +86,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jan 2020 19:52:28 -0000
+X-List-Received-Date: Mon, 06 Jan 2020 20:10:52 -0000
 
-Add support for a number of manufacturer-specific registers in the
-debugfs entries, as well as support to read and write the
-PMBUS_ON_OFF_CONFIG register through debugfs.
+I meant to copy the OpenBMC email list.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- drivers/hwmon/pmbus/ibm-cffps.c | 74 ++++++++++++++++++++++++++++++++++++++---
- 1 file changed, 70 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
-index d359b76..a564be9 100644
---- a/drivers/hwmon/pmbus/ibm-cffps.c
-+++ b/drivers/hwmon/pmbus/ibm-cffps.c
-@@ -20,7 +20,9 @@
- 
- #define CFFPS_FRU_CMD				0x9A
- #define CFFPS_PN_CMD				0x9B
-+#define CFFPS_HEADER_CMD			0x9C
- #define CFFPS_SN_CMD				0x9E
-+#define CFFPS_MAX_POWER_OUT_CMD			0xA7
- #define CFFPS_CCIN_CMD				0xBD
- #define CFFPS_FW_CMD				0xFA
- #define CFFPS1_FW_NUM_BYTES			4
-@@ -57,9 +59,12 @@ enum {
- 	CFFPS_DEBUGFS_INPUT_HISTORY = 0,
- 	CFFPS_DEBUGFS_FRU,
- 	CFFPS_DEBUGFS_PN,
-+	CFFPS_DEBUGFS_HEADER,
- 	CFFPS_DEBUGFS_SN,
-+	CFFPS_DEBUGFS_MAX_POWER_OUT,
- 	CFFPS_DEBUGFS_CCIN,
- 	CFFPS_DEBUGFS_FW,
-+	CFFPS_DEBUGFS_ON_OFF_CONFIG,
- 	CFFPS_DEBUGFS_NUM_ENTRIES
- };
- 
-@@ -136,15 +141,15 @@ static ssize_t ibm_cffps_read_input_history(struct ibm_cffps *psu,
- 				       psu->input_history.byte_count);
- }
- 
--static ssize_t ibm_cffps_debugfs_op(struct file *file, char __user *buf,
--				    size_t count, loff_t *ppos)
-+static ssize_t ibm_cffps_debugfs_read(struct file *file, char __user *buf,
-+				      size_t count, loff_t *ppos)
- {
- 	u8 cmd;
- 	int i, rc;
- 	int *idxp = file->private_data;
- 	int idx = *idxp;
- 	struct ibm_cffps *psu = to_psu(idxp, idx);
--	char data[I2C_SMBUS_BLOCK_MAX] = { 0 };
-+	char data[I2C_SMBUS_BLOCK_MAX + 2] = { 0 };
- 
- 	pmbus_set_page(psu->client, 0);
- 
-@@ -157,9 +162,20 @@ static ssize_t ibm_cffps_debugfs_op(struct file *file, char __user *buf,
- 	case CFFPS_DEBUGFS_PN:
- 		cmd = CFFPS_PN_CMD;
- 		break;
-+	case CFFPS_DEBUGFS_HEADER:
-+		cmd = CFFPS_HEADER_CMD;
-+		break;
- 	case CFFPS_DEBUGFS_SN:
- 		cmd = CFFPS_SN_CMD;
- 		break;
-+	case CFFPS_DEBUGFS_MAX_POWER_OUT:
-+		rc = i2c_smbus_read_word_swapped(psu->client,
-+						 CFFPS_MAX_POWER_OUT_CMD);
-+		if (rc < 0)
-+			return rc;
-+
-+		rc = snprintf(data, I2C_SMBUS_BLOCK_MAX, "%d", rc);
-+		goto done;
- 	case CFFPS_DEBUGFS_CCIN:
- 		rc = i2c_smbus_read_word_swapped(psu->client, CFFPS_CCIN_CMD);
- 		if (rc < 0)
-@@ -199,6 +215,14 @@ static ssize_t ibm_cffps_debugfs_op(struct file *file, char __user *buf,
- 			return -EOPNOTSUPP;
- 		}
- 		goto done;
-+	case CFFPS_DEBUGFS_ON_OFF_CONFIG:
-+		rc = i2c_smbus_read_byte_data(psu->client,
-+					      PMBUS_ON_OFF_CONFIG);
-+		if (rc < 0)
-+			return rc;
-+
-+		rc = snprintf(data, 3, "%02x", rc);
-+		goto done;
- 	default:
- 		return -EINVAL;
- 	}
-@@ -214,9 +238,42 @@ static ssize_t ibm_cffps_debugfs_op(struct file *file, char __user *buf,
- 	return simple_read_from_buffer(buf, count, ppos, data, rc);
- }
- 
-+static ssize_t ibm_cffps_debugfs_write(struct file *file,
-+				       const char __user *buf, size_t count,
-+				       loff_t *ppos)
-+{
-+	u8 data;
-+	ssize_t rc;
-+	int *idxp = file->private_data;
-+	int idx = *idxp;
-+	struct ibm_cffps *psu = to_psu(idxp, idx);
-+
-+	switch (idx) {
-+	case CFFPS_DEBUGFS_ON_OFF_CONFIG:
-+		pmbus_set_page(psu->client, 0);
-+
-+		rc = simple_write_to_buffer(&data, 1, ppos, buf, count);
-+		if (rc < 0)
-+			return rc;
-+
-+		rc = i2c_smbus_write_byte_data(psu->client,
-+					       PMBUS_ON_OFF_CONFIG, data);
-+		if (rc)
-+			return rc;
-+
-+		rc = 1;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return rc;
-+}
-+
- static const struct file_operations ibm_cffps_fops = {
- 	.llseek = noop_llseek,
--	.read = ibm_cffps_debugfs_op,
-+	.read = ibm_cffps_debugfs_read,
-+	.write = ibm_cffps_debugfs_write,
- 	.open = simple_open,
- };
- 
-@@ -486,15 +543,24 @@ static int ibm_cffps_probe(struct i2c_client *client,
- 	debugfs_create_file("part_number", 0444, ibm_cffps_dir,
- 			    &psu->debugfs_entries[CFFPS_DEBUGFS_PN],
- 			    &ibm_cffps_fops);
-+	debugfs_create_file("header", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_HEADER],
-+			    &ibm_cffps_fops);
- 	debugfs_create_file("serial_number", 0444, ibm_cffps_dir,
- 			    &psu->debugfs_entries[CFFPS_DEBUGFS_SN],
- 			    &ibm_cffps_fops);
-+	debugfs_create_file("max_power_out", 0444, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_MAX_POWER_OUT],
-+			    &ibm_cffps_fops);
- 	debugfs_create_file("ccin", 0444, ibm_cffps_dir,
- 			    &psu->debugfs_entries[CFFPS_DEBUGFS_CCIN],
- 			    &ibm_cffps_fops);
- 	debugfs_create_file("fw_version", 0444, ibm_cffps_dir,
- 			    &psu->debugfs_entries[CFFPS_DEBUGFS_FW],
- 			    &ibm_cffps_fops);
-+	debugfs_create_file("on_off_config", 0644, ibm_cffps_dir,
-+			    &psu->debugfs_entries[CFFPS_DEBUGFS_ON_OFF_CONFIG],
-+			    &ibm_cffps_fops);
- 
- 	return 0;
- }
--- 
-1.8.3.1
+On 1/6/20 11:59 AM, Joseph Reynolds wrote:
+> OpenBMC TSC members and information security leads,
+>
+> A new OpenBMC document identifies information security programs which 
+> might be directed at OpenBMC.  These are the highest-level programs 
+> such as national standards, industry best practices, and public-facing 
+> company-specific practices.  The idea is to document OpenBMC's 
+> security objectives and provide references to appropriate actionable 
+> advice needed for development work.  As the OpenBMC project reaches 
+> out for security standards to follow, and various agencies promote 
+> their requirements, we can document our efforts here.  Details are in 
+> the document.
+>
+> The document is a first draft.  I would be happy to add and remove 
+> material so it can be merged into the project.  I think this should be 
+> merged before attempting to expand on any of the topics.  This topic 
+> is on the agenda for this Wednesday's OpenBMC Security Working Group 
+> meeting.
+>
+> Please pass this on to your security leads to help define OpenBMC's 
+> security objectives.
+>
+> - Joseph
+>
+> The document is available in gerrit review 28207 here:
+> https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/28207
+>
+> OpenBMC Security Working Group wiki is here:
+> https://github.com/openbmc/openbmc/wiki/Security-working-group
