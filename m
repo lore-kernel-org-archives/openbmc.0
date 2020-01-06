@@ -6,67 +6,67 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="reyL3VM0"; 
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.b="dBOKJu3V"; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.b="TdnjNui7"; dkim-atps=neutral
+ header.b="FTZ2eObe"; dkim-atps=neutral
 Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
  [64.147.123.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47rkGz5PdKzDqCC
- for <openbmc@lists.ozlabs.org>; Mon,  6 Jan 2020 16:15:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47rkHf4f3YzDqDT
+ for <openbmc@lists.ozlabs.org>; Mon,  6 Jan 2020 16:15:58 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 833C44E7;
- Mon,  6 Jan 2020 00:15:20 -0500 (EST)
+ by mailout.west.internal (Postfix) with ESMTP id 2393C49C;
+ Mon,  6 Jan 2020 00:10:22 -0500 (EST)
 Received: from imap2 ([10.202.2.52])
- by compute4.internal (MEProxy); Mon, 06 Jan 2020 00:15:20 -0500
+ by compute4.internal (MEProxy); Mon, 06 Jan 2020 00:10:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm1; bh=h00L0hTKmnlWcqzol1Msdac8fiSmEkw
- NaRxn3KtDQIQ=; b=reyL3VM0saJ8bBKZX8DfMDAg8kyqMgBsU+gOmRqklj5NSOc
- HYiI00odhJ6eCXR3+r/Jfhgw3VuiyqGj4M7dCYYE9n52d3cuRKHILeMUb2bJA1mf
- i2+hV9UxZ2ayrHWzI7cnaD/Ekvlit9M/q30g9gWWYx6NEJuSGoNQUb6QDuU2y69t
- MHBzcqdTxLuxK1ZcZ9lRXY5ol9EMwCFyBuZ+jndLo0G5WVxem2rIQ2k4pgScVdQY
- rGX2pBMZkngRUQzNEbTmV2UCPVBQc97YvMR2ugzX3Ac3iXyr8fiqmMSo0/cWvEk7
- lnkeKKsBuP0aPTY2uPuDQnXRWRDeebRzADcR0xQ==
+ :subject:content-type; s=fm1; bh=M9ztwXIs2+UcqU8wb8O3pSYgj/lC03n
+ FpJ9Mhrl1xpc=; b=dBOKJu3V5MoOcNyA2SmCCkjnGrBhukwP5cdt+LHCPArkGZg
+ njCQRv8BxsRmfpOoNp9F1qAajXfBa83N9MFaW6qMOwOJYEXQm9xZGxWbZ8lA47cR
+ CEt4gWhEitYY5w5SUbUlN5gFg83jIMriIjgYwLwxrIxxXiSR0xkHaZb/qa84ZSa9
+ yp2MP43YovsNKCEbEheaROuXugCIhAgLT0zeGEegUg+eeJ3e9i4iwl8PiSa36mHP
+ kbLABILlFE58Y9KxwVlQs5Lk3OM2FYele6R/HtqQ2Z3vIcb5oRZHTQQV6EaTX+1L
+ 83vIP+Lyfwk7/K4yREhRp+hR3gbtwJMRhu6lflA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=h00L0h
- TKmnlWcqzol1Msdac8fiSmEkwNaRxn3KtDQIQ=; b=TdnjNui7GmSxwu49hGe7sl
- RQl0BKcTL99c+Xdjd5sMepKcAtQ8iWC96I8sJ8jJF9CQEw5mx70dBrHKpgbWG04B
- qGF1x9+um2olEs4aEyp1OZ34BxV2pXYU8NVI6scv70yEzt6i7l0mUmb7kRmHRkct
- Pgy+VYwa3oogeR2BtgqQVQt1kHvryeRQwxpqeB5HrAwfn38uxYU5khehNq0o+Dt+
- TzXXCTSVWG5c7sGZFtIeg3KEChp1o/+HVX/oSXgf8K+9swoY9lRE6TnUQT3VN65l
- xNoOAaTX4BSBT9DRZGCfQxFwto2zLw7AoNBT49rRFW6gYXM/HNVULeaM+6gWn4bg
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=M9ztwX
+ Is2+UcqU8wb8O3pSYgj/lC03nFpJ9Mhrl1xpc=; b=FTZ2eObeZxIBJokuDaNvQX
+ bt7zZCP6cwCxtbLXeOlfqRRPI52bZKofVUngPMr+ZFdiHiz6GtPcRYeI3vL5xRBL
+ 1pMK1XPBmEi20azo6QLtn/y0I84kaydlnYRvfcIxwN5wJMSBYwwIkctDK+KytBKt
+ P4jce3w+kv+vwGzStUZW4FGJHhyLsAaFo41Jwrs51oxEaastR1qbzshgv7iNnF9j
+ 6oqu84WWNv01P452U9AiVrjmXwErgMaG4PNbNv1Ui/+IPa+HAzEa/O1Vd8l86c/Q
+ AAE5mwNRXJPa5OL0n22PAT2AyA1CNljNAITsaleEQiNpbwh6FJiLZHK3rntYT/Eg
  ==
-X-ME-Sender: <xms:aMISXktu5TIuikTDBXTbvF_S02yTh_a8-AWrJo7-4R_XFDc9leroUg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdegledgkedtucetufdoteggodetrfdotf
+X-ME-Sender: <xms:PMESXoQ4Iw3tKSdPwnQpJpKaFVS1RZ3nfn6CR2DPzWIhQ0Xgypvx6Q>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedufedrvdegledgjeelucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
  rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecurfgrrh
  grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghunecuvehluhhsthgv
- rhfuihiivgepud
-X-ME-Proxy: <xmx:aMISXmAj7ZvIx61S-OMYyvP7mOOqkOmYTy_SkciLfypi1lpEVvkUTQ>
- <xmx:aMISXlPT8G3BQKtguVeqQ6kMBc_n3j8QoGWoBzYeMi9tmXgEZY_SMQ>
- <xmx:aMISXp302Fqi_nAnFHO2fgZ5w3c1ANULtubR6BswgleKA13C4IerZQ>
- <xmx:aMISXiuqdpTsMmCKDr2DPtiyWm5FRPH-EdkamT16l8HUi1WMZ_RRrw>
+ rhfuihiivgeptd
+X-ME-Proxy: <xmx:PMESXhSvTSXnBgjLu8X4vke2JmB3Ny7skp5hGfQbtofoPCnQ4iPfYQ>
+ <xmx:PMESXr06gFNMfq7uwFLShOoJsywaLQtPjfJXZu1VqTNi_P241nHNRQ>
+ <xmx:PMESXpylIgXhNO_xbqdW0w5INfOm9WdzMjpYByQ_OGTuS5XoRgqVQg>
+ <xmx:PcESXq3T18_QW_os_fKgsj8WdRzl9-BfSZqfDpUtHELhmbymipfb4w>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id F0ACFE00A7; Mon,  6 Jan 2020 00:15:19 -0500 (EST)
+ id DF7F3E00A7; Mon,  6 Jan 2020 00:10:20 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.1.7-731-g1812a7f-fmstable-20200106v2
 Mime-Version: 1.0
-Message-Id: <52607315-2a3f-4bc7-aad3-b7eade5af8a3@www.fastmail.com>
-In-Reply-To: <20191223134735.559200-4-joel@jms.id.au>
+Message-Id: <20604395-8d8e-46c2-8e99-4225a9b25d12@www.fastmail.com>
+In-Reply-To: <20191223134735.559200-2-joel@jms.id.au>
 References: <20191223134735.559200-1-joel@jms.id.au>
- <20191223134735.559200-4-joel@jms.id.au>
-Date: Mon, 06 Jan 2020 15:47:19 +1030
+ <20191223134735.559200-2-joel@jms.id.au>
+Date: Mon, 06 Jan 2020 15:42:19 +1030
 From: "Andrew Jeffery" <andrew@aj.id.au>
 To: "Joel Stanley" <joel@jms.id.au>, openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.4_3/4]_ARM:_dts:_aspeed:_tacoma:_Remove?=
- =?UTF-8?Q?_duplicate_flash_nodes?=
+Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.4_1/4]_ARM:_dts:_aspeed:_tacoma:_Fix_fs?=
+ =?UTF-8?Q?i_master_node?=
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -79,15 +79,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 06 Jan 2020 05:15:28 -0000
+X-List-Received-Date: Mon, 06 Jan 2020 05:15:59 -0000
 
 
 
 On Tue, 24 Dec 2019, at 00:17, Joel Stanley wrote:
-> This is a revert of "ARM: dts: aspeed: tacoma: Enable FMC and SPI
-> devices" which was already applied as part of "ARM: dts: aspeed: Add
-> Tacoma machine".
+> This was broken when applying "ARM: dts: aspeed: tacoma: Add
+> host FSI description".
 > 
 > Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Acked-by: Andrew Jeffery <andrew@aj.id.au>
