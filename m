@@ -1,54 +1,61 @@
-Return-Path: <joel.stan@gmail.com>
+Return-Path: <sharad.khetan@intel.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f35;
- helo=mail-qv1-xf35.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=intel.com (client-ip=134.134.136.31; helo=mga06.intel.com;
+ envelope-from=sharad.khetan@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=PN6tsTQW; dkim-atps=neutral
-Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
- [IPv6:2607:f8b0:4864:20::f35])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Received: from mga06.intel.com (mga06.intel.com [134.134.136.31])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47xgM85z4TzDqNV
- for <openbmc@lists.ozlabs.org>; Tue, 14 Jan 2020 17:21:07 +1100 (AEDT)
-Received: by mail-qv1-xf35.google.com with SMTP id x1so5180136qvr.8
- for <openbmc@lists.ozlabs.org>; Mon, 13 Jan 2020 22:21:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=kQ+VKRCTNAjnpnKjRb9gq0oGAif3kxNbN3k0mQNHjWI=;
- b=PN6tsTQW4kDjvF9e23J/EQkiVJM8Mup9C+Gmn3wPXg1dbKUCuvknimkOfNflTwk1Cm
- KfGga2NQhtw4IhEsn8FJAmS29jVY2n0weWwlPtPIY/+vQIqgmUZu39zBF3Yz2cckyvt/
- KdFpbarSQuO0GhoeJLMMLPhVoMIfDaav8GvJA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=kQ+VKRCTNAjnpnKjRb9gq0oGAif3kxNbN3k0mQNHjWI=;
- b=UbfD0oO61gyR4f8vATuC+Q1u4g6JorrKZ1j+jIanMWUHoDB0ny14hTJuA0Nz/ee7hf
- BqGKfJFyNB+wFaouer1FHu3WE6EkySdf4AzoJ9YX8PLYlMRf8FG/AxH6HrNRQZo9GPFS
- 5lA36BgNMSI0l4KgkCz64i7ZcP51p94e2rj73Cd2iitHwWNEzxCLNKhsmNSMxKf44+Zi
- pLZiFUPTl+RBbBYRQPvMtZGfhIUstz+IeXlYuDhRuKXPqPbhpZIfDNb3SOWsileHG7jq
- xKD/CibUuYdjDRA6pajKnBpJsccAlQIrQGyzkiTHp30ua4HdDDb+CxyXqhQVHS1QxfRg
- HV+A==
-X-Gm-Message-State: APjAAAUfPlhO+a/enTB5WSZz6N8vEQaV0ALXlDHWd9fG8kBzs138c8n/
- +xCXyNmEmWiIvCRT7zf8BCgYmKUUaOdcMifKaXdMZg==
-X-Google-Smtp-Source: APXvYqzIQNITwVva/ZofBQyRBa3zh0wglg9YZJRZ3tcjVxUj/KL6nReequcasVtBaBx1bQvOdv2LoJaHu+6e6sB9evQ=
-X-Received: by 2002:a0c:ed32:: with SMTP id u18mr19712599qvq.2.1578982864118; 
- Mon, 13 Jan 2020 22:21:04 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47xgmg0jZKzDqN6
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Jan 2020 17:39:45 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga104.jf.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 13 Jan 2020 22:39:42 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.69,431,1571727600"; 
+ d="scan'208,217";a="218875773"
+Received: from fmsmsx106.amr.corp.intel.com ([10.18.124.204])
+ by fmsmga007.fm.intel.com with ESMTP; 13 Jan 2020 22:39:42 -0800
+Received: from fmsmsx120.amr.corp.intel.com (10.18.124.208) by
+ FMSMSX106.amr.corp.intel.com (10.18.124.204) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Mon, 13 Jan 2020 22:39:42 -0800
+Received: from fmsmsx118.amr.corp.intel.com ([169.254.1.58]) by
+ fmsmsx120.amr.corp.intel.com ([169.254.15.173]) with mapi id 14.03.0439.000;
+ Mon, 13 Jan 2020 22:39:41 -0800
+From: "Khetan, Sharad" <sharad.khetan@intel.com>
+To: Jeremy Kerr <jk@ozlabs.org>
+CC: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, Andrew Jeffery
+ <andrew@aj.id.au>, Vijay Khemka <vijaykhemka@fb.com>, rgrs
+ <rgrs@protonmail.com>, "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "Winiarska, Iwona" <iwona.winiarska@intel.com>, "Bhat, Sumanth"
+ <sumanth.bhat@intel.com>
+Subject: Re: MCTP over PCI on AST2500
+Thread-Topic: MCTP over PCI on AST2500
+Thread-Index: AQHVn2VSe/daZ1HR/0SJwnpAq7UT7qeUJeQA//96gqCAA0FRAIAtBQZQgB6Aw4CAAXo0gIAFPlBAgACtGYCAADAAwIAAj78A//9/Jmo=
+Date: Tue, 14 Jan 2020 06:39:41 +0000
+Message-ID: <C232EE9B-92CA-4E7E-BBC7-083D0EBC547B@intel.com>
+References: <gqnvvFdbRiXJzS3sVr0pSSo8kD6KjPbFMgg8CV1tsi0cKt0zT5mrnSTfBB1cpiOt-MVrXNzlg95DqgWZ3AxD8zOyEbFYRykqjP-DxEW4Mww=@protonmail.com>
+ <037D4669-D49C-4DF8-B49B-4F3BD97451AE@fb.com>
+ <865C376D1B77624AAA570EFEF73CE52F9E08757B@fmsmsx118.amr.corp.intel.com>
+ <3502e928-40c5-41d9-9ff1-5aa199e0e31b@www.fastmail.com>
+ <865C376D1B77624AAA570EFEF73CE52F9E0E4E3E@fmsmsx118.amr.corp.intel.com>
+ <8a1fc80f-9d25-4c38-bdcd-df05c4194fe7@www.fastmail.com>
+ <62036de3-ce3d-4ccb-ac5b-15e9ba39d22b@www.fastmail.com>
+ <865C376D1B77624AAA570EFEF73CE52F9E10C8FD@fmsmsx118.amr.corp.intel.com>
+ <92f857cc-303a-0d50-e0e4-2de2a8d19e41@linux.vnet.ibm.com>
+ <865C376D1B77624AAA570EFEF73CE52F9E10E9A5@fmsmsx118.amr.corp.intel.com>,
+ <22A3B800-F833-4615-B980-EE933E1F83A9@ozlabs.org>
+In-Reply-To: <22A3B800-F833-4615-B980-EE933E1F83A9@ozlabs.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+Content-Type: multipart/alternative;
+ boundary="_000_C232EE9B92CA4E7EBBC7083D0EBC547Bintelcom_"
 MIME-Version: 1.0
-References: <483d360a-80c0-38f1-ffde-849d01d2597f@linux.intel.com>
-In-Reply-To: <483d360a-80c0-38f1-ffde-849d01d2597f@linux.intel.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 14 Jan 2020 06:20:52 +0000
-Message-ID: <CACPK8XcThx72j2QOg58mASLg+HKU3vnNkNbiAW9knN85p7UpTQ@mail.gmail.com>
-Subject: Re: Aspeed video engine patch
-To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,17 +67,164 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Jan 2020 06:21:09 -0000
+X-List-Received-Date: Tue, 14 Jan 2020 06:39:47 -0000
 
-On Mon, 13 Jan 2020 at 18:14, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com> wrote:
+--_000_C232EE9B92CA4E7EBBC7083D0EBC547Bintelcom_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+Thanks for the pointer Jeremy. We will look into demux daemon.
+Thanks,
+-Sharad
+
+On Jan 13, 2020, at 10:21 PM, Jeremy Kerr <jk@ozlabs.org<mailto:jk@ozlabs.o=
+rg>> wrote:
+
+Hi Ketan,
+
+Just a suggestion - you probably don't want to be passing MCTP messages ove=
+r dbus - this is something we learnt from the IPMI implementation.
+
+The current design of the mctp-demux-daemon (included in the libmctp codeba=
+se) is intended to provide an interface that will be easy to migrate to a f=
+uture kernel implementation (ie., using sockets to pass MCTP messages), and=
+ allows multiple applications to be listening for MCTP messages of differen=
+t types.
+
+Regards,
+
+
+Jeremy
+
+On 14 January 2020 1:54:49 pm AWST, "Khetan, Sharad" <sharad.khetan@intel.c=
+om<mailto:sharad.khetan@intel.com>> wrote:
+
+Hi Deepak,
+
+On 13/01/20 10:23 PM, Khetan, Sharad wrote:
+Hi Andrew,
+
+On Thu, 9 Jan 2020, at 12:27, Andrew Jeffery wrote:
+
+
+ On Sat, 21 Dec 2019, at 10:45, Khetan, Sharad wrote:
+ Hi Andrew,
+ Sorry for late response.
+ The plan is to have MCTP in user space.
+
+
+ How are you handling this then? mmap()'ing the BAR from sysfs?
+
+Sorry, let me put my brain back in, I was thinking of the wrong side of the=
+  BMC/Host MCTP channel. How much were you planning to do in userspace on t=
+he BMC? As in, are you planning to drive the BMC's PCIe MCTP controller fro=
+m userspace (presumably via /dev/mem)?
+
+
+For implementation on the BMC, we agree that it's better to do it in kernel=
+ (and as you mentioned  - use consistent interface to upper layers, provide=
+ another transport). However, given the time needed to implement things in =
+kernel (and the review after), we are starting with a short term solution. =
+We will be implementing MCTP (protocol elements) in user space, along with =
+a low level MCTP PCIe driver just to push bits on PCIe. Iwona is working on=
+ this and should be able to describe the exact primitive.
+
+Do you plan to do the user-space work as an extension to/reusing components=
+ from openbmc/libmctp?
+
+Thanks,
+Deepak
+
+Yes we plan to reuse and extend the libmctp, support PCIe as well as SMBus =
+bindings. We plan to use d-bus extensions to existing libmctp. That said, w=
+e will know the exact extent of reuse/modifications when we really start im=
+plementing.
+
+We are implementing this for AST 2600 (will not support any workarounds for=
+ AST 2500 bug).
+
+@Andrew, Thanks for your response.
+
+Thanks,
+Sharad
+
+
+--_000_C232EE9B92CA4E7EBBC7083D0EBC547Bintelcom_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-> Hi Joel,
->
-> Can you please cherry pick this patch from upstream?
-> https://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media.git/commit/drivers/media/platform/aspeed-video.c?id=0e78795e95c540bc49c2e094103932eb6a06e6c8
+</head>
+<body dir=3D"auto">
+Thanks for the pointer Jeremy. We will look into demux daemon.&nbsp;<br>
+Thanks,<br>
+<div dir=3D"ltr" id=3D"AppleMailSignature">-Sharad</div>
+<div dir=3D"ltr"><br>
+On Jan 13, 2020, at 10:21 PM, Jeremy Kerr &lt;<a href=3D"mailto:jk@ozlabs.o=
+rg">jk@ozlabs.org</a>&gt; wrote:<br>
+<br>
+</div>
+<blockquote type=3D"cite">
+<div dir=3D"ltr">Hi Ketan,<br>
+<br>
+Just a suggestion - you probably don't want to be passing MCTP messages ove=
+r dbus - this is something we learnt from the IPMI implementation.<br>
+<br>
+The current design of the mctp-demux-daemon (included in the libmctp codeba=
+se) is intended to provide an interface that will be easy to migrate to a f=
+uture kernel implementation (ie., using sockets to pass MCTP messages), and=
+ allows multiple applications to
+ be listening for MCTP messages of different types.<br>
+<br>
+Regards,<br>
+<br>
+<br>
+Jeremy<br>
+<br>
+<div class=3D"gmail_quote">On 14 January 2020 1:54:49 pm AWST, &quot;Khetan=
+, Sharad&quot; &lt;<a href=3D"mailto:sharad.khetan@intel.com">sharad.khetan=
+@intel.com</a>&gt; wrote:
+<blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 0pt 0.8ex; borde=
+r-left: 1px solid rgb(204, 204, 204); padding-left: 1ex;">
+<pre class=3D"k9mail">Hi Deepak,<br><br>On 13/01/20 10:23 PM, Khetan, Shara=
+d wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin: 0pt 0pt 1ex =
+0.8ex; border-left: 1px solid #729fcf; padding-left: 1ex;">Hi Andrew,<br><b=
+r>On Thu, 9 Jan 2020, at 12:27, Andrew Jeffery wrote:<br><blockquote class=
+=3D"gmail_quote" style=3D"margin: 0pt 0pt 1ex 0.8ex; border-left: 1px solid=
+ #ad7fa8; padding-left: 1ex;"><br><br> On Sat, 21 Dec 2019, at 10:45, Kheta=
+n, Sharad wrote:<br><blockquote class=3D"gmail_quote" style=3D"margin: 0pt =
+0pt 1ex 0.8ex; border-left: 1px solid #8ae234; padding-left: 1ex;"> Hi Andr=
+ew,<br> Sorry for late response.<br> The plan is to have MCTP in user space=
+.<br><br></blockquote><br> How are you handling this then? mmap()'ing the B=
+AR from sysfs?<br></blockquote><br><blockquote class=3D"gmail_quote" style=
+=3D"margin: 0pt 0pt 1ex 0.8ex; border-left: 1px solid #ad7fa8; padding-left=
+: 1ex;">Sorry, let me put my brain back in, I was thinking of the wrong sid=
+e of the  BMC/Host MCTP channel. How much were you planning to do in usersp=
+ace on the BMC? As in, are you planning to drive the BMC's PCIe MCTP contro=
+ller from userspace (presumably via /dev/mem)?<br></blockquote><br>  <br>Fo=
+r implementation on the BMC, we agree that it's better to do it in kernel (=
+and as you mentioned  - use consistent interface to upper layers, provide a=
+nother transport). However, given the time needed to implement things in ke=
+rnel (and the review after), we are starting with a short term solution. We=
+ will be implementing MCTP (protocol elements) in user space, along with a =
+low level MCTP PCIe driver just to push bits on PCIe. Iwona is working on t=
+his and should be able to describe the exact primitive.<br></blockquote><br=
+>Do you plan to do the user-space work as an extension to/reusing component=
+s from openbmc/libmctp?<br><br>Thanks,<br>Deepak<br><br>Yes we plan to reus=
+e and extend the libmctp, support PCIe as well as SMBus bindings. We plan t=
+o use d-bus extensions to existing libmctp. That said, we will know the exa=
+ct extent of reuse/modifications when we really start implementing.<br><br>=
+We are implementing this for AST 2600 (will not support any workarounds for=
+ AST 2500 bug). <br><br>@Andrew, Thanks for your response.<br><br>Thanks,<b=
+r>Sharad<br> <br></pre>
+</blockquote>
+</div>
+</div>
+</blockquote>
+</body>
+</html>
 
-Done. Thanks for upstreaming your change.
-
-Cheers,
-
-Joel
+--_000_C232EE9B92CA4E7EBBC7083D0EBC547Bintelcom_--
