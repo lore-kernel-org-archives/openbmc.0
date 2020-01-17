@@ -1,33 +1,53 @@
-Return-Path: <bradleyb@fuzziesquirrel.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fuzziesquirrel.com (client-ip=173.167.31.197;
- helo=bajor.fuzziesquirrel.com; envelope-from=bradleyb@fuzziesquirrel.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 47zhLg51j9zDqcR
- for <openbmc@lists.ozlabs.org>; Sat, 18 Jan 2020 00:12:41 +1100 (AEDT)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 13.0 \(3608.40.2.2.4\))
-Subject: Re: Moving the WebUI to Vue; Repo vs Branch
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-In-Reply-To: <4dc89e63-f99b-3df1-b4a6-f80ca996c440@linux.vnet.ibm.com>
-Date: Fri, 17 Jan 2020 08:12:34 -0500
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Derick <derick.montague@gmail.com>,
- Yoshie Muranaka <yoshiemuranaka@gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <F8F79845-FD04-4457-8B30-FBC98F4D0FB8@fuzziesquirrel.com>
-References: <60d44fed-74e2-70e3-e91f-ae1289d1700f@linux.vnet.ibm.com>
- <f560dbcf-1003-1dac-92ca-358d090a90ac@linux.vnet.ibm.com>
- <4dc89e63-f99b-3df1-b4a6-f80ca996c440@linux.vnet.ibm.com>
-To: Gunnar Mills <gmills@linux.vnet.ibm.com>
+Return-Path: <broonie@sirena.org.uk>
+Authentication-Results: lists.ozlabs.org;
+ spf=none (no SPF record) smtp.mailfrom=sirena.org.uk
+ (client-ip=172.104.155.198; helo=heliosphere.sirena.org.uk;
+ envelope-from=broonie@sirena.org.uk; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=sirena.org.uk header.i=@sirena.org.uk
+ header.a=rsa-sha256 header.s=20170815-heliosphere header.b=Wu4Px26Q; 
+ dkim-atps=neutral
+X-Greylist: delayed 1900 seconds by postgrey-1.36 at bilbo;
+ Sat, 18 Jan 2020 03:16:11 AEDT
+Received: from heliosphere.sirena.org.uk (heliosphere.sirena.org.uk
+ [172.104.155.198])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 47zmQM6LJ2zDqDM
+ for <openbmc@lists.ozlabs.org>; Sat, 18 Jan 2020 03:16:11 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=sirena.org.uk; s=20170815-heliosphere; h=Date:Message-Id:In-Reply-To:
+ Subject:Cc:To:From:Sender:Reply-To:MIME-Version:Content-Type:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:References:
+ List-Id:List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:
+ List-Archive; bh=YZm/5f9wodQfID90hCH6kdu/JpRhW+QGeHbLTu7g0DM=; b=Wu4Px26QUDJX
+ 9BBVnJdZiujoKJDRPmgP7URAGeeMyS/2vWCDgNjtat6R+Jn/iNX6uDYsbaQoX2FpFED4ivBh0ykiy
+ gWthDXylaQc0TVOl5Co7tjBTBLMpbclsVxl9c6jd3o8B7cq+SFdcTwtX8Hix9hiS2VevtxOixKqYe
+ /084o=;
+Received: from fw-tnat-cam4.arm.com ([217.140.106.52]
+ helo=fitzroy.sirena.org.uk) by heliosphere.sirena.org.uk with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
+ (envelope-from <broonie@sirena.org.uk>)
+ id 1isTnM-0006ua-JB; Fri, 17 Jan 2020 15:44:24 +0000
+Received: by fitzroy.sirena.org.uk (Postfix, from userid 1000)
+ id 4C87BD02A2A; Fri, 17 Jan 2020 15:44:24 +0000 (GMT)
+From: Mark Brown <broonie@kernel.org>
+To: Tomer Maimon <tmaimon77@gmail.com>
+Cc: avifishman70@gmail.com, benjaminfair@google.com, broonie@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mark.rutland@arm.com, openbmc@lists.ozlabs.org, robh+dt@kernel.org,
+ tali.perry1@gmail.com, venture@google.com, yuenn@google.com
+Subject: Applied "spi: npcm-pspi: fix 16 bit send and receive support" to the
+ spi tree
+In-Reply-To: <20200115162301.235926-2-tmaimon77@gmail.com>
+Message-Id: <applied-20200115162301.235926-2-tmaimon77@gmail.com>
+X-Patchwork-Hint: ignore
+Date: Fri, 17 Jan 2020 15:44:24 +0000 (GMT)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,13 +59,107 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 17 Jan 2020 13:12:44 -0000
+X-List-Received-Date: Fri, 17 Jan 2020 16:16:14 -0000
 
+The patch
 
-> On Jan 15, 2020, at 12:54 PM, Gunnar Mills <gmills@linux.vnet.ibm.com> =
-wrote:
-> Brad, could you create this repo?
-> webui-vue as a possible name but up for other suggestions.
->=20
+   spi: npcm-pspi: fix 16 bit send and receive support
 
-webui-vue created=
+has been applied to the spi tree at
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-5.5
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.  
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
+From 47416a5f27be0a0e815ef5f9f2f06618ae5e0470 Mon Sep 17 00:00:00 2001
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Wed, 15 Jan 2020 18:22:58 +0200
+Subject: [PATCH] spi: npcm-pspi: fix 16 bit send and receive support
+
+Fixing NPCM BMC Peripheral SPI controller 16 bit
+send and receive support by writing and reading
+the SPI data in the right order.
+
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Link: https://lore.kernel.org/r/20200115162301.235926-2-tmaimon77@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+---
+ drivers/spi/spi-npcm-pspi.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+index fe624731c74c..c74611abe2a9 100644
+--- a/drivers/spi/spi-npcm-pspi.c
++++ b/drivers/spi/spi-npcm-pspi.c
+@@ -195,6 +195,7 @@ static void npcm_pspi_setup_transfer(struct spi_device *spi,
+ static void npcm_pspi_send(struct npcm_pspi *priv)
+ {
+ 	int wsize;
++	u16 val;
+ 
+ 	wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
+ 	priv->tx_bytes -= wsize;
+@@ -204,17 +205,18 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
+ 
+ 	switch (wsize) {
+ 	case 1:
+-		iowrite8(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
++		val = *priv->tx_buf++;
++		iowrite8(val, NPCM_PSPI_DATA + priv->base);
+ 		break;
+ 	case 2:
+-		iowrite16(*priv->tx_buf, NPCM_PSPI_DATA + priv->base);
++		val = *priv->tx_buf++;
++		val = *priv->tx_buf++ | (val << 8);
++		iowrite16(val, NPCM_PSPI_DATA + priv->base);
+ 		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 		return;
+ 	}
+-
+-	priv->tx_buf += wsize;
+ }
+ 
+ static void npcm_pspi_recv(struct npcm_pspi *priv)
+@@ -230,18 +232,17 @@ static void npcm_pspi_recv(struct npcm_pspi *priv)
+ 
+ 	switch (rsize) {
+ 	case 1:
+-		val = ioread8(priv->base + NPCM_PSPI_DATA);
++		*priv->rx_buf++ = ioread8(priv->base + NPCM_PSPI_DATA);
+ 		break;
+ 	case 2:
+ 		val = ioread16(priv->base + NPCM_PSPI_DATA);
++		*priv->rx_buf++ = (val >> 8);
++		*priv->rx_buf++ = val & 0xff;
+ 		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 		return;
+ 	}
+-
+-	*priv->rx_buf = val;
+-	priv->rx_buf += rsize;
+ }
+ 
+ static int npcm_pspi_transfer_one(struct spi_master *master,
+-- 
+2.20.1
