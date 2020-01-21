@@ -7,72 +7,70 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=RJslye5i; 
+ header.s=fm1 header.b=TUYRKAta; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=iADosyz/; 
+ header.a=rsa-sha256 header.s=fm1 header.b=ZemtPNPs; 
  dkim-atps=neutral
 Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
  [64.147.123.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 487FBR03lczDqTC
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jan 2020 07:16:46 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 487FC53rzDzDqTb
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jan 2020 07:17:21 +1100 (AEDT)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id 6E6A8711;
- Wed, 29 Jan 2020 15:16:44 -0500 (EST)
+ by mailnew.west.internal (Postfix) with ESMTP id 2F12461B;
+ Wed, 29 Jan 2020 15:17:19 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 29 Jan 2020 15:16:44 -0500
+ by compute2.internal (MEProxy); Wed, 29 Jan 2020 15:17:19 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=wQyyJc9BNiZrGN4Trsz+VKOBJl6
- x6VtabdXYAP6aD1E=; b=RJslye5iNeOcs6Yx4/8OvIobVLKZRuggr0/oWyv6pkn
- bek3FASGF88zR1omAJGmDp1p4sQYv4/MOeUw71okhtXOG0vSeVOAV36UGne3TLHf
- +SHw6ZHaCmK/k3qpr95wRw52JHah8Xq+06SHMJJu+PSZ9ZDBKJHjJ3kOyQFwq50k
- rrNDpafwSJzAfNPm3D/xc9LBB/A05KKRX+wIqILH0TtU4FjYHWS1Y5fZekDawvSW
- pUvjqbbfhyAeAtwm3HUR569x38DgQJeYbLdDDnBI9ZXX/F1It3ywW+ttFbiMxtXb
- +Yjc3rNRob1TsAdUEydH5BEGAQk/7XgI7SEY4m7tH8Q==
+ :content-type:in-reply-to; s=fm1; bh=zmat8vdpFFHPO6osY/tgKPibX0f
+ BqgBion6sx2zqYmE=; b=TUYRKAtaIWjixZ/2Tptey6zl6fOTCKxk9CLowK5CJC1
+ pXkZ1jhLidHOI3Qb/3o+IABVKCiWsLxOPF6QMhmI/3M73EqOCjo5CnekQ150pxbQ
+ +k8bHl/OPet8hZP1A10bJX1HredYWVa7qyF+Y6gKhQs/yegot+yjCs5w0aQZxGQV
+ ySxPjvqQVLZ3JEwiSBKyIGTCydeBZHg7cFNYaWZFvaKEq5XuvSQaGsBtHyhpF85p
+ 0K6v6R0/7L5IRq1SCmmL3NIYu/07UO9AhcyPHvFkvuZUz1xk6CA6+TJibFrhA49S
+ PpDdc4gR3X4EXRbr28y8WmBZbBXpc9JZCT4HJMMkALA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=wQyyJc
- 9BNiZrGN4Trsz+VKOBJl6x6VtabdXYAP6aD1E=; b=iADosyz/lVBZouC3BzbGQs
- a6N2j7S1up8lLTcL4SAFPA8y60PHCIWCjBVV1J6EhfDIqnr2twiCw7ej4yOtIIUy
- fDNEVEdOu/Lqafipum2CrACt/qTEbBEQQS9m35bixK3lWAvpa7uiWWakIIu18b3l
- CS9olC56BjptNsNWnwCr2SPykvpcKBmVSdGbnKO+M7vxqTtmpmd+SYOwzxsq83GJ
- hSzsZ4cbDQg+/1fGxiplEj2BtvzT1hipCH4rg+vrR5RL4Uw1utwpI5bIArZFEykn
- nv8NTwwN+OMcOhhHAi2In8HtLnMLjuuOrG6rpXAI0W5menzNttyFHrdMsL7z98zA
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=zmat8v
+ dpFFHPO6osY/tgKPibX0fBqgBion6sx2zqYmE=; b=ZemtPNPs5wHTDaVO84jpdB
+ ptzFXsKqp0lm/MlRW0sb66ru6D7hqim1tYvd8FFCzDONoRPAUgYn3VHRvcC313bn
+ dRqy4dEp1AjKueFZbG1fdPUm2b1Yi06IUGcijEQnUvtExFoB8Ievj+vf8lCwzBhv
+ DonEDNWri3wkwhLw0SbhicUonllNMQfJYl3HVJ1t4ctQdmnQmyc6nLvBnFT2JU2g
+ 8kNypslLLXfaRf3w/ql7mR4hAFXE82387RGFMJ9ZX9xfscCx/IgEC5IgCI1tbGcI
+ voCIQciKbSzbNIGagyeeOGSvPqMrmv/itSae3DgYpxLbPcuswBNxwavLhLDd6EOA
  ==
-X-ME-Sender: <xms:K-gxXscAAdHsE1jeSReY6i1IU7jmMARSa9YhIlnZXuXWq9BmCbAw-A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigddufedvucetufdoteggodetrfdotf
+X-ME-Sender: <xms:TugxXtDtrtQtnfUKhqAcS-p1EQWpFC2ioZpd7WWnKdl9NkHpt2YEuw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigddufeefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
  vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
- htfigtgidrgiihiieqnecukfhppeduleelrddvtddurdeigedrudefvdenucevlhhushht
- vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsth
- iftgigrdighiii
-X-ME-Proxy: <xmx:K-gxXkhn_cDGL2ruSZTnX8_z_pfDDHYJqrRRSBXRriT4cXtpRpoXVQ>
- <xmx:K-gxXjgfnG66-lFXhl5vHEVz7xBt7SzDAVYFvjZqkke8QMHxTqt88w>
- <xmx:K-gxXvQ7IhMv3Y2OE0M0OffOyTI-JrWhEIU00bF5m3aTCpj7RKCUBg>
- <xmx:K-gxXlRcCZyWVjexzXjmhFSMVGQCN0QGVkEqNZqxPAieRf1hxzquM5uDqCQVnqmu>
+ htfigtgidrgiihiieqnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucfkphepudel
+ ledrvddtuddrieegrddufedvnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpe
+ hmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:TugxXvwWCfUhj9VglrGTQVDhZ-4oFj0AiWNoQuSjTVFpy3T0Xyn-Mg>
+ <xmx:TugxXjkegPkClmRfNbPAxR6NVtGv8vcztZOaWVAifqMw8w5yYnpGGA>
+ <xmx:TugxXsEdP7C1qlVW2cwtZNam0aSo0_P3EnH6QpS5-2K3oLRm8EknoQ>
+ <xmx:TugxXqP19YAWm0VBqV5l47ze5bVgPOUirb3DSHzMUX6DyeJftEc-_mX3sQmhQ3vs>
 Received: from localhost (unknown [199.201.64.132])
- by mail.messagingengine.com (Postfix) with ESMTPA id 640CF3060B27;
- Wed, 29 Jan 2020 15:16:43 -0500 (EST)
-Date: Wed, 29 Jan 2020 12:16:42 -0800
+ by mail.messagingengine.com (Postfix) with ESMTPA id 534FD3060C1B;
+ Wed, 29 Jan 2020 15:17:18 -0500 (EST)
+Date: Tue, 21 Jan 2020 15:50:58 -0600
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Emily Shaffer <emilyshaffer@google.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, patrickw3@fb.com
-Subject: Re: Test email - ignore
-Message-ID: <20200129201642.GA92818@patrickw3-mbp.dhcp.thefacebook.com>
-References: <23247186-abaa-4f7d-88fb-38f871c745e8@www.fastmail.com>
- <CAJoAoZkC6qb35i7GUXMdG3ZKvCDkeX6KAQoumFpjRpVZFsahpg@mail.gmail.com>
- <20200129191857.GB89175@patrickw3-mbp.dhcp.thefacebook.com>
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: Bios upgrade from BMC
+Message-ID: <20200121215056.GA59535@patrickw3-mbp.dhcp.thefacebook.com>
+References: <8AA9282E-0D5B-4B99-BAC6-0F9E84CC5A85@fb.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
  protocol="application/pgp-signature"; boundary="pWyiEgJYm5f9v55/"
 Content-Disposition: inline
-In-Reply-To: <20200129191857.GB89175@patrickw3-mbp.dhcp.thefacebook.com>
+In-Reply-To: <8AA9282E-0D5B-4B99-BAC6-0F9E84CC5A85@fb.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,7 +82,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2020 20:16:47 -0000
+X-List-Received-Date: Wed, 29 Jan 2020 20:17:22 -0000
 
 
 --pWyiEgJYm5f9v55/
@@ -92,24 +90,80 @@ Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jan 29, 2020 at 11:18:59AM -0800, Patrick Williams wrote:
-> On Wed, Jan 29, 2020 at 11:01:47AM -0800, Emily Shaffer wrote:
-> > I had pretty high latency between sending and my mail showing up on the
-> > archive earlier this week. I wonder if some queue is overfull somewhere.
-> >=20
+Hi Vijay,
+
+On Fri, Jan 17, 2020 at 07:04:51PM +0000, Vijay Khemka wrote:
+> Hi,
+> I am writing an application for Bios upgrade. Currently I have created a =
+hook to our bmc updater which expects a systemd unit file to be run at the =
+time of activating update. But I am thinking of adding some of this unit fi=
+le functionality in updater itself and wanted to run by you all if it is co=
+mmon procedure used by every platform. Below are the process we use in our =
+platform as a part of bios upgrade.
 >=20
-> Thanks for the ack.  I seem to be able to get mail to show up on the
-> list when I use my providers web-client but not SMTP.  Not sure why.
+>=20
+>   1.  Power off host server.
 
-I think I figured this out, which might be useful to someone somewhere
-someday.  The latest version of msmtp deprecated (and maybe changed the
-behavior of) the 'auto_from on'.  My emails were being generated with a
-Return-Path of <local-user>@<domain> instead of <email>@<domain>.  Seems
-that the mailing list software didn't like that.
+In the current code-update implementations, I don't believe that
+powering off the Host is ever done automatically, but the expectation is
+that the user has put the system into the right state first.  Then the
+code-update implementation blocks any power-on until the activation is
+complete [1].
 
-I'm going to "spam" the list with a few emails that I intended to send
-over the last week but never made it through.  Sorry if you were on a
-direct To/Cc and you're getting a duplicate.
+I know the facebook/openbmc implementation automatically powers off, but
+I think this is dangerous for general purpose commercial server.
+Customers tend to get angry if a server powered off and they weren't
+expecting it.
+
+I will admit I don't know the Intel architecture well enough yet, but is
+powering off the server prior to BIOS update actually required?  Is the
+BIOS NOR chip always mapped into a physical address and used, or is the
+BIOS at some point loaded and resident?  Are there stable points where
+it is safe to perform an update?  Can we monitor POST code to know when
+the BIOS is completed?
+
+>   2.  Set ME/NM (Management engine or Node manager in x86) to recovery mo=
+de
+
+Is this specific to the BIOS update path or is this something we should
+do whenever the Host is powered off?  In either case I guess you can
+make it a dependency on the systemd unit file, but it seems like it
+would be nice if it were able to be generically applied to all power
+on/off paths.
+
+>   3.  Flip GPIO to access SPI flash used by host.
+>   4.  Bind spi driver to access flash
+
+This is another thing that seems like we could do generically on all
+power on / power off paths?  Any time the host isn't running we can hit
+the GPIO to put ownership at the BMC.  Is there any disadvantage to
+that?
+
+Is the GPIO something unique to Facebook's machines or do most other
+Intel machines have the same requirements?
+
+>   5.  Flashcp image to device.
+
+I don't think `flashcp` is used today, or at least not in my
+recollection of the previous Witherspoon implementation.  Is there any
+advantage to it over `dd` to the raw mtdblock device?
+
+>   6.  Unbind spi driver
+>   7.  Flip GPIO back for host to access SPI flash
+>   8.  Set ME/NM to operational mode
+>   9.  Power on server.
+
+Doesn't seem like "power on" should be a side-effect of a BIOS update.
+Is this intended to be "go back to the previous power state"?
+
+> I can have some flexibility in this sequence based on each platform confi=
+guration. Looking forward to your suggestions.
+>=20
+> Regards
+> -Vijay
+
+[1] https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/ope=
+nbmc_project/Software/ActivationBlocksTransition.interface.yaml
 
 --=20
 Patrick Williams
@@ -119,19 +173,19 @@ Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl4x6CgACgkQqwNHzC0A
-wRmQ7Q/9GQWK7KwyOw9duEEs9hnfL0xL0ITeDMZOnqdFdiV4seJb2GEvXj7FdLzf
-op0oNaAnnI/378VhFpz1eijDVvnX/0DHFIbXvZsBDlqOdfhp3d3A444YidCAyL4H
-NMSJ+KvN0mq9U11xz0zydqW5cM++EuX6Gvw3qInHLnBANrdAq1wF4wiSTdr3taEf
-MzMc+fDFlRKia1FrxGS5GUpy6h59uy3WhY0VlcL35HTn64Ck9S6XCfOSfAhCp0x+
-fXV1M7Oojmf7Hkf+MIYpHD0kjBjWMl3WL8tKdUnWGxKGabi6Yl89eHgzIwNvcQGA
-hVclz7Hl3fwKFzFCAbw0Rhq+XOoOMV8WQrmMCJ5IXdxVH7695cFGr/tovgCOZitG
-EUDMakIPhDZrVDTUQRH1U2tAV8YY/oAMm6h/rrRwG1sbZgVII71NMWQbpWsaIUh0
-Ztv0DjhLn1PctFPG2+04HulGENiRzVFNFJ5rzM+2lfpt1vh/chylRmJUrj2wq30A
-dUYVr+b4GfsWzyEZXC8DzueuTCB/SnL7f9OU/cAtBm8+BAdFNlwfqrpUgAhGv/9H
-C+rtvYu0HkNSA/NFby6twCVzTY7M3dYp2eiEuHYDpf1M7YL/1u+SS9iR+RYppk1D
-23IUlTdeYjm1FsFWiU9v78TnmmKfv4fcg/bLgKyg/4Jno9KhX/o=
-=FjDf
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl4ncj4ACgkQqwNHzC0A
+wRmI4Q/9HOefxclhJHjmaxW2iS2xiVq/zdu0au4d/UY2M83Q/XHTvsouKtbVGsrJ
+MN1RmKjTTGDI+IZK+zZ/PwQgh8W8QNdGtu3qj2a+JtdCT61NqhhvJPgjNzVdqpBX
+Ttp4zwwtm5QqmmbSopbHPgEAoO0oTg2Ad0rXvdjDaDReAKLYQ6Q98bkLOcBFHmDP
+Nnb06afSMMrwdBS4zMZI9de/Ko3TwYtvO+3Nln3njR/heY3gMPH85E30v6d7nzM+
+p4ikTZdu1Hu41+95Jthp0/hozo2vKjAf/KXBrCK39O2Ik1BJkciJLX4cW6/fUmw6
+agNDWgGy3GnLz0w/EImVtH37ED48He1QCGE0eaS+4V/uNjxNF1Kicw1v6HhLcTEX
+t+47eMYkfxYn+mMdkh3co72qtwYd3jCWu3OPl40r/mjQ32VG7rJkPQq7IjlK/2K4
+31DM+0n//s39BCW2fc9ByG/Jk58ipAwXRoUPvrTjaolcHkcw+XtBApsWxSZToe8b
+PqrL6kA9VG5yih0R+1MqayJhAxEzgUe2i71pNWPgmywemKJLjIsNj6jGiwjzc24O
++Q0j3BVj74PfpO8g68m1WzGd4lT1e7JfprFICD0QFWBwRlK3OsRdh3fyaOaKi9ky
+GnkwNBHcjH4y1fxx9fWbMlbeHNRI1f2bwjrWxBvxanYp62jefGE=
+=Lh58
 -----END PGP SIGNATURE-----
 
 --pWyiEgJYm5f9v55/--
