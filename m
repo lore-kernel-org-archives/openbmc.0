@@ -1,124 +1,76 @@
-Return-Path: <prvs=82916a9fb9=vijaykhemka@fb.com>
+Return-Path: <andrew@aj.id.au>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.20;
+ helo=wout4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=fb.com
- (client-ip=67.231.153.30; helo=mx0b-00082601.pphosted.com;
- envelope-from=prvs=82916a9fb9=vijaykhemka@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256
- header.s=facebook header.b=T2jGcC07; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-fb-onmicrosoft-com header.b=cuMlWLfr; 
+ dmarc=none (p=none dis=none) header.from=aj.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=PIJyDNIV; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=IowcV9P8; 
  dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
+Received: from wout4-smtp.messagingengine.com (wout4-smtp.messagingengine.com
+ [64.147.123.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 483bGW709pzDqYj
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jan 2020 08:37:34 +1100 (AEDT)
-Received: from pps.filterd (m0109332.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 00NLYU9e011103; Thu, 23 Jan 2020 13:37:28 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=n+V3VQ01ekC5UN5zDDbZo+qSZkeUM5ZVN4ea0K212N8=;
- b=T2jGcC07e+JQ6LT05SKFfT1QyMV95SiZMFH2N4EUts4aAuaU/odtCERTgC5BFUDQj4XQ
- mZjvcrAIKhmmQUAtlt9svWw3qjF3RLWwtWtA8Pe1KO+yEnI2Euowy2zhy/Qm3O/sXd8S
- jo6C8D9nT+OOyiccYpNSsxivhyuBFbh1iUI= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com with ESMTP id 2xpj9trkw9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Thu, 23 Jan 2020 13:37:28 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
- by o365-in.thefacebook.com (100.104.35.173) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Thu, 23 Jan 2020 13:37:27 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jKUYx+Yu6MrjxIsKYSIjnWIrUw5VRAOGcEFLBMq8V4LPwCBX14FohTagTQup/uXFi90sQgSrZC01O2aC66/twpf66YoHWoT70SjOlP1Pm/Af+vgiB7PWRMLNmFdcpHxK0hxyxZy3o27RIYxblapN3c0IRl9iANYC/Ue/3Eye6h0xRt6VEZSFL/gNVT3xNnXuujVZkE5yOk+mnqaD7/i2FsQhtleL/hpTFGTiX9FlC8BBkuyTMxcSTZc00AzVpwgCnNO7p3VLlusH2PNUVThciz0S3Pn0ch/FUGQw7JgGDWkkC1RDrTatyAXOk3DVtaZtpeUhUWZ3epaE/R30j7EhMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n+V3VQ01ekC5UN5zDDbZo+qSZkeUM5ZVN4ea0K212N8=;
- b=QeXWZrLBUmP3OoSu6T+Cdo6RTM5dmWz3cHzxkzJel67od7Myo2CPZsUFes4gFZgalqslm5nuM8KwvEGQG52i6bmYDKfRqvF1WGykoRT3zNsvFlVU1ynar/hHGqqGZ6MdG9Ea0e0AdxPmvMmM0JmcgD0yhsn9nmh/Kn7X8O0ri5tg53S8oXtN3yOYo35FBCQHK1XiplMR7NGfx5VSsJUetoI0goLIn/Rf8tKq5mkeVD4cGJYc094jQJrTa1v/6xWLKU0GRX7vmiX5jF7MhsFZeeJ5ZvmewsLkJUEkF8T9rAGbtEUYFHVge1XJYWWKkVwZ3ZjjZmi6zwNBIRhzQN2rnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
- header.d=fb.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector2-fb-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n+V3VQ01ekC5UN5zDDbZo+qSZkeUM5ZVN4ea0K212N8=;
- b=cuMlWLfr/UgdK1O4H9fsnyyfFE8p3WvmHSvhoFYcTxDqmD3hkoE66EBAr4fvpawh+0lmXupiUAGJtuh7jbm3DrmgM7/4cvVfSmS110ovNDgyHSH1eEKfqYhwvy6i92OfgJzV7TOdmRL3bs6Sy1pohx3p9nMZ3fzdX/1e/o/hRJs=
-Received: from MWHPR15MB1597.namprd15.prod.outlook.com (10.173.234.137) by
- MWHPR15MB1918.namprd15.prod.outlook.com (10.174.101.12) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2644.24; Thu, 23 Jan 2020 21:37:12 +0000
-Received: from MWHPR15MB1597.namprd15.prod.outlook.com
- ([fe80::cdbf:b63c:437:4dd2]) by MWHPR15MB1597.namprd15.prod.outlook.com
- ([fe80::cdbf:b63c:437:4dd2%8]) with mapi id 15.20.2644.028; Thu, 23 Jan 2020
- 21:37:12 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>, James Feist
- <james.feist@linux.intel.com>
-CC: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Subject: Re: x86 power control for multi host
-Thread-Topic: x86 power control for multi host
-Thread-Index: AQHV0K1XX03zkNGXPUaqdZ+5RqCG9af1PNaAgANc5wD//6lUAA==
-Date: Thu, 23 Jan 2020 21:37:12 +0000
-Message-ID: <040595EA-2283-4FD6-B89D-DB6C9B93610D@fb.com>
-References: <E8A81BD0-04D4-4ED5-91E3-F4CA85DC8CAE@fb.com>
- <C1AA3F44-5589-4751-B023-8A28CC5ACC19@fb.com>
- <ee4b29ec-561c-72de-1da0-57e9a5f9958b@linux.intel.com>
-In-Reply-To: <ee4b29ec-561c-72de-1da0-57e9a5f9958b@linux.intel.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:200::1:c2ea]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 1827203d-346e-4fcf-3d2b-08d7a04c6899
-x-ms-traffictypediagnostic: MWHPR15MB1918:
-x-microsoft-antispam-prvs: <MWHPR15MB1918A6989DBE3F03B6C34F46DD0F0@MWHPR15MB1918.namprd15.prod.outlook.com>
-x-fb-source: Internal
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 029174C036
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(376002)(39860400002)(366004)(136003)(396003)(346002)(199004)(189003)(86362001)(2616005)(2906002)(71200400001)(6486002)(5660300002)(316002)(6506007)(8676002)(110136005)(33656002)(4326008)(53546011)(81166006)(81156014)(66476007)(66556008)(66946007)(186003)(8936002)(66446008)(64756008)(36756003)(478600001)(6512007)(76116006);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MWHPR15MB1918;
- H:MWHPR15MB1597.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 79zLn+SkWnz2Q2YMvSe3ZQ/gito1q9fZgJ+fkINzPW0eRDfIV47G2M1o1RLcbDVmX2Sf7rpa9WPdLbfbUdKCITYnTEMQiR9Yc97JpPIjdAzZJQmclMbiDeVpV7kwmShqt29azgyScQneijSnLQT9Cst7xv3GfF2XlRvoCoKQrfzmzpsoGrt3WIb+UWgaw+eai+TxmPUAKeYxaIMWME12kfe/SSrTHEUfngWgUbzdFa37UMV0pEI0Q4I1ZOa+SJZWys8f09UOs8zBGAlUcKu7Jz1xIinOum5VxtX/+j1m8jupW3+M7uirbFTANZAygLtI7Xz3Knm21Nmtku6hidDoOOJoJbsVqxM6qnvCATwADE4ghbUX8f/eTzUG9YOYDjAhIZEeqaLNmx0pcGUjtMZdJDoLvfPASPZk2rUpuVd0Uc1Y9z4NaHkKiZ1gSqAcrX3Y
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <4776EB4577D1B745BD0E2468052ED949@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1827203d-346e-4fcf-3d2b-08d7a04c6899
-X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Jan 2020 21:37:12.7057 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XXoN47EXGFyEg16JHctyhBLp3UacES3yY9gxOdfFGIomEFetOUoCWViuFmFwFsrV83cvidVz77kMsApgvHO+uA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR15MB1918
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-01-23_13:2020-01-23,
- 2020-01-23 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- priorityscore=1501
- impostorscore=0 lowpriorityscore=0 mlxscore=0 adultscore=0 phishscore=0
- suspectscore=0 mlxlogscore=999 bulkscore=0 spamscore=0 malwarescore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-1910280000 definitions=main-2001230159
-X-FB-Internal: deliver
+ by lists.ozlabs.org (Postfix) with ESMTPS id 483ffV3Lw3zDqZG
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Jan 2020 11:10:10 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id E629F6C6;
+ Thu, 23 Jan 2020 19:10:06 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute4.internal (MEProxy); Thu, 23 Jan 2020 19:10:07 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm1; bh=VBdMzMuV8jNkonULrymJ/TbPw/0OqMp
+ X+aTm17fpwdo=; b=PIJyDNIV+I/WmfHK7cIylQjEqh3zlb9gxoPXhJTNBDgNWen
+ mmEABTBF08Ybgv6d9Drq0Ot34cFatCuN1LVdmZj243L4R26Z/MhQXBdbzf1RgAai
+ p12os3LKfCkga5UYjK5rMYz3/EoYoqDGWwomYucIrAvFEesgTFh110kwBHv7QMnI
+ EtHDT0M/yQcMzNvTWc6k6nWpAVHoeX1xt0swJgrQOPk40ivPmXjxALTMVZPmtm8l
+ Z7VW18u2Rj9BAK0HwvYMz9REcAtwg7ecewHbI2BMrrpZAztTfxTjY+ElYBLeo4Et
+ 4Y6NW2kuD/G9h8OTqQXRE77t272VVc3xVArmtSg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=VBdMzM
+ uV8jNkonULrymJ/TbPw/0OqMpX+aTm17fpwdo=; b=IowcV9P8ioDGFB3AQiDpaB
+ jD2cm4qgA+mI3Me7Vmq0nIBYuyFP+hwakskHFk17pX9kyBrTk57EK5QscOWz7ARM
+ mkPmsu9At7IvoUAoA+z1YbVWh9Cvr6yNjy9Psn++yBoBygaOgO526IXY1v4sefFU
+ h16Sl8XpU3YRjkIOCS/armwnF+N3NL6YHk1UTcR+Yj131SWYI2V45Al3bzw7uxVM
+ g6NFFQzOyDDaiIMPK2q1kKOrNrktxT7TZp5xkkTx/7sMjit1zZPkuHssjH/xFY/h
+ yx0OoJctcaXTFXoKc9zvtU5eVmJsHDVe7/i0PTNiY/pmKPy4ZbZR04jhCJ4jHppw
+ ==
+X-ME-Sender: <xms:3TUqXs5WQzGGHePq2lygMAgvh4iYQQ-lGFEaALHvAYbUmcPX6IlPAw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrvdefgddtjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucevlhhush
+ htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
+ rdhiugdrrghu
+X-ME-Proxy: <xmx:3TUqXpTJWd55a_vm3jgGBBT86ihdbHpHVLMf0ccb6DYRy93BTq_QAQ>
+ <xmx:3TUqXu59cyP-gIl4OuG8Q6R_y3o5dAIt1lF5eYE6ZgSqr9NWqUpBUQ>
+ <xmx:3TUqXs4hSng6YI1cJwthV0g_UeqlZ4GFSn_XPlci5SpCuEIcywbhcA>
+ <xmx:3jUqXvjUCpOoeosg7KvD9IhcUzkMPpKIrVtxlRaYTRkfAuUiA03YbQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id B3EF3E00A2; Thu, 23 Jan 2020 19:10:05 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.7-777-gdb93371-fmstable-20200123v1
+Mime-Version: 1.0
+Message-Id: <3129984d-421a-42c9-bb5b-c3ee01ccd43e@www.fastmail.com>
+In-Reply-To: <20200123074956.21482-2-rentao.bupt@gmail.com>
+References: <20200123074956.21482-1-rentao.bupt@gmail.com>
+ <20200123074956.21482-2-rentao.bupt@gmail.com>
+Date: Fri, 24 Jan 2020 10:39:45 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Tao Ren" <rentao.bupt@gmail.com>, "Joel Stanley" <joel@jms.id.au>,
+ "Tao Ren" <taoren@fb.com>, openbmc@lists.ozlabs.org
+Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.4_v2_1/3]_usb:_gadget:_aspeed:_read_vhu?=
+ =?UTF-8?Q?b_config_from_of=5Fdevice=5Fid?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,33 +82,374 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 23 Jan 2020 21:37:42 -0000
+X-List-Received-Date: Fri, 24 Jan 2020 00:10:10 -0000
 
-VGhhbmtzIEphc29uIGZvciBxdWljayByZXNwb25zZS4gDQpOb3cgbXkgYW5vdGhlciBxdWVzdGlv
-biBpcyBjYW4gSSBnZXQgdGhpcyBjb25maWd1cmF0aW9uIGZyb20gZW50aXR5IG1hbmFnZXIgZm9y
-IGdwaW8gbGluZXMgb3Igc2hvdWxkIEkgaGF2ZSBhIHNlcGFyYXRlIGNvbmZpZy5qc29uIGZpbGU/
-DQoNCu+7v09uIDEvMjMvMjAsIDEwOjQ4IEFNLCAib3BlbmJtYyBvbiBiZWhhbGYgb2YgQmlsbHMs
-IEphc29uIE0iIDxvcGVuYm1jLWJvdW5jZXMrdmlqYXlraGVta2E9ZmIuY29tQGxpc3RzLm96bGFi
-cy5vcmcgb24gYmVoYWxmIG9mIGphc29uLm0uYmlsbHNAbGludXguaW50ZWwuY29tPiB3cm90ZToN
-Cg0KICAgIE9uIDEvMjEvMjAyMCAzOjI2IFBNLCBWaWpheSBLaGVta2Egd3JvdGU6DQogICAgPiBT
-b3JyeSwgbWlzc2VkIHRvIGFkZCBtYWlsaW5nIGxpc3QuDQogICAgPiANCiAgICA+ICpGcm9tOiAq
-VmlqYXkgS2hlbWthIDx2aWpheWtoZW1rYUBmYi5jb20+DQogICAgPiAqRGF0ZTogKlR1ZXNkYXks
-IEphbnVhcnkgMjEsIDIwMjAgYXQgMjo1MSBQTQ0KICAgID4gKlRvOiAqSmFtZXMgRmVpc3QgPGph
-bWVzLmZlaXN0QGxpbnV4LmludGVsLmNvbT4sIA0KICAgID4gImphc29uLm0uYmlsbHNAbGludXgu
-aW50ZWwuY29tIiA8amFzb24ubS5iaWxsc0BsaW51eC5pbnRlbC5jb20+DQogICAgPiAqU3ViamVj
-dDogKng4NiBwb3dlciBjb250cm9sIGZvciBtdWx0aSBob3N0DQogICAgPiANCiAgICA+IEhpIEph
-bWVzL0phc29uLA0KICAgID4gDQogICAgPiBJIGFtIHBsYW5uaW5nIHRvIG1vZGlmeSB4ODYgcG93
-ZXIgY29udHJvbCBmb3IgbXVsdGlwbGUgaG9zdCBzdXBwb3J0LiBBcyANCiAgICA+IGl0IGhhcyBo
-YXJkY29kZWQgbmFtZSBob3N0MCBidXQgd2Ugd2FudCB0byBzdXBwb3J0IGZvciBtdWx0aXBsZSBu
-dW1iZXIgDQogICAgPiBvZiBob3N0cyBiYXNlZCBvbiBjb25maWd1cmF0aW9uLiBJIGFtIHRoaW5r
-aW5nIG9mIHJlYWRpbmcgZGlmZmVyZW50IEdQSU8gDQogICAgPiBsaW5lcyBmb3IgZWFjaCBob3N0
-IGZyb20gYSBjb25maWcuanNvbiBmaWxlIGFuZCB0aGVuIG1vbml0b3IgZGlmZmVyZW50IA0KICAg
-ID4gZ3Bpb3MuIFBsZWFzZSBzdWdnZXN0IHRoYXQgaWYgdGhlc2UgY29uZmlndXJhdGlvbiwgSSBz
-aG91bGQgcmVhZCBmcm9tIA0KICAgID4gZW50aXR5LW1hbmFnZXIgPg0KICAgID4gQWxzbyBsb29r
-aW5nIGZvcndhcmQgdG8geW91ciB0aG91Z2h0IG9mIHRoaXMgZmVhdHVyZSBhZGRpdGlvbiBpbiAN
-CiAgICA+IGV4aXN0aW5nIGRhZW1vbiBvciBzaG91bGQgSSBoYXZlIHNlcGFyYXRlIHJlcG8gaXRz
-ZWxmPw0KICAgIElmIGl0J3MgY29uZmlndXJhYmxlLCB0aGVuIEkgZG9uJ3Qgc2VlIGFueSByZWFz
-b24gbm90IHRvIGhhdmUgaXQgaW4gdGhlIA0KICAgIGV4aXN0aW5nIHJlcG8uICBJcyBpdCBva2F5
-IHRvIHN0YXJ0IHRoZXJlIGFuZCBzZWUgaG93IGJpZyB0aGUgaW1wYWN0IGlzIA0KICAgIGJlZm9y
-ZSBkZWNpZGluZyBvbiBhIHNlcGFyYXRlIHJlcG8/DQogICAgDQogICAgPiANCiAgICA+IFJlZ2Fy
-ZHMNCiAgICA+IA0KICAgID4gLVZpamF5DQogICAgPiANCiAgICANCg0K
+
+
+On Thu, 23 Jan 2020, at 18:19, rentao.bupt@gmail.com wrote:
+> From: Tao Ren <rentao.bupt@gmail.com>
+> 
+> The patch moves hardcoded vhub attributes (maximum downstream ports and
+> generic endpoints) to "ast_vhub_config" structure which is attached to
+> struct of_device_id. By doing this, it will be very straightforward to
+> enable support of AST2600 vhub which has different number of downstream
+> ports and endpoints.
+> 
+> Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+> ---
+>  Changes in v2:
+>   - this is the first version. It's given v2 to align with the version
+>     of patch series.
+> 
+> 
+>  drivers/usb/gadget/udc/aspeed-vhub/core.c | 100 ++++++++++++++--------
+>  drivers/usb/gadget/udc/aspeed-vhub/dev.c  |  30 +++++--
+>  drivers/usb/gadget/udc/aspeed-vhub/epn.c  |   4 +-
+>  drivers/usb/gadget/udc/aspeed-vhub/hub.c  |  22 +++--
+>  drivers/usb/gadget/udc/aspeed-vhub/vhub.h |  21 ++---
+>  5 files changed, 107 insertions(+), 70 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c 
+> b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+> index 90b134d5dca9..9efbfdffad30 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+> @@ -32,6 +32,29 @@
+>  
+>  #include "vhub.h"
+>  
+> +struct ast_vhub_config {
+> +	u32 max_ports;	/* max number of downstream ports */
+> +	u32 max_epns;	/* max number of generic endpoints */
+> +};
+> +
+> +static const struct ast_vhub_config ast2400_config = {
+> +	.max_ports = 5,
+> +	.max_epns = 15,
+> +};
+> +
+> +static const struct of_device_id ast_vhub_dt_ids[] = {
+> +	{
+> +		.compatible = "aspeed,ast2400-usb-vhub",
+> +		.data = &ast2400_config,
+> +	},
+> +	{
+> +		.compatible = "aspeed,ast2500-usb-vhub",
+> +		.data = &ast2400_config,
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
+> +
+
+Is there a reason to move the table from where it was? It's not a problem,
+just makes the diff a bit noisier.
+
+>  void ast_vhub_done(struct ast_vhub_ep *ep, struct ast_vhub_req *req,
+>  		   int status)
+>  {
+> @@ -99,7 +122,7 @@ static irqreturn_t ast_vhub_irq(int irq, void *data)
+>  {
+>  	struct ast_vhub *vhub = data;
+>  	irqreturn_t iret = IRQ_NONE;
+> -	u32 istat;
+> +	u32 i, istat;
+>  
+>  	/* Stale interrupt while tearing down */
+>  	if (!vhub->ep0_bufs)
+> @@ -121,10 +144,10 @@ static irqreturn_t ast_vhub_irq(int irq, void *data)
+>  
+>  	/* Handle generic EPs first */
+>  	if (istat & VHUB_IRQ_EP_POOL_ACK_STALL) {
+> -		u32 i, ep_acks = readl(vhub->regs + AST_VHUB_EP_ACK_ISR);
+> +		u32 ep_acks = readl(vhub->regs + AST_VHUB_EP_ACK_ISR);
+>  		writel(ep_acks, vhub->regs + AST_VHUB_EP_ACK_ISR);
+>  
+> -		for (i = 0; ep_acks && i < AST_VHUB_NUM_GEN_EPs; i++) {
+> +		for (i = 0; ep_acks && i < vhub->max_epns; i++) {
+>  			u32 mask = VHUB_EP_IRQ(i);
+>  			if (ep_acks & mask) {
+>  				ast_vhub_epn_ack_irq(&vhub->epns[i]);
+> @@ -134,21 +157,11 @@ static irqreturn_t ast_vhub_irq(int irq, void *data)
+>  	}
+>  
+>  	/* Handle device interrupts */
+> -	if (istat & (VHUB_IRQ_DEVICE1 |
+> -		     VHUB_IRQ_DEVICE2 |
+> -		     VHUB_IRQ_DEVICE3 |
+> -		     VHUB_IRQ_DEVICE4 |
+> -		     VHUB_IRQ_DEVICE5)) {
+> -		if (istat & VHUB_IRQ_DEVICE1)
+> -			ast_vhub_dev_irq(&vhub->ports[0].dev);
+> -		if (istat & VHUB_IRQ_DEVICE2)
+> -			ast_vhub_dev_irq(&vhub->ports[1].dev);
+> -		if (istat & VHUB_IRQ_DEVICE3)
+> -			ast_vhub_dev_irq(&vhub->ports[2].dev);
+> -		if (istat & VHUB_IRQ_DEVICE4)
+> -			ast_vhub_dev_irq(&vhub->ports[3].dev);
+> -		if (istat & VHUB_IRQ_DEVICE5)
+> -			ast_vhub_dev_irq(&vhub->ports[4].dev);
+> +	for (i = 0; i < vhub->max_ports; i++) {
+> +		u32 dev_mask = VHUB_IRQ_DEVICE1 << i;
+> +
+> +		if (istat & dev_mask)
+> +			ast_vhub_dev_irq(&vhub->ports[i].dev);
+>  	}
+>  
+>  	/* Handle top-level vHub EP0 interrupts */
+> @@ -182,7 +195,7 @@ static irqreturn_t ast_vhub_irq(int irq, void *data)
+>  
+>  void ast_vhub_init_hw(struct ast_vhub *vhub)
+>  {
+> -	u32 ctrl;
+> +	u32 ctrl, port_mask, epn_mask;
+>  
+>  	UDCDBG(vhub,"(Re)Starting HW ...\n");
+>  
+> @@ -222,15 +235,20 @@ void ast_vhub_init_hw(struct ast_vhub *vhub)
+>  	}
+>  
+>  	/* Reset all devices */
+> -	writel(VHUB_SW_RESET_ALL, vhub->regs + AST_VHUB_SW_RESET);
+> +	port_mask = GENMASK(vhub->max_ports, 1);
+> +	writel(VHUB_SW_RESET_ROOT_HUB |
+> +	       VHUB_SW_RESET_DMA_CONTROLLER |
+> +	       VHUB_SW_RESET_EP_POOL |
+> +	       port_mask, vhub->regs + AST_VHUB_SW_RESET);
+>  	udelay(1);
+>  	writel(0, vhub->regs + AST_VHUB_SW_RESET);
+>  
+>  	/* Disable and cleanup EP ACK/NACK interrupts */
+> +	epn_mask = GENMASK(vhub->max_epns - 1, 0);
+>  	writel(0, vhub->regs + AST_VHUB_EP_ACK_IER);
+>  	writel(0, vhub->regs + AST_VHUB_EP_NACK_IER);
+> -	writel(VHUB_EP_IRQ_ALL, vhub->regs + AST_VHUB_EP_ACK_ISR);
+> -	writel(VHUB_EP_IRQ_ALL, vhub->regs + AST_VHUB_EP_NACK_ISR);
+> +	writel(epn_mask, vhub->regs + AST_VHUB_EP_ACK_ISR);
+> +	writel(epn_mask, vhub->regs + AST_VHUB_EP_NACK_ISR);
+>  
+>  	/* Default settings for EP0, enable HW hub EP1 */
+>  	writel(0, vhub->regs + AST_VHUB_EP0_CTRL);
+> @@ -273,7 +291,7 @@ static int ast_vhub_remove(struct platform_device *pdev)
+>  		return 0;
+>  
+>  	/* Remove devices */
+> -	for (i = 0; i < AST_VHUB_NUM_PORTS; i++)
+> +	for (i = 0; i < vhub->max_ports; i++)
+>  		ast_vhub_del_dev(&vhub->ports[i].dev);
+>  
+>  	spin_lock_irqsave(&vhub->lock, flags);
+> @@ -295,7 +313,7 @@ static int ast_vhub_remove(struct platform_device *pdev)
+>  	if (vhub->ep0_bufs)
+>  		dma_free_coherent(&pdev->dev,
+>  				  AST_VHUB_EP0_MAX_PACKET *
+> -				  (AST_VHUB_NUM_PORTS + 1),
+> +				  (vhub->max_ports + 1),
+>  				  vhub->ep0_bufs,
+>  				  vhub->ep0_bufs_dma);
+>  	vhub->ep0_bufs = NULL;
+> @@ -309,11 +327,30 @@ static int ast_vhub_probe(struct platform_device *pdev)
+>  	struct ast_vhub *vhub;
+>  	struct resource *res;
+>  	int i, rc = 0;
+> +	const struct of_device_id *ofdid;
+> +	struct ast_vhub_config *config;
+>  
+>  	vhub = devm_kzalloc(&pdev->dev, sizeof(*vhub), GFP_KERNEL);
+>  	if (!vhub)
+>  		return -ENOMEM;
+>  
+> +	ofdid = of_match_node(ast_vhub_dt_ids, pdev->dev.of_node);
+> +	if (!ofdid)
+> +		return -EINVAL;
+> +	config = ofdid->data;
+> +
+> +	vhub->max_ports = config->max_ports;
+> +	vhub->ports = devm_kcalloc(&pdev->dev, vhub->max_ports,
+> +				   sizeof(*vhub->ports), GFP_KERNEL);
+> +	if (!vhub->ports)
+> +		return -ENOMEM;
+> +
+> +	vhub->max_epns = config->max_epns;
+> +	vhub->epns = devm_kcalloc(&pdev->dev, vhub->max_epns,
+> +				  sizeof(*vhub->epns), GFP_KERNEL);
+> +	if (!vhub->epns)
+> +		return -ENOMEM;
+> +
+>  	spin_lock_init(&vhub->lock);
+>  	vhub->pdev = pdev;
+>  
+> @@ -366,7 +403,7 @@ static int ast_vhub_probe(struct platform_device *pdev)
+>  	 */
+>  	vhub->ep0_bufs = dma_alloc_coherent(&pdev->dev,
+>  					    AST_VHUB_EP0_MAX_PACKET *
+> -					    (AST_VHUB_NUM_PORTS + 1),
+> +					    (vhub->max_ports + 1),
+>  					    &vhub->ep0_bufs_dma, GFP_KERNEL);
+>  	if (!vhub->ep0_bufs) {
+>  		dev_err(&pdev->dev, "Failed to allocate EP0 DMA buffers\n");
+> @@ -380,7 +417,7 @@ static int ast_vhub_probe(struct platform_device *pdev)
+>  	ast_vhub_init_ep0(vhub, &vhub->ep0, NULL);
+>  
+>  	/* Init devices */
+> -	for (i = 0; i < AST_VHUB_NUM_PORTS && rc == 0; i++)
+> +	for (i = 0; i < vhub->max_ports && rc == 0; i++)
+>  		rc = ast_vhub_init_dev(vhub, i);
+>  	if (rc)
+>  		goto err;
+> @@ -400,17 +437,6 @@ static int ast_vhub_probe(struct platform_device *pdev)
+>  	return rc;
+>  }
+>  
+> -static const struct of_device_id ast_vhub_dt_ids[] = {
+> -	{
+> -		.compatible = "aspeed,ast2400-usb-vhub",
+> -	},
+> -	{
+> -		.compatible = "aspeed,ast2500-usb-vhub",
+> -	},
+> -	{ }
+> -};
+> -MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
+> -
+>  static struct platform_driver ast_vhub_driver = {
+>  	.probe		= ast_vhub_probe,
+>  	.remove		= ast_vhub_remove,
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c 
+> b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+> index 4008e7a51188..f9b762951121 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+> @@ -77,7 +77,7 @@ static void ast_vhub_dev_enable(struct ast_vhub_dev 
+> *d)
+>  	writel(d->ep0.buf_dma, d->regs + AST_VHUB_DEV_EP0_DATA);
+>  
+>  	/* Clear stall on all EPs */
+> -	for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++) {
+> +	for (i = 0; i < d->max_epns; i++) {
+>  		struct ast_vhub_ep *ep = d->epns[i];
+>  
+>  		if (ep && (ep->epn.stalled || ep->epn.wedged)) {
+> @@ -137,7 +137,7 @@ static int ast_vhub_ep_feature(struct ast_vhub_dev *d,
+>  	     is_set ? "SET" : "CLEAR", ep_num, wValue);
+>  	if (ep_num == 0)
+>  		return std_req_complete;
+> -	if (ep_num >= AST_VHUB_NUM_GEN_EPs || !d->epns[ep_num - 1])
+> +	if (ep_num >= d->max_epns || !d->epns[ep_num - 1])
+>  		return std_req_stall;
+>  	if (wValue != USB_ENDPOINT_HALT)
+>  		return std_req_driver;
+> @@ -181,7 +181,7 @@ static int ast_vhub_ep_status(struct ast_vhub_dev *d,
+>  
+>  	DDBG(d, "GET_STATUS(ep%d)\n", ep_num);
+>  
+> -	if (ep_num >= AST_VHUB_NUM_GEN_EPs)
+> +	if (ep_num >= d->max_epns)
+>  		return std_req_stall;
+>  	if (ep_num != 0) {
+>  		ep = d->epns[ep_num - 1];
+> @@ -299,7 +299,7 @@ static void ast_vhub_dev_nuke(struct ast_vhub_dev *d)
+>  {
+>  	unsigned int i;
+>  
+> -	for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++) {
+> +	for (i = 0; i < d->max_epns; i++) {
+>  		if (!d->epns[i])
+>  			continue;
+>  		ast_vhub_nuke(d->epns[i], -ESHUTDOWN);
+> @@ -416,10 +416,10 @@ static struct usb_ep 
+> *ast_vhub_udc_match_ep(struct usb_gadget *gadget,
+>  	 * that will allow the generic code to use our
+>  	 * assigned address.
+>  	 */
+> -	for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++)
+> +	for (i = 0; i < d->max_epns; i++)
+>  		if (d->epns[i] == NULL)
+>  			break;
+> -	if (i >= AST_VHUB_NUM_GEN_EPs)
+> +	if (i >= d->max_epns)
+>  		return NULL;
+>  	addr = i + 1;
+>  
+> @@ -526,6 +526,7 @@ void ast_vhub_del_dev(struct ast_vhub_dev *d)
+>  
+>  	usb_del_gadget_udc(&d->gadget);
+>  	device_unregister(d->port_dev);
+> +	kfree(d->epns);
+>  }
+>  
+>  static void ast_vhub_dev_release(struct device *dev)
+> @@ -546,14 +547,25 @@ int ast_vhub_init_dev(struct ast_vhub *vhub, 
+> unsigned int idx)
+>  
+>  	ast_vhub_init_ep0(vhub, &d->ep0, d);
+>  
+> +	/*
+> +	 * A USB device can have up to 30 endpoints besides control
+> +	 * endpoint 0.
+> +	 */
+> +	d->max_epns = min(vhub->max_epns, 30);
+> +	d->epns = kcalloc(d->max_epns, sizeof(*d->epns), GFP_KERNEL);
+> +	if (!d->epns)
+> +		return -ENOMEM;
+> +
+>  	/*
+>  	 * The UDC core really needs us to have separate and uniquely
+>  	 * named "parent" devices for each port so we create a sub device
+>  	 * here for that purpose
+>  	 */
+>  	d->port_dev = kzalloc(sizeof(struct device), GFP_KERNEL);
+> -	if (!d->port_dev)
+> -		return -ENOMEM;
+> +	if (!d->port_dev) {
+> +		rc = -ENOMEM;
+> +		goto fail_alloc;
+> +	}
+>  	device_initialize(d->port_dev);
+>  	d->port_dev->release = ast_vhub_dev_release;
+>  	d->port_dev->parent = parent;
+> @@ -584,6 +596,8 @@ int ast_vhub_init_dev(struct ast_vhub *vhub, 
+> unsigned int idx)
+>  	device_del(d->port_dev);
+>   fail_add:
+>  	put_device(d->port_dev);
+> + fail_alloc:
+> +	kfree(d->epns);
+>  
+>  	return rc;
+>  }
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/epn.c 
+> b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
+> index 7475c74aa5c5..0bd6b20435b8 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/epn.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
+> @@ -800,10 +800,10 @@ struct ast_vhub_ep *ast_vhub_alloc_epn(struct 
+> ast_vhub_dev *d, u8 addr)
+>  
+>  	/* Find a free one (no device) */
+>  	spin_lock_irqsave(&vhub->lock, flags);
+> -	for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++)
+> +	for (i = 0; i < vhub->max_epns; i++)
+>  		if (vhub->epns[i].dev == NULL)
+>  			break;
+> -	if (i >= AST_VHUB_NUM_GEN_EPs) {
+> +	if (i >= vhub->max_epns) {
+>  		spin_unlock_irqrestore(&vhub->lock, flags);
+>  		return NULL;
+>  	}
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c 
+> b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+> index 19b3517e04c0..aa1c127e9f2f 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+> @@ -133,10 +133,9 @@ static const struct ast_vhub_full_cdesc {
+>  
+>  #define AST_VHUB_HUB_DESC_SIZE	(USB_DT_HUB_NONVAR_SIZE + 2)
+>  
+> -static const struct usb_hub_descriptor ast_vhub_hub_desc = {
+> +static struct usb_hub_descriptor ast_vhub_hub_desc = {
+
+This seems unfortunate, though we only have one on the SoC... is
+it worth dynamically allocating it? Or adding a comment?
+
+Andrew
