@@ -1,63 +1,59 @@
 Return-Path: <rentao.bupt@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1042;
- helo=mail-pj1-x1042.google.com; envelope-from=rentao.bupt@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::541;
+ helo=mail-pg1-x541.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=N9wmUpQX; dkim-atps=neutral
-Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
- [IPv6:2607:f8b0:4864:20::1042])
+ header.s=20161025 header.b=ko9jldE1; dkim-atps=neutral
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 486BMz1cxqzDqGF
+ by lists.ozlabs.org (Postfix) with ESMTPS id 486BMy48JyzDqGC
  for <openbmc@lists.ozlabs.org>; Tue, 28 Jan 2020 14:06:22 +1100 (AEDT)
-Received: by mail-pj1-x1042.google.com with SMTP id r67so366546pjb.0
+Received: by mail-pg1-x541.google.com with SMTP id 6so6211844pgk.0
  for <openbmc@lists.ozlabs.org>; Mon, 27 Jan 2020 19:06:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=x9CyzP5mYGs80vXKnJIP0ABbP5c5hUZVpdm34rV9OJE=;
- b=N9wmUpQX9g1S+Inqs5nS4VtlWHG7XhbKj32iwOYu4Wjr/KMH2DuR09ByfgSM4xj8Yj
- DeA8wwNb9y0GVS+OF8S+XMoFUTY5L0/w/aEl8ZqpYnJqUtd7EYLx3LntAfCsn97/52h3
- Iq36RwBnm6vwdzSEKAOhB4o+Wu35AX1DSAeeQdKiYL27iDbVlnW2xq5t14UABt1PvFpQ
- 2ArsCYQc3mI4N29J+CAThvnmQwjLkhG6Ca1CGt3Bh9JmBwEFMQj51dcqwAhuBZI6apUT
- RyyTO8A9qN1HeqRNNh9D9ehXFJWkrbJR2IYjAL1SfY6hMi66llxxrxJ08cvHdvnkvvro
- 8lLw==
+ h=from:to:cc:subject:date:message-id;
+ bh=A7vAKlqPxW853kN1blT1XOUWNAC0tZpHcMuyW0tP+gE=;
+ b=ko9jldE1uNn1wtfLrQrA8zeO4qEJqzscpDgM2Bihn1F3Ei298BFl8SoEOcPiHn9L9u
+ haA4DA1okKChK4J0Q8TmsR6U4iYAT45bLHvi+8Q6LMxJuN9U/10+8LOJ4rrCM4QMkVoj
+ S97qbg5oD08rlERsSx/vn49KNVOpDA6LWcPsdNvepwLKDwqZYSqViwcIP7YhejfDOwH2
+ 87nSYp1wTLB8jD2olmeRaU0onku9fAeaCPw8ru2BNYMnKo31FiNaHP6fRwq5Wo/U8p0u
+ WxsY+W3Rw2TDaE7L8bX0krXamtJoDt4WaG6UCnzkW+Vug892zD/Zsqlhxe/2x0DxdouG
+ xDhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=x9CyzP5mYGs80vXKnJIP0ABbP5c5hUZVpdm34rV9OJE=;
- b=hkv0KWbOk9iP62uz5zHCWp2WASe82pjoy3oYI/MtHA2se3uoJZzeKGvA/b6QmndBas
- 8wA5oE2gv7mU3dbuWsMMzixNzZKIFAixY8AR9dmKQLix6u3EFSUM9ZeF15cSJtGjNP8K
- U55uaHuDNNbDiM4XhyCgrWod0N3tA4XTa6c1yT6VzLiCCnsuE/a6DUqvlF1hyO2uB4mr
- NZyfrjtZk9TJd6o3pZNHmOlKjEX67WfTBCR3BamBLUjKZemHzB+GVJdtIQ9YGQmikAE6
- bS2sOOv/MHlhqqQA6ldnqzNO/xPGhGfPXuFL0yXO1YOVUfCBS4SMfgXWndpeF/1Qh0mB
- myYQ==
-X-Gm-Message-State: APjAAAUv5wAM+n3bLwW/TuQZYvwH9lNw4DbE3ji+nTuYP74HRT+Mw7HY
- lx8IctRqWGqIm8U4mUzSKNo=
-X-Google-Smtp-Source: APXvYqyw9JamHQTV1oVWsLX4pesS6/qd90ZlCkaoHmJyzL2NPz0KwvyHrMfpHxtjFocPvFNsKjeqRw==
-X-Received: by 2002:a17:902:9a8f:: with SMTP id w15mr53529plp.30.1580180779961; 
- Mon, 27 Jan 2020 19:06:19 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=A7vAKlqPxW853kN1blT1XOUWNAC0tZpHcMuyW0tP+gE=;
+ b=eKyJlQhNWt9O0WjWu+RkNWJ7QjYJMn9uSEM1Dzyif1yz7rnsfSHtv1n5CB40CaIUKl
+ qa9JY4oh8+nY3QMvyODfA25GRAR+uIVvOBvms9b7EYnk92GOgq3Rbr6RxOChZE/0+lyC
+ 9FY9FUeyvilKQA8/3yGGhtF+lMMmA/w6u5LdVkhACBzPyWNRQbJ/kGFm9uRB3lu3Rf3P
+ stn6K+XMrFCqKqqDJv0JOEPK4j1P8Da/WFzpAge9h0SB6hvg8M5uUfghbmvzE4XeFFJP
+ xG7/0k4ANGdZWVrhstnE9PID1Ie3ocAgg/ItUbFEwjQdvaB10PDk9JqukITbIVYw2fbI
+ aG8Q==
+X-Gm-Message-State: APjAAAUTFqcgzge68pWad1KaL29U1tbf3kcKDbgxQMs9dPJOeVumQDIH
+ 5P4ZpwEj44kUbGquD23zjdI=
+X-Google-Smtp-Source: APXvYqzgp+UpbGYPlE4N5zQ2J32BEQ8Wo8rDIgC7dhW7X3RTgr9j7Lzj5sw7CpcDMF9AKY6NinwBTA==
+X-Received: by 2002:aa7:9510:: with SMTP id b16mr1768595pfp.65.1580180777932; 
+ Mon, 27 Jan 2020 19:06:17 -0800 (PST)
 Received: from taoren-ubuntu-R90MNF91.thefacebook.com
  ([2620:10d:c090:200::2:ab25])
- by smtp.gmail.com with ESMTPSA id z4sm17357409pfn.42.2020.01.27.19.06.19
+ by smtp.gmail.com with ESMTPSA id z4sm17357409pfn.42.2020.01.27.19.06.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jan 2020 19:06:19 -0800 (PST)
+ Mon, 27 Jan 2020 19:06:17 -0800 (PST)
 From: rentao.bupt@gmail.com
 To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  taoren@fb.com, openbmc@lists.ozlabs.org
 Cc: Tao Ren <rentao.bupt@gmail.com>
-Subject: [PATCH linux dev-5.4 v3 2/3] usb: gadget: aspeed: add ast2600 vhub
- support
-Date: Mon, 27 Jan 2020 19:06:02 -0800
-Message-Id: <20200128030603.32612-3-rentao.bupt@gmail.com>
+Subject: [PATCH linux dev-5.4 v3 0/3] aspeed-g6: enable usb support
+Date: Mon, 27 Jan 2020 19:06:00 -0800
+Message-Id: <20200128030603.32612-1-rentao.bupt@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200128030603.32612-1-rentao.bupt@gmail.com>
-References: <20200128030603.32612-1-rentao.bupt@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,63 +69,34 @@ X-List-Received-Date: Tue, 28 Jan 2020 03:06:23 -0000
 
 From: Tao Ren <rentao.bupt@gmail.com>
 
-Add AST2600 support in aspeed-vhub driver. There are 3 major differences
-between AST2500 and AST2600 vhub:
-  - AST2600 supports 7 downstream ports while AST2500 supports 5.
-  - AST2600 supports 21 generic endpoints while AST2500 supports 15.
-  - EP0 data buffer's 8-byte DMA alignment restriction is removed from
-    AST2600.
+The patch series aims at enabling USB Host and Gadget support on AST2600
+platforms. I'm targeting openbmc tree mainly for some early feedback and
+more widespread testing. I'm planning to upstream the patches after
+5.6-rc1.
 
-Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
----
- Changes in v3:
-  - nothing.
- Changes in v2:
-  - all the ports/endpoints handling logic are moved to patch #1.
+Patch #1 moves hardcoded vhub attributes (number of downstream ports and
+endpoints) to "struct ast_hub_config" which is then attached to "struct
+of_device_id". By doing this, it will be easier to enable ast2600 vhub
+which supports more ports and endpoints.
 
- drivers/usb/gadget/udc/aspeed-vhub/Kconfig | 4 ++--
- drivers/usb/gadget/udc/aspeed-vhub/core.c  | 9 +++++++++
- 2 files changed, 11 insertions(+), 2 deletions(-)
+Patch #2 enables AST2600 support in aspeed-vhub gadget driver.
 
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/Kconfig b/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
-index 83ba8a2eb6af..605500b19cf3 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
-@@ -4,5 +4,5 @@ config USB_ASPEED_VHUB
- 	depends on ARCH_ASPEED || COMPILE_TEST
- 	depends on USB_LIBCOMPOSITE
- 	help
--	  USB peripheral controller for the Aspeed AST2500 family
--	  SoCs supporting the "vHub" functionality and USB2.0
-+	  USB peripheral controller for the Aspeed AST2400, AST2500 and
-+	  AST2600 family SoCs supporting the "vHub" functionality and USB2.0
-diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-index 94081cc04113..c827bf420278 100644
---- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
-+++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-@@ -42,6 +42,11 @@ static const struct ast_vhub_config ast2400_config = {
- 	.max_epns = 15,
- };
- 
-+static const struct ast_vhub_config ast2600_config = {
-+	.max_ports = 7,
-+	.max_epns = 21,
-+};
-+
- static const struct of_device_id ast_vhub_dt_ids[] = {
- 	{
- 		.compatible = "aspeed,ast2400-usb-vhub",
-@@ -51,6 +56,10 @@ static const struct of_device_id ast_vhub_dt_ids[] = {
- 		.compatible = "aspeed,ast2500-usb-vhub",
- 		.data = &ast2400_config,
- 	},
-+	{
-+		.compatible = "aspeed,ast2600-usb-vhub",
-+		.data = &ast2600_config,
-+	},
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
+Patch #3 adds USB devices and according pin groups in aspeed-g6 dtsi.
+
+Tao Ren (3):
+  usb: gadget: aspeed: read vhub config from of_device_id
+  usb: gadget: aspeed: add ast2600 vhub support
+  ARM: dts: aspeed-g6: add usb functions
+
+ arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi   |  25 +++++
+ arch/arm/boot/dts/aspeed-g6.dtsi           |  43 ++++++++
+ drivers/usb/gadget/udc/aspeed-vhub/Kconfig |   4 +-
+ drivers/usb/gadget/udc/aspeed-vhub/core.c  | 109 ++++++++++++++-------
+ drivers/usb/gadget/udc/aspeed-vhub/dev.c   |  30 ++++--
+ drivers/usb/gadget/udc/aspeed-vhub/epn.c   |   4 +-
+ drivers/usb/gadget/udc/aspeed-vhub/hub.c   |  26 +++--
+ drivers/usb/gadget/udc/aspeed-vhub/vhub.h  |  23 ++---
+ 8 files changed, 191 insertions(+), 73 deletions(-)
+
 -- 
 2.17.1
