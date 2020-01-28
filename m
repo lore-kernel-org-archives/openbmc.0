@@ -1,53 +1,63 @@
-Return-Path: <emilyshaffer@google.com>
+Return-Path: <rentao.bupt@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::735;
- helo=mail-qk1-x735.google.com; envelope-from=emilyshaffer@google.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1042;
+ helo=mail-pj1-x1042.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=BJt9Jxoh; dkim-atps=neutral
-Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
- [IPv6:2607:f8b0:4864:20::735])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=N9wmUpQX; dkim-atps=neutral
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com
+ [IPv6:2607:f8b0:4864:20::1042])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4869kh06PpzDqFG
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jan 2020 13:37:28 +1100 (AEDT)
-Received: by mail-qk1-x735.google.com with SMTP id w15so10195516qkf.6
- for <openbmc@lists.ozlabs.org>; Mon, 27 Jan 2020 18:37:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=Rcq/tfVUuce/2Je3OiaDcbl6iKhNM7oF1CmSaXk2awQ=;
- b=BJt9Jxohjgu2ncy5yFkTX4rAjql3Ic73EEdzkkBOuS6JGJKDSqLzKF3dX4lRRN+QWa
- UIgV7xwabmRIt1bZ84rGKXjZfkpAlgxqAZBH0fDUMkjhL5dUNKA/+6ikfSjaJMH+qBKx
- 8PS/dJiTcKiARlqenyiqMJ/j8Jbr3ZgianrhWZlJESeBbkdWoxcGbaTGMH3CZ7zr6KyE
- 2sdQuuSh+0/icD7ouzdPv74rIN46XdJBaddkll1RKHpYfWK0FR9PfVqCdzyAL38XRX5c
- L1EDXS6uzS6u42y5YfJfHemB7pc6Ff2BoE9VE5ZyP816ULMg7haEvXswJRbrRRj+Bl4q
- q5xQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 486BMz1cxqzDqGF
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Jan 2020 14:06:22 +1100 (AEDT)
+Received: by mail-pj1-x1042.google.com with SMTP id r67so366546pjb.0
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Jan 2020 19:06:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=x9CyzP5mYGs80vXKnJIP0ABbP5c5hUZVpdm34rV9OJE=;
+ b=N9wmUpQX9g1S+Inqs5nS4VtlWHG7XhbKj32iwOYu4Wjr/KMH2DuR09ByfgSM4xj8Yj
+ DeA8wwNb9y0GVS+OF8S+XMoFUTY5L0/w/aEl8ZqpYnJqUtd7EYLx3LntAfCsn97/52h3
+ Iq36RwBnm6vwdzSEKAOhB4o+Wu35AX1DSAeeQdKiYL27iDbVlnW2xq5t14UABt1PvFpQ
+ 2ArsCYQc3mI4N29J+CAThvnmQwjLkhG6Ca1CGt3Bh9JmBwEFMQj51dcqwAhuBZI6apUT
+ RyyTO8A9qN1HeqRNNh9D9ehXFJWkrbJR2IYjAL1SfY6hMi66llxxrxJ08cvHdvnkvvro
+ 8lLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=Rcq/tfVUuce/2Je3OiaDcbl6iKhNM7oF1CmSaXk2awQ=;
- b=erzoaC/szsgVyF+K9a2jF8v4ZHshNH+JABqpSVMQ4NQZIqn1jo4arpq4sVfbsF11Eb
- +/lL7vHd3wlV6QihW5FN13ye5PO0LCFlUgTH+VRIeZkU1sc4La1tmX+6ge+lal9l6Q2y
- 9snnchK8Lslx/Zf7bH/AtcNwTu40q9QjYDULgC7XfECEnBQy7TyV3mxWK4uiZdMg3jSJ
- +J4Ap2qjrFsiteZhAm1MHci/j+RdZru3q4La3GSnaqqpZHFbVWfH/RMLchjH44b3bs53
- QMTF9as/EUjykw9ZW8yrenvwciRh5ow6BmR0M1ay2FHheSoRMUY9t3oWrt4rqZHGAoWw
- qCsA==
-X-Gm-Message-State: APjAAAVHx1FeH70ikENwN//sA34asfzQDFOgqVOnaYgVWpb3wer/Po3H
- SdSOPo5Yg2vMvnSlac0qHjh8mHmcQpSfHSMr0q8f/1Hx
-X-Google-Smtp-Source: APXvYqz/zt/RYw6Pp0+7ZCH8FotdraAK0c0Za+oM7qqjUBtdBEKzyUQjJN632N+zUxe5g9Hng5ROOqCt1AUxhPjd95s=
-X-Received: by 2002:a37:2e47:: with SMTP id u68mr19583475qkh.485.1580179044691; 
- Mon, 27 Jan 2020 18:37:24 -0800 (PST)
-MIME-Version: 1.0
-From: Emily Shaffer <emilyshaffer@google.com>
-Date: Mon, 27 Jan 2020 18:37:13 -0800
-Message-ID: <CAJoAoZm41PYLana6j99ZvBgzkB+T-Ww4_gJC24=esecA48HV3Q@mail.gmail.com>
-Subject: Farewell & Best Wishes
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000a47492059d2a1a75"
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=x9CyzP5mYGs80vXKnJIP0ABbP5c5hUZVpdm34rV9OJE=;
+ b=hkv0KWbOk9iP62uz5zHCWp2WASe82pjoy3oYI/MtHA2se3uoJZzeKGvA/b6QmndBas
+ 8wA5oE2gv7mU3dbuWsMMzixNzZKIFAixY8AR9dmKQLix6u3EFSUM9ZeF15cSJtGjNP8K
+ U55uaHuDNNbDiM4XhyCgrWod0N3tA4XTa6c1yT6VzLiCCnsuE/a6DUqvlF1hyO2uB4mr
+ NZyfrjtZk9TJd6o3pZNHmOlKjEX67WfTBCR3BamBLUjKZemHzB+GVJdtIQ9YGQmikAE6
+ bS2sOOv/MHlhqqQA6ldnqzNO/xPGhGfPXuFL0yXO1YOVUfCBS4SMfgXWndpeF/1Qh0mB
+ myYQ==
+X-Gm-Message-State: APjAAAUv5wAM+n3bLwW/TuQZYvwH9lNw4DbE3ji+nTuYP74HRT+Mw7HY
+ lx8IctRqWGqIm8U4mUzSKNo=
+X-Google-Smtp-Source: APXvYqyw9JamHQTV1oVWsLX4pesS6/qd90ZlCkaoHmJyzL2NPz0KwvyHrMfpHxtjFocPvFNsKjeqRw==
+X-Received: by 2002:a17:902:9a8f:: with SMTP id w15mr53529plp.30.1580180779961; 
+ Mon, 27 Jan 2020 19:06:19 -0800 (PST)
+Received: from taoren-ubuntu-R90MNF91.thefacebook.com
+ ([2620:10d:c090:200::2:ab25])
+ by smtp.gmail.com with ESMTPSA id z4sm17357409pfn.42.2020.01.27.19.06.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jan 2020 19:06:19 -0800 (PST)
+From: rentao.bupt@gmail.com
+To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
+ taoren@fb.com, openbmc@lists.ozlabs.org
+Cc: Tao Ren <rentao.bupt@gmail.com>
+Subject: [PATCH linux dev-5.4 v3 2/3] usb: gadget: aspeed: add ast2600 vhub
+ support
+Date: Mon, 27 Jan 2020 19:06:02 -0800
+Message-Id: <20200128030603.32612-3-rentao.bupt@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20200128030603.32612-1-rentao.bupt@gmail.com>
+References: <20200128030603.32612-1-rentao.bupt@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,57 +69,67 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 28 Jan 2020 02:37:32 -0000
+X-List-Received-Date: Tue, 28 Jan 2020 03:06:23 -0000
 
---000000000000a47492059d2a1a75
-Content-Type: text/plain; charset="UTF-8"
+From: Tao Ren <rentao.bupt@gmail.com>
 
-All,
+Add AST2600 support in aspeed-vhub driver. There are 3 major differences
+between AST2500 and AST2600 vhub:
+  - AST2600 supports 7 downstream ports while AST2500 supports 5.
+  - AST2600 supports 21 generic endpoints while AST2500 supports 15.
+  - EP0 data buffer's 8-byte DMA alignment restriction is removed from
+    AST2600.
 
-While I've very much enjoyed my time working with this community, it's time
-for me to step down as comaintainer on the various IPMI projects. I'll be
-fully devoting my time to hacking Git, these days. :)
+Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ Changes in v3:
+  - nothing.
+ Changes in v2:
+  - all the ports/endpoints handling logic are moved to patch #1.
 
-Sometime this week I'll be sending changes to remove me from the
-appropriate MAINTAINERS files. If there is something that you still need
-from me - a review, an opinion, whatever - please let me know and I can
-take care of it. I'll continue to peek into my review queue this week and
-next week; after that, I won't be gone forever, but I won't be able to
-grant approvals on Gerrit.
+ drivers/usb/gadget/udc/aspeed-vhub/Kconfig | 4 ++--
+ drivers/usb/gadget/udc/aspeed-vhub/core.c  | 9 +++++++++
+ 2 files changed, 11 insertions(+), 2 deletions(-)
 
-I expect I'll still be reachable all the usual ways - this email, Freenode,
-LinkedIn, whatever - I won't be disappearing or changing employers, just
-focusing my time elsewhere.
-
-Thank you all very much for the extraordinary learning experience I've had
-working with this project and incredible group of people. I wish everyone
-success in the future and look forward to OpenBMC as the norm in
-datacenters and home workstations.
-
-Yours,
-Emily
-
---000000000000a47492059d2a1a75
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">All,<div><br></div><div>While I&#39;ve very much enjoyed m=
-y time working with this community, it&#39;s time for me to step down as co=
-maintainer on the various IPMI projects. I&#39;ll be fully devoting my time=
- to hacking Git, these days. :)<br><br>Sometime this week I&#39;ll be sendi=
-ng changes to remove me from the appropriate MAINTAINERS files. If there is=
- something that you still need from me - a review, an opinion, whatever - p=
-lease let me know and I can take care of it. I&#39;ll continue to peek into=
- my review queue this week and next week; after that, I won&#39;t be gone f=
-orever, but I won&#39;t be able to grant approvals on Gerrit.</div><div><br=
-></div><div>I expect I&#39;ll still be reachable all the usual ways - this =
-email, Freenode, LinkedIn, whatever - I won&#39;t be disappearing or changi=
-ng employers, just focusing my time elsewhere.</div><div><br></div><div>Tha=
-nk you all very much for the extraordinary learning experience I&#39;ve had=
- working with this project and incredible group of people. I wish everyone =
-success in the future and look forward to OpenBMC as the norm in datacenter=
-s and home workstations.</div><div><br></div><div>Yours,<br clear=3D"all"><=
-div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_sign=
-ature">Emily</div></div></div></div>
-
---000000000000a47492059d2a1a75--
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/Kconfig b/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
+index 83ba8a2eb6af..605500b19cf3 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
++++ b/drivers/usb/gadget/udc/aspeed-vhub/Kconfig
+@@ -4,5 +4,5 @@ config USB_ASPEED_VHUB
+ 	depends on ARCH_ASPEED || COMPILE_TEST
+ 	depends on USB_LIBCOMPOSITE
+ 	help
+-	  USB peripheral controller for the Aspeed AST2500 family
+-	  SoCs supporting the "vHub" functionality and USB2.0
++	  USB peripheral controller for the Aspeed AST2400, AST2500 and
++	  AST2600 family SoCs supporting the "vHub" functionality and USB2.0
+diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+index 94081cc04113..c827bf420278 100644
+--- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
++++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+@@ -42,6 +42,11 @@ static const struct ast_vhub_config ast2400_config = {
+ 	.max_epns = 15,
+ };
+ 
++static const struct ast_vhub_config ast2600_config = {
++	.max_ports = 7,
++	.max_epns = 21,
++};
++
+ static const struct of_device_id ast_vhub_dt_ids[] = {
+ 	{
+ 		.compatible = "aspeed,ast2400-usb-vhub",
+@@ -51,6 +56,10 @@ static const struct of_device_id ast_vhub_dt_ids[] = {
+ 		.compatible = "aspeed,ast2500-usb-vhub",
+ 		.data = &ast2400_config,
+ 	},
++	{
++		.compatible = "aspeed,ast2600-usb-vhub",
++		.data = &ast2600_config,
++	},
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
+-- 
+2.17.1
