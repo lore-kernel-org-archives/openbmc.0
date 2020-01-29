@@ -7,44 +7,44 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=e5TMFiC5; 
+ header.s=fm1 header.b=RJslye5i; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=w0Kk2e7S; 
+ header.a=rsa-sha256 header.s=fm1 header.b=iADosyz/; 
  dkim-atps=neutral
 Received: from wnew2-smtp.messagingengine.com (wnew2-smtp.messagingengine.com
  [64.147.123.27])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 487F4m47HzzDqSv
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jan 2020 07:11:52 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 487FBR03lczDqTC
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jan 2020 07:16:46 +1100 (AEDT)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailnew.west.internal (Postfix) with ESMTP id 0574E4EC;
- Wed, 29 Jan 2020 15:11:49 -0500 (EST)
+ by mailnew.west.internal (Postfix) with ESMTP id 6E6A8711;
+ Wed, 29 Jan 2020 15:16:44 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute2.internal (MEProxy); Wed, 29 Jan 2020 15:11:50 -0500
+ by compute2.internal (MEProxy); Wed, 29 Jan 2020 15:16:44 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=z63y3KQucGGKRU50qPo3AWSzZmu
- 4XRNq1wQn7uzforQ=; b=e5TMFiC5X60BLRTwNZ36dGovPneOFe1Wj8LxLOxb2i1
- e1yfXoAO33qpwEdfyQ8ANwmDcuQBkVzhoWRCdM6/qTg7J1VZEXSilmFNVKbsHTh3
- 4R+wL8UeMgh1F+ve36ehKGQRvMaPGUB39HSB/3ydpNwA29LceaUaSEA5OaxCT46E
- 0C9PM165e38bA2l/KB9laNDUbmViHoRpR/TmXAF+d4Rsrd/F3imVr4iZidaGVD/h
- nfbkAZoIy64GUAdNuDoyrlL1cQ7VZoB3xol412ASPRmGZOqCx6PmuNfUSaxwYX0p
- Zl+xP6y64BdVy3TY7e92fYzEAnGOoUHEwtIM9fogR6w==
+ :content-type:in-reply-to; s=fm1; bh=wQyyJc9BNiZrGN4Trsz+VKOBJl6
+ x6VtabdXYAP6aD1E=; b=RJslye5iNeOcs6Yx4/8OvIobVLKZRuggr0/oWyv6pkn
+ bek3FASGF88zR1omAJGmDp1p4sQYv4/MOeUw71okhtXOG0vSeVOAV36UGne3TLHf
+ +SHw6ZHaCmK/k3qpr95wRw52JHah8Xq+06SHMJJu+PSZ9ZDBKJHjJ3kOyQFwq50k
+ rrNDpafwSJzAfNPm3D/xc9LBB/A05KKRX+wIqILH0TtU4FjYHWS1Y5fZekDawvSW
+ pUvjqbbfhyAeAtwm3HUR569x38DgQJeYbLdDDnBI9ZXX/F1It3ywW+ttFbiMxtXb
+ +Yjc3rNRob1TsAdUEydH5BEGAQk/7XgI7SEY4m7tH8Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=z63y3K
- QucGGKRU50qPo3AWSzZmu4XRNq1wQn7uzforQ=; b=w0Kk2e7SF3JBfSFa4LmpEz
- 0HhLdPrgsbxjtGvJcWHZmNK+ibY4YRqETl/oaG/SVGef2qoR5ll5EHOsvADj0zyz
- /hbGrgEWr33wS2p4ONedFO+H7lQSLMAgpzzc80Wd444pUf8g1VksXI4YMI69oZOV
- T4vp2PwlVcLcfPP06niLTDJWH4wsWp7f+Fc4NuDceXeCjK25oW+r8PjQ0H93hOe7
- LRjHKSDvdwg8yj4SDUqT9ZJ2pSG/MYl/eQn6IpwkLV+mSRVQPB1E4xAu8LnHi6DV
- NDTh702LEOgzvTiXnDmcwT6041gcHCbS9M1izst8BSNPUijX//0KhkMeKYeV3YOw
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=wQyyJc
+ 9BNiZrGN4Trsz+VKOBJl6x6VtabdXYAP6aD1E=; b=iADosyz/lVBZouC3BzbGQs
+ a6N2j7S1up8lLTcL4SAFPA8y60PHCIWCjBVV1J6EhfDIqnr2twiCw7ej4yOtIIUy
+ fDNEVEdOu/Lqafipum2CrACt/qTEbBEQQS9m35bixK3lWAvpa7uiWWakIIu18b3l
+ CS9olC56BjptNsNWnwCr2SPykvpcKBmVSdGbnKO+M7vxqTtmpmd+SYOwzxsq83GJ
+ hSzsZ4cbDQg+/1fGxiplEj2BtvzT1hipCH4rg+vrR5RL4Uw1utwpI5bIArZFEykn
+ nv8NTwwN+OMcOhhHAi2In8HtLnMLjuuOrG6rpXAI0W5menzNttyFHrdMsL7z98zA
  ==
-X-ME-Sender: <xms:BecxXs-HzIAjGUvn0zmxCDb6QkLWid6e6fbzvFvbswskdBt2S-SamA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigddufeduucetufdoteggodetrfdotf
+X-ME-Sender: <xms:K-gxXscAAdHsE1jeSReY6i1IU7jmMARSa9YhIlnZXuXWq9BmCbAw-A>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigddufedvucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
@@ -52,26 +52,27 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrfeeigddufeduucetufdoteggod
  htfigtgidrgiihiieqnecukfhppeduleelrddvtddurdeigedrudefvdenucevlhhushht
  vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsth
  iftgigrdighiii
-X-ME-Proxy: <xmx:BecxXn3PESErOvABDzvamNUIktiNtEAP-pAmli2mETFkZp9X9RucIA>
- <xmx:BecxXvc3fObHdBFt7msIozLcJdBk_7WVkyxDM2Bu7pC4JK18agwbNw>
- <xmx:BecxXhA9ApbUPvh09lgTa82lzuS1qPTEfjdFFKe4CBT_F-BPVFQJNw>
- <xmx:BecxXvLeIG4vYqqd01_yyb9RKYajMfbA-DQ-1qig1zftrRR0nS5G6daopORoCwA2>
+X-ME-Proxy: <xmx:K-gxXkhn_cDGL2ruSZTnX8_z_pfDDHYJqrRRSBXRriT4cXtpRpoXVQ>
+ <xmx:K-gxXjgfnG66-lFXhl5vHEVz7xBt7SzDAVYFvjZqkke8QMHxTqt88w>
+ <xmx:K-gxXvQ7IhMv3Y2OE0M0OffOyTI-JrWhEIU00bF5m3aTCpj7RKCUBg>
+ <xmx:K-gxXlRcCZyWVjexzXjmhFSMVGQCN0QGVkEqNZqxPAieRf1hxzquM5uDqCQVnqmu>
 Received: from localhost (unknown [199.201.64.132])
- by mail.messagingengine.com (Postfix) with ESMTPA id D3A0D30607B0;
- Wed, 29 Jan 2020 15:11:48 -0500 (EST)
-Date: Wed, 29 Jan 2020 11:18:59 -0800
+ by mail.messagingengine.com (Postfix) with ESMTPA id 640CF3060B27;
+ Wed, 29 Jan 2020 15:16:43 -0500 (EST)
+Date: Wed, 29 Jan 2020 12:16:42 -0800
 From: Patrick Williams <patrick@stwcx.xyz>
 To: Emily Shaffer <emilyshaffer@google.com>
 Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, patrickw3@fb.com
 Subject: Re: Test email - ignore
-Message-ID: <20200129191857.GB89175@patrickw3-mbp.dhcp.thefacebook.com>
+Message-ID: <20200129201642.GA92818@patrickw3-mbp.dhcp.thefacebook.com>
 References: <23247186-abaa-4f7d-88fb-38f871c745e8@www.fastmail.com>
  <CAJoAoZkC6qb35i7GUXMdG3ZKvCDkeX6KAQoumFpjRpVZFsahpg@mail.gmail.com>
+ <20200129191857.GB89175@patrickw3-mbp.dhcp.thefacebook.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="eJnRUKwClWJh1Khz"
+ protocol="application/pgp-signature"; boundary="pWyiEgJYm5f9v55/"
 Content-Disposition: inline
-In-Reply-To: <CAJoAoZkC6qb35i7GUXMdG3ZKvCDkeX6KAQoumFpjRpVZFsahpg@mail.gmail.com>
+In-Reply-To: <20200129191857.GB89175@patrickw3-mbp.dhcp.thefacebook.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,43 +84,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jan 2020 20:11:56 -0000
+X-List-Received-Date: Wed, 29 Jan 2020 20:16:47 -0000
 
 
---eJnRUKwClWJh1Khz
+--pWyiEgJYm5f9v55/
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jan 29, 2020 at 11:01:47AM -0800, Emily Shaffer wrote:
-> I had pretty high latency between sending and my mail showing up on the
-> archive earlier this week. I wonder if some queue is overfull somewhere.
+On Wed, Jan 29, 2020 at 11:18:59AM -0800, Patrick Williams wrote:
+> On Wed, Jan 29, 2020 at 11:01:47AM -0800, Emily Shaffer wrote:
+> > I had pretty high latency between sending and my mail showing up on the
+> > archive earlier this week. I wonder if some queue is overfull somewhere.
+> >=20
 >=20
+> Thanks for the ack.  I seem to be able to get mail to show up on the
+> list when I use my providers web-client but not SMTP.  Not sure why.
 
-Thanks for the ack.  I seem to be able to get mail to show up on the
-list when I use my providers web-client but not SMTP.  Not sure why.
+I think I figured this out, which might be useful to someone somewhere
+someday.  The latest version of msmtp deprecated (and maybe changed the
+behavior of) the 'auto_from on'.  My emails were being generated with a
+Return-Path of <local-user>@<domain> instead of <email>@<domain>.  Seems
+that the mailing list software didn't like that.
+
+I'm going to "spam" the list with a few emails that I intended to send
+over the last week but never made it through.  Sorry if you were on a
+direct To/Cc and you're getting a duplicate.
 
 --=20
 Patrick Williams
 
---eJnRUKwClWJh1Khz
+--pWyiEgJYm5f9v55/
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl4x2qEACgkQqwNHzC0A
-wRnxMg//Sw5caV6JwIQGZuNn65niPgfV+wMCKD6sxm5RtFP2rGw41WG6uwn6M69L
-vcHUaTsfYbL1wIkVM/oKz1xbJ7dl37BQbHWyTv7iqVvya60ZtpvCAjn+OsWJ9h+r
-KoZvKyUm03TdrNG/08xjQEs6btXWB1f0J6yAg4btNrZjqRKd74bZFExg+5zpcO/K
-djP6PF0kamuS9aox32AfX3TPshmRtHNx17iDHPO8GF2H+YdNgAEtjC7eO4yUmxLe
-Y9pNl5pO4a5llBWZUQI+aWxSPpxgizZQ/2BdxkDjtFWfKZ4/caSVEoODLLL8Bc5D
-PKnxQDeSAy6Igrp9euJl2gCGN3z5EVX2A8ExfgqBa2ItkhnrYYEp1Sueoq0SNx60
-5wbdKSFK0aW9C6UeSovwAXpOTBV6wYIaySXlL9zW+XuyUvd6w+RPWX4ltbpJKkjd
-vlZDrCqTb83k+g8K06bfGYMXxtcS/rx6/8r1PrMVkhMvdbT38o+6MMcxLgFguiKv
-zktQvVucR8bHE6dZk/mE3ghJyo/vscYeL1Fp7ZzEEGwJRQM3yiVLdCOTvsSB6j5G
-a2z6Hf7Lud3FzhyDeDBluBne9M+zFCqLNZZbFKhl0+QadekVOddic0lMfz7TSfxC
-B0iUJ/x9fVcVDHkdTLLXi3+VKU+A8Hh0T+SKcyX/LQoMfGKXoIw=
-=ZrF7
+iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl4x6CgACgkQqwNHzC0A
+wRmQ7Q/9GQWK7KwyOw9duEEs9hnfL0xL0ITeDMZOnqdFdiV4seJb2GEvXj7FdLzf
+op0oNaAnnI/378VhFpz1eijDVvnX/0DHFIbXvZsBDlqOdfhp3d3A444YidCAyL4H
+NMSJ+KvN0mq9U11xz0zydqW5cM++EuX6Gvw3qInHLnBANrdAq1wF4wiSTdr3taEf
+MzMc+fDFlRKia1FrxGS5GUpy6h59uy3WhY0VlcL35HTn64Ck9S6XCfOSfAhCp0x+
+fXV1M7Oojmf7Hkf+MIYpHD0kjBjWMl3WL8tKdUnWGxKGabi6Yl89eHgzIwNvcQGA
+hVclz7Hl3fwKFzFCAbw0Rhq+XOoOMV8WQrmMCJ5IXdxVH7695cFGr/tovgCOZitG
+EUDMakIPhDZrVDTUQRH1U2tAV8YY/oAMm6h/rrRwG1sbZgVII71NMWQbpWsaIUh0
+Ztv0DjhLn1PctFPG2+04HulGENiRzVFNFJ5rzM+2lfpt1vh/chylRmJUrj2wq30A
+dUYVr+b4GfsWzyEZXC8DzueuTCB/SnL7f9OU/cAtBm8+BAdFNlwfqrpUgAhGv/9H
+C+rtvYu0HkNSA/NFby6twCVzTY7M3dYp2eiEuHYDpf1M7YL/1u+SS9iR+RYppk1D
+23IUlTdeYjm1FsFWiU9v78TnmmKfv4fcg/bLgKyg/4Jno9KhX/o=
+=FjDf
 -----END PGP SIGNATURE-----
 
---eJnRUKwClWJh1Khz--
+--pWyiEgJYm5f9v55/--
