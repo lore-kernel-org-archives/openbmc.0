@@ -1,59 +1,70 @@
-Return-Path: <bruce_mitchell@phoenix.com>
+Return-Path: <krzk@kernel.org>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=phoenix.com (client-ip=63.128.21.170;
- helo=us-smtp-delivery-170.mimecast.com;
- envelope-from=bruce_mitchell@phoenix.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=krzk@kernel.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=phoenix.com
+ dmarc=pass (p=none dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
- header.s=mimecast20170203 header.b=A4m05g+k; 
- dkim-atps=neutral
-Received: from us-smtp-delivery-170.mimecast.com
- (us-smtp-delivery-170.mimecast.com [63.128.21.170])
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=default header.b=ZwVsVUHO; dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48BJdV58fxzDqKh
- for <openbmc@lists.ozlabs.org>; Tue,  4 Feb 2020 07:02:18 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1580760133;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=Jzyl5nDRZCSvabRZU0+RaRLzE0ElOoFOghkRhuKnUNY=;
- b=A4m05g+k4W2+xogDON52aIasPnZ4mvcUBiiJt+eqKPNzyzYQRzFNIXHuEJxWz5L9zd3Q6n
- kg38cjTEc/rKRUi2NJmAHNRXOVJ5MqW2KYfLbVZqLdUqqna6E79I7bXTMEqTyGVQ7x3uMq
- 9m+hV0wwoeZU/xKD4YvZ/QLO6V3vOWE=
-X-CrossPremisesHeadersFilteredBySendConnector: SCL-EXCHMB-13.phoenix.com
-Received: from SCL-EXCHMB-13.phoenix.com (67.51.239.50 [67.51.239.50])
- (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-6-fcaaUka4PXGLHDKbGsOjug-1; Mon, 03 Feb 2020 15:02:11 -0500
-Received: from SCL-EXCHMB-13.phoenix.com (10.122.68.16) by
- SCL-EXCHMB-13.phoenix.com (10.122.68.16) with Microsoft SMTP Server (TLS) id
- 15.0.1156.6; Mon, 3 Feb 2020 12:01:57 -0800
-Received: from SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b]) by
- SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b%12]) with mapi id
- 15.00.1156.000; Mon, 3 Feb 2020 12:01:51 -0800
-From: Bruce Mitchell <Bruce_Mitchell@phoenix.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: How does one set a VLAN from the WebUI?
-Thread-Topic: How does one set a VLAN from the WebUI?
-Thread-Index: AdXazL3o5lOyU++PS42BARcPPMCQLA==
-Date: Mon, 3 Feb 2020 20:01:51 +0000
-Message-ID: <3d3a07eb1928493ab6bae9772f5fe4ad@SCL-EXCHMB-13.phoenix.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.122.68.174]
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48B5mt2ChyzDqDc
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Feb 2020 22:53:01 +1100 (AEDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by mail.kernel.org (Postfix) with ESMTPSA id 9FB1D21D7D
+ for <openbmc@lists.ozlabs.org>; Mon,  3 Feb 2020 11:52:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=default; t=1580730779;
+ bh=7xf6l0x9f3yqiOhlxlprQWM2OQY9DYvJlDJWXMnII54=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=ZwVsVUHORi7AEaxQxLj+Nu8jbcVykEXvdfGL7vkRLhB0mTQiMThf7Ta5VFtb6XrYx
+ LPGAsl/3oQd1MhfnblwPdlunyVn0WwjNlRReE3L/H07XxgtqJldOTdNAek7kl5ArP0
+ hwuQWOheegxknp2fpCWWvgtUl8pzQM8yNraeDgzY=
+Received: by mail-lj1-f180.google.com with SMTP id y6so14320997lji.0
+ for <openbmc@lists.ozlabs.org>; Mon, 03 Feb 2020 03:52:58 -0800 (PST)
+X-Gm-Message-State: APjAAAVBWuHsDLXKwoA2EmvGSY84jhNcx1EENJ6EfpttVDKDjMSMAdSL
+ mNx6qegAeM/aojHiboQWFy8+mUeel2Czmjrejk4=
+X-Google-Smtp-Source: APXvYqzr5wd/VbPIliYCYFMvvcM1qcze60h66l8h6hCiB4vZZDzfTGLOeSa9EfTbYebXVLxdN/na3R/Ef6tYAfxaBEQ=
+X-Received: by 2002:a2e:9a11:: with SMTP id o17mr13176749lji.256.1580730776602; 
+ Mon, 03 Feb 2020 03:52:56 -0800 (PST)
 MIME-Version: 1.0
-X-OrganizationHeadersPreserved: SCL-EXCHMB-13.phoenix.com
-X-MC-Unique: fcaaUka4PXGLHDKbGsOjug-1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: phoenix.com
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+References: <20200130195525.4525-1-krzk@kernel.org>
+ <20200130195525.4525-2-krzk@kernel.org>
+ <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
+In-Reply-To: <9f8a0a8e09893e7087d2212fb0eeb94a908b7be1.camel@perches.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Date: Mon, 3 Feb 2020 12:52:45 +0100
+X-Gmail-Original-Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
+Message-ID: <CAJKOXPf5Mf4FCmtME5yJsBZeP8BkYJgcxkKzS2hd-gp-mq3nag@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: configs: Cleanup old Kconfig options
+To: Joe Perches <joe@perches.com>
+Cc: Russell King <linux@armlinux.org.uk>, Alexander Shiyan <shc_work@mail.ru>, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+ NXP Linux Team <linux-imx@nxp.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Tony Lindgren <tony@atomide.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@st.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Sudeep Holla <sudeep.holla@arm.com>,
+ Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Olof Johansson <olof@lixom.net>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-kernel@lists.infradead.org, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ linux-omap@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, openbmc@lists.ozlabs.org, 
+ arm@kernel.org, soc@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+X-Mailman-Approved-At: Tue, 04 Feb 2020 14:59:23 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,6 +76,71 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 03 Feb 2020 20:02:24 -0000
+X-List-Received-Date: Mon, 03 Feb 2020 11:53:03 -0000
 
-How does one set a VLAN from the WebUI?
+On Thu, 30 Jan 2020 at 23:06, Joe Perches <joe@perches.com> wrote:
+>
+> On Thu, 2020-01-30 at 20:55 +0100, Krzysztof Kozlowski wrote:
+> > CONFIG_MMC_BLOCK_BOUNCE is gone since commit c3dccb74be28 ("mmc: core:
+> > Delete bounce buffer Kconfig option").
+> >
+> > CONFIG_LBDAF is gone since commit 72deb455b5ec ("block: remove
+> > CONFIG_LBDAF").
+> >
+> > CONFIG_IOSCHED_DEADLINE and CONFIG_IOSCHED_CFQ are gone since
+> > commit f382fb0bcef4 ("block: remove legacy IO schedulers").
+> >
+> > The IOSCHED_DEADLINE was replaced by MQ_IOSCHED_DEADLINE and it will be
+> > now enabled by default (along with MQ_IOSCHED_KYBER).
+> >
+> > The IOSCHED_BFQ seems to replace IOSCHED_CFQ so select it in configs
+> > previously choosing the latter.
+> >
+> > CONFIG_CROSS_COMPILE is gone since commit f1089c92da79 ("kbuild: remove
+> > CONFIG_CROSS_COMPILE support").
+>
+> Hi Krzysztof.
+>
+> There seems there are a lot more of these unused CONFIG_<foo>
+> symbols in various defconfigs. (just for arm and treewide below)
+>
+> ARM defconfigs:
+
+Hi Joe,
+
+Nice finding! The trickier point is to nicely remove them because:
+1. The easiest is 'savedefconfig' but then some valuable options might
+disappear (like recently happened with DEBUG_FS),
+2. They could be removed in automated way with a script. However in
+such case what about replacements? If some symbol was replaced with
+other (or just renamed), maybe we should enable the other one to
+restore the desired functionality?
+3. Or maybe let's don't care about keeping defconfigs stable and just
+clean them up automatically.
+
+Best regards,
+Krzysztof
+
+> --------------------------------------------------------------------
+>
+> # find all defined config symbols in Kconfig files
+>
+> $ git grep -P -oh '^\s*(?:menu)?config\s+\w+' -- '*/Kconfig*' | \
+>   sed -r -e 's/\s*config\s+//' -e 's/\s*menuconfig\s+//' | \
+>   sort | uniq > config_symbols
+>
+> # find CONFIG_ symbols in arm defconfigs
+>
+> $ git grep -w -oh -P 'CONFIG_\w+' 'arch/arm*/*defconfig*' | \
+>   sort | uniq > used_in_arm_defconfigs
+>
+> # find all the unused symbols
+>
+> $ cat used_in_arm_defconfigs | \
+>   while read line ; do \
+>     echo -n "$line " ; grep -w -c ${line/CONFIG_/} config_symbols ; \
+>   done | \
+>   grep " 0" | \
+>   sed 's/ 0//'
+
+(...)
