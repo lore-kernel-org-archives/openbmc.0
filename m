@@ -1,45 +1,42 @@
-Return-Path: <benh@kernel.crashing.org>
+Return-Path: <suryakanth.sekar@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- spf=permerror (SPF Permanent Error: Unknown mechanism
- found: ip:192.40.192.88/32) smtp.mailfrom=kernel.crashing.org
- (client-ip=76.164.61.194; helo=kernel.crashing.org;
- envelope-from=benh@kernel.crashing.org; receiver=<UNKNOWN>)
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=suryakanth.sekar@linux.intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from kernel.crashing.org (kernel.crashing.org [76.164.61.194])
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48GHqG2Bb1zDqMF;
- Mon, 10 Feb 2020 18:39:37 +1100 (AEDT)
-Received: from localhost (gate.crashing.org [63.228.1.57])
- (authenticated bits=0)
- by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 01A7RKqK010967
- (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 10 Feb 2020 01:27:24 -0600
-Message-ID: <386e905fb705266efcac0c1b3a10053889c7fead.camel@kernel.crashing.org>
-Subject: Re: [PATCH 1/3] usb: gadget: aspeed: read vhub config from
- of_device_id
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Joel Stanley <joel@jms.id.au>, Tao Ren <rentao.bupt@gmail.com>
-Cc: Mark Rutland <mark.rutland@arm.com>, Felipe Balbi <balbi@kernel.org>,
- linux-aspeed <linux-aspeed@lists.ozlabs.org>, devicetree
- <devicetree@vger.kernel.org>, Andrew Jeffery <andrew@aj.id.au>, Greg
- Kroah-Hartman <gregkh@linuxfoundation.org>, OpenBMC Maillist
- <openbmc@lists.ozlabs.org>, linux-usb@vger.kernel.org, Linux Kernel Mailing
- List <linux-kernel@vger.kernel.org>,
- Stephen Boyd <swboyd@chromium.org>, Rob Herring <robh+dt@kernel.org>,
- Chunfeng Yun <chunfeng.yun@mediatek.com>,
- Colin Ian King <colin.king@canonical.com>, Linux ARM
- <linux-arm-kernel@lists.infradead.org>
-Date: Mon, 10 Feb 2020 08:27:20 +0100
-In-Reply-To: <CACPK8Xe0b+zVNqf8v5YXOLkzqDeb4JHqec-bqFpaVFGTwHThhA@mail.gmail.com>
-References: <20200131222157.20849-1-rentao.bupt@gmail.com>
- <20200131222157.20849-2-rentao.bupt@gmail.com>
- <CACPK8Xe0b+zVNqf8v5YXOLkzqDeb4JHqec-bqFpaVFGTwHThhA@mail.gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.1 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48GN231GBRzDqGY
+ for <openbmc@lists.ozlabs.org>; Mon, 10 Feb 2020 21:49:10 +1100 (AEDT)
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/DHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2020 02:49:06 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.70,424,1574150400"; 
+ d="scan'208,217";a="226112656"
+Received: from ssekar-mobl1.gar.corp.intel.com (HELO [10.66.114.123])
+ ([10.66.114.123])
+ by orsmga008.jf.intel.com with ESMTP; 10 Feb 2020 02:49:05 -0800
+Subject: Re: FW: Exposing BIOS attributes to a remote management console
+To: openbmc@lists.ozlabs.org, Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>, 
+ suryakanth.sekar@linux.intel.com
+References: <7622d97a-13f2-8c38-6ae8-9325923c3c83@linux.vnet.ibm.com>
+ <48777ea3-0af2-4725-9304-64ae4edb71d9@email.android.com>
+ <1504A9E7C77EF44697F386AD61B16260152FEBA5@BGSMSX105.gar.corp.intel.com>
+From: "Sekar, Suryakanth" <suryakanth.sekar@linux.intel.com>
+Message-ID: <a54b4da5-b7a9-423e-a01e-720808ae748c@linux.intel.com>
+Date: Mon, 10 Feb 2020 16:19:04 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.9.1
+MIME-Version: 1.0
+In-Reply-To: <1504A9E7C77EF44697F386AD61B16260152FEBA5@BGSMSX105.gar.corp.intel.com>
+Content-Type: multipart/alternative;
+ boundary="------------91C2B5403BA14D7F4E91806C"
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,580 +48,268 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 10 Feb 2020 07:39:39 -0000
+X-List-Received-Date: Mon, 10 Feb 2020 10:49:16 -0000
 
-On Mon, 2020-02-10 at 02:47 +0000, Joel Stanley wrote:
-> On Fri, 31 Jan 2020 at 22:22, <rentao.bupt@gmail.com> wrote:
-> > 
-> > From: Tao Ren <rentao.bupt@gmail.com>
-> > 
-> > The patch moves hardcoded vhub attributes (maximum downstream ports
-> > and
-> > generic endpoints) to "ast_vhub_config" structure which is attached
-> > to
-> > struct of_device_id. The major purpose is to add AST2600 vhub
-> > support
-> > because AST2600 vhub provides more downstream ports and endpoints.
-> > 
-> > Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
-> 
-> This looks generally okay. We should wait for Ben's ack before
-> applying.
+This is a multi-part message in MIME format.
+--------------91C2B5403BA14D7F4E91806C
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Shouldn't we instead have DT fields indicating those values ?
+Hi Deepak,
 
-Also we should add a DT representation for the various ID/strings of
-the hub itself so manufacturers can customize them.
+OOB BIOS high level config design doc is in progress. I will send for 
+review soon.
 
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> 
-> > ---
-> >  drivers/usb/gadget/udc/aspeed-vhub/core.c | 100 ++++++++++++++--
-> > ------
-> >  drivers/usb/gadget/udc/aspeed-vhub/dev.c  |  30 +++++--
-> >  drivers/usb/gadget/udc/aspeed-vhub/epn.c  |   4 +-
-> >  drivers/usb/gadget/udc/aspeed-vhub/hub.c  |  26 ++++--
-> >  drivers/usb/gadget/udc/aspeed-vhub/vhub.h |  23 ++---
-> >  5 files changed, 112 insertions(+), 71 deletions(-)
-> > 
-> > diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> > b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> > index 90b134d5dca9..94081cc04113 100644
-> > --- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> > +++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> > @@ -32,6 +32,29 @@
-> > 
-> >  #include "vhub.h"
-> > 
-> > +struct ast_vhub_config {
-> > +       u32 max_ports;  /* max number of downstream ports */
-> > +       u32 max_epns;   /* max number of generic endpoints */
-> > +};
-> > +
-> > +static const struct ast_vhub_config ast2400_config = {
-> > +       .max_ports = 5,
-> > +       .max_epns = 15,
-> > +};
-> > +
-> > +static const struct of_device_id ast_vhub_dt_ids[] = {
-> > +       {
-> > +               .compatible = "aspeed,ast2400-usb-vhub",
-> > +               .data = &ast2400_config,
-> > +       },
-> > +       {
-> > +               .compatible = "aspeed,ast2500-usb-vhub",
-> > +               .data = &ast2400_config,
-> > +       },
-> > +       { }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
-> > +
-> >  void ast_vhub_done(struct ast_vhub_ep *ep, struct ast_vhub_req
-> > *req,
-> >                    int status)
-> >  {
-> > @@ -99,7 +122,7 @@ static irqreturn_t ast_vhub_irq(int irq, void
-> > *data)
-> >  {
-> >         struct ast_vhub *vhub = data;
-> >         irqreturn_t iret = IRQ_NONE;
-> > -       u32 istat;
-> > +       u32 i, istat;
-> > 
-> >         /* Stale interrupt while tearing down */
-> >         if (!vhub->ep0_bufs)
-> > @@ -121,10 +144,10 @@ static irqreturn_t ast_vhub_irq(int irq, void
-> > *data)
-> > 
-> >         /* Handle generic EPs first */
-> >         if (istat & VHUB_IRQ_EP_POOL_ACK_STALL) {
-> > -               u32 i, ep_acks = readl(vhub->regs +
-> > AST_VHUB_EP_ACK_ISR);
-> > +               u32 ep_acks = readl(vhub->regs +
-> > AST_VHUB_EP_ACK_ISR);
-> >                 writel(ep_acks, vhub->regs + AST_VHUB_EP_ACK_ISR);
-> > 
-> > -               for (i = 0; ep_acks && i < AST_VHUB_NUM_GEN_EPs;
-> > i++) {
-> > +               for (i = 0; ep_acks && i < vhub->max_epns; i++) {
-> >                         u32 mask = VHUB_EP_IRQ(i);
-> >                         if (ep_acks & mask) {
-> >                                 ast_vhub_epn_ack_irq(&vhub-
-> > >epns[i]);
-> > @@ -134,21 +157,11 @@ static irqreturn_t ast_vhub_irq(int irq, void
-> > *data)
-> >         }
-> > 
-> >         /* Handle device interrupts */
-> > -       if (istat & (VHUB_IRQ_DEVICE1 |
-> > -                    VHUB_IRQ_DEVICE2 |
-> > -                    VHUB_IRQ_DEVICE3 |
-> > -                    VHUB_IRQ_DEVICE4 |
-> > -                    VHUB_IRQ_DEVICE5)) {
-> > -               if (istat & VHUB_IRQ_DEVICE1)
-> > -                       ast_vhub_dev_irq(&vhub->ports[0].dev);
-> > -               if (istat & VHUB_IRQ_DEVICE2)
-> > -                       ast_vhub_dev_irq(&vhub->ports[1].dev);
-> > -               if (istat & VHUB_IRQ_DEVICE3)
-> > -                       ast_vhub_dev_irq(&vhub->ports[2].dev);
-> > -               if (istat & VHUB_IRQ_DEVICE4)
-> > -                       ast_vhub_dev_irq(&vhub->ports[3].dev);
-> > -               if (istat & VHUB_IRQ_DEVICE5)
-> > -                       ast_vhub_dev_irq(&vhub->ports[4].dev);
-> > +       for (i = 0; i < vhub->max_ports; i++) {
-> > +               u32 dev_mask = VHUB_IRQ_DEVICE1 << i;
-> > +
-> > +               if (istat & dev_mask)
-> > +                       ast_vhub_dev_irq(&vhub->ports[i].dev);
-> >         }
-> > 
-> >         /* Handle top-level vHub EP0 interrupts */
-> > @@ -182,7 +195,7 @@ static irqreturn_t ast_vhub_irq(int irq, void
-> > *data)
-> > 
-> >  void ast_vhub_init_hw(struct ast_vhub *vhub)
-> >  {
-> > -       u32 ctrl;
-> > +       u32 ctrl, port_mask, epn_mask;
-> > 
-> >         UDCDBG(vhub,"(Re)Starting HW ...\n");
-> > 
-> > @@ -222,15 +235,20 @@ void ast_vhub_init_hw(struct ast_vhub *vhub)
-> >         }
-> > 
-> >         /* Reset all devices */
-> > -       writel(VHUB_SW_RESET_ALL, vhub->regs + AST_VHUB_SW_RESET);
-> > +       port_mask = GENMASK(vhub->max_ports, 1);
-> > +       writel(VHUB_SW_RESET_ROOT_HUB |
-> > +              VHUB_SW_RESET_DMA_CONTROLLER |
-> > +              VHUB_SW_RESET_EP_POOL |
-> > +              port_mask, vhub->regs + AST_VHUB_SW_RESET);
-> >         udelay(1);
-> >         writel(0, vhub->regs + AST_VHUB_SW_RESET);
-> > 
-> >         /* Disable and cleanup EP ACK/NACK interrupts */
-> > +       epn_mask = GENMASK(vhub->max_epns - 1, 0);
-> >         writel(0, vhub->regs + AST_VHUB_EP_ACK_IER);
-> >         writel(0, vhub->regs + AST_VHUB_EP_NACK_IER);
-> > -       writel(VHUB_EP_IRQ_ALL, vhub->regs + AST_VHUB_EP_ACK_ISR);
-> > -       writel(VHUB_EP_IRQ_ALL, vhub->regs + AST_VHUB_EP_NACK_ISR);
-> > +       writel(epn_mask, vhub->regs + AST_VHUB_EP_ACK_ISR);
-> > +       writel(epn_mask, vhub->regs + AST_VHUB_EP_NACK_ISR);
-> > 
-> >         /* Default settings for EP0, enable HW hub EP1 */
-> >         writel(0, vhub->regs + AST_VHUB_EP0_CTRL);
-> > @@ -273,7 +291,7 @@ static int ast_vhub_remove(struct
-> > platform_device *pdev)
-> >                 return 0;
-> > 
-> >         /* Remove devices */
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS; i++)
-> > +       for (i = 0; i < vhub->max_ports; i++)
-> >                 ast_vhub_del_dev(&vhub->ports[i].dev);
-> > 
-> >         spin_lock_irqsave(&vhub->lock, flags);
-> > @@ -295,7 +313,7 @@ static int ast_vhub_remove(struct
-> > platform_device *pdev)
-> >         if (vhub->ep0_bufs)
-> >                 dma_free_coherent(&pdev->dev,
-> >                                   AST_VHUB_EP0_MAX_PACKET *
-> > -                                 (AST_VHUB_NUM_PORTS + 1),
-> > +                                 (vhub->max_ports + 1),
-> >                                   vhub->ep0_bufs,
-> >                                   vhub->ep0_bufs_dma);
-> >         vhub->ep0_bufs = NULL;
-> > @@ -309,11 +327,30 @@ static int ast_vhub_probe(struct
-> > platform_device *pdev)
-> >         struct ast_vhub *vhub;
-> >         struct resource *res;
-> >         int i, rc = 0;
-> > +       const struct of_device_id *ofdid;
-> > +       const struct ast_vhub_config *config;
-> > 
-> >         vhub = devm_kzalloc(&pdev->dev, sizeof(*vhub), GFP_KERNEL);
-> >         if (!vhub)
-> >                 return -ENOMEM;
-> > 
-> > +       ofdid = of_match_node(ast_vhub_dt_ids, pdev->dev.of_node);
-> > +       if (!ofdid)
-> > +               return -EINVAL;
-> > +       config = ofdid->data;
-> > +
-> > +       vhub->max_ports = config->max_ports;
-> > +       vhub->ports = devm_kcalloc(&pdev->dev, vhub->max_ports,
-> > +                                  sizeof(*vhub->ports),
-> > GFP_KERNEL);
-> > +       if (!vhub->ports)
-> > +               return -ENOMEM;
-> > +
-> > +       vhub->max_epns = config->max_epns;
-> > +       vhub->epns = devm_kcalloc(&pdev->dev, vhub->max_epns,
-> > +                                 sizeof(*vhub->epns), GFP_KERNEL);
-> > +       if (!vhub->epns)
-> > +               return -ENOMEM;
-> > +
-> >         spin_lock_init(&vhub->lock);
-> >         vhub->pdev = pdev;
-> > 
-> > @@ -366,7 +403,7 @@ static int ast_vhub_probe(struct
-> > platform_device *pdev)
-> >          */
-> >         vhub->ep0_bufs = dma_alloc_coherent(&pdev->dev,
-> >                                             AST_VHUB_EP0_MAX_PACKET
-> > *
-> > -                                           (AST_VHUB_NUM_PORTS +
-> > 1),
-> > +                                           (vhub->max_ports + 1),
-> >                                             &vhub->ep0_bufs_dma,
-> > GFP_KERNEL);
-> >         if (!vhub->ep0_bufs) {
-> >                 dev_err(&pdev->dev, "Failed to allocate EP0 DMA
-> > buffers\n");
-> > @@ -380,7 +417,7 @@ static int ast_vhub_probe(struct
-> > platform_device *pdev)
-> >         ast_vhub_init_ep0(vhub, &vhub->ep0, NULL);
-> > 
-> >         /* Init devices */
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS && rc == 0; i++)
-> > +       for (i = 0; i < vhub->max_ports && rc == 0; i++)
-> >                 rc = ast_vhub_init_dev(vhub, i);
-> >         if (rc)
-> >                 goto err;
-> > @@ -400,17 +437,6 @@ static int ast_vhub_probe(struct
-> > platform_device *pdev)
-> >         return rc;
-> >  }
-> > 
-> > -static const struct of_device_id ast_vhub_dt_ids[] = {
-> > -       {
-> > -               .compatible = "aspeed,ast2400-usb-vhub",
-> > -       },
-> > -       {
-> > -               .compatible = "aspeed,ast2500-usb-vhub",
-> > -       },
-> > -       { }
-> > -};
-> > -MODULE_DEVICE_TABLE(of, ast_vhub_dt_ids);
-> > -
-> >  static struct platform_driver ast_vhub_driver = {
-> >         .probe          = ast_vhub_probe,
-> >         .remove         = ast_vhub_remove,
-> > diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> > b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> > index 4008e7a51188..d268306a7bfe 100644
-> > --- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> > +++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> > @@ -77,7 +77,7 @@ static void ast_vhub_dev_enable(struct
-> > ast_vhub_dev *d)
-> >         writel(d->ep0.buf_dma, d->regs + AST_VHUB_DEV_EP0_DATA);
-> > 
-> >         /* Clear stall on all EPs */
-> > -       for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++) {
-> > +       for (i = 0; i < d->max_epns; i++) {
-> >                 struct ast_vhub_ep *ep = d->epns[i];
-> > 
-> >                 if (ep && (ep->epn.stalled || ep->epn.wedged)) {
-> > @@ -137,7 +137,7 @@ static int ast_vhub_ep_feature(struct
-> > ast_vhub_dev *d,
-> >              is_set ? "SET" : "CLEAR", ep_num, wValue);
-> >         if (ep_num == 0)
-> >                 return std_req_complete;
-> > -       if (ep_num >= AST_VHUB_NUM_GEN_EPs || !d->epns[ep_num - 1])
-> > +       if (ep_num >= d->max_epns || !d->epns[ep_num - 1])
-> >                 return std_req_stall;
-> >         if (wValue != USB_ENDPOINT_HALT)
-> >                 return std_req_driver;
-> > @@ -181,7 +181,7 @@ static int ast_vhub_ep_status(struct
-> > ast_vhub_dev *d,
-> > 
-> >         DDBG(d, "GET_STATUS(ep%d)\n", ep_num);
-> > 
-> > -       if (ep_num >= AST_VHUB_NUM_GEN_EPs)
-> > +       if (ep_num >= d->max_epns)
-> >                 return std_req_stall;
-> >         if (ep_num != 0) {
-> >                 ep = d->epns[ep_num - 1];
-> > @@ -299,7 +299,7 @@ static void ast_vhub_dev_nuke(struct
-> > ast_vhub_dev *d)
-> >  {
-> >         unsigned int i;
-> > 
-> > -       for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++) {
-> > +       for (i = 0; i < d->max_epns; i++) {
-> >                 if (!d->epns[i])
-> >                         continue;
-> >                 ast_vhub_nuke(d->epns[i], -ESHUTDOWN);
-> > @@ -416,10 +416,10 @@ static struct usb_ep
-> > *ast_vhub_udc_match_ep(struct usb_gadget *gadget,
-> >          * that will allow the generic code to use our
-> >          * assigned address.
-> >          */
-> > -       for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++)
-> > +       for (i = 0; i < d->max_epns; i++)
-> >                 if (d->epns[i] == NULL)
-> >                         break;
-> > -       if (i >= AST_VHUB_NUM_GEN_EPs)
-> > +       if (i >= d->max_epns)
-> >                 return NULL;
-> >         addr = i + 1;
-> > 
-> > @@ -526,6 +526,7 @@ void ast_vhub_del_dev(struct ast_vhub_dev *d)
-> > 
-> >         usb_del_gadget_udc(&d->gadget);
-> >         device_unregister(d->port_dev);
-> > +       kfree(d->epns);
-> >  }
-> > 
-> >  static void ast_vhub_dev_release(struct device *dev)
-> > @@ -546,14 +547,25 @@ int ast_vhub_init_dev(struct ast_vhub *vhub,
-> > unsigned int idx)
-> > 
-> >         ast_vhub_init_ep0(vhub, &d->ep0, d);
-> > 
-> > +       /*
-> > +        * A USB device can have up to 30 endpoints besides control
-> > +        * endpoint 0.
-> > +        */
-> > +       d->max_epns = min_t(u32, vhub->max_epns, 30);
-> > +       d->epns = kcalloc(d->max_epns, sizeof(*d->epns),
-> > GFP_KERNEL);
-> > +       if (!d->epns)
-> > +               return -ENOMEM;
-> > +
-> >         /*
-> >          * The UDC core really needs us to have separate and
-> > uniquely
-> >          * named "parent" devices for each port so we create a sub
-> > device
-> >          * here for that purpose
-> >          */
-> >         d->port_dev = kzalloc(sizeof(struct device), GFP_KERNEL);
-> > -       if (!d->port_dev)
-> > -               return -ENOMEM;
-> > +       if (!d->port_dev) {
-> > +               rc = -ENOMEM;
-> > +               goto fail_alloc;
-> > +       }
-> >         device_initialize(d->port_dev);
-> >         d->port_dev->release = ast_vhub_dev_release;
-> >         d->port_dev->parent = parent;
-> > @@ -584,6 +596,8 @@ int ast_vhub_init_dev(struct ast_vhub *vhub,
-> > unsigned int idx)
-> >         device_del(d->port_dev);
-> >   fail_add:
-> >         put_device(d->port_dev);
-> > + fail_alloc:
-> > +       kfree(d->epns);
-> > 
-> >         return rc;
-> >  }
-> > diff --git a/drivers/usb/gadget/udc/aspeed-vhub/epn.c
-> > b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
-> > index 7475c74aa5c5..0bd6b20435b8 100644
-> > --- a/drivers/usb/gadget/udc/aspeed-vhub/epn.c
-> > +++ b/drivers/usb/gadget/udc/aspeed-vhub/epn.c
-> > @@ -800,10 +800,10 @@ struct ast_vhub_ep *ast_vhub_alloc_epn(struct
-> > ast_vhub_dev *d, u8 addr)
-> > 
-> >         /* Find a free one (no device) */
-> >         spin_lock_irqsave(&vhub->lock, flags);
-> > -       for (i = 0; i < AST_VHUB_NUM_GEN_EPs; i++)
-> > +       for (i = 0; i < vhub->max_epns; i++)
-> >                 if (vhub->epns[i].dev == NULL)
-> >                         break;
-> > -       if (i >= AST_VHUB_NUM_GEN_EPs) {
-> > +       if (i >= vhub->max_epns) {
-> >                 spin_unlock_irqrestore(&vhub->lock, flags);
-> >                 return NULL;
-> >         }
-> > diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> > b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> > index 19b3517e04c0..9c7e57fbd8ef 100644
-> > --- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> > +++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> > @@ -133,10 +133,13 @@ static const struct ast_vhub_full_cdesc {
-> > 
-> >  #define AST_VHUB_HUB_DESC_SIZE (USB_DT_HUB_NONVAR_SIZE + 2)
-> > 
-> > -static const struct usb_hub_descriptor ast_vhub_hub_desc = {
-> > +/*
-> > + * "bNbrPorts" field is updated in "ast_vhub_init_hub" function
-> > based on
-> > + * "max_ports" of the vhub.
-> > + */
-> > +static struct usb_hub_descriptor ast_vhub_hub_desc = {
-> >         .bDescLength                    = AST_VHUB_HUB_DESC_SIZE,
-> >         .bDescriptorType                = USB_DT_HUB,
-> > -       .bNbrPorts                      = AST_VHUB_NUM_PORTS,
-> >         .wHubCharacteristics            =
-> > cpu_to_le16(HUB_CHAR_NO_LPSM),
-> >         .bPwrOn2PwrGood                 = 10,
-> >         .bHubContrCurrent               = 0,
-> > @@ -504,7 +507,7 @@ static void ast_vhub_wake_work(struct
-> > work_struct *work)
-> >          * we let the normal host wake path deal with it later.
-> >          */
-> >         spin_lock_irqsave(&vhub->lock, flags);
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS; i++) {
-> > +       for (i = 0; i < vhub->max_ports; i++) {
-> >                 struct ast_vhub_port *p = &vhub->ports[i];
-> > 
-> >                 if (!(p->status & USB_PORT_STAT_SUSPEND))
-> > @@ -587,7 +590,7 @@ static enum std_req_rc
-> > ast_vhub_set_port_feature(struct ast_vhub_ep *ep,
-> >         struct ast_vhub *vhub = ep->vhub;
-> >         struct ast_vhub_port *p;
-> > 
-> > -       if (port == 0 || port > AST_VHUB_NUM_PORTS)
-> > +       if (port == 0 || port > vhub->max_ports)
-> >                 return std_req_stall;
-> >         port--;
-> >         p = &vhub->ports[port];
-> > @@ -630,7 +633,7 @@ static enum std_req_rc
-> > ast_vhub_clr_port_feature(struct ast_vhub_ep *ep,
-> >         struct ast_vhub *vhub = ep->vhub;
-> >         struct ast_vhub_port *p;
-> > 
-> > -       if (port == 0 || port > AST_VHUB_NUM_PORTS)
-> > +       if (port == 0 || port > vhub->max_ports)
-> >                 return std_req_stall;
-> >         port--;
-> >         p = &vhub->ports[port];
-> > @@ -676,7 +679,7 @@ static enum std_req_rc
-> > ast_vhub_get_port_stat(struct ast_vhub_ep *ep,
-> >         struct ast_vhub *vhub = ep->vhub;
-> >         u16 stat, chg;
-> > 
-> > -       if (port == 0 || port > AST_VHUB_NUM_PORTS)
-> > +       if (port == 0 || port > vhub->max_ports)
-> >                 return std_req_stall;
-> >         port--;
-> > 
-> > @@ -757,7 +760,7 @@ void ast_vhub_hub_suspend(struct ast_vhub
-> > *vhub)
-> >          * Forward to unsuspended ports without changing
-> >          * their connection status.
-> >          */
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS; i++) {
-> > +       for (i = 0; i < vhub->max_ports; i++) {
-> >                 struct ast_vhub_port *p = &vhub->ports[i];
-> > 
-> >                 if (!(p->status & USB_PORT_STAT_SUSPEND))
-> > @@ -780,7 +783,7 @@ void ast_vhub_hub_resume(struct ast_vhub *vhub)
-> >          * Forward to unsuspended ports without changing
-> >          * their connection status.
-> >          */
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS; i++) {
-> > +       for (i = 0; i < vhub->max_ports; i++) {
-> >                 struct ast_vhub_port *p = &vhub->ports[i];
-> > 
-> >                 if (!(p->status & USB_PORT_STAT_SUSPEND))
-> > @@ -814,7 +817,7 @@ void ast_vhub_hub_reset(struct ast_vhub *vhub)
-> >          * Clear all port status, disable gadgets and "suspend"
-> >          * them. They will be woken up by a port reset.
-> >          */
-> > -       for (i = 0; i < AST_VHUB_NUM_PORTS; i++) {
-> > +       for (i = 0; i < vhub->max_ports; i++) {
-> >                 struct ast_vhub_port *p = &vhub->ports[i];
-> > 
-> >                 /* Only keep the connected flag */
-> > @@ -838,5 +841,10 @@ void ast_vhub_init_hub(struct ast_vhub *vhub)
-> >  {
-> >         vhub->speed = USB_SPEED_UNKNOWN;
-> >         INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
-> > +
-> > +       /*
-> > +        * Fixup number of ports in hub descriptor.
-> > +        */
-> > +       ast_vhub_hub_desc.bNbrPorts = vhub->max_ports;
-> >  }
-> > 
-> > diff --git a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> > b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> > index 761919e220d3..e46980fe66f2 100644
-> > --- a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> > +++ b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> > @@ -76,17 +76,9 @@
-> >  #define VHUB_SW_RESET_DEVICE2                  (1 << 2)
-> >  #define VHUB_SW_RESET_DEVICE1                  (1 << 1)
-> >  #define VHUB_SW_RESET_ROOT_HUB                 (1 << 0)
-> > -#define
-> > VHUB_SW_RESET_ALL                      (VHUB_SW_RESET_EP_POOL | \
-> > -                                                VHUB_SW_RESET_DMA_
-> > CONTROLLER | \
-> > -                                                VHUB_SW_RESET_DEVI
-> > CE5 | \
-> > -                                                VHUB_SW_RESET_DEVI
-> > CE4 | \
-> > -                                                VHUB_SW_RESET_DEVI
-> > CE3 | \
-> > -                                                VHUB_SW_RESET_DEVI
-> > CE2 | \
-> > -                                                VHUB_SW_RESET_DEVI
-> > CE1 | \
-> > -                                                VHUB_SW_RESET_ROOT
-> > _HUB)
-> > +
-> >  /* EP ACK/NACK IRQ masks */
-> >  #define VHUB_EP_IRQ(n)                         (1 << (n))
-> > -#define VHUB_EP_IRQ_ALL                                0x7fff  /*
-> > 15 EPs */
-> > 
-> >  /* USB status reg */
-> >  #define VHUB_USBSTS_HISPEED                    (1 << 27)
-> > @@ -210,8 +202,6 @@
-> >   *                                      *
-> >   ****************************************/
-> > 
-> > -#define AST_VHUB_NUM_GEN_EPs   15      /* Generic non-0 EPs */
-> > -#define AST_VHUB_NUM_PORTS     5       /* vHub ports */
-> >  #define AST_VHUB_EP0_MAX_PACKET        64      /* EP0's max packet
-> > size */
-> >  #define AST_VHUB_EPn_MAX_PACKET        1024    /* Generic EPs max
-> > packet size */
-> >  #define AST_VHUB_DESCS_COUNT   256     /* Use 256 descriptor mode
-> > (valid
-> > @@ -342,7 +332,7 @@ struct ast_vhub_dev {
-> >         struct ast_vhub                 *vhub;
-> >         void __iomem                    *regs;
-> > 
-> > -       /* Device index (0...4) and name string */
-> > +       /* Device index (zero-based) and name string */
-> >         unsigned int                    index;
-> >         const char                      *name;
-> > 
-> > @@ -358,7 +348,8 @@ struct ast_vhub_dev {
-> > 
-> >         /* Endpoint structures */
-> >         struct ast_vhub_ep              ep0;
-> > -       struct
-> > ast_vhub_ep              *epns[AST_VHUB_NUM_GEN_EPs];
-> > +       struct ast_vhub_ep              **epns;
-> > +       u32                             max_epns;
-> > 
-> >  };
-> >  #define to_ast_dev(__g) container_of(__g, struct ast_vhub_dev,
-> > gadget)
-> > @@ -393,10 +384,12 @@ struct ast_vhub {
-> >         bool                            ep1_stalled : 1;
-> > 
-> >         /* Per-port info */
-> > -       struct ast_vhub_port            ports[AST_VHUB_NUM_PORTS];
-> > +       struct ast_vhub_port            *ports;
-> > +       u32                             max_ports;
-> > 
-> >         /* Generic EP data structures */
-> > -       struct ast_vhub_ep              epns[AST_VHUB_NUM_GEN_EPs];
-> > +       struct ast_vhub_ep              *epns;
-> > +       u32                             max_epns;
-> > 
-> >         /* Upstream bus is suspended ? */
-> >         bool                            suspended : 1;
-> > --
-> > 2.17.1
-> > 
-> 
-> _______________________________________________
-> linux-arm-kernel mailing list
-> linux-arm-kernel@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-arm-kernel
+Yes, we need to support all interface -IPMI/ MCTP/ Redfish Host interface.
+
+If BIOS is not booted at all. BMC wont have any attribute info. It will 
+be empty in BMC side.
+
+BIOS must provide BIOS OOB capability via KCS interface in early boot stage.
+Like supported proprietary BIOS attribute file format or PLDM support 
+via MCTP  or
+Redfish BIOS attribute registry format to the BMC.
+
+BIOS must send the master BIOS attributes file(Intel properitary - XML 
+type 0)
+via KCS interface or all attributes details via Bios configuration PLDM 
+via MCTP or
+Redfish host interface during first boot.
+
+BIOS must collect the new attribute values from BMC and update the same 
+in BIOS
+
+BIOS must send the updated master attributes file to the BMC and once 
+its updated in BIOS
+
+and reset the system to reflect the BIOS configuration.
+
+OOB daemon in BMC  must maintain and collect the  attribute registry 
+file from MCTP/ IPMI/ Redfish interface.
+
+Convert the proprietary XML format/ PLDM data  into BIOS attribute 
+Registry format &
+must support the below following dbus method.
+
+https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/18242
+
+Validate the BIOS input data or User attribute value.
+
+MCTP / Redfish host interface / IPMI must communicate with OOB daemon in 
+BMC via D bus
+
+Thanks
+
+Suryakanth.S
+
+
+
+> ---------- Forwarded message ----------
+> From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com 
+> <mailto:dkodihal@linux.vnet.ibm.com>>
+> Date: Feb 8, 2020 1:59 PM
+> Subject: Exposing BIOS attributes to a remote management console
+> To: openbmc@lists.ozlabs.org <mailto:openbmc@lists.ozlabs.org>
+> Cc:
+>
+> Hi,
+>
+> To enable remote updates (via a remote management console that talks to
+> the BMC) to the host firmware's BIOS settings table on IBM systems,
+> we're thinking of the following flow:
+>
+> a) The host firmware sends down a BIOS settings table to the BMC using
+> PLDM [1].
+> b) The BMC uses phosphor-settingsd [2] as the backend to store BIOS
+> attributes on D-Bus.
+> c) Bmcweb implements the Redfish BIOS schema [3] to enable remote
+> reads/writes on the BIOS attributes.
+>
+> However, c) is a problem because one needs to write YAML files [4] for
+> the BMC to determine what D-Bus objects to make corresponding to the
+> BIOS attributes. This requires a unique D-Bus interface *per* BIOS
+> attribute. This means the BMC must have prior knowledge about the BIOS
+> attributes.
+>
+> I don't think that's the right way to go about this for two reasons. One
+> - this creates a lockstep dependency on the host firmware when the BIOS
+> settings table needs to be updated, and two - I think the OpenBMC
+> implementation of this must be able to receive (via PLDM/IPMI/other
+> standard in-band means) a set of BIOS attributes from different BIOS
+> firmware stacks dynamically and expose them for out of band updates,
+> without having prior/build-time knowledge of those attributes. So I
+> think this calls for a different kind of D-Bus interface/infrastructure
+> than what the phosphor-settingsd app relies on. Something that enables
+> the BMC to add to D-Bus a BIOS attribute dynamically, knowing it's name,
+> type and default value.
+>
+> Any thoughts on this flow? I'm also curious to know if the Redfish BIOS
+> schema/attribute registry model requires the BMC to have prior knowledge
+> about the system BIOS attributes to update the registry. This wasn't
+> obvious to me from a quick read of the schema.
+>
+> Thanks,
+> Deepak
+>
+> [1]
+> https://www.dmtf.org/sites/default/files/standards/documents/DSP0247_1.0.0.pdf
+> [2] https://github.com/openbmc/phosphor-settingsd
+> [3] https://redfish.dmtf.org/schemas/v1/Bios.v1_1_0.json
+> [4]
+> https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/settings/phosphor-settings-defaults/defaults.yaml
+>
+
+--------------91C2B5403BA14D7F4E91806C
+Content-Type: text/html; charset=windows-1252
+Content-Transfer-Encoding: 8bit
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;
+      charset=windows-1252">
+  </head>
+  <body text="#000000" bgcolor="#FFFFFF">
+    <p>Hi Deepak,</p>
+    <p>OOB BIOS high level config design doc is in progress. I will send
+      for review soon. <br>
+    </p>
+    <p>Yes, we need to support all interface -IPMI/ MCTP/ Redfish Host
+      interface. <br>
+    </p>
+    <p>If BIOS is not booted at all. BMC wont have any attribute info.
+      It will be empty in BMC side.</p>
+    <p>BIOS must provide BIOS OOB capability via KCS interface in early
+      boot stage.<br>
+      Like supported proprietary BIOS attribute file format or PLDM
+      support via MCTP  or <br>
+      Redfish BIOS attribute registry format to the BMC.</p>
+    <p>BIOS must send the master BIOS attributes file(Intel properitary
+      - XML type 0)<br>
+      via KCS interface or all attributes details via Bios configuration
+      PLDM via MCTP or<br>
+      Redfish host interface during first boot.</p>
+    BIOS must collect the new attribute values from BMC and update the
+    same in BIOS<br>
+    <p>BIOS must send the updated master attributes file to the BMC and 
+      once its updated in BIOS</p>
+    <p>and reset the system to reflect the BIOS configuration.<br>
+    </p>
+    <p>OOB daemon in BMC  must maintain and collect the  attribute
+      registry file from MCTP/ IPMI/ Redfish interface.<br>
+    </p>
+    <p>Convert the proprietary XML format/ PLDM data  into BIOS
+      attribute Registry format &amp;<br>
+      must support the below following dbus method.</p>
+    <p><a class="moz-txt-link-freetext" href="https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/18242">https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-dbus-interfaces/+/18242</a></p>
+    <p>Validate the BIOS input data or User attribute value.</p>
+    <p>MCTP / Redfish host interface / IPMI must communicate with OOB
+      daemon in BMC via D bus</p>
+    <p>Thanks</p>
+    <p>Suryakanth.S<br>
+    </p>
+    <p><br>
+    </p>
+    <br>
+    <blockquote type="cite"
+cite="mid:1504A9E7C77EF44697F386AD61B16260152FEBA5@BGSMSX105.gar.corp.intel.com">
+      <div class="WordSection1">
+        <div>
+          <div>
+            <p class="MsoNormal">---------- Forwarded message ----------<br>
+              From: Deepak Kodihalli &lt;<a
+                href="mailto:dkodihal@linux.vnet.ibm.com"
+                moz-do-not-send="true">dkodihal@linux.vnet.ibm.com</a>&gt;<br>
+              Date: Feb 8, 2020 1:59 PM<br>
+              Subject: Exposing BIOS attributes to a remote management
+              console<br>
+              To: <a href="mailto:openbmc@lists.ozlabs.org"
+                moz-do-not-send="true">openbmc@lists.ozlabs.org</a><br>
+              Cc: <br>
+              <br>
+              <o:p></o:p></p>
+          </div>
+        </div>
+        <div>
+          <p class="MsoNormal" style="margin-bottom:12.0pt"><span
+              style="font-size:10.0pt">Hi,<br>
+              <br>
+              To enable remote updates (via a remote management console
+              that talks to <br>
+              the BMC) to the host firmware's BIOS settings table on IBM
+              systems, <br>
+              we're thinking of the following flow:<br>
+              <br>
+              a) The host firmware sends down a BIOS settings table to
+              the BMC using <br>
+              PLDM [1].<br>
+              b) The BMC uses phosphor-settingsd [2] as the backend to
+              store BIOS <br>
+              attributes on D-Bus.<br>
+              c) Bmcweb implements the Redfish BIOS schema [3] to enable
+              remote <br>
+              reads/writes on the BIOS attributes.<br>
+              <br>
+              However, c) is a problem because one needs to write YAML
+              files [4] for <br>
+              the BMC to determine what D-Bus objects to make
+              corresponding to the <br>
+              BIOS attributes. This requires a unique D-Bus interface
+              *per* BIOS <br>
+              attribute. This means the BMC must have prior knowledge
+              about the BIOS <br>
+              attributes.<br>
+              <br>
+              I don't think that's the right way to go about this for
+              two reasons. One <br>
+              - this creates a lockstep dependency on the host firmware
+              when the BIOS <br>
+              settings table needs to be updated, and two - I think the
+              OpenBMC <br>
+              implementation of this must be able to receive (via
+              PLDM/IPMI/other <br>
+              standard in-band means) a set of BIOS attributes from
+              different BIOS <br>
+              firmware stacks dynamically and expose them for out of
+              band updates, <br>
+              without having prior/build-time knowledge of those
+              attributes. So I <br>
+              think this calls for a different kind of D-Bus
+              interface/infrastructure <br>
+              than what the phosphor-settingsd app relies on. Something
+              that enables <br>
+              the BMC to add to D-Bus a BIOS attribute dynamically,
+              knowing it's name, <br>
+              type and default value.<br>
+              <br>
+              Any thoughts on this flow? I'm also curious to know if the
+              Redfish BIOS <br>
+              schema/attribute registry model requires the BMC to have
+              prior knowledge <br>
+              about the system BIOS attributes to update the registry.
+              This wasn't <br>
+              obvious to me from a quick read of the schema.<br>
+              <br>
+              Thanks,<br>
+              Deepak<br>
+              <br>
+              [1] <br>
+              <a
+href="https://www.dmtf.org/sites/default/files/standards/documents/DSP0247_1.0.0.pdf"
+                moz-do-not-send="true">https://www.dmtf.org/sites/default/files/standards/documents/DSP0247_1.0.0.pdf</a><br>
+              [2] <a
+                href="https://github.com/openbmc/phosphor-settingsd"
+                moz-do-not-send="true">https://github.com/openbmc/phosphor-settingsd</a><br>
+              [3] <a
+                href="https://redfish.dmtf.org/schemas/v1/Bios.v1_1_0.json"
+                moz-do-not-send="true">https://redfish.dmtf.org/schemas/v1/Bios.v1_1_0.json</a><br>
+              [4] <br>
+              <a
+href="https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/settings/phosphor-settings-defaults/defaults.yaml"
+                moz-do-not-send="true">https://github.com/openbmc/openbmc/blob/master/meta-phosphor/recipes-phosphor/settings/phosphor-settings-defaults/defaults.yaml</a><o:p></o:p></span></p>
+        </div>
+      </div>
+    </blockquote>
+  </body>
+</html>
+
+--------------91C2B5403BA14D7F4E91806C--
