@@ -1,135 +1,74 @@
-Return-Path: <thangavel.k@hcl.com>
+Return-Path: <mchehab@bombadil.infradead.org>
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=bombadil.infradead.org (client-ip=2607:7c80:54:e::133;
+ helo=bombadil.infradead.org; envelope-from=mchehab@bombadil.infradead.org;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=hcl.com
- (client-ip=40.107.130.122; helo=apc01-hk2-obe.outbound.protection.outlook.com;
- envelope-from=thangavel.k@hcl.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=hcl.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256
- header.s=selector2 header.b=lGBJr1Gs; 
- dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM
- header.a=rsa-sha256 header.s=selector2 header.b=lGBJr1Gs; 
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=infradead.org header.i=@infradead.org
+ header.a=rsa-sha256 header.s=bombadil.20170209 header.b=hb18EYnC; 
  dkim-atps=neutral
-Received: from APC01-HK2-obe.outbound.protection.outlook.com
- (mail-eopbgr1300122.outbound.protection.outlook.com [40.107.130.122])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [IPv6:2607:7c80:54:e::133])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48SL8K6g1DzDqB5
- for <openbmc@lists.ozlabs.org>; Thu, 27 Feb 2020 02:59:12 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QI/p++apTnp5Oi8cCBpF3+EeTdqRFUfRaXj3D0q9CBA=;
- b=lGBJr1GseSqCLt99vIJNQJBhKL+U+tBcCMRV73kxg/jwIrNLgQcOX6uPJpU6sK09xkVdTnbxKK9MGaZu25sxZOzXvh3rn+es4UQDhK3ixZ8jvgQG6gQcOzuJStwzbeXakjdX7PG1taRXtgyTyJOEyEfqEa7QAhHvV53e1ODFu38=
-Received: from PS1PR0401CA0043.apcprd04.prod.outlook.com (2603:1096:803::11)
- by SG2PR04MB3546.apcprd04.prod.outlook.com (2603:1096:4:95::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.21; Wed, 26 Feb
- 2020 15:59:05 +0000
-Received: from SG2APC01FT039.eop-APC01.prod.protection.outlook.com
- (2a01:111:f400:7ebe::205) by PS1PR0401CA0043.outlook.office365.com
- (2603:1096:803::11) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2750.18 via Frontend
- Transport; Wed, 26 Feb 2020 15:59:05 +0000
-Authentication-Results: spf=pass (sender IP is 192.8.245.52)
- smtp.mailfrom=hcl.com; aj.id.au; dkim=pass (signature was verified)
- header.d=HCL.COM;aj.id.au; dmarc=pass action=none header.from=hcl.com;
-Received-SPF: Pass (protection.outlook.com: domain of hcl.com designates
- 192.8.245.52 as permitted sender) receiver=protection.outlook.com;
- client-ip=192.8.245.52; helo=APC01-HK2-obe.outbound.protection.outlook.com;
-Received: from APC01-HK2-obe.outbound.protection.outlook.com (192.8.245.52) by
- SG2APC01FT039.mail.protection.outlook.com (10.152.251.12) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2772.15 via Frontend Transport; Wed, 26 Feb 2020 15:59:04 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=VgD3WWrqcqpHKsGN/KuhROvxAO4Wt4wR4oL/NCkJ7LPwLgLEUFsacV1ThI7MCM8fB6uYrwVy6zaVwB41hUGsKMU7znylYuX5UlhdVq3040PqVpjWCYifd4xItcaDYorpI3ZIYBlmffebFgOD3ZuYlgmCEdURhKXzBSl91RRaJJSvKMZU1/5sfqGAnfuRbSgGtMhRbe5RMwBYUJ7AUnnlDG2XY/LnOcOWAs6rwOclbKCLYQHxKI+UB1Sv+dm/VNGOlNOTsOvw2jbY7JJ3tlvwhMU85WUu0gLGMHK4i5lbwZmyUTBvu79xSWqtsfA7JBkD2LDgVBVbcjO+0t8Hjq0Sog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QI/p++apTnp5Oi8cCBpF3+EeTdqRFUfRaXj3D0q9CBA=;
- b=ZSYZuNkbSZhQXuTSpCfuI7eVWjm8ydnd+QJ8lbWoA0EHojMqAjYrPYezKnMj6WXnbbXv6AnairsCmBOKt7ZEHR3LXRwyAXvW0NqAAnVQxJpv/XTqqn1VblnoatnC51jhst8Barf2wEk6m56yMgTr/46mFwOaq3oYQbTD37rBnj2VnnUI+hAmlRE8k4NKOXWxEpgwgIGAosj2xwljvb1fAiUzLBux0nQ5mYnpXbUMUrteifAzOKcT+9/QEHksKLIQzOmZkpTSUIzoEqAagCgq8EjljKzJtDx0V7fnULZLlMH7zjn6LOANnAPHfNdnbyOWrJoJNjMLPlCDIWhVcoYH7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=hcl.com; dmarc=pass action=none header.from=hcl.com; dkim=pass
- header.d=hcl.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QI/p++apTnp5Oi8cCBpF3+EeTdqRFUfRaXj3D0q9CBA=;
- b=lGBJr1GseSqCLt99vIJNQJBhKL+U+tBcCMRV73kxg/jwIrNLgQcOX6uPJpU6sK09xkVdTnbxKK9MGaZu25sxZOzXvh3rn+es4UQDhK3ixZ8jvgQG6gQcOzuJStwzbeXakjdX7PG1taRXtgyTyJOEyEfqEa7QAhHvV53e1ODFu38=
-Received: from SG2PR04MB3029.apcprd04.prod.outlook.com (20.177.93.17) by
- SG2PR04MB3448.apcprd04.prod.outlook.com (20.177.92.147) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.2750.22; Wed, 26 Feb 2020 15:59:01 +0000
-Received: from SG2PR04MB3029.apcprd04.prod.outlook.com
- ([fe80::b81f:3d84:4a0c:b0ca]) by SG2PR04MB3029.apcprd04.prod.outlook.com
- ([fe80::b81f:3d84:4a0c:b0ca%3]) with mapi id 15.20.2750.021; Wed, 26 Feb 2020
- 15:59:01 +0000
-From: Kumar Thangavel <thangavel.k@hcl.com>
-To: Andrew Jeffery <andrew@aj.id.au>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-CC: Jeremy Kerr <jk@ozlabs.org>, Joel Stanley <joel@jms.id.au>, "Velumani
- T-ERS,HCLTech" <velumanit@hcl.com>
-Subject: RE: obmc-console design for multi host support
-Thread-Topic: obmc-console design for multi host support
-Thread-Index: AdXm91y2HzF+4aeQSEmyf5zx3Cqy5AAinyYAABfmB4ABNvkUkA==
-Date: Wed, 26 Feb 2020 15:59:01 +0000
-Message-ID: <SG2PR04MB302996468E42284DE73358A6FDEA0@SG2PR04MB3029.apcprd04.prod.outlook.com>
-References: <SG2PR04MB3029CF9F520DF543B57B93C2FD100@SG2PR04MB3029.apcprd04.prod.outlook.com>
- <f136d4ad-65e6-4e74-8f53-2ca3edaf9288@www.fastmail.com>
- <SG2PR04MB30295AD664D4B5BD5F24EFD3FD130@SG2PR04MB3029.apcprd04.prod.outlook.com>
-In-Reply-To: <SG2PR04MB30295AD664D4B5BD5F24EFD3FD130@SG2PR04MB3029.apcprd04.prod.outlook.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-hclclassification: null
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL2hjbCIsImlkIjoiNjcxNjIzNzktOWUxNS00NTQyLWIyNzQtNjA4YWZiNDhiNmI0IiwicHJvcHMiOlt7Im4iOiJIQ0xDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoibnVsbCJ9XX1dfSwiU3ViamVjdExhYmVscyI6W10sIlRNQ1ZlcnNpb24iOiIxOC40LjE4NDMuMTIzIiwiVHJ1c3RlZExhYmVsSGFzaCI6IkNWV2VlOGd5OUZ4dXkxclwvdGdYR0RCTVQxbTFGeHFDMTY1eUorS1huT0NcL3lCTGxPTE9sSTdcL01RNUNtektoQzAifQ==
-Authentication-Results-Original: spf=none (sender IP is )
- smtp.mailfrom=thangavel.k@hcl.com; 
-x-originating-ip: [192.8.255.10]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: 5a6a7314-7dfa-48d3-3c8b-08d7bad4ce2b
-X-MS-TrafficTypeDiagnostic: SG2PR04MB3448:|SG2PR04MB3448:|SG2PR04MB3546:
-x-ms-exchange-transport-forked: True
-X-Microsoft-Antispam-PRVS: <SG2PR04MB3546627F7A099EF9F8669AF8FDEA0@SG2PR04MB3546.apcprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;OLM:5797;
-x-forefront-prvs: 0325F6C77B
-X-Forefront-Antispam-Report-Untrusted: SFV:NSPM;
- SFS:(10019020)(4636009)(136003)(366004)(396003)(346002)(376002)(39860400002)(199004)(189003)(66446008)(64756008)(66476007)(66946007)(66556008)(76116006)(966005)(45080400002)(110136005)(9686003)(54906003)(316002)(55016002)(4326008)(478600001)(33656002)(7696005)(71200400001)(186003)(52536014)(2906002)(26005)(81156014)(53546011)(5660300002)(8676002)(81166006)(86362001)(8936002)(6506007);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SG2PR04MB3448;
- H:SG2PR04MB3029.apcprd04.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; A:1; MX:1; 
-received-spf: None (protection.outlook.com: hcl.com does not designate
- permitted sender hosts)
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: cKpON+CajtltciZYvzAz9IAs9jw1YtA6K8oVfVYllN6Foi5mT78Bz44JD4A8/MWwYtjfIQ5uRbiY/h0stco5qDppu/YrmyrJGrX0a4f9U//o3fGioiWDAPV+UPBn0FeNjumLlvYkhhIJrnGNiiEIVgqPZlFwdC7saGd47BD2GqHzVWFbztTI6AjB+qYc9zmVNZoGr4tw/BdRVkDNLbEAvMuJbaHN9tdfqe7OPOD1LVhHvbW6QiXNu7m1lipNtlssSIXi19lN5fKNKhBkdGO01nKVAiNqKkGzDcJS1PcEqBGUNBv6HTlSkpzLPf6FFHvTccQKEBVqnuwiyw1B6oXzt6dzkO4E9pf7RN/tguv5p3wegKP8moxcnc3gWZYjoys06rYTUFihO15meHdvov9KyaVGwMje2I+hnuvP8TV/wMJwr/maB+zIosIw0/Q+gyrnmifRQx+cwDc3orPRFGZFUjzOAOW9QPQbt3XvyqlE9xSMn8ITL8UrdM6kN6X/+XxMq/ztAMDrqnA/AFsPhuHfwA==
-x-ms-exchange-antispam-messagedata: TbyPnFvXAj33kGP6nNI3JNGIWRaSF8in1lqMi2KGJ5A684yfFsmhHT/1UcsmoF8bhGdH8q5XL945bjYdDCiDIklwakzUDj6fvs4/W9U/4SsH78q8SLsrD+g3bYedOHrW7Fltanh6t3MxDygnbM3k9w==
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48Pj3L6jN5zDqBj;
+ Sat, 22 Feb 2020 20:00:46 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20170209; h=Sender:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From:
+ Reply-To:Content-Type:Content-ID:Content-Description;
+ bh=1Ec93HvvQv5rRZi0GxCPtkfIn9YVu0EbHv8lrpBvD3c=; b=hb18EYnCNMTfq2FTucvg/Rcg7Z
+ j54mQwl64UFduej61QyAFVutIxKVK9HrfJUQnZxjMV7tDiURKzA3wksO01FtrqW//x5I2qARD5I8s
+ ECkWnXfWb236+YVs8tOuastqyNZNllZN4qw7QJlKG6EsZm9l359jxbWRtZsKjo70wTIE/N2cRcNCe
+ 9mqyYyoclF9WbSH5WQwOd62eXErvUvQEZgzY9xggPE5pNpedBqmfyqwWkYbWlPlmTaHLK7MOtHaGK
+ l4iNd6m2//JIyN1txAZNlP+6a6L+RNI6aVkwEuCKpZ+XyQ4tsjaY34wSrwNDH3wQvw4GUtLWBrliw
+ eq+azmQw==;
+Received: from [80.156.29.194] (helo=bombadil.infradead.org)
+ by bombadil.infradead.org with esmtpsa (Exim 4.92.3 #3 (Red Hat Linux))
+ id 1j5Qdz-0007Hq-AA; Sat, 22 Feb 2020 09:00:15 +0000
+Received: from mchehab by bombadil.infradead.org with local (Exim 4.92.3)
+ (envelope-from <mchehab@bombadil.infradead.org>)
+ id 1j5Qdx-001N4H-Hu; Sat, 22 Feb 2020 10:00:13 +0100
+From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Sudeep Holla <sudeep.holla@arm.com>,
+ Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Jyri Sarha <jsarha@ti.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, David Airlie <airlied@linux.ie>,
+ Daniel Vetter <daniel@ffwll.ch>,
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, Pavel Machek <pavel@ucw.cz>,
+ Dan Murphy <dmurphy@ti.com>, Stuart Yoder <stuyoder@gmail.com>,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>,
+ Andrew Jeffery <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>,
+ Joel Stanley <joel@jms.id.au>, Kevin Hilman <khilman@baylibre.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@st.com>,
+ Zhang Rui <rui.zhang@intel.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Amit Kucheria <amit.kucheria@verdurent.com>,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-pm@vger.kernel.org
+Subject: [PATCH 2/7] docs: dt: fix several broken references due to renames
+Date: Sat, 22 Feb 2020 10:00:02 +0100
+Message-Id: <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
+X-Mailer: git-send-email 2.24.1
+In-Reply-To: <cover.1582361737.git.mchehab+huawei@kernel.org>
+References: <cover.1582361737.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR04MB3448
-X-DLP: MSGProcess
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: SG2APC01FT039.eop-APC01.prod.protection.outlook.com
-X-Forefront-Antispam-Report: CIP:192.8.245.52; IPV:; CTRY:IN; EFV:NLI; SFV:NSPM;
- SFS:(10019020)(4636009)(346002)(39860400002)(396003)(136003)(376002)(199004)(189003)(81156014)(2906002)(478600001)(8676002)(81166006)(316002)(8936002)(53546011)(55016002)(110136005)(5660300002)(33656002)(9686003)(70206006)(6506007)(70586007)(54906003)(52536014)(4326008)(186003)(26005)(86362001)(336012)(356004)(45080400002)(7696005)(966005);
- DIR:OUT; SFP:1102; SCL:1; SRVR:SG2PR04MB3546;
- H:APC01-HK2-obe.outbound.protection.outlook.com; FPR:; SPF:Pass; LANG:en;
- PTR:InfoDomainNonexistent; A:1; MX:1; 
-X-MS-Office365-Filtering-Correlation-Id-Prvs: d9eb1b69-31fd-450c-bd9c-08d7bad4cbe6
-X-Forefront-PRVS: 0325F6C77B
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: RWQWMm3BsylYt4MLPcyGWO3CUdTiuKSw+vWpgikFAVrqzNOCZ7d2bU/vwtFVRUwwPMbRV13mWvNV1i5Zoa+QDrvuQdYBq8THUNBNry63pZ6gGepftYfBjqe8Ef3p/X7WiDdPGIBUZTsY7sIKSxX57Xzdhqqxd5v8tyUrpwHMLSbS3nL74zUWVm6PBFB+h7Ztb+oma3jNZnODeloScAIkKqn0ld37l585KFXy86Cdnq+f2hNl5kLtbg6xCmkDvhbFOFaOAbxJHuF5vkbjC7EObVe7Ra8Ebq+uN3KpzlimZka4vn9yCurf8drtfY5WHL3QBZJI+xcjQFOwIVIMoJGHoHfUmKyYZ21ADxhSOMSxR3r/X1BZNO7lAiA9Jv4GYYXGU9MkmvSqpVY2EJtoNzkGwN4SkHIhnekmhz8cc3kvCITdz7ysImcHg4T8wVkzm9xFT/ckrtMFr7lUt2Y14RKoUqhcsPCSaS36MquDTXuqQkChdDgihL+1KS5QXXqxsAd/R6g3ldLm40b4jvwsKJQAvg==
-X-OriginatorOrg: HCL.COM
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2020 15:59:04.6143 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a6a7314-7dfa-48d3-3c8b-08d7bad4ce2b
-X-MS-Exchange-CrossTenant-Id: 189de737-c93a-4f5a-8b68-6f4ca9941912
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=189de737-c93a-4f5a-8b68-6f4ca9941912; Ip=[192.8.245.52];
- Helo=[APC01-HK2-obe.outbound.protection.outlook.com]
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR04MB3546
-X-Mailman-Approved-At: Thu, 27 Feb 2020 13:08:42 +1100
+Content-Transfer-Encoding: 8bit
+Sender: Mauro Carvalho Chehab <mchehab@bombadil.infradead.org>
+X-Mailman-Approved-At: Thu, 27 Feb 2020 13:09:16 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,130 +80,318 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 26 Feb 2020 15:59:16 -0000
+X-List-Received-Date: Sat, 22 Feb 2020 09:00:47 -0000
 
-Hi Andrew,
+Several DT references got broken due to txt->yaml conversion.
 
-             Could you please suggest how to add configs for multiple host =
-?
+Those are auto-fixed by running:
 
-Thanks,
-Kumar.
+	scripts/documentation-file-ref-check --fix
 
------Original Message-----
-From: Kumar Thangavel
-Sent: Thursday, February 20, 2020 5:43 PM
-To: Andrew Jeffery <andrew@aj.id.au>; openbmc@lists.ozlabs.org
-Cc: Jeremy Kerr <jk@ozlabs.org>; Joel Stanley <joel@jms.id.au>; Velumani T-=
-ERS,HCLTech <velumanit@hcl.com>
-Subject: RE: obmc-console design for multi host support
+Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+---
+ Documentation/devicetree/bindings/arm/arm,scmi.txt        | 2 +-
+ Documentation/devicetree/bindings/arm/arm,scpi.txt        | 2 +-
+ .../devicetree/bindings/arm/bcm/brcm,bcm63138.txt         | 2 +-
+ .../devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt  | 2 +-
+ .../devicetree/bindings/arm/msm/qcom,idle-state.txt       | 2 +-
+ Documentation/devicetree/bindings/arm/omap/mpu.txt        | 2 +-
+ Documentation/devicetree/bindings/arm/psci.yaml           | 2 +-
+ .../devicetree/bindings/clock/qcom,gcc-apq8064.yaml       | 2 +-
+ .../devicetree/bindings/display/tilcdc/tilcdc.txt         | 2 +-
+ Documentation/devicetree/bindings/leds/common.yaml        | 2 +-
+ .../devicetree/bindings/leds/register-bit-led.txt         | 2 +-
+ .../devicetree/bindings/memory-controllers/ti/emif.txt    | 2 +-
+ Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt   | 2 +-
+ .../bindings/pinctrl/aspeed,ast2400-pinctrl.yaml          | 2 +-
+ .../bindings/pinctrl/aspeed,ast2500-pinctrl.yaml          | 2 +-
+ .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml          | 2 +-
+ .../devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml  | 2 +-
+ .../devicetree/bindings/reset/st,stm32mp1-rcc.txt         | 2 +-
+ .../devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml  | 2 +-
+ MAINTAINERS                                               | 8 ++++----
+ 20 files changed, 23 insertions(+), 23 deletions(-)
 
-Hi Andrew,
-
-       Thanks for your response and information.
-
-       Please find my response inline below.
-
-Thanks,
-Kumar.
-
------Original Message-----
-From: Andrew Jeffery <andrew@aj.id.au>
-Sent: Thursday, February 20, 2020 5:38 AM
-To: Kumar Thangavel <thangavel.k@hcl.com>; openbmc@lists.ozlabs.org
-Cc: Jeremy Kerr <jk@ozlabs.org>; Joel Stanley <joel@jms.id.au>; Velumani T-=
-ERS,HCLTech <velumanit@hcl.com>
-Subject: Re: obmc-console design for multi host support
-
-[CAUTION: This Email is from outside the Organization. Do not click links o=
-r open attachments unless you trust the sender.]
-
-Hi Kumar,
-
-On Wed, 19 Feb 2020, at 18:24, Kumar Thangavel wrote:
->
-> Hi All,
->
->
->  Obmc-console application current design may not support multi host or
-> multiple console. So, we proposed the design to handle multi
-> host/multiple console in obmc-console client and server applications.
-
-Thanks for writing a proposal.
-
->
->  Please find the attached design document.
->
->
->  Could you please review and provide your comments on this.
-
-Interesting timing, because I've actually just solved this problem. Please =
-review this series in Gerrit:
-
-https://apc01.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgerrit.=
-openbmc-project.xyz%2Fq%2Ftopic%3A%2522concurrent-servers%2522%2B(status%3A=
-open%2520OR%2520status%3Amerged&amp;data=3D02%7C01%7Cthangavel.k%40hcl.com%=
-7Cc3bc8632eb5b4b538a3508d7b59904ba%7C189de737c93a4f5a8b686f4ca9941912%7C0%7=
-C0%7C637177541130921053&amp;sdata=3DHIYcn2Cd6tgCrAJCUwTaT5AqUkXfrB25HR0ncps=
-ejdg%3D&amp;reserved=3D0)
-
-Regarding the proposal, I have a few thoughts:
-
-1. Please try to keep it to plain-text
-2. If you have code it's best to post it straight away (rather than lead wi=
-th a proposal and no code)
-
-Kumar : Sure. Will Keep plain text for posting proposals/code.
-
-On point 1, this is an open-source community and sending documents in forma=
-ts like docx might mean that some people can't access them. Plain- text alw=
-ays works, especially as emails are generally composed that way, which mean=
-s you can put your proposal directly in an email and people can respond to =
-it with ease.
-
-On point 2, it seems that you've included screenshots of code changes that =
-you have made locally - a few sub-points there:
-
-a. Code is text - you can include snippets of it in your document directly,=
- which removes the need for rich media formats, which removes the need for =
-something like docx.
-
-b. If you've got code, push it to github or gerrit and we can look at it di=
-rectly!
-
-Kumar : Sure, Will keep code snippets in the plain text or will push it to =
-github or gerrit.
-
-On point b, given that this proposal largely deals with implementation deta=
-ils, it's much more effective if you lead with code and then drive a discus=
-sion on the list if necessary. At least this way we have something concrete=
- to point at and argue about, or in the happy case we can just merge it and=
- you've avoided the effort of driving redundant discussion.
-
-Finally, these thoughts are about helping you help us help you to get your =
-code merged with the least amount of effort/friction. Hopefully they are us=
-eful to you :)
-
-Kumar : I looked at your patches and this is really good information and ve=
-ry helpful. Will look more in detail and get back to you.
-
-Cheers,
-
-Andrew
-::DISCLAIMER::
-________________________________
-The contents of this e-mail and any attachment(s) are confidential and inte=
-nded for the named recipient(s) only. E-mail transmission is not guaranteed=
- to be secure or error-free as information could be intercepted, corrupted,=
- lost, destroyed, arrive late or incomplete, or may contain viruses in tran=
-smission. The e mail and its contents (with or without referred errors) sha=
-ll therefore not attach any liability on the originator or HCL or its affil=
-iates. Views or opinions, if any, presented in this email are solely those =
-of the author and may not necessarily reflect the views or opinions of HCL =
-or its affiliates. Any form of reproduction, dissemination, copying, disclo=
-sure, modification, distribution and / or publication of this message witho=
-ut the prior written consent of authorized representative of HCL is strictl=
-y prohibited. If you have received this email in error please delete it and=
- notify the sender immediately. Before opening any email and/or attachments=
-, please check them for viruses and other defects.
-________________________________
+diff --git a/Documentation/devicetree/bindings/arm/arm,scmi.txt b/Documentation/devicetree/bindings/arm/arm,scmi.txt
+index f493d69e6194..dc102c4e4a78 100644
+--- a/Documentation/devicetree/bindings/arm/arm,scmi.txt
++++ b/Documentation/devicetree/bindings/arm/arm,scmi.txt
+@@ -102,7 +102,7 @@ Required sub-node properties:
+ [1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+ [2] Documentation/devicetree/bindings/power/power-domain.yaml
+ [3] Documentation/devicetree/bindings/thermal/thermal.txt
+-[4] Documentation/devicetree/bindings/sram/sram.txt
++[4] Documentation/devicetree/bindings/sram/sram.yaml
+ [5] Documentation/devicetree/bindings/reset/reset.txt
+ 
+ Example:
+diff --git a/Documentation/devicetree/bindings/arm/arm,scpi.txt b/Documentation/devicetree/bindings/arm/arm,scpi.txt
+index 7b83ef43b418..dd04d9d9a1b8 100644
+--- a/Documentation/devicetree/bindings/arm/arm,scpi.txt
++++ b/Documentation/devicetree/bindings/arm/arm,scpi.txt
+@@ -109,7 +109,7 @@ Required properties:
+ [0] http://infocenter.arm.com/help/topic/com.arm.doc.dui0922b/index.html
+ [1] Documentation/devicetree/bindings/clock/clock-bindings.txt
+ [2] Documentation/devicetree/bindings/thermal/thermal.txt
+-[3] Documentation/devicetree/bindings/sram/sram.txt
++[3] Documentation/devicetree/bindings/sram/sram.yaml
+ [4] Documentation/devicetree/bindings/power/power-domain.yaml
+ 
+ Example:
+diff --git a/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt b/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
+index b82b6a0ae6f7..8c7a4908a849 100644
+--- a/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
++++ b/Documentation/devicetree/bindings/arm/bcm/brcm,bcm63138.txt
+@@ -62,7 +62,7 @@ Timer node:
+ 
+ Syscon reboot node:
+ 
+-See Documentation/devicetree/bindings/power/reset/syscon-reboot.txt for the
++See Documentation/devicetree/bindings/power/reset/syscon-reboot.yaml for the
+ detailed list of properties, the two values defined below are specific to the
+ BCM6328-style timer:
+ 
+diff --git a/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt b/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
+index 115c5be0bd0b..8defacc44dd5 100644
+--- a/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
++++ b/Documentation/devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt
+@@ -1,7 +1,7 @@
+ * Hisilicon Hi3519 System Controller Block
+ 
+ This bindings use the following binding:
+-Documentation/devicetree/bindings/mfd/syscon.txt
++Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ Required properties:
+ - compatible: "hisilicon,hi3519-sysctrl".
+diff --git a/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt b/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
+index 06df04cc827a..6ce0b212ec6d 100644
+--- a/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
++++ b/Documentation/devicetree/bindings/arm/msm/qcom,idle-state.txt
+@@ -81,4 +81,4 @@ Example:
+ 		};
+ 	};
+ 
+-[1]. Documentation/devicetree/bindings/arm/idle-states.txt
++[1]. Documentation/devicetree/bindings/arm/idle-states.yaml
+diff --git a/Documentation/devicetree/bindings/arm/omap/mpu.txt b/Documentation/devicetree/bindings/arm/omap/mpu.txt
+index f301e636fd52..e41490e6979c 100644
+--- a/Documentation/devicetree/bindings/arm/omap/mpu.txt
++++ b/Documentation/devicetree/bindings/arm/omap/mpu.txt
+@@ -17,7 +17,7 @@ am335x and am437x only:
+ - pm-sram: Phandles to ocmcram nodes to be used for power management.
+ 	   First should be type 'protect-exec' for the driver to use to copy
+ 	   and run PM functions, second should be regular pool to be used for
+-	   data region for code. See Documentation/devicetree/bindings/sram/sram.txt
++	   data region for code. See Documentation/devicetree/bindings/sram/sram.yaml
+ 	   for more details.
+ 
+ Examples:
+diff --git a/Documentation/devicetree/bindings/arm/psci.yaml b/Documentation/devicetree/bindings/arm/psci.yaml
+index 8ef85420b2ab..f8218e60e3e2 100644
+--- a/Documentation/devicetree/bindings/arm/psci.yaml
++++ b/Documentation/devicetree/bindings/arm/psci.yaml
+@@ -100,7 +100,7 @@ properties:
+       bindings in [1]) must specify this property.
+ 
+       [1] Kernel documentation - ARM idle states bindings
+-        Documentation/devicetree/bindings/arm/idle-states.txt
++        Documentation/devicetree/bindings/arm/idle-states.yaml
+ 
+   "#power-domain-cells":
+     description:
+diff --git a/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml b/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
+index 17f87178f6b8..3647007f82ca 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,gcc-apq8064.yaml
+@@ -42,7 +42,7 @@ properties:
+       be part of GCC and hence the TSENS properties can also be part
+       of the GCC/clock-controller node.
+       For more details on the TSENS properties please refer
+-      Documentation/devicetree/bindings/thermal/qcom-tsens.txt
++      Documentation/devicetree/bindings/thermal/qcom-tsens.yaml
+ 
+   nvmem-cell-names:
+     minItems: 1
+diff --git a/Documentation/devicetree/bindings/display/tilcdc/tilcdc.txt b/Documentation/devicetree/bindings/display/tilcdc/tilcdc.txt
+index 7bf1bb444812..aac617acb64f 100644
+--- a/Documentation/devicetree/bindings/display/tilcdc/tilcdc.txt
++++ b/Documentation/devicetree/bindings/display/tilcdc/tilcdc.txt
+@@ -37,7 +37,7 @@ Optional nodes:
+    supports a single port with a single endpoint.
+ 
+  - See also Documentation/devicetree/bindings/display/tilcdc/panel.txt and
+-   Documentation/devicetree/bindings/display/tilcdc/tfp410.txt for connecting
++   Documentation/devicetree/bindings/display/bridge/ti,tfp410.txt for connecting
+    tfp410 DVI encoder or lcd panel to lcdc
+ 
+ [1] There is an errata about AM335x color wiring. For 16-bit color mode
+diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documentation/devicetree/bindings/leds/common.yaml
+index d97d099b87e5..c60b994fe116 100644
+--- a/Documentation/devicetree/bindings/leds/common.yaml
++++ b/Documentation/devicetree/bindings/leds/common.yaml
+@@ -85,7 +85,7 @@ properties:
+         # LED will act as a back-light, controlled by the framebuffer system
+       - backlight
+         # LED will turn on (but for leds-gpio see "default-state" property in
+-        # Documentation/devicetree/bindings/leds/leds-gpio.txt)
++        # Documentation/devicetree/bindings/leds/leds-gpio.yaml)
+       - default-on
+         # LED "double" flashes at a load average based rate
+       - heartbeat
+diff --git a/Documentation/devicetree/bindings/leds/register-bit-led.txt b/Documentation/devicetree/bindings/leds/register-bit-led.txt
+index cf1ea403ba7a..c7af6f70a97b 100644
+--- a/Documentation/devicetree/bindings/leds/register-bit-led.txt
++++ b/Documentation/devicetree/bindings/leds/register-bit-led.txt
+@@ -5,7 +5,7 @@ where single bits in a certain register can turn on/off a
+ single LED. The register bit LEDs appear as children to the
+ syscon device, with the proper compatible string. For the
+ syscon bindings see:
+-Documentation/devicetree/bindings/mfd/syscon.txt
++Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ Each LED is represented as a sub-node of the syscon device. Each
+ node's name represents the name of the corresponding LED.
+diff --git a/Documentation/devicetree/bindings/memory-controllers/ti/emif.txt b/Documentation/devicetree/bindings/memory-controllers/ti/emif.txt
+index 44d71469c914..63f674ffeb4f 100644
+--- a/Documentation/devicetree/bindings/memory-controllers/ti/emif.txt
++++ b/Documentation/devicetree/bindings/memory-controllers/ti/emif.txt
+@@ -32,7 +32,7 @@ Required only for "ti,emif-am3352" and "ti,emif-am4372":
+ - sram			: Phandles for generic sram driver nodes,
+   first should be type 'protect-exec' for the driver to use to copy
+   and run PM functions, second should be regular pool to be used for
+-  data region for code. See Documentation/devicetree/bindings/sram/sram.txt
++  data region for code. See Documentation/devicetree/bindings/sram/sram.yaml
+   for more details.
+ 
+ Optional properties:
+diff --git a/Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt b/Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt
+index bb7e896cb644..9134e9bcca56 100644
+--- a/Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt
++++ b/Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt
+@@ -26,7 +26,7 @@ For generic IOMMU bindings, see
+ Documentation/devicetree/bindings/iommu/iommu.txt.
+ 
+ For arm-smmu binding, see:
+-Documentation/devicetree/bindings/iommu/arm,smmu.txt.
++Documentation/devicetree/bindings/iommu/arm,smmu.yaml.
+ 
+ Required properties:
+ 
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
+index bb690e20c368..135c7dfbc180 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2400-pinctrl.yaml
+@@ -17,7 +17,7 @@ description: |+
+                     "aspeed,ast2400-scu", "syscon", "simple-mfd"
+ 
+   Refer to the the bindings described in
+-  Documentation/devicetree/bindings/mfd/syscon.txt
++  Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
+index f7f5d57f2c9a..824f7fd1d51b 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2500-pinctrl.yaml
+@@ -18,7 +18,7 @@ description: |+
+   			"aspeed,g5-scu", "syscon", "simple-mfd"
+ 
+   Refer to the the bindings described in
+-  Documentation/devicetree/bindings/mfd/syscon.txt
++  Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+index 3749fa233e87..ac8d1c30a8ed 100644
+--- a/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/aspeed,ast2600-pinctrl.yaml
+@@ -17,7 +17,7 @@ description: |+
+                 "aspeed,ast2600-scu", "syscon", "simple-mfd"
+ 
+   Refer to the the bindings described in
+-  Documentation/devicetree/bindings/mfd/syscon.txt
++  Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml b/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
+index aab70e8b681e..d3098c924b25 100644
+--- a/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
++++ b/Documentation/devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml
+@@ -18,7 +18,7 @@ description: |+
+                 "amlogic,meson-gx-hhi-sysctrl", "simple-mfd", "syscon"
+ 
+   Refer to the the bindings described in
+-  Documentation/devicetree/bindings/mfd/syscon.txt
++  Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+   compatible:
+diff --git a/Documentation/devicetree/bindings/reset/st,stm32mp1-rcc.txt b/Documentation/devicetree/bindings/reset/st,stm32mp1-rcc.txt
+index b4edaf7c7ff3..2880d5dda95e 100644
+--- a/Documentation/devicetree/bindings/reset/st,stm32mp1-rcc.txt
++++ b/Documentation/devicetree/bindings/reset/st,stm32mp1-rcc.txt
+@@ -3,4 +3,4 @@ STMicroelectronics STM32MP1 Peripheral Reset Controller
+ 
+ The RCC IP is both a reset and a clock controller.
+ 
+-Please see Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.txt
++Please see Documentation/devicetree/bindings/clock/st,stm32mp1-rcc.yaml
+diff --git a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
+index d9fdf4809a49..f3e68ed03abf 100644
+--- a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
++++ b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
+@@ -17,7 +17,7 @@ description: |+
+                 "brcm,bcm2711-avs-monitor", "syscon", "simple-mfd"
+ 
+   Refer to the the bindings described in
+-  Documentation/devicetree/bindings/mfd/syscon.txt
++  Documentation/devicetree/bindings/mfd/syscon.yaml
+ 
+ properties:
+   compatible:
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e8bcf73f63cc..d110256a6802 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4022,7 +4022,7 @@ M:	Cheng-Yi Chiang <cychiang@chromium.org>
+ S:	Maintained
+ R:	Enric Balletbo i Serra <enric.balletbo@collabora.com>
+ R:	Guenter Roeck <groeck@chromium.org>
+-F:	Documentation/devicetree/bindings/sound/google,cros-ec-codec.txt
++F:	Documentation/devicetree/bindings/sound/google,cros-ec-codec.yaml
+ F:	sound/soc/codecs/cros_ec_codec.*
+ 
+ CIRRUS LOGIC AUDIO CODEC DRIVERS
+@@ -5673,7 +5673,7 @@ L:	dri-devel@lists.freedesktop.org
+ T:	git git://anongit.freedesktop.org/drm/drm-misc
+ S:	Maintained
+ F:	drivers/gpu/drm/stm
+-F:	Documentation/devicetree/bindings/display/st,stm32-ltdc.txt
++F:	Documentation/devicetree/bindings/display/st,stm32-ltdc.yaml
+ 
+ DRM DRIVERS FOR TI LCDC
+ M:	Jyri Sarha <jsarha@ti.com>
+@@ -10193,7 +10193,7 @@ MAXBOTIX ULTRASONIC RANGER IIO DRIVER
+ M:	Andreas Klinger <ak@it-klinger.de>
+ L:	linux-iio@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/iio/proximity/maxbotix,mb1232.txt
++F:	Documentation/devicetree/bindings/iio/proximity/maxbotix,mb1232.yaml
+ F:	drivers/iio/proximity/mb1232.c
+ 
+ MAXIM MAX77650 PMIC MFD DRIVER
+@@ -10496,7 +10496,7 @@ M:	Hugues Fruchet <hugues.fruchet@st.com>
+ L:	linux-media@vger.kernel.org
+ T:	git git://linuxtv.org/media_tree.git
+ S:	Supported
+-F:	Documentation/devicetree/bindings/media/st,stm32-dcmi.txt
++F:	Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
+ F:	drivers/media/platform/stm32/stm32-dcmi.c
+ 
+ MEDIA DRIVERS FOR NVIDIA TEGRA - VDE
+-- 
+2.24.1
