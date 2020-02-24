@@ -1,61 +1,78 @@
-Return-Path: <dipukuet@gmail.com>
+Return-Path: <robherring2@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12a;
- helo=mail-lf1-x12a.google.com; envelope-from=dipukuet@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=209.85.210.67; helo=mail-ot1-f67.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=n5aQ0r1w; dkim-atps=neutral
-Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
- [IPv6:2a00:1450:4864:20::12a])
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-ot1-f67.google.com (mail-ot1-f67.google.com
+ [209.85.210.67])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48MRZt0Tp3zDqY3
- for <openbmc@lists.ozlabs.org>; Wed, 19 Feb 2020 03:46:40 +1100 (AEDT)
-Received: by mail-lf1-x12a.google.com with SMTP id r14so15014425lfm.5
- for <openbmc@lists.ozlabs.org>; Tue, 18 Feb 2020 08:46:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=22cdfCcOxfZkvLvepyw1suGGI6/+Yep1lprJoO+Hl88=;
- b=n5aQ0r1wJozrPy9Tyv0xryPQNZdiqajZTI2dWNNW2RcWgfIEvVRuHI8tjzUtVcL572
- N9Y2K6JC1YvRist0KKpnB54ivXS1RLOOEKO03Q47iRXfgglP0y/9e3AjD7qjkLNNA+mg
- 5B4MyD/M5KvOnK2w+uVcnpPDp7BDV9/Rgea5X+Dxkrkb97Ui9izNNznKPVEvHIMBDoOo
- h89gVJRwacAqXu9YBUnXrR/Nqf/P2xt2yQS9I6byL0ZuQ3KJ2jtkHPCwqTmuBvLujuI6
- LopTtX3vfaryTnnxCsaKIzuvTMYOgmy7xzV1A4pRsqmfy5ot1SKhyhHP6FSA2lG5UbN2
- O4lQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48R9Fj5cDjzDqMy;
+ Tue, 25 Feb 2020 05:14:47 +1100 (AEDT)
+Received: by mail-ot1-f67.google.com with SMTP id r27so9556134otc.8;
+ Mon, 24 Feb 2020 10:14:46 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=22cdfCcOxfZkvLvepyw1suGGI6/+Yep1lprJoO+Hl88=;
- b=gGGsMiIDJXn6i6WGxwFOsa7ekjC8of0pP7kVn0Hz9FP0Xor2v1rXV0Gl8elOqOBNCQ
- N8azwPImWKG4iFtavHGHCDkMAE0u2iok7XMvm+40BRDgj+SbGKDFhSRBW0NChFyT4vYe
- HUzvGWwLnY5V7g27X0je0r+CwcAcXjGck6pnsGfQXLpgkeWRDlgdSs/Uv535/NWI9I2c
- PX+c2co1YpdVl/mBKeIs2OwEjRbiFTABSkOJgHXV445UFQskDiQ7ssQtcsbf3msi30dM
- 0pCp6DJ8hBRGOVPgAmfitO0Ve1ejboeDXeXQwO7l1S4UAfKTSSSS20ffdu5SX6J1y2lh
- bTtw==
-X-Gm-Message-State: APjAAAVDSC2gS5AQUdNg7azG0DKqk9OSUI0CEES1ul47BcRe/W44ZNGJ
- zAQX5jLEIfsp963oCzzY9oi/YrJjKx4Ryydbhfs=
-X-Google-Smtp-Source: APXvYqwJiz34WNC0r47THt9EPgRcJzZmPoFa4cQSGx0L2OdPTgvjoDVp+rOkcTp6nfu4AGr7IacYB/aUEIjKmSNkY6Q=
-X-Received: by 2002:a19:94d:: with SMTP id 74mr10780002lfj.144.1582044393810; 
- Tue, 18 Feb 2020 08:46:33 -0800 (PST)
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=4nmmGful+MegUr8aRgRCB1gCieEuCvrSiIBlqsABDmE=;
+ b=jpSwdeGlBVUkPyvxuWzLgrrMIf1r+i6REyRgC0IT/KeBI++SdH9FDm7lXZX26WF53x
+ izWiXxL5+MPuIJVGTY2QDBZiWtPkmU/9l30qI7LBdkh2wSpkxogxVYmiQhBaqv1/LAit
+ NTzXQvyVIfSTzFv/2Io0w/SF0h0pkIuUnQkK3UDySD2Wut9rOH7ZJBC1uyFMHWQRe9Ew
+ 4dmzs+Qmm19q/+NZkunaxEo7zHoRf/dFTmouiWL8pF3KAXbpXyD75+SP6peWlhJQdtIE
+ Mh4kE/LAHbOROBTgbevXmZYy2J7aGdE4ZNd36okzPShG5qJgD2QFxTmVuX9El0ML8EcF
+ uy4w==
+X-Gm-Message-State: APjAAAU3ZCLAgOGIL9qakx04OOOzP8uNMbOSsrICXicUZ8J4sUfb3xVd
+ NroogxUcUGL6nyN5Dop4Tg==
+X-Google-Smtp-Source: APXvYqzSAV62BhNi363gv0daEbhuDKzBdde3JmEZAlbjVYZ9GcAmP/tY+ZpDRe7P2Ti1DpLoIK6ciQ==
+X-Received: by 2002:a9d:68d9:: with SMTP id i25mr29162204oto.135.1582568083899; 
+ Mon, 24 Feb 2020 10:14:43 -0800 (PST)
+Received: from rob-hp-laptop (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id 60sm4761700otu.45.2020.02.24.10.14.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 Feb 2020 10:14:43 -0800 (PST)
+Received: (nullmailer pid 24218 invoked by uid 1000);
+ Mon, 24 Feb 2020 18:14:41 -0000
+Date: Mon, 24 Feb 2020 12:14:41 -0600
+From: Rob Herring <robh@kernel.org>
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Linux Doc Mailing List <linux-doc@vger.kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, 
+ Sudeep Holla <sudeep.holla@arm.com>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <bjorn.andersson@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Jyri Sarha <jsarha@ti.com>,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>, 
+ David Airlie <airlied@linux.ie>, Daniel Vetter <daniel@ffwll.ch>, 
+ Jacek Anaszewski <jacek.anaszewski@gmail.com>, Pavel Machek <pavel@ucw.cz>,
+ Dan Murphy <dmurphy@ti.com>, 
+ Stuart Yoder <stuyoder@gmail.com>, Laurentiu Tudor <laurentiu.tudor@nxp.com>, 
+ Andrew Jeffery <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>, 
+ Joel Stanley <joel@jms.id.au>, Kevin Hilman <khilman@baylibre.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@st.com>, Zhang Rui <rui.zhang@intel.com>, 
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Amit Kucheria <amit.kucheria@verdurent.com>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+ linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org, 
+ linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-pm@vger.kernel.org
+Subject: Re: [PATCH 2/7] docs: dt: fix several broken references due to renames
+Message-ID: <20200224181441.GA23262@bogus>
+References: <cover.1582361737.git.mchehab+huawei@kernel.org>
+ <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
 MIME-Version: 1.0
-References: <68732B2D-EB7D-418A-86D9-3095223A31FB@linux.vnet.ibm.com>
- <5B7FD9A0-8A4A-4BCC-9BC5-77B5DEBCDD00@fuzziesquirrel.com>
-In-Reply-To: <5B7FD9A0-8A4A-4BCC-9BC5-77B5DEBCDD00@fuzziesquirrel.com>
-From: Ryan Arnell <ryan1arnell@gmail.com>
-Date: Tue, 18 Feb 2020 10:46:22 -0600
-Message-ID: <CAJF4KMyJkSaKF=wOgSPLk_zig_vfXWKxhS2oLKBWbV6GN+U8ZA@mail.gmail.com>
-Subject: Re: Request for Feedback :: Time Mode setting in timemanager
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Cc: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, ggoldman@us.ibm.com,
- dadubets@us.ibm.com
-Content-Type: multipart/alternative; boundary="0000000000001caec6059edc6aea"
-X-Mailman-Approved-At: Thu, 27 Feb 2020 13:08:42 +1100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
+User-Agent: Mutt/1.10.1 (2018-07-13)
+X-Mailman-Approved-At: Thu, 27 Feb 2020 13:08:40 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,149 +84,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 18 Feb 2020 16:46:46 -0000
+X-List-Received-Date: Mon, 24 Feb 2020 18:14:50 -0000
 
---0000000000001caec6059edc6aea
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Sat, Feb 22, 2020 at 10:00:02AM +0100, Mauro Carvalho Chehab wrote:
+> Several DT references got broken due to txt->yaml conversion.
+> 
+> Those are auto-fixed by running:
+> 
+> 	scripts/documentation-file-ref-check --fix
+> 
+> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> Reviewed-by: Dan Murphy <dmurphy@ti.com>
+> ---
+>  Documentation/devicetree/bindings/arm/arm,scmi.txt        | 2 +-
+>  Documentation/devicetree/bindings/arm/arm,scpi.txt        | 2 +-
+>  .../devicetree/bindings/arm/bcm/brcm,bcm63138.txt         | 2 +-
+>  .../devicetree/bindings/arm/hisilicon/hi3519-sysctrl.txt  | 2 +-
+>  .../devicetree/bindings/arm/msm/qcom,idle-state.txt       | 2 +-
+>  Documentation/devicetree/bindings/arm/omap/mpu.txt        | 2 +-
+>  Documentation/devicetree/bindings/arm/psci.yaml           | 2 +-
+>  .../devicetree/bindings/clock/qcom,gcc-apq8064.yaml       | 2 +-
+>  .../devicetree/bindings/display/tilcdc/tilcdc.txt         | 2 +-
+>  Documentation/devicetree/bindings/leds/common.yaml        | 2 +-
+>  .../devicetree/bindings/leds/register-bit-led.txt         | 2 +-
+>  .../devicetree/bindings/memory-controllers/ti/emif.txt    | 2 +-
+>  Documentation/devicetree/bindings/misc/fsl,qoriq-mc.txt   | 2 +-
+>  .../bindings/pinctrl/aspeed,ast2400-pinctrl.yaml          | 2 +-
+>  .../bindings/pinctrl/aspeed,ast2500-pinctrl.yaml          | 2 +-
+>  .../bindings/pinctrl/aspeed,ast2600-pinctrl.yaml          | 2 +-
+>  .../devicetree/bindings/power/amlogic,meson-ee-pwrc.yaml  | 2 +-
+>  .../devicetree/bindings/reset/st,stm32mp1-rcc.txt         | 2 +-
+>  .../devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml  | 2 +-
+>  MAINTAINERS                                               | 8 ++++----
+>  20 files changed, 23 insertions(+), 23 deletions(-)
 
-Thanks Brad and Vishwa for moving into the direction where we might not
-require a reboot or host power off from moving to Manual to NTP or vise
-versa.
-We had a lot of user feedback who see this as a very inefficient task.
-Goldman and David cc'ed here can also has a lot of customers who needs to
-sync time often and they would not like to power off host every time that
-happens.
+Applied.
 
-Thanks again
-Ryan
-
-On Tue, Feb 18, 2020 at 8:43 AM Brad Bishop <bradleyb@fuzziesquirrel.com>
-wrote:
-
->
->
-> > On Feb 18, 2020, at 7:56 AM, Vishwanatha Subbanna <
-> vishwa@linux.vnet.ibm.com> wrote:
-> >
-> > Hello,
-> >
-> > Sending this email requesting feedback on one of the feature that we
-> currently have in phosphor-timemanager.
-> >
-> > Time manager uses TimeMode setting and can have either [NTP] or [Manual=
-]
-> as the valid options and are provided via xyz/openbmc_projects/settings/
-> for external users.
-> >
-> > When the system power is off and BMC is in ready state, any changes to
-> these settings are readily consumed by time manager daemon.
-> >
-> > However, if the user changes the setting when the Host is booting,
-> timemanager puts them in deferred state. Meaning, timemanager does not ta=
-ke
-> the settings into effect until the Host is powered off.
->
-> Can you elaborate on why it does this?
->
-> >
-> > So, if someone wants to move from [Manual] to [NTP] or vice-versa, when
-> the Host is [On], they need to [power-off] the Host and power it back on.
->
-> This seems less than ideal?  Would you agree?
->
-> >
-> > This design was chosen because we wanted to give priority to Host.
->
-> What does it mean to give priority to the Host?  Are you trying to hide
-> time changes in the time from the host?  Why?
->
-> > Some of us are asking me if we can make a change to take the setting
-> changes in effect immediately, not caring the state of the Host.
->
-> Without additional background this is what seems intuitive to me.
->
-> >
-> > Please could you help with your thoughts on this ?.. What is the
-> Industry norm on this ?
->
-> FWIW on our (IBM) system designs we usually hook an RTC up to the BMC, an=
-d
-> any host software needing a RTC has to get it via some in-band software
-> interface.  I think I heard somewhere though that often in other systems
-> designs the RTC is connected to the host processors and the BMC doesn=E2=
-=80=99t
-> have access to it.
-
---0000000000001caec6059edc6aea
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:arial,he=
-lvetica,sans-serif">Thanks Brad and=C2=A0<span style=3D"font-family:Arial,H=
-elvetica,sans-serif">Vishwa for moving into the direction where we might no=
-t require a reboot or host power off from moving to Manual to NTP or vise v=
-ersa.=C2=A0</span></div><div class=3D"gmail_default" style=3D"">We had a lo=
-t of user feedback who see this as a very inefficient task.=C2=A0</div><div=
- class=3D"gmail_default" style=3D"">Goldman and David cc&#39;ed here can al=
-so has a lot of customers=C2=A0who needs to sync time often and they=C2=A0w=
-ould not like to power off host every time that happens.=C2=A0</div><div cl=
-ass=3D"gmail_default" style=3D""><br></div><div class=3D"gmail_default" sty=
-le=3D"">Thanks again</div><div class=3D"gmail_default" style=3D"">Ryan=C2=
-=A0</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gma=
-il_attr">On Tue, Feb 18, 2020 at 8:43 AM Brad Bishop &lt;<a href=3D"mailto:=
-bradleyb@fuzziesquirrel.com">bradleyb@fuzziesquirrel.com</a>&gt; wrote:<br>=
-</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;b=
-order-left:1px solid rgb(204,204,204);padding-left:1ex"><br>
-<br>
-&gt; On Feb 18, 2020, at 7:56 AM, Vishwanatha Subbanna &lt;<a href=3D"mailt=
-o:vishwa@linux.vnet.ibm.com" target=3D"_blank">vishwa@linux.vnet.ibm.com</a=
->&gt; wrote:<br>
-&gt; <br>
-&gt; Hello,<br>
-&gt; <br>
-&gt; Sending this email requesting feedback on one of the feature that we c=
-urrently have in phosphor-timemanager.<br>
-&gt; <br>
-&gt; Time manager uses TimeMode setting and can have either [NTP] or [Manua=
-l] as the valid options and are provided via xyz/openbmc_projects/settings/=
- for external users.<br>
-&gt; <br>
-&gt; When the system power is off and BMC is in ready state, any changes to=
- these settings are readily consumed by time manager daemon.<br>
-&gt; <br>
-&gt; However, if the user changes the setting when the Host is booting, tim=
-emanager puts them in deferred state. Meaning, timemanager does not take th=
-e settings into effect until the Host is powered off.<br>
-<br>
-Can you elaborate on why it does this?<br>
-<br>
-&gt; <br>
-&gt; So, if someone wants to move from [Manual] to [NTP] or vice-versa, whe=
-n the Host is [On], they need to [power-off] the Host and power it back on.=
-<br>
-<br>
-This seems less than ideal?=C2=A0 Would you agree?<br>
-<br>
-&gt; <br>
-&gt; This design was chosen because we wanted to give priority to Host.<br>
-<br>
-What does it mean to give priority to the Host?=C2=A0 Are you trying to hid=
-e time changes in the time from the host?=C2=A0 Why?<br>
-<br>
-&gt; Some of us are asking me if we can make a change to take the setting c=
-hanges in effect immediately, not caring the state of the Host.<br>
-<br>
-Without additional background this is what seems intuitive to me.<br>
-<br>
-&gt; <br>
-&gt; Please could you help with your thoughts on this ?.. What is the Indus=
-try norm on this ?<br>
-<br>
-FWIW on our (IBM) system designs we usually hook an RTC up to the BMC, and =
-any host software needing a RTC has to get it via some in-band software int=
-erface.=C2=A0 I think I heard somewhere though that often in other systems =
-designs the RTC is connected to the host processors and the BMC doesn=E2=80=
-=99t have access to it.</blockquote></div>
-
---0000000000001caec6059edc6aea--
+Rob
