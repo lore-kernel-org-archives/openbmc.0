@@ -1,130 +1,54 @@
-Return-Path: <prvs=0332e40355=vijaykhemka@fb.com>
+Return-Path: <lak3645@gmail.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::32b;
+ helo=mail-wm1-x32b.google.com; envelope-from=lak3645@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=0332e40355=vijaykhemka@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256
- header.s=facebook header.b=S8UANh/2; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-fb-onmicrosoft-com header.b=DVTySZkY; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=DmLnmUnN; dkim-atps=neutral
+Received: from mail-wm1-x32b.google.com (mail-wm1-x32b.google.com
+ [IPv6:2a00:1450:4864:20::32b])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48XF256XpKzDqQ9
- for <openbmc@lists.ozlabs.org>; Wed,  4 Mar 2020 11:22:16 +1100 (AEDT)
-Received: from pps.filterd (m0148461.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 02408vDN027478; Tue, 3 Mar 2020 16:22:07 -0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=/2oz+pxpvPWzFAidCY//ViU0gB+OECZIYh5z4Z3f6y0=;
- b=S8UANh/2vBLNKvPIH75aCfj4nVifDnPJBw+iOmgYlKUT7jlkNUyU7qYVu7mh8pX0IeAN
- Syf2pvUmnYbsi0u03tu8MCKbdg51dLk5bQlZDqAWhS+ERWFN1HMRAvaKU2PiZ6foHfwz
- LcTiF11wJid9GQ0TZ5/tuIVmAv83Q98ISMA= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com with ESMTP id 2yhpfwm1ae-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 03 Mar 2020 16:22:07 -0800
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com (100.104.31.183)
- by o365-in.thefacebook.com (100.104.35.173) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1779.2; Tue, 3 Mar 2020 16:22:06 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=HJ3CSpkZMGpBG6T0ncfxVLurwkjIKQjydeXwE5Ij9nhExWQqb8NGLrQzUvgulmtFu/fqPdhOTc7X4V2J43G4cluNYULH13dDYYMv9htb3Rq0tyRMY3lYAbjuyQsBpZ2MYNcQCaB4MSxPQTWy050JMpOVqEqazFir2A7YbSf+yurvOfpjU8v7CTC8IJ9g5+6A0d/3ZptEBfaEYnQm57D4UQ9vBBBHaV9c1uGNSFgxUM5+LnuEcSDcED/YUHql5issHdx6plX+yuMXJpwwnI26eAXd9RXzw2P65YVlW9iQfdKDPsQNNTwWrGQVM+OrKqNiKn9wdE3WgvHOCjTzmYgi6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/2oz+pxpvPWzFAidCY//ViU0gB+OECZIYh5z4Z3f6y0=;
- b=LF+tQcKgv0DEn4o4iCTDtxiEDRhvSq1dyudoocupIbGaaOi5D6PAooV5kDU1t6QECl1o5ZujSzkVd+wN5+vx4dxSGWsLT6v0skIOhBv1mEMElMd5b6kn5gMuGc9ciONpYFtsVIeEOCl8fyBZW4Y3bPbT0vUKj3BPn2Rl93/g3HNZc8NN+yyqVABMBx01GJdDujs75YPawi698HYfmRrei0EhLzoxAXPLomMQVdm95bM4bponQTpTfxMkYjBpSg79PZUT+hg68t5mANeeRRTjnwrSsyss9jiWzxlxuLpWD/lvFvhg5hwoFYNjHoWU5wNXAJvrWjPguiVm3vdt3xy0+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
- header.d=fb.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector2-fb-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/2oz+pxpvPWzFAidCY//ViU0gB+OECZIYh5z4Z3f6y0=;
- b=DVTySZkYoNs5kKmhhiJ9lrTq5hw6MKUMw1CGUkR9911Spv6jm6cRjvC3oRW9+3TiAglKynvPFfIS7Ez6JWgPPP1QFyAH8/1C2PqqtN+WJxl1hAG3F8oQG54pU0ddgGQb4kFyFGSpdlcNnMbAfbw1XiNG98O65LANzyAFeHkE3Nc=
-Received: from MW3PR15MB3947.namprd15.prod.outlook.com (2603:10b6:303:49::9)
- by MW3PR15MB3866.namprd15.prod.outlook.com (2603:10b6:303:50::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2772.15; Wed, 4 Mar
- 2020 00:22:05 +0000
-Received: from MW3PR15MB3947.namprd15.prod.outlook.com
- ([fe80::acc7:ed14:3f77:9936]) by MW3PR15MB3947.namprd15.prod.outlook.com
- ([fe80::acc7:ed14:3f77:9936%4]) with mapi id 15.20.2772.019; Wed, 4 Mar 2020
- 00:22:05 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: Andrew Jeffery <andrew@aj.id.au>, Kumar Thangavel <thangavel.k@hcl.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-CC: "Velumani T-ERS,HCLTech" <velumanit@hcl.com>
-Subject: Re: obmc-console design for multi host support
-Thread-Topic: obmc-console design for multi host support
-Thread-Index: AQHV54I/nLHE21W9uEuIi5D/dIqKpKgj/zQAgAmtGoCAAS9LgIAA4TAAgAaVjgCAAM5lgA==
-Date: Wed, 4 Mar 2020 00:22:05 +0000
-Message-ID: <11C9DB76-A38F-41B3-AA20-1FFD79E12E8C@fb.com>
-References: <SG2PR04MB3029CF9F520DF543B57B93C2FD100@SG2PR04MB3029.apcprd04.prod.outlook.com>
- <f136d4ad-65e6-4e74-8f53-2ca3edaf9288@www.fastmail.com>
- <SG2PR04MB30295AD664D4B5BD5F24EFD3FD130@SG2PR04MB3029.apcprd04.prod.outlook.com>
- <SG2PR04MB302996468E42284DE73358A6FDEA0@SG2PR04MB3029.apcprd04.prod.outlook.com>
- <5dd6cbbe-5f58-4370-82c7-55c8dc22ca5b@www.fastmail.com>
- <26B24CEE-C910-4FB1-B316-8E0676E3AD16@fb.com>
- <5867808b-871f-435e-aa79-10bf64a8f4b5@www.fastmail.com>
-In-Reply-To: <5867808b-871f-435e-aa79-10bf64a8f4b5@www.fastmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:500::6:f398]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d2c3c588-7838-4278-adbe-08d7bfd211bf
-x-ms-traffictypediagnostic: MW3PR15MB3866:
-x-microsoft-antispam-prvs: <MW3PR15MB38661BE6E40E0E703B189628DDE50@MW3PR15MB3866.namprd15.prod.outlook.com>
-x-fb-source: Internal
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-forefront-prvs: 0332AACBC3
-x-forefront-antispam-report: SFV:NSPM;
- SFS:(10019020)(366004)(136003)(346002)(39860400002)(396003)(376002)(189003)(199004)(66476007)(76116006)(33656002)(64756008)(2616005)(110136005)(66556008)(66446008)(66946007)(316002)(2906002)(5660300002)(36756003)(81166006)(4326008)(6512007)(8936002)(8676002)(478600001)(6486002)(86362001)(81156014)(186003)(71200400001)(6506007);
- DIR:OUT; SFP:1102; SCL:1; SRVR:MW3PR15MB3866;
- H:MW3PR15MB3947.namprd15.prod.outlook.com; FPR:; SPF:None; LANG:en;
- PTR:InfoNoRecords; MX:1; A:1; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Xs3CVlWOkFrB2YV2HMjHnH0MUNiUNsNAVyhglT7K736t+O5/jopM2Y6uDdjJYAdAj0GISjYPF8C13SG1alZI3+4zZ+WA9kVNaB+Z1q7jvwSrMLBlCjWwrUO6kZiCdjPcUSVx2dFpXwjB8gdSeI9lF5uP2qWh00zUjojXoVjbyMlPcpck2+wzaXJVXFFJ8PRjat/n/eTie7/b13i58m/uCh5N3ov01l0asFBofQR667oHQqRjX22CtajUhKpsftY9sI9nFYK1qNBhxRefD42YVDjt+nCKywJkDQKffQSdlBjYxrpzwTB3/6iV3aHXj71WqeMEgnn0BIZIOEBwXoW2V4ky2hyu7EfI6drnB8EdCXrBA+hZnuXmWgL47UNe5IMuvrXMe7X8+Hr4klmYqpvZtA3p1wtGBNorn5C5+LI149vbcVLVVRJy/86+bVsXKF7j
-x-ms-exchange-antispam-messagedata: 5pynaTwlF+sTY9SgyRauSqA8wFFp3zNpq4162ktEgEAlnNivru1f8+nQvVtMehFMziz8wukF0+/+gz6WoVj6nZHJLIVIAYdjHOElqOT1bJ82nbpmtXHIv/ALAnDMzVktsptMzqoVKT6kiWFN7i4XdYTiLOxKZ+nPXI7azWHH2bJaBf03zneFpSXORqbqJhkf
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <5FBF19D15903894FA95338FA79F90620@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48TZGP6dwKzDqf3
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Feb 2020 03:08:40 +1100 (AEDT)
+Received: by mail-wm1-x32b.google.com with SMTP id f15so3737969wml.3
+ for <openbmc@lists.ozlabs.org>; Fri, 28 Feb 2020 08:08:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=/bBNWr5sgsXCE7v7Sh+GMAp+8PxZiwqonz9wqDakPh0=;
+ b=DmLnmUnNJxMBanwY58FjrtFNgpLn492JdwSRmTpV1sv2kKgBFzG0YEkvg26as0gc5n
+ CZHRjfAG0h45E9c3TxZK/tEE7Br0m8uKDhnM3M5EW8eBJRUgTnwHDu1bLNMFS4huRwSm
+ /ZsMFSLhmRJJO02sy8dEWgwFC2qCFS0TzbdV0Uoa2cBFN+EJUzr5IlMZTlKhPfpDYgKx
+ 63nrDaLS3Plip9H6UqasGMflb1GWUBF+uW3IpXwr9uldkYDhEy0UjMHqkLmaQQYHtbrQ
+ rLVt68WQ+ESYshUmXjdzWGR4lzdRlssPgNuBXQ7NbauQkPBRzmygwz2JEDwboEs2W44B
+ wQcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=/bBNWr5sgsXCE7v7Sh+GMAp+8PxZiwqonz9wqDakPh0=;
+ b=gFhAAzWXKdRb6Qz2ZplcN+geayTWCf7VmNE+/bxTLEGokxKyqusULh9sA7Gn7i2a8y
+ 8kJMtuZ3bn4tH/kQzbjjmB46q85PflcvLMXx/ab8eDlW+5JSX9E95XcQYpfDxgMaz+fj
+ /hBsV+geP9mV9GDQlRsJsglsx+OEtClRP5pdFWGg8jeHhUpoUdog3ZRx8kT7A3xjH9Kh
+ C7sDGC3G2+S/9IXiW4Ei9Q9OubA0qWAuP+skJPpVKbV43cNLDy+Hv8BQu8NGWUaOxcjg
+ 6KvbvVFkzl7aIGvQaxybbTTnz1a8PXjChdwgxV5FERVc/oxLSk9sK0HHsRx6fhkwVvym
+ qFeA==
+X-Gm-Message-State: APjAAAVcq4iTovmGVguFcWPWXrmWWYhSfX9brwn0esogeWtVzqavMu0r
+ 5PJOytn89lDr/UYwJanhIRlZDBaGhTfUGAozOr+9C3fk
+X-Google-Smtp-Source: APXvYqyZr5ANarqwR/baOmhLZOpeX2vs2AiY9JJH8/a0nvq8SPggsNdSPn60ROGtltKgSo7cptxvTMKXyXovHvfI/PY=
+X-Received: by 2002:a7b:cb97:: with SMTP id m23mr5242809wmi.37.1582906115809; 
+ Fri, 28 Feb 2020 08:08:35 -0800 (PST)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2c3c588-7838-4278-adbe-08d7bfd211bf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Mar 2020 00:22:05.6224 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: pCxgJBNmek7GYJfx43uWfJjdXC03omh8egFdnRM+VMY/+eXbGgW5A+v9mIGrcF/+Gap7hGJ/ripCuc23YuBVNA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR15MB3866
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.572
- definitions=2020-03-03_08:2020-03-03,
- 2020-03-03 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- impostorscore=0
- mlxscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0
- adultscore=0 phishscore=0 bulkscore=0 mlxlogscore=999 malwarescore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2001150001 definitions=main-2003040000
-X-FB-Internal: deliver
+From: lakshminarayan kamath <lak3645@gmail.com>
+Date: Fri, 28 Feb 2020 21:38:23 +0530
+Message-ID: <CAGDHrFh+QN0Exmay6SB0aVgwMYnz32NdD8-KiYFimLzCJiP9PA@mail.gmail.com>
+Subject: [OpenBMC]: Unit test coverage analysis on openbmc repositories
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000bee820059fa50c74"
+X-Mailman-Approved-At: Wed, 04 Mar 2020 12:57:19 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,63 +60,703 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 04 Mar 2020 00:22:24 -0000
+X-List-Received-Date: Fri, 28 Feb 2020 16:08:46 -0000
 
-UGVyZmVjdCwgSXQgaXMgd29ya2luZyBmb3IgYWxsIGZvdXIgc2VydmVyIGZvciBtZS4NCg0K77u/
-T24gMy8yLzIwLCA4OjAzIFBNLCAiQW5kcmV3IEplZmZlcnkiIDxhbmRyZXdAYWouaWQuYXU+IHdy
-b3RlOg0KDQogICAgT24gRnJpLCAyOCBGZWIgMjAyMCwgYXQgMTg6MDAsIFZpamF5IEtoZW1rYSB3
-cm90ZToNCiAgICA+IE9uIDIvMjcvMjAsIDI6MDUgQU0sICJvcGVuYm1jIG9uIGJlaGFsZiBvZiBB
-bmRyZXcgSmVmZmVyeSIgDQogICAgPiAgICAgDQogICAgPiAgICAgYGBgDQogICAgPiAgICAgJCBs
-cyAtMSAvZXRjL29ibWMtY29uc29sZQ0KICAgID4gICAgIGNsaWVudC4yMjAwLmNvbmYNCiAgICA+
-ICAgICBzZXJ2ZXIudHR5VlVBUlQwLmNvbmYNCiAgICA+ICAgICBgYGANCiAgICA+IFdoYXQgYXJl
-IG90aGVyIGNvbnRlbnRzIG9mIGNsaWVudCBhbmQgc2VydmVyIGNvbmYgZmlsZSBvdGhlciB0aGFu
-IHNvY2tldC1pZD8NCiAgICANCiAgICBXaGF0ZXZlciBlbHNlIHlvdSB3ZXJlIHByZXZpb3VzbHkg
-c3BlY2lmeWluZyBmb3IgdGhlIHNlcnZlci4NCiAgICANCiAgICA+ICAgICANCiAgICA+ICAgICBT
-byB0byBtYXAgdGhlIGNsaWVudCBhc3NvY2lhdGVkIHdpdGggcG9ydCAyMjAwIHRvIHRoZSBzZXJ2
-ZXIgYXNzb2NpYXRlZA0KICAgID4gICAgIHdpdGggdHR5VlVBUlQwIHdlIHNldCB0aGUgc2FtZSBz
-b2NrZXQtaWQgdmFsdWUgaW4gYm90aCBmaWxlczoNCiAgICA+IA0KICAgID4gQ2FuIHRoaXMgc29j
-a2V0LWlkIGJlIGFueSByYW5kb20gd29yZCBhbmQgY2FuIHRoaXMgYmUgc2FtZSBhY3Jvc3MgbXVs
-dGlwbGUNCiAgICA+IEhvc3QgKGNsaWVudC9zZXJ2ZXIpIGNvbmZpZ3VyYXRpb24uIEkgbWVhbiwg
-ZG8gd2UgbmVlZCBkaWZmZXJlbnQgc29ja2V0LWlkIGZvcg0KICAgID4gY2xpZW50LjIyMDAgYW5k
-IGNsaWVudC4yMjAxIG9yIGl0IGNhbiBiZSBzYW1lLg0KICAgIA0KICAgIFRoZSBzb2NrZXQtaWQg
-aXMgYSB1bmlxdWUgcG9ydGlvbiBmb3IgdGhlIHVuaXggZG9tYWluIHNvY2tldCBjcmVhdGVkIGJ5
-IHRoZQ0KICAgIG9ibWMtY29uc29sZS1zZXJ2ZXIgaW5zdGFuY2UuIFRoZSBzZXJ2ZXIgbmVlZHMg
-dG8ga25vdyB0aGlzIGJlY2F1c2UgaXQgbmVlZHMNCiAgICB0byBrbm93IHdoYXQgdG8gbmFtZSB0
-aGUgcGlwZTsgdGhlIGNsaWVudCBuZWVkcyB0byBrbm93IGl0IGFzIGl0IG5lZWRzIHRvIGZvcm0N
-CiAgICB0aGUgYWJzdHJhY3Qgc29ja2V0IG5hbWUgdG8gd2hpY2ggdG8gY29ubmVjdC4NCiAgICAN
-CiAgICBJbiBnZW5lcmFsIHVubGVzcyB5b3UncmUgbG9va2luZyB0byBleHBvc2UgdGhlIHNhbWUg
-Y29uc29sZSBvbiBfZGlmZmVyZW50Xw0KICAgIG5ldHdvcmsgcG9ydHMsIHlvdSB3YW50IHRvIHBh
-aXIgZWFjaCBjbGllbnQgd2l0aCBhIHVuaXF1ZSBzZXJ2ZXIuDQogICAgDQogICAgSGVyZSdzIGFu
-IEFTQ0lJIGRpYWdyYW06DQogICAgDQogICAgICAgICAgICAgICAgICAgKy0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tKw0KICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgIHwNCiAgICAgICAgICAgICAgICAgICB8ICAgICAgIG9ibWMt
-Y29uc29sZS1jbGllbnQgICAgICB1bml4IGRvbWFpbiBzb2NrZXQgICAgICAgICBvYm1jLWNvbnNv
-bGUtc2VydmVyICAgICAgICAgICAgICB8DQogICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfA0KICAgICAgICAgICAgICAgICAgIHwgICAgICstLS0t
-LS0tLS0tLS0tLS0tLS0tLS0rICAgICAgICAgICAgICAgICAgICAgICAgICAgKy0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLSsgICAgICAgICAgIHwNCiAgICAgICAgICAgICAgICAgICB8ICAgICB8IGNs
-aWVudC4yMjAxLmNvbmYgICAgfCAgKy0tLS0tLS0tLS0tLS0tLS0tLS0tLSsgIHwgc2VydmVyLnR0
-eVZVQVJUMS5jb25mICB8ICAgICAgICAgICB8DQogICAgICAgICAgICAgICArLS0tKy0tKyAgKy0t
-LS0tLS0tLS0tLS0tLS0tLS0tLSsgIHwgICAgICAgICAgICAgICAgICAgICB8ICArLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tKyAgKy0tLS0tLS0tKy0tLS0tLS0rDQogICAgTmV0d29yayAgICB8IDIy
-MDEgKy0tPiAgICAgICAgICAgICAgICAgICAgICstPisgQG9ibWMtY29uc29sZS5ob3N0MSArPC0r
-ICAgICAgICAgICAgICAgICAgICAgICAgPC0tKyAvZGV2L3R0eVZVQVJUMSB8ICAgVUFSVHMNCiAg
-ICAgICAgICAgICAgICstLS0rLS0rICB8IHNvY2tldC1pZCA9ICJob3N0MSIgfCAgfCAgICAgICAg
-ICAgICAgICAgICAgIHwgIHwgc29ja2V0LWlkID0gImhvc3QxIiAgICB8ICArLS0tLS0tLS0rLS0t
-LS0tLSsNCiAgICAgICAgICAgICAgICAgICB8ICAgICB8ICAgICAgICAgICAgICAgICAgICAgfCAg
-Ky0tLS0tLS0tLS0tLS0tLS0tLS0tLSsgIHwgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAg
-ICAgICB8DQogICAgICAgICAgICAgICAgICAgfCAgICAgKy0tLS0tLS0tLS0tLS0tLS0tLS0tLSsg
-ICAgICAgICAgICAgICAgICAgICAgICAgICArLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tKyAgICAg
-ICAgICAgfA0KICAgICAgICAgICAgICAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIHwNCiAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICB8DQogICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgfA0KICAgICAgICAgICAgICAgICAgICstLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLSsNCiAgICANCiAgICBEb2VzIHRoYXQgaGVscD8NCiAgICANCiAgICBBbmRyZXcN
-CiAgICANCg0K
+--000000000000bee820059fa50c74
+Content-Type: text/plain; charset="UTF-8"
+
+Hi All,
+
+Somehow my earlier mail did not get displayed properly
+
+Recently we worked on pulling the UT coverage analysis from all the
+available OpenBMC repositories
+
+https://github.com/openbmc/openbmc-build-scripts/commit/229b76a95f87af60c976a0c0dfe84716c9ce5318
+
+This script does following
+
+   1. Clone the repo
+   2. Use the CI build environment to build code
+   3. Publish the result in the following format
+
+Latest report:
+*************************UNIT TEST COVERAGE REPORT*************************
+https://github.com/openbmc/bmcweb.git NO
+https://github.com/openbmc/boost-dbus.git ERROR
+https://github.com/openbmc/btbridge.git NO
+https://github.com/openbmc/dbus-sensors.git NO
+https://github.com/openbmc/entity-manager.git NO
+https://github.com/openbmc/fb-ipmi-oem.git NO
+https://github.com/openbmc/google-ipmi-i2c.git ERROR
+https://github.com/openbmc/google-ipmi-sys.git YES, UNIT TEST
+https://github.com/openbmc/gpioplus.git YES, COVERAGE
+https://github.com/openbmc/hiomapd.git YES, UNIT TEST
+https://github.com/openbmc/ibm-dbus-interfaces.git NO
+https://github.com/openbmc/ibm-logging.git YES, UNIT TEST
+https://github.com/openbmc/ibm-pldm-oem.git ERROR
+https://github.com/openbmc/inarp.git ERROR
+https://github.com/openbmc/intel-dbus-interfaces.git NO
+https://github.com/openbmc/intel-ipmi-oem.git NO
+https://github.com/openbmc/ipmbbridge.git NO
+https://github.com/openbmc/ipmi-blob-tool.git YES, UNIT TEST
+https://github.com/openbmc/ipmi-fru-parser.git NO
+https://github.com/openbmc/ipmitool.git ERROR
+https://github.com/openbmc/jsnbd.git ERROR
+https://github.com/openbmc/kcsbridge.git NO
+https://github.com/openbmc/lenovo-ipmi-oem.git NO
+https://github.com/openbmc/libmctp.git YES, UNIT TEST
+https://github.com/openbmc/librrdplus.git NO
+https://github.com/openbmc/obmc-console.git YES, UNIT TEST
+https://github.com/openbmc/obmc-ikvm.git NO
+https://github.com/openbmc/openbmc.git NO
+https://github.com/openbmc/openbmc-tools.git NO
+https://github.com/openbmc/openbmc.github.io.git NO
+https://github.com/openbmc/openpower-dbus-interfaces.git NO
+https://github.com/openbmc/openpower-debug-collector.git NO
+https://github.com/openbmc/openpower-host-ipmi-flash.git NO
+https://github.com/openbmc/openpower-host-ipmi-oem.git NO
+https://github.com/openbmc/openpower-hw-diags.git YES, COVERAGE
+https://github.com/openbmc/openpower-inventory-upload.git NO
+https://github.com/openbmc/openpower-libhei.git YES, COVERAGE
+https://github.com/openbmc/openpower-logging.git NO
+https://github.com/openbmc/openpower-occ-control.git YES, UNIT TEST
+https://github.com/openbmc/openpower-pnor-code-mgmt.git YES, UNIT TEST
+https://github.com/openbmc/openpower-power-control.git NO
+https://github.com/openbmc/openpower-proc-control.git YES, UNIT TEST
+https://github.com/openbmc/openpower-sbe-interface.git NO
+https://github.com/openbmc/openpower-vpd-parser.git YES, UNIT TEST
+https://github.com/openbmc/pam-ipmi.git NO
+https://github.com/openbmc/phosphor-bmc-code-mgmt.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-buttons.git NO
+https://github.com/openbmc/phosphor-certificate-manager.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-dbus-interfaces.git NO
+https://github.com/openbmc/phosphor-dbus-monitor.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-debug-collector.git NO
+https://github.com/openbmc/phosphor-ecc.git NO
+https://github.com/openbmc/phosphor-event.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-fan-presence.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-gpio-monitor.git YES, COVERAGE
+https://github.com/openbmc/phosphor-host-ipmid.git ERROR
+https://github.com/openbmc/phosphor-host-postd.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-hostlogger.git NO
+https://github.com/openbmc/phosphor-hwmon.git NO
+https://github.com/openbmc/phosphor-inventory-manager.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-ipmi-blobs.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-ipmi-blobs-binarystore.git YES, UNIT
+TEST
+https://github.com/openbmc/phosphor-ipmi-ethstats.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-ipmi-flash.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-led-manager.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-led-sysfs.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-logging.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-mboxd.git ERROR
+https://github.com/openbmc/phosphor-misc.git NO
+https://github.com/openbmc/phosphor-mrw-tools.git NO
+https://github.com/openbmc/phosphor-net-ipmid.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-networkd.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-nvme.git NO
+https://github.com/openbmc/phosphor-objmgr.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-pcie-presence.git NO
+https://github.com/openbmc/phosphor-pid-control.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-post-code-manager.git NO
+https://github.com/openbmc/phosphor-power.git YES, COVERAGE
+https://github.com/openbmc/phosphor-power-control.git NO
+https://github.com/openbmc/phosphor-power-monitor.git NO
+https://github.com/openbmc/phosphor-psu-code-mgmt.git YES, COVERAGE
+https://github.com/openbmc/phosphor-rest-server.git NO
+https://github.com/openbmc/phosphor-sel-logger.git NO
+https://github.com/openbmc/phosphor-settingsd.git NO
+https://github.com/openbmc/phosphor-snmp.git ERROR
+https://github.com/openbmc/phosphor-state-manager.git YES, COVERAGE
+https://github.com/openbmc/phosphor-time-manager.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-u-boot-env-mgr.git NO
+https://github.com/openbmc/phosphor-user-manager.git YES, UNIT TEST
+https://github.com/openbmc/phosphor-watchdog.git YES, COVERAGE
+https://github.com/openbmc/phosphor-webui.git NO
+https://github.com/openbmc/pldm.git YES, COVERAGE
+https://github.com/openbmc/pyphosphor.git NO
+https://github.com/openbmc/qualcomm-ipmi-oem.git NO
+https://github.com/openbmc/qualcomm-misc.git NO
+https://github.com/openbmc/quanta-ipmi-oem.git NO
+https://github.com/openbmc/rest-dbus.git NO
+https://github.com/openbmc/rrd-ipmi-blobs.git NO
+https://github.com/openbmc/s2600wf-misc.git NO
+https://github.com/openbmc/sdbusplus.git YES, UNIT TEST
+https://github.com/openbmc/sdeventplus.git YES, COVERAGE
+https://github.com/openbmc/skeleton.git ERROR
+https://github.com/openbmc/slpd-lite.git NO
+https://github.com/openbmc/smbios-mdr.git ERROR
+https://github.com/openbmc/stdplus.git YES, COVERAGE
+https://github.com/openbmc/telemetry.git NO
+https://github.com/openbmc/u-boot NO
+https://github.com/openbmc/webui-vue.git NO
+https://github.com/openbmc/witherspoon-pfault-analysis.git YES, COVERAGE
+https://github.com/openbmc/x86-power-control.git NO
+*************************UNIT TEST COVERAGE REPORT*************************
+SUMMARY:
+TOTAL REPOSITORIES : 110
+TESTED REPOSITORIES : 43
+ERROR : 11
+COVERAGE REPORT : 12
+UNIT TEST REPORT : 31
+NO REPORT : 56
+***************************************************************************
+
+
+Following actions, we can draw from above
+
+   1. *There are 12 repo's that have GCOV/LCOV plugged in* - We need to
+   maintain which has good coverage and try to improve those which has less
+   coverage
+   2. *There are 31 repo's that have unit test cases added but no coverage
+   analysis because they aren't plugged in yet to GCOV/LCOV*  - Is there a
+   plan for plugging in GCOV
+   3. *There are 11 repo's which fail to compile and errors out* - Fix
+   compilation issue. Some of these maybe not used currently?
+   4. *There are 56 repo's for which there is no UT tests availabl*e  -
+   This is a major issue we need to tackle and improve upon
+
+Feedback's, views highly appreciated
+
+Thanks & Regards,
+Lakshminarayana Kamath
+--------------------------------------------------------------------------------------------------
+Senior Engineer,
+IBM India Software Labs
+Bangalore
+github:lkammath
+---------------------------------------------------------------------------------------------------
+
+--000000000000bee820059fa50c74
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr">Hi All,</div><div dir=3D"ltr"><br></div><=
+div>Somehow my earlier mail did not get displayed properly<br></div>
+
+<div dir=3D"ltr">=C2=A0</div>
+
+<div dir=3D"ltr">Recently we worked on pulling the UT coverage analysis fro=
+m all the available OpenBMC repositories</div>
+
+<div dir=3D"ltr">=C2=A0</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openbmc-build-script=
+s/commit/229b76a95f87af60c976a0c0dfe84716c9ce5318" target=3D"_blank" rel=3D=
+"noopener">https://github.com/openbmc/openbmc-build-scripts/commit/229b76a9=
+5f87af60c976a0c0dfe84716c9ce5318</a></div>
+
+<div dir=3D"ltr">=C2=A0</div>
+
+<div dir=3D"ltr">This script does following</div>
+
+<ol dir=3D"ltr"><li>Clone the repo</li><li>Use the CI build environment to =
+build code</li><li>Publish the result in the following format</li></ol>
+
+<div dir=3D"ltr">Latest report:</div>
+
+<div dir=3D"ltr">*************************UNIT TEST COVERAGE REPORT********=
+*****************</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/bmcweb.git" rel=3D"n=
+oopener" target=3D"_blank">https://github.com/openbmc/bmcweb.git</a> NO</di=
+v>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/boost-dbus.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/boost-dbus.git</=
+a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/btbridge.git" rel=3D=
+"noopener" target=3D"_blank">https://github.com/openbmc/btbridge.git</a> NO=
+</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/dbus-sensors.git" re=
+l=3D"noopener" target=3D"_blank">https://github.com/openbmc/dbus-sensors.gi=
+t</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/entity-manager.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/entity-manage=
+r.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/fb-ipmi-oem.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/fb-ipmi-oem.git<=
+/a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/google-ipmi-i2c.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/google-ipmi-=
+i2c.git</a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/google-ipmi-sys.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/google-ipmi-=
+sys.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/gpioplus.git" rel=3D=
+"noopener" target=3D"_blank">https://github.com/openbmc/gpioplus.git</a> YE=
+S, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/hiomapd.git" rel=3D"=
+noopener" target=3D"_blank">https://github.com/openbmc/hiomapd.git</a> YES,=
+ UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ibm-dbus-interfaces.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/ibm-dbus=
+-interfaces.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ibm-logging.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/ibm-logging.git<=
+/a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ibm-pldm-oem.git" re=
+l=3D"noopener" target=3D"_blank">https://github.com/openbmc/ibm-pldm-oem.gi=
+t</a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/inarp.git" rel=3D"no=
+opener" target=3D"_blank">https://github.com/openbmc/inarp.git</a> ERROR</d=
+iv>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/intel-dbus-interface=
+s.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/intel-=
+dbus-interfaces.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/intel-ipmi-oem.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/intel-ipmi-oe=
+m.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ipmbbridge.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/ipmbbridge.git</=
+a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ipmi-blob-tool.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/ipmi-blob-too=
+l.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ipmi-fru-parser.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/ipmi-fru-par=
+ser.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/ipmitool.git" rel=3D=
+"noopener" target=3D"_blank">https://github.com/openbmc/ipmitool.git</a> ER=
+ROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/jsnbd.git" rel=3D"no=
+opener" target=3D"_blank">https://github.com/openbmc/jsnbd.git</a> ERROR</d=
+iv>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/kcsbridge.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/kcsbridge.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/lenovo-ipmi-oem.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/lenovo-ipmi-=
+oem.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/libmctp.git" rel=3D"=
+noopener" target=3D"_blank">https://github.com/openbmc/libmctp.git</a> YES,=
+ UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/librrdplus.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/librrdplus.git</=
+a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/obmc-console.git" re=
+l=3D"noopener" target=3D"_blank">https://github.com/openbmc/obmc-console.gi=
+t</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/obmc-ikvm.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/obmc-ikvm.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openbmc.git" rel=3D"=
+noopener" target=3D"_blank">https://github.com/openbmc/openbmc.git</a> NO</=
+div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openbmc-tools.git" r=
+el=3D"noopener" target=3D"_blank">https://github.com/openbmc/openbmc-tools.=
+git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openbmc.github.io.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openbmc.gi=
+thub.io.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-dbus-inter=
+faces.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/op=
+enpower-dbus-interfaces.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-debug-coll=
+ector.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/op=
+enpower-debug-collector.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-host-ipmi-=
+flash.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/op=
+enpower-host-ipmi-flash.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-host-ipmi-=
+oem.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/open=
+power-host-ipmi-oem.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-hw-diags.g=
+it" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openpower=
+-hw-diags.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-inventory-=
+upload.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/o=
+penpower-inventory-upload.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-libhei.git=
+" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openpower-l=
+ibhei.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-logging.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openpower-=
+logging.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-occ-contro=
+l.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openpo=
+wer-occ-control.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-pnor-code-=
+mgmt.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/ope=
+npower-pnor-code-mgmt.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-power-cont=
+rol.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/open=
+power-power-control.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-proc-contr=
+ol.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openp=
+ower-proc-control.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-sbe-interf=
+ace.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/open=
+power-sbe-interface.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/openpower-vpd-parser=
+.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/openpow=
+er-vpd-parser.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/pam-ipmi.git" rel=3D=
+"noopener" target=3D"_blank">https://github.com/openbmc/pam-ipmi.git</a> NO=
+</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-bmc-code-mg=
+mt.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-bmc-code-mgmt.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-buttons.git=
+" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-bu=
+ttons.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-certificate=
+-manager.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc=
+/phosphor-certificate-manager.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-dbus-interf=
+aces.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/pho=
+sphor-dbus-interfaces.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-dbus-monito=
+r.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosph=
+or-dbus-monitor.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-debug-colle=
+ctor.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/pho=
+sphor-debug-collector.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-ecc.git" re=
+l=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-ecc.gi=
+t</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-event.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-even=
+t.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-fan-presenc=
+e.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosph=
+or-fan-presence.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-gpio-monito=
+r.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosph=
+or-gpio-monitor.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-host-ipmid.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-host-ipmid.git</a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-host-postd.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-host-postd.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-hostlogger.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-hostlogger.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-hwmon.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-hwmo=
+n.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-inventory-m=
+anager.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/p=
+hosphor-inventory-manager.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-ipmi-blobs.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-ipmi-blobs.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-ipmi-blobs-=
+binarystore.git" rel=3D"noopener" target=3D"_blank">https://github.com/open=
+bmc/phosphor-ipmi-blobs-binarystore.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-ipmi-ethsta=
+ts.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-ipmi-ethstats.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-ipmi-flash.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-ipmi-flash.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-led-manager=
+.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phospho=
+r-led-manager.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-led-sysfs.g=
+it" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-=
+led-sysfs.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-logging.git=
+" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-lo=
+gging.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-mboxd.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-mbox=
+d.git</a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-misc.git" r=
+el=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-misc.=
+git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-mrw-tools.g=
+it" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-=
+mrw-tools.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-net-ipmid.g=
+it" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-=
+net-ipmid.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-networkd.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-n=
+etworkd.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-nvme.git" r=
+el=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-nvme.=
+git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-objmgr.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-obj=
+mgr.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-pcie-presen=
+ce.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-pcie-presence.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-pid-control=
+.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phospho=
+r-pid-control.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-post-code-m=
+anager.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/p=
+hosphor-post-code-manager.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-power.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-powe=
+r.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-power-contr=
+ol.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-power-control.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-power-monit=
+or.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-power-monitor.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-psu-code-mg=
+mt.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-psu-code-mgmt.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-rest-server=
+.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phospho=
+r-rest-server.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-sel-logger.=
+git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor=
+-sel-logger.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-settingsd.g=
+it" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-=
+settingsd.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-snmp.git" r=
+el=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-snmp.=
+git</a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-state-manag=
+er.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosp=
+hor-state-manager.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-time-manage=
+r.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosph=
+or-time-manager.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-u-boot-env-=
+mgr.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phos=
+phor-u-boot-env-mgr.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-user-manage=
+r.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosph=
+or-user-manager.git</a> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-watchdog.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-w=
+atchdog.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/phosphor-webui.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/phosphor-webu=
+i.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/pldm.git" rel=3D"noo=
+pener" target=3D"_blank">https://github.com/openbmc/pldm.git</a> YES, COVER=
+AGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/pyphosphor.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/pyphosphor.git</=
+a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/qualcomm-ipmi-oem.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/qualcomm-i=
+pmi-oem.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/qualcomm-misc.git" r=
+el=3D"noopener" target=3D"_blank">https://github.com/openbmc/qualcomm-misc.=
+git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/quanta-ipmi-oem.git"=
+ rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/quanta-ipmi-=
+oem.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/rest-dbus.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/rest-dbus.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/rrd-ipmi-blobs.git" =
+rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/rrd-ipmi-blob=
+s.git</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/s2600wf-misc.git" re=
+l=3D"noopener" target=3D"_blank">https://github.com/openbmc/s2600wf-misc.gi=
+t</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/sdbusplus.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/sdbusplus.git</a=
+> YES, UNIT TEST</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/sdeventplus.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/sdeventplus.git<=
+/a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/skeleton.git" rel=3D=
+"noopener" target=3D"_blank">https://github.com/openbmc/skeleton.git</a> ER=
+ROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/slpd-lite.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/slpd-lite.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/smbios-mdr.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/smbios-mdr.git</=
+a> ERROR</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/stdplus.git" rel=3D"=
+noopener" target=3D"_blank">https://github.com/openbmc/stdplus.git</a> YES,=
+ COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/telemetry.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/telemetry.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/u-boot" rel=3D"noope=
+ner" target=3D"_blank">https://github.com/openbmc/u-boot</a> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/webui-vue.git" rel=
+=3D"noopener" target=3D"_blank">https://github.com/openbmc/webui-vue.git</a=
+> NO</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/witherspoon-pfault-a=
+nalysis.git" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/=
+witherspoon-pfault-analysis.git</a> YES, COVERAGE</div>
+
+<div dir=3D"ltr"><a href=3D"https://github.com/openbmc/x86-power-control.gi=
+t" rel=3D"noopener" target=3D"_blank">https://github.com/openbmc/x86-power-=
+control.git</a> NO</div>
+
+<div dir=3D"ltr">*************************UNIT TEST COVERAGE REPORT********=
+*****************</div>
+
+<div dir=3D"ltr">SUMMARY:</div>
+
+<div dir=3D"ltr">TOTAL REPOSITORIES : 110</div>
+
+<div dir=3D"ltr">TESTED REPOSITORIES : 43</div>
+
+<div dir=3D"ltr">ERROR : 11</div>
+
+<div dir=3D"ltr">COVERAGE REPORT : 12</div>
+
+<div dir=3D"ltr">UNIT TEST REPORT : 31</div>
+
+<div dir=3D"ltr">NO REPORT : 56</div>
+
+<div dir=3D"ltr">**********************************************************=
+*****************</div>
+
+<div dir=3D"ltr">=C2=A0</div>
+
+<div dir=3D"ltr">
+<p>Following actions, we can draw from above</p>
+
+<ol><li><strong>There are 12 repo&#39;s that have GCOV/LCOV plugged in</str=
+ong> - We need to maintain which has good coverage and try to improve those=
+ which has less coverage</li><li><strong>There are 31 repo&#39;s that have =
+unit test cases added but no coverage analysis because they aren&#39;t plug=
+ged in yet to GCOV/LCOV</strong>=C2=A0 - Is there a plan for plugging in GC=
+OV</li><li><b>There are 11 repo&#39;s which fail to compile and errors out<=
+/b> - Fix compilation issue. Some of these maybe not used currently?</li><l=
+i><b>There are 56 repo&#39;s for which there is no UT tests availabl</b>e=
+=C2=A0 - This is a major issue we need to tackle and improve upon</li></ol>
+
+<div>Feedback&#39;s, views highly appreciated</div>
+
+<div>=C2=A0</div>
+</div>
+
+<div dir=3D"ltr">
+<div dir=3D"ltr" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:=
+10pt">
+<div dir=3D"ltr" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:=
+10.5pt">
+<div dir=3D"ltr" style=3D"font-family:Arial,Helvetica,sans-serif;font-size:=
+10.5pt">
+<div dir=3D"ltr">Thanks &amp; Regards,<br>
+Lakshminarayana Kamath<br>
+---------------------------------------------------------------------------=
+-----------------------<br>
+Senior Engineer,</div>
+
+<div dir=3D"ltr">IBM India Software Labs</div>
+
+<div dir=3D"ltr">Bangalore</div>
+
+<div dir=3D"ltr">github:lkammath<br>
+---------------------------------------------------------------------------=
+------------------------</div></div></div></div></div></div>
+
+--000000000000bee820059fa50c74--
