@@ -1,146 +1,71 @@
-Return-Path: <daniel.lezcano@linaro.org>
+Return-Path: <grantpeltier93@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::344;
- helo=mail-wm1-x344.google.com; envelope-from=daniel.lezcano@linaro.org;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::343;
+ helo=mail-ot1-x343.google.com; envelope-from=grantpeltier93@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linaro.org
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=znc+w9Pk; dkim-atps=neutral
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=uRWN+s3l; dkim-atps=neutral
+Received: from mail-ot1-x343.google.com (mail-ot1-x343.google.com
+ [IPv6:2607:f8b0:4864:20::343])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48SnB21M26zDqYk
- for <openbmc@lists.ozlabs.org>; Thu, 27 Feb 2020 20:17:07 +1100 (AEDT)
-Received: by mail-wm1-x344.google.com with SMTP id a141so2489649wme.2
- for <openbmc@lists.ozlabs.org>; Thu, 27 Feb 2020 01:17:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=subject:to:cc:references:from:autocrypt:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=byYUcuzDUs6EI2f9ZAyw6JsIg3wiyl3GVfGmpZXFBGg=;
- b=znc+w9PkEBnc+zTq9CxylE0W3IOsPMfyj0zzj9rfhzSqa6janRkZRYL48p3tGPMtZB
- 0oR+0ElyxD+M4ZsBvDNSeR7HJDq2K5CNbZxIJ7qpklwpm0Xr2Fn0E9TFiQNmh6jtJfg5
- QZp4mTQU9f06enAb2YyJWJ4DgFLmrpyy9peHIdQpbHXgMxiCDMbBkAqe02sjC5jID3lh
- OZVDWGrnDTKfX0iQNWWM9yyuEnqlZRhVXzr4nxpcm67c3J/b7GRxRv9klHWdcw6KsoeE
- 8Hdr+r55IVlqhwlg+jfucl7ZnsfbGGM0sQrk7+UvmcLQ09RR+sFZBPsfRtGYsvIjsb8A
- HQHQ==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48V9mt2fgZzDqYk
+ for <openbmc@lists.ozlabs.org>; Sun,  1 Mar 2020 02:48:44 +1100 (AEDT)
+Received: by mail-ot1-x343.google.com with SMTP id v19so5510501ote.8
+ for <openbmc@lists.ozlabs.org>; Sat, 29 Feb 2020 07:48:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=0LnoqPNiVrVWIzM0qc+C8NSFCH3fjCc6Ip8H3uzdRjc=;
+ b=uRWN+s3lnC8mvap1pnVxrPVHRrBViwj98MVPC+EpUcNZmjCorLmzo0vtPCd6xVRLLr
+ e+Bn8pb16wEJxdmc8084PVbtEo/6CPMJswcykKhDfeY4eI25wpMYgvYYDvcayBmR+G4b
+ 1jeutUQvPsyvIVgjXiVIiViZmvi2yFAg3SZt37aBkUUbdHpvpMDlLWDKkaJ7B9Oustyr
+ Lk4jsTWsA0ZJZzdMtvd+sr5tYX/6AOORje0GyNapLB1Qcf41xoCQI7oOZ6d03ERrCE2x
+ VHNgpohCRi4nvVyYkEPCRRy8M5X3g1GRz/qOQsZxGQMi3FeBUhJQC9gfGbrOPWSwEdvu
+ 2xxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=byYUcuzDUs6EI2f9ZAyw6JsIg3wiyl3GVfGmpZXFBGg=;
- b=cbfxmNyIOiFNDfH1gnqhjKW9SzJ7CCUrHxt470DsLQWLe0ZWJ5T3skuD6IweQedJzt
- ILDuEnq/9G+tSVShz61sNoA6nxrtWhcprvYFGYeHHStQlDF5yrNa+4XSvSMyU0XlmGW8
- HsktImmUCA2BPfbRpNmCHCAupavQr1pnkVgxGjJEXldF+Va6wIm6HbFek0SszDcUBobL
- U7GkYfsF8CYBtusi76CuJaKrMmpTEAWytZHFZrZ3kGftywr7VyrtsdNoB4bWEQh2E40c
- fpP7pDvzMscpV52IfpcrBWV77Hp0wNnut2qC0U57l4etN4hHihOBLtDlAoj8M6q1b30r
- E+1w==
-X-Gm-Message-State: APjAAAWmrm+Bj1GlcxTdo/67pc+UQ/IBvnf9JGuoxWH+vdoYALf5IDet
- fd+iEwuhhuJkHjW94JGHVfMRag==
-X-Google-Smtp-Source: APXvYqxawPiOKaKn88qM82HAWaYmFB3tLwYe0d+o9KWMRvOoNS4J9ny55LDYIKO79xtfY0CVYnrsmg==
-X-Received: by 2002:a05:600c:21c6:: with SMTP id
- x6mr3966652wmj.17.1582795023046; 
- Thu, 27 Feb 2020 01:17:03 -0800 (PST)
-Received: from ?IPv6:2a01:e34:ed2f:f020:d916:1723:c1c1:22d?
- ([2a01:e34:ed2f:f020:d916:1723:c1c1:22d])
- by smtp.googlemail.com with ESMTPSA id b16sm2185717wrq.14.2020.02.27.01.16.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 27 Feb 2020 01:17:02 -0800 (PST)
-Subject: Re: [PATCH 2/7] docs: dt: fix several broken references due to renames
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Linux Doc Mailing List <linux-doc@vger.kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Sudeep Holla <sudeep.holla@arm.com>,
- Rob Herring <robh+dt@kernel.org>, Andy Gross <agross@kernel.org>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Jyri Sarha <jsarha@ti.com>,
- Tomi Valkeinen <tomi.valkeinen@ti.com>, David Airlie <airlied@linux.ie>,
- Daniel Vetter <daniel@ffwll.ch>,
- Jacek Anaszewski <jacek.anaszewski@gmail.com>, Pavel Machek <pavel@ucw.cz>,
- Dan Murphy <dmurphy@ti.com>, Stuart Yoder <stuyoder@gmail.com>,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Andrew Jeffery <andrew@aj.id.au>,
- Linus Walleij <linus.walleij@linaro.org>, Joel Stanley <joel@jms.id.au>,
- Kevin Hilman <khilman@baylibre.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@st.com>, Zhang Rui <rui.zhang@intel.com>,
- Amit Kucheria <amit.kucheria@verdurent.com>,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- linux-gpio@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-pm@vger.kernel.org
-References: <cover.1582361737.git.mchehab+huawei@kernel.org>
- <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
-From: Daniel Lezcano <daniel.lezcano@linaro.org>
-Autocrypt: addr=daniel.lezcano@linaro.org; prefer-encrypt=mutual; keydata=
- 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
-Message-ID: <add18b30-6eec-9aba-a961-8ecfe9b32596@linaro.org>
-Date: Thu, 27 Feb 2020 10:16:59 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=0LnoqPNiVrVWIzM0qc+C8NSFCH3fjCc6Ip8H3uzdRjc=;
+ b=b1w2oIypFKMoOcIHluOnFAFIyFqbjkhM58uHo0SZLNq0Jt8gSWbLFfq04eladk3ZPQ
+ UUGkR8pSuUK6GVi42s8R1EBMiTOxZBYqY93P0XGCqzEYIqDwTBZlnX26UKVknWZjN+VT
+ ka7aKVs+oApXv9UA0KHB4i2e3u3MZ9lungdajVYJXWtw5LlTM/KPG9nnPRH1uO4CfRAI
+ qOcsHKeyLsVmzAyHoCkFPjLogTepcvRXMalqnR+CGnBv4NVPIXjcK59WNgN8FnUnbil3
+ ZhJhT6lMFmA4q1FJ5KIdsj9BTr/sOv4Ur6xX9pw5r1uXJNrHe/NNzd34DVYiuIT1I38l
+ boNw==
+X-Gm-Message-State: APjAAAWF0+1Lz/pP+n4Kil9SHC8tCG1tktjCypw4e7wVJUMQ5Ak1dvBz
+ jpFFtrzWgnkHjtWzoRwg87I=
+X-Google-Smtp-Source: APXvYqznx4lMyeqJ9EkKf+z3GdQ7TAGSjbclkRH6ecBnD+7p4xk2SOjhpTNGWo1XKQaTP9CAse6RHw==
+X-Received: by 2002:a9d:7617:: with SMTP id k23mr6830091otl.329.1582991321933; 
+ Sat, 29 Feb 2020 07:48:41 -0800 (PST)
+Received: from grant-ubuntu (99-189-78-97.lightspeed.austtx.sbcglobal.net.
+ [99.189.78.97])
+ by smtp.gmail.com with ESMTPSA id t22sm4442881otq.18.2020.02.29.07.48.41
+ (version=TLS1_2 cipher=ECDHE-RSA-CHACHA20-POLY1305 bits=256/256);
+ Sat, 29 Feb 2020 07:48:41 -0800 (PST)
+Date: Sat, 29 Feb 2020 09:48:39 -0600
+From: Grant Peltier <grantpeltier93@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, adam.vaughn.xh@renesas.com, zaitsev@google.com
+Subject: Re: [PATCH] hwmon: (pmbus) Add support for 2nd Gen Renesas digital
+ multiphase
+Message-ID: <20200229154839.GA8048@grant-ubuntu>
+References: <20200228212349.GA1929@raspberrypi>
+ <20200228225848.GA14676@roeck-us.net>
+ <20200228235206.GA3468@raspberrypi>
+ <1a456016-682a-2d53-767b-fe09784883ef@roeck-us.net>
 MIME-Version: 1.0
-In-Reply-To: <83c5df4acbbe0fa55a1d58d4c4a435b51cd2a7ad.1582361737.git.mchehab+huawei@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Wed, 04 Mar 2020 12:57:28 +1100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a456016-682a-2d53-767b-fe09784883ef@roeck-us.net>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Mailman-Approved-At: Wed, 04 Mar 2020 12:57:21 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,36 +77,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 27 Feb 2020 09:17:14 -0000
+X-List-Received-Date: Sat, 29 Feb 2020 15:48:46 -0000
 
-On 22/02/2020 10:00, Mauro Carvalho Chehab wrote:
-> Several DT references got broken due to txt->yaml conversion.
+On Fri, Feb 28, 2020 at 05:55:44PM -0800, Guenter Roeck wrote:
+> On 2/28/20 3:52 PM, Grant Peltier wrote:
+> > Hi Guenter,
+> > 
+> > Thank you for your expedient review. I will need to consult with my
+> > coworkers to determine a more appropriate driver name. In the meantime I
+> > will make the desired changes and I will also create a document for the
+> > driver, which I will submit as a linked but separate patch.
+> > 
+> > With regard to the part numbers, this family of parts is currently in
+> > the process of being released and we have not yet published all of the
+> > corresponding datasheets. However, I have been assured that all of the
+> > parts listed are slated to have a datasheet published publicly in the near
+> > future.
+> > 
+> That would be great.
 > 
-> Those are auto-fixed by running:
+> As for the driver name, I had a look into drivers/hwmon/pmbus/isl68137.c,
+> and I don't immediately see why the new chips would warrant a new driver.
+> The only differences seem to be that VMON is a new command, and of course
+> only the ISL68137 supports AVL. But then there is, for example, ISL68127,
+> which is again quite similar. The only other difference as far as I can
+> see is input voltage scaling, but that doesn't warrant a separate driver
+> (and, of course, I have no means to validate if input voltage scaling
+> is indeed different for all the new chips).
 > 
-> 	scripts/documentation-file-ref-check --fix
+> Overall I would suggest to extend the isl68137 driver. I would also
+> suggest to not add separate tables for each of the rail configurations
+> but use the three-phase entry as starting point, copy it, and adjust its
+> values as needed.
 > 
-> Signed-off-by: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+> For the multi-phase chips, I question if reporting the input voltage
+> for each phase make sense. Is it really a different voltage ? For IIN
+> and PIN, the question is if the registers are indeed paged, since they
+> are not paged in the older chips.
+> 
+> Guenter
 
-[ ... ]
+The ISL68137 is part of the first generation of our digital multiphase
+parts which are all exclusively 2-rail (2-page) devices. There are a
+couple of reasons that we are opting for a new driver for the new
+generation of devices:
 
-> diff --git a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
-> index d9fdf4809a49..f3e68ed03abf 100644
-> --- a/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/brcm,avs-ro-thermal.yaml
-> @@ -17,7 +17,7 @@ description: |+
->                  "brcm,bcm2711-avs-monitor", "syscon", "simple-mfd"
->  
->    Refer to the the bindings described in
-> -  Documentation/devicetree/bindings/mfd/syscon.txt
-> +  Documentation/devicetree/bindings/mfd/syscon.yaml
+1) Gen 2 has multiple rail configurations (1, 2, or 3) with different scaling
+parameters than Gen 1
+2) We are planning to support some of the non-generic PMBus functions of
+the Gen 2 devices using the debugfs interface.
 
-Acked-by: Daniel Lezcano <daniel.lezcano@linaro.org>
+I am currently working on point 2 and those features are not
+quite ready to be included in a patch set but we wanted to move forward
+with the hwmon functionality for now as that is useful on it's own.
 
+Fair point on the global vs paged commands. I will modify the page
+functions so that global commands are only read from page 0.
 
--- 
- <http://www.linaro.org/> Linaro.org │ Open source software for ARM SoCs
-
-Follow Linaro:  <http://www.facebook.com/pages/Linaro> Facebook |
-<http://twitter.com/#!/linaroorg> Twitter |
-<http://www.linaro.org/linaro-blog/> Blog
+Thank you,
+Grant
