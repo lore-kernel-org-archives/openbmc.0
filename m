@@ -1,125 +1,68 @@
-Return-Path: <groeck7@gmail.com>
+Return-Path: <tmaimon77@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::644;
- helo=mail-pl1-x644.google.com; envelope-from=groeck7@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::242;
+ helo=mail-oi1-x242.google.com; envelope-from=tmaimon77@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=s/LjHIap; dkim-atps=neutral
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
+ header.s=20161025 header.b=KGlaFMXH; dkim-atps=neutral
+Received: from mail-oi1-x242.google.com (mail-oi1-x242.google.com
+ [IPv6:2607:f8b0:4864:20::242])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48VpCt2mqHzDr0k
- for <openbmc@lists.ozlabs.org>; Mon,  2 Mar 2020 03:10:49 +1100 (AEDT)
-Received: by mail-pl1-x644.google.com with SMTP id y8so3178120pll.13
- for <openbmc@lists.ozlabs.org>; Sun, 01 Mar 2020 08:10:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48Vq9M24lbzDqbm
+ for <openbmc@lists.ozlabs.org>; Mon,  2 Mar 2020 03:53:40 +1100 (AEDT)
+Received: by mail-oi1-x242.google.com with SMTP id v19so7946916oic.12
+ for <openbmc@lists.ozlabs.org>; Sun, 01 Mar 2020 08:53:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:subject:to:cc:references:from:autocrypt:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=bMLGGlLxbtGLfHweAPeUm/il22po9rJeFTwsg4VAzRg=;
- b=s/LjHIapw57aPnFnAe+O8GoGOw3PvJqyTnCUAWDr6n4eiB8u5/tO1zMOHiGVyXjRZi
- SpKaftcG8IjIFLs7Q3wOuQhPWHKsfbZRkmBkGhcd/U9C/QLABXJrUpUMstctOwqUqdvH
- DB4UN1FLU2iTpKnKlqDvaHZ48r1Kyo/P3jvHz/gPkCaK/a1U288h6X0qdKw/XrBgDOk4
- KUDtuBdpSr24ZuDdSWcN3ur1OxCs7PD6X2MLcpe21MCLCNv606osi6O698uqOmTX8p2b
- ZG18TypSvljNczSofsmyDaVy1EYI4Lv7HetoUvzVEwzb9K6vK5CNZBUf+g0SiXgWsqBx
- Y+jQ==
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=yPjg7l2aej1F2Z8f87uo/Rpy74cXkl5WbTSb6CzHrE8=;
+ b=KGlaFMXHBpmui4QURxo0sb+cr2tW3WKaYCddOqiHN/ooi0hWXcFYAa5OvRq3uAlkZ1
+ W6EwaueGydNmvpcHdlF1VwgxTVhlM1t0Dr22f/6Ycfx5l4UXcZZ5V26vkvG5MOnsucX4
+ 16HDO9DcpQSKJvTT8yAkAPMzku45039SSPvKdJb/8pcNIeDVkC2zNRgAmL/n17gbX7YC
+ 3eI0h4GliF1pJsszP5px2o8Uo0CpaAj4q4BRXiYrP2cLsAu9S0ky1JeTwLAyOabO/uHe
+ 9nPGvpnS5u9y/JamIlCtLNZfhJOzp6tMQkRE9D7vBAPw1vaLkDvtA/oID9ZTlH/9F7Qp
+ 7F2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:subject:to:cc:references:from:autocrypt
- :message-id:date:user-agent:mime-version:in-reply-to
- :content-language:content-transfer-encoding;
- bh=bMLGGlLxbtGLfHweAPeUm/il22po9rJeFTwsg4VAzRg=;
- b=HkIezaIAFM2M7q+vCRuc3IpXDjqIovW3gAvkOvd0NSb/tl4oRfRfkj4n75bndwz/cf
- 75wDFwCZmAkwVqrByEIaiEDycEyiMX2E0YYh819l6OXpw+wxj4FDosIWriUk4HGIlPBY
- zNegxIyK2wvT2uh+IkWqIX0JqJsug7qD5vsp72Id6Re9WqbzqSwhA4LjiiKM30uIEHyE
- JHzU0SMNyhs+arTWg9NGBSsMM8gnOa4egiDIbAHpR0lm/SuKhpd3V3KqUmmlk1NfpOc/
- pQ/xekaGsGiA2uM1P+ICjwL5q1wIP+iz7tVZkd3R4KEX8mTfNDwtybaRPtPp8wWXTLKV
- bVcw==
-X-Gm-Message-State: APjAAAUbw/rA3CR7X1Q+2dqio7FxDOW0ZJ1fYVeV5F/in3dl13yLDMEd
- uSG6DI+L8qgYk8sciA48rMDbny0a
-X-Google-Smtp-Source: APXvYqwAxMFAZB8IXTlP8S5DN+I7djzpBt11DytFo2LxcqFCce6k2vQrPeE8OJ3zN8RsB0osoeqmIQ==
-X-Received: by 2002:a17:90a:cb11:: with SMTP id
- z17mr16234153pjt.122.1583079047338; 
- Sun, 01 Mar 2020 08:10:47 -0800 (PST)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- h132sm13752512pfe.118.2020.03.01.08.10.45
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Mar 2020 08:10:46 -0800 (PST)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Subject: Re: [PATCH v1 4/4] watchdog: npcm: sets card ext1 and ext2 bootstatus
- during probe
-To: Tomer Maimon <tmaimon77@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
- Rob Herring <robh+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Joel Stanley <joel@jms.id.au>, Avi Fishman <avifishman70@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, linux-watchdog@vger.kernel.org,
- devicetree <devicetree@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=yPjg7l2aej1F2Z8f87uo/Rpy74cXkl5WbTSb6CzHrE8=;
+ b=dyJFSjwylOuTzCMYCntFupgPpE7dAtas+Kw1+mP2flJaZINcGrs1xoEMteDzzVGIQE
+ xLflsJJMUlr7kJNao+fnof3ZHisZmf5ajz6CjlA/j46HwnHEC0x+GADSKUxt59AqN7+J
+ uRSzhUqYqSiOVgNkGY+X8mS7nTL8q1KyFGJBwe3kw67jkKrsfZjamLsU25vOO9eWAGwp
+ xvodsNO3SchMdXx/gbuB4gADWur0Iz5hK4bvL5uVnpk20dlBESq9OCpMXUh+q3xLTjBy
+ S92zLlryM9wO/qbijYJaOpcuqzwSQiXzublNZwHPh0fwMDGChHk7lKQCVXozgIwLeL9O
+ 7D9w==
+X-Gm-Message-State: APjAAAUGQyFuUZ6DgEy5KDQ9Xx+1J1hKRJoRtwqJ/4EjZnQpNoOuvIjQ
+ uJS6LVCJ3tifKJIBG64T6R0a4BJTeGS27FxMnN0=
+X-Google-Smtp-Source: APXvYqxaZP+nY7ZSqrs/09A6ZkYJjnMouewO5ZAyASPtNwJEpmovWS8IuIrIIS+FuEfIIQhTauboztLalEOIXVxsGY0=
+X-Received: by 2002:aca:cd0e:: with SMTP id d14mr8654047oig.167.1583081617120; 
+ Sun, 01 Mar 2020 08:53:37 -0800 (PST)
+MIME-Version: 1.0
 References: <20200301094040.123189-1-tmaimon77@gmail.com>
  <20200301094040.123189-5-tmaimon77@gmail.com>
  <026fa94c-8fde-acda-e218-ffff9b5891c9@roeck-us.net>
  <CAP6Zq1hPsnJ1UxAQ-wK_pkaJqzWRQ-_g5-k0Kag2YoP+c2fPjQ@mail.gmail.com>
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- mDW4+i+XlNFUPUYMrIKi9joBhu18ssf5i5Q=
-Message-ID: <998cedf4-82cb-be1b-699f-608ea7a21064@roeck-us.net>
-Date: Sun, 1 Mar 2020 08:10:44 -0800
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
-MIME-Version: 1.0
-In-Reply-To: <CAP6Zq1hPsnJ1UxAQ-wK_pkaJqzWRQ-_g5-k0Kag2YoP+c2fPjQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ <998cedf4-82cb-be1b-699f-608ea7a21064@roeck-us.net>
+In-Reply-To: <998cedf4-82cb-be1b-699f-608ea7a21064@roeck-us.net>
+From: Tomer Maimon <tmaimon77@gmail.com>
+Date: Sun, 1 Mar 2020 19:03:32 +0200
+Message-ID: <CAP6Zq1hyrXKtBo8oOCOdvNoLb0AAQHD5ksd+aCLnEw16TNzETw@mail.gmail.com>
+Subject: Re: [PATCH v1 4/4] watchdog: npcm: sets card ext1 and ext2 bootstatus
+ during probe
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, Rob Herring <robh+dt@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, Joel Stanley <joel@jms.id.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tali Perry <tali.perry1@gmail.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ linux-watchdog@vger.kernel.org, devicetree <devicetree@vger.kernel.org>, 
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="00000000000070630c059fcde9ec"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,60 +74,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 01 Mar 2020 16:10:50 -0000
+X-List-Received-Date: Sun, 01 Mar 2020 16:53:43 -0000
 
-On 3/1/20 8:08 AM, Tomer Maimon wrote:
-> Sorry Guenter probebly I didnt explain it well.
-> 
-> 
-> On Sun, 1 Mar 2020 at 12:48, Guenter Roeck <linux@roeck-us.net <mailto:linux@roeck-us.net>> wrote:
-> 
->     On 3/1/20 1:40 AM, Tomer Maimon wrote:
->     > During probe NPCM watchdog sets the following bootstatus flags:
->     >       - WDIOF_CARDRESET represent power and core reset.
->     >       - WDIOF_EXTERN1 represent watchdog 0-2 reset.
->     >       - WDIOF_EXTERN2 represent software 1-4 reset.
->     >
->     > Each flag is representing a group of bootstatus.
->     > The user can configure through the device treethe exact reset
->     > to each flag group.
->     >
-> 
->     Sorry, this doesn't make sense to me. I could understand reporting
->     the above, but it looks to me like devicetree is used to associate
->     a reset bit from the controller with one of the above.
->     Devicetree only seems to be used to associate reset status bits
->     from the controller with WDIOF_CARDRESET, WDIOF_EXTERN1, or
->     WDIOF_EXTERN2. That adds a lot of complexity for little if any
->     gain. 
-> 
->      
-> 
->     It would make sense to set the bootstatus bits as suggested above,
->     but that doesn't require devicetree properties.
-> 
->     More comments inline.
-> 
->     Guenter 
-> 
->  
-> 
-> In the NPCM750 we have the following reset types:
-> 
->  1. board reset (Power on reset, Core reset)
->  2. WD reset (0-2 WD reset).
->  3. SW reset (1-4 SW reset).
-> 
-> 
-> Each board can use different reset types, because in the WD status bit there is not enough bits to represent the entire NPCM750 resets.
-> 
-> The NPCM750 reset groups are represent as follow:
-> 
->  - WDIOF_CARDRESET represent power and core reset.
->  - WDIOF_EXTERN1 represent watchdog 0-2 reset.
->  - WDIOF_EXTERN2 represent software 1-4 reset.
-> 
-Exactly, and I don't see a need to be more specific than that.
-This can be implemented without all the DT complexity.
+--00000000000070630c059fcde9ec
+Content-Type: text/plain; charset="UTF-8"
 
-Guenter
+I deeply sorry Guenter,
+
+Each of the bit boot status have the maximum flexibility to represent the
+entire resets (I will make sure to modify the commit message as in the
+device tree document)
+So if the user using WD0 to restart the board and WD1 for a board health
+monitor it can be represented at EXT1 and EXT2.
+
+If I will use a group for each reset type in a case above the user will
+need to read the RESSR register (prefer not to do it)  to know which reset
+occur.
+
+Sorry again.
+
+Tomer
+
+On Sun, 1 Mar 2020 at 18:10, Guenter Roeck <linux@roeck-us.net> wrote:
+
+> On 3/1/20 8:08 AM, Tomer Maimon wrote:
+> > Sorry Guenter probebly I didnt explain it well.
+> >
+> >
+> > On Sun, 1 Mar 2020 at 12:48, Guenter Roeck <linux@roeck-us.net <mailto:
+> linux@roeck-us.net>> wrote:
+> >
+> >     On 3/1/20 1:40 AM, Tomer Maimon wrote:
+> >     > During probe NPCM watchdog sets the following bootstatus flags:
+> >     >       - WDIOF_CARDRESET represent power and core reset.
+> >     >       - WDIOF_EXTERN1 represent watchdog 0-2 reset.
+> >     >       - WDIOF_EXTERN2 represent software 1-4 reset.
+> >     >
+> >     > Each flag is representing a group of bootstatus.
+> >     > The user can configure through the device treethe exact reset
+> >     > to each flag group.
+> >     >
+> >
+> >     Sorry, this doesn't make sense to me. I could understand reporting
+> >     the above, but it looks to me like devicetree is used to associate
+> >     a reset bit from the controller with one of the above.
+> >     Devicetree only seems to be used to associate reset status bits
+> >     from the controller with WDIOF_CARDRESET, WDIOF_EXTERN1, or
+> >     WDIOF_EXTERN2. That adds a lot of complexity for little if any
+> >     gain.
+> >
+> >
+> >
+> >     It would make sense to set the bootstatus bits as suggested above,
+> >     but that doesn't require devicetree properties.
+> >
+> >     More comments inline.
+> >
+> >     Guenter
+> >
+> >
+> >
+> > In the NPCM750 we have the following reset types:
+> >
+> >  1. board reset (Power on reset, Core reset)
+> >  2. WD reset (0-2 WD reset).
+> >  3. SW reset (1-4 SW reset).
+> >
+> >
+> > Each board can use different reset types, because in the WD status bit
+> there is not enough bits to represent the entire NPCM750 resets.
+> >
+> > The NPCM750 reset groups are represent as follow:
+> >
+> >  - WDIOF_CARDRESET represent power and core reset.
+> >  - WDIOF_EXTERN1 represent watchdog 0-2 reset.
+> >  - WDIOF_EXTERN2 represent software 1-4 reset.
+> >
+> Exactly, and I don't see a need to be more specific than that.
+> This can be implemented without all the DT complexity.
+>
+> Guenter
+>
+
+--00000000000070630c059fcde9ec
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I deeply sorry Guenter,<div><br></div><div>Each of the bit=
+ boot status have the maximum flexibility=C2=A0to represent the entire rese=
+ts (I will make sure to modify the commit message as in the device tree doc=
+ument)</div><div>So if the user using WD0 to restart the board and WD1 for =
+a board health monitor it can be represented=C2=A0at EXT1 and EXT2.</div><d=
+iv><br></div><div>If I will use a group for each reset type in a case above=
+ the user will need to read the RESSR register (prefer not to do it)=C2=A0 =
+to know which reset occur.</div><div><br></div><div>Sorry again.</div><div>=
+<br></div><div>Tomer</div></div><br><div class=3D"gmail_quote"><div dir=3D"=
+ltr" class=3D"gmail_attr">On Sun, 1 Mar 2020 at 18:10, Guenter Roeck &lt;<a=
+ href=3D"mailto:linux@roeck-us.net">linux@roeck-us.net</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">On 3/1/20 8:08 AM, To=
+mer Maimon wrote:<br>
+&gt; Sorry Guenter probebly I didnt explain it well.<br>
+&gt; <br>
+&gt; <br>
+&gt; On Sun, 1 Mar 2020 at 12:48, Guenter Roeck &lt;<a href=3D"mailto:linux=
+@roeck-us.net" target=3D"_blank">linux@roeck-us.net</a> &lt;mailto:<a href=
+=3D"mailto:linux@roeck-us.net" target=3D"_blank">linux@roeck-us.net</a>&gt;=
+&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 3/1/20 1:40 AM, Tomer Maimon wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; During probe NPCM watchdog sets the following =
+bootstatus flags:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- WDIOF_CARDRESET re=
+present power and core reset.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- WDIOF_EXTERN1 repr=
+esent watchdog 0-2 reset.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0- WDIOF_EXTERN2 repr=
+esent software 1-4 reset.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; Each flag is representing a group of bootstatu=
+s.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; The user can configure through the device tree=
+the exact reset<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt; to each flag group.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Sorry, this doesn&#39;t make sense to me. I could u=
+nderstand reporting<br>
+&gt;=C2=A0 =C2=A0 =C2=A0the above, but it looks to me like devicetree is us=
+ed to associate<br>
+&gt;=C2=A0 =C2=A0 =C2=A0a reset bit from the controller with one of the abo=
+ve.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0Devicetree only seems to be used to associate reset=
+ status bits<br>
+&gt;=C2=A0 =C2=A0 =C2=A0from the controller with WDIOF_CARDRESET, WDIOF_EXT=
+ERN1, or<br>
+&gt;=C2=A0 =C2=A0 =C2=A0WDIOF_EXTERN2. That adds a lot of complexity for li=
+ttle if any<br>
+&gt;=C2=A0 =C2=A0 =C2=A0gain.=C2=A0<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0=C2=A0<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0It would make sense to set the bootstatus bits as s=
+uggested above,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0but that doesn&#39;t require devicetree properties.=
+<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0More comments inline.<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0Guenter=C2=A0<br>
+&gt; <br>
+&gt; =C2=A0<br>
+&gt; <br>
+&gt; In the NPCM750 we have the following reset types:<br>
+&gt; <br>
+&gt;=C2=A0 1. board reset (Power on reset, Core reset)<br>
+&gt;=C2=A0 2. WD reset (0-2 WD reset).<br>
+&gt;=C2=A0 3. SW reset (1-4 SW reset).<br>
+&gt; <br>
+&gt; <br>
+&gt; Each board can use different reset types, because in the WD status bit=
+ there is not enough bits to represent the entire NPCM750 resets.<br>
+&gt; <br>
+&gt; The NPCM750 reset groups are represent as follow:<br>
+&gt; <br>
+&gt; =C2=A0- WDIOF_CARDRESET represent power and core reset.<br>
+&gt; =C2=A0- WDIOF_EXTERN1 represent watchdog 0-2 reset.<br>
+&gt; =C2=A0- WDIOF_EXTERN2 represent software 1-4 reset.<br>
+&gt; <br>
+Exactly, and I don&#39;t see a need to be more specific than that.<br>
+This can be implemented without all the DT complexity.<br>
+<br>
+Guenter<br>
+</blockquote></div>
+
+--00000000000070630c059fcde9ec--
