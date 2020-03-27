@@ -1,75 +1,76 @@
 Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=64.147.123.25;
- helo=wout2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.26;
+ helo=out2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=K+Qzl9lN; 
+ header.s=fm2 header.b=N1yOEh6O; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=Kfa1XudR; 
+ header.a=rsa-sha256 header.s=fm2 header.b=BrWjPSg1; 
  dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48pNtc5ybhzDqXS
- for <openbmc@lists.ozlabs.org>; Fri, 27 Mar 2020 12:04:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48pX8L6tn3zDr42
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Mar 2020 17:32:18 +1100 (AEDT)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 3A0F441F;
- Thu, 26 Mar 2020 21:04:54 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Thu, 26 Mar 2020 21:04:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm2; bh=TSZ6e50fcn+wkJ7kvK/OXmq4bobROaS
- KlewWMavzfxg=; b=K+Qzl9lNnqOKav7wc7lxVapJX3TUM4RRtFlFX64oULkd3kq
- Xmx31oYhzGE89ntCzNLh2EL/P2UPmrt351HxS6ZnRq0cIXPisVW1Q1qmxhnE/3V5
- WZmRW7Dhkmo7fD3E1p7jD6gK94K+uqvyVxQnb7SDEGabbD+NVTq7dTtQeYgE2If0
- T8xGPtUYY0Wdk96DTAVdS/a9N3sWDVdoSyxqBdk/zE5+LPZp6XRU6te2KDVb++8D
- uzsyuXNcY9VJm9Wa7bryMDrooysbp6J5uoBieDjOG38+aED3nno1TM6G9CObYyAH
- t4NtFkGvXJfRsdOw3Z8PTb8RyI3wxCdA9Mbd0Zg==
+ by mailout.nyi.internal (Postfix) with ESMTP id 2E4B45C0308;
+ Fri, 27 Mar 2020 02:32:16 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 27 Mar 2020 02:32:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=0NnwMw+p8QqmA
+ qJYYMUFoFOqMMZiMD/mFHP7h6roas0=; b=N1yOEh6OrAc9OQD5e4ZSQCuavcPuu
+ L4QRng/OUd81UVKLiLbGmEZb/1pmxN6lLKZlw++3tXEuP0rhlq2j8JmVELyl9Bcl
+ 5y8ztsyCo2y1lpLZbavZ2D8xLDdM7ONh5NTa/HkO5cmZU4/BmM5d5popmgheWxti
+ 9axR4HlnvugkzkWQegcGxsW0VbvMlmHJ6kzYXYM6eGtSLWXph6zGxRL4ZtUy47nf
+ fLhv77JUDjrpcb2OLiIkixHwuk0PmkqznAi/WVi1VG5r7QAh9aG8O6OvpKRjusbS
+ gtwN0lpQdFox5IOWyvimuLRZ68gWhjFsUsDyOE8Vef/K2nIA4/zNms91w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=TSZ6e5
- 0fcn+wkJ7kvK/OXmq4bobROaSKlewWMavzfxg=; b=Kfa1XudRI9woMoIjBtey0J
- vU9yA8UlpT8pDkPJTIfDsc9gqzf/XoIaXE3ljE5OdHb5z7AXqdxYnXxuyWDWzFsV
- 26qW3FxjFm8+gx7tu5G/JE93JUmh9VPkTD3RidZViTopdCayYGIZwwEks94Lapir
- pH4eo54+eOuMuoPahz3iEeok0jc3oGvuOOnRzNj/mjje+JNz/hw1oXqpWolRZc5G
- BpvBVH/e7pAi2gK2NbjfkGomM51mWcSVopr5U9vNILpnm0iqokdsfTZdmROrnxTu
- WTAUzml0B+CuXt6KIxQpCO1NUfJJEXz9bbldwvidBOxbTpo6Avj8reK33s26DZEQ
- ==
-X-ME-Sender: <xms:NVF9XvuFJpEu4116TknswLAGSJhmUwwip9iyaFE0JzoHdmxgKo0w0g>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudehjedgudeftdcutefuodetggdotefrod
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=0NnwMw+p8QqmAqJYYMUFoFOqMMZiMD/mFHP7h6roas0=; b=BrWjPSg1
+ Ztrlv7S3FCUylykGr/vCjtga+KL4EeLXtiwDRVz02VxyMy0HeGu996jOnVxJ0zKc
+ LxJiEN3XlITAU9g5F/vj+gIcdsHklvhOfCtIXJIlIo1GdQhvdQK8HbWal6l0/bq5
+ VrfpImcWahZLFgizbV/guPL2RX8bG9PZZM/W0tZ8tZ3cA43Aa6cWSPgPTrjSHeBu
+ P7HuOSP+2E5xSyQDKNuIBdd3RDcfRdTuGOh8f7COyJXuVfRYlPOiS63aZGjXZr9T
+ iVmZ+NpLa8s6G4bFnJnb3OdVyhEh7M6fEIHdUK5x5Xe6MH/dFWvchfiqIIq/wfyQ
+ SZe5OtXucxPFVQ==
+X-ME-Sender: <xms:8J19XkFtY_fSoIhU59iAFPvD4m6cv0uOb_1uLShdLiXfl9y59wZBrg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudehjedgudelhecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehn
- ughrvgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucevlh
- hushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfies
- rghjrdhiugdrrghu
-X-ME-Proxy: <xmx:NVF9Xs3X1Ba7DjWHJfWGGMVvWqQ06Jg9uNjVZsTOQ1McxshieJrOEQ>
- <xmx:NVF9Xm96zqZvqQA-hFDYOsDTrs7HcrXwN1RLUJ5F9LGquEV01Nfh8w>
- <xmx:NVF9Xg-xNJqrEcw-ksE6hr7Y3TDsuoHFMUcMddNU6OdKQAYNmLMUiw>
- <xmx:NVF9Xlu1vSrgRZv8anZbfRAMEBjLEHLaxO-KGRNU5BRaLi0kl_k_pQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id E24C6E00BB; Thu, 26 Mar 2020 21:04:52 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.7-1021-g152deaf-fmstable-20200319v1
-Mime-Version: 1.0
-Message-Id: <f1c30b7b-16fb-4239-9839-840fac7fd6c5@www.fastmail.com>
-In-Reply-To: <20200324112530.293386-3-joel@jms.id.au>
-References: <20200324112530.293386-1-joel@jms.id.au>
- <20200324112530.293386-3-joel@jms.id.au>
-Date: Fri, 27 Mar 2020 11:35:01 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Joel Stanley" <joel@jms.id.au>,
- "Andrew Geissler" <geissonator@gmail.com>, openbmc@lists.ozlabs.org
-Subject: Re: [PATCH linux dev-5.4 2/2] fsi: aspeed: Support cabled FSI
-Content-Type: text/plain
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
+ ertdertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfies
+ rghjrdhiugdrrghuqeenucfkphepuddukedrvddutddrudekfedrudelkeenucevlhhush
+ htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
+ rdhiugdrrghu
+X-ME-Proxy: <xmx:8J19Xk9jIbcKxChFLvgIXi18iQUGqpmPWsXMBQHKNZ9CiiXe_v1Mkw>
+ <xmx:8J19XuVJDR3xD-x1y3X2FTSXQoBbYJOHZQDHs8zdHXELDAUB9eSPPA>
+ <xmx:8J19XuEZ6mrnJN1Eix1vGoe8SInVfCE_1e8nzu-kUaBICyAl03XFPg>
+ <xmx:8J19Xnew5fNs20emdJOM5Il4jT4kEs7GxpN2Lb7rlHW4F9fK8ogzIw>
+Received: from localhost.localdomain
+ (ppp118-210-183-198.adl-adc-lon-bras34.tpg.internode.on.net
+ [118.210.183.198])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 9144C3280065;
+ Fri, 27 Mar 2020 02:32:14 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [WIP PATCH linux dev-5.4 1/4] misc: Add ASPEED KCS driver for MCTP
+ purposes
+Date: Fri, 27 Mar 2020 17:01:43 +1030
+Message-Id: <20200327063146.28885-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20200327063146.28885-1-andrew@aj.id.au>
+References: <20200327063146.28885-1-andrew@aj.id.au>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,120 +82,500 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 27 Mar 2020 01:04:57 -0000
+X-List-Received-Date: Fri, 27 Mar 2020 06:32:23 -0000
 
+IBM have developed a vendor-defined MCTP binding that utilises LPC IO
+and FW interfaces to exchange MCTP messages. A KCS device in the IO
+space is used to send single-byte control messages initialising the MCTP
+channel and exchanging ownership of data buffers.
 
+This driver exposes the KCS message stream to userspace, allowing an
+MCTP-capable application to manipulate the data exposed via the FW
+space.
 
-On Tue, 24 Mar 2020, at 21:55, Joel Stanley wrote:
-> Some FSI development systems have internally routed FSI signals, and
-> some have external cabled FSI. Software can detect which machine this is
-> by reading a jumper GPIO, and also control which pins the signals are
-> routed to through a mux GPIO.
-> 
-> This attempts to find the GPIOs at probe time. If they are not present
-> in the device tree the driver will not error and continue as before.
-> 
-> The mux GPIO is owned by the FSI driver to ensure it is not modified at
-> runtime. The jumper is freed to allow other software to inspect it's
-> state.
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  drivers/fsi/fsi-master-aspeed.c | 45 +++++++++++++++++++++++++++++++++
->  1 file changed, 45 insertions(+)
-> 
-> diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-> index f49742b310c2..3436805d590a 100644
-> --- a/drivers/fsi/fsi-master-aspeed.c
-> +++ b/drivers/fsi/fsi-master-aspeed.c
-> @@ -13,6 +13,7 @@
->  #include <linux/regmap.h>
->  #include <linux/slab.h>
->  #include <linux/iopoll.h>
-> +#include <linux/gpio/consumer.h>
->  
->  #include "fsi-master.h"
->  
-> @@ -419,6 +420,44 @@ static int aspeed_master_init(struct 
-> fsi_master_aspeed *aspeed)
->  	return 0;
->  }
->  
-> +static int tacoma_cabled_fsi_fixup(struct device *dev)
-> +{
-> +	struct gpio_desc *routing_gpio, *mux_gpio;
-> +	int gpio;
-> +
-> +	/*
-> +	 * The routing GPIO is a jumper indicating we should mux for the
-> +	 * externally routed FSI cable.
-> +	 */
-> +	routing_gpio = devm_gpiod_get_optional(dev, "fsi-routing", GPIOD_IN);
-> +	if (IS_ERR(routing_gpio))
-> +		return PTR_ERR(routing_gpio);
-> +	if (!routing_gpio)
-> +		return 0;
-> +
-> +	mux_gpio = devm_gpiod_get_optional(dev, "fsi-mux", GPIOD_IN);
-> +	if (IS_ERR(mux_gpio))
-> +		return PTR_ERR(mux_gpio);
-> +	if (!mux_gpio)
-> +		return 0;
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ drivers/misc/Kconfig    |   7 +
+ drivers/misc/Makefile   |   1 +
+ drivers/misc/mctp-lpc.c | 443 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 451 insertions(+)
+ create mode 100644 drivers/misc/mctp-lpc.c
 
-This leaks routing_gpio.
-
-> +
-> +	gpio = gpiod_get_value(routing_gpio);
-> +	if (gpio < 0)
-> +		return 0;
-> +
-> +	/* If the routing GPIO is low we should set the mux to low. */
-> +	if (gpio == 0) {
-> +		gpiod_set_value(mux_gpio, 0);
-> +		dev_info(dev, "FSI configured for external cable\n");
-> +	}
-
-Is mux_gpio pulled up? Also you're acquiring mux_gpio using the GPIOD_IN
-flag - the dt patch only specifies GPIO_ACTIVE_HIGH which means its
-implicitly push-pull, but we're not changing the direction before setting the
-value.
-
-I feel like we should explicitly set the value either way, or at least document
-the pull-up state in a comment if the gpio is indeed pulled up.
-
-> +
-> +	/* Free the cabled mux GPIO for other users to sample */
-> +	devm_gpiod_put(dev, routing_gpio);
-
-The comment mentions "mux GPIO" but then does the put for routing_gpio.
-I think you can improve the clarity of the comment to make it more obvious
-that it's meant to apply to routing_gpio and it isn't a mistake in the code.
-
-Can you also add to the comment why you're not putting mux_gpio?
-
-> +
-> +	return 0;
-> +}
-> +
-> +
->  static int fsi_master_aspeed_probe(struct platform_device *pdev)
->  {
->  	struct fsi_master_aspeed *aspeed;
-> @@ -426,6 +465,12 @@ static int fsi_master_aspeed_probe(struct 
-> platform_device *pdev)
->  	int rc, links, reg;
->  	__be32 raw;
->  
-> +	rc = tacoma_cabled_fsi_fixup(&pdev->dev);
-> +	if (rc) {
-> +		dev_err(&pdev->dev, "Tacoma FSI cable fixup failed\n");
-> +		return rc;
-> +	}
-> +
->  	aspeed = devm_kzalloc(&pdev->dev, sizeof(*aspeed), GFP_KERNEL);
->  	if (!aspeed)
->  		return -ENOMEM;
-> -- 
-> 2.25.1
-> 
->
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 06a2b753cc7c..c90a9cacc19f 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -454,6 +454,13 @@ config XILINX_SDFEC
+ 
+ 	  If unsure, say N.
+ 
++config MCTP_LPC
++	tristate "MCTP LPC binding implementation for ASPEED BMCs"
++	depends on REGMAP
++	help
++	  Implements the MCTP LPC binding via KCS LPC IO cycles for control and
++          LPC FWH cycles for data
++
+ config MISC_RTSX
+ 	tristate
+ 	default MISC_RTSX_PCI || MISC_RTSX_USB
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index b9e6d4c3e906..9ef78d42be9d 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -59,3 +59,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
+ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+ obj-$(CONFIG_NPCM7XX_LPC_BPC)	+= npcm7xx-lpc-bpc.o
+ obj-$(CONFIG_NPCM7XX_PCI_MBOX)	+= npcm7xx-pci-mbox.o
++obj-$(CONFIG_MCTP_LPC)		+= mctp-lpc.o
+diff --git a/drivers/misc/mctp-lpc.c b/drivers/misc/mctp-lpc.c
+new file mode 100644
+index 000000000000..71fc4ae69de7
+--- /dev/null
++++ b/drivers/misc/mctp-lpc.c
+@@ -0,0 +1,443 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Copyright (c) 2019, IBM Corp.
++ */
++
++#include <linux/errno.h>
++#include <linux/fs.h>
++#include <linux/interrupt.h>
++#include <linux/io.h>
++#include <linux/mfd/syscon.h>
++#include <linux/miscdevice.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++#include <linux/poll.h>
++#include <linux/regmap.h>
++#include <linux/sched/signal.h>
++#include <linux/uaccess.h>
++#include <linux/wait.h>
++
++#define LPC_HICRB            0x080
++#define     LPC_HICRB_IBFIF4         BIT(1)
++#define     LPC_HICRB_LPC4E          BIT(0)
++#define LPC_HICRC            0x084
++#define     LPC_KCS4_IRQSEL_MASK     GENMASK(7, 4)
++#define     LPC_KCS4_IRQSEL_SHIFT    4
++#define     LPC_KCS4_IRQTYPE_MASK    GENMASK(3, 2)
++#define     LPC_KCS4_IRQTYPE_SHIFT   2
++#define     LPC_KCS4_IRQTYPE_LOW     0b00
++#define     LPC_KCS4_IRQTYPE_HIGH    0b01
++#define     LPC_KCS4_IRQTYPE_RSVD    0b10
++#define     LPC_KCS4_IRQTYPE_RISING  0b11
++#define     LPC_KCS4_OBF4_AUTO_CLR   BIT(1)
++#define     LPC_KCS4_IRQ_HOST	     BIT(0)
++#define LPC_LADR4            0x090
++#define LPC_IDR4             0x094
++#define LPC_ODR4             0x098
++#define LPC_STR4             0x09C
++#define     STR4_IBF	     (1 << 1)
++#define     STR4_OBF	     (1 << 0)
++
++#define HOST_ODR             0xca2
++#define HOST_STR             0xca3
++#define HOST_SERIRQ_ID       11
++#define HOST_SERIRQ_TYPE     LPC_KCS4_IRQTYPE_LOW
++
++#define RX_BUF_SIZE 1024
++
++struct mctp_lpc {
++	struct miscdevice miscdev;
++	struct regmap *map;
++
++	wait_queue_head_t rx;
++	bool pending;
++	u8 idr;
++};
++
++static irqreturn_t mctp_lpc_irq(int irq, void *data)
++{
++	struct mctp_lpc *priv = data;
++	unsigned long flags;
++	unsigned int hicrb;
++	struct device *dev;
++	unsigned int str;
++	irqreturn_t ret;
++
++	dev = priv->miscdev.this_device;
++
++	spin_lock_irqsave(&priv->rx.lock, flags);
++
++	regmap_read(priv->map, LPC_STR4, &str);
++	regmap_read(priv->map, LPC_HICRB, &hicrb);
++
++	if ((str & STR4_IBF) && (hicrb & LPC_HICRB_IBFIF4)) {
++		unsigned int val;
++
++		if (priv->pending)
++			dev_err(dev, "Storm brewing!");
++
++		/* Mask the IRQ / Enter polling mode */
++		dev_dbg(dev, "Received IRQ %d, disabling to provide back-pressure\n",
++			irq);
++		regmap_update_bits(priv->map, LPC_HICRB, LPC_HICRB_IBFIF4, 0);
++
++		/*
++		 * Extract the IDR4 value to ack the IRQ. Reading IDR clears
++		 * IBF and allows the host to write another value, however as
++		 * we have disabled IRQs the back-pressure is still applied
++		 * until userspace starts servicing the interface.
++		 */
++		regmap_read(priv->map, LPC_IDR4, &val);
++		priv->idr = val & 0xff;
++		priv->pending = true;
++
++		dev_dbg(dev, "Set pending, waking waiters\n");
++		wake_up_locked(&priv->rx);
++		ret = IRQ_HANDLED;
++	} else {
++		dev_dbg(dev, "LPC IRQ triggered, but not for us (str=0x%x, hicrb=0x%x)\n",
++			str, hicrb);
++		ret = IRQ_NONE;
++	}
++
++	spin_unlock_irqrestore(&priv->rx.lock, flags);
++
++	return ret;
++}
++
++static inline struct mctp_lpc *to_mctp_lpc(struct file *filp)
++{
++	return container_of(filp->private_data, struct mctp_lpc, miscdev);
++}
++
++static ssize_t mctp_lpc_read(struct file *filp, char __user *buf,
++			     size_t count, loff_t *ppos)
++{
++	struct mctp_lpc *priv;
++	struct device *dev;
++	size_t remaining;
++	ssize_t rc;
++
++	priv = to_mctp_lpc(filp);
++	dev = priv->miscdev.this_device;
++
++	if (!count)
++		return 0;
++
++	if (count > 2 || *ppos > 1)
++		return -EINVAL;
++
++	remaining = count;
++
++	spin_lock_irq(&priv->rx.lock);
++	if (*ppos == 0) {
++		unsigned int val;
++		u8 str;
++
++		/* YOLO blocking, non-block not supported */
++		dev_dbg(dev, "Waiting for IBF\n");
++		regmap_read(priv->map, LPC_STR4, &val);
++		str = val & 0xff;
++		rc = wait_event_interruptible_locked(priv->rx, (priv->pending || str & STR4_IBF));
++		if (rc < 0)
++			goto out;
++
++		if (signal_pending(current)) {
++			dev_dbg(dev, "Interrupted waiting for IBF\n");
++			rc = -EINTR;
++			goto out;
++		}
++
++		/*
++		 * Re-enable IRQs prior to possible read of IDR (which clears
++		 * IBF) to ensure we receive interrupts for subsequent writes
++		 * to IDR. Writes to IDR by the host should not occur while IBF
++		 * is set.
++		 */
++		dev_dbg(dev, "Woken by IBF, enabling IRQ\n");
++		regmap_update_bits(priv->map, LPC_HICRB, LPC_HICRB_IBFIF4,
++				   LPC_HICRB_IBFIF4);
++
++		/* Read data out of IDR into internal storage if necessary */
++		if (!priv->pending) {
++			WARN(!(str & STR4_IBF), "Unknown reason for wakeup!");
++
++			/* Extract the IDR4 value to ack the IRQ */
++			regmap_read(priv->map, LPC_IDR4, &val);
++			priv->idr = val & 0xff;
++		}
++
++		/* Copy data from internal storage to userspace */
++		if (copy_to_user(buf, &priv->idr, sizeof(priv->idr))) {
++			rc = -EFAULT;
++			goto out;
++		}
++
++		/* We're done consuming the internally stored value */
++		priv->pending = false;
++
++		remaining--;
++		buf++;
++	}
++
++	if (remaining) {
++		/* Either:
++		 *
++		 * 1. (count == 1 && *ppos == 1)
++		 * 2. (count == 2 && *ppos == 0)
++		 */
++		unsigned int val;
++		u8 str;
++
++		regmap_read(priv->map, LPC_STR4, &val);
++		str = val & 0xff;
++		if (*ppos == 0 || priv->pending)
++			/*
++			 * If we got this far with `*ppos == 0` then we've read
++			 * data out of IDR, so set IBF when reporting back to
++			 * userspace so userspace knows the IDR value is valid.
++			 */
++			str |= STR4_IBF;
++
++		dev_dbg(dev, "Read status 0x%x\n", str);
++		if (copy_to_user(buf, &str, sizeof(str))) {
++			rc = -EFAULT;
++			goto out;
++		}
++
++		remaining--;
++	}
++
++	WARN_ON(remaining);
++
++	rc = count;
++
++out:
++	spin_unlock_irq(&priv->rx.lock);
++
++	return rc;
++}
++
++static ssize_t mctp_lpc_write(struct file *filp, const char __user *buf,
++			      size_t count, loff_t *ppos)
++{
++	uint8_t _data[2], *data = &_data[0];
++	struct mctp_lpc *priv;
++	struct device *dev;
++	size_t remaining;
++	unsigned int str;
++
++	priv = to_mctp_lpc(filp);
++	dev = priv->miscdev.this_device;
++
++	if (!count)
++		return count;
++
++	if (count > 2)
++		return -EINVAL;
++
++	if (*ppos >= 2)
++		return -EINVAL;
++
++	if (*ppos + count > 2)
++		return -EINVAL;
++
++	if (copy_from_user(data, buf, count))
++		return -EFAULT;
++
++	remaining = count;
++
++	if (*ppos == 0) {
++		/* Wait until OBF is clear - we don't get an IRQ */
++		dev_dbg(dev, "Waiting for OBF to clear\n");
++		for (;;) {
++			if (signal_pending(current))
++				return -EINTR;
++
++			regmap_read(priv->map, LPC_STR4, &str);
++			if (!(str & STR4_OBF))
++				break;
++
++			msleep(1);
++		}
++
++		dev_dbg(dev, "Writing 0x%x to ODR\n", *data);
++		regmap_write(priv->map, LPC_ODR4, *data);
++		remaining--;
++		data++;
++	}
++
++	if (remaining) {
++		if (!(*data & STR4_OBF))
++			dev_err(dev, "Clearing OBF with status write: 0x%x\n",
++				*data);
++		dev_dbg(dev, "Writing status 0x%x\n", *data);
++		regmap_write(priv->map, LPC_STR4, *data);
++		remaining--;
++	}
++
++	WARN_ON(remaining);
++
++	regmap_read(priv->map, LPC_STR4, &str);
++	dev_dbg(dev, "Triggering SerIRQ (current str=0x%x)\n", str);
++
++	/*
++	 * Trigger Host IRQ on ODR write. Do this after any STR write in case
++	 * we need to write ODR to indicate an STR update (which we do).
++	 */
++	if (*ppos == 0)
++		regmap_update_bits(priv->map, LPC_HICRC, LPC_KCS4_IRQ_HOST,
++				   LPC_KCS4_IRQ_HOST);
++
++	return count;
++}
++
++static __poll_t mctp_lpc_poll(struct file *filp, poll_table *wait)
++{
++	struct mctp_lpc *priv;
++	struct device *dev;
++	unsigned int val;
++	bool ibf;
++
++	priv = to_mctp_lpc(filp);
++	dev = priv->miscdev.this_device;
++
++	regmap_read(priv->map, LPC_STR4, &val);
++
++	spin_lock_irq(&priv->rx.lock);
++
++	ibf = priv->pending || val & STR4_IBF;
++
++	if (!ibf) {
++		dev_dbg(dev, "Polling on IBF\n");
++
++		spin_unlock_irq(&priv->rx.lock);
++
++		poll_wait(filp, &priv->rx, wait);
++		if (signal_pending(current)) {
++			dev_dbg(dev, "Polling IBF was interrupted\n");
++			goto out;
++		}
++
++		spin_lock_irq(&priv->rx.lock);
++
++		regmap_read(priv->map, LPC_STR4, &val);
++
++		ibf = priv->pending || val & STR4_IBF;
++	}
++
++	spin_unlock_irq(&priv->rx.lock);
++
++out:
++	dev_dbg(dev, "Polled IBF state: %s\n", ibf ? "set" : "clear");
++
++	return ibf ? EPOLLIN : 0;
++}
++
++static const struct file_operations mctp_lpc_fops = {
++	.owner          = THIS_MODULE,
++	.llseek		= no_seek_end_llseek,
++	.read           = mctp_lpc_read,
++	.write          = mctp_lpc_write,
++	.poll		= mctp_lpc_poll,
++};
++
++static int mctp_lpc_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	unsigned int mask, val;
++	struct mctp_lpc *priv;
++	int irq;
++	int rc;
++
++	priv = devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
++	if (!priv)
++		return -ENOMEM;
++
++	priv->map = syscon_node_to_regmap(dev->parent->of_node);
++	if (IS_ERR(priv->map)) {
++		dev_err(dev, "Couldn't get regmap\n");
++		return -ENODEV;
++	}
++
++	/*
++	 * Set the LPC address. Simultaneously, test our MMIO regmap works. All
++	 * subsequent accesses are assumed to work
++	 */
++	rc = regmap_write(priv->map, LPC_LADR4, ((HOST_STR) << 16) | HOST_ODR);
++	if (rc < 0)
++		return rc;
++
++	/* Set up the SerIRQ */
++	mask = LPC_KCS4_IRQSEL_MASK
++		| LPC_KCS4_IRQTYPE_MASK
++		| LPC_KCS4_OBF4_AUTO_CLR;
++	val = (HOST_SERIRQ_ID << LPC_KCS4_IRQSEL_SHIFT)
++		| (HOST_SERIRQ_TYPE << LPC_KCS4_IRQTYPE_SHIFT);
++	val &= ~LPC_KCS4_OBF4_AUTO_CLR; /* Unnecessary, just documentation */
++	regmap_update_bits(priv->map, LPC_HICRC, mask, val);
++
++	/* Trigger waiters from IRQ */
++	init_waitqueue_head(&priv->rx);
++
++	dev_set_drvdata(dev, priv);
++
++	/* Set up the miscdevice */
++	priv->miscdev.minor = MISC_DYNAMIC_MINOR;
++	priv->miscdev.name = "mctp0";
++	priv->miscdev.fops = &mctp_lpc_fops;
++
++	/* Configure the IRQ handler */
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	rc = devm_request_irq(dev, irq, mctp_lpc_irq, IRQF_SHARED,
++			      dev_name(dev), priv);
++	if (rc < 0)
++		return rc;
++
++	/* Register the device */
++	rc = misc_register(&priv->miscdev);
++	if (rc) {
++		dev_err(dev, "Unable to register device\n");
++		return rc;
++	}
++
++	/* Enable the channel */
++	regmap_update_bits(priv->map, LPC_HICRB,
++			LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E,
++			LPC_HICRB_IBFIF4 | LPC_HICRB_LPC4E);
++
++	return 0;
++}
++
++static int mctp_lpc_remove(struct platform_device *pdev)
++{
++	struct mctp_lpc *ctx = dev_get_drvdata(&pdev->dev);
++
++	misc_deregister(&ctx->miscdev);
++
++	return 0;
++}
++
++static const struct of_device_id mctp_lpc_match[] = {
++	{ .compatible = "openbmc,mctp-lpc" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, mctp_lpc_match);
++
++static struct platform_driver mctp_lpc = {
++	.driver = {
++		.name           = "mctp-lpc",
++		.of_match_table = mctp_lpc_match,
++	},
++	.probe  = mctp_lpc_probe,
++	.remove = mctp_lpc_remove,
++};
++module_platform_driver(mctp_lpc);
++
++MODULE_LICENSE("GPL v2+");
++MODULE_AUTHOR("Andrew Jeffery <andrew@aj.id.au>");
++MODULE_DESCRIPTION("OpenBMC MCTP LPC binding on ASPEED KCS");
+-- 
+2.20.1
