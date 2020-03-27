@@ -7,68 +7,64 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=wRlCQl85; 
+ header.s=fm2 header.b=P80r9LKV; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=mzBEP6gR; 
+ header.a=rsa-sha256 header.s=fm2 header.b=Yh0B1kza; 
  dkim-atps=neutral
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
  [66.111.4.26])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48pX8N0tPqzDr45
- for <openbmc@lists.ozlabs.org>; Fri, 27 Mar 2020 17:32:19 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48pX8M1S0RzDr43
+ for <openbmc@lists.ozlabs.org>; Fri, 27 Mar 2020 17:32:18 +1100 (AEDT)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id D3CB05C0345;
- Fri, 27 Mar 2020 02:32:17 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 8DD465C033D;
+ Fri, 27 Mar 2020 02:32:14 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Fri, 27 Mar 2020 02:32:17 -0400
+ by compute3.internal (MEProxy); Fri, 27 Mar 2020 02:32:14 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding; s=fm2; bh=/yikLTZaqy9wE
- wZNWwG1Im8nNHRGGrnokh7KMS8/Axg=; b=wRlCQl85QpIDDu35CGZsBmvoMCJcR
- M3I3y0uRRlsXUrgycWrffZPzDV9MgtQ2Ydf9vclazsW1dOYVDf8zHJKxzYO2k0jq
- LPhlbIw05lV5AP7EEL7epNZFtrP51weW1Bv8K9ao9zQ9RWEzss0uIbsHxwlPWcnt
- Pgg0Ic0M+MWjq4/99d9bHylWcgM7nTu8zmTQPog9SaLT0zfv73FvPqpL8ktDEUrs
- g2QreY7tuhinx7en4XYsWZ47usc6oFReucscfFCQqA/pqoXfPsbbxiPlPklNqhWO
- 4Gowicv8i5nfagpXYh7wsWZVZa/y2zVr1YMl8l6Tx3p4yNjw/FPeMZ3Mg==
+ :to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding; s=fm2; bh=yQLl94OOmQDoiE9AHsqlA1RKvM
+ 9x1rdqcoLJPXM3YoU=; b=P80r9LKVXB2L/9yDeoq7RWhCRXPW+vAmyIGaIHyLcW
+ lfggpnABe5GHPQYyhXCwS1kGYm9ucuT1n6Xwz9ERP8Xl1IcDcvVFo6l17Kf/IGcm
+ TjWO5aMhOD3wgd+M8XAvcMSerIAnq+uTJ7gKur54SMzNJOWCaIMN07yynMWYrVHy
+ NXA22UdEunBGJUQFbXFGngn+AvdTGCucH61eilAW24Iq7VSs6Leu9c9kALJAUw4P
+ Tdig310oM7c9d2vse3rD0PC9uLTOcK9rU7fji0K9MvNEXKjo+de5nQLl9rcekrWY
+ z/Bx8e1/gmr6kA1BUaJ9Ctmfqh4TwbB7m7P422tEt8EA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :in-reply-to:message-id:mime-version:references:subject:to
- :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm2; bh=/yikLTZaqy9wEwZNWwG1Im8nNHRGGrnokh7KMS8/Axg=; b=mzBEP6gR
- 54b5AnzR+clW1R3ujXQX4ACAJ7nWwSWyuGOx3vINHvhF4MY8O1yDesjwizgj4nkd
- ELUDVSeaLfvNQv+KpNS7hJ/SyhJcdD8ew4uBxdX4/6RKNvaL9spAh26LyOJXZOXm
- 1dIi81J1Y8XjXM6fNBDCRQXJXUkNEq7NlKJSZZ0Sys0Q4d27idvQsMifAYeFOlEv
- 5plpwIPT72Kv84/qThU7pPw/a1/mKIn97K3I6dAtZOwFXUND6pPaAchD6rhHbecn
- CzfGlbL+cDYKrQSVmz9deUlyrgzUMukEDPvX4bu8J1QVfOB+jCigcRaMupjg9nIk
- yLANc7Ac5NCmLQ==
-X-ME-Sender: <xms:8Z19XtC-yCbJZ5INZjxP2OA3eee_CxRGsT1qEBcHeNvO3hNgGlX16g>
+ :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=yQLl94OOmQDoiE9AH
+ sqlA1RKvM9x1rdqcoLJPXM3YoU=; b=Yh0B1kza56HElagDXXsk11JsaRRNb2NtT
+ HrwbMg6gC1EKFXSreGCEeyTSJObsR7bt7E2RnN7z6X9liIu6FTFD/FvQf4273BT0
+ 6Vksl7kCyehi93manjrL4LP3jO6WpyiDi+vxYhXFPPXZdez4SqplqMdGyK6yo9Tf
+ bvGQH3ycols91oXj0Z6bbOQp47WhNM8eAP6cPBv2ZwiVGhi4Vk35MzXhesbDYzRh
+ C500lZKuHH9dStKLiMgVu7jLkk0q1c7R1o8t2x7ERa353lKUXjm1k23x2lryA00c
+ NRKEzH67gjrsVj0kcy2URzm2dBQoP+eVyAeHmQ/2MFdx5/f3rNHbA==
+X-ME-Sender: <xms:7p19Xm_yBx58hF0tRGDfkKtiHpYVYp2hngnJ2e2uWQvw9ZC1dixEbA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedugedrudehjedgudelhecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
- ertdertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfies
- rghjrdhiugdrrghuqeenucfkphepuddukedrvddutddrudekfedrudelkeenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
- rdhiugdrrghu
-X-ME-Proxy: <xmx:8Z19XnQIEEBS44WhbFtud4_xP-nv84rOnW9rFakGbafQnXuELY1kIg>
- <xmx:8Z19XsIG_aMMS0MuQZ7LG4kVN9e6LRjp_kCp1iT3ANxT-owpDXN0lQ>
- <xmx:8Z19XjfCzdIFaRBh1nlsBbk0CYNXuEb6tOXJI_DgAesrRHW-rD5OTA>
- <xmx:8Z19XkeSTWTMUSbAvrISruqICj8MEmxEc89O1yOQHx1tzgG7tI4dpw>
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
+ ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
+ rdhiugdrrghuqeenucffohhmrghinhepghhithhhuhgsrdgtohhmnecukfhppeduudekrd
+ dvuddtrddukeefrdduleeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehm
+ rghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:7p19XsVCYM3rXcSihKEIVn_9ouPP8BNhz0nM20HK8QWs5MDIgPG4Kg>
+ <xmx:7p19XrNeJ7LY1OAwcpQZgGUOu0jvDgKVD_DDDNWdLGLBRfjBNm6Hag>
+ <xmx:7p19XsawLqiXpA-e9WHpOIqwPld1tgoZEcyeRxUT2wDU-TXYY-ySJg>
+ <xmx:7p19XoyiGdcdVbtZ4CZqwaIC1spp8bPTXKm28tKDNmwaNCtErsy7fQ>
 Received: from localhost.localdomain
  (ppp118-210-183-198.adl-adc-lon-bras34.tpg.internode.on.net
  [118.210.183.198])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7934D3280063;
- Fri, 27 Mar 2020 02:32:16 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id C609E3280063;
+ Fri, 27 Mar 2020 02:32:12 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org
-Subject: [WIP PATCH linux dev-5.4 2/4] ARM: dts: witherspoon: Add KCS node for
- LPC MCTP
-Date: Fri, 27 Mar 2020 17:01:44 +1030
-Message-Id: <20200327063146.28885-3-andrew@aj.id.au>
+Subject: [WIP PATCH linux dev-5.4 0/4] KCS driver for LPC MCTP binding
+Date: Fri, 27 Mar 2020 17:01:42 +1030
+Message-Id: <20200327063146.28885-1-andrew@aj.id.au>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20200327063146.28885-1-andrew@aj.id.au>
-References: <20200327063146.28885-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -83,36 +79,50 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Fri, 27 Mar 2020 06:32:23 -0000
-X-List-Received-Date: Fri, 27 Mar 2020 06:32:23 -0000
-X-List-Received-Date: Fri, 27 Mar 2020 06:32:23 -0000
 
-The compatible is terrible, but we need a way to describe how we want to
-drive the hardware, and it's not in a fashion that's integrated into
-IPMI.
+Hello,
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+This is a series that cleans up a driver that we (IBM) have been using
+internally for some time to expose the KCS device required by the astlpc
+binding found in libmctp[1]. The driver is generally terrible, and the
+userspace interface will no-longer be needed once I get to implementing
+socket-based MCTP support (which we should have roughly around the same time as
+practical nuclear fusion*).
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-index da9e379b10bb..fcfc65dd8cae 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon.dts
-@@ -325,6 +325,14 @@
- 	flash = <&spi1>;
- };
- 
-+&lpc_host {
-+	kcs4: kcs4@0 {
-+		compatible = "openbmc,mctp-lpc";
-+		interrupts = <8>;
-+		status = "okay";
-+	};
-+};
-+
- &mac0 {
- 	status = "okay";
- 	pinctrl-names = "default";
+We would like to apply this to the OpenBMC tree whilst _not_ upstreaming it on
+the basis that its userspace API will become obsolete in the future and the
+effort isn't worth the hassle, but we still need the functionality until we get
+socket support. Several IBM system configurations make use of the driver as is,
+and it serves to demonstrate the purpose of the astlpc binding in libmctp.
+
+I've marked the series WIP because of the above reasons, not as indicator to
+not apply it. However, please don't stare at the code too hard in case it
+breaks you.
+
+Andrew
+
+[1] https://github.com/openbmc/libmctp/blob/master/astlpc.c
+
+* Not serious, but it feels this way.
+
+Andrew Geissler (1):
+  ARM: dts: tacoma: Add KCS node for LPC MCTP
+
+Andrew Jeffery (2):
+  misc: Add ASPEED KCS driver for MCTP purposes
+  ARM: dts: witherspoon: Add KCS node for LPC MCTP
+
+Eddie James (1):
+  ARM: dts: rainier: Add KCS node for LPC MCTP
+
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  |   8 +
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts   |   8 +
+ .../boot/dts/aspeed-bmc-opp-witherspoon.dts   |   8 +
+ drivers/misc/Kconfig                          |   7 +
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/mctp-lpc.c                       | 443 ++++++++++++++++++
+ 6 files changed, 475 insertions(+)
+ create mode 100644 drivers/misc/mctp-lpc.c
+
 -- 
 2.20.1
