@@ -1,55 +1,44 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f41;
- helo=mail-qv1-xf41.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <zhang_cy1989@163.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
+ spf=pass (sender SPF authorized) smtp.mailfrom=163.com
+ (client-ip=220.181.13.51; helo=m13-51.163.com;
+ envelope-from=zhang_cy1989@163.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=g42cBUjK; dkim-atps=neutral
-Received: from mail-qv1-xf41.google.com (mail-qv1-xf41.google.com
- [IPv6:2607:f8b0:4864:20::f41])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=KWmYqSTJ; dkim-atps=neutral
+Received: from m13-51.163.com (m13-51.163.com [220.181.13.51])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48sflj4pPSzDqg8
- for <openbmc@lists.ozlabs.org>; Wed,  1 Apr 2020 19:40:17 +1100 (AEDT)
-Received: by mail-qv1-xf41.google.com with SMTP id p60so12408561qva.5
- for <openbmc@lists.ozlabs.org>; Wed, 01 Apr 2020 01:40:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SQ7Gzij8TuAIo+pXsuvX4bOzT73YBorYk0fg8JAd9e8=;
- b=g42cBUjKEm0ss5I5eYEbYkxeTkaSVX4qPl0637qVj4iWCDCbfqNSu0obmscT8pBAv3
- Wy/4wT1VtzdOCNOiHh0fMo0gXrr2/UO6D5Wns4mB6eIvm8i0or27H/NCyCncmGE+l2qH
- psB7AQCWVgBAP+GTboPZprLHlQe1md/D8nCNE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=SQ7Gzij8TuAIo+pXsuvX4bOzT73YBorYk0fg8JAd9e8=;
- b=k7YVb+On9JDfShh1twtlWNXqZkKpMI0zx5EN16xkZ+pr9CuEgnip/NzQnuraqvAMGu
- YK+HjUKF0jYO2kSAqxyDaNK1OfJwfs5dZa52LHTzODxdOpR5Pk5Y3a6tbu9gFdqAJ8Lx
- OqpxZ/GsVL4+BuOnTOwKEz38U3mwV+CC0ywKLExqt0ZmSmNsb8jBccCJh9nosl3tJWqk
- MVnYqt79EL491fxMBr6deUQg3mWzU+B+otQuY6LnabJY7KXErVDZA+WS94SDD7Bj324S
- m+crSJCR3+fRkG+FJIN47F+QNGSrZr2S4KpvJW3POjrPOSeSC2XaBqQCSpRsPKgYjcsW
- pn9A==
-X-Gm-Message-State: ANhLgQ2T7S+8e2eIZljwxwYFuwVxrvMSGqFFltNUu1bVltjl2bu2xxjS
- WuN9kWC/ECzdtjIhUBzxJpxiczhUamxEJ+3jT47GRuSFZwU=
-X-Google-Smtp-Source: ADFU+vuZfs2urJKO0EKOTAjqjlSCCBeVrhIQlYg/X7oPk/cHV7RNOxHldfIbNDQfSl6z9YNw9yBanlqsbjnG3R5zexg=
-X-Received: by 2002:a0c:fc03:: with SMTP id z3mr19274229qvo.210.1585730413847; 
- Wed, 01 Apr 2020 01:40:13 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48sl6N3flqzDqNT
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Apr 2020 22:56:40 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=IF4IV
+ 0aYCvFVJbi8gRpW1/a3h6yChdNNA62Y0ctEP/c=; b=KWmYqSTJXTCQRix1i9YXd
+ xWRuhKUtsjeHxSEeu6/udUqXNdZAnNsFJjw8mDIzo4K17XN3+40zOcOiASwgA+Nt
+ LCRfAFAYlIkTKXfgcrExQrXLflnsQcBNiMqG1PIEXE0CGjiPkqc1lMy9/CCWB/S8
+ k/eUFy3oZz+1TNWppOxdNs=
+Received: from zhang_cy1989$163.com ( [111.199.188.155] ) by
+ ajax-webmail-wmsvr51 (Coremail) ; Wed, 1 Apr 2020 19:56:32 +0800 (CST)
+X-Originating-IP: [111.199.188.155]
+Date: Wed, 1 Apr 2020 19:56:32 +0800 (CST)
+From: zhang_cy1989 <zhang_cy1989@163.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Can't not find interface "xyz.openbmc_project.Logging.Entry" in
+ intel wolfpass
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
+ Copyright (c) 2002-2020 www.mailtech.cn 163com
+X-CM-CTRLDATA: 3aNe02Zvb3Rlcl9odG09MTgyMDo1Ng==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_202481_2116703840.1585742192107"
 MIME-Version: 1.0
-References: <20200331215600.5507-1-eajames@linux.ibm.com>
-In-Reply-To: <20200331215600.5507-1-eajames@linux.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 1 Apr 2020 08:40:01 +0000
-Message-ID: <CACPK8Xfit8NNDjMkfqyjgjkhJ=bKGzqfeNpK2ksA7igYwsTCtQ@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.4] soc: aspeed: xdma: Fix command buffer
- overrun
-To: Eddie James <eajames@linux.ibm.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
+Message-ID: <472f36ef.d33d.17135999deb.Coremail.zhang_cy1989@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: M8GowACnJh1wgYRefjURAA--.38547W
+X-CM-SenderInfo: x2kd0w5bf1imiyz6il2tof0z/xtbBFRD4T1XlkMhH3QAAsA
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +50,64 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Apr 2020 08:40:18 -0000
+X-List-Received-Date: Wed, 01 Apr 2020 11:56:46 -0000
 
-On Tue, 31 Mar 2020 at 21:56, Eddie James <eajames@linux.ibm.com> wrote:
->
-> In the case of an operation requiring two commands, it was possible to
-> copy the second command into the user's memory space, which also
-> prevents the command from completing since the first doesn't trigger an
-> interrupt. Test for this special case and prevent it.
->
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
->  drivers/soc/aspeed/aspeed-xdma.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
-> index 5d97919d38cf..d0a56a5a81ae 100644
-> --- a/drivers/soc/aspeed/aspeed-xdma.c
-> +++ b/drivers/soc/aspeed/aspeed-xdma.c
-> @@ -436,6 +436,13 @@ static void aspeed_xdma_start(struct aspeed_xdma *ctx,
->
->         mutex_lock(&ctx->start_lock);
->
-> +       if ((rc == 2) && (ctx->cmd_idx == (XDMA_NUM_CMDS - 1))) {
+------=_Part_202481_2116703840.1585742192107
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-I don't understand what's going on here, so I'm going to explain what
-I read and you can correct me.
+RGVhciBBbGwKICAgICBJIHVzZSB0aGUgZm9sbG93aW5nIGNvbW1hbmQgaW5zaWRlIEJNQywgYnV0
+IHJldHVybiBlbXB0eS4KICAgICBkYnVzLXNlbmQgLS1zeXN0ZW0gLS1wcmludC1yZXBseSAtLWRl
+c3Q9eHl6Lm9wZW5ibWNfcHJvamVjdC5PYmplY3RNYXBwZXIgL3h5ei9vcGVuYm1jX3Byb2plY3Qv
+b2JqZWN0X21hcHBlciB4eXoub3BlbmJtY19wcm9qZWN0Lk9iamVjdE1hcHBlci5HZXRTdWJUcmVl
+UGF0aHMgc3RyaW5nOiIvIiBpbnQzMjowIGFycmF5OnN0cmluZzoieHl6Lm9wZW5ibWNfcHJvamVj
+dC5Mb2dnaW5nLkVudHJ5IgoKCm1ldGhvZCByZXR1cm4gdGltZT01ODk2LjczMTYyMSBzZW5kZXI9
+OjEuMjcgLT4gZGVzdGluYXRpb249OjEuMTQxIHNlcmlhbD0xNDI1IHJlcGx5X3NlcmlhbD0yCiAg
+IGFycmF5IFsKICAgXQogICAKCiAgICBIb3dldmVyLCBJIHVzZSBpcG1pdG9vbCB0byBnZXQgc2Vs
+IGxpc3QgaW4gYW5vdGhlciBjb21wdXRlciBhbmQgZ290IHRob3NlIGluZm86CgogICAxIHwgIFBy
+ZS1Jbml0ICB8MDAwMDAwMDEyMXwgVGVtcGVyYXR1cmUgIzB4MGIgfCBMb3dlciBOb24tY3JpdGlj
+YWwgZ29pbmcgbG93ICB8IEFzc2VydGVkCiAgIDIgfCAgUHJlLUluaXQgIHwwMDAwMDAwMTAxfCBU
+ZW1wZXJhdHVyZSAjMHgwYiB8IExvd2VyIE5vbi1jcml0aWNhbCBnb2luZyBsb3cgIHwgQXNzZXJ0
+ZWQKICAgMyB8ICBQcmUtSW5pdCAgfDAwMDAwMDAwOTh8IFRlbXBlcmF0dXJlICMweDBiIHwgTG93
+ZXIgTm9uLWNyaXRpY2FsIGdvaW5nIGxvdyAgfCBBc3NlcnRlZAoKCiAgIEkgY2FuJ3QgZmluZCBp
+bnRlcmZhY2UgInh5ei5vcGVuYm1jX3Byb2plY3QuTG9nZ2luZy5FbnRyeSIgYW5kIGNhbiBnZXQg
+c2VsIGxpc3QgYnkgaXBtaXRvb2wsIHdoeT8KICAgV2hvIGNvdWxkIGhlbHAgbWU/IHdhaXRpbmcg
+Zm9yIHlvdS4KICAgVGhhbmtzCgoKQlIKRmVsaXgK
+------=_Part_202481_2116703840.1585742192107
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-rc in this case is the command number? so this operation is attempting
-to queue up the second of our "two commands" you mention in the commit
-message?
-
-We're saying if the second command is the last cmd_idx, we reset the
-write pointer back to zero.
-
-We don't reset the pointer back to zero anywhere else in the driver.
-Why do we special case this case?
-
-> +               aspeed_xdma_writel(ctx, ctx->chip->regs.bmc_cmdq_readp,
-> +                                  XDMA_BMC_CMDQ_READP_RESET);
-> +               aspeed_xdma_writel(ctx, ctx->chip->regs.bmc_cmdq_writep, 0);
-> +               ctx->cmd_idx = 0;
-> +       }
-> +
->         memcpy(&ctx->cmdq[ctx->cmd_idx], cmds,
->                rc * sizeof(struct aspeed_xdma_cmd));
->         ctx->cmd_idx = (ctx->cmd_idx + rc) % XDMA_NUM_CMDS;
-> --
-> 2.24.0
->
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXYgc3R5bGU9Im1hcmdpbjowOyI+RGVhciBBbGw8L2Rpdj48
+ZGl2IHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBJIHVzZSB0aGUg
+Zm9sbG93aW5nIGNvbW1hbmQgaW5zaWRlIEJNQywgYnV0IHJldHVybiBlbXB0eS48L2Rpdj48ZGl2
+IHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyBkYnVzLXNlbmQgLS1z
+eXN0ZW0gLS1wcmludC1yZXBseSAtLWRlc3Q9eHl6Lm9wZW5ibWNfcHJvamVjdC5PYmplY3RNYXBw
+ZXIgL3h5ei9vcGVuYm1jX3Byb2plY3Qvb2JqZWN0X21hcHBlciB4eXoub3BlbmJtY19wcm9qZWN0
+Lk9iamVjdE1hcHBlci5HZXRTdWJUcmVlUGF0aHMgc3RyaW5nOiIvIiBpbnQzMjowIGFycmF5OnN0
+cmluZzoiPHNwYW4gc3R5bGU9ImJhY2tncm91bmQtY29sb3I6IHJnYigyMjEsIDY0LCA1MCk7Ij54
+eXoub3BlbmJtY19wcm9qZWN0LkxvZ2dpbmcuRW50cnk8L3NwYW4+IjwvZGl2PjxkaXYgc3R5bGU9
+Im1hcmdpbjowOyI+PGJyPjwvZGl2PjxkaXYgc3R5bGU9Im1hcmdpbjowOyI+PHNwYW4gc3R5bGU9
+ImJhY2tncm91bmQtY29sb3I6IHJnYigyMjEsIDY0LCA1MCk7Ij5tZXRob2QgcmV0dXJuIHRpbWU9
+NTg5Ni43MzE2MjEgc2VuZGVyPToxLjI3IC0mZ3Q7IGRlc3RpbmF0aW9uPToxLjE0MSBzZXJpYWw9
+MTQyNSByZXBseV9zZXJpYWw9Mjxicj4mbmJzcDsmbmJzcDsgYXJyYXkgWzxicj4mbmJzcDsmbmJz
+cDsgXTwvc3Bhbj48YnI+Jm5ic3A7Jm5ic3A7Jm5ic3A7IDxicj48L2Rpdj48ZGl2IHN0eWxlPSJt
+YXJnaW46MDsiPiZuYnNwOyZuYnNwOyZuYnNwOyBIb3dldmVyLCBJIHVzZSBpcG1pdG9vbCB0byBn
+ZXQgc2VsIGxpc3QgaW4gYW5vdGhlciBjb21wdXRlciBhbmQgZ290IHRob3NlIGluZm86PC9kaXY+
+PGRpdiBzdHlsZT0ibWFyZ2luOjA7Ij48YnI+Jm5ic3A7Jm5ic3A7IDEgfCZuYnNwOyBQcmUtSW5p
+dCZuYnNwOyB8MDAwMDAwMDEyMXwgVGVtcGVyYXR1cmUgIzB4MGIgfCBMb3dlciBOb24tY3JpdGlj
+YWwgZ29pbmcgbG93Jm5ic3A7IHwgQXNzZXJ0ZWQ8YnI+Jm5ic3A7Jm5ic3A7IDIgfCZuYnNwOyBQ
+cmUtSW5pdCZuYnNwOyB8MDAwMDAwMDEwMXwgVGVtcGVyYXR1cmUgIzB4MGIgfCBMb3dlciBOb24t
+Y3JpdGljYWwgZ29pbmcgbG93Jm5ic3A7IHwgQXNzZXJ0ZWQ8YnI+Jm5ic3A7Jm5ic3A7IDMgfCZu
+YnNwOyBQcmUtSW5pdCZuYnNwOyB8MDAwMDAwMDA5OHwgVGVtcGVyYXR1cmUgIzB4MGIgfCBMb3dl
+ciBOb24tY3JpdGljYWwgZ29pbmcgbG93Jm5ic3A7IHwgQXNzZXJ0ZWQ8L2Rpdj48ZGl2IHN0eWxl
+PSJtYXJnaW46MDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwOyZuYnNw
+OyBJIGNhbid0IGZpbmQgaW50ZXJmYWNlICI8c3BhbiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjog
+cmdiKDIyMSwgNjQsIDUwKTsiPnh5ei5vcGVuYm1jX3Byb2plY3QuTG9nZ2luZy5FbnRyeTwvc3Bh
+bj4iIGFuZCBjYW4gZ2V0IHNlbCBsaXN0IGJ5IGlwbWl0b29sLCB3aHk/PC9kaXY+PGRpdiBzdHls
+ZT0ibWFyZ2luOjA7Ij4mbmJzcDsmbmJzcDsgV2hvIGNvdWxkIGhlbHAgbWU/IHdhaXRpbmcgZm9y
+IHlvdS48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46MDsiPiZuYnNwOyZuYnNwOyBUaGFua3M8L2Rp
+dj48ZGl2IHN0eWxlPSJtYXJnaW46MDsiPjxicj48L2Rpdj48ZGl2IHN0eWxlPSJtYXJnaW46MDsi
+PkJSPC9kaXY+PGRpdiBzdHlsZT0ibWFyZ2luOjA7Ij5GZWxpeDxicj48L2Rpdj48L2Rpdj48YnI+
+PGJyPjxzcGFuIHRpdGxlPSJuZXRlYXNlZm9vdGVyIj48cD4mbmJzcDs8L3A+PC9zcGFuPg==
+------=_Part_202481_2116703840.1585742192107--
