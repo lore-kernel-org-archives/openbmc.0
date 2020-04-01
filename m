@@ -1,75 +1,74 @@
-Return-Path: <patrick@stwcx.xyz>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=stwcx.xyz
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=qW8h8CCd; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=Qac4mr4E; 
- dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48t19G5JsLzDq67
- for <openbmc@lists.ozlabs.org>; Thu,  2 Apr 2020 09:30:10 +1100 (AEDT)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 308E45C0348
- for <openbmc@lists.ozlabs.org>; Wed,  1 Apr 2020 18:30:08 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute7.internal (MEProxy); Wed, 01 Apr 2020 18:30:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=rLQIXe1mP30y/hzlu0z/Q2NIBRx
- DCBQ/NhqAyhO3BPk=; b=qW8h8CCdy5JzLYA7eYdBW8yVcFNU7euZt+Qo+y3+Iew
- IVtaoLo7u1ZIb0ZISSYe2Bn7srlezb7Aah+pUoSDC2ablqyw5ENLR9fZuxNUZ1dU
- 72P9BSiptb2Cv/QJRnKzrEsTiP1YjOnQ+JiTf9e0rZ6WDszHfDizOXaDdIo+2uBY
- 4gZrfOGim4AV8hRdQRabdKQH6vvCQ2VC9TlQUfDNEitGh1yL5aTC4oN9MUjnhMGo
- PaOnEXsTSZjtXA1q2ktPRX8/RCajbxB7zM36mDwsmU1EPv2+iQDg7mq2CAPUSrov
- bzJ7tBpNf6wVhKxqAlb0f7bGEtkes47UI6AHuIJhaAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=rLQIXe
- 1mP30y/hzlu0z/Q2NIBRxDCBQ/NhqAyhO3BPk=; b=Qac4mr4EmBVdhl3fVARxqw
- IfgL+lFxw1bnhZdRc0S3ubAzDRqTSlMwPFbGMkP4RDsUx0MYZM5avoOG/M9jvs2Z
- XOq0hEUUSRzgyLaPfi2YvgKxAM5y/u3qgbe95bnhls4sQqagQahQwMJm273gKNRQ
- dgLI5bYyzsuxiMNUf95Jkjg75rFBplrkMdjPbR8BBmaR4a9SKi9XBDXv8PJwbtaE
- /MpQrcFeBGJpDHvKO3AKl61KWDeCt+gR+W3vq8ak0JAFYE7a8nr8VWLnR0LkIGp+
- vOSwZ/I7HBAyUha+UG7BYiyoG0WYOF1TD8gnNU1SkhXEAayXhZ+jR8NUSgn2HhfA
- ==
-X-ME-Sender: <xms:8BWFXtuaP59HTAvSysJ4WDRryCB6vXhgl9cNwks-SEDviDHCAhjToA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrtdefgddutdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecufghrlhcuvffnffculdejtddmnecujfgurhepfffhvf
- fukfhfgggtuggjsehgtderredttddvnecuhfhrohhmpefrrghtrhhitghkucghihhllhhi
- rghmshcuoehprghtrhhitghksehsthiftgigrdighiiiqeenucfkphepjeeirddvhedtrd
- ekgedrvdefieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhr
- ohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:8BWFXrZmpqwUtwX5tjIaJzmj2RP31XjX1zoxgPbCuR4jm63zxiamWQ>
- <xmx:8BWFXlBvaQjPhcTlQkv60pEQOVqZ0Tp2YCCN6pTDi71PwwuhGnrH0w>
- <xmx:8BWFXj_7R16G-HXl0Vus8_D0558BWefcH9MhxzhYQHINuVTA4BdB8w>
- <xmx:8BWFXv18FvwoCmoEHfHfZNfTfQhqA8usknkdM6SlC8-855uSRd6tkw>
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236])
- by mail.messagingengine.com (Postfix) with ESMTPA id BF8583280063
- for <openbmc@lists.ozlabs.org>; Wed,  1 Apr 2020 18:30:07 -0400 (EDT)
-Date: Wed, 1 Apr 2020 17:30:06 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48t1By6szLzDq67
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Apr 2020 09:31:38 +1100 (AEDT)
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 031M4C3d043217; Wed, 1 Apr 2020 18:31:36 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 304mcbt3tr-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Apr 2020 18:31:36 -0400
+Received: from m0127361.ppops.net (m0127361.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 031M4LmQ043551;
+ Wed, 1 Apr 2020 18:31:35 -0400
+Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
+ [169.55.91.170])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 304mcbt3tf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Apr 2020 18:31:35 -0400
+Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
+ by ppma02wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 031MUpkA028626;
+ Wed, 1 Apr 2020 22:31:34 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma02wdc.us.ibm.com with ESMTP id 301x7748xt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Apr 2020 22:31:34 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 031MVY6p58392902
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 1 Apr 2020 22:31:34 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E89CB6E627;
+ Wed,  1 Apr 2020 22:03:42 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9396A6E355;
+ Wed,  1 Apr 2020 22:03:42 +0000 (GMT)
+Received: from ghost4.ibm.com (unknown [9.163.16.235])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed,  1 Apr 2020 22:03:42 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: meta-ingrasys MAINTAINERS
-Message-ID: <20200401223006.GC580847@heinlein.lan.stwcx.xyz>
-References: <20200401222641.GB580847@heinlein.lan.stwcx.xyz>
+Cc: joel@jms.id.au, bjwyman@gmail.com, Eddie James <eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.4 0/2] hwmon: (pmbus/ibm-cffps) Add another CCIN
+ to version detection and fix LEDs
+Date: Wed,  1 Apr 2020 17:03:37 -0500
+Message-Id: <20200401220339.2006-1-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.24.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="/Uq4LBwYP4y1W6pO"
-Content-Disposition: inline
-In-Reply-To: <20200401222641.GB580847@heinlein.lan.stwcx.xyz>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-01_04:2020-03-31,
+ 2020-04-01 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ suspectscore=1 bulkscore=0 mlxscore=0 adultscore=0 priorityscore=1501
+ clxscore=1015 lowpriorityscore=0 malwarescore=0 phishscore=0
+ mlxlogscore=999 spamscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2003020000 definitions=main-2004010179
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,47 +80,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Apr 2020 22:30:11 -0000
+X-List-Received-Date: Wed, 01 Apr 2020 22:31:39 -0000
 
+These commits bring the driver into the same state as -next.
 
---/Uq4LBwYP4y1W6pO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Eddie James (2):
+  hwmon: (pmbus/ibm-cffps) Add another PSU CCIN to version detection
+  hwmon: (pmbus/ibm-cffps) Fix LED behavior again
 
-Similarly, meta-ingrasys has no MAINTAINERS.
+ drivers/hwmon/pmbus/ibm-cffps.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-On Wed, Apr 01, 2020 at 05:26:41PM -0500, Patrick Williams wrote:
-> Can we get a MAINTAINERS file added for meta-intel?  There isn't one now
-> and I'm not sure who should be added by default for any code reviews to
-> it.
->=20
-> --=20
-> Patrick Williams
-
-
-
---=20
-Patrick Williams
-
---/Uq4LBwYP4y1W6pO
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl6FFe4ACgkQqwNHzC0A
-wRle/w//YnLyiOqdCAaB2AE3z3yDZHlmlVYf4aX+npiYOlyWDn7/d5axA8R91HeC
-kh5EkLRBZwbEKC+TL6kMDafOd2qTwV3xXNnUYxaXIOS0SgQ0MC7c5FfmkZC+GxrS
-3pmufJbfv+dyQ3sQ9Y5X2LS8P5rPRD/EX23cmCluK30AMUt/tr6Exj75pwQ7F7m7
-OEgRInzAyYm0z0zrDNWXXxWqsXfkbvuXr+7eC+m1i9OxdaHRM8DKYJbvrVD4anVh
-lJ9lEthirAEtMVaElhkt7VE21wgYr/rjSWmAyZIxMrgHxxvXNjaoIWlsQScAI7VW
-Jac1TJIXyOi+YBD6zS8fH+PA0oqJFp3lH4GEAGhOpK/D5H1pFUGI4t7fYo16F3AJ
-GUBNFaV0RHpQ3xK4u6lsvffsE5z/8q21hIc+gZYrhEuKUtl/eSL98/hY3VAgRjZ0
-6+oDiAiQ2iiJ7ITaCJdRmN9JJ+GXndj2y4gsRUdhzo2hYtDplxWxmhQkk5XiVfPh
-n3toY/8NHDX/fDjyPyDfohQ+Ih8Vf4T04QtE5CYuDMTyHnsEThUSjvdRHTewuBYQ
-4+dSDf7O91tSRJsW9I9Q5gMRqf6+KVWWA263S5PQR6pVUqSRwSK/kmjS45qiQpog
-xZ90EkxhUgxGvKyvbgrCfw7msCyRM3JwrwcaYEWvJY/MZO0zOUc=
-=G53D
------END PGP SIGNATURE-----
-
---/Uq4LBwYP4y1W6pO--
+-- 
+2.24.0
