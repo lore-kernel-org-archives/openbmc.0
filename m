@@ -1,65 +1,46 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <clg@kaod.org>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=kaod.org (client-ip=46.105.36.172; helo=3.mo177.mail-out.ovh.net;
+ envelope-from=clg@kaod.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ dmarc=none (p=none dis=none) header.from=kaod.org
+X-Greylist: delayed 3596 seconds by postgrey-1.36 at bilbo;
+ Thu, 02 Apr 2020 03:41:17 AEDT
+Received: from 3.mo177.mail-out.ovh.net (3.mo177.mail-out.ovh.net
+ [46.105.36.172])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48ssCJ450szDqDS
- for <openbmc@lists.ozlabs.org>; Thu,  2 Apr 2020 03:31:24 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 031G21xG092145; Wed, 1 Apr 2020 12:31:21 -0400
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3020wf1eun-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Apr 2020 12:31:21 -0400
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 031GUJa0012663;
- Wed, 1 Apr 2020 16:31:20 GMT
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
- [9.57.198.25]) by ppma02wdc.us.ibm.com with ESMTP id 301x7728xa-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 01 Apr 2020 16:31:20 +0000
-Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
- [9.57.199.109])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 031GVJcx53346678
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 1 Apr 2020 16:31:19 GMT
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8AC2E112063;
- Wed,  1 Apr 2020 16:31:19 +0000 (GMT)
-Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0B441112062;
- Wed,  1 Apr 2020 16:31:19 +0000 (GMT)
-Received: from ghost4.ibm.com (unknown [9.163.16.235])
- by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
- Wed,  1 Apr 2020 16:31:18 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH linux dev-5.4 v2] soc: aspeed: xdma: Fix command buffer overrun
-Date: Wed,  1 Apr 2020 11:31:17 -0500
-Message-Id: <20200401163117.16921-1-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.24.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48ssQj2CVTzDqZp
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Apr 2020 03:41:16 +1100 (AEDT)
+Received: from player761.ha.ovh.net (unknown [10.110.171.212])
+ by mo177.mail-out.ovh.net (Postfix) with ESMTP id 3881312B1FB
+ for <openbmc@lists.ozlabs.org>; Wed,  1 Apr 2020 17:22:18 +0200 (CEST)
+Received: from kaod.org (82-64-250-170.subs.proxad.net [82.64.250.170])
+ (Authenticated sender: clg@kaod.org)
+ by player761.ha.ovh.net (Postfix) with ESMTPSA id E9B4311051013;
+ Wed,  1 Apr 2020 15:22:13 +0000 (UTC)
+Subject: Re: Any idea of when qemu-system-arm will be supported for
+ https://github.com/Intel-BMC/openbmc ?
+To: Bruce Mitchell <Bruce_Mitchell@phoenix.com>,
+ "Alexander A. Filippov" <a.filippov@yadro.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <1d854d104f3a48dd8f2c3929fc93a68b@SCL-EXCHMB-13.phoenix.com>
+ <20200330090018.GA20872@bbwork.lan>
+ <de86f16351804487b251000e03e28fe5@SCL-EXCHMB-13.phoenix.com>
+From: =?UTF-8?Q?C=c3=a9dric_Le_Goater?= <clg@kaod.org>
+Message-ID: <58d1847e-fab0-0702-04a2-2b0021af76f8@kaod.org>
+Date: Wed, 1 Apr 2020 17:22:10 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-01_01:2020-03-31,
- 2020-03-31 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 phishscore=0 mlxlogscore=999
- adultscore=0 suspectscore=1 bulkscore=0 mlxscore=0 lowpriorityscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004010135
+In-Reply-To: <de86f16351804487b251000e03e28fe5@SCL-EXCHMB-13.phoenix.com>
+Content-Type: text/plain; charset=utf-8
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Ovh-Tracer-Id: 12801763418385910530
+X-VR-SPAMSTATE: OK
+X-VR-SPAMSCORE: -100
+X-VR-SPAMCAUSE: gggruggvucftvghtrhhoucdtuddrgeduhedrtddvgdekjecutefuodetggdotefrodftvfcurfhrohhfihhlvgemucfqggfjpdevjffgvefmvefgnecuuegrihhlohhuthemucehtddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenucfjughrpefuvfhfhffkffgfgggjtgfgsehtjeertddtfeejnecuhfhrohhmpeevrogurhhitggpnfgvpgfiohgrthgvrhcuoegtlhhgsehkrghougdrohhrgheqnecuffhomhgrihhnpehgihhthhhusgdrtghomhdpqhgvmhhurdhorhhgnecukfhppedtrddtrddtrddtpdekvddrieegrddvhedtrddujedtnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmohguvgepshhmthhpqdhouhhtpdhhvghlohepphhlrgihvghrjeeiuddrhhgrrdhovhhhrdhnvghtpdhinhgvtheptddrtddrtddrtddpmhgrihhlfhhrohhmpegtlhhgsehkrghougdrohhrghdprhgtphhtthhopehophgvnhgsmhgtsehlihhsthhsrdhoiihlrggsshdrohhrgh
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +52,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Apr 2020 16:31:25 -0000
+X-List-Received-Date: Wed, 01 Apr 2020 16:41:17 -0000
 
-In the case of an operation requiring two commands, the edge case at
-the top of the command buffer was not handled, resulting in buffer
-overrun. Fix this by using a loop to copy the commands into the buffer
-and increment and modulo after each one.
+On 3/30/20 4:35 PM, Bruce Mitchell wrote:
+> I was looking for something like a -M wolfpass-bmc command line option like Romulus has -M romulus-bmc
+> (see here: https://github.com/openbmc/docs/blob/master/development/dev-environment.md )
+> 
+> Yet I find no wolfpass, S2600WF, nor Intel in the -machine help list. (see below)
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- drivers/soc/aspeed/aspeed-xdma.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+We would need a machine definition such as the ones in hw/arm/aspeed.c.
 
-diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
-index 5d97919d38cf..7baeb20280b6 100644
---- a/drivers/soc/aspeed/aspeed-xdma.c
-+++ b/drivers/soc/aspeed/aspeed-xdma.c
-@@ -430,15 +430,19 @@ static void aspeed_xdma_start(struct aspeed_xdma *ctx,
- 			      struct aspeed_xdma_op *op, u32 bmc_addr,
- 			      struct aspeed_xdma_client *client)
- {
-+	unsigned int i;
- 	unsigned long flags;
- 	struct aspeed_xdma_cmd cmds[2];
- 	unsigned int rc = ctx->chip->set_cmd(ctx, cmds, op, bmc_addr);
- 
- 	mutex_lock(&ctx->start_lock);
- 
--	memcpy(&ctx->cmdq[ctx->cmd_idx], cmds,
--	       rc * sizeof(struct aspeed_xdma_cmd));
--	ctx->cmd_idx = (ctx->cmd_idx + rc) % XDMA_NUM_CMDS;
-+	for (i = 0; i < rc; ++i) {
-+		memcpy(&ctx->cmdq[ctx->cmd_idx], &cmds[i],
-+		       sizeof(struct aspeed_xdma_cmd));
-+		ctx->cmd_idx = (ctx->cmd_idx + 1) % XDMA_NUM_CMDS;
-+	}
-+
- 	ctx->upstream = !!op->direction;
- 
- 	spin_lock_irqsave(&ctx->client_lock, flags);
--- 
-2.24.0
+See :
+
+https://git.qemu.org/?p=qemu.git;a=blob;f=hw/arm/aspeed.c;h=a6a2102a93cbe2199c28e58deee480518076476e;hb=HEAD#l472
+
+in the limited scope of what QEMU supports. I2C models are not too
+complex to write if someone is interested.
+
+Regards,
+
+C. 
