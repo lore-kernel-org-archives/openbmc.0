@@ -1,74 +1,65 @@
-Return-Path: <andrew@aj.id.au>
+Return-Path: <manikandan.hcl.ers.epl@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::644;
+ helo=mail-pl1-x644.google.com; envelope-from=manikandan.hcl.ers.epl@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=Y7YjHwQv; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=x/WSwKWM; 
- dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=uO1rue67; dkim-atps=neutral
+Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
+ [IPv6:2607:f8b0:4864:20::644])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48t2Gc3dk3zDrDJ
- for <openbmc@lists.ozlabs.org>; Thu,  2 Apr 2020 10:19:52 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 0456F5C00D9;
- Wed,  1 Apr 2020 19:19:50 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Wed, 01 Apr 2020 19:19:50 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm2; bh=SVJuJbykKBXtbVFZMud+v3reI6yjLp3
- 3J4UCGxoewpY=; b=Y7YjHwQvlGguJmvDXu1Uk2vZnJL3CvGIBkwAD54ijKC9gPG
- tynWmbn5qFgGq3mbb1uagyYiDplIKZ5OUNFScW8KjE1gwiXnn4S7pLYgfOIt8I5J
- Nnk6pm7Aml1ddHA/C/IAfoQafFB1wKvsGmuXlIVV8fE/l31GDBg7uVxsdyYyvAYP
- b6C/ZHmNbi7ifoDZPdZASmWnLKfqnbk180AChWqVpn/wwJQ5Z2W4TJELzQKr/KOo
- nT2UlY5U4HpN+bMvK8Fcv8GtW0cDOaCupamukE76U65yZJBSTlC3O1qejWBovUuE
- Z3zB4lCHYmYV5GuidP354RLhv8Ron3iU8W5JUnA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=SVJuJb
- ykKBXtbVFZMud+v3reI6yjLp33J4UCGxoewpY=; b=x/WSwKWMBgV5tmjNhgghjR
- 2O8M7JIsvegMlNuD2POn+nHiTaosN/2XfstL/YEjNQH/dkJm6oYVpFeNTRqYBrDX
- s+xanOnYd1MEGQnwpv20mU0gq44CZLSjwP22RZN0J3rrR9qSn6xltuNw7XotnVzf
- Y3ZxRxLDYy/IjsPErjL6szFDvakMbcUhpRAUMWEDNwecEkmAmvHNoW2cG+Com39d
- wkNiMt2l5QUtK4HYEh4+hLH9EeYRfWuRwtRLJC+ykcf0scs8E6lwpR8GXtfM46bl
- cW0QKag0V6wQFM5ySV7RoVrQsDLjr/9Jh3ksDB7YWG7SJx/zUVtJD+DGWr8M4ilQ
- ==
-X-ME-Sender: <xms:lSGFXrM4zU7WHMZl-Fk2BlZyRQ3JigtRUK4qXPCWSos0DoUZaAndvA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrtdefgddvudcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghj
- rdhiugdrrghu
-X-ME-Proxy: <xmx:lSGFXtoM91_syTy0KJB6FD2KZB7qV5qvQwOQ7kZ-bzY8eBTQUfI5hg>
- <xmx:lSGFXsdkYhlDxQ049UoK0BvWJP5ONSNGhzyAHWwDUQHjUeZj1Fa1rA>
- <xmx:lSGFXuY3jXd8z8HZnTujGbEwMJ7L46sAHYUq7suH34U7tn0JzUG8Tg>
- <xmx:lSGFXoL_lZcrdTtJ1-KAeeaZmFHioSLki54QOZyAi8QxF_AHjGd8bw>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 5FF65E0105; Wed,  1 Apr 2020 19:19:49 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.1.7-1021-g152deaf-fmstable-20200319v1
-Mime-Version: 1.0
-Message-Id: <5946f131-ae13-4f31-bd13-e0d4e0daba65@www.fastmail.com>
-In-Reply-To: <20200401163117.16921-1-eajames@linux.ibm.com>
-References: <20200401163117.16921-1-eajames@linux.ibm.com>
-Date: Thu, 02 Apr 2020 09:50:01 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Eddie James" <eajames@linux.ibm.com>, openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.4_v2]_soc:_aspeed:_xdma:_Fix_command_bu?=
- =?UTF-8?Q?ffer_overrun?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48sklp5gpTzDqTj;
+ Wed,  1 Apr 2020 22:40:35 +1100 (AEDT)
+Received: by mail-pl1-x644.google.com with SMTP id e1so9498315plt.9;
+ Wed, 01 Apr 2020 04:40:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:mime-version:content-disposition
+ :user-agent; bh=frwB9HCh+bckiKeVXR7fySiqWLZJB1ugfHiteg0Zg6A=;
+ b=uO1rue67YuGneI+FwjSH0oNn4qzb32FAY5QIxDM4BPM5usA6Lb7PjtcdiCwpCpEChd
+ ZM+Tt5RcPC8q2HWJ0QGK0WVzo8SVB4KIoHppAhEyiPTZubVgvvhI8vkKnzyUboO6TAhg
+ EpY9pjBDnGA3N+5w8yE0YqafS83l6hJo8SC6cYn4dZnzWocGzMyrCU0rh1k/k0S4rcdP
+ lWs+XOGKcPsfAx5Sd26YkgYkq9+rGQNVvIgGsolBqbYwvL3CmWJXUSPz2OQ9K9o2FQjJ
+ KAmel9efYIMF2LfVxOkyQB807tl8m6B8SHRGiqurpEhyUHghwp+oDA5XUhdz7biLrGEs
+ qkPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition:user-agent;
+ bh=frwB9HCh+bckiKeVXR7fySiqWLZJB1ugfHiteg0Zg6A=;
+ b=SVaNmityY9TkAIRX0xUOZ4wL+5mKVKP5o5O0G1jrjDArsa7Lqq6t1MJ8nL+RFrdoCJ
+ WM0kF4Y0CjJPhMmr8hg3l+Xr1Onm/N8TkDGJRPJCPYsuLjVv2a0apXaPs7/5h/k1cpa5
+ 8AMCwCwjGrdeGpY5mXMEJeueFaas0M0aABQQbzA1hyMOffygPbXc4ps/jnlurzGBxcCu
+ 0fH82iRZUcoJ1hMTxOivFCJJBQA+dzZnX+qHR/coVWbHWs9d5md0oXeQdAv9s6UeAPLd
+ TO+qqnVMUj3JvW1EktiNmoXOeioGVRCzAku1U5OgPAGpUA0nSDVYsHw7i05z7jdgRbo+
+ Jfkw==
+X-Gm-Message-State: AGi0Pubci816JFw4RH5lCBTbk9DQDZs25uDobrv0ZyeNbkKOST5jBjRE
+ VFTt9hnqyvrU7Y4ai9bfT8k=
+X-Google-Smtp-Source: APiQypJ0ytCgLWwK/pGbVcTMZm+D7llsACYyxAi+SvlJPVMzHdnrHgN18R3C3SuNS09Mw7LpjMxbtQ==
+X-Received: by 2002:a17:90a:aa83:: with SMTP id
+ l3mr4407221pjq.100.1585741231649; 
+ Wed, 01 Apr 2020 04:40:31 -0700 (PDT)
+Received: from cnn ([2402:3a80:463:99ca:94f8:dc27:324a:484e])
+ by smtp.gmail.com with ESMTPSA id f5sm1418767pfq.63.2020.04.01.04.40.27
+ (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 01 Apr 2020 04:40:30 -0700 (PDT)
+Date: Wed, 1 Apr 2020 17:10:23 +0530
+From: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
+To: andrew@aj.id.au, joel@jms.id.au
+Cc: sdasari@fb.com, vijaykhemka@fb.com, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org, manikandan.e@hcl.com
+Subject: [PATCH v7] ARM: dts: aspeed: Adding Facebook Yosemite V2 BMC
+Message-ID: <20200401114023.GA29180@cnn>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+User-Agent: Mutt/1.5.24 (2015-08-30)
+X-Mailman-Approved-At: Thu, 02 Apr 2020 11:14:57 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,56 +71,226 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 01 Apr 2020 23:19:54 -0000
+X-List-Received-Date: Wed, 01 Apr 2020 11:40:41 -0000
 
+The Yosemite V2 is a facebook multi-node server
+platform that host four OCP server. The BMC
+in the Yosemite V2 platform based on AST2500 SoC.
 
+This patch adds linux device tree entry related to
+Yosemite V2 specific devices connected to BMC SoC.
 
-On Thu, 2 Apr 2020, at 03:01, Eddie James wrote:
-> In the case of an operation requiring two commands, the edge case at
-> the top of the command buffer was not handled, resulting in buffer
-> overrun. Fix this by using a loop to copy the commands into the buffer
-> and increment and modulo after each one.
-> 
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
-> ---
->  drivers/soc/aspeed/aspeed-xdma.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
-> index 5d97919d38cf..7baeb20280b6 100644
-> --- a/drivers/soc/aspeed/aspeed-xdma.c
-> +++ b/drivers/soc/aspeed/aspeed-xdma.c
-> @@ -430,15 +430,19 @@ static void aspeed_xdma_start(struct aspeed_xdma *ctx,
->  			      struct aspeed_xdma_op *op, u32 bmc_addr,
->  			      struct aspeed_xdma_client *client)
->  {
-> +	unsigned int i;
->  	unsigned long flags;
->  	struct aspeed_xdma_cmd cmds[2];
->  	unsigned int rc = ctx->chip->set_cmd(ctx, cmds, op, bmc_addr);
->  
->  	mutex_lock(&ctx->start_lock);
->  
-> -	memcpy(&ctx->cmdq[ctx->cmd_idx], cmds,
-> -	       rc * sizeof(struct aspeed_xdma_cmd));
-> -	ctx->cmd_idx = (ctx->cmd_idx + rc) % XDMA_NUM_CMDS;
-> +	for (i = 0; i < rc; ++i) {
-> +		memcpy(&ctx->cmdq[ctx->cmd_idx], &cmds[i],
-> +		       sizeof(struct aspeed_xdma_cmd));
+Signed-off-by: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
+Acked-by     : Andrew Jeffery <andrew@aj.id.au>
+Reviewed-by  : Vijay Khemka <vkhemka@fb.com>
+---
+---      v7 - Added multi-host SOL feature.
+---      v6 - Added device tree property for multi-host Mellanox NIC in the ncsi driver.
+---      v5 - Spell and contributor name correction.
+---           - License identifier changed to GPL-2.0-or-later.
+---           - aspeed-gpio.h removed.
+---           - FAN2 tacho channel changed.
+---      v4 - Bootargs removed.
+---      v3 - Uart1 Debug removed .
+---      v2 - LPC and VUART removed .
+---      v1 - Initial draft.
+---
+---
+ .../boot/dts/aspeed-bmc-facebook-yosemitev2.dts    | 186 +++++++++++++++++++++
+ 1 file changed, 186 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
 
-Bit of a nit, but it would be more obviously correct to me to do
-`sizeof(ctx->cmdq[ctx->cmd_idx])`. However this wasn't something you changed as
-part of this patch, so maybe it's a future enhancement.
-
-Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-
-> +		ctx->cmd_idx = (ctx->cmd_idx + 1) % XDMA_NUM_CMDS;
-> +	}
-> +
->  	ctx->upstream = !!op->direction;
->  
->  	spin_lock_irqsave(&ctx->client_lock, flags);
-> -- 
-> 2.24.0
-> 
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
+new file mode 100644
+index 0000000..bc83901
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
+@@ -0,0 +1,186 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright (c) 2018 Facebook Inc.
++/dts-v1/;
++#include "aspeed-g5.dtsi"
++
++/ {
++	model = "Facebook Yosemitev2 BMC";
++	compatible = "facebook,yosemitev2-bmc", "aspeed,ast2500";
++	aliases {
++		serial4 = &uart5;
++	};
++	chosen {
++		stdout-path = &uart5;
++	};
++
++	memory@80000000 {
++		reg = <0x80000000 0x20000000>;
++	};
++
++	iio-hwmon {
++		// VOLATAGE SENSOR
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0> , <&adc 1> , <&adc 2> ,  <&adc 3> ,
++		<&adc 4> , <&adc 5> , <&adc 6> ,  <&adc 7> ,
++		<&adc 8> , <&adc 9> , <&adc 10>, <&adc 11> ,
++		<&adc 12> , <&adc 13> , <&adc 14> , <&adc 15> ;
++	};
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "pnor";
++	};
++};
++&uart1 {
++	// Host1 Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++		     &pinctrl_rxd1_default>;
++};
++
++&uart2 {
++	// Host2 Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd2_default
++		     &pinctrl_rxd2_default>;
++
++};
++
++&uart3 {
++	// Host3 Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd3_default
++		     &pinctrl_rxd3_default>;
++};
++
++&uart4 {
++	// Host4 Console
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd4_default
++		     &pinctrl_rxd4_default>;
++};
++
++&uart5 {
++	// BMC Console
++	status = "okay";
++};
++
++&vuart {
++	// Virtual UART
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	use-ncsi;
++	mlx,multi-host;
++};
++
++&adc {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_adc0_default
++			&pinctrl_adc1_default
++			&pinctrl_adc2_default
++			&pinctrl_adc3_default
++			&pinctrl_adc4_default
++			&pinctrl_adc5_default
++			&pinctrl_adc6_default
++			&pinctrl_adc7_default
++			&pinctrl_adc8_default
++			&pinctrl_adc9_default
++			&pinctrl_adc10_default
++			&pinctrl_adc11_default
++			&pinctrl_adc12_default
++			&pinctrl_adc13_default
++			&pinctrl_adc14_default
++			&pinctrl_adc15_default>;
++};
++
++&i2c8 {
++	status = "okay";
++	//FRU EEPROM
++	eeprom@51 {
++		compatible = "atmel,24c64";
++		reg = <0x51>;
++		pagesize = <32>;
++	};
++};
++
++&i2c9 {
++	status = "okay";
++	tmp421@4e {
++	//INLET TEMP
++		compatible = "ti,tmp421";
++		reg = <0x4e>;
++	};
++	//OUTLET TEMP
++	tmp421@4f {
++		compatible = "ti,tmp421";
++		reg = <0x4f>;
++	};
++};
++
++&i2c10 {
++	status = "okay";
++	//HSC
++	adm1278@40 {
++		compatible = "adi,adm1278";
++		reg = <0x40>;
++	};
++};
++
++&i2c11 {
++	status = "okay";
++	//MEZZ_TEMP_SENSOR
++	tmp421@1f {
++		compatible = "ti,tmp421";
++		reg = <0x1f>;
++	};
++};
++
++&i2c12 {
++	status = "okay";
++	//MEZZ_FRU
++	eeprom@51 {
++		compatible = "atmel,24c64";
++		reg = <0x51>;
++		pagesize = <32>;
++	};
++};
++
++&pwm_tacho {
++	status = "okay";
++	//FSC
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
++	};
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
++	};
++};
+-- 
+2.7.4
