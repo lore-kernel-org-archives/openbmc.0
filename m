@@ -1,63 +1,115 @@
-Return-Path: <manikandan.hcl.ers.epl@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::542;
- helo=mail-pg1-x542.google.com; envelope-from=manikandan.hcl.ers.epl@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <prvs=0361987b65=jonathan.hilliard@hpe.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=PIC13765; dkim-atps=neutral
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (sender SPF authorized) smtp.mailfrom=hpe.com
+ (client-ip=148.163.147.86; helo=mx0a-002e3701.pphosted.com;
+ envelope-from=prvs=0361987b65=jonathan.hilliard@hpe.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=hpe.com
+X-Greylist: delayed 2042 seconds by postgrey-1.36 at bilbo;
+ Fri, 03 Apr 2020 03:35:01 AEDT
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com
+ [148.163.147.86])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48tQ3z0G9RzDr8H;
- Fri,  3 Apr 2020 01:11:58 +1100 (AEDT)
-Received: by mail-pg1-x542.google.com with SMTP id b1so1888916pgm.8;
- Thu, 02 Apr 2020 07:11:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:mime-version:content-disposition
- :user-agent; bh=KRil4IG/RY96nscl8h3n0Ow1s/U/cZE1l2gDbraOSck=;
- b=PIC13765bN2s0STyZE3R63JlJatZkjsCAY9M0BYQONZWkYyBnMl2sf2DwT/Gasiipt
- F+AZiTp3qjGJDYDj2ghb+i5NCNYR+rAxTbric07Rk/5uOXhSm+Csh7sWNt4w/IoQjDHp
- SvHkozzTqBY23Ywc+3ggPWDcqkLVr8ORrUvlS+NqGO/lPv+1WMid7ndMiFHedP/l8mJN
- vsViU3PVPMxlXQ8yZisLxOkEGjLLVMVZOUJCn5OsuZT2jA2DLTB4lNOKujN2PS0R5aRw
- 2kUuegfiWI+dXAwK3pQTCFUVmQyBwBaUvfDhj8ip20xR2GXc1UZz+/f0qg6QZlQ84LjG
- UgNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
- :content-disposition:user-agent;
- bh=KRil4IG/RY96nscl8h3n0Ow1s/U/cZE1l2gDbraOSck=;
- b=FgqCcXE/6c6nwOEdacOMG7Ue1jJsVm+BLxLuHspWMBJ0e6dwOr56GxMNQQhkTJp3uP
- sFMh+ry5i5sTWMmlP/1GdWc9tRatVR3YViPERd1OhGo5kWiRjIiShQSutPAUv4Jl4f/W
- JZozuYKzJvLAnJ8ccZPO/2movqOAEkphHfNpbTlhh98sRu5yNPg+o/hH9jAhM+l7xVpB
- yat5ipi/w8HqA7OQFz0aEaeA0EO8qTXkEmokWoJQwJTOYhPcf68z9x5O0rqAiMUDgAjp
- K/HBqZx74KZg4YU+6DfEPELV4TErmLjjZ9eCoZbVH1EIAu7AUVoQj2EjdETR2WAe6gzx
- hecg==
-X-Gm-Message-State: AGi0PuaUeBTkGVwdPY1HL65ka/ETC1tNN+BYHjCE8ETBLzYk+4eMNKhF
- B8jH5/7BpioyMRZtDRsgB5w=
-X-Google-Smtp-Source: APiQypIWILFF8219H+fW+mfg8OMS0kZ8gQYTFp44wgce3ClTX4l8bjO2uhgzCPWz03GlHvRVtmpcdw==
-X-Received: by 2002:a62:e20c:: with SMTP id a12mr3422338pfi.37.1585836716316; 
- Thu, 02 Apr 2020 07:11:56 -0700 (PDT)
-Received: from cnn ([42.111.167.250])
- by smtp.gmail.com with ESMTPSA id h64sm3739427pfg.191.2020.04.02.07.11.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 02 Apr 2020 07:11:55 -0700 (PDT)
-Date: Thu, 2 Apr 2020 19:41:35 +0530
-From: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
-To: andrew@aj.id.au, joel@jms.id.au
-Cc: sdasari@fb.com, vijaykhemka@fb.com, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- openbmc@lists.ozlabs.org, manikandan.e@hcl.com
-Subject: [PATCH v8] ARM: dts: aspeed: Adding Facebook Yosemite V2 BMC
-Message-ID: <20200402141135.GA19190@cnn>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48tTF14HmJzDqv6
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Apr 2020 03:34:57 +1100 (AEDT)
+Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
+ by mx0b-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 032FxvH3012701; Thu, 2 Apr 2020 16:00:55 GMT
+Received: from g4t3426.houston.hpe.com (g4t3426.houston.hpe.com
+ [15.241.140.75])
+ by mx0b-002e3701.pphosted.com with ESMTP id 305jh40d75-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 16:00:54 +0000
+Received: from G2W6310.americas.hpqcorp.net (g2w6310.austin.hp.com
+ [16.197.64.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by g4t3426.houston.hpe.com (Postfix) with ESMTPS id D914D67;
+ Thu,  2 Apr 2020 16:00:53 +0000 (UTC)
+Received: from G1W8108.americas.hpqcorp.net (2002:10c1:483c::10c1:483c) by
+ G2W6310.americas.hpqcorp.net (2002:10c5:4034::10c5:4034) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.2; Thu, 2 Apr 2020 16:00:35 +0000
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (15.241.52.11) by
+ G1W8108.americas.hpqcorp.net (16.193.72.60) with Microsoft SMTP
+ Server (TLS)
+ id 15.0.1497.2 via Frontend Transport; Thu, 2 Apr 2020 16:00:35 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=K3N4G1oq1GNRYiAHjXKC43qda8U+mdE8PF5N9K9rzs2cGJaBEXlU2GIrlnlawsJbKcdFnwmZBwtDzWyI6Bi9bnC4XUIdVAz6LzP0Lsv2smJmbTIfs+hATO0tNT98rsMTyGE1Megq5XXLG7QsKIY9Z6skaJyTrptRXsk6zF5O72gbAesiCyym+0LhH3AQb9ce0Vp1DZjZr3X4Yrs0e5EIGLNoHPdRroWX7JtN06g8vXYiktLQs/xMsX197u36O3e05hkaUPeTFezS0fLVO8Qtqim+Q+T+dG8qZoG1HQE60EsGhxHH1VSWwbX3bhgB+zH82GDq5Nq5oU1OtRLIgzjjOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b7A8+FKNWqLFWejJ3M5aD46hFsBCnatDi2COICYWVbg=;
+ b=aiPs8/ayorUH3ZmK29t2RMhvK2E6Ttyr6+trH+bSiUQ1QROPK9ljNMQw1ZEZyiOI9ccI4BAjIgsFcMQPogP071l2Dq2kCHaOKA/MWU2o0l2O7EzkQD2O82q8Eeml3UKCmVhLLIQKuoaZYZ1CfkSNHCUxBZrPZgz6YqwH0jbg0EZeNQmQdOWenU5UzSsY2PQZnuUGEqt9eZUjTlbrcSnt8MIzxERtguKgNEK2KCfII2QehXbQQHoeXH5tKeda4Nj2mc1Z/CSLYqvXBpgOwvbppLXfrq3mY4nmT6jjzctF9VdkLNu/da7NgpbRW5/FuGNUPmZQNYahXn90YA1HkWH3qw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
+ header.d=hpe.com; arc=none
+Received: from DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM
+ (2a01:111:e400:7610::17) by DF4PR8401MB1017.NAMPRD84.PROD.OUTLOOK.COM
+ (2a01:111:e400:760f::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2878.16; Thu, 2 Apr
+ 2020 16:00:33 +0000
+Received: from DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::c187:2fb7:3ffb:2281]) by DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::c187:2fb7:3ffb:2281%3]) with mapi id 15.20.2856.019; Thu, 2 Apr 2020
+ 16:00:33 +0000
+From: "Hilliard, Jonathan Blake" <jonathan.hilliard@hpe.com>
+To: =?iso-8859-2?Q?Adrian_Ambro=BFewicz?= <adrian.ambrozewicz@linux.intel.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RE: Redfish events?
+Thread-Topic: Redfish events?
+Thread-Index: AdYIWczd/g4PtFD6RCGTifuCN8tASAAZuaCAABHEgwA=
+Date: Thu, 2 Apr 2020 16:00:33 +0000
+Message-ID: <DF4PR8401MB1177EE5A5955E3C343757918E0C60@DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM>
+References: <DF4PR8401MB1177ED2C2AA795CF251570EAE0C90@DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM>
+ <c866c2b0-cc27-c5c3-3ff1-3d467ee5b8a0@linux.intel.com>
+In-Reply-To: <c866c2b0-cc27-c5c3-3ff1-3d467ee5b8a0@linux.intel.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [76.186.127.143]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: a515fb59-5bfe-447e-d0c4-08d7d71ef99f
+x-ms-traffictypediagnostic: DF4PR8401MB1017:
+x-microsoft-antispam-prvs: <DF4PR8401MB10171A479B347F712915441EE0C60@DF4PR8401MB1017.NAMPRD84.PROD.OUTLOOK.COM>
+x-ms-oob-tlc-oobclassifiers: OLM:2000;
+x-forefront-prvs: 0361212EA8
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DF4PR8401MB1177.NAMPRD84.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(10019020)(366004)(376002)(346002)(396003)(39860400002)(136003)(52536014)(7696005)(6506007)(966005)(5660300002)(19627235002)(8676002)(8936002)(81166006)(4744005)(86362001)(7116003)(2906002)(316002)(71200400001)(53546011)(33656002)(110136005)(66946007)(66556008)(76116006)(186003)(66446008)(64756008)(66476007)(81156014)(478600001)(55016002)(9686003)(3480700007)(26005);
+ DIR:OUT; SFP:1102; 
+received-spf: None (protection.outlook.com: hpe.com does not designate
+ permitted sender hosts)
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Yl47p/k5oDce+zGyMHbO5e5H0y98RVsM/+6B2JC4VDqHzGclapIqHGgnx42Nerif8dhEFRZ9SlenVHh0QAkbkwET6FzyAlIH8YnqgLy7nRq7AIZiFjyK2rT9cuOMWVREDzV8lKC3a9AG9fDAcEUCFXLg9XkJO5q71BVoUdjbqlI0aE20eo4ZEbasEL4k8WJ7WDa2WdenKzN3/C0Yu55WrM763o3fM887vZba9cusr8Ifym6masLlWPCr9XMtsJ7ZTdbVA3Y3Fco6nc+V+JP4xiGHhcWYQvf2ZXsWqViHUCS/wylRlWs/wUYHQDW/NBLmwvGR5+phrFzwj7rMvCPkXXFPznSlJpI9vNfaru6OD0cyAaQSmqwKYBzeKx5N4bj5/H4AsTbfVayxVfKfXm9QQzeM0iHIln0++PSDkN9GaMgN5xSCZ+lq8wS5ubI4PfKDhWxcD0y2ihqRYXnNz4GjAvDeerp2+sTbUv8g1ertO3mRQZI4+wwgjUsLRl+wDyumwXMEBgsc8mmQHL5ug1edNA==
+x-ms-exchange-antispam-messagedata: eJgmMgKfkEYjtA+Lb6LBhXNGwJg3Z+aG3iBybKUuVYatSsDemNR83mSl9o5XGkOzp1x5s1YtVH7mV+1QjyjuhjkU6a4oBZ7qBgP0jSAXXTPTriepsBqlZQm8WkYTMq1cOxJqvfpcuCrHXqDS3dSoZg==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="iso-8859-2"
+X-MS-Exchange-CrossTenant-Network-Message-Id: a515fb59-5bfe-447e-d0c4-08d7d71ef99f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Apr 2020 16:00:33.1896 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: OQSvYFZnxOwGIHEtZOKzMeV0OrGZFts77xs2emdnyzK4E5AWbyqMRBb6MfxcbGJ2agFJT65bAWFmmaPrVlO6rNMHkspabOOU5f/dTxLC2xY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DF4PR8401MB1017
+X-OriginatorOrg: hpe.com
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-UnRewURL: 1 URL was un-rewritten
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-User-Agent: Mutt/1.5.24 (2015-08-30)
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-02_06:2020-04-02,
+ 2020-04-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 mlxlogscore=689
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0 mlxscore=0
+ spamscore=0 bulkscore=0 priorityscore=1501 impostorscore=0 clxscore=1011
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
+ definitions=main-2004020131
 X-Mailman-Approved-At: Mon, 06 Apr 2020 10:53:32 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -70,286 +122,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Apr 2020 14:11:59 -0000
+X-List-Received-Date: Thu, 02 Apr 2020 16:35:02 -0000
 
-The Yosemite V2 is a facebook multi-node server
-platform that host four OCP server. The BMC
-in the Yosemite V2 platform based on AST2500 SoC.
+EventService is what I was looking for. Thanks!
 
-This patch adds linux device tree entry related to
-Yosemite V2 specific devices connected to BMC SoC.
+-----Original Message-----
+From: Adrian Ambro=BFewicz [mailto:adrian.ambrozewicz@linux.intel.com]=20
+Sent: Thursday, April 2, 2020 2:31 AM
+To: Hilliard, Jonathan Blake <jonathan.hilliard@hpe.com>; openbmc@lists.ozl=
+abs.org
+Subject: Re: Redfish events?
 
-Signed-off-by: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
-Acked-by     : Andrew Jeffery <andrew@aj.id.au>
-Reviewed-by  : Vijay Khemka <vkhemka@fb.com>
----
----      v8 - Added dtb entry in Makefile as review comment.
----           -Added IPMB bridge device details as review comment.
----      v7 - Added multi-host SOL feature.
----      v6 - Added device tree property for multi-host Mellanox NIC in the ncsi driver.
----      v5 - Spell and contributor name correction.
----           - License identifier changed to GPL-2.0-or-later.
----           - aspeed-gpio.h removed.
----           - FAN2 tacho channel changed.
----      v4 - Bootargs removed.
----      v3 - Uart1 Debug removed .
----      v2 - LPC and VUART removed .
----      v1 - Initial draft.
----
----
- arch/arm/boot/dts/Makefile                         |   1 +
- .../boot/dts/aspeed-bmc-facebook-yosemitev2.dts    | 231 +++++++++++++++++++++
- 2 files changed, 232 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
+What exact events do you mean?
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index fcd607f..00b6649 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1289,6 +1289,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-facebook-wedge40.dtb \
- 	aspeed-bmc-facebook-wedge100.dtb \
- 	aspeed-bmc-facebook-yamp.dtb \
-+	aspeed-bmc-facebook-yosemitev2.dtb \
- 	aspeed-bmc-ibm-rainier.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-inspur-fp5280g2.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
-new file mode 100644
-index 0000000..8864e9c
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-yosemitev2.dts
-@@ -0,0 +1,231 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright (c) 2018 Facebook Inc.
-+/dts-v1/;
-+#include "aspeed-g5.dtsi"
-+#include <dt-bindings/i2c/i2c.h>
-+
-+/ {
-+	model = "Facebook Yosemitev2 BMC";
-+	compatible = "facebook,yosemitev2-bmc", "aspeed,ast2500";
-+	aliases {
-+		serial4 = &uart5;
-+	};
-+	chosen {
-+		stdout-path = &uart5;
-+	};
-+
-+	memory@80000000 {
-+		reg = <0x80000000 0x20000000>;
-+	};
-+
-+	iio-hwmon {
-+		// VOLATAGE SENSOR
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 0> , <&adc 1> , <&adc 2> ,  <&adc 3> ,
-+		<&adc 4> , <&adc 5> , <&adc 6> ,  <&adc 7> ,
-+		<&adc 8> , <&adc 9> , <&adc 10>, <&adc 11> ,
-+		<&adc 12> , <&adc 13> , <&adc 14> , <&adc 15> ;
-+	};
-+};
-+
-+&fmc {
-+	status = "okay";
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+#include "openbmc-flash-layout.dtsi"
-+	};
-+};
-+
-+&spi1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_spi1_default>;
-+	flash@0 {
-+		status = "okay";
-+		m25p,fast-read;
-+		label = "pnor";
-+	};
-+};
-+&uart1 {
-+	// Host1 Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd1_default
-+		     &pinctrl_rxd1_default>;
-+};
-+
-+&uart2 {
-+	// Host2 Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd2_default
-+		     &pinctrl_rxd2_default>;
-+
-+};
-+
-+&uart3 {
-+	// Host3 Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd3_default
-+		     &pinctrl_rxd3_default>;
-+};
-+
-+&uart4 {
-+	// Host4 Console
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_txd4_default
-+		     &pinctrl_rxd4_default>;
-+};
-+
-+&uart5 {
-+	// BMC Console
-+	status = "okay";
-+};
-+
-+&vuart {
-+	// Virtual UART
-+	status = "okay";
-+};
-+
-+&mac0 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii1_default>;
-+	use-ncsi;
-+	mlx,multi-host;
-+};
-+
-+&adc {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_adc0_default
-+			&pinctrl_adc1_default
-+			&pinctrl_adc2_default
-+			&pinctrl_adc3_default
-+			&pinctrl_adc4_default
-+			&pinctrl_adc5_default
-+			&pinctrl_adc6_default
-+			&pinctrl_adc7_default
-+			&pinctrl_adc8_default
-+			&pinctrl_adc9_default
-+			&pinctrl_adc10_default
-+			&pinctrl_adc11_default
-+			&pinctrl_adc12_default
-+			&pinctrl_adc13_default
-+			&pinctrl_adc14_default
-+			&pinctrl_adc15_default>;
-+};
-+
-+&i2c1 {
-+	//Host1 IPMB bus
-+	status = "okay";
-+	multi-master;
-+	ipmb1@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
-+};
-+
-+&i2c3 {
-+	//Host2 IPMB bus
-+	status = "okay";
-+	multi-master;
-+	ipmb3@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
-+};
-+
-+&i2c5 {
-+	//Host3 IPMB bus
-+	status = "okay";
-+	multi-master;
-+	ipmb5@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
-+};
-+
-+&i2c7 {
-+	//Host4 IPMB bus
-+	status = "okay";
-+	multi-master;
-+	ipmb7@10 {
-+		compatible = "ipmb-dev";
-+		reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
-+		i2c-protocol;
-+	};
-+};
-+
-+&i2c8 {
-+	status = "okay";
-+	//FRU EEPROM
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&i2c9 {
-+	status = "okay";
-+	tmp421@4e {
-+	//INLET TEMP
-+		compatible = "ti,tmp421";
-+		reg = <0x4e>;
-+	};
-+	//OUTLET TEMP
-+	tmp421@4f {
-+		compatible = "ti,tmp421";
-+		reg = <0x4f>;
-+	};
-+};
-+
-+&i2c10 {
-+	status = "okay";
-+	//HSC
-+	adm1278@40 {
-+		compatible = "adi,adm1278";
-+		reg = <0x40>;
-+	};
-+};
-+
-+&i2c11 {
-+	status = "okay";
-+	//MEZZ_TEMP_SENSOR
-+	tmp421@1f {
-+		compatible = "ti,tmp421";
-+		reg = <0x1f>;
-+	};
-+};
-+
-+&i2c12 {
-+	status = "okay";
-+	//MEZZ_FRU
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+		pagesize = <32>;
-+	};
-+};
-+
-+&pwm_tacho {
-+	status = "okay";
-+	//FSC
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default>;
-+	fan@0 {
-+		reg = <0x00>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x00>;
-+	};
-+	fan@1 {
-+		reg = <0x01>;
-+		aspeed,fan-tach-ch = /bits/ 8 <0x01>;
-+	};
-+};
--- 
-2.7.4
+EventService is currently in the review https://gerrit.openbmc-project.xyz/=
+c/openbmc/bmcweb/+/24889=20
+
+/redfish/v1/Systems/system/LogServices/EventLog is already implemented and =
+supports proper proper MessageRegistry files.=20
+https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in=
+-bmcweb.md
+
+Regards,
+Adrian
+
+
+W dniu 4/1/2020 o=A021:16, Hilliard, Jonathan Blake pisze:
+> Are there any plans to support redfish events in openbmc? And if so,=20
+> is there a rough ETA?
+>=20
