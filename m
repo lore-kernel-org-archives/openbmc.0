@@ -1,66 +1,82 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::244;
- helo=mail-oi1-x244.google.com; envelope-from=geissonator@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=uN3EohhB; dkim-atps=neutral
-Received: from mail-oi1-x244.google.com (mail-oi1-x244.google.com
- [IPv6:2607:f8b0:4864:20::244])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48tP1c38vXzDrJq
- for <openbmc@lists.ozlabs.org>; Fri,  3 Apr 2020 00:24:50 +1100 (AEDT)
-Received: by mail-oi1-x244.google.com with SMTP id q204so2692705oia.13
- for <openbmc@lists.ozlabs.org>; Thu, 02 Apr 2020 06:24:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=4+g1yjqkVto6kWbssuTF510eyFtCn9cQBNdvJQYalBM=;
- b=uN3EohhBc3gTzON4Z1dEXrV5mfiZhRGpam52wqRF32FFAVlrDsHdh1tzavcnslE/xv
- S+EoZ7U/xDwka9KVia8mhAh0BvuthqYbRbKIeAgybXkjIfla9v/eJTwnEhcZeQR5epRx
- rbGBEB2gWQtJn8EBcwoActxGw7PO+VAMs6sXLkLyNDyWNaR7eNqunzCVVhr/Mp8yLQEj
- ipFRpR6Qo/FZJbRX2JL/ihvu6pa/pMy/M6mUTJIs9jaajJ/L/5RA4Oisk4JSIKZvUQN8
- FSMeKFzpmoTh95o2Y906qQ6/6H5JBHNZnbaqnxbiuNIz6eN/MoeBGFySx6Dsx7DWHPxZ
- 1EFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=4+g1yjqkVto6kWbssuTF510eyFtCn9cQBNdvJQYalBM=;
- b=YmeYpoRLCWf5eY0mx7GfTzHHbVjT5ZTPbLUFpIJbdpR0TBlzVMDjSuJv6D4Vw2znZx
- REVefbh/uk+d+jJ+UZNKsalZtzsUKdCi4rNXu4AtLSqLT8uM/yjIU6TzJzyawlz4JjwT
- uUII6+h9SClzm9HkUh+KtMJUJffh+5UReawuZbcfWtVK1R/TZujQKQ9mVSONOt/oLMus
- CBUG7F1FrW7YCG3rVNFhTqBO3g2561WpfZgSrF7y+G2wJuH5iw/zmdHc92qkxJQj3Zal
- OWUCoYj5E5EEX2D+I4jthbhelrpG9CguAMg22AjLg+8bts8BFKkZC1xgMs26t0cEcdy8
- 0wWA==
-X-Gm-Message-State: AGi0PuaAH7hSt8NtqLerv6f8tS7Ra90fsrxXrpvR7FhNh8jMWSIU5qGb
- yoL84A5tcZVf39jH736LTto=
-X-Google-Smtp-Source: APiQypLKuio0fpAtNgLUkF/wHEAva0luyq85UGTYGjRPXPWkaDWmEz50wd4DUeg7N8KX9BhnZsXv7A==
-X-Received: by 2002:aca:100e:: with SMTP id 14mr2205987oiq.79.1585833886413;
- Thu, 02 Apr 2020 06:24:46 -0700 (PDT)
-Received: from andrews-mbp-2.attlocal.net
- ([2600:1700:19e0:3310:88e1:9244:7116:6a6b])
- by smtp.gmail.com with ESMTPSA id r18sm1253823ooc.17.2020.04.02.06.24.45
- (version=TLS1_2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 02 Apr 2020 06:24:45 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
-Subject: Re: OpenBMC Janitor/Gardener
-From: Andrew Geissler <geissonator@gmail.com>
-In-Reply-To: <CAH1kD+ans6=BbPP9Sut7OQC3Fdt_=+=QEgzyFgyPa_9vwLS0TQ@mail.gmail.com>
-Date: Thu, 2 Apr 2020 08:24:44 -0500
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <D5247659-8187-4C5E-8CDB-452BA6B411E5@gmail.com>
-References: <CAH1kD+ans6=BbPP9Sut7OQC3Fdt_=+=QEgzyFgyPa_9vwLS0TQ@mail.gmail.com>
-To: Richard Hanley <rhanley@google.com>
-X-Mailer: Apple Mail (2.3608.80.23.2.2)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48tQVP4ggXzDrR1
+ for <openbmc@lists.ozlabs.org>; Fri,  3 Apr 2020 01:31:24 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 032E2AHC077846; Thu, 2 Apr 2020 10:31:21 -0400
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3043g9er2h-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 10:31:21 -0400
+Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 032E2bX4080843;
+ Thu, 2 Apr 2020 10:31:21 -0400
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3043g9er20-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 10:31:21 -0400
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 032EUNLg025048;
+ Thu, 2 Apr 2020 14:31:19 GMT
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23]) by ppma04wdc.us.ibm.com with ESMTP id 301x771huy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 02 Apr 2020 14:31:19 +0000
+Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
+ [9.57.199.108])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 032EVJJ031654196
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 2 Apr 2020 14:31:19 GMT
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 57B7EB205F;
+ Thu,  2 Apr 2020 14:31:19 +0000 (GMT)
+Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CF8AEB2067;
+ Thu,  2 Apr 2020 14:31:18 +0000 (GMT)
+Received: from [9.163.31.233] (unknown [9.163.31.233])
+ by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTP;
+ Thu,  2 Apr 2020 14:31:18 +0000 (GMT)
+Subject: Re: [PATCH linux dev-5.4 1/2] hwmon: (pmbus/ibm-cffps) Add another
+ PSU CCIN to version detection
+To: Joel Stanley <joel@jms.id.au>, Guenter Roeck <linux@roeck-us.net>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Brandon Wyman <bjwyman@gmail.com>
+References: <20200401220339.2006-1-eajames@linux.ibm.com>
+ <20200401220339.2006-2-eajames@linux.ibm.com>
+ <fc05a492-f04b-b80d-51a0-52cb793e5c9d@roeck-us.net>
+ <CACPK8XcKpK9Fz8GmudSYVqph0MBFKpwrCdr68Hha1wtamLLNhw@mail.gmail.com>
+From: Eddie James <eajames@linux.ibm.com>
+Message-ID: <03116ba3-9054-344c-7890-dbb9ccabd038@linux.ibm.com>
+Date: Thu, 2 Apr 2020 09:31:18 -0500
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
+MIME-Version: 1.0
+In-Reply-To: <CACPK8XcKpK9Fz8GmudSYVqph0MBFKpwrCdr68Hha1wtamLLNhw@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-02_05:2020-03-31,
+ 2020-04-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ spamscore=0 malwarescore=0 mlxlogscore=999 impostorscore=0 clxscore=1015
+ phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 mlxscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2003020000 definitions=main-2004020124
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +88,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 02 Apr 2020 13:24:54 -0000
+X-List-Received-Date: Thu, 02 Apr 2020 14:31:26 -0000
 
 
+On 4/1/20 5:20 PM, Joel Stanley wrote:
+> On Wed, 1 Apr 2020 at 22:13, Guenter Roeck <linux@roeck-us.net> wrote:
+>> On 4/1/20 3:03 PM, Eddie James wrote:
+>>> There is an additional CCIN for the IBM CFFPS that may be classifed as
+>>> either version one or version two, based upon the rest of the bits of
+>>> the CCIN. Add support for it in the version detection.
+>>>
+>>> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+>>> Link: https://lore.kernel.org/r/1583948590-17220-1-git-send-email-eajames@linux.ibm.com
+>>> Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+>> Those e-mails are confusing. Can you drop me from cc:, please ?
+> I think Eddie forgot to --suppress-cc=body when he git send-email'd
+>
+> Sorry for the noise Guenter.
 
-> On Apr 1, 2020, at 12:34 PM, Richard Hanley <rhanley@google.com> =
-wrote:
->=20
-> Hi,
->=20
-> I was recently looking into the linux kernel introduction, and I =
-noticed the kernel janitors https://kernelnewbies.org/KernelJanitors.  =
-It seems like a pretty interesting idea, and I've been thinking about =
-janitorial tasks in OpenBMC.
 
-Yeah, this is nice. I saw yocto just did something recently as well with =
-their =E2=80=9Cnewcomer=E2=80=9D tag.
-https://wiki.yoctoproject.org/wiki/Newcomers
+Indeed, my apologies.
 
-> For some context, we've had a handful of new developers join recently, =
-and I've been looking for some small refactoring projects that they =
-could work on upstream.
+Thanks,
 
-Yeah, best way to learn is always to just jump in with some easy =
-bugs/refactor.
+Eddie
 
-> So I guess there are two parts to this email.  First does anyone have =
-some bite sized improvement task that's been on their wishlist, but =
-there hasn't been anyone around to work on it.  (In particular things =
-around bmcweb and phosphor dbus interfaces would be appreciated).
 
-We=E2=80=99ve always been a bit lacking in unit test coverage in bmcweb. =
-Anything to improve that would be great.
-I know Gunnar also has a constant stream of DMTF Redfish spec new =
-function and updates that always need some bmcweb work.
-
->=20
-> The other thing is, what do people think would be the best way to =
-publicize these kinds of refactoring/janitorial/gardening tasks. One way =
-would be to create a *gardening* tag in the github issues.  That way =
-people can set up filters for ideas that experts think are a good idea, =
-but probably won't need deep design discussions to get started.
-
-I think we used to try and do this with the =E2=80=9Cbitesize=E2=80=9D =
-tag (https://github.com/openbmc/openbmc/issues?q=3Dlabel%3Abitesize+) =
-but it really isn=E2=80=99t used much anymore. I=E2=80=99d vote we try =
-and be consistent with whatever tag others use though. =E2=80=9Cgardening=E2=
-=80=9D or maybe the yocto one of =E2=80=9Cnewcomer"
-
->=20
-> Another way would be to have a monthly/quarterly wishlist gathering on =
-the mailing list.  That way we have some dedicated time to discuss =
-issues of the day, and put them together into a markdown document (like =
-a per project version of the security group wishlist =
-https://github.com/openbmc/openbmc/wiki/Security-working-group#security-fe=
-ature-wish-list)
-
-I would def participate in a mailing list gathering on this topic if it =
-were to happen!
-
->=20
-> Maybe this is already happening, and I just haven't noticed it.  =
-Anywho, hope you are all doing well.
->=20
+>
 > Cheers,
-> Richard
+>
+> Joel
