@@ -1,52 +1,55 @@
-Return-Path: <3AUqJXgUKB7QeohscaiiafY.WigijYhVgWfcmnm.itfUVm.ila@flex--kunyi.bounces.google.com>
+Return-Path: <3C0qJXgUKB74oyr2mksskpi.gsqstirfqgpmwxw.s3pefw.svk@flex--kunyi.bounces.google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=flex--kunyi.bounces.google.com
  (client-ip=2607:f8b0:4864:20::104a; helo=mail-pj1-x104a.google.com;
- envelope-from=3auqjxgukb7qeohscaiiafy.wigijyhvgwfcmnm.itfuvm.ila@flex--kunyi.bounces.google.com;
+ envelope-from=3c0qjxgukb74oyr2mksskpi.gsqstirfqgpmwxw.s3pefw.svk@flex--kunyi.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=hKp4kxrW; dkim-atps=neutral
+ header.s=20161025 header.b=Sqzp3tVr; dkim-atps=neutral
 Received: from mail-pj1-x104a.google.com (mail-pj1-x104a.google.com
  [IPv6:2607:f8b0:4864:20::104a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48vz311JsqzDqSg
- for <openbmc@lists.ozlabs.org>; Sun,  5 Apr 2020 13:01:25 +1000 (AEST)
-Received: by mail-pj1-x104a.google.com with SMTP id a12so4940313pju.2
- for <openbmc@lists.ozlabs.org>; Sat, 04 Apr 2020 20:01:25 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48vz371Gd8zDqSg
+ for <openbmc@lists.ozlabs.org>; Sun,  5 Apr 2020 13:01:32 +1000 (AEST)
+Received: by mail-pj1-x104a.google.com with SMTP id a12so4940657pju.2
+ for <openbmc@lists.ozlabs.org>; Sat, 04 Apr 2020 20:01:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=date:message-id:mime-version:subject:from:to:cc;
- bh=591U0a3uj9ivd77KkEIm1wqfWLnwA8UR+XpmgbL5TUM=;
- b=hKp4kxrW6XAOSPo5e47PZ4T9BUTPc550lpDbhxsApbvTsaCDnClin7TtKDNYXp3dgP
- naCTlZnAkqVQMptnT5UvtXV5t8y1k0lxANTtKavs+a0uTTxQAxSL135y/fcNhEwjbwQh
- EmwKH8BflZkz8oTREBxpCuZ4W/0jUAqoZQCXwctmGtwBOwCLLJU0HxvqXjGu721cnLzm
- Ok379Ew5s+3YK9HCiWtr7YKzpMCQ3FXhWMqikaeW8JJS9dklYlLHLxGegJwWmBxdCZ90
- J2l+heXciWqQPv+YJhOHbrx+Ct1I+yrA3QtiFsqnq8syOH53vchx3RBdNYEfkK4CWCb8
- SM4Q==
+ h=date:in-reply-to:message-id:mime-version:references:subject:from:to
+ :cc; bh=fKzqXXNg9xzVu4YyDWxMV1+X7kCrAroDFOfHUGlJ58E=;
+ b=Sqzp3tVry5VikJhBtbH8S7i4F6HSXFPxPg6DEQnSre+2NtOuwKjqzVf2IafEjNUj5a
+ C+NeeLsqpbOdoq6OArVTZ59Shl26lYDf8U99URzAqd1/lAnJTqHhkFzvl9zaUrBc0+Um
+ aZkwhBOzc8dttV849FyKs7dkxhWKMgu6NGpcJjCUnXTu2gMvQTTOIbG/pVeXwhBjYUES
+ H2izvR9dW09AslLmDdTthnbsq5Uzjsdej71g4Fsiclb1VKaGef2DU8o78DbMxdNZlqVC
+ 1aqWRKz5VKg/P2J7t2XPKkPYFJHZk2JlCRe6HSw2x3nALCJcPpoBWcPY/TJYw6hOiaOX
+ 027Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
- bh=591U0a3uj9ivd77KkEIm1wqfWLnwA8UR+XpmgbL5TUM=;
- b=NnikUTiaZdjyOfSK0FU/trrJ814MUe3H0J/o6nKrWd/Hq7radnzbR25d9F1xkqlYb+
- /IbaMCY7GZr5HXcS3xRCHt7I6EGLITLB08WH0kc9kKM6kv4+6ACX9ahEeICh5BWkmKNt
- qcIJgUiLyHPQvA2elomSzjBGzH/UK9nwBTfnT9wNT2zkenv0I7gQZdNMEkMokifTQqzE
- 8K5rVGaNex/FNKFOmAGMCkw7fdPJ0aPydYyLTlMpd7ZrGPLOLpx4BpHcCPK37ixfSJY6
- pF6BitS5APm9fpmsEpmU/Hl0B2L/m+on3e4v94oELm8vsuC90Jf65KAaALbKuvcPuIyF
- yDyA==
-X-Gm-Message-State: AGi0PuaAc7NDOG8ylCkd9yANyK33hDL0CGc04wjiDOJCwG0RISffYxmk
- 8Zw7ihtDIvd92PQ8WIUhQoy9aoR5xA==
-X-Google-Smtp-Source: APiQypIpVtgrpRGuQhmH8vpxld8wtXdjmuaKlv6sGDOC8MvvoytVECMHXLkOuA7tHJE0sC2mGX6RM6rHEg==
-X-Received: by 2002:a63:4d57:: with SMTP id n23mr15911198pgl.59.1586055681735; 
- Sat, 04 Apr 2020 20:01:21 -0700 (PDT)
-Date: Sat,  4 Apr 2020 20:01:15 -0700
-Message-Id: <20200405030118.191950-1-kunyi@google.com>
+ h=x-gm-message-state:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=fKzqXXNg9xzVu4YyDWxMV1+X7kCrAroDFOfHUGlJ58E=;
+ b=Ghyp/68lTFjMWyKw5fkfLexnnE/ZzKw9o43uYmghHgddFO79DGrvJOjvJuyxrxD81P
+ tkXbFtSvnaPpc18sqRfqrBZca/dyf2jrX+bmrOvQwiF8QQhySj1jkEBztzYfWJHcYcex
+ LJmAutZEvdakTNFvyWLUow7gBM8QVXSeuz2hGMeSTnOKB9BHA4JG++WnjiqHNKGd133j
+ QeF6TILMZDddvoRfb5WgcSmNNweHL3FxN53/mSazKUXjv/bDIzK9wSTrF+B3DWZ7qTs7
+ KxeHf7RPyx7eluVBgQWzSEwTDLhlKXxTLqlxDYf8bvMBz80v3Mcnabfq7285tZduFZ3c
+ lAPg==
+X-Gm-Message-State: AGi0PubH4vuNk9PwCmrjxSAyclLJ6SvBuXhmkgknPNaRaZP0gvLEhfIr
+ /JjOn8CExOC8zYKElIrtVVbeG9mt9A==
+X-Google-Smtp-Source: APiQypJzQ/VynmzGryKqwj/Q41W7uFyHr7iB3BAtTwC2kBApBZa8RfvrjcVzbMMt18OmXIjc52phN4ZmNw==
+X-Received: by 2002:a63:9a11:: with SMTP id o17mr3738011pge.234.1586055691194; 
+ Sat, 04 Apr 2020 20:01:31 -0700 (PDT)
+Date: Sat,  4 Apr 2020 20:01:17 -0700
+In-Reply-To: <20200405030118.191950-1-kunyi@google.com>
+Message-Id: <20200405030118.191950-3-kunyi@google.com>
 Mime-Version: 1.0
+References: <20200405030118.191950-1-kunyi@google.com>
 X-Mailer: git-send-email 2.26.0.292.g33ef6b2f38-goog
-Subject: [PATCH linux hwmon-next v3 0/3] SB-TSI hwmon driver v3
+Subject: [PATCH linux hwmon-next v3 2/3] hwmon: (sbtsi) Add documentation
 From: Kun Yi <kunyi@google.com>
 To: jdelvare@suse.com, linux@roeck-us.net, robh+dt@kernel.org, 
  mark.rutland@arm.com
@@ -65,28 +68,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 05 Apr 2020 03:01:34 -0000
+X-List-Received-Date: Sun, 05 Apr 2020 03:01:39 -0000
 
-v3: addressed comment in v2 and improved documentation
-v2: rewrote using devm_hwmon_device_register_with_info() API and addressed
-    comments received in v1
-v1: first version
+Document the SB-TSI sensor interface driver.
 
-Kun Yi (3):
-  hwmon: (sbtsi) Add basic support for SB-TSI sensors
-  hwmon: (sbtsi) Add documentation
-  dt-bindings: (hwmon/sbtsi_tmep) Add SB-TSI hwmon driver bindings
-
- .../devicetree/bindings/hwmon/amd,sbtsi.txt   |  26 ++
- Documentation/hwmon/index.rst                 |   1 +
- Documentation/hwmon/sbtsi_temp.rst            |  40 +++
- drivers/hwmon/Kconfig                         |  10 +
- drivers/hwmon/Makefile                        |   1 +
- drivers/hwmon/sbtsi_temp.c                    | 259 ++++++++++++++++++
- 6 files changed, 337 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/hwmon/amd,sbtsi.txt
+Signed-off-by: Kun Yi <kunyi@google.com>
+---
+ Documentation/hwmon/index.rst      |  1 +
+ Documentation/hwmon/sbtsi_temp.rst | 40 ++++++++++++++++++++++++++++++
+ 2 files changed, 41 insertions(+)
  create mode 100644 Documentation/hwmon/sbtsi_temp.rst
- create mode 100644 drivers/hwmon/sbtsi_temp.c
 
+diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
+index 8ef62fd39787..c17cf38f22c2 100644
+--- a/Documentation/hwmon/index.rst
++++ b/Documentation/hwmon/index.rst
+@@ -140,6 +140,7 @@ Hardware Monitoring Kernel Drivers
+    pxe1610
+    pwm-fan
+    raspberrypi-hwmon
++   sbtsi_temp
+    sch5627
+    sch5636
+    scpi-hwmon
+diff --git a/Documentation/hwmon/sbtsi_temp.rst b/Documentation/hwmon/sbtsi_temp.rst
+new file mode 100644
+index 000000000000..9f0f197c8aa2
+--- /dev/null
++++ b/Documentation/hwmon/sbtsi_temp.rst
+@@ -0,0 +1,40 @@
++Kernel driver sbtsi_temp
++==================
++
++Supported hardware:
++
++  * Sideband interface (SBI) Temperature Sensor Interface (SB-TSI)
++    compliant AMD SoC temperature device.
++
++    Prefix: 'sbtsi_temp'
++
++    Addresses scanned: This driver doesn't support address scanning.
++
++    To instantiate this driver on an AMD CPU with SB-TSI
++    support, the i2c bus number would be the bus connected from the board
++    management controller (BMC) to the CPU. The i2c address is specified in
++    Section 6.3.1 of the SoC register reference: The SB-TSI address is normally
++    98h for socket 0 and 90h for socket 1, but it could vary based on hardware
++    address select pins.
++
++    Datasheet: The SB-TSI interface and protocol is available as part of
++               the open source SoC register reference at:
++
++	       https://www.amd.com/system/files/TechDocs/56255_OSRR.pdf
++
++               The Advanced Platform Management Link (APML) Specification is
++               available at:
++
++	       http://developer.amd.com/wordpress/media/2012/10/41918.pdf
++
++Author: Kun Yi <kunyi@google.com>
++
++Description
++-----------
++
++The SBI temperature sensor interface (SB-TSI) is an emulation of the software
++and physical interface of a typical 8-pin remote temperature sensor (RTS) on
++AMD SoCs. It implements one temperature sensor with readings and limit
++registers encode the temperature in increments of 0.125 from 0 to 255.875.
++Limits can be set through the writable thresholds, and if reached will trigger
++corresponding alert signals.
 -- 
 2.26.0.292.g33ef6b2f38-goog
