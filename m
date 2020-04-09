@@ -1,42 +1,47 @@
-Return-Path: <TigerLiu@zhaoxin.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=zhaoxin.com (client-ip=203.148.12.82; helo=zxshcas2.zhaoxin.com;
- envelope-from=tigerliu@zhaoxin.com; receiver=<UNKNOWN>)
+Return-Path: <chunhui.jia@linux.intel.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=zhaoxin.com
-X-Greylist: delayed 921 seconds by postgrey-1.36 at bilbo;
- Thu, 09 Apr 2020 18:11:43 AEST
-Received: from ZXSHCAS2.zhaoxin.com (unknown [203.148.12.82])
- (using TLSv1.2 with cipher AES256-GCM-SHA384 (256/256 bits))
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.43; helo=mga05.intel.com;
+ envelope-from=chunhui.jia@linux.intel.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=linux.intel.com
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48yYl30mnBzDrB4
- for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 18:11:32 +1000 (AEST)
-Received: from zxbjmbx1.zhaoxin.com (10.29.252.163) by ZXSHCAS2.zhaoxin.com
- (10.28.252.162) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1261.35; Thu, 9 Apr
- 2020 15:56:09 +0800
-Received: from zxbjmbx2.zhaoxin.com (10.29.252.164) by zxbjmbx1.zhaoxin.com
- (10.29.252.163) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1261.35; Thu, 9 Apr
- 2020 15:56:08 +0800
-Received: from zxbjmbx2.zhaoxin.com ([fe80::4d77:9dba:64a8:8ec3]) by
- zxbjmbx2.zhaoxin.com ([fe80::4d77:9dba:64a8:8ec3%4]) with mapi id
- 15.01.1261.035; Thu, 9 Apr 2020 15:56:08 +0800
-From: "Tiger Liu(BJ-RD)" <TigerLiu@zhaoxin.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: OpenBMC : KVM over IP and media redirection function
-Thread-Topic: OpenBMC : KVM over IP and media redirection function
-Thread-Index: AdYOQ9GAmQuksx5zT0mO9/AFvvAtXQ==
-Date: Thu, 9 Apr 2020 07:56:08 +0000
-Message-ID: <b75bce785fbc4bad8c053ed2261102c2@zhaoxin.com>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [210.12.195.129]
-Content-Type: multipart/alternative;
- boundary="_000_b75bce785fbc4bad8c053ed2261102c2zhaoxincom_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48yZcl1v4ZzDqVS
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 18:51:14 +1000 (AEST)
+IronPort-SDR: OioG+fg0QWchgIG48t5uBx7SkW06Ew51T/+8dVzQU2de4z6126DEtTo+5MCRYiQHOHMmq464Ej
+ +Oo/XIu56kFQ==
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Apr 2020 01:51:10 -0700
+IronPort-SDR: sYTkd6lXEkUeqt8rJ2Gh01gYiVso3EAMGkU+KZ3GrKzXtHdY4QUg7RdGBGnuaxVjRyo5cJ61nq
+ RHNA5MD8Is7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.72,362,1580803200"; 
+ d="scan'208,217";a="240561559"
+Received: from linux.intel.com ([10.54.29.200])
+ by orsmga007.jf.intel.com with ESMTP; 09 Apr 2020 01:51:09 -0700
+Received: from SHWDE9518 (shwde9518.ccr.corp.intel.com [10.239.164.117])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 18C22580678;
+ Thu,  9 Apr 2020 01:51:08 -0700 (PDT)
+Date: Thu, 09 Apr 2020 16:51:09 +0800
+From: "chunhui.jia" <chunhui.jia@linux.intel.com>
+To: "Tiger Liu(BJ-RD)" <TigerLiu@zhaoxin.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Re:  OpenBMC : KVM over IP and media redirection function
+In-Reply-To: <b75bce785fbc4bad8c053ed2261102c2@zhaoxin.com>
+References: <b75bce785fbc4bad8c053ed2261102c2@zhaoxin.com>
+X-Mailer: NetEase FlashMail 2.4.1.32
+X-Priority: 3 (Normal)
 MIME-Version: 1.0
+Message-ID: <5E8EE1F9.4050900@linux.intel.com>
+Content-Type: multipart/alternative;
+ boundary="NetEase-FlashMail-003-76119913-b36e-4f0e-8f5d-d3029ea1cf41"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,226 +53,169 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Apr 2020 08:11:46 -0000
+X-List-Received-Date: Thu, 09 Apr 2020 08:51:20 -0000
 
---_000_b75bce785fbc4bad8c053ed2261102c2zhaoxincom_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--NetEase-FlashMail-003-76119913-b36e-4f0e-8f5d-d3029ea1cf41
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi, experts:
-I have a question about KVM over IP and media redirection function.
-Intel provided a RMM lite component, which provided KVM/Media redirection c=
-apability.
+MS4geWVzLCBpdCBjYW4gaW1wbGVtZW50IHRoZSBmdW5jdGlvbmFsaXR5IHdpdGggdGhpcyBjb21i
+aW5hdGlvbg0KMi4gV2hhdCBwbGF0Zm9ybSBhcmUgeW91IHVzaW5nPw0KDQoyMDIwLTA0LTA5IA0K
+DQpjaHVuaHVpLmppYSANCg0KDQoNCuWPkeS7tuS6uu+8miJUaWdlciBMaXUoQkotUkQpIiA8VGln
+ZXJMaXVAemhhb3hpbi5jb20+DQrlj5HpgIHml7bpl7TvvJoyMDIwLTA0LTA5IDE1OjU2DQrkuLvp
+opjvvJpPcGVuQk1DIDogS1ZNIG92ZXIgSVAgYW5kIG1lZGlhIHJlZGlyZWN0aW9uIGZ1bmN0aW9u
+DQrmlLbku7bkurrvvJoib3BlbmJtY0BsaXN0cy5vemxhYnMub3JnIjxvcGVuYm1jQGxpc3RzLm96
+bGFicy5vcmc+DQrmioTpgIHvvJoNCg0KSGksIGV4cGVydHM6DQpJIGhhdmUgYSBxdWVzdGlvbiBh
+Ym91dCBLVk0gb3ZlciBJUCBhbmQgbWVkaWEgcmVkaXJlY3Rpb24gZnVuY3Rpb24uDQpJbnRlbCBw
+cm92aWRlZCBhIFJNTSBsaXRlIGNvbXBvbmVudCwgd2hpY2ggcHJvdmlkZWQgS1ZNL01lZGlhIHJl
+ZGlyZWN0aW9uIGNhcGFiaWxpdHkuDQogDQpTbyBteSBxdWVzdGlvbiBpczoNCjEuICAgICAgT3Bl
+bkJNQyArIEFTVDI1MDAgQ2hpcCwgY291bGQgbm90IGltcGxlbWVudCBLVk0vTWVkaWEgcmVkaXJl
+Y3Rpb24gY2FwYWJpbGl0eT8NCjIuICAgICAgSWYgd2FudGluZyB0byB1c2UgS1ZNL01lZGlhIHJl
+ZGlyZWN0aW9uICxtdXN0IGJ1eSBhIFJNTSBjb21wb25lbnQ/DQogDQpJIGZvdW5kIE9wZW5CTUMg
+aGFkIGltcGxlbWVudGVkIEtWTSBvdmVyIElQIGNhcGFiaWxpdHkuDQogDQpUaGFua3MNCg0KDQoN
+CuS/neWvhuWjsOaYju+8mg0K5pys6YKu5Lu25ZCr5pyJ5L+d5a+G5oiW5LiT5pyJ5L+h5oGv77yM
+5LuF5L6b5oyH5a6a5pS25Lu25Lq65L2/55So44CC5Lil56aB5a+55pys6YKu5Lu25oiW5YW25YaF
+5a655YGa5Lu75L2V5pyq57uP5o6I5p2D55qE5p+l6ZiF44CB5L2/55So44CB5aSN5Yi25oiW6L2s
+5Y+R44CCDQpDT05GSURFTlRJQUwgTk9URTogDQpUaGlzIGVtYWlsIGNvbnRhaW5zIGNvbmZpZGVu
+dGlhbCBvciBsZWdhbGx5IHByaXZpbGVnZWQgaW5mb3JtYXRpb24gYW5kIGlzIGZvciB0aGUgc29s
+ZSB1c2Ugb2YgaXRzIGludGVuZGVkIHJlY2lwaWVudC4gQW55IHVuYXV0aG9yaXplZCByZXZpZXcs
+IHVzZSwgY29weWluZyBvciBmb3J3YXJkaW5nIG9mIHRoaXMgZW1haWwgb3IgdGhlIGNvbnRlbnQg
+b2YgdGhpcyBlbWFpbCBpcyBzdHJpY3RseSBwcm9oaWJpdGVkLg==
 
-So my question is:
+--NetEase-FlashMail-003-76119913-b36e-4f0e-8f5d-d3029ea1cf41
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-1.      OpenBMC + AST2500 Chip, could not implement KVM/Media redirection c=
-apability?
+PCFET0NUWVBFIEhUTUwgUFVCTElDICItLy9XM0MvL0RURCBIVE1MIDQuMCBUcmFuc2l0aW9uYWwv
+L0VOIj4NCjxIVE1MIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIiB4bWxu
+czp2ID0gDQoidXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTp2bWwiIHhtbG5zOm8gPSANCiJ1cm46
+c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTpvZmZpY2UiIHhtbG5zOncgPSANCiJ1cm46c2No
+ZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptID0gDQoiaHR0cDovL3NjaGVt
+YXMubWljcm9zb2Z0LmNvbS9vZmZpY2UvMjAwNC8xMi9vbW1sIj48SEVBRD4NCjxNRVRBIGNvbnRl
+bnQ9InRleHQvaHRtbDsgY2hhcnNldD11dGYtOCIgaHR0cC1lcXVpdj1Db250ZW50LVR5cGU+DQo8
+TUVUQSBuYW1lPUdFTkVSQVRPUiBjb250ZW50PSJNU0hUTUwgMTEuMDAuOTYwMC4xOTY1MCI+DQo8
+U1RZTEU+PCEtLQovKiBGb250IERlZmluaXRpb25zICovCkBmb250LWZhY2UKCXtmb250LWZhbWls
+eToiQ2FtYnJpYSBNYXRoIjsKCXBhbm9zZS0xOjIgNCA1IDMgNSA0IDYgMyAyIDQ7fQpAZm9udC1m
+YWNlCgl7Zm9udC1mYW1pbHk6XDdCNDlcN0VCRjsKCXBhbm9zZS0xOjIgMSA2IDAgMyAxIDEgMSAx
+IDE7fQpAZm9udC1mYWNlCgl7Zm9udC1mYW1pbHk6IlxAXDdCNDlcN0VCRiI7CglwYW5vc2UtMToy
+IDEgNiAwIDMgMSAxIDEgMSAxO30KLyogU3R5bGUgRGVmaW5pdGlvbnMgKi8KcC5Nc29Ob3JtYWws
+IGxpLk1zb05vcm1hbCwgZGl2Lk1zb05vcm1hbAoJe21hcmdpbjowY207CgltYXJnaW4tYm90dG9t
+Oi4wMDAxcHQ7Cgl0ZXh0LWFsaWduOmp1c3RpZnk7Cgl0ZXh0LWp1c3RpZnk6aW50ZXItaWRlb2dy
+YXBoOwoJZm9udC1zaXplOjEwLjVwdDsKCWZvbnQtZmFtaWx5Olw3QjQ5XDdFQkY7fQphOmxpbmss
+IHNwYW4uTXNvSHlwZXJsaW5rCgl7bXNvLXN0eWxlLXByaW9yaXR5Ojk5OwoJY29sb3I6IzA1NjND
+MTsKCXRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7fQphOnZpc2l0ZWQsIHNwYW4uTXNvSHlwZXJs
+aW5rRm9sbG93ZWQKCXttc28tc3R5bGUtcHJpb3JpdHk6OTk7Cgljb2xvcjojOTU0RjcyOwoJdGV4
+dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9CnAuTXNvTGlzdFBhcmFncmFwaCwgbGkuTXNvTGlzdFBh
+cmFncmFwaCwgZGl2Lk1zb0xpc3RQYXJhZ3JhcGgKCXttc28tc3R5bGUtcHJpb3JpdHk6MzQ7Cglt
+YXJnaW46MGNtOwoJbWFyZ2luLWJvdHRvbTouMDAwMXB0OwoJdGV4dC1hbGlnbjpqdXN0aWZ5OwoJ
+dGV4dC1qdXN0aWZ5OmludGVyLWlkZW9ncmFwaDsKCXRleHQtaW5kZW50OjIxLjBwdDsKCWZvbnQt
+c2l6ZToxMC41cHQ7Cglmb250LWZhbWlseTpcN0I0OVw3RUJGO30Kc3Bhbi5FbWFpbFN0eWxlMTcK
+CXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1jb21wb3NlOwoJZm9udC1mYW1pbHk6XDdCNDlcN0VC
+RjsKCWNvbG9yOndpbmRvd3RleHQ7fQouTXNvQ2hwRGVmYXVsdAoJe21zby1zdHlsZS10eXBlOmV4
+cG9ydC1vbmx5OwoJZm9udC1mYW1pbHk6XDdCNDlcN0VCRjt9Ci8qIFBhZ2UgRGVmaW5pdGlvbnMg
+Ki8KQHBhZ2UgV29yZFNlY3Rpb24xCgl7c2l6ZTo2MTIuMHB0IDc5Mi4wcHQ7CgltYXJnaW46NzIu
+MHB0IDkwLjBwdCA3Mi4wcHQgOTAuMHB0O30KZGl2LldvcmRTZWN0aW9uMQoJe3BhZ2U6V29yZFNl
+Y3Rpb24xO30KLyogTGlzdCBEZWZpbml0aW9ucyAqLwpAbGlzdCBsMAoJe21zby1saXN0LWlkOjg0
+MjQ3NjI3MzsKCW1zby1saXN0LXR5cGU6aHlicmlkOwoJbXNvLWxpc3QtdGVtcGxhdGUtaWRzOi03
+NzY5OTM0NjYgLTU3NTc5NzI4NCA2NzY5ODcxMyA2NzY5ODcxNSA2NzY5ODcwMyA2NzY5ODcxMyA2
+NzY5ODcxNSA2NzY5ODcwMyA2NzY5ODcxMyA2NzY5ODcxNTt9CkBsaXN0IGwwOmxldmVsMQoJe21z
+by1sZXZlbC10YWItc3RvcDpub25lOwoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0OwoJ
+bWFyZ2luLWxlZnQ6MTguMHB0OwoJdGV4dC1pbmRlbnQ6LTE4LjBwdDt9CkBsaXN0IGwwOmxldmVs
+MgoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmFscGhhLWxvd2VyOwoJbXNvLWxldmVsLXRleHQ6
+IiUyXCkiOwoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7Cgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0
+aW9uOmxlZnQ7CgltYXJnaW4tbGVmdDo0Mi4wcHQ7Cgl0ZXh0LWluZGVudDotMjEuMHB0O30KQGxp
+c3QgbDA6bGV2ZWwzCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6cm9tYW4tbG93ZXI7Cgltc28t
+bGV2ZWwtdGFiLXN0b3A6bm9uZTsKCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmlnaHQ7Cglt
+YXJnaW4tbGVmdDo2My4wcHQ7Cgl0ZXh0LWluZGVudDotMjEuMHB0O30KQGxpc3QgbDA6bGV2ZWw0
+Cgl7bXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7Cgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxl
+ZnQ7CgltYXJnaW4tbGVmdDo4NC4wcHQ7Cgl0ZXh0LWluZGVudDotMjEuMHB0O30KQGxpc3QgbDA6
+bGV2ZWw1Cgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6YWxwaGEtbG93ZXI7Cgltc28tbGV2ZWwt
+dGV4dDoiJTVcKSI7Cgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsKCW1zby1sZXZlbC1udW1iZXIt
+cG9zaXRpb246bGVmdDsKCW1hcmdpbi1sZWZ0OjEwNS4wcHQ7Cgl0ZXh0LWluZGVudDotMjEuMHB0
+O30KQGxpc3QgbDA6bGV2ZWw2Cgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6cm9tYW4tbG93ZXI7
+Cgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsKCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmln
+aHQ7CgltYXJnaW4tbGVmdDoxMjYuMHB0OwoJdGV4dC1pbmRlbnQ6LTIxLjBwdDt9CkBsaXN0IGww
+OmxldmVsNwoJe21zby1sZXZlbC10YWItc3RvcDpub25lOwoJbXNvLWxldmVsLW51bWJlci1wb3Np
+dGlvbjpsZWZ0OwoJbWFyZ2luLWxlZnQ6MTQ3LjBwdDsKCXRleHQtaW5kZW50Oi0yMS4wcHQ7fQpA
+bGlzdCBsMDpsZXZlbDgKCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDphbHBoYS1sb3dlcjsKCW1z
+by1sZXZlbC10ZXh0OiIlOFwpIjsKCW1zby1sZXZlbC10YWItc3RvcDpub25lOwoJbXNvLWxldmVs
+LW51bWJlci1wb3NpdGlvbjpsZWZ0OwoJbWFyZ2luLWxlZnQ6MTY4LjBwdDsKCXRleHQtaW5kZW50
+Oi0yMS4wcHQ7fQpAbGlzdCBsMDpsZXZlbDkKCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpyb21h
+bi1sb3dlcjsKCW1zby1sZXZlbC10YWItc3RvcDpub25lOwoJbXNvLWxldmVsLW51bWJlci1wb3Np
+dGlvbjpyaWdodDsKCW1hcmdpbi1sZWZ0OjE4OS4wcHQ7Cgl0ZXh0LWluZGVudDotMjEuMHB0O30K
+b2wKCXttYXJnaW4tYm90dG9tOjBjbTt9CnVsCgl7bWFyZ2luLWJvdHRvbTowY207fQotLT48L1NU
+WUxFPg0KPCEtLSBmbGFzaG1haWwgc3R5bGUgYmVnaW4gLS0+DQo8U1RZTEUgdHlwZT10ZXh0L2Nz
+cz4KYm9keSB7Ym9yZGVyLXdpZHRoOjA7bWFyZ2luOjB9CmltZyB7Ym9yZGVyOjA7bWFyZ2luOjA7
+cGFkZGluZzowfQo8L1NUWUxFPg0KPEJBU0UgdGFyZ2V0PV9ibGFuaz48IS0tIGZsYXNobWFpbCBz
+dHlsZSBlbmQgLS0+PC9IRUFEPg0KPEJPRFkgDQpzdHlsZT0iQk9SREVSLUxFRlQtV0lEVEg6IDBw
+eDsgRk9OVC1TSVpFOiAxMC41cHQ7IEZPTlQtRkFNSUxZOiDDjsKiw4jDrcORw4XCusOaOyBCT1JE
+RVItUklHSFQtV0lEVEg6IDBweDsgQk9SREVSLUJPVFRPTS1XSURUSDogMHB4OyBDT0xPUjogIzAw
+MDAwMDsgTUFSR0lOOiAxMnB4OyBMSU5FLUhFSUdIVDogMS41OyBCT1JERVItVE9QLVdJRFRIOiAw
+cHgiIA0KbWFyZ2luaGVpZ2h0PSIwIiBtYXJnaW53aWR0aD0iMCI+DQo8RElWPjEuIHllcywgaXQg
+Y2FuIGltcGxlbWVudCB0aGUgZnVuY3Rpb25hbGl0eSB3aXRoIHRoaXMgY29tYmluYXRpb248L0RJ
+Vj4NCjxESVY+Mi4gV2hhdCBwbGF0Zm9ybSBhcmUgeW91IHVzaW5nPzwvRElWPg0KPERJVj4mbmJz
+cDs8L0RJVj4NCjxESVYgc3R5bGU9IkZPTlQtU0laRTogMTBwdDsgRk9OVC1GQU1JTFk6IFZlcmRh
+bmE7IENPTE9SOiAjYzBjMGMwIiANCmFsaWduPWxlZnQ+MjAyMC0wNC0wOSANCjxIUiBpZD1TaWdu
+TmFtZUhSIA0Kc3R5bGU9IkJPUkRFUi1UT1A6ICNjMGMwYzAgMXB4IHNvbGlkOyBIRUlHSFQ6IDFw
+eDsgQk9SREVSLVJJR0hUOiAwcHg7IFdJRFRIOiAxMjJweDsgQk9SREVSLUJPVFRPTTogMHB4OyBC
+T1JERVItTEVGVDogMHB4IiANCmFsaWduPWxlZnQ+DQo8U1BBTiBpZD1fRmxhc2hTaWduTmFtZT5j
+aHVuaHVpLmppYTwvU1BBTj4gPC9ESVY+DQo8SFIgDQpzdHlsZT0iQk9SREVSLVRPUDogI2MwYzBj
+MCAxcHggc29saWQ7IEhFSUdIVDogMXB4OyBCT1JERVItUklHSFQ6IDBweDsgQk9SREVSLUJPVFRP
+TTogMHB4OyBCT1JERVItTEVGVDogMHB4Ij4NCg0KPEJMT0NLUVVPVEUgaWQ9bnRlcy1mbGFzaG1h
+aWwtcXVvdGUgDQpzdHlsZT0iRk9OVC1TSVpFOiAxMHB0OyBGT05ULUZBTUlMWTogVmVyZGFuYTsg
+UEFERElORy1MRUZUOiAwcHg7IE1BUkdJTi1MRUZUOiAwcHgiPg0KICA8RElWPjxTVFJPTkc+5Y+R
+5Lu25Lq677yaPC9TVFJPTkc+IlRpZ2VyIExpdShCSi1SRCkiIA0KJmx0O1RpZ2VyTGl1QHpoYW94
+aW4uY29tJmd0OzwvRElWPg0KICA8RElWPjxTVFJPTkc+5Y+R6YCB5pe26Ze077yaPC9TVFJPTkc+
+MjAyMC0wNC0wOSZuYnNwOzE1OjU2PC9ESVY+DQogIDxESVY+PFNUUk9ORz7kuLvpopjvvJo8L1NU
+Uk9ORz5PcGVuQk1DIDogS1ZNIG92ZXIgSVAgYW5kIG1lZGlhIHJlZGlyZWN0aW9uIA0KICBmdW5j
+dGlvbjwvRElWPg0KICA8RElWPjxTVFJPTkc+5pS25Lu25Lq677yaPC9TVFJPTkc+Im9wZW5ibWNA
+bGlzdHMub3psYWJzLm9yZyImbHQ7b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnJmd0OzwvRElWPg0K
+ICA8RElWPjxTVFJPTkc+5oqE6YCB77yaPC9TVFJPTkc+PC9ESVY+DQogIDxESVY+Jm5ic3A7PC9E
+SVY+DQogIDxESVY+DQogIDxESVYgY2xhc3M9V29yZFNlY3Rpb24xPg0KICA8UCBjbGFzcz1Nc29O
+b3JtYWw+PFNQQU4gbGFuZz1FTi1VUz5IaSwgZXhwZXJ0czo8bzpwPjwvbzpwPjwvU1BBTj48L1A+
+DQogIDxQIGNsYXNzPU1zb05vcm1hbD48U1BBTiBsYW5nPUVOLVVTPkkgaGF2ZSBhIHF1ZXN0aW9u
+IGFib3V0IEtWTSBvdmVyIElQIGFuZCANCiAgbWVkaWEgcmVkaXJlY3Rpb24gZnVuY3Rpb24uPG86
+cD48L286cD48L1NQQU4+PC9QPg0KICA8UCBjbGFzcz1Nc29Ob3JtYWw+PFNQQU4gbGFuZz1FTi1V
+Uz5JbnRlbCBwcm92aWRlZCBhIFJNTSBsaXRlIGNvbXBvbmVudCwgd2hpY2ggDQogIHByb3ZpZGVk
+IEtWTS9NZWRpYSByZWRpcmVjdGlvbiBjYXBhYmlsaXR5LjxvOnA+PC9vOnA+PC9TUEFOPjwvUD4N
+CiAgPFAgY2xhc3M9TXNvTm9ybWFsPjxTUEFOIGxhbmc9RU4tVVM+PG86cD4mbmJzcDs8L286cD48
+L1NQQU4+PC9QPg0KICA8UCBjbGFzcz1Nc29Ob3JtYWw+PFNQQU4gbGFuZz1FTi1VUz5TbyBteSBx
+dWVzdGlvbiBpczo8bzpwPjwvbzpwPjwvU1BBTj48L1A+DQogIDxQIGNsYXNzPU1zb0xpc3RQYXJh
+Z3JhcGggDQogIHN0eWxlPSJNQVJHSU4tTEVGVDogMThwdDsgVEVYVC1JTkRFTlQ6IC0xOHB0OyBt
+c28tbGlzdDogbDAgbGV2ZWwxIGxmbzEiPjxTUEFOIA0KICBsYW5nPUVOLVVTPjxTUEFOIHN0eWxl
+PSJtc28tbGlzdDogSWdub3JlIj4xLjxTUEFOIA0KICBzdHlsZT0nRk9OVDogN3B0ICJUaW1lcyBO
+ZXcgUm9tYW4iJz4mbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgDQogIDwvU1BBTj48L1NQ
+QU4+PC9TUEFOPjxTUEFOIGxhbmc9RU4tVVM+T3BlbkJNQyArIEFTVDI1MDAgQ2hpcCwgY291bGQg
+bm90IA0KICBpbXBsZW1lbnQgS1ZNL01lZGlhIHJlZGlyZWN0aW9uIGNhcGFiaWxpdHk/PG86cD48
+L286cD48L1NQQU4+PC9QPg0KICA8UCBjbGFzcz1Nc29MaXN0UGFyYWdyYXBoIA0KICBzdHlsZT0i
+TUFSR0lOLUxFRlQ6IDE4cHQ7IFRFWFQtSU5ERU5UOiAtMThwdDsgbXNvLWxpc3Q6IGwwIGxldmVs
+MSBsZm8xIj48U1BBTiANCiAgbGFuZz1FTi1VUz48U1BBTiBzdHlsZT0ibXNvLWxpc3Q6IElnbm9y
+ZSI+Mi48U1BBTiANCiAgc3R5bGU9J0ZPTlQ6IDdwdCAiVGltZXMgTmV3IFJvbWFuIic+Jm5ic3A7
+Jm5ic3A7Jm5ic3A7Jm5ic3A7Jm5ic3A7IA0KICA8L1NQQU4+PC9TUEFOPjwvU1BBTj48U1BBTiBs
+YW5nPUVOLVVTPklmIHdhbnRpbmcgdG8gdXNlIEtWTS9NZWRpYSByZWRpcmVjdGlvbiANCiAgLG11
+c3QgYnV5IGEgUk1NIGNvbXBvbmVudD88bzpwPjwvbzpwPjwvU1BBTj48L1A+DQogIDxQIGNsYXNz
+PU1zb05vcm1hbD48U1BBTiBsYW5nPUVOLVVTPjxvOnA+Jm5ic3A7PC9vOnA+PC9TUEFOPjwvUD4N
+CiAgPFAgY2xhc3M9TXNvTm9ybWFsPjxTUEFOIGxhbmc9RU4tVVM+SSBmb3VuZCBPcGVuQk1DIGhh
+ZCBpbXBsZW1lbnRlZCBLVk0gb3ZlciANCiAgSVAgY2FwYWJpbGl0eS48bzpwPjwvbzpwPjwvU1BB
+Tj48L1A+DQogIDxQIGNsYXNzPU1zb05vcm1hbD48U1BBTiBsYW5nPUVOLVVTPjxvOnA+Jm5ic3A7
+PC9vOnA+PC9TUEFOPjwvUD4NCiAgPFAgY2xhc3M9TXNvTm9ybWFsPjxTUEFOIGxhbmc9RU4tVVM+
+VGhhbmtzPG86cD48L286cD48L1NQQU4+PC9QPjwvRElWPg0KICA8UD48L1A+PEJSPjxCUj4NCiAg
+PERJViANCiAgc3R5bGU9IkZPTlQtU0laRTogMTBwdDsgRk9OVC1GQU1JTFk6ICflrovkvZMnOyBD
+T0xPUjogIzU5NTk1OTsgTElORS1IRUlHSFQ6IDEwcHQiPuS/neWvhuWjsOaYju+8mjwvRElWPg0K
+ICA8RElWIA0KICBzdHlsZT0iRk9OVC1TSVpFOiAxMHB0OyBGT05ULUZBTUlMWTogJ+Wui+S9kyc7
+IENPTE9SOiAjNTk1OTU5OyBMSU5FLUhFSUdIVDogMTBwdCI+5pys6YKu5Lu25ZCr5pyJ5L+d5a+G
+5oiW5LiT5pyJ5L+h5oGv77yM5LuF5L6b5oyH5a6a5pS25Lu25Lq65L2/55So44CC5Lil56aB5a+5
+5pys6YKu5Lu25oiW5YW25YaF5a655YGa5Lu75L2V5pyq57uP5o6I5p2D55qE5p+l6ZiF44CB5L2/
+55So44CB5aSN5Yi25oiW6L2s5Y+R44CCPC9ESVY+DQogIDxESVYgDQogIHN0eWxlPSJGT05ULVNJ
+WkU6IDEwcHQ7IEZPTlQtRkFNSUxZOiAnVGltZXMgTmV3IFJvbWFuJzsgQ09MT1I6ICM1OTU5NTk7
+IExJTkUtSEVJR0hUOiAxMHB0Ij48ST5DT05GSURFTlRJQUwgDQogIE5PVEU6IDwvST48L0RJVj4N
+CiAgPERJViANCiAgc3R5bGU9IkZPTlQtU0laRTogMTBwdDsgRk9OVC1GQU1JTFk6ICdUaW1lcyBO
+ZXcgUm9tYW4nOyBDT0xPUjogIzU5NTk1OTsgTElORS1IRUlHSFQ6IDEwcHQiPjxJPlRoaXMgDQog
+IGVtYWlsIGNvbnRhaW5zIGNvbmZpZGVudGlhbCBvciBsZWdhbGx5IHByaXZpbGVnZWQgaW5mb3Jt
+YXRpb24gYW5kIGlzIGZvciB0aGUgDQogIHNvbGUgdXNlIG9mIGl0cyBpbnRlbmRlZCByZWNpcGll
+bnQuIEFueSB1bmF1dGhvcml6ZWQgcmV2aWV3LCB1c2UsIGNvcHlpbmcgb3IgDQogIGZvcndhcmRp
+bmcgb2YgdGhpcyBlbWFpbCBvciB0aGUgY29udGVudCBvZiB0aGlzIGVtYWlsIGlzIHN0cmljdGx5
+IA0KICBwcm9oaWJpdGVkLjwvST48L0RJVj48L0RJVj48L0JMT0NLUVVPVEU+PC9CT0RZPjwvSFRN
+TD4=
 
-2.      If wanting to use KVM/Media redirection ,must buy a RMM component?
-
-I found OpenBMC had implemented KVM over IP capability.
-
-Thanks
-
-
-?????
-?????????????????????????????????????????????????????
-CONFIDENTIAL NOTE:
-This email contains confidential or legally privileged information and is f=
-or the sole use of its intended recipient. Any unauthorized review, use, co=
-pying or forwarding of this email or the content of this email is strictly =
-prohibited.
-
---_000_b75bce785fbc4bad8c053ed2261102c2zhaoxincom_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:\7B49\7EBF;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@\7B49\7EBF";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:\7B49\7EBF;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	text-indent:21.0pt;
-	font-size:10.5pt;
-	font-family:\7B49\7EBF;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:\7B49\7EBF;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:\7B49\7EBF;}
-/* Page Definitions */
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:842476273;
-	mso-list-type:hybrid;
-	mso-list-template-ids:-776993466 -575797284 67698713 67698715 67698703 676=
-98713 67698715 67698703 67698713 67698715;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:18.0pt;
-	text-indent:-18.0pt;}
-@list l0:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-text:"%2\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:42.0pt;
-	text-indent:-21.0pt;}
-@list l0:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:63.0pt;
-	text-indent:-21.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:84.0pt;
-	text-indent:-21.0pt;}
-@list l0:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-text:"%5\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:105.0pt;
-	text-indent:-21.0pt;}
-@list l0:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:126.0pt;
-	text-indent:-21.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:147.0pt;
-	text-indent:-21.0pt;}
-@list l0:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-text:"%8\)";
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	margin-left:168.0pt;
-	text-indent:-21.0pt;}
-@list l0:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	margin-left:189.0pt;
-	text-indent:-21.0pt;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi, experts:<o:p></o:p></span><=
-/p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I have a question about KVM ove=
-r IP and media redirection function.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Intel provided a RMM lite compo=
-nent, which provided KVM/Media redirection capability.<o:p></o:p></span></p=
->
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">So my question is:<o:p></o:p></=
-span></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:18.0pt;text-indent:-18.0=
-pt;mso-list:l0 level1 lfo1">
-<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">1=
-.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;
-</span></span></span><![endif]><span lang=3D"EN-US">OpenBMC &#43; AST2500 C=
-hip, could not implement KVM/Media redirection capability?<o:p></o:p></span=
-></p>
-<p class=3D"MsoListParagraph" style=3D"margin-left:18.0pt;text-indent:-18.0=
-pt;mso-list:l0 level1 lfo1">
-<![if !supportLists]><span lang=3D"EN-US"><span style=3D"mso-list:Ignore">2=
-.<span style=3D"font:7.0pt &quot;Times New Roman&quot;">&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;
-</span></span></span><![endif]><span lang=3D"EN-US">If wanting to use KVM/M=
-edia redirection ,must buy a RMM component?<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I found OpenBMC had implemented=
- KVM over IP capability.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks<o:p></o:p></span></p>
-</div>
-<p></p>
-<br>
-<br>
-<div style=3D"font-size:10pt; line-height:10pt; font-family: '&#23435;&#203=
-07;';color:#595959;">&#20445;&#23494;&#22768;&#26126;&#65306;</div>
-<div style=3D"font-size:10pt; line-height:10pt; font-family: '&#23435;&#203=
-07;';color:#595959;">&#26412;&#37038;&#20214;&#21547;&#26377;&#20445;&#2349=
-4;&#25110;&#19987;&#26377;&#20449;&#24687;&#65292;&#20165;&#20379;&#25351;&=
-#23450;&#25910;&#20214;&#20154;&#20351;&#29992;&#12290;&#20005;&#31105;&#23=
-545;&#26412;&#37038;&#20214;&#25110;&#20854;&#20869;&#23481;&#20570;&#20219=
-;&#20309;&#26410;&#32463;&#25480;&#26435;&#30340;&#26597;&#38405;&#12289;&#=
-20351;&#29992;&#12289;&#22797;&#21046;&#25110;&#36716;&#21457;&#12290;</div=
->
-<div style=3D"font-size:10pt; line-height:10pt; font-family: 'Times New Rom=
-an';color:#595959;">
-<i>CONFIDENTIAL NOTE: </i></div>
-<div style=3D"font-size:10pt; line-height:10pt; font-family: 'Times New Rom=
-an';color:#595959;">
-<i>This email contains confidential or legally privileged information and i=
-s for the sole use of its intended recipient. Any unauthorized review, use,=
- copying or forwarding of this email or the content of this email is strict=
-ly prohibited.</i></div>
-</body>
-</html>
-
---_000_b75bce785fbc4bad8c053ed2261102c2zhaoxincom_--
+--NetEase-FlashMail-003-76119913-b36e-4f0e-8f5d-d3029ea1cf41--
