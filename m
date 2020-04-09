@@ -1,70 +1,54 @@
-Return-Path: <bentyner@linux.ibm.com>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=bentyner@linux.ibm.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f35;
+ helo=mail-qv1-xf35.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=NgPDJyQn; dkim-atps=neutral
+Received: from mail-qv1-xf35.google.com (mail-qv1-xf35.google.com
+ [IPv6:2607:f8b0:4864:20::f35])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48yC5J0xS2zDr3r
- for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 04:11:15 +1000 (AEST)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 038I6Cru118446; Wed, 8 Apr 2020 14:11:12 -0400
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 30920wn76v-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Apr 2020 14:11:12 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 038IAfHX024219;
- Wed, 8 Apr 2020 18:11:11 GMT
-Received: from b03cxnp08025.gho.boulder.ibm.com
- (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
- by ppma02dal.us.ibm.com with ESMTP id 3091mdrsec-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 08 Apr 2020 18:11:11 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 038IBA5u55181616
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 8 Apr 2020 18:11:10 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 10EDFC6055;
- Wed,  8 Apr 2020 18:11:10 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4480C6057;
- Wed,  8 Apr 2020 18:11:09 +0000 (GMT)
-Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed,  8 Apr 2020 18:11:09 +0000 (GMT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48yNDt66qVzDr3N
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 11:03:26 +1000 (AEST)
+Received: by mail-qv1-xf35.google.com with SMTP id ef12so4709636qvb.11
+ for <openbmc@lists.ozlabs.org>; Wed, 08 Apr 2020 18:03:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=C9qO1YNmQGLDSly79VtZ07j//1RDoa1qtKkbxMBOXK0=;
+ b=NgPDJyQnh8nY2EMYFPe4UC1MnGRAJeTqWwFWfSU4PI4EZ+JLfUS4GIGuGf7ZyYD9U1
+ Z6DPMUn4SWM3NMKo7aeHJtV2k3lpTkHcVoqoZFJ+LH2x5hRzg8WKnShbMbJb6wCim0+H
+ t+rvCnna1ZrGP9or7NZbSEawDL2mDue1L2aQc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=C9qO1YNmQGLDSly79VtZ07j//1RDoa1qtKkbxMBOXK0=;
+ b=MOzBo3oekVMuafNb9ibLjGOIjkSzHswrnu9GH30EzLr8R23MHZgpnsGrQJsZyH6CyI
+ uHD+GfacE26I8mcD6YX5o/clmNXqDqGD9B/J32HcobEdCoW0fxH8DZw0hIMHrLXW5ww1
+ p5cuBLQkMBcgXsvHbS74kqeo+UaJVZg/NQEwpUI7rY6JbKc23jyNrjCiVmr8SOE8PC6v
+ bhvD+YYjg/ful6/i4ZIi1WE/rgzSxPTj0cqm9sJefJZA302keIgmhP1hleIJvlT6WZYu
+ 6Kn1zjhIzNs5bxS7ugu+ljVrO1ScL2udrmnUVPk0dqPnHgZ4l3EOqKu1h+clxi4HdK6V
+ tsTA==
+X-Gm-Message-State: AGi0PuZ8LBYBluYZ2NNMPMfzN2oQhY+HqXOS1P7burSq+LTE5+iI5OOI
+ Ae1WyfNyl3HfbVHhhy2RqMFV+bdjqclwxof1qgQ=
+X-Google-Smtp-Source: APiQypKxFGhU19sUkoUKsPyIuTbtUlb3aKJS/2IR+QeYKE8AhEz/qjOCZdpkYrmHZZmNxzb+UlfQzXfqQLolZdKlObI=
+X-Received: by 2002:a0c:f207:: with SMTP id h7mr9962929qvk.20.1586394201147;
+ Wed, 08 Apr 2020 18:03:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Wed, 08 Apr 2020 13:11:09 -0500
-From: bentyner <bentyner@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.4] ARM: dts: Aspeed: witherspoon-128: Remove
- checkstop GPIO from gpio-keys
-Message-ID: <aae27f45adb7cb0508b86cf4e72ced36@linux.vnet.ibm.com>
-X-Sender: bentyner@linux.ibm.com
-User-Agent: Roundcube Webmail/1.0.1
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-07_10:2020-04-07,
- 2020-04-07 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0
- impostorscore=0 spamscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- lowpriorityscore=0 mlxlogscore=900 mlxscore=0 clxscore=1015 suspectscore=1
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2003020000
- definitions=main-2004080130
-X-Mailman-Approved-At: Thu, 09 Apr 2020 10:31:15 +1000
+References: <CAH2KKeYNi=qbs-mf+3tBfCG-Z6fQmmh48EosSam0GMFuc7RD6w@mail.gmail.com>
+In-Reply-To: <CAH2KKeYNi=qbs-mf+3tBfCG-Z6fQmmh48EosSam0GMFuc7RD6w@mail.gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 9 Apr 2020 01:03:09 +0000
+Message-ID: <CACPK8Xd8+bNNkqtcyXQW=BhSXuzFcrBR7Rw3EPLesaukS7PZAA@mail.gmail.com>
+Subject: Re: Availability of OpenBMC Secure boot
+To: Thaj <tajudheenk@gmail.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,67 +60,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 08 Apr 2020 18:11:16 -0000
+X-List-Received-Date: Thu, 09 Apr 2020 01:03:27 -0000
 
-Attention handler will monitor the checkstop gpio via the character
-device interface so it needs to not be defined.
+On Wed, 8 Apr 2020 at 20:14, Thaj <tajudheenk@gmail.com> wrote:
+>
+> Hi,
+>
+> I see that OpenBMC Secure boot design(AST2600) is under review on gerrit.
+> Also it is listed as Work in Progress.
+>
+> What is the expected time frame for the availability of this feature?
 
-Signed-off-by: Ben Tyner <bentyner@linux.ibm.com>
----
-  .../dts/aspeed-bmc-opp-witherspoon-128.dts    | 40 +++++++++++++++++++
-  1 file changed, 40 insertions(+)
+There's no published time frame at this stage. The bottle neck is
+developer time. Are you interested in taking on some of the work?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts 
-b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
-index 1ba673a49334..701d58b7f0dc 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-witherspoon-128.dts
-@@ -4,6 +4,46 @@
+Cheers,
 
-  #include "aspeed-bmc-opp-witherspoon.dts"
-
-+/ {
-+	gpio-keys {
-+		/delete-node/ checkstop;
-+	};
-+};
-+
-+&gpio {
-+	gpio-line-names =
-+	/*A0-A7*/	"","cfam-reset","","","","","fsi-mux","",
-+	/*B0-B7*/	"","","","","","air-water","","",
-+	/*C0-C7*/	"","","","","","","","",
-+	/*D0-D7*/	"fsi-enable","","","","","","","",
-+	/*E0-E7*/	"fsi-data","","","","","","","",
-+	/*F0-F7*/	"","","","","","","","",
-+	/*G0-G7*/	"","","","","","","","",
-+	/*H0-H7*/	"","","","","","","","",
-+	/*I0-I7*/	"","","","","","","","",
-+	/*J0-J7*/	"","","","","","","","",
-+	/*K0-K7*/	"","","","","","","","",
-+	/*L0-L7*/	"","","","","","","","",
-+	/*M0-M7*/	"","","","","","","","",
-+	/*N0-N7*/	"presence-ps1","","led-rear-fault","led-rear-power",
-+		        "led-rear-id","","","",
-+	/*O0-O7*/	"","","","","","","","",
-+	/*P0-P7*/	"","","","","","","","presence-ps0",
-+	/*Q0-Q7*/	"","","","","","","","",
-+	/*R0-R7*/	"","","fsi-trans","","","power-button","","",
-+	/*S0-S7*/	"","","","","","","","",
-+	/*T0-T7*/	"","","","","","","","",
-+	/*U0-U7*/	"","","","","","","","",
-+	/*V0-V7*/	"","","","","","","","",
-+	/*W0-W7*/	"","","","","","","","",
-+	/*X0-X7*/	"","","","","","","","",
-+	/*Y0-Y7*/	"","","","","","","","",
-+	/*Z0-Z7*/	"","","","","","","","",
-+	/*AA0-AA7*/	"fsi-clock","","","","","","","",
-+	/*AB0-AB7*/	"","","","","","","","",
-+	/*AC0-AC7*/	"","","","","","","","";
-+};
-+
-  &fmc {
-  	status = "okay";
-
--- 
-2.20.1
+Joel
