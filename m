@@ -1,64 +1,57 @@
-Return-Path: <mine260309@gmail.com>
+Return-Path: <muniswamy_setty@yahoo.co.in>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::229;
- helo=mail-lj1-x229.google.com; envelope-from=mine260309@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=yahoo.co.in (client-ip=106.10.244.139;
+ helo=sonic310-19.consmr.mail.sg3.yahoo.com;
+ envelope-from=muniswamy_setty@yahoo.co.in; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
+ dmarc=pass (p=reject dis=none) header.from=yahoo.co.in
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=frGWCiKe; dkim-atps=neutral
-Received: from mail-lj1-x229.google.com (mail-lj1-x229.google.com
- [IPv6:2a00:1450:4864:20::229])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=yahoo.co.in header.i=@yahoo.co.in header.a=rsa-sha256
+ header.s=s2048 header.b=QMn5JmD+; dkim-atps=neutral
+Received: from sonic310-19.consmr.mail.sg3.yahoo.com
+ (sonic310-19.consmr.mail.sg3.yahoo.com [106.10.244.139])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4925BM2hNbzDqwP
- for <openbmc@lists.ozlabs.org>; Wed, 15 Apr 2020 11:59:03 +1000 (AEST)
-Received: by mail-lj1-x229.google.com with SMTP id u15so1954322ljd.3
- for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2020 18:59:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=M00Jytb6e/qbqEghK01M4du6TqfbztgspJb21MAMzWU=;
- b=frGWCiKex4rgXrnZZPN5ANmjVZSUICcbaGDDPdQSXSNw3fJK9zpD7kYD4LW27AUt6p
- 5z9b5vGE1jDCU0H1trw0D9FOjwTaCc/4eetdBXBUGCQl2B1S3jnbENWL8Ca5w5EXid5X
- 7fWfGHh/b9h0tFalk7Nhw3FkzaqMMIc3JOKwmZnw9dd7sKV7RoxbjBF4g6RIweFQeoj8
- u2OQcXyYQrEHQv+pSLTXGFRzM6IvKxNbfmqRrco2EGt1sns7FnB/ZCj14YjPNpNof6BM
- DeriNzW8MKLVTCFjXDfYHFC59xeEpvKPjzDaj36SNlY15TI+8KMBnZRsQyKngdU/4rJc
- aIsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=M00Jytb6e/qbqEghK01M4du6TqfbztgspJb21MAMzWU=;
- b=hGYJKdvqYEJl1Y7ILU7IjFvhFh+l0dEaQvl5VjuWAPTqpzIjRk53qSXAjPXvSOQQ2u
- +7dra55J/16GGco27VxslspJi37oH1xGHoh9a15Ay+kFKbksvDrUPNvFIqnc+CwYLhbl
- h798B3Q5Y08oF6f+tXUNH3j3pbp7nC9/8Gh1lHBZfh/vC2PVNwgp7Wrfy8ovyna2rAzc
- jBH9FHHUJGdWAKolsaARgMwfpzf/qdIM1LONROYCuKC6rjFPsKy6FGt9TSpb7LylJoT6
- 8VbQKh1hWF6v7+UMddk/9AALUMZT06k+N1KnR7w2tvF07QSbmseNgKESD/4MviEfQ5bA
- 0W4g==
-X-Gm-Message-State: AGi0PubwNr+jvkFxdS5e+7hQce8gB707q6u22JP7QcQRZxDEdQmDKp5K
- NPIX+zQn26a4EiV/cG8zKFteMbUnVCfFSFSncM4=
-X-Google-Smtp-Source: APiQypI9EHs8ab7m1LVnS9ikEVAAOowglAK7PvFccqZDCjgPoY1Ws2woJTGtZxaeq7TCgwwRHLtU106wFa9iYg5u5XU=
-X-Received: by 2002:a2e:720e:: with SMTP id n14mr1710755ljc.64.1586915938863; 
- Tue, 14 Apr 2020 18:58:58 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 48yYXY6xd8zDr9W
+ for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 18:02:33 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.in; s=s2048;
+ t=1586419349; bh=N8ZztguiZ6ViatoDA241KbkjaWQ8bnaEYux6SoljSqY=;
+ h=Date:From:To:Subject:References:From:Subject;
+ b=QMn5JmD+s+MIdB4xNmnNLnG7oZSelOXED/LJ/mDoxpLTQp6G7hnvD+ztSl+zhqAVvNxttn3tM3f8gtvrD6hJAK6/r2Lxt0N+z+xQhS9S0stY5WyZr7RKWBPe/DqVrnucJDWpDxvh5Zn8yAj4VoO/Y4uAvC5IAdWWCm7CP67TuxIS4Fyh9oM9YUI4eLDwvYx5/XKc82efwm1DouuofJjw7beP6PQ+cW7U0+GiRWIwq1RjdpAJ3UptnNcEklT+k4rZ3jxLYJVx06j0vyP5J66jYVf2vwivKXwK6QFW8PxR4/56Rp+qFVtZuhNm6iB2YlCMvhOzFlh1jL3fznywhwD4kA==
+X-YMail-OSG: mev7s3kVM1ldVCHg5s_YsueK4.20D.tYbEsqOlc8I2O9I6rG48zaBexZNqy1N5z
+ ds2xJ2McfjlJ1JCkkCI7CMeElfEORNdtbrXa_JrnIrQsNWP7885.rvEV4NQlX.iHLMGSdBqikjcE
+ ZILLkr.EPVheG3_977q1UaekSKwmOVTCO3gPjJRRLcubhBodhhqY25Mo79c1JkIuAoWVOPtMVD_W
+ nnCs61qT5TLKe5NwXFf0giasnmdDL4F4Mu9w60b7te40LK0txATNJESZ3wazODv1xPX6.9fBqBxZ
+ I62N_ZaAyhUznazVyOflrNg7lST9l.RRM.LtZFNvbaqsggDABBTSuXQtipP0mjvHKb2P7qCRiWar
+ PyhTsNUDgw2Epac0rALm.ARZQ9fXbSbD9_9DTIBj6xWmLMq0rNtRdLDC4IMK8Y9vJ1PShfBKmqbg
+ jhFI8xLDoW9L1R3fGLsGAWILd73Sr4bHgnfMzEjVNTdmWqhRiSdmVmVpDOHTVWjvosw6j6rLEXIZ
+ LvNIlt.p2mHtxyqIFjjLFVZ6RhDragzx2v57g.gUCUK4LAY14VsNEnyHXGQ21BJF.oRogteOtqMB
+ ebU66_X6U9Hl4faTc01.HLlMVcdXZ4e9A93uz5frMTGFrWySLSx0LQAQYkp6vcLdVfcPKQfL6B8H
+ ReHw56h.TAK2WLd1.a0n9jFfvDrXP8UqVH0gX0ih711w46S0b.1fgJBJ6TR8plWF7pY7YDzzDi61
+ p.ST0XDRiXhE_Iv4hlcUROso32mbLGIWLKzOyXIx9B.jAkdATgKY9A76TAAZszkBcqO3rWmsq1ri
+ vc15IzLRAFQYjOHGBdOO5RDETH6haiLmi3GafRt2hUw5bYy6xwabSfCZWDNW1ZHd7dRRyyKDjDqg
+ 7RJuIDzhfbaNDV7Ljo16hjECc_PTR12uKhYYQbeUMoGd5OH01f04rp1ISRpj3g7o5dpWHmm6Nz9R
+ DLSb5YzR7OrWrrHh0P8TREZnzsrFagq1svnX8druvCRIKXto1Zygd4hxaHglBRJpjEuk5IjS6gNE
+ _HRG00S0i9Q9QaVYvVas4J6cnKdWvo240YvNNFEEbdddzZK8tesYf9v5.bZtvRWp1OvmJXG4dF9K
+ x9YzZPx2deAH9Szf4q79JROoD7ZuVTYW46v.qywdqRgrFeWo5pwGHdn4biwIGizZ.vySmnjQnIPT
+ KBHfhdTm38uXeyBGPcnDVpJzQz.cMxqOpLUkQ9O7vNtdoftc67D20NbvbyIXOlLUs.MEsgMIP_Ui
+ hQiUTanWISCtKr2qHg17jdLopaex8GE4ApI30oH.FD8vDGp6cUlZk7xgO2pkt
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic310.consmr.mail.sg3.yahoo.com with HTTP; Thu, 9 Apr 2020 08:02:29 +0000
+Date: Thu, 9 Apr 2020 08:02:23 +0000 (UTC)
+From: Muniswamy Setty <muniswamy_setty@yahoo.co.in>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Message-ID: <1489827237.1722456.1586419343847@mail.yahoo.com>
+Subject: Any tool to list the PLDM header structure of a PLDM based firmware
+ file
 MIME-Version: 1.0
-References: <CAH1kD+bqZfeO8ezvwbmjx_PZ4vaKyhxGgvirVz13P3FK9UDBWQ@mail.gmail.com>
- <CAH1kD+b3ij5KiZn+-N0O+BnbB-XONmbWtYSRA2feKNb+zw6kjw@mail.gmail.com>
- <521FD3E2-3AFE-4E56-A6CF-B0ABA7E9C8E3@fb.com>
- <e42cef9e-1760-d3ee-4396-61cd1d141983@linux.ibm.com>
- <d3eac624-f1a2-fd2d-6639-3290c8085abd@gmail.com>
- <bea70fb0-780c-39a7-a677-dfc41e864337@linux.intel.com>
- <20200414154801.GA443018@heinlein.lan.stwcx.xyz>
-In-Reply-To: <20200414154801.GA443018@heinlein.lan.stwcx.xyz>
-From: Lei YU <mine260309@gmail.com>
-Date: Wed, 15 Apr 2020 09:58:46 +0800
-Message-ID: <CAARXrtm7ex5wNcc3ggkYNw5s9qdT8rw+4F46ioiPfp-7s+GM-w@mail.gmail.com>
-Subject: Re: Call for Gardening Tasks
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: James Feist <james.feist@linux.intel.com>, 
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, krtaylor <kurt.r.taylor@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_1722455_2048727526.1586419343846"
+References: <1489827237.1722456.1586419343847.ref@mail.yahoo.com>
+X-Mailer: WebService/1.1.15620 YMailNorrin Mozilla/5.0 (Windows NT 10.0;
+ WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149
+ Safari/537.36
+X-Mailman-Approved-At: Wed, 15 Apr 2020 16:46:15 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,24 +63,18 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 15 Apr 2020 01:59:07 -0000
+X-List-Received-Date: Thu, 09 Apr 2020 08:02:39 -0000
 
-On Wed, Apr 15, 2020 at 12:57 AM Patrick Williams <patrick@stwcx.xyz> wrote:
->
-> On Fri, Apr 10, 2020 at 11:00:48AM -0700, James Feist wrote:
-> > On 4/10/2020 7:30 AM, krtaylor wrote:
-> > > On 4/10/20 9:23 AM, Joseph Reynolds wrote:
-> > >> On 4/9/20 5:19 PM, Vijay Khemka wrote:
-> >
-> > I'd really like to see clang-tidy or other checks for style added into
-> > the build CI. The number of style violations waste lots of time in
-> > code-review for both the submitter and reviewers.
->
-> Do we have .clang-tidy files in the repositories?  Meson has built-in
-> support for generating a 'ninja clang-tidy' so it is pretty trivial to
-> enable.
+------=_Part_1722455_2048727526.1586419343846
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-phosphor-state-manager has .clang-tidy in the repo, and the CI will
-invoke run-clang-tidy.py to do the task.
-However, it's noticed that it's broken with
-https://github.com/openbmc/openbmc-build-scripts/commit/9e5b11f5d5069d244a2dd86b120fcc98fea66d2c
+Hi Team,=C2=A0 =C2=A0 Wanted to know are there any tools to view the PLDM h=
+eader information in a readable format from a PLDM firmware update file?
+-Regards,Muni
+------=_Part_1722455_2048727526.1586419343846
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+<html><head></head><body><div class="yahoo-style-wrap" style="font-family:courier new, courier, monaco, monospace, sans-serif;font-size:13px;"><div dir="ltr" data-setdir="false">Hi Team,</div><div dir="ltr" data-setdir="false">&nbsp; &nbsp; Wanted to know are there any tools to view the PLDM header information in a readable format from a PLDM firmware update file?<br></div><div dir="ltr" data-setdir="false">-Regards,</div><div dir="ltr" data-setdir="false">Muni</div></div></body></html>
+------=_Part_1722455_2048727526.1586419343846--
