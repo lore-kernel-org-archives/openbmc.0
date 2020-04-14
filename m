@@ -1,126 +1,62 @@
-Return-Path: <prvs=137338503b=vijaykhemka@fb.com>
+Return-Path: <rhanley@google.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::12e;
+ helo=mail-lf1-x12e.google.com; envelope-from=rhanley@google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=fb.com
- (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
- envelope-from=prvs=137338503b=vijaykhemka@fb.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=fb.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256
- header.s=facebook header.b=S8jsgl8f; 
- dkim=pass (1024-bit key;
- unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
- header.a=rsa-sha256 header.s=selector2-fb-onmicrosoft-com header.b=X0++HgKF; 
- dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20161025 header.b=ORBSXsmu; dkim-atps=neutral
+Received: from mail-lf1-x12e.google.com (mail-lf1-x12e.google.com
+ [IPv6:2a00:1450:4864:20::12e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 491y4K1dy8zDqvh
- for <openbmc@lists.ozlabs.org>; Wed, 15 Apr 2020 06:38:22 +1000 (AEST)
-Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03EJ5SSR028714; Tue, 14 Apr 2020 12:07:39 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
- h=from : to : cc : subject
- : date : message-id : references : in-reply-to : content-type : content-id
- : content-transfer-encoding : mime-version; s=facebook;
- bh=0ap7rwyzFqnKFr9vfzvSca+XBtGQ3DS91iKOk8/gUDU=;
- b=S8jsgl8fWa+8lG1LBZclD1UEuZC3MbqTMUeq69gTxvWnL+1T54XDHUJ6EZpi/jNw6TDe
- aLLUtSTZoJGxB3ght2lFVuiB/MFdNThx5CyPxxSpepS9bySbcr1ZdFhzyou5Ai+B8Wne
- U15yLKEjOMZ38bJOo5WrsoLqClB+eVMLqzs= 
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com with ESMTP id 30bwq7c0d3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
- Tue, 14 Apr 2020 12:07:39 -0700
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (100.104.31.183)
- by o365-in.thefacebook.com (100.104.36.103) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.1847.3; Tue, 14 Apr 2020 12:07:38 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=oNUpL+zMOm0daKv/VgL9YgVs+qV4ndWE/S9oLyLiTKsrYTmDDcSCBzPg/So1oR7i2lmJWKfIzrSBSFYzTkwRhnncx65bbclScgOVg2LrvhkzpGEbaRSCRDxd/HwJ7IAapXIcWKYUNq6ELCac0BcE0iUJ+aQ0sB0dtWz5z74T/XhrPjQtzhHNCDMV+UCLK/CFZScoSvju209cvPJ2K8kkY3xB/rxXnEzmc75+FzqWWlgomyAWYZVzisut7pRPculabhrBJVGJMjyT8HT30q7RN5afMyA2uLjiAP8d8rfbnFl3v+cgNPTcZXtBZf0u+L7pELiAgflCBDEELVFLZT1kTA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ap7rwyzFqnKFr9vfzvSca+XBtGQ3DS91iKOk8/gUDU=;
- b=QzfBeNHqZTsnnMhEufIcVuspCW85QY0cWFDwGGuvvpjiS+pbgQbQMwxql0z6PdLCW7s2ULZTpncz/2KkH2SXNgI8I3QWKgyCeAnPEHgORI8qPZjM1pOAt1wxrH/6NKIr998JWlcGb9pA0gYLekYoTX+gc0DnBMW0m+NcalBxyAKkrbEixIy1NckpdQ3E+mzood0qxRwouyil4qmbt6TAwYTcU+EsqNpcAY/u1ZLlFGCGCDYoVx2VWD7tDvUzNdD6PNwI1uE0Zdg+dmewB2DzhWk4IonLqfrRDvYuR5AMlDSQhewerxI5onQRJGzhRAx47gyAqySk9SU5XlnzG5qLaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
- header.d=fb.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
- s=selector2-fb-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0ap7rwyzFqnKFr9vfzvSca+XBtGQ3DS91iKOk8/gUDU=;
- b=X0++HgKFs8QosATMfURqyHpmTM6E8Nwq4VM0aTuOadXN2+IRb5tdETV5CaW/CoAaxFVURZZbuKsjCl/Rvn58Zqw6UixKTk8+GqbztM9hbSJTthrwMO5JnzXEdzP4cykdYo0H5mz0E52/gaZVEBsFkyN62EVYnablVsQqLXFy6ZA=
-Received: from MW3PR15MB3947.namprd15.prod.outlook.com (2603:10b6:303:49::9)
- by MW3PR15MB3819.namprd15.prod.outlook.com (2603:10b6:303:43::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.2900.28; Tue, 14 Apr
- 2020 19:07:37 +0000
-Received: from MW3PR15MB3947.namprd15.prod.outlook.com
- ([fe80::950:594c:b2fc:be8]) by MW3PR15MB3947.namprd15.prod.outlook.com
- ([fe80::950:594c:b2fc:be8%4]) with mapi id 15.20.2900.028; Tue, 14 Apr 2020
- 19:07:37 +0000
-From: Vijay Khemka <vijaykhemka@fb.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-CC: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: objc console new design
-Thread-Topic: objc console new design
-Thread-Index: AQHWCgBPwdBJh2WrEU2ViFQA6gD9zqhqcoWAgAGa3ACABcTCAIAGxG4A
-Date: Tue, 14 Apr 2020 19:07:37 +0000
-Message-ID: <BBD9DDB3-49C9-4F85-9647-530AD7F3DC99@fb.com>
-References: <73161AF5-F6B6-40C6-AE70-5FCF5A530B82@fb.com>
- <451f5f0e-a1ba-4016-b044-e55b966f64ea@www.fastmail.com>
- <B81F049C-24DB-49A0-9DE5-5D7C02496AD0@fb.com>
- <625f79f9-0490-4dbe-b364-959e2091fdc8@www.fastmail.com>
-In-Reply-To: <625f79f9-0490-4dbe-b364-959e2091fdc8@www.fastmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [2620:10d:c090:400::5:523e]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: a2c77e81-1511-486f-5e1f-08d7e0a718c8
-x-ms-traffictypediagnostic: MW3PR15MB3819:
-x-microsoft-antispam-prvs: <MW3PR15MB38199B1C773AE94B0C2F8C37DDDA0@MW3PR15MB3819.namprd15.prod.outlook.com>
-x-fb-source: Internal
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-forefront-prvs: 0373D94D15
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW3PR15MB3947.namprd15.prod.outlook.com; PTR:; CAT:NONE;
- SFTY:;
- SFS:(10019020)(136003)(346002)(39860400002)(366004)(376002)(396003)(2616005)(3480700007)(81156014)(478600001)(186003)(71200400001)(8936002)(66446008)(64756008)(66556008)(8676002)(86362001)(66946007)(76116006)(66476007)(36756003)(53546011)(6506007)(6512007)(6486002)(2906002)(5660300002)(6916009)(4326008)(33656002)(316002);
- DIR:OUT; SFP:1102; 
-received-spf: None (protection.outlook.com: fb.com does not designate
- permitted sender hosts)
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 1x6BWdMUesQXkEpO2cM7aoDvZvQsNB3YIzVAzFFGbEuIE4+FrWxjOnUeRuFFKAqsv+9ZtdVYGQKTsndVHqleHTnZI5WJuyDde4bi3yOqE+athObUXiGUXgzn5kXbXtkj2LL5Ypa5wzLcFAj9DiK9RkwwykF+4p/ZuIYUUYAglc1bJS/uVs7OrLoYj6I4ZN1502JhL2oWWAqn1mHFO0Gt+gEsCDGbnh4uIapFacMx2G0K94/WjOVjjY/buYkPJLhuaty77TwB+0N4mz54E99fhge0sFOGjNeP7znXODAIItILfX/jxMwjDW2t1CvRhky/UguR5dpa8WDA/c57bTK8yWBPqicXRCcBcjjh3nbjwnr4ZvNJhd4SrHzwHM+xkhEWrdqjUgJY+vvKi1P8Qsrhx5eBj9KClkZalGt+oi39mTlYsDbODI6Qj5On6Tg/+N8D
-x-ms-exchange-antispam-messagedata: QR+IDUWoqWqZcytDLjOKxwjSFQNVaohOMCyD0v4whjI3cnkRgObX1umTKgmXwOtpxWz43NZgheW159kJGUiqVf6m6/n7i8upRrwLIbZopNnQXIk+N+P+mVIKK1BGEJRS54MhziD7oI95B6NHElBogQ8+cR/DO5cqoI48AbK27dizHQVmuWzTj8vGKTbgQE8b
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <F63DB2A24AD7BD46A02188A705A42D07@namprd15.prod.outlook.com>
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 491y7v22XBzDqvh
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Apr 2020 06:41:30 +1000 (AEST)
+Received: by mail-lf1-x12e.google.com with SMTP id t11so881820lfe.4
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2020 13:41:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=67Qrs7HqOLr7PxG12ieUTqnENQcK05FxyQM3nVs/3Ac=;
+ b=ORBSXsmuD66k4awVdQ+Hj90mA9wWEw63Ra+3AT0StURyqdRN40qW1y5AN8MKlEPNZf
+ f4300246kY6vy/Bw+BK9LTK0tUTgsvmTu+RRLLXHtiIljpMDmxu2Hffhve3tWyBgkr+j
+ McDIghnWlwfbR9Mf/gBOCs05mUH2P9qgw9JPxSmyjoXGLSxEQPuXhjXAH0Y2GaFZYRKO
+ YEOud+LOlCpy3GghetAEJTV0QR98kKo2g+/uDCN4zGpBvZ21GWme+Beiay2JKDx1vaXu
+ lCde7khVYUSRUXd0eF7QcI0SI+isrBfSV2K9t2Svci59OiPPbSJxu1+/615/Kg6+FLPs
+ Eguw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=67Qrs7HqOLr7PxG12ieUTqnENQcK05FxyQM3nVs/3Ac=;
+ b=O/3m6V1vad8kd4ndlmQgS3Sdy/OmAyDV6c6VvPgBpcPm3Dma24IKwbiDwevUzicDr9
+ Q6QRufV/KtzndDEPKAX6D0JYMGLuVpbp12uIqF2pS34DIX0LCFGyksLfT7j2MtDCM8nz
+ gJPNrZffXd+SrsKSzND9hBHHY0kCfxh6gmACgr+cf+b5ACHICUwUAXTudoY91zvrgWMb
+ 3NzM9drjVnxwtHj7AP+P+LvH2TVekXzKnpvh3nq1taCtBRRPRenh1fXR5ezH/S3tbKtZ
+ GXOsZG0eiUv4WaFd72jyOfmLn2ipdSW/HDV7s0ol+sYIOLyhfnWxrE2Byp6Hi/wHavm6
+ 9Ycg==
+X-Gm-Message-State: AGi0PuY5ws7otoFODU1vOO5v58wyin6VJc7gNHUTL7WyJfbmyXJzu947
+ aw8CX60Ltt5HQM377pEpLrB/N1BOnYHTO6zAB7Jhlw==
+X-Google-Smtp-Source: APiQypKJgsJfqIeSmLZVpgOrwwZz5oGD6HfrPjZHKokR8C32algS5wY5vlA9VO/XY0UgQmNI0blCem3tyAvVnL8uGXg=
+X-Received: by 2002:ac2:489b:: with SMTP id x27mr972876lfc.60.1586896885940;
+ Tue, 14 Apr 2020 13:41:25 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-Network-Message-Id: a2c77e81-1511-486f-5e1f-08d7e0a718c8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Apr 2020 19:07:37.4456 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: J+kyvXP/siEsthPZ3fah7Q/Vvb9UAXVfwkzInoYsdZWidNEAFoTuaa9i5OH4RX17SAGfKE4rdodtGCAkplNE4w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR15MB3819
-X-OriginatorOrg: fb.com
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-14_09:2020-04-14,
- 2020-04-14 signatures=0
-X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
- suspectscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 priorityscore=1501
- malwarescore=0 clxscore=1015 adultscore=0 spamscore=0 impostorscore=0
- mlxlogscore=986 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004140135
-X-FB-Internal: deliver
+References: <EED5BF91-4AE9-4B5A-BE68-BAE3D93C3704@fb.com>
+ <20200410210033.GA9295@mauery.jf.intel.com>
+ <85700953-1CBE-4DFB-9A5B-AF64B9735735@fuzziesquirrel.com>
+ <A785371B-1AD2-45E0-AD62-60C7E8B2C69D@fb.com>
+In-Reply-To: <A785371B-1AD2-45E0-AD62-60C7E8B2C69D@fb.com>
+From: Richard Hanley <rhanley@google.com>
+Date: Tue, 14 Apr 2020 13:41:14 -0700
+Message-ID: <CAH1kD+b4GQFs_V13APk8123dc_vL0GVxXwZLx6pPdUHiKodZRA@mail.gmail.com>
+Subject: Re: Sensor history
+To: Vijay Khemka <vijaykhemka@fb.com>
+Cc: Brad Bishop <bradleyb@fuzziesquirrel.com>, 
+ Vernon Mauery <vernon.mauery@linux.intel.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Content-Type: multipart/alternative; boundary="0000000000002eef2805a3463970"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,38 +68,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 14 Apr 2020 20:38:26 -0000
+X-List-Received-Date: Tue, 14 Apr 2020 20:41:32 -0000
 
-DQoNCu+7v09uIDQvOS8yMCwgOTo0NyBQTSwgIkFuZHJldyBKZWZmZXJ5IiA8YW5kcmV3QGFqLmlk
-LmF1PiB3cm90ZToNCg0KICAgIA0KICAgIA0KICAgIE9uIFR1ZSwgNyBBcHIgMjAyMCwgYXQgMDU6
-MTEsIFZpamF5IEtoZW1rYSB3cm90ZToNCiAgICA+IA0KICAgID4gDQogICAgPiBPbiA0LzUvMjAs
-IDU6MTAgQU0sICJBbmRyZXcgSmVmZmVyeSIgPGFuZHJld0Bhai5pZC5hdT4gd3JvdGU6DQogICAg
-PiANCiAgICA+ICAgICANCiAgICA+ICAgICANCiAgICA+ICAgICBPbiBTYXQsIDQgQXByIDIwMjAs
-IGF0IDA4OjA5LCBWaWpheSBLaGVta2Egd3JvdGU6DQogICAgPiAgICAgPiAgDQogICAgPiAgICAg
-PiBIaSBBbmRyZXcsDQogICAgPiAgICAgPiANCiAgICA+ICAgICA+IEhvdyBpcyBzZXJ2ZXIgbGF1
-bmNoZWQgYXMgcGVyIG5ldyBkZXNpZ24gY29kZS4gV2l0aCBsYXRlc3QgdXBkYXRlLCANCiAgICA+
-ICAgICA+IGNvbnNvbGUgc2VydmVyIGlzIG5vdCBsYXVuY2hpbmcgaW4gb3VyIHBsYXRmb3JtLiBJ
-IHNhdyBjb25maWcgb3B0aW9uIA0KICAgID4gICAgID4g4oCcT0JNQ19DT05TT0xFX0hPU1RfVFRZ
-ID89ICJ0dHlWVUFSVDAiIOKAnCBoYXMgYmVlbiByZW1vdmVkIGZyb20gYmIgZmlsZSANCiAgICA+
-ICAgICA+IGFuZCBhbHNvIHRoZXJlIGlzIG5vIHRyaWdnZXJpbmcgcG9pbnQgaW4gb2JtYy1jb25z
-b2xlLXNzaCBzb2NrZXQgYW5kIA0KICAgID4gICAgID4gc2VydmljZSBsaWtlIGVhcmxpZXIgV2Fu
-dHM9b2JtYy1jb25zb2xlQHtPQk1DX0NPTlNPTEVfSE9TVF9UVFl9LnNlcnZpY2UgDQogICAgPiAg
-ICAgPiA8bWFpbHRvOldhbnRzPW9ibWMtY29uc29sZUAlN2JPQk1DX0NPTlNPTEVfSE9TVF9UVFkl
-N2Quc2VydmljZT4uDQogICAgPiAgICAgPiANCiAgICA+ICAgICA+IA0KICAgID4gICAgID4gSSBz
-ZWUgdWRldiBydWxlcyBhZGRlZCBpbiBsYXRlc3QgcGF0Y2ggZm9yIGxhdW5jaGluZyBzZXJ2ZXIg
-d2hpY2ggbmVlZHMgDQogICAgPiAgICAgPiBjb25maWcgZGVmaW5pdGlvbiBvZiB1ZGV2LCBkbyB3
-ZSBuZWVkIHRoaXMgZm9yIGxhdW5jaGluZywgcGxlYXNlIGFkdmlzZS4NCiAgICA+ICAgICANCiAg
-ICA+ICAgICBZZXMsIG9ibWMtY29uc29sZSBub3cgc2hpcHMgYSB1ZGV2IHJ1bGVzIGZpbGUgdGhh
-dCBsYXVuY2hlcyANCiAgICA+IG9ibWMtY29uc29sZS1zZXJ2ZXINCiAgICA+ICAgICB2aWEgYW4g
-YEVOVntTWVNURU1EX1dBTlRTfWAgZGlyZWN0aXZlOg0KICAgID4gDQogICAgPiBJZiB0aGlzIGlz
-IG1hbmRhdG9yeSB0aGVuIHdoeSBkbyB3ZSBuZWVkIHRvIGVuYWJsZSBVREVWIGNvbmZpZyBhcyBp
-dCANCiAgICA+IHNob3VsZCBiZSBlbmFibGVkIGJ5IGRlZmF1bHQuDQogICAgPg0KICAgIA0KICAg
-IEl0J3Mgbm90IG1hbmRhdG9yeSwganVzdCBJIGRvbid0IGtub3cgdGhlIHJlcXVpcmVtZW50cyBv
-ZiBhbnkgc3lzdGVtcyB0aGF0DQogICAgYXJlbid0IHVzaW5nIHVkZXYuIFRoZSBzd2l0Y2ggZXhp
-c3RzIGluIG9ibWMtY29uc29sZSBzbyB5b3UgY2FuIGltcGxlbWVudA0KICAgIHN1cHBvcnQgZm9y
-IHN5c3RlbXMgd2l0aG91dCB1ZGV2IGlmIHRoYXQncyBkZXNpcmVkLiBNYXliZSBhZGRpbmcgdGhl
-IHN3aXRjaA0KICAgIHdhcyBwcmVtYXR1cmU/DQoNCkFzIHBlciBuZXcgZGVzaWduLCB1ZGV2IHJ1
-bGUgaXMgdGhlIG9ubHkgb25lIHdobyBjYW4gc3RhcnQgc2VydmVyIC4gU28gaWYgYW55b25lIHVz
-aW5nIA0KU29MIG5lZWRzIHRvIHVzZSB0aGlzIHJ1bGVzIHNvIEkgZ3Vlc3MgdGhpcyB1ZGV2IHN3
-aXRjaCBpcyBub3QgcmVxdWlyZWQgYXMgdGhpcyBpcyBhIA0KbWFuZGF0b3J5IG9wdGlvbnMuDQog
-ICAgDQogICAgQW5kcmV3DQogICAgDQoNCg==
+--0000000000002eef2805a3463970
+Content-Type: text/plain; charset="UTF-8"
+
+> Hi Team,
+>
+> There is a telemetry proposal in docs and repository.
+> https://github.com/openbmc/docs/blob/master/designs/telemetry.md
+> https://github.com/openbmc/telemetry
+> The proposal seems promising and complete.
+> What is the implementation status?
+
+I'm also curious about a status update here.  Were there any design issues
+that needed to be worked out, or is it ready to develop?
+
+>>    To implement the Redfish Telemetry service would we need to store
+them on
+>>    the BMC as well?
+>It will be nice if we can store it in RAM at least with larger data and
+some diskspace
+>With small log rotate.
+
+The Telemetry Service already has a concept of log rotation, but overall I
+agree that storing in RAM first with optional persistence is better than
+the other way around.
+- Richard
+
+--0000000000002eef2805a3463970
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><span style=3D"color:rgb(80,0,80)">&gt; Hi Team,</span><br=
+ style=3D"color:rgb(80,0,80)"><span style=3D"color:rgb(80,0,80)">&gt;</span=
+><br style=3D"color:rgb(80,0,80)"><span style=3D"color:rgb(80,0,80)">&gt; T=
+here is a telemetry proposal in docs and repository.</span><br style=3D"col=
+or:rgb(80,0,80)"><span style=3D"color:rgb(80,0,80)">&gt;=C2=A0</span><a hre=
+f=3D"https://github.com/openbmc/docs/blob/master/designs/telemetry.md" rel=
+=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/docs/blob/mast=
+er/designs/telemetry.md</a><br style=3D"color:rgb(80,0,80)"><span style=3D"=
+color:rgb(80,0,80)">&gt;=C2=A0</span><a href=3D"https://github.com/openbmc/=
+telemetry" rel=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/=
+telemetry</a><br style=3D"color:rgb(80,0,80)"><div><font color=3D"#741b47">=
+&gt; The proposal seems promising and complete.</font></div><div><font colo=
+r=3D"#741b47">&gt; What is the implementation status?</font><br></div><div>=
+<br></div><div>I&#39;m also curious about a status update here.=C2=A0 Were =
+there any design issues that needed to be worked out, or is it ready to dev=
+elop?</div><div><br></div><div><span class=3D"gmail-im" style=3D"color:rgb(=
+80,0,80)">&gt;&gt;=C2=A0 =C2=A0 To implement the Redfish Telemetry service =
+would we need to store them on=C2=A0<br>&gt;&gt;=C2=A0 =C2=A0 the BMC as we=
+ll?<br></span>&gt;It will be nice if we can store it in RAM at least with l=
+arger data and some diskspace<br>&gt;With small log rotate.<br></div><div><=
+br></div><div>The Telemetry Service already has a concept of log rotation, =
+but overall I agree that storing in RAM first with optional persistence is =
+better than the other way around.</div><div>- Richard</div></div>
+
+--0000000000002eef2805a3463970--
