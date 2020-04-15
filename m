@@ -1,57 +1,56 @@
-Return-Path: <muniswamy_setty@yahoo.co.in>
+Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yahoo.co.in (client-ip=106.10.244.139;
- helo=sonic310-19.consmr.mail.sg3.yahoo.com;
- envelope-from=muniswamy_setty@yahoo.co.in; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::842;
+ helo=mail-qt1-x842.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=yahoo.co.in
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=yahoo.co.in header.i=@yahoo.co.in header.a=rsa-sha256
- header.s=s2048 header.b=QMn5JmD+; dkim-atps=neutral
-Received: from sonic310-19.consmr.mail.sg3.yahoo.com
- (sonic310-19.consmr.mail.sg3.yahoo.com [106.10.244.139])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=WXGWiDus; dkim-atps=neutral
+Received: from mail-qt1-x842.google.com (mail-qt1-x842.google.com
+ [IPv6:2607:f8b0:4864:20::842])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 48yYXY6xd8zDr9W
- for <openbmc@lists.ozlabs.org>; Thu,  9 Apr 2020 18:02:33 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.co.in; s=s2048;
- t=1586419349; bh=N8ZztguiZ6ViatoDA241KbkjaWQ8bnaEYux6SoljSqY=;
- h=Date:From:To:Subject:References:From:Subject;
- b=QMn5JmD+s+MIdB4xNmnNLnG7oZSelOXED/LJ/mDoxpLTQp6G7hnvD+ztSl+zhqAVvNxttn3tM3f8gtvrD6hJAK6/r2Lxt0N+z+xQhS9S0stY5WyZr7RKWBPe/DqVrnucJDWpDxvh5Zn8yAj4VoO/Y4uAvC5IAdWWCm7CP67TuxIS4Fyh9oM9YUI4eLDwvYx5/XKc82efwm1DouuofJjw7beP6PQ+cW7U0+GiRWIwq1RjdpAJ3UptnNcEklT+k4rZ3jxLYJVx06j0vyP5J66jYVf2vwivKXwK6QFW8PxR4/56Rp+qFVtZuhNm6iB2YlCMvhOzFlh1jL3fznywhwD4kA==
-X-YMail-OSG: mev7s3kVM1ldVCHg5s_YsueK4.20D.tYbEsqOlc8I2O9I6rG48zaBexZNqy1N5z
- ds2xJ2McfjlJ1JCkkCI7CMeElfEORNdtbrXa_JrnIrQsNWP7885.rvEV4NQlX.iHLMGSdBqikjcE
- ZILLkr.EPVheG3_977q1UaekSKwmOVTCO3gPjJRRLcubhBodhhqY25Mo79c1JkIuAoWVOPtMVD_W
- nnCs61qT5TLKe5NwXFf0giasnmdDL4F4Mu9w60b7te40LK0txATNJESZ3wazODv1xPX6.9fBqBxZ
- I62N_ZaAyhUznazVyOflrNg7lST9l.RRM.LtZFNvbaqsggDABBTSuXQtipP0mjvHKb2P7qCRiWar
- PyhTsNUDgw2Epac0rALm.ARZQ9fXbSbD9_9DTIBj6xWmLMq0rNtRdLDC4IMK8Y9vJ1PShfBKmqbg
- jhFI8xLDoW9L1R3fGLsGAWILd73Sr4bHgnfMzEjVNTdmWqhRiSdmVmVpDOHTVWjvosw6j6rLEXIZ
- LvNIlt.p2mHtxyqIFjjLFVZ6RhDragzx2v57g.gUCUK4LAY14VsNEnyHXGQ21BJF.oRogteOtqMB
- ebU66_X6U9Hl4faTc01.HLlMVcdXZ4e9A93uz5frMTGFrWySLSx0LQAQYkp6vcLdVfcPKQfL6B8H
- ReHw56h.TAK2WLd1.a0n9jFfvDrXP8UqVH0gX0ih711w46S0b.1fgJBJ6TR8plWF7pY7YDzzDi61
- p.ST0XDRiXhE_Iv4hlcUROso32mbLGIWLKzOyXIx9B.jAkdATgKY9A76TAAZszkBcqO3rWmsq1ri
- vc15IzLRAFQYjOHGBdOO5RDETH6haiLmi3GafRt2hUw5bYy6xwabSfCZWDNW1ZHd7dRRyyKDjDqg
- 7RJuIDzhfbaNDV7Ljo16hjECc_PTR12uKhYYQbeUMoGd5OH01f04rp1ISRpj3g7o5dpWHmm6Nz9R
- DLSb5YzR7OrWrrHh0P8TREZnzsrFagq1svnX8druvCRIKXto1Zygd4hxaHglBRJpjEuk5IjS6gNE
- _HRG00S0i9Q9QaVYvVas4J6cnKdWvo240YvNNFEEbdddzZK8tesYf9v5.bZtvRWp1OvmJXG4dF9K
- x9YzZPx2deAH9Szf4q79JROoD7ZuVTYW46v.qywdqRgrFeWo5pwGHdn4biwIGizZ.vySmnjQnIPT
- KBHfhdTm38uXeyBGPcnDVpJzQz.cMxqOpLUkQ9O7vNtdoftc67D20NbvbyIXOlLUs.MEsgMIP_Ui
- hQiUTanWISCtKr2qHg17jdLopaex8GE4ApI30oH.FD8vDGp6cUlZk7xgO2pkt
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic310.consmr.mail.sg3.yahoo.com with HTTP; Thu, 9 Apr 2020 08:02:29 +0000
-Date: Thu, 9 Apr 2020 08:02:23 +0000 (UTC)
-From: Muniswamy Setty <muniswamy_setty@yahoo.co.in>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Message-ID: <1489827237.1722456.1586419343847@mail.yahoo.com>
-Subject: Any tool to list the PLDM header structure of a PLDM based firmware
- file
+ by lists.ozlabs.org (Postfix) with ESMTPS id 492Cbx2BqkzDr3V
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Apr 2020 16:48:13 +1000 (AEST)
+Received: by mail-qt1-x842.google.com with SMTP id i19so9488468qtp.13
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Apr 2020 23:48:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=1MyCW8UY463RqCOxr2orgTFsZWZngLYOGyEOeYbqVrs=;
+ b=WXGWiDusxBYA0+yz5Ib3RM+VBfTtlRClQssAcDMcpa0Y5Pfjzv7g//H6yisj5/bKaw
+ 8PjoWCABAlcmRBoxr5wJ76KNHiJ4ObDui92rt0FyU/eG8XDS415B+wqyHQqUWIUzJVBx
+ XmQhSTO6KTO2py6XrYRjpNGXR1edP3GP2kY9s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=1MyCW8UY463RqCOxr2orgTFsZWZngLYOGyEOeYbqVrs=;
+ b=LC5zbACBgaU8Qv513Yj1Y/omNbzXJx0G4hQGn73BUv4moEH8GVo007qTb+On/mJXt2
+ KZg62/GFS8iwet6yM8BupW9kXBgMuU2kwu79UK9+XVqCsV/aJ3/uRLPOXzQM7z7Oqh1x
+ sP/4mTQvn0woKN9idycrYa2q+/3MkxKntAcobbHb7dx6y1oOZhn9RSl0pzn5OnLCDkNE
+ FedOOd0M5dDph9iX+1psPCqN70bl44G89bAtMR28XOK/Gtp89mSp70wMHHSMCmSeas3j
+ 2ycl7DWyivRo0Du3wYumCXKFGV/hOzjPazqoAJxbpUHAbvPqcazTpr3azgGZCp+Q7eFF
+ lbkA==
+X-Gm-Message-State: AGi0PuYlbWNmdua4Gu3unOMBjbrl9bfzKsLzMQXbc/WChk1sws831WjE
+ dmBN9e1RoGnGX9p4MSEWGMSXQ6QtJj/2R1fwlo8=
+X-Google-Smtp-Source: APiQypKwtvb9mShyqCgdFqGnVJe/dwQNf79ZWiRJYkn3IYCHqwalrk/vDvLV7UB+VxMJ0uEkNZKWnuPDmvFGXg+cWcE=
+X-Received: by 2002:ac8:342d:: with SMTP id u42mr19497765qtb.255.1586933289040; 
+ Tue, 14 Apr 2020 23:48:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/alternative; 
- boundary="----=_Part_1722455_2048727526.1586419343846"
-References: <1489827237.1722456.1586419343847.ref@mail.yahoo.com>
-X-Mailer: WebService/1.1.15620 YMailNorrin Mozilla/5.0 (Windows NT 10.0;
- WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149
- Safari/537.36
-X-Mailman-Approved-At: Wed, 15 Apr 2020 16:46:15 +1000
+References: <1586370073-71433-1-git-send-email-anoo@linux.ibm.com>
+In-Reply-To: <1586370073-71433-1-git-send-email-anoo@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 15 Apr 2020 06:47:57 +0000
+Message-ID: <CACPK8XcTR-pOwn_3dJz1Z5JiS7K8j5Cv2wryEj+v3bi=OTs9Pw@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc] configs: Add OpenBMC spl
+ defconfig for AST2600 boards
+To: Adriana Kobylak <anoo@linux.ibm.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Adriana Kobylak <anoo@us.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,18 +62,160 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 09 Apr 2020 08:02:39 -0000
+X-List-Received-Date: Wed, 15 Apr 2020 06:48:14 -0000
 
-------=_Part_1722455_2048727526.1586419343846
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Wed, 8 Apr 2020 at 18:22, Adriana Kobylak <anoo@linux.ibm.com> wrote:
+>
+> From: Adriana Kobylak <anoo@us.ibm.com>
+>
+> This is based on the ast2600_openbmc_defconfig plus the spl
+> options enabled in evb-ast2600a1-spl_defconfig but without
+> the SPL_YMODEM_SUPPORT due to space constraints.
+>
+> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+> ---
+>  configs/ast2600_openbmc_spl_defconfig | 126 ++++++++++++++++++++++++++++++++++
+>  1 file changed, 126 insertions(+)
+>  create mode 100644 configs/ast2600_openbmc_spl_defconfig
+>
+> diff --git a/configs/ast2600_openbmc_spl_defconfig b/configs/ast2600_openbmc_spl_defconfig
+> new file mode 100644
+> index 0000000..d87da43
+> --- /dev/null
+> +++ b/configs/ast2600_openbmc_spl_defconfig
+> @@ -0,0 +1,126 @@
+> +CONFIG_ARM=y
+> +CONFIG_SYS_CONFIG_NAME="evb_ast2600a1_spl"
+> +CONFIG_SYS_DCACHE_OFF=y
+> +CONFIG_POSITION_INDEPENDENT=y
+> +CONFIG_SPL_LDSCRIPT="arch/$(ARCH)/mach-aspeed/ast2600/u-boot-spl.lds"
+> +CONFIG_ARCH_ASPEED=y
+> +CONFIG_SYS_TEXT_BASE=0x10000
+> +CONFIG_ASPEED_AST2600=y
+> +CONFIG_TARGET_EVB_AST2600A1=y
+> +CONFIG_SPL_LIBCOMMON_SUPPORT=y
+> +CONFIG_SPL_LIBGENERIC_SUPPORT=y
+> +CONFIG_SYS_MALLOC_F_LEN=0x800
+> +CONFIG_SPL_MMC_SUPPORT=y
+> +CONFIG_SPL_SERIAL_SUPPORT=y
+> +CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
+> +CONFIG_ENV_SIZE=0x10000
+> +CONFIG_ENV_OFFSET=0xE0000
+> +CONFIG_SPL=y
+> +CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
+> +CONFIG_NR_DRAM_BANKS=1
+> +CONFIG_FIT=y
+> +CONFIG_SPL_FIT=y
+> +CONFIG_SPL_FIT_PRINT=y
+> +CONFIG_USE_BOOTARGS=y
+> +CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
+> +CONFIG_USE_BOOTCOMMAND=y
+> +CONFIG_BOOTCOMMAND="bootm 20100000"
+> +CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
+> +CONFIG_DISPLAY_BOARDINFO_LATE=y
+> +CONFIG_ARCH_EARLY_INIT_R=y
+> +CONFIG_SPL_SEPARATE_BSS=y
+> +CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_USE_SECTOR=y
+> +CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR=0x0
+> +CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_USE_PARTITION=y
 
-Hi Team,=C2=A0 =C2=A0 Wanted to know are there any tools to view the PLDM h=
-eader information in a readable format from a PLDM firmware update file?
--Regards,Muni
-------=_Part_1722455_2048727526.1586419343846
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+How do these work? I thought the SPL loaded u-boot.bin from SPI NOR
+for now. Do we need to change these?
 
-<html><head></head><body><div class="yahoo-style-wrap" style="font-family:courier new, courier, monaco, monospace, sans-serif;font-size:13px;"><div dir="ltr" data-setdir="false">Hi Team,</div><div dir="ltr" data-setdir="false">&nbsp; &nbsp; Wanted to know are there any tools to view the PLDM header information in a readable format from a PLDM firmware update file?<br></div><div dir="ltr" data-setdir="false">-Regards,</div><div dir="ltr" data-setdir="false">Muni</div></div></body></html>
-------=_Part_1722455_2048727526.1586419343846--
+How should we handle the configuration options when we want to build a eMMC SPL?
+
+> +CONFIG_SPL_DM_RESET=y
+> +CONFIG_SPL_RAM_SUPPORT=y
+> +CONFIG_SPL_RAM_DEVICE=y
+> +CONFIG_SPL_WATCHDOG_SUPPORT=y
+> +CONFIG_HUSH_PARSER=y
+> +# CONFIG_AUTO_COMPLETE is not set
+> +CONFIG_SYS_PROMPT="ast# "
+> +CONFIG_CMD_BOOTZ=y
+> +# CONFIG_CMD_BOOTEFI is not set
+> +# CONFIG_CMD_ELF is not set
+> +# CONFIG_CMD_IMI is not set
+> +# CONFIG_CMD_XIMG is not set
+> +# CONFIG_CMD_NVEDIT_EFI is not set
+> +CONFIG_CMD_MEMTEST=y
+> +CONFIG_SYS_ALT_MEMTEST=y
+> +CONFIG_CMD_CLK=y
+> +CONFIG_CMD_GPIO=y
+> +CONFIG_CMD_I2C=y
+> +CONFIG_CMD_MMC=y
+> +CONFIG_CMD_PART=y
+> +CONFIG_CMD_PCI=y
+> +CONFIG_CMD_SF=y
+> +CONFIG_CMD_USB=y
+> +CONFIG_CMD_DHCP=y
+> +CONFIG_CMD_MII=y
+> +CONFIG_CMD_PING=y
+> +CONFIG_CMD_EXT2=y
+> +CONFIG_CMD_EXT4=y
+> +CONFIG_CMD_EXT4_WRITE=y
+> +CONFIG_CMD_FAT=y
+> +CONFIG_CMD_FS_GENERIC=y
+> +CONFIG_CMD_MTDPARTS=y
+> +CONFIG_EFI_PARTITION=y
+> +CONFIG_SPL_OF_CONTROL=y
+> +CONFIG_ENV_IS_IN_SPI_FLASH=y
+> +CONFIG_USE_ENV_SPI_BUS=y
+> +CONFIG_ENV_SPI_BUS=0
+> +CONFIG_USE_ENV_SPI_CS=y
+> +CONFIG_ENV_SPI_CS=0
+> +CONFIG_USE_ENV_SPI_MAX_HZ=y
+> +CONFIG_ENV_SPI_MAX_HZ=100000000
+> +CONFIG_NET_RANDOM_ETHADDR=y
+> +CONFIG_SPL_DM=y
+> +CONFIG_REGMAP=y
+> +CONFIG_SYSCON=y
+> +CONFIG_CLK=y
+> +CONFIG_SPL_CLK=y
+> +CONFIG_DM_GPIO=y
+> +CONFIG_ASPEED_GPIO=y
+> +CONFIG_DM_I2C=y
+> +CONFIG_SYS_I2C_ASPEED=y
+> +CONFIG_MISC=y
+> +CONFIG_ASPEED_AHBC=y
+> +CONFIG_ASPEED_H2X=y
+> +CONFIG_DM_MMC=y
+> +CONFIG_SPL_MMC_TINY=y
+> +CONFIG_MMC_SDHCI=y
+> +CONFIG_MMC_SDHCI_ASPEED=y
+> +CONFIG_DM_SPI_FLASH=y
+> +CONFIG_SPI_FLASH=y
+> +CONFIG_SPI_FLASH_GIGADEVICE=y
+> +CONFIG_SPI_FLASH_MACRONIX=y
+> +CONFIG_SPI_FLASH_SPANSION=y
+> +CONFIG_SPI_FLASH_STMICRO=y
+> +CONFIG_SPI_FLASH_WINBOND=y
+> +CONFIG_PHY_BROADCOM=y
+> +CONFIG_PHY_REALTEK=y
+> +CONFIG_PHY_NCSI=y
+> +CONFIG_DM_ETH=y
+> +CONFIG_PHY_GIGE=y
+> +CONFIG_FTGMAC100=y
+> +CONFIG_MDIO=y
+> +CONFIG_PCI=y
+> +CONFIG_DM_PCI=y
+> +CONFIG_PCIE_ASPEED=y
+> +CONFIG_PHY=y
+> +CONFIG_PINCTRL=y
+> +CONFIG_RAM=y
+> +CONFIG_SPL_RAM=y
+> +CONFIG_DM_SERIAL=y
+> +CONFIG_SYS_NS16550=y
+> +CONFIG_SPI=y
+> +CONFIG_DM_SPI=y
+> +CONFIG_SYSRESET=y
+> +CONFIG_TEE=y
+> +CONFIG_USB=y
+> +CONFIG_DM_USB=y
+> +CONFIG_USB_EHCI_HCD=y
+> +CONFIG_USB_STORAGE=y
+> +CONFIG_WDT=y
+> +CONFIG_HEXDUMP=y
+> +# CONFIG_GENERATE_SMBIOS_TABLE is not set
+> --
+> 1.8.3.1
+>
