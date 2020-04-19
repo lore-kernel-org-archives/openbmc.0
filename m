@@ -1,54 +1,78 @@
-Return-Path: <osk@google.com>
+Return-Path: <andrew@aj.id.au>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::12d;
- helo=mail-lf1-x12d.google.com; envelope-from=osk@google.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.27;
+ helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=GNQs9I/D; dkim-atps=neutral
-Received: from mail-lf1-x12d.google.com (mail-lf1-x12d.google.com
- [IPv6:2a00:1450:4864:20::12d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm2 header.b=y1jiUd1Q; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=Oy7wy9QU; 
+ dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 494XjG1X33zDqSD
- for <openbmc@lists.ozlabs.org>; Sun, 19 Apr 2020 11:45:51 +1000 (AEST)
-Received: by mail-lf1-x12d.google.com with SMTP id f8so5015035lfe.12
- for <openbmc@lists.ozlabs.org>; Sat, 18 Apr 2020 18:45:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=AOBbEuRYmwsL92OQffWZZkGRz2v0nVvk8e7EJ66RnLw=;
- b=GNQs9I/DNmKhwecnrtplyVAm5IwUOJJol2PWRktanK/NvCrFppKeYIO2Dwvfrbhrub
- r2hxrmsQGHpec2g6g4LUrgFnsQLpijXYtHXOlXvjNb8wYKc2HgeuLYb5V0uxMR+BBgj0
- cOa7wutOHkBVfkfNT3mCZunsoGEj4ZnPQBmyi0cnYf3oGc6AMnXuvjNyiFEHSgoxCqlW
- ThiMbwLoEO1UXis4TSD6iyHsK7+4CmA1/VIykdF+Ksk2HR0LxVjMsyZ1mwfTE7qSNyu1
- lfaExEqx642UEmE7zVYhy/Wd1LlBITOVdJQfcSG4inFCb7tjlfQNInrQcNl0PAQFZGre
- zT7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=AOBbEuRYmwsL92OQffWZZkGRz2v0nVvk8e7EJ66RnLw=;
- b=qXkgzmGBDXeEjOmpBkd/xRWC4eDF3bKADQKjP4vZYqp7w8jUeYH0t6RixD3Hsie2hc
- uNTnoeCExzxqLhMZ3ZhIWfTleNkDPR97gjHqGZgGYW4FAKCE5OxGz6LmFgr0uCfoMtAR
- NaJ0zDOEtgdl6sEIsgehX3W8woqArkBkF/kcZ46dJbf+jNa+qyjFr4tCbRp0tjlUeYHJ
- fk3xVJntcgtym0i5hXATyrip9IUu8oPC9ExVEQF/6697ZU0aAVeOCH+GTl6GO6QuawgC
- PEnwJ1G/rJ6UjSCzO7l54Oyujnxe+VF7W/SIA7w/EifCPhL+kRLCJ9LE8mRzFIAYsWEE
- XO7g==
-X-Gm-Message-State: AGi0PuamLJtCNoTIT6RZLOBLAl3YItKPzfbq3AzmIhzgcVV2DxhIa50N
- SzRuj5BPWiVqADw9YqL8Y2ZhrxhQldN08c+ExZBwr8k86pA=
-X-Google-Smtp-Source: APiQypK7bx4Dp5D6IvzQtpvvlvb8t73M0S8hC20BdND9kmpQhDt/M7HhiBaaZVEDynK8GYp8/pkBfO4laNnm70ygSd8=
-X-Received: by 2002:a05:6512:1046:: with SMTP id
- c6mr6302056lfb.115.1587260745413; 
- Sat, 18 Apr 2020 18:45:45 -0700 (PDT)
-MIME-Version: 1.0
-From: Oskar Senft <osk@google.com>
-Date: Sat, 18 Apr 2020 21:45:29 -0400
-Message-ID: <CABoTLcSOQYY+gk=7Q2w6Ny02L15yM19vTPmJxDfZVst6FV5r+Q@mail.gmail.com>
-Subject: Access Intel ME IPMB from BMC
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="000000000000e5ef8b05a39af0ce"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 494cMP0M9DzDqgl
+ for <openbmc@lists.ozlabs.org>; Sun, 19 Apr 2020 14:30:38 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9B8195C0071;
+ Sun, 19 Apr 2020 00:30:35 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Sun, 19 Apr 2020 00:30:35 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type:content-transfer-encoding; s=fm2; bh=i3pwb
+ hkEUnwoB2E9UMfD63locfeNwtPHGBaOiL9MpbA=; b=y1jiUd1Qw4GF7AmIGniCM
+ 8WWKv9FPhGRvfhjB55hwuiDt0TYDxQGVk3zjkvIRHY5ylVMPN/zcB0T6aKOMZBoS
+ kdw/jnfoPpQ/GoLQrJoAVhYbWbJyecmwQNTPYLTcInoSK8BRR1HQDPvAXBX7SFoD
+ t7kp0iIIKRjg/Wvi5Yu2q95+sl5y0F993zA5d8PZhUoH32WcVI+b6wVS2G4wSNur
+ 2SO6OhJdYD5bJuSoPaEsIkHyeu4T+eDO3e08lTAlMiBT6IOP8R1pmaHf7IN8Fo0v
+ 5FdHAXFvri9tRGylFh4FIfTFUry39l4Y1dq5khodAX3Qh6mdpYuWrkmeMP5KBq7g
+ Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm2; bh=i3pwbhkEUnwoB2E9UMfD63locfeNwtPHGBaOiL9Mp
+ bA=; b=Oy7wy9QU3Uqf0t2Zo32S6OqqQcyfsr+2DGT9wNTcVcF+oqxyLk373/DJb
+ vtp6mzWlXTMYNMryl4AlFiF0MwG/pl4LuQs2ni6IKnaxe+gA8fEqeKtA24KMjANF
+ fwaZfSaazvtjv6TJZ1+lVu8VaREluBpvU2WLfNykIUUq8vULGFKlzF3BrbSUpLRo
+ 6xcjCO7YlwPM7EMdGqe4xHSbSo5ZDiHwju12gRUHKCaZ7V5gWhSyBMBQ/DvgFeQx
+ z3qgy78M8SSo6pVzmwjtkvF6ZVb83NPgYLzRhrO99zM2BzZRfna2WA/A2YnaJERE
+ y8AqhCgtcyPRuSd2NpJxaDatPTS6A==
+X-ME-Sender: <xms:69ObXm5Tm8HZeo_OjtI4zvGQcSp0zCnKa7FtimNxEpi6yTatiPinng>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrgedtgdekvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgfgsehtqh
+ ertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
+ fiesrghjrdhiugdrrghuqeenucffohhmrghinhepghhithhhuhgsrdgtohhmnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifsegr
+ jhdrihgurdgruh
+X-ME-Proxy: <xmx:69ObXuyA70yoQgId5jdrKZlLKLMUcYRQUuY9eVIEi_xSid2L9pNAAw>
+ <xmx:69ObXl141FY0r7nKp-p2NtT5lNTadVwjeOooAQKiztAr6jA7hKgUeA>
+ <xmx:69ObXoLWm6M3sNLNKBt94P6G9mJNcNIGZOYBO9K_6RHdsPaKbNcpVQ>
+ <xmx:69ObXnEFIFzQQJkE7SK6a8pMZxpMfcZvjxwDF6TuR466HkA5_wiFpg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 2D68BE00B0; Sun, 19 Apr 2020 00:30:35 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.1.7-1131-g3221b37-fmstable-20200415v1
+Mime-Version: 1.0
+Message-Id: <1fbb893d-6a13-4d33-b11e-407f5283368e@www.fastmail.com>
+In-Reply-To: <HK2PR04MB3826A2AAD55E77655BDFB558FED60@HK2PR04MB3826.apcprd04.prod.outlook.com>
+References: <HK2PR04MB3826A2AAD55E77655BDFB558FED60@HK2PR04MB3826.apcprd04.prod.outlook.com>
+Date: Sun, 19 Apr 2020 14:00:42 +0930
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "zhouyuanqing8@outlook.com" <zhouyuanqing8@outlook.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: "uperic@163.com" <uperic@163.com>,
+ "shinerocky@yahoo.com" <shinerocky@yahoo.com>
+Subject: Re: About RGMII mode setting of MAC0
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,42 +84,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Sun, 19 Apr 2020 01:45:55 -0000
+X-List-Received-Date: Sun, 19 Apr 2020 04:30:45 -0000
 
---000000000000e5ef8b05a39af0ce
-Content-Type: text/plain; charset="UTF-8"
+Hi Harley
 
-Hi everyone
+On Sat, 18 Apr 2020, at 20:44, zhouyuanqing8@outlook.com wrote:
+> =20
+>  Hi,=20
+>=20
+>  My name is Harley, I am currently developing an openbmc project based=
+=20
+> on the AST2500 chip. There are a few questions that need to be=20
+> consulted. Please help me to answer them. Thank you very much!
+>=20
+>  1=E3=80=81About RGMII mode setting of MAC0
+>  The current openbmc project and uboot code support 2 modes: MAC0 uses=
+=20
+> NCSI, MAC2 uses RGMII, but my board uses MAC0 RGMII. How can I simply=20=
 
-I'm trying to find out how I can access the Intel ME via IPMB from the BMC
-(OpenBMC).
+> configure this to complete this work, or do I have to modify=20
+> aspeednic.c and add the new patch file under the directory=20
+> meta-phosphor/aspeed-layer/recipes-bsp/u-boot/files ?
 
-From what I gathered, Intel ME's IPMB is on the PCH's SMLink0. I know this
-is connected to one of the SMBus modules on my AST2500. But what I can't
-find out is how I actually send commands there? I'm sure I'm missing a
-document that makes this obvious.
+The way to select NCSI vs PHY is via the u-boot config files. Here are s=
+ome
+examples of different platforms selecting between different configs:
 
-Or is it as simple as dropping IPMI packets onto the bus?
+```
+$ git grep 'UBOOT_MACHINE =3D' | head
+meta-aspeed/conf/machine/evb-ast2500.conf:UBOOT_MACHINE =3D "ast_g5_phy_=
+config"
+meta-aspeed/conf/machine/evb-ast2600.conf:UBOOT_MACHINE =3D "ast2600_ope=
+nbmc_defconfig"
+meta-evb/meta-evb-aspeed/meta-evb-ast2500/conf/machine/evb-ast2500.conf:=
+UBOOT_MACHINE =3D "ast_g5_phy_config"
+meta-evb/meta-evb-enclustra/meta-evb-zx3-pm3/conf/machine/evb-zx3-pm3.co=
+nf:UBOOT_MACHINE =3D "zynq_zc702_config"
+meta-facebook/meta-tiogapass/conf/machine/tiogapass.conf:UBOOT_MACHINE =3D=
+ "ast_g5_ncsi_config"
+meta-facebook/meta-yosemitev2/conf/machine/yosemitev2.conf:UBOOT_MACHINE=
+ =3D "ast_g5_ncsi_config"
+```
 
-Is this by any chance already implemented in OpenBMC?
+Essentially, you want to configure your platform (i.e. in ${MACHINE}.con=
+f) with:
 
-Thanks for any hints!
+```
+UBOOT_MACHINE =3D "ast_g5_phy_config"
+```
 
-Oskar
+>=20
+>  2=E3=80=81There are lot of recipes under  directory meta-phosphor, Ho=
+w does=20
+> bitbake choose specific recipes? I read the manual of bitbake and the=20=
 
---000000000000e5ef8b05a39af0ce
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> project of openbmc, and I didn't find a way to choose. openbmc has man=
+y=20
+> recipes, we can't use them all=E3=80=82
 
-<div dir=3D"ltr">Hi everyone<div></div><div><br></div><div>I&#39;m trying t=
-o find out how I can access the Intel ME via IPMB from the BMC (OpenBMC).</=
-div><div><br></div><div>From what I gathered, Intel ME&#39;s IPMB is on the=
- PCH&#39;s SMLink0. I know this is connected to one of the SMBus modules on=
- my AST2500. But what I can&#39;t find out is how I actually send commands =
-there? I&#39;m sure I&#39;m missing a document that makes this obvious.</di=
-v><div><br></div><div>Or is it as simple as=C2=A0dropping IPMI packets onto=
- the bus?</div><div><br></div><div>Is this by any chance already implemente=
-d in OpenBMC?</div><div><br></div><div>Thanks for any hints!</div><div><br>=
-</div><div>Oskar</div></div>
+This is handled by variously by packagegroups, DISTRO_FEATURES,
+MACHINE_FEATURES and IMAGE_INSTALL. Additionally if we look at
+e.g. meta-ibm/meta-witherspoon/conf/machine/witherspoon.conf, we find:
 
---000000000000e5ef8b05a39af0ce--
+```
+require conf/machine/include/ast2500.inc
+require conf/machine/include/obmc-bsp-common.inc
+require conf/machine/include/openpower.inc
+require conf/machine/include/p9.inc
+```
+
+If we drill down through these files we find things like
+meta-aspeed/conf/machine/include/aspeed.inc:
+
+MACHINE_EXTRA_RRECOMMENDS +=3D "udev-aspeed-vuart udev-aspeed-mtd-partit=
+ions"
+
+So if recommended packages are to be installed, then these two packages
+will be installed on ASPEED-based images.
+
+The hierarchy of `require` directives helps build up the set of packages=
+ to be
+installed in the image via at least the variables I mentioned above.
+
+>=20
+>  3=E3=80=81There are many common recipes under openbmc / meta-phosphor=
+, is=20
+> there any documentation about the architecture and detailed=20
+> implementation principles of each recipe? For example, chassis power=20=
+
+> control.
+
+Less so documentation of the recipes themselves, but you'll find design
+discussions, cheatsheets and guides in the docs repository:
+
+https://github.com/openbmc/docs/
+
+Hope that helps.
+
+Andrew
