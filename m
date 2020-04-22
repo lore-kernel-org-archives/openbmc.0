@@ -1,49 +1,68 @@
-Return-Path: <slm_8269@163.com>
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=163.com
- (client-ip=220.181.13.64; helo=m13-64.163.com; envelope-from=slm_8269@163.com;
+Return-Path: <miltonm@us.ibm.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=us.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
- header.s=s110527 header.b=gJHGaP3X; dkim-atps=neutral
-Received: from m13-64.163.com (m13-64.163.com [220.181.13.64])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=us.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 496PS72wqBzDqtY
- for <openbmc@lists.ozlabs.org>; Wed, 22 Apr 2020 12:25:52 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=GS1tr
- 1JTyFigrPd3qvHH0frrrI6T+5mLhPMKIuIJCmU=; b=gJHGaP3XNGfcYcJlCjm8o
- YF/BiuDNLbu4sUnyJ1+jHMOnZ+X76czv0vIoUijnj8pWcMuF6TcVHV+KF3gg7DQa
- GvTgFvbOaO0dCseUBkOhwmklkzo3rlcUegd/qPyJMPhkzOA1GTZ3LHa19jJI3tUv
- 2T3OlE48G8BTGiji/6S8GA=
-Received: from slm_8269$163.com ( [116.246.26.28] ) by ajax-webmail-wmsvr64
- (Coremail) ; Wed, 22 Apr 2020 10:25:46 +0800 (CST)
-X-Originating-IP: [116.246.26.28]
-Date: Wed, 22 Apr 2020 10:25:46 +0800 (CST)
-From: shi  <slm_8269@163.com>
-To: "Milton Miller II" <miltonm@us.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 496Rcc5MLhzDqLB
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Apr 2020 14:03:28 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 03M42S4F115910
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Apr 2020 00:03:26 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.108])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 30gg28gkft-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Apr 2020 00:03:25 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Wed, 22 Apr 2020 04:03:24 -0000
+Received: from us1b3-smtp06.a3dr.sjc01.isc4sb.com (10.122.203.184)
+ by smtp.notes.na.collabserv.com (10.122.47.46) with
+ smtp.notes.na.collabserv.com ESMTP; Wed, 22 Apr 2020 04:03:21 -0000
+Received: from us1b3-mail228.a3dr.sjc03.isc4sb.com ([10.168.214.55])
+ by us1b3-smtp06.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2020042204032044-782 ; Wed, 22 Apr 2020 04:03:20 +0000 
+In-Reply-To: <1af7b20c.18da.1719fb49f56.Coremail.slm_8269@163.com>
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: shi  <slm_8269@163.com>
 Cc: openbmc@lists.ozlabs.org
-Subject: =?GBK?Q?I_wan_to_debug_the_=A3=A8export_TEMPLATECONF=3Dmet?=
- =?GBK?Q?a-ibm/meta-romulus/conf_=A3=A9_on_evb2500_board_?=
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
- Copyright (c) 2002-2020 www.mailtech.cn 163com
-In-Reply-To: <OF3868DF77.01074283-ON00258550.0010EFAE-00258550.0010EFB7@notes.na.collabserv.com>
-References: <2b2bed16.185b.1719064112f.Coremail.slm_8269@163.com>
- <OF3868DF77.01074283-ON00258550.0010EFAE-00258550.0010EFB7@notes.na.collabserv.com>
-X-CM-CTRLDATA: aiwrH2Zvb3Rlcl9odG09NTI4NDo1Ng==
-Content-Type: multipart/alternative; 
- boundary="----=_Part_22531_491740282.1587522346838"
+Date: Wed, 22 Apr 2020 04:03:20 +0000
 MIME-Version: 1.0
-Message-ID: <1af7b20c.18da.1719fb49f56.Coremail.slm_8269@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: QMGowAAXH6cqq59eKqkYAA--.42358W
-X-CM-SenderInfo: pvopsmqswzqiywtou0bp/1tbiGQ4OIVyPXy36kgABsw
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
-X-Mailman-Approved-At: Wed, 22 Apr 2020 13:59:59 +1000
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <1af7b20c.18da.1719fb49f56.Coremail.slm_8269@163.com>
+X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
+ SCN1812108_20180501T0841_FP64 March 05, 2020 at 12:58
+X-LLNOutbound: False
+X-Disclaimed: 15795
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 20042204-3017-0000-0000-000002A0C5A5
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.413459; ST=0; TS=0; UL=0; ISC=; MB=0.263001
+X-IBM-SpamModules-Versions: BY=3.00012950; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000293; SDB=6.01365953; UDB=6.00729502; IPR=6.01148315; 
+ MB=3.00031813; MTD=3.00000008; XFM=3.00000015; UTC=2020-04-22 04:03:23
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2020-04-22 00:21:32 - 6.00011270
+x-cbparentid: 20042204-3018-0000-0000-0000DDA5D5C6
+Message-Id: <OF30D260EE.ED6617FE-ON00258552.00113D50-00258552.00164769@notes.na.collabserv.com>
+Subject: =?UTF-8?Q?Re:__I_wan_to_debug_the_=EF=BC=88export_TEMPLATECONF=3Dmeta-ibm?=
+ =?UTF-8?Q?/meta-romulus/conf_=EF=BC=89_on_evb2500_board_?=
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
+ definitions=2020-04-21_10:2020-04-21,
+ 2020-04-21 signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,155 +74,115 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 22 Apr 2020 02:26:04 -0000
+X-List-Received-Date: Wed, 22 Apr 2020 04:03:29 -0000
 
-------=_Part_22531_491740282.1587522346838
-Content-Type: text/plain; charset=GBK
-Content-Transfer-Encoding: base64
+Around 9:26 PM in some timezone on April 21, 2020, shi  <slm=5F8269@163.com=
+> wrote:
+>thanks for you info.
+>
+>I try
+>the https://github.com/openbmc/openbmc/tree/master/meta-evb/meta-evb-
+>aspeed/meta-evb-ast2500 image. the fitimage can startup. but the
 
-TWlsdG9uLAoKCnRoYW5rcyBmb3IgeW91IGluZm8uCgoKSSB0cnkgdGhlIGh0dHBzOi8vZ2l0aHVi
-LmNvbS9vcGVuYm1jL29wZW5ibWMvdHJlZS9tYXN0ZXIvbWV0YS1ldmIvbWV0YS1ldmItYXNwZWVk
-L21ldGEtZXZiLWFzdDI1MDAgaW1hZ2UuIHRoZSBmaXRpbWFnZSBjYW4gc3RhcnR1cC4gYnV0IHRo
-ZSByZWFkZmlzaCBldGMsIG1hbnkgYXBwIG5vdCBoYXZlLiBzbyBJIHN0aWxsIHVzZSB0aGUgSUJN
-IFJvbXVsdXMgaW1hZ2UuIGl0IGFsd2F5cyBub3RoaW5nIG91dHB1dCBhZnRlciB0aGUgdWJvb3Qg
-b3V0cHV0IHRoZSBzdGFydGluZyBrZXJuZWwgaW5mby4sIGZvciB0aGUgbWV0YS1ldmItYXN0MjUw
-MCwgaXQgY2FuIHdhaXRpbmcgdGhlbiBwb3B1cCB0aGUgbG9nIGluIHByb21wdC4gSSB3YW50IHRv
-IGNoYW5nZSB0aGUgZHRiIGZpbGVzLCB0aGF0IGp1c3QgY3V0IGl0IGp1c3QgbGlrZSB0aGUgZXZi
-LTI1MDAncyBkdHMsIGJ1dCBzdGlsbCBjYW5ub3Qgc3RhcnR1cC4gc28gSSBjaGFuZ2VkIHRoZSBr
-ZXJuZWwgb2YgUm9tdWx1cyBpbWFnZSdzIGNvbmZpZyBmaWxlcyB0cnkgdG8gb3BlbiB0aGUgQ09O
-RklHX0RFQlVHX0xMPXksIHdoZW4gYml0YmFrZSBvYm1jLXBob3NwaG9yLWltYWdlLCB0aGVyZSBh
-bHdheXMgaGFzIGVycm9yIGluZm86IEVSUk9SOiBvYm1jLXBob3NwaG9yLWluaXRyYW1mcy0xLjAt
-cjAgZG9fcm9vdGZzOiBUaGUgcG9zdGluc3RhbGwgaW50ZXJjZXB0IGhvb2sgJ3VwZGF0ZV91ZGV2
-X2h3ZGInIGZhaWxlZCwgZGV0YWlscyBpbiAvaG9tZS9zaGlsYWltYW8vYm1jL3JvbXVsdXMtYm1j
-L29wZW5ibWMvYnVpbGQvdG1wL3dvcmsvcm9tdWx1cy1vcGVuYm1jLWxpbnV4LWdudWVhYmkvb2Jt
-Yy1waG9zcGhvci1pbml0cmFtZnMvMS4wLXIwL3RlbXAvbG9nLmRvX3Jvb3RmcwpFUlJPUjogTG9n
-ZmlsZSBvZiBmYWlsdXJlIHN0b3JlZCBpbjogL2hvbWUvc2hpbGFpbWFvL2JtYy9yb211bHVzLWJt
-Yy9vcGVuYm1jL2J1aWxkL3RtcC93b3JrL3JvbXVsdXMtb3BlbmJtYy1saW51eC1nbnVlYWJpL29i
-bWMtcGhvc3Bob3ItaW5pdHJhbWZzLzEuMC1yMC90ZW1wL2xvZy5kb19yb290ZnMuMjY1MDcKRVJS
-T1I6IFRhc2sgKC9ob21lL3NoaWxhaW1hby9ibWMvcm9tdWx1cy1ibWMvb3BlbmJtYy9tZXRhLXBo
-b3NwaG9yL3JlY2lwZXMtcGhvc3Bob3IvaW1hZ2VzL29ibWMtcGhvc3Bob3ItaW5pdHJhbWZzLmJi
-OmRvX3Jvb3RmcykgZmFpbGVkIHdpdGggZXhpdCBjb2RlICcxJyBob3cgdG8gcmVtb3ZlIHRoaXMg
-dXBkYXRlX3VkZXZfaHdkYiBlcnJvcj8gSSBhbHNvIGluc3RhbGwgdGhlIHNkayBmcm9tIHRoZSBk
-ZXZlbG9wbWVudCBkb2MsIGl0IGNhbiBtYWtlIG9ubHkgekltYWdlIGZpbGVzLiB0aGUgZGVmYXVs
-dCBtYWtlLiBhbmQgSSBhbHNvIG5lZWQgdGhlIHJvb3Rmcy4gc28gSSBjYW4gZGVidWcgYnkgdGhl
-IGJvb3RtIGtlcm5lbCByb290ZnMgZHRiLiBidXQgaG93IHRvIHNlcGFyYXRlZCBjaGFuZ2VkIGFu
-ZCBjb21waWxlIHRoZSByb290ZnM/IGZyb20gdGhlIFJvbXVsdXMgZHRzIGZpbGVzLCBpdCBpcyBu
-byBiaWcgZGlmZmVyZW5jZSwgc28gSSB0aGluayBpdCBzaG91bGQgc3RhcnR1cCBiYXNlZCBvbiBz
-b21lIGNoYW5nZXMuIGlmIHUgaGF2ZSB0aW1lIHBsZWFzZSBoZWxwIG1lIGFuc3dlciB0aGlzIHF1
-ZXN0aW9ucy4gdGhhbmtzIFN0ZXZlbgoKCgoKCgoKCgoKCgoKCgoKCgoKQXQgMjAyMC0wNC0yMCAx
-MTowNDo1OSwgIk1pbHRvbiBNaWxsZXIgSUkiIDxtaWx0b25tQHVzLmlibS5jb20+IHdyb3RlOgo+
-T24gQXByaWwgMTksIDIwMjAgYXJvdW5kIDA3OjE1UE0gaW4gc29tZSB0aW1lem9uZSwgc2hpIHdy
-b3RlOgo+Cj4+U3ViamVjdDogW0VYVEVSTkFMXSBob3cgcnVuIKOoZXhwb3J0Cj4+VEVNUExBVEVD
-T05GPW1ldGEtaWJtL21ldGEtcm9tdWx1cy9jb25mIKOpIG9uIGV2YjI1MDAgYm9hcmQgCj4+Cj4+
-Cj4KPj5JIGFtIG5vdyBmb2N1cyBvbiB0aGUgQk1Do64KPj5CdWlsZCBiYXNlZCBvbiB0aGUgb3Bl
-bmJtYyBodHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jLCB0aGVuCj4+d2FudCB0byBy
-dW4gb24gZXZiMjUwMCBib2FyZCBvZiBhc3BlZWQsIHdoZW4gZG93bmxvYWQgdGhlIGZpdGltYWdl
-IGJ5Cj4+dGZ0cHNlcnZlciB0aGVuIGJvb3RtLCBhbHdheXMgc3R1Y2sgb24gdGhlIHN0YXJ0aW5n
-IGtlcm5lbC4gVGhlCj4+aGFyZHdhcmUgYWxzbyAyNTAwIHR5cGUuIFdoeSBub3Qgc3RhcnR1cC4g
-SG93IEkgY2hhbmdlZCB0aGUgY29kZSBjYW4KPj5ib290IHVwPyAgIElzIHRoZXJlIGFueSBjbHVl
-IG9uIHRoaXM/IAo+Pgo+Cj5Db25zZGVyIHRyeWluZyB0aGUgZXZhbHVhdGlvbiBib2FyZCBjb25m
-aWcsIGFzIHJhbmllciB3aWxsIGhhdmUgbmNzaSAKPmNvbmZpZ3VyZWQgZm9yIHRoZSBuZXR3b3Jr
-IGFuZCBjb3VsZCBlYXNpbHkgaGF2ZSBkaWZmZXJlbnQgY29uZmlncyAKPnN1Y2ggYXMgR1BJTyBh
-c3NpZ25tZW50cy4KPgo+VGhlIGFzdDI1MDAgZXZiIGNvbmZpZyBpcyBpbiB0aGUgdHJlZSBiZWxv
-dzoKPgo+aHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy90cmVlL21hc3Rlci9tZXRh
-LWV2Yi9tZXRhLWV2Yi1hc3BlZWQvbWV0YS1ldmItYXN0MjUwMAo+Cj4+Cj4+VGhhbmtzCj4+U3Rl
-dmVuCj4KPm1pbHRvbgo=
-------=_Part_22531_491740282.1587522346838
-Content-Type: text/html; charset=GBK
-Content-Transfer-Encoding: base64
 
-PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
-Zm9udC1mYW1pbHk6QXJpYWwiPjxkaXY+TWlsdG9uLDwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
-dGhhbmtzIGZvciB5b3UgaW5mby48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkkgdHJ5IHRoZSZu
-YnNwOzxzcGFuIHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUgIWltcG9ydGFudDsgZmxvYXQ6IG5vbmU7
-IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1KTsgY29sb3I6IHJnYigwLCAwLCAw
-KTsgZm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0cHg7IGZvbnQtc3R5bGU6IG5vcm1h
-bDsgZm9udC12YXJpYW50OiBub3JtYWw7IGZvbnQtd2VpZ2h0OiA0MDA7IGxldHRlci1zcGFjaW5n
-OiBub3JtYWw7IG9ycGhhbnM6IDI7IG92ZXJmbG93LXdyYXA6IGJyZWFrLXdvcmQ7IHRleHQtYWxp
-Z246IGxlZnQ7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgdGV4dC1pbmRlbnQ6IDBweDsgdGV4dC10
-cmFuc2Zvcm06IG5vbmU7IC13ZWJraXQtdGV4dC1zdHJva2Utd2lkdGg6IDBweDsgd2hpdGUtc3Bh
-Y2U6IHByZS13cmFwOyB3b3JkLXNwYWNpbmc6IDBweDsiPjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHVi
-LmNvbS9vcGVuYm1jL29wZW5ibWMvdHJlZS9tYXN0ZXIvbWV0YS1ldmIvbWV0YS1ldmItYXNwZWVk
-L21ldGEtZXZiLWFzdDI1MDAiIF9zcmM9Imh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5i
-bWMvdHJlZS9tYXN0ZXIvbWV0YS1ldmIvbWV0YS1ldmItYXNwZWVkL21ldGEtZXZiLWFzdDI1MDAi
-Pmh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMvdHJlZS9tYXN0ZXIvbWV0YS1ldmIv
-bWV0YS1ldmItYXNwZWVkL21ldGEtZXZiLWFzdDI1MDA8L2E+IGltYWdlLiB0aGUgZml0aW1hZ2Ug
-Y2FuIHN0YXJ0dXAuCmJ1dCB0aGUgcmVhZGZpc2ggZXRjLCBtYW55IGFwcCBub3QgaGF2ZS4KCnNv
-IEkgc3RpbGwgdXNlIHRoZSBJQk0gUm9tdWx1cyBpbWFnZS4KaXQgYWx3YXlzIG5vdGhpbmcgb3V0
-cHV0IGFmdGVyIHRoZSB1Ym9vdCBvdXRwdXQgdGhlIHN0YXJ0aW5nIGtlcm5lbCBpbmZvLiwgZm9y
-IHRoZSAgPGEgc3R5bGU9ImNvbG9yOiByZ2IoMCwgMTAyLCAyMDQpOyBmb250LWZhbWlseTogYXJp
-YWw7IGZvbnQtc2l6ZTogMTRweDsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQ6IG5v
-cm1hbDsgZm9udC13ZWlnaHQ6IDQwMDsgbGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgb3JwaGFuczog
-MjsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1kZWNvcmF0aW9uOiB1bmRlcmxpbmU7IHRleHQtaW5k
-ZW50OiAwcHg7IHRleHQtdHJhbnNmb3JtOiBub25lOyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRo
-OiAwcHg7IHdoaXRlLXNwYWNlOiBwcmUtd3JhcDsgd29yZC1zcGFjaW5nOiAwcHg7IiBocmVmPSJo
-dHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtZXZiL21l
-dGEtZXZiLWFzcGVlZC9tZXRhLWV2Yi1hc3QyNTAwIiBfc3JjPSJodHRwczovL2dpdGh1Yi5jb20v
-b3BlbmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtZXZiL21ldGEtZXZiLWFzcGVlZC9tZXRh
-LWV2Yi1hc3QyNTAwIj5tZXRhLWV2Yi1hc3QyNTAwPC9hPiwgaXQgY2FuIHdhaXRpbmcgdGhlbiBw
-b3B1cCB0aGUgbG9nIGluIHByb21wdC4KSSB3YW50IHRvIGNoYW5nZSB0aGUgZHRiIGZpbGVzLCB0
-aGF0IGp1c3QgY3V0IGl0IGp1c3QgbGlrZSB0aGUgZXZiLTI1MDAncyBkdHMsIGJ1dCBzdGlsbCBj
-YW5ub3Qgc3RhcnR1cC4KCnNvIEkgY2hhbmdlZCB0aGUga2VybmVsIG9mIFJvbXVsdXMgaW1hZ2Un
-cyBjb25maWcgZmlsZXMgdHJ5IHRvIG9wZW4gdGhlICBDT05GSUdfREVCVUdfTEw9eSwgd2hlbiAg
-Yml0YmFrZSBvYm1jLXBob3NwaG9yLWltYWdlLCB0aGVyZSBhbHdheXMgaGFzIGVycm9yIGluZm86
-CgpFUlJPUjogb2JtYy1waG9zcGhvci1pbml0cmFtZnMtMS4wLXIwIGRvX3Jvb3RmczogVGhlIHBv
-c3RpbnN0YWxsIGludGVyY2VwdCBob29rICd1cGRhdGVfdWRldl9od2RiJyBmYWlsZWQsIGRldGFp
-bHMgaW4gL2hvbWUvc2hpbGFpbWFvL2JtYy9yb211bHVzLWJtYy9vcGVuYm1jL2J1aWxkL3RtcC93
-b3JrL3JvbXVsdXMtb3BlbmJtYy1saW51eC1nbnVlYWJpL29ibWMtcGhvc3Bob3ItaW5pdHJhbWZz
-LzEuMC1yMC90ZW1wL2xvZy5kb19yb290ZnM8YnI+RVJST1I6IExvZ2ZpbGUgb2YgZmFpbHVyZSBz
-dG9yZWQgaW46IC9ob21lL3NoaWxhaW1hby9ibWMvcm9tdWx1cy1ibWMvb3BlbmJtYy9idWlsZC90
-bXAvd29yay9yb211bHVzLW9wZW5ibWMtbGludXgtZ251ZWFiaS9vYm1jLXBob3NwaG9yLWluaXRy
-YW1mcy8xLjAtcjAvdGVtcC9sb2cuZG9fcm9vdGZzLjI2NTA3PGJyPkVSUk9SOiBUYXNrICgvaG9t
-ZS9zaGlsYWltYW8vYm1jL3JvbXVsdXMtYm1jL29wZW5ibWMvbWV0YS1waG9zcGhvci9yZWNpcGVz
-LXBob3NwaG9yL2ltYWdlcy9vYm1jLXBob3NwaG9yLWluaXRyYW1mcy5iYjpkb19yb290ZnMpIGZh
-aWxlZCB3aXRoIGV4aXQgY29kZSAnMScKCjxzcGFuIHN0eWxlPSJkaXNwbGF5OiBpbmxpbmUgIWlt
-cG9ydGFudDsgZmxvYXQ6IG5vbmU7IGJhY2tncm91bmQtY29sb3I6IHJnYigyNTUsIDI1NSwgMjU1
-KTsgY29sb3I6IHJnYigwLCAwLCAwKTsgZm9udC1mYW1pbHk6IGFyaWFsOyBmb250LXNpemU6IDE0
-cHg7IGZvbnQtc3R5bGU6IG5vcm1hbDsgZm9udC12YXJpYW50OiBub3JtYWw7IGZvbnQtd2VpZ2h0
-OiA0MDA7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IG9ycGhhbnM6IDI7IG92ZXJmbG93LXdyYXA6
-IGJyZWFrLXdvcmQ7IHRleHQtYWxpZ246IGxlZnQ7IHRleHQtZGVjb3JhdGlvbjogbm9uZTsgdGV4
-dC1pbmRlbnQ6IDBweDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IC13ZWJraXQtdGV4dC1zdHJva2Ut
-d2lkdGg6IDBweDsgd2hpdGUtc3BhY2U6IHByZS13cmFwOyB3b3JkLXNwYWNpbmc6IDBweDsiPiBo
-b3cgdG8gcmVtb3ZlIHRoaXMgPHNwYW4gc3R5bGU9ImRpc3BsYXk6IGlubGluZSAhaW1wb3J0YW50
-OyBmbG9hdDogbm9uZTsgYmFja2dyb3VuZC1jb2xvcjogcmdiKDI1NSwgMjU1LCAyNTUpOyBjb2xv
-cjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogYXJpYWw7IGZvbnQtc2l6ZTogMTRweDsgZm9u
-dC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQ6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IDQwMDsg
-bGV0dGVyLXNwYWNpbmc6IG5vcm1hbDsgb3JwaGFuczogMjsgb3ZlcmZsb3ctd3JhcDogYnJlYWst
-d29yZDsgdGV4dC1hbGlnbjogbGVmdDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyB0ZXh0LWluZGVu
-dDogMHB4OyB0ZXh0LXRyYW5zZm9ybTogbm9uZTsgLXdlYmtpdC10ZXh0LXN0cm9rZS13aWR0aDog
-MHB4OyB3aGl0ZS1zcGFjZTogcHJlLXdyYXA7IHdvcmQtc3BhY2luZzogMHB4OyI+dXBkYXRlX3Vk
-ZXZfaHdkYiBlcnJvcj8KCkkgYWxzbyBpbnN0YWxsIHRoZSBzZGsgZnJvbSB0aGUgZGV2ZWxvcG1l
-bnQgZG9jLCBpdCBjYW4gbWFrZSBvbmx5IHpJbWFnZSBmaWxlcy4gdGhlIGRlZmF1bHQgbWFrZS4g
-YW5kIEkgYWxzbyBuZWVkIHRoZSByb290ZnMuIHNvIEkgY2FuIGRlYnVnIGJ5IHRoZSBib290bSBr
-ZXJuZWwgcm9vdGZzIGR0Yi4KCmJ1dCBob3cgdG8gc2VwYXJhdGVkIGNoYW5nZWQgYW5kICBjb21w
-aWxlIHRoZSByb290ZnM/Cgpmcm9tIHRoZSBSb211bHVzIGR0cyBmaWxlcywgaXQgaXMgbm8gYmln
-IGRpZmZlcmVuY2UsIHNvIEkgdGhpbmsgaXQgc2hvdWxkIHN0YXJ0dXAgYmFzZWQgb24gc29tZSBj
-aGFuZ2VzLgoKaWYgdSBoYXZlIHRpbWUgcGxlYXNlIGhlbHAgbWUgYW5zd2VyIHRoaXMgcXVlc3Rp
-b25zLgoKdGhhbmtzClN0ZXZlbgo8L3NwYW4+PC9zcGFuPgoKCiA8L3NwYW4+PC9kaXY+PGRpdiBz
-dHlsZT0ibWFyZ2luOiAwOyI+PGI+PC9iPjxpPjwvaT48dT48L3U+PHN1Yj48L3N1Yj48c3VwPjwv
-c3VwPjxzdHJpa2U+PC9zdHJpa2U+PGJyPjwvZGl2PjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+
-PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48
-YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46IDA7Ij48YnI+PC9wPjxkaXYgc3R5bGU9InBvc2l0aW9u
-OnJlbGF0aXZlO3pvb206MSI+PC9kaXY+PGRpdiBpZD0iZGl2TmV0ZWFzZU1haWxDYXJkIj48L2Rp
-dj48cCBzdHlsZT0ibWFyZ2luOiAwOyI+PGJyPjwvcD48cHJlPjxicj5BdCAyMDIwLTA0LTIwIDEx
-OjA0OjU5LCAiTWlsdG9uIE1pbGxlciBJSSIgJmx0O21pbHRvbm1AdXMuaWJtLmNvbSZndDsgd3Jv
-dGU6CiZndDtPbiBBcHJpbCAxOSwgMjAyMCBhcm91bmQgMDc6MTVQTSBpbiBzb21lIHRpbWV6b25l
-LCBzaGkgd3JvdGU6CiZndDsKJmd0OyZndDtTdWJqZWN0OiBbRVhURVJOQUxdIGhvdyBydW4go6hl
-eHBvcnQKJmd0OyZndDtURU1QTEFURUNPTkY9bWV0YS1pYm0vbWV0YS1yb211bHVzL2NvbmYgo6kg
-b24gZXZiMjUwMCBib2FyZCAKJmd0OyZndDsKJmd0OyZndDsKJmd0OwomZ3Q7Jmd0O0kgYW0gbm93
-IGZvY3VzIG9uIHRoZSBCTUOjrgomZ3Q7Jmd0O0J1aWxkIGJhc2VkIG9uIHRoZSBvcGVuYm1jIGh0
-dHBzOi8vZ2l0aHViLmNvbS9vcGVuYm1jL29wZW5ibWMsIHRoZW4KJmd0OyZndDt3YW50IHRvIHJ1
-biBvbiBldmIyNTAwIGJvYXJkIG9mIGFzcGVlZCwgd2hlbiBkb3dubG9hZCB0aGUgZml0aW1hZ2Ug
-YnkKJmd0OyZndDt0ZnRwc2VydmVyIHRoZW4gYm9vdG0sIGFsd2F5cyBzdHVjayBvbiB0aGUgc3Rh
-cnRpbmcga2VybmVsLiBUaGUKJmd0OyZndDtoYXJkd2FyZSBhbHNvIDI1MDAgdHlwZS4gV2h5IG5v
-dCBzdGFydHVwLiBIb3cgSSBjaGFuZ2VkIHRoZSBjb2RlIGNhbgomZ3Q7Jmd0O2Jvb3QgdXA/ICAg
-SXMgdGhlcmUgYW55IGNsdWUgb24gdGhpcz8gCiZndDsmZ3Q7CiZndDsKJmd0O0NvbnNkZXIgdHJ5
-aW5nIHRoZSBldmFsdWF0aW9uIGJvYXJkIGNvbmZpZywgYXMgcmFuaWVyIHdpbGwgaGF2ZSBuY3Np
-IAomZ3Q7Y29uZmlndXJlZCBmb3IgdGhlIG5ldHdvcmsgYW5kIGNvdWxkIGVhc2lseSBoYXZlIGRp
-ZmZlcmVudCBjb25maWdzIAomZ3Q7c3VjaCBhcyBHUElPIGFzc2lnbm1lbnRzLgomZ3Q7CiZndDtU
-aGUgYXN0MjUwMCBldmIgY29uZmlnIGlzIGluIHRoZSB0cmVlIGJlbG93OgomZ3Q7CiZndDtodHRw
-czovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1jL3RyZWUvbWFzdGVyL21ldGEtZXZiL21ldGEt
-ZXZiLWFzcGVlZC9tZXRhLWV2Yi1hc3QyNTAwCiZndDsKJmd0OyZndDsKJmd0OyZndDtUaGFua3MK
-Jmd0OyZndDtTdGV2ZW4KJmd0OwomZ3Q7bWlsdG9uCjwvcHJlPjwvZGl2Pjxicj48YnI+PHNwYW4g
-dGl0bGU9Im5ldGVhc2Vmb290ZXIiPjxwPiZuYnNwOzwvcD48L3NwYW4+
-------=_Part_22531_491740282.1587522346838--
+Please consider adding more whitespace and vertical formatting to=20
+your replies.
+
+I'm glad you can build the initial evb image and that it works.
+
+>readfish etc, many app not have.  so I still use the IBM Romulus
+
+It occurs to me that this is likely to being a pure evb image and=20
+not a obmc-phosphor image.  Try adding this layer to start getting=20
+the features.
+
+>image. it always nothing output after the uboot output the starting
+>kernel info., for the  meta-evb-ast2500, it can waiting then popup
+>the log in prompt. I want to change the dtb files, that just cut it
+
+Please look at the documentation in the openbmc doc repository for=20
+some additional suggestions on how to start modifing the image.
+
+https://github.com/openbmc/doc
+
+I don't remember which tty the evb uses for the console vs romulus.
+
+>just like the evb-2500's dts, but still cannot startup.  so I changed
+>the kernel of Romulus image's config files try to open the
+>CONFIG=5FDEBUG=5FLL=3Dy, when  bitbake obmc-phosphor-image, there always
+
+I've heard of this option but not familar with people using it for=20
+aspeed debug.
+
+>has error info:  ERROR: obmc-phosphor-initramfs-1.0-r0 do=5Frootfs: The
+>postinstall intercept hook 'update=5Fudev=5Fhwdb' failed, details in
+>/home/shilaimao/bmc/romulus-bmc/openbmc/build/tmp/work/romulus-openbm
+>c-linux-gnueabi/obmc-phosphor-initramfs/1.0-r0/temp/log.do=5Frootfs
+>ERROR: Logfile of failure stored in:
+>/home/shilaimao/bmc/romulus-bmc/openbmc/build/tmp/work/romulus-openbm
+>c-linux-gnueabi/obmc-phosphor-initramfs/1.0-r0/temp/log.do=5Frootfs.265
+>07
+
+The udev-hwdb image is a database of fixups for usb devices.  I thought=20
+it was suppressed for Romulus but don't remember.  Also the problem may=20
+be related to turning on the read-only filesystem feature but again I=20
+don't remember.
+
+Again consider making incremental changes.
+
+https://github.com/openbmc/doc/blob/master/yocto-development.md
+
+https://github.com/openbmc/docs/tree/master/development
+
+
+>ERROR: Task
+>(/home/shilaimao/bmc/romulus-bmc/openbmc/meta-phosphor/recipes-phosph
+>or/images/obmc-phosphor-initramfs.bb:do=5Frootfs) failed with exit code
+>'1'   how to remove this update=5Fudev=5Fhwdb error?  I also install the
+>sdk from the development doc, it can make only zImage files. the
+>default make. and I also need the rootfs. so I can debug by the bootm
+>kernel rootfs dtb.  but how to separated changed and  compile the
+>rootfs?  from the Romulus dts files, it is no big difference, so I
+>think it should startup based on some changes.  if u have time please
+>help me answer this questions.  thanks Steven    =20
+
+
+I tend to do specific low level coding and not the full stack, so I will=20
+ask you to read and hope others can help with your future questions.
+
+>
+>
+>At 2020-04-20 11:04:59, "Milton Miller II" <miltonm@us.ibm.com>
+>wrote:
+>>On April 19, 2020 around 07:15PM in some timezone, shi wrote:
+>>
+>>>Subject: [EXTERNAL] how run =EF=BC=88export
+>>>TEMPLATECONF=3Dmeta-ibm/meta-romulus/conf =EF=BC=89 on evb2500 board=20
+>>>
+>>>
+>>
+>>>I am now focus on the BMC=EF=BC=8E
+>>>Build based on the openbmc https://github.com/openbmc/openbmc, then
+>>>want to run on evb2500 board of aspeed, when download the fitimage
+>by
+>>>tftpserver then bootm, always stuck on the starting kernel. The
+>>>hardware also 2500 type. Why not startup. How I changed the code
+>can
+>>>boot up?   Is there any clue on this?=20
+>>>
+>>
+>>Consder trying the evaluation board config, as ranier will have ncsi
+>
+>>configured for the network and could easily have different configs=20
+>>such as GPIO assignments.
+>>
+>>The ast2500 evb config is in the tree below:
+>>
+>>https://github.com/openbmc/openbmc/tree/master/meta-evb/meta-evb-asp
+>eed/meta-evb-ast2500
+>>
+>>>
+>>>Thanks
+>>>Steven
+
+milton
