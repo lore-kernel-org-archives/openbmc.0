@@ -1,61 +1,64 @@
 Return-Path: <joel.stan@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636;
- helo=mail-pl1-x636.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1032;
+ helo=mail-pj1-x1032.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=rFGHp4Mz; dkim-atps=neutral
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
+ header.s=20161025 header.b=HglTsm3Z; dkim-atps=neutral
+Received: from mail-pj1-x1032.google.com (mail-pj1-x1032.google.com
+ [IPv6:2607:f8b0:4864:20::1032])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 499Xs22QgjzDqQD
- for <openbmc@lists.ozlabs.org>; Mon, 27 Apr 2020 15:09:55 +1000 (AEST)
-Received: by mail-pl1-x636.google.com with SMTP id t7so616447plr.0
- for <openbmc@lists.ozlabs.org>; Sun, 26 Apr 2020 22:09:55 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 499Xs3644jzDqQD
+ for <openbmc@lists.ozlabs.org>; Mon, 27 Apr 2020 15:09:59 +1000 (AEST)
+Received: by mail-pj1-x1032.google.com with SMTP id ms17so6958035pjb.0
+ for <openbmc@lists.ozlabs.org>; Sun, 26 Apr 2020 22:09:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=cawcaRW6zUV0Qezqw6R49bCicmEyD7I4NFdRaKwMYHU=;
- b=rFGHp4MzaGtjvA9eWKVDAnOPrPiizMqW93Zh+svciH17+JnAvTL/lIGzx6sj84nJ/z
- 2J+xK8jHcamxmFBK1EV90caPdJrI6ZZ6toHRvpv3BrJK4paqtBVVD9QdQiLEXy9EKSoh
- ur6zNZMV6cGkqtQlXs/v8hmZeuBMq0AegxVXNGy2U67NvurI+rOm3i3Qj3GfmV+BkQLN
- 42SBYrpmDs+xt92DgLlK3MnZDGCp6TXGW69TW+PQWs5abcPz+dip20VmUXAUTYepOclg
- 3A0JlwoToCZKPFi710BRcC93g2YcaiVmBTbAgMPD8fr05l6qfwun7GetFG64Ggia7Zlq
- GfGA==
+ h=sender:from:to:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=1MVj1WaKmkBFxy1FYY8FjRR4aHs3RKna3K0kU4tKmq8=;
+ b=HglTsm3Zi/iJTJZiU/5/JcS8VHaNTFjQ/0ppJKvA6y+Rt8yepbyGjwu7SPcszZMhmu
+ D5WIqpb8WpOCI7mwj4NO9d4HM6RBn/PZRUQY6MesM2Qy1ATUhnlDP6VrqPg00PA9OqRf
+ EMHxBtsXJ8+5meWUGLd+LNL2qt+mNS4ghig1MDoRLesC9vznoEcz5/xcgo0YASr8FQ5c
+ 8EsvU38CeJqsUzaiTepaiKTBO6tRzQkSFU9ziqjypMYkJbabpte6erFR5CJeumu5tlD4
+ m4+T+1QyykY26kqqMVDD4C/Lju/QJztMjt4aJzE6G31+mOOEvj5qbanIdEHIXdXdagbw
+ 06nQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=cawcaRW6zUV0Qezqw6R49bCicmEyD7I4NFdRaKwMYHU=;
- b=pDP8st7qhAcuX2l14nuJD8onw4w4ENhP2fwYT2569RE1qdALgNWl7PxQAyrTWC6LqB
- ZYZzIOC4aWtT9LM3QIBv0Ayf41/inznSwoQEoWbsWbYpa7KHTzbjNsjsK7P/KeAUnSUB
- vyMYWdJHVoz5IRg+Oq9mIyqLhGNeZ8p2CNs1D1hC2eQdW/b8tL+WYKaO96iK9t/hjnll
- nUpwRPvXkUDeZ0L//64V8MbL4eREUeb0Hzq9ltAjDN8gQj1gU0TT9Lp+JUMu5T69hTey
- lCYk3VQNUHFQiL/45ibZiA7I0xoIwBND5sKfijtlfEYaTtQIxd8Nj1u9cc0tG6i+EfFP
- sMDQ==
-X-Gm-Message-State: AGi0PuY3+n7hzzkYmPHblQHcfBj547XQthFcqppCTlSBCY4DxMY3uSgr
- KS4om1XxhByo17SybcLFnL4UNPJcae0=
-X-Google-Smtp-Source: APiQypIN97JdYlBxUojYg2fURb30BuZIHb+MsKyGtSmaVq1t4XQRZf8jsDSZotgeMIZFJ85UX95LpQ==
-X-Received: by 2002:a17:90a:eac5:: with SMTP id
- ev5mr21404923pjb.173.1587964192119; 
- Sun, 26 Apr 2020 22:09:52 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=1MVj1WaKmkBFxy1FYY8FjRR4aHs3RKna3K0kU4tKmq8=;
+ b=jRAu4/wtp4OcZsg8hdKUrRs9RoBdlsZS3j7/1Je7Bb7IlarIUtN1e6Zpi1khMthf1d
+ XU3m8mFaPgMyzrHWIXSG12rKgCoJF9v9+wLApSjD+ol5QqSM4k3utSHcS2mugN7HFvoG
+ TcCdEb10TNhhk5dzK/sq3VhMM0AzK87OfC2tZBFDym81uNYKU0EKK2NO1mznzpox4199
+ m2jDoJnf2Vl0FHyfwoOhwHlO3AQASGeGjBZxnvDt0ZqUML04XgoLuylSwP7sHxwEFOPr
+ ZiwsLJA5MKMEfTgEfSxOreEiHUFjiZ/UdWRt2FqwbMYgBWEIAoOTpI4+0lo4frl/3qsi
+ sq8A==
+X-Gm-Message-State: AGi0PuYif4ADxq+sUt/I7e3Ugc+W3jh1tccwmlANoK+UYHL3S22wzY79
+ OF1C9gOQ12YouIrHdkDOLtU=
+X-Google-Smtp-Source: APiQypKA6eY9RTy/gYD3SIXH0D7Yq8Mntj9SglTPM545k3Q+N8/IaOhym/ztp3E3F+kt+6LkRwM2+Q==
+X-Received: by 2002:a17:90a:ce02:: with SMTP id
+ f2mr22087994pju.144.1587964197220; 
+ Sun, 26 Apr 2020 22:09:57 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.15])
- by smtp.gmail.com with ESMTPSA id c2sm11395639pfp.118.2020.04.26.22.09.49
+ by smtp.gmail.com with ESMTPSA id c2sm11395639pfp.118.2020.04.26.22.09.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 26 Apr 2020 22:09:51 -0700 (PDT)
+ Sun, 26 Apr 2020 22:09:56 -0700 (PDT)
 Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
 From: Joel Stanley <joel@jms.id.au>
 To: Andrew Jeffery <andrew@aj.id.au>,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 0/2] aspeed: DTS specified m-pll
-Date: Mon, 27 Apr 2020 14:39:42 +0930
-Message-Id: <20200427050944.2177237-1-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 2/2] ast2600: tacoma: Run DDR
+ at 1333
+Date: Mon, 27 Apr 2020 14:39:44 +0930
+Message-Id: <20200427050944.2177237-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.26.1
+In-Reply-To: <20200427050944.2177237-1-joel@jms.id.au>
+References: <20200427050944.2177237-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -69,16 +72,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Apr 2020 05:09:59 -0000
+X-List-Received-Date: Mon, 27 Apr 2020 05:10:00 -0000
 
-Joel Stanley (2):
-  ast2600: ram: Enable device tree based DDR config
-  ast2600: tacoma: Run DDR at 1333
+Restrict M-PLL to 333MHz so DDR runs at 1333MHz. Failures were seen when
+running M-PLL at 400MHz.
 
- arch/arm/dts/ast2600-tacoma.dts    |  2 +-
- drivers/ram/aspeed/Kconfig         |  7 +++++
- drivers/ram/aspeed/sdram_ast2600.c | 47 ++++++++++++++++++++++++------
- 3 files changed, 46 insertions(+), 10 deletions(-)
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/dts/ast2600-tacoma.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/arch/arm/dts/ast2600-tacoma.dts b/arch/arm/dts/ast2600-tacoma.dts
+index 302847b1a8e5..b56d0029c655 100644
+--- a/arch/arm/dts/ast2600-tacoma.dts
++++ b/arch/arm/dts/ast2600-tacoma.dts
+@@ -39,7 +39,7 @@
+ };
+ 
+ &sdrammc {
+-	clock-frequency = <400000000>;
++	clock-frequency = <333000000>;
+ };
+ 
+ &wdt2 {
 -- 
 2.26.1
