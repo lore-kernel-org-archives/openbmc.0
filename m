@@ -1,68 +1,68 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <ztai@google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::c2e;
+ helo=mail-oo1-xc2e.google.com; envelope-from=ztai@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20161025 header.b=MWWAkGlP; dkim-atps=neutral
+Received: from mail-oo1-xc2e.google.com (mail-oo1-xc2e.google.com
+ [IPv6:2607:f8b0:4864:20::c2e])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49CqJW240lzDrJl
- for <openbmc@lists.ozlabs.org>; Fri,  1 May 2020 08:08:11 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 03UM2HLt127784; Thu, 30 Apr 2020 18:08:08 -0400
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 30me47x2q4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2020 18:08:05 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 03UM0hMQ019008;
- Thu, 30 Apr 2020 22:06:27 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma03dal.us.ibm.com with ESMTP id 30mcu851gf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Apr 2020 22:06:27 +0000
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 03UM6Phe8651300
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 30 Apr 2020 22:06:25 GMT
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2FCF413605E;
- Thu, 30 Apr 2020 22:06:26 +0000 (GMT)
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id DAC6D136053;
- Thu, 30 Apr 2020 22:06:25 +0000 (GMT)
-Received: from ghost4.ibm.com (unknown [9.163.86.64])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 30 Apr 2020 22:06:25 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH linux dev-5.4 v2 2/3] fsi: occ: Add support for P10
-Date: Thu, 30 Apr 2020 17:06:18 -0500
-Message-Id: <20200430220619.31943-3-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20200430220619.31943-1-eajames@linux.ibm.com>
-References: <20200430220619.31943-1-eajames@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49CsL96TwgzDr0d
+ for <openbmc@lists.ozlabs.org>; Fri,  1 May 2020 09:39:45 +1000 (AEST)
+Received: by mail-oo1-xc2e.google.com with SMTP id t12so370337oot.2
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Apr 2020 16:39:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=iX8mxavo3gsacrX9Va3SJmUVjOCEtbOUu16JIeCp6UU=;
+ b=MWWAkGlP34H11W8HkmAFwog2MJUUCZj5VQu9nWJ4lgHWxVgS+gB+A8l6AJpLdmkq/7
+ UucYU6D/6VRxbviN9FducW+UEc5H5AkhE3E1V/yCKBAlWw5CY6IfIl5v2JIZ2fpuMcZS
+ vDMGB88Z35A0gc0C8je9P3if/4wOUkWqu0XLrztPbb9y90H7U7V/X/ovXCDpkWSaDMI+
+ 6BGWTbCveGn9Mpm0f3l6OfPWebvB0/mnhwTf0K2COfrD+uFHNnJ3VBnjsL0qpeieW8w2
+ WXc6JNYPqmApoKnjQtZQ/Db6HUJ0R3HDvD6nd1rqZTKzz0iF8+UhaZlvbsUdKpGr1ahc
+ KOJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=iX8mxavo3gsacrX9Va3SJmUVjOCEtbOUu16JIeCp6UU=;
+ b=oj6lcUmzwv5ptueCy2fj6c7QwlPRiyn51np4+mnnZFz7b5boNOpFpY9RxRP54ai7pn
+ 6M1RZZgiB6XCDbHc97sx2zV19x5Es7DiDyCfroWQBwF7JcTUgRlGKua0QI0C+6NF5ezY
+ T31Bhrz0q82VNbsDw/DsL0PW7IYmPC0n0GB9BucisEJ8bz27wGLetmyh4hV69q34Gklb
+ SMUNENLSizx1EF+arDvOX2ZxF/Fg/IJ+5jVwAwG7pioUVL+kjJ4SSOagqYVJYzHOJdkh
+ zbIEnNgfm6aHXQ5YekzC7mqosH0gFSv4qmgJ2ytO3KSR6cNncWeSmPmUcO4/ygcJISB9
+ YaQw==
+X-Gm-Message-State: AGi0PuZ1sXRwN+gwLTZH7TmvlnqMISgQVhNgeCB4jR115oI9Rzeflz2/
+ z7Dk8vgZbg48gJ8BrWd7RQGw9a3T7KITm3OUXUHOtGj5FpU=
+X-Google-Smtp-Source: APiQypIUyGg93MgpPyTC1K5lFI/fayIQHy/NffwAgxC+8Q8excW/BtD34L4AlODQ+OopgQ99R8kVS4RgTw0gevWnGXQ=
+X-Received: by 2002:a4a:d0d6:: with SMTP id u22mr1469293oor.63.1588289981247; 
+ Thu, 30 Apr 2020 16:39:41 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.138, 18.0.676
- definitions=2020-04-30_13:2020-04-30,
- 2020-04-30 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0
- lowpriorityscore=0 priorityscore=1501 mlxscore=0 impostorscore=0
- spamscore=0 malwarescore=0 mlxlogscore=999 clxscore=1015 phishscore=0
- suspectscore=3 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2003020000 definitions=main-2004300159
+References: <mailman.1237.1587601186.5884.openbmc@lists.ozlabs.org>
+ <1DF7E55B-29E9-43A2-9981-F67521B2B3E2@quantatw.com>
+ <c34fc105-657d-1e33-e3fc-90cb5afba75a@linux.ibm.com>
+ <CAMXw96NDQ7CrY_pTZH+NugOD_6Z0HiKw1dO4vKkpaiRauFgVyQ@mail.gmail.com>
+ <CAH1kD+YFYom+qJLBV4rvX6=j2vZSty0GNYw=MGQNG0P60b8h7Q@mail.gmail.com>
+ <1251a083-2d63-aa7e-32f4-cf876dde8e4e@linux.intel.com>
+ <894c0142737c45d891953801468135d1@quantatw.com>
+ <CAMXw96MT8Co4dDMnWVJj1pXUksV7Bgn14+nykLA=tvyvXShniw@mail.gmail.com>
+ <CAMXw96O3Ve0SNaMFdFU52eZ=oLkpveTzG5wmhg_y3B_uHTHXHA@mail.gmail.com>
+In-Reply-To: <CAMXw96O3Ve0SNaMFdFU52eZ=oLkpveTzG5wmhg_y3B_uHTHXHA@mail.gmail.com>
+From: Zhenfei Tai <ztai@google.com>
+Date: Thu, 30 Apr 2020 16:39:30 -0700
+Message-ID: <CAMXw96OYq0EqxigwPtqimPp5nJrJhJ9rVQqqpEv8Dt5tvyNKoQ@mail.gmail.com>
+Subject: Re: mTLS on bmcweb
+To: =?UTF-8?B?UC4gSy4gTGVlICjmnY7mn4/lr6wp?= <P.K.Lee@quantatw.com>
+Cc: =?UTF-8?Q?Wiktor_Go=C5=82gowski?= <wiktor.golgowski@linux.intel.com>, 
+ Richard Hanley <rhanley@google.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "jrey@linux.ibm.com" <jrey@linux.ibm.com>
+Content-Type: multipart/alternative; boundary="00000000000022445105a48a946d"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,272 +74,464 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Apr 2020 22:08:11 -0000
+X-List-Received-Date: Thu, 30 Apr 2020 23:39:46 -0000
 
-The P10 OCC has a different SRAM address for the command and response
-buffers. In addition, the SBE commands to access the SRAM have changed
-format. Add versioning to the driver to handle these differences.
+--00000000000022445105a48a946d
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- drivers/fsi/fsi-occ.c | 126 ++++++++++++++++++++++++++++++------------
- 1 file changed, 92 insertions(+), 34 deletions(-)
+I did more testing and found the reason why it accepts any client
+certification.
+The error is due to the self signed certificate cannot be found in the list
+of trusted certificates.
+Without the user defined verify callback function, it works as expected.
 
-diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
-index 7da9c81759ac..942eff4032b0 100644
---- a/drivers/fsi/fsi-occ.c
-+++ b/drivers/fsi/fsi-occ.c
-@@ -14,6 +14,7 @@
- #include <linux/mutex.h>
- #include <linux/fsi-occ.h>
- #include <linux/of.h>
-+#include <linux/of_device.h>
- #include <linux/platform_device.h>
- #include <linux/sched.h>
- #include <linux/slab.h>
-@@ -24,8 +25,13 @@
- #define OCC_CMD_DATA_BYTES	4090
- #define OCC_RESP_DATA_BYTES	4089
- 
--#define OCC_SRAM_CMD_ADDR	0xFFFBE000
--#define OCC_SRAM_RSP_ADDR	0xFFFBF000
-+#define OCC_P9_SRAM_CMD_ADDR	0xFFFBE000
-+#define OCC_P9_SRAM_RSP_ADDR	0xFFFBF000
-+
-+#define OCC_P10_SRAM_CMD_ADDR	0xFFFFD000
-+#define OCC_P10_SRAM_RSP_ADDR	0xFFFFE000
-+
-+#define OCC_P10_SRAM_MODE	0x58	/* Normal mode, OCB channel 2 */
- 
- /*
-  * Assume we don't have much FFDC, if we do we'll overflow and
-@@ -37,11 +43,14 @@
- #define OCC_TIMEOUT_MS		1000
- #define OCC_CMD_IN_PRG_WAIT_MS	50
- 
-+enum versions { occ_p9, occ_p10 };
-+
- struct occ {
- 	struct device *dev;
- 	struct device *sbefifo;
- 	char name[32];
- 	int idx;
-+	enum versions version;
- 	struct miscdevice mdev;
- 	struct mutex occ_lock;
- };
-@@ -235,29 +244,43 @@ static int occ_verify_checksum(struct occ_response *resp, u16 data_length)
- 	return 0;
- }
- 
--static int occ_getsram(struct occ *occ, u32 address, void *data, ssize_t len)
-+static int occ_getsram(struct occ *occ, u32 offset, void *data, ssize_t len)
- {
- 	u32 data_len = ((len + 7) / 8) * 8;	/* must be multiples of 8 B */
--	size_t resp_len, resp_data_len;
--	__be32 *resp, cmd[5];
--	int rc;
-+	size_t cmd_len, resp_len, resp_data_len;
-+	__be32 *resp, cmd[6];
-+	int idx = 0, rc;
- 
- 	/*
- 	 * Magic sequence to do SBE getsram command. SBE will fetch data from
- 	 * specified SRAM address.
- 	 */
--	cmd[0] = cpu_to_be32(0x5);
-+	switch (occ->version) {
-+	default:
-+	case occ_p9:
-+		cmd_len = 5;
-+		cmd[2] = cpu_to_be32(1);	/* Normal mode */
-+		cmd[3] = cpu_to_be32(OCC_P9_SRAM_RSP_ADDR + offset);
-+		break;
-+	case occ_p10:
-+		idx = 1;
-+		cmd_len = 6;
-+		cmd[2] = cpu_to_be32(OCC_P10_SRAM_MODE);
-+		cmd[3] = 0;
-+		cmd[4] = cpu_to_be32(OCC_P10_SRAM_RSP_ADDR + offset);
-+		break;
-+	}
-+
-+	cmd[0] = cpu_to_be32(cmd_len);
- 	cmd[1] = cpu_to_be32(SBEFIFO_CMD_GET_OCC_SRAM);
--	cmd[2] = cpu_to_be32(1);
--	cmd[3] = cpu_to_be32(address);
--	cmd[4] = cpu_to_be32(data_len);
-+	cmd[4 + idx] = cpu_to_be32(data_len);
- 
- 	resp_len = (data_len >> 2) + OCC_SBE_STATUS_WORDS;
- 	resp = kzalloc(resp_len << 2, GFP_KERNEL);
- 	if (!resp)
- 		return -ENOMEM;
- 
--	rc = sbefifo_submit(occ->sbefifo, cmd, 5, resp, &resp_len);
-+	rc = sbefifo_submit(occ->sbefifo, cmd, cmd_len, resp, &resp_len);
- 	if (rc)
- 		goto free;
- 
-@@ -287,20 +310,21 @@ static int occ_getsram(struct occ *occ, u32 address, void *data, ssize_t len)
- 	return rc;
- }
- 
--static int occ_putsram(struct occ *occ, u32 address, const void *data,
--		       ssize_t len)
-+static int occ_putsram(struct occ *occ, const void *data, ssize_t len)
- {
- 	size_t cmd_len, buf_len, resp_len, resp_data_len;
- 	u32 data_len = ((len + 7) / 8) * 8;	/* must be multiples of 8 B */
- 	__be32 *buf;
--	int rc;
-+	int idx = 0, rc;
-+
-+	cmd_len = (occ->version == occ_p10) ? 6 : 5;
- 
- 	/*
- 	 * We use the same buffer for command and response, make
- 	 * sure it's big enough
- 	 */
- 	resp_len = OCC_SBE_STATUS_WORDS;
--	cmd_len = (data_len >> 2) + 5;
-+	cmd_len += data_len >> 2;
- 	buf_len = max(cmd_len, resp_len);
- 	buf = kzalloc(buf_len << 2, GFP_KERNEL);
- 	if (!buf)
-@@ -312,11 +336,23 @@ static int occ_putsram(struct occ *occ, u32 address, const void *data,
- 	 */
- 	buf[0] = cpu_to_be32(cmd_len);
- 	buf[1] = cpu_to_be32(SBEFIFO_CMD_PUT_OCC_SRAM);
--	buf[2] = cpu_to_be32(1);
--	buf[3] = cpu_to_be32(address);
--	buf[4] = cpu_to_be32(data_len);
- 
--	memcpy(&buf[5], data, len);
-+	switch (occ->version) {
-+	default:
-+	case occ_p9:
-+		buf[2] = cpu_to_be32(1);	/* Normal mode */
-+		buf[3] = cpu_to_be32(OCC_P9_SRAM_CMD_ADDR);
-+		break;
-+	case occ_p10:
-+		idx = 1;
-+		buf[2] = cpu_to_be32(OCC_P10_SRAM_MODE);
-+		buf[3] = 0;
-+		buf[4] = cpu_to_be32(OCC_P10_SRAM_CMD_ADDR);
-+		break;
-+	}
-+
-+	buf[4 + idx] = cpu_to_be32(data_len);
-+	memcpy(&buf[5 + idx], data, len);
- 
- 	rc = sbefifo_submit(occ->sbefifo, buf, cmd_len, buf, &resp_len);
- 	if (rc)
-@@ -356,21 +392,35 @@ static int occ_putsram(struct occ *occ, u32 address, const void *data,
- static int occ_trigger_attn(struct occ *occ)
- {
- 	__be32 buf[OCC_SBE_STATUS_WORDS];
--	size_t resp_len, resp_data_len;
--	int rc;
-+	size_t cmd_len, resp_len, resp_data_len;
-+	int idx = 0, rc;
- 
--	BUILD_BUG_ON(OCC_SBE_STATUS_WORDS < 7);
-+	BUILD_BUG_ON(OCC_SBE_STATUS_WORDS < 8);
- 	resp_len = OCC_SBE_STATUS_WORDS;
- 
--	buf[0] = cpu_to_be32(0x5 + 0x2);        /* Chip-op length in words */
-+	switch (occ->version) {
-+	default:
-+	case occ_p9:
-+		cmd_len = 7;
-+		buf[2] = cpu_to_be32(3); /* Circular mode */
-+		buf[3] = 0;
-+		break;
-+	case occ_p10:
-+		idx = 1;
-+		cmd_len = 8;
-+		buf[2] = cpu_to_be32(0xd0); /* Circular mode, OCB Channel 1 */
-+		buf[3] = 0;
-+		buf[4] = 0;
-+		break;
-+	}
-+
-+	buf[0] = cpu_to_be32(cmd_len);		/* Chip-op length in words */
- 	buf[1] = cpu_to_be32(SBEFIFO_CMD_PUT_OCC_SRAM);
--	buf[2] = cpu_to_be32(0x3);              /* Mode: Circular */
--	buf[3] = cpu_to_be32(0x0);              /* Address: ignore in mode 3 */
--	buf[4] = cpu_to_be32(0x8);              /* Data length in bytes */
--	buf[5] = cpu_to_be32(0x20010000);       /* Trigger OCC attention */
--	buf[6] = 0;
-+	buf[4 + idx] = cpu_to_be32(8);		/* Data length in bytes */
-+	buf[5 + idx] = cpu_to_be32(0x20010000);	/* Trigger OCC attention */
-+	buf[6 + idx] = 0;
- 
--	rc = sbefifo_submit(occ->sbefifo, buf, 7, buf, &resp_len);
-+	rc = sbefifo_submit(occ->sbefifo, buf, cmd_len, buf, &resp_len);
- 	if (rc)
- 		goto error;
- 
-@@ -429,7 +479,7 @@ int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
- 
- 	/* Extract the seq_no from the command (first byte) */
- 	seq_no = *(const u8 *)request;
--	rc = occ_putsram(occ, OCC_SRAM_CMD_ADDR, request, req_len);
-+	rc = occ_putsram(occ, request, req_len);
- 	if (rc)
- 		goto done;
- 
-@@ -440,7 +490,7 @@ int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
- 	/* Read occ response header */
- 	start = jiffies;
- 	do {
--		rc = occ_getsram(occ, OCC_SRAM_RSP_ADDR, resp, 8);
-+		rc = occ_getsram(occ, 0, resp, 8);
- 		if (rc)
- 			goto done;
- 
-@@ -476,8 +526,7 @@ int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
- 	/* Grab the rest */
- 	if (resp_data_length > 1) {
- 		/* already got 3 bytes resp, also need 2 bytes checksum */
--		rc = occ_getsram(occ, OCC_SRAM_RSP_ADDR + 8,
--				 &resp->data[3], resp_data_length - 1);
-+		rc = occ_getsram(occ, 8, &resp->data[3], resp_data_length - 1);
- 		if (rc)
- 			goto done;
- 	}
-@@ -508,6 +557,7 @@ static int occ_probe(struct platform_device *pdev)
- 	struct occ *occ;
- 	struct platform_device *hwmon_dev;
- 	struct device *dev = &pdev->dev;
-+	const void *md =  of_device_get_match_data(dev);
- 	struct platform_device_info hwmon_dev_info = {
- 		.parent = dev,
- 		.name = "occ-hwmon",
-@@ -517,6 +567,7 @@ static int occ_probe(struct platform_device *pdev)
- 	if (!occ)
- 		return -ENOMEM;
- 
-+	occ->version = (enum versions)md;
- 	occ->dev = dev;
- 	occ->sbefifo = dev->parent;
- 	mutex_init(&occ->occ_lock);
-@@ -575,7 +626,14 @@ static int occ_remove(struct platform_device *pdev)
- }
- 
- static const struct of_device_id occ_match[] = {
--	{ .compatible = "ibm,p9-occ" },
-+	{
-+		.compatible = "ibm,p9-occ",
-+		.data = (void *)occ_p9
-+	},
-+	{
-+		.compatible = "ibm,p10-occ",
-+		.data = (void *)occ_p10
-+	},
- 	{ },
- };
- 
--- 
-2.24.0
+#define  X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT
+<https://docs.huihoo.com/doxygen/openssl/1.0.1c/crypto_2x509_2x509__vfy_8h.=
+html#aa4f5a3309eae833f85dff37c36fa039d>
+   18
+
+// Check if certificate is OK
+int error =3D X509_STORE_CTX_get_error(cts);
+if (error !=3D X509_V_OK)
+{
+return true;
+}
+
+On Thu, Apr 30, 2020 at 12:09 PM Zhenfei Tai <ztai@google.com> wrote:
+
+> Also, with that change in http_connection.h, it still accepts any client
+> certificate provided in curl.
+>
+> Here's what I did:
+> 1. Disable BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+> 2. Uncommented ssl_key_handler.hpp:315 and added the
+> boost::asio::ssl::verify_fail_if_no_peer_cert
+>
+> Behavior after change:
+> 1. Rejects curl without client certificate.
+> 2. Returns when client certificate matches the one authority directory.
+> 3. Rejects when client sends other certificates.
+>
+> The change is just for testing purposes, I guess the original intention
+> was not to mTLS every request.
+>
+> On Thu, Apr 30, 2020 at 11:34 AM Zhenfei Tai <ztai@google.com> wrote:
+>
+>> Hi P.K.
+>>
+>> I tried the same thing.
+>>
+>> Could you share which url you tested?
+>> With that change, if I access the https://${bmc}/redfish/v1 url in
+>> chrome, it prompts to choose a client certificate, but will also work if=
+ no
+>> certificate is chosen.
+>>
+>> Thanks,
+>> Zhenfei
+>>
+>> On Thu, Apr 30, 2020 at 6:27 AM P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) =
+<P.K.Lee@quantatw.com>
+>> wrote:
+>>
+>>> I found a way to fix this issue, but it needs to be modified to the
+>>> source code. In two steps:
+>>>
+>>> Step 1.
+>>> The source code
+>>> "adaptor.set_verify_mode(boost::asio::ssl::verify_peer);" in
+>>> http_connection.h is replaced with
+>>> "adaptor.set_verify_mode(boost::asio::ssl::verify_peer |
+>>> boost::asio::ssl::verify_fail_if_no_peer_cert);"
+>>>
+>>> Step 2.
+>>> AccountService->Oem->OpenBMC->AuthMethods->TLS is set. (false by defaul=
+t)
+>>>
+>>> It will enable enforce mTLS authentication.
+>>>
+>>> Best,
+>>> P.K.
+>>>
+>>> > -----Original Message-----
+>>> > From: Wiktor Go=C5=82gowski <wiktor.golgowski@linux.intel.com>
+>>> > Sent: Saturday, April 25, 2020 1:03 AM
+>>> > To: Richard Hanley <rhanley@google.com>; Zhenfei Tai <ztai@google.com=
+>
+>>> > Cc: openbmc@lists.ozlabs.org; P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC)=
+ <P.K.Lee@quantatw.com>;
+>>> > jrey@linux.ibm.com; P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) <P.K.Lee@=
+quantatw.com>; Joseph
+>>> > Reynolds <jrey@linux.ibm.com>
+>>> > Subject: Re: mTLS on bmcweb
+>>> >
+>>> >
+>>> >
+>>> > On 4/23/20 7:35 PM, Richard Hanley wrote:
+>>> > > My guess is that somehow the root cert used to validate clients
+>>> isn't installed
+>>> > correctly, and so it's defaulting to basic auth.
+>>> > >
+>>> > > At least that's my reading of this review
+>>> > > https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/27270
+>>> > >
+>>> >
+>>> > I think this would be the case. If the client certificate is not
+>>> provided, TLS
+>>> > connection is still established, just without authenticating the
+>>> client. This
+>>> > allows upper layer to provide other authentication methods (e.g. Basi=
+c
+>>> Auth).
+>>> > >
+>>> > > On Thu, Apr 23, 2020 at 9:47 AM Zhenfei Tai <ztai@google.com
+>>> > <mailto:ztai@google.com>> wrote:
+>>> > >
+>>> > >     I guess part of my question is how to configure the mTLS certs
+>>> to make
+>>> > it work properly.
+>>> > >
+>>> > >     So far only https works (server side TLS).
+>>> > >
+>>> > >     Thanks,
+>>> > >     Zhenfei
+>>> > >
+>>> > >     On Thu, Apr 23, 2020 at 8:50 AM Joseph Reynolds <
+>>> jrey@linux.ibm.com
+>>> > <mailto:jrey@linux.ibm.com>> wrote:
+>>> > >
+>>> > >         On 4/23/20 5:47 AM, P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC)=
+ wrote:
+>>> > >         > Hi,
+>>> > >         >
+>>> > >         > I encountered the same issue when using Redfish to replac=
+e
+>>> the
+>>> > certificate.
+>>> > >         > Regardless of whether the parameters include --cert --key
+>>> > --cacert or only --cacert, the authentication can still succeed.
+>>> > >         >
+>>> > >         > Best,
+>>> > >         > P.K.
+>>> > >         >
+>>> > >         >> Date: Wed, 22 Apr 2020 14:58:06 -0700
+>>> > >         >> From: Zhenfei Tai <ztai@google.com
+>>> > <mailto:ztai@google.com>>
+>>> > >         >> To: openbmc@lists.ozlabs.org
+>>> > <mailto:openbmc@lists.ozlabs.org>
+>>> > >         >> Subject: mTLS on bmcweb
+>>> > >         >> Message-ID:
+>>> > >
+>>> > >>      <CAMXw96Pp511sUO=3Dq1XLz2uJzh4S6D7tUwmkvpbnq_yU-iJfiKg@
+>>> > mail.g
+>>> > >         >> mail.com <http://mail.com>>
+>>> > >         >> Content-Type: text/plain; charset=3D"utf-8"
+>>> > >         >>
+>>> > >         >> Hi,
+>>> > >         >>
+>>> > >         >> I'm trying out bmcweb mTLS which should be enabled by
+>>> > default by
+>>> > >         >>
+>>> > https://github.com/openbmc/bmcweb/blob/master/CMakeLists.txt#L89
+>>> > >         >>
+>>> > >         >> In my test, I created a self signed key and certificate
+>>> pair,
+>>> > stacked them
+>>> > >         >> up into server.pem in /etc/ssl/certs/https that bmcweb
+>>> uses.
+>>> > >         >>
+>>> > >         >> However when I tried to curl bmcweb service, I was able
+>>> to get
+>>> > response by
+>>> > >         >> only supplying the cert.
+>>> > >         >>
+>>> > >         >> curl --cacert cert.pem  https://${bmc}/redfish/v1
+>>> > >         >>
+>>> > >         >> With the mTLS enabled, I expected it should error out
+>>> since no
+>>> > client
+>>> > >         >> certificate is provided.
+>>> > >         >>
+>>> >
+>>> > As mentioned, if you did not provide a client certificate, connection
+>>> was
+>>> > established to allow for Basic Auth. And as the Service Root requires
+>>> no
+>>> > authentication, you got a response.
+>>> >
+>>> > - Wiktor
+>>> >
+>>> > >         >> Could someone with relevant knowledge help with my
+>>> > question?
+>>> > >
+>>> > >         I'm not sure what you are asking.  Are you asking how to
+>>> install
+>>> > mTLS
+>>> > >         certs into the BMC and then use them to connect?  I am stil=
+l
+>>> > waiting for
+>>> > >         documentation that describes how to configure and use the
+>>> mTLS
+>>> > feature.
+>>> > >
+>>> > >         I've added an entry to the security working group as a
+>>> reminder to
+>>> > do
+>>> > >         this.  (I don't have the skill to document this feature.)
+>>> > >
+>>> > >         - Joseph
+>>> > >
+>>> > >         >>
+>>> > >         >> Thanks,
+>>> > >         >> Zhenfei
+>>> > >
+>>>
+>>
+
+--00000000000022445105a48a946d
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">I did more testing and found the reason why it accepts any=
+ client certification.<div>The error is due to the self signed certificate=
+=C2=A0cannot be found in the list of trusted certificates.</div><div>Withou=
+t the user defined verify callback function, it works as expected.</div><di=
+v><br><table class=3D"gmail-memberdecls" style=3D"font-variant-numeric:norm=
+al;font-variant-east-asian:normal;font-stretch:normal;font-size:14px;line-h=
+eight:19px;font-family:Roboto,sans-serif;border-spacing:0px;padding:0px;col=
+or:rgb(0,0,0)"><tbody><tr class=3D"gmail-memitem:aa4f5a3309eae833f85dff37c3=
+6fa039d"><td class=3D"gmail-memItemLeft" align=3D"right" valign=3D"top" sty=
+le=3D"background-color:rgb(249,250,252);border:none;margin:4px;padding:1px =
+0px 0px 8px;white-space:nowrap">#define=C2=A0</td><td class=3D"gmail-memIte=
+mRight" valign=3D"bottom" style=3D"background-color:rgb(249,250,252);border=
+:none;margin:4px;padding:1px 0px 0px 8px;width:1338px"><a class=3D"el" href=
+=3D"https://docs.huihoo.com/doxygen/openssl/1.0.1c/crypto_2x509_2x509__vfy_=
+8h.html#aa4f5a3309eae833f85dff37c36fa039d" style=3D"color:rgb(70,101,162);f=
+ont-weight:bold">X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT</a>=C2=A0=C2=A0=C2=
+=A018</td></tr></tbody></table><div><br></div><div><div style=3D"color:rgb(=
+212,212,212);background-color:rgb(30,30,30);font-family:Menlo,Monaco,&quot;=
+Courier New&quot;,monospace;font-size:12px;line-height:18px;white-space:pre=
+"><div><span style=3D"color:rgb(106,153,85)">            // Check if certif=
+icate is OK</span></div><div>            <span style=3D"color:rgb(86,156,21=
+4)">int</span> error =3D <span style=3D"color:rgb(220,220,170)">X509_STORE_=
+CTX_get_error</span>(cts);</div><div>            <span style=3D"color:rgb(1=
+97,134,192)">if</span> (error !=3D X509_V_OK)</div><div>            {</div>=
+<div>                <span style=3D"color:rgb(197,134,192)">return</span> <=
+span style=3D"color:rgb(86,156,214)">true</span>;</div><div>            }</=
+div></div></div></div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr"=
+ class=3D"gmail_attr">On Thu, Apr 30, 2020 at 12:09 PM Zhenfei Tai &lt;<a h=
+ref=3D"mailto:ztai@google.com">ztai@google.com</a>&gt; wrote:<br></div><blo=
+ckquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left=
+:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"ltr">Also, with t=
+hat change in http_connection.h, it still accepts any client certificate pr=
+ovided in curl.<div><br></div><div>Here&#39;s what I did:</div><div>1. Disa=
+ble=C2=A0BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION</div><div>2. Uncommented s=
+sl_key_handler.hpp:315 and added the boost::asio::ssl::verify_fail_if_no_pe=
+er_cert</div><div><br></div><div>Behavior after change:</div><div>1. Reject=
+s curl without client certificate.</div><div>2. Returns when client certifi=
+cate matches the one authority directory.</div><div>3. Rejects when client =
+sends other=C2=A0certificates.=C2=A0</div><div><br></div><div>The change is=
+ just for testing=C2=A0purposes, I guess the original intention was not to =
+mTLS every request.</div></div><br><div class=3D"gmail_quote"><div dir=3D"l=
+tr" class=3D"gmail_attr">On Thu, Apr 30, 2020 at 11:34 AM Zhenfei Tai &lt;<=
+a href=3D"mailto:ztai@google.com" target=3D"_blank">ztai@google.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=
+=3D"ltr">Hi P.K.<div><br></div><div>I tried the same thing.=C2=A0</div><div=
+><br></div><div>Could you share which url you tested?</div><div>With that c=
+hange, if I access the https://${bmc}/redfish/v1 url in chrome, it prompts =
+to choose a client certificate, but will also work if no certificate is cho=
+sen.</div><div><br>Thanks,</div><div>Zhenfei</div></div><br><div class=3D"g=
+mail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Thu, Apr 30, 2020 at 6=
+:27 AM P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) &lt;<a href=3D"mailto:P.K.Le=
+e@quantatw.com" target=3D"_blank">P.K.Lee@quantatw.com</a>&gt; wrote:<br></=
+div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;bor=
+der-left:1px solid rgb(204,204,204);padding-left:1ex">I found a way to fix =
+this issue, but it needs to be modified to the source code. In two steps:<b=
+r>
+<br>
+Step 1.<br>
+The source code &quot;adaptor.set_verify_mode(boost::asio::ssl::verify_peer=
+);&quot; in http_connection.h is replaced with <br>
+&quot;adaptor.set_verify_mode(boost::asio::ssl::verify_peer | boost::asio::=
+ssl::verify_fail_if_no_peer_cert);&quot;<br>
+<br>
+Step 2.<br>
+AccountService-&gt;Oem-&gt;OpenBMC-&gt;AuthMethods-&gt;TLS is set. (false b=
+y default)<br>
+<br>
+It will enable enforce mTLS authentication.<br>
+<br>
+Best,<br>
+P.K.<br>
+<br>
+&gt; -----Original Message-----<br>
+&gt; From: Wiktor Go=C5=82gowski &lt;<a href=3D"mailto:wiktor.golgowski@lin=
+ux.intel.com" target=3D"_blank">wiktor.golgowski@linux.intel.com</a>&gt;<br=
+>
+&gt; Sent: Saturday, April 25, 2020 1:03 AM<br>
+&gt; To: Richard Hanley &lt;<a href=3D"mailto:rhanley@google.com" target=3D=
+"_blank">rhanley@google.com</a>&gt;; Zhenfei Tai &lt;<a href=3D"mailto:ztai=
+@google.com" target=3D"_blank">ztai@google.com</a>&gt;<br>
+&gt; Cc: <a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blank">open=
+bmc@lists.ozlabs.org</a>; P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) &lt;<a hr=
+ef=3D"mailto:P.K.Lee@quantatw.com" target=3D"_blank">P.K.Lee@quantatw.com</=
+a>&gt;;<br>
+&gt; <a href=3D"mailto:jrey@linux.ibm.com" target=3D"_blank">jrey@linux.ibm=
+.com</a>; P. K. Lee (=E6=9D=8E=E6=9F=8F=E5=AF=AC) &lt;<a href=3D"mailto:P.K=
+.Lee@quantatw.com" target=3D"_blank">P.K.Lee@quantatw.com</a>&gt;; Joseph<b=
+r>
+&gt; Reynolds &lt;<a href=3D"mailto:jrey@linux.ibm.com" target=3D"_blank">j=
+rey@linux.ibm.com</a>&gt;<br>
+&gt; Subject: Re: mTLS on bmcweb<br>
+&gt; <br>
+&gt; <br>
+&gt; <br>
+&gt; On 4/23/20 7:35 PM, Richard Hanley wrote:<br>
+&gt; &gt; My guess is that somehow the root cert used to validate clients i=
+sn&#39;t installed<br>
+&gt; correctly, and so it&#39;s defaulting to basic auth.<br>
+&gt; &gt;<br>
+&gt; &gt; At least that&#39;s my reading of this review<br>
+&gt; &gt; <a href=3D"https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/=
+27270" rel=3D"noreferrer" target=3D"_blank">https://gerrit.openbmc-project.=
+xyz/c/openbmc/bmcweb/+/27270</a><br>
+&gt; &gt;<br>
+&gt; <br>
+&gt; I think this would be the case. If the client certificate is not provi=
+ded, TLS<br>
+&gt; connection is still established, just without authenticating the clien=
+t. This<br>
+&gt; allows upper layer to provide other authentication methods (e.g. Basic=
+ Auth).<br>
+&gt; &gt;<br>
+&gt; &gt; On Thu, Apr 23, 2020 at 9:47 AM Zhenfei Tai &lt;<a href=3D"mailto=
+:ztai@google.com" target=3D"_blank">ztai@google.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:ztai@google.com" target=3D"_blank">ztai@g=
+oogle.com</a>&gt;&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0I guess part of my question is how to configur=
+e the mTLS certs to make<br>
+&gt; it work properly.<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0So far only https works (server side TLS).<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0Thanks,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0Zhenfei<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0On Thu, Apr 23, 2020 at 8:50 AM Joseph Reynold=
+s &lt;<a href=3D"mailto:jrey@linux.ibm.com" target=3D"_blank">jrey@linux.ib=
+m.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:jrey@linux.ibm.com" target=3D"_blank">jre=
+y@linux.ibm.com</a>&gt;&gt; wrote:<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0On 4/23/20 5:47 AM, P. K. Lee (=
+=E6=9D=8E=E6=9F=8F=E5=AF=AC) wrote:<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Hi,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; I encountered the same issu=
+e when using Redfish to replace the<br>
+&gt; certificate.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Regardless of whether the p=
+arameters include --cert --key<br>
+&gt; --cacert or only --cacert, the authentication can still succeed.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; Best,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt; P.K.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Date: Wed, 22 Apr 2020 =
+14:58:06 -0700<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; From: Zhenfei Tai &lt;<=
+a href=3D"mailto:ztai@google.com" target=3D"_blank">ztai@google.com</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:ztai@google.com" target=3D"_blank">ztai@g=
+oogle.com</a>&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; To: <a href=3D"mailto:o=
+penbmc@lists.ozlabs.org" target=3D"_blank">openbmc@lists.ozlabs.org</a><br>
+&gt; &lt;mailto:<a href=3D"mailto:openbmc@lists.ozlabs.org" target=3D"_blan=
+k">openbmc@lists.ozlabs.org</a>&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Subject: mTLS on bmcweb=
+<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Message-ID:<br>
+&gt; &gt;<br>
+&gt; &gt;&gt;=C2=A0 =C2=A0 =C2=A0 &lt;CAMXw96Pp511sUO=3Dq1XLz2uJzh4S6D7tUwm=
+kvpbnq_yU-iJfiKg@<br>
+&gt; mail.g<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; <a href=3D"http://mail.=
+com" rel=3D"noreferrer" target=3D"_blank">mail.com</a> &lt;<a href=3D"http:=
+//mail.com" rel=3D"noreferrer" target=3D"_blank">http://mail.com</a>&gt;&gt=
+;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Content-Type: text/plai=
+n; charset=3D&quot;utf-8&quot;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Hi,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; I&#39;m trying out bmcw=
+eb mTLS which should be enabled by<br>
+&gt; default by<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; <a href=3D"https://github.com/openbmc/bmcweb/blob/master/CMakeLists.tx=
+t#L89" rel=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/bmcw=
+eb/blob/master/CMakeLists.txt#L89</a><br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; In my test, I created a=
+ self signed key and certificate pair,<br>
+&gt; stacked them<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; up into server.pem in /=
+etc/ssl/certs/https that bmcweb uses.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; However when I tried to=
+ curl bmcweb service, I was able to get<br>
+&gt; response by<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; only supplying the cert=
+.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; curl --cacert cert.pem=
+=C2=A0 https://${bmc}/redfish/v1<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; With the mTLS enabled, =
+I expected it should error out since no<br>
+&gt; client<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; certificate is provided=
+.<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; <br>
+&gt; As mentioned, if you did not provide a client certificate, connection =
+was<br>
+&gt; established to allow for Basic Auth. And as the Service Root requires =
+no<br>
+&gt; authentication, you got a response.<br>
+&gt; <br>
+&gt; - Wiktor<br>
+&gt; <br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Could someone with rele=
+vant knowledge help with my<br>
+&gt; question?<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0I&#39;m not sure what you are as=
+king.=C2=A0 Are you asking how to install<br>
+&gt; mTLS<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0certs into the BMC and then use =
+them to connect?=C2=A0 I am still<br>
+&gt; waiting for<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0documentation that describes how=
+ to configure and use the mTLS<br>
+&gt; feature.<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0I&#39;ve added an entry to the s=
+ecurity working group as a reminder to<br>
+&gt; do<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0this.=C2=A0 (I don&#39;t have th=
+e skill to document this feature.)<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0- Joseph<br>
+&gt; &gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt;<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Thanks,<br>
+&gt; &gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0&gt;&gt; Zhenfei<br>
+&gt; &gt;<br>
+</blockquote></div>
+</blockquote></div>
+</blockquote></div>
+
+--00000000000022445105a48a946d--
