@@ -7,66 +7,70 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=moBRUot/; 
+ header.s=fm2 header.b=K1gCCo5g; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=3NY8joF+; 
+ header.a=rsa-sha256 header.s=fm2 header.b=q/EAvrlp; 
  dkim-atps=neutral
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49GWXc4jgbzDqYd
- for <openbmc@lists.ozlabs.org>; Tue,  5 May 2020 17:27:59 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49GWXg6Xz9zDqPS
+ for <openbmc@lists.ozlabs.org>; Tue,  5 May 2020 17:28:03 +1000 (AEST)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id 84D856CC;
- Tue,  5 May 2020 03:27:55 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 62E1C6D6;
+ Tue,  5 May 2020 03:28:00 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute3.internal (MEProxy); Tue, 05 May 2020 03:27:55 -0400
+ by compute3.internal (MEProxy); Tue, 05 May 2020 03:28:00 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=Unqa23sxeK96peI8Nb1PYGhmE+
- 0JSyaDDedeQTaXtDk=; b=moBRUot/r2gkiNwH/BSxXio4e2EWnZ3+CHE6V21cVY
- NyjyGFdPp5Eo+Y3x2Z3QSzddnnM2gUxjmlDDnhvZ3UlYvcKzJiqpZAJLNw/M1HXP
- Em0hkDMOpEdX8rFuhtMxgm9OqCktYU3YN8uS7x+j2MSaSpL9wS6W3Yn+rI4tBuJj
- TCgN/nwjbyaFfAdkE3V/DZzhR5o24ColqE1e/eaMz3k9iXzvQNO3tg7dfxx2ADGi
- 6hLh1TvKgRXVDTGWPK1K3BIX95HMqGU7JaTMOdX2002jVjM1dWTeHs83VFC5fvwb
- UauzjEf8loCo/uF8f1oe6ChTItrqqDw4r8INe4I3Jb2w==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=JTBib5XMuE+/L
+ cumzeOup1o95iCS93yRZfvLsnKwdfc=; b=K1gCCo5gRElQg5z8Ly/ndMo2sEenT
+ V9yJTrk11EFeXHhEvB2x5yBAYu3aimETmrFI4J9IO2wtJh71uCI4k7ci2GGXUgZ/
+ tuRfjVTzrWO+fr7FKXduEWCDN6GwqT8yAkIb0wIX/x7UAsp1erRjLHAgpdiRUpMJ
+ KHQwZID3pYjQI0eSR9nwEOQBlCNz1K1+mMXqqp/A+vHp4fG0+hBHC6wSBbWtje5U
+ s/9cUzQWnfVEz3PKL4gOCfNoETxR0MO9vBg3CJsPgr09QQLeZPgjApVhuNgnGOiZ
+ 0YT9WOUlZBPSBDoSxqJtKCzjoJlBimhvCQIuzbJSX+M4Q/HoGonlskP9g==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Unqa23sxeK96peI8N
- b1PYGhmE+0JSyaDDedeQTaXtDk=; b=3NY8joF+j0A6jZxquaDubCToatmf06LF+
- K8DbqhJjvnD6rngNG0F4x4rvCqDEOZDTRE4McqyVIP/5jhYwWpoqcRRnjwQohokp
- yctndJ53v7SlznT+MOUQ7UsXbJdALrXaGdu80a44AdWMFeLtKN0pnCPLx4UddeIF
- sgge9/ngvuA9n0dTU2FRWTQ7jgK/kjeNkXCT7pnp0FPMO6j7Gzsr4Ce9b3Uqrg3V
- aqysB+jbH0AanXhGmLn+Fkf35j+9omQR9yQQcl4CeaBfdswHCliKjFOhq3meM9op
- nXgckmjiO+rmh6EwNpOuy0ZuE3X1Pvq3HVl/B9hdeKWFEnID22NTg==
-X-ME-Sender: <xms:ehWxXl3LsGwiX8tZovJl9_DoCtZFLgz3lQeYw6s0FKpxXQXVRdyUQw>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=JTBib5XMuE+/LcumzeOup1o95iCS93yRZfvLsnKwdfc=; b=q/EAvrlp
+ AXQX3oMhIgYT60I0WQDVW8V9horQI3XhXIVJz082mxT26cuWusmek+IRuJtJq4nQ
+ gZLAAgWsHTGeQu68MQywupTdlEGOGbhNWrsS0yabHwXczLSPmoxIAlfLwGZNpPSz
+ lbxtS8NFRRa+qvZMrk2qfQEn3evuSRVVGHXLwzQ97PYGG8S53qrERu2bwWlKUR8V
+ +/nF1ZTf0iGe4NRi9fhCeOdbXua/KnXp1E2BBOWH6pokodD7DqVf3bp+zi9kEwK0
+ v1/PzUheOBnhrefKP9un0ywKpSzPhG9bX2f1eJZ7JwQLnJLCl629YwocoDdFgqCs
+ B+Nnty1OTybGUg==
+X-ME-Sender: <xms:fxWxXmmG3wdhVrLLsWWwx2W4khJ-bKpDXW_7Vc8JtKkPPVlUgVCeTA>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduhedrjeehgdduudejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgggfestdekredtre
- dttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegrjhdr
- ihgurdgruheqnecuggftrfgrthhtvghrnhepkefhieffjeevfeevhedtieeihfefvdejle
- dvvddthefftedujeethfeuueelfedtnecukfhppedugedrvddrjeehrdekgeenucevlhhu
- shhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrg
- hjrdhiugdrrghu
-X-ME-Proxy: <xmx:ehWxXmoyoqv1K6spVwdxuo2m66T88814AxZ4HO9MjIKSozP7Zq4LDw>
- <xmx:ehWxXifBMgwpMaOM0gmaCVt3L2O2HyqD_hgZLL6qGuL0tY-pE6yKaA>
- <xmx:ehWxXlp9Wlqe9SAc-7G3uURzHKnN8ux4CjJWZVZsG9DG5rN4-MhpJw>
- <xmx:exWxXjOWPcREtT15ANI_QOotX4U6-9WLQen8f0JClPFmxMZb5vv8AQ>
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecuggftrfgrthhtvghrnhepjefgvdevheetkeevgeegleelgfelte
+ etjeffleffvdduudevieffgeetleevhfetnecukfhppedugedrvddrjeehrdekgeenucev
+ lhhushhtvghrufhiiigvpedvnecurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfi
+ esrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:fxWxXj9tjcH3C-DnaxrJb7cpjd0eBl7YyNq4q-ZdeYlagpWrNApa9Q>
+ <xmx:fxWxXhbNv7bffxQNC6dAvz1opHuFGRSihOPcAPiUjpuptG3OBNtk-A>
+ <xmx:fxWxXge8vrW7E8JWnQO6_aCePz8MvzoXER__tyWve6u4UrBfCq0anw>
+ <xmx:gBWxXjDk0YwHG413Jfn2TUfPkeUCCZWDosh5mwC-9ljkSjk09Ex2ZQ>
 Received: from localhost.localdomain
  (ppp14-2-75-84.adl-apt-pir-bras31.tpg.internode.on.net [14.2.75.84])
- by mail.messagingengine.com (Postfix) with ESMTPA id 1BD1C3066033;
- Tue,  5 May 2020 03:27:52 -0400 (EDT)
+ by mail.messagingengine.com (Postfix) with ESMTPA id 831C43066052;
+ Tue,  5 May 2020 03:27:58 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: openbmc@lists.ozlabs.org,
 	joel@jms.id.au
 Cc: elkowals@us.ibm.com
-Subject: [PATCH linux dev-5.4 0/3] AST2600's Y23 heartbeat to pinctrl
-Date: Tue,  5 May 2020 16:57:39 +0930
-Message-Id: <20200505072742.350305-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.4 3/3] ARM: dts: rainier: Configure ball Y23 as
+ GPIOP7 for MCLR_VPP
+Date: Tue,  5 May 2020 16:57:42 +0930
+Message-Id: <20200505072742.350305-4-andrew@aj.id.au>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200505072742.350305-1-andrew@aj.id.au>
+References: <20200505072742.350305-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -82,32 +86,35 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Tue, 05 May 2020 07:28:06 -0000
 
-Hello,
+GPIOP7 is used in the Rainier design to manage the state of a
+microcontroller elsewhere in the system but its ball, Y23, is the
+driver of the heartbeat LED on the ast2600-evb and the SoC defaults Y23
+at power-on to the pulse-train behaviour used to drive the LED. This
+causes much confusion for the micro in the Rainier system, so hog the
+line as early as possible.
 
-This short series adds the "heartbeat" function to ball Y23 on the AST2600,
-which is the default function for the pin (not GPIO as described by previous
-datasheets). It's necessary to describe the heartbeat function in order to
-export the pin as GPIOP7.
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Further, work-around the heartbeat behaviour for Rainer by hogging the GPIO so
-that we're not messing with the microcontroller to which it is routed.
-
-I'd like to let these patches bake for a period in the OpenBMC kernel tree
-until we can verify the behaviour on hardware.
-
-Cheers,
-
-Andrew
-
-Andrew Jeffery (3):
-  dt-bindings: pinctrl: Add HEARTBEAT to ASPEED AST2600
-  pinctrl: aspeed: Describe the heartbeat function on ball Y23
-  ARM: dts: rainier: Configure ball Y23 as GPIOP7 for MCLR_VPP
-
- .../pinctrl/aspeed,ast2600-pinctrl.yaml       | 87 ++++++++++---------
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  |  7 ++
- drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c    |  7 +-
- 3 files changed, 57 insertions(+), 44 deletions(-)
-
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index 01db238ce741..794af5517313 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -102,6 +102,13 @@
+ 	/*AA0-AA7*/	"","","","","","","","",
+ 	/*AB0-AB7*/	"","","","","","","","",
+ 	/*AC0-AC7*/	"","","","","","","","";
++
++	pin_mclr_vpp {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(P, 7) GPIO_OPEN_DRAIN>;
++		output-high;
++		line-name = "mclr_vpp";
++	};
+ };
+ 
+ &emmc_controller {
 -- 
 2.25.1
