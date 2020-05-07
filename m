@@ -1,54 +1,68 @@
-Return-Path: <manikandan.hcl.ers.epl@gmail.com>
+Return-Path: <miltonm@us.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32d;
- helo=mail-ot1-x32d.google.com; envelope-from=manikandan.hcl.ers.epl@gmail.com;
+ smtp.mailfrom=us.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=ICSsMWOE; dkim-atps=neutral
-Received: from mail-ot1-x32d.google.com (mail-ot1-x32d.google.com
- [IPv6:2607:f8b0:4864:20::32d])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=us.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49HSwl4d6SzDqMn
- for <openbmc@lists.ozlabs.org>; Thu,  7 May 2020 06:33:42 +1000 (AEST)
-Received: by mail-ot1-x32d.google.com with SMTP id k110so2536906otc.2
- for <openbmc@lists.ozlabs.org>; Wed, 06 May 2020 13:33:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=yVGcT0h0X55vLI3tLeN7hyYm0Y1ZmInbjkCDlF59MK4=;
- b=ICSsMWOEa36qrATdgSANW1qnOxnVEe2BFnnDGY53fEQyrmU0n0mM3fGN0m0VYpqr8U
- mjwYqAg6BbQ786868hVxxkd2IF3z+pqdg/oHlxHsC0hkSMk9bhZN5SFhUc5QAeGydeHs
- F5yKBKtHqrXhx87ZJV27hW1vGfO5JmljxlegdHBdOfPG+c1ED1/i++hFK0h2h5jOGaxT
- 4VjOaqSKjg6Eb/8wOanvNT5sACly1HbnvmDGtDewOnlsN6v50WM1TgFlWwVj4Xj1gsX5
- b1wHvRxZ63XkqYoNb2oYn1pFSptF8GxJspsPvegPLOmxWfzMt5lnznjfYnWIgccuyQey
- xVsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=yVGcT0h0X55vLI3tLeN7hyYm0Y1ZmInbjkCDlF59MK4=;
- b=MOwIuwqmGoQaXbA7tA+3JIf6NdNIOcQCVUGBW+4YK8Nwiug/6NFLZp0d8D/Mj2hAdf
- V/NEunY2GeWBO7p3KjCGSr64qzwKcrMjMtaadsE4xmq/iVZlp2b9zZDovKgggWr11bTd
- WUEN33vtda24UpCwkNIaf1/1WLCqXZ8fnU7evG8IwtMuN4xRYnN8EFYxGGMucQuzKnzx
- iDsiHKYx6bqZRfMajxSbuadXSUVMOXCK7lt7ca92idlTXNZxD5xQ4AYkz9qCPJdLX92m
- JuWq32w6kKDfH+QvuvKEjYZ4lnNvoUfdK06SInnhEbgXDwZomPzbgnx6I3UYAc+TxQt/
- Tucw==
-X-Gm-Message-State: AGi0PuZs344rSdgwLEBryqn3FpxGOst0+j6gQEE+5Q1o4T2AxWk6wGMq
- UFA7b4iMYjHpRG97RXZuYqZX90/i86iWUyzp+oU1qpcE
-X-Google-Smtp-Source: APiQypIUhGZ1FGXbCTUqmOSw8aA72iq+5CBUf7mM8Eev8hDaAAJX9E08yfbOjTaz2Q/qsEvASLP+VHr6tLgqG1vnae0=
-X-Received: by 2002:a25:ae48:: with SMTP id g8mr17643029ybe.18.1588796819248; 
- Wed, 06 May 2020 13:26:59 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49HYfH5H3mzDqtv
+ for <openbmc@lists.ozlabs.org>; Thu,  7 May 2020 10:06:30 +1000 (AEST)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04701jrq122857
+ for <openbmc@lists.ozlabs.org>; Wed, 6 May 2020 20:06:27 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [192.155.248.91])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 30u8t7g17g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 06 May 2020 20:06:27 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Thu, 7 May 2020 00:06:26 -0000
+Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
+ by smtp.notes.na.collabserv.com (10.106.227.143) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 7 May 2020 00:06:23 -0000
+Received: from us1a3-mail228.a3.dal06.isc4sb.com ([10.146.103.71])
+ by us1a3-smtp08.a3.dal06.isc4sb.com
+ with ESMTP id 2020050700062246-1103220 ;
+ Thu, 7 May 2020 00:06:22 +0000 
+In-Reply-To: <TY2PR04MB3038B868F17436186E36E5559DA40@TY2PR04MB3038.apcprd04.prod.outlook.com>
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: Manikandan E <manikandan.e@hcl.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Thu, 7 May 2020 00:06:22 +0000
 MIME-Version: 1.0
-From: Manikandan Elumalai <manikandan.hcl.ers.epl@gmail.com>
-Date: Thu, 7 May 2020 01:56:48 +0530
-Message-ID: <CAMRErLM2Ppyvq_9dTkLC_7dV3NN7Xy4rS2ZSGVnRBvu0LbRHTg@mail.gmail.com>
-Subject: hwmon sysfs entries not created for temperature in adm1278 driver
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="00000000000008189305a50096d7"
-X-Mailman-Approved-At: Thu, 07 May 2020 09:01:33 +1000
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <TY2PR04MB3038B868F17436186E36E5559DA40@TY2PR04MB3038.apcprd04.prod.outlook.com>
+X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
+ SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
+X-LLNOutbound: False
+X-Disclaimed: 21167
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 20050700-2475-0000-0000-000003055BA4
+X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.000000
+X-IBM-SpamModules-Versions: BY=3.00013044; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000294; SDB=6.01373027; UDB=6.00733702; IPR=6.01155383; 
+ MB=3.00032042; MTD=3.00000008; XFM=3.00000015; UTC=2020-05-07 00:06:25
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2020-05-06 22:59:05 - 6.00011330
+x-cbparentid: 20050700-2476-0000-0000-0000BEDE7690
+Message-Id: <OFFD6AE807.928B6728-ON00258561.0000957D-00258561.00009585@notes.na.collabserv.com>
+Subject: Re:  sysfs entries not created for temperature in adm1278
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
+ definitions=2020-05-06_09:2020-05-05,
+ 2020-05-06 signatures=0
+X-Proofpoint-Spam-Reason: safe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,59 +74,56 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 06 May 2020 20:33:44 -0000
+X-List-Received-Date: Thu, 07 May 2020 00:06:32 -0000
 
---00000000000008189305a50096d7
-Content-Type: text/plain; charset="UTF-8"
+On May 6, 2020 around 6:02PM in some timezone, Manikandan E  wrote:
 
-Hi,
+> Hi,=20
+>=20
+> =20
+>  The adm1278 hwmon sysfs entries not created for temperature.=20
+>  root@yosemitev2:~# ls -l /sys/class/hwmon/hwmon4/
+> =20
+>curr1=5Fhighest         curr=5Fsamples          in1=5Fmax=5Falarm
+>in2=5Flabel             in=5Fsamples            power1=5Flabel
+> =20
+>curr1=5Finput           device/               in1=5Fmin
+>in2=5Fmax               name                  power1=5Fmax
+> =20
+>curr1=5Flabel           in1=5Fhighest           in1=5Fmin=5Falarm
+>in2=5Fmax=5Falarm         of=5Fnode/              power1=5Freset=5Fhistory
+> =20
+>curr1=5Fmax             in1=5Finput             in1=5Freset=5Fhistory
+>in2=5Fmin               power1=5Falarm          power=5Fsamples
+> =20
+>curr1=5Fmax=5Falarm       in1=5Flabel             in2=5Fhighest
+>in2=5Fmin=5Falarm         power1=5Finput          subsystem/
+> =20
+>curr1=5Freset=5Fhistory   in1=5Fmax               in2=5Finput
+>in2=5Freset=5Fhistory     power1=5Finput=5Fhighest  uevent
+> =20
 
-As per adm1278 datasheet, tempeature(0xd8) supported in adm1278. But
-temperature attributes not listed in the hwmon sysfs as below.
 
-root@yosemitev2:~# cat /sys/class/hwmon/hwmon4/
-curr1_highest         curr1_max_alarm       in1_highest
-in1_max_alarm         in2_highest           in2_max_alarm
-in_samples            power1_input          power1_reset_history
-curr1_input           curr1_reset_history   in1_input             in1_min
-            in2_input             in2_min               name
-   power1_input_highest  power_samples
-curr1_label           curr_samples          in1_label
-in1_min_alarm         in2_label             in2_min_alarm         of_node/
-             power1_label          subsystem/
-curr1_max             device/               in1_max
-in1_reset_history     in2_max               in2_reset_history
-power1_alarm          power1_max            uevent
+A quick look at the upstream driver says that it reads the=20
+power management config register at 0xd4 and enables what=20
+is there, but (1) it doesn't account that the register is=20
+16 bits on 1278 and (2) although the register is rw according=20
+to the datasheet the driver doesn't appear to have proviisons=20
+to configure it.
 
+I'd suggest (1) unbindig the driver, writing the register,
+and then try binding the driver again (or warm reboot) to see=20
+if this works around the issue, and=20
 
-Thanks
-Mani.E
+(2) raise the issue with the upstream on the linux-hwmon=20
+mailing list (or read the wiki in MAINTAINTERS).  The=20
+driver is adm1275.
 
---00000000000008189305a50096d7
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+I'd suggest a binding that allows the config register to be
+specified in the device tree but I am not familiar with the=20
+hwmon comunity or practice for similar.
 
-PGRpdiBkaXI9Imx0ciI+PGRpdj5IaSw8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PkFzIHBlciBh
-ZG0xMjc4IGRhdGFzaGVldCwgdGVtcGVhdHVyZSgweGQ4KSBzdXBwb3J0ZWQgaW4gYWRtMTI3OC4g
-QnV0IHRlbXBlcmF0dXJlIGF0dHJpYnV0ZXMgbm90IGxpc3RlZCBpbiB0aGUgaHdtb24gc3lzZnMg
-YXMgYmVsb3cuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5yb290QHlvc2VtaXRldjI6fiMgY2F0
-IC9zeXMvY2xhc3MvaHdtb24vaHdtb240Lzxicj5jdXJyMV9oaWdoZXN0IMKgIMKgIMKgIMKgIGN1
-cnIxX21heF9hbGFybSDCoCDCoCDCoCBpbjFfaGlnaGVzdCDCoCDCoCDCoCDCoCDCoCBpbjFfbWF4
-X2FsYXJtIMKgIMKgIMKgIMKgIGluMl9oaWdoZXN0IMKgIMKgIMKgIMKgIMKgIGluMl9tYXhfYWxh
-cm0gwqAgwqAgwqAgwqAgaW5fc2FtcGxlcyDCoCDCoCDCoCDCoCDCoCDCoHBvd2VyMV9pbnB1dCDC
-oCDCoCDCoCDCoCDCoHBvd2VyMV9yZXNldF9oaXN0b3J5PGJyPmN1cnIxX2lucHV0IMKgIMKgIMKg
-IMKgIMKgIGN1cnIxX3Jlc2V0X2hpc3RvcnkgwqAgaW4xX2lucHV0IMKgIMKgIMKgIMKgIMKgIMKg
-IGluMV9taW4gwqAgwqAgwqAgwqAgwqAgwqAgwqAgaW4yX2lucHV0IMKgIMKgIMKgIMKgIMKgIMKg
-IGluMl9taW4gwqAgwqAgwqAgwqAgwqAgwqAgwqAgbmFtZSDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoHBvd2VyMV9pbnB1dF9oaWdoZXN0IMKgcG93ZXJfc2FtcGxlczxicj5jdXJyMV9sYWJlbCDC
-oCDCoCDCoCDCoCDCoCBjdXJyX3NhbXBsZXMgwqAgwqAgwqAgwqAgwqBpbjFfbGFiZWwgwqAgwqAg
-wqAgwqAgwqAgwqAgaW4xX21pbl9hbGFybSDCoCDCoCDCoCDCoCBpbjJfbGFiZWwgwqAgwqAgwqAg
-wqAgwqAgwqAgaW4yX21pbl9hbGFybSDCoCDCoCDCoCDCoCBvZl9ub2RlLyDCoCDCoCDCoCDCoCDC
-oCDCoCDCoHBvd2VyMV9sYWJlbCDCoCDCoCDCoCDCoCDCoHN1YnN5c3RlbS88YnI+Y3VycjFfbWF4
-IMKgIMKgIMKgIMKgIMKgIMKgIGRldmljZS8gwqAgwqAgwqAgwqAgwqAgwqAgwqAgaW4xX21heCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCBpbjFfcmVzZXRfaGlzdG9yeSDCoCDCoCBpbjJfbWF4IMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIGluMl9yZXNldF9oaXN0b3J5IMKgIMKgIHBvd2VyMV9hbGFybSDCoCDC
-oCDCoCDCoCDCoHBvd2VyMV9tYXggwqAgwqAgwqAgwqAgwqAgwqB1ZXZlbnQ8L2Rpdj48ZGl2Pjxi
-cj48L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoYW5rczwvZGl2PjxkaXY+TWFuaS5FPGJyPjwv
-ZGl2PjwvZGl2Pg0K
---00000000000008189305a50096d7--
+Hope this helps
+milton
+
+Speaking only for myself.
