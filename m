@@ -1,70 +1,67 @@
-Return-Path: <manojeda@in.ibm.com>
+Return-Path: <zbigniewku@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=in.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=manojeda@in.ibm.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636;
+ helo=mail-pl1-x636.google.com; envelope-from=zbigniewku@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=in.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=Iz9hMBHq; dkim-atps=neutral
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49MMzl4btZzDqd1
- for <openbmc@lists.ozlabs.org>; Wed, 13 May 2020 15:04:50 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04D51PoB110533
- for <openbmc@lists.ozlabs.org>; Wed, 13 May 2020 01:04:48 -0400
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.74])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3101m6vx58-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 13 May 2020 01:04:48 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <manojeda@in.ibm.com>;
- Wed, 13 May 2020 05:04:47 -0000
-Received: from us1a3-smtp02.a3.dal06.isc4sb.com (10.106.154.159)
- by smtp.notes.na.collabserv.com (10.106.227.92) with
- smtp.notes.na.collabserv.com ESMTP; Wed, 13 May 2020 05:04:44 -0000
-Received: from us1a3-mail220.a3.dal06.isc4sb.com ([10.146.71.127])
- by us1a3-smtp02.a3.dal06.isc4sb.com
- with ESMTP id 2020051305044359-67605 ;
- Wed, 13 May 2020 05:04:43 +0000 
-In-Reply-To: <e229e29c-e6a0-ae91-aa5c-2b13a4416faa@linux.ibm.com>
-From: "Manojkiran Eda" <manojeda@in.ibm.com>
-To: jrey@linux.ibm.com
-Cc: openbmc@lists.ozlabs.org, ratagupt@linux.vnet.ibm.com, rnouse@google.com
-Date: Wed, 13 May 2020 05:04:43 +0000
-Sensitivity: 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49Mb4V2kX0zDqb9
+ for <openbmc@lists.ozlabs.org>; Wed, 13 May 2020 23:24:39 +1000 (AEST)
+Received: by mail-pl1-x636.google.com with SMTP id f15so6816975plr.3
+ for <openbmc@lists.ozlabs.org>; Wed, 13 May 2020 06:24:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=iSjkRBZaZzqqyspTv5Rlok5FUwwdMWeo8V9Nhrb5sMs=;
+ b=Iz9hMBHqOYMSUbVZjPNL5+8pzsnOnm5pJ/v0vQhJG8T1D0YDNs9UGeDDUcyUEWYiJ6
+ 075qC3JfRCrAQrNj9PYtQmrnPKvN753WI9DvauTRO/t2xdlhlSl4kYzPDGNmqou/lwbn
+ ydc7rJCu/Q5mj92/s3m2z7u72kUcSCDRA5lC/hHG7EbBr/KO+9yhidB7TiC2zQ1ywKNM
+ dhHWKPTj8quHl9R+5j1dKAe0Vmtb7znnnGRFnox95/Oif5/ZgCyFbj+rqOkjSLAnpqRT
+ 8JHWCv2JqDvZHpDWzBAphyJ4FuJvVofEVr1ziRiKQEXvFmumdpvGhvtcs7eDN5SlqE1V
+ Z8LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=iSjkRBZaZzqqyspTv5Rlok5FUwwdMWeo8V9Nhrb5sMs=;
+ b=cDHjsnBrfQIRUjnh3gXUYpAQbo5X3XXkytUrhm08X8TZvxM40/a9jsFZ4gO/w8vb3A
+ Fyi6HSe8SDaT7fELd3qqgkT0YvqWRQIGM5xMCesRgmIo5PGPE/fQrFrT1AwroVSYu7yH
+ vOziJJPUPQD/tcGvTtIHQcm7ykx6siw4VdMpQZYSdOS7GNFHicvKsv4sWGwVJKzfMlPN
+ kIEfWZn2A/11bJEvh+NSF9c4hV052QDx/GdLmhj2RpleNn4ig32QO9Dfgj+I1eYV2wwB
+ BwEM9gHmIdOukfGrNrbUkjX8F4pYH3ZAQFS4ZmthhVGdgIjK3lYl26uKJjVKxPyj05k+
+ XEVw==
+X-Gm-Message-State: AGi0PuYMwIOXV/KHznyXC6roiGlO1i60Vjv+QdYdypO2svEO6Qx3iG20
+ oBK/7397Py+ycWuUvuTimW6yffrDYkuRu9/dOVE=
+X-Google-Smtp-Source: APiQypKNQMV9FhaHSWOf7UxRN05vQ3HPYyxtuoRL7z6jDX5CsMcXQnKnLoX+3hhLB5LKBrp6nO8XIynSSifErzVVn+M=
+X-Received: by 2002:a17:90a:8c8e:: with SMTP id
+ b14mr28230204pjo.222.1589376276423; 
+ Wed, 13 May 2020 06:24:36 -0700 (PDT)
 MIME-Version: 1.0
-References: <e229e29c-e6a0-ae91-aa5c-2b13a4416faa@linux.ibm.com>,
- <OFBBFB47E3.6EABAE1E-ON0025855A.00486BC9-0025855A.004946E0@LocalDomain>
- <OFC15F6E2A.E823991E-ON00258565.0018CF1F-00258565.00191B17@notes.na.collabserv.com>
-Importance: Normal
-X-Priority: 3 (Normal)
-X-Mailer: IBM Verse Build 17652-1661 | IBM Domino Build
- SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
-X-LLNOutbound: False
-X-Disclaimed: 41059
-X-TNEFEvaluated: 1
+References: <CAMXw96Mnk8Hf4wAB_Ot=XEqp9yecspPfMGB6oF_LSgjRFMNHvw@mail.gmail.com>
+ <CAB_SOc5tEo7xRg65aMfBOWyY_yXkb6+mLmRhf8hifNhHDWGVgQ@mail.gmail.com>
+ <CAMXw96NoWn+sZELD1Xd=WUyLwvOUZ9prKyqqaLFKiMwM6ChuMw@mail.gmail.com>
+ <CAB_SOc6pgn2OXd-KRYNpzszxWyhfGOdBTHMB5FWbat8QaZ1CoQ@mail.gmail.com>
+ <CH2PR21MB1510B40F09178BC841F62AA6C8A50@CH2PR21MB1510.namprd21.prod.outlook.com>
+ <CAB_SOc7dz7ARKH5W-d7EwrFnLxd0V3Ny7i3xyxGGGxHTGW0LOg@mail.gmail.com>
+ <CH2PR21MB1510222BA2CC09AE1CC6AF90C8A10@CH2PR21MB1510.namprd21.prod.outlook.com>
+ <CH2PR21MB1510A65080452245E6295DFDC8A10@CH2PR21MB1510.namprd21.prod.outlook.com>
+In-Reply-To: <CH2PR21MB1510A65080452245E6295DFDC8A10@CH2PR21MB1510.namprd21.prod.outlook.com>
+From: Zbyszek <zbigniewku@gmail.com>
+Date: Wed, 13 May 2020 15:24:25 +0200
+Message-ID: <CAB_SOc4c8UzMFM5YOtbrxJJkq08pbTs8ehWkcc=6ETycXdh=dw@mail.gmail.com>
+Subject: Re: [EXTERNAL] Re: [bmcweb] mTLS client authentication always succeeds
+To: Neeraj Ladkani <neladk@microsoft.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Zhenfei Tai <ztai@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 20051305-3165-0000-0000-000003748C1D
-X-IBM-SpamModules-Scores: BY=0.281058; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.417846; ST=0; TS=0; UL=0; ISC=; MB=0.243001
-X-IBM-SpamModules-Versions: BY=3.00013083; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000294; SDB=6.01375991; UDB=6.00735467; IPR=6.01158350; 
- MB=3.00032142; MTD=3.00000008; XFM=3.00000015; UTC=2020-05-13 05:04:47
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2020-05-13 02:30:36 - 6.00011355
-x-cbparentid: 20051305-3166-0000-0000-000019D3B681
-Message-Id: <OF6E82DE95.F0DBD406-ON00258567.00161A33-00258567.001BE5D7@notes.na.collabserv.com>
-Subject: RE: SELinux UseCases
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-13_01:2020-05-11,
- 2020-05-13 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,97 +73,167 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 13 May 2020 05:04:52 -0000
+X-List-Received-Date: Wed, 13 May 2020 13:24:42 -0000
 
-<div class=3D"socmaildefaultfont" dir=3D"ltr" style=3D"font-family:Arial, H=
-elvetica, sans-serif;font-size:10pt" ><div dir=3D"ltr" >Hi Joseph,</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >I may not be accurate here, But from what i have learnt -=
- Yes, this can be done using "Type Enforcement feature" in SELinux.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Type Enforcement essentially allows every file/object/pro=
-cess in SELinux enabled system to be stored with a security context label a=
-s an extended attribute.</div>
-<div dir=3D"ltr" >And policies can be framed to allow access between variou=
-s security context labelled objects.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Any access between security contexts - that does not have=
- an associated selinux policy will be denied by default.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Say for example, in this case :</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" ><font size=3D"2" face=3D"Default Monospace,Courier New,Co=
-urier,monospace" >&gt; I would like to see SELinux limit who can write to f=
-iles under the /etc<br>&gt; directory.&nbsp; For example, bmcweb implements=
- REST APIs add and modify<br>&gt; local users, control pam=5Ftally2 account=
- lockout parameters, etc.&nbsp; More<br>&gt; specifically, the phosphor-use=
-r-manager daemon modifies files like<br>&gt; /etc/shadow and /etc/pam.d/com=
-mon=5Fauth.&nbsp; Only this application should be<br>&gt; able to write to =
-these file.&nbsp; Also, this daemon should not be to allowed<br>&gt; to wri=
-te to any other config files.</font></div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >1. A new security label needs to be defined, say <strong>=
-user=5Fmanager=5Ft</strong>&nbsp; for <strong>phosphor-user-manager</strong=
-> service and this context can be attached to the service through the SELin=
-ux tag in the dbus-configuration xml file. so that when the user-manager se=
-rvice executes it obtains a security context type of <strong>user=5Fmanager=
-=5Ft</strong>.</div>
-<div dir=3D"ltr" >2. As far as i know the files in the /<strong>etc</strong=
-> would acquire a security context label of <strong>etc=5Ft </strong>by def=
-ault during the auto relabelling process which happens at the first selinux=
- enabled boot of BMC.</div>
-<div dir=3D"ltr" >3. Now we just need to write a selinux policy to allow ac=
-cess between <strong>user=5Fmanager=5Ft </strong>type with <strong>etc=5Ft<=
-/strong> type.</div>
-<div dir=3D"ltr" >4. Any process,&nbsp; example <strong>bmcweb</strong> say=
- has <strong>webserver=5Ft</strong> (does not have the security context of =
-<strong>user=5Fmanager=5Ft</strong>) would get an access denied if it tries=
- to write into the /<strong>etc</strong> files as there is no associated po=
-licy.</div>
-<div dir=3D"ltr" >5. We can even assign a security label for each file insi=
-de the <strong>/etc</strong> and write an associated policy for it, so that=
- we can get a granular control over who can access which file under <strong=
->/etc</strong>.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Hope this answers your question.</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >Thanks,</div>
-<div dir=3D"ltr" >Manoj</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<div dir=3D"ltr" >&nbsp;</div>
-<blockquote data-history-content-modified=3D"1" data-history-expanded=3D"1"=
- dir=3D"ltr" style=3D"border-left:solid #aaaaaa 2px; margin-left:5px; paddi=
-ng-left:5px; direction:ltr; margin-right:0px" >----- Original message -----=
-<br>From: Joseph Reynolds &lt;jrey@linux.ibm.com&gt;<br>Sent by: "openbmc" =
-&lt;openbmc-bounces+manojeda=3Din.ibm.com@lists.ozlabs.org&gt;<br>To: Manoj=
-kiran Eda &lt;manojeda@in.ibm.com&gt;, openbmc@lists.ozlabs.org, rnouse@goo=
-gle.com<br>Cc: ratagupt@linux.vnet.ibm.com<br>Subject: [EXTERNAL] Re: SELin=
-ux UseCases<br>Date: Tue, May 12, 2020 11:48 PM<br>&nbsp;
-<div><font size=3D"2" face=3D"Default Monospace,Courier New,Courier,monospa=
-ce" >On 5/10/20 11:34 PM, Manojkiran Eda wrote:<br>&gt; Hi All,<br>&gt; Thi=
-s is a just a ping - to generate a discussion on the below<br>&gt; mentione=
-d use-cases.<br>&gt; Appreciate any inputs/comments.<br><br>Thanks for putt=
-ing this together.<br><br>I would like to see SELinux limit who can write t=
-o files under the /etc<br>directory.&nbsp; For example, bmcweb implements R=
-EST APIs add and modify<br>local users, control pam=5Ftally2 account lockou=
-t parameters, etc.&nbsp; More<br>specifically, the phosphor-user-manager da=
-emon modifies files like<br>/etc/shadow and /etc/pam.d/common=5Fauth.&nbsp;=
- Only this application should be<br>able to write to these file.&nbsp; Also=
-, this daemon should not be to allowed<br>to write to any other config file=
-s.<br><br>- Joseph<br><br>&gt; Thanks,<br>&gt; Manoj<br>&gt;<br>&gt; &nbsp;=
- &nbsp; ----- Original message -----<br>&gt; &nbsp; &nbsp; From: Manojkiran=
- Eda/India/IBM<br>&gt; &nbsp; &nbsp; To: openbmc@lists.ozlabs.org, rnouse@g=
-oogle.com<br>&gt; &nbsp; &nbsp; Cc: ratagupt@linux.vnet.ibm.com<br>&gt; &nb=
-sp; &nbsp; Subject: SELinux UseCases<br>&gt; &nbsp; &nbsp; Date: Thu, Apr 3=
-0, 2020 6:50 PM<br>&gt; &nbsp; &nbsp; Hi All,<br>&gt; &nbsp; &nbsp; (My apo=
-logies for the lengthy email.)<br>&gt; &nbsp; &nbsp; Below are few use-case=
-s in BMC, which i feel inclusion of SELinux<br>&gt; &nbsp; &nbsp; would be =
-a value add (there could be may more missing). Please<br>&gt; &nbsp; &nbsp;=
- feel free to drop-in your comments/feedback.<br>&gt;<br>...snip...</font><=
-br>&nbsp;</div></blockquote>
-<div dir=3D"ltr" >&nbsp;</div></div><BR>
+Instruction is under review:
+https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/32234
+
+pon., 11 maj 2020 o 20:57 Neeraj Ladkani <neladk@microsoft.com> napisa=C5=
+=82(a):
+>
+>  "Oem": {
+>         "OpenBMC": {
+>             "@odata.type": "#OemAccountService.v1_0_0.AccountService",
+>             "AuthMethods": {
+>                 "BasicAuth": true,
+>                 "Cookie": true,
+>                 "SessionToken": true,
+>                 "TLS": true,
+>                 "XToken": true
+>             }
+>         }
+>
+> -----Original Message-----
+> From: openbmc <openbmc-bounces+neladk=3Dmicrosoft.com@lists.ozlabs.org> O=
+n Behalf Of Neeraj Ladkani
+> Sent: Monday, May 11, 2020 11:20 AM
+> To: Zbyszek <zbigniewku@gmail.com>
+> Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>; Zhenfei Tai <ztai@google=
+.com>
+> Subject: RE: [EXTERNAL] Re: [bmcweb] mTLS client authentication always su=
+cceeds
+>
+> I have enabled DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION in bmcweb  but I =
+do not see TLSAuth/Certificates in redfish/v1/AccountService ?  I tried to =
+upload CA cert via bmcweb but I could not make it work ( Authentication fai=
+ling)
+>
+> I could not find documentation to enable this feature. it would be great =
+if someone can send steps to enable this feature?
+>
+> Neeraj
+>
+>
+> -----Original Message-----
+> From: Zbyszek <zbigniewku@gmail.com>
+> Sent: Thursday, May 7, 2020 2:10 AM
+> To: Neeraj Ladkani <neladk@microsoft.com>
+> Cc: Zhenfei Tai <ztai@google.com>; OpenBMC Maillist <openbmc@lists.ozlabs=
+.org>
+> Subject: Re: [EXTERNAL] Re: [bmcweb] mTLS client authentication always su=
+cceeds
+>
+> czw., 7 maj 2020 o 10:14 Neeraj Ladkani <neladk@microsoft.com> napisa=C5=
+=82(a):
+> >
+> > Hi Zbyszek,
+> >
+> > Just a basic question, Once bmcweb is configured with -DBMCWEB_ENABLE_M=
+UTUAL_TLS_AUTHENTICATION, can it work without client cert?
+>
+>
+> Yes it can, by default all authentication methods are enabled except TLS.
+> Which method is enabled can be checked via redfish service
+> AccountService->Oem->OpenBMC->AuthMethods.
+> To change these settings send PATCH to
+> https://{{bmc_ip}}/redfish/v1/AccountService.
+> For example to turn the tls use this patch body :  {"Oem": {"OpenBMC":
+> {"AuthMethods": {"TLS": true}}}}
+>
+> I think this diagram at paragraph 'Authentication Process'
+> https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F%2Fgithu=
+b.com%2Fopenbmc%2Fdocs%2Fblob%2Fmaster%2Fdesigns%2Fredfish-tls-user-authent=
+ication.md&amp;data=3D02%7C01%7Cneladk%40microsoft.com%7C35b75654ecce4c6800=
+4508d7f5d81b8a%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0%7C637248180841865=
+287&amp;sdata=3DOGH2hRGgB5%2FA%2FG63fiwp0hq2E%2FStoL1ka2ZPJ1zG1Tg%3D&amp;re=
+served=3D0
+> can be useful in understanding how the authentication process flow looks =
+like.
+> (now I see that some parts of this design, like paths requires updates, b=
+ut the diagram is valid).
+>
+>
+> >
+> > It will be good to document curl APIs to enable this feature and test e=
+nd to end flows.
+> >
+> > Thanks
+> > Neeraj
+> >
+> > -----Original Message-----
+> > From: openbmc <openbmc-bounces+neladk=3Dmicrosoft.com@lists.ozlabs.org>
+> > On Behalf Of Zbyszek
+> > Sent: Thursday, May 7, 2020 12:49 AM
+> > To: Zhenfei Tai <ztai@google.com>
+> > Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> > Subject: [EXTERNAL] Re: [bmcweb] mTLS client authentication always
+> > succeeds
+> >
+> > =C5=9Br., 6 maj 2020 o 20:19 Zhenfei Tai <ztai@google.com> napisa=C5=82=
+(a):
+> > >
+> > > Hi Zbyszek,
+> > >
+> > > Thanks for your reply. I look forward to the official documentation.
+> > >
+> > > The callback function returns true when preverified =3D=3D false. Not=
+ sure why it should always return true, which accepts any client certificat=
+e.
+> >
+> > Yes, always returning true we do not break the tls handshake allowing f=
+or connection.
+> > But user will not be authenticated anyway because its name will not be =
+extracted from the certificate.
+> > In such case user should receive proper http error code telling he is n=
+ot authenticated.
+> >
+> > >
+> > > // We always return true to allow full auth flow if (!preverified) {
+> > > BMCWEB_LOG_DEBUG << this << " TLS preverification failed."; return
+> > > true; }
+> > >
+> > > Thanks,
+> > > Zhenfei
+> > >
+> > > On Wed, May 6, 2020 at 4:22 AM Zbyszek <zbigniewku@gmail.com> wrote:
+> > >>
+> > >> pt., 1 maj 2020 o 02:07 Zhenfei Tai <ztai@google.com> napisa=C5=82(a=
+):
+> > >> >
+> > >> > Hi,
+> > >> >
+> > >> > I've been testing bmcweb mTLS for a while and found the user
+> > >> > defined verify callback function returns true in all cases.
+> > >> > (https://nam06.safelinks.protection.outlook.com/?url=3Dhttps%3A%2F=
+%
+> > >> > 25
+> > >> > 2F
+> > >> > github.com%2Fopenbmc%2Fbmcweb%2Fblob%2Fmaster%2Fhttp%2Fhttp_conne
+> > >> > ct
+> > >> > ion.h%23L287&amp;data=3D02%7C01%7Cneladk%40microsoft.com%7C8f5ff61=
+2
+> > >> > 5e
+> > >> > db4b734c3e08d7f25b2b68%7C72f988bf86f141af91ab2d7cd011db47%7C1%7C0
+> > >> > %7
+> > >> > C637244345695157575&amp;sdata=3D3E%2F%2FdxSuR5SFo9ZII%2FZAA7h6%2FD=
+d
+> > >> > s1
+> > >> > lHeZaCnbimciLw%3D&amp;reserved=3D0)
+> > >> >
+> > >> > If client authentication is enabled in bmcweb, should it reject if=
+ client certificate is bad?
+> > >>
+> > >> No, purpose of this callback is to only extract the user name from
+> > >> the certificate and then allow to proceed with default OpenSSL
+> > >> verification flow which should finally fail if something is wrong
+> > >> with the certificate no matter what this function returned.
+> > >> The 'set_verify_callback' doesn't replace the whole verification
+> > >> procedure, it only adds a callback that is called when the default
+> > >> validator checks each certificate. The 'preverified' parameter,
+> > >> passed to it indicates if verification of the certificate succeeded =
+or not.
+> > >> You should be able to see it in bmcweb logs.
+> > >>
+> > >> >
+> > >> > Thanks,
+> > >> > Zhenfei
