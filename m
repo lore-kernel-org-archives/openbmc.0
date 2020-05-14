@@ -1,45 +1,71 @@
-Return-Path: <mcr@sandelman.ca>
+Return-Path: <miltonm@us.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=sandelman.ca (client-ip=209.87.249.19; helo=tuna.sandelman.ca;
- envelope-from=mcr@sandelman.ca; receiver=<UNKNOWN>)
+ smtp.mailfrom=us.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=sandelman.ca
-Received: from tuna.sandelman.ca (tuna.sandelman.ca [209.87.249.19])
+ dmarc=none (p=none dis=none) header.from=us.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49NGRq0TCZzDqS3
- for <openbmc@lists.ozlabs.org>; Fri, 15 May 2020 01:58:42 +1000 (AEST)
-Received: from localhost (localhost [127.0.0.1])
- by tuna.sandelman.ca (Postfix) with ESMTP id 714A5389D8;
- Thu, 14 May 2020 11:56:30 -0400 (EDT)
-Received: from tuna.sandelman.ca ([127.0.0.1])
- by localhost (localhost [127.0.0.1]) (amavisd-new, port 10024)
- with LMTP id mETB8rigcKxN; Thu, 14 May 2020 11:56:26 -0400 (EDT)
-Received: from sandelman.ca (obiwan.sandelman.ca [IPv6:2607:f0b0:f:2::247])
- by tuna.sandelman.ca (Postfix) with ESMTP id 54CC4389D5;
- Thu, 14 May 2020 11:56:26 -0400 (EDT)
-Received: from localhost (localhost [IPv6:::1])
- by sandelman.ca (Postfix) with ESMTP id 3315F213;
- Thu, 14 May 2020 11:58:32 -0400 (EDT)
-From: Michael Richardson <mcr@sandelman.ca>
-To: Joseph Reynolds <jrey@linux.ibm.com>
-cc: Bruce Mitchell <Bruce_Mitchell@phoenix.com>,
- openbmc <openbmc@lists.ozlabs.org>, Manojkiran Eda <manojeda@in.ibm.com>
-Subject: Re: Security workgroup meeting times
-In-Reply-To: <80674629-3a0f-3bca-d5c6-5a0efba7323c@linux.ibm.com>
-References: <66647c93-56c8-f64f-4e13-abe1c703f8f7@linux.ibm.com>
- <27d0f3fb-98b9-0a5b-f682-40f95142748c@linux.ibm.com>
- <3a5d85c078c64a0e9bd57a31b9096207@SCL-EXCHMB-13.phoenix.com>
- <80674629-3a0f-3bca-d5c6-5a0efba7323c@linux.ibm.com>
-X-Mailer: MH-E 8.6+git; nmh 1.7+dev; GNU Emacs 26.1
-X-Face: $\n1pF)h^`}$H>Hk{L"x@)JS7<%Az}5RyS@k9X%29-lHB$Ti.V>2bi.~ehC0;
- <'$9xN5Ub#
- z!G,p`nR&p7Fz@^UXIn156S8.~^@MJ*mMsD7=QFeq%AL4m<nPbLgmtKK-5dC@#:k
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49NJy930ZtzDqdx
+ for <openbmc@lists.ozlabs.org>; Fri, 15 May 2020 03:51:43 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 04EHYUWD043112
+ for <openbmc@lists.ozlabs.org>; Thu, 14 May 2020 13:51:40 -0400
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.104])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3119dg2h88-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 14 May 2020 13:51:40 -0400
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
+ Thu, 14 May 2020 17:51:39 -0000
+Received: from us1b3-smtp07.a3dr.sjc01.isc4sb.com (10.122.203.198)
+ by smtp.notes.na.collabserv.com (10.122.47.44) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 14 May 2020 17:51:35 -0000
+Received: from us1b3-mail228.a3dr.sjc03.isc4sb.com ([10.168.214.55])
+ by us1b3-smtp07.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2020051417513537-676291 ;
+ Thu, 14 May 2020 17:51:35 +0000 
+In-Reply-To: <20200514135251.GC1166713@heinlein>
+From: "Milton Miller II" <miltonm@us.ibm.com>
+To: Patrick Williams <patrick@stwcx.xyz>
+Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Date: Thu, 14 May 2020 17:51:34 +0000
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="=-=-=";
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 14 May 2020 11:58:32 -0400
-Message-ID: <27892.1589471912@localhost>
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: <20200514135251.GC1166713@heinlein>,
+ <20200514132703.448317-1-andrew@aj.id.au>
+ <20200514132703.448317-3-andrew@aj.id.au>
+X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
+ SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
+X-LLNOutbound: False
+X-Disclaimed: 12239
+X-TNEFEvaluated: 1
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 20051417-5525-0000-0000-000002816EF4
+X-IBM-SpamModules-Scores: BY=0.070694; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.424974; ST=0; TS=0; UL=0; ISC=; MB=0.023635
+X-IBM-SpamModules-Versions: BY=3.00013092; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000294; SDB=6.01376720; UDB=6.00735898; IPR=6.01159071; 
+ MB=3.00032163; MTD=3.00000008; XFM=3.00000015; UTC=2020-05-14 17:51:38
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2020-05-14 16:25:58 - 6.00011363
+x-cbparentid: 20051417-5526-0000-0000-0000D0D87806
+Message-Id: <OFC0BE98E6.EFA0EF41-ON00258568.00621B0A-00258568.00621B14@notes.na.collabserv.com>
+Subject: RE: [RFC PATCH linux dev-5.4 2/4] ARM: configs: aspeed-g5: Enable
+ modules
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
+ definitions=2020-05-14_05:2020-05-14,
+ 2020-05-14 signatures=0
+X-Proofpoint-Spam-Reason: orgsafe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,54 +77,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 14 May 2020 15:58:47 -0000
+X-List-Received-Date: Thu, 14 May 2020 17:51:46 -0000
 
---=-=-=
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+On May 14, 2020 around 8:53AM in some timezone, Patrick Williams  wrote:
 
+>On Thu, May 14, 2020 at 10:57:01PM +0930, Andrew Jeffery wrote:>> This is =
+a step on the path to enabling kprobes, which depend on
+>> CONFIG=5FMODULES=3Dy.
+>>=20
+>> Setting CONFIG=5FMODULES=3Dy results in the following change in kernel
+>size:
+>>=20
+>> Before:
+>>          $ size vmlinux
+>>             text    data     bss     dec     hex filename
+>>          8140500 2440582  178904 10759986         a42f32 vmlinux
+>>          $ stat --printf '%s\n' arch/arm/boot/zImage
+>>          3445200
+>>=20
+>> After:
+>>          $ size vmlinux
+>>             text    data     bss     dec     hex filename
+>>          8240349 2388862  172304 10801515         a4d16b vmlinux
+>>          $ stat --printf '%s\n' arch/arm/boot/zImage
+>>          3458368
+>>=20
+>> This gives a 41,529 byte increase to vmlinux and a 13,168 byte
+>increase
+>> to the size of the compressed kernel image. In the most constrained
+>BMC
+>> flash layout (arch/arm/boot/dts/openbmc-flash-layout.dtsi) this
+>change
+>> decreases the free space in the kernel partition from 1,011,248
+>bytes to
+>> 998,080 bytes.
+>>=20
+>> CONFIG=5FHW=5FRANDOM=3Dy seems to come along for the ride with the
+>> `./scripts/config -e modules && make olddefconfig && make
+>> savedefconfig`. The measurements above include it, I haven't
+>> investigated why it gets enabled or what effect disabling it might
+>have
+>> on the numbers.
+>>=20
+>> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+>> ---
+>>  arch/arm/configs/aspeed=5Fg5=5Fdefconfig | 2 ++
+>>  1 file changed, 2 insertions(+)
+>>=20
+>> diff --git a/arch/arm/configs/aspeed=5Fg5=5Fdefconfig
+>b/arch/arm/configs/aspeed=5Fg5=5Fdefconfig
+>> index e124b4ddd442..e30f27a413f4 100644
+>> --- a/arch/arm/configs/aspeed=5Fg5=5Fdefconfig
+>> +++ b/arch/arm/configs/aspeed=5Fg5=5Fdefconfig
+>> @@ -46,6 +46,7 @@ CONFIG=5FNEON=3Dy
+>>  CONFIG=5FKERNEL=5FMODE=5FNEON=3Dy
+>>  CONFIG=5FFIRMWARE=5FMEMMAP=3Dy
+>>  CONFIG=5FJUMP=5FLABEL=3Dy
+>> +CONFIG=5FMODULES=3Dy
+>>  # CONFIG=5FBLK=5FDEV=5FBSG is not set
+>>  # CONFIG=5FBLK=5FDEBUG=5FFS is not set
+>>  # CONFIG=5FMQ=5FIOSCHED=5FDEADLINE is not set
+>> @@ -152,6 +153,7 @@ CONFIG=5FSERIAL=5F8250=5FDW=3Dy
+>>  CONFIG=5FSERIAL=5FOF=5FPLATFORM=3Dy
+>>  CONFIG=5FASPEED=5FKCS=5FIPMI=5FBMC=3Dy
+>>  CONFIG=5FASPEED=5FBT=5FIPMI=5FBMC=3Dy
+>> +CONFIG=5FHW=5FRANDOM=3Dy
+>>  CONFIG=5FHW=5FRANDOM=5FTIMERIOMEM=3Dy
+>>  # CONFIG=5FI2C=5FCOMPAT is not set
+>>  CONFIG=5FI2C=5FCHARDEV=3Dy
+>> --=20
+>> 2.25.1
+>>=20
+>
+>We're already using modules on the facebook/openbmc kernels and it
+>hasn't seemed to cause any issues.  Is there any argument why we
+>shouldn't begin moving some of the drivers to be modules?  Any easy
+>change would be to make all the hwmon content as modules and load
+>them
+>based on the device tree.
+>
+>I think there is a DISTRO=5FFEATURE we should enable for userspace
+>support
+>of modules.  Let me know if you want me to investigate that.
 
-Joseph Reynolds <jrey@linux.ibm.com> wrote:
-    > On 5/13/20 1:43 PM, Bruce Mitchell wrote:
-    >> If you want to include Silicon Valley it seem like 22:00, 23:00,
-    >> 00:00, 01:00, and 02:00 UTC/GMT are the only real options.
+This gerrit is still open.  It also adds content to the rootfs b
+ecause it tries to pull in vmlinux into the root fs as part of the=20
+base kernel recipie:
 
-    > I think the current time (10:00am PDT) works for most Silicon Valley
-    > folks.=C2=A0  I am looking for a second meeting time good for others =
-not in
-    > the Americas.=C2=A0  For example, we've has security collaborations f=
-rom
-    > folks in Switzerland Poland Russia India China and Australia, and I
-    > want to find a time that work for those regions.
+https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/26092
 
-Perhaps the right thing is to therefore run a doodle poll which is exclusive
-for those not in North America.  Then afterwards, the rest of us can opine/=
-whine.
+actually this one that has failed since September:
 
-On days when it works, 10am PDT (1pm EDT for me) is indeed great, but last
-few weeks, I'm booked into higher priority things.
+https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/25536/2
 
-=2D-
-]               Never tell me the odds!                 | ipv6 mesh network=
-s [
-]   Michael Richardson, Sandelman Software Works        |    IoT architect =
-  [
-]     mcr@sandelman.ca  http://www.sandelman.ca/        |   ruby on rails  =
-  [
-
-
---=-=-=
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEbsyLEzg/qUTA43uogItw+93Q3WUFAl69aqcACgkQgItw+93Q
-3WWxRAf+LyY7ovnjf+KxxUCc0yZdK2t8lPL1lVLJy/QREWkKB+NIgjho5QrL2nWP
-5HJ5y1httMxsyseRIF6kA5Z55Hakaxe127Is+GxIgIe0u6X5mYBvxwTcs+rkHkIp
-QXUlbm3Le5lLf5QLrSzOO2xs6rpSQxcrHuxZ+MRnIHgn8SOb2T0sYaJV9+GpQDU4
-aJFdD9OjVm2cJDFTizwhDY/JGPrcxEBIED51TneAIP6a02CokksBjlJrV9yf4A3F
-iolDo/uZ6m/1y0rC0lfrseGe48kVAlysaJQtvZUZj3qKy5sb25INqhvxWNemGNA/
-qVNJykrLwRkuaruutbptUQXPjP57kw==
-=tXBS
------END PGP SIGNATURE-----
---=-=-=--
+milton
