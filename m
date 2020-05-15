@@ -1,86 +1,52 @@
-Return-Path: <tomjose@linux.vnet.ibm.com>
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=tomjose@linux.vnet.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Return-Path: <zhang_cy1989@163.com>
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=163.com
+ (client-ip=220.181.13.203; helo=m13203.mail.163.com;
+ envelope-from=zhang_cy1989@163.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=nmDtQTPQ; dkim-atps=neutral
+Received: from m13203.mail.163.com (m13203.mail.163.com [220.181.13.203])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49NpCX47grzDqrn
- for <openbmc@lists.ozlabs.org>; Fri, 15 May 2020 22:49:59 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 04FBXkBT024484; Fri, 15 May 2020 08:05:47 -0400
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3119dby4ja-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 May 2020 08:05:47 -0400
-Received: from m0098399.ppops.net (m0098399.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 04FBYNml027430;
- Fri, 15 May 2020 08:05:46 -0400
-Received: from ppma05fra.de.ibm.com (6c.4a.5195.ip4.static.sl-reverse.com
- [149.81.74.108])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3119dby4ha-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 May 2020 08:05:46 -0400
-Received: from pps.filterd (ppma05fra.de.ibm.com [127.0.0.1])
- by ppma05fra.de.ibm.com (8.16.0.27/8.16.0.27) with SMTP id 04FC5iJv016788;
- Fri, 15 May 2020 12:05:44 GMT
-Received: from b06cxnps3075.portsmouth.uk.ibm.com
- (d06relay10.portsmouth.uk.ibm.com [9.149.109.195])
- by ppma05fra.de.ibm.com with ESMTP id 3100ub28k7-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 May 2020 12:05:44 +0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps3075.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 04FC5gri64552968
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 15 May 2020 12:05:42 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2D814A404D;
- Fri, 15 May 2020 12:05:42 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5C614A4053;
- Fri, 15 May 2020 12:05:37 +0000 (GMT)
-Received: from [9.85.119.45] (unknown [9.85.119.45])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTPS;
- Fri, 15 May 2020 12:05:36 +0000 (GMT)
-Subject: Re: Redfish: Disable/enable out of band IPMI
-To: apparao.puli@linux.intel.com,
- "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Joseph Reynolds <jrey@linux.ibm.com>, karo33bug@gmail.com
-References: <CALzeG+-bxR0oqA_h8Gaf-RQLJygL1QYXy3y2DU=GKdLC9nhWhw@mail.gmail.com>
- <aa329f9e-9e66-d5e7-ecac-e54c23e16a48@linux.ibm.com>
- <d6b94dbe-a6c5-1b19-63e7-1695c3794e78@linux.ibm.com>
- <CALzeG+-dbvwLseu9agpKp5L8vVkNMabM76UOmuDo2sh0uS_qFA@mail.gmail.com>
- <696721cc-2cf4-373e-027d-475ff8d357dc@linux.intel.com>
- <CALzeG+83r=v5G_jiCV2M9XErD3fXiMYcti3zknO-YY3_yL59DQ@mail.gmail.com>
-From: TOM JOSEPH <tomjose@linux.vnet.ibm.com>
-Message-ID: <7ff70ad6-8e51-93c3-1175-2bce01e4db77@linux.vnet.ibm.com>
-Date: Fri, 15 May 2020 17:35:33 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49NqQk3s9JzDqkS
+ for <openbmc@lists.ozlabs.org>; Fri, 15 May 2020 23:44:35 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=Hy1MF
+ ZMg16BSP6OljIsYLxuwU86sepoou82S+I4bLCQ=; b=nmDtQTPQWhyY4M0VQU7sE
+ FG2N+dsEjMuXgzAu8WGmNmepr7PDqzTU1qObstJgYv/jHb4bjhRSKvwsfF0yswkv
+ /rWQYsHrF0pY1JRFUen4euOjudRAa6U7ftilhfbAgGf2eEH36xiEIl1Gh3O9lkLX
+ sJjSo5uhbNmp6Sr5A0vQOI=
+Received: from zhang_cy1989$163.com ( [111.199.191.169] ) by
+ ajax-webmail-wmsvr198 (Coremail) ; Fri, 15 May 2020 21:43:28 +0800
+ (GMT+08:00)
+X-Originating-IP: [111.199.191.169]
+Date: Fri, 15 May 2020 21:43:28 +0800 (GMT+08:00)
+From: zhang_cy1989 <zhang_cy1989@163.com>
+To: "osk@google.com" <osk@google.com>
+Cc: "jk@ozlabs.org" <jk@ozlabs.org>, "andrew@aj.id.au" <andrew@aj.id.au>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, 
+ "james.feist@linux.intel.com" <james.feist@linux.intel.com>
+Subject: Re:  How to use eSPI between Host and slave BMC in openbmc project
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version SP_ntes V3.5 build
+ 20180820(5a019900) Copyright (c) 2002-2020 www.mailtech.cn 163com
+In-Reply-To: <CABoTLcSappOuBWZ6w=PZPNo4=EbzPiTVbYV6vv10AS9bG116hQ@mail.gmail.com>
+References: <50cce7b2.1057.171fdb24f4d.Coremail.zhang_cy1989@163.com>
+ <775abd77-ce5b-4f1d-99e6-8f14b06114fa@www.fastmail.com>
+ <840ea83777699177e2af8ba77c193c73e27feaca.camel@ozlabs.org>
+ <CABoTLcSappOuBWZ6w=PZPNo4=EbzPiTVbYV6vv10AS9bG116hQ@mail.gmail.com>
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_149677_1958337201.1589550208398"
 MIME-Version: 1.0
-In-Reply-To: <CALzeG+83r=v5G_jiCV2M9XErD3fXiMYcti3zknO-YY3_yL59DQ@mail.gmail.com>
-Content-Type: multipart/alternative;
- boundary="------------28E2BBB06C933F2590235490"
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.676
- definitions=2020-05-15_04:2020-05-15,
- 2020-05-15 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0
- mlxlogscore=999 spamscore=0 impostorscore=0 bulkscore=0
- cotscore=-2147483648 lowpriorityscore=0 priorityscore=1501 mlxscore=0
- malwarescore=0 adultscore=0 clxscore=1011 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2005150101
+Message-ID: <7d55a5e3.c65f.1721893558f.Coremail.zhang_cy1989@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: hceowABHEZOAnL5eS6YYAA--.9445W
+X-CM-SenderInfo: x2kd0w5bf1imiyz6il2tof0z/1tbizRwlT1c7KWFNQgABsR
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,161 +58,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 15 May 2020 12:50:04 -0000
+X-List-Received-Date: Fri, 15 May 2020 13:44:53 -0000
 
-This is a multi-part message in MIME format.
---------------28E2BBB06C933F2590235490
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
+------=_Part_149677_1958337201.1589550208398
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Hello AppaRao/Richard,
+RGVhciBKYW1lcy9hbmRyZXcvT3NrYXIKICAgIFRoYW5rcyBhIGxvdC4KICAgIEkgYW0gc3R1ZHlp
+bmcgZVNQSSBzcGVjLiBCdXQgaXQncyBoYXJkIHRvIGZpbmQgYW55IHByb2R1Y3RzIHdpdGggZVNQ
+SS4KICAgIFlvdXIgcmVwbHkgZ2l2ZXMgbW9yZSB1bmRlcnN0YW5kaW5nIGFib3V0IGVTUEkuCiAg
+ICAKICAgIExvb2tpbmcgZm9yd2FyZCB0byBtb3JlIGFwcGxpY2F0aW9ucyB3aXRoIGVTUEkgaW4g
+b3BlbmJtYyBwcm9qZWN0LgogICAgVGhhbmtzIGFnYWluLgpCUgpGZWxpeAogICAgCgoKfCB8Cnpo
+YW5nX2N5MTk4OQp8CnwKemhhbmdfY3kxOTg5QDE2My5jb20KfArnrb7lkI3nlLHnvZHmmJPpgq7n
+rrHlpKfluIjlrprliLYKT24gNS8xMS8yMDIwIDIxOjMx77yMT3NrYXIgU2VuZnQ8b3NrQGdvb2ds
+ZS5jb20+IHdyb3Rl77yaCkhpCgoKSmVyZW15J3MgcmVzcG9uc2UgbWF0Y2hlcyBteSB1bmRlcnN0
+YW5kaW5nLCB0aGFuayB5b3UhCgoKPiAxIEFyZSB0aGVyZSBzb21lIHNvbHV0aW9ucyB0byB1c2Ug
+ZVNQSSBpbnRlcmZhY2UgaW4gb3BlbmJtYyBwcm9qZWN0PwoKVGhlcmUgYXJlIHNvbWUgcGxhdGZv
+cm1zIGluIGRldmVsb3BtZW50IHRoYXQgdXNlIGVTUEkgYmV0d2VlbiB0aGUgaG9zdAphbmQgQk1D
+LCB5ZXMuCgpPbiBwbGF0Zm9ybXMgdXNpbmcgSW50ZWwncyBDNjIwIHNlcmllcyBQQ0ggKyBBU1Qy
+NTAwIEJNQywgIGVTUEkgY2FuIGJlIHVzZWQgYmFzaWNhbGx5IGV4YWN0bHkgbGlrZSBMUEMgb24g
+Ym90aCBzaWRlcy4KIApGb3IgdGhlIEJNQywgd2UgbmVlZCBzb21lIHN1cHBvcnQgaW4gdGhlIGtl
+cm5lbCB0byBoYW5kbGUgZVNQSQpiZWhhdmlvdXIuIFRoZXJlIGlzIGEgcHJvdG90eXBlIGRyaXZl
+ciBmb3IgdGhlIGFzdDI1MDAgZVNQSSBzbGF2ZQphcm91bmQsIGJ1dCBpdCBoYXNuJ3QgbWFkZSBp
+dCB1cHN0cmVhbToKCmh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8y
+MDE4LUZlYnJ1YXJ5LzAxMDkzNy5odG1sClllcywgd2l0aG91dCB0aGF0LCB0aGUgUENIIHdpbGwg
+bm90IHJlbGVhc2UgdGhlIGhvc3QgQ1BVIGZyb20gcmVzZXQuCgoKID4gNSBlU1BJIGludGVyZmFj
+ZSBjYW4gdHJhbnNtaXQgaW8gY3ljbGUgYW5kIG1lbSBjeWNsZe+8jCAKPiBidXQgaW4gd2hpY2gg
+Y2FzZSBvciBhcHBsaWNhdGlvbnMgZVNQSSB0cmFuc2ZlciBtZW0gY3ljbGU/CgpJIGhhdmVuJ3Qg
+c2VlbiBhbnl0aGluZyBzcGVjaWZpYywgSSBkb24ndCB0aGluayBpdCdkIGJlIHRvbyB1c2VmdWwg
+aW4Kb3VyIGFyY2hpdGVjdHVyZS4KCkkndmUgc2VlbiBwbGF0Zm9ybXMgdGhhdCBsb2FkIHRoZSAi
+bG93ZXIgMTYgTWlCIiBmcm9tIFNQSSBmbGFzaCAoZGVzY3JpcHRvciByZWdpb24sIE1FLCBHYkUg
+RlcpIGFuZCBsb2FkIHRoZSAidXBwZXIgMTYgTWlCIiAodGhlIGFjdHVhbCBCSU9TKSB2aWEgTFBD
+LiBUaGUgc2FtZSBzaG91bGQgYmUgcG9zc2libGUgdmlhIGVTUEkuCgoKTm90ZSB0aGF0IHdpdGgg
+ZVNQSSBpdCB3b3VsZCAidGVjaG5pY2FsbHkiIGJlIHBvc3NpYmxlIHRvIGxvYWQgX0FMTF8gRlcg
+Zm9yIHRoZSBQQ0ggKGRlc2NyaXB0b3IgcmVnaW9uLCBNRSwgR2JFIEZXLCBCSU9TKSB2aWEgZVNQ
+SSB1c2luZyB0aGUgIlNsYXZlIEF0dGFjaGVkIEZsYXNoIFNoYXJpbmciIChTQUZTKSBmZWF0dXJl
+LiBIb3dldmVyLCB0aGVyZSdzIG5vIEJNQyBhdmFpbGFibGUgdG9kYXkgdGhhdCBJIGtub3cgb2Yg
+dGhhdCBzdXBwb3J0cyB0aGF0LCBidXQgc3VwcG9ydCBpcyBpbiB0aGUgd29ya3Mgb24gQk1DIGNo
+aXBzLiBIYXZpbmcgc2FpZCB0aGF0LCBJbnRlbCdzIHN1cHBvcnQgZm9yIFNBRlMgaXMgdW5jbGVh
+cjogc29tZSBkb2N1bWVudHMgY2xhaW0gaXQncyBzdXBwb3J0ZWQsIG90aGVycyBzdGF0ZSBpdCdz
+IG5vdCBQT1IgKFNBRlMgdGhhdCBpcykuCgoKSGFwcHkgdG8gcHJvdmlkZSBtb3JlIGluZm9ybWF0
+aW9uLgoKCk9za2FyLg==
+------=_Part_149677_1958337201.1589550208398
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-I took a stab at service-config-manager. Got it running on one of our 
-systems. Thanks for upstreaming it. Few questions i had:
-
-1) Are the Redfish changes yet to be upstreamed? 
-https://github.com/openbmc/bmcweb/commit/ec4974dd6a419b7f5556d4dcf4b8b836b5efbbd9 
-Why did we not leverage service-config-manager for the Get method?
-
-2) For the Patch method, do you have code yet to be upstreamed? If so I 
-will be interested in consuming it. Otherwise I can pick it up (This is 
-something which I am pursuing 
-https://github.com/ibm-openbmc/dev/issues/513).
-
-3) Are there plans to upstream the recipe file for service-config-manager?
-
-4) The interface exposed by the application looked different from this 
-(https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Service/Attributes.interface.yaml)
-
-5) For disabling out of band IPMI, there could be multiple instances of 
-phosphor-ipmi-net that needs to be disabled/masked. How do we plan to 
-achieve that? I had couple of options in mind. Let me know your thoughts.
-      a) Get all object paths of the service-config-manager which match 
-phosphor-ipmi-net( phosphor_2dipmi_2dnet) and then disable each interface.
-      b) Use the "ListUnits" method on "/org/freedesktop/systemd1" and 
-get the object paths of phosphor-ipmi-net instances.
-
-Regards,
-Tom
-On 17-12-2019 08:29, Carol Wang wrote:
-> Ok, I got it. Thank you!
-> Waiting for the change then. :-)
->
-> On Mon, Dec 16, 2019 at 9:48 PM Thomaiyar, Richard Marian
-> <richard.marian.thomaiyar@linux.intel.com> wrote:
->> This came a month back, and i wanted to push the changes in intel repo
->> to the OpenBMC community repo, due to other priority missed to push the
->> same.
->>
->> https://github.com/Intel-BMC/provingground/tree/master/srvcfg-manager
->>
->> Will push the document in few day and the changes for the same.
->>
->> Regards,
->>
->> Richard
->>
->> On 12/16/2019 11:38 AM, Carol Wang wrote:
->>> rface in phosphor-dbus-interface to indicate the status
->>> of net IPMI.
->>> Have a daemon to monitor the status, if the status is changed, then
->>> enable or
->>> disable the net IPMI service and socket.
->>> 2. Check the net IPMI socket state by getData()[1] in bmcweb. If the
->>> state is
->>> "running" or "listening", the net IPMI status is true, otherwise, the
->>> status is
->>> false. Then bmcweb can enable or disable the service and socket.
->>>
->>> Wondering if anyone has any thoughts on this feature, which way is
->>> better.
->>> If add interface, in which daemon this interface should be implemented?
-
---------------28E2BBB06C933F2590235490
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 8bit
-
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hello AppaRao/Richard,</p>
-    I took a stab at service-config-manager. Got it running on one of
-    our systems. Thanks for upstreaming it. Few questions i had:<br>
-    <p>1) Are the Redfish changes yet to be upstreamed? 
-<a class="moz-txt-link-freetext" href="https://github.com/openbmc/bmcweb/commit/ec4974dd6a419b7f5556d4dcf4b8b836b5efbbd9">https://github.com/openbmc/bmcweb/commit/ec4974dd6a419b7f5556d4dcf4b8b836b5efbbd9</a>
-      Why did we not leverage service-config-manager for the Get method?</p>
-    2) For the Patch method, do you have code yet to be upstreamed? If
-    so I will be interested in consuming it. Otherwise I can pick it up
-    (This is something which I am pursuing
-    <a class="moz-txt-link-freetext" href="https://github.com/ibm-openbmc/dev/issues/513">https://github.com/ibm-openbmc/dev/issues/513</a>). <br>
-    <br>
-    3) Are there plans to upstream the recipe file for
-    service-config-manager?<br>
-    <br>
-    4) The interface exposed by the application looked different from
-    this
-(<a class="moz-txt-link-freetext" href="https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Service/Attributes.interface.yaml">https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Control/Service/Attributes.interface.yaml</a>)<br>
-    <br>
-    5) For disabling out of band IPMI, there could be multiple instances
-    of phosphor-ipmi-net that needs to be disabled/masked. How do we
-    plan to achieve that? I had couple of options in mind. Let me know
-    your thoughts.<br>
-         a) Get all object paths of the service-config-manager which
-    match phosphor-ipmi-net( phosphor_2dipmi_2dnet) and then disable
-    each interface.<br>
-         b) Use the "ListUnits" method on "/org/freedesktop/systemd1"
-    and get the object paths of phosphor-ipmi-net instances.<span style="display: inline !important; float: none; background-color: rgb(255, 238, 240); color: rgb(3, 47, 98); font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: pre-wrap; word-spacing: 0px;"></span><br>
-    <br>
-    Regards,<br>
-    Tom<br>
-    <div class="moz-cite-prefix">On 17-12-2019 08:29, Carol Wang wrote:<br>
-    </div>
-    <blockquote type="cite"
-cite="mid:CALzeG+83r=v5G_jiCV2M9XErD3fXiMYcti3zknO-YY3_yL59DQ@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">Ok, I got it. Thank you!
-Waiting for the change then. :-)
-
-On Mon, Dec 16, 2019 at 9:48 PM Thomaiyar, Richard Marian
-<a class="moz-txt-link-rfc2396E" href="mailto:richard.marian.thomaiyar@linux.intel.com">&lt;richard.marian.thomaiyar@linux.intel.com&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-This came a month back, and i wanted to push the changes in intel repo
-to the OpenBMC community repo, due to other priority missed to push the
-same.
-
-<a class="moz-txt-link-freetext" href="https://github.com/Intel-BMC/provingground/tree/master/srvcfg-manager">https://github.com/Intel-BMC/provingground/tree/master/srvcfg-manager</a>
-
-Will push the document in few day and the changes for the same.
-
-Regards,
-
-Richard
-
-On 12/16/2019 11:38 AM, Carol Wang wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">rface in phosphor-dbus-interface to indicate the status
-of net IPMI.
-Have a daemon to monitor the status, if the status is changed, then
-enable or
-disable the net IPMI service and socket.
-2. Check the net IPMI socket state by getData()[1] in bmcweb. If the
-state is
-"running" or "listening", the net IPMI status is true, otherwise, the
-status is
-false. Then bmcweb can enable or disable the service and socket.
-
-Wondering if anyone has any thoughts on this feature, which way is
-better.
-If add interface, in which daemon this interface should be implemented?
-</pre>
-        </blockquote>
-      </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------28E2BBB06C933F2590235490--
+PGh0bWw+CjxoZWFkPgogICAgPG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50
+PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPgo8L2hlYWQ+Cjxib2R5Pgo8c3R5bGU+CiAgICBm
+b250ewogICAgICAgIGxpbmUtaGVpZ2h0OiAxLjY7CiAgICB9CiAgICB1bCxvbHsKICAgICAgICBw
+YWRkaW5nLWxlZnQ6IDIwcHg7CiAgICAgICAgbGlzdC1zdHlsZS1wb3NpdGlvbjogaW5zaWRlOwog
+ICAgfQo8L3N0eWxlPgo8ZGl2IHN0eWxlPSJmb250LWZhbWlseTrlvq7ova/pm4Xpu5EsVmVyZGFu
+YSwmcXVvdDtNaWNyb3NvZnQgWWFoZWkmcXVvdDssU2ltU3VuLHNhbnMtc2VyaWY7Zm9udC1zaXpl
+OjE0cHg7IGxpbmUtaGVpZ2h0OjEuNjsiPgogICAgPGRpdj48L2Rpdj48ZGl2PgogICAgPGRpdj4K
+ICAgICAgICA8c3Bhbj5EZWFyIEphbWVzL2FuZHJldy9Pc2thcgogICAgICAgIDwvc3Bhbj48L2Rp
+dj48ZGl2PiZuYnNwOyAmbmJzcDsgVGhhbmtzIGEgbG90LjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNw
+OyBJIGFtIHN0dWR5aW5nIGU8Zm9udCBzaXplPSIyIiBzdHlsZT0iZm9udC1zaXplOiAxNHB4OyI+
+U1BJIHNwZWMuIEJ1dCZuYnNwOzxzcGFuIHN0eWxlPSJvcnBoYW5zOiAyOyB3aWRvd3M6IDI7Ij5p
+dCdzIGhhcmQgdG8gZmluZCBhbnkgcHJvZHVjdHMgd2l0aCBlU1BJLjwvc3Bhbj48L2ZvbnQ+PC9k
+aXY+PGRpdj4mbmJzcDsgJm5ic3A7IFlvdXIgcmVwbHkgZ2l2ZXMgbW9yZSB1bmRlcnN0YW5kaW5n
+IGFib3V0IGVTUEkuPC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7Jm5ic3A7PC9kaXY+PGRpdj48Zm9u
+dCBzaXplPSIyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOiAxNHB4OyI+Jm5ic3A7ICZuYnNwOyZu
+YnNwOzwvc3Bhbj48L2ZvbnQ+PHNwYW4gc3R5bGU9Im9ycGhhbnM6IDI7IHdpZG93czogMjsiPjxm
+b250IHNpemU9IjIiIHN0eWxlPSJmb250LXNpemU6IDE0cHg7Ij48c3BhbiBzdHlsZT0iZm9udC1z
+aXplOiAxNHB4OyI+TG9va2luZyBmb3J3YXJkIHRvIG1vcmUgYXA8L3NwYW4+cGxpY2F0aW9uczwv
+Zm9udD48L3NwYW4+PHNwYW4gc3R5bGU9Im9ycGhhbnM6IDI7IHdpZG93czogMjsiPjxmb250IHNp
+emU9IjIiIHN0eWxlPSJmb250LXNpemU6IDE0cHg7Ij4mbmJzcDt3aXRoIGVTUEkgaW4gb3BlbmJt
+YyBwcm9qZWN0LjwvZm9udD48L3NwYW4+PC9kaXY+PGRpdiBzdHlsZT0ib3JwaGFuczogMjsgd2lk
+b3dzOiAyOyAiPiZuYnNwOyAmbmJzcDsgVGhhbmtzIGFnYWluLjwvZGl2PjxkaXYgc3R5bGU9Im9y
+cGhhbnM6IDI7IHdpZG93czogMjsgIj5CUjwvZGl2PjxkaXYgc3R5bGU9Im9ycGhhbnM6IDI7IHdp
+ZG93czogMjsgIj5GZWxpeDwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyZuYnNwOzwvZGl2PgogICAg
+PGRpdj4KICAgICAgICA8c3Bhbj4KICAgICAgICAgICAgPGJyPgogICAgICAgIDwvc3Bhbj4KICAg
+IDwvZGl2PgogICAgPGRpdiBpZD0ibnRlcy1wY21hYy1zaWduYXR1cmUiIHN0eWxlPSJmb250LWZh
+bWlseTon5b6u6L2v6ZuF6buRJyI+CiAgICAgCiAgICA8ZGl2IHN0eWxlPSJmb250LXNpemU6MTRw
+eDsgcGFkZGluZzogMDsgIG1hcmdpbjowO2xpbmUtaGVpZ2h0OjE0cHg7Ij4KICAgICAgICA8ZGl2
+IHN0eWxlPSJwYWRkaW5nLWJvdHRvbTo2cHg7bWFyZ2luLWJvdHRvbToxMHB4O2JvcmRlci1ib3R0
+b206MXB4IHNvbGlkICNlNmU2ZTY7ZGlzcGxheTppbmxpbmUtYmxvY2s7Ij4KICAgICAgICAgICAg
+ICAgICAgICA8YSBocmVmPSJodHRwczovL21hYXMubWFpbC4xNjMuY29tL2Rhc2hpLXdlYi1leHRl
+bmQvaHRtbC9wcm9TaWduYXR1cmUuaHRtbD9mdGxJZD0xJmFtcDtuYW1lPXpoYW5nX2N5MTk4OSZh
+bXA7dWlkPXpoYW5nX2N5MTk4OSU0MDE2My5jb20mYW1wO2ljb25Vcmw9aHR0cHMlM0ElMkYlMkZt
+YWlsLW9ubGluZS5ub3Nkbi4xMjcubmV0JTJGcWl5ZWxvZ28lMkZkZWZhdWx0QXZhdGFyLnBuZyZh
+bXA7aXRlbXM9JTVCJTIyemhhbmdfY3kxOTg5JTQwMTYzLmNvbSUyMiU1RCIgc3R5bGU9ImRpc3Bs
+YXk6YmxvY2s7YmFja2dyb3VuZDojZmZmOyBtYXgtd2lkdGg6IDQwMHB4OyBfd2lkdGg6IDQwMHB4
+O3BhZGRpbmc6MTVweCAwIDEwcHggMDt0ZXh0LWRlY29yYXRpb246IG5vbmU7IG91dGxpbmU6bm9u
+ZTstd2Via2l0LXRhcC1oaWdobGlnaHQtY29sb3I6dHJhbnNwYXJlbnQ7LXdlYmtpdC10ZXh0LXNp
+emUtYWRqdXN0Om5vbmUgIWltcG9ydGFudDt0ZXh0LXNpemUtYWRqdXN0Om5vbmUgIWltcG9ydGFu
+dDsiPgogICAgICAgICAgICA8dGFibGUgY2VsbHBhZGRpbmc9IjAiIHN0eWxlPSJ3aWR0aDogMTAw
+JTsgbWF4LXdpZHRoOiAxMDAlOyB0YWJsZS1sYXlvdXQ6IGZpeGVkOyBib3JkZXItY29sbGFwc2U6
+IGNvbGxhcHNlO2NvbG9yOiAjOWI5ZWExO2ZvbnQtc2l6ZTogMTRweDtsaW5lLWhlaWdodDoxLjM7
+LXdlYmtpdC10ZXh0LXNpemUtYWRqdXN0Om5vbmUgIWltcG9ydGFudDt0ZXh0LXNpemUtYWRqdXN0
+Om5vbmUgIWltcG9ydGFudDsiPgogICAgICAgICAgICAgICAgPHRib2R5IHN0eWxlPSJmb250LWZh
+bWlseTogJ1BpbmdGYW5nIFNDJywgJ0hpcmFnaW5vIFNhbnMgR0InLCdXZW5RdWFuWWkgTWljcm8g
+SGVpJywgJ01pY3Jvc29mdCBZYWhlaScsICflvq7ova/pm4Xpu5EnLCB2ZXJkYW5hICFpbXBvcnRh
+bnQ7IHdvcmQtd3JhcDpicmVhay13b3JkOyB3b3JkLWJyZWFrOmJyZWFrLWFsbDstd2Via2l0LXRl
+eHQtc2l6ZS1hZGp1c3Q6bm9uZSAhaW1wb3J0YW50O3RleHQtc2l6ZS1hZGp1c3Q6bm9uZSAhaW1w
+b3J0YW50OyI+CiAgICAgICAgICAgICAgICAgICAgPHRyIGNsYXNzPSJmaXJzdFJvdyI+CiAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8dGQgd2lkdGg9IjM4IiBzdHlsZT0icGFkZGluZzowOyBi
+b3gtc2l6aW5nOiBib3JkZXItYm94OyB3aWR0aDogMzhweDsiPgogICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDxpbWcgd2lkdGg9IjM4IiBoZWlnaHQ9IjM4IiBzdHlsZT0idmVydGljYWwt
+YWxpZ246bWlkZGxlOyB3aWR0aDogMzhweDsgaGVpZ2h0OiAzOHB4OyBib3JkZXItcmFkaXVzOjUw
+JTsiIHNyYz0iaHR0cHM6Ly9tYWlsLW9ubGluZS5ub3Nkbi4xMjcubmV0L3FpeWVsb2dvL2RlZmF1
+bHRBdmF0YXIucG5nIj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwvdGQ+CiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9InBhZGRpbmc6IDAgMCAwIDEwcHg7IGNvbG9y
+OiAjMzEzNTNiOyI+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBzdHlsZT0i
+Zm9udC1zaXplOiAxNnB4O2ZvbnQtd2VpZ2h0OmJvbGQ7IHdpZHRoOjEwMCU7IHdoaXRlLXNwYWNl
+OiBub3dyYXA7IG92ZXJmbG93OmhpZGRlbjt0ZXh0LW92ZXJmbG93OiBlbGxpcHNpczsiPnpoYW5n
+X2N5MTk4OTwvZGl2PgogICAgICAgICAgICAgICAgICAgICAgICAgICAgPC90ZD4KICAgICAgICAg
+ICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgICAgICAgICAgICA8dHIgd2lkdGg9IjEwMCUi
+IHN0eWxlPSJmb250LXNpemU6IDE0cHggIWltcG9ydGFudDsgd2lkdGg6IDEwMCU7Ij4KICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDx0ZCBjb2xzcGFuPSIyIiBzdHlsZT0icGFkZGluZzoxMHB4
+IDAgMCAwOyBmb250LXNpemU6MTRweCAhaW1wb3J0YW50OyB3aWR0aDogMTAwJTsiPgogICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IHN0eWxlPSJ3aWR0aDogMTAwJTtmb250
+LXNpemU6IDE0cHggIWltcG9ydGFudDt3b3JkLXdyYXA6YnJlYWstd29yZDt3b3JkLWJyZWFrOmJy
+ZWFrLWFsbDsiPnpoYW5nX2N5MTk4OUAxNjMuY29tPC9kaXY+CiAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAg
+ICAgPC90Ym9keT4KICAgICAgICAgICAgPC90YWJsZT4KICAgICAgICA8L2E+CiAgICAgICAgPC9k
+aXY+CiAgICA8L2Rpdj4KICAgIDxkaXYgc3R5bGU9ImZvbnQtc2l6ZToxMnB4O2NvbG9yOiNiNWI5
+YmQ7bGluZS1oZWlnaHQ6MThweDsiPgogICAgICAgIDxzcGFuPuetvuWQjeeUsTwvc3Bhbj4KICAg
+ICAgICA8YSBzdHlsZT0idGV4dC1kZWNvcmF0aW9uOiBub25lO2NvbG9yOiM0MTk2ZmY7cGFkZGlu
+ZzowIDVweDsiIGhyZWY9Imh0dHBzOi8vbWFpbC4xNjMuY29tL2Rhc2hpL2RscHJvLmh0bWw/ZnJv
+bT1tYWlsODEiPue9keaYk+mCrueuseWkp+W4iDwvYT4KICAgICAgICA8c3Bhbj7lrprliLY8L3Nw
+YW4+CiAgICA8L2Rpdj4KIDwvZGl2Pgo8L2Rpdj48ZGl2IGNsYXNzPSJKLXJlcGx5IiBzdHlsZT0i
+YmFja2dyb3VuZC1jb2xvcjojZjJmMmYyO2NvbG9yOmJsYWNrO3BhZGRpbmctdG9wOjZweDtwYWRk
+aW5nLWJvdHRvbTo2cHg7Ym9yZGVyLXJhZGl1czozcHg7LW1vei1ib3JkZXItcmFkaXVzOjNweDst
+d2Via2l0LWJvcmRlci1yYWRpdXM6M3B4O21hcmdpbi10b3A6NDVweDttYXJnaW4tYm90dG9tOjIw
+cHg7Zm9udC1mYW1pbHk6J+W+rui9r+mbhem7kSc7Ij4KICAgIDxkaXYgc3R5bGU9ImZvbnQtc2l6
+ZToxMnB4O2xpbmUtaGVpZ2h0OjEuNTt3b3JkLWJyZWFrOmJyZWFrLWFsbDttYXJnaW4tbGVmdDox
+MHB4O21hcmdpbi1yaWdodDoxMHB4Ij5PbiA8c3BhbiBjbGFzcz0ibWFpbC1kYXRlIj41LzExLzIw
+MjAgMjE6MzE8L3NwYW4+77yMPGEgY2xhc3M9Im1haWwtdG8iIHN0eWxlPSJ0ZXh0LWRlY29yYXRp
+b246bm9uZTtjb2xvcjojMmE4M2YyOyIgaHJlZj0ibWFpbHRvOm9za0Bnb29nbGUuY29tIj5Pc2th
+ciBTZW5mdCZsdDtvc2tAZ29vZ2xlLmNvbSZndDs8L2E+IHdyb3Rl77yaIDwvZGl2Pgo8L2Rpdj4K
+PGJsb2NrcXVvdGUgaWQ9Im50ZXMtcGNtYWlsLXF1b3RlIiBzdHlsZT0ibWFyZ2luOiAwOyBwYWRk
+aW5nOiAwOyBmb250LXNpemU6IDE0cHg7IGZvbnQtZmFtaWx5OiAn5b6u6L2v6ZuF6buRJzsiPgo8
+ZGl2IGRpcj0ibHRyIj48ZGl2PkhpPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5KZXJlbXkncyBy
+ZXNwb25zZSBtYXRjaGVzIG15IHVuZGVyc3RhbmRpbmcsIHRoYW5rIHlvdSE8L2Rpdj48ZGl2Pjxi
+cj48L2Rpdj48ZGl2IGNsYXNzPSJnbWFpbF9xdW90ZSI+PGJsb2NrcXVvdGUgY2xhc3M9ImdtYWls
+X3F1b3RlIiBzdHlsZT0ibWFyZ2luOjBweCAwcHggMHB4IDAuOGV4O2JvcmRlci1sZWZ0OjFweCBz
+b2xpZCByZ2IoMjA0LDIwNCwyMDQpO3BhZGRpbmctbGVmdDoxZXgiPiZndDsgMSBBcmUgdGhlcmUg
+c29tZSBzb2x1dGlvbnMgdG8gdXNlIGVTUEkgaW50ZXJmYWNlIGluIG9wZW5ibWMgcHJvamVjdD88
+YnI+Cjxicj4KVGhlcmUgYXJlIHNvbWUgcGxhdGZvcm1zIGluIGRldmVsb3BtZW50IHRoYXQgdXNl
+IGVTUEkgYmV0d2VlbiB0aGUgaG9zdDxicj4KYW5kIEJNQywgeWVzLjxicj48L2Jsb2NrcXVvdGU+
+PGRpdj5PbiBwbGF0Zm9ybXMgdXNpbmcgSW50ZWwncyBDNjIwIHNlcmllcyBQQ0ggKyBBU1QyNTAw
+IEJNQywmbmJzcDsgZVNQSSBjYW4gYmUgdXNlZCBiYXNpY2FsbHkgZXhhY3RseSBsaWtlIExQQyBv
+biBib3RoIHNpZGVzLjwvZGl2PjxkaXY+Jm5ic3A7PC9kaXY+PGJsb2NrcXVvdGUgY2xhc3M9Imdt
+YWlsX3F1b3RlIiBzdHlsZT0ibWFyZ2luOjBweCAwcHggMHB4IDAuOGV4O2JvcmRlci1sZWZ0OjFw
+eCBzb2xpZCByZ2IoMjA0LDIwNCwyMDQpO3BhZGRpbmctbGVmdDoxZXgiPkZvciB0aGUgQk1DLCB3
+ZSBuZWVkIHNvbWUgc3VwcG9ydCBpbiB0aGUga2VybmVsIHRvIGhhbmRsZSBlU1BJPGJyPgpiZWhh
+dmlvdXIuIFRoZXJlIGlzIGEgcHJvdG90eXBlIGRyaXZlciBmb3IgdGhlIGFzdDI1MDAgZVNQSSBz
+bGF2ZTxicj4KYXJvdW5kLCBidXQgaXQgaGFzbid0IG1hZGUgaXQgdXBzdHJlYW06PGJyPgo8YnI+
+CjxhIGhyZWY9Imh0dHBzOi8vbGlzdHMub3psYWJzLm9yZy9waXBlcm1haWwvb3BlbmJtYy8yMDE4
+LUZlYnJ1YXJ5LzAxMDkzNy5odG1sIiByZWw9Im5vcmVmZXJyZXIiIHRhcmdldD0iX2JsYW5rIj5o
+dHRwczovL2xpc3RzLm96bGFicy5vcmcvcGlwZXJtYWlsL29wZW5ibWMvMjAxOC1GZWJydWFyeS8w
+MTA5MzcuaHRtbDwvYT48L2Jsb2NrcXVvdGU+PGRpdj5ZZXMsIHdpdGhvdXQgdGhhdCwgdGhlIFBD
+SCB3aWxsIG5vdCByZWxlYXNlIHRoZSBob3N0IENQVSBmcm9tIHJlc2V0LjwvZGl2PjxkaXY+PGJy
+PjwvZGl2PjxkaXY+Jm5ic3A7Jmd0OyA1IGVTUEkgaW50ZXJmYWNlIGNhbiB0cmFuc21pdCBpbyBj
+eWNsZSBhbmQgbWVtIGN5Y2xl77yMJm5ic3A7PC9kaXY+PGJsb2NrcXVvdGUgY2xhc3M9ImdtYWls
+X3F1b3RlIiBzdHlsZT0ibWFyZ2luOjBweCAwcHggMHB4IDAuOGV4O2JvcmRlci1sZWZ0OjFweCBz
+b2xpZCByZ2IoMjA0LDIwNCwyMDQpO3BhZGRpbmctbGVmdDoxZXgiPgomZ3Q7IGJ1dCBpbiB3aGlj
+aCBjYXNlIG9yIGFwcGxpY2F0aW9ucyBlU1BJIHRyYW5zZmVyIG1lbSBjeWNsZT88YnI+Cjxicj4K
+SSBoYXZlbid0IHNlZW4gYW55dGhpbmcgc3BlY2lmaWMsIEkgZG9uJ3QgdGhpbmsgaXQnZCBiZSB0
+b28gdXNlZnVsIGluPGJyPgpvdXIgYXJjaGl0ZWN0dXJlLjxicj48L2Jsb2NrcXVvdGU+PGRpdj5J
+J3ZlIHNlZW4gcGxhdGZvcm1zIHRoYXQgbG9hZCB0aGUgImxvd2VyIDE2IE1pQiIgZnJvbSBTUEkg
+Zmxhc2ggKGRlc2NyaXB0b3IgcmVnaW9uLCBNRSwgR2JFIEZXKSBhbmQgbG9hZCB0aGUgInVwcGVy
+IDE2IE1pQiIgKHRoZSBhY3R1YWwgQklPUykgdmlhIExQQy4gVGhlIHNhbWUgc2hvdWxkIGJlIHBv
+c3NpYmxlIHZpYSBlU1BJLjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+Tm90ZSB0aGF0IHdpdGgg
+ZVNQSSBpdCB3b3VsZCAidGVjaG5pY2FsbHkiIGJlIHBvc3NpYmxlIHRvIGxvYWQgX0FMTF8gRlcg
+Zm9yIHRoZSBQQ0ggKGRlc2NyaXB0b3IgcmVnaW9uLCBNRSwgR2JFIEZXLCBCSU9TKSB2aWEgZVNQ
+SSB1c2luZyB0aGUgIlNsYXZlIEF0dGFjaGVkIEZsYXNoIFNoYXJpbmciIChTQUZTKSBmZWF0dXJl
+LiBIb3dldmVyLCB0aGVyZSdzIG5vIEJNQyBhdmFpbGFibGUgdG9kYXkgdGhhdCBJIGtub3cgb2Yg
+dGhhdCBzdXBwb3J0cyB0aGF0LCBidXQgc3VwcG9ydCBpcyBpbiB0aGUgd29ya3Mgb24gQk1DIGNo
+aXBzLiBIYXZpbmcgc2FpZCB0aGF0LCBJbnRlbCdzIHN1cHBvcnQgZm9yIFNBRlMgaXMgdW5jbGVh
+cjogc29tZSBkb2N1bWVudHMgY2xhaW0gaXQncyBzdXBwb3J0ZWQsIG90aGVycyBzdGF0ZSBpdCdz
+IG5vdCBQT1IgKFNBRlMgdGhhdCBpcykuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5IYXBweSB0
+byBwcm92aWRlIG1vcmUgaW5mb3JtYXRpb24uPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5Pc2th
+ci48L2Rpdj48L2Rpdj48L2Rpdj4KPC9ibG9ja3F1b3RlPjwhLS3wn5iALS0+CjwvZGl2Pgo8L2Jv
+ZHk+CjwvaHRtbD4=
+------=_Part_149677_1958337201.1589550208398--
