@@ -1,62 +1,80 @@
-Return-Path: <zbigniewku@gmail.com>
+Return-Path: <sunithaharish04@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::643;
- helo=mail-pl1-x643.google.com; envelope-from=zbigniewku@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::433;
+ helo=mail-pf1-x433.google.com; envelope-from=sunithaharish04@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=LWADo42F; dkim-atps=neutral
-Received: from mail-pl1-x643.google.com (mail-pl1-x643.google.com
- [IPv6:2607:f8b0:4864:20::643])
+ header.s=20161025 header.b=Cns0sMk4; dkim-atps=neutral
+Received: from mail-pf1-x433.google.com (mail-pf1-x433.google.com
+ [IPv6:2607:f8b0:4864:20::433])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49QVfy6DRRzDqP1
- for <openbmc@lists.ozlabs.org>; Mon, 18 May 2020 17:16:10 +1000 (AEST)
-Received: by mail-pl1-x643.google.com with SMTP id k19so3852425pll.9
- for <openbmc@lists.ozlabs.org>; Mon, 18 May 2020 00:16:10 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49Qcpm2LSwzDqBV
+ for <openbmc@lists.ozlabs.org>; Mon, 18 May 2020 21:53:19 +1000 (AEST)
+Received: by mail-pf1-x433.google.com with SMTP id z1so4846883pfn.3
+ for <openbmc@lists.ozlabs.org>; Mon, 18 May 2020 04:53:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=l8yxqpouhLyPhtOZLIufwX2JYTwIPyzQrrDBq8U513I=;
- b=LWADo42FJq8L8K9VgjqPbuh+X3OcHx0DzGqZGyiHQh7IkK29N3lfSnXfvueYs37mK/
- /Tca89tSwfUUUEHr7eQVrwDSFbxNQRAE3p2koJMMmlVi+2BDIQgzq6lWSQFdkdoGHng4
- 7125HbV9bt0FOTpcve5wvNFVROYy2ZTvcpkm3JiRvuDxp9JRNOobRZ5EZhUYcb5+3/5h
- ZHroJvZfFZWDd4pPIV1xIb+hzvRNS1sfn4psjG3CVqEzD2ZgnCT323NdPW9V28QEMoxN
- 8AcT/Sly9W6qPKxcHoK0GmZMBChwyZ5FBIo1RXRR75vIFwxL9OX89T09MD8DkJXW8Qe4
- wLMQ==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-transfer-encoding:content-language;
+ bh=7RMesUi9y0sbsuE4k1fP40FIpTLY3L39E+RhvMXu8hg=;
+ b=Cns0sMk4tYKR9xwDjxJ8Ne2R4DGFxMWihWmRxOyJLPDRX2PEHfe3gIuqHbU9vN4AJv
+ atIam5uikDQUoDhZ1ZCNaahtmG48m+tWMyEsOUHbHL9t+sdNvirIBw+CA0u4PziMA/tB
+ OMlxatVia79xTXITiNk4H+wJvpcOs4UNNCOnx9gbeuSLiETgZSQPo7s3yLUEnApyourN
+ /Ns7LOlsOiz7diQqhCfP7EmshNuo4Di+g2uAoOvmNdw7xufOZIytlEBARLY1gtKQKCjz
+ icwnaQ4O+YbGAXijwMbR2uutoK5RUSTM4oJQTJrsG3ssXW07DR5JQvvABDm0UDvJlICn
+ LT8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=l8yxqpouhLyPhtOZLIufwX2JYTwIPyzQrrDBq8U513I=;
- b=GpawGmvUT2SI6PldHbZU0Ws1LhRY7emvRfE6g2NI+5JUCPkJePKn6DqkRQoiTr2DWC
- e7NT5z31BqHk+MOOUdSDYaIoja+Eh783ZQwzK2vdig23mPviEUB3clGOVCwxg8RkmR9w
- 5Mz5GTfI4NyER/ruLHBaWcigFZiQwNN5RYVUfuHB067KMJcBQ89RNfGJBWY6SCU0LO5H
- GPFgTLpHMWKCZE5R5dYz66OkuucFc8YXvpPBN0nUxxRR9YGQ7an37zgbvoj7+0iW5qVh
- +GwoBR7soUg0aglYZTpNh+CELsfY0MlRxfiGT9G7+SrcorKOfkEQ1sAEHtT5ldrcPi7u
- SZug==
-X-Gm-Message-State: AOAM531onNSpue8FkYc+bs2qhYA49geYPEyZ5LE6Fy2jinNG1S2c3ZJt
- RgbyhXQdeyTeNzVRF7d5XVzbAIBvlJ2ghQMb+GQ=
-X-Google-Smtp-Source: ABdhPJyoZQhao1ye0o5jHTnYkfMvLh7PyHRavuLj5mCDbcP/KTqd2Zl7ujVMWGq0vqlwhDkqSP3tUvahb6D1CC727vQ=
-X-Received: by 2002:a17:90b:608:: with SMTP id
- gb8mr19064232pjb.178.1589786166760; 
- Mon, 18 May 2020 00:16:06 -0700 (PDT)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=7RMesUi9y0sbsuE4k1fP40FIpTLY3L39E+RhvMXu8hg=;
+ b=rqVT0NGvNR553Dkz4miIic0NpaTHGVxj3lcacR0/V0Z6OPKijcbhuubuHKFsPF329a
+ FlfQR8ZF8yAdbRYiidKlOxvdvYZmsVvdcgAPaxSN140xXdAnp2nVG64jmRRHAOswtqiw
+ j0lE2+NlCZMqu7tMMLget9w0/QcRRdoEzMkNdH8qm/eQxkHLIEX7CWgn7+SpgOUgd5Mh
+ 7aBRuvRmRMR7tNeld5Mv8W8Jmm2UJsAPmIXTZDzVR4qFNja6SaNso10onYze7AhbbUZf
+ fhKUNhLGsAKtL3DMVjD464o73FisOIsc8qGY46IrrWONOvTcIcRi2MR2yfXXRz4aPZpE
+ ycwg==
+X-Gm-Message-State: AOAM532DfBCQ0GWKOo/XxuKYaIdEGcRSaMpunr8ckoVnzR7Ct3j8EfGc
+ t7nRmxhik9Y0MuDIPCHNCt6V0e7W
+X-Google-Smtp-Source: ABdhPJyoxLGA1/By/uibWlPZtcJx8hXAnWUAV5wF5ux9HyoLoolHKVDOEj4a/dF5buh75qAoGskt4w==
+X-Received: by 2002:a62:8388:: with SMTP id h130mr6118883pfe.292.1589802794211; 
+ Mon, 18 May 2020 04:53:14 -0700 (PDT)
+Received: from ?IPv6:2405:204:5785:1f3:e0f7:7109:8397:cb77?
+ ([2405:204:5785:1f3:e0f7:7109:8397:cb77])
+ by smtp.gmail.com with ESMTPSA id c14sm7906990pgi.54.2020.05.18.04.53.10
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 May 2020 04:53:13 -0700 (PDT)
+Subject: Re: Storing host data on the BMC
+To: Patrick Williams <patrick@stwcx.xyz>,
+ Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Cc: dkodihal@in.ibm.com, suryakanth.sekar@linux.intel.com,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <f4df91bd-d60c-5f4b-ef08-2e3fdd163b4e@linux.vnet.ibm.com>
+ <843851ce-b802-05af-2949-c3aa828aead7@gmail.com>
+ <ec87d606-9fa9-014a-bfa4-e56f94f6747e@linux.vnet.ibm.com>
+ <342b5672-2adc-a6d1-f60a-085847d69584@gmail.com>
+ <43685475-b4fb-6d09-a248-01a52ca382fa@gmail.com>
+ <20200511120719.GA10214@heinlein>
+ <0000b55c-29a9-b0fa-b72f-c4f19d4c7d12@gmail.com>
+ <8db810a0-6bc4-5ad5-0f54-f739fe6dde81@gmail.com>
+ <20200513211857.GA1166713@heinlein>
+ <10275d64-bebd-cb33-0a16-21299b7b1880@linux.vnet.ibm.com>
+ <20200514123350.GB1166713@heinlein>
+From: Sunitha Harish <sunithaharish04@gmail.com>
+Message-ID: <7a159b9d-ec82-fed9-a9e1-23ffdf1c62e5@gmail.com>
+Date: Mon, 18 May 2020 17:23:08 +0530
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.0
 MIME-Version: 1.0
-References: <CAB_SOc61Z0F=pkRfvjYUATAkQvYpu3+Qo7hSoGmmvT7+hzQhqA@mail.gmail.com>
- <20200515121343.GG1166713@heinlein>
-In-Reply-To: <20200515121343.GG1166713@heinlein>
-From: Zbyszek <zbigniewku@gmail.com>
-Date: Mon, 18 May 2020 09:15:55 +0200
-Message-ID: <CAB_SOc5x-ROPow8uWxi6Ln-OYiZXqRs=Qt_Qj2vMFU--JimzMw@mail.gmail.com>
-Subject: Re: OpenBMC userguide questions
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: openbmc@lists.ozlabs.org, bradleyb@fuzziesquirrel.com, anoo@us.ibm.com, 
- andrew@aj.id.au, gmills@linux.vnet.ibm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20200514123350.GB1166713@heinlein>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,44 +86,76 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 18 May 2020 07:16:12 -0000
+X-List-Received-Date: Mon, 18 May 2020 11:53:20 -0000
 
-Thank you Patrick for your quick response.
-I will apply your comments in the document.
+Thanks Deepak & Patrick.
 
-pt., 15 maj 2020 o 14:13 Patrick Williams <patrick@stwcx.xyz> napisa=C5=82(=
-a):
+So the preferred approach would be to define the host settable data in a 
+new phosphor-host-inventory-manager, and make this as read-only to the 
+other BMC applications.
+
+The Interface: xyz.openbmc_project.Network.EthernetInterface - 
+DHCPEnabled property is a Bios attribute. 
+https://gerrit.openbmc-project.xyz/#/c/openbmc/meta-ibm/+/30424/
+Lets take a scenario - when the Ethernet interface set to be DHCP 
+enabled ( by setting the DHCPEnabled = true via redfish), the IPAddress, 
+SubnetMask and Gateway along with the Origin property will not be BIOS 
+one as all they can't be settable by the redfish in the case of DHCP and 
+they will be part of this new manager.
+
+However in the case of Static IP configuration(IPAddress, SubnetMask and 
+Gateway) will become bios setting.
+
+Would we be having these attributes in both Bios table and in the new 
+settings manager ?
+
+By considering all these , can you please weigh in your thoughts about 
+extending the existing settings interface table, by defining the 
+attribute as read-only for BMC ? We can block the "write" to these 
+attributes at user level. This would make things simpler , and it will 
+be in line with the redfish interface definitions as well. Redfish 
+already defines the schema where it makes some attributes read-only for 
+the users.
+
+Thanks & regards,
+Sunitha
+
+
+On 14-05-2020 18:03, Patrick Williams wrote:
+> On Thu, May 14, 2020 at 09:13:47AM +0530, Deepak Kodihalli wrote:
+>> On 14/05/20 2:48 am, Patrick Williams wrote:
+>>> On Wed, May 13, 2020 at 08:37:32PM +0530, Sunitha Harish wrote:
+>   
+>> I think the current proposal from Surya enables this already. Do you
+>> just mean the design doc should explicitly state this isn't restricted
+>> to the "BIOS" firmware.
+> Yep.
 >
-> Hi Zbyszek,
+>> As far as Sunitha's question goes, my point is that not all host
+>> firmware generated data is a BIOS attribute. For eg if the host tells me
+>> about the presence of certain FRUs, or their functional states, I
+>> wouldn't want to store those in the BIOS attributes backend, I'd rather
+>> associates those with the existing D-Bus interfaces for the FRU
+>> inventory. I think the same applies to the Origin property that has been
+>> described - associate with the networking D-Bus backend.
+> I think we're in agreement here.  Data which is interesting to represent
+> on the BMC, for which we already have a defined-interface, use it.  For
+> data which isn't interesting the to BMC, use the generic BIOS attribute
+> table.
 >
-> In general, I would say you should follow the format of existing
-> documents.  I think that answers the majoriy of your questions at a
-> high-level.
+>>> If you are wanting the data to be managed, utilizing existing DBus
+>>> interfaces we have around networking, doesn't phosphor-settingsd cover
+>>> that from an implementation perspective?
+>> I don't think the 'Origin' property is a setting.
+> Well the name "settingsd" is somewhat arbitrary based on its original
+> definition.  I believe the current implementation can make a placeholder
+> instance of any dbus interface.
 >
-> On Fri, May 15, 2020 at 08:49:49AM +0200, Zbyszek wrote:
-> > * Should we use the reply markup to indicate side comments though-out?
+> Having said that, one weakness with settingsd is that you can't easily
+> restrict property changes to data coming from the host.  Once you make a
+> settingsd object, anyone can make dbus calls to change properties on it.
+> If we want to be able to restrict that to specific interfaces, we might
+> want to look at a phosphor-inventory-manager like implementation which
+> has a special "backdoor" method to create / update the instances but
+> prevents modification through the normal property change interfaces.
 >
-> I would say no.  In Markdown ">" are for quotes.  You're not quoting
-> anything.  Skimming through it seems like with a little effort you could
-> just integrate these "side comments" into the document flow.
->
-> > * Do we want to add user level doc to userguide? or put this doc under
-> > security? Currently userguide only has a .tex including other markup.
->
-> It looks like the userguide directory is for a .tex wrapper that was put
-> in to generate a single document from a few Markdown sub-files.  The
-> majority of the "content" of this file comes from the root directory, so
-> it would seem that the pattern is to treat most things in root as
-> "user-guides".
->
-> The whole docs repository could use some reorganization, but we should
-> treat that separate from this commit.
->
-> > * Do we allow the `---` line separating doc header and text
-> > introducing to document?
->
-> No, let's follow the format of the existing documents.  Maybe a
-> "## Introduction" would be just as appropriate in this case.
->
-> --
-> Patrick Williams
