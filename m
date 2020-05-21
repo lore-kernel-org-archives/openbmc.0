@@ -1,38 +1,39 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <mcr@sandelman.ca>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=the-dreams.de (client-ip=88.99.104.3; helo=pokefinder.org;
- envelope-from=wsa@the-dreams.de; receiver=<UNKNOWN>)
+ smtp.mailfrom=sandelman.ca (client-ip=176.58.120.209; helo=relay.sandelman.ca;
+ envelope-from=mcr@sandelman.ca; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=the-dreams.de
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 49SjHM495MzDq9D
- for <openbmc@lists.ozlabs.org>; Fri, 22 May 2020 07:21:51 +1000 (AEST)
-Received: from localhost (p5486ce13.dip0.t-ipconnect.de [84.134.206.19])
- by pokefinder.org (Postfix) with ESMTPSA id DF02A2C1FCF;
- Thu, 21 May 2020 23:21:49 +0200 (CEST)
-Date: Thu, 21 May 2020 23:21:49 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Tali Perry <tali.perry1@gmail.com>, ofery@google.com,
- brendanhiggins@google.com, avifishman70@gmail.com,
- tmaimon77@gmail.com, kfting@nuvoton.com, venture@google.com,
- yuenn@google.com, benjaminfair@google.com, robh+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v12 2/3] i2c: npcm7xx: Add Nuvoton NPCM I2C controller
- driver
-Message-ID: <20200521212149.GB20150@ninjato>
-References: <20200521110910.45518-1-tali.perry1@gmail.com>
- <20200521110910.45518-3-tali.perry1@gmail.com>
- <20200521142340.GM1634618@smile.fi.intel.com>
- <20200521143100.GA16812@ninjato>
+ dmarc=none (p=none dis=none) header.from=sandelman.ca
+X-Greylist: delayed 541 seconds by postgrey-1.36 at bilbo;
+ Fri, 22 May 2020 08:49:02 AEST
+Received: from relay.sandelman.ca (relay.cooperix.net [176.58.120.209])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49SlCy4dBczDqdw
+ for <openbmc@lists.ozlabs.org>; Fri, 22 May 2020 08:48:59 +1000 (AEST)
+Received: from dooku.sandelman.ca (unknown [209.87.249.16])
+ by relay.sandelman.ca (Postfix) with ESMTPS id DAE951F449;
+ Thu, 21 May 2020 22:39:47 +0000 (UTC)
+Received: by dooku.sandelman.ca (Postfix, from userid 179)
+ id CB08A1A329C; Thu, 21 May 2020 18:39:46 -0400 (EDT)
+From: Michael Richardson <mcr@sandelman.ca>
+To: Sui Chen <suichen6@gmail.com>
+cc: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
+Subject: Re: An IPMI Request Visualization Tool
+In-reply-to: <CAFaEeaGs0GSiPp9mGVrSMB1brG19ttroPcK-x-p+BN3SnHrU4g@mail.gmail.com>
+References: <CAFaEeaFTP9v1xZefxzoU9E6h7SpjfbxVrnnSRCmJfJ3QjWRqhA@mail.gmail.com>
+ <20200514135723.GE1166713@heinlein>
+ <3d6db63b-f670-4e01-94c3-425f93d89708@www.fastmail.com>
+ <CAFaEeaGs0GSiPp9mGVrSMB1brG19ttroPcK-x-p+BN3SnHrU4g@mail.gmail.com>
+Comments: In-reply-to Sui Chen <suichen6@gmail.com>
+ message dated "Thu, 21 May 2020 09:44:05 -0700."
+X-Mailer: MH-E 8.6; nmh 1.7+dev; GNU Emacs 25.2.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="7ZAtKRhVyVSsbBD2"
-Content-Disposition: inline
-In-Reply-To: <20200521143100.GA16812@ninjato>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Type: multipart/signed; boundary="=-=-=";
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 21 May 2020 18:39:46 -0400
+Message-ID: <2775.1590100786@dooku>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -44,39 +45,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 21 May 2020 21:21:52 -0000
+X-List-Received-Date: Thu, 21 May 2020 22:49:03 -0000
+
+--=-=-=
+Content-Type: text/plain
 
 
---7ZAtKRhVyVSsbBD2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sui Chen <suichen6@gmail.com> wrote:
+    > Thanks for your interest! I'm also using dbus-pcap to track certain
+    > issues on the BMC recently, and would like to add support for all DBus
+    > messages to the visualization tool, making it somewhat resemble a GUI
+    > version of dbus-pcap.  The goal would be to be able to use this tool to
+    > investigate both DBus and IPMI. The way I plan to use it would be more
+    > similar to how I use GPUView (full-system timeline rather than
+    > inspecting individual packets)
+
+Interestingly, I was not that clearly aware of dbus-pcap :-)
+I ought to know more, as the lead libpcap maintainer.
+Is this visualization tool part of openbmc, or is it a generic dbus
+visualization tool?
+
+We recently brought rpcapd into the mix; it can be invoked via ssh.
+I wonder if that might help you as a debug tool?
+
+    > If you ask how this user interface might differ from the already
+    > existing dbus visualizers such as bustle, my answer would be: it will
+    > present information in a way that's more relevant to the BMC, putting a
+    > bit more focus on BMC-specific DBus messages, such as HWMon and RedFish
+    > DBus messages, to present information in a high signal-noise ratio way.
+
+Would this need to run on the BMC itself?
+
+--
+]               Never tell me the odds!                 | ipv6 mesh networks [
+]   Michael Richardson, Sandelman Software Works        | network architect  [
+]     mcr@sandelman.ca  http://www.sandelman.ca/        |   ruby on rails    [
 
 
-> From a glimpse, this looks good to go. I will have a close look later
-> today.
-
-Phew, this driver is huge. I won't finish my review today, but I am
-working on it and am maybe 2/3 through.
-
-
---7ZAtKRhVyVSsbBD2
+--=-=-=
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl7G8OkACgkQFA3kzBSg
-KbYcCw/9H7oWUrWBWy5C49NVa1N+n9JHdtx5KFE40DwXAwm2mRCSuoMr1JP9Rq5M
-IFVgQp7Kk1mZ0jDR178dMQSYKuwDuFkOMDrewvQyOGPbGtn38FyInpJ6Te+uVyBS
-HNJMGTluuvvM6840KdZSkRYZ9ynptA/JwSfvKoBk9/UAL6W/4C1LR97a4AEb/JFT
-1To5HWdtArLvqSdfwvAaZyRghNLM2bjrp46NUFsfcXvxbZoiRZJBlmqBPJqkO4sw
-wyVdSW16rdxMrAa6sFlcCjnCCZWusEgf5hdUtm3dRqnELLYH87iLqZpdfpMyOA8E
-YJSLRpRBj2GUlmvG2S2Kd2H03UUyfspn9Qxe5T7MOpYDuoQQoOXrjH88kqTyEVty
-3pkQ0z/oo62JsfgfjJQW5cBxbRhIiwP/rvMai1eXo303chCA2ieP9cT1bPbw8BXY
-uJ3Xl2Botr7hgj7VywLHN6cp4S5m4iWJVbjUZfM2vAmSKTSKvBcIR1mVVzfZgWJD
-vE9PsxfHtt0EOAU8WE9iseFJPOvzK7tuuaibHaD6gVAaNLr0Nv4adcM1MwSCicum
-PqkDvXWuP+n6HdQ9+L/FA63xAtbT5SRQIFYhMBxots9hOYAUxK5gOnoHJYbAqB5R
-TY2mr5I/NekkgzmBbh0ZRWTRdCmgfQCXmzMku6xaM4D57Weuauk=
-=vjY8
+iQEzBAEBCgAdFiEERK+9HEcJHTJ9UqTMlUzhVv38QpAFAl7HAzIACgkQlUzhVv38
+QpBaOAf+Pf6JMg07LS72Ol4ehZgcVrCoxtJjcn9qUeu4vUQgnslxvehuPI7IN7o3
+QZhF+Sj1xMkzveLZOVPS0b9VzGzG6bmWKALGb07/Nxr0Or1Mrvl0uhygLv8esu2b
+UzDAbfooT7xS3oL7PI++m4Lh3Lxx4gMzEZ0ZTHkf0q8A5Hrv2GZNf7ppV+XG5oBo
+z9aAZ2TlVL0sgz67goEYT6nhtfktbo+FZ4+uJY7VgDGH1V42lPieVlkeri2QaV6E
+iF4KoAnNgeaRYJ7Uilkx9zwx0z387z/VET/PVvLXG6KpUVIlI8XkPAx8zKTbjTJ7
+yOyxsxfraIRNPOZwWrvTanAuCoKY3w==
+=2/fb
 -----END PGP SIGNATURE-----
-
---7ZAtKRhVyVSsbBD2--
+--=-=-=--
