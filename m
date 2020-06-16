@@ -9,48 +9,45 @@ Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49mVBy3HtqzDqmC
- for <openbmc@lists.ozlabs.org>; Tue, 16 Jun 2020 23:57:46 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49mVG86gxmzDqY6
+ for <openbmc@lists.ozlabs.org>; Wed, 17 Jun 2020 00:00:32 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 05GDvRPq155455; Tue, 16 Jun 2020 09:57:41 -0400
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0a-001b2d01.pphosted.com with ESMTP id 31pc7qhv9j-1
+ 05GDxF0u013008; Tue, 16 Jun 2020 10:00:27 -0400
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.27])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 31p5esqyfc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Jun 2020 09:57:37 -0400
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05GDeEjw032281;
- Tue, 16 Jun 2020 13:57:35 GMT
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27]) by ppma04wdc.us.ibm.com with ESMTP id 31mpe8gspy-1
+ Tue, 16 Jun 2020 10:00:24 -0400
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+ by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05GE0Leq003306;
+ Tue, 16 Jun 2020 14:00:22 GMT
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28]) by ppma05wdc.us.ibm.com with ESMTP id 31mpeqgqhe-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 16 Jun 2020 13:57:35 +0000
+ Tue, 16 Jun 2020 14:00:22 +0000
 Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
  [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 05GDvZWi44761534
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 05GDvTOr41156992
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 16 Jun 2020 13:57:35 GMT
+ Tue, 16 Jun 2020 13:57:29 GMT
 Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 61BFCAE062;
- Tue, 16 Jun 2020 13:57:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 3EFA2AE05C;
+ Tue, 16 Jun 2020 13:57:29 +0000 (GMT)
 Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id EB407AE05F;
- Tue, 16 Jun 2020 13:57:34 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id C01B8AE060;
+ Tue, 16 Jun 2020 13:57:28 +0000 (GMT)
 Received: from ghost4.ibm.com (unknown [9.211.92.200])
  by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 16 Jun 2020 13:57:34 +0000 (GMT)
+ Tue, 16 Jun 2020 13:57:28 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH linux dev-5.4 2/2] ARM: dts: Aspeed: Tacoma: Enable EHCI
- controller
-Date: Tue, 16 Jun 2020 08:57:24 -0500
-Message-Id: <20200616135724.24514-3-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.4 0/2] ARM: dts: Aspeed: Enable EHCI controllers
+Date: Tue, 16 Jun 2020 08:57:22 -0500
+Message-Id: <20200616135724.24514-1-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20200616135724.24514-1-eajames@linux.ibm.com>
-References: <20200616135724.24514-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
@@ -58,12 +55,12 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
  definitions=2020-06-16_04:2020-06-16,
  2020-06-16 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- bulkscore=0 impostorscore=0 suspectscore=1 priorityscore=1501
- malwarescore=0 mlxlogscore=705 adultscore=0 spamscore=0 mlxscore=0
- clxscore=1015 cotscore=-2147483648 phishscore=0 classifier=spam adjust=0
+ phishscore=0 bulkscore=0
+ mlxlogscore=318 adultscore=0 lowpriorityscore=0 mlxscore=0 malwarescore=0
+ spamscore=0 impostorscore=0 suspectscore=1 clxscore=1015
+ priorityscore=1501 cotscore=-2147483648 classifier=spam adjust=0
  reason=mlx scancount=1 engine=8.12.0-2004280000
- definitions=main-2006160097
+ definitions=main-2006160101
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,39 +72,17 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 16 Jun 2020 13:57:47 -0000
+X-List-Received-Date: Tue, 16 Jun 2020 14:00:38 -0000
 
-Enable the second EHCI controller on the AST2600. Also add a line-name
-for the GPIO that controls power to the USB port.
+Enable the second EHCI controller on both the Tacoma board and Rainier system.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Eddie James (2):
+  ARM: dts: Aspeed: Rainier: Enable EHCI controller
+  ARM: dts: Aspeed: Tacoma: Enable EHCI controller
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-index 96a45014b7e5..fcaff4023240 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-@@ -95,6 +95,10 @@
- 	};
- };
- 
-+&ehci1 {
-+	status = "okay";
-+};
-+
- &gpio0 {
- 	gpio-line-names =
- 	/*A0-A7*/	"","","","","","","","",
-@@ -111,7 +115,7 @@
- 	/*L0-L7*/	"","","","","","","","",
- 	/*M0-M7*/	"","","","","","","","",
- 	/*N0-N7*/	"","","","","","","","",
--	/*O0-O7*/	"led-rear-power","led-rear-id","","","","","","",
-+	/*O0-O7*/	"led-rear-power","led-rear-id","","usb-power","","","","",
- 	/*P0-P7*/	"","","","","","","","",
- 	/*Q0-Q7*/	"cfam-reset","","","","","","","fsi-routing",
- 	/*R0-R7*/	"","","","","","","","",
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 6 +++++-
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts  | 6 +++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
 -- 
 2.24.0
