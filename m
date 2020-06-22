@@ -1,66 +1,67 @@
-Return-Path: <geissonator@gmail.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::336;
- helo=mail-ot1-x336.google.com; envelope-from=geissonator@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=TfcVm+M0; dkim-atps=neutral
-Received: from mail-ot1-x336.google.com (mail-ot1-x336.google.com
- [IPv6:2607:f8b0:4864:20::336])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=none (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49rD876bJzzDqWW
- for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2020 01:38:14 +1000 (AEST)
-Received: by mail-ot1-x336.google.com with SMTP id n6so13432050otl.0
- for <openbmc@lists.ozlabs.org>; Mon, 22 Jun 2020 08:38:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=e2X8d/0JY2hl1V2LoAbVy/X9QLgRsDjawFtoOu/MmWI=;
- b=TfcVm+M0fSwKhjNdEgEH8NKTkEmrp7HSzeXolxRON1aEvpotQrBUCEAuUsm7Z2fng5
- lhe6ME2e3XhUI2EZN7xShYRRkF4fxgvZ4oLGqznjpKy/WiIbXf2n7UgFcCSxnF/XnAcP
- ejlBzu8SYigmMJkxaNt2804aFbXhzr3Kma0BBrq+JXSoEIwarOCU5kAoRhX4YjZfl8Sz
- mzkyfBWi99iRtWfMzGBfZhoP+v/RxJQmU8uJsR9zIM+E6x7QtaOpqvUYEfdEgS3aEntW
- XCAhWEoj7PXfDS4dVEMQge4l3WCwg+Ylqlz4K74sBI41fj/2nJuE+6e+4wAU4I52g6TO
- vDSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
- :content-transfer-encoding:message-id:references:to;
- bh=e2X8d/0JY2hl1V2LoAbVy/X9QLgRsDjawFtoOu/MmWI=;
- b=TcOsbFS2ZZyXuHhW30RUiBpTtNAedS36GljHO73gO7p99IR289EWOa+iSMKaPkOKju
- gAcwvktkmmEBwQrgEDm3v74An0pH/nqvZkQe3vFTxwVAvGvvxkCOlvquwpHWnMsdwXnR
- BbPyKmTtIku4qPIDXucgK04fZMpsKc0wtawAG/SP7WlnLLcpT/llfA5rmGc3D2JAu802
- PSiPdU0xQZDCkzZsHRKGAaVXeV8l873Y98lMmwQ7q2eHDrZMJPSfydMmU9XemFP4AWE7
- qyIHSi546On9sFh/vDnf7KesgZ5Re84l3IP1ulcFPjfL8XTs6qVSF5SDz1j9Zk/W8zQl
- B5IA==
-X-Gm-Message-State: AOAM530PCSbxebSOz54b/8EsYVSIL/97wIMNOGVHAgJPrP+shTu8p5IE
- +hc4QnSpJjjjLCrzr8Ua9MM=
-X-Google-Smtp-Source: ABdhPJzA5oH7ZwHfDAsdOua92L5BJVJI7vzGJtw1KpVhxpVACzw7fSjpL1D0azFSoLnPOrKjRYS8Sg==
-X-Received: by 2002:a9d:53c3:: with SMTP id i3mr14867156oth.300.1592840291077; 
- Mon, 22 Jun 2020 08:38:11 -0700 (PDT)
-Received: from andrews-mbp-2.attlocal.net
- ([2600:1700:19e0:3310:cd9e:6084:3798:bc1f])
- by smtp.gmail.com with ESMTPSA id g126sm3280318oia.41.2020.06.22.08.38.09
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 22 Jun 2020 08:38:10 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.80.23.2.2\))
-Subject: Re: 4b32c9ae068beccc3755c48784253e96c31cfd46 brakes devtool
-From: Andrew Geissler <geissonator@gmail.com>
-In-Reply-To: <CADVsX88pzhA1eL1REB0GBXgpppbXsvdEzwDaXhUttSqxMbS1ow@mail.gmail.com>
-Date: Mon, 22 Jun 2020 10:38:09 -0500
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9EDC6332-5D71-4C82-895A-76E915031D20@gmail.com>
-References: <CADVsX88pzhA1eL1REB0GBXgpppbXsvdEzwDaXhUttSqxMbS1ow@mail.gmail.com>
-To: Anton Kachalov <rnouse@google.com>
-X-Mailer: Apple Mail (2.3608.80.23.2.2)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49rDJy47kCzDqCC
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2020 01:45:54 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 05MFWZOL071443; Mon, 22 Jun 2020 11:45:49 -0400
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 31ss0ht0wy-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 Jun 2020 11:45:49 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 05MFZYv7030858;
+ Mon, 22 Jun 2020 15:45:48 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma01dal.us.ibm.com with ESMTP id 31sa38mtey-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 22 Jun 2020 15:45:48 +0000
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 05MFjjCe6357594
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 22 Jun 2020 15:45:45 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B60E678063;
+ Mon, 22 Jun 2020 15:45:46 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 745457805E;
+ Mon, 22 Jun 2020 15:45:46 +0000 (GMT)
+Received: from ghost4.ibm.com (unknown [9.163.39.42])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon, 22 Jun 2020 15:45:46 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, andrew@aj.id.au, Eddie James <eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.4] leds: pca955x: Add a software implementation of
+ the PCA9552 chip
+Date: Mon, 22 Jun 2020 10:45:42 -0500
+Message-Id: <20200622154542.20930-1-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.24.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.216, 18.0.687
+ definitions=2020-06-22_08:2020-06-22,
+ 2020-06-22 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 spamscore=0
+ adultscore=0 suspectscore=1 priorityscore=1501 cotscore=-2147483648
+ phishscore=0 malwarescore=0 lowpriorityscore=0 mlxscore=0 clxscore=1011
+ mlxlogscore=999 impostorscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2004280000 definitions=main-2006220114
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,36 +73,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Jun 2020 15:38:16 -0000
+X-List-Received-Date: Mon, 22 Jun 2020 15:45:55 -0000
 
+There is an implementation of the PCA9552 on a PIC16F microcontroller.
+The I2C device addresses are different from the hardware PCA9552, so add
+a new compatible string and associated platform data to be able to probe
+this device.
 
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ drivers/leds/leds-pca955x.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-> On Jun 22, 2020, at 10:00 AM, Anton Kachalov <rnouse@google.com> =
-wrote:
->=20
-> The commit 4b32c9ae068beccc3755c48784253e96c31cfd46 brakes the command =
-like: "devtool modify phosphor-dbus-interfaces" in a way:
->=20
-> Running on python 3.7.7.
->=20
-> ERROR: Error executing a python function in exec_python_func() =
-autogenerated:
-> File: '/usr/lib/python3.7/sysconfig.py', lineno: 422, function: =
-_init_posix
->      0418:def _init_posix(vars):
->      0419:    """Initialize the module as appropriate for POSIX =
-systems."""
->      0420:    # _sysconfigdata is generated at build time, see =
-_generate_posix_vars()
->      0421:    name =3D _get_sysconfigdata_name()
->  *** 0422:    _temp =3D __import__(name, globals(), locals(), =
-['build_time_vars'], 0)
->      0423:    build_time_vars =3D _temp.build_time_vars
->      0424:    vars.update(build_time_vars)
->      0425:
->      0426:def _init_non_posix(vars):
-> Exception: ModuleNotFoundError: No module named =E2=80=98_sysconfigdata=E2=
-=80=99
-
-Looks like this discussion:
-https://lists.yoctoproject.org/g/yocto/topic/74637733=20
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index 4037c504589c..4d3a36538c6c 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -65,6 +65,7 @@ enum pca955x_type {
+ 	pca9550,
+ 	pca9551,
+ 	pca9552,
++	pca9552_soft,
+ 	pca9553,
+ };
+ 
+@@ -90,6 +91,11 @@ static struct pca955x_chipdef pca955x_chipdefs[] = {
+ 		.slv_addr	= /* 1100xxx */ 0x60,
+ 		.slv_addr_shift	= 3,
+ 	},
++	[pca9552_soft] = {
++		.bits		= 16,
++		.slv_addr	= /* 0110xxx */ 0x30,
++		.slv_addr_shift	= 3,
++	},
+ 	[pca9553] = {
+ 		.bits		= 4,
+ 		.slv_addr	= /* 110001x */ 0x62,
+@@ -101,6 +107,7 @@ static const struct i2c_device_id pca955x_id[] = {
+ 	{ "pca9550", pca9550 },
+ 	{ "pca9551", pca9551 },
+ 	{ "pca9552", pca9552 },
++	{ "pca9552-soft", pca9552_soft },
+ 	{ "pca9553", pca9553 },
+ 	{ }
+ };
+@@ -412,6 +419,7 @@ static const struct of_device_id of_pca955x_match[] = {
+ 	{ .compatible = "nxp,pca9550", .data = (void *)pca9550 },
+ 	{ .compatible = "nxp,pca9551", .data = (void *)pca9551 },
+ 	{ .compatible = "nxp,pca9552", .data = (void *)pca9552 },
++	{ .compatible = "nxp,pca9552-soft", .data = (void *)pca9552_soft },
+ 	{ .compatible = "nxp,pca9553", .data = (void *)pca9553 },
+ 	{},
+ };
+-- 
+2.24.0
