@@ -9,23 +9,23 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49rDKY43BdzDqXS
- for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2020 01:46:24 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49rDWZ5zdvzDqR6
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Jun 2020 01:55:06 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Message-ID: <e2e4299776eb50f472da743835362ba3b1e7314a.camel@fuzziesquirrel.com>
-Subject: Re: [EXTERNAL] how to get pci config space
+Message-ID: <1c18b5232c02f0fe704577a5efb6b593c08407f1.camel@fuzziesquirrel.com>
+Subject: Re: OpenBMC - how best to do meta-hpe commit
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>, openbmc@lists.ozlabs.org
-Date: Mon, 22 Jun 2020 11:45:40 -0400
-In-Reply-To: <cd4f6a11-2150-38b9-46a2-2319a3ef574f@linux.intel.com>
-References: <584F7181-73DB-4090-93D7-87E0E7408F20@fuzziesquirrel.com>
- <DM6PR21MB1388CB8A990972BA09EB5163C8500@DM6PR21MB1388.namprd21.prod.outlook.com>
- <3718EF06-C5DE-4D3D-B2B1-548FEF5A1919@fuzziesquirrel.com>
- <DM6PR21MB138892F44E5B77CCE63F83D4C8530@DM6PR21MB1388.namprd21.prod.outlook.com>
- <D37CC7FB-0199-47A5-930A-B9BBFF02F0D8@fuzziesquirrel.com>
- <DM6PR21MB138859ED52E4D8B7B1B634FEC8520@DM6PR21MB1388.namprd21.prod.outlook.com>
- <187e72f2-3ecb-2693-4467-3da3752efde8@linux.intel.com>
- <cd4f6a11-2150-38b9-46a2-2319a3ef574f@linux.intel.com>
+To: "Garrett, Mike (HPE Server Firmware)" <mike.garrett@hpe.com>, "Verdun,
+ Jean-Marie" <jean-marie.verdun@hpe.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+Cc: "Shaffer, Scott" <scott.shaffer@hpe.com>, "Cisneros, Jorge (George)"
+ <jorge.cisneros@hpe.com>, "Rodgers, Renee" <renee.rodgers@hpe.com>, "Chung,
+ John (TWN iLO)" <john.chung@hpe.com>, "Chen, Gilbert"
+ <gilbert.chen@hpe.com>, "Newman, Edward (iLO Firmware)"
+ <edward.newman@hpe.com>
+Date: Mon, 22 Jun 2020 11:54:23 -0400
+In-Reply-To: <DF4PR8401MB11459191B8F682B8DAB4707A8F980@DF4PR8401MB1145.NAMPRD84.PROD.OUTLOOK.COM>
+References: <DF4PR8401MB11459191B8F682B8DAB4707A8F980@DF4PR8401MB1145.NAMPRD84.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset="UTF-8"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -40,15 +40,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 22 Jun 2020 15:46:26 -0000
+X-List-Received-Date: Mon, 22 Jun 2020 15:55:07 -0000
 
-On Wed, 2020-06-17 at 16:37 -0700, Bills, Jason M wrote:
-> Hi Brad,
+On Fri, 2020-06-19 at 15:37 +0000, Garrett, Mike (HPE Server Firmware)
+wrote:
+> Hi Brad and all,
 > 
-> Not sure if anyone saw this or if there is just no interest. :)
+> Thank you for creating meta-hpe.  I'd like your opinion on the best
+> way to do our initial meta-hpe commit.  Its currently 168 files split
+> into (1) a machine layer for our DL360, (2) a BMC SOC layer, (3) a
+> common layer for elements common to HPE platforms.  I know the team
+> prefers small commits but would like your thoughts on this since it is
+> more or less atomic.
 > 
-> Could you please create a peci-pcie repo for this application?
+> I assume this would get committed to 
+> https://gerrit.openbmc-project.xyz/openbmc/meta-hpe and go through the
+> normal Gerrit review process right?  I've looked and not been able to
+> find good examples of other "1st commits" to see how it's been done in
+> the past.
+> 
+> Thanks,
+> 
+> Mike
 
-Hi Jason.  peci-pcie created!
+Hi Mike
+
+I didn't have anything to add beyond what Andrew said in the other
+thread.
+
+> However, my guess at the best course of action is to push the one big
+> commit you have to gerrit,
+
+I agree with this ^ we can go from there.
 
 thx - brad
