@@ -1,65 +1,61 @@
 Return-Path: <rentao.bupt@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::644;
- helo=mail-pl1-x644.google.com; envelope-from=rentao.bupt@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::541;
+ helo=mail-pg1-x541.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=BgsP9okA; dkim-atps=neutral
-Received: from mail-pl1-x644.google.com (mail-pl1-x644.google.com
- [IPv6:2607:f8b0:4864:20::644])
+ header.s=20161025 header.b=Ofjxhuaw; dkim-atps=neutral
+Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
+ [IPv6:2607:f8b0:4864:20::541])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49wl8M0XBqzDqcw;
- Tue, 30 Jun 2020 10:09:06 +1000 (AEST)
-Received: by mail-pl1-x644.google.com with SMTP id o1so1165097plk.1;
- Mon, 29 Jun 2020 17:09:06 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49wl8K6s4RzDqcn;
+ Tue, 30 Jun 2020 10:09:05 +1000 (AEST)
+Received: by mail-pg1-x541.google.com with SMTP id d194so5694592pga.13;
+ Mon, 29 Jun 2020 17:09:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=AYRl8pOAy8o2qO178aXaRH0fdWgs7Bra1sCO7acnTT8=;
- b=BgsP9okAqsbNdfU8Qix1naJZC6HZ/DB/tRSbhLZXsMdFJ3//c8ILFfjvIsdEtdbGe8
- WRNNeOa/ZbF+eJSGaDMTCfI/wS+aBk3qMC8p47zIvI8LMbSGVXMCJCT2J+XbFto6Phht
- u9IfBs6id4Woyr2Hz7pxGPdt5+63cbCRCUyetzRdWOuEDWVpVd/hpSdfjjLnKPOgKR+b
- Q1mXnrLYH4bXjUX3snuFbNYlE36BiCXwsXxAVUgD/SA/FYvVvyF1YITEafIic7jal7pj
- aWr1mhNFpjIaXjSzLdMpam2u7Jop5dpijsoH0GKhooN29zh9KQsueW/aWgIbBj6l/OVW
- s8Qg==
+ h=from:to:cc:subject:date:message-id;
+ bh=Kx8J891apkIa/g8IE/ArV1cGSLaJdXykQLAbT7gapEo=;
+ b=OfjxhuawS11Tyw27qrDv6z78jdyLU+y90/sALz95jSn5ElzsTBhObyaJPWIUD06A8Q
+ Rq9XbItl+rW0T4wkm3urohy2MEtJxfCb8Zxdtc2EvR4//sFm4GNqIQ5CJdw2kcr/h3Kk
+ SniFgSMVoyHJMiixcZZjfmshzJRypFvUzhO1JSqygFQSDGN3lgJ9cn7Bf8TfA87dnXPF
+ 7KLoCYmjfVzAxwkcHXac+9fkRa9st4bULqoFc1xWKDAv2tGSeiC7B097UFowCgbfi1AE
+ ySFdSzcfGj6S0Z4ATo4HcLrBUQ70+lNBm5vHCZ6KSVPBr18nMWacb2eK++3xPAE1PdJB
+ 4WSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=AYRl8pOAy8o2qO178aXaRH0fdWgs7Bra1sCO7acnTT8=;
- b=jUliad/v1fWxHtGldlhX8Zn/yO9B4r8cgrTah6mqozctmkfg9JSqY/M5OxJ5xNC4+x
- OJF8DHjVKKoBdGkr5sJdjMGX/4ZFNk9qA3AQPknNn82Un1H+xyagaiUCh/iyJh6XUylM
- 6zpy3OjM9NvhWKFvXG0k6/QNcASHQSRiJ0z6mPYVL4FwMbP/Z3JjRZZ/VcB/lPOeXDdD
- 5fX7SEecnrfNJxgaL/3NQjq3Wm8ft4drS13ffbD/gyX/K2oeg1geHcSEKju79c6jzdG+
- xmMXCHbWTnRot3tcMb18xCX2xlf7A4p9yjbnTJukgJZXtIY0Zfqciv0sFWN2jhY6tbVF
- FGMw==
-X-Gm-Message-State: AOAM532vTXEljz3YShd/5N/Dap17Ix/zzFlphUbWnXiTVVu6avm/43V1
- mmwOdKZ9Uac7dwAyot2+PgDK8uXDZP1O7Q==
-X-Google-Smtp-Source: ABdhPJw2TID2zawq32v23OdWSYQPmDRRXwFxa4iOa/bk/gIfLeZrz1CVQRgGVdgnQJcDErCNb42UDg==
-X-Received: by 2002:a17:90b:4910:: with SMTP id
- kr16mr10855811pjb.126.1593475744335; 
- Mon, 29 Jun 2020 17:09:04 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Kx8J891apkIa/g8IE/ArV1cGSLaJdXykQLAbT7gapEo=;
+ b=PFCjNyAQAMwfULlRgE1cSUoPJgyUHsrdRwxPRvNm4TPCWw7Iw3aAiClm2QGg+0y19T
+ TNcDP9jIWKc/ZYdv/OrMnsaZNnib2ruZnVhiuaA1qTtniNf4jUNNmGqd5OaNNcXriuS7
+ hIODv0BOQdYcct9WD4i6bnHq8G7YvL5autCB3DsDBGK+Z36zy0t9Weean4y+9ZdiYxSO
+ 6V87g2TiN1H6WHdc9nhpqs4xCkEFdO+jnL7xRmqswLVBbMKcFyYLHQtk59CD28eU9c9I
+ MJcobVMGOZun+bv3M0ydH+KM1FEXXoSQ0nI6inqK3PHjUvexSBUC+t6kL+72UqLE9kDF
+ RtfQ==
+X-Gm-Message-State: AOAM5302msrsO5ljnVQnPVaKG9aNTWhKk9a0HU6djDOF/4j07JDOAH3t
+ aFQQYZ9tZrYxgxwzoWj9yd4=
+X-Google-Smtp-Source: ABdhPJy27ifQA45ma6XMOnXykokl5ViL5QxEvsVBhYpeBWZBo8l1JoEZW17Z+4iSRG19EFlNaLhJHQ==
+X-Received: by 2002:a63:125f:: with SMTP id 31mr13062566pgs.239.1593475742116; 
+ Mon, 29 Jun 2020 17:09:02 -0700 (PDT)
 Received: from taoren-ubuntu-R90MNF91.thefacebook.com
  (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
- by smtp.gmail.com with ESMTPSA id m9sm754600pgq.61.2020.06.29.17.09.03
+ by smtp.gmail.com with ESMTPSA id m9sm754600pgq.61.2020.06.29.17.09.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2020 17:09:03 -0700 (PDT)
+ Mon, 29 Jun 2020 17:09:01 -0700 (PDT)
 From: rentao.bupt@gmail.com
 To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, taoren@fb.com
 Cc: Tao Ren <rentao.bupt@gmail.com>
-Subject: [PATCH 2/3] ARM: dts: aspeed: wedge40: enable adc device
-Date: Mon, 29 Jun 2020 17:08:50 -0700
-Message-Id: <20200630000851.26879-3-rentao.bupt@gmail.com>
+Subject: [PATCH 0/3] ARM: dts: aspeed: fixup wedge40 device tree
+Date: Mon, 29 Jun 2020 17:08:48 -0700
+Message-Id: <20200630000851.26879-1-rentao.bupt@gmail.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20200630000851.26879-1-rentao.bupt@gmail.com>
-References: <20200630000851.26879-1-rentao.bupt@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,37 +71,23 @@ X-List-Received-Date: Tue, 30 Jun 2020 00:09:07 -0000
 
 From: Tao Ren <rentao.bupt@gmail.com>
 
-Enable adc controller and corresponding voltage sensoring channels for
-Wedge40.
+The patch series update several devices' settings in Facebook Wedge40
+device tree.
 
-Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
----
- arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts | 9 +++++++++
- 1 file changed, 9 insertions(+)
+Patch #1 disables a few i2c controllers as they are not being used at
+present.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
-index aea23c313088..1049cfa80ac2 100644
---- a/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
-@@ -27,6 +27,11 @@
- 	memory@40000000 {
- 		reg = <0x40000000 0x20000000>;
- 	};
-+
-+	ast-adc-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc 5>, <&adc 6>, <&adc 7>, <&adc 8>, <&adc 9>;
-+	};
- };
- 
- &wdt1 {
-@@ -126,3 +131,7 @@
- &vhub {
- 	status = "okay";
- };
-+
-+&adc {
-+	status = "okay";
-+};
+Patch #2 enables adc device for voltage monitoring.
+
+Patch #3 enables pwm_tacho device for fan control and monitoring.
+
+Tao Ren (3):
+  ARM: dts: aspeed: wedge40: disable a few i2c controllers
+  ARM: dts: aspeed: wedge40: enable adc device
+  ARM: dts: aspeed: wedge40: enable pwm_tacho device
+
+ .../boot/dts/aspeed-bmc-facebook-wedge40.dts  | 42 +++++++++++++++----
+ 1 file changed, 34 insertions(+), 8 deletions(-)
+
 -- 
 2.17.1
