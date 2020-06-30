@@ -1,62 +1,61 @@
 Return-Path: <rentao.bupt@gmail.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62e;
- helo=mail-pl1-x62e.google.com; envelope-from=rentao.bupt@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::542;
+ helo=mail-pg1-x542.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=GZswfwgE; dkim-atps=neutral
-Received: from mail-pl1-x62e.google.com (mail-pl1-x62e.google.com
- [IPv6:2607:f8b0:4864:20::62e])
+ header.s=20161025 header.b=NuiSCbQ0; dkim-atps=neutral
+Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
+ [IPv6:2607:f8b0:4864:20::542])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 49wl8L2xFCzDqcv;
- Tue, 30 Jun 2020 10:09:06 +1000 (AEST)
-Received: by mail-pl1-x62e.google.com with SMTP id bj10so2506252plb.11;
- Mon, 29 Jun 2020 17:09:05 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 49wl8N07NFzDqcj;
+ Tue, 30 Jun 2020 10:09:07 +1000 (AEST)
+Received: by mail-pg1-x542.google.com with SMTP id g67so8173727pgc.8;
+ Mon, 29 Jun 2020 17:09:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id:in-reply-to:references;
- bh=eqibuAlbVerKw/zefMiddrebHe1JsCRw3HQfqdX+MX8=;
- b=GZswfwgEpHRnkCLZDWcoi5oj2YnH2/71kUslgS0hEGKRctt7+oWGXAR100Jk3nSNoY
- RVBbfykXXOddSv0OfVfN2rgSEmJ3Wq7bkMD0+St3Lxm4AbVcd6uXuUnu5Y5XqNlWo0mG
- ORxdMawTlko0koyR0spoOv9bocVpjmjlltuP7BSk/BvFymVrhSRwW00Fw2NYIfkbm7as
- 1Cc2XUK7+2JDYbjkyC2Stcjr3qKEb8xmlaZxXTJnfB4Sx+eXDwLgR+Xk1G2Nl8OnpS6W
- hY6OIvnclwLsVpTj8CpUpQuI90qsJjqt4tuSZoKVcpuF0CAQ2dy0dvm+OfpCV+HxDGjn
- 73YA==
+ bh=b+IGZ6PpnygOrvzFHrSSaDrACHYYVu9vYgrcmIAaoTc=;
+ b=NuiSCbQ0oSqAv7iiF5qikfnPTsQDbEqi6aWPQHuzs/QkcqQ98qHp6wBqkD6XbBmDWk
+ e82jReIUedwdHPM2bp/XHgPj8lOQUCRvzlE5Fpg93YgFr7BXdMuQmLA9Auf0CnmqCfnm
+ JqZ9ExcPRomIBC5CqFQUyzTuF8/X+2uGLVZykeKD/ezb5WDzVxA3GJnQa5tSDieA2l3W
+ /b/GVoFztFSupMHDyP84VziMeiYX9O2gKaU//U6xfzhxTVQ/nkULYGYsHI7BeVlJqsUG
+ SJ8ynf2K3TM5BEJl5vWtijOHjiEHHk5dLXkHbfdj0QIOLkyxwKTidE+OD8Lqy/D5SjOV
+ RQkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=eqibuAlbVerKw/zefMiddrebHe1JsCRw3HQfqdX+MX8=;
- b=cGQ/hDmetJDLxqK5uuCmgECfpf5JjLnswXohWV8kQto3PvtWo2/yDp50eEtIak7jPy
- KRSSWoAVQKfir9A4/e8Fg1HsA/gFeslqHYrgDaYEbw0gHtgp8m3bw9NjG/1+kdadHVtt
- NT+tdWIYVhkP/UQaDUxIl/phfc1Hxef1lgB+uKvA960PgIzvYXTUIkdqZHYaRrSVQ9m1
- 8pe1YvguzCIGl/UMvnwLYg8ehMCU/Sc3ke9Rpo8Wo6nFh53txobguvFViLINn63EZ3O2
- qJ2a5RazeHy0S7g43lLjXi0pkTdZZsfDKW44snMUqv3gML6fm8/RhwLLa85/lmc/RnSs
- vEJg==
-X-Gm-Message-State: AOAM530mFFXCO1LCntWrHSziaWMMQQgrLoeCopbRmO5Bh54MTwNm7XcO
- xgfJuIIUm2HKwNTlxGyVaH0=
-X-Google-Smtp-Source: ABdhPJywOKmCFfyQ5L/XOiQUMEjegV1m/9OHXGCYWL5vhYb0EzL028liqixSQqewmEE6FjLYW5NzPQ==
-X-Received: by 2002:a17:90a:ff16:: with SMTP id
- ce22mr20515645pjb.160.1593475743310; 
- Mon, 29 Jun 2020 17:09:03 -0700 (PDT)
+ bh=b+IGZ6PpnygOrvzFHrSSaDrACHYYVu9vYgrcmIAaoTc=;
+ b=IqqjLP5dUaa0iqHsHAvRo2hbu1fzpRgbbV4H3zt+LwjWLYzjFL1onHjNkVA4wwqoyE
+ fGgzBE59EjEqtIiPiiVx3MCuYK9ORhZxdtlG1mNDErCAHOMsW10PTL1gkLeuqL3o5RHc
+ oOA8wE130XHiGmmMlG8nx0r3dsyJxGJYJ+TkSuDtqnBuqSw4wkNmZKtKN5VJKoRdteMr
+ vHhgDtgDjPCG3fl1UMtrIm7aOvIAqiMqD2AEWxH30qN4sh2kuQ9ELCU+Dw+0MMggdIZ8
+ /v5jpClWV6Zv3JW1n/1LO5xI1J4f3tJ5dcCsiAr84Xj1uBPm1a1ZnpPLYpL1QE0aKPTO
+ cj/w==
+X-Gm-Message-State: AOAM533AU29C+iGLLwqueSgOWT85k3fbCM0gLtKzqdjEVfULPakOqYnO
+ XZriqriuW3mOK942BEAbr+w=
+X-Google-Smtp-Source: ABdhPJxJlzhlDCwbl4BKRLwMmmx7nhtrQm6pzWRE2A58IuRaPXG5n4u144jDdYNAnyapV80N6ZKJag==
+X-Received: by 2002:a65:63ca:: with SMTP id n10mr12762077pgv.252.1593475745495; 
+ Mon, 29 Jun 2020 17:09:05 -0700 (PDT)
 Received: from taoren-ubuntu-R90MNF91.thefacebook.com
  (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
- by smtp.gmail.com with ESMTPSA id m9sm754600pgq.61.2020.06.29.17.09.02
+ by smtp.gmail.com with ESMTPSA id m9sm754600pgq.61.2020.06.29.17.09.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 29 Jun 2020 17:09:02 -0700 (PDT)
+ Mon, 29 Jun 2020 17:09:05 -0700 (PDT)
 From: rentao.bupt@gmail.com
 To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, taoren@fb.com
 Cc: Tao Ren <rentao.bupt@gmail.com>
-Subject: [PATCH 1/3] ARM: dts: aspeed: wedge40: disable a few i2c controllers
-Date: Mon, 29 Jun 2020 17:08:49 -0700
-Message-Id: <20200630000851.26879-2-rentao.bupt@gmail.com>
+Subject: [PATCH 3/3] ARM: dts: aspeed: wedge40: enable pwm_tacho device
+Date: Mon, 29 Jun 2020 17:08:51 -0700
+Message-Id: <20200630000851.26879-4-rentao.bupt@gmail.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20200630000851.26879-1-rentao.bupt@gmail.com>
 References: <20200630000851.26879-1-rentao.bupt@gmail.com>
@@ -71,47 +70,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 30 Jun 2020 00:09:07 -0000
+X-List-Received-Date: Tue, 30 Jun 2020 00:09:08 -0000
 
 From: Tao Ren <rentao.bupt@gmail.com>
 
-Disable i2c bus #9, #10 and #13 as these i2c controllers are not used on
-Wedge40.
+Enable pwm_tacho device for fan control and monitoring in Wedge40.
 
 Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts | 12 ------------
- 1 file changed, 12 deletions(-)
+ .../boot/dts/aspeed-bmc-facebook-wedge40.dts  | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
-index 54e508530dce..aea23c313088 100644
+index 1049cfa80ac2..8ac23ff6b09e 100644
 --- a/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
 +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-wedge40.dts
-@@ -115,14 +115,6 @@
+@@ -135,3 +135,32 @@
+ &adc {
  	status = "okay";
  };
- 
--&i2c9 {
--	status = "okay";
--};
--
--&i2c10 {
--	status = "okay";
--};
--
- &i2c11 {
- 	status = "okay";
- };
-@@ -131,10 +123,6 @@
- 	status = "okay";
- };
- 
--&i2c13 {
--	status = "okay";
--};
--
- &vhub {
- 	status = "okay";
- };
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default
++		     &pinctrl_pwm1_default
++		     &pinctrl_pwm6_default
++		     &pinctrl_pwm7_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
++	};
++
++	fan@6 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x05>;
++	};
++
++	fan@7 {
++		reg = <0x07>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x06 0x07>;
++	};
++};
 -- 
 2.17.1
