@@ -1,65 +1,47 @@
-Return-Path: <joel.stan@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::544;
- helo=mail-pg1-x544.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <junhengdi@163.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=jms.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=KxCcGmsX; dkim-atps=neutral
-Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
- [IPv6:2607:f8b0:4864:20::544])
+ spf=pass (sender SPF authorized) smtp.mailfrom=163.com
+ (client-ip=220.181.13.37; helo=m1337.mail.163.com;
+ envelope-from=junhengdi@163.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256
+ header.s=s110527 header.b=SjQOCF5q; dkim-atps=neutral
+X-Greylist: delayed 917 seconds by postgrey-1.36 at bilbo;
+ Thu, 23 Jul 2020 20:10:28 AEST
+Received: from m1337.mail.163.com (m1337.mail.163.com [220.181.13.37])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BCY9K6QlxzDrgb
- for <openbmc@lists.ozlabs.org>; Fri, 24 Jul 2020 12:31:17 +1000 (AEST)
-Received: by mail-pg1-x544.google.com with SMTP id d4so4384449pgk.4
- for <openbmc@lists.ozlabs.org>; Thu, 23 Jul 2020 19:31:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=oV89y7toCU1yWvhFU+lccXM1w+Xzm7tvpw6pP0k/IQ8=;
- b=KxCcGmsXG5Wh/3X/5rHtTYYybi5aRIWXzwcsnK6d9ylulh+I6vSBqjgK62g6aRdaaa
- j63zRi98XxbViedyOR1Ik/2Xcr0KeXKfbWjiwcvCc3TkjatxP+FUjoFQDa4dSnUYKdUM
- Yxw3V3UHkxVzqut83skEVzDln5LJHkNDBZj6ZlVBtI+v02zRoJjBmnt0Wjn5gvQi0/FG
- Vb7FPpw5hDgIPkjBY9YjpQCAemu5Zm74dF5Lpx3AkOohkPchPGNY+1KZSNwVmLwF7TFc
- Iun1eVnXDVS7biUec+FUOeYlU8Dx9PgzEzt5Sw/uh8Ami67mc79/p+R+g7hCgVmjLUCm
- u8lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=oV89y7toCU1yWvhFU+lccXM1w+Xzm7tvpw6pP0k/IQ8=;
- b=rTnCFu4seairsLbS8pNXfK3pMvwgLYY9lHpQb1xD826ch0O/INp6X88pA2ONDn8zyi
- udbqBNR77TMWo6mNur7a6ITHTHofQ2sRJrl5J5pK1JnedUQ4bc22tY+AZExscfnY9lzE
- /glwu2HHdY1N8nLj3RpInR14ot4wEuwpabBsBy6VUgMEj21fu+z/COmyKy0mI4PE5Z/J
- FYY3ZwYtQRcpNAt2cjV7LJBS3dUhRjFaOxWxKhK6d2C2klP5rgw0po1XhNwkugdGjXb/
- 5mYVbfOMwBp5x2xVvgbuhVSpEUB0ttl9bXEAcSlufN271dfr5ehLWYqqpVg3hy52ZoQo
- CVXw==
-X-Gm-Message-State: AOAM533kwPEQ11gpU0kmpU0V4Xp1mJUpgjOPvGrnOyJ0ttX+ImC9XjAY
- IuyeizqSvVD16dc/Bh6Rsv4KQsl/b/U=
-X-Google-Smtp-Source: ABdhPJyJYt1ziLBnf+Xnf24UFFyCJjw7jCWFWUkdB5j8TBfED7Cnp5P2zXIKz9iSg8w+SIvNYMHgRg==
-X-Received: by 2002:a63:6d48:: with SMTP id i69mr6752893pgc.354.1595557874918; 
- Thu, 23 Jul 2020 19:31:14 -0700 (PDT)
-Received: from localhost.localdomain ([45.124.203.15])
- by smtp.gmail.com with ESMTPSA id w9sm3880239pfq.178.2020.07.23.19.31.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2020 19:31:13 -0700 (PDT)
-Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-To: openbmc@lists.ozlabs.org,
-	Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-5.4 3/3] ARM: dts: aspeed: tacoma: Add CFAM reset
- GPIO
-Date: Fri, 24 Jul 2020 12:00:36 +0930
-Message-Id: <20200724023036.354310-4-joel@jms.id.au>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20200724023036.354310-1-joel@jms.id.au>
-References: <20200724023036.354310-1-joel@jms.id.au>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BC7Pc2R0dzDrGq
+ for <openbmc@lists.ozlabs.org>; Thu, 23 Jul 2020 20:10:23 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=Date:From:Subject:MIME-Version:Message-ID; bh=GXYYM
+ iw3rkP/oa0vUY18IHCGjapljxUHAzFfHUdob1U=; b=SjQOCF5qyMaVfA0p8OlDc
+ Y1xO7Ef5j8r1hxb7Ja1UiUjVYVlKeAzSbMmeRR9QRR8xEEZ7+lkngrragA6fhm2t
+ Ihaxr23arLC4SGY5qpQCaIJEnIEsMANjGKcxREwQQ+RttU3ODy+s0WBoIqExRN6r
+ TyTMY0EqhrF3soulS1/n3M=
+Received: from junhengdi$163.com ( [202.96.123.226] ) by
+ ajax-webmail-wmsvr37 (Coremail) ; Thu, 23 Jul 2020 17:54:56 +0800 (CST)
+X-Originating-IP: [202.96.123.226]
+Date: Thu, 23 Jul 2020 17:54:56 +0800 (CST)
+From: =?GBK?B?srvT7w==?= <junhengdi@163.com>
+To: openbmc@lists.ozlabs.org
+Subject: how to change debug uart from uart5 to uart1 on ast2500 romulus?
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.10 build 20190724(ac680a23)
+ Copyright (c) 2002-2020 www.mailtech.cn 163com
+X-CM-CTRLDATA: ND8Kc2Zvb3Rlcl9odG09MTM3NDo1Ng==
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_129699_102065250.1595498096604"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <5e18b54e.8d5f.1737b18e7dc.Coremail.junhengdi@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: JcGowADXbj1wXhlflZFxAA--.8976W
+X-CM-SenderInfo: xmxqxvpqjgxqqrwthudrp/xtbBoQtkf1QHK1+glwACsj
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+X-Mailman-Approved-At: Fri, 24 Jul 2020 12:32:24 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,27 +53,50 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 24 Jul 2020 02:31:18 -0000
+X-List-Received-Date: Thu, 23 Jul 2020 10:10:30 -0000
 
-The GPIO on Q0 is used for resetting the CFAM of the processor that the
-ASPEED master is connected to.
+------=_Part_129699_102065250.1595498096604
+Content-Type: text/plain; charset=GBK
+Content-Transfer-Encoding: base64
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 1 +
- 1 file changed, 1 insertion(+)
+RGVhciBvcGVtYm1jZXIsCgpJIGFtIGdyZWVuIHRvIG9wZW5ibWMgYW5kIEkgd2FudCB0byBsZWFy
+biBzb21ldGhpbmcgYWJvdXQgYXN0MjUwMC5Ob3cgSSBoYXZlIG9uZSBib2FyZCBhc3QyNTAwIGFu
+ZCAKCnVzZSBvcGVuYm1jIGNvZGUgcm9tdWx1cy5JIGtub3cgdGhlIGRlZmF1bHQgZGVidWcgdWFy
+dCBpcyB1YXJ0NSBhbmQgSSB3YW50IHRvIGNoYW5nZSBpdCB0byB1YXJ0MSxiZWNhdXNlCgpvbiBt
+eSBib2FyZCwgdWFydDEgaXMgcnMyMzIuSSBoYXZlIHRyaWVkIHRoZXNlICxidXQgbm90IGVmZmVj
+dGl2ZS4KCigxKSBzZXQgdGhlIGhhcmR3YXJlIHN0cmFwIHJlZ2lzdGVyIGJpdDI5IDAgb24gYXN0
+LWc1LmMKCigyKSBzZXQgQ09ORklHX1NZU19OUzE2NTUwX0NPTTEgZnJvbSAweDFFNzg0MDAwIHRv
+IDB4MUU3ODMwMDAKCgoKCkFueSBhZGR2aWNlIHdpbGwgYmUgYXBwcmljYXRlZC4KCiAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFRoYW5rcywKCiAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIEp1bkhlbmc=
+------=_Part_129699_102065250.1595498096604
+Content-Type: text/html; charset=GBK
+Content-Transfer-Encoding: base64
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-index 96a45014b7e5..59f30c6c22d1 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-@@ -185,6 +185,7 @@
- 
- 	fsi-routing-gpios = <&gpio0 ASPEED_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
- 	fsi-mux-gpios = <&gpio0 ASPEED_GPIO(B, 0) GPIO_ACTIVE_HIGH>;
-+	cfam-reset-gpios = <&gpio0 ASPEED_GPIO(Q, 0) GPIO_ACTIVE_LOW>;
- 
- 	cfam@0,0 {
- 		reg = <0 0>;
--- 
-2.27.0
+PGRpdiBzdHlsZT0ibGluZS1oZWlnaHQ6MS43O2NvbG9yOiMwMDAwMDA7Zm9udC1zaXplOjE0cHg7
+Zm9udC1mYW1pbHk6QXJpYWwiPjxwIHN0eWxlPSJtYXJnaW46MDsiPkRlYXIgb3BlbWJtY2VyLDwv
+cD48cCBzdHlsZT0ibWFyZ2luOjA7Ij48c3BhbiBjbGFzcz0iQXBwbGUtdGFiLXNwYW4iIHN0eWxl
+PSJ3aGl0ZS1zcGFjZTpwcmUiPgk8L3NwYW4+SSBhbSBncmVlbiB0byBvcGVuYm1jIGFuZCBJIHdh
+bnQgdG8gbGVhcm4gc29tZXRoaW5nIGFib3V0IGFzdDI1MDAuTm93IEkgaGF2ZSBvbmUgYm9hcmQg
+YXN0MjUwMCBhbmQmbmJzcDs8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+dXNlIG9wZW5ibWMgY29k
+ZSByb211bHVzLkkga25vdyB0aGUgZGVmYXVsdCBkZWJ1ZyB1YXJ0IGlzIHVhcnQ1IGFuZCBJIHdh
+bnQgdG8gY2hhbmdlIGl0IHRvIHVhcnQxLGJlY2F1c2U8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+
+b24gbXkgYm9hcmQsIHVhcnQxIGlzIHJzMjMyLkkgaGF2ZSB0cmllZCB0aGVzZSAsYnV0IG5vdCBl
+ZmZlY3RpdmUuPC9wPjxwIHN0eWxlPSJtYXJnaW46MDsiPigxKSBzZXQgdGhlIGhhcmR3YXJlIHN0
+cmFwIHJlZ2lzdGVyIGJpdDI5IDAgb24gYXN0LWc1LmM8L3A+PHAgc3R5bGU9Im1hcmdpbjowOyI+
+KDIpIHNldCBDT05GSUdfU1lTX05TMTY1NTBfQ09NMSBmcm9tIDB4MUU3ODQwMDAgdG8gMHgxRTc4
+MzAwMDwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij48YnI+PC9wPjxwIHN0eWxlPSJtYXJnaW46MDsi
+PjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+CTwv
+c3Bhbj5BbnkgYWRkdmljZSB3aWxsIGJlIGFwcHJpY2F0ZWQuPC9wPjxwIHN0eWxlPSJtYXJnaW46
+MDsiPjxzcGFuIGNsYXNzPSJBcHBsZS10YWItc3BhbiIgc3R5bGU9IndoaXRlLXNwYWNlOnByZSI+
+CQkJCQkJCQkJCQkJCTwvc3Bhbj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7VGhhbmtzLDwvcD48cCBzdHlsZT0ibWFyZ2luOjA7Ij48c3BhbiBjbGFzcz0iQXBw
+bGUtdGFiLXNwYW4iIHN0eWxlPSJ3aGl0ZS1zcGFjZTpwcmUiPgkJCQkJCQkJCQkJCQk8L3NwYW4+
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZu
+YnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwO0p1bkhlbmc8L3A+
+PC9kaXY+PGJyPjxicj48c3BhbiB0aXRsZT0ibmV0ZWFzZWZvb3RlciI+PHA+Jm5ic3A7PC9wPjwv
+c3Bhbj4=
+------=_Part_129699_102065250.1595498096604--
