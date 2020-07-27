@@ -1,121 +1,75 @@
-Return-Path: <prvs=047783edc7=mike.garrett@hpe.com>
+Return-Path: <bruce_mitchell@phoenix.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=phoenix.com (client-ip=63.128.21.170;
+ helo=us-smtp-delivery-170.mimecast.com;
+ envelope-from=bruce_mitchell@phoenix.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=hpe.com
- (client-ip=148.163.147.86; helo=mx0a-002e3701.pphosted.com;
- envelope-from=prvs=047783edc7=mike.garrett@hpe.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=hpe.com
-X-Greylist: delayed 1519 seconds by postgrey-1.36 at bilbo;
- Tue, 28 Jul 2020 01:07:22 AEST
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com
- [148.163.147.86])
+ dmarc=pass (p=none dis=none) header.from=phoenix.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
+ header.s=mimecast20170203 header.b=StI5pHsh; 
+ dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com
+ header.a=rsa-sha256 header.s=mimecast20170203 header.b=lnX29KPJ; 
+ dkim-atps=neutral
+Received: from us-smtp-delivery-170.mimecast.com
+ (us-smtp-delivery-170.mimecast.com [63.128.21.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BFjpL343XzDrRK
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jul 2020 01:07:21 +1000 (AEST)
-Received: from pps.filterd (m0150241.ppops.net [127.0.0.1])
- by mx0a-002e3701.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06REcLsI003250; Mon, 27 Jul 2020 14:41:55 GMT
-Received: from g2t2352.austin.hpe.com (g2t2352.austin.hpe.com [15.233.44.25])
- by mx0a-002e3701.pphosted.com with ESMTP id 32gcqmxk79-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 27 Jul 2020 14:41:55 +0000
-Received: from G1W8108.americas.hpqcorp.net (g1w8108.austin.hp.com
- [16.193.72.60])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by g2t2352.austin.hpe.com (Postfix) with ESMTPS id A759C9C;
- Mon, 27 Jul 2020 14:41:54 +0000 (UTC)
-Received: from G4W9119.americas.hpqcorp.net (2002:10d2:14d6::10d2:14d6) by
- G1W8108.americas.hpqcorp.net (2002:10c1:483c::10c1:483c) with Microsoft SMTP
- Server (TLS) id 15.0.1497.2; Mon, 27 Jul 2020 14:41:54 +0000
-Received: from NAM11-CO1-obe.outbound.protection.outlook.com (15.241.52.13) by
- G4W9119.americas.hpqcorp.net (16.210.20.214) with Microsoft SMTP
- Server (TLS)
- id 15.0.1497.2 via Frontend Transport; Mon, 27 Jul 2020 14:41:54 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=g1RkPdGkBF89nOUFNZJTCtUUhWaLVCJyrS2RlZt3ijV/tFmRkvwTEBjgFBShz2ph8Gu/9BMOm73+08snjwQAr3+gOgjOKNo2Gn4oIXARN4sDHkfBB1Wpr6tw/u2ARq+/OW/j1v16am9uxUrooeQyPCTkEFUxxru33ylNauTIQ+tNwkMN1kJkR9ZVisQ5use8xnEE79mWiQAql89jutsS9yWXwCYmyztJLfyDrDl31RXGnEukPyjd3aL7oz5f605ccH5QMBhSupCyUfRAi2ccmN2c7UBIQsHzw8LuYsPjALr6d59pY+DL5bs04ePboEM9p0DQLY3rn/dqMpc7+3Ymog==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hOp9mEDw/QWziuoTZk2jArC2lbdFKS1VhE9dBmCCPcg=;
- b=DYWABjwfPiVpyPNTaTb0rUPrOmZv2P8XjO7d4e3+qOVhet3EffeUm6IX9fB7N21jxSLUHP0c4WjguUNuH4XmrqhaBe3Y5xJzm5sj7At8TQIL+QsvYmcHk5d6e+s96p7R9bmqnnpjw42Ia+sfMPePRSlZ3Oi4eIk5WqU/vYqMKfHAc+BvXEW3q7OqxkLECBp6UwWkM5Gw3WCYau4Xfjke06rx6SuG8pNW5BWuO3wpnuj6X4JrjuWkDb2txoA/FItdC6Z07V/P0v1DJPtyNuuqJ/uCN7hkJGiPgl9rwjuvbwqQpY9L8T/0Ie8dnSpjJqjYxj1TXtYYDzI5bf5gRcbSyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
- header.d=hpe.com; arc=none
-Received: from AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM
- (2a01:111:e400:7421::16) by AT5PR8401MB0514.NAMPRD84.PROD.OUTLOOK.COM
- (2a01:111:e400:7424::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3216.23; Mon, 27 Jul
- 2020 14:41:52 +0000
-Received: from AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM
- ([fe80::fdaa:51cd:528c:f6c3]) by AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM
- ([fe80::fdaa:51cd:528c:f6c3%10]) with mapi id 15.20.3216.033; Mon, 27 Jul
- 2020 14:41:52 +0000
-From: "Garrett, Mike (HPE Server Firmware)" <mike.garrett@hpe.com>
-To: Patrick Williams <patrick@stwcx.xyz>, "Chang, Abner (HPS SW/FW
- Technologist)" <abner.chang@hpe.com>
-CC: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>,
- "suryakanth.sekar@linux.intel.com" <suryakanth.sekar@linux.intel.com>,
- "Brad Bishop" <bradleyb@fuzziesquirrel.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: Fix content rendering issue on RemoteBiosConfiguration doc
-Thread-Topic: Fix content rendering issue on RemoteBiosConfiguration doc
-Thread-Index: AdZiNn5KWJT9vXnOQm2LeRMxyQeKbAA6almAAABWi2AAP/i1AAAAhHiQ
-Date: Mon, 27 Jul 2020 14:41:52 +0000
-Message-ID: <AT5PR8401MB06262BBAB1DDDAE7B9BE80498F720@AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM>
-References: <CS1PR8401MB11443DA57173714807F29080FF740@CS1PR8401MB1144.NAMPRD84.PROD.OUTLOOK.COM>
- <877be4a0-fac1-1787-c31f-9a670e1cfa7e@linux.vnet.ibm.com>
- <CS1PR8401MB1144271C5D55D6896ED55982FF750@CS1PR8401MB1144.NAMPRD84.PROD.OUTLOOK.COM>
- <20200727142244.GM3922@heinlein>
-In-Reply-To: <20200727142244.GM3922@heinlein>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BFjzm0CtqzDr7M
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Jul 2020 01:15:28 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
+ s=mimecast20170203; t=1595862924;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5otiXhyDToiIeOKUrBenT0QxdFE5wnjTfCM/8yU6fQs=;
+ b=StI5pHshcGA89yKM4BoaANrjWMuizd5ale8eI+wTrhO5r1FJTG5I2Dx0tlgVvMgwAw+zMk
+ KukvIrEM48oB/7qkFAr1WL8vTyKZVuNzpVpS5xlqO+oclrmi2OD4omUcoxikbQHj/McQ8A
+ 2Eroa59dTKv01r8X4IpA4V7SeaY9iqQ=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
+ s=mimecast20170203; t=1595862925;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=5otiXhyDToiIeOKUrBenT0QxdFE5wnjTfCM/8yU6fQs=;
+ b=lnX29KPJHKQGscmsPuu0tuNa6T4ZcmZfa4kfa4ZEEnIFHiDCMtEkKIXkwSIh9EOkEcskaz
+ x7ZlHlZU3Zv+McNZFEn7L1j3dRCX1suzwWaFDfBqkGd+Rtl/CQgtHr8MJ8dxo0avvOeEeL
+ UQ77LiSe1vHvQJry9k3Lg9IWCLR7Neg=
+Received: from SCL-EXCHMB-13.phoenix.com (67.51.239.50 [67.51.239.50])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-198-l3l6FCgHPFCrzm_ZO06FMQ-1; Mon, 27 Jul 2020 11:15:22 -0400
+X-MC-Unique: l3l6FCgHPFCrzm_ZO06FMQ-1
+X-CrossPremisesHeadersFilteredBySendConnector: SCL-EXCHMB-13.phoenix.com
+Received: from SCL-EXCHMB-13.phoenix.com (10.122.68.16) by
+ SCL-EXCHMB-13.phoenix.com (10.122.68.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1156.6; Mon, 27 Jul 2020 08:15:19 -0700
+Received: from SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b]) by
+ SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b%12]) with mapi id
+ 15.00.1156.000; Mon, 27 Jul 2020 08:15:19 -0700
+From: Bruce Mitchell <Bruce_Mitchell@phoenix.com>
+To: Michael Richardson <mcr@sandelman.ca>, openbmc <openbmc@lists.ozlabs.org>
+Subject: RE: BMCWeb policy for HTTPS site identity certificate
+Thread-Topic: BMCWeb policy for HTTPS site identity certificate
+Thread-Index: AQHWYQW/V1kfQjtxV0GqYlSYRw4dLKkay9kAgADDJTA=
+Date: Mon, 27 Jul 2020 15:15:18 +0000
+Message-ID: <b7860a2905f04fc8b539a34f730f7b12@SCL-EXCHMB-13.phoenix.com>
+References: <d50417a7-3cc2-1674-b4d1-09283c4ddaf5@linux.ibm.com>
+ <14851.1595795718@localhost>
+In-Reply-To: <14851.1595795718@localhost>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: stwcx.xyz; dkim=none (message not signed)
- header.d=none;stwcx.xyz; dmarc=none action=none header.from=hpe.com;
-x-originating-ip: [73.76.19.133]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-ht: Tenant
-x-ms-office365-filtering-correlation-id: f04974fb-f663-4822-ce7b-08d8323b33f0
-x-ms-traffictypediagnostic: AT5PR8401MB0514:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <AT5PR8401MB0514ABB8B542CB68A364030C8F720@AT5PR8401MB0514.NAMPRD84.PROD.OUTLOOK.COM>
-x-ms-oob-tlc-oobclassifiers: OLM:6108;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: NZIIE2J7WUFF0vaFFjSFqeEkzGOY16WAbzTe+lpt3pl6vUUlmuFXmuFW04k13eASlzyKlQd2jS97JHE9e4HvIM0f6ABwCgy6Vtav9ux/aSxmtqleLYxJnJ94O/of5pLG4SaunBevhlTXRfMO5ssLkV9aAC0JreQWKyMxWoRIgn8HRhxwFSZhZDG5sZVLLox0pUsKT0uItxsIl/GbFDWpJhpXuQSSIx9zWnqkuOZF/UpgQgAOUubd8Ht6O1JhSygpA4kZeFxfie5Yrvb0lc/lUtt5Hy41eqbR5a/UKygcrcnxKpxaBzbEOcZ6UkROGZyV3bBhXOYpuA6xDSnc+ONL4v1IXsrpaO7d5Ac7tRAYewbM/6/3iiIUGcHlJ2qvmsUjdxQgERJo9Z1MnPY2LOF/TQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFTY:;
- SFS:(396003)(376002)(39860400002)(346002)(136003)(366004)(2906002)(86362001)(316002)(966005)(478600001)(52536014)(71200400001)(8676002)(33656002)(7696005)(6636002)(54906003)(8936002)(110136005)(4326008)(66946007)(76116006)(26005)(64756008)(186003)(66556008)(5660300002)(53546011)(83380400001)(55016002)(66476007)(66446008)(6506007)(9686003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: tFygFwd6Kg29oK/QljvzzP13rB5XK04ux7ceXV/LbcbdP2MMHTibmMpjBH6TA7L60SYuoD1kvAHIOOCUR9cFgu6T4s3eRxcWwvwGE4J9rPo+zA2cFNj/X9etuEsCmnpBMvSBRhWLNzLjRiAozZFztlQAS9tURSTrUSPshDjuK6tBU4Mg3C3VeEbyxz9/rIdi0g/3P5hLS+e+LKJndL6sidQVhDHEvAoK0a2Fq0csC35mOn48mufzrg63s2YDWwhTJh0ItftBFnfDUK/5jmNRnBQXkmFaL22P5TWPbfsdLCi/IkiOBAbtbWhzZfgCIOrXqWi/dlCdsxyEO5FzVOkfTWuvnpIPYXV0AMit7QM35hDJrOyLDl2ZpUHp95OhF3/QKU7N5bbQt8wAuUz760GUm3RyQh4mLefAGkUH+L2QakkmLS1IEXmBOA3sWR7CmuH3X9lbvpnTDsjeo5zFu2wpiOpF8HP0VdEeoH0zIfGepEo=
-Content-Type: text/plain; charset="us-ascii"
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AT5PR8401MB0626.NAMPRD84.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: f04974fb-f663-4822-ce7b-08d8323b33f0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2020 14:41:52.7054 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: DB1tbijoyXkEmhXTpQ6bQwOjR9HmGeg2lyiJXnlnsX08hZtNqgb0+qB/mWHD3DgNBnIr7B/FQFSHrBxnAT3TYA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AT5PR8401MB0514
-X-OriginatorOrg: hpe.com
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [98.246.252.115]
 MIME-Version: 1.0
-X-HPE-SCL: -1
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-27_08:2020-07-27,
- 2020-07-27 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- mlxscore=0 mlxlogscore=983 priorityscore=1501 impostorscore=0
- clxscore=1011 phishscore=0 spamscore=0 adultscore=0 lowpriorityscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007270104
+X-OrganizationHeadersPreserved: SCL-EXCHMB-13.phoenix.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: phoenix.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,46 +81,46 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Jul 2020 15:07:25 -0000
+X-List-Received-Date: Mon, 27 Jul 2020 15:15:34 -0000
 
-Thanks Patrick,
-
-The CCLA shows the "initial list" of contributors on Schedule A.  What is t=
-he mechanism for editing that list and adding names?=20
-
-Mike
-
------Original Message-----
-From: Patrick Williams [mailto:patrick@stwcx.xyz]=20
-Sent: Monday, July 27, 2020 9:23 AM
-To: Chang, Abner (HPS SW/FW Technologist) <abner.chang@hpe.com>
-Cc: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>; suryakanth.sekar@linux.=
-intel.com; Brad Bishop <bradleyb@fuzziesquirrel.com>; Patrick Williams <pat=
-rick@stwcx.xyz>; openbmc@lists.ozlabs.org; Garrett, Mike (HPE Server Firmwa=
-re) <mike.garrett@hpe.com>
-Subject: Re: Fix content rendering issue on RemoteBiosConfiguration doc
-
-On Sun, Jul 26, 2020 at 07:55:03AM +0000, Chang, Abner (HPS SW/FW Technolog=
-ist) wrote:
-> Hi Deepak, thanks for the reminder. Miller also mentioned this to me. Now=
- I am follow the steps mentioned in Contributions.md to activate me account=
-. I just signed OpenBMC ICLA and sent back to OpenBMC for the approval.
-> Thanks
-> Abner
-
-Hi Abner,
-
-I think since you are working at HPE, the best solution here is to get you =
-added to the HPE CCLA [1] rather than have you sign an individual one.  Thi=
-s gives us higher confidence that you are cleared for contribution by your =
-company's internal processes as well.
-
-Scott Shaffer and Mike Garrett are the two listed in the CCLA which can upd=
-ate and add your name to the list.
-
-[1] https://drive.google.com/drive/folders/1VOKT6mnBX1UjMQqKcC75-ir8GcLU1YE1
-
-(cc'ing Mike)
-
---
-Patrick Williams
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogb3BlbmJtYyBbbWFpbHRv
+Om9wZW5ibWMtDQo+IGJvdW5jZXMrYnJ1Y2VfbWl0Y2hlbGw9cGhvZW5peC5jb21AbGlzdHMub3ps
+YWJzLm9yZ10gT24gQmVoYWxmIE9mDQo+IE1pY2hhZWwgUmljaGFyZHNvbg0KPiBTZW50OiBTdW5k
+YXksIEp1bHkgMjYsIDIwMjAgMTM6MzUNCj4gVG86IG9wZW5ibWMNCj4gU3ViamVjdDogUmU6IEJN
+Q1dlYiBwb2xpY3kgZm9yIEhUVFBTIHNpdGUgaWRlbnRpdHkgY2VydGlmaWNhdGUNCj4gDQo+IA0K
+PiBKb3NlcGggUmV5bm9sZHMgPGpyZXlAbGludXguaWJtLmNvbT4gd3JvdGU6DQo+ICAgICA+IFBy
+b2JsZW06DQo+ICAgICA+IEJNQ1dlYiBhcHBhcmVudGx5IHRyZWF0cyBjZXJ0aWZpY2F0ZXMgdGhh
+dCBhcmUgZWl0aGVyIGV4cGlyZWQgb3Igbm90DQo+IHZhbGlkDQo+ICAgICA+IHVudGlsIGEgZnV0
+dXJlIGRhdGUgYXMgdW51c2FibGUgKGludmVzdGlnYXRpb24gbmVlZGVkKS4gIEFuZCBCTUNXZWIN
+Cj4gZGVsZXRlcw0KPiAgICAgPiB1bnVzYWJsZSBjZXJ0aWZpY2F0ZXMuICBUaGlzIGNhbiBjb25m
+dXNlIHRoZSBhZG1pbmlzdHJhdG9yLCBlc3BlY2lhbGx5DQo+ICAgICA+IGNvbnNpZGVyaW5nIHRo
+ZSBCTUMncyB0aW1lLW9mLWRheSBjbG9jayBtYXkgbm90IGJlIHNldCBhcyBleHBlY3RlZC4NCj4g
+DQo+ICAgICA+IFByb3Bvc2FsOg0KPiAgICAgPiBXaGF0IGNlcnRpZmljYXRlIG1hbmFnZW1lbnQg
+cG9saWN5IHNob3VsZCBCTUNXZWIgdXNlPyAgSGVyZSBpcyBhbg0KPiBpbml0aWFsDQo+ICAgICA+
+IHByb3Bvc2FsOg0KPiAgICAgPiAxLiBjZXJ0aWZpY2F0ZSBpcyBwZXJmZWN0bHkgZ29vZCAtIFVz
+ZSB0aGUgY2VydGlmaWNhdGUuDQo+IA0KPiBva2F5Lg0KPiANCj4gICAgID4gMi4gY2VydGlmaWNh
+dGUgaXMgZ29vZCBidXQgZXhwaXJlZCBvciBub3QgeWV0IHZhbGlkIC0gVXNlIHRoZSBjZXJ0aWZp
+Y2F0ZQ0KPiBhbmQNCj4gICAgID4gbG9nIGEgd2FybmluZy4NCj4gDQo+IHZlcnkgZ29vZC4NCj4g
+DQo+ICAgICA+IDMuIGNlcnRpZmljYXRlIGlzIG1pc3Npbmcgb3IgYmFkIGZvcm1hdCBvciBhbGdv
+cml0aG0gdG9vIG9sZCAtIFVzZQ0KPiBhbm90aGVyDQo+ICAgICA+IGNlcnRpZmljYXRlIG9yIHNl
+bGYtZ2VuZXJhdGUgYSBjZXJ0aWZpY2F0ZSAoYW5kIGxvZyB0aGF0IGFjdGlvbikuDQo+ICAgICA+
+IEluIG5vIGNhc2Ugc2hvdWxkIEJNQ1dlYiBzaG91bGQgZGVsZXRlIGFueSBjZXJ0aWZpY2F0ZS4N
+Cj4gDQo+IEkgdGhpbmsgdGhhdCB0aGVyZSBpcyBhIHByb2JsZW0gaW4gMy4NCj4gDQo+ICJjZXJ0
+aWZpY2F0ZSBpcyBtaXNzaW5nIiBpcyBwcmV0dHkgbXVjaCB1bmFtYmlndW91cy4NCj4gImJhZCBm
+b3JtYXQiIGRlcGVuZHMgYSBiaXQgdXBvbiBldm9sdXRpb24gb2YgbGlicmFyaWVzLg0KPiBJbiBw
+YXJ0aWN1bGFyLCBhIG5ldyB2ZXJzaW9uIG9mIGxpYnNzbCBtaWdodCBzdXBwb3J0IHNvbWUgbmV3
+IGFsZ29yaXRobSwNCj4gYW5kIHRoZW4gc2hvdWxkIHRoZSBmaXJtd2FyZSBiZSByb2xsZWQgYmFj
+aywgaXQgd2lsbCAiYmFkIGZvcm1hdCIuDQo+IA0KPiBTbyBJIHN1Z2dlc3QgdGhhdCB0aGUgY2Vy
+dGlmaWNhdGUra2V5cGFpciBpcyBuZXZlciBkZWxldGVkLCBidXQgbWF5IGJlDQo+IHJlbmFtZWQu
+DQo+IEkgdGhpbmsgdGhhdCB3ZSBjb3VsZCBoYXZlIGEgZGViYXRlIGFib3V0IGdldHRpbmcgdGVs
+ZW1ldHJ5IGFib3V0IGJhZA0KPiBjZXJ0aWZpY2F0ZXMgYmFjayB2aWEgSFRUUC4NCj4gDQo+IEkg
+dGhpbmsgdGhhdCB0aGVyZSBhcmUgc29tZSBvcGVyYXRpb25hbCBjb25zaWRlcmF0aW9ucyByZWxh
+dGluZyB0bw0KPiBkZXRlcm1pbmluZyByb290IGNhdXNlIHRoYXQgbWF5IHRydW1wIHNvbWUgc2Vj
+dXJpdHkgaXNzdWVzIHJlbGF0aW5nIHRvDQo+IHRlbGxpbmcgYmFkIGFjdG9ycyB3aGV0aGVyIHRo
+ZXkgaGF2ZSBzdWNjZWVkZWQgaW4gZGFtYWdpbmcgYSBjZXJ0aWZpY2F0ZS4NCg0KT25lIG1vcmUg
+dGhpbmcgaXMgZm9yIDMgaXMgdGhhdCB0aGUgaW5jaWRlbnQgbXVzdCBiZSBsb2dnZWQuDQoNCj4g
+DQo+IC0tDQo+IF0gICAgICAgICAgICAgICBOZXZlciB0ZWxsIG1lIHRoZSBvZGRzISAgICAgICAg
+ICAgICAgICAgfCBpcHY2IG1lc2gNCj4gbmV0d29ya3MgWw0KPiBdICAgTWljaGFlbCBSaWNoYXJk
+c29uLCBTYW5kZWxtYW4gU29mdHdhcmUgV29ya3MgICAgICAgIHwgICAgSW9UDQo+IGFyY2hpdGVj
+dCAgIFsNCj4gXSAgICAgbWNyQHNhbmRlbG1hbi5jYSAgaHR0cDovL3d3dy5zYW5kZWxtYW4uY2Ev
+ICAgICAgICB8ICAgcnVieSBvbg0KPiByYWlscyAgICBbDQo+IA0KPiANCj4gDQoNCg==
