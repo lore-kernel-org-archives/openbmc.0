@@ -1,85 +1,76 @@
-Return-Path: <patrick@stwcx.xyz>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28;
- helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+Return-Path: <dkodihal@linux.vnet.ibm.com>
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=dkodihal@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=stwcx.xyz
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm2 header.b=W7sGULn5; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=ZKUxmGpl; 
- dkim-atps=neutral
-X-Greylist: delayed 501 seconds by postgrey-1.36 at bilbo;
- Tue, 28 Jul 2020 00:31:13 AEST
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none)
+ header.from=linux.vnet.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BFj0d4ZYDzF14V
- for <openbmc@lists.ozlabs.org>; Tue, 28 Jul 2020 00:31:12 +1000 (AEST)
-Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
- by mailout.nyi.internal (Postfix) with ESMTP id 95BB55C0058;
- Mon, 27 Jul 2020 10:23:31 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute7.internal (MEProxy); Mon, 27 Jul 2020 10:23:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=LNLoseXlbkvDWJl7qTUwhB5CvOX
- OMryIboyWRc6KjMI=; b=W7sGULn5ghlCh8Ol1QdMYVxAndAUH2TgB6ce2KxUq9O
- jZAF+7jWLw7zgDbJuntNYDw9Klceg6GwvqJS0xRZurwHY3faiDfnSkqyKNwWAVcg
- cJGUHgsgXhKInmD+cv8YXJQ32Ucja72ygM99oZfzIaPn72mfsZgb2+PcCrwvz7Ts
- f21Hj2+u20FcltVXU93IijpOgQoOWaWj/84RnDXj6j+h+YxzMzIRWPXRLVaU9uhS
- t91qbkq2zViU3oyh6ud3LFQTS6zeyKOGGKkxZ3GRUea7RIQYQShYbYOs/Lmc3LIL
- XT59zo/b1o7UCGHcm81f55gDDy/ovBiARek9pdtzmwA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=LNLose
- XlbkvDWJl7qTUwhB5CvOXOMryIboyWRc6KjMI=; b=ZKUxmGpl0kOH3rXrGF9DaF
- ITc7E7Px+POujKuCQatHqR9sbRtPS4fOTQVl1MkB8LLGaEwQHvqTCsz9I5ERs9yH
- pUlgwUGbrqKEUnXVnNsUvrwKU+L00o1YJsTy+TIIhn1rxNqNfKRqAn+L2Xz1ca0Z
- tHc596NlC4LcZjAPP6WBmzAO9jDTQ6bcy2lh8QThCHjSNtEnjOFjoF5bczCXWUin
- ZjI53cnt3vHN/1B+HaAu3p92LF3Q2KGMCow7vhyc2wN4b+dyF1oG48aImM3raWQr
- DM+Nj59gO8cXwvlAqIP4zUy7Pq4HdOSVBn55dSyKgQM/XX1iiI2Ht5BYk6pUuIKA
- ==
-X-ME-Sender: <xms:Y-MeX4qILsOmD4tPltFDGyp0i4A4b2zpny_eXBrVtxB4Ah4NpOZRMA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduiedriedtgdejjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculdejtddmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttddv
- necuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsth
- iftgigrdighiiiqeenucggtffrrghtthgvrhhnpeegheehfeffgeekveehtdfhgfduhfeg
- fefgtdehhfektdelffevkefgueffhedtieenucfkphepudeiiedrudejvddruddvuddrud
- dukeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehp
- rghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:Y-MeX-o6qryxHy_G-2qhVIsBHhcDl2FhgGlsPaQhW9xS9ltBTW4snA>
- <xmx:Y-MeX9OpgXirW3FThmj232tgh8BnKdbsI1eaLDQhCcKLn3LH8uJM_A>
- <xmx:Y-MeX_5MMJtpT4QJdsBTGIEFQfHmZVJNc4bQX5cith2OiAVo82xRAQ>
- <xmx:Y-MeX3Ef0HhMbN77tpExPO6GXEPXXVnLATiIb5ZWJhR9_rOBOq36hg>
-Received: from localhost (mobile-166-172-121-118.mycingular.net
- [166.172.121.118])
- by mail.messagingengine.com (Postfix) with ESMTPA id 26EFD30600B1;
- Mon, 27 Jul 2020 10:23:31 -0400 (EDT)
-Date: Mon, 27 Jul 2020 09:23:29 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BFjHw40DRzDqW2
+ for <openbmc@lists.ozlabs.org>; Tue, 28 Jul 2020 00:44:28 +1000 (AEST)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06REXaLq080395; Mon, 27 Jul 2020 10:44:22 -0400
+Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.107])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 32hvhm8t22-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Jul 2020 10:44:22 -0400
+Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
+ by ppma03fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06REYhUU011675;
+ Mon, 27 Jul 2020 14:44:20 GMT
+Received: from b06cxnps4074.portsmouth.uk.ibm.com
+ (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
+ by ppma03fra.de.ibm.com with ESMTP id 32gcr0he12-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 27 Jul 2020 14:44:20 +0000
+Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
+ [9.149.105.62])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 06REiIa617695164
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 27 Jul 2020 14:44:18 GMT
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2379EAE619;
+ Mon, 27 Jul 2020 14:44:18 +0000 (GMT)
+Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 41B50AE616;
+ Mon, 27 Jul 2020 14:44:16 +0000 (GMT)
+Received: from Deepaks-MacBook-Pro.local (unknown [9.79.227.188])
+ by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Mon, 27 Jul 2020 14:44:16 +0000 (GMT)
+Subject: Re: Fix content rendering issue on RemoteBiosConfiguration doc
+To: Patrick Williams <patrick@stwcx.xyz>
 Cc: "Chang, Abner (HPS SW/FW Technologist)" <abner.chang@hpe.com>,
  "suryakanth.sekar@linux.intel.com" <suryakanth.sekar@linux.intel.com>,
  Brad Bishop <bradleyb@fuzziesquirrel.com>,
- Patrick Williams <patrick@stwcx.xyz>,
  "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Fix content rendering issue on RemoteBiosConfiguration doc
-Message-ID: <20200727142329.GN3922@heinlein>
 References: <CS1PR8401MB11443DA57173714807F29080FF740@CS1PR8401MB1144.NAMPRD84.PROD.OUTLOOK.COM>
  <877be4a0-fac1-1787-c31f-9a670e1cfa7e@linux.vnet.ibm.com>
+ <20200727142329.GN3922@heinlein>
+From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Message-ID: <0c285635-8c6a-7286-b19d-78edf51e6eb5@linux.vnet.ibm.com>
+Date: Mon, 27 Jul 2020 20:14:15 +0530
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.10.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="AA9g+nFNFPYNJKiL"
-Content-Disposition: inline
-In-Reply-To: <877be4a0-fac1-1787-c31f-9a670e1cfa7e@linux.vnet.ibm.com>
+In-Reply-To: <20200727142329.GN3922@heinlein>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-27_08:2020-07-27,
+ 2020-07-27 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015
+ priorityscore=1501 suspectscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 mlxlogscore=849
+ spamscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007270103
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,42 +82,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 27 Jul 2020 14:31:18 -0000
+X-List-Received-Date: Mon, 27 Jul 2020 14:44:29 -0000
 
+On 27/07/20 7:53 pm, Patrick Williams wrote:
+>> Brad and Patrick maintain the openbmc/docs repo, so I would like to ask
+>> them - are you okay with merging PRs or must Abner push to Gerrit?
+> 
+> Irrespective of who the maintainer is, if we're managing a repository in
+> Gerrit we have to merge the code in Gerrit.  The mirror is one-way.
 
---AA9g+nFNFPYNJKiL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-> Brad and Patrick maintain the openbmc/docs repo, so I would like to ask=
-=20
-> them - are you okay with merging PRs or must Abner push to Gerrit?
-
-Irrespective of who the maintainer is, if we're managing a repository in
-Gerrit we have to merge the code in Gerrit.  The mirror is one-way.
-
---=20
-Patrick Williams
-
---AA9g+nFNFPYNJKiL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl8e42EACgkQqwNHzC0A
-wRlsug/+NBx9ZppFp07gsum/3L4w1s/gx3SV+1JETVgvTjV11Vk0h/kSZ+Dk79Ob
-mCGLYDkwjkxj2PghdxRPuXhUGuzw/Uy3zzWyOB2LOeG7k3txnBIcI0Sugf5re/hv
-HLlwYSAn9HIyswLGxJbU4LILWAb21VmcITsrQ+LbUX5u60IaJMvu8fHKeL4ST9/N
-9Dvdu2DQeRFQiz7AaqeqwYc7thXCns69SG9F5w8SMObilhQ35u3JR6Rf2BbVMSfX
-u/zgVQRacsKimBdInh4IfYqilvOXTsx9V1XNfdkzQd73CapF0/v+s/EMbtg3iT2d
-qjxE2m9BPEWzqyMiKW9USXuKxqHlXyyyzCeuwYTEEFcs6kA/PH8I5Wcgkr3CQvqN
-Z6J/K2fkaFjL+c8vSJVqvn2bbzE5GqBYYHdgtgtyzi9OIlBlFu1iSvnWttr+eMAI
-YvDSpbp1Y+o8ClWu2cWwdQUGJbQMOREcOQZbiHToqbKSEJTpePULy3Db+kfhh+uj
-cBEoGWtkgErT+d8fRZP6PI6vftN+U0f6Lq++srqutgRoNr70fIq/nDUr+S/SVfJp
-HmrJ2e3nRgTFvNDJAcCoYeRi0aK/D0MuUzXe4W+t36i8A9H+XcqUeTm7qclLRN+M
-6tMon85uX8CGThujilhJP218suUnTcIwaPxHWoe503Mm2DNyMpc=
-=4hPa
------END PGP SIGNATURE-----
-
---AA9g+nFNFPYNJKiL--
+Ah, didn't know the mirror is one-way. Thanks!
