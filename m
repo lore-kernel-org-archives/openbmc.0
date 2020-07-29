@@ -1,57 +1,68 @@
-Return-Path: <yuenn@google.com>
+Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::b2e;
- helo=mail-yb1-xb2e.google.com; envelope-from=yuenn@google.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=er0wz2Ax; dkim-atps=neutral
-Received: from mail-yb1-xb2e.google.com (mail-yb1-xb2e.google.com
- [IPv6:2607:f8b0:4864:20::b2e])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BH4Jl4rsZzDqd0
- for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2020 06:04:54 +1000 (AEST)
-Received: by mail-yb1-xb2e.google.com with SMTP id c14so13210268ybj.0
- for <openbmc@lists.ozlabs.org>; Wed, 29 Jul 2020 13:04:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=GYUHZdLWWPflghDltrTWGlDUOOes6uNoOAyomklEqfY=;
- b=er0wz2Axupdibv57+xd9g7M0ZeUD72k/yPFIv5Br7CIXQVEyN3KSYaa5DeS+o0year
- z+2aeMJ3DPR2CCUSRbWXracIOQyLvhztyNwkq4gJCnt+K5ELeaCYEAYSyBAH82kNGQ7z
- TuJpysgVPOnFn8XPxmzVq+FCUqWAOwMwgDWG0LA1kcdS2tJUVJEdkc2ZYvswqSRPTMi1
- 7i6uLw7HARhxvtpEWDrDzOL7OIEwilYXh6aWfdMto7irrPE2kgZgSiWCZuIvPj8reyJ+
- 4nqthBcsIdcKZZppJaZSESYFYucStuUae3Ygfj/NuwRKUTHKwAkwxfcFtocCBEXJ/ZJf
- 2uXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=GYUHZdLWWPflghDltrTWGlDUOOes6uNoOAyomklEqfY=;
- b=b4Y4YjQ3Ki6lZ6YE3/ofVNX5lfDTGO55Yim9NAFPz4Z8BbOOvMM61F6IrrFmaTtDUV
- Vh8R+MBiEbEn8DgfRSb1hTCY2kRP/vN9yMKbFf7wIq3v5AI/IXbh0GpCS+dqVEnjdsNq
- +42wSNAf241b/slM3B/O2YfkSLRNLiETBf0R4Gd39+l4rpFuNMt4EiMXRH5jJaSwpk5a
- my16N7v/uwHI3sB0+eU6oj32hEhSYDP37ye7PlON5QTBrNPIYk1VGc4/yrkiU6vwy3YG
- NCngQN1yE6B/AFgyQpzqCg6mpV4LzG1K1NXdBPMAOROmeSB1jV8nXckYgPxfOXqtyXQV
- hULA==
-X-Gm-Message-State: AOAM531RsrDwzsWQMKFdhzp4muUU1HcPBBfBzrMkHTL0uz2tvNa2Z0nm
- x6Z9034YgE9UGuW9CmXS3hnGFd0u8WcqP9mVWqP02nZGGrc=
-X-Google-Smtp-Source: ABdhPJwwdeRo01Rt7FHi7rNJQ5jHdbA2kYOR2a5atl3ASoqVTpVdLHhyCe/Qm2CkdQhfzs3lLPi2x4LrWZzudscFQ1s=
-X-Received: by 2002:a05:6902:6c8:: with SMTP id m8mr150517ybt.85.1596053090401; 
- Wed, 29 Jul 2020 13:04:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BH5Ck2bGSzDqhY
+ for <openbmc@lists.ozlabs.org>; Thu, 30 Jul 2020 06:45:37 +1000 (AEST)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06TKUZq3025785; Wed, 29 Jul 2020 16:45:35 -0400
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 32k72bskjs-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2020 16:45:35 -0400
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06TKifmg032639;
+ Wed, 29 Jul 2020 20:45:35 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma02dal.us.ibm.com with ESMTP id 32gcy4nxy1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2020 20:45:35 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 06TKjY0j40960482
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 29 Jul 2020 20:45:34 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 47F12112064;
+ Wed, 29 Jul 2020 20:45:34 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id B7F49112061;
+ Wed, 29 Jul 2020 20:45:33 +0000 (GMT)
+Received: from ghost4.ibm.com (unknown [9.163.18.72])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 29 Jul 2020 20:45:33 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.7 4/6] dt-bindings: fsi: fsi2spi: Document new
+ restricted property
+Date: Wed, 29 Jul 2020 15:45:26 -0500
+Message-Id: <20200729204528.15157-5-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.24.0
+In-Reply-To: <20200729204528.15157-1-eajames@linux.ibm.com>
+References: <20200729204528.15157-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
-References: <80EB1AD4-61FB-489C-8D6B-5FDDF7F46ED3@fb.com>
-In-Reply-To: <80EB1AD4-61FB-489C-8D6B-5FDDF7F46ED3@fb.com>
-From: Nancy Yuen <yuenn@google.com>
-Date: Wed, 29 Jul 2020 13:04:13 -0700
-Message-ID: <CADfYTpG3HBX2FPMwa4oQ8p_C6bv4Vno-LiJyRzf6dnRhBx15XA@mail.gmail.com>
-Subject: Re: using third party library
-To: Vijay Khemka <vijaykhemka@fb.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000007f58ae05ab9a1187"
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-07-29_14:2020-07-29,
+ 2020-07-29 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 suspectscore=1 impostorscore=0
+ phishscore=0 adultscore=0 bulkscore=0 spamscore=0 clxscore=1015 mlxscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2007290134
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,144 +74,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 29 Jul 2020 20:04:56 -0000
+X-List-Received-Date: Wed, 29 Jul 2020 20:45:39 -0000
 
---0000000000007f58ae05ab9a1187
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Add documentation for the "fsi2spi,restricted" property which indicates
+a controller shouldn't sequence loops and therefore has a smaller
+transfer size.
 
-Would the recipe belong in OpenEmbedded
-<https://layers.openembedded.org/layerindex/branch/master/recipes/>?
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-On Wed, Jul 29, 2020 at 12:52 PM Vijay Khemka <vijaykhemka@fb.com> wrote:
-
-> Hi,
->
-> I want to use following library from open source which is under MIT
-> license, please let me know if there is any restriction to use this in ou=
-r
-> openbmc package.
->
-> https://github.com/ArashPartow/exprtk/
->
->
->
-> Also I need to write simple recipe to include this so please let me know
-> what is the best location to put this recipe as well. As I am thinking of
-> using this for virtual sensors then I can put under Sensors or if there i=
-s
-> better place to put this then please advise.
->
->
->
-> Regards
->
-> -Vijay
->
-
-
---=20
-
-Nancy Yuen
-
-=E2=80=A2
-
-Google Platforms
-
-=E2=80=A2
-
-yuenn@google.com
-
-=E2=80=A2
-
-Google LLC
-
---0000000000007f58ae05ab9a1187
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Would the recipe belong in <a href=3D"https://layers.opene=
-mbedded.org/layerindex/branch/master/recipes/">OpenEmbedded</a>?</div><br><=
-div class=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Jul=
- 29, 2020 at 12:52 PM Vijay Khemka &lt;<a href=3D"mailto:vijaykhemka@fb.com=
-">vijaykhemka@fb.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quo=
-te" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204=
-);padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US">
-<div class=3D"gmail-m_4904997773745724801WordSection1">
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Hi,<u></u><u></u></sp=
-an></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">I want to use followi=
-ng library from open source which is under MIT license, please let me know =
-if there is any restriction to use this in our openbmc package.<u></u><u></=
-u></span></p>
-<p class=3D"MsoNormal"><a href=3D"https://github.com/ArashPartow/exprtk/" t=
-arget=3D"_blank">https://github.com/ArashPartow/exprtk/</a><u></u><u></u></=
-p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Also I need to write =
-simple recipe to include this so please let me know what is the best locati=
-on to put this recipe as well. As I am thinking of using this for virtual s=
-ensors then I can put under Sensors
- or if there is better place to put this then please advise.<u></u><u></u><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt"><u></u>=C2=A0<u></u><=
-/span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">Regards<u></u><u></u>=
-</span></p>
-<p class=3D"MsoNormal"><span style=3D"font-size:11pt">-Vijay<u></u><u></u><=
-/span></p>
-</div>
-</div>
-
-</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
- class=3D"gmail_signature"><div dir=3D"ltr"><span><div dir=3D"ltr" style=3D=
-"margin-left:0pt" align=3D"left"><table style=3D"border:none;border-collaps=
-e:collapse"><colgroup><col width=3D"73"><col width=3D"7"><col width=3D"111"=
-><col width=3D"7"><col width=3D"122"><col width=3D"7"><col width=3D"71"></c=
-olgroup><tbody><tr style=3D"height:15pt"><td style=3D"border-top:1.5pt soli=
-d rgb(213,15,37);vertical-align:middle;overflow:hidden"><p dir=3D"ltr" styl=
-e=3D"line-height:1.38;text-align:center;margin-top:0pt;margin-bottom:0pt"><=
-span style=3D"font-size:10pt;font-family:Roboto,sans-serif;color:rgb(102,10=
-2,102);background-color:transparent;font-weight:700;vertical-align:baseline=
-;white-space:pre-wrap">Nancy Yuen</span></p></td><td style=3D"border-top:1.=
-5pt solid rgb(102,102,102);vertical-align:middle;overflow:hidden"><p dir=3D=
-"ltr" style=3D"line-height:1.38;text-align:center;margin-top:0pt;margin-bot=
-tom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(255,0,0)=
-;background-color:transparent;font-weight:700;vertical-align:baseline;white=
--space:pre-wrap">=E2=80=A2</span></p></td><td style=3D"border-top:1.5pt sol=
-id rgb(51,105,232);vertical-align:middle;overflow:hidden"><p dir=3D"ltr" st=
-yle=3D"line-height:1.38;text-align:center;margin-top:0pt;margin-bottom:0pt"=
-><span style=3D"font-size:10pt;font-family:Roboto,sans-serif;color:rgb(102,=
-102,102);background-color:transparent;font-weight:700;vertical-align:baseli=
-ne;white-space:pre-wrap">Google Platforms=C2=A0</span></p></td><td style=3D=
-"border-top:1.5pt solid rgb(102,102,102);vertical-align:middle;overflow:hid=
-den"><p dir=3D"ltr" style=3D"line-height:1.38;text-align:center;margin-top:=
-0pt;margin-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;colo=
-r:rgb(61,133,198);background-color:transparent;font-weight:700;vertical-ali=
-gn:baseline;white-space:pre-wrap">=E2=80=A2</span></p></td><td style=3D"bor=
-der-top:1.5pt solid rgb(0,153,57);vertical-align:middle;overflow:hidden"><p=
- dir=3D"ltr" style=3D"line-height:1.38;text-align:center;margin-top:0pt;mar=
-gin-bottom:0pt"><span style=3D"font-size:10pt;font-family:Roboto,sans-serif=
-;color:rgb(102,102,102);background-color:transparent;font-weight:700;vertic=
-al-align:baseline;white-space:pre-wrap"><a href=3D"mailto:yuenn@google.com"=
- target=3D"_blank">yuenn@google.com</a></span></p></td><td style=3D"border-=
-top:1.5pt solid rgb(102,102,102);vertical-align:middle;overflow:hidden"><p =
-dir=3D"ltr" style=3D"line-height:1.38;text-align:center;margin-top:0pt;marg=
-in-bottom:0pt"><span style=3D"font-size:11pt;font-family:Arial;color:rgb(0,=
-153,57);background-color:transparent;font-weight:700;vertical-align:baselin=
-e;white-space:pre-wrap">=E2=80=A2</span></p></td><td style=3D"border-top:1.=
-5pt solid rgb(238,178,17);vertical-align:middle;overflow:hidden"><p dir=3D"=
-ltr" style=3D"line-height:1.38;text-align:center;margin-top:0pt;margin-bott=
-om:0pt"><span style=3D"font-size:10pt;font-family:Roboto,sans-serif;color:r=
-gb(102,102,102);background-color:transparent;font-weight:700;vertical-align=
-:baseline;white-space:pre-wrap">Google LLC</span></p></td></tr></tbody></ta=
-ble></div></span></div></div>
-
---0000000000007f58ae05ab9a1187--
+diff --git a/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml b/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
+index 893d81e54caa..ff16797061ec 100644
+--- a/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
++++ b/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
+@@ -24,6 +24,16 @@ properties:
+     items:
+       - description: FSI slave address
+ 
++patternProperties:
++  "^spi(@.*|-[0-9a-f])*$":
++    type: object
++
++    properties:
++      fsi2spi,restricted:
++        description: indicates the controller should not use looping in the
++          sequencer and therefore has a smaller maximum transfer size
++        type: boolean
++
+ required:
+   - compatible
+   - reg
+-- 
+2.24.0
