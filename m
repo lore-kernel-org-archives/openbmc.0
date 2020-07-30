@@ -1,57 +1,55 @@
 Return-Path: <eajames@linux.ibm.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BHkvG5MVhzDrBf
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BHkvH011szDrBk
  for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2020 08:03:38 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06UM1ljO017404; Thu, 30 Jul 2020 18:03:34 -0400
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0b-001b2d01.pphosted.com with ESMTP id 32m5kf9m4j-1
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 06UM1MGR007930; Thu, 30 Jul 2020 18:03:33 -0400
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 32m553j7hn-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2020 18:03:34 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06UM0lWP031457;
- Thu, 30 Jul 2020 22:03:33 GMT
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by ppma02dal.us.ibm.com with ESMTP id 32gcy514td-1
+ Thu, 30 Jul 2020 18:03:33 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06ULxVYx010161;
+ Thu, 30 Jul 2020 22:03:32 GMT
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by ppma01dal.us.ibm.com with ESMTP id 32gcy41460-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2020 22:03:33 +0000
+ Thu, 30 Jul 2020 22:03:32 +0000
 Received: from b03ledav004.gho.boulder.ibm.com
  (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 06UM3T3B36176298
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 06UM3TKO65012170
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Thu, 30 Jul 2020 22:03:29 GMT
 Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8DF617806B;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 1A3C57806B;
+ Thu, 30 Jul 2020 22:03:31 +0000 (GMT)
 Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 442EF78068;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id C574D78068;
+ Thu, 30 Jul 2020 22:03:30 +0000 (GMT)
 Received: from ghost4.ibm.com (unknown [9.163.50.101])
  by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
+ Thu, 30 Jul 2020 22:03:30 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
 Cc: joel@jms.id.au, miltonm@us.ibm.com, bradleyb@fuzziesquirrel.com
-Subject: [PATCH linux dev-5.7 v2 4/7] dt-bindings: fsi: fsi2spi: Document new
- restricted property
-Date: Thu, 30 Jul 2020 17:03:27 -0500
-Message-Id: <20200730220330.16368-5-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.7 v2 0/7] spi: Fix FSI-attached controller and
+ AT25 drivers
+Date: Thu, 30 Jul 2020 17:03:23 -0500
+Message-Id: <20200730220330.16368-1-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20200730220330.16368-1-eajames@linux.ibm.com>
-References: <20200730220330.16368-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
@@ -59,10 +57,10 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
  definitions=2020-07-30_18:2020-07-30,
  2020-07-30 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 mlxlogscore=999
- malwarescore=0 priorityscore=1501 suspectscore=1 impostorscore=0
- mlxscore=0 spamscore=0 bulkscore=0 phishscore=0 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ clxscore=1015 mlxlogscore=622
+ lowpriorityscore=0 impostorscore=0 priorityscore=1501 bulkscore=0
+ malwarescore=0 phishscore=0 adultscore=0 mlxscore=0 spamscore=0
+ suspectscore=1 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2006250000 definitions=main-2007300151
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -76,38 +74,29 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 X-List-Received-Date: Thu, 30 Jul 2020 22:03:39 -0000
-X-List-Received-Date: Thu, 30 Jul 2020 22:03:39 -0000
 
-Add documentation for the "fsi2spi,restricted" property which indicates
-a controller shouldn't sequence loops and therefore has a smaller
-transfer size.
+This series implements a number of fixes for the FSI-attached SPI controller
+driver and the AT25 eeprom driver.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Acked-by: Joel Stanley <joel@jms.id.au>
----
- Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+Changes since v1:
+ - Add patch 6 for checking the mux status before transfers
+ - Minor fixes to at25 driver formatting and such.
 
-diff --git a/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml b/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
-index 893d81e54caa..ff16797061ec 100644
---- a/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
-+++ b/Documentation/devicetree/bindings/fsi/ibm,fsi2spi.yaml
-@@ -24,6 +24,16 @@ properties:
-     items:
-       - description: FSI slave address
- 
-+patternProperties:
-+  "^spi(@.*|-[0-9a-f])*$":
-+    type: object
-+
-+    properties:
-+      fsi2spi,restricted:
-+        description: indicates the controller should not use looping in the
-+          sequencer and therefore has a smaller maximum transfer size
-+        type: boolean
-+
- required:
-   - compatible
-   - reg
+Brad Bishop (4):
+  spi: fsi: Handle 9 to 15 byte transfers lengths
+  spi: fsi: Fix clock running too fast
+  spi: fsi: Fix use of the bneq+ sequencer instruction
+  eeprom: at25: Split reads into chunks and cap write size
+
+Eddie James (3):
+  dt-bindings: fsi: fsi2spi: Document new restricted property
+  spi: fsi: Implement restricted size for certain controllers
+  spi: fsi: Check mux status before transfers
+
+ .../devicetree/bindings/fsi/ibm,fsi2spi.yaml  |  10 ++
+ drivers/misc/eeprom/at25.c                    |  94 +++++++-----
+ drivers/spi/spi-fsi.c                         | 139 ++++++++++++++----
+ 3 files changed, 172 insertions(+), 71 deletions(-)
+
 -- 
 2.24.0
