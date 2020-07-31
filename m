@@ -1,69 +1,61 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <a.kartashev@yadro.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=J66//oFX; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BHkvN0CdxzDrBd
- for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2020 08:03:43 +1000 (AEST)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 06UM2qDV182994; Thu, 30 Jul 2020 18:03:34 -0400
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 32krgegqek-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2020 18:03:34 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 06UM0lWB031482;
- Thu, 30 Jul 2020 22:03:34 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma02dal.us.ibm.com with ESMTP id 32gcy514tg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2020 22:03:34 +0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 06UM3U3t27263522
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 30 Jul 2020 22:03:30 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4B9878070;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A4AF37806D;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
-Received: from ghost4.ibm.com (unknown [9.163.50.101])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu, 30 Jul 2020 22:03:32 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, miltonm@us.ibm.com, bradleyb@fuzziesquirrel.com
-Subject: [PATCH linux dev-5.7 v2 5/7] spi: fsi: Implement restricted size for
- certain controllers
-Date: Thu, 30 Jul 2020 17:03:28 -0500
-Message-Id: <20200730220330.16368-6-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.24.0
-In-Reply-To: <20200730220330.16368-1-eajames@linux.ibm.com>
-References: <20200730220330.16368-1-eajames@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BJ1Tc1X22zDqZk
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2020 19:00:47 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 50A9A412C5
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2020 09:00:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:mime-version:user-agent:content-type
+ :content-type:organization:references:in-reply-to:date:date:from
+ :from:subject:subject:message-id:received:received:received; s=
+ mta-01; t=1596186036; x=1598000437; bh=86tueO1y9veEjQMtmrP4JXD73
+ BdqEtqXgqxl75vki+0=; b=J66//oFXqhlc1THTwvDR5yZ2RbuOqtJvuDAe30+T4
+ 0HMmZo4cFTtwyy8B4j1rArb4I2mvbADqlAcAFAGm1tgbcQXwZrqdxK9SAth11JKV
+ lSC6G10uqK8L9vKiy1uYA6wYRRxKf/v2/kVSt+xIaRRbvCqmUDaRfEXGwQqC44ID
+ xY=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id TTr21yVjiRWM for <openbmc@lists.ozlabs.org>;
+ Fri, 31 Jul 2020 12:00:36 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 912A54C8A7
+ for <openbmc@lists.ozlabs.org>; Fri, 31 Jul 2020 12:00:36 +0300 (MSK)
+Received: from [10.199.0.34] (10.199.0.34) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 31
+ Jul 2020 12:00:36 +0300
+Message-ID: <3b6f8a090359d4ffebf3ef98a9aeb7e77df7b10f.camel@yadro.com>
+Subject: Re: OpenBMC : FRU Inventory management
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: <openbmc@lists.ozlabs.org>
+Date: Fri, 31 Jul 2020 12:00:35 +0300
+In-Reply-To: <BN8PR12MB32820389DABEE2E32ED84E57C7710@BN8PR12MB3282.namprd12.prod.outlook.com>
+References: <BN8PR12MB32822ADFBBC19F6B2FB08F52C7710@BN8PR12MB3282.namprd12.prod.outlook.com>
+ <e00d409b-a845-85ee-16d7-0bb53f1e013e@linux.vnet.ibm.com>
+ <BN8PR12MB32820389DABEE2E32ED84E57C7710@BN8PR12MB3282.namprd12.prod.outlook.com>
+Organization: YADRO
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.36.4 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-07-30_18:2020-07-30,
- 2020-07-30 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015
- priorityscore=1501 mlxlogscore=999 mlxscore=0 adultscore=0 bulkscore=0
- suspectscore=1 impostorscore=0 phishscore=0 malwarescore=0 spamscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2006250000 definitions=main-2007300153
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.199.0.34]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,181 +67,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 30 Jul 2020 22:03:44 -0000
+X-List-Received-Date: Fri, 31 Jul 2020 09:00:54 -0000
 
-Some of the FSI-attached SPI controllers cannot use the loop command in
-programming the sequencer due to security requirements. Add a boolean
-devicetree property that describes this condition and restrict the
-size for these controllers. Also, add more transfers directly in the
-sequence up to the length of the sequence register.
+Hi Deepak,
 
-Fixes: bbb6b2f9865b ("spi: Add FSI-attached SPI controller driver")
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
----
- drivers/spi/spi-fsi.c | 65 +++++++++++++++++++++++++++++++++++--------
- 1 file changed, 53 insertions(+), 12 deletions(-)
+Saying about inventory management for non-BMC accessible resources like
+CPU/DIMM with EntityManager: is there good example demonstrated
+preffered way to do so?
+Trying to bring up system based on that Intel's fork, but looks like
+they have own way to do things ).
 
-diff --git a/drivers/spi/spi-fsi.c b/drivers/spi/spi-fsi.c
-index c31a852b6a3e..53cfa201e187 100644
---- a/drivers/spi/spi-fsi.c
-+++ b/drivers/spi/spi-fsi.c
-@@ -24,7 +24,8 @@
- 
- #define SPI_FSI_BASE			0x70000
- #define SPI_FSI_INIT_TIMEOUT_MS		1000
--#define SPI_FSI_MAX_TRANSFER_SIZE	2048
-+#define SPI_FSI_MAX_XFR_SIZE		2048
-+#define SPI_FSI_MAX_XFR_SIZE_RESTRICTED	32
- 
- #define SPI_FSI_ERROR			0x0
- #define SPI_FSI_COUNTER_CFG		0x1
-@@ -74,6 +75,8 @@ struct fsi_spi {
- 	struct device *dev;	/* SPI controller device */
- 	struct fsi_device *fsi;	/* FSI2SPI CFAM engine device */
- 	u32 base;
-+	size_t max_xfr_size;
-+	bool restricted;
- };
- 
- struct fsi_spi_sequence {
-@@ -209,8 +212,12 @@ static int fsi_spi_reset(struct fsi_spi *ctx)
- 	if (rc)
- 		return rc;
- 
--	return fsi_spi_write_reg(ctx, SPI_FSI_CLOCK_CFG,
--				 SPI_FSI_CLOCK_CFG_RESET2);
-+	rc = fsi_spi_write_reg(ctx, SPI_FSI_CLOCK_CFG,
-+			       SPI_FSI_CLOCK_CFG_RESET2);
-+	if (rc)
-+		return rc;
-+
-+	return fsi_spi_write_reg(ctx, SPI_FSI_STATUS, 0ULL);
- }
- 
- static int fsi_spi_sequence_add(struct fsi_spi_sequence *seq, u8 val)
-@@ -218,8 +225,8 @@ static int fsi_spi_sequence_add(struct fsi_spi_sequence *seq, u8 val)
- 	/*
- 	 * Add the next byte of instruction to the 8-byte sequence register.
- 	 * Then decrement the counter so that the next instruction will go in
--	 * the right place. Return the number of "slots" left in the sequence
--	 * register.
-+	 * the right place. Return the index of the slot we just filled in the
-+	 * sequence register.
- 	 */
- 	seq->data |= (u64)val << seq->bit;
- 	seq->bit -= 8;
-@@ -237,9 +244,11 @@ static int fsi_spi_sequence_transfer(struct fsi_spi *ctx,
- 				     struct fsi_spi_sequence *seq,
- 				     struct spi_transfer *transfer)
- {
-+	bool docfg = false;
- 	int loops;
- 	int idx;
- 	int rc;
-+	u8 val = 0;
- 	u8 len = min(transfer->len, 8U);
- 	u8 rem = transfer->len % len;
- 	u64 cfg = 0ULL;
-@@ -247,22 +256,42 @@ static int fsi_spi_sequence_transfer(struct fsi_spi *ctx,
- 	loops = transfer->len / len;
- 
- 	if (transfer->tx_buf) {
--		idx = fsi_spi_sequence_add(seq,
--					   SPI_FSI_SEQUENCE_SHIFT_OUT(len));
-+		val = SPI_FSI_SEQUENCE_SHIFT_OUT(len);
-+		idx = fsi_spi_sequence_add(seq, val);
-+
- 		if (rem)
- 			rem = SPI_FSI_SEQUENCE_SHIFT_OUT(rem);
- 	} else if (transfer->rx_buf) {
--		idx = fsi_spi_sequence_add(seq,
--					   SPI_FSI_SEQUENCE_SHIFT_IN(len));
-+		val = SPI_FSI_SEQUENCE_SHIFT_IN(len);
-+		idx = fsi_spi_sequence_add(seq, val);
-+
- 		if (rem)
- 			rem = SPI_FSI_SEQUENCE_SHIFT_IN(rem);
- 	} else {
- 		return -EINVAL;
- 	}
- 
-+	if (ctx->restricted) {
-+		const int eidx = rem ? 5 : 6;
-+
-+		while (loops > 1 && idx <= eidx) {
-+			idx = fsi_spi_sequence_add(seq, val);
-+			loops--;
-+			docfg = true;
-+		}
-+
-+		if (loops > 1) {
-+			dev_warn(ctx->dev, "No sequencer slots; aborting.\n");
-+			return -EINVAL;
-+		}
-+	}
-+
- 	if (loops > 1) {
- 		fsi_spi_sequence_add(seq, SPI_FSI_SEQUENCE_BRANCH(idx));
-+		docfg = true;
-+	}
- 
-+	if (docfg) {
- 		cfg = SPI_FSI_COUNTER_CFG_LOOPS(loops - 1);
- 		if (transfer->rx_buf)
- 			cfg |= SPI_FSI_COUNTER_CFG_N2_RX |
-@@ -273,6 +302,8 @@ static int fsi_spi_sequence_transfer(struct fsi_spi *ctx,
- 		rc = fsi_spi_write_reg(ctx, SPI_FSI_COUNTER_CFG, cfg);
- 		if (rc)
- 			return rc;
-+	} else {
-+		fsi_spi_write_reg(ctx, SPI_FSI_COUNTER_CFG, 0ULL);
- 	}
- 
- 	if (rem)
-@@ -429,7 +460,7 @@ static int fsi_spi_transfer_one_message(struct spi_controller *ctlr,
- 
- 		/* Sequencer must do shift out (tx) first. */
- 		if (!transfer->tx_buf ||
--		    transfer->len > SPI_FSI_MAX_TRANSFER_SIZE) {
-+		    transfer->len > (ctx->max_xfr_size + 8)) {
- 			rc = -EINVAL;
- 			goto error;
- 		}
-@@ -453,7 +484,7 @@ static int fsi_spi_transfer_one_message(struct spi_controller *ctlr,
- 
- 			/* Sequencer can only do shift in (rx) after tx. */
- 			if (next->rx_buf) {
--				if (next->len > SPI_FSI_MAX_TRANSFER_SIZE) {
-+				if (next->len > ctx->max_xfr_size) {
- 					rc = -EINVAL;
- 					goto error;
- 				}
-@@ -498,7 +529,9 @@ static int fsi_spi_transfer_one_message(struct spi_controller *ctlr,
- 
- static size_t fsi_spi_max_transfer_size(struct spi_device *spi)
- {
--	return SPI_FSI_MAX_TRANSFER_SIZE;
-+	struct fsi_spi *ctx = spi_controller_get_devdata(spi->controller);
-+
-+	return ctx->max_xfr_size;
- }
- 
- static int fsi_spi_probe(struct device *dev)
-@@ -546,6 +579,14 @@ static int fsi_spi_probe(struct device *dev)
- 		ctx->fsi = fsi;
- 		ctx->base = base + SPI_FSI_BASE;
- 
-+		if (of_property_read_bool(np, "fsi2spi,restricted")) {
-+			ctx->restricted = true;
-+			ctx->max_xfr_size = SPI_FSI_MAX_XFR_SIZE_RESTRICTED;
-+		} else {
-+			ctx->restricted = false;
-+			ctx->max_xfr_size = SPI_FSI_MAX_XFR_SIZE;
-+		}
-+
- 		rc = devm_spi_register_controller(dev, ctlr);
- 		if (rc)
- 			spi_controller_put(ctlr);
--- 
-2.24.0
+On Thu, 2020-07-30 at 13:55 +0000, Vasant Patil wrote:
+> Thanks Deepak.
+> Yes, This help. We will go with entity-manager option. 
+> 
+> Regards,
+> Vasant 
+> 
+> -----Original Message-----
+> From: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com> 
+> Sent: Thursday, July 30, 2020 12:22 AM
+> To: Vasant Patil <vasantp@nvidia.com>
+> Cc: openbmc@lists.ozlabs.org
+> Subject: Re: OpenBMC : FRU Inventory management
+> 
+> External email: Use caution opening links or attachments
+> 
+> 
+> On 30/07/20 8:37 am, Vasant Patil wrote:
+> > Hi Team,
+> > 
+> > We are enabling OpenBMC on x86 system. We would like to know the 
+> > recommendation on FRU inventory management and corresponding
+> > pointers.
+> > 
+> > There seems to be multiple options available
+> > 
+> >  1. described in  "Adding new system to OpenBMC
+> >     <
+> > https://github.com/openbmc/docs/blob/master/development/add-new-system.md>
+> > ;"
+> >     with  Yaml files (meta-romulus/recipes-phosphor/ipmi
+> >     
+> > <
+> > https://github.com/openbmc/openbmc/tree/master/meta-ibm/meta-romulus/
+> > recipes-phosphor/ipmi>)
+> > 
+> >  2. Entity manager <https://github.com/openbmc/entity-manager> with
+> > JSON
+> >     schema
+> 
+> Hi Vasant,
+> 
+> The commonly used option for this now is entity-manager. The entity-
+> manager config JSONs enable entity-manager to monitor/probe FRU
+> config information (FRU information read off of an EEPROM for eg) and
+> then transform that to an inventory D-Bus object that implements an
+> xyz.openbmc_project.Inventory.Item.<Type> interface. The webserver
+> (bmcweb) then can relay this into a Redfish inventory representation.
+> 
+> To make the FRU EEPROM content available on D-Bus, anther app
+> typically reads the EEPROM and then hosts the info on D-Bus. For eg
+> the FruDevice daemon (which sits in the entity-manager repo) scans
+> I2C connected EEPROMs, and can read IPMI FRU format data off of them.
+> Now this info can actually be coming in via EEPROMs that the BMC
+> can't access (and for eg the host CPU can) - in that case I would
+> expect the FRU information to be transported over IPMI/PLDM, and then
+> apps like host-ipmid or pldmd can place the FRU information on D-Bus, 
+> for entity-manager to consume.
+> 
+> > We are looking to enable below inventory (Both FRU and non-FRU):
+> > 
+> >   * CPU
+> >   * DIMM
+> >   * M.2
+> >   * U.2
+> >   * Motherboard FRU EEPROM
+> >   * Chassis FRU EEPROM
+> >   * Add-on PCI cards
+> >   * FANs
+> >   * PSU
+> >   * Etc.
+> 
+> You can look at
+> https://github.com/openbmc/phosphor-dbus-interfaces/tree/master/xyz/openbmc_project/Inventory/Item
+> and define types that you don't find here.
+> 
+> Regards,
+> Deepak
+> 
