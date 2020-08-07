@@ -1,58 +1,118 @@
-Return-Path: <xqiu@google.com>
+Return-Path: <zhikui.ren@intel.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::234;
- helo=mail-oi1-x234.google.com; envelope-from=xqiu@google.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=intel.com (client-ip=134.134.136.65; helo=mga03.intel.com;
+ envelope-from=zhikui.ren@intel.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=fidpTTXY; dkim-atps=neutral
-Received: from mail-oi1-x234.google.com (mail-oi1-x234.google.com
- [IPv6:2607:f8b0:4864:20::234])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=intel.onmicrosoft.com header.i=@intel.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-intel-onmicrosoft-com
+ header.b=o2CIUYK2; dkim-atps=neutral
+Received: from mga03.intel.com (mga03.intel.com [134.134.136.65])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BNgNP4YLyzDqlY
- for <openbmc@lists.ozlabs.org>; Sat,  8 Aug 2020 08:42:28 +1000 (AEST)
-Received: by mail-oi1-x234.google.com with SMTP id v13so3306746oiv.13
- for <openbmc@lists.ozlabs.org>; Fri, 07 Aug 2020 15:42:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to:cc;
- bh=NseO6BU13fliT8oyPH9TmU1yw0jAZ+BWzI6NKB71plU=;
- b=fidpTTXYRPnEtu6+Uj/7eYuwlBL/ZbHxcQHEjw3dipS9o0y5roVXyBORvPYJZmz5Vg
- yiu9qi/+lkyXfTZKmQRVvDdynrxdnC6F8vBtxoJGCe+xf54c7rTUIubYywMU+qCHYkBz
- ZFUCMRvU9pyhCDKhN47X403vKND0xzF0Wr5YPRvV2NAhZ8gAh2FZjm4ieNOmNbscy843
- fhEEd4repI+seZT6MgiWQMwMy7plkYSZy0Kld28ofQ5qO7wVGZ+iTYh76TbL6Hw7CCEN
- tHM0mHomVYgUMf7kJBTCgo5Ny1iXNyw3QObTjT4Dd4JnIXfBLG4zDIpEVdFzN7mcrree
- LFXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
- bh=NseO6BU13fliT8oyPH9TmU1yw0jAZ+BWzI6NKB71plU=;
- b=Oh4r5sksMI9aXwLEzyEwJSIb12sx16H6R44d5b6QCkVBrLDonwRDOwZIoofbRkPm4W
- GJjL23ONSVN3tKm1e0jsaRt4aSj/bvpK8eHNPOtBGIr/ViuqW0RjaiXIPY2/y7cDBotw
- WlRs1hBFBcLIwRalT9H4KAJK2UtTgNoLcE4M0lgvlIGdPEMbYkB3bUXRenlvO4lCN6e0
- 1TlsPqcFqHi30bhlhLzNap4c6/dusGe7CYuYZIKWJ3Ye0h2iPuZVBgdpMNuPw2WpwNyw
- QUCGWAF8SJRO63z78Oxyx0eYuNUPyryGBzS0C4hNv1bzKGSsYficq0msWZCkBCUZ99UT
- JQRg==
-X-Gm-Message-State: AOAM5315tkaaNv/bnf4EXAU44qw/HfYn0Ft/4a3oSmAE9c2e0JfnPtDX
- 1ufH71VGakrXKt7L/2SAeQUL4DqpVkAKHxS5USQhzA==
-X-Google-Smtp-Source: ABdhPJyteRUpJTBTxwKiQkhtj0SfIUklPyjyvkQUmJ19d7/ojtEmOf5IWfWgKiF2p0/zjsaZ8EScxvyaACQtzSkaQDU=
-X-Received: by 2002:aca:490:: with SMTP id 138mr11640777oie.62.1596840145897; 
- Fri, 07 Aug 2020 15:42:25 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BNgqy2jvwzDqlZ
+ for <openbmc@lists.ozlabs.org>; Sat,  8 Aug 2020 09:02:48 +1000 (AEST)
+IronPort-SDR: 55gAb1JaVngAHuLAIxFleXOkLrVeqytt7ACK96jTt94zvGSJhHL2MOba2uEmfIDtKi41AU+UDR
+ hiieh9W4YjXw==
+X-IronPort-AV: E=McAfee;i="6000,8403,9706"; a="153180336"
+X-IronPort-AV: E=Sophos;i="5.75,447,1589266800"; 
+ d="scan'208,217";a="153180336"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by orsmga103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2020 16:02:46 -0700
+IronPort-SDR: uAB1vZU9LeXN+U/7vKct8KTKeGxHhV7wzPJR4IVL/E4cLYas8IriOpYFRg7HItGUSFwz+rg6QU
+ XI0nPk3FN/3g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.75,447,1589266800"; 
+ d="scan'208,217";a="276796189"
+Received: from fmsmsx603.amr.corp.intel.com ([10.18.126.83])
+ by fmsmga008.fm.intel.com with ESMTP; 07 Aug 2020 16:02:45 -0700
+Received: from fmsmsx603.amr.corp.intel.com (10.18.126.83) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1713.5; Fri, 7 Aug 2020 16:02:45 -0700
+Received: from fmsmsx126.amr.corp.intel.com (10.18.125.43) by
+ fmsmsx603.amr.corp.intel.com (10.18.126.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256) id 15.1.1713.5
+ via Frontend Transport; Fri, 7 Aug 2020 16:02:45 -0700
+Received: from FMSEDG002.ED.cps.intel.com (10.1.192.134) by
+ FMSMSX126.amr.corp.intel.com (10.18.125.43) with Microsoft SMTP Server (TLS)
+ id 14.3.439.0; Fri, 7 Aug 2020 16:02:44 -0700
+Received: from NAM11-BN8-obe.outbound.protection.outlook.com (104.47.58.169)
+ by edgegateway.intel.com (192.55.55.69) with Microsoft SMTP Server (TLS) id
+ 14.3.439.0; Fri, 7 Aug 2020 16:02:44 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=cIbhr2z2AbiFMhEaiZvR/EWbGXyCKNA+4po4BLA2GM3Ih0ZtcfrSEnl25nH5H5tAN4l2e0cRcKjiNpbaYhxgHrbyekS8adq0nkPUglMys8J8JPXjSuK5CfIEFUJsbfsEANV9PypX9Rq14A2AQsp2yACzJ4gMSP7km5GshqCwHEixDOiyhmjKkoK3ZZSTInrckRM/YDPZVGTtceL0juPJnnaxGupiZA4V4zK/ij5gm+xRceMDMpjiR6wdy0eyvh6hQvzZf6tvtZ5AoqplLL+FxIM+gggf9ZhJO45IYS79isaGhxBVI/gcU3ghCUn9ei5+tSEOsCDE/7EquDary+jyCg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dMvuExdu2W05ThQ258QOz+fv9rthIRy5L4DUEBhCRSc=;
+ b=RFYk/VNOlWlvpcydc9YvA/QJ3sKG5e5FwJSbRJoRLHqmhw7pOyDhchq+iE1EBhM8ZQ1o2EX7b63QxmUm7PlnGNAT/XUmPHvr6Pi4br7U2onoMjDHDgaG7yg0D8PqSW7qhxLTe0fdqcssw2HrEEODqy74P/GtT5FwPc8+exAa0LeQLShSePfU1xV1Lhi5OX/XTwh2zcgXdBbF8SED5nR6dJlEYPV6ciP2TshQ0PSDo5lw7KhDvfVHKTj2K7N0E6H8OzwlYWmPWEy3OXVL4EzKtYtXkxtzzj+UiJL3IKTUc9kxPjSRYee7a16qBTrEDb1yAYfV/4uZQ9dz11JevTxaTg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=intel.onmicrosoft.com; 
+ s=selector2-intel-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dMvuExdu2W05ThQ258QOz+fv9rthIRy5L4DUEBhCRSc=;
+ b=o2CIUYK2fVQiKO9JeIU4Nib9X/d5fRMs8yMTQgRs94OdYjgKOL65KTjvgtVdIxVznBityHWQaFt/xlMHcqrVYuSRPw9iyagcvySTAqjTP1cJOeTTt/m9sXVfNQHOh1knUW9Hco+ow722SmA3Pwkn3liP/IeVtZit62qWVILH5aE=
+Received: from DM6PR11MB4410.namprd11.prod.outlook.com (2603:10b6:5:1d9::11)
+ by DM6PR11MB3257.namprd11.prod.outlook.com (2603:10b6:5:5c::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3261.16; Fri, 7 Aug
+ 2020 23:02:42 +0000
+Received: from DM6PR11MB4410.namprd11.prod.outlook.com
+ ([fe80::d02d:3a87:869f:1544]) by DM6PR11MB4410.namprd11.prod.outlook.com
+ ([fe80::d02d:3a87:869f:1544%5]) with mapi id 15.20.3261.019; Fri, 7 Aug 2020
+ 23:02:42 +0000
+From: "Ren, Zhikui" <zhikui.ren@intel.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: CI job is failing on with lto for libipmi
+Thread-Topic: CI job is failing on with lto for libipmi
+Thread-Index: AdZtDtmulSnx7UADRX2mnutLzV8qCw==
+Date: Fri, 7 Aug 2020 23:02:42 +0000
+Message-ID: <DM6PR11MB44102FC343DC712C174CD37F94490@DM6PR11MB4410.namprd11.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+dlp-reaction: no-action
+dlp-version: 11.5.1.3
+dlp-product: dlpe-windows
+authentication-results: lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none; lists.ozlabs.org; dmarc=none action=none header.from=intel.com; 
+x-originating-ip: [73.11.44.68]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 1e7ae091-d332-4641-c399-08d83b25fd7f
+x-ms-traffictypediagnostic: DM6PR11MB3257:
+x-microsoft-antispam-prvs: <DM6PR11MB3257C1325BFB5E65D301C24394490@DM6PR11MB3257.namprd11.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: jF1u5xnaie8rTZwCPhzQGa62SIwpt/mqpmZ0vxYC5sfOsbauIXf2nhUvo/NML3k5KXIJGKB9dwmr7w3SXlrXvDe/WaeWQuMoKrnrCziGS8CyTRSK+PKqBsrYvQ4AKeiLn3mT+Tu4NFgYD5G0gvCoRaOnMIki0+WvQEDgK5z9wqPvUXb73JdIMhScA7dhPPHJix7WAq+M9xXg2f7nZUATXU5YWcZLaTgjQP2aoZBu5fWuqOTsvJ3770FnWxjqY4Lz5wP0SnIbveyssVTO0nf8eQyuKDQuNxNcTWhv16Lu/evzTUhL8dfy+TJwkmIswVQA
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM6PR11MB4410.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFTY:;
+ SFS:(4636009)(39860400002)(396003)(346002)(136003)(376002)(366004)(71200400001)(64756008)(66476007)(76116006)(52536014)(66946007)(5660300002)(66446008)(66556008)(316002)(4744005)(6916009)(2906002)(86362001)(8936002)(8676002)(83380400001)(26005)(6506007)(478600001)(33656002)(9686003)(55016002)(186003)(7696005);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: GYfZpiFk9CUqLmga3x4jF+4nI6YI9LX6pqUgrvVbNjJkbOBANyG7WwlQAM5AdcXX5j62duX9reCaixn3/0cLTMe47+equachSMSnkGaZvli4IHaVwJyaN64wAk1z7HG+tjnW/Q3LHTO324v12AhV3fBsJF9W5N/Z+6lgpCur/lFiPE/MJ7QFietlGnx1EwK0Hm1XJMfUZk/IMil4BAFWWRP0zYyw7j9gNRJNULDABS6IPU4p4JZ2ZQonF7UxQ8UjABpJ2kseO5RFgPAjE6ioqlW/gL4bigU35AaaNKqzQ2QVB2xDS+JR3mLQAZFqYjk8y+J6HE383NjZwAjAcuTVMJgKZkF/t+2EjZgDrc9mfo8YVQqTEqK27GvO6XGHTa33SMcGMrc6MKw7Coe51xU9LQRAzoslo2pX73sruRluwWchBtucphs+PN/pScReVlJxUy0SncmWpnimySASYO+rcVHSRm/pcRmNcAZKN3Kvf580g7IHbod/HNe/t8AcbgplBvdQjZng8pXQ5EiMbzbdcjhbjg1tgCPS+IUiW58VgXNll8olY7Fji2PDLtJ/LPhqcc77Wi+G6+cw/2BQWauBVwulVvvbzFpeK+XkxvmpPT/fBYzFsxx7TMiAd5qHXVVVbiFfo/m3gINFComiccovww==
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_DM6PR11MB44102FC343DC712C174CD37F94490DM6PR11MB4410namp_"
 MIME-Version: 1.0
-From: Alex Qiu <xqiu@google.com>
-Date: Fri, 7 Aug 2020 15:42:15 -0700
-Message-ID: <CAA_a9xKze8pBf1zH0icAhQX55ESbtnqQMaTe-aTxnxBx5tfcCA@mail.gmail.com>
-Subject: Inconsistent performance of dbus call GetManagedObjects to PSUSensor
- in dbus-sensors
-To: Ed Tanous <ed@tanous.net>, OpenBMC Maillist <openbmc@lists.ozlabs.org>, 
- James Feist <james.feist@linux.intel.com>
-Cc: Peter Lundgren <peterlundgren@google.com>, Josh Lehan <krellan@google.com>,
- Jason Ling <jasonling@google.com>, Sui Chen <suichen@google.com>,
- Jie Yang <jjy@google.com>, Drew Macrae <drewmacrae@google.com>
-Content-Type: multipart/alternative; boundary="000000000000a9492505ac515180"
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR11MB4410.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e7ae091-d332-4641-c399-08d83b25fd7f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2020 23:02:42.4313 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: K45ikLDFEW7wUPPON6dODZ7q8NRV73mMECap7MbUbb6SB7NrSVil5b9a0DZMtf89gsnMlCveGP2jLfS8LQEIlg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR11MB3257
+X-OriginatorOrg: intel.com
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,63 +124,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Fri, 07 Aug 2020 22:42:30 -0000
+X-List-Received-Date: Fri, 07 Aug 2020 23:02:56 -0000
 
---000000000000a9492505ac515180
-Content-Type: text/plain; charset="UTF-8"
-
-Hi folks,
-
-I'm branching this topic as Jason mentioned about this in the other topic
-that he started, and I'll report the information I have for now. Sui and
-Jie will follow up on this as they are actively working on this issue.
-
-The setup has a total of 249 IPMI sensors, and among these, dbus-sensors
-reports 59 objects from HwmonTempSensor and 195 objects from PSUSensor, and
-we've already decreased the polling rate of PSUSensor to every 10 seconds
-to mitigate the issue. As the intel-ipmi-oem does, we measure the time of
-calling GetManagedObjects with commands:
-
-time busctl call xyz.openbmc_project.HwmonTempSensor /
-org.freedesktop.DBus.ObjectManager GetManagedObjects
-time busctl call xyz.openbmc_project.PSUSensor /
-org.freedesktop.DBus.ObjectManager GetManagedObjects
-
-The first command for HwmonTempSensor constantly finishes in about 60 ms.
-However, the run time of the second command for PSUSensor is very
-inconsistent. Out of 50 continuous runs, most of them finish in about 150
-ms, but 2 or 3 of them will take as long as about 6 seconds to return. This
-results in long time to scan the SDR and inconsistent performance polling
-IPMI sensors.
-
-Thanks.
-
-- Alex Qiu
-
---000000000000a9492505ac515180
-Content-Type: text/html; charset="UTF-8"
+--_000_DM6PR11MB44102FC343DC712C174CD37F94490DM6PR11MB4410namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div>Hi folks,</div><div><br></div><div>I&#39;m branching =
-this topic as Jason mentioned about this in the other topic that he started=
-, and I&#39;ll report the information I have for now. Sui and Jie will foll=
-ow up on this as they are actively working on this issue.</div><div><br></d=
-iv><div>The setup has a total of 249 IPMI sensors, and among these, dbus-se=
-nsors reports 59 objects from HwmonTempSensor and 195 objects from PSUSenso=
-r, and we&#39;ve already decreased the polling rate of PSUSensor to every 1=
-0 seconds to mitigate the issue. As the intel-ipmi-oem does, we measure the=
- time of calling GetManagedObjects with commands:</div><div><br></div><div>=
-time busctl call xyz.openbmc_project.HwmonTempSensor / org.freedesktop.DBus=
-.ObjectManager GetManagedObjects<br></div><div>time busctl call xyz.openbmc=
-_project.PSUSensor / org.freedesktop.DBus.ObjectManager GetManagedObjects<b=
-r></div><div><br></div><div>The first command for HwmonTempSensor constantl=
-y=C2=A0finishes in about 60 ms. However, the run time of the second command=
- for PSUSensor is very inconsistent. Out of 50 continuous=C2=A0runs, most o=
-f them finish in about 150 ms, but 2 or 3 of them will take as long as abou=
-t 6 seconds to return. This results in long time to scan the SDR and incons=
-istent performance polling IPMI sensors.</div><div><br></div><div>Thanks.</=
-div><div><br></div><div><div dir=3D"ltr" class=3D"gmail_signature" data-sma=
-rtmail=3D"gmail_signature"><div dir=3D"ltr">- Alex Qiu</div></div></div></d=
-iv>
+Does anyone know what could be causing this CI build failure?
 
---000000000000a9492505ac515180--
+
+gnu/crtn.o  -flto -g -O2   -Wl,-soname -Wl,libipmi20.so.0 -o .libs/libipmi2=
+0.so.0.0.0
+
+during IPA pass: cp
+
+lto1: internal compiler error: Segmentation fault
+
+Please submit a full bug report,
+
+with preprocessed source if appropriate.
+
+See <file:///usr/share/doc/gcc-10/README.Bugs<file://usr/share/doc/gcc-10/R=
+EADME.Bugs>> for instructions.
+
+lto-wrapper: fatal error: g++ returned 1 exit status
+
+compilation terminated.
+
+/usr/bin/ld: error: lto-wrapper failed
+
+collect2: error: ld returned 1 exit status
+
+make[2]: *** [Makefile:1112: libipmi20.la] Error 1
+
+
+
+
+I noticed this failure from one of my reviews in phosphor-net-impi.
+I pushed a white space change for testing, it failed the same way.
+I just saw it failed the same way with a Gerrit review for phosphor-pid-con=
+trol,
+which means no change in the phosphor-net-ipmi.
+
+Thanks,
+Zhikui
+
+
+
+--_000_DM6PR11MB44102FC343DC712C174CD37F94490DM6PR11MB4410namp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:dt=3D"uuid:C2F41010-65B3-11d1-A29F-00AA00C14882" xmlns:m=3D"http://sc=
+hemas.microsoft.com/office/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-=
+html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+pre
+	{mso-style-priority:99;
+	mso-style-link:"HTML Preformatted Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.HTMLPreformattedChar
+	{mso-style-name:"HTML Preformatted Char";
+	mso-style-priority:99;
+	mso-style-link:"HTML Preformatted";
+	font-family:"Courier New";}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Does anyone know what could be causing this CI build=
+ failure?<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<pre><span style=3D"font-size:10.5pt;color:#333333">gnu/crtn.o&nbsp; -flto =
+-g -O2&nbsp;&nbsp; -Wl,-soname -Wl,libipmi20.so.0 -o .libs/libipmi20.so.0.0=
+.0<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">during IPA pass: cp<o:p=
+></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">lto1: internal compiler=
+ error: Segmentation fault<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">Please submit a full bu=
+g report,<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">with preprocessed sourc=
+e if appropriate.<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">See &lt;<a href=3D"file=
+://usr/share/doc/gcc-10/README.Bugs"><span style=3D"color:#5C3566">file:///=
+usr/share/doc/gcc-10/README.Bugs</span></a>&gt; for instructions.<o:p></o:p=
+></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">lto-wrapper: fatal erro=
+r: g++ returned 1 exit status<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">compilation terminated.=
+<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">/usr/bin/ld: error: lto=
+-wrapper failed<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">collect2: error: ld ret=
+urned 1 exit status<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333">make[2]: *** [Makefile:=
+1112: libipmi20.la] Error 1<o:p></o:p></span></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333"><o:p>&nbsp;</o:p></span=
+></pre>
+<pre><span style=3D"font-size:10.5pt;color:#333333"><o:p>&nbsp;</o:p></span=
+></pre>
+<p class=3D"MsoNormal">I noticed this failure from one of my reviews in pho=
+sphor-net-impi.<o:p></o:p></p>
+<p class=3D"MsoNormal">I pushed a white space change for testing, it failed=
+ the same way.<o:p></o:p></p>
+<p class=3D"MsoNormal">I just saw it failed the same way with a Gerrit revi=
+ew for phosphor-pid-control,<o:p></o:p></p>
+<p class=3D"MsoNormal">which means no change in the phosphor-net-ipmi.<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Zhikui<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+</body>
+</html>
+
+--_000_DM6PR11MB44102FC343DC712C174CD37F94490DM6PR11MB4410namp_--
