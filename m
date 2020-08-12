@@ -1,72 +1,61 @@
-Return-Path: <ur.starklee@gmail.com>
+Return-Path: <a.filippov@yadro.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72c;
- helo=mail-qk1-x72c.google.com; envelope-from=ur.starklee@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=PYHr3ywJ; dkim-atps=neutral
-Received: from mail-qk1-x72c.google.com (mail-qk1-x72c.google.com
- [IPv6:2607:f8b0:4864:20::72c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=Tf27IH0u; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BRNQG4M06zDqXV
- for <openbmc@lists.ozlabs.org>; Wed, 12 Aug 2020 18:38:25 +1000 (AEST)
-Received: by mail-qk1-x72c.google.com with SMTP id b14so1357983qkn.4
- for <openbmc@lists.ozlabs.org>; Wed, 12 Aug 2020 01:38:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:thread-topic:thread-index:date:message-id
- :accept-language:content-language:mime-version;
- bh=vxsYKE9damgEmu/Y5Y6OCecdaMhqznXHWyaV45b+7GI=;
- b=PYHr3ywJGei8PSMbsEeSE1FpfqqzMSrPrqaduf3zfImYb1QqGbxlVtsQL24jBSWZ+b
- 2AQ5RxixEDb7LsdiAgDANr6VE4FVov8p7FqgQw4LEpDZoybtp8vo3bA6IrEmnjdxHJnp
- sMXrUqzW3AL6gfxUrc+tpt49ZLu/cuyzXfugcqWI2+F6SO7bdQ9FcTeW/tu9XLk7bjAN
- GFNzY/p/UDWv1x2vYZsDD7Kfl2qqxoQmRF8yqzj1wDmFSWXMRaDRrUcw1Qo+t18RoZOu
- +IaONYrvnlkkvtud9AcDw72rd0Jrg8M3/lUOfXkqfnPuNwDBcHreMNh5G/oYPgAEHscd
- KCYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:thread-topic:thread-index:date
- :message-id:accept-language:content-language:mime-version;
- bh=vxsYKE9damgEmu/Y5Y6OCecdaMhqznXHWyaV45b+7GI=;
- b=Ox4qG1JMTsq9u/dZK8SWMe1JDsvgrzzMQAkVdAVZV9abUQRCYYeBKV8F42SayJEbTd
- EO7LNtTXhGEpKO98jXPCNUiQzQ0KUz5m0WMdHwdST5ps+x8re4kbVm6WsRd/OwvE2Qwl
- tzJ8jYF47X8HnQhndJpm4ATO+mCfhUn+b5y90lHm/shElx4LGtcUSBrZ4wRhm6fE5Zi8
- g2GViMSVRPXlynLMPvpPx/BBmLi2JasiA5KrMKu48lnKUMxAEpECPmiOeqW3IaFLeNDx
- 8iz2+UkEX5G8VeCL0jSPGT4CZl8bgJpT0wn6FlgXTC59sbXwTHoz4lfIVssx6xL7Q2LW
- 0ndA==
-X-Gm-Message-State: AOAM533PFZLu0/wA0uDLWKL7zllLkBI3WZgImOkIbBivGv+9rKM4gjKR
- t6ms5UI2W4QZSaXjxh1nUByD667d
-X-Google-Smtp-Source: ABdhPJxXzcnie5XQShZ8MV3121PgFYRVZpvuVRIgTOPI2nZZPuVsjuCOT6quuX6ONmHXqdLbAACn9w==
-X-Received: by 2002:a37:a354:: with SMTP id m81mr5015707qke.277.1597221501234; 
- Wed, 12 Aug 2020 01:38:21 -0700 (PDT)
-Received: from BN8PR20MB2689.namprd20.prod.outlook.com
- ([2603:1036:303:3036::5])
- by smtp.gmail.com with ESMTPSA id d16sm1528515qkk.106.2020.08.12.01.38.20
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 12 Aug 2020 01:38:20 -0700 (PDT)
-From: =?iso-2022-jp?B?GyRCTXsbKEIgGyRCQDFAMRsoQg==?= <ur.starklee@gmail.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Question about WEBUI
-Thread-Topic: Question about WEBUI
-Thread-Index: AQHWcIPtRA6yz65L+U2HYN80npymaA==
-X-MS-Exchange-MessageSentRepresentingType: 1
-Date: Wed, 12 Aug 2020 08:38:19 +0000
-Message-ID: <BN8PR20MB268985C7163EF6A03E9E47ADA7420@BN8PR20MB2689.namprd20.prod.outlook.com>
-Accept-Language: zh-CN, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-Exchange-Organization-SCL: -1
-X-MS-TNEF-Correlator: 
-X-MS-Exchange-Organization-RecordReviewCfmType: 0
-Content-Type: multipart/alternative;
- boundary="_000_BN8PR20MB268985C7163EF6A03E9E47ADA7420BN8PR20MB2689namp_"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BRWXq2wQ8zDq6q
+ for <openbmc@lists.ozlabs.org>; Wed, 12 Aug 2020 23:59:38 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 6A25F4C899;
+ Wed, 12 Aug 2020 13:59:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ in-reply-to:content-disposition:content-type:content-type
+ :mime-version:references:message-id:subject:subject:from:from
+ :date:date:received:received:received; s=mta-01; t=1597240772;
+ x=1599055173; bh=5EN5ZOYC/htiJTPmm4z7m+zedP0gwH47oBglnE2NwBs=; b=
+ Tf27IH0u37qaFNkrjhgaczoRRuM+6lM51U6un7IawtPcIEjZBPzfHdgS+cMSLKOw
+ t5ne3b2+l14Uh26LhfTIWgyX0iVHxYrp+ZqY1bv7+GVnXfGLVI6ZIT44V0oc3w4G
+ /tG31dCG9RWx/d7M+hwexoOcGJ8ZwuYfTuerqDFmv0g=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id TKlTFw30KI3E; Wed, 12 Aug 2020 16:59:32 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id D10974C84A;
+ Wed, 12 Aug 2020 16:59:32 +0300 (MSK)
+Received: from localhost (172.17.14.122) by T-EXCH-02.corp.yadro.com
+ (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 12
+ Aug 2020 16:59:32 +0300
+Date: Wed, 12 Aug 2020 16:59:32 +0300
+From: "Alexander A. Filippov" <a.filippov@yadro.com>
+To: Joel Stanley <joel@jms.id.au>
+CC: "Alexander A. Filippov" <a.filippov@yadro.com>, Eddie James
+ <eajames@linux.ibm.com>, Alexander Amelkin <a.amelkin@yadro.com>, Artem
+ Senichev <artemsen@gmail.com>, openbmc <openbmc@lists.ozlabs.org>
+Subject: Re: The Power9 host booting problem with OpenBMC kernel 5.7.x
+Message-ID: <20200812135932.GA13370@bbwork.lan>
+References: <20200810184446.GA14652@bbwork.lan>
+ <CACPK8XdFNpsyzgY8n_3VTxS-Z88bT1pBEXPO+w=dWE6G1fj3jA@mail.gmail.com>
+ <20200811183314.GA26661@bbwork.lan>
+ <CACPK8XeLsJ+xKc7yD43sbkVCGohNoPx_d+JVNbv0unqS2XLM1Q@mail.gmail.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Wed, 12 Aug 2020 21:27:30 +1000
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <CACPK8XeLsJ+xKc7yD43sbkVCGohNoPx_d+JVNbv0unqS2XLM1Q@mail.gmail.com>
+X-Originating-IP: [172.17.14.122]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,114 +67,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 12 Aug 2020 08:38:31 -0000
+X-List-Received-Date: Wed, 12 Aug 2020 13:59:40 -0000
 
---_000_BN8PR20MB268985C7163EF6A03E9E47ADA7420BN8PR20MB2689namp_
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+On Wed, Aug 12, 2020 at 08:56:16AM +0000, Joel Stanley wrote:
+> Thanks for the response. I've merged the two threads, and I have a
+> candidate for a fix.
+> 
+> On Tue, 11 Aug 2020 at 18:33, Alexander A. Filippov
+> <a.filippov@yadro.com> wrote:
+> > With the kerenl 5.8 the host is still not booting.
+> > I've checked on both machines and they have very different results:
+> >  - On the machine with two CPUs the issue is still reproduced.
+> >    I see no difference, neither in the behavior, nor in the logs.
+> >  - On the machine with one CPU the failure happens due the PNOR flash.
+> >    It looks like this:
+> 
+> >
+> > I've noticed that the kernel 5.8 detect the flash driver incorrectly:
+> > mx25l51245g instead of mx66l51235f.
+> > It happens on both machines and I don't understand why it leads to the problems
+> > on only one of them.
+> 
+> I found upstream v5.8 has a regression in the spi-nor driver on
+> aspeed. I've put a revert of the patch that caused the regression on
+> the list, but it requires some more investigation to find a proper
+> fix:
+> 
+>  https://patchwork.ozlabs.org/project/openbmc/patch/20200812035847.2352277-1-joel@jms.id.au/
+> 
 
-Hi,
-       I am stark and a newbee for openBMC development. Our company are pla=
-nning to develop a customized software to manage BMC for our template. I am=
- trying to use openBMC as framework and I have set up all required environm=
-ent.
-For now I have set up a system based on Ubantu 16.0.4 and download all pack=
-ages. Then I successfully build an image based on Romulus and use qemu to s=
-tart it. And I can open localhost:2443 to manage it. All the steps have bee=
-n done as Github procedures.
-But as requirement we want to customize the WebUI and I try to do as Github=
-. I put phosphor-webui in build directory. And use npm start it. My npm ver=
-sion is 6.14.7. But when I try to login into my image with special IP addre=
-ss. It failed and show cors-xml problem and server unreachable.
-After that I find original code in /home/bmc/openbmc/build/tmp/work/all-ope=
-nbmc-linux/phosphor-webui/1.0+gitAUTOINC+2e1eec80de-r1/git/, and I try to c=
-hange its logo picture. But it did not work. Can you give some advices how =
-to do that? I can=1B$B!G=1B(Bt find some useful  tutorials.
+Yes, this solves the problem with the flash drives.
+They are still reported other model names, but work properly.
 
-Thanks
 
---_000_BN8PR20MB268985C7163EF6A03E9E47ADA7420BN8PR20MB2689namp_
-Content-Type: text/html; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+> On Tue, 11 Aug 2020 at 11:54, Artem Senichev <artemsen@gmail.com> wrote:
+> > > My guess is it's something to do with the timekeeping, irq or rcu
+> > > code. All areas of complexity!
+> > >
+> >
+> > We had similar behaviour in P8 when tried to use ColdFire FSI:
+> > https://github.com/openbmc/openbmc/issues/3433
+> >
+> > In this issue, htop shows 100% load of one CPU on the host and it is not an OS
+> > task. Looks like FSI doesn't stop working and fully loads one core.
+> 
+> I think we have an issue with the irq polarity of the vuart device.
+> Did you notice an excessive number of lpc_serirq interrupts on the
+> host (check /proc/interrupts)?
 
-<html xmlns:o=3D"urn:schemas-microsoft-com:office:office" xmlns:w=3D"urn:sc=
-hemas-microsoft-com:office:word" xmlns:m=3D"http://schemas.microsoft.com/of=
-fice/2004/12/omml" xmlns=3D"http://www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-2022-=
-jp">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:DengXian;
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:"\@\7B49 \7EBF ";
-	panose-1:2 1 6 0 3 1 1 1 1 1;}
-@font-face
-	{font-family:Times;
-	panose-1:0 0 5 0 0 0 0 2 0 0;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	text-align:justify;
-	text-justify:inter-ideograph;
-	font-size:10.5pt;
-	font-family:DengXian;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:DengXian;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:DengXian;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style>
-</head>
-<body lang=3D"ZH-CN" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:Times">Hi,=
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:Times">&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I am stark and a newbee for openBMC devel=
-opment. Our company are planning to develop a customized software to manage=
- BMC for our template. I am trying to use openBMC as framework and I
- have set up all required environment. <o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:21.0pt"><span lang=3D"EN-US" st=
-yle=3D"font-family:Times">For now I have set up a system based on Ubantu 16=
-.0.4 and download all packages. Then I successfully build an image based on=
- Romulus and use qemu to start it. And I
- can open localhost:2443 to manage it. All the steps have been done as Gith=
-ub procedures.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:21.0pt"><span lang=3D"EN-US" st=
-yle=3D"font-family:Times">But as requirement we want to customize the WebUI=
- and I try to do as Github. I put phosphor-webui in build directory. And us=
-e npm start it. My npm version is 6.14.7.
- But when I try to login into my image with special IP address. It failed a=
-nd show cors-xml problem and server unreachable.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal" style=3D"text-indent:21.0pt"><span lang=3D"EN-US" st=
-yle=3D"font-family:Times">After that I find original code in /home/bmc/open=
-bmc/build/tmp/work/all-openbmc-linux/phosphor-webui/1.0+gitAUTOINC+2e1eec80=
-de-r1/git/, and I try to change its logo
- picture. But it did not work. Can you give some advices how to do that? I =
-can=1B$B!G=1B(Bt find some useful &nbsp;tutorials.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:Times"><o:=
-p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"font-family:Times">Tha=
-nks<o:p></o:p></span></p>
-</div>
-</body>
-</html>
+You are right, lpc_serirq_mux1 is 183507008 after the host OS has just booted.
 
---_000_BN8PR20MB268985C7163EF6A03E9E47ADA7420BN8PR20MB2689namp_--
+> 
+> Try doing this on your BMC before booting your host:
+> 
+> root@bmc:~# echo 0 >
+> /sys/devices/platform/ahb/ahb:apb/1e787000.serial/sirq_polarity
+>
+
+Yes, after this the both hosts work properly.
+
+Thanks for your help.
+
+> If that fixes it we can make a change to the device tree to make the
+> setting permanent.
+> 
+> Cheers,
+> 
+> Joel
+
+--
+Regards,
+Alexander
