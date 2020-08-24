@@ -1,66 +1,122 @@
-Return-Path: <proclivis@gmail.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::329;
- helo=mail-ot1-x329.google.com; envelope-from=proclivis@gmail.com;
- receiver=<UNKNOWN>)
+Return-Path: <prvs=550569eddf=vijaykhemka@fb.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=inxHbaV6; dkim-atps=neutral
-Received: from mail-ot1-x329.google.com (mail-ot1-x329.google.com
- [IPv6:2607:f8b0:4864:20::329])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=pass (sender SPF authorized) smtp.mailfrom=fb.com
+ (client-ip=67.231.145.42; helo=mx0a-00082601.pphosted.com;
+ envelope-from=prvs=550569eddf=vijaykhemka@fb.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=reject dis=none) header.from=fb.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=fb.com header.i=@fb.com header.a=rsa-sha256
+ header.s=facebook header.b=aTGzSiZP; 
+ dkim=pass (1024-bit key;
+ unprotected) header.d=fb.onmicrosoft.com header.i=@fb.onmicrosoft.com
+ header.a=rsa-sha256 header.s=selector2-fb-onmicrosoft-com header.b=IdVCyKz1; 
+ dkim-atps=neutral
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
+ [67.231.145.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bb2Rl2T8zzDqLh
- for <openbmc@lists.ozlabs.org>; Tue, 25 Aug 2020 05:36:19 +1000 (AEST)
-Received: by mail-ot1-x329.google.com with SMTP id k20so3747652otr.1
- for <openbmc@lists.ozlabs.org>; Mon, 24 Aug 2020 12:36:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=content-transfer-encoding:from:mime-version:subject:date:message-id
- :references:cc:in-reply-to:to;
- bh=dZGGlr6TkkBVldkEC7Vv70098oHaReuiyDNB6ca9NDU=;
- b=inxHbaV6By3aKnMTReJYYYw07YKG2pQo7CfHFPcEAYmuYffoWHR8fbyT60nsGSYDQU
- mALpI8TiY0D2mTXN6wNvnIqN0ryCbFk2J+GfSrlf0z6hXOaTpGuS7FEQpf7EugG7TVpD
- F8GSYNdboyffV9cXbicP1i7sFgr0wonrCeM8CzQ2vr0mwqzqAGGo5Qbv2CdG2epMUiIV
- kscMXiSe4uCCKDut6vqrBLwLSyo3S5+o1AGwhnnjU4jv0A3fRKpIdtwhIEl/k6hFuC7H
- g/BU+hq4cNuBO5AcVAn2ibvMv35EOTi7OGZAh8oG9PzUuzC2FbB+XiXGIq7hr3JPG4m7
- Vybg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:content-transfer-encoding:from:mime-version
- :subject:date:message-id:references:cc:in-reply-to:to;
- bh=dZGGlr6TkkBVldkEC7Vv70098oHaReuiyDNB6ca9NDU=;
- b=rkoL+KYmaTsIY0O4r+1E9ilThv3pNWVA3BYehfdoGrUx+Xo5EwbmrfNsjcE3waeBdr
- XbyPAKjL/Eguu3F70R7i3ahDXymN4djNzTGSpKzMp2uwNLgxTTr148uqrtyBMFe5XHQ7
- gZeH1agMmC1t8O4pl7rAGWKNRe/sEYdKfwHRaEqQcP5AO8Yk47w6hytqFI3cX8rSdJeF
- Jb4Cj7Lu5wsyk8YYsAY+/DWFNnh1istcBrJ2cic1/JLYVS9w626fKCKx81wfbzcgWGBs
- rDECPrQJEWGapntKMvOqCm/YZJTyNCcoeOmdD01MwSqVcb6UmdzqEN2UuRukNvQ0G4GX
- xyfg==
-X-Gm-Message-State: AOAM530q7JA91MeQ1TGQlPVa9pPJEVJOuURSr31XoWumQF2X86pMIT2Y
- 75xMYRqBagV2lrgi1Oteyqu0LSFDoVkxJw==
-X-Google-Smtp-Source: ABdhPJzdla3X85RLRjiuj9N2yCBPSrk9tOBPRCYe/lY6c3pVKAy+mRW9ptIgUJ8BYEJfVBb6T/CxiA==
-X-Received: by 2002:a05:6830:45b:: with SMTP id
- d27mr4801546otc.312.1598297771662; 
- Mon, 24 Aug 2020 12:36:11 -0700 (PDT)
-Received: from ?IPv6:2601:281:c001:2359:dba:1777:baf7:5859?
- ([2601:281:c001:2359:dba:1777:baf7:5859])
- by smtp.gmail.com with ESMTPSA id a15sm2106355oid.49.2020.08.24.12.36.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 24 Aug 2020 12:36:11 -0700 (PDT)
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: Mike <proclivis@gmail.com>
-Mime-Version: 1.0 (1.0)
-Subject: Re: Server Power On mystery
-Date: Mon, 24 Aug 2020 13:36:10 -0600
-Message-Id: <78CB9EC6-C56D-4F67-A47D-62A9BBA2ECCD@gmail.com>
-References: <659E5458-DE76-4F81-AD1A-95F7780F9606@gmail.com>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-In-Reply-To: <659E5458-DE76-4F81-AD1A-95F7780F9606@gmail.com>
-To: Ed Tanous <ed@tanous.net>
-X-Mailer: iPhone Mail (17G80)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bb4Qt5RxczDqHj
+ for <openbmc@lists.ozlabs.org>; Tue, 25 Aug 2020 07:05:33 +1000 (AEST)
+Received: from pps.filterd (m0044012.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 07OL5RXU021376; Mon, 24 Aug 2020 14:05:30 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.com;
+ h=from : to : cc : subject
+ : date : message-id : references : in-reply-to : content-type :
+ mime-version; s=facebook; bh=rH2YdjSUO43y/la/6p+0oN+cNXujz/REXuHPm9EHJzM=;
+ b=aTGzSiZPDb9u5d1oE+Yj/wthOwl4rpWalWzxiDN6GCUoSQzHZ5okb3xfMTTUy0VCQUIc
+ CJBOoEtnI7Br+gwklk6ToEoet+72PnrSALBpeHUqUmM/mhB5s+ovuzZPJm+COagKodNb
+ p/jTByNSK1H/o9UHQLn/yASxHA+9tWB4Bc8= 
+Received: from mail.thefacebook.com ([163.114.132.120])
+ by mx0a-00082601.pphosted.com with ESMTP id 333ke6f2bb-5
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+ Mon, 24 Aug 2020 14:05:30 -0700
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com (100.104.98.9) by
+ o365-in.thefacebook.com (100.104.94.230) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.1979.3; Mon, 24 Aug 2020 14:05:28 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=F9Jol7pbqUUjnNp1ux22lsWYAu7C1ZSMDj+mGnVPM8NC9N2Yy1mDQra1g+7oMXkAoIEuQ3dbWTI3d23coNw5eL17hGr3ojnnbgH319ZGVacFN61B/3A9DRl3aYQijLI5EOEg6ueZnkSSDokuxPSu6XmKu3sEc5qG11aeEwSTRbqkQZ3cjNP1av6dFKiZtrE0HEQBYSFrk3Z1sryxd95xa//B7QL6q+T3x+afmWgsOT2QkANueHwyS7JQqX/D1FgmFGC0fOJTMgwNsiOrP8h3eL3KWeW8rpUOPD+H2C/buPyn8CzfpTbR+dyQx76cx8Xw6gxQLqtWZByg3hdIJQ5ZeA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rH2YdjSUO43y/la/6p+0oN+cNXujz/REXuHPm9EHJzM=;
+ b=GAB8KeJAjqBQvLbK1H1/gGo9EQWhTNbhofwoUv89kEKtH4S1vYvUdmqETog7c9xmmAq4MCQPNWsplX0VkD6ICt4CmTjOUDAIf8qYG6zjN6FgOK4wlL/+i/AkO2gRk48H+SdqkhVdY+81PrxsZ6CeEQn7OF3htSIb2Pru9aefnKBeekeBwwOkRSfYidBqdOSPIJe1k9MAn7xzQzEAo0pSgUpiDjpSze79ZUCTdv2z5OuJWPd/yDQ28npehKxxglJKln3qLwq3X5dkQmXmwWMf/DW/ggcm4mgk/pdbPgvRACNI30DGIqYlqAoVwfnHXBQte4+1RHglmaFbDkucVvvrog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=fb.com; dmarc=pass action=none header.from=fb.com; dkim=pass
+ header.d=fb.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fb.onmicrosoft.com;
+ s=selector2-fb-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rH2YdjSUO43y/la/6p+0oN+cNXujz/REXuHPm9EHJzM=;
+ b=IdVCyKz1svhemBjKbOJaslJL/jmFBEKctS1JwdN0FVsIb2HU+EVzDABqBuTB5iyTSfbRr7LCa1/hPgxOzJICov2Xn4UKO41zoH+ptw2LAX34o24ZG4NJIt/goUsVP9ODEfUclTJmWHV6O5HLS4Ax5vKd8yPbEU8Wg8jGjexiVmw=
+Received: from BYAPR15MB2374.namprd15.prod.outlook.com (2603:10b6:a02:8b::16)
+ by BY5PR15MB3570.namprd15.prod.outlook.com (2603:10b6:a03:1f9::25)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3305.25; Mon, 24 Aug
+ 2020 21:05:27 +0000
+Received: from BYAPR15MB2374.namprd15.prod.outlook.com
+ ([fe80::2908:ebc2:73a5:45b3]) by BYAPR15MB2374.namprd15.prod.outlook.com
+ ([fe80::2908:ebc2:73a5:45b3%5]) with mapi id 15.20.3305.026; Mon, 24 Aug 2020
+ 21:05:27 +0000
+From: Vijay Khemka <vijaykhemka@fb.com>
+To: Neil Bradley <Neil_Bradley@phoenix.com>, "openbmc@lists.ozlabs.org"
+ <openbmc@lists.ozlabs.org>
+CC: Patrick Voelker <Patrick_Voelker@phoenix.com>, Bruce Mitchell
+ <Bruce_Mitchell@phoenix.com>
+Subject: Re: Tioga Pass OpenBMC 2.8
+Thread-Topic: Tioga Pass OpenBMC 2.8
+Thread-Index: AdZ4G9/pZ44Ttxs7TiCWRTJU7JTTHQCA72kA
+Date: Mon, 24 Aug 2020 21:05:26 +0000
+Message-ID: <5F804DFD-B91D-4293-A410-62ED737423A7@fb.com>
+References: <c27c916296c14b7a973ce10ce462a574@SCL-EXCHMB-13.phoenix.com>
+In-Reply-To: <c27c916296c14b7a973ce10ce462a574@SCL-EXCHMB-13.phoenix.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: phoenix.com; dkim=none (message not signed)
+ header.d=none;phoenix.com; dmarc=none action=none header.from=fb.com;
+x-originating-ip: [2601:647:4b00:fd70:18e2:66b5:5e3d:3d1a]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 5b2b8e91-f7e9-4f1f-0f32-08d848716d0a
+x-ms-traffictypediagnostic: BY5PR15MB3570:
+x-microsoft-antispam-prvs: <BY5PR15MB3570F295D14993C967AED84CDD560@BY5PR15MB3570.namprd15.prod.outlook.com>
+x-fb-source: Internal
+x-ms-oob-tlc-oobclassifiers: OLM:3826;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: 3CgpaLoXhrzfZG2Sb0IynmaCCvJYqwLMyMXb2T/sjldwIT/pSKgg9y7Z5qn0M5B9RjMtlk5NSKfwtXCuk61TmDyB7pTdPEl2sII+crH9JjcdV+m/fA3+PxU1PIcLmnjFnLVqUmuSroIw3QFWmJMnnQjBr4UV8RLBi4jHcIk4fJQilTrVajaElALnBS53lvJXenEhSMpTi/8C8/Gg4N5HS6pwi4VcRU+6vIUXt27+cBBYdgcFUt9kBA2Kc853WORXB44kgXtOSbDaxYoukCCpo5klbgYLWNa+VFOlWx5q0sEszbK/Vl5MZALr8uExJGXe2/rk32DfXIeduW2FpOzg5Miz2U71MrKx3cQ0Uu+gfBnHANu/A5N3dQWfIvC4q+TyBXO3D1/lx6r/TDvzX1tMeA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR15MB2374.namprd15.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(39860400002)(366004)(376002)(346002)(136003)(396003)(7116003)(9326002)(2906002)(33656002)(186003)(66446008)(478600001)(64756008)(66556008)(66476007)(76116006)(316002)(66946007)(966005)(71200400001)(2616005)(36756003)(6506007)(54906003)(8936002)(86362001)(4326008)(6512007)(8676002)(83380400001)(110136005)(6486002)(53546011)(166002)(5660300002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: ln7MpQh+/G+XlkBTBSeZUrbP6rT8X8bC486s+8ll2MGyA1OfnaXar6RhD0aCLBJXgt29yS8ohroDPG1QaOnSNu6RyHlykNA9HTf+WtwjG8LP11VpNKqR5P/uWCx80Fh/7EGRRROxR3YA4xFNNZYmG9tQiEcyoxGkINZg79qxoWbAL6oCzKDHlzcmdOn6IkL0x3W+62vbJXj7Xy8Kve9xPZblzmcHKJIi/gquDmE1JD3Andppf9XW7sB9WB4G2GeocsU3wcqoL2lHjkzIvAFOFi4sr1zgDCSlI1qujgmGIAPd3O9Wd+eFbqsN241n7FjqMQ/2nB+o3Xf1ic2RyCKpHWEfGbhbO/I9xMQCR3cGd8wT4wllfCIU07clOO0bx2xxffIJTYiIQesoL4tnLDwGzu23bdRKoTQ9ieTqtE0OrDOWHJaW29J+72vP2CysejTRMTvqpeEVD+qQOXuhQDxCA2G7hwPzk79T3RggVvd5M5t718VNMwRRtnukkjVFnqLvzUwwRF5N2zSM41UE0+wFYKHtONt+FFPphJ4NvtCseC9kHzu2yfYreg9aUsfSRhh8rbYT/BMlrfVnkkuzsZfxnIBEescGHwIYzSftIb3Z6Eb/Ir6KzbdTMRnyhfWSa/Y1uKAFGgbg5mOSBQha2fMvy+bVD+mHgpc0ixg41Z7b6wosR2DcGGiSE9keFfd71XHvlY03PBOznikq4PuSD/wzzQ==
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_5F804DFDB91D4293A41062ED737423A7fbcom_"
+MIME-Version: 1.0
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR15MB2374.namprd15.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5b2b8e91-f7e9-4f1f-0f32-08d848716d0a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2020 21:05:26.8536 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 8ae927fe-1255-47a7-a2af-5f3a069daaa2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TXfm9ZHIHMMPFWrRLrF+cPeMuOXcaVLCeeevRzUVvOtjiNuktVtkN5qzM1/C2gNTB8my6SEwruPzZySKJKKkRw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR15MB3570
+X-OriginatorOrg: fb.com
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-08-24_12:2020-08-24,
+ 2020-08-24 signatures=0
+X-Proofpoint-Spam-Details: rule=fb_default_notspam policy=fb_default score=0
+ spamscore=0 mlxscore=0
+ bulkscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 impostorscore=0 clxscore=1011
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2008240165
+X-FB-Internal: deliver
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,185 +128,206 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 24 Aug 2020 19:36:19 -0000
+X-List-Received-Date: Mon, 24 Aug 2020 21:05:44 -0000
 
-So for example, if a system had a PMbus HotSwap, a VR for the CPU, and an au=
-xiliary PMBus sequencer for an FPGA, and an I2C mux, and the host and aux su=
-pplies required different state management, where they don=E2=80=99t sequenc=
-e together, how would that be done? By learning how the current pieces play t=
-ogether I can imagine multiple new use cases and prototype them.
+--_000_5F804DFDB91D4293A41062ED737423A7fbcom_
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-As for faking or neutering the host function, it=E2=80=99s just to remove si=
-de effects to prove out solutions.
+SGkgTmVpbCwNCkhvdyBkaWQgeW91IGNvcHkgaW1hZ2UgdG8gdGFyZ2V0LCBJIG1lYW4gd2hhdCBm
+aWxlIG5hbWUgeW91IGhhdmUgY29waWVkIGFuZCB3aGF0IHdhcyBzaXplLg0KVGhlcmUgaXMgbm8g
+aXNzdWUgaW4gYXZhaWxhYmxlIGltYWdlIGZvciB0aW9nYXBhc3MgYnVpbGQgYW5kIGl0IHNob3Vs
+ZCB3b3JrIHNlYW1sZXNzbHkuDQoNClBsZWFzZSBzaGFyZSBjb25zb2xlIGJvb3QgbG9nIGlmIHlv
+dSBoYXZlLCBkbyB5b3Uga25vdyB3aGF0IG5ldHdvcmsgY2FyZCB5b3Ugc3lzdGVtIGhhdmUuDQoN
+ClJlZ2FyZHMNCi1WaWpheQ0KDQpGcm9tOiBvcGVuYm1jIDxvcGVuYm1jLWJvdW5jZXMrdmlqYXlr
+aGVta2E9ZmIuY29tQGxpc3RzLm96bGFicy5vcmc+IG9uIGJlaGFsZiBvZiBOZWlsIEJyYWRsZXkg
+PE5laWxfQnJhZGxleUBwaG9lbml4LmNvbT4NCkRhdGU6IEZyaWRheSwgQXVndXN0IDIxLCAyMDIw
+IGF0IDEwOjQwIFBNDQpUbzogIm9wZW5ibWNAbGlzdHMub3psYWJzLm9yZyIgPG9wZW5ibWNAbGlz
+dHMub3psYWJzLm9yZz4NCkNjOiBQYXRyaWNrIFZvZWxrZXIgPFBhdHJpY2tfVm9lbGtlckBwaG9l
+bml4LmNvbT4sIEJydWNlIE1pdGNoZWxsIDxCcnVjZV9NaXRjaGVsbEBwaG9lbml4LmNvbT4NClN1
+YmplY3Q6IFRpb2dhIFBhc3MgT3BlbkJNQyAyLjgNCg0KR3JlZXRpbmdzIGZlbGxvdyBCTUMgZm9s
+ayDigJMgSeKAmW0gTmVpbCBCcmFkbGV5LCBQaG9lbml4IFRlY2hub2xvZ2llc+KAmSBCTUMgYXJj
+aGl0ZWN0IGFuZCBoYXZlIGEgcXVlc3Rpb24gZm9yIHRoZSBncm91cC4NCg0KV2UgYXJlIGF0dGVt
+cHRpbmcgdG8gbG9hZCBPcGVuQk1DIDIuOCBvbiBhIFRpb2dhIFBhc3MuIFRoaXMgaXMgd2hhdCB3
+ZSBkaWQ6DQoNCm1rZGlyIHRpb2dhcGFzcw0KY2QgdGlvZ2FwYXNzDQpnaXQgY2xvbmUgaHR0cHM6
+Ly9naXRodWIuY29tL29wZW5ibWMvb3BlbmJtYy5naXQNCmNkIG9wZW5ibWMNCmdpdCBjaGVja291
+dCAzNWE3NzQyMDA5OTlhYzJmY2E0ODY5M2MxYzE2OWJmOTlkMmY2M2VhDQpleHBvcnQgVEVNUExB
+VEVDT05GPW1ldGEtZmFjZWJvb2svbWV0YS10aW9nYXBhc3MvY29uZg0Kc291cmNlIG9wZW5ibWMt
+ZW52DQpiaXRiYWtlIG9ibWMtcGhvc3Bob3ItaW1hZ2UNCg0KVGhlIEJNQyBkb2VzIGJvb3QgZnVs
+bHksIGhvd2V2ZXIgdGhlcmUgYXJlIHR3byBtYWpvciBwcm9ibGVtcyB3ZeKAmXZlIGVuY291bnRl
+cmVkOg0KDQoNCiAgMS4gIEhvc3Qgd2lsbCBub3QgcG93ZXIgb24gdmlhIHRoZSBmcm9udCBwYW5l
+bCBwb3dlciBidXR0b24NCiAgMi4gIEJNQyBXaWxsIG5vdCBvYnRhaW4gb3IgdHJ5IERIQ1AgZXZl
+biB0aG91Z2ggaXRzIHNldCBlbmFibGVkIGZvciB0aGUgcHJpbWFyeSBMQU4gY2hhbm5lbA0KDQpJ
+IGhhdmUgYSBjb3VwbGUgb2YgcXVlc3Rpb25zOg0KDQoNCiAgMS4gIFdhcyB0aGlzIGJ1aWx0L2Rv
+bmUgY29ycmVjdGx5PyBJbiBvdGhlciB3b3JkcywgZGlkIEkgZG8gc29tZXRoaW5nIHdyb25nIGlu
+IHRoaXMgcHJvY2Vzcz8NCiAgMi4gIERvZXMgYW55b25lIGtub3cgdGhlIGN1cnJlbnQgc3RhdGUg
+b2YgVGlvZ2EgUGFzcyBzdXBwb3J0IGluIDIuOCBvciB0aGUgZ2VuZXJhbCBoZWFsdGggdGhlcmVp
+bj8NCg0KV2XigJlyZSBjb21pbmcgdXAgdG8gc3BlZWQgb24gdGhpcyBxdWlja2x5LCBzbyBhcG9s
+b2dpZXMgaWYgdGhlc2UgYXJlIHN0dXBpZCBxdWVzdGlvbnMuIEFuZCBncmVldGluZ3MhDQoNCi0t
+Pk5laWwNCg==
 
-Longer term are goals related to remote update of PMBus device EEPROM. Say, g=
-ive file to webui, power supply settings are updated. More on that later fro=
-m one of the PMBus technical working group. Stay tuned. But the raspi will b=
-e a basis for testing updates, assuming we succeed.=20
+--_000_5F804DFDB91D4293A41062ED737423A7fbcom_
+Content-Type: text/html; charset="utf-8"
+Content-ID: <CE037AF7022A594CB7C68BB32939B172@namprd15.prod.outlook.com>
+Content-Transfer-Encoding: base64
 
-These are little different goal than how do I do X for design Y.
+PGh0bWwgeG1sbnM6bz0idXJuOnNjaGVtYXMtbWljcm9zb2Z0LWNvbTpvZmZpY2U6b2ZmaWNlIiB4
+bWxuczp3PSJ1cm46c2NoZW1hcy1taWNyb3NvZnQtY29tOm9mZmljZTp3b3JkIiB4bWxuczptPSJo
+dHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL29mZmljZS8yMDA0LzEyL29tbWwiIHhtbG5zPSJo
+dHRwOi8vd3d3LnczLm9yZy9UUi9SRUMtaHRtbDQwIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVp
+dj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9dXRmLTgiPg0KPG1l
+dGEgbmFtZT0iR2VuZXJhdG9yIiBjb250ZW50PSJNaWNyb3NvZnQgV29yZCAxNSAoZmlsdGVyZWQg
+bWVkaXVtKSI+DQo8c3R5bGU+PCEtLQ0KLyogRm9udCBEZWZpbml0aW9ucyAqLw0KQGZvbnQtZmFj
+ZQ0KCXtmb250LWZhbWlseTpXaW5nZGluZ3M7DQoJcGFub3NlLTE6NSAwIDAgMCAwIDAgMCAwIDAg
+MDt9DQpAZm9udC1mYWNlDQoJe2ZvbnQtZmFtaWx5OiJDYW1icmlhIE1hdGgiOw0KCXBhbm9zZS0x
+OjIgNCA1IDMgNSA0IDYgMyAyIDQ7fQ0KQGZvbnQtZmFjZQ0KCXtmb250LWZhbWlseTpDYWxpYnJp
+Ow0KCXBhbm9zZS0xOjIgMTUgNSAyIDIgMiA0IDMgMiA0O30NCkBmb250LWZhY2UNCgl7Zm9udC1m
+YW1pbHk6Q29uc29sYXM7DQoJcGFub3NlLTE6MiAxMSA2IDkgMiAyIDQgMyAyIDQ7fQ0KLyogU3R5
+bGUgRGVmaW5pdGlvbnMgKi8NCnAuTXNvTm9ybWFsLCBsaS5Nc29Ob3JtYWwsIGRpdi5Nc29Ob3Jt
+YWwNCgl7bWFyZ2luOjBpbjsNCglmb250LXNpemU6MTEuMHB0Ow0KCWZvbnQtZmFtaWx5OiJDYWxp
+YnJpIixzYW5zLXNlcmlmO30NCmE6bGluaywgc3Bhbi5Nc29IeXBlcmxpbmsNCgl7bXNvLXN0eWxl
+LXByaW9yaXR5Ojk5Ow0KCWNvbG9yOmJsdWU7DQoJdGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTt9
+DQpwLk1zb0xpc3RQYXJhZ3JhcGgsIGxpLk1zb0xpc3RQYXJhZ3JhcGgsIGRpdi5Nc29MaXN0UGFy
+YWdyYXBoDQoJe21zby1zdHlsZS1wcmlvcml0eTozNDsNCgltYXJnaW4tdG9wOjBpbjsNCgltYXJn
+aW4tcmlnaHQ6MGluOw0KCW1hcmdpbi1ib3R0b206MGluOw0KCW1hcmdpbi1sZWZ0Oi41aW47DQoJ
+Zm9udC1zaXplOjExLjBwdDsNCglmb250LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjt9DQpz
+cGFuLkVtYWlsU3R5bGUyMA0KCXttc28tc3R5bGUtdHlwZTpwZXJzb25hbC1yZXBseTsNCglmb250
+LWZhbWlseToiQ2FsaWJyaSIsc2Fucy1zZXJpZjsNCgljb2xvcjp3aW5kb3d0ZXh0O30NCi5Nc29D
+aHBEZWZhdWx0DQoJe21zby1zdHlsZS10eXBlOmV4cG9ydC1vbmx5Ow0KCWZvbnQtc2l6ZToxMC4w
+cHQ7fQ0KQHBhZ2UgV29yZFNlY3Rpb24xDQoJe3NpemU6OC41aW4gMTEuMGluOw0KCW1hcmdpbjox
+LjBpbiAxLjBpbiAxLjBpbiAxLjBpbjt9DQpkaXYuV29yZFNlY3Rpb24xDQoJe3BhZ2U6V29yZFNl
+Y3Rpb24xO30NCi8qIExpc3QgRGVmaW5pdGlvbnMgKi8NCkBsaXN0IGwwDQoJe21zby1saXN0LWlk
+Ojc0MDc1NDcxMTsNCgltc28tbGlzdC10eXBlOmh5YnJpZDsNCgltc28tbGlzdC10ZW1wbGF0ZS1p
+ZHM6MjAzNDkzODIxMiA2NzY5ODcwNSA2NzY5ODcxMyA2NzY5ODcxNSA2NzY5ODcwMyA2NzY5ODcx
+MyA2NzY5ODcxNSA2NzY5ODcwMyA2NzY5ODcxMyA2NzY5ODcxNTt9DQpAbGlzdCBsMDpsZXZlbDEN
+Cgl7bXNvLWxldmVsLXRleHQ6IiUxXCkiOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1z
+by1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxp
+c3QgbDA6bGV2ZWwyDQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmFscGhhLWxvd2VyOw0KCW1z
+by1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsN
+Cgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxpc3QgbDA6bGV2ZWwzDQoJe21zby1sZXZlbC1udW1i
+ZXItZm9ybWF0OnJvbWFuLWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1s
+ZXZlbC1udW1iZXItcG9zaXRpb246cmlnaHQ7DQoJdGV4dC1pbmRlbnQ6LTkuMHB0O30NCkBsaXN0
+IGwwOmxldmVsNA0KCXttc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVy
+LXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwwOmxldmVsNQ0K
+CXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDphbHBoYS1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0
+b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6
+LS4yNWluO30NCkBsaXN0IGwwOmxldmVsNg0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDpyb21h
+bi1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBv
+c2l0aW9uOnJpZ2h0Ow0KCXRleHQtaW5kZW50Oi05LjBwdDt9DQpAbGlzdCBsMDpsZXZlbDcNCgl7
+bXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0
+Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMDpsZXZlbDgNCgl7bXNvLWxldmVsLW51
+bWJlci1mb3JtYXQ6YWxwaGEtbG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNv
+LWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlz
+dCBsMDpsZXZlbDkNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6cm9tYW4tbG93ZXI7DQoJbXNv
+LWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpyaWdodDsN
+Cgl0ZXh0LWluZGVudDotOS4wcHQ7fQ0KQGxpc3QgbDENCgl7bXNvLWxpc3QtaWQ6MTUyMTU1MDM5
+MjsNCgltc28tbGlzdC10ZW1wbGF0ZS1pZHM6LTI2MzY2ODcxMjt9DQpAbGlzdCBsMg0KCXttc28t
+bGlzdC1pZDoxNjI3MDc2ODQ1Ow0KCW1zby1saXN0LXRlbXBsYXRlLWlkczo1MzIzMjEyMzQ7fQ0K
+QGxpc3QgbDMNCgl7bXNvLWxpc3QtaWQ6MTcwNjMyNDMyNTsNCgltc28tbGlzdC10eXBlOmh5YnJp
+ZDsNCgltc28tbGlzdC10ZW1wbGF0ZS1pZHM6MTc1Njk1OTIyIDY3Njk4NzA1IDY3Njk4NzEzIDY3
+Njk4NzE1IDY3Njk4NzAzIDY3Njk4NzEzIDY3Njk4NzE1IDY3Njk4NzAzIDY3Njk4NzEzIDY3Njk4
+NzE1O30NCkBsaXN0IGwzOmxldmVsMQ0KCXttc28tbGV2ZWwtdGV4dDoiJTFcKSI7DQoJbXNvLWxl
+dmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRl
+eHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMzpsZXZlbDINCgl7bXNvLWxldmVsLW51bWJlci1m
+b3JtYXQ6YWxwaGEtbG93ZXI7DQoJbXNvLWxldmVsLXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVs
+LW51bWJlci1wb3NpdGlvbjpsZWZ0Ow0KCXRleHQtaW5kZW50Oi0uMjVpbjt9DQpAbGlzdCBsMzps
+ZXZlbDMNCgl7bXNvLWxldmVsLW51bWJlci1mb3JtYXQ6cm9tYW4tbG93ZXI7DQoJbXNvLWxldmVs
+LXRhYi1zdG9wOm5vbmU7DQoJbXNvLWxldmVsLW51bWJlci1wb3NpdGlvbjpyaWdodDsNCgl0ZXh0
+LWluZGVudDotOS4wcHQ7fQ0KQGxpc3QgbDM6bGV2ZWw0DQoJe21zby1sZXZlbC10YWItc3RvcDpu
+b25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1
+aW47fQ0KQGxpc3QgbDM6bGV2ZWw1DQoJe21zby1sZXZlbC1udW1iZXItZm9ybWF0OmFscGhhLWxv
+d2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25lOw0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRp
+b246bGVmdDsNCgl0ZXh0LWluZGVudDotLjI1aW47fQ0KQGxpc3QgbDM6bGV2ZWw2DQoJe21zby1s
+ZXZlbC1udW1iZXItZm9ybWF0OnJvbWFuLWxvd2VyOw0KCW1zby1sZXZlbC10YWItc3RvcDpub25l
+Ow0KCW1zby1sZXZlbC1udW1iZXItcG9zaXRpb246cmlnaHQ7DQoJdGV4dC1pbmRlbnQ6LTkuMHB0
+O30NCkBsaXN0IGwzOmxldmVsNw0KCXttc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2
+ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwz
+OmxldmVsOA0KCXttc28tbGV2ZWwtbnVtYmVyLWZvcm1hdDphbHBoYS1sb3dlcjsNCgltc28tbGV2
+ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwtbnVtYmVyLXBvc2l0aW9uOmxlZnQ7DQoJdGV4
+dC1pbmRlbnQ6LS4yNWluO30NCkBsaXN0IGwzOmxldmVsOQ0KCXttc28tbGV2ZWwtbnVtYmVyLWZv
+cm1hdDpyb21hbi1sb3dlcjsNCgltc28tbGV2ZWwtdGFiLXN0b3A6bm9uZTsNCgltc28tbGV2ZWwt
+bnVtYmVyLXBvc2l0aW9uOnJpZ2h0Ow0KCXRleHQtaW5kZW50Oi05LjBwdDt9DQpvbA0KCXttYXJn
+aW4tYm90dG9tOjBpbjt9DQp1bA0KCXttYXJnaW4tYm90dG9tOjBpbjt9DQotLT48L3N0eWxlPg0K
+PC9oZWFkPg0KPGJvZHkgbGFuZz0iRU4tVVMiIGxpbms9ImJsdWUiIHZsaW5rPSJwdXJwbGUiPg0K
+PGRpdiBjbGFzcz0iV29yZFNlY3Rpb24xIj4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPkhpIE5laWws
+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj5Ib3cgZGlkIHlvdSBjb3B5IGlt
+YWdlIHRvIHRhcmdldCwgSSBtZWFuIHdoYXQgZmlsZSBuYW1lIHlvdSBoYXZlIGNvcGllZCBhbmQg
+d2hhdCB3YXMgc2l6ZS4NCjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+VGhl
+cmUgaXMgbm8gaXNzdWUgaW4gYXZhaWxhYmxlIGltYWdlIGZvciB0aW9nYXBhc3MgYnVpbGQgYW5k
+IGl0IHNob3VsZCB3b3JrIHNlYW1sZXNzbHkuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlBsZWFz
+ZSBzaGFyZSBjb25zb2xlIGJvb3QgbG9nIGlmIHlvdSBoYXZlLCBkbyB5b3Uga25vdyB3aGF0IG5l
+dHdvcmsgY2FyZCB5b3Ugc3lzdGVtIGhhdmUuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNv
+Tm9ybWFsIj48bzpwPiZuYnNwOzwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlJlZ2Fy
+ZHM8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPi1WaWpheTxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8ZGl2IHN0
+eWxlPSJib3JkZXI6bm9uZTtib3JkZXItdG9wOnNvbGlkICNCNUM0REYgMS4wcHQ7cGFkZGluZzoz
+LjBwdCAwaW4gMGluIDBpbiI+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj48Yj48c3BhbiBzdHlsZT0i
+Zm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+RnJvbTogPC9zcGFuPjwvYj48c3BhbiBzdHls
+ZT0iZm9udC1zaXplOjEyLjBwdDtjb2xvcjpibGFjayI+b3BlbmJtYyAmbHQ7b3BlbmJtYy1ib3Vu
+Y2VzK3ZpamF5a2hlbWthPWZiLmNvbUBsaXN0cy5vemxhYnMub3JnJmd0OyBvbiBiZWhhbGYgb2Yg
+TmVpbCBCcmFkbGV5ICZsdDtOZWlsX0JyYWRsZXlAcGhvZW5peC5jb20mZ3Q7PGJyPg0KPGI+RGF0
+ZTogPC9iPkZyaWRheSwgQXVndXN0IDIxLCAyMDIwIGF0IDEwOjQwIFBNPGJyPg0KPGI+VG86IDwv
+Yj4mcXVvdDtvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcmcXVvdDsgJmx0O29wZW5ibWNAbGlzdHMu
+b3psYWJzLm9yZyZndDs8YnI+DQo8Yj5DYzogPC9iPlBhdHJpY2sgVm9lbGtlciAmbHQ7UGF0cmlj
+a19Wb2Vsa2VyQHBob2VuaXguY29tJmd0OywgQnJ1Y2UgTWl0Y2hlbGwgJmx0O0JydWNlX01pdGNo
+ZWxsQHBob2VuaXguY29tJmd0Ozxicj4NCjxiPlN1YmplY3Q6IDwvYj5UaW9nYSBQYXNzIE9wZW5C
+TUMgMi44PG86cD48L286cD48L3NwYW4+PC9wPg0KPC9kaXY+DQo8ZGl2Pg0KPHAgY2xhc3M9Ik1z
+b05vcm1hbCI+PG86cD4mbmJzcDs8L286cD48L3A+DQo8L2Rpdj4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPkdyZWV0aW5ncyBmZWxsb3cgQk1DIGZvbGsg4oCTIEnigJltIE5laWwgQnJhZGxleSwgUGhv
+ZW5peCBUZWNobm9sb2dpZXPigJkgQk1DIGFyY2hpdGVjdCBhbmQgaGF2ZSBhIHF1ZXN0aW9uIGZv
+ciB0aGUgZ3JvdXAuPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDs8
+bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPldlIGFyZSBhdHRlbXB0aW5nIHRv
+IGxvYWQgT3BlbkJNQyAyLjggb24gYSBUaW9nYSBQYXNzLiBUaGlzIGlzIHdoYXQgd2UgZGlkOjxv
+OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+Jm5ic3A7PG86cD48L286cD48L3A+
+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5
+bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2NvbG9yOiMxRjQ5N0QiPm1rZGlyIHRpb2dhcGFzczwv
+c3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4t
+bGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Q29uc29sYXM7Y29sb3I6IzFGNDk3
+RCI+Y2QgdGlvZ2FwYXNzPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1h
+bCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25z
+b2xhcztjb2xvcjojMUY0OTdEIj5naXQgY2xvbmUNCjxhIGhyZWY9Imh0dHBzOi8vZ2l0aHViLmNv
+bS9vcGVuYm1jL29wZW5ibWMuZ2l0Ij5odHRwczovL2dpdGh1Yi5jb20vb3BlbmJtYy9vcGVuYm1j
+LmdpdDwvYT48L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHls
+ZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OkNvbnNvbGFzO2Nv
+bG9yOiMxRjQ5N0QiPmNkIG9wZW5ibWM8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luLWxlZnQ6LjVpbiI+PHNwYW4gc3R5bGU9ImZvbnQtZmFt
+aWx5OkNvbnNvbGFzO2NvbG9yOiMxRjQ5N0QiPmdpdCBjaGVja291dCAzNWE3NzQyMDA5OTlhYzJm
+Y2E0ODY5M2MxYzE2OWJmOTlkMmY2M2VhPC9zcGFuPjxvOnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9
+Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41aW4iPjxzcGFuIHN0eWxlPSJmb250LWZh
+bWlseTpDb25zb2xhcztjb2xvcjojMUY0OTdEIj5leHBvcnQgVEVNUExBVEVDT05GPW1ldGEtZmFj
+ZWJvb2svbWV0YS10aW9nYXBhc3MvY29uZjwvc3Bhbj48bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNz
+PSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW4tbGVmdDouNWluIj48c3BhbiBzdHlsZT0iZm9udC1m
+YW1pbHk6Q29uc29sYXM7Y29sb3I6IzFGNDk3RCI+c291cmNlIG9wZW5ibWMtZW52PC9zcGFuPjxv
+OnA+PC9vOnA+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbi1sZWZ0Oi41
+aW4iPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpDb25zb2xhcztjb2xvcjojMUY0OTdEIj5iaXRi
+YWtlIG9ibWMtcGhvc3Bob3ItaW1hZ2U8L3NwYW4+PG86cD48L286cD48L3A+DQo8cCBjbGFzcz0i
+TXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPlRo
+ZSBCTUMgZG9lcyBib290IGZ1bGx5LCBob3dldmVyIHRoZXJlIGFyZSB0d28gbWFqb3IgcHJvYmxl
+bXMgd2XigJl2ZSBlbmNvdW50ZXJlZDo8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3Jt
+YWwiPiZuYnNwOzxvOnA+PC9vOnA+PC9wPg0KPG9sIHN0eWxlPSJtYXJnaW4tdG9wOjBpbiIgc3Rh
+cnQ9IjEiIHR5cGU9IjEiPg0KPGxpIGNsYXNzPSJNc29MaXN0UGFyYWdyYXBoIiBzdHlsZT0ibWFy
+Z2luLWxlZnQ6MGluO21zby1saXN0OmwwIGxldmVsMSBsZm8zIj5Ib3N0IHdpbGwgbm90IHBvd2Vy
+IG9uIHZpYSB0aGUgZnJvbnQgcGFuZWwgcG93ZXIgYnV0dG9uPG86cD48L286cD48L2xpPjxsaSBj
+bGFzcz0iTXNvTGlzdFBhcmFncmFwaCIgc3R5bGU9Im1hcmdpbi1sZWZ0OjBpbjttc28tbGlzdDps
+MCBsZXZlbDEgbGZvMyI+Qk1DIFdpbGwgbm90IG9idGFpbiBvciB0cnkgREhDUCBldmVuIHRob3Vn
+aCBpdHMgc2V0IGVuYWJsZWQgZm9yIHRoZSBwcmltYXJ5IExBTiBjaGFubmVsPG86cD48L286cD48
+L2xpPjwvb2w+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxw
+IGNsYXNzPSJNc29Ob3JtYWwiPkkgaGF2ZSBhIGNvdXBsZSBvZiBxdWVzdGlvbnM6PG86cD48L286
+cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJzcDs8bzpwPjwvbzpwPjwvcD4NCjxvbCBz
+dHlsZT0ibWFyZ2luLXRvcDowaW4iIHN0YXJ0PSIxIiB0eXBlPSIxIj4NCjxsaSBjbGFzcz0iTXNv
+TGlzdFBhcmFncmFwaCIgc3R5bGU9Im1hcmdpbi1sZWZ0OjBpbjttc28tbGlzdDpsMyBsZXZlbDEg
+bGZvNiI+V2FzIHRoaXMgYnVpbHQvZG9uZSBjb3JyZWN0bHk/IEluIG90aGVyIHdvcmRzLCBkaWQg
+SSBkbyBzb21ldGhpbmcgd3JvbmcgaW4gdGhpcyBwcm9jZXNzPzxvOnA+PC9vOnA+PC9saT48bGkg
+Y2xhc3M9Ik1zb0xpc3RQYXJhZ3JhcGgiIHN0eWxlPSJtYXJnaW4tbGVmdDowaW47bXNvLWxpc3Q6
+bDMgbGV2ZWwxIGxmbzYiPkRvZXMgYW55b25lIGtub3cgdGhlIGN1cnJlbnQgc3RhdGUgb2YgVGlv
+Z2EgUGFzcyBzdXBwb3J0IGluIDIuOCBvciB0aGUgZ2VuZXJhbCBoZWFsdGggdGhlcmVpbj88bzpw
+PjwvbzpwPjwvbGk+PC9vbD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPiZuYnNwOzxvOnA+PC9vOnA+
+PC9wPg0KPHAgY2xhc3M9Ik1zb05vcm1hbCI+V2XigJlyZSBjb21pbmcgdXAgdG8gc3BlZWQgb24g
+dGhpcyBxdWlja2x5LCBzbyBhcG9sb2dpZXMgaWYgdGhlc2UgYXJlIHN0dXBpZCBxdWVzdGlvbnMu
+IEFuZCBncmVldGluZ3MhPG86cD48L286cD48L3A+DQo8cCBjbGFzcz0iTXNvTm9ybWFsIj4mbmJz
+cDs8bzpwPjwvbzpwPjwvcD4NCjxwIGNsYXNzPSJNc29Ob3JtYWwiPjxzcGFuIHN0eWxlPSJmb250
+LWZhbWlseTpXaW5nZGluZ3MiPsOgPC9zcGFuPk5laWw8bzpwPjwvbzpwPjwvcD4NCjwvZGl2Pg0K
+PC9ib2R5Pg0KPC9odG1sPg0K
 
-What makes it hard is the documentation is not complete and folk knowledge r=
-equired is high. I=E2=80=99m not complaining. It=E2=80=99s just reality.
-
-Mike
-
-Sent from my iPhone
-
-> On Aug 24, 2020, at 1:11 PM, Mike <proclivis@gmail.com> wrote:
->=20
-> =EF=BB=BFEd,
->=20
-> My goals are atypical=20
->=20
-> - Understand typical obmc use cases to see how various ADI devices would f=
-it in: Hot Swap, Power Sequencers, PMBus regulators=20
-> - Try these use cases in raspi by neutering or faking the host
-> - Create linux drivers to support obmc
->=20
-> Mike
->=20
-> Sent from my iPhone
->=20
->> On Aug 24, 2020, at 12:41 PM, Ed Tanous <ed@tanous.net> wrote:
->>=20
->> =EF=BB=BFI think the best thing would be to start off by stating exactly w=
-hat
->> you're trying to accomplish, and we can go from there.  As is, you're
->> using a raspberry pi, which doesn't have a "host" in the normal BMC
->> sense, so I'm really confused as to what you're hoping to do with the
->> host power button.  Are you trying to reboot the raspberry pi?  Reboot
->> a host connected through some other means?
->>=20
->> -Ed
->>=20
->>>> On Fri, Aug 21, 2020 at 3:29 PM Mike Jones <proclivis@gmail.com> wrote:=
-
->>>=20
->>> Hi,
->>>=20
->>> I am trying to understand how the Server power button in the webui works=
-.
->>>=20
->>> As before, using raspberry pi, and I=E2=80=99ll leave project links at t=
-he end for anyone that wants to use them. Things work up to monitoring volta=
-ges. Note the conf project has a phosphor branch for the full monty.
->>>=20
->>> To reverse engineer, I setup: dbus-monitor =E2=80=94system > someFile.lo=
-g
->>>=20
->>> There is a message for systemd1.Manager; member=3DStartUnit and best I c=
-an tell, somehow this gets routed to systemd to start some service or run so=
-me exe. I see this mentioned in the dbus transactions:
->>>=20
->>> "obmc-host-start@0.target=E2=80=9D
->>>=20
->>> And that is in /lib/systemd/system and depends on obmc-host-startmin@0.t=
-arget, but that does not depend on any service. So that is a dead end. It al=
-so depends on a reboot attempts, but I think that is not responsible for pow=
-er on/off.
->>>=20
->>> Then there are chassis services, but I cannot find a link from obmc-host=
--start@0.target to objc-chassis-poweron@0.target.
->>>=20
->>> In this doc: https://github.com/openbmc/docs/blob/master/architecture/op=
-enbmc-systemd.md
->>>=20
->>> It shows:
->>>=20
->>>=20
->>> ls -1 /lib/systemd/system/obmc-chassis-poweron\@0.target.requires/
->>> op-power-start@0.service
->>> op-wait-power-on@0.service
->>>=20
->>>=20
->>> But when I =E2=80=9Cls=E2=80=9D that path, the above dependencies are no=
-t there. There is only a dependency on phosphor-fan-presence-tach@0.service
->>>=20
->>> There is some state service that lead to things with xzy paths, and I ev=
-entually found /run/systemd/units. These have file names starting with =E2=80=
-=9Cinvocation=E2=80=9D in the names and link to GUID like nodes that don=E2=80=
-=99t =E2=80=9Ccat=E2=80=9D like a normal file. So I am not sure how those wo=
-rk. Is there some kernel driver that works like sysfs so that these nodes ar=
-e not traditional files?
->>>=20
->>> What I am trying to understand is two things:
->>>=20
->>> - Interaction with the power regulator
->>> - Interaction with the host cpu
->>>=20
->>> So my hope is someone can connect the dots of the path from the dbus to s=
-ystemd through the targets to a service executable doing the work so I can t=
-ry to replace them with:
->>>=20
->>> - Something that turns the regulators on/off, with pmbus in this case.
->>> - Something that can behave like a host to keep the system happy like a r=
-eal system.
->>>=20
->>> Mike
->>>=20
->>> My repos
->>> =E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94=E2=80=94
->>>=20
->>> https://github.com/Proclivis/meta-pmbus-raspberrypi.git
->>> https://github.com/Proclivis/meta-pmbus-phosphor.git
->>> https://github.com/Proclivis/conf-openbmc-adi.git
->>>=20
->>> The monitor messages for StartUnit
->>> =E2=80=94=E2=80=94=E2=80=94
->>>=20
->>> method call time=3D1598039669.247458 sender=3D:1.48 -> destination=3Dorg=
-.freedesktop.systemd1 serial=3D33 path=3D/org/freedesktop/systemd1; interfac=
-e=3Dorg.freedesktop.systemd1.Manager; member=3DStartUnit
->>>  string "obmc-host-start@0.target"
->>>  string "replace"
->>> method call time=3D1598039669.276170 sender=3D:1.3 -> destination=3Dorg.=
-freedesktop.DBus serial=3D775 path=3D/org/freedesktop/DBus; interface=3Dorg.=
-freedesktop.DBus; member=3DGetConnectionUnixUser
->>>  string ":1.48"
->>> method return time=3D1598039669.276234 sender=3Dorg.freedesktop.DBus -> d=
-estination=3D:1.3 serial=3D4294967295 reply_serial=3D775
->>>  uint32 0
->>> method call time=3D1598039669.280376 sender=3D:1.3 -> destination=3Dorg.=
-freedesktop.DBus serial=3D776 path=3D/org/freedesktop/DBus; interface=3Dorg.=
-freedesktop.DBus; member=3DAddMatch
->>>  string "type=3D'signal',sender=3D'org.freedesktop.DBus',path=3D'/org/fr=
-eedesktop/DBus',interface=3D'org.freedesktop.DBus',member=3D'NameOwnerChange=
-d',arg0=3D':1.48'"
->>> method return time=3D1598039669.280661 sender=3Dorg.freedesktop.DBus -> d=
-estination=3D:1.3 serial=3D4294967295 reply_serial=3D776
->>> method call time=3D1598039669.280701 sender=3D:1.3 -> destination=3Dorg.=
-freedesktop.DBus serial=3D777 path=3D/org/freedesktop/DBus; interface=3Dorg.=
-freedesktop.DBus; member=3DGetNameOwner
->>>  string ":1.48"
->>> method return time=3D1598039669.280738 sender=3Dorg.freedesktop.DBus -> d=
-estination=3D:1.3 serial=3D4294967295 reply_serial=3D777
->>>  string ":1.48"
->>> signal time=3D1598039669.280774 sender=3D:1.3 -> destination=3D(null des=
-tination) serial=3D778 path=3D/org/freedesktop/systemd1; interface=3Dorg.fre=
-edesktop.systemd1.Manager; member=3DUnitNew
->>>  string "obmc-host-start@0.target"
->>>  object path "/org/freedesktop/systemd1/unit/obmc_2dhost_2dstart_400_2et=
-arget"
->>> signal time=3D1598039669.280823 sender=3D:1.3 -> destination=3D(null des=
-tination) serial=3D779 path=3D/org/freedesktop/systemd1; interface=3Dorg.fre=
-edesktop.systemd1.Manager; member=3DJobNew
->>>  uint32 1105
->>>  object path "/org/freedesktop/systemd1/job/1105"
->>>  string "obmc-host-start@0.target"
->>> method return time=3D1598039669.280883 sender=3D:1.3 -> destination=3D:1=
-.48 serial=3D780 reply_serial=3D33
->>>  object path "/org/freedesktop/systemd1/job/1105"
->>> signal time=3D1598039669.281305 sender=3D:1.48 -> destination=3D(null de=
-stination) serial=3D34 path=3D/xyz/openbmc_project/state/host0; interface=3D=
-org.freedesktop.DBus.Properties; member=3DPropertiesChanged
->>>  string "xyz.openbmc_project.State.Host"
->>>  array [
->>>     dict entry(
->>>        string "RequestedHostTransition"
->>>        variant             string "xyz.openbmc_project.State.Host.Transi=
-tion.On"
->>>     )
->>>  ]
->>>  array [
->>>  ]
+--_000_5F804DFDB91D4293A41062ED737423A7fbcom_--
