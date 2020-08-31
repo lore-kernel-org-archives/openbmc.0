@@ -1,81 +1,65 @@
-Return-Path: <eajames@linux.ibm.com>
+Return-Path: <xqiu@google.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::230;
+ helo=mail-oi1-x230.google.com; envelope-from=xqiu@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=elI2hbdk; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20161025 header.b=FXlyNp/s; dkim-atps=neutral
+Received: from mail-oi1-x230.google.com (mail-oi1-x230.google.com
+ [IPv6:2607:f8b0:4864:20::230])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BgKMG3RBnzDqD3
- for <openbmc@lists.ozlabs.org>; Tue,  1 Sep 2020 05:02:18 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 07VJ2DkH030343; Mon, 31 Aug 2020 15:02:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=BfUYZMFrJJoPaQ12IDIWfWGljIwXA/+7Sb2gbje+Kaw=;
- b=elI2hbdkS8PofMGas6i4tL2eMItIU/JLyWKVuaLWvZ+ey3JW1RsWjTByzcBjWxiGWgrY
- S5SoxfJa02Um5Cvu1EV0n1T5VBq+q7EnHxISOg9nVpnOz0vnk2P3qvQmpweetkJhxP3N
- qNpWYA++w5Uri6T3q7cmeqVuB0NlOPdsMImRPDIFWN6R1nnzQakQcLkYGNYID/g/gE62
- nC54fCS2gaxJmJ8EU7tjUYEaFbTkUejlf/luUv6jWIuLysp8LfVSqiI+sF+NuxNSn2me
- B8VaYMYpp4Hs7F4tt3lnE8C//y3JTpzd1IGiItSYr0Rosm6doTTeVn4FN025u+cVTpXM uQ== 
-Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
- [169.63.214.131])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3395d62gke-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 31 Aug 2020 15:02:13 -0400
-Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
- by ppma01dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 07VIvKcM026772;
- Mon, 31 Aug 2020 19:01:38 GMT
-Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
- [9.57.198.27]) by ppma01dal.us.ibm.com with ESMTP id 337en96ryh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 31 Aug 2020 19:01:38 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 07VJ1brI49283338
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 31 Aug 2020 19:01:37 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0A3FCAE05F;
- Mon, 31 Aug 2020 19:01:37 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8967CAE05C;
- Mon, 31 Aug 2020 19:01:36 +0000 (GMT)
-Received: from SHADE6A.ibmuc.com (unknown [9.163.23.184])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 31 Aug 2020 19:01:36 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Cc: joel@jms.id.au, Eddie James <eajames@linux.ibm.com>
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 1/5] ARM: Aspeed: AST2600:
- Support booting from eMMC
-Date: Mon, 31 Aug 2020 14:01:26 -0500
-Message-Id: <20200831190130.47060-2-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.26.2
-In-Reply-To: <20200831190130.47060-1-eajames@linux.ibm.com>
-References: <20200831190130.47060-1-eajames@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BgNj93vvRzDqJS
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Sep 2020 07:32:59 +1000 (AEST)
+Received: by mail-oi1-x230.google.com with SMTP id d189so2275003oig.12
+ for <openbmc@lists.ozlabs.org>; Mon, 31 Aug 2020 14:32:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=QJ207ezI1hYox/7x8ue/6IMozUxpP6Wl3TCwxgxgNGk=;
+ b=FXlyNp/ssVeZ8CgjwJ1ztXUUvl/SawpAvsiqegyS0IGDYDaTAA3vEJTJjn+xuluU0w
+ I2ur+AIL0oLXENLgp4EODIkoBageAAtuSQFUyOAlJwfCmpxM+d6drxhjRPNl8SEESNL0
+ mHKEMTXl//iRAHFhD3ybClO5vLSaYhGMOnc5fMf03p1Pxfoevu9t2DxpeH81wfCWMmAp
+ hRmFqenDTszPYnV34FqvxxYvBXFgmlAKIyE9rGUkl2K7vY/aONfoXT2mugJYTrFUlfrO
+ XFY2h8B79Wb0O9QcrkxPXPXvTND7LrMjA+y6puPOy74RWGFNjpwjS3WQZp7sVAV5vSJj
+ sicg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=QJ207ezI1hYox/7x8ue/6IMozUxpP6Wl3TCwxgxgNGk=;
+ b=SJv2C2oZYllgeyVUZRotyASklm4+Npr6go6jWyRVS5Ercnfa+Em/dS06V9H3Np3V5T
+ sCv1hBucXJufwOIopGZA2eSsZxBFP7z3rjiVOJQJhwB/tQ485CJlSl2SBhuKXdgVy9pB
+ SSgKEp8JEFkegcIFFuLZBy4n6MF4ARc1tGyvFbuBv8gzgz/Fiz5V32fvimI7CfQDpw1X
+ iDRXnT5mI1TeGJZgACT4JC4lezyLwgBuShNd5iGLxFdyOEk+ZjxuYIqH6yjT0GxB98pc
+ 0Dgxy0CweIg8tSe9aiRDs+mTdEWZrNLo8N4K012lXaEY3MJu06Q82YEIMP+3XjmgQPMi
+ ln0w==
+X-Gm-Message-State: AOAM530HB2876TNWatNj/r0AjEVIydNxqJ2C1EhWFdQsi6NqJVT4X/ol
+ xMk+xrMTx9yv7q50UZDJe4ajjTUaPcuGl1oXj1ugYg==
+X-Google-Smtp-Source: ABdhPJw8+lag9wJFtEmeH36+590YKB8f6jhj/mEtGYyA3Hrx+N2vvtqnJrm0egtqOxQd5vgziwcuWROxIH+7MDWQkDg=
+X-Received: by 2002:aca:abc2:: with SMTP id u185mr841618oie.62.1598909575352; 
+ Mon, 31 Aug 2020 14:32:55 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-08-31_09:2020-08-31,
- 2020-08-31 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 mlxscore=0
- malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 mlxlogscore=949
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=13 spamscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2008310110
+References: <CAA_a9xLk5JhUjEkiWka6LSXJ1gD-BcH0PqgENqroisDKEUyztA@mail.gmail.com>
+ <CAA_a9xJ54rpnKm0y+hrEG2YjuFzzhqKBEJbStsu4Q126APgbVg@mail.gmail.com>
+ <9129e6cf-76a8-deea-7e8c-1ac17cf45b4b@linux.intel.com>
+ <CAA_a9x+A+OkbdTW_M4KT=6eV982Lg_0PoWaYvW47c0Aoh676-w@mail.gmail.com>
+ <9679c401-28ce-3197-f871-2cccd2940885@linux.intel.com>
+In-Reply-To: <9679c401-28ce-3197-f871-2cccd2940885@linux.intel.com>
+From: Alex Qiu <xqiu@google.com>
+Date: Mon, 31 Aug 2020 14:32:44 -0700
+Message-ID: <CAA_a9xLXDPP-4SodzEnnASupm7GTtB_My+6GbPrtR9A0S23KLg@mail.gmail.com>
+Subject: Re: Dealing with a sensor which doesn't have valid reading until host
+ is powered up
+To: James Feist <james.feist@linux.intel.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Peter Lundgren <peterlundgren@google.com>, 
+ Josh Lehan <krellan@google.com>, Jason Ling <jasonling@google.com>,
+ Ed Tanous <ed@tanous.net>
+Content-Type: multipart/alternative; boundary="00000000000044ac6b05ae332590"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,174 +71,240 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 31 Aug 2020 19:02:19 -0000
+X-List-Received-Date: Mon, 31 Aug 2020 21:33:02 -0000
 
-Fix a number of things in the platform code for the AST2600 to
-support booting the SPL from eMMC and then loading U-Boot from
-eMMC.
+--00000000000044ac6b05ae332590
+Content-Type: text/plain; charset="UTF-8"
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- arch/arm/include/asm/arch-aspeed/boot0.h    |  2 +-
- arch/arm/mach-aspeed/ast2600/board_common.c | 72 +++++++++++++++++++++
- arch/arm/mach-aspeed/ast2600/spl.c          |  9 +--
- include/configs/aspeed-common.h             |  3 +
- 4 files changed, 78 insertions(+), 8 deletions(-)
+Hi James,
 
-diff --git a/arch/arm/include/asm/arch-aspeed/boot0.h b/arch/arm/include/asm/arch-aspeed/boot0.h
-index ecd1e927c7..7fd5208773 100644
---- a/arch/arm/include/asm/arch-aspeed/boot0.h
-+++ b/arch/arm/include/asm/arch-aspeed/boot0.h
-@@ -13,7 +13,7 @@ _start:
- #ifdef CONFIG_SPL_BUILD
- 	.word	0x0	/* Key location */
- 	.word	0x0	/* start address of image */
--	.word	0X0	/* image size */
-+	.word	0Xfc00	/* image size 63KB */
- 	.word	0x0	/* signature address */
- 	.word	0x0	/* header revision ID low */
- 	.word	0x0	/* header revision ID high */
-diff --git a/arch/arm/mach-aspeed/ast2600/board_common.c b/arch/arm/mach-aspeed/ast2600/board_common.c
-index 449c7d0a23..a6ca8d33f8 100644
---- a/arch/arm/mach-aspeed/ast2600/board_common.c
-+++ b/arch/arm/mach-aspeed/ast2600/board_common.c
-@@ -8,6 +8,7 @@
- #include <timer.h>
- #include <asm/io.h>
- #include <asm/arch/timer.h>
-+#include <linux/bitops.h>
- #include <linux/err.h>
- #include <dm/uclass.h>
- 
-@@ -110,3 +111,74 @@ int arch_early_init_r(void)
- 	return 0;
- }
- 
-+union ast2600_pll_reg {
-+	unsigned int w;
-+	struct {
-+		unsigned int m : 13;		/* bit[12:0]	*/
-+		unsigned int n : 6;		/* bit[18:13]	*/
-+		unsigned int p : 4;		/* bit[22:19]	*/
-+		unsigned int off : 1;		/* bit[23]	*/
-+		unsigned int bypass : 1;	/* bit[24]	*/
-+		unsigned int reset : 1;		/* bit[25]	*/
-+		unsigned int reserved : 6;	/* bit[31:26]	*/
-+	} b;
-+};
-+
-+void aspeed_mmc_init(void)
-+{
-+	u32 reset_bit;
-+	u32 clkstop_bit;
-+	u32 clkin = 25000000;
-+	u32 pll_reg = 0;
-+	u32 enableclk_bit;
-+	u32 rate = 0;
-+	u32 div = 0;
-+	u32 i = 0;
-+	u32 mult;
-+	u32 clk_sel = readl(0x1e6e2300);
-+
-+	/* check whether boot from eMMC is enabled */
-+	if ((readl(0x1e6e2500) & 0x4) == 0)
-+		return;
-+
-+	/* disable eMMC boot controller engine */
-+	*(volatile int *)0x1e6f500C &= ~0x90000000;
-+	/* set pinctrl for eMMC */
-+	*(volatile int *)0x1e6e2400 |= 0xff000000;
-+
-+	/* clock setting for eMMC */
-+	enableclk_bit = BIT(15);
-+
-+	reset_bit = BIT(16);
-+	clkstop_bit = BIT(27);
-+	writel(reset_bit, 0x1e6e2040);
-+	udelay(100);
-+	writel(clkstop_bit, 0x1e6e2084);
-+	mdelay(10);
-+	writel(reset_bit, 0x1e6e2044);
-+
-+	pll_reg = readl(0x1e6e2220);
-+	if (pll_reg & BIT(24)) {
-+		/* Pass through mode */
-+		mult = div = 1;
-+	} else {
-+		/* F = 25Mhz * [(M + 2) / (n + 1)] / (p + 1) */
-+		union ast2600_pll_reg reg;
-+		reg.w = pll_reg;
-+		mult = (reg.b.m + 1) / (reg.b.n + 1);
-+		div = (reg.b.p + 1);
-+	}
-+	rate = ((clkin * mult)/div);
-+
-+	for(i = 0; i < 8; i++) {
-+		div = (i + 1) * 2;
-+		if ((rate / div) <= 200000000)
-+			break;
-+	}
-+
-+	clk_sel &= ~(0x7 << 12);
-+	clk_sel |= (i << 12) | BIT(11);
-+	writel(clk_sel, 0x1e6e2300);
-+
-+	setbits_le32(0x1e6e2300, enableclk_bit);
-+}
-diff --git a/arch/arm/mach-aspeed/ast2600/spl.c b/arch/arm/mach-aspeed/ast2600/spl.c
-index 27796b7385..1a248724ee 100644
---- a/arch/arm/mach-aspeed/ast2600/spl.c
-+++ b/arch/arm/mach-aspeed/ast2600/spl.c
-@@ -18,6 +18,7 @@ DECLARE_GLOBAL_DATA_PTR;
- #define AST_BOOTMODE_UART	2
- 
- u32 aspeed_bootmode(void);
-+void aspeed_mmc_init(void);
- 
- void board_init_f(ulong dummy)
- {
-@@ -26,6 +27,7 @@ void board_init_f(ulong dummy)
- 	timer_init();
- 	preloader_console_init();
- 	dram_init();
-+	aspeed_mmc_init();
- #endif
- }
- 
-@@ -68,13 +70,6 @@ void __noreturn jump_to_image_no_args(struct spl_image_info *spl_image)
- }
- #endif
- 
--#ifdef CONFIG_SPL_MMC_SUPPORT
--u32 spl_boot_mode(const u32 boot_device)
--{
--	return MMCSD_MODE_RAW;
--}
--#endif
--
- #ifdef CONFIG_SPL_OS_BOOT
- int spl_start_uboot(void)
- {
-diff --git a/include/configs/aspeed-common.h b/include/configs/aspeed-common.h
-index cdbffc97a2..7901bc2aff 100644
---- a/include/configs/aspeed-common.h
-+++ b/include/configs/aspeed-common.h
-@@ -11,6 +11,8 @@
- 
- #include <asm/arch/platform.h>
- 
-+#define CONFIG_SUPPORT_EMMC_BOOT
-+
- #define CONFIG_BOOTFILE		"all.bin"
- 
- #define CONFIG_GATEWAYIP	192.168.0.1
-@@ -40,6 +42,7 @@
- 
- #define CONFIG_SYS_BOOTMAPSZ		(256 * 1024 * 1024)
- #define CONFIG_SYS_MALLOC_LEN		(32 << 20)
-+#define CONFIG_SYS_MONITOR_LEN		0xD0000
- 
- /*
-  * BOOTP options
--- 
-2.26.2
+I think BiosPist power state might not suffice, because the host needs to
+load firmware onto the device in order to enable the sensors at a certain
+stage in the OS boot, which is very close to boot completion.
+
+However, we can tolerate the fan being noisy before boot completion, and I
+believe the root cause the issue is the HwmonTempSensor freezes once the
+control flow hitting boost::asio::async_read_until (
+https://github.com/openbmc/dbus-sensors/blob/master/src/HwmonTempSensor.cpp#L92).
+Do you know if this function has something special to do with a file that
+can have errno EAGAIN? Based on that, replacing the errno in the driver
+with sth other than EAGAIN also seems to be a viable fix.
+
+Thanks!
+
+- Alex Qiu
+
+
+
+- Alex Qiu
+
+
+On Fri, Aug 28, 2020 at 10:54 AM James Feist <james.feist@linux.intel.com>
+wrote:
+
+> On 8/28/2020 9:43 AM, Alex Qiu wrote:
+> > Hi James,
+> >
+> > Thx for the reply! So right now, one thing is that the sensor is not
+> > dependent on the power state of the host solely, but also dependent on
+> > the boot progress of the host.
+>
+> Would the BiosPost power state not suffice?
+>
+> > And the more serious issue is that
+> > returning EAGAIN from the driver freezes the sensor, which is what I'm
+> > debugging right now. Do we have special treatment on errno returned by
+> > the driver? Thx.
+>
+> I ran into a similar issue with the CPUSensor and this was my fix:
+>
+> https://github.com/openbmc/dbus-sensors/commit/c22b842bfa8cfe798d83f99fa7aa9f142278c21d#diff-ccbe0562fe1d501b4c1c42d967a02ea0
+>
+> I haven't hit this issue with hwmon sensor though.
+>
+> >
+> > - Alex Qiu
+> >
+> >
+> > On Fri, Aug 28, 2020 at 9:38 AM James Feist <james.feist@linux.intel.com
+> > <mailto:james.feist@linux.intel.com>> wrote:
+> >
+> >     On 8/27/2020 2:49 PM, Alex Qiu wrote:
+> >      > Hi James,
+> >      >
+> >      > After some debugging, I realized that the code I pointed out
+> earlier
+> >      > wasn't the root cause. Update is that, the HwmonTempSensor stops
+> >      > updating after the hwmon driver returns EAGAIN as errno. I'll keep
+> >      > debugging...
+> >      >
+> >      > - Alex Qiu
+> >      >
+> >      >
+> >      > On Tue, Aug 25, 2020 at 5:49 PM Alex Qiu <xqiu@google.com
+> >     <mailto:xqiu@google.com>
+> >      > <mailto:xqiu@google.com <mailto:xqiu@google.com>>> wrote:
+> >      >
+> >      >     Hi James and OpenBMC community,
+> >      >
+> >      >     We have a sensor for HwmonTempSensor which doesn't have a
+> valid
+> >      >     reading until the host is fully booted. Before it's becoming
+> >     alive
+> >      >     and useful, it's getting disabled in code
+> >      >
+> >       (
+> https://github.com/openbmc/dbus-sensors/blob/master/include/sensor.hpp#L266
+> )
+> >      >     because of errors thrown up by the hwmon driver. Ideally, the
+> >      >     thermal control loop should kick the fan to fail safe mode
+> >     until no
+> >      >     more errors are observed.
+> >      >
+> >      >     Any suggestions on how we should handle this kind of sensor
+> >     properly?
+> >
+> >     For what its worth we use the PowerState property that has options of
+> >     power on or BiosPost to disable scanning when the state is invalid:
+> >
+> https://github.com/openbmc/dbus-sensors/blob/f27a55c775383a3fb1ac655f3eda785f6845f214/src/HwmonTempMain.cpp#L208
+> >
+> >
+> >      >
+> >      >     Thank you!
+> >      >
+> >      >     - Alex Qiu
+> >      >
+> >
+>
+
+--00000000000044ac6b05ae332590
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi James,<div><br></div><div>I think BiosPist power state =
+might not suffice, because the host needs to load firmware onto the device =
+in order to enable the sensors at a certain stage in the OS boot, which is =
+very close to boot completion.</div><div><br></div><div>However, we can tol=
+erate the fan being noisy before boot completion, and I believe the root ca=
+use the issue is the HwmonTempSensor freezes once the control flow hitting =
+boost::asio::async_read_until (<a href=3D"https://github.com/openbmc/dbus-s=
+ensors/blob/master/src/HwmonTempSensor.cpp#L92">https://github.com/openbmc/=
+dbus-sensors/blob/master/src/HwmonTempSensor.cpp#L92</a>). Do you know if t=
+his function has something special to do with a file that can have errno EA=
+GAIN? Based=C2=A0on that, replacing the errno in the driver with sth other =
+than EAGAIN also seems to be a viable fix.</div><div><br></div><div>Thanks!=
+</div><div><br>- Alex Qiu<br><br></div></div><br clear=3D"all"><div><div di=
+r=3D"ltr" class=3D"gmail_signature"><div dir=3D"ltr"><div><br></div>- Alex =
+Qiu</div></div></div><br><br><div class=3D"gmail_quote"><div dir=3D"ltr" cl=
+ass=3D"gmail_attr">On Fri, Aug 28, 2020 at 10:54 AM James Feist &lt;<a href=
+=3D"mailto:james.feist@linux.intel.com">james.feist@linux.intel.com</a>&gt;=
+ wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px =
+0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">On 8/28/=
+2020 9:43 AM, Alex Qiu wrote:<br>
+&gt; Hi James,<br>
+&gt; <br>
+&gt; Thx for the reply! So right=C2=A0now, one thing is that the sensor is =
+not <br>
+&gt; dependent on the power state of the host solely, but also dependent on=
+ <br>
+&gt; the boot progress of the host.<br>
+<br>
+Would the BiosPost power state not suffice?<br>
+<br>
+&gt; And the more serious issue is that <br>
+&gt; returning EAGAIN from the driver freezes the sensor, which is what I&#=
+39;m <br>
+&gt; debugging right now. Do we have special treatment on errno returned by=
+ <br>
+&gt; the driver? Thx.<br>
+<br>
+I ran into a similar issue with the CPUSensor and this was my fix:<br>
+<a href=3D"https://github.com/openbmc/dbus-sensors/commit/c22b842bfa8cfe798=
+d83f99fa7aa9f142278c21d#diff-ccbe0562fe1d501b4c1c42d967a02ea0" rel=3D"noref=
+errer" target=3D"_blank">https://github.com/openbmc/dbus-sensors/commit/c22=
+b842bfa8cfe798d83f99fa7aa9f142278c21d#diff-ccbe0562fe1d501b4c1c42d967a02ea0=
+</a><br>
+<br>
+I haven&#39;t hit this issue with hwmon sensor though.<br>
+<br>
+&gt; <br>
+&gt; - Alex Qiu<br>
+&gt; <br>
+&gt; <br>
+&gt; On Fri, Aug 28, 2020 at 9:38 AM James Feist &lt;<a href=3D"mailto:jame=
+s.feist@linux.intel.com" target=3D"_blank">james.feist@linux.intel.com</a> =
+<br>
+&gt; &lt;mailto:<a href=3D"mailto:james.feist@linux.intel.com" target=3D"_b=
+lank">james.feist@linux.intel.com</a>&gt;&gt; wrote:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0On 8/27/2020 2:49 PM, Alex Qiu wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; Hi James,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; After some debugging, I realized that the cod=
+e I pointed out earlier<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; wasn&#39;t the root cause. Update is that, th=
+e HwmonTempSensor stops<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; updating after the hwmon driver returns EAGAI=
+N as errno. I&#39;ll keep<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; debugging...<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; - Alex Qiu<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; On Tue, Aug 25, 2020 at 5:49 PM Alex Qiu &lt;=
+<a href=3D"mailto:xqiu@google.com" target=3D"_blank">xqiu@google.com</a><br=
+>
+&gt;=C2=A0 =C2=A0 =C2=A0&lt;mailto:<a href=3D"mailto:xqiu@google.com" targe=
+t=3D"_blank">xqiu@google.com</a>&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt; &lt;mailto:<a href=3D"mailto:xqiu@google.com"=
+ target=3D"_blank">xqiu@google.com</a> &lt;mailto:<a href=3D"mailto:xqiu@go=
+ogle.com" target=3D"_blank">xqiu@google.com</a>&gt;&gt;&gt; wrote:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Hi James and OpenBMC commu=
+nity,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0We have a sensor for Hwmon=
+TempSensor which doesn&#39;t have a valid<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0reading until the host is =
+fully booted. Before it&#39;s becoming<br>
+&gt;=C2=A0 =C2=A0 =C2=A0alive<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0and useful, it&#39;s getti=
+ng disabled in code<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0(<a href=3D"https://github.com/openbmc/dbus-=
+sensors/blob/master/include/sensor.hpp#L266" rel=3D"noreferrer" target=3D"_=
+blank">https://github.com/openbmc/dbus-sensors/blob/master/include/sensor.h=
+pp#L266</a>)<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0because of errors thrown u=
+p by the hwmon driver. Ideally, the<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0thermal control loop shoul=
+d kick the fan to fail safe mode<br>
+&gt;=C2=A0 =C2=A0 =C2=A0until no<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0more=C2=A0errors are obser=
+ved.<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Any suggestions on how we =
+should handle this kind of sensor<br>
+&gt;=C2=A0 =C2=A0 =C2=A0properly?<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0For what its worth we use the PowerState property t=
+hat has options of<br>
+&gt;=C2=A0 =C2=A0 =C2=A0power on or BiosPost to disable scanning when the s=
+tate is invalid:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0<a href=3D"https://github.com/openbmc/dbus-sensors/=
+blob/f27a55c775383a3fb1ac655f3eda785f6845f214/src/HwmonTempMain.cpp#L208" r=
+el=3D"noreferrer" target=3D"_blank">https://github.com/openbmc/dbus-sensors=
+/blob/f27a55c775383a3fb1ac655f3eda785f6845f214/src/HwmonTempMain.cpp#L208</=
+a><br>
+&gt; <br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0Thank you!<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;=C2=A0 =C2=A0 =C2=A0- Alex Qiu<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 &gt;<br>
+&gt; <br>
+</blockquote></div>
+
+--00000000000044ac6b05ae332590--
