@@ -6,22 +6,22 @@ Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
  header.from=crapouillou.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=crapouillou.net header.i=@crapouillou.net
- header.a=rsa-sha256 header.s=mail header.b=JuRU33RE; 
+ header.a=rsa-sha256 header.s=mail header.b=FOTskssg; 
  dkim-atps=neutral
 Received: from crapouillou.net (crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BhzF320V4zDqsq
- for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:32:38 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BhzLd2GXGzDqkV
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:37:28 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1599132365; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1599132378; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=nylEOZ/ud9dJuiCng3IS9pJVAuTv7JQFJCJlDdh38kA=;
- b=JuRU33REs724J6eVnbhIDjfeUMWW9tOA78MdFBc3i95nB9cktLPxKK2ChHPcQK628+jfXp
- i3+e9cDmuhgUwtVBolHIKO9sH8/eX+Ybb3YnUm1v+0udsj1vdEp3baEUPowH0LfsUOS6V5
- R9po9WQ1ueOAKCWhmtjbsOVyV8m+OMk=
+ bh=VitADMM0fnVC5UEnlJQqBbjbeuxkosY7PKciS9JCWhQ=;
+ b=FOTskssgTXu613ZyXQFH73GPSn4sAH4YrP0JV6oEP+WsASxewPFIop8x6uA55dH2X0sPIU
+ nYurhrftzHdBnJRaCPCA6k8tDEyO3YMnmeLEyHvxrjcjUS+VBt6Ymr6jWUZnVt/N1mci+7
+ cxpnf7I+HG5vzL5cT8vb59uEQPISUYA=
 From: Paul Cercueil <paul@crapouillou.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Peter Chen <Peter.Chen@nxp.com>,
@@ -41,9 +41,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Paul Cercueil <paul@crapouillou.net>
-Subject: [PATCH 01/20] usb/host: ohci-platform: Use pm_ptr() macro
-Date: Thu,  3 Sep 2020 13:25:35 +0200
-Message-Id: <20200903112554.34263-2-paul@crapouillou.net>
+Subject: [PATCH 06/20] usb/chipidea: core: Use pm_ptr() macro
+Date: Thu,  3 Sep 2020 13:25:40 +0200
+Message-Id: <20200903112554.34263-7-paul@crapouillou.net>
 In-Reply-To: <20200903112554.34263-1-paul@crapouillou.net>
 References: <20200903112554.34263-1-paul@crapouillou.net>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Sep 2020 11:32:39 -0000
+X-List-Received-Date: Thu, 03 Sep 2020 11:37:30 -0000
 
 Use the newly introduced pm_ptr() macro, and mark the suspend/resume
 functions __maybe_unused. These functions can then be moved outside the
@@ -70,76 +70,114 @@ simply be discarded by the compiler.
 
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- drivers/usb/host/ohci-platform.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ drivers/usb/chipidea/core.c | 26 +++++++++++---------------
+ 1 file changed, 11 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/usb/host/ohci-platform.c b/drivers/usb/host/ohci-platform.c
-index 4a8456f12a73..21400d7d8b0a 100644
---- a/drivers/usb/host/ohci-platform.c
-+++ b/drivers/usb/host/ohci-platform.c
-@@ -176,22 +176,21 @@ static int ohci_platform_probe(struct platform_device *dev)
- 	if (pdata->num_ports)
- 		ohci->num_ports = pdata->num_ports;
+diff --git a/drivers/usb/chipidea/core.c b/drivers/usb/chipidea/core.c
+index aa40e510b806..af64ab98fb56 100644
+--- a/drivers/usb/chipidea/core.c
++++ b/drivers/usb/chipidea/core.c
+@@ -1231,9 +1231,8 @@ static int ci_hdrc_remove(struct platform_device *pdev)
+ 	return 0;
+ }
  
--#ifndef CONFIG_USB_OHCI_BIG_ENDIAN_MMIO
--	if (ohci->flags & OHCI_QUIRK_BE_MMIO) {
-+	if (!IS_ENABLED(CONFIG_USB_OHCI_BIG_ENDIAN_MMIO) &&
-+	    ohci->flags & OHCI_QUIRK_BE_MMIO) {
- 		dev_err(&dev->dev,
- 			"Error: CONFIG_USB_OHCI_BIG_ENDIAN_MMIO not set\n");
- 		err = -EINVAL;
- 		goto err_reset;
- 	}
--#endif
--#ifndef CONFIG_USB_OHCI_BIG_ENDIAN_DESC
--	if (ohci->flags & OHCI_QUIRK_BE_DESC) {
-+
-+	if (!IS_ENABLED(CONFIG_USB_OHCI_BIG_ENDIAN_DESC) &&
-+	    ohci->flags & OHCI_QUIRK_BE_DESC) {
- 		dev_err(&dev->dev,
- 			"Error: CONFIG_USB_OHCI_BIG_ENDIAN_DESC not set\n");
- 		err = -EINVAL;
- 		goto err_reset;
- 	}
--#endif
+-#ifdef CONFIG_PM
+ /* Prepare wakeup by SRP before suspend */
+-static void ci_otg_fsm_suspend_for_srp(struct ci_hdrc *ci)
++static void __maybe_unused ci_otg_fsm_suspend_for_srp(struct ci_hdrc *ci)
+ {
+ 	if ((ci->fsm.otg->state == OTG_STATE_A_IDLE) &&
+ 				!hw_read_otgsc(ci, OTGSC_ID)) {
+@@ -1245,7 +1244,7 @@ static void ci_otg_fsm_suspend_for_srp(struct ci_hdrc *ci)
+ }
  
- 	pm_runtime_set_active(&dev->dev);
- 	pm_runtime_enable(&dev->dev);
-@@ -267,8 +266,7 @@ static int ohci_platform_remove(struct platform_device *dev)
+ /* Handle SRP when wakeup by data pulse */
+-static void ci_otg_fsm_wakeup_by_srp(struct ci_hdrc *ci)
++static void __maybe_unused ci_otg_fsm_wakeup_by_srp(struct ci_hdrc *ci)
+ {
+ 	if ((ci->fsm.otg->state == OTG_STATE_A_IDLE) &&
+ 		(ci->fsm.a_bus_drop == 1) && (ci->fsm.a_bus_req == 0)) {
+@@ -1259,7 +1258,7 @@ static void ci_otg_fsm_wakeup_by_srp(struct ci_hdrc *ci)
+ 	}
+ }
+ 
+-static void ci_controller_suspend(struct ci_hdrc *ci)
++static void __maybe_unused ci_controller_suspend(struct ci_hdrc *ci)
+ {
+ 	disable_irq(ci->irq);
+ 	ci_hdrc_enter_lpm(ci, true);
+@@ -1277,7 +1276,7 @@ static void ci_controller_suspend(struct ci_hdrc *ci)
+  * interrupt (wakeup int) only let the controller be out of
+  * low power mode, but not handle any interrupts.
+  */
+-static void ci_extcon_wakeup_int(struct ci_hdrc *ci)
++static void __maybe_unused ci_extcon_wakeup_int(struct ci_hdrc *ci)
+ {
+ 	struct ci_hdrc_cable *cable_id, *cable_vbus;
+ 	u32 otgsc = hw_read_otgsc(ci, ~0);
+@@ -1294,7 +1293,7 @@ static void ci_extcon_wakeup_int(struct ci_hdrc *ci)
+ 		ci_irq(ci->irq, ci);
+ }
+ 
+-static int ci_controller_resume(struct device *dev)
++static int __maybe_unused ci_controller_resume(struct device *dev)
+ {
+ 	struct ci_hdrc *ci = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1332,8 +1331,7 @@ static int ci_controller_resume(struct device *dev)
  	return 0;
  }
  
 -#ifdef CONFIG_PM_SLEEP
--static int ohci_platform_suspend(struct device *dev)
-+static int __maybe_unused ohci_platform_suspend(struct device *dev)
+-static int ci_suspend(struct device *dev)
++static int __maybe_unused ci_suspend(struct device *dev)
  {
- 	struct usb_hcd *hcd = dev_get_drvdata(dev);
- 	struct usb_ohci_pdata *pdata = dev->platform_data;
-@@ -286,7 +284,7 @@ static int ohci_platform_suspend(struct device *dev)
- 	return ret;
+ 	struct ci_hdrc *ci = dev_get_drvdata(dev);
+ 
+@@ -1366,7 +1364,7 @@ static int ci_suspend(struct device *dev)
+ 	return 0;
  }
  
--static int ohci_platform_resume(struct device *dev)
-+static int __maybe_unused ohci_platform_resume(struct device *dev)
+-static int ci_resume(struct device *dev)
++static int __maybe_unused ci_resume(struct device *dev)
  {
- 	struct usb_hcd *hcd = dev_get_drvdata(dev);
- 	struct usb_ohci_pdata *pdata = dev_get_platdata(dev);
-@@ -306,7 +304,6 @@ static int ohci_platform_resume(struct device *dev)
+ 	struct ci_hdrc *ci = dev_get_drvdata(dev);
+ 	int ret;
+@@ -1386,9 +1384,8 @@ static int ci_resume(struct device *dev)
  
- 	return 0;
+ 	return ret;
  }
 -#endif /* CONFIG_PM_SLEEP */
  
- static const struct of_device_id ohci_platform_ids[] = {
- 	{ .compatible = "generic-ohci", },
-@@ -332,7 +329,7 @@ static struct platform_driver ohci_platform_driver = {
- 	.shutdown	= usb_hcd_platform_shutdown,
- 	.driver		= {
- 		.name	= "ohci-platform",
--		.pm	= &ohci_platform_pm_ops,
-+		.pm	= pm_ptr(&ohci_platform_pm_ops),
- 		.of_match_table = ohci_platform_ids,
- 	}
+-static int ci_runtime_suspend(struct device *dev)
++static int __maybe_unused ci_runtime_suspend(struct device *dev)
+ {
+ 	struct ci_hdrc *ci = dev_get_drvdata(dev);
+ 
+@@ -1408,13 +1405,12 @@ static int ci_runtime_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int ci_runtime_resume(struct device *dev)
++static int __maybe_unused ci_runtime_resume(struct device *dev)
+ {
+ 	return ci_controller_resume(dev);
+ }
+ 
+-#endif /* CONFIG_PM */
+-static const struct dev_pm_ops ci_pm_ops = {
++static const struct dev_pm_ops __maybe_unused ci_pm_ops = {
+ 	SET_SYSTEM_SLEEP_PM_OPS(ci_suspend, ci_resume)
+ 	SET_RUNTIME_PM_OPS(ci_runtime_suspend, ci_runtime_resume, NULL)
+ };
+@@ -1424,7 +1420,7 @@ static struct platform_driver ci_hdrc_driver = {
+ 	.remove	= ci_hdrc_remove,
+ 	.driver	= {
+ 		.name	= "ci_hdrc",
+-		.pm	= &ci_pm_ops,
++		.pm	= pm_ptr(&ci_pm_ops),
+ 		.dev_groups = ci_groups,
+ 	},
  };
 -- 
 2.28.0
