@@ -6,22 +6,22 @@ Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
  header.from=crapouillou.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=crapouillou.net header.i=@crapouillou.net
- header.a=rsa-sha256 header.s=mail header.b=u8iCRRQv; 
+ header.a=rsa-sha256 header.s=mail header.b=p43itBv7; 
  dkim-atps=neutral
 Received: from crapouillou.net (crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bhz7Q06FJzDqnD
- for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:27:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bhz7Z6LQTzDqgw
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:27:54 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1599132389; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1599132392; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MzaZBt+Vyi1bRqVISe2Fhrcj5nalR7mOXK01fT+I730=;
- b=u8iCRRQvzhTJetNnCDlzS4aOGpt9kMtxOzQtSUhUSS2708Uf/R1hUN9yNoUEzxH9j8Wurs
- bP70nLXTelzEqs3l15brpmwIMzH8VMQP0sGzQ5B44n0Af2Kziq6zlHcFO9bbroNYRUbjcc
- aOcSVghkpsh25/9qc43DoY6iNOOh1tM=
+ bh=9XW0R3A7h61kqVO9LHIfPbKDh6AHGGvcxGKCBLPMwEw=;
+ b=p43itBv7pIcpgpQk29PzyvPKV0bvvqU7w2NCQtGv28IZlDXG/g383913UyPEdgcZy94ccQ
+ wWQOhhbDp8JG5qUeiMANp5kO0L3OYfS3eVJPL5lXk2mG+o/wGUWDI+myv9l6KgdOj40ue3
+ KU6GbN4Ags8dJ5BehODyZ4GCKabfjO4=
 From: Paul Cercueil <paul@crapouillou.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Peter Chen <Peter.Chen@nxp.com>,
@@ -41,9 +41,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Paul Cercueil <paul@crapouillou.net>
-Subject: [PATCH 10/20] usb/musb: da8xx: Use pm_ptr() macro
-Date: Thu,  3 Sep 2020 13:25:44 +0200
-Message-Id: <20200903112554.34263-11-paul@crapouillou.net>
+Subject: [PATCH 11/20] usb/musb: musb_dsps: Use pm_ptr() macro
+Date: Thu,  3 Sep 2020 13:25:45 +0200
+Message-Id: <20200903112554.34263-12-paul@crapouillou.net>
 In-Reply-To: <20200903112554.34263-1-paul@crapouillou.net>
 References: <20200903112554.34263-1-paul@crapouillou.net>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Sep 2020 11:27:46 -0000
+X-List-Received-Date: Thu, 03 Sep 2020 11:27:55 -0000
 
 Use the newly introduced pm_ptr() macro, and mark the suspend/resume
 functions __maybe_unused. These functions can then be moved outside the
@@ -70,47 +70,78 @@ simply be discarded by the compiler.
 
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- drivers/usb/musb/da8xx.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/usb/musb/musb_dsps.c | 20 +++++++-------------
+ 1 file changed, 7 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/usb/musb/da8xx.c b/drivers/usb/musb/da8xx.c
-index 1c023c0091c4..7a13463006e3 100644
---- a/drivers/usb/musb/da8xx.c
-+++ b/drivers/usb/musb/da8xx.c
-@@ -598,8 +598,7 @@ static int da8xx_remove(struct platform_device *pdev)
- 	return 0;
+diff --git a/drivers/usb/musb/musb_dsps.c b/drivers/usb/musb/musb_dsps.c
+index 30085b2be7b9..cb196bb6661d 100644
+--- a/drivers/usb/musb/musb_dsps.c
++++ b/drivers/usb/musb/musb_dsps.c
+@@ -665,26 +665,22 @@ dsps_dma_controller_create(struct musb *musb, void __iomem *base)
+ 	return controller;
  }
  
 -#ifdef CONFIG_PM_SLEEP
--static int da8xx_suspend(struct device *dev)
-+static int __maybe_unused da8xx_suspend(struct device *dev)
+-static void dsps_dma_controller_suspend(struct dsps_glue *glue)
++static void __maybe_unused dsps_dma_controller_suspend(struct dsps_glue *glue)
  {
- 	int ret;
- 	struct da8xx_glue *glue = dev_get_drvdata(dev);
-@@ -612,7 +611,7 @@ static int da8xx_suspend(struct device *dev)
+ 	void __iomem *usbss_base = glue->usbss_base;
+ 
+ 	musb_writel(usbss_base, USBSS_IRQ_CLEARR, USBSS_IRQ_PD_COMP);
+ }
+ 
+-static void dsps_dma_controller_resume(struct dsps_glue *glue)
++static void __maybe_unused dsps_dma_controller_resume(struct dsps_glue *glue)
+ {
+ 	void __iomem *usbss_base = glue->usbss_base;
+ 
+ 	musb_writel(usbss_base, USBSS_IRQ_ENABLER, USBSS_IRQ_PD_COMP);
+ }
+-#endif
+ #else /* CONFIG_USB_TI_CPPI41_DMA */
+-#ifdef CONFIG_PM_SLEEP
+-static void dsps_dma_controller_suspend(struct dsps_glue *glue) {}
+-static void dsps_dma_controller_resume(struct dsps_glue *glue) {}
+-#endif
++static void __maybe_unused dsps_dma_controller_suspend(struct dsps_glue *glue) {}
++static void __maybe_unused dsps_dma_controller_resume(struct dsps_glue *glue) {}
+ #endif /* CONFIG_USB_TI_CPPI41_DMA */
+ 
+ static struct musb_platform_ops dsps_ops = {
+@@ -961,8 +957,7 @@ static const struct of_device_id musb_dsps_of_match[] = {
+ };
+ MODULE_DEVICE_TABLE(of, musb_dsps_of_match);
+ 
+-#ifdef CONFIG_PM_SLEEP
+-static int dsps_suspend(struct device *dev)
++static int __maybe_unused dsps_suspend(struct device *dev)
+ {
+ 	struct dsps_glue *glue = dev_get_drvdata(dev);
+ 	const struct dsps_musb_wrapper *wrp = glue->wrp;
+@@ -996,7 +991,7 @@ static int dsps_suspend(struct device *dev)
  	return 0;
  }
  
--static int da8xx_resume(struct device *dev)
-+static int __maybe_unused da8xx_resume(struct device *dev)
+-static int dsps_resume(struct device *dev)
++static int __maybe_unused dsps_resume(struct device *dev)
  {
- 	int ret;
- 	struct da8xx_glue *glue = dev_get_drvdata(dev);
-@@ -622,7 +621,6 @@ static int da8xx_resume(struct device *dev)
- 		return ret;
- 	return phy_power_on(glue->phy);
+ 	struct dsps_glue *glue = dev_get_drvdata(dev);
+ 	const struct dsps_musb_wrapper *wrp = glue->wrp;
+@@ -1024,7 +1019,6 @@ static int dsps_resume(struct device *dev)
+ 
+ 	return 0;
  }
 -#endif
  
- static SIMPLE_DEV_PM_OPS(da8xx_pm_ops, da8xx_suspend, da8xx_resume);
+ static SIMPLE_DEV_PM_OPS(dsps_pm_ops, dsps_suspend, dsps_resume);
  
-@@ -641,7 +639,7 @@ static struct platform_driver da8xx_driver = {
- 	.remove		= da8xx_remove,
- 	.driver		= {
- 		.name	= "musb-da8xx",
--		.pm = &da8xx_pm_ops,
-+		.pm = pm_ptr(&da8xx_pm_ops),
- 		.of_match_table = of_match_ptr(da8xx_id_table),
+@@ -1033,7 +1027,7 @@ static struct platform_driver dsps_usbss_driver = {
+ 	.remove         = dsps_remove,
+ 	.driver         = {
+ 		.name   = "musb-dsps",
+-		.pm	= &dsps_pm_ops,
++		.pm	= pm_ptr(&dsps_pm_ops),
+ 		.of_match_table	= musb_dsps_of_match,
  	},
  };
 -- 
