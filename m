@@ -6,22 +6,22 @@ Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
  header.from=crapouillou.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=crapouillou.net header.i=@crapouillou.net
- header.a=rsa-sha256 header.s=mail header.b=cZdEy8G+; 
+ header.a=rsa-sha256 header.s=mail header.b=b+pvUnRt; 
  dkim-atps=neutral
 Received: from crapouillou.net (crapouillou.net [89.234.176.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BhzLz60VdzDqsZ
- for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:37:47 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BhzM86VDnzDqlR
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:37:56 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
- s=mail; t=1599132368; h=from:from:sender:reply-to:subject:subject:date:date:
+ s=mail; t=1599132376; h=from:from:sender:reply-to:subject:subject:date:date:
  message-id:message-id:to:to:cc:cc:mime-version:mime-version:
  content-type:content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=x3OFdNgDOF418fBVzdMohbSbtTKgDO7T8r5jfdzMW+Y=;
- b=cZdEy8G+8PzfzbjNeQPWjcgH4RuZLLGYI+UFG+0EM4Os/uxIEVg9VRlPSPIq0MFzGom6gZ
- xf4dLy8m8gUtlKR5m97mL6G9y/7iwJwSW2++d6wxv8RwkniTcl5k/Tiuz3zY1TYlGlBDPl
- PtCEqNNndRth3fbZkYtNmah952TlGGE=
+ bh=LJlqqFXg/MOSyVPsBSEVTxCBPa0T4MkeyfIM49qM1g0=;
+ b=b+pvUnRtEmJmpiSgtZPGUBj4jbeHQi4WsVy7CavoSjIUC28Cc4MpspoqZpIKRfwIrkBLBs
+ RZkLN2dTM0yjA5rbk4otHIJt/lwY0is9oymHiRp5Mtl0pDgiVY5erZzlOwmsrH4ojxsLZ8
+ ct0D39tVUdLlv8sq6t7DbOx5TANfc3Q=
 From: Paul Cercueil <paul@crapouillou.net>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Peter Chen <Peter.Chen@nxp.com>,
@@ -41,9 +41,9 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
  Paul Cercueil <paul@crapouillou.net>
-Subject: [PATCH 02/20] usb/host: ehci-spear: Use pm_ptr() macro
-Date: Thu,  3 Sep 2020 13:25:36 +0200
-Message-Id: <20200903112554.34263-3-paul@crapouillou.net>
+Subject: [PATCH 05/20] usb/cdns3: core: Use pm_ptr() macro
+Date: Thu,  3 Sep 2020 13:25:39 +0200
+Message-Id: <20200903112554.34263-6-paul@crapouillou.net>
 In-Reply-To: <20200903112554.34263-1-paul@crapouillou.net>
 References: <20200903112554.34263-1-paul@crapouillou.net>
 MIME-Version: 1.0
@@ -60,7 +60,7 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 03 Sep 2020 11:37:48 -0000
+X-List-Received-Date: Thu, 03 Sep 2020 11:37:57 -0000
 
 Use the newly introduced pm_ptr() macro, and mark the suspend/resume
 functions __maybe_unused. These functions can then be moved outside the
@@ -70,47 +70,54 @@ simply be discarded by the compiler.
 
 Signed-off-by: Paul Cercueil <paul@crapouillou.net>
 ---
- drivers/usb/host/ehci-spear.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+ drivers/usb/cdns3/core.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/host/ehci-spear.c b/drivers/usb/host/ehci-spear.c
-index add796c78561..3694e450a11a 100644
---- a/drivers/usb/host/ehci-spear.c
-+++ b/drivers/usb/host/ehci-spear.c
-@@ -34,8 +34,7 @@ struct spear_ehci {
- 
- static struct hc_driver __read_mostly ehci_spear_hc_driver;
- 
--#ifdef CONFIG_PM_SLEEP
--static int ehci_spear_drv_suspend(struct device *dev)
-+static int __maybe_unused ehci_spear_drv_suspend(struct device *dev)
- {
- 	struct usb_hcd *hcd = dev_get_drvdata(dev);
- 	bool do_wakeup = device_may_wakeup(dev);
-@@ -43,14 +42,13 @@ static int ehci_spear_drv_suspend(struct device *dev)
- 	return ehci_suspend(hcd, do_wakeup);
- }
- 
--static int ehci_spear_drv_resume(struct device *dev)
-+static int __maybe_unused ehci_spear_drv_resume(struct device *dev)
- {
- 	struct usb_hcd *hcd = dev_get_drvdata(dev);
- 
- 	ehci_resume(hcd, false);
+diff --git a/drivers/usb/cdns3/core.c b/drivers/usb/cdns3/core.c
+index 5c1586ec7824..dacab9e9ef92 100644
+--- a/drivers/usb/cdns3/core.c
++++ b/drivers/usb/cdns3/core.c
+@@ -546,9 +546,7 @@ static int cdns3_remove(struct platform_device *pdev)
  	return 0;
  }
--#endif /* CONFIG_PM_SLEEP */
  
- static SIMPLE_DEV_PM_OPS(ehci_spear_pm_ops, ehci_spear_drv_suspend,
- 		ehci_spear_drv_resume);
-@@ -155,7 +153,7 @@ static struct platform_driver spear_ehci_hcd_driver = {
+-#ifdef CONFIG_PM_SLEEP
+-
+-static int cdns3_suspend(struct device *dev)
++static int __maybe_unused cdns3_suspend(struct device *dev)
+ {
+ 	struct cdns3 *cdns = dev_get_drvdata(dev);
+ 	unsigned long flags;
+@@ -568,7 +566,7 @@ static int cdns3_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int cdns3_resume(struct device *dev)
++static int __maybe_unused cdns3_resume(struct device *dev)
+ {
+ 	struct cdns3 *cdns = dev_get_drvdata(dev);
+ 	unsigned long flags;
+@@ -588,11 +586,8 @@ static int cdns3_resume(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+-static const struct dev_pm_ops cdns3_pm_ops = {
+-	SET_SYSTEM_SLEEP_PM_OPS(cdns3_suspend, cdns3_resume)
+-};
++static SIMPLE_DEV_PM_OPS(cdns3_pm_ops, cdns3_suspend, cdns3_resume);
+ 
+ #ifdef CONFIG_OF
+ static const struct of_device_id of_cdns3_match[] = {
+@@ -608,7 +603,7 @@ static struct platform_driver cdns3_driver = {
  	.driver		= {
- 		.name = "spear-ehci",
- 		.bus = &platform_bus_type,
--		.pm = &ehci_spear_pm_ops,
-+		.pm = pm_ptr(&ehci_spear_pm_ops),
- 		.of_match_table = spear_ehci_id_table,
- 	}
+ 		.name	= "cdns-usb3",
+ 		.of_match_table	= of_match_ptr(of_cdns3_match),
+-		.pm	= &cdns3_pm_ops,
++		.pm	= pm_ptr(&cdns3_pm_ops),
+ 	},
  };
+ 
 -- 
 2.28.0
