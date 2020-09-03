@@ -1,33 +1,54 @@
-Return-Path: <wsa@the-dreams.de>
+Return-Path: <paul@crapouillou.net>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=the-dreams.de (client-ip=88.99.104.3; helo=pokefinder.org;
- envelope-from=wsa@the-dreams.de; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=the-dreams.de
-X-Greylist: delayed 556 seconds by postgrey-1.36 at bilbo;
- Tue, 08 Sep 2020 16:36:17 AEST
-Received: from pokefinder.org (sauhun.de [88.99.104.3])
- by lists.ozlabs.org (Postfix) with ESMTP id 4BlwQn68DhzDqGb
- for <openbmc@lists.ozlabs.org>; Tue,  8 Sep 2020 16:36:17 +1000 (AEST)
-Received: from localhost (p5486cc72.dip0.t-ipconnect.de [84.134.204.114])
- by pokefinder.org (Postfix) with ESMTPSA id 2D4CF2C0356;
- Tue,  8 Sep 2020 08:26:54 +0200 (CEST)
-Date: Tue, 8 Sep 2020 08:26:51 +0200
-From: Wolfram Sang <wsa@the-dreams.de>
-To: Tali Perry <tali.perry1@gmail.com>
-Cc: kunyi@google.com, xqiu@google.com, benjaminfair@google.com,
- avifishman70@gmail.com, joel@jms.id.au, tmaimon77@gmail.com,
- linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] i2c: npcm7xx: Fix timeout calculation
-Message-ID: <20200908062651.GA1019@ninjato>
-References: <20200830213121.239533-1-tali.perry1@gmail.com>
+ smtp.mailfrom=crapouillou.net (client-ip=89.234.176.41; helo=crapouillou.net;
+ envelope-from=paul@crapouillou.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
+ header.from=crapouillou.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=crapouillou.net header.i=@crapouillou.net
+ header.a=rsa-sha256 header.s=mail header.b=tnYD6IS4; 
+ dkim-atps=neutral
+Received: from crapouillou.net (crapouillou.net [89.234.176.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bhz741kvYzDqkc
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Sep 2020 21:27:28 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=crapouillou.net;
+ s=mail; t=1599132384; h=from:from:sender:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=2TQYLxc3aHxXcFDX5qciZlfYToGuHk7NHkGdcnudwus=;
+ b=tnYD6IS4snnHJrlJyjB0BhU2Y/BNORywG/8Sfqgkjf31/Cy4M08Lt84RUw4tdSFSBZEYNu
+ wfXt8hsktCQiQYAsXl8BVqtqjHbOxuVdH6NI4gHmY0iUyY4RsQ8r0fjQOY9a19Cqpxz/T3
+ yUCZWhbC7JHjcKvR2k1SabcdznHa1ig=
+From: Paul Cercueil <paul@crapouillou.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Peter Chen <Peter.Chen@nxp.com>,
+ Cristian Birsan <cristian.birsan@microchip.com>,
+ Felipe Balbi <balbi@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Ludovic Desroches <ludovic.desroches@microchip.com>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Alan Stern <stern@rowland.harvard.edu>, Tony Prisk <linux@prisktech.co.nz>,
+ Bin Liu <b-liu@ti.com>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, NXP Linux Team <linux-imx@nxp.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+ Paul Cercueil <paul@crapouillou.net>
+Subject: [PATCH 08/20] usb/misc: usb4604: Use pm_ptr() macro
+Date: Thu,  3 Sep 2020 13:25:42 +0200
+Message-Id: <20200903112554.34263-9-paul@crapouillou.net>
+In-Reply-To: <20200903112554.34263-1-paul@crapouillou.net>
+References: <20200903112554.34263-1-paul@crapouillou.net>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="bg08WKrSYDhXBjb5"
-Content-Disposition: inline
-In-Reply-To: <20200830213121.239533-1-tali.perry1@gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Tue, 08 Sep 2020 17:47:23 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -39,42 +60,58 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Sep 2020 06:36:18 -0000
+X-List-Received-Date: Thu, 03 Sep 2020 11:27:28 -0000
 
+Use the newly introduced pm_ptr() macro, and mark the suspend/resume
+functions __maybe_unused. These functions can then be moved outside the
+CONFIG_PM_SUSPEND block, and the compiler can then process them and
+detect build failures independently of the config. If unused, they will
+simply be discarded by the compiler.
 
---bg08WKrSYDhXBjb5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+---
+ drivers/usb/misc/usb4604.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-On Mon, Aug 31, 2020 at 12:31:21AM +0300, Tali Perry wrote:
-> timeout_usec value calculation was wrong, the calculated value
-> was in msec instead of usec.
->=20
-> Signed-off-by: Tali Perry <tali.perry1@gmail.com>
-> Reviewed-by: Avi Fishman <avifishman70@gmail.com>
-
-Applied to for-current, thanks! And thanks for the Fixes-tag, Joel.
-
-
---bg08WKrSYDhXBjb5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAl9XJCcACgkQFA3kzBSg
-KbZzcg//RR/qIunHGIrcDr5aZXfWTjr8u0f3ccyaBELUPk6kSzUqBufOcKoeRk19
-dN74rzsCQr5egfumVCZCl1JP+269Hjtf7ISd4jBU5pJ5R/QovlN6zofK0EZsZJDs
-6RA/wNM4KdzvqDi7IS9FhSL50pQ3M0Bl0o/R42m54qDc75JDXDO3qIRaABAU25Xd
-V6nX2eUK6WLSsz63cM1ndM0VHxrupzj6w90EFTfSNqwx4ft1+tTDG7Z3kdGMcFd4
-F5S0VtPCHMT1Uh+9HR/sk3wUKJHcv6VeU7f/bzus5pGksvX7sRzRq/nXsIVeCZuA
-iAzHBOGSdlv/6UR6WKjPzOW8IDOqxctR7MqjiqzuFXUYo8RHK0WXMs+g4bAXZph1
-i29CJm+il2t+KnUMje9w/S7bPDTPpU949vvYA5tPbTLYjrEhfLL+oAr7szDDbPvT
-tsepc8J5K+rP8GkBGRCfvj4angCuJ6RSihQofwBRHgNh93MVZjQVH9o32Kzn8X9+
-nwYl3DNvmC1Nzhnf01Bfa7dyWzeeLlU8ZBYXLx/yqGIRd7W/61KDVDN7Zcz+yGQ6
-EkBy1Uxabx7JSDsbCC7lqR4JhPyEbaCwWiUs1amEubZc8VDibrtp1EN2QeHSopbz
-BD3pfGjkLmr8rFKfea/ea+wmmI/gW8fQGfcVZfl4kpZReRRsYDE=
-=ahmh
------END PGP SIGNATURE-----
-
---bg08WKrSYDhXBjb5--
+diff --git a/drivers/usb/misc/usb4604.c b/drivers/usb/misc/usb4604.c
+index 1b4de651e697..2142af9bbdec 100644
+--- a/drivers/usb/misc/usb4604.c
++++ b/drivers/usb/misc/usb4604.c
+@@ -112,8 +112,7 @@ static int usb4604_i2c_probe(struct i2c_client *i2c,
+ 	return usb4604_probe(hub);
+ }
+ 
+-#ifdef CONFIG_PM_SLEEP
+-static int usb4604_i2c_suspend(struct device *dev)
++static int __maybe_unused usb4604_i2c_suspend(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	struct usb4604 *hub = i2c_get_clientdata(client);
+@@ -123,7 +122,7 @@ static int usb4604_i2c_suspend(struct device *dev)
+ 	return 0;
+ }
+ 
+-static int usb4604_i2c_resume(struct device *dev)
++static int __maybe_unused usb4604_i2c_resume(struct device *dev)
+ {
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	struct usb4604 *hub = i2c_get_clientdata(client);
+@@ -132,7 +131,6 @@ static int usb4604_i2c_resume(struct device *dev)
+ 
+ 	return 0;
+ }
+-#endif
+ 
+ static SIMPLE_DEV_PM_OPS(usb4604_i2c_pm_ops, usb4604_i2c_suspend,
+ 		usb4604_i2c_resume);
+@@ -154,7 +152,7 @@ MODULE_DEVICE_TABLE(of, usb4604_of_match);
+ static struct i2c_driver usb4604_i2c_driver = {
+ 	.driver = {
+ 		.name = "usb4604",
+-		.pm = &usb4604_i2c_pm_ops,
++		.pm = pm_ptr(&usb4604_i2c_pm_ops),
+ 		.of_match_table = of_match_ptr(usb4604_of_match),
+ 	},
+ 	.probe		= usb4604_i2c_probe,
+-- 
+2.28.0
