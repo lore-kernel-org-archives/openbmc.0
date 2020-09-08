@@ -1,55 +1,56 @@
-Return-Path: <yulei.sh@bytedance.com>
+Return-Path: <i.mikhaylov@yadro.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2a00:1450:4864:20::232;
- helo=mail-lj1-x232.google.com; envelope-from=yulei.sh@bytedance.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=i.mikhaylov@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=bytedance.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bytedance-com.20150623.gappssmtp.com
- header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=knYbLpyR; dkim-atps=neutral
-Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
- [IPv6:2a00:1450:4864:20::232])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=Aqak1ytg; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bm3nS51RHzDqN9
- for <openbmc@lists.ozlabs.org>; Tue,  8 Sep 2020 22:07:56 +1000 (AEST)
-Received: by mail-lj1-x232.google.com with SMTP id w3so19679343ljo.5
- for <openbmc@lists.ozlabs.org>; Tue, 08 Sep 2020 05:07:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:from:date:message-id:subject:to;
- bh=InkcWcQgIvJZULYNN9+P8SKKsLB3tkJ7Hbaj+l9LqT4=;
- b=knYbLpyRfL2KRIjSvxjFlW5MMblG2qOaD7/xC++qfd1G2TN1dBV5q1CaDdiGBJ3ete
- HElRKYWj9Q4zM6t9jLb+jccoQaujgitmIoQlREse/LZmQoUuLOkCk84GdeD76hXC4l0o
- X60T7E+fl1TOnPExl697boGKZZBCrVj+CWsZItXCJjkWySdVh/CHmTW/D6pxMKbCUH89
- IcpZsnFURF976Gt5JDoijHRpNkApHW4poXZhtGrJf0prF6EJmUwFH0GwLZldu9Lf6+Mm
- QGj1VDHueDzx5FN2b666LMO1j8IcCJm0oPysMEik4uxpkQcYCRAH+mYrT05yXMnGVIac
- NcFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=InkcWcQgIvJZULYNN9+P8SKKsLB3tkJ7Hbaj+l9LqT4=;
- b=LZyDjErg0bbMdZ4+60Qe12nsZUL/b58SpLdAN6YX3H40+uLpU8pe4KqIcWWlnmEJgD
- y9PKfHyc7n/NPNUE5VP+VF1whJxR4G9E3/YvPH553LFdsrapl230oZTaMrTdOQ6Rktcj
- QuxmBjemXgS4rUUXAFZjBBHk/XyTKBXRmnRQTy3UiJlDQFzEA9Q7LUIEmgLz6BYLltmB
- dRMB9UiVUibQ+8sGm+ZSipYNOC1LMWcb87cJ2+lAQNZSyWQwbrthCxWJYcvms9Q4KbNk
- 5+sLshug1LHNOwvmBbOQYIccXvb9pwfUyWoHv00leEK1izyflCDBPK1nb95+Gla5HxUP
- e7HA==
-X-Gm-Message-State: AOAM532odDageJHGV230osQgBe8pQm13u1N8PvmPEUBztInzxhWYsDkt
- XvxsWPk626LTTWrVVp/Etcwf8jSIvVtkVzdy/Smzn92UG2tZ26ax
-X-Google-Smtp-Source: ABdhPJwX81EQgwYNQE0TmNTCTIzjWLTtDTM9Vr6UBl02HDJDWmfhgXcuAU3WMwZQoNrHQgLXvYOYRkGyEPanv9sKCkY=
-X-Received: by 2002:a2e:9b09:: with SMTP id u9mr13426992lji.194.1599566870073; 
- Tue, 08 Sep 2020 05:07:50 -0700 (PDT)
-MIME-Version: 1.0
-From: =?UTF-8?B?6YOB6Zu3?= <yulei.sh@bytedance.com>
-Date: Tue, 8 Sep 2020 20:07:38 +0800
-Message-ID: <CAGm54UGcLzLxucRpTZ+TUwNj_dtZ0YWTLwu1QA9owovNjL6xhg@mail.gmail.com>
-Subject: An i2c issue found in intel-bmc/openbmc
-To: openbmc <openbmc@lists.ozlabs.org>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bm7FY1LmjzDqK3
+ for <openbmc@lists.ozlabs.org>; Wed,  9 Sep 2020 00:43:57 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 664DB5714B;
+ Tue,  8 Sep 2020 14:43:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:mime-version:user-agent:content-type
+ :content-type:organization:date:date:from:from:subject:subject
+ :message-id:received:received:received; s=mta-01; t=1599576231;
+ x=1601390632; bh=ejEzD5jr9FV3/hlWqfEWFX/rGFFZ3cIzRwFPCAb+D7I=; b=
+ Aqak1ytga+sorGGL8KUPypWw2E7L6uod6C6LLQrUrjNAvhMpAeeCYqjY/5P/cGYM
+ k8eIM1ATaiBuHWkXGS5xEyyGcBUWuP8Qi3ZXtOSUte54jESV2C2A36r0yvpc3yl0
+ O0yi8DBss0Fvbu9Q4s0zD8u3bgbt1T67RcAPm6VxNjo=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id y9H7v2tutmHm; Tue,  8 Sep 2020 17:43:51 +0300 (MSK)
+Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
+ [172.17.10.102])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 23DBF4C866;
+ Tue,  8 Sep 2020 17:43:50 +0300 (MSK)
+Received: from localhost.localdomain (10.199.2.190) by
+ T-EXCH-02.corp.yadro.com (172.17.10.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.669.32; Tue, 8 Sep 2020 17:43:50 +0300
+Message-ID: <a140b8dd494792d0d814cd20e6e4ab4b2714c16c.camel@yadro.com>
+Subject: time control on wolfpass BMC
+From: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+To: Ed Tanous <ed@tanous.net>, James Feist <james.feist@linux.intel.com>
+CC: <openbmc@lists.ozlabs.org>
+Date: Tue, 8 Sep 2020 17:47:10 +0300
+Organization: YADRO
 Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.32.5 (3.32.5-1.fc30) 
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.199.2.190]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-02.corp.yadro.com (172.17.10.102)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,40 +62,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Tue, 08 Sep 2020 12:07:57 -0000
+X-List-Received-Date: Tue, 08 Sep 2020 14:44:02 -0000
 
-This email is to introduce an issue related to i2c found on
-intel-bmc/openbmc[1].
+Hey James, Ed, Is there any way to control RTC/PCH time inside BMC on
+wolfpass?In intel-bmc rep there is the pch-time-sync service which is doing
+sync.
+The service just reads out date via i2c regs and do the sync with system time. I
+didn't find any other utilities or something which can help with time set from
+BMC.
 
-I am working on a machine that is based on intel-bmc/openbmc, and it
-has a pca9555 GPIO expander on i2c-8.
-
-The dts looks like below:
-
-  &i2c8 {
-    status = "okay";
-    pca0:pca9555@24 {
-      compatible = "nxp,pca9555";
-      reg = <0x24>;
-      #address-cells = <1>;
-      #size-cells = <0>;
-      gpio-controller;
-      #gpio-cells = <2>;
-    }
-  }
-
-If you have a similar setup, you may see the kernel gives below error:
-
-    [    2.561952] pca953x 8-0024: failed writing register
-    [    2.567061] pca953x: probe of 8-0024 failed with error -110
-
-It turns out that the patch
-0075-Refine-initialization-flow-in-I2C-driver.patch[2] caused the
-issue. And if I revert the patch, the issue is gone.
-
-A github issue is created at
-https://github.com/Intel-BMC/openbmc/issues/48, hopefully Intel could
-fix this issue :)
-
-[1]: https://github.com/Intel-BMC/openbmc
-[2]: https://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-kernel/linux/linux-aspeed/0075-Refine-initialization-flow-in-I2C-driver.patch
+Thanks.
