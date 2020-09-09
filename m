@@ -9,20 +9,22 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BmlpB4K63zDqD9
- for <openbmc@lists.ozlabs.org>; Thu, 10 Sep 2020 01:10:56 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BmlsP6qdbzDqXq
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Sep 2020 01:13:45 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Wed, 9 Sep 2020 11:10:46 -0400
+Date: Wed, 9 Sep 2020 11:13:39 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: CS20 KFTing <KFTING@nuvoton.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: Nuvoton requests to create a repo in openbmc github
-Message-ID: <20200909151046.ew5lxd6cjkldzlu7@thinkpad.dyn.fuzziesquirrel.com>
-References: <HK0PR03MB489753729249375AC99D79E7DB2D0@HK0PR03MB4897.apcprd03.prod.outlook.com>
+To: Benjamin Fair <benjaminfair@google.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Lancelot Kao <lancelot.cy.kao@fii-na.com>
+Subject: Re: New meta-layer request
+Message-ID: <20200909151339.ronsxrtvij4mu4fe@thinkpad.dyn.fuzziesquirrel.com>
+References: <FA2BA7DD-2DD5-4CCD-927B-310AB5B56C64@fii-na.com>
+ <CADKL2t5z_ZcgN1jKChungKgNuRJs4JRQtaqa3DeKX-DQtYPGRA@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <HK0PR03MB489753729249375AC99D79E7DB2D0@HK0PR03MB4897.apcprd03.prod.outlook.com>
+In-Reply-To: <CADKL2t5z_ZcgN1jKChungKgNuRJs4JRQtaqa3DeKX-DQtYPGRA@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -34,19 +36,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Sep 2020 15:10:59 -0000
+X-List-Received-Date: Wed, 09 Sep 2020 15:13:46 -0000
 
-On Fri, Sep 04, 2020 at 05:25:12AM +0000, CS20 KFTing wrote:
->Hi Brad:
+On Thu, Sep 03, 2020 at 04:18:09PM -0700, Benjamin Fair wrote:
+>On Mon, 31 Aug 2020 at 15:40, Lancelot Kao <lancelot.cy.kao@fii-na.com> wrote:
+>>
+>> Hi, Pioneer
+>>
+>>                 I come from Fii crops as a subgroup of Foxconn. We are using the openBMC to develop our openBMC with the Ampere & Nuvoton solution.
+>>
+>>                 So, we need to create a new meta-layer for us. I am told there is someone who may help us to create the meta-layer for us. The below is the information needs to create meta-layer.
+>>
+>>                 Name : meta-fii
+>>
+>>                 Maintainers :
+>>
+>> Lancelot.kao@fii-usa.com
+>> Neil.chen@fii-usa.com
+>> vveerach@google.com
+>> benjaminfair@google.com
+>>
+>>
+>>
+>>                 If I miss anything, please let me know.
+>>
+>>
+>>
+>> --
+>>
+>> Best Regards.
+>>
+>> Lancelot Kao
+>>
+>> CABG/CESBG
+>> TW : +886-2-2268-3466 #3766
+>>
+>> US : +1-281-655-2668
+>> e-mail : lancelot.cy.kao@fii-na.com
+>>
 >
->This is Tyrone from Nuvoton.
+>Hi Brad,
 >
->Nuvoton creates an ipmitool library to provide Nuvoton-specific IPMI command handlers for Nuvoton-based platform running OpenBMC, just like intel-ipmi-oem.
+>Can you help create the repo for meta-fii as described above?
 >
->Nuvoton would like to ask your help to create a repo named "nuvoton-ipmi-oem" in openbmc github.
->
->Joseph Liu <kwliu@nuvoton.com>  and warp5tw <kfting@nuvoton.com> will be the administrators of this repo.
+>Thanks,
+>Benjamin
 
-Hi Tyrone.  Done!
+Lancelot, Ben - sorry about the delay.  meta-fii has been created.
 
-thx - brad
+-brad
