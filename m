@@ -9,21 +9,20 @@ Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
  [173.167.31.197])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bmk4P405fzDqWP
- for <openbmc@lists.ozlabs.org>; Wed,  9 Sep 2020 23:53:07 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BmkdT1r0DzDqX9
+ for <openbmc@lists.ozlabs.org>; Thu, 10 Sep 2020 00:18:20 +1000 (AEST)
 X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Wed, 9 Sep 2020 09:53:02 -0400
+Date: Wed, 9 Sep 2020 10:18:16 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: "Cisneros, Jorge (George)" <jorge.cisneros@hpe.com>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Re: FW: Request to add meta-hpe as subtree
-Message-ID: <20200909135302.cnenc5joeyjdbkww@thinkpad.dyn.fuzziesquirrel.com>
-References: <CS1PR8401MB0566CA9B0A0D168049F6D0E58F510@CS1PR8401MB0566.NAMPRD84.PROD.OUTLOOK.COM>
- <CS1PR8401MB0566C7D5CDBC13FE4CFAEED68F290@CS1PR8401MB0566.NAMPRD84.PROD.OUTLOOK.COM>
+To: Supreeth Venkatesh <supreeth.venkatesh@amd.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Subject: Re: meta-amd repository
+Message-ID: <20200909141816.by4hbfaqbbeud2fm@thinkpad.dyn.fuzziesquirrel.com>
+References: <3e858b31-2547-a114-75f5-4ccd740641d3@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <CS1PR8401MB0566C7D5CDBC13FE4CFAEED68F290@CS1PR8401MB0566.NAMPRD84.PROD.OUTLOOK.COM>
+In-Reply-To: <3e858b31-2547-a114-75f5-4ccd740641d3@amd.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -35,16 +34,15 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Wed, 09 Sep 2020 13:53:10 -0000
+X-List-Received-Date: Wed, 09 Sep 2020 14:18:22 -0000
 
-On Tue, Sep 08, 2020 at 02:32:37PM +0000, Cisneros, Jorge (George) wrote:
->A kindly reminder, please help to add meta-hpe into openbmc as subtree,
->thanks!
+On Wed, Sep 02, 2020 at 02:55:20PM -0500, Supreeth Venkatesh wrote:
+>Hi Brad,
+>
+>Please help add meta-amd repsoitory into openbmc as a subtree.
+>meta-amd repository has been populated with basic bring up code.
 
-Hi Jorge
-
-I finally got to this today:
-
+Hi Supreeth.  Done: 
 https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/36339
 
 -brad
