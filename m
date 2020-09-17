@@ -1,80 +1,58 @@
-Return-Path: <SRS0=PhQT=C7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
-X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
-	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 894FCC2D0E2
-	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 08:07:56 +0000 (UTC)
-Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B27CA239E5
-	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 08:07:55 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=yadro.com header.i=@yadro.com header.b="diVQPKKc"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B27CA239E5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
-Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
-Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4BwYp14YkBzDr02
-	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 18:07:53 +1000 (AEST)
+Return-Path: <bhe@celestica.com>
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.filippov@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=diVQPKKc; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=celestica.com (client-ip=2a00:1450:4864:20::630;
+ helo=mail-ej1-x630.google.com; envelope-from=bhe@celestica.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=reject dis=none)
+ header.from=celestica.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=celestica.com header.i=@celestica.com
+ header.a=rsa-sha256 header.s=google-201810 header.b=EG46Occf; 
+ dkim-atps=neutral
+Received: from mail-ej1-x630.google.com (mail-ej1-x630.google.com
+ [IPv6:2a00:1450:4864:20::630])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BwYmT2rXYzDqpL;
- Tue, 22 Sep 2020 18:06:32 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 8FD9452215;
- Tue, 22 Sep 2020 08:06:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- in-reply-to:content-disposition:content-type:content-type
- :mime-version:references:message-id:subject:subject:from:from
- :date:date:received:received:received; s=mta-01; t=1600761988;
- x=1602576389; bh=QFQBqGg2YRdwgzvu9vGj69dGgUwoYtiYaLsY4Qkr3Fk=; b=
- diVQPKKc0jmbqYBfgMKekEgkNoWMgx3pGIqT5lFK5msgqut27r3tc5EQoLkgpdBN
- gG6Utb5j5QDhquMVNZ2/9gaviK9PSjKZFmdU9d5A0AXyuUrK/+DO8Z/DUpKqZe1k
- kaQl91SWxCSF9CweI9d+OYNQQw5TF9aVc/zOlxEDeYs=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id SWgbtb8iDc7G; Tue, 22 Sep 2020 11:06:28 +0300 (MSK)
-Received: from T-EXCH-02.corp.yadro.com (t-exch-02.corp.yadro.com
- [172.17.10.102])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 4FF664C8E7;
- Tue, 22 Sep 2020 11:06:28 +0300 (MSK)
-Received: from localhost (172.17.14.122) by T-EXCH-02.corp.yadro.com
- (172.17.10.102) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 22
- Sep 2020 11:06:28 +0300
-Date: Tue, 22 Sep 2020 11:06:27 +0300
-From: "Alexander A. Filippov" <a.filippov@yadro.com>
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Subject: Re: Headsup: Alternative to the filesystem overlay
-Message-ID: <20200922080627.GA16274@bbwork.lan>
-References: <CADVsX88ZPmZh+txe1Zis4YfJnXQ4_n-40r6p5Y1hy5_KegUeaQ@mail.gmail.com>
- <20200921143331.GA20273@bbwork.lan>
- <3f491d1ca08a5480af9d4555121da090@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BsWcY3ByxzDqZ3
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 19:19:05 +1000 (AEST)
+Received: by mail-ej1-x630.google.com with SMTP id u21so2303713eja.2
+ for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 02:19:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=celestica.com; s=google-201810;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=/n+K4EohI/qKEAX2knvtnEm0Wkj+rdXpXMFlKwJrWNs=;
+ b=EG46Occf/11VPlzROrRz8G3UQOo1vV40BNuh7QVCk1yymC4fs8jEn3DlK2gLr/rIb8
+ DcLAcXpo1u0cQnQdi5U7dgTsJ9d9+4QRIAun/apkX1Z1MuqiJ8kd2peVeojFcocjoeSF
+ fNhSLEPZ8xzXdbFzqeMeJCvenwTy03ViyCE03aS9puHIK9kCrj+xoaKjSzAyKFOcfxLd
+ 4Mam6GWcATJPoaC6hLkHwlF0f0TjIhp+XM4E3CRjzj+56stUaz9BbxIg2JJO8bRytDVH
+ HatVIs+IHJFN4pjCLz6CzcuqJsLW8M99UbRlkZLAerHq+zVfE7yU6qTbW4QFEmVLFO0Y
+ YGzA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=/n+K4EohI/qKEAX2knvtnEm0Wkj+rdXpXMFlKwJrWNs=;
+ b=UdqUfIBJpjUn6xQHLhUfQGkPj4ASXS6JR4NyOKqCpjCj73LNdRcIlXsTlB71emMMuP
+ W6XtONjuE8g0x2KAzRUUPTxwIGir8H7cIhmjP2IJYnT0yjyCmwznmE6tdeoEcd/vZdcq
+ GQpOTaGT1zb7IwPqYRIoNYIDDzQ9/chc1pYNiHztHBRK1XNQ9JufKAJ/fDVeCX0WA7XY
+ FkkvLgxs57RliPMYwC2HR3XOasReCtiBlwSqZWlzpSxngy+isEVjIbP2DEYrtZ0MR9l0
+ /9O1tP+OB/WvviF7QiFFbRtgRt99J0Y7QZmMt4UWVEARpsSLC1E2AF4Zr85t2FSdiiNM
+ FFBQ==
+X-Gm-Message-State: AOAM533e0Kdhq4a3x6ZO/IZ6zj9L2TVXwl5QT4hYfidTxZS6BepSADBD
+ TfQ3/RKgUiArjIT+eIOwITIZ/ghO636dYgHqqRhRQI0I+6Ykr283AzwO3ZY9uyZwWCNgto/th6l
+ FD6QGfsnl+0gofju3pdlc5eOV9SRvs2uZtQ==
+X-Google-Smtp-Source: ABdhPJwQyUDp00niLX4lVI/saXylwyNf+FHYjM6O0GcYZ8vujwHn/0TOq6U3SgZKzC6rAAPHX75RVObqTWVROSW17GI=
+X-Received: by 2002:a17:906:3748:: with SMTP id
+ e8mr26712639ejc.71.1600334340216; 
+ Thu, 17 Sep 2020 02:19:00 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <3f491d1ca08a5480af9d4555121da090@linux.vnet.ibm.com>
-X-Originating-IP: [172.17.14.122]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-02.corp.yadro.com (172.17.10.102)
+From: Beck He <bhe@celestica.com>
+Date: Thu, 17 Sep 2020 17:18:49 +0800
+Message-ID: <CALPNqoTA7d31GhfM6WfS9bz+RPzMtscpJhuFCYqsV68xV+AV4g@mail.gmail.com>
+Subject: ast2600 support
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000def19f05af7edf92"
+X-CLS-Gapps: True
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,34 +64,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc <openbmc-bounces+anoo=linux.ibm.com@lists.ozlabs.org>,
- openbmc@lists.ozlabs.org, Anton Kachalov <rnouse@google.com>,
- "Alexander A. Filippov" <a.filippov@yadro.com>
-Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
-Sender: "openbmc"
- <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
+X-List-Received-Date: Thu, 17 Sep 2020 09:19:09 -0000
 
-On Mon, Sep 21, 2020 at 02:42:49PM -0500, Adriana Kobylak wrote:
-> On 2020-09-21 09:33, Alexander A. Filippov wrote:
-> > I solved the problem with a difference of the user groups set during
-> > firmware
-> > upgrade by installing a systemd service which starts on the first BMC
-> > boot after
-> > upgrade and merges groups from RWFS and new ROFS.
-> > 
-> > This recipe is stored in our internal repo only, but I can share it if
-> > it is
-> > interesting to someone.
-> 
-> I'd be interested, if you would share it. Thanks!
-> 
+--000000000000def19f05af7edf92
+Content-Type: text/plain; charset="UTF-8"
 
-Here is it.
-  https://gerrit.openbmc-project.xyz/c/openbmc/meta-yadro/+/36650
+  May I know whether OpenBMC has supported the ast2600 BMC chip, I noticed
+some code about it, but no 2600evb support in:
+https://github.com/openbmc/openbmc/tree/master/meta-evb/meta-evb-aspeed
 
-But it looks I was wrong. In fact, the script just adds missing groups from a 
-predefined list instead of the merging files from RWFS and new ROFS.
+thanks!
 
---
 Regards,
-Alexander
+Beck  He
+Connectivity Solution FW/SW Architecture
+Tel: + 86, 21-61006028-7363 email: bhe@celestica.com
+www.celestica.com
+
+Solid Partners. Flexible Solutions
+
+--000000000000def19f05af7edf92
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>=C2=A0 May I know whether OpenBMC has supported the a=
+st2600 BMC chip, I noticed some code about it, but no 2600evb support in:=
+=C2=A0 =C2=A0<a href=3D"https://github.com/openbmc/openbmc/tree/master/meta=
+-evb/meta-evb-aspeed">https://github.com/openbmc/openbmc/tree/master/meta-e=
+vb/meta-evb-aspeed</a></div><div><br></div><div>thanks!</div><br clear=3D"a=
+ll"><div><div dir=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail=
+_signature"><div dir=3D"ltr"><div><div dir=3D"ltr"><div dir=3D"ltr"><div>Re=
+gards,</div><div>Beck =C2=A0He</div><div>Connectivity Solution FW/SW Archit=
+ecture</div><div>Tel: + 86, 21-61006028-7363 email: <a href=3D"mailto:bhe@c=
+elestica.com" target=3D"_blank">bhe@celestica.com</a></div><div><a href=3D"=
+http://www.celestica.com" target=3D"_blank">www.celestica.com</a></div><div=
+>=C2=A0</div><div>Solid Partners. Flexible Solutions</div></div></div></div=
+></div></div></div></div>
+
+--000000000000def19f05af7edf92--
