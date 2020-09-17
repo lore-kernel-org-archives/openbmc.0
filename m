@@ -1,65 +1,35 @@
-Return-Path: <benjaminfair@google.com>
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::d2a;
- helo=mail-io1-xd2a.google.com; envelope-from=benjaminfair@google.com;
- receiver=<UNKNOWN>)
+Return-Path: <Tomer.Maimon@nuvoton.com>
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=LxOp4eNm; dkim-atps=neutral
-Received: from mail-io1-xd2a.google.com (mail-io1-xd2a.google.com
- [IPv6:2607:f8b0:4864:20::d2a])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (no SPF record) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bstdn3GFtzDqbm
- for <openbmc@lists.ozlabs.org>; Fri, 18 Sep 2020 09:36:25 +1000 (AEST)
-Received: by mail-io1-xd2a.google.com with SMTP id y74so4438490iof.12
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 16:36:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=oeS9Drs3nbmcJxlwm/F6BbAO52SYud0SPmQhM21L4Sw=;
- b=LxOp4eNmhtYijKcs0NY1I5lZjjFAj2pNoHt2NJ4HyGPRd9hzNMyQIP+8rItsUu3XK5
- Lr3vR2fANRLPDCx2luKir2ZI3rVoxCEAIrHMCFsKucUNUHBbrf7qk3UrkB85988VBqDy
- Okbl0SxBqqBxPQ9uIYuR2SqoxY0nPUSptcYeg5kfPLD71La6oNNdY+FDj9+Lsq9bmuD2
- 85Bg1HyzwR8GYysXczlwUSgsHkR+YarOZrZIrjxdeThbsCXNZZngipWI2tmFSxzcR/8f
- yBeIbUX66brxpbyxDQDGpvA/Pmd2gxW5m8fT/8dEcw43y+ljOAV+N9jyG7G5jQYyck8R
- xNQA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=oeS9Drs3nbmcJxlwm/F6BbAO52SYud0SPmQhM21L4Sw=;
- b=WrwV5CCHd74V+5emJN6UOsgxAMOjmvMaTg4auJGcSEsmjM3J65G5270YYL/h4TRWn3
- mFXFyM7Mvn+oBQU1cpnjJnBia7atqAWdhAzQuIrRbzSuiBvk003cQa3lsxPKE8pSivO1
- Uyz0LJ8DhcpgkADMMgayUsYW3c/rc+goE9Ivj4IRSmPWMSq9yJAw6Gcq1d/u4xbzTIh/
- hLpmKeBkMiFvd94E8adiBNzw0RZwo1NLuTDNcwXdf0beNfpOPI1Uj5bntZp6gKA6ffYw
- BUHuy/f0AVgK4dRhMqTZG04GKuol61QdQgWhlG46+fOjl145dHD+ggEiY5U1zD5R4NcD
- eNTg==
-X-Gm-Message-State: AOAM531u+1giCG21Shk0bRQJzKJTInQeWoNxzLhBO74DDegUP9P0ulKA
- 4jHCOhCK1VNBSKu3yQyySO/r1pzhpnMFltYFSyTt0w==
-X-Google-Smtp-Source: ABdhPJwki6l6EWR30gvfF9dJP0yvP5/BSR6oKyH6JLJYhB3TZX/cc4CkAg79P6eFy8Jh4MiuCt/M8Ykf0hDXl5UAkrU=
-X-Received: by 2002:a02:ce46:: with SMTP id y6mr27569487jar.102.1600385781734; 
- Thu, 17 Sep 2020 16:36:21 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BstqR1J92zDqf1
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Sep 2020 09:44:49 +1000 (AEST)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 08HNiNQh008722;
+ Fri, 18 Sep 2020 02:44:23 +0300
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 24A7B639D7; Fri, 18 Sep 2020 02:44:23 +0300 (IDT)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: robh+dt@kernel.org, mark.rutland@arm.com, avifishman70@gmail.com,
+ tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
+ benjaminfair@google.com, joel@jms.id.au
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, tmaimon77@gmail.com
+Subject: [PATCH v6 1/3] arm: dts: modify NPCM7xx device tree clock parameter
+Date: Fri, 18 Sep 2020 02:44:18 +0300
+Message-Id: <20200917234420.86137-2-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20200917234420.86137-1-tmaimon77@gmail.com>
+References: <20200917234420.86137-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <a3919f2a61844f9f89f8e1f8dc0d5972@quantatw.com>
- <CADKL2t5YWsjREnFZ36ZA0ZR4ObOqY-noazEc-+wwVePF9bo8vA@mail.gmail.com>
- <CANPkJS_p9iTJJCue_cSePsgsJ71ztv06XEvEpqe1Y294ne5UYQ@mail.gmail.com>
- <20200917152912.GG6152@heinlein>
-In-Reply-To: <20200917152912.GG6152@heinlein>
-From: Benjamin Fair <benjaminfair@google.com>
-Date: Thu, 17 Sep 2020 16:35:44 -0700
-Message-ID: <CADKL2t5npwwBs6ecKAqscJ8=BoakpwDNMjuSiZOSXTkCNcLryA@mail.gmail.com>
-Subject: Re: Quanta requests to create a repo in OpenBMC github
-To: Patrick Williams <patrick@stwcx.xyz>
-Cc: Josh Lehan <krellan@google.com>, 
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>, 
- =?UTF-8?B?RnJhbiBIc3UgKOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,94 +41,139 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Sep 2020 23:36:31 -0000
+X-List-Received-Date: Thu, 17 Sep 2020 23:44:52 -0000
 
-On Thu, 17 Sep 2020 at 08:29, Patrick Williams <patrick@stwcx.xyz> wrote:
->
-> Would someone mind giving a 1-2 sentence explaination of what "sensor
-> margin values" are?  I'm certainly not a thermal control expert.
+Modify NPCM7xx device tree clock parameter to clock constants that
+define at include/dt-bindings/clock/nuvoton,npcm7xx-clock.h file.
 
-This daemon is intended to be used in combination with
-phosphor-pid-control. You define a configuration file with two
-sections: sensors and zones.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 19 ++++++++++---------
+ arch/arm/boot/dts/nuvoton-npcm750.dtsi        |  6 +++---
+ 2 files changed, 13 insertions(+), 12 deletions(-)
 
-Sensors have a D-Bus path to read from along with a target temperature
-and some other parameters. The daemon subtracks the current
-temperature from the target temperature to get the "margin". A smaller
-margin means the temperature is closer to the limit.
-
-Zones group sensors together and look for the worst (lowest) margin
-value within that group. This value is then exported for use in
-phosphor-pid-control.
-
->
-> I don't care if there are multiple implementations of similar
-> functionality, but there is also work going on for a repository called
-> 'phosphor-virtual-sensors'.  What little I could understand of
-> read-margin-temp's role seems to somewhat overlap with that effort.
-
-It may be possible to implement this using the functionality provided
-by phosphor-virtual-sensors, but the resulting configuration would
-likely be complicated and difficult to maintain. Margin calculation is
-a common enough use case that I think it's worth having a dedicated
-service.
-
->
-> On Wed, Sep 16, 2020 at 10:37:14PM -0700, Josh Lehan wrote:
-> > Yay, this is great to see. I have some bug fixes to read-margin-temp an=
-d
-> > was just wondering how to contribute them. I'm really hoping this makes=
- it
-> > into OpenBMC. It's the perfect preprocessor for phosphor-pid-control, I
-> > have found.
-> >
-> > Josh
-> >
-> > Josh Lehan | Software Engineer | krellan@google.com | +1 650-733-8941
-> >
-> >
-> >
-> > On Wed, Sep 16, 2020 at 7:15 PM Benjamin Fair <benjaminfair@google.com>
-> > wrote:
-> >
-> > > On Wed, 16 Sep 2020 at 06:31, Fran Hsu (=E5=BE=90=E8=AA=8C=E8=AC=99) =
-<Fran.Hsu@quantatw.com>
-> > > wrote:
-> > > >
-> > > > Hi Brad,
-> > > >         This is Fran from Quanta Computer.
-> > > > Quanta OpenBMC team would like to share some useful tools to the Op=
-enBMC
-> > > community.
-> > > > Such as the read-margin-temp daemon (
-> > > https://github.com/quanta-bmc/read-margin-temp), we are using this da=
-emon
-> > > to fill sensor margin value to PID to do fan control.
-> > >
-> > > read-margin-temp seems useful and widely applicable enough that I
-> > > think it's worth having a dedicated repo for it.
-> > >
-> > > The quanta-misc repo could possibly be used for smaller, more
-> > > Quanta-specific things.
-> > >
-> > > >
-> > > > We would like to have a repo named "quanta-misc" under the OpenBMC
-> > > github.
-> > > >
-> > > > Here is the maintainer list:
-> > > > M:  Benjamin Fair <benjaminfair@google.com> <benjaminfair!>
-> > > > M:  Brandon Kim <brandonkim@google.com> <brandonk!>
-> > > > M:  Fran Hsu <fran.hsu@quantatw.com> <franhsu!>
-> > > > M:  George Hung <george.hung@quantatw.com> <ghung!>
-> > > > M:  Buddy Huang <buddy.huang@quantatw.com> <buddyhunag!>
-> > > >
-> > > > Thank you.
-> > > > Fran Hsu
-> > > > E-Mail : Fran.Hsu@QuantaTW.com
-> > > > Tel: +886-3-327-2345 Ext: 16935 <+886%203%20327%202345>
-> > > >
-> > > >
-> > >
->
-> --
-> Patrick Williams
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index d2d0761295a4..16a28c5c4131 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -3,6 +3,7 @@
+ // Copyright 2018 Google, Inc.
+ 
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/clock/nuvoton,npcm7xx-clock.h>
+ 
+ / {
+ 	#address-cells = <1>;
+@@ -80,7 +81,7 @@
+ 			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
+ 			cache-unified;
+ 			cache-level = <2>;
+-			clocks = <&clk 10>;
++			clocks = <&clk NPCM7XX_CLK_AXI>;
+ 			arm,shared-override;
+ 		};
+ 
+@@ -120,7 +121,7 @@
+ 				compatible = "nuvoton,npcm750-timer";
+ 				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0x8000 0x50>;
+-				clocks = <&clk 5>;
++				clocks = <&clk NPCM7XX_CLK_TIMER>;
+ 			};
+ 
+ 			watchdog0: watchdog@801C {
+@@ -128,7 +129,7 @@
+ 				interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0x801C 0x4>;
+ 				status = "disabled";
+-				clocks = <&clk 5>;
++				clocks = <&clk NPCM7XX_CLK_TIMER>;
+ 			};
+ 
+ 			watchdog1: watchdog@901C {
+@@ -136,7 +137,7 @@
+ 				interrupts = <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0x901C 0x4>;
+ 				status = "disabled";
+-				clocks = <&clk 5>;
++				clocks = <&clk NPCM7XX_CLK_TIMER>;
+ 			};
+ 
+ 			watchdog2: watchdog@a01C {
+@@ -144,13 +145,13 @@
+ 				interrupts = <GIC_SPI 49 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0xa01C 0x4>;
+ 				status = "disabled";
+-				clocks = <&clk 5>;
++				clocks = <&clk NPCM7XX_CLK_TIMER>;
+ 			};
+ 
+ 			serial0: serial@1000 {
+ 				compatible = "nuvoton,npcm750-uart";
+ 				reg = <0x1000 0x1000>;
+-				clocks = <&clk 6>;
++				clocks = <&clk NPCM7XX_CLK_UART>;
+ 				interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg-shift = <2>;
+ 				status = "disabled";
+@@ -159,7 +160,7 @@
+ 			serial1: serial@2000 {
+ 				compatible = "nuvoton,npcm750-uart";
+ 				reg = <0x2000 0x1000>;
+-				clocks = <&clk 6>;
++				clocks = <&clk NPCM7XX_CLK_UART>;
+ 				interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg-shift = <2>;
+ 				status = "disabled";
+@@ -168,7 +169,7 @@
+ 			serial2: serial@3000 {
+ 				compatible = "nuvoton,npcm750-uart";
+ 				reg = <0x3000 0x1000>;
+-				clocks = <&clk 6>;
++				clocks = <&clk NPCM7XX_CLK_UART>;
+ 				interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg-shift = <2>;
+ 				status = "disabled";
+@@ -177,7 +178,7 @@
+ 			serial3: serial@4000 {
+ 				compatible = "nuvoton,npcm750-uart";
+ 				reg = <0x4000 0x1000>;
+-				clocks = <&clk 6>;
++				clocks = <&clk NPCM7XX_CLK_UART>;
+ 				interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg-shift = <2>;
+ 				status = "disabled";
+diff --git a/arch/arm/boot/dts/nuvoton-npcm750.dtsi b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+index 6ac340533587..a37bb2294b8f 100644
+--- a/arch/arm/boot/dts/nuvoton-npcm750.dtsi
++++ b/arch/arm/boot/dts/nuvoton-npcm750.dtsi
+@@ -17,7 +17,7 @@
+ 		cpu@0 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+-			clocks = <&clk 0>;
++			clocks = <&clk NPCM7XX_CLK_CPU>;
+ 			clock-names = "clk_cpu";
+ 			reg = <0>;
+ 			next-level-cache = <&l2>;
+@@ -26,7 +26,7 @@
+ 		cpu@1 {
+ 			device_type = "cpu";
+ 			compatible = "arm,cortex-a9";
+-			clocks = <&clk 0>;
++			clocks = <&clk NPCM7XX_CLK_CPU>;
+ 			clock-names = "clk_cpu";
+ 			reg = <1>;
+ 			next-level-cache = <&l2>;
+@@ -38,7 +38,7 @@
+ 			reg = <0x3fe600 0x20>;
+ 			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
+ 						  IRQ_TYPE_LEVEL_HIGH)>;
+-			clocks = <&clk 5>;
++			clocks = <&clk NPCM7XX_CLK_AHB>;
+ 		};
+ 	};
+ };
+-- 
+2.22.0
