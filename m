@@ -1,36 +1,72 @@
-Return-Path: <Tomer.Maimon@nuvoton.com>
+Return-Path: <rentao.bupt@gmail.com>
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1041;
+ helo=mail-pj1-x1041.google.com; envelope-from=rentao.bupt@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=fail (p=none dis=none) header.from=gmail.com
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=jmFM5Hk0; dkim-atps=neutral
+Received: from mail-pj1-x1041.google.com (mail-pj1-x1041.google.com
+ [IPv6:2607:f8b0:4864:20::1041])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BstqY1SqQzDqhD
- for <openbmc@lists.ozlabs.org>; Fri, 18 Sep 2020 09:44:56 +1000 (AEST)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 08HNiNT4008723;
- Fri, 18 Sep 2020 02:44:23 +0300
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id BD984639D8; Fri, 18 Sep 2020 02:44:23 +0300 (IDT)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: robh+dt@kernel.org, mark.rutland@arm.com, avifishman70@gmail.com,
- tali.perry1@gmail.com, venture@google.com, yuenn@google.com,
- benjaminfair@google.com, joel@jms.id.au
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org, tmaimon77@gmail.com
-Subject: [PATCH v6 2/3] arm: dts: modify NPCM7xx device tree timer register
- size
-Date: Fri, 18 Sep 2020 02:44:19 +0300
-Message-Id: <20200917234420.86137-3-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20200917234420.86137-1-tmaimon77@gmail.com>
-References: <20200917234420.86137-1-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bt0w13vF1zDqkC;
+ Fri, 18 Sep 2020 14:19:11 +1000 (AEST)
+Received: by mail-pj1-x1041.google.com with SMTP id fa1so2469632pjb.0;
+ Thu, 17 Sep 2020 21:19:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=uf0XaWxmSBWPs5Ykw52VMS2PajAcQCq1xNqnxZFMyic=;
+ b=jmFM5Hk0uI1NV5zSmzm/rM5GMZnWpZNWRRVoGKaPVl9lvOS2eCjrtzS+6z8u19qAgd
+ sDTmAtyKcKBy06InOtgbTb4X4PyMhqiMocmFrX0qvXPVrm1krkpyMVj2Rc099XEYRg8a
+ 8tDLZ4PQsuimizomOQJRZ2C5l4UWsPY35hg3IB5pzLWkR+OXNmwx48yAtPQ1HJa3jURB
+ QZJBfzF971iHAG1Y5/v1cd2O3WvfuUzK7qRBVCPlj0aJJpcyj8D7x8hJqdLHOtVy7Ns3
+ p2ksQWCSyqxpTv2Emz4KefLL+HH9ZIIr7refP2C/I9oBemQPvmiCj1yskQYAb27T6svY
+ E6hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=uf0XaWxmSBWPs5Ykw52VMS2PajAcQCq1xNqnxZFMyic=;
+ b=DeA3sn4l6xl/Xt5o0RWV2g6X2nMOJb30uN4O0zg5FnEvUkZ9xiveZ06AgV9klxPuYp
+ D4SDRLgayVkiBVXBUh6brWuCt5LiNwz/5O+VG+vx+10Tx2Xq8/QnqgMpi2l/vf109yyw
+ xY6KN50D5GZZ1mKFilV8DwFCsXwFyTliPygX2KGKSyl9AMtegHINiwq7f5ZZy1qOEY6e
+ ErZihWNRLeZdN7vM0vKQTsrkA9KGJ6ysQlmElw/tn0NMtWHkFng/wZMIjvjqSG5MTeyv
+ 9qLWFcMvEyQB6Ecx6caDSqW/TKKhhZ8ITVynJ7HCPj3kb5VrYVf2vlhHA9BIVp3rlnWx
+ /iNQ==
+X-Gm-Message-State: AOAM5339uNVfwyTz+piCRAUsbuNSM94ZCS9fJmBRldU7R9HqTCoaz020
+ olTQvDchIWFHWF/vxuECaofvayA0yT9y7gwS
+X-Google-Smtp-Source: ABdhPJyTMd0Gg5Oqyr+rhgTmOWmBD6MN+kyK6wNEcYWw7fpphO5ZfvEVBe4QGl3Mhi+fBlLXTDQBqA==
+X-Received: by 2002:a17:902:c40c:b029:d1:9bc8:1624 with SMTP id
+ k12-20020a170902c40cb02900d19bc81624mr30237552plk.1.1600402746335; 
+ Thu, 17 Sep 2020 21:19:06 -0700 (PDT)
+Received: from taoren-ubuntu-R90MNF91 (c-73-252-146-110.hsd1.ca.comcast.net.
+ [73.252.146.110])
+ by smtp.gmail.com with ESMTPSA id c24sm1326854pfd.24.2020.09.17.21.19.05
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Thu, 17 Sep 2020 21:19:05 -0700 (PDT)
+Date: Thu, 17 Sep 2020 21:18:59 -0700
+From: Tao Ren <rentao.bupt@gmail.com>
+To: Andrew Jeffery <andrew@aj.id.au>
+Cc: Linus Walleij <linus.walleij@linaro.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Joel Stanley <joel@jms.id.au>, linux-gpio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Tao Ren <taoren@fb.com>
+Subject: Re: [PATCH] gpio: aspeed: fix ast2600 bank properties
+Message-ID: <20200918041858.GA14246@taoren-ubuntu-R90MNF91>
+References: <20200916204216.9423-1-rentao.bupt@gmail.com>
+ <60f9f14a-c9be-45ac-b3a8-516ab73d9bee@www.fastmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <60f9f14a-c9be-45ac-b3a8-516ab73d9bee@www.fastmail.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -42,29 +78,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Sep 2020 23:44:58 -0000
+X-List-Received-Date: Fri, 18 Sep 2020 04:19:14 -0000
 
-Modify NPCM7xx device tree timer register size
-from 0x50 to 0x1C to control only the timer registers
-and not other hw modules.
+On Thu, Sep 17, 2020 at 08:42:27AM +0930, Andrew Jeffery wrote:
+> 
+> 
+> On Thu, 17 Sep 2020, at 06:12, rentao.bupt@gmail.com wrote:
+> > From: Tao Ren <rentao.bupt@gmail.com>
+> > 
+> > GPIO_U is mapped to the least significant byte of input/output mask, and
+> > the byte in "output" mask should be 0 because GPIO_U is input only. All
+> > the other bits need to be 1 because GPIO_V/W/X support both input and
+> > output modes.
+> > 
+> > Similarly, GPIO_Y/Z are mapped to the 2 least significant bytes, and the
+> > according bits need to be 1 because GPIO_Y/Z support both input and
+> > output modes.
+> > 
+> > Fixes: ab4a85534c3e ("gpio: aspeed: Add in ast2600 details to Aspeed driver")
+> > Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+> 
+> Thanks Tao,
+> 
+> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks Andrew for the quick review.
 
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-index 16a28c5c4131..72e364054e72 100644
---- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -120,7 +120,7 @@
- 			timer0: timer@8000 {
- 				compatible = "nuvoton,npcm750-timer";
- 				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
--				reg = <0x8000 0x50>;
-+				reg = <0x8000 0x1C>;
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
- 			};
- 
--- 
-2.22.0
+Cheers,
+
+Tao
