@@ -1,85 +1,111 @@
-Return-Path: <ratagupt@linux.vnet.ibm.com>
+Return-Path: <SRS0=lo3E=C6=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
+	aws-us-west-2-korg-lkml-1.web.codeaurora.org
+X-Spam-Level: 
+X-Spam-Status: No, score=-7.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_LOW_CONTRAST,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31C0EC43466
+	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 14:34:15 +0000 (UTC)
+Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id 43BFC221EC
+	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 14:34:14 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Si3qjZ+z"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 43BFC221EC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
+Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Bw6QC6jQ4zDqg9
+	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 00:34:11 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
  helo=mx0a-001b2d01.pphosted.com; envelope-from=ratagupt@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
  header.from=linux.vnet.ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=fbKgYZoC; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=Si3qjZ+z; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BsTQY3lG8zDqDd
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 17:40:17 +1000 (AEST)
-Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 08H7XFgG041134
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 03:40:14 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bw6L81ngWzDqHf
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2020 00:30:38 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08LEMDbn142036; Mon, 21 Sep 2020 10:29:32 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to :
+ h=subject : to : cc :
  references : from : message-id : date : mime-version : in-reply-to :
- content-type; s=pp1; bh=wktrxXiEN+kQGsvKG1a1TAcM4iXxR23GxtY8rMn+hGs=;
- b=fbKgYZoCpDCAPZ4NaW0kNcWk16tJriQ6QTpfdnvu3xy3E+tLDQVXpNEQeAeYq+TSqb94
- e7dRayo6P9Yk0wWkxf7Jqlzjjq6uhZl7CmF/fvyv0tspmYVSK/Uo5Bj0TYA0uSHkoqWB
- pZg2ph0k2u6/MTpZzCZFwWDKQfUAIKQKiE/xuBJky7dkJ6cvi/SfQsbj8DgIFmRFMeBn
- FV10INFLBWLHCIM87sWvDuSx2/OTkuvNpBzx1uS/vCMqXshVtrdg0Zlo9jf4vown2rzi
- L2CRKTsVaB+QMaJSPwD2VopGMave6i/gc1NPvJrnF3Knp627cfSFMw6p+a2NnOG3Ba9L Zw== 
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.99])
- by mx0b-001b2d01.pphosted.com with ESMTP id 33m37c0syp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 03:40:14 -0400
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
- by ppma04ams.nl.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 08H7bp5v018740
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:11 GMT
-Received: from b06cxnps3074.portsmouth.uk.ibm.com
- (d06relay09.portsmouth.uk.ibm.com [9.149.109.194])
- by ppma04ams.nl.ibm.com with ESMTP id 33ku33rrb4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:11 +0000
-Received: from d06av23.portsmouth.uk.ibm.com (d06av23.portsmouth.uk.ibm.com
- [9.149.105.59])
- by b06cxnps3074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 08H7e93s28049900
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:09 GMT
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id ADF31A4057
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:09 +0000 (GMT)
-Received: from d06av23.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A1C03A404D
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:07 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.85.85.148])
- by d06av23.portsmouth.uk.ibm.com (Postfix) with ESMTP
- for <openbmc@lists.ozlabs.org>; Thu, 17 Sep 2020 07:40:07 +0000 (GMT)
-Subject: Re: Using bios-settings-mgr for setting hypervisor network attributes
-To: openbmc@lists.ozlabs.org
-References: <C9C88F03-4715-444E-9B1A-3834995458EA@getmailspring.com>
- <20200916172045.GD6152@heinlein>
- <CACWQX80BYYwPTN1PsbLfjFN5fQyjNGC1SxM9iyBKvxNiLh=WLQ@mail.gmail.com>
+ content-type; s=pp1; bh=IWermD3g0NsvydtygBczpSMF696TQEWTEXftPQThiGU=;
+ b=Si3qjZ+zdAjBrg/J9af4NEmACvDBV0QcIN9fESMpmgahuDm/+RCe9CC0d6dsMPUHG7uy
+ E8HQkL96SoNFufi/wv0Tz/O/VuBcUeaELX4OMzYuBZQvLSRTfYco2v0DW5dRwACOLdOR
+ NxXy4pmP9dlYFMhq39TmpL4tKjLxq3NkMhWNj76Wn/Uek9O6g3KWotzGkPoBEiBnBpo+
+ MUlxjsqzR3B2sMuLmlJnqgA4Ow128vUAOVmP7Jhgp44LZfZZIYGoAw1/slee4idHxin1
+ DTheRyrEesk91r60jmkAeZ0tyyPuI+O9LiVW/JLGefgYn0KswdQTzmkL7hnrwwz3SqNQ Xg== 
+Received: from ppma04fra.de.ibm.com (6a.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.106])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 33pwa89pgv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Sep 2020 10:29:32 -0400
+Received: from pps.filterd (ppma04fra.de.ibm.com [127.0.0.1])
+ by ppma04fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 08LESHWb030370;
+ Mon, 21 Sep 2020 14:29:29 GMT
+Received: from b06cxnps4074.portsmouth.uk.ibm.com
+ (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
+ by ppma04fra.de.ibm.com with ESMTP id 33n9m7s3f5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Sep 2020 14:29:29 +0000
+Received: from d06av24.portsmouth.uk.ibm.com (d06av24.portsmouth.uk.ibm.com
+ [9.149.105.60])
+ by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 08LETReo25231808
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 21 Sep 2020 14:29:27 GMT
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4F64A42041;
+ Mon, 21 Sep 2020 14:29:27 +0000 (GMT)
+Received: from d06av24.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6B20A42042;
+ Mon, 21 Sep 2020 14:29:25 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.79.217.195])
+ by d06av24.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+ Mon, 21 Sep 2020 14:29:25 +0000 (GMT)
+Subject: Re: OpenBMC LDAP server configuration assistance
+To: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>,
+ "Gerhart, Donnie" <Donnie.Gerhart@dell.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "gkeishin@in.ibm.com" <gkeishin@in.ibm.com>
+References: <BLAPR19MB43381522D073D4BFD348A7B993260@BLAPR19MB4338.namprd19.prod.outlook.com>
+ <6b1406cd-1d70-7f62-6e2d-c33d80d02f1c@linux.intel.com>
+ <BLAPR19MB433888EAE75ED273319EC97193240@BLAPR19MB4338.namprd19.prod.outlook.com>
+ <a3c9f148-d624-ab31-b59b-8c6dcf126679@linux.intel.com>
 From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Message-ID: <a5f0245d-703d-e0ba-0344-442c49a60cdf@linux.vnet.ibm.com>
-Date: Thu, 17 Sep 2020 13:10:06 +0530
+Message-ID: <8349ffa4-a809-6960-5eba-2583b070badd@linux.vnet.ibm.com>
+Date: Mon, 21 Sep 2020 19:59:24 +0530
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
  Thunderbird/68.4.1
 MIME-Version: 1.0
-In-Reply-To: <CACWQX80BYYwPTN1PsbLfjFN5fQyjNGC1SxM9iyBKvxNiLh=WLQ@mail.gmail.com>
+In-Reply-To: <a3c9f148-d624-ab31-b59b-8c6dcf126679@linux.intel.com>
 Content-Type: multipart/alternative;
- boundary="------------EE868A29087326026A015925"
+ boundary="------------365A01D800F389C5FBBECC41"
 Content-Language: en-US
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
- definitions=2020-09-17_03:2020-09-16,
- 2020-09-17 signatures=0
+ definitions=2020-09-21_05:2020-09-21,
+ 2020-09-21 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0
- lowpriorityscore=0 mlxscore=0 mlxlogscore=999 spamscore=0 malwarescore=0
- priorityscore=1501 impostorscore=0 adultscore=0 clxscore=1011 phishscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2006250000
- definitions=main-2009170054
+ lowpriorityscore=0
+ impostorscore=0 mlxscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ malwarescore=0 mlxlogscore=999 spamscore=0 adultscore=0 clxscore=1011
+ phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009210102
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,257 +117,987 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Thu, 17 Sep 2020 07:40:22 -0000
+Cc: "Mugunda, Chandra" <Chandra.Mugunda@dell.com>, "Giles,
+ Joshua" <Joshua.Giles@dell.com>, "Cockrell, Trevor" <Trevor.Cockrell@dell.com>
+Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
+Sender: "openbmc"
+ <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 This is a multi-part message in MIME format.
---------------EE868A29087326026A015925
+--------------365A01D800F389C5FBBECC41
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Pattrick, Ed,
+Hi Donnie,
 
+We didn't create the cheatsheet for ldap server configuration, we 
+thought the enough documentation is there on the net to configure the 
+ldap server.
 
-We need to address the below two concerns with the existing settings infra.
+But it is good to have this documentation, Are you doing it for openLDAP 
+or the Active Directory also?
 
-  * Pending v/s configured value: Currently settings have single Dbus
-    Object, Some properties which is for host firmware we need to have
-    two placeholders one for Pending values and one for Configured
-    values. Bios settings have this concept.
-      o Should we add two Dbus objects in settings infra?
-  * Dynamic Dbus objects: Currently settings infrastructure is only for
-    static objects, Objects which gets added on runtime, settings infra
-    doesn't support that.
-      o Eg: IP address on ethernet interface is dynamic in nature, An
-        ethernet interface can have multiple IP address on it.
-        considering if SLAAC is enabled(ipV6).
-      o Seems this problem is common for both(settings v/s bios-settings)
+I thought George & team was having this when I was working with him.
 
-Regards
-Ratan Gupta
+Ratan
 
-
-On 9/16/20 11:14 PM, Ed Tanous wrote:
-> On Wed, Sep 16, 2020 at 10:20 AM Patrick Williams <patrick@stwcx.xyz> wrote:
->> On Wed, Sep 16, 2020 at 08:17:01PM +0530, manoj kiran wrote:
->>> Hi Ed & James,
->>>
->>> Till now IBM was using phosphor-settings infrastructure as back-end and uses Ethernet Schema for Hypervisor computer system(hypervisor_ethernet.hpp) for setting the IP address of hypervisor. And now we are planning to leverage the capabilities of bios-settings-mgr(backend) as well to set the hypervisor attributes.
->>> do you see any concerns here ?
->>> Thanks,
->>> Manoj
->> These end up being two quite different implementations from a dbus
->> perspective, which could have implications to Redfish and webui users.
->>
->> With 'settings' there is no generic settings interfacess on dbus; every
->> setting is required to have some modeled interface.  This is great when
->> you are exposing some hypervisor setting that the BMC also has for
->> itself, such as network.  We have a single dbus interface for all
->> network end-points and it doesn't matter if it is for the BMC or the
->> Hypervisor.
->>
->> With 'bios-settings-mgr' there are only generic free-form settings
->> values, which presently can be either int64 or string[1].
-> If this is correct, then I withdraw my support.  I had assumed
-> bios-settings-mgr would host several objects that contain an
-> EthernetInterface [1] api, similar to what phosphor-networkd does, and
-> whose endpoints require no new code in most of the endpoints.  If
-> we're talking about moving all this to a simple key-value store,
-> running on yet another representation of what a network interface
-> looks like, that's going in the wrong direction in terms of fidelity
-> and complexity.
+On 9/21/20 10:01 AM, Thomaiyar, Richard Marian wrote:
+> Hi Donnie, Yes, Please go ahead and create Cheatsheet for LDAP 
+> configuration....
+> This Message Is From an External Sender
+> This message came from outside your organization.
 >
-> With that said, if I'm mistaken, let me know.
+> Hi Donnie,
 >
->>   This means
->> there is no overlap with any similar settings we have on the BMC and
->> there is no programatic way to ensure the data is of the right type and
->> named with the right key.  This approach is better when you have large
->> numbers of attributes for concepts which the BMC doesn't have itself.
+> Yes, Please go ahead and create Cheatsheet for LDAP configuration.
+>
+> Regards,
+>
+> Richard
+>
+> On 9/12/2020 12:44 AM, Gerhart, Donnie wrote:
 >>
->> My understanding was that the 'bios-settings-mgr' was typically going to be
->> used for uploading a large blob of configuration values and the external
->> interfaces would have fairly minimal code related to individual
->> settings.  My concern with using 'bios-settings-mgr' in general is that
->> it will end up being very tight coupling between external interfaces
->> (Redfish / webui) and BIOS implementations.  When you use 'settings',
->> you can implement much more generic external interface code and likely
->> limit the coupling, if any, to the PLDM provider.
-> I think we have one benefit here in that there's going to be several
-> implementations of the bios-settings-mgr for the various bios
-> implementations that will keep us more "honest" about our APIs.  It's
-> not a satisfying answer, I realize, but I think it's the best we can
-> do at the moment.
->
->> Net is, if you're expecting to be able to modify hypervisor values
->> through Redfish or WebUI, I think the best approach is to use
->> 'settings'.
-> The problem with the "settings" approach becomes error handling.
-> Settingsd has no context of a transaction, or a backend on the other
-> side, so when and if things fail, they fail silently, or possibly with
-> a log.  In the case of hosting this API in the BIOS daemon, it can
-> actually do the "commit" of the parameters to BIOS as part of the dbus
-> transaction, so once the return code is received from the method call,
-> the user can know that the values were "latched", and can knowingly
-> move on.  If they weren't latched, the client can know if it makes
-> sense to retry, or do some other procedure.
-> This also has nice properties for the BMC, as it never has to "own"
-> storage of the data, nor does it have to implement all the validation
-> routines, as it can rely on the actual data owner to do so.
->
->> 1. https://github.com/openbmc/phosphor-dbus-interfaces/blob/77a742627edde54aec625d7c1a200d9f4832f0ba/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L44
+>> Hey Richard/Folks,
 >>
->> --
->> Patrick Williams
-> 1. https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Network/EthernetInterface.interface.yaml
+>> Thanks for reaching out.  We really appreciate it.
+>>
+>> Per usual, shortly after we hit send, we found a GID anomaly that 
+>> once corrected everything OpenBMC LDAP connected up and logged in nicely.
+>>
+>> To keep others from spinning in such an anomaly we’d be more than 
+>> happy to post (ourselves or through you) a simple Ldap diff (LDIF) 
+>> file containing a small working joe and jane LDAP server config.  The 
+>> two places we thought such an example might valuable are phosphor 
+>> user manager arch documentation and/or the LDAP test in 
+>> openbmc-test-automation but we are happy to defer to your guidance 
+>> regarding same.  Let us know your thoughts and we can post or provide 
+>> the applicable file straight away.
+>>
+>> Thanks again!
+>>
+>> Best,
+>>
+>> Donnie
+>>
+>> *From:* Thomaiyar, Richard Marian 
+>> <richard.marian.thomaiyar@linux.intel.com>
+>> *Sent:* Thursday, September 10, 2020 8:53 AM
+>> *To:* Gerhart, Donnie; openbmc@lists.ozlabs.org; 
+>> ratagupt@linux.vnet.ibm.com; gkeishin@in.ibm.com
+>> *Cc:* Mugunda, Chandra; Giles, Joshua; Cockrell, Trevor
+>> *Subject:* Re: OpenBMC LDAP server configuration assistance
+>>
+>> [EXTERNAL EMAIL]
+>>
+>> Hi Donnie,
+>>
+>> Didn't tested it in latest tree, but you already cross verified this 
+>> right --> 
+>> https://github.com/openbmc/openbmc-test-automation/blob/master/redfish/account_service/test_ldap_configuration.robot
+>>
+>> ++ Ratan & George.
+>>
+>> Regards,
+>>
+>> Richard
+>>
+>> On 9/9/2020 10:02 PM, Gerhart, Donnie wrote:
+>>
+>>     Hello OpenBMC Community\SMEs,
+>>
+>>     We are investigating LDAP functionality on the 2.8 ‘top of tree’
+>>     build; however, we are having some issues I believe you can help
+>>     with straight away. Some of the many real failures we’ve
+>>     encountered are:
+>>
+>>       * Bricked system due to locking out all users
+>>
+>> <Richard> You meant to say even `root` user is locked out is OpenBMC 
+>> repo master or made more changes. By default user lock out is 
+>> disabled, and still won't lock root user to avoid DOS attack.
+>>
+>>       * Ladap_result() failed:  Can’t contact LDAP server
+>>
+>>           o Believe we’ve fixed this one
+>>
+>> <Richard> Hope this as LDAP configuration issue you faced, and not 
+>> related to OpenBMC code as such.
+>>
+>>       * Logins are restricted to the group priv-admin of but user
+>>         ‘testuser’ is not a member
+>>
+>> <Richard>: Is this failure due to SSH login. Because SSH won't make 
+>> use of ldap privilege mapping. You may need to change 
+>> https://github.com/openbmc/meta-phosphor/blob/master/recipes-core/dropbear/dropbear/dropbear.default 
+>> if needs LDAP testing in SSH.
+>>
+>> Have you tried bmcweb LDAP login ? Whether you are able to succeed in 
+>> that ?
+>>
+>>       * Pam_authenticate() failed, rc=7, Authentication failure
+>>       * Bad PAM password attempt for ‘testuser’ from: <LDAP server IP>
+>>
+>>     Some of these issues we’ve worked through; however, some are
+>>     still dogging us.  To that end, can someone possibly list\post a
+>>     basic LDAP server LDIF file with a single user, privilege role
+>>     and group mapping that you’ve successfully used with OpenBMC?  We
+>>     assume we are stuck on some trivial LDAP server topology anomaly
+>>     that is completely escaping us at the moment.
+>>
+>>     As an fyi we have looked at:
+>>
+>>      1. Gone through everything obviously ‘ldap’ in the mailing
+>>         lists: https://lists.ozlabs.org/pipermail/openbmc/
+>>      2. Looked at OpenBMC learning series:
+>>         https://github.com/openbmc/openbmc/wiki/Presentations
+>>      3. Gone through the documents here:
+>>         https://github.com/openbmc/docs/blob/master/architecture/user-management.md
+>>      4. Looked at ldap tests and server:
+>>         https://github.com/openbmc/openbmc-test-automation
+>>      5. Spent more time tweaking Linux files and creating ldap server
+>>         configs that I care to admit 😊
+>>
+>>     BIG thanks in advance!
+>>
+>>     Best,
+>>
+>>     Donnie
+>>
 
---------------EE868A29087326026A015925
+--------------365A01D800F389C5FBBECC41
 Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   </head>
   <body>
-    <tt>Hi Pattrick, Ed,</tt><tt><br>
-    </tt><tt><br>
-    </tt><tt><br>
-    </tt><tt>We need to address the below two concerns with the existing
-      settings infra.</tt>
-    <ul>
-      <li><tt>Pending v/s configured value: Currently settings have
-          single Dbus Object, </tt><tt><tt> Some properties which is
-            for host firmware we need to have </tt><tt>two placeholders
-            one </tt>for Pending values and one for Configured values.
-        </tt><tt>Bios settings have this concept.<br>
-        </tt></li>
-      <ul>
-        <li><tt>Should we add two Dbus objects in settings infra?</tt><tt><br>
-          </tt></li>
-      </ul>
-      <li><tt>Dynamic Dbus objects: Currently settings infrastructure is
-          only for static objects, Objects which gets added on runtime,
-          settings infra doesn't support that.</tt></li>
-      <ul>
-        <li><tt>Eg: IP address on ethernet interface is dynamic in
-            nature, An ethernet interface can have multiple IP address
-            on it. considering if SLAAC is enabled(ipV6).</tt></li>
-        <li><tt>Seems this problem is common for both(settings v/s
-            bios-settings)</tt><tt><br>
-          </tt></li>
-      </ul>
-    </ul>
-    <tt>Regards</tt><tt><br>
-    </tt><tt>Ratan Gupta</tt><br>
-    <p><br>
+    <p>Hi Donnie,</p>
+    <p>We didn't create the cheatsheet for ldap server configuration, we
+      thought the enough documentation is there on the net to configure
+      the ldap server.</p>
+    <p>But it is good to have this documentation, Are you doing it for
+      openLDAP or the Active Directory also?</p>
+    <p>I thought George &amp; team was having this when I was working
+      with him.<br>
     </p>
-    <div class="moz-cite-prefix">On 9/16/20 11:14 PM, Ed Tanous wrote:<br>
+    <p>Ratan<br>
+    </p>
+    <div class="moz-cite-prefix">On 9/21/20 10:01 AM, Thomaiyar, Richard
+      Marian wrote:<br>
     </div>
     <blockquote type="cite"
-cite="mid:CACWQX80BYYwPTN1PsbLfjFN5fQyjNGC1SxM9iyBKvxNiLh=WLQ@mail.gmail.com">
-      <pre class="moz-quote-pre" wrap="">On Wed, Sep 16, 2020 at 10:20 AM Patrick Williams <a class="moz-txt-link-rfc2396E" href="mailto:patrick@stwcx.xyz">&lt;patrick@stwcx.xyz&gt;</a> wrote:
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-On Wed, Sep 16, 2020 at 08:17:01PM +0530, manoj kiran wrote:
-</pre>
-        <blockquote type="cite">
-          <pre class="moz-quote-pre" wrap="">Hi Ed &amp; James,
+      cite="mid:a3c9f148-d624-ab31-b59b-8c6dcf126679@linux.intel.com">
+      <!-- BaNnErBlUrFlE-HeAdEr-start -->
+      <meta name="viewport" content="width=device-width;
+        initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+      <style>
+      /* Mobile */
+      @media screen and (max-width: 630px){
+        * {-webkit-text-size-adjust: none}
+        a[href^="x-apple-data-detectors:"] { color: inherit; text-decoration: none; }
+        .pfptTitle { font-size:22px !important; line-height:26px !important; text-align: center !important; }
+        .pfptSubtitle { font-size:14px !important; line-height:18px !important; text-align: center !important; }
+        
+        .pfptMainWrapper { margin-top: 0 !important; margin-right: 0 !important; margin-left: 0 !important; }
+        th[class="pfptTableColumnLeft"] {width:100% !important; height:auto !important; display:block !important; text-align: center !important; }
+        th[class="pfptTableColumnRight"] {width:100% !important; height:auto !important; display:block !important; text-align: center !important; }
 
-Till now IBM was using phosphor-settings infrastructure as back-end and uses Ethernet Schema for Hypervisor computer system(hypervisor_ethernet.hpp) for setting the IP address of hypervisor. And now we are planning to leverage the capabilities of bios-settings-mgr(backend) as well to set the hypervisor attributes.
-do you see any concerns here ?
-Thanks,
-Manoj
-</pre>
-        </blockquote>
-        <pre class="moz-quote-pre" wrap="">
-These end up being two quite different implementations from a dbus
-perspective, which could have implications to Redfish and webui users.
-
-With 'settings' there is no generic settings interfacess on dbus; every
-setting is required to have some modeled interface.  This is great when
-you are exposing some hypervisor setting that the BMC also has for
-itself, such as network.  We have a single dbus interface for all
-network end-points and it doesn't matter if it is for the BMC or the
-Hypervisor.
-
-With 'bios-settings-mgr' there are only generic free-form settings
-values, which presently can be either int64 or string[1].
-</pre>
+        .pfptButton { font-size:16px !important; line-height:16px !important; width: 50% !important; display:block !important; margin-right: auto!important; margin-left: auto!important; }   
+        .pfptButton a { font-size: 16px; } 
+        .pfptButton span { font-size: 16px; }     
+      }
+      /* Tablet, Laptop, Desktop */
+      @media screen and (min-width: 631px){
+        th[class="pfptTableColumnLeft"] { width: 50% !important; height:auto !important; }
+        th[class="pfptTableColumnRight"] { width: 50% !important; height:auto !important; text-align: right !important; } 
+      }
+      .pfptPreheader { display:none !important; visibility:hidden; mso-hide:all; font-size:1px; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; }
+    </style>
+      <!-- BaNnErBlUrFlE-HeAdEr-end -->
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <!-- BaNnErBlUrFlE-BoDy-start -->
+      <!-- Preheader Text : BEGIN --> <span class="pfptPreheader"
+        style="display:none
+!important;visibility:hidden;mso-hide:all;font-size:1px;color:#ffffff;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;">
+        Hi Donnie, Yes, Please go ahead and create Cheatsheet for LDAP
+        configuration.... 
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+             
+              </span>
+      <!-- Preheader Text : END -->
+      <!-- Email Banner : BEGIN -->
+      <table style="width:100%;border-radius:4px;margin-bottom:16px;"
+        width="100%" cellspacing="0" cellpadding="16" border="0"
+        bgcolor="#9CA3A7">
+        <tbody>
+          <tr>
+            <td align="center">
+              <table class="pfptMainWrapper" style="width:100%;"
+                width="100%" cellspacing="0" cellpadding="0" border="0"
+                align="center">
+                <tbody>
+                  <tr>
+                    <td style="border-radius:4px;" valign="top"
+                      align="center">
+                      <table style="max-width:100%; width:100%;"
+                        width="100%" cellspacing="0" cellpadding="0"
+                        border="0" bgcolor="#9CA3A7" align="center">
+                        <tbody>
+                          <tr>
+                            <!-- Message : BEGIN --> <th
+                              class="pfptTableColumnLeft"
+style="font-weight:normal;padding-top:0px;padding-right:0px;padding-bottom:0px;padding-left:0px;width:100%;height:auto;"
+                              valign="top">
+                              <table
+                                style="width:100%;height:auto;text-align:left;vertical-align:middle;"
+                                width="100%" cellspacing="0"
+                                cellpadding="0">
+                                <tbody>
+                                  <tr>
+                                    <td> <span class="pfptTitle"
+style="font-family:'Roboto','Helvetica','Arial',sans-serif;font-weight:bold;font-size:18px;line-height:20px;display:block;margin-bottom:4px;word-wrap:normal;">This
+                                        Message Is From an External
+                                        Sender</span> </td>
+                                  </tr>
+                                  <tr>
+                                    <td> <span class="pfptSubtitle"
+style="font-weight:normal;font-family:'Roboto','Helvetica','Arial',sans-serif;font-size:13px;line-height:16px;display:block;word-wrap:normal;">This
+                                        message came from outside your
+                                        organization.</span> </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </th>
+                            <!-- Message : END --> </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- Email Banner : END -->
+      <!-- BaNnErBlUrFlE-BoDy-end -->
+      <p>Hi Donnie, <br>
+      </p>
+      <p>Yes, Please go ahead and create Cheatsheet for LDAP
+        configuration.</p>
+      <p>Regards,</p>
+      <p>Richard<br>
+      </p>
+      <div class="moz-cite-prefix">On 9/12/2020 12:44 AM, Gerhart,
+        Donnie wrote:<br>
+      </div>
+      <blockquote type="cite"
+cite="mid:BLAPR19MB433888EAE75ED273319EC97193240@BLAPR19MB4338.namprd19.prod.outlook.com">
+        <meta http-equiv="Content-Type" content="text/html;
+          charset=UTF-8">
+        <meta name="Generator" content="Microsoft Word 15 (filtered
+          medium)">
+        <style><!--
+/* Font Definitions */
+@font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Segoe UI Emoji";
+	panose-1:2 11 5 2 4 2 4 2 2 3;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{mso-style-priority:34;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle20
+	{mso-style-type:personal;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+span.EmailStyle21
+	{mso-style-type:personal-reply;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:80760137;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1014133672 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l0:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l0:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l0:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Wingdings;}
+@list l1
+	{mso-list-id:384136804;
+	mso-list-template-ids:1822620116;}
+@list l2
+	{mso-list-id:391270505;
+	mso-list-template-ids:830654476;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:639195202;
+	mso-list-template-ids:1631762344;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:780489114;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1797343294 67698703 67698713 67698715 67698703 67698713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l4:level4
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l4:level7
+	{mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:none;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l5
+	{mso-list-id:1160468196;
+	mso-list-template-ids:1271148706;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6
+	{mso-list-id:1941138384;
+	mso-list-template-ids:-1364811478;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+@list l6:level3
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level4
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level5
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level6
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level7
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level8
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level9
+	{mso-level-number-format:bullet;
+	mso-level-text:;
+	mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext="edit" spidmax="1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext="edit">
+<o:idmap v:ext="edit" data="1" />
+</o:shapelayout></xml><![endif]-->
+        <div class="WordSection1">
+          <p class="MsoNormal">Hey Richard/Folks,<o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal">Thanks for reaching out.  We really
+            appreciate it.<o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal">Per usual, shortly after we hit send, we
+            found a GID anomaly that once corrected everything OpenBMC
+            LDAP connected up and logged in nicely.<o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal">To keep others from spinning in such an
+            anomaly we’d be more than happy to post (ourselves or
+            through you) a simple Ldap diff (LDIF) file containing a
+            small working joe and jane LDAP server config.  The two
+            places we thought such an example might valuable are
+            phosphor user manager arch documentation and/or the LDAP
+            test in openbmc-test-automation but we are happy to defer to
+            your guidance regarding same.  Let us know your thoughts and
+            we can post or provide the applicable file straight away.  <o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal">Thanks again!<o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal">Best,<o:p></o:p></p>
+          <p class="MsoNormal">Donnie<o:p></o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <div>
+            <div style="border:none;border-top:solid #E1E1E1
+              1.0pt;padding:3.0pt 0in 0in 0in">
+              <p class="MsoNormal"><b>From:</b> Thomaiyar, Richard
+                Marian <a class="moz-txt-link-rfc2396E"
+                  href="mailto:richard.marian.thomaiyar@linux.intel.com"
+                  moz-do-not-send="true">&lt;richard.marian.thomaiyar@linux.intel.com&gt;</a>
+                <br>
+                <b>Sent:</b> Thursday, September 10, 2020 8:53 AM<br>
+                <b>To:</b> Gerhart, Donnie; <a
+                  class="moz-txt-link-abbreviated"
+                  href="mailto:openbmc@lists.ozlabs.org"
+                  moz-do-not-send="true">openbmc@lists.ozlabs.org</a>; <a
+                  class="moz-txt-link-abbreviated"
+                  href="mailto:ratagupt@linux.vnet.ibm.com"
+                  moz-do-not-send="true">ratagupt@linux.vnet.ibm.com</a>;
+                <a class="moz-txt-link-abbreviated"
+                  href="mailto:gkeishin@in.ibm.com"
+                  moz-do-not-send="true">gkeishin@in.ibm.com</a><br>
+                <b>Cc:</b> Mugunda, Chandra; Giles, Joshua; Cockrell,
+                Trevor<br>
+                <b>Subject:</b> Re: OpenBMC LDAP server configuration
+                assistance<o:p></o:p></p>
+            </div>
+          </div>
+          <p class="MsoNormal"><o:p> </o:p></p>
+          <div>
+            <p><span style="color:#CE1126">[EXTERNAL EMAIL] <o:p></o:p></span></p>
+          </div>
+          <p class="MsoNormal">Hi Donnie, <o:p></o:p></p>
+          <p>Didn't tested it in latest tree, but you already cross
+            verified this right --&gt; <a
+href="https://github.com/openbmc/openbmc-test-automation/blob/master/redfish/account_service/test_ldap_configuration.robot"
+              moz-do-not-send="true">
+https://github.com/openbmc/openbmc-test-automation/blob/master/redfish/account_service/test_ldap_configuration.robot</a><o:p></o:p></p>
+          <p>++ Ratan &amp; George.<o:p></o:p></p>
+          <p>Regards,<o:p></o:p></p>
+          <p>Richard<o:p></o:p></p>
+          <div>
+            <p class="MsoNormal">On 9/9/2020 10:02 PM, Gerhart, Donnie
+              wrote:<o:p></o:p></p>
+          </div>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <p class="MsoNormal">Hello OpenBMC Community\SMEs,<o:p></o:p></p>
+            <p class="MsoNormal"> <o:p></o:p></p>
+            <p class="MsoNormal">We are investigating LDAP functionality
+              on the 2.8 ‘top of tree’ build; however, we are having
+              some issues I believe you can help with straight away. 
+              Some of the many real failures we’ve encountered are:<o:p></o:p></p>
+            <ul style="margin-top:0in" type="disc">
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l0 level1 lfo3">Bricked
+                system due to locking out all users<o:p></o:p></li>
+            </ul>
+          </blockquote>
+          <p class="MsoNormal">&lt;Richard&gt; You meant to say even
+            `root` user is locked out is OpenBMC repo master or made
+            more changes. By default user lock out is disabled, and
+            still won't lock root user to avoid DOS attack. <o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <ul style="margin-top:0in" type="disc">
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l0 level1 lfo3">Ladap_result()
+                failed:  Can’t contact LDAP server<o:p></o:p></li>
+            </ul>
+            <ul style="margin-top:0in" type="disc">
+              <ul style="margin-top:0in" type="circle">
+                <li class="MsoListParagraph"
+                  style="margin-left:0in;mso-list:l0 level2 lfo3">Believe
+                  we’ve fixed this one<o:p></o:p></li>
+              </ul>
+            </ul>
+          </blockquote>
+          <p class="MsoNormal">&lt;Richard&gt; Hope this as LDAP
+            configuration issue you faced, and not related to OpenBMC
+            code as such.<br>
+            <br>
+            <o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <ul style="margin-top:0in" type="disc">
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l0 level1 lfo3">Logins
+                are restricted to the group priv-admin of but user
+                ‘testuser’ is not a member<o:p></o:p></li>
+            </ul>
+          </blockquote>
+          <p>&lt;Richard&gt;: Is this failure due to SSH login. Because
+            SSH won't make use of ldap privilege mapping. You may need
+            to change <a
+href="https://github.com/openbmc/meta-phosphor/blob/master/recipes-core/dropbear/dropbear/dropbear.default"
+              moz-do-not-send="true">
+https://github.com/openbmc/meta-phosphor/blob/master/recipes-core/dropbear/dropbear/dropbear.default</a>
+            if needs LDAP testing in SSH.<o:p></o:p></p>
+          <p>Have you tried bmcweb LDAP login ? Whether you are able to
+            succeed in that ?<o:p></o:p></p>
+          <blockquote style="margin-top:5.0pt;margin-bottom:5.0pt">
+            <ul style="margin-top:0in" type="disc">
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l0 level1 lfo3">Pam_authenticate()
+                failed, rc=7, Authentication failure<o:p></o:p></li>
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l0 level1 lfo3">Bad PAM
+                password attempt for ‘testuser’ from: &lt;LDAP server
+                IP&gt;<o:p></o:p></li>
+            </ul>
+            <p class="MsoNormal"> <o:p></o:p></p>
+            <p class="MsoNormal">Some of these issues we’ve worked
+              through; however, some are still dogging us.  To that end,
+              can someone possibly list\post a basic LDAP server LDIF
+              file with a single user, privilege role and group mapping
+              that you’ve successfully used with OpenBMC?  We assume we
+              are stuck on some trivial LDAP server topology anomaly
+              that is completely escaping us at the moment.<o:p></o:p></p>
+            <p class="MsoNormal"> <o:p></o:p></p>
+            <p class="MsoNormal">As an fyi we have looked at:<o:p></o:p></p>
+            <ol style="margin-top:0in" type="1" start="1">
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l4 level1 lfo9">Gone
+                through everything obviously ‘ldap’ in the mailing
+                lists:  <a
+                  href="https://lists.ozlabs.org/pipermail/openbmc/"
+                  moz-do-not-send="true">https://lists.ozlabs.org/pipermail/openbmc/</a><o:p></o:p></li>
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l4 level1 lfo9">Looked
+                at OpenBMC learning series:  <a
+                  href="https://github.com/openbmc/openbmc/wiki/Presentations"
+                  moz-do-not-send="true">https://github.com/openbmc/openbmc/wiki/Presentations</a><o:p></o:p></li>
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l4 level1 lfo9">Gone
+                through the documents here:  <a
+href="https://github.com/openbmc/docs/blob/master/architecture/user-management.md"
+                  moz-do-not-send="true">
+https://github.com/openbmc/docs/blob/master/architecture/user-management.md</a><o:p></o:p></li>
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l4 level1 lfo9">Looked
+                at ldap tests and server:  <a
+                  href="https://github.com/openbmc/openbmc-test-automation"
+                  moz-do-not-send="true">https://github.com/openbmc/openbmc-test-automation</a><o:p></o:p></li>
+              <li class="MsoListParagraph"
+                style="margin-left:0in;mso-list:l4 level1 lfo9">Spent
+                more time tweaking Linux files and creating ldap server
+                configs that I care to admit <span
+                  style="font-family:&quot;Segoe UI
+                  Emoji&quot;,sans-serif">😊</span><o:p></o:p></li>
+            </ol>
+            <p class="MsoNormal"> <o:p></o:p></p>
+            <p class="MsoNormal">BIG thanks in advance!<o:p></o:p></p>
+            <p class="MsoNormal"> <o:p></o:p></p>
+            <p class="MsoNormal">Best,<o:p></o:p></p>
+            <p class="MsoNormal">Donnie<o:p></o:p></p>
+            <p class="MsoNormal"> <o:p></o:p></p>
+          </blockquote>
+        </div>
       </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-If this is correct, then I withdraw my support.  I had assumed
-bios-settings-mgr would host several objects that contain an
-EthernetInterface [1] api, similar to what phosphor-networkd does, and
-whose endpoints require no new code in most of the endpoints.  If
-we're talking about moving all this to a simple key-value store,
-running on yet another representation of what a network interface
-looks like, that's going in the wrong direction in terms of fidelity
-and complexity.
-
-With that said, if I'm mistaken, let me know.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap=""> This means
-there is no overlap with any similar settings we have on the BMC and
-there is no programatic way to ensure the data is of the right type and
-named with the right key.  This approach is better when you have large
-numbers of attributes for concepts which the BMC doesn't have itself.
-
-My understanding was that the 'bios-settings-mgr' was typically going to be
-used for uploading a large blob of configuration values and the external
-interfaces would have fairly minimal code related to individual
-settings.  My concern with using 'bios-settings-mgr' in general is that
-it will end up being very tight coupling between external interfaces
-(Redfish / webui) and BIOS implementations.  When you use 'settings',
-you can implement much more generic external interface code and likely
-limit the coupling, if any, to the PLDM provider.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-I think we have one benefit here in that there's going to be several
-implementations of the bios-settings-mgr for the various bios
-implementations that will keep us more "honest" about our APIs.  It's
-not a satisfying answer, I realize, but I think it's the best we can
-do at the moment.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-Net is, if you're expecting to be able to modify hypervisor values
-through Redfish or WebUI, I think the best approach is to use
-'settings'.
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-The problem with the "settings" approach becomes error handling.
-Settingsd has no context of a transaction, or a backend on the other
-side, so when and if things fail, they fail silently, or possibly with
-a log.  In the case of hosting this API in the BIOS daemon, it can
-actually do the "commit" of the parameters to BIOS as part of the dbus
-transaction, so once the return code is received from the method call,
-the user can know that the values were "latched", and can knowingly
-move on.  If they weren't latched, the client can know if it makes
-sense to retry, or do some other procedure.
-This also has nice properties for the BMC, as it never has to "own"
-storage of the data, nor does it have to implement all the validation
-routines, as it can rely on the actual data owner to do so.
-
-</pre>
-      <blockquote type="cite">
-        <pre class="moz-quote-pre" wrap="">
-1. <a class="moz-txt-link-freetext" href="https://github.com/openbmc/phosphor-dbus-interfaces/blob/77a742627edde54aec625d7c1a200d9f4832f0ba/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L44">https://github.com/openbmc/phosphor-dbus-interfaces/blob/77a742627edde54aec625d7c1a200d9f4832f0ba/xyz/openbmc_project/BIOSConfig/Manager.interface.yaml#L44</a>
-
---
-Patrick Williams
-</pre>
-      </blockquote>
-      <pre class="moz-quote-pre" wrap="">
-1. <a class="moz-txt-link-freetext" href="https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Network/EthernetInterface.interface.yaml">https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/xyz/openbmc_project/Network/EthernetInterface.interface.yaml</a>
-</pre>
     </blockquote>
   </body>
 </html>
 
---------------EE868A29087326026A015925--
+--------------365A01D800F389C5FBBECC41--
+
