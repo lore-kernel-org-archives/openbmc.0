@@ -2,51 +2,120 @@ Return-Path: <SRS0=lo3E=C6=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 516C3C4346E
-	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 19:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EA541C4363C
+	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 19:32:20 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7032C21D91
-	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 19:09:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7032C21D91
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5C4B020757
+	for <openbmc@archiver.kernel.org>; Mon, 21 Sep 2020 19:32:20 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ao5NjqCj"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5C4B020757
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4BwDX51S32zDqdD
-	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 05:09:41 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4BwF292kgpzDqsm
+	for <openbmc@archiver.kernel.org>; Tue, 22 Sep 2020 05:32:17 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fuzziesquirrel.com (client-ip=173.167.31.197;
- helo=bajor.fuzziesquirrel.com; envelope-from=bradleyb@fuzziesquirrel.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=anoo@linux.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=fuzziesquirrel.com
-Received: from bajor.fuzziesquirrel.com (mail.fuzziesquirrel.com
- [173.167.31.197])
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=ao5NjqCj; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BwDVR28B2zDqhm
- for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2020 05:08:15 +1000 (AEST)
-X-Virus-Scanned: amavisd-new at fuzziesquirrel.com
-Date: Mon, 21 Sep 2020 15:08:10 -0400
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Ed Tanous <ed@tanous.net>
-Subject: Re: interest in a minimal image recipe
-Message-ID: <20200921190810.5qtx62u472htt4bi@thinkpad.fuzziesquirrel.com>
-References: <20200915202832.rq3os62pdj7mzaco@thinkpad.fuzziesquirrel.com>
- <CACWQX80tELWA-EW0A8-DnJGFmJyMxDC04YTq4B+--bRaoV8rOQ@mail.gmail.com>
- <20200921125540.4d6amvus3wt57igg@thinkpad.fuzziesquirrel.com>
- <CACWQX82i4k+PADJkOjDQEeUAQJtve+pySLRQVcqR7XayG5cJCw@mail.gmail.com>
- <20200921175227.zmdjbmixbwvstd4m@thinkpad.fuzziesquirrel.com>
- <CACWQX82EdUFtBDK6Vt=-CKyKxN9WFdFGX_j8mhBbNDScxf7OaA@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BwF0T4W02zDqSp
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Sep 2020 05:30:49 +1000 (AEST)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08LJHKBx120230
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Sep 2020 15:30:46 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=mime-version :
+ content-type : content-transfer-encoding : date : from : to : cc : subject
+ : in-reply-to : references : message-id; s=pp1;
+ bh=tqqf77kgVhR9f6o2SzXPcmAidx02rxKIU+szXNJCVpQ=;
+ b=ao5NjqCjhn+832gOhDYkxv6tDKHqgPhQdml3dCU3L/0bM/mhUe0jwla3QwTgqOBCyF64
+ 7+9j12bLsjkKIrh2cPg6AbCjaRsbr4oT+svoREny0UVva2l0slOBk9pdj+bK8W828v7v
+ /EE2OV4f5n+T2M8VFXpLAvTzMcuNbG7JRAnrCm2RKQW6I3YZ2hzM1LgvFcndIttF/VAm
+ 01Gljfa9enksbwqxn6yV6dGSs2sZGphKW3+hpKO83Be/QdubofBXB9/p62nKUgx86hNj
+ Y6SX+cGqu+x2+v65538zau40IiK/ARxjucPQ49CFvXUZ1x1wOhR3ZWjOzOs8rHyjlfi4 0A== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 33q24w8by5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Sep 2020 15:30:45 -0400
+Received: from m0098409.ppops.net (m0098409.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 08LJHOj8120709
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Sep 2020 15:30:45 -0400
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 33q24w8bxv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Sep 2020 15:30:45 -0400
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 08LJHggt010384;
+ Mon, 21 Sep 2020 19:30:44 GMT
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by ppma04dal.us.ibm.com with ESMTP id 33n9m8nxhf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 21 Sep 2020 19:30:44 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 08LJUd6f57344452
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 21 Sep 2020 19:30:40 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7D4C26E050;
+ Mon, 21 Sep 2020 19:30:43 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 605DD6E054;
+ Mon, 21 Sep 2020 19:30:43 +0000 (GMT)
+Received: from ltc.linux.ibm.com (unknown [9.16.170.189])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon, 21 Sep 2020 19:30:43 +0000 (GMT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <CACWQX82EdUFtBDK6Vt=-CKyKxN9WFdFGX_j8mhBbNDScxf7OaA@mail.gmail.com>
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Date: Mon, 21 Sep 2020 14:30:43 -0500
+From: Adriana Kobylak <anoo@linux.ibm.com>
+To: Deepak Kodihalli <dkodihal@linux.vnet.ibm.com>
+Subject: Re: Enable UBI support for a platform
+In-Reply-To: <1cdecd8a-4382-45ad-7932-a604001d7ed8@linux.vnet.ibm.com>
+References: <BYAPR14MB23426A9032F9FDAF87F1BC19CF2D0@BYAPR14MB2342.namprd14.prod.outlook.com>
+ <242dee50-7e1b-3fc3-5105-ca33f288d959@linux.vnet.ibm.com>
+ <BYAPR14MB2342A17C9B9BE853C0616E9CDC280@BYAPR14MB2342.namprd14.prod.outlook.com>
+ <4e89c963-1ddd-2627-47c8-be13b903bc64@linux.vnet.ibm.com>
+ <BYAPR14MB23426BE881262C70C81FFDAEDC200@BYAPR14MB2342.namprd14.prod.outlook.com>
+ <b7c9296d-00a1-0137-ae67-4d2d24a6cfac@linux.vnet.ibm.com>
+ <07d8dc67fb6a451151d77c035313c936@linux.vnet.ibm.com>
+ <BYAPR14MB234246D31202193B89B1E713DC3F0@BYAPR14MB2342.namprd14.prod.outlook.com>
+ <1cdecd8a-4382-45ad-7932-a604001d7ed8@linux.vnet.ibm.com>
+Message-ID: <bbb51843c428113f56f8082373758811@linux.vnet.ibm.com>
+X-Sender: anoo@linux.ibm.com
+User-Agent: Roundcube Webmail/1.0.1
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-21_08:2020-09-21,
+ 2020-09-21 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=795
+ lowpriorityscore=0 adultscore=0 mlxscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 malwarescore=0 spamscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009210138
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,20 +127,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: openbmc@lists.ozlabs.org, Kun Zhao <zkxz@hotmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Sep 21, 2020 at 11:25:34AM -0700, Ed Tanous wrote:
+> 
+> That could matter. Is there a reason you're on that branch? There are
+> 800+ commits to master since that branch. In general what we follow is
+> "live at head" of the master branch.
+> 
+> Also, I was able to boot Tiogapass QEMU with the UBIFS layout with the
+> following changes (I'm based off of the latest master) :
 
->That's a really good point.  We really ought to model features as
->outbound interfaces that drive internal RDEPENDS.  Ideally nobody
->would be appending entity-manager, they would be appending
->intel-ipmi-oem (or whatever name we pick for it in the future), which
->would have the correct dependencies on entity-manager.   I like it.
+Thanks Deepak for providing this working example! I agree that using 
+master would be best.
 
-Right.  And I guess this highlights an issue with a different patch of 
-mine: https://gerrit.openbmc-project.xyz/36510 - I had wanted to put EM 
-in my images to do some prototyping with it but there are better ways to 
-do that (via dependency or maybe local.conf).
+
+>> BTW, Adriana, could you also take a look at this email thread 
+>> https://lists.ozlabs.org/pipermail/openbmc/2020-September/022834.html? 
+>> It was why I was going to enable ubifs but I'm not sure if ubifs can 
+>> solve that problem.
+>> 
+
+Early in the beginning of implementing UBIFS in OpenBMC, we also 
+encountered UBIFS corruption due to core dumps, and the only recovery 
+was to run a factory reset which deletes and clears the read-write 
+filesystem. So corruption may not be tied only to the jffs2 filesystem.
+
+The corruption was so common that core dumps were disabled in OpenBMC - 
+https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/6699
+
+I don't remember what was fixed, maybe it was something in upstream 
+systemd, and core dumps were eventually re-enabled.
+
+If you want to stay at 2.9, you could disable core dumps.
+Or you can try moving up to master to see if that solves the corruption 
+issues.
+And if you do move to master, you can choose UBI if you like (following 
+Deepak's example), we haven't seen UBIFS corruption is a very long time, 
+also haven't see jffs2 corruption for that matter.
