@@ -6,25 +6,25 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=kernel.org
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=default header.b=NdN31+VD; dkim-atps=neutral
+ header.s=default header.b=U3Tg7a/t; dkim-atps=neutral
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Bw6Yl1THwzDqSD;
- Tue, 22 Sep 2020 00:40:43 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bw6ZC4LnjzDqRW;
+ Tue, 22 Sep 2020 00:41:07 +1000 (AEST)
 Received: from sasha-vm.mshome.net (c-73-47-72-35.hsd1.nh.comcast.net
  [73.47.72.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id 69BFD235FC;
- Mon, 21 Sep 2020 14:40:37 +0000 (UTC)
+ by mail.kernel.org (Postfix) with ESMTPSA id 27A0A23600;
+ Mon, 21 Sep 2020 14:41:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1600699238;
- bh=oQsBq+CnHlR+V9v4/Bx2lGJ9uMC9L2bhMPGikWBh58U=;
+ s=default; t=1600699264;
+ bh=m6VntauJMDSn9rRbPBvIGiZJuUNIY4Q+haPvrNHbwj0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=NdN31+VDNl/JsvEB93oQt1XSORxCfgFNl5r6duyQ4CYZwgK0WRR6BK84LqniNjWmn
- DBqwYrwezij1LQDmXrbYP8sgl9jueGb/JGLNHtdbh5Gux/Lq9pXhxxVh0gPnpBdCS+
- 9wU5prxTl8ohVDEIpIqd4kXBrGxIk1AVbOLhMGkc=
+ b=U3Tg7a/tVPClKLVRp/1JN5xZjugTzdSJK/0LRGrcCxfmnQILLIGW+Fob3TJKwd3LZ
+ mv1MIMLc+GYRnm8cWd4Id1LNGuldQ7prMBX3dQw8lEiUYB03WALifO3ItDLGUoiu+8
+ 0Z+dwLnj52xWyjFBKJj3YCihBbHjSXrz36Aw+SDo=
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
@@ -32,13 +32,13 @@ Cc: Eddie James <eajames@linux.ibm.com>, Tao Ren <rentao.bupt@gmail.com>,
  Wolfram Sang <wsa@kernel.org>, Sasha Levin <sashal@kernel.org>,
  linux-i2c@vger.kernel.org, openbmc@lists.ozlabs.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org
-Subject: [PATCH AUTOSEL 5.8 08/20] i2c: aspeed: Mask IRQ status to relevant
+Subject: [PATCH AUTOSEL 5.4 07/15] i2c: aspeed: Mask IRQ status to relevant
  bits
-Date: Mon, 21 Sep 2020 10:40:15 -0400
-Message-ID: <20200921144027.2135390-8-sashal@kernel.org>
+Date: Mon, 21 Sep 2020 10:40:46 -0400
+Message-ID: <20200921144054.2135602-7-sashal@kernel.org>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20200921144027.2135390-1-sashal@kernel.org>
-References: <20200921144027.2135390-1-sashal@kernel.org>
+In-Reply-To: <20200921144054.2135602-1-sashal@kernel.org>
+References: <20200921144054.2135602-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -54,8 +54,8 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-X-List-Received-Date: Mon, 21 Sep 2020 14:40:44 -0000
-Message-ID: <20200921144015.UBRYk7vcGqmpMbbdm-TxK8Eq9H-Ql3-oGAZ4PaEabn8@z>
+X-List-Received-Date: Mon, 21 Sep 2020 14:41:08 -0000
+Message-ID: <20200921144046.DemLuZb_aW46Bnrk3mbnnlKyZGjYU4G4THSE0uaNQH4@z>
 
 From: Eddie James <eajames@linux.ibm.com>
 
@@ -74,7 +74,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/i2c/busses/i2c-aspeed.c b/drivers/i2c/busses/i2c-aspeed.c
-index f51702d86a90e..1ad74efcab372 100644
+index dad6e432de89f..bdcc3c9d0abe5 100644
 --- a/drivers/i2c/busses/i2c-aspeed.c
 +++ b/drivers/i2c/busses/i2c-aspeed.c
 @@ -69,6 +69,7 @@
