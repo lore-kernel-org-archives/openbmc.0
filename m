@@ -2,79 +2,88 @@ Return-Path: <SRS0=27f3=DA=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E887EC4363D
-	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 22:01:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 94FD6C4363D
+	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 22:33:08 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 63351206E5
-	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 22:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 63351206E5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5D10E214F1
+	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 22:33:07 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=tanous-net.20150623.gappssmtp.com header.i=@tanous-net.20150623.gappssmtp.com header.b="08HdHg6k"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D10E214F1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tanous.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4BxXFP2yFHzDqfp
-	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 08:01:29 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4BxXxs18QMzDqZG
+	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 08:33:05 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.126; helo=mga18.intel.com;
- envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ spf=none (no SPF record) smtp.mailfrom=tanous.net
+ (client-ip=2607:f8b0:4864:20::b33; helo=mail-yb1-xb33.google.com;
+ envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=tanous.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=tanous-net.20150623.gappssmtp.com
+ header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256
+ header.s=20150623 header.b=08HdHg6k; dkim-atps=neutral
+Received: from mail-yb1-xb33.google.com (mail-yb1-xb33.google.com
+ [IPv6:2607:f8b0:4864:20::b33])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BxXCf56bczDqRJ
- for <openbmc@lists.ozlabs.org>; Thu, 24 Sep 2020 07:59:57 +1000 (AEST)
-IronPort-SDR: FfZQ9fIZaBhny7ffDPnpsAQS39t8LbXeyzBZ8wbmLYKkRJ0l9KJzAU6G1Joxz1paGhR/zy7Dlf
- V5yvxBgXQT5g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="148772707"
-X-IronPort-AV: E=Sophos;i="5.77,295,1596524400"; d="scan'208";a="148772707"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 14:59:53 -0700
-IronPort-SDR: p0kyjV7wy1Ot1z+1xq7ZTzjMce1KAJ+gOf7/BILHiUQ+21MvhuF1hhZwstKH00lhCHODUVEEJ2
- 4cOlmEtchHYA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,295,1596524400"; d="scan'208";a="486617120"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga005.jf.intel.com with ESMTP; 23 Sep 2020 14:59:53 -0700
-Received: from [10.251.15.151] (jmbills-MOBL.amr.corp.intel.com
- [10.251.15.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id 82EDC580699
- for <openbmc@lists.ozlabs.org>; Wed, 23 Sep 2020 14:59:53 -0700 (PDT)
-Subject: Re: Chassis reset
-To: openbmc@lists.ozlabs.org
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4BxXwV1kJRzDqWG
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Sep 2020 08:31:52 +1000 (AEST)
+Received: by mail-yb1-xb33.google.com with SMTP id j76so905283ybg.3
+ for <openbmc@lists.ozlabs.org>; Wed, 23 Sep 2020 15:31:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tanous-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=CeNDDyMvBCHbXNEN9owXyGWp6zh6N/tY1OnQI7RN/fQ=;
+ b=08HdHg6ktfk7/9QasYivNH0ZuRltwSTt9ukNQO+zYk/wN3FtTQRTegR1wf/K3MDSe3
+ 5rsP1TexbRfsGD5ujlcNpVJ5WR74SQztkqqmXFxubABfjsu9f9O4kSCEoWJbwzrl5oBc
+ hcF+jzBZtxd4PMOfXnnKIFnkKWJo3eT/Qo/Ai9DQth7+Dke9UxJN+1o4nmk6DCHIxwhT
+ cpIX6YGS3L3V7RsXR7MI3USpycDM1/sLpwyZoVS9g1dymZPGsna3vnwAvqUTwyO3P461
+ eQkSBtnxgZE4NDo2fYiVRYqtC+DGvfBI/My6SZ6lmfaXIq6rCRA/qkkGZpGE3fbmgxJH
+ nfxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=CeNDDyMvBCHbXNEN9owXyGWp6zh6N/tY1OnQI7RN/fQ=;
+ b=pzfD0o/9DestFUC9hXQG9KEvKsef76VcTfOHjNdJZ+PGgPCFAZ1+5c1e3cta8EDNVJ
+ +HBAME1RAWrR6pE+1L/sULVwLMdrPZeKuTO0elcd8Z9XVgER62sjdsn555+Ha76atzfG
+ ra9J5RD+z9xpIaTmbURraO85WCiSFb/3nYGZyniJW/Fiu3ZYjU3P7/UdRwO48/gxLAN/
+ 0qSbLC6oitaCoFJMjELjWYuWANzWiarsvJkL9cwK9myJn//GXcaFnCwRMUKSr4zgahqQ
+ 88fyHC3atRbIr6kVTzCL+0ghOCEPdhlV/ZFGiFxldPt5vwX8Lt1ExFW8n/z3JWvZ12ze
+ tOrQ==
+X-Gm-Message-State: AOAM532Gj6orxBYg9667uvgyPjiEXnd69CYey24pzDXWWT8Zp8DOKZRZ
+ zMb8KTyZuM9E7K9D6hPoE6UcoQabmvFpluyNjhvc+Q==
+X-Google-Smtp-Source: ABdhPJyXVvzhyRRPl9un2fhIbWwK8p85SLz8HbfH73Q9LwZaqcotmYpGbVY57sgDTO65jmwqXBaYueVnq9dJ015Cb+I=
+X-Received: by 2002:a25:1581:: with SMTP id 123mr2926482ybv.480.1600900305840; 
+ Wed, 23 Sep 2020 15:31:45 -0700 (PDT)
+MIME-Version: 1.0
 References: <CACWQX802HpRT20Zj2YFEnVE7XXBOJXx66-8B1E7TEZdCNwPbsQ@mail.gmail.com>
  <9EC0D657-2D58-4544-BA9E-65D3C4148A81@fb.com>
  <CACWQX80SivNLLE3gAUk+Ao=0eHf_ooezumXGmkkkVhVPFyyNSA@mail.gmail.com>
  <C6292DFD-EAF1-4658-85A7-F81941B12D5A@fb.com>
  <CACWQX83GJ9V9--5WGmVjvacYnw2=fr7URhqOcwkSq4C8GpFoiQ@mail.gmail.com>
- <F46D657F-D4DA-49BD-B78D-CDD420768728@fb.com>
- <20200923191051.GR6152@heinlein>
+ <F46D657F-D4DA-49BD-B78D-CDD420768728@fb.com> <20200923191051.GR6152@heinlein>
  <CACWQX81tyY1Wo6a8e4hnk3fvinfV-x3ogRK1q1W5cfx28tpfrw@mail.gmail.com>
  <20200923202113.GT6152@heinlein>
  <CACWQX8135vU++ztaVaaKjJyq2C=DdqDti623xGdCeT9fSJDQAA@mail.gmail.com>
  <20200923214237.GV6152@heinlein>
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-Message-ID: <e6cbdf1e-8504-d9d5-2554-fe2d4986e54b@linux.intel.com>
-Date: Wed, 23 Sep 2020 14:59:52 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
 In-Reply-To: <20200923214237.GV6152@heinlein>
-Content-Type: text/plain; charset=windows-1252; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+From: Ed Tanous <ed@tanous.net>
+Date: Wed, 23 Sep 2020 15:31:34 -0700
+Message-ID: <CACWQX82uw_PEWouQ0tu=vKL_Wh_G8t-yUiEQ64RJh=0O=vDSAA@mail.gmail.com>
+Subject: Re: Chassis reset
+To: Patrick Williams <patrick@stwcx.xyz>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,14 +95,138 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Vijay Khemka <vijaykhemka@fb.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Wed, Sep 23, 2020 at 2:42 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+>
+> On Wed, Sep 23, 2020 at 02:12:10PM -0700, Ed Tanous wrote:
+> > On Wed, Sep 23, 2020 at 1:21 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+> > >
+> > > On Wed, Sep 23, 2020 at 12:26:58PM -0700, Ed Tanous wrote:
+> > > > On Wed, Sep 23, 2020 at 12:10 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+> > > > >
+> > > > > On Wed, Sep 23, 2020 at 05:45:51AM +0000, Vijay Khemka wrote:
+> > > > > >
+> > > > > > Yes I have 2 chassis instance xyz/openbmc_project/chassis0 and xyz/openbmc_project/chassis_system0.
+> > > > > > Later one is used for AC reset.
+> > > > >
+> > > > > Can we do a query to see if 'chassis_system0' exists and use it first
+> > > > > and then 'chassis0' if not?
+> > > >
+> > > > I don't think it's that simple.  The way the dbus APIs are defined,
+> > > > one Redfish chassis needs to call the chassis0 path, the other needs
+> > > > to call the chassis_system0 path.  We'd need a way to key off which
+> > > > one is which.  I haven't seen any entity-manager configs get checked
+> > > > in for a "multinode chassis" entity type, so whatever interface we use
+> > > > to describe that will probably be what we need to key off to make that
+> > > > path distinction.
+> > >
+> > > In Redfish this would be the system path that maps to chassis_system0
+> > > and not the chassis path.  In Redfish today, chassis doesn't do a whole
+> > > lot except allow you to power cycle the host.  Most of the control is in
+> > > System.
+> >
+> > The way Vijay describes it, it's resetting the Chassis (ie, removing
+> > power from the board itself). The redfish System resource is meant to
+> > model the host, and shouldn't be resetting the BMC.  Maybe I
+> > misunderstood, and this is actually just a host reset?
+>
+> How do you determine this about Redfish's ComputerSystem?  It seems
+> really ambiguous.  The only words I can find are this:
+>
+> | The ComputerSystem schema represents a computer or system instance
+> | and the software-visible resources, or items within the data plane, such as
+> | memory, CPU, and other devices that it can access.  Details of those resources
+> | or subsystems are also linked through this resource.
+
+I'm not sure where I got that interpretation;  Maybe by looking at a
+lot of Redfish systems?  Maybe from having access to DMTF discussions?
+ I'm not really sure.  There's a lot of intent like this that doesn't
+get captured in the spec, or is captured in discussions.
+
+In this case, I think the key in the above is "software visible
+resources" and "items within the dataplane", of which the power rails
+generally are not within the dataplane.  In practice, it tends to
+expose a place where you need separation of privileges.  A cloud user
+with access to a System node might have permission to power
+cycle/reset their System resource, but shouldn't have access to AC
+cycle the whole platform/chassis/bmc, hence, the resources need
+separated.
+There's also the "PoweredBy" links that kinda hint (in a really round
+about way) about how the power relationships are supposed to be
+organized.
 
 
-On 9/23/2020 2:42 PM, Patrick Williams wrote:
-> 
+>
+> You understood correctly though.  This is effectively the same as if you
+> had a PDU and toggled power on the whole device.  Or pulled it from an OCP
+> rack and plugged it back in.
+>
+> > > > > I think we need to do some enhancement to x86-power-control though also
+> > > > > to only create this 'chassis_system0' object if configured.  I believe
+> > > > > the current code change you did does it always, even if the
+> > > > > systemd-target is empty.
+> > > >
+> > > > I keep getting the feeling that xyz/openbmc_project/chassis_system0 is
+> > > > just overloading what /xyz/openbmc_project/chassis0 is intended to do,
+> > > > x86-power-control just had that already defined, so we went another
+> > > > direction.  I wonder if we just need to make the "Can I do a real AC
+> > > > reset" configurable, and have it change the behavior of
+> > > > /xyz/openbmc_project/chassis0 in that case.
+> > >
+> > > No, these are not overloading each other.  They are vastly different.
+> > >
+> > > host0 + chassis0 make up the 'BIOS/OS control' and '12V power on rails'
+> > > portions of host power control respectively.
+> >
+> > Right, I think what I was saying is that we need a mode where chassis0
+> > is freed from host control, and that would simplify the problem a bit,
+> > as the chassis0 api would just do the "right" thing for the platform.
+> > If the platform is capable of an AC reset, do that, if it's not, do a
+> > host reset as x86-power-control currently does.
+>
+> 'chassis0', in dbus, is the DC power control that goes along with booting
+> the host though.  It is not ever related to AC reset.
+
+Gotcha.  On most of my platforms, there's no separation between 12V
+rail and host power state.  One cannot exist (for more than a couple
+seconds) without the other, so there's no need to independently
+control them.
+
+>
+> >
+> > >  chassis_system0 controls the
+> > > '12v + 5V standby rails' part of the system.  In my opinion, it should
+> > > only be present when a system actually allows manipulation of the
+> > > standby power, but that isn't how it is currently implemented.
+> >
+> > Sure, that seems like a fine way to model it, but then we need to come
+> > up with an API to "steer" the Redfish API to the right resource so we
+> > don't break backward compatibility for the things that work today.
+> > That seems harder, and more error prone, but could certainly be
+> > defined.  Whether that shows up as chassis0, or we just redirect to
+> > host0 if chassis0 doesn't exist seems fine to me.
+> >
+> > If I can clarify what you're proposing.
+> >
+> > host0 controls the host.
+> > chassis0 also controls the host.
+> > chassis_system0 controls the chassis power unit.
+>
+> The only clarification I'd say here is that 'chassis_system0' controls
+> the Host + BMC.
+
+If it's really host+bmc, and not a complete reset of the board then
+redfish doesn't really have a combined resource that can be used here.
+BMC (which maps to the Manager resource) and Host (which maps to the
+System resource) are treated as separate things.  If you want to reset
+both, I suspect you need to issue 2 redfish actions.
+
+>
 > I'm not understanding what you mean by "come up with an API to steer the
 > Redfish..."  I think everything is specified here at a dbus level.  The
 > issue is figuring out the appropriate Redfish model of
@@ -101,21 +234,33 @@ On 9/23/2020 2:42 PM, Patrick Williams wrote:
 > types).  To a casual reader, who hasn't been involved much in Redfish
 > implementation, the current mapping of these ResetTypes seems fairly
 > arbitrary.
-> 
+
+Some might be arbitrary, but most are explicit and chosen on purpose,
+especially in the case of the System schema.  The Chassis schema is a
+little more lax, as it's more of a backward compatibility thing today.
+I think you (Vijay) are the first person trying to model it
+"properly".
+
+What I mean is that the current Redfish definition of Chassis points
+the PowerCycle action to chassis0.  That PowerCycle action now needs
+to point at multiple things, chassis0 if we don't support AC reset, or
+chassis_system0 if we do.  That is the "steering" I was referring to.
+
+>
 > With CIM there use to be these Profile documents that showed "the right
 > way" to fit all these pieces together.  Does that not exist with
-> Redfish?  How does any external application consume Redfish in a
+> Redfish?
+
+>:-|   Unfortunately, no, and this gives me no end of heartache.  DMTF has some slightly better resources and discussions like this behind member logins.
+
+>  How does any external application consume Redfish in a
 > consistent way?
 
-I'm not sure it helps with the overall consistency question, but for 
-OpenBMC, we defined our mapping of Redfish ResetType values to Chassis 
-and Host State Transitions on D-Bus, here: 
-https://github.com/openbmc/docs/blob/838fa962b73deb1ef7908ee8dfa1203fa5263517/designs/state-management-and-external-interfaces.md#proposed-design.
+Very carefully, and ideally with a Redfish profile that defines what
+resources your application requires, and tests that verify that your
+profile is fully supported, which is a whole other level of
+indirection on top of the Redfish spec.
 
-This is what x86-power-control aspires to match and I think what led to 
-creating new D-Bus interfaces for the chassis_system and AC power state 
-changes (since we didn't want to break this mapping).
-
-Perhaps we need to separate the Host and Chassis on the Redfish side and 
-extend the D-Bus interfaces to support all the needed ResetTypes?
-> 
+>
+> --
+> Patrick Williams
