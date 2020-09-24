@@ -1,82 +1,103 @@
-Return-Path: <SRS0=27f3=DA=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=mnE+=DB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AC95C4363D
-	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 23:30:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 776E6C4363D
+	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 00:12:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B03C120BED
-	for <openbmc@archiver.kernel.org>; Wed, 23 Sep 2020 23:30:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B03C120BED
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 64E11208B8
+	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 00:12:26 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=stwcx.xyz header.i=@stwcx.xyz header.b="lKJqRNsu";
+	dkim=temperror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="eJHLmXoG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 64E11208B8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4BxZD119F1zDqYq
-	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 09:30:25 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Bxb8R5xmczDqcG
+	for <openbmc@archiver.kernel.org>; Thu, 24 Sep 2020 10:12:23 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.21;
+ helo=wout5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
- envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+ dmarc=none (p=none dis=none) header.from=stwcx.xyz
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
+ header.s=fm3 header.b=lKJqRNsu; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=eJHLmXoG; 
+ dkim-atps=neutral
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4BxZBY2MyfzDqW7
- for <openbmc@lists.ozlabs.org>; Thu, 24 Sep 2020 09:29:07 +1000 (AEST)
-IronPort-SDR: 3GYGcIcQ0WNHXTsDMhDlouDGInPopyMzQiAKbE73NVErU9I1NDBAgELP3sDL1doGAFbqb2m8io
- qowLs4riVOag==
-X-IronPort-AV: E=McAfee;i="6000,8403,9753"; a="141051144"
-X-IronPort-AV: E=Sophos;i="5.77,295,1596524400"; d="scan'208";a="141051144"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Sep 2020 16:29:05 -0700
-IronPort-SDR: 8E1bIXpRXieZwZowWNV1JxHUzLWrbkb8KP/Om+mvFdrg2qjDungguJAvtjWI6xpKJb7pGWK/w/
- 5i0n7sac9lag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.77,295,1596524400"; d="scan'208";a="486654211"
-Received: from linux.intel.com ([10.54.29.200])
- by orsmga005.jf.intel.com with ESMTP; 23 Sep 2020 16:29:03 -0700
-Received: from [10.251.15.151] (jmbills-MOBL.amr.corp.intel.com
- [10.251.15.151])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by linux.intel.com (Postfix) with ESMTPS id B8FC1580298
- for <openbmc@lists.ozlabs.org>; Wed, 23 Sep 2020 16:29:03 -0700 (PDT)
-Subject: Re: Chassis reset
-To: openbmc@lists.ozlabs.org
-References: <CACWQX802HpRT20Zj2YFEnVE7XXBOJXx66-8B1E7TEZdCNwPbsQ@mail.gmail.com>
- <9EC0D657-2D58-4544-BA9E-65D3C4148A81@fb.com>
- <CACWQX80SivNLLE3gAUk+Ao=0eHf_ooezumXGmkkkVhVPFyyNSA@mail.gmail.com>
- <C6292DFD-EAF1-4658-85A7-F81941B12D5A@fb.com>
- <CACWQX83GJ9V9--5WGmVjvacYnw2=fr7URhqOcwkSq4C8GpFoiQ@mail.gmail.com>
- <F46D657F-D4DA-49BD-B78D-CDD420768728@fb.com>
- <20200923191051.GR6152@heinlein>
- <CACWQX81tyY1Wo6a8e4hnk3fvinfV-x3ogRK1q1W5cfx28tpfrw@mail.gmail.com>
- <20200923202113.GT6152@heinlein>
- <CACWQX8135vU++ztaVaaKjJyq2C=DdqDti623xGdCeT9fSJDQAA@mail.gmail.com>
- <20200923214237.GV6152@heinlein>
- <e6cbdf1e-8504-d9d5-2554-fe2d4986e54b@linux.intel.com>
- <CACWQX827ftfPo-D9gBtDm_bdp7xq71c+hkxfHRVvzVqPoSfztg@mail.gmail.com>
-From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-Message-ID: <4e78f884-a256-6ae7-fefd-ba3c6cdc0d52@linux.intel.com>
-Date: Wed, 23 Sep 2020 16:29:03 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Bxb6t53j6zDqKr
+ for <openbmc@lists.ozlabs.org>; Thu, 24 Sep 2020 10:11:00 +1000 (AEST)
+Received: from compute7.internal (compute7.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id 7291DB05;
+ Wed, 23 Sep 2020 20:10:57 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute7.internal (MEProxy); Wed, 23 Sep 2020 20:10:57 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm3; bh=5RCXIh1mYur+tCF/uTt1VipfDb7
+ VokZfk23i2Phtw2U=; b=lKJqRNsuj/v7p/VDC8zG6eaKAjd3NX//JZ3oHDS7uhZ
+ K2JJrkQCRq0VdS+qAhCGb3zgy5aMb3af+03o5cXRYBRFyOjyGys/Y/rzdRoVA/Ho
+ I/Bdy3eCxpLGkO6qLvzKDLwk+k3OYrJOF4U7r19I5eJuwALAIZ72e6mm/4P2Klrk
+ jiDKdhJ42QGth7TZ8gnen3IeH4QHnOpCDfw457CEepwSEr4cqPmykMPLddheAooa
+ ZEihnz3qMObIrUN1r+m8hEAjxETz62Dw2D09SOBhbKCeHcSDxr0hPSe0DMwUOece
+ YvREYymt/3cPLHIL31bx1kkkSv1u24J+bZLpd1OVEWQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=5RCXIh
+ 1mYur+tCF/uTt1VipfDb7VokZfk23i2Phtw2U=; b=eJHLmXoGF8l38frrjCtMYY
+ 5ePunrEFhSeOQq7QGEg17MUKym09RAZf1m+0Xw9KfMz0b48XxlMr0nTPwbIg0xg8
+ tRJaUiH2tfrIpKnT4C8lT3cROqU+lqjvNVC4ZUWxuj+WIJmku/78SlqTAVLxDOvR
+ OJ4UBdY0Aass9t7dxWZ59h6qraSOkeZVzM6tn/fLRkNQ33ctrT48two08TMYY5sR
+ oJ4vmXQuxu8xLbBajGZQrEX4U8EO8GOwxreXzNPv6O3cKzqzV9bVcv1UE568z8ec
+ OmLBk/wzoqPF8zTDk9EwwSQ3OwShcgCVqFXICtzD0IQQSWYH79LkJqM7nrMTCXRw
+ ==
+X-ME-Sender: <xms:EORrX1gk5SuOUKNXpHJH-YQmKVZ9EEIkFZdoLFp1Pt6a-w9X7igUHA>
+ <xme:EORrX6ClTajvdFPFNae9dc18MYlUmHzXPhtH0ZW9Zp8AJD6hsChFTEhtoyWC9lclC
+ Sl9BtNQrI_gEuNomYM>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudejgddvlecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
+ hrlhcuvffnffculddvfedmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttdej
+ necuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsth
+ iftgigrdighiiiqeenucggtffrrghtthgvrhhnpeekvdehudevkefhuedvteethfeflefh
+ vdehiefgudegvdfggfetffevkeetudegudenucffohhmrghinhepghhithhhuhgsrdgtoh
+ hmnecukfhppeejiedrvdehtddrkeegrddvfeeinecuvehluhhsthgvrhfuihiivgeptden
+ ucfrrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:EORrX1GdvdL1_72zOD-wvxKyx_Sg0-nkL4JeTRjU4fzF92BizAKhuw>
+ <xmx:EORrX6Qtop-lKZ7GRamxAKa1RlzUK4rTAF8Ui43RcF3-c63-SRNhzg>
+ <xmx:EORrXyyLgjQUaKg1yGh0CYZYAmgw4L2Rey-__XwYa4yq71Vavnl9Lg>
+ <xmx:EeRrX3vsxKs-19-APRNGuk1sBG2Bt3Iev1pEUCRmM-X0LygOZF4K8w>
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236])
+ by mail.messagingengine.com (Postfix) with ESMTPA id 108E13064680;
+ Wed, 23 Sep 2020 20:10:56 -0400 (EDT)
+Date: Wed, 23 Sep 2020 19:10:55 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Cheng Yang <cyang999@apple.com>
+Subject: Re: Difficulty booting on Raspberry Pi 4.
+Message-ID: <20200924001055.GW6152@heinlein>
+References: <CDC90A55-957D-47BB-9B42-4283BB6706AF@apple.com>
 MIME-Version: 1.0
-In-Reply-To: <CACWQX827ftfPo-D9gBtDm_bdp7xq71c+hkxfHRVvzVqPoSfztg@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="tuYRN1zEaS85jg/Y"
+Content-Disposition: inline
+In-Reply-To: <CDC90A55-957D-47BB-9B42-4283BB6706AF@apple.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,57 +109,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
+--tuYRN1zEaS85jg/Y
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 9/23/2020 3:35 PM, Ed Tanous wrote:
-> On Wed, Sep 23, 2020 at 3:01 PM Bills, Jason M
-> <jason.m.bills@linux.intel.com> wrote:
->>
->>
->>
->> On 9/23/2020 2:42 PM, Patrick Williams wrote:
->>>
->>> I'm not understanding what you mean by "come up with an API to steer the
->>> Redfish..."  I think everything is specified here at a dbus level.  The
->>> issue is figuring out the appropriate Redfish model of
->>> Chassis/ComputerSystem objects (along with the included Resource.Reset
->>> types).  To a casual reader, who hasn't been involved much in Redfish
->>> implementation, the current mapping of these ResetTypes seems fairly
->>> arbitrary.
->>>
->>> With CIM there use to be these Profile documents that showed "the right
->>> way" to fit all these pieces together.  Does that not exist with
->>> Redfish?  How does any external application consume Redfish in a
->>> consistent way?
->>
->> I'm not sure it helps with the overall consistency question, but for
->> OpenBMC, we defined our mapping of Redfish ResetType values to Chassis
->> and Host State Transitions on D-Bus, here:
->> https://github.com/openbmc/docs/blob/838fa962b73deb1ef7908ee8dfa1203fa5263517/designs/state-management-and-external-interfaces.md#proposed-design.
->>
->> This is what x86-power-control aspires to match and I think what led to
->> creating new D-Bus interfaces for the chassis_system and AC power state
->> changes (since we didn't want to break this mapping).
-> 
-> Sounds reasonable, it just makes things slightly more complex for
-> Redfish, as now there's two things that could be a redfish Chassis
-> reset.  Not a huge deal.
-> 
->>
->> Perhaps we need to separate the Host and Chassis on the Redfish side and
->> extend the D-Bus interfaces to support all the needed ResetTypes?
->>>
-> 
-> I'm not following.  There's a Host (ie ComputerSystem) and Chassis in
-> redfish today.  How would we separate them further?
-I meant in the table here: 
-https://github.com/openbmc/docs/blob/838fa962b73deb1ef7908ee8dfa1203fa5263517/designs/state-management-and-external-interfaces.md#proposed-design.
+On Wed, Sep 23, 2020 at 10:36:03AM -0700, Cheng Yang wrote:
+> Hi,  I=E2=80=99m openbmc noob here.
 
-Extend it to include both Chassis and System ResetType values and map 
-them all to the correct State Transition on D-Bus.
+Welcome.
 
-> 
+> I follow the instruction of https://github.com/openbmc/openbmc/blob/maste=
+r/meta-raspberrypi/README.md <https://github.com/openbmc/openbmc/blob/maste=
+r/meta-raspberrypi/README.md>
+
+I don't think there are really many people using the meta-raspberrypi
+with OpenBMC.  This comes from elsewhere outside the project as one of
+the Yocto community meta-layers and isn't related to OpenBMC.
+
+What happened was that someone had an idea to use a rpi as an
+easily-accessible experimental platform for running OpenBMC code and
+they asked to have the meta-layer added to our tree.  We keep it in
+sync, but I don't think that experiment really went much farther.
+
+See https://github.com/openbmc/openbmc/issues/399 for some of the
+origin.
+
+If you're doing just a simple rpi4 image build, without any of the
+OpenBMC layers, and it won't even boot, that seems like something you
+could tackle with the upstream community.  The README suggests that
+the general Yocto mailing list is where to go:
+
+```
+* Mailing list (yocto mailing list): <yocto@yoctoproject.org>
+```
+
+--=20
+Patrick Williams
+
+--tuYRN1zEaS85jg/Y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl9r5A0ACgkQqwNHzC0A
+wRldAA/+MPNKVyV7ldUlOmxDCoHAp6ZOT5jLj5poQHLU8/hF2FDv9y7zYmdXbpj7
+uz+FZuBEcYTQ1FGLT/xOD+sgouLMGuFfg6mQZFg991NDrkkhBsnC/b1bmRxu2Muc
+UZN8l8hK5oosVwN/AI0sb9Z5TbssD+DY0+1UFMT/vlPJsBCUFE0NHZzPi0oBp/xb
+6TUPLRKp5TeohZVN1o/m2Tv3FSr46zDCXAnqK5KSvUDTOg4rrWosy47REU0xo40J
+MlVkuuqKvm8FatgfF5eRFAYBmaHdUh7imGB+qR6F5JY5XQ1V7Rb0k3oOd3Xi6n0H
+MUrBHyB/ZYryHYMvGmaRf9SL0tWArvR1HeTvKwEohfEwwbOjOAyVWU12Ku5a666o
+bmQEwc69sK2HVBC48sYhVcDjXdPmmARijpsw7FneAoWXgKOeL36uzd1o9NXWmWqa
+E+xSom+sQcDTEQhuzuMap/LBBsmJnHVYEEuidXQ08xI+GHP3CqcgQEXgISAC+cRJ
+UZFy+ZdfJZaAXp99N5CKs0Pn4uZ9E1qefVM2jM9FKZvfaKGLI/MjGZ2v1rNdJHGt
+e9MNL+yKDtupObZ75N/F98ozfiqUSE1lXgYSXHkrg6hi+ZbP4/R+4AJ08ktXTJw+
+NYfEW39kK1A0trSZ2zb3ubcZq2N7vAgJcNQy1BeKb48AGHNmiOU=
+=g+Bi
+-----END PGP SIGNATURE-----
+
+--tuYRN1zEaS85jg/Y--
