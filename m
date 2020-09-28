@@ -2,83 +2,86 @@ Return-Path: <SRS0=f1Ef=DF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT,
+	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58BC5C2D0A8
-	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 06:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49D83C2D0A8
+	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 06:48:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8492A23119
-	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 06:47:46 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 477CF23119
+	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 06:48:54 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance-com.20150623.gappssmtp.com header.i=@bytedance-com.20150623.gappssmtp.com header.b="q2jdRYeh"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8492A23119
+	dkim=pass (2048-bit key) header.d=bytedance-com.20150623.gappssmtp.com header.i=@bytedance-com.20150623.gappssmtp.com header.b="DxQzn5gZ"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 477CF23119
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C0Ckm4GZlzDqM3
-	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 16:47:44 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C0Cm44jBszDqFp
+	for <openbmc@archiver.kernel.org>; Mon, 28 Sep 2020 16:48:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::443;
- helo=mail-pf1-x443.google.com; envelope-from=wangzhiqiang.bj@bytedance.com;
+ smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::1044;
+ helo=mail-pj1-x1044.google.com; envelope-from=wangzhiqiang.bj@bytedance.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=bytedance.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=bytedance-com.20150623.gappssmtp.com
  header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=q2jdRYeh; dkim-atps=neutral
-Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
- [IPv6:2607:f8b0:4864:20::443])
+ header.s=20150623 header.b=DxQzn5gZ; dkim-atps=neutral
+Received: from mail-pj1-x1044.google.com (mail-pj1-x1044.google.com
+ [IPv6:2607:f8b0:4864:20::1044])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C0Cdb0pkrzDqG0
- for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2020 16:43:11 +1000 (AEST)
-Received: by mail-pf1-x443.google.com with SMTP id x22so11903pfo.12
- for <openbmc@lists.ozlabs.org>; Sun, 27 Sep 2020 23:43:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C0Cdf05BrzDqG0
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Sep 2020 16:43:17 +1000 (AEST)
+Received: by mail-pj1-x1044.google.com with SMTP id bw23so49972pjb.2
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Sep 2020 23:43:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=bytedance-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:subject:date:message-id:mime-version
+ h=from:to:subject:date:message-id:in-reply-to:references:mime-version
  :content-transfer-encoding;
- bh=ALBYEqEQM5ex/h9jJZtrXKB6tMmK8YtxLMuBYU/ooyc=;
- b=q2jdRYeh7IvOPuK7ASWosvvK5tzrcUudeCze4lDbaO4k2eqDV7oqiHmkiq5n5DWUiP
- zhpDxzU1dpkGAlwHrL9p3hvNVmJl0SB26RGJ7gjey/uJfXqDFo6ZujlTbbEu/EKO1lV6
- HmIOkT6kbBYPR21P+4hMm540zs+RayppNn2OF8WY0H4RsXoS/eDGhsy2DHWgqo5oebbd
- 4j5EwFQckbWhi/PrCKN4UOvNa8qZ5nAvL5rZxOyIHE53vigK/Lyvojd3dx3Pq0Ah0+DQ
- gLwZq5lcE3N2vE1Xd93FPKl3Ew2qN0SL+fpnbrFqVMGG/D95zqYCTquWxqkhsWSQMBx+
- 8h0Q==
+ bh=dUu+qsrqKkxvHjdeh5Cw0myuIxf8GoCGLeEcIvi+RjU=;
+ b=DxQzn5gZDDlDs7U4Afq4/dUcOqZU1MzMSwpBDcCPmD3PRkKhtECROr44Ux9Lg/xmg5
+ urvJLBQm0HAc6oXHVzRcIp7AgEyHvGOGnL7OsJz5YImdIE5gX4k9bapsXM+Lt13cI3gl
+ pg4Ss8ApvSukKmFT/pIW/mTIs4Mxx3v9b0IiUCkFcczV6XVX7wbP8gfarz2fq99ra99n
+ 2zVi76/xsXU+YMB6jzWMglBzd1UqdO385ikvpQS6BNadwgl0VcWtwtBdJTI2MSEYOdiH
+ roYjCKQ1ibvcp4I2fOeb8fwCWbODuVZ1Vqb+FKFe90+6No/TFIvz/m8m6+0sJBPF7cVR
+ GyDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=ALBYEqEQM5ex/h9jJZtrXKB6tMmK8YtxLMuBYU/ooyc=;
- b=caFyXFWnqfsFOVFjsmtOgasZyx4dqj9lHXqOG+HDoDktLNgdiDoaTYwF1srON4iJOH
- 6lqe8/e1nzfn4u1WAC8n+RsFsypp1Bv+NPk3lnh0F1aLmjPfOYvPtrU3uaP3y0v/avOy
- r/IXe5yoq907VJ1s5Pbqx1/QSVGFvTb7zL89Id2lGn0CApyhPT/3vCPjh6e1V4ddr2kK
- Y2aHUlzTnHy22RCpfL53AgUVd7BsKNMCuXDWiPKBc1t+I/fARFoDbn3/5O7s33HuQ10g
- R7btKESRFjr5Jhkg3StL14Ukydd3D2iIQv1lgtm7oav9+U0yfcBaBAi3QDyGG+3nE++Q
- 3EEQ==
-X-Gm-Message-State: AOAM531sU/3uocHH4+UZuCxJdFyCQrmyYwVPX7dxy21TCf/sxOMLqRpa
- 7sUIf5onUHKWWmKbtHrLOACYMVWQ8qhcQwDn
-X-Google-Smtp-Source: ABdhPJx64nHx6pI9EZSbd5fS3vaVcP8f586Icbbq17yYMEt4wfWyoGSw3zS9NkIuKQqZHQbx/wgMSQ==
-X-Received: by 2002:a17:902:b713:b029:d2:6153:fb62 with SMTP id
- d19-20020a170902b713b02900d26153fb62mr265586pls.28.1601275387261; 
- Sun, 27 Sep 2020 23:43:07 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=dUu+qsrqKkxvHjdeh5Cw0myuIxf8GoCGLeEcIvi+RjU=;
+ b=aHFvr+xoa2HSbRJ7a3BaeeStq//f8ZudhnxxlsqvVKAqJDdUcskoW5A6HEmOrJPAzK
+ MII/7oDM0wVOZWjX7XxjbDm65yEtvKLNqFXSQDqcnnRuOpxRDoeyFqD0/OpAz/VScQHy
+ 2ZUaofaGi51yRkoi0489uZ/GFnzE92KsDYUer1J/nWxrSPvgdrNrPLnaAZMuk5K+k2TG
+ L4t2vfYwcQ0TQdTMbP7gMqdzk0HIfMTD8w0dOJfLkIfeQKTpS6ocJ5BEgsMnd5BD5On8
+ ndGFrvOrxynKychPoDuk02OqoHwjIZ2MIUi/AQ8uDjd93xvjF0iK2e/b0nbHvwuyPag1
+ mlZw==
+X-Gm-Message-State: AOAM533Wy/ftgwjDG6bFaf4Mfy4p1C6yRLj3T4CqWGRKXSBFexHX8d95
+ HaH58BHfJaImQORpqJ/yDmSN1wDNNULHbA==
+X-Google-Smtp-Source: ABdhPJwSX8YjXN48rDku3nwiqMdSu+RDPsHxNz73DmTH47CiI4jTJ7IPwOgQp2OIDC41ij0gXDcY+Q==
+X-Received: by 2002:a17:90a:71c7:: with SMTP id m7mr56304pjs.190.1601275394510; 
+ Sun, 27 Sep 2020 23:43:14 -0700 (PDT)
 Received: from localhost ([61.120.150.74])
- by smtp.gmail.com with ESMTPSA id u15sm233309pfm.61.2020.09.27.23.43.06
+ by smtp.gmail.com with ESMTPSA id v1sm7139898pjn.1.2020.09.27.23.43.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 27 Sep 2020 23:43:06 -0700 (PDT)
+ Sun, 27 Sep 2020 23:43:14 -0700 (PDT)
 From: John Wang <wangzhiqiang.bj@bytedance.com>
 To: openbmc@lists.ozlabs.org, joel@jms.id.au, yulei.sh@bytedance.com,
  xuxiaohan@bytedance.com
-Subject: [PATCH linux dev-5.8 0/2] Add Bytedance g220a BMC machine
-Date: Mon, 28 Sep 2020 14:43:01 +0800
-Message-Id: <20200928064303.1961-1-wangzhiqiang.bj@bytedance.com>
+Subject: [PATCH linux dev-5.8 2/2] ARM: dts: aspeed: Add Bytedance g220a BMC
+ machine
+Date: Mon, 28 Sep 2020 14:43:03 +0800
+Message-Id: <20200928064303.1961-3-wangzhiqiang.bj@bytedance.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20200928064303.1961-1-wangzhiqiang.bj@bytedance.com>
+References: <20200928064303.1961-1-wangzhiqiang.bj@bytedance.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -96,32 +99,962 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patchset introduces a 64M flash-layout, which is used by the G220A.
+From: Lotus Xu <xuxiaohan@bytedance.com>
 
-In the openbmc project, if we want to use this 64M flash-layout, we
-need to add fowllowing lines in the machine configuraion file.
+The g220a is a server platform with an ASPEED AST2500 BMC.
 
-FLASH_SIZE = "65536"
-FLASH_ROFS_OFFSET = "5632"
-FLASH_RWFS_OFFSET = "49152"
-
-In this layout, kernel's offset is 0x80000, the same as the 32M layout
-(most of the ast2500 use it), So we do not have to care about the kernel
-offset
-
-John Wang (1):
-  ARM: dts: Add 64MiB OpenBMC flash layout
-
-Lotus Xu (1):
-  ARM: dts: aspeed: Add Bytedance g220a BMC machine
-
+Signed-off-by: Lotus Xu <xuxiaohan@bytedance.com>
+Signed-off-by: John Wang <wangzhiqiang.bj@bytedance.com>
+---
  arch/arm/boot/dts/Makefile                    |   1 +
  .../boot/dts/aspeed-bmc-bytedance-g220a.dts   | 926 ++++++++++++++++++
- .../arm/boot/dts/openbmc-flash-layout-64.dtsi |  32 +
- 3 files changed, 959 insertions(+)
+ 2 files changed, 927 insertions(+)
  create mode 100644 arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
- create mode 100644 arch/arm/boot/dts/openbmc-flash-layout-64.dtsi
 
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 56fd8c8a2ba9..7e4d3600e16d 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1351,6 +1351,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-amd-ethanolx.dtb \
+ 	aspeed-bmc-arm-centriq2400-rep.dtb \
+ 	aspeed-bmc-arm-stardragon4800-rep2.dtb \
++	aspeed-bmc-bytedance-g220a.dtb \
+ 	aspeed-bmc-facebook-cmm.dtb \
+ 	aspeed-bmc-facebook-minipack.dtb \
+ 	aspeed-bmc-facebook-tiogapass.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
+new file mode 100644
+index 000000000000..fe0437256ac8
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
+@@ -0,0 +1,926 @@
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/i2c/i2c.h>
++#include <dt-bindings/leds/leds-pca955x.h>
++
++/ {
++	model = "AST2500 BMC";
++	compatible = "bytedance,g220a-bmc", "aspeed,ast2500";
++
++	aliases {
++		serial4 = &uart5;
++		i2c14 = &channel_3_0;
++		i2c15 = &channel_3_1;
++		i2c16 = &channel_3_2;
++		i2c17 = &channel_3_3;
++		i2c18 = &channel_6_0;
++		i2c19 = &channel_6_1;
++		i2c20 = &channel_6_2;
++		i2c21 = &channel_6_3;
++		i2c22 = &channel_6_4;
++		i2c23 = &channel_6_5;
++		i2c24 = &channel_6_6;
++		i2c25 = &channel_6_7;
++		i2c26 = &channel_6_8;
++		i2c27 = &channel_6_9;
++		i2c28 = &channel_6_10;
++		i2c29 = &channel_6_11;
++		i2c30 = &channel_6_12;
++		i2c31 = &channel_6_13;
++		i2c32 = &channel_6_14;
++		i2c33 = &channel_6_15;
++		i2c34 = &channel_6_16;
++		i2c35 = &channel_6_17;
++		i2c36 = &channel_6_18;
++		i2c37 = &channel_6_19;
++		i2c38 = &channel_6_20;
++		i2c39 = &channel_6_21;
++		i2c40 = &channel_6_22;
++		i2c41 = &channel_6_23;
++		i2c42 = &channel_6_24;
++		i2c43 = &channel_6_25;
++		i2c44 = &channel_10_0;
++		i2c45 = &channel_10_1;
++		i2c46 = &channel_10_2;
++		i2c47 = &channel_10_3;
++		i2c48 = &channel_10_4;
++		i2c49 = &channel_10_5;
++		i2c50 = &channel_10_6;
++		i2c51 = &channel_10_7;
++	};
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		reg = <0x80000000 0x40000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@bc000000 {
++			no-map;
++			reg = <0xbc000000 0x04000000>; /* 64M */
++		};
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++
++		video_engine_memory: jpegbuffer {
++			size = <0x02000000>;	/* 32M */
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
++			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++	};
++
++	leds {
++		compatible = "gpio-leds";
++		bmc_alive {
++			label = "bmc_alive";
++			gpios = <&gpio ASPEED_GPIO(B, 0) GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "timer";
++			led-pattern = <1000 1000>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++		burn-in-signal {
++			label = "burn-in";
++			gpios = <&gpio ASPEED_GPIO(R, 5) GPIO_ACTIVE_LOW>;
++			linux,code = <ASPEED_GPIO(R, 5)>;
++		};
++	};
++
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		poll-interval = <1000>;
++
++		rear-riser1-presence {
++			label = "rear-riser1-presence";
++			gpios = <&pca0 1 GPIO_ACTIVE_LOW>;
++			linux,code = <1>;
++		};
++
++		alrt-pvddq-cpu0 {
++			label = "alrt-pvddq-cpu0";
++			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
++			linux,code = <2>;
++		};
++
++		rear-riser0-presence {
++			label = "rear-riser0-presence";
++			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
++			linux,code = <3>;
++		};
++
++		fault-pvddq-cpu0 {
++			label = "fault-pvddq-cpu0";
++			gpios = <&pca0 10 GPIO_ACTIVE_LOW>;
++			linux,code = <4>;
++		};
++
++		alrt-pvddq-cpu1 {
++			label = "alrt-pvddq-cpu1";
++			gpios = <&pca0 11 GPIO_ACTIVE_LOW>;
++			linux,code = <5>;
++		};
++
++		fault-pvddq-cpu1 {
++			label = "alrt-pvddq-cpu1";
++			gpios = <&pca0 12 GPIO_ACTIVE_LOW>;
++			linux,code = <6>;
++		};
++
++		fault-pvccin-cpu1 {
++			label = "fault-pvccin-cpuq";
++			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
++			linux,code = <7>;
++		};
++
++		bmc-rom0-wp {
++			label = "bmc-rom0-wp";
++			gpios = <&pca1 0 GPIO_ACTIVE_LOW>;
++			linux,code = <8>;
++		};
++
++		bmc-rom1-wp {
++			label = "bmc-rom1-wp";
++			gpios = <&pca1 1 GPIO_ACTIVE_LOW>;
++			linux,code = <9>;
++		};
++
++		fan0-presence {
++			label = "fan0-presence";
++			gpios = <&pca1 2 GPIO_ACTIVE_LOW>;
++			linux,code = <10>;
++		};
++
++		fan1-presence {
++			label = "fan1-presence";
++			gpios = <&pca1 3 GPIO_ACTIVE_LOW>;
++			linux,code = <11>;
++		};
++
++		fan2-presence {
++			label = "fan2-presence";
++			gpios = <&pca1 4 GPIO_ACTIVE_LOW>;
++			linux,code = <12>;
++		};
++
++		fan3-presence {
++			label = "fan3-presence";
++			gpios = <&pca1 5 GPIO_ACTIVE_LOW>;
++			linux,code = <13>;
++		};
++
++		fan4-presence {
++			label = "fan4-presence";
++			gpios = <&pca1 6 GPIO_ACTIVE_LOW>;
++			linux,code = <14>;
++		};
++
++		fan5-presence {
++			label = "fan5-presence";
++			gpios = <&pca1 7 GPIO_ACTIVE_LOW>;
++			linux,code = <15>;
++		};
++
++		front-bp1-presence {
++			label = "front-bp1-presence";
++			gpios = <&pca1 8 GPIO_ACTIVE_LOW>;
++			linux,code = <16>;
++		};
++
++		rear-bp-presence {
++			label = "rear-bp-presence";
++			gpios = <&pca1 9 GPIO_ACTIVE_LOW>;
++			linux,code = <17>;
++		};
++
++		fault-pvccin-cpu0 {
++			label = "fault-pvccin-cpu0";
++			gpios = <&pca1 10 GPIO_ACTIVE_LOW>;
++			linux,code = <18>;
++		};
++
++		alrt-p1v05-pvcc {
++			label = "alrt-p1v05-pvcc1";
++			gpios = <&pca1 11 GPIO_ACTIVE_LOW>;
++			linux,code = <19>;
++		};
++
++		fault-p1v05-pvccio {
++			label = "alrt-p1v05-pvcc1";
++			gpios = <&pca1 12 GPIO_ACTIVE_LOW>;
++			linux,code = <20>;
++		};
++
++		alrt-p1v8-pvccio {
++			label = "alrt-p1v8-pvccio";
++			gpios = <&pca1 13 GPIO_ACTIVE_LOW>;
++			linux,code = <21>;
++		};
++
++		fault-p1v8-pvccio {
++			label = "fault-p1v8-pvccio";
++			gpios = <&pca1 14 GPIO_ACTIVE_LOW>;
++			linux,code = <22>;
++		};
++
++		front-bp0-presence {
++			label = "front-bp0-presence";
++			gpios = <&pca1 15 GPIO_ACTIVE_LOW>;
++			linux,code = <23>;
++		};
++	};
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		label = "bmc";
++		m25p,fast-read;
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout-64.dtsi"
++	};
++};
++
++&peci0{
++	status = "okay";
++};
++
++&adc {
++	status = "okay";
++};
++
++&gpio {
++	status = "okay";
++	gpio-line-names =
++	/*A0-A7*/	"SMRST_OCP_N","MAC2_LINK","BMC_CPLD_SMB_RST_R_N","BMC_CPLD_GPIO0",
++			"","","","",
++	/*B0-B7*/	"BMC_INIT_R_OK","FM_BOARD_REV_ID2","FM_PROJECT_ID7","FAULT_P12V_STBY_N",
++			"","CPU0_PROCHOT_LVT3_N","","BIOS_LOAD_DEFAULT_R_N",
++	/*C0-C7*/	"","","","","","","","",
++	/*D0-D7*/	"","","","","","","","",
++	/*E0-E7*/	"FM_PROJECT_ID0","FM_PROJECT_ID1","FM_PROJECT_ID2","FM_PROJECT_ID3",
++			"FM_PROJECT_ID4","FM_PROJECT_ID5","","",
++	/*F0-F7*/	"PSU0_PRSNT_N","PSU1_PRSNT_N","","FAULT_P12V_NVME_N",
++			"BIOS_DEBUG_MODE_R_N","DISABLE_CPU_DDR_R_SPD","COOLING_STRATEGY",
++			"PCH_GLB_RST_N",
++	/*G0-G7*/	"P12V_PMBUS_ALERT_N","CPLD_ALERT_N","BMC_RELOAD_N",
++			"P12V_PVDDQ_PMBUS_ALERT_N","BMC_JTAG_TCK_MUX_R_SEL","","NMI_OUT",
++			"NMI_BUTTON",
++	/*H0-H7*/	"BMC_CPLD_JTAG_TDI","BMC_CPLD_JTAG_TDO","BMC_CPLD_JTAG_TCK",
++			"BMC_CPLD_JTAG_TMS","FM_PROJECT_ID6","FM_BOARD_REV_ID0",
++			"PCA9546_U70_RST_N","IRQ_SML0_ALERT_N",
++	/*I0-I7*/	"FAULT_FRONT_RISER_P12V_N","FAULT_OCP_P12V_N","FM_BMC_PCH_SCI_R_N",
++			"","","","","",
++	/*J0-J7*/	"FM_CPU0_SKTOCC_N","FM_CPU1_SKTOCC_N","FM_CPU1_DISABLE_COD_N",
++			"","","","","",
++	/*K0-K7*/	"","","","","","","","",
++	/*L0-L7*/	"P12V_FAULT_N","PWRGD_P12V_PCIE_RISER","","LEAKAGE_DETECT_INPUT_N",
++			"","IRQ_SML1_PMBUS_ALERT_N","","",
++	/*M0-M7*/	"","","","","","","","",
++	/*N0-N7*/	"","","","","","","","",
++	/*O0-O7*/	"","","","","","","","",
++	/*P0-P7*/	"","","","","","","","",
++	/*Q0-Q7*/	"","","","","","","FM_PCH_THERMTRIP_N","INTRUDER_N",
++	/*R0-R7*/	"","PVCCIN_CPU1_SMBALERT_N","BMC_PREQ_R_N","FAULT_P12V_PCIE_RISER_N",
++			"ALT_P12V_PCIE_RISER_N","BURN_BOARD_N","PVCCIN_CPU0_SMBALERT_N","",
++	/*S0-S7*/	"BMC_PRDY_N","SIO_POWER_GOOD","FM_BMC_PWR_DEBUG_R_N",
++			"FM_BMC_XDP_DEBUG_EN","","","","",
++	/*T0-T7*/	"","","","","","","","",
++	/*U0-U7*/	"","","","","","","","",
++	/*V0-V7*/	"","","","","","","","",
++	/*W0-W7*/	"","","","","","","","",
++	/*X0-X7*/	"","","","","","","","",
++	/*Y0-Y7*/	"","PWRGD_PSU0_PWROK","CPU1_PROCHOT_LVT3_N","IRQ_BMC_PCH_SMI_LPC_N",
++			"","","","",
++	/*Z0-Z7*/	"XDP_PRSNT_N","BMC_XDP_SYS_PWROK","BMC_XDP_JTAG_SEL",
++			"PCH_BMC_SMI_ACTIVE_R_N","","","","",
++	/*AA0-AA7*/	"PWRGD_P12V_STBY_OCP","PS_PWROK","RST_PLTRST_BMC_R_N","HDA_SDO_R",
++			"FM_SLPS4_R_N","PWRGD_PSU1_PWROK","POWER_BUTTON","POWER_OUT",
++	/*AB0-AB7*/	"","RESET_OUT","SPI_BIOS_MODE_SELECT","POST_COMPLETE","","","","",
++	/*AC0-AC7*/	"","","","","","","","CPLD_PLTRST_B_N";
++};
++
++&kcs3 {
++	kcs_addr = <0xCA2>;
++	status = "okay";
++};
++
++&kcs4 {
++	kcs_addr = <0xCA4>;
++	status = "okay";
++};
++
++&lpc_snoop {
++	snoop-ports = <0x80>;
++	status = "okay";
++};
++
++&uart1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd1_default
++			&pinctrl_rxd1_default
++			&pinctrl_nrts1_default
++			&pinctrl_ndtr1_default
++			&pinctrl_ndsr1_default
++			&pinctrl_ncts1_default
++			&pinctrl_ndcd1_default
++			&pinctrl_nri1_default>;
++};
++
++&uart2 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_txd2_default
++			&pinctrl_rxd2_default
++			&pinctrl_nrts2_default
++			&pinctrl_ndtr2_default
++			&pinctrl_ndsr2_default
++			&pinctrl_ncts2_default
++			&pinctrl_ndcd2_default
++			&pinctrl_nri2_default>;
++};
++
++&uart3 {
++	status = "okay";
++};
++
++&uart4 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>,
++		 <&syscon ASPEED_CLK_MAC1RCLK>;
++	clock-names = "MACCLK", "RCLK";
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&i2c0 {
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++};
++
++&i2c2 {
++	status = "okay";
++};
++
++&i2c3 {
++	status = "okay";
++	i2c-switch@70 {
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		channel_3_0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		channel_3_1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		channel_3_2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		channel_3_3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c4 {
++	status = "okay";
++
++};
++
++&i2c5 {
++	status = "okay";
++};
++
++&i2c6 {
++	status = "okay";
++	i2c-switch@72 {
++		compatible = "nxp,pca9548";
++		reg = <0x72>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		channel_6_0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		channel_6_1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		channel_6_2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		channel_6_3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++		channel_6_4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++		};
++
++		channel_6_5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++		};
++
++		channel_6_6: i2c@6 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <6>;
++		};
++
++		channel_6_7: i2c@7 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <7>;
++		};
++	};
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		channel_6_8: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++			i2c-switch@71 {
++				compatible = "nxp,pca9546";
++				reg = <0x71>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				channel_6_12: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++				};
++
++				channel_6_13: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				channel_6_14: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				channel_6_15: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		 };
++
++		channel_6_9: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++			i2c-switch@71 {
++				compatible = "nxp,pca9546";
++				reg = <0x71>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				channel_6_16: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++				};
++
++				channel_6_17: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				channel_6_18: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				channel_6_19: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		 };
++
++		channel_6_10: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++			i2c-switch@71 {
++				compatible = "nxp,pca9546";
++				reg = <0x71>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				channel_6_20: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				channel_6_21: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				channel_6_22: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				channel_6_23: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		 };
++
++		channel_6_11: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++			i2c-switch@71 {
++				compatible = "nxp,pca9546";
++				reg = <0x71>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				channel_6_24: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				channel_6_25: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++			 };
++		};
++	};
++};
++
++&i2c7 {
++	status = "okay";
++};
++
++&i2c8 {
++	status = "okay";
++	pca0:pca9555@24 {
++		compatible = "nxp,pca9555";
++		reg = <0x24>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	pca1:pca9555@25 {
++		compatible = "nxp,pca9555";
++		reg = <0x25>;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++		gpio@8 {
++			reg = <8>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@9 {
++			reg = <9>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@10 {
++			reg = <10>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@11 {
++			reg = <11>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@12 {
++			reg = <12>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@13 {
++			reg = <13>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@14 {
++			reg = <14>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@15 {
++			reg = <15>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++};
++
++&i2c9 {
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++	i2c-switch@70 {
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		channel_10_0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		channel_10_1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		channel_10_2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		channel_10_3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++
++	i2c-switch@71 {
++		compatible = "nxp,pca9546";
++		reg = <0x71>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		channel_10_4: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		channel_10_5: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		channel_10_6: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		channel_10_7: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
++};
++
++&i2c11 {
++	status = "okay";
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
++			 &pinctrl_pwm2_default &pinctrl_pwm3_default
++			 &pinctrl_pwm4_default &pinctrl_pwm5_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
++	};
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
++	};
++	fan@2 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x05>;
++	};
++	fan@3 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x06 0x07>;
++	};
++	fan@4 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x08 0x09>;
++	};
++	fan@5 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0a 0x0b>;
++	};
++};
++
++&gpio {
++	pin_gpio_i3 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_LOW>;
++		output-low;
++		line-name = "NCSI_BMC_R_SEL";
++	};
++
++	pin_gpio_b6 {
++		gpio-hog;
++		gpios = <ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW>;
++		output-low;
++		line-name = "EN_NCSI_SWITCH_N";
++	};
++};
++
++&video {
++	status = "okay";
++	memory-region = <&video_engine_memory>;
++};
++
++&vhub {
++	status = "okay";
++};
 -- 
 2.25.1
 
