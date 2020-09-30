@@ -2,78 +2,113 @@ Return-Path: <SRS0=bToe=DH=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.1 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_IN_DEF_DKIM_WL autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 625F7C4727F
-	for <openbmc@archiver.kernel.org>; Wed, 30 Sep 2020 11:44:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A24C3C4727C
+	for <openbmc@archiver.kernel.org>; Wed, 30 Sep 2020 15:12:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7BBFC20709
-	for <openbmc@archiver.kernel.org>; Wed, 30 Sep 2020 11:44:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id C7A6220657
+	for <openbmc@archiver.kernel.org>; Wed, 30 Sep 2020 15:12:00 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MwxsEC5y"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7BBFC20709
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="adDKk/hV"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C7A6220657
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C1ZDW5kkyzDq9C
-	for <openbmc@archiver.kernel.org>; Wed, 30 Sep 2020 21:44:43 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::136;
- helo=mail-lf1-x136.google.com; envelope-from=osk@google.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C1fqd5t22zDqMf
+	for <openbmc@archiver.kernel.org>; Thu,  1 Oct 2020 01:11:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=ratagupt@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
+ header.from=linux.vnet.ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=MwxsEC5y; dkim-atps=neutral
-Received: from mail-lf1-x136.google.com (mail-lf1-x136.google.com
- [IPv6:2a00:1450:4864:20::136])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=adDKk/hV; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C1ZBs2SPnzDqQb
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2020 21:43:06 +1000 (AEST)
-Received: by mail-lf1-x136.google.com with SMTP id x69so1750580lff.3
- for <openbmc@lists.ozlabs.org>; Wed, 30 Sep 2020 04:43:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=bhthCX3SkBq1PtP8AAwv4mB6sYp7+xTWcA+NMlU6bgY=;
- b=MwxsEC5yuAVjNoYAg8O0+tXmxfJ6f1LjRBkKcR/jC3St4NOuDRL0F6vybhuMEUgezU
- w0/erK/OXKMVzexWFrNa2n1QX6IZcrFn/SVfatZ3xIzPVNicUIkaD/fdJ2sytA7MiAlA
- BUuzCdzo5by7m17DuOIYJgS9VNu8Fmdg2DqEdLsoJnnyvUovUjv/HwZKZwJd/4o6Txy4
- ioRPf4RGuI+kO5HYa2bS1WYEmTeWORSuDu2oVesQx/n7aKcnzSWhAbtbQhUQxTzFhDuk
- lk9n2YUQKad7Cjjfz+e+/RLpTjT+Pm4g4O99mAGBuJkVX2yIWVUgmO7T4/uRuAk3qCDw
- ALMw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=bhthCX3SkBq1PtP8AAwv4mB6sYp7+xTWcA+NMlU6bgY=;
- b=Jh9c2nM/ZUA1NesgQf/WcxycrtsmPmFhekrM0GIrQ7waFa970MzuD/JHcZjRVHUlIq
- VKbcg3V3w8IIY8JRT1V4rJdFWEcgLwoKvdwFSklNU93ECWexv+nC3/bsCGokw8SvBpan
- w9JIzpxv20hxtefKtMoN+ZDbsMKIr8WDaSHvcnXAUfgU83bBfI9UmFd7zuPyDYlAIyrA
- 1T9pzoukVqtBR8quaEjQGJXZNNIQEurGPA3l07jWlCdIOeDWX8WIBuGu5T2czV9WuCdh
- xwQQd9XwO2N/mZ5RKM19XDJhEWpvTdc78MwtiJD37ukRre9WJ0Qe529YPu1xqR54dCkY
- GVrA==
-X-Gm-Message-State: AOAM532XACYCtlZo0CSQJDE6gPsmwLOs6Qe0MzGVVgsYes8+nFIzdb6f
- FbTurZ43diX7CEQCceQTmjQxJNA8vazkpNYX+99tPIHgM7Y=
-X-Google-Smtp-Source: ABdhPJx5gM3RYMUyxvLWi0AZqOq2s9yHHVdt6m3TXNUpKt0nuChM98xu80vXORaHmi0YrnNsIgjXs3EhZYB/uUBckBg=
-X-Received: by 2002:a19:c002:: with SMTP id q2mr688840lff.372.1601466180345;
- Wed, 30 Sep 2020 04:43:00 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C1fhV4DN8zDqLP
+ for <openbmc@lists.ozlabs.org>; Thu,  1 Oct 2020 01:05:44 +1000 (AEST)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 08UF2nAT104953; Wed, 30 Sep 2020 11:05:42 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=Xw8qBrSLImuAIi+EFCp4zLrJZMBczW/jHsIUDfa1/SY=;
+ b=adDKk/hVS3Dbz69YqRqW/0MiPaVxJZTZV34krvJvBirs91ofhu7oxbQQ/h5T2zuqNBA1
+ wv9oUxPM9HIzukwADvh/elz2FNGlDJUbNzb4riwE2FcyAHGx3X4DYLZmXdFgnAlwFeCE
+ 2sQZtMlqFq1PSmB7raMHinVsl2LbCAZX5Bamofyy6nKx8w3SSD32jfkgx3lQ3SLvI/iz
+ Y0VExzr/TRiRkQgeZvDRldYO6i21LdtFphpHB9V5H6TQ55mNHTA645G2hiWwAnoB3Jyr
+ sYWDAxAwqNTvAsAr/uAA6LHaQ6cLPB60+6uTNFRQKxQKGBkQVBLLQIYahNMbhyeCK7F8 iA== 
+Received: from ppma04fra.de.ibm.com (6a.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.106])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 33vq8nkfaa-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Sep 2020 11:05:41 -0400
+Received: from pps.filterd (ppma04fra.de.ibm.com [127.0.0.1])
+ by ppma04fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 08UF2hQl007727;
+ Wed, 30 Sep 2020 15:05:40 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+ (b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+ by ppma04fra.de.ibm.com with ESMTP id 33t16k2a48-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 30 Sep 2020 15:05:39 +0000
+Received: from d06av21.portsmouth.uk.ibm.com (d06av21.portsmouth.uk.ibm.com
+ [9.149.105.232])
+ by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP
+ id 08UF5bNu28836198
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 30 Sep 2020 15:05:37 GMT
+Received: from d06av21.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 93E9452059;
+ Wed, 30 Sep 2020 15:05:37 +0000 (GMT)
+Received: from localhost.localdomain (unknown [9.199.55.190])
+ by d06av21.portsmouth.uk.ibm.com (Postfix) with ESMTP id EF7275205A;
+ Wed, 30 Sep 2020 15:05:35 +0000 (GMT)
+Subject: Re: Using bios-settings-mgr for setting hypervisor network attributes
+To: openbmc@lists.ozlabs.org, Ed Tanous <ed@tanous.net>,
+ Patrick Williams <patrick@stwcx.xyz>
+References: <C9C88F03-4715-444E-9B1A-3834995458EA@getmailspring.com>
+ <20200916172045.GD6152@heinlein>
+ <CACWQX80BYYwPTN1PsbLfjFN5fQyjNGC1SxM9iyBKvxNiLh=WLQ@mail.gmail.com>
+ <a5f0245d-703d-e0ba-0344-442c49a60cdf@linux.vnet.ibm.com>
+ <20200917153601.GH6152@heinlein>
+ <c007630e-54e2-df13-e6da-0af0b2998279@linux.vnet.ibm.com>
+ <e7dc17f5-191c-b24f-4b92-1020cf77a54a@linux.vnet.ibm.com>
+ <20200923192457.GS6152@heinlein>
+ <CACWQX83TAW8TfAUaNSkO7UA0VrYKjut8uFnd6pF3RgcJm_EDrA@mail.gmail.com>
+ <20200923212645.GU6152@heinlein>
+ <CACWQX81RBhQUPyU3KpL+4AGCob9me0HLf6QJ0qgUphzJdxRu7w@mail.gmail.com>
+From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Message-ID: <da763cca-6054-dcc7-6ce4-19ae58ff051b@linux.vnet.ibm.com>
+Date: Wed, 30 Sep 2020 20:35:35 +0530
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-References: <CY4PR04MB1033438E15ECB1EBE2E1D02CB9330@CY4PR04MB1033.namprd04.prod.outlook.com>
-In-Reply-To: <CY4PR04MB1033438E15ECB1EBE2E1D02CB9330@CY4PR04MB1033.namprd04.prod.outlook.com>
-From: Oskar Senft <osk@google.com>
-Date: Wed, 30 Sep 2020 07:42:47 -0400
-Message-ID: <CABoTLcQQFTCnyv0xxtHoDNQDYOF3JeBrFah2fFjk1BRG+WB-GQ@mail.gmail.com>
-Subject: Re: Human readable POST code messages
-To: Brad Chou <bradc@hyvedesignsolutions.com>
-Content-Type: multipart/alternative; boundary="000000000000cd219705b08666b4"
+In-Reply-To: <CACWQX81RBhQUPyU3KpL+4AGCob9me0HLf6QJ0qgUphzJdxRu7w@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-09-30_08:2020-09-30,
+ 2020-09-30 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ suspectscore=0 bulkscore=0 priorityscore=1501 phishscore=0 spamscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 mlxlogscore=999 mlxscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2006250000 definitions=main-2009300121
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,102 +120,109 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000cd219705b08666b4
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Thanks all for providing the suggestions
 
-Hi Brad
+Currently Redfish Ethernet interface is not having the concept of 
+pending and configured values,That means if we use the EthernetInterface 
+schema, User can only see the configured values, There is no way through 
+which user can see the pending value, We need to come up with some REST 
+API to show the pending values.
 
-I had thought about this before. The main issue I found is that the meaning
-of the POST code messages are highly dependent on the particular platform
-(i.e. BIOS) emitting them, i.e. there's no generic mapping that's always
-correct.
+To solve this problem, Redfish has bios schema whch has the pending 
+attributes as well as the configured attributes
 
-Having said that, given that there are only a limited number of BIOS
-vendors, it might be possible to generate a few lists and make the BIOS
-vendor a config option to select the right mapping.
+How about using the Redfish Bios schema for front end and Bios-settings 
+manager as backend to make the things simpler?
 
-What's your use case?
+Ratan
 
-Oskar
-
-On Wed, Sep 30, 2020, 7:23 AM Brad Chou <bradc@hyvedesignsolutions.com>
-wrote:
-
-> Hi,
+On 9/24/20 9:06 PM, Ed Tanous wrote:
+> On Wed, Sep 23, 2020 at 2:26 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+>> On Wed, Sep 23, 2020 at 01:51:33PM -0700, Ed Tanous wrote:
+>>> On Wed, Sep 23, 2020 at 12:24 PM Patrick Williams <patrick@stwcx.xyz> wrote:
+>>>> On Tue, Sep 22, 2020 at 02:39:04PM +0530, Ratan Gupta wrote:
+>>>>
+>>>> It is unfortunate that org.freedesktop.DBus.Properties doesn't have a
+>>>> way to set multiple properties as the analogous operation to 'GetAll'.
+>>> It was proposed we (OpenBMC) add one while back.  I think it muddies
+>>> the water of what it means to be a method call, and what it means to
+>>> be a property, especially for the use case that it was being proposed
+>>> to cover.
+>> I'm not sure why it would be considered mudding the water.  All property
+>> Get/Set/GetAll operations really are just a method call under the covers
+>> anyhow to org.freedesktop.DBus.Properties.  I do think that ideally we'd
+>> get the method added directly to that interface because then the DBus
+>> bindings will support it natively.
+> Mudding the water of when to use a property, versus when to use a
+> method call (yes, properties are method calls underneath).  If there's
+> a method call, the dependency between the parameters is documented in
+> the interface, with a SetProperties method call, it isn't, and you
+> have to rely on just knowing, or it being implementation defined.  In
+> those cases, I'd much rather the itnerface make the jump straight to a
+> method call, and skip properties entirely.
 >
-> Is it possible to implement an interface that decode each post code into =
-a
-> manful string ?
+>> I forgot the mention this again, but another way to solve it is similar
+>> to xyz.openbmc_project.Inventory.Manager where you take a fully (or
+>> partially) formed object as a method parameter and the process which
+>> hosts Inventory.Manager hosts the object.  Settings could be done the
+>> same way.  The issue is, again, having other processes know when to use
+>> this new method and when to just update properties.
+> This tends to be the pattern we use.  My usual take on it when I see a
+> new interface is, if the create method exists, use it.
 >
-> For example, if code 0x10 is mapped to =E2=80=9CPower-on initialization o=
-f the
-> host processor=E2=80=9D.
+>>>> When all of our DBus objects were serial we likely never had this issue
+>>>> because the request to read the properties (to send to the hypervisor)
+>>>> would come behind the signal and subsequent property updates.  Now that
+>>>> we're moving towards more ASIO we likely will see this kind of issue
+>>>> more often.  I don't like it but we could certainly proposal a
+>>>> 'SetMultiple' extension to org.freedesktop or create our own interface.
+>>> If you have properties that need to be set in lockstep with one
+>>> another to be valid, I suspect that indicates that properties are not
+>>> the right tool.  Redfish hits this a lot, where each resource is
+>>> expected that any property is modifiable independently, and certain
+>>> implementations need an atomic "unit" of update.  bmcweb doesn't want
+>>> to have to cache properties that are collectively invalid right now,
+>>> but might become valid in the future, so there's an impasse.  Who
+>>> keeps the state while it's invalid?  Thus Far, that falls to the
+>>> dbus-daemons to store.
+>> Agreed.  This has also been a general statement  we've made in reviews
+>> for new interfaces.  "If you need to update multiple properties, use
+>> a method; if you are just updating a single property, update the property."
+> +1
 >
-> Then, in the
-> phosphor-dbus-interfaces/xyz/openbmc_project/State/Boot/PostCode.interfac=
-e.yaml,
+>>>> We could define an interface to implement something like Proposal #1,
+>>>> but we would need a new interface and not a property we tack onto
+>>>> existing interfaces.  We'd probably need to revisit a lot of our
+>>>> interface definitions and see which ones typicallly have multi-property
+>>>> updates and does an intermediate state leave us in a bad situation.
+>>>>
+>>>> Specifically for BIOS/Hypervisor settings, I mentioned before that it
+>>>> isn't clear to me what the proposal is for applying Pending to Current.
+>>>> Again, this isn't general, but we could define an interface specific for
+>>>> BIOS/Hypervisor settings which has a way to indicate 'Pending
+>>>> transaction is complete' (set by entities like Redfish) and 'Pending
+>>>> values applied to Current' (set by entities like PLDM).  For the current
+>>>> settings-style values though, this requires external interfaces to
+>>>> somehow know that the setting is associated with the Host in order to do
+>>>> the application, since BMC-owned properties won't have or need this.
+>>> Dumb question: Does anyone actually need to know the "current" value?
+>>> Redfish certainly would need to return  the "pending" value in all
+>>> cases, as it's required so the restful API emulates ACID-like
+>>> compliance to the user.  Could we just have an optional interface that
+>>> indicates "values might not be loaded yet" and simplify the dbus API a
+>>> little?
+>> I think this is generally for humans in the case of BIOS settings.
+>>     - "What is the setting my system is currently running with?"
+>>     - "What will happen next time I reboot?"
+> I wonder if we could make a logging API for humans to use, and keep
+> the "present" things off dbus.  It seems like it would simplify the
+> implementation quite a bit. <thinking out loud a little>
 >
-> We have the GetPostCodes method, that can return the post codes =E2=80=9C=
-0x10=E2=80=9D.
->
-> Can we add another method GetPostCodesWithMessage to return the post code
-> 0x10 and its human readable message =E2=80=9CPower-on initialization of t=
-he host
-> processor=E2=80=9D ?
->
->
->
-> Thanks.
->
-
---000000000000cd219705b08666b4
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"auto">Hi Brad<div dir=3D"auto"><br></div><div dir=3D"auto">I ha=
-d thought about this before. The main issue I found is that the meaning of =
-the POST code messages are highly dependent on the particular platform (i.e=
-. BIOS) emitting them, i.e. there&#39;s no generic mapping that&#39;s alway=
-s correct.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Having said t=
-hat, given that there are only a limited number of BIOS vendors, it might b=
-e possible to generate a few lists and make the BIOS vendor a config option=
- to select the right mapping.</div><div dir=3D"auto"><br></div><div dir=3D"=
-auto">What&#39;s your use case?</div><div dir=3D"auto"><br></div><div dir=
-=3D"auto">Oskar</div></div><br><div class=3D"gmail_quote"><div dir=3D"ltr" =
-class=3D"gmail_attr">On Wed, Sep 30, 2020, 7:23 AM Brad Chou &lt;<a href=3D=
-"mailto:bradc@hyvedesignsolutions.com">bradc@hyvedesignsolutions.com</a>&gt=
-; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0 0 0 .=
-8ex;border-left:1px #ccc solid;padding-left:1ex">
-
-
-
-
-
-<div lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"m_5530482257281480216WordSection1">
-<p class=3D"MsoNormal">Hi,<u></u><u></u></p>
-<p class=3D"MsoNormal">Is it possible to implement an interface that decode=
- each post code into a manful string ?<u></u><u></u></p>
-<p class=3D"MsoNormal">For example, if code 0x10 is mapped to =E2=80=9CPowe=
-r-on initialization of the host processor=E2=80=9D.<u></u><u></u></p>
-<p class=3D"MsoNormal">Then, in the=C2=A0 phosphor-dbus-interfaces/xyz/open=
-bmc_project/State/Boot/PostCode.interface.yaml,<u></u><u></u></p>
-<p class=3D"MsoNormal">We have the GetPostCodes method, that can return the=
- post codes =E2=80=9C0x10=E2=80=9D.<u></u><u></u></p>
-<p class=3D"MsoNormal">Can we add another method GetPostCodesWithMessage to=
- return the post code 0x10 and its human readable message =E2=80=9CPower-on=
- initialization of the host processor=E2=80=9D ?<u></u><u></u></p>
-<p class=3D"MsoNormal"><u></u>=C2=A0<u></u></p>
-<p class=3D"MsoNormal">Thanks.<u></u><u></u></p>
-</div>
-</div>
-
-</blockquote></div>
-
---000000000000cd219705b08666b4--
+>> I don't know how this is modeled in Redfish.
+>>
+>> --
+>> Patrick Williams
