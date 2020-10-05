@@ -2,78 +2,79 @@ Return-Path: <SRS0=qcYX=DM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CA037C4363A
-	for <openbmc@archiver.kernel.org>; Mon,  5 Oct 2020 14:27:27 +0000 (UTC)
-Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 264C020776
-	for <openbmc@archiver.kernel.org>; Mon,  5 Oct 2020 14:27:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 020C7C4363A
+	for <openbmc@archiver.kernel.org>; Mon,  5 Oct 2020 21:38:44 +0000 (UTC)
+X-Greylist: delayed 1725 seconds by postgrey-1.34 at mail.kernel.org; Mon, 05 Oct 2020 21:38:42 UTC
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=tanous-net.20150623.gappssmtp.com header.i=@tanous-net.20150623.gappssmtp.com header.b="ZyymK2yH"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 264C020776
+	dkim=pass (2048-bit key) header.d=tanous-net.20150623.gappssmtp.com header.i=@tanous-net.20150623.gappssmtp.com header.b="lcjN5Lq4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D91952080A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tanous.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
+Received: from lists.ozlabs.org (unknown [103.22.144.67])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.kernel.org (Postfix) with ESMTPS id D91952080A
+	for <openbmc@archiver.kernel.org>; Mon,  5 Oct 2020 21:38:42 +0000 (UTC)
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C4jbw5XFpzDqFp
-	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 01:27:24 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C4v9W2K0dzDqMT
+	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 08:38:39 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=tanous.net
- (client-ip=2607:f8b0:4864:20::b30; helo=mail-yb1-xb30.google.com;
+ (client-ip=2607:f8b0:4864:20::734; helo=mail-qk1-x734.google.com;
  envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=tanous.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=tanous-net.20150623.gappssmtp.com
  header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=ZyymK2yH; dkim-atps=neutral
-Received: from mail-yb1-xb30.google.com (mail-yb1-xb30.google.com
- [IPv6:2607:f8b0:4864:20::b30])
+ header.s=20150623 header.b=lcjN5Lq4; dkim-atps=neutral
+Received: from mail-qk1-x734.google.com (mail-qk1-x734.google.com
+ [IPv6:2607:f8b0:4864:20::734])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C4jYv5c4FzDqDq
- for <openbmc@lists.ozlabs.org>; Tue,  6 Oct 2020 01:25:38 +1100 (AEDT)
-Received: by mail-yb1-xb30.google.com with SMTP id j76so6832169ybg.3
- for <openbmc@lists.ozlabs.org>; Mon, 05 Oct 2020 07:25:38 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C4v6T3f5zzDqB2
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Oct 2020 08:35:59 +1100 (AEDT)
+Received: by mail-qk1-x734.google.com with SMTP id s7so8156348qkh.11
+ for <openbmc@lists.ozlabs.org>; Mon, 05 Oct 2020 14:35:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=tanous-net.20150623.gappssmtp.com; s=20150623;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=9FhawziPrbxCGFuEruKn4rKB9DAsUvKuhmNrHkpEEXQ=;
- b=ZyymK2yHyoHP8ZsY/mR+f7W1rG6ZFFBTdqlq5wvqz2CsFds8ze6bLZTc7sX/pNyQwU
- X/gOqWdeMuoFJ0G33kAmpypo8LGVDif7WKPn8iIad/hf/qUuV/JGTCUPSnNQxh9aBV1e
- KpsJXCLng111S0BymY/YSZ2rhXoJ3Rm9jgC2x1WS92pKRVra7eBbbbgan22K22/+2mpA
- qxIpo4w0xc8DLxt/Y++D1CtM8RAnYVHVG05VxTptGCnMQRQYd8Lx/EbSR5/cBSQAW4B9
- ReIdfTYtScyTUgIzxNLLIlOEFw2Yu/i+2jeUPCQbbOpcvcmPq72vRay50LuIeUwgwDev
- mn+g==
+ :cc; bh=SqDPVbHTzdlzHHdvWXWJxM0A4l9wDCajFawk+NsDnLA=;
+ b=lcjN5Lq4k7QuT1fqzqQpLP25Lkme2sdSEqvuSIsah9KLkOF4IpBs9Gr77vC0ZdcxIH
+ PasAdhnPWf760oPnWzjTRYlAOTeK7YVDGXrfUXh8dVee5AGG0iHSNQw0aDHjY+dYYBWv
+ QjQF7e98xnvjJhouEmyoT6lsZPEYc7gfSbgzZvnQeEemZY9BtQkrwZ3KNt6HFL2/NEEy
+ b7P/dcV4NRjWcMw+uAR4j/etdG2Za2T2LfncLOaOqF9qRjohIy7wamrnglDNvNK6Pcx9
+ pD8vGTQhkunWBh4RQtRhLWDSvvJR/8WvNnuFs8Ivpr1apJ/n0tXZL1XS+KkTF3tk/z9F
+ b81A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=9FhawziPrbxCGFuEruKn4rKB9DAsUvKuhmNrHkpEEXQ=;
- b=UI98K9f8uYQ6Lo2X+af2XSVyYPSaP5UGkooTkVR+ENIx2a5k+/kSl2EuEQI/bPpbcu
- lOTfk4DX5rkOxc743z/8vodufwWnId6iR/7yt0sucBf/oZwpIFPchagwSAOjLOWoqAPy
- tGe21zNjsvH8o8SbhWsy5DupQ/tOeceehiNaJaLOe096Cmm8OJqm7sEImzBRaiMO3q1i
- VpsOmquYKofldbxcvgYNgrjmOP/L/Qv9p5FKDubnkPXAwKxh/J5wt4idoYwYN+T6vSbS
- uQtx1nNC1GGlHWOzJjNyl5NOWoJNODCmoQkkD4lVScrQ1BDM6zcz1XJMGscMjdkzHBqk
- I9kA==
-X-Gm-Message-State: AOAM533v5WMxceGAANXaYxFYBXynd8ScsReS/RwXA7W1LE9D/3n9GaCq
- RTRLLbO/y69UVH1fpuOvM2m/qNUk67NlQTwhsqyAmQ==
-X-Google-Smtp-Source: ABdhPJz/PCMEM/vFdsT8lAEYw5WnziNdHBmN+v0go3OSN8xlJ3P5DJVSYmgFqMbPYsajRsOv17TBP8gF5WGhzB18Hls=
-X-Received: by 2002:a25:74d7:: with SMTP id p206mr276287ybc.170.1601907934596; 
- Mon, 05 Oct 2020 07:25:34 -0700 (PDT)
+ bh=SqDPVbHTzdlzHHdvWXWJxM0A4l9wDCajFawk+NsDnLA=;
+ b=sbfxghLDLQ1hNAhC1wgzCi0mIPRX0Fyyj7FpfiYM+W0BGqW9I+0VnNgvmzPgzBYLRP
+ xjbVxlzwd3H+rbUnmqvP3cOEfGTRLxeOivbl91nO4nOebSdmCMpEx5axR4ghofvQ9oTU
+ C7lwBm7UHEVFGvtMqX0TFF5o5FBdMOf275NCsOQ7R0y0yc2nED2VymDl92+XmrjMgWJX
+ 9/9bhcDS8MPQ2ndO+MF235mbhoXyyrZLfDpxDeFAS8SofMAYvb9TU4pgNsE1RLofV4QX
+ ZEDUlpePIx72DY9BKd9Uuo6Mes0jcvHIAcVQHqYTyZRy7Rzx+PGKYk1HMJ2g8fksaPA7
+ udAw==
+X-Gm-Message-State: AOAM533VpopGyiumyQlRB8F3cH8S5XhMP1/jVqRrhhJ5bDWxsATyvFWh
+ MkqiGZnhnUh5EVcCZKZFyG79CQKpBR6onI0xxQlyWmX62npTbv9X
+X-Google-Smtp-Source: ABdhPJyCXW2qJzqaUBQPx2GLKylP7dKMXIXZ64zfxjgG7OSNUfGKq0SYakSlbvW9eZr/5gvoZO3xOnVXvafRmZpU/1I=
+X-Received: by 2002:a25:cd08:: with SMTP id d8mr2786560ybf.449.1601933754554; 
+ Mon, 05 Oct 2020 14:35:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <SG2PR04MB3093F4B562F454122B7F4596E10C0@SG2PR04MB3093.apcprd04.prod.outlook.com>
-In-Reply-To: <SG2PR04MB3093F4B562F454122B7F4596E10C0@SG2PR04MB3093.apcprd04.prod.outlook.com>
+References: <1a66bd6f-4095-2357-c860-80435c63bbe5@linux.vnet.ibm.com>
+In-Reply-To: <1a66bd6f-4095-2357-c860-80435c63bbe5@linux.vnet.ibm.com>
 From: Ed Tanous <ed@tanous.net>
-Date: Mon, 5 Oct 2020 07:25:23 -0700
-Message-ID: <CACWQX83t7k5iVRAsL+7EcGr2QL3LgbM2N09iOiro747cMqDe1w@mail.gmail.com>
-Subject: Re: Firmware version under IPMB sensors
-To: Jayashree D <jayashree-d@hcl.com>
+Date: Mon, 5 Oct 2020 14:35:43 -0700
+Message-ID: <CACWQX80ZxZuvzLzCoEvENYPSHd0yFiR8O=eu0oovptw4zYgzxQ@mail.gmail.com>
+Subject: Re: Redfish: Supporting deprecated properties
+To: Gunnar Mills <gmills@linux.vnet.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -86,24 +87,122 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, "Velumani T-ERS,
- HCLTech" <velumanit@hcl.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Sun, Oct 4, 2020 at 11:43 PM Jayashree D <jayashree-d@hcl.com> wrote:
+On Mon, Oct 5, 2020 at 1:34 PM Gunnar Mills <gmills@linux.vnet.ibm.com> wrote:
 >
-> Classification: HCL Internal
+> Felt this needed some broader discussion. Although Redfish tries to
+> avoid, it does deprecate properties. In the future, Redfish plans to
+> deprecate whole schemas. One of these deprecated properties was the
+> IndicatorLED property, replaced by the LocationIndicatorActive property.
+> More information on this can be found at (Slide 11):
+> http://www.dmtf.org/sites/default/files/Redfish_Release_2020.3_Overview.pdf
 >
-> Hi Team,
->
->
->
-> In my system, host is connected to IPMB and host related information is retrieved using IPMB bus.
-> I plan to add firmware versions in the dbus-sensors. Adding this as another entity as like ipmbsensor.
-> This will help in having all transaction in IPMB sensor.
+> On https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/36886, it was
+> proposed supporting both the deprecated and new property for some time.
+> This would introduce a new Redfish Validator warning about implementing
+> a deprecated property. We have other warnings today so maybe not a big deal.
+> How long do we need to support both properties?
+> Based on releases? 6 months? That feels too long.
 
-Sounds reasonable.  Do you intend on using the get device id command
-to determine the version number?  What piece of hardware are you
-connecting to?
+Based on releases feels too long?  Can you elaborate on why that's
+"too long".  Supporting it for N+2 releases with a deprecation warning
+return seems reasonable to me, considering the number of
+implementations that we'd break if we did the cutover quickly, and
+considering the alternative hasn't existed very long (a matter of
+weeks it looks like).  Maybe I'm over/under thinking something here.
+
+> Are our releases used
+> broadly enough and release process mature enough?
+> If it is not a replacement and just deprecating a property, can we just
+> drop the deprecated property immediately when switching to a new schema
+> version that deprecates?
+
+I don't think so.  That would break clients, many of whom aren't
+connected enough to the mailing list, but would be broken all the
+same.
+
+> Do we need to do the same when a schema is deprecated?
+
+Depends on the schema, and I'd say we come up with this posture once
+it happens, and depending on impact.  For example, if they deprecate
+SessionService (something that every tool in the world uses) that's a
+very different posture than if they deprecate the Fan schema, which
+very few implementations actually implement in the client side
+correctly to the spec.
+
+> This matters
+> because Redfish is targeting 2020.4 for new Power and Thermal Subsystem
+> Schemas. Redfish plans to deprecate the old Power and Thermal Schemas
+> and release new schemas.
+
+In this specific case, I suspect a compile time flag would be my
+recommendation, because it's not just a pure deprecation, it's
+changing the meaning and intent of a lot of collections.  We already
+did this with the "single chassis" flag a long time back, and it
+worked quite well.  Those that wanted new behavior got it, those that
+wanted old behavior, got it.  It was a nightmare to maintain, but I
+suspect this changeover will be a little easier maintenance wise.
+
+>
+> I think it is reasonable we support both IndicatorLED and
+> LocationIndicatorActive for some time, I'll throw out 2 months.
+
+Not nearly enough time IMO.  It takes longer than that for the spec to
+go from PR merged to a versioned API release.  Some gerrit reviews
+alone take longer than that.  Also, supporting both for some time is
+trivial code-wise.  Are you just worried about the warning, or are you
+expecting a significant revamp of the LED stuff in the near future?
+
+> Our
+> Redfish implementation is young and I am not sure it is worth the
+> developmental and support costs, at least at this time, to maintain
+> deprecated properties and schemas for long.
+
+In this case, I'm looking at what would be maybe 3 lines of code?  If
+redfish starts deprecating properties every other release, then I
+agree, that's not maintainable, but in this case, this seems
+unimportant.  One thing I would like to understand: it looks like the
+new property doesn't support Blink?  How is that handled in the new
+schema?
+
+It should be noted, OCPServerHardwareManagement v0.2.3 requires
+IndicatorLED;  Are we ok with breaking our OCP compliance more?  At
+this point in time, I'd rather not, so I'd like to see OCP also ratify
+the deprecation, and release a new version of their profile before
+anything other deprecation happens.
+
+In this specific case, what if we did this:
+Now;  Upstream backward compatible LocationIndicatorActive property to
+bmcweb.  Upstream changes to OCP schema to also deprecate
+IndicatorLed.  Time starts counting once both patches have been
+accepted into their respective mainline branches.
+N+1 release;  Implement returning a deprecation warning to the user
+attempting to use the IndicatorLED PATCH API.
+N+2 release; Remove the IndicatorLED property from GET requests, but
+continue to accept the property for PATCH requests (we've done this in
+other cases).
+N+3 release; Disallow PATCH to that property entirely, and continue
+with new implementation.  Ideally hold the deprecation warning, but
+use judgement about technical debt.
+
+?????
+
+Profit!
+
+>
+> Clients can use the schema version to determine which properties are
+> available. If needed companies in a fork could maintain backward
+> compatibility for longer.
+
+In practice, many clients don't check the schema at all.  I really
+wish Redfish had a way for a client to say "I support X version of the
+schema, give me the things compatible with that", but I'm not aware of
+anything like that.
+
+>
+> Thanks,
+> Gunnar
