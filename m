@@ -2,121 +2,150 @@ Return-Path: <SRS0=c1sS=DN=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 509E2C4727D
-	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 09:21:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AC30C41604
+	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 16:45:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D55932078E
-	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 09:21:30 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 5E9F7206D4
+	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 16:45:45 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=synnexcorp.onmicrosoft.com header.i=@synnexcorp.onmicrosoft.com header.b="Hybd3AVm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D55932078E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=hyvedesignsolutions.com
+	dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM header.b="OD07jCfD";
+	dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM header.b="OD07jCfD"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E9F7206D4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=hcl.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C5BmS104dzDqKr
-	for <openbmc@archiver.kernel.org>; Tue,  6 Oct 2020 20:21:28 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=hyvedesignsolutions.com (client-ip=66.46.24.197;
- helo=smtp5.synnex.com; envelope-from=bradc@hyvedesignsolutions.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=hyvedesignsolutions.com
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C5Nd24KDDzDqJL
+	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2020 03:45:42 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=hcl.com
+ (client-ip=40.107.130.103; helo=apc01-hk2-obe.outbound.protection.outlook.com;
+ envelope-from=priyatharshanp@hcl.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=hcl.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=synnexcorp.onmicrosoft.com
- header.i=@synnexcorp.onmicrosoft.com header.a=rsa-sha256
- header.s=selector1-synnexcorp-onmicrosoft-com header.b=Hybd3AVm; 
+ unprotected) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256
+ header.s=selector2 header.b=OD07jCfD; 
+ dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM
+ header.a=rsa-sha256 header.s=selector2 header.b=OD07jCfD; 
  dkim-atps=neutral
-Received: from smtp5.synnex.com (smtp5.synnex.com [66.46.24.197])
+Received: from APC01-HK2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1300103.outbound.protection.outlook.com [40.107.130.103])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C5BkP205VzDqKL
- for <openbmc@lists.ozlabs.org>; Tue,  6 Oct 2020 20:19:39 +1100 (AEDT)
-Received: from GSC-EXCH6.synnex.org ([10.84.32.34])
- by smtp5.synnex.com  with ESMTP id 0969JZEI030107-0969JZEK030107
- (version=TLSv1.2 cipher=AES256-SHA256 bits=256 verify=CAFAIL)
- for <openbmc@lists.ozlabs.org>; Tue, 6 Oct 2020 05:19:35 -0400
-Received: from GSC-EXCH6.synnex.org (10.84.32.34) by GSC-EXCH6.synnex.org
- (10.84.32.34) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3; Tue, 6 Oct 2020
- 05:20:09 -0400
-Received: from NAM04-BN3-obe.outbound.protection.outlook.com (104.47.46.53) by
- gsc-exch6.synnex.org (10.84.32.34) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1979.3
- via Frontend Transport; Tue, 6 Oct 2020 05:20:08 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C5NZw3nntzDqGZ
+ for <openbmc@lists.ozlabs.org>; Wed,  7 Oct 2020 03:43:48 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zw6j14hUpLE8bHrjFkcNC5Z6g636jnNCQkEOpD8MxcE=;
+ b=OD07jCfDgUcHYHgqLB3B9rX/K+crkiDTpF8KNOyarGZ4FPQXyTAgCITepVXp3BT4PbtE86ozBa3frSoCLJ6lPI/h7KaElfGOHmW7BQbI2tzfOHKYYvt6qEws2oiifbTbbvYd2BXX6nVc8gHyVts3z2xuiHFY17syVtdTjOyRtFo=
+Received: from SG2PR06CA0116.apcprd06.prod.outlook.com (2603:1096:1:1d::18) by
+ PSBPR04MB4005.apcprd04.prod.outlook.com (2603:1096:301:b::16) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.36; Tue, 6 Oct 2020 16:43:31 +0000
+Received: from SG2APC01FT053.eop-APC01.prod.protection.outlook.com
+ (2603:1096:1:1d:cafe::b6) by SG2PR06CA0116.outlook.office365.com
+ (2603:1096:1:1d::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3455.21 via Frontend
+ Transport; Tue, 6 Oct 2020 16:43:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 192.8.245.52)
+ smtp.mailfrom=hcl.com; lists.ozlabs.org; dkim=pass (signature was verified)
+ header.d=HCL.COM;lists.ozlabs.org; dmarc=pass action=none
+ header.from=hcl.com;
+Received-SPF: Pass (protection.outlook.com: domain of hcl.com designates
+ 192.8.245.52 as permitted sender) receiver=protection.outlook.com;
+ client-ip=192.8.245.52; helo=APC01-HK2-obe.outbound.protection.outlook.com;
+Received: from APC01-HK2-obe.outbound.protection.outlook.com (192.8.245.52) by
+ SG2APC01FT053.mail.protection.outlook.com (10.152.250.240) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3433.34 via Frontend Transport; Tue, 6 Oct 2020 16:43:29 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=f5XACMDkFkkz/iPz998UwxP67vlMj8D/4R0a6VEoEJO1vdZO26NF8/OSCrnLKBc//0n1gpMvYbp1/qrvs+jKSSm43glqWUnw3JM4OoNmDfG75fVONxqtBMC9bgVY9+tIdvidmhDJ8kc2lQyK5CT3Yl0314xXmX72skShik97LMFY2CjSJ1Xa1d9/Pqm08dOolAPyqpikzP+wtRWMIoyGtq5Hc+7QNVf7hXQNjyXjiD30XW4w+9tpPhnySEaAOs3bBHyKC6m7W9E3ja/6Xl1rTGgwtsdaod0777+u0Fi/e3D9x1yMNwIjHhcXPIvdI44DaGViwku7lF4hWPgyiGbVbA==
+ b=NNDysh0wSxLogOYT9xXd7ptr85PU8ceY+2SAaOKhZtr+Yxn5gg7LrriTTuvFwTnmnUm3QkkTJKsRVMDYklNkMIIoa7he+gfbbHpE3t8kcAA+BVX2Iqk6Y/3mvjUuECkS1PAI8CBAJVog8aSkDimU2yrAUI4bmIfPNZRMHGb3GWscYBcRo0C/55SAwIa54BGQZhIPD1ZJIlofLuBA9T08YL/ugO1AZ7sWEQwG2WP78eXv5p0fZ1dZY9+SCD32e7kEUnLaDO5kxg7EYmFb0sE8kYnfw0dDPmnyeKlJgmOYRWvVvSl/0Gs+TadVBwwqP5QojFrkp4W51dL5r0gmA+LqYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvE2BYFAb0sYDilqeVgyBMe4YCH1Yv1PdFS3deVPlbQ=;
- b=AXaf6wAxdBc9aUdsUgM8xW6lWZkS7WQtwnNLxaKywfICDyKHB4Y0EIbuxpIWoMBQOvKdt6LTcmZogDKGdWSBNdnC7CR0oESJX/NqMQDjNprMzOg22gdqpZTwE/y+BidbvNYVpYu7oDhr+yJeQWfs2ZAJ0OVHeh94SjE5xjAyxCgJybW/Fk7yz8eBjyk0ibVBrJUhYuchqYJ0H/8Pochcl+m7VBDt/h3mbC6nQsRbV0tLf8eWEizYYAfFYLixpD4vqT6eMf2+4IjIOyUKMWvWysnBXCUW6NLLiyPgqFKly9Ic6eqBtp53bVlUCLY8Ry0QyV9SBxVGcIOzBZGpC5fngg==
+ bh=Zw6j14hUpLE8bHrjFkcNC5Z6g636jnNCQkEOpD8MxcE=;
+ b=RaWkHkPVDKh99yzJC4X+jUNMFYPMNfroBhYJj+vgQbnTyrmycXi9KZ0ZeXmpg9sWpi391nD4GWJfIp1OcW+ARiDUxY01r1kei5qR/FbrtQmfd97jdlO+m7qvIzfgproT2tA4HZaqPEsNw2YYae5FUB89ssOov/x9wjR46uY3qUdLGNd20FEEYiB+VryCM6yGE+vfVzlScBok7vMrtVVnlSX4ZNPre3xe/chMLaApQopmOLktZfY9F714qFDclp6ztmetR2362bSFU3fYeUNdT7Rau+N1Gs+XGaOSusO6j2WoNby56fnkmvjJi28Ln5K0x9uM+3a88+7rYG4SCVo+dA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=hyvedesignsolutions.com; dmarc=pass action=none
- header.from=hyvedesignsolutions.com; dkim=pass
- header.d=hyvedesignsolutions.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=synnexcorp.onmicrosoft.com; s=selector1-synnexcorp-onmicrosoft-com;
+ smtp.mailfrom=hcl.com; dmarc=pass action=none header.from=hcl.com; dkim=pass
+ header.d=hcl.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OvE2BYFAb0sYDilqeVgyBMe4YCH1Yv1PdFS3deVPlbQ=;
- b=Hybd3AVmc1CywrGEVCcc/jug6FM1420zgr1lwml9+Hk5wBW+OJDRsfzVh6MQ65PUxmGz0HRheyMzuHwM/lME7cNqo5qUooBGYiOqMTH9g4jkozHSY1hGGU/z2wk7VoV1oQqgs4Uryi5eJ0KDz3gI5xecbWJ7YvcFhFe3FISbSrw=
-Received: from CY4PR04MB1033.namprd04.prod.outlook.com (2603:10b6:910:54::14)
- by CY4PR0401MB3587.namprd04.prod.outlook.com (2603:10b6:910:8d::33)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.43; Tue, 6 Oct
- 2020 09:19:33 +0000
-Received: from CY4PR04MB1033.namprd04.prod.outlook.com
- ([fe80::e5de:5693:5146:f150]) by CY4PR04MB1033.namprd04.prod.outlook.com
- ([fe80::e5de:5693:5146:f150%6]) with mapi id 15.20.3433.044; Tue, 6 Oct 2020
- 09:19:33 +0000
-From: Brad Chou <bradc@hyvedesignsolutions.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: Redfish Virtual Media return InternalError
-Thread-Topic: Redfish Virtual Media return InternalError
-Thread-Index: AdabwQovvDxZ0hPaSxCdO4+IIXE1eQ==
-Date: Tue, 6 Oct 2020 09:19:33 +0000
-Message-ID: <CY4PR04MB1033E4D796F88C0BA457B3AEB90D0@CY4PR04MB1033.namprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
+ bh=Zw6j14hUpLE8bHrjFkcNC5Z6g636jnNCQkEOpD8MxcE=;
+ b=OD07jCfDgUcHYHgqLB3B9rX/K+crkiDTpF8KNOyarGZ4FPQXyTAgCITepVXp3BT4PbtE86ozBa3frSoCLJ6lPI/h7KaElfGOHmW7BQbI2tzfOHKYYvt6qEws2oiifbTbbvYd2BXX6nVc8gHyVts3z2xuiHFY17syVtdTjOyRtFo=
+Received: from TY2PR04MB3311.apcprd04.prod.outlook.com (2603:1096:404:94::9)
+ by TY2PR04MB2957.apcprd04.prod.outlook.com (2603:1096:404:3f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3433.37; Tue, 6 Oct
+ 2020 16:43:27 +0000
+Received: from TY2PR04MB3311.apcprd04.prod.outlook.com
+ ([fe80::70ff:f1c8:a5fd:6ef2]) by TY2PR04MB3311.apcprd04.prod.outlook.com
+ ([fe80::70ff:f1c8:a5fd:6ef2%6]) with mapi id 15.20.3433.045; Tue, 6 Oct 2020
+ 16:43:27 +0000
+From: "P. Priyatharshan" <PriyatharshanP@hcl.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>, Vijay Khemka
+ <vijaykhemka@fb.com>, "ed@tanous.net" <ed@tanous.net>
+Subject: 12v slot AC Support  in x86-power-control
+Thread-Topic: 12v slot AC Support  in x86-power-control
+Thread-Index: AQHWm/+U/ovub+7wQkO9Ywat+ZJBqA==
+Date: Tue, 6 Oct 2020 16:43:27 +0000
+Message-ID: <TY2PR04MB3311FEF038529B122E1123DECA0D0@TY2PR04MB3311.apcprd04.prod.outlook.com>
+Accept-Language: en-IN, en-US
+Content-Language: en-IN
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: lists.ozlabs.org; dkim=none (message not signed)
- header.d=none;lists.ozlabs.org; dmarc=none action=none
- header.from=hyvedesignsolutions.com;
-x-originating-ip: [61.222.103.61]
+Authentication-Results-Original: lists.ozlabs.org; dkim=none (message not
+ signed) header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=hcl.com;
+x-originating-ip: [2409:4072:6d8f:22e8:cc8e:a0d7:b606:e3df]
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 267c4e7a-ef85-44f8-880b-08d869d8f01e
-x-ms-traffictypediagnostic: CY4PR0401MB3587:
-x-microsoft-antispam-prvs: <CY4PR0401MB358702F7A830CEB2ECD5474BB90D0@CY4PR0401MB3587.namprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Sxe9NbDMhK8WIWUYOZ9kG9iGz/8I5wVxGkqib07sO+fpxoDOXjR9URv8L81ul95qUKAA89LxkEVvsQeMwBxdn/J/ajT4HHFO5Ms39MwW55pxulsa+pS6PftLYYgClgVFIO/nKik9binCdqSd360H0C5N2/4fMmFXV5dCnU8nez1ieob9fsDpZLucnIhodlrIJI+SLWotoseDH0/6knbDZm6WM7BW0diwA3Xo6VeR5FW3NJiElD2DwAKNXNQ4K0piiwCAgy9TH36YSZqIaIS1SK33ktJAaPV/ibq+gs1r/fc8Y+TN1zqawnMBk0KA53+f1HDqa4w6noGgfkcsXyLoyQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY4PR04MB1033.namprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(396003)(136003)(366004)(376002)(346002)(39860400002)(33656002)(6506007)(8936002)(55016002)(66476007)(66446008)(66946007)(76116006)(7696005)(66556008)(2906002)(8676002)(64756008)(86362001)(71200400001)(83380400001)(316002)(52536014)(4744005)(9686003)(966005)(5660300002)(9326002)(478600001)(186003)(6916009)(26005);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: 4CQ5aBTvPAibCSFcvwMhpdD6uPhvr1xO7HbEiX/zMYSg905wMAf/RKWaOmSkSzWZ8nCJzdYb4Bvlplusi19rEPNgIkkgJ1LMpOTU3bNsPNqmzisddre5JKCePx2NNxT3Qwok65SQwhVp3lS+kjszI9xCWNd5qxr2IQL/kf3YBq3wxg4fRLTUb7R2Du/LSCC76ih6QkV5t0hz3y//OKQIJFNo590omQ/V1IlzgaTawmkyQuxZ8pecYXDz/RNY3tvksMtb/PDzd9yhNCcbZfN6mTTUcgpvtOVE9O93r1ivWd+IkGTHZcxXm6pElg4gnihujDAyq4AzADNAhFimMKvhJ2skttOkk/a3+DPHpv4SY0I+YPjmkV2vWFzeAh2+BloU5wBP36uU2UvRlfgXzP6eL28+t85FIoGJR/TtDuovIIGVqmhSdGeg1Le223f9E4Mi0xFTU01vacwFKvfgBVHFpgN9yc6rU4rP01BFAHbysogmCEzBEqVDDC8lrtOrg0PFMpSm4PfB1ovb8iSFYS9OqkRj8MAI9UkAJyINMEA2vFEA8Us0av5L+3tqw3CXGJva4T0lQqSkMEzJSKRmbZTcBbxyo46POd0+pE6MSqJyEl1Pxx8OxuPAm/lNt6PO6hHmpS49lu7PkSUJcTIp5TbGPA==
+X-MS-Office365-Filtering-Correlation-Id: 696ab816-3d55-4387-6db3-08d86a16f4de
+x-ms-traffictypediagnostic: TY2PR04MB2957:|PSBPR04MB4005:
 x-ms-exchange-transport-forked: True
+X-Microsoft-Antispam-PRVS: <PSBPR04MB4005CC2DAC1B8F9977EA127ECA0D0@PSBPR04MB4005.apcprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8882;OLM:6430;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: lnEkHVsPwzfEK+WOnFd7Ljhc882Z88z9dwJ0JhBjhUoU/HGTpNHO95x1oiOpevErtZgctl9QX1tJfvpB2GmIzCPp6WHcXcygeUL6BsXwERw9sr6pItTjpCbeB1S/RnMTnGY5Axa2BpcwMbv9MQ+rLvYGHGJSIDMckGwaBfYEKgD9aKPWhgJyh5MlBWkzGrSEW1V6LgyLC25HpZWxcCY29MFHkgHTbFsF8crCwgzP2XARNR3hCgqGOTSmeO3Pdt/2u8s3esr8MCHnxsH+9p7FsOpTOWUAhFl54bW4GUuLydmtYpJ55YPmc3GutL4b6A06
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:TY2PR04MB3311.apcprd04.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(136003)(396003)(39860400002)(376002)(366004)(186003)(4326008)(5660300002)(7696005)(71200400001)(316002)(86362001)(55016002)(52536014)(9686003)(110136005)(83380400001)(33656002)(8676002)(91956017)(2906002)(66476007)(19627405001)(6506007)(66946007)(478600001)(66556008)(66446008)(76116006)(8936002)(64756008);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: yxrwrQBcud/diqZ3Qct4Ur3gTysw5DnccWTZq1E2UR7U/LzHb97RrmTPAXUT7vozLnQnTtmLtAYv7wmcNgVkYP/kUfJP0G/hQIBLsCYivDidK8w1bimY0ui5xfOwGQm8+Jhaiu4npOIGHzb5neG0Bp1yk1JXRJTHva/R7RGtYer74toC2FCKOBPGjtzbxfsubvY8eaHQGLpFBWoukIFXAUZdSiSSoqL/Zvhio25PrNCSOhI1CM2GekjP2UMt8OOwKrGdsx96Cw9I9+ZW9XK5EuKSIJamoHZa0vpWTcmCGltjrhidk0E7Ywcz8yjFJ8itwkgftVaNDWo4NcfbNoCKXF76Y/Sk70YzuJfLQ3ARb8lErcc4aXyCXhKmx+TyFjMpQncRHa9ebospff4LjMKSoVMn64XhON5x/BSARbeRJvJja8+5uovVyToO+DxmkbZHEEsYD7aZxWoEkrjF/Q+Tna8hQtAhGLat1h57Zx2XmfD8h0vs5V3orbOcwaOCa74PcLa20yP7arnMhmoLtqiShd/LdvvMq9yaxcWcvV7JREvG/iHn5zc9r6LmejaqNtHwboaRSuvEnCUyNbMbTGxAk4jUEOpgNqvd3XNSpVpTLtYlIwU/YdmG4zpvenDs5kTVAr6PiQWzwHtPUshks47Er3VayABlmQfn/FgQcvxwY70/+VI+Hss3ojir4XBnHjE1Ij9FAvgNVAgU6UkZ63PnKw==
 Content-Type: multipart/alternative;
- boundary="_000_CY4PR04MB1033E4D796F88C0BA457B3AEB90D0CY4PR04MB1033namp_"
+ boundary="_000_TY2PR04MB3311FEF038529B122E1123DECA0D0TY2PR04MB3311apcp_"
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY4PR04MB1033.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 267c4e7a-ef85-44f8-880b-08d869d8f01e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2020 09:19:33.3241 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 972a0e27-c355-4fd7-9225-9266c8f332ac
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qf41MOWYGvbVAUiUYCnhQmGVwlVSDrXnZjDmUjGUGIVt8uuJxEJmKiUG8SUSYy7Giq/rrr1B1srdDgnUuS++Pg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR0401MB3587
-X-OriginatorOrg: hyvedesignsolutions.com
-X-FE-Policy-ID: 6:1:1:SYSTEM
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PR04MB2957
+X-DLP: MSGProcess
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: SG2APC01FT053.eop-APC01.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 56ce0ca0-ffa2-4162-a134-08d86a16f352
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 7n56HQCv+mF8m8j7EMKGx8FMccmVJP3JLnyMZs64m0/E+KQgIMYby53S2o6Rm8TEULnC8q2c2lSn5ra5lfFctA5yqwGct5afvxwHo2r1dWwumwiPrJ/Gn5KbpJ3M2k07Iy+Z1ROJZDXXHskfYNsd2GabnmqaFAjgunwLFaTplGYO+KR9tC8vI7tNoVemc58rTZFEkNQk8pAraVd8J2KyC7hj+H6qfM87pFfNmXjEbsJYL6LFtTetik0/14sL84LA0Cla1ajUSR/dDt0CSihtiDC9CiE5Nv4VcD919/KycnoBkqZHVZjwlzAGdfU33PgzDC8v8efb7txnVQHkyQejvadgOmnKSoL6ezUvSFvSaO5uksaya68ejRZT6C6nN3Dut9FvDEaLymoJolWRe9xwFOPO32GAndZTVgUjFx5cPsS44Z9jes7mbXbIXOcnQ7d6
+X-Forefront-Antispam-Report: CIP:192.8.245.52; CTRY:IN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:APC01-HK2-obe.outbound.protection.outlook.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(396003)(376002)(39860400002)(346002)(46966005)(26005)(478600001)(8936002)(47076004)(8676002)(186003)(5660300002)(55016002)(33656002)(9686003)(110136005)(36906005)(316002)(52536014)(82740400003)(83380400001)(19627405001)(336012)(70206006)(70586007)(356005)(4326008)(81166007)(6506007)(34020700004)(82310400003)(7696005)(2906002)(86362001);
+ DIR:OUT; SFP:1102; 
+X-OriginatorOrg: HCL.COM
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2020 16:43:29.7710 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 696ab816-3d55-4387-6db3-08d86a16f4de
+X-MS-Exchange-CrossTenant-Id: 189de737-c93a-4f5a-8b68-6f4ca9941912
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=189de737-c93a-4f5a-8b68-6f4ca9941912; Ip=[192.8.245.52];
+ Helo=[APC01-HK2-obe.outbound.protection.outlook.com]
+X-MS-Exchange-CrossTenant-AuthSource: SG2APC01FT053.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PSBPR04MB4005
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -128,162 +157,188 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "Velumani T-ERS,HCLTech" <velumanit@hcl.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_000_CY4PR04MB1033E4D796F88C0BA457B3AEB90D0CY4PR04MB1033namp_
-Content-Type: text/plain; charset="us-ascii"
+--_000_TY2PR04MB3311FEF038529B122E1123DECA0D0TY2PR04MB3311apcp_
+Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
-I enable the "DBMCWEB_ENABLE_VM_NBDPROXY" flag in bmcweb by bbappend it :
-EXTRA_OECMAKE_append =3D " \
-    -DBMCWEB_ENABLE_VM_NBDPROXY=3DON \
-"
+Hi Vijay,
 
-Then try to use redfish virtual media.
-But I got an error return when get into the collection :
+I am working on a patch to support  12v slot AC cycle in x86-power-control.=
+This can be enabled by configuring slotACPowerName in json config file.Sinc=
+e you are also working on similar kind of feature in x86-power-control, I w=
+ould like bring up this discussion on mailing list to understand how these =
+two features, and the design you proposed for chassis reset are intended to=
+ work together.Kindly go through my design changes below and share your tho=
+ughts.
 
-$  curl -k -H "X-Auth-Token: $token" https://${bmc}/redfish/v1/Managers/bmc=
-/VirtualMedia
-{
-  "@odata.id": "/redfish/v1/Managers/bmc/VirtualMedia/",
-  "@odata.type": "#VirtualMediaCollection.VirtualMediaCollection",
-  "Name": "Virtual Media Services",
-  "error": {
-    "@Message.ExtendedInfo": [
-      {
-        "@odata.type": "#Message.v1_0_0.Message",
-        "Message": "The request failed due to an internal service error.  T=
-he service is still operational.",
-        "MessageArgs": [],
-        "MessageId": "Base.1.4.0.InternalError",
-        "Resolution": "Resubmit the request.  If the problem persists, cons=
-ider resetting the service.",
-        "Severity": "Critical"
-      }
-    ],
-    "code": "Base.1.4.0.InternalError",
-    "message": "The request failed due to an internal service error.  The s=
-ervice is still operational."
-  }
-}
+I have modified the existing /xyz/openbmc_project/state/chassis0 object to =
+implement 12V On, Off, and Power Cycle for system which has 12V Slot power =
+support.
 
 
-Any idea ?
+If slotACPowerName is disabled and if,
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+Off" then poweroff [existing functionality not changed]
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+On" then powerOn [existing functionality not changed]
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+PowerCycle" then PowerCycle [existing functionality not changed]
+
+events will be called.
 
 
 
---_000_CY4PR04MB1033E4D796F88C0BA457B3AEB90D0CY4PR04MB1033namp_
-Content-Type: text/html; charset="us-ascii"
+If slotACPowerName is enabled and if,
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+Off" then 12V Ac Slot Off
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+On" then 12V Ac Slot On
+
+RequestedPowerTransition =3D "xyz.openbmc_project.State.Chassis.Transition.=
+PowerCycle" then 12V Ac Slot PowerCycle
+
+events will be called.
+
+Thanks,
+Priyatharshan P
+::DISCLAIMER::
+________________________________
+The contents of this e-mail and any attachment(s) are confidential and inte=
+nded for the named recipient(s) only. E-mail transmission is not guaranteed=
+ to be secure or error-free as information could be intercepted, corrupted,=
+ lost, destroyed, arrive late or incomplete, or may contain viruses in tran=
+smission. The e mail and its contents (with or without referred errors) sha=
+ll therefore not attach any liability on the originator or HCL or its affil=
+iates. Views or opinions, if any, presented in this email are solely those =
+of the author and may not necessarily reflect the views or opinions of HCL =
+or its affiliates. Any form of reproduction, dissemination, copying, disclo=
+sure, modification, distribution and / or publication of this message witho=
+ut the prior written consent of authorized representative of HCL is strictl=
+y prohibited. If you have received this email in error please delete it and=
+ notify the sender immediately. Before opening any email and/or attachments=
+, please check them for viruses and other defects.
+________________________________
+
+--_000_TY2PR04MB3311FEF038529B122E1123DECA0D0TY2PR04MB3311apcp_
+Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:PMingLiU;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@PMingLiU";
-	panose-1:2 1 6 1 0 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">Hi,<o:p></o:p></p>
-<p class=3D"MsoNormal">I enable the &#8220;DBMCWEB_ENABLE_VM_NBDPROXY&#8221=
-; flag in bmcweb by bbappend it :<o:p></o:p></p>
-<p class=3D"MsoNormal">EXTRA_OECMAKE_append =3D &quot; \<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; -DBMCWEB_ENABLE_VM_NBDPROXY=3DON =
-\<o:p></o:p></p>
-<p class=3D"MsoNormal">&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Then try to use redfish virtual media.<o:p></o:p></p=
->
-<p class=3D"MsoNormal">But I got an error return when get into the collecti=
-on :<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">$&nbsp; curl -k -H &quot;X-Auth-Token: $token&quot; =
-https://${bmc}/redfish/v1/Managers/bmc/VirtualMedia<o:p></o:p></p>
-<p class=3D"MsoNormal">{<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; &quot;@odata.id&quot;: &quot;/redfish/v1/Mana=
-gers/bmc/VirtualMedia/&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; &quot;@odata.type&quot;: &quot;#VirtualMediaC=
-ollection.VirtualMediaCollection&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; &quot;Name&quot;: &quot;Virtual Media Service=
-s&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; &quot;error&quot;: {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; &quot;@Message.ExtendedInfo&quot;=
-: [<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;@od=
-ata.type&quot;: &quot;#Message.v1_0_0.Message&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Mes=
-sage&quot;: &quot;The request failed due to an internal service error.&nbsp=
-; The service is still operational.&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Mes=
-sageArgs&quot;: [],<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Mes=
-sageId&quot;: &quot;Base.1.4.0.InternalError&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Res=
-olution&quot;: &quot;Resubmit the request.&nbsp; If the problem persists, c=
-onsider resetting the service.&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Sev=
-erity&quot;: &quot;Critical&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; ],<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; &quot;code&quot;: &quot;Base.1.4.=
-0.InternalError&quot;,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp; &quot;message&quot;: &quot;The re=
-quest failed due to an internal service error.&nbsp; The service is still o=
-perational.&quot;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">}<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Any idea ?<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<body dir=3D"ltr">
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+Hi Vijay,
+<div><br>
 </div>
+<div>I am working on a patch to support &nbsp;12v slot AC cycle in x86-powe=
+r-control.This can be enabled by configuring slotACPowerName in json config=
+ file.Since you are also working on similar kind of feature in x86-power-co=
+ntrol, I would like bring up this discussion
+ on mailing list to understand how these two features, and the design you p=
+roposed for chassis reset are intended to work together.Kindly go through m=
+y design changes below and share your thoughts.</div>
+<div><br>
+</div>
+<div>I have modified the existing /xyz/openbmc_project/state/chassis0 objec=
+t to implement 12V On, Off, and Power Cycle for system which has 12V Slot p=
+ower support.</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>If slotACPowerName is disabled and if,</div>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.Off&quot; then poweroff [existing functionality not changed]</div=
+>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.On&quot; then powerOn [existing functionality not changed]</div>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.PowerCycle&quot; then PowerCycle [existing functionality not chan=
+ged]</div>
+<div>&nbsp; </div>
+<div>events will be called.</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; </div>
+<div>If slotACPowerName is enabled and if,</div>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.Off&quot; then 12V Ac Slot Off</div>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.On&quot; then 12V Ac Slot On
+</div>
+<div><br>
+</div>
+<div>RequestedPowerTransition =3D &quot;xyz.openbmc_project.State.Chassis.T=
+ransition.PowerCycle&quot; then 12V Ac Slot PowerCycle
+</div>
+<div>&nbsp; </div>
+events will be called.<br>
+</div>
+<div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div id=3D"Signature">
+<div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Thanks,</div>
+<div style=3D"font-family:Calibri,Arial,Helvetica,sans-serif; font-size:12p=
+t; color:rgb(0,0,0)">
+Priyatharshan P</div>
+</div>
+</div>
+</div>
+<font face=3D"Arial" color=3D"Gray" size=3D"1">::DISCLAIMER::<br>
+<hr>
+The contents of this e-mail and any attachment(s) are confidential and inte=
+nded for the named recipient(s) only. E-mail transmission is not guaranteed=
+ to be secure or error-free as information could be intercepted, corrupted,=
+ lost, destroyed, arrive late or
+ incomplete, or may contain viruses in transmission. The e mail and its con=
+tents (with or without referred errors) shall therefore not attach any liab=
+ility on the originator or HCL or its affiliates. Views or opinions, if any=
+, presented in this email are solely
+ those of the author and may not necessarily reflect the views or opinions =
+of HCL or its affiliates. Any form of reproduction, dissemination, copying,=
+ disclosure, modification, distribution and / or publication of this messag=
+e without the prior written consent
+ of authorized representative of HCL is strictly prohibited. If you have re=
+ceived this email in error please delete it and notify the sender immediate=
+ly. Before opening any email and/or attachments, please check them for viru=
+ses and other defects.<br>
+<hr>
+</font>
 </body>
 </html>
 
---_000_CY4PR04MB1033E4D796F88C0BA457B3AEB90D0CY4PR04MB1033namp_--
+--_000_TY2PR04MB3311FEF038529B122E1123DECA0D0TY2PR04MB3311apcp_--
