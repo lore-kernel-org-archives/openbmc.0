@@ -2,61 +2,79 @@ Return-Path: <SRS0=jtpY=DO=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.4 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_IN_DEF_DKIM_WL autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AE4CAC4363C
-	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2020 19:50:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DE7BFC4363C
+	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2020 19:54:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5472206F4
-	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2020 19:50:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5472206F4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0C9F5206F4
+	for <openbmc@archiver.kernel.org>; Wed,  7 Oct 2020 19:54:28 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Wmd8sOHn"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C9F5206F4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C64gQ3NzQzDqNQ
-	for <openbmc@archiver.kernel.org>; Thu,  8 Oct 2020 06:50:10 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C64mL2cqgzDqQx
+	for <openbmc@archiver.kernel.org>; Thu,  8 Oct 2020 06:54:26 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::d30;
+ helo=mail-io1-xd30.google.com; envelope-from=gmouse@google.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.24; helo=mga09.intel.com;
- envelope-from=james.feist@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20161025 header.b=Wmd8sOHn; dkim-atps=neutral
+Received: from mail-io1-xd30.google.com (mail-io1-xd30.google.com
+ [IPv6:2607:f8b0:4864:20::d30])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C64ds3ysczDqNF
- for <openbmc@lists.ozlabs.org>; Thu,  8 Oct 2020 06:48:48 +1100 (AEDT)
-IronPort-SDR: NEoQ76kN/0UHwoRY3b9W5w8IYnzkZ0ul9h3+zWDwDy75xwOKB/j35Abo7LCDsBZjMmj0fpcBcs
- PENQg+WQopYg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9767"; a="165183602"
-X-IronPort-AV: E=Sophos;i="5.77,348,1596524400"; d="scan'208";a="165183602"
-X-Amp-Result: SKIPPED(no attachment in message)
-X-Amp-File-Uploaded: False
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 11:21:43 -0700
-IronPort-SDR: uAQh6IP4JctfNxI1ZBb+5GYxJl+IJjD6HTAkZZU8mG+wNYbnBLoXJzFdQ17ZPlQwucL2oLX4TX
- 0ij89HjO90xg==
-X-IronPort-AV: E=Sophos;i="5.77,347,1596524400"; d="scan'208";a="311857802"
-Received: from jfeist-mobl2.amr.corp.intel.com (HELO [10.209.69.69])
- ([10.209.69.69])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Oct 2020 11:21:39 -0700
-From: James Feist <james.feist@linux.intel.com>
-Subject: Heading out
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Message-ID: <9ca9dd09-b381-d0e9-bd63-9a23496c97e1@linux.intel.com>
-Date: Wed, 7 Oct 2020 11:21:36 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.12.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C64kN3s85zDqMx
+ for <openbmc@lists.ozlabs.org>; Thu,  8 Oct 2020 06:52:40 +1100 (AEDT)
+Received: by mail-io1-xd30.google.com with SMTP id g7so3694517iov.13
+ for <openbmc@lists.ozlabs.org>; Wed, 07 Oct 2020 12:52:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=x2TZdq+eVqU+/aY3hRkVaedMvSq93CZ/3/ms9az+LBA=;
+ b=Wmd8sOHnlsjO4uHyJrbxcFYio8czSvcfWpa+6ajR2nMBjQGBi4IFQtz0b+viQk6xTo
+ HLBCOmLwBMIZV+9x8pkJCLaT6sWDsQKkbyHhBPcXbnk3PHrednvLCVd2lMpcPEF9VkhH
+ wRfbAhLJlWfc9Oo9hHpmd/gBWooPrNp1uUMFoQNPJ4U7Z/w6Jzw4jLKemJTXbPmRPWbJ
+ sSLUZUKjGj9wtYh0/XbkUR2qXnvO4CrbSaHkzrNUpDa0BPDxGZ9J08GAASTV7WE+SGLL
+ OqxjB6RFpYJyUCJjBIJsmm7h+QydOjkrRlk4vRqRTTizO67UKM95ubjw4qDY6/VtWvKj
+ M2Ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=x2TZdq+eVqU+/aY3hRkVaedMvSq93CZ/3/ms9az+LBA=;
+ b=S7rOc3+7mFrcZ7uc9DTOY5Wxgbjgh5C6VS0W8xa0/CnYG1nwtMMjlrNSjuQVEK8T3U
+ XNP24bf//QU9//4ViSulLXtEt1jbTmnuK3/GUdPZR9ELMakrOJNCCNR6lJgvimS2DGog
+ AufiABNpfEckNPT8uyc7WJ9XzXSYXO69EYZJxZIIKnfHKmXR8YIKM37RjxAutvGL4RnL
+ 1iL2v8V084AQWK+fB0BbWPxWzwis5KHi6fYHRBgkftCmtr8Oa/V8ReTDXfADOgrQgXec
+ xP3dqFHCrIG+JPuGlY8kXIsQYFNwbXnsf/Cejy8bM7KJczRhL3q5iUxXmSfmEJWy/hB5
+ I3qg==
+X-Gm-Message-State: AOAM533tR7vnXbr5HkPo4UuDnsqFBmtObs96AHRcLEP7HFTeLO00Cv8a
+ ip6cqUfZQkSasgZRb93ML6+rK7/Vq/mnrET34Olz2A==
+X-Google-Smtp-Source: ABdhPJxwTeuw1wSqsQ9eQzgDBJdkpUaURQRH1ndMEQO8nhQXt0XmiPO5tpLgcJeLeDAQFTHMaW0Dlo5VJfs48ojNR3U=
+X-Received: by 2002:a05:6638:2395:: with SMTP id
+ q21mr4095457jat.94.1602100356387; 
+ Wed, 07 Oct 2020 12:52:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+References: <tencent_34CE0CBCEE22E9E6CF3069506723323E9B06@qq.com>
+In-Reply-To: <tencent_34CE0CBCEE22E9E6CF3069506723323E9B06@qq.com>
+From: Anton Kachalov <rnouse@google.com>
+Date: Wed, 7 Oct 2020 21:52:25 +0200
+Message-ID: <CADVsX8_9dCbBUdpaAtMpf59cmj9cTSn--mQLZaszFT_PeT-zLg@mail.gmail.com>
+Subject: Re: How to change the default output serial
+To: =?UTF-8?B?5YaJ6Zuq?= <869883681@qq.com>
+Content-Type: multipart/alternative; boundary="000000000000a38aaa05b11a0e0b"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,20 +86,80 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi everyone,
+--000000000000a38aaa05b11a0e0b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This will be my last week on the OpenBMC project. I'll be moving on to 
-something unrelated to OpenBMC. It's been great working with you all. 
-All the repos I maintain have additional maintainers who will continue 
-to maintain those projects. I'll begin removing myself from the 
-maintainers lists shortly.
+Hello, sgc.
 
-Best of luck with the project,
+You should also enable the uart2 in DTS:
 
--James
+arch/arm/boot/dts/aspeed-bmc-opp-romulus.dts
 
-feistjj@gmail.com
+There is a code like:
+
+&uart5 {
+    status =3D "okay";
+};
+
+Change it to uart2 as well.
+
+About the u-boot changes, it might be better to set:
+
+#define CONFIG_CONS_INDEX 2
+and define CONFIG_SYS_NS16550_COM2 value instead.
+
+Which u-boot branch do you use? I've checked with v2016.05, there is only
+include/configs/ast-g5.h and no ast-common.h at all.
+
+On Mon, 21 Sep 2020 at 01:27, =E5=86=89=E9=9B=AA <869883681@qq.com> wrote:
+
+> Hello there
+> I am trying to use openbmc recently. The board uses uart2 as the output o=
+f
+> BMC. How can I change the default uart from uart5 to uart2?
+> The image I compiled on the basis of romulus, first I modified
+> aspeed-bmc-opp-romulus.dts, I opened the uart2 serial port in dts, and
+> modified stdout-path=3D&uart2,bootargs =3D "console =3D ttyS1" in chosen.
+> Then, I modified the include/config/ast-common.h file in uboot , #define
+> CONFIG_SYS_NS16550_COM1 AST_UART2_BASE(whice is AST_UART0_BASE).
+> Am I doing something wrong? Do you have any suggestion?
+> Thanks!!
+> sgc.
+>
+
+--000000000000a38aaa05b11a0e0b
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hello, sgc.<div><br></div><div>You should also enable the =
+uart2 in DTS:</div><div><br></div><div>arch/arm/boot/dts/aspeed-bmc-opp-rom=
+ulus.dts=C2=A0<br></div><div><br></div><div>There is a code like:</div><div=
+><br></div><div>&amp;uart5 {<br>=C2=A0 =C2=A0 status =3D &quot;okay&quot;;<=
+br>};<br></div><div><br></div><div>Change it to uart2 as well.</div><div><b=
+r></div><div>About the u-boot changes, it might be better to set:</div><div=
+><br></div><div>#define CONFIG_CONS_INDEX 2<br></div><div>and define=C2=A0C=
+ONFIG_SYS_NS16550_COM2 value instead.</div><div><br></div><div>Which u-boot=
+ branch do you use? I&#39;ve checked with v2016.05, there is only include/c=
+onfigs/ast-g5.h and no ast-common.h at all.</div></div><br><div class=3D"gm=
+ail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Mon, 21 Sep 2020 at 01:=
+27, =E5=86=89=E9=9B=AA &lt;<a href=3D"mailto:869883681@qq.com">869883681@qq=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex"><div><div>Hello there</div><div>I am trying to use openbmc recently. Th=
+e board uses uart2 as the output of BMC. How can I change the default uart =
+from uart5 to uart2?</div><div>The image I compiled on the basis of romulus=
+, first I modified aspeed-bmc-opp-romulus.dts, I opened the uart2 serial po=
+rt in dts, and modified stdout-path=3D&amp;uart2,bootargs =3D &quot;console=
+ =3D ttyS1&quot; in chosen.</div><div>Then, I modified the include/config/a=
+st-common.h file in uboot , #define CONFIG_SYS_NS16550_COM1 AST_UART2_BASE(=
+whice is AST_UART0_BASE).</div><div>Am I doing something wrong? Do you have=
+ any suggestion?</div><div>Thanks!!</div><div>sgc.</div></div></blockquote>=
+</div>
+
+--000000000000a38aaa05b11a0e0b--
