@@ -2,65 +2,84 @@ Return-Path: <SRS0=WmRq=DT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_YAHOO_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C012CC433DF
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 01:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C43EC433DF
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 02:04:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8B7FE2076E
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 01:19:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B7FE2076E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=mic.com.tw
+	by mail.kernel.org (Postfix) with ESMTPS id C9D1220782
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 02:04:45 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="M7K1mOnd"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9D1220782
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=yahoo.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C8gp16b6WzDqrs
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 12:19:53 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C8hnl2tbSzDqMb
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 13:04:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=mic.com.tw (client-ip=220.130.36.7; helo=micmsefe01.mic.com.tw;
- envelope-from=john.chung@mic.com.tw; receiver=<UNKNOWN>)
+ smtp.mailfrom=yahoo.com (client-ip=98.137.64.31;
+ helo=sonic307-55.consmr.mail.gq1.yahoo.com;
+ envelope-from=geissonator@yahoo.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=mic.com.tw
-Received: from MICMSEFE01.mic.com.tw (mail22.mic.com.tw [220.130.36.7])
+ dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256
+ header.s=s2048 header.b=M7K1mOnd; dkim-atps=neutral
+Received: from sonic307-55.consmr.mail.gq1.yahoo.com
+ (sonic307-55.consmr.mail.gq1.yahoo.com [98.137.64.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C8gmV0BBVzDqfS
- for <openbmc@lists.ozlabs.org>; Mon, 12 Oct 2020 12:18:32 +1100 (AEDT)
-Received: from MICEXCH02.mitacad.com (micexch02.mitacad.com [10.88.25.250])
- by MICMSEFE01.mic.com.tw with ESMTP id 09C1IJpq080204;
- Mon, 12 Oct 2020 09:18:19 +0800 (GMT-8)
- (envelope-from john.chung@mic.com.tw)
-Received: from MICEXCH01.mitacad.com (10.88.25.249) by MICEXCH02.mitacad.com
- (10.88.25.250) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1913.5; Mon, 12 Oct
- 2020 09:18:20 +0800
-Received: from MICEXCH01.mitacad.com ([fe80::7512:93eb:1586:1977]) by
- MICEXCH01.mitacad.com ([fe80::7512:93eb:1586:1977%3]) with mapi id
- 15.01.1913.007; Mon, 12 Oct 2020 09:18:20 +0800
-From: <john.chung@mic.com.tw>
-To: <a.kartashev@yadro.com>, <openbmc@lists.ozlabs.org>
-Subject: RE: Get inventory FRU from inventory system path
-Thread-Topic: Get inventory FRU from inventory system path
-Thread-Index: AdadT8UT5a4aOJlKQ2qFUrwNl4Orxf//jWUA//95cRCAAIz2gP/5yl5Q
-Date: Mon, 12 Oct 2020 01:18:19 +0000
-Message-ID: <a0a8f7ccd6424cdf9a2a9cc20423ac8d@mic.com.tw>
-References: <270220206437441ba7ba4eb39336f9e4@mic.com.tw>
- <28750e605f477d8901ae61da8b0753aba8b78b46.camel@yadro.com>
- <51d45e4a6b29485397e4cb60a7aea907@mic.com.tw>
- <91aed88334a46dddc1c5dd5d7b9dc4f22057aef4.camel@yadro.com>
-In-Reply-To: <91aed88334a46dddc1c5dd5d7b9dc4f22057aef4.camel@yadro.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-originating-ip: [10.88.25.29]
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-MAIL: MICMSEFE01.mic.com.tw 09C1IJpq080204
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C6lQs2VGQzDqWm
+ for <openbmc@lists.ozlabs.org>; Fri,  9 Oct 2020 08:56:32 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
+ t=1602194185; bh=DWBd8wNdtaWfg/VHFh0TV53uIQplMUBebOHWHWvk6/E=;
+ h=Subject:From:In-Reply-To:Date:Cc:References:To:From:Subject;
+ b=M7K1mOndgsXfUuXyjRD5qyNCFq2goJJsJYwtIafhAjqB1psTYzg3YjXG4KkYH/DKkE0NhheljmSteU5/dtt5/aB6MTtox+RL4+dR1K/Bo8eozhAvlT+s4LHBNqHIgQxO+6pcTin930c9jmArjcMpEMiABm/0IN0RHR0c4RtE6MENWIMCBOKyRp+YK32gr0JcQFZtS/DRGld9LySyEhxfFebG16phwWv+NQUY1h8JmtT+d+sCGS+GDEo3ezNvadgskhN6ynQj/h0ijxeI54oscieBB77I9zKCprLkwarsJkPhdu0o6Okh6ScUt6nDs8wgbbJ6PQSmXpT31qCbdBAw4A==
+X-YMail-OSG: rp1sZZAVM1l5jVXKKEAZq8HerPO0Hp4qF65Uza8wTs.nol5VSZNnGDwR6TUVotQ
+ edt7wzOMPRJCI2c.OEtqn_oAx7z57RVn7B5dJZ9FS2eeigIlZREhlV_IUJC_6fmlkCAVaheKZLE_
+ KTBu9IAAtRRAko7uIQL_S0ZTdlnKMEx4JpW4y8oywgjPiEkkgcT68N9pQeoJBt_L8OgODhUWFypU
+ CZW.A1LjygoJ8yVgPztKy51tSCjMXZ8LnmHUiYep4RtqxJpKN6yqh0if6cKLAkji3elFOBcZVsDE
+ WcrUvapqRUoJ_6ZkEjH8yM3VPr2Vzph88TjB_YWdNfl0imGHgT5ucVdqmv3rlisqg92tkdVNeHfJ
+ N.RDWnYNtRrps.e8ebHt03ikXdVcBplM2_KcXZZ56sj9Gm13uvhjLueaWB2REcYLA1E9dcIx9pLT
+ I98qMEXbWLUVDJJB7KNrmJaNXhcWyAxxyjpwnAFmRPqIkR08IJ6V3OlMdyaYp8crkinl57.cyFTu
+ aTtW8BIQqK3cDiJPe.IZD1qESQ3Ekn7JLEkRILpiqw43fZY9yRI0p9GyEJmF9L8OUmtZie444sKd
+ XsvLCB6Q8tBAJrd9cNsbZMBsk0eSwJr6QHye6jVuPk3MTpZAgYAkvt2EP4Q5ZZ.IQbqtRzhBzsXB
+ nWjrqp_E2sClAEr5_QS4SxjJv6Dw3JbT9Ki7aRFnwuzXH4FEY4uFZxn0JPEFThRY51W3zbqvsW0H
+ XCl3999SROkVfA46GqnAWCJeLFGesQoRcTRF4mIjsHLUMN7AO05hoAPg2E_BSqzgtpLt7AOzOWZg
+ ykFdP6KVJd4oF.FgxBCGtZqd6STIdzWRs2RmCDVjrBUlM..DX.eG215OkkuMHvpPQOsgVUzSexol
+ 2Tv7gkup7ujSyAqXj4CkQJAsinpfphrgvO30q3Uy8HTZ9hryI6BgPklgxJEbEF6dW.qmK5kmutLY
+ vjsjmIia7STR1H2FeCZTgEjGTwaaVkJHO6Ns3UAxsIUYfPgZ0akE488Z9anxioAufW5rQkionwPB
+ ZD8BBv6_Mut_qhQePQpf84muBba9anmagaNs..o1LLwnyQAkvopUA.yFpth07cw7Y18benxKY7hU
+ yQRGT8frNNZTZrTbfQts21lcANj1j.k3diJ_L6ixXzVcdwoB.bTP5SNwLa4DaJbBOcQT8fCSwUdT
+ gcFLIO0R9VFjKCdMUifUd903hO2OIpqxlLitiTZYNwmE7P8yIVm.4XwoXMHmFPY8KuNYT6ktsvNP
+ eCNdJUqpQa.sM9b_JwV7FDZeHYcGwh081vln9nv79D5e7jSwIuAOZ1ylBHcBYCmmCXqPOG763y03
+ MmajPofjZ5BP3jzCKkwDrpbUYBvcRf6jlIWi9d1tT.79p.NC6QWmY8xOIW4BmYm27rkcoEZZSPPo
+ a7VuepxzmZYIfln.wG8BO.SVoj18.U9Res6lAhMO95BAa2glko1eH4V65mOz_FrMqLyK_b..uGvS
+ U.gmg.Scja5RslUdSpCxtVIEQViND4pbE_9e60fWnZ00qHNclakMU3ymT1ztvCBh5kJJKqkA-
+Received: from sonic.gate.mail.ne1.yahoo.com by
+ sonic307.consmr.mail.gq1.yahoo.com with HTTP; Thu, 8 Oct 2020 21:56:25 +0000
+Received: by smtp404.mail.ne1.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
+ ID 902d7ad3e7eff0402fcea41ea2acc268; 
+ Thu, 08 Oct 2020 21:56:23 +0000 (UTC)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
+Subject: Re: Add peci-pcie repo to CI
+From: Andrew Geissler <geissonator@yahoo.com>
+In-Reply-To: <7d749dad-e4c0-0243-d701-4a6448fe3433@linux.intel.com>
+Date: Thu, 8 Oct 2020 16:56:22 -0500
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B433BB55-06A3-45A1-B457-D11E61271682@yahoo.com>
+References: <7d749dad-e4c0-0243-d701-4a6448fe3433@linux.intel.com>
+To: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+X-Mailer: Apple Mail (2.3608.120.23.2.4)
+X-Mailman-Approved-At: Mon, 12 Oct 2020 13:03:34 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,93 +91,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
-SGkgQW5kcmVpLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgZ2VuZXJvdXMgaGVscC4NCkkgd291bGQg
-dHkgYW5vdGhlciBwYXRoIGZvciBteSBzeXN0ZW0uDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0t
-LS0tDQpGcm9tOiBBbmRyZWkgS2FydGFzaGV2IFttYWlsdG86YS5rYXJ0YXNoZXZAeWFkcm8uY29t
-XSANClNlbnQ6IFRodXJzZGF5LCBPY3RvYmVyIDgsIDIwMjAgNjoyMSBQTQ0KVG86IGpvaG4uY2h1
-bmcgKOmNvuS9s+iIqiAtIE1DVCkgPGpvaG4uY2h1bmdAbWljLmNvbS50dz47IG9wZW5ibWNAbGlz
-dHMub3psYWJzLm9yZw0KU3ViamVjdDogUmU6IEdldCBpbnZlbnRvcnkgRlJVIGZyb20gaW52ZW50
-b3J5IHN5c3RlbSBwYXRoDQoNCk9uIFRodSwgMjAyMC0xMC0wOCBhdCAxMDowOSArMDAwMCwgam9o
-bi5jaHVuZ0BtaWMuY29tLnR3IHdyb3RlOg0KPiBIaSBBbmRyZWksDQo+IA0KPiA+IFdoYXQgYXJl
-IHlvdSB0cnlpbmcgdG8gYWNoaWV2ZT8NCj4gSSBhbSB0cnlpbmcgdG8gZGlzcGxheSB0aGUgc3lz
-dGVtIGluZm9ybWF0aW9uIHNlY3Rpb24gaW4gcGhvc3Bob3ItIA0KPiB3ZWJ1aS4NCj4gVGhpcyBz
-ZWN0aW9uIHdvdWxkIGNhbGwgdGhlICdnZXRTZXJ2ZXJJbmZvJyBmdW5jdGlvbi4gDQo+IFRoZSBm
-dW5jdGlvbiB3b3VsZCBuZWVkIHRvIHVzaW5nIHRoZQ0KPiAiL3h5ei9vcGVuYm1jX3Byb2plY3Qv
-aW52ZW50b3J5L3N5c3RlbSIgcGF0aC4NCj4gDQo+ID4gVGhlIFJFU1QgQVBJIGRvIGp1c3QgYSB0
-cmFuc2xhdGlvbiB0byBkYnVzLCBzbyB5b3UgZXhwZWN0IHRvIGdldCANCj4gPiBleGFjdGx5IHdo
-YXQgRW50aXR5TWFuYWdlciAob3Igb3RoZXIgaW52ZW50b3J5LXJlbGF0ZWQgZGFlbW9uKSANCj4g
-PiBleHBvc2UuDQo+ID4gQW5kIEVNIGV4cG9zZSBub3RoaW5nIHRvIC94eXovb3BlbmJtY19wcm9q
-ZWN0L2ludmVudG9yeS9zeXN0ZW0NCj4gWWVzLCBJIHdhbnQgdG8gZ2V0IGV4YWN0bHkgd2hhdCBF
-bnRpdHlNYW5hZ2VyIChvciBvdGhlciBpbnZlbnRvcnktIA0KPiByZWxhdGVkIGRhZW1vbikgZXhw
-b3NlLg0KPiBCdXQgaXQncyBudWxsIGZvciB0aGlzIGRidXMgcGF0aCBub3cuDQoNClJpZ2h0LCB0
-aGVyZSBpcyBubyBpbmZvIHRoZXJlLCAveHl6L29wZW5ibWNfcHJvamVjdC9pbnZlbnRvcnkvc3lz
-dGVtIGlzIGtpbmQgb2YgcGFyZW50IG5vZGUsIGlkIGRvZXNuJ3Qgc3RvcmUgYW55IGluZm9ybWF0
-aW9uLiBUaGF0IGlzIGhvdyBFTSB3b3Jrcy4NCkluIG91ciBzeXN0ZW0gd2UgdXNlIG91ciBjdXN0
-b20gaW50ZXJmYWNlIGZvciBiYXNlYm9hcmQgdG8gcHJvdmlkZSB0aGlzIGtpbmQgb2YgaW5mb3Jt
-YXRpb24uDQoNCg0KDQo+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+IEZyb206IEFuZHJl
-aSBLYXJ0YXNoZXYgW21haWx0bzphLmthcnRhc2hldkB5YWRyby5jb21dDQo+IFNlbnQ6IFRodXJz
-ZGF5LCBPY3RvYmVyIDgsIDIwMjAgNTo1OCBQTQ0KPiBUbzogam9obi5jaHVuZyAo6Y2+5L2z6Iiq
-IC0gTUNUKSA8am9obi5jaHVuZ0BtaWMuY29tLnR3PjsgDQo+IG9wZW5ibWNAbGlzdHMub3psYWJz
-Lm9yZw0KPiBTdWJqZWN0OiBSZTogR2V0IGludmVudG9yeSBGUlUgZnJvbSBpbnZlbnRvcnkgc3lz
-dGVtIHBhdGgNCj4gDQo+IEhpIEpvaG4sDQo+IA0KPiBXaGF0IGFyZSB5b3UgdHJ5aW5nIHRvIGFj
-aGlldmU/DQo+IFRoZSBSRVNUIEFQSSBkbyBqdXN0IGEgdHJhbnNsYXRpb24gdG8gZGJ1cywgc28g
-eW91IGV4cGVjdCB0byBnZXQgDQo+IGV4YWN0bHkgd2hhdCBFbnRpdHlNYW5hZ2VyIChvciBvdGhl
-ciBpbnZlbnRvcnktcmVsYXRlZCBkYWVtb24pIGV4cG9zZS4NCj4gQW5kIEVNIGV4cG9zZSBub3Ro
-aW5nIHRvIC94eXovb3BlbmJtY19wcm9qZWN0L2ludmVudG9yeS9zeXN0ZW0NCj4gDQo+IE9uIFRo
-dSwgMjAyMC0xMC0wOCBhdCAwODo1MyArMDAwMCwgam9obi5jaHVuZ0BtaWMuY29tLnR3IHdyb3Rl
-Og0KPiA+IEhpLA0KPiA+ICANCj4gPiBJIGFtIHRyeWluZyB0byBnZXQgdGhlIGRhdGEgZnJvbSB0
-aGlzIHBhdGgg4oCcIA0KPiA+IGh0dHBzOi8vPGJtY2lwPi94eXovb3BlbmJtY19wcm9qZWN0L2lu
-dmVudG9yeS9zeXN0ZW3igJ0uDQo+ID4gQnV0IG9ubHkgZ2V0IHRoZSBmb2xsb3dpbmcgZGF0YSBm
-cm9tIHRoaXMgcGF0aC4NCj4gPiAgDQo+ID4gIi94eXovb3BlbmJtY19wcm9qZWN0L2ludmVudG9y
-eS9zeXN0ZW0iOiB7DQo+ID4gIkFzc2V0VGFnIjogIiINCj4gPiB9LA0KPiA+ICANCj4gPiBIZXJl
-IGlzIGFuIGV4YW1wbGUgZm9yIHRoaXMgcGF0aCB3aGljaCBJIGV4cGVjdGVkIHRvIGdldC4NCj4g
-PiAgDQo+ID4gICAgICIveHl6L29wZW5ibWNfcHJvamVjdC9pbnZlbnRvcnkvc3lzdGVtIjogew0K
-PiA+ICAgICAgICAgIkJ1aWxkRGF0ZSI6ICIiLA0KPiA+ICAgICAgICAgIkNhY2hlZCI6IDAsDQo+
-ID4gICAgICAgICAiRmllbGRSZXBsYWNlYWJsZSI6IDAsDQo+ID4gICAgICAgICAiTWFudWZhY3R1
-cmVyIjogIiIsDQo+ID4gICAgICAgICAiTW9kZWwiOiAiMiIsDQo+ID4gICAgICAgICAiUGFydE51
-bWJlciI6ICIwMDAwMDAwMDAwMDAwMDAwIiwNCj4gPiAgICAgICAgICJQcmVzZW50IjogMSwNCj4g
-PiAgICAgICAgICJQcmV0dHlOYW1lIjogIiIsDQo+ID4gICAgICAgICAiU2VyaWFsTnVtYmVyIjog
-IjAwMDAwMDAwMDAwMDAwMDAiDQo+ID4gICAgIH0sDQo+ID4gIA0KPiA+ICANCj4gPiAgDQo+ID4g
-T25seSB1c2luZyBlbnRpdHktbWFuYWdlciBpbiBteSBwcm9qZWN0IGZvciBpbnZlbnRvcnkgRlJV
-Lg0KPiA+IEkgY291bGQgZ2V0IHRoZSBGUlUgZGF0YSBmcm9tIHRoaXMgcGF0aCDigJwgDQo+ID4g
-aHR0cHM6Ly88Ym1jaXA+L3h5ei9vcGVuYm1jX3Byb2plY3QvaW52ZW50b3J5L3N5c3RlbS9ib2Fy
-ZC88bmFtZT7igJ0NCj4gPiBCdXQgdGhlIGludmVudG9yeSBzeXN0ZW0gcGF0aCBpcyBudWxsLg0K
-PiA+ICANCj4gPiBBbnkgc2V0dGluZyBJIHNob3VsZCBzZXQgZm9yIGdldHRpbmcgRlJVIGZyb20g
-dGhpcyBwYXRoPw0KPiA+ICANCj4gPiBSZWdhcmRzLA0KPiA+IEpvaG4gQ2h1bmcNCj4gPiAgDQo+
-ID4gVGhpcyBlbWFpbCBtZXNzYWdlIGFuZCBhbGwgYXR0YWNobWVudHMgdHJhbnNtaXR0ZWQgd2l0
-aCBpdCBhcmUgDQo+ID4gaW50ZW5kZWQgc29sZWx5IGZvciB0aGUgdXNlIG9mIHRoZSBpbnRlbmRl
-ZCByZWNpcGllbnQocykgYW5kIG1heSANCj4gPiBjb250YWluIGxlZ2FsbHkgcHJpdmlsZWdlZCBh
-bmQgY29uZmlkZW50aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgYXJlIA0KPiA+IG5vdCB0aGUgaW50
-ZW5kZWQgcmVjaXBpZW50IG9mIHRoaXMgZW1haWwsIHlvdSBhcmUgaGVyZWJ5IG5vdGlmaWVkIA0K
-PiA+IHRoYXQgYW55IGRpc2Nsb3N1cmUsIGRpc3NlbWluYXRpb24sIGRpc3RyaWJ1dGlvbiwgY29w
-eWluZywgb3Igb3RoZXIgDQo+ID4gdXNlIG9mIHRoaXMgbWVzc2FnZSwgaXRzIGF0dGFjaG1lbnRz
-IG9yIGFueSBpbmZvcm1hdGlvbiBjb250YWluZWQgDQo+ID4gdGhlcmVpbiBpcyBzdHJpY3RseSBw
-cm9oaWJpdGVkLiBJZiB5b3UgaGF2ZSByZWNlaXZlZCB0aGlzIGVtYWlsIGluIA0KPiA+IGVycm9y
-LCBwbGVhc2UgY29udGFjdCB0aGUgc2VuZGVyIGltbWVkaWF0ZWx5IGFuZCBwbGVhc2UgZGVsZXRl
-IGl0IA0KPiA+IGFuZCBhbnkgYXR0YWNobWVudHMgZnJvbSB5b3VyIHN5c3RlbS4gQ29tcHV0ZXIg
-dmlydXNlcyBjYW4gYmUgDQo+ID4gdHJhbnNtaXR0ZWQgdmlhIGVtYWlsLiBUaGUgc2VuZGVyIGFj
-Y2VwdHMgbm8gbGlhYmlsaXR5IGZvciBhbnkgDQo+ID4gZGFtYWdlIGNhdXNlZCBieSBhbnkgdmly
-dXMgdHJhbnNtaXR0ZWQgYnkgdGhpcyBlbWFpbC4gVGhhbmsgeW91Lg0KPiAtLQ0KPiBCZXN0IHJl
-Z2FyZHMsDQo+IEFuZHJlaSBLYXJ0YXNoZXYNCj4gDQo+IA0KPiANCj4gDQo+ID09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09
-PQ0KPiA9PT09PT09DQo+IFRoaXMgZW1haWwgbWVzc2FnZSBhbmQgYWxsIGF0dGFjaG1lbnRzIHRy
-YW5zbWl0dGVkIHdpdGggaXQgYXJlIA0KPiBpbnRlbmRlZCBzb2xlbHkgZm9yIHRoZSB1c2Ugb2Yg
-dGhlIGludGVuZGVkIHJlY2lwaWVudChzKSBhbmQgbWF5IA0KPiBjb250YWluIGxlZ2FsbHkgcHJp
-dmlsZWdlZCBhbmQgY29uZmlkZW50aWFsIGluZm9ybWF0aW9uLiBJZiB5b3UgYXJlIA0KPiBub3Qg
-dGhlIGludGVuZGVkIHJlY2lwaWVudCBvZiB0aGlzIGVtYWlsLCB5b3UgYXJlIGhlcmVieSBub3Rp
-ZmllZCB0aGF0IA0KPiBhbnkgZGlzY2xvc3VyZSwgZGlzc2VtaW5hdGlvbiwgZGlzdHJpYnV0aW9u
-LCBjb3B5aW5nLCBvciBvdGhlciB1c2Ugb2YgDQo+IHRoaXMgbWVzc2FnZSwgaXRzIGF0dGFjaG1l
-bnRzIG9yIGFueSBpbmZvcm1hdGlvbiBjb250YWluZWQgdGhlcmVpbiBpcyANCj4gc3RyaWN0bHkg
-cHJvaGliaXRlZC4gSWYgeW91IGhhdmUgcmVjZWl2ZWQgdGhpcyBlbWFpbCBpbiBlcnJvciwgcGxl
-YXNlIA0KPiBjb250YWN0IHRoZSBzZW5kZXIgaW1tZWRpYXRlbHkgYW5kIHBsZWFzZSBkZWxldGUg
-aXQgYW5kIGFueSANCj4gYXR0YWNobWVudHMgZnJvbSB5b3VyIHN5c3RlbS4gQ29tcHV0ZXIgdmly
-dXNlcyBjYW4gYmUgdHJhbnNtaXR0ZWQgdmlhIA0KPiBlbWFpbC4gVGhlIHNlbmRlciBhY2NlcHRz
-IG5vIGxpYWJpbGl0eSBmb3IgYW55IGRhbWFnZSBjYXVzZWQgYnkgYW55IA0KPiB2aXJ1cyB0cmFu
-c21pdHRlZCBieSB0aGlzIGVtYWlsLiBUaGFuayB5b3UuDQotLQ0KQmVzdCByZWdhcmRzLA0KQW5k
-cmVpIEthcnRhc2hldg0KDQoNCg==
+
+> On Oct 8, 2020, at 4:48 PM, Bills, Jason M =
+<jason.m.bills@linux.intel.com> wrote:
+>=20
+> Hi Andrew,
+>=20
+> Could you please add the openbmc/peci-pcie repo to the CI jobs?
+
+Sure thing, done.
+
+>=20
+> https://gerrit.openbmc-project.xyz/c/openbmc/peci-pcie/+/37239
+>=20
+> Thanks!
+> -Jason
 
