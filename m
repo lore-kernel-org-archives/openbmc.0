@@ -4,22 +4,22 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 786ABC433E7
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E5CAAC433E7
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:59:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B4A952076D
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:58:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B4A952076D
+	by mail.kernel.org (Postfix) with ESMTPS id 844D02076D
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:59:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 844D02076D
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C8mfD12C4zDqkc
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 15:58:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C8mgh5sj4zDqfq
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 15:59:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=billy_tsai@aspeedtech.com;
@@ -30,10 +30,10 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C8klj04X9zDqpk;
- Mon, 12 Oct 2020 14:33:02 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C8km31Dh9zDqXW;
+ Mon, 12 Oct 2020 14:33:22 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 09C3TpBg087375;
+ by twspam01.aspeedtech.com with ESMTP id 09C3Tp4U087377;
  Mon, 12 Oct 2020 11:29:51 +0800 (GMT-8)
  (envelope-from billy_tsai@aspeedtech.com)
 Received: from localhost.localdomain (192.168.10.9) by TWMBX02.aspeed.com
@@ -45,9 +45,9 @@ To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <linus.walleij@linaro.org>, <bgolaszewski@baylibre.com>,
  <linux-gpio@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH 1/3] Arm: dts: aspeed-g6: Fix the register range of gpio
-Date: Mon, 12 Oct 2020 11:31:48 +0800
-Message-ID: <20201012033150.21056-2-billy_tsai@aspeedtech.com>
+Subject: [PATCH 3/3] pinctrl: aspeed-g6: Add sgpiom2 pinctrl setting
+Date: Mon, 12 Oct 2020 11:31:50 +0800
+Message-ID: <20201012033150.21056-4-billy_tsai@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20201012033150.21056-1-billy_tsai@aspeedtech.com>
 References: <20201012033150.21056-1-billy_tsai@aspeedtech.com>
@@ -57,7 +57,7 @@ X-Originating-IP: [192.168.10.9]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 09C3TpBg087375
+X-MAIL: twspam01.aspeedtech.com 09C3Tp4U087377
 X-Mailman-Approved-At: Mon, 12 Oct 2020 15:54:36 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -75,26 +75,115 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch is used to fix the memory range of gpio0
+At ast2600a1 we change feature of master sgpio to 2 sets.
+So this patch is used to add the pinctrl setting of the new sgpio.
 
 Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 ---
- arch/arm/boot/dts/aspeed-g6.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi   |  5 ++++
+ drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 30 +++++++++++++++++++---
+ 2 files changed, 31 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
-index 97ca743363d7..ad19dce038ea 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -357,7 +357,7 @@
- 				#gpio-cells = <2>;
- 				gpio-controller;
- 				compatible = "aspeed,ast2600-gpio";
--				reg = <0x1e780000 0x800>;
-+				reg = <0x1e780000 0x400>;
- 				interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
- 				gpio-ranges = <&pinctrl 0 0 208>;
- 				ngpios = <208>;
+diff --git a/arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi b/arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi
+index 7028e21bdd98..a16ecf08e307 100644
+--- a/arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi
++++ b/arch/arm/boot/dts/aspeed-g6-pinctrl.dtsi
+@@ -862,6 +862,11 @@
+ 		groups = "SGPM1";
+ 	};
+ 
++	pinctrl_sgpm2_default: sgpm2_default {
++		function = "SGPM2";
++		groups = "SGPM2";
++	};
++
+ 	pinctrl_sgps1_default: sgps1_default {
+ 		function = "SGPS1";
+ 		groups = "SGPS1";
+diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+index 34803a6c7664..b673a44ffa3b 100644
+--- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
++++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+@@ -46,8 +46,10 @@
+ #define SCU620		0x620 /* Disable GPIO Internal Pull-Down #4 */
+ #define SCU634		0x634 /* Disable GPIO Internal Pull-Down #5 */
+ #define SCU638		0x638 /* Disable GPIO Internal Pull-Down #6 */
++#define SCU690		0x690 /* Multi-function Pin Control #24 */
+ #define SCU694		0x694 /* Multi-function Pin Control #25 */
+ #define SCU69C		0x69C /* Multi-function Pin Control #27 */
++#define SCU6D0		0x6D0 /* Multi-function Pin Control #28 */
+ #define SCUC20		0xC20 /* PCIE configuration Setting Control */
+ 
+ #define ASPEED_G6_NR_PINS 256
+@@ -81,13 +83,21 @@ FUNC_GROUP_DECL(I2C12, L26, K24);
+ #define K26 4
+ SIG_EXPR_LIST_DECL_SESG(K26, MACLINK1, MACLINK1, SIG_DESC_SET(SCU410, 4));
+ SIG_EXPR_LIST_DECL_SESG(K26, SCL13, I2C13, SIG_DESC_SET(SCU4B0, 4));
+-PIN_DECL_2(K26, GPIOA4, MACLINK1, SCL13);
++/*SGPM2 is A1 Only */
++SIG_EXPR_LIST_DECL_SESG(K26, SGPM2CLK, SGPM2, SIG_DESC_SET(SCU6D0, 4),
++			  SIG_DESC_CLEAR(SCU410, 4), SIG_DESC_CLEAR(SCU4B0, 4),
++			  SIG_DESC_CLEAR(SCU690, 4));
++PIN_DECL_3(K26, GPIOA4, SGPM2CLK, MACLINK1, SCL13);
+ FUNC_GROUP_DECL(MACLINK1, K26);
+ 
+ #define L24 5
+ SIG_EXPR_LIST_DECL_SESG(L24, MACLINK2, MACLINK2, SIG_DESC_SET(SCU410, 5));
+ SIG_EXPR_LIST_DECL_SESG(L24, SDA13, I2C13, SIG_DESC_SET(SCU4B0, 5));
+-PIN_DECL_2(L24, GPIOA5, MACLINK2, SDA13);
++/*SGPM2 is A1 Only */
++SIG_EXPR_LIST_DECL_SESG(L24, SGPM2LD, SGPM2, SIG_DESC_SET(SCU6D0, 5),
++			  SIG_DESC_CLEAR(SCU410, 5), SIG_DESC_CLEAR(SCU4B0, 5),
++			  SIG_DESC_CLEAR(SCU690, 5));
++PIN_DECL_3(L24, GPIOA5, SGPM2LD, MACLINK2, SDA13);
+ FUNC_GROUP_DECL(MACLINK2, L24);
+ 
+ FUNC_GROUP_DECL(I2C13, K26, L24);
+@@ -95,16 +105,26 @@ FUNC_GROUP_DECL(I2C13, K26, L24);
+ #define L23 6
+ SIG_EXPR_LIST_DECL_SESG(L23, MACLINK3, MACLINK3, SIG_DESC_SET(SCU410, 6));
+ SIG_EXPR_LIST_DECL_SESG(L23, SCL14, I2C14, SIG_DESC_SET(SCU4B0, 6));
+-PIN_DECL_2(L23, GPIOA6, MACLINK3, SCL14);
++/*SGPM2 is A1 Only */
++SIG_EXPR_LIST_DECL_SESG(L23, SGPM2O, SGPM2, SIG_DESC_SET(SCU6D0, 6),
++			  SIG_DESC_CLEAR(SCU410, 6), SIG_DESC_CLEAR(SCU4B0, 6),
++			  SIG_DESC_CLEAR(SCU690, 6));
++PIN_DECL_3(L23, GPIOA6, SGPM2O, MACLINK3, SCL14);
+ FUNC_GROUP_DECL(MACLINK3, L23);
+ 
+ #define K25 7
+ SIG_EXPR_LIST_DECL_SESG(K25, MACLINK4, MACLINK4, SIG_DESC_SET(SCU410, 7));
+ SIG_EXPR_LIST_DECL_SESG(K25, SDA14, I2C14, SIG_DESC_SET(SCU4B0, 7));
+-PIN_DECL_2(K25, GPIOA7, MACLINK4, SDA14);
++/*SGPM2 is A1 Only */
++SIG_EXPR_LIST_DECL_SESG(K25, SGPM2I, SGPM2, SIG_DESC_SET(SCU6D0, 7),
++			  SIG_DESC_CLEAR(SCU410, 7), SIG_DESC_CLEAR(SCU4B0, 7),
++			  SIG_DESC_CLEAR(SCU690, 7));
++PIN_DECL_3(K25, GPIOA7, SGPM2I, MACLINK4, SDA14);
+ FUNC_GROUP_DECL(MACLINK4, K25);
+ 
+ FUNC_GROUP_DECL(I2C14, L23, K25);
++/*SGPM2 is A1 Only */
++FUNC_GROUP_DECL(SGPM2, K26, L24, L23, K25);
+ 
+ #define J26 8
+ SIG_EXPR_LIST_DECL_SESG(J26, SALT1, SALT1, SIG_DESC_SET(SCU410, 8));
+@@ -2060,6 +2080,7 @@ static const struct aspeed_pin_group aspeed_g6_groups[] = {
+ 	ASPEED_PINCTRL_GROUP(EMMCG4),
+ 	ASPEED_PINCTRL_GROUP(EMMCG8),
+ 	ASPEED_PINCTRL_GROUP(SGPM1),
++	ASPEED_PINCTRL_GROUP(SGPM2),
+ 	ASPEED_PINCTRL_GROUP(SGPS1),
+ 	ASPEED_PINCTRL_GROUP(SIOONCTRL),
+ 	ASPEED_PINCTRL_GROUP(SIOPBI),
+@@ -2276,6 +2297,7 @@ static const struct aspeed_pin_function aspeed_g6_functions[] = {
+ 	ASPEED_PINCTRL_FUNC(SD1),
+ 	ASPEED_PINCTRL_FUNC(SD2),
+ 	ASPEED_PINCTRL_FUNC(SGPM1),
++	ASPEED_PINCTRL_FUNC(SGPM2),
+ 	ASPEED_PINCTRL_FUNC(SGPS1),
+ 	ASPEED_PINCTRL_FUNC(SIOONCTRL),
+ 	ASPEED_PINCTRL_FUNC(SIOPBI),
 -- 
 2.17.1
 
