@@ -2,84 +2,77 @@ Return-Path: <SRS0=WmRq=DT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_YAHOO_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C43EC433DF
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 02:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00984C433E7
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:33:07 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9D1220782
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 02:04:45 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DDC712073A
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 04:33:05 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="M7K1mOnd"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9D1220782
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=yahoo.com
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=jms.id.au header.i=@jms.id.au header.b="Vi0Okto4"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDC712073A
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4C8hnl2tbSzDqMb
-	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 13:04:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4C8m4v4v0KzDqlL
+	for <openbmc@archiver.kernel.org>; Mon, 12 Oct 2020 15:33:03 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yahoo.com (client-ip=98.137.64.31;
- helo=sonic307-55.consmr.mail.gq1.yahoo.com;
- envelope-from=geissonator@yahoo.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::742;
+ helo=mail-qk1-x742.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=yahoo.com header.i=@yahoo.com header.a=rsa-sha256
- header.s=s2048 header.b=M7K1mOnd; dkim-atps=neutral
-Received: from sonic307-55.consmr.mail.gq1.yahoo.com
- (sonic307-55.consmr.mail.gq1.yahoo.com [98.137.64.31])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=Vi0Okto4; dkim-atps=neutral
+Received: from mail-qk1-x742.google.com (mail-qk1-x742.google.com
+ [IPv6:2607:f8b0:4864:20::742])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4C6lQs2VGQzDqWm
- for <openbmc@lists.ozlabs.org>; Fri,  9 Oct 2020 08:56:32 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1602194185; bh=DWBd8wNdtaWfg/VHFh0TV53uIQplMUBebOHWHWvk6/E=;
- h=Subject:From:In-Reply-To:Date:Cc:References:To:From:Subject;
- b=M7K1mOndgsXfUuXyjRD5qyNCFq2goJJsJYwtIafhAjqB1psTYzg3YjXG4KkYH/DKkE0NhheljmSteU5/dtt5/aB6MTtox+RL4+dR1K/Bo8eozhAvlT+s4LHBNqHIgQxO+6pcTin930c9jmArjcMpEMiABm/0IN0RHR0c4RtE6MENWIMCBOKyRp+YK32gr0JcQFZtS/DRGld9LySyEhxfFebG16phwWv+NQUY1h8JmtT+d+sCGS+GDEo3ezNvadgskhN6ynQj/h0ijxeI54oscieBB77I9zKCprLkwarsJkPhdu0o6Okh6ScUt6nDs8wgbbJ6PQSmXpT31qCbdBAw4A==
-X-YMail-OSG: rp1sZZAVM1l5jVXKKEAZq8HerPO0Hp4qF65Uza8wTs.nol5VSZNnGDwR6TUVotQ
- edt7wzOMPRJCI2c.OEtqn_oAx7z57RVn7B5dJZ9FS2eeigIlZREhlV_IUJC_6fmlkCAVaheKZLE_
- KTBu9IAAtRRAko7uIQL_S0ZTdlnKMEx4JpW4y8oywgjPiEkkgcT68N9pQeoJBt_L8OgODhUWFypU
- CZW.A1LjygoJ8yVgPztKy51tSCjMXZ8LnmHUiYep4RtqxJpKN6yqh0if6cKLAkji3elFOBcZVsDE
- WcrUvapqRUoJ_6ZkEjH8yM3VPr2Vzph88TjB_YWdNfl0imGHgT5ucVdqmv3rlisqg92tkdVNeHfJ
- N.RDWnYNtRrps.e8ebHt03ikXdVcBplM2_KcXZZ56sj9Gm13uvhjLueaWB2REcYLA1E9dcIx9pLT
- I98qMEXbWLUVDJJB7KNrmJaNXhcWyAxxyjpwnAFmRPqIkR08IJ6V3OlMdyaYp8crkinl57.cyFTu
- aTtW8BIQqK3cDiJPe.IZD1qESQ3Ekn7JLEkRILpiqw43fZY9yRI0p9GyEJmF9L8OUmtZie444sKd
- XsvLCB6Q8tBAJrd9cNsbZMBsk0eSwJr6QHye6jVuPk3MTpZAgYAkvt2EP4Q5ZZ.IQbqtRzhBzsXB
- nWjrqp_E2sClAEr5_QS4SxjJv6Dw3JbT9Ki7aRFnwuzXH4FEY4uFZxn0JPEFThRY51W3zbqvsW0H
- XCl3999SROkVfA46GqnAWCJeLFGesQoRcTRF4mIjsHLUMN7AO05hoAPg2E_BSqzgtpLt7AOzOWZg
- ykFdP6KVJd4oF.FgxBCGtZqd6STIdzWRs2RmCDVjrBUlM..DX.eG215OkkuMHvpPQOsgVUzSexol
- 2Tv7gkup7ujSyAqXj4CkQJAsinpfphrgvO30q3Uy8HTZ9hryI6BgPklgxJEbEF6dW.qmK5kmutLY
- vjsjmIia7STR1H2FeCZTgEjGTwaaVkJHO6Ns3UAxsIUYfPgZ0akE488Z9anxioAufW5rQkionwPB
- ZD8BBv6_Mut_qhQePQpf84muBba9anmagaNs..o1LLwnyQAkvopUA.yFpth07cw7Y18benxKY7hU
- yQRGT8frNNZTZrTbfQts21lcANj1j.k3diJ_L6ixXzVcdwoB.bTP5SNwLa4DaJbBOcQT8fCSwUdT
- gcFLIO0R9VFjKCdMUifUd903hO2OIpqxlLitiTZYNwmE7P8yIVm.4XwoXMHmFPY8KuNYT6ktsvNP
- eCNdJUqpQa.sM9b_JwV7FDZeHYcGwh081vln9nv79D5e7jSwIuAOZ1ylBHcBYCmmCXqPOG763y03
- MmajPofjZ5BP3jzCKkwDrpbUYBvcRf6jlIWi9d1tT.79p.NC6QWmY8xOIW4BmYm27rkcoEZZSPPo
- a7VuepxzmZYIfln.wG8BO.SVoj18.U9Res6lAhMO95BAa2glko1eH4V65mOz_FrMqLyK_b..uGvS
- U.gmg.Scja5RslUdSpCxtVIEQViND4pbE_9e60fWnZ00qHNclakMU3ymT1ztvCBh5kJJKqkA-
-Received: from sonic.gate.mail.ne1.yahoo.com by
- sonic307.consmr.mail.gq1.yahoo.com with HTTP; Thu, 8 Oct 2020 21:56:25 +0000
-Received: by smtp404.mail.ne1.yahoo.com (VZM Hermes SMTP Server) with ESMTPA
- ID 902d7ad3e7eff0402fcea41ea2acc268; 
- Thu, 08 Oct 2020 21:56:23 +0000 (UTC)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Re: Add peci-pcie repo to CI
-From: Andrew Geissler <geissonator@yahoo.com>
-In-Reply-To: <7d749dad-e4c0-0243-d701-4a6448fe3433@linux.intel.com>
-Date: Thu, 8 Oct 2020 16:56:22 -0500
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B433BB55-06A3-45A1-B457-D11E61271682@yahoo.com>
-References: <7d749dad-e4c0-0243-d701-4a6448fe3433@linux.intel.com>
-To: "Bills, Jason M" <jason.m.bills@linux.intel.com>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
-X-Mailman-Approved-At: Mon, 12 Oct 2020 13:03:34 +1100
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4C8m1m1Dw0zDqkX;
+ Mon, 12 Oct 2020 15:30:18 +1100 (AEDT)
+Received: by mail-qk1-x742.google.com with SMTP id s4so16688385qkf.7;
+ Sun, 11 Oct 2020 21:30:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=ix53B+4PxpD3FvNrquTS4wrFrQE1rmLNYwUdzsQBz70=;
+ b=Vi0Okto4r2twCBe/iUIb9WvlHH1xO2X3Pgp/nljP/qcnaXwYhnCYzuh1+uReRXwRdx
+ TPoGM9Rlp+ghbeEWUbk+eDkR+uz9q51GERSJbC0puwH+q4lKe8vhqMSjFp+Sge2IR07V
+ Yz5TD89m4VosCu5dlVKyhk/N9QRS5LXdMkwaU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=ix53B+4PxpD3FvNrquTS4wrFrQE1rmLNYwUdzsQBz70=;
+ b=jol1/tp7MjE8tyuqnqu/yeS/QmzTE6VlMlwXaMe0vvpueYK7r9KVHXSyv6y2BoYiJJ
+ moCq1C/pyaloxHsHFXyKrpbfZcBzjuRPmLfC/sfSVctmZcIvlFZf1y8z6JxOBXFSUdTU
+ cLIgZG7pW5qwQIrfCPW1pp/p8dYIMqVOcc1Uk72p4jGnUXCbs5/YpnHmRrarUvjVJ44X
+ hnpFWEe08NYjjKSb0/sQ7qaVe4LM9l8PM9legrv9JKqhmkIyRbxx6ZKZQceHCbanJtaE
+ 9Ru2dU6iOLvtr6H5oyCks1e0u3A3O6JE3tHGdeLxTEOLjPKxIdnKWSdYiOEFlNHLT3mj
+ feIg==
+X-Gm-Message-State: AOAM530/3CLPGZZDocJ86fbi1rIQ6w4I7xFLV9CtqP2yLQazGEiinNWY
+ AY3oEGf3hx4FuGNgGzxJZZ1bMmdJTaxyN1t+13s=
+X-Google-Smtp-Source: ABdhPJyNBsj3Xl5S6RY3Rvn00/GtfkhS8Ore3QHLa1prcwNZOO4RsI2temxvhrolGiYtx4NchxSTU3LmSRQ/3KhH1ts=
+X-Received: by 2002:a05:620a:16aa:: with SMTP id
+ s10mr7987574qkj.273.1602477012120; 
+ Sun, 11 Oct 2020 21:30:12 -0700 (PDT)
+MIME-Version: 1.0
+References: <20201012033150.21056-1-billy_tsai@aspeedtech.com>
+ <20201012033150.21056-2-billy_tsai@aspeedtech.com>
+In-Reply-To: <20201012033150.21056-2-billy_tsai@aspeedtech.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Mon, 12 Oct 2020 04:30:00 +0000
+Message-ID: <CACPK8XcQ+uodvYCyL7_RO9W2QF+AA2LidHhXi2tR3_uriQFccQ@mail.gmail.com>
+Subject: Re: [PATCH 1/3] Arm: dts: aspeed-g6: Fix the register range of gpio
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,25 +84,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Linus Walleij <linus.walleij@linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Bartosz Golaszewski <bgolaszewski@baylibre.com>,
+ Rob Herring <robh+dt@kernel.org>, BMC-SW <BMC-SW@aspeedtech.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Mon, 12 Oct 2020 at 03:32, Billy Tsai <billy_tsai@aspeedtech.com> wrote:
+>
+> This patch is used to fix the memory range of gpio0
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
-> On Oct 8, 2020, at 4:48 PM, Bills, Jason M =
-<jason.m.bills@linux.intel.com> wrote:
->=20
-> Hi Andrew,
->=20
-> Could you please add the openbmc/peci-pcie repo to the CI jobs?
-
-Sure thing, done.
-
->=20
-> https://gerrit.openbmc-project.xyz/c/openbmc/peci-pcie/+/37239
->=20
-> Thanks!
-> -Jason
-
+> ---
+>  arch/arm/boot/dts/aspeed-g6.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
+> index 97ca743363d7..ad19dce038ea 100644
+> --- a/arch/arm/boot/dts/aspeed-g6.dtsi
+> +++ b/arch/arm/boot/dts/aspeed-g6.dtsi
+> @@ -357,7 +357,7 @@
+>                                 #gpio-cells = <2>;
+>                                 gpio-controller;
+>                                 compatible = "aspeed,ast2600-gpio";
+> -                               reg = <0x1e780000 0x800>;
+> +                               reg = <0x1e780000 0x400>;
+>                                 interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
+>                                 gpio-ranges = <&pinctrl 0 0 208>;
+>                                 ngpios = <208>;
+> --
+> 2.17.1
+>
