@@ -1,85 +1,62 @@
 Return-Path: <SRS0=hlN9=DV=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 60B56C433DF
-	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 09:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2DB4C433DF
+	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 10:38:30 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5541B20757
-	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 09:59:44 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=yadro.com header.i=@yadro.com header.b="XNBhw3pk"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5541B20757
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9DC4420878
+	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 10:38:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9DC4420878
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CB7Ds5lygzDqXd
-	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 20:59:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CB85Z2BzPzDqml
+	for <openbmc@archiver.kernel.org>; Wed, 14 Oct 2020 21:38:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=quantatw.com (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=54939ef4a=spencer.ku@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=XNBhw3pk; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CB7Bv2rGwzDqYt
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2020 20:57:59 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id BCDA84137C
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2020 09:57:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-transfer-encoding:mime-version:user-agent:content-type
- :content-type:organization:references:in-reply-to:date:date:from
- :from:subject:subject:message-id:received:received:received; s=
- mta-01; t=1602669471; x=1604483872; bh=56VAc1P4279HzD/OwCcTu2xu7
- t/uDZZAinmLSehFXOw=; b=XNBhw3pkQB9A1bsM5lxrAFazuM6vjISOTdRsaFMxk
- EkJuzQa2d9tg4YEgmL18+nZ5J3bKJniWkHJULIeeYpDPFHTPqrKG5istpeRq2FGp
- N1FvNKYLVBugSt72B9CioT41RGAi+IJe95nrFgDC+PVzM3tbX+bRj0VmHFa4wBIR
- Ko=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id OPthPFzAcCqp for <openbmc@lists.ozlabs.org>;
- Wed, 14 Oct 2020 12:57:51 +0300 (MSK)
-Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
- [172.17.100.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id B4B63412D0
- for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2020 12:57:51 +0300 (MSK)
-Received: from [10.199.1.14] (10.199.1.14) by T-EXCH-04.corp.yadro.com
- (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 14
- Oct 2020 12:57:51 +0300
-Message-ID: <6853d70a5f647ac66dded94db7425de046e238cb.camel@yadro.com>
-Subject: Re: [redfish/v1/Systems/system/Processors] How does it work on wolf
- pass?
-From: Andrei Kartashev <a.kartashev@yadro.com>
-To: <openbmc@lists.ozlabs.org>
-Date: Wed, 14 Oct 2020 12:57:50 +0300
-In-Reply-To: <ea9b85fb-8951-5c25-bc42-6f6e636d347e@hyvedesignsolutions.com>
-References: <CAMXw96NCuqbeaOMQaO_BU2+_qQojOfLQdH-1=JS16vfanSZPdw@mail.gmail.com>
- <943f9c80-1f3c-b64d-1cb7-02b90d999be2@linux.intel.com>
- <ea9b85fb-8951-5c25-bc42-6f6e636d347e@hyvedesignsolutions.com>
-Organization: YADRO
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5 
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 68 seconds by postgrey-1.36 at bilbo;
+ Wed, 14 Oct 2020 21:37:15 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4CB84C03cVzDqVD
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Oct 2020 21:37:13 +1100 (AEDT)
+IronPort-SDR: jmn4J64j0aSStDb2Jhbi4FXcO2WOB2v9pbwHSPPnYpF1KugWcPzbwphJMoOrqInQN4yxAWbOq9
+ 4895to595lJw==
+Received: from unknown (HELO mailbx11.quanta.corp) ([10.243.91.108])
+ by mx01.quantatw.com with ESMTP; 14 Oct 2020 18:36:00 +0800
+Received: from mailbx11.quanta.corp (10.243.91.108) by mailbx11.quanta.corp
+ (10.243.91.108) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Wed, 14 Oct
+ 2020 18:35:58 +0800
+Received: from mailbx11.quanta.corp ([192.168.57.11]) by mailbx11.quanta.corp
+ ([192.168.57.11]) with mapi id 15.01.2044.004;
+ Wed, 14 Oct 2020 18:35:58 +0800
+From: =?big5?B?U3BlbmNlciBLdSAopWqlQLfsKQ==?= <Spencer.Ku@quantatw.com>
+To: Artem Senichev <artemsen@gmail.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: Modify Timestamp of phosphor-hostlogger 
+Thread-Topic: Modify Timestamp of phosphor-hostlogger 
+Thread-Index: AdaiFYMxC9eQT4jmT3KA6ZOgpczIEw==
+Date: Wed, 14 Oct 2020 10:35:58 +0000
+Message-ID: <4b1c3d6cd2fb42a9b4ca166ac90f9ae9@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_4b1c3d6cd2fb42a9b4ca166ac90f9ae9quantatwcom_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.199.1.14]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,131 +72,137 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Brad,
+--_000_4b1c3d6cd2fb42a9b4ca166ac90f9ae9quantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-It is already pulled: https://github.com/openbmc/smbios-mdr/
-But.. The main problem here is that the BIOS has to know it should
-share smbios table. Currently we struggling this problem since our BIOS
-lack this ability and we have to implement it in BIOS.
+SGkgQWxsLA0KV2UgaGF2ZSB3b3JrZWQgb24gYSByZWRmaXNoIFVSSSB0aGF0IHByb3ZpZGVzIGhv
+c3QgbG9nIGluZm9ybWF0aW9uLCB3aGljaCBpcyBiYXNlZCBvbiBvYm1jLWNvbnNvbGUgYW5kIHBo
+b3NwaG9yLWhvc3Rsb2dnZXIuIE5vdyB3ZSBjYW4gZ2V0IGhvc3QgbG9nIGFuZCBmaWxsIGluZm9y
+bWF0aW9uIGludG8gaG9zdCBsb2cgZW50cnksIGJ1dCBoZXJlIHdlIGhhdmUgYSBwcm9ibGVtIGFi
+b3V0IHRpbWVzdGFtcC4NCg0KT25lIG9mIHRoZSBsb2cgZW50cnkgbGV2ZWwgoadjcmVhdGVkIHRp
+bWWhqCwgbmVlZCB0byBmb2xsb3cgdGhlIHRpbWUgZm9ybWF0IGxpa2UgUkZDMzMzOSwgYW5kIGZv
+ciBub3csIHRoZSBob3N0IGxvZyBvbmx5IHByb3ZpZGVzIGhvdXIsIG1pbnV0ZSwgYW5kIHNlY29u
+ZCB0aW1lIGluZm8uIFdlIHdhbnQgdG8gbW9kaWZ5IHRoZSB0aW1lc3RhbXAgdG8gUkZDMzMzOSBm
+b3JtYXQgdG8gZml0IHRoZSBsb2cgZW50cnkgdGltZSBmb3JtYXQuDQoNCkhlcmUgaXMgYSBzYW1w
+bGUgaG9zdCBsb2cgd2l0aCB0aW1lc3RhbXAgcHJvdmlkaW5nIGJ5IHBob3NwaG9yLWhvc3Rsb2dn
+ZXI6DQpbIDAwOjAwOjMxIF0gPj4+IExvZyBjb2xsZWN0aW9uIHN0YXJ0ZWQgYXQgMTk3MC0wMS0w
+MSAwMDowMDozMQ0KDQpBZnRlciBtb2RpZmllZCwgdGhlIG1lc3NhZ2Ugd2lsbCBiZSBsaWtlZDoN
+ClsgMTk3MC0wMS0wMVQwMDowMDozMSswMDowMCBdID4+PiBMb2cgY29sbGVjdGlvbiBzdGFydGVk
+IGF0IDE5NzAtMDEtMDEgMDA6MDA6MzENCg0KaWYgdGhlIGNoYW5nZXMgbWFrZSBzZW5zZSwgd2Ug
+d2lsbCBwdXNoIHRoZSBjaGFuZ2VzIHRvIHVwc3RyZWFtLg0KUGxlYXNlIGxldCB1cyBrbm93IGlm
+IHRoZXJlJ3MgYW55IGlzc3VlLCB0aGFuayB5b3UuDQoNClNpbmNlcmVseSwNClNwZW5jZXINCg==
 
-BTW, I first time see this patch. According to what I know, today's
-implementation is sending smbios table from BIOS to BMC via ipmi. There
-are OEM commands for this implemented in intel-ipmi-oem.
+--_000_4b1c3d6cd2fb42a9b4ca166ac90f9ae9quantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2020-10-14 at 17:06 +0800, Brad Chou wrote:
-> Hi Bills,
-> 
-> I am also interesting in this kind of SMBIOS table processing.
-> 
-> May I know if Intel has plan to pull this feature into 
-> https://github.com/openbmc ?
-> 
-> 
-> By the way, I notice that a patch is also required to make it work.
-> 
-> https://github.com/Intel-BMC/openbmc/blob/4c732e83b4ca9a869c0a3f6e9b7e22ac9c76a78f/meta-openbmc-mods/meta-common/recipes-kernel/linux/linux-aspeed/0035-Implement-a-memory-driver-share-memory.patch
-> 
-> It says BIOS is using BMC VGA shared memory to transfer the whole
-> SMBIOS 
-> table to BMC, particularly a 16MB size memory allocated at
-> 0x9ff0:0000.
-> 
-> My question is, if the BMC VGA memory hardware strap settings is
-> 64MB, 
-> that is BMC already occupy all VGA memory as frame buffer.
-> 
-> Can BIOS still use the VGA share memory to transfer SMBIOS table ?
-> 
-> 
-> Brad Chou
-> 
-> 
-> On 10/13/20 12:23 AM, Bills, Jason M wrote:
-> > [External E-mail] CAUTION: This email originated from outside of
-> > the 
-> > organization. Do not click links or open attachments unless you 
-> > recognize the sender and know the content is safe.
-> > 
-> > 
-> > 
-> > 
-> > On 10/9/2020 5:57 PM, Zhenfei Tai wrote:
-> > > Hi,
-> > > 
-> > > I've been testing bmcweb and noticed the response from the URI 
-> > > `redfish/v1/Systems/system/Processors` contains an empty
-> > > collection.
-> > > 
-> > > {
-> > >    "@odata.context": 
-> > > "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection",
-> > >    "@odata.id <http://odata.id>;": 
-> > > "/redfish/v1/Systems/system/Processors/",
-> > >    "@odata.type": "#ProcessorCollection.ProcessorCollection",
-> > >    "Members": [],
-> > >    "Members@odata.count": 0,
-> > >    "Name": "Processor Collection"
-> > > }
-> > > 
-> > > Looking at bmcweb code, it seems to look for dbus interfaces 
-> > > `xyz.openbmc_project.Inventory.Item.Cpu` and 
-> > > `xyz.openbmc_project.Inventory.Item.Accelerator`. However they
-> > > can't 
-> > > be seen in dbus.
-> > > 
-> > > # busctl tree --no-pager xyz.openbmc_project.Inventory.Item.Cpu
-> > > Failed to introspect object / of service 
-> > > xyz.openbmc_project.Inventory.Item.Cpu: The name is not
-> > > activatable
-> > > 
-> > > Entity-manager and cpu-sensor are running in addition to bmcweb.
-> > > The 
-> > > entity-manager config is below and I can see the config is picked
-> > > up 
-> > > in `xyz.openbmc_project.EntityManager`.
-> > > 
-> > > {
-> > >    "Exposes": [
-> > >      {
-> > >          "Address": "0x30",
-> > >          "Bus": 0,
-> > >          "CpuID": 1,
-> > >          "Name": "CPU 1",
-> > >          "Type": "XeonCPU"
-> > >      },
-> > >      {
-> > >          "Address": "0x31",
-> > >          "Bus": 0,
-> > >          "CpuID": 2,
-> > >          "Name": "CPU 2",
-> > >          "Type": "XeonCPU"
-> > >      }
-> > >    ],
-> > >    "Name": "internal_code_name",
-> > >    "Probe":
-> > > "xyz.openbmc_project.FruDevice({'BOARD_PRODUCT_NAME': 
-> > > 'internal_product_name'})",
-> > >    "Type": "Board"
-> > > }
-> > > 
-> > > I'm not sure what else is required to have the URI work
-> > > properly. 
-> > > Could someone familiar with this issue help?
-> > On Intel systems, we currently get most CPU information from the 
-> > SMBIOS tables which are provided to the BMC through something
-> > called 
-> > the MDR. That application is available here: 
-> > https://github.com/Intel-BMC/mdrv2.
-> > 
-> > When we have seen empty CPU or memory resource collections in
-> > Redfish, 
-> > it has usually been caused by a failure to get the SMBIOS data from
-> > BIOS.
-> > 
-> > > Thanks,
-> > > Zhenfei
--- 
-Best regards,
-Andrei Kartashev
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+p.msonormal0, li.msonormal0, div.msonormal0
+	{mso-style-name:msonormal;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	font-size:12.0pt;
+	font-family:"=B7s=B2=D3=A9=FA=C5=E9",serif;}
+span.EmailStyle18
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi All,<o:p></o:p></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:24.0pt"><span lang=3D"EN-US">We=
+ have worked on a redfish URI that provides host log information, which is =
+based on obmc-console and phosphor-hostlogger. Now we can get host log and =
+fill information into host log entry,
+ but here we have a problem about timestamp. <o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal" style=3D"text-indent:24.0pt"><span lang=3D"EN-US">On=
+e of the log entry level =A1=A7created time=A1=A8, need to follow the time =
+format like RFC3339, and for now, the host log only provides hour, minute, =
+and second time info. We want to modify the timestamp
+ to RFC3339 format to fit the log entry time format.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Here is a sample host log with =
+timestamp providing by phosphor-hostlogger:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black;background=
+:silver;mso-highlight:silver">[ 00:00:31 ] &gt;&gt;&gt; Log collection star=
+ted at 1970-01-01 00:00:31</span><span lang=3D"EN-US" style=3D"color:black"=
+><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">After modified, the message wil=
+l be liked:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black;background=
+:silver;mso-highlight:silver">[ 1970-01-01T00:00:31&#43;00:00 ] &gt;&gt;&gt=
+; Log collection started at 1970-01-01 00:00:31</span><span lang=3D"EN-US" =
+style=3D"color:black"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black">if the ch=
+anges make sense, we will push the changes to upstream.</span><span lang=3D=
+"EN-US"><o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black">Please le=
+t us know if there's any issue, thank you.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black"><o:p>&nbs=
+p;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black">Sincerely=
+,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US" style=3D"color:black">Spencer<o=
+:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-
+--_000_4b1c3d6cd2fb42a9b4ca166ac90f9ae9quantatwcom_--
