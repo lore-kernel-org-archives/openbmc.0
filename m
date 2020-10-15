@@ -2,77 +2,105 @@ Return-Path: <SRS0=OchM=DW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 647BBC433E7
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2020 12:50:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8AD83C433E7
+	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2020 14:16:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A631A22258
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2020 12:50:29 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 50BAF20757
+	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2020 14:16:55 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=yadro.com header.i=@yadro.com header.b="bmcqledm"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A631A22258
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Xh4WC+az"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 50BAF20757
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CBpzR3rvWzDqTy
-	for <openbmc@archiver.kernel.org>; Thu, 15 Oct 2020 23:50:27 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CBrv906TVzDqQm
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 01:16:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=i.mikhaylov@yadro.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=bmcqledm; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=Xh4WC+az; dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CBpsc4w7MzDqTd
- for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 23:45:24 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 101B241390;
- Thu, 15 Oct 2020 12:45:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-type:content-type:content-transfer-encoding:mime-version
- :x-mailer:message-id:date:date:subject:subject:from:from
- :received:received:received; s=mta-01; t=1602765916; x=
- 1604580317; bh=+7Dr+pURlSJhI4aulCo3AkEHIH1l+HVxkNQNAd53gtQ=; b=b
- mcqledmAarqfxoItBwNvTFiPVSodCdeOjLITkYBirTlgSovjC8SomwkirbVoXfO6
- Rvbh+0O7hBPGMIrAvSTQCYMig2g8aq2cp0jTWgC+lPjNVLsNvHdhzJ7QyuhnEwFe
- vCr0cAATttkcc9+paeQ5BOdb2RixrvO/gdCswiL5lc=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id dmC_QFkmc8_T; Thu, 15 Oct 2020 15:45:16 +0300 (MSK)
-Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
- [172.17.100.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 2969A41397;
- Thu, 15 Oct 2020 15:45:11 +0300 (MSK)
-Received: from localhost.dev.yadro.com (10.199.2.186) by
- T-EXCH-04.corp.yadro.com (172.17.100.104) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
- 15.1.669.32; Thu, 15 Oct 2020 15:45:10 +0300
-From: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski
- <kuba@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>
-Subject: [PATCH v1 0/2] add ast2400/2500 phy-handle support
-Date: Thu, 15 Oct 2020 15:49:15 +0300
-Message-ID: <20201015124917.8168-1-i.mikhaylov@yadro.com>
-X-Mailer: git-send-email 2.21.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CBrrF5WJ2zDqQk
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2020 01:14:21 +1100 (AEDT)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09FE1ZbU151518
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 10:14:16 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=quKPAnrqNTIm9Xly7oddYt6kW+IBYetwwDgodSRSC1E=;
+ b=Xh4WC+az0FHkxnBpvMD2ZSt0LpjOSBo0hI3kZUleuMlv8YHWYDKG3jcMwu/RN5U6yUcw
+ 5DBIpQBdQv27DPgbHJQEJFvCjz8Xj+7ErkF4UwG6+rh+BPjzAWEyjDfSohKsIF5QJVZ0
+ A0l4vFVKb9tTdlO6pz4z4qSapH1SV3Oa1rUbBlXHDUAs6s2TwoLrmmWkdzol5fYpVpjg
+ r7YR33mcCpzqMoGabsO5EtHMU76kSTFCzXgDdkugyZcpFtQ9gHrF9osueYpORPC61ep1
+ 5EFf9aFBPr62Nfd5D6b1nkLHMEKO4KdGCEtvWx+B/OxayVDV54SUeWFPuGIJ+408e6T9 AQ== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 346nb8x7jh-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 10:14:16 -0400
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 09FECeWI029179
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:15 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma03wdc.us.ibm.com with ESMTP id 343y2tj9ac-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:15 +0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 09FEEEdA4129530
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:14 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C756A124058
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:14 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 83F06124052
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:14 +0000 (GMT)
+Received: from [9.80.201.12] (unknown [9.80.201.12])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Oct 2020 14:14:14 +0000 (GMT)
+Subject: Re: Security Working Group Meeting - Wed 14 October - results
+To: openbmc@lists.ozlabs.org
+References: <CAC1Cx+sq1RM4YBnbbiKq1uJ-1bjdETj2u116cSzsd2vhSo2K7Q@mail.gmail.com>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Message-ID: <0c8a7bd5-e437-6460-b309-c9146477e120@linux.ibm.com>
+Date: Thu, 15 Oct 2020 09:14:13 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
+In-Reply-To: <CAC1Cx+sq1RM4YBnbbiKq1uJ-1bjdETj2u116cSzsd2vhSo2K7Q@mail.gmail.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.199.2.186]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-04.corp.yadro.com (172.17.100.104)
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.687
+ definitions=2020-10-15_08:2020-10-14,
+ 2020-10-15 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 suspectscore=0
+ mlxlogscore=999 phishscore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 mlxscore=0 clxscore=1015 impostorscore=0
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010150096
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,41 +112,120 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Ivan Mikhaylov <i.mikhaylov@yadro.com>, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch introduces ast2400/2500 phy-handle support with an embedded
-MDIO controller. At the current moment it is not possible to set options
-with this format on ast2400/2500:
+On 10/13/20 2:06 PM, Parth Shukla wrote:
+> This is a reminder of the OpenBMC Security Working Group meeting 
+> scheduled for this...
+> This Message Is From an External Sender
+> This message came from outside your organization.
+>
+> This is a reminder of the OpenBMC Security Working Group meeting 
+> scheduled for this Wednesday October 14 at 10:00am PDT.
+>
+> We'll discuss the following items on the agenda 
+> <https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
+> and anything else that comes up:
+>
+>  1. (Joseph): Follow up from 2020-8-19: Gerrit code review: BMCWeb
+>     webUI login change:
+>     https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/35457
+>     Question: What are the security risks of using the proposed config
+>     flag BMCWEB_INSECURE_ENABLE_UNAUTHENTICATED_ASSETS=YES?
+>      1. Fingerprinting (leak information about the BMC’s manufacturer
+>         and version).
+>      2. Attackers have an easier time getting the code to find and
+>         exploit security bugs.
+>      3. May make DoS easier.
+>      4. More?
+>
 
-mac {
-	phy-handle = <&phy>;
-	phy-mode = "rgmii";
+Yes, those are the main risks we talked about.  And it seems reasonable 
+for some environments to accept these risks.  We discussed 
+fingerprinting, and the desire to minimize this surface going forward.  
+We discussed how the Redfish standard requires files to have 
+unauthenticated access to static files while the OpenBMC project has 
+uses cases that don’t want to allow that, for example, discussion in 
+https://redfishforum.com/thread/375/mtls-enforcement-openbmcs-redfish-implementation
 
-	mdio {
-		#address-cells = <1>;
-		#size-cells = <0>;
 
-		phy: ethernet-phy@0 {
-			compatible = "ethernet-phy-idxxxx.yyyy";
-			reg = <0>;
-		};
-	};
-};
 
-The patch fixes it and gets possible PHYs and register them with
-of_mdiobus_register.
+> 2. (Joseph): Per 
+> https://lists.ozlabs.org/pipermail/openbmc/2020-October/023530.html do 
+> we agree on the approach?  What security categories seem most important?
 
-Ivan Mikhaylov (2):
-  net: ftgmac100: move phy connect out from ftgmac100_setup_mdio
-  net: ftgmac100: add handling of mdio/phy nodes for ast2400/2500
+The Microsoft, IBM, and Common Criteria schemes each have topics that 
+seem appropriate.  No other high-level scheme was proposed, so we’ll go 
+with these for now.
 
- drivers/net/ethernet/faraday/ftgmac100.c | 114 ++++++++++++++---------
- 1 file changed, 69 insertions(+), 45 deletions(-)
+In particular, will someone please articulate topics from Microsoft 
+Security Development Lifecycle (SDL), and we’ll add them to the list. TODO
 
--- 
-2.21.1
+It was agreed that the list of topics have information that can be 
+leveraged by various security development processes.  For example, a 
+team that uses OpenBMC in their project and wants to follow a security 
+scheme/process/evaluation should be able to use these topics to find 
+what they need in the OpenBMC project documentation.
+
+We agreed in principle to organize OpenBMC security work to a subset of 
+the topics listed.
+
+Two subtopics were discussed:
+
+2A. We reviewed the security reporting and bug fixing process.  
+Specifically:
+
+  *
+
+    The OpenBMC security response team:
+    https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team.md
+
+  *
+
+    This is what github advocates using:
+    https://github.com/openbmc/openbmc/security/advisories
+
+  *
+
+    What tools do we use to:
+
+  *
+
+    Identify which open source pkgs are used in an openbmc build,
+
+  *
+
+    Identify security bugs in those packages, and
+
+  *
+
+    Ensure that we pull in fixes or otherwise mitigate the problem.
+
+
+2B. Given that OpenBMC is a Linux Foundation project, what resources 
+does the Linux Foundation offer?  Specifically, we want a private secure 
+bug tracker for the OpenBMC security response team to use.
+
+The following topic was added:
+
+3. Anton update on privilege separation work
+
+ANSWER:
+
+Progress on ipmi-net & bmcweb -- working on dbus config, sockets; which 
+areas to sandbox.
+
+To make the migration work (changing from root user to another user), we 
+will need to migrate the process’s environment, for example: bmcweb uses 
+files in /home/root and it won't have permission afterward.
+
+We discussed how to do the source bump to help CI go more smoothly.
+
+> Access, agenda and notes are in the wiki:
+> https://github.com/openbmc/openbmc/wiki/Security-working-group
+>
+> Regards,
+> Parth
 
