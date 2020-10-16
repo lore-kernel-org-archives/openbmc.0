@@ -2,101 +2,60 @@ Return-Path: <SRS0=nj90=DX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DCA7C433E7
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 03:39:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32473C433DF
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 08:25:16 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79B4C2071A
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 03:39:47 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=aj.id.au header.i=@aj.id.au header.b="D1Ujtvlf";
-	dkim=temperror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BYqlE794"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79B4C2071A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 1A98D20872
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 08:25:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A98D20872
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CCBjX4kC0zDqQP
-	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 14:39:44 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CCK2v55WvzDqfB
+	for <openbmc@archiver.kernel.org>; Fri, 16 Oct 2020 19:25:11 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=64.147.123.21;
- helo=wout5-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=quantatw.com (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=551482c04=spencer.ku@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=aj.id.au
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm1 header.b=D1Ujtvlf; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=BYqlE794; 
- dkim-atps=neutral
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CCBh43SLXzDqPW
- for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2020 14:38:27 +1100 (AEDT)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id E1030EC2;
- Thu, 15 Oct 2020 23:38:23 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Thu, 15 Oct 2020 23:38:24 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm1; bh=R/fmI1vtMzeLynE+87bROmHYWMpP5MG
- 2lZLmGI/b2AE=; b=D1UjtvlfP7aq9mLOq7dZryv2F52iB4uOIxvounAnNh8zOqw
- 09PzLGaVdSG59e/ma6mTVnr2jSlBPgQ28UtPKNHWPEf5WD4StzKGaI/3MdCjrV70
- RwsEYN26cB4qPUcfoUq2zyRRwqM/nrbdu39+gxtje321RQPlzrgMA5azPMfe0lYg
- dGbyKOnxsSkxIrXiqpFNEe5kcUcpNaHewh5sTevGX4Mx7MJRYGUR64cpJKPOZ2nD
- iXmnPqtA8kLc97+syaygWT3mjy1bXwq2NVjTH74w31dWHzgFo38iWDL/P9NAjB3R
- jKwFMHr7u+vjucpNeUC7SJjOfUxDCTJXkZuAn1A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=R/fmI1
- vtMzeLynE+87bROmHYWMpP5MG2lZLmGI/b2AE=; b=BYqlE794HoY5S6xMD4axNL
- wsvNiVMxGxRK5OuDgWfsABPoOUi0UtHD8dtu8QBKu/sCYOJCUZZ/82GNqn+stxE4
- tFyoFolj25dU9/kTYDn5YXWiq58wiPt2Eb5Gi7fmHu3tb+44Kqr6X0gO0taxrIbo
- lgdXyQ29U7MAaZILKW2nFNYDY83cJn0vh5EE9tFqo8fNrOjY2Y4lKgnjXPiRdIA7
- 1vdq7YTzT/1PDLmRzyf6BwCcF7/jQivwj3TBy74sXN6LcpqHNHyXCLa1hOzT2cgy
- VGdyG8yr2kireem4ufM5kzpQqjDoN5j3rQCsAQkhvm64mLVYVHyx7VWrpgiVt0JQ
- ==
-X-ME-Sender: <xms:rhWJX6U_EJgh0C0lYMTw5HT581Uw7fC9-LGrjDOjR3eZE2n1pulo-g>
- <xme:rhWJX2lzK2I-F9ys2i3qEY8c26JYrFiDkLQ_8wT5cP99dq2NP6MueMuzgL_y-uRzY
- 9Lv9vmWZpz4djpJjA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrieeggdejgecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
- veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:rhWJX-bRXEDdUd4CsSd_0C8lX8soTmiihjgSMtGiWN_RndLWK_HtRw>
- <xmx:rhWJXxVvBQXJC_aN9u5b_5HffKfJKegKaEZrrUmzUAbj1vazIBPG4w>
- <xmx:rhWJX0nuvN5DdNkfmU8akaWlaHAajsfxTzoRt5rvLXINm-w3uOxyMg>
- <xmx:rxWJX2RKOfk-s0k3Ay7JRrlNMRL6ssQivRxXWyjfxqHx7nFf4rafeg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 45D57E00A8; Thu, 15 Oct 2020 23:38:21 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.3.0-489-gf39678d-fm-20201011.001-gf39678d0
-Mime-Version: 1.0
-Message-Id: <e129afe2-2cdb-4536-89e0-04b7079cf1be@www.fastmail.com>
-In-Reply-To: <CACPK8Xd-3e+6EO1dz7aQZqTpxamDcVPfqAgbneg2_W=vpto3Kw@mail.gmail.com>
-References: <20201002063414.275161-1-andrew@aj.id.au>
- <20201002063414.275161-2-andrew@aj.id.au>
- <CACPK8Xd-3e+6EO1dz7aQZqTpxamDcVPfqAgbneg2_W=vpto3Kw@mail.gmail.com>
-Date: Fri, 16 Oct 2020 14:08:02 +1030
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Joel Stanley" <joel@jms.id.au>
-Subject: Re: [PATCH 1/3] ARM: dts: rainier: Add reserved memory for ramoops
-Content-Type: text/plain
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4CCK1F1hsjzDqbW
+ for <openbmc@lists.ozlabs.org>; Fri, 16 Oct 2020 19:23:40 +1100 (AEDT)
+IronPort-SDR: wu2Wj5vHqGX9OgnaUTT6T4hKz/3B3VU6wm+5pIJojm+++2RpLcf1TSixcQb5DAgzAtsO7jiM6L
+ Gt4OAEB+M8gg==
+Received: from unknown (HELO mailbx07.quanta.corp) ([10.243.91.102])
+ by mx02.quantatw.com with ESMTP; 16 Oct 2020 16:23:22 +0800
+Received: from mailbx11.quanta.corp (10.243.91.108) by mailbx07.quanta.corp
+ (10.243.91.102) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Fri, 16 Oct
+ 2020 16:23:21 +0800
+Received: from mailbx11.quanta.corp ([192.168.57.11]) by mailbx11.quanta.corp
+ ([192.168.57.11]) with mapi id 15.01.2044.004;
+ Fri, 16 Oct 2020 16:23:21 +0800
+From: =?utf-8?B?U3BlbmNlciBLdSAo5Y+k5LiW55GcKQ==?= <Spencer.Ku@quantatw.com>
+To: Artem Senichev <artemsen@gmail.com>
+Subject: RE: Modify Timestamp of phosphor-hostlogger
+Thread-Topic: Modify Timestamp of phosphor-hostlogger
+Thread-Index: AdaiFYMxC9eQT4jmT3KA6ZOgpczIEwAZkLEAAEZW5fA=
+Date: Fri, 16 Oct 2020 08:23:21 +0000
+Message-ID: <8dbe075ae1054c2fbf2c41ffc5e854ee@quantatw.com>
+References: <4b1c3d6cd2fb42a9b4ca166ac90f9ae9@quantatw.com>
+ <CAHsrh9LOmMvT2Sgo2niSHbJ74b3yf_9UTiaqJxm9MhcXkpv8EA@mail.gmail.com>
+In-Reply-To: <CAHsrh9LOmMvT2Sgo2niSHbJ74b3yf_9UTiaqJxm9MhcXkpv8EA@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,101 +72,33 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
-
-On Tue, 6 Oct 2020, at 13:52, Joel Stanley wrote:
-> On Fri, 2 Oct 2020 at 06:35, Andrew Jeffery <andrew@aj.id.au> wrote:
-> >
-> > Reserve a 1MiB region of memory to record kmsg dumps and console state
-> > into 16kiB ring-buffer slots. The sizing allows for up to 32 dumps to be
-> > captured and read out.
-> >
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > ---
-> >  arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 8 ++++++++
-> >  1 file changed, 8 insertions(+)
-> >
-> > diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-> > index e6f422edf454..46a0e95049fd 100644
-> > --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-> > +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-> > @@ -47,6 +47,14 @@ reserved-memory {
-> >                 #size-cells = <1>;
-> >                 ranges;
-> >
-> > +               ramoops@b7f00000 {
-> > +                       compatible = "ramoops";
-> > +                       reg = <0xb7f00000 0x100000>;
-> > +                       record-size = <0x4000>;
-> > +                       console-size = <0x4000>;
-> 
-> This is conserative. We've got plenty of space, how about we make it bigger?
-> 
-> $ git grep console-size *.dts* | grep -Po "0x([0-9]+)" | xargs printf
-> "%x\n" | sort -n
-> 8000
-> 8000
-> 10000
-> 10000
-> 20000
-> 20000
-> 20000
-> 20000
-> 20000
-> 60000
-> 100000
-> 
-> The median is 128KB, which sounds reasonable.
-
-Well, maybe? Why should we basing it on what everyone else has done rather than 
-what we need? We're compressing the data before it's written to the pstore 
-ring. Uncompressed, 16k is in the order of 200 lines of text. With the default 
-DEFLATE compression we can fit 3-4x more:
-
-root@rain15bmc:~# uptime
- 14:44:20 up 14:44,  load average: 0.01, 0.01, 0.01
-root@rain15bmc:~# dmesg | wc -l
-640
-root@rain15bmc:~# dmesg  >/tmp/dmesg
-root@rain15bmc:~# stat -c "%s" /tmp/dmesg
-44032
-root@rain15bmc:~# gzip /tmp/dmesg
-root@rain15bmc:~# stat -c "%s" /tmp/dmesg.gz
-11059
-
-I think 16k is more than enough for now?
-
-> 
-> $ git grep record-size *.dts* | grep -Po "0x([0-9]+)" | xargs printf "%x\n"
-> 20000
-> 400
-> 400
-> 20000
-> 20000
-> 20000
-> 10000
-> 10000
-> 10000
-> 10000
-> 20000
-> 
-> 64KB is the median record size.
-> 
-> > +                       pmsg-size = <0x4000>;
-> 
-> Do we want to add ftrace too?
-
-I figured getting an oops/panic stack dump might be enough for the moment.
-
-> 
-> Should we also add max-reason = KMSG_DUMP_EMERG?
-> 
-> Logging reboots and shutdowns is informative (you know if a reboot was
-> intentional or due to a crash that wasn't recorded) and allows for
-> testing.
-
-Yeah, that's a good idea.
-
-Thanks.
-
-Andrew
+SGkgQXJ0ZW0sDQpUaGFua3MgZm9yIHlvdXIgcmVwbHkuIEkgaGFkIGFscmVhZHkgcHVzaGVkIHRo
+ZSBjaGFuZ2UgdG8gZ2Vycml0Lg0KUGxlYXNlIHRha2UgYSBsb29rLCB0aGFuayB5b3UuDQoNClNp
+bmNlcmVseSwNClNwZW5jZXIgS3UNCg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206
+IEFydGVtIFNlbmljaGV2IDxhcnRlbXNlbkBnbWFpbC5jb20+IA0KU2VudDogVGh1cnNkYXksIE9j
+dG9iZXIgMTUsIDIwMjAgMjo0NiBQTQ0KVG86IFNwZW5jZXIgS3UgKOWPpOS4lueRnCkgPFNwZW5j
+ZXIuS3VAcXVhbnRhdHcuY29tPg0KQ2M6IE9wZW5CTUMgTWFpbGxpc3QgPG9wZW5ibWNAbGlzdHMu
+b3psYWJzLm9yZz4NClN1YmplY3Q6IFJlOiBNb2RpZnkgVGltZXN0YW1wIG9mIHBob3NwaG9yLWhv
+c3Rsb2dnZXINCg0KSGkgU3BlbmNlciwNCg0KSSB0aGluayBpdCBpcyBhIGdvb2QgaWRlYS4NCldl
+IGRpZG4ndCBoYXZlIGEgc2VydmljZSB0byBoYW5kbGUgdGhlc2UgbG9ncywgc28gdGhlIHNob3J0
+IGZvcm1hdCB3YXMgZHVlIHRvIHRoZSBjb21wYWN0IGRpc3BsYXkgb3V0cHV0Lg0KDQotLQ0KQmVz
+dCByZWdhcmRzLA0KQXJ0ZW0gU2VuaWNoZXYNCg0KT24gV2VkLCBPY3QgMTQsIDIwMjAgYXQgMToz
+NiBQTSBTcGVuY2VyIEt1ICjlj6TkuJbnkZwpDQo8U3BlbmNlci5LdUBxdWFudGF0dy5jb20+IHdy
+b3RlOg0KPg0KPiBIaSBBbGwsDQo+DQo+IFdlIGhhdmUgd29ya2VkIG9uIGEgcmVkZmlzaCBVUkkg
+dGhhdCBwcm92aWRlcyBob3N0IGxvZyBpbmZvcm1hdGlvbiwgd2hpY2ggaXMgYmFzZWQgb24gb2Jt
+Yy1jb25zb2xlIGFuZCBwaG9zcGhvci1ob3N0bG9nZ2VyLiBOb3cgd2UgY2FuIGdldCBob3N0IGxv
+ZyBhbmQgZmlsbCBpbmZvcm1hdGlvbiBpbnRvIGhvc3QgbG9nIGVudHJ5LCBidXQgaGVyZSB3ZSBo
+YXZlIGEgcHJvYmxlbSBhYm91dCB0aW1lc3RhbXAuDQo+DQo+DQo+DQo+IE9uZSBvZiB0aGUgbG9n
+IGVudHJ5IGxldmVsIOKAnGNyZWF0ZWQgdGltZeKAnSwgbmVlZCB0byBmb2xsb3cgdGhlIHRpbWUg
+Zm9ybWF0IGxpa2UgUkZDMzMzOSwgYW5kIGZvciBub3csIHRoZSBob3N0IGxvZyBvbmx5IHByb3Zp
+ZGVzIGhvdXIsIG1pbnV0ZSwgYW5kIHNlY29uZCB0aW1lIGluZm8uIFdlIHdhbnQgdG8gbW9kaWZ5
+IHRoZSB0aW1lc3RhbXAgdG8gUkZDMzMzOSBmb3JtYXQgdG8gZml0IHRoZSBsb2cgZW50cnkgdGlt
+ZSBmb3JtYXQuDQo+DQo+DQo+DQo+IEhlcmUgaXMgYSBzYW1wbGUgaG9zdCBsb2cgd2l0aCB0aW1l
+c3RhbXAgcHJvdmlkaW5nIGJ5IHBob3NwaG9yLWhvc3Rsb2dnZXI6DQo+DQo+IFsgMDA6MDA6MzEg
+XSA+Pj4gTG9nIGNvbGxlY3Rpb24gc3RhcnRlZCBhdCAxOTcwLTAxLTAxIDAwOjAwOjMxDQo+DQo+
+DQo+DQo+IEFmdGVyIG1vZGlmaWVkLCB0aGUgbWVzc2FnZSB3aWxsIGJlIGxpa2VkOg0KPg0KPiBb
+IDE5NzAtMDEtMDFUMDA6MDA6MzErMDA6MDAgXSA+Pj4gTG9nIGNvbGxlY3Rpb24gc3RhcnRlZCBh
+dCAxOTcwLTAxLTAxIA0KPiAwMDowMDozMQ0KPg0KPg0KPg0KPiBpZiB0aGUgY2hhbmdlcyBtYWtl
+IHNlbnNlLCB3ZSB3aWxsIHB1c2ggdGhlIGNoYW5nZXMgdG8gdXBzdHJlYW0uDQo+DQo+IFBsZWFz
+ZSBsZXQgdXMga25vdyBpZiB0aGVyZSdzIGFueSBpc3N1ZSwgdGhhbmsgeW91Lg0KPg0KPg0KPg0K
+PiBTaW5jZXJlbHksDQo+DQo+IFNwZW5jZXINCg==
