@@ -2,24 +2,23 @@ Return-Path: <SRS0=Exe3=DY=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-9.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 14E60C433DF
-	for <openbmc@archiver.kernel.org>; Sat, 17 Oct 2020 20:34:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E5F3C433E7
+	for <openbmc@archiver.kernel.org>; Sat, 17 Oct 2020 20:41:34 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ED035207BB
-	for <openbmc@archiver.kernel.org>; Sat, 17 Oct 2020 20:34:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ED035207BB
+	by mail.kernel.org (Postfix) with ESMTPS id 5D122207BB
+	for <openbmc@archiver.kernel.org>; Sat, 17 Oct 2020 20:41:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5D122207BB
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lunn.ch
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CDF9s2hHdzDqZj
-	for <openbmc@archiver.kernel.org>; Sun, 18 Oct 2020 07:34:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CDFL34xTrzDqV7
+	for <openbmc@archiver.kernel.org>; Sun, 18 Oct 2020 07:41:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch
  (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
@@ -30,23 +29,23 @@ Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CDF7y5pqhzDqYq
- for <openbmc@lists.ozlabs.org>; Sun, 18 Oct 2020 07:32:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CDFJ42B2YzDqTh
+ for <openbmc@lists.ozlabs.org>; Sun, 18 Oct 2020 07:39:48 +1100 (AEDT)
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
  (envelope-from <andrew@lunn.ch>)
- id 1kTssM-002BpP-Cq; Sat, 17 Oct 2020 22:32:26 +0200
-Date: Sat, 17 Oct 2020 22:32:26 +0200
+ id 1kTszK-002BsT-N6; Sat, 17 Oct 2020 22:39:38 +0200
+Date: Sat, 17 Oct 2020 22:39:38 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-Subject: Re: [PATCH v1 1/2] net: ftgmac100: move phy connect out from
- ftgmac100_setup_mdio
-Message-ID: <20201017203226.GQ456889@lunn.ch>
+Subject: Re: [PATCH v1 2/2] net: ftgmac100: add handling of mdio/phy nodes
+ for ast2400/2500
+Message-ID: <20201017203938.GR456889@lunn.ch>
 References: <20201015124917.8168-1-i.mikhaylov@yadro.com>
- <20201015124917.8168-2-i.mikhaylov@yadro.com>
+ <20201015124917.8168-3-i.mikhaylov@yadro.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20201015124917.8168-2-i.mikhaylov@yadro.com>
+In-Reply-To: <20201015124917.8168-3-i.mikhaylov@yadro.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,66 +64,56 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Oct 15, 2020 at 03:49:16PM +0300, Ivan Mikhaylov wrote:
-> Split MDIO registration and PHY connect into ftgmac100_setup_mdio and
-> ftgmac100_mii_probe.
-> 
-> Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-> ---
->  drivers/net/ethernet/faraday/ftgmac100.c | 92 ++++++++++++------------
->  1 file changed, 47 insertions(+), 45 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 87236206366f..6997e121824b 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1044,11 +1044,47 @@ static void ftgmac100_adjust_link(struct net_device *netdev)
->  	schedule_work(&priv->reset_task);
->  }
->  
-> -static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
-> +static int ftgmac100_mii_probe(struct net_device *netdev)
->  {
-> -	struct net_device *netdev = priv->netdev;
-> +	struct ftgmac100 *priv = netdev_priv(netdev);
-> +	struct platform_device *pdev = to_platform_device(priv->dev);
-> +	struct device_node *np = pdev->dev.of_node;
-> +	phy_interface_t phy_intf = PHY_INTERFACE_MODE_RGMII;
->  	struct phy_device *phydev;
+> -	err = mdiobus_register(priv->mii_bus);
+> +	mdio_np = of_get_child_by_name(np, "mdio");
+> +	if (mdio_np)
+> +		err = of_mdiobus_register(priv->mii_bus, mdio_np);
+> +	else
+> +		err = mdiobus_register(priv->mii_bus);
 
-Reverse Christmas tree.
+of_mdiobus_register() will do the right thing if passed a NULL pointer
+for mdio_np.
 
->  
-> +	/* Get PHY mode from device-tree */
-> +	if (np) {
-> +		/* Default to RGMII. It's a gigabit part after all */
-> +		phy_intf = of_get_phy_mode(np, &phy_intf);
-> +		if (phy_intf < 0)
-> +			phy_intf = PHY_INTERFACE_MODE_RGMII;
-
-I know you are just moving code around, but it is better to do:
-
-> +		err = of_get_phy_mode(np, &phy_intf);
-> +		if (err)
-> +			phy_intf = PHY_INTERFACE_MODE_RGMII;
-
-With the code you have, you are probably going to get an email about
-assigning an int to an unsigned int type from Colin..
-
-> @@ -1860,6 +1854,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
->  		err = ftgmac100_setup_mdio(netdev);
->  		if (err)
->  			goto err_setup_mdio;
 > +
-> +		err = ftgmac100_mii_probe(netdev);
-> +		if (err) {
-> +			dev_err(priv->dev, "MII probe failed!\n");
-> +			mdiobus_unregister(priv->mii_bus);
-> +			goto err_setup_mdio;
+>  	if (err) {
+>  		dev_err(priv->dev, "Cannot register MDIO bus!\n");
+>  		goto err_register_mdiobus;
+>  	}
+>  
+> +	if (mdio_np)
+> +		of_node_put(mdio_np);
+
+of_node_put() is also happy with a NULL pointer.
+
+> +
+>  	return 0;
+>  
+>  err_register_mdiobus:
+> @@ -1830,10 +1839,23 @@ static int ftgmac100_probe(struct platform_device *pdev)
+>  	} else if (np && of_get_property(np, "phy-handle", NULL)) {
+>  		struct phy_device *phy;
+>  
+> +		/* Support "mdio"/"phy" child nodes for ast2400/2500 with
+> +		 * an embedded MDIO controller. Automatically scan the DTS for
+> +		 * available PHYs and register them.
+> +		 */
+> +		if (of_device_is_compatible(np, "aspeed,ast2400-mac") ||
+> +		    of_device_is_compatible(np, "aspeed,ast2500-mac")) {
+> +			err = ftgmac100_setup_mdio(netdev);
+> +			if (err)
+> +				goto err_setup_mdio;
 > +		}
+> +
+>  		phy = of_phy_get_and_connect(priv->netdev, np,
+>  					     &ftgmac100_adjust_link);
+>  		if (!phy) {
+>  			dev_err(&pdev->dev, "Failed to connect to phy\n");
+> +			if (priv->mii_bus)
+> +				mdiobus_unregister(priv->mii_bus);
+>  			goto err_setup_mdio;
 
-It is more uniform to add a new label and add the
-mdiobus_unregister(priv->mii_bus) there. All the other error handling
-works like that.
+It would be nice if the tear down was symmetric to the setup. Add an
+ftgmac100_remove_mdio(), and call it on the same condition as
+ftgmac100_setup_mdio().
 
-      Andrew
+	 Andrew
