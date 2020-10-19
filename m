@@ -1,57 +1,101 @@
-Return-Path: <SRS0=JxwQ=D2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=Gaxx=D3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8C2CC433E7
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 23:32:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D9A1FC433E7
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 01:39:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 311552222F
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 23:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 311552222F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
+	by mail.kernel.org (Postfix) with ESMTPS id C9B4822244
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 01:39:01 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com header.b="P8LAMwMx";
+	dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com header.b="P8LAMwMx"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9B4822244
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=phoenix.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CFY2H0PFRzDqMx
-	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 10:32:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CFbrM0rGKzDqDc
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 12:38:59 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=phoenix.com (client-ip=63.128.21.170;
+ helo=us-smtp-delivery-170.mimecast.com; envelope-from=neil_bradley@phoenix.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=permerror (SPF Permanent Error: Unknown mechanism
- found: ip:192.40.192.88/32) smtp.mailfrom=kernel.crashing.org
- (client-ip=76.164.61.194; helo=kernel.crashing.org;
- envelope-from=benh@kernel.crashing.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=kernel.crashing.org
-Received: from kernel.crashing.org (kernel.crashing.org [76.164.61.194])
+ dmarc=pass (p=none dis=none) header.from=phoenix.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
+ header.s=mimecast20170203 header.b=P8LAMwMx; 
+ dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com
+ header.a=rsa-sha256 header.s=mimecast20170203 header.b=P8LAMwMx; 
+ dkim-atps=neutral
+Received: from us-smtp-delivery-170.mimecast.com
+ (us-smtp-delivery-170.mimecast.com [63.128.21.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CFY0j5tDpzDqM9
- for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2020 10:31:01 +1100 (AEDT)
-Received: from localhost (gate.crashing.org [63.228.1.57])
- (authenticated bits=0)
- by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 09JNUfPm024483
- (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Mon, 19 Oct 2020 18:30:46 -0500
-Message-ID: <f844fe4e446a5654924198ebdb2e57510c6f14ad.camel@kernel.crashing.org>
-Subject: Re: [PATCH v1 1/2] net: ftgmac100: move phy connect out from
- ftgmac100_setup_mdio
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Ivan Mikhaylov <i.mikhaylov@yadro.com>, "David S . Miller"
- <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Po-Yu Chuang
- <ratbert@faraday-tech.com>
-Date: Tue, 20 Oct 2020 10:30:40 +1100
-In-Reply-To: <20201015124917.8168-2-i.mikhaylov@yadro.com>
-References: <20201015124917.8168-1-i.mikhaylov@yadro.com>
- <20201015124917.8168-2-i.mikhaylov@yadro.com>
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CFbpn5mRwzDqSW
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2020 12:37:35 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
+ s=mimecast20170203; t=1603157852;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TBG4E4YhoGFezMc8kheLT+VA9EEqsUZ9MH7mkbZ1in0=;
+ b=P8LAMwMxZ8y8ehDgIs4jzd8sJrdSgNoJLGdJZW06/ZsGB7h1czrEGqLGdjPpmJOAgFZREi
+ 5hRMwk2lpPhz91C5OVxCy9DGaEicUbbADGqfT/9hnqQBnci3PfrCCq+aAbav7wCfugeQ7d
+ bdIUCZbB8uTL5UClKm8J1rW9dS0Zw48=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
+ s=mimecast20170203; t=1603157852;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=TBG4E4YhoGFezMc8kheLT+VA9EEqsUZ9MH7mkbZ1in0=;
+ b=P8LAMwMxZ8y8ehDgIs4jzd8sJrdSgNoJLGdJZW06/ZsGB7h1czrEGqLGdjPpmJOAgFZREi
+ 5hRMwk2lpPhz91C5OVxCy9DGaEicUbbADGqfT/9hnqQBnci3PfrCCq+aAbav7wCfugeQ7d
+ bdIUCZbB8uTL5UClKm8J1rW9dS0Zw48=
+Received: from SCL-EXCHMB-13.phoenix.com (67.51.239.50 [67.51.239.50])
+ (Using TLS) by relay.mimecast.com with ESMTP id
+ us-mta-265-Ws-PN5e_PHOHSRPM-H8q_Q-1; Mon, 19 Oct 2020 17:35:46 -0400
+X-MC-Unique: Ws-PN5e_PHOHSRPM-H8q_Q-1
+X-CrossPremisesHeadersFilteredBySendConnector: SCL-EXCHMB-13.phoenix.com
+Received: from SCL-EXCHMB-13.phoenix.com (10.122.68.16) by
+ SCL-EXCHMB-13.phoenix.com (10.122.68.16) with Microsoft SMTP Server (TLS) id
+ 15.0.1156.6; Mon, 19 Oct 2020 14:35:44 -0700
+Received: from SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b]) by
+ SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b%12]) with mapi id
+ 15.00.1156.000; Mon, 19 Oct 2020 14:35:44 -0700
+From: Neil Bradley <Neil_Bradley@phoenix.com>
+To: Andrew Geissler <geissonator@gmail.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+Subject: RE: Critical BMC process failure recovery
+Thread-Topic: Critical BMC process failure recovery
+Thread-Index: AQHWplGZfOhEzZa7m0y6Af3HsuId7KmfbrcQ
+Date: Mon, 19 Oct 2020 21:35:43 +0000
+Message-ID: <95ad99d7921c405e93b794463d702853@SCL-EXCHMB-13.phoenix.com>
+References: <C270F145-2236-4CA1-8D57-A63AB622A47C@gmail.com>
+In-Reply-To: <C270F145-2236-4CA1-8D57-A63AB622A47C@gmail.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [50.43.115.205]
+MIME-Version: 1.0
+X-OrganizationHeadersPreserved: SCL-EXCHMB-13.phoenix.com
+Authentication-Results: relay.mimecast.com;
+ auth=pass smtp.auth=CUSA70A150 smtp.mailfrom=neil_bradley@phoenix.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: phoenix.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,167 +107,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 2020-10-15 at 15:49 +0300, Ivan Mikhaylov wrote:
-> Split MDIO registration and PHY connect into ftgmac100_setup_mdio and
-> ftgmac100_mii_probe.
-
-Please keep me CCod on ftgmac100 patches.
-
-> Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-
-Acked-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-
-> ---
->  drivers/net/ethernet/faraday/ftgmac100.c | 92 ++++++++++++------------
->  1 file changed, 47 insertions(+), 45 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 87236206366f..6997e121824b 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1044,11 +1044,47 @@ static void ftgmac100_adjust_link(struct net_device *netdev)
->  	schedule_work(&priv->reset_task);
->  }
->  
-> -static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
-> +static int ftgmac100_mii_probe(struct net_device *netdev)
->  {
-> -	struct net_device *netdev = priv->netdev;
-> +	struct ftgmac100 *priv = netdev_priv(netdev);
-> +	struct platform_device *pdev = to_platform_device(priv->dev);
-> +	struct device_node *np = pdev->dev.of_node;
-> +	phy_interface_t phy_intf = PHY_INTERFACE_MODE_RGMII;
->  	struct phy_device *phydev;
->  
-> +	/* Get PHY mode from device-tree */
-> +	if (np) {
-> +		/* Default to RGMII. It's a gigabit part after all */
-> +		phy_intf = of_get_phy_mode(np, &phy_intf);
-> +		if (phy_intf < 0)
-> +			phy_intf = PHY_INTERFACE_MODE_RGMII;
-> +
-> +		/* Aspeed only supports these. I don't know about other IP
-> +		 * block vendors so I'm going to just let them through for
-> +		 * now. Note that this is only a warning if for some obscure
-> +		 * reason the DT really means to lie about it or it's a newer
-> +		 * part we don't know about.
-> +		 *
-> +		 * On the Aspeed SoC there are additionally straps and SCU
-> +		 * control bits that could tell us what the interface is
-> +		 * (or allow us to configure it while the IP block is held
-> +		 * in reset). For now I chose to keep this driver away from
-> +		 * those SoC specific bits and assume the device-tree is
-> +		 * right and the SCU has been configured properly by pinmux
-> +		 * or the firmware.
-> +		 */
-> +		if (priv->is_aspeed &&
-> +		    phy_intf != PHY_INTERFACE_MODE_RMII &&
-> +		    phy_intf != PHY_INTERFACE_MODE_RGMII &&
-> +		    phy_intf != PHY_INTERFACE_MODE_RGMII_ID &&
-> +		    phy_intf != PHY_INTERFACE_MODE_RGMII_RXID &&
-> +		    phy_intf != PHY_INTERFACE_MODE_RGMII_TXID) {
-> +			netdev_warn(netdev,
-> +				    "Unsupported PHY mode %s !\n",
-> +				    phy_modes(phy_intf));
-> +		}
-> +	}
-> +
->  	phydev = phy_find_first(priv->mii_bus);
->  	if (!phydev) {
->  		netdev_info(netdev, "%s: no PHY found\n", netdev->name);
-> @@ -1056,7 +1092,7 @@ static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
->  	}
->  
->  	phydev = phy_connect(netdev, phydev_name(phydev),
-> -			     &ftgmac100_adjust_link, intf);
-> +			     &ftgmac100_adjust_link, phy_intf);
->  
->  	if (IS_ERR(phydev)) {
->  		netdev_err(netdev, "%s: Could not attach to PHY\n", netdev->name);
-> @@ -1601,7 +1637,6 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
->  {
->  	struct ftgmac100 *priv = netdev_priv(netdev);
->  	struct platform_device *pdev = to_platform_device(priv->dev);
-> -	phy_interface_t phy_intf = PHY_INTERFACE_MODE_RGMII;
->  	struct device_node *np = pdev->dev.of_node;
->  	int i, err = 0;
->  	u32 reg;
-> @@ -1623,39 +1658,6 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
->  		iowrite32(reg, priv->base + FTGMAC100_OFFSET_REVR);
->  	}
->  
-> -	/* Get PHY mode from device-tree */
-> -	if (np) {
-> -		/* Default to RGMII. It's a gigabit part after all */
-> -		err = of_get_phy_mode(np, &phy_intf);
-> -		if (err)
-> -			phy_intf = PHY_INTERFACE_MODE_RGMII;
-> -
-> -		/* Aspeed only supports these. I don't know about other IP
-> -		 * block vendors so I'm going to just let them through for
-> -		 * now. Note that this is only a warning if for some obscure
-> -		 * reason the DT really means to lie about it or it's a newer
-> -		 * part we don't know about.
-> -		 *
-> -		 * On the Aspeed SoC there are additionally straps and SCU
-> -		 * control bits that could tell us what the interface is
-> -		 * (or allow us to configure it while the IP block is held
-> -		 * in reset). For now I chose to keep this driver away from
-> -		 * those SoC specific bits and assume the device-tree is
-> -		 * right and the SCU has been configured properly by pinmux
-> -		 * or the firmware.
-> -		 */
-> -		if (priv->is_aspeed &&
-> -		    phy_intf != PHY_INTERFACE_MODE_RMII &&
-> -		    phy_intf != PHY_INTERFACE_MODE_RGMII &&
-> -		    phy_intf != PHY_INTERFACE_MODE_RGMII_ID &&
-> -		    phy_intf != PHY_INTERFACE_MODE_RGMII_RXID &&
-> -		    phy_intf != PHY_INTERFACE_MODE_RGMII_TXID) {
-> -			netdev_warn(netdev,
-> -				   "Unsupported PHY mode %s !\n",
-> -				   phy_modes(phy_intf));
-> -		}
-> -	}
-> -
->  	priv->mii_bus->name = "ftgmac100_mdio";
->  	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "%s-%d",
->  		 pdev->name, pdev->id);
-> @@ -1673,16 +1675,8 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
->  		goto err_register_mdiobus;
->  	}
->  
-> -	err = ftgmac100_mii_probe(priv, phy_intf);
-> -	if (err) {
-> -		dev_err(priv->dev, "MII Probe failed!\n");
-> -		goto err_mii_probe;
-> -	}
-> -
->  	return 0;
->  
-> -err_mii_probe:
-> -	mdiobus_unregister(priv->mii_bus);
->  err_register_mdiobus:
->  	mdiobus_free(priv->mii_bus);
->  	return err;
-> @@ -1860,6 +1854,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
->  		err = ftgmac100_setup_mdio(netdev);
->  		if (err)
->  			goto err_setup_mdio;
-> +
-> +		err = ftgmac100_mii_probe(netdev);
-> +		if (err) {
-> +			dev_err(priv->dev, "MII probe failed!\n");
-> +			mdiobus_unregister(priv->mii_bus);
-> +			goto err_setup_mdio;
-> +		}
-> +
->  	}
->  
->  	if (priv->is_aspeed) {
+SGV5IEFuZHJldyENCg0KQXQgbGVhc3QgaW5pdGlhbGx5LCB0aGUgcmVxdWlyZW1lbnRzIGRvbid0
+IHJlYWxseSBzZWVtIGxpa2UgcmVxdWlyZW1lbnRzIC0gdGhleSBzZWVtIGxpa2Ugd2hhdCBzb21l
+b25lJ3MgaWRlYSBvZiB3aGF0IHRoZXkgdGhpbmsgYSBzb2x1dGlvbiB3b3VsZCBiZS4gIEZvciBl
+eGFtcGxlLCB3aHkgcmVzZXQgMyB0aW1lcz8gV2h5IG5vdCAxMD8gT3IgMj8gU2VlbXMgY29tcGxl
+dGVseSBhcmJpdHJhcnkuIElmIHRoZSBCTUMgcmVzZXRzIHR3aWNlIGluIGEgcm93LCB0aGVyZSdz
+IG5vIHJlYXNvbiB0byB0aGluayBpdCB3b3VsZCBiZSBPSyB0aGUgM3JkIHRpbWUuIEl0J3Mga2lu
+ZGEgbGlrZSBob3cgcGVvcGxlIGhhdmUgYmVlbiBrbm93biBkbyA0LTUgZmlybXdhcmUgdXBkYXRl
+cyB0byAiZml4IiBhIHByb2JsZW0gYW5kIGl0ICJzdGlsbCBkb2Vzbid0IHdvcmsiLiDwn5iJDQoN
+CklmIHRoZSB1bHRpbWF0ZSBnb2FsIGlzIGF2YWlsYWJpbGl0eSwgdGhlbiB0aGVyZSdzIG1vcmUg
+bnVhbmNlIHRvIHRoZSBkaXNjdXNzaW9uIHRvIGJlIGhhZC4gTGV0J3MgYXNzdW1lIHRoZSBnb2Fs
+IGlzICJoaWdoZXN0IGF2YWlsYWJpbGl0eSBwb3NzaWJsZSIuDQoNCldpdGggdGhhdCBpbiBtaW5k
+LCBkZWZpbmluZyB3aGF0ICJmYWlsdXJlIiBpcyBnZXRzIHRvIGJlIGEgYml0IG1vcmUgY29udm9s
+dXRlZC4gQmFjayB3aGVuIHdlIGRpZCB0aGUgQ01NIGNvZGUgZm9yIHRoZSBJbnRlbCBtb2R1bGFy
+IHNlcnZlciwgd2UgaGFkIGEgc2V2ZXJhbC1wcm9uZ2VkIGFwcHJvYWNoOg0KDQoxKSBSdW4gcHJv
+Y21vbiAtIExvb2sgZm9yIGFueSBzZXJ2aWNlIHRoYXQgaXMgc3VwcG9zZWQgdG8gYmUgcnVubmlu
+ZyAoYnV0IGlzbid0KSBhbmQgcmVzdGFydCBpdCBhbmQvb3IgaXRzIHByb2Nlc3MgZGVwZW5kZW5j
+eSB0cmVlLg0KMikgQ3JlYXRlIGEgbW9uaXRvciAoZWl0aGVyIGEgc3RhbmRhbG9uZSBwcm9ncmFt
+IG9yIGEgc2NyaXB0KSB0aGF0IHBlcmlvZGljYWxseSBjb25uZWN0cyB0byB0aGUgdmFyaW91cyBz
+ZXJ2aWNlcyBhdmFpbGFibGUgLSBJUE1JLCB3ZWIsIEtWTSwgZXRjLi4uLiAtIHRoaW5rIG9mIGl0
+IGxpa2UgYSBmdW5jdGlvbmFsICJwaW5nIi4gQSBiaXQgbW9yZSBpbnZvbHZlZCwgYXMgdGhpcyBt
+YXN0ZXIgY29udHJvbCBwcm9ncmFtIChUcm9uIHJlZmVyZW5jZSDwn5iJICkgd291bGQgaGF2ZSB0
+byBzcGVhayBzZW50aWVudGx5IHRvIGVhY2ggc2VydmljZSB0byBnYXVnZSBob3cgYWxpdmUgaXQg
+aXMuIFRoZXJlIGhhdmUgYmVlbiBwbGVudHkgb2Ygc2l0dWF0aW9ucyB3aGVyZSBhIEJNQyBpcyBv
+dGhlcndpc2UgaGVhbHRoeSBidXQgb25lIHNlcnZpY2Ugd2Fzbid0IHdvcmtpbmcsIGFuZCBpdCdz
+IG92ZXJraWxsIHRvIGhhdmUgYSAzMC00NSBzZWNvbmQgb3V0YWdlIHdoaWxlIHRoZSBCTUMgcmVz
+dGFydHMuDQozKSBLZXJuZWwgcGFuaWNzIHdlcmUgc2V0IHRvIGF1dG9tYXRpY2FsbHkgcmVib290
+IHRoZSBCTUMsIHdpdGggYSBkb3VibGUgd2hhbW15IG9mIHRoZSBoYXJkd2FyZSB3YXRjaGRvZyBi
+ZWluZyBlbmFibGVkIGluIGNhc2UgdGhlIENQVSBkaWRuJ3QgcmVzZXQuDQoNClRoZXJlJ3MgbW9y
+ZSB0byBpdCB0aGFuIHRoaXMsIGFzIHNvbWV0aW1lcyB5b3UnZCBoYXZlIHRvIHF1aWVzY2UgcHJv
+Y21vbiB0byBub3QgcmVzdGFydCBzZXJ2aWNlcyB0aGF0LCB0aHJvdWdoIG5vcm1hbCBvcGVyYXRp
+b24sIHdvdWxkIGNlYXNlIGZ1bmN0aW9uaW5nIGZvciBhIGJyaWVmIHBlcmlvZCBvZiB0aW1lLCBz
+byB0dW5pbmcgd291bGQgYmUgcmVxdWlyZWQuDQoNCi0tPk5laWwNCg0KLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCkZyb206IG9wZW5ibWMgPG9wZW5ibWMtYm91bmNlcytuZWlsX2JyYWRsZXk9
+cGhvZW5peC5jb21AbGlzdHMub3psYWJzLm9yZz4gT24gQmVoYWxmIE9mIEFuZHJldyBHZWlzc2xl
+cg0KU2VudDogTW9uZGF5LCBPY3RvYmVyIDE5LCAyMDIwIDEyOjUzIFBNDQpUbzogT3BlbkJNQyBN
+YWlsbGlzdCA8b3BlbmJtY0BsaXN0cy5vemxhYnMub3JnPg0KU3ViamVjdDogQ3JpdGljYWwgQk1D
+IHByb2Nlc3MgZmFpbHVyZSByZWNvdmVyeQ0KDQpHcmVldGluZ3MsDQoNCkkndmUgc3RhcnRlZCBp
+bml0aWFsIGludmVzdGlnYXRpb24gaW50byB0d28gSUJNIHJlcXVpcmVtZW50czoNCg0KLSBSZWJv
+b3QgdGhlIEJNQyBpZiBhICJjcml0aWNhbCIgcHJvY2VzcyBmYWlscyBhbmQgY2FuIG5vdCByZWNv
+dmVyDQotIExpbWl0IHRoZSBhbW91bnQgb2YgdGltZXMgdGhlIEJNQyByZWJvb3RzIGZvciByZWNv
+dmVyeQ0KICAtIExpbWl0IHNob3VsZCBiZSBjb25maWd1cmFibGUsIGkuZS4gMyByZXNldHMgd2l0
+aGluIDUgbWludXRlcw0KICAtIElmIGxpbWl0IHJlYWNoZWQsIGRpc3BsYXkgZXJyb3IgdG8gcGFu
+ZWwgKGlmIG9uZSBhdmFpbGFibGUpIGFuZCBoYWx0DQogICAgdGhlIEJNQy4NCg0KVGhlIGdvYWwg
+aGVyZSBpcyB0byBoYXZlIHRoZSBCTUMgdHJ5IGFuZCBnZXQgaXRzZWxmIGJhY2sgaW50byBhIHdv
+cmtpbmcgc3RhdGUgdmlhIGEgcmVib290IG9mIGl0c2VsZi4NCg0KVGhpcyBzYW1lIHJlYm9vdCBs
+b2dpYyBhbmQgbGltaXRzIHdvdWxkIGFsc28gYXBwbHkgdG8ga2VybmVsIHBhbmljcyBhbmQvb3Ig
+Qk1DIGhhcmR3YXJlIHdhdGNoZG9nIGV4cGlyYXRpb25zLg0KDQpTb21lIHRob3VnaHRzIHRoYXQg
+aGF2ZSBiZWVuIHRocm93biBhcm91bmQgaW50ZXJuYWxseToNCg0KLSBTcGVuZCBtb3JlIHRpbWUg
+ZW5zdXJpbmcgY29kZSBkb2Vzbid0IGZhaWwgdnMuIGhhbmRsaW5nIHRoZW0gZmFpbGluZw0KLSBQ
+dXQgYWxsIEJNQyBjb2RlIGludG8gYSBzaW5nbGUgYXBwbGljYXRpb24gc28gaXQncyBhbGwgb3Ig
+bm90aGluZyAodnMuIA0KICB0cnlpbmcgdG8gcGljayBhbmQgY2hvb3NlIHNwZWNpZmljIGFwcGxp
+Y2F0aW9ucyBhbmQgZGVhbGluZyB3aXRoIGFsbCBvZg0KICB0aGUgaW50cmljYWNpZXMgb2YgcmVz
+dGFydGluZyBpbmRpdmlkdWFsIG9uZXMpDQotIFJlYm9vdGluZyB0aGUgQk1DIGFuZCBnZXR0aW5n
+IHRoZSBwcm9wZXIgb3JkZXJpbmcgb2Ygc2VydmljZSBzdGFydHMgaXMNCiAgc29tZXRpbWVzIGVh
+c2llciB0aGVuIHRlc3RpbmcgZXZlcnkgaW5kaXZpZHVhbCBzZXJ2aWNlIHJlc3RhcnQgZm9yIHJl
+Y292ZXJ5DQogIHBhdGhzDQoNCiJDcml0aWNhbCIgcHJvY2Vzc2VzIHdvdWxkIGJlIHRoaW5ncyBs
+aWtlIG1hcHBlciBvciBkYnVzLWJyb2tlci4gVGhlcmUncyBkZWZpbml0ZWx5IGEgZ3JleSBhcmVh
+IHRob3VnaCB3aXRoIG90aGVyIHNlcnZpY2VzIHNvIHdlJ2QgbmVlZCBzb21lIGd1aWRlbGluZXMg
+YXJvdW5kIGRlZmluaW5nIHRoZW0gYW5kIGFsbG93IHRoZSBtZXRhIGxheWVycyB0byBoYXZlIGEg
+d2F5IHRvIGRlZW0gd2hpY2hldmVyIHRoZXkgd2FudCBjcml0aWNhbC4NCg0KU28gYW55d2F5LCBq
+dXN0IHRocm93aW5nIHRoaXMgb3V0IHRoZXJlIHRvIHNlZSBpZiBhbnlvbmUgaGFzIGFueSBpbnB1
+dCBvciBpcyBsb29raW5nIGZvciBzb21ldGhpbmcgc2ltaWxhci4NCg0KSGlnaCBsZXZlbCwgSSdk
+IHByb2JhYmx5IHN0YXJ0IGxvb2tpbmcgaW50byB1dGlsaXppbmcgc3lzdGVtZCBhcyBtdWNoIGFz
+IHBvc3NpYmxlLiAiRmFpbHVyZUFjdGlvbj1yZWJvb3QtZm9yY2UiIGluIHRoZSBjcml0aWNhbCBz
+ZXJ2aWNlcyBhbmQgc29tZXRoaW5nIHRoYXQgbW9uaXRvcnMgZm9yIHRoZXNlIHR5cGVzIG9mIHJl
+Ym9vdHMgYW5kIGVuZm9yY2VzIHRoZSByZWJvb3QgbGltaXRzLg0KDQpBbmRyZXcNCg0K
 
