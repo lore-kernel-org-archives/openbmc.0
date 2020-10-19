@@ -2,63 +2,58 @@ Return-Path: <SRS0=JxwQ=D2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D147C433DF
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 03:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BDF12C433E7
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 07:41:26 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6BBCF22260
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 03:08:40 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNLk6WVQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6BBCF22260
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id C4E0122200
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 07:41:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4E0122200
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CF1tF4qdQzDqVl
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 14:08:37 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=kuba@kernel.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=kernel.org
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=default header.b=ZNLk6WVQ; dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CF7wy5csZzDqcK
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 18:41:22 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=dylan_hung@aspeedtech.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CCgyq55d5zDqvK;
- Sat, 17 Oct 2020 09:37:55 +1100 (AEDT)
-Received: from kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com (unknown
- [163.114.132.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.kernel.org (Postfix) with ESMTPSA id C4C0520874;
- Fri, 16 Oct 2020 22:37:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=default; t=1602887872;
- bh=b2EGIKg3KP0GtQPo2F73WLvD38qjR51SW+fFm5/DFnE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=ZNLk6WVQnGcj+itxB3EwnJslgGvxlZ/vwTgLbHm1WDAVYIBMCFpZUhCLSsBQ7QS90
- pSp4yEakwcMP5kgixMbHJjXr3y0BPBAGsb3PFwuq2XSGF8ompPKqcoL86G8EUn91ot
- iJ4ddVLd9CU3T9vit7ODUaIOcJ22p1BHp1JO4lAQ=
-Date: Fri, 16 Oct 2020 15:37:50 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Dylan Hung <dylan_hung@aspeedtech.com>
-Subject: Re: [PATCH 1/1] net: ftgmac100: Fix Aspeed ast2600 TX hang issue
-Message-ID: <20201016153750.1c46de21@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-In-Reply-To: <20201014060632.16085-2-dylan_hung@aspeedtech.com>
-References: <20201014060632.16085-1-dylan_hung@aspeedtech.com>
- <20201014060632.16085-2-dylan_hung@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CF7v946NszDqPM
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2020 18:39:48 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 09J7anxl039002;
+ Mon, 19 Oct 2020 15:36:49 +0800 (GMT-8)
+ (envelope-from dylan_hung@aspeedtech.com)
+Received: from localhost.localdomain (192.168.10.9) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 19 Oct
+ 2020 15:39:25 +0800
+From: Dylan Hung <dylan_hung@aspeedtech.com>
+To: <davem@davemloft.net>, <kuba@kernel.org>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <ratbert@faraday-tech.com>,
+ <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>
+Subject: [PATCH] net: ftgmac100: Fix missing TX-poll issue
+Date: Mon, 19 Oct 2020 15:39:08 +0800
+Message-ID: <20201019073908.32262-1-dylan_hung@aspeedtech.com>
+X-Mailer: git-send-email 2.17.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Mailman-Approved-At: Mon, 19 Oct 2020 14:06:21 +1100
+Content-Type: text/plain
+X-Originating-IP: [192.168.10.9]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 09J7anxl039002
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,18 +65,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW@aspeedtech.com, ratbert@faraday-tech.com,
- linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, davem@davemloft.net
+Cc: BMC-SW@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 14 Oct 2020 14:06:32 +0800 Dylan Hung wrote:
-> The new HW arbitration feature on Aspeed ast2600 will cause MAC TX to
-> hang when handling scatter-gather DMA.  Disable the problematic feature
-> by setting MAC register 0x58 bit28 and bit27.
-> 
-> Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
+The cpu accesses the register and the memory via different bus/path on
+aspeed soc.  So we can not guarantee that the tx-poll command
+(register access) is always behind the tx descriptor (memory).  In other
+words, the HW may start working even the data is not yet ready.  By
+adding a dummy read after the last data write, we can ensure the data
+are pushed to the memory, then guarantee the processing sequence
 
-Applied, thank you.
+Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 00024dd41147..9a99a87f29f3 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -804,7 +804,8 @@ static netdev_tx_t ftgmac100_hard_start_xmit(struct sk_buff *skb,
+ 	 * before setting the OWN bit on the first descriptor.
+ 	 */
+ 	dma_wmb();
+-	first->txdes0 = cpu_to_le32(f_ctl_stat);
++	WRITE_ONCE(first->txdes0, cpu_to_le32(f_ctl_stat));
++	READ_ONCE(first->txdes0);
+ 
+ 	/* Update next TX pointer */
+ 	priv->tx_pointer = pointer;
+-- 
+2.17.1
+
