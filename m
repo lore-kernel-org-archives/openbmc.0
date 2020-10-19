@@ -2,85 +2,56 @@ Return-Path: <SRS0=JxwQ=D2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.2 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AB47C433E7
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 19:56:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 561A8C433DF
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 23:22:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 57950222B8
-	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 19:56:26 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="etV1xMmW"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 57950222B8
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 052C62240C
+	for <openbmc@archiver.kernel.org>; Mon, 19 Oct 2020 23:21:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 052C62240C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CFSF36BqGzDqcW
-	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 06:56:23 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::22c;
- helo=mail-oi1-x22c.google.com; envelope-from=geissonator@gmail.com;
- receiver=<UNKNOWN>)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CFXpF1dJ6zDqTx
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 10:21:57 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=etV1xMmW; dkim-atps=neutral
-Received: from mail-oi1-x22c.google.com (mail-oi1-x22c.google.com
- [IPv6:2607:f8b0:4864:20::22c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=permerror (SPF Permanent Error: Unknown mechanism
+ found: ip:192.40.192.88/32) smtp.mailfrom=kernel.crashing.org
+ (client-ip=76.164.61.194; helo=kernel.crashing.org;
+ envelope-from=benh@kernel.crashing.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=kernel.crashing.org
+Received: from kernel.crashing.org (kernel.crashing.org [76.164.61.194])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CFS9Z3R8czDqM9
- for <openbmc@lists.ozlabs.org>; Tue, 20 Oct 2020 06:53:21 +1100 (AEDT)
-Received: by mail-oi1-x22c.google.com with SMTP id w141so1315700oia.2
- for <openbmc@lists.ozlabs.org>; Mon, 19 Oct 2020 12:53:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:content-transfer-encoding:mime-version:subject:message-id:date
- :to; bh=9p9qYxerANphWipNfp+JAd+QIXzLhiL3AAK+0Q3RrL4=;
- b=etV1xMmWNlA9ykrJ6l6fO2KTX2TdYMDmBlFjcBAgBU/zQrRwZoD3nHtr624vdGWLpT
- yiD4m7WMb4s3dgLfVYUNusSnXiUBajpzVrgJMc4pVvnd78mQRQgm543T4Tc7Y+EgzYqn
- aBA512FrK6H38PHNrUraQVD6tfL93fHtDG7s/QXKNLc70EitFVB8p1M3PY9mJqP+S786
- GfHgQtm61Hwy/sP0+yc9gwQkqBiwYfPMBiICva/H8/GTPCnZ/4GOHqFcioQYOyESTmsN
- YFd8q4YM9eukYuKPzFWXKG3YK3jGp6pEGenTG3AlY4kIJZwmKagXOtVWWdkyngpB5RUU
- CnVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:content-transfer-encoding:mime-version
- :subject:message-id:date:to;
- bh=9p9qYxerANphWipNfp+JAd+QIXzLhiL3AAK+0Q3RrL4=;
- b=o12Es5kovqcbHaBZEPbr1q1xx5rxBI9gtWi4ZZTMlxjYrvEXvSgrrh6zMsSjc6b00C
- wGkgLfd6UmIcfKoCfw+eOUIFAnLwdouU8eAF49eKULwBtiqY4rkbc6ky9mso13ESv7ZH
- UmgSo5mt/GJEXNaepR1WbBJntsAqjuMNN5aRgVZ/h8BDzhoADtUqIqdWosCnwdGzZxQx
- CLXzDfIqACCDBIJsISAEx9XOy+dRV53XAODb4ap6tBUzhZE38qJOYLKsC/M8lwZYZmzN
- wTeQZeKEBXi61zmCxuabhLV24b6s3ecq9xBLIrrOLyy1iDpJ8+uFOVkvDOW1oukwTt3T
- 0wZg==
-X-Gm-Message-State: AOAM532Ur1wwxdkd2RHb9Gw1h5sb1Nk0hpLYnwwKqjFuFdCIg+CKuIRX
- UltTHMo57o+mTLi6RR4TZxh98esT2Syumg==
-X-Google-Smtp-Source: ABdhPJypTbVfuxqx04j1wdwbpsyQU1lsLQEexNWWLgeuwaN61ktMooWanlud+hwhM+Id4WeRwrCkCA==
-X-Received: by 2002:aca:e0d7:: with SMTP id x206mr734162oig.67.1603137192343; 
- Mon, 19 Oct 2020 12:53:12 -0700 (PDT)
-Received: from andrews-mbp-2.attlocal.net
- (45-18-127-186.lightspeed.austtx.sbcglobal.net. [45.18.127.186])
- by smtp.gmail.com with ESMTPSA id h32sm180540oth.2.2020.10.19.12.53.11
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 19 Oct 2020 12:53:11 -0700 (PDT)
-From: Andrew Geissler <geissonator@gmail.com>
-Content-Type: text/plain;
-	charset=us-ascii
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CFXmD56GgzDqH5;
+ Tue, 20 Oct 2020 10:20:08 +1100 (AEDT)
+Received: from localhost (gate.crashing.org [63.228.1.57])
+ (authenticated bits=0)
+ by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 09JNJQN2024225
+ (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+ Mon, 19 Oct 2020 18:19:37 -0500
+Message-ID: <be7a978c48c9f1c6c29583350dee6168385c3039.camel@kernel.crashing.org>
+Subject: Re: [PATCH 1/4] ftgmac100: Fix race issue on TX descriptor[0]
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Dylan Hung <dylan_hung@aspeedtech.com>, davem@davemloft.net,
+ kuba@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ratbert@faraday-tech.com, linux-aspeed@lists.ozlabs.org,
+ openbmc@lists.ozlabs.org
+Date: Tue, 20 Oct 2020 10:19:25 +1100
+In-Reply-To: <20201019085717.32413-2-dylan_hung@aspeedtech.com>
+References: <20201019085717.32413-1-dylan_hung@aspeedtech.com>
+ <20201019085717.32413-2-dylan_hung@aspeedtech.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
+Mime-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
-Subject: Critical BMC process failure recovery
-Message-Id: <C270F145-2236-4CA1-8D57-A63AB622A47C@gmail.com>
-Date: Mon, 19 Oct 2020 14:53:11 -0500
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-X-Mailer: Apple Mail (2.3608.120.23.2.4)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,46 +63,75 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: BMC-SW@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Greetings,
+On Mon, 2020-10-19 at 16:57 +0800, Dylan Hung wrote:
+> These rules must be followed when accessing the TX descriptor:
+> 
+> 1. A TX descriptor is "cleanable" only when its value is non-zero
+> and the owner bit is set to "software"
 
-I've started initial investigation into two IBM requirements:
+Can you elaborate ? What is the point of that change ? The owner bit
+should be sufficient, why do we need to check other fields ?
 
-- Reboot the BMC if a "critical" process fails and can not recover
-- Limit the amount of times the BMC reboots for recovery
-  - Limit should be configurable, i.e. 3 resets within 5 minutes
-  - If limit reached, display error to panel (if one available) and halt
-    the BMC.
+> 2. A TX descriptor is "writable" only when its value is zero
+> regardless the edotr mask.
 
-The goal here is to have the BMC try and get itself back into a working state
-via a reboot of itself.
+Again, why is that ? Can you elaborate ? What race are you trying to
+address here ?
 
-This same reboot logic and limits would also apply to kernel panics and/or
-BMC hardware watchdog expirations.
+Cheers,
+Ben.
 
-Some thoughts that have been thrown around internally:
+> Fixes: 52c0cae87465 ("ftgmac100: Remove tx descriptor accessors")
+> Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
+> ---
+>  drivers/net/ethernet/faraday/ftgmac100.c | 10 ++++++++++
+>  1 file changed, 10 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c
+> b/drivers/net/ethernet/faraday/ftgmac100.c
+> index 00024dd41147..7cacbe4aecb7 100644
+> --- a/drivers/net/ethernet/faraday/ftgmac100.c
+> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
+> @@ -647,6 +647,9 @@ static bool ftgmac100_tx_complete_packet(struct
+> ftgmac100 *priv)
+>  	if (ctl_stat & FTGMAC100_TXDES0_TXDMA_OWN)
+>  		return false;
+>  
+> +	if ((ctl_stat & ~(priv->txdes0_edotr_mask)) == 0)
+> +		return false;
+> +
+>  	skb = priv->tx_skbs[pointer];
+>  	netdev->stats.tx_packets++;
+>  	netdev->stats.tx_bytes += skb->len;
+> @@ -756,6 +759,9 @@ static netdev_tx_t
+> ftgmac100_hard_start_xmit(struct sk_buff *skb,
+>  	pointer = priv->tx_pointer;
+>  	txdes = first = &priv->txdes[pointer];
+>  
+> +	if (le32_to_cpu(txdes->txdes0) & ~priv->txdes0_edotr_mask)
+> +		goto drop;
+> +
+>  	/* Setup it up with the packet head. Don't write the head to
+> the
+>  	 * ring just yet
+>  	 */
+> @@ -787,6 +793,10 @@ static netdev_tx_t
+> ftgmac100_hard_start_xmit(struct sk_buff *skb,
+>  		/* Setup descriptor */
+>  		priv->tx_skbs[pointer] = skb;
+>  		txdes = &priv->txdes[pointer];
+> +
+> +		if (le32_to_cpu(txdes->txdes0) & ~priv-
+> >txdes0_edotr_mask)
+> +			goto dma_err;
+> +
+>  		ctl_stat = ftgmac100_base_tx_ctlstat(priv, pointer);
+>  		ctl_stat |= FTGMAC100_TXDES0_TXDMA_OWN;
+>  		ctl_stat |= FTGMAC100_TXDES0_TXBUF_SIZE(len);
 
-- Spend more time ensuring code doesn't fail vs. handling them failing
-- Put all BMC code into a single application so it's all or nothing (vs. 
-  trying to pick and choose specific applications and dealing with all of
-  the intricacies of restarting individual ones)
-- Rebooting the BMC and getting the proper ordering of service starts is
-  sometimes easier then testing every individual service restart for recovery
-  paths
-
-"Critical" processes would be things like mapper or dbus-broker. There's
-definitely a grey area though with other services so we'd need some
-guidelines around defining them and allow the meta layers to have a way
-to deem whichever they want critical.
-
-So anyway, just throwing this out there to see if anyone has any input
-or is looking for something similar.
-
-High level, I'd probably start looking into utilizing systemd as much as
-possible. "FailureAction=reboot-force" in the critical services and something
-that monitors for these types of reboots and enforces the reboot limits.
-
-Andrew
