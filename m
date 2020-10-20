@@ -4,21 +4,21 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
+	URIBL_BLOCKED,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93E7FC4363A
-	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 22:07:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A411C4363A
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 22:12:11 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9EFEE22256
-	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 22:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9EFEE22256
+	by mail.kernel.org (Postfix) with ESMTPS id 74FEA22256
+	for <openbmc@archiver.kernel.org>; Tue, 20 Oct 2020 22:12:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 74FEA22256
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CG76L6L15zDqdj
-	for <openbmc@archiver.kernel.org>; Wed, 21 Oct 2020 09:07:54 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CG7CD1gPzzDqf2
+	for <openbmc@archiver.kernel.org>; Wed, 21 Oct 2020 09:12:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=permerror (SPF Permanent Error: Unknown mechanism
  found: ip:192.40.192.88/32) smtp.mailfrom=kernel.crashing.org
@@ -29,26 +29,24 @@ Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
 Received: from kernel.crashing.org (kernel.crashing.org [76.164.61.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CG74d6xQ2zDqc7;
- Wed, 21 Oct 2020 09:06:23 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CG79d5N1LzDqc7;
+ Wed, 21 Oct 2020 09:10:45 +1100 (AEDT)
 Received: from localhost (gate.crashing.org [63.228.1.57])
  (authenticated bits=0)
- by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 09KM5Zhv006771
+ by kernel.crashing.org (8.14.7/8.14.7) with ESMTP id 09KMA9S4006827
  (version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
- Tue, 20 Oct 2020 17:05:44 -0500
-Message-ID: <7b44608bed9eccad80457cbfdfcca9043aae56f2.camel@kernel.crashing.org>
+ Tue, 20 Oct 2020 17:10:14 -0500
+Message-ID: <32bfb619bbb3cd6f52f9e5da205673702fed228f.camel@kernel.crashing.org>
 Subject: Re: [PATCH] net: ftgmac100: Fix missing TX-poll issue
 From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: David Laight <David.Laight@ACULAB.COM>, "'Dylan Hung'"
- <dylan_hung@aspeedtech.com>, Jakub Kicinski <kuba@kernel.org>, Joel Stanley
- <joel@jms.id.au>
-Date: Wed, 21 Oct 2020 09:05:34 +1100
-In-Reply-To: <f75555e09d47476a871669ffe017c4f8@AcuMS.aculab.com>
+To: Arnd Bergmann <arnd@arndb.de>, Dylan Hung <dylan_hung@aspeedtech.com>
+Date: Wed, 21 Oct 2020 09:10:02 +1100
+In-Reply-To: <CAK8P3a2pEfbLDWTppVHmGxXduOWPCwBw-8bMY9h3EbEecsVfTA@mail.gmail.com>
 References: <20201019073908.32262-1-dylan_hung@aspeedtech.com>
  <CACPK8Xfn+Gn0PHCfhX-vgLTA6e2=RT+D+fnLF67_1j1iwqh7yg@mail.gmail.com>
  <20201019120040.3152ea0b@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
  <PS1PR0601MB1849166CBF6D1678E6E1210C9C1F0@PS1PR0601MB1849.apcprd06.prod.outlook.com>
- <f75555e09d47476a871669ffe017c4f8@AcuMS.aculab.com>
+ <CAK8P3a2pEfbLDWTppVHmGxXduOWPCwBw-8bMY9h3EbEecsVfTA@mail.gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 X-Mailer: Evolution 3.28.5-0ubuntu0.18.04.2 
 Mime-Version: 1.0
@@ -64,39 +62,70 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW <BMC-SW@aspeedtech.com>, Po-Yu Chuang <ratbert@faraday-tech.com>,
+Cc: BMC-SW <BMC-SW@aspeedtech.com>,
  linux-aspeed <linux-aspeed@lists.ozlabs.org>,
+ Po-Yu Chuang <ratbert@faraday-tech.com>,
  "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
  OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- "David S . Miller" <davem@davemloft.net>
+ Jakub Kicinski <kuba@kernel.org>, "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 2020-10-20 at 13:15 +0000, David Laight wrote:
-> That rather depends where the data is 'stuck'.
-> 
-> An old sparc cpu would flush the cpu store buffer before the read.
-> But a modern x86 cpu will satisfy the read from the store buffer
-> for cached data.
-> 
-> If the write is 'posted' on a PCI(e) bus then the read can't overtake it.
-> But that is a memory access so shouldn't be to a PCI(e) address.
-> 
-> Shouldn't dma_wb() actually force your 'cpu to dram' queue be flushed?
-> In which case you need one after writing the ring descriptor and
-> before the poke of the mac engine.
-> 
-> The barrier before the descriptor write only needs to guarantee
-> ordering of the writes - it can probably be a lighter barrier?
-> 
-> It might be that your dma_wmb() needs to do a write+read of
-> an uncached DRAM location in order to empty the cpu to dram queue.
+On Tue, 2020-10-20 at 21:49 +0200, Arnd Bergmann wrote:
+> On Tue, Oct 20, 2020 at 11:37 AM Dylan Hung <dylan_hung@aspeedtech.com> wrote:
+> > > +1 @first is system memory from dma_alloc_coherent(), right?
+> > > 
+> > > You shouldn't have to do this. Is coherent DMA memory broken on your
+> > > platform?
+> > 
+> > It is about the arbitration on the DRAM controller.  There are two queues in the dram controller, one is for the CPU access and the other is for the HW engines.
+> > When CPU issues a store command, the dram controller just acknowledges cpu's request and pushes the request into the queue.  Then CPU triggers the HW MAC engine, the HW engine starts to fetch the DMA memory.
+> > But since the cpu's request may still stay in the queue, the HW engine may fetch the wrong data.
 
-This is a specific bug with how a specific IP block is hooked up in
-those SOCs, I wouldn't bloat the global dma_wmb for that. The read back
-in the driver with appropriate comment should be enough.
+Actually, I take back what I said earlier, the above seems to imply
+this is more generic.
+
+Dylan, please confirm, does this affect *all* DMA capable devices ? If
+yes, then it's a really really bad design bug in your chips
+unfortunately and the proper fix is indeed to make dma_wmb() do a dummy
+read of some sort (what address though ? would any dummy non-cachable
+page do ?) to force the data out as *all* drivers will potentially be
+affected.
+
+I was under the impression that it was a specific timing issue in the
+vhub and ethernet parts, but if it's more generic then it needs to be
+fixed globally.
+
+> There is still something missing in the explanation: The iowrite32()
+> only tells the
+> device that it should check the queue, but not where the data is. I would expect
+> the device to either see the correct data that was marked valid by the
+> 'dma_wmb();first->txdes0 = cpu_to_le32(f_ctl_stat);' operation, or it would see
+> the old f_ctl_stat value telling it that the data is not yet valid and
+> not look at
+> the rest of the descriptor. In the second case you would see the data
+> not getting sent out until the next start_xmit(), but the device should not
+> fetch wrong data.
+> 
+> There are two possible scenarios in which your patch would still help:
+> 
+> a) the dma_wmb() does not serialize the stores as seen by DMA the
+>     way it is supposed to, so the device can observe the new value of txdec0
+>     before it observes the correct data.
+> 
+> b) The txdes0 field sometimes contains stale data that marks the
+>     descriptor as valid before the correct data is written. This field
+>     should have been set in ftgmac100_tx_complete_packet() earlier
+> 
+> If either of the two is the case, then the READ_ONCE() would just
+> introduce a long delay before the iowrite32() that makes it more likely
+> that the data is there, but the inconsistent state would still be observable
+> by the device if it is still working on previous frames.
+
+I think it just get stuck until we try another packet, ie, it doesn't
+see the new descriptor valid bit. But Dylan can elaborate.
 
 Cheers,
 Ben.
