@@ -2,107 +2,102 @@ Return-Path: <SRS0=h6B3=EB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 77BA0C2D0A3
-	for <openbmc@archiver.kernel.org>; Mon, 26 Oct 2020 13:51:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E47BAC4363A
+	for <openbmc@archiver.kernel.org>; Mon, 26 Oct 2020 18:51:33 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A221721D42
-	for <openbmc@archiver.kernel.org>; Mon, 26 Oct 2020 13:51:08 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 1BCB82085B
+	for <openbmc@archiver.kernel.org>; Mon, 26 Oct 2020 18:51:32 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="Plil0rrQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A221721D42
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="gpsrfRkf"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1BCB82085B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CKbpJ66pNzDqCk
-	for <openbmc@archiver.kernel.org>; Tue, 27 Oct 2020 00:51:04 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CKkSy5GNqzDqQ8
+	for <openbmc@archiver.kernel.org>; Tue, 27 Oct 2020 05:51:30 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=gmills@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
+ header.from=linux.vnet.ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=Plil0rrQ; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=gpsrfRkf; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CKbgR45sDzDqCp
- for <openbmc@lists.ozlabs.org>; Tue, 27 Oct 2020 00:45:05 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09QDVrbq012741; Mon, 26 Oct 2020 09:44:59 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CKkR75xVbzDqDb
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Oct 2020 05:49:54 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 09QIVncp137100; Mon, 26 Oct 2020 14:49:51 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to :
- references : cc : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=hqG9Epu1KbbxvYw6X5bbrl2YIPnqNIUVkCiP9d2Pclw=;
- b=Plil0rrQ5ar1PfaVwUZKKJbl9QWRz+nBdiyClrvU2P5X9gYnt79osoBbtv669LKW2NNo
- qTwGJaAKGvaa/xSd8UxkeLcEZ2AVNDqbsyB2OlmFp9L3lvbuGd8JTY6sdj8b4ggjoY8B
- azDOE6IOv+U5zHBOZaaHIQlTZeUsLFPPFTmMMZYq10oUYJLRKiUQB4F5polHL1mdBpY5
- l3UZZBjgh5XSk/TywtrjcIC/e3FT3R2DQ/gXeT4Q6B6r5QrBARyl+Cq6ZvOpD1CpUSVT
- 4aYFT06naB1NHb+66OPRXLkEyuyHZajQ4uj8nQZfX52vyrXpQrbzxIhPjK9yEJ9ZXE7a rQ== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0b-001b2d01.pphosted.com with ESMTP id 34dp3q7bmt-1
+ h=to : from : subject : cc
+ : message-id : date : mime-version : content-type :
+ content-transfer-encoding; s=pp1;
+ bh=nNcIagdZe3He86/YeWFgc4k4d4B+fSy+Kf0YLmbY6ew=;
+ b=gpsrfRkfl0QTfx+SyVfF+f655nZZpekPpZzr4q3y0W71cx7CvIR9hZIoM+xcSrFh4+2o
+ nLxHIm8noK9TVTvshRYjdFpcIU3j4qT2YvPqlSgxWvS/eCGp+zoDOsK4em9Vihy7KFDL
+ d/XFBxYU+mwdWdWteDShXh2bBTVzP8NSbjqwc2VNe0kLN7otEPGzXkwzItdL/KKGsGju
+ k3au+g9hqpBUh6ia7ARJC1F83ckxPalqkYk/3l/v4EcC1H/7NCB61A7HGlX3Rdk9BzUJ
+ mi4JUTsGHwvG3oAlu9dz051A9VyANaOjPb8i5hWawxuyThzq/ggmzPzktjvS085sQf/J +g== 
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34dp1r01vb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Oct 2020 09:44:59 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 09QDgN4V012050;
- Mon, 26 Oct 2020 13:44:58 GMT
-Received: from b03cxnp08025.gho.boulder.ibm.com
- (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
- by ppma02dal.us.ibm.com with ESMTP id 34cbw8ux20-1
+ Mon, 26 Oct 2020 14:49:51 -0400
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 09QIWEMG021294;
+ Mon, 26 Oct 2020 18:49:50 GMT
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29]) by ppma04dal.us.ibm.com with ESMTP id 34cbw8x7xu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 26 Oct 2020 13:44:58 +0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 09QDipbn2359974
+ Mon, 26 Oct 2020 18:49:50 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 09QInntI44958152
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 26 Oct 2020 13:44:51 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AB049BE053;
- Mon, 26 Oct 2020 13:44:56 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3E365BE04F;
- Mon, 26 Oct 2020 13:44:56 +0000 (GMT)
-Received: from [9.85.130.229] (unknown [9.85.130.229])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon, 26 Oct 2020 13:44:55 +0000 (GMT)
-Subject: Re: [PATCH linux dev-5.8 v2] ARM: dts: Aspeed: Rainier: Add 4U
- device-tree
-To: Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org
-References: <20200923194405.28857-1-eajames@linux.ibm.com>
- <8078a638-48d1-4851-a6bc-f232f62c70af@www.fastmail.com>
-From: Eddie James <eajames@linux.ibm.com>
-Message-ID: <0e6ae8dc-7b09-be95-db53-173b2b8a1a5a@linux.ibm.com>
-Date: Mon, 26 Oct 2020 08:44:55 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.3.1
+ Mon, 26 Oct 2020 18:49:49 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 800F8112063;
+ Mon, 26 Oct 2020 18:49:49 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D9675112062;
+ Mon, 26 Oct 2020 18:49:47 +0000 (GMT)
+Received: from [9.102.33.190] (unknown [9.102.33.190])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Mon, 26 Oct 2020 18:49:47 +0000 (GMT)
+To: pawel.rapkiewicz@intel.com, Ed Tanous <ed@tanous.net>
+From: Gunnar Mills <gmills@linux.vnet.ibm.com>
+Subject: bmcweb: Memory: Why not use "Present" for Redfish's Status State ?
+Message-ID: <a6723812-c9f1-eb69-888f-d79b3da0cc71@linux.vnet.ibm.com>
+Date: Mon, 26 Oct 2020 12:49:45 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <8078a638-48d1-4851-a6bc-f232f62c70af@www.fastmail.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 7bit
 Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.235, 18.0.737
- definitions=2020-10-26_06:2020-10-26,
+ definitions=2020-10-26_08:2020-10-26,
  2020-10-26 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0
- spamscore=0 malwarescore=0 mlxscore=0 phishscore=0 adultscore=0
- suspectscore=0 priorityscore=1501 mlxlogscore=999 clxscore=1015
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010260094
+ mlxscore=0 lowpriorityscore=0
+ adultscore=0 impostorscore=0 mlxlogscore=883 spamscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1011 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2010260122
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,153 +109,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Hi Ed and Pawel,
 
-On 10/26/20 12:22 AM, Andrew Jeffery wrote:
->
-> On Thu, 24 Sep 2020, at 05:14, Eddie James wrote:
->> Add a device-tree for the Rainier 4U system. Change the model name
->> on the existing Rainier device-tree to 2U, and remove the two
->> extra power supplies that are only present on the 4U system.
->>
->> Signed-off-by: Eddie James <eajames@linux.ibm.com>
->> ---
->> Changes since v1:
->>   - Don't rename the 2U dts
->>   - Include the 2U dts from the 4U and make the necessary changes
->>
->>   arch/arm/boot/dts/Makefile                    |  1 +
->>   .../boot/dts/aspeed-bmc-ibm-rainier-4u.dts    | 47 +++++++++++++++++++
->>   arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  | 14 +-----
->>   3 files changed, 50 insertions(+), 12 deletions(-)
->>   create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
->>
->> diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
->> index 56fd8c8a2ba9..8f59cb9a9b71 100644
->> --- a/arch/arm/boot/dts/Makefile
->> +++ b/arch/arm/boot/dts/Makefile
->> @@ -1359,6 +1359,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
->>   	aspeed-bmc-facebook-yamp.dtb \
->>   	aspeed-bmc-facebook-yosemitev2.dtb \
->>   	aspeed-bmc-ibm-rainier.dtb \
->> +	aspeed-bmc-ibm-rainier-4u.dtb \
->>   	aspeed-bmc-intel-s2600wf.dtb \
->>   	aspeed-bmc-inspur-fp5280g2.dtb \
->>   	aspeed-bmc-lenovo-hr630.dtb \
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
->> b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
->> new file mode 100644
->> index 000000000000..e5d51b9c7a47
->> --- /dev/null
->> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
->> @@ -0,0 +1,47 @@
->> +// SPDX-License-Identifier: GPL-2.0-or-later
->> +// Copyright 2019 IBM Corp.
->> +/dts-v1/;
->> +
->> +#include "aspeed-bmc-ibm-rainier.dts"
->> +
->> +/ {
->> +	model = "Rainier 4U";
->> +};
->> +
->> +&i2c3 {
->> +	power-supply@6a {
->> +		compatible = "ibm,cffps";
->> +		reg = <0x6a>;
->> +	};
->> +
->> +	power-supply@6b {
->> +		compatible = "ibm,cffps";
->> +		reg = <0x6b>;
->> +	};
-> This looks good.
->
->> +};
->> +
->> +&fan_controller {
->> +	fan@0 {
->> +		compatible = "pmbus-fan";
->> +		reg = <0>;
->> +		tach-pulses = <4>;
->> +	};
->> +
->> +	fan@1 {
->> +		compatible = "pmbus-fan";
->> +		reg = <1>;
->> +		tach-pulses = <4>;
->> +	};
->> +
->> +	fan@2 {
->> +		compatible = "pmbus-fan";
->> +		reg = <2>;
->> +		tach-pulses = <4>;
->> +	};
->> +
->> +	fan@3 {
->> +		compatible = "pmbus-fan";
->> +		reg = <3>;
->> +		tach-pulses = <4>;
-> Where did you get the information for `tach-pulses = <4>;`?
+I am missing some context here.
+Why if MemorySizeInKB is 0 we set the "Status""State" of the DIMM to Absent?
+Why not use the Present property?
 
+https://github.com/openbmc/bmcweb/blob/master/redfish-core/lib/memory.hpp#L373
 
- From Matthew Barth.
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/8aec946e2844831cfc377c0e0136de5714c08a5b/xyz/openbmc_project/Inventory/Item.interface.yaml#L9
 
+By default MemorySizeInKB is 0 so if MemorySizeInKB hasn't been set your 
+DIMM looks like (all other properties are skipped):
+
+curl -k https://$bmc/redfish/v1/Systems/system/Memory/dimm6
+{
+   "@odata.id": "/redfish/v1/Systems/system/Memory/dimm6",
+   "@odata.type": "#Memory.v1_7_0.Memory",
+   "Id": "dimm6",
+   "Name": "DIMM Slot",
+   "Status": {
+     "Health": "OK",
+     "HealthRollup": "OK",
+     "State": "Absent"
+   }
+
+This logic was added here:
+https://github.com/openbmc/bmcweb/commit/443c2934ac1ae86b6d496e3509e2b8acf283fb18
 
 Thanks,
-
-Eddie
-
-
->
-> Andrew
->
->> +	};
->> +};
->> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
->> b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
->> index e6f422edf454..6b44340a9e8c 100644
->> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
->> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
->> @@ -8,7 +8,7 @@
->>   #include <dt-bindings/leds/leds-pca955x.h>
->>   
->>   / {
->> -	model = "Rainier";
->> +	model = "Rainier 2U";
->>   	compatible = "ibm,rainier-bmc", "aspeed,ast2600";
->>   
->>   	aliases {
->> @@ -646,16 +646,6 @@ power-supply@69 {
->>   		compatible = "ibm,cffps";
->>   		reg = <0x69>;
->>   	};
->> -
->> -	power-supply@6a {
->> -		compatible = "ibm,cffps";
->> -		reg = <0x6a>;
->> -	};
->> -
->> -	power-supply@6b {
->> -		compatible = "ibm,cffps";
->> -		reg = <0x6b>;
->> -	};
->>   };
->>   
->>   &i2c4 {
->> @@ -769,7 +759,7 @@ tmp275@48 {
->>   		reg = <0x48>;
->>   	};
->>   
->> -	max31785@52 {
->> +	fan_controller: max31785@52 {
->>   		compatible = "maxim,max31785a";
->>   		reg = <0x52>;
->>   		#address-cells = <1>;
->> -- 
->> 2.26.2
->>
->>
+Gunnar
