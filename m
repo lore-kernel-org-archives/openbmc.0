@@ -2,90 +2,89 @@ Return-Path: <SRS0=fBkR=ED=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D77F3C388F7
-	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 15:52:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03CA9C388F7
+	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:01:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B2F5A247A1
-	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 15:52:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 33AFA247D4
+	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:01:44 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cImNwsJT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B2F5A247A1
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d4IHcqWK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 33AFA247D4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CLtPW2c83zDqTl
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2020 02:52:31 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CLtc66DtRzDqTp
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2020 03:01:42 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::235;
- helo=mail-oi1-x235.google.com; envelope-from=kurt.r.taylor@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::229;
+ helo=mail-oi1-x229.google.com; envelope-from=kurt.r.taylor@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=cImNwsJT; dkim-atps=neutral
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
+ header.s=20161025 header.b=d4IHcqWK; dkim-atps=neutral
+Received: from mail-oi1-x229.google.com (mail-oi1-x229.google.com
+ [IPv6:2607:f8b0:4864:20::229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CLtN34dRGzDqRs
- for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2020 02:51:15 +1100 (AEDT)
-Received: by mail-oi1-x235.google.com with SMTP id y186so37340oia.3
- for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2020 08:51:15 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CLtZP1pGBzDqTW
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2020 03:00:12 +1100 (AEDT)
+Received: by mail-oi1-x229.google.com with SMTP id x1so3402oic.13
+ for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2020 09:00:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=subject:to:cc:references:from:message-id:date:user-agent
  :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=gfUPO9yRUZLG0W9JQPQq/0E4FpWJN3Qv9WgEkFBz2pY=;
- b=cImNwsJT7wlOMVsDRHq3iP//9Os1Tjb3a8legNbF1sW9U7iQT4ukklATvfqnzXr2mQ
- 4FeQ0A/tlogl078x2HS/8XtuuEpiVPN53ywe6rewRXKmFWZzrkMGopVou8BBGfPNAVje
- EqKRoGSQJCP8Twotw6h5E65GIDXNC3lBCyQRQWdEfKmzyd2IGmRcOFd1vDdtsyOR2t85
- 9BJg4msabQu6EUBzaE+/ZmO8dO9NBIohSt4fWdQrzn3rN83JUVU2l64k62OZrgTW5Iyg
- iaJOlk2zI5Q7x+PrBIsy1EKdkX0PDKuF+6o94bxrEzwa7d6/+fH+x+3YYGIpKuU+mg0Q
- yvJw==
+ bh=6AvzwzoSGnnQKiP1w5+wsHiDenNoEJ5+u+GARPui/PI=;
+ b=d4IHcqWK3XlVYAmP+WkXcJJ0yp2jl9P87P1AkyhixAP6mDJremfy4Kx5PFZcCre12P
+ OuY5YCd605wM20jaJNqbUq023CQMqoOvhaQcF7dRkvR2qKam5jTXPKYlVWaPHdlKPloj
+ mO4SE+fqwL4j+dlGGJHZk8avcheynWKCJvpyytKn49xCMHFsY3WYIdmhB/3m7RZHCQsh
+ 6aP4R+o5gZh3NVqLW24kx6PeV8UQsWTIMsBxLfYlZd0Co/ck6gDEjs+yeGOY2iR5cXGE
+ G73NaX1SUVSpgLIzQUlGbuba3Xw+k/7fXl1L29T+F9foyqsheoWFncfzErPli2UArP3V
+ 0CJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:subject:to:cc:references:from:message-id:date
  :user-agent:mime-version:in-reply-to:content-language
  :content-transfer-encoding;
- bh=gfUPO9yRUZLG0W9JQPQq/0E4FpWJN3Qv9WgEkFBz2pY=;
- b=RXPr+CD660mDwwSt4qlg/ci0U4tOtIOaJ61BGpvNzraEAtp4Jw97kxlUbiuJLHYjsw
- d8Npzc9eYAs3rXJeDsxKLW7T0G4X6CUo4flZxtLtJV6iPdaLrQo7hqh8Uxby8qnAkdCt
- QHAEAjgnVWKBemgKls+JpRmdPTvYZmh38rKXQkLWRoV/ZNnQPkUGGmB3g1qLLQls7BsT
- ryx5XUj12Gb0Mva9q/Xw2FEA6YLOEH06GAsbVwzfTDeusg6ICIUmGKtvSRJK/1RcuqdR
- pIFqtDpslvVWPuBHcSSxoWRq5L2Lgre0k4mNYz2TKaUxfSg+TnuHo2fsS9In8KuxrGdA
- wtFQ==
-X-Gm-Message-State: AOAM533U2sfTOaUwa5FSizLUlo9xP2CdtX6ulOQxfDJolnT3SjrtrWtS
- iy47E9gE8e5WajuGwsNsPo8=
-X-Google-Smtp-Source: ABdhPJz4yn8je6gSjyBw42q7GnltakEzuM91vcCwO6o25lYf0YsbDY0SM5f2X5yTk/uTVm/daWyinQ==
-X-Received: by 2002:aca:a9c8:: with SMTP id s191mr15736oie.11.1603900271709;
- Wed, 28 Oct 2020 08:51:11 -0700 (PDT)
+ bh=6AvzwzoSGnnQKiP1w5+wsHiDenNoEJ5+u+GARPui/PI=;
+ b=Ax8CO7aalRpyYzW7id7XhoyA8ftCfqcMbXLNSo49qN9hh6ILeOnOfIARvwEgaodlIF
+ yxLFZgkSaAgxSvj6uAbOAXu6a25RInhjiiIpWeFjOcWDbeHLhsDyASPQQMWM6hwZOhEW
+ t5y4mGe/9uxsTZeXP/ld+vQfcXwAbJRuCwmrvRCeZErZB2cK4WbCHQDHVqPrtkUyaMli
+ iArJBFnn+rCXJdo0/hHjQ8LeoDd/JlVjzXcdESW0RxzMiCfz2mt1ChbyWFGodFDLRakG
+ 8RPXvOPkoP9RPX3DUHZ7QX5mnvqXbvPK1z01mL6FLXEYENpCSn2sRDLt38kxMBz8ViQY
+ UUwg==
+X-Gm-Message-State: AOAM5315Ep3OsM6BtUIMThJPAd1HEhRgiXu3O9fNOJEkxwiRUxOtotQQ
+ CcBaD5THjOWcPaG0BBjFmyT+qT4GsKwnmNFB
+X-Google-Smtp-Source: ABdhPJzRA8c5/Rwe7rJjznk6F6StQhJ3mEatqh9uiKYi8LfLJg7mKyTPBuCquCl44Mi40s7FeMHKNg==
+X-Received: by 2002:aca:b556:: with SMTP id e83mr68486oif.14.1603900809584;
+ Wed, 28 Oct 2020 09:00:09 -0700 (PDT)
 Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
  [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id f142sm2770288oib.10.2020.10.28.08.51.10
+ by smtp.gmail.com with ESMTPSA id d22sm2565329oij.53.2020.10.28.09.00.08
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Oct 2020 08:51:11 -0700 (PDT)
-Subject: Re: I just want to join the openbmc developer community
-To: James Mihm <james.mihm@gmail.com>, =?UTF-8?B?5p2o5YuH5YW1KOacq+WyqSk=?=
- <moyan.yyb@alibaba-inc.com>
-References: <8da567c0-b5a4-47c0-90d6-d2de96ae99e5.moyan.yyb@alibaba-inc.com>
- <CADy_Pt3ukjs64bRkuEBB699cuvNadzatsBmQ_prSWWTokB0uhQ@mail.gmail.com>
+ Wed, 28 Oct 2020 09:00:08 -0700 (PDT)
+Subject: =?UTF-8?B?UmU6IOWbnuimhjogQnlvc29mdCBPcGVuQk1DIENMQSBhcHBsaWNhdGlv?=
+ =?UTF-8?Q?n?=
+To: figo@byosoft.com.cn
+References: <002b01d6a30d$5b1d2f70$11578e50$@byosoft.com.cn>
 From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <beb7063a-f3ff-1de0-130e-0f98c3f35729@gmail.com>
-Date: Wed, 28 Oct 2020 10:51:10 -0500
+Message-ID: <d78b0330-7e3f-14e1-47cb-a65b515e3a85@gmail.com>
+Date: Wed, 28 Oct 2020 11:00:07 -0500
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
  Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
-In-Reply-To: <CADy_Pt3ukjs64bRkuEBB699cuvNadzatsBmQ_prSWWTokB0uhQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
+In-Reply-To: <002b01d6a30d$5b1d2f70$11578e50$@byosoft.com.cn>
+Content-Type: text/plain; charset=gbk; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -99,61 +98,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: =?UTF-8?B?5bi455CzKOeJueedvyk=?= <terui.cl@alibaba-inc.com>,
- openbmc <openbmc@lists.ozlabs.org>,
- =?UTF-8?B?5p2O5b+X5YW1KOi+ueiNkik=?= <zhibing.lzb@alibaba-inc.com>,
- =?UTF-8?B?5p2O576/KOS5ieWkqSk=?= <yitian.ly@alibaba-inc.com>
+Cc: manager@lfprojects.org, openbmc@lists.ozlabs.org, iasi@byosoft.com.cn
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 10/27/20 9:02 PM, James Mihm wrote:
-> Welcome Moyan,
+On 10/15/20 11:08 AM, figo@byosoft.com.cn wrote:
+> Add the manager@lfprojects.org <mailto:manager@lfprojects.org> in the 
+> mail loop.
 > 
-> If you plan to contribute code, please download and complete the CCLA at 
-> https://github.com/openbmc/openbmc/files/1860741/OpenBMC.CCLA.pdf, and 
-> mail to this mailing list.
-> Then those developers listed in the CLA will be able to submit code 
-> changes. See https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md 
-> for more information.
+> Thanks,
 > 
-> There are several workgroups for the project that you can participate 
-> with. See https://github.com/openbmc/openbmc/wiki for more information.
+> Figo
 > 
-> James.
+> *�ļ���:*figo@byosoft.com.cn <figo@byosoft.com.cn>
+> *�ļ�����:*2020��10��15�� ����11:59
+> *�ռ���:*'openbmc@lists.ozlabs.org' <openbmc@lists.ozlabs.org>
+> *����:*'iasi@byosoft.com.cn' <iasi@byosoft.com.cn>
+> *��ּ:*Byosoft OpenBMC CLA application
 > 
+> Dear OpenBMC maintainer,
+> 
+> This is the signed CCLA from Byosoft. Byosoft is a BMC solution company.
+> 
+> We would like to be the contributor of OpenBMC community.
+> 
+> Please assist in checking and approving the CCLA as shown in the attachment.
 
-Thanks James, my simplistic filters missed this email.
 
-Moyan, feel free to contact me if you have any questions with the CCLA.
+Your CCLA has been accepted, welcome!
 
 Kurt Taylor (krtaylor)
 
 > 
-> On Tue, Oct 27, 2020 at 6:31 PM 杨勇兵(末岩) <moyan.yyb@alibaba-inc.com 
-> <mailto:moyan.yyb@alibaba-inc.com>> wrote:
+> Thanks,
 > 
->     Hi，
->          my name is moyan,who is  workinig for alibaba company.  My
->     compay just want to join the openbmc developer community, and i have
->     subscribed to openbmc by accessing the website of 
->     "https://lists.ozlabs.org/listinfo/openbmc".So, what should i do next?
+> Best Regards,
 > 
->     Thank you.
-> 
-> 
->     -------------------------------------------------------------------------------------
->     杨勇兵（末岩）
->     基础架构事业群-计算与存储事业部-服务器产品
->     邮箱：moyan.yyb@alibaba-inc.com <mailto:moyan.yyb@alibaba-inc.com>
->     Mobil:182-6717-9546
->     办公地点：浙江-杭州-余杭-EFC英国中心34楼
->     -------------------------------------------------------------------------------------
->     本邮件及其附件含有阿里巴巴集团的商业秘密信息，仅限于发送给上面地址中
->     列出的个人和群组，禁止任何其他人以任何形式使用（包括但不限于全部或部
->     分地泄露、复制或散发）本邮件及其附件中的信息，如果您错收本邮件，请您
->     立即电话或邮件通知发件人并删除本邮件。
->     This email and its attachments contain confidential information from Alibaba Group, which is intended only for the person or entity whose address is listed above. Any use of information contained herein in any way (including, but not limited to, total or partial disclosure, reproduction or dissemination) by persons other than the intended recipient(s) is prohibited. If you receive this email in error, please notify the sender by phone or email immediately and delete it.
-> 
+> Figo Chen
 > 
 
