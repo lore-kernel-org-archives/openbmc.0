@@ -2,78 +2,54 @@ Return-Path: <SRS0=fBkR=ED=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.4 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A2F5C388F7
-	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:04:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B66EC388F7
+	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:21:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5DCB4247DF
-	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:04:35 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Tem5tPRV"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5DCB4247DF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 16856247E5
+	for <openbmc@archiver.kernel.org>; Wed, 28 Oct 2020 16:21:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16856247E5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=byosoft.com.cn
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CLtgN6mWhzDqHv
-	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2020 03:04:32 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::333;
- helo=mail-wm1-x333.google.com; envelope-from=edtanous@google.com;
- receiver=<UNKNOWN>)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CLv2L6gfgzDqVK
+	for <openbmc@archiver.kernel.org>; Thu, 29 Oct 2020 03:20:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=Tem5tPRV; dkim-atps=neutral
-Received: from mail-wm1-x333.google.com (mail-wm1-x333.google.com
- [IPv6:2a00:1450:4864:20::333])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CLtf24hLmzDqSY
- for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2020 03:03:20 +1100 (AEDT)
-Received: by mail-wm1-x333.google.com with SMTP id c16so77167wmd.2
- for <openbmc@lists.ozlabs.org>; Wed, 28 Oct 2020 09:03:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=V/I8CW5jiyh2g616SdNEaTCXTi0bhbLaNaPGbohSjnE=;
- b=Tem5tPRVxpnIh9qkFGddqyfimFUa5+HbmpphvwXZ/IR6S7zs5AstOSzuTszNg+9b/o
- O9grFzDyjUGUYLQJMP3XLdxV7e0vhKwxYB7rQ11/mKWEWKV/6iYvUHbvOLGgekZlxCqL
- Y2E12Vm1Oz9sLGSqcxDVq2Hfvn96A9cy4XM55bfOigZpuSLwxkzdtitbdOhiwI2k6plD
- 75T+1fOlQAiosm7xVoIybxJSBWxdsJN4fV75lbZH7ZNQDqPh3WKjoZ4N0us+enNVGE8Z
- rlDgexWUu7txs+gvwA2KN+UVy0y0CDt0iGbleu/HSNiw+76zePOeraqicsKUjR3AWQVn
- WSRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=V/I8CW5jiyh2g616SdNEaTCXTi0bhbLaNaPGbohSjnE=;
- b=SuMdnF8OQ3RKSr9Mn/qfLTIoOoEJOmRE5CETXySBJ3HZWKj72gV/eo7XZK8IJScZqw
- JcYzoPNn5lgomslligphbXRIkYGb+qXY/LLFBSxCA7ZMftxoxNVMX57MJuNxG62gyW+w
- WlwxYuxzZSZkXO6SlFNFtINt9HOxIiiXfR81qVz2Z4oNfjROR371BY/7ujrt3GT0s6S9
- W0RgVsM9CeFj9I0fX0nqBbQVnCB9UtSudp8umPofH8faWdyCcLIsZM/TsGm9V5AYS1kA
- pTnEomxKx0jueNIxpTwpj3fmy1/71FV33kGjKQiKy86+umRxxpipTTvNfn6ZoHvGjDVr
- D6cw==
-X-Gm-Message-State: AOAM531OBmQe1X9aObD4OhWNiVBEdb5cp2kTwc4Ug0yTAiNswlg/q0Gr
- 7iv1NSbtKdQ0kqvJjy/aUOstfhbZUGLv/mxByAEbXA==
-X-Google-Smtp-Source: ABdhPJx1torpN/CF+WBg8GjSJbnBveG76VZQuNRAAgsjm9VuW8QPSD96NAMN12I8FmJQw1iyFUyNcTURXLI5m/aVBtg=
-X-Received: by 2002:a1c:770e:: with SMTP id t14mr138271wmi.34.1603900996245;
- Wed, 28 Oct 2020 09:03:16 -0700 (PDT)
+ spf=none (no SPF record) smtp.mailfrom=byosoft.com.cn
+ (client-ip=58.240.74.242; helo=mail.byosoft.com.cn;
+ envelope-from=figo@byosoft.com.cn; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=byosoft.com.cn
+Received: from mail.byosoft.com.cn (mail.byosoft.com.cn [58.240.74.242])
+ by lists.ozlabs.org (Postfix) with SMTP id 4CLv0s40BGzDqSR
+ for <openbmc@lists.ozlabs.org>; Thu, 29 Oct 2020 03:19:38 +1100 (AEDT)
+Received: from LAPTOPJ7424IAT ([1.34.213.235])
+ (envelope-sender <figo@byosoft.com.cn>) by 192.168.6.13 with ESMTP
+ for <iasi@byosoft.com.cn>; Thu, 29 Oct 2020 00:19:13 +0800
+X-WM-Sender: figo@byosoft.com.cn
+X-WM-AuthFlag: YES
+X-WM-AuthUser: figo@byosoft.com.cn
+From: <figo@byosoft.com.cn>
+To: "'krtaylor'" <kurt.r.taylor@gmail.com>
+References: <002b01d6a30d$5b1d2f70$11578e50$@byosoft.com.cn>
+ <d78b0330-7e3f-14e1-47cb-a65b515e3a85@gmail.com>
+In-Reply-To: <d78b0330-7e3f-14e1-47cb-a65b515e3a85@gmail.com>
+Subject: =?gb2312?B?u9i4sjogu9i4sjogQnlvc29mdCBPcGVuQk1DIENMQSBhcHBsaWNhdGlvbg==?=
+Date: Thu, 29 Oct 2020 00:19:18 +0800
+Message-ID: <002501d6ad46$1793da90$46bb8fb0$@byosoft.com.cn>
 MIME-Version: 1.0
-References: <BN7PR21MB1681B468C469920E5E65F383AB170@BN7PR21MB1681.namprd21.prod.outlook.com>
-In-Reply-To: <BN7PR21MB1681B468C469920E5E65F383AB170@BN7PR21MB1681.namprd21.prod.outlook.com>
-From: Ed Tanous <edtanous@google.com>
-Date: Wed, 28 Oct 2020 09:03:04 -0700
-Message-ID: <CAH2-KxDiL+qs2DNE-NjZaYmBUmXzz23zFeELtpP+m5CMAk8VOQ@mail.gmail.com>
-Subject: Re: Entity Manager ReScan Functionality
-To: Rahul Kapoor <rahulkapoor@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+	charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQF8qcJDZkhFHffbkuKo2RZXo6tnLAGw/ETDqlOwFaA=
+Content-Language: zh-tw
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,35 +61,61 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: manager@lfprojects.org, openbmc@lists.ozlabs.org, iasi@byosoft.com.cn
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Oct 27, 2020 at 7:31 PM Rahul Kapoor <rahulkapoor@microsoft.com> wrote:
->
-> Hi,
->
->
->
-> I have noticed that in its current state the entity manager ReScan function does not detect changes in the exposed configuration data unless the configuration name property in the JSON is changed. Is my understanding correct?
->
-> I am currently working around this by updating the Name property along with each object within the exposed data since Redfish bmcweb interface only reports objects associated with latest configuration. But I am sure there is a better way
+Great! Thank you, Taylor.
 
-I've read the above a couple of times, and I'm still trying to make
-sure I understand;  You're modifying the config files on disk, then
-calling rescan and expecting them to be re-read?  If I have that
-right, that's not how that works, and would be undefined behavior even
-if it did work.  Entity-manager is expecting that the config files are
-fixed for the lifetime of a service.  If you're doing this for testing
-purposes, a simple systemctl restart entitymanager.service would
-reload the files from disk and reinit all configurations, but as a
-matter of practice, a system should not be modifying the config files
-at runtime.  If you need that behavior, use the dbus interfaces to
-modify parameters on dbus, and entity-manager will persist them for
-you.
+Figo
 
->
->
->
-> -Rahul
+-----=D4=AD=CA=BC=E0]=BC=FE-----
+=BC=C4=BC=FE=D5=DF: krtaylor <kurt.r.taylor@gmail.com>=20
+=BC=C4=BC=FE=C8=D5=C6=DA: 2020=C4=EA10=D4=C229=C8=D5 =C9=CF=CE=E7 12:00
+=CA=D5=BC=FE=D5=DF: figo@byosoft.com.cn
+=B8=B1=B1=BE: manager@lfprojects.org; iasi@byosoft.com.cn; =
+openbmc@lists.ozlabs.org
+=D6=F7=D6=BC: Re: =BB=D8=B8=B2: Byosoft OpenBMC CLA application
+
+On 10/15/20 11:08 AM, figo@byosoft.com.cn wrote:
+> Add the manager@lfprojects.org <mailto:manager@lfprojects.org> in the=20
+> mail loop.
+>=20
+> Thanks,
+>=20
+> Figo
+>=20
+> *=BC=C4=BC=FE=D5=DF:*figo@byosoft.com.cn <figo@byosoft.com.cn>
+> *=BC=C4=BC=FE=C8=D5=C6=DA:*2020=C4=EA10=D4=C215=C8=D5 =
+=CF=C2=CE=E711:59
+> *=CA=D5=BC=FE=D5=DF:*'openbmc@lists.ozlabs.org' =
+<openbmc@lists.ozlabs.org>
+> *=B8=B1=B1=BE:*'iasi@byosoft.com.cn' <iasi@byosoft.com.cn>
+> *=D6=F7=D6=BC:*Byosoft OpenBMC CLA application
+>=20
+> Dear OpenBMC maintainer,
+>=20
+> This is the signed CCLA from Byosoft. Byosoft is a BMC solution =
+company.
+>=20
+> We would like to be the contributor of OpenBMC community.
+>=20
+> Please assist in checking and approving the CCLA as shown in the
+attachment.
+
+
+Your CCLA has been accepted, welcome!
+
+Kurt Taylor (krtaylor)
+
+>=20
+> Thanks,
+>=20
+> Best Regards,
+>=20
+> Figo Chen
+>=20
+
+
+
