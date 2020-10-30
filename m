@@ -2,106 +2,80 @@ Return-Path: <SRS0=tH5W=EF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 010DAC4363A
-	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2020 12:26:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F023AC4363A
+	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2020 13:38:23 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id BF7D820727
-	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2020 12:26:34 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 781F1207DE
+	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2020 13:38:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="P4a4b1m+"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BF7D820727
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+	dkim=pass (1024-bit key) header.d=yadro.com header.i=@yadro.com header.b="OP339fFo"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 781F1207DE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CN1kw1GZDzDqf2
-	for <openbmc@archiver.kernel.org>; Fri, 30 Oct 2020 23:26:32 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=ratagupt@linux.vnet.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=P4a4b1m+; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CN3Kl29gHzDqwB
+	for <openbmc@archiver.kernel.org>; Sat, 31 Oct 2020 00:38:19 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=i.mikhaylov@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=yadro.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=OP339fFo; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CN1hk1SPbzDqNw
- for <openbmc@lists.ozlabs.org>; Fri, 30 Oct 2020 23:24:37 +1100 (AEDT)
-Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 09UC3BQv138035; Fri, 30 Oct 2020 08:24:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=OYWZbvxYv4bBH+sYr8XIwSvcKgrQMayOxZSP715RF3Q=;
- b=P4a4b1m++QUDh/cAlAsxydsKjED9Jo+RIDlVTvFfHTlcQXHsfqNSDElN+obDgh3srUYd
- 0eGlslaAyNeItIfpAzKvnR08TX3nD3rmLrEQwOpbB6SBxxhyxr/2qPN/hdbRO4wuy0Pk
- XEHz42ScgYT2VGqljDdmDMtVJ0ByMzv/3kpg+leZHQ+AJTC0uQIr1RT/lSxFBxkdGSPp
- uuvcCfC14/04eD0XJUve+DixUl0U7n4Fz2jlN3+92aJMVL5KQaLFIoqZZLQu8vYi+83F
- MDzjgNyMzVKQBteZ0n7grZsp9xlLGzmKmqXlYP2zrFououEjm5s5Iqfk2Q4gHolXiix3 gQ== 
-Received: from ppma02fra.de.ibm.com (47.49.7a9f.ip4.static.sl-reverse.com
- [159.122.73.71])
- by mx0a-001b2d01.pphosted.com with ESMTP id 34fydj1d8b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Oct 2020 08:24:35 -0400
-Received: from pps.filterd (ppma02fra.de.ibm.com [127.0.0.1])
- by ppma02fra.de.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 09UCEN2H023861;
- Fri, 30 Oct 2020 12:24:33 GMT
-Received: from b06cxnps4074.portsmouth.uk.ibm.com
- (d06relay11.portsmouth.uk.ibm.com [9.149.109.196])
- by ppma02fra.de.ibm.com with ESMTP id 34fvc48ka3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 30 Oct 2020 12:24:32 +0000
-Received: from d06av26.portsmouth.uk.ibm.com (d06av26.portsmouth.uk.ibm.com
- [9.149.105.62])
- by b06cxnps4074.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 09UCOUbg32637270
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 30 Oct 2020 12:24:30 GMT
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C82DBAE053;
- Fri, 30 Oct 2020 12:24:30 +0000 (GMT)
-Received: from d06av26.portsmouth.uk.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 09EDDAE04D;
- Fri, 30 Oct 2020 12:24:29 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.85.102.137])
- by d06av26.portsmouth.uk.ibm.com (Postfix) with ESMTP;
- Fri, 30 Oct 2020 12:24:28 +0000 (GMT)
-Subject: Re: bmcweb logging
-To: Ed Tanous <ed@tanous.net>
-References: <1d95c6ac-7341-d7dd-5154-fa6457b4c97c@linux.vnet.ibm.com>
- <CACWQX83WMMWs2qFaYhtJm0r0XBTcdUdbgsiFL7h1GT0jhW1GEQ@mail.gmail.com>
-From: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
-Message-ID: <36c2d0c1-b1a1-3ea9-01b4-34611dff4426@linux.vnet.ibm.com>
-Date: Fri, 30 Oct 2020 17:54:27 +0530
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
- Thunderbird/68.4.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CN3CV268pzDqtZ
+ for <openbmc@lists.ozlabs.org>; Sat, 31 Oct 2020 00:32:54 +1100 (AEDT)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id A302C41273;
+ Fri, 30 Oct 2020 13:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:content-transfer-encoding:mime-version
+ :references:in-reply-to:x-mailer:message-id:date:date:subject
+ :subject:from:from:received:received:received; s=mta-01; t=
+ 1604064769; x=1605879170; bh=BZwwOfzRWwn+H5jPPi3OwXqMzc9Oz7UkG7/
+ KMF3u6xQ=; b=OP339fFoEtz0aUrqXWAFg/64EpakznMFBK3N3cxTiDQ4A7UiKc7
+ zEKj94gz83A/VY6cZfdSgD43H2FwCED10Bal661N7clbR2JWs5qM2uSGBKQQen3j
+ BuOlfHIwBscT26Xz/FM4eg6/a4hcgHfgufUVdLsVr9dGJG+MNzEoEAn0=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id UALcwO27eLZq; Fri, 30 Oct 2020 16:32:49 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 2A6914137E;
+ Fri, 30 Oct 2020 16:32:48 +0300 (MSK)
+Received: from localhost.dev.yadro.com (10.199.0.28) by
+ T-EXCH-04.corp.yadro.com (172.17.100.104) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
+ 15.1.669.32; Fri, 30 Oct 2020 16:32:41 +0300
+From: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+To: "David S . Miller" <davem@davemloft.net>, Jakub Kicinski
+ <kuba@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>
+Subject: [PATCH v3 1/3] net: ftgmac100: move phy connect out from
+ ftgmac100_setup_mdio
+Date: Fri, 30 Oct 2020 16:37:05 +0300
+Message-ID: <20201030133707.12099-2-i.mikhaylov@yadro.com>
+X-Mailer: git-send-email 2.21.1
+In-Reply-To: <20201030133707.12099-1-i.mikhaylov@yadro.com>
+References: <20201030133707.12099-1-i.mikhaylov@yadro.com>
 MIME-Version: 1.0
-In-Reply-To: <CACWQX83WMMWs2qFaYhtJm0r0XBTcdUdbgsiFL7h1GT0jhW1GEQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-10-30_04:2020-10-30,
- 2020-10-30 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- lowpriorityscore=0 priorityscore=1501 suspectscore=0 mlxlogscore=999
- clxscore=1015 phishscore=0 mlxscore=0 malwarescore=0 adultscore=0
- impostorscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2010300093
+Content-Type: text/plain
+X-Originating-IP: [10.199.0.28]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,82 +87,219 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ Ivan Mikhaylov <i.mikhaylov@yadro.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 10/29/20 9:52 PM, Ed Tanous wrote:
-> On Thu, Oct 29, 2020 at 8:47 AM Ratan Gupta <ratagupt@linux.vnet.ibm.com> wrote:
->> Hi Ed,
->>
->> I was having issues in getting the logs from bmcweb repo, If I don't
->> define the compiler flag(BMCWEB_ENABLE_LOGGING) then it doesn't get me
->> any logs in journal(not even error log) and if I define the compiler
->> flag then it gets too much debug info.
-> What's your limit for "too much"?
+Split MDIO registration and PHY connect into ftgmac100_setup_mdio and
+ftgmac100_mii_probe.
 
-around 30+ traces for each Redfish request.If we enable the bmcweb 
-logging, with that  journal is full of bmcweb traces.
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+---
+ drivers/net/ethernet/faraday/ftgmac100.c | 104 ++++++++++++-----------
+ 1 file changed, 54 insertions(+), 50 deletions(-)
 
->
->> Seems it happens because we have hardcoded the logelevel  and there is
->> no way through which we can change except making the change manually in
->> the following place.
->>
->> https://github.com/openbmc/bmcweb/blob/master/http/logging.hpp#L93
->>
->> Suggestion is we can define another compile time flag for log level and
->> use that log level at the above line for type of logging , by default
->> logging should be enabled with error log level.
-> Thusfar, we don't really have a definition of what kind of detail
-> should be included at each log level, nor are we consistent about
-> setting the log levels.  If it's important to you, and you want to put
-> together some patches, we certainly could define the log verbosity,
-> but we'd also have to come up with better definitions for what level
-> each log needs to take, and be more consistent about it.
+diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
+index 87236206366f..ffad79050713 100644
+--- a/drivers/net/ethernet/faraday/ftgmac100.c
++++ b/drivers/net/ethernet/faraday/ftgmac100.c
+@@ -1044,10 +1044,39 @@ static void ftgmac100_adjust_link(struct net_device *netdev)
+ 	schedule_work(&priv->reset_task);
+ }
+ 
+-static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
++static int ftgmac100_mii_probe(struct net_device *netdev)
+ {
+-	struct net_device *netdev = priv->netdev;
++	struct ftgmac100 *priv = netdev_priv(netdev);
++	struct platform_device *pdev = to_platform_device(priv->dev);
++	struct device_node *np = pdev->dev.of_node;
+ 	struct phy_device *phydev;
++	phy_interface_t phy_intf;
++	int err;
++
++	/* Default to RGMII. It's a gigabit part after all */
++	err = of_get_phy_mode(np, &phy_intf);
++	if (err)
++		phy_intf = PHY_INTERFACE_MODE_RGMII;
++
++	/* Aspeed only supports these. I don't know about other IP
++	 * block vendors so I'm going to just let them through for
++	 * now. Note that this is only a warning if for some obscure
++	 * reason the DT really means to lie about it or it's a newer
++	 * part we don't know about.
++	 *
++	 * On the Aspeed SoC there are additionally straps and SCU
++	 * control bits that could tell us what the interface is
++	 * (or allow us to configure it while the IP block is held
++	 * in reset). For now I chose to keep this driver away from
++	 * those SoC specific bits and assume the device-tree is
++	 * right and the SCU has been configured properly by pinmux
++	 * or the firmware.
++	 */
++	if (priv->is_aspeed && !(phy_interface_mode_is_rgmii(phy_intf))) {
++		netdev_warn(netdev,
++			    "Unsupported PHY mode %s !\n",
++			    phy_modes(phy_intf));
++	}
+ 
+ 	phydev = phy_find_first(priv->mii_bus);
+ 	if (!phydev) {
+@@ -1056,7 +1085,7 @@ static int ftgmac100_mii_probe(struct ftgmac100 *priv, phy_interface_t intf)
+ 	}
+ 
+ 	phydev = phy_connect(netdev, phydev_name(phydev),
+-			     &ftgmac100_adjust_link, intf);
++			     &ftgmac100_adjust_link, phy_intf);
+ 
+ 	if (IS_ERR(phydev)) {
+ 		netdev_err(netdev, "%s: Could not attach to PHY\n", netdev->name);
+@@ -1601,7 +1630,6 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
+ 	struct platform_device *pdev = to_platform_device(priv->dev);
+-	phy_interface_t phy_intf = PHY_INTERFACE_MODE_RGMII;
+ 	struct device_node *np = pdev->dev.of_node;
+ 	int i, err = 0;
+ 	u32 reg;
+@@ -1623,39 +1651,6 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
+ 		iowrite32(reg, priv->base + FTGMAC100_OFFSET_REVR);
+ 	}
+ 
+-	/* Get PHY mode from device-tree */
+-	if (np) {
+-		/* Default to RGMII. It's a gigabit part after all */
+-		err = of_get_phy_mode(np, &phy_intf);
+-		if (err)
+-			phy_intf = PHY_INTERFACE_MODE_RGMII;
+-
+-		/* Aspeed only supports these. I don't know about other IP
+-		 * block vendors so I'm going to just let them through for
+-		 * now. Note that this is only a warning if for some obscure
+-		 * reason the DT really means to lie about it or it's a newer
+-		 * part we don't know about.
+-		 *
+-		 * On the Aspeed SoC there are additionally straps and SCU
+-		 * control bits that could tell us what the interface is
+-		 * (or allow us to configure it while the IP block is held
+-		 * in reset). For now I chose to keep this driver away from
+-		 * those SoC specific bits and assume the device-tree is
+-		 * right and the SCU has been configured properly by pinmux
+-		 * or the firmware.
+-		 */
+-		if (priv->is_aspeed &&
+-		    phy_intf != PHY_INTERFACE_MODE_RMII &&
+-		    phy_intf != PHY_INTERFACE_MODE_RGMII &&
+-		    phy_intf != PHY_INTERFACE_MODE_RGMII_ID &&
+-		    phy_intf != PHY_INTERFACE_MODE_RGMII_RXID &&
+-		    phy_intf != PHY_INTERFACE_MODE_RGMII_TXID) {
+-			netdev_warn(netdev,
+-				   "Unsupported PHY mode %s !\n",
+-				   phy_modes(phy_intf));
+-		}
+-	}
+-
+ 	priv->mii_bus->name = "ftgmac100_mdio";
+ 	snprintf(priv->mii_bus->id, MII_BUS_ID_SIZE, "%s-%d",
+ 		 pdev->name, pdev->id);
+@@ -1673,29 +1668,28 @@ static int ftgmac100_setup_mdio(struct net_device *netdev)
+ 		goto err_register_mdiobus;
+ 	}
+ 
+-	err = ftgmac100_mii_probe(priv, phy_intf);
+-	if (err) {
+-		dev_err(priv->dev, "MII Probe failed!\n");
+-		goto err_mii_probe;
+-	}
+-
+ 	return 0;
+ 
+-err_mii_probe:
+-	mdiobus_unregister(priv->mii_bus);
+ err_register_mdiobus:
+ 	mdiobus_free(priv->mii_bus);
+ 	return err;
+ }
+ 
++static void ftgmac100_phy_disconnect(struct net_device *netdev)
++{
++	if (!netdev->phydev)
++		return;
++
++	phy_disconnect(netdev->phydev);
++}
++
+ static void ftgmac100_destroy_mdio(struct net_device *netdev)
+ {
+ 	struct ftgmac100 *priv = netdev_priv(netdev);
+ 
+-	if (!netdev->phydev)
++	if (!priv->mii_bus)
+ 		return;
+ 
+-	phy_disconnect(netdev->phydev);
+ 	mdiobus_unregister(priv->mii_bus);
+ 	mdiobus_free(priv->mii_bus);
+ }
+@@ -1825,14 +1819,14 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 	if (np && of_get_property(np, "use-ncsi", NULL)) {
+ 		if (!IS_ENABLED(CONFIG_NET_NCSI)) {
+ 			dev_err(&pdev->dev, "NCSI stack not enabled\n");
+-			goto err_ncsi_dev;
++			goto err_phy_connect;
+ 		}
+ 
+ 		dev_info(&pdev->dev, "Using NCSI interface\n");
+ 		priv->use_ncsi = true;
+ 		priv->ndev = ncsi_register_dev(netdev, ftgmac100_ncsi_handler);
+ 		if (!priv->ndev)
+-			goto err_ncsi_dev;
++			goto err_phy_connect;
+ 	} else if (np && of_get_property(np, "phy-handle", NULL)) {
+ 		struct phy_device *phy;
+ 
+@@ -1860,12 +1854,19 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ 		err = ftgmac100_setup_mdio(netdev);
+ 		if (err)
+ 			goto err_setup_mdio;
++
++		err = ftgmac100_mii_probe(netdev);
++		if (err) {
++			dev_err(priv->dev, "MII probe failed!\n");
++			goto err_ncsi_dev;
++		}
++
+ 	}
+ 
+ 	if (priv->is_aspeed) {
+ 		err = ftgmac100_setup_clk(priv);
+ 		if (err)
+-			goto err_ncsi_dev;
++			goto err_phy_connect;
+ 	}
+ 
+ 	/* Default ring sizes */
+@@ -1901,6 +1902,8 @@ static int ftgmac100_probe(struct platform_device *pdev)
+ err_register_netdev:
+ 	clk_disable_unprepare(priv->rclk);
+ 	clk_disable_unprepare(priv->clk);
++err_phy_connect:
++	ftgmac100_phy_disconnect(netdev);
+ err_ncsi_dev:
+ 	ftgmac100_destroy_mdio(netdev);
+ err_setup_mdio:
+@@ -1931,6 +1934,7 @@ static int ftgmac100_remove(struct platform_device *pdev)
+ 	 */
+ 	cancel_work_sync(&priv->reset_task);
+ 
++	ftgmac100_phy_disconnect(netdev);
+ 	ftgmac100_destroy_mdio(netdev);
+ 
+ 	iounmap(priv->base);
+-- 
+2.21.1
 
-We have different log levels in bmcweb like error, critical, info, 
-debug, but what is missing is we don't have some compile time variable 
-to control it( currently it is either full or none.)
-
->
-> IMO, that level of log granularity was never that valuable to debug,
-> my thought being that if I'm enabling logging I don't care about
-> performance, so the more logs the better.  When reproducing a failure,
-> there doesn't tend to be a lot of logging present, and it's easy
-> enough to find what you want, but maybe you had a different
-> experience?
-
-Yes, I had a different experience in the recent bug where the failure 
-was intermittent and it was happening only after running the regression, 
-when I look into the log, not a single trace was there.Hence I thought 
-that atleast the logs which is being marked as error(BMCWEB_LOG_ERROR) 
-should have been written to the journal.
-
-Say In production if we find some issue and we ask for the journal then 
-journal will not be useful as it will not be having any traces to debug.
-
->
-> Long term, my intent was to just get rid of the various verbosities,
-> and make logging ON or OFF in the code, and downgrade to a single
-> macro, but if you see a need, we could certainly go the other
-> direction.
->
->> If there is a need user can play with new compiler flag for more verbose
->> logging.
-> I don't personally see the need, but if it would help you, I don't
-> think it adds much complexity to do it, and I'd be happy to review
-> your patches.
-Sure, I would be pushing the patch for the same.
->
->> Am I missing something in usage of logging infra?
->>
->> Ratan
->>
->>
->
-> Just to be clear, you're using logging in a debug context, correct?
-> If we're trying to use this to define an access log, that's a very
-> different problem space, and the existing logging infrastructure would
-> be poorly suited for it.
