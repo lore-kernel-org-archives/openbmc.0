@@ -2,102 +2,95 @@ Return-Path: <SRS0=lSEV=EK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.9 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-9.8 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 240B8C388F7
-	for <openbmc@archiver.kernel.org>; Wed,  4 Nov 2020 13:34:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 499A4C2D0A3
+	for <openbmc@archiver.kernel.org>; Wed,  4 Nov 2020 13:48:35 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C9F5220867
-	for <openbmc@archiver.kernel.org>; Wed,  4 Nov 2020 13:34:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 71F9521556
+	for <openbmc@archiver.kernel.org>; Wed,  4 Nov 2020 13:48:34 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=stwcx.xyz header.i=@stwcx.xyz header.b="u1zFk9EG";
-	dkim=temperror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="qmr3AkPK"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C9F5220867
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MirXHHcI"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 71F9521556
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CR70t6qKCzDqQB
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 00:34:22 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CR7KC05q4zDqY5
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 00:48:31 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28;
- helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::331;
+ helo=mail-ot1-x331.google.com; envelope-from=kurt.r.taylor@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=stwcx.xyz
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm3 header.b=u1zFk9EG; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=qmr3AkPK; 
- dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=MirXHHcI; dkim-atps=neutral
+Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
+ [IPv6:2607:f8b0:4864:20::331])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CR6xP5RsfzDqRC
- for <openbmc@lists.ozlabs.org>; Thu,  5 Nov 2020 00:31:20 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 0ECC75C00A0;
- Wed,  4 Nov 2020 08:31:16 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Wed, 04 Nov 2020 08:31:16 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=nksqzGELv3yBzbMFEoZc/KMQ/HS
- wqfcfpWRXdVipb3c=; b=u1zFk9EGJDyQ0DDsbtd+G/YjTaNmbLeWtQPMj0KXPXz
- /K49TsBUJxzvOmyJeBDxUSzziZmCSIH7ssP48HinT+T5qyqzJI2NI9YkR3sHmYjo
- yywODL5LbpAGd1Rjf2AvxC+uXqD7wZy2ULrw5QIgZfrnl6HQ2pPMauLHVEe81T9Q
- C9G9Uy9+HPxHcOBpGsvFmFSuDW+BRH+u7fexEkntON5q8QymqrM1K9eayY+D3LEd
- x5z+1fICiStvl/RY7McNAdZ4ZzXcgym1n6e1WXfk/5rkR0A6OI1yJ40yFUYsglRc
- 1E7geg8uVvOcSXqoHx07k6tPInltHCxvJrxzAdm3Btw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=nksqzG
- ELv3yBzbMFEoZc/KMQ/HSwqfcfpWRXdVipb3c=; b=qmr3AkPKIdEUQA8b4uauTa
- BJU5gnJnxQJuegaJ58JwxnCe6ciaE6SCpDQqDYK3Xa16jeaLwXL6rt7iXPxhm/bw
- 8U4IsQSPH2CbUlBi7Z67GqjCdEc3KNpMWz+/U28xQPvBp0alQ0VBlX90cFn3BoOr
- KU7HBAyrhU+V5pBSArdU4NE+hgZwd3Bop27zZ7kJFs6F9GS9iespzj0647ojNtRa
- qH8IvDuOGXK3fUkOhKdDocfLt0mVgpKOe+AV9P/99hfS9NrpraLMAcuh+lUheV8g
- IVpUGOK7DxJ9pFvVM0pkKhtRnwU1jNtGF71qNnZYvddKMOHxy+L2USEF/RdPppHQ
- ==
-X-ME-Sender: <xms:I62iX4me3khmwCg4JQL607ep3lP5ayN7vpBIvJI7BAslzzjhs7f0QA>
- <xme:I62iX32yekWaXjhWrNK-BgSu3SnEnEC_d65f41C84HU1PEim0cmRWTG_YO1ipX9rF
- FjN-o61zQ0xkUF3B_8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedruddthedgheehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdljedtmdenucfjughrpeffhf
- fvuffkfhggtggujgesghdtreertddtvdenucfhrhhomheprfgrthhrihgtkhcuhghilhhl
- ihgrmhhsuceophgrthhrihgtkhesshhtfigtgidrgiihiieqnecuggftrfgrthhtvghrnh
- epgeehheefffegkeevhedthffgudfhgeefgfdthefhkedtleffveekgfeuffehtdeinecu
- kfhppedutdejrddutdejrddukeegrddvheenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:I62iX2qlNros-OK_x_P4dDgPq2RBFD5tTQNjs0SKgNexMlZ_gCIWCg>
- <xmx:I62iX0kWfRCD1AVW6ljlITI5vyMsowpf07OSjKpRxqiIj4o-I7b7Fw>
- <xmx:I62iX23X13zLbUxK02epkIhR433zE58mCqh9e2XSF0fnF1SE-apiFQ>
- <xmx:JK2iX_jXgQizHUNQh9C0iBVW48wiq17kHlIMWjuFjMpOxGef1JxNzg>
-Received: from localhost (mobile-107-107-184-25.mycingular.net
- [107.107.184.25])
- by mail.messagingengine.com (Postfix) with ESMTPA id 36BF0306467D;
- Wed,  4 Nov 2020 08:31:15 -0500 (EST)
-Date: Wed, 4 Nov 2020 07:31:13 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Lee Fisher <lee@preossec.com>
-Subject: Re: Secure boot/signed images and GPL code
-Message-ID: <20201104133113.GC38269@patrickw3-mbp.lan.stwcx.xyz>
-References: <CAM=TmwWinuWjpNr+NeTXTmPv0wUCCzg5BUKhhR=Rp=mfmma_6Q@mail.gmail.com>
- <20201103205600.GA38269@patrickw3-mbp.lan.stwcx.xyz>
- <c3da59d4-b312-2372-0bfd-77014fb1fba6@preossec.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CR7BZ6mZzzDqZw
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Nov 2020 00:42:45 +1100 (AEDT)
+Received: by mail-ot1-x331.google.com with SMTP id n15so19290572otl.8
+ for <openbmc@lists.ozlabs.org>; Wed, 04 Nov 2020 05:42:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=nEw5gR0bWKGK6RPVmvB6RwKpnBTyTwn1aW8Gb3JRUjo=;
+ b=MirXHHcI+HSgU62kJe7JRsLCzOnNvrfeqNsphH5IYaz8WozJMWz2KE3NbrsBXjBKvd
+ XaIQXUexbd4x25vPbWCKwtNA8isuymEodUDDCw9i/b/mBSRa74kwO/bw9YFykQDXXEzj
+ RLAdJ53TiuJmRtTGQ+/rdonlJJwHZCfqMbVc9cX8c8pVGpF0dEqVxFF1PYYIfaJIaPdX
+ 3BrqTVDd7Gh8AMbHdVnK12otSkUrzpbd4EEYRnGDk+GXaLYnrX6xM/Gupy8tExaSCHM+
+ iC0aat2aDyl5YMPYYBhkdjVCbVYjD3SHkSgLO/CpD7Hx19al8I5ufNgJZ1C7rqAqNQh2
+ k9hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=nEw5gR0bWKGK6RPVmvB6RwKpnBTyTwn1aW8Gb3JRUjo=;
+ b=WyKqhT4CjvlrxHmY0xVnTgyxsahNfPU5a8/wp3kQD44S7g3aPaDpj2QtVyvPRvgI9v
+ v2PyiBQHy+GRWC3DpvvcbxpeCq8djxYjYGfXSZBFQlDGVJQgCK5CehHXM9khXItYSDIV
+ Uy9zzmYFXP7Oa2Ef7T0ZHjRZinL6vWsOutdooaOuCSmVWr6km0qU59CRBYlgdnWOupVP
+ 5BD99xItN4vcDJrTGPPg7cHe8L+Kb4OpkGFBjwSYQjqBLptadifIzXWKyyz2jT4hYmCG
+ p82KbCGSZ6NbL4TXS0NnTXB+MGDRSo3WwM4xf2IHCrpMW/pY9+OL0WZ9l1gKA0dY9cex
+ Wqhg==
+X-Gm-Message-State: AOAM533otzO4ricDUV9b4cnxgMg940s5i1YTnXQ5c8j7fYHjmYxDJCwE
+ T34TK5K7gbxZA2hxrwRhPP8=
+X-Google-Smtp-Source: ABdhPJzu3xudaJ6AKUnyExnN3Pwf7Ek+QnvIOzisVik7E0ZSqqib4URtOldZEVDGFGsLLkxihmhprA==
+X-Received: by 2002:a05:6830:615:: with SMTP id
+ w21mr10892045oti.126.1604497361751; 
+ Wed, 04 Nov 2020 05:42:41 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id 4sm436830oij.40.2020.11.04.05.42.40
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 Nov 2020 05:42:40 -0800 (PST)
+Subject: =?UTF-8?B?UmU6IOWbnuWkje+8mkkganVzdCB3YW50IHRvIGpvaW4gdGhlIG9wZW5i?=
+ =?UTF-8?Q?mc_developer_community?=
+To: =?UTF-8?B?5p2o5YuH5YW1KOacq+WyqSk=?= <moyan.yyb@alibaba-inc.com>
+References: <8da567c0-b5a4-47c0-90d6-d2de96ae99e5.moyan.yyb@alibaba-inc.com>
+ <CADy_Pt3ukjs64bRkuEBB699cuvNadzatsBmQ_prSWWTokB0uhQ@mail.gmail.com>
+ <beb7063a-f3ff-1de0-130e-0f98c3f35729@gmail.com>
+ <32fea865-04f1-4927-bb3e-77d650098d28.moyan.yyb@alibaba-inc.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <964928d9-3751-3a7e-7b06-fe35d238cb9f@gmail.com>
+Date: Wed, 4 Nov 2020 07:42:39 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="XWOWbaMNXpFDWE00"
-Content-Disposition: inline
-In-Reply-To: <c3da59d4-b312-2372-0bfd-77014fb1fba6@preossec.com>
+In-Reply-To: <32fea865-04f1-4927-bb3e-77d650098d28.moyan.yyb@alibaba-inc.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,50 +102,89 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: =?UTF-8?B?5bi455CzKOeJueedvyk=?= <terui.cl@alibaba-inc.com>,
+ James Mihm <james.mihm@gmail.com>,
+ =?UTF-8?B?5p2O5b+X5YW1KOi+ueiNkik=?= <zhibing.lzb@alibaba-inc.com>,
+ openbmc <openbmc@lists.ozlabs.org>,
+ =?UTF-8?B?5p2O576/KOS5ieWkqSk=?= <yitian.ly@alibaba-inc.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On 11/4/20 3:21 AM, 杨勇兵(末岩) wrote:
+> Hi James & krtaylor，
+>      Here is the CCLA, and please help to check。
+> Thanks.
 
---XWOWbaMNXpFDWE00
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Your CCLA has been accepted, welcome Alibaba!
 
-On Tue, Nov 03, 2020 at 01:21:53PM -0800, Lee Fisher wrote:
-> In this thread I don't see any reference to OpenBMC use of the existing
-> Shim[1] -- the current Linux UEFI Secure Boot solution to address these
-> legal issues. It seems that if the Shim can't work for OpenBMC case,
-> then OpenBMC could create a similar Shim-like widget. FYI, there's a
-> Shim mailing list.
+Kurt Taylor (krtaylor)
 
-The class of chips typically used for OpenBMC don't currently support
-UEFI but instead use u-boot as the early initialization + boot loader.
-u-boot has a concept of "Secondary Program Loader" (SPL) which can allow
-a key indirection in a similar way to the UEFI shim.
+> 
+> 
+>     ------------------------------------------------------------------
+>     发件人：krtaylor <kurt.r.taylor@gmail.com>
+>     发送时间：2020年10月28日(星期三) 23:51
+>     收件人：James Mihm <james.mihm@gmail.com>; 杨勇兵(末岩)
+>     <moyan.yyb@alibaba-inc.com>
+>     抄　送：常琳(特睿) <terui.cl@alibaba-inc.com>; openbmc
+>     <openbmc@lists.ozlabs.org>; 李羿(义天) <yitian.ly@alibaba-inc.com>;
+>     李志兵(边荒) <zhibing.lzb@alibaba-inc.com>
+>     主　题：Re: I just want to join the openbmc developer community
+> 
+>     On 10/27/20 9:02 PM, James Mihm wrote:
+>      > Welcome Moyan,
+>      >
+>      > If you plan to contribute code, please download and complete the CCLA at
+>      > https://github.com/openbmc/openbmc/files/1860741/OpenBMC.CCLA.pdf, and
+>      > mail to this mailing list.
+>      > Then those developers listed in the CLA will be able to submit code
+>      > changes. See https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md
+>      > for more information.
+>      >
+>      > There are several workgroups for the project that you can participate
+>      > with. See https://github.com/openbmc/openbmc/wiki for more information.
+>      >
+>      > James.
+>      >
+> 
+>     Thanks James, my simplistic filters missed this email.
+> 
+>     Moyan, feel free to contact me if you have any questions with the CCLA.
+> 
+>     Kurt Taylor (krtaylor)
+> 
+>      >
+>      > On Tue, Oct 27, 2020 at 6:31 PM 杨勇兵(末岩) <moyan.yyb@alibaba-
+>     inc.com
+>      > <mailto:moyan.yyb@alibaba-inc.com>> wrote:
+>      >
+>      >     Hi，
+>      >          my name is moyan,who is  workinig for alibaba company.  My
+>      >     compay just want to join the openbmc developer community, and i have
+>      >     subscribed to openbmc by accessing the website of
+>      >     "https://lists.ozlabs.org/listinfo/openbmc".So, what should i do next?
+>      >
+>      >     Thank you.
+>      >
+>      >
+>      >     -------------------------------------------------------------------------------------
+>      >     杨勇兵（末岩）
+>      >     基础架构事业群-计算与存储事业部-服务器产品
+>      >     邮箱：moyan.yyb@alibaba-inc.com <mailto:moyan.yyb@alibaba-
+>     inc.com>
+>      >     Mobil:182-6717-9546
+>      >     办公地点：浙江-杭州-余杭-EFC英国中心34楼
+>      >     -------------------------------------------------------------------------------------
+>      >     本邮件及其附件含有阿里巴巴集团的商业秘密信息，仅限于发送给上
+>     面地址中
+>      >     列出的个人和群组，禁止任何其他人以任何形式使用（包括但不限于
+>     全部或部
+>      >     分地泄露、复制或散发）本邮件及其附件中的信息，如果您错收本邮
+>     件，请您
+>      >     立即电话或邮件通知发件人并删除本邮件。
+>      >     This email and its attachments contain confidential information from Alibaba Group, which is intended only for the person or entity whose address is listed above. Any use of information contained herein in any way (including, but not limited to, total or partial disclosure, reproduction or dissemination) by persons other than the intended recipient(s) is prohibited. If you receive this email in error, please notify the sender by phone or email immediately and delete it.
+>      >
+>      > 
+> 
 
---=20
-Patrick Williams
-
---XWOWbaMNXpFDWE00
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl+irR8ACgkQqwNHzC0A
-wRkxJw//dWz6ujQ4/AhsWS5kBaNJ52usYpx7BSeJdyqXFnj4j7GUQbIDkpXvM6MU
-d4Q0nVF23MsyoZaqEjL0TZDku5bzcNzms27y+6I1310SfhWAtGeJDAaCLRuZXrIy
-/LHworwE+Ldr8MrrszhMn7KJhOLrOlKSg6trP1NvwRXTL1mTpV16eroV1Lddokhp
-Gjn7o0LhSV5PbAFU9y2OKqBp1J3SuTP7sValE6y4kiF8E0qLarAvykYJ2FVlnBAO
-DoOQH43RxqtQx9XqhCE2E+Eapj4l5f8tTra2Xw2QwwVx7OZC+bIVqaEz91gKxkTL
-f1KfavMKfpwT0EMWcwYuhG46SaIPOPOzHyMmGyHKnKAd11GoW93F5WX1IPtxjHNW
-g9hMhVIs0m6wjlMSwg2HVys6/egIo6bcD2ZQtkvjBjM5CLNANlfkr9NcOws6MGp/
-8X7SSuxdQEV/jRYV9LGhQe60+C2GlWi6eDEWkm/ajKkdgohg4YKM0JIU5gzOJVUf
-LAO2eXgDVFDRcblyMpFZdLN1JWP3BHfy6DTI/yIxVQdUG+/SMnu6vKG2n/YOAexO
-lxDlQg9aPmAP68N7Ti1NrzmnfjrYy29YlyWOfLYFfqWxxWuRWxGhyVQy1umXcSMn
-1PpVFmiftxDZYt0quOt5Xsk7ZBXhJRz5NkAK6RvKJOFyXEUWZPk=
-=zWmA
------END PGP SIGNATURE-----
-
---XWOWbaMNXpFDWE00--
