@@ -2,103 +2,103 @@ Return-Path: <SRS0=KBLK=EL=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A854C4741F
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 17:17:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B341C388F7
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:11:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D1452072E
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 17:17:26 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 3816020665
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:11:19 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="PXB0EJ+F"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2D1452072E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ibm.com
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JC4H+kZO"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3816020665
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CRqvm6Kk2zDr6w
-	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 04:17:24 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CRvmP1ws2zDqlp
+	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 07:11:17 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
- (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=ibm.com
+ dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=PXB0EJ+F; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.s=pp1 header.b=JC4H+kZO; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CRqs857lGzDqyx
- for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 04:15:07 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A5H4eBh043524
- for <openbmc@lists.ozlabs.org>; Thu, 5 Nov 2020 12:15:04 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CRvkM42ZkzDqlP
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 07:09:30 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0A5K6nhW050983; Thu, 5 Nov 2020 15:09:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=in-reply-to : subject :
- from : to : cc : date : references : content-type : message-id :
- content-transfer-encoding : mime-version; s=pp1;
- bh=wC6EXxYCK7JDlD21iKgw2D/mEXU5dd4GIBYFbwOJLus=;
- b=PXB0EJ+FdA5mDprh5XHREh0NVlLGVQxCzxbC368CKGbnsvjvJAszgYANjBHz0ANXgeb9
- nRCcJfmRZf6MjW5uBtA4APv7RwA2EXYR/T5SZJ4i3IaY5ZFbbRRJoj7ikHGSerht+b1Z
- 5oBUDBOaYtfWyZJgzBpRTshzBsZ9ZaQupsqfD1iMWu11VT6Pa227RVIDmTvxepFvKdOm
- uEZrHf6MFHkFD3pnB7gDTq2sSEuASPsUFT5kobkyyJJpaC6xHXf1D/w2hjKUFLUzzDme
- Ix2ZUe9kIRiuop9qnAklMB4q9qPK42MaIhgo1u+Sy+yolBASOzFh4bczFhpdgeLinbPa zw== 
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.67])
- by mx0a-001b2d01.pphosted.com with ESMTP id 34m5ftmmdm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2020 12:15:04 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
- Thu, 5 Nov 2020 17:15:03 -0000
-Received: from us1a3-smtp04.a3.dal06.isc4sb.com (10.106.154.237)
- by smtp.notes.na.collabserv.com (10.106.227.16) with
- smtp.notes.na.collabserv.com ESMTP; Thu, 5 Nov 2020 17:15:02 -0000
-Received: from us1a3-mail158.a3.dal06.isc4sb.com ([10.146.71.209])
- by us1a3-smtp04.a3.dal06.isc4sb.com
- with ESMTP id 2020110517150181-639507 ;
- Thu, 5 Nov 2020 17:15:01 +0000 
-In-Reply-To: <CACSj6VUNsH5c=de2xmNq-KhP9q76xV_BPw8o1JZ72DaKjOi2ww@mail.gmail.com>
-Subject: Re: Dynamic layout for the Serial-Over-Lan window in phosphor-webui
-From: "Derick Montague" <Derick.Montague@ibm.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Date: Thu, 5 Nov 2020 17:15:01 +0000
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <CACSj6VUNsH5c=de2xmNq-KhP9q76xV_BPw8o1JZ72DaKjOi2ww@mail.gmail.com>
-X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
- SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
-X-LLNOutbound: False
-X-Disclaimed: 24035
-X-TNEFEvaluated: 1
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 20110517-7279-0000-0000-000004037D7A
-X-IBM-SpamModules-Scores: BY=0.023312; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.40962; ST=0; TS=0; UL=0; ISC=; MB=0.198754
-X-IBM-SpamModules-Versions: BY=3.00014137; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000295; SDB=6.01459606; UDB=6.00785371; IPR=6.01242259; 
- MB=3.00034878; MTD=3.00000008; XFM=3.00000015; UTC=2020-11-05 17:15:02
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2020-11-05 07:48:30 - 6.00012034
-x-cbparentid: 20110517-7280-0000-0000-00009ACF91D1
-Message-Id: <OFD37A2AD5.BA39933E-ON00258617.005D770D-00258617.005EC23F@notes.na.collabserv.com>
-Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=mbDsmdvLZT99oYEXQjvx8Ijwn+a9mmT7luMEMkbiIp0=;
+ b=JC4H+kZOlbK1lzdgtsLNQREA1msZltnsNrdbHVQU1/eu2TubCb6OPGcxOQeZLO8OCFCf
+ pHfFHhHcQoYaPbrOT6r0r0t+CZL5i7cOlnu383JFFMw4zLaolXEoNxNnEq/HBue7TWTQ
+ zlVSoqxezr4Awwd1cj6SchHtLoUhVKEru9k+0hSYoUAImt11sMtuMlf4vDMDsxr3d7yX
+ fc2nLui4pGmZVJlCtwXEWsQ6WbZ6uaXLtXWkLibfGIgflCqIm667rNKVmYHQGoaOj9sC
+ 9opu9TZGdD12zzy78lasOrJ856BVsnWvhVGkm1rxDeYJCPIXTDRIMEr4FIbvCMuujCRa 9w== 
+Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
+ [169.55.91.170])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 34mnyhm37m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Nov 2020 15:09:28 -0500
+Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
+ by ppma02wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5K1Mm8021131;
+ Thu, 5 Nov 2020 20:09:27 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma02wdc.us.ibm.com with ESMTP id 34h0ewhxw5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 05 Nov 2020 20:09:27 +0000
+Received: from b03ledav002.gho.boulder.ibm.com
+ (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 0A5K9Kik40173896
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 5 Nov 2020 20:09:21 GMT
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 6AE52136059;
+ Thu,  5 Nov 2020 20:09:26 +0000 (GMT)
+Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CDDEA136053;
+ Thu,  5 Nov 2020 20:09:25 +0000 (GMT)
+Received: from SHADE6A.ibmuc.com (unknown [9.160.108.47])
+ by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Thu,  5 Nov 2020 20:09:25 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 3/3] configs: Add AST2600
+ SPL eMMC configuration
+Date: Thu,  5 Nov 2020 14:09:20 -0600
+Message-Id: <20201105200920.51226-4-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.26.2
+In-Reply-To: <20201105200920.51226-1-eajames@linux.ibm.com>
+References: <20201105200920.51226-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-05_10:2020-11-05,
+ definitions=2020-11-05_14:2020-11-05,
  2020-11-05 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0
+ suspectscore=15 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 mlxlogscore=999 mlxscore=0 adultscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2011050125
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,35 +110,178 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: aladyshev22@gmail.com
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-> I was working on a Serial-Over-Lan layout in a phosphor-webui. For me
-> it seems horribly broken
+U-Boot and environment are to be loaded off the eMMC.
+The environment is located at byte offset 0x5000 in the user data
+partition, and is sized at 0x10000. The redundant environment
+follows it immediately and is the same size. Also select the
+partition number and block offset of the U-Boot image; it is in
+the first boot partition (eMMC partition 1) at block 128.
 
-> I came up with a solution where a terminal window resizes according to
-> the window changes.
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ configs/ast2600_openbmc_spl_emmc_defconfig | 130 +++++++++++++++++++++
+ include/configs/aspeed-common.h            |   6 +
+ 2 files changed, 136 insertions(+)
+ create mode 100644 configs/ast2600_openbmc_spl_emmc_defconfig
 
-I agree that the SOL layout in the phosphor-webui GUI does not provide a=20
-good experience. It was also noted by Patrick Williams that the font stack
-being used also did not provide a good experience. To that extent, IBM and
-Intel, working with other community members that regularly attend the OpenB=
-MC
-GUI Design  Work Group, collaborated to improve the SOL and KVM over IP
-experiences in the webui-vue GUI (www.github.com/openbmc/webui-vue). The
-experience of the web based terminals are consistent and significantly=20
-improved.
-
-SOL: https://github.com/openbmc/webui-vue/issues/25
-KVM: https://github.com/openbmc/webui-vue/issues/24
-
-We have provide details on the reason for creating the webui-vue GUI
-in the repo's README: https://github.com/openbmc/webui-vue#webui-vue
-=20
-Thank you!=20=20
-=20=20=20
-Derick Montague
-IBM Cognitive Systems User Experience
+diff --git a/configs/ast2600_openbmc_spl_emmc_defconfig b/configs/ast2600_openbmc_spl_emmc_defconfig
+new file mode 100644
+index 0000000000..68d18652c9
+--- /dev/null
++++ b/configs/ast2600_openbmc_spl_emmc_defconfig
+@@ -0,0 +1,130 @@
++CONFIG_ARM=y
++CONFIG_SYS_CONFIG_NAME="evb_ast2600a1_spl"
++CONFIG_SYS_DCACHE_OFF=y
++CONFIG_POSITION_INDEPENDENT=y
++CONFIG_SPL_SYS_THUMB_BUILD=y
++CONFIG_SYS_THUMB_BUILD=y
++CONFIG_SPL_LDSCRIPT="arch/$(ARCH)/mach-aspeed/ast2600/u-boot-spl.lds"
++CONFIG_ARCH_ASPEED=y
++CONFIG_SYS_TEXT_BASE=0x10000
++CONFIG_ASPEED_AST2600=y
++CONFIG_ASPEED_UBOOT_SPI_BASE=0x10000
++CONFIG_ASPEED_UBOOT_SPI_SIZE=0xd0000
++CONFIG_ASPEED_UBOOT_MMC_BASE=0x80
++CONFIG_ASPEED_UBOOT_MMC_PART=1
++CONFIG_ASPEED_UBOOT_MMC_SIZE=0x680
++CONFIG_ASPEED_UBOOT_UART_SIZE=0xe0000
++CONFIG_ASPEED_UBOOT_DRAM_BASE=0x81000000
++CONFIG_ASPEED_KERNEL_FIT_SPI_BASE=0x20100000
++CONFIG_ASPEED_KERNEL_FIT_SPI_SIZE=0x1000000
++CONFIG_ASPEED_KERNEL_FIT_MMC_BASE=0x800
++CONFIG_ASPEED_KERNEL_FIT_MMC_SIZE=0x8000
++CONFIG_ASPEED_KERNEL_FIT_DRAM_BASE=0x83000000
++CONFIG_TARGET_EVB_AST2600A1=y
++CONFIG_SPL_LIBCOMMON_SUPPORT=y
++CONFIG_SPL_LIBGENERIC_SUPPORT=y
++CONFIG_SYS_MALLOC_F_LEN=0x800
++CONFIG_SPL_MMC_SUPPORT=y
++CONFIG_SPL_SERIAL_SUPPORT=y
++CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
++CONFIG_ENV_SIZE=0x10000
++CONFIG_ENV_OFFSET=0x5000
++CONFIG_SPL=y
++CONFIG_SPL_STACK_R_ADDR=0x90300000
++CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
++CONFIG_ARMV7_PSCI_NR_CPUS=2
++CONFIG_NR_DRAM_BANKS=1
++CONFIG_FIT=y
++CONFIG_USE_BOOTARGS=y
++CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
++CONFIG_USE_BOOTCOMMAND=y
++CONFIG_BOOTCOMMAND="bootm 20100000"
++CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
++CONFIG_DISPLAY_BOARDINFO_LATE=y
++CONFIG_ARCH_EARLY_INIT_R=y
++CONFIG_BOARD_EARLY_INIT_F=y
++# CONFIG_SPL_RAW_IMAGE_SUPPORT is not set
++# CONFIG_SPL_LEGACY_IMAGE_SUPPORT is not set
++CONFIG_SPL_SYS_MALLOC_SIMPLE=y
++CONFIG_SPL_STACK_R=y
++CONFIG_SPL_SEPARATE_BSS=y
++CONFIG_SPL_DM_RESET=y
++CONFIG_SPL_RAM_SUPPORT=y
++CONFIG_SPL_RAM_DEVICE=y
++CONFIG_SPL_WATCHDOG_SUPPORT=y
++CONFIG_SPL_YMODEM_SUPPORT=y
++CONFIG_HUSH_PARSER=y
++# CONFIG_AUTO_COMPLETE is not set
++CONFIG_SYS_PROMPT="ast# "
++CONFIG_CMD_BOOTZ=y
++# CONFIG_CMD_ELF is not set
++# CONFIG_CMD_IMI is not set
++# CONFIG_CMD_XIMG is not set
++CONFIG_CMD_MEMTEST=y
++CONFIG_SYS_ALT_MEMTEST=y
++CONFIG_CMD_CLK=y
++CONFIG_CMD_GPIO=y
++CONFIG_CMD_GPT=y
++# CONFIG_RANDOM_UUID is not set
++CONFIG_CMD_I2C=y
++CONFIG_CMD_MMC=y
++CONFIG_CMD_PART=y
++CONFIG_CMD_SF=y
++CONFIG_CMD_DHCP=y
++CONFIG_CMD_MII=y
++CONFIG_CMD_PING=y
++CONFIG_CMD_NCSI=y
++CONFIG_CMD_EXT2=y
++CONFIG_CMD_EXT4=y
++CONFIG_CMD_EXT4_WRITE=y
++CONFIG_CMD_FAT=y
++CONFIG_CMD_FS_GENERIC=y
++CONFIG_CMD_MTDPARTS=y
++# CONFIG_SPL_EFI_PARTITION is not set
++CONFIG_SPL_OF_CONTROL=y
++CONFIG_ENV_IS_IN_MMC=y
++CONFIG_NET_RANDOM_ETHADDR=y
++CONFIG_SPL_DM=y
++CONFIG_REGMAP=y
++CONFIG_SYSCON=y
++CONFIG_SPL_OF_TRANSLATE=y
++CONFIG_CLK=y
++CONFIG_SPL_CLK=y
++CONFIG_DM_GPIO=y
++CONFIG_ASPEED_GPIO=y
++CONFIG_DM_I2C=y
++CONFIG_SYS_I2C_ASPEED=y
++CONFIG_MISC=y
++CONFIG_ASPEED_AHBC=y
++CONFIG_DM_MMC=y
++CONFIG_SPL_MMC_TINY=y
++CONFIG_MMC_SDHCI=y
++CONFIG_MMC_SDHCI_ASPEED=y
++CONFIG_DM_SPI_FLASH=y
++CONFIG_SPI_FLASH=y
++CONFIG_SPI_FLASH_GIGADEVICE=y
++CONFIG_SPI_FLASH_MACRONIX=y
++CONFIG_SPI_FLASH_SPANSION=y
++CONFIG_SPI_FLASH_STMICRO=y
++CONFIG_SPI_FLASH_WINBOND=y
++CONFIG_PHY_BROADCOM=y
++CONFIG_PHY_REALTEK=y
++CONFIG_PHY_NCSI=y
++CONFIG_DM_ETH=y
++CONFIG_PHY_GIGE=y
++CONFIG_FTGMAC100=y
++CONFIG_MDIO=y
++CONFIG_PHY=y
++CONFIG_PINCTRL=y
++CONFIG_RAM=y
++CONFIG_SPL_RAM=y
++CONFIG_DM_SERIAL=y
++CONFIG_SYS_NS16550=y
++CONFIG_SPI=y
++CONFIG_DM_SPI=y
++CONFIG_SYSRESET=y
++CONFIG_WDT=y
++CONFIG_USE_TINY_PRINTF=y
++CONFIG_TPM=y
++CONFIG_SPL_TPM=y
++# CONFIG_EFI_LOADER is not set
+diff --git a/include/configs/aspeed-common.h b/include/configs/aspeed-common.h
+index 4c83035d3c..876958735b 100755
+--- a/include/configs/aspeed-common.h
++++ b/include/configs/aspeed-common.h
+@@ -41,6 +41,12 @@
+ #define CONFIG_SYS_BOOTMAPSZ		(256 * 1024 * 1024)
+ #define CONFIG_SYS_MALLOC_LEN		(32 << 20)
+ 
++#ifdef CONFIG_ENV_IS_IN_MMC
++#define CONFIG_SYS_MMC_ENV_DEV		0
++#define CONFIG_SYS_MMC_ENV_PART		0
++#define CONFIG_ENV_OFFSET_REDUND	0x15000
++#endif
++
+ /*
+  * BOOTP options
+  */
+-- 
+2.26.2
 
