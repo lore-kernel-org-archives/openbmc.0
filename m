@@ -2,76 +2,91 @@ Return-Path: <SRS0=KBLK=EL=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.1 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham autolearn_force=no
-	version=3.4.0
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21291C4741F
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 15:23:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FC73C4741F
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 16:19:43 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 548DC20759
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 15:23:11 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id AF5C820786
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 16:19:42 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hC9NaNVQ"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 548DC20759
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GmUPYvZt"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AF5C820786
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CRnMx1lqkzDqkk
-	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 02:23:09 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CRpd63Y95zDqyn
+	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 03:19:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::233;
- helo=mail-lj1-x233.google.com; envelope-from=aladyshev22@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32f;
+ helo=mail-ot1-x32f.google.com; envelope-from=kurt.r.taylor@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=hC9NaNVQ; dkim-atps=neutral
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com
- [IPv6:2a00:1450:4864:20::233])
+ header.s=20161025 header.b=GmUPYvZt; dkim-atps=neutral
+Received: from mail-ot1-x32f.google.com (mail-ot1-x32f.google.com
+ [IPv6:2607:f8b0:4864:20::32f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CRmlR0yTtzDqfj
- for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 01:54:56 +1100 (AEDT)
-Received: by mail-lj1-x233.google.com with SMTP id 23so1867285ljv.7
- for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2020 06:54:55 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CRpXw4gWlzDr34
+ for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 03:15:59 +1100 (AEDT)
+Received: by mail-ot1-x32f.google.com with SMTP id j14so1935780ots.1
+ for <openbmc@lists.ozlabs.org>; Thu, 05 Nov 2020 08:15:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=igutNeYaxSCveHp4DjYcQM9nKfEckuhFxOTa6EKXIcU=;
- b=hC9NaNVQFULlGuwudRJBlMUDqQHaqbAZG0pAaiYgTLLcLpu8wrnNF8Q1gFroCYWKAQ
- 8sw1JGSWCYtAsoME46fVWrQy+aJZHJGhcwWT9dLz6EeyyUrEYEmULr+NphIfqvnGPwxi
- YTwQyGrCm7SorUa+OH4mXrgBU9rc4TAsP60ilIF9vSMvfczlOYGuS5QD1lCBpV2O2R6B
- t2tNZeAUoRuPlEKiojbH8SJ3w+B1KbLpMgpNksT3uCmhyioi4UGpoX//ah/CNeCvGXLw
- v2GWEPPIpmBvlM5W4SlN+77S/uIuiICJ8CJrqcyLvJgRaLc2PouGhwaZjXqrIylv3++A
- Jg/g==
+ h=subject:to:cc:references:from:message-id:date:user-agent
+ :mime-version:in-reply-to:content-language:content-transfer-encoding;
+ bh=0pKoGXLXMbWnE5EpX2OW/pkKuskuD590EFnjL840kgk=;
+ b=GmUPYvZt7g1bHYMKdvCsDXLdzu+Ft+7zSAbuMB1GRHsqErY6laFdTF1boJyuYci1lQ
+ Qjcm6V1raGZtAAwSDYST6wbQ5VZAECe0UQV4GLclA6uPqov9cwQXb2athZZCwXIiopw0
+ 9KeT0Drh5PC0WxD03VvxKVxE6JF9tWNdt3cFOr4ZAJeeEQUmo4EtUOVJxzUf2opCDNtd
+ 2ra3L4DXkQVp8Tl3BJCNSBwGbs3U42QROGu/lmTU3cXu8biNexci+4eDX7rt5mNpKKZd
+ X61XU7NIq2bgU0cSzOA1B2RZVeeo0wo8EVlZAJVKZZNv32zwJzYeUU78A9Rj/8nx0A6p
+ 8OFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=igutNeYaxSCveHp4DjYcQM9nKfEckuhFxOTa6EKXIcU=;
- b=Nqq6adumYqoM42lpTUuU2mSjdF1ZZMRY3dbiFB7Zzpct3zJPf8P4VI0+86ZBOIe/0w
- sDL01fUERrjlsdkJLHO7N1TulBWIlN6Tfxyr44z8dy3jQTZv9eONnzhKD23PR2FWCRbd
- nD8bUtKCZYotKO/w/KFlvVKksRsASzjFjaBSX0mgZaLPfvXtHHKWRTIYifCryOy5M+V5
- krVbUu3jQ/rH7thbobNkfP7lf+dfBm2KBssC98AcZxDW0PRN8FEUkqTSMROWfwsoqyne
- j/e5bSpVNQrwBQH+3NXBmoFGlvLwXsP+2xjNggYuduRgXTc8Swv+5WERxHE+hnlZClvT
- y6Pg==
-X-Gm-Message-State: AOAM532fclCnXC+uSjdaleBwa2kSzW/LHuCBaj5c9zwMWaNSIKk6Ago8
- Lp/b9G4U+v+9uVZLey6JEqzUdeaWS7C2qY3iZQKJLDT4SDdS/w==
-X-Google-Smtp-Source: ABdhPJzcIUaLbMtCO7L7Pj3l9GNfrPGSaDUzj28FQuUPbKWFAgo/ofKxmITSjS713D4OBOjazTiFLv1CzWhxlGV5GXY=
-X-Received: by 2002:a2e:a0d7:: with SMTP id f23mr1077050ljm.231.1604588090623; 
- Thu, 05 Nov 2020 06:54:50 -0800 (PST)
+ h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-language
+ :content-transfer-encoding;
+ bh=0pKoGXLXMbWnE5EpX2OW/pkKuskuD590EFnjL840kgk=;
+ b=cCNwpJ9ZdoI3EOYQg2envvJlqGITkVRLhUFEir0xC2khhjECqmn7dC+u1TpZ64IrOA
+ CBjvYwLCmLqE1g7iZL6Jb/hEdnxby80ULjLi+VgSSV73t0Ip3FDyQJ3V6p9hdvj7REd5
+ 7x9xLteygV+PiiJQXm4+f6ORE8zY2snyGsU4kqnO6GsZTO+ZXGFkJy7mC0Kwzfl/0WHY
+ 14jhNqi3uY3gItcYrEbXmnkMCslWDIPp2OxHXNdbHcOZYq3dkcnXAQIMm7wWbQpDAUZx
+ aFUdG58ikpgNFON2lV3FYs3BiT5Vl0796cfZcITUg0/22nkqLuf8f7BeWo0ciknzfWy+
+ biMg==
+X-Gm-Message-State: AOAM531Q6o+dJsKpTg22L8V/7msZMrwpcBkU0fMqzoq74/0UbB9NM0Qe
+ qsx5qUu9TlTxgbVhiQnPKF0=
+X-Google-Smtp-Source: ABdhPJx0vD24ToL08CXCnNcCsYtOZfByaBj10eIkr6g+LsmSS8yjy4/dnv6m4doS9GJmI2Q/HaoN+g==
+X-Received: by 2002:a9d:222f:: with SMTP id o44mr2226101ota.321.1604592956149; 
+ Thu, 05 Nov 2020 08:15:56 -0800 (PST)
+Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
+ [72.182.100.19])
+ by smtp.gmail.com with ESMTPSA id b21sm400531ots.30.2020.11.05.08.15.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 05 Nov 2020 08:15:55 -0800 (PST)
+Subject: Re: OpenBMC Project Contributor
+To: Michelle Liu <MichelleLiu@supermicro.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <df1a21b1e7164ed8a8a6b36d8a713c6e@EX2013-MBX3.supermicro.com>
+From: krtaylor <kurt.r.taylor@gmail.com>
+Message-ID: <3b7a2e0d-5c17-a63a-06f9-307404c7c316@gmail.com>
+Date: Thu, 5 Nov 2020 10:15:54 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:68.0)
+ Gecko/20100101 Thunderbird/68.12.1
 MIME-Version: 1.0
-From: Konstantin Aladyshev <aladyshev22@gmail.com>
-Date: Thu, 5 Nov 2020 17:54:39 +0300
-Message-ID: <CACSj6VUNsH5c=de2xmNq-KhP9q76xV_BPw8o1JZ72DaKjOi2ww@mail.gmail.com>
-Subject: Dynamic layout for the Serial-Over-Lan window in phosphor-webui
-To: openbmc@lists.ozlabs.org
-Content-Type: text/plain; charset="UTF-8"
+In-Reply-To: <df1a21b1e7164ed8a8a6b36d8a713c6e@EX2013-MBX3.supermicro.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,32 +98,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Kevin Liu <Kevin_Liu@supermicro.com.tw>,
+ Hancock Chang <HancockC@supermicro.com.tw>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello!
-I was working on a Serial-Over-Lan layout in a phosphor-webui. For me
-it seems horribly broken
-(https://github.com/openbmc/phosphor-webui/issues/125):
-- it is fixed in size even in full screen
-- it uses only a part of its space for output in full-window view
+On 11/4/20 2:25 PM, Michelle Liu wrote:
+> To Who It May Concern,
+> 
+> Super Micro Computer likes to join the OpenBMC community as a 
+> contributor. A signed CLA is attached. Please provide us with guidance. 
+> Thank you.
 
-I came up with a solution where a terminal window resizes according to
-the window changes. Example:
-https://i114.fastpic.ru/big/2020/1105/44/af933bbaa02d950e6164ff68dd754044.png
-https://fastpic.ru/view/114/2020/1105/_2c94432100b3c3d40cc8553768b153f4.png.html
+Your CCLA has been accepted. Welcome Super Micro Computer!
 
-What do you think of it?
-Do we still need a fixed layout, where we control its size through the
-JSON file?
-The only place where it is overridden is:
-./meta-intel/meta-common/recipes-phosphor/webui/phosphor-webui/config.json :
-"customConsoleDisplaySize": {
-  "width": 100,
-  "height": 32
-}
+Re: guidance -> Lots of great info here:
+https://github.com/openbmc/openbmc/wiki
+and here:
+https://github.com/openbmc/docs
 
-So, almost nobody seems to use it. Wouldn't it be better to get rid of
-a fixed layout completely in favor of a dynamic one?
-Or should this be another JSON option like "consoleDynamicDisplaySize"?
+Jump on IRC (#openbmc on freenode), there are a bunch of friendly folks 
+there willing to help.
+
+Kurt Taylor (krtaylor)
+
+> 
+> Best regard,
+> 
+> Michelle Liu
+> 
+> Director, Software Products
+> 
+> Super Micro Computer, Inc.
+> 
+> D: +1 (669) 284-1046
+> 
+> C: +1 (408) 420-6407
+> 
+
