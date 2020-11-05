@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-12.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,UPPERCASE_50_75,USER_AGENT_GIT
+	SIGNED_OFF_BY,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B341C388F7
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:11:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32834C388F7
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:12:33 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3816020665
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:11:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 08BC620729
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 20:12:31 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="JC4H+kZO"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3816020665
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="cPwO4ozR"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 08BC620729
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CRvmP1ws2zDqlp
-	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 07:11:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CRvnn6tx0zDr5d
+	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 07:12:29 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
  helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
@@ -30,60 +30,60 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=JC4H+kZO; dkim-atps=neutral
+ header.s=pp1 header.b=cPwO4ozR; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CRvkM42ZkzDqlP
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CRvkM441gzDqlp
  for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 07:09:30 +1100 (AEDT)
 Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A5K6nhW050983; Thu, 5 Nov 2020 15:09:28 -0500
+ 0A5K6nlu050963; Thu, 5 Nov 2020 15:09:26 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=mbDsmdvLZT99oYEXQjvx8Ijwn+a9mmT7luMEMkbiIp0=;
- b=JC4H+kZOlbK1lzdgtsLNQREA1msZltnsNrdbHVQU1/eu2TubCb6OPGcxOQeZLO8OCFCf
- pHfFHhHcQoYaPbrOT6r0r0t+CZL5i7cOlnu383JFFMw4zLaolXEoNxNnEq/HBue7TWTQ
- zlVSoqxezr4Awwd1cj6SchHtLoUhVKEru9k+0hSYoUAImt11sMtuMlf4vDMDsxr3d7yX
- fc2nLui4pGmZVJlCtwXEWsQ6WbZ6uaXLtXWkLibfGIgflCqIm667rNKVmYHQGoaOj9sC
- 9opu9TZGdD12zzy78lasOrJ856BVsnWvhVGkm1rxDeYJCPIXTDRIMEr4FIbvCMuujCRa 9w== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0b-001b2d01.pphosted.com with ESMTP id 34mnyhm37m-1
+ bh=0g2koY/vcTUcafuMPvgOSHLgxSloNAtPWF+RLRBYuJI=;
+ b=cPwO4ozRYd6/YLmmV02PD9qUbr2AfTI9oi7NDX/P6UNwWsuoLqFtNXQP+NGTsCyL48vw
+ S4vqkWAB8z4KobGdoXrEfe9nUfI3e1JFUpWG2DQDEvrVkWIMt9kRYzwHKjy26TxravJJ
+ ieXjOtugywP1L2RFQUP+XrI265scpgDjS7+zIgzhca3ZXU0WRdt3qDAzehErJ/koTNsN
+ MOKx0GQ9wevuBG+4rzsga8Gm5Z4SYn2LsdGJeCt2zn66fapfKtPFOpNfOBgGaSwuWKxh
+ +SmmGrWMsLO7Wm/AAyJugTAlcSMiKHbg8BNJf8VsM65kAFFSCOKpfasg+2UChLpHNP1U dQ== 
+Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
+ [169.55.85.253])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 34mnyhm36v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 15:09:28 -0500
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5K1Mm8021131;
- Thu, 5 Nov 2020 20:09:27 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma02wdc.us.ibm.com with ESMTP id 34h0ewhxw5-1
+ Thu, 05 Nov 2020 15:09:26 -0500
+Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
+ by ppma01wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5K46xj031560;
+ Thu, 5 Nov 2020 20:09:26 GMT
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by ppma01wdc.us.ibm.com with ESMTP id 34h02523ra-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 20:09:27 +0000
+ Thu, 05 Nov 2020 20:09:26 +0000
 Received: from b03ledav002.gho.boulder.ibm.com
  (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0A5K9Kik40173896
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 0A5K9Je613042306
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 5 Nov 2020 20:09:21 GMT
+ Thu, 5 Nov 2020 20:09:19 GMT
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6AE52136059;
- Thu,  5 Nov 2020 20:09:26 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id A201D136055;
+ Thu,  5 Nov 2020 20:09:24 +0000 (GMT)
 Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CDDEA136053;
- Thu,  5 Nov 2020 20:09:25 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 01E62136053;
+ Thu,  5 Nov 2020 20:09:24 +0000 (GMT)
 Received: from SHADE6A.ibmuc.com (unknown [9.160.108.47])
  by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Thu,  5 Nov 2020 20:09:25 +0000 (GMT)
+ Thu,  5 Nov 2020 20:09:23 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 3/3] configs: Add AST2600
- SPL eMMC configuration
-Date: Thu,  5 Nov 2020 14:09:20 -0600
-Message-Id: <20201105200920.51226-4-eajames@linux.ibm.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 1/3] ARM: dts: Aspeed:
+ Tacoma and Rainier: Add eMMC nodes and parameters
+Date: Thu,  5 Nov 2020 14:09:18 -0600
+Message-Id: <20201105200920.51226-2-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.26.2
 In-Reply-To: <20201105200920.51226-1-eajames@linux.ibm.com>
 References: <20201105200920.51226-1-eajames@linux.ibm.com>
@@ -95,8 +95,8 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
  2020-11-05 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  malwarescore=0
- suspectscore=15 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 mlxlogscore=999 mlxscore=0 adultscore=0
+ suspectscore=13 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ impostorscore=0 lowpriorityscore=0 mlxlogscore=849 mlxscore=0 adultscore=0
  clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2009150000 definitions=main-2011050125
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -115,173 +115,74 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-U-Boot and environment are to be loaded off the eMMC.
-The environment is located at byte offset 0x5000 in the user data
-partition, and is sized at 0x10000. The redundant environment
-follows it immediately and is the same size. Also select the
-partition number and block offset of the U-Boot image; it is in
-the first boot partition (eMMC partition 1) at block 128.
+Add the necessary eMMC/SDHC nodes and information to use the eMMC
+from SPL and U-Boot.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 ---
- configs/ast2600_openbmc_spl_emmc_defconfig | 130 +++++++++++++++++++++
- include/configs/aspeed-common.h            |   6 +
- 2 files changed, 136 insertions(+)
- create mode 100644 configs/ast2600_openbmc_spl_emmc_defconfig
+ arch/arm/dts/ast2600-rainier.dts | 8 ++++++++
+ arch/arm/dts/ast2600-tacoma.dts  | 8 ++++++++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/configs/ast2600_openbmc_spl_emmc_defconfig b/configs/ast2600_openbmc_spl_emmc_defconfig
-new file mode 100644
-index 0000000000..68d18652c9
---- /dev/null
-+++ b/configs/ast2600_openbmc_spl_emmc_defconfig
-@@ -0,0 +1,130 @@
-+CONFIG_ARM=y
-+CONFIG_SYS_CONFIG_NAME="evb_ast2600a1_spl"
-+CONFIG_SYS_DCACHE_OFF=y
-+CONFIG_POSITION_INDEPENDENT=y
-+CONFIG_SPL_SYS_THUMB_BUILD=y
-+CONFIG_SYS_THUMB_BUILD=y
-+CONFIG_SPL_LDSCRIPT="arch/$(ARCH)/mach-aspeed/ast2600/u-boot-spl.lds"
-+CONFIG_ARCH_ASPEED=y
-+CONFIG_SYS_TEXT_BASE=0x10000
-+CONFIG_ASPEED_AST2600=y
-+CONFIG_ASPEED_UBOOT_SPI_BASE=0x10000
-+CONFIG_ASPEED_UBOOT_SPI_SIZE=0xd0000
-+CONFIG_ASPEED_UBOOT_MMC_BASE=0x80
-+CONFIG_ASPEED_UBOOT_MMC_PART=1
-+CONFIG_ASPEED_UBOOT_MMC_SIZE=0x680
-+CONFIG_ASPEED_UBOOT_UART_SIZE=0xe0000
-+CONFIG_ASPEED_UBOOT_DRAM_BASE=0x81000000
-+CONFIG_ASPEED_KERNEL_FIT_SPI_BASE=0x20100000
-+CONFIG_ASPEED_KERNEL_FIT_SPI_SIZE=0x1000000
-+CONFIG_ASPEED_KERNEL_FIT_MMC_BASE=0x800
-+CONFIG_ASPEED_KERNEL_FIT_MMC_SIZE=0x8000
-+CONFIG_ASPEED_KERNEL_FIT_DRAM_BASE=0x83000000
-+CONFIG_TARGET_EVB_AST2600A1=y
-+CONFIG_SPL_LIBCOMMON_SUPPORT=y
-+CONFIG_SPL_LIBGENERIC_SUPPORT=y
-+CONFIG_SYS_MALLOC_F_LEN=0x800
-+CONFIG_SPL_MMC_SUPPORT=y
-+CONFIG_SPL_SERIAL_SUPPORT=y
-+CONFIG_SPL_DRIVERS_MISC_SUPPORT=y
-+CONFIG_ENV_SIZE=0x10000
-+CONFIG_ENV_OFFSET=0x5000
-+CONFIG_SPL=y
-+CONFIG_SPL_STACK_R_ADDR=0x90300000
-+CONFIG_ARMV7_BOOT_SEC_DEFAULT=y
-+CONFIG_ARMV7_PSCI_NR_CPUS=2
-+CONFIG_NR_DRAM_BANKS=1
-+CONFIG_FIT=y
-+CONFIG_USE_BOOTARGS=y
-+CONFIG_BOOTARGS="console=ttyS4,115200n8 root=/dev/ram rw"
-+CONFIG_USE_BOOTCOMMAND=y
-+CONFIG_BOOTCOMMAND="bootm 20100000"
-+CONFIG_SYS_CONSOLE_ENV_OVERWRITE=y
-+CONFIG_DISPLAY_BOARDINFO_LATE=y
-+CONFIG_ARCH_EARLY_INIT_R=y
-+CONFIG_BOARD_EARLY_INIT_F=y
-+# CONFIG_SPL_RAW_IMAGE_SUPPORT is not set
-+# CONFIG_SPL_LEGACY_IMAGE_SUPPORT is not set
-+CONFIG_SPL_SYS_MALLOC_SIMPLE=y
-+CONFIG_SPL_STACK_R=y
-+CONFIG_SPL_SEPARATE_BSS=y
-+CONFIG_SPL_DM_RESET=y
-+CONFIG_SPL_RAM_SUPPORT=y
-+CONFIG_SPL_RAM_DEVICE=y
-+CONFIG_SPL_WATCHDOG_SUPPORT=y
-+CONFIG_SPL_YMODEM_SUPPORT=y
-+CONFIG_HUSH_PARSER=y
-+# CONFIG_AUTO_COMPLETE is not set
-+CONFIG_SYS_PROMPT="ast# "
-+CONFIG_CMD_BOOTZ=y
-+# CONFIG_CMD_ELF is not set
-+# CONFIG_CMD_IMI is not set
-+# CONFIG_CMD_XIMG is not set
-+CONFIG_CMD_MEMTEST=y
-+CONFIG_SYS_ALT_MEMTEST=y
-+CONFIG_CMD_CLK=y
-+CONFIG_CMD_GPIO=y
-+CONFIG_CMD_GPT=y
-+# CONFIG_RANDOM_UUID is not set
-+CONFIG_CMD_I2C=y
-+CONFIG_CMD_MMC=y
-+CONFIG_CMD_PART=y
-+CONFIG_CMD_SF=y
-+CONFIG_CMD_DHCP=y
-+CONFIG_CMD_MII=y
-+CONFIG_CMD_PING=y
-+CONFIG_CMD_NCSI=y
-+CONFIG_CMD_EXT2=y
-+CONFIG_CMD_EXT4=y
-+CONFIG_CMD_EXT4_WRITE=y
-+CONFIG_CMD_FAT=y
-+CONFIG_CMD_FS_GENERIC=y
-+CONFIG_CMD_MTDPARTS=y
-+# CONFIG_SPL_EFI_PARTITION is not set
-+CONFIG_SPL_OF_CONTROL=y
-+CONFIG_ENV_IS_IN_MMC=y
-+CONFIG_NET_RANDOM_ETHADDR=y
-+CONFIG_SPL_DM=y
-+CONFIG_REGMAP=y
-+CONFIG_SYSCON=y
-+CONFIG_SPL_OF_TRANSLATE=y
-+CONFIG_CLK=y
-+CONFIG_SPL_CLK=y
-+CONFIG_DM_GPIO=y
-+CONFIG_ASPEED_GPIO=y
-+CONFIG_DM_I2C=y
-+CONFIG_SYS_I2C_ASPEED=y
-+CONFIG_MISC=y
-+CONFIG_ASPEED_AHBC=y
-+CONFIG_DM_MMC=y
-+CONFIG_SPL_MMC_TINY=y
-+CONFIG_MMC_SDHCI=y
-+CONFIG_MMC_SDHCI_ASPEED=y
-+CONFIG_DM_SPI_FLASH=y
-+CONFIG_SPI_FLASH=y
-+CONFIG_SPI_FLASH_GIGADEVICE=y
-+CONFIG_SPI_FLASH_MACRONIX=y
-+CONFIG_SPI_FLASH_SPANSION=y
-+CONFIG_SPI_FLASH_STMICRO=y
-+CONFIG_SPI_FLASH_WINBOND=y
-+CONFIG_PHY_BROADCOM=y
-+CONFIG_PHY_REALTEK=y
-+CONFIG_PHY_NCSI=y
-+CONFIG_DM_ETH=y
-+CONFIG_PHY_GIGE=y
-+CONFIG_FTGMAC100=y
-+CONFIG_MDIO=y
-+CONFIG_PHY=y
-+CONFIG_PINCTRL=y
-+CONFIG_RAM=y
-+CONFIG_SPL_RAM=y
-+CONFIG_DM_SERIAL=y
-+CONFIG_SYS_NS16550=y
-+CONFIG_SPI=y
-+CONFIG_DM_SPI=y
-+CONFIG_SYSRESET=y
-+CONFIG_WDT=y
-+CONFIG_USE_TINY_PRINTF=y
-+CONFIG_TPM=y
-+CONFIG_SPL_TPM=y
-+# CONFIG_EFI_LOADER is not set
-diff --git a/include/configs/aspeed-common.h b/include/configs/aspeed-common.h
-index 4c83035d3c..876958735b 100755
---- a/include/configs/aspeed-common.h
-+++ b/include/configs/aspeed-common.h
-@@ -41,6 +41,12 @@
- #define CONFIG_SYS_BOOTMAPSZ		(256 * 1024 * 1024)
- #define CONFIG_SYS_MALLOC_LEN		(32 << 20)
+diff --git a/arch/arm/dts/ast2600-rainier.dts b/arch/arm/dts/ast2600-rainier.dts
+index ce530eb92b..67e177baf1 100755
+--- a/arch/arm/dts/ast2600-rainier.dts
++++ b/arch/arm/dts/ast2600-rainier.dts
+@@ -18,6 +18,7 @@
+ 	};
  
-+#ifdef CONFIG_ENV_IS_IN_MMC
-+#define CONFIG_SYS_MMC_ENV_DEV		0
-+#define CONFIG_SYS_MMC_ENV_PART		0
-+#define CONFIG_ENV_OFFSET_REDUND	0x15000
-+#endif
+ 	aliases {
++		mmc0 = &emmc_slot0;
+ 		spi0 = &fmc;
+ 		spi1 = &spi1;
+ 	};
+@@ -89,9 +90,16 @@
+ 	};
+ };
+ 
++&emmc {
++	u-boot,dm-pre-reloc;
++	timing-phase = <0x700ff>;
++};
 +
- /*
-  * BOOTP options
-  */
+ &emmc_slot0 {
++	u-boot,dm-pre-reloc;
+ 	status = "okay";
+ 	bus-width = <4>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_emmc_default>;
++	sdhci-drive-type = <1>;
+ };
+diff --git a/arch/arm/dts/ast2600-tacoma.dts b/arch/arm/dts/ast2600-tacoma.dts
+index 22b9f39fa2..85d1e3902b 100755
+--- a/arch/arm/dts/ast2600-tacoma.dts
++++ b/arch/arm/dts/ast2600-tacoma.dts
+@@ -18,6 +18,7 @@
+ 	};
+ 
+ 	aliases {
++		mmc0 = &emmc_slot0;
+ 		spi0 = &fmc;
+ 		spi1 = &spi1;
+ 	};
+@@ -80,9 +81,16 @@
+ 	};
+ };
+ 
++&emmc {
++	u-boot,dm-pre-reloc;
++	timing-phase = <0x700ff>;
++};
++
+ &emmc_slot0 {
++	u-boot,dm-pre-reloc;
+ 	status = "okay";
+ 	bus-width = <4>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_emmc_default>;
++	sdhci-drive-type = <1>;
+ };
 -- 
 2.26.2
 
