@@ -2,114 +2,65 @@ Return-Path: <SRS0=KBLK=EL=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.5 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 32C68C388F7
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 23:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 80EA6C388F7
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 23:10:42 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D6B0020786
-	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 23:02:40 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="O5c+bet/"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6B0020786
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id A826E20715
+	for <openbmc@archiver.kernel.org>; Thu,  5 Nov 2020 23:10:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A826E20715
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CRzZ54j6wzDr9w
-	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 10:02:37 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CRzlJ4fv5zDqQj
+	for <openbmc@archiver.kernel.org>; Fri,  6 Nov 2020 10:10:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=quantatw.com (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=57116f761=bruce_lee@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=O5c+bet/; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CRzX92vfSzDqs3
- for <openbmc@lists.ozlabs.org>; Fri,  6 Nov 2020 10:00:56 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0A5MX1jo037604; Thu, 5 Nov 2020 18:00:53 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to : cc :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=ZhPsU+aTyXMiYzvMNC/+NSPt7zKPinNiC6m1uum28zI=;
- b=O5c+bet/2hl5XABqBS9GpH9q8fS5RF2KFhGDLB5L981BucOTzKLVgtC3Yaz5WaJy4PDA
- Ts4xSjUmUdRl/LY0ytD2lwNRapRiVSYr3RPOlyVBcINxGY8do0vwV/NcJw6K2omZPbQq
- IAegBjSSouZVQY3fXgeE+JgdBa7HReMjOS7Gj18yGxHPh9ySFCJf9WDh1jtWVnP+cyF6
- na5HfBXjBIIKL6OsAFsKKl8xPcYp/97jzSk1HpAWCyfxL2DVoQ8Euikz0CLjulFg5RqI
- pswkK4Eowm+BcDHbx9s4+BWpO6X9iFTSAOJzzN/cTVAfrlOOuP1qSd4t+8wC2vA1m3eV Nw== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 34mhxjuj50-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 18:00:53 -0500
-Received: from m0098410.ppops.net (m0098410.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0A5Mxsub129291;
- Thu, 5 Nov 2020 18:00:53 -0500
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com with ESMTP id 34mhxjuj47-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 18:00:52 -0500
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0A5Msnc4013595;
- Thu, 5 Nov 2020 23:00:51 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma01wdc.us.ibm.com with ESMTP id 34h0253sff-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 05 Nov 2020 23:00:51 +0000
-Received: from b03ledav001.gho.boulder.ibm.com
- (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0A5N0o5u10355192
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 5 Nov 2020 23:00:50 GMT
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8CF6C6E04E;
- Thu,  5 Nov 2020 23:00:50 +0000 (GMT)
-Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A44E86E054;
- Thu,  5 Nov 2020 23:00:49 +0000 (GMT)
-Received: from demeter.roc.mn.charter.com (unknown [9.85.128.80])
- by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS;
- Thu,  5 Nov 2020 23:00:49 +0000 (GMT)
-Subject: Re: How to integrate new libraray in openbmc
-To: Ed Tanous <ed@tanous.net>,
- khader basha shaik <shaikkhaderbasha601@gmail.com>
-References: <CAD+gp9B3q6A4Hp4N7f_T8CJuw0n1sk=vkCHWebx0seyuxJjx_w@mail.gmail.com>
- <CACWQX83iRY7g10aS2p6ioO0S9ubH+91e8tc+GhuWbFjo+NDCvQ@mail.gmail.com>
-From: Joseph Reynolds <jrey@linux.ibm.com>
-Message-ID: <6a84f82c-d1b5-0f57-dae1-7cb6370c8f7b@linux.ibm.com>
-Date: Thu, 5 Nov 2020 17:00:48 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:68.0)
- Gecko/20100101 Thunderbird/68.12.1
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 66 seconds by postgrey-1.36 at bilbo;
+ Thu, 05 Nov 2020 17:31:11 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4CRYZ76Db3zDql8
+ for <openbmc@lists.ozlabs.org>; Thu,  5 Nov 2020 17:31:10 +1100 (AEDT)
+IronPort-SDR: v1PQ2MdwDPFUYeji2QVqbhcj8Oziy8VeS2jqd9amx7uwW9mYa3MDmViQ3UdyilPzdGQwG9WTZI
+ /Olp6K8s+MMw==
+Received: from unknown (HELO mailbx06.quanta.corp) ([10.243.91.101])
+ by mx01.quantatw.com with ESMTP; 05 Nov 2020 14:30:01 +0800
+Received: from mailbx10.quanta.corp (10.243.91.107) by mailbx06.quanta.corp
+ (10.243.91.101) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Thu, 5 Nov 2020
+ 14:30:00 +0800
+Received: from mailbx10.quanta.corp ([192.168.57.10]) by mailbx10.quanta.corp
+ ([192.168.57.10]) with mapi id 15.01.2044.004;
+ Thu, 5 Nov 2020 14:30:00 +0800
+From: =?big5?B?QnJ1Y2UgTGVlICin9an7rm0p?= <Bruce_Lee@quantatw.com>
+To: "cheng.c.yang@linux.intel.com" <cheng.c.yang@linux.intel.com>,
+ "yugang.chen@linux.intel.com" <yugang.chen@linux.intel.com>,
+ "kuiying.wang@intel.com" <kuiying.wang@intel.com>
+Subject: Please help provide some examples for how to use smbios-mdr via
+ intel-ipmi-oem
+Thread-Topic: Please help provide some examples for how to use smbios-mdr via
+ intel-ipmi-oem
+Thread-Index: AdazPL6EMls5bWeYTdWBCftty23oqQ==
+Date: Thu, 5 Nov 2020 06:30:00 +0000
+Message-ID: <da65b69b77144a94ad9e278b0fe72b5d@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_da65b69b77144a94ad9e278b0fe72b5dquantatwcom_"
 MIME-Version: 1.0
-In-Reply-To: <CACWQX83iRY7g10aS2p6ioO0S9ubH+91e8tc+GhuWbFjo+NDCvQ@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-05_16:2020-11-05,
- 2020-11-05 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0
- lowpriorityscore=0 malwarescore=0 priorityscore=1501 mlxlogscore=759
- clxscore=1015 adultscore=0 impostorscore=0 bulkscore=0 spamscore=0
- mlxscore=0 suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011050145
+X-Mailman-Approved-At: Fri, 06 Nov 2020 10:08:48 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,87 +72,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 11/5/20 10:45 AM, Ed Tanous wrote:
-> On Thu, Nov 5, 2020 at 2:49 AM khader basha shaik ...
-> This Message Is From an External Sender
-> This message came from outside your organization.
->
->
->
-> On Thu, Nov 5, 2020 at 2:49 AM khader basha shaik 
-> <shaikkhaderbasha601@gmail.com <mailto:shaikkhaderbasha601@gmail.com>> 
-> wrote:
->
->     Hi Team,
->
->     I have a custom library and need to integrate it with openbmc.The
->     library provides various output related to system information.
->     I need this information to show up in phosphor-webUI.
->
->     In my understanding we need to register it with dbus interface.
->     So I need to integrate my custom library with dbus.
->
->     But I do not have much information about where to start?
->
->
->     Any help or information on this would be really helpful.
->
->
->
-> If you point us to the code for the library you're wanting to 
-> integrate, as well as what you're hoping to see as a result we can 
-> probably give you better advice.  As is, your request is quite vague, 
-> and I'm personally finding it very hard to answer with non-generic 
-> advice.  The openbmc documentation is a pretty good place to start in 
-> your case. Once you have some handle on it, put the code up somewhere 
-> that we can see it, and we'll be able to give you more specific advice 
-> on where to go from there.
->
-> -Ed
+--_000_da65b69b77144a94ad9e278b0fe72b5dquantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-Welcome!
+SGkgYWxsLA0KDQpQbGVhc2UgaGVscCBwcm92aWRlIHNvbWUgZXhhbXBsZXMgZm9yIGhvdyB0byB1
+c2Ugc21iaW9zLW1kciB2aWEgaW50ZWwtaXBtaS1vZW0sDQptYXliZSBpdKGmcyBhIGxvdHMgc2Vy
+aWVzIGludGVsLWlwbWktb2VtLA0KSSB3YW50IHRvIGtub3cgaG93IHRvIHNlbmQgYSBzbWJpb3Mg
+ZmlsZSB2aWEgZnVuY3Rpb24goaVzdG9yZURhdGF0b0ZsYXNooaYNCmFuZCB0aGVuIHNtYmlvcy1t
+ZHIgZnVuY3Rpb25zIHdpbGwgdG8gcmVhZCBzbWJpb3MgZmlsZSB2aWEgZnVuY3Rpb24goaVyZWFk
+RGF0YUZyb21GbGFzaKGmDQoNCmJlbG93IGxpbmtzIGlzIHJlZmVyZW5jZSBmcm9tIHVwc3RyZWFt
+LA0KaHR0cHM6Ly9naXRodWIuY29tL29wZW5ibWMvc21iaW9zLW1kcg0KaHR0cHM6Ly9naXRodWIu
+Y29tL29wZW5ibWMvaW50ZWwtaXBtaS1vZW0NCg0KdGhhbmtzLA0KQnJ1Y2UuDQo=
 
-I assume you saw the [contributing][] guide.  Have you seen the 
-[development tutorials][]?
+--_000_da65b69b77144a94ad9e278b0fe72b5dquantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-Are you asking about OpenBMC's internal architecture?  The layers are:
-   Web user <--> Web application <--> Web Server (BMCWeb) <--> D-Bus 
-interfaces <--> your new service
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi all,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Please help provide some exampl=
+es for how to use smbios-mdr via intel-ipmi-oem,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">maybe it=A1=A6s a lots series i=
+ntel-ipmi-oem, <o:p>
+</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I want to know how to send a sm=
+bios file via function =A1=A5storeDatatoFlash=A1=A6<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">and then smbios-mdr functions w=
+ill to read smbios file via function =A1=A5readDataFromFlash=A1=A6<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">below links is reference from u=
+pstream,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://github.com/o=
+penbmc/smbios-mdr">https://github.com/openbmc/smbios-mdr</a><o:p></o:p></sp=
+an></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><a href=3D"https://github.com/o=
+penbmc/intel-ipmi-oem">https://github.com/openbmc/intel-ipmi-oem</a><o:p></=
+o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">thanks,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Bruce.<o:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-The way I understand your new function, some of the basic technical 
-steps to create your interface include:
-1. Create your new service.  Create new [D-Bus interfaces][] to model 
-your service.  Expose all of your "library functions" as D-Bus 
-interfaces.  See the [hello world tutorial][] as an example of the 
-development process.
-2. Enhance [BMCWeb][].  Create new REST APIs and map them to your new 
-D-Bus interfaces.
-3. Enhance the web application to allow web users to use your new 
-functions.  Invoke your new REST APIs as needed.  Have you seen the new 
-[webui-vue][]?
-
-For example, you should be trace the functions in the tutorial through 
-D-Bus interfaces to BMCWeb to REST APIs to the web application.
-
-But before you do any of this: please consider the project's advice for 
-[planning changes][].
-
-- Joseph
-
-[contributing]: https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md
-[development tutorials]: 
-https://github.com/openbmc/docs/blob/master/development
-[D-Bus interfaces]: https://github.com/openbmc/phosphor-dbus-interfaces
-[hello world tutorial]: 
-https://github.com/openbmc/docs/blob/master/development/sdk-hello-world.md
-[OpenBMC interfaces]: 
-https://github.com/openbmc/docs/blob/master/architecture/interface-overview.md
-[BMCWeb]: https://github.com/openbmc/bmcweb
-[webui-vue]: https://github.com/openbmc/webui-vue
-[planning changes]: 
-https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#planning-changes
+--_000_da65b69b77144a94ad9e278b0fe72b5dquantatwcom_--
