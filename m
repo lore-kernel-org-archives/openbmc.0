@@ -2,83 +2,87 @@ Return-Path: <SRS0=hJiw=ER=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-6.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-12.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SIGNED_OFF_BY,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E9A95C388F9
-	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2020 23:29:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65958C388F9
+	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2020 23:30:36 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 04A1920735
-	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2020 23:29:19 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 99B642072E
+	for <openbmc@archiver.kernel.org>; Wed, 11 Nov 2020 23:30:35 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SIfjbVbX"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04A1920735
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TZZF18Li"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 99B642072E
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CWgt61Z10zDqcv
-	for <openbmc@archiver.kernel.org>; Thu, 12 Nov 2020 10:29:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CWgvY29K3zDqRf
+	for <openbmc@archiver.kernel.org>; Thu, 12 Nov 2020 10:30:33 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::542;
- helo=mail-pg1-x542.google.com; envelope-from=rentao.bupt@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::52c;
+ helo=mail-pg1-x52c.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=SIfjbVbX; dkim-atps=neutral
-Received: from mail-pg1-x542.google.com (mail-pg1-x542.google.com
- [IPv6:2607:f8b0:4864:20::542])
+ header.s=20161025 header.b=TZZF18Li; dkim-atps=neutral
+Received: from mail-pg1-x52c.google.com (mail-pg1-x52c.google.com
+ [IPv6:2607:f8b0:4864:20::52c])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CWglt6G60zDqsW;
- Thu, 12 Nov 2020 10:23:51 +1100 (AEDT)
-Received: by mail-pg1-x542.google.com with SMTP id m13so2521779pgl.7;
- Wed, 11 Nov 2020 15:23:51 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CWglx2L3NzDqHH;
+ Thu, 12 Nov 2020 10:23:56 +1100 (AEDT)
+Received: by mail-pg1-x52c.google.com with SMTP id m13so2522002pgl.7;
+ Wed, 11 Nov 2020 15:23:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:cc:subject:date:message-id;
- bh=rmvEzNyFoJX1iHYxKsv0/EGBjX8DBa3yt0/jMPmZuc0=;
- b=SIfjbVbXY9g2nGpr3BqroW0o9pCuBd41UimxHetMt19exNTV0jskvTTI4D/ubKIHsB
- DUf4SCe+EqQ/6L2D52wX8PE5uJ9dSwBdlrq1GFulADQLx1Thh3z8/UgMxLuaLxr8I0d9
- 8haeVcVDKdVJvIdEYtH0oxYWVhiOV8ajBx2YGhgg40jK3lUEkPeIOC3+yJ8SQst6SfER
- ALddFewf+XAW2+kSkKkVgWuLwSK1CETx+eXOTrJsH9h4RdGYW00TCaNlHaJkZ2ZVTFM0
- s2beFieRVB7U64JwJDuxp2kiSK5JmU4L8UMmJ4UsmY/2/pPc9GiFxNyfnL08fUywSk4f
- QlBQ==
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=3B8siPBqoy9NOw638bUt0dT90coPyLNV0X2/B+nIWhw=;
+ b=TZZF18LiB6b8PKG1wKr1RWLPPFjmBF0Puw0O84gbQP8HTwS5mVSZ/9dbuhTTmlsgEI
+ iqHTeJo/a8ce0bYENbr7oKAKqkqIWlyx0MlEr7Cis2IMCk5XLbkc0zWDi6ddaUsNUMnC
+ /0/ppXyZgeDQCAJ+xJB/Kj1B9D2+D92RKqBEK8DxTw62LKmj3T6b8kHYJxnSzuOO2GHP
+ pe4Up+ZTIsD8+L/ZsortJ3S9rNRTvIFxMnzUX0p8aMF116Sxd7zO/ebXbNlXcDCN3pib
+ fWlS4fEtvUChT46nP4E9/vEGKcAoujhqu3hDq925pIDQG4gCSwWZi65T7/ypQWvp/1/2
+ dM0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:cc:subject:date:message-id;
- bh=rmvEzNyFoJX1iHYxKsv0/EGBjX8DBa3yt0/jMPmZuc0=;
- b=qPDKLHlvZXhhyHYvLSBsySCU4HozNjR7/cCeHpt2fod53VBEgqpACcefxn5HaKP4yC
- pB70SSETnXHiLmiXe5SC/qR8oOjA7bxK14cSrHsznhhciaL/v/Uv/pyI0CVZMe5XvQXX
- DTG71p19ekqSwMrZ9I7VYVWx6TluuWP1uQzjeOWnEnMe/r3JWj1ZOCLLAZg0DwOcmmTn
- u/STr5wHq4asdLTPaDEQrPDoNsDIMmac5SuWZwiTUBOt4cFGXmG5Ho5PwR02ix/s9+J3
- vXPr9SKWFgFaFfaMIMROdsmQdSo1LNuL1KySQnC+AxLySkItw4gvnppK5wA2rLhuIf3D
- D/Ag==
-X-Gm-Message-State: AOAM530QHzFiOafyIKVe/CEmYpgoF0yUk+//KDYSbujZritft4d7MkmV
- Ur4yMB99oQ/DaNjnzRz9GMs=
-X-Google-Smtp-Source: ABdhPJwLIkmY1lx2BkFH6Ky9XCzcwXy2Tiedp8iEyPSz0H7c5glq67safBqMDc1pSrdZwJsRHwPlYg==
-X-Received: by 2002:a17:90a:4208:: with SMTP id
- o8mr6176658pjg.19.1605137026461; 
- Wed, 11 Nov 2020 15:23:46 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=3B8siPBqoy9NOw638bUt0dT90coPyLNV0X2/B+nIWhw=;
+ b=mWdSTBJkIrxUnYweszM7LuQHlmUyP5Y/0/kJuI+fdv864yFOJowQVWdGevWhbdsmC6
+ CZwLJAyZTT7sClV/NXAGZ+AogDZw8RGwQcCR2KiYCtQ+iRrLwntxanT/zbWmcThZY6W2
+ wC1TFRn4B0Ci2z52lk/bQGuojRhY/OZ/vbivoPF9zPZux1bGFMtaRpEp89PYuZqcK5Fg
+ EvH9/8lBvIMfLPN35NtyGNQEVsGVq4mXvaFTAvLbVqPtQBbVBhYdGwlqXsG7qVxHFLs3
+ 1cTA3fmwu9P/jxdr0dC0ZmtKJ1mRyYRYroycfkjuyjkHfot2+3FPq88LBLUjtTQWIgin
+ veeA==
+X-Gm-Message-State: AOAM531tazMTBqZHhuh43zKgMuY0ob62mYz2neOj1klwKlHby8RZaAwB
+ 8JSRwcmw/Ywl0qo7L7ZxDrA=
+X-Google-Smtp-Source: ABdhPJzXSCz0fSwlU9ctg/9/ozst9ZYw73DDH4dg6jtlfrc7nxC+dsB6D0jkvVLejD9FWscsGXPB6g==
+X-Received: by 2002:a62:6496:0:b029:155:b152:f0cf with SMTP id
+ y144-20020a6264960000b0290155b152f0cfmr25431894pfb.75.1605137033967; 
+ Wed, 11 Nov 2020 15:23:53 -0800 (PST)
 Received: from taoren-ubuntu-R90MNF91.thefacebook.com
  (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
- by smtp.gmail.com with ESMTPSA id a128sm3901431pfb.195.2020.11.11.15.23.44
+ by smtp.gmail.com with ESMTPSA id a128sm3901431pfb.195.2020.11.11.15.23.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 11 Nov 2020 15:23:45 -0800 (PST)
+ Wed, 11 Nov 2020 15:23:53 -0800 (PST)
 From: rentao.bupt@gmail.com
 To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
  Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, taoren@fb.com
-Subject: [PATCH 0/4] ARM: dts: aspeed: Add Facebook Galaxy100 BMC
-Date: Wed, 11 Nov 2020 15:23:26 -0800
-Message-Id: <20201111232330.30843-1-rentao.bupt@gmail.com>
+Subject: [PATCH 4/4] ARM: dts: aspeed: Add Facebook Galaxy100 (AST2400) BMC
+Date: Wed, 11 Nov 2020 15:23:30 -0800
+Message-Id: <20201111232330.30843-5-rentao.bupt@gmail.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201111232330.30843-1-rentao.bupt@gmail.com>
+References: <20201111232330.30843-1-rentao.bupt@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,34 +101,90 @@ Sender: "openbmc"
 
 From: Tao Ren <rentao.bupt@gmail.com>
 
-The patch series adds the initial version of device tree for Facebook
-Galaxy100 (AST2400) BMC.
+Add initial version of device tree for Facebook Galaxy100 (AST2400) BMC.
 
-Patch #1 adds common dtsi to minimize duplicated device entries across
-Facebook Network AST2400 BMC device trees.
-
-Patch #2 simplfies Wedge40 device tree by using the common dtsi.
-
-Patch #3 simplfies Wedge100 device tree by using the common dtsi.
-
-Patch #4 adds the initial version of device tree for Facebook Galaxy100
-BMC.
-
-Tao Ren (4):
-  ARM: dts: aspeed: Common dtsi for Facebook AST2400 Network BMCs
-  ARM: dts: aspeed: wedge40: Use common dtsi
-  ARM: dts: aspeed: wedge100: Use common dtsi
-  ARM: dts: aspeed: Add Facebook Galaxy100 (AST2400) BMC
-
- arch/arm/boot/dts/Makefile                    |   1 +
- .../dts/aspeed-bmc-facebook-galaxy100.dts     |  57 +++++++++
- .../boot/dts/aspeed-bmc-facebook-wedge100.dts | 120 +++---------------
- .../boot/dts/aspeed-bmc-facebook-wedge40.dts  | 112 +---------------
- .../dts/ast2400-facebook-netbmc-common.dtsi   | 117 +++++++++++++++++
- 5 files changed, 191 insertions(+), 216 deletions(-)
+Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+---
+ arch/arm/boot/dts/Makefile                    |  1 +
+ .../dts/aspeed-bmc-facebook-galaxy100.dts     | 57 +++++++++++++++++++
+ 2 files changed, 58 insertions(+)
  create mode 100644 arch/arm/boot/dts/aspeed-bmc-facebook-galaxy100.dts
- create mode 100644 arch/arm/boot/dts/ast2400-facebook-netbmc-common.dtsi
 
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 21477ef5c5c9..1917cd47204a 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1383,6 +1383,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-arm-stardragon4800-rep2.dtb \
+ 	aspeed-bmc-bytedance-g220a.dtb \
+ 	aspeed-bmc-facebook-cmm.dtb \
++	aspeed-bmc-facebook-galaxy100.dtb \
+ 	aspeed-bmc-facebook-minipack.dtb \
+ 	aspeed-bmc-facebook-tiogapass.dtb \
+ 	aspeed-bmc-facebook-wedge40.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-galaxy100.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-galaxy100.dts
+new file mode 100644
+index 000000000000..dcf213472749
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-galaxy100.dts
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: GPL-2.0+
++// Copyright (c) 2020 Facebook Inc.
++/dts-v1/;
++
++#include "ast2400-facebook-netbmc-common.dtsi"
++
++/ {
++	model = "Facebook Galaxy 100 BMC";
++	compatible = "facebook,galaxy100-bmc", "aspeed,ast2400";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS0,9600n8 root=/dev/ram rw";
++	};
++
++	ast-adc-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 3>, <&adc 4>, <&adc 8>, <&adc 9>;
++	};
++};
++
++&wdt2 {
++	status = "okay";
++	aspeed,reset-type = "system";
++};
++
++&fmc {
++	flash@1 {
++		status = "okay";
++		m25p,fast-read;
++		label = "spi0.1";
++
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			flash1@0 {
++				reg = <0x0 0x2000000>;
++				label = "flash1";
++			};
++		};
++	};
++};
++
++
++&i2c9 {
++	status = "okay";
++};
++
++&vhub {
++	status = "okay";
++};
++
++&adc {
++	status = "okay";
++};
 -- 
 2.17.1
 
