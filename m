@@ -1,90 +1,61 @@
 Return-Path: <SRS0=DP8Q=EW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81E63C2D0E4
-	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 02:08:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B5F8C2D0E4
+	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 03:23:59 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3636922265
-	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 02:08:00 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=supermicro.com.tw header.i=@supermicro.com.tw header.b="jmJZb0bo"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3636922265
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=supermicro.com.tw
+	by mail.kernel.org (Postfix) with ESMTPS id 47AB422240
+	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 03:23:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47AB422240
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CZCCL6J3HzDqDD
-	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 13:07:58 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CZDtz4yghzDqNs
+	for <openbmc@archiver.kernel.org>; Mon, 16 Nov 2020 14:23:55 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=supermicro.com.tw (client-ip=210.242.233.163;
- helo=twmga.supermicro.com.tw; envelope-from=hancockc@supermicro.com.tw;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=supermicro.com.tw
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=supermicro.com.tw header.i=@supermicro.com.tw
- header.a=rsa-sha256 header.s=dkim header.b=jmJZb0bo; 
- dkim-atps=neutral
-Received: from twmga.supermicro.com.tw (mail.supermicro.com.tw
- [210.242.233.163])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CZC9Z2yhKzDqNC
- for <openbmc@lists.ozlabs.org>; Mon, 16 Nov 2020 13:06:24 +1100 (AEDT)
-Received: from pps.filterd (twmga.supermicro.com.tw [127.0.0.1])
- by twmga.supermicro.com.tw (8.16.0.42/8.16.0.42) with SMTP id 0AG22eXI019314; 
- Mon, 16 Nov 2020 10:06:17 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=supermicro.com.tw;
- h=from : to : cc
- : subject : date : message-id : references : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=dkim;
- bh=csuoKHdtBqCFHGGXxTNiOZYVz5S4/TllhPmOSa1TDNg=;
- b=jmJZb0boHdERBjCFQ0/XYbqbMxXH9VKOCvXoggy7sfFs/rl6mAhKQxBAoU4VxEudfGbV
- DblGaktaoRWX+PylZks+gQeGudjZlkb1D0jMopy0vArs2RHy6eWT5HI9dk7zYdGGX9/m
- FlhmUGnFGIgLHNDa4kAhRzXm9dD75tGOeaa2b5/12Fh3MBMy1JbQpNci4Rx1Z4lvITDm
- p5PSb9mObNS0lVP4aw8yUAkMuTQXRHvn0YbkSzUGYpQpuaWb/81chc05RI5xOWDj9naK
- zBkJ68S+LkqWUEEAbUDCyqnoMOKlSnziIloyP2i+ZNp9hMTHB3ymoc27xGrb6tj7FEUC Pw== 
-Received: from tw-ex2013-mbx2.supermicro.com (TW-EX2013-MBX2.supermicro.com
- [10.128.8.64]) by twmga.supermicro.com.tw with ESMTP id 34sydd8esh-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-SHA384 bits=256 verify=NOT);
- Mon, 16 Nov 2020 10:06:17 +0800
-Received: from TW-EX2013-MBX2.supermicro.com (10.128.8.64) by
- TW-EX2013-MBX2.supermicro.com (10.128.8.64) with Microsoft SMTP Server (TLS)
- id 15.0.1497.2; Mon, 16 Nov 2020 10:06:14 +0800
-Received: from TW-EX2013-MBX2.supermicro.com ([fe80::6dc3:c328:5621:ff7a]) by
- TW-EX2013-MBX2.supermicro.com ([fe80::6dc3:c328:5621:ff7a%12]) with
- mapi id 15.00.1497.000; Mon, 16 Nov 2020 10:06:14 +0800
-From: Hancock Chang <HancockC@supermicro.com.tw>
-To: Phong Vo OS <phong@os.amperecomputing.com>, krtaylor
- <kurt.r.taylor@gmail.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Subject: RE: Need to create Supermicro's repo for OpenBMC Contribution 
-Thread-Topic: Need to create Supermicro's repo for OpenBMC Contribution 
-Thread-Index: Ada5WVLVdTQdRtNrQkuX76FPCTQPrAAwbxEgAGhRblA=
-Date: Mon, 16 Nov 2020 02:06:13 +0000
-Message-ID: <0539b32675d94af28ffe557acbc8b435@TW-EX2013-MBX2.supermicro.com>
-References: <56e966abb56a491fafe047d03b8453a3@TW-EX2013-MBX2.supermicro.com>
- <SN6PR01MB409396D2B24F8007E719D2E187E50@SN6PR01MB4093.prod.exchangelabs.com>
-In-Reply-To: <SN6PR01MB409396D2B24F8007E719D2E187E50@SN6PR01MB4093.prod.exchangelabs.com>
+ smtp.mailfrom=quantatw.com (client-ip=219.87.191.90; helo=mx01.quantatw.com;
+ envelope-from=prvs=5826d4872=alan_kuo@quantatw.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+X-Greylist: delayed 67 seconds by postgrey-1.36 at bilbo;
+ Mon, 16 Nov 2020 14:22:38 AEDT
+Received: from mx01.quantatw.com (mx01.quantatw.com [219.87.191.90])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4CZDsV2hs8zDqNk
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Nov 2020 14:22:37 +1100 (AEDT)
+IronPort-SDR: l4+NjSMtKOx126BHcE8lQeg2o9ufXTSGnDeACpPCHSgcRHows41j1HlQXjqegs38eCPxDRrrCq
+ WNcvPy55velw==
+Received: from unknown (HELO mailbx11.quanta.corp) ([10.243.91.108])
+ by mx01.quantatw.com with ESMTP; 16 Nov 2020 11:21:27 +0800
+Received: from mailbx11.quanta.corp (10.243.91.108) by mailbx11.quanta.corp
+ (10.243.91.108) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Mon, 16 Nov
+ 2020 11:21:26 +0800
+Received: from mailbx11.quanta.corp ([192.168.57.11]) by mailbx11.quanta.corp
+ ([192.168.57.11]) with mapi id 15.01.2044.004;
+ Mon, 16 Nov 2020 11:21:26 +0800
+From: =?big5?B?QWxhbiBLdW8gKLOirra6+yk=?= <Alan_Kuo@quantatw.com>
+To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
+Subject: Requests to create a repo in openbmc github
+Thread-Topic: Requests to create a repo in openbmc github
+Thread-Index: Ada7x4Dz+YityIqrRRG7D5KFRNw9UQ==
+Date: Mon, 16 Nov 2020 03:21:25 +0000
+Message-ID: <39e45d166da14a83a3fc0e63ea73f14c@quantatw.com>
 Accept-Language: zh-TW, en-US
 Content-Language: zh-TW
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.133.160.151]
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_39e45d166da14a83a3fc0e63ea73f14cquantatwcom_"
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-15_11:2020-11-13,
- 2020-11-15 signatures=0
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,168 +67,112 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Ryan Sie <RyanS@supermicro.com.tw>, Ryan Zhou <RyanZ@supermicro.com>,
- Kevin Liu <Kevin_Liu@supermicro.com.tw>,
- Michelle Liu <MichelleLiu@supermicro.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "ed@tanous.net" <ed@tanous.net>, "ztai@google.com" <ztai@google.com>,
+ "benjaminfair@google.com" <benjaminfair@google.com>,
+ "rhanley@google.com" <rhanley@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Phong
+--_000_39e45d166da14a83a3fc0e63ea73f14cquantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
->>I would assume you are request meta-supermicro, and not meta-ampere as we=
- have been requesting meta-ampere also?
-[Hancock]: That is correct, what we were asking for is to create "meta-supe=
-rmicro" only, I just took another similar email as example but kept somethi=
-ng incorrect, thank you for correction.=20
+SGkgQnJhZDoNCg0KVGhpcyBpcyBBbGFuIGZyb20gUXVhbnRhIENvbXB1dGVyLg0KUXVhbnRhIHdv
+dWxkIGxpa2Ugc2hhcmUgYSBuZXcgZmVhdHVyZSB0byB0aGUgT3BlbkJNQyBjb21tdW5pdHkuDQoN
+CkZvciBpbXByb3ZlIHNlY3VyaXR5LCB3ZSBwcm9wb3NlIGEgZGFlbW9uIHRoYXQgZ2VuZXJhdGUg
+YSBzZWxmLXNpZ25lZCBodHRwcyBjZXJ0aWZpY2F0ZSBvbmNlIHRoZSBob3N0bmFtZSBpcyBhc3Np
+Z25lZC4NCg0KVGhlIGRlc2lnbiBndWlkZSBpcyB1bmRlciByZXZpZXcgaHR0cHM6Ly9nZXJyaXQu
+b3BlbmJtYy1wcm9qZWN0Lnh5ei9jL29wZW5ibWMvZG9jcy8rLzM4MjY0DQpXZSB3b3VsZCBsaWtl
+IHRvIGFzayB5b3VyIGhlbHAgdG8gY3JlYXRlIGEgcmVwbyBuYW1lZCChp3Bob3NwaG9yLW1vbml0
+b3ItaG9zdG5hbWWhqCBpbiBPcGVuQk1DIGdpdGh1YiB3aGVuIGl0IGlzIGFwcHJvdmVkLg0KDQpU
+aGFua3MsDQpBbGFuDQo=
 
-Best,
+--_000_39e45d166da14a83a3fc0e63ea73f14cquantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-Hancock
------Original Message-----
-From: Phong Vo OS <phong@os.amperecomputing.com>=20
-Sent: Saturday, November 14, 2020 8:15 AM
-To: Hancock Chang - TW (SW-PM) <HancockC@supermicro.com.tw>; krtaylor <kurt=
-.r.taylor@gmail.com>; openbmc@lists.ozlabs.org
-Cc: Ryan Sie - TW (HW 1) <RyanS@supermicro.com.tw>; Ryan Zhou (HW) <RyanZ@s=
-upermicro.com>; Kevin Liu - TW (SW-PM) <Kevin_Liu@supermicro.com.tw>; Miche=
-lle Liu (SW-PM) <MichelleLiu@supermicro.com>
-Subject: RE: Need to create Supermicro's repo for OpenBMC Contribution=20
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi Brad:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">This is Alan from Quanta Comput=
+er.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Quanta would like share a new f=
+eature to the OpenBMC community.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">For improve security, we propos=
+e a daemon that generate a self-signed https certificate once the hostname =
+is assigned.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">The design guide is under revie=
+w https://gerrit.openbmc-project.xyz/c/openbmc/docs/&#43;/38264<o:p></o:p><=
+/span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">We would like to ask your help =
+to create a repo named =A1=A7phosphor-monitor-hostname=A1=A8 in OpenBMC git=
+hub when it is approved.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Thanks,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Alan<o:p></o:p></span></p>
+</div>
+</body>
+</html>
 
-[CAUTION: External Mail]
-
-Hi Hancock,
-
-I would assume you are request meta-supermicro, and not meta-ampere as we h=
-ave been requesting meta-ampere also?
-
--Phong
-
-> -----Original Message-----
-> From: openbmc <openbmc-
-> bounces+phong=3Dos.amperecomputing.co
-> m@lists.ozlabs.org> On Behalf Of
-> Hancock Chang
-> Sent: Friday, November 13, 2020 8:15
-> AM
-> To: krtaylor <kurt.r.taylor@gmail.com>; openbmc@lists.ozlabs.org
-> Cc: Ryan Sie
-> <RyanS@supermicro.com.tw>; Ryan
-> Zhou <RyanZ@supermicro.com>; Kevin
-> Liu <Kevin_Liu@supermicro.com.tw>;
-> Michelle Liu
-> <MichelleLiu@supermicro.com>
-> Subject: Need to create Supermicro's
-> repo for OpenBMC Contribution
->=20
-> Hello Kurt,
->=20
-> As previous communication in below,
-> Supermicro has completed the CLA and
-> been accepted, our BMC dev team is
-> preparing to have some contribution to OpenBMC, so would like to ask=20
-> for help to create "meta-supermicro repository as openbmc subtree"=20
-> then could start to follow the process to do some contribution
->=20
-> We have 2 BMC senior staff would be as repo owner, name and email=20
-> address as below assume this will be needed for creating the=20
-> meta-ampere repository.
->=20
->      Ryan Sie, RyanS@supermicro.com.tw
->      Ryan Zhou, RyanZ@supermicro.com
->=20
->=20
-> Thank you
->=20
-> Hancock Chang
-> Product Manager, Open Source SW
-> Super Micro Computer, Inc. Taiwan
-> Email : HancockC@supermicro.com.tw
-> Tel : +886-2-8226-3990=A0Ext:3198
->=20
->=20
->=20
->=20
-> -----Original Message-----
-> From: Michelle Liu (SW-PM)
-> Sent: Friday, November 6, 2020 3:58 AM
-> To: krtaylor <kurt.r.taylor@gmail.com>; openbmc@lists.ozlabs.org
-> Cc: Kevin Liu - TW (SW-PM)
-> <Kevin_Liu@supermicro.com.tw>;
-> Hancock Chang - TW (SW-PM)
-> <HancockC@supermicro.com.tw>
-> Subject: RE: OpenBMC Project
-> Contributor
->=20
-> Hi Kurt,
->=20
-> Thank you for your prompt reply. It is our pleasure to join the=20
-> OpenBMC family.
-> We will do our homework. And, we look
-> forward to working with all of you.
->=20
-> Best,
-> Michelle
->=20
->=20
-> -----Original Message-----
-> From: krtaylor
-> <kurt.r.taylor@gmail.com>
-> Sent: Thursday, November 5, 2020 8:16
-> AM
-> To: Michelle Liu (SW-PM)
-> <MichelleLiu@supermicro.com>;
-> openbmc@lists.ozlabs.org
-> Cc: Kevin Liu - TW (SW-PM)
-> <Kevin_Liu@supermicro.com.tw>;
-> Hancock Chang - TW (SW-PM)
-> <HancockC@supermicro.com.tw>
-> Subject: Re: OpenBMC Project
-> Contributor
->=20
-> [CAUTION: External Mail]
->=20
-> On 11/4/20 2:25 PM, Michelle Liu wrote:
-> > To Who It May Concern,
-> >
-> > Super Micro Computer likes to join the
-> OpenBMC community as a
-> > contributor. A signed CLA is attached.
-> Please provide us with guidance.
-> > Thank you.
->=20
-> Your CCLA has been accepted. Welcome
-> Super Micro Computer!
->=20
-> Re: guidance -> Lots of great info here:
-> https://urldefense.com/v3/__https://gith
-> ub.com/openbmc/openbmc/wiki__;!!B4
-> Ndrdkg3tRaKVT9!5otlOzkwUlYZ9roBAho
-> 62Vrz6MbCB9RCh3O9qH_CJuHNd7kO8iz
-> wwh5El5g3GOZdYEe4$
-> and here:
-> https://urldefense.com/v3/__https://gith
-> ub.com/openbmc/docs__;!!B4Ndrdkg3tR
-> aKVT9!5otlOzkwUlYZ9roBAho62Vrz6Mb
-> CB9RCh3O9qH_CJuHNd7kO8izwwh5El5g
-> 3GN7gkhFt$
->=20
-> Jump on IRC (#openbmc on freenode),
-> there are a bunch of friendly folks there willing to help.
->=20
-> Kurt Taylor (krtaylor)
->=20
-> >
-> > Best regard,
-> >
-> > Michelle Liu
-> >
-> > Director, Software Products
-> >
-> > Super Micro Computer, Inc.
-> >
-> > D: +1 (669) 284-1046
-> >
-> > C: +1 (408) 420-6407
-> >
-
+--_000_39e45d166da14a83a3fc0e63ea73f14cquantatwcom_--
