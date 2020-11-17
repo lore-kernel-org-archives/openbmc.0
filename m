@@ -1,96 +1,61 @@
 Return-Path: <SRS0=/yhw=E2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: **
+X-Spam-Status: No, score=2.4 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C42FC5519F
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 05:47:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9E3BEC5519F
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 05:48:14 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C40A22226
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 05:47:02 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LGJcQBr5";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LGJcQBr5"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C40A22226
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=redhat.com
+	by mail.kernel.org (Postfix) with ESMTPS id B68F522244
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 05:48:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B68F522244
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CcltD2NYFzDqws
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 16:47:00 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Cclvc0WLKzDq6q
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 16:48:12 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=redhat.com (client-ip=216.205.24.124;
- helo=us-smtp-delivery-124.mimecast.com; envelope-from=brouer@redhat.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=quantatw.com (client-ip=220.128.79.91; helo=mx02.quantatw.com;
+ envelope-from=prvs=5833891c6=jun-lin.chen@quantatw.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=redhat.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256
- header.s=mimecast20190719 header.b=LGJcQBr5; 
- dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com
- header.a=rsa-sha256 header.s=mimecast20190719 header.b=LGJcQBr5; 
- dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [216.205.24.124])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CcQKb4ZX3zDqkq
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 03:35:56 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1605803753;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rmz4vMCo9cJbvNaKXKHUnIBAy5VUu+3pBNzGePwX/CQ=;
- b=LGJcQBr5v4/qtQY4U20Y3P1ZzzIIcmQAvmcArL7LT3uiqZN3xX3TnZkT04DCNyZZky7vhr
- kEpWlxATej7TV53dtKKBvKtVvGJGA9JN+nDF/KKJk3lopuV67cXZ+r73FRG9zHqxP2pThZ
- xuNJEkf7/yp3RmIIZxp28ZhWetj7pqc=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1605803753;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rmz4vMCo9cJbvNaKXKHUnIBAy5VUu+3pBNzGePwX/CQ=;
- b=LGJcQBr5v4/qtQY4U20Y3P1ZzzIIcmQAvmcArL7LT3uiqZN3xX3TnZkT04DCNyZZky7vhr
- kEpWlxATej7TV53dtKKBvKtVvGJGA9JN+nDF/KKJk3lopuV67cXZ+r73FRG9zHqxP2pThZ
- xuNJEkf7/yp3RmIIZxp28ZhWetj7pqc=
-Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-361-5cgFMGosMYiOELAYXE56dw-1; Thu, 19 Nov 2020 11:35:48 -0500
-X-MC-Unique: 5cgFMGosMYiOELAYXE56dw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
- [10.5.11.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
- (No client certificate requested)
- by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A21D91005D5F;
- Thu, 19 Nov 2020 16:35:44 +0000 (UTC)
-Received: from carbon (unknown [10.36.110.8])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 8BD6B60636;
- Thu, 19 Nov 2020 16:35:36 +0000 (UTC)
-Date: Thu, 19 Nov 2020 17:35:35 +0100
-From: Jesper Dangaard Brouer <brouer@redhat.com>
-To: Jakub Kicinski <kuba@kernel.org>, Joe Perches <joe@perches.com>
-Subject: XDP maintainer match (Was  [PATCH v2 0/2] hwmon: (max127) Add Maxim
- MAX127 hardware monitoring)
-Message-ID: <20201119173535.1474743d@carbon>
-In-Reply-To: <20201119074634.2e9cb21b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
-References: <20201118230929.18147-1-rentao.bupt@gmail.com>
- <20201118232719.GI1853236@lunn.ch>
- <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
- <20201119010119.GA248686@roeck-us.net>
- <20201119012653.GA249502@roeck-us.net>
- <20201119074634.2e9cb21b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
+ dmarc=none (p=none dis=none) header.from=quantatw.com
+Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
+ by lists.ozlabs.org (Postfix) with ESMTP id 4Cb2V000X3zDqR7
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Nov 2020 21:38:27 +1100 (AEDT)
+IronPort-SDR: Nd2iUQOIHhzm99L8NWhr0jgb663zYtnz6MdokuXRbt98pE0ak1zFf2qET+T2yhj9ZdZEwAXpBv
+ 2ancm5S4lgKQ==
+Received: from unknown (HELO mailbx09.quanta.corp) ([10.243.91.106])
+ by mx02.quantatw.com with ESMTP; 17 Nov 2020 18:38:25 +0800
+Received: from mailbx09.quanta.corp (10.243.91.106) by mailbx09.quanta.corp
+ (10.243.91.106) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2044.4; Tue, 17 Nov
+ 2020 18:38:24 +0800
+Received: from mailbx09.quanta.corp ([192.168.57.9]) by mailbx09.quanta.corp
+ ([192.168.57.9]) with mapi id 15.01.2044.004; Tue, 17 Nov 2020 18:38:24 +0800
+From: =?big5?B?SnVuLUxpbiBDaGVuICizr6tUwE0p?= <Jun-Lin.Chen@quantatw.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: The Subscription will disappear and config of EventService restore
+ initial value after reboot
+Thread-Topic: The Subscription will disappear and config of EventService
+ restore initial value after reboot
+Thread-Index: Ada8zTtwo1eSvSPzTqi+6szJ11/xAA==
+Date: Tue, 17 Nov 2020 10:38:24 +0000
+Message-ID: <94a84c0d54f94193be2f21212e3749a7@quantatw.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-originating-ip: [10.243.91.252]
+Content-Type: multipart/alternative;
+ boundary="_000_94a84c0d54f94193be2f21212e3749a7quantatwcom_"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
-X-Mailman-Approved-At: Fri, 20 Nov 2020 16:41:21 +1100
+X-Mailman-Approved-At: Fri, 20 Nov 2020 16:41:40 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,93 +67,113 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Jean Delvare <jdelvare@suse.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-kernel@vger.kernel.org, taoren@fb.com, brouer@redhat.com,
- Tao Ren <rentao.bupt@gmail.com>, bpf@vger.kernel.org, mikechoi@fb.com,
- "David S .
- Miller" <davem@davemloft.net>, Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 19 Nov 2020 07:46:34 -0800
-Jakub Kicinski <kuba@kernel.org> wrote:
+--_000_94a84c0d54f94193be2f21212e3749a7quantatwcom_
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 
-> On Wed, 18 Nov 2020 17:26:53 -0800 Guenter Roeck wrote:
-> > On Wed, Nov 18, 2020 at 05:01:19PM -0800, Guenter Roeck wrote:  
-> > > On Wed, Nov 18, 2020 at 03:42:53PM -0800, Tao Ren wrote:    
-> > > > On Thu, Nov 19, 2020 at 12:27:19AM +0100, Andrew Lunn wrote:    
-> > > > > On Wed, Nov 18, 2020 at 03:09:27PM -0800, rentao.bupt@gmail.com wrote:    
-> > > > > > From: Tao Ren <rentao.bupt@gmail.com>
-> > > > > > 
-> > > > > > The patch series adds hardware monitoring driver for the Maxim MAX127
-> > > > > > chip.    
-> > > > > 
-> > > > > Hi Tao
-> > > > > 
-> > > > > Why are using sending a hwmon driver to the networking mailing list?
-> > > > > 
-> > > > >     Andrew    
-> > > > 
-> > > > Hi Andrew,
-> > > > 
-> > > > I added netdev because the mailing list is included in "get_maintainer.pl
-> > > > Documentation/hwmon/index.rst" output. Is it the right command to find
-> > > > reviewers? Could you please suggest? Thank you.    
-> > > 
-> > > I have no idea why running get_maintainer.pl on
-> > > Documentation/hwmon/index.rst returns such a large list of mailing
-> > > lists and people. For some reason it includes everyone in the XDP
-> > > maintainer list. If anyone has an idea how that happens, please
-> > > let me know - we'll want to get this fixed to avoid the same problem
-> > > in the future.  
-> > 
-> > I found it. The XDP maintainer entry has:
-> > 
-> > K:    xdp
-> > 
-> > This matches Documentation/hwmon/index.rst.
-> > 
-> > $ grep xdp Documentation/hwmon/index.rst
-> >    xdpe12284
-> > 
-> > It seems to me that a context match such as "xdp" in MAINTAINERS isn't
-> > really appropriate. "xdp" matches a total of 348 files in the kernel.
-> > The large majority of those is not XDP related. The maintainers
-> > of XDP (and all the listed mailing lists) should not be surprised
-> > to get a large number of odd review requests if they want to review
-> > every single patch on files which include the term "xdp".  
-> 
-> Agreed, we should fix this. For maintainers with high patch volume life
-> would be so much easier if people CCed the right folks to get reviews,
-> so we should try our best to fix get_maintainer.
-> 
-> XDP folks, any opposition to changing the keyword / filename to:
-> 
-> 	[^a-z0-9]xdp[^a-z0-9]
-> 
-> ?
+SGksDQpJIGhhdmUgYW4gaXNzdWUgYWJvdXQgRXZlbnRTZXJ2aWNlOiBhZnRlciByZWJvb3QsIFN1
+YnNjcmlwdGlvbiBkaXNhcHBlYXIgYW5kIGNvbmZpZyBvZiBFdmVudFNlcnZpY2UgcmVzdG9yZSBp
+bml0aWFsIHZhbHVlLg0KSSBsb29rIHVwIHRoZSBjb2RlcyBpbiBldmVudF9zZXJ2aWNlX21hbmFn
+ZXIuaHBwIGFuZCBmb3VuZCBTdWJzY3JpcHRpb24gYW5kIEV2ZW50U2VydmljZSBjb25maWcgd2ls
+bCBzdG9yZSBpbiAvdmFyL2xpYi9ibWN3ZWIvZXZlbnRzZXJ2aWNlX2NvbmZpZy5qc29uLg0KQnV0
+IElmIEJNQyBoYXMgbm8gYm1jd2ViIGZvbGRlciBpbiAvdmFyL2xpYi8gLCBJdCBub3Qgc2F2ZSBl
+dmVudHNlcnZpY2VfY29uZmlnLmpzb24uDQoNCkkgdHJ5IGNyZWF0ZSBibWN3ZWIgZm9sZGVyIG1h
+bnVhbGx5IGFuZCBQT1NUIGEgbmV3IFN1YnNjcmlwdGlvbiB0aGVuIHJlYm9vdCwgdGhlIFN1YnNj
+cmlwdGlvbiB3aWxsIGJlIHNhdmVkIGFuZCBub3QgZGlzYXBwZWFyIHRoaXMgdGltZS4NClRoaXMg
+cGVyZm9ybWFuY2Ugc2VlbXMgdG8gYmUgaW5jb25zaXN0ZW50IHdpdGggdGhlIGRlc2lnbiBjb25j
+ZXB0IGlmIHRoZXJlIGlzIG5vIGJtY3dlYiBmb2xkZXIgYXQgdGhlIGJlZ2lubmluZy4gRG9lcyBu
+ZWVkIHRvIGFkZCB0byB0aGUgY29kZSB0aGF0IGRldGVjdCB0aGUgcGF0aCBpcyB2YWxpZD8NCg0K
+SmltDQoNCg==
 
-I think it is a good idea to change the keyword (K:), but I'm not sure
-this catch what we want, maybe it does.  The pattern match are meant to
-catch drivers containing XDP related bits.
+--_000_94a84c0d54f94193be2f21212e3749a7quantatwcom_
+Content-Type: text/html; charset="big5"
+Content-Transfer-Encoding: quoted-printable
 
-Previously Joe Perches <joe@perches.com> suggested this pattern match,
-which I don't fully understand... could you explain Joe?
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
+	panose-1:2 2 5 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
+	panose-1:2 1 6 1 0 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;}
+/* Page Definitions */
+@page WordSection1
+	{size:612.0pt 792.0pt;
+	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
+fy-trim:punctuation">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I have an issue about EventServ=
+ice: after reboot, Subscription disappear and config of EventService restor=
+e initial value.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I look up the codes in event_se=
+rvice_manager.hpp and found Subscription and EventService config will store=
+ in /var/lib/bmcweb/eventservice_config.json.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">But If BMC has no bmcweb folder=
+ in /var/lib/ , It not save eventservice_config.json.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">I try create bmcweb folder manu=
+ally and POST a new Subscription then reboot, the Subscription will be save=
+d and not disappear this time.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">This performance seems to be in=
+consistent with the design concept if there is no bmcweb folder at the begi=
+nning. Does need to add to the code that detect the path is valid?<o:p></o:=
+p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US">Jim</span><i><span lang=3D"EN-U=
+S" style=3D"font-family:&quot;Times New Roman&quot;,serif"><o:p></o:p></spa=
+n></i></p>
+<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
+</div>
+</body>
+</html>
 
-  (?:\b|_)xdp(?:\b|_)
-
-For the filename (N:) regex match, I'm considering if we should remove
-it and list more files explicitly.  I think normal glob * pattern
-works, which should be sufficient.
-
--- 
-Best regards,
-  Jesper Dangaard Brouer
-  MSc.CS, Principal Kernel Engineer at Red Hat
-  LinkedIn: http://www.linkedin.com/in/brouer
-
+--_000_94a84c0d54f94193be2f21212e3749a7quantatwcom_--
