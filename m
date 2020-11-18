@@ -2,102 +2,97 @@ Return-Path: <SRS0=91v4=EY=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 69CE5C5519F
-	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2020 23:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D19AEC5519F
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2020 23:13:17 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1692C246CE
-	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2020 23:11:47 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id DEF64246C2
+	for <openbmc@archiver.kernel.org>; Wed, 18 Nov 2020 23:13:16 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=stwcx.xyz header.i=@stwcx.xyz header.b="AYSjUvs1";
-	dkim=temperror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Iugvallp"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1692C246CE
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SNM3hccG"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DEF64246C2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cbz8d48BKzDqZb
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 10:11:45 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CbzBL1d4MzDqLc
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 10:13:14 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.25;
- helo=wout2-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::544;
+ helo=mail-pg1-x544.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=stwcx.xyz
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm3 header.b=AYSjUvs1; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=Iugvallp; 
- dkim-atps=neutral
-Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
- [64.147.123.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=SNM3hccG; dkim-atps=neutral
+Received: from mail-pg1-x544.google.com (mail-pg1-x544.google.com
+ [IPv6:2607:f8b0:4864:20::544])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Cbz6P1V8DzDqJH
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 10:09:48 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 86D674B0;
- Wed, 18 Nov 2020 18:09:44 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Wed, 18 Nov 2020 18:09:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm3; bh=uttPJGIm3wZevfB0pESGGUPA6ui
- tC3D6V/xx/oQD3V4=; b=AYSjUvs1nU8ACHDbyEjIGnKIzxE5zvL4m6mgovC+PD+
- zSzGdF/VWKzsOsBFoiDhiKX/lOXrV3cIoSqCGqFw6A7bVWnAAnAaS9PgtTX4u7UB
- HDXDXIddenVrskUA8U3X8sDTVf4CuaU5fQk7hPMUWuTM14bHjpLplcmk08eQfIVU
- 5N2tXJLhibjoK3LCfA2S1QDjxXME8kznhausULgq0Tje1r4YyMbc3ADOe8cs0CDA
- uGGgsZa728SufR9dnBw0PvN/m30G9j7oxuoLxhtlFOlOpvCvV41K4Xr3849pVa4h
- cq+qytYL6JzPgxQP0WCf5BmxV/lz7KSzuIlZQjuZTvg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=uttPJG
- Im3wZevfB0pESGGUPA6uitC3D6V/xx/oQD3V4=; b=IugvallpOEeQgQKufdOX5y
- wQbMknlNUvfKz0n373dlRqek+YoEcbEm5swC0r8DeZl8uh0wr917mwha3+Gdtp96
- lDfusjY8r7NcGUTo4Gnoj/RVOr5iBizhOc7N9t24hGI0ETrJbz4cuah5iVDTT1lS
- he/uP/H136yKUW/HvOA/VW3Q20a2gLFnavskPnvT05YxkHQ/gGBaUE93rTO1JO5B
- dIpoKBWfpWUazqhhqrgvvF2jqOZp4/I6+yXirxJ6mjBW8veR1NjgJcUMBhaFsXAm
- qlcu8pEvobQSMFE/Y9/whkCKZeY+zGHt6WUnuFGgK/lEX+TMZaK10XGlqFUu35wA
- ==
-X-ME-Sender: <xms:t6m1X3S--rnTsbUqlAcD-gc08qq0JS9k609Mu_knbmcJZALXF_thCQ>
- <xme:t6m1X4xrxelkCXcApbpuGltL2zV_zxCoiKHd3YBwoeUnnG8if5RJUGw7dexxDT0iN
- D6La4pyj_LoK-IJNus>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedujedrudefiedgtdehucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
- vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
- htfigtgidrgiihiieqnecuggftrfgrthhtvghrnheplefhjeefkeetveffgeetffdufeeh
- leefhedvgffgvdfghfejhfefffekieeiveejnecuffhomhgrihhnpehgihhthhhusgdrtg
- homhenucfkphepjeeirddvhedtrdekgedrvdefieenucevlhhushhtvghrufhiiigvpedt
- necurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
-X-ME-Proxy: <xmx:t6m1X83qHmxs2DxAzwQyb0aiFUNVUagdDCEpAIvOZVrHnGw15wGRRg>
- <xmx:t6m1X3CT_U8n3gtS3bGKUo4vxvGehGExa33pTSJFC2sYgxQzKyzTng>
- <xmx:t6m1Xwgr8ih2thSFrrO7-o1Ze45pRkWR55Sl3-z1S46req98dWWtTA>
- <xmx:uKm1X-cDP69sfC_AvTUK8N0qopnx_Rxu1B6oFquGR2EHkMAUcxvzHw>
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9B48C3280060;
- Wed, 18 Nov 2020 18:09:42 -0500 (EST)
-Date: Wed, 18 Nov 2020 17:09:38 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Patrick Venture <venture@google.com>
-Subject: Re: qemu for bmc
-Message-ID: <20201118230938.GA1261035@heinlein>
-References: <CAO=noty_ADQwzPXx8AneRRcXNr9B15PBBByP6TNDeDCoy2ug6Q@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Cbz6X0l8tzDqJH
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 10:09:55 +1100 (AEDT)
+Received: by mail-pg1-x544.google.com with SMTP id v21so2422023pgi.2
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 15:09:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6yIwsmNeB9bDh6Ury3qYKnUv0CJTQZ2BCGM+oU82b00=;
+ b=SNM3hccGJqaCxy3JqxlWrvhy0iKS+CmbFNfNsmFbR/R3CQed7f3cuMYTaxJo9vSLO8
+ ixfRQmKsAtAsXcPD3WkDSJveg/W8IiE+b4XX4GDABd0W5bs3Gjrk+dK/duci+0BUFkK3
+ NvOXac6OianNSwcSZ4ULiciZyZxXNbbayzQ7d2OAFIdzD01mJS9r2ea6di2xwKP1qPmN
+ 2dACWQd4ZwxdXgWnRgIfDOc5DYTFCxliIJqxBCZ7ZZ34BMd3nA/USp10xkWq+oeHwntZ
+ QVH5gy1QiYqeqG8Tt/7VFNLcTYrcfOtHYBpjbgj5ZZTrkvbdk1OyaP0BABUULxTpxDYZ
+ PiFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=6yIwsmNeB9bDh6Ury3qYKnUv0CJTQZ2BCGM+oU82b00=;
+ b=tI+EJjbxIur3/gQ6OiqGMMWjEZ4moJOOmllpPhyDd+OhzigQPWt2sBRD5nLXu9hWp+
+ uiPPtqDwhbywYhPDDuJhf6QyLeXF/qW3rDoZ0/INtlz+c2aY4BnAjdZsIwjYnpEDJtMx
+ /xcCbTulgcxVoYs5LiUAi4VrwYXxx3YXHPMU19o3wiakl2y9Ak3BXlsDIC3Nj1biTtXp
+ sxYLP31IuZ5SbHg7Yi76ogR3rHZti2kt+Xgf5oWVlZnzggyG0YDct2KSQ++SxSM2jcvO
+ LzgX4ymcPKLRivmQ0HL5/SRdAmufFFlMTYIZj0mwsFzC5j1NEX9/N9/ufgWjhZpfC14O
+ 4CBQ==
+X-Gm-Message-State: AOAM531VEFjRl4/YUlpNX3E7m/WIh2K8NtO4knRcqog6WptDagCVk7E7
+ magwdgqgjPjQcFPAQxcgR2I=
+X-Google-Smtp-Source: ABdhPJzdCzBpX7/37cnRGoPSFuoOy45KoUf628g+Z2PAXdhHa5UjNUfFU/3QebrrtYkU1uWhJB7wTA==
+X-Received: by 2002:a17:90b:118b:: with SMTP id
+ gk11mr1321844pjb.178.1605740992943; 
+ Wed, 18 Nov 2020 15:09:52 -0800 (PST)
+Received: from taoren-ubuntu-R90MNF91.thefacebook.com
+ (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
+ by smtp.gmail.com with ESMTPSA id b21sm2565304pji.24.2020.11.18.15.09.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 18 Nov 2020 15:09:52 -0800 (PST)
+From: rentao.bupt@gmail.com
+To: Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Corbet <corbet@lwn.net>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, openbmc@lists.ozlabs.org,
+ taoren@fb.com, mikechoi@fb.com
+Subject: [PATCH v2 1/2] hwmon: (max127) Add Maxim MAX127 hardware monitoring
+ driver
+Date: Wed, 18 Nov 2020 15:09:28 -0800
+Message-Id: <20201118230929.18147-2-rentao.bupt@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201118230929.18147-1-rentao.bupt@gmail.com>
+References: <20201118230929.18147-1-rentao.bupt@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="G4iJoqBmSsgzjUCe"
-Content-Disposition: inline
-In-Reply-To: <CAO=noty_ADQwzPXx8AneRRcXNr9B15PBBByP6TNDeDCoy2ug6Q@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,62 +104,419 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Tao Ren <rentao.bupt@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+From: Tao Ren <rentao.bupt@gmail.com>
 
---G4iJoqBmSsgzjUCe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Add hardware monitoring driver for the Maxim MAX127 chip.
 
-On Wed, Nov 18, 2020 at 01:11:42PM -0800, Patrick Venture wrote:
+MAX127 min/max range handling code is inspired by the max197 driver.
 
-Hi Patrick.
+Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+---
+ Changes in v2:
+   - replace devm_hwmon_device_register_with_groups() with
+     devm_hwmon_device_register_with_info() API.
+   - divide min/max read and write methods to separate functions.
+   - fix raw-to-vin conversion logic.
+   - refine ctrl_byte handling so mutex is not needed to protect the
+     byte.
+   - improve i2c_transfer() error handling.
+   - a few other improvements (comments, variable naming, and etc.).
 
-> Patrick;
->=20
-> I was looking at a patch series of yours that landed,
-> https://github.com/qemu/qemu/blob/master/hw/arm/aspeed.c#L517 <-- in
-> this line you're referencing a device that appears to be missing from
-> qemu - namely, the pca i2c mux.
->=20
-> My question is to the community at large, and you also, is anyone
-> currently implementing this i2c-mux or a similar one?
+ drivers/hwmon/Kconfig  |   9 ++
+ drivers/hwmon/Makefile |   1 +
+ drivers/hwmon/max127.c | 346 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 356 insertions(+)
+ create mode 100644 drivers/hwmon/max127.c
 
-Timely question.
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 9d600e0c5584..716df51edc87 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -950,6 +950,15 @@ config SENSORS_MAX1111
+ 	  This driver can also be built as a module. If so, the module
+ 	  will be called max1111.
+ 
++config SENSORS_MAX127
++	tristate "Maxim MAX127 12-bit 8-channel Data Acquisition System"
++	depends on I2C
++	help
++	  Say y here to support Maxim's MAX127 DAS chips.
++
++	  This driver can also be built as a module. If so, the module
++	  will be called max127.
++
+ config SENSORS_MAX16065
+ 	tristate "Maxim MAX16065 System Manager and compatibles"
+ 	depends on I2C
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index 1083bbfac779..01ca5d3fbad4 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -127,6 +127,7 @@ obj-$(CONFIG_SENSORS_LTC4260)	+= ltc4260.o
+ obj-$(CONFIG_SENSORS_LTC4261)	+= ltc4261.o
+ obj-$(CONFIG_SENSORS_LTQ_CPUTEMP) += ltq-cputemp.o
+ obj-$(CONFIG_SENSORS_MAX1111)	+= max1111.o
++obj-$(CONFIG_SENSORS_MAX127)	+= max127.o
+ obj-$(CONFIG_SENSORS_MAX16065)	+= max16065.o
+ obj-$(CONFIG_SENSORS_MAX1619)	+= max1619.o
+ obj-$(CONFIG_SENSORS_MAX1668)	+= max1668.o
+diff --git a/drivers/hwmon/max127.c b/drivers/hwmon/max127.c
+new file mode 100644
+index 000000000000..3df4c225a6a2
+--- /dev/null
++++ b/drivers/hwmon/max127.c
+@@ -0,0 +1,346 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++ * Hardware monitoring driver for MAX127.
++ *
++ * Copyright (c) 2020 Facebook Inc.
++ */
++
++#include <linux/err.h>
++#include <linux/hwmon.h>
++#include <linux/hwmon-sysfs.h>
++#include <linux/i2c.h>
++#include <linux/init.h>
++#include <linux/module.h>
++#include <linux/sysfs.h>
++
++/*
++ * MAX127 Control Byte. Refer to MAX127 datasheet, Table 1 "Control-Byte
++ * Format" for details.
++ */
++#define MAX127_CTRL_START	BIT(7)
++#define MAX127_CTRL_SEL_SHIFT	4
++#define MAX127_CTRL_RNG		BIT(3)
++#define MAX127_CTRL_BIP		BIT(2)
++#define MAX127_CTRL_PD1		BIT(1)
++#define MAX127_CTRL_PD0		BIT(0)
++
++#define MAX127_NUM_CHANNELS	8
++#define MAX127_SET_CHANNEL(ch)	(((ch) & 7) << MAX127_CTRL_SEL_SHIFT)
++
++/*
++ * MAX127 channel input ranges. Refer to MAX127 datasheet, Table 3 "Range
++ * and Polarity Selection" for details.
++ */
++#define MAX127_FULL_RANGE	10000	/* 10V */
++#define MAX127_HALF_RANGE	5000	/* 5V */
++
++/*
++ * MAX127 returns 2 bytes at read:
++ *   - the first byte contains data[11:4].
++ *   - the second byte contains data[3:0] (MSB) and 4 dummy 0s (LSB).
++ * Refer to MAX127 datasheet, "Read a Conversion (Read Cycle)" section
++ * for details.
++ */
++#define MAX127_DATA_LEN		2
++#define MAX127_DATA_SHIFT	4
++
++#define MAX127_SIGN_BIT		BIT(11)
++
++struct max127_data {
++	struct mutex lock;
++	struct i2c_client *client;
++	u8 ctrl_byte[MAX127_NUM_CHANNELS];
++};
++
++static int max127_select_channel(struct i2c_client *client, u8 ctrl_byte)
++{
++	int status;
++	struct i2c_msg msg = {
++		.addr = client->addr,
++		.flags = 0,
++		.len = sizeof(ctrl_byte),
++		.buf = &ctrl_byte,
++	};
++
++	status = i2c_transfer(client->adapter, &msg, 1);
++	if (status < 0)
++		return status;
++	else if (status != 1)
++		return -EIO;
++
++	return 0;
++}
++
++static int max127_read_channel(struct i2c_client *client, long *val)
++{
++	int status;
++	u8 i2c_data[MAX127_DATA_LEN];
++	struct i2c_msg msg = {
++		.addr = client->addr,
++		.flags = I2C_M_RD,
++		.len = sizeof(i2c_data),
++		.buf = i2c_data,
++	};
++
++	status = i2c_transfer(client->adapter, &msg, 1);
++	if (status < 0)
++		return status;
++	else if (status != 1)
++		return -EIO;
++
++	*val = (i2c_data[1] >> MAX127_DATA_SHIFT) |
++		((u16)i2c_data[0] << MAX127_DATA_SHIFT);
++	return 0;
++}
++
++static long max127_process_raw(u8 ctrl_byte, long raw)
++{
++	long scale, weight;
++
++	/*
++	 * MAX127's data coding is binary in unipolar mode with 1 LSB =
++	 * (Full-Scale/4096) and two’s complement binary in bipolar mode
++	 * with 1 LSB = [(2 x |FS|)/4096].
++	 * Refer to MAX127 datasheet, "Transfer Function" section for
++	 * details.
++	 */
++	scale = (ctrl_byte & MAX127_CTRL_RNG) ? MAX127_FULL_RANGE :
++						MAX127_HALF_RANGE;
++	if (ctrl_byte & MAX127_CTRL_BIP) {
++		weight = (raw & MAX127_SIGN_BIT);
++		raw &= ~MAX127_SIGN_BIT;
++		raw -= weight;
++		raw *= 2;
++	}
++
++	return raw * scale / 4096;
++}
++
++static int max127_read_input(struct max127_data *data, int channel, long *val)
++{
++	long raw;
++	int status;
++	struct i2c_client *client = data->client;
++	u8 ctrl_byte = data->ctrl_byte[channel];
++
++	mutex_lock(&data->lock);
++
++	status = max127_select_channel(client, ctrl_byte);
++	if (status)
++		goto exit;
++
++	status = max127_read_channel(client, &raw);
++	if (status)
++		goto exit;
++
++	*val = max127_process_raw(ctrl_byte, raw);
++
++exit:
++	mutex_unlock(&data->lock);
++	return status;
++}
++
++static int max127_read_min(struct max127_data *data, int channel, long *val)
++{
++	u8 rng_bip = (data->ctrl_byte[channel] >> 2) & 3;
++	static const int min_input_map[4] = {
++		0,			/* RNG=0, BIP=0 */
++		-MAX127_HALF_RANGE,	/* RNG=0, BIP=1 */
++		0,			/* RNG=1, BIP=0 */
++		-MAX127_FULL_RANGE,	/* RNG=1, BIP=1 */
++	};
++
++	*val = min_input_map[rng_bip];
++	return 0;
++}
++
++static int max127_read_max(struct max127_data *data, int channel, long *val)
++{
++	u8 rng_bip = (data->ctrl_byte[channel] >> 2) & 3;
++	static const int max_input_map[4] = {
++		MAX127_HALF_RANGE,	/* RNG=0, BIP=0 */
++		MAX127_HALF_RANGE,	/* RNG=0, BIP=1 */
++		MAX127_FULL_RANGE,	/* RNG=1, BIP=0 */
++		MAX127_FULL_RANGE,	/* RNG=1, BIP=1 */
++	};
++
++	*val = max_input_map[rng_bip];
++	return 0;
++}
++
++static int max127_write_min(struct max127_data *data, int channel, long val)
++{
++	u8 ctrl;
++
++	ctrl = data->ctrl_byte[channel];
++	if (val <= -MAX127_FULL_RANGE) {
++		ctrl |= (MAX127_CTRL_RNG | MAX127_CTRL_BIP);
++	} else if (val < 0) {
++		ctrl |= MAX127_CTRL_BIP;
++		ctrl &= ~MAX127_CTRL_RNG;
++	} else {
++		ctrl &= ~MAX127_CTRL_BIP;
++	}
++	data->ctrl_byte[channel] = ctrl;
++
++	return 0;
++}
++
++static int max127_write_max(struct max127_data *data, int channel, long val)
++{
++	if (val >= MAX127_FULL_RANGE)
++		data->ctrl_byte[channel] |= MAX127_CTRL_RNG;
++	else
++		data->ctrl_byte[channel] &= ~MAX127_CTRL_RNG;
++
++	return 0;
++}
++
++static umode_t max127_is_visible(const void *_data,
++				 enum hwmon_sensor_types type,
++				 u32 attr, int channel)
++{
++	if (type == hwmon_in) {
++		switch (attr) {
++		case hwmon_in_input:
++			return 0444;
++
++		case hwmon_in_min:
++		case hwmon_in_max:
++			return 0644;
++
++		default:
++			break;
++		}
++	}
++
++	return 0;
++}
++
++static int max127_read(struct device *dev, enum hwmon_sensor_types type,
++			u32 attr, int channel, long *val)
++{
++	int status;
++	struct max127_data *data = dev_get_drvdata(dev);
++
++	if (type != hwmon_in)
++		return -EOPNOTSUPP;
++
++	switch (attr) {
++	case hwmon_in_input:
++		status = max127_read_input(data, channel, val);
++		break;
++
++	case hwmon_in_min:
++		status = max127_read_min(data, channel, val);
++		break;
++
++	case hwmon_in_max:
++		status = max127_read_max(data, channel, val);
++		break;
++
++	default:
++		status = -EOPNOTSUPP;
++		break;
++	}
++
++	return status;
++}
++
++static int max127_write(struct device *dev, enum hwmon_sensor_types type,
++			u32 attr, int channel, long val)
++{
++	int status;
++	struct max127_data *data = dev_get_drvdata(dev);
++
++	if (type != hwmon_in)
++		return -EOPNOTSUPP;
++
++	switch (attr) {
++	case hwmon_in_min:
++		status = max127_write_min(data, channel, val);
++		break;
++
++	case hwmon_in_max:
++		status = max127_write_max(data, channel, val);
++		break;
++
++	default:
++		status = -EOPNOTSUPP;
++		break;
++	}
++
++	return status;
++}
++
++static const struct hwmon_ops max127_hwmon_ops = {
++	.is_visible = max127_is_visible,
++	.read = max127_read,
++	.write = max127_write,
++};
++
++static const struct hwmon_channel_info *max127_info[] = {
++	HWMON_CHANNEL_INFO(in,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
++			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX),
++	NULL,
++};
++
++static const struct hwmon_chip_info max127_chip_info = {
++	.ops = &max127_hwmon_ops,
++	.info = max127_info,
++};
++
++static int max127_probe(struct i2c_client *client,
++			const struct i2c_device_id *id)
++{
++	int i;
++	struct device *hwmon_dev;
++	struct max127_data *data;
++	struct device *dev = &client->dev;
++
++	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->client = client;
++	mutex_init(&data->lock);
++	for (i = 0; i < ARRAY_SIZE(data->ctrl_byte); i++)
++		data->ctrl_byte[i] = (MAX127_CTRL_START |
++				      MAX127_SET_CHANNEL(i));
++
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
++							 data,
++							 &max127_chip_info,
++							 NULL);
++
++	return PTR_ERR_OR_ZERO(hwmon_dev);
++}
++
++static const struct i2c_device_id max127_id[] = {
++	{ "max127", 0 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, max127_id);
++
++static struct i2c_driver max127_driver = {
++	.class		= I2C_CLASS_HWMON,
++	.driver = {
++		.name	= "max127",
++	},
++	.probe		= max127_probe,
++	.id_table	= max127_id,
++};
++
++module_i2c_driver(max127_driver);
++
++MODULE_LICENSE("GPL");
++MODULE_AUTHOR("Mike Choi <mikechoi@fb.com>");
++MODULE_AUTHOR("Tao Ren <rentao.bupt@gmail.com>");
++MODULE_DESCRIPTION("MAX127 Hardware Monitoring driver");
+-- 
+2.17.1
 
-I don't know of any current work going on in that space.
-
-Facebook has a hack-a-thon kind of event we are sponsoring at a local
-university this weekend and that was one of the projects I gave as a
-potential item.  So, maybe, if we're lucky, it'll be done by Monday.
-
-I'll keep you posted.
-
---=20
-Patrick Williams
-
---G4iJoqBmSsgzjUCe
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAl+1qbEACgkQqwNHzC0A
-wRkzsw/+NaLZSmO9TnxZacXnxwbe+Yp4zSPuJ83kiXdY18C6EUoxRHPfd86gL8YA
-f6rQ3fXXUmBNcq8frUVZfLt/MOaybqUKhmUnSqvdpeU5P3eSN9aCac3WLcSIcPn0
-zZ4+wht0n0G+4xB3lUPbG16gO+pAGFXMtX8rEfVcxhNFY4PiYn0uEtXd1oZ9+3TA
-hbR7NOC1GxGMT9zmlTynqafUjhtuLd26DC5lI/szGeiUv3kXPbN/APfFOyKgAbnG
-92S0O5AtwwsGudETLwpu/6LAM847NIGx/fbG+bjRapStAzyBHkfspU4zuAbAEkfj
-IYVvqk4l2Lc3mT4Q6TJ/vUQJmgeciajuaVZuH4WMvyaz6eJAKSdKSQ4VsvnjbGil
-WDynzrdq4qyGjl7xxcRh+YKWtbbplzgwgpjpMG/PoSiJd1opxMnUX1ArVCtIKrrD
-my09Lks8tRSAch97Gvwgu5iYZhdWRpPiBbDFQY99/oKjP7wgqgsKSMIra9+DVVGz
-E+9c0JMOYZHTG2s58/is0hDAshs79gWGwJ+BMd70rYGH6enf1PmGuW/PVEpQy/RO
-FknUxSpA0T50YDn0kKfH0hygS3KNcaC4cLqFBX1d4Vt41SZ8xGu1fVUBbLiiNHkW
-KYQXG2wC7Yb3ocTAQzTwBIPTBTfsWGEwlnhXihc/l5l5D6iZlwQ=
-=c2b8
------END PGP SIGNATURE-----
-
---G4iJoqBmSsgzjUCe--
