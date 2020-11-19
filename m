@@ -2,79 +2,51 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-18.2 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4B3DC5519F
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:32:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 393B3C5519F
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:36:32 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 261BB246E4
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:32:20 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MLiD19XT"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 261BB246E4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 15AEB246BC
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15AEB246BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lunn.ch
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc0xY6zQkzDqdt
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 11:32:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::82d;
- helo=mail-qt1-x82d.google.com; envelope-from=venture@google.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc2Mc3D5LzDqWn
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 12:36:28 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch
+ (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=MLiD19XT; dkim-atps=neutral
-Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
- [IPv6:2607:f8b0:4864:20::82d])
+ dmarc=none (p=none dis=none) header.from=lunn.ch
+Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc0tZ4WTlzDqfB
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 11:29:42 +1100 (AEDT)
-Received: by mail-qt1-x82d.google.com with SMTP id f93so3128609qtb.10
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 16:29:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=QW8BCOov2TvpCNne5upIZlEktL2yGqsLuUGlV/247VI=;
- b=MLiD19XTcj/5f81r1y4Y+qhQaYaM1zxwoq4Ao9GD499HdTw74IgqMQp8kFZ+vzHnnh
- SlDsigC3QCVwhUBfeuHAtCOJojR3F/Mi2llzmOymEa3AB80uopuMn+mQ1eJDeP3m5kF6
- mkFqiXeksgxkA7tliwzhzUZjmwE1JWNck7y5FOIpDKiUNjQQuq+MfPloRPmrc+iVfunK
- s7RNr5TlMDPaoT6QZxhuZnAn6Q41m+TcAH3+D1YHkqhyTHI0B2FTwuX9nHdPEybg+0Ey
- b9LDK8itNvrK+Xj4cVm7N+22T232dfaYxetHFxmP3y+BbUrHxelXJvut6WSenKGzTL9+
- buyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=QW8BCOov2TvpCNne5upIZlEktL2yGqsLuUGlV/247VI=;
- b=bLCzwx/Ko+yciMiCfF66oRnuPkYEzYIrek7j28cl7ToZrnXyX8bVNPQoBI2WP/1XuM
- TeSMbQuvUtlv/wWAPzNHu9ilh39EfOW5BGIM8lPM+UFUJ6pcXT66RfCN9wHQrQbeggh+
- wOwwY3Hxib6B6OAl80E8zqYyQmdJ3T1bFUi3Nqj3Wn+Pm742L2ukCwGiTobMmsu76DUk
- Jrr+a36trIsEQ2DLa3knmajxlf7qmQWEg7hgRXkqLUFQv4E4+m8FhZPEMuizgVAopoVS
- 4v6N/nyMHozA+1em9PKyZ/0YZ3MeM+1lFbm+yV01srARyemrNY2/7lINZJZ48+W7JQ3A
- Q2xA==
-X-Gm-Message-State: AOAM530qyBsukv3XnGtWq8S3FsSjVz87HREtR6hYj3lw1fT7pzErLC1m
- 2XwRwt867undX0tVTcdVSDzl8M3L9ZyLDAe6zVX1heA3nME=
-X-Google-Smtp-Source: ABdhPJwAEY3KZkopclN8OXKjjYJOVOsCeMPFfqsrtSthoir4YcBHMHXNLBvboS33sXaiGq0gW/YvzLv9huEtc7e3mv4=
-X-Received: by 2002:ac8:5a04:: with SMTP id n4mr7810286qta.21.1605745779462;
- Wed, 18 Nov 2020 16:29:39 -0800 (PST)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc2Bt5JKbzDqfV
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 12:28:52 +1100 (AEDT)
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
+ (envelope-from <andrew@lunn.ch>)
+ id 1kfYkM-007q6N-QM; Thu, 19 Nov 2020 02:28:26 +0100
+Date: Thu, 19 Nov 2020 02:28:26 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Tao Ren <rentao.bupt@gmail.com>
+Subject: Re: [PATCH v2 0/2] hwmon: (max127) Add Maxim MAX127 hardware
+ monitoring
+Message-ID: <20201119012826.GP1804098@lunn.ch>
+References: <20201118230929.18147-1-rentao.bupt@gmail.com>
+ <20201118232719.GI1853236@lunn.ch>
+ <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
 MIME-Version: 1.0
-References: <CAO=noty_ADQwzPXx8AneRRcXNr9B15PBBByP6TNDeDCoy2ug6Q@mail.gmail.com>
- <20201118230938.GA1261035@heinlein>
-In-Reply-To: <20201118230938.GA1261035@heinlein>
-From: Patrick Venture <venture@google.com>
-Date: Wed, 18 Nov 2020 16:29:28 -0800
-Message-ID: <CAO=notwTKgDD20KKXE=5gF4QOeT3SEpuEwrzRRgEkxPYGzFFqw@mail.gmail.com>
-Subject: Re: qemu for bmc
-To: Patrick Williams <patrick@stwcx.xyz>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,42 +58,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
+ netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
+ linux-kernel@vger.kernel.org, taoren@fb.com, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, mikechoi@fb.com, "David S . Miller" <davem@davemloft.net>,
+ Guenter Roeck <linux@roeck-us.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Nov 18, 2020 at 3:09 PM Patrick Williams <patrick@stwcx.xyz> wrote:
->
-> On Wed, Nov 18, 2020 at 01:11:42PM -0800, Patrick Venture wrote:
->
-> Hi Patrick.
->
-> > Patrick;
-> >
-> > I was looking at a patch series of yours that landed,
-> > https://github.com/qemu/qemu/blob/master/hw/arm/aspeed.c#L517 <-- in
-> > this line you're referencing a device that appears to be missing from
-> > qemu - namely, the pca i2c mux.
-> >
-> > My question is to the community at large, and you also, is anyone
-> > currently implementing this i2c-mux or a similar one?
->
-> Timely question.
->
-> I don't know of any current work going on in that space.
->
-> Facebook has a hack-a-thon kind of event we are sponsoring at a local
-> university this weekend and that was one of the projects I gave as a
-> potential item.  So, maybe, if we're lucky, it'll be done by Monday.
->
-> I'll keep you posted.
+On Wed, Nov 18, 2020 at 03:42:53PM -0800, Tao Ren wrote:
+> On Thu, Nov 19, 2020 at 12:27:19AM +0100, Andrew Lunn wrote:
+> > On Wed, Nov 18, 2020 at 03:09:27PM -0800, rentao.bupt@gmail.com wrote:
+> > > From: Tao Ren <rentao.bupt@gmail.com>
+> > > 
+> > > The patch series adds hardware monitoring driver for the Maxim MAX127
+> > > chip.
+> > 
+> > Hi Tao
+> > 
+> > Why are using sending a hwmon driver to the networking mailing list?
+> > 
+> >     Andrew
+> 
+> Hi Andrew,
+> 
+> I added netdev because the mailing list is included in "get_maintainer.pl
+> Documentation/hwmon/index.rst" output. Is it the right command to find
+> reviewers? Could you please suggest? Thank you.
 
-Hahaha, thanks!  I'll keep an eye out for your update!  Seems like an
-excellent hack-a-thon project!
+Hi Tae
 
-Patrick
+What you are doing is correct. I suspected it was a get_maintainers
+problem. Now we know this, we can figure out why it is adding all
+these extra addresses which make no sense. Maybe a bug in the
+MAINTAINERS file?
 
->
-> --
-> Patrick Williams
+       Andrew
