@@ -2,92 +2,55 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 73F43C2D0E4
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 07:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BB97AC2D0E4
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 08:36:12 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8BFE9246DE
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 07:24:33 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SykaFT23"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8BFE9246DE
+	by mail.kernel.org (Postfix) with ESMTPS id 89F9E24248
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 08:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 89F9E24248
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CcB5C3C6szDqhS
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 18:24:31 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::442;
- helo=mail-pf1-x442.google.com; envelope-from=rentao.bupt@gmail.com;
- receiver=<UNKNOWN>)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CcCgr2gGpzDqkG
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 19:36:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=SykaFT23; dkim-atps=neutral
-Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com
- [IPv6:2607:f8b0:4864:20::442])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ spf=none (no SPF record) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=gmail.com
+X-Greylist: delayed 2017 seconds by postgrey-1.36 at bilbo;
+ Thu, 19 Nov 2020 19:34:41 AEDT
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CcB3469CBzDqbt
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 18:22:39 +1100 (AEDT)
-Received: by mail-pf1-x442.google.com with SMTP id q5so3602507pfk.6
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 23:22:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=1RR09oXTHNj5D+VKWnXusC3Un6VRBPlQtmYv6ZSUsVI=;
- b=SykaFT23R/hVbaREPLzvW2AP15wUqLT+sWT6x4PeBzYCErRpZXTA1blPK8ZCNOSxv9
- z/GwsF9uEXlQR2OLiRYvAzouSE8DSpnE24YnQkxJFQONJa7luOgYcXwZfdJkrPRxT0Gu
- kAX5lmyGFh/3df3LBvVhI0+6/LIPvbIGmYYzvt4o3biOa5rKpVjRcdwg7aaiduza9Zn3
- MWwUrm3AVbMFTJQ+S/Gqgn/bvoan5rIB3N8hHg5cEdFqJck0lIQdUHrcn9fM33vEMfKj
- oyTr57Bz8FN2o1sYa+eyj3Rv2XZ7eh5TCuPjJRLUHeX+M+SCVAu8CDYTYdIZOvwfUr0P
- UfFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=1RR09oXTHNj5D+VKWnXusC3Un6VRBPlQtmYv6ZSUsVI=;
- b=a05S6c/cuRWcA4R3F0Cm+JpvDEyLMv71U7fsSxkvk77a+0kjER+gdXi8uXA50qCexS
- SUcMsTX4xJ73WoQbfseWfWTon1Z1YVdoJzARltbl0QKyRJpIzNivxfdvzAU8I025d5zC
- W+x7O9oCMAggqTrWEnsunSjmJbemOpuIqZAIRt1XWbYnU2fkel/tPKZMqYd6DUsnQgP1
- 99UdbqU/CiPdW7DNkgBn2MlW/sng17LywhVMw1//oU+yNoOqhSHdzjHGyNOrDZwq8N+V
- Z1/0q4JH7G5lYCbnz5NOjrd4FKidAkgxLotbQvTURolT4GOA168mHNH8NVmFY8035Uvf
- 6Xag==
-X-Gm-Message-State: AOAM531AywHCvK0Bj0Mp7QS0VW92lIOiY+9JUfYITJRLHsublo8HHjeT
- OgtVT3TtwEVCWChBEWX8c7g=
-X-Google-Smtp-Source: ABdhPJwSM7bcPvfkrjRN4rBPjOShGGjdnAqFCLalTUBjlOLyt6Pi2bllffDYwvcM9ExJ8zAEz39WSQ==
-X-Received: by 2002:a17:90a:8d03:: with SMTP id
- c3mr3172717pjo.100.1605770554821; 
- Wed, 18 Nov 2020 23:22:34 -0800 (PST)
-Received: from taoren-ubuntu-R90MNF91 (c-73-252-146-110.hsd1.ca.comcast.net.
- [73.252.146.110])
- by smtp.gmail.com with ESMTPSA id v191sm27585931pfc.19.2020.11.18.23.22.32
- (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
- Wed, 18 Nov 2020 23:22:34 -0800 (PST)
-Date: Wed, 18 Nov 2020 23:22:26 -0800
-From: Tao Ren <rentao.bupt@gmail.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH v2 0/2] hwmon: (max127) Add Maxim MAX127 hardware
- monitoring
-Message-ID: <20201119072225.GA19877@taoren-ubuntu-R90MNF91>
-References: <20201118230929.18147-1-rentao.bupt@gmail.com>
- <20201118232719.GI1853236@lunn.ch>
- <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
- <20201119010119.GA248686@roeck-us.net>
- <20201119012653.GA249502@roeck-us.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CcCf90xjgzDqdW
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 19:34:36 +1100 (AEDT)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 0AJ80EK4010231;
+ Thu, 19 Nov 2020 10:00:14 +0200
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 7C18B63A09; Thu, 19 Nov 2020 10:00:14 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+List-Id: <soc.lore.kernel.org>
+To: joel@jms.id.au, arnd@arndb.de, olof@lixom.net, arm@kernel.org,
+ soc@kernel.org, avifishman70@gmail.com, robh+dt@kernel.org,
+ mark.rutland@arm.com, yuenn@google.com, benjaminfair@google.com
+Subject: [PATCH v1] ARM: dts: add Nuvoton NPCM730 device tree
+Date: Thu, 19 Nov 2020 10:00:02 +0200
+Message-Id: <20201119080002.100342-1-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.22.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20201119012653.GA249502@roeck-us.net>
-User-Agent: Mutt/1.9.4 (2018-02-28)
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,70 +62,73 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Jean Delvare <jdelvare@suse.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-kernel@vger.kernel.org, taoren@fb.com, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, mikechoi@fb.com, "David S . Miller" <davem@davemloft.net>
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Nov 18, 2020 at 05:26:53PM -0800, Guenter Roeck wrote:
-> On Wed, Nov 18, 2020 at 05:01:19PM -0800, Guenter Roeck wrote:
-> > On Wed, Nov 18, 2020 at 03:42:53PM -0800, Tao Ren wrote:
-> > > On Thu, Nov 19, 2020 at 12:27:19AM +0100, Andrew Lunn wrote:
-> > > > On Wed, Nov 18, 2020 at 03:09:27PM -0800, rentao.bupt@gmail.com wrote:
-> > > > > From: Tao Ren <rentao.bupt@gmail.com>
-> > > > > 
-> > > > > The patch series adds hardware monitoring driver for the Maxim MAX127
-> > > > > chip.
-> > > > 
-> > > > Hi Tao
-> > > > 
-> > > > Why are using sending a hwmon driver to the networking mailing list?
-> > > > 
-> > > >     Andrew
-> > > 
-> > > Hi Andrew,
-> > > 
-> > > I added netdev because the mailing list is included in "get_maintainer.pl
-> > > Documentation/hwmon/index.rst" output. Is it the right command to find
-> > > reviewers? Could you please suggest? Thank you.
-> > 
-> > I have no idea why running get_maintainer.pl on
-> > Documentation/hwmon/index.rst returns such a large list of mailing
-> > lists and people. For some reason it includes everyone in the XDP
-> > maintainer list. If anyone has an idea how that happens, please
-> > let me know - we'll want to get this fixed to avoid the same problem
-> > in the future.
-> > 
-> 
-> I found it. The XDP maintainer entry has:
-> 
-> K:    xdp
-> 
-> This matches Documentation/hwmon/index.rst.
-> 
-> $ grep xdp Documentation/hwmon/index.rst
->    xdpe12284
-> 
-> It seems to me that a context match such as "xdp" in MAINTAINERS isn't
-> really appropriate. "xdp" matches a total of 348 files in the kernel.
-> The large majority of those is not XDP related. The maintainers
-> of XDP (and all the listed mailing lists) should not be surprised
-> to get a large number of odd review requests if they want to review
-> every single patch on files which include the term "xdp".
-> 
-> Guenter
+Add Nuvoton NPCM730 SoC device tree.
 
-Thanks Guenter and Andrew. Given xdp maintainers were included by
-mistake, I will remove them from the future discussions of this hwmon
-patch series.
+The Nuvoton NPCN730 SoC is a part of the
+Nuvoton NPCM7xx SoCs family.
 
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton-npcm730.dtsi | 44 ++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nuvoton-npcm730.dtsi
 
-Cheers,
+diff --git a/arch/arm/boot/dts/nuvoton-npcm730.dtsi b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+new file mode 100644
+index 000000000000..86ec12ec2b50
+--- /dev/null
++++ b/arch/arm/boot/dts/nuvoton-npcm730.dtsi
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2020 Nuvoton Technology
++
++#include "nuvoton-common-npcm7xx.dtsi"
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&gic>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++		enable-method = "nuvoton,npcm750-smp";
++
++		cpu@0 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <0>;
++			next-level-cache = <&l2>;
++		};
++
++		cpu@1 {
++			device_type = "cpu";
++			compatible = "arm,cortex-a9";
++			clocks = <&clk NPCM7XX_CLK_CPU>;
++			clock-names = "clk_cpu";
++			reg = <1>;
++			next-level-cache = <&l2>;
++		};
++	};
++
++	soc {
++		timer@3fe600 {
++			compatible = "arm,cortex-a9-twd-timer";
++			reg = <0x3fe600 0x20>;
++			interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) |
++						  IRQ_TYPE_LEVEL_HIGH)>;
++			clocks = <&clk NPCM7XX_CLK_AHB>;
++		};
++	};
++};
+-- 
+2.22.0
 
-Tao
