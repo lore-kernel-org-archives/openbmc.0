@@ -2,78 +2,78 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.2 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_IN_DEF_DKIM_WL autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 593ABC5519F
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:30:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4B3DC5519F
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:32:20 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1B821246E4
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:30:13 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 261BB246E4
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 00:32:20 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="XQGfd63C"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1B821246E4
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="MLiD19XT"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 261BB246E4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc0v72MhwzDqdL
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 11:30:11 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc0xY6zQkzDqdt
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 11:32:17 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::835;
- helo=mail-qt1-x835.google.com; envelope-from=venture@google.com;
+ smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::82d;
+ helo=mail-qt1-x82d.google.com; envelope-from=venture@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=XQGfd63C; dkim-atps=neutral
-Received: from mail-qt1-x835.google.com (mail-qt1-x835.google.com
- [IPv6:2607:f8b0:4864:20::835])
+ header.s=20161025 header.b=MLiD19XT; dkim-atps=neutral
+Received: from mail-qt1-x82d.google.com (mail-qt1-x82d.google.com
+ [IPv6:2607:f8b0:4864:20::82d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc0sc5pHmzDqd7
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 11:28:49 +1100 (AEDT)
-Received: by mail-qt1-x835.google.com with SMTP id b16so3168185qtb.6
- for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 16:28:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc0tZ4WTlzDqfB
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 11:29:42 +1100 (AEDT)
+Received: by mail-qt1-x82d.google.com with SMTP id f93so3128609qtb.10
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 16:29:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=7Rj/3u61GwJewIt5QiSHLQ+sghdPXsVyvkkqIrW9how=;
- b=XQGfd63Cr0bhSyDyvnNv2YgD8sLfJZcJpH3oZo5Q1rEEIzO0zDQRxrKE+k/wKNtcu0
- jfSyGrgtE5Vogy1P7c3Q37wO+6kkgMtAqH3F0t8EazMJccDe3SZKGZ3nKyKR+znsQ1+E
- YmAPkRvd2Ok/L52rcUPtMr95qh+EEYfnLwfsRczg5HfrC06R7enMzHShdMo1ZKrVJ0M7
- T0S9PrO8Ir/9FIjpNW0ZZlDfNQHsVVSKeY9mbHS5w6xJkq/LavRCcIp2rBbKgdWdO0o1
- 0AQU/WfQsm01MgbQf8xv8rbVMLupklcaOxxUE/+6uo0KkCACghQHroODE+BiqYysWO7p
- Ch4g==
+ :cc; bh=QW8BCOov2TvpCNne5upIZlEktL2yGqsLuUGlV/247VI=;
+ b=MLiD19XTcj/5f81r1y4Y+qhQaYaM1zxwoq4Ao9GD499HdTw74IgqMQp8kFZ+vzHnnh
+ SlDsigC3QCVwhUBfeuHAtCOJojR3F/Mi2llzmOymEa3AB80uopuMn+mQ1eJDeP3m5kF6
+ mkFqiXeksgxkA7tliwzhzUZjmwE1JWNck7y5FOIpDKiUNjQQuq+MfPloRPmrc+iVfunK
+ s7RNr5TlMDPaoT6QZxhuZnAn6Q41m+TcAH3+D1YHkqhyTHI0B2FTwuX9nHdPEybg+0Ey
+ b9LDK8itNvrK+Xj4cVm7N+22T232dfaYxetHFxmP3y+BbUrHxelXJvut6WSenKGzTL9+
+ buyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=7Rj/3u61GwJewIt5QiSHLQ+sghdPXsVyvkkqIrW9how=;
- b=Al8dMAx9eY4B2Rt7piKy4M5CrgX42B7KczXHB3ELDPLDaGIN1D9dtKYZoSUBp4Cd7L
- FunQAgLb4lx6C3vRhJVjBLjgX/DIo6HqlSGQ29HWjCbjCPQsiKCYeHBzVOphXrpYlU8v
- JZ3dX4eT9iDrBVY7fhSnZZ9ZSrr887FfNKCs3Udp92XQvOK3RB0EW6Mw4/UMtogeoHgv
- 9YSfnZFvzU62cBBdpuzvaPeeY//FP4BZm/72vvn1fP8RPwmJ9ONFwINh+RlzBj6kh9Vn
- A18X5yv+DoOn3UQ7J/8ZTR1i0AU26DCybVN1vL5SXvhAwWSxP5aTXGDwYyKvRHKJqU1G
- m2Rg==
-X-Gm-Message-State: AOAM532B2FgXimauIgrdGlUrPPX8aymDGFOhQoFVUk/Ecmoj/COAyrWj
- gs4EF34RvSliFfUlMSsSpIiHep3xP+mF/KRsAc9EVg==
-X-Google-Smtp-Source: ABdhPJyZ5lD+SC3WZ3ZZ2pkZF9SU07kMK06ZvV0rog9s2RPwgeKFteWZuJub8hkvOLwdSnHBXIaoZioMp63mqUG0ilw=
-X-Received: by 2002:ac8:36bc:: with SMTP id a57mr7849560qtc.193.1605745725718; 
- Wed, 18 Nov 2020 16:28:45 -0800 (PST)
+ bh=QW8BCOov2TvpCNne5upIZlEktL2yGqsLuUGlV/247VI=;
+ b=bLCzwx/Ko+yciMiCfF66oRnuPkYEzYIrek7j28cl7ToZrnXyX8bVNPQoBI2WP/1XuM
+ TeSMbQuvUtlv/wWAPzNHu9ilh39EfOW5BGIM8lPM+UFUJ6pcXT66RfCN9wHQrQbeggh+
+ wOwwY3Hxib6B6OAl80E8zqYyQmdJ3T1bFUi3Nqj3Wn+Pm742L2ukCwGiTobMmsu76DUk
+ Jrr+a36trIsEQ2DLa3knmajxlf7qmQWEg7hgRXkqLUFQv4E4+m8FhZPEMuizgVAopoVS
+ 4v6N/nyMHozA+1em9PKyZ/0YZ3MeM+1lFbm+yV01srARyemrNY2/7lINZJZ48+W7JQ3A
+ Q2xA==
+X-Gm-Message-State: AOAM530qyBsukv3XnGtWq8S3FsSjVz87HREtR6hYj3lw1fT7pzErLC1m
+ 2XwRwt867undX0tVTcdVSDzl8M3L9ZyLDAe6zVX1heA3nME=
+X-Google-Smtp-Source: ABdhPJwAEY3KZkopclN8OXKjjYJOVOsCeMPFfqsrtSthoir4YcBHMHXNLBvboS33sXaiGq0gW/YvzLv9huEtc7e3mv4=
+X-Received: by 2002:ac8:5a04:: with SMTP id n4mr7810286qta.21.1605745779462;
+ Wed, 18 Nov 2020 16:29:39 -0800 (PST)
 MIME-Version: 1.0
-References: <5af426cdbf754c2d898d37d7f591464d@SCL-EXCHMB-13.phoenix.com>
-In-Reply-To: <5af426cdbf754c2d898d37d7f591464d@SCL-EXCHMB-13.phoenix.com>
+References: <CAO=noty_ADQwzPXx8AneRRcXNr9B15PBBByP6TNDeDCoy2ug6Q@mail.gmail.com>
+ <20201118230938.GA1261035@heinlein>
+In-Reply-To: <20201118230938.GA1261035@heinlein>
 From: Patrick Venture <venture@google.com>
-Date: Wed, 18 Nov 2020 16:28:34 -0800
-Message-ID: <CAO=notxPWFReD04Rmqgnitot6VP6aEKLRmKyM4gce1s4VgQ_nw@mail.gmail.com>
-Subject: Re: Failure building burn_my_bmc
-To: Patrick Voelker <Patrick_Voelker@phoenix.com>,
- William Kennington <wak@google.com>
+Date: Wed, 18 Nov 2020 16:29:28 -0800
+Message-ID: <CAO=notwTKgDD20KKXE=5gF4QOeT3SEpuEwrzRRgEkxPYGzFFqw@mail.gmail.com>
+Subject: Re: qemu for bmc
+To: Patrick Williams <patrick@stwcx.xyz>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -86,106 +86,42 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "OpenBMC \(openbmc@lists.ozlabs.org\)" <openbmc@lists.ozlabs.org>,
- "anoo@us.ibm.com" <anoo@us.ibm.com>,
- "brandonkim@google.com" <brandonkim@google.com>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Nov 18, 2020 at 3:18 PM Patrick Voelker
-<Patrick_Voelker@phoenix.com> wrote:
+On Wed, Nov 18, 2020 at 3:09 PM Patrick Williams <patrick@stwcx.xyz> wrote:
 >
-> I'm having an issue building burn_my_bmc with the instructions listed on https://github.com/openbmc/phosphor-ipmi-flash . Got through building all the dependencies but I get the following errors when building
-pci.cpp.  Looks like maybe stdplus changed?
+> On Wed, Nov 18, 2020 at 01:11:42PM -0800, Patrick Venture wrote:
+>
+> Hi Patrick.
+>
+> > Patrick;
+> >
+> > I was looking at a patch series of yours that landed,
+> > https://github.com/qemu/qemu/blob/master/hw/arm/aspeed.c#L517 <-- in
+> > this line you're referencing a device that appears to be missing from
+> > qemu - namely, the pca i2c mux.
+> >
+> > My question is to the community at large, and you also, is anyone
+> > currently implementing this i2c-mux or a similar one?
+>
+> Timely question.
+>
+> I don't know of any current work going on in that space.
+>
+> Facebook has a hack-a-thon kind of event we are sponsoring at a local
+> university this weekend and that was one of the projects I gave as a
+> potential item.  So, maybe, if we're lucky, it'll be done by Monday.
+>
+> I'll keep you posted.
 
-William, PTAL, thanks!
+Hahaha, thanks!  I'll keep an eye out for your update!  Seems like an
+excellent hack-a-thon project!
+
+Patrick
 
 >
-> pvoelker@bmc-dev:~/bmc/host-tool/phosphor-ipmi-flash$ make
-> make  all-recursive
-> make[1]: Entering directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash'
-> Making all in .
-> make[2]: Entering directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash'
->   CXX      internal/libfirmware_common_la-sys.lo
->   CXXLD    libfirmware_common.la
-> ar: `u' modifier ignored since `D' is the default (see `U')
-> make[2]: Leaving directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash'
-> Making all in tools
-> make[2]: Entering directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash/tools'
-> Making all in .
-> make[3]: Entering directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash/tools'
->   CXX      libupdater_la-updater.lo
->   CXX      libupdater_la-handler.lo
->   CXX      libupdater_la-helper.lo
->   CXX      libupdater_la-bt.lo
->   CXX      libupdater_la-lpc.lo
->   CXX      libupdater_la-io.lo
->   CXX      libupdater_la-net.lo
->   CXX      libupdater_la-pci.lo
-> In file included from pci.cpp:17:0:
-> pci.hpp:40:39: error: 'span' in namespace 'stdplus' does not name a template type
->      virtual void write(const stdplus::span<const std::uint8_t> data) = 0;
->                                        ^~~~
-> pci.hpp:40:43: error: expected ',' or '...' before '<' token
->      virtual void write(const stdplus::span<const std::uint8_t> data) = 0;
->                                            ^
-> pci.hpp:51:39: error: 'span' in namespace 'stdplus' does not name a template type
->      virtual void write(const stdplus::span<const std::uint8_t> data) override;
->                                        ^~~~
-> pci.hpp:51:43: error: expected ',' or '...' before '<' token
->      virtual void write(const stdplus::span<const std::uint8_t> data) override;
->                                            ^
-> pci.cpp:105:44: error: 'span' in namespace 'stdplus' does not name a template type
->  void PciAccessBridge::write(const stdplus::span<const std::uint8_t> data)
->                                             ^~~~
-> pci.cpp:105:48: error: expected ',' or '...' before '<' token
->  void PciAccessBridge::write(const stdplus::span<const std::uint8_t> data)
->                                                 ^
-> pci.cpp: In member function 'virtual void host_tool::PciAccessBridge::write(int)':
-> pci.cpp:107:9: error: 'data' was not declared in this scope
->      if (data.size() > dataLength)
->          ^~~~
-> pci.cpp:107:9: note: suggested alternatives:
-> In file included from /usr/include/c++/7/string:51:0,
->                  from /usr/include/c++/7/stdexcept:39,
->                  from /usr/include/c++/7/system_error:41,
->                  from ../internal/sys.hpp:19,
->                  from pci.hpp:20,
->                  from pci.cpp:17:
-> /usr/include/c++/7/bits/range_access.h:318:5: note:   'std::data'
->      data(initializer_list<_Tp> __il) noexcept
->      ^~~~
-> In file included from pci.cpp:26:0:
-> /usr/local/include/fmt/format.h:952:8: note:   'fmt::v7::detail::data'
->  struct data : basic_data<> {};
->         ^~~~
-> pci.cpp:114:36: error: 'data' was not declared in this scope
->      std::memcpy(addr + dataOffset, data.data(), data.size());
->                                     ^~~~
-> pci.cpp:114:36: note: suggested alternatives:
-> In file included from /usr/include/c++/7/string:51:0,
->                  from /usr/include/c++/7/stdexcept:39,
->                  from /usr/include/c++/7/system_error:41,
->                  from ../internal/sys.hpp:19,
->                  from pci.hpp:20,
->                  from pci.cpp:17:
-> /usr/include/c++/7/bits/range_access.h:318:5: note:   'std::data'
->      data(initializer_list<_Tp> __il) noexcept
->      ^~~~
-> In file included from pci.cpp:26:0:
-> /usr/local/include/fmt/format.h:952:8: note:   'fmt::v7::detail::data'
->  struct data : basic_data<> {};
->         ^~~~
-> Makefile:654: recipe for target 'libupdater_la-pci.lo' failed
-> make[3]: *** [libupdater_la-pci.lo] Error 1
-> make[3]: Leaving directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash/tools'
-> Makefile:708: recipe for target 'all-recursive' failed
-> make[2]: *** [all-recursive] Error 1
-> make[2]: Leaving directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash/tools'
-> Makefile:608: recipe for target 'all-recursive' failed
-> make[1]: *** [all-recursive] Error 1
-> make[1]: Leaving directory '/home/pvoelker/bmc/host-tool/phosphor-ipmi-flash'
-> Makefile:474: recipe for target 'all' failed
-> make: *** [all] Error 2
->
+> --
+> Patrick Williams
