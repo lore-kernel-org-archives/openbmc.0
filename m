@@ -2,72 +2,83 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6CE79C63697
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDDF6C63697
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:55:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4ADDD24655
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:17:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4ADDD24655
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+	by mail.kernel.org (Postfix) with ESMTPS id C3D97246AD
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:55:54 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EUXaa1+d"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3D97246AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CcRFK3JstzDqpG
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 04:17:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CcS5h41nyzDqpv
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 04:55:52 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::443;
+ helo=mail-pf1-x443.google.com; envelope-from=rentao.bupt@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=perches.com
- (client-ip=216.40.44.195; helo=smtprelay.hostedemail.com;
- envelope-from=joe@perches.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=perches.com
-X-Greylist: delayed 349 seconds by postgrey-1.36 at bilbo;
- Fri, 20 Nov 2020 04:15:55 AEDT
-Received: from smtprelay.hostedemail.com (smtprelay0195.hostedemail.com
- [216.40.44.195])
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=EUXaa1+d; dkim-atps=neutral
+Received: from mail-pf1-x443.google.com (mail-pf1-x443.google.com
+ [IPv6:2607:f8b0:4864:20::443])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CcRCb3FDkzDqml
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 04:15:53 +1100 (AEDT)
-Received: from smtprelay.hostedemail.com (10.5.19.251.rfc1918.com
- [10.5.19.251])
- by smtpgrave06.hostedemail.com (Postfix) with ESMTP id 144F3800CDE9
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 17:10:07 +0000 (UTC)
-Received: from filter.hostedemail.com (clb03-v110.bra.tucows.net
- [216.40.38.60])
- by smtprelay03.hostedemail.com (Postfix) with ESMTP id B61D8837F24A;
- Thu, 19 Nov 2020 17:09:58 +0000 (UTC)
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-HE-Tag: honey44_0e0784727344
-X-Filterd-Recvd-Size: 2491
-Received: from XPS-9350.home (unknown [47.151.133.149])
- (Authenticated sender: joe@perches.com)
- by omf02.hostedemail.com (Postfix) with ESMTPA;
- Thu, 19 Nov 2020 17:09:55 +0000 (UTC)
-Message-ID: <088057533a9feb330964bdab0b1b8d2f69b7a22c.camel@perches.com>
-Subject: Re: XDP maintainer match (Was  [PATCH v2 0/2] hwmon: (max127) Add
- Maxim MAX127 hardware monitoring)
-From: Joe Perches <joe@perches.com>
-To: Jesper Dangaard Brouer <brouer@redhat.com>, Jakub Kicinski
- <kuba@kernel.org>
-Date: Thu, 19 Nov 2020 09:09:53 -0800
-In-Reply-To: <20201119173535.1474743d@carbon>
-References: <20201118230929.18147-1-rentao.bupt@gmail.com>
- <20201118232719.GI1853236@lunn.ch>
- <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
- <20201119010119.GA248686@roeck-us.net>
- <20201119012653.GA249502@roeck-us.net>
- <20201119074634.2e9cb21b@kicinski-fedora-PC1C0HJN.hsd1.ca.comcast.net>
- <20201119173535.1474743d@carbon>
-Content-Type: text/plain; charset="ISO-8859-1"
-User-Agent: Evolution 3.38.1-1 
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CcS360FW6zDqcQ
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 04:53:37 +1100 (AEDT)
+Received: by mail-pf1-x443.google.com with SMTP id a18so5209722pfl.3
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 09:53:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=Q5bokItvl+fmuIZW/0y8NwDSrtKawLhWKURQ2+FWucA=;
+ b=EUXaa1+dR5q61YJ40WibXLDQtMqjkX2z3HUPNxZCT4F0baHJnL4zDsSFOkfKHK7gEt
+ x9BUpxhQo3dAQ9WrWmssEC5Ntrgu8Eg1fudHqtbpRvgrfuE20rdjVHJtSQ3cXgPe/Ykm
+ A5W+9KONVdkO4ETFuaZDyE4DQCPQnhj7iM4EMMUzmXfLsSK1GCYA+JqJuCNV5Baydt3R
+ s0RkufpD308s5/h3HHxHG4Ly2Gy8m3qfzuKdhLmIFfFZmQkDgMRQ+P4OmtSw1LOmYZEv
+ t5EJuTzTDyQbelOQZs8gvgy2AsuMRaapOPwJPVLZzmpcGxiayd+bASsj7a3A9jSOX5Vp
+ WAlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=Q5bokItvl+fmuIZW/0y8NwDSrtKawLhWKURQ2+FWucA=;
+ b=S7xY0kVSzN/B3kZqJYbrj/N1tCoTCHw+wez32diAIW7DqUu+E8Cx3je29c3Z6Bhu9n
+ LPN+sR5lVS/68PN7UP00IX8/8zPebdhaf7qsFOVfS1FESW8vop4WBgGtvpyUlf6Z037k
+ qvxHZExdyAF3DDmIbAphORRgnOVOKs3CypYWSgnMMleJbQOkl2rhlpW/FgGfMG7/6DJJ
+ Md0KGhiDzcjf07uzNuo7Pi/ehukPFtK67MfmDRkixGdMGKeOgy4zcCPM6POgNtEBIdIi
+ 1EhUyYY25lrdQ6I9p3dhwFPhNYsnS1mq1mJPgOpOe7I1OQrHQHQykYcsAUxXj9XVKl01
+ TizA==
+X-Gm-Message-State: AOAM530bxApERmRXv40AM4rsVXOjLPdyH7C+bTwWqkv7GQvcBH62tbd5
+ 5AhvfBYsqy9OxTXTMBr8034=
+X-Google-Smtp-Source: ABdhPJzpp2pD+waX4s/GGGEVKwpsDvaGKkli/44tFNmwJvveZ6gIWvD46Y+t/gxjlnuxyxifYbo7hQ==
+X-Received: by 2002:aa7:9198:0:b029:18b:3835:3796 with SMTP id
+ x24-20020aa791980000b029018b38353796mr10893256pfa.9.1605808413518; 
+ Thu, 19 Nov 2020 09:53:33 -0800 (PST)
+Received: from taoren-ubuntu-R90MNF91.thefacebook.com
+ (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
+ by smtp.gmail.com with ESMTPSA id 144sm482858pfb.71.2020.11.19.09.53.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 19 Nov 2020 09:53:32 -0800 (PST)
+From: rentao.bupt@gmail.com
+To: Jean Delvare <jdelvare@suse.com>, Guenter Roeck <linux@roeck-us.net>,
+ Jonathan Corbet <corbet@lwn.net>, linux-hwmon@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org, taoren@fb.com, mikechoi@fb.com
+Subject: [PATCH v3 0/2] hwmon: (max127) Add Maxim MAX127 hardware monitoring
+Date: Thu, 19 Nov 2020 09:53:22 -0800
+Message-Id: <20201119175324.22472-1-rentao.bupt@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,41 +90,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
- Jean Delvare <jdelvare@suse.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
- netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org,
- John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
- linux-kernel@vger.kernel.org, taoren@fb.com, Tao Ren <rentao.bupt@gmail.com>,
- bpf@vger.kernel.org, mikechoi@fb.com, "David S . Miller" <davem@davemloft.net>,
- Guenter Roeck <linux@roeck-us.net>
+Cc: Tao Ren <rentao.bupt@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 2020-11-19 at 17:35 +0100, Jesper Dangaard Brouer wrote:
-> On Thu, 19 Nov 2020 07:46:34 -0800 Jakub Kicinski <kuba@kernel.org> wrote:
+From: Tao Ren <rentao.bupt@gmail.com>
 
-> I think it is a good idea to change the keyword (K:), but I'm not sure
-> this catch what we want, maybe it does.  The pattern match are meant to
-> catch drivers containing XDP related bits.
-> 
-> Previously Joe Perches <joe@perches.com> suggested this pattern match,
-> which I don't fully understand... could you explain Joe?
-> 
->   (?:\b|_)xdp(?:\b|_)
+The patch series adds hardware monitoring driver for the Maxim MAX127
+chip.
 
-This regex matches only:
+Patch #1 adds the max127 hardware monitoring driver, and patch #2 adds
+documentation for the driver.
 
-	xdp
-	xdp_<anything>
-	<anything>_xdp_<anything>
-	<anything>_xdp
+Resending the patch series (v3) with XDP maintainers removed from to/cc
+list to reduce noise.
 
-> For the filename (N:) regex match, I'm considering if we should remove
-> it and list more files explicitly.  I think normal glob * pattern
-> works, which should be sufficient.
+Tao Ren (2):
+  hwmon: (max127) Add Maxim MAX127 hardware monitoring driver
+  docs: hwmon: Document max127 driver
 
-Lists are generally more specific than regex globs.
+ Documentation/hwmon/index.rst  |   1 +
+ Documentation/hwmon/max127.rst |  45 +++++
+ drivers/hwmon/Kconfig          |   9 +
+ drivers/hwmon/Makefile         |   1 +
+ drivers/hwmon/max127.c         | 346 +++++++++++++++++++++++++++++++++
+ 5 files changed, 402 insertions(+)
+ create mode 100644 Documentation/hwmon/max127.rst
+ create mode 100644 drivers/hwmon/max127.c
 
+-- 
+2.17.1
 
