@@ -2,44 +2,79 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.0 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 393B3C5519F
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:36:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C991C5519F
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:37:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 15AEB246BC
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:36:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 15AEB246BC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lunn.ch
+	by mail.kernel.org (Postfix) with ESMTPS id B8373246BC
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 01:37:55 +0000 (UTC)
+Authentication-Results: mail.kernel.org;
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.b="cnmT6i+A"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B8373246BC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc2Mc3D5LzDqWn
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 12:36:28 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Cc2PF0mKrzDqN0
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 12:37:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch
- (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
+ spf=softfail (domain owner discourages use of this
+ host) smtp.mailfrom=roeck-us.net (client-ip=67.222.33.93;
+ helo=gproxy8-pub.mail.unifiedlayer.com; envelope-from=linux@roeck-us.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=lunn.ch
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc2Bt5JKbzDqfV
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 12:28:52 +1100 (AEDT)
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
- (envelope-from <andrew@lunn.ch>)
- id 1kfYkM-007q6N-QM; Thu, 19 Nov 2020 02:28:26 +0100
-Date: Thu, 19 Nov 2020 02:28:26 +0100
-From: Andrew Lunn <andrew@lunn.ch>
+ dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256
+ header.s=default header.b=cnmT6i+A; dkim-atps=neutral
+X-Greylist: delayed 1486 seconds by postgrey-1.36 at bilbo;
+ Thu, 19 Nov 2020 12:31:08 AEDT
+Received: from gproxy8-pub.mail.unifiedlayer.com
+ (gproxy8-pub.mail.unifiedlayer.com [67.222.33.93])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Cc2FS19gfzDqkB
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 12:31:07 +1100 (AEDT)
+Received: from cmgw14.unifiedlayer.com (unknown [10.9.0.14])
+ by gproxy8.mail.unifiedlayer.com (Postfix) with ESMTP id 291B81ABE59
+ for <openbmc@lists.ozlabs.org>; Wed, 18 Nov 2020 18:01:22 -0700 (MST)
+Received: from bh-25.webhostbox.net ([208.91.199.152]) by cmsmtp with ESMTP
+ id fYK9k6oErwNNlfYK9kKl4o; Wed, 18 Nov 2020 18:01:22 -0700
+X-Authority-Reason: nr=8
+X-Authority-Analysis: v=2.3 cv=CumRjEwD c=1 sm=1 tr=0
+ a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
+ a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=kj9zAlcOel0A:10:nop_charset_1
+ a=nNwsprhYR40A:10:nop_rcvd_month_year
+ a=evQFzbml-YQA:10:endurance_base64_authed_username_1 a=pGLkceISAAAA:8
+ a=Q3Wkuqm_2-rY-xIXcIMA:9 a=CjuIK1q_8ugA:10:nop_charset_2
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=roeck-us.net; s=default; h=In-Reply-To:Content-Type:MIME-Version:References
+ :Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:Content-Transfer-Encoding
+ :Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OgnrqXLq5/S+DH9C+VfZjZgrwNPc+RbuiHFVXIWuaeY=; b=cnmT6i+A45udFmFlPPXcn3blKa
+ rUAHR/g8Y7jFBElyc1S7M59TmcZBFkQxZh9BcZPT8xKz/9hoCiOUyUjGks8tCdwSsacS44BNlO4mf
+ WbkQ387cMufUNADxp7tNpsRNwnNzrz5LAdxwewt93SJA9p3Heo8R4xUpIKFZRPoC31tQN0/kfAd9E
+ 81zmoa8RbNUjv0Hf91AG1ltKE2ipRKv9W+wDYyeQUZfAtBa90+ck/PqOwnEusn2/FXAfiuPueEn0K
+ N1FLQEEG1lNR5Elxw/vN7MKSdhx7kfU0oOrY4CQhf03Y6j0wrbzXK0oYGjTNIDPzFT+CE1fknh/PP
+ O202M12A==;
+Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
+ ([108.223.40.66]:57080 helo=localhost)
+ by bh-25.webhostbox.net with esmtpa (Exim 4.93)
+ (envelope-from <linux@roeck-us.net>)
+ id 1kfYK8-000BCM-A4; Thu, 19 Nov 2020 01:01:20 +0000
+Date: Wed, 18 Nov 2020 17:01:19 -0800
+From: Guenter Roeck <linux@roeck-us.net>
 To: Tao Ren <rentao.bupt@gmail.com>
 Subject: Re: [PATCH v2 0/2] hwmon: (max127) Add Maxim MAX127 hardware
  monitoring
-Message-ID: <20201119012826.GP1804098@lunn.ch>
+Message-ID: <20201119010119.GA248686@roeck-us.net>
 References: <20201118230929.18147-1-rentao.bupt@gmail.com>
  <20201118232719.GI1853236@lunn.ch>
  <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
@@ -47,6 +82,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 In-Reply-To: <20201118234252.GA18681@taoren-ubuntu-R90MNF91>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
+X-AntiAbuse: Original Domain - lists.ozlabs.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - roeck-us.net
+X-BWhitelist: no
+X-Source-IP: 108.223.40.66
+X-Source-L: No
+X-Exim-ID: 1kfYK8-000BCM-A4
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (localhost)
+ [108.223.40.66]:57080
+X-Source-Auth: guenter@roeck-us.net
+X-Email-Count: 3
+X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
+X-Local-Domain: yes
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,14 +113,13 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
+Cc: linux-hwmon@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+ Jean Delvare <jdelvare@suse.com>, Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, Jonathan Corbet <corbet@lwn.net>,
  netdev@vger.kernel.org, openbmc@lists.ozlabs.org, linux-doc@vger.kernel.org,
  John Fastabend <john.fastabend@gmail.com>, Alexei Starovoitov <ast@kernel.org>,
  linux-kernel@vger.kernel.org, taoren@fb.com, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, mikechoi@fb.com, "David S . Miller" <davem@davemloft.net>,
- Guenter Roeck <linux@roeck-us.net>
+ bpf@vger.kernel.org, mikechoi@fb.com, "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
@@ -90,11 +144,11 @@ On Wed, Nov 18, 2020 at 03:42:53PM -0800, Tao Ren wrote:
 > Documentation/hwmon/index.rst" output. Is it the right command to find
 > reviewers? Could you please suggest? Thank you.
 
-Hi Tae
+I have no idea why running get_maintainer.pl on
+Documentation/hwmon/index.rst returns such a large list of mailing
+lists and people. For some reason it includes everyone in the XDP
+maintainer list. If anyone has an idea how that happens, please
+let me know - we'll want to get this fixed to avoid the same problem
+in the future.
 
-What you are doing is correct. I suspected it was a get_maintainers
-problem. Now we know this, we can figure out why it is adding all
-these extra addresses which make no sense. Maybe a bug in the
-MAINTAINERS file?
-
-       Andrew
+Guenter
