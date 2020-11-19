@@ -2,81 +2,101 @@ Return-Path: <SRS0=4Xag=EZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADCFAC6369E
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 16:59:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 661C9C56201
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:15:40 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CBD92241A6
-	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 16:59:02 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 56EBB24655
+	for <openbmc@archiver.kernel.org>; Thu, 19 Nov 2020 17:15:38 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=google.com header.i=@google.com header.b="vFI8Cxqn"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CBD92241A6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="m/nEh5V6"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 56EBB24655
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CcQr43212zDqlD
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 03:59:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::829;
- helo=mail-qt1-x829.google.com; envelope-from=venture@google.com;
- receiver=<UNKNOWN>)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CcRCD4NQTzDqnB
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 04:15:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=reject dis=none) header.from=google.com
+ spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
+ (client-ip=148.163.156.1; helo=mx0a-001b2d01.pphosted.com;
+ envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=ibm.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=vFI8Cxqn; dkim-atps=neutral
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=m/nEh5V6; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CcQp10k7ZzDql2
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 03:57:08 +1100 (AEDT)
-Received: by mail-qt1-x829.google.com with SMTP id m65so4822588qte.11
- for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 08:57:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=DgFuSE2DMZxNHBPsxh5+FG9j6n6sovfZK8g09b+rwdo=;
- b=vFI8Cxqn23gUHIdLQtIs9oHuHNacltBKJ1ajCD2X8yHh92ydRb5AH+uaO8owWpJlaf
- RgCSy2kDVi2PKtSgyDUo6M8Z6AElVKY8N7a3pRY2asPZdtcP4Hmz7F2e9Hsh4UL3ElMA
- 4DJErJUQJ2aQ0r3xivIVp7ADronZBsoJiDcLqjxkhOdDMOIObii2QtLc7CLaqHRK9x3q
- 3oAXy1J2TFkBCtlmF7yehbedanZ+e+d874ZhNi3rcsSsOmTuAdNHL+f+aw2dqVUnocyG
- ig8Y0w9u73HzDiY9HQnQNTf5jDKj3rlxd57Ww6bN7L3ioixV0bgUcdR5FYd/TGD2LYfx
- YT5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=DgFuSE2DMZxNHBPsxh5+FG9j6n6sovfZK8g09b+rwdo=;
- b=qOchiKg42UX4Y82kzqUwFQMK9AttQ0VLY9YAbNbE1YR/mtF1sqXL2udJk/6JRv6oee
- iC5/Xg2gj8ANIN2KP0VpJiI5iNYG2J6qGHwkhQh7KmAR3WS4Qi7t8ASihkgVvZvmf7Oe
- rTUr1cBAMKwRjC7OTBbFfRC9qUcdrcE/g678zsKXVI14GkNASgLeptZy40CzaNdJEZ4v
- pBCwZC7oNVp5Lmd180klZQqRi7AIvxCvjOAt4n6J5DbOkvmZN7Wbx4AFnXpkV33BryH2
- YeImjpl7mv16J+VZ6EkaveIpQHsAIn622S+EfhUKCr5Z1q23t6eaLGGWUhWpwDY7rtl3
- CPHQ==
-X-Gm-Message-State: AOAM533fAnXv8QdRcDa4lC4IltbPXkupm+yz7pd+FhcLy8NJ0XMlTXzx
- nTNWYQcGTjSbrJeiDlSJIPbX2M4Y7tcfbfxYVtkOkw==
-X-Google-Smtp-Source: ABdhPJw9l9qaGUIqVpsWhvpon5FCGZE3nvxsfmv4u+ISIAyK1hg3x9OMTJAsWw0HB7L1lxc8p/qGNsJeUMHdz3/C/9Y=
-X-Received: by 2002:ac8:5a04:: with SMTP id n4mr11395538qta.21.1605805022774; 
- Thu, 19 Nov 2020 08:57:02 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CcR9g0s2HzDqmh
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 04:14:14 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0AJH3O2W144198
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 12:14:10 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=in-reply-to : subject :
+ from : to : date : mime-version : references : content-transfer-encoding :
+ content-type : message-id; s=pp1;
+ bh=nSQj5aMbORFAoriv1LDa+6pY5NpP3hLKbM5bibhJ0HM=;
+ b=m/nEh5V64oNqAYaqV9oj6ANztwG+uZQnBJsrm19EdjBsnNV7+Sk1MeqgVPmwcxFrhw5H
+ JwWy54g4jY6BMgqFWA25H/5zwijcGlezSBzhpY0+Sz5VEODAfcL+2b89umpIlItytMkN
+ qpDuPSu3tf8NmHMGlVfrrne3KarNDllH4mcUKbc2ehZfABo0ZqFxWCDi06XJn15NZ+uq
+ wVgy2TCZGkygbojctpi+zj7fqNnr1x9tmbxHMap6sKYAoR/BP9jx35Ml52IPm/XA8kET
+ n8RPo7GmHpUDFsPatlLkh6f7ZGJ4muAc5YINLMea6D2XOWb/23GulwX23ibzPumUG4W5 jw== 
+Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
+ [158.85.210.114])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 34wg136y73-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Thu, 19 Nov 2020 12:14:10 -0500
+Received: from localhost
+ by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
+ for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
+ Thu, 19 Nov 2020 17:14:10 -0000
+Received: from us1b3-smtp05.a3dr.sjc01.isc4sb.com (10.122.203.183)
+ by smtp.notes.na.collabserv.com (10.122.47.58) with
+ smtp.notes.na.collabserv.com ESMTP; Thu, 19 Nov 2020 17:14:09 -0000
+Received: from us1b3-mail158.a3dr.sjc03.isc4sb.com ([10.160.174.218])
+ by us1b3-smtp05.a3dr.sjc01.isc4sb.com
+ with ESMTP id 2020111917140867-622832 ;
+ Thu, 19 Nov 2020 17:14:08 +0000 
+In-Reply-To: 
+Subject: GUI Design Work Group - Wednesday11/25
+From: "Derick Montague" <Derick.Montague@ibm.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Thu, 19 Nov 2020 17:14:08 +0000
 MIME-Version: 1.0
-References: <CAO=noty_ADQwzPXx8AneRRcXNr9B15PBBByP6TNDeDCoy2ug6Q@mail.gmail.com>
- <e605bae4-b17a-b383-62a9-7594b57f7245@kaod.org>
-In-Reply-To: <e605bae4-b17a-b383-62a9-7594b57f7245@kaod.org>
-From: Patrick Venture <venture@google.com>
-Date: Thu, 19 Nov 2020 08:56:51 -0800
-Message-ID: <CAO=noty4NEETUhb2jXhODV9THigegMdpKcteofBdygzLD0PZdw@mail.gmail.com>
-Subject: Re: qemu for bmc
-To: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
-Content-Type: text/plain; charset="UTF-8"
+Sensitivity: 
+Importance: Normal
+X-Priority: 3 (Normal)
+References: 
+X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
+ SCN1812108_20180501T0841_FP65 April 15, 2020 at 09:48
+X-LLNOutbound: False
+X-Disclaimed: 15907
+X-TNEFEvaluated: 1
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+x-cbid: 20111917-1639-0000-0000-000003074357
+X-IBM-SpamModules-Scores: BY=0.000001; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
+ SC=0.415652; ST=0; TS=0; UL=0; ISC=; MB=0.000011
+X-IBM-SpamModules-Versions: BY=3.00014217; HX=3.00000242; KW=3.00000007;
+ PH=3.00000004; SC=3.00000295; SDB=6.01466119; UDB=6.00789241; IPR=6.01248757; 
+ MB=3.00035120; MTD=3.00000008; XFM=3.00000015; UTC=2020-11-19 17:14:09
+X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
+X-IBM-AV-VERSION: SAVI=2020-11-19 08:37:28 - 6.00012071
+x-cbparentid: 20111917-1640-0000-0000-0000C7E14562
+Message-Id: <OF8B9C9502.B727E6AE-ON00258625.005EADD1-00258625.005EADD6@notes.na.collabserv.com>
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-11-19_09:2020-11-19,
+ 2020-11-19 signatures=0
+X-Proofpoint-Spam-Reason: orgsafe
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,82 +108,21 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- John Wang <wangzhiqiang.bj@bytedance.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Nov 18, 2020 at 11:41 PM C=C3=A9dric Le Goater <clg@kaod.org> wrote=
-:
->
-> Hello,
->
-> On 11/18/20 10:11 PM, Patrick Venture wrote:
-> > Patrick;
-> >
-> > I was looking at a patch series of yours that landed,
-> > https://github.com/qemu/qemu/blob/master/hw/arm/aspeed.c#L517 <-- in
-> > this line you're referencing a device that appears to be missing from
-> > qemu - namely, the pca i2c mux.
-> >
-> > My question is to the community at large, and you also, is anyone
-> > currently implementing this i2c-mux or a similar one?
->
-> I haven't seen any patches for this device on the QEMU mailing
-> list.
->
-> John Wang from Bytedance has started developing some new I2C
-> device models for their G220A board. We hope to get that merged
-> in 6.0.
->
-> If you are interested, we maintain a brief TODO list here
->
->   https://github.com/openbmc/qemu/wiki
+Hello!
 
-Thanks, I'll take a look.
+Next weeks work group falls the day before a U.S. holiday and there will be
+many people off this week from the IBM team, including myself. Is anyone
+opposed to cancelling this work group?
 
->
-> Feel free to update.
->
->
-> In terms of priority, I think that the support to boot from eMMC
-> on the AST2600 is an important one. Reviewing the FSI patches
-> also but that's an IBM thing, so it might not interest the
-> community that much.
->
-> There are quite a few I2C models missing.
+If so, please let me know so we can decide on the host and what webex
+to use for the meeting.
 
-Yes.
+Thank you!
+=20
+Derick Montague
+IBM Cognitive Systems User Experience
 
->
-> All Aspeed models could be more precise.
->
->
-> Google and Nuvoton have merged their models for the npcm750-evb
-> and quanta-gsj boards. It would be good to have some interaction
-> with them, on bus/device modeling but also on full system emulation.
-
-Yeah, I believe you've seen my team's patches adding nuvoton support
-to Qemu.  It's a WIP, but we're making a lot of headway and hope to
-have more Nuvoton 730/750 qemu devices sent to qemu over the coming
-days, weeks, etc.
-
-One of the big gaps that I'm seeing is that we weren't yet looking at
-the rest of the board as closely, to see what other devices are
-missing, such as the i2c-muxes, etc.  This will be a really good
-community convergence point as there are only so many i2c-muxes,
-voltage regulators, temperature sensors, that are in common use.
-
-I'll go through some of our plans as stated and add them to the todo
-list.  My team currently isn't focused on aspeed support at present,
-but we're keeping an eye on it and are definitely excited to see
-others contributing in that space!
-
->
-> Cheers,
->
-> C.
-
-- Patrick
