@@ -2,81 +2,167 @@ Return-Path: <SRS0=/yhw=E2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,LOTS_OF_MONEY,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E24A9C5519F
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 07:33:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C72DC5519F
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 08:41:24 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A0AC620E65
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 07:33:03 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id BAC9B22244
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 08:41:22 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=pass (1024-bit key) header.d=yadro.com header.i=@yadro.com header.b="Qcc+0F7K"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0AC620E65
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM header.b="c+LhNiBK";
+	dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM header.b="c+LhNiBK"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BAC9B22244
+Authentication-Results: mail.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hcl.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CcpDX42y7zDqm9
-	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 18:33:00 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CcqlL3lp7zDqw6
+	for <openbmc@archiver.kernel.org>; Fri, 20 Nov 2020 19:41:18 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=yadro.com
+ spf=pass (sender SPF authorized) smtp.mailfrom=hcl.com
+ (client-ip=40.107.131.139; helo=apc01-sg2-obe.outbound.protection.outlook.com;
+ envelope-from=jayashree-d@hcl.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=quarantine dis=none) header.from=hcl.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=Qcc+0F7K; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ unprotected) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256
+ header.s=selector2 header.b=c+LhNiBK; 
+ dkim=pass (1024-bit key) header.d=HCL.COM header.i=@HCL.COM
+ header.a=rsa-sha256 header.s=selector2 header.b=c+LhNiBK; 
+ dkim-atps=neutral
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1310139.outbound.protection.outlook.com [40.107.131.139])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CcpBr1kyPzDqlh
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 18:31:32 +1100 (AEDT)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 00BCD41397
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 07:31:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-transfer-encoding:mime-version:user-agent:content-type
- :content-type:organization:references:in-reply-to:date:date:from
- :from:subject:subject:message-id:received:received:received; s=
- mta-01; t=1605857485; x=1607671886; bh=sxo1G3gaveVlJ3ymVKxCZaWTk
- oP5fuXodqLF8vHJ/+U=; b=Qcc+0F7K3UT2FmqyBo4bXqFgnLAYINFHYwlhD413u
- i0CRXjxDO88h1KGsVb+SkNI+4h1Cpa60mmhIKgKklO9YHPjRIBYQuMHcwlk5ZvxV
- ft8lqZfo3fMR45Ati2CgmIPokBBwE7Uv6s0XwnJFiM/0ib5/hrtRKolsYPzVKG1s
- Nw=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id Qs3KgRwulsZ3 for <openbmc@lists.ozlabs.org>;
- Fri, 20 Nov 2020 10:31:25 +0300 (MSK)
-Received: from T-EXCH-03.corp.yadro.com (t-exch-03.corp.yadro.com
- [172.17.100.103])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 078964136B
- for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 10:31:25 +0300 (MSK)
-Received: from [10.199.0.35] (10.199.0.35) by T-EXCH-03.corp.yadro.com
- (172.17.100.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Fri, 20
- Nov 2020 10:31:24 +0300
-Message-ID: <2efc5fa8a97e5aa17d8579cd414676bb842367d1.camel@yadro.com>
-Subject: Re: [Announce] OpenBMC Discord Community
-From: Andrei Kartashev <a.kartashev@yadro.com>
-To: <openbmc@lists.ozlabs.org>
-Date: Fri, 20 Nov 2020 10:31:23 +0300
-In-Reply-To: <20201112145740.GB4495@heinlein>
-References: <20201112145740.GB4495@heinlein>
-Organization: YADRO
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.36.5 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CcqjD4LDrzDqw4
+ for <openbmc@lists.ozlabs.org>; Fri, 20 Nov 2020 19:39:23 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v6jC7l1etN72ZO6RVbPWWyhDmI3M7onXR5OTv6OR87E=;
+ b=c+LhNiBKeYSIO5zJK7QiBRWFTf4ijTdidZqOi0MhnUeRx/FdmH+oqIJ4NM7AMxCQW0yya7bZQKzM2E28ale2N24l0XVoVk//6JiWcW3VKZm+DcRxZ5fV0ZCybB4EiJzSywz2WJQbREUfGrDJZgAte9YF5IsabsWWiqpnkFB3IaE=
+Received: from PS2PR02CA0085.apcprd02.prod.outlook.com (2603:1096:300:5c::25)
+ by SG2PR04MB2649.apcprd04.prod.outlook.com (2603:1096:4:65::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Fri, 20 Nov
+ 2020 08:39:17 +0000
+Received: from PU1APC01FT036.eop-APC01.prod.protection.outlook.com
+ (2603:1096:300:5c:cafe::87) by PS2PR02CA0085.outlook.office365.com
+ (2603:1096:300:5c::25) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.20 via Frontend
+ Transport; Fri, 20 Nov 2020 08:39:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 192.8.195.59)
+ smtp.mailfrom=hcl.com; lists.ozlabs.org; dkim=pass (signature was verified)
+ header.d=HCL.COM;lists.ozlabs.org; dmarc=pass action=none
+ header.from=hcl.com;
+Received-SPF: Pass (protection.outlook.com: domain of hcl.com designates
+ 192.8.195.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=192.8.195.59; helo=APC01-HK2-obe.outbound.protection.outlook.com;
+Received: from APC01-HK2-obe.outbound.protection.outlook.com (192.8.195.59) by
+ PU1APC01FT036.mail.protection.outlook.com (10.152.252.207) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20 via Frontend Transport; Fri, 20 Nov 2020 08:39:14 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jhRMm+0Vs4bYB8UQduYBj3I21gl/Zg+rxoJpP0wJl/e7THMTsG4EVwqC3P7ytA1PZfDTaKo/KHD+w9LZ886DTC0k/6imrE2RZJAHlQUw/kk+AoxthkgpkEphxvHRleJoLZ0QJJlgehOhxD1FSmhcx2pTve9W78Lxlji/VSPWMfgCvIF5N4/0ZQQvNCJRMIDAscFr67UeGRP+asNc4kdyvYA3bD4nNTNDaW1of84q6fCqkGaA2S8ck6NrqHtVX4wQr5g9riFSWPtiyZZYbFguI6hjiVa5+3IC+oC9tx+WIBY2Mz8+Ba6F8eD6HrGtvFyjr9UrOv/W9pEGmITihZcbyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v6jC7l1etN72ZO6RVbPWWyhDmI3M7onXR5OTv6OR87E=;
+ b=SKkqfhGnIaaxaznD/gfSleZxu6ys/dI00f6u64vbUpUP9O5AWMB1FV01tHxRWuIJhbNF9iMSx+/i7RpV/ZBN9FA5tW5CNrItzqh8EdVTla1Vj48j/fLXodTWRDTcg7uTuFsGmbQaIoaR/n9XvLHjJe2qrdjeQDZe8qPlHXvxl2CP0kZhStDnoK27HPYXDw8bQmfKQYrfRhUwvtTA3ynBV8UGGpCXk4nO2eVArwHs4gsmqnOjLFR/KQYY/RjR0FbOF4+orsrAgS0ghUwOcPMiamFW4EA81JXqzjFClhOYox2EHw4YFrcqzSjszqCB7vP3EFIT1XFWIIG5beFlth/Y8Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hcl.com; dmarc=pass action=none header.from=hcl.com; dkim=pass
+ header.d=hcl.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v6jC7l1etN72ZO6RVbPWWyhDmI3M7onXR5OTv6OR87E=;
+ b=c+LhNiBKeYSIO5zJK7QiBRWFTf4ijTdidZqOi0MhnUeRx/FdmH+oqIJ4NM7AMxCQW0yya7bZQKzM2E28ale2N24l0XVoVk//6JiWcW3VKZm+DcRxZ5fV0ZCybB4EiJzSywz2WJQbREUfGrDJZgAte9YF5IsabsWWiqpnkFB3IaE=
+Received: from SG2PR04MB3093.apcprd04.prod.outlook.com (2603:1096:4:6d::11) by
+ SG2PR04MB2377.apcprd04.prod.outlook.com (2603:1096:4:2::17) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3589.20; Fri, 20 Nov 2020 08:39:10 +0000
+Received: from SG2PR04MB3093.apcprd04.prod.outlook.com
+ ([fe80::600b:f294:3dde:ba29]) by SG2PR04MB3093.apcprd04.prod.outlook.com
+ ([fe80::600b:f294:3dde:ba29%4]) with mapi id 15.20.3589.024; Fri, 20 Nov 2020
+ 08:39:10 +0000
+From: Jayashree D <jayashree-d@hcl.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: Boot Order in Redfish and DBUS
+Thread-Topic: Boot Order in Redfish and DBUS
+Thread-Index: Ada/GHipV90cO13xRsGWrbeHoNjQ3g==
+Date: Fri, 20 Nov 2020 08:39:10 +0000
+Message-ID: <SG2PR04MB309381BFAE06A3462E57E0C6E1FF0@SG2PR04MB3093.apcprd04.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL2hjbCIsImlkIjoiYjU2MmE0NDItNTI5Zi00ZTI1LWIyMGEtMTcxNGY5NDkzMGI0IiwicHJvcHMiOlt7Im4iOiJIQ0xDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiSENMX0NsYTVzXzFudDNybmFsIn1dfV19LCJTdWJqZWN0TGFiZWxzIjpbXSwiVE1DVmVyc2lvbiI6IjE4LjQuMTg0My4xMjMiLCJUcnVzdGVkTGFiZWxIYXNoIjoiR01GT0lURFwvSkxXT3FFRlluUGtMY1FEWDVDZmpjSVZvR05sQWFlbGhDVTVadEFBUnNGbnRWSEZTcDdSOUZORGMifQ==
+x-hclclassification: HCL_Cla5s_1nt3rnal
+Authentication-Results-Original: lists.ozlabs.org; dkim=none (message not
+ signed) header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=hcl.com;
+x-originating-ip: [2409:4072:111:c53c:f9b4:1c1b:d638:fb92]
+x-ms-publictraffictype: Email
+X-MS-Office365-Filtering-Correlation-Id: 398ed37d-c5bb-41c6-ab84-08d88d2fc39f
+x-ms-traffictypediagnostic: SG2PR04MB2377:|SG2PR04MB2649:
+X-Microsoft-Antispam-PRVS: <SG2PR04MB264911EA31BE54A53E3135A1E1FF0@SG2PR04MB2649.apcprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:8273;OLM:6108;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam-Untrusted: BCL:0;
+X-Microsoft-Antispam-Message-Info-Original: RbOE+Ct/qHqrEoUL2U5jJUeTpIG+O45UWlw9zjq0sNgee24GFK0T0DP55uuxVd99/jwpx34AnzPREE7/ZX3m8gHWyEnI53woPdHmOfI1lYszBT7CkSfuLHdHdVo+/DDBossQTY1R5x6WK573P2j79T9B3+XX1eHn4bL0i0cWkhWo9SZEsyqIOYLQUZ8V0g8plETk1JkKI0ooPcCOVlC9BebuGUGHqc3M+z3w0Jqg6IXmj0TvQEz5hKWxzPYH2wp5T9lTwCVJDtkVrZqx36DU79Ttgr0pJR2pxxyBNH23eKtK6O4ksF8rhVt3YMcj2v0GfkpUESe4Nx8sIi4i7+L9/Q==
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:SG2PR04MB3093.apcprd04.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(346002)(136003)(39860400002)(366004)(396003)(9686003)(86362001)(66556008)(71200400001)(186003)(478600001)(6506007)(316002)(8676002)(33656002)(66446008)(55016002)(5660300002)(6916009)(7696005)(52536014)(64756008)(2906002)(76116006)(66946007)(8936002)(83380400001)(66476007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?+X6stP2aySfyKUU3JfFtKkjISQ9whutTg/OBRv8jBQ7ceae/cpQOV5a4E2b4?=
+ =?us-ascii?Q?edSPD75JayKzhJkf22LmhhV5gAujwxLBIbBtX/ia/EQwipqNI0Jxe+ufX5nK?=
+ =?us-ascii?Q?WME3X751P73eGCUyIkiCfugyaHxHtDgbRS/DG7D8NKZBuMk3xWAfPBkiI4CD?=
+ =?us-ascii?Q?m/CTikoircLMovo9F635T9glkqignkHZ/gCPKupdg5OFi3erjwLw7+M70l/5?=
+ =?us-ascii?Q?xSazTiMW4TmJ1wzhkTY+Y734jSKqvvsEP3pt51Nx4NFyQrlJgitpG/UbwHZg?=
+ =?us-ascii?Q?wZWBxp768OLZBvc7zw5xrJl0RQjLX0tRmL1Mg7NFXhkji0Kb0Rze69jhFBmo?=
+ =?us-ascii?Q?axEiQQulwSUpJ6YIi3JcumVLKeIB06wwPM6epuhk/SSIImcixseSQxrbALF+?=
+ =?us-ascii?Q?54BYKKIFVdqtm8cTktFqvUFUieZFR/sTMHheIL6u98WCPnqRVzMojj5qvZNW?=
+ =?us-ascii?Q?Jo39PgwIdEJN+lYfgI34bX0525YyDkVONa895aiPP4TRBDFIIPhpOTr6RexU?=
+ =?us-ascii?Q?LhPKki1pNxWiRZ4soervlTKAWzzTIcJ1hZWhgniXSciB2l+5/sfNT2rRY72M?=
+ =?us-ascii?Q?ryOl0cqe1FdmM4EiHiIZJs9Ijuv/hX8AsSVhZV95gGKGXRQ2u9LzQ6UHBrJv?=
+ =?us-ascii?Q?gtI2cNzFngragg5fI+zwKclCHHhOlPwcg1PPk+VrIof/z22tG7M84aaci14H?=
+ =?us-ascii?Q?Zgv64bIGdyScPVEf04BzU+kCpLU5O9CmvpXwQFNWg3nCT3GC07tnX30ChWer?=
+ =?us-ascii?Q?zCtxHGNwzYSGiYNzRTC4C88yH+2wyj7dxhn5A508WctW4UtxQicUqbJw6IZw?=
+ =?us-ascii?Q?ooWnoXnpQablwkG8oJi4cxFNApSdnp1lpm62dPF2aaAjDrn5rqAnppCILbwx?=
+ =?us-ascii?Q?3Krta1hXoDCYTC7FQCg4DdSzQ1VmViLScreeFV+YnAcVsZ24ZNkASlZguc1T?=
+ =?us-ascii?Q?Ez+TFczxwRJvMIO6ad6ufw=3D=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_SG2PR04MB309381BFAE06A3462E57E0C6E1FF0SG2PR04MB3093apcp_"
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.199.0.35]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-03.corp.yadro.com (172.17.100.103)
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR04MB2377
+X-DLP: MSGProcess
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: PU1APC01FT036.eop-APC01.prod.protection.outlook.com
+X-MS-Office365-Filtering-Correlation-Id-Prvs: efa17259-70a7-4c06-8761-08d88d2fc075
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: gQGBSL//ME0gtWbGApygGWjFkLvz5DaH3wkBlzvNmnI5YjJIqY8ty2i8EoIKa78deTW1qSBNvtYyLIU3vxjZ0rgkGO/dOg99TW8frZwYpms6+FmkOPJlpq4/l65FVS+/9Sq1iRAun27WahXvtmNPe30onQutoOtUm+alaiQ2pgS5WblpNW2UECTbJfE5vvStJXjV0QnhMjWpMZdJ5Iv/QirL11QYgbdHK6AOgH5SSp3CAIin6leOWkjmDdr6SRuNzBmCG+3aXyYjHaCH9UJYp7zEZIsREU3o1PV7lVGrzHwGeUbPr629F8VBPnoC1KGd2AChlbA8LNAXwDeNa6WhC2dfzx+dpRQ6OU5kqK/+8EElGg+amEdBvF7aqOK6jUN/Nr1bJJ9Zt9AIcPObrJX2PQ==
+X-Forefront-Antispam-Report: CIP:192.8.195.59; CTRY:IN; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:APC01-HK2-obe.outbound.protection.outlook.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(4636009)(136003)(376002)(346002)(39860400002)(396003)(46966005)(478600001)(6506007)(186003)(6916009)(55016002)(26005)(9686003)(8936002)(52536014)(2906002)(82310400003)(8676002)(81166007)(70206006)(356005)(83380400001)(5660300002)(86362001)(7696005)(33656002)(70586007)(316002)(336012)(36906005)(47076004)(82740400003);
+ DIR:OUT; SFP:1102; 
+X-OriginatorOrg: HCL.COM
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Nov 2020 08:39:14.6029 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 398ed37d-c5bb-41c6-ab84-08d88d2fc39f
+X-MS-Exchange-CrossTenant-Id: 189de737-c93a-4f5a-8b68-6f4ca9941912
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=189de737-c93a-4f5a-8b68-6f4ca9941912; Ip=[192.8.195.59];
+ Helo=[APC01-HK2-obe.outbound.protection.outlook.com]
+X-MS-Exchange-CrossTenant-AuthSource: PU1APC01FT036.eop-APC01.prod.protection.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR04MB2649
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,258 +178,137 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Patrick, 
+--_000_SG2PR04MB309381BFAE06A3462E57E0C6E1FF0SG2PR04MB3093apcp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Is there a Matrix (Riot.IM) to Discord bridge configured (
-https://matrix.org/docs/projects/bridge/matrix-appservice-discord)? Did
-you try it? Can we connect Discord channel with IRC channel via the
-bridge?
-BTW, what was the problem with Matrix-To-IRC? I use it connect the
-channel and it works fine to me.
+Classification: Internal
+Hi Team,
 
-PS: it may be also interesting option is gitter, which going to be
-merged with matrix:
-https://matrix.org/blog/2020/09/30/welcoming-gitter-to-matrix
+I am working on BIOS boot order in my environment, to get and set the boot =
+order sequence.
+How the boot order settings is handled using dbus interfaces and also in re=
+dfish ?
+Please provide your inputs/suggestions on this.
 
-On Thu, 2020-11-12 at 08:57 -0600, Patrick Williams wrote:
-> Greetings,
-> 
-> TL;DR: I have created an OpenBMC Discord community as a modern
-> alternative to
-> IRC.  Please join at https://discord.gg/69Km47zH98 .  I've included
-> some FAQs
-> below.
-> 
-> ---
-> 
-> Recently Kurt sent out a survey about messaging (IRC) and the results
-> suggested that using IRC is an impediment to a large segment of our
-> community[1].  75% of responders suggested "IRC is too confusing" and
-> 65%
-> responded they were unwilling to use IRC even if someone help them
-> set it up.
-> I was also told privately that there are some people who, due to
-> corporate or
-> country network restrictions, are unable to access IRC.  It seems
-> that
-> exclusively using IRC is putting a constraint on the collaboration of
-> the
-> community and so I am willing to try something different.
-> 
-> I did a simple investigation of the options available to us and
-> usages of
-> other similar communities and came to the conclusion that Discord
-> would
-> likely be a good fit for our needs.  A few of us have been
-> experimenting with
-> it and there do not seem to be any pervasive issues, so I am hereby
-> announcing
-> it to the community at-large.
-> 
-> Discord is widely used in the video gaming community and by some
-> other open
-> source communities.  It has a modern Slack-like interface, but has
-> much better
-> Free-tier limits compared to similar alternatives.  Discord also has
-> built-in
-> voice / video / screen sharing, which could be very beneficial for
-> impromptu
-> hands-on problem solving and hosting "Office Hours".  Like many
-> alternatives,
-> there is a browser, stand-alone, and mobile app options and sign-up
-> is a
-> simple email-verification process.
-> 
-> I'm pretty excited about the possibilities for our community and look
-> forward
-> to seeing many of you join!
-> 
-> ---
-> 
-> # Q&As
-> 
-> ## What are the rules?
-> 
-> We've never explicitly stated the rules for IRC, but IRC was set up
-> before we
-> had a Code of Conduct.  I have created a #rules channel in Discord
-> and posted
-> a link to our CoC; they should all be assumed to apply on Discord.
-> 
-> Discord does support private messages, but they are set up in a
-> different way
-> from some alternatives.  With Discord, PMs take place outside of our
-> community
-> but within Discord itself and we have no direct way to directly
-> monitor or
-> police.  You can choose to block all private messages, allow all
-> private
-> messages, or accept PMs from a subset of people.  This is similar to
-> what we
-> have today with IRC, so I expect there to be no issues, but if anyone
-> feels
-> they are on the receiving end of unwanted behavior please report by
-> following
-> the procedures outlined in the CoC.
-> 
-> 
-> ## Can I use my existing Discord account?
-> 
-> Yes, but... since Discord is widely used in a less-professional
-> setting
-> (Gaming), I feel it is important to point something out.
-> 
-> With Discord you have a Username for your account and a Nickname
-> within the
-> community.  Your Nickname is displayed in chats, but it is easy to
-> see your
-> Username within your profile.  If you do not everyone to know your
-> alter-ego
-> as F0rtN1ghtKing007, you may want to create a separate account or
-> change your
-> Username.  (If your existing Username might be construed as a CoC
-> violation,
-> please change it or create a separate account before joining.)
-> 
-> 
-> ## Won't this split the community into two messaging systems?  What
-> happens
-> with IRC?
-> 
-> Hopefully not, but maybe.  Just like software, sometimes someone
-> comes along
-> and refactors the solution to make it better.  Sometimes the new
-> solution
-> loses a few features along the way.  Sometimes the new solution
-> doesn't pan
-> out and it isn't fully adopted.  I don't see this as any different;
-> if it is
-> better, people will adopt it, and if not so be it.
-> 
-> The survey results and sentiment I have heard from some TSC members
-> indicate
-> to me that IRC might be an impediment to bettering the
-> community.  So, this is
-> an option for us to try.
-> 
-> For the time being, I personally will be on both IRC and Discord.  We
-> can
-> revisit in the future to decide if one should be deprecated.
-> 
-> 
-> ## Why didn't you choose Slack?
-> 
-> Some companies have chosen Slack as their internal messaging solution
-> as have
-> some open source communities.  It is, overall, a good offering in
-> many
-> settings.
-> 
-> For open source communities, the Free-tier of Slack has some
-> limitations that
-> I feel make it difficult to build a community around.  The biggest is
-> a limit
-> of 10,000 messages in the history.  After 10k messages, Slack starts
-> deleting
-> older messages.  In one community I participate in less-active
-> channels end up
-> losing their messages in only a few days, which means that meaningful
-> conversations can only take place in the most active channels among
-> the most
-> active users.  That community has recently moved off Slack and onto
-> Discord
-> for this reason.
-> 
-> The paid-tiers of Slack are pretty expensive for our community.  We
-> typically
-> have ~75 active participants on IRC.  Assuming we grow this
-> engagement and we
-> count transient users, we'd probably be looking at $10,000 per year
-> for the
-> lowest tier of Slack.  Not only do we not have a budget as a
-> community but
-> that does not, to me, seem like a very effective use of any funds we
-> might
-> have.
-> 
-> Discord is as good or better than Slack, as best I can tell, in every
-> way
-> except one: threaded messages.  Hopefully, Discord will add that as a
-> feature
-> in the future.  I feel the elimination of Free-tier limits and
-> voice/video
-> features of Discord will make it a better choice for us.
-> 
-> A reasonably objective article as a comparison between the two
-> suggests that
-> Discord is better for large open source communities[2].
-> 
-> ## Why didn't you choose <X>?
-> 
-> Whatever option we pick some people will be pleased and some will
-> not.
-> Looking at the TSC member companies, I think each company has chosen
-> a
-> different product as their internal messaging solution.  Some of them
-> have
-> their own competitive offering to Slack.  I did not do an exhaustive
-> feature-by-feature comparison of all competitive offerings.
-> 
-> In terms of Open Source communities, and similar communities
-> utilizing a free
-> or low-priced option, Discord and Slack seem to have the most
-> usage.  Many
-> other large open source have Discord communities as well (some
-> official and
-> some unofficial).  Rust, Vue, Angular, Fedora, OpenSUSE, and Electron
-> are a
-> few I recognized on a list by Discord[3].  The Python Discord
-> community has
-> over 100,000 members.
-> 
-> There are some fully open source alternatives to Discord.  The two
-> most
-> popular are Riot.IM and Mattermost.  Mattermost would require us to
-> host the
-> service, similar to what we do for Gerrit.  We have an existing
-> Riot.IM bridge
-> to IRC but we have had reliability issues with it.
-> 
-> If something better comes along and/or Discord presents problems for
-> us, I
-> suspect the community will be nimble enough to move along to the next
-> great
-> thing.
-> 
-> 
-> ## Does this mean _you_ control the Discord community?
-> 
-> I originally created the existing IRC set up and have given some of
-> the other
-> long-time members administration on it.  The permissions I set up on
-> Discord
-> are identical and two other people currently have administrator-level
-> permissions there as well.  If the TSC decides on a particular
-> governance of
-> our communities, such as IRC or Discord, I'll happily transfer
-> ownership as
-> requested.  Discord ownership can be transferred to another account
-> very
-> easily.
-> 
-> As stated earlier, no one with admin-level access has the ability to
-> read
-> private messages either on IRC or Discord.
-> 
-> ---
-> 
-> 1. 
-> https://lore.kernel.org/openbmc/bb565e15-f5a7-b0b2-d987-41b1a5e9acbb@gmail.com/
-> 2. https://droplr.com/how-to/productivity-tools/slack-vs-discord/
-> 3. https://discord.com/open-source
-> 
--- 
-Best regards,
-Andrei Kartashev
+Thanks,
+Jayashree
 
 
+
+::DISCLAIMER::
+________________________________
+The contents of this e-mail and any attachment(s) are confidential and inte=
+nded for the named recipient(s) only. E-mail transmission is not guaranteed=
+ to be secure or error-free as information could be intercepted, corrupted,=
+ lost, destroyed, arrive late or incomplete, or may contain viruses in tran=
+smission. The e mail and its contents (with or without referred errors) sha=
+ll therefore not attach any liability on the originator or HCL or its affil=
+iates. Views or opinions, if any, presented in this email are solely those =
+of the author and may not necessarily reflect the views or opinions of HCL =
+or its affiliates. Any form of reproduction, dissemination, copying, disclo=
+sure, modification, distribution and / or publication of this message witho=
+ut the prior written consent of authorized representative of HCL is strictl=
+y prohibited. If you have received this email in error please delete it and=
+ notify the sender immediately. Before opening any email and/or attachments=
+, please check them for viruses and other defects.
+________________________________
+
+--_000_SG2PR04MB309381BFAE06A3462E57E0C6E1FF0SG2PR04MB3093apcp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#0563C1;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{mso-style-priority:99;
+	color:#954F72;
+	text-decoration:underline;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal" style=3D"margin-bottom:12.0pt">Classification: <b><s=
+pan style=3D"color:#08298A">Internal</span></b><span style=3D"font-size:12.=
+0pt"><o:p></o:p></span></p>
+<p class=3D"MsoNormal">Hi Team,<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am working on BIOS boot order in my environment, t=
+o get and set the boot order sequence.<o:p></o:p></p>
+<p class=3D"MsoNormal">How the boot order settings is handled using dbus in=
+terfaces and also in redfish ?<o:p></o:p></p>
+<p class=3D"MsoNormal">Please provide your inputs/suggestions on this.<o:p>=
+</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks,<o:p></o:p></p>
+<p class=3D"MsoNormal">Jayashree<br>
+<br>
+<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+</div>
+<font face=3D"Arial" color=3D"Gray" size=3D"1">::DISCLAIMER::<br>
+<hr>
+The contents of this e-mail and any attachment(s) are confidential and inte=
+nded for the named recipient(s) only. E-mail transmission is not guaranteed=
+ to be secure or error-free as information could be intercepted, corrupted,=
+ lost, destroyed, arrive late or
+ incomplete, or may contain viruses in transmission. The e mail and its con=
+tents (with or without referred errors) shall therefore not attach any liab=
+ility on the originator or HCL or its affiliates. Views or opinions, if any=
+, presented in this email are solely
+ those of the author and may not necessarily reflect the views or opinions =
+of HCL or its affiliates. Any form of reproduction, dissemination, copying,=
+ disclosure, modification, distribution and / or publication of this messag=
+e without the prior written consent
+ of authorized representative of HCL is strictly prohibited. If you have re=
+ceived this email in error please delete it and notify the sender immediate=
+ly. Before opening any email and/or attachments, please check them for viru=
+ses and other defects.<br>
+<hr>
+</font>
+</body>
+</html>
+
+--_000_SG2PR04MB309381BFAE06A3462E57E0C6E1FF0SG2PR04MB3093apcp_--
