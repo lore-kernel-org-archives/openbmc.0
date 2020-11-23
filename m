@@ -1,108 +1,102 @@
-Return-Path: <SRS0=6dX9=E4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=Uzhw=E5=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 08E87C5519F
-	for <openbmc@archiver.kernel.org>; Sun, 22 Nov 2020 18:57:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 16BD1C5519F
+	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2020 01:56:09 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1EAC20760
-	for <openbmc@archiver.kernel.org>; Sun, 22 Nov 2020 18:57:22 +0000 (UTC)
-Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=roeck-us.net header.i=@roeck-us.net header.b="mFrII85J"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B1EAC20760
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	by mail.kernel.org (Postfix) with ESMTPS id 06DDE208B8
+	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2020 01:56:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 06DDE208B8
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CfKKD1JzZzDqPG
-	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2020 05:57:20 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- spf=softfail (domain owner discourages use of this
- host) smtp.mailfrom=roeck-us.net (client-ip=67.222.39.168;
- helo=gproxy6-pub.mail.unifiedlayer.com; envelope-from=linux@roeck-us.net;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256
- header.s=default header.b=mFrII85J; dkim-atps=neutral
-X-Greylist: delayed 1333 seconds by postgrey-1.36 at bilbo;
- Mon, 23 Nov 2020 05:56:04 AEDT
-Received: from gproxy6-pub.mail.unifiedlayer.com
- (gproxy6-pub.mail.unifiedlayer.com [67.222.39.168])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CfVcP2kDBzDqNC
+	for <openbmc@archiver.kernel.org>; Mon, 23 Nov 2020 12:56:05 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=aspeedtech.com (client-ip=40.107.131.129;
+ helo=apc01-sg2-obe.outbound.protection.outlook.com;
+ envelope-from=luke_chen@aspeedtech.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
+ header.from=aspeedtech.com
+Received: from APC01-SG2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1310129.outbound.protection.outlook.com [40.107.131.129])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CfKHm54zKzDqNJ
- for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2020 05:56:04 +1100 (AEDT)
-Received: from cmgw11.unifiedlayer.com (unknown [10.9.0.11])
- by gproxy6.mail.unifiedlayer.com (Postfix) with ESMTP id 8EAC91E1296
- for <openbmc@lists.ozlabs.org>; Sun, 22 Nov 2020 11:33:44 -0700 (MST)
-Received: from bh-25.webhostbox.net ([208.91.199.152]) by cmsmtp with ESMTP
- id guBDkj2PSdCH5guBEkodUH; Sun, 22 Nov 2020 11:33:44 -0700
-X-Authority-Reason: nr=8
-X-Authority-Analysis: v=2.3 cv=LM5Ivqe9 c=1 sm=1 tr=0
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=dLZJa+xiwSxG16/P+YVxDGlgEgI=:19 a=IkcTkHD0fZMA:10:nop_charset_1
- a=nNwsprhYR40A:10:nop_rcvd_month_year
- a=evQFzbml-YQA:10:endurance_base64_authed_username_1 a=pGLkceISAAAA:8
- a=FOH2dFAWAAAA:8 a=S0K3Dlqhgj2jpTZ7kyIA:9 a=7Zwj6sZBwVKJAoWSPKxL6X1jA+E=:19
- a=QEXdDO2ut3YA:10:nop_charset_2 a=i3VuKzQdj-NEYjvDI-p3:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=roeck-us.net; s=default; h=In-Reply-To:Content-Transfer-Encoding:
- Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
- Sender:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ogJoR4t2FLSCBCvF19QHUeRrfYPlQy7OvPK0KBHE4Ag=; b=mFrII85Jtz4l7NoBAx0REt5FtM
- nJh+lSVMDDAhKYXcmlKoPxkgecWbp8vYXWjbXUw2XJ1G43Up/sUvGiV005umu7J4Co+d18i/IhOmr
- ip3Nmws3PVw7rOeYw2QDfqpAMsT6BHeIkO6KHvri1lLkNtIkFgAklmdau+idNoKq/rq/nHLIHOKRW
- W18y8t0Z6zS+rH+IKcsUhdd+qNng1Js/7LPEACXy+Jsgv5bHBHvl2qDO3MZSGpKwd8vFPHrvAzc+a
- 0llgY8I1A10769BB5M5780T+VcyBFmVF2FGRjAC1GLrVBJYGdl2nmmnCVoZ69zP0teJsph1CO1xTS
- MsEL52eQ==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net
- ([108.223.40.66]:45946 helo=localhost)
- by bh-25.webhostbox.net with esmtpa (Exim 4.93)
- (envelope-from <linux@roeck-us.net>)
- id 1kguBD-000CT0-BK; Sun, 22 Nov 2020 18:33:43 +0000
-Date: Sun, 22 Nov 2020 10:33:42 -0800
-From: Guenter Roeck <linux@roeck-us.net>
-To: rentao.bupt@gmail.com
-Subject: Re: [PATCH v3 1/2] hwmon: (max127) Add Maxim MAX127 hardware
- monitoring driver
-Message-ID: <20201122183342.GA69512@roeck-us.net>
-References: <20201119175324.22472-1-rentao.bupt@gmail.com>
- <20201119175324.22472-2-rentao.bupt@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CfVZj203pzDqMr
+ for <openbmc@lists.ozlabs.org>; Mon, 23 Nov 2020 12:54:35 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=j+7BkB9YXy2ZYW2/4y/UPDK/JTGa2PS2qPoSiLtuZkcvH2rO9GBb18XLgdhsr3uJxcTk03vdtRaXoQxaQKffeZSRmSsze8iA9+wFz27ARGMCGaUx0HU9xY/qIY4nMNfeFb31VQonM4r9LfTvevO03SdvfkAdm8sRA8PDdUAKJ+0vOFUJoMqhRmNTxPUvgvH0TtRmYR6H0VRw9XqJFg6+OdlBltX+ZCvxTQ+KpJ8T4mljfx9cLwnNiEzjBN4zOWsmLas77h6XWitkaIm5jf+wJQbI8VCEFA2rVTg8dSDNhSNjR2zAdr7OZ9bLmpyt58cSO9TXBvvbHilrjJ2WHDtjrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=88EZ3KZ24SxuRjmRF3lxfI9MEI+jtLccfCVLd/AgCYQ=;
+ b=ERqYiMb+678xIq2NrC7p4lE60KuFPopBy1JFuea/mAuBHOBLiefAIfqrByxhEs31ZuXoQJpGGK9FJSBLr6DZoHaqnyzFFxUVnhd3k0384IhSEMzsK0hfGYLLHxs2CXRfeKJay7a1kEwAsxsvMqXRavOsOwq9pK65HClbGt5rwmJlQFIAB9ZZZdzywuwALqMKcEYP4ktF6FAhDSLFluSgYGgdrHeBYASOEEZBzr06gogf+rQfcrwMM7Fo31RP2J0vHQboocyJT1E0fapOcEIBK+qhsm3++20JJKCy76GJ4CI9etg9lNEL1Pr6ttGF22HYJMjpLX+0EdRr67Fj5jaEgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+Received: from HK0PR06MB2321.apcprd06.prod.outlook.com (2603:1096:203:49::11)
+ by HK2PR06MB3602.apcprd06.prod.outlook.com (2603:1096:202:3f::23)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3589.22; Mon, 23 Nov
+ 2020 01:54:29 +0000
+Received: from HK0PR06MB2321.apcprd06.prod.outlook.com
+ ([fe80::b968:65ff:eb99:fdb2]) by HK0PR06MB2321.apcprd06.prod.outlook.com
+ ([fe80::b968:65ff:eb99:fdb2%5]) with mapi id 15.20.3564.032; Mon, 23 Nov 2020
+ 01:54:29 +0000
+From: Luke Chen <luke_chen@aspeedtech.com>
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Subject: RE: Signed CLA from ASPEED
+Thread-Topic: Signed CLA from ASPEED
+Thread-Index: AdSF/BDVNQADm2VBRuejwbddN04pKwA3582AhHB0Q0AAHDUugABtOb4A
+Date: Mon, 23 Nov 2020 01:54:29 +0000
+Message-ID: <HK0PR06MB2321278EFE40C9B9B23EDE26E1FC0@HK0PR06MB2321.apcprd06.prod.outlook.com>
+References: <623110cb8acb4bbc99c43c47b37f5457@TWMBX01.aspeed.com>
+ <9C742B6B-8604-4EC1-9AE8-98844ACB557D@fuzziesquirrel.com>
+ <HK0PR06MB23218108A08BC07208A93909E1FF0@HK0PR06MB2321.apcprd06.prod.outlook.com>
+ <ac2ecf150ba6cc5cca5140913c787fd7b6f40313.camel@fuzziesquirrel.com>
+In-Reply-To: <ac2ecf150ba6cc5cca5140913c787fd7b6f40313.camel@fuzziesquirrel.com>
+Accept-Language: en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: fuzziesquirrel.com; dkim=none (message not signed)
+ header.d=none;fuzziesquirrel.com; dmarc=none action=none
+ header.from=aspeedtech.com;
+x-originating-ip: [118.99.190.129]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 6f4e344e-bad4-4bc9-761b-08d88f52b722
+x-ms-traffictypediagnostic: HK2PR06MB3602:
+x-microsoft-antispam-prvs: <HK2PR06MB36025C434388C487A50E1BCDE1FC0@HK2PR06MB3602.apcprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3173;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Rd51C40Qqu3GRmunmNcwFipk62MkuqkkGs85I36T/bYUAk8rNPQNTD+v2+PbgotwjrN4Z+t+RS/QKjElYhHKoobKouzjkYfCwqJJOx78fIus/kJzXgcIp+SyhkkuvkjSP/bI5p8ddeZhmkTr87qzctnoeu0bKlFjwVQSfdQ/UMviEqE/H6EmrslhVdQOBBIY7ReME5ri7giEiVnXGZ4oeebKP+zXYQj7SLtyoqoUNDIeDauYzkg4NH3dOt0axNu3aliOI9Q7c7s2wIERWNiFRXnnK2Q0mlkIuMOuLeyqwb9bw+MVvr1pgA1lw9PCA89ZeOej8nNh3SwXHW6wcAnKaA==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK0PR06MB2321.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(136003)(366004)(39830400003)(376002)(396003)(6916009)(71200400001)(64756008)(66446008)(7696005)(66556008)(316002)(55016002)(4326008)(3480700007)(5660300002)(76116006)(66476007)(66946007)(86362001)(52536014)(2906002)(478600001)(54906003)(83380400001)(8676002)(9686003)(4001150100001)(26005)(4744005)(33656002)(186003)(8936002)(6506007)(53546011);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: pDsm91wJv+PitZFB+hBnmEjYVaiZjDWk5HUmiAhBBium0Vw3un1GZjMRo/SgVXjkwWTg0egJqJ6ifMwtV7LJlUEosx2hjFXss6AYj4oVjJX3B3zIYruyS/EU34+T0i4VnXEAO5WAYf1YVOLK/TlmD6IPrg50L+yG6fRbQ7dfBhZakrEUvpgOnIHvm50dcKnbX2R+ZzA0X0GYZAUxTmzRaWA8CvWyopvexjhr3xebgRiJlmdaLOUMxay4fdlQPVGrkvU+0XHKRQXp9QJVbWyoqHDg6PKEmxxJJN1psNPc77+8UlxrcmgfqT8vvLbrAtl0c6e4QJEnkX8W9POALAdtWo+cBNtf7ZTl4iU5HjT052sCRluTdU+/4YXPEYcgJOyhdC/cLP+H3icJ7daM+G8rMS6xts2UTLV5kmxFrmbXB789bFLxDQ9euORElu9Pglgc9CpWSgV3Rvswxnso71fMLVf/aya/mab63Ed5wS36uS1yf/cRJzbbqdcDQSssdELl1TpScHEfzusceQpgugCCic1MwLYWtvlv7Nz2Y66qbbRTKYeXd4/jlSh2wYcwdfKnMnFuIkgFLb3zhXYzly7sBWLkJnP5BzpcdseC8lMExStqQCdjT2n0x2YBn3vRPVMMzpiVvFzkySms+cIPfiZ2/w==
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20201119175324.22472-2-rentao.bupt@gmail.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - lists.ozlabs.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1kguBD-000CT0-BK
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net (localhost)
- [108.223.40.66]:45946
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 9
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: HK0PR06MB2321.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f4e344e-bad4-4bc9-761b-08d88f52b722
+X-MS-Exchange-CrossTenant-originalarrivaltime: 23 Nov 2020 01:54:29.3625 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YJZ5y3z2/7V+7R8KvnHe5QyMV/A7cYtXiVDJAbGMk24FWHoFsA5MlA1H+WXwCjyhEL9iHNX5TpxTks8ItjMu23TRmLxqauhDyPWQwSIPxE0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR06MB3602
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,447 +108,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
- linux-doc@vger.kernel.org, taoren@fb.com, openbmc@lists.ozlabs.org,
- Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
- mikechoi@fb.com
+Cc: "manager@lfprojects.org" <manager@lfprojects.org>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Nov 19, 2020 at 09:53:23AM -0800, rentao.bupt@gmail.com wrote:
-> From: Tao Ren <rentao.bupt@gmail.com>
-> 
-> Add hardware monitoring driver for the Maxim MAX127 chip.
-> 
-> MAX127 min/max range handling code is inspired by the max197 driver.
-> 
-> Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
-
-Nice cleanup. Couple of minor comments.
-
-Thanks,
-Guenter
-
-> ---
->  Changes in v3:
->    - no code change. xdp maintainers were removed from to/cc list.
->  Changes in v2:
->    - replace devm_hwmon_device_register_with_groups() with
->      devm_hwmon_device_register_with_info() API.
->    - divide min/max read and write methods to separate functions.
->    - fix raw-to-vin conversion logic.
->    - refine ctrl_byte handling so mutex is not needed to protect the
->      byte.
->    - improve i2c_transfer() error handling.
->    - a few other improvements (comments, variable naming, and etc.).
-> 
->  drivers/hwmon/Kconfig  |   9 ++
->  drivers/hwmon/Makefile |   1 +
->  drivers/hwmon/max127.c | 346 +++++++++++++++++++++++++++++++++++++++++
->  3 files changed, 356 insertions(+)
->  create mode 100644 drivers/hwmon/max127.c
-> 
-> diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
-> index 9d600e0c5584..716df51edc87 100644
-> --- a/drivers/hwmon/Kconfig
-> +++ b/drivers/hwmon/Kconfig
-> @@ -950,6 +950,15 @@ config SENSORS_MAX1111
->  	  This driver can also be built as a module. If so, the module
->  	  will be called max1111.
->  
-> +config SENSORS_MAX127
-> +	tristate "Maxim MAX127 12-bit 8-channel Data Acquisition System"
-> +	depends on I2C
-> +	help
-> +	  Say y here to support Maxim's MAX127 DAS chips.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called max127.
-> +
->  config SENSORS_MAX16065
->  	tristate "Maxim MAX16065 System Manager and compatibles"
->  	depends on I2C
-> diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
-> index 1083bbfac779..01ca5d3fbad4 100644
-> --- a/drivers/hwmon/Makefile
-> +++ b/drivers/hwmon/Makefile
-> @@ -127,6 +127,7 @@ obj-$(CONFIG_SENSORS_LTC4260)	+= ltc4260.o
->  obj-$(CONFIG_SENSORS_LTC4261)	+= ltc4261.o
->  obj-$(CONFIG_SENSORS_LTQ_CPUTEMP) += ltq-cputemp.o
->  obj-$(CONFIG_SENSORS_MAX1111)	+= max1111.o
-> +obj-$(CONFIG_SENSORS_MAX127)	+= max127.o
->  obj-$(CONFIG_SENSORS_MAX16065)	+= max16065.o
->  obj-$(CONFIG_SENSORS_MAX1619)	+= max1619.o
->  obj-$(CONFIG_SENSORS_MAX1668)	+= max1668.o
-> diff --git a/drivers/hwmon/max127.c b/drivers/hwmon/max127.c
-> new file mode 100644
-> index 000000000000..3df4c225a6a2
-> --- /dev/null
-> +++ b/drivers/hwmon/max127.c
-> @@ -0,0 +1,346 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Hardware monitoring driver for MAX127.
-> + *
-> + * Copyright (c) 2020 Facebook Inc.
-> + */
-> +
-> +#include <linux/err.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/hwmon-sysfs.h>
-
-Not needed.
-
-> +#include <linux/i2c.h>
-> +#include <linux/init.h>
-> +#include <linux/module.h>
-> +#include <linux/sysfs.h>
-
-Not needed.
-
-> +
-> +/*
-> + * MAX127 Control Byte. Refer to MAX127 datasheet, Table 1 "Control-Byte
-> + * Format" for details.
-> + */
-> +#define MAX127_CTRL_START	BIT(7)
-> +#define MAX127_CTRL_SEL_SHIFT	4
-> +#define MAX127_CTRL_RNG		BIT(3)
-> +#define MAX127_CTRL_BIP		BIT(2)
-> +#define MAX127_CTRL_PD1		BIT(1)
-> +#define MAX127_CTRL_PD0		BIT(0)
-> +
-> +#define MAX127_NUM_CHANNELS	8
-> +#define MAX127_SET_CHANNEL(ch)	(((ch) & 7) << MAX127_CTRL_SEL_SHIFT)
-> +
-> +/*
-> + * MAX127 channel input ranges. Refer to MAX127 datasheet, Table 3 "Range
-> + * and Polarity Selection" for details.
-> + */
-> +#define MAX127_FULL_RANGE	10000	/* 10V */
-> +#define MAX127_HALF_RANGE	5000	/* 5V */
-> +
-> +/*
-> + * MAX127 returns 2 bytes at read:
-> + *   - the first byte contains data[11:4].
-> + *   - the second byte contains data[3:0] (MSB) and 4 dummy 0s (LSB).
-> + * Refer to MAX127 datasheet, "Read a Conversion (Read Cycle)" section
-> + * for details.
-> + */
-> +#define MAX127_DATA_LEN		2
-> +#define MAX127_DATA_SHIFT	4
-> +
-> +#define MAX127_SIGN_BIT		BIT(11)
-> +
-> +struct max127_data {
-> +	struct mutex lock;
-> +	struct i2c_client *client;
-> +	u8 ctrl_byte[MAX127_NUM_CHANNELS];
-> +};
-> +
-> +static int max127_select_channel(struct i2c_client *client, u8 ctrl_byte)
-> +{
-> +	int status;
-> +	struct i2c_msg msg = {
-> +		.addr = client->addr,
-> +		.flags = 0,
-> +		.len = sizeof(ctrl_byte),
-> +		.buf = &ctrl_byte,
-> +	};
-> +
-> +	status = i2c_transfer(client->adapter, &msg, 1);
-> +	if (status < 0)
-> +		return status;
-> +	else if (status != 1)
-
-else after return is not needed.
-
-> +		return -EIO;
-> +
-> +	return 0;
-> +}
-> +
-> +static int max127_read_channel(struct i2c_client *client, long *val)
-> +{
-> +	int status;
-> +	u8 i2c_data[MAX127_DATA_LEN];
-> +	struct i2c_msg msg = {
-> +		.addr = client->addr,
-> +		.flags = I2C_M_RD,
-> +		.len = sizeof(i2c_data),
-> +		.buf = i2c_data,
-> +	};
-> +
-> +	status = i2c_transfer(client->adapter, &msg, 1);
-> +	if (status < 0)
-> +		return status;
-> +	else if (status != 1)
-
-else after return is not needed.
-
-> +		return -EIO;
-> +
-> +	*val = (i2c_data[1] >> MAX127_DATA_SHIFT) |
-> +		((u16)i2c_data[0] << MAX127_DATA_SHIFT);
-> +	return 0;
-> +}
-> +
-> +static long max127_process_raw(u8 ctrl_byte, long raw)
-> +{
-> +	long scale, weight;
-> +
-> +	/*
-> +	 * MAX127's data coding is binary in unipolar mode with 1 LSB =
-> +	 * (Full-Scale/4096) and two’s complement binary in bipolar mode
-> +	 * with 1 LSB = [(2 x |FS|)/4096].
-> +	 * Refer to MAX127 datasheet, "Transfer Function" section for
-> +	 * details.
-> +	 */
-> +	scale = (ctrl_byte & MAX127_CTRL_RNG) ? MAX127_FULL_RANGE :
-> +						MAX127_HALF_RANGE;
-> +	if (ctrl_byte & MAX127_CTRL_BIP) {
-> +		weight = (raw & MAX127_SIGN_BIT);
-> +		raw &= ~MAX127_SIGN_BIT;
-> +		raw -= weight;
-> +		raw *= 2;
-> +	}
-> +
-> +	return raw * scale / 4096;
-> +}
-> +
-> +static int max127_read_input(struct max127_data *data, int channel, long *val)
-> +{
-> +	long raw;
-> +	int status;
-> +	struct i2c_client *client = data->client;
-> +	u8 ctrl_byte = data->ctrl_byte[channel];
-> +
-> +	mutex_lock(&data->lock);
-> +
-> +	status = max127_select_channel(client, ctrl_byte);
-> +	if (status)
-> +		goto exit;
-> +
-> +	status = max127_read_channel(client, &raw);
-> +	if (status)
-> +		goto exit;
-> +
-> +	*val = max127_process_raw(ctrl_byte, raw);
-> +
-> +exit:
-> +	mutex_unlock(&data->lock);
-> +	return status;
-> +}
-> +
-> +static int max127_read_min(struct max127_data *data, int channel, long *val)
-> +{
-> +	u8 rng_bip = (data->ctrl_byte[channel] >> 2) & 3;
-> +	static const int min_input_map[4] = {
-> +		0,			/* RNG=0, BIP=0 */
-> +		-MAX127_HALF_RANGE,	/* RNG=0, BIP=1 */
-> +		0,			/* RNG=1, BIP=0 */
-> +		-MAX127_FULL_RANGE,	/* RNG=1, BIP=1 */
-> +	};
-> +
-> +	*val = min_input_map[rng_bip];
-> +	return 0;
-> +}
-> +
-> +static int max127_read_max(struct max127_data *data, int channel, long *val)
-> +{
-> +	u8 rng_bip = (data->ctrl_byte[channel] >> 2) & 3;
-> +	static const int max_input_map[4] = {
-> +		MAX127_HALF_RANGE,	/* RNG=0, BIP=0 */
-> +		MAX127_HALF_RANGE,	/* RNG=0, BIP=1 */
-> +		MAX127_FULL_RANGE,	/* RNG=1, BIP=0 */
-> +		MAX127_FULL_RANGE,	/* RNG=1, BIP=1 */
-> +	};
-> +
-> +	*val = max_input_map[rng_bip];
-> +	return 0;
-> +}
-> +
-> +static int max127_write_min(struct max127_data *data, int channel, long val)
-> +{
-> +	u8 ctrl;
-> +
-> +	ctrl = data->ctrl_byte[channel];
-> +	if (val <= -MAX127_FULL_RANGE) {
-> +		ctrl |= (MAX127_CTRL_RNG | MAX127_CTRL_BIP);
-> +	} else if (val < 0) {
-> +		ctrl |= MAX127_CTRL_BIP;
-> +		ctrl &= ~MAX127_CTRL_RNG;
-> +	} else {
-> +		ctrl &= ~MAX127_CTRL_BIP;
-> +	}
-> +	data->ctrl_byte[channel] = ctrl;
-
-Needs mutex protection to avoid parallel writes (which might mess up
-ctrl_byte[channel]).
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int max127_write_max(struct max127_data *data, int channel, long val)
-> +{
-> +	if (val >= MAX127_FULL_RANGE)
-> +		data->ctrl_byte[channel] |= MAX127_CTRL_RNG;
-> +	else
-> +		data->ctrl_byte[channel] &= ~MAX127_CTRL_RNG;
-> +
-Same here, to avoid interaction with write_min (which might otherwise
-read ctrl and modify it at the same time as this function).
-
-> +	return 0;
-> +}
-> +
-> +static umode_t max127_is_visible(const void *_data,
-> +				 enum hwmon_sensor_types type,
-> +				 u32 attr, int channel)
-> +{
-> +	if (type == hwmon_in) {
-> +		switch (attr) {
-> +		case hwmon_in_input:
-> +			return 0444;
-> +
-> +		case hwmon_in_min:
-> +		case hwmon_in_max:
-> +			return 0644;
-> +
-> +		default:
-> +			break;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int max127_read(struct device *dev, enum hwmon_sensor_types type,
-> +			u32 attr, int channel, long *val)
-> +{
-> +	int status;
-> +	struct max127_data *data = dev_get_drvdata(dev);
-> +
-> +	if (type != hwmon_in)
-> +		return -EOPNOTSUPP;
-> +
-> +	switch (attr) {
-> +	case hwmon_in_input:
-> +		status = max127_read_input(data, channel, val);
-> +		break;
-> +
-> +	case hwmon_in_min:
-> +		status = max127_read_min(data, channel, val);
-> +		break;
-> +
-> +	case hwmon_in_max:
-> +		status = max127_read_max(data, channel, val);
-> +		break;
-> +
-> +	default:
-> +		status = -EOPNOTSUPP;
-> +		break;
-> +	}
-> +
-> +	return status;
-> +}
-> +
-> +static int max127_write(struct device *dev, enum hwmon_sensor_types type,
-> +			u32 attr, int channel, long val)
-> +{
-> +	int status;
-> +	struct max127_data *data = dev_get_drvdata(dev);
-> +
-> +	if (type != hwmon_in)
-> +		return -EOPNOTSUPP;
-> +
-> +	switch (attr) {
-> +	case hwmon_in_min:
-> +		status = max127_write_min(data, channel, val);
-> +		break;
-> +
-> +	case hwmon_in_max:
-> +		status = max127_write_max(data, channel, val);
-> +		break;
-> +
-> +	default:
-> +		status = -EOPNOTSUPP;
-> +		break;
-> +	}
-> +
-> +	return status;
-> +}
-> +
-> +static const struct hwmon_ops max127_hwmon_ops = {
-> +	.is_visible = max127_is_visible,
-> +	.read = max127_read,
-> +	.write = max127_write,
-> +};
-> +
-> +static const struct hwmon_channel_info *max127_info[] = {
-> +	HWMON_CHANNEL_INFO(in,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX,
-> +			   HWMON_I_INPUT | HWMON_I_MIN | HWMON_I_MAX),
-> +	NULL,
-> +};
-> +
-> +static const struct hwmon_chip_info max127_chip_info = {
-> +	.ops = &max127_hwmon_ops,
-> +	.info = max127_info,
-> +};
-> +
-> +static int max127_probe(struct i2c_client *client,
-> +			const struct i2c_device_id *id)
-> +{
-> +	int i;
-> +	struct device *hwmon_dev;
-> +	struct max127_data *data;
-> +	struct device *dev = &client->dev;
-> +
-> +	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-> +	if (!data)
-> +		return -ENOMEM;
-> +
-> +	data->client = client;
-> +	mutex_init(&data->lock);
-> +	for (i = 0; i < ARRAY_SIZE(data->ctrl_byte); i++)
-> +		data->ctrl_byte[i] = (MAX127_CTRL_START |
-> +				      MAX127_SET_CHANNEL(i));
-> +
-> +	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name,
-> +							 data,
-> +							 &max127_chip_info,
-> +							 NULL);
-> +
-> +	return PTR_ERR_OR_ZERO(hwmon_dev);
-> +}
-> +
-> +static const struct i2c_device_id max127_id[] = {
-> +	{ "max127", 0 },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(i2c, max127_id);
-> +
-> +static struct i2c_driver max127_driver = {
-> +	.class		= I2C_CLASS_HWMON,
-> +	.driver = {
-> +		.name	= "max127",
-> +	},
-> +	.probe		= max127_probe,
-> +	.id_table	= max127_id,
-> +};
-> +
-> +module_i2c_driver(max127_driver);
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_AUTHOR("Mike Choi <mikechoi@fb.com>");
-> +MODULE_AUTHOR("Tao Ren <rentao.bupt@gmail.com>");
-> +MODULE_DESCRIPTION("MAX127 Hardware Monitoring driver");
+SGkgQnJhZA0KDQpUaGFua3MgZm9yIHlvdXIgaGVscC4NCg0KDQpCZXN0IHdpc2hlcw0KDQpMdWtl
+IENoZW4NCihPKSA6ICs4ODYtMy01NzUxMTg1DQooTSkgOiArODg2LTkzNS01OTItODkyDQo0Riwg
+Tm8uMSxTZWMuIDMsR29uZ2RhbyA1dGggUm9hZCwgRWFzdCBEaXN0LiwNCkhzaW5jaHUgQ2l0eSwg
+MzAwNjksVGFpd2FuLFIuTy5DLg0KDQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9t
+OiBCcmFkIEJpc2hvcCA8YnJhZGxleWJAZnV6emllc3F1aXJyZWwuY29tPiANClNlbnQ6IFNhdHVy
+ZGF5LCBOb3ZlbWJlciAyMSwgMjAyMCA1OjQ3IEFNDQpUbzogTHVrZSBDaGVuIDxsdWtlX2NoZW5A
+YXNwZWVkdGVjaC5jb20+DQpDYzogbWFuYWdlckBsZnByb2plY3RzLm9yZzsgb3BlbmJtY0BsaXN0
+cy5vemxhYnMub3JnDQpTdWJqZWN0OiBSZTogU2lnbmVkIENMQSBmcm9tIEFTUEVFRA0KDQpPbiBG
+cmksIDIwMjAtMTEtMjAgYXQgMDg6MjEgKzAwMDAsIEx1a2UgQ2hlbiB3cm90ZToNCj4gSGkgQnJh
+ZA0KPiBJIHdvdWxkIGxpa2UgdG8gdXBkYXRlIENDTEEuDQoNCkhpIEx1a2UgLSB1cGRhdGVkIEND
+TEEgaGFzIGJlZW4gZmlsZWQuDQoNCnRoeCAtIGJyYWQNCg==
