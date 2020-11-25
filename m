@@ -2,108 +2,93 @@ Return-Path: <SRS0=kwd7=E7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E808C2D0E4
-	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 01:18:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5EAB1C2D0E4
+	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 01:31:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DDAD420665
-	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 01:18:33 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 531FA206D5
+	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 01:31:50 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="IB7lsNBP"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DDAD420665
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxDho5Lp"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 531FA206D5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cgjh62S5HzDqFt
-	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 12:18:30 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CgjzS0cqVzDqZn
+	for <openbmc@archiver.kernel.org>; Wed, 25 Nov 2020 12:31:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=msbarth@linux.ibm.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::744;
+ helo=mail-qk1-x744.google.com; envelope-from=bjwyman@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+ dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=IB7lsNBP; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=sxDho5Lp; dkim-atps=neutral
+Received: from mail-qk1-x744.google.com (mail-qk1-x744.google.com
+ [IPv6:2607:f8b0:4864:20::744])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CgjfH433JzDqWH
- for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2020 12:16:54 +1100 (AEDT)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0AP1CRPF137490; Tue, 24 Nov 2020 20:16:51 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=OfSm/aYjjLERxibytk8x03BO6++LmDR2iXpOD/Q22+E=;
- b=IB7lsNBPSf4KkWD3Yf7bXRGLJZvESDrLVFT3/y/YBITpWqJG5cJOOExm6DI4GEKODBiv
- z3txDX+uKUeKBgYYcH9oVoKJMMN8Mh47q3nxSuOX7FdxZAaPBGJcJMxS4Z7YBf45NS0n
- d4mpLYCCZVKUglLMYhEkNK/hykDJ2A9CuQFSiA8IVtMd7vkMKF3dWBXQe2up07dPA1VT
- Rj/0WNiuLGvaFY32baLYgvx+RkplYns3ZNl8491FUNyUblNW3rotkBaWfyz+H163tHG3
- 1xyBDI1mPv5zZHqn/MU0cl5LXJqz8KruCPvnuk+G7bsU/+yV8n4i/mvW6iLiuhfaRGJz 9w== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 351ddar2n5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Nov 2020 20:16:51 -0500
-Received: from m0098396.ppops.net (m0098396.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.36/8.16.0.36) with SMTP id 0AP1Cckr138124;
- Tue, 24 Nov 2020 20:16:50 -0500
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com with ESMTP id 351ddar2mq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 24 Nov 2020 20:16:50 -0500
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0AP19jCD018711;
- Wed, 25 Nov 2020 01:16:49 GMT
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by ppma01wdc.us.ibm.com with ESMTP id 34xth93n74-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 25 Nov 2020 01:16:49 +0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0AP1Gcer49086810
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 25 Nov 2020 01:16:38 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E86097805F;
- Wed, 25 Nov 2020 01:16:47 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 776107805C;
- Wed, 25 Nov 2020 01:16:47 +0000 (GMT)
-Received: from MSBARTH-P50.lan (unknown [9.211.40.249])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 25 Nov 2020 01:16:47 +0000 (GMT)
-From: Matthew Barth <msbarth@linux.ibm.com>
-To: bjwyman@gmail.com, eajames@linux.ibm.com, openbmc@lists.ozlabs.org,
- joel@jms.id.au
-Subject: [PATCH linux dev-5.8] ARM: dts: aspeed: rainier: Add gpio-keys-polled
- for fans
-Date: Tue, 24 Nov 2020 19:16:40 -0600
-Message-Id: <20201125011640.2346086-1-msbarth@linux.ibm.com>
-X-Mailer: git-send-email 2.28.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Cgjxq2px6zDqWR
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Nov 2020 12:30:18 +1100 (AEDT)
+Received: by mail-qk1-x744.google.com with SMTP id q22so1596376qkq.6
+ for <openbmc@lists.ozlabs.org>; Tue, 24 Nov 2020 17:30:18 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=subject:to:references:from:message-id:date:user-agent:mime-version
+ :in-reply-to:content-transfer-encoding:content-language;
+ bh=mqCgPJhFcU3RCQh2YBCYKNOFFV+XSZP1KATpOOoq5aI=;
+ b=sxDho5LpQDyTzLOM+wseh89L3TVY9lJ3nSopGQ011kp8Px0nbmqFuJbXPADvefNMYQ
+ GNQMpYfqNv/8O6n/sj5nDS21n6ONogOg8xq91fZ7vZQIjWBO93t6pyadBlCcHgZytlvz
+ Ch0oTs/sRstsWFvvhtcDq8xVfBgNVW+/hJ10YotLpLZaZ9ddc84K6NfZC8P7s2flChgK
+ /o2XcJKvDnrT4+W1cjitDgyG4QDi/jwEYf5kkn/rCRvGhdj49Ml7NvLfThcpooRaq5ZT
+ YvQMFJxVspp3jxb96slWt3fybn4YWvhTBEy6v6wDArjYnhFm+mRugWZn2D1sUL7P7B/f
+ Ys0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:subject:to:references:from:message-id:date
+ :user-agent:mime-version:in-reply-to:content-transfer-encoding
+ :content-language;
+ bh=mqCgPJhFcU3RCQh2YBCYKNOFFV+XSZP1KATpOOoq5aI=;
+ b=ajdHun9anWqhrSzQsAfW+ZW0VFwJOU9xkkrOzuZPGYs74ycLb0tvcLBGnIX0GJsqtz
+ j9xyhn28XyPh1TQx7JpSJTgPZ6QIity1rih7T9F0PPWkFiLyF4/tr+eCiFS8NNMwkSAN
+ Wa+bavv0MOTP+TIwPZPtRGj6Tr6xA2zyJbbfOX683b9rY6h6ak13buAwsBlFcCA+els2
+ JkUjIYJ+oXgsXmHrGeQNTClxxIBCjkgUm+wz4cULn5OQKTm/pe0OzXidMVzdnCi6xPPM
+ U2qxMT50BwlgrHITczATrljWsXCF77BOiWvi1cBSVZgNSZLKnzqwwf1KFHicLk1kfBKZ
+ 8cDg==
+X-Gm-Message-State: AOAM5310njVAXRx1vtuExs9/Go7//hq6QaKedXnN0UjkKyDM4ovjDkpj
+ 7836/NATrwyD4HpYNip9HOOzVBzwRD2cAg==
+X-Google-Smtp-Source: ABdhPJy7rMOimB9S3Bj52fV8SRDSNGIx1l9efz6/dZqcRd8DWpq2c3vKKgH5As8egZpPMb4lB7aYcw==
+X-Received: by 2002:a05:620a:15db:: with SMTP id
+ o27mr1127866qkm.21.1606267814661; 
+ Tue, 24 Nov 2020 17:30:14 -0800 (PST)
+Received: from [192.168.4.31] (199-48-94-80.rochmnaa.metronetinc.net.
+ [199.48.94.80])
+ by smtp.gmail.com with ESMTPSA id t63sm968763qka.128.2020.11.24.17.30.13
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 24 Nov 2020 17:30:13 -0800 (PST)
+Subject: Re: [PATCH linux dev-5.8] ARM: dts: aspeed: rainier: Add
+ gpio-keys-polled for fans
+To: Matthew Barth <msbarth@linux.ibm.com>, eajames@linux.ibm.com,
+ openbmc@lists.ozlabs.org, joel@jms.id.au
+References: <20201125011640.2346086-1-msbarth@linux.ibm.com>
+From: Brandon Wyman <bjwyman@gmail.com>
+Message-ID: <84bbd720-610c-2e29-fe53-6490708b9d6c@gmail.com>
+Date: Tue, 24 Nov 2020 19:30:12 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-11-24_11:2020-11-24,
- 2020-11-24 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- mlxlogscore=999 suspectscore=0 lowpriorityscore=0 impostorscore=0
- clxscore=1015 mlxscore=0 spamscore=0 malwarescore=0 bulkscore=0
- adultscore=0 phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2011250003
+In-Reply-To: <20201125011640.2346086-1-msbarth@linux.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 7bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,68 +104,67 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add a gpio-keys-polled section for the fan presence signals from the
-PCA9552 on i2c bus 7.
 
-Signed-off-by: Matthew Barth <msbarth@linux.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 43 ++++++++++++++++++++
- 1 file changed, 43 insertions(+)
-
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 4692c5e8f919..e83355b8e13a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -96,6 +96,49 @@ ps3-presence {
- 		};
- 	};
- 
-+	gpio-keys-polled {
-+		compatible = "gpio-keys-polled";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		poll-interval = <1000>;
-+
-+		fan0-presence {
-+			label = "fan0-presence";
-+			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
-+			linux,code = <6>;
-+		};
-+
-+		fan1-presence {
-+			label = "fan1-presence";
-+			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
-+			linux,code = <7>;
-+		};
-+
-+		fan2-presence {
-+			label = "fan2-presence";
-+			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
-+			linux,code = <8>;
-+		};
-+
-+		fan3-presence {
-+			label = "fan3-presence";
-+			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
-+			linux,code = <9>;
-+		};
-+
-+		fan4-presence {
-+			label = "fan4-presence";
-+			gpios = <&pca0 10 GPIO_ACTIVE_LOW>;
-+			linux,code = <10>;
-+		};
-+
-+		fan5-presence {
-+			label = "fan5-presence";
-+			gpios = <&pca0 11 GPIO_ACTIVE_LOW>;
-+			linux,code = <11>;
-+		};
-+	};
-+
- 	i2c2mux: i2cmux {
- 		compatible = "i2c-mux-gpio";
- 		#address-cells = <1>;
--- 
-2.28.0
-
+On 2020-11-24 19:16, Matthew Barth wrote:
+> Add a gpio-keys-polled section for the fan presence signals from the
+> PCA9552 on i2c bus 7.
+Reviewed-by: Brandon Wyman <bjwyman@gmail.com>
+> Signed-off-by: Matthew Barth <msbarth@linux.ibm.com>
+> ---
+>   arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 43 ++++++++++++++++++++
+>   1 file changed, 43 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+> index 4692c5e8f919..e83355b8e13a 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+> @@ -96,6 +96,49 @@ ps3-presence {
+>   		};
+>   	};
+>   
+> +	gpio-keys-polled {
+> +		compatible = "gpio-keys-polled";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		poll-interval = <1000>;
+> +
+> +		fan0-presence {
+> +			label = "fan0-presence";
+> +			gpios = <&pca0 6 GPIO_ACTIVE_LOW>;
+> +			linux,code = <6>;
+> +		};
+> +
+> +		fan1-presence {
+> +			label = "fan1-presence";
+> +			gpios = <&pca0 7 GPIO_ACTIVE_LOW>;
+> +			linux,code = <7>;
+> +		};
+> +
+> +		fan2-presence {
+> +			label = "fan2-presence";
+> +			gpios = <&pca0 8 GPIO_ACTIVE_LOW>;
+> +			linux,code = <8>;
+> +		};
+> +
+> +		fan3-presence {
+> +			label = "fan3-presence";
+> +			gpios = <&pca0 9 GPIO_ACTIVE_LOW>;
+> +			linux,code = <9>;
+> +		};
+> +
+> +		fan4-presence {
+> +			label = "fan4-presence";
+> +			gpios = <&pca0 10 GPIO_ACTIVE_LOW>;
+> +			linux,code = <10>;
+> +		};
+> +
+> +		fan5-presence {
+> +			label = "fan5-presence";
+> +			gpios = <&pca0 11 GPIO_ACTIVE_LOW>;
+> +			linux,code = <11>;
+> +		};
+> +	};
+> +
+>   	i2c2mux: i2cmux {
+>   		compatible = "i2c-mux-gpio";
+>   		#address-cells = <1>;
