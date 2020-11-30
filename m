@@ -2,96 +2,84 @@ Return-Path: <SRS0=0lyD=FF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-2.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83D64C71155
-	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 23:09:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BF6CBC64E90
+	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 23:46:22 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79123221FF
-	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 23:09:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79123221FF
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id A223B20644
+	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 23:46:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A223B20644
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=9elements.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4ClyTm2tSvzDqj1
-	for <openbmc@archiver.kernel.org>; Wed,  2 Dec 2020 10:09:16 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ClzJV6MRwzDqtV
+	for <openbmc@archiver.kernel.org>; Wed,  2 Dec 2020 10:46:18 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=9elements.com (client-ip=2a00:1450:4864:20::42b;
+ helo=mail-wr1-x42b.google.com; envelope-from=philipp.deppenwiese@9elements.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
- (client-ip=148.163.158.5; helo=mx0a-001b2d01.pphosted.com;
- envelope-from=bruce.mitchell@ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=ibm.com
+ dmarc=pass (p=none dis=none) header.from=9elements.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=D3WQjwmX; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=9elements.com header.i=@9elements.com
+ header.a=rsa-sha256 header.s=google header.b=gQQ9MHuS; 
+ dkim-atps=neutral
+Received: from mail-wr1-x42b.google.com (mail-wr1-x42b.google.com
+ [IPv6:2a00:1450:4864:20::42b])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4ClySF32Q8zDqSl
- for <openbmc@lists.ozlabs.org>; Wed,  2 Dec 2020 10:07:50 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0B1N40fx065508
- for <openbmc@lists.ozlabs.org>; Tue, 1 Dec 2020 18:07:47 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=mime-version : subject :
- to : from : date : content-type : message-id; s=pp1;
- bh=hDmkYFJ86+hi6+cN7ikq2E8uTwF6Jt8ftQpsHPkjybc=;
- b=D3WQjwmXaD3rpqhx7VTxdyNiUCJy0DaRGMY5Igx8er/2r9DGSlUBBy79LZ2iwZ5/IX7y
- glFvyCj0WqESefnYkY5J+FNLX/CAMxEL7yG9IN7BM6W9ufqOP89AJq6aPQujZpriL2FR
- aJREcbN6QZHc7jmYcHPCGT7B6X+U2Pmll4575kb1tYsXUOU4GyVkDzCr66aSst1zlhYg
- tP8npbLSsRdlY1C3Vm1fVy0jyWdAQeayjuiZndCMux8chBWw/1c7GW2sz3we0/2aRVVi
- 9mCCObbxDqA5JXwpmhDrhu55dmu47bLWfMxgq7oc3YF2SKKX3eRhMbx1/86S1Xr09TDy Kg== 
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.91])
- by mx0b-001b2d01.pphosted.com with ESMTP id 355jwvf2rg-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 01 Dec 2020 18:07:47 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <Bruce.Mitchell@ibm.com>;
- Tue, 1 Dec 2020 23:07:46 -0000
-Received: from us1a3-smtp03.a3.dal06.isc4sb.com (10.106.154.98)
- by smtp.notes.na.collabserv.com (10.106.227.143) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 1 Dec 2020 23:07:45 -0000
-Received: from us1a3-mail31.a3.dal06.isc4sb.com ([10.146.6.26])
- by us1a3-smtp03.a3.dal06.isc4sb.com
- with ESMTP id 2020120123074516-829401 ;
- Tue, 1 Dec 2020 23:07:45 +0000 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4ClDQ84mZMzDqXW
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2020 05:33:31 +1100 (AEDT)
+Received: by mail-wr1-x42b.google.com with SMTP id u12so17565772wrt.0
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Nov 2020 10:33:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=9elements.com; s=google;
+ h=date:from:to:message-id:subject:mime-version;
+ bh=VBZap1G0nxsDxswNTzDxcqeAv2SDALuMiB8zIA9V6vo=;
+ b=gQQ9MHuSVhWPrmGyjwEtlWRHyeXAxs1+3qnkicdmiutlSlunnVVenpgM0l+l7b3SAw
+ L/kCPFCrz1xwDsTjar4Q3XS1ZDJOIfnnx47t1ZG1cbkaJBjJxm8FNVrtLr/ktg32eqRr
+ IkijaWGh05RBJGcHhj6DG2h3NvJEu9UVNw1ywB88qnIdn9p5QDQSfz60ckvRxtLYUL6u
+ +ja44jcVvRtx/WIG5L52ZemE/JE3T7kfCUP54Vx4ucjSqxQztFQB8YRpWFNsSfjV6f9U
+ JrWbyttvBnXI+L8SjnVS3wr6XXwbEX/AjQ0uV7x/cfHJS7j8H+t/UKa3M2iniKvzCn4s
+ RlJg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:message-id:subject:mime-version;
+ bh=VBZap1G0nxsDxswNTzDxcqeAv2SDALuMiB8zIA9V6vo=;
+ b=hSNnSndT0QAc1G5J/v9sw/NXRRR4+ZV0KtMjux+E6H+7qP1x8olkjivftoaik7Xgr6
+ hXhUG3S1+BYJDDBQHbGIxWHv37Ut2susa9dQJIqrXgWLObzHf1wOTC7g77s9rFrPAr9u
+ wPGMOafMn00G8iCsAuBfeHomQNdyYFKbn3UKeWGD7qb4U7vyIhhMz80N1tTqiQu41U11
+ q67eXX2NjfWurbDTJWuLNluiaemJe0usTFh1Gslid267C29fRG3s4+DU4WpeExVm+viQ
+ ZcEDMipa3w5vh83sdlXQyq2SvdwqaQc+GRBqJaGDOmtNG30WBohlBNAJTVka6jUca1Hp
+ pZBw==
+X-Gm-Message-State: AOAM530ytwdXHtT/vblH2BzNKuOMoCtkq5IuwDoV4bK8zQlrhA3eUa9z
+ hHelIoywPpS/tzUgCC1IybRaNg==
+X-Google-Smtp-Source: ABdhPJwQZUYrgvWrmQeoFvdcDstYYkwSPNnPtblvILBBRZKrIrn/cnjvbji7K061xnR0+hDbS21APg==
+X-Received: by 2002:adf:e541:: with SMTP id z1mr30849063wrm.389.1606761205383; 
+ Mon, 30 Nov 2020 10:33:25 -0800 (PST)
+Received: from Haruhi (b2b-78-94-0-50.unitymedia.biz. [78.94.0.50])
+ by smtp.gmail.com with ESMTPSA id a65sm185750wmc.35.2020.11.30.10.33.23
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 30 Nov 2020 10:33:24 -0800 (PST)
+Date: Mon, 30 Nov 2020 19:33:23 +0100
+From: Philipp Deppenwiese <philipp.deppenwiese@9elements.com>
+To: "=?utf-8?Q?coreboot=40coreboot.org?=" <coreboot@coreboot.org>, 
+ "=?utf-8?Q?flashrom=40flashrom.org?=" <flashrom@flashrom.org>, 
+ "=?utf-8?Q?seabios=40seabios.org?=" <seabios@seabios.org>, 
+ "=?utf-8?Q?openbmc=40lists.ozlabs.org?=" <openbmc@lists.ozlabs.org>
+Message-ID: <7EE9AFFB-E060-4A95-A5E7-1FD561B2EB45@getmailspring.com>
+Subject: Upcoming virtual OSFC 2020
+X-Mailer: Mailspring
 MIME-Version: 1.0
-Subject: Seeking advice on building and using kdump with OpenBMC.
-To: openbmc@lists.ozlabs.org
-From: "Bruce Mitchell" <Bruce.Mitchell@ibm.com>
-Date: Tue, 1 Dec 2020 15:07:45 -0800
-X-KeepSent: D6833344:166C4341-00258631:007EBD09;
- type=4; name=$KeepSent
-X-Mailer: IBM Notes Release 10.0.1FP5 April 28, 2020
-X-LLNOutbound: False
-X-Disclaimed: 53971
-X-TNEFEvaluated: 1
-Content-type: multipart/alternative; 
- Boundary="0__=8FBB0CA2DFED3B998f9e8a93df938690918c8FBB0CA2DFED3B99"
-Content-Disposition: inline
-x-cbid: 20120123-2475-0000-0000-000004A5D4B6
-X-IBM-SpamModules-Scores: BY=0.000005; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0;
- SC=0.423878; ST=0; TS=0; UL=0; ISC=; MB=0.000004
-X-IBM-SpamModules-Versions: BY=3.00014293; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000295; SDB=6.01471966; UDB=6.00792728; IPR=6.01254613; 
- MB=3.00035308; MTD=3.00000008; XFM=3.00000015; UTC=2020-12-01 23:07:46
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2020-12-01 17:54:34 - 6.00012103
-x-cbparentid: 20120123-2476-0000-0000-0000DB36E1DD
-Message-Id: <OFD6833344.166C4341-ON00258631.007EBD09-88258631.007F0D6B@notes.na.collabserv.com>
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
- definitions=2020-12-01_12:2020-11-30,
- 2020-12-01 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
+Content-Type: multipart/alternative; boundary="5fc53af3_716e4fa6_59a10"
+X-Mailman-Approved-At: Wed, 02 Dec 2020 10:45:01 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,37 +95,29 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
---0__=8FBB0CA2DFED3B998f9e8a93df938690918c8FBB0CA2DFED3B99
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/plain; charset=US-ASCII
-
-
-Seeking advice on building and using kdump with OpenBMC.
-Are there any Best Known Methods?
-Any troubles and/or issues to lookout for?
-What should I avoid?
-
-Are there any security concerns?
-
-Thank you!
-
---
-Bruce
-
---0__=8FBB0CA2DFED3B998f9e8a93df938690918c8FBB0CA2DFED3B99
-Content-Transfer-Encoding: quoted-printable
-Content-type: text/html; charset=US-ASCII
+--5fc53af3_716e4fa6_59a10
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
 
-<html><body><p><font size=3D"2">Seeking advice on building and using kdump =
-with OpenBMC.</font><br><font size=3D"2">Are there any Best Known Methods?<=
-/font><br><font size=3D"2">Any troubles and/or issues to lookout for?</font=
-><br><font size=3D"2">What should I avoid?</font><br><br><font size=3D"2">A=
-re there any security concerns?</font><br><br><font size=3D"2">Thank you!</=
-font><br><br><font size=3D"2">-- </font><br><font size=3D"2">Bruce</font><B=
-R>
-</body></html>
+Hello people,
 
---0__=8FBB0CA2DFED3B998f9e8a93df938690918c8FBB0CA2DFED3B99--
+This is a last reminder on the upcoming OSFC 2020 (www.osfc.io) which will start tomorrow noon CET.
+If you are interested in attending the conference, please get your tickets via https://hopin.com/events/osfc-2020
+
+Best regards,
+Philipp
+
+--5fc53af3_716e4fa6_59a10
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+
+<div>Hello people,</div><br><div>This is a last reminder on the upcoming =
+OS=46C 2020 (www.osfc.io) which will start tomorrow noon CET.</div><div><=
+div>If you are interested in attending the conference, please get your ti=
+ckets via <a href=3D=22https://hopin.com/events/osfc-2020=22 title=3D=22h=
+ttps://hopin.com/events/osfc-2020=22>https://hopin.com/events/osfc-2020</=
+a></div></div><br><div>Best regards,</div><div>Philipp</div>
+--5fc53af3_716e4fa6_59a10--
 
