@@ -2,90 +2,89 @@ Return-Path: <SRS0=wYns=FE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.1 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88512C64E7B
-	for <openbmc@archiver.kernel.org>; Mon, 30 Nov 2020 16:32:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FDFCC64E7B
+	for <openbmc@archiver.kernel.org>; Mon, 30 Nov 2020 17:38:48 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96263206F9
-	for <openbmc@archiver.kernel.org>; Mon, 30 Nov 2020 16:32:22 +0000 (UTC)
+	by mail.kernel.org (Postfix) with ESMTPS id 7885A2074A
+	for <openbmc@archiver.kernel.org>; Mon, 30 Nov 2020 17:38:47 +0000 (UTC)
 Authentication-Results: mail.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rq94cuor"
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96263206F9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MzghW6sq"
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7885A2074A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cl9kD1qrWzDqGM
-	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 03:32:20 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4ClCBq63dBzDqTT
+	for <openbmc@archiver.kernel.org>; Tue,  1 Dec 2020 04:38:43 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::22a;
- helo=mail-oi1-x22a.google.com; envelope-from=kurt.r.taylor@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::330;
+ helo=mail-ot1-x330.google.com; envelope-from=geissonator@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=Rq94cuor; dkim-atps=neutral
-Received: from mail-oi1-x22a.google.com (mail-oi1-x22a.google.com
- [IPv6:2607:f8b0:4864:20::22a])
+ header.s=20161025 header.b=MzghW6sq; dkim-atps=neutral
+Received: from mail-ot1-x330.google.com (mail-ot1-x330.google.com
+ [IPv6:2607:f8b0:4864:20::330])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Cl9hL1QLRzDqVQ
- for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2020 03:30:41 +1100 (AEDT)
-Received: by mail-oi1-x22a.google.com with SMTP id v202so14744064oia.9
- for <openbmc@lists.ozlabs.org>; Mon, 30 Nov 2020 08:30:41 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4ClC8r6fQ9zDqLZ
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Dec 2020 04:37:00 +1100 (AEDT)
+Received: by mail-ot1-x330.google.com with SMTP id f12so12057906oto.10
+ for <openbmc@lists.ozlabs.org>; Mon, 30 Nov 2020 09:37:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:cc:references:from:message-id:date:user-agent
- :mime-version:in-reply-to:content-language:content-transfer-encoding;
- bh=C4DEdLR1/hLtWib4sNUvH2fiz6UvoWxSHwU1Wrj0evk=;
- b=Rq94cuorlf7Mm9CtNJPj4mDE7sfoGulJ/msNsFwK3WdJiDvY6l8uk5FHRb/wbSxlt4
- FfYTbYrJQGLjyCAhQOUbxLXgLTbFIF/m0iu4Sxp2iBxM+pq1eQg97/CDaO6Uudgsaoov
- Fu9Hu/HrprhlQ3YskyEqNTWTTO6Y3t03w554GdtMUcUpPB39S5cSf3Cn7KymgOP7SQYy
- 3R34l6HB9ZkXII+C0qsD8omdUXPmfWUIttO/4wJDMR1DmDabKNjO+rOgjPjK0unWyMan
- E+Keov8Y1gxAyfTCtAflXJKLX5dtiLCuIPSiIsNKgDd/mnNve73PlDStXpZUwQnJ9mZA
- Fx/Q==
+ h=mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=oxayugG0s9Js++fZAaMkx89PwSdfudEwKHuG3IILSaU=;
+ b=MzghW6sqoqqurWJ8/W9tStL7KfY5HLDjaYk+12GPp94WWjcZjp+dXHw6q6WqK4CAiD
+ 75NlkVqY1R8YgGjg9KU1sMHLmRdvTL35PoFGAaCJinq1Bgwf6VWODAaqzHQ/flVOg9fs
+ vUXs4kAr7JC4+HnoCbB0a9PRe8zLqAjQsUHbUwv23JbrWuGB1qq+csbqb6RYyAunvvFB
+ W6U/q9Txk7oEFqr0PpmfwINO8rntg/bvINHJILwgDELQXfpKt72evW9DpKn+JRSWrpur
+ sjD3tArYcuf05RiiUACshFMs/QGku3mj2FpLoOILrbI8rtNBA7KHl9DEVk7w8XsMNwXj
+ 6UiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:cc:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=C4DEdLR1/hLtWib4sNUvH2fiz6UvoWxSHwU1Wrj0evk=;
- b=F4ocLIyBFgosuGcepI70MN5WHa8Odc3T5hPv1zy8BeRQrWogJTDRoe4v/SbgN/vV05
- t+XTBh/B+xnhrMm1qz0U7QyfLH+8AviunrZ2Y93HiJvXkjpy13xLsfFrjiftxBGJaSSf
- RZ4V2gTxIPwHHV1NnQ7BDa/80nWU823c9Xp5VYbjKyKc4LEc7KX+nyae35lhQHRPpFEN
- XveZ2rMcEtkLohn9/eooRO48NwQYEpOBOdhmeaSYr0AoL+SVB+jBl09JFwK3TfyZaTYk
- JKXot6dvqf2qMCcegBQJPFkM8Hiky7vok3Cq32Li/Mc+JVGP2JZGIHjMtCDjvTvoKIYL
- t2yw==
-X-Gm-Message-State: AOAM532rwEVWiD1HB2Aydc+cD5S0jqUDIBKzF1Li1qECfBYRs0prrf56
- cnxy+TSLV+u/swCygAwt6TA=
-X-Google-Smtp-Source: ABdhPJwVJrvYRS4QNUGkZShFwfRQXEjfTjQiTnlk4ZMv2um5QMKFV+eMMFvgX7QkyeiQDzdjefYDsA==
-X-Received: by 2002:aca:d60b:: with SMTP id n11mr15506901oig.110.1606753837593; 
- Mon, 30 Nov 2020 08:30:37 -0800 (PST)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id t25sm8951804otj.13.2020.11.30.08.30.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 30 Nov 2020 08:30:36 -0800 (PST)
-Subject: Re: Inspur's CCLA Schedule A update 2020-11-27
-To: =?UTF-8?B?5YiYIOmUoeS8nw==?= <liuxiwei1013@outlook.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-References: <SYBPR01MB522681DC2F59BD6A5C79B013C5F80@SYBPR01MB5226.ausprd01.prod.outlook.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <23fe6020-b93b-0c1d-636d-9eb810b5f4bd@gmail.com>
-Date: Mon, 30 Nov 2020 10:27:17 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:78.0)
- Gecko/20100101 Thunderbird/78.4.3
-MIME-Version: 1.0
-In-Reply-To: <SYBPR01MB522681DC2F59BD6A5C79B013C5F80@SYBPR01MB5226.ausprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 8bit
+ h=x-gm-message-state:mime-version:subject:from:in-reply-to:date:cc
+ :content-transfer-encoding:message-id:references:to;
+ bh=oxayugG0s9Js++fZAaMkx89PwSdfudEwKHuG3IILSaU=;
+ b=rytpXl4bFjrt2yV/neVfr9AGy+fr4hP0Q8cdNFBtBlVQAd8hDL9h8wtaRpujhDjthl
+ Gbo7QtUderqg0UYE7hOaH7r3l4Zr1XdnKNPfvSrmMxNvopoTnd4pauNKT3gsy8Baaork
+ 0IXxkchQp/rypK1FVGTzkcxsgTNz2uIkW7c71vR3ajHDz+6L09TEzgRGP294WXPbcn0l
+ EnpnFZtR1ZagiykHS6jmkVJNqZJel2t+I09zmnZGzMoMq2XKuYqhc/EV6VshbY0Zbtrx
+ DtrRLEMpmkgC5Kjl2ENorXl49v4XxJ32iz5/UdFsI2xvZhEqN/zGk79T7O+Jfky2TRbh
+ 7DAA==
+X-Gm-Message-State: AOAM533DAxSJcjEA1+1BcdXTgKvgx6ie12vrmVS4y+hdR4gt5WquMMAn
+ 3My3g8fexvho7vyBbsiOXj4=
+X-Google-Smtp-Source: ABdhPJx4IheZh62+oaYNfG0KYqxZ8uTRmPACkdbzYmVzPYVqGZ9mm7aWDMWf2r4YNRv5TP9DZVtpkg==
+X-Received: by 2002:a9d:62cb:: with SMTP id z11mr17619553otk.191.1606757817470; 
+ Mon, 30 Nov 2020 09:36:57 -0800 (PST)
+Received: from andrews-mbp-2.attlocal.net
+ ([2600:1700:19e0:3310:9c47:6075:1073:650a])
+ by smtp.gmail.com with ESMTPSA id e5sm9002784otl.75.2020.11.30.09.36.56
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Mon, 30 Nov 2020 09:36:56 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 13.4 \(3608.120.23.2.4\))
+Subject: Re: ipmi command implementation mismatch with the design document
+From: Andrew Geissler <geissonator@gmail.com>
+In-Reply-To: <20201124190606.GA45289@mauery.jf.intel.com>
+Date: Mon, 30 Nov 2020 11:36:56 -0600
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <73E4FC5B-45F9-436F-B6A5-D01BEB44A8B7@gmail.com>
+References: <BL0PR01MB515650923510989237151B70FFFC0@BL0PR01MB5156.prod.exchangelabs.com>
+ <20201124190606.GA45289@mauery.jf.intel.com>
+To: Vernon Mauery <vernon.mauery@linux.intel.com>
+X-Mailer: Apple Mail (2.3608.120.23.2.4)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,26 +96,59 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: =?UTF-8?B?QmVuZGVyIEJhbijnj63ljY7loIIp?= <banht@inspur.com>,
- =?UTF-8?B?TG9ubnkgV2FuZyjnjovlhbTpmoYp?= <wangxinglong@inspur.com>
+Cc: Tung Nguyen OS <tungnguyen@os.amperecomputing.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 11/27/20 1:52 AM, 刘 锡伟 wrote:
-> Hi,
-> 
-> Please find the updated Schedule A of CCLA from Inpusr,
-> 
-> Please help review.
 
-Done, thanks for keeping it up to date.
 
-Kurt Taylor (krtaylor)
+> On Nov 24, 2020, at 1:06 PM, Vernon Mauery =
+<vernon.mauery@linux.intel.com> wrote:
+>=20
+> On 23-Nov-2020 06:39 AM, Tung Nguyen OS wrote:
+>>=20
+>> Although the indicate_no_softoff_needed() can prevent the host from =
+soft off, but it seems like a mismatch b/w the design document and the =
+IPMI implementation.
+>>=20
+>> So, my question: is it reasonable for IPMI command ?
+>=20
+> This code has been in place for quite some time now, so I am not sure =
+if the original authors have the context at this point in time. But =
+nobody else has raised this question. git blame says that Andrew =
+Geissler added this feature, but we would have to see if he still knows =
+why.=20
+> commit a6e3a3080d532536e02e304c819c1e17214e038a
+> Author: Andrew Geissler <andrewg@us.ibm.com>
+> Date:   Wed May 31 19:34:00 2017 -0500
+>=20
+>   Create file to indicate host requested off/reboot
+>=20
+>   Create a file to ensure the soft power off service is
+>   not run when the host is requesting a power off
+>   or reboot.  There's no need to notify the host (i.e.
+>   soft power off) when they are initiating it.
+>=20
+>   Change-Id: Ic9f8e7110d30f477ceae38bba9d684559d9503d3
+>   Signed-off-by: Andrew Geissler <andrewg@us.ibm.com>
+>=20
 
-> 
-> Thanks.
-> 
-> George
-> 
+I=E2=80=99m wondering if this ties into the discussion in =
+https://github.com/openbmc/phosphor-host-ipmid/issues/158?
+
+Are you having the same issue Tung? May be time to just put up a commit
+that does this correctly and discuss via gerrit.
+
+>=20
+> --Vernon
+>=20
+>> Reference:
+>> =
+https://github.com/openbmc/docs/blob/master/designs/state-management-and-e=
+xternal-interfaces.md
+>>=20
+>> Best regards,
+>> Tung
 
