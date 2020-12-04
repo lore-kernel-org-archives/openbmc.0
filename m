@@ -2,96 +2,106 @@ Return-Path: <SRS0=OpeN=FI=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9008DC2D0E4
-	for <openbmc@archiver.kernel.org>; Fri,  4 Dec 2020 10:03:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E23DC433FE
+	for <openbmc@archiver.kernel.org>; Fri,  4 Dec 2020 17:30:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E01FD22955
-	for <openbmc@archiver.kernel.org>; Fri,  4 Dec 2020 10:03:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E01FD22955
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=phoenix.com
+	by mail.kernel.org (Postfix) with ESMTPS id AA5FA22AAB
+	for <openbmc@archiver.kernel.org>; Fri,  4 Dec 2020 17:30:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA5FA22AAB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4CnSvn3smRzDr4q
-	for <openbmc@archiver.kernel.org>; Fri,  4 Dec 2020 21:03:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CnfqQ0lSvzDrcV
+	for <openbmc@archiver.kernel.org>; Sat,  5 Dec 2020 04:30:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=phoenix.com (client-ip=63.128.21.170;
- helo=us-smtp-delivery-170.mimecast.com;
- envelope-from=venkata_chandrappa@phoenix.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=phoenix.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
- header.s=mimecast20170203 header.b=KYWswytE; 
- dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com
- header.a=rsa-sha256 header.s=mimecast20170203 header.b=FRsimo7P; 
- dkim-atps=neutral
-Received: from us-smtp-delivery-170.mimecast.com
- (us-smtp-delivery-170.mimecast.com [63.128.21.170])
+ dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=TcLlQ2Ix; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CnSsM46ndzDrPP
- for <openbmc@lists.ozlabs.org>; Fri,  4 Dec 2020 21:01:24 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1607076078;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uVbA4ROwsu/v1Fdfzpx7PR8y4EU9h1+7a6EIxI3oPSE=;
- b=KYWswytEbov1PVgSA7zfK6PPH8gVhlUP6ayyDeI6ic9dkIizywekHVyUBOin628EzgV+8E
- SPTztr9s+XvPjjGGSqnB7297SAdSWd2orHUreu76eDvotTv0rtW+BJuMmhpeKVPMiVJK//
- /Eq0/5bfjAx/AG/PwR+Sf/ErD0BU/BI=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1607076079;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=uVbA4ROwsu/v1Fdfzpx7PR8y4EU9h1+7a6EIxI3oPSE=;
- b=FRsimo7PqmS+gjB2YWA/R+511/Uvlg5xxNCDZ1H01keE72AK48v0sDIw/cMf6+5Eq88BSr
- FpH8eoCRvIBioakr11rzHNTt87x0bvuH4csySphCxAUTvjIOJfRCI4LGFd45FxOwFCgjhn
- mfyjH4UTRv+hJM2LLH+zL8BM/0S2pBc=
-Received: from TWN-EXCHMB-13.phoenix.com (123.51.168.5 [123.51.168.5])
- (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-296-L7xrS1p7O_irMbvmseRDeQ-1; Fri, 04 Dec 2020 05:01:15 -0500
-X-MC-Unique: L7xrS1p7O_irMbvmseRDeQ-1
-X-CrossPremisesHeadersFilteredBySendConnector: TWN-EXCHMB-13.phoenix.com
-Received: from TWN-EXCHMB-13.phoenix.com
- (2607:f0dc:5001:ff01:3897:a901:3564:6014) by TWN-EXCHMB-13.phoenix.com
- (2607:f0dc:5001:ff01:3897:a901:3564:6014) with Microsoft SMTP Server (TLS) id
- 15.0.1156.6; Fri, 4 Dec 2020 18:01:10 +0800
-Received: from TWN-EXCHMB-13.phoenix.com ([fe80::3897:a901:3564:6014]) by
- TWN-EXCHMB-13.phoenix.com ([fe80::3897:a901:3564:6014%12]) with mapi id
- 15.00.1156.000; Fri, 4 Dec 2020 18:01:10 +0800
-From: Venkata Chandrappa <Venkata_Chandrappa@phoenix.com>
-To: Derick Montague <Derick.Montague@ibm.com>
-Subject: RE: LDAP group privilege mapping does not exist
-Thread-Topic: LDAP group privilege mapping does not exist
-Thread-Index: AdbJh0jl6iWlKGvjRia6TgDbkOc06///+heA//7CUhA=
-Date: Fri, 4 Dec 2020 10:01:09 +0000
-Message-ID: <30a0cdd8272d469b8207a2d4b41354db@TWN-EXCHMB-13.phoenix.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CnfnM1wBmzDqnc
+ for <openbmc@lists.ozlabs.org>; Sat,  5 Dec 2020 04:28:38 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 0B4H3vJu027126; Fri, 4 Dec 2020 12:28:35 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=DWFXGz7GRsi9eWkNWp0vBQhwvK2yKFChF3wDQ3HeWqE=;
+ b=TcLlQ2IxWOTusaYzVoUqjqexd0SvslOajwl/TYrTly+zIq0C/9TvddRtuzztG8Gs7jAx
+ PwxPzJlFS2l++Ap3/o4Yi3Jmyl23oFljzn/3KWM7yAYYgsi6Ufpxika24skW1v4aWH78
+ 0M9b/ar7IzCIEtCnyusgLlIlubyryk1N12aKp3mKGmVP7/3B8ZGnKy/TKIlFfMhPfcT/
+ uTPcT9GZM6j0ufOSz9+CEOfpW34U1awi9lw4XPyYAHpOuH9s384EUrhtJI191/1Z6l7k
+ GMzf7kC7ekXCFoeC4zXpQ0APyuAm+c3M7DOiwEGPNvkE89MOjazvCEmQ65vGteIMuwJE RA== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 357ps7d2m9-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Dec 2020 12:28:35 -0500
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0B4HRbUM025032;
+ Fri, 4 Dec 2020 17:28:34 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma02dal.us.ibm.com with ESMTP id 3569xuyjp1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 04 Dec 2020 17:28:34 +0000
+Received: from b03ledav005.gho.boulder.ibm.com
+ (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 0B4HSWUo63111638
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 4 Dec 2020 17:28:32 GMT
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CC314BE04F;
+ Fri,  4 Dec 2020 17:28:32 +0000 (GMT)
+Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 432DFBE051;
+ Fri,  4 Dec 2020 17:28:32 +0000 (GMT)
+Received: from demeter.roc.mn.charter.com (unknown [9.85.165.167])
+ by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTPS;
+ Fri,  4 Dec 2020 17:28:32 +0000 (GMT)
+Subject: Re: LDAP group privilege mapping does not exist
+To: Venkata Chandrappa <Venkata_Chandrappa@phoenix.com>,
+ Derick Montague <Derick.Montague@ibm.com>
 References: <664a67f7de0f4402a9ec217d8c49c7e9@TWN-EXCHMB-13.phoenix.com>
  <OFB52E8381.D86531F6-ON00258633.007D8D31-00258633.007DECA8@notes.na.collabserv.com>
-In-Reply-To: <OFB52E8381.D86531F6-ON00258633.007D8D31-00258633.007DECA8@notes.na.collabserv.com>
-Accept-Language: en-US
-X-MS-Has-Attach: yes
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.122.168.230]
+ <30a0cdd8272d469b8207a2d4b41354db@TWN-EXCHMB-13.phoenix.com>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Message-ID: <c5f6484f-9e04-e860-63a4-9eb8ce33d494@linux.ibm.com>
+Date: Fri, 4 Dec 2020 11:28:31 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.4.1
 MIME-Version: 1.0
-X-OrganizationHeadersPreserved: TWN-EXCHMB-13.phoenix.com
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA70A150 smtp.mailfrom=venkata_chandrappa@phoenix.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: phoenix.com
+In-Reply-To: <30a0cdd8272d469b8207a2d4b41354db@TWN-EXCHMB-13.phoenix.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
 Content-Language: en-US
-Content-Type: multipart/mixed;
- boundary="_002_30a0cdd8272d469b8207a2d4b41354dbTWNEXCHMB13phoenixcom_"
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.312, 18.0.737
+ definitions=2020-12-04_07:2020-12-04,
+ 2020-12-04 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxscore=0 malwarescore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 clxscore=1011 phishscore=0 bulkscore=0 mlxlogscore=962
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2012040096
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,42 +118,42 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_002_30a0cdd8272d469b8207a2d4b41354dbTWNEXCHMB13phoenixcom_
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
+On 12/4/20 4:01 AM, Venkata Chandrappa wrote:
+> Thanks for the response.
+>
+> Could you help to share a basic LDAP server LDIF file with an user who is a member of a group with the privileges assigned, somethingthat you've already tested. I've also attached the LDIF file that I've used for my tests. I want to rule out LDAP configuration errors that I may be overlooking before I dwelve into the BMC side investigation.
 
-VGhhbmtzIGZvciB0aGUgcmVzcG9uc2UuIA0KDQpDb3VsZCB5b3UgaGVscCB0byBzaGFyZSBhIGJh
-c2ljIExEQVAgc2VydmVyIExESUYgZmlsZSB3aXRoIGFuIHVzZXIgd2hvIGlzIGEgbWVtYmVyIG9m
-IGEgZ3JvdXAgd2l0aCB0aGUgcHJpdmlsZWdlcyBhc3NpZ25lZCwgc29tZXRoaW5ndGhhdCB5b3Un
-dmUgYWxyZWFkeSB0ZXN0ZWQuIEkndmUgYWxzbyBhdHRhY2hlZCB0aGUgTERJRiBmaWxlIHRoYXQg
-SSd2ZSB1c2VkIGZvciBteSB0ZXN0cy4gSSB3YW50IHRvIHJ1bGUgb3V0IExEQVAgY29uZmlndXJh
-dGlvbiBlcnJvcnMgdGhhdCBJIG1heSBiZSBvdmVybG9va2luZyBiZWZvcmUgSSBkd2VsdmUgaW50
-byB0aGUgQk1DIHNpZGUgaW52ZXN0aWdhdGlvbi4gDQoNCkJlc3QgUmVnYXJkcywNClZlbmthDQoN
-Ci0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBEZXJpY2sgTW9udGFndWUgW21haWx0
-bzpEZXJpY2suTW9udGFndWVAaWJtLmNvbV0gDQpTZW50OiBGcmlkYXksIERlY2VtYmVyIDQsIDIw
-MjAgNjo1NSBBTQ0KVG86IFZlbmthdGEgQ2hhbmRyYXBwYQ0KQ2M6IG9wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZw0KU3ViamVjdDogUmU6IExEQVAgZ3JvdXAgcHJpdmlsZWdlIG1hcHBpbmcgZG9lcyBu
-b3QgZXhpc3QNCg0KPiBKb3VybmFsIGxvZ3Mgc2VlbSB0byBpbmRpY2F0ZSB0aGUgbWFwcGluZyBk
-b2VzbuKAmXQgZXhpc3QsIHNvIEnigJltIHdvbmRlcmluZyBpZg0KPiB0aGUgcm9sZSBncm91cHMg
-YWRkZWQgaW4gQk1DIHdlYiBoYXZlIGJlZW4gc2V0dXAgY29ycmVjdGx5LiAgDQogICANCkkgY2Fu
-J3Qgc3BlYWsgdG8gdGhhdCwgYnV0IHdlIGhhZCB0ZXN0ZWQgcm9sZSBncm91cHMgd2hlbiB0aGUg
-dmlldyB3YXMgY3JlYXRlZA0KYW5kIHdlIHdlcmUgYWJsZSB0byBsb2dpbiBhbmQgcGVyZm9ybSBh
-Y3Rpb25zLiAgDQogICANCj4gT25lIG1vcmUgdGhpbmcgdG8gbm90ZSBpcyB3aGVuIEkgYWRkZWQg
-dGhlIHJvbGUgZ3JvdXAsIHRoZXJlIHdhcyBhIDQwNCByZXNwb25zZQ0KPiBnZW5lcmF0ZWQuIEhv
-d2V2ZXIsIG9uIHJlZnJlc2hpbmcgdGhlIHBhZ2Ugb3IgbmF2aWdhdGluZyBiYWNrIHRvIHRoZSBw
-YWdlLCB0aGUgcm9sZQ0KPiBncm91cCB3YXMgYWRkZWQgc3VjY2Vzc2Z1bGx5LiAgDQogICANClRo
-YXQgd2FzIGZpeGVkIGluIGh0dHBzOi8vZ2Vycml0Lm9wZW5ibWMtcHJvamVjdC54eXovYy9vcGVu
-Ym1jL3dlYnVpLXZ1ZS8rLzM4NjE4LiBJdCB3YXMNCmEgVUkgaXNzdWUsIGJ1dCB0aGUgQVBJIHJl
-cXVlc3Qgd2FzIHN1Y2Nlc3NmdWwgYXMgeW91IG5vdGljZWQgYnkgcmVmcmVzaGluZyB0aGUgcGFn
-ZS4NCg0K
---_002_30a0cdd8272d469b8207a2d4b41354dbTWNEXCHMB13phoenixcom_
-Content-Type: application/octet-stream; name="ldap_data.ldif"
-Content-Description: ldap_data.ldif
-Content-Disposition: attachment; filename="ldap_data.ldif";
-	creation-date="Fri, 04 Dec 2020 10:00:05 GMT";
-	modification-date="Fri, 04 Dec 2020 10:00:05 GMT"
-Content-Transfer-Encoding: base64
+Good questions.  Thanks for asking and answering!
 
+Have you seen the LDAP tests here?: 
+https://github.com/openbmc/openbmc-test-automation/blob/master/redfish/account_service/test_ldap_configuration.robot
 
---_002_30a0cdd8272d469b8207a2d4b41354dbTWNEXCHMB13phoenixcom_--
+When we have a consensus answer, I would like to link to it or summarize 
+it here: https://github.com/openbmc/openbmc/wiki/Configuration-guide
+
+- Joseph
+
+> Best Regards,
+> Venka
+>
+> -----Original Message-----
+> From: Derick Montague [mailto:Derick.Montague@ibm.com]
+> Sent: Friday, December 4, 2020 6:55 AM
+> To: Venkata Chandrappa
+> Cc: openbmc@lists.ozlabs.org
+> Subject: Re: LDAP group privilege mapping does not exist
+>
+>> Journal logs seem to indicate the mapping doesn’t exist, so I’m wondering if
+>> the role groups added in BMC web have been setup correctly.
+>     
+> I can't speak to that, but we had tested role groups when the view was created
+> and we were able to login and perform actions.
+>     
+>> One more thing to note is when I added the role group, there was a 404 response
+>> generated. However, on refreshing the page or navigating back to the page, the role
+>> group was added successfully.
+>     
+> That was fixed in https://gerrit.openbmc-project.xyz/c/openbmc/webui-vue/+/38618. It was
+> a UI issue, but the API request was successful as you noticed by refreshing the page.
+>
 
