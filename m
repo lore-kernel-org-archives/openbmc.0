@@ -2,85 +2,73 @@ Return-Path: <SRS0=RQMm=FP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F05AC433FE
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 04:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7BA24C4361B
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:48:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 49CAD23ECE
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 04:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 49CAD23ECE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
+	by mail.kernel.org (Postfix) with ESMTPS id C176023EF1
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:48:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C176023EF1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Cscb109dZzDqQP
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 15:03:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4CsnZm4PKmzDqvd
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 21:48:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::541;
- helo=mail-pg1-x541.google.com; envelope-from=wangzhiqiang.bj@bytedance.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::844;
+ helo=mail-qt1-x844.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=bytedance.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bytedance-com.20150623.gappssmtp.com
- header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=KRZ/FMrr; dkim-atps=neutral
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com
- [IPv6:2607:f8b0:4864:20::541])
+ dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=M6aHfXZH; dkim-atps=neutral
+Received: from mail-qt1-x844.google.com (mail-qt1-x844.google.com
+ [IPv6:2607:f8b0:4864:20::844])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CscWK39ZKzDqnT
- for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 15:00:13 +1100 (AEDT)
-Received: by mail-pg1-x541.google.com with SMTP id c12so5779213pgm.4
- for <openbmc@lists.ozlabs.org>; Thu, 10 Dec 2020 20:00:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance-com.20150623.gappssmtp.com; s=20150623;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
- :content-transfer-encoding;
- bh=YKU5cakq4ZOMMgsFGkzcwvwsUuYeyFxZiHTQd8S3kjo=;
- b=KRZ/FMrrTvGA79/Bao3GRvqef1VkAFusgKCsc55QAy0gLUNfSXxpsbj/kN4dqnXkzI
- g9peDlhL2u52DbQM1uFHAyK8JU+4q5ifi7hT34HcibBXCh8Ih7Oc0nbdSLk7FbsF/Z4b
- qcWb7CnU8D/C5YTFKwshiglqOJABuouetLS+ZQLAfM5IZH/fcp0V3QnLZV3G2JdUR0WC
- OiVOi2OrPpLXlXjIzKN3ji2+Sp+0jY8GUubM4R8oIxn79lLfji8oIY6IE4XOkKHYcPpg
- 2FaS8MP8zUGF+F0MidxhvQfDedMyC/xDdZ5rHW8nLk9lLOu/rTZN+ge8YV5+k8ui+p9F
- FB2A==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CsnYM3jddzDqjh
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 21:47:34 +1100 (AEDT)
+Received: by mail-qt1-x844.google.com with SMTP id c14so6074386qtn.0
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 02:47:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=OsUjWAoAa5+wjcbA1hFlnJAcKl6yF8CSwUNyujKoXyM=;
+ b=M6aHfXZHFHWXWnlN+9xSNx2oAc5BgLYPz+6RaiABdHXP4bHe/MHrAvgykiv2Afi7u5
+ q+TGwaWOIVRNLCYT/PtIoGMaVQs5Y3K4j/vbcictNSaZ6JUMortRe+uZjSHTFMv+WF+u
+ hsz2nFyrFJ08fU1VOeoSBZCkfXl6CTYp318NU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=YKU5cakq4ZOMMgsFGkzcwvwsUuYeyFxZiHTQd8S3kjo=;
- b=XZ+DlX50E+qfVhNUQoDo9QbjmcDXNkkdS7iraXO0IJNjZQDW2BFv9/qXBaP3Aw/+xE
- 09QRPDHK4nWr0NJWZGW8/1knWPY6Eok7P6EmeGRIYc/sG2DkaMSv8BoR9PqkxlyQm28v
- QxaINcY+bW7w/pa7VC9i+FsxrkRrjXedYvR3Ia/HeheKXZ+KubjR4my6NBuFmiOvryOX
- DnlMRlTb2Y3VyHu/MS646/l5vVIzDYASyF0jfernoq6aEne0MNAeFfTAy6dZjtCmN/Ff
- FvPPO3a9mwDaJzMdWE7Ckixm2yC3KJc4MzcDmFneWpedJtTEjcSTer2OJxFdQ3pfxlHy
- U5Sw==
-X-Gm-Message-State: AOAM533s+LJE4ybNNr2ADvgRStPg3zBUJUhpgz1Zz5pM+qolqQQQ5NVf
- VXCSJqdRgJa3OzoHYW22PAeCwg==
-X-Google-Smtp-Source: ABdhPJxZxfw+mHwS5oEwbxoTVto2uyCx3b5x72lycfDZ0std0s5/73JJU7DaNbOZxA1gHsTROWV5hw==
-X-Received: by 2002:a63:6442:: with SMTP id y63mr9818506pgb.35.1607659209897; 
- Thu, 10 Dec 2020 20:00:09 -0800 (PST)
-Received: from localhost ([61.120.150.75])
- by smtp.gmail.com with ESMTPSA id j15sm3076120pfn.180.2020.12.10.20.00.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 10 Dec 2020 20:00:09 -0800 (PST)
-From: John Wang <wangzhiqiang.bj@bytedance.com>
-To: xuxiaohan@bytedance.com, yulei.sh@bytedance.com, openbmc@lists.ozlabs.org,
- joel@jms.id.au
-Subject: [PATCH 2/2] ARM: dts: aspeed: g220a: Fix some gpio
-Date: Fri, 11 Dec 2020 12:00:02 +0800
-Message-Id: <20201211040002.1030-2-wangzhiqiang.bj@bytedance.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20201211040002.1030-1-wangzhiqiang.bj@bytedance.com>
-References: <20201211040002.1030-1-wangzhiqiang.bj@bytedance.com>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=OsUjWAoAa5+wjcbA1hFlnJAcKl6yF8CSwUNyujKoXyM=;
+ b=g9qlhPSdpMrjx+aRAqPCuS+4yYEZec6rU+4S/JKBRoKr7ggUUnKtMLKIE+hpMcN7kf
+ Pn7MkhsJxPqBO9lfnpNcNF1yyw0/rpFt0QiiWGvzNj2c8DoXg6T35MUNmsoBC0SXn8Li
+ MqfygnqG3jOdEaZ21OCCXHMhNqzSsLVa1oMAl+SSIUktB+A5iAczYfXkm65/hJWHZMGA
+ ggz1rq9LADUHjct3f9fnUTOuK8snHn5fl4l/bREmwRp4cdy72w0RRNWFb4UjuFI1ucwW
+ XgZIfxqYjDlonnNDEBcCeMU1UUDaLsXFrxBIrjvR9VeVg45YhdgZ4q9MsuUHCwcQv8II
+ WggQ==
+X-Gm-Message-State: AOAM533J28S/q7uAzgGJEEsaMAzK7ZD59WBOm7hAc48oH2X0Jz1+qyOK
+ 1YfbSSLoEvQEh//TGCrzYpL3o8lyPBx5k/TTau4=
+X-Google-Smtp-Source: ABdhPJzIO//O4Itmcs5jOeqVBfJ2vL0rByGZzbgeQDxVqyTN0pdxkafUyOzMPVFqheqR7qM7CrK+YKpt5oSbxpmhQz8=
+X-Received: by 2002:aed:2d65:: with SMTP id h92mr14301044qtd.263.1607683650039; 
+ Fri, 11 Dec 2020 02:47:30 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20201211040002.1030-1-wangzhiqiang.bj@bytedance.com>
+In-Reply-To: <20201211040002.1030-1-wangzhiqiang.bj@bytedance.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 11 Dec 2020 10:47:18 +0000
+Message-ID: <CACPK8XeVS615UrdhKXZTVEwrC_4a-3O2REH66Webr3Gu2zD6_A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ARM: dts: aspeed: g220a: Enable ipmb
+To: John Wang <wangzhiqiang.bj@bytedance.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,38 +80,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?B?6YOB6Zu3?= <yulei.sh@bytedance.com>, xuxiaohan@bytedance.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The NCSI_BMC_R_SEL and EN_NCSI_SWITCH_N should be active-high
+On Fri, 11 Dec 2020 at 04:00, John Wang <wangzhiqiang.bj@bytedance.com> wrote:
+>
+> From: Lotus Xu <xuxiaohan@bytedance.com>
+>
+> Enable ipmb on i2c4
+>
+> Signed-off-by: Lotus Xu <xuxiaohan@bytedance.com>
+> Signed-off-by: John Wang <wangzhiqiang.bj@bytedance.com>
 
-Signed-off-by: John Wang <wangzhiqiang.bj@bytedance.com>
----
- arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Reviewed-by: Joel Stanley <joel@jms.id.au>
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-index 3a4bf3db400c..8baefd2d6962 100644
---- a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-@@ -912,14 +912,14 @@ fan@5 {
- &gpio {
- 	pin_gpio_i3 {
- 		gpio-hog;
--		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_LOW>;
-+		gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
- 		output-low;
- 		line-name = "NCSI_BMC_R_SEL";
- 	};
- 
- 	pin_gpio_b6 {
- 		gpio-hog;
--		gpios = <ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW>;
-+		gpios = <ASPEED_GPIO(B, 6) GPIO_ACTIVE_HIGH>;
- 		output-low;
- 		line-name = "EN_NCSI_SWITCH_N";
- 	};
--- 
-2.25.1
-
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
+> index 89916a2eec18..3a4bf3db400c 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
+> @@ -453,7 +453,11 @@ channel_3_3: i2c@3 {
+>
+>  &i2c4 {
+>         status = "okay";
+> -
+> +       ipmb0@10 {
+> +               compatible = "ipmb-dev";
+> +               reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
+> +               i2c-protocol;
+> +       };
+>  };
+>
+>  &i2c5 {
+> --
+> 2.25.1
+>
