@@ -4,72 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D2142C433FE
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:50:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7AD2BC4361B
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:57:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0C9D923EF1
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:50:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C9D923EF1
+	by mail.kernel.org (Postfix) with ESMTPS id C4AA523F59
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 10:57:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C4AA523F59
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Csncr5Kn3zDqnT
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 21:50:36 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Csnmh0BHMzDqTP
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 21:57:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::743;
- helo=mail-qk1-x743.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f42;
+ helo=mail-qv1-xf42.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=OehnmWu2; dkim-atps=neutral
-Received: from mail-qk1-x743.google.com (mail-qk1-x743.google.com
- [IPv6:2607:f8b0:4864:20::743])
+ header.s=google header.b=H6Qt7rRq; dkim-atps=neutral
+Received: from mail-qv1-xf42.google.com (mail-qv1-xf42.google.com
+ [IPv6:2607:f8b0:4864:20::f42])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CsnZ013SzzDqwD
- for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 21:48:07 +1100 (AEDT)
-Received: by mail-qk1-x743.google.com with SMTP id z11so7946191qkj.7
- for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 02:48:07 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Csnkd1PyCzDqkq;
+ Fri, 11 Dec 2020 21:55:36 +1100 (AEDT)
+Received: by mail-qv1-xf42.google.com with SMTP id s6so3957755qvn.6;
+ Fri, 11 Dec 2020 02:55:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=slJzPe2kxpeboENlm296s1XTEsliSEBNiEhHKDscyco=;
- b=OehnmWu2Cq/GIdeHzMBdt7eg2/pOQSLhzCkYFSTgSU0KXqnjYzFMPeaiVfLnIiK9EN
- GwaVNUlRlL37Wme+PaYrCsPv7W+u1gIf5ituKCEq0gIFZqnu/XnevzEsV9OhyeVB1QP0
- 9mlk7FlEz63Xi4jNPJbv1u7b2cfY5J7DZfylo=
+ :cc; bh=QdoHrrkUrH8spW9hsEUvaf3pNxGmQYKrvERe+V2jfHg=;
+ b=H6Qt7rRq8Fac2RnPo2pkZ1qhIcBIxMjQwW5Npu+JAavqN3A3YZtPNIl+OKFz1WjBSt
+ 7+08A1Zl7oNG/REpAOqWpIIjwmRgbZOdSr623jO38G7Db/iCQzcq922mO6yaugojE+wG
+ bM00Smh0iZ5ZTdxY/Oif228zNpjFuhYTfkO7M=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=slJzPe2kxpeboENlm296s1XTEsliSEBNiEhHKDscyco=;
- b=NXQwBX9Y3HbzmGEiuuimDuNSn5iJXS9Pp6kYWGuUv6l/ktxPV+g+p+C0EQtBlrlPWA
- BtPRWhLImCkBYTLDFHwBPbj28PRP4Zd5yZ40LnIG1VF83iPMff7avdVQy93Ia5hujK7Q
- TETQgdO/KZkRvqyhe23HMf+6kUo3EVbyiBBP2jDESW0cc/KDwxYCdDodIfkFzlQPb0bO
- oMisG8IhKWLgZYg5ukl3SLoWKA47WJZqN+jkpe2Bso2CocmG4zlTW408hHVy0afbvpiM
- dxruPBzatXd8n/UmUctJCcOeZGs17DYhp6zMgD6G6PNQyY51WF+qk46t9evAZnoiC4t+
- uawA==
-X-Gm-Message-State: AOAM532LYwqGtkavUlQPWX/+1srMhjm9n9k8qxDZG5D0al2WchEs/Dfw
- mGPWKnib6fNVazuLzVBPpHymlQK4dBJkzLOsem8=
-X-Google-Smtp-Source: ABdhPJzg2WTxy73n8cI6aM4pXLpltBhz2Y+OJehXxLYWrPMSeoZy3znBgwwPa4Mk+vg4QVPQZeTHp8jtpE01U3XfRxw=
-X-Received: by 2002:a37:6790:: with SMTP id
- b138mr14527869qkc.465.1607683682174; 
- Fri, 11 Dec 2020 02:48:02 -0800 (PST)
+ bh=QdoHrrkUrH8spW9hsEUvaf3pNxGmQYKrvERe+V2jfHg=;
+ b=FxZbtiS3leSzK7QhyDiMNZZ6CCQyUuNP2QiRUCGYQbt3ZIqlBAckuqtrdyoELFrRq5
+ RDxmHMWdU8czo+lP/QzClND9sUj/9pN2Y61QGDmUQ17a6XVdSceHVJMQee40MkVLkdxn
+ 284xhoVqCXwMr4AEBq9D/QLWfu2jP+V4gmb0e3bemC9sXfumrH3HtPDIHtF9V1UBlbX4
+ bo35RoTxCogUFLtSPhblOielZFlNrfWyHd84m0EIkFY6ZhV1S8CuT48I0Yf+o06wFxMo
+ e5z+SUIYRl00zKqx/P/44ijIihON9c60CbVAgHt3DeQ3J5qifNu7Qaz5g2IDxGfWFHCc
+ BvUQ==
+X-Gm-Message-State: AOAM532GSMgJCDqcnGaA9mt4VB2qzffTAGhRaZavrJeo2AD13Upnm58R
+ nYwCIPAbo8z9PNcXUuQLee2aUEkLc+zmmPOlSJA=
+X-Google-Smtp-Source: ABdhPJzZwGieUQ4L65aIz5AhrZ471LVCKHRMGZT2IlzX+vcQSL+UVzLS7K96G6okZZjsaSYt7Tj+OqqmRqZCEsS2UTw=
+X-Received: by 2002:a0c:aed4:: with SMTP id n20mr15146718qvd.16.1607684132584; 
+ Fri, 11 Dec 2020 02:55:32 -0800 (PST)
 MIME-Version: 1.0
-References: <20201211040002.1030-1-wangzhiqiang.bj@bytedance.com>
- <20201211040002.1030-2-wangzhiqiang.bj@bytedance.com>
-In-Reply-To: <20201211040002.1030-2-wangzhiqiang.bj@bytedance.com>
+References: <20201211031741.23711-1-billy_tsai@aspeedtech.com>
+In-Reply-To: <20201211031741.23711-1-billy_tsai@aspeedtech.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 11 Dec 2020 10:47:50 +0000
-Message-ID: <CACPK8Xep2sN0JMh1HUVtfSFc-erOyPv1Tu8tjep8SYEHPB6Mew@mail.gmail.com>
-Subject: Re: [PATCH 2/2] ARM: dts: aspeed: g220a: Fix some gpio
-To: John Wang <wangzhiqiang.bj@bytedance.com>
+Date: Fri, 11 Dec 2020 10:55:21 +0000
+Message-ID: <CACPK8XdDn7GfGKAwZnoZrFc5wZW4p=xMuLmCcHvEyyNJZ8rGvw@mail.gmail.com>
+Subject: Re: [PATCH] driver: aspeed: g6: Fix PWMG0 pinctrl setting
+To: Billy Tsai <billy_tsai@aspeedtech.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -82,45 +80,44 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- =?UTF-8?B?6YOB6Zu3?= <yulei.sh@bytedance.com>, xuxiaohan@bytedance.com
+Cc: BMC-SW <BMC-SW@aspeedtech.com>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, 11 Dec 2020 at 04:00, John Wang <wangzhiqiang.bj@bytedance.com> wrote:
+On Fri, 11 Dec 2020 at 03:18, Billy Tsai <billy_tsai@aspeedtech.com> wrote:
 >
-> The NCSI_BMC_R_SEL and EN_NCSI_SWITCH_N should be active-high
+> The SCU offset for signal PWM8 in group PWM8G0 is wrong, fix it from
+> SCU414 to SCU4B4.
+> Besides that, When PWM8~15 of PWMG0 set it needs to clear SCU414 bits at
+> the same time.
 >
-> Signed-off-by: John Wang <wangzhiqiang.bj@bytedance.com>
-
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-
+> Fixes: 2eda1cdec49f ("pinctrl: aspeed: Add AST2600 pinmux support")
+>
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
 > ---
->  arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c | 26 ++++++++++++++--------
+>  1 file changed, 17 insertions(+), 9 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-> index 3a4bf3db400c..8baefd2d6962 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-bytedance-g220a.dts
-> @@ -912,14 +912,14 @@ fan@5 {
->  &gpio {
->         pin_gpio_i3 {
->                 gpio-hog;
-> -               gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_LOW>;
-> +               gpios = <ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
->                 output-low;
->                 line-name = "NCSI_BMC_R_SEL";
->         };
+> diff --git a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+> index 34803a6c7664..6e61f045936f 100644
+> --- a/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+> +++ b/drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c
+> @@ -346,50 +346,58 @@ FUNC_GROUP_DECL(RGMII4, F24, E23, E24, E25, D26, D24, C25, C26, C24, B26, B25,
+>  FUNC_GROUP_DECL(RMII4, F24, E23, E24, E25, C25, C24, B26, B25, B24);
 >
->         pin_gpio_b6 {
->                 gpio-hog;
-> -               gpios = <ASPEED_GPIO(B, 6) GPIO_ACTIVE_LOW>;
-> +               gpios = <ASPEED_GPIO(B, 6) GPIO_ACTIVE_HIGH>;
->                 output-low;
->                 line-name = "EN_NCSI_SWITCH_N";
->         };
-> --
-> 2.25.1
->
+>  #define D22 40
+> -SIG_EXPR_LIST_DECL_SESG(D22, SD1CLK, SD1, SIG_DESC_SET(SCU414, 8));
+> -SIG_EXPR_LIST_DECL_SEMG(D22, PWM8, PWM8G0, PWM8, SIG_DESC_SET(SCU414, 8));
+> +SIG_EXPR_LIST_DECL_SESG(D22, SD1CLK, SD1, SIG_DESC_SET(SCU414, 8))
+
+Is this missing a semicolon?
+
+> +SIG_EXPR_LIST_DECL_SEMG(D22, PWM8, PWM8G0, PWM8, SIG_DESC_SET(SCU4B4, 8),
+> +                       SIG_DESC_CLEAR(SCU414, 8));
