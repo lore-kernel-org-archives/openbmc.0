@@ -2,94 +2,83 @@ Return-Path: <SRS0=RQMm=FP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AECAFC4361B
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 17:10:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F2769C4361B
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 21:56:42 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D8F6F23C82
-	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 17:09:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D8F6F23C82
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 38EE523B85
+	for <openbmc@archiver.kernel.org>; Fri, 11 Dec 2020 21:56:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 38EE523B85
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Csy2Y6gRqzDqvh
-	for <openbmc@archiver.kernel.org>; Sat, 12 Dec 2020 04:09:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ct4PN0yx1zDqx4
+	for <openbmc@archiver.kernel.org>; Sat, 12 Dec 2020 08:56:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ smtp.mailfrom=flex--kunyi.bounces.google.com
+ (client-ip=2607:f8b0:4864:20::749; helo=mail-qk1-x749.google.com;
+ envelope-from=3nertxwukb8yw6zaus00sxq.o0y01qznyoxu454.0bxmn4.03s@flex--kunyi.bounces.google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+ dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=RPycuccO; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20161025 header.b=qm2v6cfq; dkim-atps=neutral
+Received: from mail-qk1-x749.google.com (mail-qk1-x749.google.com
+ [IPv6:2607:f8b0:4864:20::749])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4CsxzS5lWHzDqrW
- for <openbmc@lists.ozlabs.org>; Sat, 12 Dec 2020 04:07:16 +1100 (AEDT)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 0BBH6IxL035978; Fri, 11 Dec 2020 12:07:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject : date : message-id; s=pp1;
- bh=9UUcQx+uhpC698X1AT4nBKX1kfttMBAmr1Kx+atVu0M=;
- b=RPycuccOSePIspsQ5DcaTN5z1VDu5JgaPcifLK1JbLtSxf77x3CHevB8078iCeS77dvf
- kx3//xG4qySwIWvL2i3u15KoJWlkDy8odT+eW5HOQ/Fuu8UncrSTH+Q+O+J6rc1oy0pk
- wWgSwC2UoaPnto3sRly1VgVE4SiFCQoIFpwYq0GDwNOqj5R3AebDBkE/e3spGon3fGZk
- Wm4yDNKEmWIlNOdn3pnXOwtHxDSBCJV/3yWpSyoBuMpbWqrs5xosKj2gJ95AmGhAArLG
- M7WdXv/ecBhjsf1yrsMg3rqRej3Loao73ko0t6uNcwLEM7lkyDJ27WYhUVxgwHmOA3/F 8w== 
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com with ESMTP id 35cappce18-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Dec 2020 12:07:11 -0500
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 0BBH36ux020892;
- Fri, 11 Dec 2020 17:07:11 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma04dal.us.ibm.com with ESMTP id 3581uadbm4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 11 Dec 2020 17:07:10 +0000
-Received: from b03ledav002.gho.boulder.ibm.com
- (b03ledav002.gho.boulder.ibm.com [9.17.130.233])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 0BBH79I124052090
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 11 Dec 2020 17:07:09 GMT
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 3179C136053;
- Fri, 11 Dec 2020 17:07:09 +0000 (GMT)
-Received: from b03ledav002.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D035213605D;
- Fri, 11 Dec 2020 17:07:08 +0000 (GMT)
-Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.139.187])
- by b03ledav002.gho.boulder.ibm.com (Postfix) with ESMTP;
- Fri, 11 Dec 2020 17:07:08 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8] ARM: dts: Aspeed: Add Everest BMC machine
-Date: Fri, 11 Dec 2020 11:07:04 -0600
-Message-Id: <20201211170704.27640-1-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.18.4
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2020-12-11_03:2020-12-11,
- 2020-12-11 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 phishscore=0
- malwarescore=0 lowpriorityscore=0 mlxlogscore=999 priorityscore=1501
- impostorscore=0 clxscore=1015 spamscore=0 suspectscore=1 adultscore=0
- bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2012110110
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Ct4M84t3PzDqxB
+ for <openbmc@lists.ozlabs.org>; Sat, 12 Dec 2020 08:54:40 +1100 (AEDT)
+Received: by mail-qk1-x749.google.com with SMTP id 198so7606192qkj.7
+ for <openbmc@lists.ozlabs.org>; Fri, 11 Dec 2020 13:54:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
+ h=sender:date:in-reply-to:message-id:mime-version:references:subject
+ :from:to:cc; bh=azmHzao3wgetMgbO3ArvMbnmF5zPZ91D/Nr3cEx209E=;
+ b=qm2v6cfqU3Muvk3jYMjn9k9VoOyLkwbmnsZrh42mICnoNAo34l+/Hp4sfoqrBe2qIT
+ 4JAxYzGHaJIw1I/hkYHtEEVotNPkm7I2fivmj6y/hMbDwP4M1CRoe5YUGWmZOlDcgya7
+ H5Be4c5xOySR81joyYiP2sUJTD2ZbWi+Rzu35EcQRMn/XCcc1ciGdOGB/1gYRaW4qC5e
+ dHOuiNKzeaoXR+fBXEkUehC2Z24QGE5li9/P3FSyzQ8rmYAjKqFz4sKRYRKojAxdNW1n
+ U5t0dDYAaLv/huGPfP60shoBwHqhOAOh5JKWFPGJa3EdoLO6/wca33nF9pfMgICIde0R
+ jtRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:in-reply-to:message-id:mime-version
+ :references:subject:from:to:cc;
+ bh=azmHzao3wgetMgbO3ArvMbnmF5zPZ91D/Nr3cEx209E=;
+ b=uUSks2DOKT6jSnfCXHzHpN97900YGq23gJ8g9aWBQ7knF3nzcj9atFgNd75omJu40q
+ WgsBcbpdtP6IbJMqGyj5Bp4hJYCju9s4PyUdvS+IZcwXs8234Wu21gwVjOzlEpTYZXN/
+ DUZEgYlu549UBlfLlUaYRdECWcWG4A50EnmDH2INGDRf4hrP9gTolHAGJwgkUSpA+TiO
+ 9rCnAngbTqumkEyV+/vEHC3q4ihK0XWdH/BJZL9FfAOO+1TdGNGQq8qtHxiYPwf7m8fl
+ qTqtgcitemRxcypq25pOC+8szFLq+ZShw7rcOnx+cMhPxoYzB20q7E2HDXT97OBUAlDT
+ KT/w==
+X-Gm-Message-State: AOAM532D7FygadtPFHLYpxDt4PmZloglm77uCqiq6kLVbjxXMJ3y5FMe
+ v9S8AMTlqFdC7vNc51OLsLLeR6QJCQ==
+X-Google-Smtp-Source: ABdhPJyek/ka7dtWEUljaiwnn+TTYfv1T2Dgvd2YsdagY/nGVxVPUiXaKj0VJcikfz3Atzm2GBppEAMgLA==
+X-Received: from kunyi0.svl.corp.google.com
+ ([2620:15c:2c5:3:9657:a5ff:fef2:53bd])
+ (user=kunyi job=sendgmr) by 2002:a0c:8601:: with SMTP id
+ p1mr9257861qva.22.1607723677330; 
+ Fri, 11 Dec 2020 13:54:37 -0800 (PST)
+Date: Fri, 11 Dec 2020 13:54:25 -0800
+In-Reply-To: <20201211215427.3281681-1-kunyi@google.com>
+Message-Id: <20201211215427.3281681-2-kunyi@google.com>
+Mime-Version: 1.0
+References: <20201211215427.3281681-1-kunyi@google.com>
+X-Mailer: git-send-email 2.29.2.684.gfbc64c5ab5-goog
+Subject: [PATCH linux hwmon-next v5 1/3] hwmon: (sbtsi) Add basic support for
+ SB-TSI sensors
+From: Kun Yi <kunyi@google.com>
+To: jdelvare@suse.com, linux@roeck-us.net, robh+dt@kernel.org, 
+ mark.rutland@arm.com, supreeth.venkatesh@amd.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,814 +90,329 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Eddie James <eajames@linux.ibm.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add the Everest machine powered by an AST2600 chip. Copy the basic
-configuration from Rainier.
+SB Temperature Sensor Interface (SB-TSI) is an SMBus compatible
+interface that reports AMD SoC's Ttcl (normalized temperature),
+and resembles a typical 8-pin remote temperature sensor's I2C interface
+to BMC.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
+This commit adds basic support using this interface to read CPU
+temperature, and read/write high/low CPU temp thresholds.
+
+To instantiate this driver on an AMD CPU with SB-TSI
+support, the i2c bus number would be the bus connected from the board
+management controller (BMC) to the CPU. The i2c address is specified in
+Section 6.3.1 of the spec [1]: The SB-TSI address is normally 98h for
+socket 0 and 90h for socket 1, but it could vary based on hardware address
+select pins.
+
+[1]: https://www.amd.com/system/files/TechDocs/56255_OSRR.pdf
+
+Test status: tested reading temp1_input, and reading/writing
+temp1_max/min.
+
+Signed-off-by: Kun Yi <kunyi@google.com>
 ---
- arch/arm/boot/dts/Makefile                   |   1 +
- arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 775 +++++++++++++++++++
- 2 files changed, 776 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+ drivers/hwmon/Kconfig      |  10 ++
+ drivers/hwmon/Makefile     |   1 +
+ drivers/hwmon/sbtsi_temp.c | 250 +++++++++++++++++++++++++++++++++++++
+ 3 files changed, 261 insertions(+)
+ create mode 100644 drivers/hwmon/sbtsi_temp.c
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 5fd12e8909d3..c13ac1bf7216 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1360,6 +1360,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-facebook-wedge100.dtb \
- 	aspeed-bmc-facebook-yamp.dtb \
- 	aspeed-bmc-facebook-yosemitev2.dtb \
-+	aspeed-bmc-ibm-everest.dtb \
- 	aspeed-bmc-ibm-rainier.dtb \
- 	aspeed-bmc-ibm-rainier-4u.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+diff --git a/drivers/hwmon/Kconfig b/drivers/hwmon/Kconfig
+index 3c059fc23cd6..3d6a809700ae 100644
+--- a/drivers/hwmon/Kconfig
++++ b/drivers/hwmon/Kconfig
+@@ -1522,6 +1522,16 @@ config SENSORS_SL28CPLD
+ 	  This driver can also be built as a module.  If so, the module
+ 	  will be called sl28cpld-hwmon.
+ 
++config SENSORS_SBTSI
++	tristate "Emulated SB-TSI temperature sensor"
++	depends on I2C
++	help
++	  If you say yes here you get support for emulated temperature
++	  sensors on AMD SoCs with SB-TSI interface connected to a BMC device.
++
++	  This driver can also be built as a module. If so, the module will
++	  be called sbtsi_temp.
++
+ config SENSORS_SHT15
+ 	tristate "Sensiron humidity and temperature sensors. SHT15 and compat."
+ 	depends on GPIOLIB || COMPILE_TEST
+diff --git a/drivers/hwmon/Makefile b/drivers/hwmon/Makefile
+index 01ca5d3fbad4..ee8c037919da 100644
+--- a/drivers/hwmon/Makefile
++++ b/drivers/hwmon/Makefile
+@@ -160,6 +160,7 @@ obj-$(CONFIG_SENSORS_POWR1220)  += powr1220.o
+ obj-$(CONFIG_SENSORS_PWM_FAN)	+= pwm-fan.o
+ obj-$(CONFIG_SENSORS_RASPBERRYPI_HWMON)	+= raspberrypi-hwmon.o
+ obj-$(CONFIG_SENSORS_S3C)	+= s3c-hwmon.o
++obj-$(CONFIG_SENSORS_SBTSI)	+= sbtsi_temp.o
+ obj-$(CONFIG_SENSORS_SCH56XX_COMMON)+= sch56xx-common.o
+ obj-$(CONFIG_SENSORS_SCH5627)	+= sch5627.o
+ obj-$(CONFIG_SENSORS_SCH5636)	+= sch5636.o
+diff --git a/drivers/hwmon/sbtsi_temp.c b/drivers/hwmon/sbtsi_temp.c
 new file mode 100644
-index 000000000000..6bd876657bb8
+index 000000000000..e35357c48b8e
 --- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-@@ -0,0 +1,775 @@
++++ b/drivers/hwmon/sbtsi_temp.c
+@@ -0,0 +1,250 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2020 IBM Corp.
-+/dts-v1/;
++/*
++ * sbtsi_temp.c - hwmon driver for a SBI Temperature Sensor Interface (SB-TSI)
++ *                compliant AMD SoC temperature device.
++ *
++ * Copyright (c) 2020, Google Inc.
++ * Copyright (c) 2020, Kun Yi <kunyi@google.com>
++ */
 +
-+#include "aspeed-g6.dtsi"
-+#include <dt-bindings/gpio/aspeed-gpio.h>
-+#include <dt-bindings/i2c/i2c.h>
-+#include <dt-bindings/leds/leds-pca955x.h>
++#include <linux/err.h>
++#include <linux/i2c.h>
++#include <linux/init.h>
++#include <linux/hwmon.h>
++#include <linux/module.h>
++#include <linux/mutex.h>
++#include <linux/of_device.h>
++#include <linux/of.h>
 +
-+/ {
-+	model = "Everest";
-+	compatible = "ibm,everest-bmc", "aspeed,ast2600";
++/*
++ * SB-TSI registers only support SMBus byte data access. "_INT" registers are
++ * the integer part of a temperature value or limit, and "_DEC" registers are
++ * corresponding decimal parts.
++ */
++#define SBTSI_REG_TEMP_INT		0x01 /* RO */
++#define SBTSI_REG_STATUS		0x02 /* RO */
++#define SBTSI_REG_CONFIG		0x03 /* RO */
++#define SBTSI_REG_TEMP_HIGH_INT		0x07 /* RW */
++#define SBTSI_REG_TEMP_LOW_INT		0x08 /* RW */
++#define SBTSI_REG_TEMP_DEC		0x10 /* RW */
++#define SBTSI_REG_TEMP_HIGH_DEC		0x13 /* RW */
++#define SBTSI_REG_TEMP_LOW_DEC		0x14 /* RW */
 +
-+	aliases {
-+		i2c100 = &cfam0_i2c0;
-+		i2c101 = &cfam0_i2c1;
-+		i2c110 = &cfam0_i2c10;
-+		i2c111 = &cfam0_i2c11;
-+		i2c112 = &cfam0_i2c12;
-+		i2c113 = &cfam0_i2c13;
-+		i2c114 = &cfam0_i2c14;
-+		i2c115 = &cfam0_i2c15;
-+		i2c202 = &cfam1_i2c2;
-+		i2c203 = &cfam1_i2c3;
-+		i2c210 = &cfam1_i2c10;
-+		i2c211 = &cfam1_i2c11;
-+		i2c214 = &cfam1_i2c14;
-+		i2c215 = &cfam1_i2c15;
-+		i2c216 = &cfam1_i2c16;
-+		i2c217 = &cfam1_i2c17;
-+		i2c300 = &cfam2_i2c0;
-+		i2c301 = &cfam2_i2c1;
-+		i2c310 = &cfam2_i2c10;
-+		i2c311 = &cfam2_i2c11;
-+		i2c312 = &cfam2_i2c12;
-+		i2c313 = &cfam2_i2c13;
-+		i2c314 = &cfam2_i2c14;
-+		i2c315 = &cfam2_i2c15;
-+		i2c402 = &cfam3_i2c2;
-+		i2c403 = &cfam3_i2c3;
-+		i2c410 = &cfam3_i2c10;
-+		i2c411 = &cfam3_i2c11;
-+		i2c414 = &cfam3_i2c14;
-+		i2c415 = &cfam3_i2c15;
-+		i2c416 = &cfam3_i2c16;
-+		i2c417 = &cfam3_i2c17;
++#define SBTSI_CONFIG_READ_ORDER_SHIFT	5
 +
-+		serial4 = &uart5;
++#define SBTSI_TEMP_MIN	0
++#define SBTSI_TEMP_MAX	255875
 +
-+		spi10 = &cfam0_spi0;
-+		spi11 = &cfam0_spi1;
-+		spi12 = &cfam0_spi2;
-+		spi13 = &cfam0_spi3;
-+		spi20 = &cfam1_spi0;
-+		spi21 = &cfam1_spi1;
-+		spi22 = &cfam1_spi2;
-+		spi23 = &cfam1_spi3;
-+		spi30 = &cfam2_spi0;
-+		spi31 = &cfam2_spi1;
-+		spi32 = &cfam2_spi2;
-+		spi33 = &cfam2_spi3;
-+		spi40 = &cfam3_spi0;
-+		spi41 = &cfam3_spi1;
-+		spi42 = &cfam3_spi2;
-+		spi43 = &cfam3_spi3;
-+	};
-+
-+	chosen {
-+		stdout-path = &uart5;
-+		bootargs = "console=ttyS4,115200n8";
-+	};
-+
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
-+	};
-+
-+	reserved-memory {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		/* LPC FW cycle bridge region requires natural alignment */
-+		flash_memory: region@b8000000 {
-+			no-map;
-+			reg = <0xb8000000 0x04000000>; /* 64M */
-+		};
-+
-+		/* 48MB region from the end of flash to start of vga memory */
-+		ramoops@bc000000 {
-+			compatible = "ramoops";
-+			reg = <0xbc000000 0x180000>; /* 16 * (3 * 0x8000) */
-+			record-size = <0x8000>;
-+			console-size = <0x8000>;
-+			pmsg-size = <0x8000>;
-+			max-reason = <3>; /* KMSG_DUMP_EMERG */
-+		};
-+
-+		/* VGA region is dictated by hardware strapping */
-+		vga_memory: region@bf000000 {
-+			no-map;
-+			compatible = "shared-dma-pool";
-+			reg = <0xbf000000 0x01000000>; /* 16M */
-+		};
-+	};
++/* Each client has this additional data */
++struct sbtsi_data {
++	struct i2c_client *client;
++	struct mutex lock;
 +};
 +
-+&ehci1 {
-+	status = "okay";
++/*
++ * From SB-TSI spec: CPU temperature readings and limit registers encode the
++ * temperature in increments of 0.125 from 0 to 255.875. The "high byte"
++ * register encodes the base-2 of the integer portion, and the upper 3 bits of
++ * the "low byte" encode in base-2 the decimal portion.
++ *
++ * e.g. INT=0x19, DEC=0x20 represents 25.125 degrees Celsius
++ *
++ * Therefore temperature in millidegree Celsius =
++ *   (INT + DEC / 256) * 1000 = (INT * 8 + DEC / 32) * 125
++ */
++static inline int sbtsi_reg_to_mc(s32 integer, s32 decimal)
++{
++	return ((integer << 3) + (decimal >> 5)) * 125;
++}
++
++/*
++ * Inversely, given temperature in millidegree Celsius
++ *   INT = (TEMP / 125) / 8
++ *   DEC = ((TEMP / 125) % 8) * 32
++ * Caller have to make sure temp doesn't exceed 255875, the max valid value.
++ */
++static inline void sbtsi_mc_to_reg(s32 temp, u8 *integer, u8 *decimal)
++{
++	temp /= 125;
++	*integer = temp >> 3;
++	*decimal = (temp & 0x7) << 5;
++}
++
++static int sbtsi_read(struct device *dev, enum hwmon_sensor_types type,
++		      u32 attr, int channel, long *val)
++{
++	struct sbtsi_data *data = dev_get_drvdata(dev);
++	s32 temp_int, temp_dec;
++	int err;
++
++	switch (attr) {
++	case hwmon_temp_input:
++		/*
++		 * ReadOrder bit specifies the reading order of integer and
++		 * decimal part of CPU temp for atomic reads. If bit == 0,
++		 * reading integer part triggers latching of the decimal part,
++		 * so integer part should be read first. If bit == 1, read
++		 * order should be reversed.
++		 */
++		err = i2c_smbus_read_byte_data(data->client, SBTSI_REG_CONFIG);
++		if (err < 0)
++			return err;
++
++		mutex_lock(&data->lock);
++		if (err & BIT(SBTSI_CONFIG_READ_ORDER_SHIFT)) {
++			temp_dec = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_DEC);
++			temp_int = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_INT);
++		} else {
++			temp_int = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_INT);
++			temp_dec = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_DEC);
++		}
++		mutex_unlock(&data->lock);
++		break;
++	case hwmon_temp_max:
++		mutex_lock(&data->lock);
++		temp_int = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_HIGH_INT);
++		temp_dec = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_HIGH_DEC);
++		mutex_unlock(&data->lock);
++		break;
++	case hwmon_temp_min:
++		mutex_lock(&data->lock);
++		temp_int = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_LOW_INT);
++		temp_dec = i2c_smbus_read_byte_data(data->client, SBTSI_REG_TEMP_LOW_DEC);
++		mutex_unlock(&data->lock);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++
++	if (temp_int < 0)
++		return temp_int;
++	if (temp_dec < 0)
++		return temp_dec;
++
++	*val = sbtsi_reg_to_mc(temp_int, temp_dec);
++
++	return 0;
++}
++
++static int sbtsi_write(struct device *dev, enum hwmon_sensor_types type,
++		       u32 attr, int channel, long val)
++{
++	struct sbtsi_data *data = dev_get_drvdata(dev);
++	int reg_int, reg_dec, err;
++	u8 temp_int, temp_dec;
++
++	switch (attr) {
++	case hwmon_temp_max:
++		reg_int = SBTSI_REG_TEMP_HIGH_INT;
++		reg_dec = SBTSI_REG_TEMP_HIGH_DEC;
++		break;
++	case hwmon_temp_min:
++		reg_int = SBTSI_REG_TEMP_LOW_INT;
++		reg_dec = SBTSI_REG_TEMP_LOW_DEC;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	val = clamp_val(val, SBTSI_TEMP_MIN, SBTSI_TEMP_MAX);
++	sbtsi_mc_to_reg(val, &temp_int, &temp_dec);
++
++	mutex_lock(&data->lock);
++	err = i2c_smbus_write_byte_data(data->client, reg_int, temp_int);
++	if (err)
++		goto exit;
++
++	err = i2c_smbus_write_byte_data(data->client, reg_dec, temp_dec);
++exit:
++	mutex_unlock(&data->lock);
++	return err;
++}
++
++static umode_t sbtsi_is_visible(const void *data,
++				enum hwmon_sensor_types type,
++				u32 attr, int channel)
++{
++	switch (type) {
++	case hwmon_temp:
++		switch (attr) {
++		case hwmon_temp_input:
++			return 0444;
++		case hwmon_temp_min:
++			return 0644;
++		case hwmon_temp_max:
++			return 0644;
++		}
++		break;
++	default:
++		break;
++	}
++	return 0;
++}
++
++static const struct hwmon_channel_info *sbtsi_info[] = {
++	HWMON_CHANNEL_INFO(chip, HWMON_C_REGISTER_TZ),
++	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT | HWMON_T_MIN | HWMON_T_MAX),
++	NULL
 +};
 +
-+&emmc_controller {
-+	status = "okay";
++static const struct hwmon_ops sbtsi_hwmon_ops = {
++	.is_visible = sbtsi_is_visible,
++	.read = sbtsi_read,
++	.write = sbtsi_write,
 +};
 +
-+&pinctrl_emmc_default {
-+	bias-disable;
++static const struct hwmon_chip_info sbtsi_chip_info = {
++	.ops = &sbtsi_hwmon_ops,
++	.info = sbtsi_info,
 +};
 +
-+&emmc {
-+	status = "okay";
++static int sbtsi_probe(struct i2c_client *client,
++		       const struct i2c_device_id *id)
++{
++	struct device *dev = &client->dev;
++	struct device *hwmon_dev;
++	struct sbtsi_data *data;
++
++	data = devm_kzalloc(dev, sizeof(struct sbtsi_data), GFP_KERNEL);
++	if (!data)
++		return -ENOMEM;
++
++	data->client = client;
++	mutex_init(&data->lock);
++
++	hwmon_dev = devm_hwmon_device_register_with_info(dev, client->name, data, &sbtsi_chip_info,
++							 NULL);
++
++	return PTR_ERR_OR_ZERO(hwmon_dev);
++}
++
++static const struct i2c_device_id sbtsi_id[] = {
++	{"sbtsi", 0},
++	{}
++};
++MODULE_DEVICE_TABLE(i2c, sbtsi_id);
++
++static const struct of_device_id __maybe_unused sbtsi_of_match[] = {
++	{
++		.compatible = "amd,sbtsi",
++	},
++	{ },
++};
++MODULE_DEVICE_TABLE(of, sbtsi_of_match);
++
++static struct i2c_driver sbtsi_driver = {
++	.class = I2C_CLASS_HWMON,
++	.driver = {
++		.name = "sbtsi",
++		.of_match_table = of_match_ptr(sbtsi_of_match),
++	},
++	.probe = sbtsi_probe,
++	.id_table = sbtsi_id,
 +};
 +
-+&fsim0 {
-+	status = "okay";
-+
-+	#address-cells = <2>;
-+	#size-cells = <0>;
-+
-+	/*
-+	 * CFAM Reset is supposed to be active low but pass1 hardware is wired
-+	 * active high.
-+	 */
-+	cfam-reset-gpios = <&gpio0 ASPEED_GPIO(Q, 0) GPIO_ACTIVE_HIGH>;
-+
-+	cfam@0,0 {
-+		reg = <0 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		chip-id = <0>;
-+
-+		scom@1000 {
-+			compatible = "ibm,fsi2pib";
-+			reg = <0x1000 0x400>;
-+		};
-+
-+		i2c@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam0_i2c0: i2c-bus@0 {
-+				reg = <0>;	/* OMI01 */
-+			};
-+
-+			cfam0_i2c1: i2c-bus@1 {
-+				reg = <1>;	/* OMI23 */
-+			};
-+
-+			cfam0_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam0_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam0_i2c12: i2c-bus@c {
-+				reg = <12>;	/* OP4A */
-+			};
-+
-+			cfam0_i2c13: i2c-bus@d {
-+				reg = <13>;	/* OP4B */
-+			};
-+
-+			cfam0_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam0_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+		};
-+
-+		fsi2spi@1c00 {
-+			compatible = "ibm,fsi2spi";
-+			reg = <0x1c00 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam0_spi0: spi@0 {
-+				reg = <0x0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam0_spi1: spi@20 {
-+				reg = <0x20>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam0_spi2: spi@40 {
-+				reg = <0x40>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam0_spi3: spi@60 {
-+				reg = <0x60>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+		};
-+
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			fsi_occ0: occ {
-+				compatible = "ibm,p10-occ";
-+			};
-+		};
-+
-+		fsi_hub0: hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+		};
-+	};
-+};
-+
-+&fsi_hub0 {
-+	cfam@1,0 {
-+		reg = <1 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		chip-id = <1>;
-+
-+		scom@1000 {
-+			compatible = "ibm,fsi2pib";
-+			reg = <0x1000 0x400>;
-+		};
-+
-+		i2c@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam1_i2c2: i2c-bus@2 {
-+				reg = <2>;	/* OMI45 */
-+			};
-+
-+			cfam1_i2c3: i2c-bus@3 {
-+				reg = <3>;	/* OMI67 */
-+			};
-+
-+			cfam1_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam1_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam1_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam1_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+
-+			cfam1_i2c16: i2c-bus@10 {
-+				reg = <16>;	/* OP6A */
-+			};
-+
-+			cfam1_i2c17: i2c-bus@11 {
-+				reg = <17>;	/* OP6B */
-+			};
-+		};
-+
-+		fsi2spi@1c00 {
-+			compatible = "ibm,fsi2spi";
-+			reg = <0x1c00 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam1_spi0: spi@0 {
-+				reg = <0x0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam1_spi1: spi@20 {
-+				reg = <0x20>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam1_spi2: spi@40 {
-+				reg = <0x40>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam1_spi3: spi@60 {
-+				reg = <0x60>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+		};
-+
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			fsi_occ1: occ {
-+				compatible = "ibm,p10-occ";
-+			};
-+		};
-+
-+		fsi_hub1: hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			no-scan-on-init;
-+		};
-+	};
-+
-+	cfam@2,0 {
-+		reg = <2 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		chip-id = <2>;
-+
-+		scom@1000 {
-+			compatible = "ibm,fsi2pib";
-+			reg = <0x1000 0x400>;
-+		};
-+
-+		i2c@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam2_i2c0: i2c-bus@0 {
-+				reg = <0>;	/* OM01 */
-+			};
-+
-+			cfam2_i2c1: i2c-bus@1 {
-+				reg = <1>;	/* OM23 */
-+			};
-+
-+			cfam2_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam2_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam2_i2c12: i2c-bus@c {
-+				reg = <12>;	/* OP4A */
-+			};
-+
-+			cfam2_i2c13: i2c-bus@d {
-+				reg = <13>;	/* OP4B */
-+			};
-+
-+			cfam2_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam2_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+		};
-+
-+		fsi2spi@1c00 {
-+			compatible = "ibm,fsi2spi";
-+			reg = <0x1c00 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam2_spi0: spi@0 {
-+				reg = <0x0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam2_spi1: spi@20 {
-+				reg = <0x20>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam2_spi2: spi@40 {
-+				reg = <0x40>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam2_spi3: spi@60 {
-+				reg = <0x60>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+		};
-+
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			fsi_occ2: occ {
-+				compatible = "ibm,p10-occ";
-+			};
-+		};
-+
-+		fsi_hub2: hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			no-scan-on-init;
-+		};
-+	};
-+
-+	cfam@3,0 {
-+		reg = <3 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		chip-id = <3>;
-+
-+		scom@1000 {
-+			compatible = "ibm,fsi2pib";
-+			reg = <0x1000 0x400>;
-+		};
-+
-+		i2c@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam3_i2c2: i2c-bus@2 {
-+				reg = <2>;	/* OM45 */
-+			};
-+
-+			cfam3_i2c3: i2c-bus@3 {
-+				reg = <3>;	/* OM67 */
-+			};
-+
-+			cfam3_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam3_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam3_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam3_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+
-+			cfam3_i2c16: i2c-bus@10 {
-+				reg = <16>;	/* OP6A */
-+			};
-+
-+			cfam3_i2c17: i2c-bus@11 {
-+				reg = <17>;	/* OP6B */
-+			};
-+		};
-+
-+		fsi2spi@1c00 {
-+			compatible = "ibm,fsi2spi";
-+			reg = <0x1c00 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam3_spi0: spi@0 {
-+				reg = <0x0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi1: spi@20 {
-+				reg = <0x20>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi2: spi@40 {
-+				reg = <0x40>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi3: spi@60 {
-+				reg = <0x60>;
-+				compatible = "ibm,fsi2spi-restricted";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+		};
-+
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			fsi_occ3: occ {
-+				compatible = "ibm,p10-occ";
-+			};
-+		};
-+
-+		fsi_hub3: hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			no-scan-on-init;
-+		};
-+	};
-+};
-+
-+/* Legacy OCC numbering (to get rid of when userspace is fixed) */
-+&fsi_occ0 {
-+	reg = <1>;
-+};
-+
-+&fsi_occ1 {
-+	reg = <2>;
-+};
-+
-+&fsi_occ2 {
-+	reg = <3>;
-+};
-+
-+&fsi_occ3 {
-+	reg = <4>;
-+};
-+
-+&ibt {
-+	status = "okay";
-+};
-+
-+&vuart1 {
-+	status = "okay";
-+};
-+
-+&vuart2 {
-+	status = "okay";
-+};
-+
-+&lpc_ctrl {
-+	status = "okay";
-+	memory-region = <&flash_memory>;
-+};
-+
-+&kcs4 {
-+	compatible = "openbmc,mctp-lpc";
-+	status = "okay";
-+};
-+
-+&mac2 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii3_default>;
-+	clocks = <&syscon ASPEED_CLK_GATE_MAC3CLK>,
-+		 <&syscon ASPEED_CLK_MAC3RCLK>;
-+	clock-names = "MACCLK", "RCLK";
-+	use-ncsi;
-+};
-+
-+&mac3 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_rmii4_default>;
-+	clocks = <&syscon ASPEED_CLK_GATE_MAC4CLK>,
-+		 <&syscon ASPEED_CLK_MAC4RCLK>;
-+	clock-names = "MACCLK", "RCLK";
-+	use-ncsi;
-+};
-+
-+&xdma {
-+	status = "okay";
-+	memory-region = <&vga_memory>;
-+};
++module_i2c_driver(sbtsi_driver);
++
++MODULE_AUTHOR("Kun Yi <kunyi@google.com>");
++MODULE_DESCRIPTION("Hwmon driver for AMD SB-TSI emulated sensor");
++MODULE_LICENSE("GPL");
 -- 
-2.18.4
+2.29.2.684.gfbc64c5ab5-goog
 
