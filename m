@@ -1,60 +1,126 @@
-Return-Path: <SRS0=GNDb=FZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=uMIN=F2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03130C433E0
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:24:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A9B8C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 01:48:25 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1FF9722B51
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:24:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FF9722B51
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1C5BB22955
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 01:48:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1C5BB22955
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=inventec.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D0DXn5ZfczDqQL
-	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 09:24:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D0K4561v9zDqPw
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 12:48:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.helo=mga12.intel.com (client-ip=192.55.52.136; helo=mga12.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
+ smtp.mailfrom=inventec.com (client-ip=40.107.129.113;
+ helo=kor01-sl2-obe.outbound.protection.outlook.com;
+ envelope-from=mohammed.habeeb@inventec.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=none (p=none dis=none) header.from=inventec.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=InventecCorp.onmicrosoft.com
+ header.i=@InventecCorp.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-InventecCorp-onmicrosoft-com header.b=urHMwc8r; 
+ dkim-atps=neutral
+Received: from KOR01-SL2-obe.outbound.protection.outlook.com
+ (mail-eopbgr1290113.outbound.protection.outlook.com [40.107.129.113])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D0DTt01nLzDqM6;
- Tue, 22 Dec 2020 09:21:53 +1100 (AEDT)
-IronPort-SDR: zSNd/IsPF3T5xLWdg3tgeF7vKVyj7ZOqYGFk6mjW22NspJ2/PX9f0NdpwILjOZZ4aOq3uOEX/3
- U/tDMga4iRmA==
-X-IronPort-AV: E=McAfee;i="6000,8403,9842"; a="155004939"
-X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="155004939"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2020 14:21:47 -0800
-IronPort-SDR: kFcfjsqV4Pipj84NLphvf/feutzypujI19wIr2o7BwQHvoHcKKjGsLchUG81EFSNvrHwNx2BOJ
- lCy4h/germcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="372892712"
-Received: from maru.jf.intel.com ([10.54.51.77])
- by orsmga008.jf.intel.com with ESMTP; 21 Dec 2020 14:21:47 -0800
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Eddie James <eajames@linux.ibm.com>, Stephen Boyd <sboyd@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: [PATCH v2 1/1] media: aspeed: fix clock handling logic
-Date: Mon, 21 Dec 2020 14:32:25 -0800
-Message-Id: <20201221223225.14723-2-jae.hyun.yoo@linux.intel.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201221223225.14723-1-jae.hyun.yoo@linux.intel.com>
-References: <20201221223225.14723-1-jae.hyun.yoo@linux.intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4CzgYN2BRbzDqLG
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Dec 2020 11:37:58 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FUNZr9f4gXCqLt1PoaF31FyFKRUjx9rKlTxbKkbkDwSpC8n9+V4EsOVFaSQPK8PAhO3xRLe8H85qn1Smxu8LB8XxnvuTpjUIJNjziFAaEKtPlsVXX8d1wxe5wajZquiD/5zNao1Oz32J/+amxqI4wKkfiB1Wjhm2CdcybEnOrR7Nl6DADWekHriI2JaySKZmgzwndiDmmyMDEOF1gFzUVr7PuSwGL0Eoz4bDGpxzydKBLno7fzjUUtKS6QntDm3wMlM93CTr/gNeZ/YW5lDzfG1GVQU8yNb9w6IwFPcZhNEy1o9gLL3QSZ2BAjxXhXVSz4qFEoVzyCPrOMeOGieCaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=51qpm5m0yyTCoqgwWrd9Xm6oEB+YOqOq7sl70rSro2Q=;
+ b=BO8pTYkOWSK+q89sTIoVDw5D3MkLnTJIQo898RDukEABS/VHcmF+pdLXyKaXoRw2kDAfbkje/jpj3u1V2PolnJrBXF2eB7tnGd1jJvBkunutaAmTaoUtlCjZnEYrsUDepugnhSrFOG8HLaZdQ8atkdl5icdVqHC8ep26q1QcJeIqkH1cpqc34k2uEAVwUMPFdTGasEyvZsKLgyXIbGqgS7TwbukTPVeGwtQWdY40EO+Frp0DK6guPm0Ie2qggREasA1YsPhCcTiLQQ65AI0Wv3+sN61l1sejM/He/+3j54mAI78Z3hz5XWzbZbfwE/0EQbe3OAJD9UyjNDqvf/z4zQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=inventec.com; dmarc=pass action=none header.from=inventec.com;
+ dkim=pass header.d=inventec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=InventecCorp.onmicrosoft.com; s=selector2-InventecCorp-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=51qpm5m0yyTCoqgwWrd9Xm6oEB+YOqOq7sl70rSro2Q=;
+ b=urHMwc8r1Fqrl60ec7KSqCNY1id+1NyuO44Z+8nSxAUqkHgg4tmEdpY5TvFYN7vg8wr9kOFLwi9rjL7/hKrRp47sYREdfs4E5ppE2W68CG+qp/ABHWDUgb1WJt86X2rPBMA59xkPtGnZBNbAtSs21+4z1pB6Be4XEAfGo05Nv6E=
+Received: from PS2PR02MB3541.apcprd02.prod.outlook.com (2603:1096:300:48::10)
+ by PS2PR02MB3301.apcprd02.prod.outlook.com (2603:1096:300:31::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3676.33; Mon, 21 Dec
+ 2020 00:37:45 +0000
+Received: from PS2PR02MB3541.apcprd02.prod.outlook.com
+ ([fe80::4cc2:cac1:a003:53f4]) by PS2PR02MB3541.apcprd02.prod.outlook.com
+ ([fe80::4cc2:cac1:a003:53f4%6]) with mapi id 15.20.3676.033; Mon, 21 Dec 2020
+ 00:37:44 +0000
+From: Mohammed.Habeeb ISV <mohammed.habeeb@inventec.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: No event logs in webUI
+Thread-Topic: No event logs in webUI
+Thread-Index: AdbXMBX7HAfhxRP8Tcm3nL6Rx0B5gA==
+Date: Mon, 21 Dec 2020 00:37:44 +0000
+Message-ID: <PS2PR02MB35413947737B5E6DB0501CD390C00@PS2PR02MB3541.apcprd02.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=inventec.com;
+x-originating-ip: [2601:647:5b80:8dd0:541e:1e51:8dbe:c364]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: 98069f95-b2a6-49c9-c806-08d8a548a210
+x-ms-traffictypediagnostic: PS2PR02MB3301:
+x-microsoft-antispam-prvs: <PS2PR02MB33014C639AB525ECBAA0EC5B90C00@PS2PR02MB3301.apcprd02.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6108;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: ZsOxDrXcGQeKHShB14vm6U3Eha4FTrpuwSEHusVL/wguZ4KZN59aF2IdIgTG4xBj7+sAj30/z8iVtT+Ntrwf28Pt+L6ClvbQmM4z/tJMpHSeqSMWB2g4K2C6qdMMQ9DDz5CnZWjQyQWkzGaxnZ9LTIAJ4gBCULTuWfKiIdSyezQ3q6fI6i3Zkh08uHDXrhAEwCO8KKyRO7D17v/4M/4ozK1C8acnUXzfJo9ZvnmWQEAjNxmQmzWzKV+gGRvOiKKQg3CtuMWthI8Q7Khas2zqDp7zezLYzXeyoddXeTFJ5BdJOdlD4qUx8iLgwwpGUmip63/W4Y/1UZkLKb+eaKQ8bYMEl2Z38kzlrBht7WrcEQzGHJhl8x5pQUQLuBI2+Cx2Azy4tyI7947rB/wrSBhk9Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PS2PR02MB3541.apcprd02.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(376002)(136003)(366004)(346002)(396003)(39860400002)(33656002)(66446008)(55016002)(52536014)(9326002)(186003)(9686003)(478600001)(6506007)(316002)(86362001)(6916009)(7696005)(2906002)(64756008)(71200400001)(5660300002)(8676002)(66476007)(66556008)(76116006)(66946007)(8936002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?onb5Z2D6tOwZvZxci6HQHxLbt6vpzo19SvxNZFPrYbqc94hfBLdB4voJfzNK?=
+ =?us-ascii?Q?Ryd209/lpueqDnDP04nCiCrm2aPlYzETkzptxuoUFb2ryE8jhs1Wp3VQfcGR?=
+ =?us-ascii?Q?mbJzdZPo/2hUqIEEpa0FXmRzS5i3db3k4bgmrGvL6JwzBntgyx99LtKMxmV4?=
+ =?us-ascii?Q?9mNYuaNLXJMzczXjWkZLg1U/Mr1j9QTYB/sRrUNGLkxYW9KCP34IaY9qEmc8?=
+ =?us-ascii?Q?f9rdW0rLTryktpjV0+dpWPKTY+Tr5kRUTMqY1bwplvFVgo9dIEBo1acXRiWc?=
+ =?us-ascii?Q?4X51jhRvfzZ3NkaExaZRwXVjts0FTWRTycvvrebWRLXyGyfff1/artRNeJmF?=
+ =?us-ascii?Q?29yBSZ2vYb0YO6y9FW+M0NW3rwMEU6q2FD7f7FZga0dgDAJoCw3GGFRjHjoG?=
+ =?us-ascii?Q?vIMjtFZrKlnNTyIOYUbXC2+vJfmdUxTmEWRMi9DmF5bZGew+QlAsDO/Te1iH?=
+ =?us-ascii?Q?X9v+fLyOvOUsRd47OEyjw8+pVahMgC98ISqdLMKj1edJmGbvdWFVXFlXdlgj?=
+ =?us-ascii?Q?Q4ntO1S26fvnOBhYDUKp9ymXSlqw3D6o56U0NcMRzM799DJu8WNVru8Lw3gd?=
+ =?us-ascii?Q?iKD4imc1YYdV4YjM4UkVbpCxB+ijRyvPOga27jL5kydms1k/HkoCsQ5g2x1N?=
+ =?us-ascii?Q?90/St3RWHtF+2IPVYY+B6ZmiWlcZkF9IozK44k1JtDZOHA26MoRvya6CZoYi?=
+ =?us-ascii?Q?MousxzfiF8AgvztXrZ6FgYQ99jqf8c3IteKmYblaX2eWvyMXAUP1SohlqaNC?=
+ =?us-ascii?Q?PcYghKiSu3Cb7C7mOv9tiQkRDU0Mdh3FZ62bBrePnf6YaJSb2glhkas2xIx4?=
+ =?us-ascii?Q?CsSS7x8AP9A729uIKA5f/XE4s2mcyaxuf3jtkUEaiviboq0DJ7ydPL8lREtA?=
+ =?us-ascii?Q?XSW5P28ckRF4ZucIXnaZO1AKRrgRdI9w9ogL2ZsiU/06l7K6SCyu4c+K9lxa?=
+ =?us-ascii?Q?3Bz11RQwZmCjwOVMWj5Q/I/UCfA6UGGziBcPWWKqNvHlL683tcvw/TDchl74?=
+ =?us-ascii?Q?h/1wGd7gBxmoazzUg20J/wWdkathC9GgNmSRDrsrLYhDFP0=3D?=
+x-ms-exchange-transport-forked: True
+Content-Type: multipart/alternative;
+ boundary="_000_PS2PR02MB35413947737B5E6DB0501CD390C00PS2PR02MB3541apcp_"
+MIME-Version: 1.0
+X-OriginatorOrg: inventec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PS2PR02MB3541.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 98069f95-b2a6-49c9-c806-08d8a548a210
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Dec 2020 00:37:44.6303 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 2ae41f0c-acca-40f1-9c63-49475ff38512
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: G1UeLu9FoetzEjqDyZYtD9FCs6p2qoBzH2XLjN6oAdOtuKGS8ZdU6OA8hRM4IntxJ0fVPIXXgOPIDa7jcUYMzWNL+vXk66ebruZl5LTwyKo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS2PR02MB3301
+X-Mailman-Approved-At: Tue, 22 Dec 2020 12:47:06 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,114 +132,119 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- linux-clk@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- linux-media@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Video engine uses eclk and vclk for its clock sources and its reset
-control is coupled with eclk so the current clock enabling sequence works
-like below.
+--_000_PS2PR02MB35413947737B5E6DB0501CD390C00PS2PR02MB3541apcp_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
- Enable eclk
- De-assert Video Engine reset
- 10ms delay
- Enable vclk
+Hi All,
 
-It introduces improper reset on the Video Engine hardware and eventually
-the hardware generates unexpected DMA memory transfers that can corrupt
-memory region in random and sporadic patterns. This issue is observed
-very rarely on some specific AST2500 SoCs but it causes a critical
-kernel panic with making a various shape of signature so it's extremely
-hard to debug. Moreover, the issue is observed even when the video
-engine is not actively used because udevd turns on the video engine
-hardware for a short time to make a query in every boot.
+I am new to openBmc . Currently, I don't see any events logged in webUI
+Server health > Event log page.  I see "No events have been logged yet."
+When I see the sel elist using ipmitool there are lot of logs shown. I am n=
+ot sure if it is a bug in webUI or there are no events to be shown.
+What kind of events are shown in Server health > Event log page.  Any examp=
+le would be helpful. Currently using openbmc 2.7 version.
 
-To fix this issue, this commit changes the clock handling logic to make
-the reset de-assertion triggered after enabling both eclk and vclk. Also,
-it adds clk_unprepare call for a case when probe fails.
+ipmitool -I lanplus -U root -P 0penBmc -H 10.6.141.197 sel elist
 
-Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Reviewed-by: Eddie James <eajames@linux.ibm.com>
+16bd | 12/18/20 | 12:04:41 UTC | Temperature SCM_TEMP | Lower Non-critical =
+going low  | Deasserted | Reading 34 < Threshold 5 degrees C
+16be | 12/18/20 | 12:04:41 UTC | Temperature SCM_TEMP | Lower Critical goin=
+g low  | Deasserted | Reading 34 < Threshold 0 degrees C
+16bf | 12/18/20 | 12:04:57 UTC | Temperature SCM_TEMP | Lower Non-critical =
+going low  | Asserted | Reading 252 < Threshold 5 degrees C
+16c0 | 12/18/20 | 12:04:57 UTC | Temperature SCM_TEMP | Lower Critical goin=
+g low  | Asserted | Reading 252 < Threshold 0 degrees C
 
-clk: ast2600: fix reset settings for eclk and vclk
+Thanks & regards
+Habeeb
 
-Video engine reset setting should be coupled with eclk to match it
-with the setting for previous Aspeed SoCs which is defined in
-clk-aspeed.c since all Aspeed SoCs are sharing a single video engine
-driver. Also, reset bit 6 is defined as 'Video Engine' reset in
-datasheet so it should be de-asserted when eclk is enabled. This
-commit fixes the setting.
+--_000_PS2PR02MB35413947737B5E6DB0501CD390C00PS2PR02MB3541apcp_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: d3d04f6c330a ("clk: Add support for AST2600 SoC")
-Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
----
-Changes since v1:
-- Squashed two patches due to dependency.
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Calibri",sans-serif;}
+span.EmailStyle17
+	{mso-style-type:personal-compose;
+	font-family:"Calibri",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
+</head>
+<body lang=3D"EN-US" link=3D"#0563C1" vlink=3D"#954F72">
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal">Hi All, <o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">I am new to openBmc . Currently, I don&#8217;t see a=
+ny events logged in webUI &nbsp;<o:p></o:p></p>
+<p class=3D"MsoNormal">Server health &gt; Event log page. &nbsp;I see &#822=
+0;No events have been logged yet.&#8221;
+<o:p></o:p></p>
+<p class=3D"MsoNormal">When I see the sel elist using ipmitool there are lo=
+t of logs shown. I am not sure if it is a bug in webUI or there are no even=
+ts to be shown.<o:p></o:p></p>
+<p class=3D"MsoNormal">What kind of events are shown in Server health &gt; =
+Event log page. &nbsp;Any example would be helpful. Currently using openbmc=
+ 2.7 version.<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">ipmitool -I lanplus -U root -P 0penBmc -H 10.6.141.1=
+97 sel elist<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">16bd | 12/18/20 | 12:04:41 UTC | Temperature SCM_TEM=
+P | Lower Non-critical going low&nbsp; | Deasserted | Reading 34 &lt; Thres=
+hold 5 degrees C<o:p></o:p></p>
+<p class=3D"MsoNormal">16be | 12/18/20 | 12:04:41 UTC | Temperature SCM_TEM=
+P | Lower Critical going low&nbsp; | Deasserted | Reading 34 &lt; Threshold=
+ 0 degrees C<o:p></o:p></p>
+<p class=3D"MsoNormal">16bf | 12/18/20 | 12:04:57 UTC | Temperature SCM_TEM=
+P | Lower Non-critical going low&nbsp; | Asserted | Reading 252 &lt; Thresh=
+old 5 degrees C<o:p></o:p></p>
+<p class=3D"MsoNormal">16c0 | 12/18/20 | 12:04:57 UTC | Temperature SCM_TEM=
+P | Lower Critical going low&nbsp; | Asserted | Reading 252 &lt; Threshold =
+0 degrees C<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal">Thanks &amp; regards<o:p></o:p></p>
+<p class=3D"MsoNormal">Habeeb<o:p></o:p></p>
+<p class=3D"MsoNormal"><o:p></o:p></p>
+</div>
+</body>
+</html>
 
- drivers/clk/clk-ast2600.c             | 4 ++--
- drivers/media/platform/aspeed-video.c | 9 ++++++---
- 2 files changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/clk/clk-ast2600.c b/drivers/clk/clk-ast2600.c
-index 177368cac6dd..882da16575d4 100644
---- a/drivers/clk/clk-ast2600.c
-+++ b/drivers/clk/clk-ast2600.c
-@@ -60,10 +60,10 @@ static void __iomem *scu_g6_base;
- static const struct aspeed_gate_data aspeed_g6_gates[] = {
- 	/*				    clk rst  name		parent	 flags */
- 	[ASPEED_CLK_GATE_MCLK]		= {  0, -1, "mclk-gate",	"mpll",	 CLK_IS_CRITICAL }, /* SDRAM */
--	[ASPEED_CLK_GATE_ECLK]		= {  1, -1, "eclk-gate",	"eclk",	 0 },	/* Video Engine */
-+	[ASPEED_CLK_GATE_ECLK]		= {  1,  6, "eclk-gate",	"eclk",	 0 },	/* Video Engine */
- 	[ASPEED_CLK_GATE_GCLK]		= {  2,  7, "gclk-gate",	NULL,	 0 },	/* 2D engine */
- 	/* vclk parent - dclk/d1clk/hclk/mclk */
--	[ASPEED_CLK_GATE_VCLK]		= {  3,  6, "vclk-gate",	NULL,	 0 },	/* Video Capture */
-+	[ASPEED_CLK_GATE_VCLK]		= {  3, -1, "vclk-gate",	NULL,	 0 },	/* Video Capture */
- 	[ASPEED_CLK_GATE_BCLK]		= {  4,  8, "bclk-gate",	"bclk",	 0 }, /* PCIe/PCI */
- 	/* From dpll */
- 	[ASPEED_CLK_GATE_DCLK]		= {  5, -1, "dclk-gate",	NULL,	 CLK_IS_CRITICAL }, /* DAC */
-diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
-index c46a79eace98..db072ff2df70 100644
---- a/drivers/media/platform/aspeed-video.c
-+++ b/drivers/media/platform/aspeed-video.c
-@@ -514,8 +514,8 @@ static void aspeed_video_off(struct aspeed_video *video)
- 	aspeed_video_write(video, VE_INTERRUPT_STATUS, 0xffffffff);
- 
- 	/* Turn off the relevant clocks */
--	clk_disable(video->vclk);
- 	clk_disable(video->eclk);
-+	clk_disable(video->vclk);
- 
- 	clear_bit(VIDEO_CLOCKS_ON, &video->flags);
- }
-@@ -526,8 +526,8 @@ static void aspeed_video_on(struct aspeed_video *video)
- 		return;
- 
- 	/* Turn on the relevant clocks */
--	clk_enable(video->eclk);
- 	clk_enable(video->vclk);
-+	clk_enable(video->eclk);
- 
- 	set_bit(VIDEO_CLOCKS_ON, &video->flags);
- }
-@@ -1719,8 +1719,11 @@ static int aspeed_video_probe(struct platform_device *pdev)
- 		return rc;
- 
- 	rc = aspeed_video_setup_video(video);
--	if (rc)
-+	if (rc) {
-+		clk_unprepare(video->vclk);
-+		clk_unprepare(video->eclk);
- 		return rc;
-+	}
- 
- 	return 0;
- }
--- 
-2.17.1
-
+--_000_PS2PR02MB35413947737B5E6DB0501CD390C00PS2PR02MB3541apcp_--
