@@ -2,24 +2,24 @@ Return-Path: <SRS0=GNDb=FZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F84EC433E0
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 82775C433DB
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:08:09 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8C15C22C9C
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:06:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8C15C22C9C
+	by mail.kernel.org (Postfix) with ESMTPS id 150C422B43
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:08:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 150C422B43
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ami.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D05VK2c15zDqQX
-	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 04:06:49 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D05Wq2Vp5zDqQT
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 04:08:07 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=ami.com
  (client-ip=63.147.10.40; helo=atlmailgw1.ami.com;
@@ -29,43 +29,42 @@ Authentication-Results: lists.ozlabs.org;
 Received: from atlmailgw1.ami.com (atlmailgw1.ami.com [63.147.10.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D05NC1NMpzDqQT;
- Tue, 22 Dec 2020 04:01:30 +1100 (AEDT)
-X-AuditID: ac1060b2-a93ff700000017ec-5f-5fe0d4e5ce60
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D05NF3PY2zDqQ1;
+ Tue, 22 Dec 2020 04:01:33 +1100 (AEDT)
+X-AuditID: ac1060b2-a7dff700000017ec-60-5fe0d4eaa98b
 Received: from atlms1.us.megatrends.com (atlms1.us.megatrends.com
  [172.16.96.144])
  (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (Client did not present a certificate)
  by atlmailgw1.ami.com (Symantec Messaging Gateway) with SMTP id
- DE.3D.06124.5E4D0EF5; Mon, 21 Dec 2020 12:01:25 -0500 (EST)
+ 6F.3D.06124.AE4D0EF5; Mon, 21 Dec 2020 12:01:30 -0500 (EST)
 Received: from ami-us-wk.us.megatrends.com (172.16.98.207) by
  atlms1.us.megatrends.com (172.16.96.144) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Mon, 21 Dec 2020 12:01:24 -0500
+ 14.3.468.0; Mon, 21 Dec 2020 12:01:30 -0500
 From: Hongwei Zhang <hongweiz@ami.com>
 To: <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, Jakub Kicinski <kuba@kernel.org>, David S Miller
  <davem@davemloft.net>
-Subject: [Aspeed, ncsi-rx,
- v1 1/1] net: ftgmac100: Fix AST2600 EVB NCSI RX issue
-Date: Mon, 21 Dec 2020 12:00:46 -0500
-Message-ID: <20201221170048.29821-2-hongweiz@ami.com>
+Subject: [Aspeed,ncsi-rx, v1] Answer to initial submission
+Date: Mon, 21 Dec 2020 12:00:48 -0500
+Message-ID: <20201221170048.29821-4-hongweiz@ami.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201215192323.24359-1-hongweiz@ami.com>
 References: <20201215192323.24359-1-hongweiz@ami.com>
+In-Reply-To: <20201215192323.24359-1-hongweiz@ami.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [172.16.98.207]
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrGLMWRmVeSWpSXmKPExsWyRiBhgu7TKw/iDfpuWFrsusxhMed8C4vF
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrOLMWRmVeSWpSXmKPExsWyRiBhgu6rKw/iDRpfm1jsusxhMed8C4vF
  7/N/mS0ubOtjtWhefY7Z4vKuOWwWxxaIWZxqecHiwOFxtX0Xu8eWlTeZPC5+PMbssWlVJ5vH
- +RkLGT0+b5ILYIvisklJzcksSy3St0vgypg/W6egT6Biz/rdjA2MJ3m7GDk5JARMJNb/W8PS
- xcjFISSwi0ni3M3/7CAJIIdRYvp3HhCbTUBNYu/mOUwgRSICqxklejb8YgRxmAU6GCWmvvgK
- 1iEs4C/x/PBlZhCbRUBVYk/PBUYQm1fAVGLFjwnMEOvkJVZvOABkc3BwCphJ7DklB7HMVKJ1
- 3zsmiHJBiZMzn7CA2MwCEhIHX7xghqiRlbh16DETxBhFiQe/vrNOYBSYhaRlFpKWBYxMqxiF
- EktychMzc9LLDfUSczP1kvNzNzFCwnrTDsaWi+aHGJk4GA8xSnAwK4nwmkndjxfiTUmsrEot
- yo8vKs1JLT7EKM3BoiTOu8r9aLyQQHpiSWp2ampBahFMlomDU6qBsYQjXlJvq+G/2T8D+Fhj
- z1ZNVqnINJubeIjtiPX97MntXDNNPms3O7SX3ZjjKLxic2bfUr+aRVWK+6LMOja82OxUX2dp
- bGB41WpPd+mkq7ote2uvpzbf+yX2JTn95un2ZncXL+bw2U/2vNvLxCRfcO3w7APTz11dZBej
- 7W3opbihXm7d/PxYJZbijERDLeai4kQAoGSfzlkCAAA=
+ +RkLGT0+b5ILYIvisklJzcksSy3St0vgyvh5Zz5TwSaWis4ZC5kaGLcxdzFyckgImEi8OPqB
+ BcQWEtjFJLF/VmkXIxeIzSgx/81RVpAEm4CaxN7Nc5hAEiICqxklejb8YgRxmAU6GCWmvvjK
+ DlIlLGAlMf3aH0YQm0VAVWLBm3VgY3kFTCVuLH3PCLFOXmL1hgPMEOtMJVr3vQOaysHBKWAm
+ seeUHES5oMTJmU/AWpkFJCQOvngBVS4rcevQYyaIMYoSD359Z53AKDALScssJC0LGJlWMQol
+ luTkJmbmpJcb6iXmZuol5+duYoQE9qYdjC0XzQ8xMnEwHmKU4GBWEuE1k7ofL8SbklhZlVqU
+ H19UmpNafIhRmoNFSZx3lfvReCGB9MSS1OzU1ILUIpgsEwenVAPjkwTpC/7H7213uXBX/8rM
+ /n7PCxOkwv1P2uf83HVLv+wim81tH7lWlqhWz/I7iWuDYh5lLi+/pGr3cUZBwuJHJx337Hw2
+ XTl/YvPLBfdulDR7Plzgn27x83dPR9Jip2/2z74fM2Aw8EwQiU94P8l40TpLtu/39b4aXM3r
+ KA55u19fijH9/ZFbSizFGYmGWsxFxYkATTfua1oCAAA=
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,60 +82,24 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-When FTGMAC100 driver is used on other NCSI Ethernet controllers, few
-controllers have compatible issue, removing FTGMAC100_RXDES0_RX_ERR bit
-from RXDES0_ANY_ERROR can fix the issue.
+Hi Jakub,
 
-Fixes: 7ee2d5b4d4340353 ("ARM: dts: nuvoton: Add Fii Kudo system")
-Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
----
- drivers/net/ethernet/faraday/Kconfig     | 9 +++++++++
- drivers/net/ethernet/faraday/ftgmac100.h | 8 ++++++++
- 2 files changed, 17 insertions(+)
+> From:	Jakub Kicinski <kuba@kernel.org>
+> 
+> > ... 
+> > Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
+> 
+> Thanks for the patch. Please repost CCing the netdev mailing list so it can be merged to the networking 
+> tree (which I assume is your intent).
+> Please also include a Fixes tag pointing to the commit where the timeout issue started (even if it's the 
+> first commit of the driver).
+> 
+I updated the cc list and cover letter accordingly, also addressed
+Andrew's question. please review.
 
-diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
-index c2677ec0564d..ccd0c30be0db 100644
---- a/drivers/net/ethernet/faraday/Kconfig
-+++ b/drivers/net/ethernet/faraday/Kconfig
-@@ -38,4 +38,13 @@ config FTGMAC100
- 	  from Faraday. It is used on Faraday A369, Andes AG102 and some
- 	  other ARM/NDS32 SoC's.
- 
-+config FTGMAC100_RXDES0_RX_ERR_CHK
-+	bool "Include FTGMAC100_RXDES0_RX_ERR in RXDES0_ANY_ERROR"
-+	default y
-+	depends on FTGMAC100
-+	help
-+	  Say N here if the NCSI controller on your platform has compatible
-+	  issue with FTGMAC100, thus always trigger RXDES0_RX_ERR. Exclude
-+	  this bit can fix the issue.
-+
- endif # NET_VENDOR_FARADAY
-diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-index 63b3e02fab16..59e1bd52d261 100644
---- a/drivers/net/ethernet/faraday/ftgmac100.h
-+++ b/drivers/net/ethernet/faraday/ftgmac100.h
-@@ -251,12 +251,20 @@ struct ftgmac100_rxdes {
- #define FTGMAC100_RXDES0_RXPKT_RDY	(1 << 31)
- 
- /* Errors we care about for dropping packets */
-+#ifdef CONFIG_FTGMAC100_RXDES0_RX_ERR_CHK
- #define RXDES0_ANY_ERROR		( \
- 	FTGMAC100_RXDES0_RX_ERR		| \
- 	FTGMAC100_RXDES0_CRC_ERR	| \
- 	FTGMAC100_RXDES0_FTL		| \
- 	FTGMAC100_RXDES0_RUNT		| \
- 	FTGMAC100_RXDES0_RX_ODD_NB)
-+#else
-+#define RXDES0_ANY_ERROR		( \
-+	FTGMAC100_RXDES0_CRC_ERR	| \
-+	FTGMAC100_RXDES0_FTL		| \
-+	FTGMAC100_RXDES0_RUNT		| \
-+	FTGMAC100_RXDES0_RX_ODD_NB)
-+#endif
- 
- #define FTGMAC100_RXDES1_VLANTAG_CI	0xffff
- #define FTGMAC100_RXDES1_PROT_MASK	(0x3 << 20)
+Thanks,
+--Hongwei
+
 -- 
 2.17.1
 
