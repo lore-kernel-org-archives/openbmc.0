@@ -2,23 +2,24 @@ Return-Path: <SRS0=GNDb=FZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F396C433DB
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03130C433E0
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:24:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B53A622BE9
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B53A622BE9
+	by mail.kernel.org (Postfix) with ESMTPS id 1FF9722B51
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 22:24:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FF9722B51
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D0DWH4mR3zDqQQ
-	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 09:23:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D0DXn5ZfczDqQL
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 09:24:25 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.helo=mga12.intel.com (client-ip=192.55.52.136; helo=mga12.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
@@ -27,31 +28,33 @@ Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
 Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D0DTr15JSzDqM6;
- Tue, 22 Dec 2020 09:21:50 +1100 (AEDT)
-IronPort-SDR: 01kGvLFJMpcOM77eNb8uvdslOU0kcF/0mvRoGscK1OBLxYqgFex0/1FRu+g2feus/bjCtp+IKF
- 3ihfoJxF0ezg==
-X-IronPort-AV: E=McAfee;i="6000,8403,9842"; a="155004936"
-X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="155004936"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D0DTt01nLzDqM6;
+ Tue, 22 Dec 2020 09:21:53 +1100 (AEDT)
+IronPort-SDR: zSNd/IsPF3T5xLWdg3tgeF7vKVyj7ZOqYGFk6mjW22NspJ2/PX9f0NdpwILjOZZ4aOq3uOEX/3
+ U/tDMga4iRmA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9842"; a="155004939"
+X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="155004939"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
  by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Dec 2020 14:21:46 -0800
-IronPort-SDR: PS9v6jx1y4Zk2+CT4iwry61c5UoDxY0SjTCemykD8hVs6PLfnxgfHftbemXJiNYLxzqdOrImj9
- MYZA6Z2eiSiQ==
+ 21 Dec 2020 14:21:47 -0800
+IronPort-SDR: kFcfjsqV4Pipj84NLphvf/feutzypujI19wIr2o7BwQHvoHcKKjGsLchUG81EFSNvrHwNx2BOJ
+ lCy4h/germcg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="372892687"
+X-IronPort-AV: E=Sophos;i="5.78,437,1599548400"; d="scan'208";a="372892712"
 Received: from maru.jf.intel.com ([10.54.51.77])
- by orsmga008.jf.intel.com with ESMTP; 21 Dec 2020 14:21:45 -0800
+ by orsmga008.jf.intel.com with ESMTP; 21 Dec 2020 14:21:47 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
  Eddie James <eajames@linux.ibm.com>, Stephen Boyd <sboyd@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>,
  Hans Verkuil <hverkuil-cisco@xs4all.nl>
-Subject: [PATCH v2 0/1] Fix kernel panic issues caused by AST2500 Video Engine
-Date: Mon, 21 Dec 2020 14:32:24 -0800
-Message-Id: <20201221223225.14723-1-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH v2 1/1] media: aspeed: fix clock handling logic
+Date: Mon, 21 Dec 2020 14:32:25 -0800
+Message-Id: <20201221223225.14723-2-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20201221223225.14723-1-jae.hyun.yoo@linux.intel.com>
+References: <20201221223225.14723-1-jae.hyun.yoo@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,25 +95,85 @@ To fix this issue, this commit changes the clock handling logic to make
 the reset de-assertion triggered after enabling both eclk and vclk. Also,
 it adds clk_unprepare call for a case when probe fails.
 
-In case of AST2600, the video engine reset setting should be coupled with
-eclk to match it with the setting for previous Aspeed SoCs which is defined
-in clk-aspeed.c since all Aspeed SoCs are sharing a single video engine
-driver. Also, reset bit 6 is defined as 'Video Engine' reset in datasheet
-so it should be de-asserted when eclk is enabled. This commit fixes the
-setting too.
+Fixes: d2b4387f3bdf ("media: platform: Add Aspeed Video Engine driver")
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+Reviewed-by: Eddie James <eajames@linux.ibm.com>
 
-Please review this squashed patch.
+clk: ast2600: fix reset settings for eclk and vclk
 
+Video engine reset setting should be coupled with eclk to match it
+with the setting for previous Aspeed SoCs which is defined in
+clk-aspeed.c since all Aspeed SoCs are sharing a single video engine
+driver. Also, reset bit 6 is defined as 'Video Engine' reset in
+datasheet so it should be de-asserted when eclk is enabled. This
+commit fixes the setting.
+
+Fixes: d3d04f6c330a ("clk: Add support for AST2600 SoC")
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
 Changes since v1:
 - Squashed two patches due to dependency.
-
-Jae Hyun Yoo (1):
-  media: aspeed: fix clock handling logic
 
  drivers/clk/clk-ast2600.c             | 4 ++--
  drivers/media/platform/aspeed-video.c | 9 ++++++---
  2 files changed, 8 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/clk/clk-ast2600.c b/drivers/clk/clk-ast2600.c
+index 177368cac6dd..882da16575d4 100644
+--- a/drivers/clk/clk-ast2600.c
++++ b/drivers/clk/clk-ast2600.c
+@@ -60,10 +60,10 @@ static void __iomem *scu_g6_base;
+ static const struct aspeed_gate_data aspeed_g6_gates[] = {
+ 	/*				    clk rst  name		parent	 flags */
+ 	[ASPEED_CLK_GATE_MCLK]		= {  0, -1, "mclk-gate",	"mpll",	 CLK_IS_CRITICAL }, /* SDRAM */
+-	[ASPEED_CLK_GATE_ECLK]		= {  1, -1, "eclk-gate",	"eclk",	 0 },	/* Video Engine */
++	[ASPEED_CLK_GATE_ECLK]		= {  1,  6, "eclk-gate",	"eclk",	 0 },	/* Video Engine */
+ 	[ASPEED_CLK_GATE_GCLK]		= {  2,  7, "gclk-gate",	NULL,	 0 },	/* 2D engine */
+ 	/* vclk parent - dclk/d1clk/hclk/mclk */
+-	[ASPEED_CLK_GATE_VCLK]		= {  3,  6, "vclk-gate",	NULL,	 0 },	/* Video Capture */
++	[ASPEED_CLK_GATE_VCLK]		= {  3, -1, "vclk-gate",	NULL,	 0 },	/* Video Capture */
+ 	[ASPEED_CLK_GATE_BCLK]		= {  4,  8, "bclk-gate",	"bclk",	 0 }, /* PCIe/PCI */
+ 	/* From dpll */
+ 	[ASPEED_CLK_GATE_DCLK]		= {  5, -1, "dclk-gate",	NULL,	 CLK_IS_CRITICAL }, /* DAC */
+diff --git a/drivers/media/platform/aspeed-video.c b/drivers/media/platform/aspeed-video.c
+index c46a79eace98..db072ff2df70 100644
+--- a/drivers/media/platform/aspeed-video.c
++++ b/drivers/media/platform/aspeed-video.c
+@@ -514,8 +514,8 @@ static void aspeed_video_off(struct aspeed_video *video)
+ 	aspeed_video_write(video, VE_INTERRUPT_STATUS, 0xffffffff);
+ 
+ 	/* Turn off the relevant clocks */
+-	clk_disable(video->vclk);
+ 	clk_disable(video->eclk);
++	clk_disable(video->vclk);
+ 
+ 	clear_bit(VIDEO_CLOCKS_ON, &video->flags);
+ }
+@@ -526,8 +526,8 @@ static void aspeed_video_on(struct aspeed_video *video)
+ 		return;
+ 
+ 	/* Turn on the relevant clocks */
+-	clk_enable(video->eclk);
+ 	clk_enable(video->vclk);
++	clk_enable(video->eclk);
+ 
+ 	set_bit(VIDEO_CLOCKS_ON, &video->flags);
+ }
+@@ -1719,8 +1719,11 @@ static int aspeed_video_probe(struct platform_device *pdev)
+ 		return rc;
+ 
+ 	rc = aspeed_video_setup_video(video);
+-	if (rc)
++	if (rc) {
++		clk_unprepare(video->vclk);
++		clk_unprepare(video->eclk);
+ 		return rc;
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.17.1
 
