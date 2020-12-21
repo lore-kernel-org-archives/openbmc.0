@@ -2,23 +2,23 @@ Return-Path: <SRS0=GNDb=FZ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-6.7 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED,USER_AGENT_GIT autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D0994C433E0
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:03:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F1E0BC433DB
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:05:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0ED0322B3B
-	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0ED0322B3B
+	by mail.kernel.org (Postfix) with ESMTPS id 4E93822B43
+	for <openbmc@archiver.kernel.org>; Mon, 21 Dec 2020 17:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E93822B43
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=ami.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D05QF6mkRzDqQJ
-	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 04:03:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D05Sb0CqyzDqPW
+	for <openbmc@archiver.kernel.org>; Tue, 22 Dec 2020 04:05:19 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=ami.com
  (client-ip=63.147.10.42; helo=atlmailgw2.ami.com;
@@ -28,43 +28,42 @@ Authentication-Results: lists.ozlabs.org;
 Received: from atlmailgw2.ami.com (atlmailgw2.ami.com [63.147.10.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D05N446vLzDqNr;
- Tue, 22 Dec 2020 04:01:22 +1100 (AEDT)
-X-AuditID: ac10606f-247ff70000001934-bd-5fe0d4de40c8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D05N85P2czDqPc;
+ Tue, 22 Dec 2020 04:01:28 +1100 (AEDT)
+X-AuditID: ac10606f-247ff70000001934-bf-5fe0d4e86a24
 Received: from atlms1.us.megatrends.com (atlms1.us.megatrends.com
  [172.16.96.144])
  (using TLS with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (Client did not present a certificate)
  by atlmailgw2.ami.com (Symantec Messaging Gateway) with SMTP id
- 58.BF.06452.ED4D0EF5; Mon, 21 Dec 2020 12:01:18 -0500 (EST)
+ E8.BF.06452.8E4D0EF5; Mon, 21 Dec 2020 12:01:28 -0500 (EST)
 Received: from ami-us-wk.us.megatrends.com (172.16.98.207) by
  atlms1.us.megatrends.com (172.16.96.144) with Microsoft SMTP Server (TLS) id
- 14.3.468.0; Mon, 21 Dec 2020 12:01:16 -0500
+ 14.3.468.0; Mon, 21 Dec 2020 12:01:27 -0500
 From: Hongwei Zhang <hongweiz@ami.com>
 To: <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>, Jakub Kicinski <kuba@kernel.org>, David S Miller
  <davem@davemloft.net>
-Subject: [Aspeed, ncsi-rx,
- v1 0/1] net: ftgmac100: Fix AST2600EVB NCSI RX issue 
-Date: Mon, 21 Dec 2020 12:00:45 -0500
-Message-ID: <20201221170048.29821-1-hongweiz@ami.com>
+Subject: [Aspeed, ncsi-rx, v1 0/1] net: ftgmac100: Fix AST2600EVB NCSI RX issue
+Date: Mon, 21 Dec 2020 12:00:47 -0500
+Message-ID: <20201221170048.29821-3-hongweiz@ami.com>
 X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20201215192323.24359-1-hongweiz@ami.com>
 References: <20201215192323.24359-1-hongweiz@ami.com>
+In-Reply-To: <20201215192323.24359-1-hongweiz@ami.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [172.16.98.207]
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrOLMWRmVeSWpSXmKPExsWyRiBhgu69Kw/iDXp7NSx2XeawmHO+hcXi
- 9/m/zBYXtvWxWjSvPsdscXnXHDaLYwvELE61vGBx4PC42r6L3WPLyptMHhc/HmP22LSqk83j
- /IyFjB6fN8kFsEVx2aSk5mSWpRbp2yVwZZx51MhYsEaqYvK5I0wNjLvFuhg5OSQETCSWX//M
- 3MXIxSEksItJ4u3tx+xQDqPEyT2bmUCq2ATUJPZunsMEkhARWM0o0bPhFyOIwyzQwSgx9cVX
- dpAqYQF/iVVzFrN0MXJwsAioShxt4gQJ8wqYSny6c5cFYp28xOoNB5hBSjgFzCT2nJIDCQsB
- lbTue8cEUS4ocXLmE7ByZgEJiYMvXjBD1MhK3Dr0mAlijKLEg1/fWScwCsxC0jILScsCRqZV
- jEKJJTm5iZk56eVGeom5mXrJ+bmbGCGBnb+D8eNH80OMTByMhxglOJiVRHjNpO7HC/GmJFZW
- pRblxxeV5qQWH2KU5mBREudd5X40XkggPbEkNTs1tSC1CCbLxMEp1cAYfVxH629B50S7L3az
- Zsyaz3/GzsPl0K7Y4JByr8TXhZX7Njueuf1Vgdmu9vjBqse6O759W5M/saFs894/IvUVC/R/
- ZVRefhdXn+4x630166fuXae6bVYuvpzHXfGDN/MQt27B/qV6nH9mtp0NnFLBf1X7svjy/54Z
- 1z+sFdHj0AnRrzj4j3edEktxRqKhFnNRcSIAbIgpA1oCAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrOLMWRmVeSWpSXmKPExsWyRiBhgu6LKw/iDc4sELbYdZnDYs75FhaL
+ 3+f/Mltc2NbHatG8+hyzxeVdc9gsji0QszjV8oLFgcPjavsudo8tK28yeVz8eIzZY9OqTjaP
+ 8zMWMnp83iQXwBbFZZOSmpNZllqkb5fAlfHvXVlBP1vFmUnfWBoYn7J0MXJySAiYSFy89h7I
+ 5uIQEtjFJLHt9XVmKIdR4t6CZrAqNgE1ib2b5zCBJEQEVjNK9Gz4xQjiMAt0MEpMffGVHaRK
+ WMBP4uSxo6wgNouAqkT/rP1g3bwCphJPfvyG2icvsXrDAWYQWwgo3rrvHdBUDg5OATOJPafk
+ IMoFJU7OfAJWziwgIXHwxQuoclmJW4ceM0GMUZR48Os76wRGgVlIWmYhaVnAyLSKUSixJCc3
+ MTMnvdxILzE3Uy85P3cTIySw83cwfvxofoiRiYPxEKMEB7OSCK+Z1P14Id6UxMqq1KL8+KLS
+ nNTiQ4zSHCxK4ryr3I/GCwmkJ5akZqemFqQWwWSZODilGhijut9auFvn3HosOiHlqbhm2Ja5
+ 1TKffX3y/i89trqyOfRD+P9fyxcZrvORnfos4WG4ZlSH1V2NGd/eX2dLynVJcF5W8v/ePqYD
+ a0w5khLVb0mnbaw7myT0o5TnZJUV/411O3lCxe5ILTxYpZN5Iz9sCkuXcYP3ysIzG1dITTR5
+ vd4+MJRLL0KJpTgj0VCLuag4EQAtGGRsWgIAAA==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,63 +81,26 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Dear Reviewer,
+Hi Andrew,
 
-When FTGMAC100 driver is used on other NCSI Ethernet controllers, few
-controllers have compatible issue. One example is Intel I210 Ethernet
-controller on AST2600 BMC, with FTGMAC100 driver, it always trigger
-RXDES0_RX_ERR error, cause NCSI initialization failure, removing
-FTGMAC100_RXDES0_RX_ERR bit from RXDES0_ANY_ERROR fix the issue.
+> From:	Andrew Jeffery <andrew@aj.id.au>
+> 
+> > Fix AST2600 EVB NCSI RX timeout issue by removing 
+> > FTGMAC100_RXDES0_RX_ERR bit from macro RXDES0_ANY_ERROR.
+> 
+> But why? What is wrong with the EVB that this change resolves? Which revision of the EVB?
+> 
+> The change affects all designs using the MAC, not just the AST2600 EVB. Why is this patch an 
+> appropriate course of action? Can we not add a quirk targeting the specific board (e.g. a devicetree 
+> property)?
 
-Here are part of the debug logs:
-......
-[   35.075552] ftgmac100_hard_start_xmit TXDESO=b000003c
-[   35.080843] ftgmac100 1e660000.ethernet eth0: tx_complete_packet 55
-[   35.087141] ftgmac100 1e660000.ethernet eth0: rx_packet_error RXDES0=0xb0070040
-[   35.094448] ftgmac100_rx_packet RXDES0=b0070040 RXDES1=f0800000 RXDES2=88f8 
-[   35.101498] ftgmac100 1e660000.ethernet eth0: rx_packet_error 0xb0070040
-[   35.108205] ftgmac100 1e660000.ethernet eth0: [ISR] = 0xb0070040: RX_ERR
-[   35.287808] i2c i2c-1: new_device: Instantiated device slave-mqueue at 0x12
-[   35.428379] ftgmac100_hard_start_xmit TXDESO=b000003c
-[   35.433624] ftgmac100 1e660000.ethernet eth0: tx_complete_packet 56
-[   35.439915] ftgmac100 1e660000.ethernet eth0: rx_packet_error RXDES0=0xb0070040
-[   35.447225] ftgmac100_rx_packet RXDES0=b0070040 RXDES1=f0800000 RXDES2=88f8
-[   35.454273] ftgmac100 1e660000.ethernet eth0: rx_packet_error 0xb0070040
-[   35.460972] ftgmac100 1e660000.ethernet eth0: [ISR] = 0xb0070040: RX_ERR
-[   35.797825] ftgmac100_hard_start_xmit TXDESO=b000003c
-[   35.803241] ftgmac100 1e660000.ethernet eth0: tx_complete_packet 57
-[   35.809541] ftgmac100 1e660000.ethernet eth0: rx_packet_error RXDES0=0xb0070040
-[   35.816848] ftgmac100_rx_packet RXDES0=b0070040 RXDES1=f0800000 RXDES2=88f8
-[   35.823899] ftgmac100 1e660000.ethernet eth0: rx_packet_error 0xb0070040
-[   35.830597] ftgmac100 1e660000.ethernet eth0: [ISR] = 0xb0070040: RX_ERR
-[   36.179914] ftgmac100_hard_start_xmit TXDESO=b000003c
-[   36.185160] ftgmac100 1e660000.ethernet eth0: tx_complete_packet 58
-[   36.191454] ftgmac100 1e660000.ethernet eth0: rx_packet_error RXDES0=0xb0070040
-[   36.198761] ftgmac100_rx_packet RXDES0=b0070040 RXDES1=f0800000 RXDES2=88f8
-[   36.205813] ftgmac100 1e660000.ethernet eth0: rx_packet_error 0xb0070040
-[   36.212513] ftgmac100 1e660000.ethernet eth0: [ISR] = 0xb0070040: RX_ERR
-[   36.593688] ftgmac100_hard_start_xmit TXDESO=b000003c
-[   36.602937] ftgmac100 1e660000.ethernet eth0: tx_complete_packet 59
-[   36.609244] ftgmac100 1e660000.ethernet eth0: rx_packet_error RXDES0=0xb0070040
-[   36.616558] ftgmac100_rx_packet RXDES0=b0070040 RXDES1=f0800000 RXDES2=88f8
-[   36.623608] ftgmac100 1e660000.ethernet eth0: rx_packet_error 0xb0070040
-[   36.630315] ftgmac100 1e660000.ethernet eth0: [ISR] = 0xb0070040: RX_ERR
-[   37.031524] IPv6: ADDRCONF(NETDEV_UP): eth0: link is not ready
-[   37.067831] IPv6: ADDRCONF(NETDEV_UP): eth1: link is not ready
-............
+You are correct. I was in a rush and didn't put this patch under whole picture 
+of the driver it affected. I revised the cover letter with more information, also
+use a configurable flag to isolate the change. please review the new approach.
 
-This patch add a configurable flag, FTGMAC100_RXDES0_RX_ERR_CHK, in FTGMAC100
- driver, it is YES by default, so keep the orignal define of
-RXDES0_ANY_ERROR. If it is needed, user can set the flag to NO to remove
-the RXDES0_RX_ERR bit, to fix the issue.
-
-Hongwei Zhang (1):
-  net: ftgmac100: Fix AST2600 EVB NCSI RX issue
-
- drivers/net/ethernet/faraday/Kconfig     | 9 +++++++++
- drivers/net/ethernet/faraday/ftgmac100.h | 8 ++++++++
- 2 files changed, 17 insertions(+)
-
--- 
-2.17.1
+> 
+> Andrew
+> 
+Thanks,
+--Hongwei
 
