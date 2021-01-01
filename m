@@ -2,25 +2,25 @@ Return-Path: <SRS0=6QMd=GE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 431B1C433E0
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:57:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3EC8C433E0
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 13:00:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 70B6F22202
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:57:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70B6F22202
+	by mail.kernel.org (Postfix) with ESMTPS id 1472522202
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 13:00:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1472522202
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lRg2T6SzDqQ5
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:57:35 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lVt6xmVzDqQL
+	for <openbmc@archiver.kernel.org>; Sat,  2 Jan 2021 00:00:22 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,23 +31,24 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxn4FlCzDqLC
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:35:08 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxw3mz0zDqLM
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:35:15 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNbhY027177;
- Fri, 1 Jan 2021 14:23:37 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNjkH027204;
+ Fri, 1 Jan 2021 14:23:45 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 1E20563A17; Fri,  1 Jan 2021 14:23:37 +0200 (IST)
+ id 3D64263A17; Fri,  1 Jan 2021 14:23:45 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 02/11] iio: adc: add calibration support to
- npcm ADC
-Date: Fri,  1 Jan 2021 14:23:19 +0200
-Message-Id: <20210101122328.43510-3-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v1 11/11] misc: npcm7xx-jtag-master: add NPCM7xx
+ JTAG master driver
+Date: Fri,  1 Jan 2021 14:23:28 +0200
+Message-Id: <20210101122328.43510-12-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210101122328.43510-1-tmaimon77@gmail.com>
 References: <20210101122328.43510-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -66,253 +67,891 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add calibration to improve accuracy measurement when using
-internal referance voltage.
-
-the calibration values taken from the FUSE module.
+Add NPCM7xx JTAG master driver,
+The NPCM7xx JTAG master usign GPIO lines
+and NPCM PSPI bus.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/iio/adc/npcm_adc.c | 191 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 191 insertions(+)
+ drivers/misc/Kconfig               |   6 +
+ drivers/misc/Makefile              |   1 +
+ drivers/misc/npcm7xx-jtag-master.c | 840 +++++++++++++++++++++++++++++
+ 3 files changed, 847 insertions(+)
+ create mode 100644 drivers/misc/npcm7xx-jtag-master.c
 
-diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
-index 83bad2d5575d..02628b7eaca1 100644
---- a/drivers/iio/adc/npcm_adc.c
-+++ b/drivers/iio/adc/npcm_adc.c
-@@ -17,6 +17,8 @@
- #include <linux/reset.h>
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index d8626a0d3e31..1b1876284fa6 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -478,6 +478,12 @@ config NPCM7XX_PCI_MBOX
+ 	  Expose the NPCM750/730/715/705 PCI MBOX registers found on
+ 	  Nuvoton SOCs to userspace.
  
- struct npcm_adc {
-+	u32 R05;
-+	u32 R15;
- 	bool int_status;
- 	u32 adc_sample_hz;
- 	struct device *dev;
-@@ -51,6 +53,40 @@ struct npcm_adc {
- #define NPCM_RESOLUTION_BITS		10
- #define NPCM_INT_VREF_MV		2000
- 
-+/* FUSE registers */
-+#define NPCM7XX_FST		0x00
-+#define NPCM7XX_FADDR		0x04
-+#define NPCM7XX_FDATA		0x08
-+#define NPCM7XX_FCFG		0x0C
-+#define NPCM7XX_FCTL		0x14
++config NPCM7XX_JTAG_MASTER
++	tristate "NPCM7xx JTAG Master driver"
++	depends on (ARCH_NPCM7XX || COMPILE_TEST)
++	help
++	  Control PSPI/GPIO to transmit jtag signals to support jtag master function.
 +
-+/* FST Register Bits */
-+#define NPCM7XX_FST_RDY		BIT(0)
-+#define NPCM7XX_FST_RDST	BIT(1)
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index 183970192ced..b11d3c21fa03 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -59,4 +59,5 @@ obj-$(CONFIG_UACCE)		+= uacce/
+ obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+ obj-$(CONFIG_NPCM7XX_LPC_BPC)	+= npcm7xx-lpc-bpc.o
+ obj-$(CONFIG_NPCM7XX_PCI_MBOX)	+= npcm7xx-pci-mbox.o
++obj-$(CONFIG_NPCM7XX_JTAG_MASTER)	+= npcm7xx-jtag-master.o
+ obj-$(CONFIG_MCTP_LPC)		+= mctp-lpc.o
+diff --git a/drivers/misc/npcm7xx-jtag-master.c b/drivers/misc/npcm7xx-jtag-master.c
+new file mode 100644
+index 000000000000..441bc1620551
+--- /dev/null
++++ b/drivers/misc/npcm7xx-jtag-master.c
+@@ -0,0 +1,840 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Description   : JTAG Master driver
++ *
++ * Copyright (C) 2019 NuvoTon Corporation
++ *
++ */
 +
-+/* FADDR Register Bits */
-+#define NPCM7XX_FADDR_BYTEADDR		BIT(0)
-+#define NPCM7XX_FADDR_BYTEADDR_MASK	GENMASK(9, 0)
++#include <linux/module.h>
++#include <linux/uaccess.h>
++#include <linux/miscdevice.h>
++#include <linux/spi/spi.h>
++#include <linux/pinctrl/consumer.h>
++#include <linux/gpio/consumer.h>
 +
-+/* FADDR Register Bits */
-+#define NPCM7XX_FDATA_DATA		BIT(0)
-+#define NPCM7XX_FDATA_CLEAN_VALUE	BIT(1)
-+#define NPCM7XX_FDATA_DATA_MASK		GENMASK(7, 0)
++#define JTAG_PSPI_SPEED		(10 * 1000000)
++#define JTAG_SCAN_LEN		256
++#define JTAG_MAX_XFER_DATA_LEN	65535
 +
-+/* FCTL Register Bits */
-+#define NPCM7XX_FCTL_RDST		BIT(1)
++struct tck_bitbang {
++	unsigned char     tms;
++	unsigned char     tdi; /* TDI bit value to write */
++	unsigned char     tdo; /* TDO bit value to read */
++};
 +
-+/* ADC Calibration Definition */
-+#define NPCM_INT_1500MV		768
-+#define NPCM_INT_1000MV		512
-+#define NPCM_ADC_MIN_VAL	0
-+#define NPCM_ADC_MAX_VAL	1023
++struct bitbang_packet {
++	struct tck_bitbang *data;
++	__u32	length;
++} __attribute__((__packed__));
 +
-+#define FUSE_CALIB_ADDR		24
-+#define FUSE_CALIB_SIZE		8
-+#define DATA_CALIB_SIZE		4
-+#define FUSE_READ_TIMEOUT	0xDEADBEEF
++struct scan_xfer {
++	unsigned int     length;      /* number of bits */
++	unsigned char    tdi[JTAG_SCAN_LEN];
++	unsigned int     tdi_bytes;
++	unsigned char    tdo[JTAG_SCAN_LEN];
++	unsigned int     tdo_bytes;
++	unsigned int     end_tap_state;
++};
 +
- #define NPCM_ADC_CHAN(ch) {					\
- 	.type = IIO_VOLTAGE,					\
- 	.indexed = 1,						\
-@@ -71,6 +107,133 @@ static const struct iio_chan_spec npcm_adc_iio_channels[] = {
- 	NPCM_ADC_CHAN(7),
- };
- 
-+static int npcm750_fuse_wait_for_ready(struct regmap *fuse_regmap, u32 timeout)
++struct jtag_xfer {
++	__u8	type;
++	__u8	direction;
++	__u8	from;
++	__u8	endstate;
++	__u32	padding;
++	__u32	length;
++	__u64	tdio;
++};
++
++struct jtag_tap_state {
++	__u8	reset;
++	__u8	from;
++	__u8	endstate;
++	__u8	tck;
++};
++
++enum jtagstates {
++	jtagtlr,
++	jtagrti,
++	jtagseldr,
++	jtagcapdr,
++	jtagshfdr,
++	jtagex1dr,
++	jtagpaudr,
++	jtagex2dr,
++	jtagupddr,
++	jtagselir,
++	jtagcapir,
++	jtagshfir,
++	jtagex1ir,
++	jtagpauir,
++	jtagex2ir,
++	jtagupdir,
++	JTAG_STATE_CURRENT
++};
++
++enum JTAG_PIN {
++	pin_TCK,
++	pin_TDI,
++	pin_TDO,
++	pin_TMS,
++	pin_NUM,
++};
++
++enum jtag_reset {
++	JTAG_NO_RESET = 0,
++	JTAG_FORCE_RESET = 1,
++};
++
++enum jtag_xfer_type {
++	JTAG_SIR_XFER = 0,
++	JTAG_SDR_XFER = 1,
++	JTAG_RUNTEST_XFER,
++};
++
++enum jtag_xfer_direction {
++	JTAG_READ_XFER = 1,
++	JTAG_WRITE_XFER = 2,
++	JTAG_READ_WRITE_XFER = 3,
++};
++
++#define __JTAG_IOCTL_MAGIC	0xb2
++#define JTAG_SIOCSTATE	_IOW(__JTAG_IOCTL_MAGIC, 0, struct jtag_tap_state)
++#define JTAG_SIOCFREQ	_IOW(__JTAG_IOCTL_MAGIC, 1, unsigned int)
++#define JTAG_GIOCFREQ	_IOR(__JTAG_IOCTL_MAGIC, 2, unsigned int)
++#define JTAG_IOCXFER	_IOWR(__JTAG_IOCTL_MAGIC, 3, struct jtag_xfer)
++#define JTAG_GIOCSTATUS _IOWR(__JTAG_IOCTL_MAGIC, 4, enum jtagstates)
++#define JTAG_SIOCMODE	_IOW(__JTAG_IOCTL_MAGIC, 5, unsigned int)
++#define JTAG_IOCBITBANG	_IOW(__JTAG_IOCTL_MAGIC, 6, unsigned int)
++#define JTAG_RUNTEST    _IOW(__JTAG_IOCTL_MAGIC, 7, unsigned int)
++
++static DEFINE_IDA(jtag_ida);
++
++static unsigned char reverse[16] = {
++	0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
++	0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF
++};
++
++#define REVERSE(x)  ((reverse[((x) & 0x0f)] << 4) | reverse[((x) & 0xf0) >> 4])
++
++static DEFINE_SPINLOCK(jtag_file_lock);
++
++struct jtag_info {
++	struct device *dev;
++	struct spi_device	*spi;
++	struct miscdevice miscdev;
++	struct gpio_desc	*pins[pin_NUM];
++	struct pinctrl		*pinctrl;
++	u32 freq;
++	u8 tms_level;
++	u8 tapstate;
++	bool is_open;
++	int id;
++
++	/* transmit tck/tdi/tdo by pspi */
++	#define MODE_PSPI		0
++	/* transmit all signals by gpio */
++	#define MODE_GPIO		1
++	u8 mode;
++};
++
++/* this structure represents a TMS cycle, as expressed in a set of bits and
++ * a count of bits (note: there are no start->end state transitions that
++ * require more than 1 byte of TMS cycles)
++ */
++struct tmscycle {
++	unsigned char tmsbits;
++	unsigned char count;
++};
++
++/* this is the complete set TMS cycles for going from any TAP state to
++ * any other TAP state, following a “shortest path” rule
++ */
++const struct tmscycle _tmscyclelookup[][16] = {
++/*      TLR        RTI       SelDR      CapDR      SDR      */
++/*      Ex1DR      PDR       Ex2DR      UpdDR      SelIR    */
++/*      CapIR      SIR       Ex1IR      PIR        Ex2IR    */
++/*      UpdIR                                               */
++/* TLR */
++	{
++		{0x01, 1}, {0x00, 1}, {0x02, 2}, {0x02, 3}, {0x02, 4},
++		{0x0a, 4}, {0x0a, 5}, {0x2a, 6}, {0x1a, 5}, {0x06, 3},
++		{0x06, 4}, {0x06, 5}, {0x16, 5}, {0x16, 6}, {0x56, 7},
++		{0x36, 6}
++	},
++/* RTI */
++	{
++		{0x07, 3}, {0x00, 1}, {0x01, 1}, {0x01, 2}, {0x01, 3},
++		{0x05, 3}, {0x05, 4}, {0x15, 5}, {0x0d, 4}, {0x03, 2},
++		{0x03, 3}, {0x03, 4}, {0x0b, 4}, {0x0b, 5}, {0x2b, 6},
++		{0x1b, 5}
++	},
++/* SelDR */
++	{
++		{0x03, 2}, {0x03, 3}, {0x00, 0}, {0x00, 1}, {0x00, 2},
++		{0x02, 2}, {0x02, 3}, {0x0a, 4}, {0x06, 3}, {0x01, 1},
++		{0x01, 2}, {0x01, 3}, {0x05, 3}, {0x05, 4}, {0x15, 5},
++		{0x0d, 4}
++	},
++/* CapDR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x00, 0}, {0x00, 1},
++		{0x01, 1}, {0x01, 2}, {0x05, 3}, {0x03, 2}, {0x0f, 4},
++		{0x0f, 5}, {0x0f, 6}, {0x2f, 6}, {0x2f, 7}, {0xaf, 8},
++		{0x6f, 7}
++	},
++/* SDR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x07, 4}, {0x00, 0},
++		{0x01, 1}, {0x01, 2}, {0x05, 3}, {0x03, 2}, {0x0f, 4},
++		{0x0f, 5}, {0x0f, 6}, {0x2f, 6}, {0x2f, 7}, {0xaf, 8},
++		{0x6f, 7}
++	},
++/* Ex1DR */
++	{
++		{0x0f, 4}, {0x01, 2}, {0x03, 2}, {0x03, 3}, {0x02, 3},
++		{0x00, 0}, {0x00, 1}, {0x02, 2}, {0x01, 1}, {0x07, 3},
++		{0x07, 4}, {0x07, 5}, {0x17, 5}, {0x17, 6}, {0x57, 7},
++		{0x37, 6}
++	},
++/* PDR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x07, 4}, {0x01, 2},
++		{0x05, 3}, {0x00, 1}, {0x01, 1}, {0x03, 2}, {0x0f, 4},
++		{0x0f, 5}, {0x0f, 6}, {0x2f, 6}, {0x2f, 7}, {0xaf, 8},
++		{0x6f, 7}
++	},
++/* Ex2DR */
++	{
++		{0x0f, 4}, {0x01, 2}, {0x03, 2}, {0x03, 3}, {0x00, 1},
++		{0x02, 2}, {0x02, 3}, {0x00, 0}, {0x01, 1}, {0x07, 3},
++		{0x07, 4}, {0x07, 5}, {0x17, 5}, {0x17, 6}, {0x57, 7},
++		{0x37, 6}
++	},
++/* UpdDR */
++	{
++		{0x07, 3}, {0x00, 1}, {0x01, 1}, {0x01, 2}, {0x01, 3},
++		{0x05, 3}, {0x05, 4}, {0x15, 5}, {0x00, 0}, {0x03, 2},
++		{0x03, 3}, {0x03, 4}, {0x0b, 4}, {0x0b, 5}, {0x2b, 6},
++		{0x1b, 5}
++	},
++/* SelIR */
++	{
++		{0x01, 1}, {0x01, 2}, {0x05, 3}, {0x05, 4}, {0x05, 5},
++		{0x15, 5}, {0x15, 6}, {0x55, 7}, {0x35, 6}, {0x00, 0},
++		{0x00, 1}, {0x00, 2}, {0x02, 2}, {0x02, 3}, {0x0a, 4},
++		{0x06, 3}
++	},
++/* CapIR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x07, 4}, {0x07, 5},
++		{0x17, 5}, {0x17, 6}, {0x57, 7}, {0x37, 6}, {0x0f, 4},
++		{0x00, 0}, {0x00, 1}, {0x01, 1}, {0x01, 2}, {0x05, 3},
++		{0x03, 2}
++	},
++/* SIR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x07, 4}, {0x07, 5},
++		{0x17, 5}, {0x17, 6}, {0x57, 7}, {0x37, 6}, {0x0f, 4},
++		{0x0f, 5}, {0x00, 0}, {0x01, 1}, {0x01, 2}, {0x05, 3},
++		{0x03, 2}
++	},
++/* Ex1IR */
++	{
++		{0x0f, 4}, {0x01, 2}, {0x03, 2}, {0x03, 3}, {0x03, 4},
++		{0x0b, 4}, {0x0b, 5}, {0x2b, 6}, {0x1b, 5}, {0x07, 3},
++		{0x07, 4}, {0x02, 3}, {0x00, 0}, {0x00, 1}, {0x02, 2},
++		{0x01, 1}
++	},
++/* PIR */
++	{
++		{0x1f, 5}, {0x03, 3}, {0x07, 3}, {0x07, 4}, {0x07, 5},
++		{0x17, 5}, {0x17, 6}, {0x57, 7}, {0x37, 6}, {0x0f, 4},
++		{0x0f, 5}, {0x01, 2}, {0x05, 3}, {0x00, 1}, {0x01, 1},
++		{0x03, 2}
++	},
++/* Ex2IR */
++	{
++		{0x0f, 4}, {0x01, 2}, {0x03, 2}, {0x03, 3}, {0x03, 4},
++		{0x0b, 4}, {0x0b, 5}, {0x2b, 6}, {0x1b, 5}, {0x07, 3},
++		{0x07, 4}, {0x00, 1}, {0x02, 2}, {0x02, 3}, {0x00, 0},
++		{0x01, 1}
++	},
++/* UpdIR */
++	{
++		{0x07, 3}, {0x00, 1}, {0x01, 1}, {0x01, 2}, {0x01, 3},
++		{0x05, 3}, {0x05, 4}, {0x15, 5}, {0x0d, 4}, {0x03, 2},
++		{0x03, 3}, {0x03, 4}, {0x0b, 4}, {0x0b, 5}, {0x2b, 6},
++		{0x00, 0}
++	},
++};
++
++static u8 TCK_cycle(struct jtag_info *jtag,
++		    unsigned char no_tdo, unsigned char TMS,
++		    unsigned char TDI)
 +{
-+	u32 time = timeout;
-+	u32 fstreg;
++	u32 tdo = 0;
 +
-+	while (--time > 1) {
-+		regmap_read(fuse_regmap, NPCM7XX_FST, &fstreg);
-+		if (fstreg & NPCM7XX_FST_RDY) {
-+			regmap_write_bits(fuse_regmap, NPCM7XX_FST,
-+					  NPCM7XX_FST_RDST, NPCM7XX_FST_RDST);
-+			return 0;
-+		}
++	/* IEEE 1149.1
++	 * TMS & TDI shall be sampled by the test logic on the rising edge
++	 * test logic shall change TDO on the falling edge
++	 */
++	gpiod_set_value(jtag->pins[pin_TDI], (int)TDI);
++	if (jtag->tms_level != (int)TMS) {
++		gpiod_set_value(jtag->pins[pin_TMS], (int)TMS);
++		jtag->tms_level = (int)TMS;
 +	}
++	gpiod_set_value(jtag->pins[pin_TCK], 1);
++	if (!no_tdo)
++		tdo = gpiod_get_value(jtag->pins[pin_TDO]);
++	gpiod_set_value(jtag->pins[pin_TCK], 0);
 +
-+	/* try to clear the status in case it was set */
-+	regmap_write_bits(fuse_regmap, NPCM7XX_FST, NPCM7XX_FST_RDST,
-+			  NPCM7XX_FST_RDST);
-+
-+	return -EINVAL;
++	return tdo;
 +}
 +
-+static void npcm750_fuse_read(struct regmap *fuse_regmap, u32 addr, u8 *data)
-+{
-+	u32 val;
-+
-+	npcm750_fuse_wait_for_ready(fuse_regmap, FUSE_READ_TIMEOUT);
-+
-+	regmap_write_bits(fuse_regmap, NPCM7XX_FADDR,
-+			  NPCM7XX_FADDR_BYTEADDR_MASK, addr);
-+	regmap_read(fuse_regmap, NPCM7XX_FADDR, &val);
-+	regmap_write(fuse_regmap, NPCM7XX_FCTL, NPCM7XX_FCTL_RDST);
-+
-+	npcm750_fuse_wait_for_ready(fuse_regmap, FUSE_READ_TIMEOUT);
-+	regmap_read(fuse_regmap, NPCM7XX_FDATA, &val);
-+	*data = (u8)val;
-+
-+	regmap_write_bits(fuse_regmap, NPCM7XX_FDATA, NPCM7XX_FDATA_DATA_MASK,
-+			  NPCM7XX_FDATA_CLEAN_VALUE);
-+}
-+
-+static int npcm750_ECC_to_nibble(u8 ECC, u8 nibble)
-+{
-+	u8 nibble_b0 = (nibble >> 0) & BIT(0);
-+	u8 nibble_b1 = (nibble >> 1) & BIT(0);
-+	u8 nibble_b2 = (nibble >> 2) & BIT(0);
-+	u8 nibble_b3 = (nibble >> 3) & BIT(0);
-+	u8 tmp_ECC = nibble;
-+
-+	tmp_ECC |= (nibble_b0 ^ nibble_b1) << 4 | (nibble_b2 ^ nibble_b3) << 5 |
-+		(nibble_b0 ^ nibble_b2) << 6  | (nibble_b1 ^ nibble_b3) << 7;
-+
-+	if (tmp_ECC != ECC)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static int npcm750_ECC_to_byte(u16 ECC, u8 *Byte)
-+{
-+	u8 nibble_L, nibble_H;
-+	u8 ECC_L, ECC_H;
-+
-+	ECC_H = ECC >> 8;
-+	nibble_H = ECC_H & 0x0F;
-+	ECC_L = ECC >> 0;
-+	nibble_L = ECC_L & 0x0F;
-+
-+	if (npcm750_ECC_to_nibble(ECC_H, nibble_H) != 0 ||
-+	    npcm750_ECC_to_nibble(ECC_L, nibble_L) != 0)
-+		return -EINVAL;
-+
-+	*Byte = nibble_H << 4 | nibble_L << 0;
-+
-+	return 0;
-+}
-+
-+static int npcm750_read_nibble_parity(u8 *block_ECC, u8 *ADC_calib)
++static inline void npcm7xx_jtag_bitbangs(struct jtag_info *jtag,
++					 struct bitbang_packet *bitbangs,
++					 struct tck_bitbang *bitbang_data)
 +{
 +	int i;
-+	u16 ECC;
 +
-+	for (i = 0; i < DATA_CALIB_SIZE; i++) {
-+		memcpy(&ECC, block_ECC + (i * 2), 2);
-+		if (npcm750_ECC_to_byte(ECC, &ADC_calib[i]) != 0)
-+			return -EINVAL;
++	for (i = 0; i < bitbangs->length; i++) {
++		bitbang_data[i].tdo =
++			TCK_cycle(jtag, 0, bitbang_data[i].tms,
++				  bitbang_data[i].tdi);
++		cond_resched();
++	}
++}
++
++static int npcm7xx_jtag_set_tapstate(struct jtag_info *jtag,
++				     enum jtagstates from, enum jtagstates to)
++{
++	unsigned char i;
++	unsigned char tmsbits;
++	unsigned char count;
++
++	if (from == to)
++		return 0;
++	if (from == JTAG_STATE_CURRENT)
++		from = jtag->tapstate;
++
++	if (from > JTAG_STATE_CURRENT || to > JTAG_STATE_CURRENT)
++		return -1;
++
++	if (to == jtagtlr) {
++		for (i = 0; i < 9; i++)
++			TCK_cycle(jtag, 1, 1, 1);
++		jtag->tapstate = jtagtlr;
++		return 0;
++	}
++
++	tmsbits = _tmscyclelookup[from][to].tmsbits;
++	count   = _tmscyclelookup[from][to].count;
++
++	if (count == 0)
++		return 0;
++
++	for (i = 0; i < count; i++) {
++		TCK_cycle(jtag, 1, (tmsbits & 1), 1);
++		tmsbits >>= 1;
++	}
++	pr_debug("jtag: change state %d -> %d\n", from, to);
++	jtag->tapstate = to;
++	return 0;
++}
++
++static int npcm7xx_jtag_switch_pin_func(struct jtag_info *jtag, u8 mode)
++{
++	struct pinctrl_state	*state;
++
++	if (mode == MODE_PSPI) {
++		state = pinctrl_lookup_state(jtag->pinctrl, "pspi");
++		if (IS_ERR(state))
++			return -ENOENT;
++
++		pinctrl_gpio_free(desc_to_gpio(jtag->pins[pin_TCK]));
++		pinctrl_gpio_free(desc_to_gpio(jtag->pins[pin_TDI]));
++		pinctrl_gpio_free(desc_to_gpio(jtag->pins[pin_TDO]));
++		pinctrl_select_state(jtag->pinctrl, state);
++	} else if (mode == MODE_GPIO) {
++		state = pinctrl_lookup_state(jtag->pinctrl, "gpio");
++		if (IS_ERR(state))
++			return -ENOENT;
++
++		pinctrl_select_state(jtag->pinctrl, state);
++		pinctrl_gpio_request(desc_to_gpio(jtag->pins[pin_TCK]));
++		pinctrl_gpio_request(desc_to_gpio(jtag->pins[pin_TDI]));
++		pinctrl_gpio_request(desc_to_gpio(jtag->pins[pin_TDO]));
++		jtag->tms_level = gpiod_get_value(jtag->pins[pin_TMS]);
 +	}
 +
 +	return 0;
 +}
 +
-+static int npcm750_fuse_calibration_read(struct platform_device *pdev,
-+					struct npcm_adc *info)
++static int npcm7xx_jtag_xfer_spi(struct jtag_info *jtag, u32 xfer_bytes,
++				 u8 *out, u8 *in)
 +{
-+	struct device_node *np = pdev->dev.of_node;
-+	struct regmap *fuse_regmap;
-+	ssize_t bytes_read = 0;
-+	u8 read_buf[8];
-+	u32 ADC_calib;
-+	u32 addr = FUSE_CALIB_ADDR;
++	struct spi_message m;
++	struct spi_transfer spi_xfer;
++	int err;
++	int i;
 +
-+	if (of_device_is_compatible(np, "nuvoton,npcm750-adc")) {
-+		fuse_regmap = syscon_regmap_lookup_by_compatible
-+			("nuvoton,npcm750-fuse");
-+		if (IS_ERR(fuse_regmap)) {
-+			dev_warn(&pdev->dev, "Failed to find nuvoton,npcm750-fuse\n");
-+			return PTR_ERR(fuse_regmap);
-+		}
++	err = npcm7xx_jtag_switch_pin_func(jtag, MODE_PSPI);
++	if (err)
++		return err;
 +
-+		while (bytes_read < FUSE_CALIB_SIZE) {
-+			npcm750_fuse_read(fuse_regmap, addr,
-+					  &read_buf[bytes_read]);
-+			bytes_read++;
-+			addr++;
-+		}
++	for (i = 0; i < xfer_bytes; i++)
++		out[i] = REVERSE(out[i]);
 +
-+		if (npcm750_read_nibble_parity(read_buf, (u8 *)&ADC_calib)) {
-+			dev_warn(info->dev, "FUSE Clibration read failed\n");
-+			return -EINVAL;
-+		}
++	memset(&spi_xfer, 0, sizeof(spi_xfer));
++	spi_xfer.speed_hz = jtag->freq;
++	spi_xfer.tx_buf = out;
++	spi_xfer.rx_buf = in;
++	spi_xfer.len = xfer_bytes;
 +
-+		info->R05 = ADC_calib & 0xFFFF;
-+		info->R15 = ADC_calib >> 16;
++	spi_message_init(&m);
++	spi_message_add_tail(&spi_xfer, &m);
++	err = spi_sync(jtag->spi, &m);
++
++	for (i = 0; i < xfer_bytes; i++)
++		in[i] = REVERSE(in[i]);
++
++	err = npcm7xx_jtag_switch_pin_func(jtag, MODE_GPIO);
++
++	return err;
++}
++
++static int npcm7xx_jtag_xfer_gpio(struct jtag_info *jtag,
++				  struct jtag_xfer *xfer, u8 *out, u8 *in)
++{
++	unsigned long *bitmap_tdi = (unsigned long *)out;
++	unsigned long *bitmap_tdo = (unsigned long *)in;
++	u32 xfer_bits = xfer->length;
++	u32 bit_index = 0;
++	u8 tdi, tdo, tms;
++
++	while (bit_index < xfer_bits) {
++		tdi = 0;
++		tms = 0;
++
++		if (test_bit(bit_index, bitmap_tdi))
++			tdi = 1;
++
++		/* If this is the last bit, leave TMS high */
++		if ((bit_index == xfer_bits - 1) && xfer->endstate != jtagshfdr &&
++		    xfer->endstate != jtagshfir && xfer->endstate != JTAG_STATE_CURRENT)
++			tms = 1;
++
++		/* shift 1 bit */
++		tdo = TCK_cycle(jtag, 0, tms, tdi);
++		cond_resched();
++		/* If it was the last bit in the scan and the end_tap_state is
++		 * something other than shiftDR or shiftIR then go to Exit1.
++		 * IMPORTANT Note: if the end_tap_state is ShiftIR/DR and the
++		 * next call to this function is a shiftDR/IR then the driver
++		 * will not change state!
++		 */
++		if (tms)
++			jtag->tapstate = (jtag->tapstate == jtagshfdr) ?
++				jtagex1dr : jtagex1ir;
++
++		if (tdo)
++			bitmap_set(bitmap_tdo, bit_index, 1);
++
++		bit_index++;
 +	}
 +
 +	return 0;
 +}
 +
- static irqreturn_t npcm_adc_isr(int irq, void *data)
- {
- 	u32 regtemp;
-@@ -125,6 +288,29 @@ static int npcm_adc_read(struct npcm_adc *info, int *val, u8 channel)
- 	return 0;
- }
- 
-+static void npcm_adc_calibration(int *val, struct npcm_adc *info)
++static int npcm7xx_jtag_readwrite_scan(struct jtag_info *jtag,
++				       struct jtag_xfer *xfer, u8 *tdi, u8 *tdo)
 +{
-+	int mul_val;
-+	int offset_val;
++	u32 xfer_bytes = DIV_ROUND_UP(xfer->length, BITS_PER_BYTE);
++	u32 remain_bits = xfer->length;
++	u32 spi_xfer_bytes = 0;
 +
-+	mul_val = NPCM_INT_1000MV * (*val - info->R15);
-+	if (mul_val < 0) {
-+		mul_val = mul_val * -1;
-+		offset_val = DIV_ROUND_CLOSEST(mul_val,
-+					       (info->R15 - info->R05));
-+		*val = NPCM_INT_1500MV - offset_val;
-+	} else {
-+		offset_val = DIV_ROUND_CLOSEST(mul_val,
-+					       (info->R15 - info->R05));
-+		*val = NPCM_INT_1500MV + offset_val;
++	if (xfer_bytes > 1 && jtag->mode == MODE_PSPI) {
++		/* The last byte should be sent using gpio bitbang
++		 * (TMS needed)
++		 */
++		spi_xfer_bytes = xfer_bytes - 1;
++		if (npcm7xx_jtag_xfer_spi(jtag, spi_xfer_bytes, tdi, tdo))
++			return -EIO;
++		remain_bits -= spi_xfer_bytes * 8;
 +	}
 +
-+	if (*val < NPCM_ADC_MIN_VAL)
-+		*val = NPCM_ADC_MIN_VAL;
-+	if (*val > NPCM_ADC_MAX_VAL)
-+		*val = NPCM_ADC_MAX_VAL;
++	if (remain_bits) {
++		xfer->length = remain_bits;
++		npcm7xx_jtag_xfer_gpio(jtag, xfer, tdi + spi_xfer_bytes,
++				       tdo + spi_xfer_bytes);
++	}
++
++	npcm7xx_jtag_set_tapstate(jtag, JTAG_STATE_CURRENT, xfer->endstate);
++
++	return 0;
 +}
 +
- static int npcm_adc_read_raw(struct iio_dev *indio_dev,
- 			     struct iio_chan_spec const *chan, int *val,
- 			     int *val2, long mask)
-@@ -142,6 +328,10 @@ static int npcm_adc_read_raw(struct iio_dev *indio_dev,
- 			dev_err(info->dev, "NPCM ADC read failed\n");
- 			return ret;
- 		}
++static int npcm7xx_jtag_xfer(struct jtag_info *npcm7xx_jtag,
++			     struct jtag_xfer *xfer, u8 *data, u32 bytes)
++{
++	u8 *tdo;
++	int ret;
 +
-+		if ((info->R05 || info->R15) && IS_ERR(info->vref))
-+			npcm_adc_calibration(val, info);
++	if (xfer->length == 0)
++		return 0;
 +
- 		return IIO_VAL_INT;
- 	case IIO_CHAN_INFO_SCALE:
- 		if (!IS_ERR(info->vref)) {
-@@ -248,6 +438,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
- 			  info->regs + NPCM_ADCCON);
- 	}
- 
-+	npcm750_fuse_calibration_read(pdev, info);
- 	init_waitqueue_head(&info->wq);
- 
- 	reg_con = ioread32(info->regs + NPCM_ADCCON);
++	tdo = kzalloc(bytes, GFP_KERNEL);
++	if (!tdo)
++		return -ENOMEM;
++
++	if (xfer->type == JTAG_SIR_XFER)
++		npcm7xx_jtag_set_tapstate(npcm7xx_jtag, xfer->from, jtagshfir);
++	else if (xfer->type == JTAG_SDR_XFER)
++		npcm7xx_jtag_set_tapstate(npcm7xx_jtag, xfer->from, jtagshfdr);
++
++	ret = npcm7xx_jtag_readwrite_scan(npcm7xx_jtag, xfer, data, tdo);
++	memcpy(data, tdo, bytes);
++	kfree(tdo);
++
++	return ret;
++}
++
++/* Run in current state for specific number of tcks */
++static int npcm7xx_jtag_runtest(struct jtag_info *jtag, unsigned int tcks)
++{
++	struct jtag_xfer xfer;
++	u32 bytes = DIV_ROUND_UP(tcks, BITS_PER_BYTE);
++	u8 *buf;
++	u32 i;
++	int err;
++
++	if (jtag->mode != MODE_PSPI) {
++		for (i = 0; i < tcks; i++) {
++			TCK_cycle(jtag, 0, 0, 1);
++			cond_resched();
++		}
++		return 0;
++	}
++
++	buf = kzalloc(bytes, GFP_KERNEL);
++	xfer.type = JTAG_RUNTEST_XFER;
++	xfer.direction = JTAG_WRITE_XFER;
++	xfer.from = JTAG_STATE_CURRENT;
++	xfer.endstate = JTAG_STATE_CURRENT;
++	xfer.length = tcks;
++
++	err = npcm7xx_jtag_xfer(jtag, &xfer, buf, bytes);
++	kfree(buf);
++
++	return err;
++}
++
++static long jtag_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
++{
++	struct jtag_info *priv = file->private_data;
++	struct jtag_tap_state tapstate;
++	void __user *argp = (void __user *)arg;
++	struct jtag_xfer xfer;
++	struct bitbang_packet bitbang;
++	struct tck_bitbang *bitbang_data;
++	u8 *xfer_data;
++	u32 data_size;
++	u32 value;
++	int ret = 0;
++
++	switch (cmd) {
++	case JTAG_SIOCFREQ:
++		if (get_user(value, (__u32 __user *)arg))
++			return -EFAULT;
++		if (value <= priv->spi->max_speed_hz) {
++			priv->freq = value;
++		} else {
++			dev_err(priv->dev, "%s: invalid jtag freq %u\n",
++				__func__, value);
++			ret = -EINVAL;
++		}
++		break;
++	case JTAG_GIOCFREQ:
++		if (put_user(priv->freq, (__u32 __user *)arg))
++			return -EFAULT;
++		break;
++	case JTAG_IOCBITBANG:
++		if (copy_from_user(&bitbang, (const void __user *)arg,
++				   sizeof(struct bitbang_packet)))
++			return -EFAULT;
++
++		if (bitbang.length >= JTAG_MAX_XFER_DATA_LEN)
++			return -EINVAL;
++
++		data_size = bitbang.length * sizeof(struct tck_bitbang);
++		bitbang_data = memdup_user((void __user *)bitbang.data,
++					   data_size);
++		if (IS_ERR(bitbang_data))
++			return -EFAULT;
++
++		npcm7xx_jtag_bitbangs(priv, &bitbang, bitbang_data);
++		ret = copy_to_user((void __user *)bitbang.data,
++				   (void *)bitbang_data, data_size);
++		kfree(bitbang_data);
++		if (ret)
++			return -EFAULT;
++		break;
++	case JTAG_SIOCSTATE:
++		if (copy_from_user(&tapstate, (const void __user *)arg,
++				   sizeof(struct jtag_tap_state)))
++			return -EFAULT;
++
++		if (tapstate.from > JTAG_STATE_CURRENT)
++			return -EINVAL;
++
++		if (tapstate.endstate > JTAG_STATE_CURRENT)
++			return -EINVAL;
++
++		if (tapstate.reset > JTAG_FORCE_RESET)
++			return -EINVAL;
++		if (tapstate.reset == JTAG_FORCE_RESET)
++			npcm7xx_jtag_set_tapstate(priv, JTAG_STATE_CURRENT,
++						  jtagtlr);
++		npcm7xx_jtag_set_tapstate(priv, tapstate.from,
++					  tapstate.endstate);
++		break;
++	case JTAG_GIOCSTATUS:
++		ret = put_user(priv->tapstate, (__u32 __user *)arg);
++		break;
++	case JTAG_IOCXFER:
++		if (copy_from_user(&xfer, argp, sizeof(struct jtag_xfer)))
++			return -EFAULT;
++
++		if (xfer.length >= JTAG_MAX_XFER_DATA_LEN)
++			return -EINVAL;
++
++		if (xfer.type > JTAG_SDR_XFER)
++			return -EINVAL;
++
++		if (xfer.direction > JTAG_READ_WRITE_XFER)
++			return -EINVAL;
++
++		if (xfer.from > JTAG_STATE_CURRENT)
++			return -EINVAL;
++
++		if (xfer.endstate > JTAG_STATE_CURRENT)
++			return -EINVAL;
++
++		data_size = DIV_ROUND_UP(xfer.length, BITS_PER_BYTE);
++		xfer_data = memdup_user(u64_to_user_ptr(xfer.tdio), data_size);
++		if (IS_ERR(xfer_data))
++			return -EFAULT;
++		ret = npcm7xx_jtag_xfer(priv, &xfer, xfer_data, data_size);
++		if (ret) {
++			kfree(xfer_data);
++			return -EIO;
++		}
++		ret = copy_to_user(u64_to_user_ptr(xfer.tdio),
++				   (void *)xfer_data, data_size);
++		kfree(xfer_data);
++		if (ret)
++			return -EFAULT;
++
++		if (copy_to_user((void __user *)arg, (void *)&xfer,
++				 sizeof(struct jtag_xfer)))
++			return -EFAULT;
++		break;
++	case JTAG_SIOCMODE:
++		if (get_user(value, (__u32 __user *)arg))
++			return -EFAULT;
++		if (value != MODE_GPIO && value != MODE_PSPI)
++			return -EINVAL;
++		priv->mode = value;
++		break;
++	case JTAG_RUNTEST:
++		ret = npcm7xx_jtag_runtest(priv, (unsigned int)arg);
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return ret;
++}
++
++static int jtag_open(struct inode *inode, struct file *file)
++{
++	struct jtag_info *jtag;
++
++	jtag = container_of(file->private_data, struct jtag_info, miscdev);
++
++	spin_lock(&jtag_file_lock);
++	if (jtag->is_open) {
++		spin_unlock(&jtag_file_lock);
++		return -EBUSY;
++	}
++
++	jtag->is_open = true;
++	file->private_data = jtag;
++
++	spin_unlock(&jtag_file_lock);
++
++	return 0;
++}
++
++static int jtag_release(struct inode *inode, struct file *file)
++{
++	struct jtag_info *jtag = file->private_data;
++
++	spin_lock(&jtag_file_lock);
++	jtag->is_open = false;
++	spin_unlock(&jtag_file_lock);
++
++	return 0;
++}
++
++const struct file_operations npcm_jtag_fops = {
++	.open              = jtag_open,
++	.unlocked_ioctl    = jtag_ioctl,
++	.release           = jtag_release,
++};
++
++static int jtag_register_device(struct jtag_info *jtag)
++{
++	struct device *dev = jtag->dev;
++	int err;
++	int id;
++
++	if (!dev)
++		return -ENODEV;
++
++	id = ida_simple_get(&jtag_ida, 0, 0, GFP_KERNEL);
++	if (id < 0)
++		return id;
++
++	jtag->id = id;
++	/* register miscdev */
++	jtag->miscdev.parent = dev;
++	jtag->miscdev.fops =  &npcm_jtag_fops;
++	jtag->miscdev.minor = MISC_DYNAMIC_MINOR;
++	jtag->miscdev.name = kasprintf(GFP_KERNEL, "jtag%d", id);
++	if (!jtag->miscdev.name) {
++		err = -ENOMEM;
++		goto err;
++	}
++
++	err = misc_register(&jtag->miscdev);
++	if (err) {
++		dev_err(jtag->miscdev.parent,
++			"Unable to register device, err %d\n", err);
++		kfree(jtag->miscdev.name);
++		goto err;
++	}
++
++	return 0;
++
++err:
++	ida_simple_remove(&jtag_ida, id);
++	return err;
++}
++
++static int npcm7xx_jtag_init(struct device *dev, struct jtag_info *npcm7xx_jtag)
++{
++	struct pinctrl		*pinctrl;
++	int i;
++
++	pinctrl = devm_pinctrl_get(dev);
++	if (IS_ERR(pinctrl))
++		return PTR_ERR(pinctrl);
++
++	npcm7xx_jtag->pinctrl = pinctrl;
++
++	/* jtag pins */
++	npcm7xx_jtag->pins[pin_TCK] = gpiod_get(dev, "tck", GPIOD_OUT_LOW);
++	npcm7xx_jtag->pins[pin_TDI] = gpiod_get(dev, "tdi", GPIOD_OUT_HIGH);
++	npcm7xx_jtag->pins[pin_TDO] = gpiod_get(dev, "tdo", GPIOD_IN);
++	npcm7xx_jtag->pins[pin_TMS] = gpiod_get(dev, "tms", GPIOD_OUT_HIGH);
++	for (i = 0; i < pin_NUM; i++) {
++		if (IS_ERR(npcm7xx_jtag->pins[i]))
++			return PTR_ERR(npcm7xx_jtag->pins[i]);
++	}
++
++	npcm7xx_jtag->freq = JTAG_PSPI_SPEED;
++	npcm7xx_jtag->tms_level = gpiod_get_value(npcm7xx_jtag->pins[pin_TMS]);
++	npcm7xx_jtag_set_tapstate(npcm7xx_jtag, JTAG_STATE_CURRENT, jtagtlr);
++	npcm7xx_jtag->mode = MODE_PSPI;
++
++	return 0;
++}
++
++static int npcm7xx_jtag_probe(struct spi_device *spi)
++{
++	struct jtag_info *npcm_jtag;
++	int ret;
++
++	dev_info(&spi->dev, "%s", __func__);
++
++	npcm_jtag = kzalloc(sizeof(struct jtag_info), GFP_KERNEL);
++	if (!npcm_jtag)
++		return -ENOMEM;
++
++	npcm_jtag->dev = &spi->dev;
++	npcm_jtag->spi = spi;
++	spi->mode = SPI_MODE_0 | SPI_NO_CS;
++
++	/* Initialize device*/
++	ret = npcm7xx_jtag_init(&spi->dev, npcm_jtag);
++	if (ret)
++		goto err;
++
++	/* Register a misc device */
++	ret = jtag_register_device(npcm_jtag);
++	if (ret) {
++		dev_err(&spi->dev, "failed to create device\n");
++		goto err;
++	}
++	spi_set_drvdata(spi, npcm_jtag);
++
++	return 0;
++err:
++	kfree(npcm_jtag);
++	return ret;
++}
++
++static int npcm7xx_jtag_remove(struct spi_device  *spi)
++{
++	struct jtag_info *jtag = spi_get_drvdata(spi);
++	int i;
++
++	if (!jtag)
++		return 0;
++
++	misc_deregister(&jtag->miscdev);
++	kfree(jtag->miscdev.name);
++	for (i = 0; i < pin_NUM; i++) {
++		gpiod_direction_input(jtag->pins[i]);
++		gpiod_put(jtag->pins[i]);
++	}
++	kfree(jtag);
++	ida_simple_remove(&jtag_ida, jtag->id);
++
++	return 0;
++}
++
++static const struct of_device_id npcm7xx_jtag_of_match[] = {
++	{ .compatible = "nuvoton,npcm750-jtag-master", },
++	{},
++};
++MODULE_DEVICE_TABLE(of, npcm7xx_jtag_of_match);
++
++static struct spi_driver npcm7xx_jtag_driver = {
++	.driver = {
++		.name		= "npcm7xx_jtag",
++		.of_match_table = npcm7xx_jtag_of_match,
++	},
++	.probe		= npcm7xx_jtag_probe,
++	.remove		= npcm7xx_jtag_remove,
++};
++
++module_spi_driver(npcm7xx_jtag_driver);
++
++MODULE_AUTHOR("Nuvoton Technology Corp.");
++MODULE_DESCRIPTION("NPCM7xx JTAG Master Driver");
++MODULE_LICENSE("GPL");
++
 -- 
 2.22.0
 
