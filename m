@@ -8,19 +8,19 @@ X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 42D64C433DB
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:45:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A839C433DB
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:47:05 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ACC8A22202
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:44:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ACC8A22202
+	by mail.kernel.org (Postfix) with ESMTPS id C3CFC22202
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:47:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C3CFC22202
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D6l956W3CzDqN0
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:44:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lCV5F67zDqM3
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:47:02 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,19 +31,18 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxR1RtFzDqKw
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:34:50 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxV70nJzDqLP
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:34:54 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNemS027186;
- Fri, 1 Jan 2021 14:23:40 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNhHC027198;
+ Fri, 1 Jan 2021 14:23:43 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 2124263A17; Fri,  1 Jan 2021 14:23:40 +0200 (IST)
+ id 9C68563A17; Fri,  1 Jan 2021 14:23:43 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 05/11] dt-binding: watchdog: Add DT restart
- priority and reset type
-Date: Fri,  1 Jan 2021 14:23:22 +0200
-Message-Id: <20210101122328.43510-6-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v1 09/11] spi: npcm-pspi: Add full duplex support
+Date: Fri,  1 Jan 2021 14:23:26 +0200
+Message-Id: <20210101122328.43510-10-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210101122328.43510-1-tmaimon77@gmail.com>
 References: <20210101122328.43510-1-tmaimon77@gmail.com>
@@ -66,63 +65,138 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add device tree resrart priority documentation and
-three reset types documentation.
+Modify the IRQ handler in the NPCM PSPI
+driver to support SPI full duplex communication.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- .../bindings/watchdog/nuvoton,npcm-wdt.txt    | 32 +++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/spi/spi-npcm-pspi.c | 75 +++++++++++++++----------------------
+ 1 file changed, 30 insertions(+), 45 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
-index 6d593003c933..67ebf3386804 100644
---- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
-+++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
-@@ -17,7 +17,35 @@ Required clocking property, have to be one of:
+diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
+index 87cd0233c60b..92fae0b23eb1 100644
+--- a/drivers/spi/spi-npcm-pspi.c
++++ b/drivers/spi/spi-npcm-pspi.c
+@@ -197,22 +197,22 @@ static void npcm_pspi_setup_transfer(struct spi_device *spi,
+ static void npcm_pspi_send(struct npcm_pspi *priv)
+ {
+ 	int wsize;
+-	u16 val;
++	u16 val = 0;
  
- Optional properties:
- - timeout-sec : Contains the watchdog timeout in seconds
-+- nuvoton,restart-priority - Contains the card restart priority.
-+- nuvoton,card-reset-type = "porst|corst|wd0|wd1|wd2|sw1|sw2|sw3|sw4"
-+  Contains the card reset type for checking and indicating 
-+  the last card reset status (WDIOF_CARDRESET)
-+  
-+  If 'nuvoton,card-reset-type' is not specified the default is porst
+ 	wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
+ 	priv->tx_bytes -= wsize;
  
-+  Reset types:
-+       - porst: Power reset
-+       - corst: Core reset
-+	   - wdX : Watchdog reset X (X represante 0-2)
-+	   - swX : Software reset X (X represante 1-4)
-+
-+- nuvoton,ext1-reset-type = "porst|corst|wd0|wd1|wd2|sw1|sw2|sw3|sw4"
-+  Contains the external 2 reset type for checking and indicating 
-+  the last external 2 reset status (WDIOF_EXTERN1)
-+  
-+  If 'nuvoton,card-reset-type' is not specified the default is wd0.
-+  
-+  Reset types are the same as in nuvoton,card-reset-type property.
-+
-+- nuvoton,ext2-reset-type = "porst|corst|wd0|wd1|wd2|sw1|sw2|sw3|sw4"
-+  Contains the external 2 reset type for checking and indicating 
-+  the last external 2 reset status (WDIOF_EXTERN2)
-+
-+  If 'nuvoton,card-reset-type' is not specified the default is sw1.
-+  
-+  Reset types are the same as in nuvoton,card-reset-type property.
-+	   
- Example:
+-	if (!priv->tx_buf)
+-		return;
+-
+ 	switch (wsize) {
+ 	case 1:
+-		val = *priv->tx_buf++;
++		if (priv->tx_buf)
++			val = *priv->tx_buf++;
+ 		iowrite8(val, NPCM_PSPI_DATA + priv->base);
+ 		break;
+ 	case 2:
+-		val = *priv->tx_buf++;
+-		val = *priv->tx_buf++ | (val << 8);
++		if (priv->tx_buf) {
++			val = *priv->tx_buf++;
++			val = *priv->tx_buf++ | (val << 8);
++		}
+ 		iowrite16(val, NPCM_PSPI_DATA + priv->base);
+ 		break;
+ 	default:
+@@ -224,22 +224,24 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
+ static void npcm_pspi_recv(struct npcm_pspi *priv)
+ {
+ 	int rsize;
+-	u16 val;
++	u16 val_16;
++	u8  val_8;
  
- timer@f000801c {
-@@ -25,4 +53,8 @@ timer@f000801c {
-     interrupts = <GIC_SPI 47 IRQ_TYPE_LEVEL_HIGH>;
-     reg = <0xf000801c 0x4>;
-     clocks = <&clk NPCM7XX_CLK_TIMER>;
-+	nuvoton,restart-priority = <155>;
-+	nuvoton,card-reset-type = "porst";
-+	nuvoton,ext1-reset-type = "wd1";
-+	nuvoton,ext2-reset-type = "sw2";
- };
+ 	rsize = min(bytes_per_word(priv->bits_per_word), priv->rx_bytes);
+ 	priv->rx_bytes -= rsize;
+ 
+-	if (!priv->rx_buf)
+-		return;
+-
+ 	switch (rsize) {
+ 	case 1:
+-		*priv->rx_buf++ = ioread8(priv->base + NPCM_PSPI_DATA);
++		val_8 = ioread8(priv->base + NPCM_PSPI_DATA);
++		if (priv->rx_buf)
++			*priv->rx_buf++ = val_8;
+ 		break;
+ 	case 2:
+-		val = ioread16(priv->base + NPCM_PSPI_DATA);
+-		*priv->rx_buf++ = (val >> 8);
+-		*priv->rx_buf++ = val & 0xff;
++		val_16 = ioread16(priv->base + NPCM_PSPI_DATA);
++		if (priv->rx_buf) {
++			*priv->rx_buf++ = (val_16 >> 8);
++			*priv->rx_buf++ = val_16 & 0xff;
++		}
+ 		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+@@ -298,43 +300,26 @@ static irqreturn_t npcm_pspi_handler(int irq, void *dev_id)
+ 	struct npcm_pspi *priv = dev_id;
+ 	u8 stat;
+ 
+-	stat = ioread8(priv->base + NPCM_PSPI_STAT);
+-
+ 	if (!priv->tx_buf && !priv->rx_buf)
+ 		return IRQ_NONE;
+ 
+-	if (priv->tx_buf) {
+-		if (stat & NPCM_PSPI_STAT_RBF) {
+-			ioread8(NPCM_PSPI_DATA + priv->base);
+-			if (priv->tx_bytes == 0) {
+-				npcm_pspi_disable(priv);
+-				complete(&priv->xfer_done);
+-				return IRQ_HANDLED;
+-			}
+-		}
+-
+-		if ((stat & NPCM_PSPI_STAT_BSY) == 0)
+-			if (priv->tx_bytes)
+-				npcm_pspi_send(priv);
++	if (priv->tx_bytes == 0 && priv->rx_bytes == 0) {
++		npcm_pspi_disable(priv);
++		complete(&priv->xfer_done);
++		return IRQ_HANDLED;
+ 	}
+ 
+-	if (priv->rx_buf) {
+-		if (stat & NPCM_PSPI_STAT_RBF) {
+-			if (!priv->rx_bytes)
+-				return IRQ_NONE;
+-
+-			npcm_pspi_recv(priv);
++	stat = ioread8(priv->base + NPCM_PSPI_STAT);
+ 
+-			if (!priv->rx_bytes) {
+-				npcm_pspi_disable(priv);
+-				complete(&priv->xfer_done);
+-				return IRQ_HANDLED;
+-			}
+-		}
++	/*
++	 * first we do the read since if we do the write we previous read might
++	 * be lost (indeed low chances)
++	 */
++	if ((stat & NPCM_PSPI_STAT_RBF) && priv->rx_bytes)
++		npcm_pspi_recv(priv);
+ 
+-		if (((stat & NPCM_PSPI_STAT_BSY) == 0) && !priv->tx_buf)
+-			iowrite8(0x0, NPCM_PSPI_DATA + priv->base);
+-	}
++	if (((stat & NPCM_PSPI_STAT_BSY) == 0) && priv->tx_bytes)
++		npcm_pspi_send(priv);
+ 
+ 	return IRQ_HANDLED;
+ }
 -- 
 2.22.0
 
