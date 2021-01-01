@@ -2,25 +2,25 @@ Return-Path: <SRS0=6QMd=GE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD29CC433DB
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:48:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id AE960C433E0
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:52:11 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3FC1122202
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:48:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3FC1122202
+	by mail.kernel.org (Postfix) with ESMTPS id 36AEE22202
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:52:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36AEE22202
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lFj03cDzDqN6
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:48:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lKP2GHNzDqNV
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:52:09 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,19 +31,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxY5Yr4zDqFv
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:34:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxd3whpzDqJW
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:35:00 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNg8l027195;
- Fri, 1 Jan 2021 14:23:42 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNd4q027183;
+ Fri, 1 Jan 2021 14:23:39 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id B4A7363A17; Fri,  1 Jan 2021 14:23:42 +0200 (IST)
+ id 2D0F563A17; Fri,  1 Jan 2021 14:23:39 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 08/11] pinctrl: npcm7xx: Add pin persist
- configuration support
-Date: Fri,  1 Jan 2021 14:23:25 +0200
-Message-Id: <20210101122328.43510-9-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v1 04/11] watchdog: npcm: Add DT restart
+ priority and reset type support
+Date: Fri,  1 Jan 2021 14:23:21 +0200
+Message-Id: <20210101122328.43510-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210101122328.43510-1-tmaimon77@gmail.com>
 References: <20210101122328.43510-1-tmaimon77@gmail.com>
@@ -66,115 +66,181 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Add Device tree restart priority and
+three reset types support.
+
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 65 +++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+ drivers/watchdog/npcm_wdt.c | 121 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 119 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index e5f58ea89917..ec12efd23bbe 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -36,6 +36,19 @@
- 
- #define SRCNT_ESPI		BIT(3)
- 
-+/* reset registers */
-+#define NPCM7XX_RST_WD0RCR	0x38
-+#define NPCM7XX_RST_WD1RCR	0x3C
-+#define NPCM7XX_RST_WD2RCR	0x40
-+#define NPCM7XX_RST_SWRSTC1	0x44
-+#define NPCM7XX_RST_SWRSTC2	0x48
-+#define NPCM7XX_RST_SWRSTC3	0x4C
-+#define NPCM7XX_RST_SWRSTC4	0x50
-+#define NPCM7XX_RST_CORSTC	0x5C
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index 765577f11c8d..bbf27da34834 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -11,7 +11,24 @@
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+ #include <linux/watchdog.h>
+-
++#include <linux/regmap.h>
++#include <linux/mfd/syscon.h>
 +
-+#define GPIOX_MODULE_RESET	BIT(16)
-+#define CA9C_MODULE_RESET	BIT(0)
++/* NPCM7xx GCR module */
++#define NPCM7XX_RESSR_OFFSET		0x6C
++#define NPCM7XX_INTCR2_OFFSET		0x60
 +
- /* GPIO registers */
- #define NPCM7XX_GP_N_TLOCK1	0x00
- #define NPCM7XX_GP_N_DIN	0x04 /* Data IN */
-@@ -94,6 +107,7 @@ struct npcm7xx_pinctrl {
- 	struct npcm7xx_gpio	gpio_bank[NPCM7XX_GPIO_BANK_NUM];
- 	struct irq_domain	*domain;
- 	struct regmap		*gcr_regmap;
-+	struct regmap		*rst_regmap;
- 	void __iomem		*regs;
- 	u32			bank_num;
++#define NPCM7XX_PORST			BIT(31)
++#define NPCM7XX_CORST			BIT(30)
++#define NPCM7XX_WD0RST			BIT(29)
++#define NPCM7XX_WD1RST			BIT(24)
++#define NPCM7XX_WD2RST			BIT(23)
++#define NPCM7XX_SWR1RST			BIT(28)
++#define NPCM7XX_SWR2RST			BIT(27)
++#define NPCM7XX_SWR3RST			BIT(26)
++#define NPCM7XX_SWR4RST			BIT(25)
++
++ /* WD register */
+ #define NPCM_WTCR	0x1C
+ 
+ #define NPCM_WTCLK	(BIT(10) | BIT(11))	/* Clock divider */
+@@ -43,6 +60,10 @@
+ struct npcm_wdt {
+ 	struct watchdog_device  wdd;
+ 	void __iomem		*reg;
++	u32 			card_reset;
++	u32 			ext1_reset;
++	u32 			ext2_reset;
++
  };
-@@ -1583,6 +1597,48 @@ static int npcm7xx_set_drive_strength(struct npcm7xx_pinctrl *npcm,
- 	return -ENOTSUPP;
- }
  
-+static int npcm7xx_gpio_reset_persist(struct npcm7xx_pinctrl *npcm,
-+					unsigned int pin, int enable)
+ static inline struct npcm_wdt *to_npcm_wdt(struct watchdog_device *wdd)
+@@ -176,14 +197,70 @@ static const struct watchdog_ops npcm_wdt_ops = {
+ 	.restart = npcm_wdt_restart,
+ };
+ 
++static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device *dev)
 +{
-+	struct npcm7xx_gpio *bank =
-+		&npcm->gpio_bank[pin / NPCM7XX_GPIO_PER_BANK];
-+	int banknum = pin / bank->gc.ngpio;
++	struct regmap *gcr_regmap;
++	u32 rstval;
 +
-+	if (enable) {
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD0RCR,
-+				   GPIOX_MODULE_RESET << banknum, 0);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD1RCR,
-+				   GPIOX_MODULE_RESET << banknum, 0);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD2RCR,
-+				   GPIOX_MODULE_RESET << banknum, 0);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_CORSTC,
-+				   GPIOX_MODULE_RESET << banknum, 0);
-+	} else {
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD0RCR,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD1RCR,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_WD2RCR,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET);
-+		regmap_update_bits(npcm->rst_regmap, NPCM7XX_RST_CORSTC,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET,
-+				   (GPIOX_MODULE_RESET << banknum) |
-+				   CA9C_MODULE_RESET);
++	if (of_device_is_compatible(dev->of_node, "nuvoton,npcm750-wdt")) {
++		gcr_regmap = syscon_regmap_lookup_by_compatible("nuvoton,npcm750-gcr");
++		if (IS_ERR(gcr_regmap)) {
++			dev_warn(dev, "Failed to find nuvoton,npcm750-gcr WD reset status not supported\n");
++		}
++
++		regmap_read(gcr_regmap, NPCM7XX_RESSR_OFFSET, &rstval);
++		if (!rstval) {
++			regmap_read(gcr_regmap, NPCM7XX_INTCR2_OFFSET, &rstval);
++			rstval = ~rstval;
++		}
++
++		if(rstval & wdt->card_reset)
++			wdt->wdd.bootstatus |= WDIOF_CARDRESET;
++		if(rstval & wdt->ext1_reset)
++			wdt->wdd.bootstatus |= WDIOF_EXTERN1;
++		if(rstval & wdt->ext2_reset)
++			wdt->wdd.bootstatus |= WDIOF_EXTERN2;
 +	}
++
++}
++
++static u32 npcm_wdt_reset_type(const char *reset_type)
++{
++	if (!strcmp(reset_type, "porst"))
++		return NPCM7XX_PORST;
++	else if (!strcmp(reset_type, "corst"))
++		return NPCM7XX_CORST;
++	else if (!strcmp(reset_type, "wd0"))
++		return NPCM7XX_WD0RST;
++	else if (!strcmp(reset_type, "wd1"))
++		return NPCM7XX_WD1RST;
++	else if (!strcmp(reset_type, "wd2"))
++		return NPCM7XX_WD2RST;
++	else if (!strcmp(reset_type, "sw1"))
++		return NPCM7XX_SWR1RST;
++	else if (!strcmp(reset_type, "sw2"))
++		return NPCM7XX_SWR2RST;
++	else if (!strcmp(reset_type, "sw3"))
++		return NPCM7XX_SWR3RST;
++	else if (!strcmp(reset_type, "sw4"))
++		return NPCM7XX_SWR4RST;
 +
 +	return 0;
 +}
 +
- /* pinctrl_ops */
- static void npcm7xx_pin_dbg_show(struct pinctrl_dev *pctldev,
- 				 struct seq_file *s, unsigned int offset)
-@@ -1852,6 +1908,8 @@ static int npcm7xx_config_set_one(struct npcm7xx_pinctrl *npcm,
- 		return npcm7xx_set_slew_rate(bank, npcm->gcr_regmap, pin, arg);
- 	case PIN_CONFIG_DRIVE_STRENGTH:
- 		return npcm7xx_set_drive_strength(npcm, pin, arg);
-+	case PIN_CONFIG_PERSIST_STATE:
-+		return npcm7xx_gpio_reset_persist(npcm, pin, arg);
- 	default:
- 		return -ENOTSUPP;
- 	}
-@@ -2051,6 +2109,13 @@ static int npcm7xx_pinctrl_probe(struct platform_device *pdev)
- 		return PTR_ERR(pctrl->gcr_regmap);
- 	}
+ static int npcm_wdt_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	const char *card_reset_type;
++	const char *ext1_reset_type;
++	const char *ext2_reset_type;
+ 	struct npcm_wdt *wdt;
++	struct resource *res;
++	u32 priority;
+ 	int irq;
+ 	int ret;
  
-+	pctrl->rst_regmap =
-+		syscon_regmap_lookup_by_compatible("nuvoton,npcm750-rst");
-+	if (IS_ERR(pctrl->rst_regmap)) {
-+		dev_err(pctrl->dev, "didn't find nuvoton,npcm750-rst\n");
-+		return PTR_ERR(pctrl->rst_regmap);
+-	wdt = devm_kzalloc(dev, sizeof(*wdt), GFP_KERNEL);
++	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+ 	if (!wdt)
+ 		return -ENOMEM;
+ 
+@@ -195,6 +272,45 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (of_property_read_u32(pdev->dev.of_node, "nuvoton,restart-priority", 
++				 &priority))
++		watchdog_set_restart_priority(&wdt->wdd, 128);
++	else
++		watchdog_set_restart_priority(&wdt->wdd, priority);
++
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,card-reset-type",
++				      &card_reset_type);
++	if (ret)
++		wdt->card_reset = NPCM7XX_PORST;
++	else {
++		wdt->card_reset = npcm_wdt_reset_type(card_reset_type);
++		if (!wdt->card_reset)
++			wdt->card_reset = NPCM7XX_PORST;
 +	}
 +
- 	ret = npcm7xx_gpio_of(pctrl);
- 	if (ret < 0) {
- 		dev_err(pctrl->dev, "Failed to gpio dt-binding %u\n", ret);
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,ext1-reset-type",
++				      &ext1_reset_type);
++	if (ret)
++		wdt->ext1_reset = NPCM7XX_WD0RST;
++	else {
++		wdt->ext1_reset = npcm_wdt_reset_type(ext1_reset_type);
++		if (!wdt->ext1_reset)
++			wdt->ext1_reset = NPCM7XX_WD0RST;
++	}
++
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,ext2-reset-type",
++				      &ext2_reset_type);
++	if (ret)
++		wdt->ext2_reset = NPCM7XX_SWR1RST;
++	else {
++		wdt->ext2_reset = npcm_wdt_reset_type(ext2_reset_type);
++		if (!wdt->ext2_reset)
++			wdt->ext2_reset = NPCM7XX_SWR1RST;
++	}
++
+ 	wdt->wdd.info = &npcm_wdt_info;
+ 	wdt->wdd.ops = &npcm_wdt_ops;
+ 	wdt->wdd.min_timeout = 1;
+@@ -213,6 +329,7 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
+ 	}
+ 
++	npcm_get_reset_status(wdt, dev);
+ 	ret = devm_request_irq(dev, irq, npcm_wdt_interrupt, 0, "watchdog",
+ 			       wdt);
+ 	if (ret)
 -- 
 2.22.0
 
