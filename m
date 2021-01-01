@@ -2,25 +2,25 @@ Return-Path: <SRS0=6QMd=GE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68283C433DB
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 431B1C433E0
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:57:38 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6EE022202
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6EE022202
+	by mail.kernel.org (Postfix) with ESMTPS id 70B6F22202
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 12:57:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 70B6F22202
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lPd1GvjzDqPf
-	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:55:49 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D6lRg2T6SzDqQ5
+	for <openbmc@archiver.kernel.org>; Fri,  1 Jan 2021 23:57:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,19 +31,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxl1LH0zDq8v
- for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:35:06 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D6kxn4FlCzDqLC
+ for <openbmc@lists.ozlabs.org>; Fri,  1 Jan 2021 23:35:08 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNfSU027189;
- Fri, 1 Jan 2021 14:23:41 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 101CNbhY027177;
+ Fri, 1 Jan 2021 14:23:37 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 133D263A17; Fri,  1 Jan 2021 14:23:41 +0200 (IST)
+ id 1E20563A17; Fri,  1 Jan 2021 14:23:37 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 06/11] pinctrl: npcm7xx: Add HGPIO pin
- support to NPCM7xx pinctrl driver
-Date: Fri,  1 Jan 2021 14:23:23 +0200
-Message-Id: <20210101122328.43510-7-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v1 02/11] iio: adc: add calibration support to
+ npcm ADC
+Date: Fri,  1 Jan 2021 14:23:19 +0200
+Message-Id: <20210101122328.43510-3-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210101122328.43510-1-tmaimon77@gmail.com>
 References: <20210101122328.43510-1-tmaimon77@gmail.com>
@@ -66,136 +66,253 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Add calibration to improve accuracy measurement when using
+internal referance voltage.
+
+the calibration values taken from the FUSE module.
+
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 65 +++++++++++++++++------
- 1 file changed, 49 insertions(+), 16 deletions(-)
+ drivers/iio/adc/npcm_adc.c | 191 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 191 insertions(+)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-index a935065cdac4..e5f58ea89917 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
-@@ -504,6 +504,15 @@ static const int lkgpo2_pins[] = { 9 };
+diff --git a/drivers/iio/adc/npcm_adc.c b/drivers/iio/adc/npcm_adc.c
+index 83bad2d5575d..02628b7eaca1 100644
+--- a/drivers/iio/adc/npcm_adc.c
++++ b/drivers/iio/adc/npcm_adc.c
+@@ -17,6 +17,8 @@
+ #include <linux/reset.h>
  
- static const int nprd_smi_pins[] = { 190 };
+ struct npcm_adc {
++	u32 R05;
++	u32 R15;
+ 	bool int_status;
+ 	u32 adc_sample_hz;
+ 	struct device *dev;
+@@ -51,6 +53,40 @@ struct npcm_adc {
+ #define NPCM_RESOLUTION_BITS		10
+ #define NPCM_INT_VREF_MV		2000
  
-+static const int hgpio0_pins[] = { 20 };
-+static const int hgpio1_pins[] = { 21 };
-+static const int hgpio2_pins[] = { 22 };
-+static const int hgpio3_pins[] = { 23 };
-+static const int hgpio4_pins[] = { 24 };
-+static const int hgpio5_pins[] = { 25 };
-+static const int hgpio6_pins[] = { 59 };
-+static const int hgpio7_pins[] = { 60 };
++/* FUSE registers */
++#define NPCM7XX_FST		0x00
++#define NPCM7XX_FADDR		0x04
++#define NPCM7XX_FDATA		0x08
++#define NPCM7XX_FCFG		0x0C
++#define NPCM7XX_FCTL		0x14
 +
- /*
-  * pin:	     name, number
-  * group:    name, npins,   pins
-@@ -631,6 +640,14 @@ struct npcm7xx_group {
- 	NPCM7XX_GRP(lkgpo1), \
- 	NPCM7XX_GRP(lkgpo2), \
- 	NPCM7XX_GRP(nprd_smi), \
-+	NPCM7XX_GRP(hgpio0), \
-+	NPCM7XX_GRP(hgpio1), \
-+	NPCM7XX_GRP(hgpio2), \
-+	NPCM7XX_GRP(hgpio3), \
-+	NPCM7XX_GRP(hgpio4), \
-+	NPCM7XX_GRP(hgpio5), \
-+	NPCM7XX_GRP(hgpio6), \
-+	NPCM7XX_GRP(hgpio7), \
- 	\
- 
- enum {
-@@ -774,6 +791,14 @@ NPCM7XX_SFUNC(lkgpo0);
- NPCM7XX_SFUNC(lkgpo1);
- NPCM7XX_SFUNC(lkgpo2);
- NPCM7XX_SFUNC(nprd_smi);
-+NPCM7XX_SFUNC(hgpio0);
-+NPCM7XX_SFUNC(hgpio1);
-+NPCM7XX_SFUNC(hgpio2);
-+NPCM7XX_SFUNC(hgpio3);
-+NPCM7XX_SFUNC(hgpio4);
-+NPCM7XX_SFUNC(hgpio5);
-+NPCM7XX_SFUNC(hgpio6);
-+NPCM7XX_SFUNC(hgpio7);
- 
- /* Function names */
- static struct npcm7xx_func npcm7xx_funcs[] = {
-@@ -892,6 +917,14 @@ static struct npcm7xx_func npcm7xx_funcs[] = {
- 	NPCM7XX_MKFUNC(lkgpo1),
- 	NPCM7XX_MKFUNC(lkgpo2),
- 	NPCM7XX_MKFUNC(nprd_smi),
-+	NPCM7XX_MKFUNC(hgpio0),
-+	NPCM7XX_MKFUNC(hgpio1),
-+	NPCM7XX_MKFUNC(hgpio2),
-+	NPCM7XX_MKFUNC(hgpio3),
-+	NPCM7XX_MKFUNC(hgpio4),
-+	NPCM7XX_MKFUNC(hgpio5),
-+	NPCM7XX_MKFUNC(hgpio6),
-+	NPCM7XX_MKFUNC(hgpio7),
++/* FST Register Bits */
++#define NPCM7XX_FST_RDY		BIT(0)
++#define NPCM7XX_FST_RDST	BIT(1)
++
++/* FADDR Register Bits */
++#define NPCM7XX_FADDR_BYTEADDR		BIT(0)
++#define NPCM7XX_FADDR_BYTEADDR_MASK	GENMASK(9, 0)
++
++/* FADDR Register Bits */
++#define NPCM7XX_FDATA_DATA		BIT(0)
++#define NPCM7XX_FDATA_CLEAN_VALUE	BIT(1)
++#define NPCM7XX_FDATA_DATA_MASK		GENMASK(7, 0)
++
++/* FCTL Register Bits */
++#define NPCM7XX_FCTL_RDST		BIT(1)
++
++/* ADC Calibration Definition */
++#define NPCM_INT_1500MV		768
++#define NPCM_INT_1000MV		512
++#define NPCM_ADC_MIN_VAL	0
++#define NPCM_ADC_MAX_VAL	1023
++
++#define FUSE_CALIB_ADDR		24
++#define FUSE_CALIB_SIZE		8
++#define DATA_CALIB_SIZE		4
++#define FUSE_READ_TIMEOUT	0xDEADBEEF
++
+ #define NPCM_ADC_CHAN(ch) {					\
+ 	.type = IIO_VOLTAGE,					\
+ 	.indexed = 1,						\
+@@ -71,6 +107,133 @@ static const struct iio_chan_spec npcm_adc_iio_channels[] = {
+ 	NPCM_ADC_CHAN(7),
  };
  
- #define NPCM7XX_PINCFG(a, b, c, d, e, f, g, h, i, j, k) \
-@@ -944,12 +977,12 @@ static const struct npcm7xx_pincfg pincfg[] = {
- 	NPCM7XX_PINCFG(17,      pspi2, MFSEL3, 13,     smb4den, I2CSEGSEL, 23,  none, NONE, 0,       DS(8, 12)),
- 	NPCM7XX_PINCFG(18,      pspi2, MFSEL3, 13,	 smb4b, I2CSEGSEL, 14,  none, NONE, 0,	     DS(8, 12)),
- 	NPCM7XX_PINCFG(19,      pspi2, MFSEL3, 13,	 smb4b, I2CSEGSEL, 14,  none, NONE, 0,	     DS(8, 12)),
--	NPCM7XX_PINCFG(20,	smb4c, I2CSEGSEL, 15,    smb15, MFSEL3, 8,      none, NONE, 0,	     0),
--	NPCM7XX_PINCFG(21,	smb4c, I2CSEGSEL, 15,    smb15, MFSEL3, 8,      none, NONE, 0,	     0),
--	NPCM7XX_PINCFG(22,      smb4d, I2CSEGSEL, 16,	 smb14, MFSEL3, 7,      none, NONE, 0,	     0),
--	NPCM7XX_PINCFG(23,      smb4d, I2CSEGSEL, 16,	 smb14, MFSEL3, 7,      none, NONE, 0,	     0),
--	NPCM7XX_PINCFG(24,	 ioxh, MFSEL3, 18,	  none, NONE, 0,	none, NONE, 0,	     DS(8, 12)),
--	NPCM7XX_PINCFG(25,	 ioxh, MFSEL3, 18,	  none, NONE, 0,	none, NONE, 0,	     DS(8, 12)),
-+	NPCM7XX_PINCFG(20,	hgpio0, MFSEL2, 24,      smb15, MFSEL3, 8,      smb4c, I2CSEGSEL, 15,	     0),
-+	NPCM7XX_PINCFG(21,	hgpio1, MFSEL2, 25,      smb15, MFSEL3, 8,      smb4c, I2CSEGSEL, 15,	     0),
-+	NPCM7XX_PINCFG(22,      hgpio2, MFSEL2, 26,	 smb14, MFSEL3, 7,      smb4d, I2CSEGSEL, 16,	     0),
-+	NPCM7XX_PINCFG(23,      hgpio3, MFSEL2, 27,	 smb14, MFSEL3, 7,      smb4d, I2CSEGSEL, 16,	     0),
-+	NPCM7XX_PINCFG(24,	 hgpio4, MFSEL2, 28,	ioxh, MFSEL3, 18,	none, NONE, 0,	     DS(8, 12)),
-+	NPCM7XX_PINCFG(25,	 hgpio5, MFSEL2, 29,	ioxh, MFSEL3, 18,	none, NONE, 0,	     DS(8, 12)),
- 	NPCM7XX_PINCFG(26,	 smb5, MFSEL1, 2,	  none, NONE, 0,	none, NONE, 0,	     0),
- 	NPCM7XX_PINCFG(27,	 smb5, MFSEL1, 2,	  none, NONE, 0,	none, NONE, 0,	     0),
- 	NPCM7XX_PINCFG(28,	 smb4, MFSEL1, 1,	  none, NONE, 0,	none, NONE, 0,	     0),
-@@ -982,8 +1015,8 @@ static const struct npcm7xx_pincfg pincfg[] = {
- 	NPCM7XX_PINCFG(56,	r1err, MFSEL1, 12,	  none, NONE, 0,	none, NONE, 0,	     0),
- 	NPCM7XX_PINCFG(57,       r1md, MFSEL1, 13,        none, NONE, 0,        none, NONE, 0,       DS(2, 4)),
- 	NPCM7XX_PINCFG(58,       r1md, MFSEL1, 13,        none, NONE, 0,	none, NONE, 0,	     DS(2, 4)),
--	NPCM7XX_PINCFG(59,	smb3d, I2CSEGSEL, 13,	  none, NONE, 0,	none, NONE, 0,	     0),
--	NPCM7XX_PINCFG(60,	smb3d, I2CSEGSEL, 13,	  none, NONE, 0,	none, NONE, 0,	     0),
-+	NPCM7XX_PINCFG(59,	hgpio6, MFSEL2, 30,	  smb3d, I2CSEGSEL, 13,	none, NONE, 0,	     0),
-+	NPCM7XX_PINCFG(60,	hgpio7, MFSEL2, 31,	  smb3d, I2CSEGSEL, 13,	none, NONE, 0,	     0),
- 	NPCM7XX_PINCFG(61,      uart1, MFSEL1, 10,	  none, NONE, 0,	none, NONE, 0,     GPO),
- 	NPCM7XX_PINCFG(62,      uart1, MFSEL1, 10,    bmcuart1, MFSEL3, 24,	none, NONE, 0,     GPO),
- 	NPCM7XX_PINCFG(63,      uart1, MFSEL1, 10,    bmcuart1, MFSEL3, 24,	none, NONE, 0,     GPO),
-@@ -1188,12 +1221,12 @@ static const struct pinctrl_pin_desc npcm7xx_pins[] = {
- 	PINCTRL_PIN(17, "GPIO17/PSPI2DI/SMB4DEN"),
- 	PINCTRL_PIN(18, "GPIO18/PSPI2D0/SMB4BSDA"),
- 	PINCTRL_PIN(19, "GPIO19/PSPI2CK/SMB4BSCL"),
--	PINCTRL_PIN(20, "GPIO20/SMB4CSDA/SMB15SDA"),
--	PINCTRL_PIN(21, "GPIO21/SMB4CSCL/SMB15SCL"),
--	PINCTRL_PIN(22, "GPIO22/SMB4DSDA/SMB14SDA"),
--	PINCTRL_PIN(23, "GPIO23/SMB4DSCL/SMB14SCL"),
--	PINCTRL_PIN(24, "GPIO24/IOXHDO"),
--	PINCTRL_PIN(25, "GPIO25/IOXHDI"),
-+	PINCTRL_PIN(20, "GPIO20/HGPIO0/SMB4CSDA/SMB15SDA"),
-+	PINCTRL_PIN(21, "GPIO21/HGPIO1/SMB4CSCL/SMB15SCL"),
-+	PINCTRL_PIN(22, "GPIO22/HGPIO2/SMB4DSDA/SMB14SDA"),
-+	PINCTRL_PIN(23, "GPIO23/HGPIO3/SMB4DSCL/SMB14SCL"),
-+	PINCTRL_PIN(24, "GPIO24/HGPIO4/IOXHDO"),
-+	PINCTRL_PIN(25, "GPIO25/HGPIO5/IOXHDI"),
- 	PINCTRL_PIN(26, "GPIO26/SMB5SDA"),
- 	PINCTRL_PIN(27, "GPIO27/SMB5SCL"),
- 	PINCTRL_PIN(28, "GPIO28/SMB4SDA"),
-@@ -1226,8 +1259,8 @@ static const struct pinctrl_pin_desc npcm7xx_pins[] = {
- 	PINCTRL_PIN(56, "GPIO56/R1RXERR"),
- 	PINCTRL_PIN(57, "GPIO57/R1MDC"),
- 	PINCTRL_PIN(58, "GPIO58/R1MDIO"),
--	PINCTRL_PIN(59, "GPIO59/SMB3DSDA"),
--	PINCTRL_PIN(60, "GPIO60/SMB3DSCL"),
-+	PINCTRL_PIN(59, "GPIO59/HGPIO6/SMB3DSDA"),
-+	PINCTRL_PIN(60, "GPIO60/HGPIO7/SMB3DSCL"),
- 	PINCTRL_PIN(61, "GPO61/nDTR1_BOUT1/STRAP6"),
- 	PINCTRL_PIN(62, "GPO62/nRTST1/STRAP5"),
- 	PINCTRL_PIN(63, "GPO63/TXD1/STRAP4"),
++static int npcm750_fuse_wait_for_ready(struct regmap *fuse_regmap, u32 timeout)
++{
++	u32 time = timeout;
++	u32 fstreg;
++
++	while (--time > 1) {
++		regmap_read(fuse_regmap, NPCM7XX_FST, &fstreg);
++		if (fstreg & NPCM7XX_FST_RDY) {
++			regmap_write_bits(fuse_regmap, NPCM7XX_FST,
++					  NPCM7XX_FST_RDST, NPCM7XX_FST_RDST);
++			return 0;
++		}
++	}
++
++	/* try to clear the status in case it was set */
++	regmap_write_bits(fuse_regmap, NPCM7XX_FST, NPCM7XX_FST_RDST,
++			  NPCM7XX_FST_RDST);
++
++	return -EINVAL;
++}
++
++static void npcm750_fuse_read(struct regmap *fuse_regmap, u32 addr, u8 *data)
++{
++	u32 val;
++
++	npcm750_fuse_wait_for_ready(fuse_regmap, FUSE_READ_TIMEOUT);
++
++	regmap_write_bits(fuse_regmap, NPCM7XX_FADDR,
++			  NPCM7XX_FADDR_BYTEADDR_MASK, addr);
++	regmap_read(fuse_regmap, NPCM7XX_FADDR, &val);
++	regmap_write(fuse_regmap, NPCM7XX_FCTL, NPCM7XX_FCTL_RDST);
++
++	npcm750_fuse_wait_for_ready(fuse_regmap, FUSE_READ_TIMEOUT);
++	regmap_read(fuse_regmap, NPCM7XX_FDATA, &val);
++	*data = (u8)val;
++
++	regmap_write_bits(fuse_regmap, NPCM7XX_FDATA, NPCM7XX_FDATA_DATA_MASK,
++			  NPCM7XX_FDATA_CLEAN_VALUE);
++}
++
++static int npcm750_ECC_to_nibble(u8 ECC, u8 nibble)
++{
++	u8 nibble_b0 = (nibble >> 0) & BIT(0);
++	u8 nibble_b1 = (nibble >> 1) & BIT(0);
++	u8 nibble_b2 = (nibble >> 2) & BIT(0);
++	u8 nibble_b3 = (nibble >> 3) & BIT(0);
++	u8 tmp_ECC = nibble;
++
++	tmp_ECC |= (nibble_b0 ^ nibble_b1) << 4 | (nibble_b2 ^ nibble_b3) << 5 |
++		(nibble_b0 ^ nibble_b2) << 6  | (nibble_b1 ^ nibble_b3) << 7;
++
++	if (tmp_ECC != ECC)
++		return -EINVAL;
++
++	return 0;
++}
++
++static int npcm750_ECC_to_byte(u16 ECC, u8 *Byte)
++{
++	u8 nibble_L, nibble_H;
++	u8 ECC_L, ECC_H;
++
++	ECC_H = ECC >> 8;
++	nibble_H = ECC_H & 0x0F;
++	ECC_L = ECC >> 0;
++	nibble_L = ECC_L & 0x0F;
++
++	if (npcm750_ECC_to_nibble(ECC_H, nibble_H) != 0 ||
++	    npcm750_ECC_to_nibble(ECC_L, nibble_L) != 0)
++		return -EINVAL;
++
++	*Byte = nibble_H << 4 | nibble_L << 0;
++
++	return 0;
++}
++
++static int npcm750_read_nibble_parity(u8 *block_ECC, u8 *ADC_calib)
++{
++	int i;
++	u16 ECC;
++
++	for (i = 0; i < DATA_CALIB_SIZE; i++) {
++		memcpy(&ECC, block_ECC + (i * 2), 2);
++		if (npcm750_ECC_to_byte(ECC, &ADC_calib[i]) != 0)
++			return -EINVAL;
++	}
++
++	return 0;
++}
++
++static int npcm750_fuse_calibration_read(struct platform_device *pdev,
++					struct npcm_adc *info)
++{
++	struct device_node *np = pdev->dev.of_node;
++	struct regmap *fuse_regmap;
++	ssize_t bytes_read = 0;
++	u8 read_buf[8];
++	u32 ADC_calib;
++	u32 addr = FUSE_CALIB_ADDR;
++
++	if (of_device_is_compatible(np, "nuvoton,npcm750-adc")) {
++		fuse_regmap = syscon_regmap_lookup_by_compatible
++			("nuvoton,npcm750-fuse");
++		if (IS_ERR(fuse_regmap)) {
++			dev_warn(&pdev->dev, "Failed to find nuvoton,npcm750-fuse\n");
++			return PTR_ERR(fuse_regmap);
++		}
++
++		while (bytes_read < FUSE_CALIB_SIZE) {
++			npcm750_fuse_read(fuse_regmap, addr,
++					  &read_buf[bytes_read]);
++			bytes_read++;
++			addr++;
++		}
++
++		if (npcm750_read_nibble_parity(read_buf, (u8 *)&ADC_calib)) {
++			dev_warn(info->dev, "FUSE Clibration read failed\n");
++			return -EINVAL;
++		}
++
++		info->R05 = ADC_calib & 0xFFFF;
++		info->R15 = ADC_calib >> 16;
++	}
++
++	return 0;
++}
++
+ static irqreturn_t npcm_adc_isr(int irq, void *data)
+ {
+ 	u32 regtemp;
+@@ -125,6 +288,29 @@ static int npcm_adc_read(struct npcm_adc *info, int *val, u8 channel)
+ 	return 0;
+ }
+ 
++static void npcm_adc_calibration(int *val, struct npcm_adc *info)
++{
++	int mul_val;
++	int offset_val;
++
++	mul_val = NPCM_INT_1000MV * (*val - info->R15);
++	if (mul_val < 0) {
++		mul_val = mul_val * -1;
++		offset_val = DIV_ROUND_CLOSEST(mul_val,
++					       (info->R15 - info->R05));
++		*val = NPCM_INT_1500MV - offset_val;
++	} else {
++		offset_val = DIV_ROUND_CLOSEST(mul_val,
++					       (info->R15 - info->R05));
++		*val = NPCM_INT_1500MV + offset_val;
++	}
++
++	if (*val < NPCM_ADC_MIN_VAL)
++		*val = NPCM_ADC_MIN_VAL;
++	if (*val > NPCM_ADC_MAX_VAL)
++		*val = NPCM_ADC_MAX_VAL;
++}
++
+ static int npcm_adc_read_raw(struct iio_dev *indio_dev,
+ 			     struct iio_chan_spec const *chan, int *val,
+ 			     int *val2, long mask)
+@@ -142,6 +328,10 @@ static int npcm_adc_read_raw(struct iio_dev *indio_dev,
+ 			dev_err(info->dev, "NPCM ADC read failed\n");
+ 			return ret;
+ 		}
++
++		if ((info->R05 || info->R15) && IS_ERR(info->vref))
++			npcm_adc_calibration(val, info);
++
+ 		return IIO_VAL_INT;
+ 	case IIO_CHAN_INFO_SCALE:
+ 		if (!IS_ERR(info->vref)) {
+@@ -248,6 +438,7 @@ static int npcm_adc_probe(struct platform_device *pdev)
+ 			  info->regs + NPCM_ADCCON);
+ 	}
+ 
++	npcm750_fuse_calibration_read(pdev, info);
+ 	init_waitqueue_head(&info->wq);
+ 
+ 	reg_con = ioread32(info->regs + NPCM_ADCCON);
 -- 
 2.22.0
 
