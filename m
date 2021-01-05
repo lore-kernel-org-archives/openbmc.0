@@ -5,22 +5,22 @@ X-Spam-Level:
 X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UPPERCASE_75_100,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9D920C433E0
-	for <openbmc@archiver.kernel.org>; Tue,  5 Jan 2021 13:59:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 65FD7C433E0
+	for <openbmc@archiver.kernel.org>; Tue,  5 Jan 2021 14:01:10 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32404229C4
-	for <openbmc@archiver.kernel.org>; Tue,  5 Jan 2021 13:59:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32404229C4
+	by mail.kernel.org (Postfix) with ESMTPS id EB1B9229C4
+	for <openbmc@archiver.kernel.org>; Tue,  5 Jan 2021 14:01:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EB1B9229C4
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D9DdS3JGNzDqdp
-	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 00:59:40 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D9Dg82bSCzDqfB
+	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 01:01:08 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,18 +31,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D9DKQ2L7FzDqZn
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2021 00:45:45 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D9DKR1s6RzDqb1
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2021 00:45:46 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 105DjKbJ005935;
- Tue, 5 Jan 2021 15:45:20 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 105DjFZn005908;
+ Tue, 5 Jan 2021 15:45:15 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 5662C63A17; Tue,  5 Jan 2021 15:45:20 +0200 (IST)
+ id 9A54163A19; Tue,  5 Jan 2021 15:45:15 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v2 09/11] spi: npcm-pspi: Add full duplex support
-Date: Tue,  5 Jan 2021 15:45:06 +0200
-Message-Id: <20210105134508.225702-10-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v2 01/11] clk: npcm7xx: add read only flag to
+ divider clocks
+Date: Tue,  5 Jan 2021 15:44:58 +0200
+Message-Id: <20210105134508.225702-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210105134508.225702-1-tmaimon77@gmail.com>
 References: <20210105134508.225702-1-tmaimon77@gmail.com>
@@ -65,138 +66,124 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Modify the IRQ handler in the NPCM PSPI
-driver to support SPI full duplex communication.
+Add read only flag to all divider clocks except
+SPI3 clock.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- drivers/spi/spi-npcm-pspi.c | 75 +++++++++++++++----------------------
- 1 file changed, 30 insertions(+), 45 deletions(-)
+ drivers/clk/clk-npcm7xx.c | 70 +++++++++++++++++++++------------------
+ 1 file changed, 38 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/spi/spi-npcm-pspi.c b/drivers/spi/spi-npcm-pspi.c
-index 87cd0233c60b..92fae0b23eb1 100644
---- a/drivers/spi/spi-npcm-pspi.c
-+++ b/drivers/spi/spi-npcm-pspi.c
-@@ -197,22 +197,22 @@ static void npcm_pspi_setup_transfer(struct spi_device *spi,
- static void npcm_pspi_send(struct npcm_pspi *priv)
- {
- 	int wsize;
--	u16 val;
-+	u16 val = 0;
+diff --git a/drivers/clk/clk-npcm7xx.c b/drivers/clk/clk-npcm7xx.c
+index 27a86b7a34db..bf721ec2bbc6 100644
+--- a/drivers/clk/clk-npcm7xx.c
++++ b/drivers/clk/clk-npcm7xx.c
+@@ -370,67 +370,73 @@ static const struct npcm7xx_clk_div_fixed_data npcm7xx_divs_fx[] __initconst = {
  
- 	wsize = min(bytes_per_word(priv->bits_per_word), priv->tx_bytes);
- 	priv->tx_bytes -= wsize;
+ /* configurable dividers: */
+ static const struct npcm7xx_clk_div_data npcm7xx_divs[] __initconst = {
+-	{NPCM7XX_CLKDIV1, 28, 3, NPCM7XX_CLK_S_ADC,
+-	NPCM7XX_CLK_S_TIMER, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_ADC},
++	{NPCM7XX_CLKDIV1, 28, 3, NPCM7XX_CLK_S_ADC, NPCM7XX_CLK_S_TIMER,
++		CLK_DIVIDER_READ_ONLY | CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_ADC},
+ 	/*30-28 ADCCKDIV*/
+-	{NPCM7XX_CLKDIV1, 26, 2, NPCM7XX_CLK_S_AHB,
+-	NPCM7XX_CLK_S_AXI, 0, CLK_IS_CRITICAL, NPCM7XX_CLK_AHB},
++	{NPCM7XX_CLKDIV1, 26, 2, NPCM7XX_CLK_S_AHB, NPCM7XX_CLK_S_AXI,
++		CLK_DIVIDER_READ_ONLY, CLK_IS_CRITICAL, NPCM7XX_CLK_AHB},
+ 	/*27-26 CLK4DIV*/
+ 	{NPCM7XX_CLKDIV1, 21, 5, NPCM7XX_CLK_S_TIMER,
+-	NPCM7XX_CLK_S_TIM_MUX, 0, 0, NPCM7XX_CLK_TIMER},
++	NPCM7XX_CLK_S_TIM_MUX, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_TIMER},
+ 	/*25-21 TIMCKDIV*/
+ 	{NPCM7XX_CLKDIV1, 16, 5, NPCM7XX_CLK_S_UART,
+-	NPCM7XX_CLK_S_UART_MUX, 0, 0, NPCM7XX_CLK_UART},
++	NPCM7XX_CLK_S_UART_MUX, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_UART},
+ 	/*20-16 UARTDIV*/
+ 	{NPCM7XX_CLKDIV1, 11, 5, NPCM7XX_CLK_S_MMC,
+-	NPCM7XX_CLK_S_SD_MUX, 0, 0, NPCM7XX_CLK_MMC},
++	NPCM7XX_CLK_S_SD_MUX, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_MMC},
+ 	/*15-11 MMCCKDIV*/
+ 	{NPCM7XX_CLKDIV1, 6, 5, NPCM7XX_CLK_S_SPI3,
+ 	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPI3},
+ 	/*10-6 AHB3CKDIV*/
+ 	{NPCM7XX_CLKDIV1, 2, 4, NPCM7XX_CLK_S_PCI,
+-	NPCM7XX_CLK_S_GFX_MUX, 0, 0, NPCM7XX_CLK_PCI},
++	NPCM7XX_CLK_S_GFX_MUX, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_PCI},
+ 	/*5-2 PCICKDIV*/
+-	{NPCM7XX_CLKDIV1, 0, 1, NPCM7XX_CLK_S_AXI,
+-	NPCM7XX_CLK_S_CPU_MUX, CLK_DIVIDER_POWER_OF_TWO, CLK_IS_CRITICAL,
+-	NPCM7XX_CLK_AXI},/*0 CLK2DIV*/
++	{NPCM7XX_CLKDIV1, 0, 1, NPCM7XX_CLK_S_AXI, NPCM7XX_CLK_S_CPU_MUX,
++		CLK_DIVIDER_READ_ONLY | CLK_DIVIDER_POWER_OF_TWO,
++		CLK_IS_CRITICAL, NPCM7XX_CLK_AXI},/*0 CLK2DIV*/
  
--	if (!priv->tx_buf)
--		return;
--
- 	switch (wsize) {
- 	case 1:
--		val = *priv->tx_buf++;
-+		if (priv->tx_buf)
-+			val = *priv->tx_buf++;
- 		iowrite8(val, NPCM_PSPI_DATA + priv->base);
- 		break;
- 	case 2:
--		val = *priv->tx_buf++;
--		val = *priv->tx_buf++ | (val << 8);
-+		if (priv->tx_buf) {
-+			val = *priv->tx_buf++;
-+			val = *priv->tx_buf++ | (val << 8);
-+		}
- 		iowrite16(val, NPCM_PSPI_DATA + priv->base);
- 		break;
- 	default:
-@@ -224,22 +224,24 @@ static void npcm_pspi_send(struct npcm_pspi *priv)
- static void npcm_pspi_recv(struct npcm_pspi *priv)
- {
- 	int rsize;
--	u16 val;
-+	u16 val_16;
-+	u8  val_8;
+-	{NPCM7XX_CLKDIV2, 30, 2, NPCM7XX_CLK_S_APB4,
+-	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB4},
++	{NPCM7XX_CLKDIV2, 30, 2, NPCM7XX_CLK_S_APB4, NPCM7XX_CLK_S_AHB,
++		CLK_DIVIDER_READ_ONLY| CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_APB4},
+ 	/*31-30 APB4CKDIV*/
+-	{NPCM7XX_CLKDIV2, 28, 2, NPCM7XX_CLK_S_APB3,
+-	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB3},
++	{NPCM7XX_CLKDIV2, 28, 2, NPCM7XX_CLK_S_APB3, NPCM7XX_CLK_S_AHB,
++		CLK_DIVIDER_READ_ONLY| CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_APB3},
+ 	/*29-28 APB3CKDIV*/
+-	{NPCM7XX_CLKDIV2, 26, 2, NPCM7XX_CLK_S_APB2,
+-	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB2},
++	{NPCM7XX_CLKDIV2, 26, 2, NPCM7XX_CLK_S_APB2, NPCM7XX_CLK_S_AHB,
++		CLK_DIVIDER_READ_ONLY | CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_APB2},
+ 	/*27-26 APB2CKDIV*/
+-	{NPCM7XX_CLKDIV2, 24, 2, NPCM7XX_CLK_S_APB1,
+-	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB1},
++	{NPCM7XX_CLKDIV2, 24, 2, NPCM7XX_CLK_S_APB1, NPCM7XX_CLK_S_AHB,
++		CLK_DIVIDER_READ_ONLY | CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_APB1},
+ 	/*25-24 APB1CKDIV*/
+-	{NPCM7XX_CLKDIV2, 22, 2, NPCM7XX_CLK_S_APB5,
+-	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_POWER_OF_TWO, 0, NPCM7XX_CLK_APB5},
++	{NPCM7XX_CLKDIV2, 22, 2, NPCM7XX_CLK_S_APB5, NPCM7XX_CLK_S_AHB,
++		CLK_DIVIDER_READ_ONLY | CLK_DIVIDER_POWER_OF_TWO, 0,
++		NPCM7XX_CLK_APB5},
+ 	/*23-22 APB5CKDIV*/
+-	{NPCM7XX_CLKDIV2, 16, 5, NPCM7XX_CLK_S_CLKOUT,
+-	NPCM7XX_CLK_S_CLKOUT_MUX, 0, 0, NPCM7XX_CLK_CLKOUT},
++	{NPCM7XX_CLKDIV2, 16, 5, NPCM7XX_CLK_S_CLKOUT, NPCM7XX_CLK_S_CLKOUT_MUX,
++		 CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_CLKOUT},
+ 	/*20-16 CLKOUTDIV*/
+-	{NPCM7XX_CLKDIV2, 13, 3, NPCM7XX_CLK_S_GFX,
+-	NPCM7XX_CLK_S_GFX_MUX, 0, 0, NPCM7XX_CLK_GFX},
++	{NPCM7XX_CLKDIV2, 13, 3, NPCM7XX_CLK_S_GFX, NPCM7XX_CLK_S_GFX_MUX,
++		CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_GFX},
+ 	/*15-13 GFXCKDIV*/
+-	{NPCM7XX_CLKDIV2, 8, 5, NPCM7XX_CLK_S_USB_BRIDGE,
+-	NPCM7XX_CLK_S_SU_MUX, 0, 0, NPCM7XX_CLK_SU},
++	{NPCM7XX_CLKDIV2, 8, 5, NPCM7XX_CLK_S_USB_BRIDGE, NPCM7XX_CLK_S_SU_MUX,
++		CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_SU},
+ 	/*12-8 SUCKDIV*/
+-	{NPCM7XX_CLKDIV2, 4, 4, NPCM7XX_CLK_S_USB_HOST,
+-	NPCM7XX_CLK_S_SU_MUX, 0, 0, NPCM7XX_CLK_SU48},
++	{NPCM7XX_CLKDIV2, 4, 4, NPCM7XX_CLK_S_USB_HOST, NPCM7XX_CLK_S_SU_MUX,
++		CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_SU48},
+ 	/*7-4 SU48CKDIV*/
+ 	{NPCM7XX_CLKDIV2, 0, 4, NPCM7XX_CLK_S_SDHC,
+-	NPCM7XX_CLK_S_SD_MUX, 0, 0, NPCM7XX_CLK_SDHC}
++	NPCM7XX_CLK_S_SD_MUX, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_SDHC}
+ 	,/*3-0 SD1CKDIV*/
  
- 	rsize = min(bytes_per_word(priv->bits_per_word), priv->rx_bytes);
- 	priv->rx_bytes -= rsize;
+ 	{NPCM7XX_CLKDIV3, 6, 5, NPCM7XX_CLK_S_SPI0,
+-	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPI0},
++	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_SPI0},
+ 	/*10-6 SPI0CKDV*/
+ 	{NPCM7XX_CLKDIV3, 1, 5, NPCM7XX_CLK_S_SPIX,
+-	NPCM7XX_CLK_S_AHB, 0, 0, NPCM7XX_CLK_SPIX},
++	NPCM7XX_CLK_S_AHB, CLK_DIVIDER_READ_ONLY, 0, NPCM7XX_CLK_SPIX},
+ 	/*5-1 SPIXCKDV*/
  
--	if (!priv->rx_buf)
--		return;
--
- 	switch (rsize) {
- 	case 1:
--		*priv->rx_buf++ = ioread8(priv->base + NPCM_PSPI_DATA);
-+		val_8 = ioread8(priv->base + NPCM_PSPI_DATA);
-+		if (priv->rx_buf)
-+			*priv->rx_buf++ = val_8;
- 		break;
- 	case 2:
--		val = ioread16(priv->base + NPCM_PSPI_DATA);
--		*priv->rx_buf++ = (val >> 8);
--		*priv->rx_buf++ = val & 0xff;
-+		val_16 = ioread16(priv->base + NPCM_PSPI_DATA);
-+		if (priv->rx_buf) {
-+			*priv->rx_buf++ = (val_16 >> 8);
-+			*priv->rx_buf++ = val_16 & 0xff;
-+		}
- 		break;
- 	default:
- 		WARN_ON_ONCE(1);
-@@ -298,43 +300,26 @@ static irqreturn_t npcm_pspi_handler(int irq, void *dev_id)
- 	struct npcm_pspi *priv = dev_id;
- 	u8 stat;
- 
--	stat = ioread8(priv->base + NPCM_PSPI_STAT);
--
- 	if (!priv->tx_buf && !priv->rx_buf)
- 		return IRQ_NONE;
- 
--	if (priv->tx_buf) {
--		if (stat & NPCM_PSPI_STAT_RBF) {
--			ioread8(NPCM_PSPI_DATA + priv->base);
--			if (priv->tx_bytes == 0) {
--				npcm_pspi_disable(priv);
--				complete(&priv->xfer_done);
--				return IRQ_HANDLED;
--			}
--		}
--
--		if ((stat & NPCM_PSPI_STAT_BSY) == 0)
--			if (priv->tx_bytes)
--				npcm_pspi_send(priv);
-+	if (priv->tx_bytes == 0 && priv->rx_bytes == 0) {
-+		npcm_pspi_disable(priv);
-+		complete(&priv->xfer_done);
-+		return IRQ_HANDLED;
- 	}
- 
--	if (priv->rx_buf) {
--		if (stat & NPCM_PSPI_STAT_RBF) {
--			if (!priv->rx_bytes)
--				return IRQ_NONE;
--
--			npcm_pspi_recv(priv);
-+	stat = ioread8(priv->base + NPCM_PSPI_STAT);
- 
--			if (!priv->rx_bytes) {
--				npcm_pspi_disable(priv);
--				complete(&priv->xfer_done);
--				return IRQ_HANDLED;
--			}
--		}
-+	/*
-+	 * first we do the read since if we do the write we previous read might
-+	 * be lost (indeed low chances)
-+	 */
-+	if ((stat & NPCM_PSPI_STAT_RBF) && priv->rx_bytes)
-+		npcm_pspi_recv(priv);
- 
--		if (((stat & NPCM_PSPI_STAT_BSY) == 0) && !priv->tx_buf)
--			iowrite8(0x0, NPCM_PSPI_DATA + priv->base);
--	}
-+	if (((stat & NPCM_PSPI_STAT_BSY) == 0) && priv->tx_bytes)
-+		npcm_pspi_send(priv);
- 
- 	return IRQ_HANDLED;
- }
+ };
 -- 
 2.22.0
 
