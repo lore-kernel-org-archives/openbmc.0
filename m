@@ -7,19 +7,19 @@ X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10733C433E0
-	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 12:24:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0304AC433DB
+	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 12:27:38 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7299F205F4
-	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 12:24:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7299F205F4
+	by mail.kernel.org (Postfix) with ESMTPS id 67FD222ADF
+	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 12:27:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67FD222ADF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=phoenix.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4D9pSs0XSNzDqSD
-	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 23:24:13 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4D9pXl3SwdzDqhb
+	for <openbmc@archiver.kernel.org>; Wed,  6 Jan 2021 23:27:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=phoenix.com (client-ip=216.205.24.170;
  helo=us-smtp-delivery-170.mimecast.com; envelope-from=stanley_liu@phoenix.com;
@@ -28,56 +28,56 @@ Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=phoenix.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
- header.s=mimecast20170203 header.b=lymqorna; 
+ header.s=mimecast20170203 header.b=H/vTQiXI; 
  dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com
- header.a=rsa-sha256 header.s=mimecast20170203 header.b=lymqorna; 
+ header.a=rsa-sha256 header.s=mimecast20170203 header.b=H/vTQiXI; 
  dkim-atps=neutral
 Received: from us-smtp-delivery-170.mimecast.com
  (us-smtp-delivery-170.mimecast.com [216.205.24.170])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4D9L7Z1clLzDqdD
- for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2021 05:07:35 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4D9Zmh2rKDzDqV3
+ for <openbmc@lists.ozlabs.org>; Wed,  6 Jan 2021 14:37:06 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1609870052;
+ s=mimecast20170203; t=1609904223;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=LEULVbD7zEshLQlBQcQkbuXXE1vLZleRVuYAvUNEnvo=;
- b=lymqornaCxPCCm4tdGeF8/axnOawqTrQ/41SjSA0qXWGY7pb/N7rl69HmjiB1f74YeB7Ej
- nTAy2kCjTPYSmHKB7e8m27WuV7x2APQeM75zv8kZS1RHvTEx5GO+LC1AXX6ndykBbPF0ob
- hQX5PApc/Nc6UhO/MGVLulN+rxUzu7U=
+ bh=XpcRQP5b1R+sUhAeO/xUCM0gt9k8vLQafs2GJw7MEUM=;
+ b=H/vTQiXI3o5ISyoSbHZsr+kikk7QosYayqmccMxhtnW3ia7/EgGJhjUJy8KBaHeszvKBEu
+ +RV8EbFVIDebbzmYJbfUICg2ED9vN7iBFI2l8b2RRuYKob9pb43Np3M/dDvjqEzWk2y6I2
+ ed9QR6vRs4cheGvph+hdllbeU4npsTo=
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1609870052;
+ s=mimecast20170203; t=1609904223;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=LEULVbD7zEshLQlBQcQkbuXXE1vLZleRVuYAvUNEnvo=;
- b=lymqornaCxPCCm4tdGeF8/axnOawqTrQ/41SjSA0qXWGY7pb/N7rl69HmjiB1f74YeB7Ej
- nTAy2kCjTPYSmHKB7e8m27WuV7x2APQeM75zv8kZS1RHvTEx5GO+LC1AXX6ndykBbPF0ob
- hQX5PApc/Nc6UhO/MGVLulN+rxUzu7U=
+ bh=XpcRQP5b1R+sUhAeO/xUCM0gt9k8vLQafs2GJw7MEUM=;
+ b=H/vTQiXI3o5ISyoSbHZsr+kikk7QosYayqmccMxhtnW3ia7/EgGJhjUJy8KBaHeszvKBEu
+ +RV8EbFVIDebbzmYJbfUICg2ED9vN7iBFI2l8b2RRuYKob9pb43Np3M/dDvjqEzWk2y6I2
+ ed9QR6vRs4cheGvph+hdllbeU4npsTo=
 Received: from TWN-EXCHMB-13.phoenix.com (123.51.168.5 [123.51.168.5])
  (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-330-99i0cfc1OZmkqE-ED8qxMw-1; Tue, 05 Jan 2021 09:05:14 -0500
-X-MC-Unique: 99i0cfc1OZmkqE-ED8qxMw-1
+ us-mta-101-yF5t8OcNNDuwcKI5z4vHoQ-1; Tue, 05 Jan 2021 22:36:59 -0500
+X-MC-Unique: yF5t8OcNNDuwcKI5z4vHoQ-1
 X-CrossPremisesHeadersFilteredBySendConnector: TWN-EXCHMB-13.phoenix.com
 Received: from TWN-EXCHMB-13.phoenix.com
  (2607:f0dc:5001:ff01:3897:a901:3564:6014) by TWN-EXCHMB-13.phoenix.com
  (2607:f0dc:5001:ff01:3897:a901:3564:6014) with Microsoft SMTP Server (TLS) id
- 15.0.1156.6; Tue, 5 Jan 2021 22:05:07 +0800
+ 15.0.1156.6; Wed, 6 Jan 2021 11:36:56 +0800
 Received: from TWN-EXCHMB-13.phoenix.com ([fe80::3897:a901:3564:6014]) by
  TWN-EXCHMB-13.phoenix.com ([fe80::3897:a901:3564:6014%12]) with mapi id
- 15.00.1156.000; Tue, 5 Jan 2021 22:05:07 +0800
+ 15.00.1156.000; Wed, 6 Jan 2021 11:36:56 +0800
 From: Stanley Liu <Stanley_Liu@phoenix.com>
 To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Subject: OpenBMC add sensor in IPMI interface
 Thread-Topic: OpenBMC add sensor in IPMI interface
-Thread-Index: Adbja4mRsrMcdugVSyu+rJaVdP81YQ==
-Date: Tue, 5 Jan 2021 14:05:07 +0000
-Message-ID: <afd4b2588f6247a9bb29164f87b5b3f4@TWN-EXCHMB-13.phoenix.com>
+Thread-Index: Adbj3S2qHM4WsJSiQ7+4l/eukD6dNw==
+Date: Wed, 6 Jan 2021 03:36:55 +0000
+Message-ID: <a1ff707523a84fccbfa7e7abfa572081@TWN-EXCHMB-13.phoenix.com>
 Accept-Language: en-US
 X-MS-Has-Attach: yes
 X-MS-TNEF-Correlator: 
 x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [36.231.174.60]
+x-originating-ip: [2607:f0dc:5001:ff01:117e:628a:aa8e:1fe0]
 MIME-Version: 1.0
 X-OrganizationHeadersPreserved: TWN-EXCHMB-13.phoenix.com
 Authentication-Results: relay.mimecast.com;
@@ -86,9 +86,9 @@ X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: phoenix.com
 Content-Language: en-US
 Content-Type: multipart/related;
- boundary="_004_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_";
+ boundary="_004_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_";
  type="multipart/alternative"
-X-Mailman-Approved-At: Wed, 06 Jan 2021 23:14:44 +1100
+X-Mailman-Approved-At: Wed, 06 Jan 2021 23:14:50 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,11 +104,11 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_004_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_
+--_004_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_
 Content-Type: multipart/alternative;
-	boundary="_000_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_"
+	boundary="_000_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_"
 
---_000_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_
+--_000_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_
 Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
@@ -127,7 +127,7 @@ BMC Technical Manager
 www.phoenix.com<http://www.phoenix.com/>
 
 
---_000_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_
+--_000_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_
 Content-Type: text/html; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
@@ -224,7 +224,7 @@ l Manager<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"mso-fareast-language:JA"><o:p>&nbsp;<=
 /o:p></span></p>
 <p class=3D"MsoNormal"><img width=3D"118" height=3D"50" id=3D"Picture_x0020=
-_1" src=3D"cid:image001.jpg@01D6E3AE.D3D2CAB0" alt=3D"cid:image005.jpg@01CC=
+_1" src=3D"cid:image001.jpg@01D6E420.3BDE2930" alt=3D"cid:image005.jpg@01CC=
 9FA7.483A8010"><span style=3D"font-size:10.0pt;mso-fareast-language:JA"><o:=
 p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;mso-fareast-language=
@@ -237,15 +237,15 @@ enix.com</span></a></span><o:p></o:p></p>
 </body>
 </html>
 
---_000_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_--
+--_000_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_--
 
---_004_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_
+--_004_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_
 Content-Type: image/jpeg; name="image001.jpg"
 Content-Description: image001.jpg
 Content-Disposition: inline; filename="image001.jpg"; size=2458;
-	creation-date="Tue, 05 Jan 2021 14:05:07 GMT";
-	modification-date="Tue, 05 Jan 2021 14:05:07 GMT"
-Content-ID: <image001.jpg@01D6E3AE.D3D2CAB0>
+	creation-date="Wed, 06 Jan 2021 03:36:55 GMT";
+	modification-date="Wed, 06 Jan 2021 03:36:55 GMT"
+Content-ID: <image001.jpg@01D6E420.3BDE2930>
 Content-Transfer-Encoding: base64
 
 /9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAoHBwgHBgoICAgLCgoLDhgQDg0NDh0VFhEYIx8lJCIf
@@ -292,5 +292,5 @@ NKu18Kw2/KQVBOKAN34aeINH13w5FpsNrb29xYgCS1AyD/00GeufX1ruK4Pwx45h1fXbLTl0JLOS
 5orWEeVWPIxmKliK8qi0XT0LVFFFWcQUUUUAFJgHqKKKADA9KMD0FFFABgelcn4JsrW2vdaa3toY
 j9qK5jjC8ZPHHbmiigDrMAdqWiigCK5/49Zv9w/ypLWGKC2jjhjSNFUYVFAA/AUUUupsv4T9f8ya
 iiimYn//2Q==
---_004_afd4b2588f6247a9bb29164f87b5b3f4TWNEXCHMB13phoenixcom_--
+--_004_a1ff707523a84fccbfa7e7abfa572081TWNEXCHMB13phoenixcom_--
 
