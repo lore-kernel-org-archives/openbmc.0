@@ -8,74 +8,76 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51BECC433E0
-	for <openbmc@archiver.kernel.org>; Fri,  8 Jan 2021 16:33:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E02F0C433E0
+	for <openbmc@archiver.kernel.org>; Fri,  8 Jan 2021 22:43:41 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FA4A238EC
-	for <openbmc@archiver.kernel.org>; Fri,  8 Jan 2021 16:33:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FA4A238EC
+	by mail.kernel.org (Postfix) with ESMTPS id E5B4323A80
+	for <openbmc@archiver.kernel.org>; Fri,  8 Jan 2021 22:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5B4323A80
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DC7vc0g3dzDr73
-	for <openbmc@archiver.kernel.org>; Sat,  9 Jan 2021 03:33:32 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DCJ6f363vzDr8q
+	for <openbmc@archiver.kernel.org>; Sat,  9 Jan 2021 09:43:38 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.20; helo=mout.gmx.net;
+ (client-ip=212.227.15.15; helo=mout.gmx.net;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
  dmarc=pass (p=none dis=none) header.from=gmx.net
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=b59ioWr3; 
+ header.s=badeba3b8450 header.b=UzFum2fG; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DC7sq3DD6zDqvg
- for <openbmc@lists.ozlabs.org>; Sat,  9 Jan 2021 03:31:56 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DCJ4s4NTWzDqRt
+ for <openbmc@lists.ozlabs.org>; Sat,  9 Jan 2021 09:42:02 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1610123410;
- bh=ABABhJ8gg5BskkIme0zJhOFkjtC3oPm+1iSMQmPnbPs=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
- b=b59ioWr32lP2YxWwcp0CrwfNm9voWN/R0PMUMygXSKWf3J3qozOUZ8BGz/t/eguyl
- C/SedCbWZNQpwd8bxLrwyWvxcvss34AnUjsgvI0QaPWHDWu4pJk3sRxKlJTHAGHtbX
- CInZLeGSi450inumpfwd07l6JdaUDnqDfI2Fz2Qs=
+ s=badeba3b8450; t=1610145621;
+ bh=zoPbxKl7/h63Lb9FVRa59Ce+siBolFFjisZwdmEdKTM=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=UzFum2fGUDHoGZoFso450mnTY/alpDyBq3w47ne4HC8CI825F6TSqT5UwpNeRygUL
+ 1XJ7IjQ9m282trM0VDWCzPpRe/ik8jvUJ6QXJ5LHoFMgmSSrifCrZd2NDOvA32zApo
+ yAuZc5i4+PwGsGF6vKcNfdktH+TM8oOi7S8ECqzQ=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.57]) by mail.gmx.com (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MCsUC-1kp9E21VB2-008qab; Fri, 08
- Jan 2021 17:30:10 +0100
+Received: from longitude ([37.201.215.57]) by mail.gmx.com (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1MoO6M-1k9HTh0jKi-00okPe; Fri, 08
+ Jan 2021 23:40:21 +0100
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: devicetree@vger.kernel.org
-Subject: [PATCH v2] dt-bindings: timer: nuvoton: Clarify that interrupt of
- timer 0 should be specified
-Date: Fri,  8 Jan 2021 17:30:04 +0100
-Message-Id: <20210108163004.492649-1-j.neuschaefer@gmx.net>
+Subject: [PATCH 2/2] ARM: dts: Add board-specific compatible string to
+ npcm750-evb devicetree
+Date: Fri,  8 Jan 2021 23:40:07 +0100
+Message-Id: <20210108224008.705687-2-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210108224008.705687-1-j.neuschaefer@gmx.net>
+References: <20210108224008.705687-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ZUagBJ3y6lRGhVMX0qfEZglo9lmo1tL07iQMwbZgRlDDKqBI4Mg
- VuHEnE9oF/qREDlcMH+KfdOGUSAzbMWmoY8Hs6q+p+o/65XA+3kk5uYXw+T0dxnLlofdypp
- AKAEU02rvynvbTNAjZax0XjVaI5CEIEH5711Z91ixyTI5ugGeXxDvTXeTJcQHsOmu8hY/oB
- g5SlfQ5zCTCuwaxSVnuPQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:0X2iKvwzbzI=:3lOo2UlFWs2/bM+zkozVfd
- +RqObHgnKkyo1QHxVErMB+dBJJpRthKzbLtH1lD9S4wxbLPTb28DUDvHOoNEFBsOVPbJzxaXG
- 8MXWiYERGXMgLwy0kLjHuZF5rSiC4bwpAXB/SrmhtH8exSorEi9EhoxWfCCgtq5/cwJ9gI+PT
- d5GoMo0vagAy5CUMVtcqwGKX7Ur93+kZ7R49KrZMg+X+4DF5iswuwLUAoDYLk8HEVSGZwa1XM
- eNQAvyY/N9JhgGqYo7xswBKmxiHbobES/2F3M36zfVi28AnDMelpUs9DS++V0fGwLWUxhAu1Q
- Nqxgx1H0QO71I9cD7WQLMJh9SLNb8g5/scr/8nzMFHwDQAV8MeEnkl1kb7Dvk59G4QTpL4qKL
- Igfkzx7kaOQsVMbxWiTFq5ZH6FPUJ0hYT4xwkhtES5TNjafANWxiVE0Qcs5nCCmOKuRFs1Kge
- yuNCfXC3l7x3O7H/bJgwVTYZs7g60UXI4aPQvbv7phvO79NzZrK5tk/2DQouSvpStutMoV0Vw
- 8b2TPeW61qkaVgpS+oJAYGL809xlrWuX87ngTaqCUwNlzYIqdzyYjORMTYRVXP2qU52Cf4Nk3
- inmWkGXioKamLwn1wKzKBc1F2thWN4GEMcRHEtAE+wpVOYhjEnX4H8tqcbow5ynD4To9LhP7A
- QdHysaUS8Q9ZSX1iHhzO8CupGES2PQ3ZaOpV/CLlCMkeipnLORYqOy/MU/tLzZVjHxhLlWRwm
- XZwI0cajhPv7nr79kQUFGi0vxmtwzUFhBtUt8owIx34/Ft/eePzRU14AdBpYIkJSA3Kk5/bn7
- nYAGi9NuJQY8xUPPiIXG3Gtw8xQ9DAc1VISVIlumvwAQ/lomGztpbu7Dp7og5aK7WHNf1lMOY
- dUYwI55/AjSUZi37ZHuQ==
+X-Provags-ID: V03:K1:BhfwAak8K6CjNf+mZXSVTbn7VQ7sg+KrjOvjneGvzbDUST8rpwy
+ ICs1qJJHjO+5CopzxrfyT/AhGBBtjE8BTzm2GqBOt7Tvd6bgZ70Dx4nP6Wr+Epghln7fRI9
+ nLTLyKpdakNxCyAC7OBkJyjROdkv5lq+HQZ56hjN04caCEUNAHVwiaBVCEz2ND783Aqgn0g
+ vbS340YVp0ihxUpbhSpww==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:NoMWTY70s50=:lHz2McS2sj8PnBtG1DnL7r
+ E13SqSfiCJ35zDFvTEd8sZG1Z1ruXBIz2LdJzVJEvHXGRt3njloPegEha1SncHuLfM5JC+rsk
+ jdd0brladGXztdECekFtaTPUdl6uIcFPluVtvKhbEjuo2HpB5SggC9XVH3KB7U9wZk9Og7z0n
+ uUln4oiT3pEQ0NIPJVXYTalMM4m3hb7CETQv+6Par1CxhYUfJb4VMEYL8evr/CTFtbKWKc9sD
+ 8E/PQyTGzV1cdTyra4oXn19b/t/dJEKmzifEIZkkJcqUIauZEhuAlwqA37A6ItaWWa/t6aaOD
+ 20PCQD39o/pZBnrOFrEHEAYP/d/NXxl4308n0Wm69KTKjxwPZsaJihiVzF02/9XrL08b14Xt8
+ jgiKerij3tkx8404FWC1eMsjsOTX5y05PHejMAgyvkWVBG1qhsIo0jWvLlJuOECjUl7kPN2nr
+ Z0kwFy4oyV836UjkvvRKLCpC8/cyj5hZpx5oPImIRje6AdvRifS67zpV4J27IvyFXEq9p54Tb
+ /TjwB45Wzjhy1VlOCmyuwDRuvKs07rqDSmVoOIh33RZS72zIMFYh7Yw1FpnLSMphbHxhGi7dK
+ lg6gF2FIpk96iAGP3jRkYjh4hD8pWx7dVK/KBp79Yvdu6ggnm1b1TQenXz5Ts37sMlQ1v1RXL
+ NCeRssIcYg7CKmqApcS50h0eAZdbjXopeIqZftIDpr0ytTcZJyPbvlv2n9a721u0KaSnYZ9jv
+ ZT5IHVggY1CuJmdt+E/tsdKflzbwoQioc2geFGA4j5TkBohhEx4BDDVz61jlR4eUnsTBb2NEy
+ x01qLHei3zaDe9TFLhQFZb+8l1t/Yhh06qGwOpYvNbLIxL9kpcQUTgBy7C3BHyaqM0DBqyQuh
+ K204ho3PGmagv2qq3y8w==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,50 +91,35 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>,
  Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
- Daniel Lezcano <daniel.lezcano@linaro.org>,
  =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
  Tali Perry <tali.perry1@gmail.com>, Rob Herring <robh+dt@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-kernel@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>
+ linux-kernel@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The NPCM750 Timer/Watchdog Controller has multiple interrupt lines,
-connected to multiple timers. The driver uses timer 0 for timer
-interrupts, so the interrupt line corresponding to timer 0 should be
-specified in DT.
-
-I removed the mention of "flags for falling edge", because the timer
-controller uses high-level interrupts rather than falling-edge
-interrupts, and whether flags should be specified is up the interrupt
-controller's DT binding.
+According to the revised binding, the devicetree needs a board-specific
+compatible string.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
+ arch/arm/boot/dts/nuvoton-npcm750-evb.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-v2:
-- Fix a typo in the word "watchdog"
-=2D--
- .../devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt        | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts=
+/nuvoton-npcm750-evb.dts
+index 9f13d08f5804e..dea3dbc4a6a52 100644
+=2D-- a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
++++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+@@ -9,7 +9,7 @@
 
-diff --git a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer=
-.txt b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-index ea22dfe485bee..97258f1a1505b 100644
-=2D-- a/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-+++ b/Documentation/devicetree/bindings/timer/nuvoton,npcm7xx-timer.txt
-@@ -6,8 +6,7 @@ timer counters.
- Required properties:
- - compatible      : "nuvoton,npcm750-timer" for Poleg NPCM750.
- - reg             : Offset and length of the register set for the device.
-=2D- interrupts      : Contain the timer interrupt with flags for
--                    falling edge.
-+- interrupts      : Contain the timer interrupt of timer 0.
- - clocks          : phandle of timer reference clock (usually a 25 MHz cl=
-ock).
+ / {
+ 	model =3D "Nuvoton npcm750 Development Board (Device Tree)";
+-	compatible =3D "nuvoton,npcm750";
++	compatible =3D "nuvoton,npcm750-evb", "nuvoton,npcm750";
 
- Example:
+ 	aliases {
+ 		ethernet2 =3D &gmac0;
 =2D-
 2.29.2
 
