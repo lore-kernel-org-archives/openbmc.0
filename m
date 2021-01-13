@@ -2,62 +2,77 @@ Return-Path: <SRS0=oCxL=GQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 72112C433DB
-	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 05:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 110D9C433E0
+	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 05:32:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7DD872312E
-	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 05:02:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7DD872312E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3240D230FC
+	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 05:32:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3240D230FC
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DFwKj1mPwzDqvv
-	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 16:02:17 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DFx0w6yZtzDqLM
+	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 16:32:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::e30;
+ helo=mail-vs1-xe30.google.com; envelope-from=deepak.kodihalli.83@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=134.134.136.20; helo=mga02.intel.com;
- envelope-from=richard.marian.thomaiyar@linux.intel.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=fail (p=none dis=none)
- header.from=linux.intel.com
-Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=qBKfIcf4; dkim-atps=neutral
+Received: from mail-vs1-xe30.google.com (mail-vs1-xe30.google.com
+ [IPv6:2607:f8b0:4864:20::e30])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DFwHr1G90zDqnk
- for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2021 16:00:35 +1100 (AEDT)
-IronPort-SDR: YZ4ypmb7LqbPliOQOzyPdr2OQ9bKyoR+tXSCtAtkf0VI8EL92NvWwmEMBU6SgfNId4aHzDL2f9
- 3DUwXhkdPXuQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9862"; a="165238653"
-X-IronPort-AV: E=Sophos;i="5.79,343,1602572400"; d="scan'208";a="165238653"
-Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2021 21:00:30 -0800
-IronPort-SDR: FP48N47+RcJ93LXxcc73nswg3Ox45QuNXrlE07+BRSfJHMtHxSimnctnOpiCE8/ySgtMEVFCsD
- XvrhVYWcY8mA==
-X-IronPort-AV: E=Sophos;i="5.79,343,1602572400"; d="scan'208";a="353316381"
-Received: from rthomaiy-mobl.gar.corp.intel.com (HELO [10.215.187.50])
- ([10.215.187.50])
- by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2021 21:00:28 -0800
-Subject: Re: Call for volunteers
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>, openbmc@lists.ozlabs.org
-References: <20210111220919.zwc727vbwc4itm7h@thinkpad.fuzziesquirrel.com>
-From: "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>
-Message-ID: <3c7a3bfc-dcc6-2295-c327-8ba2c7e91e47@linux.intel.com>
-Date: Wed, 13 Jan 2021 10:30:26 +0530
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.5.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DFwys5sNfzDqgs
+ for <openbmc@lists.ozlabs.org>; Wed, 13 Jan 2021 16:30:58 +1100 (AEDT)
+Received: by mail-vs1-xe30.google.com with SMTP id x4so487271vsp.7
+ for <openbmc@lists.ozlabs.org>; Tue, 12 Jan 2021 21:30:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=dBrFbhKwdkDwNgjcFgGEkdLwWYeKkntekZMEd9omHfQ=;
+ b=qBKfIcf4+mZGItbVFeQBGZeyGJL5MjEPnh8/7nsFAUVY0U9wZCx8BpGZa2Dm9gdkzP
+ q1htZcZW2Pkn+ZEs6YWbLbe4XXkDb2crFeW2L4LQEycs7OwtYwioH1Ro1xtSFxAE7mrd
+ MuOYBiozccxBJZf9yRFH4aa1+hRqJrYq3D4LUYek9gJQQmfIJ4pQ97iF9Y+L0rLQAMSe
+ nFDeFgeFh6xyvIgLpi+pmTIbUTReWiiLN2Vc4smrUgbTx/aL3hkOtMlsJSiAHWHR4J/W
+ yhzOkAULYCZLz/dnSKWlhbTm4TnQKUz4tg62rs6Bkm/mzAq02Zsz59CxKPLOtusiKBXn
+ oD7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=dBrFbhKwdkDwNgjcFgGEkdLwWYeKkntekZMEd9omHfQ=;
+ b=hsJ1FmZjfI7zM16BwBx0eAwDLArB4EIWZ5BRZ+BWb+zWy93ZqkbMC/TMIJt+6f409N
+ vObUYsrrSddZEvSGoZqYGnVRDNDAHNTzp5yDD6IUdfC9mFsjtBjNYoYQAeW4RNbrv2Rx
+ +l5R/OmcEiybtt47P1yP84nyJTjHG4POQu9XhYHUpw0mKv204zUsytd9UDvAztUWEdkp
+ kxwi01bN5PtxzuJC1RPbR1V2DMCzX0Jqo36ZOl/lEG8CIBt02/vkX6rwXJSoL+rkGQAY
+ NGrsCLHfjJQuK/IriioTgVc9l9S6ZRM+9JI/Og3y9AwQkYQ6o7JvV3TGZYuJxeaQv2J5
+ tM6g==
+X-Gm-Message-State: AOAM531GY9AtsJ/CHNrFVShZe4tCtkPGRqltYiTZYqJmjq0CsdqxLcNM
+ DjSRa6xG4VfEhgqGKgVecUx4xy+t1g2WEwwlDws=
+X-Google-Smtp-Source: ABdhPJzgC6ibGe5BW0+VrlpkjclrfQRw4UGEvT0tUTZEKbQSni2kdSmLxEutfK9tCZvPzox30rMiPoFf9Pi+JOn4pGU=
+X-Received: by 2002:a67:87cd:: with SMTP id j196mr507643vsd.43.1610515854632; 
+ Tue, 12 Jan 2021 21:30:54 -0800 (PST)
 MIME-Version: 1.0
+References: <20210111220919.zwc727vbwc4itm7h@thinkpad.fuzziesquirrel.com>
 In-Reply-To: <20210111220919.zwc727vbwc4itm7h@thinkpad.fuzziesquirrel.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
+From: Deepak Kodihalli <deepak.kodihalli.83@gmail.com>
+Date: Wed, 13 Jan 2021 11:00:43 +0530
+Message-ID: <CAM=TmwWvTFe2WB8f+yHJsa9jrEznnB-KtcfFnBadRAriLWhJig@mail.gmail.com>
+Subject: Re: Call for volunteers
+To: Brad Bishop <bradleyb@fuzziesquirrel.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +84,43 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-I will volunteer.
+I would like to volunteer.
 
-Regards,
+Thanks,
+Deepak
 
-Richard
-
-On 1/12/2021 3:39 AM, Brad Bishop wrote:
+On Tue, Jan 12, 2021 at 3:39 AM Brad Bishop <bradleyb@fuzziesquirrel.com> wrote:
+>
 > Hello OpenBMC-ers!
 >
-> Your TSC has been aware of the problem of fragmentation in our project 
-> for some
-> time.  Fragmentation is a loose term - for the purposes of this note 
-> consider
-> it to be any time contributor efforts in the community are duplicated 
-> without
+> Your TSC has been aware of the problem of fragmentation in our project for some
+> time.  Fragmentation is a loose term - for the purposes of this note consider
+> it to be any time contributor efforts in the community are duplicated without
 > thought given to maintenance and/or compatibility.
 >
-> To begin to address this issue the TSC is looking for volunteers to 
-> serve on a
+> To begin to address this issue the TSC is looking for volunteers to serve on a
 > "repository review forum" to which the TSC will initially delegate its
 > authority in the areas of:
 > - new repository creation
 > - placement of contributed new function into existing repositories
 >
-> The TSC fully expects the scope of this forum to quickly grow into the 
-> role of
+> The TSC fully expects the scope of this forum to quickly grow into the role of
 > a traditional TSC providing frequent, technical oversight to project
-> contributors.  The current TSC will continue to serve the project in 
-> terms of
-> governance, advocacy and industry exposure - and likely get a rename 
-> (OpenBMC
+> contributors.  The current TSC will continue to serve the project in terms of
+> governance, advocacy and industry exposure - and likely get a rename (OpenBMC
 > Board? or OpenBMC Steering Committee?) in the process.
 >
-> The new forum would meet periodically or at the demand of other forum 
-> members
+> The new forum would meet periodically or at the demand of other forum members
 > to:
 > - raise the forums combined awareness of new function under development
->   (information exchange)
+>    (information exchange)
 > - build a consensus within the forum on where the function should exist
-> - inform the function contributor and the rest of the community of the 
-> decision
+> - inform the function contributor and the rest of the community of the decision
 >
 > A successful forum would be a forum that can simultaneously encourage the
 > contribution of new and innovative solutions to existing problems without
@@ -121,16 +128,13 @@ On 1/12/2021 3:39 AM, Brad Bishop wrote:
 >
 > A successful forum member will have previously demonstrated a breadth of
 > understanding of the upstream OpenBMC codebase through:
-> - frequent participation in peer review, the mailing list, IRC, and 
-> Discord.
+> - frequent participation in peer review, the mailing list, IRC, and Discord.
 > - submission of high quality designs and code to upstream OpenBMC
->   (github.com/openbmc)
-> - a history of working with and guiding less experienced OpenBMC 
-> developers
->   in a timely manner, enabling them to come up to speed quickly.
+>    (github.com/openbmc)
+> - a history of working with and guiding less experienced OpenBMC developers
+>    in a timely manner, enabling them to come up to speed quickly.
 >
-> If you are interested in serving the project in this manner, please 
-> reply to
+> If you are interested in serving the project in this manner, please reply to
 > submit yourself as a candidate.
 >
 > -brad, on the behalf of the OpenBMC TSC
