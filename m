@@ -2,25 +2,25 @@ Return-Path: <SRS0=oCxL=GQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+X-Spam-Status: No, score=-13.7 required=3.0 tests=BAYES_00,
 	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DFC3AC433E6
-	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 20:09:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EA72C433DB
+	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 20:11:06 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7223C2151B
-	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 20:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7223C2151B
+	by mail.kernel.org (Postfix) with ESMTPS id 8B10D214D8
+	for <openbmc@archiver.kernel.org>; Wed, 13 Jan 2021 20:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8B10D214D8
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DGJSj4Y5qzDrdg
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 07:09:41 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DGJVH2B9DzDrfx
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 07:11:03 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -31,19 +31,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DGJGH5LpvzDrSg
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DGJGH6jlMzDrSp
  for <openbmc@lists.ozlabs.org>; Thu, 14 Jan 2021 07:00:39 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10DK0GrI007565;
- Wed, 13 Jan 2021 22:00:16 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10DK0Lpa007577;
+ Wed, 13 Jan 2021 22:00:21 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id B941263A17; Wed, 13 Jan 2021 22:00:16 +0200 (IST)
+ id 1331763A17; Wed, 13 Jan 2021 22:00:22 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v3 02/12] dt-binding: iio: add syscon property
- to NPCM ADC
-Date: Wed, 13 Jan 2021 22:00:00 +0200
-Message-Id: <20210113200010.71845-3-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v3 06/12] watchdog: npcm: Add DT restart
+ priority and reset type support
+Date: Wed, 13 Jan 2021 22:00:04 +0200
+Message-Id: <20210113200010.71845-7-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210113200010.71845-1-tmaimon77@gmail.com>
 References: <20210113200010.71845-1-tmaimon77@gmail.com>
@@ -66,32 +66,178 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add syscon property to NPCM ADC to handle FUSE
-registers.
+Add Device tree restart priority and
+three reset types support.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/watchdog/npcm_wdt.c | 117 +++++++++++++++++++++++++++++++++++-
+ 1 file changed, 114 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-index ef8eeec1a997..faf9f9b54f5b 100644
---- a/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-+++ b/Documentation/devicetree/bindings/iio/adc/nuvoton,npcm-adc.txt
-@@ -14,6 +14,7 @@ Optional properties:
- - vref-supply: The regulator supply ADC reference voltage, in case the
- 			   vref-supply is not added the ADC will use internal voltage
- 			   reference.
-+- syscon: a phandle to access FUSE registers
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index 765577f11c8d..a93180d0a6f4 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -11,7 +11,24 @@
+ #include <linux/platform_device.h>
+ #include <linux/slab.h>
+ #include <linux/watchdog.h>
+-
++#include <linux/regmap.h>
++#include <linux/mfd/syscon.h>
++
++/* NPCM7xx GCR module */
++#define NPCM7XX_RESSR_OFFSET		0x6C
++#define NPCM7XX_INTCR2_OFFSET		0x60
++
++#define NPCM7XX_PORST			BIT(31)
++#define NPCM7XX_CORST			BIT(30)
++#define NPCM7XX_WD0RST			BIT(29)
++#define NPCM7XX_WD1RST			BIT(24)
++#define NPCM7XX_WD2RST			BIT(23)
++#define NPCM7XX_SWR1RST			BIT(28)
++#define NPCM7XX_SWR2RST			BIT(27)
++#define NPCM7XX_SWR3RST			BIT(26)
++#define NPCM7XX_SWR4RST			BIT(25)
++
++ /* WD register */
+ #define NPCM_WTCR	0x1C
  
- Example:
+ #define NPCM_WTCLK	(BIT(10) | BIT(11))	/* Clock divider */
+@@ -41,8 +58,11 @@
+  */
  
-@@ -23,4 +24,5 @@ adc: adc@f000c000 {
- 	interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 	clocks = <&clk NPCM7XX_CLK_ADC>;
- 	resets = <&rstc NPCM7XX_RESET_IPSRST1 NPCM7XX_RESET_ADC>;
-+	syscon = <&fuse>;
+ struct npcm_wdt {
+-	struct watchdog_device  wdd;
++	struct watchdog_device	wdd;
+ 	void __iomem		*reg;
++	u32			card_reset;
++	u32			ext1_reset;
++	u32			ext2_reset;
  };
+ 
+ static inline struct npcm_wdt *to_npcm_wdt(struct watchdog_device *wdd)
+@@ -176,14 +196,65 @@ static const struct watchdog_ops npcm_wdt_ops = {
+ 	.restart = npcm_wdt_restart,
+ };
+ 
++static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device *dev)
++{
++	struct regmap *gcr_regmap;
++	u32 rstval;
++
++	gcr_regmap = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
++	if (IS_ERR(gcr_regmap))
++		dev_warn(dev, "Failed to find gcr syscon, WD reset status not supported\n");
++
++	regmap_read(gcr_regmap, NPCM7XX_RESSR_OFFSET, &rstval);
++	if (!rstval) {
++		regmap_read(gcr_regmap, NPCM7XX_INTCR2_OFFSET, &rstval);
++		rstval = ~rstval;
++	}
++
++	if (rstval & wdt->card_reset)
++		wdt->wdd.bootstatus |= WDIOF_CARDRESET;
++	if (rstval & wdt->ext1_reset)
++		wdt->wdd.bootstatus |= WDIOF_EXTERN1;
++	if (rstval & wdt->ext2_reset)
++		wdt->wdd.bootstatus |= WDIOF_EXTERN2;
++}
++
++static u32 npcm_wdt_reset_type(const char *reset_type)
++{
++	if (!strcmp(reset_type, "porst"))
++		return NPCM7XX_PORST;
++	else if (!strcmp(reset_type, "corst"))
++		return NPCM7XX_CORST;
++	else if (!strcmp(reset_type, "wd0"))
++		return NPCM7XX_WD0RST;
++	else if (!strcmp(reset_type, "wd1"))
++		return NPCM7XX_WD1RST;
++	else if (!strcmp(reset_type, "wd2"))
++		return NPCM7XX_WD2RST;
++	else if (!strcmp(reset_type, "sw1"))
++		return NPCM7XX_SWR1RST;
++	else if (!strcmp(reset_type, "sw2"))
++		return NPCM7XX_SWR2RST;
++	else if (!strcmp(reset_type, "sw3"))
++		return NPCM7XX_SWR3RST;
++	else if (!strcmp(reset_type, "sw4"))
++		return NPCM7XX_SWR4RST;
++
++	return 0;
++}
++
+ static int npcm_wdt_probe(struct platform_device *pdev)
+ {
+ 	struct device *dev = &pdev->dev;
++	const char *card_reset_type;
++	const char *ext1_reset_type;
++	const char *ext2_reset_type;
+ 	struct npcm_wdt *wdt;
++	u32 priority;
+ 	int irq;
+ 	int ret;
+ 
+-	wdt = devm_kzalloc(dev, sizeof(*wdt), GFP_KERNEL);
++	wdt = devm_kzalloc(&pdev->dev, sizeof(*wdt), GFP_KERNEL);
+ 	if (!wdt)
+ 		return -ENOMEM;
+ 
+@@ -195,6 +266,45 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 	if (irq < 0)
+ 		return irq;
+ 
++	if (of_property_read_u32(pdev->dev.of_node, "nuvoton,restart-priority",
++				 &priority))
++		watchdog_set_restart_priority(&wdt->wdd, 128);
++	else
++		watchdog_set_restart_priority(&wdt->wdd, priority);
++
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,card-reset-type",
++				      &card_reset_type);
++	if (ret) {
++		wdt->card_reset = NPCM7XX_PORST;
++	} else {
++		wdt->card_reset = npcm_wdt_reset_type(card_reset_type);
++		if (!wdt->card_reset)
++			wdt->card_reset = NPCM7XX_PORST;
++	}
++
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,ext1-reset-type",
++				      &ext1_reset_type);
++	if (ret) {
++		wdt->ext1_reset = NPCM7XX_WD0RST;
++	} else {
++		wdt->ext1_reset = npcm_wdt_reset_type(ext1_reset_type);
++		if (!wdt->ext1_reset)
++			wdt->ext1_reset = NPCM7XX_WD0RST;
++	}
++
++	ret = of_property_read_string(pdev->dev.of_node,
++				      "nuvoton,ext2-reset-type",
++				      &ext2_reset_type);
++	if (ret) {
++		wdt->ext2_reset = NPCM7XX_SWR1RST;
++	} else {
++		wdt->ext2_reset = npcm_wdt_reset_type(ext2_reset_type);
++		if (!wdt->ext2_reset)
++			wdt->ext2_reset = NPCM7XX_SWR1RST;
++	}
++
+ 	wdt->wdd.info = &npcm_wdt_info;
+ 	wdt->wdd.ops = &npcm_wdt_ops;
+ 	wdt->wdd.min_timeout = 1;
+@@ -213,6 +323,7 @@ static int npcm_wdt_probe(struct platform_device *pdev)
+ 		set_bit(WDOG_HW_RUNNING, &wdt->wdd.status);
+ 	}
+ 
++	npcm_get_reset_status(wdt, dev);
+ 	ret = devm_request_irq(dev, irq, npcm_wdt_interrupt, 0, "watchdog",
+ 			       wdt);
+ 	if (ret)
 -- 
 2.22.0
 
