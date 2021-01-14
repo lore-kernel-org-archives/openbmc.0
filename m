@@ -4,22 +4,22 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 35624C433DB
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:28:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 661DFC433DB
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:34:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 690E923A58
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 690E923A58
+	by mail.kernel.org (Postfix) with ESMTPS id D615D23A55
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:34:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D615D23A55
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DGlWV41gHzDr3j
-	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 00:28:38 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DGldf5nlmzDscn
+	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 00:33:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -30,10 +30,10 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DGlGs3BgtzDrqJ;
- Fri, 15 Jan 2021 00:17:39 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DGlGy456QzDrpw;
+ Fri, 15 Jan 2021 00:17:46 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 10EDB081082207;
+ by twspam01.aspeedtech.com with ESMTP id 10EDB0vR082196;
  Thu, 14 Jan 2021 21:11:00 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
@@ -45,9 +45,9 @@ To: <robh+dt@kernel.org>, <lee.jones@linaro.org>, <joel@jms.id.au>,
  <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>
-Subject: [PATCH v5 2/5] ARM: dts: Remove LPC BMC and Host partitions
-Date: Thu, 14 Jan 2021 21:16:19 +0800
-Message-ID: <20210114131622.8951-3-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v5 1/5] dt-bindings: aspeed-lpc: Remove LPC partitioning
+Date: Thu, 14 Jan 2021 21:16:18 +0800
+Message-ID: <20210114131622.8951-2-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210114131622.8951-1-chiawei_wang@aspeedtech.com>
 References: <20210114131622.8951-1-chiawei_wang@aspeedtech.com>
@@ -57,7 +57,7 @@ X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 10EDB081082207
+X-MAIL: twspam01.aspeedtech.com 10EDB0vR082196
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,434 +75,181 @@ Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 The LPC controller has no concept of the BMC and the Host partitions.
-
-A concrete instance is that the HICRB[5:4] are for the I/O port address
-configurtaion of KCS channel 1/2. However, the KCS driver cannot access
-HICRB for channel 1/2 initialization via syscon regmap interface due to
-the parition boundary. (i.e. offset 80h)
-
-In addition, for the HW design backward compatibility, a newly added HW
-control bit could be located at any reserved one over the LPC addressing
-space. Thereby, this patch removes the lpc-bmc and lpc-host child node
-and thus the LPC partitioning.
-
-Note that this change requires the synchronization between device tree
-change and the driver change. To prevent the misuse of old devicetrees
-with new drivers, or vice versa, the v2 compatible strings are adopted
-for the LPC device as listed:
-
-	"aspeed,ast2400-lpc-v2"
-	"aspeed,ast2500-lpc-v2"
-	"aspeed,ast2600-lpc-v2"
+This patch fixes the documentation by removing the description on LPC
+partitions. The register offsets illustrated in the DTS node examples
+are also fixed to adapt to the LPC DTS change.
 
 Signed-off-by: Chia-Wei, Wang <chiawei_wang@aspeedtech.com>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi |  74 +++++++----------
- arch/arm/boot/dts/aspeed-g5.dtsi | 135 ++++++++++++++-----------------
- arch/arm/boot/dts/aspeed-g6.dtsi | 135 ++++++++++++++-----------------
- 3 files changed, 148 insertions(+), 196 deletions(-)
+ .../devicetree/bindings/mfd/aspeed-lpc.txt    | 100 +++++-------------
+ 1 file changed, 25 insertions(+), 75 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index b3dafbc8caca..ee22bc036440 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -343,58 +343,44 @@
- 			};
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+index d0a38ba8b9ce..936aa108eab4 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -9,13 +9,7 @@ primary use case of the Aspeed LPC controller is as a slave on the bus
+ conditions it can also take the role of bus master.
  
- 			lpc: lpc@1e789000 {
--				compatible = "aspeed,ast2400-lpc", "simple-mfd";
-+				compatible = "aspeed,ast2400-lpc-v2", "simple-mfd", "syscon";
- 				reg = <0x1e789000 0x1000>;
-+				reg-io-width = <4>;
+ The LPC controller is represented as a multi-function device to account for the
+-mix of functionality it provides. The principle split is between the register
+-layout at the start of the I/O space which is, to quote the Aspeed datasheet,
+-"basically compatible with the [LPC registers from the] popular BMC controller
+-H8S/2168[1]", and everything else, where everything else is an eclectic
+-collection of functions with a esoteric register layout. "Everything else",
+-here labeled the "host" portion of the controller, includes, but is not limited
+-to:
++mix of functionality, which includes, but is not limited to:
  
- 				#address-cells = <1>;
- 				#size-cells = <1>;
- 				ranges = <0x0 0x1e789000 0x1000>;
+ * An IPMI Block Transfer[2] Controller
  
--				lpc_bmc: lpc-bmc@0 {
--					compatible = "aspeed,ast2400-lpc-bmc";
--					reg = <0x0 0x80>;
-+				lpc_ctrl: lpc-ctrl@80 {
-+					compatible = "aspeed,ast2400-lpc-ctrl";
-+					reg = <0x80 0x10>;
-+					clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
-+					status = "disabled";
- 				};
+@@ -44,80 +38,36 @@ Required properties
+ ===================
  
--				lpc_host: lpc-host@80 {
--					compatible = "aspeed,ast2400-lpc-host", "simple-mfd", "syscon";
--					reg = <0x80 0x1e0>;
--					reg-io-width = <4>;
--
--					#address-cells = <1>;
--					#size-cells = <1>;
--					ranges = <0x0 0x80 0x1e0>;
--
--					lpc_ctrl: lpc-ctrl@0 {
--						compatible = "aspeed,ast2400-lpc-ctrl";
--						reg = <0x0 0x10>;
--						clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
--						status = "disabled";
--					};
--
--					lpc_snoop: lpc-snoop@10 {
--						compatible = "aspeed,ast2400-lpc-snoop";
--						reg = <0x10 0x8>;
--						interrupts = <8>;
--						status = "disabled";
--					};
--
--					lhc: lhc@20 {
--						compatible = "aspeed,ast2400-lhc";
--						reg = <0x20 0x24 0x48 0x8>;
--					};
--
--					lpc_reset: reset-controller@18 {
--						compatible = "aspeed,ast2400-lpc-reset";
--						reg = <0x18 0x4>;
--						#reset-cells = <1>;
--					};
--
--					ibt: ibt@c0  {
--						compatible = "aspeed,ast2400-ibt-bmc";
--						reg = <0xc0 0x18>;
--						interrupts = <8>;
--						status = "disabled";
--					};
-+				lpc_snoop: lpc-snoop@90 {
-+					compatible = "aspeed,ast2400-lpc-snoop";
-+					reg = <0x90 0x8>;
-+					interrupts = <8>;
-+					status = "disabled";
-+				};
-+
-+				lhc: lhc@a0 {
-+					compatible = "aspeed,ast2400-lhc";
-+					reg = <0xa0 0x24 0xc8 0x8>;
-+				};
-+
-+				lpc_reset: reset-controller@98 {
-+					compatible = "aspeed,ast2400-lpc-reset";
-+					reg = <0x98 0x4>;
-+					#reset-cells = <1>;
-+				};
-+
-+				ibt: ibt@140 {
-+					compatible = "aspeed,ast2400-ibt-bmc";
-+					reg = <0x140 0x18>;
-+					interrupts = <8>;
-+					status = "disabled";
- 				};
- 			};
+ - compatible:	One of:
+-		"aspeed,ast2400-lpc", "simple-mfd"
+-		"aspeed,ast2500-lpc", "simple-mfd"
+-		"aspeed,ast2600-lpc", "simple-mfd"
++		"aspeed,ast2400-lpc-v2", "simple-mfd", "syscon"
++		"aspeed,ast2500-lpc-v2", "simple-mfd", "syscon"
++		"aspeed,ast2600-lpc-v2", "simple-mfd", "syscon"
  
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 5bc0de0f3365..10ca2100f69b 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -434,90 +434,73 @@
- 			};
+ - reg:		contains the physical address and length values of the Aspeed
+                 LPC memory region.
  
- 			lpc: lpc@1e789000 {
--				compatible = "aspeed,ast2500-lpc", "simple-mfd";
-+				compatible = "aspeed,ast2500-lpc-v2", "simple-mfd", "syscon";
- 				reg = <0x1e789000 0x1000>;
-+				reg-io-width = <4>;
+ - #address-cells: <1>
+ - #size-cells:	<1>
+-- ranges: 	Maps 0 to the physical address and length of the LPC memory
+-                region
+-
+-Required LPC Child nodes
+-========================
+-
+-BMC Node
+---------
+-
+-- compatible:	One of:
+-		"aspeed,ast2400-lpc-bmc"
+-		"aspeed,ast2500-lpc-bmc"
+-		"aspeed,ast2600-lpc-bmc"
+-
+-- reg:		contains the physical address and length values of the
+-                H8S/2168-compatible LPC controller memory region
+-
+-Host Node
+----------
+-
+-- compatible:   One of:
+-		"aspeed,ast2400-lpc-host", "simple-mfd", "syscon"
+-		"aspeed,ast2500-lpc-host", "simple-mfd", "syscon"
+-		"aspeed,ast2600-lpc-host", "simple-mfd", "syscon"
+-
+-- reg:		contains the address and length values of the host-related
+-                register space for the Aspeed LPC controller
+-
+-- #address-cells: <1>
+-- #size-cells:	<1>
+-- ranges: 	Maps 0 to the address and length of the host-related LPC memory
++- ranges:	Maps 0 to the physical address and length of the LPC memory
+                 region
  
- 				#address-cells = <1>;
- 				#size-cells = <1>;
- 				ranges = <0x0 0x1e789000 0x1000>;
+ Example:
  
--				lpc_bmc: lpc-bmc@0 {
--					compatible = "aspeed,ast2500-lpc-bmc", "simple-mfd", "syscon";
--					reg = <0x0 0x80>;
--					reg-io-width = <4>;
--
--					#address-cells = <1>;
--					#size-cells = <1>;
--					ranges = <0x0 0x0 0x80>;
--
--					kcs1: kcs@24 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x24 0x1>, <0x30 0x1>, <0x3c 0x1>;
--						interrupts = <8>;
--						status = "disabled";
--					};
--					kcs2: kcs@28 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x28 0x1>, <0x34 0x1>, <0x40 0x1>;
--						interrupts = <8>;
--						status = "disabled";
--					};
--					kcs3: kcs@2c {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x2c 0x1>, <0x38 0x1>, <0x44 0x1>;
--						interrupts = <8>;
--						status = "disabled";
--					};
-+				kcs1: kcs@24 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x24 0x1>, <0x30 0x1>, <0x3c 0x1>;
-+					interrupts = <8>;
-+					status = "disabled";
-+				};
-+
-+				kcs2: kcs@28 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x28 0x1>, <0x34 0x1>, <0x40 0x1>;
-+					interrupts = <8>;
-+					status = "disabled";
-+				};
-+
-+				kcs3: kcs@2c {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x2c 0x1>, <0x38 0x1>, <0x44 0x1>;
-+					interrupts = <8>;
-+					status = "disabled";
-+				};
-+
-+				kcs4: kcs@114 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x114 0x1>, <0x118 0x1>, <0x11c 0x1>;
-+					interrupts = <8>;
-+					status = "disabled";
- 				};
+ lpc: lpc@1e789000 {
+-	compatible = "aspeed,ast2500-lpc", "simple-mfd";
++	compatible = "aspeed,ast2500-lpc-v2", "simple-mfd", "syscon";
+ 	reg = <0x1e789000 0x1000>;
  
--				lpc_host: lpc-host@80 {
--					compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
--					reg = <0x80 0x1e0>;
--					reg-io-width = <4>;
--
--					#address-cells = <1>;
--					#size-cells = <1>;
--					ranges = <0x0 0x80 0x1e0>;
--
--					kcs4: kcs@94 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x94 0x1>, <0x98 0x1>, <0x9c 0x1>;
--						interrupts = <8>;
--						status = "disabled";
--					};
--
--					lpc_ctrl: lpc-ctrl@0 {
--						compatible = "aspeed,ast2500-lpc-ctrl";
--						reg = <0x0 0x10>;
--						clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
--						status = "disabled";
--					};
--
--					lpc_snoop: lpc-snoop@10 {
--						compatible = "aspeed,ast2500-lpc-snoop";
--						reg = <0x10 0x8>;
--						interrupts = <8>;
--						status = "disabled";
--					};
--
--					lpc_reset: reset-controller@18 {
--						compatible = "aspeed,ast2500-lpc-reset";
--						reg = <0x18 0x4>;
--						#reset-cells = <1>;
--					};
--
--					lhc: lhc@20 {
--						compatible = "aspeed,ast2500-lhc";
--						reg = <0x20 0x24 0x48 0x8>;
--					};
--
--
--					ibt: ibt@c0 {
--						compatible = "aspeed,ast2500-ibt-bmc";
--						reg = <0xc0 0x18>;
--						interrupts = <8>;
--						status = "disabled";
--					};
-+				lpc_ctrl: lpc-ctrl@80 {
-+					compatible = "aspeed,ast2500-lpc-ctrl";
-+					reg = <0x80 0x10>;
-+					clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
-+					status = "disabled";
-+				};
-+
-+				lpc_snoop: lpc-snoop@90 {
-+					compatible = "aspeed,ast2500-lpc-snoop";
-+					reg = <0x90 0x8>;
-+					interrupts = <8>;
-+					status = "disabled";
-+				};
-+
-+				lpc_reset: reset-controller@98 {
-+					compatible = "aspeed,ast2500-lpc-reset";
-+					reg = <0x98 0x4>;
-+					#reset-cells = <1>;
-+				};
-+
-+				lhc: lhc@a0 {
-+					compatible = "aspeed,ast2500-lhc";
-+					reg = <0xa0 0x24 0xc8 0x8>;
-+				};
-+
-+
-+				ibt: ibt@140 {
-+					compatible = "aspeed,ast2500-ibt-bmc";
-+					reg = <0x140 0x18>;
-+					interrupts = <8>;
-+					status = "disabled";
- 				};
- 			};
+ 	#address-cells = <1>;
+ 	#size-cells = <1>;
+ 	ranges = <0x0 0x1e789000 0x1000>;
  
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
-index 810b0676ab03..d91f48c3db62 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -460,90 +460,73 @@
- 			};
+-	lpc_bmc: lpc-bmc@0 {
+-		compatible = "aspeed,ast2500-lpc-bmc";
++	lpc_snoop: lpc-snoop@0 {
++		compatible = "aspeed,ast2600-lpc-snoop";
+ 		reg = <0x0 0x80>;
+-	};
+-
+-	lpc_host: lpc-host@80 {
+-		compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
+-		reg = <0x80 0x1e0>;
+-		reg-io-width = <4>;
+-
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges = <0x0 0x80 0x1e0>;
++		interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
++		snoop-ports = <0x80>;
+ 	};
+ };
  
- 			lpc: lpc@1e789000 {
--				compatible = "aspeed,ast2600-lpc", "simple-mfd";
-+				compatible = "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
- 				reg = <0x1e789000 0x1000>;
-+				reg-io-width = <4>;
+-BMC Node Children
+-==================
+-
+-
+-Host Node Children
+-==================
  
- 				#address-cells = <1>;
- 				#size-cells = <1>;
- 				ranges = <0x0 0x1e789000 0x1000>;
+ LPC Host Interface Controller
+ -------------------
+@@ -149,14 +99,12 @@ Optional properties:
  
--				lpc_bmc: lpc-bmc@0 {
--					compatible = "aspeed,ast2600-lpc-bmc", "simple-mfd", "syscon";
--					reg = <0x0 0x80>;
--					reg-io-width = <4>;
--
--					#address-cells = <1>;
--					#size-cells = <1>;
--					ranges = <0x0 0x0 0x80>;
--
--					kcs1: kcs@24 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x24 0x1>, <0x30 0x1>, <0x3c 0x1>;
--						interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
--						kcs_chan = <1>;
--						status = "disabled";
--					};
--					kcs2: kcs@28 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x28 0x1>, <0x34 0x1>, <0x40 0x1>;
--						interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
--						status = "disabled";
--					};
--					kcs3: kcs@2c {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x2c 0x1>, <0x38 0x1>, <0x44 0x1>;
--						interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
--						status = "disabled";
--					};
-+				kcs1: kcs@24 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x24 0x1>, <0x30 0x1>, <0x3c 0x1>;
-+					interrupts = <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
-+					kcs_chan = <1>;
-+					status = "disabled";
-+				};
-+
-+				kcs2: kcs@28 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x28 0x1>, <0x34 0x1>, <0x40 0x1>;
-+					interrupts = <GIC_SPI 139 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
-+				};
-+
-+				kcs3: kcs@2c {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x2c 0x1>, <0x38 0x1>, <0x44 0x1>;
-+					interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
-+				};
-+
-+				kcs4: kcs@114 {
-+					compatible = "aspeed,ast2500-kcs-bmc-v2";
-+					reg = <0x114 0x1>, <0x118 0x1>, <0x11c 0x1>;
-+					interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
-+				};
-+
-+				lpc_ctrl: lpc-ctrl@80 {
-+					compatible = "aspeed,ast2600-lpc-ctrl";
-+					reg = <0x80 0x80>;
-+					clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
-+					status = "disabled";
-+				};
-+
-+				lpc_snoop: lpc-snoop@80 {
-+					compatible = "aspeed,ast2600-lpc-snoop";
-+					reg = <0x80 0x80>;
-+					interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
- 				};
+ Example:
  
--				lpc_host: lpc-host@80 {
--					compatible = "aspeed,ast2600-lpc-host", "simple-mfd", "syscon";
--					reg = <0x80 0x1e0>;
--					reg-io-width = <4>;
--
--					#address-cells = <1>;
--					#size-cells = <1>;
--					ranges = <0x0 0x80 0x1e0>;
--
--					kcs4: kcs@94 {
--						compatible = "aspeed,ast2500-kcs-bmc-v2";
--						reg = <0x94 0x1>, <0x98 0x1>, <0x9c 0x1>;
--						interrupts = <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>;
--						status = "disabled";
--					};
--
--					lpc_ctrl: lpc-ctrl@0 {
--						compatible = "aspeed,ast2600-lpc-ctrl";
--						reg = <0x0 0x80>;
--						clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
--						status = "disabled";
--					};
--
--					lpc_snoop: lpc-snoop@0 {
--						compatible = "aspeed,ast2600-lpc-snoop";
--						reg = <0x0 0x80>;
--						interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
--						status = "disabled";
--					};
--
--					lhc: lhc@20 {
--						compatible = "aspeed,ast2600-lhc";
--						reg = <0x20 0x24 0x48 0x8>;
--					};
--
--					lpc_reset: reset-controller@18 {
--						compatible = "aspeed,ast2600-lpc-reset";
--						reg = <0x18 0x4>;
--						#reset-cells = <1>;
--					};
--
--					ibt: ibt@c0 {
--						compatible = "aspeed,ast2600-ibt-bmc";
--						reg = <0xc0 0x18>;
--						interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
--						status = "disabled";
--					};
-+				lhc: lhc@a0 {
-+					compatible = "aspeed,ast2600-lhc";
-+					reg = <0xa0 0x24 0xc8 0x8>;
-+				};
-+
-+				lpc_reset: reset-controller@98 {
-+					compatible = "aspeed,ast2600-lpc-reset";
-+					reg = <0x98 0x4>;
-+					#reset-cells = <1>;
-+				};
-+
-+				ibt: ibt@140 {
-+					compatible = "aspeed,ast2600-ibt-bmc";
-+					reg = <0x140 0x18>;
-+					interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH>;
-+					status = "disabled";
- 				};
- 			};
+-lpc-host@80 {
+-	lpc_ctrl: lpc-ctrl@0 {
+-		compatible = "aspeed,ast2500-lpc-ctrl";
+-		reg = <0x0 0x80>;
+-		clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
+-		memory-region = <&flash_memory>;
+-		flash = <&spi>;
+-	};
++lpc_ctrl: lpc-ctrl@80 {
++	compatible = "aspeed,ast2500-lpc-ctrl";
++	reg = <0x80 0x80>;
++	clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
++	memory-region = <&flash_memory>;
++	flash = <&spi>;
+ };
  
+ LPC Host Controller
+@@ -179,9 +127,9 @@ Required properties:
+ 
+ Example:
+ 
+-lhc: lhc@20 {
++lhc: lhc@a0 {
+ 	compatible = "aspeed,ast2500-lhc";
+-	reg = <0x20 0x24 0x48 0x8>;
++	reg = <0xa0 0x24 0xc8 0x8>;
+ };
+ 
+ LPC reset control
+@@ -192,16 +140,18 @@ state of the LPC bus. Some systems may chose to modify this configuration.
+ 
+ Required properties:
+ 
+- - compatible:		"aspeed,ast2600-lpc-reset" or
+-			"aspeed,ast2500-lpc-reset"
+-			"aspeed,ast2400-lpc-reset"
++ - compatible:		One of:
++			"aspeed,ast2600-lpc-reset";
++			"aspeed,ast2500-lpc-reset";
++			"aspeed,ast2400-lpc-reset";
++
+  - reg:			offset and length of the IP in the LHC memory region
+  - #reset-controller	indicates the number of reset cells expected
+ 
+ Example:
+ 
+-lpc_reset: reset-controller@18 {
++lpc_reset: reset-controller@98 {
+         compatible = "aspeed,ast2500-lpc-reset";
+-        reg = <0x18 0x4>;
++        reg = <0x98 0x4>;
+         #reset-cells = <1>;
+ };
 -- 
 2.17.1
 
