@@ -2,59 +2,72 @@ Return-Path: <SRS0=cbAk=GR=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D56CCC433E0
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:48:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7319CC433E0
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 14:17:18 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1FD9723A60
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 13:48:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1FD9723A60
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id AAC6623A6A
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 14:17:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AAC6623A6A
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DGlxx5GdwzDqvW
-	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 00:48:05 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DGmbZ5xzDzDsfL
+	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 01:17:14 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=209.85.167.169;
+ helo=mail-oi1-f169.google.com; envelope-from=robherring2@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
- header.from=aspeedtech.com
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org;
+ dmarc=fail (p=none dis=none) header.from=kernel.org
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DGlMW4GQWzDsFZ;
- Fri, 15 Jan 2021 00:21:43 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 10EDB0vQ082196;
- Thu, 14 Jan 2021 21:11:00 +0800 (GMT-8)
- (envelope-from chiawei_wang@aspeedtech.com)
-Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Thu, 14 Jan 2021 21:16:02 +0800
-From: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
-To: <robh+dt@kernel.org>, <lee.jones@linaro.org>, <joel@jms.id.au>,
- <andrew@aj.id.au>, <linus.walleij@linaro.org>, <minyard@acm.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: [PATCH v5 0/5] Remove LPC register partitioning
-Date: Thu, 14 Jan 2021 21:16:17 +0800
-Message-ID: <20210114131622.8951-1-chiawei_wang@aspeedtech.com>
-X-Mailer: git-send-email 2.17.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DGmW70c81zDsdl;
+ Fri, 15 Jan 2021 01:13:22 +1100 (AEDT)
+Received: by mail-oi1-f169.google.com with SMTP id d203so6032975oia.0;
+ Thu, 14 Jan 2021 06:13:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=6h5oUPZ53wfO7f92HycjGe1n6yQ3GPM+QRp+J+bOXQU=;
+ b=A+MLywBmxdlUV9m0NnXqFxrvKpXnTbmPbd5nGcgv1xpxI9JeaeNiWNy12KU0K4wnax
+ uNMQy7PkRuVvasT5a2mrJRC6H5j4KqnxlqE7njjdzFK6lxGD7w5n4Ue1f5EkNhDKx9HI
+ K5HOH/OWsnXx5cwqCtqo5KaTBaO74Sm9IApCOD06c9FdyygaA+QlzZS4+bhU3WF766h5
+ dWZjw0hw/JpQEzoA/SUkO2mSabEkpiGPNI0RfzS7Pxo7vBGx+SQsFRJl8xhRXuXWzXJI
+ b8EKviWbQ/OqNNRPVs/rl6NQc96xkP9R8ZbSRUrqht3gC+PMHNc6dJ/QwIyzOkcW5v4I
+ pZTg==
+X-Gm-Message-State: AOAM533zr8ILFKUilGeVbP3oQiZ12TVAFCPsyOXIsgc71oXuksyf04zl
+ OEMU7ox239LsqhZBpy3qTA==
+X-Google-Smtp-Source: ABdhPJxRzKOok/V/nC7yvIoQFv1kr5D7gm8HVf45a+LU/nY5SxSFQOxwkwYlL+jMqNwCCy9n20BtQw==
+X-Received: by 2002:aca:c592:: with SMTP id v140mr2687412oif.10.1610633599393; 
+ Thu, 14 Jan 2021 06:13:19 -0800 (PST)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id n13sm1064351otk.58.2021.01.14.06.13.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Jan 2021 06:13:18 -0800 (PST)
+Received: (nullmailer pid 2833114 invoked by uid 1000);
+ Thu, 14 Jan 2021 14:13:17 -0000
+Date: Thu, 14 Jan 2021 08:13:17 -0600
+From: Rob Herring <robh@kernel.org>
+To: Troy Lee <troy_lee@aspeedtech.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: hwmon: Add Aspeed AST2600 PWM/Fan
+Message-ID: <20210114141317.GA2823834@robh.at.kernel.org>
+References: <20210113070850.1184506-1-troy_lee@aspeedtech.com>
+ <20210113070850.1184506-2-troy_lee@aspeedtech.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.66]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 10EDB0vQ082196
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210113070850.1184506-2-troy_lee@aspeedtech.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,58 +79,201 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW@aspeedtech.com, cyrilbur@gmail.com, haiyue.wang@linux.intel.com
+Cc: "open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, Jean Delvare <jdelvare@suse.com>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ "moderated list:ARM/ASPEED MACHINE SUPPORT" <linux-aspeed@lists.ozlabs.org>,
+ Jonathan Corbet <corbet@lwn.net>, Andrew Jeffery <andrew@aj.id.au>,
+ openbmc@lists.ozlabs.org,
+ "open list:DOCUMENTATION" <linux-doc@vger.kernel.org>,
+ open list <linux-kernel@vger.kernel.org>, leetroy@gmail.com,
+ Philipp Zabel <p.zabel@pengutronix.de>, chiawei_wang@aspeedtech.com,
+ Guenter Roeck <linux@roeck-us.net>,
+ "moderated list:ARM/ASPEED MACHINE SUPPORT"
+ <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The LPC controller has no concept of the BMC and the Host partitions.
-The incorrect partitioning can impose unnecessary range restrictions
-on register access through the syscon regmap interface.
+On Wed, Jan 13, 2021 at 07:08:45AM +0000, Troy Lee wrote:
+> We add binding for supporting a new AST2600 PWM/Fan hwmon driver.
+> 
+> Changes since v1:
+> - dt binding with DT schema format
+> 
+> Signed-off-by: Troy Lee <troy_lee@aspeedtech.com>
+> ---
+>  .../hwmon/aspeed,ast2600-pwm-tachometer.yaml  | 137 ++++++++++++++++++
+>  1 file changed, 137 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/hwmon/aspeed,ast2600-pwm-tachometer.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/aspeed,ast2600-pwm-tachometer.yaml b/Documentation/devicetree/bindings/hwmon/aspeed,ast2600-pwm-tachometer.yaml
+> new file mode 100644
+> index 000000000000..b84076a4a338
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/aspeed,ast2600-pwm-tachometer.yaml
+> @@ -0,0 +1,137 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +
+> +$id: http://devicetree.org/schemas/hwmon/aspeed,ast2600-pwm-tachometer.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ASPEED AST2600 PWM and Fan Tacho controller device driver
+> +
+> +maintainers:
+> +  - Ryan Chen <ryan_chen@aspeedtech.com>
+> +
+> +description: |
+> +  The ASPEED PWM controller can support upto 16 PWM outputs. The ASPEED Fan Tacho
+> +  controller can support upto 16 Fan tachometer inputs.
+> +  There can be upto 16 fans supported. Each fan can have one PWM output and
+> +  one Fan tach inputs.
+> +
+> +properties:
+> +  compatible:
+> +    const: aspeed,ast2600-pwm-tachometer
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +  "#cooling-cells":
+> +    const: 2
+> +
+> +  reg:
+> +    description:
+> +      Address and length of the register set for the device.
 
-For instance, HICRB contains the I/O port address configuration
-of KCS channel 1/2. However, the KCS#1/#2 drivers cannot access
-HICRB as it is located at the other LPC partition.
+No need for generic descriptions. That's every 'reg'.
 
-In addition, to be backward compatible, the newly added HW control
-bits could be located at any reserved bits over the LPC addressing
-space.
+What you need is how many entries and what each one is if more than 1. 
+If only 1, then just 'maxItems: 1'
 
-Thereby, this patch series aims to remove the LPC partitioning for
-better driver development and maintenance. This requires the change
-to both the device tree and the driver implementation. To ensure
-both sides are synchronously updated, a v2 binding check is added.
+> +
+> +  clocks:
+> +    description:
+> +      phandle to clock provider with the clock number in the second cell
 
-Chagnes since v4:
-	- Add child node example in dt-bindings.
+Same here.
 
-Chagnes since v3:
-	- Revise binding check as suggested by Haiyue Wang.
+> +
+> +  resets:
+> +    description:
+> +      phandle to reset controller with the reset number in the second cell
 
-Changes since v2:
-	- Add v2 binding check to ensure the synchronization between the
-	  device tree change and the driver register offset fix.
+And here.
 
-Changes since v1:
-	- Add the fix to the aspeed-lpc binding documentation.
+> +
+> +patternProperties:
+> +  "@[0-9]+$":
 
-Chia-Wei, Wang (5):
-  dt-bindings: aspeed-lpc: Remove LPC partitioning
-  ARM: dts: Remove LPC BMC and Host partitions
-  ipmi: kcs: aspeed: Adapt to new LPC DTS layout
-  pinctrl: aspeed-g5: Adapt to new LPC device tree layout
-  soc: aspeed: Adapt to new LPC device tree layout
+If every node is a fan and there are up to 16:
 
- .../devicetree/bindings/mfd/aspeed-lpc.txt    | 100 ++++---------
- arch/arm/boot/dts/aspeed-g4.dtsi              |  74 ++++------
- arch/arm/boot/dts/aspeed-g5.dtsi              | 135 ++++++++----------
- arch/arm/boot/dts/aspeed-g6.dtsi              | 135 ++++++++----------
- drivers/char/ipmi/kcs_bmc_aspeed.c            |  27 ++--
- drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c    |  17 ++-
- drivers/soc/aspeed/aspeed-lpc-ctrl.c          |  20 ++-
- drivers/soc/aspeed/aspeed-lpc-snoop.c         |  23 +--
- 8 files changed, 229 insertions(+), 302 deletions(-)
+^fan@[0-9a-f]$
 
--- 
-2.17.1
+> +    type: object
+> +    description:
+> +      Under fan subnode there can upto 16 child nodes, with each child node
+> +      representing a fan. There are 16 fans each fan can have one PWM port and one
+> +      Fan tach inputs.
+> +      For PWM port can be configured cooling-levels to create cooling device.
+> +      Cooling device could be bound to a thermal zone for the thermal control.
+> +
+> +    properties:
+> +      reg:
+> +        minimum: 0
+> +        maximum: 15
+> +        description:
+> +          This property identify the PWM control channel of this fan.
+> +
+> +      fan-tach-ch:
+> +        $ref: /schemas/types.yaml#/definitions/uint8
+> +        minimum: 0
+> +        maximum: 15
+> +        description:
+> +          This property identify the fan tach input channel.
+> +
+> +      pulses-per-revolution:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        default: 2
+> +        minimum: 1
+> +        description:
+> +          Specify tacho pulse per revolution of the fan.
+> +
+> +      cooling-levels:
+> +        description:
+> +          PWM duty cycle values in a range from 0 to 255
+> +          which correspond to thermal cooling states.
+> +
+> +      aspeed,pwm-freq:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        default: 25000
+> +        minimum: 24
+> +        maximum: 780000
+> +        description:
+> +          Specify the frequency of PWM.
 
+Units? Use a unit suffix and then drop the $ref.
+
+> +
+> +      aspeed,inverse-pin:
+> +        type: boolean
+> +        description:
+> +          Inverse PWM output signal.
+> +
+> +      aspeed,falling-point:
+> +        $ref: /schemas/types.yaml#/definitions/uint8
+> +        default: 10
+> +        minimum: 0
+> +        maximum: 255
+
+0-255 is already the range of uint8, so drop.
+
+> +        description:
+> +          Initialize the pulse width.
+> +
+> +    required:
+> +      - fan-tach-ch
+> +      - reg
+> +
+> +    additionalProperties: true
+> +
+> +required:
+> + - compatible
+> + - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    pwm_tacho: pwm-tacho-controller@1e610000 {
+> +        compatible = "aspeed,ast2600-pwm-tachometer";
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +        reg = <0x1e610000 0x100>;
+> +
+> +        fan@1 {
+> +            reg = <0x00>;
+> +            aspeed,pwm-freq = <25000>;
+> +            cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
+> +            fan-tach-ch = /bits/ 8 <0x00>;
+> +            pulses-per-revolution = <2>;
+> +        };
+> +
+> +        fan@2 {
+> +            reg = <0x01>;
+> +            aspeed,pwm-freq = <25000>;
+> +            cooling-levels = /bits/ 8 <125 151 177 203 229 255>;
+> +            fan-tach-ch = /bits/ 8 <0x01>;
+> +            pulses-per-revolution = <2>;
+> +        };
+> +    };
+> +...
+> -- 
+> 2.25.1
+> 
