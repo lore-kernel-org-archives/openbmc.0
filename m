@@ -6,94 +6,95 @@ X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
 	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E3CCCC433DB
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 14:41:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CBA7EC433E6
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 19:12:47 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3F82123A5E
-	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 14:41:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F82123A5E
+	by mail.kernel.org (Postfix) with ESMTPS id CE0CD23B3E
+	for <openbmc@archiver.kernel.org>; Thu, 14 Jan 2021 19:12:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CE0CD23B3E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DGn716mMYzDsf3
-	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 01:41:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DGv8X2RdszDsFZ
+	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 06:12:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.19;
- helo=wout3-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
+ smtp.mailfrom=fuzziesquirrel.com (client-ip=66.111.4.26;
+ helo=out2-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dmarc=none (p=none dis=none)
  header.from=fuzziesquirrel.com
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.a=rsa-sha256 header.s=fm1 header.b=WNAsDDKN; 
+ header.a=rsa-sha256 header.s=fm1 header.b=N21GHTeB; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=l/twZ8/3; 
+ header.a=rsa-sha256 header.s=fm1 header.b=dxfdf/iU; 
  dkim-atps=neutral
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DGn533xZrzDsdh
- for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2021 01:39:18 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DGv6g07kQzDrhd
+ for <openbmc@lists.ozlabs.org>; Fri, 15 Jan 2021 06:11:05 +1100 (AEDT)
 Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 057DA1692;
- Thu, 14 Jan 2021 09:39:11 -0500 (EST)
+ by mailout.nyi.internal (Postfix) with ESMTP id 441235C010B;
+ Thu, 14 Jan 2021 13:53:19 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Thu, 14 Jan 2021 09:39:12 -0500
+ by compute4.internal (MEProxy); Thu, 14 Jan 2021 13:53:19 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:content-transfer-encoding
- :in-reply-to; s=fm1; bh=l1bGBWv5XUl7THqf16lJAX58mpE3bd4LKEZGBXYa
- 8DE=; b=WNAsDDKNqWDe4VVZdengwNKFez7SE4nTMfJvCwzk3B8JSvPJH4Lrm/f4
- ink0yQiyEP4D3Ms+4/yXwKGA9rPhHN6/VRwYdP5pbthijjzZRyfFobC9BRx1HXSi
- 08NL5mnDLrLC6zt5T4GznU0ZKrdVYyLtrUCMVMFETNdn25dinrEIOM8KOQEn0ZLo
- isdw8yrBDsaGWDND/8jxRX1GnjL3GY6hHEpl0nXb2OQH09pLZ1ctuKpiUyZnq9mY
- fd9zWzvBLRRxPR5Fqx8avjKZfwfqqa7gHUGhSItFEg0sv5qhaUE0qlFN4yTVhFBj
- zYHLm53pZFm3AhIXD4TvZLqzJmADVQ==
+ :references:mime-version:content-type:in-reply-to; s=fm1; bh=OOl
+ jZUKEoyd4FA24oLdToaPb36ahG0F5WBrfb+1wep8=; b=N21GHTeBC5RwEFTixVY
+ rswkUWv5JNCVQ6TJ5lxUm2aBcI4ZkkyxliuYrsnYLNf7A/t54HsIv5Qq3zL+gpZD
+ m91vbvsV1yJcyjBgp3KZbEnr72LNSZcoju4016N4eQoTYqVInEGHqGGD6qhAZFRc
+ sJyCvAdfiqsZSf4+1XScd0U5IPCdF7Vn7I3bqYr8C5N/R9NzgEZ6bKlQ27k5OAeI
+ NciXCa1zZoBDxgIeuIYLxkXVPwJHsXxWtKvDEaCk6xh5IVnG3NCMAE7bpyFsn+O9
+ 3nUFJyvFceLMEdXmj/tkIPAP9e27p2RBrymNQ4XYpplABW2zC3NxkNl/HxoB3G6f
+ c0Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm1; bh=l1bGBWv5XUl7THqf16lJAX58mpE3bd4LKEZGBXYa8
- DE=; b=l/twZ8/319NuPpyFvSLSC4hhpHs3I3l+amrwsyAMgpp9Z4i7Qpq8r6non
- 4fyMm/m1jslwBbWlJQbzDJs6IjVSbXofJC+SmFOnPMHJ1yW8p9UuM3cm2Y1K6y6b
- 1W5sb+KrQm/hlhnP8Iz12o3TzoFpu7XW5LkjiwI/kIY75d22ympDqR1W/Rx6sw7Q
- s3elH0yc4KrvFT1tY8uEz2XYcyW+whca4oNZVE3mWAREttsTKgWw1IXs3OuryrT2
- lqifFPRvn0IeF4fLd/v7zN+ZQetRmXcO0EOibpG4ITUo85tndJpUGPL+g/vbHxvo
- rt5a+IPRWjY5Dm78tfJ/2bt4JQfyQ==
-X-ME-Sender: <xms:j1cAYDyP_v3PCqo4DDjJwRCSfldswFNolXBYYfQevNxioDTeqoK9OA>
- <xme:j1cAYLQAWTVi5N-bTiXJsn4fB4Asxa1ebKoAj77DZ0ujZMdzOSea90neL0CJ_YxG_
- gcpN9cSxwmGHSx7mts>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrtddtgdegvdcutefuodetggdotefrodftvf
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=OOljZU
+ KEoyd4FA24oLdToaPb36ahG0F5WBrfb+1wep8=; b=dxfdf/iUJ/VQclBrhqQui6
+ GmUGC/myeWHEWW9STVXHQDJJ69C/tc62SwORA5zUTqhaaL7G9rOiZ4tNhqJY2Vhh
+ 1TEUTpjalYU9rNhtB4FpXaLdz+bBW/S+YsfSDTMBTTVpQKrQ16Dk7GZvDEKzsVMR
+ 5BfophK4R+kmI8YSuGhJoaC5sQuZWaNN//wYRA0vX+lQi/YQKB3Huh+mHaYpOQZ5
+ CrvBns3phddytluB5OhkxFnJdlxwcDa9a+iKlBnzmX48engYty37AGnltSXdCnVr
+ fY0yahxmcD9w2ySu2icdXwlrOAL/EkPMTW3GrcIgtOkxkerRUBB1Sjl0+wXClmWQ
+ ==
+X-ME-Sender: <xms:HpMAYDbowQz3Kg5qBoKtmvhYNFPHyu6pk-q3Tt-uUBSkGy04vowJtw>
+ <xme:HpMAYCZ_7tJ0LZ3pkMtSq8u1mBa_9G2OotdxEkBuB95Gx3vV-IihZSWPTtbtBlDaN
+ i4HbQHPcF8zFPQp61g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrtddtgdelfecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtugfgjgesthekre
- dttddtjeenucfhrhhomhepuehrrgguuceuihhshhhophcuoegsrhgrughlvgihsgesfhhu
- iiiiihgvshhquhhirhhrvghlrdgtohhmqeenucggtffrrghtthgvrhhnpefgteevtedvge
- dujeekieehudeiuedvveffledtffefuddvgfekjedtueejveffffenucfkphepudejfedr
- udeijedrfedurdduleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
- hilhhfrhhomhepsghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtghomh
-X-ME-Proxy: <xmx:j1cAYNVc12JYm9EB-wPN4mdG9QMmkq0-pm9IOgatPqewTMJlCzkN_g>
- <xmx:j1cAYNhQWSIPoFFndSzCHq_HjPyNgmDZQ7_97ruB9g2Z7aqMizUoqw>
- <xmx:j1cAYFBADfJaRGlbK7lfxzpGHJRnbIvkGV-U497jcDAkauHRw669Tw>
- <xmx:j1cAYEPuXwQARUF_J5XOgt8spO7VQJzg6uPU720HJwN60lbp5VoQ5g>
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehrrgguuceu
+ ihhshhhophcuoegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhmqe
+ enucggtffrrghtthgvrhhnpeeffffhfeehgedutddvtdeuiefhudeifeekfeeifeekfedu
+ feeuvedulefgkefffeenucfkphepudejfedrudeijedrfedurdduleejnecuvehluhhsth
+ gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsghrrggulhgvhigssehf
+ uhiiiihivghsqhhuihhrrhgvlhdrtghomh
+X-ME-Proxy: <xmx:HpMAYF-fMDjrLL727rS8H2Zn_3YdPEOVWOhfLne1-uWVPTb7FYlDtw>
+ <xmx:HpMAYJqhWi7i4_2VEX3KO4GjHeKJMJ20Zbk-rAoZO_EFaZXXL8RngQ>
+ <xmx:HpMAYOruAuy4m2DZGYCbPT5tVMbW21zIgpTKDfif9mmmXOdcoqFDyw>
+ <xmx:H5MAYHkglr8CAWnrGPU_Z9QS-6K95db9AyzjKd_ET9tMaQA36q3XtA>
 Received: from thinkpad.fuzziesquirrel.com (unknown [173.167.31.197])
- by mail.messagingengine.com (Postfix) with ESMTPA id DA1981080057;
- Thu, 14 Jan 2021 09:39:10 -0500 (EST)
-Date: Thu, 14 Jan 2021 08:39:09 -0600
+ by mail.messagingengine.com (Postfix) with ESMTPA id 426441080057;
+ Thu, 14 Jan 2021 13:53:18 -0500 (EST)
+Date: Thu, 14 Jan 2021 13:53:16 -0500
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Willy Tu <wltu@google.com>
+To: Ed Tanous <edtanous@google.com>
 Subject: Re: Intel-ipmi-oem repo
-Message-ID: <20210114143909.jf3vbk7zhxp3iguv@thinkpad.fuzziesquirrel.com>
+Message-ID: <20210114185316.vmlaa7nn7vlxq2wh@thinkpad.fuzziesquirrel.com>
 References: <CAHwn2XkNiz7rZzn9RbpZCaUM8HD0HO+mJTD9D2ENc_p+SsmXHg@mail.gmail.com>
+ <20210114143909.jf3vbk7zhxp3iguv@thinkpad.fuzziesquirrel.com>
+ <CAH2-KxBgmEmfeQxsbTa1RPVO_nm5=G+ayZ9aDM+1hf7oRtoDGA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHwn2XkNiz7rZzn9RbpZCaUM8HD0HO+mJTD9D2ENc_p+SsmXHg@mail.gmail.com>
+In-Reply-To: <CAH2-KxBgmEmfeQxsbTa1RPVO_nm5=G+ayZ9aDM+1hf7oRtoDGA@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,41 +106,22 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: vernon.mauery@linux.intel.com, openbmc@lists.ozlabs.org,
- apparao.puli@linux.intel.com, vijaykhemka@fb.com, chunhui.jia@linux.intel.com
+Cc: Willy Tu <wltu@google.com>, vernon.mauery@linux.intel.com,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, chunhui.jia@linux.intel.com,
+ apparao.puli@linux.intel.com, Vijay Khemka <vijaykhemka@fb.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Jan 12, 2021 at 06:54:14PM -0800, Willy Tu wrote:
->> Team,
->> Intel-ipmi-oem should be broken and 2 parts, genric and oem specific. I
->see several functionality in this repo like sensors and storage commands
->are generic enough to be used by other platform who is using entity
->manager. So I feel that we should have these functionalities to be moved to
->a separate common repo which can be used by everyone and this repo can only
->contain Intel OEM specific IPMI command support.
->>
->> My 2 cents 😊
->
->Hi All,
->
->I guess I'll start working on this if no one has any objection to it.
+On Thu, Jan 14, 2021 at 08:38:41AM -0800, Ed Tanous wrote:
 
-Awesome!
+>I only suggested a new repo originally because today it's a separate repo,
+>and the long ago patch to add it directly to ipmid got the feedback that
+>was too different than the existing to go there.  
 
->As mentioned in the beginning of the thread. The plan is to break down the
->intel-ipmi-oem repo into two parts.
->- True OEM at Intel
->- Dynamic Sensor stacks (new repo)
-
-Why is dynamic sensor stacks a new repo?  I would like to see this done 
-in the existing ipmid repo.  If the default implementations there today 
-are undesired, I'd be fine with seeing those moved to the 
-openpower-ipmi-oem repository.
-
-FWIW I would like to make use of dynamic SDR on my new systems (I work 
-for IBM) but I still have to maintain support for Witherspoon, which 
-relies on the old fixed & hardcoded sensor identifiers.
+Hrm...this is not at all how I remember it.  I thought the feedback IBM 
+tried to give back then was "please don't break the code that is already 
+there."  I apologize if what came through was "your code is too 
+different, no thanks" ...that was definitely never the intent.
 
 -brad
