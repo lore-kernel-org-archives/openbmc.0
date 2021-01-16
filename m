@@ -1,98 +1,83 @@
-Return-Path: <SRS0=3dQF=GS=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=6rRS=GT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D5308C433E6
-	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 15:28:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4B9A2C433DB
+	for <openbmc@archiver.kernel.org>; Sat, 16 Jan 2021 01:12:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5CF7422473
-	for <openbmc@archiver.kernel.org>; Fri, 15 Jan 2021 15:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5CF7422473
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7E9D4239D4
+	for <openbmc@archiver.kernel.org>; Sat, 16 Jan 2021 01:12:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E9D4239D4
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DHQ6t4CMWzDqMm
-	for <openbmc@archiver.kernel.org>; Sat, 16 Jan 2021 02:28:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=klaus@linux.vnet.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dmarc=pass (p=none dis=none)
- header.from=linux.vnet.ibm.com
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=p08eyHvB; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DHPm15X4NzDshR
- for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2021 02:11:45 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 10FF3nst029053; Fri, 15 Jan 2021 10:11:43 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references; s=pp1;
- bh=OPqCwJXI3nfavSYTl7qt6zUExf2OKgCKcIavOuuVBBU=;
- b=p08eyHvBVjREiMlxR51unQJbfbWQZW/merWdXwilMKwjBHwu9OAtF/ySZHnBM7FUocTO
- Yj/W33HW7Gea+sIA0Sf2ZzdwbBkiKCHiwlCdsB5161OxHb2n+qLsAv9Ds1YMuG4IUM4r
- E3njyHX8glS6siuSHYtql5bkpay5+QeLdfUTN5JgSa0uWtonivCaxvyZuOEJ2brRp386
- yVegYKKMsn8CFXJe2SRL9sMtMvlMOjxuitVqvN8Mycv/R35S9y4l+F1ZazjxkPNEr0qC
- yrg80s6ZDRTfZpImQPiqQFZ+61JQDJX4wLzG8zsyDviesCgjn2kzVwtczURKLimWsD1J Qg== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 363d8d8hev-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Jan 2021 10:11:42 -0500
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 10FF8BLD029228;
- Fri, 15 Jan 2021 15:11:42 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma02dal.us.ibm.com with ESMTP id 35y44a8u8j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 15 Jan 2021 15:11:42 +0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 10FFBe1029819224
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 15 Jan 2021 15:11:40 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B2A33BE04F;
- Fri, 15 Jan 2021 15:11:39 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8FF54BE054;
- Fri, 15 Jan 2021 15:11:38 +0000 (GMT)
-Received: from klaus-virtual-ubuntu.aus.stglabs.ibm.com (unknown [9.80.230.10])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Fri, 15 Jan 2021 15:11:38 +0000 (GMT)
-From: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
-To: openbmc@lists.ozlabs.org, joel@jms.id.au
-Subject: [PATCH linux dev-5.8 9/9] Add TPM device to Rainier Device-Tree
-Date: Fri, 15 Jan 2021 12:10:48 -0300
-Message-Id: <20210115151048.15965-10-klaus@linux.vnet.ibm.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210115151048.15965-1-klaus@linux.vnet.ibm.com>
-References: <20210115151048.15965-1-klaus@linux.vnet.ibm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-15_08:2021-01-15,
- 2021-01-15 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015
- impostorscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- mlxscore=0 suspectscore=0 adultscore=0 mlxlogscore=999 lowpriorityscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
- definitions=main-2101150095
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DHg5W509DzDsmH
+	for <openbmc@archiver.kernel.org>; Sat, 16 Jan 2021 12:12:47 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
+ (client-ip=212.227.15.18; helo=mout.gmx.net;
+ envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dmarc=pass (p=none dis=none) header.from=gmx.net
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
+ header.s=badeba3b8450 header.b=F04wAek4; 
+ dkim-atps=neutral
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DHg3k3JKYzDsmH
+ for <openbmc@lists.ozlabs.org>; Sat, 16 Jan 2021 12:11:13 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1610759369;
+ bh=6Klx+LARlH5Cs/YxTUDW1nPNa3j7+K+6thHFi7p4CDc=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=F04wAek49VGqeiKnYAJTG9v4WihCEv06/nCziCFbc9aohHp4wGSu39BIjW6N0HSiB
+ J6SsEi6hrLTaNEsyCtDlpDIkKpHENnQiW9AAM9xn21IExCQZCslKyu1+ovt0DHDNnL
+ ltQUGaIFkGoboDKfF3q9wWuh7QrbIuoRfsIFZQBQ=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from longitude ([37.201.215.209]) by mail.gmx.com (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1N5VHM-1m6NH90msc-016vrH; Sat, 16
+ Jan 2021 02:09:29 +0100
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: devicetree@vger.kernel.org
+Subject: [PATCH v2 2/2] ARM: dts: Add board-specific compatible string to
+ npcm750-evb devicetree
+Date: Sat, 16 Jan 2021 02:09:06 +0100
+Message-Id: <20210116010907.3475405-2-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210116010907.3475405-1-j.neuschaefer@gmx.net>
+References: <20210116010907.3475405-1-j.neuschaefer@gmx.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:8rNNa3QIKUy2rcCEKxnb986WyN5l+vtqixISTwjiUhIp0yuKC08
+ hsMYUimN/HrhIiUmhMEC0UjWyzDgLYLQyd3fPx/cBytF7pS9It4/Ir0uVOfzVEg4ZwF9mhX
+ ujeo2IWy2IEeNw+OavJR81FEi3amVMW4C1tf3mvuQiHeZ0/yJK5Wlj4fFOZlreOeqtltrBK
+ 7P1QhI7z12+ZgbD0UIafw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:azurBNzh7rQ=:vfMBbkxcD0AuNM3BKSTFUK
+ J6+Ws4mHnb9rZhKMNxm+dBMVdg4G8Ik3aRaCUghMXCMWvRb1tJiahSlmqOc97Kyy2fSzg3vuk
+ EIEQoXhG01dp6zNnvTaLjEML1FcUp3lJk3WH0o0Z6To8LmTSlxFXD7+sU7IfuHxqC74O0NQtI
+ cch5Cd6AXqJbsXg8SWuSd03w7taTXX+bA+jxElpz/a70EETUgv54m2LAJphftbUYuIIYeT1CE
+ aBJItQ7nyzCVPg4oEII+RHJ0O4lBDHiLMBQ4KzYTvkiG1Vaiat5WFX53PA96Y1+Ta7CrBB4z9
+ sjgdAywrYU7KIE5KEDrssz9RNPeSpYAQcxGnZYvjrQ8wY27ZYhMyPIb5hZgAf8YzJc3vPkzgV
+ FvalpOEynxoC5vpWmdbeE2z+NIpgjuGPBoYEPiPfc4JKAtFNqxMEPlynUHcL6XK22L2M/soQE
+ bNfXf315Z3SDjrAkFZwjWHfKMpXNvtVq2/xhATSdNNRmCnuGUPksNEsQfl4kztkigUINPWnIB
+ C9TjZysr6e73HwHYteb1dPap0JqxsY5O6tWfqL62ddm+DrPmI6Ef806xI5zeVf0Dwf+OcmVj/
+ UMrogLTVjDv7CSDR0QctLCXQkcDvjYGHaSaKXxjsuYgFqdJRYa+JwDO9adF4ABg0+66RYPV6N
+ OcPHToRVflTFzroKOUFDwvVgI72z8IXadEnR+s/8XK4mMbCTA7CzF28F7acEK3c7dBx+pLuDl
+ 6S5GbBJzutmmpVePLMeG3RJkvwD+LuYxNdrx3kryxM0/rs17eIuBOy01aPtReYSX+F3Xq+jlv
+ D4q+h7uMt7LAkJVf+35ZZP/QwhgYEjhHBYZ0mT1UW8irONzf2DZohmFdGjhUHkAHnOxI4auIe
+ KzgklZRvDO6HhWer1ksQ==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,36 +89,41 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
+Cc: Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Tali Perry <tali.perry1@gmail.com>, Rob Herring <robh+dt@kernel.org>,
+ linux-kernel@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On IBM's Rainier System, the Nuvoton NPCT750A device is placed on the
-13th i2c bus (i2c12) with addres 0x2e.
+According to the revised binding, the devicetree needs a board-specific
+compatible string.
 
-Signed-off-by: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 2b7dc60ce57c..9f8af5d8dec2 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -2836,6 +2836,12 @@
- 
- &i2c12 {
- 	status = "okay";
-+
-+	tpm: tpm@2e {
-+        compatible = "nuvoton,npct75x", "tcg,tpm-tis-i2c";
-+        reg = <0x2e>;
-+        };
-+
- };
- 
- &i2c13 {
--- 
-2.20.1
+v2:
+- no changes
+=2D--
+ arch/arm/boot/dts/nuvoton-npcm750-evb.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts b/arch/arm/boot/dts=
+/nuvoton-npcm750-evb.dts
+index 9f13d08f5804e..dea3dbc4a6a52 100644
+=2D-- a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
++++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
+@@ -9,7 +9,7 @@
+
+ / {
+ 	model =3D "Nuvoton npcm750 Development Board (Device Tree)";
+-	compatible =3D "nuvoton,npcm750";
++	compatible =3D "nuvoton,npcm750-evb", "nuvoton,npcm750";
+
+ 	aliases {
+ 		ethernet2 =3D &gmac0;
+=2D-
+2.29.2
 
