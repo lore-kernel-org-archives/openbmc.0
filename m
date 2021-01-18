@@ -2,75 +2,76 @@ Return-Path: <SRS0=YzSX=GV=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CE02FC433DB
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jan 2021 14:43:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15124C433E6
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jan 2021 15:01:59 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2BA5922472
-	for <openbmc@archiver.kernel.org>; Mon, 18 Jan 2021 14:43:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2BA5922472
+	by mail.kernel.org (Postfix) with ESMTPS id 3F95522BEA
+	for <openbmc@archiver.kernel.org>; Mon, 18 Jan 2021 15:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3F95522BEA
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DKDzb1CD9zDr2P
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 01:43:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DKFPJ0SfYzDqhY
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 02:01:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::12c;
- helo=mail-lf1-x12c.google.com; envelope-from=linus.walleij@linaro.org;
+ smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::62f;
+ helo=mail-ej1-x62f.google.com; envelope-from=linus.walleij@linaro.org;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=gNacpnhb; dkim-atps=neutral
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
+ header.s=google header.b=WimftGn8; dkim-atps=neutral
+Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
+ [IPv6:2a00:1450:4864:20::62f])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DKDxT6Bs7zDqNN
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2021 01:41:14 +1100 (AEDT)
-Received: by mail-lf1-x12c.google.com with SMTP id u25so24419385lfc.2
- for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2021 06:41:13 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DKFLf5411zDqgw
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2021 01:59:34 +1100 (AEDT)
+Received: by mail-ej1-x62f.google.com with SMTP id by1so17690911ejc.0
+ for <openbmc@lists.ozlabs.org>; Mon, 18 Jan 2021 06:59:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=SIhA1mF+BYpThO8i2Iyz2DMFBxR5yWu2mUjR9REROfY=;
- b=gNacpnhbFHkDpwBHhaGHWGA3LLhitKbhOUvUv/KRjimoxCcZNhsr6Iy5M8mOD1mXHz
- JlxWIIy2UpK9eLy8n8+Gp27vMZmN4N45DTJei4m1JmW9MOEIw95Ulnl5+A8EZoUYORGU
- 1mqaj0OvgSStl+z0KxXy/mrNovipqXAXiu8avgzEDcm9DBV4bkktBi40QJ9MOwPlxLBr
- cNtph0/TrpFgh77VSjqh2IA42rLousGy4TGLGxZS9asRN/ql4iq7+sX/MLfJ9AcZjU3H
- HzlS7EGiPCCdkzcHgLohe3dcavIWUpJiTHFnArqtsSmhE0iLhDyt3mn+GY6nubCfL+9e
- u8Gw==
+ :cc; bh=iSBE4jHyV0yiGAPlv7yUlmbeiPPVBYbZTBnxyeVqKhc=;
+ b=WimftGn8DrHzzSkaIaeyHp4Rf5wrkFzQejolh5k7FrvTM1X4tQJfL6BPb0pntGz5jU
+ rtis3d7qLkXwTnZ5Tx904Tmlx9JxRGOiLxQfHo9Xwf3G6ebDePuOuAbmEudqlWIgpKH3
+ wAaDjsOriul24e2cFyWZJa1xIFzJ5Tu2vWnjXgx8gqcU3GlCpQ3CwbO6ka7jUCCoTj9S
+ naNB+8tAa2C/krD+3BFO+Ri5/sPlH+nxGyXWmMo9A1D6Sj8LFoMEmXyp76OSZkPloVe8
+ ZVRWa+2RG6siOwJdiU3Qh9JpKK2Mx30aqtBYekBA70fIzUkvnuudh6Vdtw5WNHXS8Nxv
+ ETJA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=SIhA1mF+BYpThO8i2Iyz2DMFBxR5yWu2mUjR9REROfY=;
- b=sTF1J8HEwu3ZOQy6GvX4v7Fl3zeEs26CZdfxO59UsSUg0au0HbzTSYJ686QesUDisP
- C5/ndhdmPsasG6KUaLM0je5RgoNtblC2iZiTZy1lu6VaaEJ09WEH4sXjygm8WoXPAeqQ
- cxYz9AwOrrrTkU9TjkIJ2rysE7OSUW78POwzkE2RqQgjVSGyn5DFylZsiSXhuT/iibtl
- ONim5W/IhQIw5hOSBJIUZnqHiKPbvG9bzJXMIn9PlxHiL7kaWD8CVYrVYMUGlfc9qJ06
- gMyV0VN6eNK/Sbsxcq83/9xi/yYuTvb3H0na/LofwdKd3Q0vrAgmDBbarK8fey4QaGmY
- SESw==
-X-Gm-Message-State: AOAM532XMWx6etk6l/z1srm8zgr0FSc7LnTiNSI/nwKhO76MOdBXOcdL
- kcBWaxjrlMbBFBCDVMMrEeXj45gvpToAUixV4ExP7w==
-X-Google-Smtp-Source: ABdhPJwqmgpPf8hJv9vGP5zEfW/r8eJtUSojunYR0APxeBQ1zFaQZN2Yp8arPP/uXr5O1AhiV5/uXYk3DE/AChKvJ9I=
-X-Received: by 2002:a05:6512:3f3:: with SMTP id
- n19mr11634965lfq.586.1610980869125; 
- Mon, 18 Jan 2021 06:41:09 -0800 (PST)
+ bh=iSBE4jHyV0yiGAPlv7yUlmbeiPPVBYbZTBnxyeVqKhc=;
+ b=L1FA1lmv+8q4cO6aDCtWmvMduDZpctpaI6K6tR1AQ7m2UF+iZp8Vj9OV0tr8KG44yQ
+ bkfw1+7t4HnZNv5Lwn8S+G7UMQvvqGdAHDuvN3AEgRmOS6YtjehohgNt1sZNA9ahhMKY
+ IW3pmPpm5MIMU7EADr8w4jbYTRYCisTHWZRh/S4sg+cCWf0CWjtyf3b63bIlpAk0mgKL
+ cXteQj5hr8omnSLVaHlTScWcXJGwxYY1juy3XEPCh4i/Ng4R4Y54FbBvSSjcvbLVd9xn
+ +oBoQ5ke7noQOnK2YoCK0c9Xt6EvcXONja2MYajID7WgBa86xP749gMQ1L5uUTit1ose
+ eMHw==
+X-Gm-Message-State: AOAM5329FNhH1EgggPZ1Dgs04BuIPDYADhvL+C+xLVdoPXvC2eH18zqO
+ 3zQhGEugOt8uPtX2xqmLXb1XwquawUyCJJQDdcxQYQ==
+X-Google-Smtp-Source: ABdhPJwI73VNVTnVNFqoeKDEdVqoH328eZPX4L/8TfI3OnSMbLTmqOtJyvigmGCGUUyH0NQs8m/gMD5eGsq/Db7OWWY=
+X-Received: by 2002:a17:906:388b:: with SMTP id
+ q11mr46695ejd.421.1610981968099; 
+ Mon, 18 Jan 2021 06:59:28 -0800 (PST)
 MIME-Version: 1.0
-References: <20210113223808.31626-1-hongweiz@ami.com>
- <20210113223808.31626-2-hongweiz@ami.com>
-In-Reply-To: <20210113223808.31626-2-hongweiz@ami.com>
+References: <20210114131622.8951-1-chiawei_wang@aspeedtech.com>
+ <20210114131622.8951-5-chiawei_wang@aspeedtech.com>
+In-Reply-To: <20210114131622.8951-5-chiawei_wang@aspeedtech.com>
 From: Linus Walleij <linus.walleij@linaro.org>
-Date: Mon, 18 Jan 2021 15:40:57 +0100
-Message-ID: <CACRpkdYpPkCvoEHH6Nu1LPv24JwRWANRTiwVa9cvjZaJeaa02Q@mail.gmail.com>
-Subject: Re: [PATCH, v1 1/1] gpio: aspeed: Add gpio base address reading
-To: Hongwei Zhang <hongweiz@ami.com>
+Date: Mon, 18 Jan 2021 15:59:16 +0100
+Message-ID: <CACRpkdbqJuKHH+sR3LfWV72kM7TEhimFVi1viuQGkP8DWOODow@mail.gmail.com>
+Subject: Re: [PATCH v5 4/5] pinctrl: aspeed-g5: Adapt to new LPC device tree
+ layout
+To: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -83,37 +84,31 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed <linux-aspeed@lists.ozlabs.org>,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>, haiyue.wang@linux.intel.com,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>, Corey Minyard <minyard@acm.org>,
+ BMC-SW@aspeedtech.com, Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Bartosz Golaszewski <bgolaszewski@baylibre.com>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+ Rob Herring <robh+dt@kernel.org>, Lee Jones <lee.jones@linaro.org>,
+ cyrilbur@gmail.com, Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, Jan 13, 2021 at 11:38 PM Hongwei Zhang <hongweiz@ami.com> wrote:
+On Thu, Jan 14, 2021 at 2:17 PM Chia-Wei, Wang
+<chiawei_wang@aspeedtech.com> wrote:
 
-> Add gpio base address reading in the driver; in old code, it just
-> returns -1 to gpio->chip.base.
+> Add check against LPC device v2 compatible string to
+> ensure that the fixed device tree layout is adopted.
+> The LPC register offsets are also fixed accordingly.
 >
-> Fixes: 7ee2d5b4d4340353 ("ARM: dts: nuvoton: Add Fii Kudo system")
-> Signed-off-by: Hongwei Zhang <hongweiz@ami.com>
+> Signed-off-by: Chia-Wei, Wang <chiawei_wang@aspeedtech.com>
 
-NAK, sorry.
+Acked-by: Linus Walleij <linus.walleij@linaro.org>
 
-We never allow the device tree to specify this.
-
-First, it is a Linux-only base so it would have to be a
-"linux,..." property.
-
-Even if it is a Linux-only property, it is a bad idea.
-
-Only people using sysfs should have any need to specify global
-GPIO numbers. Don't use sysfs. Use the GPIO character device
-instead. See further:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/gpio/TODO
+I suppose the patches need to go in together. Tell me if you
+need me to apply this one patch to the pinctrl tree.
 
 Yours,
 Linus Walleij
