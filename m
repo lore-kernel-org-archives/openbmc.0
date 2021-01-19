@@ -2,51 +2,73 @@ Return-Path: <SRS0=b6CT=GW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92E9FC433E0
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:42:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C0E6C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:48:51 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A5EB22D08
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:42:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A5EB22D08
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id DE53423104
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:48:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE53423104
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DL3ZG4NgGzDq97
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 09:42:30 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=nuvoton.com
- (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
- envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
-Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
- [212.199.177.27])
- (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DL3jX6q3mzDqtt
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 09:48:48 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72a;
+ helo=mail-qk1-x72a.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=FbV21+eE; dkim-atps=neutral
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DL3PD3JGDzDqC9
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 09:34:35 +1100 (AEDT)
-Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10JMYIcb008277;
- Wed, 20 Jan 2021 00:34:18 +0200
-Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 6304363A17; Wed, 20 Jan 2021 00:34:19 +0200 (IST)
-From: Tomer Maimon <tmaimon77@gmail.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 3/4] arm: dts: Olympus: Enable PECI dimm
- temperature
-Date: Wed, 20 Jan 2021 00:34:11 +0200
-Message-Id: <20210119223412.223492-4-tmaimon77@gmail.com>
-X-Mailer: git-send-email 2.22.0
-In-Reply-To: <20210119223412.223492-1-tmaimon77@gmail.com>
-References: <20210119223412.223492-1-tmaimon77@gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DL3gr048yzDqtW
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 09:47:15 +1100 (AEDT)
+Received: by mail-qk1-x72a.google.com with SMTP id b64so23615623qkc.12
+ for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2021 14:47:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=t1z728CwUXUwBbalzcJUQFQoojFtqyiOytGhRqAvO38=;
+ b=FbV21+eEaiOQwb0B3oUASbNT9xZD2VYmc5qD9xDL8bRK7UnMlgguYXa3zCBD4KwmVf
+ 9cTxAInKSCfnmzLNqsrA4DB7ZIcjUlRKxiOYOaj6yUKF/g5p3dK/6p3LPeomBZEkXbOz
+ 6QbFCuzsCZHOH6Z5zvvtpLwvNe4VhJORJ758A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=t1z728CwUXUwBbalzcJUQFQoojFtqyiOytGhRqAvO38=;
+ b=T2Ayyce+IwISI3y6jPECYVamx5+er9NjqGFQyWvWbaE4JtxTA3VwtMULcy580+0EYL
+ p9oRUXN7TKSkGOg/tCtAh9uRCwHi090qNJg+5bRNFwW66eiKIoSpQqmVkF+hbLrKZaxq
+ kcXf4yRLYQkfAHvoZyA4abw73Xzv4kdM5Fn94Eysd0m/2l4e42Odmz0HDZVIl3VU8SPV
+ t3wMivHII/iI8ATWuAO9gJT40SQW/9BdYaKFcJOJc7Mt94k6zXVoybJcpac+Ywlo7X9C
+ kg4d26huAR17dfFDGBhZggIyR3ThD8il1kz5KhyEVrt6GBpMLhyAERD1P4twI46Ksyc+
+ pNMw==
+X-Gm-Message-State: AOAM53099CCbGZxRVS9fpUaa4wVOhcfIv5sa6ngAwbmRjIsdB/yW349t
+ GCQr7xWFNc0POhSyx2VS2J9k+IghZmugYrQUiag=
+X-Google-Smtp-Source: ABdhPJyQxHLgF4rRdfDo4Srnhf2+354iX4Nre+z6WXZNupNYRh2TYS21Tx1kvXeWuUh3KRrzdxv4aneK6zexN68QO2Q=
+X-Received: by 2002:a37:57c7:: with SMTP id l190mr6724935qkb.487.1611096431859; 
+ Tue, 19 Jan 2021 14:47:11 -0800 (PST)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20210119223412.223492-1-tmaimon77@gmail.com>
+ <20210119223412.223492-4-tmaimon77@gmail.com>
+In-Reply-To: <20210119223412.223492-4-tmaimon77@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 19 Jan 2021 22:46:59 +0000
+Message-ID: <CACPK8XeXRNWeWwv8bWr-k8aHH_fqf1kpG5EN4kXMJbbOsp7iAA@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.8 v1 3/4] arm: dts: Olympus: Enable PECI dimm
+ temperature
+To: Tomer Maimon <tmaimon77@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,37 +80,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, Tomer Maimon <tmaimon77@gmail.com>,
- benjaminfair@google.com
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Enable PECI dimm temperature nodes in Olympus
-Quanta machine.
+On Tue, 19 Jan 2021 at 22:34, Tomer Maimon <tmaimon77@gmail.com> wrote:
+>
+> Enable PECI dimm temperature nodes in Olympus
+> Quanta machine.
+>
+> Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+> ---
+>  arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts b/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
+> index 1692bb7314c5..de34c9b2ff2c 100644
+> --- a/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
+> +++ b/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
+> @@ -910,10 +910,12 @@
+>         intel-peci-dimmtemp@30 {
+>                 compatible = "intel,peci-client";
+>                 reg = <0x30>;
+> +               status = "okay";
 
-Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
----
- arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts | 2 ++
- 1 file changed, 2 insertions(+)
+Nodes are enabled by default, you shouldn't need to add "okay" for it
+to work. Can you confirm it works without adding this?
 
-diff --git a/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts b/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
-index 1692bb7314c5..de34c9b2ff2c 100644
---- a/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
-+++ b/arch/arm/boot/dts/nuvoton-npcm750-runbmc-olympus.dts
-@@ -910,10 +910,12 @@
- 	intel-peci-dimmtemp@30 {
- 		compatible = "intel,peci-client";
- 		reg = <0x30>;
-+		status = "okay";
- 	};
- 	intel-peci-dimmtemp@31 {
- 		compatible = "intel,peci-client";
- 		reg = <0x31>;
-+		status = "okay";
- 	};
- };
- 
--- 
-2.22.0
 
+>         };
+>         intel-peci-dimmtemp@31 {
+>                 compatible = "intel,peci-client";
+>                 reg = <0x31>;
+> +               status = "okay";
+>         };
+>  };
+>
+> --
+> 2.22.0
+>
