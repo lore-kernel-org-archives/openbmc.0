@@ -8,19 +8,19 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61933C433E0
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:39:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CF587C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:40:58 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A45D922D08
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:39:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A45D922D08
+	by mail.kernel.org (Postfix) with ESMTPS id 7224022D08
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:40:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7224022D08
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DL3Vc3yZCzDqWP
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 09:39:20 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DL3XS3B8szDqWN
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 09:40:56 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=nuvoton.com
  (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
@@ -29,18 +29,19 @@ Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
  [212.199.177.27])
  (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DL3PC5s9pzDqTY
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DL3PC5lFwzDqQS
  for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 09:34:35 +1100 (AEDT)
 Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
- by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10JMYGIG008270;
- Wed, 20 Jan 2021 00:34:16 +0200
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10JMYJKJ008280;
+ Wed, 20 Jan 2021 00:34:19 +0200
 Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
- id 4F47263A17; Wed, 20 Jan 2021 00:34:17 +0200 (IST)
+ id 7692263A17; Wed, 20 Jan 2021 00:34:20 +0200 (IST)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 v1 1/4] arm: dts: npcm7xx: Add syscon property
-Date: Wed, 20 Jan 2021 00:34:09 +0200
-Message-Id: <20210119223412.223492-2-tmaimon77@gmail.com>
+Subject: [PATCH linux dev-5.8 v1 4/4] watchdog: npcm: Modify get reset status
+ function
+Date: Wed, 20 Jan 2021 00:34:12 +0200
+Message-Id: <20210119223412.223492-5-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.22.0
 In-Reply-To: <20210119223412.223492-1-tmaimon77@gmail.com>
 References: <20210119223412.223492-1-tmaimon77@gmail.com>
@@ -63,58 +64,31 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add syscon property to ADC and watchdog nodes.
+Once the syscon phandle not found the WD reset
+status will not supported and return to the
+function caller.
 
 Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
 ---
- arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/watchdog/npcm_wdt.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-index 455a96b23b85..448cfc9d4ae1 100644
---- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-+++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
-@@ -82,7 +82,7 @@
- 			"simple-mfd";
- 			reg = <0x801000 0x6C>;
- 		};
--		
-+
- 		fuse:fuse@18a000 {
- 			compatible = "nuvoton,npcm750-fuse", "syscon",
- 				"simple-mfd";
-@@ -425,6 +425,7 @@
- 				reg = <0x801C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				syscon = <&gcr>;
- 			};
+diff --git a/drivers/watchdog/npcm_wdt.c b/drivers/watchdog/npcm_wdt.c
+index a93180d0a6f4..f87cfadd8d9b 100644
+--- a/drivers/watchdog/npcm_wdt.c
++++ b/drivers/watchdog/npcm_wdt.c
+@@ -202,8 +202,10 @@ static void npcm_get_reset_status(struct npcm_wdt *wdt, struct device *dev)
+ 	u32 rstval;
  
- 			watchdog1: watchdog@901C {
-@@ -433,6 +434,7 @@
- 				reg = <0x901C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				syscon = <&gcr>;
- 			};
+ 	gcr_regmap = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
+-	if (IS_ERR(gcr_regmap))
++	if (IS_ERR(gcr_regmap)) {
+ 		dev_warn(dev, "Failed to find gcr syscon, WD reset status not supported\n");
++		return;
++	}
  
- 			watchdog2: watchdog@a01C {
-@@ -441,6 +443,7 @@
- 				reg = <0xa01C 0x4>;
- 				status = "disabled";
- 				clocks = <&clk NPCM7XX_CLK_TIMER>;
-+				syscon = <&gcr>;
- 			};
- 
- 			serial0: serial@1000 {
-@@ -493,6 +496,7 @@
- 				interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
- 				clocks = <&clk NPCM7XX_CLK_ADC>;
- 				resets = <&rstc NPCM7XX_RESET_IPSRST1 NPCM7XX_RESET_ADC>;
-+				syscon = <&fuse>;
- 				status = "disabled";
- 			};
- 
+ 	regmap_read(gcr_regmap, NPCM7XX_RESSR_OFFSET, &rstval);
+ 	if (!rstval) {
 -- 
 2.22.0
 
