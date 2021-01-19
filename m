@@ -2,86 +2,101 @@ Return-Path: <SRS0=b6CT=GW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 53F05C433E0
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 15:53:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3BD35C2BA12
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 18:29:43 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB8E220780
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 15:53:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB8E220780
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A17F322CAD
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 18:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A17F322CAD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DKtV54jz3zDqyZ
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 02:53:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32c;
- helo=mail-ot1-x32c.google.com; envelope-from=kurt.r.taylor@gmail.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DKxpW4RLZzDr49
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 05:22:43 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=gmills@linux.vnet.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=h3vVsjei; dkim-atps=neutral
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=Gl7FQO1K; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DKtSG5gSXzDqwg
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 02:51:39 +1100 (AEDT)
-Received: by mail-ot1-x32c.google.com with SMTP id n42so20171671ota.12
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2021 07:51:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=subject:to:references:from:message-id:date:user-agent:mime-version
- :in-reply-to:content-language:content-transfer-encoding;
- bh=+YWmB9C8YvgE6/oLUj5BU396H9QEjQxlNzvw5dl0YSg=;
- b=h3vVsjeiD8ALXo7VqfyoumPb8ZxifA1AwgwsDW4sZwIen3hw6uTHGHu0m3aDbD9hWp
- 5PhHt6Jj/4cN9E/KBbWD4scYJeCdXtl6dm1qcVjdxLkSUTHAEBkrI2yAO9VCoAmzNuFh
- 9eXPx+bEDJ4+weIY7tqttZXstJpl5PEefHGtR1j+A2Jd41fzgkC9QIogx8Q+8AXURp6k
- /BA0/uQKdLaFcwoIFmbZqjFbWkpFrIf8ct4zUgkxjVIIoidD0oUNBQdampSNVx2waH7m
- 7GkKSIVD+L/M/f+K/5ft5cBm9pKC8Gsq94Db+/nfz4Bcv9nEueYJHA9JZKMRoeoN2S2h
- vQBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:subject:to:references:from:message-id:date
- :user-agent:mime-version:in-reply-to:content-language
- :content-transfer-encoding;
- bh=+YWmB9C8YvgE6/oLUj5BU396H9QEjQxlNzvw5dl0YSg=;
- b=mTC7Fu3gpIzc2CHkVGIzGH7C5bU9QxMY0KzSSzeaMERK3fVABRL+LkU3QQ/YXo8Be9
- h6Dl71uuqj6YWTQEv9QS1LwcH+EMlMMTsG/7obGtEMcpZoYX/IPeC9BL+L5xosxDsRty
- 0dsmLPPVzx6KNdmVHYRoSTi99H4LL1dBkKQ7UyB+sJ7xWrff33aZXZKrJgtyc9i7oaTB
- ojSv1/JtpMkbvoMoXoxjVzjyn+asqtyaI2TOT16guzUAUOdBja+Z46ithS+qBXQLkq5v
- Z7t03ugnP8vTuHmsDCJiPhN6yiQHzkY1sMTC8tB4N6hynlv/7K9TseEeblrfUfF58K4L
- G5HA==
-X-Gm-Message-State: AOAM5317dEqC5hvnb5Z/Hncyuhk8SvoBeK4l9VNoCyaXaol+RnGjX8ig
- BvKPVSu1mtBY6CA4aSYXC2M=
-X-Google-Smtp-Source: ABdhPJx9Zj6mWaPFYqAYDUsMx6/0nPAPOmeOhFMycxiYZlFPuOsJLvBmynMcVrynvNrz1GQK6gKkKA==
-X-Received: by 2002:a05:6830:1dc8:: with SMTP id
- a8mr3992517otj.26.1611071496168; 
- Tue, 19 Jan 2021 07:51:36 -0800 (PST)
-Received: from krtaylors-MacBook-Pro.local (072-182-100-019.res.spectrum.com.
- [72.182.100.19])
- by smtp.gmail.com with ESMTPSA id p28sm4555912ota.14.2021.01.19.07.51.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 19 Jan 2021 07:51:35 -0800 (PST)
-Subject: Re: CCLA Upload (Compal)
-To: openbmc@lists.ozlabs.org, Willie_Thai@compal.com
-References: <14e4b87d97bf4c589ceaaa8c19f67d1a@TPEMBX06.compal.com>
-From: krtaylor <kurt.r.taylor@gmail.com>
-Message-ID: <c7953801-ec81-4dd3-5189-a3157965e8d0@gmail.com>
-Date: Tue, 19 Jan 2021 09:49:23 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:78.0)
- Gecko/20100101 Thunderbird/78.6.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DKxmg1WsJzDqkj
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 05:21:06 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 10JI9GCv022109; Tue, 19 Jan 2021 13:21:01 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : from : to : cc
+ : references : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=dD60bRuzULQPaPfb2ChCLZwDaQh/W4ErI3CMk067N0E=;
+ b=Gl7FQO1KQ55oEdKon2TM+EMWEDXEbiGYdKMxTK0QamIJh2gv3pZSiV/Z8W98bfS+rIKs
+ XoXPNuJHooDnPcruekFBufFHaEQJoUU93GKAUCCUBpk+b2AfalE0uwnfbtHbxDOY9ACl
+ E4/7X8vr7TMIvbW4n/hfVHqjXmFKk+EQg+hK0fPqhHHsyIfbIwYW+oBCs41TntFTMHIb
+ eYNL6hRnu96U0o6moYfts3WWC9ZFoI17LE1sEFlEyITNKYkkChOFuiSW0Y3KlPrGo7OV
+ qnJg+R1z3z8/xHeSXzjWLGJkZ9Ve2OwExOLA9aqHe0pY7XxOL/mFrFIRFaa/+8ZC+KAQ Jg== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 36621p5c29-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Jan 2021 13:21:00 -0500
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 10JICONB017301;
+ Tue, 19 Jan 2021 18:21:00 GMT
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25]) by ppma02dal.us.ibm.com with ESMTP id 363qs9663u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 19 Jan 2021 18:21:00 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 10JIKxph30540258
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 19 Jan 2021 18:20:59 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 642FC112061;
+ Tue, 19 Jan 2021 18:20:59 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 5E9B4112066;
+ Tue, 19 Jan 2021 18:20:57 +0000 (GMT)
+Received: from [9.206.201.239] (unknown [9.206.201.239])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 19 Jan 2021 18:20:56 +0000 (GMT)
+Subject: Re: Switch SensorCollection to show all sensors as new power/thermal
+ schemas implemented
+From: Gunnar Mills <gmills@linux.vnet.ibm.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <3475dcc0-5630-b18d-5cbe-e36ba1454fc4@linux.vnet.ibm.com>
+Message-ID: <d1511a78-6a2d-4709-9839-fc7413c64a92@linux.vnet.ibm.com>
+Date: Tue, 19 Jan 2021 11:20:54 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.1
 MIME-Version: 1.0
-In-Reply-To: <14e4b87d97bf4c589ceaaa8c19f67d1a@TPEMBX06.compal.com>
-Content-Type: text/plain; charset=windows-1252; format=flowed
+In-Reply-To: <3475dcc0-5630-b18d-5cbe-e36ba1454fc4@linux.vnet.ibm.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
+ definitions=2021-01-19_07:2021-01-18,
+ 2021-01-19 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0
+ priorityscore=1501 impostorscore=0 spamscore=0 lowpriorityscore=0
+ malwarescore=0 bulkscore=0 phishscore=0 adultscore=0 mlxlogscore=999
+ clxscore=1015 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2101190099
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,49 +108,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Ed Tanous <ed@tanous.net>, Lei Yu <yulei.sh@bytedance.com>, "Li,
+ Yong B" <yong.b.li@intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 12/22/20 9:52 PM, Willie_Thai@compal.com wrote:
-> Hi OpenBmc Committee,
+On 1/11/2021 11:19 AM, Gunnar Mills wrote:
+> Similar discussion has been on the mailing list before: 
+> https://lists.ozlabs.org/pipermail/openbmc/2020-October/023568.html
 > 
-> I am Willie from Compal Corp, we would like to contribute to OpenBmc 
-> project, so we want to upload our CCLA.
+> The new PowerSubsystem/ThermalSubsystem Redfish schemas can coexist with 
+> the old Power/Thermal schemas. I suspect we will have both the new and 
+> old for some time. As we implement the new 
+> PowerSubsystem/ThermalSubsystem is it okay to switch the behavior of the 
+> sensor collection from "show sensors that are not covered elsewhere in 
+> the model" to "show all sensors" as the new 
+> PowerSubsystem/ThermalSubsystem schemas call for?
+> 
+> I reposted in 
+> https://redfishforum.com/thread/190/sensorcollection-contain-all-sensors-chassis, 
+> unless I am missing something I believe Redfish's guidance will be "move 
+> to a SensorCollection that shows all the sensors". If indeed that is 
+> their guidance, is everyone okay as we implement the new 
+> PowerSubsystem/ThermalSubsystem in bmcweb, we move sensor collection to 
+> show all sensors? Things like webui-vue will have to be updated (not 
+> sure anything breaks for webui-vue just would have duplicate sensors).
 
-I have previously tried emailing you directly, maybe because of the 
-holidays this message got lost.
+Redfish's reply was "My statement from 18 months ago is no longer our 
+recommendation. That was before we proposed to re-factor the Power and 
+Thermal schemas to use the Sensor model. And that continues to be our 
+direction. So in that light, we want everything that counts as a 
+"sensor" to be part of the Sensor collection so that generic monitoring 
+software can be built to harvest sensor data across the Redfish model.
 
-The CCLA we received from Compal was not signed. Please have a company 
-representative sign and return, and we will be happy to get you started 
-making contributions to OpenBMC.
+Even if an implementation hasn't decided to adopt the (still a 
+work-in-progress) PowerSubystem and ThermalSubsystem models, the 
+underlying temperature and fan sensors can be rendered as Redfish Sensor 
+resources as a good middle ground (and a step in the right direction for 
+future work).".
 
-Kurt Taylor (krtaylor)
+Based on that reply, I propose we move Redfish SensorCollection to show 
+all sensors. Let me know if anyone objects.
 
-> Please help to approve and let me know if there is any question !
-> 
-> *Thanks.
-> Best Regards,*
-> 
-> *Willie Thai*
-> 
-> COMPAL ELECTRONICS,INC.
-> 
-> 6F., No. 585, Ruiguang Rd., Neihu Dist., Taipei City 11492, Taiwan, R.O.C.
-> 
-> Tel +886-2-2658-6288 ext.15728
-> 
-> Fax Tel +886-2-8751-1690
-> 
-> E-mail: willie_thai@compal.com
-> 
-> ===============================================================================================================
-> This message may contain information which is private, privileged or 
-> confidential of Compal Electronics, Inc.
-> If you are not the intended recipient of this message, please notify the 
-> sender and destroy/delete the message.
-> Any review, retransmission, dissemination or other use of, or taking of 
-> any action in reliance upon this information,
-> by persons or entities other than the intended recipient is prohibited.
-> ===============================================================================================================
-
+Thanks,
+Gunnar
