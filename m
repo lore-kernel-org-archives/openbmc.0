@@ -2,76 +2,50 @@ Return-Path: <SRS0=b6CT=GW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL autolearn=no
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81830C433E0
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 18:44:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3C94C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:36:11 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E048822E00
-	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 18:44:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E048822E00
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id E98D522E01
+	for <openbmc@archiver.kernel.org>; Tue, 19 Jan 2021 22:36:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E98D522E01
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DKvm51dMfzDqd2
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 03:50:29 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::332;
- helo=mail-wm1-x332.google.com; envelope-from=edtanous@google.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=qhgzqMSv; dkim-atps=neutral
-Received: from mail-wm1-x332.google.com (mail-wm1-x332.google.com
- [IPv6:2a00:1450:4864:20::332])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DL3Qw68s9zDqWP
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 09:36:08 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ spf=none (no SPF record) smtp.mailfrom=nuvoton.com
+ (client-ip=212.199.177.27; helo=herzl.nuvoton.co.il;
+ envelope-from=tomer.maimon@nuvoton.com; receiver=<UNKNOWN>)
+Received: from herzl.nuvoton.co.il (212.199.177.27.static.012.net.il
+ [212.199.177.27])
+ (using TLSv1 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DKvk72Ft4zDqxL
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 03:48:42 +1100 (AEDT)
-Received: by mail-wm1-x332.google.com with SMTP id m187so392094wme.2
- for <openbmc@lists.ozlabs.org>; Tue, 19 Jan 2021 08:48:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc:content-transfer-encoding;
- bh=T8zGhCuArtJI8g8UJASxPoHq0r5zWuwl+DG+txuugJA=;
- b=qhgzqMSv1ydWhDJZBgnfBg7WQkRWLk3jlmA4rTGvzsNumgyLZRDkHdqHMW9n8FOaIR
- EUm1cHl0REwjr6Nk11TLbqviDqnBPH0YuNZP74JOYaQ/cd4C011LtqdW3Ei5USruRsZU
- wiYiG9TlRFr6wv7cRhZ1kDIp4JN6SkzReBrYrOB7h1DrRu3aL2tJbFOPh0muNHaa73cf
- gStTjCsJStplbtM/X9MumxzUWRQHiekNNQFbFS6gttMevRQNTkVkw81E3E+N6Yo3bK15
- kV6f3OXT64DiaFyzIcuLkrb25nSwZyk6t/Q61ElnBlysf93XVQAOWD2DKaGTrDdHBmDa
- 93pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc:content-transfer-encoding;
- bh=T8zGhCuArtJI8g8UJASxPoHq0r5zWuwl+DG+txuugJA=;
- b=U2XpBfiR2ZLgB1RO6RNSPue468aoWUVAk/Sjo1ldlfw2LtpVeVSqFm5DHYE8lvnl+h
- h7L3aeTFm2y4Rr+VXCKu5qFjNzj0EPXvb2qji9B0oHDiT+zg9WfJNRxil61FfwCQbEjg
- 1XS+6ILAG0dJlvUoSrMQQXJ+JqDnDeml8uShWL1YWEreoDsTHEefCyeSd4FHP/3M36mw
- tT6c0G+pNn2tH0nL7xfVJlXzw2Fm7aAXUCSvJpMwV9a4EGokwpzA5yFEVfUu+idBufX1
- jCpEkE65s87t8sOEbApe8H/6yKEHomKfxk7e7gawMg3CbF7GADUufmRFumZNDeN6Y0u1
- 0xCg==
-X-Gm-Message-State: AOAM532TwjOCjK2iwmHt3aWHfMpufbRAgCVHt3l28R9VUgc647N1u2AI
- AcKk5IFTcY1VYtQffe64nve/naKl+DJBQKL6NkXpDg==
-X-Google-Smtp-Source: ABdhPJzAGOju3kqnoNKIDBYgbpqC1a6mZ2fuhp6+LMsIx6S6YSHctyJPNRuiGLPi/Pdxo1x7RsAMlzC/tI7k54Y8/kg=
-X-Received: by 2002:a1c:a1c1:: with SMTP id k184mr400148wme.101.1611074915304; 
- Tue, 19 Jan 2021 08:48:35 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DL3PC61sLzDqTh
+ for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 09:34:39 +1100 (AEDT)
+Received: from taln60.nuvoton.co.il (ntil-fw [212.199.177.25])
+ by herzl.nuvoton.co.il (8.13.8/8.13.8) with ESMTP id 10JMYHL3008273;
+ Wed, 20 Jan 2021 00:34:17 +0200
+Received: by taln60.nuvoton.co.il (Postfix, from userid 10070)
+ id 5D8C163A17; Wed, 20 Jan 2021 00:34:18 +0200 (IST)
+From: Tomer Maimon <tmaimon77@gmail.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.8 v1 2/4] arm: dts: npcm7xx: modify PECI node.
+Date: Wed, 20 Jan 2021 00:34:10 +0200
+Message-Id: <20210119223412.223492-3-tmaimon77@gmail.com>
+X-Mailer: git-send-email 2.22.0
+In-Reply-To: <20210119223412.223492-1-tmaimon77@gmail.com>
+References: <20210119223412.223492-1-tmaimon77@gmail.com>
 MIME-Version: 1.0
-References: <5181a536-a026-2f91-7335-f6a75b4694ab@gmail.com>
-In-Reply-To: <5181a536-a026-2f91-7335-f6a75b4694ab@gmail.com>
-From: Ed Tanous <edtanous@google.com>
-Date: Tue, 19 Jan 2021 08:48:24 -0800
-Message-ID: <CAH2-KxB+vWmhYE3E7gsBeL+v-Skc5ds9Zxu9pqjUEZD6zwPkkA@mail.gmail.com>
-Subject: Re: pthreads at bmcweb
-To: Sunitha Harish <sunithaharish04@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,54 +57,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, apparao.puli@linux.intel.com
+Cc: Andrew Jeffery <andrew@aj.id.au>, Tomer Maimon <tmaimon77@gmail.com>,
+ benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Another option might be something like c-ares, the description of which is:
+Modify PECI compatible property and remove reg property.
 
-c-ares... is intended for applications which need to perform DNS
-queries without blocking, or need to perform multiple DNS queries in
-parallel. The primary examples of such applications are servers which
-communicate with multiple clients and programs with graphical user
-interfaces.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
+diff --git a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+index 448cfc9d4ae1..f4794b59fa55 100644
+--- a/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
++++ b/arch/arm/boot/dts/nuvoton-common-npcm7xx.dtsi
+@@ -367,8 +367,7 @@
+ 			};
+ 
+ 			peci: peci-bus@100000 {
+-				compatible = "nuvoton,npcm750-peci";
+-				reg = <0x100000 0x200>;
++				compatible = "simple-bus";
+ 				#address-cells = <1>;
+ 				#size-cells = <1>;
+ 				ranges = <0x0 0x100000 0x200>;
+-- 
+2.22.0
 
-Sounds like exactly our problem statement, so it might be worth a look
-to see how much binary size it adds.
-
-On Wed, Jan 6, 2021 at 12:02 AM Sunitha Harish
-<sunithaharish04@gmail.com> wrote:
->
-> Hi team,
->
-> Reference commit https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/31=
-735 :
->
-> In order to handle the multiple push-style event subscribers, bmc needs t=
-o support the async resolution of the subscribers address. The async_resolv=
-e() API crashes if there is no thread support in the binary.
->
-> I created a bmcweb binary patch by pulling this commit and including the =
-pthread. This works fine for the use-cases, but increased the bmcweb binary=
- size by 220KB.
->
-> Ed's suggestion is not to use the pthreads, instead implement alternative=
-s to do the same job, so that the binary size is kept minimum. He mentioned=
-: "Considering that's a ~30% increase in binary size to support one line of=
-f code, and most systems are already at their binary size limit, no, that's=
- not going to be acceptable. We can either patch boost to use this https://=
-man7.org/linux/man-pages/man3/getaddrinfo_a.3.html or we could build our ow=
-n resolver type that calls that underneath. This was based on a quick lookt=
-hrough of solutions in Google. I'm open to other ideas here".
->
-> I am looking for the community views about the increased bmcweb binary si=
-ze v/s having a custom implementation for asyc_resolve. Please share your v=
-iews & ideas to get to the best solution.
->
->
-> Thanks & regards,
-> Sunitha
->
->
