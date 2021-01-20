@@ -2,101 +2,95 @@ Return-Path: <SRS0=Syju=GX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 982ABC433E0
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 21:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E310C433E0
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 23:24:32 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C01B0235DD
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 21:35:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C01B0235DD
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id B89E8206DB
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 23:24:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B89E8206DB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DLf2P0Sx1zDqjT
-	for <openbmc@archiver.kernel.org>; Thu, 21 Jan 2021 08:35:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DLhSF2HsvzDqhm
+	for <openbmc@archiver.kernel.org>; Thu, 21 Jan 2021 10:24:29 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.29;
+ helo=out5-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=CFJF9ocN; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=Gsel2jkY; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=MFh5f90T; 
+ dkim-atps=neutral
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DLf093RbjzDqm6
- for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2021 08:33:28 +1100 (AEDT)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 10KLW1MQ092019
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 16:33:24 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : from : to :
- references : message-id : date : mime-version : in-reply-to : content-type
- : content-transfer-encoding; s=pp1;
- bh=d3JpTsgY9o3ZDKGd8ke2D0nmSIRlMVu61workwL+UsY=;
- b=CFJF9ocNl5RomIxie3epcRdGbbMBfOqbWEL2MT824lDDlJJIgIh4Epng5ZNS3iVhTy+8
- AswyPBAHb1TKjUDj31LnJ1Cx/y3C0n4z9BgejZgusMXiXS9ktHOzf/ixNgXCe9c0w0YB
- 82c2RbIqSLjM5lMiyxcuuLZOl9HekaCKTdlwtAAghACRwYlUxZIBkGHcfemSLr05Wl4B
- WHqdcQ7K/wbD17qdP8Pwn29Q/HvZXRH7pT2foCwPx2ULQEKE8LKPG5hJIJuKAO/QaG3d
- 2AeGNEp7O/XjYLe66CuBtWMy8/KsB+bv4rhcjH2c0kt/yyUhdIBe62LJx4iSVDbhYoCH kQ== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0b-001b2d01.pphosted.com with ESMTP id 366tx82pbc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 16:33:24 -0500
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 10KLX9kV008686
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:24 GMT
-Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
- [9.57.198.28]) by ppma02wdc.us.ibm.com with ESMTP id 3668rv79a6-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:24 +0000
-Received: from b01ledav003.gho.pok.ibm.com (b01ledav003.gho.pok.ibm.com
- [9.57.199.108])
- by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 10KLXNbq31130070
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:23 GMT
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id ADBFFB2065
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:23 +0000 (GMT)
-Received: from b01ledav003.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 82242B205F
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:23 +0000 (GMT)
-Received: from demeter.local (unknown [9.85.146.197])
- by b01ledav003.gho.pok.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Wed, 20 Jan 2021 21:33:23 +0000 (GMT)
-Subject: Re: Security Working Group - Wednesday January 20 - results
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: openbmc <openbmc@lists.ozlabs.org>
-References: <26909931-a316-f283-12a5-cf3892d15e06@linux.ibm.com>
-Message-ID: <1dc01a00-4cac-c830-a4cb-aafa18760c54@linux.ibm.com>
-Date: Wed, 20 Jan 2021 15:33:22 -0600
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.5.0
-MIME-Version: 1.0
-In-Reply-To: <26909931-a316-f283-12a5-cf3892d15e06@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-20_10:2021-01-20,
- 2021-01-20 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 mlxscore=0
- priorityscore=1501 mlxlogscore=813 suspectscore=0 malwarescore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2101200121
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DLhPz1YvvzDqc3
+ for <openbmc@lists.ozlabs.org>; Thu, 21 Jan 2021 10:22:30 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id C3EB85C0100;
+ Wed, 20 Jan 2021 18:22:26 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Wed, 20 Jan 2021 18:22:26 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm1; bh=CCyQUBMBcXKBVTj3+Nh6Z7APbAopb4D
+ kJTCq5xttUwA=; b=Gsel2jkYj2y+NSDV0TRxcH96v/u5N8nyHSyS7rjqj38tXPv
+ KEYJHE7Q569V6eiELL74AhcbJs8opXfesM5Rl5/o94hJBujgmbAsLz/6YYREC8fX
+ /1jDK/0JR9gHiW7u40Pw8ebArg8Yczomteut1fJPlBuAQDd5rGw16uh3jp1apM+a
+ En8X5NynrGFvZ0z7gcOBkes3hMd7MAIM3KTWklKszaMFX7EQE/k0LkOXDJKCwTMW
+ MoAEMvF6SjQk5QEgrbPYoQ2cwnl7AZi3tarsCxP6LJfhbt6T+zGprG6Ba+e9Jpu4
+ 2fyNAhwgnILAxAfKfdenZz4bdICp2eQvBLkgbTQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=CCyQUB
+ MBcXKBVTj3+Nh6Z7APbAopb4DkJTCq5xttUwA=; b=MFh5f90Tku7uCELGxuSFzf
+ b5BhSdFMg39NBHwUe2fK4Y/U7iEPPPV6qjA08yk+jPAXyaAyqO8xPFduk7Axgxs6
+ HT+pnVH62ghL0pOrbBfxGKN+ORNsRIokiZLjOV50j83xqh4IaWm5bt2sdQDEOJtQ
+ 4WO3OdnAk5UoOlqJwUXKSRR9IlJtQxq47Xow9KFHTGoIC7Erh04WcTBezjltpnqJ
+ pwkqYy0iTgkwnusI1xmj0SH1rvQkQ88oVZVX2IlBiUkVDYMOKWJaOEuYsNuSbQbY
+ zcabVoXaLuNBMptjAvQwF0QhgBWJN0iBIb20oF2/5kXhqxOHXj0KXu7T0LjCm5Yg
+ ==
+X-ME-Sender: <xms:MrsIYPDL4WGIPDgknT2LWAsDS8hlYrNB4vkC9UJV59q2AGrdRpW6RQ>
+ <xme:MrsIYFiRk_N9brVDUtfkUNFihMiSznJNaJMAtX7jZmVFbMgASc9aQyZu_Jm0fw-tj
+ bapViI0FayVEwNkdw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudefgddtjecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
+ hrlhcuvffnffculddvfedmnecujfgurhepofgfggfkjghffffhvffutgesthdtredtreer
+ tdenucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjh
+ drihgurdgruheqnecuggftrfgrthhtvghrnhepkedtgefhveffieeivdeihfeugeegteel
+ heffueevffevkeejfeehfeevtddthfegnecuffhomhgrihhnpehophgvnhgsmhgtqdhprh
+ hojhgvtghtrdighiiinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghi
+ lhhfrhhomheprghnughrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:MrsIYKlK6o4Z6tflHSay3jUsmTmyaI_44XKTgUs5CUv1qJS_8nrS9g>
+ <xmx:MrsIYBwMhf-WMsxGzjmreJlYis0KM2pplcGWa0qreNykcp7Z-8msEQ>
+ <xmx:MrsIYEQUmwLMOnWwV3ddPWLqxNtS_PINxIHw1ry1j57AI5un7zUT4A>
+ <xmx:MrsIYDOXxyYCHwiYCAL-cwMIHH2I4fIX3qNYXLolAM56U2yiovd-QA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 1E0E7A0005D; Wed, 20 Jan 2021 18:22:26 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-78-g36b56e88ef-fm-20210120.001-g36b56e88
+Mime-Version: 1.0
+Message-Id: <004ca9b4-08e6-4d58-bfda-c27d555c04f4@www.fastmail.com>
+In-Reply-To: <CACWQX821ADQCrekLj_bGAu=1SSLCv5pTee7jaoVo2Zs6havgnA@mail.gmail.com>
+References: <CACWQX821ADQCrekLj_bGAu=1SSLCv5pTee7jaoVo2Zs6havgnA@mail.gmail.com>
+Date: Thu, 21 Jan 2021 09:50:09 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Ed Tanous" <ed@tanous.net>, "OpenBMC Maillist" <openbmc@lists.ozlabs.org>
+Subject: Re: Gerrit owners plugin coming
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,107 +108,50 @@ Sender: "openbmc"
 
 
 
-On 1/19/21 11:56 AM, Joseph Reynolds wrote:
-> This is a reminder of the OpenBMC Security Working Group meeting 
-> scheduled for this Wednesday January 20 at 10:00am PDT.
->
-> We'll discuss the following items on the agenda 
-> <https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
-> and anything else that comes up:
->
-> 1. (email) Call for OpenBMC 2.9.0 release.
+On Thu, 21 Jan 2021, at 05:53, Ed Tanous wrote:
+> Over the last few weeks, we've been slowly getting the gerrit owners
+> plugin deployed and tested, and got the OWNERS files merged into their
+> respective meta layers.
+> 
+> This has been leading up to a process change that has been on the
+> roadmap for some time now.  Once the plugin is enabled (and some other
+> housekeeping is done) meta-layer changes will be able to be submitted
+> to the normal openbmc/openbmc repository, simplifying one portion of
+> our review/merge process.  Submitting to openbmc/openbmc is something
+> most newcomers to the project expect, and we've had numerous gerrit
+> reviews submitted to the wrong repo in error.  Hopefully, this change
+> makes meta-layer changes much more normalized.
+> 
+> Once this goes in, this means that functionally:
+> 1. We no longer have a bottleneck on creating new meta-layers,
+> renaming meta layers, or moving files between meta layers.  New meta
+> layers can be submitted through gerrit similar to any other patchset,
+> and will be reviewed with the same process we already have for any
+> other type of code, and don't require requesting a new repo in
+> advance.
+> 2. Changes that require mods to all meta layers (yocto compat fields
+> for example) can be done in a single commit, across all systems at
+> once, reducing the possibility of breaking builds for meta-layer
+> combinations that aren't covered by CI.
+> 3. No more waiting for your meta-X changes to get merged into
+> mainline, which should reduce the amount of time between recipe bumps
+> and the main build reflecting the changes.
+> 
+> Ownership of the various meta-layer folders is still enforced by
+> gerrit through the owners plugin using the OWNERS files.  Today, they
+> contain the same mapping as the content in the MAINTAINERS files, so
+> no files in the repo actually change ownership.
+> 
+> The final review to add the OWNERS file to the root of the repo is here:
+> https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/39379
+> And has already had some discussion and looks to be good to go.
+> Assuming there's no other objections, I'd like to get this change made
+> on this coming Sunday.
+> 
+> Overall, I hope that this will be a great improvement in the overall
+> structure and usability of openbmc, and remove at least one stumbling
+> block people new to the project tend to hit.
 
-Reviewed the security wiki item for this.
+This is great! Thanks for pushing it.
 
-
->
-> 2. Yocto email: Dropped openssl support for deprecated algorithms,
->    including TLS 1.0 and TLS 1.1.  I (Joseph) believe we already have
->    dropped TLS below TLSv1.2, but let’s take a look to see if we want
->    any changes in this area.
-
-dropped for HTTPS, not necessarily for SSH.  Related discussion:
-
-Move away from dropbear SSH to OpenSSH?  Why?  See the new issue 
-https://github.com/openbmc/openbmc/issues/3756 
-<https://github.com/openbmc/openbmc/issues/3756>.  The group had general 
-agreement to do this.
-
-
->
-> 3. (gerrit review): Does anyone have a use case to allow customers to
->    disable HTTPS?
->    https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39006
-> <https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39006>
-
-Yes, we have use cases to disable the BMC’s HTTPS interface.  For 
-example, a BMC controlled via the KCS interface (although these BMCs 
-typically have their HTTPS interface removed entirely).
-
-For the gerrit review: Allow HTTPS to be disabled, but don’t make it 
-easy for the admin to remove their only access to the BMC (bricking).
-
-The BMC’s service configuration manager 
-(xyz.openbmc_project.Control.Service.Attributes at 
-/xyz/openbmc_project/control/service/) shall issue an error message like 
-“Cannot disable the %1{HTTPS,IPMI,etc} interface from a request via that 
-same interface because that might brick the BMC.  Make the request from 
-some other interface.”
-
-
-An alternative to the above, we discussed having a behavior like “You 
-cannot disable the last remaining interface”.
-
-
-We discussed enhancing the BMC’s service configuration manager with a 
-built-time option to disable the ability of the BMC admin from enabling 
-and disabling the BMC’s interfaces.  For example, have a build-time 
-block list (CANNOT_CHANGE_RUNNING_ATTRIBUTE_OF_THE_FOLLOWING_SERVICES) = 
-“HTTPS” so any attempt to enable or disable HTTPS will be blocked and 
-fail with a nice message like, “You cannot change the running state of 
-the %1{HTTPS} service.”  In this way, the person who configures the BMC 
-image can ensure that certain services are always running.
-
-
-We discussed what happens to existing SSH sessions when SSH interface is 
-disabled?
-
-What happens to existing Redfish sessions when HTTPS interface is disabled?
-
-What happens to existing IPMI LAN+ when IPMI/RMCP+ interface is 
-disabled?  (RMCP.  No current use case to disable the KCS IPMI 
-interface.  Compare with KCS restricted mode.)
-
-
->
-> 4. (gerrit review): Linux-PAM dropped support for pam_cracklib and
->    pam_tally2.  These are being removed from OpenBMC usage because they
->    are no longer available from yocto, but the function is not yet
->    replaced.  See https://github.com/openbmc/openbmc/issues/3750
->    <https://github.com/openbmc/openbmc/issues/3750>.
-
-This work is happening now.  Reviews appreciated. ADDED BONUS ITEMS:
-
-5 The Intel security is planning to focus on penetration testing (an 
-internal hackathon).
-
-
-6 Update on Linux process isolation.
-
-Still working on solutions for common cases.
-
-Difficulties: file permissions, testing other people's code, wrong 
-architecture need to be upgraded
-
-Hard to take the first step because you’ll need dbus permissions working 
-which is difficult.
-
-Example: difficulties when the (downstream) nbd launches another process.
-
-Idea: Have a new image feature to enable process isolation.  Grow over 
-time to encompass additional BMC services.
->
-> Access, agenda and notes are in the wiki:
-> https://github.com/openbmc/openbmc/wiki/Security-working-group 
-> <https://github.com/openbmc/openbmc/wiki/Security-working-group>
-
+Andrew
