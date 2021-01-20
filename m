@@ -4,89 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2B2ECC433DB
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 05:07:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4E2DC433DB
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 05:11:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7930F2311C
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 05:07:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7930F2311C
+	by mail.kernel.org (Postfix) with ESMTPS id 26FEA2311C
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 05:11:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 26FEA2311C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DLD632wQLzDqlm
-	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 16:07:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DLDCC1Ml6zDqmh
+	for <openbmc@archiver.kernel.org>; Wed, 20 Jan 2021 16:11:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aj.id.au (client-ip=66.111.4.221;
  helo=new1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm1 header.b=IT1DW8Rb; 
+ header.s=fm1 header.b=Z+YsHN+l; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=lz967O/6; 
+ header.a=rsa-sha256 header.s=fm1 header.b=UXcpzjfM; 
  dkim-atps=neutral
 Received: from new1-smtp.messagingengine.com (new1-smtp.messagingengine.com
  [66.111.4.221])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DLD2R4dW5zDqrZ;
- Wed, 20 Jan 2021 16:03:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DLD5454yhzDqlc;
+ Wed, 20 Jan 2021 16:06:16 +1100 (AEDT)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id 4588A5804C8;
- Wed, 20 Jan 2021 00:03:57 -0500 (EST)
+ by mailnew.nyi.internal (Postfix) with ESMTP id ABF8058067B;
+ Tue, 19 Jan 2021 23:58:04 -0500 (EST)
 Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Wed, 20 Jan 2021 00:03:57 -0500
+ by compute3.internal (MEProxy); Tue, 19 Jan 2021 23:58:04 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
  mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm1; bh=3jloOfsfOF+/OCIcN3VvEFRIotLH+R1
- UxiPkPOqMK/g=; b=IT1DW8Rb5AjYeI5sGfdGUyuZSC4Kexr7I2bfbAcBT0rcbTm
- 1V2FOSu9dK6EdWFfAptgZ/fjphvRRb0e3teX8jfWzE25guRwJJwkHfCXwGffh/X9
- aYi2AF4vQNiCTZaL9JULH0oDDIowWGMj99KysDCLGemS6DNq+5Dk/KoYVLvVXxbK
- /osEriVoZuuUsKJezz8CpiYmI4E0Fr56qtqEdR9/v64YpBExVSntuz0vrqg8BTsb
- 1pNVywKx8AfTzptqAX+sIfPMME/u1ENoCjl1ozfnTIl8KtXBFId19Itg/J63cgEo
- PM8jRzzNgqam5kGh33KgUU0wHpUOaZkNKHxZ87A==
+ :subject:content-type; s=fm1; bh=zqxskKjO+mY+Ddee8kVlG2biEnA/OUy
+ hgfrM0eiY4eg=; b=Z+YsHN+livVf3VNh5k6sb+JxqvmscNFvJWesF9jDfDQcrXM
+ LMxnBT1j0IJwXKiE/axt2B8oVV1qXmeR0v2hvCUCckyKi92Nla3PVPW+FXN5gYuy
+ Owlg000UJ+LPETYXpFpPhTHl2u9hH3NcBUOhCAibB5lBYXrGGmgZTGCfDCKZfCr3
+ HTAeR7C1wo5Z4QsxaIdIkg7JnXQhs5A5ttIHlSyggdHEm6ZmCORQO4+Jr2/w7/lS
+ ooYdL5Z4I3RjitycN/eq9bJveBrql/PgdAgO8+JrKZdg0oBUazkgepSNGhRxsdri
+ liSJpUKxIbRQ7Cpq6dyW9/mobW/0DWNn9sOiVSg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3jloOf
- sfOF+/OCIcN3VvEFRIotLH+R1UxiPkPOqMK/g=; b=lz967O/6ucOIULed3VASSw
- DBCrlcmhFWM+3RXHd+arG/3Yz5Pae/oUKHrEE1arYLo21IRbY3BFlX+bsjHyIGZT
- OcokmUJ1UFvL4CwOQKJhuq+WWEDFUCOU0uw0mznT0lL/BvXn565PbLzLaRkIj5wr
- WidZ/4iyStxfyhsaCWYuTRXl3db/2mmEYyoPJlzXg13W3ING0L96+btkIkGbS1kp
- bJP0vhrPYY0gqSgWWGpRszh67Y2XTc88cZz6y+r90FvK7rRgHIfkJt0ogwFldFAr
- SZpRC4kAl9qoVBD5DuVfmLnqsEVb2n0YuIVxgiRUFpHnvt8lGbn+xC1urqsYjByg
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=zqxskK
+ jO+mY+Ddee8kVlG2biEnA/OUyhgfrM0eiY4eg=; b=UXcpzjfM48bwrTh9ydDK/S
+ glxCoExz4ly0RBb2F9xc60l5xjOPsVfzAwoqpOyMQ1Ff7WVUZpunswDclPaS7YPX
+ Zgaf5zQDaqVDd+76UIEXAD5C4e8O/w4NVDb7OWlH5cmyRUx7H8DcTKM5e+Fg4d7D
+ I3SNFfu4b8ZjU32sH0IA3qxg37G1Bj2aujSptozRA6PxlIIoRc7TVZMdcmeo4Je0
+ UJaxzUFhOnrjuzP3uW6qDTL2oxwG2WtrHRtuC0K7zh42Fmw0uWlKbKGSv27qCikN
+ adJriUPZTYU9fZq/FkyWpPpladeapo1L4o5LVNQ2OmmhUXX9A0kacCS2nyrD2NNA
  ==
-X-ME-Sender: <xms:vbkHYF7bK99YbmwnSa3jxGMdtiLyhAeYLBgX5XwDKqawINlAmTlvCQ>
- <xme:vbkHYC73YHPyxvSwKzo8MnybW1hhYP7dkwDiTDJoXIkCY_bJPUM_apZWxnlGIft_a
- n_WVJGnNdEylmqMMA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddugdejlecutefuodetggdotefrodftvf
+X-ME-Sender: <xms:W7gHYIuN7LPIyMQKcsy8wl0gn005hzJ8AEfwyj6ZiEPTgL8f65lO0Q>
+ <xme:W7gHYFdC_XD1iDWyH4dVx8fC2Nt2zztWa4a2ZWhubf61U49KBHoIXRcgIPTaCTY7e
+ 7z99rDBbxE_n1265w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddugdejkecutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
  uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
  vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpedutddtkeeugeegvddttdeukeeiuddtgfeuuddtfeeiueetfeeileettedv
- tdfhieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
+ veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
  grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:vbkHYMfqJPjwkgq-rpBM0RFro-34vNbU63Kmwy7mvrvJsoNTZImHlQ>
- <xmx:vbkHYOIs_hgKUmgp8pRjZrz5mwuvUbUKAeGkIbR0hT8tr0ZiY4QGbw>
- <xmx:vbkHYJLsJ5lJQzKAO1lrbR-xcfvB5F4woJgNtKBaGVz2OO9yT6db1Q>
- <xmx:vbkHYDBBfCAcOg-kcZX_t7PjnOGS7BB5OfC6XWLMD5Knvw8qcsQUoQ>
+X-ME-Proxy: <xmx:W7gHYDzBAzdFe0I8qELw4p2bAbvNdxW6ses5zOt0tx2ub31uHYJGAw>
+ <xmx:W7gHYLOaaDz-hR4CvP_hGAj2U-zLRmKTmdaRzYonZ4qyjYruBLDFuA>
+ <xmx:W7gHYI90zsb-5IgQ5Bo411kfnLSF7lGpkTmEoKpFNswyzFVxCmtQDQ>
+ <xmx:XLgHYDWl-fEhDPNG2JD9ooO66x_3HDsgj7F-0qjD1y4VPr5wjhsUqg>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 22641A0005D; Wed, 20 Jan 2021 00:03:57 -0500 (EST)
+ id 74766A0005D; Tue, 19 Jan 2021 23:58:03 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.5.0-alpha0-78-g36b56e88ef-fm-20210120.001-g36b56e88
 Mime-Version: 1.0
-Message-Id: <b337ffa3-3b11-4269-8d38-e358f0a6852f@www.fastmail.com>
-In-Reply-To: <20210114131622.8951-5-chiawei_wang@aspeedtech.com>
+Message-Id: <096ac290-3c85-4b08-8741-6efc77745bc4@www.fastmail.com>
+In-Reply-To: <20210114131622.8951-2-chiawei_wang@aspeedtech.com>
 References: <20210114131622.8951-1-chiawei_wang@aspeedtech.com>
- <20210114131622.8951-5-chiawei_wang@aspeedtech.com>
-Date: Wed, 20 Jan 2021 15:33:35 +1030
+ <20210114131622.8951-2-chiawei_wang@aspeedtech.com>
+Date: Wed, 20 Jan 2021 15:27:43 +1030
 From: "Andrew Jeffery" <andrew@aj.id.au>
 To: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>,
  "Rob Herring" <robh+dt@kernel.org>, "Lee Jones" <lee.jones@linaro.org>,
@@ -94,8 +94,7 @@ To: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>,
  "Corey Minyard" <minyard@acm.org>, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_v5_4/5]_pinctrl:_aspeed-g5:_Adapt_to_new_LPC_device?=
- =?UTF-8?Q?_tree_layout?=
+Subject: Re: [PATCH v5 1/5] dt-bindings: aspeed-lpc: Remove LPC partitioning
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -117,9 +116,10 @@ Sender: "openbmc"
 
 
 On Thu, 14 Jan 2021, at 23:46, Chia-Wei, Wang wrote:
-> Add check against LPC device v2 compatible string to
-> ensure that the fixed device tree layout is adopted.
-> The LPC register offsets are also fixed accordingly.
+> The LPC controller has no concept of the BMC and the Host partitions.
+> This patch fixes the documentation by removing the description on LPC
+> partitions. The register offsets illustrated in the DTS node examples
+> are also fixed to adapt to the LPC DTS change.
 > 
 > Signed-off-by: Chia-Wei, Wang <chiawei_wang@aspeedtech.com>
 
