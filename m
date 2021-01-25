@@ -2,77 +2,81 @@ Return-Path: <SRS0=9MSI=G4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E5CDC433E0
-	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 05:00:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0E8F1C433E0
+	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 05:02:09 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C20DF22C9C
-	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 05:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C20DF22C9C
+	by mail.kernel.org (Postfix) with ESMTPS id 5234322C9C
+	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 05:02:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5234322C9C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DPHkB08s9zDqC9
-	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 16:00:34 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DPHlx4ygzzDqJW
+	for <openbmc@archiver.kernel.org>; Mon, 25 Jan 2021 16:02:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::529;
- helo=mail-pg1-x529.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1030;
+ helo=mail-pj1-x1030.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=BiHjk3xI; dkim-atps=neutral
-Received: from mail-pg1-x529.google.com (mail-pg1-x529.google.com
- [IPv6:2607:f8b0:4864:20::529])
+ header.s=20161025 header.b=RvpcUj2d; dkim-atps=neutral
+Received: from mail-pj1-x1030.google.com (mail-pj1-x1030.google.com
+ [IPv6:2607:f8b0:4864:20::1030])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DPHhQ5p06zDqk7
- for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2021 15:59:00 +1100 (AEDT)
-Received: by mail-pg1-x529.google.com with SMTP id t25so179618pga.2
- for <openbmc@lists.ozlabs.org>; Sun, 24 Jan 2021 20:59:00 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DPHhV3f5YzDqk8
+ for <openbmc@lists.ozlabs.org>; Mon, 25 Jan 2021 15:59:06 +1100 (AEDT)
+Received: by mail-pj1-x1030.google.com with SMTP id g15so7864138pjd.2
+ for <openbmc@lists.ozlabs.org>; Sun, 24 Jan 2021 20:59:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=sqHvJqu5LnqcHuPsGtlguTFPjuoyG+LRJktX9kCOZc4=;
- b=BiHjk3xIPmkTzngnf5VgNYRDy6qCbs8R7HtHM0OK17CChFEvngKdJPEZHEp0h/gdRy
- PA4DohN9FFDMLAGSgrRORAkgh3HqcJBzAVkE2E7KSrDcoQLFYdnP/t0JsKPMy7AgsnQ5
- uhFupy1/N9CIiL9fH/6OoBNJOD8vv1LQQDarkgLruamhVT7YPSEZ8vbpVsBRBKX2lQqy
- Zaa1r5Cxx85DGVOAR07C6hudMuGyAjyC9NTfuZTcLFiW+CquNx5NSZi2RYsXeYAhPfRs
- bcpwpP8Y9vejsuPreyGBe2s8q48vSPB2iG+rYn2p74b0Q/v8CKs3mX/+hdfVs3W3RP8m
- FNkQ==
+ h=sender:from:to:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=6hAdmqqYoYF3i5KU3rzF00xA70QkJZQpVxhJgwalli4=;
+ b=RvpcUj2dtpy+THpca77TWTbWDUmShi7XxQAilj1CceO3cmfh96lcwB9iZwTfsKudc+
+ McBGcYuCDZxJOEmvVFtZzalI4+UbZVklEx2ndmP3GsignC3BIXmkdyELoBzlxvGK7UJK
+ DVxvoXkVL4xhfCQmXIg4KFgGLBVW+61ftfYscvSmsMJa/tLgxRWB7Ywf2m8Wnl1lXoj7
+ 354hZiuU9J9xgapTm1OKknr25EXHCJBjeLmydm6gxOFWQznVyuNl0M8ECBQZmomYIlRA
+ ZOGkZIK5KbEOPRjejcNNioPoiZEH1P7+n3xUo8JslEhWOhRLZd0LsR2OLorNng54sq9n
+ YNMw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=sqHvJqu5LnqcHuPsGtlguTFPjuoyG+LRJktX9kCOZc4=;
- b=mBvmTQaemYnW89ib8/JLn0W/qQQahPY399QbcQxTZr1H0Z1gN6CZemzs2EuhecCQHv
- Bn6Fel6C1rTqrTgbs1qP9NmWfGPL3sC2fRPKQBBYWXqI8AjY/xZZPSG+XsBXxxoHyrFC
- wqgF3vB5uCNdC0wDwZzvbiltA4g1cm/Z2c4hRp59yDu5ZhBbSPMsI1iN9thrLMAmPBuq
- 3TZicgsZLMDRalZQRMz+Exg0vIh14sfekmAW2i5pYzy0fQyAxzLL7hEchWImCdkiDeum
- imRg2U5YzD3KbFm88+B9OMb6BcQygVbrqDrEFivq/RKv6Q7cEAKJW3mDXL6x47r7ek6A
- k4jg==
-X-Gm-Message-State: AOAM530Bl93HvO/etOQRJjCZWOyM1Mz27wIk0dRJuaNlCjTQk+YTvGdA
- tyYL8I13pRJ/RUlOp1CvOixoH9X03gY=
-X-Google-Smtp-Source: ABdhPJzBO5YTVEBv5e6aDyc+X38bv3/XfRYVTu4z2t3tX6AaoE1mMPnXZx4/HT5jVO2rQ8UNijhFiw==
-X-Received: by 2002:a63:5fcf:: with SMTP id t198mr2058726pgb.226.1611550736344; 
- Sun, 24 Jan 2021 20:58:56 -0800 (PST)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=6hAdmqqYoYF3i5KU3rzF00xA70QkJZQpVxhJgwalli4=;
+ b=YbkQ0kSf0/5ef8n4KDy8Y9AVhTWsxvCBSIIKdsmhSaMgYRSxP/bQtvdFGwIgWMnSW+
+ 6u8SDRTt4ONrGQRHpRae1c3S9edK3JQ/ay23UxZqcwJXEHKcQD4GzLWKOJ59/d8G4UNZ
+ oAh1YntbORSwdM5HCYmqokz2IA/2qkjNyDvmoBC33JvRZ4ukm+aF1xelVu8v/HPqzodV
+ jnbTw+9GDsPj9IAzpaK4eKyFGW2DcsymbfORDDRQL+vk8SDcZ41zA4OFu4RaJv657/4t
+ /+ufsggE4ehu4Uuue8YsSVBAiJ7miOU1xVY16oKjtMeMosUg8biAfVz7J6+L0S42IsVw
+ 95tg==
+X-Gm-Message-State: AOAM533iaMZ6lscFodpO6kBAcdBfDVEYwO3a/lzrsFmldPojC9gq2dgr
+ lHDkUL67rTBlnMzJ8qSa4DwTS5IY6i8=
+X-Google-Smtp-Source: ABdhPJyOS1x0DRnspOZ25YTZ1jmZkNAW3HOGSCu2nFMzfCxbOipbi6LF1YN3qLmOUHttC4ldfmzsow==
+X-Received: by 2002:a17:90a:f309:: with SMTP id
+ ca9mr20011253pjb.11.1611550742527; 
+ Sun, 24 Jan 2021 20:59:02 -0800 (PST)
 Received: from localhost.localdomain ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id gx21sm17525048pjb.31.2021.01.24.20.58.53
+ by smtp.gmail.com with ESMTPSA id gx21sm17525048pjb.31.2021.01.24.20.58.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 Jan 2021 20:58:55 -0800 (PST)
+ Sun, 24 Jan 2021 20:59:01 -0800 (PST)
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org, Andrew Jeffery <andrew@aj.id.au>,
  Ryan Chen <ryan_chen@aspeedtech.com>
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 0/2] FIT verification
-Date: Mon, 25 Jan 2021 15:28:44 +1030
-Message-Id: <20210125045846.448399-1-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 1/2] ast2600: Modify SPL SRAM
+ layout
+Date: Mon, 25 Jan 2021 15:28:45 +1030
+Message-Id: <20210125045846.448399-2-joel@jms.id.au>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210125045846.448399-1-joel@jms.id.au>
+References: <20210125045846.448399-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -90,20 +94,35 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-As part of our effort to enable secure boot in openbmc, this turns on
-FIT verification in the SPL and u-boot.
+The SRAM is 89KB on the A1 and beyond:
 
-It adjusts the SRAM layout to accommodate the extra code size, moving
-the heap to the non-parity checked 24KB of SRAM.
+ 0x1000_0000 to 0x1000_ffff: 64KB, with parity check
+ 0x1001_0000 to 0x1001_5fff: 24KB, w/o parity check
+ 0x1001_6000 to 0x1001_63ff: 1KB, w/o parity check, each byte write once
 
-Joel Stanley (2):
-  ast2600: Modify SPL SRAM layout
-  config: ast2600: Enable FIT signature verification
+Allow the image to fill the full 64KB payload size (max that secure boot
+supports) and plcae the stack at the top of the 24KB of SRAM.
 
- configs/ast2600_openbmc_spl_emmc_defconfig | 3 +++
- include/configs/evb_ast2600a1_spl.h        | 4 ++--
- 2 files changed, 5 insertions(+), 2 deletions(-)
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ include/configs/evb_ast2600a1_spl.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/include/configs/evb_ast2600a1_spl.h b/include/configs/evb_ast2600a1_spl.h
+index 69f3c32ce1d5..a39988820add 100644
+--- a/include/configs/evb_ast2600a1_spl.h
++++ b/include/configs/evb_ast2600a1_spl.h
+@@ -25,8 +25,8 @@
+ 
+ /* SPL */
+ #define CONFIG_SPL_TEXT_BASE		0x00000000
+-#define CONFIG_SPL_MAX_SIZE		0x0000E800
+-#define CONFIG_SPL_STACK		0x10010000
++#define CONFIG_SPL_MAX_SIZE		0x00010000
++#define CONFIG_SPL_STACK		0x10016000
+ #define CONFIG_SPL_BSS_START_ADDR	0x90000000
+ #define CONFIG_SPL_BSS_MAX_SIZE		0x00100000
+ 
 -- 
 2.29.2
 
