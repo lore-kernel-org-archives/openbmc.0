@@ -2,104 +2,96 @@ Return-Path: <SRS0=cMHj=G6=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	PDS_TONAME_EQ_TOLOCAL_SHORT,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5AA3C433E0
-	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 01:56:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FC67C433E0
+	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 02:00:00 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E5A8F206A5
-	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 01:56:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5A8F206A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 00000206A5
+	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 01:59:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00000206A5
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DQRYM4yMBzDqpd
-	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 12:56:55 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=klaus@linux.vnet.ibm.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DQRct0d0hzDqvN
+	for <openbmc@archiver.kernel.org>; Wed, 27 Jan 2021 12:59:58 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.21;
+ helo=wout5-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=FyTCbM1d; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=nL/PYQHs; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=Nx80O/u0; 
+ dkim-atps=neutral
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DQRWc4WbVzDqfX
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jan 2021 12:55:23 +1100 (AEDT)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
- 10R1WHe1078835; Tue, 26 Jan 2021 20:55:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : to :
- references : from : message-id : date : mime-version : in-reply-to :
- content-type : content-transfer-encoding; s=pp1;
- bh=3cDMownAOeBuz6GyFtm9T9ss7Nl6cnOpQl6FJIcHCAw=;
- b=FyTCbM1dJMvrdUd6+E2Ij4+YWtdyvy3POUR+OBie7AbKjPAy5DH9Cm1vrzMS32SrbEd7
- 3kcC9+kUMA17kl9VUTiY17dTlVMSJd2JQD7S7z+Y8wgNI0e7s27BrSsXOLfrvrcBZRct
- QS+wvpb9cxcH+AMiAysUFv5gRZAP6kuAFhVLg8oVSAy+Vz7E3Q5QPk4KmRXTmprxqRKP
- RjUk4ugfcXDkrw33qBrKfdMH1XVTEEEWgbTCg+hXDj/D8XF9iX486xRqiAL0drQTLoTs
- vJyixxEDwYCdSmYoVYUmiGb94q3Da3pbZ3/p4noYLM92BG2/16YHJ/3G5aGu/uou/bLX Dg== 
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0a-001b2d01.pphosted.com with ESMTP id 36aup2v17h-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 26 Jan 2021 20:55:11 -0500
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 10R1qquR015327;
- Wed, 27 Jan 2021 01:55:10 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma04wdc.us.ibm.com with ESMTP id 36ag3y5b1c-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 27 Jan 2021 01:55:10 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 10R1t9jV12649058
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 27 Jan 2021 01:55:09 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CFF0AC6055;
- Wed, 27 Jan 2021 01:55:09 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7DEE6C6059;
- Wed, 27 Jan 2021 01:55:08 +0000 (GMT)
-Received: from [9.85.151.130] (unknown [9.85.151.130])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 27 Jan 2021 01:55:08 +0000 (GMT)
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc 1/2] ast2600: Modify SPL
- SRAM layout
-To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org,
- Andrew Jeffery <andrew@aj.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>
-References: <20210125045846.448399-1-joel@jms.id.au>
- <20210125045846.448399-2-joel@jms.id.au>
-From: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
-Message-ID: <d2407df1-75b1-78eb-6bbb-6ce9e771dbed@linux.vnet.ibm.com>
-Date: Tue, 26 Jan 2021 22:55:06 -0300
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.6.1
-MIME-Version: 1.0
-In-Reply-To: <20210125045846.448399-2-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.343, 18.0.737
- definitions=2021-01-26_11:2021-01-26,
- 2021-01-26 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011
- priorityscore=1501 malwarescore=0 suspectscore=0 mlxlogscore=999
- phishscore=0 mlxscore=0 lowpriorityscore=0 adultscore=0 spamscore=0
- bulkscore=0 impostorscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2009150000 definitions=main-2101270002
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DQRbG6BpwzDqfY
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jan 2021 12:58:34 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.west.internal (Postfix) with ESMTP id 5FA48B36;
+ Tue, 26 Jan 2021 20:58:31 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Tue, 26 Jan 2021 20:58:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type:content-transfer-encoding; s=fm1; bh=VxyXj
+ 1rVoQ3Tm1KRu5auI+208wPrkLbPlcqkT/1vpXE=; b=nL/PYQHsqKGb2PBsT/jZg
+ 2UNtHh7FyqgJPD/0ObbxkMxl0E0rYZzRsgGUhgQdnR1WmKUmUh5w/a33yliKk15M
+ oX078qFjPA/k+awcXT5/zMI6JK6SIsUcYX7YNe+I+/EDjatya27Xo14Cdae+oZSk
+ NDPat9OFKQC8dhKXswZw+UrjUYfDLuuty2wMb4SaPBF7njqBxgLmLfsw0RFpqgNn
+ hah4n/k4rPKI1q7Jc5VFgfMcGdK+U7hteCe3aKFHlEep8iiJbJdoZPdtXbx3qy74
+ uJzLF/+17hZn1uNTZIoW47U7BFAFkenaycwXolukELaYJ9G9QMMIFe+WcIFHMhkA
+ w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm1; bh=VxyXj1rVoQ3Tm1KRu5auI+208wPrkLbPlcqkT/1vp
+ XE=; b=Nx80O/u02s2GbL1NNVJQjVS2/YhbKpic3xZ5qH31vSvK72WaeZTTvzEle
+ o0buzReP6vi3P/2WV/z1MTZMs3UkMtI20URc0wcXDmcZC9v3yOo8HypIzoC1n2k1
+ OnGIYWMDAfLpDi6Ilgk1dCuilzwCADHlAIIAC8SPbIhbOuIvb+u0zaRZoFtyetGp
+ aPNQbGKRyWXctQwHEQiUI/lGa0CV78M5ZBYimvvIAAEKPlRxM/WVTf0A6tuhgrIF
+ LyXaJeUSIU+6cQFukUGb6I/xKByOjobOaKUroF8il4LaV0eTT0QeipoBdkOJYYKu
+ P98gl6gq+QQx4aYfUWKu8L9h9p3qQ==
+X-ME-Sender: <xms:xsgQYHOpiPBcTEO6a6ZjfgUhUclTebtM3LsMJ5lZI9it2S7isEUGtA>
+ <xme:xsgQYB-UZ2pNbYP3ARd3_L1I6o22lgYPMROTrqEj7z5rUT9lOYPj35ufvAN-g6c4y
+ gDfRp_-aSoOdH5QYQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejgdegudcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgfgsehtqh
+ ertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
+ fiesrghjrdhiugdrrghuqeenucggtffrrghtthgvrhhnpedvgeekheegfedvhfethefhud
+ etteegueeggfeiieegueehkedugedtkefglefgheenucevlhhushhtvghrufhiiigvpedt
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:xsgQYGRDIsM0HquQECT-ZcM08TdHFtxAC4rjFVajLqFW80cys2-KkA>
+ <xmx:xsgQYLv1NfumT2RaATndiY4aZPx-NuI-pZR9sKspXJm1yXIPPSP-AQ>
+ <xmx:xsgQYPdmZ1-hkarMuc73UjPSCSczPvEzWmoElczw01lpeEK0qry5oA>
+ <xmx:xsgQYNqLmCV7umEPFsRUZqmXeb7rDZRlFzqvETxizJ7t75sX36lQsA>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 5638AA00060; Tue, 26 Jan 2021 20:58:30 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-84-gfc141fe8b8-fm-20210125.001-gfc141fe8
+Mime-Version: 1.0
+Message-Id: <a523848f-2f6d-4e42-b471-94d5d5b2e9f7@www.fastmail.com>
+In-Reply-To: <000b01d6efe0$9f864d20$de92e760$@yh.kuo@aewin.com>
+References: <000b01d6efe0$9f864d20$de92e760$@yh.kuo@aewin.com>
+Date: Wed, 27 Jan 2021 12:28:10 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "prince.yh.kuo" <prince.yh.kuo@aewin.com>, openbmc@lists.ozlabs.org
+Subject: Re: [OpenBMC] - QEMU link seem like can't download
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,44 +107,16 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Joel,
+Hello,
 
-On 1/25/2021 1:58 AM, Joel Stanley wrote:
-> The SRAM is 89KB on the A1 and beyond:
+On Thu, 21 Jan 2021, at 21:01, prince.yh.kuo wrote:
+> Hi,
+>=20
+> I=E2=80=99m a beginner of OpenBMC and I found QEMU link seem like can=E2=
+=80=99t=20
+> download, is right?
+>
 
-I guess I'll have to trust you on that one.
+Which qemu link are you talking about?
 
-> 
->   0x1000_0000 to 0x1000_ffff: 64KB, with parity check
->   0x1001_0000 to 0x1001_5fff: 24KB, w/o parity check
->   0x1001_6000 to 0x1001_63ff: 1KB, w/o parity check, each byte write once
-> 
-> Allow the image to fill the full 64KB payload size (max that secure boot
-> supports) and plcae the stack at the top of the 24KB of SRAM.
-typo
-
-> @@ -25,8 +25,8 @@
-> 
->   /* SPL */
->   #define CONFIG_SPL_TEXT_BASE		0x00000000
-> -#define CONFIG_SPL_MAX_SIZE		0x0000E800
-> -#define CONFIG_SPL_STACK		0x10010000
-> +#define CONFIG_SPL_MAX_SIZE		0x00010000
-> +#define CONFIG_SPL_STACK		0x10016000
->   #define CONFIG_SPL_BSS_START_ADDR	0x90000000
->   #define CONFIG_SPL_BSS_MAX_SIZE		0x00100000
-> 
-
-Got the following when I tried this patch (Ubuntu 18.04.5, gcc 7.5.0, binutils 2.30). Am I missing something?
-
-   LD      spl/u-boot-spl
-arm-linux-gnueabihf-ld.bfd: u-boot-spl section `.u_boot_list' will not fit in region `flash'
-arm-linux-gnueabihf-ld.bfd: region `flash' overflowed by 1612 bytes
-scripts/Makefile.spl:384: recipe for target 'spl/u-boot-spl' failed
-make[1]: *** [spl/u-boot-spl] Error 1
-Makefile:1663: recipe for target 'spl/u-boot-spl' failed
-make: *** [spl/u-boot-spl] Error 2
-
-
--- 
-Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
+Andrew
