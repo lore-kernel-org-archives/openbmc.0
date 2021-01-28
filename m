@@ -2,56 +2,82 @@ Return-Path: <SRS0=LnGq=G7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 99349C433E0
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:31:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C3F18C433DB
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:29:13 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 76D9D6024A
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:31:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76D9D6024A
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id DB9A964DEC
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:29:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB9A964DEC
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DRBxG28hWzDrg2
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 18:31:46 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=troy_lee@aspeedtech.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DRFXk22VvzDrfW
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 20:29:10 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::632;
+ helo=mail-pl1-x632.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=m0Fwe18W; dkim-atps=neutral
+Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
+ [IPv6:2607:f8b0:4864:20::632])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DRBvN73xHzDrT2
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 18:30:07 +1100 (AEDT)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 10S7NxD7000111;
- Thu, 28 Jan 2021 15:23:59 +0800 (GMT-8)
- (envelope-from troy_lee@aspeedtech.com)
-Received: from aspeedtech.com (192.168.100.253) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 28 Jan
- 2021 15:29:52 +0800
-Date: Thu, 28 Jan 2021 07:29:47 +0000
-From: Troy Lee <troy_lee@aspeedtech.com>
-To: Andrew Jeffery <andrew@aj.id.au>
-Subject: Re: Supporting new interfaces in phosphor-ipmi-flash
-Message-ID: <20210128072947.GB2594588@aspeedtech.com>
-References: <PS1PR06MB260095F62386276E75ADC5708ABB0@PS1PR06MB2600.apcprd06.prod.outlook.com>
- <6ea6d5b9-0e31-4a87-8990-b5ce53e2416d@www.fastmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DRFSv4BsrzDrfN
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 20:25:50 +1100 (AEDT)
+Received: by mail-pl1-x632.google.com with SMTP id e9so3005930plh.3
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 01:25:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=gGVbPoY9H5syjMNxUKmvunYVJ9/X45rWYXbtdIF6A6s=;
+ b=m0Fwe18WbXsIfPujUBbgFalMGhT5ckJ3B9c4bBq/222AYueMiszM8gT10fmpJecKBG
+ DuRyMyj9TCjuyA4noh8dTAZqNOsf3v0MXAkl0sJ7iR4bfra7IuyOXzSzt6aLtPG/BkQZ
+ nd49PSyNgG5WILfQjBG7+sVwXTvqmQKllSvbYPdKX4Hfckl2LfxfVqjScwL89W+oK/xF
+ Z3H5CMvHjjHHh2mYYYjGwNmOa767sCL6rYUxI1xiX3vyViISwvdbCVOq1OEKcPjt4I5I
+ vre6qLGAL3C8jyNJ5UWnUCMOTzAUsKDBz/AcuOw6Pkr3dRRyUDHIdWRQPwzfQvl5+87s
+ 03FQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:from:to:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=gGVbPoY9H5syjMNxUKmvunYVJ9/X45rWYXbtdIF6A6s=;
+ b=U6mAq2BpAIoTVYfCjTT89D2/1s71GxEAweC00xrBw7OJgArDLbsDdXaGJIjQRW3xel
+ NKO6a0Zl43e6fV9fL5mWJDzDRUwo27CO1ex615qMFPefsY1jANgYCoKPv3N9ezm0HJly
+ fnX2Zv2CoNvurAD4jbmGOZfqiJQNXDAGA6JqUcOj3MYFA2mI1e9ZJNO8k629YTqH+AAU
+ RKYiqqScXVSqYek6Hn0TJgelkx9zmMK3smxGxCfOrKyE6+J909CVYXAv3wr67HJaulzI
+ y8TVOJFwrM2yPP80xtNNi0pAgJo9tmraG4gRS9ffCNExKK+5pQJotGVgxY5M4G3NkVV1
+ QaIg==
+X-Gm-Message-State: AOAM5330te9h/P8JtuLwq84/DE+JJayxiv/fniNoJ/h4DhWZ+OD5D2M8
+ jOR8cVxGAAcUHF8IWNIo7ks=
+X-Google-Smtp-Source: ABdhPJz69EH3Dpe+UUXR5p8MeyH2jZg2KHm99cURUzj6UoqmiFs0HeWhN27vD4oNRh18Ch8I0GjC6w==
+X-Received: by 2002:a17:90b:710:: with SMTP id
+ s16mr9947737pjz.46.1611825948415; 
+ Thu, 28 Jan 2021 01:25:48 -0800 (PST)
+Received: from voyager.lan ([45.124.203.14])
+ by smtp.gmail.com with ESMTPSA id gk2sm4531923pjb.6.2021.01.28.01.25.45
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 28 Jan 2021 01:25:47 -0800 (PST)
+From: Joel Stanley <joel@jms.id.au>
+To: Andrew Jeffery <andrew@aj.id.au>,
+ Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
+ Ryan Chen <ryan_chen@aspeedtech.com>, openbmc@lists.ozlabs.org
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc] ast2600: spl: Include RAM
+ loader in BL2 ifdef
+Date: Thu, 28 Jan 2021 19:55:40 +1030
+Message-Id: <20210128092540.343138-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-In-Reply-To: <6ea6d5b9-0e31-4a87-8990-b5ce53e2416d@www.fastmail.com>
-X-Originating-IP: [192.168.100.253]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 10S7NxD7000111
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,60 +89,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Andrew,
+With this patch all of the BL2 verification call sites are behind the
+Kconfig symbol. When it is disabled, 1903 bytes is saved.
 
-The 01/28/2021 07:14, Andrew Jeffery wrote:
-> 
-> 
-> On Wed, 27 Jan 2021, at 20:13, Troy Lee wrote:
-> > Hi team,
-> > 
-> > For security consideration, user might want to disable AST2500/AST2600 
-> > P2A functionality by default. To compensate the effect to 
-> > phosphor-ipmi-flash, we're planning to support two alternative in-band 
-> > firmware upgrade over PCIe for AST2500/AST2600 (AST2520 and AST2620 are 
-> > excluded):
-> >  - Through a reserved **VGA** memory on BAR[0], or
-> >  - Through a reserved **PCIe** shared memory on BAR[1]
-> > 
-> > The usage pretty much the same as P2A, but it runs on different BAR, 
-> > offset and length.
-> > This will involves modifying phosphor-ipmi-flash/[tools|bmc]. Should I 
-> > create new **interfaces**, e.g. astpcie/astvga?
-> > 
-> 
-> This is the HOST2BMC functionality in the 2600 datasheet?
-> 
-> It would be great to have more detail on how it works.
-> 
-> Andrew
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/mach-aspeed/ast2600/spl_boot.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-No, it doesn't use HOST2BMC interface, it uses VGA controller's mmio.
-Perhaps HOST2BMC is also a possible solution, too.
+diff --git a/arch/arm/mach-aspeed/ast2600/spl_boot.c b/arch/arm/mach-aspeed/ast2600/spl_boot.c
+index 98cf72bf440d..06800940109e 100644
+--- a/arch/arm/mach-aspeed/ast2600/spl_boot.c
++++ b/arch/arm/mach-aspeed/ast2600/spl_boot.c
+@@ -23,6 +23,7 @@ static int aspeed_spl_ram_load_image(struct spl_image_info *spl_image,
+ }
+ SPL_LOAD_IMAGE_METHOD("RAM", 0, ASPEED_BOOT_DEVICE_RAM, aspeed_spl_ram_load_image);
+ 
++#if IS_ENABLED(ASPEED_SECBOOT_BL2)
+ static int aspeed_secboot_spl_ram_load_image(struct spl_image_info *spl_image,
+ 				      struct spl_boot_device *bootdev)
+ {
+@@ -41,6 +42,7 @@ static int aspeed_secboot_spl_ram_load_image(struct spl_image_info *spl_image,
+ 	return 0;
+ }
+ SPL_LOAD_IMAGE_METHOD("RAM with Aspeed Secure Boot", 0, ASPEED_SECBOOT_DEVICE_RAM, aspeed_secboot_spl_ram_load_image);
++#endif /* ASPEED_SECBOOT_BL2 */
+ 
+ #if IS_ENABLED(CONFIG_SPL_MMC_SUPPORT)
+ static int aspeed_spl_mmc_load_image(struct spl_image_info *spl_image,
+-- 
+2.29.2
 
-02:00.0 0300: 1a03:2000 (rev 51) (prog-if 00 [VGA controller])
-        Subsystem: 1a03:2000
-        Flags: bus master, medium devsel, latency 0, IRQ 16
-        Memory at f6000000 (32-bit, non-prefetchable) [size=16M]  <--- Option 1
-        Memory at f7040000 (32-bit, non-prefetchable) [size=128K] <--- Option 2
-        I/O ports at e000 [size=128]
-        Expansion ROM at 000c0000 [disabled] [size=128K]
-        Capabilities: [40] Power Management version 3
-        Capabilities: [50] MSI: Enable- Count=1/4 Maskable- 64bit+
-        Kernel driver in use: ast
-        Kernel modules: ast
-
-Option 1 allocates a 1MB memory from the end of VGA memory, so it will
-need some change to VBIOS.
-
-Option 2 allocates a 4K memory from BMC memory space. Since the buffer
-is smaller, the ipmi-blob protocol overhead will be greater.
-
-
-Thanks,
-Troy Lee
