@@ -2,82 +2,98 @@ Return-Path: <SRS0=LnGq=G7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C3F18C433DB
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:29:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D641C433E0
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:37:04 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB9A964DEC
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:29:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB9A964DEC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 04D3664DBD
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 09:37:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 04D3664DBD
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DRFXk22VvzDrfW
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 20:29:10 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DRFjn4yMgzDqHb
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 20:37:01 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::632;
- helo=mail-pl1-x632.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.27;
+ helo=out3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=m0Fwe18W; dkim-atps=neutral
-Received: from mail-pl1-x632.google.com (mail-pl1-x632.google.com
- [IPv6:2607:f8b0:4864:20::632])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm1 header.b=eibzpRus; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm1 header.b=Kub5A/wP; 
+ dkim-atps=neutral
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
+ [66.111.4.27])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DRFSv4BsrzDrfN
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 20:25:50 +1100 (AEDT)
-Received: by mail-pl1-x632.google.com with SMTP id e9so3005930plh.3
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 01:25:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=gGVbPoY9H5syjMNxUKmvunYVJ9/X45rWYXbtdIF6A6s=;
- b=m0Fwe18WbXsIfPujUBbgFalMGhT5ckJ3B9c4bBq/222AYueMiszM8gT10fmpJecKBG
- DuRyMyj9TCjuyA4noh8dTAZqNOsf3v0MXAkl0sJ7iR4bfra7IuyOXzSzt6aLtPG/BkQZ
- nd49PSyNgG5WILfQjBG7+sVwXTvqmQKllSvbYPdKX4Hfckl2LfxfVqjScwL89W+oK/xF
- Z3H5CMvHjjHHh2mYYYjGwNmOa767sCL6rYUxI1xiX3vyViISwvdbCVOq1OEKcPjt4I5I
- vre6qLGAL3C8jyNJ5UWnUCMOTzAUsKDBz/AcuOw6Pkr3dRRyUDHIdWRQPwzfQvl5+87s
- 03FQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:from:to:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=gGVbPoY9H5syjMNxUKmvunYVJ9/X45rWYXbtdIF6A6s=;
- b=U6mAq2BpAIoTVYfCjTT89D2/1s71GxEAweC00xrBw7OJgArDLbsDdXaGJIjQRW3xel
- NKO6a0Zl43e6fV9fL5mWJDzDRUwo27CO1ex615qMFPefsY1jANgYCoKPv3N9ezm0HJly
- fnX2Zv2CoNvurAD4jbmGOZfqiJQNXDAGA6JqUcOj3MYFA2mI1e9ZJNO8k629YTqH+AAU
- RKYiqqScXVSqYek6Hn0TJgelkx9zmMK3smxGxCfOrKyE6+J909CVYXAv3wr67HJaulzI
- y8TVOJFwrM2yPP80xtNNi0pAgJo9tmraG4gRS9ffCNExKK+5pQJotGVgxY5M4G3NkVV1
- QaIg==
-X-Gm-Message-State: AOAM5330te9h/P8JtuLwq84/DE+JJayxiv/fniNoJ/h4DhWZ+OD5D2M8
- jOR8cVxGAAcUHF8IWNIo7ks=
-X-Google-Smtp-Source: ABdhPJz69EH3Dpe+UUXR5p8MeyH2jZg2KHm99cURUzj6UoqmiFs0HeWhN27vD4oNRh18Ch8I0GjC6w==
-X-Received: by 2002:a17:90b:710:: with SMTP id
- s16mr9947737pjz.46.1611825948415; 
- Thu, 28 Jan 2021 01:25:48 -0800 (PST)
-Received: from voyager.lan ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id gk2sm4531923pjb.6.2021.01.28.01.25.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 28 Jan 2021 01:25:47 -0800 (PST)
-From: Joel Stanley <joel@jms.id.au>
-To: Andrew Jeffery <andrew@aj.id.au>,
- Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
- Ryan Chen <ryan_chen@aspeedtech.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc] ast2600: spl: Include RAM
- loader in BL2 ifdef
-Date: Thu, 28 Jan 2021 19:55:40 +1030
-Message-Id: <20210128092540.343138-1-joel@jms.id.au>
-X-Mailer: git-send-email 2.29.2
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DRFXN3yxnzDrgN
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 20:28:52 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 2C9C15C0235;
+ Thu, 28 Jan 2021 04:28:47 -0500 (EST)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Thu, 28 Jan 2021 04:28:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm1; bh=3AjmN8nQsg5407uLjsB+p3CoRno1+O0
+ 90UD9BZy+abY=; b=eibzpRus63fVj4HFxn+D8GMq8DJCEx4KbujyhLvn5Jzp1dS
+ jl0PGqHg/ZMPi/FZTMi2vHFXqFudcsaEV5hyh/HftYME51p81X6j8u+VTjVZJPdf
+ KXjTuSm2TDGcprgcdMwfUV8nbn9EDp9kAruIMdwQLqvZ1XO/KNG1RZf6v0A1bIRm
+ 14mep7f4QfwramuchZeUd3yMnrrmXLXgbNHo4SAYRVnZG/qvy+nuoWerfnKz0MNl
+ y1dInTaPqc0WRD+UnMYShhUDvwBdX3CMsKhcBqjvuNT0aAPMW6PnzTRnFwnBfu/J
+ nagTJ1zTWY5Nq8AgtN/ezmpa1LBNvGpgiAD8y+Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=3AjmN8
+ nQsg5407uLjsB+p3CoRno1+O090UD9BZy+abY=; b=Kub5A/wPkWT30slHnDt5WV
+ 0Wd2gQ23PDZSBHrhi8XZCKH2upPZohH/6Z3nFCaJ9SLcYSbb1daY8tkJMru3G68Y
+ mjqBGtxYhG71uKomNqD6dxg9lU5d+qqwfPn9t9KErDGIgl3AlHIe5sCnFBvRrwmO
+ EkGc0LN3XVBsBLD9QEp8FUELSE7cBswBIpmTOguHwWTc+SzKUaWQDpPLUhK5vGHq
+ +1yRJjC0Yqa6OSybQ7DDVKqbv2muE0ZmpMCCjRzP2TyMx9QuMNxo4xBDz1oiAOtm
+ 962EtTCzK/CzdlYtHaAFjy/Lf+Lp2rkFJJdz13QbiEt2cueUC2w0xmK/BDZNvQ+w
+ ==
+X-ME-Sender: <xms:zYMSYI20B6A5acwldf62KlHbRS1IrYicXgHGTkbaQ3hV7KytYoXCZA>
+ <xme:zYMSYDGqcA_WxFMRGTKckgobj0RrxsKJOrHKXrJ4H61ZkCh7IOIsHbLzhiGKr7NhC
+ F1kmnaOQx3WOkBB7g>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfedtgddtvdcutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefofgggkfgjfhffhffvufgtsehttdertderreejnecuhfhrohhmpedftehnughr
+ vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
+ htthgvrhhnpedutddtkeeugeegvddttdeukeeiuddtgfeuuddtfeeiueetfeeileettedv
+ tdfhieenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
+ grnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:zYMSYA7VbCZDDiXOp6Dwbf89KnOVuk7vH2cob7pQlJm5ZeiLSYN-Bw>
+ <xmx:zYMSYB23jPWAwMO5niBugvat6JUMD5DBXuqJff1xHzN5nDyF7wE1ag>
+ <xmx:zYMSYLHJbSomCq5B-uB3CzD9vM5pxLrjB8NJmEXEFgP8_x94IzgQdA>
+ <xmx:z4MSYBOpZqKXMN4Hn1jDG_hJ6eKg-YsT1gvtVkUQhmHrySDnxE7S0w>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 7130FA0005D; Thu, 28 Jan 2021 04:28:45 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-84-gfc141fe8b8-fm-20210125.001-gfc141fe8
+Mime-Version: 1.0
+Message-Id: <6ad8834f-a99b-49f9-a517-21e4c2207dae@beta.fastmail.com>
+In-Reply-To: <20210128092540.343138-1-joel@jms.id.au>
+References: <20210128092540.343138-1-joel@jms.id.au>
+Date: Thu, 28 Jan 2021 19:58:22 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Joel Stanley" <joel@jms.id.au>,
+ "Klaus Heinrich Kiwi" <klaus@linux.vnet.ibm.com>,
+ "Ryan Chen" <ryan_chen@aspeedtech.com>, openbmc@lists.ozlabs.org
+Subject: =?UTF-8?Q?Re:_[PATCH_u-boot_v2019.04-aspeed-openbmc]_ast2600:_spl:_Inclu?=
+ =?UTF-8?Q?de_RAM_loader_in_BL2_ifdef?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,34 +109,12 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-With this patch all of the BL2 verification call sites are behind the
-Kconfig symbol. When it is disabled, 1903 bytes is saved.
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
- arch/arm/mach-aspeed/ast2600/spl_boot.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/arch/arm/mach-aspeed/ast2600/spl_boot.c b/arch/arm/mach-aspeed/ast2600/spl_boot.c
-index 98cf72bf440d..06800940109e 100644
---- a/arch/arm/mach-aspeed/ast2600/spl_boot.c
-+++ b/arch/arm/mach-aspeed/ast2600/spl_boot.c
-@@ -23,6 +23,7 @@ static int aspeed_spl_ram_load_image(struct spl_image_info *spl_image,
- }
- SPL_LOAD_IMAGE_METHOD("RAM", 0, ASPEED_BOOT_DEVICE_RAM, aspeed_spl_ram_load_image);
- 
-+#if IS_ENABLED(ASPEED_SECBOOT_BL2)
- static int aspeed_secboot_spl_ram_load_image(struct spl_image_info *spl_image,
- 				      struct spl_boot_device *bootdev)
- {
-@@ -41,6 +42,7 @@ static int aspeed_secboot_spl_ram_load_image(struct spl_image_info *spl_image,
- 	return 0;
- }
- SPL_LOAD_IMAGE_METHOD("RAM with Aspeed Secure Boot", 0, ASPEED_SECBOOT_DEVICE_RAM, aspeed_secboot_spl_ram_load_image);
-+#endif /* ASPEED_SECBOOT_BL2 */
- 
- #if IS_ENABLED(CONFIG_SPL_MMC_SUPPORT)
- static int aspeed_spl_mmc_load_image(struct spl_image_info *spl_image,
--- 
-2.29.2
+On Thu, 28 Jan 2021, at 19:55, Joel Stanley wrote:
+> With this patch all of the BL2 verification call sites are behind the
+> Kconfig symbol. When it is disabled, 1903 bytes is saved.
+> 
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
