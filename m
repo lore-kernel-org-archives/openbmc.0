@@ -2,79 +2,82 @@ Return-Path: <SRS0=LnGq=G7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B5BC0C433E9
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 00:18:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 915A0C433E0
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 00:20:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 14A9B64DCC
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 00:18:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 14A9B64DCC
+	by mail.kernel.org (Postfix) with ESMTPS id 0906564DD3
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 00:20:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0906564DD3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DR1KR0FgwzDqS6
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 11:18:35 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DR1M40xwhzDr5k
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 11:20:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::102d;
- helo=mail-pj1-x102d.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1031;
+ helo=mail-pj1-x1031.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=phCPeNw7; dkim-atps=neutral
-Received: from mail-pj1-x102d.google.com (mail-pj1-x102d.google.com
- [IPv6:2607:f8b0:4864:20::102d])
+ header.s=20161025 header.b=Ubq+F+dO; dkim-atps=neutral
+Received: from mail-pj1-x1031.google.com (mail-pj1-x1031.google.com
+ [IPv6:2607:f8b0:4864:20::1031])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DR1Fz4SqyzDqQ3
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 11:15:33 +1100 (AEDT)
-Received: by mail-pj1-x102d.google.com with SMTP id cq1so2627438pjb.4
- for <openbmc@lists.ozlabs.org>; Wed, 27 Jan 2021 16:15:33 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DR1G41xMfzDr4M
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 11:15:40 +1100 (AEDT)
+Received: by mail-pj1-x1031.google.com with SMTP id jx18so2930130pjb.5
+ for <openbmc@lists.ozlabs.org>; Wed, 27 Jan 2021 16:15:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=joo05b0MJU6/FdKRC0O+I7O3H/Ns16BrGyR11RJG5dU=;
- b=phCPeNw70aCowu9SmnRCupe13m/oT/4p/pzPgetFtotOSc1vjC9hZNpK6DEqgHR7Ko
- Qzl0rgc9EXatcoVXk34J/tV6t/OZeMWcdZndJ4ibmRE2fEucDI086ho23F/f1ZZp68a6
- 6RzD10KNWep+WcuDn9WE+Vle3tQtyxdA9WU4qdbzM2GYTCxkfXwvOaAr4GUbfwuuWxbL
- Oc5Sj3D2wL8vOYMTNW6RoyKFaSctJLUQ/FJBWYI7ieZwIwPnY7qzQmu6jrWc4xpli+h+
- VGOVs+uuPxfSEUTcaIuaEvcN92ipp/IbtgQmguVoVqlJfAmSUQHdlXWvzvySuJW4imda
- QfIw==
+ h=sender:from:to:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=2gZ56LZHqiWJBgyVH2pBnk15oUCJAzMTqjxEWSJOmNo=;
+ b=Ubq+F+dOFn3cF8KRwnUWp+rRsxJPyWknGNbuCsuYJeyP6kNCjAWF8KLvmfB6mkOHgL
+ HVRtEqJ8snCWgfyBZo8BH7OIkBRzYS6vjWnljKqNKXrrq3/iG9oMvpcANZvpfneZmD5U
+ DTiTHnC/YK6gnreVYeXM8bcqazgn4T1xVMaFp8byqvrt4XD1aTKa0Me5ErpZgj5uzOp+
+ vBQ9muj7s8oHtsbsbEZP999Rch4Hmzqlk4D74CUew9oP3Gsf1eGPoBph9QGSL+3pW2JZ
+ YN3yl4H+aagM09rpoU3X0JHVinPd3Zlapz+XyzpYs11AuHVXIreGuUz4ZHIGmTQ60F6n
+ lPyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=joo05b0MJU6/FdKRC0O+I7O3H/Ns16BrGyR11RJG5dU=;
- b=rksonX649dMWAByoedy62y+ISXsUtBR23bKK8fIDBYXqmqHxjUO98Xmv0hRL+jAW1T
- U/pCXz3N1XYbiZZkdFXBHIpqZf00WryU101NAZash6glWQ5IIWPjhlfr0DoyVYPnScpm
- QrI4nQluwqryR+6XwsT8XXDcV8yRhhkwjWs5HSl/BsXfwMZVz32PiqCXylx3Inzu9+zo
- 3q9GJa+ZlJngihOT56GtpRZrrLQFZnQv9EQPkB+zARnVNIO6k0e/9yYxcZ8DYCbgA0ga
- dAFxVfA0lJwpkhxLjCY7bgLVE0CruDa7jRAnF6LP0p++iBnrC8sTCd7+jXaayQFVLVht
- wkFg==
-X-Gm-Message-State: AOAM533G/KFoe3QtNLJJGcvJt6yJL+5TdOMnC1pze6QCw93u7CRlTFoA
- qY/M9c6JpTlgPQmNlqfyZOM=
-X-Google-Smtp-Source: ABdhPJwECiTEV4fAFoqxFg4+eIQfG15lu2niOQY0oGuYyzVQRGOOP2sUd1sbJp5AVXGtXqCWGioKiA==
-X-Received: by 2002:a17:902:ba88:b029:df:fa69:1351 with SMTP id
- k8-20020a170902ba88b02900dffa691351mr7657875pls.74.1611792929491; 
- Wed, 27 Jan 2021 16:15:29 -0800 (PST)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=2gZ56LZHqiWJBgyVH2pBnk15oUCJAzMTqjxEWSJOmNo=;
+ b=n0qc7tQsKNx3AF4UcBtvGESBoW5WUkt8zU1I3P2d7xDrZADZt9bxY4z8RmrPFnvAdV
+ 566+yanVIrBgYrRYosM+xyC0xq/CBbO2NgUbaA0C6v+FH+4Qz19YZNqjQ3zg8HFk8kN3
+ KS9yjXsVEIX4dTJpvS1hgBk8J7BEMih4euS9nGRVUOJF7Cu6L2X5XH08bPGLmS/9Jgdd
+ 753KY4CkCZzDFUTmh4UD9mOZRdFQK8UFUH96cHT86JUGB/qFICcpNOwwSE4x6GSWcJmQ
+ DmgCDD/GASQHLsC3ky8e04leL2pqXROCsFKsSGliV30wGN4GnrkU50PJ0BtC2Nea62d0
+ yxOw==
+X-Gm-Message-State: AOAM5315DT3OdCqIg0jKzbvrRM7y8+5U4+f0RgnMKyIZOG1tC882my7b
+ q8Fr4qKL2Mb78e4oUtEhJcM=
+X-Google-Smtp-Source: ABdhPJy5WUPDmaFb8ZnF287el9cK1l/k+i1GuMspEx64iL9AHIWR7MxuXGGBbWmz4DceIyq4ic87yQ==
+X-Received: by 2002:a17:90a:df84:: with SMTP id
+ p4mr8208729pjv.81.1611792936889; 
+ Wed, 27 Jan 2021 16:15:36 -0800 (PST)
 Received: from localhost.localdomain ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id x19sm3529239pff.192.2021.01.27.16.15.26
+ by smtp.gmail.com with ESMTPSA id x19sm3529239pff.192.2021.01.27.16.15.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 Jan 2021 16:15:28 -0800 (PST)
+ Wed, 27 Jan 2021 16:15:35 -0800 (PST)
 From: Joel Stanley <joel@jms.id.au>
 To: Andrew Jeffery <andrew@aj.id.au>,
  Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
  Ryan Chen <ryan_chen@aspeedtech.com>, openbmc@lists.ozlabs.org
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 0/4] FIT verification
-Date: Thu, 28 Jan 2021 10:45:16 +1030
-Message-Id: <20210128001521.266883-1-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v3 2/4] config: ast2600: Reduce
+ SPL image size
+Date: Thu, 28 Jan 2021 10:45:18 +1030
+Message-Id: <20210128001521.266883-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.29.2
+In-Reply-To: <20210128001521.266883-1-joel@jms.id.au>
+References: <20210128001521.266883-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -92,43 +95,65 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-As part of our effort to enable secure boot in openbmc, this turns on
-FIT verification in the SPL and u-boot.
+This modifies some features of the SPL to ensure it fits in the 64KB
+payload size once we enable FIT signature verification in the SPL.
 
-It adjusts the SRAM layout to accommodate the extra code size, moving
-the heap to the non-parity checked 24KB of SRAM.
+We still build with thumb, as this is selected SYS_THUMB_BUILD (ie, the
+SPL defaults to thumb if u-boot proper is built with thumb).
 
-It also modifies the way the SPL is built, including disabling features.
+The not using the arch memcpy/memset changes save 668 bytes. The tiny
+memset saves 52 bytes. (Anyone who wants to test the runtime impact of
+these changes should do so!)
 
-v3 Reorders the patches to put the size reduction changes first, and
-then enables signature verification to ensure the build can be bisected.
+The DOS_PARTITION change saves 229 bytes.
 
-The ymodem disable patch is dropped, as we fit cleanly under the 64KB
-boundary with the feature enabled.
+In total, this set of options reduces the binary size by 1105 bytes
+with GCC 10.
 
-The general cleanup patch is dropped, except for the DOS_PARTITION
-change which was added to the SPL cleanup patch. These cleanups will be
-posted separately at a later date.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+--
+v3:
+ - Drop unnecessary TPL banner change
+ - Clarify thumb build
+ - Add data on size impact of each change
+ - Add DOS_PARTITION change to this patch
+ - Move FIT_TINY to a different patch; with the reordering of patches
+   FIT verification is not yet turned on when applying this patch
+---
+ configs/ast2600_openbmc_spl_emmc_defconfig | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-           Size   Delta
- HEAD     44054
- patch 1  43442    -612
- patch 2  42337   -1105
- patch 3  42337       0
- patch 4  63378  +21041
-
-Joel Stanley (4):
-  ast2600: Allow selection of SPL boot devices
-  config: ast2600: Reduce SPL image size
-  ast2600: Modify SPL SRAM layout
-  config: ast2600: Enable FIT signature verification
-
- arch/arm/mach-aspeed/ast2600/Kconfig       | 12 ++++++++++++
- arch/arm/mach-aspeed/ast2600/spl_boot.c    |  9 +++++++++
- configs/ast2600_openbmc_spl_emmc_defconfig |  9 ++++++++-
- include/configs/evb_ast2600a1_spl.h        |  4 ++--
- 4 files changed, 31 insertions(+), 3 deletions(-)
-
+diff --git a/configs/ast2600_openbmc_spl_emmc_defconfig b/configs/ast2600_openbmc_spl_emmc_defconfig
+index 68d18652c980..26e8790cef87 100644
+--- a/configs/ast2600_openbmc_spl_emmc_defconfig
++++ b/configs/ast2600_openbmc_spl_emmc_defconfig
+@@ -2,8 +2,9 @@ CONFIG_ARM=y
+ CONFIG_SYS_CONFIG_NAME="evb_ast2600a1_spl"
+ CONFIG_SYS_DCACHE_OFF=y
+ CONFIG_POSITION_INDEPENDENT=y
+-CONFIG_SPL_SYS_THUMB_BUILD=y
+ CONFIG_SYS_THUMB_BUILD=y
++# CONFIG_SPL_USE_ARCH_MEMCPY is not set
++# CONFIG_SPL_USE_ARCH_MEMSET is not set
+ CONFIG_SPL_LDSCRIPT="arch/$(ARCH)/mach-aspeed/ast2600/u-boot-spl.lds"
+ CONFIG_ARCH_ASPEED=y
+ CONFIG_SYS_TEXT_BASE=0x10000
+@@ -80,6 +81,7 @@ CONFIG_CMD_EXT4_WRITE=y
+ CONFIG_CMD_FAT=y
+ CONFIG_CMD_FS_GENERIC=y
+ CONFIG_CMD_MTDPARTS=y
++# CONFIG_SPL_DOS_PARTITION is not set
+ # CONFIG_SPL_EFI_PARTITION is not set
+ CONFIG_SPL_OF_CONTROL=y
+ CONFIG_ENV_IS_IN_MMC=y
+@@ -125,6 +127,7 @@ CONFIG_DM_SPI=y
+ CONFIG_SYSRESET=y
+ CONFIG_WDT=y
+ CONFIG_USE_TINY_PRINTF=y
++CONFIG_SPL_TINY_MEMSET=y
+ CONFIG_TPM=y
+ CONFIG_SPL_TPM=y
+ # CONFIG_EFI_LOADER is not set
 -- 
 2.29.2
 
