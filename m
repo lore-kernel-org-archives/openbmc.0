@@ -2,23 +2,23 @@ Return-Path: <SRS0=LnGq=G7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FDCDC433DB
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 99349C433E0
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:31:49 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DFC4D64DBD
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:17:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFC4D64DBD
+	by mail.kernel.org (Postfix) with ESMTPS id 76D9D6024A
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 07:31:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76D9D6024A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DRBd22ZqfzDrgC
-	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 18:17:42 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DRBxG28hWzDrg2
+	for <openbmc@archiver.kernel.org>; Thu, 28 Jan 2021 18:31:46 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=troy_lee@aspeedtech.com;
@@ -27,32 +27,31 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DRBb71x9SzDr84
- for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 18:15:59 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DRBvN73xHzDrT2
+ for <openbmc@lists.ozlabs.org>; Thu, 28 Jan 2021 18:30:07 +1100 (AEDT)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 10S79moP098999;
- Thu, 28 Jan 2021 15:09:48 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 10S7NxD7000111;
+ Thu, 28 Jan 2021 15:23:59 +0800 (GMT-8)
  (envelope-from troy_lee@aspeedtech.com)
 Received: from aspeedtech.com (192.168.100.253) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 28 Jan
- 2021 15:15:40 +0800
-Date: Thu, 28 Jan 2021 07:15:36 +0000
+ 2021 15:29:52 +0800
+Date: Thu, 28 Jan 2021 07:29:47 +0000
 From: Troy Lee <troy_lee@aspeedtech.com>
-To: Benjamin Fair <benjaminfair@google.com>
+To: Andrew Jeffery <andrew@aj.id.au>
 Subject: Re: Supporting new interfaces in phosphor-ipmi-flash
-Message-ID: <20210128071536.GA2594588@aspeedtech.com>
+Message-ID: <20210128072947.GB2594588@aspeedtech.com>
 References: <PS1PR06MB260095F62386276E75ADC5708ABB0@PS1PR06MB2600.apcprd06.prod.outlook.com>
- <CAO=notwtzF96o9oJe=5px4KFWFdzWQxHMMbFdA2JmwEFBLC8bA@mail.gmail.com>
- <CADKL2t4xDhpYmA==E6TczfNbvVReQJM0p84rwpy5vLrDXqsNBg@mail.gmail.com>
+ <6ea6d5b9-0e31-4a87-8990-b5ce53e2416d@www.fastmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Disposition: inline
-In-Reply-To: <CADKL2t4xDhpYmA==E6TczfNbvVReQJM0p84rwpy5vLrDXqsNBg@mail.gmail.com>
+In-Reply-To: <6ea6d5b9-0e31-4a87-8990-b5ce53e2416d@www.fastmail.com>
 X-Originating-IP: [192.168.100.253]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 10S79moP098999
+X-MAIL: twspam01.aspeedtech.com 10S7NxD7000111
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,46 +63,60 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Patrick Venture <venture@google.com>, Brandon Kim <brandonkim@google.com>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- William Kennington <wak@google.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi,
+Hi Andrew,
 
-The 01/28/2021 01:48, Benjamin Fair wrote:
-> On Wed, 27 Jan 2021 at 08:04, Patrick Venture <venture@google.com> wrote:
-> >
-> > On Wed, Jan 27, 2021 at 1:44 AM Troy Lee <troy_lee@aspeedtech.com> wrote:
-> > >
-> > > Hi team,
-> > >
-> > > For security consideration, user might want to disable AST2500/AST2600 P2A functionality by default. To compensate the effect to phosphor-ipmi-flash, we're planning to support two alternative in-band firmware upgrade over PCIe for AST2500/AST2600 (AST2520 and AST2620 are excluded):
-> > >  - Through a reserved **VGA** memory on BAR[0], or
-> > >  - Through a reserved **PCIe** shared memory on BAR[1]
-> > >
-> > > The usage pretty much the same as P2A, but it runs on different BAR, offset and length.
-> > > This will involves modifying phosphor-ipmi-flash/[tools|bmc]. Should I create new **interfaces**, e.g. astpcie/astvga?
-> >
-> > I'm not sure it makes sense to create new interfaces, but rather to
-> > add optional parameters for those differences... but I've added some
-> > people to the reply line to help answer.
+The 01/28/2021 07:14, Andrew Jeffery wrote:
 > 
-> I'd also prefer optional parameters so we can keep all these PCIe
-> configurations grouped together.
 > 
-Understood. I'll see if I can design it as parameters, either on
-compiler time or runtime. Thers is a little different in BMC side, the
-ioctl might be different.
+> On Wed, 27 Jan 2021, at 20:13, Troy Lee wrote:
+> > Hi team,
+> > 
+> > For security consideration, user might want to disable AST2500/AST2600 
+> > P2A functionality by default. To compensate the effect to 
+> > phosphor-ipmi-flash, we're planning to support two alternative in-band 
+> > firmware upgrade over PCIe for AST2500/AST2600 (AST2520 and AST2620 are 
+> > excluded):
+> >  - Through a reserved **VGA** memory on BAR[0], or
+> >  - Through a reserved **PCIe** shared memory on BAR[1]
+> > 
+> > The usage pretty much the same as P2A, but it runs on different BAR, 
+> > offset and length.
+> > This will involves modifying phosphor-ipmi-flash/[tools|bmc]. Should I 
+> > create new **interfaces**, e.g. astpcie/astvga?
+> > 
+> 
+> This is the HOST2BMC functionality in the 2600 datasheet?
+> 
+> It would be great to have more detail on how it works.
+> 
+> Andrew
 
-> >
-> > >
-> > > Thanks,
-> > > Troy Lee
-> > >
-> > >
+No, it doesn't use HOST2BMC interface, it uses VGA controller's mmio.
+Perhaps HOST2BMC is also a possible solution, too.
 
-Thanks for suggestion,
+02:00.0 0300: 1a03:2000 (rev 51) (prog-if 00 [VGA controller])
+        Subsystem: 1a03:2000
+        Flags: bus master, medium devsel, latency 0, IRQ 16
+        Memory at f6000000 (32-bit, non-prefetchable) [size=16M]  <--- Option 1
+        Memory at f7040000 (32-bit, non-prefetchable) [size=128K] <--- Option 2
+        I/O ports at e000 [size=128]
+        Expansion ROM at 000c0000 [disabled] [size=128K]
+        Capabilities: [40] Power Management version 3
+        Capabilities: [50] MSI: Enable- Count=1/4 Maskable- 64bit+
+        Kernel driver in use: ast
+        Kernel modules: ast
+
+Option 1 allocates a 1MB memory from the end of VGA memory, so it will
+need some change to VBIOS.
+
+Option 2 allocates a 4K memory from BMC memory space. Since the buffer
+is smaller, the ipmi-blob protocol overhead will be greater.
+
+
+Thanks,
 Troy Lee
