@@ -2,100 +2,78 @@ Return-Path: <SRS0=hFnZ=HB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63FE5C433DB
-	for <openbmc@archiver.kernel.org>; Sat, 30 Jan 2021 16:17:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 748FAC433E0
+	for <openbmc@archiver.kernel.org>; Sat, 30 Jan 2021 16:36:05 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B3AD064E08
-	for <openbmc@archiver.kernel.org>; Sat, 30 Jan 2021 16:17:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B3AD064E08
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
+	by mail.kernel.org (Postfix) with ESMTPS id BCDB764E0F
+	for <openbmc@archiver.kernel.org>; Sat, 30 Jan 2021 16:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org BCDB764E0F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DSfVV5LdrzDsV8
-	for <openbmc@archiver.kernel.org>; Sun, 31 Jan 2021 03:17:06 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.24;
- helo=wout1-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.a=rsa-sha256 header.s=fm1 header.b=mdoLkeoX; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm1 header.b=k5zoO9ao; 
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DSfwL1pz9zDsVK
+	for <openbmc@archiver.kernel.org>; Sun, 31 Jan 2021 03:36:02 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
+ (client-ip=212.227.17.20; helo=mout.gmx.net;
+ envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
+ header.s=badeba3b8450 header.b=a8vBXzNf; 
  dkim-atps=neutral
-Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
- [64.147.123.24])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DSfSx0g96zDr0w
- for <openbmc@lists.ozlabs.org>; Sun, 31 Jan 2021 03:15:44 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id A4192E9C;
- Sat, 30 Jan 2021 11:15:40 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Sat, 30 Jan 2021 11:15:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=fm1; bh=Aow
- 9ii8H0qxrN1GxA8zEkiZ5LvF0v2IgPnC35m++t2Y=; b=mdoLkeoXrR5fNs341hD
- JoZrvwgOt7GfmV+3q7+hfjkecBCfwCJEe854F+MMhFx26kezNAcGpGjQyZCdOvGv
- kG3aLOALxWLGE4wFC/oZpcTrGiWwQGZQujFNnGdzMFBDP+LGHuhnihSkvcMryUIb
- 7/MX0K1hthLcnTg0m+YaxU8Q1TvOBzjt/bVdEWBhJFVpUAzl5LSoc7qNzEKlO2CT
- MeEU/KSJZdUNbQSOv5WaZcB0taRopXyt7NLMIUGPyUA1QuP6coo42mYbMyWrabu2
- oAQEuPKpGSaGML3ea4cOAp4vozWU7JoscYzC11icKPpIX2aTOJqNUEswnmKJwUSW
- 15w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; bh=Aow9ii
- 8H0qxrN1GxA8zEkiZ5LvF0v2IgPnC35m++t2Y=; b=k5zoO9aoYnqHs+Ti2/kGyd
- uiA7TSTRTUZxH2xRLmC6kHqEAQ96ecmx0sXeENVNIuooniI7dez/9bVjJrxP0tzB
- mUhzOGDJQW1HZJr5OeLav+KcVbxBlfStY1o45IOL3TyOHdnPzahBduMhB155lXRw
- 5OqRplHTK0+2FexOqYd3KO1urabgpUyh18Q4UovUWPZochM9ZYkCUKxNgPBLb5PE
- BAx6yLwTZIkJdkA900l2Y+bVjrfar/vvZSBP40+07gp89FP4MnYhVG4NlgZPwhBF
- tTXPh9XXVuPydonPclnOwee9s1DzDY18BUl0cL1H0qq32r+7ToM4G2lZ0wXROySw
- ==
-X-ME-Sender: <xms:K4YVYNaqVopUrn-BCeJCSpe2cRRWSJ-LEZsmbmEF2C7-NJFkxEN7Uw>
- <xme:K4YVYEYdoR2hCUQB9IVCpo_sCFPYyJppfrw7g4VQ2ipmGWRyPcfM6lmprlL5NEr_Q
- -puivyl0Os_gQUu2TE>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeeggdekjecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehrrgguuceu
- ihhshhhophcuoegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhmqe
- enucggtffrrghtthgvrhhnpeeffffhfeehgedutddvtdeuiefhudeifeekfeeifeekfedu
- feeuvedulefgkefffeenucfkphepudejfedrudeijedrfedurdduleejnecuvehluhhsth
- gvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsghrrggulhgvhigssehf
- uhiiiihivghsqhhuihhrrhgvlhdrtghomh
-X-ME-Proxy: <xmx:K4YVYP-yzgU9OWJkB-du2d6FgPOHqKDW3EdFR_cA2-L8HwrJxVLX9w>
- <xmx:K4YVYLq8ypeczQh3IDyOMus1vUiDzae1_xec62jEVK-vyu2Kf_85DQ>
- <xmx:K4YVYIo7nUoWauTrMwe2L0r4ZgCvMhJct-OccRIdtePAF6LM69Yefg>
- <xmx:LIYVYPSQ-YhvGYG0GgaydWNJmShUsBdOvOgKFh4Oi8qure6kygzIzQ>
-Received: from thinkpad.fuzziesquirrel.com (unknown [173.167.31.197])
- by mail.messagingengine.com (Postfix) with ESMTPA id 37FC624005C;
- Sat, 30 Jan 2021 11:15:39 -0500 (EST)
-Date: Sat, 30 Jan 2021 11:15:37 -0500
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: "Thang Q. Nguyen" <thang@os.amperecomputing.com>
-Subject: Re: create meta-ampere folder in openbmc repo
-Message-ID: <20210130161537.gj6jhwvsnwgdkofa@thinkpad.fuzziesquirrel.com>
-References: <d5302c4f-c0c4-0bde-2a60-e943a2f41788@os.amperecomputing.com>
- <0e2507bc-f8c5-85c4-cd39-4c603a729f4c@os.amperecomputing.com>
- <da62c090-c6a0-1844-cc2b-44846b83c89d@os.amperecomputing.com>
- <3eff5596ee50878be8623c021816977f42111ea4.camel@fuzziesquirrel.com>
- <96568613-294f-8a3b-9aa9-7918b5df2d9b@os.amperecomputing.com>
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DSftG3MBqzDrcY
+ for <openbmc@lists.ozlabs.org>; Sun, 31 Jan 2021 03:34:11 +1100 (AEDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1612024214;
+ bh=bkD8tcc6TQ6B0xOy5hnrRvxDcXEQXOxiPgjHK8m2mBk=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=a8vBXzNfo2PP6rM6eOKgCGpCIsXDpQfJsbNQj+P4NkQ/ap3dsu5SKBwMdywPPG54g
+ PypJoIYzkVMkoAMFCFBfkJ62ePB/c+7zfvy6PfqK/1H2BOhoJWx4pFxqMKNUN93jU0
+ 8esglea/ZnEn+gHKQ95SjCzQwX/0DHIYpZITYArw=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from longitude ([37.201.215.208]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MUXpQ-1lWOFa1qls-00QOqV; Sat, 30
+ Jan 2021 17:30:14 +0100
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-gpio@vger.kernel.org
+Subject: [PATCH] pinctrl: nuvoton: npcm7xx: Fix alignment of table header
+ comment
+Date: Sat, 30 Jan 2021 17:29:54 +0100
+Message-Id: <20210130162954.918803-1-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.29.2
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <96568613-294f-8a3b-9aa9-7918b5df2d9b@os.amperecomputing.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ar8P1SrjiMzeBjeLD2FlFDJqNHYVchuE9yDVDvh6Zy+QsFQjozw
+ H8WZrSyR2d4RhWcry1Hl/jPs07imTmkTfLjXops3a1WHxJq9o91OASaVEU31u55ne6/FIGU
+ dkLl6eYclyUr0f2OBZIpVBXZxMQ5hhtAm4Oor2X7V/K0dGiijU8XSzR7fXP5ApSBR0qUQBC
+ QgZnjvEE+V09rjdZh7AVw==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:pTsdGVJlviA=:obU7BIlFdWTWwNuo2gu8wj
+ 2Dro73Di6QWR85bWhqTp6XvyAI9Xq7fZsygKPlk7c2nCGGLn0KN4hzwnxuL0OQQHpQDsJLUg4
+ Lz0Rup/WZa/G9hG45r2bgnOLN45aiQP1wm989Ma+hxz7Ne8hnZUxIRWrvG1fMYP+vJEC2mIC9
+ 6e7mcrSZkRjk+l8i9A6TPM7S4/HZE4VCEDArw7qj1sugrNCSxWkRuUss+zE8GZDZnkb+IaYzM
+ kN+JlqPdxBWm6hw3VgJytMjf3SRrbvKs84V/SdVj4Gh0a4B+1FVocnNRG1u6mX6F06TyjNwbF
+ c0XeXLoYTLA5DehefPovVHfbw3HkSslAZ7F7EfT+c4uRSGimewiCCXalzWTno3J3tGW+Lt7oB
+ KeIbujPfLQKqNazX8OMQLf59TWpLrOAE9F3/5lCSKoEWVRt5S2POw6eqlVkvaMSgFlY+u6Qde
+ Eq6gLhb0tKLVOYntFz+4e0ybMq/pI8QdXB1g9OQWWaNZuCKgjW/hkhEjARjIx4CFaSvmuZWTr
+ o6xPPSVSSX4L80nuuvHAmw9mTY0tjM27tlT6QN2O19ZmK7OOLEfGLhpCRHF+fo//Dk5XjW/tD
+ zY6bAb1wB8W1pIsZ6CCNEVbEn4+NIWfPovFLKNMq8SoM3Lgzgypohh165KJEN73BxqkZCkSUP
+ l9HqDRfT4fsOdEreS3f9kDjqJTPlD9xB1X6g+Cj+K1iiPYXyBrNfbVvY2uagwiQd4ugFF41gM
+ 5ARlT/5RR4UP0VdKyeg5B8pA7V7JHzIraEtoU3TThPey4SJtHBFKQSHxYF1G6SkRDKZw/VrWs
+ i6epDvMFfrNB0vcUYjYVO5r4JpIvT081Qx2mBhskcp11dX5P7qNzMm7nCXwjnaeMIBiS5CD5I
+ RvuWtKqEO5FyEOgAMF/A==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,40 +85,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, Lancelot.Kao@fii-usa.com
+Cc: Tomer Maimon <tmaimon77@gmail.com>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, Linus Walleij <linus.walleij@linaro.org>,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Tali Perry <tali.perry1@gmail.com>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Sat, Jan 30, 2021 at 10:37:52AM +0700, Thang Q. Nguyen wrote:
->On 1/5/21 20:54, Brad Bishop wrote:
->>On Tue, 2021-01-05 at 08:48 +0700, Thang Q. Nguyen wrote:
->>>Hi Brad,
->>>
->>>Just a reminder. Have you got any chance to check our meta-ampere?
->>Hello Thang
->>
->>Apologies for the lack of responsiveness.  This is definitely on my todo
->>list, along with the request from Fii.
->>
->>thx - brad
->>
->
->Hi Brad,
->
->With the change recently in owner plugin, what should I do with my 
->meta-ampere?
->
->- Wait for meta-ampere integrated to openbmc/openbmc before pushing 
->new codes?
+Make it so that each column label is in the column that it is supposed
+to refer to.
 
-Hi Thang, I pushed the commits in meta-ampere to openbmc/openbmc just 
-now.  Going forward please submit meta-ampere patches to openbmc instead 
-of meta-ampere.  You'll want to submit an OWNERS file in meta-ampere so 
-that you can approve metadata in meta-ampere.
+Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+=2D--
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This is long overdue, thanks for being patient.  Like I said in the 
-meta-fii note, thanks to the work of Ed, and others, to deploy the 
-owners plugin this shouldn't be a problem for others in the future.
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/n=
+uvoton/pinctrl-npcm7xx.c
+index 6de31b5ee358c..2535ca720668e 100644
+=2D-- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -923,7 +923,7 @@ struct npcm7xx_pincfg {
+ };
 
-thx -brad
+ static const struct npcm7xx_pincfg pincfg[] =3D {
+-	/*	PIN	  FUNCTION 1		   FUNCTION 2		  FUNCTION 3	    FLAGS */
++	/*		PIN	  FUNCTION 1		   FUNCTION 2		  FUNCTION 3	    FLAGS */
+ 	NPCM7XX_PINCFG(0,	 iox1, MFSEL1, 30,	  none, NONE, 0,	none, NONE, 0,	   =
+  0),
+ 	NPCM7XX_PINCFG(1,	 iox1, MFSEL1, 30,	  none, NONE, 0,	none, NONE, 0,	   =
+  DS(8, 12)),
+ 	NPCM7XX_PINCFG(2,	 iox1, MFSEL1, 30,	  none, NONE, 0,	none, NONE, 0,	   =
+  DS(8, 12)),
+=2D-
+2.29.2
+
