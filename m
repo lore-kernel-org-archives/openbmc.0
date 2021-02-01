@@ -2,73 +2,58 @@ Return-Path: <SRS0=eJOo=HD=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49F89C433E0
-	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 02:56:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 703D6C433DB
+	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 07:39:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 52F4D64E04
-	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 02:56:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 52F4D64E04
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 4D35F64E32
+	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 07:38:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4D35F64E32
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DTXdY4fMkzDrQ3
-	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 13:56:17 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::833;
- helo=mail-qt1-x833.google.com; envelope-from=joel.stan@gmail.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DTfvh57mgzDrQ8
+	for <openbmc@archiver.kernel.org>; Mon,  1 Feb 2021 18:38:56 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=troy_lee@aspeedtech.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=fg6JqOLi; dkim-atps=neutral
-Received: from mail-qt1-x833.google.com (mail-qt1-x833.google.com
- [IPv6:2607:f8b0:4864:20::833])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DTXbc6dGszDqwW
- for <openbmc@lists.ozlabs.org>; Mon,  1 Feb 2021 13:54:32 +1100 (AEDT)
-Received: by mail-qt1-x833.google.com with SMTP id t14so11269917qto.8
- for <openbmc@lists.ozlabs.org>; Sun, 31 Jan 2021 18:54:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=HDWVU8Zea8TLt5DoHBy2XhwDDfQmFaGVOXbCh/HJPi8=;
- b=fg6JqOLilNSfpr4Xugz22iQkyjjB5MWiYlYI3bNQUiiy7faca7/jvTinXPy3XTh1Uj
- gR3y0nhgfvZJZjfnvk3AjImUY2wLvnDRHhp6cQIkeGNk1m+5Pkk75+pRR32ZIQbqc0zj
- r2n+mLu1Ag18daR7zelw+7qxk+HLCTjhgnAQk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=HDWVU8Zea8TLt5DoHBy2XhwDDfQmFaGVOXbCh/HJPi8=;
- b=EsHrWdepwxoXCZplulAurR0Vr6Jr6SnJtCcJ+23hE3Z5pnczi6Lj3nAVIFUGo6DOzm
- HU0mNQLCfB62gYRK6lVTTxRncoCmXH4qhqKxTs2k6l6XeKSS2dQEE+FvWWfbcsbxlUkz
- VgiUDwvOdaNGoC+hOPIjMAL1tZ9MXDUjaa+T9itQU2tFToCERHUSKqQIFKDZaoA+n7Gq
- v72CnzxN3XdErPShTRaNx0KPFlT18FonV5MIer9UpBMDywwLC2UQkYLLKmYe7r7TyMpx
- Drmk78USILbnqw4f8ih7MW6fH0PpJJqcTVtc+MhyJ0oPR8NhQjMcWQ65N2vRjOIm+RoL
- UymA==
-X-Gm-Message-State: AOAM532RsLImSUP8t/iy4rqrdOdH4AzT07hC63op4NgW2dXFhokpwpAt
- LGybpGaO944xaj0doSreeowVf93hEtEHmw5FDvU=
-X-Google-Smtp-Source: ABdhPJw3JpV+c8dv451/yWIRhbbSSrkf75Ecls76QF+g55w6q7ultnwN457zIuqdUkYG2jd/5vk1bAKPa1W3joDdbXQ=
-X-Received: by 2002:a05:622a:143:: with SMTP id
- v3mr13730824qtw.363.1612148069048; 
- Sun, 31 Jan 2021 18:54:29 -0800 (PST)
-MIME-Version: 1.0
-References: <20210129175435.2241080-1-msbarth@linux.ibm.com>
- <93d77064-b5e9-4142-8dce-f6484d4541df@www.fastmail.com>
-In-Reply-To: <93d77064-b5e9-4142-8dce-f6484d4541df@www.fastmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 1 Feb 2021 02:54:17 +0000
-Message-ID: <CACPK8XdfHZ4SSNdbNve--k10-6pFgpAELR+m=hOgT0pJ3LnhZg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.8] pmbus:max31785: Support revision "B"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DTftK1VGSzDr0l
+ for <openbmc@lists.ozlabs.org>; Mon,  1 Feb 2021 18:37:43 +1100 (AEDT)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 1117VJgi007233;
+ Mon, 1 Feb 2021 15:31:19 +0800 (GMT-8)
+ (envelope-from troy_lee@aspeedtech.com)
+Received: from aspeedtech.com (192.168.100.253) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Mon, 1 Feb
+ 2021 15:37:27 +0800
+Date: Mon, 1 Feb 2021 07:37:24 +0000
+From: Troy Lee <troy_lee@aspeedtech.com>
 To: Andrew Jeffery <andrew@aj.id.au>
-Content-Type: text/plain; charset="UTF-8"
+Subject: Re: Supporting new interfaces in phosphor-ipmi-flash
+Message-ID: <20210201073724.GA2623538@aspeedtech.com>
+References: <PS1PR06MB260095F62386276E75ADC5708ABB0@PS1PR06MB2600.apcprd06.prod.outlook.com>
+ <6ea6d5b9-0e31-4a87-8990-b5ce53e2416d@www.fastmail.com>
+ <20210128072947.GB2594588@aspeedtech.com>
+ <ce482992-48a2-4744-a466-60628a52ce50@www.fastmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+In-Reply-To: <ce482992-48a2-4744-a466-60628a52ce50@www.fastmail.com>
+X-Originating-IP: [192.168.100.253]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 1117VJgi007233
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,33 +65,161 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Sun, 31 Jan 2021 at 22:46, Andrew Jeffery <andrew@aj.id.au> wrote:
->
->
->
-> On Sat, 30 Jan 2021, at 04:24, Matthew Barth wrote:
-> > There was an issue in how the tach feedbacks of dual rotor fans were
-> > reported during any change in fan speeds with revision "A" of the
-> > MAX31785. When the fan speeds would transition to a new target speed,
-> > the rotor not wired to the TACH input when TACHSEL = 0 would report a
-> > speed of 0 until the new target was reached. This has been fixed,
-> > resulting in a revision "B" update where the MFR_REVISION of "B" is
-> > 0x3061.
-> >
-> > Signed-off-by: Matthew Barth <msbarth@linux.ibm.com>
->
-> Can you please send this upstream?
+Hi Andrew,
 
-+1, I'll merge this into the openbmc tree once you've had it reviewed upstream.
+The 02/01/2021 07:19, Andrew Jeffery wrote:
+> 
+> 
+> On Thu, 28 Jan 2021, at 17:59, Troy Lee wrote:
+> > Hi Andrew,
+> > 
+> > The 01/28/2021 07:14, Andrew Jeffery wrote:
+> > > 
+> > > 
+> > > On Wed, 27 Jan 2021, at 20:13, Troy Lee wrote:
+> > > > Hi team,
+> > > > 
+> > > > For security consideration, user might want to disable AST2500/AST2600 
+> > > > P2A functionality by default. To compensate the effect to 
+> > > > phosphor-ipmi-flash, we're planning to support two alternative in-band 
+> > > > firmware upgrade over PCIe for AST2500/AST2600 (AST2520 and AST2620 are 
+> > > > excluded):
+> > > >  - Through a reserved **VGA** memory on BAR[0], or
+> > > >  - Through a reserved **PCIe** shared memory on BAR[1]
+> > > > 
+> > > > The usage pretty much the same as P2A, but it runs on different BAR, 
+> > > > offset and length.
+> > > > This will involves modifying phosphor-ipmi-flash/[tools|bmc]. Should I 
+> > > > create new **interfaces**, e.g. astpcie/astvga?
+> > > > 
+> > > 
+> > > This is the HOST2BMC functionality in the 2600 datasheet?
+> > > 
+> > > It would be great to have more detail on how it works.
+> > > 
+> > > Andrew
+> > 
+> > No, it doesn't use HOST2BMC interface, it uses VGA controller's mmio.
+> > Perhaps HOST2BMC is also a possible solution, too.
+> > 
+> > 02:00.0 0300: 1a03:2000 (rev 51) (prog-if 00 [VGA controller])
+> >         Subsystem: 1a03:2000
+> >         Flags: bus master, medium devsel, latency 0, IRQ 16
+> >         Memory at f6000000 (32-bit, non-prefetchable) [size=16M]  <--- Option 1
+> >         Memory at f7040000 (32-bit, non-prefetchable) [size=128K] <--- Option 2
+> >         I/O ports at e000 [size=128]
+> >         Expansion ROM at 000c0000 [disabled] [size=128K]
+> >         Capabilities: [40] Power Management version 3
+> >         Capabilities: [50] MSI: Enable- Count=1/4 Maskable- 64bit+
+> >         Kernel driver in use: ast
+> >         Kernel modules: ast
+> > 
+> > Option 1 allocates a 1MB memory from the end of VGA memory, so it will
+> > need some change to VBIOS.
+> > 
+> > Option 2 allocates a 4K memory from BMC memory space. Since the buffer
+> > is smaller, the ipmi-blob protocol overhead will be greater.
+> > 
+> 
+> Okay. So for Option 2 we need to coordinate on the BMC by reserving memory in 
+> the devicetree. What's the plan there? Where's that going to be documented?
+> 
+> Andrew
 
-Cheers,
+You make a very good point, I should propose the design document before
+finilize the implementation. 
 
-Joel
+For option 2, we need to coordinate a 4K buffer from device tree, let's
+say:
 
->
-> Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+```
+reserved-memory {
+    pcie_ssm_memory: region@98000000 {
+        no-map;
+        reg = <0x98000000 0x00001000>; /* 4K */
+    };
+};
+
+pcie_ssm {
+    compatible = "aspeed,ast2600-pcie-sharedmem";
+    status = "okay";
+    memory-region = <&pcie_ssm_memory>;
+};
+```
+
+When initialing the pcie-sharedmem driver, the driver will fills the
+reserved memory address into:
+ - SCUC48 if the soc is AST2600
+ - SCU194 if the soc is AST2500
+
+When the host runs burn_my_bmc (phosphor-ipmi-flash/tool), bmc will open 
+the window when recieve blobSessionOpen command by setting:
+ - SCUC24[8] to 1 if the soc is AST2600
+ - SCU184[8] to 1 if the soc is AST2500
+
+The host start copy firmware image into VGA PCIe BAR[1]+0xE000 with 4K
+size, then host issues a blobWrite to BMC. BMC copys the firmware data
+from reserved memory region then acknowledge the host ipmi command. This
+procedure will run repeatedly until all firmware image are sented.
+
+The host sends a blobSession close to close the shared memory
+window, then follows by a blobCommit to indicate the file is copyed.
+
+
+Sequence diagram:
+```
+ +-------------+                                         +------------+
+ | burn my bmc |                                         | ipmi hostd |
+ +-------------+                                         +------------+
+        |                                                       |
+        |             blobOpen                                  |
+        +------------------------------------------------------>+
+        |                                                       |
+        |             blobSessionOpen                          +-+
+        +----------------------------------------------------->| |
+        |                                                      | +-+ IOCTL OpenWindow
+        |                            +-----------------+       | | | SCUC24[8] = 1
+        |                            | PCIe Shared Mem |       | | | (SCU184[8] = 1)
+        |                            | BAR[1] + 0xE000 <-------+ <-+
+        |                            +-----------------+       | |
+        |                                     |                | |
+        |             blobSession ACK         |                | |
+        +<-----------------------------------------------------+-+
+        |                                     |                 |
++---------------------------------------------------------------------+
+|loop/  |                                     |                 |     |
++---+   | memcpy(BAR[1]+0xE000, IMG+offset, size)               |     |
+|       +------------------------------------>+                 |     |
+|       |             blobWrite               |                +-+    |
+|       +----------------------------------------------------->| |    |
+|       |                                     |    memcpy()    | |    |
+|       |                                     +<---------------+ |    |
+|       |             blobWrite ACK           |                | |    |
+|       +<-----------------------------------------------------+-+    |
+|       |                                     |                 |     |
+|       |                                     |                 |     |
+|       |                                     |                 |     |
++---------------------------------------------------------------------+
+        |                                     |                 |
+        |             blobSessionClose        |                +-+
+        +----------------------------------------------------->+ +-+ IOCTL CloseWindow
+        |                                     |                | | | SCUC24[8] = 0
+        |                                     |                | | | (SCU184[8] = 0)
+        |                                     |                | +<+
+        |                                     |                | |
+        |                                     X<---------------+-+
+        |             blobCommit                                |
+        +------------------------------------------------------->
+        |                                                       |
+        |                                                       |
+        |                                                       |
+        +                                                       +
+```
+
+Thanks,
+Troy Lee
