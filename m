@@ -2,105 +2,99 @@ Return-Path: <SRS0=ukuu=HF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E3ECC433DB
-	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 02:01:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 86344C433E6
+	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 02:39:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [203.11.71.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDD3464F6C
-	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 02:01:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDD3464F6C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
+	by mail.kernel.org (Postfix) with ESMTPS id CFA0564F68
+	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 02:39:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CFA0564F68
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from bilbo.ozlabs.org (lists.ozlabs.org [IPv6:2401:3900:2:1::3])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DVlKP6CR5zDqnF
-	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 13:01:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DVm9C0nRrzDwqP
+	for <openbmc@archiver.kernel.org>; Wed,  3 Feb 2021 13:39:27 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.21;
- helo=wout5-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.a=rsa-sha256 header.s=fm1 header.b=Bd2Hu3EC; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=W5h5jNGg; 
- dkim-atps=neutral
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=fKLt/+fW; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DVR7774JDzDq8t
- for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2021 00:51:30 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 2BAAB456;
- Tue,  2 Feb 2021 08:51:25 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute4.internal (MEProxy); Tue, 02 Feb 2021 08:51:25 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:content-transfer-encoding
- :in-reply-to; s=fm1; bh=irHnFJHqYxTS/8ThJEVfN0t2V0Jd3FHBvqPW9kVN
- YeU=; b=Bd2Hu3EC5ACm/9tC2u8Su4mp2gmjbinG96bdnNt0mfKP6k3Avj89wZ6I
- 6/WaRoGktT1rE0hhxwby9uAs8X/OdqDaIik9tuF795qOcRjEZ2vY0jO6+zLtDzV/
- +ZhWwztdyNZ3X32JNaL6EXYo7K6bBQvKcRYLdBfQZv7PrfmW4th4yQ3h7Ysj4HzP
- 9u04nIwjJgZcTO4cFB+j3XG4K2kJfSEDwcBs8z1Ruurin+5tPt4y/EbWD17WR5Iq
- oSfxc+4iJ7xP3YeqbJH8OTvEtnAB8BhhytI0ZiItYjEXUByr/1BfQsw7QJoFYdsb
- fMhvOCk6dMKv50V49Wb28o2fB5bU1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-transfer-encoding:content-type
- :date:from:in-reply-to:message-id:mime-version:references
- :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
- :x-sasl-enc; s=fm2; bh=irHnFJHqYxTS/8ThJEVfN0t2V0Jd3FHBvqPW9kVNY
- eU=; b=W5h5jNGge63s2Ifnow7LaqW/OaDFLjcI4WTkqwFlaFcyKdLryPf277NAX
- QBjvKUsb/3oHSzu6Jq0VjHX1hgt7JVR5DCPxEItzZFNC3ZfUPz4PlWTP+UueJouc
- xiwSMD0GE9f/Jl+o1IyZotdJd1c4OKt2J6BexXE6/GER5FhyLK6zWmfY1h9rIYuN
- sp5dfSXcH7fqi/PyfUgLNwl2dGRls9M+kFumza3kz5KY+LaOWn5p/zsOa66MPxYb
- +MZOimFcCX3E03wXbZHoj5ArYunHXduHb3Aln338mspEiVf8G34Ae7/dP34Epj8j
- dIi67Z4ZuPOMUVfGQB7WLd5tBi9cg==
-X-ME-Sender: <xms:3FgZYDBiqeHX8W65cZeS9FQLn81FwK_fpeauTIUUPouin-tjYZ8IBg>
- <xme:3FgZYJgKjK-HvW5xE8Vevx2roHHUlUkuJcWN903c-T6UdbOvN7VJ7HG-zoP08F9VN
- 8LuRPZJhISiJIwVjt8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrgedtgdehiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvuffkfhggtggugfgjsehtkeertddttddunecuhfhrohhmpeeurhgrugcu
- uehishhhohhpuceosghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtghomh
- eqnecuggftrfgrthhtvghrnhepvdffveetueejheehvdfggfehleejhffffeeijeffgefg
- udekhfevtdegjedvgeehnecukfhppedujeefrdduieejrdefuddrudeljeenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegsrhgrughlvgihsges
- fhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
-X-ME-Proxy: <xmx:3FgZYOlqpRuOJpoQNi690bKdBlsZl10NbTM6YJ_UTriZpZtzPlAr8A>
- <xmx:3FgZYFxHK0XvQAITcq-znyZ3LimqI3czZkQBKuj9J32XOSRpn08bkw>
- <xmx:3FgZYITOnSJKUWFFwzJIizDeWz5s2R7u8ZKcGX6VzYm9S7CL5NH6aA>
- <xmx:3FgZYB6cs6C8l7W9LkaECP8Z8Q293ZWRhptT1M-GxrbKGjeh9DlIoA>
-Received: from thinkpad.fuzziesquirrel.com (unknown [173.167.31.197])
- by mail.messagingengine.com (Postfix) with ESMTPA id 052231080057;
- Tue,  2 Feb 2021 08:51:23 -0500 (EST)
-Date: Tue, 2 Feb 2021 08:51:22 -0500
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: snowyang <SnowYang@linux.alibaba.com>
-Subject: Re: Change in ...meta-alibaba[master]: thor: initial machine creation
-Message-ID: <20210202135122.kbvdfnq6ed2onuhi@thinkpad.fuzziesquirrel.com>
-References: <gerrit.1605682495000.I03f07f9e29b4ec19b5b169f14489e8d7ed786600@gerrit.openbmc-project.xyz>
- <4ufnKrB2SUu3u1SbJu709Q@ismtpd0004p1sjc2.sendgrid.net>
- <94c8af34-dcae-e33d-a0f0-a5540ef518fd@linux.alibaba.com>
- <YAneI7zHQx217lmu@heinlein>
- <5841da60f00cade13d87d5b8795f8a25021c2e44.camel@fuzziesquirrel.com>
- <f8678061-4662-4445-a4d0-016040f00979@linux.alibaba.com>
- <0008fa42-2a5c-b092-8da6-7eaa91e775f7@linux.alibaba.com>
- <0FC93EA6-AE09-46A6-9BF2-36471B85755B@fuzziesquirrel.com>
- <fe3fef11-56c7-85a4-b3fc-35ab29e99f60@linux.alibaba.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DVW7D53PczDq9s
+ for <openbmc@lists.ozlabs.org>; Wed,  3 Feb 2021 03:51:51 +1100 (AEDT)
+Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.42/8.16.0.42) with SMTP id
+ 112GZHsC027943
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2021 11:51:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=to : from : subject :
+ message-id : date : mime-version : content-type :
+ content-transfer-encoding; s=pp1;
+ bh=Jp4tzkgqQzJ2nmppjBx2s2O8rOax3csf9R5cxTUz/1U=;
+ b=fKLt/+fWcok0bD9fvqDdUhyMtMtBMdfCvp37vGCkuAF2oSzik+kezjWKsIovdwdTkzPR
+ 98VAGZMZXhi09jtLEfrxMIJTy3EyhH38nU0men9xFm2dlFYmPfJtRtqAawK3UFzPF//X
+ 9YkNzr1COIDbjv8wGm/G1hyGnvA4RFLmAavdJ0YXwa80jsDhjnFJRkPkYCqz8MhNtini
+ kSGRlVZMh2py2ab/s19PMk3vNgm9uIwhztxDAFrJueeFzyU/7ir3qirB0HOkp1nd3+vf
+ 6caCfbX0M0fVpKhoSnrL3mtRRlaXjiFeKBvPDD0eUvPwjnDh1pLUvaz3lVaI67ySYr72 fg== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 36f988bekc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Feb 2021 11:51:47 -0500
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 112Gm7i6016110
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2021 16:51:46 GMT
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29]) by ppma03wdc.us.ibm.com with ESMTP id 36f2nwu66v-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 02 Feb 2021 16:51:46 +0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 112GpkaZ27525626
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Tue, 2 Feb 2021 16:51:46 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 69C14124052
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2021 16:51:46 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 3D615124053
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2021 16:51:46 +0000 (GMT)
+Received: from demeter.local (unknown [9.80.194.248])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Tue,  2 Feb 2021 16:51:46 +0000 (GMT)
+To: openbmc <openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Subject: Security Working Group meeting - Wednesday February 3
+Message-ID: <e42da574-888d-cc33-3f7f-80c8cef4dac0@linux.ibm.com>
+Date: Tue, 2 Feb 2021 10:51:45 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.5.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <fe3fef11-56c7-85a4-b3fc-35ab29e99f60@linux.alibaba.com>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.737
+ definitions=2021-02-02_08:2021-02-02,
+ 2021-02-02 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 mlxlogscore=775
+ bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0
+ mlxscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2102020108
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,26 +106,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Feb 02, 2021 at 09:43:05PM +0800, snowyang wrote:
->
->††† Thank you very much. I have just tried to push the code to 
->openbmc/openbmc with the name of moyan-yyb, and i found there are too 
->many branchs and† i don't know which one i should choose(Or maybe 
->should i create a new branch used to save the code?).Then i try to 
->push it to the branch of master 
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday February 3 at 10:00am PDT.
 
-^ this is the correct branch.
+We'll discuss the following items on the agenda 
+<https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
+and anything else that comes up:
 
-Hi - can you share the command you used to push?  It should look 
-approximately like:
-   git push <gerrit-remote> HEAD:refs/for/master
+1. Continue to discuss APIs to disable HTTPS 
+https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39006 
+<https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39006>
 
-It should _not_ look like this:
-   git push <gerrit-remote> HEAD:master
+2. Review Linux-PAM changes 
+https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/40102 
+<https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/40102> and 
+https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-user-manager/+/39853 
+<https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-user-manager/+/39853> 
 
-thx - brad
+
+3. Discuss plans for IBM Enterprise system ‚Äúservice‚Äù login support.
+3a. Implement restricted roles and restricted privileges per Redfish 
+spec DSP0266 1.12.0 aka 2020.4 
+https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.12.0.pdf 
+<https://www.dmtf.org/sites/default/files/standards/documents/DSP0266_1.12.0.pdf> 
+
+3b. Story here: https://github.com/ibm-openbmc/dev/issues/1756 
+<https://github.com/ibm-openbmc/dev/issues/1756>
+3c. Need a special REST API to require variable privileges: 
+https://github.com/ibm-openbmc/dev/issues/2875 
+<https://github.com/ibm-openbmc/dev/issues/2875>
+
+4. Need help for 
+https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39756 
+<https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/39756> ?
+
+5. (Discord > OpenBMC > #yocto 2021-02-02) Security concerns using a 
+sstate cache.
+
+
+Access, agenda and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group 
+<https://github.com/openbmc/openbmc/wiki/Security-working-group>
