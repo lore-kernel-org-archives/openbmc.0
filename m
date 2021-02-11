@@ -2,56 +2,62 @@ Return-Path: <SRS0=7yhA=HQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BB70CC433E0
-	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:29:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F32DBC433DB
+	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:33:24 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 47D8564DDA
-	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 47D8564DDA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lunn.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 81E0E64DEA
+	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:33:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81E0E64DEA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Df3NX02T1z3cSg
-	for <openbmc@archiver.kernel.org>; Mon, 15 Feb 2021 10:29:32 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Df3Gc3VVWz30QJ
+	for <openbmc@archiver.kernel.org>; Mon, 15 Feb 2021 10:24:24 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch
- (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
- receiver=<UNKNOWN>)
-X-Greylist: delayed 4230 seconds by postgrey-1.36 at boromir;
- Mon, 15 Feb 2021 09:31:51 AEDT
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Df25z38RGz2ydH
- for <openbmc@lists.ozlabs.org>; Mon, 15 Feb 2021 09:31:51 +1100 (AEDT)
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
- (envelope-from <andrew@lunn.ch>)
- id 1lBOp6-006J5x-W6; Sun, 14 Feb 2021 22:20:56 +0100
-Date: Sun, 14 Feb 2021 22:20:56 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Stephen Boyd <sboyd@kernel.org>, Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH 00/21] [Set 2] Rid W=1 warnings from Clock
-Message-ID: <YCmUOHTtc+j4eLkO@lunn.ch>
-References: <161309925025.1254594.6210738031889810500@swboyd.mtv.corp.google.com>
- <20210212092016.GF4572@dell>
- <161316374113.1254594.14156657225822268891@swboyd.mtv.corp.google.com>
- <20210212212503.GC179940@dell> <20210212212630.GD179940@dell>
- <161316754567.1254594.9542583200097699504@swboyd.mtv.corp.google.com>
- <20210212223739.GE179940@dell>
- <161317480301.1254594.16648868282165823277@swboyd.mtv.corp.google.com>
- <YCf4kkMsX+Ymgy6N@lunn.ch>
- <161333644244.1254594.4498059850307971318@swboyd.mtv.corp.google.com>
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=PVxo1LcX;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=sboyd@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (2048-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=PVxo1LcX; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Dc7wg5p3PzDrbB
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Feb 2021 07:47:15 +1100 (AEDT)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id D6FD864E3B;
+ Thu, 11 Feb 2021 20:47:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613076432;
+ bh=vG0YvE0JNwxsy3Hevz/Y83+mEgLMI6DUHbIarDb9OXE=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=PVxo1LcX30rdtmFh6xUTj0kdmeNXam0jtuw6i0BLJQDVuKWEDUq9DsCKxKe5cZ7j1
+ 75/Mjac7W7cQpPmKJWeJ29DNvE8fjxy3nKld2+4lQpBanSpgWJPv4/VETRy6/iVUXD
+ YLffOrahpYQWiA4lqBppMqKoxm6/rN83EQZJ5dnLQqqLrX1/UxngHD0L11G42nD4xd
+ qvjtqSD9WCW+CnL5eGFhL75f7lIx+A81XawEnKMMXzZNi7lT9lmmZYGnIfE2z3+1iD
+ UQ+OsCH6IuHmlXyDe7uIqmrktnI8W8QvKTviHz47x2lPSsVy5PWxgrUX3iMD7uVGnZ
+ E90e1uh8zSx2A==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <161333644244.1254594.4498059850307971318@swboyd.mtv.corp.google.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20210126124540.3320214-1-lee.jones@linaro.org>
+References: <20210126124540.3320214-1-lee.jones@linaro.org>
+Subject: Re: [PATCH 00/21] [Set 2] Rid W=1 warnings from Clock
+From: Stephen Boyd <sboyd@kernel.org>
+To: lee.jones@linaro.org
+Date: Thu, 11 Feb 2021 12:47:11 -0800
+Message-ID: <161307643148.1254594.6590013599999468609@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
 X-Mailman-Approved-At: Mon, 15 Feb 2021 10:22:39 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -69,58 +75,42 @@ Cc: Prashant Gaikwad <pgaikwad@nvidia.com>, Tomer Maimon <tmaimon77@gmail.com>,
  Michael Turquette <mturquette@baylibre.com>,
  Bjorn Andersson <bjorn.andersson@linaro.org>,
  Rajeev Kumar <rajeev-dlh.kumar@st.com>, Jan Kotas <jank@cadence.com>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>,
+ Russell King <linux@armlinux.org.uk>, Fabio Estevam <festevam@gmail.com>,
+ linux-clk@vger.kernel.org,
  Boris BREZILLON <boris.brezillon@free-electrons.com>,
- linux-omap@vger.kernel.org, Ahmad Fatoum <a.fatoum@pengutronix.de>,
+ Ahmad Fatoum <a.fatoum@pengutronix.de>,
  Benjamin Fair <benjaminfair@google.com>,
- Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+ Emilio =?utf-8?q?L=C3=B3pez?= <emilio@elopez.com.ar>,
  Viresh Kumar <vireshk@kernel.org>, openbmc@lists.ozlabs.org,
- Russell King <linux@armlinux.org.uk>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Michal Simek <michal.simek@xilinx.com>, Jonathan Hunter <jonathanh@nvidia.com>,
  Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
  Loc Ho <lho@apm.com>, NXP Linux Team <linux-imx@nxp.com>,
- Richard Woodruff <r-woodruff2@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-clk@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- Lee Jones <lee.jones@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
+ Richard Woodruff <r-woodruff2@ti.com>, Tali Perry <tali.perry1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Maxime Ripard <mripard@kernel.org>,
+ linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org,
+ Shiraz Hashim <shiraz.linux.kernel@gmail.com>,
  linux-arm-kernel@lists.infradead.org,
- =?iso-8859-1?Q?S=F6ren?= Brinkmann <soren.brinkmann@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Rajan Vaja <rajan.vaja@xilinx.com>,
- Tero Kristo <kristo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ =?utf-8?q?S=C3=B6ren?= Brinkmann <soren.brinkmann@xilinx.com>,
+ Jernej Skrabec <jernej.skrabec@siol.net>, Tero Kristo <kristo@kernel.org>,
+ Rajan Vaja <rajan.vaja@xilinx.com>, Avi Fishman <avifishman70@gmail.com>,
  Patrick Venture <venture@google.com>,
  Peter De Schrijver <pdeschrijver@nvidia.com>, linux-kernel@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org,
  Nuvoton Technologies <tali.perry@nuvoton.com>,
  Thierry Reding <thierry.reding@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Shiraz Hashim <shiraz.linux.kernel@gmail.com>
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Shawn Guo <shawnguo@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Sun, Feb 14, 2021 at 01:00:42PM -0800, Stephen Boyd wrote:
-> Quoting Andrew Lunn (2021-02-13 08:04:34)
-> > > I'm trying to see if we can make lives better for everyone by exposing
-> > > the warnings by default in the drivers/clk/ directory now that there are
-> > > supposedly none left. Shouldn't we tighten the screws now that we've
-> > > cleaned them?
-> > 
-> > Do you use patchwork? netdev has a bot attached which applies the
-> > patch and does a W=1 build, and will report any new warnings. But it
-> > does not email the developer, as far as i know. It is up to you as the
-> > maintainer to reject the patch and say why.
-> > 
-> 
-> Yes the kernel.org patchwork instance is used but I don't see any bot
-> putting test results there. How is that done?
-> 
-> https://patchwork.kernel.org/project/linux-clk/list/
+Quoting Lee Jones (2021-01-26 04:45:19)
+> This set is part of a larger effort attempting to clean-up W=3D1
+> kernel builds, which are currently overwhelmingly riddled with
+> niggly little warnings.
+>=20
+> This is the last set.  Clock is clean after this.
 
-Compare this with for example:
-
-https://patchwork.kernel.org/project/netdevbpf/patch/20210213175257.28642-1-ap420073@gmail.com/
-
-Jakub can explain how he added these checks.
-
-      Andrew
+Is it possible to slam in some patch that makes W=3D1 the default for the
+clk directory? I'm trying to avoid seeing this patch series again.
