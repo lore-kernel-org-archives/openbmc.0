@@ -2,49 +2,70 @@ Return-Path: <SRS0=7yhA=HQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EA393C433E0
-	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:28:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C2589C433E0
+	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:29:16 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4E2A864DDA
-	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4E2A864DDA
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=lunn.ch
+	by mail.kernel.org (Postfix) with ESMTPS id 5098A64DEA
+	for <openbmc@archiver.kernel.org>; Sun, 14 Feb 2021 23:29:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5098A64DEA
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Df3Ml0CS4z30RV
-	for <openbmc@archiver.kernel.org>; Mon, 15 Feb 2021 10:28:51 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Df3NB5r6lz3cLH
+	for <openbmc@archiver.kernel.org>; Mon, 15 Feb 2021 10:29:14 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=lunn.ch
- (client-ip=185.16.172.187; helo=vps0.lunn.ch; envelope-from=andrew@lunn.ch;
- receiver=<UNKNOWN>)
-Received: from vps0.lunn.ch (vps0.lunn.ch [185.16.172.187])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DdG960PwKzDqC6
- for <openbmc@lists.ozlabs.org>; Sun, 14 Feb 2021 03:31:53 +1100 (AEDT)
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94)
- (envelope-from <andrew@lunn.ch>)
- id 1lAxJT-0064CT-UT; Sat, 13 Feb 2021 16:58:27 +0100
-Date: Sat, 13 Feb 2021 16:58:27 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Stephen Boyd <sboyd@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Subject: Re: [PATCH 00/21] [Set 2] Rid W=1 warnings from Clock
-Message-ID: <YCf3Iwt3KGZRtNgN@lunn.ch>
-References: <20210126124540.3320214-1-lee.jones@linaro.org>
- <161307643148.1254594.6590013599999468609@swboyd.mtv.corp.google.com>
- <20210211211054.GD4572@dell>
- <161309925025.1254594.6210738031889810500@swboyd.mtv.corp.google.com>
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=EfZx6Wlh;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=sboyd@kernel.org; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ dkim=fail reason="signature verification failed" (2048-bit key;
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=EfZx6Wlh; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Df04v0BX5z2y0B
+ for <openbmc@lists.ozlabs.org>; Mon, 15 Feb 2021 08:00:46 +1100 (AEDT)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id ACFC164E26;
+ Sun, 14 Feb 2021 21:00:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1613336443;
+ bh=+gis0jgxq24TQhFAoQSOMeZCZ0rEn3noO3yo2KuQO/I=;
+ h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+ b=EfZx6WlhfheKQID7ELl0o3BuJsgBul7UcOYZDyw3jpC+J7km11mwrdudP0zwX6YUG
+ VjeiCHcauvZXsoZtl4CDSoiws1idVQkLloxFSMRvFw2BNCACjh+AqyuASiQr7OBpg6
+ J07+qJGDZ4ma151wIjvlg//QO7oXIWkCv8RBxobGpGcsmdW67pmSodchnCm9B39PAU
+ 0ywa6a5DnaowLig9sB7+KWIjOLNUFCL68k8TbuJkK+7uD3QyTfFuRq1ANak6LJxNxn
+ kOcIY2qQv0qRFKZgkXr4dmIcFNMmPws3MciJOOCOJMq2G90Ifequ1/u0z8122D/df6
+ BxhH/J/TJ0m+w==
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <161309925025.1254594.6210738031889810500@swboyd.mtv.corp.google.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <YCf4kkMsX+Ymgy6N@lunn.ch>
+References: <161307643148.1254594.6590013599999468609@swboyd.mtv.corp.google.com>
+ <161309925025.1254594.6210738031889810500@swboyd.mtv.corp.google.com>
+ <20210212092016.GF4572@dell>
+ <161316374113.1254594.14156657225822268891@swboyd.mtv.corp.google.com>
+ <20210212212503.GC179940@dell> <20210212212630.GD179940@dell>
+ <161316754567.1254594.9542583200097699504@swboyd.mtv.corp.google.com>
+ <20210212223739.GE179940@dell>
+ <161317480301.1254594.16648868282165823277@swboyd.mtv.corp.google.com>
+ <YCf4kkMsX+Ymgy6N@lunn.ch>
+Subject: Re: [PATCH 00/21] [Set 2] Rid W=1 warnings from Clock
+From: Stephen Boyd <sboyd@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Sun, 14 Feb 2021 13:00:42 -0800
+Message-ID: <161333644244.1254594.4498059850307971318@swboyd.mtv.corp.google.com>
+User-Agent: alot/0.9.1
 X-Mailman-Approved-At: Mon, 15 Feb 2021 10:22:39 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -67,7 +88,7 @@ Cc: Prashant Gaikwad <pgaikwad@nvidia.com>, Tomer Maimon <tmaimon77@gmail.com>,
  Boris BREZILLON <boris.brezillon@free-electrons.com>,
  linux-omap@vger.kernel.org, Ahmad Fatoum <a.fatoum@pengutronix.de>,
  Benjamin Fair <benjaminfair@google.com>,
- Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
+ Emilio =?utf-8?q?L=C3=B3pez?= <emilio@elopez.com.ar>,
  Viresh Kumar <vireshk@kernel.org>, openbmc@lists.ozlabs.org,
  Russell King <linux@armlinux.org.uk>, Jonathan Hunter <jonathanh@nvidia.com>,
  Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
@@ -78,7 +99,7 @@ Cc: Prashant Gaikwad <pgaikwad@nvidia.com>, Tomer Maimon <tmaimon77@gmail.com>,
  Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
  Lee Jones <lee.jones@linaro.org>, Tali Perry <tali.perry1@gmail.com>,
  linux-arm-kernel@lists.infradead.org,
- =?iso-8859-1?Q?S=F6ren?= Brinkmann <soren.brinkmann@xilinx.com>,
+ =?utf-8?q?S=C3=B6ren?= Brinkmann <soren.brinkmann@xilinx.com>,
  Jernej Skrabec <jernej.skrabec@siol.net>, Rajan Vaja <rajan.vaja@xilinx.com>,
  Tero Kristo <kristo@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
  Patrick Venture <venture@google.com>,
@@ -92,38 +113,19 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Feb 11, 2021 at 07:07:30PM -0800, Stephen Boyd wrote:
-> Quoting Lee Jones (2021-02-11 13:10:54)
-> > On Thu, 11 Feb 2021, Stephen Boyd wrote:
-> > 
-> > > Quoting Lee Jones (2021-01-26 04:45:19)
-> > > > This set is part of a larger effort attempting to clean-up W=1
-> > > > kernel builds, which are currently overwhelmingly riddled with
-> > > > niggly little warnings.
-> > > > 
-> > > > This is the last set.  Clock is clean after this.
-> > > 
-> > > Is it possible to slam in some patch that makes W=1 the default for the
-> > > clk directory? I'm trying to avoid seeing this patch series again.
-> > 
-> > One of my main goals of this project is that everyone (contributors,
-> > maintainers auto-builder robots etc) will be enabling W=1 builds
-> > *locally*.
-> > 
-> > This isn't something you'll want to do at a global (i.e. in Mainline)
-> > level.  That's kinda the point of W=1.
-> > 
-> 
-> Agreed, but is it possible to pass W=1 in the drivers/clk/Makefile?
+Quoting Andrew Lunn (2021-02-13 08:04:34)
+> > I'm trying to see if we can make lives better for everyone by exposing
+> > the warnings by default in the drivers/clk/ directory now that there are
+> > supposedly none left. Shouldn't we tighten the screws now that we've
+> > cleaned them?
+>=20
+> Do you use patchwork? netdev has a bot attached which applies the
+> patch and does a W=3D1 build, and will report any new warnings. But it
+> does not email the developer, as far as i know. It is up to you as the
+> maintainer to reject the patch and say why.
+>=20
 
-About a cycle ago, Arnd and i played around with this idea. The
-Ethernet PHY subsystem is W=1 clean, and most of he network stack
-is. But keeping it clean is not so easy, when developers do sometimes
-add new warnings, since they have no idea the code is W=1 clean.
+Yes the kernel.org patchwork instance is used but I don't see any bot
+putting test results there. How is that done?
 
-You are also not the only one asking for such a feature. RDMA also
-asked recently.
-
-Arnd, do you plan to push the patches?
-
-      Andrew
+https://patchwork.kernel.org/project/linux-clk/list/
