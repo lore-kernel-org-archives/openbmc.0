@@ -2,47 +2,46 @@ Return-Path: <SRS0=CwJ0=HS=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27323C433E0
-	for <openbmc@archiver.kernel.org>; Tue, 16 Feb 2021 18:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C313FC433E0
+	for <openbmc@archiver.kernel.org>; Tue, 16 Feb 2021 18:17:11 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 62FD3614A7
-	for <openbmc@archiver.kernel.org>; Tue, 16 Feb 2021 18:16:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 62FD3614A7
+	by mail.kernel.org (Postfix) with ESMTPS id 5E992614A7
+	for <openbmc@archiver.kernel.org>; Tue, 16 Feb 2021 18:17:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5E992614A7
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Dg8Ls06ttz3cGq
-	for <openbmc@archiver.kernel.org>; Wed, 17 Feb 2021 05:16:53 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Dg8MB113Gz3cJV
+	for <openbmc@archiver.kernel.org>; Wed, 17 Feb 2021 05:17:10 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=linux.intel.com
  (client-ip=134.134.136.126; helo=mga18.intel.com;
  envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-X-Greylist: delayed 64 seconds by postgrey-1.36 at boromir;
- Wed, 17 Feb 2021 05:16:34 AEDT
 Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Dg8LV1MQDz30KN;
- Wed, 17 Feb 2021 05:16:34 +1100 (AEDT)
-IronPort-SDR: T7OgI7rXK8KQLtLqzK1jh3qwxVz0ol2Lmdkk4LwrIAiOnoVQyJTuogokqL2l0mj81Fh3yPxtFO
- +GcSPZ5KWgEQ==
-X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="170634243"
-X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="170634243"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Dg8LW1tyQz30Gb;
+ Wed, 17 Feb 2021 05:16:35 +1100 (AEDT)
+IronPort-SDR: vHhG6/NxKHIpitog4MoqGfgkPGBBn4tf9JWKesefndvOYWlJHXqkR3oRe74d44zo7iJGzgr2ER
+ 41/tVbyLXnkA==
+X-IronPort-AV: E=McAfee;i="6000,8403,9897"; a="170634273"
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="170634273"
 Received: from fmsmga001.fm.intel.com ([10.253.24.23])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 16 Feb 2021 10:15:24 -0800
-IronPort-SDR: 6pXYhCqPaIaxYtx0EOvaa965LEVjcd9ChuE5ozGOVd9YHcYUTUo89x5JgR4Yw+JjW759Ra+Xl5
- tvtzLGj8ukpA==
+ 16 Feb 2021 10:15:28 -0800
+IronPort-SDR: Pr7zy6M4x7i/Dozg7fXObwU6czymybPFoVCbgcj/TyFv3Ex9VPYMuqtISEtSfMG6ifMV6hrETZ
+ VtL5gheszH/A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="493375887"
+X-IronPort-AV: E=Sophos;i="5.81,184,1610438400"; d="scan'208";a="493376023"
 Received: from maru.jf.intel.com ([10.54.51.77])
- by fmsmga001.fm.intel.com with ESMTP; 16 Feb 2021 10:15:23 -0800
+ by fmsmga001.fm.intel.com with ESMTP; 16 Feb 2021 10:15:28 -0800
 From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 To: Brendan Higgins <brendanhiggins@google.com>,
  Wolfram Sang <wsa@the-dreams.de>,
@@ -50,13 +49,12 @@ To: Brendan Higgins <brendanhiggins@google.com>,
  Joel Stanley <joel@jms.id.au>, Rob Herring <robh+dt@kernel.org>,
  Mark Rutland <mark.rutland@arm.com>, Andrew Jeffery <andrew@aj.id.au>,
  Tao Ren <taoren@fb.com>, Cedric Le Goater <clg@kaod.org>
-Subject: [PATCH v3 0/4] i2c: aspeed: Add buffer and DMA modes support
-Date: Tue, 16 Feb 2021 10:27:31 -0800
-Message-Id: <20210216182735.11639-1-jae.hyun.yoo@linux.intel.com>
+Subject: [PATCH v3 1/4] dt-bindings: i2c: aspeed: add transfer mode support
+Date: Tue, 16 Feb 2021 10:27:32 -0800
+Message-Id: <20210216182735.11639-2-jae.hyun.yoo@linux.intel.com>
 X-Mailer: git-send-email 2.17.1
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <20210216182735.11639-1-jae.hyun.yoo@linux.intel.com>
+References: <20210216182735.11639-1-jae.hyun.yoo@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,71 +73,83 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch series adds buffer mode and DMA mode transfer support for the
-Aspeed I2C driver. With this change, buffer mode and DMA mode can be
-selectively used depend on platform configuration.
+Append bindings to support transfer mode.
 
-* Buffer mode
-  AST2400:
-    It has 2 KBytes (256 Bytes x 8 pages) of I2C SRAM buffer pool from
-    0x1e78a800 to 0x1e78afff that can be used for all busses with
-    buffer pool manipulation. To simplify implementation for supporting
-    both AST2400 and AST2500, it assigns each 128 Bytes per bus without
-    using buffer pool manipulation so total 1792 Bytes of I2C SRAM
-    buffer will be used.
-
-  AST2500:
-    It has 16 Bytes of individual I2C SRAM buffer per each bus and its
-    range is from 0x1e78a200 to 0x1e78a2df, so it doesn't have 'buffer
-    page selection' bit field in the Function control register, and
-    neither 'base address pointer' bit field in the Pool buffer control
-    register it has. To simplify implementation for supporting both
-    AST2400 and AST2500, it writes zeros on those register bit fields
-    but it's okay because it does nothing in AST2500.
-
-  AST2600:
-    It has 32 Bytes of individual I2C SRAM buffer per each bus and its
-    range is from 0x1e78ac00 to 0x1e78adff. Works just like AST2500
-    does.
-
-* DMA mode
-  Only AST2500 and later versions support DMA mode under some limitations
-  in case of AST2500:
-    I2C is sharing the DMA H/W with UHCI host controller and MCTP
-    controller. Since those controllers operate with DMA mode only, I2C
-    has to use buffer mode or byte mode instead if one of those
-    controllers is enabled. Also make sure that if SD/eMMC or Port80
-    snoop uses DMA mode instead of PIO or FIFO respectively, I2C can't
-    use DMA mode.
-
-Please review it.
-
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+---
 Changes since v2:
-- Added SRAM resources back to default dtsi and added a mode selection
+- Moved SRAM resources back to default dtsi and added a mode selection
   property.
-- Refined SoC family dependent xfer mode configuration functions.
 
 Changes since v1:
-V1: https://lore.kernel.org/linux-arm-kernel/20191007231313.4700-1-jae.hyun.yoo@linux.intel.com/
-- Removed a bug fix patch which was merged already from this patch series. 
 - Removed buffer reg settings from default device tree and added the settings
-  into bindings document to show the predefined buffer range per each bus.
-- Updated commit message and comments.
-- Refined driver code using abstract functions.
+  into here to show the predefined buffer range per each bus.
 
-Jae Hyun Yoo (4):
-  dt-bindings: i2c: aspeed: add transfer mode support
-  ARM: dts: aspeed: modify I2C node to support buffer mode
-  i2c: aspeed: add buffer mode transfer support
-  i2c: aspeed: add DMA mode transfer support
+ .../devicetree/bindings/i2c/i2c-aspeed.txt    | 37 +++++++++++++++----
+ 1 file changed, 30 insertions(+), 7 deletions(-)
 
- .../devicetree/bindings/i2c/i2c-aspeed.txt    |  37 +-
- arch/arm/boot/dts/aspeed-g4.dtsi              |  47 +-
- arch/arm/boot/dts/aspeed-g5.dtsi              |  47 +-
- arch/arm/boot/dts/aspeed-g6.dtsi              |  32 +-
- drivers/i2c/busses/i2c-aspeed.c               | 637 ++++++++++++++++--
- 5 files changed, 684 insertions(+), 116 deletions(-)
-
+diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+index b47f6ccb196a..242343177324 100644
+--- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
++++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+@@ -17,6 +17,20 @@ Optional Properties:
+ - bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
+ 		  specified
+ - multi-master	: states that there is another master active on this bus.
++- aspeed,i2c-xfer-mode	: should be "byte", "buf" or "dma" to select transfer
++			  mode defaults to "byte" mode when not specified.
++
++			  I2C DMA mode on AST2500 has these restrictions:
++			    - If one of these controllers is enabled
++				* UHCI host controller
++				* MCTP controller
++			      I2C has to use buffer mode or byte mode instead
++			      since these controllers run only in DMA mode and
++			      I2C is sharing the same DMA H/W with them.
++			    - If one of these controllers uses DMA mode, I2C
++			      can't use DMA mode
++				* SD/eMMC
++				* Port80 snoop
+ 
+ Example:
+ 
+@@ -26,20 +40,29 @@ i2c {
+ 	#size-cells = <1>;
+ 	ranges = <0 0x1e78a000 0x1000>;
+ 
+-	i2c_ic: interrupt-controller@0 {
+-		#interrupt-cells = <1>;
+-		compatible = "aspeed,ast2400-i2c-ic";
++	i2c_gr: i2c-global-regs@0 {
++		compatible = "aspeed,ast2500-i2c-gr", "syscon";
+ 		reg = <0x0 0x40>;
+-		interrupts = <12>;
+-		interrupt-controller;
++
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0x0 0x0 0x40>;
++
++		i2c_ic: interrupt-controller@0 {
++			#interrupt-cells = <1>;
++			compatible = "aspeed,ast2500-i2c-ic";
++			reg = <0x0 0x4>;
++			interrupts = <12>;
++			interrupt-controller;
++		};
+ 	};
+ 
+ 	i2c0: i2c-bus@40 {
+ 		#address-cells = <1>;
+ 		#size-cells = <0>;
+ 		#interrupt-cells = <1>;
+-		reg = <0x40 0x40>;
+-		compatible = "aspeed,ast2400-i2c-bus";
++		reg = <0x40 0x40>, <0x200 0x10>;
++		compatible = "aspeed,ast2500-i2c-bus";
+ 		clocks = <&syscon ASPEED_CLK_APB>;
+ 		resets = <&syscon ASPEED_RESET_I2C>;
+ 		bus-frequency = <100000>;
 -- 
 2.17.1
 
