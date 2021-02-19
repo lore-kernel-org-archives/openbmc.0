@@ -2,94 +2,101 @@ Return-Path: <SRS0=jIEj=HV=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48022C433DB
-	for <openbmc@archiver.kernel.org>; Fri, 19 Feb 2021 01:08:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C63AC433E0
+	for <openbmc@archiver.kernel.org>; Fri, 19 Feb 2021 14:26:22 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AEB5164EC4
-	for <openbmc@archiver.kernel.org>; Fri, 19 Feb 2021 01:08:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AEB5164EC4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linaro.org
+	by mail.kernel.org (Postfix) with ESMTPS id DB4F164E46
+	for <openbmc@archiver.kernel.org>; Fri, 19 Feb 2021 14:26:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB4F164E46
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DhYNR17gtz3cG9
-	for <openbmc@archiver.kernel.org>; Fri, 19 Feb 2021 12:08:07 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Dhv5S3W8Lz3cKL
+	for <openbmc@archiver.kernel.org>; Sat, 20 Feb 2021 01:26:20 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dRsXTrRz;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=kVehsZZ7;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=iVUYHjoR;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linaro.org (client-ip=2a00:1450:4864:20::429;
- helo=mail-wr1-x429.google.com; envelope-from=lee.jones@linaro.org;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.229;
+ helo=new3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256
- header.s=google header.b=dRsXTrRz; dkim-atps=neutral
-Received: from mail-wr1-x429.google.com (mail-wr1-x429.google.com
- [IPv6:2a00:1450:4864:20::429])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm2 header.b=kVehsZZ7; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=iVUYHjoR; 
+ dkim-atps=neutral
+Received: from new3-smtp.messagingengine.com (new3-smtp.messagingengine.com
+ [66.111.4.229])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Dh8bV1c5kz30KF
- for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2021 20:31:17 +1100 (AEDT)
-Received: by mail-wr1-x429.google.com with SMTP id g6so2095329wrs.11
- for <openbmc@lists.ozlabs.org>; Thu, 18 Feb 2021 01:31:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linaro.org; s=google;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:content-transfer-encoding:in-reply-to;
- bh=VaSKa4DdnHoyZyCFHmPaCow3KCxH2Ne1C09ADbZ1yus=;
- b=dRsXTrRzk7Wc31VNcTbJfc4NgGYL0oYa4TrPkTQZMezCPZJix76Gti85Vp4Yt4U+uY
- qvfk2XL5qC9qgVqCHKJ9gGyJh/v2yDaSoxO5sAkmaNzasrphNDslGJIOOjdGbKAz1QQK
- 4xghW/rirIb3npghDbJJSNGXUipsbkyVznUa4nXfrFhP8ZjY8c+Ngpd8ML3l765bhShk
- uP8iWjoRLeekT1gz2uN5nT6zKWr0JErbR50lvlx6YtfOcFshe+PTQqtahpMP8imSEncX
- 8m2OjhT/DZN+hMQTXLqi/ott3uA8MLN18PbnxALj4/JHkwpwuvmJoM83JRMCZM5wrFlR
- rwmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:content-transfer-encoding
- :in-reply-to;
- bh=VaSKa4DdnHoyZyCFHmPaCow3KCxH2Ne1C09ADbZ1yus=;
- b=XJuppka1LSMlCK7V7DzVV7e5SKQjb5EyWu/vp5xvSY9Wk06bQpd1UXe8KZGyioU+5u
- bvERJBtTUw8oez4FfIY+qZbv1JcW3wF/UlXhmU0Mk+7p3DHMKOqvoerfzERJowgFXSzB
- HKz6XAZm4LxgLq3c4EiKgunS50NFaqolOycVBP9ef7MLW6jgcLh4Lfo7QrsKAb3jCuBW
- F55bLpA+yYJ3cYcn6/vAEA4Ryt6S5Cs/kdPNcZ4iQxuNs3NzAUH81m0lWF08b38aybh4
- NZaobrmmnqM6ikBpob2COPNKOMuCKkEB4B7FRL/3BRaCw4qInyXUfhvLohJUJBGzfFTG
- 4Hhw==
-X-Gm-Message-State: AOAM533BgjdlHfTwcCk60MUnzBbEhsA/AiVgTNqz2NoiomfgLPdhpJR9
- aWUOorSGdX4/qljfXhqTJ5P1ow==
-X-Google-Smtp-Source: ABdhPJxE8kmixkGOJBaQqpcOpvjiGzXrQRnCSlhlsVN/0EM3RqJlhWDEhhKX5MEo/csg0r4Y/dUISA==
-X-Received: by 2002:adf:d1ce:: with SMTP id b14mr3340189wrd.329.1613640671985; 
- Thu, 18 Feb 2021 01:31:11 -0800 (PST)
-Received: from dell ([91.110.221.153])
- by smtp.gmail.com with ESMTPSA id m24sm8233954wml.36.2021.02.18.01.31.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Feb 2021 01:31:11 -0800 (PST)
-Date: Thu, 18 Feb 2021 09:31:08 +0000
-From: Lee Jones <lee.jones@linaro.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [PATCH 00/21] [Set 2] Rid W=1 warnings from Clock
-Message-ID: <20210218093108.GA62231@dell>
-References: <161316754567.1254594.9542583200097699504@swboyd.mtv.corp.google.com>
- <20210212223739.GE179940@dell>
- <161317480301.1254594.16648868282165823277@swboyd.mtv.corp.google.com>
- <YCf4kkMsX+Ymgy6N@lunn.ch>
- <161333644244.1254594.4498059850307971318@swboyd.mtv.corp.google.com>
- <YCmUOHTtc+j4eLkO@lunn.ch> <20210215084952.GF179940@dell>
- <20210215094509.0b1f0bbf@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
- <20210216082046.GA4803@dell>
- <20210217100830.50db2195@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Dhv4v3Pfvz30R3;
+ Sat, 20 Feb 2021 01:25:51 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 71E58580348;
+ Fri, 19 Feb 2021 09:25:49 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 19 Feb 2021 09:25:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=Of9fXLwiHKbZL
+ z7SYjbDH9KiyUIl2ezf3PxW73gC+GE=; b=kVehsZZ7XShLXHhuPbxKT1C5qGW7x
+ XyWiEMjHj9BnjB+jMrcLAWQfFJwNuviwye5rP/lvaXCQc6ZtCQGkZj7r+drwbsxR
+ hMr8kjZj8s3ZTr+nsy4S2PG2lAG3OiImAQYmlpJKtsu5K0jTqBr9YOHr5n6D5D8I
+ KeJkzn3x6nT+zvhUBoK8NNxhMYFtabFqXa7ryoN7olS1F56C5wytbr5hLm7W0/Jp
+ tooAIITEEZd/9YRCzg40kZeeEYIrMStd2ik3CvtL+Ebi/YmM/xf3nQ/0A8Y1Heoa
+ PzdU4VPZ3tqjl1B6kLbI1UiAP/cwlMxcgxiLBeR8iRR0yZv92V6G3mI/g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=Of9fXLwiHKbZLz7SYjbDH9KiyUIl2ezf3PxW73gC+GE=; b=iVUYHjoR
+ OYwYg6zAazMsY4C/vVhxwwQuv/3IOJ7Ro93v+4OWv3/CuWlbAuOLNq+uySkeO+2b
+ K2j9d1vzwzxS/6AN/Cel6r6NLL+1IU2nQwvauavASrm5VxuplvFx0Cv8qwCu/ZxC
+ ZYGTHrXotRNKEm0wKIeJEWgZ0i5I5+vEb4i5IgWylQav7Urqme1lTX6qS3EUzgHE
+ rIwXnobp2NBbrR894OELx/Xnf0oehR7KapdngRWjQV+WwAeB2fPI37Q65l/VuIO4
+ DbhkwOVKVuEQESbRseq/QFuI5ZWaaa5bqgcC8u6Zc8ZIbklbxFGp1XQbv4b76vJS
+ pHiEKl7tlFQV+g==
+X-ME-Sender: <xms:bcovYEx9tdO6bV-bw2UiVNGzD8bTUz1yByBlmOIf8o-BR3jVncwGuQ>
+ <xme:bcovYIS93uRvbNlD1VklGwdxXvI0BWHZZwnCcLTDYmTUfURcGmHkQnM0gszQq5_vO
+ r5gbwU_LQU66BQxcQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrjeeigdeigecutefuodetggdotefrodftvf
+ curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+ uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+ fjughrpefhvffufffkofgjfhgggfestdekredtredttdenucfhrhhomheptehnughrvgif
+ ucflvghffhgvrhihuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrfgrthhtvg
+ hrnhepjefgvdevheetkeevgeegleelgfelteetjeffleffvdduudevieffgeetleevhfet
+ necukfhppedugedrvddrledurdefjeenucevlhhushhtvghrufhiiigvpedtnecurfgrrh
+ grmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:bcovYGWhK7a5ZAUqwWdJiVfaK8LX6gho6mHjDqFWBcfNkL-qDNFJiQ>
+ <xmx:bcovYCjik2fiehnvOGkanWwWXJvN4wnrVo94C8qyvgtoRpo9g43Y6w>
+ <xmx:bcovYGD_SmDoIHJDaCIMhEvtli3pdEo5BYjGXknoz5i8qSO5k6pa5A>
+ <xmx:bcovYO3KgJ9ri94fSnxtCGKFt4oJ5_6gAhqKE69lpKmjoowJRkFqmg>
+Received: from localhost.localdomain
+ (ppp14-2-91-37.adl-apt-pir-bras31.tpg.internode.on.net [14.2.91.37])
+ by mail.messagingengine.com (Postfix) with ESMTPA id BC8FC24005E;
+ Fri, 19 Feb 2021 09:25:42 -0500 (EST)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openipmi-developer@lists.sourceforge.net, openbmc@lists.ozlabs.org,
+ minyard@acm.org
+Subject: [PATCH 01/19] dt-bindings: aspeed-lpc: Remove LPC partitioning
+Date: Sat, 20 Feb 2021 00:55:05 +1030
+Message-Id: <20210219142523.3464540-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210219142523.3464540-1-andrew@aj.id.au>
+References: <20210219142523.3464540-1-andrew@aj.id.au>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20210217100830.50db2195@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
-X-Mailman-Approved-At: Fri, 19 Feb 2021 12:07:43 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,73 +108,197 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Lunn <andrew@lunn.ch>, Prashant Gaikwad <pgaikwad@nvidia.com>,
- Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>,
- Bjorn Andersson <bjorn.andersson@linaro.org>,
- Rajeev Kumar <rajeev-dlh.kumar@st.com>, Jan Kotas <jank@cadence.com>,
- Shawn Guo <shawnguo@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- Michal Simek <michal.simek@xilinx.com>,
- Boris BREZILLON <boris.brezillon@free-electrons.com>,
- linux-omap@vger.kernel.org, Ahmad Fatoum <a.fatoum@pengutronix.de>,
- Benjamin Fair <benjaminfair@google.com>,
- Emilio =?iso-8859-1?Q?L=F3pez?= <emilio@elopez.com.ar>,
- Viresh Kumar <vireshk@kernel.org>, openbmc@lists.ozlabs.org,
- Russell King <linux@armlinux.org.uk>, Jonathan Hunter <jonathanh@nvidia.com>,
- Chen-Yu Tsai <wens@csie.org>, Andy Gross <agross@kernel.org>,
- Loc Ho <lho@apm.com>, NXP Linux Team <linux-imx@nxp.com>,
- Richard Woodruff <r-woodruff2@ti.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-clk@vger.kernel.org,
- Maxime Ripard <mripard@kernel.org>, linux-tegra@vger.kernel.org,
- Tali Perry <tali.perry1@gmail.com>, linux-arm-kernel@lists.infradead.org,
- =?iso-8859-1?Q?S=F6ren?= Brinkmann <soren.brinkmann@xilinx.com>,
- Jernej Skrabec <jernej.skrabec@siol.net>, Rajan Vaja <rajan.vaja@xilinx.com>,
- Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Patrick Venture <venture@google.com>,
- Peter De Schrijver <pdeschrijver@nvidia.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Avi Fishman <avifishman70@gmail.com>,
- Nuvoton Technologies <tali.perry@nuvoton.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Shiraz Hashim <shiraz.linux.kernel@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ tmaimon77@gmail.com, linux-aspeed@lists.ozlabs.org, linux-gpio@vger.kernel.org,
+ avifishman70@gmail.com, venture@google.com, "Chia-Wei,
+ Wang" <chiawei_wang@aspeedtech.com>, linux-kernel@vger.kernel.org,
+ tali.perry1@gmail.com, robh+dt@kernel.org, lee.jones@linaro.org,
+ linus.walleij@linaro.org, linux-arm-kernel@lists.infradead.org,
+ benjaminfair@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 17 Feb 2021, Jakub Kicinski wrote:
+From: "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>
 
-> On Tue, 16 Feb 2021 08:20:46 +0000 Lee Jones wrote:
-> > On Mon, 15 Feb 2021, Jakub Kicinski wrote:
-> > > On Mon, 15 Feb 2021 08:49:52 +0000 Lee Jones wrote:  
-> > > > Yes, please share.  
-> > > 
-> > > https://github.com/kuba-moo/nipa  
-> > 
-> > Thanks for this.
-> > 
-> > Oh, I see.  So you conduct tests locally, then post them up in a
-> > section called 'Checks' using the provided API.  
-> 
-> For some definition of "locally" - NIPA runs on a rented VM.
+The LPC controller has no concept of the BMC and the Host partitions.
+This patch fixes the documentation by removing the description on LPC
+partitions. The register offsets illustrated in the DTS node examples
+are also fixed to adapt to the LPC DTS change.
 
-Right.  Infrastructure that you control vs by Patchwork.
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+Acked-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/mfd/aspeed-lpc.txt    | 100 +++++-------------
+ 1 file changed, 25 insertions(+), 75 deletions(-)
 
-> > I assume that Patchwork does not alert the user when something has
-> > gone awry?  Is this something Nipa does?
-> 
-> The way we run it on netdev is maintainer-centric, IOW we see 
-> the failures in patchwork and complain to people manually.
-> The netdev mailing list gets too many messages as is, if NIPA 
-> responded with results automatically (which is not that hard
-> technically) my concern is that people would be more likely to
-> send untested patches to the mailing list and rely on the bot.
-
-That makes sense.  Thank you for the explanation.
-
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+index d0a38ba8b9ce..936aa108eab4 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
+@@ -9,13 +9,7 @@ primary use case of the Aspeed LPC controller is as a slave on the bus
+ conditions it can also take the role of bus master.
+ 
+ The LPC controller is represented as a multi-function device to account for the
+-mix of functionality it provides. The principle split is between the register
+-layout at the start of the I/O space which is, to quote the Aspeed datasheet,
+-"basically compatible with the [LPC registers from the] popular BMC controller
+-H8S/2168[1]", and everything else, where everything else is an eclectic
+-collection of functions with a esoteric register layout. "Everything else",
+-here labeled the "host" portion of the controller, includes, but is not limited
+-to:
++mix of functionality, which includes, but is not limited to:
+ 
+ * An IPMI Block Transfer[2] Controller
+ 
+@@ -44,80 +38,36 @@ Required properties
+ ===================
+ 
+ - compatible:	One of:
+-		"aspeed,ast2400-lpc", "simple-mfd"
+-		"aspeed,ast2500-lpc", "simple-mfd"
+-		"aspeed,ast2600-lpc", "simple-mfd"
++		"aspeed,ast2400-lpc-v2", "simple-mfd", "syscon"
++		"aspeed,ast2500-lpc-v2", "simple-mfd", "syscon"
++		"aspeed,ast2600-lpc-v2", "simple-mfd", "syscon"
+ 
+ - reg:		contains the physical address and length values of the Aspeed
+                 LPC memory region.
+ 
+ - #address-cells: <1>
+ - #size-cells:	<1>
+-- ranges: 	Maps 0 to the physical address and length of the LPC memory
+-                region
+-
+-Required LPC Child nodes
+-========================
+-
+-BMC Node
+---------
+-
+-- compatible:	One of:
+-		"aspeed,ast2400-lpc-bmc"
+-		"aspeed,ast2500-lpc-bmc"
+-		"aspeed,ast2600-lpc-bmc"
+-
+-- reg:		contains the physical address and length values of the
+-                H8S/2168-compatible LPC controller memory region
+-
+-Host Node
+----------
+-
+-- compatible:   One of:
+-		"aspeed,ast2400-lpc-host", "simple-mfd", "syscon"
+-		"aspeed,ast2500-lpc-host", "simple-mfd", "syscon"
+-		"aspeed,ast2600-lpc-host", "simple-mfd", "syscon"
+-
+-- reg:		contains the address and length values of the host-related
+-                register space for the Aspeed LPC controller
+-
+-- #address-cells: <1>
+-- #size-cells:	<1>
+-- ranges: 	Maps 0 to the address and length of the host-related LPC memory
++- ranges:	Maps 0 to the physical address and length of the LPC memory
+                 region
+ 
+ Example:
+ 
+ lpc: lpc@1e789000 {
+-	compatible = "aspeed,ast2500-lpc", "simple-mfd";
++	compatible = "aspeed,ast2500-lpc-v2", "simple-mfd", "syscon";
+ 	reg = <0x1e789000 0x1000>;
+ 
+ 	#address-cells = <1>;
+ 	#size-cells = <1>;
+ 	ranges = <0x0 0x1e789000 0x1000>;
+ 
+-	lpc_bmc: lpc-bmc@0 {
+-		compatible = "aspeed,ast2500-lpc-bmc";
++	lpc_snoop: lpc-snoop@0 {
++		compatible = "aspeed,ast2600-lpc-snoop";
+ 		reg = <0x0 0x80>;
+-	};
+-
+-	lpc_host: lpc-host@80 {
+-		compatible = "aspeed,ast2500-lpc-host", "simple-mfd", "syscon";
+-		reg = <0x80 0x1e0>;
+-		reg-io-width = <4>;
+-
+-		#address-cells = <1>;
+-		#size-cells = <1>;
+-		ranges = <0x0 0x80 0x1e0>;
++		interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>;
++		snoop-ports = <0x80>;
+ 	};
+ };
+ 
+-BMC Node Children
+-==================
+-
+-
+-Host Node Children
+-==================
+ 
+ LPC Host Interface Controller
+ -------------------
+@@ -149,14 +99,12 @@ Optional properties:
+ 
+ Example:
+ 
+-lpc-host@80 {
+-	lpc_ctrl: lpc-ctrl@0 {
+-		compatible = "aspeed,ast2500-lpc-ctrl";
+-		reg = <0x0 0x80>;
+-		clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
+-		memory-region = <&flash_memory>;
+-		flash = <&spi>;
+-	};
++lpc_ctrl: lpc-ctrl@80 {
++	compatible = "aspeed,ast2500-lpc-ctrl";
++	reg = <0x80 0x80>;
++	clocks = <&syscon ASPEED_CLK_GATE_LCLK>;
++	memory-region = <&flash_memory>;
++	flash = <&spi>;
+ };
+ 
+ LPC Host Controller
+@@ -179,9 +127,9 @@ Required properties:
+ 
+ Example:
+ 
+-lhc: lhc@20 {
++lhc: lhc@a0 {
+ 	compatible = "aspeed,ast2500-lhc";
+-	reg = <0x20 0x24 0x48 0x8>;
++	reg = <0xa0 0x24 0xc8 0x8>;
+ };
+ 
+ LPC reset control
+@@ -192,16 +140,18 @@ state of the LPC bus. Some systems may chose to modify this configuration.
+ 
+ Required properties:
+ 
+- - compatible:		"aspeed,ast2600-lpc-reset" or
+-			"aspeed,ast2500-lpc-reset"
+-			"aspeed,ast2400-lpc-reset"
++ - compatible:		One of:
++			"aspeed,ast2600-lpc-reset";
++			"aspeed,ast2500-lpc-reset";
++			"aspeed,ast2400-lpc-reset";
++
+  - reg:			offset and length of the IP in the LHC memory region
+  - #reset-controller	indicates the number of reset cells expected
+ 
+ Example:
+ 
+-lpc_reset: reset-controller@18 {
++lpc_reset: reset-controller@98 {
+         compatible = "aspeed,ast2500-lpc-reset";
+-        reg = <0x18 0x4>;
++        reg = <0x98 0x4>;
+         #reset-cells = <1>;
+ };
 -- 
-Lee Jones [李琼斯]
-Senior Technical Lead - Developer Services
-Linaro.org │ Open source software for Arm SoCs
-Follow Linaro: Facebook | Twitter | Blog
+2.27.0
+
