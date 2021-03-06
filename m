@@ -2,100 +2,69 @@ Return-Path: <SRS0=2R8G=IE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 81B9FC433E0
-	for <openbmc@archiver.kernel.org>; Sat,  6 Mar 2021 11:30:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 42D89C433E0
+	for <openbmc@archiver.kernel.org>; Sat,  6 Mar 2021 20:30:48 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A614265009
-	for <openbmc@archiver.kernel.org>; Sat,  6 Mar 2021 11:30:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A614265009
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9E049650AE
+	for <openbmc@archiver.kernel.org>; Sat,  6 Mar 2021 20:30:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E049650AE
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Dt2TW03rCz3dGj
-	for <openbmc@archiver.kernel.org>; Sat,  6 Mar 2021 22:30:23 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=akVtr7qm;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=klaus@linux.vnet.ibm.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DtGT20rlHz3cXm
+	for <openbmc@archiver.kernel.org>; Sun,  7 Mar 2021 07:30:46 +1100 (AEDT)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=209.85.222.172;
+ helo=mail-qk1-f172.google.com; envelope-from=robherring2@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=akVtr7qm; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Dt2Rl3NrVz3cQ3
- for <openbmc@lists.ozlabs.org>; Sat,  6 Mar 2021 22:28:50 +1100 (AEDT)
-Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 126BG2II142441; Sat, 6 Mar 2021 06:28:44 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=7XfBRHJKQ00TS0MecT5Z/k0C5u/W/bqlPsxdaZc9JCQ=;
- b=akVtr7qmdFtCi/Y42M9+6mkNjzms+ukqm949nfKV8r4Rj11DCOg5G/V0cpzdNeoeHDud
- 7nsYwT4DaXAJZ9f8C1szUO+qoDUuT8K/Fa7QFvdn2jKjp3f7dVIj3iGQc31dO7LH3569
- c6hn+6iyJiuQjbUTLrJ/0HHmqI7Ae2ME+mh4bVA1WGIpI68xuSMHxjNR8F2sob2Hk5yr
- HEtFntWsZlFogG6KwtHFRsBWuy0IMGMMaYwTHxhytN+pca17vnXmAVPkyVWHUeUc9cOE
- T+LEvz4GvQqmlArtWAkSwjF7W5QGjkGOuBYaf9p9D3F3pBLE2ygqAEJc+yGg1zeo7oL4 /w== 
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3748q304r4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 06 Mar 2021 06:28:44 -0500
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 126BR00q022246;
- Sat, 6 Mar 2021 11:28:43 GMT
-Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
- [9.57.198.23]) by ppma04dal.us.ibm.com with ESMTP id 3741c8tfww-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Sat, 06 Mar 2021 11:28:43 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 126BShrg24314266
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Sat, 6 Mar 2021 11:28:43 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E4FBFAE060;
- Sat,  6 Mar 2021 11:28:42 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CC65DAE066;
- Sat,  6 Mar 2021 11:28:41 +0000 (GMT)
-Received: from T480-KlausKiwi.localdomain (unknown [9.85.167.17])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTP;
- Sat,  6 Mar 2021 11:28:41 +0000 (GMT)
-From: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
-To: openembedded-core@lists.openembedded.org
-Subject: [oe-core][RFC 2/3] u-boot: Add infrastructure to SPL verified boot
-Date: Sat,  6 Mar 2021 08:28:21 -0300
-Message-Id: <20210306112822.11668-3-klaus@linux.vnet.ibm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210306112822.11668-1-klaus@linux.vnet.ibm.com>
-References: <20210306112822.11668-1-klaus@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DtGSg4L3Kz3cLv;
+ Sun,  7 Mar 2021 07:30:26 +1100 (AEDT)
+Received: by mail-qk1-f172.google.com with SMTP id d20so5656405qkc.2;
+ Sat, 06 Mar 2021 12:30:26 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=vpEE2LuMpf4oBZ8J8QruUIPmRVLcDf+SwJ7KDyqdFnU=;
+ b=fooU0K0FwJ+SZ2AEn7IJmWlyHDA5ZeLzYatjdSGM/DBbvXW/+vDdgFQZALr/xXm5r6
+ 6RlkdzuR+J+iktGWFa7N5ji6buA53zqJZWgt7t+yDW8okUA0M4QZ5tYJPKqc5oI6OI3q
+ URP/2S5HJveuvuTWAkdvnBuxwREq3lArO8sWGhApnl9iwHL1Tj0chMaxrigLoSM1aO63
+ 1593UmcOKIDFikjyTVTeRPqY/R6SjOkf2ly9vfijLFojAK6GKX54wvnmIsihFfEQIDPT
+ Y7//Fj0vUX1qCMeH0FbWlKMV+NV0VjCnRNXadcqs/CzhTud1ENNQZsZvfPl9Oegh7/BU
+ 4byA==
+X-Gm-Message-State: AOAM533CXJD9psUCP8KUpiZEbm2AZPY1QvkW/jpCBd67ezACphfN/bv7
+ cmZdp041bFURo+V52e9dUg==
+X-Google-Smtp-Source: ABdhPJy2fN2QBGV1lFAQNmt1/5joJHNHyoDWnAGMQoA/TNIDZatmXya4MAGjs7h+WUTWaxosvqM0QQ==
+X-Received: by 2002:a37:7747:: with SMTP id s68mr15511713qkc.198.1615062621871; 
+ Sat, 06 Mar 2021 12:30:21 -0800 (PST)
+Received: from robh.at.kernel.org ([172.58.27.98])
+ by smtp.gmail.com with ESMTPSA id 9sm4357749qtx.46.2021.03.06.12.30.16
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Mar 2021 12:30:20 -0800 (PST)
+Received: (nullmailer pid 1164606 invoked by uid 1000);
+ Sat, 06 Mar 2021 20:30:11 -0000
+Date: Sat, 6 Mar 2021 13:30:11 -0700
+From: Rob Herring <robh@kernel.org>
+To: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: i2c: aspeed: add transfer mode support
+Message-ID: <20210306203011.GA1152769@robh.at.kernel.org>
+References: <20210224191720.7724-1-jae.hyun.yoo@linux.intel.com>
+ <20210224191720.7724-2-jae.hyun.yoo@linux.intel.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-06_05:2021-03-03,
- 2021-03-06 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0
- malwarescore=0 suspectscore=0 mlxscore=0 bulkscore=0 clxscore=1015
- adultscore=0 phishscore=0 mlxlogscore=999 lowpriorityscore=0
- priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2103060068
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210224191720.7724-2-jae.hyun.yoo@linux.intel.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,409 +76,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: andrew@aj.id.au, Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
- openbmc@lists.ozlabs.org
+Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
+ linux-aspeed@lists.ozlabs.org, Wolfram Sang <wsa@the-dreams.de>,
+ Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+ Brendan Higgins <brendanhiggins@google.com>, linux-i2c@vger.kernel.org,
+ Tao Ren <taoren@fb.com>, Cedric Le Goater <clg@kaod.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add the necessary infrastructure to create a U-boot proper fitimage,
-sign it (using the same keys as the kernel-fitimage), and put the public
-key in the SPL binary so that verified SPL boot can be accomplished.
+On Wed, Feb 24, 2021 at 11:17:17AM -0800, Jae Hyun Yoo wrote:
+> Append bindings to support transfer mode.
+> 
+> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
+> ---
+> Changes since v3:
+> - None
+> 
+> Changes since v2:
+> - Moved SRAM resources back to default dtsi and added mode selection
+>   property.
+> 
+> Changes since v1:
+> - Removed buffer reg settings from default device tree and added the settings
+>   into here to show the predefined buffer range per each bus.
+> 
+>  .../devicetree/bindings/i2c/i2c-aspeed.txt    | 37 +++++++++++++++----
+>  1 file changed, 30 insertions(+), 7 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> index b47f6ccb196a..242343177324 100644
+> --- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
+> @@ -17,6 +17,20 @@ Optional Properties:
+>  - bus-frequency	: frequency of the bus clock in Hz defaults to 100 kHz when not
+>  		  specified
+>  - multi-master	: states that there is another master active on this bus.
+> +- aspeed,i2c-xfer-mode	: should be "byte", "buf" or "dma" to select transfer
+> +			  mode defaults to "byte" mode when not specified.
+> +
+> +			  I2C DMA mode on AST2500 has these restrictions:
+> +			    - If one of these controllers is enabled
+> +				* UHCI host controller
+> +				* MCTP controller
+> +			      I2C has to use buffer mode or byte mode instead
+> +			      since these controllers run only in DMA mode and
+> +			      I2C is sharing the same DMA H/W with them.
+> +			    - If one of these controllers uses DMA mode, I2C
+> +			      can't use DMA mode
+> +				* SD/eMMC
+> +				* Port80 snoop
 
-Signed-off-by: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
----
- meta/classes/kernel-fitimage.bbclass |   7 +
- meta/classes/uboot-sign.bbclass      | 306 +++++++++++++++++++++++++--
- 2 files changed, 296 insertions(+), 17 deletions(-)
+How does one decide between byte or buf mode? 
 
-diff --git a/meta/classes/kernel-fitimage.bbclass b/meta/classes/kernel-fitimage.bbclass
-index 76e2e6c136..3b72d5495a 100644
---- a/meta/classes/kernel-fitimage.bbclass
-+++ b/meta/classes/kernel-fitimage.bbclass
-@@ -694,6 +694,13 @@ kernel_do_deploy_append() {
- 			# ${UBOOT_DTB_IMAGE} since it contains ${PV} which is aimed
- 			# for u-boot, but we are in kernel env now.
- 			install -m 0644 ${B}/u-boot-${MACHINE}*.dtb "$deployDir/"
-+			if [ "${SPL_SIGN_ENABLE}" = "1" -a -n "${UBOOT_BINARY}" -a -n "${SPL_DTB_BINARY}" ] ; then
-+				# If we're also signing the uboot fit, now we need to
-+				# deploy it, as well as u-boot-spl.dtb
-+				install -m 0644 ${B}/u-boot-spl-${MACHINE}*.dtb "$deployDir/"
-+				echo "Copying u-boot-fitImage file..."
-+				install -m 0644 ${B}/u-boot-fitImage "$deployDir/u-boot-fitImage-${MACHINE}.${UBOOT_SUFFIX}"
-+			fi
- 		fi
- 	fi
- }
-diff --git a/meta/classes/uboot-sign.bbclass b/meta/classes/uboot-sign.bbclass
-index d57bef6669..c362cbfd9c 100644
---- a/meta/classes/uboot-sign.bbclass
-+++ b/meta/classes/uboot-sign.bbclass
-@@ -36,6 +36,7 @@ inherit uboot-config
- 
- # Signature activation.
- UBOOT_SIGN_ENABLE ?= "0"
-+SPL_SIGN_ENABLE ?= "0"
- 
- # Default value for deployment filenames.
- UBOOT_DTB_IMAGE ?= "u-boot-${MACHINE}-${PV}-${PR}.dtb"
-@@ -77,8 +78,18 @@ FIT_KEY_REQ_ARGS ?= "-batch -new"
- # Standard format for public key certificate
- FIT_KEY_SIGN_PKCS ?= "-x509"
- 
--# Functions in this bbclass is for u-boot only
-+# Functions on this bbclass can apply to either U-boot or Kernel,
-+# depending on the scenario
- UBOOT_PN = "${@d.getVar('PREFERRED_PROVIDER_u-boot') or 'u-boot'}"
-+KERNEL_PN = "${@d.getVar('PREFERRED_PROVIDER_virtual/kernel')}"
-+
-+# We need u-boot-tools-native if we're about to sign the SPL
-+python() {
-+    if d.getVar('SPL_SIGN_ENABLE') == '1':
-+        depends = d.getVar("DEPENDS")
-+        depends = "%s u-boot-tools-native dtc-native" % depends
-+        d.setVar("DEPENDS", depends)
-+}
- 
- concat_dtb_helper() {
- 	if [ -e "${UBOOT_DTB_BINARY}" ]; then
-@@ -92,21 +103,64 @@ concat_dtb_helper() {
- 		ln -sf ${UBOOT_NODTB_IMAGE} ${DEPLOYDIR}/${UBOOT_NODTB_BINARY}
- 	fi
- 
--	# Concatenate U-Boot w/o DTB & DTB with public key
--	# (cf. kernel-fitimage.bbclass for more details)
--	deployed_uboot_dtb_binary='${DEPLOY_DIR_IMAGE}/${UBOOT_DTB_IMAGE}'
--	if [ "x${UBOOT_SUFFIX}" = "ximg" -o "x${UBOOT_SUFFIX}" = "xrom" ] && \
--		[ -e "$deployed_uboot_dtb_binary" ]; then
--		oe_runmake EXT_DTB=$deployed_uboot_dtb_binary
--		install ${UBOOT_BINARY} ${DEPLOYDIR}/${UBOOT_IMAGE}
--	elif [ -e "${DEPLOYDIR}/${UBOOT_NODTB_IMAGE}" -a -e "$deployed_uboot_dtb_binary" ]; then
-+	# If we're not using a signed u-boot fit, concatenate SPL w/o DTB & U-Boot DTB
-+	# with public key (otherwise it will be deployed by the equivalent
-+	# concat_spl_dtb_helper function - cf. kernel-fitimage.bbclass for more details)
-+	if [ "${SPL_SIGN_ENABLE}" != "1" ] ; then
-+		deployed_uboot_dtb_binary='${DEPLOY_DIR_IMAGE}/${UBOOT_DTB_IMAGE}'
-+		if [ "x${UBOOT_SUFFIX}" = "ximg" -o "x${UBOOT_SUFFIX}" = "xrom" ] && \
-+			[ -e "$deployed_uboot_dtb_binary" ]; then
-+			oe_runmake EXT_DTB=$deployed_uboot_dtb_binary
-+			install ${UBOOT_BINARY} ${DEPLOYDIR}/${UBOOT_IMAGE}
-+		elif [ -e "${DEPLOYDIR}/${UBOOT_NODTB_IMAGE}" -a -e "$deployed_uboot_dtb_binary" ]; then
-+			cd ${DEPLOYDIR}
-+			cat ${UBOOT_NODTB_IMAGE} $deployed_uboot_dtb_binary | tee ${B}/${CONFIG_B_PATH}/${UBOOT_BINARY} > ${UBOOT_IMAGE}
-+		else
-+			bbwarn "Failure while adding public key to u-boot binary. Verified boot won't be available."
-+		fi
-+	fi
-+}
-+
-+concat_spl_dtb_helper() {
-+	# Deploy the U-boot its file, spl dtb and the spl nodtb binary
-+
-+	if [ -e "${UBOOT_ITS}" ] ; then
-+		echo "Copying uboot-fit-image.its source file..."
-+		install -m 0644 ${UBOOT_ITS} "${DEPLOYDIR}/${UBOOT_ITS_IMAGE}"
-+		ln -sf ${UBOOT_ITS_IMAGE} ${DEPLOYDIR}/${UBOOT_ITS_SYMLINK}
-+		ln -sf ${UBOOT_ITS_IMAGE} ${DEPLOYDIR}/${UBOOT_ITS}
-+	fi
-+
-+	if [ -e "${SPL_DIR}/${SPL_DTB_BINARY}" ] ; then
-+		# We only deploy u-boot-spl.dtb real file if we are NOT
-+		# signing the kernel, otherwise the kernel PN will do
-+		# it for us (see kernel-fitimage.bbclass)
-+		if [ "${UBOOT_SIGN_ENABLE}" != "1" ] ; then
-+			install -m 0644 ${SPL_DIR}/${SPL_DTB_BINARY} \
-+			    ${DEPLOYDIR}/${SPL_DTB_IMAGE}
-+		fi;
-+		ln -sf ${SPL_DTB_IMAGE} ${DEPLOYDIR}/${SPL_DTB_SYMLINK}
-+		ln -sf ${SPL_DTB_IMAGE} ${DEPLOYDIR}/${SPL_DTB_BINARY}
-+	fi
-+
-+	if [ -f "${SPL_DIR}/${SPL_NODTB_BINARY}" ] ; then
-+		echo "Copying u-boot-nodtb binary..."
-+		install -m 0644 ${SPL_DIR}/${SPL_NODTB_BINARY} ${DEPLOYDIR}/${SPL_NODTB_IMAGE}
-+		ln -sf ${SPL_NODTB_IMAGE} ${DEPLOYDIR}/${SPL_NODTB_SYMLINK}
-+		ln -sf ${SPL_NODTB_IMAGE} ${DEPLOYDIR}/${SPL_NODTB_BINARY}
-+	fi
-+
-+	# Concatenate the SPL nodtb binary and u-boot.dtb (with pubkey)
-+	deployed_spl_dtb_binary='${DEPLOY_DIR_IMAGE}/${SPL_DTB_IMAGE}'
-+	if [ -e "${DEPLOYDIR}/${SPL_NODTB_IMAGE}" -a -e "$deployed_spl_dtb_binary" ] ; then
- 		cd ${DEPLOYDIR}
--		cat ${UBOOT_NODTB_IMAGE} $deployed_uboot_dtb_binary | tee ${B}/${CONFIG_B_PATH}/${UBOOT_BINARY} > ${UBOOT_IMAGE}
-+		cat ${SPL_NODTB_IMAGE} $deployed_spl_dtb_binary | tee ${B}/${CONFIG_B_PATH}/${SPL_BINARY} > ${SPL_IMAGE}
- 	else
--		bbwarn "Failure while adding public key to u-boot binary. Verified boot won't be available."
-+		bbwarn "Failure while adding public key to spl binary. Verified U-Boot boot won't be available."
- 	fi
- }
- 
-+
- concat_dtb() {
- 	if [ "${UBOOT_SIGN_ENABLE}" = "1" -a "${PN}" = "${UBOOT_PN}" -a -n "${UBOOT_DTB_BINARY}" ]; then
- 		mkdir -p ${DEPLOYDIR}
-@@ -124,6 +178,24 @@ concat_dtb() {
- 	fi
- }
- 
-+concat_spl_dtb() {
-+	if [ "${SPL_SIGN_ENABLE}" = "1" -a "${PN}" = "${UBOOT_PN}" -a -n "${SPL_DTB_BINARY}" ]; then
-+		mkdir -p ${DEPLOYDIR}
-+		if [ -n "${UBOOT_CONFIG}" ]; then
-+			for config in ${UBOOT_MACHINE}; do
-+				CONFIG_B_PATH="${config}"
-+				cd ${B}/${config}
-+				concat_spl_dtb_helper
-+			done
-+		else
-+			CONFIG_B_PATH=""
-+			cd ${B}
-+			concat_spl_dtb_helper
-+		fi
-+	fi
-+}
-+
-+
- # Install UBOOT_DTB_BINARY to datadir, so that kernel can use it for
- # signing, and kernel will deploy UBOOT_DTB_BINARY after signs it.
- install_helper() {
-@@ -138,30 +210,230 @@ install_helper() {
- 	fi
- }
- 
-+# Install SPL dtb and u-boot nodtb to datadir, 
-+install_spl_helper() {
-+	if [ -f "${SPL_DIR}/${SPL_DTB_BINARY}" ]; then
-+		install -d ${D}${datadir}
-+		install ${SPL_DIR}/${SPL_DTB_BINARY} ${D}${datadir}/${SPL_DTB_IMAGE}
-+		ln -sf ${SPL_DTB_IMAGE} ${D}${datadir}/${SPL_DTB_BINARY}
-+	else
-+		bbwarn "${SPL_DTB_BINARY} not found"
-+	fi
-+	if [ -f "${UBOOT_NODTB_BINARY}" ] ; then
-+		install ${UBOOT_NODTB_BINARY} ${D}${datadir}/${UBOOT_NODTB_IMAGE}
-+		ln -sf ${UBOOT_NODTB_IMAGE} ${D}${datadir}/${UBOOT_NODTB_BINARY}
-+	else
-+		bbwarn "${UBOOT_NODTB_BINARY} not found"
-+	fi
-+}
-+
- do_install_append() {
--	if [ "${UBOOT_SIGN_ENABLE}" = "1" -a "${PN}" = "${UBOOT_PN}" -a -n "${UBOOT_DTB_BINARY}" ]; then
-+	if [ "${PN}" = "${UBOOT_PN}" ]; then
- 		if [ -n "${UBOOT_CONFIG}" ]; then
- 			for config in ${UBOOT_MACHINE}; do
- 				cd ${B}/${config}
--				install_helper
-+				if [ "${UBOOT_SIGN_ENABLE}" = "1" -a -n "${UBOOT_DTB_BINARY}" ]; then
-+					install_helper
-+				fi
-+				if [ "${SPL_SIGN_ENABLE}" = "1" -a -n "${SPL_DTB_BINARY}" ]; then
-+					install_spl_helper
-+				fi
- 			done
- 		else
- 			cd ${B}
--			install_helper
-+			if [ "${UBOOT_SIGN_ENABLE}" = "1" -a -n "${UBOOT_DTB_BINARY}" ]; then
-+				install_helper
-+			fi
-+			if [ "${SPL_SIGN_ENABLE}" = "1" -a -n "${SPL_DTB_BINARY}" ]; then
-+				install_spl_helper
-+			fi
-+		fi
-+	fi
-+}
-+
-+do_generate_rsa_keys() {
-+	if [ "${UBOOT_SIGN_ENABLE}" = "0" ] && [ "${FIT_GENERATE_KEYS}" = "1" ]; then
-+		bbwarn "FIT_GENERATE_KEYS is set to 1 eventhough UBOOT_SIGN_ENABLE is set to 0. The keys will not be generated as they won't be used."
-+	fi
-+
-+	if [ "${UBOOT_SIGN_ENABLE}" = "1" ] && [ "${FIT_GENERATE_KEYS}" = "1" ]; then
-+
-+		# Generate keys only if they don't already exist
-+		if [ ! -f "${UBOOT_SIGN_KEYDIR}/${UBOOT_SIGN_KEYNAME}".key ] || \
-+			[ ! -f "${UBOOT_SIGN_KEYDIR}/${UBOOT_SIGN_KEYNAME}".crt ]; then
-+
-+			# make directory if it does not already exist
-+			mkdir -p "${UBOOT_SIGN_KEYDIR}"
-+
-+			echo "Generating RSA private key for signing fitImage"
-+			openssl genrsa ${FIT_KEY_GENRSA_ARGS} -out \
-+				"${UBOOT_SIGN_KEYDIR}/${UBOOT_SIGN_KEYNAME}".key \
-+				"${FIT_SIGN_NUMBITS}"
-+
-+			echo "Generating certificate for signing fitImage"
-+			openssl req ${FIT_KEY_REQ_ARGS} "${FIT_KEY_SIGN_PKCS}" \
-+				-key "${UBOOT_SIGN_KEYDIR}/${UBOOT_SIGN_KEYNAME}".key \
-+				-out "${UBOOT_SIGN_KEYDIR}/${UBOOT_SIGN_KEYNAME}".crt
-+		fi
-+	fi
-+}
-+
-+addtask generate_rsa_keys before do_uboot_assemble_fitimage after do_compile
-+
-+# Create a ITS file for the U-boot FIT, for use when
-+# we want to sign it so that the SPL can verify it
-+uboot_fitimage_assemble() {
-+	uboot_its="${1}"
-+	uboot_nodtb_bin="${2}"
-+	uboot_dtb="${3}"
-+	uboot_bin="${4}"
-+	spl_dtb="${5}"
-+	uboot_csum="${FIT_HASH_ALG}"
-+	uboot_sign_algo="${FIT_SIGN_ALG}"
-+	uboot_sign_keyname="${UBOOT_SIGN_KEYNAME}"
-+
-+	rm -f ${uboot_its} ${uboot_bin}
-+
-+	# First we create the ITS script
-+	cat << EOF >> ${uboot_its}
-+/dts-v1/;
-+
-+/ {
-+    description = "U-boot FIT";
-+    #address-cells = <1>;
-+
-+    images {
-+        uboot {
-+            description = "U-Boot image";
-+            data = /incbin/("${uboot_nodtb_bin}");
-+            type = "standalone";
-+            os = "U-Boot";
-+            arch = "${UBOOT_ARCH}";
-+            compression = "none";
-+            load = <${UBOOT_LOADADDRESS}>;
-+            entry = <${UBOOT_ENTRYPOINT}>;
-+            hash {
-+                algo = "${uboot_csum}";
-+            };
-+            signature {
-+                algo = "${uboot_csum},${uboot_sign_algo}";
-+                key-name-hint = "${uboot_sign_keyname}";
-+            };
-+        };
-+        fdt {
-+            description = "U-Boot FDT";
-+            data = /incbin/("${uboot_dtb}");
-+            type = "flat_dt";
-+            arch = "${UBOOT_ARCH}";
-+            compression = "none";
-+            hash {
-+                algo = "${uboot_csum}";
-+            };
-+            signature {
-+                algo = "${uboot_csum},${uboot_sign_algo}";
-+                key-name-hint = "${uboot_sign_keyname}";
-+            };
-+        };
-+    };
-+
-+    configurations {
-+        default = "conf";
-+        conf {
-+            description = "Boot with signed U-Boot FIT";
-+            loadables = "uboot";
-+            fdt = "fdt";
-+            hash {
-+                algo = "${uboot_csum}";
-+            };
-+            signature {
-+                algo = "${uboot_csum},${uboot_sign_algo}";
-+                key-name-hint = "${uboot_sign_keyname}";
-+                sign-images = "loadables", "fdt";
-+            };
-+        };
-+    };
-+};
-+EOF
-+
-+	#
-+	# Assemble the U-boot FIT image
-+	#
-+	${UBOOT_MKIMAGE} \
-+		${@'-D "${UBOOT_MKIMAGE_DTCOPTS}"' if len('${UBOOT_MKIMAGE_DTCOPTS}') else ''} \
-+		-f ${uboot_its} \
-+		${uboot_bin}
-+
-+	#
-+	# Sign the U-boot FIT image and add public key to SPL dtb
-+	#
-+	${UBOOT_MKIMAGE_SIGN} \
-+		${@'-D "${UBOOT_MKIMAGE_DTCOPTS}"' if len('${UBOOT_MKIMAGE_DTCOPTS}') else ''} \
-+		-F -k "${UBOOT_SIGN_KEYDIR}" \
-+		-K "${spl_dtb}" \
-+		-r ${uboot_bin} \
-+		${UBOOT_MKIMAGE_SIGN_ARGS}
-+
-+}
-+
-+do_uboot_assemble_fitimage() {
-+	# This function runs in both UBOOT_PN as well as KERNEL_PN contexts. The reason
-+	# for that is that we need to be able to support SPL verified boot standalone,
-+	# as well as in the scenario where U-boot verified boot is enabled. On the latter
-+	# case, we can only sign our U-BOOT fit after the KERNEL_PN signed the fitimage,
-+	# as well as placed the pubkey in the U-boot DTB. Note that the Signed U-boot
-+	# FIT and SPL with the pubkey will only be available in the deploy dir, not on
-+	# the u-boot package
-+	if [ "${SPL_SIGN_ENABLE}" = "1" -a -n "${SPL_DTB_BINARY}" ] ; then
-+		if [ "${PN}" = "${UBOOT_PN}" ] ; then
-+			if [ -n "${UBOOT_CONFIG}" ]; then
-+				for config in ${UBOOT_MACHINE}; do
-+					cd ${B}/${config}
-+					uboot_fitimage_assemble ${UBOOT_ITS} ${UBOOT_NODTB_BINARY} ${UBOOT_DTB_BINARY} u-boot-fitImage ${SPL_DIR}/${SPL_DTB_BINARY}
-+				done
-+			else
-+				cd ${B}
-+				uboot_fitimage_assemble ${UBOOT_ITS} ${UBOOT_NODTB_BINARY} ${UBOOT_DTB_BINARY} u-boot-fitImage ${SPL_DIR}/${SPL_DTB_BINARY}
-+			fi
-+		elif [ "${UBOOT_SIGN_ENABLE}" = "1" -a "${PN}" = "${KERNEL_PN}" ] ; then
-+			# As we are in the kernel context, we need to copy u-boot-spl.dtb from staging first.
-+			# Unfortunately, need to glob on top of ${SPL_DTB_BINARY} since _IMAGE and _SYMLINK
-+			# will contain U-boot's PV
-+			# As for the u-boot.dtb (with fitimage's pubkey), it should come from the dependent
-+			# do_assemble_fitimage task
-+			cp -P ${STAGING_DATADIR}/${@os.path.splitext(d.getVar("SPL_DTB_BINARY"))[0]}*.dtb ${B}
-+			cp -P ${STAGING_DATADIR}/u-boot-nodtb*.${UBOOT_SUFFIX} ${B}
-+			cd ${B}
-+			uboot_fitimage_assemble ${UBOOT_ITS} ${UBOOT_NODTB_BINARY} ${UBOOT_DTB_BINARY} u-boot-fitImage ${SPL_DTB_BINARY}
- 		fi
- 	fi
- }
- 
-+addtask uboot_assemble_fitimage before do_install after do_compile
-+
-+python () {
-+    if d.getVar('UBOOT_SIGN_ENABLE') == '1' and d.getVar('PN') == d.getVar('KERNEL_PN'):
-+        d.appendVarFlag('do_uboot_assemble_fitimage', 'depends', ' %s:do_assemble_fitimage' % d.getVar('KERNEL_PN'))
-+}
-+
- do_deploy_prepend_pn-${UBOOT_PN}() {
--	if [ "${UBOOT_SIGN_ENABLE}" = "1" -a -n "${UBOOT_DTB_BINARY}" ]; then
-+	if [ "${UBOOT_SIGN_ENABLE}" = "1" -a -n "${UBOOT_DTB_BINARY}" ] ; then
- 		concat_dtb
- 	fi
-+	if [ "${SPL_SIGN_ENABLE}" = "1" -a -n "${SPL_DTB_BINARY}" ] ; then
-+		concat_spl_dtb
-+	fi
-+}
-+
-+do_deploy_append_pn-${UBOOT_PN}() {
-+	if [ "${SPL_SIGN_ENABLE}" = "1" -a "${UBOOT_SIGN_ENABLE}" != "1" ] ; then
-+		# Only deploy u-boot-fitimage if the KERNEL_PN is not already doing so
-+		install -m 0644 ${B}/u-boot-fitImage "${DEPLOYDIR}/u-boot-fitImage-${MACHINE}.${UBOOT_SUFFIX}"
-+	fi
- }
- 
- python () {
-     if d.getVar('UBOOT_SIGN_ENABLE') == '1' and d.getVar('PN') == d.getVar('UBOOT_PN') and d.getVar('UBOOT_DTB_BINARY'):
--        kernel_pn = d.getVar('PREFERRED_PROVIDER_virtual/kernel')
- 
-         # Make "bitbake u-boot -cdeploy" deploys the signed u-boot.dtb
--        d.appendVarFlag('do_deploy', 'depends', ' %s:do_deploy' % kernel_pn)
-+        d.appendVarFlag('do_deploy', 'depends', ' %s:do_deploy' % d.getVar('KERNEL_PN'))
- }
--- 
-2.25.1
+>  
+>  Example:
+>  
+> @@ -26,20 +40,29 @@ i2c {
+>  	#size-cells = <1>;
+>  	ranges = <0 0x1e78a000 0x1000>;
+>  
+> -	i2c_ic: interrupt-controller@0 {
+> -		#interrupt-cells = <1>;
+> -		compatible = "aspeed,ast2400-i2c-ic";
+> +	i2c_gr: i2c-global-regs@0 {
+> +		compatible = "aspeed,ast2500-i2c-gr", "syscon";
+>  		reg = <0x0 0x40>;
+> -		interrupts = <12>;
+> -		interrupt-controller;
+> +
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges = <0x0 0x0 0x40>;
+> +
+> +		i2c_ic: interrupt-controller@0 {
+> +			#interrupt-cells = <1>;
+> +			compatible = "aspeed,ast2500-i2c-ic";
+> +			reg = <0x0 0x4>;
+> +			interrupts = <12>;
+> +			interrupt-controller;
+> +		};
+>  	};
+>  
+>  	i2c0: i2c-bus@40 {
+>  		#address-cells = <1>;
+>  		#size-cells = <0>;
+>  		#interrupt-cells = <1>;
+> -		reg = <0x40 0x40>;
+> -		compatible = "aspeed,ast2400-i2c-bus";
+> +		reg = <0x40 0x40>, <0x200 0x10>;
+> +		compatible = "aspeed,ast2500-i2c-bus";
 
+
+The example changes are all unrelated to adding the new property. Should 
+be a separate patch or just dropped.
+
+>  		clocks = <&syscon ASPEED_CLK_APB>;
+>  		resets = <&syscon ASPEED_RESET_I2C>;
+>  		bus-frequency = <100000>;
+> -- 
+> 2.17.1
+> 
