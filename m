@@ -2,104 +2,102 @@ Return-Path: <SRS0=wJXT=IG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 04BADC433DB
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 93151C433DB
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:25 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 12FF760295
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:42:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 12FF760295
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	by mail.kernel.org (Postfix) with ESMTPS id 118DB650DF
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 118DB650DF
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYJ13Dndz3cPv
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:42:25 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYZz3Vcpz3cJq
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:55:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=XDqNyYdQ;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=aiqt4A7b;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Z5mPc3yW;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.27;
- helo=out3-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=XDqNyYdQ; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=aiqt4A7b; 
- dkim-atps=neutral
-Received: from out3-smtp.messagingengine.com (unknown [66.111.4.27])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=Z5mPc3yW; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYHV30jQz2ysx
- for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:41:57 +1100 (AEDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.nyi.internal (Postfix) with ESMTP id 95B065C0103;
- Mon,  8 Mar 2021 17:41:45 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Mon, 08 Mar 2021 17:41:45 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=P5rIS/1AuLGFmSR4fbFDERxUSSw
- Lum6atkYz596iBbM=; b=XDqNyYdQolKCyft/TbV5Orjy8qR1lwzQc2aXI62yf6y
- xpC8lw9YZgJU6j5W3A0JNHJuzF3wYPi/f1K9NM1tyNKadC/xeOgPMrEeVz3DoOPg
- D6zAh+bulyZlMeBnAZFQd4crkx6cqcgHDUu7ZAKhjfhDGwa+a65mtc/ZgG4gl9bV
- zu+wS9yU/AoOfd4j2EuknbTA5C057p5uSgEDD4AHdnjWYIb3blwyhprVPrgGpbxB
- K48FvXpsHeWbC3ILSI2e7hYw9J0G9ealHv7uYUaEw7bLUtU8hpR8RJo7UF43vRem
- CzXPG98R5tRNCu4C9fg+L0E0GaJwaHAZaAwvHjQmubw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=P5rIS/
- 1AuLGFmSR4fbFDERxUSSwLum6atkYz596iBbM=; b=aiqt4A7by5y5NWVx+LssMr
- 1InIep0MebB7UR6mY45tgVxC/rrm189+ngrJiNKtaRrXqR7LUyh+A/KtkhglV7b0
- 5gZ2BaBK7hkXhBPwZ4aoEncNyfV+yIUvLcXYHIZsVrU2IMunt4/W52NNwjkLUN1S
- 1QtNvWQmTkm5DA/sYc9VGmsqSmZ/36kFH8qy8jRc8xDwApXOWFCcTSfqWKxgh7j5
- UuO2BJ6QT/2hNcsTq7+lzn0ytpAY6rJog31hXCA9kIfJe5JWQcisoGyM65dxPJwl
- 5ak7UNLkh0HlHEcjsUqzdMsPOlmikGEy28Gyqd2y8TZTa/uKsDkYsGl9NdxXalbQ
- ==
-X-ME-Sender: <xms:J6hGYCkzPCfx9cqlZMbTMZW7JsHaTaVLbGzoPYZVi46l3nRLktDkxQ>
- <xme:J6hGYJ26WsooCFI64vgiBYUq8ocsHiTFGw6-WjlvaTppGJslFM1GzwhfSwghB3FJS
- 7EwMo7rhz3-keYYdl0>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudduhedgtdduucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- gfrhhlucfvnfffucdljedtmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
- udenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
- htfigtgidrgiihiieqnecuggftrfgrthhtvghrnheptdefjeetuedtfeelfeeiieevveek
- geeuvedtveefiedvhfeiueeugffhkeelvdfhnecukfhppeejiedrvdehtddrkeegrddvfe
- einecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepphgr
- thhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:J6hGYArbZtIM499HHHgsdGamKRgq8vOPBlUMqV2lHzVQcuCLFjWwBg>
- <xmx:J6hGYGmrsdy3JJUjbrPZ0eZBE8_2wdfEbIYS-jvhETcPMwjIQOwxVQ>
- <xmx:J6hGYA0WtuZ4SXpQQZ87g2JdBDY5LhEV3c2nuwMHF-r7pumDpKRXCg>
- <xmx:KahGYBjEDlsZ9fj8DOctBwyuWVLdIB474V0MawcwoStAG6S3hknu5g>
-Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
- [76.250.84.236])
- by mail.messagingengine.com (Postfix) with ESMTPA id 7F3A1240057;
- Mon,  8 Mar 2021 17:41:43 -0500 (EST)
-Date: Mon, 8 Mar 2021 16:41:40 -0600
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Joseph Reynolds <jrey@linux.ibm.com>
-Subject: Re: Request new repo for IBM-specific code - pam_2fa discussion
-Message-ID: <YEaoJH+TP0A79tfM@heinlein>
-References: <b8af3438-f85a-cb82-c88c-9c4e120399e9@linux.ibm.com>
- <YEKDY6+zfW5Uuqkl@heinlein>
- <dc7eb87e-c13f-dcb7-7b98-dbeb382d7caa@linux.ibm.com>
- <YEZwz6C5uGk8Vobs@heinlein>
- <15f3a43c-d876-38e0-8397-9db8a3896d38@linux.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYv3xsgz30Qw
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:26 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 128MZQE0076146; Mon, 8 Mar 2021 17:54:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=LB7QrUzb2UhK964AopfajZ1MtCtXKt6sFOebDr3uwcU=;
+ b=Z5mPc3yWI0BtY5cZNVp6HTCGv913PykCMiOHyQBUwUtsgaPuav3HdxPHmFyT7FPdCL78
+ ExnLidGz7R0YmQqel3hu3hX0Gn23m6hQJeu9TnHsUdTj3TtzjlrVybTjNvVEsGOBpGJe
+ qYO1bYKQ0WxrFlEmfemkd/yButoM2f69esAha24KLsjpdpyky6Km6FhNnaMJoYNssXb/
+ jAV55ZMvdqEPqD2CgAsiux7GQ/clYrw816FD8TBvarDPYOSfPFljc0zx1kRNpCclywLv
+ s3Qu8q28bBCnJAMxGjCjJWDSD/ZkpIk8SlD9//Ra5HwA9FOEn4BNPC+xP5/FRK1NPjN8 ig== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375udq2cb5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 08 Mar 2021 17:54:23 -0500
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqrHx018076;
+ Mon, 8 Mar 2021 22:54:23 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma02dal.us.ibm.com with ESMTP id 3741c96ett-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 08 Mar 2021 22:54:22 +0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsLX011731524
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 8 Mar 2021 22:54:21 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C0729C605B;
+ Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 91665C6057;
+ Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.10 05/35] ARM: dts: aspeed: rainier: Add
+ additional processor CFAMs
+Date: Mon,  8 Mar 2021 16:53:49 -0600
+Message-Id: <20210308225419.46530-6-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
+References: <20210308225419.46530-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="wZy9NCa6qb3TjtRb"
-Content-Disposition: inline
-In-Reply-To: <15f3a43c-d876-38e0-8397-9db8a3896d38@linux.ibm.com>
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-08_20:2021-03-08,
+ 2021-03-08 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015
+ impostorscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,91 +109,361 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Rainier has two dual-chip modules and therefore four CFAMs with their
+associated engines. Add these to the devicetree with the i2c busses
+that have devices on them.
 
---wZy9NCa6qb3TjtRb
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 281 ++++++++++++++++++-
+ 1 file changed, 279 insertions(+), 2 deletions(-)
 
-On Mon, Mar 08, 2021 at 02:30:26PM -0600, Joseph Reynolds wrote:
-> Patrick, thanks for that.=A0 I was unaware of the pam_2fa project.=A0 I=
-=20
-> agree this could a be a good way for BMCs to get 2FA.
->=20
-> However, as I tried to state in this email thread, the IBM firmware=20
-> service organization requires that all credentials be brought onto the=20
-> work site because some sites have no way to communicate with an external=
-=20
-> server.=A0 That is, once you are on a customer site, you might not be abl=
-e=20
-> to call into IBM (or even have access to a phone).=A0 Although this is no=
-t=20
-> typical, I don't think it is unique to IBM.=A0 What is done other secure=
-=20
-> installations?
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index e147ff549517..6684485a2db0 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -12,6 +12,39 @@ / {
+ 	compatible = "ibm,rainier-bmc", "aspeed,ast2600";
+ 
+ 	aliases {
++		i2c100 = &cfam0_i2c0;
++		i2c101 = &cfam0_i2c1;
++		i2c110 = &cfam0_i2c10;
++		i2c111 = &cfam0_i2c11;
++		i2c112 = &cfam0_i2c12;
++		i2c113 = &cfam0_i2c13;
++		i2c114 = &cfam0_i2c14;
++		i2c115 = &cfam0_i2c15;
++		i2c202 = &cfam1_i2c2;
++		i2c203 = &cfam1_i2c3;
++		i2c210 = &cfam1_i2c10;
++		i2c211 = &cfam1_i2c11;
++		i2c214 = &cfam1_i2c14;
++		i2c215 = &cfam1_i2c15;
++		i2c216 = &cfam1_i2c16;
++		i2c217 = &cfam1_i2c17;
++		i2c300 = &cfam2_i2c0;
++		i2c301 = &cfam2_i2c1;
++		i2c310 = &cfam2_i2c10;
++		i2c311 = &cfam2_i2c11;
++		i2c312 = &cfam2_i2c12;
++		i2c313 = &cfam2_i2c13;
++		i2c314 = &cfam2_i2c14;
++		i2c315 = &cfam2_i2c15;
++		i2c402 = &cfam3_i2c2;
++		i2c403 = &cfam3_i2c3;
++		i2c410 = &cfam3_i2c10;
++		i2c411 = &cfam3_i2c11;
++		i2c414 = &cfam3_i2c14;
++		i2c415 = &cfam3_i2c15;
++		i2c416 = &cfam3_i2c16;
++		i2c417 = &cfam3_i2c17;
++
+ 		serial4 = &uart5;
+ 		i2c16 = &i2c2mux0;
+ 		i2c17 = &i2c2mux1;
+@@ -30,6 +63,10 @@ aliases {
+ 		spi31 = &cfam2_spi1;
+ 		spi32 = &cfam2_spi2;
+ 		spi33 = &cfam2_spi3;
++		spi40 = &cfam3_spi0;
++		spi41 = &cfam3_spi1;
++		spi42 = &cfam3_spi2;
++		spi43 = &cfam3_spi3;
+ 	};
+ 
+ 	chosen {
+@@ -320,6 +357,38 @@ i2c@1800 {
+ 			reg = <0x1800 0x400>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
++			cfam0_i2c0: i2c-bus@0 {
++				reg = <0>;	/* OMI01 */
++			};
++
++			cfam0_i2c1: i2c-bus@1 {
++				reg = <1>;	/* OMI23 */
++			};
++
++			cfam0_i2c10: i2c-bus@a {
++				reg = <10>;	/* OP3A */
++			};
++
++			cfam0_i2c11: i2c-bus@b {
++				reg = <11>;	/* OP3B */
++			};
++
++			cfam0_i2c12: i2c-bus@c {
++				reg = <12>;	/* OP4A */
++			};
++
++			cfam0_i2c13: i2c-bus@d {
++				reg = <13>;	/* OP4B */
++			};
++
++			cfam0_i2c14: i2c-bus@e {
++				reg = <14>;	/* OP5A */
++			};
++
++			cfam0_i2c15: i2c-bus@f {
++				reg = <15>;	/* OP5B */
++			};
+ 		};
+ 
+ 		fsi2spi@1c00 {
+@@ -411,8 +480,6 @@ fsi_hub0: hub@3400 {
+ 			reg = <0x3400 0x400>;
+ 			#address-cells = <2>;
+ 			#size-cells = <0>;
+-
+-			no-scan-on-init;
+ 		};
+ 	};
+ };
+@@ -434,6 +501,38 @@ i2c@1800 {
+ 			reg = <0x1800 0x400>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
++			cfam1_i2c2: i2c-bus@2 {
++				reg = <2>;	/* OMI45 */
++			};
++
++			cfam1_i2c3: i2c-bus@3 {
++				reg = <3>;	/* OMI67 */
++			};
++
++			cfam1_i2c10: i2c-bus@a {
++				reg = <10>;	/* OP3A */
++			};
++
++			cfam1_i2c11: i2c-bus@b {
++				reg = <11>;	/* OP3B */
++			};
++
++			cfam1_i2c14: i2c-bus@e {
++				reg = <14>;	/* OP5A */
++			};
++
++			cfam1_i2c15: i2c-bus@f {
++				reg = <15>;	/* OP5B */
++			};
++
++			cfam1_i2c16: i2c-bus@10 {
++				reg = <16>;	/* OP6A */
++			};
++
++			cfam1_i2c17: i2c-bus@11 {
++				reg = <17>;	/* OP6B */
++			};
+ 		};
+ 
+ 		fsi2spi@1c00 {
+@@ -546,6 +645,38 @@ i2c@1800 {
+ 			reg = <0x1800 0x400>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
++			cfam2_i2c0: i2c-bus@0 {
++				reg = <0>;	/* OM01 */
++			};
++
++			cfam2_i2c1: i2c-bus@1 {
++				reg = <1>;	/* OM23 */
++			};
++
++			cfam2_i2c10: i2c-bus@a {
++				reg = <10>;	/* OP3A */
++			};
++
++			cfam2_i2c11: i2c-bus@b {
++				reg = <11>;	/* OP3B */
++			};
++
++			cfam2_i2c12: i2c-bus@c {
++				reg = <12>;	/* OP4A */
++			};
++
++			cfam2_i2c13: i2c-bus@d {
++				reg = <13>;	/* OP4B */
++			};
++
++			cfam2_i2c14: i2c-bus@e {
++				reg = <14>;	/* OP5A */
++			};
++
++			cfam2_i2c15: i2c-bus@f {
++				reg = <15>;	/* OP5B */
++			};
+ 		};
+ 
+ 		fsi2spi@1c00 {
+@@ -641,6 +772,148 @@ fsi_hub2: hub@3400 {
+ 			no-scan-on-init;
+ 		};
+ 	};
++
++	cfam@3,0 {
++		reg = <3 0>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		chip-id = <3>;
++
++		scom@1000 {
++			compatible = "ibm,fsi2pib";
++			reg = <0x1000 0x400>;
++		};
++
++		i2c@1800 {
++			compatible = "ibm,fsi-i2c-master";
++			reg = <0x1800 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			cfam3_i2c2: i2c-bus@2 {
++				reg = <2>;	/* OM45 */
++			};
++
++			cfam3_i2c3: i2c-bus@3 {
++				reg = <3>;	/* OM67 */
++			};
++
++			cfam3_i2c10: i2c-bus@a {
++				reg = <10>;	/* OP3A */
++			};
++
++			cfam3_i2c11: i2c-bus@b {
++				reg = <11>;	/* OP3B */
++			};
++
++			cfam3_i2c14: i2c-bus@e {
++				reg = <14>;	/* OP5A */
++			};
++
++			cfam3_i2c15: i2c-bus@f {
++				reg = <15>;	/* OP5B */
++			};
++
++			cfam3_i2c16: i2c-bus@10 {
++				reg = <16>;	/* OP6A */
++			};
++
++			cfam3_i2c17: i2c-bus@11 {
++				reg = <17>;	/* OP6B */
++			};
++		};
++
++		fsi2spi@1c00 {
++			compatible = "ibm,fsi2spi";
++			reg = <0x1c00 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			cfam3_spi0: spi@0 {
++				reg = <0x0>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				eeprom@0 {
++					at25,byte-len = <0x80000>;
++					at25,addr-mode = <4>;
++					at25,page-size = <256>;
++
++					compatible = "atmel,at25";
++					reg = <0>;
++					spi-max-frequency = <1000000>;
++				};
++			};
++
++			cfam3_spi1: spi@20 {
++				reg = <0x20>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				eeprom@0 {
++					at25,byte-len = <0x80000>;
++					at25,addr-mode = <4>;
++					at25,page-size = <256>;
++
++					compatible = "atmel,at25";
++					reg = <0>;
++					spi-max-frequency = <1000000>;
++				};
++			};
++
++			cfam3_spi2: spi@40 {
++				reg = <0x40>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				eeprom@0 {
++					at25,byte-len = <0x80000>;
++					at25,addr-mode = <4>;
++					at25,page-size = <256>;
++
++					compatible = "atmel,at25";
++					reg = <0>;
++					spi-max-frequency = <1000000>;
++				};
++			};
++
++			cfam3_spi3: spi@60 {
++				reg = <0x60>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				eeprom@0 {
++					at25,byte-len = <0x80000>;
++					at25,addr-mode = <4>;
++					at25,page-size = <256>;
++
++					compatible = "atmel,at25";
++					reg = <0>;
++					spi-max-frequency = <1000000>;
++				};
++			};
++		};
++
++		sbefifo@2400 {
++			compatible = "ibm,p9-sbefifo";
++			reg = <0x2400 0x400>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			fsi_occ3: occ {
++				compatible = "ibm,p10-occ";
++			};
++		};
++
++		fsi_hub3: hub@3400 {
++			compatible = "fsi-master-hub";
++			reg = <0x3400 0x400>;
++			#address-cells = <2>;
++			#size-cells = <0>;
++
++			no-scan-on-init;
++		};
++	};
+ };
+ 
+ /* Legacy OCC numbering (to get rid of when userspace is fixed) */
+@@ -656,6 +929,10 @@ &fsi_occ2 {
+ 	reg = <3>;
+ };
+ 
++&fsi_occ3 {
++	reg = <4>;
++};
++
+ &ibt {
+ 	status = "okay";
+ };
+-- 
+2.27.0
 
-I might have poorly explained my thought process before.  I know
-*normal* 2FA requires remote access to the 2FA server.  The PAM_2FA
-allows configuration of the URL and there is no reason why the URL
-cannot be a localhost implementation of the 2FA protocol.  All the
-protocol does is POST to the URL and make a decision based on the HTTP
-return code.
-
-Proposal:
-    * Use 'pam_2fa' using Yubikey protocol to point at a 'localhost' URL.
-    * Implement Yubikey 2FA protocol (described in pam_2fa
-      documentation) in a small daemon on the BMC, specific for ACF
-      certificates.
-        - 2FA request will get the ACF password.
-        - ACF daemon hashes password, checks with installed certificate
-          and returns 4xx/2xx codes as appropriate.
-    * Set PAM config to use 'pam_2fa' (pointed at localhost) for IBM
-      service users.
-
-In summary, the service accounts can have a static primary password AND
-an ACF-secured secondary password which is checked with the standard 2FA
-protocol.
-
-> The IBM ACF design in terms of 2FA is:
-=2E..
-> 2. The ACF has no secrets (other than the password hash stored within=20
-> it) and can be installed onto the BMC by the admin or the service rep.
-
-Doesn't the service user have access you're not expecting the 'admin' to
-be able to have on your machines?  How do you ensure a compromised ACF
-cannot be replayed onto another machine?  With admin-level access it is
-fairly trivial to fake out the serial number.
-
-I might be misunderstanding something with "... or ther service rep".
-It seems like there is a gap in how the service rep would install
-something when the ACF is what gives them permissions to do the install?
-
---=20
-Patrick Williams
-
---wZy9NCa6qb3TjtRb
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmBGqCIACgkQqwNHzC0A
-wRkOBQ//df/whQsuITawtnE9IuIkViTIa1gWEKBt1TRgMsudqcflFEycn9zZ0UsW
-yvElMqgNM7/d3K24fSGDx0s+kK1fwhmkUJyKklsYXhszXpWZcZu40LhPWhxO0Yxf
-Hr7+bbUmISimFbHneLPQ9V48tFyxs6Hy9bdiwhrXKyfAEi4wQqTRW3hOGZ9Klb2S
-q0UmKQNOMP4rjk2zSzOLgBCHlTsZQ+Xb4xKjeq+5uerusYgBvBawG+v0pW9RZKRW
-d1l9JKzieC/0T3vUttq17wZVrchWaco1apo4BXEvW+G9kzpMfcINaB0OfSNsPnFO
-oK1YKerCQbIF8oqfDgirZYzD2xygVCizpivlw1bNAkh709tDsXNHbfSSaOpo029i
-HfqIFINen1AzesEkTNZ0nFulQVQdMUNrMgKsCCSWESocTGOIuRdJ0daRajK5lx1P
-DQBw0mMZgXrxvxeYXCUyaTXfAXbDqvZXZNj2qIJZY7eYAjCQb90SPgFFbWoBcW7C
-VYf5rSI7RMQX83CAGUHuQrf2b/NBeBiv2oAh+Etb339jmcJXYziUatEWhUOKWO3b
-OJVd3tisKFlKJDyrNqxl9+Y8AuuV5p3Uhz7As4OPrpxTiENtqvf4oikdNkCCZ9P9
-pF+nZZPf/PseERrW3px//ikX+0MWdTEpc+swl25aQPGJbQQGye0=
-=51cl
------END PGP SIGNATURE-----
-
---wZy9NCa6qb3TjtRb--
