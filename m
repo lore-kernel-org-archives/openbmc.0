@@ -2,26 +2,26 @@ Return-Path: <SRS0=wJXT=IG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT,
+	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 93151C433DB
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2C4C9C433E0
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:47 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 118DB650DF
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 118DB650DF
+	by mail.kernel.org (Postfix) with ESMTPS id 8CF9465173
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:55:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8CF9465173
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYZz3Vcpz3cJq
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:55:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYbP1xK8z3cXs
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:55:45 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Z5mPc3yW;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=LQ8Afbt8;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,60 +29,60 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=Z5mPc3yW; dkim-atps=neutral
+ header.s=pp1 header.b=LQ8Afbt8; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYv3xsgz30Qw
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYv6vYyz3cH8
  for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:26 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128MZQE0076146; Mon, 8 Mar 2021 17:54:23 -0500
+ 128MXhV7097480; Mon, 8 Mar 2021 17:54:23 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=LB7QrUzb2UhK964AopfajZ1MtCtXKt6sFOebDr3uwcU=;
- b=Z5mPc3yWI0BtY5cZNVp6HTCGv913PykCMiOHyQBUwUtsgaPuav3HdxPHmFyT7FPdCL78
- ExnLidGz7R0YmQqel3hu3hX0Gn23m6hQJeu9TnHsUdTj3TtzjlrVybTjNvVEsGOBpGJe
- qYO1bYKQ0WxrFlEmfemkd/yButoM2f69esAha24KLsjpdpyky6Km6FhNnaMJoYNssXb/
- jAV55ZMvdqEPqD2CgAsiux7GQ/clYrw816FD8TBvarDPYOSfPFljc0zx1kRNpCclywLv
- s3Qu8q28bBCnJAMxGjCjJWDSD/ZkpIk8SlD9//Ra5HwA9FOEn4BNPC+xP5/FRK1NPjN8 ig== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 375udq2cb5-1
+ bh=N4QS4ZcDM8d7h1U0FPlxWGTOzhUK2Sb3cXdEzwL7+3c=;
+ b=LQ8Afbt8vc+30UNo+RwGheA5gMLdhrJkZLJ13eEmXXEzVfFrs8hJXzQf6Xe27jBMRVOw
+ w8sOBIsiKEGx8pytVVIjTDl8d7prJ3x746+RjzF68s0kkNGTNE/+DCqC2wOLxTMc0tlV
+ ESXAgI2TpVbQONKX7+hW/OX0UETp5JOru7mG3H1Ve6JVvcVSMX4pGg+papJhybTyVvm2
+ 1cm88mn8XqQJhkytSxzSbO/RRLCz9KqGDGeVDOJApKhqjn99BDLRz6D864ffWBCjXa+2
+ 0ps+hN1UBZIzQntW+c3xA65jMfYTKtYipHIRtCIXiyc8H0VZEF7tW1PDGe2w0FFRleYi 2w== 
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375vm8rmew-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 08 Mar 2021 17:54:23 -0500
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqrHx018076;
- Mon, 8 Mar 2021 22:54:23 GMT
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128Mqv2U023701;
+ Mon, 8 Mar 2021 22:54:22 GMT
 Received: from b03cxnp08027.gho.boulder.ibm.com
  (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma02dal.us.ibm.com with ESMTP id 3741c96ett-1
+ by ppma03dal.us.ibm.com with ESMTP id 3741c9egx8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 08 Mar 2021 22:54:22 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
  by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsLX011731524
+ 128MsLqd13107622
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Mon, 8 Mar 2021 22:54:21 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C0729C605B;
+ by IMSVA (Postfix) with ESMTP id 01E1CC605A;
  Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 91665C6057;
- Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id B07C9C6057;
+ Mon,  8 Mar 2021 22:54:20 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:21 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:20 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 05/35] ARM: dts: aspeed: rainier: Add
- additional processor CFAMs
-Date: Mon,  8 Mar 2021 16:53:49 -0600
-Message-Id: <20210308225419.46530-6-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 02/35] ARM: dts: aspeed: rainier: Add directly
+ controlled LEDs
+Date: Mon,  8 Mar 2021 16:53:46 -0600
+Message-Id: <20210308225419.46530-3-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
 References: <20210308225419.46530-1-eajames@linux.ibm.com>
@@ -93,10 +93,10 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-08_20:2021-03-08,
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015
- impostorscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ bulkscore=0 spamscore=0
+ mlxlogscore=999 priorityscore=1501 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 mlxscore=0 suspectscore=0 adultscore=0 phishscore=0
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -113,357 +113,67 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Rainier has two dual-chip modules and therefore four CFAMs with their
-associated engines. Add these to the devicetree with the i2c busses
-that have devices on them.
+From: Vishwanatha Subbanna <vishwa@linux.ibm.com>
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
+These LEDs are directly connected to the BMC's GPIO bank.
+
+OpenBMC-Staging-Count: 1
+Signed-off-by: Vishwanatha Subbanna <vishwa@linux.ibm.com>
+Reviewed-by: Eddie James <eajames@linux.ibm.com>
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 281 ++++++++++++++++++-
- 1 file changed, 279 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 24 ++++++++++++++++++--
+ 1 file changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index e147ff549517..6684485a2db0 100644
+index fdeac6d0d8d3..f52c10dd1a18 100644
 --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
 +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -12,6 +12,39 @@ / {
- 	compatible = "ibm,rainier-bmc", "aspeed,ast2600";
+@@ -135,6 +135,26 @@ i2c2mux3: i2c@3 {
+ 	leds {
+ 		compatible = "gpio-leds";
  
- 	aliases {
-+		i2c100 = &cfam0_i2c0;
-+		i2c101 = &cfam0_i2c1;
-+		i2c110 = &cfam0_i2c10;
-+		i2c111 = &cfam0_i2c11;
-+		i2c112 = &cfam0_i2c12;
-+		i2c113 = &cfam0_i2c13;
-+		i2c114 = &cfam0_i2c14;
-+		i2c115 = &cfam0_i2c15;
-+		i2c202 = &cfam1_i2c2;
-+		i2c203 = &cfam1_i2c3;
-+		i2c210 = &cfam1_i2c10;
-+		i2c211 = &cfam1_i2c11;
-+		i2c214 = &cfam1_i2c14;
-+		i2c215 = &cfam1_i2c15;
-+		i2c216 = &cfam1_i2c16;
-+		i2c217 = &cfam1_i2c17;
-+		i2c300 = &cfam2_i2c0;
-+		i2c301 = &cfam2_i2c1;
-+		i2c310 = &cfam2_i2c10;
-+		i2c311 = &cfam2_i2c11;
-+		i2c312 = &cfam2_i2c12;
-+		i2c313 = &cfam2_i2c13;
-+		i2c314 = &cfam2_i2c14;
-+		i2c315 = &cfam2_i2c15;
-+		i2c402 = &cfam3_i2c2;
-+		i2c403 = &cfam3_i2c3;
-+		i2c410 = &cfam3_i2c10;
-+		i2c411 = &cfam3_i2c11;
-+		i2c414 = &cfam3_i2c14;
-+		i2c415 = &cfam3_i2c15;
-+		i2c416 = &cfam3_i2c16;
-+		i2c417 = &cfam3_i2c17;
-+
- 		serial4 = &uart5;
- 		i2c16 = &i2c2mux0;
- 		i2c17 = &i2c2mux1;
-@@ -30,6 +63,10 @@ aliases {
- 		spi31 = &cfam2_spi1;
- 		spi32 = &cfam2_spi2;
- 		spi33 = &cfam2_spi3;
-+		spi40 = &cfam3_spi0;
-+		spi41 = &cfam3_spi1;
-+		spi42 = &cfam3_spi2;
-+		spi43 = &cfam3_spi3;
- 	};
- 
- 	chosen {
-@@ -320,6 +357,38 @@ i2c@1800 {
- 			reg = <0x1800 0x400>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+
-+			cfam0_i2c0: i2c-bus@0 {
-+				reg = <0>;	/* OMI01 */
-+			};
-+
-+			cfam0_i2c1: i2c-bus@1 {
-+				reg = <1>;	/* OMI23 */
-+			};
-+
-+			cfam0_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam0_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam0_i2c12: i2c-bus@c {
-+				reg = <12>;	/* OP4A */
-+			};
-+
-+			cfam0_i2c13: i2c-bus@d {
-+				reg = <13>;	/* OP4B */
-+			};
-+
-+			cfam0_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam0_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
- 		};
- 
- 		fsi2spi@1c00 {
-@@ -411,8 +480,6 @@ fsi_hub0: hub@3400 {
- 			reg = <0x3400 0x400>;
- 			#address-cells = <2>;
- 			#size-cells = <0>;
--
--			no-scan-on-init;
- 		};
- 	};
- };
-@@ -434,6 +501,38 @@ i2c@1800 {
- 			reg = <0x1800 0x400>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+
-+			cfam1_i2c2: i2c-bus@2 {
-+				reg = <2>;	/* OMI45 */
-+			};
-+
-+			cfam1_i2c3: i2c-bus@3 {
-+				reg = <3>;	/* OMI67 */
-+			};
-+
-+			cfam1_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam1_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam1_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam1_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+
-+			cfam1_i2c16: i2c-bus@10 {
-+				reg = <16>;	/* OP6A */
-+			};
-+
-+			cfam1_i2c17: i2c-bus@11 {
-+				reg = <17>;	/* OP6B */
-+			};
- 		};
- 
- 		fsi2spi@1c00 {
-@@ -546,6 +645,38 @@ i2c@1800 {
- 			reg = <0x1800 0x400>;
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-+
-+			cfam2_i2c0: i2c-bus@0 {
-+				reg = <0>;	/* OM01 */
-+			};
-+
-+			cfam2_i2c1: i2c-bus@1 {
-+				reg = <1>;	/* OM23 */
-+			};
-+
-+			cfam2_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam2_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam2_i2c12: i2c-bus@c {
-+				reg = <12>;	/* OP4A */
-+			};
-+
-+			cfam2_i2c13: i2c-bus@d {
-+				reg = <13>;	/* OP4B */
-+			};
-+
-+			cfam2_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam2_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
- 		};
- 
- 		fsi2spi@1c00 {
-@@ -641,6 +772,148 @@ fsi_hub2: hub@3400 {
- 			no-scan-on-init;
- 		};
- 	};
-+
-+	cfam@3,0 {
-+		reg = <3 0>;
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		chip-id = <3>;
-+
-+		scom@1000 {
-+			compatible = "ibm,fsi2pib";
-+			reg = <0x1000 0x400>;
++		/* BMC Card fault LED at the back */
++		bmc-ingraham0 {
++			gpios = <&gpio0 ASPEED_GPIO(H, 1) GPIO_ACTIVE_LOW>;
 +		};
 +
-+		i2c@1800 {
-+			compatible = "ibm,fsi-i2c-master";
-+			reg = <0x1800 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam3_i2c2: i2c-bus@2 {
-+				reg = <2>;	/* OM45 */
-+			};
-+
-+			cfam3_i2c3: i2c-bus@3 {
-+				reg = <3>;	/* OM67 */
-+			};
-+
-+			cfam3_i2c10: i2c-bus@a {
-+				reg = <10>;	/* OP3A */
-+			};
-+
-+			cfam3_i2c11: i2c-bus@b {
-+				reg = <11>;	/* OP3B */
-+			};
-+
-+			cfam3_i2c14: i2c-bus@e {
-+				reg = <14>;	/* OP5A */
-+			};
-+
-+			cfam3_i2c15: i2c-bus@f {
-+				reg = <15>;	/* OP5B */
-+			};
-+
-+			cfam3_i2c16: i2c-bus@10 {
-+				reg = <16>;	/* OP6A */
-+			};
-+
-+			cfam3_i2c17: i2c-bus@11 {
-+				reg = <17>;	/* OP6B */
-+			};
++		/* Enclosure ID LED at the back */
++		rear-enc-id0 {
++			gpios = <&gpio0 ASPEED_GPIO(H, 2) GPIO_ACTIVE_LOW>;
 +		};
 +
-+		fsi2spi@1c00 {
-+			compatible = "ibm,fsi2spi";
-+			reg = <0x1c00 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			cfam3_spi0: spi@0 {
-+				reg = <0x0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi1: spi@20 {
-+				reg = <0x20>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi2: spi@40 {
-+				reg = <0x40>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
-+
-+			cfam3_spi3: spi@60 {
-+				reg = <0x60>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				eeprom@0 {
-+					at25,byte-len = <0x80000>;
-+					at25,addr-mode = <4>;
-+					at25,page-size = <256>;
-+
-+					compatible = "atmel,at25";
-+					reg = <0>;
-+					spi-max-frequency = <1000000>;
-+				};
-+			};
++		/* Enclosure fault LED at the back */
++		rear-enc-fault0 {
++			gpios = <&gpio0 ASPEED_GPIO(H, 3) GPIO_ACTIVE_LOW>;
 +		};
 +
-+		sbefifo@2400 {
-+			compatible = "ibm,p9-sbefifo";
-+			reg = <0x2400 0x400>;
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			fsi_occ3: occ {
-+				compatible = "ibm,p10-occ";
-+			};
++		/* PCIE slot power LED */
++		pcieslot-power {
++			gpios = <&gpio0 ASPEED_GPIO(P, 4) GPIO_ACTIVE_LOW>;
 +		};
 +
-+		fsi_hub3: hub@3400 {
-+			compatible = "fsi-master-hub";
-+			reg = <0x3400 0x400>;
-+			#address-cells = <2>;
-+			#size-cells = <0>;
-+
-+			no-scan-on-init;
-+		};
-+	};
- };
- 
- /* Legacy OCC numbering (to get rid of when userspace is fixed) */
-@@ -656,6 +929,10 @@ &fsi_occ2 {
- 	reg = <3>;
- };
- 
-+&fsi_occ3 {
-+	reg = <4>;
-+};
-+
- &ibt {
- 	status = "okay";
- };
+ 		/* System ID LED that is at front on Op Panel */
+ 		front-sys-id0 {
+ 			retain-state-shutdown;
+@@ -178,7 +198,7 @@ &gpio0 {
+ 	/*E0-E7*/	"","","","","","","","",
+ 	/*F0-F7*/	"","","","","","","","",
+ 	/*G0-G7*/	"","","","","","","","",
+-	/*H0-H7*/	"","","","","","","","",
++	/*H0-H7*/	"","bmc-ingraham0","rear-enc-id0","rear-enc-fault0","","","","",
+ 	/*I0-I7*/	"","","","","","","","",
+ 	/*J0-J7*/	"","","","","","","","",
+ 	/*K0-K7*/	"","","","","","","","",
+@@ -186,7 +206,7 @@ &gpio0 {
+ 	/*M0-M7*/	"","","","","","","","",
+ 	/*N0-N7*/	"","","","","","","","",
+ 	/*O0-O7*/	"","","","usb-power","","","","",
+-	/*P0-P7*/	"","","","","","","","",
++	/*P0-P7*/	"","","","","pcieslot-power","","","",
+ 	/*Q0-Q7*/	"cfam-reset","","","","","","","",
+ 	/*R0-R7*/	"","","","","","","","",
+ 	/*S0-S7*/	"presence-ps0","presence-ps1","presence-ps2","presence-ps3",
 -- 
 2.27.0
 
