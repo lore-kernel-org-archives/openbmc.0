@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96EF3C433E0
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:08:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8F627C433E0
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:08:42 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2E5ED652A4
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:08:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2E5ED652A4
+	by mail.kernel.org (Postfix) with ESMTPS id 3244F64FFD
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:08:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3244F64FFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYst6LsWz3dJW
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:08:18 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYtJ6PWbz3dZs
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:08:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CDuSzOzm;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XIm/MQCJ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,60 +29,60 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=CDuSzOzm; dkim-atps=neutral
+ header.s=pp1 header.b=XIm/MQCJ; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYZ26BHxz3cJq
- for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:34 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYZ161Hqz3cPD
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:33 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128MYfpB060998; Mon, 8 Mar 2021 17:54:32 -0500
+ 128MirWB113432; Mon, 8 Mar 2021 17:54:31 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=ugQdmvdORSA40qsSnWl0TB6Ebq/yYT5pZxiRBYDdmsA=;
- b=CDuSzOzm+rBC6BeMh7UhqrGIbU0Wuzr8LF3r1Y5e2PUzNpIpBvb7BA4Rp8lAU9g9K/Co
- Tdoo1eb1ArbjBM43XABqA3gRrVvNaqbBwnuZ8FWrcs4RdABaNGArPd2vs6nH7pIAVCRW
- Bh9t1o3bq5HhQ2jVEuuIttPGeXK/dpEJRvTtVMXCY38Gzdl1150Gv/rkjoE2AP+O7mJP
- XkAflggBmmHgHriR88O4hkJkbIcRNJ3Vld+7VsmnX5zNXDQD4LE3iWEammyWzKBrMIrG
- UigtiWHJvfLEfXVtct+gaTnObnEz6QC8gaPNUTsiqqlFTMkUHsbw5Vd+4aebXIIxPM6e dg== 
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.27])
- by mx0a-001b2d01.pphosted.com with ESMTP id 375uwx9gsf-1
+ bh=DfgU+dVwnukE7EE2ZH0kvSoommd/CIMAWwKNXRy7YlU=;
+ b=XIm/MQCJuGiERrQlus4BLdRAVA5GKDxS7pn3/QlOA0wJt3TbIqHJi8E1pHeeh8yt3buN
+ zt9qc7v0KRIf5sWCGjt7Qe0pxNOYV/gakP3paxYb6qauB1wx1FDzL1Gbooc0GEA2l4/b
+ ksogujLUH37+j9jHr7eQii0X9bNBSO4YrvlaI04NN0q/b5h56ekroNfXxgqixPP8MsKQ
+ RtIuuNuq6BrZAJC1DG/SXKtJ8pFgR4gvtor7AXkcoXtHvNInUcuDCH8lPIdavUDYtoBM
+ xaZIje8S8MvGCYqWRKbZQGqfqWTZIQVbMayJe7BBmLf6+M1mzsiVO2VqSkLQFVQ7N8Fv nw== 
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375vyx858g-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 17:54:32 -0500
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
- by ppma05wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqqOW017839;
- Mon, 8 Mar 2021 22:54:31 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma05wdc.us.ibm.com with ESMTP id 3741c99w8y-1
+ Mon, 08 Mar 2021 17:54:31 -0500
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqvcW023681;
+ Mon, 8 Mar 2021 22:54:30 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma03dal.us.ibm.com with ESMTP id 3741c9egxv-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 22:54:31 +0000
+ Mon, 08 Mar 2021 22:54:30 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsULL23134614
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsTxk32506322
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 8 Mar 2021 22:54:30 GMT
+ Mon, 8 Mar 2021 22:54:29 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 57354C6061;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 322CAC605F;
+ Mon,  8 Mar 2021 22:54:29 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 28791C605F;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id E7349C605D;
+ Mon,  8 Mar 2021 22:54:28 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:28 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 34/35] pmbus: (max31785) Add a local
- pmbus_set_page() implementation
-Date: Mon,  8 Mar 2021 16:54:18 -0600
-Message-Id: <20210308225419.46530-35-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 30/35] hwmon: (pmbus/ibm-cffps) Set the
+ PMBUS_NO_CAPABILITY flag
+Date: Mon,  8 Mar 2021 16:54:14 -0600
+Message-Id: <20210308225419.46530-31-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
 References: <20210308225419.46530-1-eajames@linux.ibm.com>
@@ -93,10 +93,10 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-08_20:2021-03-08,
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=999
- lowpriorityscore=0 bulkscore=0 phishscore=0 malwarescore=0 spamscore=0
- mlxscore=0 adultscore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ clxscore=1015 suspectscore=0
+ priorityscore=1501 spamscore=0 mlxlogscore=999 malwarescore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -113,103 +113,32 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Jeffery <andrew@aj.id.au>
+Several power supplies supported by the IBM CFFPS driver don't
+report valid data in the CAPABILITY register. This results in PEC
+being enabled when it's not supported by the device, and since
+the automatic version detection might fail, disable use of the
+CAPABILITY register across the board for this driver.
 
-Extensive testing and tracing has shown that the MAX31785 is unreliable
-in the face of PAGE write commands, ACK'ing the PAGE request but
-reporting a value of 0 on some subsequent PAGE reads. The trace data
-suggests that a one-shot retry of the PAGE write is enough to get the
-requested value to stick.
-
-As we configure the device before registering with the PMBus core,
-centralise PAGE handling inside the driver and implement the one-shot
-retry semantics there.
-
-OpenBMC-Staging-Count: 1
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+Link: https://lore.kernel.org/r/20201222152640.27749-3-eajames@linux.ibm.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- drivers/hwmon/pmbus/max31785.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ drivers/hwmon/pmbus/ibm-cffps.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 5cfa7e97b489..1e021c38d507 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -362,6 +362,27 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
- 	return -ENXIO;
- }
+diff --git a/drivers/hwmon/pmbus/ibm-cffps.c b/drivers/hwmon/pmbus/ibm-cffps.c
+index 2fb7540ee952..f7bb7bebe045 100644
+--- a/drivers/hwmon/pmbus/ibm-cffps.c
++++ b/drivers/hwmon/pmbus/ibm-cffps.c
+@@ -472,7 +472,7 @@ static struct pmbus_driver_info ibm_cffps_info[] = {
+ };
  
-+static int max31785_pmbus_set_page(struct i2c_client *client, int page)
-+{
-+	int ret;
-+	int i;
-+
-+	for (i = 0; i < 2; i++) {
-+		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+		if (ret < 0)
-+			return ret;
-+
-+		ret = max31785_i2c_smbus_read_byte_data(client, PMBUS_PAGE);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ret == page)
-+			return 0;
-+	}
-+
-+	return -EIO;
-+}
-+
- /*
-  * Returns negative error codes if an unrecoverable problem is detected, 0 if a
-  * recoverable problem is detected, or a positive value on success.
-@@ -392,7 +413,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
+ static struct pmbus_platform_data ibm_cffps_pdata = {
+-	.flags = PMBUS_SKIP_STATUS_CHECK,
++	.flags = PMBUS_SKIP_STATUS_CHECK | PMBUS_NO_CAPABILITY,
+ };
  
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = max31785_pmbus_set_page(client, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -599,7 +620,7 @@ static int max31785_of_tmp_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
- 
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = max31785_pmbus_set_page(client, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -700,7 +721,7 @@ static int max31785_configure_dual_tach(struct i2c_client *client,
- 	int i;
- 
- 	for (i = 0; i < MAX31785_NR_FAN_PAGES; i++) {
--		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, i);
-+		ret = max31785_pmbus_set_page(client, i);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -741,7 +762,7 @@ static int max31785_probe(struct i2c_client *client)
- 
- 	*info = max31785_info;
- 
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, 255);
-+	ret = max31785_pmbus_set_page(client, 255);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -785,8 +806,7 @@ static int max31785_probe(struct i2c_client *client)
- 		if (!have_fan || fan_configured)
- 			continue;
- 
--		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE,
--							 i);
-+		ret = max31785_pmbus_set_page(client, i);
- 		if (ret < 0)
- 			return ret;
- 
+ static int ibm_cffps_probe(struct i2c_client *client)
 -- 
 2.27.0
 
