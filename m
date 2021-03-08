@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79D39C433DB
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0A837C433DB
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:09:39 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1EE0C60C3D
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:09:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1EE0C60C3D
+	by mail.kernel.org (Postfix) with ESMTPS id A61E864FFD
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:09:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A61E864FFD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYtz679rz3dR6
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:09:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYvP2hdpz3dlr
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:09:37 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=kzeh7V7u;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DaSTUVz8;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,60 +29,60 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=kzeh7V7u; dkim-atps=neutral
+ header.s=pp1 header.b=DaSTUVz8; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYZ26DnSz3cPn
- for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:34 +1100 (AEDT)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYZ266dNz3cPh
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:33 +1100 (AEDT)
+Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128MZPWp076033; Mon, 8 Mar 2021 17:54:32 -0500
+ 128MilhD112531; Mon, 8 Mar 2021 17:54:32 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=aWvWUhpStSVN/hPu3hb/yP4vhl3xoO1lt9P053FmBJU=;
- b=kzeh7V7u7JZoJ2BisqAYSV8XaP7rKp6kmSQ3481x/DCourbdxw5F1ti/LNHf3cuMPNce
- 9NFQJ0gFCGI0Y5ng9R0MxzLswpOv6Oa2bvXcbSTfZZKYhj3QpxZZXK58XeyvFCjsZoEx
- c49qSn72CwUznUJ87Kg+Es4CiLfAmxdDr6rkOzaK6rYblCb9+Ave/3djTQd9qasgEwVV
- GgdNemewer/aTPpGcxZpmHdqAaEj19t3k6ev47hgslSsa/4lWNv5CJQDpyxV3bpEwhsH
- TRl9sv4C0plDERGA1z+J+dhIc6G5E0cSRhdPfdEmA+WyrNMJZyrkvBd8SSgIJICtQgaK qw== 
-Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
- [169.63.121.186])
- by mx0a-001b2d01.pphosted.com with ESMTP id 375udq2cdj-1
+ bh=HAPPo3piwepuE7q8smUr4gFXCc5b8wq6IQLivalFdTQ=;
+ b=DaSTUVz8uUN2syqiQo8j4qjTRhIPr7KZqo+xpD0dvtxKv1+XFnYgYWvrhrMHYBW3yAvN
+ RPpfAXF5YtiPEkw5G2lo3yVZHdcf7VmojeFIK+8H4WiFEalrBTkWB1yoBRsTB0Zlq6Bc
+ +tZ/Y0dCHKYrhpw/lTLjfEVeEeCQhHRqiQHMgd2jXPAlNFoScgMWhZNj0rogM6Rc3oSl
+ DKyX47oJOfP2xcM5jVELo0F9loccBuMgK7mQEbJMTPguBaV87VsH3OpPGbrbhfIHRPdE
+ gBZUpv7IHC9TOGkoZ8jIYa2YvJDUNfXVzdZTWBecjxAmYROzE1UhfyrsSIea615FF92H PQ== 
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375vyx858p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 17:54:32 -0500
-Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
- by ppma03wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128Mpd4A025299;
+ Mon, 08 Mar 2021 17:54:31 -0500
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MrLu6005598;
  Mon, 8 Mar 2021 22:54:31 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma03wdc.us.ibm.com with ESMTP id 3741c91xm4-1
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma04dal.us.ibm.com with ESMTP id 3741c9efab-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Mon, 08 Mar 2021 22:54:31 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsUvm15794644
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsTnq26018256
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 8 Mar 2021 22:54:30 GMT
+ Mon, 8 Mar 2021 22:54:29 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9D0D7C605F;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id C745FC605F;
+ Mon,  8 Mar 2021 22:54:29 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6A244C6062;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 8CD30C605A;
+ Mon,  8 Mar 2021 22:54:29 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:30 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:29 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 35/35] pmbus: (max31785) Retry enabling fans
- after writing MFR_FAN_CONFIG
-Date: Mon,  8 Mar 2021 16:54:19 -0600
-Message-Id: <20210308225419.46530-36-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 32/35] pmbus: (ucd9000) Throttle SMBus
+ transfers to avoid poor behaviour
+Date: Mon,  8 Mar 2021 16:54:16 -0600
+Message-Id: <20210308225419.46530-33-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
 References: <20210308225419.46530-1-eajames@linux.ibm.com>
@@ -93,10 +93,10 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-08_20:2021-03-08,
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015
- impostorscore=0 mlxlogscore=999 malwarescore=0 mlxscore=0 spamscore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ clxscore=1015 suspectscore=0
+ priorityscore=1501 spamscore=0 mlxlogscore=999 malwarescore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 bulkscore=0 adultscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -115,72 +115,40 @@ Sender: "openbmc"
 
 From: Andrew Jeffery <andrew@aj.id.au>
 
-It has been observed across large fleets of systems that a small subset
-of those systems occasionally loose control of some number of fans
-across a BMC reboot (their hwmon fan attributes are missing from sysfs).
+Short turn-around times between transfers to UCD9000 devices can lead to
+problematic behaviour, including unnecessary clock stretching, bus
+lockups and potential corruption of the device's volatile state.
 
->From extensive testing and tracing it was discovered that writes
-enabling a fan in FAN_CONFIG_1_2 failed to stick on the system under
-test with a frequency of about 1 in 1000 re-binds of the driver.
+Introduce transfer throttling for the device with a minimum access
+delay of 1ms.
 
-The MAX31785 datasheet recommends in the documentation for
-MFR_FAN_CONFIG that the asssociated fan(s) be disabled before updating
-the register. The sequence in question implements this suggestion, and
-the observed loss-of-fans symptom occurs when the write to re-enable the
-fan in FAN_CONFIG_1_2 fails to stick.
-
-The trace data suggests a one-shot retry is enough to successfully
-update FAN_CONFIG_1_2. With the workaround, no loss of fans was observed
-in over 20,000 consecutive rebinds of the driver.
-
-OpenBMC-Staging-Count: 1
 Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- drivers/hwmon/pmbus/max31785.c | 23 +++++++++++++++++++----
- 1 file changed, 19 insertions(+), 4 deletions(-)
+ drivers/hwmon/pmbus/ucd9000.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index 1e021c38d507..0c2fe22018a3 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -398,6 +398,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 	u32 page;
- 	u32 uval;
- 	int ret;
-+	int i;
+diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
+index f8017993e2b4..ad4d621398e5 100644
+--- a/drivers/hwmon/pmbus/ucd9000.c
++++ b/drivers/hwmon/pmbus/ucd9000.c
+@@ -487,6 +487,8 @@ static int ucd9000_init_debugfs(struct i2c_client *client,
+ }
+ #endif /* CONFIG_DEBUG_FS */
  
- 	if (!of_device_is_compatible(child, "pmbus-fan"))
- 		return 0;
-@@ -574,10 +575,24 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 	if (ret < 0)
- 		return ret;
++#define UCD9000_SMBUS_THROTTLE_US	1000
++
+ static int ucd9000_probe(struct i2c_client *client)
+ {
+ 	u8 block_buffer[I2C_SMBUS_BLOCK_MAX + 1];
+@@ -501,6 +503,8 @@ static int ucd9000_probe(struct i2c_client *client)
+ 				     I2C_FUNC_SMBUS_BLOCK_DATA))
+ 		return -ENODEV;
  
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_FAN_CONFIG_12,
--						 pb_cfg);
--	if (ret < 0)
--		return ret;
-+	for (i = 0; i < 2; i++) {
-+		ret = max31785_i2c_smbus_write_byte_data(client,
-+							 PMBUS_FAN_CONFIG_12,
-+							 pb_cfg);
-+		if (ret < 0)
-+			continue;
++	i2c_smbus_throttle_client(client, UCD9000_SMBUS_THROTTLE_US);
 +
-+		ret = max31785_i2c_smbus_read_byte_data(client,
-+							PMBUS_FAN_CONFIG_12);
-+		if (ret < 0)
-+			continue;
-+
-+		if (ret == pb_cfg)
-+			break;
-+	}
-+
-+	if (i == 2)
-+		return -EIO;
- 
- 	/*
- 	 * Fans are on pages 0 - 5. If the page property of a fan node is
+ 	ret = i2c_smbus_read_block_data(client, UCD9000_DEVICE_ID,
+ 					block_buffer);
+ 	if (ret < 0) {
 -- 
 2.27.0
 
