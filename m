@@ -4,85 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,WEIRD_QUOTING
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 84FB1C433E0
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:03:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4EFCCC433E0
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:03:36 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2638D6529C
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2638D6529C
+	by mail.kernel.org (Postfix) with ESMTPS id CC0BC6529C
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:03:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CC0BC6529C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYlz69xzz3dJD
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:03:11 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYmQ3YJMz3dWN
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:03:34 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WzogwLO8;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c8hWB/5O;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
  helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=WzogwLO8; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=c8hWB/5O; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYy2TdHz3cP7
- for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:29 +1100 (AEDT)
-Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128Mc2Ab080082; Mon, 8 Mar 2021 17:54:27 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYy476Lz3cPv
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:30 +1100 (AEDT)
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 128MZPca076048; Mon, 8 Mar 2021 17:54:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=tqKZRUmv0KJFZQy0jox+E7/rakC5yVon83n6Xa2eKTw=;
- b=WzogwLO8QtJWfLJvAZV/bgAa5r4gPUIhpB8O3yi1y+J7//Bk7weM6KsVXcP8vUSuTypW
- W1mPNrAyqaNSSLPAo3ItUGPOisy5/IBSt/2W5DqJiT/D5jwdiOd4DTe36ChQch1KvjYX
- w5O0JuaI645b4L0A1MhdvQRhvze+sjBJUYtH1z8TwL/05vT9YJTH0OD3G0QZWz59qZGV
- u8BQ1ca1YHsAth3Ah00+LQU/jIiOTWAq6vhJ03NW6MroaN2Y2m62n+2RL110JeGGzVSC
- qcyzKRXHxkv9JQ0unmdb+jYXvrXRwzVfAdyvxwGAshkQ8/Emn6LcEGg8+nXyFvEcgVm1 NQ== 
+ bh=XoB6J7yaqoeMXtFuCEethGVBaVljmrD8qr4synPvTn4=;
+ b=c8hWB/5OREhVracIvx/UdJYtmGsezi3gZx2YXFTrSs0C2hrddQ/txVCi4idqInVCjvnQ
+ sLauqtUxogzubib7vU/2FSctXd7u5a76pWgt+RA8sTvdnw8PH+bn/if6Okn4fgWrHnDb
+ NXqV4CK6NxjfSuszhtzEsWBms/uIgDdTzM1BgBXcviPJxS1LfBDetCtFQmdALLqlzfgD
+ VDxyvrqwDYBYD8kleslBV3jaVJS0lDqez6sgxjZpieqlzEN2sU+H3VLWpRZW27giOv1K
+ W8IkhL966Eznm8Nj2UnieoPoBoqtSUy2HqikCtPBPRh4lLq2bdfPc811u362Ml/8qlUd rA== 
 Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
  [169.55.85.253])
- by mx0b-001b2d01.pphosted.com with ESMTP id 37577ggg80-1
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375udq2cc6-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 17:54:27 -0500
+ Mon, 08 Mar 2021 17:54:28 -0500
 Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MkgfL027653;
- Mon, 8 Mar 2021 22:54:26 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma01wdc.us.ibm.com with ESMTP id 3741c89xse-1
+ by ppma01wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MkgfM027653;
+ Mon, 8 Mar 2021 22:54:27 GMT
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by ppma01wdc.us.ibm.com with ESMTP id 3741c89xsj-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 22:54:26 +0000
+ Mon, 08 Mar 2021 22:54:27 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsODv26214778
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsQLh28443010
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 8 Mar 2021 22:54:24 GMT
+ Mon, 8 Mar 2021 22:54:26 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 538EEC605D;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 0FB65C605A;
+ Mon,  8 Mar 2021 22:54:26 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2599AC6057;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id D33ADC6057;
+ Mon,  8 Mar 2021 22:54:25 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:25 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 14/35] mmc: sdhci: aspeed: Expose data sample
- phase delay tuning
-Date: Mon,  8 Mar 2021 16:53:58 -0600
-Message-Id: <20210308225419.46530-15-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 20/35] ARM: dts: Aspeed: Everest: Add pca9552
+ fan presence
+Date: Mon,  8 Mar 2021 16:54:04 -0600
+Message-Id: <20210308225419.46530-21-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
 References: <20210308225419.46530-1-eajames@linux.ibm.com>
@@ -93,11 +93,11 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-08_20:2021-03-08,
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- mlxlogscore=999 impostorscore=0 suspectscore=0 bulkscore=0
- priorityscore=1501 clxscore=1015 mlxscore=0 phishscore=0 spamscore=0
- malwarescore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2009150000 definitions=main-2103080118
+ adultscore=0 clxscore=1015
+ impostorscore=0 mlxlogscore=934 malwarescore=0 mlxscore=0 spamscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,112 +113,162 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Jeffery <andrew@aj.id.au>
+From: Matthew Barth <msbarth@us.ibm.com>
 
-Allow sample phase adjustment to deal with layout or tolerance issues.
+Add the pca9552 at address 0x61 on i2c14 behind mux0 channel 3 with the
+4 GPIO fan presence inputs.
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Matthew Barth <msbarth@us.ibm.com>
 ---
- drivers/mmc/host/sdhci-of-aspeed.c | 65 ++++++++++++++++++++++++++++--
- 1 file changed, 62 insertions(+), 3 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 128 +++++++++++++++++++
+ 1 file changed, 128 insertions(+)
 
-diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
-index 4f008ba3280e..21c40e3ad762 100644
---- a/drivers/mmc/host/sdhci-of-aspeed.c
-+++ b/drivers/mmc/host/sdhci-of-aspeed.c
-@@ -2,6 +2,7 @@
- /* Copyright (C) 2019 ASPEED Technology Inc. */
- /* Copyright (C) 2019 IBM Corp. */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -16,9 +17,14 @@
- 
- #include "sdhci-pltfm.h"
- 
--#define ASPEED_SDC_INFO		0x00
--#define   ASPEED_SDC_S1MMC8	BIT(25)
--#define   ASPEED_SDC_S0MMC8	BIT(24)
-+#define ASPEED_SDC_INFO			0x00
-+#define   ASPEED_SDC_S1MMC8		BIT(25)
-+#define   ASPEED_SDC_S0MMC8		BIT(24)
-+#define ASPEED_SDC_PHASE		0xf4
-+#define   ASPEED_SDC_PHASE_IN		GENMASK(20, 16)
-+#define   ASPEED_SDC_PHASE_OUT		GENMASK(7, 3)
-+#define   ASPEED_SDC_PHASE_IN_EN	BIT(2)
-+#define   ASPEED_SDC_PHASE_OUT_EN	GENMASK(1, 0)
- 
- struct aspeed_sdc {
- 	struct clk *clk;
-@@ -247,6 +253,55 @@ static struct platform_driver aspeed_sdhci_driver = {
- 	.remove		= aspeed_sdhci_remove,
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index de2606b416e6..d7f23b74dd4b 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -171,6 +171,37 @@ vga_memory: region@bf000000 {
+ 			reg = <0xbf000000 0x01000000>; /* 16M */
+ 		};
+ 	};
++
++	gpio-keys-polled {
++		compatible = "gpio-keys-polled";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		poll-interval = <1000>;
++
++		fan0-presence {
++			label = "fan0-presence";
++			gpios = <&pca0 15 GPIO_ACTIVE_LOW>;
++			linux,code = <15>;
++		};
++
++		fan1-presence {
++			label = "fan1-presence";
++			gpios = <&pca0 14 GPIO_ACTIVE_LOW>;
++			linux,code = <14>;
++		};
++
++		fan2-presence {
++			label = "fan2-presence";
++			gpios = <&pca0 13 GPIO_ACTIVE_LOW>;
++			linux,code = <13>;
++		};
++
++		fan3-presence {
++			label = "fan3-presence";
++			gpios = <&pca0 12 GPIO_ACTIVE_LOW>;
++			linux,code = <12>;
++		};
++	};
  };
  
-+static int aspeed_sdc_configure_of(struct platform_device *pdev,
-+				   struct aspeed_sdc *sdc)
-+{
-+	u32 phase, iphase, ophase;
-+	struct device_node *np;
-+	struct device *dev;
-+	int ret;
+ &i2c0 {
+@@ -567,6 +598,103 @@ fan@3 {
+ 					maxim,fan-fault-pin-mon;
+ 				};
+ 			};
 +
-+	dev = &pdev->dev;
-+	np = dev->of_node;
-+	phase = 0;
++			pca0: pca9552@61 {
++				compatible = "nxp,pca9552";
++				reg = <0x61>;
 +
-+	ret = of_property_read_u32(np, "aspeed,input-phase", &iphase);
-+	if (ret < 0) {
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_IN, 0);
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_IN_EN, 0);
-+		dev_dbg(dev, "Input phase configuration disabled");
-+	} else if (iphase >= (1 << 5)) {
-+		dev_err(dev,
-+			"Input phase value exceeds field range (5 bits): %u",
-+			iphase);
-+		return -ERANGE;
-+	} else {
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_IN, iphase);
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_IN_EN, 1);
-+		dev_info(dev, "Input phase relationship: %u", iphase);
-+	}
++				gpio-controller;
++				#gpio-cells = <2>;
 +
-+	ret = of_property_read_u32(np, "aspeed,output-phase", &ophase);
-+	if (ret < 0) {
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_OUT, 0);
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_OUT_EN, 0);
-+		dev_dbg(dev, "Output phase configuration disabled");
-+	} else if (ophase >= (1 << 5)) {
-+		dev_err(dev,
-+			"Output phase value exceeds field range (5 bits): %u",
-+			iphase);
-+		return -ERANGE;
-+	} else {
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_OUT, ophase);
-+		phase |= FIELD_PREP(ASPEED_SDC_PHASE_OUT_EN, 3);
-+		dev_info(dev, "Output phase relationship: %u", ophase);
-+	}
++				gpio-line-names =
++					"","","","",
++					"","","","",
++					"","","","",
++					"presence-fan3",
++					"presence-fan2",
++					"presence-fan1",
++					"presence-fan0";
 +
-+	writel(phase, sdc->regs + ASPEED_SDC_PHASE);
++				gpio@0 {
++					reg = <0>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
 +
-+	return 0;
-+}
++				gpio@1 {
++					reg = <1>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
 +
- static int aspeed_sdc_probe(struct platform_device *pdev)
++				gpio@2 {
++					reg = <2>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@3 {
++					reg = <3>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@4 {
++					reg = <4>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@5 {
++					reg = <5>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@6 {
++					reg = <6>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@7 {
++					reg = <7>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@8 {
++					reg = <8>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@9 {
++					reg = <9>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@10 {
++					reg = <10>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@11 {
++					reg = <11>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@12 {
++					reg = <12>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@13 {
++					reg = <13>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@14 {
++					reg = <14>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++
++				gpio@15 {
++					reg = <15>;
++					type = <PCA955X_TYPE_GPIO>;
++				};
++			};
+ 		};
+ 	};
  
- {
-@@ -277,6 +332,10 @@ static int aspeed_sdc_probe(struct platform_device *pdev)
- 		goto err_clk;
- 	}
- 
-+	ret = aspeed_sdc_configure_of(pdev, sdc);
-+	if (ret)
-+		goto err_clk;
-+
- 	dev_set_drvdata(&pdev->dev, sdc);
- 
- 	parent = pdev->dev.of_node;
 -- 
 2.27.0
 
