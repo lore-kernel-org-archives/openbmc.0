@@ -2,26 +2,26 @@ Return-Path: <SRS0=wJXT=IG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 27455C433E0
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:56:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 60B24C433DB
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:56:34 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 742B96529C
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:56:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 742B96529C
+	by mail.kernel.org (Postfix) with ESMTPS id E1BD9650DF
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 22:56:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E1BD9650DF
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYbt10WXz3cjh
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:56:10 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYcJ3Hrsz3ckY
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 09:56:32 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=l8fJlsf3;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZvmvzN75;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
@@ -29,63 +29,59 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=l8fJlsf3; dkim-atps=neutral
+ header.s=pp1 header.b=ZvmvzN75; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYv3tKWz30Qn
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYv64zHz30RD
  for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:26 +1100 (AEDT)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
  by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128MY7XO148510; Mon, 8 Mar 2021 17:54:23 -0500
+ 128Mc4DI080209; Mon, 8 Mar 2021 17:54:22 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=jPLUSyxeNljAwDuHnZ6lQBTUOMZkGuxkcCPgkz7I1HQ=;
- b=l8fJlsf3L0X1few1gg1QdQj8DfI3byy7Ivm5tAJGl+hklUuIDR6ZbB9s9f5YXw/5oceD
- 3S4YlxqzHvMJ5f4N3akqSgK1gVLz69CHTW3hipcn4cHxbmGmXBY34BpT0Mb4/A//Qhdy
- U75YAkIC7n8wbLr2srYUtAaZs3EoIxRRk8n6SOe6Thb0+7g29kfk96BVomg/SSBLq4vq
- ZSM3S6RhlgGKCGyTTLAgfrSoW+6dtlAF1i19IoePmMbJal+iEKmd0VsfKo1xNq4INOPJ
- 0+ozTUSNpqiFaPylqB/Y1tihEJD+GBJpTPhQdO/kyhKmjwvaw9dKvdhExuMMpWMqoDzH Pw== 
-Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
- [169.63.121.186])
- by mx0b-001b2d01.pphosted.com with ESMTP id 375uw8sn6w-1
+ : date : message-id : mime-version : content-transfer-encoding; s=pp1;
+ bh=OizCEhlJADZ7k7BN0suUoIBsC6pWlbVYXPvwv0OHcT4=;
+ b=ZvmvzN750wTNMnLcGG7an8iexkubRqwexzPWYitmi5/qvp0ANQpmXkUukBQJQPDTNQmO
+ FEjgY8lLnlnUEx20Y6+QQExI7CBIoFH3gGheyNIK8VoWQrpZ30YLibEKlaWJqWJzXaxj
+ wwAti7M09o4IRPqQYQaxNn03NTfR1FKL+HIFbl7n2JMuGkX2V0bMS48G7UbfNxInNV+f
+ 6croaz0zsgApxur442zab3UXqxYUGzTpKeHgHqywyIP5zuLD1U02R4vCTPnbzR32De9m
+ hrfWQCTidFvGY1U1/eQJaJ0e+EFpp7XIagzxB3i3pcd6sN/MJs4LilsOvkRF5Ls+oBAH xQ== 
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 37577ggg6u-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 17:54:23 -0500
-Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
- by ppma03wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128Mpcwx025292;
- Mon, 8 Mar 2021 22:54:23 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma03wdc.us.ibm.com with ESMTP id 3741c91xkc-1
+ Mon, 08 Mar 2021 17:54:22 -0500
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MptcM016217;
+ Mon, 8 Mar 2021 22:54:21 GMT
+Received: from b03cxnp08026.gho.boulder.ibm.com
+ (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
+ by ppma01dal.us.ibm.com with ESMTP id 3741c9pfuf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 22:54:23 +0000
+ Mon, 08 Mar 2021 22:54:21 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsMMw23593238
+ by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsKIQ14156176
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 8 Mar 2021 22:54:22 GMT
+ Mon, 8 Mar 2021 22:54:20 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 546E8C605A;
- Mon,  8 Mar 2021 22:54:22 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 5C02AC605D;
+ Mon,  8 Mar 2021 22:54:20 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 21565C6057;
- Mon,  8 Mar 2021 22:54:22 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 2A76BC6057;
+ Mon,  8 Mar 2021 22:54:20 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:22 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:19 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 07/35] ARM: dts: aspeed: rainier: Add leds that
- are off pic16f882
-Date: Mon,  8 Mar 2021 16:53:51 -0600
-Message-Id: <20210308225419.46530-8-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 00/35] Rainier and Everest system updates
+Date: Mon,  8 Mar 2021 16:53:44 -0600
+Message-Id: <20210308225419.46530-1-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
-References: <20210308225419.46530-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
@@ -93,10 +89,10 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  definitions=2021-03-08_20:2021-03-08,
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=738
- lowpriorityscore=0 phishscore=0 mlxscore=0 priorityscore=1501
- impostorscore=0 adultscore=0 bulkscore=0 malwarescore=0 spamscore=0
- suspectscore=0 clxscore=1015 classifier=spam adjust=0 reason=mlx
+ lowpriorityscore=0
+ mlxlogscore=999 impostorscore=0 suspectscore=0 bulkscore=0
+ priorityscore=1501 clxscore=1015 mlxscore=0 phishscore=0 spamscore=0
+ malwarescore=0 adultscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.12.0-2009150000 definitions=main-2103080118
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -113,724 +109,103 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
+This lengthy series updates device trees and drivers for the AST2600
+systems Rainier and Everest.
 
-There are many LEDs that are connected to PIC16F882.
-PIC has the software implementation of pca9552
+Patches 1-12 update the Rainier device tree. These changes are well
+tested.
+Patches 13-15 provide some eMMC improvements.
+Patch 16 fixes an observed problem on the Tacoma system.
+Patches 17-24 update the Everest device tree. These changes are
+somewhat tested in simulation and minimally tested on hardware.
+Patch 25 adds device trees for the second version of the Rainier
+BMC board.
+Patches 26-35 are device driver fixes and improvments. Some have
+already been accepted in linux-next.
 
-Signed-off-by: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 690 +++++++++++++++++++
- 1 file changed, 690 insertions(+)
+Alpana Kumari (3):
+  ARM: dts: aspeed: rainier: Add presence GPIOs
+  ARM: dts: aspeed: everest: GPIOs support
+  ARM: dts: aspeed: rainier: Support pass 2 planar
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 514a14d3f914..32b63112091c 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -302,6 +302,336 @@ fan5 {
- 			default-state = "keep";
- 			gpios = <&pca0 5 GPIO_ACTIVE_LOW>;
- 		};
-+
-+		ddimm0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm1 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 1 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm2 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 2 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm3 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 3 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm4 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 4 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm5 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 5 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm6 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 6 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm7 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 7 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm8 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 8 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm9 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 9 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm10 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 10 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm11 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 11 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm12 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 12 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm13 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 13 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm14 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 14 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm15 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic1 15 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm16 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm17 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 1 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm18 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 2 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm19 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 3 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm20 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 4 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm21 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 5 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm22 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 6 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm23 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 7 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm24 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 8 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm25 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 9 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm26 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 10 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm27 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 11 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm28 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 12 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm29 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 13 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm30 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 14 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		ddimm31 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic2 15 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot1 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 1 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot2 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 2 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot3 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 3 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot4 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 4 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		cpu1 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 5 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		cpu1-vrm0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 6 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		lcd-russel {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic3 8 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		planar {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 0 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		cpu0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 1 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		dasd-pyramid0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 3 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		dasd-pyramid1 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 4 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		dasd-pyramid2 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 5 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		cpu0-vrm0 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 6 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		rtc-battery {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 7 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		base-blyth {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 8 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot6 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 9 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot7 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 10 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot8 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 11 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot9 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 12 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot10 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 13 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		pcieslot11 {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 14 GPIO_ACTIVE_LOW>;
-+		};
-+
-+		tpm-wilson {
-+			retain-state-shutdown;
-+			default-state = "keep";
-+			gpios = <&pic4 15 GPIO_ACTIVE_LOW>;
-+		};
- 	};
- 
- };
-@@ -1365,6 +1695,366 @@ gpio@7 {
- 		};
- 	};
- 
-+	pic1: pca9952@32 {
-+		compatible = "ibm,pca9552";
-+		reg = <0x32>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
-+	pic2: pca9552@31 {
-+		compatible = "ibm,pca9552";
-+		reg = <0x31>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
-+	pic3: pca9552@30 {
-+		compatible = "ibm,pca9552";
-+		reg = <0x30>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
-+	pic4: pca9552@33 {
-+		compatible = "ibm,pca9552";
-+		reg = <0x33>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		gpio-controller;
-+		#gpio-cells = <2>;
-+
-+		gpio@0 {
-+			reg = <0>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@1 {
-+			reg = <1>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@2 {
-+			reg = <2>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@3 {
-+			reg = <3>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@4 {
-+			reg = <4>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@5 {
-+			reg = <5>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@6 {
-+			reg = <6>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@7 {
-+			reg = <7>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@8 {
-+			reg = <8>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@9 {
-+			reg = <9>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@10 {
-+			reg = <10>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@11 {
-+			reg = <11>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@12 {
-+			reg = <12>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@13 {
-+			reg = <13>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@14 {
-+			reg = <14>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+
-+		gpio@15 {
-+			reg = <15>;
-+			type = <PCA955X_TYPE_GPIO>;
-+		};
-+	};
-+
- 	dps: dps310@76 {
- 		compatible = "infineon,dps310";
- 		reg = <0x76>;
+Andrew Jeffery (8):
+  dt: bindings: mmc: Add phase control properties for the Aspeed SDHCI
+  mmc: sdhci: aspeed: Expose data sample phase delay tuning
+  ARM: dts: aspeed: tacoma: Add data sample phase delay for eMMC
+  i2c: Allow throttling of transfers to client devices
+  pmbus: (ucd9000) Throttle SMBus transfers to avoid poor behaviour
+  pmbus: (core) Add a one-shot retry in pmbus_set_page()
+  pmbus: (max31785) Add a local pmbus_set_page() implementation
+  pmbus: (max31785) Retry enabling fans after writing MFR_FAN_CONFIG
+
+Brandon Wyman (2):
+  ARM: dts: aspeed: rainier: Add gpio-keys-polled for fans
+  ARM: dts: aspeed: everest: Add power supply i2c devices
+
+Dylan Hung (1):
+  ftgmac100: Restart MAC HW once
+
+Eddie James (7):
+  ARM: dts: aspeed: rainier: Add additional processor CFAMs
+  ARM: dts: aspeed: rainier 4U: Fix fan configuration
+  ARM: dts: aspeed: tacoma: Remove CFAM reset GPIO
+  ARM: dts: Aspeed: Everest: Add FSI CFAMs and re-number engines
+  ARM: dts: Aspeed: Everest: Add RTC
+  hwmon: (pmbus) Add a PMBUS_NO_CAPABILITY platform data flag
+  hwmon: (pmbus/ibm-cffps) Set the PMBUS_NO_CAPABILITY flag
+
+Jim Wright (1):
+  ARM: dts: aspeed: everest: Add UCD90320 power sequencer
+
+Joel Stanley (2):
+  ARM: dts: aspeed: rainier: Mark controllers as restricted
+  fsi: scom: Handle FSI2PIB timeout
+
+Matthew Barth (3):
+  ARM: dts: aspeed: rainier: Set MAX31785 config
+  ARM: dts: Aspeed: Everest: Add max31785 fan controller device
+  ARM: dts: Aspeed: Everest: Add pca9552 fan presence
+
+Milton Miller (1):
+  net/ncsi: Avoid channel_monitor hrtimer deadlock
+
+PriyangaRamasamy (1):
+  ARM: dts: aspeed: Everest: Add I2C components
+
+Vishwanatha Subbanna (6):
+  ARM: dts: aspeed: rainier: Add Operator Panel LEDs
+  ARM: dts: aspeed: rainier: Add directly controlled LEDs
+  ARM: dts: aspeed: rainier: Add leds that are off PCA9552
+  ARM: dts: aspeed: rainier: Add leds that are off pic16f882
+  ARM: dts: aspeed: rainier: Add leds on optional DASD cards
+  ARM: dts: aspeed: rainier: Add leds that are on optional PCI cable
+    cards
+
+ .../devicetree/bindings/mmc/aspeed,sdhci.yaml |    8 +
+ arch/arm/boot/dts/Makefile                    |    2 +
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts  | 1756 +++++++++++-
+ .../boot/dts/aspeed-bmc-ibm-rainier-4u-v2.dts |  198 ++
+ .../boot/dts/aspeed-bmc-ibm-rainier-4u.dts    |   14 +
+ .../boot/dts/aspeed-bmc-ibm-rainier-v2.dts    |  198 ++
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  | 2411 +++++++++++++++--
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts   |    3 +-
+ drivers/fsi/fsi-scom.c                        |   18 +
+ drivers/hwmon/pmbus/ibm-cffps.c               |    2 +-
+ drivers/hwmon/pmbus/max31785.c                |   55 +-
+ drivers/hwmon/pmbus/pmbus_core.c              |   39 +-
+ drivers/hwmon/pmbus/ucd9000.c                 |    4 +
+ drivers/i2c/i2c-core-base.c                   |    8 +-
+ drivers/i2c/i2c-core-smbus.c                  |  169 +-
+ drivers/i2c/i2c-core.h                        |   21 +
+ drivers/mmc/host/sdhci-of-aspeed.c            |   65 +-
+ drivers/net/ethernet/faraday/ftgmac100.c      |    1 +
+ include/linux/i2c.h                           |    5 +
+ include/linux/pmbus.h                         |    9 +
+ net/ncsi/ncsi-manage.c                        |   18 +-
+ 21 files changed, 4662 insertions(+), 342 deletions(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-v2.dts
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-v2.dts
+
 -- 
 2.27.0
 
