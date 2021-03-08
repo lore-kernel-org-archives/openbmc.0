@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 51748C433E0
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:02:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B4A6C433DB
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:02:50 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E8B8E65299
-	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E8B8E65299
+	by mail.kernel.org (Postfix) with ESMTPS id 40DFF6529C
+	for <openbmc@archiver.kernel.org>; Mon,  8 Mar 2021 23:02:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 40DFF6529C
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYl6521Wz3dLQ
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:02:26 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DvYlX6b3zz3d9V
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 10:02:48 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=qxaKp4Io;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GM6nXngd;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,60 +29,60 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=qxaKp4Io; dkim-atps=neutral
+ header.s=pp1 header.b=GM6nXngd; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYx6y4Rz3cLY
- for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:28 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DvYYy436lz3cPs
+ for <openbmc@lists.ozlabs.org>; Tue,  9 Mar 2021 09:54:30 +1100 (AEDT)
 Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 128MYadN068167; Mon, 8 Mar 2021 17:54:26 -0500
+ 128MYbc2068262; Mon, 8 Mar 2021 17:54:28 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=q2wBd9kSWkIN4op6RMhOl4kYh/s88q6b+9non7NgftQ=;
- b=qxaKp4IoKNtCZB3viOFCmE0pVzaagUI7hkUfeopjAx97MN4456t2hSnJDuCVbNBq363R
- +gRtcYYZHEENyjXLeg894W3J0a5YrRp5T8rCvFliu/d6Sp7mfohDvJooTMGTzH48a924
- Adq8PSbEhPm8PNa3+5CXWZwxDmhIlF4zCMsI1VKoPi5vq4iMNig7UsrevZhEJ5fkoFg0
- SJ8PcX+ZB6R5FmbYE9hrtjduV49+gQgNddwj9whW93idGB0Fc+G1KP0knhTd9vintCP9
- LJmK25Npvi/io0OpHxTk5ww93gatUY/ecNaWlJG9RLPHk8fc9ck//wqycfHEgU+URKEo XA== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 375u8raw2r-1
+ bh=u3T3LINw2Pizrplvs91ykLJZA0d+mWBJycRDwLj3lJ8=;
+ b=GM6nXngd9NVSMB3ZLP/1q4CLbpB0Fl3iK9Fj92cPS8ctD5i2a0EaYxBZHUUoxk8ZL3/x
+ UMyss4LuL5MUzHHauCPtMMO5sDjccDy4QaekZDYZ6whxe4IxrhWpAYjSc6Dexn3Keimx
+ bkpUVg0Vbj5oSxl1P2y72ssvullJwLfz47sH4ZT+SW5gdVMYiYdARXH5REpuG4AkRq8k
+ YY58tFiafZzeThuTkkTw0O2voD+AzLViaHtFU63JtJZLiRDcT6kVem84vHpwBvAIt+Yo
+ bkDm3E6qhvwaRCwDjI1DqsKsy+ReiJuZsDuj7Pw4xXO3CkAwLTj4Tc/KNeGwhHlmUJ1P 5Q== 
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 375u8raw31-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 17:54:26 -0500
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqoNk017971;
- Mon, 8 Mar 2021 22:54:26 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma02dal.us.ibm.com with ESMTP id 3741c96eu0-1
+ Mon, 08 Mar 2021 17:54:28 -0500
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.0.42/8.16.0.42) with SMTP id 128MqZTd019345;
+ Mon, 8 Mar 2021 22:54:27 GMT
+Received: from b03cxnp08025.gho.boulder.ibm.com
+ (b03cxnp08025.gho.boulder.ibm.com [9.17.130.17])
+ by ppma04wdc.us.ibm.com with ESMTP id 3741c9j09n-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 08 Mar 2021 22:54:25 +0000
+ Mon, 08 Mar 2021 22:54:27 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 128MsOl126214786
+ by b03cxnp08025.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 128MsQNq24052018
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 8 Mar 2021 22:54:24 GMT
+ Mon, 8 Mar 2021 22:54:26 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 94806C605B;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 59AE4C605D;
+ Mon,  8 Mar 2021 22:54:26 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 66AC4C6057;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 2281FC6057;
+ Mon,  8 Mar 2021 22:54:26 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.41.147])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Mon,  8 Mar 2021 22:54:24 +0000 (GMT)
+ Mon,  8 Mar 2021 22:54:26 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 15/35] ARM: dts: aspeed: tacoma: Add data
- sample phase delay for eMMC
-Date: Mon,  8 Mar 2021 16:53:59 -0600
-Message-Id: <20210308225419.46530-16-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 21/35] ARM: dts: aspeed: everest: Add power
+ supply i2c devices
+Date: Mon,  8 Mar 2021 16:54:05 -0600
+Message-Id: <20210308225419.46530-22-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210308225419.46530-1-eajames@linux.ibm.com>
 References: <20210308225419.46530-1-eajames@linux.ibm.com>
@@ -94,7 +94,7 @@ X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
  2021-03-08 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  bulkscore=0 adultscore=0
- malwarescore=0 priorityscore=1501 phishscore=0 mlxlogscore=999
+ malwarescore=0 priorityscore=1501 phishscore=0 mlxlogscore=962
  suspectscore=0 clxscore=1015 impostorscore=0 spamscore=0
  lowpriorityscore=0 mlxscore=0 classifier=spam adjust=0 reason=mlx
  scancount=1 engine=8.12.0-2009150000 definitions=main-2103080118
@@ -113,47 +113,46 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Jeffery <andrew@aj.id.au>
+From: Brandon Wyman <bjwyman@gmail.com>
 
-Adjust the phase delay to avoid data timeout splats like the following:
+Add the i2c/pmbus power supply devices to the everest device tree.
 
-[  731.368601] mmc0: Timeout waiting for hardware interrupt.
-[  731.374644] mmc0: sdhci: ============ SDHCI REGISTER DUMP ===========
-[  731.381828] mmc0: sdhci: Sys addr:  0x00000020 | Version:  0x00000002
-[  731.389012] mmc0: sdhci: Blk size:  0x00007200 | Blk cnt:  0x00000020
-[  731.396194] mmc0: sdhci: Argument:  0x00462a18 | Trn mode: 0x0000002b
-[  731.403377] mmc0: sdhci: Present:   0x01f70106 | Host ctl: 0x00000017
-[  731.410559] mmc0: sdhci: Power:     0x0000000f | Blk gap:  0x00000000
-[  731.417733] mmc0: sdhci: Wake-up:   0x00000000 | Clock:    0x00000107
-[  731.424915] mmc0: sdhci: Timeout:   0x0000000e | Int stat: 0x00000000
-[  731.432098] mmc0: sdhci: Int enab:  0x03ff008b | Sig enab: 0x03ff008b
-[  731.439282] mmc0: sdhci: ACmd stat: 0x00000000 | Slot int: 0x00000000
-[  731.446464] mmc0: sdhci: Caps:      0x01f80080 | Caps_1:   0x00000007
-[  731.453647] mmc0: sdhci: Cmd:       0x0000193a | Max curr: 0x001f0f08
-[  731.460829] mmc0: sdhci: Resp[0]:   0x00000900 | Resp[1]:  0xffffffff
-[  731.468013] mmc0: sdhci: Resp[2]:   0x320f5913 | Resp[3]:  0x00000900
-[  731.475195] mmc0: sdhci: Host ctl2: 0x0000008b
-[  731.480139] mmc0: sdhci: ADMA Err:  0x00000000 | ADMA Ptr: 0xbe040200
-[  731.487321] mmc0: sdhci: ============================================
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Brandon Wyman <bjwyman@gmail.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-index 57508b9e264d..8bd21921c691 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts
-@@ -185,6 +185,8 @@ &mac2 {
- 
- &emmc_controller {
- 	status = "okay";
-+	aspeed,input-phase = <0x7>;
-+	aspeed,output-phase = <0x1f>;
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index d7f23b74dd4b..04c96a3fe506 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -228,6 +228,26 @@ eeprom@54 {
+ 		compatible = "atmel,24c128";
+ 		reg = <0x54>;
+ 	};
++
++	power-supply@68 {
++		compatible = "ibm,cffps";
++		reg = <0x68>;
++	};
++
++	power-supply@69 {
++		compatible = "ibm,cffps";
++		reg = <0x69>;
++	};
++
++	power-supply@6a {
++		compatible = "ibm,cffps";
++		reg = <0x6a>;
++	};
++
++	power-supply@6b {
++		compatible = "ibm,cffps";
++		reg = <0x6b>;
++	};
  };
  
- &emmc {
+ &i2c4 {
 -- 
 2.27.0
 
