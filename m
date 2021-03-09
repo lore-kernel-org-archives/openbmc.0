@@ -2,103 +2,108 @@ Return-Path: <SRS0=GYqG=IH=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 30931C433E0
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 17:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 38674C433E0
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 17:44:07 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6FD496523A
-	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 17:32:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6FD496523A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=us.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 8365B65215
+	for <openbmc@archiver.kernel.org>; Tue,  9 Mar 2021 17:44:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8365B65215
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Dw2NB5mF2z3cSB
-	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 04:32:42 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Dw2dK0NqBz3cPD
+	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 04:44:05 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=HWmH5xLR;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DdHQ5SYC;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=us.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=HWmH5xLR; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.s=pp1 header.b=DdHQ5SYC; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Dw2Ml43Nkz30Jy
- for <openbmc@lists.ozlabs.org>; Wed, 10 Mar 2021 04:32:19 +1100 (AEDT)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 129H4Ihk180500
- for <openbmc@lists.ozlabs.org>; Tue, 9 Mar 2021 12:32:17 -0500
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Dw2cs517pz30N9
+ for <openbmc@lists.ozlabs.org>; Wed, 10 Mar 2021 04:43:41 +1100 (AEDT)
+Received: from pps.filterd (m0098414.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 129Hdifd050412; Tue, 9 Mar 2021 12:43:37 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=in-reply-to : from : to
- : cc : date : mime-version : references : content-transfer-encoding :
- content-type : message-id : subject; s=pp1;
- bh=mJrA+pfKdbvG1bsMdFN19dyYePnzPAy19jZ1hJiiYjQ=;
- b=HWmH5xLRR934h9A9Og+rokntBUap9TTGSvs2FxKbMiOVnxcxNp7EiSKaJXsNbPv0TC+a
- NHbuhlUUS5QQXTaJbJoV5maWjzHpbPbLFKuzNA6GakxGFE7XmVgi+dW2vDqWL8hKOnY+
- vJRQ96NuCbdHAkgvPijPIkD5yhz/Um/kfkjGIWrUemYufyArG/V4278xExgOUwI12oJx
- T5+tF57vclR4BHxXjAHuHraLSDRrJMeIV5zv+AiSwYYtoekQuUsWYO2YgFB5d8LnqiGp
- jGxMFuKQJ3ajw4PzcENFCzhwxgE1DczkPi6nJiHRwgxLSBAR84FzxhEtb2OCdgC+xqvI pw== 
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [158.85.210.110])
- by mx0a-001b2d01.pphosted.com with ESMTP id 37640jagca-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 09 Mar 2021 12:32:17 -0500
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <miltonm@us.ibm.com>;
- Tue, 9 Mar 2021 17:32:17 -0000
-Received: from us1b3-smtp02.a3dr.sjc01.isc4sb.com (10.122.7.175)
- by smtp.notes.na.collabserv.com (10.122.47.50) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 9 Mar 2021 17:32:15 -0000
-Received: from us1b3-mail228.a3dr.sjc03.isc4sb.com ([10.168.214.55])
- by us1b3-smtp02.a3dr.sjc01.isc4sb.com
- with ESMTP id 2021030917321478-612506 ;
- Tue, 9 Mar 2021 17:32:14 +0000 
-In-Reply-To: <CACWQX81UROJhBGX4qAdu6J5xy9AHpVRLXKxR5TcXeKonj2o4Ng@mail.gmail.com>
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: Ed Tanous <ed@tanous.net>
-Date: Tue, 9 Mar 2021 17:32:14 +0000
+ h=subject : to : cc :
+ references : from : message-id : date : mime-version : in-reply-to :
+ content-type : content-transfer-encoding; s=pp1;
+ bh=NrXQb8nzSGv6auqDBAQySWCdoWtI4y27JoT3v1Glke0=;
+ b=DdHQ5SYC2Nekh6EnWdX6Rr4uiSV1yJnmbWFxiZT+vzPEUPzB5x5ebOgNT7RK8x0XnzTh
+ 8JdRxYkQN8BlGspd1zLnEFLMyk7mqQwuMwShscm+ZWyiCswgJtDdfJAk0he+Ux3xiBSb
+ 0lfYZk/bUv/nSXb7UvZf3iBCRq4++xGbCJLr/fyQFW/9W6uH8Ao1kVI6XT9kB2/EptPg
+ 1B0s/DaeKdQRoibl5tiIn6RUmmXI4Prvo/mM7XP0T0nfiPqT8hPfctbZKF9pywXwRCcO
+ ma/Sd5ILmNN5I8ZlTirdUCm2GirgTK4y51iJ0Ukosn8LQIs5NbJZAz6WlyrjQMI4MtK/ Og== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 375wmk1qpf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Mar 2021 12:43:37 -0500
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 129HRQxH007506;
+ Tue, 9 Mar 2021 17:43:36 GMT
+Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
+ [9.57.198.29]) by ppma02dal.us.ibm.com with ESMTP id 3768rbahx1-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 09 Mar 2021 17:43:36 +0000
+Received: from b01ledav004.gho.pok.ibm.com (b01ledav004.gho.pok.ibm.com
+ [9.57.199.109])
+ by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 129HhaQI27263338
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 9 Mar 2021 17:43:36 GMT
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id E932B112067;
+ Tue,  9 Mar 2021 17:43:35 +0000 (GMT)
+Received: from b01ledav004.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A014711206E;
+ Tue,  9 Mar 2021 17:43:35 +0000 (GMT)
+Received: from demeter.local (unknown [9.160.115.82])
+ by b01ledav004.gho.pok.ibm.com (Postfix) with ESMTPS;
+ Tue,  9 Mar 2021 17:43:35 +0000 (GMT)
+Subject: Re: Request new repo for IBM-specific code - pam_2fa discussion
+To: Patrick Williams <patrick@stwcx.xyz>
+References: <b8af3438-f85a-cb82-c88c-9c4e120399e9@linux.ibm.com>
+ <YEKDY6+zfW5Uuqkl@heinlein>
+ <dc7eb87e-c13f-dcb7-7b98-dbeb382d7caa@linux.ibm.com>
+ <YEZwz6C5uGk8Vobs@heinlein>
+ <15f3a43c-d876-38e0-8397-9db8a3896d38@linux.ibm.com>
+ <YEaoJH+TP0A79tfM@heinlein>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Message-ID: <39a37872-79fd-7377-6ebe-1f50d42ab282@linux.ibm.com>
+Date: Tue, 9 Mar 2021 11:43:34 -0600
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
+ Gecko/20100101 Thunderbird/78.7.0
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <CACWQX81UROJhBGX4qAdu6J5xy9AHpVRLXKxR5TcXeKonj2o4Ng@mail.gmail.com>,
- <CACWQX80G75i+s8Vcro64uEyvcZn1Dc60y-coS6GqrvkJo59Kqg@mail.gmail.com>
- <CACWQX82OCCAkUzdvKv4pj2YgOL+Y+SifJKAbGOEnZ_MuVyB2+A@mail.gmail.com>
- <20210309135745.vgx3mjwnfnkvilxx@thinkpad.fuzziesquirrel.com>
-X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
- SCN1812108_20180501T0841_FP130 January 13, 2021 at 14:04
-X-LLNOutbound: False
-X-Disclaimed: 55643
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-x-cbid: 21030917-1059-0000-0000-0000038F45B7
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0;
- ST=0; TS=0; UL=0; ISC=; MB=0.154811
-X-IBM-SpamModules-Versions: BY=3.00014826; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000296; SDB=6.01515835; UDB=6.00818898; IPR=6.01298352; 
- MB=3.00036306; MTD=3.00000008; XFM=3.00000015; UTC=2021-03-09 17:32:16
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2021-03-03 13:05:52 - 6.00012344
-x-cbparentid: 21030917-1060-0000-0000-00008A02480A
-Message-Id: <OF3047D3C3.44F407F4-ON00258693.005E67D0-00258693.006055F7@notes.na.collabserv.com>
-Subject: RE: Making the "new repo" requests go faster
+In-Reply-To: <YEaoJH+TP0A79tfM@heinlein>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-TM-AS-GCONF: 00
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-09_13:2021-03-08,
+ definitions=2021-03-09_14:2021-03-08,
  2021-03-09 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0 adultscore=0
+ suspectscore=0 mlxlogscore=999 mlxscore=0 spamscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103090084
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,60 +115,92 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brad Bishop <bradleyb@fuzziesquirrel.com>
+Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On March 9, Brad Bishop wrote:
->On Tue, Mar 9, 2021 at 5:57 AM Brad Bishop
-><bradleyb@fuzziesquirrel.com> wrote:
->> On Fri, Mar 05, 2021 at 11:02:24AM -0800, Ed Tanous wrote:
->> >On Fri, Feb 5, 2021 at 12:02 PM Ed Tanous <ed@tanous.net> wrote:
->> >>
->> >> In an effort to fix these issues and more, I'd like to propose
->> >> creating a new repository for a "new daemon" template.
->> >
->> >If anyone is following this thread still, patches have been pushed
->> >to
->> >https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41099   for the
->> >moment.  As they get closer to approval, I'd like to get a new
->> >template repo created to house the code contained in that patch,
->> >and
->> >CI setup on said repo if I could.
+On 3/8/21 4:41 PM, Patrick Williams wrote:
+> On Mon, Mar 08, 2021 at 02:30:26PM -0600, Joseph Reynolds wrote:
+>> Patrick, thanks for that.  I was unaware of the pam_2fa project.  I
+>> agree this could a be a good way for BMCs to get 2FA.
 >>
->> Thanks Ed!
->>
->> The only reason I haven't created this already was I wasn't sure
->> what to
->> call it.  Any ideas on a name out there?
+>> However, as I tried to state in this email thread, the IBM firmware
+>> service organization requires that all credentials be brought onto the
+>> work site because some sites have no way to communicate with an external
+>> server.  That is, once you are on a customer site, you might not be able
+>> to call into IBM (or even have access to a phone).  Although this is not
+>> typical, I don't think it is unique to IBM.  What is done other secure
+>> installations?
+> I might have poorly explained my thought process before.  I know
+> *normal* 2FA requires remote access to the 2FA server.  The PAM_2FA
+> allows configuration of the URL and there is no reason why the URL
+> cannot be a localhost implementation of the 2FA protocol.  All the
+> protocol does is POST to the URL and make a decision based on the HTTP
+> return code.
 >
->No worries.  I don't really have a strong opinion on what it's called
->either.  The ideas I've had so far were "Sample app" or "example
->app".
+> Proposal:
+>      * Use 'pam_2fa' using Yubikey protocol to point at a 'localhost' URL.
+>      * Implement Yubikey 2FA protocol (described in pam_2fa
+>        documentation) in a small daemon on the BMC, specific for ACF
+>        certificates.
+>          - 2FA request will get the ACF password.
+>          - ACF daemon hashes password, checks with installed certificate
+>            and returns 4xx/2xx codes as appropriate.
+>      * Set PAM config to use 'pam_2fa' (pointed at localhost) for IBM
+>        service users.
 
+Thanks again.  I see it now.  This could work for IBM ACFs.
 
-One thing I wanted to point out when we are adopting this.
+Your proposal is:
+Instead of writing a new Linux-PAM module which checks the password with 
+the ACF, this proposal uses pam_2fa.so together with a new BMC-hosted 
+HTTPS server (implemented as a new systemd service) which checks the 
+password with the ACF.  Instead of putting the checks into my new 
+proposed Linux-PAM module, I would put them into the HTTPS REST API server.
 
-Git has a feature that it purposely checks the oldest ancestor of
-the target repository against the source repository.  This is a
-check that helps prevent pushing an unrelated tree.
+I'm not sure what advantage this would give.  It seems like this gives 
+me a tested PAM module in exchange for implementing a REST API server.  
+I'm not sure I want to make that trade.  The Linux-PAM coding aspects of 
+my proposed module are well-understood and straightforward.
 
-From the git push man page:
+> In summary, the service accounts can have a static primary password AND
+> an ACF-secured secondary password which is checked with the standard 2FA
+> protocol.
+>
+>> The IBM ACF design in terms of 2FA is:
+> ...
+>> 2. The ACF has no secrets (other than the password hash stored within
+>> it) and can be installed onto the BMC by the admin or the service rep.
+> Doesn't the service user have access you're not expecting the 'admin' to
+> be able to have on your machines?  How do you ensure a compromised ACF
+> cannot be replayed onto another machine?  With admin-level access it is
+> fairly trivial to fake out the serial number.
 
-       -f, --force
-           Usually, the command refuses to update a remote ref that is not =
-an
-           ancestor of the local ref used to overwrite it. This flag disabl=
-es
-           the check. This can cause the remote repository to lose commits;
-           use it with care.
+Yes, on IBM Enterprise machines, service access is a superset of admin 
+access.  In particular, the interface to change an existing machine 
+serial number requires service access.  However, it remains possible for 
+a machine owner to use shenanigans to change serial numbers.  This, plus 
+the admin's ability to record the service user password and to change 
+the BMC's TOD would give them the ability to re-use an ACF.
 
+> I might be misunderstanding something with "... or ther service rep".
+> It seems like there is a gap in how the service rep would install
+> something when the ACF is what gives them permissions to do the install?
 
-If we give instructions to rebase the commits when creating a new=20
-repository the new commit time and/or committer will cause a unique=20
-hash and we will not defeat this check.
+You are correct.  I didn't explain scenarios.
 
-milton
+First, note the proposed REST API to install the ACF requires admin 
+authority.  There are multiple alternate workflows:
+1. A security conscious system owner would have the admin install the 
+ACF immediately before service and remove it immediately afterward.  And 
+probably look over the service agent's shoulder.
+2. A trusting system owner would share admin access with the service 
+agent who would install and remove the ACF on behalf of the owner.
+3. A forgetful system owner would not have admin access (having lost the 
+password).  In this case the service agent asserts physical presence to 
+open a time window in which they could upload the ACF without 
+authentication or authority needed.
+
+Joseph
 
