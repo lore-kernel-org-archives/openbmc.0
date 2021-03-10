@@ -2,64 +2,100 @@ Return-Path: <SRS0=1Y/K=II=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 89112C433DB
-	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 15:56:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7394EC433DB
+	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 17:32:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C20D964E27
-	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 15:56:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C20D964E27
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
+	by mail.kernel.org (Postfix) with ESMTPS id B90C860232
+	for <openbmc@archiver.kernel.org>; Wed, 10 Mar 2021 17:32:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B90C860232
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DwcB90HW0z3d3P
-	for <openbmc@archiver.kernel.org>; Thu, 11 Mar 2021 02:56:01 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DwfKx0pg2z3cQW
+	for <openbmc@archiver.kernel.org>; Thu, 11 Mar 2021 04:32:53 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.115; helo=mga14.intel.com;
- envelope-from=jae.hyun.yoo@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115])
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XowUNWKl;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=XowUNWKl; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Dwc9p1nHmz30L6;
- Thu, 11 Mar 2021 02:55:41 +1100 (AEDT)
-IronPort-SDR: /mGZ6p59HnIOyUKJMzXuiJiUKwf/e7NN6zBA0sY98qKNRp9tCH+Y2aMFJ467+KpHg7kKHfKXFQ
- 3cJOliEInT1g==
-X-IronPort-AV: E=McAfee;i="6000,8403,9919"; a="187858184"
-X-IronPort-AV: E=Sophos;i="5.81,237,1610438400"; d="scan'208";a="187858184"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 07:55:39 -0800
-IronPort-SDR: /6eKFr8ry0VtVGJOb9d9xQK0rmfnthDtnNFQFohYpPLs8T52s8cLX5JG5QSF0oavx6e+jiVGji
- c5CtbcZkhVEg==
-X-IronPort-AV: E=Sophos;i="5.81,237,1610438400"; d="scan'208";a="447943096"
-Received: from yoojae-mobl.amr.corp.intel.com (HELO [10.212.177.249])
- ([10.212.177.249])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Mar 2021 07:55:38 -0800
-Subject: Re: [PATCH v4 1/4] dt-bindings: i2c: aspeed: add transfer mode support
-To: Rob Herring <robh@kernel.org>
-References: <20210224191720.7724-1-jae.hyun.yoo@linux.intel.com>
- <20210224191720.7724-2-jae.hyun.yoo@linux.intel.com>
- <20210306203011.GA1152769@robh.at.kernel.org>
- <f6732348-d6c8-f49b-6123-afe542bb1f8c@linux.intel.com>
- <CAL_Jsq+H2wCyTKhGcQvgiuyMtGW0hytQgw=948q0JGLSLOo9KA@mail.gmail.com>
-From: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-Message-ID: <f1811747-3826-215a-d822-85170303a7c9@linux.intel.com>
-Date: Wed, 10 Mar 2021 07:55:38 -0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DwfKV3KpGz30NJ
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Mar 2021 04:32:29 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12AHVaS6041394; Wed, 10 Mar 2021 12:32:27 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=m1QSsxu3iG0IIPOEV4PtCcMW7KGcIinhBytMLfxFiMo=;
+ b=XowUNWKlAB42oGY0sB7EukjX1tQRP0+sADmoxOeEH61hVR10DqKnpuQUkKriWuBrbcD2
+ 2QFSeaC9Wm9RWqwj8HQn8INaDOFMkP4QZ42PMP8ip1Vpn6+TfRMqux688BEjpNu4r8pS
+ o4Yxny4o1+qy8ldoQLgDxxy0l3uhdYgDP5DPQxNdZT7PepVB7lf3/zVlGa9Ev0edONUP
+ GUFJeXEqScD1XtlrpEDgFcVItoiABbk8bV7J8gsa8fJB1zECQOvi1A71Q9QCT8PKFeiF
+ uCWRq5cuAnSBXiavHORM7Y9jeH//FGxnhPoKs7C9vDWRtc9Z4uHSynoOIhnm+DlfmNpi kg== 
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.27])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3772kd80ha-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Mar 2021 12:32:27 -0500
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+ by ppma05wdc.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12AHUKCF015817;
+ Wed, 10 Mar 2021 17:32:26 GMT
+Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
+ [9.57.198.25]) by ppma05wdc.us.ibm.com with ESMTP id 3768mvhkdc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 10 Mar 2021 17:32:25 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 12AHWPSC27525460
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 10 Mar 2021 17:32:25 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 739A0AC05E;
+ Wed, 10 Mar 2021 17:32:25 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id EF1ABAC060;
+ Wed, 10 Mar 2021 17:32:24 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.115.36])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 10 Mar 2021 17:32:24 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.10 3/3] ARM: dts: aspeed: Add Rainier 1S4U machine
+Date: Wed, 10 Mar 2021 11:32:22 -0600
+Message-Id: <20210310173222.17556-3-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210310173222.17556-1-eajames@linux.ibm.com>
+References: <20210310173222.17556-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
-In-Reply-To: <CAL_Jsq+H2wCyTKhGcQvgiuyMtGW0hytQgw=948q0JGLSLOo9KA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-10_09:2021-03-10,
+ 2021-03-10 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 impostorscore=0 mlxscore=0
+ mlxlogscore=962 lowpriorityscore=0 suspectscore=0 priorityscore=1501
+ clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103100084
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,86 +107,66 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- linux-aspeed <linux-aspeed@lists.ozlabs.org>, Wolfram Sang <wsa@the-dreams.de>,
- Andrew Jeffery <andrew@aj.id.au>, Tao Ren <taoren@fb.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Brendan Higgins <brendanhiggins@google.com>,
- Linux I2C <linux-i2c@vger.kernel.org>, Cedric Le Goater <clg@kaod.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 3/9/2021 6:15 PM, Rob Herring wrote:
-> On Tue, Mar 9, 2021 at 10:02 AM Jae Hyun Yoo
-> <jae.hyun.yoo@linux.intel.com> wrote:
->>
->> Hi Rob,
->>
->> On 3/6/2021 12:30 PM, Rob Herring wrote:
->>> On Wed, Feb 24, 2021 at 11:17:17AM -0800, Jae Hyun Yoo wrote:
->>>> Append bindings to support transfer mode.
->>>>
->>>> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
->>>> Reviewed-by: Brendan Higgins <brendanhiggins@google.com>
->>>> ---
->>>> Changes since v3:
->>>> - None
->>>>
->>>> Changes since v2:
->>>> - Moved SRAM resources back to default dtsi and added mode selection
->>>>     property.
->>>>
->>>> Changes since v1:
->>>> - Removed buffer reg settings from default device tree and added the settings
->>>>     into here to show the predefined buffer range per each bus.
->>>>
->>>>    .../devicetree/bindings/i2c/i2c-aspeed.txt    | 37 +++++++++++++++----
->>>>    1 file changed, 30 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
->>>> index b47f6ccb196a..242343177324 100644
->>>> --- a/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
->>>> +++ b/Documentation/devicetree/bindings/i2c/i2c-aspeed.txt
->>>> @@ -17,6 +17,20 @@ Optional Properties:
->>>>    - bus-frequency    : frequency of the bus clock in Hz defaults to 100 kHz when not
->>>>                 specified
->>>>    - multi-master     : states that there is another master active on this bus.
->>>> +- aspeed,i2c-xfer-mode      : should be "byte", "buf" or "dma" to select transfer
->>>> +                      mode defaults to "byte" mode when not specified.
->>>> +
->>>> +                      I2C DMA mode on AST2500 has these restrictions:
->>>> +                        - If one of these controllers is enabled
->>>> +                            * UHCI host controller
->>>> +                            * MCTP controller
->>>> +                          I2C has to use buffer mode or byte mode instead
->>>> +                          since these controllers run only in DMA mode and
->>>> +                          I2C is sharing the same DMA H/W with them.
->>>> +                        - If one of these controllers uses DMA mode, I2C
->>>> +                          can't use DMA mode
->>>> +                            * SD/eMMC
->>>> +                            * Port80 snoop
->>>
->>> How does one decide between byte or buf mode?
->>
->> If a given system makes just one byte r/w transactions most of the time
->> then byte mode will be a right setting. Otherwise, buf mode is more
->> efficient because it doesn't generate a bunch of interrupts on every
->> byte handling.
-> 
-> Then why doesn't the driver do byte transactions when it gets small
-> 1-4? byte transactions and buffer transactions when it gets larger
-> sized transactions.
+The 1S4U version of the Rainier system has only 4 fans. Create a new
+tree, include the 4U version, and delete the 2 extra fans.
 
-Good question and it could be an option of this implementation.
-Actually, each mode needs different register handling so we need to add
-additional conditional branches to make it dynamic mode change depends
-on the data size which can be a downside. Also, checked that small
-amount of data transfer efficiency in 'buf' transfer mode is almost same
-to 'byte' mode so there would be no big benefit from the dynamic mode
-change. Of course, we can remove the 'byte' transfer mode but we should
-also provide flexibility of configuration on what this hardware can
-support, IMO.
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ arch/arm/boot/dts/Makefile                        |  1 +
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier-1s4u.dts | 14 ++++++++++++++
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts      |  2 +-
+ 3 files changed, 16 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-1s4u.dts
 
-Thanks,
-Jae
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 7b24be9cf961..535a467822f9 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1398,6 +1398,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-ibm-everest.dtb \
+ 	aspeed-bmc-ibm-rainier.dtb \
+ 	aspeed-bmc-ibm-rainier-v2.dtb \
++	aspeed-bmc-ibm-rainier-1s4u.dtb \
+ 	aspeed-bmc-ibm-rainier-4u.dtb \
+ 	aspeed-bmc-ibm-rainier-4u-v2.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-1s4u.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-1s4u.dts
+new file mode 100644
+index 000000000000..78b2dab63624
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-1s4u.dts
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++// Copyright 2021 IBM Corp.
++/dts-v1/;
++
++#include "aspeed-bmc-ibm-rainier-4u-v2.dts"
++
++/ {
++	model = "Rainier 1S4U";
++};
++
++&max {
++	/delete-node/ fan4;
++	/delete-node/ fan5;
++};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index 9f34136ec40f..dad90a152174 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -1978,7 +1978,7 @@ tmp275@48 {
+ 		reg = <0x48>;
+ 	};
+ 
+-	max31785@52 {
++	max: max31785@52 {
+ 		compatible = "maxim,max31785a";
+ 		reg = <0x52>;
+ 		#address-cells = <1>;
+-- 
+2.27.0
+
