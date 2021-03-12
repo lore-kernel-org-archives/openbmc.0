@@ -2,75 +2,77 @@ Return-Path: <SRS0=SevI=IK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC93FC433E0
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 050BBC433DB
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:31:24 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0DA6364F88
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:27:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0DA6364F88
+	by mail.kernel.org (Postfix) with ESMTPS id 8069964F8E
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:31:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8069964F8E
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRTl5FRSz3cTq
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:27:23 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRZK6cQcz3bd4
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:31:21 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Whz4MyDX;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=nesLpw1f;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::731;
- helo=mail-qk1-x731.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::729;
+ helo=mail-qk1-x729.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=Whz4MyDX; dkim-atps=neutral
-Received: from mail-qk1-x731.google.com (mail-qk1-x731.google.com
- [IPv6:2607:f8b0:4864:20::731])
+ header.s=google header.b=nesLpw1f; dkim-atps=neutral
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRTH0dsKz2yjN;
- Fri, 12 Mar 2021 11:26:58 +1100 (AEDT)
-Received: by mail-qk1-x731.google.com with SMTP id l4so22697173qkl.0;
- Thu, 11 Mar 2021 16:26:58 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRYs3Pz4z2xxt
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 11:30:56 +1100 (AEDT)
+Received: by mail-qk1-x729.google.com with SMTP id l4so22705103qkl.0
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Mar 2021 16:30:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=FbmokgZymiS3iblK7SguwZRYnWpNx1j40+buPp7T5hI=;
- b=Whz4MyDX/Z4x61M2IOu46yFDNbrBy9hxI40mUilWmBGYlA6KNkDz/vz3svNyBHzQWQ
- gLeaU5E2C4JDURV0Ro3lWaIi7CZzig33rNWCj6r1XmNNZeowmF0drcd3o1ADJTATwwGH
- iP65fPEnz//mgxSwPRetyM1YEmdYAMC9np278=
+ :cc; bh=QV0nSjA2HCF0nyhhD6GRSbmdenKZ5e1eqH/d40mJkSs=;
+ b=nesLpw1fSD2QrBdUD9MlDSHerKWLSvRGs/KFRtOa95iDTA+xTARbVIsO343GVAlQtx
+ GbExX7soPOJ4QZGgQy3sZ4f3vjQLDFSZbvhOwclVfLnNPdYwCz1WO0W+2Fj5wcTzttEe
+ RSTWuy5RSAowJJRWVYZq+a/JRxWl1NbzBChgo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=FbmokgZymiS3iblK7SguwZRYnWpNx1j40+buPp7T5hI=;
- b=gcDXvr0n63iH4fvbFs+6R2ejLO3b2BQGP7bzi6tbnFluBS9Hp+ujRhrv0TnEW1Lylv
- gtgbK89QBBYranJQIyDDd5Cbqtz2ix688Y+WpA8nfUnDlViW4Cc22Rr579m/3RsPx1yY
- hJpyCBd9c7X0/lDol0AyEDsTptCOR0N5b1SpNB1QHnO4r7VvyHUe6/+kQQKLEWHOkFki
- 5Wx0BpsGjm0aUOrUkQfaM2rLkbhop6NU5yZ7Pe7OCzIK/2weGFYGOK5XXlqZBylDWTcu
- nfAFHFBhYZbgZq2k0QiricSGg1F8r4xPO2ZCetYjFn2abrH4tfZ4iGHmzxxSU8QXlFx/
- GavQ==
-X-Gm-Message-State: AOAM530ze/WqOYdb5ddnErmeaaeWWGX3N1EQY5CfOvhKq1EHoOHYltMJ
- aI442zQbhTsRmole0FrFtyDWf0GsNIlJCudxjvLG9Q2TBuY=
-X-Google-Smtp-Source: ABdhPJzQy1fZxNI+jlTTtWmDGQKTLadDYa40QFao7q89di04GjVYULBfHmtP6r+/2GRiITO90WaY0pQIh8Gx0mHD8xQ=
-X-Received: by 2002:a37:a147:: with SMTP id k68mr10400285qke.66.1615508815554; 
- Thu, 11 Mar 2021 16:26:55 -0800 (PST)
+ bh=QV0nSjA2HCF0nyhhD6GRSbmdenKZ5e1eqH/d40mJkSs=;
+ b=AcIl2qj5ISJpTNztooc5m4VvZB36eT/+gHP63P4Eoh9JUtaE6GwjJkbc642VcVSBFU
+ dWoU/dUGQlCXqSqA7YQx0mm7IdI5lHEk3B5Vw1xktCZXX2eELj12M96aTPdwz4sOegfZ
+ GYZulPM07d+VtUatRMefdFuJ+snYU7OOeh/qMHAMR3/MAbB+4Gt4rU4x1G+XAIhInU6q
+ IFJ4qSd9hBN1zdULOoL4fN+5X2+9GxFFLe58X+EXwKfq/JAWBm7H7b8yi+4qqEssdlae
+ nd41O3kmHejwvRYxsZWeIOxbUD+FItygf/RBRvCxtU/uc1RUIbT2oa/uN6ouzWT1cTHg
+ sJIQ==
+X-Gm-Message-State: AOAM532criZIpcmcs2PdxgZ87H0zJjSE1aBDcsZdQO8xeR6qItJKvgSe
+ 3VSRDuIvgkTkJwKjxaIIvzTBmc7qwT/2EQnYhA4=
+X-Google-Smtp-Source: ABdhPJxN8bpyXWZQlqs3hcIvBKKlnYL/6PluqaxshZ+uUrIhEIbRAbBf2Bxx03r7sF6I3VU9uQRC8b80eIAEiwWenA0=
+X-Received: by 2002:a05:620a:4055:: with SMTP id
+ i21mr10355565qko.55.1615509054134; 
+ Thu, 11 Mar 2021 16:30:54 -0800 (PST)
 MIME-Version: 1.0
-References: <20201019085717.32413-1-dylan_hung@aspeedtech.com>
- <20201019085717.32413-5-dylan_hung@aspeedtech.com>
- <CACPK8Xc8NSBzN+LnZ=b5t7ODjLg9B6m2WDdR-C9SRWaDEXwOtQ@mail.gmail.com>
-In-Reply-To: <CACPK8Xc8NSBzN+LnZ=b5t7ODjLg9B6m2WDdR-C9SRWaDEXwOtQ@mail.gmail.com>
+References: <20210308225419.46530-1-eajames@linux.ibm.com>
+ <20210308225419.46530-7-eajames@linux.ibm.com>
+ <CACPK8Xc9XqM3UtpF0xywFwfj8anXWE1-TvbHCQskogrBBF_ZCQ@mail.gmail.com>
+ <OF39939D76.45BF746F-ON00258696.0001FF38-00258696.0001FF3E@notes.na.collabserv.com>
+In-Reply-To: <OF39939D76.45BF746F-ON00258696.0001FF38-00258696.0001FF3E@notes.na.collabserv.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 12 Mar 2021 00:26:43 +0000
-Message-ID: <CACPK8XfMEy2o39v3CG4Zzj9H_kqSFBOddL3SC-_OryMqVXEjOw@mail.gmail.com>
-Subject: Re: [PATCH 4/4] ftgmac100: Restart MAC HW once
-To: Dylan Hung <dylan_hung@aspeedtech.com>
+Date: Fri, 12 Mar 2021 00:30:42 +0000
+Message-ID: <CACPK8XfBu5_2xs_Eu=OtShNFQnAQ+Tc1Q1qM7Qgcaggd-yLumQ@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.10 06/35] ARM: dts: aspeed: rainier: Add leds
+ that are off PCA9552
+To: Milton Miller II <miltonm@us.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -83,53 +85,54 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW <BMC-SW@aspeedtech.com>, Po-Yu Chuang <ratbert@faraday-tech.com>,
- linux-aspeed <linux-aspeed@lists.ozlabs.org>,
- Networking <netdev@vger.kernel.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, "David S . Miller" <davem@davemloft.net>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 20 Oct 2020 at 04:14, Joel Stanley <joel@jms.id.au> wrote:
+On Fri, 12 Mar 2021 at 00:21, Milton Miller II <miltonm@us.ibm.com> wrote:
 >
-> On Mon, 19 Oct 2020 at 08:57, Dylan Hung <dylan_hung@aspeedtech.com> wrote:
-> >
-> > The interrupt handler may set the flag to reset the mac in the future,
-> > but that flag is not cleared once the reset has occured.
-> >
-> > Fixes: 10cbd6407609 ("ftgmac100: Rework NAPI & interrupts handling")
-> > Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
-> > Signed-off-by: Joel Stanley <joel@jms.id.au>
 >
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
-
-net maintainers, this one never made it into the tree. Do you need me
-to re-send it?
-
-Cheers,
-
-Joel
-
 >
-> > ---
-> >  drivers/net/ethernet/faraday/ftgmac100.c | 1 +
-> >  1 file changed, 1 insertion(+)
+> -----"openbmc" <openbmc-bounces+miltonm=us.ibm.com@lists.ozlabs.org> wrote: -----
+>
+> >To: Eddie James <eajames@linux.ibm.com>
+> >From: Joel Stanley
+> >Sent by: "openbmc"
+> >Date: 03/11/2021 06:09PM
+> >Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+> >Subject: [EXTERNAL] Re: [PATCH linux dev-5.10 06/35] ARM: dts:
+> >aspeed: rainier: Add leds that are off PCA9552
 > >
-> > diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> > index 0c67fc3e27df..57736b049de3 100644
-> > --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> > +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> > @@ -1326,6 +1326,7 @@ static int ftgmac100_poll(struct napi_struct *napi, int budget)
-> >          */
-> >         if (unlikely(priv->need_mac_restart)) {
-> >                 ftgmac100_start_hw(priv);
-> > +               priv->need_mac_restart = false;
+> >On Mon, 8 Mar 2021 at 22:54, Eddie James <eajames@linux.ibm.com>
+> >wrote:
+> >>
+> >> From: Vishwanatha Subbanna <vishwa@linux.vnet.ibm.com>
+> >>
+> >> These LEDs are on the fans and are connected via a
+> >> pca9551 i2c expander
 > >
-> >                 /* Re-enable "bad" interrupts */
-> >                 ftgmac100_write(FTGMAC100_INT_BAD, priv->base + FTGMAC100_OFFSET_IER);
-> > --
-> > 2.17.1
-> >
+> >This change doesn't make sense. The pca9551 is an i2c LED expander,
+> >so
+> >we don't need to expose the pins as GPIOs and then attach a gpio-leds
+> >driver to them. We should instead simply configure the pca955x driver
+> >to drive the LEDs as LEDs.
+>
+> I'll refresh your memory on why we have been doing this in our
+> devie trees and then let you consider if this is desired or not.
+>
+> The led system insistes on creating a compact map (no holes) (as
+> does the reset subsystem).
+>
+> However, this means the relative led number for a pin changes
+> as the prior pins change from gpio to led configuration.
+>
+> For example if pins 2 and 7 are leds, they become leds 0 and 1.
+> Changing pin 5 to also be an led means that pin 7 is now led 2
+> not led 1 on the led subsystem.
+
+Thanks for the rationale reminder.
+
+Are these led numbers important to userspace, or does the renumbering
+affect device tree changes only?
