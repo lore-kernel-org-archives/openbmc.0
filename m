@@ -2,108 +2,153 @@ Return-Path: <SRS0=wJn0=IV=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,PDS_BAD_THREAD_QP_64,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 49BC9C433DB
-	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 21:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A2D0C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 22:25:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9AFC0619C7
-	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 21:38:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9AFC0619C7
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0C13A619CB
+	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 22:25:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0C13A619CB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=equinix.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F4l9R5hnrz3bcT
-	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 08:38:35 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F4mD23gV9z2yxL
+	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 09:25:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=WIUuuBsu;
+	dkim=pass (1024-bit key; unprotected) header.d=equinixinc.onmicrosoft.com header.i=@equinixinc.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-equinixinc-onmicrosoft-com header.b=mJs2uJZs;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=WIUuuBsu; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ smtp.mailfrom=equinix.com (client-ip=148.163.159.192;
+ helo=mx0b-00268f01.pphosted.com;
+ envelope-from=prvs=47056628f0=zweiss@equinix.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=equinixinc.onmicrosoft.com
+ header.i=@equinixinc.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-equinixinc-onmicrosoft-com header.b=mJs2uJZs; 
+ dkim-atps=neutral
+X-Greylist: delayed 9814 seconds by postgrey-1.36 at boromir;
+ Fri, 12 Mar 2021 16:29:08 AEDT
+Received: from mx0b-00268f01.pphosted.com (mx0b-00268f01.pphosted.com
+ [148.163.159.192])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F4l90618tz2xxl
- for <openbmc@lists.ozlabs.org>; Wed, 24 Mar 2021 08:38:12 +1100 (AEDT)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12NLXG3e119130
- for <openbmc@lists.ozlabs.org>; Tue, 23 Mar 2021 17:38:09 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : subject : to :
- message-id : date : content-type : content-transfer-encoding :
- mime-version; s=pp1; bh=Vmco3V1LEF6XbtVj2SWmbb8KpvZoesFN5y6vnWk2bf8=;
- b=WIUuuBsu58/8j8F2DfP/MLM8fTPBqTdYZ2exsCNnENJrYADiZ12C2DKUl/GefMvjF4Zv
- xDfEo9CGXpmmwiNxoF1WSkFdTF36VP43OJsd2k2sa/u1kqJwzcKCTbuIdlCokTuMZAkU
- Eb5WQLFnScuUfFAJVGjVE4msZboqEW9Aje4BFz9xX/WZEd/LytfjM9bpEdK4/y5oGgXk
- xOZc4nfZTZcT5hSYtASdp9baGlrHwhlYopbGfgJMvZBugtLYSfS8Nba6xYowrXM+sRnl
- Hcx6judOvFhlI+rVfwCbciuonDkSY7PdXyV11hkEjwkTC2K8hO6Nbxyn/RJ1wr+swubh oQ== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 37fq7chspp-1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DxZ9w43qJz3cL6
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 16:29:06 +1100 (AEDT)
+Received: from pps.filterd (m0165121.ppops.net [127.0.0.1])
+ by mx0b-00268f01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12C2iCKe004189
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 02:45:29 GMT
+Received: from nam12-mw2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12lp2042.outbound.protection.outlook.com [104.47.66.42])
+ by mx0b-00268f01.pphosted.com with ESMTP id 3776facgqk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 23 Mar 2021 17:38:08 -0400
-Received: from m0098404.ppops.net (m0098404.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 12NLXNF5121724
- for <openbmc@lists.ozlabs.org>; Tue, 23 Mar 2021 17:38:08 -0400
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com with ESMTP id 37fq7chspe-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Mar 2021 17:38:08 -0400
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12NLRbAc019964;
- Tue, 23 Mar 2021 21:38:07 GMT
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29]) by ppma04dal.us.ibm.com with ESMTP id 37d9akf96w-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 23 Mar 2021 21:38:07 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 12NLc6P630736678
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 23 Mar 2021 21:38:06 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id CC499AE05F;
- Tue, 23 Mar 2021 21:38:06 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 8278EAE063;
- Tue, 23 Mar 2021 21:38:06 +0000 (GMT)
-Received: from demeter.local (unknown [9.160.86.38])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTPS;
- Tue, 23 Mar 2021 21:38:06 +0000 (GMT)
-From: Joseph Reynolds <jrey@linux.ibm.com>
-Subject: NOTICE: Backward incompatible Linux-PAM module replacement
-To: openbmc <openbmc@lists.ozlabs.org>, Andrew Geissler <geissonator@gmail.com>
-Message-ID: <e4dc8f12-4807-cf03-0eea-f19d67387879@linux.ibm.com>
-Date: Tue, 23 Mar 2021 16:38:05 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
- Gecko/20100101 Thunderbird/78.8.1
-Content-Type: text/plain; charset=utf-8; format=flowed
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 02:45:29 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CMWBYDin4n2qaSammMisYPF/Jp1pbdfU8RRqRFrXhqYIl4Uq1H+Wng3s59OCOvpORZ/9kZeL/NrFrk2USZoKVWqbS0PJBvdJMRkd5QiszEKROqT7a3YMVPhwJRZoALVLG0hmdSiZUln586HHS4rTAjq00cHOIDy604oXVg1603e9rUigj8uAokMjO4JuIHbzUyFfP/YGb1/kfaWKXySH7ag0HEGhfs+i/lXmYEqzO1VAHKtggj+xhfFhADRRAHl5o9bV/R7Xo9+9eAvUwBVLsu9IHAXOiVuaNQ8g1gJJ5JXwGXNx0M9i8Uknvjmh/hHI/hm/lRQCTw9C9RBHV/9lHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G9hLxqjOEt5z5ClEUTD5O5uzRZGccQcAOdPXPssP9mk=;
+ b=J7tlRA00l9Z77FrigCy4vQ/W1CRRLFLafzMa8xZ7O02bt5bXlSW4lzuDs3bQJS4IBuxSXvX7653EOn1NhMDV/fFmnYMZ6YYbYPy8i1AJnu3pqH7IpP/eo9KM3lmJg+MmcY7kKM2qVo6H0eRv63udXFOy8DeVVTrq02aOYDXWPq3nfyJzp8HI6K5ZZcIlICY8zJBfc1jGazL4+7mrWz5z2HNpTXFARvx7dZ+WVhYo6tQBecFjVpmgo52F2WXfXYcyO7uyN5OTKopm/PhdPJ9UHm2kBX0U5QyPxFnFFTYz8vU8VZ9HxT2D2voiQEnDbxPOvDuX7rvpcZ00tMSOmZVHMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=equinix.com; dmarc=pass action=none header.from=equinix.com;
+ dkim=pass header.d=equinix.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=equinixinc.onmicrosoft.com; s=selector2-equinixinc-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G9hLxqjOEt5z5ClEUTD5O5uzRZGccQcAOdPXPssP9mk=;
+ b=mJs2uJZsEDXxLS+TwPJ3EGPf3FfEp+R0x+soPP61TRX2VsUWTmikVh8sf8aaFXLOuKj7zJJwcrppXYLaKcfz8oJPCzjSmwhV7I2/A2GDoQSwkfZM9jlI5v382jszJftl4tcriauU1+6YRad49cu4mcik3GckdoUEsTw6rzMKCt0=
+Received: from DM5PR04MB0762.namprd04.prod.outlook.com (2603:10b6:3:f3::13) by
+ DM6PR04MB4969.namprd04.prod.outlook.com (2603:10b6:5:19::30) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.3890.28; Fri, 12 Mar 2021 02:45:27 +0000
+Received: from DM5PR04MB0762.namprd04.prod.outlook.com
+ ([fe80::a8f3:715a:f561:3e91]) by DM5PR04MB0762.namprd04.prod.outlook.com
+ ([fe80::a8f3:715a:f561:3e91%10]) with mapi id 15.20.3912.031; Fri, 12 Mar
+ 2021 02:45:27 +0000
+From: Zev Weiss <zweiss@equinix.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: RFC: ASRockRack E3C246D4I port
+Thread-Topic: RFC: ASRockRack E3C246D4I port
+Thread-Index: AQHXFunC4ji2LlSDMUGuWbnhSszW5w==
+Date: Fri, 12 Mar 2021 02:45:26 +0000
+Message-ID: <YErVxrB4afOz1ejt@packtop>
+Accept-Language: en-US
 Content-Language: en-US
-X-TM-AS-GCONF: 00
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=equinix.com;
+x-originating-ip: [24.181.166.149]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-ht: Tenant
+x-ms-office365-filtering-correlation-id: a63d00c0-f7fd-47ad-6ffa-08d8e500e49f
+x-ms-traffictypediagnostic: DM6PR04MB4969:
+x-microsoft-antispam-prvs: <DM6PR04MB496997FC89685DEFB5495FE8C36F9@DM6PR04MB4969.namprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:10000;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Ee55aMoRWHx3pV2CzfwyQDekZJIKoylTBXfFiqUn3+Bs6v3urRolqFkGzF12oohRPbR83ndBe/myK3sJ5NRABgWDbrv3zfUxOKbZb0cxB8HPEv41r9v0EdiiVinwkixjmP0bQDBzeREhj+KKLZ3+ZUvnFRVx9kKJ1IaJjKSW1cVeB6u5FJS2yp1Wm0OhCt3euip6BfWaB9MFsDyyYFM33nGlhFlhd7S0XRW5U6VJtWJNTvWusIKT/fSnnkalTYPun+z2+ZozTs19BRqhvmlIHvnRzONIkPzOeEKvs42OUgEU+1yYb1GXzl11hc+6Rh9pbRIuQN95JxZuLcnuGyw9q+8awqrAZkN3aW7nBkSeA88gI7UkvbiY66axOQE/JiXpEyun6oNKN7Nly4Kz8l+weCGsilNIN6mtrHSnC1nnTYisvy8TQ0m2Pn71a3kNOPZyLWxd0ZmjSUjsjTw96UyyZuWlEYak27daph9eDBvx2XWSD8eeXChofPnWYGHbgfSgiKvxh3Q3hQEAlyI3+NjMAmpZUbGnCJO/lEs6sxwUIstQEqU+ltx4w++Fjs78VuLrHMO9k3jlkr1njFRZa992VyNNcP8dPffbuI+RzjQtK8U=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM5PR04MB0762.namprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(7916004)(396003)(376002)(346002)(39860400002)(366004)(136003)(33716001)(91956017)(478600001)(66446008)(76116006)(316002)(186003)(66946007)(2906002)(26005)(8676002)(6506007)(66556008)(6916009)(8936002)(83380400001)(66476007)(64756008)(6486002)(7116003)(6512007)(71200400001)(9686003)(966005)(86362001)(5660300002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?us-ascii?Q?SIOku2+wFu3MU7qLZ6ES810yLghb6AIlcXm+BceDeeqhK+WZeAX4X8vwBNiy?=
+ =?us-ascii?Q?3ulc8hfY8+KBPeDMMSD2vUCWDhgA6HJ4tfSCJ/BonfZC3BypRGrc+/mX3LOR?=
+ =?us-ascii?Q?jJV585ze67rSJ3z99lN5RkpyfM/Gv1YWzpbYecE284PGmkNQbYIUxT1KwttD?=
+ =?us-ascii?Q?j2wgKRnDnu2QAeU+PoWINvm71dDUd7MvsuDTru7cblCpPw1HHd2h27U/wml7?=
+ =?us-ascii?Q?KYarhTuaW9dLAxm1O66G3FDPzuGEUEAl9JFrf25r+3y0KsWo6z99mp8p32gT?=
+ =?us-ascii?Q?K/m+JQvxKytZ6oR5HpzhrHSijRSeoIyWfqFKyK4WB4dc52yJlfRE8O6LJwFm?=
+ =?us-ascii?Q?IJ8xlMtEvlvj9CicIG8FLuPgCe8kvEfNl+DAD9zYuGoGxR7mLREJetZyoLK4?=
+ =?us-ascii?Q?RmeCrAPgDvOrYis85zsTpATkpa57Mo5BIFXCDdPZk6ooJNUQfwB7G94eoxmf?=
+ =?us-ascii?Q?bDhjtUx6ROwRnbJi3Oa8+Nk56M4NE6JQFkvGYAP5ChWaaDKJJ2h1GSdq8cqq?=
+ =?us-ascii?Q?36iAe0mDM90tPXyoHQMixdOMUQxGOa2CggiOjNAc+AaYmlkLzv1FuaWUf29f?=
+ =?us-ascii?Q?WZX4CVAYmkCrWsy6hXOjl1LAnjz6p+A8fw4b3XuJHpyDJHSqlNjAHYvqP3nZ?=
+ =?us-ascii?Q?qtqRiXxIyxepgCPZVKLd3Uv36DhW6X55M+hR5Ytfx1pb9mTlDl9JaCvv1Abg?=
+ =?us-ascii?Q?groz/8wRbq2xbz9ydzAFeB106YQE0zaaz1M0Gp/zgMunM1dYJiwnG3oqoWYg?=
+ =?us-ascii?Q?o8eLQgFQ+vNQUUWS0jKNlDteM51njrUCc+ASNfw/xFLSDjolZhytzkyaojIH?=
+ =?us-ascii?Q?mBCpjegtdLhZRG30oAqV5mYhqLOgKs7WDsWiyCsviYVtqFDu2UUJUXE6jJcu?=
+ =?us-ascii?Q?NHp5ZWgBOwAf8nEGNiLnPU+NRxRs8WHNf7CCOjREfmy86zg7NxQRtJ0ABnT7?=
+ =?us-ascii?Q?qUBirAfBb2XYgj2rjnhQZE9a6eW5IOvwrGxqFSmqubgB4EJZyDbGWIl0FzQ0?=
+ =?us-ascii?Q?arPzE8IDFbTdWTqGtJZK8FVuHcVt3BLVAE5zHEv54F7evoVDis/fNRoRwGZp?=
+ =?us-ascii?Q?ntmh2RkTzBAtiFZCCmcM4WlhazJLgJpRW5cCY1cGR2L1PdUR+fe4GdcghPHD?=
+ =?us-ascii?Q?Y+JKAOdvoaOq8Qh0yUCXqLk2suaAR0g1pghuOXY4xUTx9usIrBLDO/BSa8Zg?=
+ =?us-ascii?Q?hOJadvBF5oawd2MMeNExMyaqFsFtlo48wplhxRCwxUvixHB5Ml6OoPtA9Yio?=
+ =?us-ascii?Q?svoeKtfXanFXKe0X9S/lkkHuhjwvCSynaDNMzi/iRRCEdAYZNoiRDNt7eGr1?=
+ =?us-ascii?Q?308PnZ06S56EjyXGTlOFODnm?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <B8359643680B2F41B4172F376E4B1FA2@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
+X-OriginatorOrg: equinix.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR04MB0762.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a63d00c0-f7fd-47ad-6ffa-08d8e500e49f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Mar 2021 02:45:26.9810 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72adb271-2fc7-4afe-a5ee-9de6a59f6bfb
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: xeAepp8Y+ayfV0U+sk/SZmbTLGYJGa2rb3znf0T2Js/nTfl6dfEs6lF6qGh0maAhE0/lcBQNxK60duIV6ZkKhA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB4969
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-23_11:2021-03-23,
- 2021-03-23 signatures=0
+ definitions=2021-03-11_12:2021-03-10,
+ 2021-03-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0
- lowpriorityscore=0 mlxlogscore=999 mlxscore=0 suspectscore=0
- impostorscore=0 malwarescore=0 adultscore=0 priorityscore=1501 bulkscore=0
- clxscore=1015 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2009150000 definitions=main-2103230159
+ mlxscore=0 impostorscore=0
+ clxscore=1011 priorityscore=1501 bulkscore=0 spamscore=0 suspectscore=0
+ adultscore=0 phishscore=0 malwarescore=0 mlxlogscore=854
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2009150000 definitions=main-2103120017
+X-Mailman-Approved-At: Wed, 24 Mar 2021 09:25:27 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,113 +164,53 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-OpenBMC community,
+Hello all,
 
-Please read this if you support firmware downgrade AND if you allow the 
-BMC admin to dynamically configure the BMC's authentication and password 
-related parameters.
-- Firmware downgrade is firmware update to an older firmware image.
-- Dynamically configurable BMC parameters affected include: Redfish 
-properties AccountLockoutThreshold and AccountLockoutDuration, related 
-D-Bus properties for RememberOldPasswordTimes, minimum password length, 
-and includes any on-BMC customization to the /etc/pam.d/ files.
+We (Equinix Metal, formerly known as Packet) having been working on a
+port of OpenBMC to the ASRockRack E3C246D4I board
+(https://www.asrockrack.com/general/productdetail.asp?Model=3DE3C246D4I-2T,
+an AST2500-equipped Xeon E-2100 mini-ITX board), and we're now looking to
+get some feedback from the community and hopefully start the process of
+getting it merged upstream.
 
-We are seeking approval or strenuous objections to this change.
+It's currently sitting in a Github branch, since at the moment I'm
+mostly seeking fairly broad guidance on what sorts of things will need
+to happen to get it into a mergeable form (not sure if gerrit is the
+right tool for that).  Anyone who'd like to can take a look at:
+https://github.com/zevweiss/openbmc/tree/e3c246d4i
+
+Known issues, in approximate descending order of significance (by my
+estimate):
+
+  - The kernel situation is...kind of messy.  This mostly stems from
+    having a dependency on the PECI code, which is why the branch is
+    based on the 2.9.0 tag (the last one before the PECI patchset was
+    dropped from the openbmc kernel) instead of something more recent.
+    We've got some additional PECI patches on top of that to work around
+    some limitations in the PECI support on the particular CPU we're
+    working with, some of which is fairly gross hardcoding for that
+    specific SKU.  There are also a few non-PECI-related kernel patches
+    that I've posted upstream but not yet incorporated the resulting=20
+    review feedback on.
+
+  - There are various hacks to get things like x86-power-control and
+    host-error-monitor compiling and working reasonably, and I'm sort of
+    skeptical that the approach I took there would be considered
+    desirable.
+
+  - The directory naming is currently meta-equinix/meta-e3c246d4i;
+    starting out I was a bit unsure whether to name based on the
+    maintainer/developer of the layer or the maker of the hardware and we
+    ended up with the former, though I see Ed's in-progress x570d4u port
+    has things under meta-asrock, so perhaps that should be renamed?
+
+  - There are some relatively generic patches for dbus-sensors and
+    entity-manager that should probably be merged independently.
+
+
+If anyone can give it a look and let me know what the best way forward
+would be for this we'd certainly appreciate it.
+
 
 Thanks,
-Joseph
-
-
-Summary:
-
-1. The OpenBMC project is making an incompatible change to its Linux-PAM 
-configuration.
-2. A new service converts PAM configuration files to adapt to the 
-changes and preserve existing supported customization.
-3. But no backward conversion is planned, so downgrading a BMC across 
-this incompatible change will cause PAM to fail.  And because PAM is 
-needed for authentication, this will brick the BMC.
-
-
-What happened?
-
-Some Linux-PAM modules used by OpenBMC were deprecated and removed from 
-the underlying Yocto recipes.  These modules are no longer supported by 
-their project, and are no longer available from the Yocto project.
-
-
-What is OpenBMC doing?
-
-OpenBMC has a temporary patch to use the old unsupported PAM modules to 
-give time to use the replacement modules.  Thanks Andrew!  There is a 
-patch (see below) to use newer PAM modules which provide equivalent BMC 
-security function.
-
-
-What is the problem?
-
-The patch necessarily changes the PAM configuration files under 
-/etc/pam.d/.  This conflicts with BMC's APIs which allow the BMC admin 
-to (indirectly) change these same files.  If your BMC has any such 
-changes, they conflict with the changes in this patch!  A new conversion 
-service which runs on the BMC resolves the conflict.  See the patch for 
-details (file libpam_%.bbapend).
-
-This patch provides only a *forward* conversion service, meaning it 
-converts old config files to new.
-
-Although it would be easy enough to provide a *backward* conversion 
-service, such a service would have to run on older releases, and we 
-missed the time window to do that at the project level, and backward 
-compatibility is not deemed essential for BMCs, and that would add 
-complexity, so that is a nonstarter.
-
-In summary, you can think of this patch as a downgrade barrier.  You can 
-upgrade without any issues: the conversion service will convert your 
-BMC's PAM configuration.  And you can downgrade without issues if you 
-don't cross the barrier.  Specifically, if you do *not* yet have this 
-change then you can downgrade to any older version, and if you *do* have 
-this change then you can downgrade to any older release as far back as 
-when the change was made, but no further back.
-
-
-Notes:
-
-1. Please note the conversion service handles only those items which are 
-modifiable from supported Redfish and D-Bus APIs.  The conversion 
-service may remove nonstandard on-BMC customized PAM configurations and 
-reset them to defaults.  See the patch for details (file 
-convert-pam-configs.sh).
-
-2. If you have a non-standard PAM configuration built-in to the readonly 
-/etc/pam.d/ directory AND your BMC does not allow the admin to 
-dynamically configure these files, then forward conversion should not 
-need to make any changes, so you have no additional worries.
-
-3. The PAM configuration data is totally independent from the user 
-account data (/etc/passwd and /etc/shadow).   Specifically, the issue 
-described here does not affect any local user accounts you have 
-dynamically created on the BMC and does not affect forward or backward 
-migration.
-
-4. The commit message also describes an incompatible operational change: 
-The pam_tally2 command (invoked from the BMC's command line) is no 
-longer present. If you used the "pam_tally2 -u USER -r" command to 
-unlock a user after repeated authentication failures, change to use: 
-faillock --user USER --reset
-
-
-The patch is technically two co-requisite patches in different source 
-repos.  These must be applied together, or else you will brick your system:
-1) https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/41357
-2) 
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-user-manager/+/39853
-
-Can the co-req condition be softened into a pre-req, so one patch could 
-be applied first, and then the other?  This was considered (on the 
-Discord > OpenBMC > #yocto channel and in earlier gerrit reviews).  The 
-idea is to temporarily have both the old and new PAM modules available 
-on the BMC, and to enhance phosphor user manager be able to work with 
-both the old and new PAM configuration files. That approach was rejected 
-due to complexity.
-
+Zev Weiss
