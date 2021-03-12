@@ -2,55 +2,76 @@ Return-Path: <SRS0=SevI=IK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B122C433E0
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49B4FC433E0
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:38 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7985C64F8C
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7985C64F8C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=davemloft.net
+	by mail.kernel.org (Postfix) with ESMTPS id A1CF064F8E
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A1CF064F8E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRgh0Z0Vz3cWb
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:36:00 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRhN17Wyz3cJG
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:36:36 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=davemloft.net
- (client-ip=2620:137:e000::1:9; helo=mail.monkeyblade.net;
- envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
-X-Greylist: delayed 389 seconds by postgrey-1.36 at boromir;
- Fri, 12 Mar 2021 11:35:41 AEDT
-Received: from mail.monkeyblade.net (shards.monkeyblade.net
- [IPv6:2620:137:e000::1:9])
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=VIJu6AZ2;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::733;
+ helo=mail-qk1-x733.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=VIJu6AZ2; dkim-atps=neutral
+Received: from mail-qk1-x733.google.com (mail-qk1-x733.google.com
+ [IPv6:2607:f8b0:4864:20::733])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRgK3Jf4z2y0J;
- Fri, 12 Mar 2021 11:35:41 +1100 (AEDT)
-Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
- by mail.monkeyblade.net (Postfix) with ESMTPSA id F3F154D0ECDFA;
- Thu, 11 Mar 2021 16:28:48 -0800 (PST)
-Date: Thu, 11 Mar 2021 16:28:45 -0800 (PST)
-Message-Id: <20210311.162845.1107113962810628804.davem@davemloft.net>
-To: joel@jms.id.au
-Subject: Re: [PATCH 4/4] ftgmac100: Restart MAC HW once
-From: David Miller <davem@davemloft.net>
-In-Reply-To: <CACPK8XfMEy2o39v3CG4Zzj9H_kqSFBOddL3SC-_OryMqVXEjOw@mail.gmail.com>
-References: <20201019085717.32413-5-dylan_hung@aspeedtech.com>
- <CACPK8Xc8NSBzN+LnZ=b5t7ODjLg9B6m2WDdR-C9SRWaDEXwOtQ@mail.gmail.com>
- <CACPK8XfMEy2o39v3CG4Zzj9H_kqSFBOddL3SC-_OryMqVXEjOw@mail.gmail.com>
-X-Mailer: Mew version 6.8 on Emacs 27.1
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2
- (mail.monkeyblade.net [0.0.0.0]); Thu, 11 Mar 2021 16:28:49 -0800 (PST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRgz07Vmz2xZt
+ for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 11:36:14 +1100 (AEDT)
+Received: by mail-qk1-x733.google.com with SMTP id t4so22753959qkp.1
+ for <openbmc@lists.ozlabs.org>; Thu, 11 Mar 2021 16:36:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=5KF5lJjRLF+PxZKHDUBQQs4qJMBMkrRjJLK4pfNLoFw=;
+ b=VIJu6AZ2ZOBEtW9Xn2MjBJmFMDsBDlIIt3MeCkhgGEKTWTk3xzha5PQOFHg9706gfV
+ ndbwmLEMMv1adzFwuZc+mXohwnJE4s9vqv/0yoUCnxbHuDJslvKWZoloK4c+YTtVhXdA
+ RmE8Dy3ctI+4AjSlGrHekb5G3ixmLso2ZC32A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=5KF5lJjRLF+PxZKHDUBQQs4qJMBMkrRjJLK4pfNLoFw=;
+ b=C1xTBK/9JQbuRcaXHwmmzbhWBpoaUWcDl8S5bJ4UrhsQO1i1JWHSqxIAVENsY/BHzB
+ N3ECVc3PhBL3+HkRO5p5fgv0S7j/27rEIz3HW6tEfUfs6TxTf1txGGy7sDenTrEt78Gl
+ fjsxJULFDvNbQS2EOLD6TjUUOTaP+d0ETcPLM7dfxI07pOvJqtHSdjSBsERzD4OfkVc2
+ DeYNWoZ84j56sxUtCzI2v1ep57JrelUOyBblT4vB7vCXNcVejUSB2sMU6+++k5HGZwVo
+ FhLKIlOWLjzY63JQm3XUbnpOAJkjnEk59Q5HhQK7ZH8yFn1krzcTzpH16A0rsI8y/fcT
+ ZiGA==
+X-Gm-Message-State: AOAM533GWqJb7nPmx/HOrdBS4OiYQI5tlYGmob5Kzawlyul+KocW2KDb
+ ZfaOKvKpgrXHV3/G4X+6uVleJTTxgcalMx6dTy0=
+X-Google-Smtp-Source: ABdhPJyu/4XMpl731qLN4Z3iVEzBTzDJK2OKEaYV2LQPKTzpCWaMpuKr1xnBvrBGDnH4SwPDzDQYOpETLaNfP4r9TJY=
+X-Received: by 2002:a37:a147:: with SMTP id k68mr10431239qke.66.1615509369663; 
+ Thu, 11 Mar 2021 16:36:09 -0800 (PST)
+MIME-Version: 1.0
+References: <20210308225419.46530-1-eajames@linux.ibm.com>
+ <20210308225419.46530-34-eajames@linux.ibm.com>
+In-Reply-To: <20210308225419.46530-34-eajames@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 12 Mar 2021 00:35:57 +0000
+Message-ID: <CACPK8XevDUym6e8f1O4DD4F4rVc=rRga1oQoGhdupbMTf-HT4A@mail.gmail.com>
+Subject: Re: [PATCH linux dev-5.10 33/35] pmbus: (core) Add a one-shot retry
+ in pmbus_set_page()
+To: Eddie James <eajames@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,32 +83,87 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: BMC-SW@aspeedtech.com, ratbert@faraday-tech.com,
- linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, kuba@kernel.org,
- dylan_hung@aspeedtech.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 12 Mar 2021 00:26:43 +0000
+On Mon, 8 Mar 2021 at 22:56, Eddie James <eajames@linux.ibm.com> wrote:
+>
+> From: Andrew Jeffery <andrew@aj.id.au>
+>
+> From extensive testing and tracing it was discovered that the MAX31785
+> occasionally fails to switch pages despite ACK'ing the PAGE PMBus data
+> write. I suspect this behaviour had been seen on other devices as well,
+> as pmbus_set_page() already read-back the freshly set value and errored
+> out if it wasn't what we requested.
+>
+> In the case of the MAX31785 it was shown that a one-shot retry was
+> enough to get the PAGE write to stick if the inital command failed. To
+> improve robustness, only error out if the one-shot retry also fails to
+> stick.
+>
+> OpenBMC-Staging-Count: 1
+> Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-> On Tue, 20 Oct 2020 at 04:14, Joel Stanley <joel@jms.id.au> wrote:
->>
->> On Mon, 19 Oct 2020 at 08:57, Dylan Hung <dylan_hung@aspeedtech.com> wrote:
->> >
->> > The interrupt handler may set the flag to reset the mac in the future,
->> > but that flag is not cleared once the reset has occured.
->> >
->> > Fixes: 10cbd6407609 ("ftgmac100: Rework NAPI & interrupts handling")
->> > Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
->> > Signed-off-by: Joel Stanley <joel@jms.id.au>
->>
->> Reviewed-by: Joel Stanley <joel@jms.id.au>
-> 
-> net maintainers, this one never made it into the tree. Do you need me
-> to re-send it?
+Andrew, please review the pmbus related changes and let me know how
+you would like to proceed.
 
-If it has been this long, definitely you need to resend.
-
+> ---
+>  drivers/hwmon/pmbus/pmbus_core.c | 31 ++++++++++++++++++++-----------
+>  1 file changed, 20 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+> index 44c1a0a07509..dd4a09d18730 100644
+> --- a/drivers/hwmon/pmbus/pmbus_core.c
+> +++ b/drivers/hwmon/pmbus/pmbus_core.c
+> @@ -151,25 +151,34 @@ int pmbus_set_page(struct i2c_client *client, int page, int phase)
+>
+>         if (!(data->info->func[page] & PMBUS_PAGE_VIRTUAL) &&
+>             data->info->pages > 1 && page != data->currpage) {
+> +               int i;
+> +
+>                 dev_dbg(&client->dev, "Want page %u, %u cached\n", page,
+>                         data->currpage);
+>
+> -               rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
+> -               if (rv < 0) {
+> +               for (i = 0; i < 2; i++) {
+>                         rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE,
+>                                                        page);
+> -                       dev_dbg(&client->dev,
+> -                               "Failed to set page %u, performed one-shot retry %s: %d\n",
+> -                               page, rv ? "and failed" : "with success", rv);
+> +                       if (rv)
+> +                               continue;
+> +
+> +                       rv = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+>                         if (rv < 0)
+> -                               return rv;
+> -               }
+> +                               continue;
+>
+> -               rv = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+> -               if (rv < 0)
+> -                       return rv;
+> +                       /* Success, exit loop */
+> +                       if (rv == page)
+> +                               break;
+> +
+> +                       rv = i2c_smbus_read_byte_data(client, PMBUS_STATUS_CML);
+> +                       if (rv < 0)
+> +                               continue;
+> +
+> +                       if (rv & PB_CML_FAULT_INVALID_DATA)
+> +                               return -EIO;
+> +               }
+>
+> -               if (rv != page)
+> +               if (i == 2)
+>                         return -EIO;
+>         }
+>         data->currpage = page;
+> --
+> 2.27.0
+>
