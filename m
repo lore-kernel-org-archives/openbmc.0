@@ -2,77 +2,55 @@ Return-Path: <SRS0=SevI=IK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B69EAC433E0
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:35:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3B122C433E0
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 027D064F8C
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:35:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 027D064F8C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 7985C64F8C
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 00:36:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7985C64F8C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=davemloft.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRgH4qdjz3cH6
-	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:35:39 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DxRgh0Z0Vz3cWb
+	for <openbmc@archiver.kernel.org>; Fri, 12 Mar 2021 11:36:00 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=QJlcawyG;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2c;
- helo=mail-qv1-xf2c.google.com; envelope-from=joel.stan@gmail.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=QJlcawyG; dkim-atps=neutral
-Received: from mail-qv1-xf2c.google.com (mail-qv1-xf2c.google.com
- [IPv6:2607:f8b0:4864:20::f2c])
+ spf=none (no SPF record) smtp.mailfrom=davemloft.net
+ (client-ip=2620:137:e000::1:9; helo=mail.monkeyblade.net;
+ envelope-from=davem@davemloft.net; receiver=<UNKNOWN>)
+X-Greylist: delayed 389 seconds by postgrey-1.36 at boromir;
+ Fri, 12 Mar 2021 11:35:41 AEDT
+Received: from mail.monkeyblade.net (shards.monkeyblade.net
+ [IPv6:2620:137:e000::1:9])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRft5CZSz2xxt
- for <openbmc@lists.ozlabs.org>; Fri, 12 Mar 2021 11:35:18 +1100 (AEDT)
-Received: by mail-qv1-xf2c.google.com with SMTP id by2so3494957qvb.11
- for <openbmc@lists.ozlabs.org>; Thu, 11 Mar 2021 16:35:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=oLxA7r+fBOWMVd7T7P2NcXytilJkXu1spGty0kJ9U2M=;
- b=QJlcawyGX0/bMbBOxzK+e1Z50fc5qeOzCNtTVaTxR9qjLVxmSnwYitPCicpqRByLlE
- pfDu4kpuCdwm7vYTB+38XTRWblr7QYs31cwQDnpJnob9eYSqASek8X3v2CWUWjQIenhU
- nIUXqc9m2i5DwfOFwLNfT/rUhDJYTP5dR1qt4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=oLxA7r+fBOWMVd7T7P2NcXytilJkXu1spGty0kJ9U2M=;
- b=jdD5XGPkOyzHKVW5JfV0VoymWBKRNLOMY9oBvnE65LhqZ4sNUb1suTATv/7cFUuv+b
- HNEM9WZ49I8Iqeoh2Gi1BQCVSNp3EmqEddMcemA4iHXSm6mxqZ8JUAmeURRZaqP7FHYX
- 5PMasTcr8Wi06A3zRq2IOr9OXdjRuhypMLc6iCoBhBXTsSMCVZoYeoCXk0tB84ce2jbt
- oSdsrL4IsmROkepgR/IriAZUXzodyS6uxtcUy7DzbyfQ6Og9UpxSYTBs3Wrqk7VQzVP+
- uUIk3NeZQRRb0Ttt7Nxf034gxn7Ew5NPHFtREW6eeq9lZozUcWc6YJep+fFBn8r/pTEN
- ioxg==
-X-Gm-Message-State: AOAM532p5DFZU3+lOIHQcYOX4r3yW0PJoPeR7pJC2myb66Xt6CopTIL8
- vsqoMMfsF5ub8dekCguFjbmP0zPXjfGSQDfcrvSoS13vg/A=
-X-Google-Smtp-Source: ABdhPJwbo9nO1QqZ5yAegbwNDD4/OLkBmPmmkdF6se/W/svpVATmeUETWiWxw9nNyhUSyDNla7UmY+tpxzZkxcTADbA=
-X-Received: by 2002:a05:6214:180d:: with SMTP id
- o13mr10124676qvw.10.1615509316152; 
- Thu, 11 Mar 2021 16:35:16 -0800 (PST)
-MIME-Version: 1.0
-References: <20210308225419.46530-1-eajames@linux.ibm.com>
- <20210308225419.46530-28-eajames@linux.ibm.com>
-In-Reply-To: <20210308225419.46530-28-eajames@linux.ibm.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 12 Mar 2021 00:35:03 +0000
-Message-ID: <CACPK8XdA4a_DnjBzs+-3auYcd06-v2aF1-qvtPKE6q3+wU+RWw@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.10 27/35] net/ncsi: Avoid channel_monitor
- hrtimer deadlock
-To: Eddie James <eajames@linux.ibm.com>, Milton Miller II <miltonm@us.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DxRgK3Jf4z2y0J;
+ Fri, 12 Mar 2021 11:35:41 +1100 (AEDT)
+Received: from localhost (unknown [IPv6:2601:601:9f00:477::3d5])
+ by mail.monkeyblade.net (Postfix) with ESMTPSA id F3F154D0ECDFA;
+ Thu, 11 Mar 2021 16:28:48 -0800 (PST)
+Date: Thu, 11 Mar 2021 16:28:45 -0800 (PST)
+Message-Id: <20210311.162845.1107113962810628804.davem@davemloft.net>
+To: joel@jms.id.au
+Subject: Re: [PATCH 4/4] ftgmac100: Restart MAC HW once
+From: David Miller <davem@davemloft.net>
+In-Reply-To: <CACPK8XfMEy2o39v3CG4Zzj9H_kqSFBOddL3SC-_OryMqVXEjOw@mail.gmail.com>
+References: <20201019085717.32413-5-dylan_hung@aspeedtech.com>
+ <CACPK8Xc8NSBzN+LnZ=b5t7ODjLg9B6m2WDdR-C9SRWaDEXwOtQ@mail.gmail.com>
+ <CACPK8XfMEy2o39v3CG4Zzj9H_kqSFBOddL3SC-_OryMqVXEjOw@mail.gmail.com>
+X-Mailer: Mew version 6.8 on Emacs 27.1
+Mime-Version: 1.0
+Content-Type: Text/Plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+X-Greylist: Sender succeeded SMTP AUTH, not delayed by milter-greylist-4.6.2
+ (mail.monkeyblade.net [0.0.0.0]); Thu, 11 Mar 2021 16:28:49 -0800 (PST)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,79 +62,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: BMC-SW@aspeedtech.com, ratbert@faraday-tech.com,
+ linux-aspeed@lists.ozlabs.org, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, kuba@kernel.org,
+ dylan_hung@aspeedtech.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 8 Mar 2021 at 22:56, Eddie James <eajames@linux.ibm.com> wrote:
->
-> From: Milton Miller <miltonm@us.ibm.com>
->
-> Calling ncsi_stop_channel_monitor from channel_monitor is a guaranteed
-> deadlock on SMP because stop calls del_timer_sync on the timer that
-> inoked channel_monitor as its timer function.
->
-> Recognise the inherent race of marking the monitor disabled before
-> deleting the timer by just returning if enable was cleared.  After
-> a timeout (the default case -- reset to START when response recieved)
-> just mark the monitor.enabled false.
->
-> If the channel has an entrie on the channel_queue list, or if the the
-> state is not ACTIVE or INACTIVE, then warn and mark the timer stopped
-> and don't restart, as the locking is broken somehow.
->
-> Fixes: 0795fb2021f0 ("net/ncsi: Stop monitor if channel times out or is inactive")
-> Signed-off-by: Milton Miller <miltonm@us.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Fri, 12 Mar 2021 00:26:43 +0000
 
-Please send upstream for review.
+> On Tue, 20 Oct 2020 at 04:14, Joel Stanley <joel@jms.id.au> wrote:
+>>
+>> On Mon, 19 Oct 2020 at 08:57, Dylan Hung <dylan_hung@aspeedtech.com> wrote:
+>> >
+>> > The interrupt handler may set the flag to reset the mac in the future,
+>> > but that flag is not cleared once the reset has occured.
+>> >
+>> > Fixes: 10cbd6407609 ("ftgmac100: Rework NAPI & interrupts handling")
+>> > Signed-off-by: Dylan Hung <dylan_hung@aspeedtech.com>
+>> > Signed-off-by: Joel Stanley <joel@jms.id.au>
+>>
+>> Reviewed-by: Joel Stanley <joel@jms.id.au>
+> 
+> net maintainers, this one never made it into the tree. Do you need me
+> to re-send it?
 
+If it has been this long, definitely you need to resend.
 
-> ---
->  net/ncsi/ncsi-manage.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/net/ncsi/ncsi-manage.c b/net/ncsi/ncsi-manage.c
-> index a9cb355324d1..5a2beaf874c7 100644
-> --- a/net/ncsi/ncsi-manage.c
-> +++ b/net/ncsi/ncsi-manage.c
-> @@ -105,13 +105,20 @@ static void ncsi_channel_monitor(struct timer_list *t)
->         monitor_state = nc->monitor.state;
->         spin_unlock_irqrestore(&nc->lock, flags);
->
-> -       if (!enabled || chained) {
-> -               ncsi_stop_channel_monitor(nc);
-> -               return;
-> +       if (!enabled)
-> +               return;         /* expected race disabling timer */
-> +       if (WARN_ON_ONCE(chained)) {
-> +               goto bad_state;
->         }
->         if (state != NCSI_CHANNEL_INACTIVE &&
->             state != NCSI_CHANNEL_ACTIVE) {
-> -               ncsi_stop_channel_monitor(nc);
-> +bad_state:
-> +               netdev_warn(ndp->ndev.dev,
-> +                           "Bad NCSI monitor state channel %d 0x%x %s queue\n",
-> +                           nc->id, state, chained ? "on" : "off");
-> +               spin_lock_irqsave(&nc->lock, flags);
-> +               nc->monitor.enabled = false;
-> +               spin_unlock_irqrestore(&nc->lock, flags);
->                 return;
->         }
->
-> @@ -136,10 +143,9 @@ static void ncsi_channel_monitor(struct timer_list *t)
->                 ncsi_report_link(ndp, true);
->                 ndp->flags |= NCSI_DEV_RESHUFFLE;
->
-> -               ncsi_stop_channel_monitor(nc);
-> -
->                 ncm = &nc->modes[NCSI_MODE_LINK];
->                 spin_lock_irqsave(&nc->lock, flags);
-> +               nc->monitor.enabled = false;
->                 nc->state = NCSI_CHANNEL_INVISIBLE;
->                 ncm->data[2] &= ~0x1;
->                 spin_unlock_irqrestore(&nc->lock, flags);
-> --
-> 2.27.0
->
