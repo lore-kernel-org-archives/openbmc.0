@@ -2,83 +2,101 @@ Return-Path: <SRS0=dTKj=IN=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
 	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F067DC433DB
-	for <openbmc@archiver.kernel.org>; Mon, 15 Mar 2021 17:49:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FABCC433E0
+	for <openbmc@archiver.kernel.org>; Mon, 15 Mar 2021 20:52:26 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 757F961477
-	for <openbmc@archiver.kernel.org>; Mon, 15 Mar 2021 17:49:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 757F961477
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
+	by mail.kernel.org (Postfix) with ESMTPS id D70F064F26
+	for <openbmc@archiver.kernel.org>; Mon, 15 Mar 2021 20:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D70F064F26
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4DzkSW14w5z302Z
-	for <openbmc@archiver.kernel.org>; Tue, 16 Mar 2021 04:49:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4DzpWq0lSlz302j
+	for <openbmc@archiver.kernel.org>; Tue, 16 Mar 2021 07:52:23 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=HgHBw/Fd;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm1 header.b=ZCKq0Hoy;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=HtqvyP06;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.22; helo=mout.gmx.net;
- envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=HgHBw/Fd; 
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.25;
+ helo=wout2-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
+ header.a=rsa-sha256 header.s=fm1 header.b=ZCKq0Hoy; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=HtqvyP06; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com
+ [64.147.123.25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4DzkS22wDgz2yjV
- for <openbmc@lists.ozlabs.org>; Tue, 16 Mar 2021 04:48:48 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1615830427;
- bh=Wu1d93KCJ6IyQLhxRr2vqIOFNnbH/Vo0DvKz84ETRYE=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
- b=HgHBw/Fdkel0vjiVaxiIX7XF90iQnfZCEbaTk0uim5g5mMlYq6pkgGXLHj6M8FImA
- lwqSUIfcAySCPCg4YLYNgs6y5EecWHD6u8aA4u0KDpmEoP1e322Ib7nBs3iJBleNvV
- bPA3Mh/93bKeoGEF2wGllYLfP0l41kJtvhSlmiA4=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MkHQX-1m1Gfi0fKj-00khDv; Mon, 15
- Mar 2021 18:47:07 +0100
-Date: Mon, 15 Mar 2021 18:47:05 +0100
-From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v3] dt-bindings: arm: Convert nuvoton,npcm750 binding to
- YAML
-Message-ID: <YE+dmdBBk0BZ7BIO@latitude>
-References: <20210313175321.2515675-1-j.neuschaefer@gmx.net>
- <20210315162338.GA973222@robh.at.kernel.org>
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4DzpWJ5rfXz2xgQ
+ for <openbmc@lists.ozlabs.org>; Tue, 16 Mar 2021 07:51:56 +1100 (AEDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 97D9B279B;
+ Mon, 15 Mar 2021 16:51:51 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 15 Mar 2021 16:51:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=fm1; bh=Pu4
+ gSPSaXbsI+LjddLGjH+I6fodbN4s4/DmkaSU/n6Y=; b=ZCKq0HoyLLwmbtQE0q2
+ /EOtd3UJMTS7H2UoZ3gQl7t8S9MQUscxXooX29/4deGixQ3zTz2/yX4WWJmkUWZn
+ ygt85oHHOVQ7JQc7zco6nvRMfRGAgnI1MEGsPJoUEE4bbYmE3PVoqTO2qHR92v5B
+ CZ/U3N8ieAafXvbFijplKQURun89Jf6d1jCB3zyVGzk+g+7OKh7bR9HTY9tZQ9+x
+ K2HlGBpYm/5W9Amx03bR45c9Ly0p9z94pKXGTp8A60wJ1genwhXJTZO60liKyTlU
+ tWBW2hghkoKRP2PCsnGSOOFs/2sn2H2+p7QDjHpy6EE/6++P0XLd6tNTQ+lktJ9S
+ JRQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Pu4gSP
+ SaXbsI+LjddLGjH+I6fodbN4s4/DmkaSU/n6Y=; b=HtqvyP06H381aIPanE04Oc
+ Cc2OJtmA0gjrUuGV7GGVYd6Y8ZB9h/jRDrLaX3jyuwyqKmi5MPqPJIMji8ugok0S
+ WB/NQ5xUUStFZT+o4FznRXNIaPRI4qrAHLZFBFJGpR5uYdWWPZ17A4AAiOqvfPz9
+ rHO11/xW98tWVPftalsrONh8VW0iUBXenzrAzOipwC4L+PXvopAFfWaupBWiG76X
+ bF8DfCuHp4LAxJStKsDhBMC+U9hLQusQZok0LBYsNRd7QhVde0mEFFauYDiyI87Q
+ ieLnxkzmG/f0XRb1N0qFI2YDf8zHw46JLnO5oU7HM6dZ8EqNK1sDqHOW5E+c9NAQ
+ ==
+X-ME-Sender: <xms:5shPYDkRaKR-G9bVFz3sARNexNIx-Q-h_Zw6sgnQnqvnJ5hcVE0gBA>
+ <xme:5shPYG2nSha4K2rTnM6b_YSs9wmJemWuf1WiX8eb7N75RqjgoOPfNvV0AD6SBMkjX
+ wsFdQ0_RTfsFR7Zjuc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledruddvledgudegfecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehrrggu
+ uceuihhshhhophcuoegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtoh
+ hmqeenucggtffrrghtthgvrhhnpeeffffhfeehgedutddvtdeuiefhudeifeekfeeifeek
+ fedufeeuvedulefgkefffeenucfkphepudejfedrudeijedrfedurdduleejnecuvehluh
+ hsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepsghrrggulhgvhigs
+ sehfuhiiiihivghsqhhuihhrrhgvlhdrtghomh
+X-ME-Proxy: <xmx:5shPYJqPEWZD403EQogdYQYoqZ0pmeK1qBI_gCG8OYV_YJcx55Zq8w>
+ <xmx:5shPYLnsWW_HqCYCvJOM2Fzb1XI-pJIfwEDDDWmTg9qEbSsaxrEX_g>
+ <xmx:5shPYB3FxxiA3C-qnQNVcfM-QzykJLzmiIkBX9JqEjbHnzidDZRpfg>
+ <xmx:58hPYC92sm2lVULEaPJHMCsAneXnlludqeayJSkRx_kh69muNn6CJQ>
+Received: from thinkpad.fuzziesquirrel.com (unknown [173.167.31.197])
+ by mail.messagingengine.com (Postfix) with ESMTPA id A13031080067;
+ Mon, 15 Mar 2021 16:51:50 -0400 (EDT)
+Date: Mon, 15 Mar 2021 16:51:48 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Mohaimen Alsamarai <Mohaimen.Alsamarai@fii-na.com>
+Subject: Re: group for foxconn CI  / fii oem repo
+Message-ID: <20210315205148.z6mcrx32kxr56lm2@thinkpad.fuzziesquirrel.com>
+References: <DM6PR08MB58838020F8543D03C6235064B2929@DM6PR08MB5883.namprd08.prod.outlook.com>
+ <DM6PR08MB58834FC516032C1D11C9F9F9B26F9@DM6PR08MB5883.namprd08.prod.outlook.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="wJW7zCh7EAM97BVR"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <20210315162338.GA973222@robh.at.kernel.org>
-X-Provags-ID: V03:K1:EFciw7A0hfwSHV60faKpptLnztVaI7IRnOFK+4pxzVJbcNXE3n0
- gB3RYi3rWS0wabiuGgQn5DeljqgEA69dpTkJ/GY3pPsTWEyq6TFF5JgSckSr/7/tODcJbxe
- b4mv5MUTbyEty1Zm0d+ggOGnABleyMGiZKjbLXGrWM3asaTpK2e7wqjsLDgEHMR/EFCZaqj
- GKJAv7X8tGsEWjIRfYbpw==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:AWMPOS+4Jfo=:vlwg8muDZXG2b7zp3jZ+8P
- KUaSRCLzlislNDNsfCZFqElPlQe+TzbTedPDWWhRHvk9yUF4KahqHhNiCZZfcFEea96t8Tacm
- 8KSsSR/yuLNElifRqihCslGy4984Je4cgnpW8h34/sIWujwkTRJ6fCJppbz1kqhU5iR4aTpnq
- UfudejGoy4Yh9tN9sLJTg6BGCpePiUU7/0+bsrcjnTTyPyJv4Zsbnf5IFxfCQsQ26xDbSKiaM
- ZGQUiIEIsibGzSML9RLxgTguWmA/wQnFHnxxNF1vzKHTwnfd4i2KDZOynork6i63od17mdVb7
- 9xpWzZYWYlLLYWCMOXU2vVk9eCKy2hM6QptE4vNkj0K97ixPBwZQ7yw6Zn7FDQcElHQNpUTX6
- Hx3w8O9JSubTaXJk4OmVhy4i/HEkrt5t7ByL5Dac1lVAH6I1hScuTrZltUaO2Ar/QCGwBK2RD
- MSgZvv8YKVURWqdDAbmHLVAJyq1+YmyPSV4jVWgTuNvADUE5IZXavsxsHUlErdEeQptTQGynw
- Vpvh26TzX4SEfeaHsnAjDM82j10W+75NztTUVSfaNUbqmpJsUnpCg/IEJSSt3fV+7fqdNFLQT
- h4o4rmqEJm6jKg8oFNwXnH2ogGID289rmr01jWF6J8y3BSLg0tZT08nxUNcLXkGLbYlns9jSB
- Qtc3J/05PaG2QYSPcrRdOdFC5n294wrwCDQ1eiEEy915zP/TvRlC2joiMt0EskhZ2jXwoVTRM
- LSam75Q6TnlQoY8U0d2qOBzH6Tkl6pXKcPmcl0vU4+zzg/jOx/WGL2BboOWZQ0UyPXmFcrUEE
- TqX9jnDQM2JLrLxR9e8FI4y8B3bHkKkCwUh/I+s8sUq983IWZxMEeazRFvWabCC72DkqFNUxN
- GOfEpZLoiN4OZwRhN28w==
+In-Reply-To: <DM6PR08MB58834FC516032C1D11C9F9F9B26F9@DM6PR08MB5883.namprd08.prod.outlook.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,82 +108,25 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
- openbmc@lists.ozlabs.org,
- Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Tali Perry <tali.perry1@gmail.com>, linux-kernel@vger.kernel.org,
- Benjamin Fair <benjaminfair@google.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "vveerach@google.com" <vveerach@google.com>,
+ Lancelot Kao <lancelot.cy.kao@fii-na.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Fri, Mar 12, 2021 at 07:25:42PM +0000, Mohaimen Alsamarai wrote:
+>Hi Brad,
+>                How can we create Ci group on gerrit and add people to it
 
---wJW7zCh7EAM97BVR
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Created fii/ci-authorized and fii/ci-authorized-owners.  Please add
+people to fii/ci-authorized to automatically approve patch authors for
+CI.
 
-On Mon, Mar 15, 2021 at 10:23:38AM -0600, Rob Herring wrote:
-> On Sat, Mar 13, 2021 at 06:53:20PM +0100, Jonathan Neusch=C3=A4fer wrote:
-> > The general trend is to have devicetree bindings in YAML format, to
-> > allow automatic validation of bindings and devicetrees.
-> >=20
-> > Convert the NPCM SoC family's binding to YAML before it accumulates more
-> > entries.
-> >=20
-> > Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-> > ---
-> >=20
-> > If someone else wants to be listed as the maintainer, please let me
-> > know.
-> >=20
-> >=20
-> > v3:
-> > - In this version, I removed the nuvoton,npcm750-evb compatible string
-> >   again. I had previously introduced it to simplify the binding a little
-> >   bit, but Tomer Maimon suggested to keep /compatible of
-> >   nuvoton-npcm750-evb.dts as-is (i.e. only use "nuvoton,npcm750", no
-> >   board-specific string).
-> >   Because of this change, I am not including Rob Herring's R-b tag.
->=20
-> I think you should add nuvoton,npcm750-evb. Not so much for that board,=
-=20
-> but to ensure any additional boards get a board specific compatible.
+>And we need to create new repo for the Foxconn ipmi oem
 
-I'm inclined to agree and go back to v2, but I'd like to hear Tomer
-Maimon's opinion first.
+Created openbmc/foxconn-ipmi-oem.  This repository needs a maintainer -
+can I get a github account handle to invite to the OpenBMC organization
+and assign the maintainer role?
 
-> > v2:
-> > - https://lore.kernel.org/lkml/20210116010907.3475405-1-j.neuschaefer@g=
-mx.net/
-> >   https://lore.kernel.org/lkml/20210303154622.3018839-1-j.neuschaefer@g=
-mx.net/
-> > - Fix indentation to satisfy yamllint
-> > - Fix $schema line
-
-
-Thanks,
-Jonathan Neusch=C3=A4fer
-
---wJW7zCh7EAM97BVR
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmBPnZEACgkQCDBEmo7z
-X9vAsA/8DydIOX3092DeZLSRBhpBXobXkng94K3NOlk7BOv5bSQH/PQfBGfwrkqo
-bDhN8p6nFJoSf3jkD3zEhhnq0A4clDq33f7CEMhU+H8jb1fLCRM+HaMthSJ5BtbW
-gxO9fZZ0Sk+PO1bRCdWRF7hWY2C1SPQh9eWZPiNRDr+qSu+Y/ofM5gEMN/ftsSSD
-p1gfhsFHbTrwapkZigDHuiDxEsKpflus2GX6H+e4nE3S2J9DQJqlG0e4c0pV/1SY
-I07cfIpqNCqO9uEePGKFyfBjYHOjHIhiKDHf9NVgJc1eCH4zoSWnEjJe8xq4Sk9G
-4rb37xQrKvrqtwUeKhxnKlWLj2DVjixO0RvKH/NPad/L1YBz9P0vbPeUtMG9XjfH
-iRnphcVkpivnlmDD3TN5xjjYwjXDLOf2nKHAjs5+cNhmJzooS9vB4zb9LnGTolXk
-DTII7K3O9yU1raGXU7dnXENB54FQRFo4NB4Z5U9lRuTy1CQSmSyC6uE6RELJKPpJ
-RDTFoHz3Lh2kmnO9Ayu/jD4vcrc6d4HKMhxJwO+J2Ka3ADWByNH+1VAUC74AoGqy
-+borMy7d+zPbtYZhBHXIPSnFdPGpPk5fzdsQoWeeh8H7vdri0HFu3bnKBctJ3g65
-9I0PBhN45wKEVYXoD0rla09TGgRHVROtFIE+LjVHv+R6mEmegKM=
-=bzH7
------END PGP SIGNATURE-----
-
---wJW7zCh7EAM97BVR--
+thx -brad
