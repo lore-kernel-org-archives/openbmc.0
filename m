@@ -5,85 +5,79 @@ X-Spam-Level:
 X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ED6A5C433DB
-	for <openbmc@archiver.kernel.org>; Sat, 20 Mar 2021 18:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15BBCC433DB
+	for <openbmc@archiver.kernel.org>; Sat, 20 Mar 2021 18:19:46 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 34DA56186A
-	for <openbmc@archiver.kernel.org>; Sat, 20 Mar 2021 18:19:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34DA56186A
+	by mail.kernel.org (Postfix) with ESMTPS id A828D61924
+	for <openbmc@archiver.kernel.org>; Sat, 20 Mar 2021 18:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A828D61924
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F2pty66BNz3014
-	for <openbmc@archiver.kernel.org>; Sun, 21 Mar 2021 05:19:22 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F2pvN2fWxz2yyK
+	for <openbmc@archiver.kernel.org>; Sun, 21 Mar 2021 05:19:44 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=VS7rz+qx;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=FFNzXu/l;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.15.18; helo=mout.gmx.net;
+ (client-ip=212.227.17.21; helo=mout.gmx.net;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=VS7rz+qx; 
+ header.s=badeba3b8450 header.b=FFNzXu/l; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F2ptX3wcBz2y8P
- for <openbmc@lists.ozlabs.org>; Sun, 21 Mar 2021 05:19:00 +1100 (AEDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F2ptk1spBz2yqD
+ for <openbmc@lists.ozlabs.org>; Sun, 21 Mar 2021 05:19:09 +1100 (AEDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1616264324;
- bh=GVx8/K7yYDVoo050qqGQmQL+SjUfoXirB6WTv2qDFWM=;
+ s=badeba3b8450; t=1616264339;
+ bh=xJcnBN1J6AwlpjL6XnhA7z8+cNAcOly79skhuWm8OhY=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=VS7rz+qxpxxaaGFSkeWRkJ60QM5waU71v8JjMor5favGhDUMH2i1WFlmuXuqNSu1r
- L+wjkJiPpiYIOHLQEEpSB0STDpGWQaRE6ZwmHebf8Hu00ou5XRhAdv3aDZ07IAFymQ
- bvvNUpc/BKe6SVvvLrBC2Vp4z22lhix5kLUHRRH8=
+ b=FFNzXu/lKQD7uNanoz0O9twVKQTJwxKyuo6/9N99vWPjDHNKU+bN7G5Il+vxvRdEf
+ PDdOvV44X//D1G5pfvK9DR7rxFOgh/mHyxMLmCd5yqqVQG0YowWfmIVShF7AyYUuuB
+ NnURRESyWM96dOilGrv3c3owUQgcgK3xnCYYmN0I=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N6bk4-1lkN7C2PNO-01850Q; Sat, 20
- Mar 2021 19:18:44 +0100
+Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M4JmT-1lNxIo0mPp-000I0x; Sat, 20
+ Mar 2021 19:18:59 +0100
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 02/14] dt-bindings: arm: npcm: Add nuvoton,
- wpcm450 compatible string
-Date: Sat, 20 Mar 2021 19:15:58 +0100
-Message-Id: <20210320181610.680870-3-j.neuschaefer@gmx.net>
+Subject: [PATCH 04/14] dt-bindings: serial: 8250: Add nuvoton,wpcm450-uart
+Date: Sat, 20 Mar 2021 19:16:00 +0100
+Message-Id: <20210320181610.680870-5-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210320181610.680870-1-j.neuschaefer@gmx.net>
 References: <20210320181610.680870-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:yedfqajxlN1FAoHANCYVteSz4SlckZkDE9Linr7spqQF8RAwH5s
- rX+UJz/8u4AJjdE0MENaEhWaseqSix065XTmHg+lCKnz7CfXmhU1cdyKDgweZjGjyLiEB3a
- UJ5wk1lfGHMFd/DLbPlHvlCHr8QhJ81UlOmOPNuH5LfQzrXOVAon663FgwidHsphdZ4DCBq
- Xm9Bfpu3aNh9yLA1Hh7AA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:8Bc6xy5JL9I=:6+4OIJfEgVHpodEDyIa5T8
- pvD4QBDUe13P963KH2nWuR2rOd0IpQjxKTthDnilQ1XB//3Jn9oqfJsYRkwMoWWAliuK2Sp9N
- twhvMlfz0EndyiojTP5Mx86Jtu4ju2wO+0Y06sPTR83/jcNSOJsDMJf7D6abwtN76fngbeVH+
- IAxtE4M/wRbDaq+bdr/sVeFQP/Qi6MpDGYUju3xm752dPNQXgKrrEOmGzhrEIyEL51YCwjaQl
- BMyfZNW52PjPSx+2HcUwvyYfPGozLrIc3JPSOoceiSoW6wNOKWSXBVQisvURbADWorfsV+jl3
- t9/cpbzNN0pUar5LgNXQLRSJXaGW/gDFsqci7z4rw0OJ5pp8bcCppRyx+4fr6IfLVSHSqbV0Y
- cLx6nzVQbMz2H/U1m2kMR3SkbWcQ3Fdv7uKFdGD2unGhaOHXIXz9KoQunQ11HP+/1U/pJ+6Ni
- DodRlGjhNNUGMfti3VlASrxI2Dmz8gcq+mBlsJ7WEFKH81rLhywTvYbQPXvYlg81xd23aaK/m
- m3Wq1WV/Yr7HvId9VM2WtMyoVHLhMewTS4dzjMFR0hExsETRmW/JwSfnBv5wpym61ZB+1mmQM
- VLFov/82kXbcFaSX3EydQZa8dsnksqHcPWxf/FBB127K/9ObcXNYGzQuhECWgq21Psr/es1h7
- 588aJ4dUkK4tnC8wABMJDjobIlny4Y9Mr5LYgBSJ+GBHGHkvK9PYEa5HLE/c3uQf+tByVAGID
- sk6GdYkZkmDCqOsEsrQxuKUl8U05ismncr67HyNSsATeGlW90+pVpR8obJAR2lFrjfs9/t79J
- FBPOoIn4OG8mJTtvL2mfq8km6OlEtz6Hvb9fToWiWNBn76e+7fvQKiaNAtfUUC/ccCJXRNtEr
- IIKHn2wOmA5griHXg3VfPlhObp4/Bth8BOis9odyqdw46cB2VaMvE2L9CM3VRvV3O5Zn+OlyV
- hz6gEX4xpq+XYezm+BAOGi8X4RCiBBMjJvFVqO/D1wIm79A0OEKxltC5jw6ofeacSnhhv/pLy
- k88Uiq358KhfEXIYwtafWexNFlm2ODXyrbXIaJj3/egtBaFK2ZtUzrI5IqvgWQzjxNep4xr4H
- YtJgjAnJxyu+c0c4WdoJl4tas1uzu78RhndvYC23Yz7eTlek6ZHc03uOprEKoduwhHAcpRLD9
- VEXE3NCQk7trf1KtrNMMj3uQz8bejdLEAdolp9C2A6eJ/iCj+4ouynVFf+QRWaqaKnl1boIa1
- 1v/5DDNEKcCV3f+sp
+X-Provags-ID: V03:K1:QeUUPtlUqlVLexPlH4ILr9nkaoFgSKUdwwzFKXl0oCP26XDXJoB
+ DZT8tcFDulDnnLdmw1d7tCs6PGKqSuCQSMgnh2cvmoiBdqz/wERwAJYIKkQ0nKLNhd2Yu0S
+ X0z8jjeCCbGnx2HWmY5BBuQYNBFLP6Tk/OTiSpC6gSYqhrXhlO2iYW6NrFKZxJKbHlsU4jY
+ rdpjWniS3lrV9xDbhaYFQ==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:yfzjPC32jQA=:q1+WgT0XrgyFgnawBY3hbz
+ iG9t8HwRMsoaIHLnjDoyEk0qAXvXgDOMLMEpdIbPFMxBKQUpJKfBImDA+/pQsGlEEv1AlcNEh
+ /AMIQjFp+hFGcx4wp2MnaLEoQvGLAPUv9WEM+6ToRDL+VA0f0xa/XW1GXRQ5A/tkUXyxaqFBe
+ aYt7Elo/PtxQKO8HXTkQ3G0JvTSUZewc7WeI/5SGuipOiBx9A/a335EEbbs3gK3W0RBouNF7V
+ im15dhG/yoWWoIwpfsYDsVaU9/phEoYm2H6WmSAwejEgiyNmLIcT4aqwj9IiNZeWL2PVLjejV
+ PaTkR37RyxJ+Vn3KJHtq9EFUsc58BxJepFkFWs6Svf1NPs+cBJpi4eoSw139q4vrXhNOp1z+e
+ iqIyKnNK194uABp8eafjw6KgtIu91Du5Uxjw9e6X834/7HqLWJjRGWa8enW63CmoPA5DiR3vt
+ jNslYKN52afaFxsnIhk7pojxtHvAxBqUpPgN3MMwpMjzAUVeCT0iqwg+jBkE2XAgzTiCauPZh
+ KIgDIgRpTluYFOyV3e34SJ7GOeKP3q4AesZFAdfdNmGcNk1Iu/8Y51V+9LyggZzwQnP9U0COA
+ b2M5U1DAzZ3lcco9tPk6DLwfM3dnO2scgSoRPuej9ys5fWCI3V8iAZnNGl3LVVCGky5uTkQfI
+ ydyss1PIUu9knvlHbHlHPE+trsCZO0U/6gb7CuBysE96CWwB/phGspjTRgJanQXqf79oLGXW4
+ clbqmTEijdH2XqGDvpx3FKdA/pwwlMZp1HaBORwyI4YjhYW/Zk8aj7QJ5SKKEgcgFJ4wHWmA3
+ Nt01VaBtsMoeUhvay9xXsX5ZohVENE+YlrA30wArBGZQo5fnWrO2+YoD/L92l3qRfQhSt87BL
+ XC7jYIqrMiorY2Pjstpw==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,49 +89,35 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+Cc: devicetree@vger.kernel.org, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  linux-kernel@vger.kernel.org,
  =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Rob Herring <robh+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
- linux-arm-kernel@lists.infradead.org, Benjamin Fair <benjaminfair@google.com>
+ Lubomir Rintel <lkundrak@v3.sk>, Rob Herring <robh+dt@kernel.org>,
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The WPCM450 is an older BMC SoC in the Nuvoton NPCM family, originally
-marketed as Winbond WPCM450.
+Add a compatible string for the UART inside the Nuvoton WPCM450 SoC.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
 =2D--
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-This patch requires "dt-bindings: arm: Convert nuvoton,npcm750 binding to =
-YAML"
-(https://lore.kernel.org/lkml/20210320164023.614059-1-j.neuschaefer@gmx.ne=
-t/)
-=2D--
- Documentation/devicetree/bindings/arm/npcm/npcm.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/arm/npcm/npcm.yaml b/Docume=
-ntation/devicetree/bindings/arm/npcm/npcm.yaml
-index 894aefb70652a..95e51378089c9 100644
-=2D-- a/Documentation/devicetree/bindings/arm/npcm/npcm.yaml
-+++ b/Documentation/devicetree/bindings/arm/npcm/npcm.yaml
-@@ -14,6 +14,12 @@ properties:
-     const: '/'
-   compatible:
-     oneOf:
-+      - description: WPCM450 based boards
-+        items:
-+          - enum:
-+              - supermicro,x9sci-ln4f-bmc   # Supermicro X9SCI-LN4F serve=
-r's BMC
-+          - const: nuvoton,wpcm450
-+
-       - description: NPCM750 based boards
-         items:
-           - enum:
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Document=
+ation/devicetree/bindings/serial/8250.yaml
+index f54cae9ff7b28..c0e292cdaa6bc 100644
+=2D-- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -55,6 +55,7 @@ properties:
+       - const: aspeed,ast2500-vuart
+       - const: intel,xscale-uart
+       - const: mrvl,pxa-uart
++      - const: nuvoton,wpcm450-uart
+       - const: nuvoton,npcm750-uart
+       - const: nvidia,tegra20-uart
+       - const: nxp,lpc3220-uart
 =2D-
 2.30.2
 
