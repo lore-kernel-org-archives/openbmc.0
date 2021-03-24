@@ -1,149 +1,75 @@
-Return-Path: <SRS0=wJn0=IV=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=pSEg=IW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.5 required=3.0 tests=BAYES_00,
-	CHARSET_FARAWAY_HEADER,DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,HTTP_ESCAPED_HOST,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0F7CC433E2
-	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 22:29:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 78F45C433C1
+	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 01:50:49 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D22E261582
-	for <openbmc@archiver.kernel.org>; Tue, 23 Mar 2021 22:28:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D22E261582
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
+	by mail.kernel.org (Postfix) with ESMTPS id F041A61994
+	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 01:50:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F041A61994
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F4mHY2lP2z30MH
-	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 09:28:57 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F4rmR3Zyzz3Wtt
+	for <openbmc@archiver.kernel.org>; Wed, 24 Mar 2021 12:50:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=quantacorp.onmicrosoft.com header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-quantacorp-onmicrosoft-com header.b=jw5+jRvp;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=BmM66b2v;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=quantatw.com (client-ip=220.128.79.91; helo=mx02.quantatw.com;
- envelope-from=prvs=704dd1d39=jun-lin.chen@quantatw.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::831;
+ helo=mail-qt1-x831.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=quantacorp.onmicrosoft.com
- header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-quantacorp-onmicrosoft-com header.b=jw5+jRvp; 
- dkim-atps=neutral
-X-Greylist: delayed 65 seconds by postgrey-1.36 at boromir;
- Thu, 18 Mar 2021 17:24:21 AEDT
-Received: from mx02.quantatw.com (mx02.quantatw.com [220.128.79.91])
- by lists.ozlabs.org (Postfix) with ESMTP id 4F1H6s0VHLz30Bl
- for <openbmc@lists.ozlabs.org>; Thu, 18 Mar 2021 17:24:20 +1100 (AEDT)
-IronPort-SDR: HWT/+bZqIIU1sr6V8nzk6f4XfRAkWT6rXbQ7CSOxPLqaFXgrcxhXcDE6PdLjHoiyHsFPQdKL4d
- h+GxFMCopA6Q==
-Received: from unknown (HELO mailbx10.quanta.corp) ([10.243.91.107])
- by mx02.quantatw.com with ESMTP; 18 Mar 2021 14:23:11 +0800
-Received: from mailbx09.quanta.corp (10.243.91.106) by mailbx10.quanta.corp
- (10.243.91.107) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Thu, 18 Mar
- 2021 14:23:10 +0800
-Received: from APC01-SG2-obe.outbound.protection.outlook.com (10.243.91.252)
- by mailbx09.quanta.corp (10.243.91.106) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2
- via Frontend Transport; Thu, 18 Mar 2021 14:23:09 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MF55xGKfyDa4U7HdHNgZ0QDoUrt+q5oVx6mksXY68BfEDV0Mi6OTRdx6lplNeS7nWV5HhHiFvueFza6KgILJKieXfBZP5ByeyDJk11yDOonBu4td4Q7LHiLfEpIQas0OC9VdpBjArn40kbGvRdJdQ2zPnLepACBxP4aaEi8bw6Vj+wyPic0Cnv18ex/EZJ2U9RS9pCuXctoPovW7+A/8UUelN6PIsYkUR1WfZzXM9lzqWmy1SY4rQ6rNrQFaERyfxWNEi0YP2hF3FCc+DgarYPH1IN3NPXs0gFRhlNWp6WO21G7KNn8ExupNdLrLpddKBFuBjORso2Rjt6hD8azJ0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9aardnJVcsuvVaqyab7tPZcyt+0FIvctAFFigtuxC+k=;
- b=iHQSlt2/37HphdsgVaFFP27sv+vetXFnwmGfZWHIJl3G7pn6Rb4+NYuuaVj+fhsyb2emN9dPDqWtJbA8WrxhoZGGZ9xuKxe5j2boI04rNi2v260QiOLValVXPRBe4h79Xl/I4VCTrkQCZ6lMYXOgEMu7ofgguVNrV/PRmmt2DXTgEI9enxOOtUfYn2eY6tdt/IflpIcFoKQn0wiIzjH7JFylS5ABEXI0qHq76XRzlP4no/9yIeFWWuj437Ne3auc59tsPBlG/EdfJV6zMY92O5lPF2AqGM1AdDSjNUyO7yZL8yJq5KF45dX7xeLsanByL8Rstf4PB/Pv34ronj1kBA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=quantatw.com; dmarc=pass action=none header.from=quantatw.com;
- dkim=pass header.d=quantatw.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quantacorp.onmicrosoft.com; s=selector2-quantacorp-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9aardnJVcsuvVaqyab7tPZcyt+0FIvctAFFigtuxC+k=;
- b=jw5+jRvp9iADIWf+BYf8XTFIfnhE3f+PGWZeyS+a7jY/VpBmoCxgAbtNvve9N7bEYeclcJG7srAmpz1UMaT9VzYzoCxydzuM3Rnpy+voZe69aeTk6SDUWTL29xmGnV6SUwY1KjSYlFZ6e8xHWA5pPgnczeJmAPnvd4xPTFGEuQY=
-Received: from HK0PR04MB3346.apcprd04.prod.outlook.com (2603:1096:203:87::9)
- by HK2PR04MB3668.apcprd04.prod.outlook.com (2603:1096:202:37::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3933.31; Thu, 18 Mar
- 2021 06:23:10 +0000
-Received: from HK0PR04MB3346.apcprd04.prod.outlook.com
- ([fe80::30e6:ad60:39c8:b18c]) by HK0PR04MB3346.apcprd04.prod.outlook.com
- ([fe80::30e6:ad60:39c8:b18c%5]) with mapi id 15.20.3955.018; Thu, 18 Mar 2021
- 06:23:10 +0000
-From: =?big5?B?SnVuLUxpbiBDaGVuICizr6tUwE0p?= <Jun-Lin.Chen@quantatw.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Subject: RE: ClientOriginIPAddress is 0.0.0.0 or ""
-Thread-Topic: ClientOriginIPAddress is 0.0.0.0 or ""
-Thread-Index: AdcRljI3k+qPSfe4S+C/ciz7rAAZ8AKKNQow
-Date: Thu, 18 Mar 2021 06:23:09 +0000
-Message-ID: <HK0PR04MB3346A7C9EA60289912747398B1699@HK0PR04MB3346.apcprd04.prod.outlook.com>
-References: <HK0PR04MB3346AD905ABEB1250F51E202B1969@HK0PR04MB3346.apcprd04.prod.outlook.com>
-In-Reply-To: <HK0PR04MB3346AD905ABEB1250F51E202B1969@HK0PR04MB3346.apcprd04.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: lists.ozlabs.org; dkim=none (message not signed)
- header.d=none;lists.ozlabs.org; dmarc=none action=none
- header.from=quantatw.com;
-x-originating-ip: [60.251.243.66]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5d5d2bd3-fff6-48ec-8c0c-08d8e9d64d2e
-x-ms-traffictypediagnostic: HK2PR04MB3668:
-x-microsoft-antispam-prvs: <HK2PR04MB366823C4E1403FB369834C50B1699@HK2PR04MB3668.apcprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: S03AeVEqs9+rpgOfVh8Zn3/xDhlBid3Z+YxPxNfcBwPRdrUX0ub93QcBcvTLlmEtfx8NEUtEtir66Z8fU6LgtyhdVFtKKNimTMOQD58aozg+GuxVnp00MXOA/HmipLA8MeuzGOISMyiXFyV/VM7nLhf7ej9gmkk9G0xuVX7Fd2aROxsJcz0/ihiWdPjWR6nPOU1DUGz0OSmGDavhaLh7DlrCCWdCiFhPja5ugji/BDJuWTaxOuuNyr6E7WItn2hJZImvIwqyXhy9IXUKl+ZhirSxTyau2iLlBJAFMJG65oIJYY4nCY/OeREajtxmujxoGqkUopVh6bq61TrNT1mtzIcPdB8tO0BvEqtS7o1+551qHsdZo+gaGDFGgtOXEfRcHy8tsfAGSHdZAqVswoYxuBUg/xK/UAHc4yMdpIADRSBCUTNmx/oBv2jSnn0JnE/gKav91hebl5N99RBiGiNvmlNKOciGnvPjbh9QzxF7BeHvKcVjb/+2j/wZa/qv3rOFKm5h85my6X8WEHjdLDHGcMquB30bPSNePMxYynhiZda+OkKKkBOVzTdJ1govyB8CnZTlzmK7B+xFLswKNYwHH+60owf6F5g71AGksE1UBOE=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK0PR04MB3346.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(376002)(136003)(366004)(396003)(39860400002)(346002)(478600001)(166002)(53546011)(8936002)(71200400001)(7116003)(66946007)(76116006)(85182001)(66446008)(5660300002)(83380400001)(186003)(2906002)(86362001)(6506007)(9686003)(52536014)(64756008)(66556008)(6916009)(55016002)(66476007)(966005)(7696005)(38100700001)(8676002)(26005)(316002)(33656002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?big5?B?L1luRmZoeDlZcHJtWE5VZW5PUDVFNExGdTltcTNjaXIvZ00zKzBya0ZNTDc2MFN1?=
- =?big5?B?a2Y3UWFmMktHSEo5alg5azRNS3JYKzcwZ3E4Q2wxQXRETHBQaUpOZ3lxSXBMQ2Fu?=
- =?big5?B?Umt4WTIzbWNOQm5HbVdQK29wTGo4d0hwb2QyUGNHOWtpTHNxSXVLTXZCVzB3MEVw?=
- =?big5?B?Nnk2RGxOVVU3L3JxZ1RUR3M5YjUrZDJ0cDBxR2VoYjJxTmh6ejNDZmlubGJ3QUlD?=
- =?big5?B?Q2NKWTEvZ2hsM3psOVFDMHNiSTZZek9WVjNhRWEyWTZEcDdJTzNNWUJ4V3gxdVhj?=
- =?big5?B?LzlIZ2kzRGljTW9oZGdKZTMvd051VmNDaytqNjNlR2NGemsrSklpOU1tdGtzeWFp?=
- =?big5?B?WjNaaTFZbkNWWkc5WWtaOS9GajRUbG9YdWFyYVJZcUFodHNiZ1h4Q1dweWkxK0k2?=
- =?big5?B?bXU5ZEYrWklLRStjN1ZISHA3NU1xQ3diV0NBWmFxRE1MQXdSOEp0Tk5icUdkcERU?=
- =?big5?B?L2JvOXBGRGV5YXlNSDFGNVZSYUlPSUY5UFpJL2pTMlJ4NitUUHhhTkpEQ29GZlNv?=
- =?big5?B?Yk1LbDhmb0xBUHhjTXBoRU1JMWFsV1FnOVZGWDgrZTAxRmJoWmttSVorbWVDSHhl?=
- =?big5?B?NDFMZEdPUVE4RitGaER2RlY4YWtMV3Exd0JSdHJqcjEyRWFFTWNzclFZY1ArRnNk?=
- =?big5?B?b0N5a1ZXUFpkbU0yZTNHQSswbGoyVm9OMmlvQm1xaFRYajdYV2FjUTQ0cWYyUkEv?=
- =?big5?B?dUtKaW5iMWpCbzkraHErUWVmUUtYZWVQczhBbERMSzIwRUgwQW1vNWl4bW9FdXRw?=
- =?big5?B?RXF3NStTdlF3RjFydW5ObGgrclRhRllCR0FUOW12clVnZ0V1alVjWWlvbUxwV1Vz?=
- =?big5?B?RE53YnU5ZStLTUtHRVJudmFKS1p0THljaG1mMExjM3lkUWVSQkMxcE5SN0NYUTJF?=
- =?big5?B?ck9zTDF4dS9xK2FRbkdlQVU4bTBNMXEzVlhCMHpvcnpxdGxldmhMOGQvZmxTUk9U?=
- =?big5?B?dm5QcWE3VlBTcktaSUpkQXhFUmJ6K2h2NkpCenhpVk1MMlFCbVAxeEI5cnFtNUFy?=
- =?big5?B?TlltTGZmQndiNWp0KzJqUjJ6UC9BWlFLRFBVWGxnb0pnOTFRVDU2TEhsWUxFbmg4?=
- =?big5?B?dGwzdHZORXUxSjFwTjZzNmhWUjZZWXEwNXVxdGhLaGNxNmlaamlES1FuQjhOS2U1?=
- =?big5?B?bUdCWmhXRDRYdjczTGRUb0VEMEdVOEZjSHBTbHlTUmRjZU51bVRaUkVxRlR1OVF2?=
- =?big5?B?L0lrRFNZbEwxNnNKdnlqKytpT1FWM01EdDhBOGkzREZBWmNpcWlkWW5UeUU3cE45?=
- =?big5?B?QWx6M2wyaGw2MWk2cUhpZDRmREt2eTZGQi9ocjVLKzlWZUM2WTU1dEtPMlh3a1Fn?=
- =?big5?B?UFJpSlV3T0NPdnRuQlRyV2Jqc1FEbFN2Rkk0cTdnY0VpZFRMY2tFV3pQY2VjVVhS?=
- =?big5?B?OTNqcHdER2MxQWNOcnF6MlZrRm9Gb0ExU3d1bEZGT25sT3llMVdkakw0SGI1WCto?=
- =?big5?B?NEEzdjVobjRvZGxtT3BpWFpqN2tzSHFlQzd6R292ajE4eG9GK2VLRzdRUUlPK29y?=
- =?big5?B?cDhBRXk5TW5sVjYzR3E4Z1BNSTFPWkl3VEh5dkZXancxb3ZnMXNqa3hzUHJtOG5G?=
- =?big5?B?QWhVaXlTbHRpTmVZMkU0Ulltdk9aYmZuMDdITTBlWUdnOEZSV3c1d283allDNExV?=
- =?big5?Q?872BeoPUtImOU7hB1GCNYaTH5XI=3D?=
-x-ms-exchange-transport-forked: True
-Content-Type: multipart/alternative;
- boundary="_000_HK0PR04MB3346A7C9EA60289912747398B1699HK0PR04MB3346apcp_"
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=BmM66b2v; dkim-atps=neutral
+Received: from mail-qt1-x831.google.com (mail-qt1-x831.google.com
+ [IPv6:2607:f8b0:4864:20::831])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F4rm03K12z2yQw
+ for <openbmc@lists.ozlabs.org>; Wed, 24 Mar 2021 12:50:23 +1100 (AEDT)
+Received: by mail-qt1-x831.google.com with SMTP id c6so16519533qtc.1
+ for <openbmc@lists.ozlabs.org>; Tue, 23 Mar 2021 18:50:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=UYgmluPC9dm0uxk45HI8lFdpHExa/a1wL0gAE3Zk1ss=;
+ b=BmM66b2vSMlxClWTk7KOLrfYzc2JdGvh7kFORfjOm3vcV0uUWahPndxbJt/8xwfwd8
+ uoVOvJbBVfKFMmNmMBi4Mlnw8WqFflx5PhQJuvISW8nbiDOzMcdRSbOtZuZ/GX+9wpfO
+ KWzG0JSyCS/3G8QtkBMC8aMT7LqWrNrgc+2qk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=UYgmluPC9dm0uxk45HI8lFdpHExa/a1wL0gAE3Zk1ss=;
+ b=F4P/+IegnVCVu5f4aQRR0RnNVIk0Q5oZB+4vPzrn82QZAA+JqAIBFT0i643Ip+IGcL
+ +EMg54FR9v4p7iV0Cpkeo9C4Qu0ZrFL7SH1vlwhuH58XJyeSaAWe5WLLn/0UF9JthlrP
+ RKymNQhdeZ9IdR2r+tbzIbQvEA6/GM+yvY/kJJ1zgAxDwf+zV+elve0ctW+uC8sYLyIQ
+ SSErUaMy408NVb1oAgi33tY+IKg1vOgVbUbqmNA9LwJAUV252puAKE6Nzxu54Z6pUgzL
+ Euo6YwNKO/lJNfpJOvfv+wFUFfB4p/9vX4fgvDMoqbaWBnioXYUFFoLpaifiBjZZb+tE
+ tN9g==
+X-Gm-Message-State: AOAM5317KTDGpnZJB+XOT4kMCUqGOQgjFUmJkoHPhgq4KatTJnz6eAjT
+ CIAmyEsW7eU1XDiLSy0amMbJv/RW+XfJ+21d4Pk=
+X-Google-Smtp-Source: ABdhPJzbPBLNUMudW0XNEe3iHIytqQQ9LiUSBtP8XHzMZ7SPE4PYrdm1MzJ9i7/vitmGZKr2p9gK6YEzFGtFum8JR+A=
+X-Received: by 2002:aed:2ee7:: with SMTP id k94mr1050007qtd.135.1616550619643; 
+ Tue, 23 Mar 2021 18:50:19 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: HK0PR04MB3346.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5d5d2bd3-fff6-48ec-8c0c-08d8e9d64d2e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Mar 2021 06:23:09.8915 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 179b0327-07fc-4973-ac73-8de7313561b2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 8nEmeK/OH77iRAOZL5rSksE4krQWxdYDV+8cQJo2mgS/X3so5EpYeDdrHH6bYOHj6TaJmtzkoP/UMsMnSvNHC5JX8/02AE2sz1neu/aJWa8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR04MB3668
-X-OriginatorOrg: quantatw.com
-X-Mailman-Approved-At: Wed, 24 Mar 2021 09:25:27 +1100
+References: <YErVxrB4afOz1ejt@packtop>
+In-Reply-To: <YErVxrB4afOz1ejt@packtop>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 24 Mar 2021 01:50:07 +0000
+Message-ID: <CACPK8XfpdF7_Thsg-96nkneoQDYayTEznbR8HDCOePG4=YruVg@mail.gmail.com>
+Subject: Re: RFC: ASRockRack E3C246D4I port
+To: Zev Weiss <zweiss@equinix.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,191 +81,77 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---_000_HK0PR04MB3346A7C9EA60289912747398B1699HK0PR04MB3346apcp_
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
-
-SGksDQpJZiBjb250aW5vdXNseSBzZW5kIFBPU1Qgc2Vzc2lvbnMgUmVkZmlzaCByZXF1ZXN0IHZp
-YSBQb3N0bWFuLiBJIG9ic2VydmUgYm1jd2ViIGRlYnVnIGxvZ3MsIGl0IHdpbGwgZXN0YWJsaXNo
-ZWQgY29ubmVjdGlvbiBhdCBmaXJzdCByZXF1ZXN0IHRoZW4gbm90IGZldGNoIHVzZXIgaXAgYWZ0
-ZXIgdGhlIHNlY29uZCByZXF1ZXN0Lg0KDQpUaGF0J3Mgd2h5IENsaWVudE9yaWdpbklQQWRkcmVz
-cyBpbiBzZXNzaW9uIGFmdGVyIHRoZSBzZWNvbmQgY3JlYXRlZCBpcyBhbHdheXMgMC4wLjAuMCAo
-bm90IGJlIGFzc2lnbmVkKS4NCg0KSW4gSFRUUCAxLjEgSXQgdXNlcyBrZWVwLWFsaXZlIEhlYWRl
-ciBkZWZhdWx0LiBzbyBCTUMgZG9lcyBub3QgZmV0Y2ggdXNlciBJUCB3aGVuIGl0cyBjb25uZWN0
-aW9uIGlzIGVzdGFibGlzaGVkLg0KDQpJcyB0aGlzIGJlaGF2aW9yIHdlIGV4cGVjdD8NCg0KQmVz
-dCByZWdhcmRzLA0KSnVuLUxpbiBDaGVuDQoNCkZyb206IEp1bi1MaW4gQ2hlbiAos6+rVMBNKQ0K
-U2VudDogRnJpZGF5LCBNYXJjaCA1LCAyMDIxIDQ6MDUgUE0NClRvOiBzdW5oYXJpc0Bpbi5pYm0u
-Y29tDQpDYzogb3BlbmJtY0BsaXN0cy5vemxhYnMub3JnDQpTdWJqZWN0OiBDbGllbnRPcmlnaW5J
-UEFkZHJlc3MgaXMgMC4wLjAuMCBvciAiIg0KDQpIaSBTdW5pdGhhLA0KDQpJIGZvdW5kIHNvbWUg
-cHJvYmxlbSB3aGVuIEkgY3JlYXRlIHNlc3Npb24uDQpUaGUgcHJvcGVydHkgoadDbGllbnRPcmln
-aW5JUEFkZHJlc3OhqCBpcyChp6GoIGFmdGVyIFBPU1QgaHR0cHM6Ly8ke2JtY30vbG9naW48aHR0
-cHM6Ly8kJTdiYm1jJTdkL2xvZ2luPiAtZCAneyJ1c2VybmFtZSI6IDw+LCJwYXNzd29yZCI6IDw+
-fQ0KQW5kIGl0IGlzIDAuMC4wLjAgYWZ0ZXIgUE9TVCBodHRwczovLyR7Ym1jfS9yZWRmaXNoL3Yx
-L1Nlc3Npb25TZXJ2aWNlL1Nlc3Npb25zPGh0dHBzOi8vJCU3YmJtYyU3ZC9yZWRmaXNoL3YxL1Nl
-c3Npb25TZXJ2aWNlL1Nlc3Npb25zPiAtZCAneyJ1c2VybmFtZSI6IDw+LCJwYXNzd29yZCI6IDw+
-fScNCkJvdGggb2YgdGhlbSBsb29rZWQgbGlrZSBzb21ldGhpbmcgd3JvbmcuIEFuZCBJIGFsc28g
-bG9vayBmb3Igc291cmNlIGNvZGUgaW4gYm1jd2ViIHJlcG9zaXRvcnkuDQpUaGVyZSBvbmx5IGRl
-ZmluZWQgdGhlIGRlZmF1bHQgdmFsdWU6IKGnoaggaW4gZ2VuZXJhdGVVc2VyU2Vzc2lvbigpIGFu
-ZCBub3QgZm91bmQgZmV0Y2ggdXNlciBpcCBpbiBlbHNld2hlcmUuDQpJIHRoaW5rIGl0IGlzIHdo
-eSBDbGllbnRPcmlnaW5JUEFkZHJlc3MgaXMgc3RyYW5nZS4NCg0KTWF5IEkgYXNrIHdoYXQgc3Rl
-cCBvciBzb21ldGhpbmcgSSBsYWNrIGluIGNyZWF0aW9uIHNlc3Npb24gc28gdGhpcyBwcm9wZXJ0
-eSBpcyBhYm5vcm1hbD8NCg0KDQpCZXN0IHJlZ2FyZHMsDQpKdW4tTGluIENoZW4NCg0K
-
---_000_HK0PR04MB3346A7C9EA60289912747398B1699HK0PR04MB3346apcp_
-Content-Type: text/html; charset="big5"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dbig5">
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:=B7s=B2=D3=A9=FA=C5=E9;
-	panose-1:2 2 5 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-@font-face
-	{font-family:"\@=B7s=B2=D3=A9=FA=C5=E9";
-	panose-1:2 1 6 1 0 1 1 1 1 1;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Calibri",sans-serif;}
-a:link, span.MsoHyperlink
-	{mso-style-priority:99;
-	color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{mso-style-priority:99;
-	color:#954F72;
-	text-decoration:underline;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"=B7s=B2=D3=A9=FA=C5=E9",serif;}
-span.EmailStyle18
-	{mso-style-type:personal;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-span.EmailStyle19
-	{mso-style-type:personal-reply;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-size:10.0pt;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 90.0pt 72.0pt 90.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
-</head>
-<body lang=3D"ZH-TW" link=3D"#0563C1" vlink=3D"#954F72" style=3D"text-justi=
-fy-trim:punctuation">
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi,<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">If continously send POST sessio=
-ns Redfish request via Postman. I observe bmcweb debug logs, it will establ=
-ished connection at first request then not fetch user ip after the second r=
-equest.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">That's why ClientOriginIPAddres=
-s in session after the second created is always 0.0.0.0 (not be assigned).<=
-o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">In HTTP 1.1 It uses keep-alive =
-Header default. so BMC does not fetch user IP when its connection is establ=
-ished.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Is this behavior we expect?<o:p=
-></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<div>
-<p class=3D"MsoNormal"><i><span lang=3D"EN-US" style=3D"font-family:&quot;T=
-imes New Roman&quot;,serif">Best regards,<o:p></o:p></span></i></p>
-<p class=3D"MsoNormal"><i><span lang=3D"EN-US" style=3D"font-family:&quot;T=
-imes New Roman&quot;,serif">Jun-Lin Chen<o:p></o:p></span></i></p>
-</div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<div>
-<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0cm =
-0cm 0cm">
-<p class=3D"MsoNormal"><b><span lang=3D"EN-US" style=3D"font-size:11.0pt">F=
-rom:</span></b><span lang=3D"EN-US" style=3D"font-size:11.0pt"> Jun-Lin Che=
-n (</span><span style=3D"font-size:11.0pt;font-family:&quot;=B7s=B2=D3=A9=
-=FA=C5=E9&quot;,serif">=B3=AF=ABT=C0M</span><span lang=3D"EN-US" style=3D"f=
-ont-size:11.0pt">)
-<br>
-<b>Sent:</b> Friday, March 5, 2021 4:05 PM<br>
-<b>To:</b> sunharis@in.ibm.com<br>
-<b>Cc:</b> openbmc@lists.ozlabs.org<br>
-<b>Subject:</b> ClientOriginIPAddress is 0.0.0.0 or &quot;&quot;<o:p></o:p>=
-</span></p>
-</div>
-</div>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Hi Sunitha,<o:p></o:p></span></=
-p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I found some problem when I cre=
-ate session.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">The property =A1=A7ClientOrigin=
-IPAddress=A1=A8 is =A1=A7=A1=A8 after POST
-<a href=3D"https://$%7bbmc%7d/login">https://${bmc}/login</a> -d '{&quot;us=
-ername&quot;: &lt;&gt;,&quot;password&quot;: &lt;&gt;}<o:p></o:p></span></p=
+On Tue, 23 Mar 2021 at 22:25, Zev Weiss <zweiss@equinix.com> wrote:
 >
-<p class=3D"MsoNormal"><span lang=3D"EN-US">And it is 0.0.0.0 after POST <a=
- href=3D"https://$%7bbmc%7d/redfish/v1/SessionService/Sessions">
-https://${bmc}/redfish/v1/SessionService/Sessions</a> -d '{&quot;username&q=
-uot;: &lt;&gt;,&quot;password&quot;: &lt;&gt;}'<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">Both of them looked like someth=
-ing wrong. And I also look for source code in bmcweb repository.<o:p></o:p>=
-</span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">There only defined the default =
-value: =A1=A7=A1=A8 in generateUserSession() and not found fetch user ip in=
- elsewhere.
-<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">I think it is why ClientOriginI=
-PAddress is strange.<o:p></o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US">May I ask what step or somethin=
-g I lack in creation session so this property is abnormal?<o:p></o:p></span=
-></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-<p class=3D"MsoNormal"><i><span lang=3D"EN-US" style=3D"font-family:&quot;T=
-imes New Roman&quot;,serif">Best regards,<o:p></o:p></span></i></p>
-<p class=3D"MsoNormal"><i><span lang=3D"EN-US" style=3D"font-family:&quot;T=
-imes New Roman&quot;,serif">Jun-Lin Chen<o:p></o:p></span></i></p>
-<p class=3D"MsoNormal"><span lang=3D"EN-US"><o:p>&nbsp;</o:p></span></p>
-</div>
-</body>
-</html>
+> Hello all,
+>
+> We (Equinix Metal, formerly known as Packet) having been working on a
+> port of OpenBMC to the ASRockRack E3C246D4I board
+> (https://www.asrockrack.com/general/productdetail.asp?Model=E3C246D4I-2T,
+> an AST2500-equipped Xeon E-2100 mini-ITX board), and we're now looking to
+> get some feedback from the community and hopefully start the process of
+> getting it merged upstream.
 
---_000_HK0PR04MB3346A7C9EA60289912747398B1699HK0PR04MB3346apcp_--
+Nice!
+
+>
+> It's currently sitting in a Github branch, since at the moment I'm
+> mostly seeking fairly broad guidance on what sorts of things will need
+> to happen to get it into a mergeable form (not sure if gerrit is the
+> right tool for that).  Anyone who'd like to can take a look at:
+> https://github.com/zevweiss/openbmc/tree/e3c246d4i
+>
+> Known issues, in approximate descending order of significance (by my
+> estimate):
+>
+>   - The kernel situation is...kind of messy.  This mostly stems from
+>     having a dependency on the PECI code, which is why the branch is
+>     based on the 2.9.0 tag (the last one before the PECI patchset was
+>     dropped from the openbmc kernel) instead of something more recent.
+>     We've got some additional PECI patches on top of that to work around
+>     some limitations in the PECI support on the particular CPU we're
+>     working with, some of which is fairly gross hardcoding for that
+>     specific SKU.  There are also a few non-PECI-related kernel patches
+>     that I've posted upstream but not yet incorporated the resulting
+>     review feedback on.
+
+As you point out, it would be great if someone could take on the PECI
+maintainership and get the code merged to mainline.
+
+Out of interest, can you still boot the host without PECI support?
+
+I recommend submitting your device tree now, and getting some level of
+support in the openbmc tree. From there you can work to get the other
+fixes into the tree.
+
+Cheers,
+
+Joel
+
+>
+>   - There are various hacks to get things like x86-power-control and
+>     host-error-monitor compiling and working reasonably, and I'm sort of
+>     skeptical that the approach I took there would be considered
+>     desirable.
+>
+>   - The directory naming is currently meta-equinix/meta-e3c246d4i;
+>     starting out I was a bit unsure whether to name based on the
+>     maintainer/developer of the layer or the maker of the hardware and we
+>     ended up with the former, though I see Ed's in-progress x570d4u port
+>     has things under meta-asrock, so perhaps that should be renamed?
+>
+>   - There are some relatively generic patches for dbus-sensors and
+>     entity-manager that should probably be merged independently.
+>
+>
+> If anyone can give it a look and let me know what the best way forward
+> would be for this we'd certainly appreciate it.
+>
+>
+> Thanks,
+> Zev Weiss
