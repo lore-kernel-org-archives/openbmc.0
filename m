@@ -2,88 +2,135 @@ Return-Path: <SRS0=/4wt=IX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MSGID_FROM_MTA_HEADER,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_2 autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDD97C433C1
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 08:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FF47C433C1
+	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 08:16:57 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6D8F3619FB
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 08:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6D8F3619FB
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gapps.ntust.edu.tw
+	by mail.kernel.org (Postfix) with ESMTPS id 48C73619FB
+	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 08:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48C73619FB
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=synaptics.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F5dH13GSyz3bcg
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 19:16:29 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F5dHV6N2Yz3bq6
+	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 19:16:54 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gapps-ntust-edu-tw.20150623.gappssmtp.com header.i=@gapps-ntust-edu-tw.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=qNXOXbJo;
+	dkim=pass (1024-bit key; unprotected) header.d=Synaptics.onmicrosoft.com header.i=@Synaptics.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-Synaptics-onmicrosoft-com header.b=OIRYA0Ad;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=gapps.ntust.edu.tw (client-ip=2607:f8b0:4864:20::430;
- helo=mail-pf1-x430.google.com; envelope-from=m10902803@gapps.ntust.edu.tw;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gapps-ntust-edu-tw.20150623.gappssmtp.com
- header.i=@gapps-ntust-edu-tw.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=qNXOXbJo; dkim-atps=neutral
-Received: from mail-pf1-x430.google.com (mail-pf1-x430.google.com
- [IPv6:2607:f8b0:4864:20::430])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=synaptics.com (client-ip=40.107.244.78;
+ helo=nam12-mw2-obe.outbound.protection.outlook.com;
+ envelope-from=jisheng.zhang@synaptics.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=Synaptics.onmicrosoft.com
+ header.i=@Synaptics.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-Synaptics-onmicrosoft-com header.b=OIRYA0Ad; 
+ dkim-atps=neutral
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2078.outbound.protection.outlook.com [40.107.244.78])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F4yc03dhWz302S
- for <openbmc@lists.ozlabs.org>; Wed, 24 Mar 2021 17:13:49 +1100 (AEDT)
-Received: by mail-pf1-x430.google.com with SMTP id y5so16587297pfn.1
- for <openbmc@lists.ozlabs.org>; Tue, 23 Mar 2021 23:13:49 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F50lV3tfpz2xb9;
+ Wed, 24 Mar 2021 18:50:28 +1100 (AEDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=odrjEiV+sWIVvb4CjbyN7V+tbMmZ+Ndb+VM3Mk+THNAfMT7qQDjOzLfDKBMaXq1Ymipf4PEcIJQC1baImlF6magdxVMonfFN0btGIfr1JmbIbEl3M8kTn4U5aIydHCBzYeiHfbVSQc0tQzX4BHecmsQdGhpYzvowJh8WY1vlWmW19lJoEB0R7NK57fpTSTtMD72EHkxbc4v0qKXRjCtiTwKlDU0ckVhcePHJFOwOjwLoXl7b/CFRULZpHmGKXcfgACtoY2a1V74HXK0ecLdOV2aQvqSdSFVLePpO/FIrJy7weSwvv6S1/UwOjYTbimw+aiq8YVmHOuzwj7mNQON1Xg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VIXyB4Y0zI3S5VVl77tjBQGyk+Y/1eftBDGEMYEDxyk=;
+ b=OEYz5lwXNrYdsjbHepzacRpetryC7fC5vgmiLOkXgG6zH83os8cb4s/sTY3Kl6C/GfD+f7b3XI714cqOWvBOWS3qigbZSGu7rpIrym1sb1MZawaR+4KAwN1tEOVtqDSQIzZ5PJNEfPPwriMgKp6927yf2mwHbDvHVfhfYdLlqsLO1wSLiOciNo+CaJhD5ghi8kLMXbhxNbHaD4BkovBecrzFjkvc++8RM49IqorqzlE3rPy/fB/9ba2BSmIpC1hwqItJ6QksoBkjLg6my4I//TP68AT2IdB+um/OPHifF3uzmbDhdA+WvwJCKY3JXvyHN/6gSMmlxdb0nT3z10klFw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=synaptics.com; dmarc=pass action=none
+ header.from=synaptics.com; dkim=pass header.d=synaptics.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gapps-ntust-edu-tw.20150623.gappssmtp.com; s=20150623;
- h=from:to:subject:date:message-id:mime-version:thread-index
- :content-language;
- bh=OpWykrh6ZtF5Et7Ou5ymYHLtJerNqsyRebunwbY9odk=;
- b=qNXOXbJoOFvpXJqvbmVzKEbv0DLSGdSSIOGhL2hlIvDRhaKC24e2O7+lBZi79ZV5jx
- MvwFPNEi6y0gZ4aDY4rlLHyC18WGU04tN9x5VYawWTTAWZVSRbotGHQguJy3FKvZ+DWU
- UV24LCyFJGHkscRI7L2OquET7lwsFZj8WhdiiL8l5NNykwclhQjusc73Wv55v2OwODiE
- KjScun49nFkzK0WJa5jOr6Cmo7OoH8XM9bZExKw5gDtqfq5KLqDTSkK3IucwPI+tOxKV
- hIpNH4ZVn+MUBVSSvVhYHDShF5RQWt55GzuJMVHKFgF7sK2Jp3NVSp5WcFbGcpNy/FoV
- wPBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :thread-index:content-language;
- bh=OpWykrh6ZtF5Et7Ou5ymYHLtJerNqsyRebunwbY9odk=;
- b=OG5sIMl9QAA82u0qsl8aKEvCxafWAwc3OGJFcm+3z9FgKJqOk1x4tXjVTbu4iCvuP1
- QsGwCCbMXX9+oQEQlMxzWWoHPJEQaeyjKID8w71x9QsnOEhR+pBDnHtZrxZenEV5Jh8s
- azmWOHohHOxx30nvKlwrRDK3NYZgVGolWptQeA5g6ndVmMVq5Ug1xKkKlOYvIpZZRpcv
- 1b8DvebOvTXN21vaFW3aWNRuO/TS5/vrlgMnNzOo8dlItQNbVSH0bIjwRleEWWkdX1ra
- K4TUorPhWediW1VHnV+cH7GrIdNc6y7vkULGN9FBoQBEB8vQ+HkU9treZhjkpHNIhjrd
- m4zw==
-X-Gm-Message-State: AOAM533RH/3Ka00l0ZeK1yBHgsOvIiZm0lwubGU3fYMHpYNfw/fPOB18
- he8Q4AdodJbnnwUAChvcyysNCi77nFthMg==
-X-Google-Smtp-Source: ABdhPJyn9/qdjJIs4TVLSc74poIpwgaGXXfb89P94cfDrJFzHVpFzHlT1HfvxsMEVUNNWlxvguyIOA==
-X-Received: by 2002:aa7:9ae7:0:b029:20a:d94d:dd61 with SMTP id
- y7-20020aa79ae70000b029020ad94ddd61mr1895803pfp.0.1616566425926; 
- Tue, 23 Mar 2021 23:13:45 -0700 (PDT)
-Received: from LuthfiMufadelLaptop (220-128-110-82.HINET-IP.hinet.net.
- [220.128.110.82])
- by smtp.gmail.com with ESMTPSA id m7sm1014791pjc.54.2021.03.23.23.13.44
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 23 Mar 2021 23:13:45 -0700 (PDT)
-From: <m10902803@gapps.ntust.edu.tw>
-To: <openbmc@lists.ozlabs.org>
-Subject: Web Server Code Location
-Date: Wed, 24 Mar 2021 14:13:43 +0800
-Message-ID: <000a01d72074$d86f0a90$894d1fb0$@gapps.ntust.edu.tw>
+ d=Synaptics.onmicrosoft.com; s=selector2-Synaptics-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VIXyB4Y0zI3S5VVl77tjBQGyk+Y/1eftBDGEMYEDxyk=;
+ b=OIRYA0AdOYLmzVllFmVilavnKTgZzuwO3cYzDWu+0WJ1GIUKTIkfPf2+TXsnn1HanUJks5EjJBZEKIIotgC/CAgF4UGQO2Z5P69HFgDyP3T6t/HUhcKFIE+KUPhVHLeiehJZ8+5M2yI5W7PmUayISmzmMojmE+Latu5VvBq6xPk=
+Authentication-Results: timesys.com; dkim=none (message not signed)
+ header.d=none;timesys.com; dmarc=none action=none header.from=synaptics.com;
+Received: from BY5PR03MB5345.namprd03.prod.outlook.com (2603:10b6:a03:219::16)
+ by BYAPR03MB4805.namprd03.prod.outlook.com (2603:10b6:a03:12e::31)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.25; Wed, 24 Mar
+ 2021 07:50:22 +0000
+Received: from BY5PR03MB5345.namprd03.prod.outlook.com
+ ([fe80::8569:341f:4bc6:5b72]) by BY5PR03MB5345.namprd03.prod.outlook.com
+ ([fe80::8569:341f:4bc6:5b72%7]) with mapi id 15.20.3955.027; Wed, 24 Mar 2021
+ 07:50:22 +0000
+Date: Wed, 24 Mar 2021 15:50:13 +0800
+From: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+To: Angelo Dureghello <angelo.dureghello@timesys.com>, Adrian Hunter
+ <adrian.hunter@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>, Andrew
+ Jeffery <andrew@aj.id.au>, Joel Stanley <joel@jms.id.au>, Thierry Reding
+ <thierry.reding@gmail.com>, Jonathan Hunter <jonathanh@nvidia.com>
+Subject: [PATCH] mmc: sdhci: replace mmc->parent with mmc_dev() for consistency
+Message-ID: <20210324155013.1e5faa3c@xhacker.debian>
+X-Mailer: Claws Mail 3.17.8 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [192.147.44.204]
+X-ClientProxiedBy: SJ0PR13CA0176.namprd13.prod.outlook.com
+ (2603:10b6:a03:2c7::31) To BY5PR03MB5345.namprd03.prod.outlook.com
+ (2603:10b6:a03:219::16)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_000B_01D720B7.E692E6D0"
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AdcgdNcyVHBl9/E8TTmtDVmDhaQv6Q==
-Content-Language: en-id
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from xhacker.debian (192.147.44.204) by
+ SJ0PR13CA0176.namprd13.prod.outlook.com (2603:10b6:a03:2c7::31) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.9 via Frontend
+ Transport; Wed, 24 Mar 2021 07:50:18 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: a13c86d1-0165-4baf-55b2-08d8ee997a35
+X-MS-TrafficTypeDiagnostic: BYAPR03MB4805:
+X-Microsoft-Antispam-PRVS: <BYAPR03MB480544C8F948DEA24AA53208ED639@BYAPR03MB4805.namprd03.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4303;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: RFrSWPqxb7ESPZsBzKzelUXOwwqqFsypKQh8UwpuLD6nMpqsHjs2fK/b9655SqgIfuI4QwfDX1J/Qt8orOIWzv3GRyIgzlb7satZpfSnWFlt585TPWtNA6aaXwPsw3BDLbP+8pkuD4PzrPZJqb2izqDzN6Nw/GZ/xTw/eHfYKjM+TlKq5xsYZhuysE1I4tAx63VNnD0Njr8sp9GZOLSOKieUWk8b6hk3BoepXIsZkwkAWoJ8sgFa6NHhVt+3uXI2k8vCOLu21iXIWJ/eEp02BoLjnVOM0pmHVJZvFQ+tBXrlYg/m9OBF5inJhOT3C8AIwhByfOSizXXHkjiHRLV8XhEua98lKbSiABhY9Dig2sUmI30pmj/e4gQ0HYq8S2MhogFJuf3Rq+6FfNl/QzTxj5dbT5Yq4fYsN6PvBKaZ2LVyQ08q2WjrJw+AR2Lq3IpROIniCBTRCqCjYSnsFjsmrTCetsa6tJCSiLSfZj/hlUhVw/go63dw7wnVf/761Ei/GcYfSXrtBzdWB/Hm4aQh7hobtGldzeLMKg54H8uh4UGTnjy6lhzowmg2jNgm0z6nAp3RtJKS+TUGDOJNvwAsXl35Wvrp8DCPPaRxrui1x+wj6g5us/pGT8lx6AvdsWM1GjBYErSsJOK0Vfgq6MiMe6JM2nEiw45JboQ3Xvo90UM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BY5PR03MB5345.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(366004)(136003)(376002)(396003)(39850400004)(7696005)(478600001)(52116002)(6666004)(6506007)(110136005)(7416002)(186003)(16526019)(26005)(4326008)(316002)(2906002)(55016002)(9686003)(956004)(66946007)(30864003)(1076003)(66556008)(86362001)(66476007)(5660300002)(83380400001)(8676002)(38100700001)(8936002);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData: =?us-ascii?Q?kLE3tdQHpy2mTqeU2q5cCWIRk2tM6jZO5bW4u+VD6aTJxFbzPHEJUFeFqo9D?=
+ =?us-ascii?Q?4uASzORjlcnWgezH2YAnm6mHCxOmgPO8Vk7qotcKh0W5SX2fTL96ITHMhGQa?=
+ =?us-ascii?Q?JkbInEs6pq2Fu73IIkO1yEA+OzPC0kgc83EcaX6AxQ9Ey+6Khl7lfxtwCzQm?=
+ =?us-ascii?Q?oX0GGpvh8EpCJqowdZldMu9jNIWOor9KebNStQZgjzgCIfn/GxjdAyyrgaT7?=
+ =?us-ascii?Q?Fb+rPyUEOKR8yoJWVC69Ein/ymTPAkM0/b8Cz4sBaHxTWZeIOfcajQ9NevIn?=
+ =?us-ascii?Q?sOCgtRL2w8I2K9FBEIcCu7CfwDri/7Tq/iJizOANooHY3OItL70rHtgt7Pn3?=
+ =?us-ascii?Q?gLl5XKMrVyBp8FC7LLy51zNVGkMEi2tNG+yO+oc/wrQ4PG1Mvn8w/tC8D/T/?=
+ =?us-ascii?Q?CZqhG3C9RWULchqYqDTctoxHQ6ryyD1P07ySEmGYtLqzTFHdWF5BCZ+0Karj?=
+ =?us-ascii?Q?yYNP2ugPItnT6WEHrLgKJtkCv4SpHwj+efh70ofVZHYDipYJKsp8+cWZPpQg?=
+ =?us-ascii?Q?QsUhp4jzJAHw0HpfC8U60bReAtrN17zaSiRYm1R9cqyYUfvHt0N73t3CSqTu?=
+ =?us-ascii?Q?Jty5l4YetpjThTh8addGEl5Sx6pphuz0lKK/60DVcK6knjeELRAVg1yPXI77?=
+ =?us-ascii?Q?6t0Nf1lqMmE0JroHuBIYfhBcOPbU2F0RVy29kfGIR1A9mwkpXyKPtEKKJkMo?=
+ =?us-ascii?Q?+1jV5+DLdemJuQmPSfKGKUquWpVdOX5w8TmxlTJHJilbJjhzR+J6/eelDdlm?=
+ =?us-ascii?Q?ZqC4uWx6tX9nDQC4xFP63Kni8XDg3ZOhrixt/JaUYj4KIQPTJnVMMyU5kpsB?=
+ =?us-ascii?Q?Y12gOW92JBT96cJdXCZLLFcvHG4yKgyaSpwgzdJD090L4KD6qIedxTHLC5tx?=
+ =?us-ascii?Q?4nv4VekOgNUhFnQ3pt6yiTSCaBJV9OzeRfE7yDqjMCwnSKIDl3mmNaw2pl/Y?=
+ =?us-ascii?Q?ttnYbHlV+21DitfpSZqcrLu+CbCwi1GFuC3kQZqQ1zwrWYsLpu57gLIIOnAG?=
+ =?us-ascii?Q?aAu/RRl/VdYVnpNGtsR/BQ4Os6474PIU3n8MJ4H35RtwtGIyOCx7ndPk4zRm?=
+ =?us-ascii?Q?1sWkZZfp31CZx2OOHrsgO1c7kTP3/1ovkcC9//K7QiE2WlxVkAwKlNOc7jwR?=
+ =?us-ascii?Q?0s4fq8UOB8PpXn8LJUIoe1EdWn94dl1qQmoC+u0yUAse6dHKz//rvmG3p5VH?=
+ =?us-ascii?Q?hRqebo7mBLvtbUeeG/FBrWHL+YVJ64tXjiDwM2PBkckGSRZLKqNOo4SDUauZ?=
+ =?us-ascii?Q?6CZ77O7re2kZ5A6be267Fz5I5/UK3f6UuGwDucbR+/9t6QyGrbs0qPWi66NX?=
+ =?us-ascii?Q?fpaWteyS1E20Jf0TQFaHO67z?=
+X-OriginatorOrg: synaptics.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a13c86d1-0165-4baf-55b2-08d8ee997a35
+X-MS-Exchange-CrossTenant-AuthSource: BY5PR03MB5345.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Mar 2021 07:50:22.2330 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 335d1fbc-2124-4173-9863-17e7051a2a0e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /emMWIYbvh37R6x743IauuMPr+scbAWywyDXowNKhAAC6oJjDo50E3exbanO3ChHJcWc+yJTXOIjkpPXFUzcHQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR03MB4805
 X-Mailman-Approved-At: Thu, 25 Mar 2021 19:16:05 +1100
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -96,182 +143,320 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a multipart message in MIME format.
+As pointed out by Ulf, "both "mmc->parent" and mmc_dev(mmc) are being
+used in the entire c-file". Convert all the mmc->parent usage in all
+sdhci host driver to mmc_dev() for consistency.
 
-------=_NextPart_000_000B_01D720B7.E692E6D0
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Suggested-by: Ulf Hansson <ulf.hansson@linaro.org>
+Signed-off-by: Jisheng Zhang <Jisheng.Zhang@synaptics.com>
+---
+ drivers/mmc/host/sdhci-esdhc-mcf.c |  8 +++----
+ drivers/mmc/host/sdhci-of-aspeed.c |  2 +-
+ drivers/mmc/host/sdhci-tegra.c     | 34 +++++++++++++++---------------
+ drivers/mmc/host/sdhci.c           | 24 ++++++++++-----------
+ drivers/mmc/host/sdhci_am654.c     |  2 +-
+ 5 files changed, 35 insertions(+), 35 deletions(-)
 
+diff --git a/drivers/mmc/host/sdhci-esdhc-mcf.c b/drivers/mmc/host/sdhci-esdhc-mcf.c
+index ca7a1690b2a8..05926bf5ecf9 100644
+--- a/drivers/mmc/host/sdhci-esdhc-mcf.c
++++ b/drivers/mmc/host/sdhci-esdhc-mcf.c
+@@ -367,14 +367,14 @@ static int esdhc_mcf_plat_init(struct sdhci_host *host,
+ 			       struct pltfm_mcf_data *mcf_data)
+ {
+ 	struct mcf_esdhc_platform_data *plat_data;
++	struct device *dev = mmc_dev(host->mmc);
  
-
+-	if (!host->mmc->parent->platform_data) {
+-		dev_err(mmc_dev(host->mmc), "no platform data!\n");
++	if (!dev->platform_data) {
++		dev_err(dev, "no platform data!\n");
+ 		return -EINVAL;
+ 	}
  
-
-Hello, I'm Luthfi, a master student in NTUST, Taiwan. Currently I'm working
-on openBMC and need to fix these problem:
-
-1.	Network settings
-2.	Firmware update
-
-I already finished install the Romulus image and QEMU to run it with GUI. I
-run the GUI by use these commands
-
+-	plat_data = (struct mcf_esdhc_platform_data *)
+-			host->mmc->parent->platform_data;
++	plat_data = (struct mcf_esdhc_platform_data *)dev->platform_data;
  
-
-qemu-system-arm -m 256 -M romulus-bmc -nographic -drive
-file=./tmp/deploy/images/romulus/obmc-phosphor-image-romulus.static.mtd,form
-at=raw,if=mtd -net nic -net
-user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostname=qemu
-
+ 	/* Card_detect */
+ 	switch (plat_data->cd_type) {
+diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
+index 7d8692e90996..d001c51074a0 100644
+--- a/drivers/mmc/host/sdhci-of-aspeed.c
++++ b/drivers/mmc/host/sdhci-of-aspeed.c
+@@ -181,7 +181,7 @@ aspeed_sdhci_configure_phase(struct sdhci_host *host, unsigned long rate)
+ 	struct aspeed_sdhci *sdhci;
+ 	struct device *dev;
  
-
-How can I check the source code of the web server that running in it?
-
+-	dev = host->mmc->parent;
++	dev = mmc_dev(host->mmc);
+ 	sdhci = sdhci_pltfm_priv(sdhci_priv(host));
  
-
-Sincerely,
-
-Muhamad Luthfi Mufadel
-
-National Taiwan University of Science and Technology
-
-
-------=_NextPart_000_000B_01D720B7.E692E6D0
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{mso-style-priority:34;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
-/* List Definitions */
-@list l0
-	{mso-list-id:1576553980;
-	mso-list-type:hybrid;
-	mso-list-template-ids:903265404 940113935 940113945 940113947 940113935 =
-940113945 940113947 940113935 940113945 940113947;}
-@list l0:level1
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level2
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level3
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level4
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level5
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level6
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-@list l0:level7
-	{mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level8
-	{mso-level-number-format:alpha-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:left;
-	text-indent:-18.0pt;}
-@list l0:level9
-	{mso-level-number-format:roman-lower;
-	mso-level-tab-stop:none;
-	mso-level-number-position:right;
-	text-indent:-9.0pt;}
-ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-ID =
-link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal>Hello, =
-I&#8217;m Luthfi, a master student in NTUST, Taiwan. Currently I&#8217;m =
-working on openBMC and need to fix these problem:<o:p></o:p></p><ol =
-style=3D'margin-top:0cm' start=3D1 type=3D1><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l0 level1 lfo1'>Network =
-settings<o:p></o:p></li><li class=3DMsoListParagraph =
-style=3D'margin-left:0cm;mso-list:l0 level1 lfo1'>Firmware =
-update<o:p></o:p></li></ol><p class=3DMsoNormal>I already finished =
-install the Romulus image and QEMU to run it with GUI. I run the GUI by =
-use these commands<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>qemu-system-arm -m 256 -M romulus-bmc -nographic =
--drive =
-file=3D./tmp/deploy/images/romulus/obmc-phosphor-image-romulus.static.mtd=
-,format=3Draw,if=3Dmtd -net nic -net =
-user,hostfwd=3D:127.0.0.1:2222-:22,hostfwd=3D:127.0.0.1:2443-:443,hostnam=
-e=3Dqemu<o:p></o:p></p><p class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>How can I check the source code of the web server that =
-running in it?<o:p></o:p></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p =
-class=3DMsoNormal>Sincerely,<o:p></o:p></p><p class=3DMsoNormal>Muhamad =
-Luthfi Mufadel<o:p></o:p></p><p class=3DMsoNormal>National Taiwan =
-University of Science and Technology<o:p></o:p></p></div></body></html>
-------=_NextPart_000_000B_01D720B7.E692E6D0--
+ 	if (!sdhci->phase_desc)
+diff --git a/drivers/mmc/host/sdhci-tegra.c b/drivers/mmc/host/sdhci-tegra.c
+index 41d193fa77bb..c61f797a853f 100644
+--- a/drivers/mmc/host/sdhci-tegra.c
++++ b/drivers/mmc/host/sdhci-tegra.c
+@@ -596,49 +596,49 @@ static void tegra_sdhci_parse_pad_autocal_dt(struct sdhci_host *host)
+ 			&tegra_host->autocal_offsets;
+ 	int err;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-3v3",
+ 			&autocal->pull_up_3v3);
+ 	if (err)
+ 		autocal->pull_up_3v3 = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-3v3",
+ 			&autocal->pull_down_3v3);
+ 	if (err)
+ 		autocal->pull_down_3v3 = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-1v8",
+ 			&autocal->pull_up_1v8);
+ 	if (err)
+ 		autocal->pull_up_1v8 = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-1v8",
+ 			&autocal->pull_down_1v8);
+ 	if (err)
+ 		autocal->pull_down_1v8 = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-sdr104",
+ 			&autocal->pull_up_sdr104);
+ 	if (err)
+ 		autocal->pull_up_sdr104 = autocal->pull_up_1v8;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-sdr104",
+ 			&autocal->pull_down_sdr104);
+ 	if (err)
+ 		autocal->pull_down_sdr104 = autocal->pull_down_1v8;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-hs400",
+ 			&autocal->pull_up_hs400);
+ 	if (err)
+ 		autocal->pull_up_hs400 = autocal->pull_up_1v8;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-hs400",
+ 			&autocal->pull_down_hs400);
+ 	if (err)
+@@ -653,7 +653,7 @@ static void tegra_sdhci_parse_pad_autocal_dt(struct sdhci_host *host)
+ 	if (!(tegra_host->soc_data->nvquirks & NVQUIRK_NEEDS_PAD_CONTROL))
+ 		return;
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-3v3-timeout",
+ 			&autocal->pull_up_3v3_timeout);
+ 	if (err) {
+@@ -664,7 +664,7 @@ static void tegra_sdhci_parse_pad_autocal_dt(struct sdhci_host *host)
+ 		autocal->pull_up_3v3_timeout = 0;
+ 	}
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-3v3-timeout",
+ 			&autocal->pull_down_3v3_timeout);
+ 	if (err) {
+@@ -675,7 +675,7 @@ static void tegra_sdhci_parse_pad_autocal_dt(struct sdhci_host *host)
+ 		autocal->pull_down_3v3_timeout = 0;
+ 	}
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-up-offset-1v8-timeout",
+ 			&autocal->pull_up_1v8_timeout);
+ 	if (err) {
+@@ -686,7 +686,7 @@ static void tegra_sdhci_parse_pad_autocal_dt(struct sdhci_host *host)
+ 		autocal->pull_up_1v8_timeout = 0;
+ 	}
+ 
+-	err = device_property_read_u32(host->mmc->parent,
++	err = device_property_read_u32(mmc_dev(host->mmc),
+ 			"nvidia,pad-autocal-pull-down-offset-1v8-timeout",
+ 			&autocal->pull_down_1v8_timeout);
+ 	if (err) {
+@@ -720,17 +720,17 @@ static void tegra_sdhci_parse_tap_and_trim(struct sdhci_host *host)
+ 	struct sdhci_tegra *tegra_host = sdhci_pltfm_priv(pltfm_host);
+ 	int err;
+ 
+-	err = device_property_read_u32(host->mmc->parent, "nvidia,default-tap",
++	err = device_property_read_u32(mmc_dev(host->mmc), "nvidia,default-tap",
+ 				       &tegra_host->default_tap);
+ 	if (err)
+ 		tegra_host->default_tap = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent, "nvidia,default-trim",
++	err = device_property_read_u32(mmc_dev(host->mmc), "nvidia,default-trim",
+ 				       &tegra_host->default_trim);
+ 	if (err)
+ 		tegra_host->default_trim = 0;
+ 
+-	err = device_property_read_u32(host->mmc->parent, "nvidia,dqs-trim",
++	err = device_property_read_u32(mmc_dev(host->mmc), "nvidia,dqs-trim",
+ 				       &tegra_host->dqs_trim);
+ 	if (err)
+ 		tegra_host->dqs_trim = 0x11;
+@@ -741,7 +741,7 @@ static void tegra_sdhci_parse_dt(struct sdhci_host *host)
+ 	struct sdhci_pltfm_host *pltfm_host = sdhci_priv(host);
+ 	struct sdhci_tegra *tegra_host = sdhci_pltfm_priv(pltfm_host);
+ 
+-	if (device_property_read_bool(host->mmc->parent, "supports-cqe"))
++	if (device_property_read_bool(mmc_dev(host->mmc), "supports-cqe"))
+ 		tegra_host->enable_hwcq = true;
+ 	else
+ 		tegra_host->enable_hwcq = false;
+@@ -1529,7 +1529,7 @@ static int sdhci_tegra_add_host(struct sdhci_host *host)
+ 
+ 	host->mmc->caps2 |= MMC_CAP2_CQE | MMC_CAP2_CQE_DCMD;
+ 
+-	cq_host = devm_kzalloc(host->mmc->parent,
++	cq_host = devm_kzalloc(mmc_dev(host->mmc),
+ 				sizeof(*cq_host), GFP_KERNEL);
+ 	if (!cq_host) {
+ 		ret = -ENOMEM;
+diff --git a/drivers/mmc/host/sdhci.c b/drivers/mmc/host/sdhci.c
+index aefd0441658c..bf238ade1602 100644
+--- a/drivers/mmc/host/sdhci.c
++++ b/drivers/mmc/host/sdhci.c
+@@ -188,7 +188,7 @@ static void sdhci_runtime_pm_bus_on(struct sdhci_host *host)
+ 	if (host->bus_on)
+ 		return;
+ 	host->bus_on = true;
+-	pm_runtime_get_noresume(host->mmc->parent);
++	pm_runtime_get_noresume(mmc_dev(host->mmc));
+ }
+ 
+ static void sdhci_runtime_pm_bus_off(struct sdhci_host *host)
+@@ -196,7 +196,7 @@ static void sdhci_runtime_pm_bus_off(struct sdhci_host *host)
+ 	if (!host->bus_on)
+ 		return;
+ 	host->bus_on = false;
+-	pm_runtime_put_noidle(host->mmc->parent);
++	pm_runtime_put_noidle(mmc_dev(host->mmc));
+ }
+ 
+ void sdhci_reset(struct sdhci_host *host, u8 mask)
+@@ -648,7 +648,7 @@ static int sdhci_pre_dma_transfer(struct sdhci_host *host,
+ 			}
+ 		}
+ 		/* Switch ownership to the DMA */
+-		dma_sync_single_for_device(host->mmc->parent,
++		dma_sync_single_for_device(mmc_dev(host->mmc),
+ 					   host->bounce_addr,
+ 					   host->bounce_buffer_size,
+ 					   mmc_get_dma_dir(data));
+@@ -1176,7 +1176,7 @@ static int sdhci_external_dma_init(struct sdhci_host *host)
+ 	int ret = 0;
+ 	struct mmc_host *mmc = host->mmc;
+ 
+-	host->tx_chan = dma_request_chan(mmc->parent, "tx");
++	host->tx_chan = dma_request_chan(mmc_dev(mmc), "tx");
+ 	if (IS_ERR(host->tx_chan)) {
+ 		ret = PTR_ERR(host->tx_chan);
+ 		if (ret != -EPROBE_DEFER)
+@@ -1185,7 +1185,7 @@ static int sdhci_external_dma_init(struct sdhci_host *host)
+ 		return ret;
+ 	}
+ 
+-	host->rx_chan = dma_request_chan(mmc->parent, "rx");
++	host->rx_chan = dma_request_chan(mmc_dev(mmc), "rx");
+ 	if (IS_ERR(host->rx_chan)) {
+ 		if (host->tx_chan) {
+ 			dma_release_channel(host->tx_chan);
+@@ -2489,14 +2489,14 @@ void sdhci_enable_sdio_irq(struct mmc_host *mmc, int enable)
+ 	unsigned long flags;
+ 
+ 	if (enable)
+-		pm_runtime_get_noresume(mmc->parent);
++		pm_runtime_get_noresume(mmc_dev(mmc));
+ 
+ 	spin_lock_irqsave(&host->lock, flags);
+ 	sdhci_enable_sdio_irq_nolock(host, enable);
+ 	spin_unlock_irqrestore(&host->lock, flags);
+ 
+ 	if (!enable)
+-		pm_runtime_put_noidle(mmc->parent);
++		pm_runtime_put_noidle(mmc_dev(mmc));
+ }
+ EXPORT_SYMBOL_GPL(sdhci_enable_sdio_irq);
+ 
+@@ -3063,7 +3063,7 @@ static bool sdhci_request_done(struct sdhci_host *host)
+ 						length = host->bounce_buffer_size;
+ 					}
+ 					dma_sync_single_for_cpu(
+-						host->mmc->parent,
++						mmc_dev(host->mmc),
+ 						host->bounce_addr,
+ 						host->bounce_buffer_size,
+ 						DMA_FROM_DEVICE);
+@@ -3074,7 +3074,7 @@ static bool sdhci_request_done(struct sdhci_host *host)
+ 				} else {
+ 					/* No copying, just switch ownership */
+ 					dma_sync_single_for_cpu(
+-						host->mmc->parent,
++						mmc_dev(host->mmc),
+ 						host->bounce_addr,
+ 						host->bounce_buffer_size,
+ 						mmc_get_dma_dir(data));
+@@ -4053,7 +4053,7 @@ static void sdhci_allocate_bounce_buffer(struct sdhci_host *host)
+ 	 * speedups by the help of a bounce buffer to group scattered
+ 	 * reads/writes together.
+ 	 */
+-	host->bounce_buffer = devm_kmalloc(mmc->parent,
++	host->bounce_buffer = devm_kmalloc(mmc_dev(mmc),
+ 					   bounce_size,
+ 					   GFP_KERNEL);
+ 	if (!host->bounce_buffer) {
+@@ -4067,11 +4067,11 @@ static void sdhci_allocate_bounce_buffer(struct sdhci_host *host)
+ 		return;
+ 	}
+ 
+-	host->bounce_addr = dma_map_single(mmc->parent,
++	host->bounce_addr = dma_map_single(mmc_dev(mmc),
+ 					   host->bounce_buffer,
+ 					   bounce_size,
+ 					   DMA_BIDIRECTIONAL);
+-	ret = dma_mapping_error(mmc->parent, host->bounce_addr);
++	ret = dma_mapping_error(mmc_dev(mmc), host->bounce_addr);
+ 	if (ret)
+ 		/* Again fall back to max_segs == 1 */
+ 		return;
+diff --git a/drivers/mmc/host/sdhci_am654.c b/drivers/mmc/host/sdhci_am654.c
+index 7a34649b0754..1fad6e442688 100644
+--- a/drivers/mmc/host/sdhci_am654.c
++++ b/drivers/mmc/host/sdhci_am654.c
+@@ -558,7 +558,7 @@ static int sdhci_am654_cqe_add_host(struct sdhci_host *host)
+ 	struct cqhci_host *cq_host;
+ 	int ret;
+ 
+-	cq_host = devm_kzalloc(host->mmc->parent, sizeof(struct cqhci_host),
++	cq_host = devm_kzalloc(mmc_dev(host->mmc), sizeof(struct cqhci_host),
+ 			       GFP_KERNEL);
+ 	if (!cq_host)
+ 		return -ENOMEM;
+-- 
+2.31.0
 
