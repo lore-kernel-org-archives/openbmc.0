@@ -2,79 +2,105 @@ Return-Path: <SRS0=/4wt=IX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-7.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 83E16C433C1
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 10:21:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 69F31C433C1
+	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 14:11:18 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 602B561A27
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 10:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 602B561A27
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id A0FD361A23
+	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 14:11:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A0FD361A23
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F5h3m2fJxz30CK
-	for <openbmc@archiver.kernel.org>; Thu, 25 Mar 2021 21:21:56 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F5n8M66pJz3bc8
+	for <openbmc@archiver.kernel.org>; Fri, 26 Mar 2021 01:11:15 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=E1y94XBI;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=nCm2OMhN;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::235;
- helo=mail-oi1-x235.google.com; envelope-from=tmaimon77@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=E1y94XBI; dkim-atps=neutral
-Received: from mail-oi1-x235.google.com (mail-oi1-x235.google.com
- [IPv6:2607:f8b0:4864:20::235])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=nCm2OMhN; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F5h3H58Lpz309g
- for <openbmc@lists.ozlabs.org>; Thu, 25 Mar 2021 21:21:30 +1100 (AEDT)
-Received: by mail-oi1-x235.google.com with SMTP id w70so1650866oie.0
- for <openbmc@lists.ozlabs.org>; Thu, 25 Mar 2021 03:21:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=hMrQubjOxtgaxSsueIipgPuIITYb/Zy79c66bYV+PxI=;
- b=E1y94XBIGplNIiVirg+DOrfTtLVRI4SycjJFe7BMQnpMv1P2yKPBYTNgrJxsHAHf7R
- 29wY3Tqy0u0PuOPHSgfCukgo8gFT6HhcbluC0vRGuF0f4E6Sx1oVzdsFIX2u9uPwKhc3
- LIxFeCXVaLfcZr8v8NV5u+eA6UQ6ajg8ei5Yd86GcCmVxODCDsM7CZybV96k95xydkJ7
- uEniFAar0Vu0X3iAsH59yH9ATZYQbf0AQz8Nf+SekwdhsTa9GDe92nZGle4/5eXvh+tk
- /8MDsxrlHHiHhRg5r2i6FQqRZIYBxDeWgHOAxCKaBV/dvnpSkhqwWaeG331PeWCBh4fu
- tMIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=hMrQubjOxtgaxSsueIipgPuIITYb/Zy79c66bYV+PxI=;
- b=B+Oh7RrYfaKqTNd9yT+QziXuVcqAgLUE4Hlod9Wm5HbYL4eT5zvMdvL/BfR9XyOe/4
- TVp4qWsH0fgBjpjbYUBJNkKuCYMtkR2yT9sExkwcVqW39fT8CzPVwv0CRYQvn9YTwzlX
- u0TqfdvZiBzLjad9V6VhUeRMVeuuKq2L3xSz116rc68XirV1iGoYL4qE+srZhSWXcaw5
- o75gbJ4OLSCKkETP3e/SuEFbtGgnXMBVlK9pZTu300uYgrOOMyxkMdT7U6OhngYaXP0v
- P48m1QFJnrDKeaONwZIUTTYbTE7Qh9qrSoB3NPu/5fy1Dcpf7MisjeCugby5MNjQCJVj
- qmxA==
-X-Gm-Message-State: AOAM5319xZImkBW+qF+zR708Qs2UYpXNXtglkpDr8orshh+gyW/6Gvqf
- Ew5kFiIltuovwEbvyVe3LF9bx6rYgBWDEfSv3LU=
-X-Google-Smtp-Source: ABdhPJwu5nf+xibJDJb/ZC6nSaLdHu5p08XpIWv1bItrt6YMRdS1ujp6cQjWwXh+0MUnKAohfriIQ8ZoakeOFWmFobg=
-X-Received: by 2002:aca:1a19:: with SMTP id a25mr5611425oia.167.1616667685577; 
- Thu, 25 Mar 2021 03:21:25 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F5n7t4NW1z2yjS
+ for <openbmc@lists.ozlabs.org>; Fri, 26 Mar 2021 01:10:49 +1100 (AEDT)
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12PE7R8w161671; Thu, 25 Mar 2021 10:10:45 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pp1;
+ bh=Oq/8RZ9BmFOb6dLQn17OAfGz1AYFvg1hHXQiGiJAI58=;
+ b=nCm2OMhNmlb2Nw9VH1uymK2suaUbBi5oJIU2YZO81h2XGtFQV4/VwrgVcldW65zqHgk3
+ MVfVekbQxpuMxEtOOZOBTPzSqzZfTWmOynfISLx0oVybs5+tzVaFSHxzML/n/Ye1Lo09
+ JhPzXFlU05oQkhlSkeMno61sy7okMRthpWdwsaGHgaTMwHRfxPZZGky/NC1wk7/zBMqN
+ +lqXR6oIGQRcAAwVfcAT6ln7EM8QuHJkxEXX+tUkcOBdCK15Mno6e/IW66bY0p31Y3cJ
+ 51OJPJWyGYgYq4tcAh3phvJ9bQUf9sg2p3T9qOx3+xaLNz+9HM0PuewNyvaSSiCYiBIW SQ== 
+Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
+ [169.55.85.253])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 37gq0b989g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Mar 2021 10:10:45 -0400
+Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
+ by ppma01wdc.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12PE7JKW023611;
+ Thu, 25 Mar 2021 14:10:44 GMT
+Received: from b03cxnp07027.gho.boulder.ibm.com
+ (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
+ by ppma01wdc.us.ibm.com with ESMTP id 37d9bpx67r-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 25 Mar 2021 14:10:44 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 12PEAhBP12190148
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 25 Mar 2021 14:10:43 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 547696E059;
+ Thu, 25 Mar 2021 14:10:43 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ED0126E052;
+ Thu, 25 Mar 2021 14:10:42 +0000 (GMT)
+Received: from demeter.local (unknown [9.160.86.38])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTPS;
+ Thu, 25 Mar 2021 14:10:42 +0000 (GMT)
+Subject: Re: Web Server Code Location
+To: m10902803@gapps.ntust.edu.tw, openbmc@lists.ozlabs.org
+References: <000a01d72074$d86f0a90$894d1fb0$@gapps.ntust.edu.tw>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Message-ID: <1f52c96e-6e03-c454-250d-672564589991@linux.ibm.com>
+Date: Thu, 25 Mar 2021 09:10:41 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.16; rv:78.0)
+ Gecko/20100101 Thunderbird/78.8.1
+In-Reply-To: <000a01d72074$d86f0a90$894d1fb0$@gapps.ntust.edu.tw>
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+Content-Type: text/plain; charset="windows-1252"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-References: <20210308171049.3962577-1-gmouse@google.com>
- <CADVsX8-Vy=t9Y1VYqY9kLY-4EjsaUN2fNABw6JzM8noXB+SBvA@mail.gmail.com>
-In-Reply-To: <CADVsX8-Vy=t9Y1VYqY9kLY-4EjsaUN2fNABw6JzM8noXB+SBvA@mail.gmail.com>
-From: Tomer Maimon <tmaimon77@gmail.com>
-Date: Thu, 25 Mar 2021 12:35:50 +0200
-Message-ID: <CAP6Zq1iPKK-GB5TvJzJEHg1CZ_PQz1kDrjA96P6iUSxu8AwWPA@mail.gmail.com>
-Subject: Re: [PATCH v2] ARM: dts: nuvoton: Fix flash layout
-To: Anton Kachalov <gmouse@google.com>
-Content-Type: multipart/alternative; boundary="0000000000001e678805be59c721"
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-25_03:2021-03-24,
+ 2021-03-25 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0
+ adultscore=0 priorityscore=1501 suspectscore=0 mlxscore=0 malwarescore=0
+ mlxlogscore=999 phishscore=0 clxscore=1011 spamscore=0 lowpriorityscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2009150000
+ definitions=main-2103250106
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,263 +112,57 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree <devicetree@vger.kernel.org>,
- Benjamin Fair <benjaminfair@google.com>, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Tali Perry <tali.perry1@gmail.com>, Rob Herring <robh+dt@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---0000000000001e678805be59c721
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Anton,
-
-
-
-We think that what Benjamin suggested is the best way. Adding unique dtsi
-for the openbmc layout.
-
-Usually users of Nuvoton EVB are not running openbmc and this is why we
-have a different layout for their use.
-
-
-
-Attentively you can upstream a new dts file for supporting the openbmc
-layout in NPCM7xx EVB, for example google-npcm750-evb.
-
-
-
-Thanks,
-
-
-
-Tomer
-
-On Wed, 24 Mar 2021 at 09:07, Anton Kachalov <gmouse@google.com> wrote:
-
-> Gently ping
+On 3/24/21 1:13 AM, m10902803@gapps.ntust.edu.tw wrote:
+> Hello, I知 Luthfi, a master student in NTUST, Taiwan. Currently I知 
+> working on openBMC and need to fix these problem: Network settings 
+> Firmware update I already finished install the Romulus image and QEMU 
+> to run it with GUI. I run ZjQcmQRYFpfptBannerStart
+> This Message Is From an External Sender
+> This message came from outside your organization.
+> ZjQcmQRYFpfptBannerEnd
 >
-> On Mon, 8 Mar 2021 at 18:11, <gmouse@google.com> wrote:
+> Hello, I知 Luthfi, a master student in NTUST, Taiwan. Currently I知 
+> working on openBMC and need to fix these problem:
 >
->> From: "Anton D. Kachalov" <gmouse@google.com>
->>
->> This change follows OpenBMC partitions' naming layout.
->>
->> Signed-off-by: Anton D. Kachalov <gmouse@google.com>
->> ---
->>  arch/arm/boot/dts/nuvoton-npcm750-evb.dts | 38 +++++++----------------
->>  1 file changed, 11 insertions(+), 27 deletions(-)
->>
->> diff --git a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
->> b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
->> index 9f13d08f5804..55c5a89592d7 100644
->> --- a/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
->> +++ b/arch/arm/boot/dts/nuvoton-npcm750-evb.dts
->> @@ -78,8 +78,8 @@ partitions@80000000 {
->>                         compatible = "fixed-partitions";
->>                         #address-cells = <1>;
->>                         #size-cells = <1>;
->> -                       bbuboot1@0 {
->> -                               label = "bb-uboot-1";
->> +                       u-boot@0 {
->> +                               label = "u-boot";
->>                                 reg = <0x0000000 0x80000>;
->>                                 read-only;
->>                                 };
->> @@ -88,38 +88,22 @@ bbuboot2@80000 {
->>                                 reg = <0x0080000 0x80000>;
->>                                 read-only;
->>                                 };
->> -                       envparam@100000 {
->> -                               label = "env-param";
->> +                       u-boot-env@100000 {
->> +                               label = "u-boot-env";
->>                                 reg = <0x0100000 0x40000>;
->>                                 read-only;
->>                                 };
->> -                       spare@140000 {
->> -                               label = "spare";
->> -                               reg = <0x0140000 0xC0000>;
->> -                               };
->>                         kernel@200000 {
->>                                 label = "kernel";
->> -                               reg = <0x0200000 0x400000>;
->> -                               };
->> -                       rootfs@600000 {
->> -                               label = "rootfs";
->> -                               reg = <0x0600000 0x700000>;
->> -                               };
->> -                       spare1@D00000 {
->> -                               label = "spare1";
->> -                               reg = <0x0D00000 0x200000>;
->> -                               };
->> -                       spare2@0F00000 {
->> -                               label = "spare2";
->> -                               reg = <0x0F00000 0x200000>;
->> +                               reg = <0x0200000 0x580000>;
->>                                 };
->> -                       spare3@1100000 {
->> -                               label = "spare3";
->> -                               reg = <0x1100000 0x200000>;
->> +                       rofs@780000 {
->> +                               label = "rofs";
->> +                               reg = <0x0780000 0x1680000>;
->>                                 };
->> -                       spare4@1300000 {
->> -                               label = "spare4";
->> -                               reg = <0x1300000 0x0>;
->> +                       rwfs@1e00000 {
->> +                               label = "rwfs";
->> +                               reg = <0x1e00000 0x200000>;
->>                         };
->>                 };
->>         };
->> --
->> 2.30.1.766.gb4fecdf3b7-goog
->>
->>
+>  1. Network settings
+>  2. Firmware update
+>
+> I already finished install the Romulus image and QEMU to run it with 
+> GUI. I run the GUI by use these commands
+>
+> qemu-system-arm -m 256 -M romulus-bmc -nographic -drive 
+> file=./tmp/deploy/images/romulus/obmc-phosphor-image-romulus.static.mtd,format=raw,if=mtd 
+> -net nic -net 
+> user,hostfwd=:127.0.0.1:2222-:22,hostfwd=:127.0.0.1:2443-:443,hostname=qemu
+>
+> How can I check the source code of the web server that running in it?
+>
 
---0000000000001e678805be59c721
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: base64
+Where did you get your obmc-phosphor-image-romulus.static.mtd image from?
+Did you get by following this? 
+https://github.com/openbmc/docs/blob/master/development/dev-environment.md
+Then that image will have been built by docker. From there, you can 
+identify exactly which version (get commit) of BMCWeb you have.
 
-PGRpdiBkaXI9Imx0ciI+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbjowY20gMGNt
-IDAuMDAwMXB0O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1zZXJpZiI+
-PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWYi
-PkhpIEFudG9uLDwvc3Bhbj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbjow
-Y20gMGNtIDAuMDAwMXB0O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1z
-ZXJpZiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMt
-c2VyaWYiPsKgPC9zcGFuPjwvcD48cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luOjBj
-bSAwY20gMC4wMDAxcHQ7Zm9udC1zaXplOjExcHQ7Zm9udC1mYW1pbHk6Q2FsaWJyaSxzYW5zLXNl
-cmlmIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjEycHQ7Zm9udC1mYW1pbHk6QXJpYWwsc2Fucy1z
-ZXJpZiI+V2UgdGhpbmsgdGhhdCB3aGF0IEJlbmphbWluDQpzdWdnZXN0ZWQgaXMgdGhlIGJlc3Qg
-d2F5LiBBZGRpbmcgdW5pcXVlIGR0c2kgZm9yIHRoZSBvcGVuYm1jIGxheW91dC48L3NwYW4+PC9w
-PjxwIGNsYXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW46MGNtIDBjbSAwLjAwMDFwdDtmb250
-LXNpemU6MTFwdDtmb250LWZhbWlseTpDYWxpYnJpLHNhbnMtc2VyaWYiPjxzcGFuIHN0eWxlPSJm
-b250LXNpemU6MTJwdDtmb250LWZhbWlseTpBcmlhbCxzYW5zLXNlcmlmIj5Vc3VhbGx5IHVzZXJz
-IG9mIE51dm90b24gRVZCIGFyZSBub3QNCnJ1bm5pbmcgb3BlbmJtYyBhbmQgdGhpcyBpcyB3aHkg
-d2UgaGF2ZSBhIGRpZmZlcmVudCBsYXlvdXQgZm9yIHRoZWlyIHVzZS48L3NwYW4+PC9wPjxwIGNs
-YXNzPSJNc29Ob3JtYWwiIHN0eWxlPSJtYXJnaW46MGNtIDBjbSAwLjAwMDFwdDtmb250LXNpemU6
-MTFwdDtmb250LWZhbWlseTpDYWxpYnJpLHNhbnMtc2VyaWYiPjxzcGFuIHN0eWxlPSJmb250LXNp
-emU6MTJwdDtmb250LWZhbWlseTpBcmlhbCxzYW5zLXNlcmlmIj7CoDwvc3Bhbj48L3A+PHAgY2xh
-c3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbjowY20gMGNtIDAuMDAwMXB0O2ZvbnQtc2l6ZTox
-MXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1zZXJpZiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6
-ZToxMnB0O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWYiPkF0dGVudGl2ZWx5IHlvdSBjYW4g
-dXBzdHJlYW0gYSBuZXcNCmR0cyBmaWxlIGZvciBzdXBwb3J0aW5nIHRoZSBvcGVuYm1jIGxheW91
-dCBpbiBOUENNN3h4IEVWQiwgZm9yIGV4YW1wbGUgZ29vZ2xlLW5wY203NTAtZXZiLjwvc3Bhbj48
-L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbjowY20gMGNtIDAuMDAwMXB0O2Zv
-bnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1zZXJpZiI+PHNwYW4gc3R5bGU9
-ImZvbnQtc2l6ZToxMnB0O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWYiPsKgPC9zcGFuPjwv
-cD48cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luOjBjbSAwY20gMC4wMDAxcHQ7Zm9u
-dC1zaXplOjExcHQ7Zm9udC1mYW1pbHk6Q2FsaWJyaSxzYW5zLXNlcmlmIj48c3BhbiBzdHlsZT0i
-Zm9udC1zaXplOjEycHQ7Zm9udC1mYW1pbHk6QXJpYWwsc2Fucy1zZXJpZiI+VGhhbmtzLDwvc3Bh
-bj48L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9Im1hcmdpbjowY20gMGNtIDAuMDAwMXB0
-O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGlicmksc2Fucy1zZXJpZiI+PHNwYW4gc3R5
-bGU9ImZvbnQtc2l6ZToxMnB0O2ZvbnQtZmFtaWx5OkFyaWFsLHNhbnMtc2VyaWYiPsKgPC9zcGFu
-PjwvcD48cCBjbGFzcz0iTXNvTm9ybWFsIiBzdHlsZT0ibWFyZ2luOjBjbSAwY20gMC4wMDAxcHQ7
-Zm9udC1zaXplOjExcHQ7Zm9udC1mYW1pbHk6Q2FsaWJyaSxzYW5zLXNlcmlmIj4NCg0KDQoNCg0K
-DQoNCg0KDQoNCg0KDQoNCg0KDQoNCg0KDQo8L3A+PHAgY2xhc3M9Ik1zb05vcm1hbCIgc3R5bGU9
-Im1hcmdpbjowY20gMGNtIDAuMDAwMXB0O2ZvbnQtc2l6ZToxMXB0O2ZvbnQtZmFtaWx5OkNhbGli
-cmksc2Fucy1zZXJpZiI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxMnB0O2ZvbnQtZmFtaWx5OkFy
-aWFsLHNhbnMtc2VyaWYiPlRvbWVyPC9zcGFuPjwvcD48L2Rpdj48YnI+PGRpdiBjbGFzcz0iZ21h
-aWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiIGNsYXNzPSJnbWFpbF9hdHRyIj5PbiBXZWQsIDI0IE1h
-ciAyMDIxIGF0IDA5OjA3LCBBbnRvbiBLYWNoYWxvdiAmbHQ7PGEgaHJlZj0ibWFpbHRvOmdtb3Vz
-ZUBnb29nbGUuY29tIj5nbW91c2VAZ29vZ2xlLmNvbTwvYT4mZ3Q7IHdyb3RlOjxicj48L2Rpdj48
-YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHgg
-MC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0
-OjFleCI+PGRpdiBkaXI9Imx0ciI+R2VudGx5IHBpbmc8L2Rpdj48YnI+PGRpdiBjbGFzcz0iZ21h
-aWxfcXVvdGUiPjxkaXYgZGlyPSJsdHIiIGNsYXNzPSJnbWFpbF9hdHRyIj5PbiBNb24sIDggTWFy
-IDIwMjEgYXQgMTg6MTEsICZsdDs8YSBocmVmPSJtYWlsdG86Z21vdXNlQGdvb2dsZS5jb20iIHRh
-cmdldD0iX2JsYW5rIj5nbW91c2VAZ29vZ2xlLmNvbTwvYT4mZ3Q7IHdyb3RlOjxicj48L2Rpdj48
-YmxvY2txdW90ZSBjbGFzcz0iZ21haWxfcXVvdGUiIHN0eWxlPSJtYXJnaW46MHB4IDBweCAwcHgg
-MC44ZXg7Ym9yZGVyLWxlZnQ6MXB4IHNvbGlkIHJnYigyMDQsMjA0LDIwNCk7cGFkZGluZy1sZWZ0
-OjFleCI+RnJvbTogJnF1b3Q7QW50b24gRC4gS2FjaGFsb3YmcXVvdDsgJmx0OzxhIGhyZWY9Im1h
-aWx0bzpnbW91c2VAZ29vZ2xlLmNvbSIgdGFyZ2V0PSJfYmxhbmsiPmdtb3VzZUBnb29nbGUuY29t
-PC9hPiZndDs8YnI+DQo8YnI+DQpUaGlzIGNoYW5nZSBmb2xsb3dzIE9wZW5CTUMgcGFydGl0aW9u
-cyYjMzk7IG5hbWluZyBsYXlvdXQuPGJyPg0KPGJyPg0KU2lnbmVkLW9mZi1ieTogQW50b24gRC4g
-S2FjaGFsb3YgJmx0OzxhIGhyZWY9Im1haWx0bzpnbW91c2VAZ29vZ2xlLmNvbSIgdGFyZ2V0PSJf
-YmxhbmsiPmdtb3VzZUBnb29nbGUuY29tPC9hPiZndDs8YnI+DQotLS08YnI+DQrCoGFyY2gvYXJt
-L2Jvb3QvZHRzL251dm90b24tbnBjbTc1MC1ldmIuZHRzIHwgMzggKysrKysrKy0tLS0tLS0tLS0t
-LS0tLS08YnI+DQrCoDEgZmlsZSBjaGFuZ2VkLCAxMSBpbnNlcnRpb25zKCspLCAyNyBkZWxldGlv
-bnMoLSk8YnI+DQo8YnI+DQpkaWZmIC0tZ2l0IGEvYXJjaC9hcm0vYm9vdC9kdHMvbnV2b3Rvbi1u
-cGNtNzUwLWV2Yi5kdHMgYi9hcmNoL2FybS9ib290L2R0cy9udXZvdG9uLW5wY203NTAtZXZiLmR0
-czxicj4NCmluZGV4IDlmMTNkMDhmNTgwNC4uNTVjNWE4OTU5MmQ3IDEwMDY0NDxicj4NCi0tLSBh
-L2FyY2gvYXJtL2Jvb3QvZHRzL251dm90b24tbnBjbTc1MC1ldmIuZHRzPGJyPg0KKysrIGIvYXJj
-aC9hcm0vYm9vdC9kdHMvbnV2b3Rvbi1ucGNtNzUwLWV2Yi5kdHM8YnI+DQpAQCAtNzgsOCArNzgs
-OCBAQCBwYXJ0aXRpb25zQDgwMDAwMDAwIHs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCBjb21wYXRpYmxlID0gJnF1b3Q7Zml4ZWQtcGFydGl0aW9ucyZxdW90Ozs8YnI+
-DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAjYWRkcmVzcy1jZWxscyA9ICZs
-dDsxJmd0Ozs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCAjc2l6ZS1j
-ZWxscyA9ICZsdDsxJmd0Ozs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqBiYnVib290MUAwIHs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O2JiLXVib290LTEmcXVvdDs7PGJyPg0KK8KgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgdS1ib290QDAgezxicj4NCivCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGxhYmVsID0gJnF1b3Q7dS1ib290JnF1
-b3Q7Ozxicj4NCsKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IHJlZyA9ICZsdDsweDAwMDAwMDAgMHg4MDAwMCZndDs7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmVhZC1vbmx5Ozxicj4NCsKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIH07PGJyPg0KQEAgLTg4LDM4ICs4
-OCwyMiBAQCBiYnVib290MkA4MDAwMCB7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgcmVnID0gJmx0OzB4MDA4MDAwMCAweDgwMDAwJmd0Ozs8YnI+
-DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZWFkLW9u
-bHk7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-fTs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBlbnZwYXJhbUAxMDAw
-MDAgezxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oGxhYmVsID0gJnF1b3Q7ZW52LXBhcmFtJnF1b3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoHUtYm9vdC1lbnZAMTAwMDAwIHs8YnI+DQorwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O3UtYm9vdC1lbnYm
-cXVvdDs7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgcmVnID0gJmx0OzB4MDEwMDAwMCAweDQwMDAwJmd0Ozs8YnI+DQrCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZWFkLW9ubHk7PGJyPg0KwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgfTs8YnI+DQotwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBzcGFyZUAxNDAwMDAgezxicj4NCi3CoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoGxhYmVsID0gJnF1b3Q7c3BhcmUm
-cXVvdDs7PGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgcmVnID0gJmx0OzB4MDE0MDAwMCAweEMwMDAwJmd0Ozs8YnI+DQotwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqB9Ozxicj4NCsKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIGtlcm5lbEAyMDAwMDAgezxicj4NCsKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGxhYmVsID0gJnF1b3Q7a2VybmVsJnF1b3Q7
-Ozxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHJl
-ZyA9ICZsdDsweDAyMDAwMDAgMHg0MDAwMDAmZ3Q7Ozxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoH07PGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgcm9vdGZzQDYwMDAwMCB7PGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgbGFiZWwgPSAmcXVvdDtyb290ZnMmcXVvdDs7PGJy
-Pg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgcmVnID0g
-Jmx0OzB4MDYwMDAwMCAweDcwMDAwMCZndDs7PGJyPg0KLcKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgfTs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqBzcGFyZTFARDAwMDAwIHs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O3NwYXJlMSZxdW90Ozs8YnI+DQot
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqByZWcgPSAmbHQ7
-MHgwRDAwMDAwIDB4MjAwMDAwJmd0Ozs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqB9Ozxicj4NCi3CoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoHNwYXJlMkAwRjAwMDAwIHs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O3NwYXJlMiZxdW90Ozs8YnI+DQotwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqByZWcgPSAmbHQ7MHgw
-RjAwMDAwIDB4MjAwMDAwJmd0Ozs8YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqByZWcgPSAmbHQ7MHgwMjAwMDAwIDB4NTgwMDAwJmd0Ozs8YnI+DQrC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9Ozxicj4NCi3C
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNwYXJlM0AxMTAwMDAwIHs8YnI+DQot
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZx
-dW90O3NwYXJlMyZxdW90Ozs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqByZWcgPSAmbHQ7MHgxMTAwMDAwIDB4MjAwMDAwJmd0Ozs8YnI+DQorwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqByb2ZzQDc4MDAwMCB7PGJyPg0KK8KgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgbGFiZWwgPSAmcXVvdDty
-b2ZzJnF1b3Q7Ozxicj4NCivCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoHJlZyA9ICZsdDsweDA3ODAwMDAgMHgxNjgwMDAwJmd0Ozs8YnI+DQrCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9Ozxicj4NCi3CoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoHNwYXJlNEAxMzAwMDAwIHs8YnI+DQotwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O3NwYXJl
-NCZxdW90Ozs8YnI+DQotwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqByZWcgPSAmbHQ7MHgxMzAwMDAwIDB4MCZndDs7PGJyPg0KK8KgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgcndmc0AxZTAwMDAwIHs8YnI+DQorwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqBsYWJlbCA9ICZxdW90O3J3ZnMmcXVvdDs7PGJy
-Pg0KK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgcmVnID0g
-Jmx0OzB4MWUwMDAwMCAweDIwMDAwMCZndDs7PGJyPg0KwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgfTs8YnI+DQrCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9Ozxicj4NCsKgIMKg
-IMKgIMKgIH07PGJyPg0KLS0gPGJyPg0KMi4zMC4xLjc2Ni5nYjRmZWNkZjNiNy1nb29nPGJyPg0K
-PGJyPg0KPC9ibG9ja3F1b3RlPjwvZGl2Pg0KPC9ibG9ja3F1b3RlPjwvZGl2Pg0K
---0000000000001e678805be59c721--
+However, if you plan to write code for the web server, you will 
+eventually want to follow the steps here: 
+https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md
+
+In general, you can learn more about specific OpenBMC features from:
+https://github.com/openbmc/docs/blob/master/features.md
+For example, this identifies the BMCWeb HTTP/Web server as: 
+https://github.com/openbmc/bmcweb/blob/master/README.md
+
+Joseph
+
+> Sincerely,
+>
+> Muhamad Luthfi Mufadel
+>
+> National Taiwan University of Science and Technology
+>
+
