@@ -2,133 +2,108 @@ Return-Path: <SRS0=4hYz=I3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94F12C433C1
-	for <openbmc@archiver.kernel.org>; Mon, 29 Mar 2021 18:38:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 381FCC433DB
+	for <openbmc@archiver.kernel.org>; Mon, 29 Mar 2021 18:53:57 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DE73A60C3D
-	for <openbmc@archiver.kernel.org>; Mon, 29 Mar 2021 18:38:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DE73A60C3D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fii-na.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7E2486044F
+	for <openbmc@archiver.kernel.org>; Mon, 29 Mar 2021 18:53:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7E2486044F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F8LvM3Nj6z30Cf
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 05:38:55 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F8MDg0B67z30CJ
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 05:53:55 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=FIIcorp.onmicrosoft.com header.i=@FIIcorp.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-FIIcorp-onmicrosoft-com header.b=RzHWg2M4;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=KFagsfSU;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=fii-na.com (client-ip=40.107.243.53;
- helo=nam12-dm6-obe.outbound.protection.outlook.com;
- envelope-from=mohaimen.alsamarai@fii-na.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=mspinler@linux.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=FIIcorp.onmicrosoft.com
- header.i=@FIIcorp.onmicrosoft.com header.a=rsa-sha256
- header.s=selector1-FIIcorp-onmicrosoft-com header.b=RzHWg2M4; 
- dkim-atps=neutral
-Received: from NAM12-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam12on2053.outbound.protection.outlook.com [40.107.243.53])
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=KFagsfSU; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F8Lts3Jsrz2yQl
- for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 05:38:27 +1100 (AEDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kXQQylihk6FYOTK9ztAZpw4IBP1FxOdDVU1wbTTI3lWv6poidfSIZBgQkl54iARthjF+bbQPPIUzO+eEZlq/NLVAtsKAo8fQNj8OuziDjWAeY1lMfSuqx3R8afu+TEu5zDOFjdHnRH7ZnyiH3kKrNRxidczYSIRPU68X7fQzFkLXOTczfgLi7gRf/9Ng9AmH/KKs1Ipxf2ibdbt3rVnEwwzq+MHuZFdnSV4jHzxaVVyT+/W0gTdZVGxG8RVZAl7HO0pjZFCel796IilWtbSrUoyWS/smzHgX6ExhIm2dIJnzNF5GeOgKBGJJm0ott63kQ2Lelwq/GSrmZ2nTRzxEWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8824zOf05FLgGgfAW/5wx6fdnQmlZmnfkM80g630W8g=;
- b=g6vVnl1LqqvmXQjrnG5kYhP58+pSpKy3ZPNUk1YrMX5kHDqPofjao714RGcyJ0SkhdxLsIu7wYFHm9zXVj+d1KyUn2Yjv4fWW/S6CQrg9JegV0YZe8rjP0fLKRxamiBK23MGr0h9+MP1tQAD7+L/m3DpDI0f7O96odUsH0eLo7O22kBRj+j4jZFyrP8VQdRztCzzWJ4PGwxUMM6eZyyjAiR5Fqe1FMstlVzE0uhbepHs0no2hCvyBjDxS0I4gMuHQfv5o4rkIGLs4bBX3Z5t2EBchgDfgyUQBKq9D3+SxBgny7AaRNBi8e9+4BSCiEiHgClpmtAu81jxDM+XemjA/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=fii-na.com; dmarc=pass action=none header.from=fii-na.com;
- dkim=pass header.d=fii-na.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=FIIcorp.onmicrosoft.com; s=selector1-FIIcorp-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8824zOf05FLgGgfAW/5wx6fdnQmlZmnfkM80g630W8g=;
- b=RzHWg2M4kF1s3B4xkA6svpgpnMbpwgm6uqvtZf6uRU1HWK+qS/ddftYgqxIbrxeowZJORprv/gi7OfcdV5AgXANvEddjMhZqYOkm0dj3DK9vi3NK1TJy6UGRRc9vg5oRXXeSTpriEZo7jDJPNtw4/QYx0iPyu/5C9xU1w0ZyhNtFv+KtL4aPnxNAE8zmBzx6bwRURocGMy9pXbvGI8Cci2U51ApOBQLfXI5lX/WEF0R7PB8cQiVNgFQ4dMz2khi5/+KoTyyDnyn+Ro2WqK+hRxigKdkkddjiz0YlsIpnU0Azu6LCZ2O+MjQGeHNAPDNH65mX3B/9uDvL1ozIaLudKw==
-Received: from DM6PR08MB5883.namprd08.prod.outlook.com (2603:10b6:5:152::18)
- by DM5PR0801MB3669.namprd08.prod.outlook.com (2603:10b6:4:7f::35) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3977.33; Mon, 29 Mar
- 2021 18:38:21 +0000
-Received: from DM6PR08MB5883.namprd08.prod.outlook.com
- ([fe80::f427:75bb:e9b3:7919]) by DM6PR08MB5883.namprd08.prod.outlook.com
- ([fe80::f427:75bb:e9b3:7919%6]) with mapi id 15.20.3977.033; Mon, 29 Mar 2021
- 18:38:21 +0000
-From: Mohaimen Alsamarai <Mohaimen.Alsamarai@fii-na.com>
-To: Brad Bishop <bradleyb@fuzziesquirrel.com>
-Subject: RE: group for foxconn CI  / fii oem repo
-Thread-Topic: group for foxconn CI  / fii oem repo
-Thread-Index: AdcVIZiiqI1Mo4UGRXSPEPz8kXQKEACU66GAAJnvRAACu0WrkA==
-Date: Mon, 29 Mar 2021 18:38:20 +0000
-Message-ID: <DM6PR08MB5883E400A28403E42592BF07B27E9@DM6PR08MB5883.namprd08.prod.outlook.com>
-References: <DM6PR08MB58838020F8543D03C6235064B2929@DM6PR08MB5883.namprd08.prod.outlook.com>
- <DM6PR08MB58834FC516032C1D11C9F9F9B26F9@DM6PR08MB5883.namprd08.prod.outlook.com>
- <20210315205148.z6mcrx32kxr56lm2@thinkpad.fuzziesquirrel.com>
-In-Reply-To: <20210315205148.z6mcrx32kxr56lm2@thinkpad.fuzziesquirrel.com>
-Accept-Language: en-US
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F8MDC73j0z302J
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 05:53:30 +1100 (AEDT)
+Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12TIWkiN153555; Mon, 29 Mar 2021 14:53:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=subject : to : cc :
+ references : from : message-id : date : in-reply-to : content-type :
+ content-transfer-encoding : mime-version; s=pp1;
+ bh=piSc+6fVOdb41m9EQxRGIh6spRbSPyyncpj1ybeuCK4=;
+ b=KFagsfSUohY/74sahmP5ST+UJ+VLHaT5l9ppTFAuMwy9NoIpaOBMlx6HAIRlcHN7M35v
+ XUbPOYTr0JtWtlVAZHCN6JcClbeWaOEZsmRFU7jKcuVuzHSi96kxnfMkg1Nl4teeFKXe
+ Wjae1IQVSN8JHBoHQzSjrKr+ztEeVGjTo8wuR5nrhVVlGBj8dYkYNwsxJ2kaPXQxsbxf
+ iDJGTbiDr2q5kwpoaa3qiZBVJ+r12A4wcq6ewzdnJkURCoSMwrJ/POEAL1Z+u2UoR8JX
+ 1jjGVkYJ2cMJoTNJkCu16bN1T5JM+ThgpaRtliexULCcYa44FNUhkSMLeYZTH5NdGLL8 Rg== 
+Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.27])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 37jhrugptq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Mar 2021 14:53:27 -0400
+Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
+ by ppma05wdc.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12TIq4Nd027816;
+ Mon, 29 Mar 2021 18:53:26 GMT
+Received: from b03cxnp07029.gho.boulder.ibm.com
+ (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
+ by ppma05wdc.us.ibm.com with ESMTP id 37hvb90cfq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Mon, 29 Mar 2021 18:53:26 +0000
+Received: from b03ledav001.gho.boulder.ibm.com
+ (b03ledav001.gho.boulder.ibm.com [9.17.130.232])
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 12TIrPu531719784
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Mon, 29 Mar 2021 18:53:25 GMT
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7AF346E056;
+ Mon, 29 Mar 2021 18:53:25 +0000 (GMT)
+Received: from b03ledav001.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id A25BD6E053;
+ Mon, 29 Mar 2021 18:53:24 +0000 (GMT)
+Received: from [9.160.118.64] (unknown [9.160.118.64])
+ by b03ledav001.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Mon, 29 Mar 2021 18:53:24 +0000 (GMT)
+Subject: Re: [phosphor-virtual-sensor] get sensor service fail
+To: =?UTF-8?B?SGFydmV5IFd1ICjlkLPltIfntq0p?= <Harvey.Wu@quantatw.com>,
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+References: <TY2PR04MB39339884DCB08EC59BC95894957E9@TY2PR04MB3933.apcprd04.prod.outlook.com>
+From: Matt Spinler <mspinler@linux.ibm.com>
+Message-ID: <81b62058-1b6e-b2d2-d5c6-743fc48b77be@linux.ibm.com>
+Date: Mon, 29 Mar 2021 13:53:24 -0500
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.9.0
+In-Reply-To: <TY2PR04MB39339884DCB08EC59BC95894957E9@TY2PR04MB3933.apcprd04.prod.outlook.com>
 Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: fuzziesquirrel.com; dkim=none (message not signed)
- header.d=none;fuzziesquirrel.com; dmarc=none action=none
- header.from=fii-na.com;
-x-originating-ip: [65.205.114.151]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: be06728e-5670-4217-a818-08d8f2e1d40e
-x-ms-traffictypediagnostic: DM5PR0801MB3669:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <DM5PR0801MB36697310FC054B17383CE8C0B27E9@DM5PR0801MB3669.namprd08.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:9508;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 8g5hbSXUx7ktMXeslWBz8pAGvnEUMWY7wvujcjDTImoTjRGo0s+N9Ca3h6kQyWhVPPAgNXNKyTw9x1ky81pzi+MtlcTcx7TsNTZ5Z5TiOI1jR9izmXTk2x/S4xbKKG8xD0vWSKtiyXbZCfiiYYcPayNSRKh/1eYkJcZwvkrb6dMMC8RivGOE8mI/rZjmYjUU9CvL1Hhx1gLq8iAoLF7KMJ5n2zcstZ7IN5ynIdtzhRObCKqZb38SrG9QyURRBl+YKnJq7qRv3+4KYBVkicaY8ATXU7sOAScNZaAN8Un0W5hyASjaQKwSpi+Yi1qvdmcFF2ptv8GqKm6xCLxo8jlm+t/wYhjL65Gp6Fd9ntE6VMDM1E1tI9Ht8hvPeoaI20dZUmTtfGN3QhAjkv3iPxIFVtaHnaYG3u2kzYETtWdDEFQR4zVOaI6VjVj4t2HnoFkc8NgyCYxHpZS/+tpbZ7loBMQFjSYUY7B6PP43bX0JhATRTLUz8eHH5xPZrXsMdYSzB46kSByk49NYXuZcrW/fWONY3cxgk8Wt2nU+bWNSJWTSY66FOmVOkvAxdA1bDL8VywRp/wZjDp/32AFWSgWwCLmRtr2wghfrXY3WAaG9hzmDy3kRykniNEY/1XjAMJehqQs9WidDQSHsVijNcY17xHcnAN/6RyzlZ/h/kdNco00=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR08MB5883.namprd08.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(136003)(39850400004)(376002)(366004)(396003)(346002)(38100700001)(76116006)(55016002)(4326008)(54906003)(478600001)(52536014)(186003)(71200400001)(5660300002)(2906002)(66476007)(6916009)(83380400001)(8936002)(8676002)(66556008)(66446008)(6506007)(33656002)(4744005)(9686003)(26005)(66946007)(7696005)(86362001)(53546011)(316002)(107886003)(64756008);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?Sd96Do7DS29ERRKY9Bgypf6T4Z05add7zLDUE7IT2vRUIMWVBFi6XksxsdE1?=
- =?us-ascii?Q?uDE6B3ILiuLZ0urTMquhBRqvwFh2gsPI6SDLlhWkK+F/HQzRFYotBcU0FAYL?=
- =?us-ascii?Q?/v6Zm42Nh2JcoAMLdWwJP6iqmJco0wWWurFzC0oNvttseIjvLOVi4wbzax39?=
- =?us-ascii?Q?FGczVWqEJr1mac1OxewN4jPeTGzJJ31Bnl2fxtNglWJGxKnQJXUxIyPKWH6M?=
- =?us-ascii?Q?hnxgtIjL201evK/vYQDgrm/jWNiiOMyTWZk0HaJn3XZOSDUzAIUX0OD29caT?=
- =?us-ascii?Q?C0/aZ6AFKVXBG8wqYkWw5fV8vNOuTnwvN+4K2KrW010MsgmgbxDATsEJJcXY?=
- =?us-ascii?Q?NSXHoiMh/Zq7ftvZa384aL9wgwj4jJnM1RYLGfIkU1Rj3h25uNBrQZjzvPYA?=
- =?us-ascii?Q?BMhB+f5IASVoiXp/zNSEO0MtGbw4gvc012v4X5TqwvM7y7vrQvhtLKuc9mOs?=
- =?us-ascii?Q?bDm+hdx1itX3nyBVZt3wy66Vi9F22XRm1ZeoHoKS8uhObgYwKuR5dWPE7sLX?=
- =?us-ascii?Q?Wn9AqTdRBuFscVgZbziGjwKfYHrTaszXDHFcGXFmNDfVGa0J8LL9/wXienbd?=
- =?us-ascii?Q?Qz10UD5M0AsAgHB5V9/7Y5u+KJ78420aeGV2++96Ptu0TYLksYdOHwExlFig?=
- =?us-ascii?Q?uN5hAR4M82fj4R5kdjFR3USnjXtKmKTyU5WN4cdkrzDXsGNr2vDrpmx4StGY?=
- =?us-ascii?Q?AhLQuGZZ7qazF5O/xcREcKuUH3qVFO/hFTtHlCCoX5TAS6Ju4j1T3T5SWrWo?=
- =?us-ascii?Q?NqZ1t3ZHCt86uviIm/i14UV2wK+QOMFTWZ/oNZH0IbXgVt8wRdAztGqdle9z?=
- =?us-ascii?Q?boosY6V/IF+FsutQoh95DAaIO/CMFD8VSxtEKqQW37wVUb0gyKlZq5S9bVYS?=
- =?us-ascii?Q?rD1E2nlVs/Gb1aY43AeYJpz/whZjIVrLwowFSw8M+ZZ+Cm/DukCnCSvhJBJr?=
- =?us-ascii?Q?KFQJS0Fm/yL76kP+SOx1ZwOnuO+5QKnshC5TLqRF2XLPLCNtgyKs1tV3LQIu?=
- =?us-ascii?Q?1NkggZc8rit/ETppQ1sTAatR7Lj9F3WoTWZLRG+CM38oE5ycvPyjySbEKyzr?=
- =?us-ascii?Q?CinxLG24i9WDvb78sEs+qpxdg9nA0OYg4vnwMjxdaVbbbb04uQpzZCaBqCZP?=
- =?us-ascii?Q?s2bCXOObAU5htNpa41+40UBVvNMTM8/0RBA+Wi59xdhUzC73CKm7M7TLQLXM?=
- =?us-ascii?Q?aEpvqaFcpNRdyg2IoDy4uX7w/SuOdx+Xz2CkQvl/OMYfuxg2N9NFP+t2hUlx?=
- =?us-ascii?Q?VdPduEzwf4RuRu9vgbM7qBy+yHBLfl5GVFMpwa7+My+uKoU7W9JnaApX24N0?=
- =?us-ascii?Q?EVt/eCapV3UKsFszki8mz5/c?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: olrQaHxJbxP6nQEB1A4bmLhVm8wOJUnf
+X-Proofpoint-ORIG-GUID: olrQaHxJbxP6nQEB1A4bmLhVm8wOJUnf
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-X-OriginatorOrg: FII-NA.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR08MB5883.namprd08.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be06728e-5670-4217-a818-08d8f2e1d40e
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 Mar 2021 18:38:21.1229 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 2f78a81d-6abb-4840-a061-3fe5396c72f2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zTWfSj4L5PuH5csyepi6C8e3PK0QWpEwKZ97CQfuJo873R8aUIG2xwgEqKHZ2dMet/rD6XbhB2d4oR4449jYubg7Fex7dYRZJmEykaZiI7M=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR0801MB3669
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-29_11:2021-03-26,
+ 2021-03-29 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ mlxlogscore=934 mlxscore=0
+ adultscore=0 lowpriorityscore=0 bulkscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 malwarescore=0 clxscore=1011 phishscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2103250000 definitions=main-2103290136
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,45 +115,51 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "vveerach@google.com" <vveerach@google.com>,
- Lancelot Kao <lancelot.cy.kao@fii-na.com>, XP Chen <Xiao-Peng.Chen@fii-na.com>,
- Mustatfa Shehabi <Mustafa.Shehabi@fii-na.com>
+Cc: =?UTF-8?B?RHVrZSBEdSAo5p2c56Wl5ZiJKQ==?= <Duke.Du@quantatw.com>,
+ =?UTF-8?B?RnJhbiBIc3UgKOW+kOiqjOismSk=?= <Fran.Hsu@quantatw.com>,
+ =?UTF-8?B?R2VvcmdlIEh1bmcgKOa0quW/oOaVrCk=?= <George.Hung@quantatw.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Brad,=09
 
-You can add people below as maintainer for the Foxconn-ipmi-oem
-mohaimen.alsamarai@fii-na.com
-lancelot.cy.kao@fii-na.com
-Xiao-Peng.Chen@fii-na.com
-Mustafa.Shehabi@fii-na.com
 
-Thanks,
-Mohaimen
+On 3/29/2021 4:13 AM, Harvey Wu (吳崇維) wrote:
+> Hi All, In current phosphor-virtual-sensor, the function getService 
+> will return empty string only when catch error name = 
+> “xyz.openbmc_project.Common.Error.ResourceNotFound” 
+> (https://github.com/openbmc/phosphor-virtual-sensor/blob/master/dbusUtils.hpp#L37 
+> ZjQcmQRYFpfptBannerStart
+> This Message Is From an External Sender
+> This message came from outside your organization.
+> ZjQcmQRYFpfptBannerEnd
+>
+> Hi All,
+>
+>         In current phosphor-virtual-sensor, the function getService 
+> will return empty string only when catch error name = 
+> “xyz.openbmc_project.Common.Error.ResourceNotFound” 
+> (https://github.com/openbmc/phosphor-virtual-sensor/blob/master/dbusUtils.hpp#L37 
+> <https://github.com/openbmc/phosphor-virtual-sensor/blob/master/dbusUtils.hpp#L37>).
+>
+>         But in my system, when bus call didn’t get sensor service, the 
+> exception name will be “org.freedesktop.DBus.Error.FileNotFound”, and 
+> then service will be get failed.
+>
+>         It seems need to modified the origin condition or add another 
+> elseif condition. Do I misunderstand something?
+>
 
------Original Message-----
-From: Brad Bishop <bradleyb@fuzziesquirrel.com>=20
-Sent: Monday, March 15, 2021 3:52 PM
-To: Mohaimen Alsamarai <Mohaimen.Alsamarai@fii-na.com>
-Cc: openbmc@lists.ozlabs.org; vveerach@google.com; Lancelot Kao <lancelot.c=
-y.kao@fii-na.com>
-Subject: Re: group for foxconn CI / fii oem repo
+You seem to just be missing the mapper commit 
+https://github.com/openbmc/phosphor-objmgr/commit/3735ea2ee546b2436895cf956daf0090a6d2d406 
+which will return ResourceNotFound.
 
-On Fri, Mar 12, 2021 at 07:25:42PM +0000, Mohaimen Alsamarai wrote:
->Hi Brad,
->                How can we create Ci group on gerrit and add people to=20
->it
+> Thanks.
+>
+> Harvey Wu
+>
+> Email: Harvey.Wu@quantatw.com <mailto:Harvey.Wu@quantatw.com>
+>
+> Ext: 17408
+>
 
-Created fii/ci-authorized and fii/ci-authorized-owners.  Please add people =
-to fii/ci-authorized to automatically approve patch authors for CI.
-
->And we need to create new repo for the Foxconn ipmi oem
-
-Created openbmc/foxconn-ipmi-oem.  This repository needs a maintainer - can=
- I get a github account handle to invite to the OpenBMC organization and as=
-sign the maintainer role?
-
-thx -brad
