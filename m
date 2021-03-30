@@ -1,105 +1,78 @@
 Return-Path: <SRS0=myNV=I4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
-X-Spam-Level: **
-X-Spam-Status: No, score=2.6 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	HTML_MIME_NO_HTML_TAG,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,MIME_HTML_ONLY,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Level: 
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1CC4C433DB
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:13:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 58DC3C433C1
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:36:00 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 13082619C5
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:13:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 13082619C5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id B507B619C2
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:35:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B507B619C2
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F93cY4jK7z3c0F
-	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 09:13:33 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F946Q1mTXz3bvp
+	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 09:35:58 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=BAUbukPO;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=UKOQD5pq;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=ibm.com
- (client-ip=148.163.158.5; helo=mx0b-001b2d01.pphosted.com;
- envelope-from=derick.montague@ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=BAUbukPO; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::730;
+ helo=mail-qk1-x730.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=UKOQD5pq; dkim-atps=neutral
+Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
+ [IPv6:2607:f8b0:4864:20::730])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F93c54WyVz2yxR
- for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 09:13:08 +1100 (AEDT)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 12UM44VK142230
- for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 18:13:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=in-reply-to : subject :
- from : to : date : mime-version : references : content-transfer-encoding :
- content-type : message-id; s=pp1;
- bh=1iDIztCHoqB2ORRGS8D9LqQva4Jk8eksHwDRXosIvRQ=;
- b=BAUbukPOlEKG1Q+Og5U7EyngoNTKKeg1MSJjxtmYniaNlnAXpPxAcxlv00UFCWwd6xAJ
- q+WaVPv1C/+O56Z6HS6TBCH8rHvIrtFTvgGzCLbx3IRIhH3bu3t0pmyz+xGhZXWP1eDt
- KcliGpW6yX0o5yLpajAf9hBDAyVJWGYHVEk+PXotL3HWul/udieZeDC1TFBaqtsouGky
- RRNXT15eHb/dBu8ambiUDWSBsWXQYXUa2d2qmV5m9hSM0gd25gOGLY81ncfxzZgRJERV
- kmlW3WpdY4SlPgTFP1X0NA85bcx7O/2hiaj0VKzv1hst93h6UKBZBZH3LvZheGXHOxr4 4A== 
-Received: from smtp.notes.na.collabserv.com (smtp.notes.na.collabserv.com
- [192.155.248.93])
- by mx0a-001b2d01.pphosted.com with ESMTP id 37mb3gtcsy-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 18:13:06 -0400
-Received: from localhost
- by smtp.notes.na.collabserv.com with smtp.notes.na.collabserv.com ESMTP
- for <openbmc@lists.ozlabs.org> from <Derick.Montague@ibm.com>;
- Tue, 30 Mar 2021 22:13:05 -0000
-Received: from us1a3-smtp08.a3.dal06.isc4sb.com (10.146.103.57)
- by smtp.notes.na.collabserv.com (10.106.227.39) with
- smtp.notes.na.collabserv.com ESMTP; Tue, 30 Mar 2021 22:13:04 -0000
-Received: from us1a3-mail158.a3.dal06.isc4sb.com ([10.146.71.209])
- by us1a3-smtp08.a3.dal06.isc4sb.com
- with ESMTP id 2021033022130413-721185 ;
- Tue, 30 Mar 2021 22:13:04 +0000 
-In-Reply-To: 
-Subject: GUI Design Work Group - Wednesday, 3/31/21 at 10:00 AM Cenral
-From: "Derick Montague" <Derick.Montague@ibm.com>
-To: openbmc@lists.ozlabs.org
-Date: Tue, 30 Mar 2021 22:13:04 +0000
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F945y5tb6z2ywy
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 09:35:31 +1100 (AEDT)
+Received: by mail-qk1-x730.google.com with SMTP id i9so17558560qka.2
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 15:35:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=nuRu3lImGS4RPxRjEMlby//5u+A/Ll91Pwz0jihsk6w=;
+ b=UKOQD5pqoTOXU66HfQu9RZFbBzHkTmwjXVIpV+TS4L2ixAh5ecoNXWlX6FXLeVCiQN
+ dokTDoxoqNpEbmQ+Wj70EycxSX5RURjVJKHeAa20FyA1OsnHLTMe8OXif7v0kYavuAzo
+ KTz2UfIbhPzdzLZlmFNstqeg53L+LvdKNo8xU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=nuRu3lImGS4RPxRjEMlby//5u+A/Ll91Pwz0jihsk6w=;
+ b=p94UwxlLtu9w5j0iDJR7aYjhfdLQ52O44arbDFbn+jL3tvV9ls/7yuyRvyYkKd9Ots
+ XjQZNnJ0hfvJDxnG3AldAgzEBinTgb3hEt6+ar2JBgVNrRm9kAR1fj07X31wjb5PgzFi
+ Iaf2JfxZSzO6GEP4Yq+/zOhKjQ7pTZKTVjgHdwyWRVDj/LkM6KNx7mYfngR+OWY0Kz0O
+ GWPEjNX9nLXUV+ZioSiMa1EYCDUmqe7sBWrUN7DsOCNCepMI3YTO3UGlezsIDToriA6Z
+ 9QxIsJtVUGOXTS/K/Z2kocRBxNJcxHT/WW7bsu6oUgm8rWIDhUPD27ioLr9hqpiyv1gy
+ pfMw==
+X-Gm-Message-State: AOAM5332S7l3IpX60afF7gTOA4v/8xGDldOCRtfci80uuKpehGmdIaX9
+ QM6X8d5SS4IHItCiMUKB1J+F5oIHEMVtC0R0BT8=
+X-Google-Smtp-Source: ABdhPJzKE3v5tc2ov7OH+2Dgt0wrrqW0S7DtYOmzSz2oXd7QAmSw64zHeLL2s4RArVVnyW7QJ8I+R0INyc2OV7ZBNOg=
+X-Received: by 2002:a05:620a:c11:: with SMTP id
+ l17mr483665qki.487.1617143727819; 
+ Tue, 30 Mar 2021 15:35:27 -0700 (PDT)
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: 
-X-Mailer: IBM iNotes ($HaikuForm 1054.1) | IBM Domino Build
- SCN1812108_20180501T0841_FP130 January 13, 2021 at 14:04
-X-LLNOutbound: False
-X-Disclaimed: 59371
-X-TNEFEvaluated: 1
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=UTF-8
-x-cbid: 21033022-8889-0000-0000-000004E3A760
-X-IBM-SpamModules-Scores: BY=0; FL=0; FP=0; FZ=0; HX=0; KW=0; PH=0; SC=0;
- ST=0; TS=0; UL=0; ISC=; MB=0.000051
-X-IBM-SpamModules-Versions: BY=3.00014940; HX=3.00000242; KW=3.00000007;
- PH=3.00000004; SC=3.00000296; SDB=6.01526390; UDB=6.00825223; IPR=6.01308321; 
- MB=3.00036522; MTD=3.00000008; XFM=3.00000015; UTC=2021-03-30 22:13:04
-X-IBM-AV-DETECTION: SAVI=unsuspicious REMOTE=unsuspicious XFE=unused
-X-IBM-AV-VERSION: SAVI=2021-03-23 10:08:58 - 6.00012377
-x-cbparentid: 21033022-8890-0000-0000-0000AF64A9E5
-Message-Id: <OF7717BEC1.0F210BFD-ON002586A8.007A0BC0-002586A8.007A0BC5@notes.na.collabserv.com>
-X-Proofpoint-ORIG-GUID: EAU1GkPIy9ntkTOV5nn1f_xiZLFs4aVx
-X-Proofpoint-GUID: EAU1GkPIy9ntkTOV5nn1f_xiZLFs4aVx
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
- definitions=2021-03-30_12:2021-03-30,
- 2021-03-30 signatures=0
-X-Proofpoint-Spam-Reason: orgsafe
+References: <HK0PR03MB5090B60085F8D0C40B0D9496CF7E9@HK0PR03MB5090.apcprd03.prod.outlook.com>
+ <CAGm54UE+zUQHXiLONCVUZRuxOJVC8Mhkxo-A5DZtb+t56oiHhg@mail.gmail.com>
+ <PS1PR03MB51000EC29C060029981CE8B6CF7D9@PS1PR03MB5100.apcprd03.prod.outlook.com>
+In-Reply-To: <PS1PR03MB51000EC29C060029981CE8B6CF7D9@PS1PR03MB5100.apcprd03.prod.outlook.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 30 Mar 2021 22:35:14 +0000
+Message-ID: <CACPK8XfyM4R3y7DDfU3Yi13z5QiA-7ciUUdtz+m970tU83-z3g@mail.gmail.com>
+Subject: Re: [OpenBMC] [Linux-5.10] useradd: cannot open /etc/passwd
+To: CS20 CHLi30 <CHLI30@nuvoton.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,20 +84,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ Lei Yu <yulei.sh@bytedance.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-<font face=3D"Default Sans Serif,Verdana,Arial,Helvetica,sans-serif" size=
-=3D"2"><font size=3D"2" face=3D"Default Monospace,Courier New,Courier,monos=
-pace">Hello,<br><br>Please join us for the GUI Design Work Group if you are=
- interested in the following items:<br><br>- Round table discussion: Bring =
-any topics that need discussion<br><br><br>If you have a topic, please feel=
- free to add it to the agenda, reply to this email, or mention me in the di=
-scord channel (<a href=3D"https://discord.gg/wWU5rTcb" target=3D"=5Fblank">=
-https://discord.gg/wWU5rTcb</a>).<br>&nbsp;<br>Meeting info: <a href=3D"htt=
-ps://github.com/openbmc/openbmc/wiki/GUI-Design-work-group#meeting-info" ta=
-rget=3D"=5Fblank">https://github.com/openbmc/openbmc/wiki/GUI-Design-work-g=
-roup#meeting-info</a><br><br><br>Thank you!<br>&nbsp;<br>Derick Montague<br=
->IBM Cognitive Systems User Experience</font></font><BR>
+On Tue, 30 Mar 2021 at 05:47, CS20 CHLi30 <CHLI30@nuvoton.com> wrote:
+>
+> Hi Lei Yu,
+>
+> Thanks your help to provide this information.
+> This issue seems relate to "cannot do write action for /etc/passwd file".
+> I'm trying to check whether is relate to jffs2 or overlayfs filesystem driver.
 
+jffs2!
+
+I did a bisection and the offending commit is
+https://git.kernel.org/torvalds/c/36e2c7421f02a, from v5.9-rc1. I have
+posted a patch that fixes the issue:
+
+https://lore.kernel.org/lkml/20210330134537.423447-1-joel@jms.id.au/
+
+I will merge this patch into dev-5.10 today.
+
+Cheers,
+
+Joel
