@@ -2,92 +2,68 @@ Return-Path: <SRS0=myNV=I4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1CB65C433DB
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:12:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A2DEC433C1
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:32:31 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 41DE26192E
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:12:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 41DE26192E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=phoenix.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5567661985
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5567661985
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F8VJY6XnWz30B7
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 11:12:45 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F8VlJ6sDXz302r
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 11:32:28 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256 header.s=mimecast20170203 header.b=TIMMxVnq;
-	dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256 header.s=mimecast20170203 header.b=TIMMxVnq;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=RqMybm5N;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=phoenix.com (client-ip=216.205.24.170;
- helo=us-smtp-delivery-170.mimecast.com;
- envelope-from=patrick_voelker@phoenix.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=phoenix.com header.i=@phoenix.com header.a=rsa-sha256
- header.s=mimecast20170203 header.b=TIMMxVnq; 
- dkim=pass (1024-bit key) header.d=phoenix.com header.i=@phoenix.com
- header.a=rsa-sha256 header.s=mimecast20170203 header.b=TIMMxVnq; 
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=RqMybm5N; 
  dkim-atps=neutral
-X-Greylist: delayed 67 seconds by postgrey-1.36 at boromir;
- Tue, 30 Mar 2021 11:12:20 AEDT
-Received: from us-smtp-delivery-170.mimecast.com
- (us-smtp-delivery-170.mimecast.com [216.205.24.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+X-Greylist: delayed 462 seconds by postgrey-1.36 at boromir;
+ Tue, 30 Mar 2021 11:32:01 AEDT
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [IPv6:2605:2700:0:5::4713:9cab])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F8VJ40X1Fz2yj0
- for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 11:12:19 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1617063137;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=h2v0ftUDiuMDX9SL70KRqT8gZEV6wAjRK2uhbGW7qlo=;
- b=TIMMxVnqgpSS9cwBRY0rQlpD5SyT8qb48QNaCYYwsc7h1RCQrAOlj0E5t7GgIeaoQdn55U
- RkD+i/vmrMvdjU/C8ulZ8dlggMsNqz8mICYoBAPItnXKUaO/1sdgsSXlUeFqcZzlbxmNzv
- 2+60uGinIR6PAdUmA4NiOLFqPs4GVtA=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phoenix.com;
- s=mimecast20170203; t=1617063137;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:mime-version:mime-version:content-type:content-type;
- bh=h2v0ftUDiuMDX9SL70KRqT8gZEV6wAjRK2uhbGW7qlo=;
- b=TIMMxVnqgpSS9cwBRY0rQlpD5SyT8qb48QNaCYYwsc7h1RCQrAOlj0E5t7GgIeaoQdn55U
- RkD+i/vmrMvdjU/C8ulZ8dlggMsNqz8mICYoBAPItnXKUaO/1sdgsSXlUeFqcZzlbxmNzv
- 2+60uGinIR6PAdUmA4NiOLFqPs4GVtA=
-Received: from SCL-EXCHMB-13.phoenix.com (67.51.239.50 [67.51.239.50])
- (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-413-zFDQ8jYQMIe_pzHZDOOo5A-1; Mon, 29 Mar 2021 20:11:02 -0400
-X-MC-Unique: zFDQ8jYQMIe_pzHZDOOo5A-1
-X-CrossPremisesHeadersFilteredBySendConnector: SCL-EXCHMB-13.phoenix.com
-Received: from SCL-EXCHMB-13.phoenix.com (10.122.68.16) by
- SCL-EXCHMB-13.phoenix.com (10.122.68.16) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Mon, 29 Mar 2021 17:11:00 -0700
-Received: from SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b]) by
- SCL-EXCHMB-13.phoenix.com ([fe80::fd2e:a8f8:f740:cb3b%12]) with mapi id
- 15.00.1497.012; Mon, 29 Mar 2021 17:10:59 -0700
-From: Patrick Voelker <Patrick_Voelker@phoenix.com>
-To: "OpenBMC (openbmc@lists.ozlabs.org)" <openbmc@lists.ozlabs.org>
-Subject: Power state change watch in ControlStore.js
-Thread-Topic: Power state change watch in ControlStore.js
-Thread-Index: Adck+SkI3g+qaJHYSDyOKTb6+oqMuQ==
-Date: Tue, 30 Mar 2021 00:10:59 +0000
-Message-ID: <6d8c43a4f7f04db58d6ce32c61bfe148@SCL-EXCHMB-13.phoenix.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-exchange-transport-fromentityheader: Hosted
-x-originating-ip: [10.122.68.195]
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F8Vkn0l52z2y81;
+ Tue, 30 Mar 2021 11:32:00 +1100 (AEDT)
+Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 1D52E196;
+ Mon, 29 Mar 2021 17:24:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1617063875;
+ bh=a68ojvNQDbC+AUZLivBjbDIVsO6PemBG+Kg4ci1snXQ=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=RqMybm5NJ4LYIhg26JQHwqz1DqUbeW6JqFIDkVy/f9JY4rOkesBZXpH2elHvtVPwS
+ ScownTse3Njf4e6vksmTwA1+EusamiR6MUBgu/4ambtOYvjDXYKz9WD7Fk8oWItPDJ
+ MTBu7fBKSLQy4SRV3pk7ohlOWnOSfN0knhcL0jOs=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH 1/3] drivers/tty/serial/8250: simplify Aspeed VUART SIRQ
+ polarity DT config
+Date: Mon, 29 Mar 2021 19:23:36 -0500
+Message-Id: <20210330002338.335-2-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210330002338.335-1-zev@bewilderbeest.net>
+References: <20210330002338.335-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
-X-OrganizationHeadersPreserved: SCL-EXCHMB-13.phoenix.com
-Authentication-Results: relay.mimecast.com;
- auth=pass smtp.auth=CUSA70A150 smtp.mailfrom=patrick_voelker@phoenix.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: phoenix.com
-Content-Type: multipart/alternative; boundary="MCBoundary=_12103292011040561"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,50 +75,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: linux-aspeed@lists.ozlabs.org, Zev Weiss <zev@bewilderbeest.net>,
+ Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Josh Triplett <josh@joshtriplett.org>,
+ "Alexander A. Klimov" <grandmaster@al2klimov.de>, linux-serial@vger.kernel.org,
+ Jiri Slaby <jirislaby@kernel.org>, Masahiro Yamada <masahiroy@kernel.org>,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---MCBoundary=_12103292011040561
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+The initial implementation of this configuration conflated the SIRQ
+polarity setting with the syscon eSPI/LPC strapping; this patch
+disentangles them by reducing the DT config to a simple boolean.
 
-I'm trying to debug an issue I'm having with checkForHostStatus in webui-vu=
-e/src/store/modules/Control/ControlStore.js.
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+---
+ drivers/tty/serial/8250/8250_aspeed_vuart.c | 39 ++-------------------
+ drivers/tty/serial/8250/Kconfig             |  1 -
+ 2 files changed, 2 insertions(+), 38 deletions(-)
 
-I always seem to have to wait the full 5 minutes to see my power state chan=
-ge even though I know that it's happening on the server.  I'm not very fami=
-liar with vue so I'm not sure how to trace back the calls that would update=
- state.global.hostStatus from the BMC.  There's no other usage of "state.gl=
-obal.*" in the webui so I'm not even sure if that syntax is correct.
-
-As far as I can tell, the changes to the global hostStatus should happen in=
- getHostStatus() in GlobalStore.js but I can't see where getHostStatus() is=
- called for the watch in the context of the ServerPowerOperations page.
-
-Any tips?
-
---MCBoundary=_12103292011040561
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/html; charset=WINDOWS-1252
-
-<HTML><BODY>I'm trying to debug an issue I'm having with checkForHostStatus=
- in webui-vue/src/store/modules/Control/ControlStore.js.<BR>
-<BR>
-I always seem to have to wait the full 5 minutes to see my power state chan=
-ge even though I know that it's happening on the server.  I'm not very fami=
-liar with vue so I'm not sure how to trace back the calls that would update=
- state.global.hostStatus from the BMC.  There's no other usage of &quot;sta=
-te.global.*&quot; in the webui so I'm not even sure if that syntax is corre=
-ct.<BR>
-<BR>
-As far as I can tell, the changes to the global hostStatus should happen in=
- getHostStatus() in GlobalStore.js but I can't see where getHostStatus() is=
- called for the watch in the context of the ServerPowerOperations page.<BR>
-<BR>
-Any tips?<BR>
-</BODY></HTML>
-
---MCBoundary=_12103292011040561--
+diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+index c33e02cbde93..b9b5fa58ab28 100644
+--- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
++++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+@@ -10,8 +10,6 @@
+ #include <linux/of_address.h>
+ #include <linux/of_irq.h>
+ #include <linux/of_platform.h>
+-#include <linux/regmap.h>
+-#include <linux/mfd/syscon.h>
+ #include <linux/tty.h>
+ #include <linux/tty_flip.h>
+ #include <linux/clk.h>
+@@ -346,30 +344,8 @@ static int aspeed_vuart_handle_irq(struct uart_port *port)
+ 	return 1;
+ }
+ 
+-static void aspeed_vuart_auto_configure_sirq_polarity(
+-	struct aspeed_vuart *vuart, struct device_node *syscon_np,
+-	u32 reg_offset, u32 reg_mask)
+-{
+-	struct regmap *regmap;
+-	u32 value;
+-
+-	regmap = syscon_node_to_regmap(syscon_np);
+-	if (IS_ERR(regmap)) {
+-		dev_warn(vuart->dev,
+-			 "could not get regmap for aspeed,sirq-polarity-sense\n");
+-		return;
+-	}
+-	if (regmap_read(regmap, reg_offset, &value)) {
+-		dev_warn(vuart->dev, "could not read hw strap table\n");
+-		return;
+-	}
+-
+-	aspeed_vuart_set_sirq_polarity(vuart, (value & reg_mask) == 0);
+-}
+-
+ static int aspeed_vuart_probe(struct platform_device *pdev)
+ {
+-	struct of_phandle_args sirq_polarity_sense_args;
+ 	struct uart_8250_port port;
+ 	struct aspeed_vuart *vuart;
+ 	struct device_node *np;
+@@ -468,19 +444,8 @@ static int aspeed_vuart_probe(struct platform_device *pdev)
+ 
+ 	vuart->line = rc;
+ 
+-	rc = of_parse_phandle_with_fixed_args(
+-		np, "aspeed,sirq-polarity-sense", 2, 0,
+-		&sirq_polarity_sense_args);
+-	if (rc < 0) {
+-		dev_dbg(&pdev->dev,
+-			"aspeed,sirq-polarity-sense property not found\n");
+-	} else {
+-		aspeed_vuart_auto_configure_sirq_polarity(
+-			vuart, sirq_polarity_sense_args.np,
+-			sirq_polarity_sense_args.args[0],
+-			BIT(sirq_polarity_sense_args.args[1]));
+-		of_node_put(sirq_polarity_sense_args.np);
+-	}
++	if (of_property_read_bool(np, "aspeed,sirq-active-high"))
++		aspeed_vuart_set_sirq_polarity(vuart, 1);
+ 
+ 	aspeed_vuart_set_enabled(vuart, true);
+ 	aspeed_vuart_set_host_tx_discard(vuart, true);
+diff --git a/drivers/tty/serial/8250/Kconfig b/drivers/tty/serial/8250/Kconfig
+index 603137da4736..105a325bcdd1 100644
+--- a/drivers/tty/serial/8250/Kconfig
++++ b/drivers/tty/serial/8250/Kconfig
+@@ -254,7 +254,6 @@ config SERIAL_8250_ASPEED_VUART
+ 	tristate "Aspeed Virtual UART"
+ 	depends on SERIAL_8250
+ 	depends on OF
+-	depends on REGMAP && MFD_SYSCON
+ 	help
+ 	  If you want to use the virtual UART (VUART) device on Aspeed
+ 	  BMC platforms, enable this option. This enables the 16550A-
+-- 
+2.31.1
 
