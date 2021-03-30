@@ -2,70 +2,72 @@ Return-Path: <SRS0=myNV=I4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT,
-	WEIRD_QUOTING autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 19894C433C1
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 311E6C433C1
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:39:28 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7CD9D619C2
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:36:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7CD9D619C2
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=wistron.com
+	by mail.kernel.org (Postfix) with ESMTPS id B9B746196C
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 22:39:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9B746196C
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F947X0Pypz3bwc
-	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 09:36:56 +1100 (AEDT)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=wistron.com header.i=@wistron.com header.a=rsa-sha256 header.s=security header.b=d7hr2Bc0;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F94BQ2hPRz3bv7
+	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 09:39:26 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=wistron.com (client-ip=103.200.3.19; helo=segapp04.wistron.com;
- envelope-from=nichole_wang@wistron.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=wistron.com header.i=@wistron.com header.a=rsa-sha256
- header.s=security header.b=d7hr2Bc0; dkim-atps=neutral
-X-Greylist: delayed 496 seconds by postgrey-1.36 at boromir;
- Tue, 30 Mar 2021 13:17:34 AEDT
-Received: from segapp04.wistron.com (segapp02.wistron.com [103.200.3.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=gmail.com (client-ip=209.85.210.45; helo=mail-ot1-f45.google.com;
+ envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com
+ [209.85.210.45])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F8Y4Z0vZ2z2yQv;
- Tue, 30 Mar 2021 13:17:33 +1100 (AEDT)
-Received: from EXCHAPP02.whq.wistron (unknown [10.37.38.25])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by segapp04.wistron.com (MTA) with ESMTPS id 4F8Xtx1NKyzJvXF;
- Tue, 30 Mar 2021 10:09:13 +0800 (CST)
-Received: from EXCHAPP03.whq.wistron (10.37.38.26) by EXCHAPP02.whq.wistron
- (10.37.38.25) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2176.2; Tue, 30 Mar
- 2021 10:09:09 +0800
-Received: from gitserver.wistron.com (10.37.38.233) by EXCHAPP03.whq.wistron
- (10.37.38.26) with Microsoft SMTP Server id 15.1.2176.2 via Frontend
- Transport; Tue, 30 Mar 2021 10:09:09 +0800
-From: Nichole Wang <Nichole_Wang@wistron.com>
-To: <linux-kernel@vger.kernel.org>
-Subject: [PATCH linux dev-5.2 v1] ARM-dts-aspeed-Add-Mihawk-GPIO-Line-Names
-Date: Tue, 30 Mar 2021 10:08:08 +0800
-Message-ID: <20210330020808.830-1-Nichole_Wang@wistron.com>
-X-Mailer: git-send-email 2.17.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F94B317Z3z2xZq;
+ Wed, 31 Mar 2021 09:39:07 +1100 (AEDT)
+Received: by mail-ot1-f45.google.com with SMTP id
+ w21-20020a9d63950000b02901ce7b8c45b4so17107796otk.5; 
+ Tue, 30 Mar 2021 15:39:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+kL3ZRB3j6i01duxPJ9vYcO9kwxP1k0mr9iO+0pJBac=;
+ b=syw/UHAaCmXTWjuakPoVDr5roLgjViK/sSuSYFzSirSEo57MaiVrOZHxBHm7Za8vDY
+ nCJjjmCoMWQVXK7eurGWSwzvG+0CvpqpffpUc+5P+iCC/NMhb22f06hQOptVq8sfu41A
+ U4xPCJamSrXDA9gP6yILBL5l3S8ThFxr7N8U6CCNpxgegSY9QChkbuIHvfbLLCqwCzf5
+ lFVoSd8RI2qqPd9SxiNJi6xc8UJHL5K5UGhXo6cUSBXz4ldu2rRUK382k8zVX0Oi3ibS
+ I+g7U+Zabd25gQ/C5aDA2p+DXmrtvJneBx/gERuX4uesM5zCyf+V6r2x8OUNBQA0+M7l
+ +Pwg==
+X-Gm-Message-State: AOAM5333PKKEy3qHCTwJGIjSujsCYDxicE3C7NZsSLVrWy8Z+zIzQ6pm
+ 5x4Kxw2vGiRWewmJRcxJ9g==
+X-Google-Smtp-Source: ABdhPJz1lPUhXrNxrHWj4A+J8TggtXB6qqS9Os++Ci/kdeMEGSETxa/ogDjwDKvpjvbG+y2lHU8MwA==
+X-Received: by 2002:a05:6830:4110:: with SMTP id
+ w16mr138691ott.348.1617143944665; 
+ Tue, 30 Mar 2021 15:39:04 -0700 (PDT)
+Received: from robh.at.kernel.org (24-155-109-49.dyn.grandenetworks.net.
+ [24.155.109.49])
+ by smtp.gmail.com with ESMTPSA id v1sm42689otk.67.2021.03.30.15.39.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 30 Mar 2021 15:39:04 -0700 (PDT)
+Received: (nullmailer pid 841804 invoked by uid 1000);
+ Tue, 30 Mar 2021 22:39:02 -0000
+Date: Tue, 30 Mar 2021 17:39:02 -0500
+From: Rob Herring <robh@kernel.org>
+To: Zev Weiss <zev@bewilderbeest.net>
+Subject: Re: [PATCH 2/3] dt-bindings: serial: 8250: update for
+ aspeed,sirq-active-high
+Message-ID: <20210330223902.GA837825@robh.at.kernel.org>
+References: <20210330002338.335-1-zev@bewilderbeest.net>
+ <20210330002338.335-3-zev@bewilderbeest.net>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-TM-SNTS-SMTP: A209195456C77E93CE25DE9BA20A1C537DD5B25BCA20237EE8026C67F0341C2F2000:8
-X-OriginalId: qf12UA9Der031919
-x-msw-jemd-newsletter: false
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wistron.com; s=security;
- t=1617070155; bh=38Y/0UBHQhwzvJ5L4Ckmi8SW3WvoC9p+4R2IDtp/IWY=;
- h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type;
- b=d7hr2Bc0wqsVlSQYUnDwK0NWbCEVhG6c/O/v/rOgDubRJsxnkSHW82T22/ZKQ3KYA
- w+S1HpwnHBoMX5f/Ea87y8cQt8UO+J/wqPXWG7DM9PDlVoRfHDjvH1m6/m1jCm3Kty
- umcjngndqNDsMyA6Tn9Tt4f0UEVd/j5Pxl6g1nnk=
-X-Mailman-Approved-At: Wed, 31 Mar 2021 09:36:07 +1100
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210330002338.335-3-zev@bewilderbeest.net>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,76 +79,69 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Mark Rutland <mark.rutland@arm.com>, devicetree@vger.kernel.org,
- Ben_Pai@wistron.com, linux-aspeed@lists.ozlabs.org,
- Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
- Nichole Wang <Nichole_Wang@wistron.com>, Rob Herring <robh+dt@kernel.org>,
- small84206@gmail.com, linux-arm-kernel@lists.infradead.org
+Cc: - <devicetree@vger.kernel.org>, linux-aspeed@lists.ozlabs.org,
+ Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Lubomir Rintel <lkundrak@v3.sk>,
+ linux-serial@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Name the GPIOs to help userspace work with them. The names describe the
-functionality the lines provide, not the net or ball name. This makes it
-easier to share userspace code across different systems and makes the
-use of the lines more obvious.
+On Mon, Mar 29, 2021 at 07:23:37PM -0500, Zev Weiss wrote:
+> Update DT bindings documentation for the new incarnation of the
+> aspeed,sirq-polarity-sense property.
 
-Signed-off-by: Nichole Wang <Nichole_Wang@wistron.com>
----
- arch/arm/boot/dts/aspeed-bmc-opp-mihawk.dts | 33 +++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Why?
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-opp-mihawk.dts b/arch/arm/boot/dts/aspeed-bmc-opp-mihawk.dts
-index 577c211..15c1f0a 100644
---- a/arch/arm/boot/dts/aspeed-bmc-opp-mihawk.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-opp-mihawk.dts
-@@ -383,6 +383,39 @@
- 	};
- };
- 
-+&gpio {
-+	gpio-line-names =
-+	/*A0-A7*/	"","cfam-reset","","","","","","",
-+	/*B0-B7*/	"","","","","","","","",
-+	/*C0-C7*/	"","","","","","","","",
-+	/*D0-D7*/	"fsi-enable","","","","","","","",
-+	/*E0-E7*/	"","","","","","fsi-mux","fsi-clock","fsi-data",
-+	/*F0-F7*/	"","id-button","","","","","air-water","",
-+	/*G0-G7*/	"","","","","","","","",
-+	/*H0-H7*/	"","","","","","","","",
-+	/*I0-I7*/	"","","","","","","","",
-+	/*J0-J7*/	"","","checkstop","","","","","",
-+	/*K0-K7*/	"","","","","","","","",
-+	/*L0-L7*/	"","","","","","","","",
-+	/*M0-M7*/	"","","","","","","","",
-+	/*N0-N7*/	"","","","","","","","",
-+	/*O0-O7*/	"","","","","","","","",
-+	/*P0-P7*/	"","","","","","","","",
-+	/*Q0-Q7*/	"","","","","","","","",
-+	/*R0-R7*/	"","","fsi-trans","","","","","",
-+	/*S0-S7*/	"","","","","","","","",
-+	/*T0-T7*/	"","","","","","","","",
-+	/*U0-U7*/	"","","","","","","","",
-+	/*V0-V7*/	"","","","","","","","",
-+	/*W0-W7*/	"","","","","","","","",
-+	/*X0-X7*/	"","","","","","","","",
-+	/*Y0-Y7*/	"","","","","","","","",
-+	/*Z0-Z7*/	"presence-ps1","","presence-ps0","","","","","",
-+	/*AA0-AA7*/	"led-front-fault","power-button","led-front-id","","","","","",
-+	/*AB0-AB7*/	"","","","","","","","",
-+	/*AC0-AC7*/	"","","","","","","","";
-+};
-+
- &fmc {
- 	status = "okay";
- 	flash@0 {
--- 
-2.7.4
+This isn't a compatible change.
 
-
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-This email contains confidential or legally privileged information and is for the sole use of its intended recipient. 
-Any unauthorized review, use, copying or distribution of this email or the content of this email is strictly prohibited.
-If you are not the intended recipient, you may reply to the sender and should delete this e-mail immediately.
----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+> 
+> Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+> ---
+>  Documentation/devicetree/bindings/serial/8250.yaml | 14 ++++++--------
+>  1 file changed, 6 insertions(+), 8 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+> index f54cae9ff7b2..0bbb7121f720 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -13,7 +13,7 @@ allOf:
+>    - $ref: /schemas/serial.yaml#
+>    - if:
+>        required:
+> -        - aspeed,sirq-polarity-sense
+> +        - aspeed,sirq-active-high
+>      then:
+>        properties:
+>          compatible:
+> @@ -181,13 +181,11 @@ properties:
+>    rng-gpios: true
+>    dcd-gpios: true
+>  
+> -  aspeed,sirq-polarity-sense:
+> -    $ref: /schemas/types.yaml#/definitions/phandle-array
+> +  aspeed,sirq-active-high:
+> +    type: boolean
+>      description: |
+> -      Phandle to aspeed,ast2500-scu compatible syscon alongside register
+> -      offset and bit number to identify how the SIRQ polarity should be
+> -      configured. One possible data source is the LPC/eSPI mode bit. Only
+> -      applicable to aspeed,ast2500-vuart.
+> +      Set to indicate that the SIRQ polarity is active-high (default
+> +      is active-low).  Only applicable to aspeed,ast2500-vuart.
+>  
+>  required:
+>    - reg
+> @@ -227,7 +225,7 @@ examples:
+>          interrupts = <8>;
+>          clocks = <&syscon ASPEED_CLK_APB>;
+>          no-loopback-test;
+> -        aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
+> +        aspeed,sirq-active-high;
+>      };
+>  
+>  ...
+> -- 
+> 2.31.1
+> 
