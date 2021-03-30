@@ -2,26 +2,26 @@ Return-Path: <SRS0=myNV=I4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 06AFDC433DB
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:33:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D6910C433DB
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:33:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3A65761985
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:33:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3A65761985
+	by mail.kernel.org (Postfix) with ESMTPS id 4F60E61985
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 00:33:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F60E61985
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F8VmC60Hjz30Hb
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 11:33:15 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F8Vmb6ftQz30F6
+	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 11:33:35 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=OOrxlajm;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=MCAxh5WQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
@@ -29,39 +29,35 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=OOrxlajm; 
+ header.a=rsa-sha256 header.s=thorn header.b=MCAxh5WQ; 
  dkim-atps=neutral
-X-Greylist: delayed 467 seconds by postgrey-1.36 at boromir;
- Tue, 30 Mar 2021 11:32:01 AEDT
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F8Vkn0yhdz2y8F;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F8Vkn1m4kz2yyk;
  Tue, 30 Mar 2021 11:32:00 +1100 (AEDT)
 Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id CDBB3373;
- Mon, 29 Mar 2021 17:24:53 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id D037B18F;
+ Mon, 29 Mar 2021 17:24:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1617063894;
- bh=/9ihArs2Y5nqE6CHv1WmVwDQQrPL9NzAFux7u/c08ww=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=OOrxlajmImZXKgUN3fi/ETblSJLGwuBqdMn1HtNxikoj8n19rQG/xf+Hboe3gORv4
- KuW1Twxqb3ZHyaUBeu9RDLXzrsncDXXqiP7d/1pwO+TyPcrALgnmc+NZf61eCKYm1i
- 3HjgiNvg0r9a0MWJM1/a0VyQqd35yBa/0AxhcEzc=
+ s=thorn; t=1617063847;
+ bh=fIyo5Z9zNHuQ1sE64Jzum374jTuO69a6cFL9RIBAmuo=;
+ h=From:To:Cc:Subject:Date:From;
+ b=MCAxh5WQ+FIdaywXSnS6heqIjLTjVSc8vnUIUKk09fJp8wy8VEc+BqjGRurVWWfLc
+ A2mfuEXdKwx8rMggd6kuzHdut3VAbajZYYBD1dlywn6vGH2vRNHxCwzw+344lF9PJk
+ UTfJaVB/Qyf1rpQe3kn+16HF8J2v1sCsT9JSzPZA=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH 2/3] dt-bindings: serial: 8250: update for aspeed,
- sirq-active-high
-Date: Mon, 29 Mar 2021 19:23:37 -0500
-Message-Id: <20210330002338.335-3-zev@bewilderbeest.net>
+Subject: [PATCH 0/3] simplify Aspeed VUART SIRQ polarity DT config,
+ add e3c246d4i BMC dts
+Date: Mon, 29 Mar 2021 19:23:35 -0500
+Message-Id: <20210330002338.335-1-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210330002338.335-1-zev@bewilderbeest.net>
-References: <20210330002338.335-1-zev@bewilderbeest.net>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -75,64 +71,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: - <devicetree@vger.kernel.org>, linux-aspeed@lists.ozlabs.org,
- Zev Weiss <zev@bewilderbeest.net>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Lubomir Rintel <lkundrak@v3.sk>,
- Rob Herring <robh+dt@kernel.org>, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+Cc: linux-aspeed@lists.ozlabs.org, Zev Weiss <zev@bewilderbeest.net>,
+ Andrew Jeffery <andrew@aj.id.au>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Update DT bindings documentation for the new incarnation of the
-aspeed,sirq-polarity-sense property.
+This patch series reworks the existing aspeed,sirq-polarity-sense DT
+property as a simple boolean (aspeed,sirq-active-high) so as to
+disentangle the interrupt polarity from the eSPI/LPC strapping and
+updates the documentation accordingly.
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
- Documentation/devicetree/bindings/serial/8250.yaml | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+The third patch adds an in-tree consumer of this property
+(aspeed,sirq-polarity-sense never really had one) in the form of a
+device tree for the ASRock E3C246D4I BMC, an OpenBMC target in
+progress at Equinix Metal (formerly known as Packet).
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index f54cae9ff7b2..0bbb7121f720 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -13,7 +13,7 @@ allOf:
-   - $ref: /schemas/serial.yaml#
-   - if:
-       required:
--        - aspeed,sirq-polarity-sense
-+        - aspeed,sirq-active-high
-     then:
-       properties:
-         compatible:
-@@ -181,13 +181,11 @@ properties:
-   rng-gpios: true
-   dcd-gpios: true
- 
--  aspeed,sirq-polarity-sense:
--    $ref: /schemas/types.yaml#/definitions/phandle-array
-+  aspeed,sirq-active-high:
-+    type: boolean
-     description: |
--      Phandle to aspeed,ast2500-scu compatible syscon alongside register
--      offset and bit number to identify how the SIRQ polarity should be
--      configured. One possible data source is the LPC/eSPI mode bit. Only
--      applicable to aspeed,ast2500-vuart.
-+      Set to indicate that the SIRQ polarity is active-high (default
-+      is active-low).  Only applicable to aspeed,ast2500-vuart.
- 
- required:
-   - reg
-@@ -227,7 +225,7 @@ examples:
-         interrupts = <8>;
-         clocks = <&syscon ASPEED_CLK_APB>;
-         no-loopback-test;
--        aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
-+        aspeed,sirq-active-high;
-     };
- 
- ...
+
+Zev Weiss (3):
+  drivers/tty/serial/8250: simplify Aspeed VUART SIRQ polarity DT config
+  dt-bindings: serial: 8250: update for aspeed,sirq-active-high
+  ARM: dts: aspeed: add ASRock E3C246D4I BMC
+
+ .../devicetree/bindings/serial/8250.yaml      |  14 +-
+ .../boot/dts/aspeed-bmc-asrock-e3c246d4i.dts  | 188 ++++++++++++++++++
+ drivers/tty/serial/8250/8250_aspeed_vuart.c   |  39 +---
+ drivers/tty/serial/8250/Kconfig               |   1 -
+ 4 files changed, 196 insertions(+), 46 deletions(-)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-asrock-e3c246d4i.dts
+
 -- 
 2.31.1
 
