@@ -1,78 +1,105 @@
-Return-Path: <SRS0=myNV=I4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=cdlr=I5=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A737C433DB
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 23:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1892EC433DB
+	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 00:56:50 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EDD8561994
-	for <openbmc@archiver.kernel.org>; Tue, 30 Mar 2021 23:27:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EDD8561994
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 527AA61864
+	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 00:56:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 527AA61864
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4F95G23pg1z3c0m
-	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 10:27:38 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4F97Dv6s6Nz3brK
+	for <openbmc@archiver.kernel.org>; Wed, 31 Mar 2021 11:56:47 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Q8okifF2;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CDHUsOqc;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82f;
- helo=mail-qt1-x82f.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=Q8okifF2; dkim-atps=neutral
-Received: from mail-qt1-x82f.google.com (mail-qt1-x82f.google.com
- [IPv6:2607:f8b0:4864:20::82f])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=CDHUsOqc; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4F95FZ5ZTvz2y89;
- Wed, 31 Mar 2021 10:27:13 +1100 (AEDT)
-Received: by mail-qt1-x82f.google.com with SMTP id g24so13220180qts.6;
- Tue, 30 Mar 2021 16:27:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=v3/mQcvUwNsY/UJc2jxu3Abaa2D2bXGCJS30gIHPjEs=;
- b=Q8okifF2x7Cis24xXyTCsqdK6HSPnuU+16cgfbDheWc8gugJ8X+B/ISr+bIh+Jo4GJ
- Ft5oK8XVv+9fMVUiuGcSdRLYEpDj1o5+MvtnoxIxsauXhAGJwhviS9YUW6ZgMidlx1UW
- GGxnpmetsT/F4eGykAZdpSBR/TkVjXqfxF7Rg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=v3/mQcvUwNsY/UJc2jxu3Abaa2D2bXGCJS30gIHPjEs=;
- b=NBz4ttut3fnzBw8P5gW9OWbKc7tys60vx9QNfXliqfBmXoGhLKOkKWFp195dGBjaUl
- 5Xdyna31K5k/CX6Hdyq7dc2BfoRBNJwuPsZ2BMxRe3Vuu0SyT+wuB8LSG2WQmnvMaUUW
- chRXME+4RmFP741ZlXDM94aLLvi2zTuAn8s0WoqPzJ50GomyNtoAvS3RT5hLIN7fJ4t1
- 1f37Q8N1lam8EZO/Goz2/TvsFUMilHQ14r9yszCDEdNiXlwiFglYNB46K/PtAP8ny/Go
- ogs6/D2LHVker7DN3v9jPVh3TJMBX246fnxkn8mCQlDLKwQKrWlUOKA4AjES8MBM0wiH
- AzVg==
-X-Gm-Message-State: AOAM5322QBUGZdBSw3PW0Grsw+tGBxpE1O1pMZcMI1olELAt4fHsCtjG
- K54O7ToHCCIRBhY2Nu9AZeW9E9alYVUujVwJ6/4=
-X-Google-Smtp-Source: ABdhPJzEEpS2qBWaoDRJ4nevrrO4IATNTcu8uGU7/niHD9Gdp4fHrFKbwgSR99OPio8OGSwp13rYrGb8mGgTwFaYaCE=
-X-Received: by 2002:ac8:7547:: with SMTP id b7mr235856qtr.176.1617146828454;
- Tue, 30 Mar 2021 16:27:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4F97DS0bdCz3bpZ
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 11:56:23 +1100 (AEDT)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 12V0WxtJ192296
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 20:56:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=to : from : subject :
+ message-id : date : content-type : content-transfer-encoding :
+ mime-version; s=pp1; bh=UV1hR8SZu7iLoJqDHgBcXwnzyaBDC/LPjKlIgC2qGLE=;
+ b=CDHUsOqc6/8ZOe2ge5ykHXbYeN08gBtlQEulF/JVyE33XpcMvu1EnLmGN74sCcRjsYHo
+ apptBIw2FDcDWFiUdhhMITWsUvcQRjqAVZ8ljeOE0A10Ipt0m/RpNKU4xXy6ldFxod0D
+ NWIcGEmRoDV8+wGRkmcz5TqQBhnXGf18C/UrnLnNz399FRK8unzX67BBHzWG91Bp6bsb
+ fL3ysfyzwGQcVux1lQhWYe6Sp992y6GX+iQtKHSC/FtyXODSmr60mbiz6FUj3wS+ZgII
+ sLmCYr96nunzHZNLCFFoFWzA8lN8AAp3iAZUWmoj/yU94xIxBSijC1WWUV5ka6V6fgQc Vw== 
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 37mb4qvyh8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 30 Mar 2021 20:56:21 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.0.43/8.16.0.43) with SMTP id 12V0q8Ti028007
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:20 GMT
+Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
+ [9.57.198.23]) by ppma01dal.us.ibm.com with ESMTP id 37maaw9xt8-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:20 +0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 12V0uJcT26476850
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:19 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2BAC72805E
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:19 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id ED69D2805A
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:18 +0000 (GMT)
+Received: from demeter.local (unknown [9.160.39.65])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTPS
+ for <openbmc@lists.ozlabs.org>; Wed, 31 Mar 2021 00:56:18 +0000 (GMT)
+To: openbmc <openbmc@lists.ozlabs.org>
+From: Joseph Reynolds <jrey@linux.ibm.com>
+Subject: Security Working Group - Wednesday March 31
+Message-ID: <a8366b66-4a8a-2492-7034-a35b06421961@linux.ibm.com>
+Date: Tue, 30 Mar 2021 19:56:18 -0500
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.9.0
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: 0h47eblepyIl2mPcmMHA8X4Dj2MHqZra
+X-Proofpoint-ORIG-GUID: 0h47eblepyIl2mPcmMHA8X4Dj2MHqZra
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-UnRewURL: 0 URL was un-rewritten
 MIME-Version: 1.0
-References: <20210330002338.335-1-zev@bewilderbeest.net>
- <20210330002338.335-3-zev@bewilderbeest.net>
- <20210330223902.GA837825@robh.at.kernel.org>
-In-Reply-To: <20210330223902.GA837825@robh.at.kernel.org>
-From: Joel Stanley <joel@jms.id.au>
-Date: Tue, 30 Mar 2021 23:26:56 +0000
-Message-ID: <CACPK8Xcfcsz7KCdfLuweGGbaxVKczhMb7+nxA9TMbsAbAbhi3g@mail.gmail.com>
-Subject: Re: [PATCH 2/3] dt-bindings: serial: 8250: update for aspeed,
- sirq-active-high
-To: Rob Herring <robh@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.369, 18.0.761
+ definitions=2021-03-30_13:2021-03-30,
+ 2021-03-30 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0
+ spamscore=0 clxscore=1015 adultscore=0 malwarescore=0 bulkscore=0
+ mlxlogscore=747 mlxscore=0 impostorscore=0 suspectscore=0
+ priorityscore=1501 phishscore=0 classifier=spam adjust=0 reason=mlx
+ scancount=1 engine=8.12.0-2103300000 definitions=main-2103310000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,89 +111,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: - <devicetree@vger.kernel.org>, Zev Weiss <zev@bewilderbeest.net>,
- linux-aspeed <linux-aspeed@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Lubomir Rintel <lkundrak@v3.sk>, linux-serial@vger.kernel.org,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 30 Mar 2021 at 22:39, Rob Herring <robh@kernel.org> wrote:
->
-> On Mon, Mar 29, 2021 at 07:23:37PM -0500, Zev Weiss wrote:
-> > Update DT bindings documentation for the new incarnation of the
-> > aspeed,sirq-polarity-sense property.
->
-> Why?
->
-> This isn't a compatible change.
+This is a reminder of the OpenBMC Security Working Group meeting 
+scheduled for this Wednesday March 31 at 10:00am PDT.
 
-We want to depreciate support for this property. It should have never
-been added to the bindings; in it's current form it describes a
-relationship that afaict doesn't exist ("This unrelated register over
-here dictates the polarity of your virtual serial port IRQ"). See
-https://lore.kernel.org/lkml/20200812112400.2406734-1-joel@jms.id.au/
+We'll discuss the following items on the agenda 
+<https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
+and anything else that comes up:
 
-The intent is to remove it from both the bindings and the code.
-There's already no users of it in any device tree.
+ 1.
 
-How would you like Zev to go about doing this?
+    Joseph: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41560
+    <https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/41560>  Add
+    PerformService privilege.
 
-Cheers,
+ 2.
 
-Joel
+    Joseph: Design for User role configuration
+    https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41652
+    <https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/41652>
 
->
-> >
-> > Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-> > ---
-> >  Documentation/devicetree/bindings/serial/8250.yaml | 14 ++++++--------
-> >  1 file changed, 6 insertions(+), 8 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-> > index f54cae9ff7b2..0bbb7121f720 100644
-> > --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> > +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> > @@ -13,7 +13,7 @@ allOf:
-> >    - $ref: /schemas/serial.yaml#
-> >    - if:
-> >        required:
-> > -        - aspeed,sirq-polarity-sense
-> > +        - aspeed,sirq-active-high
-> >      then:
-> >        properties:
-> >          compatible:
-> > @@ -181,13 +181,11 @@ properties:
-> >    rng-gpios: true
-> >    dcd-gpios: true
-> >
-> > -  aspeed,sirq-polarity-sense:
-> > -    $ref: /schemas/types.yaml#/definitions/phandle-array
-> > +  aspeed,sirq-active-high:
-> > +    type: boolean
-> >      description: |
-> > -      Phandle to aspeed,ast2500-scu compatible syscon alongside register
-> > -      offset and bit number to identify how the SIRQ polarity should be
-> > -      configured. One possible data source is the LPC/eSPI mode bit. Only
-> > -      applicable to aspeed,ast2500-vuart.
-> > +      Set to indicate that the SIRQ polarity is active-high (default
-> > +      is active-low).  Only applicable to aspeed,ast2500-vuart.
-> >
-> >  required:
-> >    - reg
-> > @@ -227,7 +225,7 @@ examples:
-> >          interrupts = <8>;
-> >          clocks = <&syscon ASPEED_CLK_APB>;
-> >          no-loopback-test;
-> > -        aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
-> > +        aspeed,sirq-active-high;
-> >      };
-> >
-> >  ...
-> > --
-> > 2.31.1
-> >
+ 3.
+
+    Joseph: Interest in OpenBMC learning series talk “OpenBMC secure
+    engineering”?
+
+ 4.
+
+    Anton: Privilege separation
+    <https://docs.google.com/document/d/1EI-HfPb_NMp9GD0fY6-XCpnKAX6-ZsdpDEsmiX5d6fc/edit#heading=h.b167mnkkse22>
+
+
+
+Access, agenda and notes are in the wiki:
+https://github.com/openbmc/openbmc/wiki/Security-working-group 
+<https://github.com/openbmc/openbmc/wiki/Security-working-group>
+
+- Joseph
+
+
