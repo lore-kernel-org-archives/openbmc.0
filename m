@@ -8,79 +8,77 @@ X-Spam-Status: No, score=-15.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 217C7C433ED
-	for <openbmc@archiver.kernel.org>; Thu,  1 Apr 2021 18:42:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14ADBC43618
+	for <openbmc@archiver.kernel.org>; Thu,  1 Apr 2021 18:43:06 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 850AA601FA
-	for <openbmc@archiver.kernel.org>; Thu,  1 Apr 2021 18:42:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 850AA601FA
+	by mail.kernel.org (Postfix) with ESMTPS id A890B606A5
+	for <openbmc@archiver.kernel.org>; Thu,  1 Apr 2021 18:43:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A890B606A5
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FBBrM1Ygbz3c2B
-	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 05:42:43 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FBBrm2Yk0z3btn
+	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 05:43:04 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=stpsh2Qy;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=Usq/elWS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12c;
- helo=mail-lf1-x12c.google.com; envelope-from=aladyshev22@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::235;
+ helo=mail-lj1-x235.google.com; envelope-from=aladyshev22@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=stpsh2Qy; dkim-atps=neutral
-Received: from mail-lf1-x12c.google.com (mail-lf1-x12c.google.com
- [IPv6:2a00:1450:4864:20::12c])
+ header.s=20161025 header.b=Usq/elWS; dkim-atps=neutral
+Received: from mail-lj1-x235.google.com (mail-lj1-x235.google.com
+ [IPv6:2a00:1450:4864:20::235])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FBBqS6Jb2z2yQy
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FBBqS63mFz2xb8
  for <openbmc@lists.ozlabs.org>; Fri,  2 Apr 2021 05:41:55 +1100 (AEDT)
-Received: by mail-lf1-x12c.google.com with SMTP id 12so4210074lfq.13
+Received: by mail-lj1-x235.google.com with SMTP id f16so3321171ljm.1
  for <openbmc@lists.ozlabs.org>; Thu, 01 Apr 2021 11:41:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=from:to:subject:date:message-id:in-reply-to:references:mime-version
+ h=from:to:subject:date:message-id:mime-version
  :content-transfer-encoding;
- bh=EPMsYV5ZYnKBw8Y4RivjtKx8N+DFsPVb3I3J/f2RM/4=;
- b=stpsh2QyC1Gk0RU1as/1JUMnneRcTvsXDhGHbmfaSWshYfgpLjanpEH0eNIneG/Dnp
- WZRKPlzlJQoze5ES2bP8R1JOq/Zm0A4MEAmul/JL+jethTs8LnoAV2KI9U2LY62HuVOp
- uTlkL6CHJopnNJtbo0CoZC3yzIgppCEJa8Z+QqIS6P1IURaJtObk2xQMZahZDv7Ws/zY
- er7G726Iqp4stecQo0ErvrO5r3aY/0e/gy+MjdH1P/HOPW1ACmY8nUnMIy3OVI5VQ6jF
- MW8a7NbXm14w7r2XKLNF4k6FAHtsKK+TwxHUDBxG8al7Nfe+QLhbFpSZ6RZEU+PWe2pq
- Zmog==
+ bh=Ecxr54BVhuqNisUJnZY8IMeAL2386jwWLTsil5N/OSc=;
+ b=Usq/elWS/FL4+uMyRotTqsaI/CQhK76qyZJ+fCg/rq9gdTylA3DjJOlRE0jzz52BwO
+ 4KESiBvqbd+HFN57+UOxaL1BUK6nW+bKbCnxs+zYsBQEg8apZh9d4sX5I/+SRjOpzHTN
+ P6ZOdDMnAYOe7ribueGsd/Cie16yvTicJ9YwQMRhwvo+EX+ZPwg9+/DT3yOeDFUUaKUc
+ 8uBFkqvvhfNtygWqTYV9kthsJtNGMneiuvWNVDIG8YgX6RG1D4O9p4SPmvXUrjkeRhQg
+ Ei2aC/wVPcmshO9x6G7EzGlUGW3IBJxZDd00AZ/wU0KL8X3A1Oi85JAy1PkPkxnskJZ7
+ h60w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=EPMsYV5ZYnKBw8Y4RivjtKx8N+DFsPVb3I3J/f2RM/4=;
- b=Qi3WM34wN09/OjcXpEJLiFfuF9lQCgnMlsIXe6yMvrBb34chAUskKijY7jBI784zwE
- FGOzwQ3x/2ObOLjXt+9syNzGx20l2T3mujkIbBbIvCuQ9J5K/bbJ5swxRm6FkPrGBffi
- 8yVn0AuC1ShHwPKEG0o0wSZzzwuR6Bj9hyB7F6pm24SScpKO5uju3YL3kJirnhfe6nNs
- yjessPnOHq4lr03UUerZUUHMGsISlysUkUND5uUtyHWHQ9Zdem9JTkS9ZAZyLZkZIWy8
- YhbaYRX0OgSAIFscVvRRNrBDFp+4zM9NvIgLmKKHa7a/ywNely0qqEwfehfxLYs16b3V
- MIgw==
-X-Gm-Message-State: AOAM531aS6ru4RVznWcENGdLwbjvLzFi0gXihjuQJ/n3EpcDmJQ5nIpJ
- PNM3fMux5wIDNPeSMW6QUsw=
-X-Google-Smtp-Source: ABdhPJy56g4NKx+yEpAKl6pwU6hnsHoulS7dL1pUXm61gxOYjqvr8XclBmewJh4W5IbWbY+jzYm0OQ==
-X-Received: by 2002:a05:6512:1192:: with SMTP id
- g18mr5942343lfr.408.1617302510941; 
- Thu, 01 Apr 2021 11:41:50 -0700 (PDT)
+ h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=Ecxr54BVhuqNisUJnZY8IMeAL2386jwWLTsil5N/OSc=;
+ b=f9ecgrjEZo2i/hK/YMzIDHtOMe55+XKF7djLYRJYSJAi0kQ80uxT8iGWQEgBgueHx/
+ c5E9mcTTes7ka+8WMcFoThFEmL9g5O0lxd7pvCV8vRdpL9opK7mBidpQsb3PPJQZOwJ5
+ LijrDcU0804K6b5KxwQxmAiGrxb0SbgzeZcVmKcY6Uiq6JxTNRL06R4T4dS7cHD3bPqZ
+ kgUrTahIu9FxP+VzvheaO9X9bxMnFpuL9lcnilUVdhxsBRS/XsJFtZXRQDW3Y6CH/k99
+ 6tvL1G7BA33J7SFbuqXoYJMVs6str2UBT9WjO2hy18WehxcIoSAotReVXDAnUp74c1Tv
+ LJsw==
+X-Gm-Message-State: AOAM530seRQNahbuhU5903GfFGwuXOp/7UBYx68hbsDFgXwsHQ7qbDz2
+ 0g4x6rzRGvBqDibxTrFb4js=
+X-Google-Smtp-Source: ABdhPJxr/81IeM7jfyTPnc5LMDEafSkRafYpMRZ37e1IwQqjttiqXQAfujmmfgjB5COBzml/xgfE6w==
+X-Received: by 2002:a2e:5854:: with SMTP id x20mr6199169ljd.59.1617302509040; 
+ Thu, 01 Apr 2021 11:41:49 -0700 (PDT)
 Received: from DESKTOP-GSFPEC9.localdomain
  (broadband-46-242-10-29.ip.moscow.rt.ru. [46.242.10.29])
- by smtp.gmail.com with ESMTPSA id 80sm621321lfd.14.2021.04.01.11.41.49
+ by smtp.gmail.com with ESMTPSA id 80sm621321lfd.14.2021.04.01.11.41.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Apr 2021 11:41:50 -0700 (PDT)
+ Thu, 01 Apr 2021 11:41:48 -0700 (PDT)
 From: Konstantin Aladyshev <aladyshev22@gmail.com>
 To: aladyshev22@gmail.com, Joel Stanley <joel@jms.id.au>,
  openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.8 3/3] hwmon: (sbtsi) Add documentation
-Date: Thu,  1 Apr 2021 21:41:47 +0300
-Message-Id: <20210401184147.2506-3-aladyshev22@gmail.com>
+Subject: [PATCH linux dev-5.8 1/3] dt-bindings: (hwmon/sbtsi_temp) Add SB-TSI
+ hwmon driver bindings
+Date: Thu,  1 Apr 2021 21:41:45 +0300
+Message-Id: <20210401184147.2506-1-aladyshev22@gmail.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210401184147.2506-1-aladyshev22@gmail.com>
-References: <20210401184147.2506-1-aladyshev22@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -100,78 +98,79 @@ Sender: "openbmc"
 
 From: Kun Yi <kunyi@google.com>
 
-Document the SB-TSI sensor interface driver.
+Document device tree bindings for AMD SB-TSI emulated temperature
+sensor.
 
 Signed-off-by: Kun Yi <kunyi@google.com>
-Link: https://lore.kernel.org/r/20201211215427.3281681-3-kunyi@google.com
-[groeck: Added SPDX license identifier, same as source]
+Link: https://lore.kernel.org/r/20201211215427.3281681-4-kunyi@google.com
+Reviewed-by: Rob Herring <robh@kernel.org>
+[groeck: Fixed subject]
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 ---
- Documentation/hwmon/index.rst      |  1 +
- Documentation/hwmon/sbtsi_temp.rst | 42 ++++++++++++++++++++++++++++++
- 2 files changed, 43 insertions(+)
- create mode 100644 Documentation/hwmon/sbtsi_temp.rst
+ .../devicetree/bindings/hwmon/amd,sbtsi.yaml  | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/amd,sbtsi.yaml
 
-diff --git a/Documentation/hwmon/index.rst b/Documentation/hwmon/index.rst
-index 37e1925735c7..97747457cef3 100644
---- a/Documentation/hwmon/index.rst
-+++ b/Documentation/hwmon/index.rst
-@@ -148,6 +148,7 @@ Hardware Monitoring Kernel Drivers
-    pxe1610
-    pwm-fan
-    raspberrypi-hwmon
-+   sbtsi_temp
-    sch5627
-    sch5636
-    scpi-hwmon
-diff --git a/Documentation/hwmon/sbtsi_temp.rst b/Documentation/hwmon/sbtsi_temp.rst
+diff --git a/Documentation/devicetree/bindings/hwmon/amd,sbtsi.yaml b/Documentation/devicetree/bindings/hwmon/amd,sbtsi.yaml
 new file mode 100644
-index 000000000000..922b3c8db666
+index 000000000000..446b09f1ce94
 --- /dev/null
-+++ b/Documentation/hwmon/sbtsi_temp.rst
-@@ -0,0 +1,42 @@
-+.. SPDX-License-Identifier: GPL-2.0-or-later
++++ b/Documentation/devicetree/bindings/hwmon/amd,sbtsi.yaml
+@@ -0,0 +1,54 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/amd,sbtsi.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+Kernel driver sbtsi_temp
-+==================
++title: >
++  Sideband interface Temperature Sensor Interface (SB-TSI) compliant
++  AMD SoC temperature device
 +
-+Supported hardware:
++maintainers:
++  - Kun Yi <kunyi@google.com>
++  - Supreeth Venkatesh <supreeth.venkatesh@amd.com>
 +
-+  * Sideband interface (SBI) Temperature Sensor Interface (SB-TSI)
-+    compliant AMD SoC temperature device.
++description: |
++  SB Temperature Sensor Interface (SB-TSI) is an SMBus compatible
++  interface that reports AMD SoC's Ttcl (normalized temperature),
++  and resembles a typical 8-pin remote temperature sensor's I2C interface
++  to BMC. The emulated thermal sensor can report temperatures in increments
++  of 0.125 degrees, ranging from 0 to 255.875.
 +
-+    Prefix: 'sbtsi_temp'
++properties:
++  compatible:
++    enum:
++      - amd,sbtsi
 +
-+    Addresses scanned: This driver doesn't support address scanning.
++  reg:
++    maxItems: 1
++    description: |
++      I2C bus address of the device as specified in Section 6.3.1 of the
++      SoC register reference. The SB-TSI address is normally 98h for socket
++      0 and 90h for socket 1, but it could vary based on hardware address
++      select pins.
++      \[open source SoC register reference\]
++        https://www.amd.com/system/files/TechDocs/56255_OSRR.pdf
 +
-+    To instantiate this driver on an AMD CPU with SB-TSI
-+    support, the i2c bus number would be the bus connected from the board
-+    management controller (BMC) to the CPU. The i2c address is specified in
-+    Section 6.3.1 of the SoC register reference: The SB-TSI address is normally
-+    98h for socket 0 and 90h for socket 1, but it could vary based on hardware
-+    address select pins.
++required:
++  - compatible
++  - reg
 +
-+    Datasheet: The SB-TSI interface and protocol is available as part of
-+               the open source SoC register reference at:
++additionalProperties: false
 +
-+	       https://www.amd.com/system/files/TechDocs/56255_OSRR.pdf
++examples:
++  - |
++    i2c0 {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+               The Advanced Platform Management Link (APML) Specification is
-+               available at:
-+
-+	       http://developer.amd.com/wordpress/media/2012/10/41918.pdf
-+
-+Author: Kun Yi <kunyi@google.com>
-+
-+Description
-+-----------
-+
-+The SBI temperature sensor interface (SB-TSI) is an emulation of the software
-+and physical interface of a typical 8-pin remote temperature sensor (RTS) on
-+AMD SoCs. It implements one temperature sensor with readings and limit
-+registers encode the temperature in increments of 0.125 from 0 to 255.875.
-+Limits can be set through the writable thresholds, and if reached will trigger
-+corresponding alert signals.
++        sbtsi@4c {
++                compatible = "amd,sbtsi";
++                reg = <0x4c>;
++        };
++    };
++...
 -- 
 2.25.1
 
