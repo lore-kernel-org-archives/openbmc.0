@@ -2,66 +2,101 @@ Return-Path: <SRS0=xMPa=I7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAD_ENC_HEADER,BAYES_00,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21A2EC433B4
-	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 00:49:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43E2CC433ED
+	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 01:15:43 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A61F560FDC
-	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 00:49:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A61F560FDC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
+	by mail.kernel.org (Postfix) with ESMTPS id 76C3B610C7
+	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 01:15:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 76C3B610C7
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FBLzw65x5z3c4k
-	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 11:49:48 +1100 (AEDT)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FBMYm2vkXz3btZ
+	for <openbmc@archiver.kernel.org>; Fri,  2 Apr 2021 12:15:40 +1100 (AEDT)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=JzRnOyxo;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=QmvoUwqB;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=JZhNp9tC;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
- helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.230;
+ helo=new4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=JzRnOyxo; 
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm2 header.b=QmvoUwqB; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=JZhNp9tC; 
  dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [IPv6:2605:2700:0:5::4713:9cab])
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com
+ [66.111.4.230])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FBLxP4bxnz3bwk;
- Fri,  2 Apr 2021 11:47:37 +1100 (AEDT)
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 3CEDFAE5;
- Thu,  1 Apr 2021 17:47:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1617324456;
- bh=mG1Dm2fW2UwoboBnU+wIfFXTMY9ejhypOdNwoGlLiJ0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=JzRnOyxoFrgmrZpc90OW3tWruXxmmEeL2tIVxWU1Qh2TPsVmB03UcdGZFtj+uO+XU
- aViEnKHRLtefBzI7Su5d+tf8B82XRHJAtPz7mV7SaVtIPzYrVqonHoNDHXZ0YRSYQB
- 6OPt1iKp1UuYFqOVDPrAFH0O+OJmpGyhd5mWXNJ0=
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH v3 4/4] dt-bindings: serial: 8250: add aspeed,
- lpc-address and aspeed, sirq
-Date: Thu,  1 Apr 2021 19:47:16 -0500
-Message-Id: <20210402004716.15961-5-zev@bewilderbeest.net>
-X-Mailer: git-send-email 2.31.1
-In-Reply-To: <20210402004716.15961-1-zev@bewilderbeest.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FBMYB389Fz2yZ8;
+ Fri,  2 Apr 2021 12:15:08 +1100 (AEDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id 7CE5E58044C;
+ Thu,  1 Apr 2021 21:15:03 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Thu, 01 Apr 2021 21:15:03 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=0IYE65VpdI2bLygqtwJCM7v6WhpJJA0
+ g0UEFyBjpU0c=; b=QmvoUwqBqnfx1N/MGhvy/CXchrLJ9pKf0ba83tlC1I2MHEn
+ Q/Zpw+BMj8VqMlIN7tp21P2oGAI8bzC4AtuuIqOyPljr8pqAJm5OwCRBF2G3KzdZ
+ +0lge3c9y/FXH/sBQDLuKqSwhXViOFmkepmfAhUK31Q6LOcyyX4z75vCHoa/p88H
+ bxqE3OeTgbiREgLf0mmfdsckm5WrtomoE0GeFxPCyodCGdeZ0DjSB8dcStUwv44a
+ Sa063Q1JNcLLKkAkTiCZJQXtrQqtY72bJ5lxn6r7qgDW4nrhnInLrYeuAp6GY1vK
+ gb7w1HKmwMFfUwcM0//f0pWH4JlsyRsFJSyEUaQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=0IYE65
+ VpdI2bLygqtwJCM7v6WhpJJA0g0UEFyBjpU0c=; b=JZhNp9tCjuZm6Fhs8D+onh
+ UMPFCVxpoIUSyAPmdl5WZk5qfCBwBUA9H+pODH9EcUHKTexrozJL0ZcgSxE1QGVh
+ fsB+Z5hyUwAQb/4AbPN1OPNnPJQej+EludzxYtmSoUgwZUxaRpgeWL0kQlJd9/Nn
+ 0xPAyiuumWdIVeJcD45IY04MDBPkMKaRdf91uJlfOEqxHadvm2ouVu3W485PrxXk
+ p07c0sRMUV8md8msStm4Ogsljy/y6rOz+6t+sOyKKt9MSeC6sOvYzINzg1N5NjEl
+ Lf+zRigBfpEbQCe7Si0utAaqChRnteVd3dFwxDueJSmBHrwPXlaq4syyfiADyEPQ
+ ==
+X-ME-Sender: <xms:FHBmYLWXgTg11goRSzY6-ID7_HKnzWREooG98EJIwmjQ5xUydZGDAg>
+ <xme:FHBmYDlSTJYhFCHZIeH9q_7C0L94AT4ULnMZlpsquMmdkOf5vwUIQJnbOx_Xk1l-3
+ eVYFzqzDmC2pp8ZrQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudeihedggeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
+ grthhtvghrnhepuddttdekueeggedvtddtueekiedutdfguedutdefieeuteefieelteet
+ vddthfeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ eprghnughrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:FHBmYHaQSsLqg2gQxJA6cb6Ot9y1aHGLj4GO1zr8eehGrqfInae76Q>
+ <xmx:FHBmYGXyNH0cmhUTezL7C7IbOeld2ehKBU9ssTdVfByJ3RBwFzmODw>
+ <xmx:FHBmYFm3sShDYWCytyfX2Qso0ltJSaY0Xe11Oyo2cWnYtVFok4W-gg>
+ <xmx:F3BmYH6CNtcM8r5D52GnmJVbyfs6QGxeTwNmTIuBpjyLeImEoWftwQ>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id 6F1B5A00073; Thu,  1 Apr 2021 21:15:00 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-273-g8500d2492d-fm-20210323.002-g8500d249
+Mime-Version: 1.0
+Message-Id: <639f957f-a0d7-4a06-8598-90da0e17820b@beta.fastmail.com>
+In-Reply-To: <20210402004716.15961-5-zev@bewilderbeest.net>
 References: <20210402004716.15961-1-zev@bewilderbeest.net>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20210402004716.15961-5-zev@bewilderbeest.net>
+Date: Fri, 02 Apr 2021 11:44:39 +1030
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Zev Weiss" <zev@bewilderbeest.net>, "Joel Stanley" <joel@jms.id.au>
+Subject: =?UTF-8?Q?Re:_[PATCH_v3_4/4]_dt-bindings:_serial:_8250:_add_aspeed,
+ lpc-a?= =?UTF-8?Q?ddress_and_aspeed,sirq?=
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,7 +109,6 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: - <devicetree@vger.kernel.org>, linux-aspeed@lists.ozlabs.org,
- Zev Weiss <zev@bewilderbeest.net>, Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
  linux-kernel@vger.kernel.org, Lubomir Rintel <lkundrak@v3.sk>,
  Rob Herring <robh+dt@kernel.org>, linux-serial@vger.kernel.org,
@@ -83,74 +117,97 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-These correspond to the existing lpc_address, sirq, and sirq_polarity
-sysfs attributes; the second element of aspeed,sirq provides a
-replacement for the deprecated aspeed,sirq-polarity-sense property.
 
-Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
----
- .../devicetree/bindings/serial/8250.yaml      | 27 ++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index 491b9297432d..a6e01f9b745f 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -12,8 +12,13 @@ maintainers:
- allOf:
-   - $ref: /schemas/serial.yaml#
-   - if:
--      required:
--        - aspeed,sirq-polarity-sense
-+      anyOf:
-+        - required:
-+            - aspeed,lpc-address
-+        - required:
-+            - aspeed,sirq
-+        - required:
-+            - aspeed,sirq-polarity-sense
-     then:
-       properties:
-         compatible:
-@@ -190,6 +195,20 @@ properties:
-       applicable to aspeed,ast2500-vuart.
-     deprecated: true
- 
-+  aspeed,lpc-address:
-+    $ref: '/schemas/types.yaml#/definitions/uint32'
-+    description: |
-+      The VUART LPC address.  Only applicable to aspeed,ast2500-vuart.
-+
-+  aspeed,sirq:
-+    $ref: "/schemas/types.yaml#/definitions/uint32-array"
-+    minItems: 2
-+    maxItems: 2
-+    description: |
-+      A 2-cell property describing the VUART SIRQ number and SIRQ
-+      polarity (IRQ_TYPE_LEVEL_LOW or IRQ_TYPE_LEVEL_HIGH).  Only
-+      applicable to aspeed,ast2500-vuart.
-+
- required:
-   - reg
-   - interrupts
-@@ -221,6 +240,7 @@ examples:
-     };
-   - |
-     #include <dt-bindings/clock/aspeed-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-     serial@1e787000 {
-         compatible = "aspeed,ast2500-vuart";
-         reg = <0x1e787000 0x40>;
-@@ -228,7 +248,8 @@ examples:
-         interrupts = <8>;
-         clocks = <&syscon ASPEED_CLK_APB>;
-         no-loopback-test;
--        aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
-+        aspeed,lpc-address = <0x3f8>;
-+        aspeed,sirq = <4 IRQ_TYPE_LEVEL_LOW>;
-     };
- 
- ...
--- 
-2.31.1
+On Fri, 2 Apr 2021, at 11:17, Zev Weiss wrote:
+> These correspond to the existing lpc_address, sirq, and sirq_polarity
+> sysfs attributes; the second element of aspeed,sirq provides a
+> replacement for the deprecated aspeed,sirq-polarity-sense property.
+> 
+> Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+> ---
+>  .../devicetree/bindings/serial/8250.yaml      | 27 ++++++++++++++++---
+>  1 file changed, 24 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/serial/8250.yaml 
+> b/Documentation/devicetree/bindings/serial/8250.yaml
+> index 491b9297432d..a6e01f9b745f 100644
+> --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> @@ -12,8 +12,13 @@ maintainers:
+>  allOf:
+>    - $ref: /schemas/serial.yaml#
+>    - if:
+> -      required:
+> -        - aspeed,sirq-polarity-sense
+> +      anyOf:
+> +        - required:
+> +            - aspeed,lpc-address
 
+Why not aspeed,lpc-io-reg like the KCS binding?
+
+There are some things we can do to improve it, but we shouldn't go and invent something different. I prefer aspeed,lpc-io-reg because it's name derives from the generic 'reg' property as does it's behaviour (if you assume a related `#size-cells = 0`).
+
+> +        - required:
+> +            - aspeed,sirq
+
+Why not aspeed,lpc-interrupts like the KCS binding?
+
+The generic IRQ property is 'interrupts', so like aspeed,lpc-io-reg the interrupts proposal for KCS follows in name and form. I'm hiding it behind the aspeed vendor prefix for now while I'm not satisfied that I understand the requirements of non-aspeed parts. Similarly, I added the lpc prefix because we don't tend to describe the host devicetree in the BMC devicetree (and so there's no parent interrupt controller that we can reference via a phandle) and we need a way to differentiate from the local interrupts property.
+
+I don't see a reason for either of them to differ from what we already have for KCS, and I don't see any reason to continue the sysfs naming scheme in the binding.
+
+Eventually I want to distil an LPC peripheral binding schema from what we've developed for the peripherals supported by aspeed and nuvoton SoCs.
+
+Cheers,
+
+Andrew
+
+> +        - required:
+> +            - aspeed,sirq-polarity-sense
+>      then:
+>        properties:
+>          compatible:
+> @@ -190,6 +195,20 @@ properties:
+>        applicable to aspeed,ast2500-vuart.
+>      deprecated: true
+>  
+> +  aspeed,lpc-address:
+> +    $ref: '/schemas/types.yaml#/definitions/uint32'
+> +    description: |
+> +      The VUART LPC address.  Only applicable to aspeed,ast2500-vuart.
+> +
+> +  aspeed,sirq:
+> +    $ref: "/schemas/types.yaml#/definitions/uint32-array"
+> +    minItems: 2
+> +    maxItems: 2
+> +    description: |
+> +      A 2-cell property describing the VUART SIRQ number and SIRQ
+> +      polarity (IRQ_TYPE_LEVEL_LOW or IRQ_TYPE_LEVEL_HIGH).  Only
+> +      applicable to aspeed,ast2500-vuart.
+> +
+>  required:
+>    - reg
+>    - interrupts
+> @@ -221,6 +240,7 @@ examples:
+>      };
+>    - |
+>      #include <dt-bindings/clock/aspeed-clock.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+>      serial@1e787000 {
+>          compatible = "aspeed,ast2500-vuart";
+>          reg = <0x1e787000 0x40>;
+> @@ -228,7 +248,8 @@ examples:
+>          interrupts = <8>;
+>          clocks = <&syscon ASPEED_CLK_APB>;
+>          no-loopback-test;
+> -        aspeed,sirq-polarity-sense = <&syscon 0x70 25>;
+> +        aspeed,lpc-address = <0x3f8>;
+> +        aspeed,sirq = <4 IRQ_TYPE_LEVEL_LOW>;
+>      };
+>  
+>  ...
+> -- 
+> 2.31.1
+> 
+>
