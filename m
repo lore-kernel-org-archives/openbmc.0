@@ -8,21 +8,21 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2DE7CC433B4
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:12:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B326C433B4
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:12:57 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A4961613BD
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:12:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A4961613BD
+	by mail.kernel.org (Postfix) with ESMTPS id 00F81613BD
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:12:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00F81613BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FF5xt251cz3bpX
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 22:12:34 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FF5yH4yBjz3c0H
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 22:12:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=RaH/JCpV;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=Xg/9ts60;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
@@ -30,59 +30,59 @@ Authentication-Results: lists.ozlabs.org;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=RaH/JCpV; 
+ header.s=badeba3b8450 header.b=Xg/9ts60; 
  dkim-atps=neutral
 Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FF5wK4751z3brb
- for <openbmc@lists.ozlabs.org>; Tue,  6 Apr 2021 22:11:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FF5wL6g01z30DW
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Apr 2021 22:11:14 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1617711051;
- bh=FYOblBUbHRlSqo0KG/HksG7r9RNT7O0AdZ2/oD/Ognw=;
+ s=badeba3b8450; t=1617711038;
+ bh=fthXQXzWvCMySNmq6wm38LQ0LqGN8oEvRSStBerzpuU=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RaH/JCpVSXdwQjn+FNBZ/SQLlrLqpd+q3r505SnLpijrBPCWzMGARAvLue/FEcWm/
- 83VA1gUHuDSE6bkFhOQtI7WXhk2NvRmBi1scQnx4Fj94alk4+W+nDe41M/PTOYOORn
- nNq7UK0Ew8wDzcdWtDmUSKYjtr55Mz2IJQIczVOQ=
+ b=Xg/9ts60YSdd3/C6in+KG15rIxD4RevfSm7iAB+WGopCwxYxMZiXl2IK1QKl6k5C5
+ yv77tCYEnAa/kCNd5KLxQCOidFJcYid9BL6Q+1DIMI4H/Rj994JcnduqGnH+E7DKSX
+ 8V1W10IJn/+YflUWxZOfI6oM4q1Szrfk/sea5Hws=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
 Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MRTRN-1lFfVW1NnZ-00NPRq; Tue, 06
- Apr 2021 14:10:51 +0200
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MfpSb-1m5ZBs3tFp-00gKMF; Tue, 06
+ Apr 2021 14:10:38 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 06/10] irqchip: Add driver for WPCM450 interrupt controller
-Date: Tue,  6 Apr 2021 14:09:17 +0200
-Message-Id: <20210406120921.2484986-7-j.neuschaefer@gmx.net>
+Subject: [PATCH v2 04/10] dt-bindings: watchdog: npcm: Add nuvoton, wpcm450-wdt
+Date: Tue,  6 Apr 2021 14:09:15 +0200
+Message-Id: <20210406120921.2484986-5-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210406120921.2484986-1-j.neuschaefer@gmx.net>
 References: <20210406120921.2484986-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:hefIZlOtQ+LbUsf9BJMTwfPpAhYwakBaowyBoCpHN/A5qME7nVV
- rDAsFv0ZibsTdppttyGMkqh81M7g6z9CtYIgiOpTxybu7hPI8crW3LRsZMmA571f8l+IxKw
- vRWo/zEhH0YknrATgoKP6qA5kBVDSBegfDwrOnpaqZLujH5Jt1Llu7BcFmGpthLUrwjFB16
- xKbDnu8zAvDaUV0orGhiQ==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:zwygWbOrTOo=:HtR7OlXL/+jYezqulrWYYL
- ThpapzqeSaNDM3oVxkecDOeWVEkqorKyAU9ye5hXg5pSA3j9kmIlfGwpynZWklNKua8HObrjl
- NvXH6K3EEzIZZStnS3anOUnZv85jH8RyU4P/9ztaBcRooUr8XXjm39JBQtHwk5y6MiCga6ToA
- YqSumWPu2VO1L4odTw+V4qoGx9npaQ9BjLap0DleWKV5o3Si0L9ykflZbCEfxOxkbAoZpOYlz
- s4SXUjRzowamINhZAqPqkYz0OTw7wqydiSIapkTaTMGCXo5RwvS45sY05bV9FRu5mXGTzeuql
- aYEdT6g86mH3f2hUHSfdvnWik7dN8g88p595O8945v8DBS7X7mXJA3B3YpzNK5Mi2FtHguxgl
- V4pz9+TDaxHO0JY/I1OkMA18MEyamVN7CwEqVSc2Zrm34rres19qLHd2V2PQx32bI4qQAElO6
- osibLYsj3JUtEgDIwvMeqYaIJtCkkyTLeUGHc3smpj1kFnP3CvystnhAvfxXgo8IeB0RJb756
- tmkoCwS6mCsfDsGkKuqdIki7sI2ZvvWkJdlFycUOg0a3x4qPrAx7H8pQWLUlqUVmz7WJz7J2x
- 9U6EgGHGfbRGChSIXlC+k/hgC9elVaFxvglxt6rRMmLWCdxiZB+gc08c424vcxvKmQoCiEvb6
- O18IU44HxoJvzE2c9vqxixqQVD270d0llT2nVC6sttYEWSnRCuunYHpz3jMASi5f1Go6vBeFk
- FnLinZrL3+lAZxfAmeqTuZcRKDlxaOr7CNIOVfOMXEqlgVjZxeYyeK7s0E3g/BIGNCLFfIowO
- 9BYD8Z/GP02BL5iEgbWzQEvHxJVfgHaWIBOCqIKijKbR0qfoAKbMadlXhVMJrTBiOYaIjY0K7
- EAZC2DEw+NWpaF7IruG5UtrcWY9wss/DDXQjtXdSmx5ZMPuYqaWVfI2G3NtxltfixTyF746NV
- Ywqr/TYgQ+mpKAx4M43yDfY5blbObRrG6Sj6/VtYUmXXtdy2Ne6tySPU2j54Idd035TCnlsab
- VJ4HkulU4ZETqTh1NQhE1OYJUpkUAwyRFGerJNqSZVCDCtvF+qMC43JsuznqbqH68cxK9B4nC
- FY693+70sX1H0icDyCRtRm2Ecdc5g5YPW9vzfE5oqYdaVeNqXVV/39T30/y665K3IY5GO1/Jw
- Pnkb3jGAmhFjn9B9BbPdtRBwDH1NTcuFtg6Sf4uUEWjR0AIQfFrmvdj4FY3n8Gx0j+kJ0lFk8
- lk1IAzuPtP441C8CG
+X-Provags-ID: V03:K1:yIfwVUR13YRMBQna2k6oVWyExk6FvAxtgtrGA4cgaIZWJEAyBsI
+ 0UqJFDwJUzYg1OvkIDG0+uOrS1WoglGzfKeTZEf4fuEXfRxNezopYkZxk/5qo9B6GYRzJyk
+ To7zZlSI2G6+kdkXEF7jIXxeN5jJpw0AI4KjQaHmooLPBbY/hVMeiLt8DKmb0fXZh9P1q0D
+ D2RJZwP5tPENqwcDztg2w==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:K6urnD8rZBc=:mc+8NA74aIxaTrKe389mGS
+ wdioQ6Z6T/vZ07iTlnFwrTrxZkqIHt/akxC22dzsbh5LVgaa3l0eACbCnGoGiVvUq0nnbCNY4
+ OAETS0BMrMdxd7K2FcGJKoGAprFI/QRuPFqtdxpuQ6PKCU83jfDL6NWHBF0f3ly1V8Uz7DFAs
+ 5tNPlq/reQTqn0MIkHZsw1EsXeVzV4VIZohB2qfqg5pod96Ksl3vEH43+W9ZjvxQvwoNi4tlX
+ U+saA1H5fzScXroD891bDDk+o8wLIaFTbcPMAHBulwXHAqg38Fi1N3dO7HEkNY7SHv9uXLmOJ
+ XIWfpp+cbiysY0R36kft+xDJtpAEmp/8neH2j3NzGr2F2y7Q8Ap6G9VP0YZi8GUkFIKt/AQix
+ YJ52WfKtDWHWORUU7qENYT2Yz9bTau8y8e6zOz6CIS/jH1yth73nPzBc06jH4dSVGQHToUvQT
+ gFMsCFVzuvbkQd1+PmmGEda4ciheKtizSTzWDVe+IvBkna0q0x9x6jXwAjO5Vknio/kk57wOL
+ +F42aC4juHreCl2kuBSwujUzC5sCE1zjkNjbE89d9D+4cyl+pAXb8mNVzuUtQRRDPXLkanmha
+ HzPe1e0OQund+QAyIl/H+oKZh8mICimYtSDkx7vh1uoEZ3VGhb6nRJH8TxO5yD+O9qlthNRJY
+ jvO642QpTzveTkh5fngje6e5Q//dlhcYJY4dZi0HwE9X+P3YZbOJmHl7segvt0Fz5q90lzpaJ
+ VkGWUI6y2d/e7KrcDc2Xwt4ANyt+zrpdSEkSW7HgnFsMLXKWgseZAJuiuiLS6OW4tOiVi+mxm
+ HLBL6QdvTI2j5NF7oniKqfCW+T8ghm9Rm2KV05yQvVcqRKBw9qVjJ86zOHzt4DBeoVH6a5lnm
+ qWNpsChrD18TUx+aJuT6dhunxPDOKabhxjpBdOKWp4xsZ+WFO/Fx22vI63RsCCfwoEHvpZvy1
+ vkvjkmglBmVBcYefGDHNM9YsPnDK8uKfUCLvX3HaQuP0ExZ47FbFqb5vCjhJ9dK/6gXHEUO0E
+ XtTIXUCeHVtsU+XFPkCp6FzxhDnLg/5oeElZwuc9Ihv3IN3+W1Q/9AVaFroAaKLGJ0B15t1hQ
+ U1qiL7PTdES7/Cgle7QCWeYtrkF+ukkBirdQUhC+sGSMGYz5KE6Rybb1Dn6va/Ef3RXFLmgc0
+ 3n2FMuXXZotJPhtojWEcyYCSgJ5b+OIE51iNcZraosYxUilxQZNAaOXRykJiGHD/KbRhIZkrW
+ 3C8fliv3l88cHwtk5
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,257 +94,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ Rob Herring <robh@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, Guenter Roeck <linux@roeck-us.net>,
  =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
- Russell King <linux@armlinux.org.uk>, Thomas Gleixner <tglx@linutronix.de>,
+ linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
  Tali Perry <tali.perry1@gmail.com>, linux-arm-kernel@lists.infradead.org,
  Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The WPCM450 AIC ("Advanced Interrupt Controller") is the interrupt
-controller found in the Nuvoton WPCM450 SoC and other Winbond/Nuvoton
-SoCs.
-
-The list of registers if based on the AMI vendor kernel and the
-Nuvoton W90N745 datasheet.
-
-Although the hardware supports other interrupt modes, the driver only
-supports high-level interrupts at the moment, because other modes could
-not be tested so far.
+Add a compatible string for the WPCM450 SoC, which has the same watchdog
+timer.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
+Acked-by: Rob Herring <robh@kernel.org>
 =2D--
 
 v2:
-- Rename IRQS macro to AIC_NUM_IRQS
-- Fix IRQ range check
-- Use linux/printk.h header instead of linux/console.h
-- Add AIC_SCR_PRIORITY_MASK constant
-- Add missing register descriptions
-- Remove superfluous printk about IRQ flow type mismatch
-- Use BIT() macro
-- Rename _ack function to _eoi for accuracy, and use handle_fasteoi_irq
+- Added Rob's ACK
 =2D--
- arch/arm/mach-npcm/Kconfig        |   1 +
- drivers/irqchip/Kconfig           |   6 ++
- drivers/irqchip/Makefile          |   1 +
- drivers/irqchip/irq-wpcm450-aic.c | 161 ++++++++++++++++++++++++++++++
- 4 files changed, 169 insertions(+)
- create mode 100644 drivers/irqchip/irq-wpcm450-aic.c
+ .../devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt          | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
-index 658c8efb4ca14..a71cf1d189ae5 100644
-=2D-- a/arch/arm/mach-npcm/Kconfig
-+++ b/arch/arm/mach-npcm/Kconfig
-@@ -10,6 +10,7 @@ config ARCH_WPCM450
- 	bool "Support for WPCM450 BMC (Hermon)"
- 	depends on ARCH_MULTI_V5
- 	select CPU_ARM926T
-+	select WPCM450_AIC
- 	select NPCM7XX_TIMER
- 	help
- 	  General support for WPCM450 BMC (Hermon).
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index e74fa206240a1..baf4efec31c67 100644
-=2D-- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -586,4 +586,10 @@ config MST_IRQ
- 	help
- 	  Support MStar Interrupt Controller.
+diff --git a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.t=
+xt b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
+index 6d593003c933b..9059f54dc023d 100644
+=2D-- a/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
++++ b/Documentation/devicetree/bindings/watchdog/nuvoton,npcm-wdt.txt
+@@ -5,7 +5,8 @@ The watchdog supports a pre-timeout interrupt that fires 1=
+0ms before the
+ expiry.
 
-+config WPCM450_AIC
-+	bool "Nuvoton WPCM450 Advanced Interrupt Controller"
-+	depends on ARCH_WPCM450 || COMPILE_TEST
-+	help
-+	  Support for the interrupt controller in the Nuvoton WPCM450 BMC SoC.
-+
- endmenu
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index c59b95a0532c9..bef57937e7296 100644
-=2D-- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -113,3 +113,4 @@ obj-$(CONFIG_LOONGSON_PCH_MSI)		+=3D irq-loongson-pch-=
-msi.o
- obj-$(CONFIG_MST_IRQ)			+=3D irq-mst-intc.o
- obj-$(CONFIG_SL28CPLD_INTC)		+=3D irq-sl28cpld.o
- obj-$(CONFIG_MACH_REALTEK_RTL)		+=3D irq-realtek-rtl.o
-+obj-$(CONFIG_WPCM450_AIC)		+=3D irq-wpcm450-aic.o
-diff --git a/drivers/irqchip/irq-wpcm450-aic.c b/drivers/irqchip/irq-wpcm4=
-50-aic.c
-new file mode 100644
-index 0000000000000..f3ac392d5bc87
-=2D-- /dev/null
-+++ b/drivers/irqchip/irq-wpcm450-aic.c
-@@ -0,0 +1,161 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright 2021 Jonathan Neusch=C3=A4fer
-+
-+#include <linux/irqchip.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/printk.h>
-+
-+#include <asm/exception.h>
-+
-+#define AIC_SCR(x)	((x)*4)	/* Source control registers */
-+#define AIC_GEN		0x84	/* Interrupt group enable control register */
-+#define AIC_GRSR	0x88	/* Interrupt group raw status register */
-+#define AIC_IRSR	0x100	/* Interrupt raw status register */
-+#define AIC_IASR	0x104	/* Interrupt active status register */
-+#define AIC_ISR		0x108	/* Interrupt status register */
-+#define AIC_IPER	0x10c	/* Interrupt priority encoding register */
-+#define AIC_ISNR	0x110	/* Interrupt source number register */
-+#define AIC_IMR		0x114	/* Interrupt mask register */
-+#define AIC_OISR	0x118	/* Output interrupt status register */
-+#define AIC_MECR	0x120	/* Mask enable command register */
-+#define AIC_MDCR	0x124	/* Mask disable command register */
-+#define AIC_SSCR	0x128	/* Source set command register */
-+#define AIC_SCCR	0x12c	/* Source clear command register */
-+#define AIC_EOSCR	0x130	/* End of service command register */
-+
-+#define AIC_SCR_SRCTYPE_LOW_LEVEL	(0 << 6)
-+#define AIC_SCR_SRCTYPE_HIGH_LEVEL	(1 << 6)
-+#define AIC_SCR_SRCTYPE_NEG_EDGE	(2 << 6)
-+#define AIC_SCR_SRCTYPE_POS_EDGE	(3 << 6)
-+#define AIC_SCR_PRIORITY(x)		(x)
-+#define AIC_SCR_PRIORITY_MASK		0x7
-+
-+#define AIC_NUM_IRQS		32
-+
-+struct wpcm450_aic {
-+	void __iomem *regs;
-+	struct irq_domain *domain;
-+};
-+
-+static struct wpcm450_aic *aic;
-+
-+static void wpcm450_aic_init_hw(void)
-+{
-+	int i;
-+
-+	/* Disable (mask) all interrupts */
-+	writel(0xffffffff, aic->regs + AIC_MDCR);
-+
-+	/*
-+	 * Make sure the interrupt controller is ready to serve new interrupts.
-+	 * Reading from IPER indicates that the nIRQ signal may be deasserted,
-+	 * and writing to EOSCR indicates that interrupt handling has finished.
-+	 */
-+	readl(aic->regs + AIC_IPER);
-+	writel(0, aic->regs + AIC_EOSCR);
-+
-+	/* Initialize trigger mode and priority of each interrupt source */
-+	for (i =3D 0; i < AIC_NUM_IRQS; i++)
-+		writel(AIC_SCR_SRCTYPE_HIGH_LEVEL | AIC_SCR_PRIORITY(7),
-+		       aic->regs + AIC_SCR(i));
-+}
-+
-+static void __exception_irq_entry wpcm450_aic_handle_irq(struct pt_regs *=
-regs)
-+{
-+	int hwirq;
-+
-+	/* Determine the interrupt source */
-+	/* Read IPER to signal that nIRQ can be de-asserted */
-+	hwirq =3D readl(aic->regs + AIC_IPER) / 4;
-+
-+	handle_domain_irq(aic->domain, hwirq, regs);
-+}
-+
-+static void wpcm450_aic_eoi(struct irq_data *d)
-+{
-+	/* Signal end-of-service */
-+	writel(0, aic->regs + AIC_EOSCR);
-+}
-+
-+static void wpcm450_aic_mask(struct irq_data *d)
-+{
-+	unsigned int mask =3D BIT(d->hwirq);
-+
-+	/* Disable (mask) the interrupt */
-+	writel(mask, aic->regs + AIC_MDCR);
-+}
-+
-+static void wpcm450_aic_unmask(struct irq_data *d)
-+{
-+	unsigned int mask =3D BIT(d->hwirq);
-+
-+	/* Enable (unmask) the interrupt */
-+	writel(mask, aic->regs + AIC_MECR);
-+}
-+
-+static int wpcm450_aic_set_type(struct irq_data *d, unsigned int flow_typ=
-e)
-+{
-+	/*
-+	 * The hardware supports high/low level, as well as rising/falling edge
-+	 * modes, and the DT binding accommodates for that, but as long as
-+	 * other modes than high level mode are not used and can't be tested,
-+	 * they are rejected in this driver.
-+	 */
-+	if ((flow_type & IRQ_TYPE_SENSE_MASK) !=3D IRQ_TYPE_LEVEL_HIGH)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+
-+static struct irq_chip wpcm450_aic_chip =3D {
-+	.name =3D "wpcm450-aic",
-+	.irq_eoi =3D wpcm450_aic_eoi,
-+	.irq_mask =3D wpcm450_aic_mask,
-+	.irq_unmask =3D wpcm450_aic_unmask,
-+	.irq_set_type =3D wpcm450_aic_set_type,
-+};
-+
-+static int wpcm450_aic_map(struct irq_domain *d, unsigned int irq, irq_hw=
-_number_t hwirq)
-+{
-+	if (hwirq >=3D AIC_NUM_IRQS)
-+		return -EPERM;
-+
-+	irq_set_chip_and_handler(irq, &wpcm450_aic_chip, handle_fasteoi_irq);
-+	irq_set_chip_data(irq, aic);
-+	irq_set_probe(irq);
-+
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops wpcm450_aic_ops =3D {
-+	.map =3D wpcm450_aic_map,
-+	.xlate =3D irq_domain_xlate_twocell,
-+};
-+
-+static int __init wpcm450_aic_of_init(struct device_node *node,
-+				      struct device_node *parent)
-+{
-+	if (parent)
-+		return -EINVAL;
-+
-+	aic =3D kzalloc(sizeof(*aic), GFP_KERNEL);
-+	if (!aic)
-+		return -ENOMEM;
-+
-+	aic->regs =3D of_iomap(node, 0);
-+	if (!aic->regs) {
-+		pr_err("Failed to map WPCM450 AIC registers\n");
-+		return -ENOMEM;
-+	}
-+
-+	wpcm450_aic_init_hw();
-+
-+	set_handle_irq(wpcm450_aic_handle_irq);
-+
-+	aic->domain =3D irq_domain_add_linear(node, AIC_NUM_IRQS, &wpcm450_aic_o=
-ps, aic);
-+
-+	return 0;
-+}
-+
-+IRQCHIP_DECLARE(wpcm450_aic, "nuvoton,wpcm450-aic", wpcm450_aic_of_init);
+ Required properties:
+=2D- compatible      : "nuvoton,npcm750-wdt" for NPCM750 (Poleg).
++- compatible      : "nuvoton,npcm750-wdt" for NPCM750 (Poleg), or
++                    "nuvoton,wpcm450-wdt" for WPCM450 (Hermon).
+ - reg             : Offset and length of the register set for the device.
+ - interrupts      : Contain the timer interrupt with flags for
+                     falling edge.
 =2D-
 2.30.2
 
