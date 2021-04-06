@@ -8,82 +8,81 @@ X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79975C433B4
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:11:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E4D1FC433ED
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:11:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D57E161042
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:11:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D57E161042
+	by mail.kernel.org (Postfix) with ESMTPS id 7EB9B613BD
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 12:11:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7EB9B613BD
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FF5wh1nWCz303t
-	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 22:11:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FF5x71d1lz3br1
+	for <openbmc@archiver.kernel.org>; Tue,  6 Apr 2021 22:11:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=Uxe3CbSK;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=GpoTQjs1;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org;
  spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.15.18; helo=mout.gmx.net;
+ (client-ip=212.227.17.20; helo=mout.gmx.net;
  envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=Uxe3CbSK; 
+ header.s=badeba3b8450 header.b=GpoTQjs1; 
  dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FF5vr5fHKz3bqC
- for <openbmc@lists.ozlabs.org>; Tue,  6 Apr 2021 22:10:48 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FF5w21KFFz3br4
+ for <openbmc@lists.ozlabs.org>; Tue,  6 Apr 2021 22:10:57 +1000 (AEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1617711033;
- bh=Ei6Pp9zGAH2UxGqGf1ILV9gplHFrtV0jN6b2w9XiUgQ=;
+ s=badeba3b8450; t=1617711044;
+ bh=K29LebfL/JlBArqrMx0vebI9tmhwtrzN80KWOkBNjCA=;
  h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Uxe3CbSKpOm6Xjb/tBMqxVlX7pU8NGqAMR0U+WYWZYI+lpWh/DDTZ2XOzTX5VP+wa
- 5UYLTdFeEOTYzYiKMGMdu+FqOUzE15uvLGW9eVom6TiqK3dmWukPf9ZDDGmOfbaNEa
- jZ/bqrk/MRxUPnPXZeplPaFMc7cOQG0FBbVHfj0E=
+ b=GpoTQjs1gnmsWpgQhLkvQJqVRQWS4r1b17Nwp5uu86X+e+xMZt/hqen5Ont3b7dE+
+ apeDkwr4SDLxpgcb+ON+rQ1Pm0b/1/nw0DQ7jk//vV2JNv95d0NcP9U0iE98Q6kOcJ
+ SOGWAUCTp+J9b4on1R1EpAi4ddpXBVsH3VXus0l4=
 X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MAfYw-1lImAa3WiO-00B19K; Tue, 06
- Apr 2021 14:10:32 +0200
+Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MsYux-1lk1uR0MEF-00u1Yp; Tue, 06
+ Apr 2021 14:10:44 +0200
 From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH v2 03/10] dt-bindings: interrupt-controller: Add nuvoton,
- wpcm450-aic
-Date: Tue,  6 Apr 2021 14:09:14 +0200
-Message-Id: <20210406120921.2484986-4-j.neuschaefer@gmx.net>
+Subject: [PATCH v2 05/10] ARM: npcm: Introduce Nuvoton WPCM450 SoC
+Date: Tue,  6 Apr 2021 14:09:16 +0200
+Message-Id: <20210406120921.2484986-6-j.neuschaefer@gmx.net>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210406120921.2484986-1-j.neuschaefer@gmx.net>
 References: <20210406120921.2484986-1-j.neuschaefer@gmx.net>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:x8q4cLS4WXLc1W/b7u0t3d2Cr4ZR4ltZTViaG6lXP9IrQreiDst
- rG/QKW5K7k/Lk/7sEItyWuDsEgUNZ9YmmC0ef8sJdqjk0MIL9X1eL/QJ6NjUnm5B+XPM31t
- qxnDiLs66so9wJ7leLTgUkGl5MYNGfGIE8Es+WtQkS7YGovb0Vu0qFSxE8rc/7EK/L4nWxX
- oi63Di3OBHrx1aCGcFjkg==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:oud94XjFQk8=:AkDPv0gvTXmAqGIG2PIoa0
- h2C/XAU1oGpjhTLHyw/LxPQx5H9HPwf44y8JayyciXb1GBuhGVvjtyqDzv+AryPZTlGsurPzd
- +BXDvfG01y5+AZhaJ49E3KHEBRR1rDjjg0ufRNnIeSjKidqtu/jh4UjIrn+OClG6FCCbEr3rf
- 0jPEEH62kZ/U4pLtO1CltdVFz9UkstmwbLYuy3yyZzJxi7q+ySQyO4bfjGehKTv9QYVlkYuZ4
- fixVMJrgXUqazTPKtfvJuCyi+h4njd+pKCc5Ckji2DjKJFWbFqaTsuLtJg2Mx6FrLc6E5uRU0
- Liri9Q2snK/ka7aoI7sLvzyoxaBW3eTS761uN5R86EwUedGH3FYq7d/KMPVzkQ6iDhTIXRPIk
- fbM4hIrY2h0Vkp+s63ZV+w+TtTjMquVLliSzy2rQP1/tTyRXlZVjfK354YswngBQpg6EJS+vF
- wYfoTO3vf6R7Sqfdelaa64/Y4MSmjzNuO1xvvvvlxJbR/41OuW73Rl3WjxN5woC8ziK5kzf7O
- CVkbMN7Ybjfrdjv0aQR9r1aj6ZZuk5BBsF2NBGLAvK6jWRl74Sk4GZ9ZYon9y4U9/JbBC1Mdj
- F3Y9+ZJ3q+GFy8XT9idl+J1lhhEGuw/lfP5jgMhmgzMFjwcAzQja21vYg2QyoAZrLEAokcmk5
- C0szpssThPTJfmxUTo6GiZ+nDxKVlXJqsyZOT5AstjO4Odzv0SenN7CCaO1Q/z6cDa2wLuRrD
- /Bj7lrKo6zO+i8xEYUUO9vD90J6I941gWgwmcMhQVMtGnCNPCefEK7ZsvY769VWa2U39rWauW
- 6hM0xnl/5ik8IFVVzkosxw3G1MdqZ/vbc1q+ZRi9a6pKgi/K/obLvt/FT/rzw9XhIykVt9sPH
- N9c//MTpOovi026RTcaYM0y3jm2qhjbiGeJgS05BSP7e/ZLkxaz1zA+OPPHM90iajqR23u9Ma
- tmSelE/SpVmCCVwKkGFR/dRGnc+UadtDaZeQREw/M0M3pS4QajA3rP2EtHc6fYfhWwGkXM8Me
- PLKoSbvU4yUlDZlOib48VcLnw098v4cNShXRdJRDt1TwEbeFFHW1Np2qxQFcbVOtEXQn5X9ge
- qUx47oazeWve8Ic+Z+J+w4IBovrB9KCS4OYBxA1CaNJc0sSmQI63cxjWnGbgJQQDYr9OquiWJ
- 14N3qG5PJjxHh0je0iSsIcPEAim/JMeIrjKfoLcyvTNxXbgRGo4KlMx7V/YtXN79TOT3LmzCn
- TvnnwWogeqVq+7Bix
+X-Provags-ID: V03:K1:1SZS5HgxyMj1yOj+o4Yn5t3GkKyzLK8NZqeuc4M2TC4Qu3mjkHR
+ nyik8sD+pzzZSLhkIPfhGy+m9TNBsfYVf/kNSpT+LAIr4O/WectpTSGQhhSh62SNVra3U5p
+ 5CLkg4o0DkHbdvMZOv7XFJUkfmYJbJbCluoBYYxIcWpL97lJTKC487imbaY2TITUN6p4Ixu
+ RncHASyOeqCyIo9Pwa5JA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:nlNfRwAkXhE=:qDWlOCVqfPhuXGVYUlIRX5
+ M/4WcNdLmDNkMKHkXm6DTyYmuq0tvYOScbCTzilJ9M2Ff1oeQULqmwIscaffZtvRrW0hn6zDD
+ OgiDyKB75L8Q6Ob7fAXQe6OEF/qpXCwG4VbmpeVEzo2XwhG/f1HjlRW/t26svjNqflvNRJ0I9
+ AmdPPzGKWtFaH5Q90X7mkFZ0GQkbnFfJSnks/j84IyJon7+/T32e81IQitEkAE1QEK/JG/oFL
+ QAZSh0PpzNC6+8DCx8jsjnc4pssbdl4j8ttHJ3kECO7nmYWFeXskKAUW1CbZK8Y5/XaRBz4h5
+ AzNx0lwBSDPDDEdroYntVssl3X2GhnCqasRUvKUpgzUbbLLE8fopbvw7l+1clQtdrO/trkKZi
+ W2tYEx+PvH+4d5HI5sGMrLNcjjR0zK4UKiX1Oa2+aalNcfphqwaztWMqzQ729ub/+muxuC8+Y
+ TbcHeNkC8GXyRbud77OId0yhy7B6MCVm60lMtvUeqAG7pcw9X0EB1kg47j6s0B/rHRE+vqqtY
+ 1ol1PkMtAqmNJTHI1FZqbTssOKuyBn+gRsNNKKopgTaVil50KohqX6kgZEI9FZgYK+GTkvkhc
+ C+MY1gpS/g8b5pezzl2l3W1/i7gkjiVCsk/uh3F6Y/dmFaUiafRW9R+Nfv+KBpw7MMdd7N/oV
+ gaunvQVd36DQuG0xFnIdUSKP0fYeibmT/IENMBQDNh1VGfHZ3wZseqx24t2zeNiqo5i3eMmeO
+ C/w9Agc/gavxudcWcVfcmhibz49u0/wDW4z5Ke8HHLNdcNE/ux35flsp4ZegDIm+lesvgnEJ7
+ Ls8ATFO9tO8rD6kIlN/4bt9dSRXCQUelUN7Y4vW2dGkrNcsQrrw5by8eK6FK5+nIfWliNcYFs
+ 5IYPuZeXwep4+ssgOGDLWYhWjf5CvWVvVnn5M3VOubOSPZiLsuFF+WXl2ARklARUYeHcYbM0Q
+ bMIjSkjmy/B9b99ZlzBf5auOSMMcv64SwMW26Q7Rvrsp62wfRERHPVAOPiETAD6Tj1DwW7G33
+ QcRGIfNVsdpDpNxOheMRn+opUBZs2RvLJ4c6xzkrg+pm32sCzkqE3+MDcw+wszcc6MLWBiUSn
+ +NGIxeTyBU95Tm/xyp8RLJNpf5LszzbYOqylHJ0Rh7Te2gDGUknQesgECEMiMQ1BScNiURo8x
+ hgRdlAYlBAurZbpZzVb1GycczwvbkXO4WWgevY3I8O6jUiz7b2EGBLzrO899ca6Jj20bCbe3h
+ AMPEycWxw1Xo3GnQl
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,79 +95,87 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- Rob Herring <robh@kernel.org>, Marc Zyngier <maz@kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
  =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- linux-kernel@vger.kernel.org, Rob Herring <robh+dt@kernel.org>,
- Thomas Gleixner <tglx@linutronix.de>, linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org, Russell King <linux@armlinux.org.uk>,
+ Tali Perry <tali.perry1@gmail.com>, linux-arm-kernel@lists.infradead.org,
+ Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The WPCM450 AIC ("Advanced Interrupt Controller") is the interrupt
-controller found in the Nuvoton WPCM450 SoC and other Winbond/Nuvoton
-SoCs.
+The WPCM450 is an older BMC SoC in the Nuvoton NPCM family, originally
+marketed as Winbond WPCM450.
 
 Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-Acked-by: Rob Herring <robh@kernel.org>
 =2D--
 
 v2:
-- Added Rob's ACK
+- Reorder lines in Makefile by model number (WPCM450 < NPCM7xx)
 =2D--
- .../nuvoton,wpcm450-aic.yaml                  | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/interrupt-controller=
-/nuvoton,wpcm450-aic.yaml
+ arch/arm/mach-npcm/Kconfig   | 12 +++++++++++-
+ arch/arm/mach-npcm/Makefile  |  1 +
+ arch/arm/mach-npcm/wpcm450.c | 13 +++++++++++++
+ 3 files changed, 25 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm/mach-npcm/wpcm450.c
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/nuvoto=
-n,wpcm450-aic.yaml b/Documentation/devicetree/bindings/interrupt-controlle=
-r/nuvoton,wpcm450-aic.yaml
+diff --git a/arch/arm/mach-npcm/Kconfig b/arch/arm/mach-npcm/Kconfig
+index 7f7002dc2b21f..658c8efb4ca14 100644
+=2D-- a/arch/arm/mach-npcm/Kconfig
++++ b/arch/arm/mach-npcm/Kconfig
+@@ -1,11 +1,21 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ menuconfig ARCH_NPCM
+ 	bool "Nuvoton NPCM Architecture"
+-	depends on ARCH_MULTI_V7
++	depends on ARCH_MULTI_V5 || ARCH_MULTI_V7
+ 	select PINCTRL
+
+ if ARCH_NPCM
+
++config ARCH_WPCM450
++	bool "Support for WPCM450 BMC (Hermon)"
++	depends on ARCH_MULTI_V5
++	select CPU_ARM926T
++	select NPCM7XX_TIMER
++	help
++	  General support for WPCM450 BMC (Hermon).
++
++	  Winbond/Nuvoton WPCM450 BMC based on the ARM926EJ-S.
++
+ config ARCH_NPCM7XX
+ 	bool "Support for NPCM7xx BMC (Poleg)"
+ 	depends on ARCH_MULTI_V7
+diff --git a/arch/arm/mach-npcm/Makefile b/arch/arm/mach-npcm/Makefile
+index 1bc3a70bfab8b..8d61fcd42fb19 100644
+=2D-- a/arch/arm/mach-npcm/Makefile
++++ b/arch/arm/mach-npcm/Makefile
+@@ -1,5 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ AFLAGS_headsmp.o		+=3D -march=3Darmv7-a
+
++obj-$(CONFIG_ARCH_WPCM450)	+=3D wpcm450.o
+ obj-$(CONFIG_ARCH_NPCM7XX)	+=3D npcm7xx.o
+ obj-$(CONFIG_SMP)		+=3D platsmp.o headsmp.o
+diff --git a/arch/arm/mach-npcm/wpcm450.c b/arch/arm/mach-npcm/wpcm450.c
 new file mode 100644
-index 0000000000000..9ce6804bdb999
+index 0000000000000..f17b3dab45af3
 =2D-- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/nuvoton,wpcm4=
-50-aic.yaml
-@@ -0,0 +1,39 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/nuvoton,wpcm450-a=
-ic.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm/mach-npcm/wpcm450.c
+@@ -0,0 +1,13 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright 2021 Jonathan Neusch=C3=A4fer
 +
-+title: Nuvoton WPCM450 Advanced Interrupt Controller bindings
++#include <asm/mach/arch.h>
 +
-+maintainers:
-+  - Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
++static const char *const wpcm450_dt_match[] =3D {
++	"nuvoton,wpcm450",
++	NULL
++};
 +
-+properties:
-+  '#interrupt-cells':
-+    const: 2
-+
-+  compatible:
-+    const: nuvoton,wpcm450-aic
-+
-+  interrupt-controller: true
-+
-+  reg:
-+    maxItems: 1
-+
-+additionalProperties: false
-+
-+required:
-+  - '#interrupt-cells'
-+  - compatible
-+  - reg
-+  - interrupt-controller
-+
-+examples:
-+  - |
-+    aic: interrupt-controller@b8002000 {
-+        compatible =3D "nuvoton,wpcm450-aic";
-+        reg =3D <0xb8002000 0x1000>;
-+        interrupt-controller;
-+        #interrupt-cells =3D <2>;
-+    };
++DT_MACHINE_START(WPCM450_DT, "WPCM450 chip")
++	.dt_compat	=3D wpcm450_dt_match,
++MACHINE_END
 =2D-
 2.30.2
 
