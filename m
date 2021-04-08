@@ -2,100 +2,66 @@ Return-Path: <SRS0=kPZh=JF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 603F5C433B4
-	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 01:14:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B4861C433ED
+	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 01:17:24 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9119F6120E
-	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 01:14:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9119F6120E
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 2F807610D0
+	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 01:17:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2F807610D0
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FG3FR0tb9z3bsq
-	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 11:14:19 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FG3Jy5zKDz3brX
+	for <openbmc@archiver.kernel.org>; Thu,  8 Apr 2021 11:17:22 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=iPHiO6pb;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=t6WmJeCD;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=PJStb3ii;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.25;
- helo=out1-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
+ helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=iPHiO6pb; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=t6WmJeCD; 
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
+ header.a=rsa-sha256 header.s=thorn header.b=PJStb3ii; 
  dkim-atps=neutral
-Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
- [66.111.4.25])
+Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
+ [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FG3Dz0KXjz304C
- for <openbmc@lists.ozlabs.org>; Thu,  8 Apr 2021 11:13:55 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id BD6515C014E
- for <openbmc@lists.ozlabs.org>; Wed,  7 Apr 2021 21:13:52 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Wed, 07 Apr 2021 21:13:52 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to
- :subject:content-type; s=fm2; bh=cbCbUty9LA29TklaDjbh94L8MgFBdyl
- HxtG24haJu2E=; b=iPHiO6pbqzJO9vPSPpWyJg5wfAZFn4mZb7eu6kxkoJ5syrH
- EpWK5I5O0k5aGR5dxdmdpMvB1XFq3DQuHZq+4AgU+yxT8cdEW/W9d3wKJA6LWufJ
- aBYZn45WtRtY6obDxGzeYDP+5NuNYJ8glG2xzauSIXLK7+Cr317+Q/FyTafAlTbb
- iXMv9W2IYemQelgKT/lNlBBEd2SkFf5FVKKj1AFb5TR8uHxVCJVKIrnbQjkkA9on
- bbeg9wsbI4HHPOBtIanc/9axe4poygHhpnaBI6952V0hFjrJt+MetlSBfOax6qgQ
- R2wPvHVFJpbw3IAtniAcHgwghFWdKk6fFIVhfPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=cbCbUt
- y9LA29TklaDjbh94L8MgFBdylHxtG24haJu2E=; b=t6WmJeCDpIUgIyup7AFTdT
- ZYXPzJ48iuBm3dqMqafmabLmKDJcF4Nvj/ik2uKySU/NQliAXes1rU71s8iJdl2C
- TrNAVOuSMs7+b5lvUmyTmj8ynQn1NlOTqby55E/zfcf15Zo93KexDNXXXrorA1Gd
- ubh1LVlMm5V3brtk4oVwI7HQItfO86FqxzweAMNbdSnLo1eOb9qs7CUtceXsKaCW
- IsNFEgGYeObM9hL/w5RQ3vBjCA7nM6p93A+16vxY2jMfI2qq7GJB/nL8KxCd4uGR
- /kuBBNIvwV7VHxWI1JcohwcJ1LJxYdGWw10QJdnwu7vN2C0TfGG8ngVnKHR3bw/Q
- ==
-X-ME-Sender: <xms:z1huYE6r8x604T0kHOzNdV1mwKC6WjBLb6VdM1BPOUJz8A94wbxKfg>
- <xme:z1huYF4ghvFIfHMj1jLoMbeAFDRQ-A4-xzhOwon13N6O6YvimnQJ8rG9PCjYgdCOH
- MT2HC6UfTsuKj1Npg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudejkedggeegucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfgjfhffhffvufgtsehttd
- ertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
- fiesrghjrdhiugdrrghuqeenucggtffrrghtthgvrhhnpedutddtkeeugeegvddttdeuke
- eiuddtgfeuuddtfeeiueetfeeileettedvtdfhieenucevlhhushhtvghrufhiiigvpedt
- necurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:z1huYDeUOKnwCQa3rGTwxRjIl1SDyNSHQW0yTZcnehHI7F0JDM6rGQ>
- <xmx:z1huYJLx13sakwrrvysV9AmOnuOePEo2zZTjegw6xk0M23uoVvvFYQ>
- <xmx:z1huYILL1kjd4r-zJUrQ7hFa4sO1KzKSi2JckjSt0RG9IQF4rdsniA>
- <xmx:0FhuYNXxZBWxZfAKfYkYDSv7ipAsraf1KcPgonWISgXOaFA1IXhIZQ>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id BF565A00079; Wed,  7 Apr 2021 21:13:51 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-273-g8500d2492d-fm-20210323.002-g8500d249
-Mime-Version: 1.0
-Message-Id: <af718a56-8fc5-4219-9fa1-fee5bbf52895@www.fastmail.com>
-In-Reply-To: <20210310173222.17556-2-eajames@linux.ibm.com>
-References: <20210310173222.17556-1-eajames@linux.ibm.com>
- <20210310173222.17556-2-eajames@linux.ibm.com>
-Date: Thu, 08 Apr 2021 10:43:30 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: openbmc@lists.ozlabs.org
-Subject: =?UTF-8?Q?Re:_[PATCH_linux_dev-5.10_2/3]_ARM:_dts:_aspeed:_everest:_Enab?=
- =?UTF-8?Q?le_fan_watchdog?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FG3JS34g2z2xZT;
+ Thu,  8 Apr 2021 11:16:56 +1000 (AEST)
+Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: zev)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 5D02C526;
+ Wed,  7 Apr 2021 18:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
+ s=thorn; t=1617844614;
+ bh=LtwOYH+UM+tk7dXj42KpHNTkPNuWVtwgidSOSzk5+PM=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=PJStb3iiacUEYrsTxuKFhgOFhgJHfnznrjSqWGQmTeN6/qSBgiCEP4CaTrJ4C8MFr
+ Q+mBtJ62RZwREQHedaSo3WqFkd0u6o8j8IkTNPiIxop9mupCJR7yWSfC2Zu/QZ9Mkr
+ 7bAatzS0jwGq6jvOrK34OjjzugscZf44yBOUeTrE=
+From: Zev Weiss <zev@bewilderbeest.net>
+To: Joel Stanley <joel@jms.id.au>
+Subject: [PATCH v5 1/4] dt-bindings: serial: 8250: deprecate aspeed,
+ sirq-polarity-sense
+Date: Wed,  7 Apr 2021 20:16:34 -0500
+Message-Id: <20210408011637.5361-2-zev@bewilderbeest.net>
+X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210408011637.5361-1-zev@bewilderbeest.net>
+References: <20210408011637.5361-1-zev@bewilderbeest.net>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,19 +73,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: - <devicetree@vger.kernel.org>, linux-aspeed@lists.ozlabs.org,
+ Zev Weiss <zev@bewilderbeest.net>, Andrew Jeffery <andrew@aj.id.au>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Lubomir Rintel <lkundrak@v3.sk>,
+ Rob Herring <robh+dt@kernel.org>, linux-serial@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+This property ties SIRQ polarity to SCU register bits that don't
+necessarily have any direct relationship to it; the only use of it was
+removed in commit c82bf6e133d3 ("ARM: aspeed: g5: Do not set sirq
+polarity").
 
+Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
+Reviewed-by: Joel Stanley <joel@jms.id.au>
+---
+ Documentation/devicetree/bindings/serial/8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-On Thu, 11 Mar 2021, at 04:02, Eddie James wrote:
-> Set watchdog 1 to pulse the fan watchdog circuit that drives the FAULT
-> pin of the MAX31785, resulting in fans running at full speed, if at
-> any point the BMC stops pulsing it, such as a BMC reboot at runtime.
-> Enable watchdog 2 for BMC reboots.
-> 
-> Signed-off-by: Matthew Barth <msbarth@linux.ibm.com>
-> Signed-off-by: Eddie James <eajames@linux.ibm.com>
+diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
+index f54cae9ff7b2..491b9297432d 100644
+--- a/Documentation/devicetree/bindings/serial/8250.yaml
++++ b/Documentation/devicetree/bindings/serial/8250.yaml
+@@ -188,6 +188,7 @@ properties:
+       offset and bit number to identify how the SIRQ polarity should be
+       configured. One possible data source is the LPC/eSPI mode bit. Only
+       applicable to aspeed,ast2500-vuart.
++    deprecated: true
+ 
+ required:
+   - reg
+-- 
+2.31.1
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
