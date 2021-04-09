@@ -2,90 +2,71 @@ Return-Path: <SRS0=MJyq=JG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58E69C433B4
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 07:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2A81BC433B4
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 08:14:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A2E28611AB
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 07:58:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A2E28611AB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
+	by mail.kernel.org (Postfix) with ESMTPS id 9CD38611AE
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 08:14:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9CD38611AE
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=arndb.de
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FGr9N73XXz3bxx
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 17:58:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FGrWb0DCCz3bVS
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 18:14:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=l6f6vRRI;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.17.20; helo=mout.gmx.net;
- envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=l6f6vRRI; 
- dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+ spf=none (no SPF record) smtp.mailfrom=arndb.de
+ (client-ip=212.227.126.187; helo=mout.kundenserver.de;
+ envelope-from=arnd@arndb.de; receiver=<UNKNOWN>)
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.187])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
  SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FGr8w6zFPz2xxt
- for <openbmc@lists.ozlabs.org>; Fri,  9 Apr 2021 17:58:08 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1617955071;
- bh=smjLIm7knnsXp8d7wIS7Om6/WhYBP35uRkxwx5zCsgo=;
- h=X-UI-Sender-Class:Date:From:To:Cc:Subject:References:In-Reply-To;
- b=l6f6vRRIbl0KGiksFvnQxTBF8rvuVJdM3qT9CNcETpBUUFt8ZKGHsx2LQLAfHmchV
- cO+vrLZASh8kt67+tAF0thsuS3Xj98PX/+vPAW/sTPtrsI7uRhXEBResHEwMar+GR6
- EHdRCbv6A7Dk7BVQeMnykcFW+5R9fGZn5BsAIc+g=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.215.134]) by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N49hB-1le5Z14481-0103lK; Fri, 09
- Apr 2021 09:57:51 +0200
-Date: Fri, 9 Apr 2021 09:57:47 +0200
-From: Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: Joel Stanley <joel@jms.id.au>
-Subject: Re: [PATCH v2 00/10] Initial support for Nuvoton WPCM450 BMC SoC
-Message-ID: <YHAI+x4OXBKvJkUH@latitude>
-References: <20210406120921.2484986-1-j.neuschaefer@gmx.net>
- <CAK8P3a0VfnUucvZNkA9PdxrWiYUOkisV00v-375PmgQYp4aXoQ@mail.gmail.com>
- <YGzZofPvT80b5gS5@latitude>
- <CACPK8XdbwbsbJuZmvsFqJ+x5viu652vpfR1kwB4Gu+khRHNt_g@mail.gmail.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FGrWC02qJz2yyF;
+ Fri,  9 Apr 2021 18:13:58 +1000 (AEST)
+Received: from mail-oi1-f178.google.com ([209.85.167.178]) by
+ mrelayeu.kundenserver.de (mreue010 [213.165.67.97]) with ESMTPSA (Nemesis) id
+ 1MryGj-1lsKvv17Zd-00nvoY; Fri, 09 Apr 2021 10:13:54 +0200
+Received: by mail-oi1-f178.google.com with SMTP id k18so71235oik.1;
+ Fri, 09 Apr 2021 01:13:53 -0700 (PDT)
+X-Gm-Message-State: AOAM531U6SAcgib6HdwNJFEpF4DZIi2hrX6Nd1DNkpSztcKnTZfBkKio
+ 3mBZAyiT6Z5I2Mg3Aze6K17rgQTklLk+5TzOEtA=
+X-Google-Smtp-Source: ABdhPJzFdzRK0Fr9sttYZU00DkmHPob2Ue763VfCmKuqxE8AuUxCM9nJfgP3QwCQkKhUcqhD2rg86m1268AEXjhhEyo=
+X-Received: by 2002:aca:5945:: with SMTP id n66mr8949399oib.11.1617956032510; 
+ Fri, 09 Apr 2021 01:13:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="KGb1lnLxRAL4SeVN"
-Content-Disposition: inline
-In-Reply-To: <CACPK8XdbwbsbJuZmvsFqJ+x5viu652vpfR1kwB4Gu+khRHNt_g@mail.gmail.com>
-X-Provags-ID: V03:K1:f3r2GSb6GMPKvoGNriNI6mCXtrrYQnwQdV89ZhNwAqRBM/7Rj7u
- 8uxcUEkMASoH45OKWD1fvw7FcGG0TV6LsJ8in5uloKs/ZQg6VVya9Iu222VGF/VQQvxgER5
- Z10m2THIWp0ML9WZ9TeRMlAGtazJBn1Kn/kXffVGbK2jcDpuyUOYk4Bt/TrvUL+su4LejDq
- CZxZ6CHBtW2w4TVGEWppA==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:z8m6XhpTG7M=:TJ205MO4O6DWL/mCxByEUq
- mcXH7yK7/RXf0gVxmfNUAr1d4lW1MNWbaj2w53Nz5ils6eZg3zL3Qik25uVOccJPn2Cki3QXi
- xyMqV5D0emlzIGBG50MUJpelaZGI3OR4O+uJ46m1qLY63T4Gtl6WxPxeg0/LTKe347aicFApj
- 6rPH2CQA14Ko4O4LKQnVtgq+N1AxyLtNpoaB05msET8IN1h6ForU4/2zrmf0qAoPmCDCWm6Wy
- /EAQPZxuC1oO6pJIMFsFMbBvHop/WsJOlOfxyzGW/MA2OxlNnGQWwt/SNrJsXwDDk1u2pdiDO
- ZYHKq+uJW9XX+wlDmYcMse6bwYa53T1f/EzbXc/ij2AQqmLBBEzdwVy1mNlf7vEEVEZi6E5p/
- w6Vq2f68l5hmjRuYOVf9HuI4hbsgLIi3wwun+NjPy6ZKXJ5iUQWy/2+4SFVixVDZNZBnWFgsA
- IBfhZmcjeR6+hDmNLDa3LjhD39ZFey2i4vjow9cStGCMobpzWkhMV7Q62c3v7pzJYp6GuAQLb
- PvjXwB9Y4hAkfwGrBdbLI5q5u/YIlPNVs8gzGKxALG794jhGkukUAE4Z7sDwb0N8dHws7osNe
- OLU7nCU8TBO5o9ZrGBJUsstl19SB8Ea6VfJC5UM5Djh+/u6eaz23J9TJGSzD+YelYJVSjSAhK
- 3/Fjr/2+//dljKA9IioOlHJnBC5kIhAe+yzitbQ1E2mOuT+PMwTvziCbFiV5pqoXeFGtPg1TH
- Bovq87+VzPjd4KNiX9EQufXweAjlw4VAUjbI4amNxO8p4At23RkuJnJ7Vn6BXTtHf9SMHcV3G
- hiKIcOwLlY8+dPWLpdtzHx/ThcTcfRzvrsCWvVvUBuO7JoAsurfYonyapIQCNAXXJLP22Rywp
- ZwWvpHlFiA0i7f6QZvCn0EkxupLerrXoSp3Jz1c8E/BtLT22y9bs1DZX3HzYQMwrDtaf17LnA
- Y3uY4KWJAeCjHQF5b70f1h5WejJfbFmzh7XSa2j3VxpekOsyxHOWAXjYNyhPjr1CKH6Vl5RYw
- Q3BamvSq9hHOb6aEVjt2lPBwli27AeG+EYe8wSs5f+0drz/uGe+h4tiPr14G8bEu10+VMEK6J
- 6mtvjTNR/tGQEZPq4X46lkMuEy6PFZgkH1oajGI5iR9hlG11wQy3iXOo8ih68eAwFt1Pbr3b6
- NAfaJoWrxOiW+7jrquVbLglOQiKzLXj930AukAY8Mbr1S5JCVOzvEW9gzb0AMsQstKMbPyLtm
- ynyjIhNa+lgY3I+d9
+References: <20210319061952.145040-1-andrew@aj.id.au>
+ <2db77e16-3f44-4c02-a7ba-a4fac8141ae3@www.fastmail.com>
+ <20210408121441.GG7166@minyard.net>
+ <6ff29d26-543a-4790-abb4-ebaa3f8d0265@www.fastmail.com>
+ <CACPK8Xc5HC7TZ6cUDH6+uHQO1LQCZE0YeENua1sE8nDXs0R2mg@mail.gmail.com>
+In-Reply-To: <CACPK8Xc5HC7TZ6cUDH6+uHQO1LQCZE0YeENua1sE8nDXs0R2mg@mail.gmail.com>
+From: Arnd Bergmann <arnd@arndb.de>
+Date: Fri, 9 Apr 2021 10:13:36 +0200
+X-Gmail-Original-Message-ID: <CAK8P3a2ch82=QccNZboa-e1tVaotyJfGFTfqDuQCO0xPVitXgA@mail.gmail.com>
+Message-ID: <CAK8P3a2ch82=QccNZboa-e1tVaotyJfGFTfqDuQCO0xPVitXgA@mail.gmail.com>
+Subject: Re: [PATCH v2 00/21] ipmi: Allow raw access to KCS devices
+To: Joel Stanley <joel@jms.id.au>
+Content-Type: text/plain; charset="UTF-8"
+X-Provags-ID: V03:K1:pfd9iRJELPFr4Ish0FIhD5lvPolXLcOH3jSnT4Sueoj5e0qKtB1
+ jTkIsy2tX7VWKDnJ8MUpsQmwPN1RgQSXuMx1J+JQB4LyjEGu+u4jENo5S1QikavSLR1YgMN
+ /dTZckNeb3fIx1RQTDLAsMOZZICYWXezGEQ0JFCtC+k09n3vjRiN0nO/h+rNGjp121QHN8i
+ L99UlYMrFnQZ3MjtOSQeA==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:0vNlUMSNDwo=:VcOjllLvlL2TU7gKPUyZY8
+ IGTTaMAQu6l7e5uyFHmAR2RlfuwRJOINZpHO43rHr7yzUjxUJfJK3H+Qixc1d90gDTEdMGKVG
+ O6BiQXVW+ytXMaNxxOWBAypuvxWs1UwNhjl81svj1WCtawIv59Cgfb5WMROK50y5Hve1t4sXX
+ 3k5BShg6Uq0ItdcVPR8I4glcUI6jHnsixUzVgoSG0nFO+osZGRdlr4D2wj0jUFn0Pm+obnAHu
+ hwAiIPC3RhrvxmEkGxkuT4lr8h2Cr97LICapXSm7JrjcwvgkoBNAXA7JV4eeuB6g9dCLe0zSo
+ Dy7HY/RZ4u7n9C0W4S9SfbzZTOeKMrTxq6XWbaMky9glLmoorvcCWYos0vleseips3B1dqi/M
+ /HRCj4YLiDaGuwzz+GN/EKU8CM4AOdPH1nx528ac8wCZZkOCPN5IShBnrVqnupcqbC4gjfHg2
+ 1Ijr6OYJrIMSJKykHxJV7kTxu6iW2MxlD/J0fvnATEe1dCQcFj+ESVccyehAmmyk3m5d1hAEK
+ +8GvyaiMeaANY98rWZ1NCD+LVvEiDdAz4oz1nxshQy+vNraCSMFNQ3cRwGeqpP/DY7PZfEMTr
+ 2rkIYH5P5OfyBljel1mi4sRCLKst4FS1yz
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,109 +78,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: DTML <devicetree@vger.kernel.org>, Tomer Maimon <tmaimon77@gmail.com>,
- Arnd Bergmann <arnd@arndb.de>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Jonathan =?utf-8?Q?Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+Cc: devicetree <devicetree@vger.kernel.org>, "Chia-Wei,
+ Wang" <chiawei_wang@aspeedtech.com>, Ryan Chen <ryan_chen@aspeedtech.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Corey Minyard <minyard@acm.org>,
+ Andrew Jeffery <andrew@aj.id.au>, Patrick Venture <venture@google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux ARM <linux-arm-kernel@lists.infradead.org>
+ Rob Herring <robh+dt@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Avi Fishman <avifishman70@gmail.com>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>,
+ openipmi-developer@lists.sourceforge.net, Lee Jones <lee.jones@linaro.org>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>,
+ Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
---KGb1lnLxRAL4SeVN
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Apr 09, 2021 at 04:37:34AM +0000, Joel Stanley wrote:
-> On Tue, 6 Apr 2021 at 21:59, Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.=
-net> wrote:
+On Fri, Apr 9, 2021 at 6:09 AM Joel Stanley <joel@jms.id.au> wrote:
+> On Thu, 8 Apr 2021 at 23:47, Andrew Jeffery <andrew@aj.id.au> wrote:
+> > On Thu, 8 Apr 2021, at 21:44, Corey Minyard wrote:
+> > > On Thu, Apr 08, 2021 at 10:27:46AM +0930, Andrew Jeffery wrote:
+> > > There were some minor concerns that were unanswered, and there really
+> > > was no review by others for many of the patches.
 > >
-> > On Tue, Apr 06, 2021 at 05:15:01PM +0200, Arnd Bergmann wrote:
-> > > On Tue, Apr 6, 2021 at 2:09 PM Jonathan Neusch=C3=A4fer
-> > > <j.neuschaefer@gmx.net> wrote:
-> > > >
-> > > > This series adds basic support for the Nuvoton WPCM450 BMC SoC. It'=
-s an older
-> > > > SoC but still commonly found on eBay, mostly in Supermicro X9 serve=
-r boards.
-> > > >
-> > > > Third-party documentation is available at: https://github.com/neusc=
-haefer/wpcm450/wiki
-> > > >
-> > > > Patches 1-4 add devicetree bindings for the WPCM450 SoC and its var=
-ious parts.
-> > > > Patches 5-7 add arch and driver support. Patches 8 and 9 add a devi=
-cetree for
-> > > > the SoC and a board based on it. Patch 10 finally updates the MAINT=
-AINERS file.
-> > > >
-> > > > Patch 2 requires "dt-bindings: arm: Convert nuvoton,npcm750 binding=
- to YAML"
-> > > > (https://lore.kernel.org/lkml/20210320164023.614059-1-j.neuschaefer=
-@gmx.net/)
-> > >
-> > > Hi Jonathan,
-> > >
-> > > It appears these patches are doing roughly the right thing, and we ma=
-y still
-> > > be able to get them into v5.13, but I'm not sure what your plan for m=
-aintaining
-> > > them is. The two options are that you either send your patches to be =
-picked up
-> > > by Joel, or you send everything directly to soc@kernel.org once it's =
-fully
-> > > reviewed.
-> >
-> > The route via Joel sounds alright with me. I've Cc'd him on this version
-> > of the series.
->=20
-> I've had a look at the series and it looks good to me:
->=20
-> Reviewed-by: Joel Stanley <joel@jms.id.au>
->=20
-> Nice work Jonathan.
->=20
-> I'll put this in it's own branch along with the bindings change it
-> depends on and send a pull request to Arnd for v5.13.
+> > Right; I was planning to clean up the minor concerns once I'd received
+> > some more feedback. I could have done a better job of communicating
+> > that :)
+>
+> I'll merge the first five through the aspeed tree this coming merge
+> window. We have acks from the relevant maintainers.
+>
+> Arnd: would you prefer that this come as it's own pull request, or as
+> part of the device tree branch?
 
-Thanks a bunch!
+When you are unsure, it's almost never wrong to go for a separate
+branch, which gives you a chance to have a concise description
+of the contents in the tag. This would be particularly helpful if there
+are incompatible changes to the DT binding that require a justification.
 
-A few patches are going through other branches (IRQ bindings+driver;
-watchdog bindings+driver probably, I guess). That leaves the following
-patches to go into your branch, AFAIUI:
+If you are only adding a few DT nodes to existing files, then merging
+these through the regular branch is probably easier.
 
-[PATCH v2 01/10] dt-bindings: vendor-prefixes: Add Supermicro
-[PATCH v2 02/10] dt-bindings: arm: npcm: Add nuvoton,wpcm450 compatible str=
-ing
-[PATCH v2 05/10] ARM: npcm: Introduce Nuvoton WPCM450 SoC
-[PATCH v2 08/10] ARM: dts: Add devicetree for Nuvoton WPCM450 BMC chip
-[PATCH v2 09/10] ARM: dts: Add devicetree for Supermicro X9SCi-LN4F based o=
-n WPCM450
-[PATCH v2 10/10] MAINTAINERS: Add entry for Nuvoton WPCM450
-
-
-Jonathan
-
---KGb1lnLxRAL4SeVN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEvHAHGBBjQPVy+qvDCDBEmo7zX9sFAmBwCPQACgkQCDBEmo7z
-X9vCBhAAuvSxsiCvVBLtKDkH6L/UNXQGInDlYyuajHLLU1vSBJCbqk1YyW0LEfHf
-q2rf5lRHc9sLIzruC671RIwt2800GdjuzHAre/NAGPvDq4UAzlyrIg8HJY9MMAZF
-sLjTE7YsNsgc2oCjPJY5+O7kB0rCWP1Xna8tYcgcj2uUcjT9NUd8PZ+sgasxR3fI
-t/YOdJflfOQ6Ce+4pK8wnnvZYCz97JRu+RTnjafHVfnNur93T7KC+BHq/OW2FeFk
-VvH9m86I6xl3KEuYSeO6nQEwJufp4ciPMxlmVOfOo8/+7jgM0ldjohGFbzHBqQTU
-noXEMhjpkDTa8zSv6e7RhTyS3OPR2j3kcTbACF3/oz7eLCvflmtT0Dlk2NmqDm+T
-bICh/kqe6MsQXGAYRTG86xoDRcbjYTQvCNIeP9Uv0rBFJ8cpJaJoi31qadH3G57h
-Ql2Wd9MnNLjtMDZqWBTYlBxjTdOw89g7D8twqXX6o8gLtJPsObuOUEbG6La7FAAb
-/c8YkjNTAqSgwkgnvpK6isdP1p8ZogWqb/WFwHUtH0y47gGKOTzRvZK9yglkp9VJ
-f5YYpYsUNwep5XvdOAWUT2RlvQconATZeZWir8bZO2gX0Ub4YvXH3q9iWFvlEg0p
-Z0BnAay6IHfaQ+jxqR03jwpIoGWAH51o8sSEcOO3E0OGjsjfIDE=
-=1DTD
------END PGP SIGNATURE-----
-
---KGb1lnLxRAL4SeVN--
+       Arnd
