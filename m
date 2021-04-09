@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 110B3C433B4
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 03:37:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EB21C433ED
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 03:39:20 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 91B4461177
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 03:37:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 91B4461177
+	by mail.kernel.org (Postfix) with ESMTPS id A143361055
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 03:39:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A143361055
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FGkNH1bFLz3brL
-	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 13:37:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FGkQF6pdRz3bTZ
+	for <openbmc@archiver.kernel.org>; Fri,  9 Apr 2021 13:39:17 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=Heia25Tg;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=jcSmnDiU;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::836;
- helo=mail-qt1-x836.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::832;
+ helo=mail-qt1-x832.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=Heia25Tg; dkim-atps=neutral
-Received: from mail-qt1-x836.google.com (mail-qt1-x836.google.com
- [IPv6:2607:f8b0:4864:20::836])
+ header.s=google header.b=jcSmnDiU; dkim-atps=neutral
+Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
+ [IPv6:2607:f8b0:4864:20::832])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FGkMr26xFz2yhf;
- Fri,  9 Apr 2021 13:37:11 +1000 (AEST)
-Received: by mail-qt1-x836.google.com with SMTP id f12so3250533qtf.2;
- Thu, 08 Apr 2021 20:37:11 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FGkPm1nqyz2yjY;
+ Fri,  9 Apr 2021 13:38:51 +1000 (AEST)
+Received: by mail-qt1-x832.google.com with SMTP id f12so3239639qtq.4;
+ Thu, 08 Apr 2021 20:38:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=8BgGBrR3Xwqw+MMg1YnlfMAUK+I10lyWE+xZkXB1ujs=;
- b=Heia25TgE2vtvJwk4Mye9wUNtKT4LCXFpu3RTd7Litn4l6XDwm58yNf5Xo72WKG1Cb
- Pnh29PYykNQ0Leb0AVytW69/DSGu2rRRdSyPucL7QrMDZjkSbhFQ0sXFxG9k3cGgza9V
- mXSNHoDmBuqB2Dq6N7NZp/gT1iFd9YrggQtWs=
+ :cc; bh=zWYrgmgXBOXRjVrzdgXfjhYpQ0FoUCzYmeLXCLSnYFE=;
+ b=jcSmnDiUo1MMc6Q3MSiXiyB7AXqJBpPE3e98RkysCl8SPty3nDcOvOcRler+dmur5d
+ aMg54JUXZxIhZg03ZAR8c4WicszsfYamOPqGCL3/D+KRBdvKzAB4CjehLG05aGaqWbqE
+ rpwrfWYwUuXjd2oNzh9mCifoRsFoJ+gnmN5pc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=8BgGBrR3Xwqw+MMg1YnlfMAUK+I10lyWE+xZkXB1ujs=;
- b=F3i13EYfNbyUTlqFNPxcP4CBTLUuJHcGtwGCtfrmSnm+ufnoRef4d6Jgh4ANJ51BkQ
- hR2FUKzUnpZJscSF6ZbhTzqhp2xJl7rlB0oSnkyoAc6ntPv4Ttfl7JucjkzXEY+ISDjt
- 1jtejveEwJgrqFuwO9C/WXBcdJ5anSFHiwqQeY4p6Y0ExSpzUFz70MnZFejbAukeWifd
- hadNXnz9l5slxFfo9tGTBrTDJFXTRb2pXj8UzoyuJs+Qhdca3C+98YuJ1CyQ0eDAUzZG
- 67aIOEor5xefO7solfSTosoN+NqFDdmN/1yoKjVRCWDNlplnXN+qIVPQvXLJZTtVFFVv
- +ZTA==
-X-Gm-Message-State: AOAM533ree4UdZh8jxg2jPSb1EZA4bbgItDhxA4Ausm6mY6v8l3rI4oY
- ZkS6rjukFXUAksAoYzCJbdgy6A7JegLj1tKXNv9V42UMIas=
-X-Google-Smtp-Source: ABdhPJxpEB1iiCw0U43cwWPFxVnBP2huZ7QxGaGC6NeOvjxLXRAa+ssU2jFErOgTTQKad2+gM3ZDkIo4Ri3biTi/Bas=
-X-Received: by 2002:ac8:5f87:: with SMTP id j7mr10494309qta.135.1617939429154; 
- Thu, 08 Apr 2021 20:37:09 -0700 (PDT)
+ bh=zWYrgmgXBOXRjVrzdgXfjhYpQ0FoUCzYmeLXCLSnYFE=;
+ b=g0bUQwjmz48lF7NyXz/q5e/jlT939B4aBJKPmO9d6LrHP3NBOkX/pm8sFu0cze/rxI
+ Ced1IMgwuROheWCo4TcwuGTDSppzja+WlGJ2Y1j6YjoSoGJOHT+ofR8oLj/1NrLcY7hM
+ zJwx7bTkDpsch7/T5XoZxaXHWWrF9H3+Y76CnWQYZNQsGBD/aJXbIMtY7fJxepqK56Gm
+ R9d0nhzfXrxzbtATjzCNvlPRmTUZniTmfgt0AT/SpTbML8PePCpyJ10bLbVWX4gHxJ/8
+ 1QYgcsi0A99j1tIF9riTowsCAQxqajH2cVMJjYtY9gzayLlRs31q6aBdqKZ54p3g8tP4
+ s3YA==
+X-Gm-Message-State: AOAM532fTcE81cYrIFdM7/D6dkPnj/TpM+C1b9ROOerop99/Fb6Pyis+
+ mt7UCCzLFLoxWYKx76LEGEPgOdcw2jTrKnx+iPk=
+X-Google-Smtp-Source: ABdhPJy3ab4kwwpcl+l+Ds70eJmyq2Cr6Wy6ME4tEKA06FjzEJMtXRy47zcwt64rNz+2wEnTaXI69wecrdATFzf/+XE=
+X-Received: by 2002:ac8:7547:: with SMTP id b7mr11274286qtr.176.1617939528484; 
+ Thu, 08 Apr 2021 20:38:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <20210319062752.145730-1-andrew@aj.id.au>
- <20210319062752.145730-4-andrew@aj.id.au>
-In-Reply-To: <20210319062752.145730-4-andrew@aj.id.au>
+ <20210319062752.145730-5-andrew@aj.id.au>
+In-Reply-To: <20210319062752.145730-5-andrew@aj.id.au>
 From: Joel Stanley <joel@jms.id.au>
-Date: Fri, 9 Apr 2021 03:36:57 +0000
-Message-ID: <CACPK8Xfre_HriZXa10GVRvzxM51_6jkxCrXi-Ofto6cCKcLw4g@mail.gmail.com>
-Subject: Re: [PATCH v2 04/21] pinctrl: aspeed-g5: Adapt to new LPC device tree
- layout
+Date: Fri, 9 Apr 2021 03:38:36 +0000
+Message-ID: <CACPK8XcFX9Ljo8K9XzhtCnTXKS0muknzrV6=SU6Wh5jJSPdNAg@mail.gmail.com>
+Subject: Re: [PATCH v2 05/21] soc: aspeed: Adapt to new LPC device tree layout
 To: Andrew Jeffery <andrew@aj.id.au>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -111,6 +110,5 @@ On Fri, 19 Mar 2021 at 06:28, Andrew Jeffery <andrew@aj.id.au> wrote:
 >
 > Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 > Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
-> Acked-by: Linus Walleij <linus.walleij@linaro.org>
 
 Reviewed-by: Joel Stanley <joel@jms.id.au>
