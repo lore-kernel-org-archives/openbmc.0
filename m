@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2897CC433ED
-	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 03:48:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E97D2C433B4
+	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 03:49:06 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C506A61004
-	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 03:48:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org C506A61004
+	by mail.kernel.org (Postfix) with ESMTPS id 6237261206
+	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 03:49:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6237261206
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FJZTP2MMpz30C5
-	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 13:48:25 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FJZV86hKXz3bSj
+	for <openbmc@archiver.kernel.org>; Mon, 12 Apr 2021 13:49:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=J328HRcJ;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=njJTMX/K;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
@@ -29,34 +29,34 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=J328HRcJ; 
+ header.a=rsa-sha256 header.s=thorn header.b=njJTMX/K; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
  [IPv6:2605:2700:0:5::4713:9cab])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FJZSP106Jz2yyM;
- Mon, 12 Apr 2021 13:47:32 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FJZSQ05fdz30BJ;
+ Mon, 12 Apr 2021 13:47:33 +1000 (AEST)
 Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id E434A685;
- Sun, 11 Apr 2021 20:47:29 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 84736690;
+ Sun, 11 Apr 2021 20:47:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1618199250;
- bh=8nVxQe2nbHeXEJoGmKtLcyMdKnjX2BS4q8oiouaC58Q=;
+ s=thorn; t=1618199252;
+ bh=fvG+KhGr56hUUimTU+sIx4n7YvDI7UPAddjCieqejpg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J328HRcJLqLeoStQyZNLZ5aTD2RQ7uQRbFy5xoz/KYh0i8y81OyPVX3D0y/P9iSxD
- p5CP+ed8vrgOitA3s8IA9FzLAdj1mngLZzlRCK8DaLDstmx7fG49SUlwKgVh0uOL7j
- 0Vf5VdcwSof20Klhk31mW8XvHBz0G7BuAx7qok6k=
+ b=njJTMX/KmoKkVAeUPHntoS+o7bdvrqN+M/JrYaMRLZvG0M4hhEJAyuQbDTdEm4/0x
+ fkLEwDJYOgoGpO1PpR+BxaIyRV2k/GsbMpNl243A3KzZtngu2yRsgps9zT9gUF9tDP
+ yP9ZNZyv0UWmKLq0No2pazYEkPVafxa4/DYazbmc=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: Joel Stanley <joel@jms.id.au>
-Subject: [PATCH v6 1/4] dt-bindings: serial: 8250: deprecate aspeed,
- sirq-polarity-sense
-Date: Sun, 11 Apr 2021 22:47:09 -0500
-Message-Id: <20210412034712.16778-2-zev@bewilderbeest.net>
+Subject: [PATCH v6 2/4] serial: 8250_aspeed_vuart: refactor sirq and lpc
+ address setting code
+Date: Sun, 11 Apr 2021 22:47:10 -0500
+Message-Id: <20210412034712.16778-3-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210412034712.16778-1-zev@bewilderbeest.net>
 References: <20210412034712.16778-1-zev@bewilderbeest.net>
@@ -73,41 +73,117 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Rob Herring <robh@kernel.org>, linux-aspeed@lists.ozlabs.org,
- Zev Weiss <zev@bewilderbeest.net>, - <devicetree@vger.kernel.org>,
+Cc: linux-aspeed@lists.ozlabs.org, Zev Weiss <zev@bewilderbeest.net>,
  Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Lubomir Rintel <lkundrak@v3.sk>,
- Rob Herring <robh+dt@kernel.org>, linux-serial@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ Jiri Slaby <jslaby@suse.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This property ties SIRQ polarity to SCU register bits that don't
-necessarily have any direct relationship to it; the only use of it was
-removed in commit c82bf6e133d3 ("ARM: aspeed: g5: Do not set sirq
-polarity").
+This splits dedicated aspeed_vuart_set_{sirq,lpc_address}() functions
+out of the sysfs store functions in preparation for adding DT
+properties that will be poking the same registers.  While we're at it,
+these functions now provide some basic bounds-checking on their
+arguments.
 
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
-Reviewed-by: Joel Stanley <joel@jms.id.au>
-Acked-by: Rob Herring <robh@kernel.org>
+Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
 ---
- Documentation/devicetree/bindings/serial/8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/tty/serial/8250/8250_aspeed_vuart.c | 51 ++++++++++++++-------
+ 1 file changed, 35 insertions(+), 16 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Documentation/devicetree/bindings/serial/8250.yaml
-index f54cae9ff7b2..491b9297432d 100644
---- a/Documentation/devicetree/bindings/serial/8250.yaml
-+++ b/Documentation/devicetree/bindings/serial/8250.yaml
-@@ -188,6 +188,7 @@ properties:
-       offset and bit number to identify how the SIRQ polarity should be
-       configured. One possible data source is the LPC/eSPI mode bit. Only
-       applicable to aspeed,ast2500-vuart.
-+    deprecated: true
+diff --git a/drivers/tty/serial/8250/8250_aspeed_vuart.c b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+index c33e02cbde93..8433f8dbb186 100644
+--- a/drivers/tty/serial/8250/8250_aspeed_vuart.c
++++ b/drivers/tty/serial/8250/8250_aspeed_vuart.c
+@@ -72,22 +72,31 @@ static ssize_t lpc_address_show(struct device *dev,
+ 	return snprintf(buf, PAGE_SIZE - 1, "0x%x\n", addr);
+ }
  
- required:
-   - reg
++static int aspeed_vuart_set_lpc_address(struct aspeed_vuart *vuart, u32 addr)
++{
++	if (addr > U16_MAX)
++		return -EINVAL;
++
++	writeb(addr >> 8, vuart->regs + ASPEED_VUART_ADDRH);
++	writeb(addr >> 0, vuart->regs + ASPEED_VUART_ADDRL);
++
++	return 0;
++}
++
+ static ssize_t lpc_address_store(struct device *dev,
+ 				 struct device_attribute *attr,
+ 				 const char *buf, size_t count)
+ {
+ 	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+-	unsigned long val;
++	u32 val;
+ 	int err;
+ 
+-	err = kstrtoul(buf, 0, &val);
++	err = kstrtou32(buf, 0, &val);
+ 	if (err)
+ 		return err;
+ 
+-	writeb(val >> 8, vuart->regs + ASPEED_VUART_ADDRH);
+-	writeb(val >> 0, vuart->regs + ASPEED_VUART_ADDRL);
+-
+-	return count;
++	err = aspeed_vuart_set_lpc_address(vuart, val);
++	return err ? : count;
+ }
+ 
+ static DEVICE_ATTR_RW(lpc_address);
+@@ -105,27 +114,37 @@ static ssize_t sirq_show(struct device *dev,
+ 	return snprintf(buf, PAGE_SIZE - 1, "%u\n", reg);
+ }
+ 
++static int aspeed_vuart_set_sirq(struct aspeed_vuart *vuart, u32 sirq)
++{
++	u8 reg;
++
++	if (sirq > (ASPEED_VUART_GCRB_HOST_SIRQ_MASK >> ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT))
++		return -EINVAL;
++
++	sirq <<= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
++	sirq &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
++
++	reg = readb(vuart->regs + ASPEED_VUART_GCRB);
++	reg &= ~ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
++	reg |= sirq;
++	writeb(reg, vuart->regs + ASPEED_VUART_GCRB);
++
++	return 0;
++}
++
+ static ssize_t sirq_store(struct device *dev, struct device_attribute *attr,
+ 			  const char *buf, size_t count)
+ {
+ 	struct aspeed_vuart *vuart = dev_get_drvdata(dev);
+ 	unsigned long val;
+ 	int err;
+-	u8 reg;
+ 
+ 	err = kstrtoul(buf, 0, &val);
+ 	if (err)
+ 		return err;
+ 
+-	val <<= ASPEED_VUART_GCRB_HOST_SIRQ_SHIFT;
+-	val &= ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
+-
+-	reg = readb(vuart->regs + ASPEED_VUART_GCRB);
+-	reg &= ~ASPEED_VUART_GCRB_HOST_SIRQ_MASK;
+-	reg |= val;
+-	writeb(reg, vuart->regs + ASPEED_VUART_GCRB);
+-
+-	return count;
++	err = aspeed_vuart_set_sirq(vuart, val);
++	return err ? : count;
+ }
+ 
+ static DEVICE_ATTR_RW(sirq);
 -- 
 2.31.1
 
