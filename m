@@ -7,76 +7,76 @@ X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 03BC2C433ED
-	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 08:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 34CB8C433B4
+	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 08:12:17 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9E71F611F2
-	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 08:11:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9E71F611F2
+	by mail.kernel.org (Postfix) with ESMTPS id B9B6860FE8
+	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 08:12:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B9B6860FE8
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FKJGw2H7lz3bwp
-	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 18:11:52 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FKJHM2rqZz3c9L
+	for <openbmc@archiver.kernel.org>; Tue, 13 Apr 2021 18:12:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=L5dPEhT+;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=WBx2BhSB;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::532;
- helo=mail-pg1-x532.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1029;
+ helo=mail-pj1-x1029.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=L5dPEhT+; dkim-atps=neutral
-Received: from mail-pg1-x532.google.com (mail-pg1-x532.google.com
- [IPv6:2607:f8b0:4864:20::532])
+ header.s=20161025 header.b=WBx2BhSB; dkim-atps=neutral
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com
+ [IPv6:2607:f8b0:4864:20::1029])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FKJC73RRgz3brS
- for <openbmc@lists.ozlabs.org>; Tue, 13 Apr 2021 18:08:35 +1000 (AEST)
-Received: by mail-pg1-x532.google.com with SMTP id q10so11365069pgj.2
- for <openbmc@lists.ozlabs.org>; Tue, 13 Apr 2021 01:08:35 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FKJCB44jMz3027
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Apr 2021 18:08:38 +1000 (AEST)
+Received: by mail-pj1-x1029.google.com with SMTP id i4so8060580pjk.1
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Apr 2021 01:08:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
  :mime-version:content-transfer-encoding;
- bh=4XXHGV5/Fb896/kDcQ/qoU2AI/sxq+eqpgf3QaBwT9I=;
- b=L5dPEhT+xHIW+3H5e/WVGnq+j+XciVgdETra9TLREgxdJDGevBmybr401hGePsP+U0
- grb227ig/+qzluUNMMF4cUC8GM+NH9zIT6YmTNQ6YLsxbRGeVequSSIvttTsqy5ZcfU2
- X+K6j3i8rfSuXv9OCizk+x5gUlyM5wq25N/bfNrUfhuHb9mX9xFSlIzyDAu/CBRtJoM8
- FSJCjdqCYCzySPyCrNQU6B9QtJTnBXDlUJc3n/+qFF56TOK1pESvT77gLUzMrGtEvIw8
- vJOgTeMdMsvjsxYbEoqTuSoS6OAVaFImkMDQsVyhrKC5nKGA62jVjlwyoq1hpDuGmcp5
- ZGFg==
+ bh=j7DyWUFOo4Hr7J01R8HPsquudOYHEEnrEthLV7/n3Sg=;
+ b=WBx2BhSBEa730lL1yJL0jsJ3zO/8huiA+/D4VR75K8wcKO+/Rns5ExPSpJuKQSNs/L
+ LObpJ0DalWNmh1G37t+L9ZNqGmbC27MkEMPy0LIBIWFeSouDz6nEgW6cJ34pN9clpv+j
+ D3SoQS+LekiJFQRp9FBWf3pDAfIYQ/DZUh+LBZygZ8JTYU1IBay/ntnASo605rD2+0qt
+ ph+YPqzn+zYjfRR9ko/ueLi2yI8w4QicbfAjrH04hhEptdvsyLIl+kMSiGwmBWa9KzGi
+ BAku0IZ6ZeSXAuVkPzmPbnUKGY20x3LY3Th/XTWsD8HwthxaMyFdwJsOFKW+C6SgrtzV
+ GACA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
  :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=4XXHGV5/Fb896/kDcQ/qoU2AI/sxq+eqpgf3QaBwT9I=;
- b=q/OUF3wPg7Y+VXiUVtpe4U0LQpTXE39G2qarPHPW2W5hmnZdy0zPqE76aBv5hw67n+
- RMrV8ichdn0QsHwG2I30FkqXQnazrEkgY7tdkOM6kxxOGhynxH7Hi2ks1iziKpY7ucmq
- KAS6MlmmyzRFGjliBafUOKXi+vLjcswyWuDCUFWrlqKWR0HCWGb3nhG+JfHj9p+qj9EV
- WLFiahA9HpNbs2a9LDd5WcUBRwlDStcAAVk90MVDe3FmpFCbXwW0dQ+XzW+qQn4IO+9b
- mr3Xa9AW/ZMMWtVs2HszJ2ep9hi5GgOpiJzluFNIM3jOhUCMDfSffYSC5mIPU3pfF7i1
- gHsw==
-X-Gm-Message-State: AOAM530ACc1UCYYFcjT5yAsbf4wDGbArrpy7j1B9XSq4skUq5YeQGgRw
- fhfiC1ByOT1nFkgyiOhWc1Lqyz3GN/Y=
-X-Google-Smtp-Source: ABdhPJwA58NmVq8EMSnL34Y8vz+6kW+hd2blWbgqCBl7VIWAdx4gGtSMGlMEJ8Oov8xPZuqSzje1qA==
-X-Received: by 2002:a05:6a00:2ce:b029:246:f904:a94 with SMTP id
- b14-20020a056a0002ceb0290246f9040a94mr18408457pft.56.1618301312689; 
- Tue, 13 Apr 2021 01:08:32 -0700 (PDT)
+ bh=j7DyWUFOo4Hr7J01R8HPsquudOYHEEnrEthLV7/n3Sg=;
+ b=KA6wh4CE96XrG16xQfWUpRMm4q8WTDHTegyAEFOMMupiBRhA2r5jcCiyrCIk4e6RYj
+ ZGkvxeEAtmrnp5yYAiJMCBuaIZHbZyZ6gTHkUUgkQg5TN1Gd/xzNM+RG7rpqMsfTWuiD
+ dockfoL8O4WBu7RfZwsi7knt5+/pKWmQj6RbjGyfrExDjQGesdllzEwZ8BP01SV7ah8p
+ PKrbPqJlFAWnrN6omSVLCh4f6XPsI9aKwBMYfwjD3VfhpU3BDjCuB8H7gzK/J3MTGbSw
+ xdgrcC4O57cKA55px9KYR+28iXnQPTFxMu81lUWq7YL1iDqL35wKCFuDUbWanM1/U7lb
+ 7PBw==
+X-Gm-Message-State: AOAM530ctoQ6TtOpManJA5Mo5Ewslfzov7o2UFaOHuTShUQF2INxL8Sm
+ 6ZoxwE0i2+PUAsqdyqS/6ldrvxc2oCk=
+X-Google-Smtp-Source: ABdhPJxhEuvqHt1k3TKp9crOfA24x8wiMCU+dHgEQsNCB6WyMUsi8cAs8yoiMwIRZmgzUK9rQQ+OLg==
+X-Received: by 2002:a17:90a:94c4:: with SMTP id
+ j4mr3438457pjw.14.1618301315948; 
+ Tue, 13 Apr 2021 01:08:35 -0700 (PDT)
 Received: from voyager.lan ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id nh24sm1443507pjb.38.2021.04.13.01.08.29
+ by smtp.gmail.com with ESMTPSA id nh24sm1443507pjb.38.2021.04.13.01.08.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 13 Apr 2021 01:08:31 -0700 (PDT)
+ Tue, 13 Apr 2021 01:08:35 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org, Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
  Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH u-boot v2019.04-aspeed-openbmc 08/11] ast2600: Add HACE to
- device tree
-Date: Tue, 13 Apr 2021 17:37:52 +0930
-Message-Id: <20210413080755.73572-9-joel@jms.id.au>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc 09/11] clk: aspeed: Add HACE
+ yclk to ast2600
+Date: Tue, 13 Apr 2021 17:37:53 +0930
+Message-Id: <20210413080755.73572-10-joel@jms.id.au>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210413080755.73572-1-joel@jms.id.au>
 References: <20210413080755.73572-1-joel@jms.id.au>
@@ -98,74 +98,51 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-HACE is the Hash and Crypto Egine in the AST2600.
-
 Signed-off-by: Joel Stanley <joel@jms.id.au>
 ---
- arch/arm/dts/ast2600-rainier.dts | 5 +++++
- arch/arm/dts/ast2600-tacoma.dts  | 5 +++++
- arch/arm/dts/ast2600.dtsi        | 9 +++++++++
- arch/arm/dts/ast2600a1-evb.dts   | 4 ++++
- 4 files changed, 23 insertions(+)
+ drivers/clk/aspeed/clk_ast2600.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/arch/arm/dts/ast2600-rainier.dts b/arch/arm/dts/ast2600-rainier.dts
-index 67e177baf1bd..aae507b4c23d 100755
---- a/arch/arm/dts/ast2600-rainier.dts
-+++ b/arch/arm/dts/ast2600-rainier.dts
-@@ -103,3 +103,8 @@
- 	pinctrl-0 = <&pinctrl_emmc_default>;
- 	sdhci-drive-type = <1>;
- };
-+
-+&hace {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-diff --git a/arch/arm/dts/ast2600-tacoma.dts b/arch/arm/dts/ast2600-tacoma.dts
-index 85d1e3902b11..c8ed5e35a74c 100755
---- a/arch/arm/dts/ast2600-tacoma.dts
-+++ b/arch/arm/dts/ast2600-tacoma.dts
-@@ -94,3 +94,8 @@
- 	pinctrl-0 = <&pinctrl_emmc_default>;
- 	sdhci-drive-type = <1>;
- };
-+
-+&hace {
-+	u-boot,dm-pre-reloc;
-+	status = "okay";
-+};
-diff --git a/arch/arm/dts/ast2600.dtsi b/arch/arm/dts/ast2600.dtsi
-index e619f7118886..57ea98a47b67 100644
---- a/arch/arm/dts/ast2600.dtsi
-+++ b/arch/arm/dts/ast2600.dtsi
-@@ -304,6 +304,15 @@
+diff --git a/drivers/clk/aspeed/clk_ast2600.c b/drivers/clk/aspeed/clk_ast2600.c
+index 4c00008a5dfd..ba9a0a0a9a5a 100644
+--- a/drivers/clk/aspeed/clk_ast2600.c
++++ b/drivers/clk/aspeed/clk_ast2600.c
+@@ -1066,6 +1066,25 @@ static ulong ast2600_enable_usbbhclk(struct ast2600_scu *scu)
+ 	return 0;
+ }
  
- 			};
- 
-+			hace: hace@1e6d0000 {
-+				compatible = "aspeed,ast2600-hace";
-+				reg = <0x1e6d0000 0x200>;
-+				interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&scu ASPEED_CLK_GATE_YCLK>;
-+				clock-names = "yclk";
-+				status = "disabled";
-+			};
++/* also known as yclk */
++static ulong ast2600_enable_haceclk(struct ast2600_scu *scu)
++{
++	u32 reset_bit;
++	u32 clkstop_bit;
 +
- 			smp-memram@0 {
- 				compatible = "aspeed,ast2600-smpmem", "syscon";
- 				reg = <0x1e6e2180 0x40>;
-diff --git a/arch/arm/dts/ast2600a1-evb.dts b/arch/arm/dts/ast2600a1-evb.dts
-index 2827e00c0eb4..2ae6e3bdf192 100644
---- a/arch/arm/dts/ast2600a1-evb.dts
-+++ b/arch/arm/dts/ast2600a1-evb.dts
-@@ -301,3 +301,7 @@
- &display_port {
- 	status = "okay";
- };
++	reset_bit = BIT(ASPEED_RESET_HACE);
++	clkstop_bit = BIT(13);
 +
-+&hace {
-+	status = "okay";
-+};
++	writel(reset_bit, &scu->sysreset_ctrl1);
++	udelay(100);
++	writel(clkstop_bit, &scu->clk_stop_clr_ctrl1);
++	mdelay(20);
++
++	writel(reset_bit, &scu->sysreset_clr_ctrl1);
++
++	return 0;
++}
++
+ static int ast2600_clk_enable(struct clk *clk)
+ {
+ 	struct ast2600_clk_priv *priv = dev_get_priv(clk->dev);
+@@ -1104,6 +1123,9 @@ static int ast2600_clk_enable(struct clk *clk)
+ 		case ASPEED_CLK_GATE_USBPORT2CLK:
+ 			ast2600_enable_usbbhclk(priv->scu);
+ 			break;
++		case ASPEED_CLK_GATE_YCLK:
++			ast2600_enable_haceclk(priv->scu);
++			break;
+ 		default:
+ 			pr_debug("can't enable clk \n");
+ 			return -ENOENT;
 -- 
 2.30.2
 
