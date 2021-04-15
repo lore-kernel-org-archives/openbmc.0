@@ -2,26 +2,27 @@ Return-Path: <SRS0=Tyzw=JM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3DBFFC433B4
-	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 13:03:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BC422C433ED
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 13:09:06 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 96B70610C8
-	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 13:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 96B70610C8
+	by mail.kernel.org (Postfix) with ESMTPS id 4683461132
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 13:09:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4683461132
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FLff5196Fz3bvG
-	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 23:03:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FLfmw4112z3bps
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 23:09:04 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=jgUNHhl1;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=DQ9jl7uw;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm2 header.b=cColL0cq;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=REOPmpjs;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.19;
@@ -29,73 +30,72 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
- header.a=rsa-sha256 header.s=fm2 header.b=jgUNHhl1; 
+ header.a=rsa-sha256 header.s=fm2 header.b=cColL0cq; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=DQ9jl7uw; 
+ header.a=rsa-sha256 header.s=fm2 header.b=REOPmpjs; 
  dkim-atps=neutral
 Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
  [64.147.123.19])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FLfdb1Fg2z30CZ
- for <openbmc@lists.ozlabs.org>; Thu, 15 Apr 2021 23:02:42 +1000 (AEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.west.internal (Postfix) with ESMTP id 1F4A812D1;
- Thu, 15 Apr 2021 09:02:38 -0400 (EDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FLfmT00Gcz2xMW
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Apr 2021 23:08:40 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 7E5671216;
+ Thu, 15 Apr 2021 09:08:38 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute5.internal (MEProxy); Thu, 15 Apr 2021 09:02:38 -0400
+ by compute4.internal (MEProxy); Thu, 15 Apr 2021 09:08:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=fm2; bh=0rZ
- 6ZVLvLYA2nUn7oucAsCc98IbyZkp6vKnrfN6v/2w=; b=jgUNHhl1d5wehokSnF+
- CFgivYOm//IWofqZo4Q67jABEY62qS1gWdTm2mqaotUY3qHVWarEIdAocIDS3rgl
- nJQAhWQ50W3muTEsgMhK0ZgoBzOWXS9/hm5oGMM0BeOaRg7Fa+FxlOSy8z4ML0Qx
- OKCBbeZq2euCkvFfCE02zmgSy8vJRnGhHJ1N5GBVEzRbL9l+fJ/NhEz7d3MyFd6z
- huySI+r6HlK4nxYBnYUeidKZ6N240iUOGbKAZ4eGQk0fGxZ1xYDaNDkw/GNq7nqp
- 5J1YQF4Ttjn3KfHLS07uz/4vs+qMsqfByA5xsDZC1EKNXhxFa5FqDn00hO9X2nGb
- WCg==
+ :references:mime-version:content-type:in-reply-to; s=fm2; bh=nYf
+ Rwgmkj3JJox2uiFEEWUxhqU1UMPnYGfYKgS2y6b4=; b=cColL0cq27S53k+i+C0
+ PQVUWc+6YZ4Vwb3kvfLTqaq84WoD2y0f5ssKidmYmB4s+BmQHaOMqz/U0NlZMZ3l
+ LIh60thpi5bo09XsMmKN/rU52isZC7vDWpNwvmly/5ho4RST9fiytv8mPRQTjjGZ
+ pnYwnXqVPKZlESvvxnFqfWxPZklVQL/Un59+s/8wW+IuUheESctwaedHHd3vfLs2
+ DcNYVT10Fv4ZezxDJXjyNxwpRzo/giuyDVv7qawmPjs+lUZJSiDnDwNJtBIfDrvE
+ smirhPeFeRJgcwxwy8ePayMClLm/0AMX5swwyTNdD7vosf2mffKLRMkzj0rbhkzH
+ xWQ==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=0rZ6ZV
- LvLYA2nUn7oucAsCc98IbyZkp6vKnrfN6v/2w=; b=DQ9jl7uwuUReeq/cDufq7l
- 5xV91rl1CCFY4uNpF0Jspaz9RuUHK83xT5bmgzFCwrU1QF9MiiG7Hy9pBsAbpz5z
- UMtYl5Sx4gBe9tIV4XmaIxiJZmH02mrjekhFoL5aANe2S5DtF1fkT3mnXFfADB+Q
- p5xvI0cE6gqEBuRtl5R1VlbP0y5ThEnXLqSv4NL8VWMXg7r6LZ0psnEkzxEZiXN9
- 6Nnnbaks5lM6jP5klQz9vqTnAozD0fD4EBTNDSwydUHbSpMMuhTuRPQjJewSwN2b
- 1xr5IAazvljqHeHTOYO1vFyzOM8+Yht3tZVxZuj22kf4glIXLeQr0ISqy3oXVLIA
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=nYfRwg
+ mkj3JJox2uiFEEWUxhqU1UMPnYGfYKgS2y6b4=; b=REOPmpjsVfuFq6l9mRmZ4w
+ 7T+pgLC4yCkgzyL1xnORyYI7WC7zeHkCn+tSWP/JIR+q42Rjbv7Y58xgPFG87HhE
+ psb1zs1FZ8bI5l3Gbvy4JTURPMG0HvO2m4vdhRTpjVxeH5r6sST4UaeoSI9vbrOa
+ EC21TI/iFvISU7oLQ0ErDgjI41AQ5EtnqPXL0a7RmaxuflOhKk7erqpNf7WKt+EZ
+ rrGr63CJxfjTZvc0DAjuXLd0vgJGz9BRQFffqt+9zNopxR5v4+8FAmNX1KPsO4Vd
+ cPgThwqh0rB3Tgjckn4gYL4wqAddoKdV+HEZjWrtsLhB74Atu6vxcmzQIL4qG3fw
  ==
-X-ME-Sender: <xms:bDl4YIhQImDnB2AqZlG3gMyVZwO3JMXKwXvkkUnAh16SnKXIAoYxLg>
- <xme:bDl4YDDleGyCu24XZJ2kG2zQnEduNtmeHHT5EvSBog83q3p7Y6w0nif5cFep2Z9BP
- TbZVCjeWpI0h8W0g-4>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudelfedgiedvucetufdoteggodetrfdotf
+X-ME-Sender: <xms:1Dp4YBcMXCH_kmPqZuP-JIsMqfzTcC2cyNce_1lv_WoOdshcgGp8kg>
+ <xme:1Dp4YPPrN0ZA9CxUWBC-kjWU3CFmurpj6VNyugMlNZJN-UUMOy1RG9GNXV8j1obr0
+ fp6OWg-r63_ENm8YZo>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrudelfedgieefucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucenucfjughrpeffhffvuffkfhggtggujgesthdtre
  dttddtvdenucfhrhhomhepuehrrgguuceuihhshhhophcuoegsrhgrughlvgihsgesfhhu
- iiiiihgvshhquhhirhhrvghlrdgtohhmqeenucggtffrrghtthgvrhhnpeegleelkefhve
- evueeihedtueeuhedthffggeduleeuhedttdevhffffeegtddvteenucffohhmrghinhep
- khgvrhhnvghlrdhorhhgnecukfhppedujeefrdduieejrdefuddrudeljeenucevlhhush
- htvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpegsrhgrughlvgihsges
- fhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
-X-ME-Proxy: <xmx:bDl4YJc2GB5Qq_NXXodgzcjKGzk1HGt5Qvyqzx0drBsqfQhZ6QObUQ>
- <xmx:bDl4YLfds3faPqPhoo8jsvioVQtVAPVH-ekNnTlX688l3O_vDfZeOg>
- <xmx:bDl4YNi9JmlwT3CcHUsVV8jvCcbX7BLuCkLRN4Y_pjrrwnWA8ILdqQ>
- <xmx:bTl4YER-u1J9TtgCQpF12ZojGEghv1jtI1-JnDjzor8WPuuBlbh6yw>
+ iiiiihgvshhquhhirhhrvghlrdgtohhmqeenucggtffrrghtthgvrhhnpeeffffhfeehge
+ dutddvtdeuiefhudeifeekfeeifeekfedufeeuvedulefgkefffeenucfkphepudejfedr
+ udeijedrfedurdduleejnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrg
+ hilhhfrhhomhepsghrrggulhgvhigssehfuhiiiihivghsqhhuihhrrhgvlhdrtghomh
+X-ME-Proxy: <xmx:1Dp4YKggMFkEsjxqDCHWLA2z7zKfiVT5rHRZxot2s1w04E2_45Om5Q>
+ <xmx:1Dp4YK9DmEZEMWReoSiBX9llyjOuWDmBSi-MNzRbN3D4f4ZFWsQj6g>
+ <xmx:1Dp4YNvPOz8KjruRiUBpAorqEhoOPHvlnIAxlHo6x-uK3EZFg0jivw>
+ <xmx:1jp4YC6KpD9hRo99wKcZUmvl3kms2LJbdW1J52qn4xpYKiXG1US5ng>
 Received: from thinkpad.fuzziesquirrel.com (unknown [173.167.31.197])
- by mail.messagingengine.com (Postfix) with ESMTPA id 9CDB7240057;
- Thu, 15 Apr 2021 09:02:36 -0400 (EDT)
-Date: Thu, 15 Apr 2021 09:02:34 -0400
+ by mail.messagingengine.com (Postfix) with ESMTPA id A0F82240057;
+ Thu, 15 Apr 2021 09:08:36 -0400 (EDT)
+Date: Thu, 15 Apr 2021 09:08:35 -0400
 From: Brad Bishop <bradleyb@fuzziesquirrel.com>
-To: Bob_King@wistron.com
-Subject: Re: new meta-wistron repository
-Message-ID: <20210415130234.gbg7fgoz3w5j4ofp@thinkpad.fuzziesquirrel.com>
-References: <103c91be2e6b46d9bce11da00308c80f@wistron.com>
+To: m10902803@gapps.ntust.edu.tw
+Subject: Re: OpenBMC Installation
+Message-ID: <20210415130835.bgl3qlql2jzskjl3@thinkpad.fuzziesquirrel.com>
+References: <000a01d73108$15144bb0$3f3ce310$@gapps.ntust.edu.tw>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <103c91be2e6b46d9bce11da00308c80f@wistron.com>
+In-Reply-To: <000a01d73108$15144bb0$3f3ce310$@gapps.ntust.edu.tw>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,35 +107,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org, Ben_Pai@wistron.com, Claire_Ku@wistron.com
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, Apr 15, 2021 at 05:23:25AM +0000, Bob_King@wistron.com wrote:
->Hi Brad,
+On Wed, Apr 14, 2021 at 04:27:59PM +0800, m10902803@gapps.ntust.edu.tw wrote:
+>Hello,
 >
->We need you help to create a new repository meta-wistron for Wistron openbmc platform.
->Could you help for this?
-
-We've changed our process with respect to meta layer subtrees.  Please 
-read through this thread here and let us know if you have any questions:
-
-https://lore.kernel.org/openbmc/CACWQX821ADQCrekLj_bGAu=1SSLCv5pTee7jaoVo2Zs6havgnA@mail.gmail.com/
-
-The net is just submit your new layer to openbmc/openbmc.
-
 >
->And the maintainers for meta-wistron are:
->Timothy_Huang@wistron.com
->Claire_Ku@wistron.com
->Ben_Pai@wistron.com
->Andy_YF_Wang@wistron.com
->Ken_Hsu@wistron.com
->Jolie_Ku@wistron.com
->Bob_King@wistron.com
+>
+>I want to ask about the program. 
 
-Great - add these names to the OWNERS file meta-wistron/OWNERS (have a 
-look at the OWNERS file in another layer for a template).
+Which program?  OpenBMC is an entire Linux distribution composed of 
+dozens of programs.
+
+>Are there still some bugs in it? 
+
+Almost certainly :-)
+
+>I tried to
+>clone the repository and run it in QEMU.
+
+Which QEMU target did you use?
+
+>I found that firmware update and network change using GUI always shown error
+>message.
+
+What was the error message?
 
 thx - brad
