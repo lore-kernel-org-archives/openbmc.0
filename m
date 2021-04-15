@@ -1,89 +1,80 @@
-Return-Path: <SRS0=pCii=JL=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=Tyzw=JM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 82F9AC433ED
-	for <openbmc@archiver.kernel.org>; Wed, 14 Apr 2021 23:28:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EF8E8C433B4
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 02:33:15 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 770566113D
-	for <openbmc@archiver.kernel.org>; Wed, 14 Apr 2021 23:28:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 770566113D
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=gapps.ntust.edu.tw
+	by mail.kernel.org (Postfix) with ESMTPS id 9EA67611AB
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 02:33:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9EA67611AB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FLJZ75kQMz2xgP
-	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 09:28:31 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FLNgD5mwrz3brJ
+	for <openbmc@archiver.kernel.org>; Thu, 15 Apr 2021 12:33:12 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gapps-ntust-edu-tw.20150623.gappssmtp.com header.i=@gapps-ntust-edu-tw.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=QseRT2k4;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=CQfNVJgm;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=gapps.ntust.edu.tw (client-ip=2607:f8b0:4864:20::42a;
- helo=mail-pf1-x42a.google.com; envelope-from=m10902803@gapps.ntust.edu.tw;
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2a;
+ helo=mail-qv1-xf2a.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gapps-ntust-edu-tw.20150623.gappssmtp.com
- header.i=@gapps-ntust-edu-tw.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=QseRT2k4; dkim-atps=neutral
-Received: from mail-pf1-x42a.google.com (mail-pf1-x42a.google.com
- [IPv6:2607:f8b0:4864:20::42a])
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=CQfNVJgm; dkim-atps=neutral
+Received: from mail-qv1-xf2a.google.com (mail-qv1-xf2a.google.com
+ [IPv6:2607:f8b0:4864:20::f2a])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FKwbF1knqz300C
- for <openbmc@lists.ozlabs.org>; Wed, 14 Apr 2021 18:28:06 +1000 (AEST)
-Received: by mail-pf1-x42a.google.com with SMTP id w8so9770695pfn.9
- for <openbmc@lists.ozlabs.org>; Wed, 14 Apr 2021 01:28:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gapps-ntust-edu-tw.20150623.gappssmtp.com; s=20150623;
- h=from:to:subject:date:message-id:mime-version:thread-index
- :content-language;
- bh=G8ytCANrY/TryBIkShwSJ+CycoApIFXtWjWcevbAQy8=;
- b=QseRT2k4d4Bv32LfZPbyjU0SxMfiZ/Kp8S17v4q2LhQFfW0GJ9w/rgNMvl2Db4M6Tn
- jugbMgNy6RETiQyHvFVJSDYJmCYij3aA4niiaUoLRZ9QvlCTb1O05jL7Aq0IthqdJNxo
- iuZ0l2/zg7DaWHpvVGAkBYyq4sIniREw6qbdO9eUQLShH+F8R584GSibuxYfJuhSG58J
- uT+fssgo9T6Y5VzQsz4sGYbwPtN5Ydwh6Wa+qQtZyfGMZBboEzsIBDFrATT5r16FC1Qx
- lfM0Ox6+zYiLcJMma6L0K3RJEPBrgA2XXizaxByAOMVk+0YzsbkkA2pmOcJPW5bXdXWK
- EOKA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FLNfp0mjlz300X
+ for <openbmc@lists.ozlabs.org>; Thu, 15 Apr 2021 12:32:48 +1000 (AEST)
+Received: by mail-qv1-xf2a.google.com with SMTP id i9so10815746qvo.3
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Apr 2021 19:32:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=uezIDtjTWhyotJr/TbU9MqK69AfkYUrU/mI+8YUTBXg=;
+ b=CQfNVJgmmojWav6n9liF6W9ivrXTi9pCdYUUatDRvFHt03I1cwtvOf+UzY5xjiBG5Y
+ spUbtyZK6h2Vrc39k7SdzsElcmNWgpr7niR68Qcw7VB9g55Ms9IdF+Q0LfatRAn0UsMW
+ i2MNmb8f640nn9dTsceicMi5rz5pwuvnn7SKM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:from:to:subject:date:message-id:mime-version
- :thread-index:content-language;
- bh=G8ytCANrY/TryBIkShwSJ+CycoApIFXtWjWcevbAQy8=;
- b=gFTlPBpkYPWfmfxjLJ0Dts0C5QDMMRCFhFWYaCJCEbWkCqS0Kh538y9lUs1YiVKgCd
- QO9SF/GJcSZBMlQLdx4rJiz0Fk4cAcRmQiF5MX9xkudPLAmBC+58hccdt5jTerXviQ8/
- dOiZ2S9AL+KxQI4I2R/jn3UOcnmnV/IWbxV00NFvlVP8dD+aMDGEmTV0LoMml0PPT3q4
- sYGsmoFXijselR0whAIqQdSh12sw8QHoqj7ln0btUp8W8i3SrIWGhoJGjCXi7iy6TL0O
- QftUeU9849gyIGl0Fc7hF8cA0BVrtJxntHhJvqgmVe2LVLo1R8SRnuvRdVcnAikfAsyn
- 3c7g==
-X-Gm-Message-State: AOAM532pJXRr8yFkOxBgtVYCHAycSUC04+7+SdtmlQGd7inQvFvbVXJz
- vAux7hoojSnPuMS5Z7OtUlkFB5GEoSPFMg==
-X-Google-Smtp-Source: ABdhPJwjLso7sK0VuVSpyzVHb1ssVWKvD1otY570QLeUvGRVh/SlL2TjK0UWUxbvwaOuf4CXm/0LtA==
-X-Received: by 2002:a63:91c4:: with SMTP id l187mr4054321pge.35.1618388882190; 
- Wed, 14 Apr 2021 01:28:02 -0700 (PDT)
-Received: from LuthfiMufadelLaptop (220-128-110-82.HINET-IP.hinet.net.
- [220.128.110.82])
- by smtp.gmail.com with ESMTPSA id i10sm5274422pjm.1.2021.04.14.01.28.00
- for <openbmc@lists.ozlabs.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 14 Apr 2021 01:28:01 -0700 (PDT)
-From: <m10902803@gapps.ntust.edu.tw>
-To: <openbmc@lists.ozlabs.org>
-Subject: OpenBMC Installation
-Date: Wed, 14 Apr 2021 16:27:59 +0800
-Message-ID: <000a01d73108$15144bb0$3f3ce310$@gapps.ntust.edu.tw>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=uezIDtjTWhyotJr/TbU9MqK69AfkYUrU/mI+8YUTBXg=;
+ b=Z6yXHuvByfwpRAnJbGdgrHQwYMTuGDkirNu39G/hfOwLjWA0vSH1dGWJwqEeW/d++S
+ YbsshhDfiwO4Os8Y4kYWirFzhnffbB+BvL+z7ASj/5EyfXF74N3w3VR22CC095MOrPXS
+ 2gzwlM3a+VBe6G+DoNl846gu8zg6OTYRK2Ql64mMXoIrsacEm6wml9Pjq4DORaEq0LYj
+ S+OtrybeFer22yKCZD5/awHVVSdjy/ZdQqZREY4vcHtNTXmf9YMvw3hA3Rq2JsHXbKxQ
+ swj3nONiNdku+23BIumJWx6nTi0o7ws4BK4xUBvTnDWZ/cphH11JVxoaHXVOrxlgHq3M
+ 3qAQ==
+X-Gm-Message-State: AOAM5338CtVAp3aC9lyeTK9gWmQwEen73u2EzwUkSyM/jFAI22M/KbVu
+ 672fP4Rhj2wUn+auOksNVOdEI0aKa8Wt1bpoCc8=
+X-Google-Smtp-Source: ABdhPJwYqCVlzIm58gEUxq6uLsfXCP96HwTCUQM7ZDkDvxwzbKe4kEF3AWSmDDPpUh7ht6CJ36dodilWw2FtjCz8ATo=
+X-Received: by 2002:ad4:55c1:: with SMTP id bt1mr1104647qvb.16.1618453965190; 
+ Wed, 14 Apr 2021 19:32:45 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_000_000B_01D7314B.23387610"
-X-Mailer: Microsoft Outlook 16.0
-thread-index: AdcxB2WRD7Wdr/xGSTqJYRZnTjHJag==
-Content-Language: en-id
-X-Mailman-Approved-At: Thu, 15 Apr 2021 09:28:06 +1000
+References: <20210413080755.73572-1-joel@jms.id.au>
+ <20210413080755.73572-11-joel@jms.id.au>
+ <cacf13c1-91b2-ad51-606e-bb208d13ec36@linux.vnet.ibm.com>
+ <9779de4a-6985-8b94-9fb6-55c74a7a722f@linux.vnet.ibm.com>
+In-Reply-To: <9779de4a-6985-8b94-9fb6-55c74a7a722f@linux.vnet.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 15 Apr 2021 02:32:32 +0000
+Message-ID: <CACPK8XcNyXUhe=43NCR1RzrexJGYWw2S-kXWsYDzNYAJujnmpg@mail.gmail.com>
+Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc 10/11] crypto: Add driver
+ for Aspeed HACE
+To: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,114 +86,74 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Andrew Jeffery <andrew@aj.id.au>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a multipart message in MIME format.
+On Wed, 14 Apr 2021 at 20:28, Klaus Heinrich Kiwi
+<klaus@linux.vnet.ibm.com> wrote:
+>
+>
+>
+> On 4/13/2021 5:41 PM, Klaus Heinrich Kiwi wrote:
+> > I've tested your patchset with Cedric's Aspeed-6.0 but looks
+> > like the probe function is never called. Reading through the code
+> > a bit more, looks like you need to explicitly probe this device
+> > somewhere in board_init_r (that is, after sdram was initialized),
+> > since functions like dm_scan_fdt() and dm_extended_scan_fdt() will
+> > only scan subnodes of the top level, and the clocks node.
+> >
+> > This is what I get (with some added printfs of mine):
+>
+> I've played around a bit more, and got it to work on Qemu with the follow=
+ing changes:
+>
+>   * Added a board-specific spl_board_init() initializing the HACE driver =
+at
+>     the SPL's board_init_r() timeframe. Enabled that on the defconfig fil=
+e.
+>   * Because the driver model is using some pre-sdram malloc pool space,
+>     the changes above were causing the probing of the sdram itself to fai=
+l.
+>     Corrected by increasing the pre-sdram malloc pool to 0x1000.
 
-------=_NextPart_000_000B_01D7314B.23387610
-Content-Type: text/plain;
-	charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Thanks. I had added something similar when debugging this yesterday.
 
-Hello,
+I had tested the changes, but must have mixed up which images were
+being loaded into qemu.
 
- 
+> However, when I tried to test it on a Rainier, it failed:
+> U-Boot SPL 2019.04 (Apr 14 2021 - 19:31:59 +0000)
+> already initialized, Trying to boot from MMC1
+> ## Checking hash(es) for Image uboot ... sha512,rsa4096:autogenerated-ubo=
+ot-4096-key- Failed to verify required signature 'key-autogenera'
+>   error!
+> Unable to verify required signature for '' hash node in 'uboot' image nod=
+e
+> mmc_load_image_raw_sector: mmc block read error
+> Trying to boot from UART
+> CCCCC =EF=BF=BDP
+>
+> (and yes, I had since disabled my debugging printf's). I wonder if the HA=
+SH_ISR
+> may need to be explicitly cleared, although I'd expect it to work for the=
+ first
+> command at least.
+>
+> Another interesting thing is that the SPL tries to boot from UART, but ne=
+ither
+> my fitImages, Legacy images or even RAW images are working.. Not sure if =
+we need
+> some special handling of those images before feeding them to the spl ymod=
+em loader?
 
-I want to ask about the program. Are there still some bugs in it? I tried to
-clone the repository and run it in QEMU.
+I wasn't able to get the SPL to load any images - raw binaries or FIT
+- from eMMC either. Something is going wrong, but I am unsure what it
+is. I will continue to debug.
 
-I found that firmware update and network change using GUI always shown error
-message.
+Cheers,
 
- 
-
-My laptop is running in windows 10. And to run the OpenBMC, I'm using VM
-with ubuntu 20.04.
-
- 
-
-Sincerely,
-
-Muhamad Luthfi Mufadel
-
-Department of Electronic and Computer Engineering
-
-National Taiwan University of Science and Technology
-
- 
-
- 
-
-
-------=_NextPart_000_000B_01D7314B.23387610
-Content-Type: text/html;
-	charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" =
-xmlns:o=3D"urn:schemas-microsoft-com:office:office" =
-xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" =
-xmlns=3D"http://www.w3.org/TR/REC-html40"><head><meta =
-http-equiv=3DContent-Type content=3D"text/html; =
-charset=3Dus-ascii"><meta name=3DGenerator content=3D"Microsoft Word 15 =
-(filtered medium)"><style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:11.0pt;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Calibri",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;
-	font-family:"Calibri",sans-serif;
-	mso-fareast-language:EN-US;}
-@page WordSection1
-	{size:612.0pt 792.0pt;
-	margin:72.0pt 72.0pt 72.0pt 72.0pt;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]--></head><body lang=3DEN-ID =
-link=3D"#0563C1" vlink=3D"#954F72"><div class=3DWordSection1><p =
-class=3DMsoNormal><span lang=3DEN-US>Hello,<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-US>I want to ask about the program. =
-Are there still some bugs in it? I tried to clone the repository and run =
-it in QEMU.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-US>I found that firmware update and network change using GUI =
-always shown error message.<o:p></o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal><span lang=3DEN-US>My laptop is running in windows 10. =
-And to run the OpenBMC, I&#8217;m using VM with ubuntu =
-20.04.<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-US><o:p>&nbsp;</o:p></span></p><p =
-class=3DMsoNormal>Sincerely,<o:p></o:p></p><p class=3DMsoNormal><span =
-lang=3DEN-US style=3D'mso-fareast-language:EN-ID'>Muhamad Luthfi =
-Mufadel<o:p></o:p></span></p><p class=3DMsoNormal><span lang=3DEN-US =
-style=3D'mso-fareast-language:EN-ID'>Department of Electronic and =
-Computer Engineering<o:p></o:p></span></p><p class=3DMsoNormal><span =
-lang=3DEN-US style=3D'mso-fareast-language:EN-ID'>National Taiwan =
-University of Science and Technology<o:p></o:p></span></p><p =
-class=3DMsoNormal><o:p>&nbsp;</o:p></p><p class=3DMsoNormal><span =
-lang=3DEN-US><o:p>&nbsp;</o:p></span></p></div></body></html>
-------=_NextPart_000_000B_01D7314B.23387610--
-
+Joel
