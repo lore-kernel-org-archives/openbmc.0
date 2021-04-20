@@ -2,60 +2,77 @@ Return-Path: <SRS0=1wl0=JR=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F0352C433ED
-	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 01:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 496CAC433ED
+	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 03:37:25 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 285E7613AC
-	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 01:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 285E7613AC
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
+	by mail.kernel.org (Postfix) with ESMTPS id 4F605600D1
+	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 03:37:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4F605600D1
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FPR2c2xMFz2yZN
-	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 11:30:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FPTry4c2zz3002
+	for <openbmc@archiver.kernel.org>; Tue, 20 Apr 2021 13:37:22 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=l4wAXrXh;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=gWmYXLeQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
- helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::22d;
+ helo=mail-oi1-x22d.google.com; envelope-from=groeck7@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=l4wAXrXh; 
- dkim-atps=neutral
-Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [71.19.156.171])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=gWmYXLeQ; dkim-atps=neutral
+Received: from mail-oi1-x22d.google.com (mail-oi1-x22d.google.com
+ [IPv6:2607:f8b0:4864:20::22d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FPR2168THz2xZt
- for <openbmc@lists.ozlabs.org>; Tue, 20 Apr 2021 11:30:00 +1000 (AEST)
-Received: from hatter.bewilderbeest.net (unknown [IPv6:2600:6c44:7f:ba20::7c6])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 0EB92201;
- Mon, 19 Apr 2021 18:29:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1618882195;
- bh=VYFjr4t6oLyIYU+i/nAjqHq3YLqqBQtAhM9VQ/YS1AA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=l4wAXrXhwoIxeq5kVB76AKWaujQnTA8uS4p76sHL6WAf7Nfp3ANPEJKNjSPln6Wka
- lOgwoqrezgtjOUFYdzCyqtNaPe3W4YCIm/B8jNSTPJ9ca04Yosen8oUmv1Yzmxt3w3
- MdeOTOMLiRRvqCsggPGFJkCy0trSVgDrhNf/z4Uc=
-Date: Mon, 19 Apr 2021 20:29:53 -0500
-From: Zev Weiss <zev@bewilderbeest.net>
-To: Guenter Roeck <linux@roeck-us.net>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FPTrS6YHGz2xb8
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Apr 2021 13:36:54 +1000 (AEST)
+Received: by mail-oi1-x22d.google.com with SMTP id i81so37673668oif.6
+ for <openbmc@lists.ozlabs.org>; Mon, 19 Apr 2021 20:36:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=6XG3fkhjr8ceZuhijXZ4eXGWUd9gy7HjGg3nn0yIwW8=;
+ b=gWmYXLeQhuYLVI9cHZEdbFXDvL3y0mgaSoP1ZU3VE/z4oRzVvS/yr8Rfo5CJMc3wjP
+ Jqd1QzX4Lq3odDi8Aekls8+ySQwmUcIaFjQuCIr8OpiGIpwtOjmH/aJRfxfI4eLFbQfF
+ ogLEiqvv8J8HXApPcPiLN87w7lJ661rnvXwvwo1NS2aZGayANB4T9Nnh3BMaaangMSuF
+ z33oKSIiUbCLO7+reSyk8Y3AZpjhlLcDZVXU6ZUOO89NKjLvu4h5SyN5qDwqm7YfPnec
+ DzQaqJaBUp9VhDde71gZNjIyKpjjyeOtIPCr2hMr3kCQJIvuM921tcuug3936CTPo/Cv
+ X33Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
+ :references:mime-version:content-disposition:in-reply-to:user-agent;
+ bh=6XG3fkhjr8ceZuhijXZ4eXGWUd9gy7HjGg3nn0yIwW8=;
+ b=fx7Z29KSBdyHY6XZZzDBO2+kc9PzMyEsSD1HVMp68Mzh96bafugMori0BewZ5Oj0hu
+ /BOPGLl0P+7G4OuE6jSvmRG9d37YDsHUO86EJWpLt4r8hz7HHOr5Rkp4rl1gwAywTK9E
+ qGx8xKL5rHWBrKL8Ih11/f/onxhjxyJXTdJkx+lNXIfUkEATLN7kLsebiip32XgFGZ00
+ ULmWpSnydhd5j+we0O1Dcl83bUTV1bGQS6DnPL8NQxzLD+WnRSviWvGvsixRxcQO7QDU
+ W4p6Q6BD4xKz36UsC+E+Cm1D+BPm9ZanKDdVVl0sVTTv2tpfGQEXf2qLrwV8Ltb7t40J
+ qHsw==
+X-Gm-Message-State: AOAM531oSJXe7RiFodz7Pue9ijXu1QMdQwbgOw9sJt/+35d60wKXKo04
+ //VD0EoH7BT10WTcwqphBN4=
+X-Google-Smtp-Source: ABdhPJwJZWI9tqpuP/pL5CC/QGebjE08pvie9whyWllC59GxbS/gXXc0/Q2rpA6BUnhqmX7OWJsbOw==
+X-Received: by 2002:aca:d693:: with SMTP id n141mr1580814oig.107.1618889810746; 
+ Mon, 19 Apr 2021 20:36:50 -0700 (PDT)
+Received: from localhost ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
+ by smtp.gmail.com with ESMTPSA id b2sm808087otq.80.2021.04.19.20.36.49
+ (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
+ Mon, 19 Apr 2021 20:36:50 -0700 (PDT)
+Date: Mon, 19 Apr 2021 20:36:48 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Zev Weiss <zev@bewilderbeest.net>
 Subject: Re: Enabling pmbus power control
-Message-ID: <YH4ukR5egB2eG0Vo@hatter.bewilderbeest.net>
+Message-ID: <20210420033648.GA227111@roeck-us.net>
 References: <YGLepYLvtlO6Ikzs@hatter.bewilderbeest.net>
  <5105ada1-643a-8e58-a52d-d3c8dbef86b9@roeck-us.net>
  <20210330112254.GB4976@sirena.org.uk>
@@ -64,10 +81,12 @@ References: <YGLepYLvtlO6Ikzs@hatter.bewilderbeest.net>
  <YGNmaNzWOYrJROvX@hatter.bewilderbeest.net>
  <20210330180200.GK4976@sirena.org.uk>
  <20210330193810.GA235990@roeck-us.net>
+ <YH4ukR5egB2eG0Vo@hatter.bewilderbeest.net>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20210330193810.GA235990@roeck-us.net>
+In-Reply-To: <YH4ukR5egB2eG0Vo@hatter.bewilderbeest.net>
+User-Agent: Mutt/1.9.4 (2018-02-28)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,74 +106,78 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Mar 30, 2021 at 02:38:10PM CDT, Guenter Roeck wrote:
->On Tue, Mar 30, 2021 at 07:02:00PM +0100, Mark Brown wrote:
->> On Tue, Mar 30, 2021 at 12:56:56PM -0500, Zev Weiss wrote:
->>
->> > Okay, to expand a bit on the description in my initial message -- we've
->> > got a single chassis with multiple server boards and a single manager board
->> > that handles, among other things, power control for the servers.
->> > The manager board has one LM25066 for each attached server, which acts as
->> > the "power switch" for that server.  There thus really isn't any driver to
->> > speak of for the downstream device.
->>
->> This sounds like you need a driver representing those server boards (or
->> the slots they plug into perhaps) that represents everything about those
->> boards to userspace, including power switching.  I don't see why you
->> wouldn't have a driver for that - it's a thing that physically exists
->> and clearly has some software control, and you'd presumably also expect
->> to represent some labelling about the slot as well.
->
->Absolutely agree.
->
->Thanks,
->Guenter
+On Mon, Apr 19, 2021 at 08:29:53PM -0500, Zev Weiss wrote:
+> On Tue, Mar 30, 2021 at 02:38:10PM CDT, Guenter Roeck wrote:
+> > On Tue, Mar 30, 2021 at 07:02:00PM +0100, Mark Brown wrote:
+> > > On Tue, Mar 30, 2021 at 12:56:56PM -0500, Zev Weiss wrote:
+> > > 
+> > > > Okay, to expand a bit on the description in my initial message -- we've
+> > > > got a single chassis with multiple server boards and a single manager board
+> > > > that handles, among other things, power control for the servers.
+> > > > The manager board has one LM25066 for each attached server, which acts as
+> > > > the "power switch" for that server.  There thus really isn't any driver to
+> > > > speak of for the downstream device.
+> > > 
+> > > This sounds like you need a driver representing those server boards (or
+> > > the slots they plug into perhaps) that represents everything about those
+> > > boards to userspace, including power switching.  I don't see why you
+> > > wouldn't have a driver for that - it's a thing that physically exists
+> > > and clearly has some software control, and you'd presumably also expect
+> > > to represent some labelling about the slot as well.
+> > 
+> > Absolutely agree.
+> > 
+> > Thanks,
+> > Guenter
+> 
+> Hi Guenter, Mark,
+> 
+> I wanted to return to this to try to explain why structuring the kernel
+> support for this in a way that's specific to the device behind the PMIC
+> seems like an awkward fit to me, and ultimately kind of artificial.
+> 
+> In the system I described, the manager board with the LM25066 devices is its
+> own little self-contained BMC system running its own Linux kernel (though
+> "BMC" is perhaps a slightly misleading term because there's no host system
+> that it manages).  The PMICs are really the only relevant connection it has
+> to the servers it controls power for -- they have their own dedicated local
+> BMCs on board as well doing all the usual BMC tasks.  A hypothetical
+> dedicated driver for this on the manager board wouldn't have any other
+> hardware to touch aside from the pmbus interface of the LM25066 itself, so
+> calling it a server board driver seems pretty arbitrary -- and in fact the
+> same system also has another LM25066 that controls the power supply to the
+> chassis cooling fans (a totally different downstream device, but one that
+> would be equally well-served by the same software).
+> 
+> More recently, another system has entered the picture for us that might
+> illustrate it more starkly -- the Delta Open19 power shelf [0] supported by
+> a recent code release from LinkedIn [1].  This is a rackmount power supply
 
-Hi Guenter, Mark,
+All I can see is that this code is a mess.
 
-I wanted to return to this to try to explain why structuring the kernel 
-support for this in a way that's specific to the device behind the PMIC 
-seems like an awkward fit to me, and ultimately kind of artificial.
+> with fifty outputs, each independently switchable via an LM25066 attached to
+> an on-board BMC-style management controller (though again, no host system
+> involved).  We (Equinix Metal) are interested in porting a modern OpenBMC to
+> it to replace the dated, crufty, pre-Linux-Foundation version of OpenBMC it
+> currently runs (as found in the linked repo).  The exact nature of the
+> devices powered by its outputs is well outside the scope of the firmware
+> running on that controller (it could be any arbitrary thing that runs on
+> 12VDC), but we still want to be able to both (a) retrieve per-output
+> voltage/current/power readings as provided by the existing LM25066 hwmon
+> support, and (b) control the on/off state of those outputs from userspace.
+> 
+> Given the array of possible use-cases, an approach of adding power-switch
+> functionality to the existing LM25066 support seems like the most obvious
+> way to support this, so I'm hoping to see if I can get some idea of what an
+> acceptable implementation of that might look like.
+> 
 
-In the system I described, the manager board with the LM25066 devices is 
-its own little self-contained BMC system running its own Linux kernel 
-(though "BMC" is perhaps a slightly misleading term because there's no 
-host system that it manages).  The PMICs are really the only relevant 
-connection it has to the servers it controls power for -- they have 
-their own dedicated local BMCs on board as well doing all the usual BMC 
-tasks.  A hypothetical dedicated driver for this on the manager board 
-wouldn't have any other hardware to touch aside from the pmbus interface 
-of the LM25066 itself, so calling it a server board driver seems pretty 
-arbitrary -- and in fact the same system also has another LM25066 that 
-controls the power supply to the chassis cooling fans (a totally 
-different downstream device, but one that would be equally well-served 
-by the same software).
+Sorry, that is simply a no-go for the LM25066 driver. I mentioned it before,
+and it is still true: The hwmon subsystem is not in the business of power
+control.
 
-More recently, another system has entered the picture for us that might 
-illustrate it more starkly -- the Delta Open19 power shelf [0] supported 
-by a recent code release from LinkedIn [1].  This is a rackmount power 
-supply with fifty outputs, each independently switchable via an LM25066 
-attached to an on-board BMC-style management controller (though again, 
-no host system involved).  We (Equinix Metal) are interested in porting 
-a modern OpenBMC to it to replace the dated, crufty, 
-pre-Linux-Foundation version of OpenBMC it currently runs (as found in 
-the linked repo).  The exact nature of the devices powered by its 
-outputs is well outside the scope of the firmware running on that 
-controller (it could be any arbitrary thing that runs on 12VDC), but we 
-still want to be able to both (a) retrieve per-output 
-voltage/current/power readings as provided by the existing LM25066 hwmon 
-support, and (b) control the on/off state of those outputs from 
-userspace.
-
-Given the array of possible use-cases, an approach of adding 
-power-switch functionality to the existing LM25066 support seems like 
-the most obvious way to support this, so I'm hoping to see if I can get 
-some idea of what an acceptable implementation of that might look like.  
-
+Have you looked into enclosures (drivers/misc/enclosure.c) ? Maybe that
+or something similar could be used for your purposes.
 
 Thanks,
-Zev
-
-[0] https://www.open19.org/marketplace/delta-16kw-power-shelf/
-[1] https://github.com/linkedin/o19-bmc-firmware/tree/master/meta-openbmc/meta-linkedin/meta-deltapower
-
+Guenter
