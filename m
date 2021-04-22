@@ -1,76 +1,63 @@
-Return-Path: <SRS0=NZc7=JS=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=FvJ2=JT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9A12DC433B4
-	for <openbmc@archiver.kernel.org>; Wed, 21 Apr 2021 23:51:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D3555C433ED
+	for <openbmc@archiver.kernel.org>; Thu, 22 Apr 2021 01:55:20 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 025116143B
-	for <openbmc@archiver.kernel.org>; Wed, 21 Apr 2021 23:51:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 025116143B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 1A22F61409
+	for <openbmc@archiver.kernel.org>; Thu, 22 Apr 2021 01:55:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 1A22F61409
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FQclZ10kVz302m
-	for <openbmc@archiver.kernel.org>; Thu, 22 Apr 2021 09:51:38 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=AXv1h6Wc;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::832;
- helo=mail-qt1-x832.google.com; envelope-from=joel.stan@gmail.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FQgVG1Nbqz3027
+	for <openbmc@archiver.kernel.org>; Thu, 22 Apr 2021 11:55:18 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=troy_lee@aspeedtech.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=AXv1h6Wc; dkim-atps=neutral
-Received: from mail-qt1-x832.google.com (mail-qt1-x832.google.com
- [IPv6:2607:f8b0:4864:20::832])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+X-Greylist: delayed 1642 seconds by postgrey-1.36 at boromir;
+ Thu, 22 Apr 2021 11:54:58 AEST
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FQcl81GCJz2xYp
- for <openbmc@lists.ozlabs.org>; Thu, 22 Apr 2021 09:51:13 +1000 (AEST)
-Received: by mail-qt1-x832.google.com with SMTP id s4so4753501qtw.3
- for <openbmc@lists.ozlabs.org>; Wed, 21 Apr 2021 16:51:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:from:date:message-id:subject:to:cc
- :content-transfer-encoding;
- bh=v5jpUJex3kZO3NQi2vJsPQC0wGjoxbJujeWfj0EeINg=;
- b=AXv1h6WcJQB/gJw14rv1C0Ia4YSNXyr+FQ8VqOeIGL9jrh4WMxr5MqC9qDnw5Kn0VI
- kh9MNYQICrSBo5ZJWJ/WbEKGVcx1EHJhoUMeOGVaLXZKYGEXu54V+2d708P2OPFY0PDB
- 7SVP2O/oXZIdHR0AKoz2JWTdPk+gmBkF45X7g=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc
- :content-transfer-encoding;
- bh=v5jpUJex3kZO3NQi2vJsPQC0wGjoxbJujeWfj0EeINg=;
- b=slWAlhEC71leIt7cMll36hivXsQ7ef3OCsznDErBkm/HSNw0W2r4b5gZWkhKCOUH3+
- z/KBUfCY70gRFS7WJNIqfDLcS4Qa95uZYCDh0xzFS3OSETaRdG6aGOvP0939wKwrx40J
- /Pwye3fSDo/oOXSxuTJGCH08JOYmhyN3bBITFCmDM41M0tgFbW8ovqO9HlFzvpcKtNoC
- Ys4hbwBCmsdGOMqC2uhRUO7IoZy5YezP+ElNez1AlL/ZtH7Tc5OwfqplzLDLer9cxSXf
- Gt+w3CDHYfFuDXMzbchTzO0M97fLICaN5bFqFGLzCPHr3TyswDR9wNkbRXKuEy6FCZ6R
- rGCQ==
-X-Gm-Message-State: AOAM530yCm8XS84Bc03psJTcSFKPQ3qd9858trLMhWo1KkWgwArdweqd
- ksKrU9iFUVwDNOe+jpS1zuOUGETSAFu7hlzXMO9ppEcEJd4=
-X-Google-Smtp-Source: ABdhPJz9zCf/Lwlxpejk/Suii5a4EzSUVw3xJgF9M1du/OCXDHlQPIp+J7gROeJfdVKOk6Dl9WHNpTtE2M9pehDpASU=
-X-Received: by 2002:a05:622a:216:: with SMTP id
- b22mr347552qtx.263.1619049068119; 
- Wed, 21 Apr 2021 16:51:08 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FQgTt1CS3z2xy3
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Apr 2021 11:54:56 +1000 (AEST)
+Received: from twspam01.aspeedtech.com (localhost [127.0.0.2] (may be forged))
+ by twspam01.aspeedtech.com with ESMTP id 13M1GeST030118
+ for <openbmc@lists.ozlabs.org>; Thu, 22 Apr 2021 09:16:40 +0800 (GMT-8)
+ (envelope-from troy_lee@aspeedtech.com)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 13M1FcYR030073;
+ Thu, 22 Apr 2021 09:15:38 +0800 (GMT-8)
+ (envelope-from troy_lee@aspeedtech.com)
+Received: from aspeedtech.com (192.168.100.253) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 22 Apr
+ 2021 09:26:33 +0800
+Date: Thu, 22 Apr 2021 01:26:28 +0000
+From: Troy Lee <troy_lee@aspeedtech.com>
+To: Joel Stanley <joel@jms.id.au>
+Subject: Re: u-boot update for ast2600
+Message-ID: <20210422012628.GA1315@aspeedtech.com>
+References: <CACPK8XcXTq1tzQ=aLa8pEKyt3WBWWfj18vhh9ks1DxDn+T+i7g@mail.gmail.com>
 MIME-Version: 1.0
-From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 21 Apr 2021 23:50:56 +0000
-Message-ID: <CACPK8XcXTq1tzQ=aLa8pEKyt3WBWWfj18vhh9ks1DxDn+T+i7g@mail.gmail.com>
-Subject: u-boot update for ast2600
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CACPK8XcXTq1tzQ=aLa8pEKyt3WBWWfj18vhh9ks1DxDn+T+i7g@mail.gmail.com>
+X-Originating-IP: [192.168.100.253]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 13M1FcYR030073
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,38 +70,49 @@ List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: Klaus Heinrich Kiwi <klaus@linux.vnet.ibm.com>,
- Andrew Jeffery <andrew@aj.id.au>, Ryan Chen <ryan_chen@aspeedtech.com>,
- =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
+ Andrew Jeffery <andrew@aj.id.au>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Ryan Chen <ryan_chen@aspeedtech.com>,
+ =?utf-8?Q?C=C3=A9dric?= Le Goater <clg@kaod.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello OpenBMCers who care about u-boot,
+Hi Joel,
 
-I've updated OpenBMC u-boot tree to use ASPEED's latest SDK,
-v00.03.03. I've also applied the series to support for FIT
-verification including use of the HACE to perform SHA hashing that
-I've been working on with Klaus. The bump is here:
+The 04/22/2021 07:50, Joel Stanley wrote:
+> Hello OpenBMCers who care about u-boot,
+> 
+> I've updated OpenBMC u-boot tree to use ASPEED's latest SDK,
+> v00.03.03. I've also applied the series to support for FIT
+> verification including use of the HACE to perform SHA hashing that
+> I've been working on with Klaus. The bump is here:
+> 
+>  https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/42502
+> 
+> I've sent a set of fixes backported from mainline to ASPEED for
+> merging in a future SDK release:
+> 
+>  https://github.com/AspeedTech-BMC/u-boot/pull/7
+> 
+> We still have a number of patches carried that are specific to
+> OpenBMC, and of course the new FIT and HACE support.
+> 
+> My focus is on supporting u-boot on ast2600 with eMMC. I test this
+> mostly in Qemu with Cédric's aspeed-6.0 branch:
+> 
+> https://github.com/shenki/qemu-boot-test/
+> 
+> I do  run u-boot from NOR on the ast2600a2 evb I have, but I would
+> encourage testing from others if they care about this platform setup
+> as it gets much less attention from me.
+> 
+> Cheers,
+> 
+> Joel
 
- https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/42502
+I have a ast2600a2 evb configured with boot from eMMC, so I could help to
+verify it.  Could you provid me the image or the instructions to build
+it?
 
-I've sent a set of fixes backported from mainline to ASPEED for
-merging in a future SDK release:
-
- https://github.com/AspeedTech-BMC/u-boot/pull/7
-
-We still have a number of patches carried that are specific to
-OpenBMC, and of course the new FIT and HACE support.
-
-My focus is on supporting u-boot on ast2600 with eMMC. I test this
-mostly in Qemu with C=C3=A9dric's aspeed-6.0 branch:
-
-https://github.com/shenki/qemu-boot-test/
-
-I do  run u-boot from NOR on the ast2600a2 evb I have, but I would
-encourage testing from others if they care about this platform setup
-as it gets much less attention from me.
-
-Cheers,
-
-Joel
+Thanks,
+Troy Lee
