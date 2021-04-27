@@ -2,27 +2,27 @@ Return-Path: <SRS0=iQN1=JY=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 88D40C433B4
-	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 01:18:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4C3E6C433ED
+	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 01:27:53 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E22D46103E
-	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 01:18:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E22D46103E
+	by mail.kernel.org (Postfix) with ESMTPS id 82C2661090
+	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 01:27:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82C2661090
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FTkR03Nmdz301B
-	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 11:18:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FTkfG6T7qz301v
+	for <openbmc@archiver.kernel.org>; Tue, 27 Apr 2021 11:27:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=t67BWMxB;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=jov++051;
+	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=jz77ynYH;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qSdxOECG;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aj.id.au (client-ip=66.111.4.25;
@@ -30,71 +30,70 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=t67BWMxB; 
+ header.s=fm2 header.b=jz77ynYH; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=jov++051; 
+ header.a=rsa-sha256 header.s=fm2 header.b=qSdxOECG; 
  dkim-atps=neutral
 Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
  [66.111.4.25])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FTkQQ1Wt9z2xYl;
- Tue, 27 Apr 2021 11:17:33 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FTkdq25JNz2xZG
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Apr 2021 11:27:27 +1000 (AEST)
 Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.nyi.internal (Postfix) with ESMTP id 23BC75C019F;
- Mon, 26 Apr 2021 21:17:30 -0400 (EDT)
+ by mailout.nyi.internal (Postfix) with ESMTP id 9FCE45C01AC
+ for <openbmc@lists.ozlabs.org>; Mon, 26 Apr 2021 21:27:24 -0400 (EDT)
 Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Mon, 26 Apr 2021 21:17:30 -0400
+ by compute3.internal (MEProxy); Mon, 26 Apr 2021 21:27:24 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=EqlXC5QCJVyxuYSkaKuNoI5/S7ZixI8
- WET/kD4zMQE4=; b=t67BWMxBZ017WFGgFfktYcx8B7O3DWtPM/56AW+b1bGd5pw
- DqWs6NObelbDErvGiu3zSwLhp6Qz4CNnQNSzTE0Y/Ds+IjCg6JQ2y0FhH3aC9Gng
- 8gCXF+FSCoTblmZ5FTReBJTpxfys0bubU5u2Sp/nMXAz9xgh9Q/SrJC3V3g+p4Yv
- xTzr5UQa9OihhGz3EtYYKsYleYuNbF9BKWrRMtY6UsF+Cy+AbqAnG15InBg1J89a
- DkXsC2XrNCemgv+XKexDLVyyWLPygkYezyG263QbPalc0WwYufm6AAcAFPMX0auh
- NC9VcTSvrgP2H3BnSDr76b1egBJexusxLovXDMQ==
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type; s=fm2; bh=Db8hqc1FhUALb38hFu/mABEXRnZg1zb
+ rj6R9MvdbFFY=; b=jz77ynYH/Ei0j9xcGUSSwGpwpROZC8bHTj5ULVwRxTmI7As
+ loxz03Vq9nCBWzEYD73csqol6wlk1oeXcb7Q77lb509SrpWidyuSKytS346Vr3/f
+ gRf8tAqbmzk8FfzuvBDkVd2Su98yQjX9iOxAkvUR1sHOu0DYQc5yIVsPMSxueNnC
+ yrdgahhMr7TNNZnfHEKviGU1IL1UFJCzL0jKoK8iFdOdYLvtTu+IJkhIX9VH2P+/
+ ijyLVOOz9p5azayupIyDKJXQdAu7O/+i9bx0NOeXEljClw3axmdtz7T4bpgmPaL6
+ 8RxT34SjHvJhfz6rLY9ts6IsA310x1aEVut2xfw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ messagingengine.com; h=content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=EqlXC5
- QCJVyxuYSkaKuNoI5/S7ZixI8WET/kD4zMQE4=; b=jov++051zpecKsRF+8iRbE
- Uq2IQ9hZ7LKJ42RakyYDE2XxH8pivmDVPWZNZPkhEHkHdgA9uG//MDAeXPO3N0Yd
- 5glFu6E6ftzt6Ks31ofV4H9/JfZBQTjv3/Lr7lYkHrIiI8IokocmH9CRzncFGM4P
- aDIlH0UR9JJBfKfLb90bZd99zU3CYQQm5W+tNERwS5ZjrUlQ2+nglU0M5lQ399Wa
- H2or/VqRkXYamzeNPSguiX9HOvhNH5cKBoErFNfBokFcyzmVOv7jgJYjElHTaspo
- vwezyUkU2BNereIwif52uXwrGkinbasmu4yfV1oRypsE240bqZaR+8YPuxzeweBg
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=Db8hqc
+ 1FhUALb38hFu/mABEXRnZg1zbrj6R9MvdbFFY=; b=qSdxOECGxw1UfW80ddEMFG
+ y1tv0NOw7PsN2JI25DwD5TEUOIIPdO3BDndj9XVTf7qB9KmdW8Mjbmj8n2PlL5LD
+ Gmr6Ox0cprfDJOt6b2C3AWjgLfy92wZjrIkeCa3hI4EdMg6wc32sNqoRf+UHVZXD
+ GOIVVWX+zxBmPBQqsUu1gt8cVDIyfxwkaJ2KhXPrcS5GYj7DDGWnznv4Mr3QGQQE
+ 9pQdVL6MVzJt65dqCIDpgILoUY/9nrw3wKo7D6hGG86R1QM10X2UwFhrgTrbsJPY
+ vqArBeM+MBhFd24gaWnBhNqsIvBrkB80OAIr4UY0F5vPofahikX2iJkBdjJNZa4Q
  ==
-X-ME-Sender: <xms:KWaHYGfeHH6dLgi9rDU1YggPko1zFQLTnLQRh4VnPFuAf6GksPSJ2A>
- <xme:KWaHYANYBUOvE9mOg4pm1beDhujfwO5e9QUU8SRuEnin9_zO1Ol1dyVX7iwJcR-L_
- UNAp63Zk6Ae93vn9Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdduledgjeegucetufdoteggodetrfdotf
+X-ME-Sender: <xms:e2iHYJgDCMC8CeDVvQQ2QI8HhYSYaOGrtmylt6S2GQGZe9nBlGtKzg>
+ <xme:e2iHYOAzul4tltfmGaJv_Gc9s_amIVKZY7QlyhIzD659_7Ok-6aywskxQ3JfKDnvb
+ T69RfwPrXfWZfOi5w>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdduledgjeeiucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
- grthhtvghrnhephefhfeekgfekudevheffheeihedujeefjeevjeefudfgfeeutdeuvdeh
- hfevueffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefofgggkfgjfhffhffvufgtsehttd
+ ertderredtnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
+ fiesrghjrdhiugdrrghuqeenucggtffrrghtthgvrhhnpeelkefgffekteejhfdtfffgve
+ ejvedvvdevgeduudffuddukefhhfekvefgiedtffenucffohhmrghinhepghhithhhuhgs
+ rdgtohhmnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
  eprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:KWaHYHiDfQrZvxWOqR0rfIkENTlzx5N91sTXn8rvlUVlfte79WHvWg>
- <xmx:KWaHYD82EsPVpynUiGR45s0UjrIJQjxP8bMXSLXo_Uu2EPb78LEshg>
- <xmx:KWaHYCt31Ushe1kXvbPdZ6Yj5UxR6jmMA_oAaPZeMXr2gxBvMptHBQ>
- <xmx:KmaHYGirKlGQujUPf47_1n5CNkjLlnmdNBvOv2EyfbYJrvvf1ar8bQ>
+X-ME-Proxy: <xmx:e2iHYJGuw6mQ01x4FWNTUu-mu_4w2EXBpODQuI9HaIS9ruHnsXkjUw>
+ <xmx:e2iHYOQFtwfKxfYatOgR9pYQxmiFYiQm7NsWjnc_zWBw9uAZyghAVQ>
+ <xmx:e2iHYGwerBrTSt3rY1ow_aea86k49KLuWjgqTlEdhitI-txPo40IXw>
+ <xmx:fGiHYF9JjDSqQEJUT0ycwhb4coVjkqmj1GhzHFjrUHGoTCl0u0fQqA>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 57E85A00079; Mon, 26 Apr 2021 21:17:29 -0400 (EDT)
+ id D2CD9A00079; Mon, 26 Apr 2021 21:27:23 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.5.0-alpha0-403-gbc3c488b23-fm-20210419.005-gbc3c488b
 Mime-Version: 1.0
-Message-Id: <3cb5cc18-fc03-46d7-be3d-3d132b42c82b@www.fastmail.com>
-In-Reply-To: <1619353584-8196-1-git-send-email-jrdr.linux@gmail.com>
-References: <1619353584-8196-1-git-send-email-jrdr.linux@gmail.com>
-Date: Tue, 27 Apr 2021 10:47:09 +0930
+Message-Id: <cc621c9d-816a-4686-8ceb-42864486bf99@www.fastmail.com>
+In-Reply-To: <CAHBbfcXj57K66ARd2_SQMCdNTPVtWk8Xrq0jn_k+WghjRcT-CA@mail.gmail.com>
+References: <CAHBbfcXj57K66ARd2_SQMCdNTPVtWk8Xrq0jn_k+WghjRcT-CA@mail.gmail.com>
+Date: Tue, 27 Apr 2021 10:57:03 +0930
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Souptick Joarder" <jrdr.linux@gmail.com>,
- "Linus Walleij" <linus.walleij@linaro.org>, "Joel Stanley" <joel@jms.id.au>
-Subject: Re: [PATCH] pinctrl: aspeed: Fix minor documentation error
+To: openbmc@lists.ozlabs.org
+Subject: Re: [pmbusplus] userspace i2c, pmbus interactions
 Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -107,35 +106,36 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, openbmc@lists.ozlabs.org,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
 
-On Sun, 25 Apr 2021, at 21:56, Souptick Joarder wrote:
-> Kernel test robot throws below warning ->
+On Sat, 24 Apr 2021, at 07:52, Jason Ling wrote:
+> Hi all,
 > 
-> drivers/pinctrl/aspeed/pinctrl-aspeed-g5.c:2705: warning: This comment
-> starts with '/**', but isn't a kernel-doc comment. Refer
-> Documentation/doc-guide/kernel-doc.rst
-> drivers/pinctrl/aspeed/pinctrl-aspeed-g6.c:2614: warning: This comment
-> starts with '/**', but isn't a kernel-doc comment. Refer
-> Documentation/doc-guide/kernel-doc.rst
-> drivers/pinctrl/aspeed/pinctrl-aspeed.c:111: warning: This comment
-> starts with '/**', but isn't a kernel-doc comment. Refer
-> Documentation/doc-guide/kernel-doc.rst
-> drivers/pinctrl/aspeed/pinmux-aspeed.c:24: warning: This comment starts
-> with '/**', but isn't a kernel-doc comment. Refer
-> Documentation/doc-guide/kernel-doc.rst
+> What started as an attempt to create a simple command line tool to 
+> perform pmbus device upgrades over i2c has turned into the start of a 
+> user-space i2c library (with some pmbus support).
 > 
-> Fix minor documentation error.
+> I've already reused this library in some other obmc applications and 
+> it's been fairly well unit-tested. It also comes with all the public 
+> interfaces mocked (so you can unit test your own code).
 > 
-> Reported-by: kernel test robot <lkp@intel.com>
-> Signed-off-by: Souptick Joarder <jrdr.linux@gmail.com>
-> Cc: Randy Dunlap <rdunlap@infradead.org>
+> The idea is that more and more classes get added that will support 
+> different pmbus devices. 
+> General idea is that each device that gets support can expose methods 
+> to allow device upgrade, black box retrieval, etc..
+> 
+> Anyways, wanted to gauge community interest in this so I can determine 
+> how motivated I should be to upstream it.
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+How does this interact with the efforts in the phosphor-power repo?
+
+https://github.com/openbmc/phosphor-power
+
+Can we exploit your library there? Can your library utilise work from 
+phosphor-power?
+
+Andrew
