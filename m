@@ -2,174 +2,103 @@ Return-Path: <SRS0=Gc6u=J3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 31FB8C433ED
-	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:26:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C06D5C433ED
+	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:27:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 72D456101C
-	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:26:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 72D456101C
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=hcl.com
+	by mail.kernel.org (Postfix) with ESMTPS id 48E746101C
+	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 48E746101C
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FWvnr5kHmz2yxv
-	for <openbmc@archiver.kernel.org>; Sat,  1 May 2021 00:26:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FWvpJ00qpz30BX
+	for <openbmc@archiver.kernel.org>; Sat,  1 May 2021 00:27:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256 header.s=selector2 header.b=CWrJLPiv;
-	dkim=pass (2048-bit key) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256 header.s=selector2 header.b=CWrJLPiv;
+	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=ma+F8ex0;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kOVGolb8;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=hcl.com
- (client-ip=40.107.132.130; helo=apc01-pu1-obe.outbound.protection.outlook.com;
- envelope-from=jayashree-d@hcl.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28;
+ helo=out4-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=HCL.COM header.i=@HCL.COM header.a=rsa-sha256
- header.s=selector2 header.b=CWrJLPiv; 
- dkim=pass (2048-bit key) header.d=HCL.COM header.i=@HCL.COM
- header.a=rsa-sha256 header.s=selector2 header.b=CWrJLPiv; 
+ unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
+ header.s=fm1 header.b=ma+F8ex0; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=kOVGolb8; 
  dkim-atps=neutral
-Received: from APC01-PU1-obe.outbound.protection.outlook.com
- (mail-eopbgr1320130.outbound.protection.outlook.com [40.107.132.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
+ [66.111.4.28])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FWvmd3vYqz301q
- for <openbmc@lists.ozlabs.org>; Sat,  1 May 2021 00:25:50 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8jW1C7nPDDkyPaQeUpC4NTFOF2TztTAbeU72FuJpWP8=;
- b=CWrJLPivM1IH44CQqyu7OXn94FfRcyQVu8kUjZAH9q/F48razwOhAdDIz+6k5lzOeYgS4aZNZPXznVDuoxh8qE8esngJ55CKn5iau9dQTvwSLrJbtMpHLol6qM3raOdR88D8MJgWjasRC5ktpIN3X/GUucwZYmVLNzldWjImwsOs+AY8vs/1huPvjV80oZTyFOgGkfSPZ0VTGmKbrjjA7EB3oO7ZQtjSjQV4z/Ao68kOAXcH9rh+RxnXum5lwXr+DA6dQZ701lM/rb+dTP6zQqUa+6P1p8Tn4Kvo38yXbmA5ZZlzUGCcma/ZieHuVmrPtO2cP8EQ+7fCH2wVD8puAQ==
-Received: from PS2P216CA0067.KORP216.PROD.OUTLOOK.COM (2603:1096:300:18::29)
- by SG2PR04MB2826.apcprd04.prod.outlook.com (2603:1096:4:25::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4087.26; Fri, 30 Apr
- 2021 14:25:45 +0000
-Received: from PU1APC01FT058.eop-APC01.prod.protection.outlook.com
- (2603:1096:300:18:cafe::f8) by PS2P216CA0067.outlook.office365.com
- (2603:1096:300:18::29) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.25 via Frontend
- Transport; Fri, 30 Apr 2021 14:25:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 192.8.245.52)
- smtp.mailfrom=hcl.com; stwcx.xyz; dkim=pass (signature was verified)
- header.d=HCL.COM;stwcx.xyz; dmarc=pass action=none header.from=hcl.com;
-Received-SPF: Pass (protection.outlook.com: domain of hcl.com designates
- 192.8.245.52 as permitted sender) receiver=protection.outlook.com;
- client-ip=192.8.245.52; helo=KOR01-PS2-obe.outbound.protection.outlook.com;
-Received: from KOR01-PS2-obe.outbound.protection.outlook.com (192.8.245.52) by
- PU1APC01FT058.mail.protection.outlook.com (10.152.253.17) with
- Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.4087.27 via Frontend Transport; Fri, 30 Apr 2021 14:25:44 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kmiAc+7OFbWYmkvTPn+HX/kv9M3iElhtzwRG2PMpssWv+XAqUCAJJaRDKKrCNCKm+YfXn9XjPV0OK+n3z2GQ1g7iXbNsjmpPTaXhcmJnJhwad/SL1zTddjMCu9Hf/+53oJxCvF550nKrdw+17lbT7lnkHpUkb8sZ+fL+O5io2cLAWTFasxNsXKVUOCfjzSvRwewBYTEIZxKX31Xyd+hDH7VtBALtgUxfTpBvNkRWAjJ66oHj5IWTktkfTqSJUa0N7c0oh4aAaaDbLb7FZ/M/hgO/NxAHY5otO3s0VzW5yABDKxO8F6y5QQDFGB1RT3x1pSOkkGTGA2HMqq/+bcrPFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8jW1C7nPDDkyPaQeUpC4NTFOF2TztTAbeU72FuJpWP8=;
- b=KpqoMfL6rE9EM+JBNKzfg8PQ28qLRgoOt00OJEFZb+F0KX0JYyNEIWQ33/bZLloCqDLiXlL5X3X8XMT4iTrjSOqQvFyFqQ6GZIPmscy3F2ou8b+IIola89EZLA3TpfWjDfs0AwfUy+ziys3POdroDuyasVs0kcgaeqcKuGYbK5Oe5+LU/7RhdjJIkVBwi0A52HLRh+BGVh55TJ608GirGeMVJAr6rBIyHxWo9OT1YwqmmbFkoZt8nHim1iEnpOjYhuZtNXr5qBIp0oA+FK8eXBsApg/rLQnrpskmx0IHlc21H89kbealv+5gjw3X+MdbbhYhbflMP6jOsojj5k69cA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=hcl.com; dmarc=pass action=none header.from=hcl.com; dkim=pass
- header.d=hcl.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HCL.COM; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8jW1C7nPDDkyPaQeUpC4NTFOF2TztTAbeU72FuJpWP8=;
- b=CWrJLPivM1IH44CQqyu7OXn94FfRcyQVu8kUjZAH9q/F48razwOhAdDIz+6k5lzOeYgS4aZNZPXznVDuoxh8qE8esngJ55CKn5iau9dQTvwSLrJbtMpHLol6qM3raOdR88D8MJgWjasRC5ktpIN3X/GUucwZYmVLNzldWjImwsOs+AY8vs/1huPvjV80oZTyFOgGkfSPZ0VTGmKbrjjA7EB3oO7ZQtjSjQV4z/Ao68kOAXcH9rh+RxnXum5lwXr+DA6dQZ701lM/rb+dTP6zQqUa+6P1p8Tn4Kvo38yXbmA5ZZlzUGCcma/ZieHuVmrPtO2cP8EQ+7fCH2wVD8puAQ==
-Received: from SL2PR04MB3097.apcprd04.prod.outlook.com (2603:1096:100:38::9)
- by SL2PR04MB3468.apcprd04.prod.outlook.com (2603:1096:100:30::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4065.21; Fri, 30 Apr
- 2021 14:25:42 +0000
-Received: from SL2PR04MB3097.apcprd04.prod.outlook.com
- ([fe80::444c:5ba7:ce4f:b103]) by SL2PR04MB3097.apcprd04.prod.outlook.com
- ([fe80::444c:5ba7:ce4f:b103%3]) with mapi id 15.20.4065.027; Fri, 30 Apr 2021
- 14:25:42 +0000
-From: Jayashree D <jayashree-d@hcl.com>
-To: Patrick Williams <patrick@stwcx.xyz>
-Subject: RE: Issue in displaying hardware name using Redfish
-Thread-Topic: Issue in displaying hardware name using Redfish
-Thread-Index: Adc9faE074rZmKWfSR+zByZ0gUXoggATN6+AAABbPeA=
-Date: Fri, 30 Apr 2021 14:25:42 +0000
-Message-ID: <SL2PR04MB3097C0CCB579F0B2C2DBA0BFE15E9@SL2PR04MB3097.apcprd04.prod.outlook.com>
-References: <SG2PR04MB3093D4832CB9DFE036DAA41DE15E9@SG2PR04MB3093.apcprd04.prod.outlook.com>
- <YIwPtU8g5PhkLC6k@heinlein>
-In-Reply-To: <YIwPtU8g5PhkLC6k@heinlein>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-titus-metadata-40: eyJDYXRlZ29yeUxhYmVscyI6IiIsIk1ldGFkYXRhIjp7Im5zIjoiaHR0cDpcL1wvd3d3LnRpdHVzLmNvbVwvbnNcL2hjbCIsImlkIjoiYjY0ZTkxMzktNTVlNS00OThhLWE1NmYtNDg1Njg5YmMxMmI3IiwicHJvcHMiOlt7Im4iOiJIQ0xDbGFzc2lmaWNhdGlvbiIsInZhbHMiOlt7InZhbHVlIjoiSENMX0NsYTVzX0MwbmYxZGVudDFhbCJ9XX1dfSwiU3ViamVjdExhYmVscyI6W10sIlRNQ1ZlcnNpb24iOiIxOC40LjE4NDMuMTIzIiwiVHJ1c3RlZExhYmVsSGFzaCI6IktQVXZuWVd5TmRPMm9wYURUTWRReFN3Qk42aTk2KzkraXI4WEtrSWsrNVBlODkwaEtNYlFkRlNPNStwRWszVmcifQ==
-x-hclclassification: HCL_Cla5s_C0nf1dent1al
-Authentication-Results-Original: stwcx.xyz; dkim=none (message not signed)
- header.d=none;stwcx.xyz; dmarc=none action=none header.from=hcl.com;
-x-originating-ip: [2409:4072:649f:2e7d:191e:6879:2074:5ad8]
-x-ms-publictraffictype: Email
-X-MS-Office365-Filtering-Correlation-Id: a74791f8-9704-4ec0-6b90-08d90be3d7c9
-x-ms-traffictypediagnostic: SL2PR04MB3468:|SG2PR04MB2826:
-X-Microsoft-Antispam-PRVS: <SG2PR04MB2826D58839679C14C60F2B2FE15E9@SG2PR04MB2826.apcprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;OLM:3826;
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam-Untrusted: BCL:0;
-X-Microsoft-Antispam-Message-Info-Original: /D6QYEiaARsrvNe9WCANQO0GfMNbghiOUl1RO6VmAVDiUcuzuUzl/fQyVAbBrsEBIMuvrq/iRwGjsQnVlUvxsnUmHDAyjNizBKmHZ3LnztIlLLo/BhkxMtMT44iyBciJ8idd6GzhA8lEG7UddOJQHF8kGaxIK1P4FHtDFk30Skz2S936ty9BCq4bHFK6HSLja+yMDrp5KKPZeMYId4uU0LFv4wBGYtKTRdMOzclbOMqYnYgl1iApxmKybIhw/pN6i8l7YCiRncHWmyLCQ9cKP037+hd78PRCBq9ysps6HQQYyi0HrrfGrrYvmVtc3tFyo+nvR30JiTLQs6SDGLuRPNx5/+vhjrPTnKfGO2W//li6QLqGF5jtpmHKcgETCDwCdlPdYdnglywEfUZSdrdRmFKqb00b38BBYBcmtElv9j7pb9sMHCatn8xB7QdnjNw7dJPSe6KayS3leE2G1Jfa9bw2OjEw6g43rYnN+6ixXYsagNyXh/nIjlJVEpOZTyJCyUdKlHt593wVb66x5XrHvqzylEcThL1H2zd5CYd/wtmKJoUP7lB5JNLyTakXBibXsLhDm5CHVcedZMNBlIHUiI6zlQeuqag4iOhDie4BHnKZfgNsByeqX9VBfyPKHww4oxfALWyy0WKKUS+LUXXRBzw7EufrrLwy7GRLD3bkrdMRisLSZvGg5DpKS0nZpnXz
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:SL2PR04MB3097.apcprd04.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(4636009)(136003)(346002)(376002)(39860400002)(366004)(396003)(76116006)(66946007)(66446008)(64756008)(8676002)(316002)(4326008)(66476007)(9686003)(2906002)(7696005)(53546011)(966005)(83380400001)(186003)(8936002)(66556008)(86362001)(33656002)(52536014)(38100700002)(478600001)(5660300002)(71200400001)(122000001)(6506007)(6916009)(55016002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?us-ascii?Q?qc125aTn4laiSLlMJ7srQlL4KHdR7TYjlMwvnaxraCP6pFwTnSw+12VtmAW7?=
- =?us-ascii?Q?wOjmUrplAA3Gki4k1V/062ieHQQrAkSW0nS7xL73LErO5vaHjcFWEt+HWrdm?=
- =?us-ascii?Q?QvkBbKwql0k8hLgkuFYLv1OHwdFp7+Yev+qWcXYL01w1iCNUyuE278s+S83W?=
- =?us-ascii?Q?vZo9W6weGgJ0THWZ777HPV7sq8GQUOT/lZJIPWZR1JaItHdMux+csTFYhQv0?=
- =?us-ascii?Q?lIcfEo2xUTi5gPEsfdE+DqOvY7Dm6TQdWvO/V9hSQnY35UefHKfZQmB3TFPX?=
- =?us-ascii?Q?WLaTBf63+kh/BMPg6cp1pSHrc7oiiLx0fhowzi6qRf/g80fcCqamySYh/RMk?=
- =?us-ascii?Q?RPJg2vMqv3tDt/qIovpGCOGUezL2Y9flp1nmzn4APnlCB7f1Hx5ek1jjB8ED?=
- =?us-ascii?Q?a1JUvz5l+85S0sZ2xfikOD04dfMGNI2H8W8bu/aMeVc3qBfYcI5zGwOPV13n?=
- =?us-ascii?Q?pLoZf1QAGHfvmIW00YIvK+Wtxj/Pv2U/qr9yOys0As+c/onz9CAScjh30655?=
- =?us-ascii?Q?EFigojBt4H4NtX7aVDW3uWCmYUectFa/tjH0LBJyrMmcrANc1gQxHDGjsmRl?=
- =?us-ascii?Q?CQ2D+KhP7FZyrk6wWLAsRluH8qeRev5P7PWZmOhPydmkoQRqTo1LC9POTVQn?=
- =?us-ascii?Q?UHeZRWpaldynToboKXtrWRBmTmgE91bNIrC9NaIJ7N1++6GoSk9oTZY8q3Go?=
- =?us-ascii?Q?LEODrx+vU/TDouOwGKRIZhrOY3kUz+KHtt5gpEE7Gqfzx24fqnBouOIPj3fU?=
- =?us-ascii?Q?MS81jWZznT82rQhbfUaMITrDKHFZiVfRfonWQQIP1X2ovV+AZ/nKmFmuf9o6?=
- =?us-ascii?Q?pNyFIcdgJMGXbv1w+oQiJAML8nOmmTyg2wk+Hx2KmqcbYodFNsKQkop4F2rx?=
- =?us-ascii?Q?VJmaO9Ng88kGCVHq+NZWcgKguAxOIUXmYvp0Lp5/gEcW62LPSdg60mBi5YwK?=
- =?us-ascii?Q?kVgq/GEWnAx794hEB1Ne69i3lWr6Y/oBG2fnEvI80egZZuINXrjeAIcxM2M8?=
- =?us-ascii?Q?yFcXiwHG8GimTZzs3bSbbkkeULkLFw11/CDNXuyRANBIlc6bLNQ0AVQwWSCn?=
- =?us-ascii?Q?ag5CLIUroQokljzLtr8x8+G9hjOC6h/RWnx9l6sIMlspyeNb/yVHsIRAbQWC?=
- =?us-ascii?Q?vVxA5H00IToHarqFby2vPKZrwhULb7PSTW3phiIGMVTMaCyqxNfbv+FRkrPb?=
- =?us-ascii?Q?/1yhrXF161BQQ2qzYj4cb1RyZN5tLnz7HBMXAbEEXf83+mbT1/NHYnpsMmjF?=
- =?us-ascii?Q?xioA/yIKAdZv695diKFjuhqn9zwyDp8gfiw3XJE4FhFWJlhHkHDuoPwAfLdp?=
- =?us-ascii?Q?1+7sku5JBwxeUY92fYGhEsNJH3ao2x6e/89aRi7NeJGDlsavNfO6BrRvdD9t?=
- =?us-ascii?Q?MX08QIfFEwgnSyi9IGiGTi3UkRqQ?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FWvnR2vFfz3001
+ for <openbmc@lists.ozlabs.org>; Sat,  1 May 2021 00:26:35 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 0238D5C00A7;
+ Fri, 30 Apr 2021 10:26:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute3.internal (MEProxy); Fri, 30 Apr 2021 10:26:33 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
+ date:from:to:cc:subject:message-id:references:mime-version
+ :content-type:in-reply-to; s=fm1; bh=HNQoBNJkOss8Nz8+K0E82uCpfEn
+ X3WI9bsrpgZ6tsgY=; b=ma+F8ex06nO/mCuMBQ/9I94TCMCv8nIPB8Bpe9y4IKN
+ /pHX2a9rPHkFU1AYayw8pwuBFgKmolbRKW0aeUvtg60CN6AouxZ8G0wGDX31cOZG
+ qwlJ9X2dP3tUphHU9DtUHbtacxtdloBm9Us4meKxFUN9H5bMrBsculYh6R4syU/f
+ VF/HP4RBfdBemlsjv+RFEkqpFfDOuzuDXVP4SAVsXXVFnPwm7LQJwCFrqtn/gTqw
+ fA6NbppnhzYaprN/i6xLaciAnLRt/kx6cUoJ7AS+mm81mqxat+v0itbMvP7WS2hm
+ yEZIQPZo5McdVNN0CybkXz+a5CxK7FgsDoQkfE2ob4Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=HNQoBN
+ JkOss8Nz8+K0E82uCpfEnX3WI9bsrpgZ6tsgY=; b=kOVGolb8SNHAqwTJA4ypnC
+ DDDsY9VLW4l3rtpfN6wSveDvKW51KPF5xMzs2yuiWF8zMcdkMY/egk17jYJQLb+v
+ Kp+PRU/7JIYWpQyRLtWEbCwUoezfELAiNSSSTHFB8XvoLlcvO2Tz3x5D9eEGZCge
+ pl7tNO/MczxjYOPM2bBJepAKTnGQVORHoerBLVLkKZwWFW12QEX/c4q00ZVoMNVx
+ qcJ1z8pYecpABE8ixEH2crp2w10Xz8Opz1gOVNmRMzDuGU0SdeN4RH4UQWDBMW29
+ hs31uffuYK8+VvtZEH9rAiH/UdtWwIlWH8oqSidsbOM3NusBwD67L3skVF677j4A
+ ==
+X-ME-Sender: <xms:mBOMYMsjElaFgYSHSYcmQcKUy5o1li7WW5dLTa5BdKy1AFNRPJu24Q>
+ <xme:mBOMYJe7-0Iw1g9U5epypoTITlXEve89In3PdO2WlGLyIQZGbBp3VRQVjIlhnM7he
+ zn8PPVvknCeFhaM-jQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddviedgjeejucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucgfrhhlucfvnfffucdljedtmdenucfjughrpeffhf
+ fvuffkfhggtggujgesghdtreertddtvdenucfhrhhomheprfgrthhrihgtkhcuhghilhhl
+ ihgrmhhsuceophgrthhrihgtkhesshhtfigtgidrgiihiieqnecuggftrfgrthhtvghrnh
+ epgeehheefffegkeevhedthffgudfhgeefgfdthefhkedtleffveekgfeuffehtdeinecu
+ kfhppeejiedrvdehtddrkeegrddvfeeinecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+ hrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
+X-ME-Proxy: <xmx:mBOMYHzhTIidlYTyUKehppWubKCLiUWOTX82S9xRKsDWCqUM0HFi5w>
+ <xmx:mBOMYPPVhMb3Nu2v6hFiFllHS6hwEzhE2YP1XkHgQOO-tCWXPZHJ8g>
+ <xmx:mBOMYM8uDxHdzN-Etw6fcHBNaIjtPNbPGpHiRzXWi6ll5xhw6HeZlA>
+ <xmx:mBOMYFIqjVHasE7rw3Fkd4on8IgqrwILi9V9mf2CksztUCgwd_lyXg>
+Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
+ [76.250.84.236]) by mail.messagingengine.com (Postfix) with ESMTPA;
+ Fri, 30 Apr 2021 10:26:32 -0400 (EDT)
+Date: Fri, 30 Apr 2021 09:26:31 -0500
+From: Patrick Williams <patrick@stwcx.xyz>
+To: Mike Jones <proclivis@gmail.com>
+Subject: Re: PMC
+Message-ID: <YIwTlxp0a/c+LO64@heinlein>
+References: <YILLjQfgD4Q2vH5L@heinlein>
+ <31F00F60-DF2D-40FB-A9BC-85538975398D@gmail.com>
+ <1F0D01CD-2A39-49B3-9E63-DDFCA3371672@gmail.com>
+ <YIMBmRyyjcchQFhA@heinlein>
+ <845C5760-C7CA-4ACB-A465-63BF0EA851DB@gmail.com>
 MIME-Version: 1.0
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SL2PR04MB3468
-X-DLP: MSGProcess
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: PU1APC01FT058.eop-APC01.prod.protection.outlook.com
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 62c4144f-1303-41a4-5227-08d90be3d5ea
-X-Microsoft-Antispam: BCL:0;
-X-Microsoft-Antispam-Message-Info: 4T+rfzYedSrhFB/I1uqhtcoQqNZ7HfqNgJQx4GrsbY30je3ngOOF3JmKDuapU3wtIZ6vZ0+9XoJ2gpinZFWnT5ymgdzPzy2qCU/AZBogvtIq6l3K3wqmBH84zpdimCc6i2HKg/iibboDCYz8zHnpRx77G8y2iirvc4o5spQNYmQ6DvRMc/XAJDVcUGsGJV0LJkPPnHVz+t+VKtzmqeyzhVyhvTD2XjPPpaTiTSsAyA5DkgIFfvD9NGw4Fji9M873/Y/8ICswleOWrrhJl3UXpUgSyb+Kk7K2KXdeSCReF9MftdeJ4TEUdjx03P6kTDwMls0FcO7LqBeYuvwm7wFuXFf2EFO714hBkzzKLSk1dmaIj/5NiEgPKBL2BrhwbIiJYoTHSAl0HOlHZ7YTArTEzrpf4yxI7oRJ1580UoM4/PmPHvwoFN3h8dL/2XQFqzHxQX7dI8X0BtUwhdj6qWsGxrGI506FiWUTXBSFpGDftAROqoYC2n+6Q86ak5ZqhofxI0fymliVHx9QdvPlmECDWgmfaP1DWZuDajbcBYm5tB8BR7vRCUE166G9DVJlF13zCOjbAZldl+zl3z7frK60Wos/MtOIlR50c0ciybiWhwxqrGhRgW/8NiA/JF16+fkzsgijjirJEhNEIu6SJyEo3xq4+jrx0CydU81FZWY+CrROUEjvGztgx0oT5LmDA7hbQv8WE2xbM1uUHZ/I5y1x9VfVbIkmeepHvTgPxXNYM7mOIboAxza9on5dSMIiU9F1cqVu/g97r3820zLO77IkPbg1ZffFZz5BX0jYhKj/xls=
-X-Forefront-Antispam-Report: CIP:192.8.245.52; CTRY:IN; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:KOR01-PS2-obe.outbound.protection.outlook.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(4636009)(396003)(346002)(376002)(39860400002)(136003)(36840700001)(46966006)(36906005)(53546011)(55016002)(83380400001)(478600001)(70206006)(82310400003)(356005)(6506007)(81166007)(7696005)(8936002)(70586007)(34020700004)(186003)(52536014)(316002)(47076005)(5660300002)(82740400003)(36860700001)(336012)(86362001)(966005)(33656002)(9686003)(8676002)(2906002)(4326008)(26005)(6916009)(36900700001);
- DIR:OUT; SFP:1102; 
-X-OriginatorOrg: HCL.COM
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Apr 2021 14:25:44.8462 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a74791f8-9704-4ec0-6b90-08d90be3d7c9
-X-MS-Exchange-CrossTenant-Id: 189de737-c93a-4f5a-8b68-6f4ca9941912
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=189de737-c93a-4f5a-8b68-6f4ca9941912; Ip=[192.8.245.52];
- Helo=[KOR01-PS2-obe.outbound.protection.outlook.com]
-X-MS-Exchange-CrossTenant-AuthSource: PU1APC01FT058.eop-APC01.prod.protection.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SG2PR04MB2826
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature"; boundary="agSXuSy4NlLH0EhB"
+Content-Disposition: inline
+In-Reply-To: <845C5760-C7CA-4ACB-A465-63BF0EA851DB@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -181,47 +110,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Classification: Confidential
 
-Thanks Patrick, I will follow this issue in that sdbusplus.
+--agSXuSy4NlLH0EhB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
------Original Message-----
-From: Patrick Williams <patrick@stwcx.xyz>
-Sent: Friday, April 30, 2021 7:40 PM
-To: Jayashree D <jayashree-d@hcl.com>
-Cc: openbmc@lists.ozlabs.org
-Subject: Re: Issue in displaying hardware name using Redfish
+On Fri, Apr 23, 2021 at 11:30:54AM -0600, Mike Jones wrote:
+> Patrick,
+>=20
+> Are there existing PMC implementations for ORv3, or is the work of your i=
+nterest the first? Is their existing hardware to base OBMC running in a BMC=
+ to work from?
 
-On Fri, Apr 30, 2021 at 07:14:19AM +0000, Jayashree D wrote:
-> I am using Redfish commands to verify the details of sensor and hardware.
-> But I am getting the hardware name as "TiogaPass\ufffdseboard" instead of=
- "TiogaPass_Baseboard".
+There is not.  To the best of my knowledge our work in this area was the
+first.
 
-There is a github issue open tracking this and Ed is working on it.
-
-https://github.com/openbmc/sdbusplus/issues/60
-
---
+--=20
 Patrick Williams
-::DISCLAIMER::
-________________________________
-The contents of this e-mail and any attachment(s) are confidential and inte=
-nded for the named recipient(s) only. E-mail transmission is not guaranteed=
- to be secure or error-free as information could be intercepted, corrupted,=
- lost, destroyed, arrive late or incomplete, or may contain viruses in tran=
-smission. The e mail and its contents (with or without referred errors) sha=
-ll therefore not attach any liability on the originator or HCL or its affil=
-iates. Views or opinions, if any, presented in this email are solely those =
-of the author and may not necessarily reflect the views or opinions of HCL =
-or its affiliates. Any form of reproduction, dissemination, copying, disclo=
-sure, modification, distribution and / or publication of this message witho=
-ut the prior written consent of authorized representative of HCL is strictl=
-y prohibited. If you have received this email in error please delete it and=
- notify the sender immediately. Before opening any email and/or attachments=
-, please check them for viruses and other defects.
-________________________________
+
+--agSXuSy4NlLH0EhB
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmCME5cACgkQqwNHzC0A
+wRnWOA//YmZIEumCeCDQUQEYT5zI8LP67arJIVoz4aFsV+eEz3OvKqTC5gQo81rW
+fGhSF2DD81SPSxy3ag7Uj3pFSgXui/8ZBoEHWmRGcE406yFOx2OtLTsybPcC8Kg8
+X5SQ026TS5jkYEfmVXNSbmLZ7sIrpSU7LZM4W20ECOR4cq4jBnqQvKsUczUbrYA9
+gs3455uyVFgVLtvfNkVlpyk/oFP6uBaydn7HPrg/iJUlCk2ciDoKgL1BlqPj+BO9
+BcvJoR7Hc0O+x+lWqN0W8EGNs0Qx5IG9Uf4jQRud4gKKO/XrkMEGoGPW/RsfFRyk
+y4d/drz6M4/JP0fxbfH5Q5RESARKXQ/v+ZQr7/MvrzaEYWKpEMPxPDB7CHYWugIf
+VleAbhv5+etXyySCrOkBRidFUCbQuszM2BM8dVZtkEhBAS77bDG+UUdkLvXErDVU
+QZMDtGBDck8ZIxGTZ7v46nw4iRf7tQ1spfoqZOkW5/di7k6ZZUV3+iFku7VNxX77
+JDxKWv4N/wEBWBh488N8r3vGJpFPEZoUST5J5Ne0G/37flEquU5RTjbi4waj4pfF
+3Ggfqb2JXDFswMxO6BIKu+It8kjCW03y18PcxY8gkMrKRfnTvsBFg9646GzxFfJh
+OidNdtkjpmqcengx49of6ATTbwlKCQUFrNE4Xxh5IC9d2/uM1oM=
+=cO1e
+-----END PGP SIGNATURE-----
+
+--agSXuSy4NlLH0EhB--
