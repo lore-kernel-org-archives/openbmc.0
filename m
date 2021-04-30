@@ -2,26 +2,27 @@ Return-Path: <SRS0=Gc6u=J3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 037A7C433ED
-	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:18:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6BC6BC433B4
+	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:26:16 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2DE9E613A9
-	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:18:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2DE9E613A9
+	by mail.kernel.org (Postfix) with ESMTPS id D83A66128C
+	for <openbmc@archiver.kernel.org>; Fri, 30 Apr 2021 14:26:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D83A66128C
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FWvcQ3VfPz302y
-	for <openbmc@archiver.kernel.org>; Sat,  1 May 2021 00:18:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FWvn22CtZz300Q
+	for <openbmc@archiver.kernel.org>; Sat,  1 May 2021 00:26:14 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=imTB6opU;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=RNQW/wyo;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm1 header.b=3jp+PHSd;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wfE1m3u2;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.28;
@@ -29,73 +30,75 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm1 header.b=imTB6opU; 
+ header.s=fm1 header.b=3jp+PHSd; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=RNQW/wyo; 
+ header.a=rsa-sha256 header.s=fm2 header.b=wfE1m3u2; 
  dkim-atps=neutral
 Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
  [66.111.4.28])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FWvbz1bdRz2xb2
- for <openbmc@lists.ozlabs.org>; Sat,  1 May 2021 00:18:23 +1000 (AEST)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.nyi.internal (Postfix) with ESMTP id 134675C005B;
- Fri, 30 Apr 2021 10:18:21 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Fri, 30 Apr 2021 10:18:21 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FWvmY1950z2xfY
+ for <openbmc@lists.ozlabs.org>; Sat,  1 May 2021 00:25:48 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.nyi.internal (Postfix) with ESMTP id EFAA05C00F3;
+ Fri, 30 Apr 2021 10:25:46 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Fri, 30 Apr 2021 10:25:46 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
  date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm1; bh=PkwPH9qBiVosftLilz8BUb4EnlI
- Kxyr0j/Cxfej0GHo=; b=imTB6opU4Xw8s1OglpK6OpMUrNRLdQLzcti6tXba2yN
- ci6aO7lI4k9EwT04iU0L2rPHgKCyFwDa2lyf2HJhSOQ5X/hTxpEY49XOup7twPNg
- DL0ofgKpHvYNRP3V3zmbQrPBONxwQr2Yxe6ccCf/aqxH9RMAZ0jX7SfNeSTxj0CU
- 0KRJSNv+9KybhcRk+MY8Rho/cibUCWUmxbE2y+i36qD+hKJbKEyJePDRe2dGWGBA
- RAMMMqkqpfxMoYYU7c5JSqw4Tbz6H0/j6x77sABBR6eIoeNdVZxpfb3pq5jN9cNT
- Kxkkjk2q2/mSbG0dS6UKGYbN5yE028EfBonfAvQkqIw==
+ :content-type:in-reply-to; s=fm1; bh=w265J6GrIJHgPiDqS3R30uJRR2K
+ qcgExBXkVqZae5W4=; b=3jp+PHSdRziYrfq9usjqLOMGhsg1uT1o6oOk+VytpOK
+ xqtYkBejNa5tTynhMstDyW1+dSYbUaRIrHJEZFQ+pbC+QBKrrEC+BmpyVOWjfg1M
+ 1BMMWoIYJuXb/eX0FBDcbZ/x/SY7Wbl81H8h6NEVrSC+GfVpV1MKiaVJSPgUor+d
+ IBsgg4S+ZkMfuzTHB0ybc3K4U+CJ4vxIks0fxgYmc8T46w0nT4/F7s2uP2xl17Qe
+ nmbcjjMnIcUpEKijsIAiLxfQfk09PvTGnH1nlr9/xtnh9PkPDsGnS8fCNpq/HDkR
+ NZ1c6w0gTW32orNWBlyKk5YOxb20lO6PpiJEwEYVjrw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=PkwPH9
- qBiVosftLilz8BUb4EnlIKxyr0j/Cxfej0GHo=; b=RNQW/wyoYU1kutvPlVCYpN
- bKsKPB4AhGHUWAHnaHoiYm+mCVYT0AWm8QnrEyJQyY+6tJmXEjdGD+gtg2pANPWK
- Sco7lDyhpJarM34SQpgfc5L7ST9KXh3tIdJGXh08rGOY4vb9XccxZoj9tLGGqGcQ
- yp/ZSXBYT0tBL7zojE6bUA3jYUq1TKyd7R5kdgyQtqGXS/O8GY6dBCn29jcn1+X/
- joZkZLDlAYoBNVth6S6N67pYeiDp4pQzTrg0RFCOhNA7Z046cpo/GgGgv9KCAFmy
- a3+bZtFQJhfgQdqLtNO3uCVNITeTMqdi8bp7SFRF6b3wGQiE/Iil0ZfyuJcJXsIQ
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=w265J6
+ GrIJHgPiDqS3R30uJRR2KqcgExBXkVqZae5W4=; b=wfE1m3u2bFgdsM8J/7fYkE
+ q3X/9UmlCxRezmaeUC/0z0glliQq+nRPcsmm4s3wE6oe1rMRCkrT1c/2SM5yUaKl
+ HS6Grwu8S2/q4o5XkleFBORgZv6NIP2fB2sqsB5kO9Mn7y4eG/7gHN3XWpPhXLgp
+ hOuJFHjhMjWatCajlzr7XStxsYXO4GoccURX30woE3LFXf8rV6Qe/rY75i8fLNET
+ EBr3kR5lxlj098mXGTmj9tL0/UmpHgS26ORPXEfbqVASMburql7zCeAK1gDt0KHR
+ MDiLadhgTiwzKNiBTNXS7dy1vcPRDQUR4/xAHPfDGdpOLjA6/yAvrsji9Nk/9V7w
  ==
-X-ME-Sender: <xms:rBGMYPlbgDFnCW6xiYuhhwa1W_w_RtCbeK2z2cdrfU-xIX_1eDlljw>
- <xme:rBGMYC37ymWWDuHLgmft_rUZCN1EZu4A0YSnbmDzhFY_ZfNM6kMUpb1HaiNkCb2J0
- YRskbLxa2drrg_LGAg>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddviedgjeehucetufdoteggodetrfdotf
+X-ME-Sender: <xms:ahOMYHwTSYSC5n21FvjzY820Xr3weXDX08FmfsaC-GiJFibGd0iWEg>
+ <xme:ahOMYPTP5MBSLj8grDbTAGXKf_YjY0ZAI7fPL-_HAj3WfDu_zoU6wWWcb7bg8TNtr
+ SeWFhrRB6rw9vxJ2Uk>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvddviedgjeejucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- gfrhhlucfvnfffucdljedtmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
+ gfrhhlucfvnfffucdlfeehmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
  vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
- htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepgeehheefffegkeevhedthffgudfh
- geefgfdthefhkedtleffveekgfeuffehtdeinecukfhppeejiedrvdehtddrkeegrddvfe
- einecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepphgr
- thhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:rBGMYFq48z_aZnEpx8qkl41ajADuxKmEfE49BJqUffQnSlSvP6DcnA>
- <xmx:rBGMYHnGQXbYr01MOU69XK7ptwKU2-xBqy62EWOMdL8SlDLif3N32Q>
- <xmx:rBGMYN37IZQLWIbfz3b_UpyTj3rykX5c20wBKS1WKAi8cdqG0VpZmg>
- <xmx:rRGMYKiGcOGY5UfVKI2rcMuTl5WNzqxzSRPROxfyJMLGivqI49kq4g>
+ htfigtgidrgiihiieqnecuggftrfgrthhtvghrnheplefhjeefkeetveffgeetffdufeeh
+ leefhedvgffgvdfghfejhfefffekieeiveejnecuffhomhgrihhnpehgihhthhhusgdrtg
+ homhenucfkphepjeeirddvhedtrdekgedrvdefieenucevlhhushhtvghrufhiiigvpedt
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpehprghtrhhitghksehsthiftgigrdighiii
+X-ME-Proxy: <xmx:ahOMYBUbkvhPFa9vm947gXfPLSG2BwJGNCgPQcYDb1z5RbZVJ3Ediw>
+ <xmx:ahOMYBjSyYyDs58DAHb52zGiRLYEgoj5qnhX-pwos3JKqqz_yoS5kg>
+ <xmx:ahOMYJDIE_8XxQK7eZq_yAuqI4GFfa7LUX2SfIL9oy2HtpNdqKcF4Q>
+ <xmx:ahOMYMql_ebPPIBRQbt_xdmtYvVjUsX3FmHXWPRZpLf4FXjZGstafA>
 Received: from localhost (76-250-84-236.lightspeed.austtx.sbcglobal.net
  [76.250.84.236]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Fri, 30 Apr 2021 10:18:19 -0400 (EDT)
-Date: Fri, 30 Apr 2021 09:18:19 -0500
+ Fri, 30 Apr 2021 10:25:46 -0400 (EDT)
+Date: Fri, 30 Apr 2021 09:25:44 -0500
 From: Patrick Williams <patrick@stwcx.xyz>
-To: Jason Ling <jasonling@google.com>
-Subject: Re: [pmbusplus] userspace i2c, pmbus interactions
-Message-ID: <YIwRqzb/50Yk9hZa@heinlein>
-References: <CAHBbfcXj57K66ARd2_SQMCdNTPVtWk8Xrq0jn_k+WghjRcT-CA@mail.gmail.com>
+To: Thang Nguyen <thang@os.amperecomputing.com>
+Subject: Re: Request to create ampere-platform-mgmt and ampere-ipmi-oem repos
+Message-ID: <YIwTaJ11MRUXY2H5@heinlein>
+References: <38d1440f-b3be-9147-5002-42536117e1e0@os.amperecomputing.com>
+ <YILMPOZwlODKqxtb@heinlein>
+ <7bec9fb2-35d5-8e44-463f-3eb5c0955f0d@os.amperecomputing.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="Our5IQh5mXLNmSIG"
+ protocol="application/pgp-signature"; boundary="2QM3Z4SF5SX1mAeP"
 Content-Disposition: inline
-In-Reply-To: <CAHBbfcXj57K66ARd2_SQMCdNTPVtWk8Xrq0jn_k+WghjRcT-CA@mail.gmail.com>
+In-Reply-To: <7bec9fb2-35d5-8e44-463f-3eb5c0955f0d@os.amperecomputing.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,86 +110,93 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>, bradleyb@fuzziesquirrel.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
---Our5IQh5mXLNmSIG
+--2QM3Z4SF5SX1mAeP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Apr 23, 2021 at 03:22:35PM -0700, Jason Ling wrote:
-> Hi all,
+On Sat, Apr 24, 2021 at 07:48:14PM +0700, Thang Nguyen wrote:
+> I intend to push Ampere specific features, you can find current codes at=
+=20
+> https://github.com/ampere-openbmc/ampere-platform-mgmt.
+
+It seems to me like all of the functional areas you mentioned we already
+have some sort of implementation.  It would be better if you could work
+with the maintainers on these repositories to see how it can be enhanced
+to support your use case.  As I mentioned in another email thread today,
+I really don't want to see catch-all repositories being created.
+
+If you have specific features that aren't covered by an existing
+repository or you feel like you've ran into a roadblock coming to
+consensus with the developers already working in those areas, we should
+revisit making repositories for those specific functional areas.
+
 >=20
-> What started as an attempt to create a simple command line tool to perform
-> pmbus device upgrades over i2c has turned into the start of a user-space
-> i2c library (with some pmbus support).
+> It is good to have any of below can be implemented with current existing=
+=20
+> repositories:
 >=20
-> I've already reused this library in some other obmc applications and it's
-> been fairly well unit-tested. It also comes with all the public interfaces
-> mocked (so you can unit test your own code).
+> - utilities to flash Ampere Host firmware and NVPARM: Boot EEPROM,=20
+> UEFI/ATF firmware, ...
 
-I assume you mean "internal to Google applications"?
+Are these extra utilities or the firmware update procedures themselves?
+Have you already implemented support in phosphor-bmc-code-mgmt?  There
+are other systems that have BIOS update for x86 done in that repository.
 
-> The idea is that more and more classes get added that will support
-> different pmbus devices.
-> General idea is that each device that gets support can expose methods to
-> allow device upgrade, black box retrieval, etc..
+> - Control boot EEPROM based on current input GPIO and log the=20
+> information into Redfish=20
+> (https://github.com/ampere-openbmc/ampere-platform-mgmt/tree/ampere/altra=
+/host-control/scp-failover)
 
-I have two questions that come to mind:
+This looks like something that could be implemented with
+phosphor-gpio-monitor.  Have you looked at that?
 
-    1. Why was the library provided by i2c-tools not good enough?
-       (ie. What are you bringing to the table that should make people
-       want to use your library rather than a widely used existing
-       library?)
+> - Handle boot progress from Ampere's Altra SMpro, log the progress into=
+=20
+> Redfish and update dbus. Note that the boot progress is based on=20
+> information from EDK2 and other firmware like ATF and SMpro.
 
-    2. How does the availability (and potential recommendation of usage
-       by our community) affect the effort to ensure that all i2c and
-       pmbus drivers are upstreamed?
+You can probably fit this into the existing post-code repositories:
+    - phosphor-host-postd
+    - phosphor-post-code-manager
 
-       To further clarify this question, we've generally said we want to
-       see code using and contributing to upstream Linux subsystems when
-       those subsystems already exist.  We don't want a reimplementation
-       of the i2c and pmbus subsystem in userspace when those are
-       already well-supported upstream by the kernel.
+We recently did similar for a system where we get the post codes over
+IPMB rather than GPIOs.
 
-       What is it that makes you want to write your code using low-level
-       i2c and PMBus APIs directly in userspace instead of writing or
-       updating drivers and using the various high-level user APIs
-       provided by kernel subsystems?
+> - Handle events from Ampere Altra's SMpro (like Sideband controller) and=
+=20
+> log to IPMI SEL and Redfish.
 
-       I see you mentioned "pmbus device upgrades" and I know the PMBus
-       subsystem doesn't currently support firmware upgrade paths.  But,
-       there has been LKML threads about it and what I recollect was
-       that it wasn't "not allowed" but just "not implemented".
-       Shouldn't we be focusing our efforts on enhancing features for
-       the whole OSS community rather than building our own different
-       library?
+This sounds like it should go into ampere-ipmi-oem?  I'm making an
+assumption that the SMpro is an IPMB path, which might be wrong.
 
 --=20
 Patrick Williams
 
---Our5IQh5mXLNmSIG
+--2QM3Z4SF5SX1mAeP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmCMEaoACgkQqwNHzC0A
-wRmoyw//cEGt3+uObUqBAO1gDrbouDyVac0IfMnc1cgXYhb0PAFo7FpQl4ytLGB0
-vD9Ru2Pg3PEIwLab/e6Vd1dW5es35ohc4ReDllaUIrUub23ekT0t0nPeCZAtq6eC
-5CCIVI492LhgvM2h8PfgvDk1UP1QpytN2W7Wkztzb0jxePQnmpbzeXgj9+3fBWew
-pGFZWxq13LUZYFQ/kOvj/BZQXbzg8hmVAwgROZOTJVcI33oFUrEVyJ8VmvBO0xaK
-JUIHAE9vlA6SH9ZmjKVX7w5WUKpwojEkLsfgauOfsBbn9dC9nAHi3ngJPdc1Gmqm
-+6OXDKJeMtJerTNg+O1UUrC2oFmlY6us6lWdet0XJCY/BojcstfFU9Vigsr+lmdK
-lJNQKgIBw4H3VoOGokB7JHrC7lb+ZxkGdmuLkC38x/xSSNZ9J2F1+QnW6/9qpwX9
-a96gGF/kvMHsZgBsHiI0va/CTqV/1ydMMVbzFpMyKn19PAn872n627azZZOfhfRx
-683vBsbjJmdrxt4t7G5A9eUU1dbohqezjLoqec6pB73RnNcHPzbSO4QdJTso9u6R
-lBJg7agDPaWTowwI/ZnIIDsJ7XrngeEoBlnrjh8qGWbAKUYz5SWkRP32P9ey4wM+
-58vhxQihK6weqkPJhMuROONseoZG9ayVW85P2u1PES5saqJyTT8=
-=lkqI
+iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmCME2gACgkQqwNHzC0A
+wRlWfQ//VCousSfxEVKmMqO+bo2VB4CitwOUykmCJS55MPknSWq1LDjnJnGICSrv
+VuLe8zZ8ror+xcoMQT8bNM8Rx8k9mrIDhCP4VF8dwRIINLsDS92pZRpRTHzg0yeW
+VyB65ltD7w8WrqqtjRvz2mv3MkgcAfcoUf1WzOIn/4zFoGZtIJ6a14pkJQ79RAq+
+iVoQteUvk1MUYHKLkRMOfVOn/Ujmb8zLccgmhklztIxGumikkw5rfv8H0v42Vtss
+bXAVwPvyA1q8MfYYlgOH3z2t11YYLRnwwfltRTGkSBUQTTODuFuPPME60gGVctiA
+97NEbj5XkUz0ojfviTIItk9COGRtXJxft//vGl9SWhTdSyb7SXl44AJ/nsNeR9C4
+v/oa+pCvL9VQjhZZCVDJrXHkf121q0ni5eBIl1WG/r90I08B36NDDfc1BkbnANTK
+DElB96axSTDyRwea5OKEDEnk+QLRkNA8dD4qxSV1t5DDE+Q7Pv7lbjH8NRlYTYgx
+sIkhygVvqG7ZuGiUVWMzw0S4c3SozI0vWaMRlWKiaunfn5RDvShkNaZDYxnU0rsu
+0PMNMxbD09L6Lico3PMdhNhkRz7EZR1IPnZ4vWZ9XGzQLBBV1eM6zJXGryrsVSEq
+eWAuuuHGLEBTcMJ4TkGrnONyQKI6AqwgvWOeTxm+BDDXHF0bPsw=
+=CeQC
 -----END PGP SIGNATURE-----
 
---Our5IQh5mXLNmSIG--
+--2QM3Z4SF5SX1mAeP--
