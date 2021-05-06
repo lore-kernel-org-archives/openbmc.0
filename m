@@ -7,19 +7,19 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3A240C433B4
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:06:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AE65C433B4
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:07:03 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id ADD5A6109E
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:06:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org ADD5A6109E
+	by mail.kernel.org (Postfix) with ESMTPS id 88F96611AC
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:07:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 88F96611AC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTkq0hQhz30B4
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 20:06:43 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTl91NNpz3014
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 20:07:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=steven_lee@aspeedtech.com;
@@ -28,15 +28,15 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTjk22L3z30DT;
- Thu,  6 May 2021 20:05:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTk35r0Gz303x;
+ Thu,  6 May 2021 20:06:03 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1469pQMd024637;
- Thu, 6 May 2021 17:51:26 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1469pSEe024643;
+ Thu, 6 May 2021 17:51:28 +0800 (GMT-8)
  (envelope-from steven_lee@aspeedtech.com)
 Received: from localhost.localdomain (192.168.100.253) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 6 May
- 2021 18:03:13 +0800
+ 2021 18:03:14 +0800
 From: Steven Lee <steven_lee@aspeedtech.com>
 To: Andrew Jeffery <andrew@aj.id.au>, Ulf Hansson <ulf.hansson@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Adrian
@@ -49,10 +49,10 @@ To: Andrew Jeffery <andrew@aj.id.au>, Ulf Hansson <ulf.hansson@linaro.org>,
  TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/ASPEED
  MACHINE SUPPORT" <linux-arm-kernel@lists.infradead.org>, open list
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 2/5] ARM: dts: aspeed: ast2600evb: Add comment for gpio
- regulator of sdhci
-Date: Thu, 6 May 2021 18:03:09 +0800
-Message-ID: <20210506100312.1638-3-steven_lee@aspeedtech.com>
+Subject: [PATCH v3 3/5] ARM: dts: aspeed: ast2600evb: Add phase correction for
+ emmc controller.
+Date: Thu, 6 May 2021 18:03:10 +0800
+Message-ID: <20210506100312.1638-4-steven_lee@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210506100312.1638-1-steven_lee@aspeedtech.com>
 References: <20210506100312.1638-1-steven_lee@aspeedtech.com>
@@ -62,7 +62,7 @@ X-Originating-IP: [192.168.100.253]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1469pQMd024637
+X-MAIL: twspam01.aspeedtech.com 1469pSEe024643
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,40 +80,28 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add the description for describing the AST2600-A2 EVB reference design of
-GPIO regulators.
+Set MMC timing-phase register by adding the phase correction binding in the
+device tree.
 
 Signed-off-by: Steven Lee <steven_lee@aspeedtech.com>
 ---
- arch/arm/boot/dts/aspeed-ast2600-evb.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ arch/arm/boot/dts/aspeed-ast2600-evb.dts | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm/boot/dts/aspeed-ast2600-evb.dts b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-index 2772796e215e..1ae0facc3d5f 100644
+index 1ae0facc3d5f..fa63cb033c57 100644
 --- a/arch/arm/boot/dts/aspeed-ast2600-evb.dts
 +++ b/arch/arm/boot/dts/aspeed-ast2600-evb.dts
-@@ -104,6 +104,21 @@
- 	status = "okay";
- };
- 
-+/*
-+ * The signal voltage of sdhci0 and sdhci1 on AST2600-A2 EVB is able to be
-+ * toggled by GPIO pins.
-+ * In the reference design, GPIOV0 of AST2600-A2 EVB is connected to the
-+ * power load switch that providing 3.3v to sdhci0 vdd, GPIOV1 is connected to
-+ * a 1.8v and a 3.3v power load switch that providing signal voltage to
-+ * sdhci0 bus.
-+ * If GPIOV0 is active high, sdhci0 is enabled, otherwise, sdhci0 is disabled.
-+ * If GPIOV1 is active high, 3.3v power load switch is enabled, sdhci0 signal
-+ * voltage is 3.3v, otherwise, 1.8v power load switch will be enabled,
-+ * sdhci0 signal voltage becomes 1.8v.
-+ * AST2600-A2 EVB also support toggling signal voltage for sdhci1.
-+ * The design is the same as sdhci0, it uses GPIOV2 as power-gpio and GPIOV3
-+ * as power-switch-gpio.
-+ */
+@@ -122,7 +122,8 @@
  &emmc {
  	non-removable;
  	bus-width = <4>;
+-	max-frequency = <52000000>;
++	max-frequency = <100000000>;
++	clk-phase-mmc-hs200 = <9>, <225>;
+ };
+ 
+ &rtc {
 -- 
 2.17.1
 
