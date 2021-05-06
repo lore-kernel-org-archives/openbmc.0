@@ -2,83 +2,67 @@ Return-Path: <SRS0=2LEg=KB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63AA9C433ED
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 09:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE1E0C433B4
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:05:48 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7DEC61177
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 09:50:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B7DEC61177
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	by mail.kernel.org (Postfix) with ESMTPS id DB70361207
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB70361207
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTN2445xz30C3
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 19:50:26 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=VHW0L/Z6;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=VHW0L/Z6; dkim-atps=neutral
-X-Greylist: delayed 579 seconds by postgrey-1.36 at boromir;
- Thu, 06 May 2021 19:49:53 AEST
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTjk1TzCz3026
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 20:05:46 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
+ smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
+ helo=twspam01.aspeedtech.com; envelope-from=steven_lee@aspeedtech.com;
+ receiver=<UNKNOWN>)
+Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
+ [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTMP1z0Rz300c
- for <openbmc@lists.ozlabs.org>; Thu,  6 May 2021 19:49:53 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id ABB4D4120D;
- Thu,  6 May 2021 09:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-transfer-encoding:mime-version:user-agent:content-type
- :content-type:organization:references:in-reply-to:date:date:from
- :from:subject:subject:message-id:received:received:received; s=
- mta-01; t=1620294008; x=1622108409; bh=s2pWtrni67szU3lxCSqYI8kbL
- na0gOUGfiebdsmAQfc=; b=VHW0L/Z6L0huc6XdbUvzsUUXxE25jDrIfYeFTS5QF
- wEALGshq1qFOT4r0ZF8/iRO22igMNLCc+dLRrHx8Il6vr5EBAmvgDpbdvfgQqH6o
- r8usfoR2XQcOhyxXwOWCN5udGmFO75k8eDRHBPNuraTTPc1LH69KUxgah4aO77+3
- vs=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id ocK7KklhMJhJ; Thu,  6 May 2021 12:40:08 +0300 (MSK)
-Received: from T-EXCH-03.corp.yadro.com (t-exch-03.corp.yadro.com
- [172.17.100.103])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 498E84120B;
- Thu,  6 May 2021 12:40:08 +0300 (MSK)
-Received: from [10.199.0.38] (10.199.0.38) by T-EXCH-03.corp.yadro.com
- (172.17.100.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Thu, 6 May
- 2021 12:40:07 +0300
-Message-ID: <f5eedf23bfea01b5d69b43f4d35970f45f5d4e99.camel@yadro.com>
-Subject: Re: Add phosphor-fan configuration for the fan which added by
- dbus-sensor
-From: Andrei Kartashev <a.kartashev@yadro.com>
-To: Thu Nguyen OS <thu@os.amperecomputing.com>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>
-Date: Thu, 6 May 2021 12:40:01 +0300
-In-Reply-To: <B6120112-33DD-41A6-A0F2-7A9FBFEEB081@amperemail.onmicrosoft.com>
-References: <B6120112-33DD-41A6-A0F2-7A9FBFEEB081@amperemail.onmicrosoft.com>
-Organization: YADRO
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.38.4 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTjG6ZQMz2ysr;
+ Thu,  6 May 2021 20:05:20 +1000 (AEST)
+Received: from mail.aspeedtech.com ([192.168.0.24])
+ by twspam01.aspeedtech.com with ESMTP id 1469pPCd024629;
+ Thu, 6 May 2021 17:51:25 +0800 (GMT-8)
+ (envelope-from steven_lee@aspeedtech.com)
+Received: from localhost.localdomain (192.168.100.253) by TWMBX02.aspeed.com
+ (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 6 May
+ 2021 18:03:13 +0800
+From: Steven Lee <steven_lee@aspeedtech.com>
+To: Andrew Jeffery <andrew@aj.id.au>, Ulf Hansson <ulf.hansson@linaro.org>,
+ Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Adrian
+ Hunter" <adrian.hunter@intel.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ryan Chen <ryanchen.aspeed@gmail.com>,
+ "moderated list:ASPEED SD/MMC DRIVER" <linux-aspeed@lists.ozlabs.org>,
+ "moderated list:ASPEED SD/MMC DRIVER" <openbmc@lists.ozlabs.org>,
+ "open list:ASPEED SD/MMC DRIVER" <linux-mmc@vger.kernel.org>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE
+ TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/ASPEED
+ MACHINE SUPPORT" <linux-arm-kernel@lists.infradead.org>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 1/5] dt-bindings: mmc: sdhci-of-aspeed: Add an example for
+ AST2600-A2 EVB
+Date: Thu, 6 May 2021 18:03:08 +0800
+Message-ID: <20210506100312.1638-2-steven_lee@aspeedtech.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210506100312.1638-1-steven_lee@aspeedtech.com>
+References: <20210506100312.1638-1-steven_lee@aspeedtech.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.199.0.38]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-03.corp.yadro.com (172.17.100.103)
+Content-Type: text/plain
+X-Originating-IP: [192.168.100.253]
+X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
+ (192.168.0.24)
+X-DNSRBL: 
+X-MAIL: twspam01.aspeedtech.com 1469pPCd024629
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,38 +74,152 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: ryan_chen@aspeedtech.com, chin-ting_kuo@aspeedtech.com,
+ steven_lee@aspeedtech.com, Hongweiz@ami.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+AST2600-A2 EVB has the reference design for enabling SD bus
+power and toggling SD bus signal voltage by GPIO pins.
 
-I guess, when using dbus-sensors, you supposed to use phosphor-pid-
-control package to control fans.
+In the reference design, GPIOV0 of AST2600-A2 EVB is connected to
+power load switch that providing 3.3v to SD1 bus vdd. GPIOV1 is
+connected to a 1.8v and a 3.3v power load switch that providing
+signal voltage to
+SD1 bus.
 
-On Thu, 2021-05-06 at 09:22 +0000, Thu Nguyen OS wrote:
-> Hi,
->  
-> I’m supporting the fan control algorithms using phosphor-fan.
-> Phosphor-fan monitoring and controlling require interface
-> xyz.openbmc_project.Control.FanPwm in the fan inventory object.
-> https://github.com/openbmc/phosphor-fan-presence/blob/master/docs/monitor/inventory.md
->  
-> But FanSensor daemon of dbus-sensor only adds
-> /xyz/openbmc_project/sensors/fan_tach to inventory list, and this
-> path don’t support xyz.openbmc_project.Control.FanPwm interface.
->  
-> Do you have any solution to make phosphor-fan work with dbus-sensor?
->  
-> I’m currently update FanSensor in dbus-sensor to add
-> xyz.openbmc_project.Control.FanPwm to
-> /xyz/openbmc_project/sensors/fan_tach.
->  
-> Regards.
-> Thu Nguyen.
+If GPIOV0 is active high, SD1 bus is enabled. Otherwise, SD1 bus is
+disabled.
+If GPIOV1 is active high, 3.3v power load switch is enabled, SD1
+signal voltage is 3.3v. Otherwise, 1.8v power load switch will be
+enabled, SD1 signal voltage becomes 1.8v.
 
+AST2600-A2 EVB also support toggling signal voltage for SD2 bus.
+The design is the same as SD1 bus. It uses GPIOV2 as power-gpio and
+GPIOV3 as power-switch-gpio.
+
+Signed-off-by: Steven Lee <steven_lee@aspeedtech.com>
+---
+ .../devicetree/bindings/mmc/aspeed,sdhci.yaml | 101 +++++++++++++++++-
+ 1 file changed, 97 insertions(+), 4 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
+index 987b287f3bff..de7e61b3d37a 100644
+--- a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
++++ b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
+@@ -45,10 +45,16 @@ patternProperties:
+ 
+     properties:
+       compatible:
+-        enum:
+-          - aspeed,ast2400-sdhci
+-          - aspeed,ast2500-sdhci
+-          - aspeed,ast2600-sdhci
++        oneOf:
++          - items:
++              - enum:
++                  - aspeed,ast2400-sdhci
++                  - aspeed,ast2500-sdhci
++                  - aspeed,ast2600-sdhci
++          - items:
++              - enum:
++                  - aspeed,ast2600-sdhci
++              - const: sdhci
+       reg:
+         maxItems: 1
+         description: The SDHCI registers
+@@ -104,3 +110,90 @@ examples:
+                     clocks = <&syscon ASPEED_CLK_SDIO>;
+             };
+     };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/clock/aspeed-clock.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    vcc_sdhci0: regulator-vcc-sdhci0 {
++            compatible = "regulator-fixed";
++            regulator-name = "SDHCI0 Vcc";
++            regulator-min-microvolt = <3300000>;
++            regulator-max-microvolt = <3300000>;
++            gpios = <&gpio0 168
++                            GPIO_ACTIVE_HIGH>;
++            enable-active-high;
++    };
++
++    vccq_sdhci0: regulator-vccq-sdhci0 {
++            compatible = "regulator-gpio";
++
++            regulator-name = "SDHCI0 VccQ";
++            regulator-min-microvolt = <1800000>;
++            regulator-max-microvolt = <3300000>;
++            gpios = <&gpio0 169
++                            GPIO_ACTIVE_HIGH>;
++            gpios-states = <1>;
++            states = <3300000 1>,
++                     <1800000 0>;
++    };
++
++    vcc_sdhci1: regulator-vcc-sdhci1 {
++            compatible = "regulator-fixed";
++
++            regulator-name = "SDHCI1 Vcc";
++            regulator-min-microvolt = <3300000>;
++            regulator-max-microvolt = <3300000>;
++            gpios = <&gpio0 170
++                            GPIO_ACTIVE_HIGH>;
++            enable-active-high;
++    };
++
++    vccq_sdhci1: regulator-vccq-sdhci1 {
++            compatible = "regulator-gpio";
++
++            regulator-name = "SDHCI1 VccQ";
++            regulator-min-microvolt = <1800000>;
++            regulator-max-microvolt = <3300000>;
++            gpios = <&gpio0 171
++                            GPIO_ACTIVE_HIGH>;
++            gpios-states = <1>;
++            states = <3300000 1>,
++                     <1800000 0>;
++    };
++
++    sdc@1e740000 {
++            compatible = "aspeed,ast2600-sd-controller";
++            reg = <0x1e740000 0x100>;
++            #address-cells = <1>;
++            #size-cells = <1>;
++            ranges = <0 0x1e740000 0x20000>;
++            clocks = <&syscon ASPEED_CLK_GATE_SDCLK>;
++
++            sdhci@1e740100 {
++                    compatible = "aspeed,ast2600-sdhci","sdhci";
++                    reg = <0x100 0x100>;
++                    interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++                    sdhci,auto-cmd12;
++                    clocks = <&syscon ASPEED_CLK_SDIO>;
++                    vmmc-supply = <&vcc_sdhci0>;
++                    vqmmc-supply = <&vccq_sdhci0>;
++                    sd-uhs-sdr104;
++                    clk-phase-uhs-sdr104 = <180>, <180>;
++            };
++
++            sdhci@1e740200 {
++                    compatible = "aspeed,ast2600-sdhci","sdhci";
++                    reg = <0x200 0x100>;
++                    interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++                    sdhci,auto-cmd12;
++                    clocks = <&syscon ASPEED_CLK_SDIO>;
++                    vmmc-supply = <&vcc_sdhci1>;
++                    vqmmc-supply = <&vccq_sdhci1>;
++                    sd-uhs-sdr104;
++                    clk-phase-uhs-sdr104 = <0>, <0>;
++            };
++    };
++
++...
 -- 
-Best regards,
-Andrei Kartashev
-
+2.17.1
 
