@@ -7,19 +7,19 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BE1E0C433B4
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:05:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 002F4C433B4
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:06:08 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DB70361207
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:05:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DB70361207
+	by mail.kernel.org (Postfix) with ESMTPS id 7C5FD6117A
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 10:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7C5FD6117A
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTjk1TzCz3026
-	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 20:05:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FbTk70bkFz3bSp
+	for <openbmc@archiver.kernel.org>; Thu,  6 May 2021 20:06:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=steven_lee@aspeedtech.com;
@@ -28,15 +28,15 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTjG6ZQMz2ysr;
- Thu,  6 May 2021 20:05:20 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FbTjW3Js3z30Cc;
+ Thu,  6 May 2021 20:05:34 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1469pPCd024629;
- Thu, 6 May 2021 17:51:25 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1469pS6x024644;
+ Thu, 6 May 2021 17:51:28 +0800 (GMT-8)
  (envelope-from steven_lee@aspeedtech.com)
 Received: from localhost.localdomain (192.168.100.253) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2; Thu, 6 May
- 2021 18:03:13 +0800
+ 2021 18:03:16 +0800
 From: Steven Lee <steven_lee@aspeedtech.com>
 To: Andrew Jeffery <andrew@aj.id.au>, Ulf Hansson <ulf.hansson@linaro.org>,
  Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Adrian
@@ -49,10 +49,10 @@ To: Andrew Jeffery <andrew@aj.id.au>, Ulf Hansson <ulf.hansson@linaro.org>,
  TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated list:ARM/ASPEED
  MACHINE SUPPORT" <linux-arm-kernel@lists.infradead.org>, open list
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 1/5] dt-bindings: mmc: sdhci-of-aspeed: Add an example for
- AST2600-A2 EVB
-Date: Thu, 6 May 2021 18:03:08 +0800
-Message-ID: <20210506100312.1638-2-steven_lee@aspeedtech.com>
+Subject: [PATCH v3 4/5] mmc: sdhci-of-aspeed: Add a helper for updating
+ capability register.
+Date: Thu, 6 May 2021 18:03:11 +0800
+Message-ID: <20210506100312.1638-5-steven_lee@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210506100312.1638-1-steven_lee@aspeedtech.com>
 References: <20210506100312.1638-1-steven_lee@aspeedtech.com>
@@ -62,7 +62,7 @@ X-Originating-IP: [192.168.100.253]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1469pPCd024629
+X-MAIL: twspam01.aspeedtech.com 1469pS6x024644
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,146 +80,105 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-AST2600-A2 EVB has the reference design for enabling SD bus
-power and toggling SD bus signal voltage by GPIO pins.
-
-In the reference design, GPIOV0 of AST2600-A2 EVB is connected to
-power load switch that providing 3.3v to SD1 bus vdd. GPIOV1 is
-connected to a 1.8v and a 3.3v power load switch that providing
-signal voltage to
-SD1 bus.
-
-If GPIOV0 is active high, SD1 bus is enabled. Otherwise, SD1 bus is
-disabled.
-If GPIOV1 is active high, 3.3v power load switch is enabled, SD1
-signal voltage is 3.3v. Otherwise, 1.8v power load switch will be
-enabled, SD1 signal voltage becomes 1.8v.
-
-AST2600-A2 EVB also support toggling signal voltage for SD2 bus.
-The design is the same as SD1 bus. It uses GPIOV2 as power-gpio and
-GPIOV3 as power-switch-gpio.
+The patch add a new function aspeed_sdc_set_slot_capability() for
+updating sdhci capability register.
 
 Signed-off-by: Steven Lee <steven_lee@aspeedtech.com>
 ---
- .../devicetree/bindings/mmc/aspeed,sdhci.yaml | 101 +++++++++++++++++-
- 1 file changed, 97 insertions(+), 4 deletions(-)
+ drivers/mmc/host/sdhci-of-aspeed.c | 57 ++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
-index 987b287f3bff..de7e61b3d37a 100644
---- a/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
-+++ b/Documentation/devicetree/bindings/mmc/aspeed,sdhci.yaml
-@@ -45,10 +45,16 @@ patternProperties:
+diff --git a/drivers/mmc/host/sdhci-of-aspeed.c b/drivers/mmc/host/sdhci-of-aspeed.c
+index d001c51074a0..4979f98ffb52 100644
+--- a/drivers/mmc/host/sdhci-of-aspeed.c
++++ b/drivers/mmc/host/sdhci-of-aspeed.c
+@@ -31,6 +31,11 @@
+ #define   ASPEED_SDC_S0_PHASE_OUT_EN	GENMASK(1, 0)
+ #define   ASPEED_SDC_PHASE_MAX		31
  
-     properties:
-       compatible:
--        enum:
--          - aspeed,ast2400-sdhci
--          - aspeed,ast2500-sdhci
--          - aspeed,ast2600-sdhci
-+        oneOf:
-+          - items:
-+              - enum:
-+                  - aspeed,ast2400-sdhci
-+                  - aspeed,ast2500-sdhci
-+                  - aspeed,ast2600-sdhci
-+          - items:
-+              - enum:
-+                  - aspeed,ast2600-sdhci
-+              - const: sdhci
-       reg:
-         maxItems: 1
-         description: The SDHCI registers
-@@ -104,3 +110,90 @@ examples:
-                     clocks = <&syscon ASPEED_CLK_SDIO>;
-             };
-     };
++/* SDIO{10,20} */
++#define ASPEED_SDC_CAP1_1_8V           (0 * 32 + 26)
++/* SDIO{14,24} */
++#define ASPEED_SDC_CAP2_SDR104         (1 * 32 + 1)
 +
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/clock/aspeed-clock.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+    vcc_sdhci0: regulator-vcc-sdhci0 {
-+            compatible = "regulator-fixed";
-+            regulator-name = "SDHCI0 Vcc";
-+            regulator-min-microvolt = <3300000>;
-+            regulator-max-microvolt = <3300000>;
-+            gpios = <&gpio0 168
-+                            GPIO_ACTIVE_HIGH>;
-+            enable-active-high;
-+    };
+ struct aspeed_sdc {
+ 	struct clk *clk;
+ 	struct resource *res;
+@@ -70,8 +75,42 @@ struct aspeed_sdhci {
+ 	u32 width_mask;
+ 	struct mmc_clk_phase_map phase_map;
+ 	const struct aspeed_sdhci_phase_desc *phase_desc;
 +
-+    vccq_sdhci0: regulator-vccq-sdhci0 {
-+            compatible = "regulator-gpio";
+ };
+ 
++/*
++ * The function sets the mirror register for updating
++ * capbilities of the current slot.
++ *
++ *   slot | capability  | caps_reg | mirror_reg
++ *   -----|-------------|----------|------------
++ *     0  | CAP1_1_8V   | SDIO140  |   SDIO10
++ *     0  | CAP2_SDR104 | SDIO144  |   SDIO14
++ *     1  | CAP1_1_8V   | SDIO240  |   SDIO20
++ *     1  | CAP2_SDR104 | SDIO244  |   SDIO24
++ */
++static void aspeed_sdc_set_slot_capability(struct sdhci_host *host,
++					   struct aspeed_sdc *sdc,
++					   int capability,
++					   bool enable,
++					   u8 slot)
++{
++	u8 cap_reg;
++	u32 mirror_reg_offset, cap_val;
 +
-+            regulator-name = "SDHCI0 VccQ";
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <3300000>;
-+            gpios = <&gpio0 169
-+                            GPIO_ACTIVE_HIGH>;
-+            gpios-states = <1>;
-+            states = <3300000 1>,
-+                     <1800000 0>;
-+    };
++	if (slot > 1)
++		return;
 +
-+    vcc_sdhci1: regulator-vcc-sdhci1 {
-+            compatible = "regulator-fixed";
++	cap_reg = capability / 32;
++	cap_val = sdhci_readl(host, 0x40 + (cap_reg * 4));
++	if (enable)
++		cap_val |= BIT(capability % 32);
++	else
++		cap_val &= ~BIT(capability % 32);
++	mirror_reg_offset = ((slot + 1) * 0x10) + (cap_reg * 4);
++	writel(cap_val, sdc->regs + mirror_reg_offset);
++}
 +
-+            regulator-name = "SDHCI1 Vcc";
-+            regulator-min-microvolt = <3300000>;
-+            regulator-max-microvolt = <3300000>;
-+            gpios = <&gpio0 170
-+                            GPIO_ACTIVE_HIGH>;
-+            enable-active-high;
-+    };
+ static void aspeed_sdc_configure_8bit_mode(struct aspeed_sdc *sdc,
+ 					   struct aspeed_sdhci *sdhci,
+ 					   bool bus8)
+@@ -329,6 +368,7 @@ static int aspeed_sdhci_probe(struct platform_device *pdev)
+ {
+ 	const struct aspeed_sdhci_pdata *aspeed_pdata;
+ 	struct sdhci_pltfm_host *pltfm_host;
++	struct device_node *np = pdev->dev.of_node;
+ 	struct aspeed_sdhci *dev;
+ 	struct sdhci_host *host;
+ 	struct resource *res;
+@@ -372,6 +412,23 @@ static int aspeed_sdhci_probe(struct platform_device *pdev)
+ 
+ 	sdhci_get_of_property(pdev);
+ 
++	if (of_property_read_bool(np, "mmc-hs200-1_8v") ||
++	    of_property_read_bool(np, "sd-uhs-sdr104")) {
++		aspeed_sdc_set_slot_capability(host,
++					       dev->parent,
++					       ASPEED_SDC_CAP1_1_8V,
++					       true,
++					       slot);
++	}
 +
-+    vccq_sdhci1: regulator-vccq-sdhci1 {
-+            compatible = "regulator-gpio";
++	if (of_property_read_bool(np, "sd-uhs-sdr104")) {
++		aspeed_sdc_set_slot_capability(host,
++					       dev->parent,
++					       ASPEED_SDC_CAP2_SDR104,
++					       true,
++					       slot);
++	}
 +
-+            regulator-name = "SDHCI1 VccQ";
-+            regulator-min-microvolt = <1800000>;
-+            regulator-max-microvolt = <3300000>;
-+            gpios = <&gpio0 171
-+                            GPIO_ACTIVE_HIGH>;
-+            gpios-states = <1>;
-+            states = <3300000 1>,
-+                     <1800000 0>;
-+    };
-+
-+    sdc@1e740000 {
-+            compatible = "aspeed,ast2600-sd-controller";
-+            reg = <0x1e740000 0x100>;
-+            #address-cells = <1>;
-+            #size-cells = <1>;
-+            ranges = <0 0x1e740000 0x20000>;
-+            clocks = <&syscon ASPEED_CLK_GATE_SDCLK>;
-+
-+            sdhci@1e740100 {
-+                    compatible = "aspeed,ast2600-sdhci","sdhci";
-+                    reg = <0x100 0x100>;
-+                    interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
-+                    sdhci,auto-cmd12;
-+                    clocks = <&syscon ASPEED_CLK_SDIO>;
-+                    vmmc-supply = <&vcc_sdhci0>;
-+                    vqmmc-supply = <&vccq_sdhci0>;
-+                    sd-uhs-sdr104;
-+                    clk-phase-uhs-sdr104 = <180>, <180>;
-+            };
-+
-+            sdhci@1e740200 {
-+                    compatible = "aspeed,ast2600-sdhci","sdhci";
-+                    reg = <0x200 0x100>;
-+                    interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
-+                    sdhci,auto-cmd12;
-+                    clocks = <&syscon ASPEED_CLK_SDIO>;
-+                    vmmc-supply = <&vcc_sdhci1>;
-+                    vqmmc-supply = <&vccq_sdhci1>;
-+                    sd-uhs-sdr104;
-+                    clk-phase-uhs-sdr104 = <0>, <0>;
-+            };
-+    };
-+
-+...
+ 	pltfm_host->clk = devm_clk_get(&pdev->dev, NULL);
+ 	if (IS_ERR(pltfm_host->clk))
+ 		return PTR_ERR(pltfm_host->clk);
 -- 
 2.17.1
 
