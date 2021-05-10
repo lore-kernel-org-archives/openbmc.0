@@ -7,50 +7,52 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 94EDDC433B4
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 13:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2AC61C433B4
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 13:13:44 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B964E611CE
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 13:12:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B964E611CE
+	by mail.kernel.org (Postfix) with ESMTPS id 86DBF6128D
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 13:13:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 86DBF6128D
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Ff1gg0ftJz301q
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 23:12:47 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Ff1hk06JDz302V
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 23:13:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
  spf=none (no SPF record) smtp.mailfrom=linux.intel.com
- (client-ip=192.55.52.151; helo=mga17.intel.com;
+ (client-ip=134.134.136.126; helo=mga18.intel.com;
  envelope-from=andriy.shevchenko@linux.intel.com; receiver=<UNKNOWN>)
-Received: from mga17.intel.com (mga17.intel.com [192.55.52.151])
+X-Greylist: delayed 64 seconds by postgrey-1.36 at boromir;
+ Mon, 10 May 2021 23:13:20 AEST
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Ff1gJ5wnQz2ymV
- for <openbmc@lists.ozlabs.org>; Mon, 10 May 2021 23:12:28 +1000 (AEST)
-IronPort-SDR: 3B18MOAMzeQal0mv05hS39fe1LLj8XCpHL6QOvlV1xWsE6ujEm1ZY5gmeJKgc2MUHqlhv4EyPg
- t93es3Kahz6g==
-X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="179455506"
-X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="179455506"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
- by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 May 2021 06:12:16 -0700
-IronPort-SDR: crr0PTD/wqg0xrIajIR5THwsMYJDeciaOCujFPoUOsxt9UYSNWFPAGgXObKqV02E0UiuaaaKih
- uCtpejFevx/Q==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Ff1hJ1jlMz2xv8
+ for <openbmc@lists.ozlabs.org>; Mon, 10 May 2021 23:13:20 +1000 (AEST)
+IronPort-SDR: GOM1vPViVw5FOXQ6SkaWQHhSmtWIJ2rVotTGqFDOdQPbzAXL8f2ekbE34j8sNzeAb5OvoU/s4n
+ A3/t/8mQvK1A==
+X-IronPort-AV: E=McAfee;i="6200,9189,9980"; a="186638096"
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="186638096"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 May 2021 06:12:11 -0700
+IronPort-SDR: 1dK34HlXywKWlK8OUBdgS4JFa5nJQ8xwpk922IMg7i3LR1jhohThkirVKwBBhcIUgx8hCkmyHI
+ ZqugYUwZYGAg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="436139440"
+X-IronPort-AV: E=Sophos;i="5.82,287,1613462400"; d="scan'208";a="391916757"
 Received: from black.fi.intel.com ([10.237.72.28])
- by orsmga008.jf.intel.com with ESMTP; 10 May 2021 06:12:12 -0700
+ by orsmga006.jf.intel.com with ESMTP; 10 May 2021 06:12:07 -0700
 Received: by black.fi.intel.com (Postfix, from userid 1003)
- id 3665B501; Mon, 10 May 2021 16:12:28 +0300 (EEST)
+ id EDA5812A; Mon, 10 May 2021 16:12:27 +0300 (EEST)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Linus Walleij <linus.walleij@linaro.org>, Mark Brown <broonie@kernel.org>,
  openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 7/7] spi: uniphier: Use SPI_MODE_X_MASK
-Date: Mon, 10 May 2021 16:12:17 +0300
-Message-Id: <20210510131217.49357-7-andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v1 2/7] spi: spidev: Use SPI_MODE_X_MASK
+Date: Mon, 10 May 2021 16:12:12 +0300
+Message-Id: <20210510131217.49357-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210510131217.49357-1-andriy.shevchenko@linux.intel.com>
 References: <20210510131217.49357-1-andriy.shevchenko@linux.intel.com>
@@ -81,22 +83,22 @@ Use SPI_MODE_X_MASK instead of open coded variant.
 
 Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/spi/spi-uniphier.c | 2 +-
+ drivers/spi/spidev.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
-index 6a9ef8ee3cc9..8900e51e1a1c 100644
---- a/drivers/spi/spi-uniphier.c
-+++ b/drivers/spi/spi-uniphier.c
-@@ -142,7 +142,7 @@ static void uniphier_spi_set_mode(struct spi_device *spi)
- 	 * FSTRT    start frame timing
- 	 *          0: rising edge of clock, 1: falling edge of clock
- 	 */
--	switch (spi->mode & (SPI_CPOL | SPI_CPHA)) {
-+	switch (spi->mode & SPI_MODE_X_MASK) {
- 	case SPI_MODE_0:
- 		/* CKPHS=1, CKINIT=0, CKDLY=1, FSTRT=0 */
- 		val1 = SSI_CKS_CKPHS | SSI_CKS_CKDLY;
+diff --git a/drivers/spi/spidev.c b/drivers/spi/spidev.c
+index f56e0e975a46..24e9469ea35b 100644
+--- a/drivers/spi/spidev.c
++++ b/drivers/spi/spidev.c
+@@ -59,7 +59,7 @@ static DECLARE_BITMAP(minors, N_SPI_MINORS);
+  *
+  * REVISIT should changing those flags be privileged?
+  */
+-#define SPI_MODE_MASK		(SPI_CPHA | SPI_CPOL | SPI_CS_HIGH \
++#define SPI_MODE_MASK		(SPI_MODE_X_MASK | SPI_CS_HIGH \
+ 				| SPI_LSB_FIRST | SPI_3WIRE | SPI_LOOP \
+ 				| SPI_NO_CS | SPI_READY | SPI_TX_DUAL \
+ 				| SPI_TX_QUAD | SPI_TX_OCTAL | SPI_RX_DUAL \
 -- 
 2.30.2
 
