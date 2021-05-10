@@ -2,27 +2,27 @@ Return-Path: <SRS0=tH7v=KF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D040DC433B4
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 06:51:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A0344C433B4
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 06:51:57 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 16D0E61026
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 06:51:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 16D0E61026
+	by mail.kernel.org (Postfix) with ESMTPS id F22EF61026
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 06:51:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org F22EF61026
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FdsCl4PL1z2ykP
-	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 16:51:31 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FdsDC4V5Jz306f
+	for <openbmc@archiver.kernel.org>; Mon, 10 May 2021 16:51:55 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=heL4L8mp;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=QPfHQage;
+	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=SptGowtO;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cfAnPvnf;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aj.id.au (client-ip=64.147.123.24;
@@ -30,66 +30,70 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=heL4L8mp; 
+ header.s=fm2 header.b=SptGowtO; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=QPfHQage; 
+ header.a=rsa-sha256 header.s=fm2 header.b=cfAnPvnf; 
  dkim-atps=neutral
 Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com
  [64.147.123.24])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FdsBc0NYTz2y08
- for <openbmc@lists.ozlabs.org>; Mon, 10 May 2021 16:50:31 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id E463716D2;
- Mon, 10 May 2021 02:50:25 -0400 (EDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FdsBd4YZKz2yQw
+ for <openbmc@lists.ozlabs.org>; Mon, 10 May 2021 16:50:33 +1000 (AEST)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+ by mailout.west.internal (Postfix) with ESMTP id 994F916D8;
+ Mon, 10 May 2021 02:50:31 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Mon, 10 May 2021 02:50:26 -0400
+ by compute2.internal (MEProxy); Mon, 10 May 2021 02:50:31 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
- :to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding; s=fm2; bh=BzRvb1kBch4Kp6mLiW/E5WMrXq
- br6NtKobAvE4Qk1p0=; b=heL4L8mpoYBTuaj22sy/rsSc/Hnb7wHTAiWTkZEDrb
- C6vqm5Fiu9rxuq4WR89uoWbJJ9WtZzk6VRlPua2bM7CDuECf2CK7z4fGFOcoYHZb
- nqk4q5d0CmITqbW+6WOY9UbZm06SZutwVoFRZ5meYCwKh5WGzK4kyzng/VITTeuV
- ky8VVwpq4aA2LI0Du7vznR0yEaPlkI68f1ikVc9it3fMs+3r3PQzMNl3DpvnVBlA
- rB2ujujW/UkGgGzzwmBehMXVUUlIaStAv6PK4NSqSg3e6vHZTP9GPSiooX6AU3/+
- nYvFvuzKHAoHwQbBm3oiyYqBMw1oPaFLn5gZk0u7ZJsQ==
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm2; bh=6Uea664nPRPJW
+ hpDpJLduUQkBg1kUPfswLwaWuNq4Mc=; b=SptGowtOdZVsQ6i82ieEH1Qe6kVXg
+ vPFbatDvJjvAt6cMLMvbCo/8fPtTFJvqj7x9hBlv1DI1VZqTrCYfnRpbbxVcNmr+
+ 9r7xLjALfCpJ3JQcKeursvv9ZOSHl7+VITT9GjVzCxf81n82T0eCk+83TUv4W3rX
+ yiSMErdqk8pGNBViQs7teJDGr4AW8XuGOglH3PcTxKoaWI3AcNfzAYAI6NI09wTm
+ io1vd4sj2MXMjPB9adZ81aXZkuzd0a3jzvs+CR7nyBfhubq1t5O0KTk9nxyKG2fu
+ WjvOgQj3rtUZtfcIU2eJ5On9NTLYnQZP4cGV5bPLqHB02x5QAqC3Xak8w==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:content-transfer-encoding:date:from
- :message-id:mime-version:subject:to:x-me-proxy:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=BzRvb1kBch4Kp6mLi
- W/E5WMrXqbr6NtKobAvE4Qk1p0=; b=QPfHQagemovLGg3P8FksV5Hd+miFOOOLd
- AlRfT5ZS9hApNhPczC208Qogtc4ZKzC4gpM9gDV/RDF3EZYp+pzXucj/+PZrdmiF
- qwCK1TsjeqXzK8SQPWZl1hByCI92I+qfCyJL4fydQpyqCpDkJ0LIVPfonoYxZXyu
- I7UiCZ95YB3575c8kyjRBcrI8uK+UPGqvz5GOKn4exU8Q3bFAGUgeuhOuou9u6n3
- HRg0RPnZDRB52IseTuwgWLG2W3ncm9qzrRv7mc97GVHzrsjKg57kn0gpWo7aebba
- 927qjal+vJzWeVEP0+v1Fm4lsYdrlIJc4mgNH0Q4ooiwGLBe7ZguQ==
-X-ME-Sender: <xms:sNeYYGvDwslMygNoY7KWi59blvnSKr-xK_9OEEG1Sj9LAqWTo_6MbA>
- <xme:sNeYYLdyGRydPzP8qJoNJtB4D1S9LsNC4wYWJvpiWbmnhd6XQGW5xq1KKmMbdOFS7
- myg3hje4_JerzBWmg>
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm2; bh=6Uea664nPRPJWhpDpJLduUQkBg1kUPfswLwaWuNq4Mc=; b=cfAnPvnf
+ Yh9ShUpa9nhLxXTcUF0DqdgJOKjMXk+7XUTCP+OIScps3Qt5AV6B53UF5W2R6PWY
+ hTk2N4EUiyUA8LfkaRIiMwFD3Vwa5z055orMJlr0Tuun8cGXU8fiJkVVyI8UzmnO
+ hp1pFyZ+V9MqMRYIISRxEk6UU271Yj1o+u5UVVbGrdrJ+tcfgip7drVL2ks2RfHx
+ YxMdPjzBML+w4XJU04wcMlYWCffFPnb98CogJTCUG8gP9kbslSZ4IcAjsV3Qz+cr
+ fyGEMp42cQD1JBGgCNNRDtoWBVAeYfMO7eRuJX/J6vtMHcznCDyrn6fbKUmZ0YJX
+ dEFvklKkTdAwkA==
+X-ME-Sender: <xms:t9eYYFHMsol3PG3uua1SVE0gJ1aoJzXyK7cIOfCraoD3OBXa53oDtA>
+ <xme:t9eYYKXgUyUCCv23b9qQ3ZmpRPrzM8zkcDDHGAu0Ag6A0b8_fuqskz29zSHN9fzNj
+ JBgxpBF3ju7nOav4w>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdegjedguddtlecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffoggfgsedtkeertd
- ertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfiesrghj
- rdhiugdrrghuqeenucggtffrrghtthgvrhhnpeeiteehudevlefhvddvjeeluefhleetve
- ehfffgiedtfeegkeejfeeivefgheehgfenucffohhmrghinhepkhgvrhhnvghlrdhorhhg
- necukfhppedvtdefrdehjedrvdduhedrkeenucevlhhushhtvghrufhiiigvpedtnecurf
- grrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:sNeYYBya-j2mVe9v076lpaKANVvvzePxhIzVwkwUzlK-nx286qZjig>
- <xmx:sNeYYBMy3Chc20UFd84kdkl_tqT0s8SRyueNpegz6ONZ34gW0W6N4Q>
- <xmx:sNeYYG8ohhregW-9qKZZpBNGH8Zaxu90Khn15FE1KDiXXrt7C2iEHQ>
- <xmx:sdeYYHKlvhqiz7NgR0cDv5hHrasLHQ-AjaJ6TdWCyH7UIUyMvoaZRg>
+ necuuegrihhlohhuthemuceftddtnecunecujfgurhephffvufffkffojghfggfgsedtke
+ ertdertddtnecuhfhrohhmpeetnhgurhgvficulfgvfhhfvghrhicuoegrnhgurhgvfies
+ rghjrdhiugdrrghuqeenucggtffrrghtthgvrhhnpeejgfdvveehteekveeggeellefgle
+ etteejffelffdvudduveeiffegteelvefhteenucfkphepvddtfedrheejrddvudehrdek
+ necuvehluhhsthgvrhfuihiivgepudenucfrrghrrghmpehmrghilhhfrhhomheprghnug
+ hrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:t9eYYHI8B2a_vpuDPacD08OOmISf64gif0zVM9eVGXqPK8oJXmYTVw>
+ <xmx:t9eYYLGUXsuWlJv0xuJ63Wp8GN7FFKFJdWbQ1o55JhsDLFK0U6HPiQ>
+ <xmx:t9eYYLUZTF4saq4zSqskFNYFn82zhZ626aFe2CT1Nw87eU42lsPYgg>
+ <xmx:t9eYYCCj80qbmiJ3bGu830MWAcSxc9b2XbVQdpsBDEM9EnbeDadc3g>
 Received: from localhost.localdomain (203-57-215-8.dyn.iinet.net.au
  [203.57.215.8]) by mail.messagingengine.com (Postfix) with ESMTPA;
- Mon, 10 May 2021 02:50:23 -0400 (EDT)
+ Mon, 10 May 2021 02:50:29 -0400 (EDT)
 From: Andrew Jeffery <andrew@aj.id.au>
 To: joel@jms.id.au
-Subject: [PATCH linux dev-5.10 v3 00/18] ipmi: Allow raw access to KCS devices
-Date: Mon, 10 May 2021 16:19:37 +0930
-Message-Id: <20210510064955.1704652-1-andrew@aj.id.au>
+Subject: [PATCH linux dev-5.10 v3 02/18] ipmi: kcs_bmc: Make status update
+ atomic
+Date: Mon, 10 May 2021 16:19:39 +0930
+Message-Id: <20210510064955.1704652-3-andrew@aj.id.au>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210510064955.1704652-1-andrew@aj.id.au>
+References: <20210510064955.1704652-1-andrew@aj.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -108,94 +112,104 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Joel,
+Enable more efficient implementation of read-modify-write sequences.
+Both device drivers for the KCS BMC stack use regmaps. The new callback
+allows us to exploit regmap_update_bits().
 
-This series is (mostly) a backport of v3 I sent upstream:
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Reviewed-by: Zev Weiss <zweiss@equinix.com>
+---
+ drivers/char/ipmi/kcs_bmc.c         |  7 +------
+ drivers/char/ipmi/kcs_bmc.h         |  1 +
+ drivers/char/ipmi/kcs_bmc_aspeed.c  |  9 +++++++++
+ drivers/char/ipmi/kcs_bmc_npcm7xx.c | 10 ++++++++++
+ 4 files changed, 21 insertions(+), 6 deletions(-)
 
-https://lore.kernel.org/lkml/20210510054213.1610760-1-andrew@aj.id.au/T/#m26377de5e29c6d7d8091a6584457657e5f740dbc
-
-The patches that aren't on the upstream lists are 17 and 18.
-
-There's no reason that 17 isn't on the upstream lists, and I'll send it shortly
-(too many branches lying around).
-
-As for patch 18, it's a more thorough implementation of the hacky driver we
-already have in the OpenBMC tree at drivers/misc/mctp-lpc.c. mctp-lpc.c only
-worked against KCS channel 4 whereas kcs_bmc_cdev_raw will work with any KCS
-channel in the system. We need to switch away from KCS channel 4 on the Aspeed
-BMCs due to the way the status bits are initialised in hardware[1].
-
-Both mctp-lpc.c and kcs_bmc_cdev_raw.c will go away in the mid-term once we have
-jk's MCTP subsystem merged into net/ and I've implemented the in-kernel LPC
-binding against it. In the mean time, kcs_bmc_cdev_raw.c replaces mctp-lpc.c.
-Its chardev semantics are a superset of mctp-lpc.c so there is no userspace
-impact aside from needing to ship a udev rule to account for the name of the
-device node.
-
-I plan to send a follow up series to do the switch-over in the devicetree and
-remove mctp-lpc.c (which also removes a hack from the devicetree).
-
-Aside from patch 18 (which is temporary) there should be no userspace-visible
-impact from the series. Modulo bugs, this should make it safe to merge now.
-
-I've tested the series on a Rainier system and it can boot the host without
-issue. I've also exercised all the insmod/rmmod combinations with the kernel
-debug config options listed in Documentation/process/submit-checklist.rst
-enabled and found no issues.
-
-Please take a look!
-
-Andrew
-
-[1] They're initialised in IPMI style, with some bits set to indicate the
-channel isn't active. Unfortunately these are the same bits we chose to
-represent the channel as active for the LPC MCTP binding.
-
-Andrew Jeffery (18):
-  ipmi: kcs_bmc_aspeed: Use of match data to extract KCS properties
-  ipmi: kcs_bmc: Make status update atomic
-  ipmi: kcs_bmc: Rename {read,write}_{status,data}() functions
-  ipmi: kcs_bmc: Split out kcs_bmc_cdev_ipmi
-  ipmi: kcs_bmc: Turn the driver data-structures inside-out
-  ipmi: kcs_bmc: Split headers into device and client
-  ipmi: kcs_bmc: Strip private client data from struct kcs_bmc
-  ipmi: kcs_bmc: Decouple the IPMI chardev from the core
-  ipmi: kcs_bmc: Allow clients to control KCS IRQ state
-  ipmi: kcs_bmc: Don't enforce single-open policy in the kernel
-  ipmi: kcs_bmc: Add serio adaptor
-  dt-bindings: ipmi: Convert ASPEED KCS binding to schema
-  dt-bindings: ipmi: Add optional SerIRQ property to ASPEED KCS devices
-  ipmi: kcs_bmc_aspeed: Implement KCS SerIRQ configuration
-  ipmi: kcs_bmc_aspeed: Fix IBFIE typo from datasheet
-  ipmi: kcs_bmc_aspeed: Optionally apply status address
-  ARM: dts: rainier: Enable KCS channel 2
-  ipmi: kcs_bmc: Add a "raw" character device interface
-
- Documentation/ABI/testing/dev-raw-kcs         |  25 +
- .../bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml | 106 +++
- .../bindings/ipmi/aspeed-kcs-bmc.txt          |  33 -
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  |   5 +
- drivers/char/ipmi/Kconfig                     |  44 ++
- drivers/char/ipmi/Makefile                    |   3 +
- drivers/char/ipmi/kcs_bmc.c                   | 526 ++++-----------
- drivers/char/ipmi/kcs_bmc.h                   |  92 +--
- drivers/char/ipmi/kcs_bmc_aspeed.c            | 637 +++++++++++++-----
- drivers/char/ipmi/kcs_bmc_cdev_ipmi.c         | 568 ++++++++++++++++
- drivers/char/ipmi/kcs_bmc_cdev_raw.c          | 440 ++++++++++++
- drivers/char/ipmi/kcs_bmc_client.h            |  48 ++
- drivers/char/ipmi/kcs_bmc_device.h            |  22 +
- drivers/char/ipmi/kcs_bmc_npcm7xx.c           |  94 ++-
- drivers/char/ipmi/kcs_bmc_serio.c             | 151 +++++
- 15 files changed, 2071 insertions(+), 723 deletions(-)
- create mode 100644 Documentation/ABI/testing/dev-raw-kcs
- create mode 100644 Documentation/devicetree/bindings/ipmi/aspeed,ast2400-kcs-bmc.yaml
- delete mode 100644 Documentation/devicetree/bindings/ipmi/aspeed-kcs-bmc.txt
- create mode 100644 drivers/char/ipmi/kcs_bmc_cdev_ipmi.c
- create mode 100644 drivers/char/ipmi/kcs_bmc_cdev_raw.c
- create mode 100644 drivers/char/ipmi/kcs_bmc_client.h
- create mode 100644 drivers/char/ipmi/kcs_bmc_device.h
- create mode 100644 drivers/char/ipmi/kcs_bmc_serio.c
-
+diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
+index f292e74bd4a5..58fb1a7bd50d 100644
+--- a/drivers/char/ipmi/kcs_bmc.c
++++ b/drivers/char/ipmi/kcs_bmc.c
+@@ -67,12 +67,7 @@ static inline void write_status(struct kcs_bmc *kcs_bmc, u8 data)
+ 
+ static void update_status_bits(struct kcs_bmc *kcs_bmc, u8 mask, u8 val)
+ {
+-	u8 tmp = read_status(kcs_bmc);
+-
+-	tmp &= ~mask;
+-	tmp |= val & mask;
+-
+-	write_status(kcs_bmc, tmp);
++	kcs_bmc->io_updateb(kcs_bmc, kcs_bmc->ioreg.str, mask, val);
+ }
+ 
+ static inline void set_state(struct kcs_bmc *kcs_bmc, u8 state)
+diff --git a/drivers/char/ipmi/kcs_bmc.h b/drivers/char/ipmi/kcs_bmc.h
+index eb9ea4ce78b8..970f53892f2d 100644
+--- a/drivers/char/ipmi/kcs_bmc.h
++++ b/drivers/char/ipmi/kcs_bmc.h
+@@ -76,6 +76,7 @@ struct kcs_bmc {
+ 	struct kcs_ioreg ioreg;
+ 	u8 (*io_inputb)(struct kcs_bmc *kcs_bmc, u32 reg);
+ 	void (*io_outputb)(struct kcs_bmc *kcs_bmc, u32 reg, u8 b);
++	void (*io_updateb)(struct kcs_bmc *kcs_bmc, u32 reg, u8 mask, u8 val);
+ 
+ 	enum kcs_phases phase;
+ 	enum kcs_errors error;
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_bmc_aspeed.c
+index e3613108ffdf..b89a2acd09b9 100644
+--- a/drivers/char/ipmi/kcs_bmc_aspeed.c
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -90,6 +90,14 @@ static void aspeed_kcs_outb(struct kcs_bmc *kcs_bmc, u32 reg, u8 data)
+ 	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
+ }
+ 
++static void aspeed_kcs_updateb(struct kcs_bmc *kcs_bmc, u32 reg, u8 mask, u8 val)
++{
++	struct aspeed_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	int rc;
++
++	rc = regmap_update_bits(priv->map, reg, mask, val);
++	WARN(rc != 0, "regmap_update_bits() failed: %d\n", rc);
++}
+ 
+ /*
+  * AST_usrGuide_KCS.pdf
+@@ -343,6 +351,7 @@ static int aspeed_kcs_probe(struct platform_device *pdev)
+ 	kcs_bmc->ioreg = ast_kcs_bmc_ioregs[channel - 1];
+ 	kcs_bmc->io_inputb = aspeed_kcs_inb;
+ 	kcs_bmc->io_outputb = aspeed_kcs_outb;
++	kcs_bmc->io_updateb = aspeed_kcs_updateb;
+ 
+ 	addr = ops->get_io_address(pdev);
+ 	if (addr < 0)
+diff --git a/drivers/char/ipmi/kcs_bmc_npcm7xx.c b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+index 722f7391fe1f..1f44aadec9e8 100644
+--- a/drivers/char/ipmi/kcs_bmc_npcm7xx.c
++++ b/drivers/char/ipmi/kcs_bmc_npcm7xx.c
+@@ -97,6 +97,15 @@ static void npcm7xx_kcs_outb(struct kcs_bmc *kcs_bmc, u32 reg, u8 data)
+ 	WARN(rc != 0, "regmap_write() failed: %d\n", rc);
+ }
+ 
++static void npcm7xx_kcs_updateb(struct kcs_bmc *kcs_bmc, u32 reg, u8 mask, u8 data)
++{
++	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
++	int rc;
++
++	rc = regmap_update_bits(priv->map, reg, mask, data);
++	WARN(rc != 0, "regmap_update_bits() failed: %d\n", rc);
++}
++
+ static void npcm7xx_kcs_enable_channel(struct kcs_bmc *kcs_bmc, bool enable)
+ {
+ 	struct npcm7xx_kcs_bmc *priv = kcs_bmc_priv(kcs_bmc);
+@@ -163,6 +172,7 @@ static int npcm7xx_kcs_probe(struct platform_device *pdev)
+ 	kcs_bmc->ioreg.str = priv->reg->sts;
+ 	kcs_bmc->io_inputb = npcm7xx_kcs_inb;
+ 	kcs_bmc->io_outputb = npcm7xx_kcs_outb;
++	kcs_bmc->io_updateb = npcm7xx_kcs_updateb;
+ 
+ 	dev_set_drvdata(dev, kcs_bmc);
+ 
 -- 
 2.27.0
 
