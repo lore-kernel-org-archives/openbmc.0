@@ -2,102 +2,141 @@ Return-Path: <SRS0=CMIJ=KT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,
+	CHARSET_FARAWAY_HEADER,DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAA45C47080
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 00:54:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F05DC47080
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:12 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 221F261168
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 00:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 221F261168
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 572706052B
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 572706052B
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FpJdP205tz309g
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 10:54:33 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FpKJj738Gz3076
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 11:25:09 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=ok68MILG;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=sPFszQIN;
+	dkim=pass (1024-bit key; unprotected) header.d=quantacorp.onmicrosoft.com header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-quantacorp-onmicrosoft-com header.b=vCPMErP4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.224;
- helo=new2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm2 header.b=ok68MILG; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm2 header.b=sPFszQIN; 
+ smtp.mailfrom=quantatw.com (client-ip=2a01:111:f400:febe::71d;
+ helo=apc01-pu1-obe.outbound.protection.outlook.com;
+ envelope-from=jun-lin.chen@quantatw.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=quantacorp.onmicrosoft.com
+ header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256
+ header.s=selector2-quantacorp-onmicrosoft-com header.b=vCPMErP4; 
  dkim-atps=neutral
-Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
- [66.111.4.224])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+Received: from APC01-PU1-obe.outbound.protection.outlook.com
+ (mail-pu1apc01on071d.outbound.protection.outlook.com
+ [IPv6:2a01:111:f400:febe::71d])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FpJcr6pypz2xb6;
- Mon, 24 May 2021 10:54:04 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailnew.nyi.internal (Postfix) with ESMTP id C31455802BD;
- Sun, 23 May 2021 20:54:02 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute3.internal (MEProxy); Sun, 23 May 2021 20:54:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm2; bh=c1N+jbjenOjR/XYKJ9JrzDDr2ArT8jH
- cPPYVtFN0+8s=; b=ok68MILGrCZHwK/EEaDToidzeAy70JVtB9FjJ/pwDgHMLPY
- ovb+ac2A0hKcALq3BTdinuwCUU4tFEwGrOvVUL4mgilE0fbIeLVIYkvTSg/A3C9A
- isVLljZCWMdha3ynTPS17MuqSVPwWl+xJfQt4IZm5lrj3u6/bDh1GWIUQBVKySVd
- 7ERl6fYx9Hzwm7OyafapAf+HBqlPX9FYAxNvCWVQ9ffjN0rYZxPnzQvHDbFhf3R7
- IkCLkHtnZMQBtAnVcG+H+5GnhaCsHT3HniEb+iFzns1yaffCeyg6si9NuN84TU7r
- 3z366tuQSQtEi+GBbH7tKxItf/Q+Fdx23+XX7rw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=c1N+jb
- jenOjR/XYKJ9JrzDDr2ArT8jHcPPYVtFN0+8s=; b=sPFszQINYn+1MtITcFCPyx
- lNphgTAT0DJen+WqjLY3YH7HctWzuSJZ3zFTeSqLVuWZDYrW/idxoBb2M6LPgQEt
- ki/8+/Rk5S3eboxuGAYSLYMeGt4FwnCgkj+pOAJmlbNiPSPABGZshOSo60atWGdN
- cG0D6RtmqjLAFdmo/kORMxRpta5VgktFkB9TRMbfmX0piFWDr6uIDOQAVJbV4LjE
- DzJ46YD4tCg8RGGDBhp/tGiEQT+XdDLiX7JE1q4DwXdCPcoKSS4zY+wSpDL+idNh
- R1IVg/tHltd7L39TDpOgOOuq+WjNKHaAYxtN9BElPSGpkJQYPt1F36fzw4/0Bt1g
- ==
-X-ME-Sender: <xms:KfmqYFGXktOhUPKNJDzJOYcQ4Tzeks6lN1hunCMH1BbKURc_qdOeeQ>
- <xme:KfmqYKVP_82xbmIxz_bE2LM3yEsYweE7P_onWJwfGBmcrYdGMtiisHCAzK7IyH6hJ
- zaAN34p43ng12aQBA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejkedgtdelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreerjeenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
- grthhtvghrnhepuddttdekueeggedvtddtueekiedutdfguedutdefieeuteefieelteet
- vddthfeinecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- eprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:KfmqYHJ_v5C8EG4EYW_NTn5UOzrX06fnPFbJZwnae3XD3YlkYQwJYg>
- <xmx:KfmqYLEbBUyIlB3eIXd5Hlj8oTL17cnH9n5uxKzO935D-w7tJcEf8g>
- <xmx:KfmqYLWUfTZj2bVKOVzdVzOrcjFw_MTyYmuY4pT_lvT-CSbWNEFr9g>
- <xmx:KvmqYIW307aCSiZ_4TnEnca3DgiXJQoDUWxBQVo4wWBb1GY4ECIEyg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id A081EA004B1; Sun, 23 May 2021 20:54:01 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-448-gae190416c7-fm-20210505.004-gae190416
-Mime-Version: 1.0
-Message-Id: <79f3c6d1-1f74-46ec-99a0-37faf11517b6@www.fastmail.com>
-In-Reply-To: <20210521171412.GI2921206@minyard.net>
-References: <20210510054213.1610760-1-andrew@aj.id.au>
- <20210510054213.1610760-6-andrew@aj.id.au>
- <20210521171412.GI2921206@minyard.net>
-Date: Mon, 24 May 2021 10:23:36 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Corey Minyard" <minyard@acm.org>
-Subject: =?UTF-8?Q?Re:_[PATCH_v3_05/16]_ipmi:_kcs=5Fbmc:_Turn_the_driver_data-str?=
- =?UTF-8?Q?uctures_inside-out?=
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FmV336tkqz2yXb
+ for <openbmc@lists.ozlabs.org>; Fri, 21 May 2021 11:51:58 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=lrXMHEC2PIoIifSRNIuYj82EV0KqbsRdM61eBA4qNMd7pmFpFkN89gp7hA8fv7K+4kBSTWcf8+9V+ferJz6D1SQ0XQr5uY7ejcW+iJ6KVG+bW0W/g+MSuFDZYj/SnVKi4Oy6Earkfa+3qPQQDEpWkEH/R7hEHpPCE58FVZGXo9dHwZdXEDtJzkI/U5ij1X3qxiVB7FCWxxs9JQ6Nz+71GtwlsGspD2ne40V0SdD5wcv4+9wrG5Q+BQIbqEDbVp1dF/k0JVFL1KmmI6YcAELxiMMmOZ7O4m2UPn1ZYWkemK69XwYvzaNLusi1tLzz/SyP+uxNkBTSqWFblAiOHe653w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Q4cMg3Y4A75Rd6oKNu1JlMkz7yC7qQjymkhgGwJhcI=;
+ b=lQEWd7B+GQiQFba4zNdUdEGal8fKePv74ZByaB9RvutQhXctjROvbqLRylfOFMHeb5ctfW/BPhmpl+Mm2pb+AGmUdQlVzV8VXIHiX/rUOd72C4eZoUm/a4+idZYMnOCXhdrGEF75m1b+ME3rbj2l7KRxGwIjm3m/11ifxPMtNCuNwraBK3l+TsF65ouR7hZl61RYbx82QOfNYEaUwfhdpkngHYZL1QlJhnDdGUlsEKIXO1MPVrB/oEVRVvmR7thDScBFaYvMtOa9UtFHxwwFHZgFhh3w7GRDahsKfna85TL1yScYiFbgubhSlBZ3F6OvLAnUX0aID2p6BcvQqvKD6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=quantatw.com; dmarc=pass action=none header.from=quantatw.com;
+ dkim=pass header.d=quantatw.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=quantacorp.onmicrosoft.com; s=selector2-quantacorp-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Q4cMg3Y4A75Rd6oKNu1JlMkz7yC7qQjymkhgGwJhcI=;
+ b=vCPMErP4G+z+O+H/++vbohQ1Q+0M9bwROTHvin7eaJXNSujlnwf1U+BSwodoD11p3skyv+yszCjMYGIRKTPINK80qXMMw57gZ/hSItaSbb00As60hp/hQr4XaRclWv2ggV2frwY9TiDlL3zwcz3dbxIHZPZdWubqzu2TafMl7kU=
+Received: from HK0PR04MB3346.apcprd04.prod.outlook.com (2603:1096:203:87::9)
+ by HK2PR0401MB2116.apcprd04.prod.outlook.com (2603:1096:202:7::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23; Fri, 21 May
+ 2021 01:51:45 +0000
+Received: from HK0PR04MB3346.apcprd04.prod.outlook.com
+ ([fe80::2044:8839:c6f9:fa63]) by HK0PR04MB3346.apcprd04.prod.outlook.com
+ ([fe80::2044:8839:c6f9:fa63%7]) with mapi id 15.20.4129.035; Fri, 21 May 2021
+ 01:51:45 +0000
+From: =?big5?B?SnVuLUxpbiBDaGVuICizr6tUwE0p?= <Jun-Lin.Chen@quantatw.com>
+To: Ed Tanous <edtanous@google.com>, Nan Zhou <nanzhou@google.com>
+Subject: RE: SimpleStorage proposals
+Thread-Topic: SimpleStorage proposals
+Thread-Index: AddMgrei/Fpr/op3T+CFNeQhuUFj5AAdRARZADsB0XA=
+Date: Fri, 21 May 2021 01:51:45 +0000
+Message-ID: <HK0PR04MB33460B421AC36D12C1BA9567B1299@HK0PR04MB3346.apcprd04.prod.outlook.com>
+References: <HK0PR04MB33460E66D59FF4F2DF64CBDDB12B9@HK0PR04MB3346.apcprd04.prod.outlook.com>
+ <CACWQX81Xnpmq7x5S2E=wnRfx=0ob_0zfchA7azks=voVqQ9-Rw@mail.gmail.com>
+ <CAOLfGj6ApsbrU9YKvQ4N_VFHkC1jZJ3WPDuLo1KwwSoOCp7HGw@mail.gmail.com>
+ <CAH2-KxCEV-vJr0kM9DVa3n+V3nayh_Pq0WkGPahqDimqa6ghnA@mail.gmail.com>
+In-Reply-To: <CAH2-KxCEV-vJr0kM9DVa3n+V3nayh_Pq0WkGPahqDimqa6ghnA@mail.gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: google.com; dkim=none (message not signed)
+ header.d=none;google.com; dmarc=none action=none header.from=quantatw.com;
+x-originating-ip: [61.218.113.162]
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: b0c595cb-6564-4526-b62a-08d91bfafd75
+x-ms-traffictypediagnostic: HK2PR0401MB2116:
+x-microsoft-antispam-prvs: <HK2PR0401MB2116DE9D13822F9A2CB5F0BFB1299@HK2PR0401MB2116.apcprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:6430;
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: Wq2do6bcRhXcu7RsocHRPWZjSq23FG65Q2+nkQGJoSrWG/rbNoSjh4cxtHctfHGntNj1p/xY1B2hBMbJktjIDSG0dHvkbm/Rg8P3pc8NO1Mvucp1UB1vWuMTM2m2RGoCWIT0PYTpimUqX59YdTm+jbUzfvlsBDDctE7sEORoh3tu8jg7EPq4NAjMrhhstV96XmaTgrKQC6nhQPJbzTppHh2VoBH9HNfACHOI7hDom9PEqwuwGCSw61QjfFpmFIhbwYYYlL4Ipe7B3inx+8HkhzCX1a2YmSZDygwJiBvMTBvhY5IuZUKw8uoVHVfKwxHKfHBYgvdlY29SdciOkCx/reZXcuBtDOnZHgdg/9Q+r57crACkq71XaXYvUDfDUbUHZUHQe9gXSPEDHl/cyr9vp4OFgBjh5idBu++Y8FBPW0i+PkXTlg5SH97K+Phb5X6AudIwIqHwxlh8jWELBdtSDavRX794CMb4LGpCCBzR+xax/pSMvhB4TPzz+mOpS2S67wOFNR5wJF6MhcMuABgMu3jqtUPLud2NrHclaEI5Hc+tAlOQajrvEQovmmLHm0/1ivmqjAGQGpRM3m7vhZxx5VXtD9TExa8oO/DdzreTFJ05ECQGxRO+xAdkZNKLDnOP3NLnwL/tKLJM9O1HPtx6xFpgjMfEssxrBRj6wiz1yXbHtMY19LCtyYxKmxg7kYEdms2jr7ssBXs+p/zODYwD/6UQ2ZcyIY89gpldGKmEwFY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK0PR04MB3346.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(316002)(66556008)(4326008)(186003)(8676002)(66946007)(66476007)(8936002)(9686003)(3480700007)(54906003)(110136005)(76116006)(85182001)(5660300002)(64756008)(2906002)(86362001)(83380400001)(6506007)(53546011)(66446008)(33656002)(7696005)(966005)(478600001)(38100700002)(52536014)(55016002)(26005)(122000001)(7116003)(71200400001)(45080400002);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata: =?big5?B?dHFnUnlHOStBMnNuRENPTENCajdKZXA1TzVFTm1KWGVtcjFTWGltc1p0bk9LZ0wr?=
+ =?big5?B?MXVpWm8rTHRuV2Faa0h3L3dZRFM3WGxPYm1SczZ2dGNuQXRRcnBOY2l0b1BhZDNh?=
+ =?big5?B?ZDN1VUNUZmRTNmVISDQvZ0VwSHdXQVFxbmUyZ212a1EzUnVLdjZsQ3lvM3A3VktL?=
+ =?big5?B?bGNuU3puYXMxVEVkNU9Ndm9Nc0Y4K3p4Mm1mWDJXOUZIbkc2dUZtS3M4NG0yZE9a?=
+ =?big5?B?TGEyU2srOUpGVWRXcHhuUUo5UjVyUUhkOWN0eHBvbE9rMGZUeUVyZWx0Mm1XVnpm?=
+ =?big5?B?SllRV0EwR0ZQL3lVMzY3Q3FxQksyc3ZLaFJvRVM3RTgva1U0NFdjaitvQk5MTFJj?=
+ =?big5?B?Um8rbFZ1M3kxU2FYaEQyZzA5MkhaeXYvSjNNZ2N1RUJWZnlWK0ZFSEZrRWduMWZY?=
+ =?big5?B?Rk1HTXk1bEphVzU1WDQ3bFBub0pHQ3JaN1FobC9RRmFMTHFIUE9idjRhZU5zdlR5?=
+ =?big5?B?MDlmL1cyUEx5WnEvZ0U0TkRzbkVwTkd2TDdwMG1XbkM0QjVjaFAxSnV6TXc0WEJY?=
+ =?big5?B?TTJYMGo4clF2Mks5V20reS9CcG0zV2dYekttd0laWGhGT0RHWS9pRm8xMFREQmNV?=
+ =?big5?B?SFlZVjY4ckM2Z21WdXF0U1JyTTZZS0dWaGdmVjFmazBQVlhZL3dpcXEyWVUrcmFT?=
+ =?big5?B?UmtmL0x5L2MycW5IQmZabndPbkYwMjhHcmU2USs2ZUl5cjM1YkZVYlpnQkZSd3dh?=
+ =?big5?B?d1RvRFZ1MkFOblIreFl2aEVpQVI2Y2doZnBDZENiM1Rnak5lYy80Z1F6SnQwalpQ?=
+ =?big5?B?R3NJUU9OdWxTV1dDMGxqa3NSWkJlTXNDakN5Z3plTGI5Q1lIZzRuRE1BVjRlampW?=
+ =?big5?B?ZUVER2Q3RHM2eVRjVWtwVllnUEduZEhUZmpVS1lRWGx4QjhOZ1pUZTloYTBaK1JF?=
+ =?big5?B?R3pIWmYwbFFqd3h4M3hjN2hRK24wSFRXeGgxb3ltMjFWQjZkakloVGRWSGJkaklo?=
+ =?big5?B?K0JybVI5bmE2SzVQQ3NyY1hUVS9ET241bWdnV3YrbHB0RmhoUUMyaVdORG9GelpE?=
+ =?big5?B?WlRIQTJScjMvQUlmS0tYczhVQW12Vkk1cTBTUWtPU29qUkhlT3RJUHUxQ0N3Q3Fx?=
+ =?big5?B?aTBzRGdtR2RBYVhjTFVDOVROZ3c3Z0dqR01uVjZwTWZrYVNVYm5qeUlzc0VmM2o1?=
+ =?big5?B?d0o4V0N6L0sxMmlaWitFNENKcDRRT3RZdEc1OEI5SUlKWWhRZjhSOHhmWnpLbC9B?=
+ =?big5?B?M0kwWUpOS0ZJcUI5djRiZG9lYkF5d0R6TCtkU29uTzhHTVhOWkJJZzd0ajI3L2Y5?=
+ =?big5?B?Q0FDTnVRZDlkalFwVW5nNGNDQ0ZaeUYvS2xIaEVhQ0E3ZmNaRWdEU1BURHo1eUlr?=
+ =?big5?B?MjA1SkMyeVpLWEs5U3plRE9iOENGY3FmaklYZjNoek1WR0xLMXJaanlsclU3bE1t?=
+ =?big5?B?aU50T1FkRjk0ckZxY2tqM29UZklTUnJPTkpSdlorTFlSTXdoUGhYM3dyNU9uME1P?=
+ =?big5?B?VGxKUmRzbElCbHNzbnE4bFV1U2xhRjRmK09SRHhsb3FKcmpkRWxMNEpGc2p0SFFY?=
+ =?big5?B?bjRRK3BmZ2J4Wk43YzdzYVdMOHJLbVVQR1E3d2JhcENKOUZLZzBid1Bua20wZ1Uv?=
+ =?big5?B?TzNBeEdDSUhRUFhBNWlhM01SL0RCNjcrcWdFSXQydVYrNVlINkhFRUR3QW5BUkx0?=
+ =?big5?Q?BAZs4PrTxk7NENojQ66AwmcOloiaUepK8KibWLOQP5oNBuoJ?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
+MIME-Version: 1.0
+X-OriginatorOrg: quantatw.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: HK0PR04MB3346.apcprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0c595cb-6564-4526-b62a-08d91bfafd75
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 01:51:45.7400 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 179b0327-07fc-4973-ac73-8de7313561b2
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qwcSybA5h05VVXIgYDkYAdMHXgkTL712X+wo5xJvoXe9U48bgouaHA9Moa/OHwpIHpMZiIZXTiI4QTo4orGJYDNDgdjqReglAvxDMiIpuWA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR0401MB2116
+X-Mailman-Approved-At: Mon, 24 May 2021 11:24:37 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,100 +148,83 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
- linux-aspeed@lists.ozlabs.org, Avi Fishman <avifishman70@gmail.com>,
- Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
- linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
- Rob Herring <robh+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- openipmi-developer@lists.sourceforge.net, Zev Weiss <zweiss@equinix.com>,
- "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>,
- linux-arm-kernel@lists.infradead.org, Benjamin Fair <benjaminfair@google.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
+ "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
-
-On Sat, 22 May 2021, at 02:44, Corey Minyard wrote:
-> On Mon, May 10, 2021 at 03:12:02PM +0930, Andrew Jeffery wrote:
-> > Make the KCS device drivers responsible for allocating their own memory.
-> > 
-> > Until now the private data for the device driver was allocated internal
-> > to the private data for the chardev interface. This coupling required
-> > the slightly awkward API of passing through the struct size for the
-> > driver private data to the chardev constructor, and then retrieving a
-> > pointer to the driver private data from the allocated chardev memory.
-> > 
-> > In addition to being awkward, the arrangement prevents the
-> > implementation of alternative userspace interfaces as the device driver
-> > private data is not independent.
-> > 
-> > Peel a layer off the onion and turn the data-structures inside out by
-> > exploiting container_of() and embedding `struct kcs_device` in the
-> > driver private data.
-> 
-> All in all a very nice cleanup.  A few nits inline.
-> 
-> > 
-> > Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-> > Reviewed-by: Zev Weiss <zweiss@equinix.com>
-> > ---
-> >  drivers/char/ipmi/kcs_bmc.c           | 19 +++++++--
-> >  drivers/char/ipmi/kcs_bmc.h           | 12 ++----
-> >  drivers/char/ipmi/kcs_bmc_aspeed.c    | 56 +++++++++++++------------
-> >  drivers/char/ipmi/kcs_bmc_cdev_ipmi.c | 60 ++++++++++++++++++---------
-> >  drivers/char/ipmi/kcs_bmc_npcm7xx.c   | 37 ++++++++++-------
-> >  5 files changed, 111 insertions(+), 73 deletions(-)
-> > 
-> > diff --git a/drivers/char/ipmi/kcs_bmc.c b/drivers/char/ipmi/kcs_bmc.c
-> > index ef5c48ffe74a..83da681bf49e 100644
-> > --- a/drivers/char/ipmi/kcs_bmc.c
-> > +++ b/drivers/char/ipmi/kcs_bmc.c
-> > @@ -44,12 +44,23 @@ int kcs_bmc_handle_event(struct kcs_bmc *kcs_bmc)
-> >  }
-> >  EXPORT_SYMBOL(kcs_bmc_handle_event);
-> >  
-> > -struct kcs_bmc *kcs_bmc_ipmi_alloc(struct device *dev, int sizeof_priv, u32 channel);
-> > -struct kcs_bmc *kcs_bmc_alloc(struct device *dev, int sizeof_priv, u32 channel)
-> > +int kcs_bmc_ipmi_add_device(struct kcs_bmc *kcs_bmc);
-> 
-> The above (and it's remove function) should be in an include file.
-
-This is a short-term hack while I'm refactoring the code. It goes away 
-in a later patch when we switch to using an ops struct.
-
-I didn't move it to a header as it's an implementation detail at the 
-end of the day. I see headers as describing a public interface, and in 
-the bigger picture this function isn't part of the public API. But 
-maybe it's too tricky by half. My approach here generated some 
-discussion with Zev as well.
-
-> 
-> > +void kcs_bmc_add_device(struct kcs_bmc *kcs_bmc)
-> 
-> This should return an error so the probe can be failed and cleaned up
-> and so confusing message don't get printed after this in one case.
-
-Hmm. I did this because the end result of the series is that we can 
-have multiple chardev interfaces in distinct modules exposing the one 
-KCS device in the one kernel. If more than one of the chardev modules 
-is configured in and one of them fails to initialise themselves with 
-respect to the device driver I didn't think it was right to fail the 
-probe of the device driver (and thus remove any chardev interfaces that 
-did succeed to initialise against it).
-
-But this does limit the usefulness of the device driver instance in the 
-case that only one of the chardev interfaces is configured in and it 
-fails to initialise.
-
-So I think we need to decide on the direction before I adjust the 
-interface here. The patches are architected around the idea of multiple 
-chardevs being configured in to the kernel build and all are exposed at 
-runtime.
-
-The serio subsystem does have the 'drvctl' sysfs knob that allows 
-userspace to dictate which serio chardev interface they want to connect 
-to a serio device driver. Maybe that's preferred over my "connect them 
-all" strategy?
-
-Andrew
+LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEVkIFRhbm91cyA8ZWR0YW5vdXNAZ29v
+Z2xlLmNvbT4gDQpTZW50OiBUaHVyc2RheSwgTWF5IDIwLCAyMDIxIDU6NDEgQU0NClRvOiBOYW4g
+WmhvdSA8bmFuemhvdUBnb29nbGUuY29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsg
+SnVuLUxpbiBDaGVuICizr6tUwE0pIDxKdW4tTGluLkNoZW5AcXVhbnRhdHcuY29tPjsgYnJhZGxl
+eWJAZnV6emllc3F1aXJyZWwuY29tDQpTdWJqZWN0OiBSZTogU2ltcGxlU3RvcmFnZSBwcm9wb3Nh
+bHMNCg0KT24gV2VkLCBNYXkgMTksIDIwMjEgYXQgMjoyNyBQTSBOYW4gWmhvdSA8bmFuemhvdUBn
+b29nbGUuY29tPiB3cm90ZToNCj4NCj4gVGhhbmtzIGZvciB5b3VyIHJlcGx5LCBFZCENCj4NCj4+
+DQo+PiBZb3UndmUgYWxzbyBvbWl0dGVkIHdoYXQgcHJvcGVydGllcyB5b3UncmUgdHJ5aW5nIHRv
+IHRhcmdldC4gIENvdWxkIA0KPj4geW91IHdhbGsgdGhyb3VnaCBhIGxpdHRsZSBiaXQgYWJvdXQg
+d2hhdCB5b3UncmUgdHJ5aW5nIHRvIGFjY29tcGxpc2ggDQo+PiB3aXRoIHRoaXM/ICAoYmV5b25k
+IGp1c3QgImltcGxlbWVudCB0aGUgcmVkZmlzaCBzY2hlbWFzKS4gIEFyZSB5b3UgDQo+PiB0cnlp
+bmcgdG8gZ2V0IHNtYXJ0IGRhdGE/ICBqdXN0IGludmVudG9yeSBpbmZvcm1hdGlvbj8gIERvIHlv
+dSBwbGFuIA0KPj4gdG8gcmVwcmVzZW50IGNvbm5lY3Rpb25zPw0KPg0KPg0KPiBBcyBhIGZpcnN0
+IHN0ZXAsIHdlIGFyZSBvbmx5IGdvaW5nIHRvIGltcGxlbWVudCB0aHJlZSBwcm9wZXJ0aWVzLCBO
+YW1lLCBQcmVzZW5jZSwgYW5kIFBvd2VyU3RhdHVzLiBXZSBkb24ndCBwbGFuIHRvIHJlcHJlc2Vu
+dCBjb25uZWN0aW9ucyBhdCB0aGUgbW9tZW50Lg0KDQpJJ20gYXNzdW1pbmcgdGhlc2Ugd2lsbCBi
+ZSB0aGUgZGJ1cyBwcm9wZXJ0aWVzIG5hbWVzLCBhcyByZWRmaXNoIGRvZXNuJ3QgcmVhbGx5IGhh
+dmUgYSBwcmVzZW5jZSBwcm9wZXJ0eSBvciBhIHBvd2Vyc3RhdHVzIHByb3BlcnR5Lg0KV2l0aCB0
+aGF0IHNhaWQsIHRoYXQgc2VlbXMgcmVhc29uYWJsZSB0byBtZSB0byB3YW50IHRvIGRvLCBidXQg
+d2UgbmVlZCB0byBtYWtlIHN1cmUgd2UncmUgY2xlYXIgb24gaG93IHRoaXMgZGlmZmVycyBmcm9t
+IHRoZSBleGlzdGluZyBEcml2ZSBpbnRlcmZhY2VzLg0KDQpBZnRlciBxdWVzdGlvbiBpbiByZWRm
+aXNoIGZvcnVtLCBodHRwczovL3JlZGZpc2hmb3J1bS5jb20vdGhyZWFkLzQ4My9kaWZmZXJlbnQt
+c3RvcmFnZS1zaW1wbGVzdG9yYWdlDQpXZSBnb3QgU2ltcGxlU3RvcmFnZSB3YXMgdGhlIGVhcmx5
+IG1vZGVsIGluIFJlZGZpc2ggZm9yIHNob3dpbmcgc3RvcmFnZSBkZXZpY2VzLCBhbmQgIkRldmlj
+ZXMiIGluIHRoaXMgcmVzb3VyY2UgZG8gZXF1YXRlIHRvIGRyaXZlcy4NCldlIHdvdWxkIHVzZSB4
+eXoub3BlbmJtY19wcm9qZWN0LkludmVudG9yeS5Ecml2ZSBpbnN0ZWFkIHh5ei5vcGVuYm1jX3By
+b2plY3QuSW52ZW50b3J5LlNpbXBsZVN0b3JhZ2UgdG8gcmVwcmVzZW50IG91ciBzdG9yYWdlIGRl
+dmljZS4NCg0KPg0KPiBPbiBXZWQsIE1heSAxOSwgMjAyMSBhdCAxOjQzIFBNIEVkIFRhbm91cyA8
+ZWRAdGFub3VzLm5ldD4gd3JvdGU6DQo+Pg0KPj4gT24gV2VkLCBNYXkgMTksIDIwMjEgYXQgMTI6
+NTcgQU0gSnVuLUxpbiBDaGVuICizr6tUwE0pDQo+PiA8SnVuLUxpbi5DaGVuQHF1YW50YXR3LmNv
+bT4gd3JvdGU6DQo+PiA+DQo+PiA+IEhpIGFsbCwNCj4+ID4NCj4+ID4NCj4+ID4NCj4+ID4gSW4g
+b3JkZXIgdG8gaW1wbGVtZW50IHRoZSBmZWF0dXJlIHRvIHZpZXcgc2ltcGxlIHN0b3JhZ2UgZGV2
+aWNlIHN0YXR1cywgc3VjaCBTQVRBIEhERCBwcmVzZW5jZSBzdGF0dXMuDQo+PiA+DQo+PiA+IFdl
+IHByb3Bvc2UgdG8gaW1wbGVtZW50IGl0IG9uIHRoZSBSZWRmaXNoIFNpbXBsZVN0b3JhZ2UgVVJJ
+Lg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBBcyBvdXIgcHJvcG9zYWwgZm9yIFJlZGZpc2ggU2lt
+cGxlU3RvcmFnZSwgDQo+PiA+IGh0dHBzOi8vYXBjMDEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0
+bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmcNCj4+ID4gZXJyaXQub3BlbmJtYy1wcm9qZWN0
+Lnh5eiUyRmMlMkZvcGVuYm1jJTJGZG9jcyUyRiUyQiUyRjQzMzUyJmFtcDtkYQ0KPj4gPiB0YT0w
+NCU3QzAxJTdDSnVuLUxpbi5DaGVuJTQwcXVhbnRhdHcuY29tJTdDZDQxOWVjZTZhOGQzNDRkOTNi
+YmIwOGQ5DQo+PiA+IDFiMGVjNWM0JTdDMTc5YjAzMjcwN2ZjNDk3M2FjNzM4ZGU3MzEzNTYxYjIl
+N0MxJTdDMCU3QzYzNzU3MDU3MzEyMjUNCj4+ID4gMTYzNjQlN0NVbmtub3duJTdDVFdGcGJHWnNi
+M2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTA0KPj4gPiBDSkJUaUk2SWsx
+aGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzMwMDAmYW1wO3NkYXRhPUJ2SGExM0pBb3poaGF1NnF4UXFz
+DQo+PiA+IDhYTWUxQlgxak1pMDU3aCUyQkZaNjdsSmslM0QmYW1wO3Jlc2VydmVkPTANCj4+ID4N
+Cj4+ID4gQW5kIGFuIG5ldyBkYWVtb24sIA0KPj4gPiBodHRwczovL2FwYzAxLnNhZmVsaW5rcy5w
+cm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZnDQo+PiA+IGVycml0Lm9w
+ZW5ibWMtcHJvamVjdC54eXolMkZjJTJGb3BlbmJtYyUyRmRvY3MlMkYlMkIlMkY0MzM1MSZhbXA7
+ZGENCj4+ID4gdGE9MDQlN0MwMSU3Q0p1bi1MaW4uQ2hlbiU0MHF1YW50YXR3LmNvbSU3Q2Q0MTll
+Y2U2YThkMzQ0ZDkzYmJiMDhkOQ0KPj4gPiAxYjBlYzVjNCU3QzE3OWIwMzI3MDdmYzQ5NzNhYzcz
+OGRlNzMxMzU2MWIyJTdDMSU3QzAlN0M2Mzc1NzA1NzMxMjI1DQo+PiA+IDI2MzUyJTdDVW5rbm93
+biU3Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJaUwNCj4+
+ID4gQ0pCVGlJNklrMWhhV3dpTENKWFZDSTZNbjAlM0QlN0MzMDAwJmFtcDtzZGF0YT1jN1RTR05K
+QzVCbE14V3dtRkJRSA0KPj4gPiBYM2dISDh4YlBFdTUzaHNOSHVuMDRKbyUzRCZhbXA7cmVzZXJ2
+ZWQ9MA0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBUaGVyZSBhcmUgdHdvIG5ldyBkYnVzLWludGVy
+ZmFjZXMgdG8gYmUgcHJvcG9zZWQsDQo+PiA+DQo+PiA+IHh5ei5vcGVuYm1jX3Byb2plY3QuSW52
+ZW50b3J5Lkl0ZW0uU3RvcmFnZURldmljZTogaGVyZSBpcyBhbiBlbXB0eSBpbnRlcmZhY2UganVz
+dCBtYXJrIHRoZSBkYnVzIHBhdGggdGhhdCBTaW1wbGVTdG9yYWdlIE1hbmFnZXIgc2hvdWxkIGNv
+bGxlY3QuDQo+PiA+DQo+PiA+IHh5ei5vcGVuYm1jX3Byb2plY3QuSW52ZW50b3J5Lkl0ZW0uU2lt
+cGxlU3RvcmFnZTogaXQgc2hvdWxkIGhhdmUgdGhlIHByb3BlcnRpZXMgcmVkZmlzaCBuZWVkcywg
+YW5kIGNhbiBiZSBwYXJzZXIgYnkgYm1jd2ViLg0KPj4NCj4+DQo+PiBIb3cgZG9lcyB0aGlzIGRp
+ZmZlciBmcm9tIHh5ei5vcGVuYm1jX3Byb2plY3QuSW52ZW50b3J5Lkl0ZW0uRHJpdmU/DQo+PiBU
+aGV5IGxvb2sgZmFpcmx5IHNpbWlsYXI7ICBXZSBnZW5lcmFsbHkgZG9uJ3QgbmFtZSBkYnVzIGlu
+dGVyZmFjZXMgDQo+PiBhZnRlciBSZWRmaXNoIGRpcmVjdGx5LiAgV2Ugc2hvdWxkIHJldXNlIHdo
+YXQgYWxyZWFkeSBleGlzdHMgd2hlcmUgDQo+PiBwb3NzaWJsZSwgYW5kIG9ubHkgaW52ZW50IG5l
+dyB0aGluZ3Mgd2hlcmUgbmVlZGVkLg0KPj4NCj4+IFlvdSd2ZSBhbHNvIG9taXR0ZWQgd2hhdCBw
+cm9wZXJ0aWVzIHlvdSdyZSB0cnlpbmcgdG8gdGFyZ2V0LiAgQ291bGQgDQo+PiB5b3Ugd2FsayB0
+aHJvdWdoIGEgbGl0dGxlIGJpdCBhYm91dCB3aGF0IHlvdSdyZSB0cnlpbmcgdG8gYWNjb21wbGlz
+aCANCj4+IHdpdGggdGhpcz8gIChiZXlvbmQganVzdCAiaW1wbGVtZW50IHRoZSByZWRmaXNoIHNj
+aGVtYXMpLiAgQXJlIHlvdSANCj4+IHRyeWluZyB0byBnZXQgc21hcnQgZGF0YT8gIGp1c3QgaW52
+ZW50b3J5IGluZm9ybWF0aW9uPyAgRG8geW91IHBsYW4gDQo+PiB0byByZXByZXNlbnQgY29ubmVj
+dGlvbnM/DQo+Pg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBUaGUgZGV0YWlscyBhcmUgaW4gdGhl
+IHByb3Bvc2FsLg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBXZWxjb21lIGFuZCB0aGFuayB5b3Ug
+Zm9yIGNvbW1lbnRzIGFuZCBzdWdnZXN0aW9ucw0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBCZXN0
+IHJlZ2FyZHMsDQo+PiA+DQo+PiA+IEp1bi1MaW4gQ2hlbg0KPj4gPg0KPj4gPg0K
