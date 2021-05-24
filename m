@@ -8,76 +8,75 @@ X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
 	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B0690C47082
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AC2EC47080
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:28:21 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 101AC6052B
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 101AC6052B
+	by mail.kernel.org (Postfix) with ESMTPS id 6F7476100A
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:28:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 6F7476100A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FpKKG5jPRz30DQ
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 11:25:38 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FpKNL67yNz304J
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 11:28:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=N87IfH49;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=ve4RXk6E;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1043;
- helo=mail-pj1-x1043.google.com; envelope-from=guopingjn@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::341;
+ helo=mail-ot1-x341.google.com; envelope-from=guopingjn@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=N87IfH49; dkim-atps=neutral
-Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
- [IPv6:2607:f8b0:4864:20::1043])
+ header.s=20161025 header.b=ve4RXk6E; dkim-atps=neutral
+Received: from mail-ot1-x341.google.com (mail-ot1-x341.google.com
+ [IPv6:2607:f8b0:4864:20::341])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FpJ6154vBz2y6C
- for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 10:30:48 +1000 (AEST)
-Received: by mail-pj1-x1043.google.com with SMTP id t11so13859440pjm.0
- for <openbmc@lists.ozlabs.org>; Sun, 23 May 2021 17:30:48 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FpKMs2zpBz2xgN
+ for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 11:27:50 +1000 (AEST)
+Received: by mail-ot1-x341.google.com with SMTP id
+ v19-20020a0568301413b0290304f00e3d88so23732999otp.4
+ for <openbmc@lists.ozlabs.org>; Sun, 23 May 2021 18:27:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=from:to:cc:subject:date:message-id;
  bh=jn5fNOxbZxR9zKEUkoKQcbBQURYKApf+KVh33NftV+I=;
- b=N87IfH49UiXsKpbwUg2e+58CvbLTRDKdYPF9/xzsG2ETeqQrOZkVfCAyBIlXJ0npke
- Nl5ZEsZUiNDFggZz4FxfM3h79goy5HA0gLsbC0N+x2wKT4Cp2YuOP8wXPnMWljsX3AMR
- QUomcdz3HRuPJ4NzzycFvLy9U70Fs7XWrovvGDDxuM56qThnyJiQYwChyiukfNTeCC2j
- NkBBOxxhnSImLiJSRamCsqBWOYKwH2hl9gwCUjw6s5jjOaV/Qyxq4fIsUO+2jblloe3n
- 970mRxQh1zyYHGPH/QexCbUIvOjYmYECzdq5nneh3gBsZfQtxBfDl5qxWF6BPuhUgd2a
- zzVQ==
+ b=ve4RXk6Em8ABYS2Kufn2Rvt00gnTKIn/ROycP5GLpol3aEV/QX/EJ4VwCD21dFJukf
+ q8Uys+RpuPofsa543QW6wRovVzFB8BnjTBWYQud7BQODoyy/yWtLvvk9vgreAy+UkK44
+ zArhHGzUVrVXPYUSy50OaQfCVRqKWIsTHg07b+ZBOL1RSp1yjmVJGM54U2EGLtrWzQNF
+ FjG+nNAf8rTQkEEV1jnIAt7WMABU4qd9N11LF10Xhm4QzzY38oECLjeVJUNDVch6a05n
+ R9oVEExCY4y2n0Qcw2aa8dx/J145TFw2g9T15opD2qzEXoUPg6Z1eh9MC509mnkqo/8z
+ k/7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:from:to:cc:subject:date:message-id;
  bh=jn5fNOxbZxR9zKEUkoKQcbBQURYKApf+KVh33NftV+I=;
- b=uK2QVcLOXj5bPs1Kp3mFkI/vJGjjZShjPvl2TG1kVMusA7XDZdP4yyAy4T5dx0ofZr
- VoIntIPj3XMIEKsCnR2uap98IHWi8W/31shx0rFKtnIe3qAUzC/mlLJ9IUCkKyVIw3CT
- YMU5jIRn16ek/ZuW4LaahHMQsEb5hAMsbt2i+fI8F8BOfIKRlF469+39N8eIgUt/VLtf
- FBuNx4//sVKT/iV1T1FfS5GDLSYDhx5ZeejvIsOqRxVsG5ESU2/7YnYwjbTdkiEgvaeb
- 1hSp18AJB9XnBn6BW/Xf2fYk00zk4rbyToEQ+G5qhr0SxIlqcA1mmnGD5Hibz7VFf0Zy
- Xfag==
-X-Gm-Message-State: AOAM531d/fZ3UXp1a997TBbeKA+L5oc+u46lW5KS+Ww/Kfv/eaGt72B5
- SBRp170EgpiynUA3/tBJuBVvIJheyN6gqA==
-X-Google-Smtp-Source: ABdhPJwh7O3oJOoFBO2iyg8xw+XYiUbU1dp0BNhY1htbLXJv4LXk0NPH6ZF4OqLACONFUQL4EYxvtQ==
-X-Received: by 2002:a17:902:be0d:b029:f9:c913:821f with SMTP id
- r13-20020a170902be0db02900f9c913821fmr3686030pls.2.1621816245162; 
- Sun, 23 May 2021 17:30:45 -0700 (PDT)
-Received: from localhost.localdomain ([60.208.111.194])
- by smtp.gmail.com with ESMTPSA id n19sm9674563pfa.97.2021.05.23.17.30.42
+ b=UXZbOYp47H7FqnCt4O9UbMfBeDU+1MdztliWDfQbB7+7+JFzV5jX9L2J0Rkb1E1gXK
+ lNWjDr4zGIPku9zbqeEpCLhrx+JzoAgUNcRcArP7X74OmLlPbS3mJEaEuv0oT/3Wdbuk
+ 6M5Y0KR4Lc7vnAjhkSe27zfMiwr9ATF0qA+AcZ1i/3JTT51IUFQ0scORlW8boHEv1iSd
+ k1mqZ5N20TEKe2hDiMqZadfmhkDLlwZeU1PJmakss/Oq45wH9PiD0VjBmz7E2qXDhVbB
+ v3iJc93/SQuqvUUt3xcoSslhYwAHy/bayapjD+8ctmkmhsW+veuEJ9TJjNXvunq0Eh0K
+ xQyg==
+X-Gm-Message-State: AOAM533iEeVxTwm1SVkMN8Q4uQVbWEzybAF8zX5OIB24WiebsN2xqSO3
+ mNwnYsbMcOK0tvjlaxLcEvJZ4eAWfNiNu4B+
+X-Google-Smtp-Source: ABdhPJx5YzkPsDwJawgHd6sKw7ge11tSrVtApZ8QkF25664AaLDd3WLCXi+oq4N4BEm8olf2rOapjQ==
+X-Received: by 2002:a9d:6153:: with SMTP id c19mr16430084otk.341.1621819667114; 
+ Sun, 23 May 2021 18:27:47 -0700 (PDT)
+Received: from localhost.localdomain ([58.56.96.29])
+ by smtp.gmail.com with ESMTPSA id 34sm2795351otf.38.2021.05.23.18.27.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 23 May 2021 17:30:44 -0700 (PDT)
+ Sun, 23 May 2021 18:27:46 -0700 (PDT)
 From: guopingjn@gmail.com
 To: joel@jms.id.au,
 	andrew@aj.id.au,
 	openbmc@lists.ozlabs.org
 Subject: [PATCH 1/1] ARM: dts: aspeed: Add Inspur NF5280M6 BMC machine
-Date: Mon, 24 May 2021 08:30:39 +0800
-Message-Id: <20210524003039.18003-1-guopingjn@gmail.com>
+Date: Mon, 24 May 2021 09:27:35 +0800
+Message-Id: <20210524012735.23634-1-guopingjn@gmail.com>
 X-Mailer: git-send-email 2.17.1
-X-Mailman-Approved-At: Mon, 24 May 2021 11:24:37 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
