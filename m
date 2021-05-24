@@ -2,65 +2,87 @@ Return-Path: <SRS0=CMIJ=KT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 38A89C47083
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 07:35:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02F94C47083
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 07:53:31 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CB8A26100B
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 07:35:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CB8A26100B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 3492A610C7
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 07:53:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3492A610C7
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FpTWX71pQz30C3
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 17:35:04 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=steven_lee@aspeedtech.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FpTwm4cc9z305q
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 17:53:28 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=f/70JWer;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::131;
+ helo=mail-lf1-x131.google.com; envelope-from=artemsen@gmail.com;
  receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=f/70JWer; dkim-atps=neutral
+Received: from mail-lf1-x131.google.com (mail-lf1-x131.google.com
+ [IPv6:2a00:1450:4864:20::131])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FpTVD5rwnz304N;
- Mon, 24 May 2021 17:33:56 +1000 (AEST)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 14O7KKWh005017;
- Mon, 24 May 2021 15:20:20 +0800 (GMT-8)
- (envelope-from steven_lee@aspeedtech.com)
-Received: from slee-VirtualBox.localdomain (192.168.100.253) by
- TWMBX02.aspeed.com (192.168.0.24) with Microsoft SMTP Server (TLS) id
- 15.0.1497.2; Mon, 24 May 2021 15:33:14 +0800
-From: Steven Lee <steven_lee@aspeedtech.com>
-To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@aj.id.au>, Adrian Hunter <adrian.hunter@intel.com>, "Ulf
- Hansson" <ulf.hansson@linaro.org>, "open list:OPEN FIRMWARE AND FLATTENED
- DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, "moderated
- list:ARM/ASPEED MACHINE SUPPORT" <linux-arm-kernel@lists.infradead.org>,
- "moderated list:ARM/ASPEED MACHINE SUPPORT" <linux-aspeed@lists.ozlabs.org>,
- open list <linux-kernel@vger.kernel.org>, "moderated list:ASPEED SD/MMC
- DRIVER" <openbmc@lists.ozlabs.org>, "open list:ASPEED SD/MMC DRIVER"
- <linux-mmc@vger.kernel.org>
-Subject: [PATCH v5 3/4] ARM: dts: aspeed: ast2600evb: Add dts file for A1 and
- A0.
-Date: Mon, 24 May 2021 15:32:55 +0800
-Message-ID: <20210524073308.9328-4-steven_lee@aspeedtech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210524073308.9328-1-steven_lee@aspeedtech.com>
-References: <20210524073308.9328-1-steven_lee@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FpTwF3SNbz2yXW
+ for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 17:52:58 +1000 (AEST)
+Received: by mail-lf1-x131.google.com with SMTP id r5so39356842lfr.5
+ for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 00:52:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to;
+ bh=XmPxC0ejSqfozVpfLHERWwn46x4Tl+JebkLOqiw2Zgs=;
+ b=f/70JWeroFiU72sjSWMCq4HX1I2WDA9BV4vGxlQaid8I9iCtaOpGWzndR+Jtb2RW5D
+ U0ukJvF+zdkUdpdrMyfP/vKLXmAv7ve3y2HZYVGgGSBp6rQkEWy5D8QjUtXDRmJnKr0K
+ iwZQlBXAmyz2hxzu665PCt/T7M9LPJWOAcUHKus00luwGPSKwwBdBFbtvZv6pPs1jUrq
+ 7F8hVkKd+bmTXrzvFWUVRt5k0FetUcscezxeAXf+QUHDoe3SlLHfHIEr2fnSMWCHixvy
+ VJMyI5B03dSPAl3n1h3emvn89g81Qx8YqoTAgKZGvqiXmqVzvwT70rfK0t5Ocslzw7+b
+ B9Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=XmPxC0ejSqfozVpfLHERWwn46x4Tl+JebkLOqiw2Zgs=;
+ b=eVh9XYzSy5FfTieYcg4L7QkzEXtrala+0rh3MImVfZCUvqe+X6O0V0drit3NHaOSd0
+ GtVW2TPwLqQyZE+SG+P3XvO+29IpH/EmoSkHgY8KMVDG3DT1hxYITuT4rqMVTaL9Pnzv
+ 8KqFn05pzzy3w21sgXbKzkXIxQgwtySLXHp+efM6Bzz6uRSSe9VZwwxFIQdYobsJE+Hk
+ R0Qx0NkyOqKEjxpjouVvMCfL3JNdqL98NA182qL+IOdNOGHQv3mPthLEZlS4//Yh68fS
+ POOrc1QgziIpD+j0lEvolP7VrxYEdg/tVc7onld+OdAjacXJlCjUj7CJCXENhSeW1Lyi
+ BsoQ==
+X-Gm-Message-State: AOAM530uE9yeyyZlYgcKWyhvMspdqkhtQtANk0qdGoQ4bbnBKxSvJtv5
+ T+Jd9ua4kf6Y/yql8X3v30E=
+X-Google-Smtp-Source: ABdhPJzzR06BwQ2dGnJHX+5U0bJTjxpUx6dAY1B4w4U+LF+qHVchzSPZ5ttWKN4lOlXQ5J+zPDO0ag==
+X-Received: by 2002:ac2:538b:: with SMTP id g11mr9477468lfh.172.1621842771922; 
+ Mon, 24 May 2021 00:52:51 -0700 (PDT)
+Received: from gmail.com (109-252-116-140.nat.spd-mgts.ru. [109.252.116.140])
+ by smtp.gmail.com with ESMTPSA id
+ p13sm1640033ljg.8.2021.05.24.00.52.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 24 May 2021 00:52:50 -0700 (PDT)
+Date: Mon, 24 May 2021 10:52:48 +0300
+From: Artem Senichev <artemsen@gmail.com>
+To: Nan Zhou <nanzhou@google.com>
+Subject: Re: Link phosphor-hostlogger and bmcweb
+Message-ID: <20210524075248.m7mimyya42xas3nx@gmail.com>
+References: <CAOLfGj5orNO2U3zdO6LuBGY05mXFewofqRiOUXyA=ks74LzMhg@mail.gmail.com>
+ <20210521061023.4zy5s7fzycz5lppx@gmail.com>
+ <CAH2-KxBcfqB7ArTEg977ai1fKK_Ppwt+odwqtJgV+3GZ8szs2Q@mail.gmail.com>
+ <CAOLfGj4n-RHYAq5oSRkrC-VpCFUFT2Nr3G4UeqQ8DuMbNurrNw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [192.168.100.253]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 14O7KKWh005017
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAOLfGj4n-RHYAq5oSRkrC-VpCFUFT2Nr3G4UeqQ8DuMbNurrNw@mail.gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,44 +94,249 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: ryan_chen@aspeedtech.com, chin-ting_kuo@aspeedtech.com,
- steven_lee@aspeedtech.com, Hongweiz@ami.com
+Cc: Spencer Ku <spencer.ku@quanta.corp-partner.google.com>,
+ Litzung Chen <litzung.chen@quanta.corp-partner.google.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Alexander Amelkin <a.amelkin@yadro.com>, Ed Tanous <edtanous@google.com>,
+ Richard Hanley <rhanley@google.com>, a.senichev@yadro.com,
+ a.filippov@yadro.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-aspeed-ast2600-evb.dts was modified for supporting A2 evb.
-Since A1/A0 evbs don't have GPIO regulators and SD clock frequency(SCU210)
-is different to A2 as well. Adding a new dts that removes new nodes
-created in aspeed-ast2600-evb.dts is necessary.
+I'll try to convey the main idea that we tried to implement in this service.
 
-Signed-off-by: Steven Lee <steven_lee@aspeedtech.com>
----
- arch/arm/boot/dts/aspeed-ast2600-evb-a1.dts | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-ast2600-evb-a1.dts
+Hostlogger was originally designed to work with OpenPOWER systems, which
+generate a very detailed log at boot time.
+It is important to save these logs and the host console output just before
+rebooting for further investigation of incidents when hardware errors occur.
+So, we have two log files for each server session (boot log + last OS messages).
+That's why we need a D-bus watcher.
+BMC flash has around 3MiB of free RW space, this force us to use compression
+and file rotation.
 
-diff --git a/arch/arm/boot/dts/aspeed-ast2600-evb-a1.dts b/arch/arm/boot/dts/aspeed-ast2600-evb-a1.dts
-new file mode 100644
-index 000000000000..dd7148060c4a
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-ast2600-evb-a1.dts
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2021 IBM Corp.
-+
-+#include "aspeed-ast2600-evb.dts"
-+
-+/ {
-+	model = "AST2600 A1 EVB";
-+
-+	/delete-node/regulator-vcc-sdhci0;
-+	/delete-node/regulator-vcc-sdhci1;
-+	/delete-node/regulator-vccq-sdhci0;
-+	/delete-node/regulator-vccq-sdhci1;
-+};
-+
-+/delete-node/ &sdc;
+All of these features are unnecessary for "streaming" real-time log recording.
+You don't need DBus watchers, rotation can be done with native Linux utilities,
+you don't even need to split the input stream into lines.
+Just redirect obmc-console.log: `tail -f /var/log/obmc-console.log > my.log`.
+
+I understand your desire to add a new mode to the existing project instead of
+creating a new one. But there is very little in common between these modes.
+Even reading the socket will have to be done separately, since it is buffered
+for line splitting in the current implementation.
+In the end, only bb-recipe and the `main` function will remain in the common. 
+
 -- 
-2.17.1
+Regards,
+Artem Senichev
+Software Engineer, YADRO.
 
+On Fri, May 21, 2021 at 10:51:45AM -0700, Nan Zhou wrote:
+
+> >
+> > >
+> > > > we propose to remove the ring buffer and write to the log file
+> > > > as soon as some characters are received.
+> > >
+> > > I am not sure it is a good idea.
+> > > The host can generate a lot of logs, but we have very limited free space.
+> > This is a fair concern, but wouldn't the rollover limits make this not
+> > an issue?  They seem like they could be easily configured.
+> 
+> Right. Logrotate will be able to handle the rotation. Maximum size, # log
+> files, and compression can be easily configured.
+> 
+> > In
+> > > addition, such heavy traffic will lead to a quick breakdown of the flash
+> > (most
+> > > available products are guaranteed to withstand around 100,000 P/E cycles
+> > only).
+> > JFFS2 is wear leveled, and there are other BMC stacks that I know of
+> > that implement this without any ill effects to flash longevity, with
+> > that said, if Nan made the "last log on disk" feature configurable,
+> > would that alleviate your concerns?
+> 
+> We also noticed that the obmc-server itself will buffer the log a bit. Will
+> it still be a problem if we don't write a character at once but a block of
+> them?
+> And as Ed said, we can also make this feature configurable. I would imagine
+> the log buffer will remain if the "last log on disk" feature is disabled.
+> 
+> 
+> > >
+> > > > This implicitly removes the needs
+> > > > of the ring buffer, and the persistence triggering (host reboot,
+> > sigterm,
+> > > > etc) in hostlogger. We believe this keeps the same functionality but
+> > saves
+> > > > hundreds of lines of codes in phosphor-hostlogger.
+> > Difference of opinion here, I don't think this removes the need for
+> > the host reboot event;  Having each reboot post to a different log
+> > needs to be maintained, and I have to imagine that there's some sort
+> > of sigterm handler still, although it becomes a lot smaller.
+> 
+> 
+> >
+> > > You are suggesting to delete the buffer, DBus watcher, log rotate. How
+> > are you
+> > > going to keep the same functionality if you remove everything related to
+> > it?
+> > +1.  In the initial thought I didn't think we were removing any
+> > functionality with this.  I had assumed the dbus watcher would remain,
+> > and we would still have the log rotation behavior.  In reading through
+> > Nans proposal I don't think these are getting removed;  Maybe I
+> > misunderstood?
+> 
+> 
+> Yes, if we want to keep different reboot posts to a different log file, we
+> can keep part of the dbus/signal watcher.
+> 
+> On Fri, May 21, 2021 at 10:24 AM Ed Tanous <edtanous@google.com> wrote:
+> 
+> > On Thu, May 20, 2021 at 11:10 PM Artem Senichev <artemsen@gmail.com>
+> > wrote:
+> > >
+> > > On Thu, May 20, 2021 at 04:29:09PM -0700, Nan Zhou wrote:
+> > > > Hi all,
+> > > >
+> > > > In the previous thread (
+> > > > https://lists.ozlabs.org/pipermail/openbmc/2021-March/025234.html), we
+> > > > (engineers from Google and Quanta) discussed our attempt to share host
+> > > > serial logs via Redfish, which includes polling logs via LogService and
+> > > > streaming log bytes via EventService (e.g. SSE). We went with the
+> > event log
+> > > > architecture
+> > > > <
+> > https://github.com/openbmc/docs/blob/master/architecture/redfish-logging-in-bmcweb.md
+> > >
+> > > > and did the implementation.
+> > > >
+> > > > We still want to reuse the phosphor-hostlogger and do some
+> > modification. We
+> > > > believe it is better to try to reuse existing codes if possible and
+> > improve
+> > > > them rather than creating new things that have similar functionalities
+> > (in
+> > > > our case, it is a daemon that could collect logs and persist them).
+> > >
+> > > I agree, reusing code is a right choice, but only when it is really
+> > possible.
+> > > For now it looks like you want to remove most of the Hostlogger features
+> > to
+> > > transform it from buffer-like to stream-like service.
+> >
+> > I'm not quite following this statement.  Which features are getting
+> > removed?  From what I can see, he's suggesting making
+> > phosphor-hostlogger look more like a well-behaved linux logging
+> > daemon, but I don't think any features got omitted (or I'm missing
+> > something critical).
+> >
+> > >
+> > > > We want to do the following modification in phosphor-hostlogger (from
+> > the
+> > > > input and output point of view, just very few things will be changed)
+> > > >
+> > > > 1. One limitation of phosphor-hostlogger is that it will lose data in
+> > the
+> > > > memory (the ring buffer maintained by hostlogger) when BMC gets force
+> > > > restarted;
+> > >
+> > > When BMC goes to reboot it stops all services, at that moment hostlogger
+> > gets
+> > > a signal and flushes all gathered logs to a file.
+> >
+> > Only if the reboot is planned.  If the BMC loses power (which is
+> > "normal" for a bmc) there isn't time to persist to flash before the
+> > power goes down and the logs are most likely lost.
+> >
+> > >
+> > > > we propose to remove the ring buffer and write to the log file
+> > > > as soon as some characters are received.
+> > >
+> > > I am not sure it is a good idea.
+> > > The host can generate a lot of logs, but we have very limited free space.
+> >
+> > This is a fair concern, but wouldn't the rollover limits make this not
+> > an issue?  They seem like they could be easily configured.
+> >
+> > > In
+> > > addition, such heavy traffic will lead to a quick breakdown of the flash
+> > (most
+> > > available products are guaranteed to withstand around 100,000 P/E cycles
+> > only).
+> >
+> > JFFS2 is wear leveled, and there are other BMC stacks that I know of
+> > that implement this without any ill effects to flash longevity, with
+> > that said, if Nan made the "last log on disk" feature configurable,
+> > would that alleviate your concerns?
+> >
+> > >
+> > > > This implicitly removes the needs
+> > > > of the ring buffer, and the persistence triggering (host reboot,
+> > sigterm,
+> > > > etc) in hostlogger. We believe this keeps the same functionality but
+> > saves
+> > > > hundreds of lines of codes in phosphor-hostlogger.
+> >
+> > Difference of opinion here, I don't think this removes the need for
+> > the host reboot event;  Having each reboot post to a different log
+> > needs to be maintained, and I have to imagine that there's some sort
+> > of sigterm handler still, although it becomes a lot smaller.
+> >
+> > >
+> > > You are suggesting to delete the buffer, DBus watcher, log rotate. How
+> > are you
+> > > going to keep the same functionality if you remove everything related to
+> > it?
+> >
+> > +1.  In the initial thought I didn't think we were removing any
+> > functionality with this.  I had assumed the dbus watcher would remain,
+> > and we would still have the log rotation behavior.  In reading through
+> > Nans proposal I don't think these are getting removed;  Maybe I
+> > misunderstood?
+> >
+> > >
+> > > > 2. We propose not to compress the latest log file. This saves us the
+> > > > overhead of doing decompression when BMCWeb just needs to retrieve the
+> > most
+> > > > recent logs. There are still going to be log rotations in the file
+> > level.
+> > > > Files other than the latest log file are still going to be compressed.
+> > We
+> > > > can modify existing codes to achieve this or use the linux logrotate
+> > > > directly.
+> > > >
+> > > > Furthermore, we will add host serial logs into BMCWeb, both LogService
+> > and
+> > > > EventService. In LogService, we will teach BMCWeb how to read the
+> > latest
+> > > > log file that is not compressed and the other compressed old logs, and
+> > how
+> > > > to assemble LogEntries out of raw serial logs. We will discuss
+> > EventService
+> > > > in future threads but the very initial idea is to setup inotify on log
+> > > > files and SSE to stream out new bytes to clients (like what the
+> > existing
+> > > > event logging is doing).
+> > > >
+> > > > As we said above, for phosphor-hostlogger, the input is still the
+> > > > obmc-server unix socket, and the output are still persisted log files.
+> > But
+> > > > the functionality will get improved (less data loss), code gets
+> > simplified
+> > > > (no ring buffer and persistence triggering), and it will become easier
+> > and
+> > > > more performant to get BMCWeb hooked up for log streaming via Redfish.
+> > > >
+> > > > Please let us know what you think. We appreciate any feedback. Thank
+> > you
+> > > > very much!
+> > > >
+> > > > Sincerely,
+> > > > Nan
+> > >
+> > > --
+> > > Regards,
+> > > Artem Senichev
+> > > Software Engineer, YADRO.
+> >
