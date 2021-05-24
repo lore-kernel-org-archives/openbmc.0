@@ -2,140 +2,81 @@ Return-Path: <SRS0=CMIJ=KT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-0.6 required=3.0 tests=BAYES_00,
-	CHARSET_FARAWAY_HEADER,DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-13.5 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,
+	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F05DC47080
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B0690C47082
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:40 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 572706052B
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 572706052B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=quantatw.com
+	by mail.kernel.org (Postfix) with ESMTPS id 101AC6052B
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 01:25:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 101AC6052B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FpKJj738Gz3076
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 11:25:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FpKKG5jPRz30DQ
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 11:25:38 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=quantacorp.onmicrosoft.com header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-quantacorp-onmicrosoft-com header.b=vCPMErP4;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=N87IfH49;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=quantatw.com (client-ip=2a01:111:f400:febe::71d;
- helo=apc01-pu1-obe.outbound.protection.outlook.com;
- envelope-from=jun-lin.chen@quantatw.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=quantacorp.onmicrosoft.com
- header.i=@quantacorp.onmicrosoft.com header.a=rsa-sha256
- header.s=selector2-quantacorp-onmicrosoft-com header.b=vCPMErP4; 
- dkim-atps=neutral
-Received: from APC01-PU1-obe.outbound.protection.outlook.com
- (mail-pu1apc01on071d.outbound.protection.outlook.com
- [IPv6:2a01:111:f400:febe::71d])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1043;
+ helo=mail-pj1-x1043.google.com; envelope-from=guopingjn@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=N87IfH49; dkim-atps=neutral
+Received: from mail-pj1-x1043.google.com (mail-pj1-x1043.google.com
+ [IPv6:2607:f8b0:4864:20::1043])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FmV336tkqz2yXb
- for <openbmc@lists.ozlabs.org>; Fri, 21 May 2021 11:51:58 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=lrXMHEC2PIoIifSRNIuYj82EV0KqbsRdM61eBA4qNMd7pmFpFkN89gp7hA8fv7K+4kBSTWcf8+9V+ferJz6D1SQ0XQr5uY7ejcW+iJ6KVG+bW0W/g+MSuFDZYj/SnVKi4Oy6Earkfa+3qPQQDEpWkEH/R7hEHpPCE58FVZGXo9dHwZdXEDtJzkI/U5ij1X3qxiVB7FCWxxs9JQ6Nz+71GtwlsGspD2ne40V0SdD5wcv4+9wrG5Q+BQIbqEDbVp1dF/k0JVFL1KmmI6YcAELxiMMmOZ7O4m2UPn1ZYWkemK69XwYvzaNLusi1tLzz/SyP+uxNkBTSqWFblAiOHe653w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Q4cMg3Y4A75Rd6oKNu1JlMkz7yC7qQjymkhgGwJhcI=;
- b=lQEWd7B+GQiQFba4zNdUdEGal8fKePv74ZByaB9RvutQhXctjROvbqLRylfOFMHeb5ctfW/BPhmpl+Mm2pb+AGmUdQlVzV8VXIHiX/rUOd72C4eZoUm/a4+idZYMnOCXhdrGEF75m1b+ME3rbj2l7KRxGwIjm3m/11ifxPMtNCuNwraBK3l+TsF65ouR7hZl61RYbx82QOfNYEaUwfhdpkngHYZL1QlJhnDdGUlsEKIXO1MPVrB/oEVRVvmR7thDScBFaYvMtOa9UtFHxwwFHZgFhh3w7GRDahsKfna85TL1yScYiFbgubhSlBZ3F6OvLAnUX0aID2p6BcvQqvKD6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=quantatw.com; dmarc=pass action=none header.from=quantatw.com;
- dkim=pass header.d=quantatw.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=quantacorp.onmicrosoft.com; s=selector2-quantacorp-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/Q4cMg3Y4A75Rd6oKNu1JlMkz7yC7qQjymkhgGwJhcI=;
- b=vCPMErP4G+z+O+H/++vbohQ1Q+0M9bwROTHvin7eaJXNSujlnwf1U+BSwodoD11p3skyv+yszCjMYGIRKTPINK80qXMMw57gZ/hSItaSbb00As60hp/hQr4XaRclWv2ggV2frwY9TiDlL3zwcz3dbxIHZPZdWubqzu2TafMl7kU=
-Received: from HK0PR04MB3346.apcprd04.prod.outlook.com (2603:1096:203:87::9)
- by HK2PR0401MB2116.apcprd04.prod.outlook.com (2603:1096:202:7::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4150.23; Fri, 21 May
- 2021 01:51:45 +0000
-Received: from HK0PR04MB3346.apcprd04.prod.outlook.com
- ([fe80::2044:8839:c6f9:fa63]) by HK0PR04MB3346.apcprd04.prod.outlook.com
- ([fe80::2044:8839:c6f9:fa63%7]) with mapi id 15.20.4129.035; Fri, 21 May 2021
- 01:51:45 +0000
-From: =?big5?B?SnVuLUxpbiBDaGVuICizr6tUwE0p?= <Jun-Lin.Chen@quantatw.com>
-To: Ed Tanous <edtanous@google.com>, Nan Zhou <nanzhou@google.com>
-Subject: RE: SimpleStorage proposals
-Thread-Topic: SimpleStorage proposals
-Thread-Index: AddMgrei/Fpr/op3T+CFNeQhuUFj5AAdRARZADsB0XA=
-Date: Fri, 21 May 2021 01:51:45 +0000
-Message-ID: <HK0PR04MB33460B421AC36D12C1BA9567B1299@HK0PR04MB3346.apcprd04.prod.outlook.com>
-References: <HK0PR04MB33460E66D59FF4F2DF64CBDDB12B9@HK0PR04MB3346.apcprd04.prod.outlook.com>
- <CACWQX81Xnpmq7x5S2E=wnRfx=0ob_0zfchA7azks=voVqQ9-Rw@mail.gmail.com>
- <CAOLfGj6ApsbrU9YKvQ4N_VFHkC1jZJ3WPDuLo1KwwSoOCp7HGw@mail.gmail.com>
- <CAH2-KxCEV-vJr0kM9DVa3n+V3nayh_Pq0WkGPahqDimqa6ghnA@mail.gmail.com>
-In-Reply-To: <CAH2-KxCEV-vJr0kM9DVa3n+V3nayh_Pq0WkGPahqDimqa6ghnA@mail.gmail.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: google.com; dkim=none (message not signed)
- header.d=none;google.com; dmarc=none action=none header.from=quantatw.com;
-x-originating-ip: [61.218.113.162]
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: b0c595cb-6564-4526-b62a-08d91bfafd75
-x-ms-traffictypediagnostic: HK2PR0401MB2116:
-x-microsoft-antispam-prvs: <HK2PR0401MB2116DE9D13822F9A2CB5F0BFB1299@HK2PR0401MB2116.apcprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:6430;
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: Wq2do6bcRhXcu7RsocHRPWZjSq23FG65Q2+nkQGJoSrWG/rbNoSjh4cxtHctfHGntNj1p/xY1B2hBMbJktjIDSG0dHvkbm/Rg8P3pc8NO1Mvucp1UB1vWuMTM2m2RGoCWIT0PYTpimUqX59YdTm+jbUzfvlsBDDctE7sEORoh3tu8jg7EPq4NAjMrhhstV96XmaTgrKQC6nhQPJbzTppHh2VoBH9HNfACHOI7hDom9PEqwuwGCSw61QjfFpmFIhbwYYYlL4Ipe7B3inx+8HkhzCX1a2YmSZDygwJiBvMTBvhY5IuZUKw8uoVHVfKwxHKfHBYgvdlY29SdciOkCx/reZXcuBtDOnZHgdg/9Q+r57crACkq71XaXYvUDfDUbUHZUHQe9gXSPEDHl/cyr9vp4OFgBjh5idBu++Y8FBPW0i+PkXTlg5SH97K+Phb5X6AudIwIqHwxlh8jWELBdtSDavRX794CMb4LGpCCBzR+xax/pSMvhB4TPzz+mOpS2S67wOFNR5wJF6MhcMuABgMu3jqtUPLud2NrHclaEI5Hc+tAlOQajrvEQovmmLHm0/1ivmqjAGQGpRM3m7vhZxx5VXtD9TExa8oO/DdzreTFJ05ECQGxRO+xAdkZNKLDnOP3NLnwL/tKLJM9O1HPtx6xFpgjMfEssxrBRj6wiz1yXbHtMY19LCtyYxKmxg7kYEdms2jr7ssBXs+p/zODYwD/6UQ2ZcyIY89gpldGKmEwFY=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK0PR04MB3346.apcprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(4636009)(346002)(39860400002)(376002)(366004)(396003)(136003)(316002)(66556008)(4326008)(186003)(8676002)(66946007)(66476007)(8936002)(9686003)(3480700007)(54906003)(110136005)(76116006)(85182001)(5660300002)(64756008)(2906002)(86362001)(83380400001)(6506007)(53546011)(66446008)(33656002)(7696005)(966005)(478600001)(38100700002)(52536014)(55016002)(26005)(122000001)(7116003)(71200400001)(45080400002);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata: =?big5?B?dHFnUnlHOStBMnNuRENPTENCajdKZXA1TzVFTm1KWGVtcjFTWGltc1p0bk9LZ0wr?=
- =?big5?B?MXVpWm8rTHRuV2Faa0h3L3dZRFM3WGxPYm1SczZ2dGNuQXRRcnBOY2l0b1BhZDNh?=
- =?big5?B?ZDN1VUNUZmRTNmVISDQvZ0VwSHdXQVFxbmUyZ212a1EzUnVLdjZsQ3lvM3A3VktL?=
- =?big5?B?bGNuU3puYXMxVEVkNU9Ndm9Nc0Y4K3p4Mm1mWDJXOUZIbkc2dUZtS3M4NG0yZE9a?=
- =?big5?B?TGEyU2srOUpGVWRXcHhuUUo5UjVyUUhkOWN0eHBvbE9rMGZUeUVyZWx0Mm1XVnpm?=
- =?big5?B?SllRV0EwR0ZQL3lVMzY3Q3FxQksyc3ZLaFJvRVM3RTgva1U0NFdjaitvQk5MTFJj?=
- =?big5?B?Um8rbFZ1M3kxU2FYaEQyZzA5MkhaeXYvSjNNZ2N1RUJWZnlWK0ZFSEZrRWduMWZY?=
- =?big5?B?Rk1HTXk1bEphVzU1WDQ3bFBub0pHQ3JaN1FobC9RRmFMTHFIUE9idjRhZU5zdlR5?=
- =?big5?B?MDlmL1cyUEx5WnEvZ0U0TkRzbkVwTkd2TDdwMG1XbkM0QjVjaFAxSnV6TXc0WEJY?=
- =?big5?B?TTJYMGo4clF2Mks5V20reS9CcG0zV2dYekttd0laWGhGT0RHWS9pRm8xMFREQmNV?=
- =?big5?B?SFlZVjY4ckM2Z21WdXF0U1JyTTZZS0dWaGdmVjFmazBQVlhZL3dpcXEyWVUrcmFT?=
- =?big5?B?UmtmL0x5L2MycW5IQmZabndPbkYwMjhHcmU2USs2ZUl5cjM1YkZVYlpnQkZSd3dh?=
- =?big5?B?d1RvRFZ1MkFOblIreFl2aEVpQVI2Y2doZnBDZENiM1Rnak5lYy80Z1F6SnQwalpQ?=
- =?big5?B?R3NJUU9OdWxTV1dDMGxqa3NSWkJlTXNDakN5Z3plTGI5Q1lIZzRuRE1BVjRlampW?=
- =?big5?B?ZUVER2Q3RHM2eVRjVWtwVllnUEduZEhUZmpVS1lRWGx4QjhOZ1pUZTloYTBaK1JF?=
- =?big5?B?R3pIWmYwbFFqd3h4M3hjN2hRK24wSFRXeGgxb3ltMjFWQjZkakloVGRWSGJkaklo?=
- =?big5?B?K0JybVI5bmE2SzVQQ3NyY1hUVS9ET241bWdnV3YrbHB0RmhoUUMyaVdORG9GelpE?=
- =?big5?B?WlRIQTJScjMvQUlmS0tYczhVQW12Vkk1cTBTUWtPU29qUkhlT3RJUHUxQ0N3Q3Fx?=
- =?big5?B?aTBzRGdtR2RBYVhjTFVDOVROZ3c3Z0dqR01uVjZwTWZrYVNVYm5qeUlzc0VmM2o1?=
- =?big5?B?d0o4V0N6L0sxMmlaWitFNENKcDRRT3RZdEc1OEI5SUlKWWhRZjhSOHhmWnpLbC9B?=
- =?big5?B?M0kwWUpOS0ZJcUI5djRiZG9lYkF5d0R6TCtkU29uTzhHTVhOWkJJZzd0ajI3L2Y5?=
- =?big5?B?Q0FDTnVRZDlkalFwVW5nNGNDQ0ZaeUYvS2xIaEVhQ0E3ZmNaRWdEU1BURHo1eUlr?=
- =?big5?B?MjA1SkMyeVpLWEs5U3plRE9iOENGY3FmaklYZjNoek1WR0xLMXJaanlsclU3bE1t?=
- =?big5?B?aU50T1FkRjk0ckZxY2tqM29UZklTUnJPTkpSdlorTFlSTXdoUGhYM3dyNU9uME1P?=
- =?big5?B?VGxKUmRzbElCbHNzbnE4bFV1U2xhRjRmK09SRHhsb3FKcmpkRWxMNEpGc2p0SFFY?=
- =?big5?B?bjRRK3BmZ2J4Wk43YzdzYVdMOHJLbVVQR1E3d2JhcENKOUZLZzBid1Bua20wZ1Uv?=
- =?big5?B?TzNBeEdDSUhRUFhBNWlhM01SL0RCNjcrcWdFSXQydVYrNVlINkhFRUR3QW5BUkx0?=
- =?big5?Q?BAZs4PrTxk7NENojQ66AwmcOloiaUepK8KibWLOQP5oNBuoJ?=
-x-ms-exchange-transport-forked: True
-Content-Type: text/plain; charset="big5"
-Content-Transfer-Encoding: base64
-MIME-Version: 1.0
-X-OriginatorOrg: quantatw.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: HK0PR04MB3346.apcprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b0c595cb-6564-4526-b62a-08d91bfafd75
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 May 2021 01:51:45.7400 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 179b0327-07fc-4973-ac73-8de7313561b2
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qwcSybA5h05VVXIgYDkYAdMHXgkTL712X+wo5xJvoXe9U48bgouaHA9Moa/OHwpIHpMZiIZXTiI4QTo4orGJYDNDgdjqReglAvxDMiIpuWA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR0401MB2116
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FpJ6154vBz2y6C
+ for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 10:30:48 +1000 (AEST)
+Received: by mail-pj1-x1043.google.com with SMTP id t11so13859440pjm.0
+ for <openbmc@lists.ozlabs.org>; Sun, 23 May 2021 17:30:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id;
+ bh=jn5fNOxbZxR9zKEUkoKQcbBQURYKApf+KVh33NftV+I=;
+ b=N87IfH49UiXsKpbwUg2e+58CvbLTRDKdYPF9/xzsG2ETeqQrOZkVfCAyBIlXJ0npke
+ Nl5ZEsZUiNDFggZz4FxfM3h79goy5HA0gLsbC0N+x2wKT4Cp2YuOP8wXPnMWljsX3AMR
+ QUomcdz3HRuPJ4NzzycFvLy9U70Fs7XWrovvGDDxuM56qThnyJiQYwChyiukfNTeCC2j
+ NkBBOxxhnSImLiJSRamCsqBWOYKwH2hl9gwCUjw6s5jjOaV/Qyxq4fIsUO+2jblloe3n
+ 970mRxQh1zyYHGPH/QexCbUIvOjYmYECzdq5nneh3gBsZfQtxBfDl5qxWF6BPuhUgd2a
+ zzVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=jn5fNOxbZxR9zKEUkoKQcbBQURYKApf+KVh33NftV+I=;
+ b=uK2QVcLOXj5bPs1Kp3mFkI/vJGjjZShjPvl2TG1kVMusA7XDZdP4yyAy4T5dx0ofZr
+ VoIntIPj3XMIEKsCnR2uap98IHWi8W/31shx0rFKtnIe3qAUzC/mlLJ9IUCkKyVIw3CT
+ YMU5jIRn16ek/ZuW4LaahHMQsEb5hAMsbt2i+fI8F8BOfIKRlF469+39N8eIgUt/VLtf
+ FBuNx4//sVKT/iV1T1FfS5GDLSYDhx5ZeejvIsOqRxVsG5ESU2/7YnYwjbTdkiEgvaeb
+ 1hSp18AJB9XnBn6BW/Xf2fYk00zk4rbyToEQ+G5qhr0SxIlqcA1mmnGD5Hibz7VFf0Zy
+ Xfag==
+X-Gm-Message-State: AOAM531d/fZ3UXp1a997TBbeKA+L5oc+u46lW5KS+Ww/Kfv/eaGt72B5
+ SBRp170EgpiynUA3/tBJuBVvIJheyN6gqA==
+X-Google-Smtp-Source: ABdhPJwh7O3oJOoFBO2iyg8xw+XYiUbU1dp0BNhY1htbLXJv4LXk0NPH6ZF4OqLACONFUQL4EYxvtQ==
+X-Received: by 2002:a17:902:be0d:b029:f9:c913:821f with SMTP id
+ r13-20020a170902be0db02900f9c913821fmr3686030pls.2.1621816245162; 
+ Sun, 23 May 2021 17:30:45 -0700 (PDT)
+Received: from localhost.localdomain ([60.208.111.194])
+ by smtp.gmail.com with ESMTPSA id n19sm9674563pfa.97.2021.05.23.17.30.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 23 May 2021 17:30:44 -0700 (PDT)
+From: guopingjn@gmail.com
+To: joel@jms.id.au,
+	andrew@aj.id.au,
+	openbmc@lists.ozlabs.org
+Subject: [PATCH 1/1] ARM: dts: aspeed: Add Inspur NF5280M6 BMC machine
+Date: Mon, 24 May 2021 08:30:39 +0800
+Message-Id: <20210524003039.18003-1-guopingjn@gmail.com>
+X-Mailer: git-send-email 2.17.1
 X-Mailman-Approved-At: Mon, 24 May 2021 11:24:37 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -148,83 +89,769 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
+Cc: guoping@inspur.com, liuxiwei@inspur.com, banht@inspur.com,
+ wangxinglong@inspur.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-LS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IEVkIFRhbm91cyA8ZWR0YW5vdXNAZ29v
-Z2xlLmNvbT4gDQpTZW50OiBUaHVyc2RheSwgTWF5IDIwLCAyMDIxIDU6NDEgQU0NClRvOiBOYW4g
-WmhvdSA8bmFuemhvdUBnb29nbGUuY29tPg0KQ2M6IG9wZW5ibWNAbGlzdHMub3psYWJzLm9yZzsg
-SnVuLUxpbiBDaGVuICizr6tUwE0pIDxKdW4tTGluLkNoZW5AcXVhbnRhdHcuY29tPjsgYnJhZGxl
-eWJAZnV6emllc3F1aXJyZWwuY29tDQpTdWJqZWN0OiBSZTogU2ltcGxlU3RvcmFnZSBwcm9wb3Nh
-bHMNCg0KT24gV2VkLCBNYXkgMTksIDIwMjEgYXQgMjoyNyBQTSBOYW4gWmhvdSA8bmFuemhvdUBn
-b29nbGUuY29tPiB3cm90ZToNCj4NCj4gVGhhbmtzIGZvciB5b3VyIHJlcGx5LCBFZCENCj4NCj4+
-DQo+PiBZb3UndmUgYWxzbyBvbWl0dGVkIHdoYXQgcHJvcGVydGllcyB5b3UncmUgdHJ5aW5nIHRv
-IHRhcmdldC4gIENvdWxkIA0KPj4geW91IHdhbGsgdGhyb3VnaCBhIGxpdHRsZSBiaXQgYWJvdXQg
-d2hhdCB5b3UncmUgdHJ5aW5nIHRvIGFjY29tcGxpc2ggDQo+PiB3aXRoIHRoaXM/ICAoYmV5b25k
-IGp1c3QgImltcGxlbWVudCB0aGUgcmVkZmlzaCBzY2hlbWFzKS4gIEFyZSB5b3UgDQo+PiB0cnlp
-bmcgdG8gZ2V0IHNtYXJ0IGRhdGE/ICBqdXN0IGludmVudG9yeSBpbmZvcm1hdGlvbj8gIERvIHlv
-dSBwbGFuIA0KPj4gdG8gcmVwcmVzZW50IGNvbm5lY3Rpb25zPw0KPg0KPg0KPiBBcyBhIGZpcnN0
-IHN0ZXAsIHdlIGFyZSBvbmx5IGdvaW5nIHRvIGltcGxlbWVudCB0aHJlZSBwcm9wZXJ0aWVzLCBO
-YW1lLCBQcmVzZW5jZSwgYW5kIFBvd2VyU3RhdHVzLiBXZSBkb24ndCBwbGFuIHRvIHJlcHJlc2Vu
-dCBjb25uZWN0aW9ucyBhdCB0aGUgbW9tZW50Lg0KDQpJJ20gYXNzdW1pbmcgdGhlc2Ugd2lsbCBi
-ZSB0aGUgZGJ1cyBwcm9wZXJ0aWVzIG5hbWVzLCBhcyByZWRmaXNoIGRvZXNuJ3QgcmVhbGx5IGhh
-dmUgYSBwcmVzZW5jZSBwcm9wZXJ0eSBvciBhIHBvd2Vyc3RhdHVzIHByb3BlcnR5Lg0KV2l0aCB0
-aGF0IHNhaWQsIHRoYXQgc2VlbXMgcmVhc29uYWJsZSB0byBtZSB0byB3YW50IHRvIGRvLCBidXQg
-d2UgbmVlZCB0byBtYWtlIHN1cmUgd2UncmUgY2xlYXIgb24gaG93IHRoaXMgZGlmZmVycyBmcm9t
-IHRoZSBleGlzdGluZyBEcml2ZSBpbnRlcmZhY2VzLg0KDQpBZnRlciBxdWVzdGlvbiBpbiByZWRm
-aXNoIGZvcnVtLCBodHRwczovL3JlZGZpc2hmb3J1bS5jb20vdGhyZWFkLzQ4My9kaWZmZXJlbnQt
-c3RvcmFnZS1zaW1wbGVzdG9yYWdlDQpXZSBnb3QgU2ltcGxlU3RvcmFnZSB3YXMgdGhlIGVhcmx5
-IG1vZGVsIGluIFJlZGZpc2ggZm9yIHNob3dpbmcgc3RvcmFnZSBkZXZpY2VzLCBhbmQgIkRldmlj
-ZXMiIGluIHRoaXMgcmVzb3VyY2UgZG8gZXF1YXRlIHRvIGRyaXZlcy4NCldlIHdvdWxkIHVzZSB4
-eXoub3BlbmJtY19wcm9qZWN0LkludmVudG9yeS5Ecml2ZSBpbnN0ZWFkIHh5ei5vcGVuYm1jX3By
-b2plY3QuSW52ZW50b3J5LlNpbXBsZVN0b3JhZ2UgdG8gcmVwcmVzZW50IG91ciBzdG9yYWdlIGRl
-dmljZS4NCg0KPg0KPiBPbiBXZWQsIE1heSAxOSwgMjAyMSBhdCAxOjQzIFBNIEVkIFRhbm91cyA8
-ZWRAdGFub3VzLm5ldD4gd3JvdGU6DQo+Pg0KPj4gT24gV2VkLCBNYXkgMTksIDIwMjEgYXQgMTI6
-NTcgQU0gSnVuLUxpbiBDaGVuICizr6tUwE0pDQo+PiA8SnVuLUxpbi5DaGVuQHF1YW50YXR3LmNv
-bT4gd3JvdGU6DQo+PiA+DQo+PiA+IEhpIGFsbCwNCj4+ID4NCj4+ID4NCj4+ID4NCj4+ID4gSW4g
-b3JkZXIgdG8gaW1wbGVtZW50IHRoZSBmZWF0dXJlIHRvIHZpZXcgc2ltcGxlIHN0b3JhZ2UgZGV2
-aWNlIHN0YXR1cywgc3VjaCBTQVRBIEhERCBwcmVzZW5jZSBzdGF0dXMuDQo+PiA+DQo+PiA+IFdl
-IHByb3Bvc2UgdG8gaW1wbGVtZW50IGl0IG9uIHRoZSBSZWRmaXNoIFNpbXBsZVN0b3JhZ2UgVVJJ
-Lg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBBcyBvdXIgcHJvcG9zYWwgZm9yIFJlZGZpc2ggU2lt
-cGxlU3RvcmFnZSwgDQo+PiA+IGh0dHBzOi8vYXBjMDEuc2FmZWxpbmtzLnByb3RlY3Rpb24ub3V0
-bG9vay5jb20vP3VybD1odHRwcyUzQSUyRiUyRmcNCj4+ID4gZXJyaXQub3BlbmJtYy1wcm9qZWN0
-Lnh5eiUyRmMlMkZvcGVuYm1jJTJGZG9jcyUyRiUyQiUyRjQzMzUyJmFtcDtkYQ0KPj4gPiB0YT0w
-NCU3QzAxJTdDSnVuLUxpbi5DaGVuJTQwcXVhbnRhdHcuY29tJTdDZDQxOWVjZTZhOGQzNDRkOTNi
-YmIwOGQ5DQo+PiA+IDFiMGVjNWM0JTdDMTc5YjAzMjcwN2ZjNDk3M2FjNzM4ZGU3MzEzNTYxYjIl
-N0MxJTdDMCU3QzYzNzU3MDU3MzEyMjUNCj4+ID4gMTYzNjQlN0NVbmtub3duJTdDVFdGcGJHWnNi
-M2Q4ZXlKV0lqb2lNQzR3TGpBd01EQWlMQ0pRSWpvaVYybHVNeklpTA0KPj4gPiBDSkJUaUk2SWsx
-aGFXd2lMQ0pYVkNJNk1uMCUzRCU3QzMwMDAmYW1wO3NkYXRhPUJ2SGExM0pBb3poaGF1NnF4UXFz
-DQo+PiA+IDhYTWUxQlgxak1pMDU3aCUyQkZaNjdsSmslM0QmYW1wO3Jlc2VydmVkPTANCj4+ID4N
-Cj4+ID4gQW5kIGFuIG5ldyBkYWVtb24sIA0KPj4gPiBodHRwczovL2FwYzAxLnNhZmVsaW5rcy5w
-cm90ZWN0aW9uLm91dGxvb2suY29tLz91cmw9aHR0cHMlM0ElMkYlMkZnDQo+PiA+IGVycml0Lm9w
-ZW5ibWMtcHJvamVjdC54eXolMkZjJTJGb3BlbmJtYyUyRmRvY3MlMkYlMkIlMkY0MzM1MSZhbXA7
-ZGENCj4+ID4gdGE9MDQlN0MwMSU3Q0p1bi1MaW4uQ2hlbiU0MHF1YW50YXR3LmNvbSU3Q2Q0MTll
-Y2U2YThkMzQ0ZDkzYmJiMDhkOQ0KPj4gPiAxYjBlYzVjNCU3QzE3OWIwMzI3MDdmYzQ5NzNhYzcz
-OGRlNzMxMzU2MWIyJTdDMSU3QzAlN0M2Mzc1NzA1NzMxMjI1DQo+PiA+IDI2MzUyJTdDVW5rbm93
-biU3Q1RXRnBiR1pzYjNkOGV5SldJam9pTUM0d0xqQXdNREFpTENKUUlqb2lWMmx1TXpJaUwNCj4+
-ID4gQ0pCVGlJNklrMWhhV3dpTENKWFZDSTZNbjAlM0QlN0MzMDAwJmFtcDtzZGF0YT1jN1RTR05K
-QzVCbE14V3dtRkJRSA0KPj4gPiBYM2dISDh4YlBFdTUzaHNOSHVuMDRKbyUzRCZhbXA7cmVzZXJ2
-ZWQ9MA0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBUaGVyZSBhcmUgdHdvIG5ldyBkYnVzLWludGVy
-ZmFjZXMgdG8gYmUgcHJvcG9zZWQsDQo+PiA+DQo+PiA+IHh5ei5vcGVuYm1jX3Byb2plY3QuSW52
-ZW50b3J5Lkl0ZW0uU3RvcmFnZURldmljZTogaGVyZSBpcyBhbiBlbXB0eSBpbnRlcmZhY2UganVz
-dCBtYXJrIHRoZSBkYnVzIHBhdGggdGhhdCBTaW1wbGVTdG9yYWdlIE1hbmFnZXIgc2hvdWxkIGNv
-bGxlY3QuDQo+PiA+DQo+PiA+IHh5ei5vcGVuYm1jX3Byb2plY3QuSW52ZW50b3J5Lkl0ZW0uU2lt
-cGxlU3RvcmFnZTogaXQgc2hvdWxkIGhhdmUgdGhlIHByb3BlcnRpZXMgcmVkZmlzaCBuZWVkcywg
-YW5kIGNhbiBiZSBwYXJzZXIgYnkgYm1jd2ViLg0KPj4NCj4+DQo+PiBIb3cgZG9lcyB0aGlzIGRp
-ZmZlciBmcm9tIHh5ei5vcGVuYm1jX3Byb2plY3QuSW52ZW50b3J5Lkl0ZW0uRHJpdmU/DQo+PiBU
-aGV5IGxvb2sgZmFpcmx5IHNpbWlsYXI7ICBXZSBnZW5lcmFsbHkgZG9uJ3QgbmFtZSBkYnVzIGlu
-dGVyZmFjZXMgDQo+PiBhZnRlciBSZWRmaXNoIGRpcmVjdGx5LiAgV2Ugc2hvdWxkIHJldXNlIHdo
-YXQgYWxyZWFkeSBleGlzdHMgd2hlcmUgDQo+PiBwb3NzaWJsZSwgYW5kIG9ubHkgaW52ZW50IG5l
-dyB0aGluZ3Mgd2hlcmUgbmVlZGVkLg0KPj4NCj4+IFlvdSd2ZSBhbHNvIG9taXR0ZWQgd2hhdCBw
-cm9wZXJ0aWVzIHlvdSdyZSB0cnlpbmcgdG8gdGFyZ2V0LiAgQ291bGQgDQo+PiB5b3Ugd2FsayB0
-aHJvdWdoIGEgbGl0dGxlIGJpdCBhYm91dCB3aGF0IHlvdSdyZSB0cnlpbmcgdG8gYWNjb21wbGlz
-aCANCj4+IHdpdGggdGhpcz8gIChiZXlvbmQganVzdCAiaW1wbGVtZW50IHRoZSByZWRmaXNoIHNj
-aGVtYXMpLiAgQXJlIHlvdSANCj4+IHRyeWluZyB0byBnZXQgc21hcnQgZGF0YT8gIGp1c3QgaW52
-ZW50b3J5IGluZm9ybWF0aW9uPyAgRG8geW91IHBsYW4gDQo+PiB0byByZXByZXNlbnQgY29ubmVj
-dGlvbnM/DQo+Pg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBUaGUgZGV0YWlscyBhcmUgaW4gdGhl
-IHByb3Bvc2FsLg0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBXZWxjb21lIGFuZCB0aGFuayB5b3Ug
-Zm9yIGNvbW1lbnRzIGFuZCBzdWdnZXN0aW9ucw0KPj4gPg0KPj4gPg0KPj4gPg0KPj4gPiBCZXN0
-IHJlZ2FyZHMsDQo+PiA+DQo+PiA+IEp1bi1MaW4gQ2hlbg0KPj4gPg0KPj4gPg0K
+From: Ping Guo <guoping@inspur.com>
+
+The Inspur NF5280M6 is an x86 platform server with an AST2500-based BMC.
+This dts file provides a basic configuration for its OpenBMC
+development.
+
+Signed-off-by: George Liu <liuxiwei@inspur.com>
+Signed-off-by: Ping Guo <guoping@inspur.com>
+---
+ arch/arm/boot/dts/Makefile                    |   1 +
+ .../boot/dts/aspeed-bmc-inspur-nf5280m6.dts   | 725 ++++++++++++++++++
+ 2 files changed, 726 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed-bmc-inspur-nf5280m6.dts
+
+diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
+index 03b5424bafa8..cc2580f1e99b 100644
+--- a/arch/arm/boot/dts/Makefile
++++ b/arch/arm/boot/dts/Makefile
+@@ -1405,6 +1405,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+ 	aspeed-bmc-ibm-rainier-4u.dtb \
+ 	aspeed-bmc-intel-s2600wf.dtb \
+ 	aspeed-bmc-inspur-fp5280g2.dtb \
++	aspeed-bmc-inspur-nf5280m6.dtb \
+ 	aspeed-bmc-lenovo-hr630.dtb \
+ 	aspeed-bmc-lenovo-hr855xg2.dtb \
+ 	aspeed-bmc-microsoft-olympus.dtb \
+diff --git a/arch/arm/boot/dts/aspeed-bmc-inspur-nf5280m6.dts b/arch/arm/boot/dts/aspeed-bmc-inspur-nf5280m6.dts
+new file mode 100644
+index 000000000000..7ea0e3ae8ffd
+--- /dev/null
++++ b/arch/arm/boot/dts/aspeed-bmc-inspur-nf5280m6.dts
+@@ -0,0 +1,725 @@
++// SPDX-License-Identifier: GPL-2.0
++// Copyright (c) 2021 Inspur Corporation
++/dts-v1/;
++
++#include "aspeed-g5.dtsi"
++#include <dt-bindings/gpio/aspeed-gpio.h>
++#include <dt-bindings/i2c/i2c.h>
++#include <dt-bindings/leds/leds-pca955x.h>
++
++/ {
++	model = "NF5280M6 BMC";
++	compatible = "inspur,nf5280m6-bmc", "aspeed,ast2500";
++
++	chosen {
++		stdout-path = &uart5;
++		bootargs = "console=ttyS4,115200 earlyprintk";
++	};
++
++	memory@80000000 {
++		reg = <0x80000000 0x40000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		vga_memory: framebuffer@9f000000 {
++			no-map;
++			reg = <0x9f000000 0x01000000>; /* 16M */
++		};
++
++		gfx_memory: framebuffer {
++			size = <0x01000000>;
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++
++		video_engine_memory: jpegbuffer {
++			size = <0x02000000>;	/* 32M */
++			alignment = <0x01000000>;
++			compatible = "shared-dma-pool";
++			reusable;
++		};
++
++		flash_memory: region@98000000 {
++			no-map;
++			reg = <0x98000000 0x04000000>; /* 64M */
++		};
++	};
++
++	leds {
++	    compatible = "gpio-leds";
++
++		bmc_alive {
++			label = "bmc_alive";
++			gpios = <&gpio ASPEED_GPIO(B, 0) GPIO_ACTIVE_LOW>;
++			linux,default-trigger = "timer";
++			led-pattern = <1000 1000>;
++		};
++
++		front-fan {
++			label = "front-fan";
++			gpios = <&gpio ASPEED_GPIO(F,2) GPIO_ACTIVE_LOW>;
++		};
++
++	    front-psu {
++			label = "front-psu";
++			gpios = <&gpio ASPEED_GPIO(F,3) GPIO_ACTIVE_LOW>;
++		};
++
++	    front-syshot {
++			label = "front-syshot";
++			gpios = <&gpio ASPEED_GPIO(J, 3) GPIO_ACTIVE_LOW>;
++		};
++
++		front-memory {
++			label = "front-memory";
++			gpios = <&gpio ASPEED_GPIO(S, 7) GPIO_ACTIVE_LOW>;
++		};
++
++		identify {
++			label = "identify";
++			gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_LOW>;
++		};
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc 0>, <&adc 1>, <&adc 2>, <&adc 3>,
++			<&adc 4>, <&adc 5>, <&adc 6>, <&adc 7>,
++			<&adc 8>, <&adc 9>, <&adc 10>, <&adc 11>,
++			<&adc 12>, <&adc 13>, <&adc 14>, <&adc 15>;
++	};
++};
++
++&fmc {
++	status = "okay";
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bmc";
++		spi-max-frequency = <50000000>;
++#include "openbmc-flash-layout.dtsi"
++	};
++};
++
++&spi1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_spi1_default>;
++	flash@0 {
++		status = "okay";
++		m25p,fast-read;
++		label = "bios";
++		spi-max-frequency = <100000000>;
++	};
++};
++
++&uart1 {
++	status = "okay";
++};
++
++&uart5 {
++	status = "okay";
++};
++
++&mac0 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rmii1_default>;
++	clocks = <&syscon ASPEED_CLK_GATE_MAC1CLK>,
++		<&syscon ASPEED_CLK_MAC1RCLK>;
++	clock-names = "MACCLK", "RCLK";
++	use-ncsi;
++};
++
++&mac1 {
++	status = "okay";
++
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_rgmii2_default &pinctrl_mdio2_default>;
++};
++
++&gpio {
++	power_out {
++		gpios = <ASPEED_GPIO(AA, 7) GPIO_ACTIVE_LOW>;
++		output-low;
++	};
++};
++
++&gpio {
++	status = "okay";
++	/* Enable GPIOE0 and GPIOE2 pass-through by default */
++	pinctrl-names = "pass-through";
++	pinctrl-0 = <&pinctrl_gpie0_default
++			&pinctrl_gpie2_default>;
++	gpio-line-names =
++	/*A0-A7*/	"","MAC2LINK","BMC_RESET_CPLD","","BMC_SCL9","","MAC2MDC_R","",
++	/*B0-B7*/	"BMC_INIT_OK","FM_SKU_ID2","FM_SPD_DDRCPU_LVLSHFT_DIS_R_N",
++				"FM_CPU_MSMI_CATERR_LVT3_BMC_N","","FM_CPU0_PROCHOT_LVT3_N",
++				"FM_CPU_MEM_THERMTRIP_LVT3_N","BIOS_LOAD_DEFAULT_R_N",
++	/*C0-C7*/	"","","","","","","","",
++	/*D0-D7*/	"","BMC_SD2CMD","BMC_SD2DAT0","BMC_SD2DAT1","BMC_SD2DAT2",
++				"BMC_SD2DAT3","BMC_SD2DET","BMC_SD2WPT",
++	/*E0-E7*/	"FM_BOARD_ID0","FM_BOARD_ID1","FM_BOARD_ID2","FM_BOARD_ID3",
++				"FM_BOARD_ID4","FM_BOARD_ID5","","",
++	/*F0-F7*/	"PSU1_PRESENT_N","PSU2_PRESENT_N","FAN_FAULT_LED_N","PSU_FAULT_LED_N",
++				"BIOS_DEBUG_MODE_N","FP_LCD_RESET","FAN_TYPE_SEL",
++				"RST_GLB_RST_WARN_N",
++	/*G0-G7*/	"IRQ_LPTM21L_ALERT_N","IRQ_PLD_ALERT_N","AC_FAIL_N","FP_LCD_PRESENT_BMC",
++				"BMC_JTAG_TCK_MUX_SEL","BMC_BIOS_RESERVED","SYS_NMI_N","BMC_NMI_N",
++	/*H0-H7*/	"JTAG_BMC_TDI","JTAG_BMC_TDO","JTAG_BMC_TCK","JTAG_BMC_TMS","FM_BOARD_ID6",
++				"FM_SKU_ID0","IRQ_SML1_PMBUS_ALERT_N","IRQ_SML0_ALERT_MUX_N",
++	/*I0-I7*/	"FM_CPU_ERR0_LVT3_BMC_N","FM_CPU_ERR1_LVT3_BMC_N","FM_BMC_PCH_SCI_LPC_N",
++				"FM_SYS_THROTTLE_LVC3","SPI2_PCH_CS0_N","","","",
++	/*J0-J7*/	"FM_CPU0_SKTOCC_LVT3_N","FM_CPU1_SKTOCC_LVT3_N","","SYSHOT_FAULT_LED_N",
++				"VGA_HSYNC","VGA_VSYNC","","",
++	/*K0-K7*/	"","","","","","","","",
++	/*L0-L7*/	"","","","","","","SYS_UART_TXD1","SYS_UART_RXD1",
++	/*M0-M7*/	"","","","","","","","",
++	/*N0-N7*/	"","","","","","","","",
++	/*O0-O7*/	"","","","","","","","",
++	/*P0-P7*/	"","","","","","","","",
++	/*Q0-Q7*/	"","","","","","","FM_PCH_BMC_THERMTRIP_N","INTRUDER_N",
++	/*R0-R7*/	"SPI_BMC_BOOT_CS1_R_N","FM_CPU_MEMHOT_LVC3_N",
++				"DBP_CPU_PREQ_N","FM_CPU_ERR2_LVT3_BMC_N",
++				"RISER_NCSI_EN_N","","LOM_NCSI_EN_N","OCP_NCSI_EN_N",
++	/*S0-S7*/	"BMC_XDP_PRDY_N","SIO_POWER_GOOD","BMC_PWR_DEBUG_R_N","BMC_DEBUG_EN_R_N","",
++				"GPIOS5_BMC","","GPIOS7_BMC",
++	/*T0-T7*/	"","","","","","","","",
++	/*U0-U7*/	"","","","","","","","",
++	/*V0-V7*/	"","","","","","","","",
++	/*W0-W7*/	"","","","","","","","",
++	/*X0-X7*/	"","","","","","","","",
++	/*Y0-Y7*/	"","BMC_DET_UID_N","BMC_JTAG_SEL","SIO_ONCONTROL","","","","",
++	/*Z0-Z7*/	"XDP_PRESENT_N","DBP_SYSPWROK","BMC_JTAG_SEL","FM_SMI_ACTIVE_N","",
++				"GPIOZ5","","",
++	/*AA0-AA7*/	"FP_BMC_SYSLED_N","PS_PWROK","RST_PLTRST_BMC_N","HDA_SDO_BMC",
++				"FM_SLPS4_R_N","","POWER_BUTTON","POWER_OUT",
++	/*AB0-AB7*/	"RESET_OUT","RESET_BUTTON","BIOS_REFLASH","POST_COMPLETE","","","","",
++	/*AC0-AC7*/	"","","","","","","","";
++};
++
++&i2c0 {
++	/* FP_LCD */
++	status = "okay";
++};
++
++&i2c1 {
++	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c256";
++		reg = <0x50>;
++		label = "fru";
++	};
++};
++
++&i2c2 {
++	status = "okay";
++
++	tmp112@48 {
++		compatible = "ti,tmp112";
++		reg = <0x48>;
++		label = "inlet";
++	};
++
++	tmp112@49 {
++		compatible = "ti,tmp112";
++		reg = <0x49>;
++		label = "outlet";
++	};
++
++	pca9548@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++	};
++};
++
++&i2c3 {
++	status = "okay";
++
++	pca9548@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++	};
++
++	pca9548@71 {
++		compatible = "nxp,pca9548";
++		reg = <0x71>;
++	};
++
++	pca9548@72 {
++		compatible = "nxp,pca9548";
++		reg = <0x72>;
++	};
++};
++
++&i2c4 {
++	/* IPMB */
++	status = "okay";
++};
++
++&i2c5 {
++	status = "okay";
++
++	pca9548@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++	};
++};
++
++&i2c6 {
++	status = "okay";
++
++	pca9548@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++	};
++};
++
++&i2c7 {
++	status = "okay";
++
++	adm1278@33 {
++		compatible = "adi,adm1293";
++		reg = <0x33>;
++	};
++
++	adm1278@32 {
++		compatible = "adi,adm1293";
++		reg = <0x32>;
++	};
++
++	adm1278@20 {
++		compatible = "adi,adm1293";
++		reg = <0x20>;
++	};
++};
++
++&i2c8 {
++	status = "okay";
++
++	pca0: pca9555@23 {
++		compatible = "nxp,pca9555";
++		reg = <0x23>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	pca1: pca9555@22 {
++		compatible = "nxp,pca9555";
++		reg = <0x22>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	pca2: pca9555@20 {
++		compatible = "nxp,pca9555";
++		reg = <0x20>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	pca3: pca9555@21 {
++		compatible = "nxp,pca9555";
++		reg = <0x21>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++};
++
++&i2c9 {
++	/* cpld */
++	status = "okay";
++};
++
++&i2c10 {
++	status = "okay";
++
++	pca4: pca9555@24 {
++		compatible = "nxp,pca9555";
++		reg = <0x24>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@7 {
++			reg = <7>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++
++	pca5: pca9555@25 {
++		compatible = "nxp,pca9555";
++		reg = <0x25>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		gpio-controller;
++		#gpio-cells = <2>;
++
++		gpio@0 {
++			reg = <0>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@1 {
++			reg = <1>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@2 {
++			reg = <2>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@3 {
++			reg = <3>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@4 {
++			reg = <4>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@5 {
++			reg = <5>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++
++		gpio@6 {
++			reg = <6>;
++			type = <PCA955X_TYPE_GPIO>;
++		};
++	};
++};
++
++&i2c11 {
++	status = "okay";
++
++	power-supply@58 {
++		compatible = "inspur,ipsps1";
++		reg = <0x58>;
++	};
++
++	power-supply@59 {
++		compatible = "inspur,ipsps1";
++		reg = <0x59>;
++	};
++};
++
++&i2c12 {
++	status = "okay";
++};
++
++&i2c13 {
++	status = "okay";
++};
++
++&lpc_ctrl {
++	status = "okay";
++	memory-region = <&flash_memory>;
++	flash = <&spi1>;
++};
++
++&gfx {
++	status = "okay";
++	memory-region = <&gfx_memory>;
++};
++
++&pinctrl {
++	aspeed,external-nodes = <&gfx &lhc>;
++};
++
++&pwm_tacho {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_pwm0_default &pinctrl_pwm1_default
++		&pinctrl_pwm2_default &pinctrl_pwm3_default
++		&pinctrl_pwm4_default &pinctrl_pwm5_default
++		&pinctrl_pwm6_default &pinctrl_pwm7_default>;
++
++	fan@0 {
++		reg = <0x00>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x00 0x01>;
++	};
++
++	fan@1 {
++		reg = <0x01>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x02 0x03>;
++	};
++
++	fan@2 {
++		reg = <0x02>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x04 0x05>;
++	};
++
++	fan@3 {
++		reg = <0x03>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x06 0x07>;
++	};
++
++	fan@4 {
++		reg = <0x04>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x08 0x09>;
++	};
++
++	fan@5 {
++		reg = <0x05>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0a 0x0b>;
++	};
++
++	fan@6 {
++		reg = <0x06>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0c 0x0d>;
++	};
++
++	fan@7 {
++		reg = <0x07>;
++		aspeed,fan-tach-ch = /bits/ 8 <0x0e 0x0f>;
++	};
++};
++
++&kcs3 {
++	status = "okay";
++	kcs_addr = <0xca2>;
++};
++
++&kcs4 {
++	status = "okay";
++	kcs_addr = <0xca4>;
++};
++
++&adc {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_adc0_default &pinctrl_adc1_default
++	 &pinctrl_adc2_default &pinctrl_adc3_default &pinctrl_adc4_default
++	 &pinctrl_adc5_default &pinctrl_adc6_default &pinctrl_adc7_default
++	 &pinctrl_adc8_default &pinctrl_adc9_default &pinctrl_adc10_default
++	 &pinctrl_adc11_default &pinctrl_adc12_default &pinctrl_adc13_default
++	 &pinctrl_adc14_default &pinctrl_adc15_default>;
++};
++
++&vhub {
++	status = "okay";
++};
++
++&video {
++	status = "okay";
++	memory-region = <&video_engine_memory>;
++};
++
++&vuart {
++	status = "okay";
++};
+-- 
+2.17.1
+
