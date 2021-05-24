@@ -1,76 +1,100 @@
-Return-Path: <SRS0=flCO=KS=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=CMIJ=KT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_IN_DEF_DKIM_WL autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A449C47080
-	for <openbmc@archiver.kernel.org>; Sun, 23 May 2021 23:35:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BAD41C47082
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 00:37:05 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D9316117A
-	for <openbmc@archiver.kernel.org>; Sun, 23 May 2021 23:35:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8D9316117A
-Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0772F6109E
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 00:37:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0772F6109E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FpGtT6M8rz3074
-	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 09:35:45 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FpJFC15P2z308Z
+	for <openbmc@archiver.kernel.org>; Mon, 24 May 2021 10:37:03 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20161025 header.b=jaEmKAk5;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm2 header.b=I1UgvuBW;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=n9NkXkhX;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=google.com (client-ip=2607:f8b0:4864:20::635;
- helo=mail-pl1-x635.google.com; envelope-from=wltu@google.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.224;
+ helo=new2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
- header.s=20161025 header.b=jaEmKAk5; dkim-atps=neutral
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
- [IPv6:2607:f8b0:4864:20::635])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm2 header.b=I1UgvuBW; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm2 header.b=n9NkXkhX; 
+ dkim-atps=neutral
+Received: from new2-smtp.messagingengine.com (new2-smtp.messagingengine.com
+ [66.111.4.224])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FpGt13XM1z2xYd
- for <openbmc@lists.ozlabs.org>; Mon, 24 May 2021 09:35:18 +1000 (AEST)
-Received: by mail-pl1-x635.google.com with SMTP id t21so13720151plo.2
- for <openbmc@lists.ozlabs.org>; Sun, 23 May 2021 16:35:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=gVQEtuTu0e52e4NtnatW3R6uInLLQPdMwb2COXFpjoc=;
- b=jaEmKAk5pWvf7ozv5arFRRbjS5PT2CLHtqztL3txS0161jOc4DLEd1J7PZlpQiBhjj
- IqnxQUgRAOfZ8EvPqW/L6a3YXcHPrMlykpBnVmwyixoEIjoc9RCY+ODY/Q9/N6RMCZwY
- kRzccU6UESMaxRFKegxeiBxPDG9DYTSBVWgNpru6vLXwURMfvqkVYglaIoNS1VGU/IGK
- 2b/dHrQ0FCFVwL82lSyzgQl2VsPE5s+n4HU6A9dbavRZYDKxYvh9VT7sIKYQmZ1uflp0
- JDbNLITq5G6gteq43BukcmCdjGoa7nbFbweKxjzRd4QyRatrH+cwa0LzTJTbLxBJTb+O
- 1sgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=gVQEtuTu0e52e4NtnatW3R6uInLLQPdMwb2COXFpjoc=;
- b=iARSrSlkbqhx/9+opHE56JalSLWgW8GmuxR217ZFTZXVsxZs64NXxCos2uWGH5geDk
- /rqhcLuWKGptJ65uN6sX/Le4YlqRykdTDNYLF74rlNqaUEIZ0a+Mo0lDISuIG5aXrerZ
- GISBP3OZFp8IdpcI4IJwhbaK8Gef6atRuDckFD6+PfEWLI/P7fAc6r5A72rfsPvFG5W8
- Z0jwFNHPQH7cTQE/3EqXZlHG7Lw3X/9TskklSIs88jBSptw5J/w7GSkR1hqnN5BbDR4t
- hqwwnXZjxdHE4oGevY8Hw8jLCa2aDr56OJMFmMaoXFAp+CR2Ju5UETCI9FobwrrL45Jh
- 4VFg==
-X-Gm-Message-State: AOAM530sLrI+3fjO7Aug43o2RubqzEx5nyENDXA3ASm+ygpIP392/i0x
- qqzNiI++wjcZB5XYHpIxX6RiWk3bd2q9W3RdytHTNYde94RdSg==
-X-Google-Smtp-Source: ABdhPJyjhhhDzv4FP0fpBSGH3/Xk+m+6Xc69MWjt8WUYLp+dYI2K96ZTjnE7Kn9FPq1SGvVW27UIc3cNd2lQDIOWCB4=
-X-Received: by 2002:a17:902:c104:b029:ef:836e:15d6 with SMTP id
- 4-20020a170902c104b02900ef836e15d6mr22835872pli.39.1621812913083; Sun, 23 May
- 2021 16:35:13 -0700 (PDT)
-MIME-Version: 1.0
-From: Willy Tu <wltu@google.com>
-Date: Sun, 23 May 2021 16:35:02 -0700
-Message-ID: <CAHwn2XknKWyv6Bsq48tkvA52rHKZRFoEJgUuZUmMj6uZb584JQ@mail.gmail.com>
-Subject: [Design Proposal] Additional Drive Properties for Bmcweb/Redfish
-To: OpenBMC Maillist <openbmc@lists.ozlabs.org>
-Content-Type: multipart/alternative; boundary="0000000000009436f105c307be00"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FpJDZ2xy9z2yXW;
+ Mon, 24 May 2021 10:36:29 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailnew.nyi.internal (Postfix) with ESMTP id A26B35802E4;
+ Sun, 23 May 2021 20:36:23 -0400 (EDT)
+Received: from imap2 ([10.202.2.52])
+ by compute3.internal (MEProxy); Sun, 23 May 2021 20:36:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
+ mime-version:message-id:in-reply-to:references:date:from:to:cc
+ :subject:content-type; s=fm2; bh=zkdYOgBr6Su2ai8/JFeN24jFqNEfx2N
+ 9VN/bHqPBWM8=; b=I1UgvuBWfB/H3UC2DCeyOvtYsiu44FCeM+ceMlNQh86h/rQ
+ VH3oGHRSQZE0ESXyx5gleiDHAc+RQ2+DnK0aZu3tq5fh6KAseOuXmloxARAqUV66
+ VHbUuprYslYzYg4o9o/6iuxZgENs+w/NX+6dfJ/zKphutE1aaZjGqhz9RTdIgAwi
+ q/UoPr66PSotyBmtus5RHQOteW1qU3/YUcNvKtwkXOefEXTfoMou/DKRij0oefqS
+ H3jArk5UBD0sMRcCoQWxd6TX1S8B2npJ9TUknbkOYXbsYZ5abIN3m/9wIiV+mInD
+ EBvEZqWKPIE4iKchSiOI2ZDjgMuFaXzGvnH9r4w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=zkdYOg
+ Br6Su2ai8/JFeN24jFqNEfx2N9VN/bHqPBWM8=; b=n9NkXkhXcEEkTg2EhGUS7A
+ axzagLdcosddoN2VOIizkliicbXB2tK1hic9l4puTgRUWdS/5Q8nqsUE8zeJx3hd
+ Q+h6slEB/0q6AfR1uMV5NCth1yE2qHyy/aUa1ESklQxyXCKftAqXw7JtZgBVHR3M
+ 9EaaoYs1OiTjmyDdCIqs2EjtJbyY0XiWDiAm06D/uAjLgLzdVorBXKUw03wWSBiX
+ tg6/8PmsesX5bisK1b1GAQfhOjZno1/C5ilMBWFIV750nBMfYspETlENVKIroN3M
+ Wiun7ETMFWKsXiyGDuZfFJUf/n0HTbKonLDUzQKTo0QxRKwCzVO/XNhQ86dp+D4Q
+ ==
+X-ME-Sender: <xms:BPWqYA1T02O_wgqkUUutE61gLIrFB5ABfOtV2F9pdY9mVoKbS9csHg>
+ <xme:BPWqYLEmintilSSGkp4bvbEkkObYCPDS6s3mfqOwUOK-SYzz8JfVmqR99ePVPtPKX
+ EuqaGw5Vwgrzv_swg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdejkedgtdehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
+ rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
+ grthhtvghrnhephefhfeekgfekudevheffheeihedujeefjeevjeefudfgfeeutdeuvdeh
+ hfevueffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+ eprghnughrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:BPWqYI7XIdnyYpc88GTK0x4feDcqV4tnMSUyq8Qa-j1rTkYdYUPNyg>
+ <xmx:BPWqYJ3H3frTV1PdvXsy9fo1aPhhCnKBZhYdIrYZJ-wu6HkMElJCiA>
+ <xmx:BPWqYDHQxHjwgSFZ0HZuD6L0ydZzNpJqCTNCQvNNektIjgHhihqIEQ>
+ <xmx:B_WqYDG5gJFy-RimBvuKtngX-3bz9X1LqNiHKDisST7-L-CX6BqcLg>
+Received: by mailuser.nyi.internal (Postfix, from userid 501)
+ id B59E0A004B1; Sun, 23 May 2021 20:36:20 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+User-Agent: Cyrus-JMAP/3.5.0-alpha0-448-gae190416c7-fm-20210505.004-gae190416
+Mime-Version: 1.0
+Message-Id: <e0803983-a385-4972-9dcb-404b2006f674@www.fastmail.com>
+In-Reply-To: <20210521173616.GK2921206@minyard.net>
+References: <20210510054213.1610760-1-andrew@aj.id.au>
+ <20210521173616.GK2921206@minyard.net>
+Date: Mon, 24 May 2021 10:06:00 +0930
+From: "Andrew Jeffery" <andrew@aj.id.au>
+To: "Corey Minyard" <minyard@acm.org>
+Subject: Re: [PATCH v3 00/16] ipmi: Allow raw access to KCS devices
+Content-Type: text/plain
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,48 +106,55 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: devicetree@vger.kernel.org, Tomer Maimon <tmaimon77@gmail.com>,
+ linux-aspeed@lists.ozlabs.org, Avi Fishman <avifishman70@gmail.com>,
+ Patrick Venture <venture@google.com>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Tali Perry <tali.perry1@gmail.com>,
+ Rob Herring <robh+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ openipmi-developer@lists.sourceforge.net, Zev Weiss <zweiss@equinix.com>,
+ "Chia-Wei, Wang" <chiawei_wang@aspeedtech.com>,
+ linux-arm-kernel@lists.infradead.org, Benjamin Fair <benjaminfair@google.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---0000000000009436f105c307be00
-Content-Type: text/plain; charset="UTF-8"
+Hi Corey,
 
-Hi all,
+On Sat, 22 May 2021, at 03:06, Corey Minyard wrote:
+> On Mon, May 10, 2021 at 03:11:57PM +0930, Andrew Jeffery wrote:
+> > Hello,
+> > 
+> > This is the 3rd spin of the series refactoring the keyboard-controller-style
+> > device drivers in the IPMI subsystem.
+> 
+> This is a nice set of cleanups outside of just allowing raw access.
+> I'll let you handle Zev's comments and a few of mine.
 
-I have a simple design document on supporting additional properties for
-Drive and related resources like SoftwareInventory.
+Thanks for taking the time to review the series. I'll address the 
+comments from you both in v4.
 
-The main purpose is to have more control/monitoring functionality over the
-Drive with more status, software monitoring, and resets through bmcweb.
+> 
+> I almost hate to ask this, but would there be value in allowing the BT
+> driver to use this abstract interface? 
 
-Design Doc: https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/43460
+Hmm. Possibly, but it's not something I've looked at yet. If we did 
+want to go down that path I don't think it would be too difficult, but 
+I don't have a need to touch the BT side of it right now.
 
-Related D-Bus API:
-https://gerrit.openbmc-project.xyz/q/hashtag:%22dbus-api-drive-wltu%22
+> Or maybe it would be just too
+> hard to get a common abstraction, more work than it's worth.  It's
+> surprising that more people don't want BT as it's vastly superior to
+> KCS.  
 
-Please let me know if there are any questions.
+For bulk data, certainly. However for the use-cases I have I'm using 
+the KCS interface as a control channel that isn't data intensive. 
+Interrupts, a small command set (256 values are more than enough) and a 
+status byte are all I'm really after, so BT is more than I need.
 
-Best,
+Plus for the systems I'm working on we're still using BT for in-band 
+IPMI while we transition to MCTP/PLDM. The current BT implementation is 
+working fine for that :)
 
-Willy Tu
+Cheers,
 
---0000000000009436f105c307be00
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi all,<div><br></div><div>I have a simple design document=
- on supporting additional properties for Drive and related resources like S=
-oftwareInventory. </div><div><br></div><div>The main purpose is to have mor=
-e control/monitoring functionality=C2=A0over the Drive with more status, so=
-ftware monitoring, and resets through bmcweb.</div><div><br></div><div>Desi=
-gn Doc:=C2=A0<a href=3D"https://gerrit.openbmc-project.xyz/c/openbmc/docs/+=
-/43460">https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/43460</a></div>=
-<div><br></div><div>Related=C2=A0D-Bus API:=C2=A0<a href=3D"https://gerrit.=
-openbmc-project.xyz/q/hashtag:%22dbus-api-drive-wltu%22">https://gerrit.ope=
-nbmc-project.xyz/q/hashtag:%22dbus-api-drive-wltu%22</a></div><div><br></di=
-v><div>Please let me know if there=C2=A0are=C2=A0any questions.</div><div><=
-br></div><div>Best,</div><div><br></div><div>Willy Tu</div><div><br></div><=
-div><br></div></div>
-
---0000000000009436f105c307be00--
+Andrew
