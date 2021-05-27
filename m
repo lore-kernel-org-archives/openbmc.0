@@ -2,77 +2,86 @@ Return-Path: <SRS0=Wogq=KW=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-20.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D432BC47089
-	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 04:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1C34C47089
+	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 05:05:20 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D1F0613C0
-	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 04:49:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3D1F0613C0
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 4011E613B5
+	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 05:05:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4011E613B5
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FrFjG4LSxz2xb1
-	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 14:49:38 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FrG3L5G2Kz2yy9
+	for <openbmc@archiver.kernel.org>; Thu, 27 May 2021 15:05:18 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=E+72bAnw;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=nx/kbKb9;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82b;
- helo=mail-qt1-x82b.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::429;
+ helo=mail-pf1-x429.google.com; envelope-from=ckimchan17@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=E+72bAnw; dkim-atps=neutral
-Received: from mail-qt1-x82b.google.com (mail-qt1-x82b.google.com
- [IPv6:2607:f8b0:4864:20::82b])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=nx/kbKb9; dkim-atps=neutral
+Received: from mail-pf1-x429.google.com (mail-pf1-x429.google.com
+ [IPv6:2607:f8b0:4864:20::429])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FrFhp50dZz2xb1
- for <openbmc@lists.ozlabs.org>; Thu, 27 May 2021 14:49:13 +1000 (AEST)
-Received: by mail-qt1-x82b.google.com with SMTP id t17so2630918qta.11
- for <openbmc@lists.ozlabs.org>; Wed, 26 May 2021 21:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=ArPxzChTrWMbJyIiORtlz3MjB+esQWdYIhiLwAuQoAg=;
- b=E+72bAnwXdJvf+jDL81smDmGwGVCRflt+1VSVHDgwNgF5Dzvjc9Wkewnn73a5jcAN4
- FCGU1K004nFaj7L0AZG6KGcqA5GXgYJoYGhMBfhK7tnYT7TdMzIRX9PTCECzhN2KaYMo
- 8efV3SWGmWtjvgEG2TiyBwkp+ao/+D/RSayrc=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FrG2h0B42z2xfx
+ for <openbmc@lists.ozlabs.org>; Thu, 27 May 2021 15:04:41 +1000 (AEST)
+Received: by mail-pf1-x429.google.com with SMTP id d16so2705169pfn.12
+ for <openbmc@lists.ozlabs.org>; Wed, 26 May 2021 22:04:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=to:cc:from:subject:message-id:date:user-agent:mime-version
+ :content-transfer-encoding:content-language;
+ bh=I2udizpPEiQxhF6khf4hrt6J+xNU4qFZR3tyK9fHW3I=;
+ b=nx/kbKb9MT7gCt920umBSF+L9LWLn1t2YFHfcouIBd9IE7paXygUwQbh+pvkBnjtQH
+ pNk7ppzmP1ZYyQsAz1QM3euMqcUgxxbsh/ntQ/6Ka3TEFo0wkxNEfFLxtNl6NPQqbhw4
+ aZGKwVY3iUaqs37Jr23K7rGIXNarGIyned3DbHZ7HfH5zC0Jgp54EEY1GJg0XqenTQSp
+ bldphdU4cCsEKWL/zMthXasjMh1dgv6zTtfWqQHazuZTVwM/0CqSPMILDkX8KkABPQMJ
+ zqe2Aignhfsy+Vg+w/aCpOLacxHr+in05D5qNs2pVpeX8KSmDH+6a9/idq6sGj8ZYv/M
+ TDtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=ArPxzChTrWMbJyIiORtlz3MjB+esQWdYIhiLwAuQoAg=;
- b=Lu2WT/AKPsiHjFcRsGaM4SOlyn+pUM2wVUamAnD7cJSCIbcHRhhYrvMm12OOJpYNLQ
- IpIAgkKwR7zsvzUywIZ4QXI+E4cJgKoEi43WLMG/guz1H9NKth1J7sFR9qxXbKZQkXb7
- nMgkyPlI63wluj6ZSKnrwOWxJjf7RBJSuAJfgjQl41z4x92IShPQ/ABQopVPRaH+4SmL
- 5I+C+6Zdmv1BkSliX6YA0mZN3VIeA/vElv1zuryNwpA90w1uCWlU188AZ4Auv/iwkWjE
- +yi1TVaGJY3RZlsc0aCoBk8Gc8zNq4MeCspXwLzaJnaP5zpNPNv2VVi21mbd2GJ0w3Hm
- dqIg==
-X-Gm-Message-State: AOAM531Rz+11lwRRalxglAaurEFDB9Mf2d0MsQOhMEOn38yZ19IkEv2I
- CjDTOBTScxLLzbol6it3xdxFKcmx+s0+KfbgxjE=
-X-Google-Smtp-Source: ABdhPJzD4S38BFnVReIkJL30gz2Gjxq/2DLIbfpaee2lZZ1HFiD8enQgXniGGsafGpFAJuPI+++P/0PqAu373qItE1E=
-X-Received: by 2002:ac8:5e51:: with SMTP id i17mr1574610qtx.263.1622090949644; 
- Wed, 26 May 2021 21:49:09 -0700 (PDT)
+ h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+ :mime-version:content-transfer-encoding:content-language;
+ bh=I2udizpPEiQxhF6khf4hrt6J+xNU4qFZR3tyK9fHW3I=;
+ b=LQ1e+Zjsknewcd41DwNOgtIXk7K4oablFCAgkSLBnoYDFJ2dcxcjmN6FCSmAuGuGKH
+ NhpvWpO6sWrxQkU7oMvtC46jNjB/HrLiNq570Yisl8gmQt2IxabxnTODp6uHF/cbxX+z
+ F+zUiB+q40jqCk2dCRzenPMJTH9fD0FDPZbTt1hSwERo24vaCPsxnfDFuuXjKZPpacqn
+ Q8YnHI7gigHPA+nqmfEjiqplIMSV7ggpOM36dGxoUQdAxpT7yDdi5aDOuxuGrGs5es9O
+ sSS5bpvIJdG2AWxcEz0Z0zrU/3lNFjCOoBiTu/YD+L7eG68IQ6ynZf3Nyyzakid9Wv6A
+ OKGg==
+X-Gm-Message-State: AOAM533AyRdC709dPEsz9f+9nqFPOeRqszJef9Tee0jedMLEf+wNS3TA
+ AzumpPX9KVQFgjTTtTCgWi1Dv67HVUainA==
+X-Google-Smtp-Source: ABdhPJzjr5jECWmsKg0+SCFCI67J1pBEFwPqwMKU7kjwCGAau+pyzIXvKO+KH7Sac+1Cj7RBb7+L2w==
+X-Received: by 2002:aa7:9632:0:b029:2dc:6ef5:b1d3 with SMTP id
+ r18-20020aa796320000b02902dc6ef5b1d3mr1982902pfg.53.1622091879451; 
+ Wed, 26 May 2021 22:04:39 -0700 (PDT)
+Received: from [192.168.12.20] (36-224-29-112.dynamic-ip.hinet.net.
+ [36.224.29.112])
+ by smtp.gmail.com with ESMTPSA id l192sm767162pfd.173.2021.05.26.22.04.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 26 May 2021 22:04:39 -0700 (PDT)
+To: openbmc@lists.ozlabs.org
+From: Jeff <ckimchan17@gmail.com>
+Subject: How to submit meta subfolder
+Message-ID: <fd2a0d0e-988c-8bab-aedd-1253ba7042ef@gmail.com>
+Date: Thu, 27 May 2021 13:04:37 +0800
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
-References: <20210424003821.3697200-1-wltu@google.com>
- <CAHwn2Xm+BnwbU-hHrKT-oazomh+V42t3Dm=xXhVJozNEdiDd8g@mail.gmail.com>
- <CACPK8XeSd8TVXQoj-G5baQPdEH5aP2G4RmhcfDzNPMnZvcfS0Q@mail.gmail.com>
- <CAHwn2X=pYrX0ZCrSuzSZ-cW86EP9gaDCLTDjeWHBq35Nhg2KBg@mail.gmail.com>
-In-Reply-To: <CAHwn2X=pYrX0ZCrSuzSZ-cW86EP9gaDCLTDjeWHBq35Nhg2KBg@mail.gmail.com>
-From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 27 May 2021 04:48:56 +0000
-Message-ID: <CACPK8XemenVwv-n-mi6mpHUFKXaLtbAxRKbQQKnXf==zymR5TQ@mail.gmail.com>
-Subject: Re: [PATCH dev-5.10] arm: dts: nuvoton: gsj: Enable Nuvoton fan filter
-To: Willy Tu <wltu@google.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,83 +93,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- William Kennington <wak@google.com>
+Cc: jeff9_chan@asrockrack.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi WIlly,
+Hi,
 
-I know that Google's mail clients make this harder than it should be,
-but please do not top post when replying on the mailing list.
+We would like to submit meta-asrockrack as a sub folder of openbmc.
 
-On Thu, 27 May 2021 at 03:02, Willy Tu <wltu@google.com> wrote:
->
-> ah, good catch.
->
-> I didn't realize that was the case. It looks like it is up to Nuvoton to upstream it.
->
-> https://github.com/Nuvoton-Israel/linux/blob/NPCM-5.10-OpenBMC/drivers/hwmon/npcm750-pwm-fan.c#L800
->
-> Or maybe I can just make the change for them? Not sure.
+I followed the steps describe in the document to add remote server:
+      git remote add gerrit ssh://openbmc.gerrit/openbmc/meta-asrockrack
 
-I suggest sending a patch to mainline to support the features that
-Nuvoton have in that tree.
+when I tried to push it I got below error:
+     fatal: project openbmc/mata-asrockrack not found
+     fatal: Could not read from remote repository.
 
-Cheers,
+     Please make sure you have the correct access rights
+     and the repository exists.
 
-Joel
+Could you help?
 
->
-> Willy Tu
->
-> On Wed, May 26, 2021 at 6:51 PM Joel Stanley <joel@jms.id.au> wrote:
->>
->> On Wed, 26 May 2021 at 15:48, Willy Tu <wltu@google.com> wrote:
->> >
->> > ping
->> >
->> > On Fri, Apr 23, 2021 at 5:38 PM Willy Tu <wltu@google.com> wrote:
->> >>
->> >> gsj platform sometimes also see low fan speed issue that can be partly
->> >> prevented with this fan filter.
->>
->> This property is not supported by the kernel, so it will not do
->> anything. Do you intend to submit driver support?
->>
->> >>
->> >> Signed-off-by: Willy Tu <wltu@google.com>
->> >> ---
->> >>  arch/arm/boot/dts/nuvoton-npcm730-gsj.dts | 3 +++
->> >>  1 file changed, 3 insertions(+)
->> >>
->> >> diff --git a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
->> >> index 3ff116aaacb3..86facfc08c6e 100644
->> >> --- a/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
->> >> +++ b/arch/arm/boot/dts/nuvoton-npcm730-gsj.dts
->> >> @@ -408,18 +408,21 @@ fan@0 {
->> >>                 reg = <0x00>;
->> >>                 fan-tach-ch = /bits/ 8 <0x00 0x01>;
->> >>                 cooling-levels = <127 255>;
->> >> +               fan_filter_en;
->> >>         };
->> >>
->> >>         fan@1 {
->> >>                 reg = <0x01>;
->> >>                 fan-tach-ch = /bits/ 8 <0x02 0x03>;
->> >>                 cooling-levels = /bits/ 8 <127 255>;
->> >> +               fan_filter_en;
->> >>         };
->> >>
->> >>         fan@2 {
->> >>                 reg = <0x02>;
->> >>                 fan-tach-ch = /bits/ 8 <0x04 0x05>;
->> >>                 cooling-levels = /bits/ 8 <127 255>;
->> >> +               fan_filter_en;
->> >>         };
->> >>  };
->> >>
->> >> --
->> >> 2.31.1.498.g6c1eba8ee3d-goog
->> >>
+
+Jeff
+
