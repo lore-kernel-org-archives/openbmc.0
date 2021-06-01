@@ -2,104 +2,65 @@ Return-Path: <SRS0=WGaO=K3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.9 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5C30DC4708F
-	for <openbmc@archiver.kernel.org>; Tue,  1 Jun 2021 15:43:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B87DCC47080
+	for <openbmc@archiver.kernel.org>; Tue,  1 Jun 2021 19:05:41 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DD78E61396
-	for <openbmc@archiver.kernel.org>; Tue,  1 Jun 2021 15:43:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DD78E61396
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.vnet.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 34B6F6135D
+	for <openbmc@archiver.kernel.org>; Tue,  1 Jun 2021 19:05:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 34B6F6135D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FvbzS2VZGz3019
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 01:43:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FvhSg4DK1z307q
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 05:05:39 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=TFVfulws;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
- smtp.mailfrom=linux.vnet.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com;
- envelope-from=bruce.mitchell@linux.vnet.ibm.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=TFVfulws; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.93; helo=mga11.intel.com;
+ envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Fvbyy70XVz2yY8
- for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 01:43:06 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 151FXBRd146413; Tue, 1 Jun 2021 11:43:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=to : cc : from : subject
- : message-id : date : mime-version : content-type :
- content-transfer-encoding; s=pp1;
- bh=a7Xkae42+sWuNcEaOSsruxNOjWe/YSmQZUo9CdiRhFM=;
- b=TFVfulws0zB+pPy8fDaCKdICDv3f0Q2z9/xPnSYnOJdtspfFi4qXb1ykdNjAc4wUEQz7
- 7LGdSsDgx3HjUr3KL/Xbv56MP5z9EhlzN6uJzhA12A/X/WxgQEYNrizThxfDNihavvyS
- uuGzWUqk+LFlgzT/SJRPgWSSjp64APWt9XjJHEXkSI4pSQXIp6pk1MVj9roU6JxDopze
- Ly+Bji2uF41ZhGeihsu3cSr1rmOAiC8hJCItybp9NH3crTLPSYksdSHY6WPYpZ0H5nQc
- jI7/rD9gXiR7skHSg4Q45UnU+iraHVzo/g1sS1r5IZ6lBOSRiX/XKglKIYqrbX/eQtZw Wg== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0a-001b2d01.pphosted.com with ESMTP id 38wq4j1dny-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 01 Jun 2021 11:43:02 -0400
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 151Fgg4P015880;
- Tue, 1 Jun 2021 15:43:01 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma02wdc.us.ibm.com with ESMTP id 38ud89gdgv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 01 Jun 2021 15:43:01 +0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 151Fh01Y25100676
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 1 Jun 2021 15:43:00 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4AB4478078;
- Tue,  1 Jun 2021 15:43:00 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0E1B378068;
- Tue,  1 Jun 2021 15:42:57 +0000 (GMT)
-Received: from [9.211.70.50] (unknown [9.211.70.50])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
- Tue,  1 Jun 2021 15:42:57 +0000 (GMT)
-To: ed@tanous.net
-From: Bruce Mitchell <bruce.mitchell@linux.vnet.ibm.com>
-Subject: Seeking your opinion on ways to report both Altitude and Pressure
- sensors for the DPS310 as well as Temperature from dbus-sensors.
-Message-ID: <2e3016fe-2827-891b-07e3-0437a6038514@linux.vnet.ibm.com>
-Date: Tue, 1 Jun 2021 08:42:57 -0700
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
- Thunderbird/78.10.2
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FvhSH0kjXz2yYG
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 05:05:17 +1000 (AEST)
+IronPort-SDR: h0yglNcCrb3DE5/apxbAfOqfEOPcBYwHvjVVX+3vZgq7OBYtwsn8tk1UdxcWsTIrF0+Fc6s/BI
+ o4JP/m4Vkjyw==
+X-IronPort-AV: E=McAfee;i="6200,9189,10002"; a="200603082"
+X-IronPort-AV: E=Sophos;i="5.83,240,1616482800"; d="scan'208";a="200603082"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Jun 2021 12:05:13 -0700
+IronPort-SDR: y36ij73jjueHro478f7pL0aeytFgcbIyZfNH8cASt+Jeem20XN6tercr4NyCZ6rzZg2ZjRdSRS
+ 94MqQeAProIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,240,1616482800"; d="scan'208";a="411343087"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga007.fm.intel.com with ESMTP; 01 Jun 2021 12:05:13 -0700
+Received: from [10.209.114.223] (jmbills-MOBL.amr.corp.intel.com
+ [10.209.114.223])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by linux.intel.com (Postfix) with ESMTPS id 19A7C5805EE
+ for <openbmc@lists.ozlabs.org>; Tue,  1 Jun 2021 12:05:13 -0700 (PDT)
+Subject: Re: SEL Event logs in Redfish
+To: openbmc@lists.ozlabs.org
+References: <SG2PR04MB30931F4EAC5DC1D4E968631EE1229@SG2PR04MB3093.apcprd04.prod.outlook.com>
+From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+Message-ID: <85157600-4832-42bd-8f4d-87757153b732@linux.intel.com>
+Date: Tue, 1 Jun 2021 12:05:12 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
+In-Reply-To: <SG2PR04MB30931F4EAC5DC1D4E968631EE1229@SG2PR04MB3093.apcprd04.prod.outlook.com>
 Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: k2GrwyzGa2KWmBX-45TsE9wE81T7qUUv
-X-Proofpoint-GUID: k2GrwyzGa2KWmBX-45TsE9wE81T7qUUv
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.761
- definitions=2021-06-01_08:2021-06-01,
- 2021-06-01 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0
- mlxscore=0 clxscore=1011 priorityscore=1501 adultscore=0 malwarescore=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 mlxlogscore=620
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106010105
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,25 +72,95 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello Ed,
 
-It has been suggest I seeking your opinion on ways to report both 
-Altitude and Pressure sensors for the DPS310 as well as Temperature from 
-dbus-sensors before going to far down the road.  Thus that is what I am
-attempting to do in the email, others on the mailing list input is 
-desirable as well.
 
-As I see it, Altitude and Pressure are different in that
-     1) Altitude is computed base off of essentially a policy
-     2) Pressures is a read measurement which is a mechanism
-     3) Temperature is a read measurement which is also a mechanism
+On 5/28/2021 1:58 AM, Jayashree D wrote:
+> Classification: Public
+> 
+> Hi Jason,
+> 
+> In journalctl log, I found that the sensor value is crossed the threshold value.
+> But when I tried in Redfish API, I am not able to see any logs, whether anything I am missing here ?
+> Could you please provide suggestions on this .
+Unfortunately, we ran into trouble trying to persist the journal to 
+flash, so we have one additional layer where rsyslog watches for any 
+journal entries that have a "REDFISH_MESSAGE_ID" metadata and logs them 
+to '/var/log/redfish' where bmcweb pulls them for the Redfish EventLog.
 
-Thank you!
+https://github.com/openbmc/openbmc/blob/master/meta-intel-openbmc/meta-common/recipes-extended/rsyslog/rsyslog/rsyslog.conf#L66
 
--- 
-Bruce
+If you have the journal event, I'd check if you have 'var/log/redfish' 
+populated with that event.  If not, you may need to add the above config 
+to rsyslog to create it and that will hopefully fix the event in Redfish.
+
+Thanks,
+-Jason
+> 
+> root@tiogapass:~# journalctl | grep adc
+> Jan 01 00:13:46 tiogapass adcsensor[298]: Sensor _MB_P5V low threshold 4.52 assert: value 4.51 raw data 1337
+> 
+> curl -k -H "X-Auth-Token: $token" -X GET https://${bmc}/redfish/v1/Systems/system/LogServices/EventLog/Entries
+> {
+>    "@odata.id": "/redfish/v1/Systems/system/LogServices/EventLog/Entries",
+>    "@odata.type": "#LogEntryCollection.LogEntryCollection",
+>    "Description": "Collection of System Event Log Entries",
+>    "Members": [],
+>    "Members@odata.count": 0,
+>    "Name": "System Event Log Entries"
+> }
+> 
+> Thanks,
+> Jayashree
+> 
+> On 5/24/2021 8:15 AM, Bruce Mitchell wrote:
+>> On 5/24/2021 06:41, Jayashree D wrote:
+>>>
+>>> Hi Team,
+>>>
+>>> I need some clarification on SEL Logs.
+>>> In SEL Event logs, when the error is injected manually , I can able
+>>> to see the error logs in "ipmitool sel list" command.
+>>> Whether it will also reflect in Redfish API ?
+> I am mostly familiar with the journal-bases SEL logging.  In that case, phosphor-sel-logger will detect the error and log it to both IPMI SEL and Redfish at the same time:
+> https://apc01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fgithub.com%2Fopenbmc%2Fphosphor-sel-logger%2Fblob%2Fmaster%2Finclude%2Fthreshold_event_monitor.hpp%23L272&amp;data=04%7C01%7Cjayashree-d%40hcl.com%7C1e6f287fb3d24d154be508d91f11ef7d%7C189de737c93a4f5a8b686f4ca9941912%7C0%7C0%7C637574984193449537%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C1000&amp;sdata=8JHAtQ7FBZSDtVoM3b0MGi2OhBQDNB16j0Pko0jg7p8%3D&amp;reserved=0.
+> 
+> It may also depend on how you are manually injecting the error.
+> 
+>>>
+>>> Could you please help me in this.
+>>>
+>>> Thanks,
+>>> Jayashree
+>>>
+>>> ::DISCLAIMER::
+>>> ________________________________
+>>> The contents of this e-mail and any attachment(s) are confidential
+>>> and intended for the named recipient(s) only. E-mail transmission is
+>>> not guaranteed to be secure or error-free as information could be
+>>> intercepted, corrupted, lost, destroyed, arrive late or incomplete,
+>>> or may contain viruses in transmission. The e mail and its contents
+>>> (with or without referred errors) shall therefore not attach any
+>>> liability on the originator or HCL or its affiliates. Views or
+>>> opinions, if any, presented in this email are solely those of the
+>>> author and may not necessarily reflect the views or opinions of HCL or its affiliates.
+>>> Any form of reproduction, dissemination, copying, disclosure,
+>>> modification, distribution and / or publication of this message
+>>> without the prior written consent of authorized representative of HCL
+>>> is strictly prohibited. If you have received this email in error
+>>> please delete it and notify the sender immediately. Before opening
+>>> any email and/or attachments, please check them for viruses and other
+>>> defects.
+>>> ________________________________
+>>>
+>>
+>> Hi Jayashree,
+>>
+>> I suggest you connect with Jason Bills on SEL.
+>>
+>>
+> 
+> 
