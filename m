@@ -2,75 +2,83 @@ Return-Path: <SRS0=uxIs=K4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AE19C47083
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 11:37:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1C7E0C47083
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:04:41 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8DC0D60724
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 11:37:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 8DC0D60724
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id AA2FE613AD
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:04:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA2FE613AD
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Fw6TZ4j0Hz2yx4
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 21:37:54 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Fw74R5wCfz307J
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 22:04:39 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=P30SnArb;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=BDfuHGi8;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::62f;
- helo=mail-ej1-x62f.google.com; envelope-from=61a91bc@gmail.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=P30SnArb; dkim-atps=neutral
-Received: from mail-ej1-x62f.google.com (mail-ej1-x62f.google.com
- [IPv6:2a00:1450:4864:20::62f])
+Authentication-Results: lists.ozlabs.org;
+ spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
+ (client-ip=212.227.17.22; helo=mout.gmx.net;
+ envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
+ header.s=badeba3b8450 header.b=BDfuHGi8; 
+ dkim-atps=neutral
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Fw6T56SgRz2yXX
- for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 21:37:27 +1000 (AEST)
-Received: by mail-ej1-x62f.google.com with SMTP id ce15so3360460ejb.4
- for <openbmc@lists.ozlabs.org>; Wed, 02 Jun 2021 04:37:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=R1t+Vh/YZKaTGceACex/Zs+XVrko+WzviaSQc8zqCWc=;
- b=P30SnArbDzcpB4ULONWDdvk5fJCT67ftoPfe3ZXTs6UWSOPM8Yf4HmJDlGSLhio/vj
- OReAzWpo39eQEzttVC9UHeohfnj2VMjXIvgt0JBkvKKjEiXcocvFxOGlWRc6wigbKKKf
- n1t1jIIvxPAYp/480yr61mqAPEDPe9uV6EhU6MIIjqajzNFc4w4wsDjfBs7N0BuFC5yN
- qAN+GHveD/k+x0Ej4BitcsTc/hH1ykrwFdzhhVf9oFo8SqlfZ8UY/gO6yBkcqeZ1ks2k
- PIuGaIDEZUpWlWiie8ibhUinrUcWH5xUZT6WkfnNLy1wLgjDoDSmP4wqc3ShupVU8Boo
- Fhcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=R1t+Vh/YZKaTGceACex/Zs+XVrko+WzviaSQc8zqCWc=;
- b=CyMtXOO9GICi5i2Bx5BoGJKUfvtYKFdsFfNf4Wk4vbA7kGrFNXX2JX6CpODrn3mCPG
- zC+xm9T4pDvfNY2bEy3rkzDJgd7Bnc6iBZGK7hqoyBWZjqfUikkLkqTftTa6R/t908Sp
- vZPviXc7sKk0TWNbynRI5OBoltUgiglERkzag88pagCuf9Va1azxtD+d4khMDxyYVGiI
- jft4iOYdApWj/It7g6znz/jP+mNBSpxznfTxCCuLxpOV8uy7N5EagbRROK5vcy4uV56t
- 5Ra+9swB63uFKUxGhX6DKNfC7e4ot4DwiVPFQOv6WUp7gW9DJaeQr6d+8uO+/RH0wz/p
- 45QQ==
-X-Gm-Message-State: AOAM531kQa1lZZ7sFbLGe11hCU4+8oHb3sKS3/X6ZEJLXVDAEUmI/Ub+
- BdgZYRMOYNBh21LK8qwCXCeeR8kj6XjjrZ3t1sQMfOYdvt8=
-X-Google-Smtp-Source: ABdhPJwVlRwKPnaAB/Z5WlmbGVhFCwWUiC79BYRZJ4wfPsF0jRvoe0L4fRf8/HwFRyn36VwoRqPeLsM81ZZI91VrzAo=
-X-Received: by 2002:a17:906:31c6:: with SMTP id
- f6mr34127347ejf.446.1622633839351; 
- Wed, 02 Jun 2021 04:37:19 -0700 (PDT)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Fw73l4bj0z3063
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 22:04:02 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
+ s=badeba3b8450; t=1622635431;
+ bh=qZQhWTowqiYkoxgkXmb/cPyIhbsC75immN9JA51QEdc=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date;
+ b=BDfuHGi8WuHAGrhX5zpQ3z78xionogXW72XsR7XgE+5jGRayl9uCmG0J4Cv7RRGhu
+ q2F88BKS7SCNO2O7mVTti0Ef9F6FXKKuIG87psMle01TyOJDqoM/CLLIK927Tk+tfE
+ m/uIm7Vza8/l4SKWLEsye4Ugzcq+ZrksbgKh6J4g=
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from longitude ([37.201.214.247]) by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MkYXm-1l74tF2IAA-00m4IC; Wed, 02
+ Jun 2021 14:03:51 +0200
+From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+To: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/8] Nuvoton WPCM450 pinctrl and GPIO driver
+Date: Wed,  2 Jun 2021 14:03:21 +0200
+Message-Id: <20210602120329.2444672-1-j.neuschaefer@gmx.net>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-From: Alexander Raih <61a91bc@gmail.com>
-Date: Wed, 2 Jun 2021 14:37:08 +0300
-Message-ID: <CAMqwjCCONsvD8UUj6kcZEDcUFxXSE2EHVeL_8CMLyN_No3z65w@mail.gmail.com>
-Subject: question about gpio in x86-power-control
-To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000985e5a05c3c6e146"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:IUlyBz6GVy3FvZTNDuMIU0068YJy7lfTqN9vz0te/7WdNJ+uQH6
+ LhaVf27+sP0fS0jrph/qhiKLByDfd2/9CKo4aXIcT/wkEJItJ5qZeb8VXft/lnTykxwahcO
+ opNE/uMKAnVXN48iEjhfdnuIUs4AwDTpesl6liZjNyk9eQDFtxInmeEdre9qF4dvYw8tWuS
+ +VoVDQB8xQONJzwEwDm3A==
+X-UI-Out-Filterresults: notjunk:1;V03:K0:vqQs+XfWXTU=:f6JmwZ/CsuoalnE9uTIxk6
+ ySJ1/fwPWwJ00RUsSebb66g+MibxEZQR5MFVjYbxVUPJv12KcaO/aKldZZ6rQYRRHfEAZW2CL
+ XmfPr6m0VTuqv22VCk7+w1G0TFyI3zyLnZfbOM2xcmKpT+zxAj+y3Ssu3svxoAThZBdYMDad+
+ J3Ojrk4ZqjGfPae3A/AyhSskPVcURJUtE/zSsjEWEAGqar6K3mZ/za0Rfl9zSb/ZSJ8FVJmNh
+ m+8au1hl3Xlrzv5O3cq+hw7vG3W77d1kMa/JhE/6ZFIo7pEDw8Ly/wqyjqSBJ5pm0j8RclgWk
+ jqc+5LXRwnUOoKZLmZilc6U31xb5GCLO5Xd5P39e2QAPTnp58Abdgf2sVcR1A3Te1cHd06wM1
+ JN2vNFBhdhv44CekSTYt8FeRRKh4IfK/v5TefkT/Pw5rljoDcnxaG0sPDH7BrRG9AzpWG4Q1F
+ xTOGr6cgTIZ6y74t46JbgELT4cEvCDXM9U40h3rULYTn3w0HDNg94zRq7vuYY/sOmZ//9UZKk
+ WtmCRhbn3Zc158fg4tloRxMQd+7n5Fpl+d+TAbgQk9FFOezjBK3JtqBuM3WlVXkwp+QfzTlpf
+ muFrEh6UDAWAHWGmDUsAsED56Rld6rPLFvVlDDARKnEseEbo9LVuz0Zq7MVUQnUHrQosuQzzJ
+ Kr0/t+J8D2uzFkqd06dEzIXEb1WM0aSQBkqSkeT3BdjFaiJBYxuqVPT7ZNKgIuSXThHBiUIfY
+ AW9fGSiISGWNxOu5Ae7ZQurPQeuZqXq0PlNdCfEwZxrHkcCXxhR3ysfH0zA11N2p1QVdIEdzq
+ NxJWVGYR+iHgMFNsYxlADxok/0S2Yn8CpMqzyvveAljhUTDANIHP4TmkYkKJFTY37lZwLfP85
+ PXH9Whk8zYEXOgp0JXoWwBmsTvIaVNhiHg9HHcmbU286hr3VpmmmHXb1JgyUCXbtzNU0zCsCX
+ n6ObvV9LImrF+e3bq8qHDtJcxNpz4i1dibzoIUxzlokkaGaHMpitIk419rLpvLjVpd3v/P86u
+ 8GRwvRj8FqBxLismpJSq5B62Mli6gqHVg8GL7TsMGUs7Hw6AoJfrQIplq5civ/g/eobZ86U9z
+ 8Dx2v6tchmuRXYMgB0u2HOMnlF40QdMYgDb9+NXyJZge4il7ssiz1Bh7g==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,94 +90,68 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Tomer Maimon <tmaimon77@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
+ Rob Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000985e5a05c3c6e146
-Content-Type: text/plain; charset="UTF-8"
+This series adds support for pinctrl and GPIO in the Nuvoton WPCM450 SoC.
+Both my DT bindings and my driver are based on the work done by others for
+the newer Nuvoton NPCM7xx SoC, and I've tried to keep both similar.
 
-gpio-824 (RESET_BUTTON |power-control ) in hi IRQ
+Instead of extending the pinctrl-npcm7xx driver to add WPCM450 support,
+I copied/forked it. The pinmux mechanism is very similar (using MFSEL1 and
+MFSEL2 registers), but the GPIO register interface has been redesigned for
+NPCM7xx; adding support for the older GPIO controller would make the drive=
+r
+harder to understand, while only enabling a small amount of code sharing.
+
+The DT binding in YAML format might make a good template for also converti=
+ng
+the nuvoton,npcm7xx-pinctrl binding to YAML.
+
+Both in the DT binding and in the driver I kept the name "pinctrl". For th=
+e
+driver, I find it accurate enough because it handles pinctrl and GPIO. For
+the DT node, it's a bit less accurate because the register block at 0xb800=
+3000
+is about GPIOs, and pin control happens in the global control registers (G=
+CR)
+block, except for input debouncing. So, "GPIO" might be the more appropria=
+te
+name component there.
 
 
-gpio-825 (RESET_OUT )
+Jonathan Neusch=C3=A4fer (8):
+  dt-bindings: arm/npcm: Add binding for global control registers (GCR)
+  MAINTAINERS: Match all of bindings/arm/npcm/ as part of NPCM
+    architecture
+  ARM: dts: wpcm450: Add global control registers (GCR) node
+  dt-bindings: pinctrl: Add Nuvoton WPCM450
+  pinctrl: nuvoton: Add driver for WPCM450
+  ARM: dts: wpcm450: Add pinctrl node
+  ARM: dts: wpcm450: Add pin functions
+  ARM: dts: wpcm450-supermicro-x9sci-ln4f: Add GPIO LEDs and buttons
 
+ .../bindings/arm/npcm/nuvoton,gcr.yaml        |   38 +
+ .../pinctrl/nuvoton,wpcm450-pinctrl.yaml      |  142 ++
+ MAINTAINERS                                   |    2 +
+ .../nuvoton-wpcm450-supermicro-x9sci-ln4f.dts |   27 +
+ arch/arm/boot/dts/nuvoton-wpcm450.dtsi        |  321 +++++
+ drivers/pinctrl/Makefile                      |    2 +-
+ drivers/pinctrl/nuvoton/Kconfig               |   14 +
+ drivers/pinctrl/nuvoton/Makefile              |    1 +
+ drivers/pinctrl/nuvoton/pinctrl-wpcm450.c     | 1230 +++++++++++++++++
+ 9 files changed, 1776 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/arm/npcm/nuvoton,gcr=
+.yaml
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/nuvoton,wpcm=
+450-pinctrl.yaml
+ create mode 100644 drivers/pinctrl/nuvoton/pinctrl-wpcm450.c
 
-gpio-826 (POWER_BUTTON |power-control ) in hi IRQ
+=2D-
+2.30.2
 
-
-gpio-827 (POWER_OUT )
-
-
-gpio-828 (NMI_BUTTON |power-control ) in hi IRQ
-
-
-When I want to powerOn in web interface RESET_OUT and POWER_OUT should be
-busy with power control service ??
-
---000000000000985e5a05c3c6e146
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><p style=3D"margin-top:0px;margin-right:0px;margin-left:0p=
-x;padding:0px;border:0px;font-variant-numeric:inherit;font-variant-east-asi=
-an:inherit;font-stretch:inherit;line-height:inherit;font-family:-apple-syst=
-em,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Liberation Sans&quot;,sans=
--serif;font-size:15px;vertical-align:baseline;box-sizing:inherit;clear:both=
-;color:rgb(36,39,41)">gpio-824 (RESET_BUTTON |power-control ) in hi IRQ</p>=
-<p style=3D"margin-top:0px;margin-right:0px;margin-left:0px;padding:0px;bor=
-der:0px;font-variant-numeric:inherit;font-variant-east-asian:inherit;font-s=
-tretch:inherit;line-height:inherit;font-family:-apple-system,BlinkMacSystem=
-Font,&quot;Segoe UI&quot;,&quot;Liberation Sans&quot;,sans-serif;font-size:=
-15px;vertical-align:baseline;box-sizing:inherit;clear:both;color:rgb(36,39,=
-41)"><br></p><p style=3D"margin-top:0px;margin-right:0px;margin-left:0px;pa=
-dding:0px;border:0px;font-variant-numeric:inherit;font-variant-east-asian:i=
-nherit;font-stretch:inherit;line-height:inherit;font-family:-apple-system,B=
-linkMacSystemFont,&quot;Segoe UI&quot;,&quot;Liberation Sans&quot;,sans-ser=
-if;font-size:15px;vertical-align:baseline;box-sizing:inherit;clear:both;col=
-or:rgb(36,39,41)">gpio-825 (RESET_OUT )=C2=A0=C2=A0</p><p style=3D"margin-t=
-op:0px;margin-right:0px;margin-left:0px;padding:0px;border:0px;font-variant=
--numeric:inherit;font-variant-east-asian:inherit;font-stretch:inherit;line-=
-height:inherit;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&=
-quot;,&quot;Liberation Sans&quot;,sans-serif;font-size:15px;vertical-align:=
-baseline;box-sizing:inherit;clear:both;color:rgb(36,39,41)"><br></p><p styl=
-e=3D"margin-top:0px;margin-right:0px;margin-left:0px;padding:0px;border:0px=
-;font-variant-numeric:inherit;font-variant-east-asian:inherit;font-stretch:=
-inherit;line-height:inherit;font-family:-apple-system,BlinkMacSystemFont,&q=
-uot;Segoe UI&quot;,&quot;Liberation Sans&quot;,sans-serif;font-size:15px;ve=
-rtical-align:baseline;box-sizing:inherit;clear:both;color:rgb(36,39,41)">gp=
-io-826 (POWER_BUTTON |power-control ) in hi IRQ</p><p style=3D"margin-top:0=
-px;margin-right:0px;margin-left:0px;padding:0px;border:0px;font-variant-num=
-eric:inherit;font-variant-east-asian:inherit;font-stretch:inherit;line-heig=
-ht:inherit;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot=
-;,&quot;Liberation Sans&quot;,sans-serif;font-size:15px;vertical-align:base=
-line;box-sizing:inherit;clear:both;color:rgb(36,39,41)"><br></p><p style=3D=
-"margin-top:0px;margin-right:0px;margin-left:0px;padding:0px;border:0px;fon=
-t-variant-numeric:inherit;font-variant-east-asian:inherit;font-stretch:inhe=
-rit;line-height:inherit;font-family:-apple-system,BlinkMacSystemFont,&quot;=
-Segoe UI&quot;,&quot;Liberation Sans&quot;,sans-serif;font-size:15px;vertic=
-al-align:baseline;box-sizing:inherit;clear:both;color:rgb(36,39,41)">gpio-8=
-27 (POWER_OUT )</p><p style=3D"margin-top:0px;margin-right:0px;margin-left:=
-0px;padding:0px;border:0px;font-variant-numeric:inherit;font-variant-east-a=
-sian:inherit;font-stretch:inherit;line-height:inherit;font-family:-apple-sy=
-stem,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Liberation Sans&quot;,sa=
-ns-serif;font-size:15px;vertical-align:baseline;box-sizing:inherit;clear:bo=
-th;color:rgb(36,39,41)"><br></p><p style=3D"margin-top:0px;margin-right:0px=
-;margin-left:0px;padding:0px;border:0px;font-variant-numeric:inherit;font-v=
-ariant-east-asian:inherit;font-stretch:inherit;line-height:inherit;font-fam=
-ily:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Liberation =
-Sans&quot;,sans-serif;font-size:15px;vertical-align:baseline;box-sizing:inh=
-erit;clear:both;color:rgb(36,39,41)">gpio-828 (NMI_BUTTON |power-control ) =
-in hi IRQ</p><p style=3D"margin:0px;padding:0px;border:0px;font-variant-num=
-eric:inherit;font-variant-east-asian:inherit;font-stretch:inherit;line-heig=
-ht:inherit;font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot=
-;,&quot;Liberation Sans&quot;,sans-serif;font-size:15px;vertical-align:base=
-line;box-sizing:inherit;clear:both;color:rgb(36,39,41)"><br></p><p style=3D=
-"margin:0px;padding:0px;border:0px;font-variant-numeric:inherit;font-varian=
-t-east-asian:inherit;font-stretch:inherit;line-height:inherit;font-family:-=
-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Liberation Sans&=
-quot;,sans-serif;font-size:15px;vertical-align:baseline;box-sizing:inherit;=
-clear:both;color:rgb(36,39,41)">When I want to powerOn in web interface RES=
-ET_OUT and POWER_OUT should be busy with power control service ??</p></div>
-
---000000000000985e5a05c3c6e146--
