@@ -2,87 +2,82 @@ Return-Path: <SRS0=uxIs=K4=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-0.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E4559C47097
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 44C40C4708F
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:51:31 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90E9261168
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:08:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90E9261168
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmx.net
+	by mail.kernel.org (Postfix) with ESMTPS id 81E596121D
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 12:51:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 81E596121D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Fw78Y5JQgz3bwG
-	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 22:08:13 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Fw86T3sJ1z303J
+	for <openbmc@archiver.kernel.org>; Wed,  2 Jun 2021 22:51:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256 header.s=badeba3b8450 header.b=lgQKeGjR;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=J8AgUZxt;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=pass (sender SPF authorized) smtp.mailfrom=gmx.net
- (client-ip=212.227.15.19; helo=mout.gmx.net;
- envelope-from=j.neuschaefer@gmx.net; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=gmx.net header.i=@gmx.net header.a=rsa-sha256
- header.s=badeba3b8450 header.b=lgQKeGjR; 
- dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1035;
+ helo=mail-pj1-x1035.google.com; envelope-from=andy.shevchenko@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=J8AgUZxt; dkim-atps=neutral
+Received: from mail-pj1-x1035.google.com (mail-pj1-x1035.google.com
+ [IPv6:2607:f8b0:4864:20::1035])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Fw74W4CyGz306l
- for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 22:04:43 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=gmx.net;
- s=badeba3b8450; t=1622635470;
- bh=P4/CfhOzE9qRlABqP08JDSxbRq009BHSNhR9z95OX2w=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:In-Reply-To:References;
- b=lgQKeGjRVV6tsRoM8dHKW++3Uf3CpH6WhKM1AT4f1qaapS9x6dn9fS/sg/wZ4uAGJ
- uLMVc9flkSrAz0qMZHFH06d1wqMUJTfpB52VIXTii3qg4tAEiDLpINRmLQ4t7RN1br
- BfDrHqc5auxijmpSZYGz0rA7bgQ5NR3HASU5B/iY=
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from longitude ([37.201.214.247]) by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MFKKh-1ld5st2CCn-00FmqE; Wed, 02
- Jun 2021 14:04:30 +0200
-From: =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
-To: linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 8/8] ARM: dts: wpcm450-supermicro-x9sci-ln4f: Add GPIO LEDs
- and buttons
-Date: Wed,  2 Jun 2021 14:03:29 +0200
-Message-Id: <20210602120329.2444672-9-j.neuschaefer@gmx.net>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210602120329.2444672-1-j.neuschaefer@gmx.net>
-References: <20210602120329.2444672-1-j.neuschaefer@gmx.net>
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Fw85z30ZSz2xZB
+ for <openbmc@lists.ozlabs.org>; Wed,  2 Jun 2021 22:51:01 +1000 (AEST)
+Received: by mail-pj1-x1035.google.com with SMTP id
+ l23-20020a17090a0717b029016ae774f973so1070039pjl.1
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Jun 2021 05:51:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=vn58VojIUy8mCywESz1yU7iWzpyR5VYyYaPU788UxQY=;
+ b=J8AgUZxtt2QyU6gTbLL/F8NoI+vL+rbIhgwrTIHDKyVFDlK8qJYrqPpUB3sqfB0L91
+ gR9F5OLKvtQ9iiHE3iyVIaBersOK0NObdB2IB8NGbXYbXGNGx2ic06StlFYeH5tQ2jui
+ wXAMEbQFbXxxuXRn28vReE897gVwlMOJVGscRkpjZZJRFixL9WNTyCwK6ordL8LmFX69
+ LR22hwEMzmNUWHmxk1HfEpqlidF3dslOfjzdrfuDFZuCrT1PP1t3PHWfGHPbAfjwkCMV
+ lD4veRk65XkZVOwvV6BA4qwQzxu8W+Hpfdw9wFv3X/Wa5Z12axRDLsC5u4iGuypi1BRd
+ LswQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=vn58VojIUy8mCywESz1yU7iWzpyR5VYyYaPU788UxQY=;
+ b=H4HyYNBSa1/uW7ypkF0QnobZ5OeeQu7ihonedgGfwjHjnYPYSoJfH5iWPPl9O0wVC7
+ ug+kXA7W8PljeArlqivwPaZTxHvP1UT5C4i2BxAUuuQMzNz2s3GV/IFjd/nTYuiOLjpF
+ AA42B6WI69etvsQAGwFuDT35Ig7nKc+Rf9ddV+m6swxzwxMLXE/uUSDv954o5Av38rFx
+ va85ZCieQ2KZiyn15s4r8HSNWGqaZj/1mWf7kWCRdiPBAq+BKJHfNno4yK0PfYdl9FiW
+ 7jtwZrXU9WC9epOTZB6xDfehn15RM9Pu8lGeyxxVdGRZcAkkizM1l05C/jAA53P8/oAt
+ 70iA==
+X-Gm-Message-State: AOAM531I03WlG0svfeX+pOSl2CbNsArcMvLnzoBjHmSilkqTwZALQMFb
+ yjm/fnwxF0+raAUJfbx9MvMjEF7Yz8OZKZmHVVA=
+X-Google-Smtp-Source: ABdhPJyC3O5EquhOikbreacbiTmOkvh3GFfjDMAS/bS++3MKZX0UR/loCL+OHjq30y5cvNzNn3wQst0AOQqk6l6Z5Ms=
+X-Received: by 2002:a17:90a:80c5:: with SMTP id
+ k5mr5534105pjw.129.1622638256172; 
+ Wed, 02 Jun 2021 05:50:56 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20210602120329.2444672-1-j.neuschaefer@gmx.net>
+ <20210602120329.2444672-6-j.neuschaefer@gmx.net>
+In-Reply-To: <20210602120329.2444672-6-j.neuschaefer@gmx.net>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Wed, 2 Jun 2021 15:50:39 +0300
+Message-ID: <CAHp75Vci1DSFu-tpgwQZfuVycqHYmhGhLDDCOH_dX8HKvqpY_A@mail.gmail.com>
+Subject: Re: [PATCH 5/8] pinctrl: nuvoton: Add driver for WPCM450
+To: =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:yAIGTz3cD7aDJ3+2ETP6l+xFmX749yXxCxe42nbjAlS00V6VR85
- 6vyW3FtqEUrdgJuACoVtyPMbP8wR1VBJCDJVkqP0qa7lv+VasFSyn7CYEUQ0s0kt9YpQw1v
- 9UPEgaqUuOwvmfl5HpUMHkdFbvMfOxaL6Idqx8PNe9m4Q/wQJblQ2Z5mdqypNAj30FiYW1k
- oXSMU/CzqHfMiNOum7H/A==
-X-UI-Out-Filterresults: notjunk:1;V03:K0:CopH+5nNWnI=:noLlRC8oYJ46PYECr24XOz
- kZcl4CxGxpi/L6w3Jp39hM5bIoo4rAa94qKCWCehQW23sFQdUKGnlsu1eW4blVOOGOIhinxqY
- eS7kYrTaVFmG5PJGrTZB3w/hxdTHsOsg3uGTDtvCJv9AfmJm/eROAh8Fi3JNkok1tK78HXBpP
- 4g5tjIHPyvijXFoO8ncloC2kgd3RD2KMHAYp8jr9KDV/7O5A+S9mcYbJIYMiGnQO9D/h3Wq2X
- XOLIgBVaVzA4d1gEPQQ400EJ2sUjyr5UMRMRJf2ySiOov3jQe+MbixFhu8a7TiWejLW9qVnIV
- 5pjmBFy0s1zoCPVoAytvlp/BO4MbRQJVsjKEUSb61aUDEqx1YJr47BrDBsvIlFNybYy7CWlQc
- 6FDdWIPJNco7PabJODHN/Ls6iJZnVlfbcTrBflVeW34fLcDG+Qav119Yn+L5GL8GTdcq9+fqc
- uc5nKx8vmV3FYfobJnB0fepFGqpKiGHuj5zX69z1WkfB+dWeQjaYL40t5I1ktjEtABx8BVZPy
- kC5sG83PgMawaPOsKcRrfzskAUmDM6d/wrKCKrEIyIsKNAVYClVNtnNJxiVG2XZXf1t40+K1G
- X1oTUJxy77uLUF3Bqf6bGFZBkJuk/5b2007gVPMDJWpJX752n3iEmzB3dgDhZSf/brNZoME0H
- 1fB9uf2lFIKOdS0uaMBfKAAdfjfbyuzS1g2PTuO9+jozDCIyQiMKITo6/81Ryl3RX5JF95x1B
- BkFQr4wkv7DGmljY8gNbt+xXZZyUcm/zaZPRTGsxfrk7t2d7h6DncJyJfti9TWY6hTkrRZC2t
- iRBjzr5RaFlHr5aVqP9FOOyudnvblXQOlxnj3JNGT2Z1evaSdrNLCth23ei7OHLLCc+w+aH5Z
- 6auUkCihSsL4SawvnbWGwi+Gl8wkfbFWlg+Kf8ZFCOGJp4jFPzJMHc+WVdJwHYI4hqsR1lrP9
- GDMtz2ZQthNcUVQ1P2T//KOxAeHrFBqGNLQesFynjYe4Lbi+ioKFv1NUj4NLACm+ejkD8enUC
- D8W4OPUlxFxprmACq0jb7CnngzyKwbtDENuoIE91ey8LMWtgEIi/tY9jj8BfOIR9GQOkCX9eQ
- 52kA1jtON+8Prtpo64ppNdK6lF5wadOqHbUZktJe2tDFPgRQpdUhE4Lqw==
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,69 +89,503 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Tomer Maimon <tmaimon77@gmail.com>,
- Linus Walleij <linus.walleij@linaro.org>, linux-kernel@vger.kernel.org,
- =?UTF-8?q?Jonathan=20Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Rob Herring <robh+dt@kernel.org>, openbmc@lists.ozlabs.org
+Cc: devicetree <devicetree@vger.kernel.org>, Tomer Maimon <tmaimon77@gmail.com>,
+ Linus Walleij <linus.walleij@linaro.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>, OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The Supermicro X9SCi-LN4F server mainboard has a two LEDs and a button
-under the control of the BMC. This patch makes them accessible under
-Linux running on the BMC.
+On Wed, Jun 2, 2021 at 3:05 PM Jonathan Neusch=C3=A4fer
+<j.neuschaefer@gmx.net> wrote:
+>
+> This driver is heavily based on the one for NPCM7xx, because the WPCM450
+> is a predecessor of those SoCs.
+>
+> The biggest difference is in how the GPIO controller works. In the
+> WPCM450, the GPIO registers are not organized in multiple banks, but
+> rather placed continually into the same register block, and the driver
+> reflects this.
+>
+> Some functionality implemented in the hardware was (for now) left unused
+> in the driver, specifically blinking and pull-up/down.
 
-Signed-off-by: Jonathan Neusch=C3=A4fer <j.neuschaefer@gmx.net>
-=2D--
- .../nuvoton-wpcm450-supermicro-x9sci-ln4f.dts | 27 +++++++++++++++++++
- 1 file changed, 27 insertions(+)
+...
 
-diff --git a/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts b=
-/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-index 83f27fbf4e939..176e22216a75e 100644
-=2D-- a/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-+++ b/arch/arm/boot/dts/nuvoton-wpcm450-supermicro-x9sci-ln4f.dts
-@@ -8,6 +8,9 @@
+> +config PINCTRL_WPCM450
+> +       bool "Pinctrl and GPIO driver for Nuvoton WPCM450"
 
- #include "nuvoton-wpcm450.dtsi"
+Why it can't be a module?
 
-+#include <dt-bindings/input/linux-event-codes.h>
-+#include <dt-bindings/gpio/gpio.h>
-+
- / {
- 	model =3D "Supermicro X9SCi-LN4F BMC";
- 	compatible =3D "supermicro,x9sci-ln4f-bmc", "nuvoton,wpcm450";
-@@ -20,6 +23,30 @@ memory@0 {
- 		device_type =3D "memory";
- 		reg =3D <0 0x08000000>; /* 128 MiB */
- 	};
-+
-+	gpio-keys {
-+		compatible =3D "gpio-keys";
-+
-+		uid {
-+			label =3D "UID button";
-+			linux,code =3D <KEY_HOME>;
-+			gpios =3D <&pinctrl 14 GPIO_ACTIVE_HIGH>;
-+		};
-+	};
-+
-+	gpio-leds {
-+		compatible =3D "gpio-leds";
-+
-+		uid {
-+			label =3D "UID";
-+			gpios =3D <&pinctrl 23 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		heartbeat {
-+			label =3D "heartbeat";
-+			gpios =3D <&pinctrl 20 GPIO_ACTIVE_LOW>;
-+		};
-+	};
- };
+> +       depends on (ARCH_WPCM450 || COMPILE_TEST) && OF
 
- &serial0 {
-=2D-
-2.30.2
+Is it really OF dependent (see below)?
 
+> +       select PINMUX
+> +       select PINCONF
+> +       select GENERIC_PINCONF
+> +       select GPIOLIB
+> +       select GPIO_GENERIC
+> +       select GPIOLIB_IRQCHIP
+> +       help
+> +         Say Y here to enable pin controller and GPIO support
+> +         for the Nuvoton WPCM450 SoC.
+
+From this help it's not clear why user should or shouldn't enable it.
+Please, elaborate (and hence fix checkpatch warning).
+
+...
+
+> +#include <linux/module.h>
+
+mod_devicetable.h
+
+> +#include <linux/of.h>
+> +#include <linux/of_address.h>
+> +#include <linux/of_irq.h>
+
+> +#include <linux/pinctrl/machine.h>
+> +#include <linux/pinctrl/pinconf.h>
+> +#include <linux/pinctrl/pinconf-generic.h>
+> +#include <linux/pinctrl/pinctrl.h>
+> +#include <linux/pinctrl/pinmux.h>
+
+Can you move this group...
+
+> +#include <linux/platform_device.h>
+> +#include <linux/regmap.h>
+
+...here?
+
+It will show the relation with pin control subsystem and separate from
+global / generic headers.
+
+...
+
+> +       /*
+> +        * This spinlock protects registers and struct wpcm450_pinctrl fi=
+elds
+
+spin lock
+
+> +        * against concurrent access.
+> +        */
+
+...
+
+> +/* GPIO handling in the pinctrl driver */
+> +
+
+Useless.
+
+...
+
+> +static int wpcm450_gpio_get_direction(struct gpio_chip *chip,
+> +                                     unsigned int offset)
+> +{
+> +       struct wpcm450_pinctrl *pctrl =3D gpiochip_get_data(chip);
+> +       const struct wpcm450_port *port =3D to_port(offset);
+> +       unsigned long flags;
+> +       u32 cfg0;
+> +       int dir;
+> +
+> +       spin_lock_irqsave(&pctrl->lock, flags);
+> +       if (port->cfg0) {
+> +               cfg0 =3D ioread32(pctrl->gpio_base + port->cfg0);
+
+> +               dir =3D !(cfg0 & port_mask(port, offset));
+> +       } else {
+> +               /* If cfg0 is unavailable, the GPIO is always an input */
+> +               dir =3D 1;
+> +       }
+
+Why above is under spin lock?
+Same question for all other similar places in different functions, if any.
+
+> +       spin_unlock_irqrestore(&pctrl->lock, flags);
+> +       return dir;
+> +}
+
+...
+
+> +static int wpcm450_gpio_direction_output(struct gpio_chip *chip,
+> +                                        unsigned int offset, int value)
+> +{
+> +       struct wpcm450_pinctrl *pctrl =3D gpiochip_get_data(chip);
+> +       const struct wpcm450_port *port =3D to_port(offset);
+> +       unsigned long flags;
+> +       u32 dataout, cfg0;
+
+> +       int ret =3D 0;
+
+Redundant. Can do it without it.
+
+> +       spin_lock_irqsave(&pctrl->lock, flags);
+> +       if (port->cfg0) {
+
+> +       } else {
+> +               ret =3D -EINVAL;
+> +       }
+> +       spin_unlock_irqrestore(&pctrl->lock, flags);
+> +       return ret;
+> +}
+
+...
+
+> +/* Interrupt support */
+> +
+
+Useless besides being in a bad style.
+
+...
+
+> +static int event_bitmask(int gpio)
+> +{
+> +       if (gpio >=3D 0 && gpio < 16)
+> +               return BIT(gpio);
+> +       if (gpio =3D=3D 24 || gpio =3D=3D 25)
+> +               return BIT(gpio - 8);
+> +       return -EINVAL;
+> +}
+
+Can you consider to use bitmap_bitremap()
+
+> +static int event_bitnum_to_gpio(int num)
+> +{
+> +       if (num >=3D 0 && num < 16)
+> +               return num;
+> +       if (num =3D=3D 16 || num =3D=3D 17)
+> +               return num + 8;
+> +       return -EINVAL;
+> +}
+
+Ditto.
+
+See gpio-xilinx.c for example.
+
+...
+
+> +static void wpcm450_gpio_irq_ack(struct irq_data *d)
+> +{
+> +       struct wpcm450_pinctrl *pctrl =3D gpiochip_get_data(irq_data_get_=
+irq_chip_data(d));
+
+> +       int mask =3D event_bitmask(d->hwirq);
+
+Move the assignment closer to the check.
+Ditto for other same and similar cases in the code.
+
+> +       unsigned long flags;
+> +
+> +       if (mask < 0)
+> +               return;
+
+> +}
+
+...
+
+> +       int mask =3D event_bitmask(d->hwirq);
+
+Use irqd_to_hwirq() (please check that I spelled it correctly).
+Same for all hwirq getters.
+
+...
+
+> +static void wpcm450_gpio_fix_evpol(struct wpcm450_pinctrl *pctrl, unsign=
+ed long all)
+> +{
+> +       int bitnum;
+
+Can it be negative?
+
+> +       for_each_set_bit(bitnum, &all, 32) {
+
+> +               int gpio =3D event_bitnum_to_gpio(bitnum);
+> +               u32 mask =3D BIT(bitnum), evpol;
+
+unsigned long evpol;
+
+> +               int level;
+> +
+> +               do {
+> +                       evpol =3D ioread32(pctrl->gpio_base + WPCM450_GPE=
+VPOL);
+> +                       level =3D wpcm450_gpio_get(&pctrl->gc, gpio);
+
+> +                       /* Switch event polarity to the opposite of the c=
+urrent level */
+> +                       if (level)
+> +                               evpol &=3D ~mask;
+> +                       else
+> +                               evpol |=3D mask;
+
+__assign_bit(bitnum, &evpol, level);
+
+> +
+> +                       iowrite32(evpol, pctrl->gpio_base + WPCM450_GPEVP=
+OL);
+> +               } while (wpcm450_gpio_get(&pctrl->gc, gpio) !=3D level);
+> +       }
+> +}
+
+...
+
+> +static int wpcm450_gpio_set_irq_type(struct irq_data *d, unsigned int fl=
+ow_type)
+> +{
+
+Consider to assign handler type here.
+
+> +}
+
+...
+
+> +/* pinmux handing */
+> +
+
+Useless.
+
+...
+
+> +/*
+> + * pin:             name, number
+> + * group:    name, npins,   pins
+> + * function: name, ngroups, groups
+> + */
+> +struct wpcm450_group {
+> +       const char *name;
+> +       const unsigned int *pins;
+> +       int npins;
+> +};
+
+Use struct group_desc from core.h.
+
+...
+
+> +/* pinctrl_ops */
+
+Useless.
+
+> +static int wpcm450_get_groups_count(struct pinctrl_dev *pctldev)
+> +{
+> +       struct wpcm450_pinctrl *npcm =3D pinctrl_dev_get_drvdata(pctldev)=
+;
+
+> +       dev_dbg(npcm->dev, "group size: %d\n", ARRAY_SIZE(wpcm450_groups)=
+);
+
+Ditto.
+
+> +       return ARRAY_SIZE(wpcm450_groups);
+> +}
+
+...
+
+> +/* pinmux_ops  */
+
+Useless.
+
+...
+
+> +static int wpcm450_gpio_request_enable(struct pinctrl_dev *pctldev,
+> +                                      struct pinctrl_gpio_range *range,
+> +                                      unsigned int offset)
+> +{
+> +       struct wpcm450_pinctrl *npcm =3D pinctrl_dev_get_drvdata(pctldev)=
+;
+
+> +       if (!range) {
+> +               dev_err(npcm->dev, "invalid range\n");
+> +               return -EINVAL;
+> +       }
+
+Dead code?
+
+> +       if (!range->gc) {
+> +               dev_err(npcm->dev, "invalid gpiochip\n");
+> +               return -EINVAL;
+> +       }
+
+Dead code?
+
+> +       wpcm450_setfunc(npcm->gcr_regmap, &offset, 1, fn_gpio);
+> +
+> +       return 0;
+> +}
+
+...
+
+> +/* Release GPIO back to pinctrl mode */
+> +static void wpcm450_gpio_request_free(struct pinctrl_dev *pctldev,
+> +                                     struct pinctrl_gpio_range *range,
+> +                                     unsigned int offset)
+> +{
+> +       struct wpcm450_pinctrl *pctrl =3D pinctrl_dev_get_drvdata(pctldev=
+);
+> +       int virq;
+> +
+> +       virq =3D irq_find_mapping(pctrl->domain, offset);
+> +       if (virq)
+> +               irq_dispose_mapping(virq);
+
+Why it needs to be done here? What about the GPIO library API that
+does some additional stuff?
+
+> +}
+
+...
+
+> +/* pinconf_ops */
+
+Useless.
+
+...
+
+> +static int debounce_bitmask(int gpio)
+> +{
+> +       if (gpio >=3D 0 && gpio < 16)
+> +               return BIT(gpio);
+> +       return -EINVAL;
+> +}
+
+I don't see users of it except one below, care to inline?
+
+> +static int wpcm450_config_get(struct pinctrl_dev *pctldev, unsigned int =
+pin,
+> +                             unsigned long *config)
+> +{
+
+> +       switch (param) {
+> +       case PIN_CONFIG_INPUT_DEBOUNCE:
+> +               mask =3D debounce_bitmask(pin);
+> +               if (mask < 0)
+> +                       return mask;
+
+> +               break;
+> +       default:
+> +               return -ENOTSUPP;
+> +       }
+> +
+> +       return 0;
+> +}
+
+...
+
+> +/* Set multiple configuration settings for a pin */
+
+Useless.
+
+...
+
+> +static int wpcm450_config_set(struct pinctrl_dev *pctldev, unsigned int =
+pin,
+> +                             unsigned long *configs, unsigned int num_co=
+nfigs)
+> +{
+> +       struct wpcm450_pinctrl *pctrl =3D pinctrl_dev_get_drvdata(pctldev=
+);
+
+> +       int rc;
+
+Why out of a sudden different (inconsistent) name?
+
+> +       return 0;
+> +}
+
+...
+
+> +       if (!of_find_property(np, "gpio-controller", NULL))
+> +               return -ENODEV;
+
+Dead code?
+
+...
+
+> +       pctrl->gpio_base =3D of_iomap(np, 0);
+
+devm_platform_ioremap_resource();
+
+> +       if (!pctrl->gpio_base) {
+> +               dev_err(pctrl->dev, "Resource fail for GPIO controller\n"=
+);
+> +               return -ENOMEM;
+> +       }
+
+Here leak of resources. See above.
+
+...
+
+> +       pctrl->gc.get_direction =3D wpcm450_gpio_get_direction;
+> +       pctrl->gc.direction_input =3D wpcm450_gpio_direction_input;
+> +       pctrl->gc.direction_output =3D wpcm450_gpio_direction_output;
+> +       pctrl->gc.get =3D wpcm450_gpio_get;
+> +       pctrl->gc.set =3D wpcm450_gpio_set;
+
+No ->set_config()?
+
+...
+
+> +       girq->default_type =3D IRQ_TYPE_NONE;
+
+> +       girq->handler =3D handle_level_irq;
+
+Use ->irq_set_type() for this. Here should be handle_bad_irq().
+
+> +       for (i =3D 0; i < WPCM450_NUM_GPIO_IRQS; i++) {
+
+> +               int irq =3D irq_of_parse_and_map(np, i);
+
+fwnode_get_irq()
+
+> +               if (irq < 0) {
+> +                       dev_err(pctrl->dev, "No IRQ for GPIO controller\n=
+");
+> +                       return irq;
+> +               }
+> +               girq->parents[i] =3D irq;
+> +       }
+
+...
+
+> +       pctrl->pctldev =3D devm_pinctrl_register(&pdev->dev,
+> +                                              &wpcm450_pinctrl_desc, pct=
+rl);
+> +       if (IS_ERR(pctrl->pctldev)) {
+
+> +               dev_err(&pdev->dev, "Failed to register pinctrl device\n"=
+);
+> +               return PTR_ERR(pctrl->pctldev);
+
+Shouldn't it be return dev_err_probe(...); here?
+
+> +       }
+
+...
+
+> +       pr_info("WPCM450 pinctrl and GPIO driver probed\n");
+
+Besides you have to use dev_*() this is completely useless and noisy messag=
+e.
+
+...
+
+> +static const struct of_device_id wpcm450_pinctrl_match[] =3D {
+> +       { .compatible =3D "nuvoton,wpcm450-pinctrl" },
+
+> +       { },
+
+Comma is not needed for terminator line.
+
+> +};
+
+...
+
+> +               .suppress_bind_attrs =3D true,
+
+Why?
+
+--=20
+With Best Regards,
+Andy Shevchenko
