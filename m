@@ -2,75 +2,73 @@ Return-Path: <SRS0=mhbt=K5=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8D27AC47082
-	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 04:13:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6063C47082
+	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 06:00:34 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DFF1761396
-	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 04:13:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org DFF1761396
+	by mail.kernel.org (Postfix) with ESMTPS id 00CD5613E3
+	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 06:00:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 00CD5613E3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4FwXZ43JCZz303Q
-	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 14:13:16 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4FwZxr5tDRz302S
+	for <openbmc@archiver.kernel.org>; Thu,  3 Jun 2021 16:00:32 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=ALSkX+TZ;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=AqlxlpFQ;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::730;
- helo=mail-qk1-x730.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72d;
+ helo=mail-qk1-x72d.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=ALSkX+TZ; dkim-atps=neutral
-Received: from mail-qk1-x730.google.com (mail-qk1-x730.google.com
- [IPv6:2607:f8b0:4864:20::730])
+ header.s=google header.b=AqlxlpFQ; dkim-atps=neutral
+Received: from mail-qk1-x72d.google.com (mail-qk1-x72d.google.com
+ [IPv6:2607:f8b0:4864:20::72d])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4FwXYZ60W3z2xv2;
- Thu,  3 Jun 2021 14:12:49 +1000 (AEST)
-Received: by mail-qk1-x730.google.com with SMTP id c124so4747627qkd.8;
- Wed, 02 Jun 2021 21:12:49 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4FwZxG1kvzz2ym4
+ for <openbmc@lists.ozlabs.org>; Thu,  3 Jun 2021 16:00:01 +1000 (AEST)
+Received: by mail-qk1-x72d.google.com with SMTP id q10so4918191qkc.5
+ for <openbmc@lists.ozlabs.org>; Wed, 02 Jun 2021 23:00:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=WSBVtEwjNJceUSW+ED54by5q0ntVhKU4EZfInF4XBmQ=;
- b=ALSkX+TZCWadbcLs53Y6oEcOcUob861l+3sMaf3bsrc7RQda1oexFXL8fGmiav0Xpi
- /ChK3KS/oFMr3CjNybg5mytdl91qRxUGZgvSeLuBQeM6IBSJhAUWrEGRlzNH5SnYxw1r
- 0LdsgZUDyGu6tfUQcjHf8Su5QHoDTMOdCLx/I=
+ :cc; bh=htrvuz4I2AD7YYeAzw43Hul+KZOMb7rxWcMRWw3bpY8=;
+ b=AqlxlpFQBzJ+DCdkoiJN0awJGkbNaTdT56bYNOxzmIaBANGTfv2FMlw1tkXkOufroW
+ hocpa3W1kvz6ZTrIe+dBtlI+6wvXDwdeQ5X0xJsx6x7jwTXv7dZ7e5SklMnGc+qWpFPG
+ smVkbBVRNYwtlhrinTMXE6cLByT/ZRGdi9Rrc=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=WSBVtEwjNJceUSW+ED54by5q0ntVhKU4EZfInF4XBmQ=;
- b=QsIT8jdM5hTpLamDsT3awvsLHqLph5mNRTaFiyM9+7koLuURydQ6iozZeJLytQ/Jz1
- KNpGe8R2Ab9xrhRvEikJguyK2Vs3vRvTXNvRCloIPpS+HmArxqP9Sxdi4o/ZlC6VZ/Fz
- kiLI452582m0sdSQxIE2rviLoj2EQV7/k/tCX5GILZaXLOfn6ADzJG6Irrf+VlfoDgHb
- UL9vosAaOtLZH/jT72jFPUxZe3NyWSzgD1XpJ4kNokrtMBxgWTrTQ7tNMAraTzCd3DD5
- w6wN0zR7dy5ar9y5Tbd5IBNi8fW1/kSzecBSWmVelhepZqd0z2tpFV+r70v/fZeyTWPx
- IsSQ==
-X-Gm-Message-State: AOAM532lSD11k11p5JdZlQ/e2HDm06WnRKiZ3PebHcuwM2O1m7yDva1V
- j3y0pphtLt0zQG2Uo87X0kPYf6U8wzz2J03oWmY=
-X-Google-Smtp-Source: ABdhPJwTjlMS+8+L8BrVHX4Xf5NgGJL3RRe8WHEXPcfnogTmYIgrBQEd9Bnnz7jEgKwCaeeqz/0xBZ7xr0UxwDga/Og=
-X-Received: by 2002:a37:e0f:: with SMTP id 15mr10333070qko.273.1622693565759; 
- Wed, 02 Jun 2021 21:12:45 -0700 (PDT)
+ bh=htrvuz4I2AD7YYeAzw43Hul+KZOMb7rxWcMRWw3bpY8=;
+ b=RUS6Anmv7B78A6qEPVHgF8cKvESOf3XGIH0r301VXDDBoUGGFIVfu8f/DEMfkDOqIi
+ 2PrGrPxJErJkzgeZBBYSG+6prLz16DofPX3yavCyVj6IDniHYxSO18kNtvBxrcZTHQOz
+ TvFUI6UFCVcr8V30iCgcyOgPLMvw22y4z4Rhi3p20fncuQuH2fdCeglVFhnk0B9TXKQg
+ ngMmU75bjPy0R04P6whvQ5jR2XpP1gkSj9gVb+MumnjgH2bRsSBtmZ4dGvU15qy6fAp8
+ WPygpH6OsfCfKRbaRKwUCJoFBkQYaa6gZTXTWf7i8b70gBWoFdSIduUWjUyKXlvv8RJ1
+ 6TAA==
+X-Gm-Message-State: AOAM531C28Dmtx4XjpYZDVa4C/MAEvzAWhBrFLqKx7fdKAVYSJm0bRhs
+ pHyjHZGvzv51eV39W5miB2abqMAemAIAngNq1uo=
+X-Google-Smtp-Source: ABdhPJxOpZGEns2SZQ7oLFsq4X0vtoPMK4GMGS5t46K0rAydQyEeI1vhqyhXd+jcBqBESRibQVoaeOAmaRN8Ybw0Dm4=
+X-Received: by 2002:a37:e0f:: with SMTP id 15mr10548756qko.273.1622699995739; 
+ Wed, 02 Jun 2021 22:59:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210525055308.31069-1-steven_lee@aspeedtech.com>
- <20210525055308.31069-3-steven_lee@aspeedtech.com>
- <CACRpkdZy0UwaJcYTiM9asVwNh4wuEYdMSrmqAPAiikbrvjtKpw@mail.gmail.com>
-In-Reply-To: <CACRpkdZy0UwaJcYTiM9asVwNh4wuEYdMSrmqAPAiikbrvjtKpw@mail.gmail.com>
+References: <CAGm54UGMSVkT=3WLVLrJwcW8OGcQJZOGYnhVvOrF1qVC7xtdvA@mail.gmail.com>
+In-Reply-To: <CAGm54UGMSVkT=3WLVLrJwcW8OGcQJZOGYnhVvOrF1qVC7xtdvA@mail.gmail.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Thu, 3 Jun 2021 04:12:33 +0000
-Message-ID: <CACPK8XfbpCWx_ZOPuUy0QCT2N9kj9_+WGZv4wEPXgUUoVDf+fQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/3] ARM: dts: aspeed-g6: Add pinctrl settings
-To: Linus Walleij <linus.walleij@linaro.org>
+Date: Thu, 3 Jun 2021 05:59:42 +0000
+Message-ID: <CACPK8XdVNXSfzDBPryjQh_4S0yU4Tp6VOOtju+L_DcfgHumPJw@mail.gmail.com>
+Subject: Re: Unify the 64MiB flash layout
+To: Lei Yu <yulei.sh@bytedance.com>, Quan Nguyen <quan@os.amperecomputing.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -83,35 +81,52 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>,
- "moderated list:ASPEED PINCTRL DRIVERS" <linux-aspeed@lists.ozlabs.org>,
- Andrew Jeffery <andrew@aj.id.au>,
- "moderated list:ASPEED PINCTRL DRIVERS" <openbmc@lists.ozlabs.org>,
- Steven Lee <steven_lee@aspeedtech.com>,
- open list <linux-kernel@vger.kernel.org>,
- Billy Tsai <billy_tsai@aspeedtech.com>,
- "open list:ASPEED PINCTRL DRIVERS" <linux-gpio@vger.kernel.org>,
- Rob Herring <robh+dt@kernel.org>, Hongwei Zhang <Hongweiz@ami.com>,
- "moderated list:ARM/ASPEED MACHINE SUPPORT"
- <linux-arm-kernel@lists.infradead.org>
+Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 27 May 2021 at 23:47, Linus Walleij <linus.walleij@linaro.org> wrote:
+On Thu, 27 May 2021 at 07:14, Lei Yu <yulei.sh@bytedance.com> wrote:
 >
-> On Tue, May 25, 2021 at 7:53 AM Steven Lee <steven_lee@aspeedtech.com> wrote:
+> This email is to share some information about the OpenBMC 64MiB flash layout.
 >
-> > AST2600 supports 2 SGPIO master interfaces and 2 SGPIO slave interfaces.
-> > Currently, only SGPIO master 1 and SGPIO slve 1 in the pinctrl dtsi.
-> > SGPIO master 2 and slave 2 should be added in pinctrl dtsi as well.
-> >
-> > Signed-off-by: Steven Lee <steven_lee@aspeedtech.com>
-> > Reviewed-by: Andrew Jeffery <andrew@aj.id.au>
+> In current Linux kernel, there is openbmc-flash-layout-64.dtsi that is
+> being used on meta-bytedance/meta-g220a system, there is on-going
+> change[1] for aspeed-bmc-ampere-mtjade.dts to use the layout as well.
 >
-> Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+> However, according to ast2600's change[2], the layout does not fit
+> ast2600's u-boot, so it updates the layout by changing the existing
+> one.
 >
-> Please funnel this patch through the Aspeed/ARM SoC tree.
+> On g220a system, we have tested the new layout and verifies that it
+> works fine, with below changes
+> 1. Pick the ast2600's change[2] in kernel;
+> 2. Pick the `image_types_phosphor.bbclass` change[3];
+> 3. Update the u-boot env to boot from the new location, or use the new
+> u-boot-aspeed-sdk_2019.04.bb[4]
+>    On g220a, we use the new u-boot.
+>
+> With the above changes, g220a system works fine with the new u-boot
+> and the updated flash layout.
+>
+> To make it consistent for both ast2500 and ast2600, it's better to use
+> the same flash layout (and u-boot).
+> So I would suggest merge the changes of [1] and [3], for now g220a and
+> meta-ampere/meta-jade could be impacted.
 
-Applied, thanks.
+Thanks for the summary Lei. I will merge [2] for v5.14 and backport it
+to dev-5.10.
+
+Cheers,
+
+Joel
+
+>
+> [1]: https://lore.kernel.org/openbmc/20210517040036.13667-4-quan@os.amperecomputing.com/
+> [2]: https://lore.kernel.org/linux-arm-kernel/20210316085932.2601-1-troy_lee@aspeedtech.com/
+> [3]: https://gerrit.openbmc-project.xyz/c/openbmc/meta-phosphor/+/39343
+> [4]: https://github.com/openbmc/openbmc/blob/master/meta-aspeed/recipes-bsp/u-boot/u-boot-aspeed-sdk_2019.04.bb
+>
+> --
+> BRs,
+> Lei YU
