@@ -2,81 +2,99 @@ Return-Path: <SRS0=u/Aq=LM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A2EDC2B9F4
-	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 03:13:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3AED0C48BDF
+	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 03:59:44 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B58DE61184
-	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 03:13:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org B58DE61184
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
+	by mail.kernel.org (Postfix) with ESMTPS id AA94061059
+	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 03:59:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org AA94061059
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4G5kWj14Jvz3byR
-	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 13:13:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4G5lYW0xdRz3c8B
+	for <openbmc@archiver.kernel.org>; Fri, 18 Jun 2021 13:59:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=bytedance-com.20150623.gappssmtp.com header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=dnelujCN;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=FhSogfuM;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=IotLQJz6;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::22e;
- helo=mail-oi1-x22e.google.com; envelope-from=yulei.sh@bytedance.com;
+ smtp.mailfrom=aj.id.au (client-ip=66.111.4.26;
+ helo=out2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bytedance-com.20150623.gappssmtp.com
- header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=dnelujCN; dkim-atps=neutral
-Received: from mail-oi1-x22e.google.com (mail-oi1-x22e.google.com
- [IPv6:2607:f8b0:4864:20::22e])
+ unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
+ header.s=fm3 header.b=FhSogfuM; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=IotLQJz6; 
+ dkim-atps=neutral
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
+ [66.111.4.26])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4G5kW94P7Mz3bsW
- for <openbmc@lists.ozlabs.org>; Fri, 18 Jun 2021 13:12:34 +1000 (AEST)
-Received: by mail-oi1-x22e.google.com with SMTP id u11so8963632oiv.1
- for <openbmc@lists.ozlabs.org>; Thu, 17 Jun 2021 20:12:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=5eSIYi1Yaf0EZWkIPsxD3tIA95PgYC/++4iBoKNQfps=;
- b=dnelujCN9/7OYaT5Q9ieu+wqqEM6aMFN8P+7gwEYifeXE6HYqJrhyR3llxwtgDPyOM
- Sgzci44vZdgH/xC49tWJ/p8RPOAFmoNNc8GsDzZ9S34iEyavaXRBHVfEWEO3A8jmR3wO
- Tig3dclhk/w2nBdjjWZyWZwN2ympqjb9Cok1/VpUrvZxVOXPo6HC23RN8DhS3rAX/cdA
- 6aObBanDCuzU72fMAH92+QiLmiQz/prIKb4baHwYJHzvLtg0nAg9Y4Tnn9fZV05iSP4E
- Ewhshz/vCc0+5TgRQl3szVXVFDZxPbWyd459nKit3IVjTJPOfFvKtg7BfHaB6/gTEieW
- 1W0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5eSIYi1Yaf0EZWkIPsxD3tIA95PgYC/++4iBoKNQfps=;
- b=uPoGnWm0E/JcBbe8MO46zZQPxV65nmbS4h73S0/w0Pg4o1q3SVltS4pvpNlN2GJL0n
- Hp88hKa2re77d6xu2LqqndEDIDjGlA2LyuzgJZG8UeDbnItbLDFsbeE1qeCBveGryoqV
- iOPCjE+MUtOmMG0FpsgRqBUi6GoBp/IU6ymEYndLuISWCQ0EO77i0der/xIKT8bR658S
- R2FRyu0deMLj/VhWgAnfp7Qe71lRtx7ySVPd0J2u3b9MarxXoH1RBw6jzPhcRm0NQs1U
- McW4lE1dZzbqkYY5sh0hfOYNKD9vD87QMR2jLpOnx887g2MQWrY3HKTLqwBRoWzVY1TK
- hMuQ==
-X-Gm-Message-State: AOAM530pPek/0WdFMc1awqgDxgi7ljN+vzvyGWB1K1t3LpZ5dmpFfh6z
- 1UWWfwdUpi+Upeffin3/bKar5gPC2tOTuCPW1duX3g==
-X-Google-Smtp-Source: ABdhPJyxS5TxSmdB94esE5zXrrMP4xOw9QkBBejK076rSE9Bxrk4BkPTC0RjvkANy1ORCk/UvTSyceURzZYcjpnQ6L0=
-X-Received: by 2002:aca:1116:: with SMTP id 22mr12916080oir.28.1623985949785; 
- Thu, 17 Jun 2021 20:12:29 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4G5lXy587Tz2xvH
+ for <openbmc@lists.ozlabs.org>; Fri, 18 Jun 2021 13:59:14 +1000 (AEST)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+ by mailout.nyi.internal (Postfix) with ESMTP id 9C3EA5C01A9;
+ Thu, 17 Jun 2021 23:59:11 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute3.internal (MEProxy); Thu, 17 Jun 2021 23:59:11 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=from
+ :to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding; s=fm3; bh=33OG8YRSBH++5
+ +rmz3V+7Uv8nnEDRcFBvejaPQOoXUI=; b=FhSogfuMDYNhDh+eu+XBHZxP2phwt
+ UdW4VqkCra20vh6WEhFADo543C1oIQotd6tQNpR9N7lyhpgfNzwcCULTAkwtvXDy
+ iHXWWpDBZkF3UDSWkqSEyyKuG3d88mR1+Hxy4ngqaJjNG+74k9BTv5TbtCRd9ZSA
+ d4pqml8DfkjdQdw6gDDGgjo4uKflm7ZM2EvpVUL9G4GdTvrgGCFzUFnHuH0Wti9t
+ ewJhQBs3UVM0qROytSjo7mcYAMg4BGxlCvgIaFkeDvbKQGirpuB2oOnu2556cZwC
+ BxgzGyFElJCdT2WH3/3ZZeMZBjcpxgSasLxJCKBPt0v2BiVOIGSnVENig==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-transfer-encoding:date:from
+ :in-reply-to:message-id:mime-version:references:subject:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; bh=33OG8YRSBH++5+rmz3V+7Uv8nnEDRcFBvejaPQOoXUI=; b=IotLQJz6
+ f+8MkUSBY2Zo70Nb/PFof+BvdCKqHXpNxsc3tCakIZrjxFW1J+VAlzUhEE5oWsTj
+ s5BI2N9rvVd9gN1ptR9BAxMUzmNIEhRI2h0gnVWZTy6eRQBeb2SR97JpAGiiPMUv
+ A9l9DTOY4eowkx7UsOy8JTOTbBAzv4VbnwPB1OZ/iwNKJLjIo1HYYYV6lmO3M+rP
+ jqBdVmep83ll+om3AztpFc9ZCjdgV/CRHV6fh4SFdPJYEdpGe30beHQr56qEehf7
+ Bj3M695qBgkjHnhpSgy2CMuv9i6lkcV6xulhGRU7O44gJjIQsqknmPjXui4IGTpl
+ URRTRtIWLBuWQQ==
+X-ME-Sender: <xms:DhrMYL_WMqJzx845nim32DPLGZWqyTnR6st-h9Kbwk4mS-_yC6p87Q>
+ <xme:DhrMYHsln56PXoU-0Dd06gvJiixelXycs-scGihi9GZ6FobJmY1hgItPhTQW6Zaei
+ tLUBgeomncLAwMOEw>
+X-ME-Received: <xmr:DhrMYJDPM7RF_cBfUiT2I2PVKci1FPyXnlcCTiYe22nQNc7aHmErN5GiswppSQjQl2O0HaSGI_8IpJUj1nqwbfwUod1FUGraeLVttBApYpDRmo0hXMApxven>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeefvddgjeehucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucenucfjughrpefhvffufffkofgjfhgggfestdekre
+ dtredttdenucfhrhhomheptehnughrvgifucflvghffhgvrhihuceorghnughrvgifsegr
+ jhdrihgurdgruheqnecuggftrfgrthhtvghrnhepjefgvdevheetkeevgeegleelgfelte
+ etjeffleffvdduudevieffgeetleevhfetnecuvehluhhsthgvrhfuihiivgeptdenucfr
+ rghrrghmpehmrghilhhfrhhomheprghnughrvgifsegrjhdrihgurdgruh
+X-ME-Proxy: <xmx:DhrMYHcsLsSWMhCioC_ECf406XOqjIPb2e0yNmB_xcLYSaadpiLjzQ>
+ <xmx:DhrMYAOdk28XjdNw4sfcdNZPlwXXGOHY1sfJqY-JkqymHSqLiEhIJQ>
+ <xmx:DhrMYJkolfrmNEPnCUaw2jhb3Kom84-7QkCcx3-3oQm9-SZR8RQ2UQ>
+ <xmx:DxrMYKVOtQBJDS5lGElK2b2yDET7WoBzMDLQaTT4BuUyRIzVFRierg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Jun 2021 23:59:09 -0400 (EDT)
+From: Andrew Jeffery <andrew@aj.id.au>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.10 1/7] ipmi: kcs_bmc_aspeed: Fix less than zero
+ comparison of a unsigned int
+Date: Fri, 18 Jun 2021 13:28:52 +0930
+Message-Id: <20210618035858.4024689-2-andrew@aj.id.au>
+X-Mailer: git-send-email 2.30.2
+In-Reply-To: <20210618035858.4024689-1-andrew@aj.id.au>
+References: <20210618035858.4024689-1-andrew@aj.id.au>
 MIME-Version: 1.0
-References: <20210618024758.892642-1-joel@jms.id.au>
- <20210618024758.892642-3-joel@jms.id.au>
-In-Reply-To: <20210618024758.892642-3-joel@jms.id.au>
-From: Lei Yu <yulei.sh@bytedance.com>
-Date: Fri, 18 Jun 2021 11:12:19 +0800
-Message-ID: <CAGm54UFSRvCGNuqxoyKjFtM8CjLKxxprJcY+DjXjBOqaF-mJmg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc 2/2] ast2600: Add
- environment for booting from mmc
-To: Joel Stanley <joel@jms.id.au>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,62 +106,48 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, openbmc <openbmc@lists.ozlabs.org>,
- Adriana Kobylak <anoo@us.ibm.com>, Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, Jun 18, 2021 at 10:49 AM Joel Stanley <joel@jms.id.au> wrote:
->
-> This adds the default environment from the OpenBMC project.
->
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  board/aspeed/ast2600_openbmc_mmc.txt       | 9 +++++++++
->  configs/ast2600_openbmc_spl_emmc_defconfig | 2 ++
->  2 files changed, 11 insertions(+)
->  create mode 100644 board/aspeed/ast2600_openbmc_mmc.txt
->
-> diff --git a/board/aspeed/ast2600_openbmc_mmc.txt b/board/aspeed/ast2600_openbmc_mmc.txt
-> new file mode 100644
-> index 000000000000..47a474c92d70
-> --- /dev/null
-> +++ b/board/aspeed/ast2600_openbmc_mmc.txt
-> @@ -0,0 +1,9 @@
-> +bootargs=console=ttyS4,115200n8
-> +boota=setenv bootpart 2; setenv rootfs rofs-a; run setmmcargs; ext4load mmc 0:${bootpart} ${loadaddr} fitImage && bootm; echo Error loading kernel FIT image
-> +bootb=setenv bootpart 3; setenv rootfs rofs-b; run setmmcargs; ext4load mmc 0:${bootpart} ${loadaddr} fitImage && bootm; echo Error loading kernel FIT image
-> +bootcmd=if test "${bootside}" = "b"; then run bootb; run boota; else run boota; run bootb; fi
-> +bootdelay=2
-> +bootside=a
-> +loadaddr=0x83000000
-> +rootfs=rofs-a
-> +setmmcargs=setenv bootargs ${bootargs} rootwait root=PARTLABEL=${rootfs}
-> diff --git a/configs/ast2600_openbmc_spl_emmc_defconfig b/configs/ast2600_openbmc_spl_emmc_defconfig
-> index c5d03721c97a..344a4d8f9c96 100644
-> --- a/configs/ast2600_openbmc_spl_emmc_defconfig
-> +++ b/configs/ast2600_openbmc_spl_emmc_defconfig
-> @@ -83,6 +83,8 @@ CONFIG_CMD_MTDPARTS=y
->  # CONFIG_SPL_EFI_PARTITION is not set
->  CONFIG_SPL_OF_CONTROL=y
->  CONFIG_ENV_IS_IN_MMC=y
-> +CONFIG_USE_DEFAULT_ENV_FILE=y
-> +CONFIG_DEFAULT_ENV_FILE="board/aspeed/ast2600_openbmc_mmc.txt"
+From: Colin Ian King <colin.king@canonical.com>
 
-This is good, we hit an issue before that is related to the default
-env not in the flash.
-Could you kindly help to make the same change for other configs?
-E.g. for ast2500/ast2600 evb config.
+The comparisons of the unsigned int hw_type to less than zero always
+false because it is unsigned. Fix this by using an int for the
+assignment and less than zero check.
 
->  CONFIG_NET_RANDOM_ETHADDR=y
->  CONFIG_SPL_DM=y
->  CONFIG_REGMAP=y
-> --
-> 2.32.0
->
+Addresses-Coverity: ("Unsigned compared against 0")
+Fixes: 9d2df9a0ad80 ("ipmi: kcs_bmc_aspeed: Implement KCS SerIRQ configuration")
+Signed-off-by: Colin Ian King <colin.king@canonical.com>
+Message-Id: <20210616162913.15259-1-colin.king@canonical.com>
+Signed-off-by: Corey Minyard <cminyard@mvista.com>
+---
+ drivers/char/ipmi/kcs_bmc_aspeed.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-
+diff --git a/drivers/char/ipmi/kcs_bmc_aspeed.c b/drivers/char/ipmi/kcs_bmc_aspeed.c
+index 9753ed0a5be6..b555286016b1 100644
+--- a/drivers/char/ipmi/kcs_bmc_aspeed.c
++++ b/drivers/char/ipmi/kcs_bmc_aspeed.c
+@@ -301,13 +301,15 @@ static inline int aspeed_kcs_map_serirq_type(u32 dt_type)
+ static int aspeed_kcs_config_upstream_irq(struct aspeed_kcs_bmc *priv, u32 id, u32 dt_type)
+ {
+ 	unsigned int mask, val, hw_type;
++	int ret;
+ 
+ 	if (id > 15)
+ 		return -EINVAL;
+ 
+-	hw_type = aspeed_kcs_map_serirq_type(dt_type);
+-	if (hw_type < 0)
+-		return hw_type;
++	ret = aspeed_kcs_map_serirq_type(dt_type);
++	if (ret < 0)
++		return ret;
++	hw_type = ret;
+ 
+ 	priv->upstream_irq.mode = aspeed_kcs_irq_serirq;
+ 	priv->upstream_irq.id = id;
 -- 
-BRs,
-Lei YU
+2.30.2
+
