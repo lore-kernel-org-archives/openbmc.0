@@ -2,112 +2,77 @@ Return-Path: <SRS0=c7Hd=LP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2 autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7F614C48BC2
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 19:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 516C1C4743C
+	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 20:56:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6B7C6124B
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 19:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6B7C6124B
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 79D076108E
+	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 20:56:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79D076108E
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4G7zcV0g1Rz306n
-	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 05:10:02 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4G81zp5KD3z306c
+	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 06:56:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=bTA667Bh;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=ZCkjEeCr;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=bTA667Bh; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=ZCkjEeCr; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4G7zby5Mlkz2yX3;
- Tue, 22 Jun 2021 05:09:33 +1000 (AEST)
-Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15LJ3IN7125148; Mon, 21 Jun 2021 15:09:30 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : date : in-reply-to : references : content-type : mime-version
- : content-transfer-encoding; s=pp1;
- bh=wA9R2ROkbjWq0XIfzLFQB883uTfDMFuk98dLX2GE9O4=;
- b=bTA667BhKGC0W3Y7unCtBXmqO0vmYYleYMCfdR/iDIImHnsqPHCLZjUS1UFx7Jem5LrL
- Qzw0ZCHYyfUbxuE0/n5Mp9UMx+MNPPDNX0ECE3T1A9T703x5Zmu8KPMuDH4fmgs4kvb7
- XDYq403s1ViYPyCkEu/ATCgu5TsGYlfd9tKowu/ivYsVWCLDdo+HuiK2G33SvKpqVLFk
- wtlKnJNnm5llx2I+pxlsXjNSeTjAWbdxYQWWtNUj7IMgLk5zujDmh0YNYD2x60L1imYG
- sTbB+yCScu3496hiA61L7giL+TCH1WV1buQT7JYM5pQ7SnSuKSWXao3Zllkj5I1YMbAD Cg== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39axjv3mkp-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Jun 2021 15:09:29 -0400
-Received: from m0127361.ppops.net (m0127361.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 15LJ4BNL128336;
- Mon, 21 Jun 2021 15:09:29 -0400
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39axjv3mkc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Jun 2021 15:09:29 -0400
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 15LJ1rpQ005871;
- Mon, 21 Jun 2021 19:09:29 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26]) by ppma01wdc.us.ibm.com with ESMTP id 399878hjtr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 21 Jun 2021 19:09:29 +0000
-Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
- [9.57.199.111])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 15LJ9SVg9699966
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 21 Jun 2021 19:09:28 GMT
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9BA44AC059;
- Mon, 21 Jun 2021 19:09:28 +0000 (GMT)
-Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 1DE45AC05E;
- Mon, 21 Jun 2021 19:09:28 +0000 (GMT)
-Received: from v0005c16 (unknown [9.211.133.13])
- by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 21 Jun 2021 19:09:27 +0000 (GMT)
-Message-ID: <d0e66d10765ae85b1bd939ddacc7f7d861190196.camel@linux.ibm.com>
-Subject: Re: [PATCH] ARM: dts: aspeed: Everest PSU #3 address change
-From: Eddie James <eajames@linux.ibm.com>
-To: Brandon Wyman <bjwyman@gmail.com>, Joel Stanley <joel@jms.id.au>,
- openbmc@lists.ozlabs.org, linux-aspeed@lists.ozlabs.org
-Date: Mon, 21 Jun 2021 14:09:27 -0500
-In-Reply-To: <20210610202940.3650554-1-bjwyman@gmail.com>
-References: <20210610202940.3650554-1-bjwyman@gmail.com>
-Organization: IBM
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4G81zK0wsXz2xvN
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jun 2021 06:56:28 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 6942C41286
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 20:56:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:mime-version:user-agent:content-type
+ :content-type:organization:date:date:from:from:subject:subject
+ :message-id:received:received:received; s=mta-01; t=1624308982;
+ x=1626123383; bh=Ym01/NzM81WhqlIvCAvSY4P37PjPGe/XQVhR7YX/JDE=; b=
+ ZCkjEeCrf0sAwkElsHgsRBx70/3NLSQCoS/z+Y3H29DOw/0ovHsn33ot/f4V1LQf
+ zIX5tP4TQ9mQhc00Y7t7aq4yUXuwBeCI0wGhptXW4dTwYhpJYYC2dLbZSIw/2HVv
+ oYJxW13CpRt8djbDztwL7hnk2+amhLmgqCc7pKhkNcQ=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id R_PxkHJHVGI6 for <openbmc@lists.ozlabs.org>;
+ Mon, 21 Jun 2021 23:56:22 +0300 (MSK)
+Received: from T-EXCH-03.corp.yadro.com (t-exch-03.corp.yadro.com
+ [172.17.100.103])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 21DF74126D
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 23:56:21 +0300 (MSK)
+Received: from [10.199.0.46] (10.199.0.46) by T-EXCH-03.corp.yadro.com
+ (172.17.100.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 21
+ Jun 2021 23:56:21 +0300
+Message-ID: <36db44ef6cab760cf7c5a5dbba0f193ef78ca3a3.camel@yadro.com>
+Subject: x86-power-control: NMI Enabled
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Date: Mon, 21 Jun 2021 23:56:20 +0300
+Organization: YADRO
 Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-14.el8) 
-Mime-Version: 1.0
+User-Agent: Evolution 3.40.1 
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 9x51zH9hzzq7XFPFlEs3eWHq6r4g25C0
-X-Proofpoint-ORIG-GUID: Gn70PZloxbp2h9BSLr2fpJQ6fuvxR5no
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-21_10:2021-06-21,
- 2021-06-21 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0
- lowpriorityscore=0 mlxscore=0 adultscore=0 phishscore=0 mlxlogscore=999
- clxscore=1011 priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106210112
+X-Originating-IP: [10.199.0.46]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-03.corp.yadro.com (172.17.100.103)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,39 +88,30 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Thu, 2021-06-10 at 20:29 +0000, Brandon Wyman wrote:
-> From: "B. J. Wyman" <bjwyman@gmail.com>
-> 
-> The third power supply had an I2C address conflict with another
-> device
-> in the system. The device will have the address changed from 6Ah to
-> 6Dh.
+Hello,
 
-Thanks Brandon.
+I was a bit confused today when I found that x86-power-control uses
+undocumented "Enabled" property of
+xyz.openbmc_project.Chassis.Control.NMISource interface (see links
+below).
+The xyz.openbmc_project.Chassis.Control.NMISource is hosted by Settings
+daemon and thus should store persistent configuration information.
 
-Reviewed-by: Eddie James <eajames@linux.ibm.com>
+According to the sources, "Enabled" is used to store internal state of
+NMI operation or even to trigger NMI. My confusion is about if it
+really required to have this state to be persistent over reboot? I
+almost sure, it doesn't. But even if it does, it should not be hosted
+by Settings daemon as semantically it is not a configuration option.
 
-> 
-> Signed-off-by: B. J. Wyman <bjwyman@gmail.com>
-> ---
->  arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> index 3295c8c7c05c..480cb6604c7d 100644
-> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-> @@ -536,9 +536,9 @@ power-supply@69 {
->  		reg = <0x69>;
->  	};
->  
-> -	power-supply@6a {
-> +	power-supply@6d {
->  		compatible = "ibm,cffps";
-> -		reg = <0x6a>;
-> +		reg = <0x6d>;
->  	};
->  
->  	power-supply@6b {
+Does anyone know, Is there any software that depend on this Enabled
+property? Otherwise I prefer to cut it out.
+
+https://github.com/openbmc/x86-power-control/blob/master/power-control-x86/src/power_control.cpp#L2006
+https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Chassis/Control/NMISource.interface.yaml#L4
+
+
+-- 
+Best regards,
+Andrei Kartashev
+
 
