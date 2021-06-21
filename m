@@ -2,76 +2,84 @@ Return-Path: <SRS0=c7Hd=LP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92C3BC48BE5
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 06:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14ECAC48BE5
+	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 06:41:44 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id CCD176100B
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 06:19:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org CCD176100B
+	by mail.kernel.org (Postfix) with ESMTPS id 67D70601FE
+	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 06:41:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 67D70601FE
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4G7fW86wLDz301K
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 16:19:16 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4G7g125BJkz308T
+	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 16:41:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=OZ8bhwkU;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=rHWcJOnL;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::829;
- helo=mail-qt1-x829.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::434;
+ helo=mail-pf1-x434.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=OZ8bhwkU; dkim-atps=neutral
-Received: from mail-qt1-x829.google.com (mail-qt1-x829.google.com
- [IPv6:2607:f8b0:4864:20::829])
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=rHWcJOnL; dkim-atps=neutral
+Received: from mail-pf1-x434.google.com (mail-pf1-x434.google.com
+ [IPv6:2607:f8b0:4864:20::434])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4G7fVg6ycBz2yXH
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 16:18:51 +1000 (AEST)
-Received: by mail-qt1-x829.google.com with SMTP id d9so3188595qtx.8
- for <openbmc@lists.ozlabs.org>; Sun, 20 Jun 2021 23:18:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=z1V0M6KNLKNuRMx5y3q3UwkRgQPKuTOVPlgtgjv8nW4=;
- b=OZ8bhwkUlbbH/9cDAwC2CoRdO15gXQTIJyv4IP3fYF2Jccen8L8juRvzwEvsaD2g/y
- 7Lhm78F2yRCXQqCvcy5+Pm0v9jXLAMJSG32GxecEq/B9IyAsRz2zoweoskrnyjaKx+Y8
- fVXnt6k8waI8ElOYmxnLgxO4M3Tj+ZqWo4/C4=
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4G7g0Z27bVz2yXM
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 16:41:17 +1000 (AEST)
+Received: by mail-pf1-x434.google.com with SMTP id g6so12879054pfq.1
+ for <openbmc@lists.ozlabs.org>; Sun, 20 Jun 2021 23:41:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=VDj11a0Ak78ik9Kg5lqAJ626/1JQo3c0EdsQxSfCuf0=;
+ b=rHWcJOnLvYCArn2eFQsVo28GdAYQYg9YGTbNjCMFIGWYqENZcRq592Ep5B5vNelCws
+ vVbPl7+tzAaPTVFuy9mbh2EQuEmomX1LOoQYOhmudXHaQDucVjW4x0mwPFMWTw29X/kw
+ e2daqc0KFL90xg49NpgM/N6wn5XeDqd4iopWk+c42wAUiS9SkGJMgC2GE8l3x1AmndY+
+ HpDGUYSQsAP3Q7dZ/vEzL4+WP/FChDrBSYevTHCWo+mX3Y5FsGp5JoYWm2FBMrFDkYtI
+ g1AEDnMcUZbP3Fy91S3xL/dgdulKh98DsnnqoIM6yHuCpx8prYk2ggx0yAlpEzgsUa28
+ MqNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=z1V0M6KNLKNuRMx5y3q3UwkRgQPKuTOVPlgtgjv8nW4=;
- b=DZkK+MHKax6cxREiRWwJtI3AYjtQssdFt0URfEiN5ry99zMjIcJR82LTAUfrWmf85T
- T+beWY5Rba8xIR4Qjml3K4nb4teyuejLUFP709YdzhQ6vBlc6fBYLZbd90RM2KhuZVSz
- TnUEcLMafoUp0n8DGdUT9p2GtCTzPGDEGzw15/e4oj9OT34eYldyVHFPGGmlzbBlmHlE
- ya5CIs8xXuv4Uk4CVzoXQsjyNZw9PR9gioHiDr5rAxCBatSb9XXWHhgTwhsIIH4BZ8gU
- MLHVHwAC8xEZAygkYjOPomH2lAtHarNZTOEbPoCt5Lmk1T9ZQW0O47qyHCjEaBZkmeXm
- /GOQ==
-X-Gm-Message-State: AOAM530taM17PNSc+zP6eQZW1Fjs2xTyVVi2f5s6Fgq0K9qx7GCMpvs1
- YmO3v6e/myD6tPTLn1VURdpa7Ls0PfyBrLH2Avk=
-X-Google-Smtp-Source: ABdhPJzzU+wkhm2d30RIxnIH4MOXrXrOnBt9M0Ggpexg5mIgy5DpwpL4oykvrjRfY81W5zEDky83gQr194rIMf/lGXE=
-X-Received: by 2002:ac8:4803:: with SMTP id g3mr22266707qtq.176.1624256327559; 
- Sun, 20 Jun 2021 23:18:47 -0700 (PDT)
-MIME-Version: 1.0
-References: <20210618024758.892642-1-joel@jms.id.au>
- <20210618024758.892642-3-joel@jms.id.au>
- <BC54E54F-CE3D-4DF9-8ABE-FB222EFA1BF7@linux.ibm.com>
-In-Reply-To: <BC54E54F-CE3D-4DF9-8ABE-FB222EFA1BF7@linux.ibm.com>
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding;
+ bh=VDj11a0Ak78ik9Kg5lqAJ626/1JQo3c0EdsQxSfCuf0=;
+ b=RlIer2pWsw2S6haEFSfG03LHWytuiQ7Q+9eVxx006KTw632bfYwAo4Nhw/kBGUh7Sd
+ 2yu8Yt+MKhExXFg2u14q73eKor2+XUq2PYbtZCJYEkF19WTPQdHqdR5dt4dA16weQmla
+ 1Iz7i870n4qrLs4lBUUBepitKrflgMbTNXm51KZDNaOBWkJdY4sKhsxTVBhI4uNuPWPh
+ xfC911AjCh+Ih55YL0rBdLuna28TTs7DZGzP0703fcmaPl9hi8o24V9ZW4ViGxAcvejd
+ RwCa0h0S46rWhMVm5TIMAbGp97f2mwKJLQ0KdfuFUPRzdSeCy3rWc8R49rBcEoXHuaN4
+ NydQ==
+X-Gm-Message-State: AOAM5323z9WrLPUsk3Bv0sVgWxoVN7S7E8dzjyaTldDYlipzR+sMkNPZ
+ X6Lei0Rog/g2OuXaPleSq9zmSN6OJOY=
+X-Google-Smtp-Source: ABdhPJwmR3QNcOI2YxATL9HvCaJnrSeTxKeZ8FOSyE09mfnpzOQpsnmPOce+IRmUJbRRl20Nt/ASKg==
+X-Received: by 2002:aa7:9729:0:b029:2ff:1e52:e284 with SMTP id
+ k9-20020aa797290000b02902ff1e52e284mr17680436pfg.71.1624257672599; 
+ Sun, 20 Jun 2021 23:41:12 -0700 (PDT)
+Received: from localhost.localdomain ([45.124.203.14])
+ by smtp.gmail.com with ESMTPSA id d16sm7865633pjs.33.2021.06.20.23.41.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 20 Jun 2021 23:41:11 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
-Date: Mon, 21 Jun 2021 06:18:35 +0000
-Message-ID: <CACPK8XeGn3D_XnikwFjO-6VicbHX3L4CDwaoL7xYRwo=VHYFzQ@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc 2/2] ast2600: Add
- environment for booting from mmc
-To: Adriana Kobylak <anoo@linux.ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+To: openbmc@lists.ozlabs.org, Eddie James <eajames@linux.ibm.com>,
+ Adriana Kobylak <anoo@us.ibm.com>
+Subject: [PATCH u-boot v2019.04-aspeed-openbmc v2 0/2] Store default u-boot
+ env in
+Date: Mon, 21 Jun 2021 16:11:00 +0930
+Message-Id: <20210621064102.961633-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,18 +91,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>, OpenBMC <openbmc@lists.ozlabs.org>,
- Adriana Kobylak <anoo@us.ibm.com>, Eddie James <eajames@linux.ibm.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, 18 Jun 2021 at 15:52, Adriana Kobylak <anoo@linux.ibm.com> wrote:
->
-> Thanks Joel! There are some improvements to the boot command proposed here: https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/41778
-> Maybe we pick those changes up in this initial commit so the two environment files are in sync? Otherwise we can submit a follow-up patch latest to update this .txt file.
 
-I didn't want to merge that change as it adds yet another command to
-the environment. However, I don't have a suggestion on how to change
-it, so I have merged it. I'll send a v2 of this patch set with the
-latest commands.
+This patch adds the u-boot environment to the u-boot binary, and a build
+fix for the new configuration that I have also sent upstream.
+
+v2 uses the latest boot commands from openbmc.
+
+We currently rely on the default environment being populated in the
+image. This has the downside that if something corrupts the environment,
+the system won't know how to boot itself.
+
+The ast2600_openbmc_mmc.txt is copied from
+meta-aspeed/recipes-bsp/u-boot/files/u-boot-env-ast2600.txt.
+
+Adriana has indicated she will update openbmc to use the .txt from the
+u-boot tree to generate the filesystem image (or we could stop doing
+that, and simply use the default?).
+
+Joel Stanley (2):
+  Makefile: Conditionally add defaultenv_h to envtools target
+  ast2600: Add environment for booting from mmc
+
+ Makefile                                   |  2 ++
+ board/aspeed/ast2600_openbmc_mmc.txt       | 11 +++++++++++
+ configs/ast2600_openbmc_spl_emmc_defconfig |  2 ++
+ 3 files changed, 15 insertions(+)
+ create mode 100644 board/aspeed/ast2600_openbmc_mmc.txt
+
+-- 
+2.32.0
+
