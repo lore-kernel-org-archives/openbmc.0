@@ -1,78 +1,65 @@
-Return-Path: <SRS0=c7Hd=LP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=Es6Y=LQ=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 516C1C4743C
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 20:56:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D1E06C4743C
+	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 00:49:58 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 79D076108E
-	for <openbmc@archiver.kernel.org>; Mon, 21 Jun 2021 20:56:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 79D076108E
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	by mail.kernel.org (Postfix) with ESMTPS id 4383F60234
+	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 00:49:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4383F60234
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4G81zp5KD3z306c
-	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 06:56:54 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=ZCkjEeCr;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4G878j5Qknz308t
+	for <openbmc@archiver.kernel.org>; Tue, 22 Jun 2021 10:49:57 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=ZCkjEeCr; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ smtp.helo=mga12.intel.com (client-ip=192.55.52.136; helo=mga12.intel.com;
+ envelope-from=jason.m.bills@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga12.intel.com (mga12.intel.com [192.55.52.136])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4G81zK0wsXz2xvN
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jun 2021 06:56:28 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 6942C41286
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 20:56:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-transfer-encoding:mime-version:user-agent:content-type
- :content-type:organization:date:date:from:from:subject:subject
- :message-id:received:received:received; s=mta-01; t=1624308982;
- x=1626123383; bh=Ym01/NzM81WhqlIvCAvSY4P37PjPGe/XQVhR7YX/JDE=; b=
- ZCkjEeCrf0sAwkElsHgsRBx70/3NLSQCoS/z+Y3H29DOw/0ovHsn33ot/f4V1LQf
- zIX5tP4TQ9mQhc00Y7t7aq4yUXuwBeCI0wGhptXW4dTwYhpJYYC2dLbZSIw/2HVv
- oYJxW13CpRt8djbDztwL7hnk2+amhLmgqCc7pKhkNcQ=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id R_PxkHJHVGI6 for <openbmc@lists.ozlabs.org>;
- Mon, 21 Jun 2021 23:56:22 +0300 (MSK)
-Received: from T-EXCH-03.corp.yadro.com (t-exch-03.corp.yadro.com
- [172.17.100.103])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4G878L2GpMz2yWn
+ for <openbmc@lists.ozlabs.org>; Tue, 22 Jun 2021 10:49:33 +1000 (AEST)
+IronPort-SDR: Pd2OALRACGoFlxqMVK/KM7gnKBOhEXdN5UBQLw6nRPaOI4LY1PSC2l3IBeI1hJb4rGzbhY0ReH
+ Peott2RS25XA==
+X-IronPort-AV: E=McAfee;i="6200,9189,10022"; a="186650459"
+X-IronPort-AV: E=Sophos;i="5.83,290,1616482800"; d="scan'208";a="186650459"
+Received: from fmsmga001.fm.intel.com ([10.253.24.23])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jun 2021 17:49:29 -0700
+IronPort-SDR: E60lyvm13ihBjMSsUHG5Ks9xdDgtBiJ7kZN3mbvy8veK7jmpFSeJjQLs0BaywXpxD/C2vnd0tJ
+ k/+vglNz0s3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.83,290,1616482800"; d="scan'208";a="556437487"
+Received: from linux.intel.com ([10.54.29.200])
+ by fmsmga001.fm.intel.com with ESMTP; 21 Jun 2021 17:49:29 -0700
+Received: from [10.212.255.136] (jmbills-MOBL.amr.corp.intel.com
+ [10.212.255.136])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 21DF74126D
- for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 23:56:21 +0300 (MSK)
-Received: from [10.199.0.46] (10.199.0.46) by T-EXCH-03.corp.yadro.com
- (172.17.100.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 21
- Jun 2021 23:56:21 +0300
-Message-ID: <36db44ef6cab760cf7c5a5dbba0f193ef78ca3a3.camel@yadro.com>
-Subject: x86-power-control: NMI Enabled
-From: Andrei Kartashev <a.kartashev@yadro.com>
-To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
-Date: Mon, 21 Jun 2021 23:56:20 +0300
-Organization: YADRO
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.40.1 
+ by linux.intel.com (Postfix) with ESMTPS id 429B65808BA
+ for <openbmc@lists.ozlabs.org>; Mon, 21 Jun 2021 17:49:29 -0700 (PDT)
+Subject: Re: Are redfish event logs persistent across reboot?
+To: openbmc@lists.ozlabs.org
+References: <SG2PR02MB2796FB3D6D6A8C7E7E478878850E9@SG2PR02MB2796.apcprd02.prod.outlook.com>
+From: "Bills, Jason M" <jason.m.bills@linux.intel.com>
+Message-ID: <106950ac-8977-a84b-3178-577e519f62c2@linux.intel.com>
+Date: Mon, 21 Jun 2021 18:49:28 -0600
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
+In-Reply-To: <SG2PR02MB2796FB3D6D6A8C7E7E478878850E9@SG2PR02MB2796.apcprd02.prod.outlook.com>
+Content-Type: text/plain; charset=windows-1252; format=flowed
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-X-Originating-IP: [10.199.0.46]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-03.corp.yadro.com (172.17.100.103)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,30 +75,29 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
-
-I was a bit confused today when I found that x86-power-control uses
-undocumented "Enabled" property of
-xyz.openbmc_project.Chassis.Control.NMISource interface (see links
-below).
-The xyz.openbmc_project.Chassis.Control.NMISource is hosted by Settings
-daemon and thus should store persistent configuration information.
-
-According to the sources, "Enabled" is used to store internal state of
-NMI operation or even to trigger NMI. My confusion is about if it
-really required to have this state to be persistent over reboot? I
-almost sure, it doesn't. But even if it does, it should not be hosted
-by Settings daemon as semantically it is not a configuration option.
-
-Does anyone know, Is there any software that depend on this Enabled
-property? Otherwise I prefer to cut it out.
-
-https://github.com/openbmc/x86-power-control/blob/master/power-control-x86/src/power_control.cpp#L2006
-https://github.com/openbmc/phosphor-dbus-interfaces/blob/master/yaml/xyz/openbmc_project/Chassis/Control/NMISource.interface.yaml#L4
 
 
--- 
-Best regards,
-Andrei Kartashev
+On 6/16/2021 9:22 PM, Udupa.Ashwini ISV wrote:
+> Hi,
+> 
+> Are redfish event logs(/var/log/redfish) persistent across reboot?
+This depends on how your filesystem is mounted.
 
+We used to directly mount /var to our non-volatile flash partitions but 
+because of another feature requirement we now mount /var as an overlay 
+on /tmp:
+https://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-phosphor/preinit-mounts/preinit-mounts/init#L76
 
+Then we have another service that periodically rsyncs the /tmp overlay 
+into the non-volatile flash partition to persist the redfish logs:
+https://github.com/Intel-BMC/openbmc/blob/intel/meta-openbmc-mods/meta-common/recipes-core/nv-sync/nv-sync/nv-syncd
+> 
+> Currently, I see that old logs are lost after reboot and 
+> /var/log/redfish is newly written.
+> 
+> Is this the current design?
+> 
+> Regards,
+> 
+> Ashwini
+> 
