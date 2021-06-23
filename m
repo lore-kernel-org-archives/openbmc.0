@@ -2,76 +2,74 @@ Return-Path: <SRS0=CX8f=LR=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9AC9BC2B9F4
-	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 01:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4111AC2B9F4
+	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 01:29:15 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 36E01610F7
-	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 01:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 36E01610F7
+	by mail.kernel.org (Postfix) with ESMTPS id 90B5461351
+	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 01:29:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 90B5461351
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4G8lSB1fk0z306m
-	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 11:05:30 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4G8lzY6k71z2yXs
+	for <openbmc@archiver.kernel.org>; Wed, 23 Jun 2021 11:29:13 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=QMynEADG;
+	dkim=pass (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=h6HtKeuu;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::82c;
- helo=mail-qt1-x82c.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::729;
+ helo=mail-qk1-x729.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
- header.s=google header.b=QMynEADG; dkim-atps=neutral
-Received: from mail-qt1-x82c.google.com (mail-qt1-x82c.google.com
- [IPv6:2607:f8b0:4864:20::82c])
+ header.s=google header.b=h6HtKeuu; dkim-atps=neutral
+Received: from mail-qk1-x729.google.com (mail-qk1-x729.google.com
+ [IPv6:2607:f8b0:4864:20::729])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4G8lRf2hW5z2yYG
- for <openbmc@lists.ozlabs.org>; Wed, 23 Jun 2021 11:05:00 +1000 (AEST)
-Received: by mail-qt1-x82c.google.com with SMTP id f20so84427qtk.10
- for <openbmc@lists.ozlabs.org>; Tue, 22 Jun 2021 18:04:59 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4G8lz40RyWz2yYG;
+ Wed, 23 Jun 2021 11:28:46 +1000 (AEST)
+Received: by mail-qk1-x729.google.com with SMTP id q64so1137232qke.7;
+ Tue, 22 Jun 2021 18:28:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
  h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=2VTxEWnxtPyEnHfBF/n4ToA7Ij2nj9vYBlL80F37GpU=;
- b=QMynEADGanz9BVOaEEvtS1q1E1f7L6BQq7NWMUxiRRKFAIYxLlSWhW/tv2YKuVBAys
- he/fTwzmyTZQ0MEFmR0seKl++MrWyASQRQxQvqFLFgIyWsRF1vJtuden3GbQPHhrlX8B
- YdgVYmdMNwy+VDns4rSYBVm/RHYLj1OcRwvCU=
+ :cc; bh=YihVgOY8TwEPpiOkTOB6VSMy81BFPn0G4/r4cZlKARU=;
+ b=h6HtKeuuzbR1C3owcO0xFjKJVscG5emqOGf4jaME34Ox5Z0z+XunBQAaDz6fX8+mJi
+ DOBJtXzbSWp1AtJ5hFyHmlDHda8b6soWie5BzE+AS8s04xWIKCz2RT63aMSRaGlngYyy
+ tiWQL68T9VN7xibaJfPK6E2gMgFMq7azN2v6c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=2VTxEWnxtPyEnHfBF/n4ToA7Ij2nj9vYBlL80F37GpU=;
- b=JANVZxBQCip7pLsHKCZRm98ZQpCeTkrTlyrjX08aejDji8CoLdNQYU6r/quxV5ppl0
- 1anRBb18oW/044OPc6vVZFAoc2rqAkO1W40ksFNMRc+W4EtKLAekEo3T60FV/ueF30/g
- vPzUeMr/1/DgzerZOUCs8lS2deC4M4YkQyGwQzyjrRKmIxa/An07htIHbp8kwzBj/tWo
- kH5Rnm/s9OAcbea1ea8XmJoULKAoclZQ3BFb18u+0aF2BfKNX+VdrwM6VtKo14wuteg0
- Z6LFnFwwHHunH29s46w+GBs18FYJnaPbc9coIIjbumdKgt9jNyJ0jSZUQt3fyU9FUNst
- o+Zw==
-X-Gm-Message-State: AOAM5304tFVN+ETlG7CINdkzlOrTqxW4gu9Re1pxaMY017m6ukXtSOHI
- K3y6ZrRHOLdVkZ9LHkM7n4Ta1kUxIFcBAcjfTbwXN6I1
-X-Google-Smtp-Source: ABdhPJwl3hh5E7/C4sd0e25XBnliQxwRCJ8rewGuLqyzxM6Wvmwu/wNNecM6feBf8BczF8USP7Itd7WEZGOHXFnaEHQ=
-X-Received: by 2002:a05:622a:1016:: with SMTP id
- d22mr1478206qte.363.1624410295767; 
- Tue, 22 Jun 2021 18:04:55 -0700 (PDT)
+ bh=YihVgOY8TwEPpiOkTOB6VSMy81BFPn0G4/r4cZlKARU=;
+ b=JfuZavEPaykm7bqt57sB4+h6U18vS+j7EB73EAkI9WVenSCHTaDEXbSE+Y/qhFJHDJ
+ ahbuk81T6oMalWVsikbpooOorH/TOBCbwKm/3D9NaxEURQoRisFC+Llk0KPhhrV1GBFf
+ q75LVTBgWFdTkiLYAwXrvW804NbSHjbmddDwKYXySY30jcuTiFXSHgm5Jh3N070xEXT3
+ jbccUM1tJd9K8DGygGjl+E6wtgs6MlFcAvJQ18AmQdDm/AtPtFD3IejOO5nM962V//eD
+ X2ppE3zviTgy8SpjPC7bHmOfQWd4bHD5r78JWYnGPqkFHmH0A5TD7JdHsqrRKV7fQN54
+ qQ2Q==
+X-Gm-Message-State: AOAM533krEwOvg6axpHBeZNxqkSSFuy9Wke+eU/sS9WWYbi4gxJEQAXx
+ KyBjW3odEt/pAPfbT+AmoogjXbjxy0bmwxHKQu4=
+X-Google-Smtp-Source: ABdhPJzDrhHRH/hrTsdTFqtUtm6tkSuJO4U72qCDdtebzW4JQuqQtn8OEgyTD9raPW913ddKGNN+uwWgsRw+3kNWXa4=
+X-Received: by 2002:ae9:f401:: with SMTP id y1mr7329348qkl.273.1624411721580; 
+ Tue, 22 Jun 2021 18:28:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20210618035858.4024689-1-andrew@aj.id.au>
- <20210618035858.4024689-3-andrew@aj.id.au>
- <23fff90a-e291-4874-bb8e-685b69ec5c3f@www.fastmail.com>
-In-Reply-To: <23fff90a-e291-4874-bb8e-685b69ec5c3f@www.fastmail.com>
+References: <20210610202940.3650554-1-bjwyman@gmail.com>
+ <d0e66d10765ae85b1bd939ddacc7f7d861190196.camel@linux.ibm.com>
+In-Reply-To: <d0e66d10765ae85b1bd939ddacc7f7d861190196.camel@linux.ibm.com>
 From: Joel Stanley <joel@jms.id.au>
-Date: Wed, 23 Jun 2021 01:04:43 +0000
-Message-ID: <CACPK8Xei9yNygb3_AO+jyoJwoWJ_=SEuZONqwrzGZDX+KmaURg@mail.gmail.com>
-Subject: Re: [PATCH linux dev-5.10 2/7] ipmi: kcs_bmc: Add a "raw" character
- device interface
-To: Andrew Jeffery <andrew@aj.id.au>
+Date: Wed, 23 Jun 2021 01:28:29 +0000
+Message-ID: <CACPK8XcvJZYex4crPDz-uSpqLymA2=SseyO+fK1_qCnopRffFA@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: Everest PSU #3 address change
+To: Eddie James <eajames@linux.ibm.com>
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -84,54 +82,53 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
+Cc: Brandon Wyman <bjwyman@gmail.com>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 23 Jun 2021 at 00:48, Andrew Jeffery <andrew@aj.id.au> wrote:
+On Mon, 21 Jun 2021 at 19:09, Eddie James <eajames@linux.ibm.com> wrote:
 >
+> On Thu, 2021-06-10 at 20:29 +0000, Brandon Wyman wrote:
+> > From: "B. J. Wyman" <bjwyman@gmail.com>
+> >
+> > The third power supply had an I2C address conflict with another
+> > device
+> > in the system. The device will have the address changed from 6Ah to
+> > 6Dh.
 >
+> Thanks Brandon.
 >
-> On Fri, 18 Jun 2021, at 13:28, Andrew Jeffery wrote:
-> > +static int kcs_bmc_raw_add_device(struct kcs_bmc_device *kcs_bmc)
-> > +{
-> > +     struct kcs_bmc_raw *priv;
-> > +     int rc;
-> > +
-> > +     priv = devm_kzalloc(kcs_bmc->dev, sizeof(*priv), GFP_KERNEL);
-> > +     if (!priv)
-> > +             return -ENOMEM;
-> > +
-> > +     priv->client.dev = kcs_bmc;
-> > +     priv->client.ops = &kcs_bmc_raw_client_ops;
-> > +
-> > +     init_waitqueue_head(&priv->queue);
-> > +     priv->writable = false;
-> > +     priv->readable = false;
-> > +
-> > +     priv->miscdev.minor = MISC_DYNAMIC_MINOR;
-> > +     priv->miscdev.name = devm_kasprintf(kcs_bmc->dev, GFP_KERNEL, "%s%u",
-> > DEVICE_NAME,
-> > +                                        kcs_bmc->channel);
-> > +     if (!priv->miscdev.name)
-> > +             return -EINVAL;
-> > +
-> > +     priv->miscdev.fops = &kcs_bmc_raw_fops;
-> > +
-> > +     /* Initialise our expected events. Listen for IBF but ignore OBE
-> > until necessary */
-> > +     kcs_bmc_raw_update_event_mask(priv, (KCS_BMC_EVENT_TYPE_IBF |
-> > KCS_BMC_EVENT_TYPE_OBE),
-> > +                                   KCS_BMC_EVENT_TYPE_IBF);
->
-> Ah, this is now wrong wrt to some other rework that went on, we should be disabling IBF and OBE until the chardev is opened.
->
-> With the code as it is we can get a "nobody cared" WARN().
->
-> I'll send a v2.
+> Reviewed-by: Eddie James <eajames@linux.ibm.com>
 
-Best to put it on the upstream lists. We can pull it in if you need it sooner.
+I've applied this to dev-5.10.
+
+I'll try to remember to get the change upstream too.
 
 >
-> Andrew
+> >
+> > Signed-off-by: B. J. Wyman <bjwyman@gmail.com>
+> > ---
+> >  arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+> > b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+> > index 3295c8c7c05c..480cb6604c7d 100644
+> > --- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+> > +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+> > @@ -536,9 +536,9 @@ power-supply@69 {
+> >               reg = <0x69>;
+> >       };
+> >
+> > -     power-supply@6a {
+> > +     power-supply@6d {
+> >               compatible = "ibm,cffps";
+> > -             reg = <0x6a>;
+> > +             reg = <0x6d>;
+> >       };
+> >
+> >       power-supply@6b {
+>
