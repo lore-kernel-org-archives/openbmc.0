@@ -1,79 +1,77 @@
-Return-Path: <SRS0=4lTl=LT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=DvQB=LU=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79C37C49EBF
-	for <openbmc@archiver.kernel.org>; Fri, 25 Jun 2021 15:04:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A58CDC49EA5
+	for <openbmc@archiver.kernel.org>; Sat, 26 Jun 2021 21:19:16 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 5443E61983
-	for <openbmc@archiver.kernel.org>; Fri, 25 Jun 2021 15:02:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 5443E61983
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 026F061C3D
+	for <openbmc@archiver.kernel.org>; Sat, 26 Jun 2021 21:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 026F061C3D
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GBKxR44ydz3btf
-	for <openbmc@archiver.kernel.org>; Sat, 26 Jun 2021 01:02:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GC6FH1PNKz3btF
+	for <openbmc@archiver.kernel.org>; Sun, 27 Jun 2021 07:19:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Q8YzMdka;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=WZjxHaie;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=wsa@kernel.org; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Q8YzMdka; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=i.kononenko@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=WZjxHaie; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GBKwy0MLDz303M;
- Sat, 26 Jun 2021 01:02:25 +1000 (AEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 3EEA56197B;
- Fri, 25 Jun 2021 15:02:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1624633341;
- bh=+nC2189eKCU6T28/hcgTvLONm44gotEpXOHRDCHlrOs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Q8YzMdkakrr+6yUHSuakRSX6dve5Mt0T++6DuB0We2J28fogIsOo9FQ11MXaOVy2u
- rMUydL3PCwwARSXaHl8pAA7iOIwtiBSx/3lJhrsDlT18J00aw03AkGPXCKWYYHn22c
- 6x8x0KYIP+Rb18j/gcfQtkoTocm2zRF7nf/1glRBNHgDJwkOlZmOLG0/9g7w4UqlKO
- wxMSaeyFhVjQpGqSdpoLNLurW/2P4e4IEX8KG1GvlUu9S74GoSaRbFQEfYfYZfuzLG
- FaVEaVw+r0cBBB+ROFDPC6JXDaskPV1CI5+PhiaB1ieS6y8YtbbfDjtSzEy+ObKl92
- v37ZiTceM2Ppw==
-Date: Fri, 25 Jun 2021 17:02:19 +0200
-From: Wolfram Sang <wsa@kernel.org>
-To: Quan Nguyen <quan@os.amperecomputing.com>
-Subject: Re: [PATCH v3 1/7] i2c: i2c-core-smbus: Expose PEC calculate
- function for generic use
-Message-ID: <YNXv+2SpsTLStsIE@shikoro>
-Mail-Followup-To: Wolfram Sang <wsa@kernel.org>,
- Quan Nguyen <quan@os.amperecomputing.com>,
- Corey Minyard <minyard@acm.org>, Rob Herring <robh+dt@kernel.org>,
- Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>,
- Brendan Higgins <brendanhiggins@google.com>,
- Benjamin Herrenschmidt <benh@kernel.crashing.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- openipmi-developer@lists.sourceforge.net,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- linux-i2c@vger.kernel.org,
- Open Source Submission <patches@amperecomputing.com>,
- Phong Vo <phong@os.amperecomputing.com>,
- "Thang Q . Nguyen" <thang@os.amperecomputing.com>,
- openbmc@lists.ozlabs.org
-References: <20210519074934.20712-1-quan@os.amperecomputing.com>
- <20210519074934.20712-2-quan@os.amperecomputing.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GC6Dn1hdTz307F
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Jun 2021 07:18:48 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 24C104137A
+ for <openbmc@lists.ozlabs.org>; Sat, 26 Jun 2021 21:18:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-type:content-type:content-transfer-encoding:mime-version
+ :x-mailer:message-id:date:date:subject:subject:from:from
+ :received:received:received; s=mta-01; t=1624742322; x=
+ 1626556723; bh=sOXdstuCFtHJPrU2YjtCoSjY8xjENVIAAPEdCrs75Tc=; b=W
+ ZjxHaienr8wkXirSf10OzigxzvrAbcXlhKESMNE0p0fW65x1nZkQO6biclEtooEH
+ gyf2AhHFNPtcgdXb9VC4C9SRhQj2++Tw3n5XRS/IN1Cfj4pIrxCY482/lX7rGY4L
+ YmdTHRt5V1A+8kCqjZ/JI92xQdRirnMsk13F+/xU8w=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id BsEmB7hZzmpO for <openbmc@lists.ozlabs.org>;
+ Sun, 27 Jun 2021 00:18:42 +0300 (MSK)
+Received: from T-EXCH-03.corp.yadro.com (t-exch-03.corp.yadro.com
+ [172.17.100.103])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 1D4A74127F
+ for <openbmc@lists.ozlabs.org>; Sun, 27 Jun 2021 00:18:41 +0300 (MSK)
+Received: from localhost.localdomain (10.199.0.6) by T-EXCH-03.corp.yadro.com
+ (172.17.100.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Sun, 27
+ Jun 2021 00:18:41 +0300
+From: Igor Kononenko <i.kononenko@yadro.com>
+To: 
+Subject: [PATCH 0/6] USB-gadget: mass-storage: Support DVD-like images. 
+Date: Sun, 27 Jun 2021 00:18:13 +0300
+Message-ID: <20210626211820.107310-1-i.kononenko@yadro.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="+2nERxd5au+gK8PN"
-Content-Disposition: inline
-In-Reply-To: <20210519074934.20712-2-quan@os.amperecomputing.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.199.0.6]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-03.corp.yadro.com (172.17.100.103)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,53 +83,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
- Corey Minyard <minyard@acm.org>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org, "Thang Q . Nguyen" <thang@os.amperecomputing.com>,
- Brendan Higgins <brendanhiggins@google.com>, linux-kernel@vger.kernel.org,
- Phong Vo <phong@os.amperecomputing.com>, Rob Herring <robh+dt@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- openipmi-developer@lists.sourceforge.net,
- Open Source Submission <patches@amperecomputing.com>,
- linux-arm-kernel@lists.infradead.org, linux-i2c@vger.kernel.org
+Cc: openbmc@lists.ozlabs.org, Igor Kononenko <i.kononenko@yadro.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+The following patches contain several fixes of implementation           
+'usb-gadget:mass-storage' and bring a support DVD/BR media-types.       
+The type of MMC device will be calculating relevant to backend-file     
+image size.   
 
---+2nERxd5au+gK8PN
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Igor Kononenko (6):
+  usb:gadget:mass-storage: Improve the signature of SCSI handler
+    function
+  usb:gadget:mass-storage: refactoring the SCSI command handling
+  fms: Add TOC/PMA/ATIP DVD-ROM capabilities
+  fms: Support the DVD/BD images size over 2.1Gb
+  FMS: Add the SCSI Get Configuration command.
+  FMS: Add SCSI Read Disc Information command.
 
-On Wed, May 19, 2021 at 02:49:28PM +0700, Quan Nguyen wrote:
-> Expose the PEC calculation i2c_smbus_pec() for generic use.
->=20
-> Signed-off-by: Quan Nguyen <quan@os.amperecomputing.com>
+ drivers/ata/libata-zpodd.c                   |    8 +-
+ drivers/usb/gadget/function/f_mass_storage.c |  942 ++++++++++----
+ drivers/usb/gadget/function/storage_common.c |   19 +-
+ drivers/usb/gadget/function/storage_common.h |    5 +
+ include/scsi/scsi_proto.h                    |    2 +
+ include/uapi/linux/cdrom.h                   | 1216 +++++++++++++++++-
+ 6 files changed, 1854 insertions(+), 338 deletions(-)
 
-You are the second one who wanted this exported. I agree it makes sense
-for slave drivers. So, I'll skip the required user because two are in
-flight. Applied to for-next, thanks!
+-- 
+2.32.0
 
-
---+2nERxd5au+gK8PN
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmDV7/oACgkQFA3kzBSg
-KbZ8xg//dLfzMR1eQtBMxT1tUHLNopwRIXCsraVBzK+s0nbpuIDwP7mxiTLlLnQ9
-vp/mzzur/NvhOqJ7uBrc1tPIyo6fcNtH9sq1S1hGQcV6kFR/fZ920TvGo/uE1AvN
-GHU8vUz2TBjYvctu9fiBIYecfDB0KAkYPHTV6zpANUn2CnifvIdBJ7E38IVUk5n/
-b0cZEsjj1HV7Hnp+GHw5CPsHYOV3LP9Nlbu+z++AzcYhhbEXxUEFaiMUS4LQ58Px
-idn6ndXW8L5r69OH7Y+YR2EvEKm4rwqs21rnh0Iql1U+eQVYrL9cafa1/uXdah3r
-OKWrcFEhyomnHAI8QQ1aK6fIyDB9ms93asIwhKdy9oKO7ZDTXH5gsUvE35L+mhoZ
-tv5IiOfNoI6stXCotmaqAWXIP5/B/ucuyEMiA5Dyjfa+uutIHgT+l4tGvchnpe3T
-jKbmr7SlGW410XhyVc+No8zD0yug7YpC6IQ+AEWHMsSXR4dIU87ZTxcGRXZKeKv5
-agJ5M0eRWRKjJpatkK/7mOumtaIcnT4jyGfXiwKOlsS8XIYzeq6WsT08EpVXQIKR
-eQVYbm3Y1d8rI3AYts1le1VqEv69PShYBXuvbm4FG9H6fKkAVX9i2dLGwiS8GiWM
-lskRRpMa6GpsLn0t+uurUWkgXzK+c06NBejGsWTs9nq5s41Y1bU=
-=X8AV
------END PGP SIGNATURE-----
-
---+2nERxd5au+gK8PN--
