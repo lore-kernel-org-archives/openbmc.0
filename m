@@ -2,102 +2,68 @@ Return-Path: <SRS0=4IXc=LX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A1210C11F64
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 00:59:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E47A3C11F64
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 03:26:22 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0829C6145F
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 00:59:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0829C6145F
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 3655A61D27
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 03:26:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 3655A61D27
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=infradead.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GDR2n3R6Xz3bVB
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 10:59:45 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GDVHw2sJWz3bTC
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 13:26:20 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=HFQa1Guu;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=UbiiN4lS;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=P67bAxKg;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.28;
- helo=out4-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=casper.srs.infradead.org (client-ip=2001:8b0:10b:1236::1;
+ helo=casper.infradead.org;
+ envelope-from=batv+84229f094fc34bd52d83+6518+infradead.org+hch@casper.srs.infradead.org;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm3 header.b=HFQa1Guu; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=UbiiN4lS; 
+ secure) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256
+ header.s=casper.20170209 header.b=P67bAxKg; 
  dkim-atps=neutral
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com
- [66.111.4.28])
+Received: from casper.infradead.org (casper.infradead.org
+ [IPv6:2001:8b0:10b:1236::1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GDR2D2td2z30C4
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 10:59:14 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id CEA735C0293;
- Mon, 28 Jun 2021 20:59:10 -0400 (EDT)
-Received: from imap2 ([10.202.2.52])
- by compute2.internal (MEProxy); Mon, 28 Jun 2021 20:59:10 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm3; bh=KvihXOuDDIueI75G3MocQ+efFKEEsKV
- dyLphow6BCwc=; b=HFQa1GuuJqv43kqHqw5fIca1vAZU6uv/rfzRDX/douSxvnt
- g+widEw1Qlf3rIQXb+aR1azqbUeYDEpOh1Nnrp2IDNTmbOMMidYDO/eWzjEBD/XS
- iOZ8Sdfnf1ziwKJmoVrrSp67OI2CERtylfbIGyZ4AumdMjPQII/SwutzAINHITxf
- Y6UeNAUh6mfA7vQem7MkDefz1Y9c2LUm2+PlLWBhfEgUnm5NO+33hGuz9e7pSaNS
- KmTIfJQ7ASakET4GQmBYfvj9haaWZAznH4IyxrTNjxFEJdZwGa60V9x9q6DmkUTV
- c97GT0fKzsa2gdPlFiiLKrmmSIW9F1dS0zryWgA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=KvihXO
- uDDIueI75G3MocQ+efFKEEsKVdyLphow6BCwc=; b=UbiiN4lSR9uRTnAzHsFXkO
- Qx3RZ462kYICqwYwcIvp1CJg3nvFcWw2PT0GFSeOiJys7ycYBYpI+Wuuw1foTeNR
- mnFfe5/F1Cu4D2nqn0YnboAjYfiGHnRzuSAzUlQomnBbVLAp+jmRfz3YvDspWTMS
- MoP/OX0gYqR1TL3rWcgPmn6AeA1FZVA6dtCDEj8Zl0DWKF2IPXuW26+qE1UWr0ga
- UllO3jMAO7vWqu1Nl/FWZ9iTsbQpMGnxXC7QnodXlW58V6hUwSdRO7+xwnGkGZab
- 9u3tXjws0iYwUdfrZ6B7gaefC1nUBsJNOCHMrhNFk+aoIxWI1LbZd8FSAd7OMoGw
- ==
-X-ME-Sender: <xms:XnDaYH_umwcvlcHgHCuiziHvkMc1XHdwtKVd_LrWVer_fMsPaL0KmQ>
- <xme:XnDaYDvCtJxk6DY5sFOnp9vMTheVaNikE8YoJd2oyVTFlMLAII82E71b4yrFBZZ2c
- ScJyyoScU6bQJwT4A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrfeehhedgfeeiucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhepofgfggfkjghffffhvffutgesthdtredtreertdenucfhrhhomhepfdetnhgu
- rhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjhdrihgurdgruheqnecuggftrf
- grthhtvghrnhephefhfeekgfekudevheffheeihedujeefjeevjeefudfgfeeutdeuvdeh
- hfevueffnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
- eprghnughrvgifsegrjhdrihgurdgruh
-X-ME-Proxy: <xmx:XnDaYFANPE8T8BI_emQbwBZq_lLLF_24bfq-mNZH6nxa0pTyHJ-uyA>
- <xmx:XnDaYDf3Kpt3USOSeea6vdrsvH-ZQvN8_XL2r6YCvUM4sDhLOlP0bA>
- <xmx:XnDaYMNwXoCFHSILNB0Lf2grLLXeKcZ35rvIeA3yQpvLUbADTxvotQ>
- <xmx:XnDaYGWE30edArrGpwrr_NmuL369hs7Fu_wUSi1q4IBjdnjYNa1Q_Q>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 1556BA0003D; Mon, 28 Jun 2021 20:59:10 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-530-gd0c265785f-fm-20210616.002-gd0c26578
-Mime-Version: 1.0
-Message-Id: <b6f0d522-01c3-4b8b-9273-ed2132d27b4f@www.fastmail.com>
-In-Reply-To: <20210628205137.zrww6xxheukt3q2y@thinkpad.fuzziesquirrel.com>
-References: <fb9071bf-f2ad-417b-b9a6-d0baeed67e06@www.fastmail.com>
- <20210601202613.7o3kplhw2z7mrdvw@thinkpad.fuzziesquirrel.com>
- <0f0408a1-45f4-9c10-59ad-ca9428260c79@linux.vnet.ibm.com>
- <20210628205137.zrww6xxheukt3q2y@thinkpad.fuzziesquirrel.com>
-Date: Tue, 29 Jun 2021 10:28:49 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Brad Bishop" <bradleyb@fuzziesquirrel.com>,
- "Bruce Mitchell" <bruce.mitchell@linux.vnet.ibm.com>
-Subject: Re: Request for debug-trigger repository
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GD31K3p73z30CT
+ for <openbmc@lists.ozlabs.org>; Mon, 28 Jun 2021 19:57:07 +1000 (AEST)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=qIbUFExBlJI5QA1nU2WzaI4H72pC0gc6gNk0xgR+rKc=; b=P67bAxKgnCNb4it+mmUn9RXFur
+ 8YhmJ0KuWIUz8sQi0gHjJGwVa9pFqfA+MrWJqN52N2IHhHOWPsBb3AKXG1toUqLubnxKCJGQpaohm
+ wE4bdavEkuw68XocSlav0FoQ4eXqz+O9efzE/WBB0lB2LKWsBA3p1IfQgCJXy7ulG9nFwTK8EINRC
+ Qa1HlsRv0V1LxdbLyRkLFeamdOfxBD8w0Xb+wO5oFxxcaEgI0Qj3sdMADAJALRZioq6BFr7R1ZKVL
+ rOtpCQw20ssWCvqk2ZoD3qa3ugxA75tY9epUZuPCZjRg2tF03LdvGXuwBubvStyTJ87fYdkyLDoLD
+ O+yN5pvA==;
+Received: from hch by casper.infradead.org with local (Exim 4.94.2 #2 (Red Hat
+ Linux)) id 1lxnxm-002ntY-LZ; Mon, 28 Jun 2021 09:54:15 +0000
+Date: Mon, 28 Jun 2021 10:53:58 +0100
+From: Christoph Hellwig <hch@infradead.org>
+To: Igor Kononenko <i.kononenko@yadro.com>
+Subject: Re: [PATCH 5/6] FMS: Add the SCSI Get Configuration command.
+Message-ID: <YNmcNvqvTFNCrMl9@infradead.org>
+References: <20210626211820.107310-1-i.kononenko@yadro.com>
+ <20210626211820.107310-6-i.kononenko@yadro.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20210626211820.107310-6-i.kononenko@yadro.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ casper.infradead.org. See http://www.infradead.org/rpr.html
+X-Mailman-Approved-At: Tue, 29 Jun 2021 13:25:54 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,27 +75,16 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: Jens Axboe <axboe@kernel.dk>, Felipe Balbi <balbi@kernel.org>,
+ linux-scsi@vger.kernel.org, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <jejb@linux.ibm.com>, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
+ openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-
-
-On Tue, 29 Jun 2021, at 06:21, Brad Bishop wrote:
-> On Tue, Jun 01, 2021 at 01:48:16PM -0700, Bruce Mitchell wrote:
-> >Hi Brad,
-> >
-> >I think Andrew has is default branch as main, and it looks like you 
-> >created a branch called master.  Do you want that changed to match 
-> >what Andrew has done prior to him making any commits on it?
-> 
-> Hi Bruce.  Andrew is certainly free to do that at any time.  I sort of 
-> want to encourage any repository maintainer to just go do this right now 
-> but I don't understand what the impacts might be, if any.  My thinking 
-> is that the next time I make a repository I'll just make 'main' the 
-> default branch and we'll discover and work through any issues that 
-> arise.
-> 
-
-Sounds good to me.
+What is FMS?  And why do only patches 5 and 6 show up on the list?
+And why does this mix changes to the SCSI layer, libata, usb-gadget and
+the CDROM UAPI in a single patch?
