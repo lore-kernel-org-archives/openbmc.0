@@ -2,80 +2,82 @@ Return-Path: <SRS0=4IXc=LX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE5CC11F66
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B2F71C11F66
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:48 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 756E361DBC
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 756E361DBC
+	by mail.kernel.org (Postfix) with ESMTPS id EE4AB61DB6
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org EE4AB61DB6
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GDbrV1G0Qz3bTB
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:26 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GDbrt57byz3bbc
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=MpfgRZnj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=RC+C/m7D;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::531;
- helo=mail-pg1-x531.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::62b;
+ helo=mail-pl1-x62b.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=MpfgRZnj; dkim-atps=neutral
-Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
- [IPv6:2607:f8b0:4864:20::531])
+ header.s=20161025 header.b=RC+C/m7D; dkim-atps=neutral
+Received: from mail-pl1-x62b.google.com (mail-pl1-x62b.google.com
+ [IPv6:2607:f8b0:4864:20::62b])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GDbqY38tTz301K
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 17:35:35 +1000 (AEST)
-Received: by mail-pg1-x531.google.com with SMTP id m2so17712018pgk.7
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 00:35:35 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GDbqc14Zsz301K
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 17:35:40 +1000 (AEST)
+Received: by mail-pl1-x62b.google.com with SMTP id i4so10409179plt.12
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 00:35:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GPohnix/AWfuANCmybGcGLnwHn0R6vbvbRLb2EBgVIQ=;
- b=MpfgRZnj0Ecdf1g8IgJrXAmzeRyLh7BScaivUCbeSAdjo4ASi/y6CfJ/kskb2fY1vS
- BQFpmet5ehON3Kz8jg+GgpUPrHUxj9Urv961cTWNoTAwlSg1a9Rqexv1xJx1A6raVsqa
- /T4Gw7MYkGgJeW02yv9XuXsLTxViOuG2uXKw1ofr4lHy06RMVsQ5rSZ9r4R/v+lT1tt+
- QyK0A2VlE7FWGAC5d8xasCWJPqiSj8jSpB2JlaOiuXRdaacmYAQJCv7R9DI4DybT68b4
- UNVuw/ohU8C/ZgqhZ13nzBWFU4MWKV5+yGzhfTZvjPEQuVzX+BFQTokIzQGHKQyAMkFa
- 9NbA==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=72tAzKiXHsnKwCj0vbDyfWUkIt613OcwIIbNzSDrl1c=;
+ b=RC+C/m7DPCMdAZFl9P6nt/Z7639t5kbr3+ZRIyH6/8nCRyCIADEeeTDdK/L9lvVqvJ
+ ySi/6Tz0C1KDeInUVDFNoHm2XekkIqH3+6opFFV8OFAo+IoOg2n73wUcAHI+scE8WO15
+ 44SNIC61pFYGj0yvJXoQQAaueql1F/p3NTReFMJeDGT2XVCEzapg3SlPbNlhCPscEtTw
+ Qcg1lN5JkJvDXbUUN2vgyiovtEN6+tZpx/2CFRihjWrFV8qlJ5Em++FyK5HMN/1kYham
+ Qbr7TzzodQ/cY8daXUovTZpyRx1vMLEkFKEwNIOlvDUOZbUuAa2DpvR50PHBQFkl0Gku
+ A/Iw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :mime-version:content-transfer-encoding;
- bh=GPohnix/AWfuANCmybGcGLnwHn0R6vbvbRLb2EBgVIQ=;
- b=fV++x63ct2fhHYLTIPddL/LmLX3ogqTT9upR42RX4MVKnRDWtPT89ykBEmoAIGcwuJ
- O5c2omscqTaHVJd6eaNa71Cf2n3PYnhcKi1DxBtHs6rolW6xfaozvhNNwSlTmh/cOFSW
- C7gIgB1ENAanDc26af4d+1kCSE9aQTKpSsgUy1Ws4m83vuYJ8reBk5mJ+uZJhzg3QCNz
- Yb1lfVqxTfLuNNki++U7T6GoK6ZgyQQQFG7Y/ineROGdY86KcUmdKilwQtxjvkO9L3wq
- M+sn6hNtj3SIAL0Us9OTFaH27VgqyG8IBi6ioidpxycDHajs0gArtXFlgEGm+naYz/9J
- B4gg==
-X-Gm-Message-State: AOAM532/XRNEpR7Ynwa+wWxyver1Lw2G8gWJpoxCo5oEfLkYZLsR0Vdi
- 9LyWBjLdjLZogR1FOkhPQQo=
-X-Google-Smtp-Source: ABdhPJx+LTFCzsVa0UxzZ0SaWWI2z5WbNynTVJrO7BmqfceFO8dKA5Hfq8OpNF9FxXNWjW8lK6chjQ==
-X-Received: by 2002:a63:27c2:: with SMTP id
- n185mr27051258pgn.178.1624952130418; 
- Tue, 29 Jun 2021 00:35:30 -0700 (PDT)
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=72tAzKiXHsnKwCj0vbDyfWUkIt613OcwIIbNzSDrl1c=;
+ b=uZp4uap550VF0RdnGrcCZzPaq9ulMsQD/BYLdE9/k+uTyWSIjRYOoM1IPbEvv22iw6
+ se+rT9k92PKhWvGSbwb6WyjGy1eGfGZIu9DiViajNZ9r8vQL+I2iDIofIqH4eY8BYOVX
+ p5hUl3XB20nbDOcuKDnYpXFXTPM1LKuW7xiiiIYVXtGEVi1ZPdDf/CcQW6FA5n7ui4wa
+ xv6RHqzXrCZB/DoMUD3yMdy1k0yZgtNQlqMxWzc7ziT/wYAOW0cBHpxcKtrgqXyhbXcB
+ NkIczL+ss1ywpFE+Rufv67boEFFAREa/oXTcCw5Hf5RPJyzXTa23RoNZUnrntHLaNim7
+ +R3A==
+X-Gm-Message-State: AOAM531SbqjRpX6hw6UOqhXy4ZD60rPh7NhIKmq5VqpXmLkDMNgkULQp
+ TrXNWiTldjL37d9UWKK3WAE=
+X-Google-Smtp-Source: ABdhPJznWfm1AfJlskJltsFbzqZTwvevTX1VhGQwZM166vpAVRlJSJrgCpswZN9BuPB4l53q7+l6Ew==
+X-Received: by 2002:a17:90a:fe10:: with SMTP id
+ ck16mr29896pjb.202.1624952137604; 
+ Tue, 29 Jun 2021 00:35:37 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id p8sm17622438pfw.135.2021.06.29.00.35.27
+ by smtp.gmail.com with ESMTPSA id p8sm17622438pfw.135.2021.06.29.00.35.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Jun 2021 00:35:29 -0700 (PDT)
+ Tue, 29 Jun 2021 00:35:36 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-5.10 0/2] soc: aspeed: Reenable devices
-Date: Tue, 29 Jun 2021 17:05:18 +0930
-Message-Id: <20210629073520.318514-1-joel@jms.id.au>
+Subject: [PATCH linux dev-5.10 2/2] soc: aspeed: Re-enable XDMA on AST2600
+Date: Tue, 29 Jun 2021 17:05:20 +0930
+Message-Id: <20210629073520.318514-3-joel@jms.id.au>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210629073520.318514-1-joel@jms.id.au>
+References: <20210629073520.318514-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -94,24 +96,50 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The latest u-boot SDK (00.04.00) contained changes that disable some
-devices using the 'debug' register in the SCU. This re-enables the
-devices in their respective drivers by clearing the disable bit.
+Recent builds of the vendor u-boot tree disable features of the
+BMC that may allow unwanted access if not correctly configured. This
+includes the PCIe DMA (XDMA) functionality.
 
-With these changes a rainier host boots to standby with the latest
-u-boot on the BMC.
+The bit to "un-disable" it is in the SCU. It does not appear to matter
+when it is cleared, as long as it is cleared before attempting a
+transfer.
 
-The first patch could go upstream once tested. The second needs to be
-folded into the xdma driver when it is next submitted.
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/soc/aspeed/aspeed-xdma.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-Joel Stanley (2):
-  soc: aspeed: Re-enable FWH2AHB on AST2600
-  soc: aspeed: Re-enable XDMA on AST2600
-
- drivers/soc/aspeed/aspeed-lpc-ctrl.c | 29 ++++++++++++++++++++++------
- drivers/soc/aspeed/aspeed-xdma.c     | 10 +++++++++-
- 2 files changed, 32 insertions(+), 7 deletions(-)
-
+diff --git a/drivers/soc/aspeed/aspeed-xdma.c b/drivers/soc/aspeed/aspeed-xdma.c
+index e6b4744bda64..48cfe30c90ad 100644
+--- a/drivers/soc/aspeed/aspeed-xdma.c
++++ b/drivers/soc/aspeed/aspeed-xdma.c
+@@ -34,6 +34,9 @@
+ #define SCU_AST2600_MISC_CTRL			0x0c0
+ #define  SCU_AST2600_MISC_CTRL_XDMA_BMC		 BIT(8)
+ 
++#define SCU_AST2600_DEBUG_CTRL			0x0c8
++#define  DEBUG_CTRL_XDMA_DISABLE	 	 BIT(2)
++
+ #define SCU_AST2500_PCIE_CONF			0x180
+ #define SCU_AST2600_PCIE_CONF			0xc20
+ #define  SCU_PCIE_CONF_VGA_EN			 BIT(0)
+@@ -831,10 +834,15 @@ static int aspeed_xdma_init_scu(struct aspeed_xdma *ctx, struct device *dev)
+ 		regmap_update_bits(scu, ctx->chip->scu_pcie_conf, bmc | vga,
+ 				   selection);
+ 
+-		if (ctx->chip->scu_misc_ctrl)
++		if (ctx->chip->scu_misc_ctrl) {
+ 			regmap_update_bits(scu, ctx->chip->scu_misc_ctrl,
+ 					   SCU_AST2600_MISC_CTRL_XDMA_BMC,
+ 					   SCU_AST2600_MISC_CTRL_XDMA_BMC);
++
++			/* Allow XDMA to be used on AST2600 */
++			regmap_update_bits(scu, SCU_AST2600_DEBUG_CTRL,
++					   DEBUG_CTRL_XDMA_DISABLE, 0);
++		}
+ 	} else {
+ 		dev_warn(dev, "Unable to configure PCIe: %ld; continuing.\n",
+ 			 PTR_ERR(scu));
 -- 
 2.32.0
 
