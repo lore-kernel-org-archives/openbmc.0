@@ -2,82 +2,80 @@ Return-Path: <SRS0=4IXc=LX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24246C11F68
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6EE5CC11F66
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:28 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4282161DBC
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4282161DBC
+	by mail.kernel.org (Postfix) with ESMTPS id 756E361DBC
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 07:36:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 756E361DBC
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GDbr52zCwz30hc
-	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:05 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GDbrV1G0Qz3bTB
+	for <openbmc@archiver.kernel.org>; Tue, 29 Jun 2021 17:36:26 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=aRa+5AKV;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=MpfgRZnj;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::1034;
- helo=mail-pj1-x1034.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::531;
+ helo=mail-pg1-x531.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=aRa+5AKV; dkim-atps=neutral
-Received: from mail-pj1-x1034.google.com (mail-pj1-x1034.google.com
- [IPv6:2607:f8b0:4864:20::1034])
+ header.s=20161025 header.b=MpfgRZnj; dkim-atps=neutral
+Received: from mail-pg1-x531.google.com (mail-pg1-x531.google.com
+ [IPv6:2607:f8b0:4864:20::531])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GDbqY3T07z301k
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 17:35:36 +1000 (AEST)
-Received: by mail-pj1-x1034.google.com with SMTP id q91so622587pjk.3
- for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 00:35:36 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GDbqY38tTz301K
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 17:35:35 +1000 (AEST)
+Received: by mail-pg1-x531.google.com with SMTP id m2so17712018pgk.7
+ for <openbmc@lists.ozlabs.org>; Tue, 29 Jun 2021 00:35:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=0izTLuRnkj5dD8aYr4Xn0lFlWrYHdpKau3JJLJgVkc4=;
- b=aRa+5AKVDnO0wnGjGRrNS1pR4hIBXhQkWOuAbQUxCj+fUOjExTRTiDjMiBcbLpnnzt
- xOkViiPF0XaQmuEPSn3YOVmSJ2JEIq1j8NGnokMXapzC6sLy0nkWM60jxKDpj4hYBpLG
- q2b+mzVQHhoaDGNLQGU2+yeS8PwMUSwcD/1Um/gKPvARRkYrcPFwMcu0m2APL0OETR8B
- 0WMhA7LAJpCsDYVWV4pH9sxB7y15tHPrj7eDS2U363ZHQgC3o8JU0+9rCalB90eniWTR
- YeUWuUjzVHb8QMFwMEaU4WYuTtQpH6IK+a//N17Z6fYo/Jsn8ougseXBmYLa93A2qXCB
- VhkA==
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=GPohnix/AWfuANCmybGcGLnwHn0R6vbvbRLb2EBgVIQ=;
+ b=MpfgRZnj0Ecdf1g8IgJrXAmzeRyLh7BScaivUCbeSAdjo4ASi/y6CfJ/kskb2fY1vS
+ BQFpmet5ehON3Kz8jg+GgpUPrHUxj9Urv961cTWNoTAwlSg1a9Rqexv1xJx1A6raVsqa
+ /T4Gw7MYkGgJeW02yv9XuXsLTxViOuG2uXKw1ofr4lHy06RMVsQ5rSZ9r4R/v+lT1tt+
+ QyK0A2VlE7FWGAC5d8xasCWJPqiSj8jSpB2JlaOiuXRdaacmYAQJCv7R9DI4DybT68b4
+ UNVuw/ohU8C/ZgqhZ13nzBWFU4MWKV5+yGzhfTZvjPEQuVzX+BFQTokIzQGHKQyAMkFa
+ 9NbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=0izTLuRnkj5dD8aYr4Xn0lFlWrYHdpKau3JJLJgVkc4=;
- b=NjZiWRZqhWF1YKIVxUolEwymYfrPVnysYWSXP9f4YCTYxYiY9TAF0/ZdEkpiB61VHj
- 1A4ynlLyTd1Je+Y1MEGleOmQRQ+JsxHP708bRwjg5Shp+xo57xZnCeKUk3Eknf0jHEeu
- 5Kl7XbmsTAmMR2jeeVd8IeQxuz6QueQhkWZWTk1HfSLbiJDvUyNABshoiA+8EO8oY+XA
- imZkU7Lti7N872sKX+QAToCFvuX5cH78W3JNee/ghx9SaORTGD15GiVB2xkAUFkV+SEl
- 8/pzOhs/mIM3lvwmnEqgmBXw6j9IiSji2TBj2jtThg8WSTzK6CqBVaP4YX5y4ZVpgzKO
- MTRA==
-X-Gm-Message-State: AOAM530oNAZaSmVGUAJDF+BcHrS10j/Iggv7KzGPNnZND2fHwZVR5vB8
- rarMeuTfYyeCinzrgZOjTWo=
-X-Google-Smtp-Source: ABdhPJxXUA0mCs6JeexbhFwMFb/0heZn9EOe71u68qLbv1RSDnJl9gqahmlmTPRHYqiF/uuZI+FueQ==
-X-Received: by 2002:a17:90a:e28f:: with SMTP id
- d15mr12539450pjz.79.1624952134111; 
- Tue, 29 Jun 2021 00:35:34 -0700 (PDT)
+ :mime-version:content-transfer-encoding;
+ bh=GPohnix/AWfuANCmybGcGLnwHn0R6vbvbRLb2EBgVIQ=;
+ b=fV++x63ct2fhHYLTIPddL/LmLX3ogqTT9upR42RX4MVKnRDWtPT89ykBEmoAIGcwuJ
+ O5c2omscqTaHVJd6eaNa71Cf2n3PYnhcKi1DxBtHs6rolW6xfaozvhNNwSlTmh/cOFSW
+ C7gIgB1ENAanDc26af4d+1kCSE9aQTKpSsgUy1Ws4m83vuYJ8reBk5mJ+uZJhzg3QCNz
+ Yb1lfVqxTfLuNNki++U7T6GoK6ZgyQQQFG7Y/ineROGdY86KcUmdKilwQtxjvkO9L3wq
+ M+sn6hNtj3SIAL0Us9OTFaH27VgqyG8IBi6ioidpxycDHajs0gArtXFlgEGm+naYz/9J
+ B4gg==
+X-Gm-Message-State: AOAM532/XRNEpR7Ynwa+wWxyver1Lw2G8gWJpoxCo5oEfLkYZLsR0Vdi
+ 9LyWBjLdjLZogR1FOkhPQQo=
+X-Google-Smtp-Source: ABdhPJx+LTFCzsVa0UxzZ0SaWWI2z5WbNynTVJrO7BmqfceFO8dKA5Hfq8OpNF9FxXNWjW8lK6chjQ==
+X-Received: by 2002:a63:27c2:: with SMTP id
+ n185mr27051258pgn.178.1624952130418; 
+ Tue, 29 Jun 2021 00:35:30 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.14])
- by smtp.gmail.com with ESMTPSA id p8sm17622438pfw.135.2021.06.29.00.35.30
+ by smtp.gmail.com with ESMTPSA id p8sm17622438pfw.135.2021.06.29.00.35.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 29 Jun 2021 00:35:33 -0700 (PDT)
+ Tue, 29 Jun 2021 00:35:29 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: Andrew Jeffery <andrew@aj.id.au>
-Subject: [PATCH linux dev-5.10 1/2] soc: aspeed: Re-enable FWH2AHB on AST2600
-Date: Tue, 29 Jun 2021 17:05:19 +0930
-Message-Id: <20210629073520.318514-2-joel@jms.id.au>
+Subject: [PATCH linux dev-5.10 0/2] soc: aspeed: Reenable devices
+Date: Tue, 29 Jun 2021 17:05:18 +0930
+Message-Id: <20210629073520.318514-1-joel@jms.id.au>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210629073520.318514-1-joel@jms.id.au>
-References: <20210629073520.318514-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -96,79 +94,24 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Recent builds of the vendor u-boot tree disable features of the
-BMC that may allow unwanted access if not correctly configured. This
-includes the firmware hub to ahb bridge (FWH2AHB), which is used by this
-driver.
+The latest u-boot SDK (00.04.00) contained changes that disable some
+devices using the 'debug' register in the SCU. This re-enables the
+devices in their respective drivers by clearing the disable bit.
 
-The bit to "un-disable" it is in the SCU. Set it only when the ioctl is
-called and we are running on the ast2600, as to not open up the
-'backdoor' unless there's userspace trying to use it.
+With these changes a rainier host boots to standby with the latest
+u-boot on the BMC.
 
-Fixes: deb50313ba83 ("soc: aspeed-lpc-ctrl: LPC to AHB mapping on ast2600")
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
+The first patch could go upstream once tested. The second needs to be
+folded into the xdma driver when it is next submitted.
+
+Joel Stanley (2):
+  soc: aspeed: Re-enable FWH2AHB on AST2600
+  soc: aspeed: Re-enable XDMA on AST2600
+
  drivers/soc/aspeed/aspeed-lpc-ctrl.c | 29 ++++++++++++++++++++++------
- 1 file changed, 23 insertions(+), 6 deletions(-)
+ drivers/soc/aspeed/aspeed-xdma.c     | 10 +++++++++-
+ 2 files changed, 32 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/soc/aspeed/aspeed-lpc-ctrl.c b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
-index c557ffd0992c..3ba4cee037f1 100644
---- a/drivers/soc/aspeed/aspeed-lpc-ctrl.c
-+++ b/drivers/soc/aspeed/aspeed-lpc-ctrl.c
-@@ -37,6 +37,7 @@ struct aspeed_lpc_ctrl {
- 	u32			pnor_size;
- 	u32			pnor_base;
- 	bool			fwh2ahb;
-+	struct regmap		*scu;
- };
- 
- static struct aspeed_lpc_ctrl *file_aspeed_lpc_ctrl(struct file *file)
-@@ -183,13 +184,22 @@ static long aspeed_lpc_ctrl_ioctl(struct file *file, unsigned int cmd,
- 
- 		/*
- 		 * Switch to FWH2AHB mode, AST2600 only.
--		 *
--		 * The other bits in this register are interrupt status bits
--		 * that are cleared by writing 1. As we don't want to clear
--		 * them, set only the bit of interest.
- 		 */
--		if (lpc_ctrl->fwh2ahb)
-+		if (lpc_ctrl->fwh2ahb) {
-+			/*
-+			 * Enable FWH2AHB in SCU debug control register 2. This
-+			 * does not turn it on, but makes it available for it
-+			 * to be configured in HICR6.
-+			 */
-+			regmap_update_bits(lpc_ctrl->scu, 0x0D8, BIT(2), 0);
-+
-+			/*
-+			 * The other bits in this register are interrupt status bits
-+			 * that are cleared by writing 1. As we don't want to clear
-+			 * them, set only the bit of interest.
-+			 */
- 			regmap_write(lpc_ctrl->regmap, HICR6, SW_FWH2AHB);
-+		}
- 
- 		/*
- 		 * Enable LPC FHW cycles. This is required for the host to
-@@ -296,9 +306,16 @@ static int aspeed_lpc_ctrl_probe(struct platform_device *pdev)
- 		return rc;
- 	}
- 
--	if (of_device_is_compatible(dev->of_node, "aspeed,ast2600-lpc-ctrl"))
-+	if (of_device_is_compatible(dev->of_node, "aspeed,ast2600-lpc-ctrl")) {
- 		lpc_ctrl->fwh2ahb = true;
- 
-+		lpc_ctrl->scu = syscon_regmap_lookup_by_compatible("aspeed,ast2600-scu");
-+		if (IS_ERR(lpc_ctrl->scu)) {
-+			dev_err(dev, "couldn't find scu\n");
-+			return PTR_ERR(lpc_ctrl->scu);
-+		}
-+	}
-+
- 	lpc_ctrl->miscdev.minor = MISC_DYNAMIC_MINOR;
- 	lpc_ctrl->miscdev.name = DEVICE_NAME;
- 	lpc_ctrl->miscdev.fops = &aspeed_lpc_ctrl_fops;
 -- 
 2.32.0
 
