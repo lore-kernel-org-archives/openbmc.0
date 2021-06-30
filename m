@@ -2,106 +2,55 @@ Return-Path: <SRS0=9YJe=LY=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_SANE_2
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF182C11F67
-	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 01:30:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6FF31C11F65
+	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 09:25:58 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 32B6461D85
-	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 01:30:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 32B6461D85
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id A400A61D08
+	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 09:25:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org A400A61D08
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GF3gR3rJKz2yXt
-	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 11:30:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GFGDK3cW2z3bTh
+	for <openbmc@archiver.kernel.org>; Wed, 30 Jun 2021 19:25:53 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RwURcsUt;
-	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=RwURcsUt; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ spf=none (no SPF record) smtp.mailfrom=linux.intel.com
+ (client-ip=192.55.52.88; helo=mga01.intel.com;
+ envelope-from=krzysztof.grobelny@linux.intel.com; receiver=<UNKNOWN>)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GF3fq74M7z2xy4
- for <openbmc@lists.ozlabs.org>; Wed, 30 Jun 2021 11:29:39 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 15U14Hbn048544; Tue, 29 Jun 2021 21:29:33 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=message-id : subject :
- from : to : cc : date : in-reply-to : references : content-type :
- mime-version : content-transfer-encoding; s=pp1;
- bh=ekXCOItgoKQyPjyhBVAipIbWHfhh60rQkHFgYwr7BlI=;
- b=RwURcsUtuYKl3r0QQ4bVZY503SFg1p67/lBR8A6O3TXGazgu4z0XGXOtkVCLMMgFlbvY
- z1nFW7mnqvILOBdjM0MECr73LJEDAQWUKRwPYXN/twvFPdTbN3XxxA0oKJzSR6LhNtMh
- 8aFb+f7D2ODeFVdQ76fsFbMgm+2cCkHwktSv+dVTrkDXZdgeOZNruqLJCFSq536guSlo
- e+Wrb2BCuF+fwzWJJ1tG4HqIqyxQdN85udSNFVf2R5FQ/RrJV7m37KVnuIIq57Gg/KfI
- 8GLdilAKCSDMrDv65Gi9pfS4eutiOOsK8/0d5dD+TrCnj/9/e8Dwl2muUNu2/dGUu+/5 Tg== 
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.27])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39g9nf74tc-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 29 Jun 2021 21:29:32 -0400
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
- by ppma05wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 15U1SMB4018718;
- Wed, 30 Jun 2021 01:29:31 GMT
-Received: from b03cxnp08026.gho.boulder.ibm.com
- (b03cxnp08026.gho.boulder.ibm.com [9.17.130.18])
- by ppma05wdc.us.ibm.com with ESMTP id 39duvc915d-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 30 Jun 2021 01:29:31 +0000
-Received: from b03ledav005.gho.boulder.ibm.com
- (b03ledav005.gho.boulder.ibm.com [9.17.130.236])
- by b03cxnp08026.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 15U1TUuN27722084
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 30 Jun 2021 01:29:30 GMT
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AC08ABE059;
- Wed, 30 Jun 2021 01:29:30 +0000 (GMT)
-Received: from b03ledav005.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 70D62BE054;
- Wed, 30 Jun 2021 01:29:30 +0000 (GMT)
-Received: from v0005c16 (unknown [9.211.115.220])
- by b03ledav005.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 30 Jun 2021 01:29:30 +0000 (GMT)
-Message-ID: <5318bae8415b9fa28f6b2ad79703aab0beaa18d5.camel@linux.ibm.com>
-Subject: Re: [PATCH linux dev-5.10 2/2] soc: aspeed: Re-enable XDMA on AST2600
-From: Eddie James <eajames@linux.ibm.com>
-To: Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@aj.id.au>
-Date: Tue, 29 Jun 2021 20:29:29 -0500
-In-Reply-To: <20210629073520.318514-3-joel@jms.id.au>
-References: <20210629073520.318514-1-joel@jms.id.au>
- <20210629073520.318514-3-joel@jms.id.au>
-Organization: IBM
-Content-Type: text/plain; charset="UTF-8"
-X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
-Mime-Version: 1.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GFGCw4r6qz2xYp
+ for <openbmc@lists.ozlabs.org>; Wed, 30 Jun 2021 19:25:31 +1000 (AEST)
+X-IronPort-AV: E=McAfee;i="6200,9189,10030"; a="229954218"
+X-IronPort-AV: E=Sophos;i="5.83,311,1616482800"; d="scan'208";a="229954218"
+Received: from fmsmga008.fm.intel.com ([10.253.24.58])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2021 02:24:27 -0700
+X-IronPort-AV: E=Sophos;i="5.83,311,1616482800"; d="scan'208";a="457146555"
+Received: from kgrobeln-mobl.ger.corp.intel.com (HELO [10.213.11.200])
+ ([10.213.11.200])
+ by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jun 2021 02:24:26 -0700
+Subject: Re: create telemetry metric report definition
+To: openbmc@lists.ozlabs.org
+References: <PS2PR02MB354169FE1A228DAB09D78A8B90039@PS2PR02MB3541.apcprd02.prod.outlook.com>
+From: "Grobelny, Krzysztof" <krzysztof.grobelny@linux.intel.com>
+Message-ID: <c86a2844-c5a8-bff7-81ef-d6a09fe31e3a@linux.intel.com>
+Date: Wed, 30 Jun 2021 11:24:05 +0200
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.2
+MIME-Version: 1.0
+In-Reply-To: <PS2PR02MB354169FE1A228DAB09D78A8B90039@PS2PR02MB3541.apcprd02.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: 5AftZMzAX5u7RCokSJwYzHifxQSjpatM
-X-Proofpoint-GUID: 5AftZMzAX5u7RCokSJwYzHifxQSjpatM
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-06-29_14:2021-06-29,
- 2021-06-29 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 mlxlogscore=999 bulkscore=0
- lowpriorityscore=0 clxscore=1015 malwarescore=0 spamscore=0 mlxscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2106300005
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,67 +62,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, 2021-06-29 at 17:05 +0930, Joel Stanley wrote:
-> Recent builds of the vendor u-boot tree disable features of the
-> BMC that may allow unwanted access if not correctly configured. This
-> includes the PCIe DMA (XDMA) functionality.
-> 
-> The bit to "un-disable" it is in the SCU. It does not appear to
-> matter
-> when it is cleared, as long as it is cleared before attempting a
-> transfer.
+Hello,
 
-Thanks!
+About your dbus call it should look like this:
+busctl call xyz.openbmc_project.Telemetry 
+/xyz/openbmc_project/Telemetry/Reports 
+xyz.openbmc_project.Telemetry.ReportManager AddReport 'ssbbta(osss)' 
+'TelemetryService/ReportName' 'Periodic' true true 1000 1 
+'/xyz/openbmc_project/sensors/current/HSC_IOUT' 'SINGLE' 'MetricName' 
+'/redfish/v1/Chassis/Transformers_MotherBoard/Sensors/HSC_IOUT/Reading'
 
-Reviewed-by: Eddie James <eajames@linux.ibm.com>
+You are missing method signature 'ssbbta(osss)'
+You are missing number of elements in array a(osss)
 
-> 
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
+About your post request it works for me:
+curl --user root:root --insecure --location --request POST 
+https://localhost:4443/redfish/v1/TelemetryService/MetricReportDefinitions 
+-d 
+'{"Id":"MyMetric","Metrics":[{"MetricId":"HSC_IOUT_reading","MetricProperties":["/redfish/v1/Chassis/Transformers_MotherBoard/Sensors/HSC_IOUT/Reading"]}],"MetricReportDefinitionType":"Periodic","ReportActions":["RedfishEvent","LogToMetricReportsCollection"],"Schedule":{"RecurrenceInterval":"PT1S"}}'
+
+Are you sure your curl params are ok? Can you perform post with for 
+example invalid parameters to verify your request. You could change 
+RecurrenceInterval to something not recongnized or Id to contain invalid 
+characters like '@' and see if you get correct reponse from bmcweb.
+
+
+BR, Krzysztof
+
+On 2021-06-28 23:14, Mohammed.Habeeb ISV wrote:
+> Hi
+>
+> How to create a telemetry metric report definition? I tried to set via dbus command as below, but got an error.
+>   busctl call xyz.openbmc_project.Telemetry /xyz/openbmc_project/Telemetry/Reports xyz.openbmc_project.Telemetry.ReportManager AddReport MyMetric Periodic 1 1 1000 "/xyz/openbmc_project/sensors/current/HSC_IOUT" "SINGLE" 1 "/redfish/v1/Chassis/Transformers_MotherBoard/Sensors/HSC_IOUT/Reading"
+> Unknown signature type M.
+>
+> Tried to use redfish also, but got an internal service error. Please let me know if I miss anything here in both commands.
+> habeeb@nsit-160:~/openbmc_nibu06$ curl -k -H "X-Auth-Token: $token" -X POST https://${bmc}/redfish/v1/TelemetryService/MetricReportDefinitions -d '{
+>   "Id":"MyMetric",
+>   "Metrics":[
+> 	{
+> 	 "MetricId": "HSC_IOUT_reading",
+> 	 "MetricProperties":
+>   ["/redfish/v1/Chassis/Transformers_MotherBoard/Sensors/HSC_IOUT/Reading"]
+>   	}
+>   	],
+>   "MetricReportDefinitionType": "Periodic",
+>   "ReportActions": ["RedfishEvent", "LogToMetricReportsCollection"],
+>   "Schedule": {
+>   	"RecurrenceInterval": "PT1S"
+>   	}
+>   }'
+>
+> {
+>    "error": {
+>      "@Message.ExtendedInfo": [
+>        {
+>          "@odata.type": "#Message.v1_1_1.Message",
+>          "Message": "The request failed due to an internal service error.  The service is still operational.",
+>          "MessageArgs": [],
+>          "MessageId": "Base.1.8.1.InternalError",
+>          "MessageSeverity": "Critical",
+>          "Resolution": "Resubmit the request.  If the problem persists, consider resetting the service."
+>        }
+>      ],
+>      "code": "Base.1.8.1.InternalError",
+>      "message": "The request failed due to an internal service error.  The service is still operational."
+>    }
+> }
 > ---
->  drivers/soc/aspeed/aspeed-xdma.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/soc/aspeed/aspeed-xdma.c
-> b/drivers/soc/aspeed/aspeed-xdma.c
-> index e6b4744bda64..48cfe30c90ad 100644
-> --- a/drivers/soc/aspeed/aspeed-xdma.c
-> +++ b/drivers/soc/aspeed/aspeed-xdma.c
-> @@ -34,6 +34,9 @@
->  #define SCU_AST2600_MISC_CTRL			0x0c0
->  #define  SCU_AST2600_MISC_CTRL_XDMA_BMC		 BIT(8)
->  
-> +#define SCU_AST2600_DEBUG_CTRL			0x0c8
-> +#define  DEBUG_CTRL_XDMA_DISABLE	 	 BIT(2)
-> +
->  #define SCU_AST2500_PCIE_CONF			0x180
->  #define SCU_AST2600_PCIE_CONF			0xc20
->  #define  SCU_PCIE_CONF_VGA_EN			 BIT(0)
-> @@ -831,10 +834,15 @@ static int aspeed_xdma_init_scu(struct
-> aspeed_xdma *ctx, struct device *dev)
->  		regmap_update_bits(scu, ctx->chip->scu_pcie_conf, bmc |
-> vga,
->  				   selection);
->  
-> -		if (ctx->chip->scu_misc_ctrl)
-> +		if (ctx->chip->scu_misc_ctrl) {
->  			regmap_update_bits(scu, ctx->chip-
-> >scu_misc_ctrl,
->  					   SCU_AST2600_MISC_CTRL_XDMA_B
-> MC,
->  					   SCU_AST2600_MISC_CTRL_XDMA_B
-> MC);
-> +
-> +			/* Allow XDMA to be used on AST2600 */
-> +			regmap_update_bits(scu, SCU_AST2600_DEBUG_CTRL,
-> +					   DEBUG_CTRL_XDMA_DISABLE, 0);
-> +		}
->  	} else {
->  		dev_warn(dev, "Unable to configure PCIe: %ld;
-> continuing.\n",
->  			 PTR_ERR(scu));
-
+> I see xyz.openbmc_project.Telemetry.ReportManager Interface is present.
+> sysadmin@transformers:~# busctl tree --no-pager xyz.openbmc_project.Telemetry
+> `-/xyz
+>    `-/xyz/openbmc_project
+>      `-/xyz/openbmc_project/Telemetry
+>        `-/xyz/openbmc_project/Telemetry/Reports
+>
+> Regards
+> Habeeb
