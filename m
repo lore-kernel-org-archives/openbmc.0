@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DA535C07E9C
-	for <openbmc@archiver.kernel.org>; Mon, 12 Jul 2021 22:09:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 66421C07E99
+	for <openbmc@archiver.kernel.org>; Mon, 12 Jul 2021 22:10:52 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7FCBB61178
-	for <openbmc@archiver.kernel.org>; Mon, 12 Jul 2021 22:09:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7FCBB61178
+	by mail.kernel.org (Postfix) with ESMTPS id 0177361178
+	for <openbmc@archiver.kernel.org>; Mon, 12 Jul 2021 22:10:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 0177361178
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GNycD1KbKz3bVN
-	for <openbmc@archiver.kernel.org>; Tue, 13 Jul 2021 08:09:48 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GNydQ51Kqz2yNM
+	for <openbmc@archiver.kernel.org>; Tue, 13 Jul 2021 08:10:50 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=134.134.136.126; helo=mga18.intel.com;
+ smtp.mailfrom=intel.com (client-ip=134.134.136.20; helo=mga02.intel.com;
  envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126])
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GNybK2ghVz30Cb;
- Tue, 13 Jul 2021 08:09:00 +1000 (AEST)
-X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="197334781"
-X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="197334781"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GNyd017jfz2yM6;
+ Tue, 13 Jul 2021 08:10:27 +1000 (AEST)
+X-IronPort-AV: E=McAfee;i="6200,9189,10043"; a="197246267"
+X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="197246267"
 Received: from fmsmga008.fm.intel.com ([10.253.24.58])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 15:07:58 -0700
-X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="464371996"
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jul 2021 15:09:25 -0700
+X-IronPort-AV: E=Sophos;i="5.84,235,1620716400"; d="scan'208";a="464386166"
 Received: from jzloch-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.249.136.11])
  by fmsmga008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jul 2021 15:07:53 -0700
+ 12 Jul 2021 15:09:19 -0700
 From: Iwona Winiarska <iwona.winiarska@intel.com>
 To: linux-kernel@vger.kernel.org,
 	openbmc@lists.ozlabs.org
-Subject: [PATCH 03/14] dt-bindings: Add generic bindings for PECI
-Date: Tue, 13 Jul 2021 00:04:36 +0200
-Message-Id: <20210712220447.957418-4-iwona.winiarska@intel.com>
+Subject: [PATCH 05/14] ARM: dts: aspeed: Add PECI controller nodes
+Date: Tue, 13 Jul 2021 00:04:38 +0200
+Message-Id: <20210712220447.957418-6-iwona.winiarska@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210712220447.957418-1-iwona.winiarska@intel.com>
 References: <20210712220447.957418-1-iwona.winiarska@intel.com>
@@ -78,48 +78,92 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add device tree bindings for the PECI controller.
+Add PECI controller nodes with all required information.
 
+Co-developed-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
 ---
- .../bindings/peci/peci-controller.yaml        | 28 +++++++++++++++++++
- 1 file changed, 28 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/peci/peci-controller.yaml
+ arch/arm/boot/dts/aspeed-g4.dtsi | 14 ++++++++++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi | 14 ++++++++++++++
+ arch/arm/boot/dts/aspeed-g6.dtsi | 14 ++++++++++++++
+ 3 files changed, 42 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/peci/peci-controller.yaml b/Documentation/devicetree/bindings/peci/peci-controller.yaml
-new file mode 100644
-index 000000000000..54ae8fc333d3
---- /dev/null
-+++ b/Documentation/devicetree/bindings/peci/peci-controller.yaml
-@@ -0,0 +1,28 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/peci/peci-controller.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index c5aeb3cf3a09..de733c03ec18 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -385,6 +385,20 @@ ibt: ibt@140 {
+ 				};
+ 			};
+ 
++			peci0: peci-controller@1e78b000 {
++				compatible = "aspeed,ast2400-peci";
++				reg = <0x1e78b000 0x60>;
++				interrupts = <15>;
++				clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
++				resets = <&syscon ASPEED_RESET_PECI>;
++				clock-divider = <0>;
++				msg-timing = <1>;
++				addr-timing = <1>;
++				rd-sampling-point = <8>;
++				cmd-timeout-ms = <1000>;
++				status = "disabled";
++			};
 +
-+title: Generic Device Tree Bindings for PECI
+ 			uart2: serial@1e78d000 {
+ 				compatible = "ns16550a";
+ 				reg = <0x1e78d000 0x20>;
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 329eaeef66fb..e7db9cf56114 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -506,6 +506,20 @@ ibt: ibt@140 {
+ 				};
+ 			};
+ 
++			peci0: peci-controller@1e78b000 {
++				compatible = "aspeed,ast2500-peci";
++				reg = <0x1e78b000 0x60>;
++				interrupts = <15>;
++				clocks = <&syscon ASPEED_CLK_GATE_REFCLK>;
++				resets = <&syscon ASPEED_RESET_PECI>;
++				clock-divider = <0>;
++				msg-timing = <1>;
++				addr-timing = <1>;
++				rd-sampling-point = <8>;
++				cmd-timeout-ms = <1000>;
++				status = "disabled";
++			};
 +
-+maintainers:
-+  - Iwona Winiarska <iwona.winiarska@intel.com>
+ 			uart2: serial@1e78d000 {
+ 				compatible = "ns16550a";
+ 				reg = <0x1e78d000 0x20>;
+diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
+index f96607b7b4e2..1e951bb7ff65 100644
+--- a/arch/arm/boot/dts/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed-g6.dtsi
+@@ -459,6 +459,20 @@ wdt4: watchdog@1e7850c0 {
+ 				status = "disabled";
+ 			};
+ 
++			peci0: peci-controller@1e78b000 {
++				compatible = "aspeed,ast2600-peci";
++				reg = <0x1e78b000 0x100>;
++				interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&syscon ASPEED_CLK_GATE_REF0CLK>;
++				resets = <&syscon ASPEED_RESET_PECI>;
++				clock-divider = <0>;
++				msg-timing = <1>;
++				addr-timing = <1>;
++				rd-sampling-point = <8>;
++				cmd-timeout-ms = <1000>;
++				status = "disabled";
++			};
 +
-+description: |
-+  PECI (Platform Environment Control Interface) is an interface that provides a
-+  communication channel from Intel processors and chipset components to external
-+  monitoring or control devices.
-+
-+properties:
-+  $nodename:
-+    pattern: "^peci-controller(@.*)?$"
-+
-+additionalProperties: true
-+
-+examples:
-+  - |
-+    peci-controller@1e78b000 {
-+      reg = <0x1e78b000 0x100>;
-+    };
-+...
+ 			lpc: lpc@1e789000 {
+ 				compatible = "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
+ 				reg = <0x1e789000 0x1000>;
 -- 
 2.31.1
 
