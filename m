@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,WEIRD_QUOTING
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29FADC07E95
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 819CDC07E96
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:04:35 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 978A36127C
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:04:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 978A36127C
+	by mail.kernel.org (Postfix) with ESMTPS id D6F2D61289
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org D6F2D61289
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GPd5l1lgkz3bTg
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 10:04:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GPd693VNvz30LG
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 10:04:33 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=LZ3ba+vD;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CGJ7cJ10;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,73 +29,76 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=LZ3ba+vD; dkim-atps=neutral
+ header.s=pp1 header.b=CGJ7cJ10; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GPVMC2Dyvz2yxm
- for <openbmc@lists.ozlabs.org>; Wed, 14 Jul 2021 05:00:22 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GPVMD5KYcz2yj1
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Jul 2021 05:00:24 +1000 (AEST)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16DIXGKQ172808
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:19 -0400
+ 16DIXc5C111517
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:22 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=U6esWSZwnGqt7DTzzR52mRrI5LcjG/5AM29dRjPBFa4=;
- b=LZ3ba+vDysqAO9CuSiMGkiT3XrSZHeF/AD06tgmVuaviVqn8pbGKRxhF6QRtIakTSimf
- 2DOcdUKR85g7GIQ8fpKhxBLxKFLcNisiEKq5Ys/V51tE7sWc8BU9a6do9fdYJkPz83hc
- rxKZ2HiBHBlvB2ApLIIrDBUcZt4i2KsbbTl32Kk4KaN1e4fZXoSz/UiqM3rQ5aQiVI7D
- 2Ym6CnI5MwxqiMPEqIeyut8mINCU8lO6wkJVadj3pulXT1bJZR/NncvFYWMlqlGNKqW+
- wj46aJ+TgSkiZJTfST46x5KtUDfCNJr2/lABR3/WdrXLUTNwb6iy79H0F/yOjuQnfa9c AQ== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39sdkmecfq-1
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=lk85c+zJI//ry9RinrNw4TJXtgBz4icb8QF6T30NrWs=;
+ b=CGJ7cJ10J5ICIV9pfKVWvhcaz8unt9/hCGayJhzf0knqRLSbRxGHQiBABjRtJo5/sGPj
+ LRWyd9SjoBfeDBsaKiTevzs+IQA2PMWMNYFc/3pnueJK9TgvB2HPAAUd60CP9kOlqZEm
+ jwoGIFPD8+Lkq2q1zQqrWfOoU5dZonHyO507ka9tDu/hBGOGrJPS01yaTvH+W9ipu9HY
+ UqzswckG8gFQ281f3t0ydOQqBYMstigLYVGjDbmFztur5DhVbT6tpgBoDWYifTgYjT2r
+ bcUt4oQUlGfU1G1kbJE6zrqEwrWNqtwk3vHNHtEwXaR3ofuGrypdm87haBLAiWGEWZp/ lQ== 
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 39sc8j9y29-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:19 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16DIxkMK003956
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:18 GMT
-Received: from b01cxnp22035.gho.pok.ibm.com (b01cxnp22035.gho.pok.ibm.com
- [9.57.198.25]) by ppma03dal.us.ibm.com with ESMTP id 39rkguj0e7-1
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:22 -0400
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16DIufHS030641
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:21 GMT
+Received: from b01cxnp23033.gho.pok.ibm.com (b01cxnp23033.gho.pok.ibm.com
+ [9.57.198.28]) by ppma04dal.us.ibm.com with ESMTP id 39q36c29u1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:18 +0000
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:21 +0000
 Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
  [9.57.199.106])
- by b01cxnp22035.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 16DJ0HgL34931164
+ by b01cxnp23033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 16DJ0Kh026673590
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 13 Jul 2021 19:00:17 GMT
+ Tue, 13 Jul 2021 19:00:20 GMT
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 446F62806D;
- Tue, 13 Jul 2021 19:00:17 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 0ECC528068;
+ Tue, 13 Jul 2021 19:00:20 +0000 (GMT)
 Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0560228067;
- Tue, 13 Jul 2021 19:00:17 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id D284928059;
+ Tue, 13 Jul 2021 19:00:19 +0000 (GMT)
 Received: from xubuntu.austin.rr.com (unknown [9.77.159.195])
  by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Tue, 13 Jul 2021 19:00:16 +0000 (GMT)
+ Tue, 13 Jul 2021 19:00:19 +0000 (GMT)
 From: Ben Tyner <bentyner@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 1/3] ARM: dts: rainier: Define name for gpio
- line Q2
-Date: Tue, 13 Jul 2021 14:00:12 -0500
-Message-Id: <20210713190014.8142-1-bentyner@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 3/3] ARM: dts: everest: Define name for gpio
+ line B6
+Date: Tue, 13 Jul 2021 14:00:14 -0500
+Message-Id: <20210713190014.8142-3-bentyner@linux.ibm.com>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210713190014.8142-1-bentyner@linux.ibm.com>
+References: <20210713190014.8142-1-bentyner@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: YKQ4VaIgyZ9m9cZ5ESAm27wSkMJ-Zeg-
-X-Proofpoint-ORIG-GUID: YKQ4VaIgyZ9m9cZ5ESAm27wSkMJ-Zeg-
+X-Proofpoint-GUID: DdCZXq2SH54XfN98yA1HUjfsCOqqVS1I
+X-Proofpoint-ORIG-GUID: DdCZXq2SH54XfN98yA1HUjfsCOqqVS1I
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-07-13_10:2021-07-13,
  2021-07-13 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 malwarescore=0
- spamscore=0 impostorscore=0 adultscore=0 phishscore=0 bulkscore=0
- suspectscore=0 lowpriorityscore=0 priorityscore=1501 mlxlogscore=978
- mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ mlxscore=0 phishscore=0
+ adultscore=0 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ mlxlogscore=985 spamscore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2104190000 definitions=main-2107130117
 X-Mailman-Approved-At: Wed, 14 Jul 2021 10:03:01 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -116,26 +119,26 @@ Sender: "openbmc"
 
 From: Ben Tyner <ben.tyner@ibm.com>
 
-gpio-line-names Q2 set to vrm-fault-standby
+gpio-line-names B6 set to checkstop
 
 Signed-off-by: Ben Tyner <ben.tyner@ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 671d0a797000..50a1f5e20e89 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -270,7 +270,7 @@ &gpio0 {
- 	/*N0-N7*/	"","","","","","","","",
- 	/*O0-O7*/	"","","","usb-power","","","","",
- 	/*P0-P7*/	"","","","","pcieslot-power","","","",
--	/*Q0-Q7*/	"cfam-reset","","","","","","","",
-+	/*Q0-Q7*/	"cfam-reset","","vrm-fault-standby","","","","","",
- 	/*R0-R7*/	"","","","","","","","",
- 	/*S0-S7*/	"presence-ps0","presence-ps1","presence-ps2","presence-ps3",
- 				"","","","",
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index 3a6ea412a6b0..0be7a9861eef 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -236,7 +236,7 @@ led-pcieslot-power {
+ &gpio0 {
+ 	gpio-line-names =
+ 	/*A0-A7*/	"","","","","","","","",
+-	/*B0-B7*/	"USERSPACE_RSTIND_BUFF","","","","","","","",
++	/*B0-B7*/	"USERSPACE_RSTIND_BUFF","","","","","","checkstop","",
+ 	/*C0-C7*/	"","","","","","","","",
+ 	/*D0-D7*/	"","","","","","","","",
+ 	/*E0-E7*/	"","","","","","","","",
 -- 
 2.25.1
 
