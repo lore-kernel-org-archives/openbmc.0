@@ -2,76 +2,104 @@ Return-Path: <SRS0=RVQO=MG=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=0.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_FONT_FACE_BAD,HTML_MESSAGE,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,WEIRD_QUOTING
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 58081C07E95
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:03:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39A2CC07E95
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:03:50 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7922061369
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:03:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7922061369
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 7799361369
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 00:03:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 7799361369
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GPd4r6R93z30JW
-	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 10:03:24 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GPd5J0yJVz3bTK
+	for <openbmc@archiver.kernel.org>; Wed, 14 Jul 2021 10:03:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=EuXmdL5R;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=elmYbhKN;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::134;
- helo=mail-lf1-x134.google.com; envelope-from=mthakurcse@gmail.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=bentyner@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=EuXmdL5R; dkim-atps=neutral
-Received: from mail-lf1-x134.google.com (mail-lf1-x134.google.com
- [IPv6:2a00:1450:4864:20::134])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=elmYbhKN; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GPPJX04jKz303f
- for <openbmc@lists.ozlabs.org>; Wed, 14 Jul 2021 01:12:43 +1000 (AEST)
-Received: by mail-lf1-x134.google.com with SMTP id t17so50937117lfq.0
- for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 08:12:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:from:date:message-id:subject:to;
- bh=RrBr2AZGGbVaatsQCvSbAtboHaG+eBcme70cBvabJTY=;
- b=EuXmdL5Rqdwa3l5cyD6apO+shnpFK1u2AI2OOKFH5W+c5yrR6C9fAicWXh6eYLvFby
- oGr27uIjVnfZS1p2Bz1PbfTl71Q3O5l4WiaJ6W7YTo5DywZOIkuyxuWrJANV0orKfu+e
- HzXKna0TVmpFt2R0c8QJBLaVSdnFp2S3AiLFPBSrv+huZ9jiYDutZcCor34Jw3ubke8v
- semmP0TzI2aT7izVKllfpiRA1rG5TjyW9SGCC8MdYD5yN7NemLbwEoJ6nZ2IsWBExf9j
- A/vmcp0HMIgfd5KcCuZ1vqAC6l0QlF2azju8qUMgjJYSmT1OpBsnNZAS4WHocLM0Zs1U
- Br2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
- bh=RrBr2AZGGbVaatsQCvSbAtboHaG+eBcme70cBvabJTY=;
- b=E65jjwTaNqcgjPwaP1vHfmCP1dOr4+/CEC/zlNOaHjQdSIoZi2oNWhLfZRFp7Vs6Ur
- Yr0o50QoGSq1aFezszpZugo0p3mKn09x1WwinVfQxVfxqgm6WFXcK9aB/WfZ1oZX2YB2
- 2BtauqXaQhVwN7Y9z4/2iqJdpF1yThE6JkBIXlWKmiQ+BLjFtq6SYGJuPuoyNRqF0P7e
- V9kjylYImoUifwTG2AiuIez5onupcRJKZjkpRZarh4YY2MGdXOHJL5pWZaM4Se5fq2FY
- JwQI8SZu5msIg4nZBJwNVS/XLAktGhr/zm8yiAgkFWwkpslVFhEBKUGr8HOJ27CLytvu
- bnFw==
-X-Gm-Message-State: AOAM533dVu9bI3dqvNKRo752v+UgRtnjDHRm41J+P7MQZv4Auc5oxeJ7
- I+4bFSeV5S7LJNjPQ3zzArGuoFLNxTAJ4R6wQgz4maYtFiQYZg==
-X-Google-Smtp-Source: ABdhPJxkoN6QQUFxXouWekbeiFwh85rPc5546TsvH0EqWHIeHYRDKsIPyvR5z2fqgSUf21hj5bVO+NXZKKUYEB0PABc=
-X-Received: by 2002:a05:6512:705:: with SMTP id b5mr3895679lfs.0.1626189151820; 
- Tue, 13 Jul 2021 08:12:31 -0700 (PDT)
-MIME-Version: 1.0
-From: Manish Thakur <mthakurcse@gmail.com>
-Date: Tue, 13 Jul 2021 20:40:19 +0530
-Message-ID: <CAH_zMFkZvFW0AXGNEB1zugMTbB=Os0EeQ3xREw4gWwDM8YJ73g@mail.gmail.com>
-Subject: x86 power state cheak in the [phosphor-fan-presence] for sensor
- monitor .
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GPVMC1q8Bz2yj1
+ for <openbmc@lists.ozlabs.org>; Wed, 14 Jul 2021 05:00:22 +1000 (AEST)
+Received: from pps.filterd (m0098394.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 16DIWvPi091777
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:21 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=5Jpq/U7MpgpTStuOIWGEe9ewM+7bQwaeLDQGPcJbsv4=;
+ b=elmYbhKNE3/9OCHq8C1xuC9GAw2R7wzqwJJuhaftXU02eQDISJWKIx4Eh5MRYP3tvwuD
+ i46B2Xcgzg7ks6ShQaB9Gy7Gny9lCGGkfTK5kMn66rAz+3uhbXbGnX/8GU+EiWBe967Y
+ EbhFXn3tIxRvXYdQc7xyx6Ltip0itCSsKmwGrCnHUAK5sefpFnTMij0XcKQ7xhTLVLoG
+ KQvRlV7RQvcyMsOpdHvRJT1Vh4TF06uWcNZgCND+EHsY/2SZjj3BYM+juSGph6+X7FK8
+ 2jpoMnI1pQ4IaVFMi00DXcWkEdS0ebM7YuIFdzgkAN2dDbz53VZlb8gOg9D5FHE4+9qp QQ== 
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 39qrgmm8pq-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 15:00:20 -0400
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16DIxkSM004060
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:19 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma03dal.us.ibm.com with ESMTP id 39rkguj0ff-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <openbmc@lists.ozlabs.org>; Tue, 13 Jul 2021 19:00:19 +0000
+Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
+ [9.57.199.106])
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 16DJ0ILg17039754
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 13 Jul 2021 19:00:18 GMT
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BAF4928059;
+ Tue, 13 Jul 2021 19:00:18 +0000 (GMT)
+Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 887B628073;
+ Tue, 13 Jul 2021 19:00:18 +0000 (GMT)
+Received: from xubuntu.austin.rr.com (unknown [9.77.159.195])
+ by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
+ Tue, 13 Jul 2021 19:00:18 +0000 (GMT)
+From: Ben Tyner <bentyner@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Content-Type: multipart/alternative; boundary="000000000000bb5d6d05c702aa2e"
+Subject: [PATCH linux dev-5.10 2/3] ARM: dts: everest: Define name for gpio
+ line Q2
+Date: Tue, 13 Jul 2021 14:00:13 -0500
+Message-Id: <20210713190014.8142-2-bentyner@linux.ibm.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20210713190014.8142-1-bentyner@linux.ibm.com>
+References: <20210713190014.8142-1-bentyner@linux.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: InMLgaMTR1l2scp7DU9FDuw6T31SXTMO
+X-Proofpoint-GUID: InMLgaMTR1l2scp7DU9FDuw6T31SXTMO
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-07-13_10:2021-07-13,
+ 2021-07-13 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0
+ priorityscore=1501 mlxlogscore=924 spamscore=0 suspectscore=0 mlxscore=0
+ malwarescore=0 phishscore=0 clxscore=1015 bulkscore=0 adultscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2107130117
 X-Mailman-Approved-At: Wed, 14 Jul 2021 10:03:01 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -84,90 +112,33 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Ben Tyner <ben.tyner@ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
---000000000000bb5d6d05c702aa2e
-Content-Type: text/plain; charset="UTF-8"
+From: Ben Tyner <ben.tyner@ibm.com>
 
-platform meta-facebook
-We are using Slot PowerCycle to check the power state that is inclusive of
-BMC , if Bmc is Power off what is the use of checking the power state of
-Slot power ? In this case can you please suggest how we can implement the
-power state for x86 or either (some compiler option of configuration to
-disable power state check). Any suggestions will be  appreciated.
+gpio-line-names Q2 set to vrm-fault-standby
 
+Signed-off-by: Ben Tyner <ben.tyner@ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index 248ac514183b..3a6ea412a6b0 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -252,7 +252,7 @@ &gpio0 {
+ 	/*N0-N7*/	"","","","","","","","",
+ 	/*O0-O7*/	"","","","","","","","",
+ 	/*P0-P7*/	"","","","","led-pcieslot-power","","","",
+-	/*Q0-Q7*/	"","","","","","","","",
++	/*Q0-Q7*/	"","","vrm-fault-standby","","","","","",
+ 	/*R0-R7*/	"","","","","","I2C_FLASH_MICRO_N","","",
+ 	/*S0-S7*/	"","","","","","","","",
+ 	/*T0-T7*/	"","","","","","","","",
+-- 
+2.25.1
 
-
-
-
-
-
-
-Thanks
-Manish
-openBmc Team.
-Hcl technologies
-
---000000000000bb5d6d05c702aa2e
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div><span style=3D"color:rgb(36,41,46);font-family:-apple=
--system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,=
-&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px">pl=
-atform meta-facebook</span><span style=3D"color:rgb(36,41,46);font-family:-=
-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-s=
-erif,&quot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14p=
-x"><br></span></div><span style=3D"color:rgb(36,41,46);font-family:-apple-s=
-ystem,BlinkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&q=
-uot;Apple Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px">We a=
-re using Slot PowerCycle to check the power state that is inclusive of BMC =
-, if Bmc is Power off what is the use of checking the power state of Slot p=
-ower ? In this case can you please suggest how we=C2=A0can implement the po=
-wer state for x86 or either (some compiler option of configuration to disab=
-le power state check). Any suggestions will be=C2=A0 appreciated.=C2=A0</sp=
-an><br><div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,Bl=
-inkMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Appl=
-e Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span><=
-/div><div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,Blin=
-kMacSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple =
-Color Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></d=
-iv><div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkM=
-acSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Co=
-lor Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div=
-><div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMac=
-SystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Colo=
-r Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><=
-div><span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSy=
-stemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color =
-Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><di=
-v><span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSyst=
-emFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Em=
-oji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><div>=
-<span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSystem=
-Font,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoj=
-i&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><div><s=
-pan style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSystemFo=
-nt,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&=
-quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><div><spa=
-n style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSystemFont=
-,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&qu=
-ot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div><div><span =
-style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSystemFont,&=
-quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoji&quot=
-;,&quot;Segoe UI Emoji&quot;;font-size:14px">Thanks=C2=A0</span></div><div>=
-<span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkMacSystem=
-Font,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Color Emoj=
-i&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px">Manish=C2=A0</span></div=
-><div><font color=3D"#24292e" face=3D"-apple-system, BlinkMacSystemFont, Se=
-goe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji"><s=
-pan style=3D"font-size:14px">openBmc Team.</span></font></div><div>Hcl tech=
-nologies<span style=3D"color:rgb(36,41,46);font-family:-apple-system,BlinkM=
-acSystemFont,&quot;Segoe UI&quot;,Helvetica,Arial,sans-serif,&quot;Apple Co=
-lor Emoji&quot;,&quot;Segoe UI Emoji&quot;;font-size:14px"><br></span></div=
-></div>
-
---000000000000bb5d6d05c702aa2e--
