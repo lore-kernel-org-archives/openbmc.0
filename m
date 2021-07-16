@@ -2,105 +2,103 @@ Return-Path: <SRS0=QA1C=MI=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,UNWANTED_LANGUAGE_BODY,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DF96FC12002
-	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 14:55:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E74EDC07E95
+	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 15:19:41 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4B07B610D1
-	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 14:55:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 4B07B610D1
+	by mail.kernel.org (Postfix) with ESMTPS id 82B59613D0
+	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 15:19:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 82B59613D0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GRDn56kP3z30B9
-	for <openbmc@archiver.kernel.org>; Sat, 17 Jul 2021 00:55:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GRFK80GN9z30DW
+	for <openbmc@archiver.kernel.org>; Sat, 17 Jul 2021 01:19:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=SbY6yJPg;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fzu/Nx2U;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0b-001b2d01.pphosted.com; envelope-from=anoo@linux.ibm.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=SbY6yJPg; dkim-atps=neutral
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=fzu/Nx2U; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GRDmW0bYnz2yN4
- for <openbmc@lists.ozlabs.org>; Sat, 17 Jul 2021 00:54:50 +1000 (AEST)
-Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GRFJZ6jglz2yNf;
+ Sat, 17 Jul 2021 01:19:10 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16GEXTSp052882; Fri, 16 Jul 2021 10:54:44 -0400
+ 16GFJ3Bh108840; Fri, 16 Jul 2021 11:19:07 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=content-type :
- mime-version : subject : from : in-reply-to : date : cc :
- content-transfer-encoding : message-id : references : to; s=pp1;
- bh=bZe8VMmcH236gc2U619+uy4N/ASzZQmaN5xWqgxwaaU=;
- b=SbY6yJPgW5t68dx7ZUEs3f+QNBhVUxJ5J07qsduD7qEXTsWHeAsfSJ0hY6lg7HImQppg
- P5zsNhCG44564qK42pnHbFxUa0xMUxLMt/iNtqf6xHz/Ynl+B7NX7r6/+gwgSaA4KoMI
- 1yxnjjjBob0OhcSQ42/p3RDrIRNxRA1hfcInDVoOhm3/a493gW2s8adUtMKMe59um+xB
- J1MWB9aAeOKYaGAmTa6A1Qa8zABAeqkoDKRJ4QriXvsA03A2ODK5eoRjNaMg82y1mOrj
- KCpp2i27urMpGc6reG+vliklJWpPtQtvLWcDsXe5VZBu7ZW0cakLH2SbMSCPtNIW3C2u YQ== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39twuxe1br-1
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=NaztiW8y0zbEM5BnHti1Gp6mOCctl7zpEXezAiyDpPc=;
+ b=fzu/Nx2U9BMGyPnIa5m9PUkNRS/ptVWjxq96+EcYZyB+eB6n4SACTqPkEauTOUaAcatt
+ JrecwOy38LkCjUxVdeaDX2FoWvAKBYJkML25P50wDnzfzYCqzW94NwyVRp3Fe4BmXnh/
+ Lc0KOfrhf7r4keDvHOuCiy+KUb8nb00SF93dJFFGqa4x6O3cVWl/UtbXUM43C2CENtmK
+ +WUATWNidsajWk2Zxg6K+4ot4y/nQx+OFSNyoOcuDELXQbzYZZvHeq1ENm9R3u8JrNmb
+ aK9lc9UDTPiWGDyNPlecXuBqhuKop7/bNCvYu3hfM4X4qIXa0vxQ4dvI3bKqYCtVr5hw 1A== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 39tyncnbfr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Jul 2021 10:54:44 -0400
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16GEqW8J014732;
- Fri, 16 Jul 2021 14:54:43 GMT
-Received: from b01cxnp23034.gho.pok.ibm.com (b01cxnp23034.gho.pok.ibm.com
- [9.57.198.29]) by ppma02wdc.us.ibm.com with ESMTP id 39q36e6f65-1
+ Fri, 16 Jul 2021 11:19:07 -0400
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16GFGfJS023509;
+ Fri, 16 Jul 2021 15:19:04 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma02dal.us.ibm.com with ESMTP id 39qt3ewur7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Jul 2021 14:54:43 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp23034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 16GEshRs30081484
+ Fri, 16 Jul 2021 15:19:04 +0000
+Received: from b03ledav006.gho.boulder.ibm.com
+ (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 16GFJ3Gi10027486
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Jul 2021 14:54:43 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 26081AE062;
- Fri, 16 Jul 2021 14:54:43 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 84122AE064;
- Fri, 16 Jul 2021 14:54:42 +0000 (GMT)
-Received: from smtpclient.apple (unknown [9.65.250.186])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTPS;
- Fri, 16 Jul 2021 14:54:42 +0000 (GMT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 14.0 \(3654.100.0.2.22\))
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc] aspeed/hace: Reset when
- error occurs
-From: Adriana Kobylak <anoo@linux.ibm.com>
-In-Reply-To: <20210715045258.13912-1-joel@jms.id.au>
-Date: Fri, 16 Jul 2021 09:54:41 -0500
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <20A7316B-7A1B-41B3-B5D4-EF9CEA98F279@linux.ibm.com>
-References: <20210715045258.13912-1-joel@jms.id.au>
-To: Joel Stanley <joel@jms.id.au>
-X-Mailer: Apple Mail (2.3654.100.0.2.22)
+ Fri, 16 Jul 2021 15:19:03 GMT
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 32B5BC6059;
+ Fri, 16 Jul 2021 15:19:03 +0000 (GMT)
+Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id BB58CC605D;
+ Fri, 16 Jul 2021 15:19:02 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.92.96])
+ by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Fri, 16 Jul 2021 15:19:02 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: linux-kernel@vger.kernel.org
+Subject: [PATCH 3/3] fsi: occ: Add dynamic debug to dump command and response
+Date: Fri, 16 Jul 2021 10:18:50 -0500
+Message-Id: <20210716151850.28973-4-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210716151850.28973-1-eajames@linux.ibm.com>
+References: <20210716151850.28973-1-eajames@linux.ibm.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Dx04poL_OCZmBC5HbxCtpBsgelBJ-HC4
-X-Proofpoint-GUID: Dx04poL_OCZmBC5HbxCtpBsgelBJ-HC4
+X-Proofpoint-GUID: 3ZpwZuyjX5mctZig_Fom-bhIZ3K76wJ3
+X-Proofpoint-ORIG-GUID: 3ZpwZuyjX5mctZig_Fom-bhIZ3K76wJ3
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-07-16_05:2021-07-16,
  2021-07-16 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 mlxscore=0
- lowpriorityscore=0 mlxlogscore=999 impostorscore=0 spamscore=0
- priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0 suspectscore=0
- clxscore=1015 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2107160088
+ impostorscore=0
+ suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 adultscore=0
+ bulkscore=0 mlxlogscore=999 phishscore=0 clxscore=1015 mlxscore=0
+ lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2104190000 definitions=main-2107160092
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,92 +110,90 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>, Adriana Kobylak <anoo@us.ibm.com>
+Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, openbmc@lists.ozlabs.org,
+ Eddie James <eajames@linux.ibm.com>, linux-fsi@lists.ozlabs.org,
+ linux@roeck-us.net
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+Use the dynamic branching capability of the dynamic debug subsystem
+to dump the command and response with the correct OCC device name.
 
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ drivers/fsi/fsi-occ.c | 44 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-> On Jul 14, 2021, at 11:52 PM, Joel Stanley <joel@jms.id.au> wrote:
->=20
-> Some hasing operations have been triggering an error state.
->=20
-> This can be reproduced on the u-boot command line:
->=20
-> hash sha512 83000128 3762a8
->=20
-> This completes, and the hash is correct. However HACE1C, the status
-> register, shows an error bit is set 0x00800000.
->=20
-> $ bitfield HACE1C 0x00800000 |grep 0x1
->                 Hash input data buffer overflow: 0x1
->=20
-> The next operation is queued, and this never completes. The status
-> register shows 0x00c00001
->=20
-> $ bitfield HACE1C 0x00c00001 |grep 0x1
->                 Hash input data buffer overflow: 0x1
->                 Hash input rorate data overflow: 0x1
->                                Hash engine busy: 0x1
->=20
-> A HACE reset will clear this state:
->=20
-> mw.l 0x1e6e2040 0x10
-> mw.l 0x1e6e2044 0x10
->=20
-> Adding code to do this if any error bits are set in the status =
-register
-> is a workaround for the issue while further debugging is done.
->=20
-> Another workaround is to do an operation before running the =
-problematic
-> operation. This sequence succeeds:
->=20
-> hash sha512 83000000 10
-> hash sha512 83000128 3762a8
->=20
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-
-Tested-by: Adriana Kobylak <anoo@us.ibm.com>
-
-
-> ---
-> drivers/crypto/aspeed_hace.c | 15 ++++++++++++---
-> 1 file changed, 12 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/crypto/aspeed_hace.c =
-b/drivers/crypto/aspeed_hace.c
-> index a99fb7c249be..f40779c08816 100644
-> --- a/drivers/crypto/aspeed_hace.c
-> +++ b/drivers/crypto/aspeed_hace.c
-> @@ -100,9 +100,18 @@ static int digest_object(const void *src, =
-unsigned int length, void *digest,
-> 	writel(HACE_SHA_BE_EN | method, base + ASPEED_HACE_HASH_CMD);
->=20
-> 	/* SHA512 hashing appears to have a througput of about 12MB/s */
-> -	return aspeed_hace_wait_completion(base + ASPEED_HACE_STS,
-> -			HACE_HASH_ISR,
-> -			1000 + (length >> 3));
-> +	aspeed_hace_wait_completion(base + ASPEED_HACE_STS, =
-HACE_HASH_ISR,
-> +				    1000 + (length >> 3));
-> +
-> +	if (readl(base + ASPEED_HACE_STS)) {
-> +		debug("\nHACE error 0x%08x, resetting\n", readl(base + =
-0x1c));
-> +
-> +		writel(0x10, 0x1e6e2040);
-> +		mdelay(5);
-> +		writel(0x10, 0x1e6e2044);
-> +	}
-> +
-> +	return 0;
-> }
->=20
-> void hw_sha1(const unsigned char *pbuf, unsigned int buf_len,
-> --=20
-> 2.32.0
->=20
+diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
+index ecf738411fe2..641a6869b9df 100644
+--- a/drivers/fsi/fsi-occ.c
++++ b/drivers/fsi/fsi-occ.c
+@@ -21,6 +21,15 @@
+ #include <linux/uaccess.h>
+ #include <asm/unaligned.h>
+ 
++#if !defined(CONFIG_DYNAMIC_DEBUG_CORE)
++#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
++#if defined(DEBUG)
++#define DYNAMIC_DEBUG_BRANCH(descriptor) true
++#else /* DEBUG */
++#define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#endif /* DEBUG */
++#endif /* CONFIG_DYNAMIC_DEBUG_CORE */
++
+ #define OCC_SRAM_BYTES		4096
+ #define OCC_CMD_DATA_BYTES	4090
+ #define OCC_RESP_DATA_BYTES	4089
+@@ -359,6 +368,20 @@ static int occ_putsram(struct occ *occ, const void *data, ssize_t len,
+ 	byte_buf[len - 2] = checksum >> 8;
+ 	byte_buf[len - 1] = checksum & 0xff;
+ 
++	{
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_cmd, "OCC command");
++
++		if (DYNAMIC_DEBUG_BRANCH(ddm_occ_cmd)) {
++			char prefix[64];
++
++			snprintf(prefix, sizeof(prefix), "%s %s: cmd ",
++				 dev_driver_string(occ->dev),
++				 dev_name(occ->dev));
++			print_hex_dump(KERN_DEBUG, prefix, DUMP_PREFIX_OFFSET,
++				       16, 4, byte_buf, len, false);
++		}
++	}
++
+ 	rc = sbefifo_submit(occ->sbefifo, buf, cmd_len, buf, &resp_len);
+ 	if (rc)
+ 		goto free;
+@@ -556,6 +579,27 @@ int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
+ 	}
+ 
+ 	*resp_len = resp_data_length + 7;
++
++	{
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_rsp,
++					      "OCC response");
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_full_rsp,
++					      "OCC full response");
++
++		if (DYNAMIC_DEBUG_BRANCH(ddm_occ_full_rsp) ||
++		    DYNAMIC_DEBUG_BRANCH(ddm_occ_rsp)) {
++			char prefix[64];
++			size_t l = DYNAMIC_DEBUG_BRANCH(ddm_occ_full_rsp) ?
++				*resp_len : 16;
++
++			snprintf(prefix, sizeof(prefix), "%s %s: rsp ",
++				 dev_driver_string(occ->dev),
++				 dev_name(occ->dev));
++			print_hex_dump(KERN_DEBUG, prefix, DUMP_PREFIX_OFFSET,
++				       16, 4, resp, l, false);
++		}
++	}
++
+ 	rc = occ_verify_checksum(occ, resp, resp_data_length);
+ 
+  done:
+-- 
+2.27.0
 
