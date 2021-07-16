@@ -2,101 +2,64 @@ Return-Path: <SRS0=QA1C=MI=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D11ACC07E95
-	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 15:20:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 73660C12002
+	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 17:20:17 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 350FE613D4
-	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 15:20:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 350FE613D4
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id E5394613D8
+	for <openbmc@archiver.kernel.org>; Fri, 16 Jul 2021 17:20:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E5394613D8
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GRFLW6928z3bjM
-	for <openbmc@archiver.kernel.org>; Sat, 17 Jul 2021 01:20:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GRJ0H1JMnz3bX1
+	for <openbmc@archiver.kernel.org>; Sat, 17 Jul 2021 03:20:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=XiGclKh/;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=QnQ6UbJm;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=XiGclKh/; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=QnQ6UbJm; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GRFJc1hxmz2ykQ;
- Sat, 17 Jul 2021 01:19:11 +1000 (AEST)
-Received: from pps.filterd (m0098396.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16GFJ7lv044354; Fri, 16 Jul 2021 11:19:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=0QVlcMY1gAfIISVAPvHh34Y1TfGpWj4HRFD2XYrOwRA=;
- b=XiGclKh/s2TG9RrL+Ho2GcVydfo/EQwFye7efm3AGxDTP20BJV52i1XNI4aUrtmaLZVj
- UqRXDCxB2/VkjViGUGHZ/S80fddbv7AXT+GAdJEJWJre+Q7Ug9ayx0mw8LHwFqz949pA
- AZ2itmpRExDf8Z3e9rjA2uEwvEtvFY2AQSKtFmOxzJqLJuY/PMW1je55M+SbJ40UWbJJ
- v4kFBrTWtDY2c42T/+y7K1F0pqvJI00VymjO3LMqBjriXRhn9tSQyEW47yjR7Q2wq841
- JCGskb9MMorvxD6lNI6NSxdHj9waLTM6q2gDUCIK+rBWChKnPdNa9NbqYMUeqR6R/vcS XA== 
-Received: from ppma05wdc.us.ibm.com (1b.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.27])
- by mx0a-001b2d01.pphosted.com with ESMTP id 39tw6bgduv-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Jul 2021 11:19:07 -0400
-Received: from pps.filterd (ppma05wdc.us.ibm.com [127.0.0.1])
- by ppma05wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16GFHgtY017641;
- Fri, 16 Jul 2021 15:18:58 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma05wdc.us.ibm.com with ESMTP id 39q36f71pr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 16 Jul 2021 15:18:58 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 16GFIvo831523160
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 16 Jul 2021 15:18:57 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 16CE2C605D;
- Fri, 16 Jul 2021 15:18:57 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 943FFC6057;
- Fri, 16 Jul 2021 15:18:56 +0000 (GMT)
-Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.92.96])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Fri, 16 Jul 2021 15:18:56 +0000 (GMT)
-From: Eddie James <eajames@linux.ibm.com>
-To: linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] OCC: fsi and hwmon: Set sequence number in submit
- interface
-Date: Fri, 16 Jul 2021 10:18:47 -0500
-Message-Id: <20210716151850.28973-1-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.27.0
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GRHzf1MVvz2ym5
+ for <openbmc@lists.ozlabs.org>; Sat, 17 Jul 2021 03:19:42 +1000 (AEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id 006786115A;
+ Fri, 16 Jul 2021 17:19:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1626455978;
+ bh=+YpgeVl8kNOpkcg3zWxfdpfu5sUBR5DtgOZLtCe1KRY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QnQ6UbJmJg+lt8/7+N7cMghPA4UajH/Vbg3qSays2/rc98e2PQ53Ff1UUI3sBCSGx
+ ADX37Hjr5LAknzQD9O2J1ddhV934Xwce9o6rz68mOTcKM7srohJteB8Tsr22PgLqb6
+ ZVuUG6ZKBVAODkBTcJJ2nTmMia44dFweeN3vC74VqR/NhVMxyjqZcmYxSwmquE1tva
+ KaPrPJvg8U44Sth/9+209aRaPeUGj/B3KQSjeQrHPeD+hSjJrihunv3d0RzoDEVstU
+ +5E68tKkFGOLIYjzRB8qIFQwzRPUx7wENcuIWDyj4LMFFpJ17QXfEQ8S9vGWDLPZ4l
+ 2K03UEhsITTGA==
+Date: Fri, 16 Jul 2021 18:19:36 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Eddie James <eajames@linux.ibm.com>
+Subject: Re: [PATCH 1/2] spi: fsi: Reduce max transfer size to 8 bytes
+Message-ID: <20210716171936.GB4137@sirena.org.uk>
+References: <20210716133915.14697-1-eajames@linux.ibm.com>
+ <20210716133915.14697-2-eajames@linux.ibm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: uzbyxn0zbHVSz9zdEq9wLFhQ-OlU1hCK
-X-Proofpoint-ORIG-GUID: uzbyxn0zbHVSz9zdEq9wLFhQ-OlU1hCK
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-16_05:2021-07-16,
- 2021-07-16 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501
- suspectscore=0 mlxlogscore=921 spamscore=0 adultscore=0 lowpriorityscore=0
- phishscore=0 bulkscore=0 clxscore=1015 mlxscore=0 impostorscore=0
- malwarescore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2107160092
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="TakKZr9L6Hm6aLOc"
+Content-Disposition: inline
+In-Reply-To: <20210716133915.14697-2-eajames@linux.ibm.com>
+X-Cookie: do {
+User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,35 +71,37 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-hwmon@vger.kernel.org, jdelvare@suse.com, openbmc@lists.ozlabs.org,
- Eddie James <eajames@linux.ibm.com>, linux-fsi@lists.ozlabs.org,
- linux@roeck-us.net
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, robh+dt@kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Conflicting sequence numbers have resulted in users of the OCC interface
-getting the wrong response. For example, both the hwmon driver and an
-application might send a transfer near the same time with the same sequence
-number, and then one or both will get an incorrect respnse, but cannot tell
-because the sequence number looks correct.
-Perform the sequence numbering in the submit interface to make sure each
-transfer has a unique sequence number. This also requires that the submit
-interface perform the checksum calculation for the command. Adjust the hwmon
-driver accordingly too.
 
-Eddie James (3):
-  fsi: occ: Force sequence numbering per OCC
-  hwmon: (occ) Remove sequence numbering and checksum calculation
-  fsi: occ: Add dynamic debug to dump command and response
+--TakKZr9L6Hm6aLOc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
- drivers/fsi/fsi-occ.c      | 98 +++++++++++++++++++++++++++++++-------
- drivers/hwmon/occ/common.c | 30 +++++-------
- drivers/hwmon/occ/common.h |  3 +-
- drivers/hwmon/occ/p8_i2c.c | 15 +++---
- drivers/hwmon/occ/p9_sbe.c |  4 +-
- 5 files changed, 105 insertions(+), 45 deletions(-)
+On Fri, Jul 16, 2021 at 08:39:14AM -0500, Eddie James wrote:
+> Security changes have forced the SPI controllers to be limited to
+> 8 byte reads. Refactor the sequencing to just handle 8 bytes at a
+> time.
 
--- 
-2.27.0
+Which security changes where - somewhere else in Linux?
 
+--TakKZr9L6Hm6aLOc
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmDxv6cACgkQJNaLcl1U
+h9CX5gf/ZGL0S2R8LTjv19bHHY3qmjDxNZSgznVmQxQtQuo444TlpJcK/zHW+uDT
+yFigB3LpxINXizUgBU16bR5P4JnwISufdE/qKxKhKZsbSQnu3PgsKyVuM1Ih3157
+Qq6YATY0HF6UtqUa1O/EgnLOKsIZN4DCvg9YWF0Os2moWvol8nEYtPl/n43oDecn
+KeSSI7np9OEhA7RGRfZLcgMF67OWqune5U0nqLEPln4jiUTibMBci5Pf7f5KO8SO
+pBDt8HBvL0UJ1AXCMcgeRDjjR/hhYChgurh9alnHc+NtogOeyK4pl/V0j9d+rHs4
+LfKsz5VbX+qiaxEnue2Pdu/5hP6fDA==
+=6cCz
+-----END PGP SIGNATURE-----
+
+--TakKZr9L6Hm6aLOc--
