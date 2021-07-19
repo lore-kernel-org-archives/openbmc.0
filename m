@@ -2,116 +2,62 @@ Return-Path: <SRS0=S/TR=ML=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43F09C63793
-	for <openbmc@archiver.kernel.org>; Mon, 19 Jul 2021 16:32:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 39298C07E95
+	for <openbmc@archiver.kernel.org>; Mon, 19 Jul 2021 18:00:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E6E0F60FE9
-	for <openbmc@archiver.kernel.org>; Mon, 19 Jul 2021 16:32:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E6E0F60FE9
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=us.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9646061006
+	for <openbmc@archiver.kernel.org>; Mon, 19 Jul 2021 18:00:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 9646061006
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GT6p74QdNz30Mk
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 02:32:47 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GT8lp1fX5z30hl
+	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 04:00:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=AAlRTkuB;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=TcFZvwR4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=us.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=miltonm@us.ibm.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
+ envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=AAlRTkuB; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
+ header.s=k20201202 header.b=TcFZvwR4; 
+ dkim-atps=neutral
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GT6nY1T8zz2xVt
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jul 2021 02:32:16 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 16JG7J1n052002
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jul 2021 12:32:14 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=in-reply-to : from : to
- : cc : date : message-id : content-transfer-encoding : content-type :
- mime-version : references : subject; s=pp1;
- bh=Y2tSPrAObOHt0WHeEuZHT7U2LQe13cWTCVosZrb53Qg=;
- b=AAlRTkuBzvLStkRWJNcZjk3EhRPl9FSy9esc8jYqDGTYyGc894WbDYTxxEq0Zm2po9P0
- POd2KXzgrFW01TzP3RmuzNS5XnNpv7Kp3RvHXUFy1gCDTAmS4+Le/y6ypL8ms2e+vfgl
- fSiatRP0H/9YsE+/FUT1Vm2daIYna7OYJUP7fmqOaGVwTad9w4ml3cdjBVpd5ak/XDWw
- uRyxjWNuQlqq2JDR/w4hYhW8NY1Fzpf3KccZtin9znO++7/4U7YLJB9wivFzHHgKPVuA
- iH5JpGJj04pnRbomx8OJO8ePLaBYvGB4XttmUGXli5JjWjX0UYMbOsX/Y5+MTSUDPKyb vg== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0b-001b2d01.pphosted.com with ESMTP id 39wbatbm5f-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jul 2021 12:32:14 -0400
-Received: from m0098420.ppops.net (m0098420.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 16JG7hho053544
- for <openbmc@lists.ozlabs.org>; Mon, 19 Jul 2021 12:32:13 -0400
-Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
- [169.55.85.253])
- by mx0b-001b2d01.pphosted.com with ESMTP id 39wbatbm50-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Jul 2021 12:32:13 -0400
-Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
- by ppma01wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 16JGIZoY005716;
- Mon, 19 Jul 2021 16:32:13 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26]) by ppma01wdc.us.ibm.com with ESMTP id 39upuaw1m9-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 19 Jul 2021 16:32:13 +0000
-Received: from b01ledav005.gho.pok.ibm.com (b01ledav005.gho.pok.ibm.com
- [9.57.199.110])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 16JGWC9D10748634
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 19 Jul 2021 16:32:12 GMT
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 69BFDAE060;
- Mon, 19 Jul 2021 16:32:12 +0000 (GMT)
-Received: from b01ledav005.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4CE87AE06D;
- Mon, 19 Jul 2021 16:32:12 +0000 (GMT)
-Received: from mww0331.wdc07m.mail.ibm.com (unknown [9.208.69.64])
- by b01ledav005.gho.pok.ibm.com (Postfix) with ESMTPS;
- Mon, 19 Jul 2021 16:32:12 +0000 (GMT)
-In-Reply-To: <CAHf5cscRkiCHw9HmJncTuA9E1dZDmEYTvkhkH4dF-nZcpEDnaA@mail.gmail.com>
-From: "Milton Miller II" <miltonm@us.ibm.com>
-To: VINOTHKUMAR RK <vkrk.user@gmail.com>
-Date: Mon, 19 Jul 2021 16:32:10 +0000
-Message-ID: <OF1CACA46F.E7A76D40-ON00258717.00595632-00258717.005AD638@ibm.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GT8lJ2NnVz2xb6
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jul 2021 04:00:28 +1000 (AEST)
+Received: by mail.kernel.org (Postfix) with ESMTPSA id EFC1B610FB;
+ Mon, 19 Jul 2021 18:00:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1626717625;
+ bh=JWq2f6zNmXW4BeuCzn54AbgPD0+ZAm0TjMTAxYtV9WI=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=TcFZvwR4olyw/rrNp+dglf+As16BA6AgtlpU9jbbv1IdRM67IVAUAU+XWWQxsFlmW
+ SF1Q5vVrYpa+fN4Af8orQ5P0wVwwGI4DfKmHKSJaWTy0aRl4nZoU2ssZbNUEaV1JSq
+ IxP5UIhIZmBaicQX7B98EL7d+YRt2FGtVMtqn6nuMrTsfn9ifd+J6QaSyAko/RWPCE
+ JlpIwCNAOL1ncwHYjCns90XOsirn4UzDhCqlL+Z8YFnLxdl/4kWny6Ary47csLHBbQ
+ JdGJ2HjxZZGbo+y8ePkIj/Tk5YZ5wFFTVCwAtjJ1GlYk4KQuBIWl3aabc9hN+tgolR
+ CCOxjuKRByLRQ==
+From: Mark Brown <broonie@kernel.org>
+To: linux-spi@vger.kernel.org,
+	Eddie James <eajames@linux.ibm.com>
+Subject: Re: [PATCH 0/2] spi: fsi: Reduce max transfer size to 8 bytes
+Date: Mon, 19 Jul 2021 19:00:21 +0100
+Message-Id: <162671570469.34697.17687227058188572653.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20210716133915.14697-1-eajames@linux.ibm.com>
+References: <20210716133915.14697-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
-Sensitivity: 
-Importance: Normal
-X-Priority: 3 (Normal)
-References: <CAHf5cscRkiCHw9HmJncTuA9E1dZDmEYTvkhkH4dF-nZcpEDnaA@mail.gmail.com>
-X-Mailer: Lotus Domino Web Server Release 11.0.1FP2HF97   July 2, 2021
-X-MIMETrack: Serialize by http on MWW0331/01/M/IBM at 07/19/2021 16:32:10,
- Serialize complete at 07/19/2021 16:32:10
-X-Disclaimed: 49323
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: LPkv0B4SF5d5BJfpk8COXi6YeeXY8Ywl
-X-Proofpoint-ORIG-GUID: MKQOlGXFUyH6tOQoGAiFDAjz2vagstft
-Subject: Re:  AST2600: Linux driver support for SPI controller
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-07-19_07:2021-07-19,
- 2021-07-19 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- priorityscore=1501 mlxlogscore=999 mlxscore=0 malwarescore=0 phishscore=0
- bulkscore=0 impostorscore=0 clxscore=1015 spamscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2104190000 definitions=main-2107190093
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,48 +69,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
+Cc: devicetree@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, robh+dt@kernel.org,
+ Mark Brown <broonie@kernel.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On July 19, 2021,  VINOTHKUMAR RK wrote:
->Hello all,
->
->This is regarding SPI controller driver support in OpenBMC.
->Here is the scenario: Three devices connected over same SPI
->controller as mentioned below:
->
->Firmware SPI Memory Controller (BSPI): (0x1E620000):
->    - Flash 0 (CS0)
->    - Flash 1 (CS1)
->    - MCU/CPLD (CS2)
->
->When I look at the OpenBMC Linux repository, I could find
->'aspeed-smc.c' driver under the MTD subsystem, so this seems to work
->only for flash devices.
->
->Do we've any other driver support or a solution to handle all the
->three devices? Any help/suggestions would be appreciated.
+On Fri, 16 Jul 2021 08:39:13 -0500, Eddie James wrote:
+> The security restrictions on the FSI-attached SPI controllers have
+> been applied universally to all controllers, so the controller can no
+> longer transfer more than 8 bytes for one transfer. Refactor the driver
+> to remove the looping and support for larger transfers, and remove the
+> "restricted" compatible string, as all the controllers are now
+> considered restricted.
+> 
+> [...]
 
-I was involved with the driver you found before Cedric took it=20
-over.
+Applied to
 
-I am not aware of anyone writing a generic SPI acccess driver.  =20
-The hardwaredoes have a user mode that does not auto-sequence, but=20
-as I remember its limited in that it can not read and write data=20
-at the same time and is limited to transfers that are multiples of=20
-a byte.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-next
 
-If your MCU/CPLD can live with these limitations then you or=20
-someone can integrate a spi layer driver into the current=20
-driver.
+Thanks!
 
-Note on the 2600 the hardware for the host is the same as the=20
-hardware for the BMC.  It may be easier to develop spi mode on=20
-that port because it could be developed while running with the=20
-BMC from existing driver.  Alternatively it could be developed=20
-on a system that runs on eMMC.
+[1/2] spi: fsi: Reduce max transfer size to 8 bytes
+      commit: 34d34a56a5ea1e54a5af4f34c6ac9df724129351
+[2/2] dt-bindings: fsi: Remove ibm,fsi2spi-restricted compatible
+      commit: 2b2d4dfca4e7cb6de70985b1579a6c08c027b8c9
 
-Milton
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
