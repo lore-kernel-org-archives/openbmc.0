@@ -2,68 +2,95 @@ Return-Path: <SRS0=4Mv8=MM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.0 required=3.0 tests=BAYES_00,
+	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A9191C07E95
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 13:13:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CDBF7C07E95
+	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 13:30:31 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2119A611CE
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 13:13:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org 2119A611CE
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id E2FD2610D2
+	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 13:30:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.3.2 mail.kernel.org E2FD2610D2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GTfKp4Jtcz3bb9
-	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 23:13:34 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GTfjK3BZxz3bb8
+	for <openbmc@archiver.kernel.org>; Tue, 20 Jul 2021 23:30:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20201202 header.b=Dlu6Q+yS;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=qBXL47tA;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=kernel.org (client-ip=198.145.29.99; helo=mail.kernel.org;
- envelope-from=broonie@kernel.org; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::12a;
+ helo=mail-lf1-x12a.google.com; envelope-from=fercerpav@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256
- header.s=k20201202 header.b=Dlu6Q+yS; 
- dkim-atps=neutral
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=qBXL47tA; dkim-atps=neutral
+Received: from mail-lf1-x12a.google.com (mail-lf1-x12a.google.com
+ [IPv6:2a00:1450:4864:20::12a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GTfKL0dYrz2xxg
- for <openbmc@lists.ozlabs.org>; Tue, 20 Jul 2021 23:13:10 +1000 (AEST)
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 66AFB61106;
- Tue, 20 Jul 2021 13:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1626786787;
- bh=al7tI0KVVLdEI4uEKfWFTCtxVhUgyhsr1HgYUh500/8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Dlu6Q+ySyWZD/KOuzvnza5z39lV+sx/aVol9fNomcLzbau6nuEWQ4LKJ8WvHxRgFM
- iAfLf4SxCoqV2s7L19ynzMrcOk4oPJzPfAK9bNwIEPMaotlhMhcqt9EyA4phEjyoA4
- g5s1Qtgj9z53VBqvMQVhCRoQ6TmP7anJTwRknLd7W0o34WL4x5E3Aoa/Kv+PwkKXZz
- hGW5yFzBGaDaAt48sLWTDNdN4hOwbJtfcHay+2TbXIKgMLJU4McVc2ddm4VvL1Nq2p
- xSZSInGNJkpO77wcCmuWjyTqBeAdZUqVrenD8uEXl/dEIHR0q1Pn4wnd6JuFTjX6nx
- gc2SAuESGV84g==
-Date: Tue, 20 Jul 2021 14:13:03 +0100
-From: Mark Brown <broonie@kernel.org>
-To: David Laight <David.Laight@ACULAB.COM>
-Subject: Re: [PATCH 1/2] spi: fsi: Reduce max transfer size to 8 bytes
-Message-ID: <20210720131303.GB5042@sirena.org.uk>
-References: <20210716133915.14697-1-eajames@linux.ibm.com>
- <20210716133915.14697-2-eajames@linux.ibm.com>
- <20210716171936.GB4137@sirena.org.uk>
- <81a40f8690d297ebfb6697dbea63279bcf2f24fa.camel@linux.ibm.com>
- <20210719152010.GB4174@sirena.org.uk>
- <d2e07f0beda57ffeaa31e8cf5bf28edfbd982e58.camel@linux.ibm.com>
- <0a637d7704df4303abe783215080578d@AcuMS.aculab.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GTfhl40yNz2yMk
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jul 2021 23:29:58 +1000 (AEST)
+Received: by mail-lf1-x12a.google.com with SMTP id f30so29226324lfv.10
+ for <openbmc@lists.ozlabs.org>; Tue, 20 Jul 2021 06:29:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=date:from:to:cc:subject:message-id:references:mime-version
+ :content-disposition:in-reply-to:user-agent;
+ bh=5UusRkdsoT638YfSrAAm+TVTQJyejuNWHoXYbs2aNFE=;
+ b=qBXL47tAt4Zhi3Yd8Laq9Iv0M6oQfmUkVQlf2pVWBHQ2nH/z/Au/S+KXpocQtUrh+v
+ PyCG1FMUjuirVkcuhmBrtRD1sJUp2WlJ9wy2WYn884wXLORm9t0rZq2h5WAwcNL4m9KN
+ oXrXAWKruMt5Y+Nopl6V0156ENBlDdafi5gIU/lhIDq8yzxyNJxEaizXBznL8PadV2cD
+ s2IbOxsh0wvPgmehevPtKxkpJSlJQBvD4Yc/b49VlgNQ+w6jczLrM1jA56+HhrgT+A4P
+ xGB/9m+lIwufMKXt+G9XKJgmPgHGu+qBzTIJY5niruFhTcLUH2nLfUDA7T4DbL+Fznic
+ JieQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to:user-agent;
+ bh=5UusRkdsoT638YfSrAAm+TVTQJyejuNWHoXYbs2aNFE=;
+ b=gOdRAQs4/75/gbh5osc/hHDN7V03R7GhUdh1CStaskxC6e2cQbjs6lBf64rg6qyLki
+ O6ORmgrr9hfpOIxXt/TdyIu4nnij7d8tsu99CkChnqq73H59CkajNKucQbOusOG4oMzB
+ XxeS/1qJBDFyuJn9nDKBhczCmlq6JH9scE03DNJGq9vLdCvoKDuCxsJdWQGmLbsl4Jpa
+ OPD8aT8pBeksu/itP8V11I8IOgvCipOVavNdXrzSdE+MmZuuEV0mCG+q3QwufniTObqD
+ Fi+3mVge3AvTjzYxbRlWNheWHZX1reNekVzHP7OGkbSOVU9rkWiNxTpj2R4U2bVyhYId
+ Opfg==
+X-Gm-Message-State: AOAM533xJGiDhZq0/g5/JbKly/GcZQipyPlDA++joLERlI1tGW1FYUrK
+ y0kyIh8gTQ8h+p9iAFsYDRY=
+X-Google-Smtp-Source: ABdhPJx54AumcK1aald87HvFI2CB2CceO6HF64yEFUpmxmKeV7JKahWEznr+npQiq9ZtzffnLETwqg==
+X-Received: by 2002:ac2:5e28:: with SMTP id o8mr20803519lfg.209.1626787790369; 
+ Tue, 20 Jul 2021 06:29:50 -0700 (PDT)
+Received: from home.paul.comp (paulfertser.info.
+ [2001:470:26:54b:226:9eff:fe70:80c2])
+ by smtp.gmail.com with ESMTPSA id x12sm730335lji.117.2021.07.20.06.29.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 20 Jul 2021 06:29:49 -0700 (PDT)
+Received: from home.paul.comp (home.paul.comp [IPv6:0:0:0:0:0:0:0:1])
+ by home.paul.comp (8.15.2/8.15.2/Debian-14~deb10u1) with ESMTP id
+ 16KDTlCw005209; Tue, 20 Jul 2021 16:29:48 +0300
+Received: (from paul@localhost)
+ by home.paul.comp (8.15.2/8.15.2/Submit) id 16KDThZf005208;
+ Tue, 20 Jul 2021 16:29:43 +0300
+Date: Tue, 20 Jul 2021 16:29:43 +0300
+From: Paul Fertser <fercerpav@gmail.com>
+To: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+Subject: Re: [PATCH v2 3/3] net/ncsi: add dummy response handler for Intel
+ boards
+Message-ID: <20210720132943.GG875@home.paul.comp>
+References: <20210708122754.555846-1-i.mikhaylov@yadro.com>
+ <20210708122754.555846-4-i.mikhaylov@yadro.com>
+ <20210720094113.GA4789@home.paul.comp>
+ <b1da28a76c249637d6f094b046d851c7622e71d4.camel@yadro.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="aM3YZ0Iwxop3KEKx"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <0a637d7704df4303abe783215080578d@AcuMS.aculab.com>
-X-Cookie: Revenge is a meal best served cold.
+In-Reply-To: <b1da28a76c249637d6f094b046d851c7622e71d4.camel@yadro.com>
 User-Agent: Mutt/1.10.1 (2018-07-13)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -76,52 +103,62 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- 'Eddie James' <eajames@linux.ibm.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-spi@vger.kernel.org" <linux-spi@vger.kernel.org>,
- "robh+dt@kernel.org" <robh+dt@kernel.org>
+Cc: netdev@vger.kernel.org, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Samuel Mendoza-Jonas <sam@mendozajonas.com>,
+ "David S . Miller" <davem@davemloft.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Tue, Jul 20, 2021 at 04:21:31PM +0300, Ivan Mikhaylov wrote:
+> Paul, I know about 'get mac address' and it was in my todo list. You can put it
+> before or after this patch series whenever you want, it doesn't interfere with
+> this one. Anyways, thanks for sharing it.
 
---aM3YZ0Iwxop3KEKx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The patch in question modifies the same file in the same place, see:
 
-On Tue, Jul 20, 2021 at 01:04:38PM +0000, David Laight wrote:
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index a94bb59793f0..b36c22ec4c3f 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+...
+ static struct ncsi_rsp_oem_handler {
+        unsigned int    mfr_id;
+        int             (*handler)(struct ncsi_request *nr);
+ } ncsi_rsp_oem_handlers[] = {
+        { NCSI_OEM_MFR_MLX_ID, ncsi_rsp_handler_oem_mlx },
+-       { NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm }
++       { NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm },
++       { NCSI_OEM_MFR_INTEL_ID, ncsi_rsp_handler_oem_intel }
+ };
 
-> Having said that, you might want a loop in the driver so that
-> application requests for longer transfers are implemented
-> with multiple hardware requests.
+And your patch:
 
-No, that's something that should be and indeed is done in the core -
-this isn't the only hardware out there with some kind of restriction on
-length.
+Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+---
+ net/ncsi/ncsi-rsp.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-> I do also wonder why there is support in the main kernel sources
-> for hardware that doesn't actually exist.
+diff --git a/net/ncsi/ncsi-rsp.c b/net/ncsi/ncsi-rsp.c
+index 04bc50be5c01..d48374894817 100644
+--- a/net/ncsi/ncsi-rsp.c
++++ b/net/ncsi/ncsi-rsp.c
+...
+ static struct ncsi_rsp_oem_handler {
+        unsigned int    mfr_id;
+        int             (*handler)(struct ncsi_request *nr);
+ } ncsi_rsp_oem_handlers[] = {
+        { NCSI_OEM_MFR_MLX_ID, ncsi_rsp_handler_oem_mlx },
+-       { NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm }
++       { NCSI_OEM_MFR_BCM_ID, ncsi_rsp_handler_oem_bcm },
++       { NCSI_OEM_MFR_INTEL_ID, ncsi_rsp_handler_oem_intel }
+ };
 
-We encourage vendors to get support for their devices upstream prior to
-hardware availability so that users are able to run upstream when they
-get access to hardware, this means users aren't forced to run out of
-tree code needlessly and greatly eases deployment.
+so it does conflict. I suggest if you decide to continue with this
+series rather than the userspace solution to include the MAC fetching
+patch in your submission instead of the stub handler.
 
---aM3YZ0Iwxop3KEKx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmD2y94ACgkQJNaLcl1U
-h9CU5wf/TxYsQY9aTbblj5w4EVv8uLKbvy6PBj1SnrM4wfytzyTYihrRE6uCLTAS
-Nn9FkI1moqB5RREdDHk4HKQOiZQ2SD5FZn9jM5VV74hMRgyU70vk6DcgobQVYS2h
-YE23Evtq4wcxvTHbPHhZcYYj8NcoUbsbabuGB8smW5DU0qP8uVe8T1bTPcnBWE6g
-fXVdzjeRDykoTPTariCs1V02ZdqORUtSJF1TXJPaI2tLTqPEoBNPJzx2fgocdB7D
-jK1YKiTQV/TI+GED/c9cbvs+QW/uhBcJ7WVvqHrDcg8JnpRwVPp0K/x61vX0VeLq
-AN8yydmcf/WWsUCHBc1fwemQYA4WBQ==
-=Dkpn
------END PGP SIGNATURE-----
-
---aM3YZ0Iwxop3KEKx--
+--
+Be free, use free (http://www.gnu.org/philosophy/free-sw.html) software!
+mailto:fercerpav@gmail.com
