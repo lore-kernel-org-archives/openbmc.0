@@ -2,99 +2,75 @@ Return-Path: <SRS0=va4A=MP=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id F02C1C4338F
-	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 03:54:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id F3B6BC432BE
+	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 08:10:10 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 90D5B60E9C
-	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 03:54:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 90D5B60E9C
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id 6577E60E93
+	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 08:10:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6577E60E93
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GWFnc12gsz302d
-	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 13:54:44 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GWMSJ54xYz30H0
+	for <openbmc@archiver.kernel.org>; Fri, 23 Jul 2021 18:10:08 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=V4GRmNXw;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=wlzJeUfc;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=d3XSI0+9;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.26;
- helo=out2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::130;
+ helo=mail-lf1-x130.google.com; envelope-from=sushilkdubey@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm3 header.b=V4GRmNXw; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=wlzJeUfc; 
- dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=d3XSI0+9; dkim-atps=neutral
+Received: from mail-lf1-x130.google.com (mail-lf1-x130.google.com
+ [IPv6:2a00:1450:4864:20::130])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GWFn04YF0z2yMS;
- Fri, 23 Jul 2021 13:54:12 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 9DF345C010A;
- Thu, 22 Jul 2021 23:54:08 -0400 (EDT)
-Received: from imap43 ([10.202.2.93])
- by compute2.internal (MEProxy); Thu, 22 Jul 2021 23:54:08 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm3; bh=xS4UlT8eqZ4HbXnlKo2wRx3nOGUU1G6
- jbgGMu/4vs7E=; b=V4GRmNXw9KxItI2mclr4P+n+y8MA8ohHFIEiZXjKM2s3p75
- SQKSig8Osajim9/1m1is7b7WKEowNmgNGdqV4axk/2Z4tp4lLv073ibqngaPYfjG
- e4V2alR9GeZWg8F858x2mkhFJbyUZUBRar742VlCjimn5OnUrlQ9kiqEYFU3LreP
- IbrwbzbeiPyn/xnCnQ0Aetp1TWWelym9wg4u8qMn/COQSapHyvZ2ST/TCEysF6jg
- gH6yo72CdhGhghz6ajk6cNovHk8undf0uakPhoCAZC8VUsOjzwM4q1lScOv1umeD
- 3KZQtz39m1Van/ZIvjE/ee6G6VFMM2k5SBj/sZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=xS4UlT
- 8eqZ4HbXnlKo2wRx3nOGUU1G6jbgGMu/4vs7E=; b=wlzJeUfcOGgr90bxzOb/YU
- p0eO2F92UQrQECl7mHnTMLE7Y46Peyugd3oFmRgywd01jdXcyc3BeR/i/Ey49FXP
- gxglJqNgD9w10hsDOZ4cLTNcIskESK/ScJYvjhOlYTj/1RRE3Sq+SuQZM1Q3Q0Ce
- akc5G5li/9elJ0wxUPRHiPeJDpeF/0aq6Epk5MjDzS5M5bdBL5sBhV9ZXMnKiOr5
- pSVLJiL7mIL188VRrhXAQgjKsQNUEj4NJZzVI4i1esoIdjodm8aOmd2ySvS8t/Gu
- v2/Cmuk/8u1loz4t4snAqERgcVausfEK3Bomvymokj4i7EnzDywm2DGgI5v9USGw
- ==
-X-ME-Sender: <xms:Xz36YFf46-PrPSbgtq7O3vj62FfOVuectW20CypNFeNX1Jy7gl-nBQ>
- <xme:Xz36YDMDwbY8Mzp-kyMu8e_v-j3IFEIcTI09R_4vy00RMmqTc6l7aqGeLwLxSsE0T
- ERqjkk4KBH4pCDHgA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrfeejgdejvdcutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
- veeuffenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:Xz36YOiGcl1e3MCA7GD69oDL-9tnudc9JNoEvs_AwEjy0v0e3iwzAQ>
- <xmx:Xz36YO9Mu4E1ZGuLuI_3sMV6oyYzbeEi0b-p9IjOvTyj_gF1_XkZ6w>
- <xmx:Xz36YBtAdu4XkqW2JPx9viqc8oIkT33cJbhrGvhfi7E3bCvg0Xtm8w>
- <xmx:YD36YLLBSgtUbo_evZVcsicStpYcLR8BwnZrIr-5ufCXutjdwkWmDA>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 8EBF3AC0DD0; Thu, 22 Jul 2021 23:54:07 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-540-g21c5be8f1e-fm-20210722.001-g21c5be8f
-Mime-Version: 1.0
-Message-Id: <d6beadd3-cd57-40ec-aee7-0dc9d8209461@www.fastmail.com>
-In-Reply-To: <20210723034840.8752-1-rdunlap@infradead.org>
-References: <20210723034840.8752-1-rdunlap@infradead.org>
-Date: Fri, 23 Jul 2021 13:23:46 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Randy Dunlap" <rdunlap@infradead.org>
-Subject: Re: [PATCH] pinctrl: aspeed: placate kernel-doc warnings
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GWMRl5SwHz2yMw
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Jul 2021 18:09:39 +1000 (AEST)
+Received: by mail-lf1-x130.google.com with SMTP id r17so760018lfe.2
+ for <openbmc@lists.ozlabs.org>; Fri, 23 Jul 2021 01:09:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=vsvT8HEwoAcRR8cPlB0tQGgBv0RZN4tUWhEUZuy5Nzk=;
+ b=d3XSI0+9Ao6k1tdlLO0NmQV5ZVQhSwZl+gEB9bvBjd9fzOh5BuSdgulb/qyoix/ULE
+ wOks62QJjXb/FIO9rZ1ftzxFd5yNzvxx99GbNjBy2KBNpEcvtYuaD3W3/c1m3h4YACIf
+ +Y5B0WzMfTH+6pElzGILsBzbh47vDN9URRz+DUDW0saYj7+gXU5oML+pFv07E8b3jqu8
+ PG33obNi0PsaVl7JB/CepS2I/BfQkqlorkW966hEAgf1AIzjBs5Uq+MqjHvXzlPPEXQE
+ 182pzAZ8AjfXL0b54n+bLPtNU7F5chxuuwQNKVehGPTTK91eIP9fzZn7aFXkjhEteB3X
+ sRug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=vsvT8HEwoAcRR8cPlB0tQGgBv0RZN4tUWhEUZuy5Nzk=;
+ b=Qhn25XCVZbUD2iV6iZdavx2W92A51kzyqWBjIANCp7gn5XYtri/WbVm+4fhF27fY8F
+ rRqf2+VuoFDOgLkGuS2EXdJ2A918ZdqZSoWvWTV0QZECtDiV51Ge7A2IGfeIWKq6vTPJ
+ jiOQPjqdsqbEWNQgpUr06DO3sZmCNgSoifvHEXyk13ph+EZ52J/Srk5z4HZmwkUwvwHE
+ TeUqd6pHOSz4/QNLz/lLIUFf6bRnD9iAwo/+FnNB+4wgSitetf6dRiDkMhtd66Q+cpAU
+ 07ctHY+1+NQCQAzm7JWzRygimjxRVYqJ2RhxeGS8+kPPeKEYh4KrBty6MghluU0vu+Be
+ fWEQ==
+X-Gm-Message-State: AOAM530cdU6afvofNR6E2jG0AiMBCHSXzIKKA1v/r2h8yF0nTIjzkyXZ
+ BCVLXDwzn1f5K/bPlaCRKy1iu3SxOXnAoNUBIZtLwe7D/KDLTg==
+X-Google-Smtp-Source: ABdhPJxNTECD4e61wCYfvhMFoJi5xCKt1Lxz5Kf1ZuA1TWRaVrQha7fQs02iNmJkDQcpNaZ1iMN71zdLT2xedAwQXts=
+X-Received: by 2002:ac2:549c:: with SMTP id t28mr2201787lfk.61.1627027772981; 
+ Fri, 23 Jul 2021 01:09:32 -0700 (PDT)
+MIME-Version: 1.0
+From: Sushil Dubey <sushilkdubey@gmail.com>
+Date: Fri, 23 Jul 2021 13:39:22 +0530
+Message-ID: <CAMyVXe=jZxh+r-=t-KW-w0eEznVb02Wfg5NS60O+CDQQ-0w4jw@mail.gmail.com>
+Subject: OpenBMC Uboot: Missing Driver for Ethernet Switch KSZ9893R
+To: openbmc@lists.ozlabs.org, joel@jms.id.au
+Content-Type: multipart/alternative; boundary="00000000000072c41a05c7c5ec76"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,31 +82,131 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: kbuild test robot <lkp@intel.com>, linux-aspeed@lists.ozlabs.org,
- Aditya Srivastava <yashsri421@gmail.com>, openbmc@lists.ozlabs.org,
- linux-gpio@vger.kernel.org, Linus Walleij <linus.walleij@linaro.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+--00000000000072c41a05c7c5ec76
+Content-Type: text/plain; charset="UTF-8"
+
+Hello All,
 
 
-On Fri, 23 Jul 2021, at 13:18, Randy Dunlap wrote:
-> Eliminate kernel-doc warnings in drivers/pinctrl/aspeed by using
-> proper kernel-doc notation.
-> 
-> Fixes these kernel-doc warnings:
-> 
-> drivers/pinctrl/aspeed/pinmux-aspeed.c:61: warning: This comment starts 
-> with '/**', but isn't a kernel-doc comment. Refer 
-> Documentation/doc-guide/kernel-doc.rst
->     * Query the enabled or disabled state for a mux function's signal 
-> on a pin
-> drivers/pinctrl/aspeed/pinctrl-aspeed.c:135: warning: This comment 
-> starts with '/**', but isn't a kernel-doc comment. Refer 
-> Documentation/doc-guide/kernel-doc.rst
->     * Search for the signal expression needed to enable the pin's 
-> signal for the
-> 
 
-Acked-by: Andrew Jeffery <andrew@aj.id.au>
+I am working on an AST2600 based OpenBMC project where we are
+using Ethernet Switch KSZ9893R.
+
+
+
+Microchip KSZ9893R is a 3-Port Gigabit Ethernet Switches with
+RGMII/MII/RMII Interface.
+
+
+
+I investigated OpenBMC/Uboot for KSZ9893R support but could not find it GitHub
+- openbmc/u-boot: OpenBMC "Das U-Boot" Source Tree
+<https://github.com/openbmc/u-boot>.
+
+
+
+After further investigation, I found this driver is already upstream at
+mainline Uboot :
+https://github.com/u-boot/u-boot/blob/master/drivers/net/ksz9477.c
+
+
+
+Can anyone please take a look and get this driver in the OpenBMC tree?
+
+
+
+Thank you in advance for your help.
+
+
+
+Regards,
+
+Sushil Dubey
+
+--00000000000072c41a05c7c5ec76
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p class=3D"MsoNormal" style=3D"margin:0in;line-height:nor=
+mal;font-size:11pt"><font face=3D"arial, sans-serif">Hello All,=C2=A0</font=
+></p><p class=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-siz=
+e:11pt"><font face=3D"arial, sans-serif">=C2=A0</font></p><p class=3D"MsoNo=
+rmal" style=3D"margin:0in;line-height:normal;font-size:11pt"><font face=3D"=
+arial, sans-serif">I am working on an
+AST2600 based OpenBMC project where we are using=C2=A0Ethernet Switch KSZ98=
+93R.</font></p><p class=3D"MsoNormal" style=3D"margin:0in;line-height:norma=
+l;font-size:11pt"><font face=3D"arial, sans-serif">=C2=A0</font></p><p clas=
+s=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-size:11pt"><spa=
+n style=3D"color:black"><font face=3D"arial, sans-serif">Microchip KSZ9893R=
+ is a 3-Port
+Gigabit Ethernet Switches with RGMII/MII/RMII Interface.</font></span></p><=
+p class=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-size:11pt=
+"><font face=3D"arial, sans-serif">=C2=A0</font></p><p class=3D"MsoNormal" =
+style=3D"margin:0in;line-height:normal;font-size:11pt"><font face=3D"arial,=
+ sans-serif">I investigated OpenBMC/Uboot for
+KSZ9893R support but could not find it=C2=A0<a href=3D"https://github.com/o=
+penbmc/u-boot"><span style=3D"color:rgb(5,99,193)">GitHub -
+openbmc/u-boot: OpenBMC &quot;Das U-Boot&quot; Source Tree</span></a>.</fon=
+t></p><p class=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-si=
+ze:11pt"><font face=3D"arial, sans-serif">=C2=A0</font></p><p class=3D"MsoN=
+ormal" style=3D"margin:0in;line-height:normal;font-size:11pt"><font face=3D=
+"arial, sans-serif">After further investigation, I
+found=C2=A0this driver is already upstream at mainline=C2=A0Uboot :=C2=A0<a=
+ href=3D"https://github.com/u-boot/u-boot/blob/master/drivers/net/ksz9477.c=
+"><span style=3D"color:rgb(5,99,193)">https://github.com/u-boot/u-boot/blob=
+/master/drivers/net/ksz9477.c</span></a></font></p><p class=3D"MsoNormal" s=
+tyle=3D"margin:0in;line-height:normal;font-size:11pt"><span style=3D"color:=
+black"><font face=3D"arial, sans-serif">=C2=A0</font></span></p><p class=3D=
+"MsoNormal" style=3D"margin:0in;line-height:normal;font-size:11pt"><font fa=
+ce=3D"arial, sans-serif"><span style=3D"color:rgb(32,31,30)">Can anyone ple=
+ase take a look
+and get this driver in the OpenBMC tree</span><span style=3D"color:black">?=
+ </span></font></p><p class=3D"MsoNormal" style=3D"margin:0in;line-height:n=
+ormal;font-size:11pt"><span style=3D"color:black"><font face=3D"arial, sans=
+-serif">=C2=A0</font></span></p><p class=3D"MsoNormal" style=3D"margin:0in;=
+line-height:normal;font-size:11pt"><span style=3D"color:rgb(32,31,30)"><fon=
+t face=3D"arial, sans-serif">Thank you in advance for your
+help. </font></span></p><p class=3D"MsoNormal" style=3D"margin:0in;line-hei=
+ght:normal;font-size:11pt"><span style=3D"color:rgb(32,31,30)"><font face=
+=3D"arial, sans-serif">=C2=A0</font></span></p><p class=3D"MsoNormal" style=
+=3D"margin:0in;line-height:normal;font-size:11pt"><span style=3D"color:rgb(=
+32,31,30)"><font face=3D"arial, sans-serif">Regards,</font></span></p><p cl=
+ass=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-size:11pt">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p><p class=3D"MsoNormal" style=3D"margin:0in;line-height:normal;font-size=
+:11pt"><span style=3D"color:rgb(32,31,30)"><font face=3D"arial, sans-serif"=
+>Sushil Dubey</font></span></p></div>
+
+--00000000000072c41a05c7c5ec76--
