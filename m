@@ -2,81 +2,85 @@ Return-Path: <SRS0=xVxV=MT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.5 required=3.0 tests=BAYES_00,
-	DKIM_ADSP_CUSTOM_MED,DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT,
+	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5948FC4338F
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 02:23:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B8A06C4338F
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:09 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B6F9560FEB
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 02:23:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B6F9560FEB
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id C8E5761053
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8E5761053
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GYgZG1Tyrz30Fc
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 12:23:18 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GYj7z2QWFz3bWb
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 13:34:07 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=EO2pEbvA;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=X6t5Cd7N;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::c32;
- helo=mail-oo1-xc32.google.com; envelope-from=leetroy@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636;
+ helo=mail-pl1-x636.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=EO2pEbvA; dkim-atps=neutral
-Received: from mail-oo1-xc32.google.com (mail-oo1-xc32.google.com
- [IPv6:2607:f8b0:4864:20::c32])
+ header.s=20161025 header.b=X6t5Cd7N; dkim-atps=neutral
+Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
+ [IPv6:2607:f8b0:4864:20::636])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GYgYm4ffXz2ymS
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jul 2021 12:22:51 +1000 (AEST)
-Received: by mail-oo1-xc32.google.com with SMTP id
- h7-20020a4ab4470000b0290263c143bcb2so2742875ooo.7
- for <openbmc@lists.ozlabs.org>; Mon, 26 Jul 2021 19:22:51 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GYj7Q2Dtjz2yyt;
+ Tue, 27 Jul 2021 13:33:37 +1000 (AEST)
+Received: by mail-pl1-x636.google.com with SMTP id t21so14068043plr.13;
+ Mon, 26 Jul 2021 20:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=JxdWaRrIXnMrkVtGFeOTacCATVx/vii++9LdFXeVvKk=;
- b=EO2pEbvALZLfzwEhTaoml6+neI3gximuUQvJ4evdLorQxlv4YJ/YWlTPOWRJP+gq6d
- bi0d2vJuzCTwD6alGxutu5DAKn2eC0hN5Q+3q+F6wrDRhR3ei7l99uGHZ1PxNMcci8CD
- f1lIhnrxvlJnF6vh1weNuKLdHrWbiBJFqWVZvyvh1ENKI3Uvgo27oupzTAXmhevlZUOA
- m7+AAJ5EBrno/EtYIq3+22VRgHWQu0GE+/69wHc8v5mA75qqrU9tBKc06Obojhw6TCG/
- oz+uj7iVrAXqBb8aG2PhMTnn9AbSK3i4MH87ANMgYPky81n39G2/BYlJ11P/H0ovRLbU
- vH6A==
+ h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
+ :mime-version:content-transfer-encoding;
+ bh=sgogXb1SnR/+7JQk31e50axmieq/LTndC4H+WEUwDIw=;
+ b=X6t5Cd7NfOGCRbIAFIr3P9GYdw0wu5JRbP6NAYNMt2RPW04bFrn4al2wU1ZT779jZu
+ 42xhpYW/Xn2mOH5hcVjXJbNaT1jmxr+QbPrWpgZxZUqoYRbi/vUxEmSJr3xxFFT5ZvOh
+ iM03F/PXyoL1GGU+UFySIDioBfYXCEwOfZMu367ZtO89tds0xDj2dkDlO5A2IKHayb8A
+ W027MTD7MxLEeksSCq2wLo8hVOobuRkYNL2450pqpfAatQnphxwA1BrhTiRKCUR4JVE1
+ ej2cH9FczsKOU6worj6A7hV8F1cIKKZGZ0YHYE69aucpBmNqP92mSfPYuvVGmNExci2V
+ /dog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=JxdWaRrIXnMrkVtGFeOTacCATVx/vii++9LdFXeVvKk=;
- b=QKGyhkSXPiv+rp2QEk1/pdiUdMyCjka4kLbWhCd6VvEqaw0WuhztNs1yWuOqdpMATA
- F4xbUYqPnmes1D7VkDM/fryO5tfzjk4nOlJwn6Jkw80YEqeDUuSH3iYGGt0z/GJI+Egw
- fgbDgT6gFh50S529lep9LlifyIIU1p693Vzk6B2EQfjbB3Xb84S27XVfXkLiNEnr3UuC
- uiGpDcCmTE9xqCRc0tOyD5+r04e2lXpebCAV5Mo3qfauDher8GP0QpmSgcmjIvpBsGG4
- miWS1iTRCkDj4UeTO/qrxhi5CVHiL5w1OeYYY07SZqL9j9bWcWqNronxh0YSBVmlMQr+
- hAmw==
-X-Gm-Message-State: AOAM530DKpDHL2AhKYvfY7Z6G3at+LFmFYPRSUprT2SOW3SBapp7crys
- bjEgTDt31Vy6b/Y/PkZ7Y+iHVl2irQs1CuP+Ud0=
-X-Google-Smtp-Source: ABdhPJw6owOwTnKtkAyFVZfgKk+G0oTDRJRbHcZIh9xqEaJATCkRFTn5U+73z1VCdgBG2FTaiqU6TL5B2U4Utqd4m5k=
-X-Received: by 2002:a4a:9783:: with SMTP id w3mr12125412ooi.80.1627352568368; 
- Mon, 26 Jul 2021 19:22:48 -0700 (PDT)
+ h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
+ :in-reply-to:references:mime-version:content-transfer-encoding;
+ bh=sgogXb1SnR/+7JQk31e50axmieq/LTndC4H+WEUwDIw=;
+ b=UI7nwCVLd3VC0mh2Lv3YnssKOJ/xUKRoAQIoj2taFmMNpp1S7OmbVqio170BT+ZgpK
+ lO4IXH6V7cWCznGqDxR1Xyp9k6F8pmIQ1XkVMuGyH9HzYAoa7HjKoXtMM0TfCc3tO9EA
+ ToGfxSbdW52Nx+LuCN9p2zkv9QzBFJhgDs/7kT2Jo+1IH9CbAGK0E4HMqjgVG0MF6Yg+
+ Po56WT9jMmqy7CROb0sRXaQS83RR2gl6vVtMebJT7eIA51U4yBACHdWYdSEtbT4pr+VU
+ uYqYq+4s6iUenunZ3abQpW/uLlYXT7pLspncLhQcWdnb8ZT4ClqXP9/6hQQMk60YwRmz
+ dk3g==
+X-Gm-Message-State: AOAM531BiJT2Y8GGVzbye3/Y04klPyFi2tuMg2Fz+oRpM0LAgeXxFG76
+ wsAHca1CnnEGpl1fdE0zNVQmNM6RQOc=
+X-Google-Smtp-Source: ABdhPJx5l2G6QtAdpW4Jl6gRF8PJvSae7WXoRyi/MOc+INvwcgnB6mIMwiMbQq8WDcsKw98VJx3Q0Q==
+X-Received: by 2002:a17:90b:3653:: with SMTP id
+ nh19mr2117160pjb.169.1627356814893; 
+ Mon, 26 Jul 2021 20:33:34 -0700 (PDT)
+Received: from localhost.localdomain ([45.124.203.18])
+ by smtp.gmail.com with ESMTPSA id s193sm1528351pfc.183.2021.07.26.20.33.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Jul 2021 20:33:34 -0700 (PDT)
+From: Joel Stanley <joel@jms.id.au>
+To: openbmc@lists.ozlabs.org,
+	andrew@aj.id.au
+Subject: [PATCH 1/2] ARM: dts: rainier, everest: Add TPM reset GPIO
+Date: Tue, 27 Jul 2021 13:03:18 +0930
+Message-Id: <20210727033319.473152-2-joel@jms.id.au>
+X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20210727033319.473152-1-joel@jms.id.au>
+References: <20210727033319.473152-1-joel@jms.id.au>
 MIME-Version: 1.0
-References: <20210623060742.22158-1-troy_lee@aspeedtech.com>
- <OF021B0527.BA142969-ON0025871E.005B6D39-0025871E.0062427C@ibm.com>
-In-Reply-To: <OF021B0527.BA142969-ON0025871E.005B6D39-0025871E.0062427C@ibm.com>
-From: Troy Lee <leetroy@gmail.com>
-Date: Tue, 27 Jul 2021 10:22:39 +0800
-Message-ID: <CAN9Jwz3_oPzCsCXRCM+YfrJ_N79dG1UwdEsGac9hAMS53j3-Bg@mail.gmail.com>
-Subject: Re: [PATCH u-boot v2019.04-aspeed-openbmc v1 1/2] ast2600: spl: Fixes
- boot from RAM device
-To: Sandhya Koteshwara <Sandhya.Koteshwara@ibm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,69 +92,49 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- Troy Lee <troy_lee@aspeedtech.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hi Sandhya,
+The GPIO is used to place the BMC-connected TPM in reset. This state is
+latched until the BMC is next reset, blocking access to the TPM for that
+boot.
 
-The AST2600 hardware hash and crypto engine (HACE) can only exame data
-in DRAM, please make sure you copy the kernel fit-image into dram
-first.
+On both machines this net is called TPM_RESET_LATCH_B.
 
-Thanks,
-Troy Lee
---
-Yu-Ting Lee (Troy Lee) <LeeTroy@gmail.com>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 2 +-
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-On Tue, Jul 27, 2021 at 1:53 AM Sandhya Koteshwara
-<Sandhya.Koteshwara@ibm.com> wrote:
->
-> Hi Troy, Joel,
->
-> I am looking to use these patches to secure boot OpenBMC from flash on the AST2600 evaluation board. Is there a relevant UBOOT_MACHINE configuration file I can use?
->
-> I am currently porting configuration for secure boot from the ast2600_openbmc_spl_emmc_defconfig to the ast2600_openbmc_spl_defconfig. I was only able to get the u-boot-spl to verify u-boot but kernel verification fails.
->
-> Thanks,
-> Sandhya
->
-> ----- Original message -----
-> From: Troy Lee <troy_lee@aspeedtech.com>
-> Sent by: "openbmc" <openbmc-bounces+sandhya.koteshwara=ibm.com@lists.ozlabs.org>
-> To: <leetroy@gmail.com>, <openbmc@lists.ozlabs.org>, <joel@jms.id.au>
-> Cc:
-> Subject: [EXTERNAL] [PATCH u-boot v2019.04-aspeed-openbmc v1 1/2] ast2600: spl: Fixes boot from RAM device
-> Date: Wed, Jun 23, 2021 2:08 AM
->
-> Reporting a BOOT_DEVICE_RAM can leverage common/spl/spl_ram.c
-> to bring up u-boot.bin by memory offset 0x00010000.
->
-> Fixes: 13dd0b0f7273 ("ast2600: spl: Support common boot loader features")
-> Signed-off-by: Troy Lee <troy_lee@aspeedtech.com>
-> ---
->  arch/arm/mach-aspeed/ast2600/spl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/arch/arm/mach-aspeed/ast2600/spl.c b/arch/arm/mach-aspeed/ast2600/spl.c
-> index 778b326755..c759a7575d 100644
-> --- a/arch/arm/mach-aspeed/ast2600/spl.c
-> +++ b/arch/arm/mach-aspeed/ast2600/spl.c
-> @@ -66,7 +66,7 @@ u32 spl_boot_device(void)
->   case AST_BOOTMODE_EMMC:
->   return BOOT_DEVICE_MMC1;
->   case AST_BOOTMODE_SPI:
-> - return BOOT_DEVICE_SPI;
-> + return BOOT_DEVICE_RAM;
->   case AST_BOOTMODE_UART:
->   return BOOT_DEVICE_UART;
->   }
-> --
-> 2.17.1
->
->
->
->
->
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index aa24cac8e5be..4536cd538af9 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -253,7 +253,7 @@ &gpio0 {
+ 	/*O0-O7*/	"","","","","","","","",
+ 	/*P0-P7*/	"","","","","led-pcieslot-power","","","",
+ 	/*Q0-Q7*/	"","","","","","","","",
+-	/*R0-R7*/	"","","","","","I2C_FLASH_MICRO_N","","",
++	/*R0-R7*/	"bmc-tpm-reset","","","","","I2C_FLASH_MICRO_N","","",
+ 	/*S0-S7*/	"","","","","","","","",
+ 	/*T0-T7*/	"","","","","","","","",
+ 	/*U0-U7*/	"","","","","","","","",
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index 481d0ee1f85f..06b3d1573780 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -271,7 +271,7 @@ &gpio0 {
+ 	/*O0-O7*/	"","","","usb-power","","","","",
+ 	/*P0-P7*/	"","","","","pcieslot-power","","","",
+ 	/*Q0-Q7*/	"cfam-reset","","","","","","","",
+-	/*R0-R7*/	"","","","","","","","",
++	/*R0-R7*/	"bmc-tpm-reset","","","","","","","",
+ 	/*S0-S7*/	"presence-ps0","presence-ps1","presence-ps2","presence-ps3",
+ 				"","","","",
+ 	/*T0-T7*/	"","","","","","","","",
+-- 
+2.32.0
+
