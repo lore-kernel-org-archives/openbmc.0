@@ -2,83 +2,81 @@ Return-Path: <SRS0=xVxV=MT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT,
-	WEIRD_QUOTING autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B8A06C4338F
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B404EC4338F
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:32 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C8E5761053
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C8E5761053
+	by mail.kernel.org (Postfix) with ESMTPS id 5376161053
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 03:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5376161053
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GYj7z2QWFz3bWb
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 13:34:07 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GYj8Q2q2Rz30N5
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 13:34:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=X6t5Cd7N;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=Na/XNAhO;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::636;
- helo=mail-pl1-x636.google.com; envelope-from=joel.stan@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::635;
+ helo=mail-pl1-x635.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=X6t5Cd7N; dkim-atps=neutral
-Received: from mail-pl1-x636.google.com (mail-pl1-x636.google.com
- [IPv6:2607:f8b0:4864:20::636])
+ header.s=20161025 header.b=Na/XNAhO; dkim-atps=neutral
+Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com
+ [IPv6:2607:f8b0:4864:20::635])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GYj7Q2Dtjz2yyt;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GYj7Q28NTz2xvc;
  Tue, 27 Jul 2021 13:33:37 +1000 (AEST)
-Received: by mail-pl1-x636.google.com with SMTP id t21so14068043plr.13;
+Received: by mail-pl1-x635.google.com with SMTP id c11so14141267plg.11;
  Mon, 26 Jul 2021 20:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:from:to:cc:subject:date:message-id:in-reply-to:references
- :mime-version:content-transfer-encoding;
- bh=sgogXb1SnR/+7JQk31e50axmieq/LTndC4H+WEUwDIw=;
- b=X6t5Cd7NfOGCRbIAFIr3P9GYdw0wu5JRbP6NAYNMt2RPW04bFrn4al2wU1ZT779jZu
- 42xhpYW/Xn2mOH5hcVjXJbNaT1jmxr+QbPrWpgZxZUqoYRbi/vUxEmSJr3xxFFT5ZvOh
- iM03F/PXyoL1GGU+UFySIDioBfYXCEwOfZMu367ZtO89tds0xDj2dkDlO5A2IKHayb8A
- W027MTD7MxLEeksSCq2wLo8hVOobuRkYNL2450pqpfAatQnphxwA1BrhTiRKCUR4JVE1
- ej2cH9FczsKOU6worj6A7hV8F1cIKKZGZ0YHYE69aucpBmNqP92mSfPYuvVGmNExci2V
- /dog==
+ h=sender:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=zRV39UkS2vNdaNCZM7bm7pzubH4EyQigeZjHSOfFrv0=;
+ b=Na/XNAhOCzW+w2XPuKwo7S99feRZg+tPXcLZ5omcPU8TDn2cEoESYLNk+bo4MYkvkM
+ hFJa4yVqelUjRK00K7iWz0JPUIlvWaWKI2MuqPGnKg7drEEfpCD74dGe/wa/SExUYPgC
+ dEvmnw0s8lrkSHbu7wIxcw7rH1drZ6BcPM8NAzmJhOCJRgrze9dlADd0/uBZOFNt0sl5
+ OQuaR+cFNca8epWtK7HlFZ5jXlXJp5YEHeSLADVCB1eglw451PObaChDhytwfCRRJhX0
+ 8kpUTFMYkfUneD1a1o2148h3hdjUG8K1UnYyguu3PqLQ52gcdTZdQUtIfUEmeMujnM9b
+ oWSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:sender:from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- bh=sgogXb1SnR/+7JQk31e50axmieq/LTndC4H+WEUwDIw=;
- b=UI7nwCVLd3VC0mh2Lv3YnssKOJ/xUKRoAQIoj2taFmMNpp1S7OmbVqio170BT+ZgpK
- lO4IXH6V7cWCznGqDxR1Xyp9k6F8pmIQ1XkVMuGyH9HzYAoa7HjKoXtMM0TfCc3tO9EA
- ToGfxSbdW52Nx+LuCN9p2zkv9QzBFJhgDs/7kT2Jo+1IH9CbAGK0E4HMqjgVG0MF6Yg+
- Po56WT9jMmqy7CROb0sRXaQS83RR2gl6vVtMebJT7eIA51U4yBACHdWYdSEtbT4pr+VU
- uYqYq+4s6iUenunZ3abQpW/uLlYXT7pLspncLhQcWdnb8ZT4ClqXP9/6hQQMk60YwRmz
- dk3g==
-X-Gm-Message-State: AOAM531BiJT2Y8GGVzbye3/Y04klPyFi2tuMg2Fz+oRpM0LAgeXxFG76
- wsAHca1CnnEGpl1fdE0zNVQmNM6RQOc=
-X-Google-Smtp-Source: ABdhPJx5l2G6QtAdpW4Jl6gRF8PJvSae7WXoRyi/MOc+INvwcgnB6mIMwiMbQq8WDcsKw98VJx3Q0Q==
-X-Received: by 2002:a17:90b:3653:: with SMTP id
- nh19mr2117160pjb.169.1627356814893; 
- Mon, 26 Jul 2021 20:33:34 -0700 (PDT)
+ :mime-version:content-transfer-encoding;
+ bh=zRV39UkS2vNdaNCZM7bm7pzubH4EyQigeZjHSOfFrv0=;
+ b=BARHt+PRi4TRGFmV3uIxcQ28fxA4TeEDuPCp3JlmhZvlP9fGKEgj2z0gJUYYs0EWIt
+ GU/nShpRLW8ERMC7WdZGQsgQ1TIg2u09iHcs55j8mKg2ITPA5QuCJk47bToeC/pzemMI
+ rYxpIav4wtIICOl9P3kB+KGwzlVNp2url0u52DDXpW9RK4n8INxLXwzdHhdoQbo+uCzg
+ F/KY1aGDRmpjC1caC7Q/bzVSRvodaD/f9CAPvgNfj6FltLGRVLnU7Nd0ksUciSJWIO3w
+ RkZOvhVtzFWOqWNU6Px276aWjBZjhdITbC3f2Lg6/4lHPdXEVv7FhE4L6MET75qJBGR7
+ q/FQ==
+X-Gm-Message-State: AOAM530NPeQXZfA0KUQoER/Kx1bL8ZUSTCDR4+SCKsnuZfCKZqVgqNdh
+ qtTk7Wa0hUa+P7FrF4h3ShPYVCekfK8=
+X-Google-Smtp-Source: ABdhPJwgc3J6FfE1EajwCPVtLDVBM0ynFtuxj42KnF4m/YA4Z7ar1vmPTzI/UNuI4D73FDqPaEDP7g==
+X-Received: by 2002:aa7:88d4:0:b029:329:ab58:ffc3 with SMTP id
+ k20-20020aa788d40000b0290329ab58ffc3mr21132491pff.23.1627356811422; 
+ Mon, 26 Jul 2021 20:33:31 -0700 (PDT)
 Received: from localhost.localdomain ([45.124.203.18])
- by smtp.gmail.com with ESMTPSA id s193sm1528351pfc.183.2021.07.26.20.33.32
+ by smtp.gmail.com with ESMTPSA id s193sm1528351pfc.183.2021.07.26.20.33.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jul 2021 20:33:34 -0700 (PDT)
+ Mon, 26 Jul 2021 20:33:30 -0700 (PDT)
 From: Joel Stanley <joel@jms.id.au>
 To: openbmc@lists.ozlabs.org,
 	andrew@aj.id.au
-Subject: [PATCH 1/2] ARM: dts: rainier, everest: Add TPM reset GPIO
-Date: Tue, 27 Jul 2021 13:03:18 +0930
-Message-Id: <20210727033319.473152-2-joel@jms.id.au>
+Subject: [PATCH 0/2] ARM: dts: aspeed: Add TPM GPIO names
+Date: Tue, 27 Jul 2021 13:03:17 +0930
+Message-Id: <20210727033319.473152-1-joel@jms.id.au>
 X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20210727033319.473152-1-joel@jms.id.au>
-References: <20210727033319.473152-1-joel@jms.id.au>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
@@ -97,44 +95,19 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The GPIO is used to place the BMC-connected TPM in reset. This state is
-latched until the BMC is next reset, blocking access to the TPM for that
-boot.
+These patches add GPIO line names for the TPM reset signals in the p10
+bmc designs. The lines are documented in the tacoma, ingram and tola
+schematics.
 
-On both machines this net is called TPM_RESET_LATCH_B.
+Joel Stanley (2):
+  ARM: dts: rainier, everest: Add TPM reset GPIO
+  ARM: dts: aspeed: tacoma: Add TPM reset GPIO
 
-Signed-off-by: Joel Stanley <joel@jms.id.au>
----
  arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 2 +-
  arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-opp-tacoma.dts  | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-index aa24cac8e5be..4536cd538af9 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
-@@ -253,7 +253,7 @@ &gpio0 {
- 	/*O0-O7*/	"","","","","","","","",
- 	/*P0-P7*/	"","","","","led-pcieslot-power","","","",
- 	/*Q0-Q7*/	"","","","","","","","",
--	/*R0-R7*/	"","","","","","I2C_FLASH_MICRO_N","","",
-+	/*R0-R7*/	"bmc-tpm-reset","","","","","I2C_FLASH_MICRO_N","","",
- 	/*S0-S7*/	"","","","","","","","",
- 	/*T0-T7*/	"","","","","","","","",
- 	/*U0-U7*/	"","","","","","","","",
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 481d0ee1f85f..06b3d1573780 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -271,7 +271,7 @@ &gpio0 {
- 	/*O0-O7*/	"","","","usb-power","","","","",
- 	/*P0-P7*/	"","","","","pcieslot-power","","","",
- 	/*Q0-Q7*/	"cfam-reset","","","","","","","",
--	/*R0-R7*/	"","","","","","","","",
-+	/*R0-R7*/	"bmc-tpm-reset","","","","","","","",
- 	/*S0-S7*/	"presence-ps0","presence-ps1","presence-ps2","presence-ps3",
- 				"","","","",
- 	/*T0-T7*/	"","","","","","","","",
 -- 
 2.32.0
 
