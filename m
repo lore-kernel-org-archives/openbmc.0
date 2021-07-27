@@ -2,143 +2,79 @@ Return-Path: <SRS0=xVxV=MT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-4.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 769A6C4338F
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 06:48:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 49BC9C4338F
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 07:57:55 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C14C361108
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 06:48:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C14C361108
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id C44E6611ED
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 07:57:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C44E6611ED
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GYnS1262kz30JW
-	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 16:48:17 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GYq0J6vpcz30DG
+	for <openbmc@archiver.kernel.org>; Tue, 27 Jul 2021 17:57:52 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=VyOPNFby;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=sKqU9uNX;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=40.107.130.100;
- helo=apc01-hk2-obe.outbound.protection.outlook.com;
- envelope-from=luke_chen@aspeedtech.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::52c;
+ helo=mail-ed1-x52c.google.com; envelope-from=ratankgupta31@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com
- header.a=rsa-sha256 header.s=selector1 header.b=VyOPNFby; 
- dkim-atps=neutral
-Received: from APC01-HK2-obe.outbound.protection.outlook.com
- (mail-eopbgr1300100.outbound.protection.outlook.com [40.107.130.100])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=sKqU9uNX; dkim-atps=neutral
+Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com
+ [IPv6:2a00:1450:4864:20::52c])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GYnRQ5qXMz301F
- for <openbmc@lists.ozlabs.org>; Tue, 27 Jul 2021 16:47:46 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=SoKCU5bU/Md3Y2ltyyPl1eHJVpPGNBIZQQEOhrhh42PIrqehKdcbXuhzIdFmvqg75S24xYGI+QdOCNmtQy6lzcE3mwqHNB4S+tqhf8+IcN6TAnutna2K5Ci/qpHRgDXMCBCqPr3IrOFjh1tjFCRK4rcc/Y0aIH9AjQZPU+5PLuzfE/IC3rvIiCPkk+yAvR/4VaoEY3OlPhgb4XzLd1SU/EVhIn2gyp2+VhRo0X5GM+Z7lhhfgwOX2uWm/MEId5MQl/2LIv7V/Lp1aMTwzCG0QTGVvf9Nn+fKeKy+tpnh1FR17n2ih8GNUYWa5OhnaYwtWp4OJNUp4JGUlf/5z0GYKA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j/VvzdiI4Ia530xV4evWQe5UzEbnu2KE3QIKlFXcbF8=;
- b=lPDpjDjpfEAaJ9ugWixHiXgHz05O6swHyjd2J9wsx1MpYvF4MDo2rGw29jM/SPKOCOQJl/f9vvqsTf9ln+X1tSGaDNX03UOUmcT+gHx/Y4/+xvVSzbUZIEB0JQlaU+UTKxEbLPpJ4yx/A2S8NA1Kt9yR7RhqdgDAWK9LYQodFjlMfUbUc5QXIhpMVAqVrybA47EG/acLEr4u0toQf/La6oaLRsTci1cAUuv/XrSMC/iuBfwe48V5RdHyaQi3RwFb2+xIhlnMG/HHbil42fIRI98l1RpKoqM0tt+uPwW2oB2IhBySWy6l0H34K/v4gjxnjVG01o+boqQ38VKyKBxAmw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=j/VvzdiI4Ia530xV4evWQe5UzEbnu2KE3QIKlFXcbF8=;
- b=VyOPNFby5k13sZwLzufZ34qzt4yhx/Phz+aeEyd5mmq5tFjNG75DsREAfWL1DmKY4oxwg61L96VsFwdn+oyjK6CEDgnaU0payr21yXv16KO5sJJd8RfRIlekBO5Cn0FiU9FcH0ZKf8iWGoHtLMkxKdfrrEoE6L0lIJwTKO/D+TwZVbxuBNS9kUpSJr9qJNL8CjSHlKlxkRA9NWFw6CBy2U2raLk2/fdPa5Uv22MuWuA1JoJa1+CpDpw+5SrTw6pMPO9aeHBnX6zG1CmEAVOUsXnVnx+6+VTVwzjzhEOdUPGJIFI2vM621mlGQJ+UL4QmfSR4kfKiCBIkhVPOpOsFWA==
-Received: from HK0PR06MB2321.apcprd06.prod.outlook.com (2603:1096:203:49::11)
- by HK2PR06MB3506.apcprd06.prod.outlook.com (2603:1096:202:3a::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4352.28; Tue, 27 Jul
- 2021 06:47:25 +0000
-Received: from HK0PR06MB2321.apcprd06.prod.outlook.com
- ([fe80::10d4:b8ce:9878:23bc]) by HK0PR06MB2321.apcprd06.prod.outlook.com
- ([fe80::10d4:b8ce:9878:23bc%5]) with mapi id 15.20.4352.031; Tue, 27 Jul 2021
- 06:47:25 +0000
-From: Luke Chen <luke_chen@aspeedtech.com>
-To: "bradleyb@fuzziesquirrel.com" <bradleyb@fuzziesquirrel.com>
-Subject: RE: Signed CLA from ASPEED
-Thread-Topic: Signed CLA from ASPEED
-Thread-Index: AdSF/BDVNQADm2VBRuejwbddN04pK6tWXgwgpVzwJFA=
-Date: Tue, 27 Jul 2021 06:47:25 +0000
-Message-ID: <HK0PR06MB2321716D4130BC0F706AB274E1E99@HK0PR06MB2321.apcprd06.prod.outlook.com>
-References: <623110cb8acb4bbc99c43c47b37f5457@TWMBX01.aspeed.com>
- <9C742B6B-8604-4EC1-9AE8-98844ACB557D@fuzziesquirrel.com>
- <HK0PR06MB23218108A08BC07208A93909E1FF0@HK0PR06MB2321.apcprd06.prod.outlook.com>
- <CAN9Jwz375dV0fFbBaE_SK6Cw8t0pyC-j-fPFuK5tm_EATWoFmA@mail.gmail.com>
- <HK0PR06MB23215E570FE7381C47EEA024E1E99@HK0PR06MB2321.apcprd06.prod.outlook.com>
-In-Reply-To: <HK0PR06MB23215E570FE7381C47EEA024E1E99@HK0PR06MB2321.apcprd06.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: fuzziesquirrel.com; dkim=none (message not signed)
- header.d=none;fuzziesquirrel.com; dmarc=none action=none
- header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: fea71e0c-ea1b-46f3-6be5-08d950ca64fd
-x-ms-traffictypediagnostic: HK2PR06MB3506:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <HK2PR06MB3506CDEC5FFAD6F2F5062C42E1E99@HK2PR06MB3506.apcprd06.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8273;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: iyA0nZ86CO4v5hoYvLnyxvYwNS9M8TlINYPn/mwknKwZlbMMRuzoBK3MBr5cHQD4pNUFsq40nM7p70khwv1aJB26Zh5rlPRqoeBxSyA78vsduGfOg7PVwij/H6kpfsY93d+3ie6VuMNFHAVfKB6HkGpOREbNL1AA/80h2sjiccnTn8En4lFK01/OGGQB2Le1ylXwUTnjBmG5xJTH87iPm+J24cu94cyqo6nqm+7yyzRqRyTh4Z02CwyNU10Y1NC1BmF+iHcIsQaAP43KfsIL4my/F848SsfP/Nq770wnb3+y1LtogpgTX7Xcy9CydG/m3x7fkaKCHhMXQGSI56RB2/b8aVB8dUe8gCJkhIqHzsSNGHDjH8IZAPbKpXEIhhPrUMzKrMjO147NZ4ZlgDKJK1QjOncZYhVbzL4EPhhH27QS6jnj5aCW8S1iEa+i8ENIs30Ykx3cMVL2yfuuO5UYz4uYMKrmbRrlnH2MrvgIe+9fD8K9ZdSKXFXPiX+3Fmtl/c6JKbd/ui2bdLVgxEDSSrxPaMEpL3TTAVBKLIrvHiW0QN6Vjy7LGP8dFFOIUNL168kdTqEcjvgHQYMR1sS0R5C7DPz81ykUp0FfspY5Juqi8Dmtp2pzA59h/TVhhiYDY3epGD2jHDSc8N/HmqCP5+g6D5jGF1AXz3/mVdfsi+daCOfk0oFMNXPJi31WsSipaMgotgtKEi1VLLpwbC/8UA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK0PR06MB2321.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(376002)(346002)(396003)(136003)(39840400004)(366004)(86362001)(33656002)(5660300002)(6916009)(2940100002)(66476007)(2906002)(186003)(107886003)(8936002)(26005)(52536014)(71200400001)(66946007)(76116006)(64756008)(54906003)(53546011)(6506007)(316002)(9686003)(83380400001)(8676002)(478600001)(7696005)(3480700007)(66556008)(4326008)(122000001)(55016002)(38100700002)(66446008)(38070700004);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UVJMRFEwTVBPY3dSMGRTYkQ3U0ErS1didlVkUXArSjlKaGhFVTVHSnRxUTN0?=
- =?utf-8?B?RXFFcjhKeGFmOG9aODFwOFpmMXFhMzc1ckxaS1JaNHlUaWRaVmxsYU43Mi95?=
- =?utf-8?B?NzZzS0dpakxoV2g0RmhUZG91bWd4RVduaUlmeEFObWNYT0I4WDNNOUYxaEJH?=
- =?utf-8?B?TGhybzZKaCt5ZWx0WHJuc3ZVUEZRd1ZGUG0vOVFEUlp1cmxxMWhBMURTZjdW?=
- =?utf-8?B?TlFxMTdTYW8veWZITzZzNXpSVkJHNWp0QXVQQmQreEFEZXRDS090WW94ZnRD?=
- =?utf-8?B?TThXZ3lsOGJMdHZ2ZFc0K2o4ckFuU1l6WWwxMTVUS1RQTzhUUXFXU1BKMmRq?=
- =?utf-8?B?a1ZlbzYyajh3UkVYWWNqcThIUWwyNHl0QlJucVhBbG5ZYUdOWFJvMUZMb2M2?=
- =?utf-8?B?WjNFUU5hZnN0VnNVMllkSE5nZ2lycmlwTFBkNnJNWCs1OEJ4N25rcnc0bnVQ?=
- =?utf-8?B?K2k4OFhhTlBRSkpBRW5JNEd2SXRzbnVyK3Zyb01NazFndVBObDZiV2xOK1VF?=
- =?utf-8?B?cUtncmF1b290RXp4SktPbkUzRXdQajQ1Sk5RdFZvWndmeUx6K3ljbXV3enVC?=
- =?utf-8?B?V0xsc3MyME85MkJaUTZPYklodkZOWXkyT205T0N1cS9WQ2xWSjFqR0dVYm40?=
- =?utf-8?B?WGZDbzdrQVI5SHJ6bHhqNlQ0aVE4alJjT21Yc0MzaVY2Q3NPYTdpVlRjaGps?=
- =?utf-8?B?WnozSldQaGZQNjRqb0d0R3hHWFRONkdPNkk1bjJmZjh6bGVUL3Y3d1AxSjRZ?=
- =?utf-8?B?cVJLeEtFMHFmaDhTNVVLMXhXZXhRR21wZFVoanlnY2RocGk1SzNqMmdyWDJp?=
- =?utf-8?B?akJTb2JrdkJVaEhzamhxYkJvd3ZValUzemQ5cWtxbndPazZPRkFKTU5PVlhr?=
- =?utf-8?B?S2RHL3VGQWNOT0h6N1plUFplRlBGOEc3eHp0VjcyZjZHaDBYbmpKeml5c2Jt?=
- =?utf-8?B?bk54S1ptNzd5OW1EbVlxL3V3KzJCejhWaXQ5RkpJZVFLYXkvL3FuT1ZpTnM5?=
- =?utf-8?B?cFpDbHZNczJ6dVVVMjI5cHVWdUJIZ0lzc0NDQVBITjd2aE5ZbkJvQVFlYU0z?=
- =?utf-8?B?bUlEK2NudlMxU1VRU3J6OUpDNVRlNUszdER1L2ZjTG1XUzUzak0xQTF2dFNG?=
- =?utf-8?B?UTBUZ3ZzQ0FHajJSbERIYytqMEh2c2VnNVBncDR5dm1VZHVXYUcvdzJsOERs?=
- =?utf-8?B?QWlnZG9rK3NTZWFkMG9EV29abUtxYWJYOUZCTU5sclc3SHdiRkZpeWtsMDNj?=
- =?utf-8?B?N1ZlOWkyc1BkK3ZNV1g1M2thNG4zZ3RGck5KelQ0RmNnQ2dPQ2ZFUEZZeGpy?=
- =?utf-8?B?V3NXbmhwTmJVS2E2L090bW5JWDdrTHlHT1FZUkxnbDNHcFFQckQ3S0FjbnFN?=
- =?utf-8?B?TXBHSE00TmpQczRCT1J4SWRYeEsrZFZsYy9ldnQ3M2lQNFRlVUMwdVpwNUZa?=
- =?utf-8?B?cFVISUE3RzhkTU8xdTNwdldKclJSVlZLdXM1VHVRN2c3TkR0eDJZT1hkUXd2?=
- =?utf-8?B?cExJblYxS1hkNHJDa0M2OGJnYzNTR1BMRUVWemxtTjRLc3cvcHNGWnJtdWhp?=
- =?utf-8?B?MHlsTUtYcjcxSTZzRkVjamlReVBjSWJYVURPYUhDaFZQUityQ2xMQmczcnZx?=
- =?utf-8?B?MHBqdXVibHU2YVRoaEFVV3hmbXVkaVRwVElZS0x4TGVBbEVrMHR2N1BWUmpt?=
- =?utf-8?B?QS9VZS9jUXBOUUtHTHFwWFNtTmhvY2VTcDFuR0Zsc3hsQTBrM0dja1czOWQx?=
- =?utf-8?Q?w3cXbN0rDriX2B6y2S9W4eibfrxnF3f6P8NcehF?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GYpzn225Jz301P
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jul 2021 17:57:24 +1000 (AEST)
+Received: by mail-ed1-x52c.google.com with SMTP id u12so14191785eds.2
+ for <openbmc@lists.ozlabs.org>; Tue, 27 Jul 2021 00:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
+ bh=AJyCv/y6NRNOV68MT5UR+QQyJfFUzBv0H4wgG1qGRbM=;
+ b=sKqU9uNXr9GCjR3CRuq+xzjK2fTOhvEMR1mE8GZIpcYdB0v5ACw/BCgndSpRqazfhN
+ Uc92IV60B5lSfp0qtW7vuxwvh8f/pJmdnsfcVTWmVW9nynmnMjj7S128ibdpnF4mHZH2
+ mrb+J6s/DUYYJTlnYypda99VogMJHsWBc1rQ8W6bbgvO8OcxF6PSzNCPtQQVE4EA2Nqu
+ TU+TQH7q7iNwqrXQRGTsuLvX1neBgmkzFzfWMGbkZzTIc+Pe0tyF64pql8xQGsdBliF0
+ fYtZK8WjI3TqEg+xdjt6H9WIqXYW4xhTbI0ZMT2sdAOhpX7GJg3iUmQw3KgufpgDPGZa
+ s0Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to;
+ bh=AJyCv/y6NRNOV68MT5UR+QQyJfFUzBv0H4wgG1qGRbM=;
+ b=RCJKw0OR+G49QM9B6IXUOZrElFf+RrQkZrGYzT6i5BWAJIP53ZmjqBJoyaG+P4gr6o
+ CHBwPmr1YXm7CHgAWmr5BkbS2T+acY9B6wSF7K5WgqZyiAY+mEfT847EK0J8dfW+fmqC
+ W/CYsPWhQzJhtDiKQR60pUj3EKd3SX+XSwEfQb3ZizY9//fuMcqQdQTIwRYaKVEdsmIf
+ GmejeZpQIWAjxJANUheSXLvufqgiX0pdjkxQnVs7h4ubnSxEhid9tTChVyP169uJKX92
+ MHXcmn81ipUSao4+OFfK1pq1izC4ckOeAuTGo6fhjwp7Fb3ZN3aDBhs5pJIhEqIg07PF
+ u2nQ==
+X-Gm-Message-State: AOAM531z1MF5fWAJLdQzxvpji7BZhKZQNz0gf6sGmVfT3e4VPsgn83WN
+ FrsT/5e65G4BHSQiohBl7SMQPL7AFRkPjQWA2Ybb7hYFZvw=
+X-Google-Smtp-Source: ABdhPJwXTbP4qZhA929sA7TpNW7ZxVbwXfmXyjmn/Cmglbcs9vSt8hXA9rQ+dooiIysLqHWFAQrWja5xfHl1k1izo+M=
+X-Received: by 2002:a05:6402:2935:: with SMTP id
+ ee53mr26933783edb.140.1627372635197; 
+ Tue, 27 Jul 2021 00:57:15 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: HK0PR06MB2321.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fea71e0c-ea1b-46f3-6be5-08d950ca64fd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2021 06:47:25.6392 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 84Hhr326pUaZOGz4uXx+cKsskGFPixMSHF4hsAkYXlpfcT0LfBnNwoir+4ue/C5uho7/B7FQigsx9r+BwTMzZz1bT6opQn3+Jrxr3QivK90=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR06MB3506
+References: <CAMhqiMrcS2Yr6B3TBTAyB4BE_FPbU_waoJScQmYCBMnCpv5ZAw@mail.gmail.com>
+In-Reply-To: <CAMhqiMrcS2Yr6B3TBTAyB4BE_FPbU_waoJScQmYCBMnCpv5ZAw@mail.gmail.com>
+From: Ratan Gupta <ratankgupta31@gmail.com>
+Date: Tue, 27 Jul 2021 13:27:04 +0530
+Message-ID: <CAMhqiMofyc2mGBYYJUXftj2kbQzmZt=q0pwyk2KPoSVxrHVKBQ@mail.gmail.com>
+Subject: Re: apparmor support
+To: joel@jms.id.au, openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="000000000000d6913f05c816375a"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,52 +86,110 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "manager@lfprojects.org" <manager@lfprojects.org>,
- "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Troy Lee <troy_lee@aspeedtech.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-SGkgQnJhZCwgTWFuYWdlcg0KDQpJdCBzZWVtcyBteSBwcmV2aW91cyBlbWFpbCB3YXMgYmxvY2tl
-ZCBvdXQgZHVlIHRvIHRoZSBhdHRhY2htZW50IGZpbGUgc2l6ZSBpcyBvdmVyIDEyOEtCLg0KVGhl
-IGF0dGFjaG1lbnQgZmlsZSB3aGljaCBJIHNlbnQgeW91IGlzIHRoZSBzaWduZWQgQ0NMQSBwZGYg
-ZmlsZS4NClBsZWFzZSBsZXQgbWUga25vdyBob3cgY2FuIEkgc2VuZCB5b3UgdGhlIHBkZiBmaWxl
-Pw0KDQpUaGFua3MuDQoNCg0KQmVzdCB3aXNoZXMNCg0KTHVrZSBDaGVuDQooTykgOiArODg2LTMt
-NTc1MTE4NQ0KKE0pIDogKzg4Ni05MzUtNTkyLTg5Mg0KNEYsIE5vLjEsU2VjLiAzLEdvbmdkYW8g
-NXRoIFJvYWQsIEVhc3QgRGlzdC4sDQpIc2luY2h1IENpdHksIDMwMDY5LFRhaXdhbixSLk8uQy4N
-Cg0KDQotLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KRnJvbTogTHVrZSBDaGVuIA0KU2VudDog
-VHVlc2RheSwgSnVseSAyNywgMjAyMSAyOjQzIFBNDQpUbzogYnJhZGxleWJAZnV6emllc3F1aXJy
-ZWwuY29tDQpDYzogbWFuYWdlckBsZnByb2plY3RzLm9yZzsgb3BlbmJtY0BsaXN0cy5vemxhYnMu
-b3JnOyBUcm95IExlZSA8dHJveV9sZWVAYXNwZWVkdGVjaC5jb20+DQpTdWJqZWN0OiBSRTogU2ln
-bmVkIENMQSBmcm9tIEFTUEVFRA0KDQpIaSBNYW5hZ2VyLCBCcmFkDQoNCkkgd291bGQgbGlrZSB0
-byB1cGRhdGUgQ0NMQSwgSSBhZGRlZCAyIG1vcmUgdGVhbSBtZW1iZXJzIGludG8gdGhlIENDTEEu
-DQpTdGV2ZW4gTGVlLCBzdGV2ZW5fbGVlQGFzcGVlZHRlY2guY29tDQpKYW1pbiBMaW4sIGphbWlu
-X2xpbkBhc3BlZWR0ZWNoLmNvbQ0KDQpQbGVhc2UgcmVmZXIgdG8gdGhlIGF0dGFjaGVkIHNpZ25l
-ZCBDQ0xBLg0KQW5kIHBsZWFzZSBoZWxwIHRvIGFwcHJvdmUgaXQsIHRoYW5rcy4NCg0KDQpCZXN0
-IHdpc2hlcw0KDQpMdWtlIENoZW4NCihPKSA6ICs4ODYtMy01NzUxMTg1DQooTSkgOiArODg2LTkz
-NS01OTItODkyDQo0RiwgTm8uMSxTZWMuIDMsR29uZ2RhbyA1dGggUm9hZCwgRWFzdCBEaXN0Liwg
-SHNpbmNodSBDaXR5LCAzMDA2OSxUYWl3YW4sUi5PLkMuDQoNCg0KDQotLS0tLS0tLS0tIEZvcndh
-cmRlZCBtZXNzYWdlIC0tLS0tLS0tLQ0KRnJvbTogTHVrZSBDaGVuIDxsdWtlX2NoZW5AYXNwZWVk
-dGVjaC5jb20+DQpEYXRlOiBNb24sIE5vdiAyMywgMjAyMCBhdCAxMDoxNiBBTQ0KU3ViamVjdDog
-UkU6IFNpZ25lZCBDTEEgZnJvbSBBU1BFRUQNClRvOiBCcmFkIEJpc2hvcCA8YnJhZGxleWJAZnV6
-emllc3F1aXJyZWwuY29tPg0KQ2M6IG1hbmFnZXJAbGZwcm9qZWN0cy5vcmcgPG1hbmFnZXJAbGZw
-cm9qZWN0cy5vcmc+LCBvcGVuYm1jQGxpc3RzLm96bGFicy5vcmcgPG9wZW5ibWNAbGlzdHMub3ps
-YWJzLm9yZz4NCg0KDQpIaSBCcmFkDQpJIHdvdWxkIGxpa2UgdG8gdXBkYXRlIENDTEEuDQoNCkFT
-UEVFRCBtb3ZlZCB0byBuZXcgb2ZmaWNlLCBzbyBJIGNoYW5nZWQgdGhlIG9mZmljZSBhZGRyZXNz
-IGluIHRoaXMgQ0NMQS4NCkFuZCBJIGFsc28gYWRkZWQgYSBmZXcgQVNQRUVEIHRlYW0gbWVtYmVy
-cyBpbiB0aGUgbGlzdC4NCkkgYW0gYWxzbyBhdHRhY2hpbmcgdGhlIGRvYyBmaWxlLCBzbyBpdCBp
-cyBlYXN5IGZvciB5b3UgdG8gY29weS1wYXN0ZSB0aGUgZW1haWwgYWRkcmVzc2VzIG9mIG15IHRl
-YW0gbWVtYmVycy4NCg0KUGxlYXNlIGhlbHAgdG8gYXBwcm92ZSBpdCwgdGhhbmtzLg0KDQoNCkJl
-c3Qgd2lzaGVzDQoNCkx1a2UgQ2hlbg0KKE8pIDogKzg4Ni0zLTU3NTExODUNCihNKSA6ICs4ODYt
-OTM1LTU5Mi04OTINCjRGLCBOby4xLFNlYy4gMyxHb25nZGFvIDV0aCBSb2FkLCBFYXN0IERpc3Qu
-LCBIc2luY2h1IENpdHksIDMwMDY5LFRhaXdhbixSLk8uQy4NCg0KDQotLS0tLU9yaWdpbmFsIE1l
-c3NhZ2UtLS0tLQ0KRnJvbTogb3BlbmJtYyA8b3BlbmJtYy1ib3VuY2VzK2x1a2VfY2hlbj1hc3Bl
-ZWR0ZWNoLmNvbUBsaXN0cy5vemxhYnMub3JnPg0KT24gQmVoYWxmIE9mIEJyYWQgQmlzaG9wDQpT
-ZW50OiBXZWRuZXNkYXksIE5vdmVtYmVyIDI4LCAyMDE4IDk6MzIgUE0NClRvOiBMdWtlIENoZW4g
-PGx1a2VfY2hlbkBhc3BlZWR0ZWNoLmNvbT4NCkNjOiBtYW5hZ2VyQGxmcHJvamVjdHMub3JnOyBv
-cGVuYm1jQGxpc3RzLm96bGFicy5vcmcNClN1YmplY3Q6IFJlOiBTaWduZWQgQ0xBIGZyb20gQVNQ
-RUVEDQoNCg0KDQo+IE9uIE5vdiAyNiwgMjAxOCwgYXQgOTo1NCBQTSwgTHVrZSBDaGVuIDxsdWtl
-X2NoZW5AYXNwZWVkdGVjaC5jb20+IHdyb3RlOg0KPg0KPiBIaSBTaXINCj4gSGVyZSBpcyB0aGUg
-c2lnbmVkIENMQSBmcm9tIEFTUEVFRC4NCj4gUGxlYXNlIGhlbHAgdG8gYXBwcm92ZSBpdCwgdGhh
-bmtzLg0KDQpUaGFua3MgTHVrZSEgIENDTEEgYWNjZXB0ZWQuDQoNCi1icmFkDQo=
+--000000000000d6913f05c816375a
+Content-Type: text/plain; charset="UTF-8"
+
+Ignore my previous email, I got the issue that CONFIG_SECURITY should have
+been enabled also(That is a dependency)
+https://github.com/openbmc/linux/blob/1519240139a91e3dbc97d8f79de29a22a3328257/security/apparmor/Kconfig#L4
+
+On Tue, Jul 27, 2021 at 11:42 AM Ratan Gupta <ratankgupta31@gmail.com>
+wrote:
+
+> Hi All,
+>
+> I was trying to pull apparmor in openbmc, all the user space application
+> got pulled however I was unable to build the kernel with apparmor support.
+>
+> I made the following kernel configuration to include the apparmor(
+> https://github.com/openbmc/linux/blob/dev-5.10/Documentation/admin-guide/LSM/apparmor.rst
+> )
+>
+> CONFIG_SECURITYFS=y
+> CONFIG_SECURITY_NETWORK=y
+> CONFIG_SECURITY_PATH=y
+> CONFIG_SECURITY_APPARMOR=y
+> CONFIG_DEFAULT_SECURITY="apparmor"
+> CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
+> CONFIG_AUDIT=y
+>
+>
+> In the build tree, kernel is not picking the above config parameters and I
+> was getting the following logs in the config_build_log which suggest that
+> kernel doesn't like these config.
+>
+> tmp/work-shared/hgx/kernel-source/.kernel-meta/cfg/merge_config_build.log
+>
+> Value requested for CONFIG_SECURITY_PATH not in final .config
+> Requested value:  CONFIG_SECURITY_PATH=y
+> CONFIG_SECURITY_PATH=y
+> Actual value:
+>
+> Value requested for CONFIG_SECURITY_APPARMOR not in final .config
+> Requested value:  CONFIG_SECURITY_APPARMOR=y
+> CONFIG_SECURITY_APPARMOR=y
+> Actual value:
+>
+> Value requested for CONFIG_DEFAULT_SECURITY not in final .config
+> Requested value:  CONFIG_DEFAULT_SECURITY="apparmor"
+> CONFIG_DEFAULT_SECURITY="apparmor"
+> Actual value:
+>
+> Value requested for CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE not in final
+> .config
+> Requested value:  CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
+> CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=1
+> Actual value:
+>
+> Can somebody suggest me what I am missing here?
+>
+> Ratan Gupta
+>
+
+--000000000000d6913f05c816375a
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Ignore my previous email, I got the issue that CONFIG_SECU=
+RITY should=C2=A0have been enabled also(That is a dependency)<div><span sty=
+le=3D"font-size:12pt;font-family:Calibri,sans-serif;color:rgb(0,32,96)"><a =
+href=3D"https://github.com/openbmc/linux/blob/1519240139a91e3dbc97d8f79de29=
+a22a3328257/security/apparmor/Kconfig#L4" style=3D"color:rgb(5,99,193)">htt=
+ps://github.com/openbmc/linux/blob/1519240139a91e3dbc97d8f79de29a22a3328257=
+/security/apparmor/Kconfig#L4</a></span></div></div><br><div class=3D"gmail=
+_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Jul 27, 2021 at 11:42=
+ AM Ratan Gupta &lt;<a href=3D"mailto:ratankgupta31@gmail.com">ratankgupta3=
+1@gmail.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=
+=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding=
+-left:1ex"><div dir=3D"ltr">Hi All,<br><br>I was trying to pull apparmor in=
+ openbmc, all the user space application got pulled however I was unable to=
+ build the kernel with apparmor support.<br><br>I made the following kernel=
+ configuration to include the apparmor( <a href=3D"https://github.com/openb=
+mc/linux/blob/dev-5.10/Documentation/admin-guide/LSM/apparmor.rst" target=
+=3D"_blank">https://github.com/openbmc/linux/blob/dev-5.10/Documentation/ad=
+min-guide/LSM/apparmor.rst</a>)<br><br>CONFIG_SECURITYFS=3Dy<br>CONFIG_SECU=
+RITY_NETWORK=3Dy<br>CONFIG_SECURITY_PATH=3Dy<br>CONFIG_SECURITY_APPARMOR=3D=
+y<br>CONFIG_DEFAULT_SECURITY=3D&quot;apparmor&quot;<br>CONFIG_SECURITY_APPA=
+RMOR_BOOTPARAM_VALUE=3D1<br>CONFIG_AUDIT=3Dy<br><br><br>In the build tree, =
+kernel is not picking the above config parameters and I was getting the fol=
+lowing logs in the config_build_log which suggest that kernel doesn&#39;t l=
+ike these config.<br><br>tmp/work-shared/hgx/kernel-source/.kernel-meta/cfg=
+/merge_config_build.log<br><br>Value requested for CONFIG_SECURITY_PATH not=
+ in final .config<br>Requested value: =C2=A0CONFIG_SECURITY_PATH=3Dy<br>CON=
+FIG_SECURITY_PATH=3Dy<br>Actual value:<br><br>Value requested for CONFIG_SE=
+CURITY_APPARMOR not in final .config<br>Requested value: =C2=A0CONFIG_SECUR=
+ITY_APPARMOR=3Dy<br>CONFIG_SECURITY_APPARMOR=3Dy<br>Actual value:<br><br>Va=
+lue requested for CONFIG_DEFAULT_SECURITY not in final .config<br>Requested=
+ value: =C2=A0CONFIG_DEFAULT_SECURITY=3D&quot;apparmor&quot;<br>CONFIG_DEFA=
+ULT_SECURITY=3D&quot;apparmor&quot;<br>Actual value:<br><br>Value requested=
+ for CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE not in final .config<br>Reque=
+sted value: =C2=A0CONFIG_SECURITY_APPARMOR_BOOTPARAM_VALUE=3D1<br>CONFIG_SE=
+CURITY_APPARMOR_BOOTPARAM_VALUE=3D1<br>Actual value:<br><br>Can somebody su=
+ggest me what I am missing here?<br><br>Ratan Gupta<br></div>
+</blockquote></div>
+
+--000000000000d6913f05c816375a--
