@@ -2,102 +2,86 @@ Return-Path: <SRS0=MZIg=MU=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EDB49C4338F
-	for <openbmc@archiver.kernel.org>; Wed, 28 Jul 2021 23:35:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 67B16C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 28 Jul 2021 23:38:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8D0BF6101B
-	for <openbmc@archiver.kernel.org>; Wed, 28 Jul 2021 23:35:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8D0BF6101B
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
+	by mail.kernel.org (Postfix) with ESMTPS id F21936101B
+	for <openbmc@archiver.kernel.org>; Wed, 28 Jul 2021 23:38:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F21936101B
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GZqlM5ZPnz3bVX
-	for <openbmc@archiver.kernel.org>; Thu, 29 Jul 2021 09:35:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GZqqH52C5z3bYY
+	for <openbmc@archiver.kernel.org>; Thu, 29 Jul 2021 09:38:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=LvJHs9j3;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZiJrGkGb;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=I1042sBW;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=66.111.4.26;
- helo=out2-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::633;
+ helo=mail-pl1-x633.google.com; envelope-from=rentao.bupt@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm3 header.b=LvJHs9j3; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=ZiJrGkGb; 
- dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
+ header.s=20161025 header.b=I1042sBW; dkim-atps=neutral
+Received: from mail-pl1-x633.google.com (mail-pl1-x633.google.com
+ [IPv6:2607:f8b0:4864:20::633])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GZqkm2V1Tz300C
- for <openbmc@lists.ozlabs.org>; Thu, 29 Jul 2021 09:34:39 +1000 (AEST)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.nyi.internal (Postfix) with ESMTP id 194495C00D1;
- Wed, 28 Jul 2021 19:34:36 -0400 (EDT)
-Received: from imap43 ([10.202.2.93])
- by compute2.internal (MEProxy); Wed, 28 Jul 2021 19:34:36 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm3; bh=iBkK3EV98psI9DcP+ydy/PRXql01JcK
- FfTJrtYIxJ68=; b=LvJHs9j3exMzAEpT5kAHYqmvPHHRYFm5iHN1FRXfY9Vo+wd
- bygEnfkJEsI7j5/iH89uboopi7s3NZBnMBF8STPdNjy1e3aJcU576L/hWU+5WFil
- c2VrUwYHGDrAB9JEJ+d6PR1ob6/P22N9rx5P8o6gr+nfzSdx9cYA2x3KH41FUPpb
- LsPfmjfGGp5FxxCRwTPZPhDzABldNIH57AQGNu5Fc6aDJqDJqjjEF7jYCh5EEWiQ
- QS/t+ADLsFw0B5K0Qgy0zNXe4XBKC8c4vsUDBiy/P7MBM2Et/YToP7iwYd/i1P6x
- nE2T2VONQfj0crX388VNlP00qIX5ijEfKDxqOkw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=iBkK3E
- V98psI9DcP+ydy/PRXql01JcKFfTJrtYIxJ68=; b=ZiJrGkGbYMfXPcK/MP05XQ
- ud/aiUK/pPz9NDmdypZ2M+R9jBAxyFMiCtIP1Flh2h22ZGtjm62kNyP7NHZ+iOno
- 6QIPM8pX3n94mfCNS0ScO6XRYCpxTWSK96II3L7GY51jJGtGL44y/hjMvH9ZCx1N
- END3Alqt5ZCE6p8ZLIRaLCQ2raqTvn86HIYvH+vE+tMrLpj49+YxhN2hnymEOdyO
- ub1RTwfiA22AAfQW4FLqH50buERSVcwxGzf22UnnfG3waPIgODXhZuI+5OQW1vX5
- GSlLVP7KuyboqiwXiJfYbCccXPgBqeBmrMfVW2Cm9iQRzqbY1AWmgqnnPobS8+Mg
- ==
-X-ME-Sender: <xms:i-kBYR5talA0uwlI_Ox37-JorU6Mzy8YLcdElJOMMmjCqEk-qHzY_A>
- <xme:i-kBYe6F975O-s0ObBGIERJ5DKtRY79J-7Dw0Iz5lu317g3MG_YLgUN_HH7Kce8DQ
- 38n5ofQwtwFTN674A>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrhedtgdduiecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculddvfedmnecujfgurhepofgfggfkjghffffhvffutgesthdtredtreer
- tdenucfhrhhomhepfdetnhgurhgvficulfgvfhhfvghrhidfuceorghnughrvgifsegrjh
- drihgurdgruheqnecuggftrfgrthhtvghrnhepvdetjeejjeevhffgfedvudejffduteeu
- gfeigfegkeevheeuffdtveetvdegtddunecuffhomhgrihhnpehophgvnhgsmhgtqdhprh
- hojhgvtghtrdighiiipdhsthhruhgtthhurhgvugdqlhhoghhgihhnghdrmhgunecuvehl
- uhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomheprghnughrvgifse
- grjhdrihgurdgruh
-X-ME-Proxy: <xmx:i-kBYYcygISkzMAwiJzGqEqvMW-AEyq_TBiAKN0nrnTLqJLorGJJpQ>
- <xmx:i-kBYaI5UoNOAhHSXo8nKH715q4Btu14p46PTrT2CECeOYlb5c2CBA>
- <xmx:i-kBYVLaZaPhLFFegrJrCeni-8DvsUH3SLu8PEnFda60xMwfdTu03w>
- <xmx:jOkBYYlIQffhOWdWLyuqSMWtHz6zO2mhGnGsUu4ieIGCHWOARsnusg>
-Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 2545FAC0DD0; Wed, 28 Jul 2021 19:34:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
-User-Agent: Cyrus-JMAP/3.5.0-alpha0-545-g7a4eea542e-fm-20210727.001-g7a4eea54
-Mime-Version: 1.0
-Message-Id: <e1b41c2e-bcad-4282-a3b9-8f5344cab056@www.fastmail.com>
-In-Reply-To: <YQD4TWus75QQjH3U@heinlein>
-References: <YQBrbuQFz4JihBAE@heinlein>
- <41a334dd-56c4-44d0-b8f4-7ecdf5bfa5de@www.fastmail.com>
- <YQD4TWus75QQjH3U@heinlein>
-Date: Thu, 29 Jul 2021 09:04:14 +0930
-From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Patrick Williams" <patrick@stwcx.xyz>
-Subject: Re: `phosphor-logging` APIs (RFC)
-Content-Type: text/plain
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GZqpn4FwJz309T;
+ Thu, 29 Jul 2021 09:38:09 +1000 (AEST)
+Received: by mail-pl1-x633.google.com with SMTP id n10so4694088plf.4;
+ Wed, 28 Jul 2021 16:38:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
+ h=from:to:cc:subject:date:message-id:in-reply-to:references;
+ bh=TM1oWFJiQ55sCFQ7wpGHeNKBl5+PgVPl+xUxtGHeuDA=;
+ b=I1042sBWKb+QVDCGOEqGBiFnCM3hVK/1s4yYAMaLBBxqae36UPOw+4Jb07vYE6R2dY
+ uSDKJLjYAryvvfkAFzo2/Ah9h1X/VkKULWXFySS/2ZWA8xvU+SyNMZsnArfcHvjxhnDq
+ V3J+sj4WAS7Gab7twrSEfc6cYAmZExoGPldDWMygvSF/Z704yUK8HHsirr3gUkVeST+N
+ KBEltaVshKEf8x/hXIAYvrXFc6senSs5HB+42Hl6jaWckU9rZDD6mlNYh0Yp1vj5p5iW
+ vwweQD9S25RgBxLStHcxDvcyeQZEVqE31Z0LZbR7pqEtLQrPY6tXrIpIsuv1LSMnJso9
+ ALUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references;
+ bh=TM1oWFJiQ55sCFQ7wpGHeNKBl5+PgVPl+xUxtGHeuDA=;
+ b=Wq1LxBLVj7cL3NeC1z4sMifqe6sdja+6kYpgxHNLcdowNU9nfnDb5NU67Yfjh8IElu
+ K4NTxZimH/3SE6vIcJrTSNvazFMQKQAahgP7mrrSJQW1iCdnEHfOOwiJsknzO5d9lr6R
+ taxcg7+nQp+ZP+CHvTCD3tvKk8+068Owb+RobF1obt+Kkry5eDue8GqNDRfh/0ZVe6P5
+ zmgfQeZPi9x7j8WANqOuM6knBtXi9lYhGoYMCavJRasfpfnWPnaQusL0+Uq5cyurdGQ+
+ gOoHv36bXOYpIsNEto1+b0qiG9sWDoMuwJVE89M8HxRmNFCnUoy8/feKcEKAKvoZrPsU
+ rXPw==
+X-Gm-Message-State: AOAM533fRs6faKbyxtl/k1YzOijvYxrk1o+mBGoJcnjSkzQ/davo/gnb
+ 4yJETewschb1kNb1CF0woU8=
+X-Google-Smtp-Source: ABdhPJyUkypAjII61agd3+GcR+1EIgkC9yRJLVJ4SSY6U5CP784rDEdPD6XPamhPhWKFzVf/N20poQ==
+X-Received: by 2002:a17:90a:ce07:: with SMTP id
+ f7mr2139372pju.81.1627515486795; 
+ Wed, 28 Jul 2021 16:38:06 -0700 (PDT)
+Received: from taoren-ubuntu-R90MNF91.thefacebook.com
+ (c-73-252-146-110.hsd1.ca.comcast.net. [73.252.146.110])
+ by smtp.gmail.com with ESMTPSA id k37sm1038671pgm.84.2021.07.28.16.38.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Jul 2021 16:38:06 -0700 (PDT)
+From: rentao.bupt@gmail.com
+To: Rob Herring <robh+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@aj.id.au>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org, taoren@fb.com
+Subject: [PATCH 1/6] ARM: dts: Add Facebook BMC 128MB flash layout
+Date: Wed, 28 Jul 2021 16:37:50 -0700
+Message-Id: <20210728233755.17963-2-rentao.bupt@gmail.com>
+X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210728233755.17963-1-rentao.bupt@gmail.com>
+References: <20210728233755.17963-1-rentao.bupt@gmail.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,53 +93,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC List <openbmc@lists.ozlabs.org>
+Cc: Tao Ren <rentao.bupt@gmail.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 28 Jul 2021, at 15:55, Patrick Williams wrote:
-> On Wed, Jul 28, 2021 at 03:22:43PM +0930, Andrew Jeffery wrote:
-> > On Wed, 28 Jul 2021, at 05:54, Patrick Williams wrote:
-> 
-> > >     - Useful data is missing from `journalctl` resulting in people working
-> > >       around it by generating strings with `fmt` et.al.
-> > 
-> > Sounds promising! Reading the proposal it seems like you're appending 
-> > certain bits of structured data to the message. I think it would be 
-> > nice if the data could be interpolated into arbitrary positions and not 
-> > just appended (note, I'm not asking for interpolation of arbitrary 
-> > variables here unlike what can be achieved with raw use of fmt, only 
-> > those captured via the structured logging).
-> 
-> Can you give me a concrete example of what you mean by this?  I'm not
-> understanding.
+From: Tao Ren <rentao.bupt@gmail.com>
 
-I've left a comment on the patch:
+This is the layout used by Facebook BMC systems. It describes the fixed
+flash layout of a 128MB mtd device.
 
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-logging/+/45310/1/docs/structured-logging.md#60
+Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
+---
+ .../dts/facebook-bmc-flash-layout-128.dtsi    | 60 +++++++++++++++++++
+ 1 file changed, 60 insertions(+)
+ create mode 100644 arch/arm/boot/dts/facebook-bmc-flash-layout-128.dtsi
 
-But duplicating that here, how I'd like to use the API and what I'd 
-like to see in the resulting journal message is:
+diff --git a/arch/arm/boot/dts/facebook-bmc-flash-layout-128.dtsi b/arch/arm/boot/dts/facebook-bmc-flash-layout-128.dtsi
+new file mode 100644
+index 000000000000..7f3652dea550
+--- /dev/null
++++ b/arch/arm/boot/dts/facebook-bmc-flash-layout-128.dtsi
+@@ -0,0 +1,60 @@
++// SPDX-License-Identifier: GPL-2.0+
++// Copyright (c) 2020 Facebook Inc.
++
++partitions {
++	compatible = "fixed-partitions";
++	#address-cells = <1>;
++	#size-cells = <1>;
++
++	/*
++	 * u-boot partition: 896KB.
++	 */
++	u-boot@0 {
++		reg = <0x0 0xe0000>;
++		label = "u-boot";
++	};
++
++	/*
++	 * u-boot environment variables: 64KB.
++	 */
++	u-boot-env@e0000 {
++		reg = <0xe0000 0x10000>;
++		label = "env";
++	};
++
++	/*
++	 * image metadata partition (64KB), used by Facebook internal
++	 * tools.
++	 */
++	image-meta@f0000 {
++		reg = <0xf0000 0x10000>;
++		label = "meta";
++	};
++
++	/*
++	 * FIT image: 119 MB.
++	 */
++	fit@100000 {
++		reg = <0x100000 0x7700000>;
++		label = "fit";
++	};
++
++	/*
++	 * "data0" partition (8MB) is used by Facebook BMC platforms as
++	 * persistent data store.
++	 */
++	data0@7800000 {
++		reg = <0x7800000 0x800000>;
++		label = "data0";
++	};
++
++	/*
++	 * Although the master partition can be created by enabling
++	 * MTD_PARTITIONED_MASTER option, below "flash0" partition is
++	 * explicitly created to avoid breaking legacy applications.
++	 */
++	flash0@0 {
++		reg = <0x0 0x8000000>;
++		label = "flash0";
++	};
++};
+-- 
+2.17.1
 
-```
-value = "xyz.openbmc_project.EntityManager";
-lg2::error("Error talking to {ENTITY} error code is {ERRNO}", "ENTITY", value, "ERRNO", 2);
-```
-
-The lg2 implementation renders the values into the format string and 
-forwards the result as MESSAGE to the journal, along with the 
-structured values (ENTITY and ERRNO in the example).
-
-```
-$ journalctl -b
-...
-Nov 25 13:13:09 bmc fansensor[3006]: Error talking to xyz.openbmc_project.EntityManager error code is 2
-...
-```
-
-Better yet would be if we could just forward the format string and 
-journalctl renders this at invocation time, but we'd need to work with 
-upstream on that.
-
-Andrew
