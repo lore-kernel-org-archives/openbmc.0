@@ -2,102 +2,101 @@ Return-Path: <SRS0=iKkM=M2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBE8FC4338F
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 04:08:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D948C4338F
+	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 11:43:29 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 6394461037
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 04:08:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 6394461037
+	by mail.kernel.org (Postfix) with ESMTPS id 7703860C3F
+	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 11:43:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7703860C3F
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aj.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Gf1Zb3F8jz3bW9
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 14:08:39 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GfCgL5BgPz307P
+	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 21:43:26 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=gByiDSSS;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=YyvyO9HZ;
+	dkim=pass (2048-bit key; unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256 header.s=fm3 header.b=HGcNQF7v;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=n8ZWmvhe;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aj.id.au (client-ip=64.147.123.19;
- helo=wout3-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
+ smtp.mailfrom=aj.id.au (client-ip=64.147.123.21;
+ helo=wout5-smtp.messagingengine.com; envelope-from=andrew@aj.id.au;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=aj.id.au header.i=@aj.id.au header.a=rsa-sha256
- header.s=fm3 header.b=gByiDSSS; 
+ header.s=fm3 header.b=HGcNQF7v; 
  dkim=pass (2048-bit key;
  unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=YyvyO9HZ; 
+ header.a=rsa-sha256 header.s=fm3 header.b=n8ZWmvhe; 
  dkim-atps=neutral
-Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
- [64.147.123.19])
+Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
+ [64.147.123.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Gf1Z56QnHz2yMF
- for <openbmc@lists.ozlabs.org>; Tue,  3 Aug 2021 14:08:13 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GfCfn51Fcz2yYd
+ for <openbmc@lists.ozlabs.org>; Tue,  3 Aug 2021 21:42:56 +1000 (AEST)
 Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
- by mailout.west.internal (Postfix) with ESMTP id BB6693200916;
- Tue,  3 Aug 2021 00:08:11 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 0AF1C3200907;
+ Tue,  3 Aug 2021 07:42:52 -0400 (EDT)
 Received: from imap43 ([10.202.2.93])
- by compute2.internal (MEProxy); Tue, 03 Aug 2021 00:08:11 -0400
+ by compute2.internal (MEProxy); Tue, 03 Aug 2021 07:42:53 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aj.id.au; h=
- mime-version:message-id:in-reply-to:references:date:from:to:cc
- :subject:content-type; s=fm3; bh=ARLvGjcqDBY4rVetsxm8LnceoUC4XY1
- vx8e/eYqyVn4=; b=gByiDSSS+O3S7KgEbZuyclpU4kA0cUdwoIPLt+3SzZAkEj6
- OdMNbZDc804CzkncwplYnr5Nxf9zrG8rIemBheHpr4AFuL+iNkVmz+6uOTx+qmkV
- z35VK2Iic+1Ek0XcXNo2dL4h/F0amJ2M/NE8LSWQBHmW3VcmhH+COCbaa3aj/g2c
- mIpqbWO18oTc/rxOxW3AuAw3T5WVBFx/Pmm6mbjAJS+TJfooLs97t6BAZPn8pden
- 0w1UBdg/DZ8nqyEoQ9tGftbGKj+flJfwQG3iwYQk7mPRBecaa6gm7bz+kGYnSFNS
- TuRWjl7CA7Vv83ls2LOFO8nkkdhncQT81ozFBqg==
+ mime-version:message-id:in-reply-to:references:date:from:to
+ :subject:content-type:content-transfer-encoding; s=fm3; bh=XUiRw
+ JMFY/QZs3l0M0PNontFvLyl4whFW8FvaHG6aus=; b=HGcNQF7vG6Ii7eO3VT17e
+ t/GDWFngdcmjpYFAlV+K95HOxIaYH7bXmVU0MKcZSdb1BC0+uAJTNeT6u2apX+qB
+ aZVAdUxMw8a2EfcQ8o5//Z92G3GFqsUihdf2ll8rc7eujF6Txtt8xuvZRW9czllv
+ SUb96Rm8zk+BSXV+9VYzY+9Yz/l4iQs+qnsbJvOQ9NbhLLuKmtmksNHNOPALaiZR
+ H7tiBOrGgia3WocHdjUGg/qQp4h7EeLiYlfM4cJAu7Rld8/Q2AY52uDHabt+O1Nq
+ 9iAl8cWZvHWD4Wo+QKlq9fQeL8pLQKyK2FTbKAdiwt9AdY/fWpum7l6QcGjIW5Ib
+ A==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ARLvGj
- cqDBY4rVetsxm8LnceoUC4XY1vx8e/eYqyVn4=; b=YyvyO9HZ1PvzYHcY6Rpk9w
- FWWQX84OKr0b294tyWwDOgipnQCo93BRMeWKR2IOdLAFo44LbZp/f1X1Q/nOBNrA
- nq5dMq30Qo8yAGw8g4uWHtKu7l72pNLDCw7DtzHjN0CK9j729FxQJoAjLgmngl9b
- BGlEArPzkG+UZMSS1+HxJShMnaMStRMNvM9SKNsoynVNSC6P5Li4LQe3GanBlxoP
- 6f50zAV//L4TEvgZ8Sxes+6fbkSuUnKZwjxe4ch/96voFPbVsuHF9bV9zu7kLMDu
- ZY58E6hvO1fq/9oM9xUwl2iuinC2iTDgtgROH1sPKjUgUmVbKxPCCuxqFPibGcwA
- ==
-X-ME-Sender: <xms:K8EIYeXJFPKpdpOn_bkF1lO0xUsBRCzcbLGSYJgVMDBobSwliA3CYw>
- <xme:K8EIYanQT70MW7Jjm__wgSmkvdLLiXpcNkEEaBZq1MxQgJW5YkTWAm_tTa9VPcMzr
- 0GVABSXCEmGjZMO0Q>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrieefgdejtdcutefuodetggdotefrodftvf
+ messagingengine.com; h=content-transfer-encoding:content-type
+ :date:from:in-reply-to:message-id:mime-version:references
+ :subject:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=XUiRwJMFY/QZs3l0M0PNontFvLyl4whFW8FvaHG6a
+ us=; b=n8ZWmvheapq72oETcTyvEMxwTxr2UkZ0hLA/g8pluO04qnTMgJUybT5Fe
+ CIbTvVkedbpEwnUyi4KWI25mF3nnQl2QAMxL2hBWzfU63suWHi7/CDuxRLehChZg
+ C6p5TtAgE7qW+pQj0dcr428qBt7k2UhmFiXtAOQ5FE8a073JOgUKM4wec+HlRMnC
+ 0U/aaV77YZtn5CnWB0FtZB7FDiMI3HLrsqOSKemDZWnB5VS2a6ykCTv+LRBSMFaV
+ 2r2o1HVCQcPF28O2wqcoejEy1Ak93DTwvY/Qg0vQraJetg3o/geLLJx41ek2Vedu
+ AWk9DGNeOlCDkpQ4fohGZigqk2XoQ==
+X-ME-Sender: <xms:uysJYVfXR4ViKzjjE2A8PsvVOcd3ZQJXbWmFP9dANjw-sFlDd9r8Bg>
+ <xme:uysJYTP2OIlR5NvUL83v2G5WP88P66IBqCmGSwrCrh0OLafFkJSs6Ey9S5xQYJvg8
+ 42DfY_4GAOOHhncgQ>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrieeggdegudcutefuodetggdotefrodftvf
  curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpefofgggkfgjfhffhffvufgtsehttdertderredtnecuhfhrohhmpedftehnughr
- vgifucflvghffhgvrhihfdcuoegrnhgurhgvfiesrghjrdhiugdrrghuqeenucggtffrrg
- htthgvrhhnpeehhfefkefgkeduveehffehieehudejfeejveejfedugfefuedtuedvhefh
- veeuffenucevlhhushhtvghrufhiiigvpedunecurfgrrhgrmhepmhgrihhlfhhrohhmpe
- grnhgurhgvfiesrghjrdhiugdrrghu
-X-ME-Proxy: <xmx:K8EIYSYGoDFFeKr_ltFAGCPVbZsz1NrjqaJON-1a3FxNxBrdkORSGw>
- <xmx:K8EIYVUulMrIjR2dGIWkWWJtbmb2Ob9KmBae-FjCkWvPxQ_rVDLVvQ>
- <xmx:K8EIYYncVwuOz55uc_8pHuPZdVkzIA66DFwHYm3067fL5giaNi-HIg>
- <xmx:K8EIYaQPFImP2LpJ9bvo0dAypwoES9rwu-9bwrxj6nZhxQ8gpjPKog>
+ uegrihhlohhuthemuceftddtnecunecujfgurhepofgfggfkjghffffhvffutgfgsehtqh
+ ertderreejnecuhfhrohhmpedftehnughrvgifucflvghffhgvrhihfdcuoegrnhgurhgv
+ fiesrghjrdhiugdrrghuqeenucggtffrrghtthgvrhhnpedvgeekheegfedvhfethefhud
+ etteegueeggfeiieegueehkedugedtkefglefgheenucevlhhushhtvghrufhiiigvpedt
+ necurfgrrhgrmhepmhgrihhlfhhrohhmpegrnhgurhgvfiesrghjrdhiugdrrghu
+X-ME-Proxy: <xmx:uysJYej91sJCJsKpIygMvt-dNL87ZECBCh6P2BwMPi8ifeKugWKzfQ>
+ <xmx:uysJYe_3a6R0v1DhNgFQ_lH66Yq8VCG0RO-cBoNsMuYiNTa8JRBeHQ>
+ <xmx:uysJYRsPURHq_AgJZCKTR-TCp8Mt2FRROm5RL1v2eI2yRaAR6WC-CA>
+ <xmx:vCsJYW6cZMMjI02j4QcgDPFrexaLsm_VSZjyTG4TTJPFV3DtkGIlww>
 Received: by mailuser.nyi.internal (Postfix, from userid 501)
- id 345C2AC0DD0; Tue,  3 Aug 2021 00:08:11 -0400 (EDT)
+ id D921BAC0DD0; Tue,  3 Aug 2021 07:42:51 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 User-Agent: Cyrus-JMAP/3.5.0-alpha0-548-g3a0b1fef7b-fm-20210802.001-g3a0b1fef
 Mime-Version: 1.0
-Message-Id: <6b61e17a-56f6-41cd-b81f-78637c466999@www.fastmail.com>
-In-Reply-To: <YQiNg9cxRgNe4sFV@heinlein>
-References: <YQBrbuQFz4JihBAE@heinlein>
- <41a334dd-56c4-44d0-b8f4-7ecdf5bfa5de@www.fastmail.com>
- <YQD4TWus75QQjH3U@heinlein>
- <e1b41c2e-bcad-4282-a3b9-8f5344cab056@www.fastmail.com>
- <YQIYE4yH7IcGIrjd@heinlein> <YQiNg9cxRgNe4sFV@heinlein>
-Date: Tue, 03 Aug 2021 13:37:50 +0930
+Message-Id: <8bb488fe-a2a0-4fca-b751-ab20db1f4578@www.fastmail.com>
+In-Reply-To: <C552EA2E-A750-4E7C-A3ED-8C1B05B7228C@gmail.com>
+References: <E8EC142E-B62A-432D-AAAA-661528534DAC@gmail.com>
+ <C552EA2E-A750-4E7C-A3ED-8C1B05B7228C@gmail.com>
+Date: Tue, 03 Aug 2021 21:12:31 +0930
 From: "Andrew Jeffery" <andrew@aj.id.au>
-To: "Patrick Williams" <patrick@stwcx.xyz>
-Subject: Re: `phosphor-logging` APIs (RFC)
-Content-Type: text/plain
+To: =?UTF-8?Q?=E5=90=B3=E7=A7=89=E6=98=8C?= <wh800805@gmail.com>,
+ openbmc@lists.ozlabs.org
+Subject: Re: Module develop issue
+Content-Type: text/plain;charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,26 +108,27 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: OpenBMC List <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
 
-On Tue, 3 Aug 2021, at 09:57, Patrick Williams wrote:
-> On Wed, Jul 28, 2021 at 09:53:07PM -0500, Patrick Williams wrote:
-> > 
-> >   error("Hit {ERROR} during {STAGE}.", "ERROR", "bad foobar", "STAGE",
-> >         "baz-grae", "EXTRA", 123);
-> > 
-> 
-> I have implemented this formatting handling, since more people seemed to want
-> it, and also added compile-time confirmation that the keys match
-> systemd-journald requirements.  Patch sequence is all updated to resolve any
-> outstanding review comments.
-> 
+On Mon, 2 Aug 2021, at 19:31, =E5=90=B3=E7=A7=89=E6=98=8C wrote:
+> Hi teams
+>=20
+> Today, I try to install SDK, I can build and run "hello world=E2=80=9D=
+, but I=20
+> still can=E2=80=99t build the hello-mod module.
+> Please give me some suggestions. Many thanks!
 
-Thanks! The updated documentation gets a +1 from me.
+I'm not aware of anyone else in the OpenBMC community developing kernel=20=
+
+modules this way, which might be why you haven't got many responses.
+
+My approach is just to work on the kernel directly (i.e. clone the=20
+kernel sources and add your code to the appropriate locations). Is this=20=
+
+something that you can try?
 
 Andrew
