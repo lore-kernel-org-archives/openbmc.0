@@ -1,106 +1,53 @@
-Return-Path: <SRS0=iKkM=M2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=F+05=M3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_RED,USER_AGENT_SANE_1
-	autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E44DCC4338F
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 22:58:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 865CCC4338F
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:16:50 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 83D0260238
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 22:58:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 83D0260238
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id 9E27E60F8F
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:16:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9E27E60F8F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GfVfC5lKWz3bjR
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 08:58:27 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Ih4eM9JV;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GfXNb6rnPz3bYm
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 10:16:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=Ih4eM9JV; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ smtp.mailfrom=intel.com (client-ip=134.134.136.20; helo=mga02.intel.com;
+ envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GfVdh1030z302C
- for <openbmc@lists.ozlabs.org>; Wed,  4 Aug 2021 08:57:59 +1000 (AEST)
-Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 173MYUUI103750
- for <openbmc@lists.ozlabs.org>; Tue, 3 Aug 2021 18:57:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=to : from : subject :
- message-id : date : content-type : content-transfer-encoding :
- mime-version; s=pp1; bh=xYrLlXBhnx5jcPxlWl+9FXXTQa43j/bxgNntTt233Tk=;
- b=Ih4eM9JVLZHoy1OCyJjtzeXNCnD5oHgIqr9x9Llct+tmATtg18P3oIAvVSICxrd+OAN2
- /1liTyvLzoealB+7nfps+vKwxqLlCxNzPVxCIcIqB5QSRpLcAjc9e1WPn7WITwkrCOZp
- ujsTlYf6bzrlIFx6gwzJ81bHhNaiKNZO4Lo73VT/C/K4fc0j5H2KS5r3dW7LNZgQyIo4
- HOADmyYR8+gXQ966u03M+12YOymgYb5hYbPKHumh7kQ0LXgM7h6t1ug8WQfhv5vpbhej
- P9kfEhYufWIABsxL/pGIqY+1BmMmeth/W7ec9TjDKZsMQwN6mlgV8Y7CsBjGQu9hsRov 5Q== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3a7342639k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 03 Aug 2021 18:57:56 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 173Mq8LF027906
- for <openbmc@lists.ozlabs.org>; Tue, 3 Aug 2021 22:57:55 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma03dal.us.ibm.com with ESMTP id 3a7anfsnt2-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Tue, 03 Aug 2021 22:57:55 +0000
-Received: from b03ledav004.gho.boulder.ibm.com
- (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 173Mvs7R30277928
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Tue, 3 Aug 2021 22:57:54 GMT
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 34E1E78067
- for <openbmc@lists.ozlabs.org>; Tue,  3 Aug 2021 22:57:54 +0000 (GMT)
-Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id D32A87805E
- for <openbmc@lists.ozlabs.org>; Tue,  3 Aug 2021 22:57:53 +0000 (GMT)
-Received: from demeter.local (unknown [9.160.113.180])
- by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Tue,  3 Aug 2021 22:57:53 +0000 (GMT)
-To: openbmc <openbmc@lists.ozlabs.org>
-From: Joseph Reynolds <jrey@linux.ibm.com>
-Subject: Security Working Group meeting - Wednesday August 4
-Message-ID: <89b3524f-a1b3-513c-fc6a-1d888e479238@linux.ibm.com>
-Date: Tue, 3 Aug 2021 17:57:52 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.1
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Xsds6ddaVIpcQcXfiQVHknQ_5qKEdbrZ
-X-Proofpoint-GUID: Xsds6ddaVIpcQcXfiQVHknQ_5qKEdbrZ
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GfCSS0yZwz2yZB;
+ Tue,  3 Aug 2021 21:33:54 +1000 (AEST)
+X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="200827108"
+X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="200827108"
+Received: from fmsmga003.fm.intel.com ([10.253.24.29])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 04:32:50 -0700
+X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="511166743"
+Received: from jdanieck-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.249.128.99])
+ by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 04:32:43 -0700
+From: Iwona Winiarska <iwona.winiarska@intel.com>
+To: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH v2 00/15] Introduce PECI subsystem
+Date: Tue,  3 Aug 2021 13:31:19 +0200
+Message-Id: <20210803113134.2262882-1-iwona.winiarska@intel.com>
+X-Mailer: git-send-email 2.31.1
 MIME-Version: 1.0
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
- definitions=2021-08-03_05:2021-08-03,
- 2021-08-03 signatures=0
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxlogscore=717
- malwarescore=0 adultscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 suspectscore=0
- clxscore=1015 mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2107140000 definitions=main-2108030137
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Wed, 04 Aug 2021 10:16:27 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,49 +59,210 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
+ Dan Williams <dan.j.williams@intel.com>, Zev Weiss <zweiss@equinix.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Jonathan Corbet <corbet@lwn.net>, x86@kernel.org,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+ Ingo Molnar <mingo@redhat.com>, Guenter Roeck <linux@roeck-us.net>,
+ devicetree@vger.kernel.org, Jean Delvare <jdelvare@suse.com>,
+ Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh+dt@kernel.org>,
+ Borislav Petkov <bp@alien8.de>, Iwona Winiarska <iwona.winiarska@intel.com>,
+ Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
+ Tony Luck <tony.luck@intel.com>, Andrew Jeffery <andrew@aj.id.au>,
+ Randy Dunlap <rdunlap@infradead.org>, Yazen Ghannam <yazen.ghannam@amd.com>,
+ Olof Johansson <olof@lixom.net>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a reminder of the OpenBMC Security Working Group meeting 
-scheduled for this Wednesday August 4 at 10:00am PDT.
+Hi Greg,
 
-We'll discuss the following items on the agenda 
-<https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
-and anything else that comes up:
+This is a second round of patches introducing PECI subsystem.
+I don't think it is ready to be applied right away (we're still
+missing r-b's), but I hope we have chance to complete discussion in
+the 5.15 development cycle. I would appreciate if you could take
+a look.
 
- 1. (Joseph): IBM ACF design (2FA authentication for the special IBM
-    service account) is in review -
-    https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/45201
-    <https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/45201>
- 2. (Joseph): Updated password hash algorithm from MD5 to SHA512 (while
-    keeping the same cleartext password)
-    https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/45214
-    <https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/45214>
- 3. (Joseph): Change the SSH server per-session idle timeout to an hour
-    (was unlimited)?  (Sent idea to upstream project
-    yocto-security@yoctoproject.org
-    <mailto:yocto-security@yoctoproject.org>.)  Alternatively, update
-    both SSH and BMCWeb to 30 minutes.
-     1. Guidelines:
-         1. NIST SP800-63B requires a timeout of 30 minutes for
-            "assurance level 2" (high confidence that the authentication
-            is still valid), or 15 minutes for "assurance level 2" (very
-            high confidence).
-            https://pages.nist.gov/800-63-3/sp800-63b.html
-            <https://pages.nist.gov/800-63-3/sp800-63b.html>
-         2. OWASP suggests idle timeouts of 15-30 minutes.
-            https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-expiration
-            <https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-expiration>
-     2. Alternatively, use the bash shell’s TMOUT variable?
-     3. See Yocto discussion (representative archived email):
-        https://lists.yoctoproject.org/g/yocto-security/message/381
-        <https://lists.yoctoproject.org/g/yocto-security/message/381>
+Note: All changes to arch/x86 are contained within patches 01-02, plus
+small Kconfig change adding "depends on PECI" to GENERIC_LIB_X86
+Kconfig in patch 10.
 
+The Platform Environment Control Interface (PECI) is a communication
+interface between Intel processors and management controllers (e.g.
+Baseboard Management Controller, BMC).
 
+This series adds a PECI subsystem and introduces drivers which run in
+the Linux instance on the management controller (not the main Intel
+processor) and is intended to be used by the OpenBMC [1], a Linux
+distribution for BMC devices.
+The information exposed over PECI (like processor and DIMM
+temperature) refers to the Intel processor and can be consumed by
+daemons running on the BMC to, for example, display the processor
+temperature in its web interface.
 
-Access, agenda and notes are in the wiki:
-https://github.com/openbmc/openbmc/wiki/Security-working-group 
-<https://github.com/openbmc/openbmc/wiki/Security-working-group>
+The PECI bus is collection of code that provides interface support
+between PECI devices (that actually represent processors) and PECI
+controllers (such as the "peci-aspeed" controller) that allow to
+access physical PECI interface. PECI devices are bound to PECI
+drivers that provides access to PECI services. This series introduces
+a generic "peci-cpu" driver that exposes hardware monitoring "cputemp"
+and "dimmtemp" using the auxiliary bus.
 
-- Joseph
+Exposing "raw" PECI to userspace, either to write userspace drivers or
+for debug/testing purpose was left out of this series to encourage
+writing kernel drivers instead, but may be pursued in the future.
+
+Introducing PECI to upstream Linux was already attempted before [2].
+Since it's been over a year since last revision, and the series
+changed quite a bit in the meantime, I've decided to start from v1.
+
+I would also like to give credit to everyone who helped me with
+different aspects of preliminary review:
+- Pierre-Louis Bossart,
+- Tony Luck, 
+- Andy Shevchenko,
+- Dave Hansen.
+
+[1] https://github.com/openbmc/openbmc
+[2] https://lore.kernel.org/openbmc/20191211194624.2872-1-jae.hyun.yoo@linux.intel.com/
+
+Changes v1 -> v2:
+
+Biggest changes when it comes to diffstat are locking in HWMON
+(I decided to clean things up a bit while adding it), switching to
+devres usage in more places and exposing sysfs interface in separate patch.
+
+* Moved extending X86 ARCHITECTURE MAINTAINERS earlier in series (Dan)
+* Removed "default n" for GENERIC_LIB_X86 (Dan)
+* Added vendor prefix for peci-aspeed specific properties (Rob)
+* Refactored PECI to use devres consistently (Dan)
+* Added missing sysfs documentation and excluded adding peci-sysfs to
+  separate patch (Dan)
+* Used module_init() instead of subsys_init() for peci module initialization (Dan)
+* Removed redundant struct peci_device member (Dan)
+* Improved PECI Kconfig help (Randy/Dan)
+* Fixed/removed log messages (Dan, Guenter)
+* Refactored peci-cputemp and peci-dimmtemp and added missing locks (Guenter)
+* Removed unused dev_set_drvdata() in peci-cputemp and peci-dimmtemp (Guenter)
+* Fixed used types, names, fixed broken and added additional comments
+  to peci-hwmon (Guenter, Zev)
+* Refactored peci-dimmtemp to not return -ETIMEDOUT (Guenter)
+* Added sanity check for min_peci_revision in peci-hwmon drivers (Zev)
+* Added assert for DIMM_NUMS_MAX and additional warning in peci-dimmtemp (Zev)
+* Fixed macro names in peci-aspeed (Zev)
+* Refactored peci-aspeed sanitizing properties to a single helper function (Zev)
+* Fixed peci_cpu_device_ids definition for Broadwell Xeon D (David)
+* Refactor peci_request to use a single allocation (Zev)
+* Used min_t() to improve code readability (Zev)
+* Added macro for PECI_RDENDPTCFG_MMIO_WR_LEN_BASE and fixed adev type
+  array name to more descriptive (Zev)
+* Fixed peci-hwmon commit-msg and documentation (Zev)
+
+Thanks
+-Iwona
+
+Iwona Winiarska (13):
+  x86/cpu: Move intel-family to arch-independent headers
+  x86/cpu: Extract cpuid helpers to arch-independent
+  dt-bindings: Add generic bindings for PECI
+  dt-bindings: Add bindings for peci-aspeed
+  ARM: dts: aspeed: Add PECI controller nodes
+  peci: Add core infrastructure
+  peci: Add device detection
+  peci: Add sysfs interface for PECI bus
+  peci: Add support for PECI device drivers
+  peci: Add peci-cpu driver
+  hwmon: peci: Add cputemp driver
+  hwmon: peci: Add dimmtemp driver
+  docs: Add PECI documentation
+
+Jae Hyun Yoo (2):
+  peci: Add peci-aspeed controller driver
+  docs: hwmon: Document PECI drivers
+
+ Documentation/ABI/testing/sysfs-bus-peci      |  16 +
+ .../devicetree/bindings/peci/peci-aspeed.yaml | 109 ++++
+ .../bindings/peci/peci-controller.yaml        |  33 +
+ Documentation/hwmon/index.rst                 |   2 +
+ Documentation/hwmon/peci-cputemp.rst          |  90 +++
+ Documentation/hwmon/peci-dimmtemp.rst         |  57 ++
+ Documentation/index.rst                       |   1 +
+ Documentation/peci/index.rst                  |  16 +
+ Documentation/peci/peci.rst                   |  48 ++
+ MAINTAINERS                                   |  32 +
+ arch/arm/boot/dts/aspeed-g4.dtsi              |  14 +
+ arch/arm/boot/dts/aspeed-g5.dtsi              |  14 +
+ arch/arm/boot/dts/aspeed-g6.dtsi              |  14 +
+ arch/x86/Kconfig                              |   1 +
+ arch/x86/include/asm/cpu.h                    |   3 -
+ arch/x86/include/asm/intel-family.h           | 141 +---
+ arch/x86/include/asm/microcode.h              |   2 +-
+ arch/x86/kvm/cpuid.h                          |   3 +-
+ arch/x86/lib/Makefile                         |   2 +-
+ drivers/Kconfig                               |   3 +
+ drivers/Makefile                              |   1 +
+ drivers/edac/mce_amd.c                        |   3 +-
+ drivers/hwmon/Kconfig                         |   2 +
+ drivers/hwmon/Makefile                        |   1 +
+ drivers/hwmon/peci/Kconfig                    |  31 +
+ drivers/hwmon/peci/Makefile                   |   7 +
+ drivers/hwmon/peci/common.h                   |  58 ++
+ drivers/hwmon/peci/cputemp.c                  | 591 +++++++++++++++++
+ drivers/hwmon/peci/dimmtemp.c                 | 614 ++++++++++++++++++
+ drivers/peci/Kconfig                          |  37 ++
+ drivers/peci/Makefile                         |  10 +
+ drivers/peci/controller/Kconfig               |  16 +
+ drivers/peci/controller/Makefile              |   3 +
+ drivers/peci/controller/peci-aspeed.c         | 445 +++++++++++++
+ drivers/peci/core.c                           | 238 +++++++
+ drivers/peci/cpu.c                            | 344 ++++++++++
+ drivers/peci/device.c                         | 221 +++++++
+ drivers/peci/internal.h                       | 137 ++++
+ drivers/peci/request.c                        | 477 ++++++++++++++
+ drivers/peci/sysfs.c                          |  82 +++
+ include/linux/peci-cpu.h                      |  38 ++
+ include/linux/peci.h                          | 110 ++++
+ include/linux/x86/cpu.h                       |   9 +
+ include/linux/x86/intel-family.h              | 146 +++++
+ lib/Kconfig                                   |   4 +
+ lib/Makefile                                  |   2 +
+ lib/x86/Makefile                              |   3 +
+ {arch/x86/lib => lib/x86}/cpu.c               |   2 +-
+ 48 files changed, 4084 insertions(+), 149 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-peci
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.yaml
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-controller.yaml
+ create mode 100644 Documentation/hwmon/peci-cputemp.rst
+ create mode 100644 Documentation/hwmon/peci-dimmtemp.rst
+ create mode 100644 Documentation/peci/index.rst
+ create mode 100644 Documentation/peci/peci.rst
+ create mode 100644 drivers/hwmon/peci/Kconfig
+ create mode 100644 drivers/hwmon/peci/Makefile
+ create mode 100644 drivers/hwmon/peci/common.h
+ create mode 100644 drivers/hwmon/peci/cputemp.c
+ create mode 100644 drivers/hwmon/peci/dimmtemp.c
+ create mode 100644 drivers/peci/Kconfig
+ create mode 100644 drivers/peci/Makefile
+ create mode 100644 drivers/peci/controller/Kconfig
+ create mode 100644 drivers/peci/controller/Makefile
+ create mode 100644 drivers/peci/controller/peci-aspeed.c
+ create mode 100644 drivers/peci/core.c
+ create mode 100644 drivers/peci/cpu.c
+ create mode 100644 drivers/peci/device.c
+ create mode 100644 drivers/peci/internal.h
+ create mode 100644 drivers/peci/request.c
+ create mode 100644 drivers/peci/sysfs.c
+ create mode 100644 include/linux/peci-cpu.h
+ create mode 100644 include/linux/peci.h
+ create mode 100644 include/linux/x86/cpu.h
+ create mode 100644 include/linux/x86/intel-family.h
+ create mode 100644 lib/x86/Makefile
+ rename {arch/x86/lib => lib/x86}/cpu.c (95%)
+
+-- 
+2.31.1
+
