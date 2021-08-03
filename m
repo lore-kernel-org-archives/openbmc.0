@@ -7,43 +7,43 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5D3C1C432BE
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B3DB9C4338F
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:18:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id C3DC460EBC
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:17:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C3DC460EBC
+	by mail.kernel.org (Postfix) with ESMTPS id 242FB60EBC
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:18:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 242FB60EBC
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=intel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GfXPf3W7mz3ccS
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 10:17:42 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GfXPz6GHLz3cSv
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 10:17:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=intel.com (client-ip=192.55.52.43; helo=mga05.intel.com;
+ smtp.mailfrom=intel.com (client-ip=192.55.52.120; helo=mga04.intel.com;
  envelope-from=iwona.winiarska@intel.com; receiver=<UNKNOWN>)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43])
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GfCSk6LYdz3bX6;
- Tue,  3 Aug 2021 21:34:14 +1000 (AEST)
-X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="299247188"
-X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="299247188"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 04:33:12 -0700
-X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="458243133"
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GfCTC04sKz3cVH;
+ Tue,  3 Aug 2021 21:34:38 +1000 (AEST)
+X-IronPort-AV: E=McAfee;i="6200,9189,10064"; a="211790932"
+X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="211790932"
+Received: from fmsmga002.fm.intel.com ([10.253.24.26])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 04:33:35 -0700
+X-IronPort-AV: E=Sophos;i="5.84,291,1620716400"; d="scan'208";a="521206791"
 Received: from jdanieck-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.249.128.99])
- by orsmga007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2021 04:33:04 -0700
+ by fmsmga002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2021 04:33:29 -0700
 From: Iwona Winiarska <iwona.winiarska@intel.com>
 To: linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH v2 02/15] x86/cpu: Extract cpuid helpers to arch-independent
-Date: Tue,  3 Aug 2021 13:31:21 +0200
-Message-Id: <20210803113134.2262882-3-iwona.winiarska@intel.com>
+Subject: [PATCH v2 04/15] dt-bindings: Add bindings for peci-aspeed
+Date: Tue,  3 Aug 2021 13:31:23 +0200
+Message-Id: <20210803113134.2262882-5-iwona.winiarska@intel.com>
 X-Mailer: git-send-email 2.31.1
 In-Reply-To: <20210803113134.2262882-1-iwona.winiarska@intel.com>
 References: <20210803113134.2262882-1-iwona.winiarska@intel.com>
@@ -81,197 +81,131 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Baseboard management controllers (BMC) often run Linux but are usually
-implemented with non-X86 processors. They can use PECI to access package
-config space (PCS) registers on the host CPU and since some information,
-e.g. figuring out the core count, can be obtained using different
-registers on different CPU generations, they need to decode the family
-and model.
+Add device tree bindings for the peci-aspeed controller driver.
 
-The format of Package Identifier PCS register that describes CPUID
-information has the same layout as CPUID_1.EAX, so let's allow to reuse
-cpuid helpers by making it available for other architectures as well.
-
+Co-developed-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
+Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
-Reviewed-by: Tony Luck <tony.luck@intel.com>
-Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 ---
- MAINTAINERS                      | 1 +
- arch/x86/Kconfig                 | 1 +
- arch/x86/include/asm/cpu.h       | 3 ---
- arch/x86/include/asm/microcode.h | 2 +-
- arch/x86/kvm/cpuid.h             | 3 ++-
- arch/x86/lib/Makefile            | 2 +-
- drivers/edac/mce_amd.c           | 3 +--
- include/linux/x86/cpu.h          | 9 +++++++++
- lib/Kconfig                      | 4 ++++
- lib/Makefile                     | 2 ++
- lib/x86/Makefile                 | 3 +++
- {arch/x86/lib => lib/x86}/cpu.c  | 2 +-
- 12 files changed, 26 insertions(+), 9 deletions(-)
- create mode 100644 include/linux/x86/cpu.h
- create mode 100644 lib/x86/Makefile
- rename {arch/x86/lib => lib/x86}/cpu.c (95%)
+ .../devicetree/bindings/peci/peci-aspeed.yaml | 109 ++++++++++++++++++
+ 1 file changed, 109 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/peci/peci-aspeed.yaml
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 104773d40952..7cdab7229651 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -20107,6 +20107,7 @@ F:	Documentation/devicetree/bindings/x86/
- F:	Documentation/x86/
- F:	arch/x86/
- F:	include/linux/x86/
-+F:	lib/x86/
- 
- X86 ENTRY CODE
- M:	Andy Lutomirski <luto@kernel.org>
-diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 88fb922c23a0..9096593999ba 100644
---- a/arch/x86/Kconfig
-+++ b/arch/x86/Kconfig
-@@ -141,6 +141,7 @@ config X86
- 	select GENERIC_IRQ_PROBE
- 	select GENERIC_IRQ_RESERVATION_MODE
- 	select GENERIC_IRQ_SHOW
-+	select GENERIC_LIB_X86
- 	select GENERIC_PENDING_IRQ		if SMP
- 	select GENERIC_PTDUMP
- 	select GENERIC_SMP_IDLE_THREAD
-diff --git a/arch/x86/include/asm/cpu.h b/arch/x86/include/asm/cpu.h
-index 33d41e350c79..2a663a05a795 100644
---- a/arch/x86/include/asm/cpu.h
-+++ b/arch/x86/include/asm/cpu.h
-@@ -37,9 +37,6 @@ extern int _debug_hotplug_cpu(int cpu, int action);
- 
- int mwait_usable(const struct cpuinfo_x86 *);
- 
--unsigned int x86_family(unsigned int sig);
--unsigned int x86_model(unsigned int sig);
--unsigned int x86_stepping(unsigned int sig);
- #ifdef CONFIG_CPU_SUP_INTEL
- extern void __init sld_setup(struct cpuinfo_x86 *c);
- extern void switch_to_sld(unsigned long tifn);
-diff --git a/arch/x86/include/asm/microcode.h b/arch/x86/include/asm/microcode.h
-index ab45a220fac4..4b0eabf63b98 100644
---- a/arch/x86/include/asm/microcode.h
-+++ b/arch/x86/include/asm/microcode.h
-@@ -2,9 +2,9 @@
- #ifndef _ASM_X86_MICROCODE_H
- #define _ASM_X86_MICROCODE_H
- 
--#include <asm/cpu.h>
- #include <linux/earlycpio.h>
- #include <linux/initrd.h>
-+#include <linux/x86/cpu.h>
- 
- struct ucode_patch {
- 	struct list_head plist;
-diff --git a/arch/x86/kvm/cpuid.h b/arch/x86/kvm/cpuid.h
-index c99edfff7f82..bf070d2a2175 100644
---- a/arch/x86/kvm/cpuid.h
-+++ b/arch/x86/kvm/cpuid.h
-@@ -4,10 +4,11 @@
- 
- #include "x86.h"
- #include "reverse_cpuid.h"
--#include <asm/cpu.h>
- #include <asm/processor.h>
- #include <uapi/asm/kvm_para.h>
- 
-+#include <linux/x86/cpu.h>
-+
- extern u32 kvm_cpu_caps[NR_KVM_CPU_CAPS] __read_mostly;
- void kvm_set_cpu_caps(void);
- 
-diff --git a/arch/x86/lib/Makefile b/arch/x86/lib/Makefile
-index bad4dee4f0e4..fd73c1b72c3e 100644
---- a/arch/x86/lib/Makefile
-+++ b/arch/x86/lib/Makefile
-@@ -41,7 +41,7 @@ clean-files := inat-tables.c
- 
- obj-$(CONFIG_SMP) += msr-smp.o cache-smp.o
- 
--lib-y := delay.o misc.o cmdline.o cpu.o
-+lib-y := delay.o misc.o cmdline.o
- lib-y += usercopy_$(BITS).o usercopy.o getuser.o putuser.o
- lib-y += memcpy_$(BITS).o
- lib-$(CONFIG_ARCH_HAS_COPY_MC) += copy_mc.o copy_mc_64.o
-diff --git a/drivers/edac/mce_amd.c b/drivers/edac/mce_amd.c
-index 27d56920b469..f545f5fad02c 100644
---- a/drivers/edac/mce_amd.c
-+++ b/drivers/edac/mce_amd.c
-@@ -1,8 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- #include <linux/module.h>
- #include <linux/slab.h>
--
--#include <asm/cpu.h>
-+#include <linux/x86/cpu.h>
- 
- #include "mce_amd.h"
- 
-diff --git a/include/linux/x86/cpu.h b/include/linux/x86/cpu.h
+diff --git a/Documentation/devicetree/bindings/peci/peci-aspeed.yaml b/Documentation/devicetree/bindings/peci/peci-aspeed.yaml
 new file mode 100644
-index 000000000000..5f383d47886d
+index 000000000000..2929d1e000d8
 --- /dev/null
-+++ b/include/linux/x86/cpu.h
-@@ -0,0 +1,9 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef _LINUX_X86_CPU_H
-+#define _LINUX_X86_CPU_H
++++ b/Documentation/devicetree/bindings/peci/peci-aspeed.yaml
+@@ -0,0 +1,109 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/peci/peci-aspeed.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+unsigned int x86_family(unsigned int sig);
-+unsigned int x86_model(unsigned int sig);
-+unsigned int x86_stepping(unsigned int sig);
++title: Aspeed PECI Bus Device Tree Bindings
 +
-+#endif /* _LINUX_X86_CPU_H */
-diff --git a/lib/Kconfig b/lib/Kconfig
-index 5c9c0687f76d..e538d4d773bd 100644
---- a/lib/Kconfig
-+++ b/lib/Kconfig
-@@ -715,3 +715,7 @@ config PLDMFW
- 
- config ASN1_ENCODER
-        tristate
++maintainers:
++  - Iwona Winiarska <iwona.winiarska@intel.com>
++  - Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 +
-+config GENERIC_LIB_X86
-+	bool
-+	depends on X86
-diff --git a/lib/Makefile b/lib/Makefile
-index 5efd1b435a37..befbd9413432 100644
---- a/lib/Makefile
-+++ b/lib/Makefile
-@@ -360,3 +360,5 @@ obj-$(CONFIG_CMDLINE_KUNIT_TEST) += cmdline_kunit.o
- obj-$(CONFIG_SLUB_KUNIT_TEST) += slub_kunit.o
- 
- obj-$(CONFIG_GENERIC_LIB_DEVMEM_IS_ALLOWED) += devmem_is_allowed.o
++allOf:
++  - $ref: peci-controller.yaml#
 +
-+obj-$(CONFIG_GENERIC_LIB_X86) += x86/
-diff --git a/lib/x86/Makefile b/lib/x86/Makefile
-new file mode 100644
-index 000000000000..342024c272fc
---- /dev/null
-+++ b/lib/x86/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0-only
++properties:
++  compatible:
++    enum:
++      - aspeed,ast2400-peci
++      - aspeed,ast2500-peci
++      - aspeed,ast2600-peci
 +
-+obj-y := cpu.o
-diff --git a/arch/x86/lib/cpu.c b/lib/x86/cpu.c
-similarity index 95%
-rename from arch/x86/lib/cpu.c
-rename to lib/x86/cpu.c
-index 7ad68917a51e..17af59a2fddf 100644
---- a/arch/x86/lib/cpu.c
-+++ b/lib/x86/cpu.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- #include <linux/types.h>
- #include <linux/export.h>
--#include <asm/cpu.h>
-+#include <linux/x86/cpu.h>
- 
- unsigned int x86_family(unsigned int sig)
- {
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    description:
++      Clock source for PECI controller. Should reference the external
++      oscillator clock.
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  cmd-timeout-ms:
++    minimum: 1
++    maximum: 1000
++    default: 1000
++
++  aspeed,clock-divider:
++    description:
++      This value determines PECI controller internal clock dividing
++      rate. The divider will be calculated as 2 raised to the power of
++      the given value.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 7
++    default: 0
++
++  aspeed,msg-timing:
++    description:
++      Message timing negotiation period. This value will determine the period
++      of message timing negotiation to be issued by PECI controller. The unit
++      of the programmed value is four times of PECI clock period.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 255
++    default: 1
++
++  aspeed,addr-timing:
++    description:
++      Address timing negotiation period. This value will determine the period
++      of address timing negotiation to be issued by PECI controller. The unit
++      of the programmed value is four times of PECI clock period.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 255
++    default: 1
++
++  aspeed,rd-sampling-point:
++    description:
++      Read sampling point selection. The whole period of a bit time will be
++      divided into 16 time frames. This value will determine the time frame
++      in which the controller will sample PECI signal for data read back.
++      Usually in the middle of a bit time is the best.
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0
++    maximum: 15
++    default: 8
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - resets
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/ast2600-clock.h>
++    peci-controller@1e78b000 {
++      compatible = "aspeed,ast2600-peci";
++      reg = <0x1e78b000 0x100>;
++      interrupts = <GIC_SPI 38 IRQ_TYPE_LEVEL_HIGH>;
++      clocks = <&syscon ASPEED_CLK_GATE_REF0CLK>;
++      resets = <&syscon ASPEED_RESET_PECI>;
++      cmd-timeout-ms = <1000>;
++      aspeed,clock-divider = <0>;
++      aspeed,msg-timing = <1>;
++      aspeed,addr-timing = <1>;
++      aspeed,rd-sampling-point = <8>;
++    };
++...
 -- 
 2.31.1
 
