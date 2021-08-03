@@ -2,96 +2,85 @@ Return-Path: <SRS0=iKkM=M2=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-2.0 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
-	DKIM_INVALID,DKIM_SIGNED,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 97A75C4338F
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 14:29:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1E1EBC4320A
+	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 15:40:33 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3896560ED6
-	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 14:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3896560ED6
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
+	by mail.kernel.org (Postfix) with ESMTPS id 842DC60F94
+	for <openbmc@archiver.kernel.org>; Tue,  3 Aug 2021 15:40:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 842DC60F94
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GfHMM5NXvz3bn6
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:29:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GfJwt5JkMz30Hx
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 01:40:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=lyCUo5rR;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=qo5nhp/T;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::135;
- helo=mail-lf1-x135.google.com; envelope-from=fercerpav@gmail.com;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=lyCUo5rR; dkim-atps=neutral
-Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
- [IPv6:2a00:1450:4864:20::135])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=i.kononenko@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=qo5nhp/T; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GfHLs0RYPz301q
- for <openbmc@lists.ozlabs.org>; Wed,  4 Aug 2021 00:29:24 +1000 (AEST)
-Received: by mail-lf1-x135.google.com with SMTP id a26so39995194lfr.11
- for <openbmc@lists.ozlabs.org>; Tue, 03 Aug 2021 07:29:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=bEUj5pdRKviSMU2wAmJRXJmbWfFkZj1Fe7wcJ8eBh00=;
- b=lyCUo5rRtTvlNMw48UossO69TlKJyiRUrVfmk6DI62c/j+URywsQR4G3F+yWuazAh9
- M9bKdI5y/XVdicL02jvqhe+hghN7jb6bMBwzisZHVGeStbMccxpybh06elv9jD4Nkryt
- y18R5OG1IR+k367QUX/00vr1EC87EvOA+cjj/XHw5p7BhtikA4lkAtZ/OVfpfTPpozMm
- ErlYSAbLsR8xO73/NPtnOgMXGVSTPbi/8UcA34G03NdePJvVZs16zKcMl5cvCyFEtCTN
- NCEhZK09PiY1aA0vZxjKwgQMdRLeWlbqFQPwPcy6yr24eDs8hbEvaRyqeNPVWzQoyl/T
- 8iGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=bEUj5pdRKviSMU2wAmJRXJmbWfFkZj1Fe7wcJ8eBh00=;
- b=ImNpZEUwsGDVpZdeCpvPyhHJV/vyJT7eeFHaPTXlQRbbGbFABWWQlWr4KhHJxtGDjE
- PcMXjIlcNQ2jhPlo0b9IMNHy/lDZ4JIpa4I99Z12hjZcg4U8o+DkW3UXAXTkoxGeO0m5
- KcKM2W3pYCA4zWUHMCdzHAzRU7MTY5DmCvSm7M8JOyK8Wkm3VHFkWvy3upnNZFq+8T00
- iudWAr4fo5mJ0e+NiF+IqD00GDZP7mtm4oh+PUU+5rDv46LXT9RoR1tUb0T6xRWpZDRo
- SHRoA4Hq6Lll/jxBSKKBuASu850dnkTtC55HkeoH7H7kZc5YqA0qPWqlIdiZKWolC+AH
- Pnkg==
-X-Gm-Message-State: AOAM530TasuO82TyoDttEGfjnKC0xeihYsJCg7K0XgHu5qlP2T6HffxJ
- 8vK3iOegn79ZUMCbihsid7HEcOyh3NI30w==
-X-Google-Smtp-Source: ABdhPJy3iiJhdb7GiyybvteE+xDiHFlU3qGAkUXe6YUc297dzR5/yClWrPNSIbB3mmz0i4K9URH0zA==
-X-Received: by 2002:ac2:5e7a:: with SMTP id a26mr16720696lfr.446.1628000960355; 
- Tue, 03 Aug 2021 07:29:20 -0700 (PDT)
-Received: from home.paul.comp (paulfertser.info.
- [2001:470:26:54b:226:9eff:fe70:80c2])
- by smtp.gmail.com with ESMTPSA id f2sm1109151ljq.131.2021.08.03.07.29.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Aug 2021 07:29:19 -0700 (PDT)
-Received: from home.paul.comp (home.paul.comp [IPv6:0:0:0:0:0:0:0:1])
- by home.paul.comp (8.15.2/8.15.2/Debian-14~deb10u1) with ESMTP id
- 173ETGOw004548; Tue, 3 Aug 2021 17:29:17 +0300
-Received: (from paul@localhost)
- by home.paul.comp (8.15.2/8.15.2/Submit) id 173ETG3W004547;
- Tue, 3 Aug 2021 17:29:16 +0300
-Date: Tue, 3 Aug 2021 17:29:15 +0300
-From: Paul Fertser <fercerpav@gmail.com>
-To: Konstantin Klubnichkin <kitsok@yandex-team.ru>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GfJwQ1lrxz2yMy
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Aug 2021 01:40:06 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 429E74679F;
+ Tue,  3 Aug 2021 15:40:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:content-language:content-type
+ :content-type:in-reply-to:mime-version:user-agent:date:date
+ :message-id:from:from:references:subject:subject:received
+ :received:received; s=mta-01; t=1628005202; x=1629819603; bh=HKd
+ gNzduOATzxQmctt1q0UBRIL/fvOn6XEzFTdLIh1Y=; b=qo5nhp/Tyw1aJbdEdgd
+ r4WDTxhbGfsobGarp7r4cIsKpKvAYTJpzpKEUzVrpLPhMmEY0Q1N9ruqDVubJz5z
+ SSmAhDIsDVTRI3HUTUzeaIcV0sxLZ0TirCscdGuogUA9F9d/X5v5nPrrCGzFasUg
+ bVGhFNGBFUNfl0AAqTnaqotM=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id hTr4_R-aZhOM; Tue,  3 Aug 2021 18:40:02 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 0F37D467A1;
+ Tue,  3 Aug 2021 18:40:01 +0300 (MSK)
+Received: from [10.199.0.39] (10.199.0.39) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Tue, 3 Aug
+ 2021 18:40:01 +0300
 Subject: Re: Installing Windows Server 2019 from a remotely mounted ISO
-Message-ID: <20210803142915.GP875@home.paul.comp>
+To: Konstantin Klubnichkin <kitsok@yandex-team.ru>
 References: <60926e52-9d00-2b20-e8ac-7fd515ddac78@yadro.com>
  <CAH2KKeaBMhU3XDADDE0ieqRRhNBiF57-9rUi+Go-SSJCGG-GBA@mail.gmail.com>
  <3c0b0dc3-a31d-dcfb-608b-53436074397b@linux.intel.com>
  <34751627996896@mail.yandex-team.ru>
- <20210803133707.GO875@home.paul.comp>
- <1341627999924@mail.yandex-team.ru>
+ <df77021c-a86b-1a03-9960-acdf6c324600@yadro.com>
+ <6631628004052@mail.yandex-team.ru>
+From: i.kononenko <i.kononenko@yadro.com>
+Message-ID: <4354431a-0db6-fb9f-bc21-5ef34eba8852@yadro.com>
+Date: Tue, 3 Aug 2021 18:40:00 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.11.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1341627999924@mail.yandex-team.ru>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+In-Reply-To: <6631628004052@mail.yandex-team.ru>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-Originating-IP: [10.199.0.39]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,26 +92,20 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc <openbmc@lists.ozlabs.org>, Alexander Amelkin <a.amelkin@yadro.com>,
- Maciej Lawniczak <maciej.lawniczak@linux.intel.com>,
- Thaj <tajudheenk@gmail.com>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Aug 03, 2021 at 05:17:52PM +0300, Konstantin Klubnichkin wrote:
->   Looks like a typo, s/image/partition/.
-> 
-> I don't think so as formatting partition would require play with losetup and
-> probably some boot loader installation onto the image.
+On 03.08.2021 18:21, Konstantin Klubnichkin wrote:
+> Works like a charm with all ISO I had on hands, thank you!
 
-kpartx creates appropriate loop devices automatically, so if your
-image has a partition table you can easily get the suitable loop
-devices to run mkfs.vfat on them, then mount it etc.
+Konstantin,
 
-For UEFI bootloader installation on removable media is just copying a
-file to a FAT32 partition, nothing fancy.
+Please note, I got feedback from some issues about using CDFS images.
+I work to solve the issue of using such ISO formats.
 
 -- 
-Be free, use free (http://www.gnu.org/philosophy/free-sw.html) software!
-mailto:fercerpav@gmail.com
+Best regards,
+
+Igor Kononenko
