@@ -2,87 +2,145 @@ Return-Path: <SRS0=F+05=M3=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=unavailable
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12097C4338F
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:22:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EDDA3C4338F
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 01:51:37 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 54D2160EBC
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 00:22:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 54D2160EBC
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	by mail.kernel.org (Postfix) with ESMTPS id 0AC4D60F70
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 01:51:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0AC4D60F70
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GfXW008skz3dXl
-	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 10:22:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GfZTz1yGmz3bnP
+	for <openbmc@archiver.kernel.org>; Wed,  4 Aug 2021 11:51:35 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20161025 header.b=QN7ECZPs;
+	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=p0Lgmy6Q;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::32c;
- helo=mail-ot1-x32c.google.com; envelope-from=groeck7@gmail.com;
- receiver=<UNKNOWN>)
+ smtp.mailfrom=aspeedtech.com (client-ip=40.107.132.119;
+ helo=apc01-pu1-obe.outbound.protection.outlook.com;
+ envelope-from=troy_lee@aspeedtech.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20161025 header.b=QN7ECZPs; dkim-atps=neutral
-Received: from mail-ot1-x32c.google.com (mail-ot1-x32c.google.com
- [IPv6:2607:f8b0:4864:20::32c])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com
+ header.a=rsa-sha256 header.s=selector1 header.b=p0Lgmy6Q; 
+ dkim-atps=neutral
+Received: from APC01-PU1-obe.outbound.protection.outlook.com
+ (mail-eopbgr1320119.outbound.protection.outlook.com [40.107.132.119])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GfJvy5WGMz2ymZ;
- Wed,  4 Aug 2021 01:39:41 +1000 (AEST)
-Received: by mail-ot1-x32c.google.com with SMTP id
- a5-20020a05683012c5b029036edcf8f9a6so21101110otq.3; 
- Tue, 03 Aug 2021 08:39:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
- h=sender:date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to;
- bh=RaUbmWKifUbTZ6zjeh86VoxBPtGmzOjyflRCZDjIbYk=;
- b=QN7ECZPs7uaau8pMoAXj2RgYMKpC1YSqjHKJErKnAHnntnSQevD7MXUx/mAMyFKpLe
- wnE0tffRJbk2tgFvuQ8mhEqMaP0KDjxpsf9Ml3rWGStwfOtulFiFCqhryxwQ9ZT5nB2E
- Kb1OoPRRAbG2O0kzooASOqoVRDD7bmIfGX1VVltsEp4NpMhCwoqhoRphuxQu0IKSk+aJ
- pMyPrsYHFwX7ID7DBke7nR7NiFivkfgA2KHSOqQv923admvcAv/p9rSCHA4+q9e0cqpD
- w1ZSJXM7wj82kvyY3fQBG9wXxIDzgkvwU2UeoX1rE0lTJBr9+w1SCnUJF5LEwvM2DGIe
- +COw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:sender:date:from:to:cc:subject:message-id
- :references:mime-version:content-disposition:in-reply-to;
- bh=RaUbmWKifUbTZ6zjeh86VoxBPtGmzOjyflRCZDjIbYk=;
- b=Bh1iXMJdpsDya4oQrHT/xhOJ4VZKLeqMFH1mLed7+e3Xn3xPsrE5n1+0Gf+Io6n4xS
- zdQW0fgBmoIdh7MY/jem5311yja/ryR4L2SbU0Guh/ylpa2KqmFYHDjRbQd0425lK8p0
- g7MvsH1jyK1/bJL6SLkdNTJ03zf+xTLkR4RH/GH4fP5XS6Guhe3yER4ufAGCbx6QBtAb
- C08RgBdJ/sAYRPMpz3PYrsqz8RLdMB3kP8kuodDA8BI9dFumKI3Ck3Zm06tKUAt3vHHv
- FFB3+KXOoDmw8IO+K6q+IxhSK4idTQVjC9ECxLQxWFKzG7iq1TT4z08rp7UOY/zIWEZt
- nQMg==
-X-Gm-Message-State: AOAM5325m6lwWH71J8DUxvr+85hlM/S52JIYa726AZ+6SAL6n6ceen6E
- QaUmuM0V7Bl+rTA5zBl1zLg=
-X-Google-Smtp-Source: ABdhPJylN8AK41Yi5Zw1TM/nyzRXsuz3WPrOjzMvNACOPSNAeJCEzQ8CiRrB5Q8XPg1W6psYQycejg==
-X-Received: by 2002:a9d:638d:: with SMTP id w13mr15623725otk.224.1628005178838; 
- Tue, 03 Aug 2021 08:39:38 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:329c:23ff:fee3:9d7c])
- by smtp.gmail.com with ESMTPSA id
- m19sm2527767otp.55.2021.08.03.08.39.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 Aug 2021 08:39:38 -0700 (PDT)
-Date: Tue, 3 Aug 2021 08:39:37 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Iwona Winiarska <iwona.winiarska@intel.com>
-Subject: Re: [PATCH v2 13/15] hwmon: peci: Add dimmtemp driver
-Message-ID: <20210803153937.GA337938@roeck-us.net>
-References: <20210803113134.2262882-1-iwona.winiarska@intel.com>
- <20210803113134.2262882-14-iwona.winiarska@intel.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GfZTK4ytxz2yWG
+ for <openbmc@lists.ozlabs.org>; Wed,  4 Aug 2021 11:51:00 +1000 (AEST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=jJfB/vwEf2bLFe9doFla/j7LQRynPyX7mNUqLoqzJg+KRwUI2NrgNv/C/0y+0yrDTfSNZWwzRdVEMxHGAMvwN/+jn/23LObxl2QwosWI1y17ua3s3f9T4kA3947E7sqT06/7eeTJtnnrs4pxcESxgN9hfzUMDgZna26YS52QqSZFHDHriSYVpVDL8UjS5C7IvocLHE6qSxL22EGrEU1GN+yr3/V4ZYhgXvtI2NjbMH/6QUPyH/FsaIHfEpN2r/HCJNaHfvKb1iUuABYV/d3b3409bK32QPUX8fU72oTwNN3kmSZXxvcRUKIyk/v3mraPMjZJtb2Fg3uccn8UqQV+8g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lsfFS3nBdBJDagGAgSiSpUqcpUCrHt5Ym1qnNZUQoi4=;
+ b=btzA9ndbmjWTPv4l/N52cKW1Mo574+JJ4Zg1MW3avy18Oh25rCsroF3N59LI9d0/7h0mKkcUjwW8waLfHbXPh8vXeDzXH88YFt85/McHzOCCGjZaGGCD/FhjDXD+yGtV+rHc2CJBzRpymOjk7oi8esWcArv/Go0tywUl/N41z7AXaPayC7tXEG8MECmNveNZuGN8u3nFGS7zTcTrN5KZohr2ufRdJe7vEyKfOwwF+IKgWV116uuVDj+cgQOEO2NI+5fwfvMuyh8RKDIZYC8aHQMOg3sJqiDBcJL6tdyvGOp2LmagD5dY997taziS7sFcurAAsIU7+qqQGnhN69VlgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lsfFS3nBdBJDagGAgSiSpUqcpUCrHt5Ym1qnNZUQoi4=;
+ b=p0Lgmy6Qq5DE9lCWcDrmjYxrMcfxaxPDGtL2WYWnzOPuQFVOKz1eXxXnwRkJNTsfi9Pp1D9FD9HSr9eUNbfYTKv9kio9xDmEd4yU9JmCFsU3QmoCvDiy1Yj1AnQlLXUQYHxH8csguFiNspkNHI864xrOsRblB0BwMHvWmGVvGAYu7CX8F9m3RuxgZiS1rHwXSnDV/l3qmdS3sYWwVYw9zvOtisLB8dyPIXS2CKzGkLWpJ+5GjLGezuYbE2B1dvYEArFDmoQLJc84E7U8HlidsmR1/vNNLgMrefq/YM7/fxTBYZVwWXDP1Ajzlbg6VOAhT0L4xrzZFCrdJzgGLw7UDA==
+Received: from HK0PR06MB2145.apcprd06.prod.outlook.com (2603:1096:203:4b::20)
+ by HK0PR06MB2148.apcprd06.prod.outlook.com (2603:1096:203:47::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4394.15; Wed, 4 Aug
+ 2021 01:50:40 +0000
+Received: from HK0PR06MB2145.apcprd06.prod.outlook.com
+ ([fe80::70d5:73da:ac03:9781]) by HK0PR06MB2145.apcprd06.prod.outlook.com
+ ([fe80::70d5:73da:ac03:9781%5]) with mapi id 15.20.4394.016; Wed, 4 Aug 2021
+ 01:50:39 +0000
+From: Troy Lee <troy_lee@aspeedtech.com>
+To: i.kononenko <i.kononenko@yadro.com>, Konstantin Klubnichkin
+ <kitsok@yandex-team.ru>
+Subject: RE: Installing Windows Server 2019 from a remotely mounted ISO
+Thread-Topic: Installing Windows Server 2019 from a remotely mounted ISO
+Thread-Index: AQHXiGtK3vPDJyYWhEy2Lm3M4BUfvKthzOaAgAAYtYCAAAUxAIAAqZJQ
+Date: Wed, 4 Aug 2021 01:50:39 +0000
+Message-ID: <HK0PR06MB214515C746802AB15880B80F8AF19@HK0PR06MB2145.apcprd06.prod.outlook.com>
+References: <60926e52-9d00-2b20-e8ac-7fd515ddac78@yadro.com>
+ <CAH2KKeaBMhU3XDADDE0ieqRRhNBiF57-9rUi+Go-SSJCGG-GBA@mail.gmail.com>
+ <3c0b0dc3-a31d-dcfb-608b-53436074397b@linux.intel.com>
+ <34751627996896@mail.yandex-team.ru>
+ <df77021c-a86b-1a03-9960-acdf6c324600@yadro.com>
+ <6631628004052@mail.yandex-team.ru>
+ <4354431a-0db6-fb9f-bc21-5ef34eba8852@yadro.com>
+In-Reply-To: <4354431a-0db6-fb9f-bc21-5ef34eba8852@yadro.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: yadro.com; dkim=none (message not signed)
+ header.d=none;yadro.com; dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: bfe492c4-4caf-4fdc-e74e-08d956ea4322
+x-ms-traffictypediagnostic: HK0PR06MB2148:
+x-microsoft-antispam-prvs: <HK0PR06MB214804F41BF095805439A3528AF19@HK0PR06MB2148.apcprd06.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219;
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+x-microsoft-antispam-message-info: eJEVInfkzF6jGlk3bmANkO5LReUCNlm5k/1MummP7sy6PArdUI6YugGTXIkOu7Oegx5HSrL8W55hQ2RMrI6oSlfxPQimf3/zc7ou/kQ/r7x0yDh1XUdVsdBM6j+yoGhJzv2C5uynpZCkdq4bJlh6wWNpx6r87Xl8Ux8T5bmT2UdMRCb1Dpn5Hj5Z3/gys1IxC4BnhZK/fmV88byaRrlOZe/i2wqsVLfY2wDRlHr1Bg8SNdsyU42tjPnx7og7Y1P9ZaoeKFGLXbXv1x0sW3UDF0hTL+PDqpua/dzNftiRt1bG7g+wowvknaJd7fIgh3erV4LwrjNI1gmJJ/JVFXRHEMNGW/NQc5gOZat7Sif/YLv9ALNik7bDsOCC0CM+PepKSDkqGTGGHGOxFoEi2/DV3UUc3GgGXlVOST7fjC9zbZggS38fH5UejrRRjNedBDF9Ln+IlDgK+QhItxhGXhioO+K1A2ZX7LvaCNcKrP0vP0YWiXRbTeEYW3n97BLE2R7r4BdXsfFbWf/kKkpjyy14XOKWgZP2QSUVS5Rke2fl7ikLDRKI+letBQOPYiXTJtHrVUoOYpZkuxVqcA7OcGnnbqMlz4Tk4Emvd7/b8nERhF0aMI144fwxpKkhgZWHYzDuqbWFpWl9nS57xCaE3fUa3wJMWoPPAcJCVTz5iS9psqofx0xVaAg7Re4jnFMLyIrKEb7qc5S+Xbwvtzzq+A8Vl7TZOMEqECCr5G4D2F0Ql3VF/AiEAthRTZ4knYyYpmEJbPBPAMxO8zXgUBqPjcObJIWoFtrkZZH+qa52ugWsXKI=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:HK0PR06MB2145.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(346002)(376002)(396003)(136003)(366004)(39830400003)(83380400001)(5660300002)(8936002)(86362001)(33656002)(71200400001)(966005)(4744005)(53546011)(6506007)(186003)(26005)(7696005)(9686003)(508600001)(316002)(55016002)(110136005)(122000001)(66446008)(8676002)(38100700002)(76116006)(38070700005)(52536014)(4326008)(66946007)(2906002)(66556008)(64756008)(66476007);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?aUV1Y3F2RUNaeUJTY1paQitCMjBrS09MOGdKd2pzRnJmaERIZzQ5QnNySGVJ?=
+ =?utf-8?B?TGNGMXp6bGVWb29xVU9XNlU5ZUoyNS9oa3dlK2tONzF2cnVaL2ZlOC9JNi85?=
+ =?utf-8?B?VHJBN2c0QitWbXg3QmQwQTIzMUlBVFAwN0hSY1VBVUJYbXlteUMxMEtJQnp1?=
+ =?utf-8?B?Y0xoc2xWV01rMXhiazhrMHgxZkRKdHowYk5HMFFxeGdHcXFxTHJIWVdPK2Jt?=
+ =?utf-8?B?YWE5cTgzZ3RvZG13TDZjU0d5VEcweWFqcE9KSjluV2x6SVp0Z0d1eGdXS2JS?=
+ =?utf-8?B?MHFqNzBKbVpiOG4ySWN1alJpWi8vTEl3WU80dFVkSThnamJzb2xDWDFyTmRN?=
+ =?utf-8?B?MVR4amRDckFzRWUwS0lwQjZlK0preTZPMlhjWkRPSWtZa2FGMFZvK0lXdHFu?=
+ =?utf-8?B?V3N4VXFBdjhiaS9LenFtNUptbEY3MitpYW5HWnM0NElnaXFCY0wzVjJpZ0o0?=
+ =?utf-8?B?RnZLa0kwVGh5L2g2eUpyWDhFMVR2SFk2SElDeFdYQ0xhVkdmWG5rY0lMNmF1?=
+ =?utf-8?B?RjhNZE04R0Vab2tjWGZGWXJvaGtYcHRqdVZ5elpvR0pXd3UrWnVCTzNzTnlR?=
+ =?utf-8?B?ekgwMThXUC9XdTEvb3QxWEZmMzZudXNocDBHMXVUbDR3eHZQUGhmZjk4a0Vl?=
+ =?utf-8?B?RTdHbk1Yak0zdGUrQ3I1MkVCK3Y2VDBJeTBIVTRVcTFCY0lLTGZOL0FNa2ZJ?=
+ =?utf-8?B?K09BK3k0WmxMV0RzbnRFY3V2aG5rbUtvVTFWeWZrZGx6MUNPa2FCdjZyME42?=
+ =?utf-8?B?cm5sN2lhelFpY0ovWFJOaitnQTRibnR6dTZ2b3VteFJBM0RNdDFiTk9GSzBj?=
+ =?utf-8?B?MElWMVVFS2RjeUlGNS9HUXZPeFROamEwNGM2K082R04zZG91eHB4bHdLRXp6?=
+ =?utf-8?B?Umh6V3psaEFxVWk4OXBQT2VtL3N1elJtRkF0Z2ptb1RKZUdqZG93dUdsYmN4?=
+ =?utf-8?B?c2tuMk9VWVE4eWxuK3BIZkE1VGtadXkxQ2NZMGN5UGVVSFBUWHZoYVYxTXhp?=
+ =?utf-8?B?bU91OGtneDBweCs5VjhNL0JIaTEzcEIrWFZCeEt6dm1RWm5DeERZaFNBRHNs?=
+ =?utf-8?B?UnMrT29SdmdQTHZxaUNEbit1Ry9zQytyQ013WitpdHRibnE4QUNDTTZQaUpO?=
+ =?utf-8?B?aDRoZEVld294VGRpK2ZKYXZIWlliZmlhQm9jVGxwanRwUTN5TjVyNmtpNUpi?=
+ =?utf-8?B?bHZORk5taW1WM2JDMU5yUEFHQmN1NytLVGNCMXVXai8wKzE1aS93eFoxeFlI?=
+ =?utf-8?B?V0oxajJDcFZNOEpjM0Z1RldoQnAzSWoxQzk2NmhSSnhod2U4b1dRek5xb252?=
+ =?utf-8?B?bzBVaDNLRmRGcUdCT3NsVDNMUGNNbHZyL0pKeGM1U0dmYklQRkVkRGJPSTI2?=
+ =?utf-8?B?NnlpUEpyeDZmaGgvQmMwTWNGOXdnVjNtVWlub3JPZ2QvWWh2Q0tHYjhqT0xz?=
+ =?utf-8?B?NGNNZFJVdU1zMDZ3WXlUTWVhK2ZCUXRkTEttc2VPVEZJb3lJeTNYeE91d3Y2?=
+ =?utf-8?B?SUY4RHhXWjE3dENnWEhHL3JhNUx4RGk4RlRUaURRMU43T0ZqckxIdnRqNldS?=
+ =?utf-8?B?azh5UjFZUGVMcVQwZTRPNmRKKzRHbkNmSVpBTDA4MWpPQkZwTlk3TlRiTkJS?=
+ =?utf-8?B?VXZ1Q2RFR3dYT0RuUTNvVVdNMVk0L0x0blFhYlZLS0FsckxOdklLTHJWeHBT?=
+ =?utf-8?B?YUcrOGkxSTFJamFQM0loazFwbDcrcWRTQjFkNzArVjVyYzE4ZWZaUE5HSDlr?=
+ =?utf-8?Q?JW7pYStvaDOsppizHihPr2+dbmLtC5XMBShAdGM?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210803113134.2262882-14-iwona.winiarska@intel.com>
-X-Mailman-Approved-At: Wed, 04 Aug 2021 10:16:27 +1000
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: HK0PR06MB2145.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfe492c4-4caf-4fdc-e74e-08d956ea4322
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2021 01:50:39.5774 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1dfJDVBTBzhQdJqjugcE2oBrSJ/3upEIJvtvu5kKtSmhf3+rJLSxBrL/s/qqVxpkU0ai2INh7dwnOFOiKwOgew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2148
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,725 +152,23 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: linux-aspeed@lists.ozlabs.org, linux-doc@vger.kernel.org,
- Dan Williams <dan.j.williams@intel.com>, Zev Weiss <zweiss@equinix.com>,
- Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Jonathan Corbet <corbet@lwn.net>, openbmc@lists.ozlabs.org, x86@kernel.org,
- Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
- Ingo Molnar <mingo@redhat.com>, devicetree@vger.kernel.org,
- Jean Delvare <jdelvare@suse.com>, Arnd Bergmann <arnd@arndb.de>,
- Rob Herring <robh+dt@kernel.org>, Borislav Petkov <bp@alien8.de>,
- Andy Lutomirski <luto@kernel.org>, Thomas Gleixner <tglx@linutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-hwmon@vger.kernel.org,
- Tony Luck <tony.luck@intel.com>, Andrew Jeffery <andrew@aj.id.au>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
- Yazen Ghannam <yazen.ghannam@amd.com>, Olof Johansson <olof@lixom.net>
+Cc: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Tue, Aug 03, 2021 at 01:31:32PM +0200, Iwona Winiarska wrote:
-> Add peci-dimmtemp driver for Temperature Sensor on DIMM readings that
-> are accessible via the processor PECI interface.
-> 
-> The main use case for the driver (and PECI interface) is out-of-band
-> management, where we're able to obtain thermal readings from an external
-> entity connected with PECI, e.g. BMC on server platforms.
-> 
-> Co-developed-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Signed-off-by: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
-> Signed-off-by: Iwona Winiarska <iwona.winiarska@intel.com>
-> Reviewed-by: Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>
-> ---
-> Note that the timeout was completely removed - we're going to probe
-> for detected DIMMs every 5 seconds until we reach "stable" state of
-> either getting correct DIMM data or getting all -EINVAL (which
-> suggest that the CPU doesn't have any DIMMs).
-> 
->  drivers/hwmon/peci/Kconfig    |  13 +
->  drivers/hwmon/peci/Makefile   |   2 +
->  drivers/hwmon/peci/dimmtemp.c | 614 ++++++++++++++++++++++++++++++++++
->  3 files changed, 629 insertions(+)
->  create mode 100644 drivers/hwmon/peci/dimmtemp.c
-> 
-> diff --git a/drivers/hwmon/peci/Kconfig b/drivers/hwmon/peci/Kconfig
-> index e10eed68d70a..9d32a57badfe 100644
-> --- a/drivers/hwmon/peci/Kconfig
-> +++ b/drivers/hwmon/peci/Kconfig
-> @@ -14,5 +14,18 @@ config SENSORS_PECI_CPUTEMP
->  	  This driver can also be built as a module. If so, the module
->  	  will be called peci-cputemp.
->  
-> +config SENSORS_PECI_DIMMTEMP
-> +	tristate "PECI DIMM temperature monitoring client"
-> +	depends on PECI
-> +	select SENSORS_PECI
-> +	select PECI_CPU
-> +	help
-> +	  If you say yes here you get support for the generic Intel PECI hwmon
-> +	  driver which provides Temperature Sensor on DIMM readings that are
-> +	  accessible via the processor PECI interface.
-> +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called peci-dimmtemp.
-> +
->  config SENSORS_PECI
->  	tristate
-> diff --git a/drivers/hwmon/peci/Makefile b/drivers/hwmon/peci/Makefile
-> index e8a0ada5ab1f..191cfa0227f3 100644
-> --- a/drivers/hwmon/peci/Makefile
-> +++ b/drivers/hwmon/peci/Makefile
-> @@ -1,5 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0-only
->  
->  peci-cputemp-y := cputemp.o
-> +peci-dimmtemp-y := dimmtemp.o
->  
->  obj-$(CONFIG_SENSORS_PECI_CPUTEMP)	+= peci-cputemp.o
-> +obj-$(CONFIG_SENSORS_PECI_DIMMTEMP)	+= peci-dimmtemp.o
-> diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
-> new file mode 100644
-> index 000000000000..6264c29bb6c0
-> --- /dev/null
-> +++ b/drivers/hwmon/peci/dimmtemp.c
-> @@ -0,0 +1,614 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +// Copyright (c) 2018-2021 Intel Corporation
-> +
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/hwmon.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/module.h>
-> +#include <linux/peci.h>
-> +#include <linux/peci-cpu.h>
-> +#include <linux/units.h>
-> +#include <linux/workqueue.h>
-> +#include <linux/x86/intel-family.h>
-> +
-> +#include "common.h"
-> +
-> +#define DIMM_MASK_CHECK_DELAY_JIFFIES	msecs_to_jiffies(5000)
-> +
-> +/* Max number of channel ranks and DIMM index per channel */
-> +#define CHAN_RANK_MAX_ON_HSX	8
-> +#define DIMM_IDX_MAX_ON_HSX	3
-> +#define CHAN_RANK_MAX_ON_BDX	4
-> +#define DIMM_IDX_MAX_ON_BDX	3
-> +#define CHAN_RANK_MAX_ON_BDXD	2
-> +#define DIMM_IDX_MAX_ON_BDXD	2
-> +#define CHAN_RANK_MAX_ON_SKX	6
-> +#define DIMM_IDX_MAX_ON_SKX	2
-> +#define CHAN_RANK_MAX_ON_ICX	8
-> +#define DIMM_IDX_MAX_ON_ICX	2
-> +#define CHAN_RANK_MAX_ON_ICXD	4
-> +#define DIMM_IDX_MAX_ON_ICXD	2
-> +
-> +#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
-> +#define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
-> +#define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
-> +
-> +#define CPU_SEG_MASK		GENMASK(23, 16)
-> +#define GET_CPU_SEG(x)		(((x) & CPU_SEG_MASK) >> 16)
-> +#define CPU_BUS_MASK		GENMASK(7, 0)
-> +#define GET_CPU_BUS(x)		((x) & CPU_BUS_MASK)
-> +
-> +#define DIMM_TEMP_MAX		GENMASK(15, 8)
-> +#define DIMM_TEMP_CRIT		GENMASK(23, 16)
-> +#define GET_TEMP_MAX(x)		(((x) & DIMM_TEMP_MAX) >> 8)
-> +#define GET_TEMP_CRIT(x)	(((x) & DIMM_TEMP_CRIT) >> 16)
-> +
-> +struct peci_dimmtemp;
-> +
-> +struct dimm_info {
-> +	int chan_rank_max;
-> +	int dimm_idx_max;
-> +	u8 min_peci_revision;
-> +	int (*read_thresholds)(struct peci_dimmtemp *priv, int dimm_order,
-> +			       int chan_rank, u32 *data);
-> +};
-> +
-> +struct peci_dimm_thresholds {
-> +	long temp_max;
-> +	long temp_crit;
-> +	struct peci_sensor_state state;
-> +};
-> +
-> +enum peci_dimm_threshold_type {
-> +	temp_max_type,
-> +	temp_crit_type,
-> +};
-> +
-> +struct peci_dimmtemp {
-> +	struct peci_device *peci_dev;
-> +	struct device *dev;
-> +	const char *name;
-> +	const struct dimm_info *gen_info;
-> +	struct delayed_work detect_work;
-> +	struct {
-> +		struct peci_sensor_data temp;
-> +		struct peci_dimm_thresholds thresholds;
-> +	} dimm[DIMM_NUMS_MAX];
-> +	char **dimmtemp_label;
-> +	DECLARE_BITMAP(dimm_mask, DIMM_NUMS_MAX);
-> +};
-> +
-> +static u8 __dimm_temp(u32 reg, int dimm_order)
-> +{
-> +	return (reg >> (dimm_order * 8)) & 0xff;
-> +}
-> +
-> +static int get_dimm_temp(struct peci_dimmtemp *priv, int dimm_no, long *val)
-> +{
-> +	int dimm_order = dimm_no % priv->gen_info->dimm_idx_max;
-> +	int chan_rank = dimm_no / priv->gen_info->dimm_idx_max;
-> +	u32 data;
-> +	int ret;
-
-	int ret = 0;
-
-> +
-> +	mutex_lock(&priv->dimm[dimm_no].temp.state.lock);
-> +	if (!peci_sensor_need_update(&priv->dimm[dimm_no].temp.state))
-> +		goto skip_update;
-> +
-> +	ret = peci_pcs_read(priv->peci_dev, PECI_PCS_DDR_DIMM_TEMP, chan_rank, &data);
-> +	if (ret) {
-> +		mutex_unlock(&priv->dimm[dimm_no].temp.state.lock);
-> +		return ret;
-> +	}
-
-	if (ret)
-		goto unlock;
-
-> +
-> +	priv->dimm[dimm_no].temp.value = __dimm_temp(data, dimm_order) * MILLIDEGREE_PER_DEGREE;
-> +
-> +	peci_sensor_mark_updated(&priv->dimm[dimm_no].temp.state);
-> +
-> +skip_update:
-> +	*val = priv->dimm[dimm_no].temp.value;
-
-unlock:
-> +	mutex_unlock(&priv->dimm[dimm_no].temp.state.lock);
-> +	return 0;
-
-	return ret;
-
-> +}
-> +
-> +static int update_thresholds(struct peci_dimmtemp *priv, int dimm_no)
-> +{
-> +	int dimm_order = dimm_no % priv->gen_info->dimm_idx_max;
-> +	int chan_rank = dimm_no / priv->gen_info->dimm_idx_max;
-> +	u32 data;
-> +	int ret;
-> +
-> +	if (!peci_sensor_need_update(&priv->dimm[dimm_no].thresholds.state))
-> +		return 0;
-> +
-> +	ret = priv->gen_info->read_thresholds(priv, dimm_order, chan_rank, &data);
-> +	if (ret == -ENODATA) /* Use default or previous value */
-> +		return 0;
-> +	if (ret)
-> +		return ret;
-> +
-> +	priv->dimm[dimm_no].thresholds.temp_max = GET_TEMP_MAX(data) * MILLIDEGREE_PER_DEGREE;
-> +	priv->dimm[dimm_no].thresholds.temp_crit = GET_TEMP_CRIT(data) * MILLIDEGREE_PER_DEGREE;
-> +
-> +	peci_sensor_mark_updated(&priv->dimm[dimm_no].thresholds.state);
-> +
-> +	return 0;
-> +}
-> +
-> +static int get_dimm_thresholds(struct peci_dimmtemp *priv, enum peci_dimm_threshold_type type,
-> +			       int dimm_no, long *val)
-> +{
-> +	int ret;
-> +
-> +	mutex_lock(&priv->dimm[dimm_no].thresholds.state.lock);
-> +	ret = update_thresholds(priv, dimm_no);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	switch (type) {
-> +	case temp_max_type:
-> +		*val = priv->dimm[dimm_no].thresholds.temp_max;
-> +		break;
-> +	case temp_crit_type:
-> +		*val = priv->dimm[dimm_no].thresholds.temp_crit;
-> +		break;
-> +	default:
-> +		ret = -EOPNOTSUPP;
-> +		break;
-> +	}
-> +unlock:
-> +	mutex_unlock(&priv->dimm[dimm_no].thresholds.state.lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static int dimmtemp_read_string(struct device *dev,
-> +				enum hwmon_sensor_types type,
-> +				u32 attr, int channel, const char **str)
-> +{
-> +	struct peci_dimmtemp *priv = dev_get_drvdata(dev);
-> +
-> +	if (attr != hwmon_temp_label)
-> +		return -EOPNOTSUPP;
-> +
-> +	*str = (const char *)priv->dimmtemp_label[channel];
-> +
-> +	return 0;
-> +}
-> +
-> +static int dimmtemp_read(struct device *dev, enum hwmon_sensor_types type,
-> +			 u32 attr, int channel, long *val)
-> +{
-> +	struct peci_dimmtemp *priv = dev_get_drvdata(dev);
-> +
-> +	switch (attr) {
-> +	case hwmon_temp_input:
-> +		return get_dimm_temp(priv, channel, val);
-> +	case hwmon_temp_max:
-> +		return get_dimm_thresholds(priv, temp_max_type, channel, val);
-> +	case hwmon_temp_crit:
-> +		return get_dimm_thresholds(priv, temp_crit_type, channel, val);
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +static umode_t dimmtemp_is_visible(const void *data, enum hwmon_sensor_types type,
-> +				   u32 attr, int channel)
-> +{
-> +	const struct peci_dimmtemp *priv = data;
-> +
-> +	if (test_bit(channel, priv->dimm_mask))
-> +		return 0444;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct hwmon_ops peci_dimmtemp_ops = {
-> +	.is_visible = dimmtemp_is_visible,
-> +	.read_string = dimmtemp_read_string,
-> +	.read = dimmtemp_read,
-> +};
-> +
-> +static int check_populated_dimms(struct peci_dimmtemp *priv)
-> +{
-> +	int chan_rank_max = priv->gen_info->chan_rank_max;
-> +	int dimm_idx_max = priv->gen_info->dimm_idx_max;
-> +	u32 chan_rank_empty = 0;
-> +	u64 dimm_mask = 0;
-> +	int chan_rank, dimm_idx, ret;
-> +	u32 pcs;
-> +
-> +	BUILD_BUG_ON(CHAN_RANK_MAX > 32);
-> +	BUILD_BUG_ON(DIMM_NUMS_MAX > 64);
-
-I don't immediately see the value of those build bugs. What happens if
-CHAN_RANK_MAX > 32 or DIMM_NUMS_MAX > 64 ? Where do those limits come
-from ?
-
-> +	if (chan_rank_max * dimm_idx_max > DIMM_NUMS_MAX) {
-> +		WARN_ONCE(1, "Unsupported number of DIMMs");
-
-Maybe display the values (chan_rank_max and dimm_idx_max).
-
-> +		return -EINVAL;
-> +	}
-> +
-> +	for (chan_rank = 0; chan_rank < chan_rank_max; chan_rank++) {
-> +		ret = peci_pcs_read(priv->peci_dev, PECI_PCS_DDR_DIMM_TEMP, chan_rank, &pcs);
-> +		if (ret) {
-> +			/*
-> +			 * Overall, we expect either success or -EINVAL in
-> +			 * order to determine whether DIMM is populated or not.
-> +			 * For anything else - we fall back to defering the
-
-Why " - " ?
-
-> +			 * detection to be performed at a later point in time.
-> +			 */
-> +			if (ret == -EINVAL) {
-> +				chan_rank_empty |= BIT(chan_rank);
-> +				continue;
-> +			}
-> +
-> +			return -EAGAIN;
-> +		}
-> +
-> +		for (dimm_idx = 0; dimm_idx < dimm_idx_max; dimm_idx++)
-> +			if (__dimm_temp(pcs, dimm_idx))
-> +				dimm_mask |= BIT(chan_rank * dimm_idx_max + dimm_idx);
-> +	}
-> +
-> +	/* If we got all -EINVALs, it means that the CPU doesn't have any DIMMs. */
-> +	if (chan_rank_empty == GENMASK(chan_rank_max - 1, 0))
-> +		return -ENODEV;
-> +
-> +	/*
-> +	 * It's possible that memory training is not done yet. In this case we
-> +	 * defer the detection to be performed at a later point in time.
-> +	 */
-> +	if (!dimm_mask)
-> +		return -EAGAIN;
-> +
-> +	dev_dbg(priv->dev, "Scanned populated DIMMs: %#llx\n", dimm_mask);
-> +
-> +	bitmap_from_u64(priv->dimm_mask, dimm_mask);
-> +
-> +	return 0;
-> +}
-> +
-> +static int create_dimm_temp_label(struct peci_dimmtemp *priv, int chan)
-> +{
-> +	int rank = chan / priv->gen_info->dimm_idx_max;
-> +	int idx = chan % priv->gen_info->dimm_idx_max;
-> +
-> +	priv->dimmtemp_label[chan] = devm_kasprintf(priv->dev, GFP_KERNEL,
-> +						    "DIMM %c%d", 'A' + rank,
-> +						    idx + 1);
-> +	if (!priv->dimmtemp_label[chan])
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-> +static const u32 peci_dimmtemp_temp_channel_config[] = {
-> +	[0 ... DIMM_NUMS_MAX - 1] = HWMON_T_LABEL | HWMON_T_INPUT | HWMON_T_MAX | HWMON_T_CRIT,
-> +	0
-> +};
-> +
-> +static const struct hwmon_channel_info peci_dimmtemp_temp_channel = {
-> +	.type = hwmon_temp,
-> +	.config = peci_dimmtemp_temp_channel_config,
-> +};
-> +
-> +static const struct hwmon_channel_info *peci_dimmtemp_temp_info[] = {
-> +	&peci_dimmtemp_temp_channel,
-> +	NULL
-> +};
-> +
-> +static const struct hwmon_chip_info peci_dimmtemp_chip_info = {
-> +	.ops = &peci_dimmtemp_ops,
-> +	.info = peci_dimmtemp_temp_info,
-> +};
-> +
-> +static int create_dimm_temp_info(struct peci_dimmtemp *priv)
-> +{
-> +	int ret, i, channels;
-> +	struct device *dev;
-> +
-> +	/*
-> +	 * We expect to either find populated DIMMs and carry on with creating
-> +	 * sensors, or find out that there are no DIMMs populated.
-> +	 * All other states mean that the platform never reached the state that
-> +	 * allows to check DIMM state - causing us to retry later on.
-> +	 */
-> +	ret = check_populated_dimms(priv);
-> +	if (ret == -ENODEV) {
-> +		dev_dbg(priv->dev, "No DIMMs found\n");
-> +		return 0;
-> +	} else if (ret) {
-> +		schedule_delayed_work(&priv->detect_work, DIMM_MASK_CHECK_DELAY_JIFFIES);
-> +		dev_dbg(priv->dev, "Deferred populating DIMM temp info\n");
-> +		return ret;
-> +	}
-> +
-> +	channels = priv->gen_info->chan_rank_max * priv->gen_info->dimm_idx_max;
-> +
-> +	priv->dimmtemp_label = devm_kzalloc(priv->dev, channels * sizeof(char *), GFP_KERNEL);
-> +	if (!priv->dimmtemp_label)
-> +		return -ENOMEM;
-> +
-> +	for_each_set_bit(i, priv->dimm_mask, DIMM_NUMS_MAX) {
-> +		ret = create_dimm_temp_label(priv, i);
-> +		if (ret)
-> +			return ret;
-> +		mutex_init(&priv->dimm[i].thresholds.state.lock);
-> +		mutex_init(&priv->dimm[i].temp.state.lock);
-> +	}
-> +
-> +	dev = devm_hwmon_device_register_with_info(priv->dev, priv->name, priv,
-> +						   &peci_dimmtemp_chip_info, NULL);
-> +	if (IS_ERR(dev)) {
-> +		dev_err(priv->dev, "Failed to register hwmon device\n");
-> +		return PTR_ERR(dev);
-> +	}
-> +
-> +	dev_dbg(priv->dev, "%s: sensor '%s'\n", dev_name(dev), priv->name);
-> +
-> +	return 0;
-> +}
-> +
-> +static void create_dimm_temp_info_delayed(struct work_struct *work)
-> +{
-> +	struct peci_dimmtemp *priv = container_of(to_delayed_work(work),
-> +						  struct peci_dimmtemp,
-> +						  detect_work);
-> +	int ret;
-> +
-> +	ret = create_dimm_temp_info(priv);
-> +	if (ret && ret != -EAGAIN)
-> +		dev_err(priv->dev, "Failed to populate DIMM temp info\n");
-> +}
-> +
-> +static void remove_delayed_work(void *_priv)
-> +{
-> +	struct peci_dimmtemp *priv = _priv;
-> +
-> +	cancel_delayed_work_sync(&priv->detect_work);
-> +}
-> +
-> +static int peci_dimmtemp_probe(struct auxiliary_device *adev, const struct auxiliary_device_id *id)
-> +{
-> +	struct device *dev = &adev->dev;
-> +	struct peci_device *peci_dev = to_peci_device(dev->parent);
-> +	struct peci_dimmtemp *priv;
-> +	int ret;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->name = devm_kasprintf(dev, GFP_KERNEL, "peci_dimmtemp.cpu%d",
-> +				    peci_dev->info.socket_id);
-> +	if (!priv->name)
-> +		return -ENOMEM;
-> +
-> +	priv->dev = dev;
-> +	priv->peci_dev = peci_dev;
-> +	priv->gen_info = (const struct dimm_info *)id->driver_data;
-> +
-> +	/*
-> +	 * This is just a sanity check. Since we're using commands that are
-> +	 * guaranteed to be supported on a given platform, we should never see
-> +	 * revision lower than expected.
-> +	 */
-> +	if (peci_dev->info.peci_revision < priv->gen_info->min_peci_revision)
-> +		dev_warn(priv->dev,
-> +			 "Unexpected PECI revision %#x, some features may be unavailable\n",
-> +			 peci_dev->info.peci_revision);
-> +
-> +	INIT_DELAYED_WORK(&priv->detect_work, create_dimm_temp_info_delayed);
-> +
-> +	ret = devm_add_action_or_reset(priv->dev, remove_delayed_work, priv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = create_dimm_temp_info(priv);
-> +	if (ret && ret != -EAGAIN) {
-> +		dev_err(dev, "Failed to populate DIMM temp info\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +read_thresholds_hsx(struct peci_dimmtemp *priv, int dimm_order, int chan_rank, u32 *data)
-> +{
-> +	u8 dev, func;
-> +	u16 reg;
-> +	int ret;
-> +
-> +	/*
-> +	 * Device 20, Function 0: IMC 0 channel 0 -> rank 0
-> +	 * Device 20, Function 1: IMC 0 channel 1 -> rank 1
-> +	 * Device 21, Function 0: IMC 0 channel 2 -> rank 2
-> +	 * Device 21, Function 1: IMC 0 channel 3 -> rank 3
-> +	 * Device 23, Function 0: IMC 1 channel 0 -> rank 4
-> +	 * Device 23, Function 1: IMC 1 channel 1 -> rank 5
-> +	 * Device 24, Function 0: IMC 1 channel 2 -> rank 6
-> +	 * Device 24, Function 1: IMC 1 channel 3 -> rank 7
-> +	 */
-> +	dev = 20 + chan_rank / 2 + chan_rank / 4;
-> +	func = chan_rank % 2;
-> +	reg = 0x120 + dimm_order * 4;
-> +
-> +	ret = peci_pci_local_read(priv->peci_dev, 1, dev, func, reg, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +read_thresholds_bdxd(struct peci_dimmtemp *priv, int dimm_order, int chan_rank, u32 *data)
-> +{
-> +	u8 dev, func;
-> +	u16 reg;
-> +	int ret;
-> +
-> +	/*
-> +	 * Device 10, Function 2: IMC 0 channel 0 -> rank 0
-> +	 * Device 10, Function 6: IMC 0 channel 1 -> rank 1
-> +	 * Device 12, Function 2: IMC 1 channel 0 -> rank 2
-> +	 * Device 12, Function 6: IMC 1 channel 1 -> rank 3
-> +	 */
-> +	dev = 10 + chan_rank / 2 * 2;
-> +	func = (chan_rank % 2) ? 6 : 2;
-> +	reg = 0x120 + dimm_order * 4;
-> +
-> +	ret = peci_pci_local_read(priv->peci_dev, 2, dev, func, reg, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +read_thresholds_skx(struct peci_dimmtemp *priv, int dimm_order, int chan_rank, u32 *data)
-> +{
-> +	u8 dev, func;
-> +	u16 reg;
-> +	int ret;
-> +
-> +	/*
-> +	 * Device 10, Function 2: IMC 0 channel 0 -> rank 0
-> +	 * Device 10, Function 6: IMC 0 channel 1 -> rank 1
-> +	 * Device 11, Function 2: IMC 0 channel 2 -> rank 2
-> +	 * Device 12, Function 2: IMC 1 channel 0 -> rank 3
-> +	 * Device 12, Function 6: IMC 1 channel 1 -> rank 4
-> +	 * Device 13, Function 2: IMC 1 channel 2 -> rank 5
-> +	 */
-> +	dev = 10 + chan_rank / 3 * 2 + (chan_rank % 3 == 2 ? 1 : 0);
-> +	func = chan_rank % 3 == 1 ? 6 : 2;
-> +	reg = 0x120 + dimm_order * 4;
-> +
-> +	ret = peci_pci_local_read(priv->peci_dev, 2, dev, func, reg, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int
-> +read_thresholds_icx(struct peci_dimmtemp *priv, int dimm_order, int chan_rank, u32 *data)
-> +{
-> +	u32 reg_val;
-> +	u64 offset;
-> +	int ret;
-> +	u8 dev;
-> +
-> +	ret = peci_ep_pci_local_read(priv->peci_dev, 0, 13, 0, 2, 0xd4, &reg_val);
-> +	if (ret || !(reg_val & BIT(31)))
-> +		return -ENODATA; /* Use default or previous value */
-> +
-> +	ret = peci_ep_pci_local_read(priv->peci_dev, 0, 13, 0, 2, 0xd0, &reg_val);
-> +	if (ret)
-> +		return -ENODATA; /* Use default or previous value */
-> +
-> +	/*
-> +	 * Device 26, Offset 224e0: IMC 0 channel 0 -> rank 0
-> +	 * Device 26, Offset 264e0: IMC 0 channel 1 -> rank 1
-> +	 * Device 27, Offset 224e0: IMC 1 channel 0 -> rank 2
-> +	 * Device 27, Offset 264e0: IMC 1 channel 1 -> rank 3
-> +	 * Device 28, Offset 224e0: IMC 2 channel 0 -> rank 4
-> +	 * Device 28, Offset 264e0: IMC 2 channel 1 -> rank 5
-> +	 * Device 29, Offset 224e0: IMC 3 channel 0 -> rank 6
-> +	 * Device 29, Offset 264e0: IMC 3 channel 1 -> rank 7
-> +	 */
-> +	dev = 26 + chan_rank / 2;
-> +	offset = 0x224e0 + dimm_order * 4 + (chan_rank % 2) * 0x4000;
-> +
-> +	ret = peci_mmio_read(priv->peci_dev, 0, GET_CPU_SEG(reg_val), GET_CPU_BUS(reg_val),
-> +			     dev, 0, offset, data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct dimm_info dimm_hsx = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_HSX,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_HSX,
-> +	.min_peci_revision = 0x33,
-> +	.read_thresholds = &read_thresholds_hsx,
-> +};
-> +
-> +static const struct dimm_info dimm_bdx = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_BDX,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_BDX,
-> +	.min_peci_revision = 0x33,
-> +	.read_thresholds = &read_thresholds_hsx,
-> +};
-> +
-> +static const struct dimm_info dimm_bdxd = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_BDXD,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_BDXD,
-> +	.min_peci_revision = 0x33,
-> +	.read_thresholds = &read_thresholds_bdxd,
-> +};
-> +
-> +static const struct dimm_info dimm_skx = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_SKX,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_SKX,
-> +	.min_peci_revision = 0x33,
-> +	.read_thresholds = &read_thresholds_skx,
-> +};
-> +
-> +static const struct dimm_info dimm_icx = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_ICX,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_ICX,
-> +	.min_peci_revision = 0x40,
-> +	.read_thresholds = &read_thresholds_icx,
-> +};
-> +
-> +static const struct dimm_info dimm_icxd = {
-> +	.chan_rank_max	= CHAN_RANK_MAX_ON_ICXD,
-> +	.dimm_idx_max	= DIMM_IDX_MAX_ON_ICXD,
-> +	.min_peci_revision = 0x40,
-> +	.read_thresholds = &read_thresholds_icx,
-> +};
-> +
-> +static const struct auxiliary_device_id peci_dimmtemp_ids[] = {
-> +	{
-> +		.name = "peci_cpu.dimmtemp.hsx",
-> +		.driver_data = (kernel_ulong_t)&dimm_hsx,
-> +	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.bdx",
-> +		.driver_data = (kernel_ulong_t)&dimm_bdx,
-> +	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.bdxd",
-> +		.driver_data = (kernel_ulong_t)&dimm_bdxd,
-> +	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.skx",
-> +		.driver_data = (kernel_ulong_t)&dimm_skx,
-> +	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.icx",
-> +		.driver_data = (kernel_ulong_t)&dimm_icx,
-> +	},
-> +	{
-> +		.name = "peci_cpu.dimmtemp.icxd",
-> +		.driver_data = (kernel_ulong_t)&dimm_icxd,
-> +	},
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(auxiliary, peci_dimmtemp_ids);
-> +
-> +static struct auxiliary_driver peci_dimmtemp_driver = {
-> +	.probe		= peci_dimmtemp_probe,
-> +	.id_table	= peci_dimmtemp_ids,
-> +};
-> +
-> +module_auxiliary_driver(peci_dimmtemp_driver);
-> +
-> +MODULE_AUTHOR("Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>");
-> +MODULE_AUTHOR("Iwona Winiarska <iwona.winiarska@intel.com>");
-> +MODULE_DESCRIPTION("PECI dimmtemp driver");
-> +MODULE_LICENSE("GPL");
-> +MODULE_IMPORT_NS(PECI_CPU);
+SGkgSWdvciwNCg0KQ3VycmVudGx5LCB0aGUgcmVtb3RlIHZpcnR1YWwgbWVkaWEgZW11bGF0ZSB0
+aGUgZ2FkZ2V0IGRyaXZlciBhcyB1c2IgdGh1bWIgZHJpdmUgaW5zdGVhZCBvZiBjZC1yb20uDQpQ
+bGVhc2UgaGF2ZSBhIGxvb2sgb24gbXkgcGF0Y2g6DQpodHRwczovL2dlcnJpdC5vcGVuYm1jLXBy
+b2plY3QueHl6L2Mvb3BlbmJtYy9vcGVuYm1jLysvNDI5ODYNCg0KVGhhbmtzLA0KVHJveSBMZWUN
+Cg0KLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCkZyb206IG9wZW5ibWMgPG9wZW5ibWMtYm91
+bmNlcyt0cm95X2xlZT1hc3BlZWR0ZWNoLmNvbUBsaXN0cy5vemxhYnMub3JnPiBPbiBCZWhhbGYg
+T2YgaS5rb25vbmVua28NClNlbnQ6IFR1ZXNkYXksIEF1Z3VzdCAzLCAyMDIxIDExOjQwIFBNDQpU
+bzogS29uc3RhbnRpbiBLbHVibmljaGtpbiA8a2l0c29rQHlhbmRleC10ZWFtLnJ1Pg0KQ2M6IG9w
+ZW5ibWNAbGlzdHMub3psYWJzLm9yZw0KU3ViamVjdDogUmU6IEluc3RhbGxpbmcgV2luZG93cyBT
+ZXJ2ZXIgMjAxOSBmcm9tIGEgcmVtb3RlbHkgbW91bnRlZCBJU08NCg0KT24gMDMuMDguMjAyMSAx
+ODoyMSwgS29uc3RhbnRpbiBLbHVibmljaGtpbiB3cm90ZToNCj4gV29ya3MgbGlrZSBhIGNoYXJt
+IHdpdGggYWxsIElTTyBJIGhhZCBvbiBoYW5kcywgdGhhbmsgeW91IQ0KDQpLb25zdGFudGluLA0K
+DQpQbGVhc2Ugbm90ZSwgSSBnb3QgZmVlZGJhY2sgZnJvbSBzb21lIGlzc3VlcyBhYm91dCB1c2lu
+ZyBDREZTIGltYWdlcy4NCkkgd29yayB0byBzb2x2ZSB0aGUgaXNzdWUgb2YgdXNpbmcgc3VjaCBJ
+U08gZm9ybWF0cy4NCg0KLS0gDQpCZXN0IHJlZ2FyZHMsDQoNCklnb3IgS29ub25lbmtvDQo=
