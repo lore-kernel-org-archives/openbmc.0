@@ -2,101 +2,58 @@ Return-Path: <SRS0=3uiW=M7=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+X-Spam-Status: No, score=-5.3 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,NICE_REPLY_A,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_SANE_1 autolearn=no autolearn_force=no
 	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FB4FC4338F
-	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 01:03:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6A876C4338F
+	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 07:11:05 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2101F60E09
-	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 01:03:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2101F60E09
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	by mail.kernel.org (Postfix) with ESMTPS id C6E1760EB2
+	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 07:11:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C6E1760EB2
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Gj1DB39Ngz3bWX
-	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 11:03:06 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=Fgj11x2w;
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=MViqgvMh;
-	dkim-atps=neutral
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Gj9Nj6K9qz3bmj
+	for <openbmc@archiver.kernel.org>; Sun,  8 Aug 2021 17:11:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=64.147.123.21;
- helo=wout5-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
- receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm2 header.b=Fgj11x2w; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=MViqgvMh; 
- dkim-atps=neutral
-Received: from wout5-smtp.messagingengine.com (wout5-smtp.messagingengine.com
- [64.147.123.21])
+ smtp.mailfrom=linux.alibaba.com (client-ip=115.124.30.131;
+ helo=out30-131.freemail.mail.aliyun.com;
+ envelope-from=guoheyi@linux.alibaba.com; receiver=<UNKNOWN>)
+Received: from out30-131.freemail.mail.aliyun.com
+ (out30-131.freemail.mail.aliyun.com [115.124.30.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Gj1Cd0kWRz2yy0
- for <openbmc@lists.ozlabs.org>; Sun,  8 Aug 2021 11:02:36 +1000 (AEST)
-Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
- by mailout.west.internal (Postfix) with ESMTP id D965832008FC
- for <openbmc@lists.ozlabs.org>; Sat,  7 Aug 2021 21:02:32 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute3.internal (MEProxy); Sat, 07 Aug 2021 21:02:32 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=ubejcTvXI6re4gKQ0jbgN5PgP8X
- 5yGc1uNidVkMEm4c=; b=Fgj11x2wsaTCYsi23lwfjtfLd2u4UL+ldMIm+aJYTqc
- 9KuaBMm8Er9pYnypnIYl5qDDi+s6rYQVh49Id3e3nIZHkJOSn8G4/ci6fTKmKKCe
- b5C5EZVSZYfnisvOy7/6kHQNr+72Tz4+NZudh164sPlJirldh2L8dPCmFsdzscMB
- HMzCrd49XZvOzVnJf79MZKnXcTMHdRepYqm6Nb4c6W/SVX41YV1yLKqqoPsqrNHA
- 285MJcOmFHS4Ch867GVKaj4N2mDxIaiaEDCMPCDUG/vNOWfGFz/1kgfpOs4KPkYV
- 55/TsaT540o9ARwHUfTLS+zwzdWqefohJ//jc0jyNyw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ubejcT
- vXI6re4gKQ0jbgN5PgP8X5yGc1uNidVkMEm4c=; b=MViqgvMh626Nubl+m3xiPg
- ihIrF/xV5nSaNWwoBHA5OiaP3isFXB53u3tzAqf416VubJ+f5QOpSozy1GmCBle4
- g6etPjuZx/YTwTHkXLgFHiCZEUMGWDfa/Xhxa2hodywu5Z6wDUX5wdRcg9DfxBi/
- VCGvU4M95pVVG3vs7+Sqvpa+4stmIIyU2oELaffpLIX4hCH7CWLhk43ZD4eBx+P/
- dmCktQgrFNFvWdObUpPpeg3JNewMfSmkTvWpUt25VybGCuz7lk4wEB/ekiIqmuKB
- SzgRbJvjNNXGxAfb1Q7c/kS0jfkxo270rkMlwT/QeZTN4WU9zcWtBGja8q4PrDLQ
- ==
-X-ME-Sender: <xms:KC0PYccow3cqt7qxJ1X0WKNfYtxMa1vF5y2uYDBCeyZuxIGa5jniAg>
- <xme:KC0PYeNCJcaHc0xCFGN6EdAfPEZ1INsl-w56KMrMgIeFIcD7qYxS6mkMh8OJvJ2eN
- MUgSipI0L7rz0XxYfo>
-X-ME-Received: <xmr:KC0PYdjEmVIshq7uFYp50RbZOLP1yQEBLpGckDndJcPFftEdYRD_broA-L4jDW9-cWjHSF4dRBnCmFXoRO9bOulNfFIb-voqo6lAJM5pbMe1nQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrjeeggddvlecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenfg
- hrlhcuvffnffculdefhedmnecujfgurhepfffhvffukfhfgggtuggjsehgtderredttddv
- necuhfhrohhmpefrrghtrhhitghkucghihhllhhirghmshcuoehprghtrhhitghksehsth
- iftgigrdighiiiqeenucggtffrrghtthgvrhhnpeduffdvjeefteeiuefhgfektdeiuedt
- heekgeelueffieegffeggeegleeltdeiueenucffohhmrghinhephihotghtohhprhhojh
- gvtghtrdhorhhgnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
- rhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:KC0PYR9MVl4lK3fzM_13ZAq0q8qR0STR_uZ-suqWOfPYgKTmQlhg3g>
- <xmx:KC0PYYsH-v14kLGn2GvEoPx0AOOqDUdjMUK0iEbwqwdgzxi3EzMg-w>
- <xmx:KC0PYYG0RsX3MfhWO63f7gXozyaJngy34m9Yp4gC76T3Vt6YDo5HjQ>
- <xmx:KC0PYR7P68YDOoWh0x8S6AznIhOLh05kFH1Jpf-U8NDkyi_MPIPjVg>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA for
- <openbmc@lists.ozlabs.org>; Sat, 7 Aug 2021 21:02:31 -0400 (EDT)
-Date: Sat, 7 Aug 2021 20:02:30 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: OpenBMC List <openbmc@lists.ozlabs.org>
-Subject: Re: Yocto override syntax change.
-Message-ID: <YQ8tJueJyk+fXr39@heinlein>
-References: <YQ1FD5q8KbhbXVBK@heinlein>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Gj9NJ0c7cz309j
+ for <openbmc@lists.ozlabs.org>; Sun,  8 Aug 2021 17:10:37 +1000 (AEST)
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R381e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04426; MF=guoheyi@linux.alibaba.com;
+ NM=1; PH=DS; RN=10; SR=0; TI=SMTPD_---0UiHsV0k_1628406618; 
+Received: from B-G4TALVDL-1650.local(mailfrom:guoheyi@linux.alibaba.com
+ fp:SMTPD_---0UiHsV0k_1628406618) by smtp.aliyun-inc.com(127.0.0.1);
+ Sun, 08 Aug 2021 15:10:19 +0800
+Subject: Re: Question about NVMe MCTP in dbus-sensors
+To: Jeremy Kerr <jk@codeconstruct.com.au>, Andrew Jeffery <andrew@aj.id.au>,
+ openbmc <openbmc@lists.ozlabs.org>
+References: <6fa87e93-863e-94a6-651f-8d6126557553@linux.alibaba.com>
+ <863f7fca-7088-450e-a855-92261ba56b9d@www.fastmail.com>
+ <30416e46-2e6d-c878-4c7d-943aa1119c0e@linux.alibaba.com>
+ <556ea2925e85d84f296211cce9ef3572647e9e80.camel@codeconstruct.com.au>
+From: Heyi Guo <guoheyi@linux.alibaba.com>
+Message-ID: <debba2ae-88c0-c133-328a-92fe4c2b1d09@linux.alibaba.com>
+Date: Sun, 8 Aug 2021 15:10:18 +0800
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
+ Gecko/20100101 Thunderbird/78.12.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="pmRP6NIJBqT7X+HS"
-Content-Disposition: inline
-In-Reply-To: <YQ1FD5q8KbhbXVBK@heinlein>
+In-Reply-To: <556ea2925e85d84f296211cce9ef3572647e9e80.camel@codeconstruct.com.au>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,78 +65,45 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Zhikui Ren <zhikui.ren@intel.com>,
+ Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, "Winiarska,
+ Iwona" <iwona.winiarska@intel.com>,
+ Vernon Mauery <vernon.mauery@linux.intel.com>, Ed Tanous <ed@tanous.net>,
+ "Thomaiyar, Richard Marian" <richard.marian.thomaiyar@linux.intel.com>,
+ "sumanth.bhat@linux.intel.com" <sumanth.bhat@linux.intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
 
---pmRP6NIJBqT7X+HS
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 2021/8/6 下午5:46, Jeremy Kerr wrote:
+> Hi Heyi,
+>
+>> BTW, when will MCTP be ready in openbmc mainline, including SMBus
+>> binding and PCIe binding? Do you have any plan in the future openbmc
+>> release?
+> We're mostly working on the generic infrastructure components at the
+> moment; those are based on their relevant upstream projects rather than
+> as parts of OpenBMC specifically. However, the upstream work is going
+> well, and the OpenBMC integration shouldn't be too difficult there;
+> we'll get that done as necessary.
+>
+> As for interfaces: I currently have i2c and serial transports working,
+> but have no specific plans for PCIe - no hardware to test on. If this
+> is something you'd be interested in working on yourself, I can provide
+> some pointers.
 
-On Fri, Aug 06, 2021 at 09:19:59AM -0500, Patrick Williams wrote:
+Yes, we are both interested in SMBus binding and PCIe VDM binding, and 
+we have supporting hardware platforms (servers with Aspeed 2600 as BMC).
 
-A few more discoveries.
+It's my pleasure to make contribution to the community :)
 
-1. LAYERSERIES_COMPAT and BBFILE_PATTERN syntax still has an underscore.
+Thanks,
 
-    LAYERSERIES_COMPAT_phosphor-layer <-- correct
-    LAYERSERIES_COMPAT:phosphor-layer <-- incorrect.
+Heyi
 
-    If you were a little too aggressive at making this change (like me) you=
- can
-    fix it with:
-
-    $ git grep -l "LAYERSERIES_COMPAT:" meta-facebook | xargs sed -i 's/LAY=
-ERSERIES_COMPAT:/LAYERSERIES_COMPAT_/'
-    $ git grep -l "BBFILE_PATTERN:" meta-facebook | xargs sed -i 's/BBFILE_=
-PATTERN:/BBFILE_PATTERN_/'
-
-2. local.conf.sample has changed slightly and CONF_VERSION needs to be
-   incremented.  The suggestion from upstream is to use your favorite
-   diff-editor to compare the two such as:
-
-   $ vimdiff ./poky/meta-poky/conf/local.conf.sample meta-facebook/meta-tio=
-gapass/conf/local.conf.sample
-
-   Except that we don't have this file updated until we do the subtree pull=
-, so
-   in the meantime you could compare against this version (use wget/curl):
-
-   http://git.yoctoproject.org/cgit/cgit.cgi/poky/plain/meta-poky/conf/loca=
-l.conf.sample
-
-3. LAYERSERIES_COMPAT will need "honister" added since that is the next Yoc=
-to
-   release after hardknott.
-
-   Potential fixup:
-
-   $ git grep -l "LAYERSERIES_COMPAT_" meta-facebook | xargs sed -i 's/hard=
-knott"/hardknott honister"/'
-
---=20
-Patrick Williams
-
---pmRP6NIJBqT7X+HS
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmEPLSQACgkQqwNHzC0A
-wRnc6xAAqD5rkCrtkBssOWy92vZmP6lHNHnnTly+ODECDshT1ClQT+2iDybmFBrR
-boEftdGokFnqmsKG3kAil1Qk1OQMu1BslAlIYuCV6voVvrWFC4f0S12Nai/5dABK
-wQZAcr4rEbIixj0FyDVAXG7qg+pz+ySqjMF4Beex3+KWtMbSObiNZyaAxBZVJ2FU
-4O+AaKqIUXPGfQIDl3l7yHvZtj4eaJle/cijeH2vOakAvSiPFeFHdo+5qCJKkxLN
-MCl82pBeU9jmoIErs/GvyLE3fn4ndQpPIeuRVTxoDk6uLv9xvklk0FSiYzK/sKLa
-oJ0XSRDBk4T4OA2qc5YKHBMIsy77CvTYaV7+WrIJUYWw7Afk9G+pj1MmEDOODibZ
-aXrHCawk7YGtPsQisGfEEGwWbFNsUwHstLSKLn53BgD7YHscIN7ytTqL4I9WmEeU
-/D/w+OQp+ihJRekCm7F/bkvQc+JUeXCzeKo1rJHJKFts1BQV/OpgzjpzeGlt13VC
-iWJaKN5lzIj0kKAsvFgXgKtUIcFApWm7hDfeH2yhsA8WkFd1WyZtCdndyQtPZYz+
-fkfbd72FEY8JAJ0j0oS/U+YffD0Jgw0mk+FqN7x/LT2gJSfms61eKsi8aEwcXsPZ
-t6vh+PUMq0mZX4/NEWj+/fvtuETqM/o/J84EN8ApUaPB/b5qrFg=
-=L4Lt
------END PGP SIGNATURE-----
-
---pmRP6NIJBqT7X+HS--
+>
+> Regards,
+>
+>
+> Jeremy
