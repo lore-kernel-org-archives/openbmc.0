@@ -2,59 +2,59 @@ Return-Path: <SRS0=x2GU=NB=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 63DBBC4338F
-	for <openbmc@archiver.kernel.org>; Tue, 10 Aug 2021 15:36:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5A48DC4338F
+	for <openbmc@archiver.kernel.org>; Tue, 10 Aug 2021 15:36:49 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id EE99760720
-	for <openbmc@archiver.kernel.org>; Tue, 10 Aug 2021 15:36:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org EE99760720
+	by mail.kernel.org (Postfix) with ESMTPS id DC9F660D07
+	for <openbmc@archiver.kernel.org>; Tue, 10 Aug 2021 15:36:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DC9F660D07
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GkcVd4ZyTz2xvf
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 01:36:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GkcWM3LqHz30Kv
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 01:36:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=XKb/AQsB;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=X2Z++hTE;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
  envelope-from=i.mikhaylov@yadro.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=XKb/AQsB; dkim-atps=neutral
+ header.s=mta-01 header.b=X2Z++hTE; dkim-atps=neutral
 Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GkcT64Y7kz307n
- for <openbmc@lists.ozlabs.org>; Wed, 11 Aug 2021 01:34:50 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GkcT72tmLz307n
+ for <openbmc@lists.ozlabs.org>; Wed, 11 Aug 2021 01:34:51 +1000 (AEST)
 Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id 1111E48A6C;
- Tue, 10 Aug 2021 15:34:44 +0000 (UTC)
+ by mta-01.yadro.com (Postfix) with ESMTP id 7CE58412DE;
+ Tue, 10 Aug 2021 15:34:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
  content-type:content-type:content-transfer-encoding:mime-version
- :x-mailer:message-id:date:date:subject:subject:from:from
- :received:received:received; s=mta-01; t=1628609683; x=
- 1630424084; bh=Cpz7STHdgDcx3h44+KtoM9BhcJjIzj3viQKNuLSI1cs=; b=X
- Kb/AQsBBfPD0Pkqdh5iCA3r0zmuSIPy595R9OYg6sBm72D7PkwtMLjefJhqvJWVT
- rBCcJg3bvxCYc5M9+NrjbWn/JP2TxGaF8w9EK+uzPFKywxo3U9kyYe0e4AoF5/Vl
- gyCko+Z3ZSAsHvi4MspDWDnO3m8J77nLcggwMYugA8=
+ :references:in-reply-to:x-mailer:message-id:date:date:subject
+ :subject:from:from:received:received:received; s=mta-01; t=
+ 1628609684; x=1630424085; bh=BRiyzJ6ERUdHZZPZotHcTYGai20iWJt8gC8
+ cOR8wUgg=; b=X2Z++hTE9b7pltR+jTs4c8ewKRpYFXZYM2b81F2LoaPRYFZ8+ay
+ xJ5DmlLYDFi7E6la34/Lz3Eqm3tdMhqvZ9vFmlDiw/W7hn7E1Ll5CC1/jeX0XcS/
+ q5prKlVbB4R7g/kyKOq6DG1lnWdq4oNj6Q2sGNEp8+43Saz6wwBRL+og=
 X-Virus-Scanned: amavisd-new at yadro.com
 Received: from mta-01.yadro.com ([127.0.0.1])
  by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id QSU6vnUXcWCo; Tue, 10 Aug 2021 18:34:43 +0300 (MSK)
+ with ESMTP id nb1N5h8pMOw3; Tue, 10 Aug 2021 18:34:44 +0300 (MSK)
 Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
  [172.17.100.104])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
  (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 3771A46796;
- Tue, 10 Aug 2021 18:34:40 +0300 (MSK)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 140CC412DF;
+ Tue, 10 Aug 2021 18:34:43 +0300 (MSK)
 Received: from fedora.bbmc.yadro.com (10.199.0.188) by
  T-EXCH-04.corp.yadro.com (172.17.100.104) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id
@@ -62,10 +62,12 @@ Received: from fedora.bbmc.yadro.com (10.199.0.188) by
 From: Ivan Mikhaylov <i.mikhaylov@yadro.com>
 To: Alessandro Zummo <a.zummo@towertech.it>, Alexandre Belloni
  <alexandre.belloni@bootlin.com>
-Subject: [PATCH 0/2] rtc: pch-rtc: add Intel Series PCH built-in read-only RTC
-Date: Tue, 10 Aug 2021 18:44:34 +0300
-Message-ID: <20210810154436.125678-1-i.mikhaylov@yadro.com>
+Subject: [PATCH 2/2] dt-bindings: rtc: provide RTC PCH device tree binding doc
+Date: Tue, 10 Aug 2021 18:44:36 +0300
+Message-ID: <20210810154436.125678-3-i.mikhaylov@yadro.com>
 X-Mailer: git-send-email 2.31.1
+In-Reply-To: <20210810154436.125678-1-i.mikhaylov@yadro.com>
+References: <20210810154436.125678-1-i.mikhaylov@yadro.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -89,23 +91,59 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add RTC driver with dt binding tree document. Also this driver adds one sysfs
-attribute for host power control which I think is odd for RTC driver.
-Need I cut it off and use I2C_SLAVE_FORCE? I2C_SLAVE_FORCE is not good
-way too from my point of view. Is there any better approach?
+Add I2C Intel Series PCH built-in read-only RTC driver documentation.
 
-Ivan Mikhaylov (2):
-  rtc: pch-rtc: add RTC driver for Intel Series PCH
-  dt-bindings: rtc: provide RTC PCH device tree binding doc
-
- .../bindings/rtc/intel,pch-rtc.yaml           |  39 +++++
- drivers/rtc/Kconfig                           |  10 ++
- drivers/rtc/Makefile                          |   1 +
- drivers/rtc/rtc-pch.c                         | 148 ++++++++++++++++++
- 4 files changed, 198 insertions(+)
+Signed-off-by: Ivan Mikhaylov <i.mikhaylov@yadro.com>
+---
+ .../bindings/rtc/intel,pch-rtc.yaml           | 39 +++++++++++++++++++
+ 1 file changed, 39 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/rtc/intel,pch-rtc.yaml
- create mode 100644 drivers/rtc/rtc-pch.c
 
+diff --git a/Documentation/devicetree/bindings/rtc/intel,pch-rtc.yaml b/Documentation/devicetree/bindings/rtc/intel,pch-rtc.yaml
+new file mode 100644
+index 000000000000..f49867257f93
+--- /dev/null
++++ b/Documentation/devicetree/bindings/rtc/intel,pch-rtc.yaml
+@@ -0,0 +1,39 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/rtc/intel,pch-rtc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Intel Series PCH built-in read-only RTC
++
++maintainers:
++  - Ivan Mikhaylov <i.mikhaylov@yadro.com>
++
++allOf:
++  - $ref: rtc.yaml#
++
++properties:
++  compatible:
++    enum:
++      - intel,pch-rtc
++
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++additionalProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        rtc@0 {
++            compatible = "intel,pch-rtc";
++            reg = <0x44>;
++        };
++    };
 -- 
 2.31.1
 
