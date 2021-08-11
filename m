@@ -4,102 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 21B7FC4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id EB593C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:53:42 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A796060E97
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:52:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A796060E97
+	by mail.kernel.org (Postfix) with ESMTPS id 80BBC60F46
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:53:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 80BBC60F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDqC6spCz3002
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:52:39 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDrN5jN0z2yyf
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:53:40 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=piveu8Wj;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=SEvKUhsT;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=piveu8Wj; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ header.s=pp1 header.b=SEvKUhsT; dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbp5p5dz30KN
- for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:46 +1000 (AEST)
-Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFY6S4118413; Wed, 11 Aug 2021 11:42:38 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDc35jN0z3bNm
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:59 +1000 (AEST)
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17BFXx9e132650; Wed, 11 Aug 2021 11:42:57 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=92nLnKl98FZ+iXmxqKs2ZXjmagaOi04ZGtvuVBRuUic=;
- b=piveu8WjjVLd6t/9E0kc/Dr2hBlYGjC9S1Lntw93ucdnI+XOPVZnaOeXtPxzDhMKRLhr
- bo9svAhbOvFT4KmnKNV1Ge5C+zjHu1Bhh/nxFj25sSgboPPpTq00XtfBtQKnvIfcLCY/
- r7IVcLLf5J/ANhcLFjuyKetqyHRbIuicpdUW7+L2Rbat859TUvp8uQ+DN6KlAfRLOn27
- AdnYpglpaKybKKAvvnhSePdVLpNSDtSlq17/Vb+wtHvOWjVMqEB3aFr2QZQNj2Tdk8dL
- rZjQyvkljYOo6F6zGBpvqU7daSSI7ebOD2rlvi8MBGPoqeiPpJss1xLiIQDh8rcE9Z1v Ww== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3abt14mgpj-1
+ bh=DKGz+00+xXVy7WcRP8tY9JXtDZ86yHpkHtprekw5byg=;
+ b=SEvKUhsTZZEsSUeauXufVIHq3T4P+d8SpLaJWDmqRome+7v3neG/s3VH/sw6OQvBLa+j
+ hoCqKhtIQ1/0we6Tam7rz0PgUCncOQDblKU51x+lSE1REpdB/WrJj3V7QHOp4qc7BrKn
+ oHbLwyQBOCO/3diOu5N0IT55b1z0O1tsX+c0fkl/2aU/6qwrRI7yl1MXCpFRSj8PPPnc
+ vvzPXRQXRuf3yiNiX5XplLCu9aXNxE5i/DAKdDMKq+/30Cs1QsFL0TUJynuMufkZWqbJ
+ 7Rvi/VNF46Ual4/kV2wWstJrkYnCxdDRLGokRO/RIOAUCieohi9suBkfD1w7j3YFOF+h Zw== 
+Received: from ppma01dal.us.ibm.com (83.d6.3fa9.ip4.static.sl-reverse.com
+ [169.63.214.131])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3abt97tsr7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 11:42:38 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFYtxl019489;
- Wed, 11 Aug 2021 15:42:37 GMT
-Received: from b03cxnp08028.gho.boulder.ibm.com
- (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
- by ppma02dal.us.ibm.com with ESMTP id 3a9hteyt2a-1
+ Wed, 11 Aug 2021 11:42:57 -0400
+Received: from pps.filterd (ppma01dal.us.ibm.com [127.0.0.1])
+ by ppma01dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFgixg005501;
+ Wed, 11 Aug 2021 15:42:56 GMT
+Received: from b03cxnp07029.gho.boulder.ibm.com
+ (b03cxnp07029.gho.boulder.ibm.com [9.17.130.16])
+ by ppma01dal.us.ibm.com with ESMTP id 3ab3yab7wr-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 15:42:37 +0000
+ Wed, 11 Aug 2021 15:42:51 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgaMM36307346
+ by b03cxnp07029.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17BFgcZa30081362
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 11 Aug 2021 15:42:36 GMT
+ Wed, 11 Aug 2021 15:42:38 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 019206A051;
- Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id F1DE86A051;
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C31286A05A;
- Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id BFC4B6A04D;
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 06/14] pmbus: (max31785) Add a local
- pmbus_set_page() implementation
-Date: Wed, 11 Aug 2021 10:42:24 -0500
-Message-Id: <20210811154232.12649-7-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 13/14] fsi: occ: Add dynamic debug to dump
+ command and response
+Date: Wed, 11 Aug 2021 10:42:31 -0500
+Message-Id: <20210811154232.12649-14-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: Os1jcGXVTQey9WUAQfjKX0wHOIYXjxCD
-X-Proofpoint-GUID: Os1jcGXVTQey9WUAQfjKX0wHOIYXjxCD
+X-Proofpoint-ORIG-GUID: g6DCkdhq0KZUEG5qahf2OSqVIij36Eap
+X-Proofpoint-GUID: g6DCkdhq0KZUEG5qahf2OSqVIij36Eap
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- mlxscore=0 impostorscore=0
- phishscore=0 malwarescore=0 adultscore=0 suspectscore=0 lowpriorityscore=0
- spamscore=0 mlxlogscore=999 clxscore=1015 bulkscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
- definitions=main-2108110104
+ phishscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 mlxlogscore=999 malwarescore=0
+ mlxscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,108 +111,88 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Jeffery <andrew@aj.id.au>
+Use the dynamic branching capability of the dynamic debug subsystem
+to dump the command and response with the correct OCC device name.
 
-Extensive testing and tracing has shown that the MAX31785 is unreliable
-in the face of PAGE write commands, ACK'ing the PAGE request but
-reporting a value of 0 on some subsequent PAGE reads. The trace data
-suggests that a one-shot retry of the PAGE write is enough to get the
-requested value to stick.
-
-As we configure the device before registering with the PMBus core,
-centralise PAGE handling inside the driver and implement the one-shot
-retry semantics there.
-
-OpenBMC-Staging-Count: 1
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
-Signed-off-by: Joel Stanley <joel@jms.id.au>
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/hwmon/pmbus/max31785.c | 32 ++++++++++++++++++++++++++------
- 1 file changed, 26 insertions(+), 6 deletions(-)
+ drivers/fsi/fsi-occ.c | 44 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
 
-diff --git a/drivers/hwmon/pmbus/max31785.c b/drivers/hwmon/pmbus/max31785.c
-index d097f72d4d47..7518fff356f9 100644
---- a/drivers/hwmon/pmbus/max31785.c
-+++ b/drivers/hwmon/pmbus/max31785.c
-@@ -362,6 +362,27 @@ static int max31785_write_word_data(struct i2c_client *client, int page,
- 	return -ENXIO;
- }
+diff --git a/drivers/fsi/fsi-occ.c b/drivers/fsi/fsi-occ.c
+index 90795325b7d9..b0c9322078a1 100644
+--- a/drivers/fsi/fsi-occ.c
++++ b/drivers/fsi/fsi-occ.c
+@@ -21,6 +21,15 @@
+ #include <linux/uaccess.h>
+ #include <asm/unaligned.h>
  
-+static int max31785_pmbus_set_page(struct i2c_client *client, int page)
-+{
-+	int ret;
-+	int i;
++#if !defined(CONFIG_DYNAMIC_DEBUG_CORE)
++#define DEFINE_DYNAMIC_DEBUG_METADATA(name, fmt)
++#if defined(DEBUG)
++#define DYNAMIC_DEBUG_BRANCH(descriptor) true
++#else /* DEBUG */
++#define DYNAMIC_DEBUG_BRANCH(descriptor) false
++#endif /* DEBUG */
++#endif /* CONFIG_DYNAMIC_DEBUG_CORE */
 +
-+	for (i = 0; i < 2; i++) {
-+		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+		if (ret < 0)
-+			return ret;
+ #define OCC_SRAM_BYTES		4096
+ #define OCC_CMD_DATA_BYTES	4090
+ #define OCC_RESP_DATA_BYTES	4089
+@@ -359,6 +368,20 @@ static int occ_putsram(struct occ *occ, const void *data, ssize_t len,
+ 	byte_buf[len - 2] = checksum >> 8;
+ 	byte_buf[len - 1] = checksum & 0xff;
+ 
++	{
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_cmd, "OCC command");
 +
-+		ret = max31785_i2c_smbus_read_byte_data(client, PMBUS_PAGE);
-+		if (ret < 0)
-+			return ret;
++		if (DYNAMIC_DEBUG_BRANCH(ddm_occ_cmd)) {
++			char prefix[64];
 +
-+		if (ret == page)
-+			return 0;
++			snprintf(prefix, sizeof(prefix), "%s %s: cmd ",
++				 dev_driver_string(occ->dev),
++				 dev_name(occ->dev));
++			print_hex_dump(KERN_DEBUG, prefix, DUMP_PREFIX_OFFSET,
++				       16, 4, byte_buf, len, false);
++		}
 +	}
 +
-+	return -EIO;
-+}
+ 	rc = sbefifo_submit(occ->sbefifo, buf, cmd_len, buf, &resp_len);
+ 	if (rc)
+ 		goto free;
+@@ -556,6 +579,27 @@ int fsi_occ_submit(struct device *dev, const void *request, size_t req_len,
+ 	}
+ 
+ 	*resp_len = resp_data_length + 7;
 +
- /*
-  * Returns negative error codes if an unrecoverable problem is detected, 0 if a
-  * recoverable problem is detected, or a positive value on success.
-@@ -392,7 +413,7 @@ static int max31785_of_fan_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
++	{
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_rsp,
++					      "OCC response");
++		DEFINE_DYNAMIC_DEBUG_METADATA(ddm_occ_full_rsp,
++					      "OCC full response");
++
++		if (DYNAMIC_DEBUG_BRANCH(ddm_occ_full_rsp) ||
++		    DYNAMIC_DEBUG_BRANCH(ddm_occ_rsp)) {
++			char prefix[64];
++			size_t l = DYNAMIC_DEBUG_BRANCH(ddm_occ_full_rsp) ?
++				*resp_len : 16;
++
++			snprintf(prefix, sizeof(prefix), "%s %s: rsp ",
++				 dev_driver_string(occ->dev),
++				 dev_name(occ->dev));
++			print_hex_dump(KERN_DEBUG, prefix, DUMP_PREFIX_OFFSET,
++				       16, 4, resp, l, false);
++		}
++	}
++
+ 	rc = occ_verify_checksum(occ, resp, resp_data_length);
  
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = max31785_pmbus_set_page(client, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -599,7 +620,7 @@ static int max31785_of_tmp_config(struct i2c_client *client,
- 		return -ENXIO;
- 	}
- 
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
-+	ret = max31785_pmbus_set_page(client, page);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -700,7 +721,7 @@ static int max31785_configure_dual_tach(struct i2c_client *client,
- 	int i;
- 
- 	for (i = 0; i < MAX31785_NR_FAN_PAGES; i++) {
--		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, i);
-+		ret = max31785_pmbus_set_page(client, i);
- 		if (ret < 0)
- 			return ret;
- 
-@@ -741,7 +762,7 @@ static int max31785_probe(struct i2c_client *client)
- 
- 	*info = max31785_info;
- 
--	ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE, 255);
-+	ret = max31785_pmbus_set_page(client, 255);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -785,8 +806,7 @@ static int max31785_probe(struct i2c_client *client)
- 		if (!have_fan || fan_configured)
- 			continue;
- 
--		ret = max31785_i2c_smbus_write_byte_data(client, PMBUS_PAGE,
--							 i);
-+		ret = max31785_pmbus_set_page(client, i);
- 		if (ret < 0)
- 			return ret;
- 
+  done:
 -- 
 2.27.0
 
