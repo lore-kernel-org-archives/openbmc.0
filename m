@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A326CC4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:47:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 175EEC4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:48:03 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id F1D9E60E97
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:47:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org F1D9E60E97
+	by mail.kernel.org (Postfix) with ESMTPS id 7BA6B60F46
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:48:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7BA6B60F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDj51XX9z308v
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:47:21 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDjr4Zbyz2xvc
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:48:00 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=RkzDLZU/;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ZwcWV3tc;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,68 +29,68 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=RkzDLZU/; dkim-atps=neutral
+ header.s=pp1 header.b=ZwcWV3tc; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl5LM2z3019
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl5SJ6z301B
  for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:42 +1000 (AEST)
 Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFXsZM129624; Wed, 11 Aug 2021 11:42:39 -0400
+ 17BFY37r132441; Wed, 11 Aug 2021 11:42:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=tIYGwOK6E+mXomBYPpgU181WmUHwpEpY6zk4OMV+ffs=;
- b=RkzDLZU/IlL/wQG1Qgvvw1zq3Tq+G3O5bQhOWAmeQZygI552cfLm3b2JmZ7ANR7iHPCl
- 2jztRbYDgmZEriVcLh4ZYs29tSj9U6/fsO0VueTbfBq5msqOCVTl8iQFvzBCatCFQ9+t
- JFbXs12cnXEKjvZ6QG7Oo2JV3h1aZsJ51K3JEn/CQHdT2w06OlZ9T7ybP02JYByQOQES
- CCmW6ljvh6j5aAfLwwSeGMO0nhvuhqih1ZbR1g5uZnu6VlpvKH3M6hPs932hiRoD29Zl
- KAKgdi2bXT1T/HJoV+8ixz2jZP9kWJSMM2rYZ3y+YOKRMQiNmdJBivVfRDioQZfpPdMR Jw== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3acgpms63w-1
+ bh=xyiy2RMdo6p9xPL0ldQieymS01kfbdcm5pY0DUCM/I0=;
+ b=ZwcWV3tcm9It4ImAn2Ro1h9v43AlQ6EcHx664U2QIcEOUaWQ3W+TqXckANPUbWnAKYx9
+ j33UKW6R/p1G3p34AWZPi8hgeizXp3QXE+TIw+HQrV31R05N0kPFZ4/DnmQ7yntZ+J9T
+ p56nfBI3L1wkedBHpOLeTLj3i7TKWqAxV4ZBtbS9Gd8qPVlipCv0GyhFXOLFzheqXGHt
+ ol46T5NHP+r89Te5C+lVvnCLJdILpSUV24+2IVSRELXEtlucVOF2dmrDWS3N+oWxa7R9
+ Gf6eIpWfqHbxM9Nfnew66kaCapUvln+WNSLGkqJTTkusZyYuV/eD8DN4DaXVWwEMtb9y Xg== 
+Received: from ppma01wdc.us.ibm.com (fd.55.37a9.ip4.static.sl-reverse.com
+ [169.55.85.253])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3acgpms63m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 11:42:39 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXh2G009639;
+Received: from pps.filterd (ppma01wdc.us.ibm.com [127.0.0.1])
+ by ppma01wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXc3q002794;
  Wed, 11 Aug 2021 15:42:38 GMT
-Received: from b03cxnp07027.gho.boulder.ibm.com
- (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma03dal.us.ibm.com with ESMTP id 3a9htefr5x-1
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma01wdc.us.ibm.com with ESMTP id 3a9htdensx-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 15:42:38 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgbkg19399126
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17BFgaXr32768300
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 11 Aug 2021 15:42:37 GMT
+ Wed, 11 Aug 2021 15:42:36 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6400C6A057;
- Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id C13226A04D;
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 323E36A04D;
- Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 97D156A04F;
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 11/14] ARM: dts: aspeed: Add Rainier 2U and 4U
- device trees for pass 1 hardware
-Date: Wed, 11 Aug 2021 10:42:29 -0500
-Message-Id: <20210811154232.12649-12-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 09/14] ARM: dts: aspeed: Everest: Add fan
+ controller properties
+Date: Wed, 11 Aug 2021 10:42:27 -0500
+Message-Id: <20210811154232.12649-10-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 2XGbGil5jgx-aQtE2dqCVvJg_Q72arPw
-X-Proofpoint-ORIG-GUID: 2XGbGil5jgx-aQtE2dqCVvJg_Q72arPw
+X-Proofpoint-GUID: 9IHYGn-2otl32xiAQIIhQpnPE7_RWjsV
+X-Proofpoint-ORIG-GUID: 9IHYGn-2otl32xiAQIIhQpnPE7_RWjsV
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
@@ -116,233 +116,70 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The original BMC card must be supported in the device tree, so add
-new pass 1 device trees for the two relevant Rainier systems.
+Add the necessary Max chip specific fan properties.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- arch/arm/boot/dts/Makefile                    |  2 +
- .../boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts | 94 +++++++++++++++++++
- .../boot/dts/aspeed-bmc-ibm-rainier-p1.dts    | 94 +++++++++++++++++++
- 3 files changed, 190 insertions(+)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 28 ++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
-diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 48d48c85de9e..36b4798e7cd4 100644
---- a/arch/arm/boot/dts/Makefile
-+++ b/arch/arm/boot/dts/Makefile
-@@ -1402,8 +1402,10 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
- 	aspeed-bmc-facebook-yosemitev2.dtb \
- 	aspeed-bmc-ibm-everest.dtb \
- 	aspeed-bmc-ibm-rainier.dtb \
-+	aspeed-bmc-ibm-rainier-p1.dtb \
- 	aspeed-bmc-ibm-rainier-1s4u.dtb \
- 	aspeed-bmc-ibm-rainier-4u.dtb \
-+	aspeed-bmc-ibm-rainier-4u-p1.dtb \
- 	aspeed-bmc-intel-s2600wf.dtb \
- 	aspeed-bmc-inspur-fp5280g2.dtb \
- 	aspeed-bmc-inspur-nf5280m6.dtb \
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
-new file mode 100644
-index 000000000000..e35a3efd9d22
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2021 IBM Corp.
-+/dts-v1/;
-+
-+#include "aspeed-bmc-ibm-rainier-4u.dts"
-+
-+/ {
-+	model = "Rainier 4U Pass 1";
-+
-+	aliases {
-+		/delete-property/ i2c20;
-+		/delete-property/ i2c21;
-+		/delete-property/ i2c22;
-+		/delete-property/ i2c23;
-+		/delete-property/ i2c24;
-+		/delete-property/ i2c25;
-+		/delete-property/ i2c26;
-+		/delete-property/ i2c27;
-+		/delete-property/ i2c28;
-+		/delete-property/ i2c29;
-+		/delete-property/ i2c30;
-+	};
-+};
-+
-+&i2c4 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+
-+	eeprom@52 {
-+		compatible = "atmel,24c64";
-+		reg = <0x52>;
-+	};
-+};
-+
-+&i2c5 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+};
-+
-+&i2c6 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+
-+	eeprom@52 {
-+		compatible = "atmel,24c64";
-+		reg = <0x52>;
-+	};
-+
-+	eeprom@53 {
-+		compatible = "atmel,24c64";
-+		reg = <0x53>;
-+	};
-+};
-+
-+&i2c11 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+};
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-new file mode 100644
-index 000000000000..b3c923f1838b
---- /dev/null
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-@@ -0,0 +1,94 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+// Copyright 2021 IBM Corp.
-+/dts-v1/;
-+
-+#include "aspeed-bmc-ibm-rainier.dts"
-+
-+/ {
-+	model = "Rainier 2U Pass 1";
-+
-+	aliases {
-+		/delete-property/ i2c20;
-+		/delete-property/ i2c21;
-+		/delete-property/ i2c22;
-+		/delete-property/ i2c23;
-+		/delete-property/ i2c24;
-+		/delete-property/ i2c25;
-+		/delete-property/ i2c26;
-+		/delete-property/ i2c27;
-+		/delete-property/ i2c28;
-+		/delete-property/ i2c29;
-+		/delete-property/ i2c30;
-+	};
-+};
-+
-+&i2c4 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+
-+	eeprom@52 {
-+		compatible = "atmel,24c64";
-+		reg = <0x52>;
-+	};
-+};
-+
-+&i2c5 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+};
-+
-+&i2c6 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+
-+	eeprom@52 {
-+		compatible = "atmel,24c64";
-+		reg = <0x52>;
-+	};
-+
-+	eeprom@53 {
-+		compatible = "atmel,24c64";
-+		reg = <0x53>;
-+	};
-+};
-+
-+&i2c11 {
-+	/delete-node/ pca9546@70;
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
-+
-+	eeprom@51 {
-+		compatible = "atmel,24c64";
-+		reg = <0x51>;
-+	};
-+};
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index 01a0b2b03ddd..83fc29309154 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -2510,24 +2510,52 @@ fan@0 {
+ 					compatible = "pmbus-fan";
+ 					reg = <0>;
+ 					tach-pulses = <2>;
++					maxim,fan-rotor-input = "tach";
++					maxim,fan-pwm-freq = <25000>;
++					maxim,fan-dual-tach;
++					maxim,fan-no-watchdog;
++					maxim,fan-no-fault-ramp;
++					maxim,fan-ramp = <2>;
++					maxim,fan-fault-pin-mon;
+ 				};
+ 
+ 				fan@1 {
+ 					compatible = "pmbus-fan";
+ 					reg = <1>;
+ 					tach-pulses = <2>;
++					maxim,fan-rotor-input = "tach";
++					maxim,fan-pwm-freq = <25000>;
++					maxim,fan-dual-tach;
++					maxim,fan-no-watchdog;
++					maxim,fan-no-fault-ramp;
++					maxim,fan-ramp = <2>;
++					maxim,fan-fault-pin-mon;
+ 				};
+ 
+ 				fan@2 {
+ 					compatible = "pmbus-fan";
+ 					reg = <2>;
+ 					tach-pulses = <2>;
++					maxim,fan-rotor-input = "tach";
++					maxim,fan-pwm-freq = <25000>;
++					maxim,fan-dual-tach;
++					maxim,fan-no-watchdog;
++					maxim,fan-no-fault-ramp;
++					maxim,fan-ramp = <2>;
++					maxim,fan-fault-pin-mon;
+ 				};
+ 
+ 				fan@3 {
+ 					compatible = "pmbus-fan";
+ 					reg = <3>;
+ 					tach-pulses = <2>;
++					maxim,fan-rotor-input = "tach";
++					maxim,fan-pwm-freq = <25000>;
++					maxim,fan-dual-tach;
++					maxim,fan-no-watchdog;
++					maxim,fan-no-fault-ramp;
++					maxim,fan-ramp = <2>;
++					maxim,fan-fault-pin-mon;
+ 				};
+ 			};
+ 
 -- 
 2.27.0
 
