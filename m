@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02482C4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:50:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 384E7C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:51:01 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A484660F46
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:50:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A484660F46
+	by mail.kernel.org (Postfix) with ESMTPS id C74B660E78
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:51:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C74B660E78
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDm8198Kz2ymZ
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:50:00 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDnH0y3Yz2yhF
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:50:59 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CW9EBnvY;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=glRG4aUS;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,76 +29,76 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=CW9EBnvY; dkim-atps=neutral
+ header.s=pp1 header.b=glRG4aUS; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl6j5Lz2xZm
- for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:42 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbn6K0gz30Fx
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:45 +1000 (AEST)
+Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFXoBl138596; Wed, 11 Aug 2021 11:42:40 -0400
+ 17BFZILB130843; Wed, 11 Aug 2021 11:42:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=53TBEWT/mQwBk2uww1/BxlNcoIz7eCzZltUlyjKYAPo=;
- b=CW9EBnvYW020DtdCiz9enflH7eL8fVPCfdahUlQfiSg/AD2VSMelgQXFt13TXMdG3nN7
- 0uQdBnbidqF332raSv7I3dmIdqkSq0+jnpafV1NFudQUT4hjn9U9ddHzHUxOUHjfw+6v
- JVeIbhHfeY4Tfm3DHMn8W4kJ/sDj1jfUEHGQOBvgWFZ6EDaHQp+0wGhvSy/mY1GUcQU7
- 8XOytUcn5nyNdo32p27x25WWNgJsFznFFObx6M/OCGGIj/tzw7jve+BUdcVUxLqx0vKb
- FXXyNighfFDs7pFir/egqqeo07cMV9N4Gb5UE1kkEd8EWP+3jKGGu/m+bXnnQbfHHFVs vg== 
+ bh=QMCCSihUCfllwmAV9at115NHLCUuVXha83H+BogcawY=;
+ b=glRG4aUSRhXlVuDpdZWJ3j0zECxp0eaWhZCeI07SH9dOV5VosWyw3lOj7Y+d6PAzcqjW
+ yPLUBxYFkjjtkWB4AHTi8dtWiqgsE/B04oIQXPCKrylIb90cCuwNuMRhkNwupP30v2VP
+ iNmJOAMBKFASB91dRbbpZJHNrWfqFNhaj28RsZBz5IK7AEUWyAFAxumGLh9Dz9r5Rw11
+ /UA6/TPAPmYgYwiZ9CaUgfpu85zOmam71kM5NEo6Kc6mo5lUffGBaEbcvAsdd1cA4SJ4
+ LuvP1w6ZsbXuCRLglGezn8QnQQcBCmDXH57+jIfzbYZM9UyD1KhW49h5ndyJXMIIgd8b vA== 
 Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
  [169.63.121.186])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0aa1-1
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3abrr5x5mb-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 11:42:39 -0400
 Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
- by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXdaD024680;
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXdcN024692;
  Wed, 11 Aug 2021 15:42:38 GMT
 Received: from b03cxnp07027.gho.boulder.ibm.com
  (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
- by ppma03wdc.us.ibm.com with ESMTP id 3a9htdenvp-1
+ by ppma03wdc.us.ibm.com with ESMTP id 3a9htdenv8-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 15:42:38 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
  by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgbCj28901666
+ 17BFgbQ327853146
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Wed, 11 Aug 2021 15:42:37 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id A6BBF6A04F;
+ by IMSVA (Postfix) with ESMTP id 222696A063;
  Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7358D6A04D;
- Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id DA2CC6A04F;
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 12/14] fsi: sbefifo: Increase command timeouts
- to 30 seconds
-Date: Wed, 11 Aug 2021 10:42:30 -0500
-Message-Id: <20210811154232.12649-13-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 10/14] ARM: dts: aspeed: Rainier 4U: Delete fan
+ dual-tach properties
+Date: Wed, 11 Aug 2021 10:42:28 -0500
+Message-Id: <20210811154232.12649-11-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 4LnwlF7bPDSVqtw9OY7JbfS-kJdw0JIw
-X-Proofpoint-ORIG-GUID: 4LnwlF7bPDSVqtw9OY7JbfS-kJdw0JIw
+X-Proofpoint-ORIG-GUID: 6RySAvZ-ZDC4Of2i3i-usRkUGbAkJq1Z
+X-Proofpoint-GUID: 6RySAvZ-ZDC4Of2i3i-usRkUGbAkJq1Z
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- adultscore=0 spamscore=0 mlxlogscore=999 clxscore=1015 impostorscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 mlxscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ clxscore=1015
+ priorityscore=1501 bulkscore=0 spamscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 mlxscore=0 suspectscore=0 phishscore=0
+ mlxlogscore=913 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -116,35 +116,46 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Different commands (with different sizes) require different timeouts,
-the longest of which can be up to 30 seconds. Adjust the command
-timeout accordingly.
+The fans in the 4U chassis do not have dual tachometers, so remove those
+properties in the device tree.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/fsi/fsi-sbefifo.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ .../boot/dts/aspeed-bmc-ibm-rainier-4u.dts    | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
-index 84cb965bfed5..8645a092af89 100644
---- a/drivers/fsi/fsi-sbefifo.c
-+++ b/drivers/fsi/fsi-sbefifo.c
-@@ -102,12 +102,12 @@ enum sbe_state
- #define sbefifo_eot_set(sts)	(((sts) & SBEFIFO_STS_EOT_MASK) >> SBEFIFO_STS_EOT_SHIFT)
- 
- /* Reset request timeout in ms */
--#define SBEFIFO_RESET_TIMEOUT		10000
-+#define SBEFIFO_RESET_TIMEOUT		30000
- 
- /* Timeouts for commands in ms */
--#define SBEFIFO_TIMEOUT_START_CMD	10000
-+#define SBEFIFO_TIMEOUT_START_CMD	30000
- #define SBEFIFO_TIMEOUT_IN_CMD		1000
--#define SBEFIFO_TIMEOUT_START_RSP	10000
-+#define SBEFIFO_TIMEOUT_START_RSP	30000
- #define SBEFIFO_TIMEOUT_IN_RSP		1000
- 
- /* Other constants */
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
+index 342546a3c0f5..24283cc3d486 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u.dts
+@@ -19,3 +19,27 @@ power-supply@6b {
+ 		reg = <0x6b>;
+ 	};
+ };
++
++&fan0 {
++	/delete-property/ maxim,fan-dual-tach;
++};
++
++&fan1 {
++	/delete-property/ maxim,fan-dual-tach;
++};
++
++&fan2 {
++	/delete-property/ maxim,fan-dual-tach;
++};
++
++&fan3 {
++	/delete-property/ maxim,fan-dual-tach;
++};
++
++&fan4 {
++	/delete-property/ maxim,fan-dual-tach;
++};
++
++&fan5 {
++	/delete-property/ maxim,fan-dual-tach;
++};
 -- 
 2.27.0
 
