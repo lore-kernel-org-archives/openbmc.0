@@ -2,26 +2,26 @@ Return-Path: <SRS0=Bky0=NC=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8CFD1C4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:43:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B145C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:03 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E03C460041
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:43:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E03C460041
+	by mail.kernel.org (Postfix) with ESMTPS id 064B260F46
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 064B260F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDcS1P3Jz30MC
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:43:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDdF2BgKz30MC
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:44:01 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pS3afWO7;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gntZYkAM;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,72 +29,82 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=pS3afWO7; dkim-atps=neutral
+ header.s=pp1 header.b=gntZYkAM; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbj33k6z2xZm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbj4FQxz2xfF
  for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:41 +1000 (AEST)
-Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFXAFJ053403; Wed, 11 Aug 2021 11:42:37 -0400
+ 17BFXoD4138679; Wed, 11 Aug 2021 11:42:38 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=dnEaOIK3ucRqUYCzLRwopHFD5VYA+pniZrM9y/QQHYk=;
- b=pS3afWO7Y7nANDCmt5G3yCxIjKhrpe8IUnnc9QU4qqj9bmCjQIUF770EB8784XG9d1HG
- K72X9aUw0vK8r8M0ivrO7OUj/kyKdpn3p4fotNavfmAp+PfOUjpIpPi8VH7jKMEccTK1
- WjcbZUmTejUzR/1ygFU6199AKWaPgDV780hUVrxZYmNOhko88QDeBGvvl8KBw4DdMIfl
- RhaGMW4bkocJu7OHCxUyHDRUU0Zrl0bVOJHFf11jT4AebWLMHo8WMlQ1VxzOklkIR8HC
- IM67M32ZCv6R/fkDF3LiJMw67hzvLRxMc8bWLHJxFhlvBxY8lQC/ewKMl+Rx2XomfMFP lg== 
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3abvtepf2k-1
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=gQ5aJtAiTX+Q8z56xhc1RN4+aZ70sXlBMjUV8alaE40=;
+ b=gntZYkAMyJyvYpkLgbriXKdpPuwFGOvKVNX6Img1mz9UHD5IruSlabFcNt3hjtXk8sGj
+ apj4coug/SjLVaqOSpYncI+DYFNiE69NStDmH6Y1+EXiw8vUceWkwGTfLg+8Z+4yWd4V
+ EvofmXyCQvfGiD+bldDOgESxjyyQJZgF9CSFHPN3jAIuhSTiAwNt6HIsUYEJitEkakqt
+ mnl7HQv5N6SekTyyVoiHZuLGW/4eDm6VENFN+4tzFBUkxM780VG5HB2fcio+g54rJdNe
+ yPRiNucTz2uSc9D1+HAxgykJgIEBkQbgl0uttG1FgBqwPJxqfb1UkcYHSNSVbstuglEk IQ== 
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0a9f-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 11 Aug 2021 11:42:38 -0400
+Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
+ by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 17BFYIPv144208;
+ Wed, 11 Aug 2021 11:42:37 -0400
+Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
+ [169.53.41.122])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0a98-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 11:42:37 -0400
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFZ5C3013346;
- Wed, 11 Aug 2021 15:42:35 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma04wdc.us.ibm.com with ESMTP id 3a9htden79-1
+Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
+ by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFY60I006577;
+ Wed, 11 Aug 2021 15:42:36 GMT
+Received: from b03cxnp08027.gho.boulder.ibm.com
+ (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
+ by ppma04dal.us.ibm.com with ESMTP id 3a9htefv3p-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 15:42:35 +0000
+ Wed, 11 Aug 2021 15:42:36 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgY3546530942
+ by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17BFgZCr15991318
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 11 Aug 2021 15:42:34 GMT
+ Wed, 11 Aug 2021 15:42:35 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 29F9E6A063;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 6B8676A064;
+ Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F26B86A05F;
- Wed, 11 Aug 2021 15:42:33 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 2EA6F6A063;
+ Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:33 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 00/14] Rainier and Everest system fixes
-Date: Wed, 11 Aug 2021 10:42:18 -0500
-Message-Id: <20210811154232.12649-1-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 04/14] fsi: run clock at 100MHz
+Date: Wed, 11 Aug 2021 10:42:22 -0500
+Message-Id: <20210811154232.12649-5-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
+References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: JH_FBxaul32w0XSRA41dTKzy-1k24kvm
-X-Proofpoint-ORIG-GUID: JH_FBxaul32w0XSRA41dTKzy-1k24kvm
+X-Proofpoint-GUID: 2kke_90VoJ1K8VhqJdGGPC6-YVKx0oGI
+X-Proofpoint-ORIG-GUID: rBx6IvU8DXAzdChsfEifDGSGkqBXpxNx
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015
- mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0
- phishscore=0 mlxlogscore=723 lowpriorityscore=0 priorityscore=1501
- adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ lowpriorityscore=0
+ adultscore=0 spamscore=0 mlxlogscore=999 clxscore=1015 impostorscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 mlxscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -107,57 +117,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Eddie James <eajames@linux.ibm.com>
+Cc: Andrew Geissler <geisonator@yahoo.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This is a series of patches that fixes up Rainier and Everest systems.
-Some of them are considered workarounds, and are not ready for upstream
-linux. Others are simply support for older system hardware that doesn't
-need to go to the mainline tree.
+From: Andrew Geissler <geisonator@yahoo.com>
 
-Andrew Geissler (1):
-  fsi: run clock at 100MHz
+This is a workaround requested by bringup team to see if some of the
+instabilities being seen in the lab clear up.
 
-Andrew Jeffery (6):
-  i2c: Allow throttling of transfers to client devices
-  pmbus: (ucd9000) Throttle SMBus transfers to avoid poor behaviour
-  ucd9000: Add a throttle delay attribute in debugfs
-  pmbus: (core) Add a one-shot retry in pmbus_set_page()
-  pmbus: (max31785) Add a local pmbus_set_page() implementation
-  pmbus: (max31785) Retry enabling fans after writing MFR_FAN_CONFIG
+This should not be upstreamed until the hardware team gets some more
+data on the issue.
 
-Eddie James (7):
-  ARM: dts: aspeed: Rainier: Add fan controller properties
-  ARM: dts: aspeed: Everest: Add fan controller properties
-  ARM: dts: aspeed: Rainier 4U: Delete fan dual-tach properties
-  ARM: dts: aspeed: Add Rainier 2U and 4U device trees for pass 1
-    hardware
-  fsi: sbefifo: Increase command timeouts to 30 seconds
-  fsi: occ: Add dynamic debug to dump command and response
-  fsi: sbefifo: Use interruptible mutex locking
+Signed-off-by: Andrew Geissler <geisonator@yahoo.com>
+---
+ drivers/fsi/fsi-master-aspeed.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
- arch/arm/boot/dts/Makefile                    |   2 +
- arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts  |  28 +++
- .../boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts |  94 ++++++++++
- .../boot/dts/aspeed-bmc-ibm-rainier-4u.dts    |  24 +++
- .../boot/dts/aspeed-bmc-ibm-rainier-p1.dts    |  94 ++++++++++
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts  |  42 +++++
- drivers/fsi/fsi-master-aspeed.c               |   3 +-
- drivers/fsi/fsi-occ.c                         |  44 +++++
- drivers/fsi/fsi-sbefifo.c                     |  18 +-
- drivers/hwmon/pmbus/max31785.c                |  55 ++++--
- drivers/hwmon/pmbus/pmbus_core.c              |  31 ++--
- drivers/hwmon/pmbus/ucd9000.c                 |  39 ++++
- drivers/i2c/i2c-core-base.c                   |   8 +-
- drivers/i2c/i2c-core-smbus.c                  | 169 +++++++++++++++---
- drivers/i2c/i2c-core.h                        |  21 +++
- include/linux/i2c.h                           |   5 +
- 16 files changed, 618 insertions(+), 59 deletions(-)
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
- create mode 100644 arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-
+diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
+index 8606e55c1721..12d36ede6e4b 100644
+--- a/drivers/fsi/fsi-master-aspeed.c
++++ b/drivers/fsi/fsi-master-aspeed.c
+@@ -87,7 +87,8 @@ static const u32 fsi_base = 0xa0000000;
+ #define FSI_LINK_ENABLE_SETUP_TIME	10	/* in mS */
+ 
+ /* Run the bus at maximum speed by default */
+-#define FSI_DIVISOR_DEFAULT            1
++/* TODO - Run at 100MHz for now to help hw bringup debug */
++#define FSI_DIVISOR_DEFAULT            2
+ #define FSI_DIVISOR_CABLED             2
+ static u16 aspeed_fsi_divisor = FSI_DIVISOR_DEFAULT;
+ module_param_named(bus_div,aspeed_fsi_divisor, ushort, 0);
 -- 
 2.27.0
 
