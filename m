@@ -4,24 +4,24 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id DBDDEC4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:49:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02482C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:50:03 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 799D060E97
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 799D060E97
+	by mail.kernel.org (Postfix) with ESMTPS id A484660F46
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:50:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A484660F46
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDlM3whnz2xvc
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:49:19 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDm8198Kz2ymZ
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:50:00 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=c1ImAb1T;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=CW9EBnvY;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,77 +29,77 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=c1ImAb1T; dkim-atps=neutral
+ header.s=pp1 header.b=CW9EBnvY; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl68BMz2xfG
- for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:43 +1000 (AEST)
-Received: from pps.filterd (m0098404.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl6j5Lz2xZm
+ for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:42 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFXwj1129788; Wed, 11 Aug 2021 11:42:37 -0400
+ 17BFXoBl138596; Wed, 11 Aug 2021 11:42:40 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=H/OuRWLM4fFkyy+ducwczrQZ7J/jAyUn42a100IQmnE=;
- b=c1ImAb1TyOWCuqhLdjnbZa533MQAD3GzA/Xe3arMF/BwU+fGoVqLdtlfbli1Q+Wr5StD
- JEVLajJ1sMdacjz7DhwM3XakENiHpHrhg9nybJvRet7BXnTj9Be3SCbwBROCIJa5RfFX
- 9LgOEZyhHwWRaImT5aY2Mx8yUFnZNeAkAzZNAeFFy4Xzz9fZ6VrnkrVUlYm1c2YRlfso
- nki56Xzs+RQQSrCMK7UA26wArS4RgHyuTNuYP1CV4fvhlf3gVFWIJxxlsUu9P7QoJ0rv
- HMP30qthb0yOn+vcV0kIKKPV3SeuM1cEj2sNTqj3WkvX4N4rCxuaTgh4xM8XzWj/+uym iQ== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3acgpms62r-1
+ bh=53TBEWT/mQwBk2uww1/BxlNcoIz7eCzZltUlyjKYAPo=;
+ b=CW9EBnvYW020DtdCiz9enflH7eL8fVPCfdahUlQfiSg/AD2VSMelgQXFt13TXMdG3nN7
+ 0uQdBnbidqF332raSv7I3dmIdqkSq0+jnpafV1NFudQUT4hjn9U9ddHzHUxOUHjfw+6v
+ JVeIbhHfeY4Tfm3DHMn8W4kJ/sDj1jfUEHGQOBvgWFZ6EDaHQp+0wGhvSy/mY1GUcQU7
+ 8XOytUcn5nyNdo32p27x25WWNgJsFznFFObx6M/OCGGIj/tzw7jve+BUdcVUxLqx0vKb
+ FXXyNighfFDs7pFir/egqqeo07cMV9N4Gb5UE1kkEd8EWP+3jKGGu/m+bXnnQbfHHFVs vg== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0aa1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 11:42:36 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXhcI009640;
- Wed, 11 Aug 2021 15:42:36 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma03dal.us.ibm.com with ESMTP id 3a9htefr3c-1
+ Wed, 11 Aug 2021 11:42:39 -0400
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXdaD024680;
+ Wed, 11 Aug 2021 15:42:38 GMT
+Received: from b03cxnp07027.gho.boulder.ibm.com
+ (b03cxnp07027.gho.boulder.ibm.com [9.17.130.14])
+ by ppma03wdc.us.ibm.com with ESMTP id 3a9htdenvp-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 15:42:36 +0000
+ Wed, 11 Aug 2021 15:42:38 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgYXE40370618
+ by b03cxnp07027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17BFgbCj28901666
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 11 Aug 2021 15:42:34 GMT
+ Wed, 11 Aug 2021 15:42:37 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id C68016A05D;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id A6BBF6A04F;
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 935016A058;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 7358D6A04D;
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:37 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 02/14] pmbus: (ucd9000) Throttle SMBus
- transfers to avoid poor behaviour
-Date: Wed, 11 Aug 2021 10:42:20 -0500
-Message-Id: <20210811154232.12649-3-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 12/14] fsi: sbefifo: Increase command timeouts
+ to 30 seconds
+Date: Wed, 11 Aug 2021 10:42:30 -0500
+Message-Id: <20210811154232.12649-13-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: aqr_ydu8YvhlfawAwS3BKX0OhdLsSoke
-X-Proofpoint-ORIG-GUID: aqr_ydu8YvhlfawAwS3BKX0OhdLsSoke
+X-Proofpoint-GUID: 4LnwlF7bPDSVqtw9OY7JbfS-kJdw0JIw
+X-Proofpoint-ORIG-GUID: 4LnwlF7bPDSVqtw9OY7JbfS-kJdw0JIw
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0
- priorityscore=1501 mlxlogscore=999 spamscore=0 impostorscore=0
- adultscore=0 clxscore=1015 suspectscore=0 mlxscore=0 lowpriorityscore=0
- malwarescore=0 phishscore=0 classifier=spam adjust=0 reason=mlx
- scancount=1 engine=8.12.0-2107140000 definitions=main-2108110104
+ lowpriorityscore=0
+ adultscore=0 spamscore=0 mlxlogscore=999 clxscore=1015 impostorscore=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 mlxscore=0 phishscore=0
+ suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,47 +111,40 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Jeffery <andrew@aj.id.au>
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Jeffery <andrew@aj.id.au>
+Different commands (with different sizes) require different timeouts,
+the longest of which can be up to 30 seconds. Adjust the command
+timeout accordingly.
 
-Short turn-around times between transfers to UCD9000 devices can lead to
-problematic behaviour, including unnecessary clock stretching, bus
-lockups and potential corruption of the device's volatile state.
-
-Introduce transfer throttling for the device with a minimum access
-delay of 1ms.
-
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/hwmon/pmbus/ucd9000.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/fsi/fsi-sbefifo.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
-index a15e6fe3e425..9687bc3609d1 100644
---- a/drivers/hwmon/pmbus/ucd9000.c
-+++ b/drivers/hwmon/pmbus/ucd9000.c
-@@ -487,6 +487,8 @@ static int ucd9000_init_debugfs(struct i2c_client *client,
- }
- #endif /* CONFIG_DEBUG_FS */
+diff --git a/drivers/fsi/fsi-sbefifo.c b/drivers/fsi/fsi-sbefifo.c
+index 84cb965bfed5..8645a092af89 100644
+--- a/drivers/fsi/fsi-sbefifo.c
++++ b/drivers/fsi/fsi-sbefifo.c
+@@ -102,12 +102,12 @@ enum sbe_state
+ #define sbefifo_eot_set(sts)	(((sts) & SBEFIFO_STS_EOT_MASK) >> SBEFIFO_STS_EOT_SHIFT)
  
-+#define UCD9000_SMBUS_THROTTLE_US	1000
-+
- static int ucd9000_probe(struct i2c_client *client)
- {
- 	u8 block_buffer[I2C_SMBUS_BLOCK_MAX + 1];
-@@ -501,6 +503,8 @@ static int ucd9000_probe(struct i2c_client *client)
- 				     I2C_FUNC_SMBUS_BLOCK_DATA))
- 		return -ENODEV;
+ /* Reset request timeout in ms */
+-#define SBEFIFO_RESET_TIMEOUT		10000
++#define SBEFIFO_RESET_TIMEOUT		30000
  
-+	i2c_smbus_throttle_client(client, UCD9000_SMBUS_THROTTLE_US);
-+
- 	ret = i2c_smbus_read_block_data(client, UCD9000_DEVICE_ID,
- 					block_buffer);
- 	if (ret < 0) {
+ /* Timeouts for commands in ms */
+-#define SBEFIFO_TIMEOUT_START_CMD	10000
++#define SBEFIFO_TIMEOUT_START_CMD	30000
+ #define SBEFIFO_TIMEOUT_IN_CMD		1000
+-#define SBEFIFO_TIMEOUT_START_RSP	10000
++#define SBEFIFO_TIMEOUT_START_RSP	30000
+ #define SBEFIFO_TIMEOUT_IN_RSP		1000
+ 
+ /* Other constants */
 -- 
 2.27.0
 
