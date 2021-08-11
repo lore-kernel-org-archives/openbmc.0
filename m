@@ -7,21 +7,21 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6B145C4338F
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 74DC0C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:44 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 064B260F46
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 064B260F46
+	by mail.kernel.org (Postfix) with ESMTPS id D1C6960FA0
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D1C6960FA0
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDdF2BgKz30MC
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:44:01 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDf21WR5z30HR
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:44:42 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=gntZYkAM;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=edLR2Jn4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,82 +29,76 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=gntZYkAM; dkim-atps=neutral
+ header.s=pp1 header.b=edLR2Jn4; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbj4FQxz2xfF
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbk1hxVz2xZm
  for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:41 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+Received: from pps.filterd (m0098410.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFXoD4138679; Wed, 11 Aug 2021 11:42:38 -0400
+ 17BFXDN8053651; Wed, 11 Aug 2021 11:42:39 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=gQ5aJtAiTX+Q8z56xhc1RN4+aZ70sXlBMjUV8alaE40=;
- b=gntZYkAMyJyvYpkLgbriXKdpPuwFGOvKVNX6Img1mz9UHD5IruSlabFcNt3hjtXk8sGj
- apj4coug/SjLVaqOSpYncI+DYFNiE69NStDmH6Y1+EXiw8vUceWkwGTfLg+8Z+4yWd4V
- EvofmXyCQvfGiD+bldDOgESxjyyQJZgF9CSFHPN3jAIuhSTiAwNt6HIsUYEJitEkakqt
- mnl7HQv5N6SekTyyVoiHZuLGW/4eDm6VENFN+4tzFBUkxM780VG5HB2fcio+g54rJdNe
- yPRiNucTz2uSc9D1+HAxgykJgIEBkQbgl0uttG1FgBqwPJxqfb1UkcYHSNSVbstuglEk IQ== 
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0a9f-1
+ bh=AhMJy7e6R155tzteUFkv3uROpN0IL3EOl+Z0+sn48OI=;
+ b=edLR2Jn4gD+IF6tVJIsLpQwKfBdZihyqsjIODNcwmywWiH2AC2j6qCkDYlrPoOXUFFbt
+ 6NeRWyws0/pLqSIsHQkiVEqnvnmrWRHRPRQp/hRumMyizdqksdKtTq4/P0iTg/bnolRO
+ 1flwCUxYy2go5433TXbqHlOhG9+P0ZKlZ7YToEc/xKr9PZWtotpW5Bry6fcs0VUDfO4D
+ aQZWQATKN0AK65D/PY5tRs/kqv0rJlJ6Yh9iLFkixhtcLCUmF180VUufkY+6P+52lgEW
+ KpRi3z2kYG2/iVwR44G+PgTdNHTaNpgES+kH8k9Xt2og3YdvyubVYpDwCz6UFNzIVnp/ ww== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3abvtepf3b-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 11:42:38 -0400
-Received: from m0098393.ppops.net (m0098393.ppops.net [127.0.0.1])
- by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 17BFYIPv144208;
- Wed, 11 Aug 2021 11:42:37 -0400
-Received: from ppma04dal.us.ibm.com (7a.29.35a9.ip4.static.sl-reverse.com
- [169.53.41.122])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3accuf0a98-1
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFYsHV019466;
+ Wed, 11 Aug 2021 15:42:38 GMT
+Received: from b03cxnp08028.gho.boulder.ibm.com
+ (b03cxnp08028.gho.boulder.ibm.com [9.17.130.20])
+ by ppma02dal.us.ibm.com with ESMTP id 3a9hteyt38-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 11:42:37 -0400
-Received: from pps.filterd (ppma04dal.us.ibm.com [127.0.0.1])
- by ppma04dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFY60I006577;
- Wed, 11 Aug 2021 15:42:36 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma04dal.us.ibm.com with ESMTP id 3a9htefv3p-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 11 Aug 2021 15:42:36 +0000
+ Wed, 11 Aug 2021 15:42:38 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgZCr15991318
+ by b03cxnp08028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17BFga5S26018080
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 11 Aug 2021 15:42:35 GMT
+ Wed, 11 Aug 2021 15:42:36 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 6B8676A064;
- Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 891FE6A058;
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2EA6F6A063;
- Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 566736A057;
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:36 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 04/14] fsi: run clock at 100MHz
-Date: Wed, 11 Aug 2021 10:42:22 -0500
-Message-Id: <20210811154232.12649-5-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 08/14] ARM: dts: aspeed: Rainier: Add fan
+ controller properties
+Date: Wed, 11 Aug 2021 10:42:26 -0500
+Message-Id: <20210811154232.12649-9-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: 2kke_90VoJ1K8VhqJdGGPC6-YVKx0oGI
-X-Proofpoint-ORIG-GUID: rBx6IvU8DXAzdChsfEifDGSGkqBXpxNx
+X-Proofpoint-GUID: I_9vUi1jlEZOnqhvRwy2xCybQLGSKmG4
+X-Proofpoint-ORIG-GUID: I_9vUi1jlEZOnqhvRwy2xCybQLGSKmG4
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0
- adultscore=0 spamscore=0 mlxlogscore=999 clxscore=1015 impostorscore=0
- bulkscore=0 priorityscore=1501 malwarescore=0 mlxscore=0 phishscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ spamscore=0 clxscore=1015
+ mlxscore=0 malwarescore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ phishscore=0 mlxlogscore=999 lowpriorityscore=0 priorityscore=1501
+ adultscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -117,38 +111,101 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Andrew Geissler <geisonator@yahoo.com>
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Andrew Geissler <geisonator@yahoo.com>
+Add the necessary Max chip specific fan properties.
 
-This is a workaround requested by bringup team to see if some of the
-instabilities being seen in the lab clear up.
-
-This should not be upstreamed until the hardware team gets some more
-data on the issue.
-
-Signed-off-by: Andrew Geissler <geisonator@yahoo.com>
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- drivers/fsi/fsi-master-aspeed.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 42 ++++++++++++++++++++
+ 1 file changed, 42 insertions(+)
 
-diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-index 8606e55c1721..12d36ede6e4b 100644
---- a/drivers/fsi/fsi-master-aspeed.c
-+++ b/drivers/fsi/fsi-master-aspeed.c
-@@ -87,7 +87,8 @@ static const u32 fsi_base = 0xa0000000;
- #define FSI_LINK_ENABLE_SETUP_TIME	10	/* in mS */
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+index f87bc5dc8aba..6fd3ddf97a21 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+@@ -1282,36 +1282,78 @@ fan0: fan@0 {
+ 			compatible = "pmbus-fan";
+ 			reg = <0>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
  
- /* Run the bus at maximum speed by default */
--#define FSI_DIVISOR_DEFAULT            1
-+/* TODO - Run at 100MHz for now to help hw bringup debug */
-+#define FSI_DIVISOR_DEFAULT            2
- #define FSI_DIVISOR_CABLED             2
- static u16 aspeed_fsi_divisor = FSI_DIVISOR_DEFAULT;
- module_param_named(bus_div,aspeed_fsi_divisor, ushort, 0);
+ 		fan1: fan@1 {
+ 			compatible = "pmbus-fan";
+ 			reg = <1>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
+ 
+ 		fan2: fan@2 {
+ 			compatible = "pmbus-fan";
+ 			reg = <2>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
+ 
+ 		fan3: fan@3 {
+ 			compatible = "pmbus-fan";
+ 			reg = <3>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
+ 
+ 		fan4: fan@4 {
+ 			compatible = "pmbus-fan";
+ 			reg = <4>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
+ 
+ 		fan5: fan@5 {
+ 			compatible = "pmbus-fan";
+ 			reg = <5>;
+ 			tach-pulses = <2>;
++			maxim,fan-rotor-input = "tach";
++			maxim,fan-pwm-freq = <25000>;
++			maxim,fan-dual-tach;
++			maxim,fan-no-watchdog;
++			maxim,fan-no-fault-ramp;
++			maxim,fan-ramp = <2>;
++			maxim,fan-fault-pin-mon;
+ 		};
+ 	};
+ 
 -- 
 2.27.0
 
