@@ -7,98 +7,98 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
 	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C30F1C43216
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:45:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9941C4338F
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:46:02 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 58C9760F46
-	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 58C9760F46
+	by mail.kernel.org (Postfix) with ESMTPS id 7407A60E97
+	for <openbmc@archiver.kernel.org>; Wed, 11 Aug 2021 15:46:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7407A60E97
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDfm471zz309K
-	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:45:20 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GlDgX68K6z3bPG
+	for <openbmc@archiver.kernel.org>; Thu, 12 Aug 2021 01:46:00 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=MI9KLneg;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=ggvSSz4i;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=MI9KLneg; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ header.s=pp1 header.b=ggvSSz4i; dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
  [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl0nn9z2xZm
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GlDbl1VRQz2ysv
  for <openbmc@lists.ozlabs.org>; Thu, 12 Aug 2021 01:42:42 +1000 (AEST)
-Received: from pps.filterd (m0098416.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 17BFbpcn080236; Wed, 11 Aug 2021 11:42:37 -0400
+Received: from pps.filterd (m0098421.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17BFXxic132655; Wed, 11 Aug 2021 11:42:37 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=2uQDZNNA0gqlrwG4uz94dkel5GoGAO0Sxp66kG6QGsU=;
- b=MI9KLnegD+RebQ6LbZKJ/h0hPFJw3qVs3O4zQM1wI+3vwBtYcxXqd59vMmnAcJbwkwNS
- lxEkNdjiVUpBtXAnl1l8bXg6TbEl9c3M27zo00fhDm2TSiO07OLcHtYzQX5fpJINAdAh
- HfeQ5H/mWlznOdgC7S4T1PizxkyhAMXunY3VDqyCm++a/Wa6E0AFkhOWFb/p0Ki/0md0
- Vr/q3T4KrtPX8oeQnUkUaD0gMY2m+AkRaWS2Qof/4FgJAxikyMdtlS6iC78jrtQyK/lA
- 2/VabxYnwCxrrD7JSkHKpjecU/4ezYS+Nqq+YO7RUDR8co2aOrokGwzRN9A2T8sHUPWf 0A== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3acgg71nxc-1
+ bh=COo4rF58Vlt0Og4F6DjuRfxg9E3RRUi0ADfkcAFJFXY=;
+ b=ggvSSz4iS5HPnXgGXw696/SxbEiYEx9KlxiX5sG5FRarrJ0j/6Y5Rfjf3gvLfqx03Jj+
+ fsmQA4LMlWZsjzMK3aQ/RUlVnPsfzeLRMZBKb98sfHNkGjAvqsUuvgbHZ/cdjKPzFWpC
+ 0+BSZNQMGM7gbi0hiuTJfp7FDJwXSShv4k1fkWKPS/3PbS+w84itHVUSJF4xSH1rq94J
+ PI9rfO+qSb2vIsYK22zL57nhHW3B+atGg4/fY5/ux2WHrfzET/f6Q+bJddjblsJ3dJC+
+ 8FBUUi2InK0yl/n11/obhu2OIwc2vSLDfAYxGFOXrB/qewxlyWl4QkSkiBgw/cW7Ezpm PQ== 
+Received: from ppma03wdc.us.ibm.com (ba.79.3fa9.ip4.static.sl-reverse.com
+ [169.63.121.186])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3abt97tsht-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 11:42:37 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFYtxd019489;
+Received: from pps.filterd (ppma03wdc.us.ibm.com [127.0.0.1])
+ by ppma03wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17BFXd3t024679;
  Wed, 11 Aug 2021 15:42:36 GMT
 Received: from b03cxnp08027.gho.boulder.ibm.com
  (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma02dal.us.ibm.com with ESMTP id 3a9hteyt1h-1
+ by ppma03wdc.us.ibm.com with ESMTP id 3a9htdenu9-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
  Wed, 11 Aug 2021 15:42:36 +0000
 Received: from b03ledav003.gho.boulder.ibm.com
  (b03ledav003.gho.boulder.ibm.com [9.17.130.234])
  by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 17BFgZTx8978906
+ 17BFgZpP13894208
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Wed, 11 Aug 2021 15:42:35 GMT
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 16CE36A047;
+ by IMSVA (Postfix) with ESMTP id A88F06A06B;
  Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 Received: from b03ledav003.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E1E9B6A064;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 7BBC36A05D;
+ Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.42.251])
  by b03ledav003.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 11 Aug 2021 15:42:34 +0000 (GMT)
+ Wed, 11 Aug 2021 15:42:35 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 03/14] ucd9000: Add a throttle delay attribute
- in debugfs
-Date: Wed, 11 Aug 2021 10:42:21 -0500
-Message-Id: <20210811154232.12649-4-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 05/14] pmbus: (core) Add a one-shot retry in
+ pmbus_set_page()
+Date: Wed, 11 Aug 2021 10:42:23 -0500
+Message-Id: <20210811154232.12649-6-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210811154232.12649-1-eajames@linux.ibm.com>
 References: <20210811154232.12649-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: HJDVldU7NrWFbz_TSzFOIkemIrYdjOFJ
-X-Proofpoint-ORIG-GUID: HJDVldU7NrWFbz_TSzFOIkemIrYdjOFJ
+X-Proofpoint-ORIG-GUID: MWBXM_NoHFw784mLkNIFYzFLz97Qx56e
+X-Proofpoint-GUID: MWBXM_NoHFw784mLkNIFYzFLz97Qx56e
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-08-11_05:2021-08-11,
  2021-08-11 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0
- mlxlogscore=999 priorityscore=1501 mlxscore=0 lowpriorityscore=0
- bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 phishscore=0
- adultscore=0 spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ phishscore=0 spamscore=0
+ clxscore=1015 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 mlxlogscore=999 malwarescore=0
+ mlxscore=0 bulkscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2107140000 definitions=main-2108110104
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
@@ -118,73 +118,74 @@ Sender: "openbmc"
 
 From: Andrew Jeffery <andrew@aj.id.au>
 
-Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
----
- drivers/hwmon/pmbus/ucd9000.c | 37 ++++++++++++++++++++++++++++++++++-
- 1 file changed, 36 insertions(+), 1 deletion(-)
+From extensive testing and tracing it was discovered that the MAX31785
+occasionally fails to switch pages despite ACK'ing the PAGE PMBus data
+write. I suspect this behaviour had been seen on other devices as well,
+as pmbus_set_page() already read-back the freshly set value and errored
+out if it wasn't what we requested.
 
-diff --git a/drivers/hwmon/pmbus/ucd9000.c b/drivers/hwmon/pmbus/ucd9000.c
-index 9687bc3609d1..cbfafebf1ded 100644
---- a/drivers/hwmon/pmbus/ucd9000.c
-+++ b/drivers/hwmon/pmbus/ucd9000.c
-@@ -401,6 +401,37 @@ static int ucd9000_debugfs_show_mfr_status_bit(void *data, u64 *val)
- DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_mfr_status_bit,
- 			 ucd9000_debugfs_show_mfr_status_bit, NULL, "%1lld\n");
+In the case of the MAX31785 it was shown that a one-shot retry was
+enough to get the PAGE write to stick if the inital command failed. To
+improve robustness, only error out if the one-shot retry also fails to
+stick.
+
+OpenBMC-Staging-Count: 1
+Signed-off-by: Andrew Jeffery <andrew@aj.id.au>
+Signed-off-by: Joel Stanley <joel@jms.id.au>
+---
+ drivers/hwmon/pmbus/pmbus_core.c | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/hwmon/pmbus/pmbus_core.c b/drivers/hwmon/pmbus/pmbus_core.c
+index def8be831456..1a13d6d3f8b5 100644
+--- a/drivers/hwmon/pmbus/pmbus_core.c
++++ b/drivers/hwmon/pmbus/pmbus_core.c
+@@ -151,25 +151,34 @@ int pmbus_set_page(struct i2c_client *client, int page, int phase)
  
-+#define UCD9000_SMBUS_THROTTLE_US	1000
-+static int throttle_delay_us = UCD9000_SMBUS_THROTTLE_US;
+ 	if (!(data->info->func[page] & PMBUS_PAGE_VIRTUAL) &&
+ 	    data->info->pages > 1 && page != data->currpage) {
++		int i;
 +
-+static int ucd9000_debugfs_show_smbus_throttle_delay(void *data,
-+						     u64 *val)
-+{
-+	struct i2c_client *client = data;
-+	unsigned long ulval;
-+	int rc;
-+
-+	rc = i2c_smbus_throttle_value(client, &ulval);
-+	if (rc)
-+		return rc;
-+
-+	*val = ulval;
-+
-+	return 0;
-+}
-+
-+static int ucd9000_debugfs_store_smbus_throttle_delay(void *data,
-+						      u64 val)
-+{
-+	struct i2c_client *client = data;
-+
-+	throttle_delay_us = val;
-+	return i2c_smbus_throttle_client(client, val);
-+}
-+DEFINE_DEBUGFS_ATTRIBUTE(ucd9000_debugfs_smbus_throttle_delay,
-+			 ucd9000_debugfs_show_smbus_throttle_delay,
-+			 ucd9000_debugfs_store_smbus_throttle_delay, "%llu\n");
-+
- static ssize_t ucd9000_debugfs_read_mfr_status(struct file *file,
- 					       char __user *buf, size_t count,
- 					       loff_t *ppos)
-@@ -475,6 +506,8 @@ static int ucd9000_init_debugfs(struct i2c_client *client,
- 	scnprintf(name, UCD9000_DEBUGFS_NAME_LEN, "mfr_status");
- 	debugfs_create_file(name, 0444, data->debugfs, client,
- 			    &ucd9000_debugfs_show_mfr_status_fops);
-+	debugfs_create_file("smbus_throttle_delay", 0664, data->debugfs, client,
-+			    &ucd9000_debugfs_smbus_throttle_delay);
+ 		dev_dbg(&client->dev, "Want page %u, %u cached\n", page,
+ 			data->currpage);
  
- 	return 0;
- }
-@@ -503,7 +536,9 @@ static int ucd9000_probe(struct i2c_client *client)
- 				     I2C_FUNC_SMBUS_BLOCK_DATA))
- 		return -ENODEV;
+-		rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE, page);
+-		if (rv < 0) {
++		for (i = 0; i < 2; i++) {
+ 			rv = i2c_smbus_write_byte_data(client, PMBUS_PAGE,
+ 						       page);
+-			dev_dbg(&client->dev,
+-				"Failed to set page %u, performed one-shot retry %s: %d\n",
+-				page, rv ? "and failed" : "with success", rv);
++			if (rv)
++				continue;
++
++			rv = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+ 			if (rv < 0)
+-				return rv;
+-		}
++				continue;
  
--	i2c_smbus_throttle_client(client, UCD9000_SMBUS_THROTTLE_US);
-+	ret = i2c_smbus_throttle_client(client, throttle_delay_us);
-+	if (ret)
-+		return ret;
+-		rv = i2c_smbus_read_byte_data(client, PMBUS_PAGE);
+-		if (rv < 0)
+-			return rv;
++			/* Success, exit loop */
++			if (rv == page)
++				break;
++
++			rv = i2c_smbus_read_byte_data(client, PMBUS_STATUS_CML);
++			if (rv < 0)
++				continue;
++
++			if (rv & PB_CML_FAULT_INVALID_DATA)
++				return -EIO;
++		}
  
- 	ret = i2c_smbus_read_block_data(client, UCD9000_DEVICE_ID,
- 					block_buffer);
+-		if (rv != page)
++		if (i == 2)
+ 			return -EIO;
+ 	}
+ 	data->currpage = page;
 -- 
 2.27.0
 
