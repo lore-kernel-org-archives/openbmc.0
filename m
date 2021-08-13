@@ -2,82 +2,101 @@ Return-Path: <SRS0=H2FO=NE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-8.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-5.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_2 autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 788D9C4338F
-	for <openbmc@archiver.kernel.org>; Fri, 13 Aug 2021 17:22:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5BD61C4338F
+	for <openbmc@archiver.kernel.org>; Fri, 13 Aug 2021 20:38:38 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id E782A60F36
-	for <openbmc@archiver.kernel.org>; Fri, 13 Aug 2021 17:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E782A60F36
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tanous.net
+	by mail.kernel.org (Postfix) with ESMTPS id B34F160F91
+	for <openbmc@archiver.kernel.org>; Fri, 13 Aug 2021 20:38:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B34F160F91
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GmVjW4Ly0z3bnC
-	for <openbmc@archiver.kernel.org>; Sat, 14 Aug 2021 03:22:07 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Gmb4D1nz0z3cLs
+	for <openbmc@archiver.kernel.org>; Sat, 14 Aug 2021 06:38:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=tanous-net.20150623.gappssmtp.com header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=NqWQGouH;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=fd7RZHBx;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=tanous.net
- (client-ip=2a00:1450:4864:20::22b; helo=mail-lj1-x22b.google.com;
- envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=tanous-net.20150623.gappssmtp.com
- header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=NqWQGouH; dkim-atps=neutral
-Received: from mail-lj1-x22b.google.com (mail-lj1-x22b.google.com
- [IPv6:2a00:1450:4864:20::22b])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
+ header.s=pp1 header.b=fd7RZHBx; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GmVhQ3XfJz3cHr
- for <openbmc@lists.ozlabs.org>; Sat, 14 Aug 2021 03:21:08 +1000 (AEST)
-Received: by mail-lj1-x22b.google.com with SMTP id n7so16712922ljq.0
- for <openbmc@lists.ozlabs.org>; Fri, 13 Aug 2021 10:21:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=tanous-net.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to
- :cc; bh=08/QSH++W6xGyStwoxLPb41J8FQAzxEcefwI10HlVSE=;
- b=NqWQGouH2fXPmBxxHQolBTlUjJTbC0ODU6nnO9Pvitx0eKjtG/cyskhETptngewFHf
- R14xDM2h1e0AiEYPt5jlcgCjtskz5iopP6WdkVU/ywlsFcL8wDGSg7sO4iKQwyzER7pa
- FNP1MIvP1CubxkbbfR1wwOOXKrkM31D82fqZ/4mCaEiFb7rFnIn+ECKVJo6l8Q1ssjY5
- 6v5LmBcimiwo/83g1vRGo1qTcxNBLBj26Yl/5QxXLojHmbn7trCEave5nnyhqfvIG2te
- JWl7xRn5gpeY/XlWSqRYD27OVLRcY0nfd34VnPSlUIXupPI0WtnyZVC9iYXercdGtINI
- KP3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20161025;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=08/QSH++W6xGyStwoxLPb41J8FQAzxEcefwI10HlVSE=;
- b=jawMpcbBQ2Ldzz5n5fuOv7GdOwfLs5jY9fOxD0/vtUlYSL22OnQ8dTT9nKxsMjrNGr
- vMxk9kcqgyiDuIooTaIwTrr7qyRJua5KHN8dD9vl8mrnvC6aBo8NRPrXFWXMox+rF4sS
- s3bQfM984S20ruxFJ53WXoX0T853M9wwS/6fXXK9zrfjUU/c00jMf4LI/eCMwXtmkBhe
- PR7M0lQ8thIqOXOYcDVdzBm4SRlOX3zBhv6WduCpWZE9Z57zQc6+dpVHwK6AYynJMVwj
- ksjTxb+w6DUWJcOL+GcbWDinheqxChf3U+HkLLOXzPSTSo81THV/9uZiDvbySg4c50IX
- Zr/g==
-X-Gm-Message-State: AOAM5336H4A75BOa7EYEUxfJpzgTPHmv0bGx55eOK1WVKqF1LDKZgHNk
- PJ/N+ZSy+KYpzLJ4/VvATODxFPkIXtbndiwwfTDx2g==
-X-Google-Smtp-Source: ABdhPJzluSFqt5DwubjWEAh4Mc2eE8qWY45Az9HsQOXTcx/LQjJWZPKxFNz+zcv/+uvX2Nk90WopwrLiNkLT2GHhe4o=
-X-Received: by 2002:a2e:a209:: with SMTP id h9mr2603886ljm.249.1628875261445; 
- Fri, 13 Aug 2021 10:21:01 -0700 (PDT)
-MIME-Version: 1.0
-References: <CAKJqRLVQYxzFEUOe=jF93dVvR86JJWk_uO9KnVLriJ+jDdkDVA@mail.gmail.com>
- <95593cd9-a394-1388-d227-f54f05c6b2ba@yadro.com>
- <CACWQX81EWvBY=g+weGJHbxA2NWzujeHrHFBA9Cbv0=0OMGya1g@mail.gmail.com>
- <e554b486-58e8-94aa-41c2-9fefb9aff339@linux.vnet.ibm.com>
-In-Reply-To: <e554b486-58e8-94aa-41c2-9fefb9aff339@linux.vnet.ibm.com>
-From: Ed Tanous <ed@tanous.net>
-Date: Fri, 13 Aug 2021 10:20:50 -0700
-Message-ID: <CACWQX80D52cDonLRLvJ-SiUcjoGELM37iW9J2iPpkH8NBNg4_g@mail.gmail.com>
-Subject: Re: Turning off the D-Bus REST API by default
-To: Gunnar Mills <gmills@linux.vnet.ibm.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Gmb3P3fPlz3bYW
+ for <openbmc@lists.ozlabs.org>; Sat, 14 Aug 2021 06:37:53 +1000 (AEST)
+Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
+ 17DKXtsI070564; Fri, 13 Aug 2021 16:37:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
+ h=message-id : subject :
+ from : to : cc : date : content-type : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=SyI0s/CXxCeZd7n+uej0w07UFfdAavXMYmEQHmzDIQA=;
+ b=fd7RZHBxhqpA6CgdjnQoBzi3dtOcYElmXOsFwhBCFAwubdqZ0np18osR7CaWG4m0FXKi
+ K5bPncujlqOyfj5ldMa2NMSGmIEotwFF5dzB5xG/t8nZhpJlDWI5AX9q68IsaJsuB+zU
+ bl7Pg2FZxc/6Io9Uk1MKVYIu2wvhjV8j92TsrEf0uj1Wmcgn7tggQViV/uyldR/nS6Qg
+ Op8xgRkWrjRQMOiSaXLFvLSa85nKdPxpKhoNzIqNhaus/pk8Z6GBLuRXOhhI6xs+L4+y
+ DEM4XTpDJuPmugBdS8ZI20YGAhmcSclDVA81l9iwpXiMuXPn/JiGcGSDqFC3oAfQrp3U QA== 
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3adsf42sqg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Aug 2021 16:37:48 -0400
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 17DKXX4W025534;
+ Fri, 13 Aug 2021 20:37:47 GMT
+Received: from b01cxnp23032.gho.pok.ibm.com (b01cxnp23032.gho.pok.ibm.com
+ [9.57.198.27]) by ppma03dal.us.ibm.com with ESMTP id 3a9hthujd3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 13 Aug 2021 20:37:47 +0000
+Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
+ [9.57.199.111])
+ by b01cxnp23032.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 17DKbkQm48562684
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 13 Aug 2021 20:37:46 GMT
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 69153AC05E;
+ Fri, 13 Aug 2021 20:37:46 +0000 (GMT)
+Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0CB1AAC060;
+ Fri, 13 Aug 2021 20:37:46 +0000 (GMT)
+Received: from v0005c16 (unknown [9.211.133.120])
+ by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
+ Fri, 13 Aug 2021 20:37:45 +0000 (GMT)
+Message-ID: <2a3bac9bb3c85791a0b2d988020917f7609a7097.camel@linux.ibm.com>
+Subject: AST2500 video engine for KVM trips BMC watchdog
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Date: Fri, 13 Aug 2021 15:37:45 -0500
+Organization: IBM
 Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: zjsPYpIpvg7tTlJjKPB2HmQyg6obFgFK
+X-Proofpoint-GUID: zjsPYpIpvg7tTlJjKPB2HmQyg6obFgFK
+X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
+ definitions=2021-08-13_08:2021-08-13,
+ 2021-08-13 signatures=0
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 suspectscore=0
+ mlxlogscore=999 adultscore=0 bulkscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 phishscore=0 spamscore=0 lowpriorityscore=0 mlxscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2107140000
+ definitions=main-2108130117
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,47 +108,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Ali Ahmed <ama213000@gmail.com>,
- OpenBMC Maillist <openbmc@lists.ozlabs.org>,
- "i.kononenko" <i.kononenko@yadro.com>
+Cc: Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Fri, Aug 13, 2021 at 9:05 AM Gunnar Mills <gmills@linux.vnet.ibm.com> wrote:
->
-> On 8/12/2021 2:41 PM, Ed Tanous wrote:
-> > On Thu, Aug 12, 2021 at 1:32 PM i.kononenko <i.kononenko@yadro.com> wrote:
-> >>
-> >> Ali,
-> >>
-> >> On 12.08.2021 17:10, Ali Ahmed wrote:
-> >>
-> >>> After this commit to use phosphor-webui or D-Bus REST, you will need
-> >>> to set -Drest=enabled in your bbappend. Note: webui-vue uses Redfish
-> >>> and will not be impacted. Let me know if you have any concerns.
-> >>
-> >> As far I knew, the webui-vue uses REST API to retrieve the TPM status.
-> >> Please, look to the link below [1]
-> >
-> > @gunnar @derick  isn't this against one of the primary design goals of
-> > webui-vue?  Was it intentionally merged?  It seems like having
-> > webui-vue rely on dbus-rest just keeps digging the hole deeper on this
-> > initial thing, which is getting dbus-rest disabled by default.
-> >
->
-> I think when this was merged 2 years ago, when webui-vue was still very
-> very young, the thinking was we will switch to Redfish when TPMenable is
-> implemented in Redfish and there was value to having a working page.
-> This does go against a core design goal of webui-vue.  I certainly would
-> -1 any commit trying to add D-Bus REST API to webui-vue today. I think
-> this is just a TODO that hasn't been implemented.
-> https://github.com/openbmc/webui-vue/blame/6dba4be6125c10210bafa030ac17737d3a9b28b8/src/store/modules/Operations/BootSettingsStore.js#L74
+I'm trying to solve a problem when the screensaver on the host is
+activated. It seems to continually trigger the mode detection interrupt
+on the BMC. In combination with the user-space application continually
+trying to determine the resolution, it trips the BMC kernel watchdog
+and resets the system. Here are the logs I've captured:
 
-Makes sense.  I didn't realize it was so old;  Thanks for the info Gunnar.
+[ 2049.076692] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2050.091133] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2051.121593] aspeed-video 1e700000.video: Timed out when stopping
+streaming
+[ 2052.121203] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2052.393164] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2052.399561] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2053.343096] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2053.350151] aspeed-video 1e700000.video: Engine busy; don't start
+frame
+[ 2054.361159] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2054.609677] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2054.615983] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2055.409583] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2055.432802] aspeed-video 1e700000.video: No signal; don't start
+frame
+[ 2056.421155] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2056.676215] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2056.682516] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2057.459454] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2057.480919] aspeed-video 1e700000.video: No signal; don't start
+frame
+[ 2058.471187] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2058.726108] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2058.732382] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2059.526704] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2059.548747] aspeed-video 1e700000.video: No signal; don't start
+frame
+[ 2060.541146] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2060.792620] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2060.798801] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2061.592870] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2061.615523] aspeed-video 1e700000.video: No signal; don't start
+frame
+[ 2062.611126] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2062.859185] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2062.865483] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2063.659056] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2063.680423] aspeed-video 1e700000.video: No signal; don't start
+frame
+[ 2064.671148] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2064.925696] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2064.931949] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2065.708903] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2065.716196] aspeed-video 1e700000.video: Engine busy; don't start
+frame
+[ 2066.721161] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2066.975563] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2066.981842] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2067.758808] aspeed-video 1e700000.video: Resolution changed;
+resetting
+[ 2067.766511] aspeed-video 1e700000.video: Engine busy; don't start
+frame
+[ 2068.771128] aspeed-video 1e700000.video: Timed out; first mode
+detect
+[ 2069.025462] aspeed-video 1e700000.video: Got resolution: 1024x768
+[ 2069.031803] aspeed-video 1e700000.video: Max compressed size: 80000
+[ 2069.808665] aspeed-video 1e700000.video: Resolution changed;
+resetting
 
->
-> GET TrustedModuleRequiredToBoot is available today. The PATCH is in
-> review here: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/44044
->
-> We will push a commit to switch this to Redfish.
+Jae, or anyone else, do you have any ideas to solve this? I'm surprised
+it's enough to stop pinging the watchdog, but that is what happens...
+
+Thanks,
+Eddie
+
