@@ -4,98 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 X-Spam-Level: 
 X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8FA04C4338F
-	for <openbmc@archiver.kernel.org>; Mon, 16 Aug 2021 18:55:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 59DCEC4338F
+	for <openbmc@archiver.kernel.org>; Mon, 16 Aug 2021 19:33:47 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B1A1D60F14
-	for <openbmc@archiver.kernel.org>; Mon, 16 Aug 2021 18:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B1A1D60F14
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=stwcx.xyz
+	by mail.kernel.org (Postfix) with ESMTPS id 2C41060E76
+	for <openbmc@archiver.kernel.org>; Mon, 16 Aug 2021 19:33:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2C41060E76
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=tanous.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GpNfF058dz3081
-	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 04:55:49 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GpPV02yMRz30B4
+	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 05:33:44 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256 header.s=fm2 header.b=eUCLIA4f;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=K/pch+QT;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=tanous-net.20150623.gappssmtp.com header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=GwbcZ8Hb;
 	dkim-atps=neutral
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=stwcx.xyz (client-ip=66.111.4.26;
- helo=out2-smtp.messagingengine.com; envelope-from=patrick@stwcx.xyz;
- receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org;
+ spf=none (no SPF record) smtp.mailfrom=tanous.net
+ (client-ip=2a00:1450:4864:20::232; helo=mail-lj1-x232.google.com;
+ envelope-from=ed@tanous.net; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=stwcx.xyz header.i=@stwcx.xyz header.a=rsa-sha256
- header.s=fm2 header.b=eUCLIA4f; 
- dkim=pass (2048-bit key;
- unprotected) header.d=messagingengine.com header.i=@messagingengine.com
- header.a=rsa-sha256 header.s=fm3 header.b=K/pch+QT; 
- dkim-atps=neutral
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com
- [66.111.4.26])
+ unprotected) header.d=tanous-net.20150623.gappssmtp.com
+ header.i=@tanous-net.20150623.gappssmtp.com header.a=rsa-sha256
+ header.s=20150623 header.b=GwbcZ8Hb; dkim-atps=neutral
+Received: from mail-lj1-x232.google.com (mail-lj1-x232.google.com
+ [IPv6:2a00:1450:4864:20::232])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GpNdL0XdTz2yX8
- for <openbmc@lists.ozlabs.org>; Tue, 17 Aug 2021 04:55:00 +1000 (AEST)
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 744605C0127;
- Mon, 16 Aug 2021 14:54:56 -0400 (EDT)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Mon, 16 Aug 2021 14:54:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stwcx.xyz; h=
- date:from:to:cc:subject:message-id:references:mime-version
- :content-type:in-reply-to; s=fm2; bh=fXz+9QCGLEVo3tTeq8ct5RwE3f8
- IOsJQR9610BscJu0=; b=eUCLIA4fQiXPkEKyoAB4bs5xZvBqnnvRXr8Q/822Mof
- J6l/tR4CzoHlLN35AqdoUuAyhQVCyNUtuRo57hwBMRhQVl7uV+Jlk9e9T0mYx9Hv
- osBjjeXXAh1u3Th5O/EAiuCxG6jpK7RLFbfMtimfdq1AmJfaGKWbFWmlKMKV84FA
- T+pfTNnFkyFovdTd+SbqLKRpYmDRL1eBKOEFS9NyKYdCH36/7oI07S6eiWxmhuup
- jT+0Anf/2nVOXlUi+PZzHgZaxp1F8Yo5m3WON1XWkJerzjE9IQg31kM8Oo/Y8v6N
- ToRAYrJGtD7VluN1TWxMIyNGwICxBB0OdY+SKXR52bA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to:x-me-proxy
- :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=fXz+9Q
- CGLEVo3tTeq8ct5RwE3f8IOsJQR9610BscJu0=; b=K/pch+QTm3uDqnOq/UdlDs
- fZlfxAZYQPpJnQmF20rMH7cdEWzi0jbisI36v3K3jmcP+bYLOCdkNRDQEmUz8eNn
- w85VsGFkJNJRk3s7ddAYfAL/LzYzfClx8lCsXidPg08VqgRMR3EnBV79Y38dTAUm
- E0ibWe1JUqGPC4TavAuYd2Y7xn+et3h2yeZSZHI3UT81UdHFTioilg3mtmjnZI0F
- 3BF0u/EQ5c9M9WmhVujeeDdEsN3/BAcY0K/b/2b1tWfpuMp3p6DkOoCjHwQXBn6O
- qUgRd/2nFXFqwfd/6W0VbLMaxqJ/knRMtAMupQRqSbm2mGcGVvuXIVbU5woFMRfQ
- ==
-X-ME-Sender: <xms:frQaYfjW4NYAnq7VPI_OOugzCsQ8TQ4maAUsW-d5RBsDeNB2eDkkVw>
- <xme:frQaYcBzdAOI8BQc6TRU0xsdsF5LmV3FmAZtzL_qfxJxg8ULykVoqN6hc-gVAjfsG
- a30GhcUFL6JUneIhZ8>
-X-ME-Received: <xmr:frQaYfEg9ESEprU2_DRixD23DTRVBM0K9MYQGt7h9NTu5lgb8HGWqj5qW5ZRDY5SV6Ka2Hxhr2k5NGYUuT5mKmwsMEEubmwgTHM>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrledugdduvdelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- gfrhhlucfvnfffucdljedtmdenucfjughrpeffhffvuffkfhggtggujgesghdtreertddt
- vdenucfhrhhomheprfgrthhrihgtkhcuhghilhhlihgrmhhsuceophgrthhrihgtkhessh
- htfigtgidrgiihiieqnecuggftrfgrthhtvghrnhepgeehheefffegkeevhedthffgudfh
- geefgfdthefhkedtleffveekgfeuffehtdeinecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepphgrthhrihgtkhesshhtfigtgidrgiihii
-X-ME-Proxy: <xmx:frQaYcT4mVLMHZoSLtULBj7N0tAkQ5u2yZI4hzWs8SSc2pjY6or2MQ>
- <xmx:frQaYczHAgoftQuNKJAoQWx3DeFXIJNoDalDhjveL9fnpMzW7fXM3w>
- <xmx:frQaYS72plvHKLP2FfIYJLxV4lpPzdJjdRJ0lpPnLEDr3FrIEZCwRA>
- <xmx:gLQaYbknIe9cZV7_uKpJPnn2P0ank1rLLFWSMTsO8LIW9KaekCasJQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Aug 2021 14:54:54 -0400 (EDT)
-Date: Mon, 16 Aug 2021 13:54:53 -0500
-From: Patrick Williams <patrick@stwcx.xyz>
-To: Kumar Thangavel <kumarthangavel.hcl@gmail.com>
-Subject: Re: Creating Hard Shutdown interfaces/alarm for NIC Sensor
-Message-ID: <YRq0fULpBC1hJwhw@heinlein>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GpPT94TjKz2yWN
+ for <openbmc@lists.ozlabs.org>; Tue, 17 Aug 2021 05:32:59 +1000 (AEST)
+Received: by mail-lj1-x232.google.com with SMTP id a7so28890491ljq.11
+ for <openbmc@lists.ozlabs.org>; Mon, 16 Aug 2021 12:32:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=tanous-net.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=/s3WHfeRzAGK+lRFx2ucyGlYSF4fDWDdRGWNyzH+vqE=;
+ b=GwbcZ8HbY8eDmQdjNJX39qiKdgpFWr0XiJPxMBWFWjB/dtpSqeaKQCzQNqg84ZZQST
+ N0XHOrbVDA/1Au6YOntaQH+b6UGPiB7sxM3QeGmSmsbAV0QDFlknHqxEaeCof2jHLzZS
+ SKQ8yZbg602LYRoERiw6+fDplRj6OUp5zZKTdKewyHPxaATXD8dtxTOnhiwASmlJkoBz
+ y4m0hfMbQJKekVA9DpYnumxCQbVzr9FpvsUONnQrVZseXjddyAnH8CIdudVHtxMo51Es
+ 7UpKu8t0XOSjKf9ThFpGkYIHplYeVvDZ3pABORxE+aeWzqrE2RJKKf5R6zxC4DebwNkO
+ aHaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=/s3WHfeRzAGK+lRFx2ucyGlYSF4fDWDdRGWNyzH+vqE=;
+ b=dXPF0UP94ZRw5ctbnmfI2PMIRBRSDe5rhRfLtWvNnjmPIb9iLejcP/jaojMtXw8kIt
+ pUdOA58jFcIqV9At4sNCZxb/EZWqAnhNym0QPfj6f6YMn3fTi5Mor32gzq/KoPeb+aSo
+ qy9TdI76VRt8qbOERv/ryKXFv36sz7Zf11Cww6VmeDBoXeLb8yk3cXKs2OaBD406SSel
+ gAbiF90QF8GZTgIgA7ft+t3VFvlivxa9teu6xB5H8miA9dOxN0X3hOLEvp0RSMlLwF+K
+ droAHs8rJOiO6TN4FlQTpIDNO2W0HwvPHYY5wyX9GtLB2L6TlX7zBSgO+drmRLAMJxP0
+ q4jQ==
+X-Gm-Message-State: AOAM532teSeuMVsOZXwVGw9DA0mxCVg64i2yNnSWNfvyra2vO5N4bpSO
+ 3LcNAaLQBXpUkdUqpDe9hmzx8NRftOtPLvXjTQvxVg==
+X-Google-Smtp-Source: ABdhPJw6AvFhlj6WkDrycEjVy1K5/tfK0rwRhfe1PQgP4KLb/24sD6R47/JZvSIVxJo6TBFK7dlV4Kza1zmYFT+HjIE=
+X-Received: by 2002:a2e:a4db:: with SMTP id p27mr180183ljm.161.1629142369594; 
+ Mon, 16 Aug 2021 12:32:49 -0700 (PDT)
+MIME-Version: 1.0
 References: <CAA7TbcveKrAFSODfKKJ_q1yaPEZgvn06mBO2tXe7h=Xr6jZHLw@mail.gmail.com>
  <CAA7TbcsaM_nFeA1q=Eq6zsW1gH_73HXSCmtsc=3O0hi2s8QGfA@mail.gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature"; boundary="6lZc4zPzHur0njO5"
-Content-Disposition: inline
-In-Reply-To: <CAA7TbcsaM_nFeA1q=Eq6zsW1gH_73HXSCmtsc=3O0hi2s8QGfA@mail.gmail.com>
+ <YRq0fULpBC1hJwhw@heinlein>
+In-Reply-To: <YRq0fULpBC1hJwhw@heinlein>
+From: Ed Tanous <ed@tanous.net>
+Date: Mon, 16 Aug 2021 12:32:38 -0700
+Message-ID: <CACWQX82LHoOPPMPzYwVmcT45hr=U3jb=cN0FQXVn4YhGStHcig@mail.gmail.com>
+Subject: Re: Creating Hard Shutdown interfaces/alarm for NIC Sensor
+To: Patrick Williams <patrick@stwcx.xyz>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,54 +89,36 @@ List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
 Cc: Zhikui Ren <zhikui.ren@intel.com>,
  Jae Hyun Yoo <jae.hyun.yoo@linux.intel.com>, Andrew Jeffery <andrew@aj.id.au>,
- openbmc@lists.ozlabs.org, Ed Tanous <ed@tanous.net>,
- Jayashree D <jayashree-d@hcl.com>, Amithash Prasad <amithash@fb.com>,
- velumanit@hcl.com
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Jayashree D <jayashree-d@hcl.com>,
+ Amithash Prasad <amithash@fb.com>,
+ Kumar Thangavel <kumarthangavel.hcl@gmail.com>, "Velumani T-ERS,
+ HCLTech" <velumanit@hcl.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
+On Mon, Aug 16, 2021 at 11:54 AM Patrick Williams <patrick@stwcx.xyz> wrote:
+>
+> On Mon, Aug 16, 2021 at 09:27:58PM +0530, Kumar Thangavel wrote:
+> >         Gentle Reminder.  Any suggestions/idea on this.
+>
+> Hi Kumar,
+>
+> Can you frame your original email with a question?
+>
+> I'm not versed in the details here enough to know what you're underlying
+> concern is.  When I read the email I see mostly a list of "facts".
+>
+> I suspect others are similarly not responding because they don't know what you
+> want to know or where your doubts are.
 
---6lZc4zPzHur0njO5
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+I wasn't responding because there's been several discussions on almost
+this exact use case, as well as patchsets to add the new types and
+interfaces.  To reiterate Patricks comment, I was hoping you'd search
+for them and either jump into those discussions where the work is
+being done, or propose some more pointed questions once you got more
+versed on what already exists along those lines.
 
-On Mon, Aug 16, 2021 at 09:27:58PM +0530, Kumar Thangavel wrote:
->         Gentle Reminder.  Any suggestions/idea on this.
-
-Hi Kumar,
-
-Can you frame your original email with a question?
-
-I'm not versed in the details here enough to know what you're underlying
-concern is.  When I read the email I see mostly a list of "facts".
-
-I suspect others are similarly not responding because they don't know what =
-you
-want to know or where your doubts are.
-
---=20
-Patrick Williams
-
---6lZc4zPzHur0njO5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCAAdFiEEBGD9ii4LE9cNbqJBqwNHzC0AwRkFAmEatHsACgkQqwNHzC0A
-wRnd+xAAkMD6cDsgg7fbJ9S+OqJXLb/guSkFI/cFxAgvYsBukDOPc9ah5mPg82mc
-QKjNumM5Hqb+/586KrPzq/rkLG0gyDZSPlD/Zx81gVAJ44CDhxB5jY+sTBSUfdCw
-MSmOn+skLnhs1b+8egG4Nld+aJXpaqa8vL0NQPWl4CAu52pplRKzky50IWXzaqIZ
-g9K8c0XoWhRdxa0ozeWaILwen8b6/ZHZJPbsqQqRJZjbbKnP3Ngb/AuOmi43LoEM
-rEm0pslpM7T8qcKJxyNuGEfTVj3JtwCwJGKmAUkAJ/UXypYBxZzSvReRkliErZU2
-PwFUtUC51H3Z11WaWY2MoPGiTJNqPvFPV0XA8iv6hi4NONHBgVDv90NBzTEHmA3Z
-PUl3o2GtHjoHFvczm/oMTSIBAoKM1cSthpagU9Z6w6xpUJsjkQ/vEySlmJgnY4Bb
-Tso34/e9aYcKAOufN0yhfhYL3LlW+gXxVYlCYsr+CEFnF87nJSvneBb3Wp0WN50W
-zSQTLHeJpGgLoVDfLDUsyEUZQIGuR3wowQiE+9ZIAk2akw/urBzSCPA0e7xSW71I
-PssmdMcmYeLAGyc2L+2lkM3uaLr3SWdgnKxsGhGO+jnju6q3BXUR6Lji+zbUii5Y
-lA69CT87QX8+miDdgowezU4ysSaJpNyT/sOulInWyBmi7JKGUF8=
-=JJ3K
------END PGP SIGNATURE-----
-
---6lZc4zPzHur0njO5--
+>
+> --
+> Patrick Williams
