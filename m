@@ -2,59 +2,75 @@ Return-Path: <SRS0=7r8K=NI=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BF739C4338F
-	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 03:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4335DC4338F
+	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 08:22:07 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3D8A060F14
-	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 03:01:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3D8A060F14
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id B05E160E52
+	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 08:22:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B05E160E52
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GpbQQ6zHXz30L2
-	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 13:01:18 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=fail (SPF fail - not authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GpkXX71LCz30Jx
+	for <openbmc@archiver.kernel.org>; Tue, 17 Aug 2021 18:22:04 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=BD+21WBp;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::f2d;
+ helo=mail-qv1-xf2d.google.com; envelope-from=joel.stan@gmail.com;
  receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (unknown [211.20.114.71])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=BD+21WBp; dkim-atps=neutral
+Received: from mail-qv1-xf2d.google.com (mail-qv1-xf2d.google.com
+ [IPv6:2607:f8b0:4864:20::f2d])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GpbNt3cVfz2yfZ;
- Tue, 17 Aug 2021 12:59:20 +1000 (AEST)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 17H2eVxa035574;
- Tue, 17 Aug 2021 10:40:31 +0800 (GMT-8)
- (envelope-from chiawei_wang@aspeedtech.com)
-Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Tue, 17 Aug 2021 10:58:39 +0800
-From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
- <cyrilbur@gmail.com>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
- <openbmc@lists.ozlabs.org>
-Subject: [PATCH v2 1/2] soc: aspeed: Add LPC mailbox support
-Date: Tue, 17 Aug 2021 10:58:47 +0800
-Message-ID: <20210817025848.19914-2-chiawei_wang@aspeedtech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210817025848.19914-1-chiawei_wang@aspeedtech.com>
-References: <20210817025848.19914-1-chiawei_wang@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GpkWh717Dz2yfZ;
+ Tue, 17 Aug 2021 18:21:20 +1000 (AEST)
+Received: by mail-qv1-xf2d.google.com with SMTP id eh1so3061194qvb.11;
+ Tue, 17 Aug 2021 01:21:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc; bh=4eUZVG0XpccdWtoJobUI2EmJHkDs8bqZphSP7hFWH1Q=;
+ b=BD+21WBpfx3JflwQsN76WK36pG10k24qJf49uOaBukabmoZkC1OSJcSGBE5ArXDN48
+ JFfC/ftO1VehIaVW3ADemG5c4GUYGqKndbnxYmwlnyuAhwrNvOxtKp0vdiPM3816BOf2
+ yG8X0zariuFOwjuSeL48meiOi1n1lEOLD7UYE=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=4eUZVG0XpccdWtoJobUI2EmJHkDs8bqZphSP7hFWH1Q=;
+ b=TJJbgu8uaigJot2qzZNwfQznRkFRIuCd1eplHTSpILCW2L+vbQNdoEXGflUtaThQiM
+ UsXSJt9XCMgf7JKcgRWnzTq7bhNPH8cm1NTnknkRBeh4U2hYLBe3UVOYVBjlbWb/9Te2
+ HH7+OgqBwj3EPNeszptvc1/PU7Xnch+WkNo04ryRjWzoxdwyxyPgQfBpotV/ZMM2SQqL
+ zTA6bFDdj8QCp0LZ2tLibfjPDMUAXWhRHNVwyUeNSMBeeXqAj2b0dKifUVWtQ+P+lkUl
+ ybT10sF7OP1p4x4cR1rPvb67Zxed8hkDyA/ieMUlpYg3PQhm4jwIeGzt4MAucsCO2CIO
+ xlkw==
+X-Gm-Message-State: AOAM5300EAk4mTMpFBgDmg6Db3LwzmwmVQoix8UZb5Dgg/QbGvop0IfX
+ PeLfKRs4nepWL1rKWdrQxulYHIxiSPcMsEuu5Fk=
+X-Google-Smtp-Source: ABdhPJz9DGxB7h6lDvfpMgEsp1O8RBOgo02XQZaKMDjkzBKVciQFWc8H/pOWw1CBfwgQUgIkuWSEZq9MSp8FXp6V3b0=
+X-Received: by 2002:a05:6214:27ee:: with SMTP id
+ jt14mr2172403qvb.61.1629188476683; 
+ Tue, 17 Aug 2021 01:21:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.66]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 17H2eVxa035574
+References: <20210813061900.24539-1-rentao.bupt@gmail.com>
+In-Reply-To: <20210813061900.24539-1-rentao.bupt@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Tue, 17 Aug 2021 08:21:04 +0000
+Message-ID: <CACPK8Xei0K2vcEGc3Qr5zcb1SHMgNbJ+4_fVd6u-FiOHt4PxSg@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: cloudripper: Add comments for "mdio1"
+To: Tao Ren <rentao.bupt@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,484 +82,47 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: devicetree <devicetree@vger.kernel.org>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>, Andrew Jeffery <andrew@aj.id.au>,
+ Tao Ren <taoren@fb.com>, OpenBMC Maillist <openbmc@lists.ozlabs.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Rob Herring <robh+dt@kernel.org>,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The LPC mailbox controller consists of multiple general
-registers for the communication between the Host and the BMC.
-The interrupts for data update signaling are also introduced.
+On Fri, 13 Aug 2021 at 06:19, <rentao.bupt@gmail.com> wrote:
+>
+> From: Tao Ren <rentao.bupt@gmail.com>
+>
+> Add some comments to explain the purpose of "mdio1" controller: it's
+> connected to the MDC/MDIO interface of the on-board management switch.
+>
+> Signed-off-by: Tao Ren <rentao.bupt@gmail.com>
 
-Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-Reported-by: kernel test robot <lkp@intel.com>
-Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
----
- drivers/soc/aspeed/Kconfig           |  10 +
- drivers/soc/aspeed/Makefile          |   9 +-
- drivers/soc/aspeed/aspeed-lpc-mbox.c | 418 +++++++++++++++++++++++++++
- 3 files changed, 433 insertions(+), 4 deletions(-)
- create mode 100644 drivers/soc/aspeed/aspeed-lpc-mbox.c
+Thanks, applied.
 
-diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-index 243ca196e6ad..5b31a6e2620c 100644
---- a/drivers/soc/aspeed/Kconfig
-+++ b/drivers/soc/aspeed/Kconfig
-@@ -24,6 +24,16 @@ config ASPEED_LPC_SNOOP
- 	  allows the BMC to listen on and save the data written by
- 	  the host to an arbitrary LPC I/O port.
- 
-+config ASPEED_LPC_MAILBOX
-+	tristate "ASPEED LPC mailbox support"
-+	select REGMAP
-+	select MFD_SYSCON
-+	default ARCH_ASPEED
-+	help
-+	  Provides a driver to control the LPC mailbox which possesses
-+	  up to 32 data registers for the communication between the Host
-+	  and the BMC over LPC.
-+
- config ASPEED_P2A_CTRL
- 	tristate "ASPEED P2A (VGA MMIO to BMC) bridge control"
- 	select REGMAP
-diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-index fcab7192e1a4..cde6b4514c97 100644
---- a/drivers/soc/aspeed/Makefile
-+++ b/drivers/soc/aspeed/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
--obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
--obj-$(CONFIG_ASPEED_P2A_CTRL)	+= aspeed-p2a-ctrl.o
--obj-$(CONFIG_ASPEED_SOCINFO)	+= aspeed-socinfo.o
-+obj-$(CONFIG_ASPEED_LPC_CTRL)		+= aspeed-lpc-ctrl.o
-+obj-$(CONFIG_ASPEED_LPC_SNOOP)		+= aspeed-lpc-snoop.o
-+obj-$(CONFIG_ASPEED_LPC_MAILBOX)	+= aspeed-lpc-mbox.o
-+obj-$(CONFIG_ASPEED_P2A_CTRL)		+= aspeed-p2a-ctrl.o
-+obj-$(CONFIG_ASPEED_SOCINFO)		+= aspeed-socinfo.o
-diff --git a/drivers/soc/aspeed/aspeed-lpc-mbox.c b/drivers/soc/aspeed/aspeed-lpc-mbox.c
-new file mode 100644
-index 000000000000..a09ca6a175f7
---- /dev/null
-+++ b/drivers/soc/aspeed/aspeed-lpc-mbox.c
-@@ -0,0 +1,418 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Copyright 2017 IBM Corporation
-+ * Copyright 2021 Aspeed Technology Inc.
-+ */
-+#include <linux/interrupt.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/miscdevice.h>
-+#include <linux/module.h>
-+#include <linux/of_irq.h>
-+#include <linux/of_device.h>
-+#include <linux/platform_device.h>
-+#include <linux/poll.h>
-+#include <linux/regmap.h>
-+#include <linux/slab.h>
-+
-+#define DEVICE_NAME	"aspeed-mbox"
-+
-+#define ASPEED_MBOX_DR(dr, n)	(dr + (n * 4))
-+#define ASPEED_MBOX_STR(str, n)	(str + (n / 8) * 4)
-+#define ASPEED_MBOX_BIE(bie, n)	(bie + (n / 8) * 4)
-+#define ASPEED_MBOX_HIE(hie, n) (hie + (n / 8) * 4)
-+
-+#define ASPEED_MBOX_BCR_RECV	BIT(7)
-+#define ASPEED_MBOX_BCR_MASK	BIT(1)
-+#define ASPEED_MBOX_BCR_SEND	BIT(0)
-+
-+/* ioctl code */
-+#define ASPEED_MBOX_IOCTL		0xA3
-+#define ASPEED_MBOX_IOCTL_GET_SIZE	\
-+	_IOR(ASPEED_MBOX_IOCTL, 0, struct aspeed_mbox_ioctl_data)
-+
-+struct aspeed_mbox_ioctl_data {
-+	unsigned int data;
-+};
-+
-+struct aspeed_mbox_model {
-+	unsigned int dr_num;
-+
-+	/* offsets to the MBOX registers */
-+	unsigned int dr;
-+	unsigned int str;
-+	unsigned int bcr;
-+	unsigned int hcr;
-+	unsigned int bie;
-+	unsigned int hie;
-+};
-+
-+struct aspeed_mbox {
-+	struct miscdevice miscdev;
-+	struct regmap *map;
-+	unsigned int base;
-+	wait_queue_head_t queue;
-+	struct mutex mutex;
-+	const struct aspeed_mbox_model *model;
-+};
-+
-+static atomic_t aspeed_mbox_open_count = ATOMIC_INIT(0);
-+
-+static u8 aspeed_mbox_inb(struct aspeed_mbox *mbox, int reg)
-+{
-+	/*
-+	 * The mbox registers are actually only one byte but are addressed
-+	 * four bytes apart. The other three bytes are marked 'reserved',
-+	 * they *should* be zero but lets not rely on it.
-+	 * I am going to rely on the fact we can casually read/write to them...
-+	 */
-+	unsigned int val = 0xff; /* If regmap throws an error return 0xff */
-+	int rc = regmap_read(mbox->map, mbox->base + reg, &val);
-+
-+	if (rc)
-+		dev_err(mbox->miscdev.parent, "regmap_read() failed with "
-+			"%d (reg: 0x%08x)\n", rc, reg);
-+
-+	return val & 0xff;
-+}
-+
-+static void aspeed_mbox_outb(struct aspeed_mbox *mbox, u8 data, int reg)
-+{
-+	int rc = regmap_write(mbox->map, mbox->base + reg, data);
-+
-+	if (rc)
-+		dev_err(mbox->miscdev.parent, "regmap_write() failed with "
-+			"%d (data: %u reg: 0x%08x)\n", rc, data, reg);
-+}
-+
-+static struct aspeed_mbox *file_mbox(struct file *file)
-+{
-+	return container_of(file->private_data, struct aspeed_mbox, miscdev);
-+}
-+
-+static int aspeed_mbox_open(struct inode *inode, struct file *file)
-+{
-+	struct aspeed_mbox *mbox = file_mbox(file);
-+	const struct aspeed_mbox_model *model = mbox->model;
-+
-+	if (atomic_inc_return(&aspeed_mbox_open_count) == 1) {
-+		/*
-+		 * Clear the interrupt status bit if it was left on and unmask
-+		 * interrupts.
-+		 * ASPEED_MBOX_BCR_RECV bit is W1C, this also unmasks in 1 step
-+		 */
-+		aspeed_mbox_outb(mbox, ASPEED_MBOX_BCR_RECV, model->bcr);
-+		return 0;
-+	}
-+
-+	atomic_dec(&aspeed_mbox_open_count);
-+	return -EBUSY;
-+}
-+
-+static ssize_t aspeed_mbox_read(struct file *file, char __user *buf,
-+				size_t count, loff_t *ppos)
-+{
-+	struct aspeed_mbox *mbox = file_mbox(file);
-+	const struct aspeed_mbox_model *model = mbox->model;
-+	char __user *p = buf;
-+	ssize_t ret;
-+	int i;
-+
-+	if (!access_ok(buf, count))
-+		return -EFAULT;
-+
-+	if (count + *ppos > model->dr_num)
-+		return -EINVAL;
-+
-+	if (file->f_flags & O_NONBLOCK) {
-+		if (!(aspeed_mbox_inb(mbox, model->bcr) &
-+				ASPEED_MBOX_BCR_RECV))
-+			return -EAGAIN;
-+	} else if (wait_event_interruptible(mbox->queue,
-+				aspeed_mbox_inb(mbox, model->bcr) &
-+				ASPEED_MBOX_BCR_RECV)) {
-+		return -ERESTARTSYS;
-+	}
-+
-+	mutex_lock(&mbox->mutex);
-+
-+	for (i = *ppos; count > 0 && i < model->dr_num; i++) {
-+		uint8_t reg = aspeed_mbox_inb(mbox, ASPEED_MBOX_DR(model->dr, i));
-+
-+		ret = __put_user(reg, p);
-+		if (ret)
-+			goto out_unlock;
-+
-+		p++;
-+		count--;
-+	}
-+
-+	/* ASPEED_MBOX_BCR_RECV bit is write to clear, this also unmasks in 1 step */
-+	aspeed_mbox_outb(mbox, ASPEED_MBOX_BCR_RECV, model->bcr);
-+	ret = p - buf;
-+
-+out_unlock:
-+	mutex_unlock(&mbox->mutex);
-+	return ret;
-+}
-+
-+static ssize_t aspeed_mbox_write(struct file *file, const char __user *buf,
-+				size_t count, loff_t *ppos)
-+{
-+	struct aspeed_mbox *mbox = file_mbox(file);
-+	const struct aspeed_mbox_model *model = mbox->model;
-+	const char __user *p = buf;
-+	ssize_t ret;
-+	char c;
-+	int i;
-+
-+	if (!access_ok(buf, count))
-+		return -EFAULT;
-+
-+	if (count + *ppos > model->dr_num)
-+		return -EINVAL;
-+
-+	mutex_lock(&mbox->mutex);
-+
-+	for (i = *ppos; count > 0 && i < model->dr_num; i++) {
-+		ret = __get_user(c, p);
-+		if (ret)
-+			goto out_unlock;
-+
-+		aspeed_mbox_outb(mbox, c, ASPEED_MBOX_DR(model->dr, i));
-+		p++;
-+		count--;
-+	}
-+
-+	aspeed_mbox_outb(mbox, ASPEED_MBOX_BCR_SEND, model->bcr);
-+	ret = p - buf;
-+
-+out_unlock:
-+	mutex_unlock(&mbox->mutex);
-+	return ret;
-+}
-+
-+static __poll_t aspeed_mbox_poll(struct file *file, poll_table *wait)
-+{
-+	struct aspeed_mbox *mbox = file_mbox(file);
-+	const struct aspeed_mbox_model *model = mbox->model;
-+	__poll_t mask = 0;
-+
-+	poll_wait(file, &mbox->queue, wait);
-+
-+	if (aspeed_mbox_inb(mbox, model->bcr) & ASPEED_MBOX_BCR_RECV)
-+		mask |= POLLIN;
-+
-+	return mask;
-+}
-+
-+static int aspeed_mbox_release(struct inode *inode, struct file *file)
-+{
-+	atomic_dec(&aspeed_mbox_open_count);
-+	return 0;
-+}
-+
-+static long aspeed_mbox_ioctl(struct file *file, unsigned int cmd,
-+				 unsigned long param)
-+{
-+	long ret = 0;
-+	struct aspeed_mbox *mbox = file_mbox(file);
-+	const struct aspeed_mbox_model *model = mbox->model;
-+	struct aspeed_mbox_ioctl_data data;
-+
-+	switch (cmd) {
-+	case ASPEED_MBOX_IOCTL_GET_SIZE:
-+		data.data = model->dr_num;
-+		if (copy_to_user((void __user *)param, &data, sizeof(data)))
-+			ret = -EFAULT;
-+		break;
-+	default:
-+		ret = -ENOTTY;
-+		break;
-+	}
-+
-+	return ret;
-+}
-+
-+static const struct file_operations aspeed_mbox_fops = {
-+	.owner		= THIS_MODULE,
-+	.llseek		= no_seek_end_llseek,
-+	.read		= aspeed_mbox_read,
-+	.write		= aspeed_mbox_write,
-+	.open		= aspeed_mbox_open,
-+	.release	= aspeed_mbox_release,
-+	.poll		= aspeed_mbox_poll,
-+	.unlocked_ioctl	= aspeed_mbox_ioctl,
-+};
-+
-+static irqreturn_t aspeed_mbox_irq(int irq, void *arg)
-+{
-+	struct aspeed_mbox *mbox = arg;
-+	const struct aspeed_mbox_model *model = mbox->model;
-+
-+	if (!(aspeed_mbox_inb(mbox, model->bcr) & ASPEED_MBOX_BCR_RECV))
-+		return IRQ_NONE;
-+
-+	/*
-+	 * Leave the status bit set so that we know the data is for us,
-+	 * clear it once it has been read.
-+	 */
-+
-+	/* Mask it off, we'll clear it when we the data gets read */
-+	aspeed_mbox_outb(mbox, ASPEED_MBOX_BCR_MASK, model->bcr);
-+
-+	wake_up(&mbox->queue);
-+	return IRQ_HANDLED;
-+}
-+
-+static int aspeed_mbox_config_irq(struct aspeed_mbox *mbox,
-+		struct platform_device *pdev)
-+{
-+	const struct aspeed_mbox_model *model = mbox->model;
-+	struct device *dev = &pdev->dev;
-+	int i, rc, irq;
-+
-+	irq = irq_of_parse_and_map(dev->of_node, 0);
-+	if (!irq)
-+		return -ENODEV;
-+
-+	rc = devm_request_irq(dev, irq, aspeed_mbox_irq,
-+			IRQF_SHARED, DEVICE_NAME, mbox);
-+	if (rc < 0) {
-+		dev_err(dev, "Unable to request IRQ %d\n", irq);
-+		return rc;
-+	}
-+
-+	/*
-+	 * Disable all register based interrupts.
-+	 */
-+	for (i = 0; i < model->dr_num / 8; ++i)
-+		aspeed_mbox_outb(mbox, 0x00, ASPEED_MBOX_BIE(model->bie, i));
-+
-+	/* These registers are write one to clear. Clear them. */
-+	for (i = 0; i < model->dr_num / 8; ++i)
-+		aspeed_mbox_outb(mbox, 0xff, ASPEED_MBOX_STR(model->str, i));
-+
-+	aspeed_mbox_outb(mbox, ASPEED_MBOX_BCR_RECV, model->bcr);
-+	return 0;
-+}
-+
-+static int aspeed_mbox_probe(struct platform_device *pdev)
-+{
-+	struct aspeed_mbox *mbox;
-+	struct device *dev;
-+	int rc;
-+
-+	dev = &pdev->dev;
-+
-+	mbox = devm_kzalloc(dev, sizeof(*mbox), GFP_KERNEL);
-+	if (!mbox)
-+		return -ENOMEM;
-+
-+	dev_set_drvdata(&pdev->dev, mbox);
-+
-+	rc = of_property_read_u32(dev->of_node, "reg", &mbox->base);
-+	if (rc) {
-+		dev_err(dev, "Couldn't read reg device tree property\n");
-+		return rc;
-+	}
-+
-+	mbox->model = of_device_get_match_data(dev);
-+	if (IS_ERR(mbox->model)) {
-+		dev_err(dev, "Couldn't get model data\n");
-+		return -ENODEV;
-+	}
-+
-+	mbox->map = syscon_node_to_regmap(
-+			pdev->dev.parent->of_node);
-+	if (IS_ERR(mbox->map)) {
-+		dev_err(dev, "Couldn't get regmap\n");
-+		return -ENODEV;
-+	}
-+
-+	mutex_init(&mbox->mutex);
-+	init_waitqueue_head(&mbox->queue);
-+
-+	mbox->miscdev.minor = MISC_DYNAMIC_MINOR;
-+	mbox->miscdev.name = DEVICE_NAME;
-+	mbox->miscdev.fops = &aspeed_mbox_fops;
-+	mbox->miscdev.parent = dev;
-+	rc = misc_register(&mbox->miscdev);
-+	if (rc) {
-+		dev_err(dev, "Unable to register device\n");
-+		return rc;
-+	}
-+
-+	rc = aspeed_mbox_config_irq(mbox, pdev);
-+	if (rc) {
-+		dev_err(dev, "Failed to configure IRQ\n");
-+		misc_deregister(&mbox->miscdev);
-+		return rc;
-+	}
-+
-+	return 0;
-+}
-+
-+static int aspeed_mbox_remove(struct platform_device *pdev)
-+{
-+	struct aspeed_mbox *mbox = dev_get_drvdata(&pdev->dev);
-+
-+	misc_deregister(&mbox->miscdev);
-+
-+	return 0;
-+}
-+
-+static const struct aspeed_mbox_model ast2400_model = {
-+	.dr_num = 16,
-+	.dr	= 0x0,
-+	.str = 0x40,
-+	.bcr = 0x48,
-+	.hcr = 0x4c,
-+	.bie = 0x50,
-+	.hie = 0x58,
-+};
-+
-+static const struct aspeed_mbox_model ast2500_model = {
-+	.dr_num = 16,
-+	.dr	= 0x0,
-+	.str = 0x40,
-+	.bcr = 0x48,
-+	.hcr = 0x4c,
-+	.bie = 0x50,
-+	.hie = 0x58,
-+};
-+
-+static const struct aspeed_mbox_model ast2600_model = {
-+	.dr_num = 32,
-+	.dr	= 0x0,
-+	.str = 0x80,
-+	.bcr = 0x90,
-+	.hcr = 0x94,
-+	.bie = 0xa0,
-+	.hie = 0xb0,
-+};
-+
-+static const struct of_device_id aspeed_mbox_match[] = {
-+	{ .compatible = "aspeed,ast2400-mbox",
-+	  .data = &ast2400_model },
-+	{ .compatible = "aspeed,ast2500-mbox",
-+	  .data = &ast2500_model },
-+	{ .compatible = "aspeed,ast2600-mbox",
-+	  .data = &ast2600_model },
-+	{ },
-+};
-+
-+static struct platform_driver aspeed_mbox_driver = {
-+	.driver = {
-+		.name		= DEVICE_NAME,
-+		.of_match_table = aspeed_mbox_match,
-+	},
-+	.probe = aspeed_mbox_probe,
-+	.remove = aspeed_mbox_remove,
-+};
-+
-+module_platform_driver(aspeed_mbox_driver);
-+MODULE_DEVICE_TABLE(of, aspeed_mbox_match);
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Cyril Bur <cyrilbur@gmail.com>");
-+MODULE_AUTHOR("Chia-Wei Wang <chiawei_wang@aspeedtech.com");
-+MODULE_DESCRIPTION("Aspeed mailbox device driver");
--- 
-2.17.1
-
+> ---
+>  arch/arm/boot/dts/aspeed-bmc-facebook-cloudripper.dts | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-cloudripper.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-cloudripper.dts
+> index 01ec3ce0a29d..9c6271a17ae8 100644
+> --- a/arch/arm/boot/dts/aspeed-bmc-facebook-cloudripper.dts
+> +++ b/arch/arm/boot/dts/aspeed-bmc-facebook-cloudripper.dts
+> @@ -96,6 +96,11 @@
+>         status = "okay";
+>  };
+>
+> +/*
+> + * "mdio1" is connected to the MDC/MDIO interface of the on-board
+> + * management switch (whose ports are connected to BMC, Host and front
+> + * panel ethernet port).
+> + */
+>  &mdio1 {
+>         status = "okay";
+>  };
+> --
+> 2.17.1
+>
