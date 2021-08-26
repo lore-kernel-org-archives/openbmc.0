@@ -2,133 +2,77 @@ Return-Path: <SRS0=JHGv=NR=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C9FFFC4320A
-	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 01:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 31298C432BE
+	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 03:48:14 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 2D6EB60E52
-	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 01:56:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 2D6EB60E52
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 76B12610CB
+	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 03:48:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 76B12610CB
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4Gw5Yf5Rplz2yJ7
-	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 11:56:38 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4Gw82L4ZYxz2y6B
+	for <openbmc@archiver.kernel.org>; Thu, 26 Aug 2021 13:48:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=JOlhXhtp;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=g+2jIsui;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=40.107.131.112;
- helo=apc01-sg2-obe.outbound.protection.outlook.com;
- envelope-from=ryan_chen@aspeedtech.com; receiver=<UNKNOWN>)
-Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com
- header.a=rsa-sha256 header.s=selector1 header.b=JOlhXhtp; 
- dkim-atps=neutral
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-eopbgr1310112.outbound.protection.outlook.com [40.107.131.112])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::72a;
+ helo=mail-qk1-x72a.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=g+2jIsui; dkim-atps=neutral
+Received: from mail-qk1-x72a.google.com (mail-qk1-x72a.google.com
+ [IPv6:2607:f8b0:4864:20::72a])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4Gw5Xg1PsPz2xnf
- for <openbmc@lists.ozlabs.org>; Thu, 26 Aug 2021 11:55:46 +1000 (AEST)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=gRR4ihDpsB4vdH7lWJQ5zIKx8n/8O9pWgiu0dXcbSd2DRkGwwE6KdB9nYAepG0zRVEz54uEOh+fnMV6YwmMtTzLClgT9MNLYPt+xjLhwbGM6Q27zsPELIrX9Tj1O7GM43QFVZIGz0B4MxXsianqNLMvgR0KZPFrf6IM1cmzAyPIOYomzdWndzl4mCTbLjpJz8X9VmNXBInP2dD98+9kyml7Gvh9jtJTao31jImgQxXKt7WvmSMfpzzPkR1Qcrhe2OGYTLegdx2m7mTfq/RHmC6npoTeJ44vlLLPfynO/JLxUd+UcCrQ4EUoHB2Vyysktnp1fFa8SyuBk29UFVzlEPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H3pM/hMaQMHM5YRWEwlB72mFX/rYcXH9bGg3TAnGgFk=;
- b=JrYENY4P8N6EzE+vrymCmOA2sap3cLu/odLDHKpbl14Y/YZ3w2FozLG0PAlL4pC6C9f7REb6EUJSjYGBL8ymYT4tFQmF62NYklkm1HX4Us3P3u2jiuoQcIt6ofKd2XHYwnihevcGcQvvNFkRHG6e/cGjT42JZ58uWDR7G3yZcOvbdcEWMaB3xiCNmznPONlYd65/AuiLou+GFBP8DrSKji3kbLd4OXlKIBZC0LeuRwu/WAih/6z4Q/JCWdZGDwc69a7xf8kWy2L/Y5/gIOm4/jMgYcIPnz/h3pXd0Lu2qYrlD7VHQCenz2W+L3jc6TGRY9pvX+659B04TwooPn+g+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=H3pM/hMaQMHM5YRWEwlB72mFX/rYcXH9bGg3TAnGgFk=;
- b=JOlhXhtpC872FAZcI/SDPaBS42nNBSqZR8SC7R/4UgkIhZ6A1UiZCu/Cy4hYEwu9sBedufk6XfG5I32Z2A4PoDb1nxC2iUOEHmv5wHsgsKJi2tS3w0SiTgUvIFviG41Cch9aF0O3Md7avGiTuLeNvK14p5I+WIUCncyxgX6bDkb6gkZhaO1Gf7qjfc84exhXendwWuAl3Cf+ghWwhQ4RpASO23dPr8nDL9DvBNUO9uCud6ao+9YCNuioJpcKH6yatfOaO59PQnew2ONjCPwBq2uzdI9QwrVUA3hT56kZeD2C0AVjh8IBqLaZqTWhghmWnrPvxR2THd6yjhjJPbhL3Q==
-Received: from HK0PR06MB3380.apcprd06.prod.outlook.com (2603:1096:203:82::18)
- by HK2PR06MB3570.apcprd06.prod.outlook.com (2603:1096:202:3f::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4436.23; Thu, 26 Aug
- 2021 01:55:22 +0000
-Received: from HK0PR06MB3380.apcprd06.prod.outlook.com
- ([fe80::81e4:c1:aa1a:aa75]) by HK0PR06MB3380.apcprd06.prod.outlook.com
- ([fe80::81e4:c1:aa1a:aa75%7]) with mapi id 15.20.4457.019; Thu, 26 Aug 2021
- 01:55:22 +0000
-From: Ryan Chen <ryan_chen@aspeedtech.com>
-To: Tao Ren <rentao.bupt@gmail.com>
-Subject: RE: ASPEED EHCI error: "controller refused to start: -110"
-Thread-Topic: ASPEED EHCI error: "controller refused to start: -110"
-Thread-Index: AQHXmXnLUE/Ov+V/OUqc28a0JBlMZauD18WQgAEvdICAAABNwA==
-Date: Thu, 26 Aug 2021 01:55:22 +0000
-Message-ID: <HK0PR06MB33803291028756571A337086F2C79@HK0PR06MB3380.apcprd06.prod.outlook.com>
-References: <20210825062348.GA18567@taoren-ubuntu-R90MNF91>
- <HK0PR06MB33800E25D0C103664C9129F7F2C69@HK0PR06MB3380.apcprd06.prod.outlook.com>
- <20210826015254.GA24175@taoren-ubuntu-R90MNF91>
-In-Reply-To: <20210826015254.GA24175@taoren-ubuntu-R90MNF91>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: gmail.com; dkim=none (message not signed)
- header.d=none;gmail.com; dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8d6e05a1-44c7-453d-6f07-08d96834909b
-x-ms-traffictypediagnostic: HK2PR06MB3570:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <HK2PR06MB357006D0E399F63FD0676738F2C79@HK2PR06MB3570.apcprd06.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882;
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: fFFOOO+Wyqehh1h2jY6UK6QsPf1aYScLRvOf9AN0f7JLa8//T/SzCW9n66i+D9knZ50MsFYIxKmGedxGvGs/OjnKvjDFfB/X8/J3P79n840ue2/T0ORV/WYClobQMYMWyTln4ZAZGZksEJ3+aJCPJPdhLBmeAss0kkX5LwOxGeRYLaPS0ietMl4YzRNjGkJxYUQGmxqp6C+9tSC2/5fU8J4EFXimaI2hvmjWhofbpmVZBBH2iDVPdQwLVu1uatKHJ5936ku/W2OeytzdiyXvOKzamsGPunXWp1Mlmh9pU8k+lMSmg2y0Y+M7esmyZzt+XxW1CxS6cAg/RayfGlefcKrAbfk4cIo6L9LxE/kbDAsNN3ZdvovqSmy3ZtLcTPmEFzjTE3+0JEbHlF7sHIm3MbAEugH9P5B5CQQyrvhllbauUN9WSceoAlpPfgl7gcQ5oFNg7rL8KDEYk9iO2E/MvLjsiVzF8sFXC7/w2C4xfxJx7F0hHQT7LBQ19Zh2hG+BvJW+iZCCOfXsdEQuN427bI6APa0BgWRKUeMpVwQfKG5CaCgXqOG0jx2PWA9Yl6vZ53JSVdRfRQK539TBEVmpn6tcXpccq0Ka6qirC+QFgQPt+2q4gDlafhJdTGCqZSqZZlP7EtmR4tVymQmK277XipEgFF2zHToj96xKmWaTBhrT0Qe2hPB9dC4+/ottl5c2hEXb++hrNDuGnLj+4p47nA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK0PR06MB3380.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(366004)(346002)(396003)(136003)(376002)(39840400004)(6916009)(2906002)(86362001)(38100700002)(122000001)(33656002)(38070700005)(83380400001)(478600001)(8936002)(6506007)(4326008)(7696005)(8676002)(53546011)(186003)(26005)(5660300002)(316002)(55016002)(107886003)(52536014)(9686003)(66446008)(66556008)(71200400001)(64756008)(66946007)(54906003)(66476007)(76116006);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?fNAkYjbD/PB58c0tVDH+G6TqAnIDNtm18jB10zTh9THKgBRxpI6zLd80IZ/9?=
- =?us-ascii?Q?Axpnlnj2PErKhOSBK02B4WhySUDt/vT5QFM5WpHHLPTiBykjvh4/SpC74mr8?=
- =?us-ascii?Q?u10K0/3HpqmVzm7MZzSAGSQGsu5zzKdULp6LLBaOKDyXvJq/2yCeQlSxU5zl?=
- =?us-ascii?Q?y+ganZT0pABxGKjiI1bCkYlorHgu0tXejFtwxvZoLFlU1VDoKUTbpMP70daW?=
- =?us-ascii?Q?bfbHbhU5joi6vAFLDDsJHlbKGTfBN6r7HQNfudY+FNT7wBFoXgJRo+Vl+qoV?=
- =?us-ascii?Q?qB//moxrOTcdtedOBuF4OjN1FuVyJSgbd6bCXQwfHOKqlZAZsKSPaUSjVQd4?=
- =?us-ascii?Q?cTbB8mvn1mJWM2DiF/pPakV+t8Dyy8jfwZNE3LZYrcN/LtCR6PxUHtBLuWtl?=
- =?us-ascii?Q?WBDFSEqQ/x3T1hpUD2mpvjhTwj/2/zB9bz2/gBRgVdne5PZAUYY9B29rVllO?=
- =?us-ascii?Q?rjp2h1EYALOJX3MLD/UqaWI+9r0vrVhvS9cGU/pTgS44gqUnkHRnROuT4vNl?=
- =?us-ascii?Q?L6Cbaw2JW+ZLCVmigvstCJl1xjQpIzk1Y96MZ+oQyUPB5ymo7QEat424QryX?=
- =?us-ascii?Q?6ixwWtA1rAZMqvR8yVvjtu5ZK6U7H1AczKi7fRRcaEnJBLX8PoWxyGL3xO2D?=
- =?us-ascii?Q?JhppHUbMXs3Bd4ysPLi7P+pexM5NawoPoFQ3sjlktnY84SRtSGU+nitXxGbO?=
- =?us-ascii?Q?J4iCgeVyHYXWACyAQ7HDUHaOP0bR0CfbS8B9Pg4mQXJIg/Q497cVswBXFrI5?=
- =?us-ascii?Q?6+c5NguqoAaSI5NgGPEG8c8U0Qc+mgW3dr7rwI4EMuFO6BKrjl5vmeM8tx5h?=
- =?us-ascii?Q?nwWZmLuSiEYmEbUkBKCzbqFtYSXudlxeeCw/qbIgFxxOEPGEUlcT+T6Lft8T?=
- =?us-ascii?Q?GgYuZzPouv8cmhHt+fgH8M4F8j5WKnuI/eJlEFbDGK4BL2qTnAeBEllwhatJ?=
- =?us-ascii?Q?aeEnGF7lsLRgh9O61FBbC8bRNP3sABtnes6EH1UifrQ9+uvrb0JB8uHUDzKK?=
- =?us-ascii?Q?FDKSe00qadEXD9pZg/iweiFQ2zoFYO3bHeRXx1Ij1fV9Jn/lHOECSTCIuTzY?=
- =?us-ascii?Q?alI04qo3K+QgWvuKneG4V1snHg16OeZOzkEuAibfzkSGQpb7FiZDwgcekSyO?=
- =?us-ascii?Q?KPoehqAu9oOS8Qcm7GM8gxSWp4n1e27P+N/25qZ5HMGCNSiQH7+Vw1K8a3vl?=
- =?us-ascii?Q?VHvfyXM7IkifpIUWPACn4l17PSPv42fE1iNCdMlX5zCniaCndXgv4vxjh7Vd?=
- =?us-ascii?Q?/kgJKsoNP0v4tAk4wBHjCfe+4J8GmebcyLNz4cWXfdHshkTEe0JzalmGIwvC?=
- =?us-ascii?Q?J2b5R95fFpHZvhb/j9SodpgR?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4Gw81c72wYz2xrt
+ for <openbmc@lists.ozlabs.org>; Thu, 26 Aug 2021 13:47:30 +1000 (AEST)
+Received: by mail-qk1-x72a.google.com with SMTP id t4so1893124qkb.9
+ for <openbmc@lists.ozlabs.org>; Wed, 25 Aug 2021 20:47:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=yPT/mZcPX82ieNWuNHuD8GBDndFHTlJwy2QIecW8pM8=;
+ b=g+2jIsui8Ff6EZx9KB7PSQrrcveYt2awc6FWhYVWuEmL9nrMK5RIRLWCc1sA6odwUR
+ KSCtYYSS6evTMQ0S2+r25c4sm+Fm2b2Ugj68wFQyfj/GHkXq8jqLH4Bhznj9QPpIijyC
+ LRDpQ/MuX33o2LbibYWT+Bsc98ndUjjDwcSbQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20161025;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=yPT/mZcPX82ieNWuNHuD8GBDndFHTlJwy2QIecW8pM8=;
+ b=PSO9oWwNsi7OGVKhwGPZPWs7Tkn/18F3RTxoh+0/LgIwNhgE9XTNDmOzqyfUu3tYQ9
+ g5ss79Svk3W6E449IYWTbq93LsA2Y7nfKKRn2JzpsxHeijAzahT4XiQDOQNXc8lTMPyq
+ DDjMbaRM7LUzZGj6hnDfxZjOqE+3VNkYy/b1No9ai+w7YlHCjMYgcJ31fk05ZlJ1MgXG
+ 9HaiM/akWtGDhkOONUzpcqsU6LldB5xBe+Gx7546+l1fRnNYdQF8fNxHxO+8BZtem7wS
+ d7EhIk2zHTOUgDT3+ANCK1kweB/W4UxsgTRgNmNHMOklpOwbNqLLsPofMmlV5rxfSiB5
+ HiJw==
+X-Gm-Message-State: AOAM531e1SLGK2e6tdWf3l6ChFGxpM14mEj+2Wq1DFiduscvfJ3MVqQN
+ UTy38EL2UASpuT9NV5llP7atdnWk45QWyY16EI4=
+X-Google-Smtp-Source: ABdhPJyakvOO6BgPz+H1UoiNEd4FLr2FB1vNJt3huWiqt0rSswoEfL3yMdUatVEfdtGBETdxphonvfyyTx1GVx9gox0=
+X-Received: by 2002:a37:6197:: with SMTP id v145mr1779950qkb.487.1629949647489; 
+ Wed, 25 Aug 2021 20:47:27 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: HK0PR06MB3380.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d6e05a1-44c7-453d-6f07-08d96834909b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 26 Aug 2021 01:55:22.2749 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: D5+ZrrXGwybhyv9vTb4glXDIHDfK+c2T2lCiARPLk28SKI5CsgvY3ZJKgUMaqZt6boQY/xLrsYwvElU8W706x5DB4iw3yCkJG6AKpaGxAHo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR06MB3570
+References: <aab1dd3f9c034bc3a1eef34306149833@inventec.com>
+ <CACPK8Xf7iYijTAfcDUOH3bs-gGdM9Yton4isuuLc2w-mosapig@mail.gmail.com>
+ <89f94a107b4f48328f865c5d40a15a23@inventec.com>
+In-Reply-To: <89f94a107b4f48328f865c5d40a15a23@inventec.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Thu, 26 Aug 2021 03:47:15 +0000
+Message-ID: <CACPK8XfvpZB-88+4ZHt1THmGc1c93prOv_eZmN5DwtXLcCVFog@mail.gmail.com>
+Subject: Re: [PATCH] ARM: dts: aspeed: Adding Inventec Transformers BMC
+To: =?UTF-8?B?TGluLlRvbW15U0Mg5p6X5LiW5qy9IFRBTw==?= <Lin.TommySC@inventec.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,81 +84,30 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: "andrew@aj.id.au" <andrew@aj.id.au>, Neal Liu <neal_liu@aspeedtech.com>,
+Cc: =?UTF-8?B?WWUuVmljIOiRieWuh+a4hSBUQU8=?= <ye.vic@inventec.com>,
  "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>,
- Joppa Tsao <joppa_tsao@aspeedtech.com>
+ "Mohammed.Habeeb ISV" <mohammed.habeeb@inventec.com>,
+ =?UTF-8?B?S3VvLk1hcmNlbCDpg63lo6vlvrcgSVNW?= <kuo.marcel@inventec.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-> -----Original Message-----
-> From: Tao Ren <rentao.bupt@gmail.com>
-> Sent: Thursday, August 26, 2021 9:53 AM
-> To: Ryan Chen <ryan_chen@aspeedtech.com>
-> Cc: openbmc@lists.ozlabs.org; joel@jms.id.au; andrew@aj.id.au; Neal Liu
-> <neal_liu@aspeedtech.com>; Joppa Tsao <joppa_tsao@aspeedtech.com>
-> Subject: Re: ASPEED EHCI error: "controller refused to start: -110"
->=20
-> Hi Ryan,
->=20
-> On Wed, Aug 25, 2021 at 07:48:57AM +0000, Ryan Chen wrote:
-> > Hello,
-> > 	ASPEED EHCI design for HALT bit effect is depend on
-> Asynchronous/Periodic Schedule enable or not.
-> > 	If Asynchronous/Periodic Schedule not enable, but run bit is setting, =
-Halt
-> still =3D 1.
-> >
-> > Ryan Chen
->=20
-> Thanks for the inputs.
->=20
-> What is your recommendation? Enabling Async/Periodic schedule to make
-> USBSTS.HCHalted handshake happy? Or ignoring HCHalted check for ASPEED
-> platforms? Can you please send out a patch to fix the failure? The EHCI d=
-river
-> stops working on ASPEED platforms since v5.10.
+On Thu, 26 Aug 2021 at 02:18, Lin.TommySC =E6=9E=97=E4=B8=96=E6=AC=BD TAO
+<Lin.TommySC@inventec.com> wrote:
 >
-I think it should ignoring the HCHalted check for ASPEED platform.
-I need think about how to patch for fix this.=20
-=20
->=20
-> Cheers,
->=20
-> Tao
-> >
-> > Tel : 886-3-5751185 ext:8857
-> >
-> > > -----Original Message-----
-> > > From: Tao Ren <rentao.bupt@gmail.com>
-> > > Sent: Wednesday, August 25, 2021 2:24 PM
-> > > To: openbmc@lists.ozlabs.org
-> > > Cc: joel@jms.id.au; andrew@aj.id.au; Ryan Chen
-> > > <ryan_chen@aspeedtech.com>
-> > > Subject: ASPEED EHCI error: "controller refused to start: -110"
-> > >
-> > > Hi,
-> > >
-> > > I started to see below EHCI probe failure on my AST2500 and AST2600
-> > > BMC platforms since commit 280a9045bb18 ("ehci: fix EHCI host
-> > > controller initialization sequence"):
-> > >
-> > > > ehci-platform 1e6a3000.usb: USB 2.0, controller refused to start:
-> > > > -110
-> > >
-> > > The error happens because USBSTS.HCHalted stays at 1. But if I
-> > > ignore the error at probe time, the downstream USB devices can still
-> > > be enumerated without problems (even though USBSTS.HCHalted is still =
-1).
-> > >
-> > > My questions are: why USBSTS.HCHalted stays at 1 on ASPEED
-> > > platforms? Do we need extra configuration at EHCI probe time for ASPE=
-ED
-> SoC?
-> > >
-> > > CC Ryan @ASPEED for more comments.
-> > >
-> > >
-> > > Cheers,
-> > >
-> > > Tao
+> Hi Joel,
+>
+> Sorry for my typo. I mean it seems that git-send-email command supports o=
+nly SMTP. And our mail server supports only POP and IMAP. So do you accept =
+that I resend my mail with inline diff patch?
+
+The problem with pasting the patch into your email client is it often
+modifies the whitespace, causing the patch to be corrupt. You can try
+though.
+
+A common workaround is to use a different address for your open source
+work, such as a gmail.com account.
+
+Cheers,
+
+Joel
