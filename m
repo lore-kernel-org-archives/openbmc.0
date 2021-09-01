@@ -2,23 +2,24 @@ Return-Path: <SRS0=Anrt=NX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1A80DC432BE
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 03:31:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 942E9C432BE
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 03:31:38 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 64EEA60243
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 03:31:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 64EEA60243
+	by mail.kernel.org (Postfix) with ESMTPS id 1EA8D60BD3
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 03:31:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1EA8D60BD3
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GzqMz6b3Bz2yK7
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 13:31:11 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GzqNS5lNSz2yPM
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 13:31:36 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -27,31 +28,33 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GzqMS3dv4z2xrg;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GzqMV216zz2xrg;
  Wed,  1 Sep 2021 13:30:42 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1813BE3j043734;
- Wed, 1 Sep 2021 11:11:14 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 1813BFCp043735;
+ Wed, 1 Sep 2021 11:11:15 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 1 Sep 2021 11:30:15 +0800
+ Wed, 1 Sep 2021 11:30:16 +0800
 From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-aspeed@lists.ozlabs.org>, <openbmc@lists.ozlabs.org>,
  <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
  <linux-kernel@vger.kernel.org>
-Subject: [PATCH v4 0/4] arm: aspeed: Add eSPI support
-Date: Wed, 1 Sep 2021 11:30:11 +0800
-Message-ID: <20210901033015.910-1-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v4 2/4] MAINTAINER: Add ASPEED eSPI driver entry
+Date: Wed, 1 Sep 2021 11:30:13 +0800
+Message-ID: <20210901033015.910-3-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210901033015.910-1-chiawei_wang@aspeedtech.com>
+References: <20210901033015.910-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1813BE3j043734
+X-MAIL: twspam01.aspeedtech.com 1813BFCp043735
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,64 +71,34 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-This patch series add the driver support for the eSPI controller
-of Aspeed 5/6th generation SoCs. This controller is a slave device
-communicating with a master over Enhanced Serial Peripheral Interface (eSPI).
-It supports all of the 4 eSPI channels, namely peripheral, virtual wire,
-out-of-band, and flash, and operates at max frequency of 66MHz.
+Add Ryan Chen and myself as the maintainer of Aspeed eSPI
+driver. Joel Stanley is added as the reviewer.
 
-v4:
- - fix dt-bindgins error with patternProperties
- - fix data type warning for ARM64 compilation
- - replace header based implementation with .c files
- - add more description for the ioctl interface
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+---
+ MAINTAINERS | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-v3:
- - remove the redundant patch "clk: aspeed: Add eSPI reset bit"
- - fix missing header inclusion reported by test bot
- - fix dt-bindings error reported by yamllint
-
-v2:
- - remove irqchip implementation
- - merge per-channel drivers into single one to avoid the racing issue
-   among eSPI handshake process and driver probing.
-
-Chia-Wei Wang (4):
-  dt-bindings: aspeed: Add eSPI controller
-  MAINTAINER: Add ASPEED eSPI driver entry
-  soc: aspeed: Add eSPI driver
-  ARM: dts: aspeed: Add eSPI node
-
- .../devicetree/bindings/soc/aspeed/espi.yaml  | 162 +++++
- MAINTAINERS                                   |   9 +
- arch/arm/boot/dts/aspeed-g6.dtsi              |  17 +
- drivers/soc/aspeed/Kconfig                    |  11 +
- drivers/soc/aspeed/Makefile                   |   5 +
- drivers/soc/aspeed/aspeed-espi-ctrl.c         | 214 +++++++
- drivers/soc/aspeed/aspeed-espi-ctrl.h         | 308 ++++++++++
- drivers/soc/aspeed/aspeed-espi-flash.c        | 352 +++++++++++
- drivers/soc/aspeed/aspeed-espi-flash.h        |  45 ++
- drivers/soc/aspeed/aspeed-espi-ioc.h          | 195 ++++++
- drivers/soc/aspeed/aspeed-espi-oob.c          | 558 ++++++++++++++++++
- drivers/soc/aspeed/aspeed-espi-oob.h          |  70 +++
- drivers/soc/aspeed/aspeed-espi-perif.c        | 511 ++++++++++++++++
- drivers/soc/aspeed/aspeed-espi-perif.h        |  45 ++
- drivers/soc/aspeed/aspeed-espi-vw.c           | 137 +++++
- drivers/soc/aspeed/aspeed-espi-vw.h           |  21 +
- 16 files changed, 2660 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/soc/aspeed/espi.yaml
- create mode 100644 drivers/soc/aspeed/aspeed-espi-ctrl.c
- create mode 100644 drivers/soc/aspeed/aspeed-espi-ctrl.h
- create mode 100644 drivers/soc/aspeed/aspeed-espi-flash.c
- create mode 100644 drivers/soc/aspeed/aspeed-espi-flash.h
- create mode 100644 drivers/soc/aspeed/aspeed-espi-ioc.h
- create mode 100644 drivers/soc/aspeed/aspeed-espi-oob.c
- create mode 100644 drivers/soc/aspeed/aspeed-espi-oob.h
- create mode 100644 drivers/soc/aspeed/aspeed-espi-perif.c
- create mode 100644 drivers/soc/aspeed/aspeed-espi-perif.h
- create mode 100644 drivers/soc/aspeed/aspeed-espi-vw.c
- create mode 100644 drivers/soc/aspeed/aspeed-espi-vw.h
-
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f3267183e993..35c3164277ac 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -1720,6 +1720,15 @@ F:	drivers/crypto/axis
+ F:	drivers/mmc/host/usdhi6rol0.c
+ F:	drivers/pinctrl/pinctrl-artpec*
+ 
++ARM/ASPEED ESPI DRIVER
++M:	Chia-Wei Wang <chiawei_wang@aspeedtech.com>
++M:	Ryan Chen <ryan_chen@aspeedtech.com>
++R:	Joel Stanley <joel@jms.id.au>
++L:	linux-aspeed@lists.ozlabs.org (moderated for non-subscribers)
++L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/soc/aspeed/espi.yaml
++
+ ARM/ASPEED I2C DRIVER
+ M:	Brendan Higgins <brendanhiggins@google.com>
+ R:	Benjamin Herrenschmidt <benh@kernel.crashing.org>
 -- 
 2.17.1
 
