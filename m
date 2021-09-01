@@ -2,108 +2,104 @@ Return-Path: <SRS0=Anrt=NX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0FEC1C432BE
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 14:22:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3AFEC432BE
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 14:43:22 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 71B1860525
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 14:22:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 71B1860525
+	by mail.kernel.org (Postfix) with ESMTPS id 26B1661057
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 14:43:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 26B1661057
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H05qy5cknz2xnd
-	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 00:22:54 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H06HW2Dsdz2yKK
+	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 00:43:19 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=JPROiNMm;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=Q9c/PWjm;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=jrey@linux.ibm.com;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ helo=mx0b-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=JPROiNMm; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.s=pp1 header.b=Q9c/PWjm; dkim-atps=neutral
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H05q3729vz2xnd
- for <openbmc@lists.ozlabs.org>; Thu,  2 Sep 2021 00:22:07 +1000 (AEST)
-Received: from pps.filterd (m0098393.ppops.net [127.0.0.1])
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H06Gd1gclz2xrK
+ for <openbmc@lists.ozlabs.org>; Thu,  2 Sep 2021 00:42:32 +1000 (AEST)
+Received: from pps.filterd (m0098417.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.16.0.43/8.16.0.43) with SMTP id
- 181E2j7C063322
- for <openbmc@lists.ozlabs.org>; Wed, 1 Sep 2021 10:22:04 -0400
+ 181EYrvU149162; Wed, 1 Sep 2021 10:42:29 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=subject : from : to :
- references : message-id : date : in-reply-to : content-type :
- content-transfer-encoding : mime-version; s=pp1;
- bh=kue1kYOKv/dbN/ggELLGDMR52H3j72D+hRkJJfF3Qno=;
- b=JPROiNMmp0CwA/AazG7yEXfg2xNy6VSV3x8KJnNojzR0BYZ0bU1Bb/kEqW4RdbLZNX9H
- RNKn1w1P1TRUbQkLgbY57PBr1Yt2JeDINFxUYARQKi09NNb2B7a/8pzVOwvf1UH3OsO6
- rzD8fLyJSCaGc1MeZD8+8FOZp7N/QwCU87Ho9Ew+ViQw4T7QFeyABRul1Y5NgSErZpgB
- 5PTjgR/fdsIJF5UPHfA0DeXSGWbbaH+X2ezu+9s1uTA2C9koJLaCi2WHyu97Wc7SuW51
- RIZuSLxyG5n0Vb0yWmNCzesSgA2ed4K0CRK8HYoIKd1MU3nFM7jcG7nKJxErwAPlPeb2 gw== 
-Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.11])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3ata3ft4tr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 01 Sep 2021 10:22:03 -0400
-Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
- by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 181E3nGt003353
- for <openbmc@lists.ozlabs.org>; Wed, 1 Sep 2021 14:22:03 GMT
-Received: from b03cxnp08027.gho.boulder.ibm.com
- (b03cxnp08027.gho.boulder.ibm.com [9.17.130.19])
- by ppma03dal.us.ibm.com with ESMTP id 3aqcsdn4dw-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Wed, 01 Sep 2021 14:22:02 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp08027.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 181EM1Hn15270374
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK)
- for <openbmc@lists.ozlabs.org>; Wed, 1 Sep 2021 14:22:01 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 801F8C605B
- for <openbmc@lists.ozlabs.org>; Wed,  1 Sep 2021 14:22:01 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 4B26CC6057
- for <openbmc@lists.ozlabs.org>; Wed,  1 Sep 2021 14:22:01 +0000 (GMT)
-Received: from demeter.local (unknown [9.65.120.200])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTPS
- for <openbmc@lists.ozlabs.org>; Wed,  1 Sep 2021 14:22:01 +0000 (GMT)
-Subject: Re: Security Working Group meeting - Wednesday September 1
-From: Joseph Reynolds <jrey@linux.ibm.com>
-To: openbmc <openbmc@lists.ozlabs.org>
-References: <08874286-b3d3-74a1-f20f-973fd0a4e17d@linux.ibm.com>
-Message-ID: <f0cee41f-51d8-1ef5-18f7-4ea12b3c9212@linux.ibm.com>
-Date: Wed, 1 Sep 2021 09:22:00 -0500
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:78.0)
- Gecko/20100101 Thunderbird/78.9.1
-In-Reply-To: <08874286-b3d3-74a1-f20f-973fd0a4e17d@linux.ibm.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
-X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: G2jRhKG8tybeI9JGi3IQTMk40VkeRzaV
-X-Proofpoint-GUID: G2jRhKG8tybeI9JGi3IQTMk40VkeRzaV
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-UnRewURL: 0 URL was un-rewritten
+ h=from : to : cc : subject
+ : date : message-id : in-reply-to : references : mime-version :
+ content-transfer-encoding; s=pp1;
+ bh=dJRP7ijrgv56kYKgHPlK/1XObUhJGTc7ROLNMb6GWzE=;
+ b=Q9c/PWjm0gsLc+1u3ID1I/SDofKJVnzrW14LrjEAT42d4TZfbeyQKn7PsJedgefPN1AD
+ /rJhJNO4OWYznsgtBazeLB3NdBumJ3UAghpYlSfxQlwnv5eG8HfeL7O+Dvd9EPuxMgju
+ aaGbFYS/R0rLswmK1RklEvb2yyunQPa4Xc9XwC1+hc4Up2mchTmg9yyx12fUbxtmZtLc
+ Y4Z1LHmcWudMMJy2+VmwVwIODlp+o3wsKjxuYX1HCPAIVAGnLqKyOUCwH5L62s6lRl8G
+ WvSvM6PjDTBOBhpPI+EdObaiUtMK3Q3MAcK3876x+amJhhogze+lwXyMuEbj4tfhaoUd rQ== 
+Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.10])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3ata0nu6w4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Sep 2021 10:42:29 -0400
+Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
+ by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 181EQlj1000926;
+ Wed, 1 Sep 2021 14:42:28 GMT
+Received: from b03cxnp07028.gho.boulder.ibm.com
+ (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
+ by ppma02dal.us.ibm.com with ESMTP id 3aqcse5vvt-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 01 Sep 2021 14:42:28 +0000
+Received: from b03ledav004.gho.boulder.ibm.com
+ (b03ledav004.gho.boulder.ibm.com [9.17.130.235])
+ by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 181EgQYZ47514104
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 1 Sep 2021 14:42:27 GMT
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id CC1EE78079;
+ Wed,  1 Sep 2021 14:42:26 +0000 (GMT)
+Received: from b03ledav004.gho.boulder.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 9EB8F78070;
+ Wed,  1 Sep 2021 14:42:26 +0000 (GMT)
+Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.163.14.239])
+ by b03ledav004.gho.boulder.ibm.com (Postfix) with ESMTP;
+ Wed,  1 Sep 2021 14:42:26 +0000 (GMT)
+From: Eddie James <eajames@linux.ibm.com>
+To: openbmc@lists.ozlabs.org
+Subject: [PATCH linux dev-5.10 2/2] ARM: dts: aspeed: everest: Add I2C bus 15
+ muxes
+Date: Wed,  1 Sep 2021 09:42:23 -0500
+Message-Id: <20210901144223.9759-2-eajames@linux.ibm.com>
+X-Mailer: git-send-email 2.27.0
+In-Reply-To: <20210901144223.9759-1-eajames@linux.ibm.com>
+References: <20210901144223.9759-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: afvIi30_DBOr3Y7MWf31fuTTrBXUoK57
+X-Proofpoint-GUID: afvIi30_DBOr3Y7MWf31fuTTrBXUoK57
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.391, 18.0.790
  definitions=2021-09-01_04:2021-09-01,
  2021-09-01 signatures=0
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 spamscore=0
- phishscore=0 mlxlogscore=899 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 malwarescore=0 clxscore=1015 mlxscore=0 bulkscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2107140000 definitions=main-2109010084
+ spamscore=0
+ lowpriorityscore=0 suspectscore=0 bulkscore=0 phishscore=0 malwarescore=0
+ mlxlogscore=999 clxscore=1015 mlxscore=0 adultscore=0 impostorscore=0
+ priorityscore=1501 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2107140000 definitions=main-2109010085
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +111,194 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 8/31/21 10:19 PM, Joseph Reynolds wrote:
-> This is a reminder of the OpenBMC Security Working Group meeting 
-> scheduled for this Wednesday September 1 at 10:00am PDT.
->
-> We'll discuss the following items on the agenda 
-> <https://docs.google.com/document/d/1b7x9BaxsfcukQDqbvZsU2ehMq4xoJRQvLxxsDUWmAOI/edit>, 
-> and anything else that comes up:
->
-> 1.
->
->   Ratan Gupta wants to join the Security Response Team for NVIDIA.
->   See
-> https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team-guidelines.md#team-composition-and-email-maintenance
-> <https://github.com/openbmc/docs/blob/master/security/obmc-security-response-team-guidelines.md#team-composition-and-email-maintenance>
->
-Additional agenda item:
-2.(gerrit review) 
-https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/31548 
-<https://gerrit.openbmc-project.xyz/c/openbmc/docs/+/31548>IPMI over 
-DTLS - questions about basic direction and sharing of private keys
+Add the muxes that are attached on I2C bus 15.
 
->
-> Access, agenda and notes are in the wiki:
-> https://github.com/openbmc/openbmc/wiki/Security-working-group 
-> <https://github.com/openbmc/openbmc/wiki/Security-working-group>
->
-> - Joseph
+Signed-off-by: Eddie James <eajames@linux.ibm.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 158 +++++++++++++++++++
+ 1 file changed, 158 insertions(+)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+index 941efff7c943..930e07091036 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts
+@@ -96,6 +96,18 @@ aliases {
+ 		i2c32 = &i2c14mux1chn1;
+ 		i2c33 = &i2c14mux1chn2;
+ 		i2c34 = &i2c14mux1chn3;
++		i2c35 = &i2c15mux0chn0;
++		i2c36 = &i2c15mux0chn1;
++		i2c37 = &i2c15mux0chn2;
++		i2c38 = &i2c15mux0chn3;
++		i2c39 = &i2c15mux1chn0;
++		i2c40 = &i2c15mux1chn1;
++		i2c41 = &i2c15mux1chn2;
++		i2c42 = &i2c15mux1chn3;
++		i2c43 = &i2c15mux2chn0;
++		i2c44 = &i2c15mux2chn1;
++		i2c45 = &i2c15mux2chn2;
++		i2c46 = &i2c15mux2chn3;
+ 
+ 		serial4 = &uart5;
+ 
+@@ -2816,6 +2828,152 @@ eeprom@50 {
+ 
+ &i2c15 {
+ 	status = "okay";
++
++	i2c-switch@70 {
++		compatible = "nxp,pca9546";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c15mux0chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux0chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux0chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux0chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++	};
++
++	i2c-switch@71 {
++		compatible = "nxp,pca9546";
++		reg = <0x71>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c15mux1chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux1chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux1chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux1chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++	};
++
++	i2c-switch@72 {
++		compatible = "nxp,pca9546";
++		reg = <0x72>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c15mux2chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux2chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++
++			eeprom@50 {
++				compatible = "atmel,24c64";
++				reg = <0x50>;
++			};
++		};
++
++		i2c15mux2chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c15mux2chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++	};
+ };
+ 
+ &ehci1 {
+-- 
+2.27.0
 
