@@ -2,23 +2,24 @@ Return-Path: <SRS0=Anrt=NX=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EC1A0C432BE
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 06:24:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 76E1BC4320A
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 06:24:36 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4655760FE6
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 06:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4655760FE6
+	by mail.kernel.org (Postfix) with ESMTPS id E99D160F23
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 06:24:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org E99D160F23
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4GzvCY4S2Bz2yPn
-	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 16:24:09 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4GzvD24B1Yz2yg5
+	for <openbmc@archiver.kernel.org>; Wed,  1 Sep 2021 16:24:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -27,10 +28,10 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4GzvC34wz7z2xYW;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4GzvC350LNz2xsQ;
  Wed,  1 Sep 2021 16:23:40 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 18163Gmm058024;
+ by twspam01.aspeedtech.com with ESMTP id 18163GIS058025;
  Wed, 1 Sep 2021 14:03:16 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
@@ -42,17 +43,19 @@ To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>
-Subject: [PATCH 0/2] arm: aspeed: Add LPC uart routing support
-Date: Wed, 1 Sep 2021 14:22:14 +0800
-Message-ID: <20210901062216.32675-1-chiawei_wang@aspeedtech.com>
+Subject: [PATCH 2/2] ARM: dts: aspeed: Add uart routing to device tree
+Date: Wed, 1 Sep 2021 14:22:16 +0800
+Message-ID: <20210901062216.32675-3-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210901062216.32675-1-chiawei_wang@aspeedtech.com>
+References: <20210901062216.32675-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 18163Gmm058024
+X-MAIL: twspam01.aspeedtech.com 18163GIS058025
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,20 +71,48 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add LPC uart routing driver and the device tree nodes.
+Add LPC uart routing to the device tree for Aspeed AST25xx/AST26xx SoCs.
 
-Chia-Wei Wang (2):
-  soc: aspeed: Add LPC UART routing support
-  ARM: dts: aspeed: Add uart routing to device tree
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+---
+ arch/arm/boot/dts/aspeed-g5.dtsi | 6 ++++++
+ arch/arm/boot/dts/aspeed-g6.dtsi | 6 ++++++
+ 2 files changed, 12 insertions(+)
 
- arch/arm/boot/dts/aspeed-g5.dtsi             |   6 +
- arch/arm/boot/dts/aspeed-g6.dtsi             |   6 +
- drivers/soc/aspeed/Kconfig                   |  11 +
- drivers/soc/aspeed/Makefile                  |   9 +-
- drivers/soc/aspeed/aspeed-lpc-uart-routing.c | 621 +++++++++++++++++++
- 5 files changed, 649 insertions(+), 4 deletions(-)
- create mode 100644 drivers/soc/aspeed/aspeed-lpc-uart-routing.c
-
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 329eaeef66fb..ba7744cb0842 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -492,6 +492,12 @@
+ 					#reset-cells = <1>;
+ 				};
+ 
++				lpc_uart_routing: lpc-uart-routing@98 {
++					compatible = "aspeed,ast2500-lpc-uart-routing";
++					reg = <0x98 0x8>;
++					status = "disabled";
++				};
++
+ 				lhc: lhc@a0 {
+ 					compatible = "aspeed,ast2500-lhc";
+ 					reg = <0xa0 0x24 0xc8 0x8>;
+diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
+index f96607b7b4e2..3699c50a2945 100644
+--- a/arch/arm/boot/dts/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed-g6.dtsi
+@@ -523,6 +523,12 @@
+ 					#reset-cells = <1>;
+ 				};
+ 
++				lpc_uart_routing: lpc-uart-routing@98 {
++					compatible = "aspeed,ast2600-lpc-uart-routing";
++					reg = <0x98 0x8>;
++					status = "disabled";
++				};
++
+ 				ibt: ibt@140 {
+ 					compatible = "aspeed,ast2600-ibt-bmc";
+ 					reg = <0x140 0x18>;
 -- 
 2.17.1
 
