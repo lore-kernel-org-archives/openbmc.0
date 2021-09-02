@@ -7,19 +7,19 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 62646C432BE
-	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 02:21:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E455C432BE
+	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 02:22:45 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D059860F91
-	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 02:21:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D059860F91
+	by mail.kernel.org (Postfix) with ESMTPS id 8E05A60F91
+	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 02:22:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8E05A60F91
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H0Pnc2tbzz2yJj
-	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 12:21:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H0PpW1n9Sz2yyv
+	for <openbmc@archiver.kernel.org>; Thu,  2 Sep 2021 12:22:43 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -28,10 +28,10 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H0Plp5rZYz2yMP;
- Thu,  2 Sep 2021 12:20:22 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H0Pm40MzNz2yPX;
+ Thu,  2 Sep 2021 12:20:35 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 1821xBgv068911;
+ by twspam01.aspeedtech.com with ESMTP id 1821xBgu068911;
  Thu, 2 Sep 2021 09:59:11 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
@@ -43,9 +43,9 @@ To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <openbmc@lists.ozlabs.org>
-Subject: [PATCH v2 2/3] soc: aspeed: Add UART routing support
-Date: Thu, 2 Sep 2021 10:18:16 +0800
-Message-ID: <20210902021817.17506-4-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v2 2/3] soc: aspeed: Add LPC UART routing support
+Date: Thu, 2 Sep 2021 10:18:15 +0800
+Message-ID: <20210902021817.17506-3-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210902021817.17506-1-chiawei_wang@aspeedtech.com>
 References: <20210902021817.17506-1-chiawei_wang@aspeedtech.com>
@@ -55,7 +55,7 @@ X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 1821xBgv068911
+X-MAIL: twspam01.aspeedtech.com 1821xBgu068911
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,12 +71,12 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add driver support for the UART routing control. Users can perform
-runtime configuration of the RX muxes among the UART controllers and
-the UART IO pins.
+Add driver support for the LPC UART routing control. Users can perform
+runtime configuration of the RX muxes among the UART controllers and the
+UART IO pins.
 
-The sysfs interface is also exported for the convenience of routing paths
-check and update.
+A sysfs interface is also exported for the convenience of routing paths
+check and configuration.
 
 Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 ---
