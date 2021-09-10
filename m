@@ -2,153 +2,157 @@ Return-Path: <SRS0=LPz7=OA=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 889DBC433EF
-	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 03:24:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E6BD7C433EF
+	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 03:30:56 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B033B61026
-	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 03:24:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B033B61026
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 1052161074
+	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 03:30:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1052161074
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=equinix.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H5LpM0pGXz2yPX
-	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 13:24:43 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H5LxV4wFDz2yPq
+	for <openbmc@archiver.kernel.org>; Fri, 10 Sep 2021 13:30:54 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.a=rsa-sha256 header.s=selector1 header.b=znbwGTym;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=equinix.com header.i=@equinix.com header.a=rsa-sha256 header.s=pps202002 header.b=L/7tRk82;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=40.107.132.103;
- helo=apc01-pu1-obe.outbound.protection.outlook.com;
- envelope-from=chiawei_wang@aspeedtech.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=equinix.com (client-ip=148.163.159.192;
+ helo=mx0b-00268f01.pphosted.com;
+ envelope-from=prvs=088761d2b9=zweiss@equinix.com; receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com
- header.a=rsa-sha256 header.s=selector1 header.b=znbwGTym; 
+ unprotected) header.d=equinix.com header.i=@equinix.com header.a=rsa-sha256
+ header.s=pps202002 header.b=L/7tRk82; 
  dkim-atps=neutral
-Received: from APC01-PU1-obe.outbound.protection.outlook.com
- (mail-eopbgr1320103.outbound.protection.outlook.com [40.107.132.103])
+X-Greylist: delayed 3919 seconds by postgrey-1.36 at boromir;
+ Fri, 10 Sep 2021 13:30:07 AEST
+Received: from mx0b-00268f01.pphosted.com (mx0b-00268f01.pphosted.com
+ [148.163.159.192])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H5LnL2nlVz2yJN;
- Fri, 10 Sep 2021 13:23:45 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H5Lwb13C7z2xtv
+ for <openbmc@lists.ozlabs.org>; Fri, 10 Sep 2021 13:30:05 +1000 (AEST)
+Received: from pps.filterd (m0165121.ppops.net [127.0.0.1])
+ by mx0b-00268f01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 189MpLqK023046; 
+ Fri, 10 Sep 2021 02:24:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=equinix.com;
+ h=from : to : cc :
+ subject : date : message-id : content-type : content-id :
+ content-transfer-encoding : mime-version; s=pps202002;
+ bh=81So5IZrr8J0cN4pYT8m36Uj/lw7X2i5F+Ynkecv7f0=;
+ b=L/7tRk82pHHEI21xNAphiJxPicBShpF0GK2mGHz0UlfqyQ7zuu+8UVrhvyfkX2j8Bv6G
+ DxMSTDzEmGPClV1zFOQqwbC1IMd+QErnDZdTTXgCpNIV4dygLfOxHaMiVE7mduBsF5bI
+ 7tKwmjpksJC9tkgtn3SkUyjMEbfOaB+Jl68ZOuClBawTTnF4NyqvIum6mbRnAUblm5s2
+ ujtSf2U4m0dPRKc2/3iSMIB5TSY2NMvoUWBsxiPFmu3Rt7l1zbWQGwUsPJrnL7U/ty/V
+ IMGpvzAW5MOgWppvt8PmGVbA9eD4h7ln+90imZ++d+IDm5zevyLGJhbOStX1B1Qeogy6 sw== 
+Received: from nam10-dm6-obe.outbound.protection.outlook.com
+ (mail-dm6nam10lp2107.outbound.protection.outlook.com [104.47.58.107])
+ by mx0b-00268f01.pphosted.com with ESMTP id 3ayue48h6y-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 10 Sep 2021 02:24:35 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=ARqJO6e0aC4J0rwIYjcq2NL8/wAtHwb0CDQ0IHgrxU17008fUkDEXXAefuN/MvIkI4AmNH1rg+ZxEpJdPE5u5sj6d+LLxq9/Rtp/c880/Npdg/HYUfDgayFVrgWq0bQ2N1le/E+38q9nhlC/UWHB5TqOqZ3O2sCgUDEDlgyBxCxttZdFimesaCx444znhmRGWFPuPpf1yqAu3Dj8giXs0Jay0iKYduEsKJrAT1rR+/bKGvdwzUelm8xfAEsJiX0PMTZsKtQ/HX4mcjS9WNRI79gPFYjdIjIZX4BWbpTVkVZlezujDXpqCZDqQ63Ufiat8NBtsZhMudJVTPHWzNkpcg==
+ b=h15oi7w7oTouXOEk7cF0TAA5K4pip+6i8ngIeMxPNtpEvPrQU1PW5MtGw/9HzICS9fvNEKh+vJMEMafqzXayiZ/ulpl34k42sHPLvvbthZWOEGZFsX/FdUpOGa0081xJMuOBy01GCG7TbvwPUp2NthLuSQ9etNYVn0+dHOiZ4n0TEMtgSUgA6yKn3WlSTPIYXqfkh5w03r7OTkO7jbEH5ap3ktU1ooMKnFKzVetm/HZFwWHv2zxziTDI75EZ+HAsNoKpK/f55hp5zM2fEU19AF6o72R8FFVD2zQ77sCnAeJx54SFzPCXwOnpeYCPPRm+CbwUeFu/3qArmE8q5CzsmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version; 
- bh=duthfyX4n6WTV2PAe2UnOysVMY/AWFS8z90CjP9bdTM=;
- b=WY7cSusip0QjNTygEnhCh8uXtdY8ndRfjZ/akmy1sBMI7xxAOgDBIL/ysWJW+dmrOjBUddJyBye8OeYRpOFpMRtziFAtjhFTIFNdQS2T7KB75TpNIpxnkrIukKsQEJ74EB+76YV6AviyV+R5R1Gynyp3nTjCh8juANjcWJPIly4qNormTNB5JHhjZJW1bANi94nLJrA1xiheWHQ0S7m0nyYJcD2oLVxqxT6TEdhQb/YHCZfmAWXCvkgyghoLyToyxva9nMQisZHM/K0CVPmi8W8Idt64F+iwuzoCI1XdMlxpvcIXnjCvi/N+ZbHgSf+6Gp9raTOmh+qo1G+cGjeV/A==
+ bh=81So5IZrr8J0cN4pYT8m36Uj/lw7X2i5F+Ynkecv7f0=;
+ b=M7FihTcD5iV/gsDdH4ibj1BQxyNNmgCdkJ04IrsGf7inQYhkE2K0sXS1TLeD+36jnuYoQOnjNeYmZ80hhxcA0Zkmq+7XGlbgTBau2Mua5I1ovgwXqm9JoXcTnqLkD8hU3FvO5qXLC+9Oy+aIXc6rfHN8HjVTMOvHSQShtg2WO0LMr3fSjOvlZjx7edqxBgujzz5f+E9w0e2hTE6RUuLf0RRHvCGpkAWtspeoh9FyUjBZMoP7nFffsHE/RW/UUIUtHm4uzqT3XsUchnvWbp08tzMQ/phQcFGh3ozdrnlzzNzFhGD8YU6kN6E/NHXxHV3F3QGm8ZOFaK9Gv/z3++b+rQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=duthfyX4n6WTV2PAe2UnOysVMY/AWFS8z90CjP9bdTM=;
- b=znbwGTymt9ajgvGRm3HVRLpTJexxpwJtnhQUfFcz8MW/bvhvRJwBpghHQ7whzeD0dzTHdoMn3IKJzu98lCU7aos2rzpOX8wixftlbrlf7gXxIQRjHXuYoaVCY313rTlK6lj2x4HJ7faQ1B1+WBZFrzHhtEZ23rrRwi7vcIRGBZh7+aKWV98z8i1QvzIxTuWyui4KLzui2mJWRiZ6FSSeE8LmVSgqu6DTAY6ROHWdy1GqQiOVHZsFpQdAf4O4iGL19AB8SPhGvclyaKP3LWhinIxXwqcUt1K4PRHbEGKRaNZFovwxUcn1SjIXE1xoUFRRcMUBgCP1+Zs9idR2cz3/fg==
-Received: from HK0PR06MB3779.apcprd06.prod.outlook.com (2603:1096:203:b8::10)
- by HK2PR06MB3250.apcprd06.prod.outlook.com (2603:1096:202:31::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4500.16; Fri, 10 Sep
- 2021 03:23:26 +0000
-Received: from HK0PR06MB3779.apcprd06.prod.outlook.com
- ([fe80::4c26:6668:f551:3a62]) by HK0PR06MB3779.apcprd06.prod.outlook.com
- ([fe80::4c26:6668:f551:3a62%3]) with mapi id 15.20.4457.026; Fri, 10 Sep 2021
- 03:23:26 +0000
-From: ChiaWei Wang <chiawei_wang@aspeedtech.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>, "robh+dt@kernel.org"
- <robh+dt@kernel.org>, "joel@jms.id.au" <joel@jms.id.au>, "andrew@aj.id.au"
- <andrew@aj.id.au>, "linux-aspeed@lists.ozlabs.org"
- <linux-aspeed@lists.ozlabs.org>, "openbmc@lists.ozlabs.org"
- <openbmc@lists.ozlabs.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v4 3/4] soc: aspeed: Add eSPI driver
-Thread-Topic: [PATCH v4 3/4] soc: aspeed: Add eSPI driver
-Thread-Index: AQHXnuHnLi9FHqbUxUOpf9SHGgAkS6uQF7yAgAAhRlCAABrbgIAF1b0AgAAz3gCAA0V20IABWhCAgAGaNcA=
-Date: Fri, 10 Sep 2021 03:23:26 +0000
-Message-ID: <HK0PR06MB37793C268FEB0E33A5547D0791D69@HK0PR06MB3779.apcprd06.prod.outlook.com>
-References: <20210901033015.910-1-chiawei_wang@aspeedtech.com>
- <20210901033015.910-4-chiawei_wang@aspeedtech.com>
- <20c13b9bb023091758cac3a07fb4037b7d796578.camel@codeconstruct.com.au>
- <HK0PR06MB37792273A075533C2570002391CE9@HK0PR06MB3779.apcprd06.prod.outlook.com>
- <513cb05f8d83d08a5c1e491dc0a9b6784195e7dd.camel@codeconstruct.com.au>
- <HK0PR06MB37799C48533B084CF864E49D91D29@HK0PR06MB3779.apcprd06.prod.outlook.com>
- <6593206c0bc90186f255c6ea86339576576f70dc.camel@codeconstruct.com.au>
- <HK0PR06MB377924CFCBFE9BD40E1C4A5D91D49@HK0PR06MB3779.apcprd06.prod.outlook.com>
- <9fa4ae962c185e0e4f07f0299356969c17ae5ea5.camel@codeconstruct.com.au>
-In-Reply-To: <9fa4ae962c185e0e4f07f0299356969c17ae5ea5.camel@codeconstruct.com.au>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
+ smtp.mailfrom=equinix.com; dmarc=pass action=none header.from=equinix.com;
+ dkim=pass header.d=equinix.com; arc=none
+Received: from DM8PR04MB8007.namprd04.prod.outlook.com (2603:10b6:5:314::20)
+ by DM8PR04MB7768.namprd04.prod.outlook.com (2603:10b6:8:37::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4478.22; Fri, 10 Sep
+ 2021 02:24:33 +0000
+Received: from DM8PR04MB8007.namprd04.prod.outlook.com
+ ([fe80::8049:f2d5:9bed:efa0]) by DM8PR04MB8007.namprd04.prod.outlook.com
+ ([fe80::8049:f2d5:9bed:efa0%5]) with mapi id 15.20.4478.027; Fri, 10 Sep 2021
+ 02:24:33 +0000
+From: Zev Weiss <zweiss@equinix.com>
+To: "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
+Subject: [PATCH RFC] Specifying default-disabled devices
+Thread-Topic: [PATCH RFC] Specifying default-disabled devices
+Thread-Index: AQHXper+D9PnEz1iMkeU55armpNb3w==
+Date: Fri, 10 Sep 2021 02:24:33 +0000
+Message-ID: <20210910022433.GD17315@packtop>
+Accept-Language: en-US
+Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-authentication-results: codeconstruct.com.au; dkim=none (message not signed)
- header.d=none;codeconstruct.com.au; dmarc=none action=none
- header.from=aspeedtech.com;
+authentication-results: lists.ozlabs.org; dkim=none (message not signed)
+ header.d=none;lists.ozlabs.org; dmarc=none action=none
+ header.from=equinix.com;
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 524c79ba-ed4a-48fa-98b8-08d9740a5a79
-x-ms-traffictypediagnostic: HK2PR06MB3250:
-x-ms-exchange-transport-forked: True
-x-microsoft-antispam-prvs: <HK2PR06MB32501FF0964A01E6B9740E1591D69@HK2PR06MB3250.apcprd06.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:7691;
+x-ms-office365-filtering-correlation-id: 04e67e5a-eefc-4aaa-dfc5-08d9740220d9
+x-ms-traffictypediagnostic: DM8PR04MB7768:
+x-microsoft-antispam-prvs: <DM8PR04MB776888740EFA3A9412B59989C3D69@DM8PR04MB7768.namprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:3968;
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
-x-microsoft-antispam-message-info: 82fgsjaoy9mPZ25ibacUdv3/lIdExg95Nc3sCPPKXL2WAupLlyQCoAD/yRyPi/+secS5dh6NemZ/bCo+0RDZRanvSOdwmmBp0DknTQtWmTzbiBj28rDN4aiNW8Nf5pOVWYN51UxdE27fMiHc07Tf3eZrurs3FdqCZHjZlDDTmhvrNLFf2qIlqA/CITd3/50NNlAnslQO5fTgvnDCq7Rv9yGmjd/a3yqg2FR/tt4aKbcz8ld9uJv7UfVkUltCvpIMpncGDh1+l8mG7j9E2qeRsN3hbTfnZTMnybkJfiW9VrNBJ+DFHik7sSHFl9g9HqJ5CMkF0IsiUCp80cQ8oksGt3IFsVsi4fubWbWRovStL0v/LQZ4h/hbPgynLxZkAJWsMeK+xX/3tj6+KM1X2uNkzOxzyo6OpuF+o8fvOmuxyrMp1sdOb0VdUzXwuACLj7I7338c4Z5Hw/I7cq2x5GBIJv1t+Vvlr7WMeBRKls+tmKyCRR1T2MwKT+z9IOotfA8GmRhS/8ke20I1X17dpSS3GvKjahr3XAgssUkn2E0rk9EswKRmpZuUqzzZwuUlL6fQeTK+Vumq6PIJgFa8elEWTthcpWEauKStlZq8u7t65PXVEfMWBupiJyyYhjxuFH0xh8uFr1ymkCrn47fkaq2KpOOz/om+pcwY9xvsAKYy9e4HMFAX4AqtBbwp4ug90+IhjUlbu3jPLQ8PJLUzOvuqTQ==
+x-microsoft-antispam-message-info: uXTplvEY1pNFFx3vx8gYe5T/xCQfzQNgNbiAqfqh0eLRZjnKgGEacL4+RF5OI2VFXFiDAO97iBFJ+La824m73HV8W7dzeYmcbBlhINTfqqbxQq1EGqOUOEr7obDncuQNeER2a6nunVR86HL0XpnUhDN+/7Xhg0ZMvBA9FGfDnl/kRBA4pxrHLnOUTTFWrrJXvmyCczP5EKMDrgeKs8XUZR1n0TEAYBtQLjHmYo0VbYy59lxUlW8krXayCyCOduzgH+THRuESjRPWmshbh4uIa7O7rQ6zZWK+Oh4OydSMAYdx7VfcDAD3RdwtIOre/4NlDPOWo+dnj1ufAG1QGK9rGgc86XmPnCO0FOIHhAT2ABbh0iv4ApoDv0PGmEy0/T7baYL5/gK79P8kgzw9l25ikmLL+WC+4mSPRk47YARD6H3iKT+WnP7SywPc7drH2W9PcGj0rTqlix8gAqRNoUqWo0VjYM/uMuXXw7uId0blIMCsYqja8mpqlVKvVz3OLqjwuBEId3t3Qd9Vpk/G9sdJbI1DpLlgK4LD/mH95HMFneauotv1TqgiloKOXVKIqKDBilUgdkiwLUKqJlvx8rUEXx1KCy4uU1Dg8Uh+1BaXxJTVMn8I5Fzu0ny+fVJvIJrQaiSxqoSnb4s8crOdkcd82Z9Z7vH03yGZQTSYBoFIZmFK7j4Q1Djoux9bjMd9Cd+tv4aDJfd70ThMfMUy0h7oln0thwRAiyu3181WZHdE1dx8ZZPLUSUkglrqI4B460npNoMmxe49nmdbqG2fQ7Nh76zhm2VYpuEEbFV6jGNRTSU=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK0PR06MB3779.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(39840400004)(346002)(376002)(136003)(396003)(366004)(71200400001)(478600001)(86362001)(33656002)(83380400001)(316002)(54906003)(2906002)(38100700002)(122000001)(38070700005)(26005)(66446008)(52536014)(4326008)(5660300002)(55016002)(66476007)(66946007)(7696005)(66556008)(64756008)(76116006)(107886003)(8936002)(6506007)(110136005)(186003)(8676002)(9686003);
+ IPV:NLI; SFV:NSPM; H:DM8PR04MB8007.namprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(7916004)(4636009)(376002)(39860400002)(396003)(366004)(346002)(136003)(86362001)(8676002)(38100700002)(186003)(33656002)(8936002)(122000001)(26005)(33716001)(6506007)(54906003)(66476007)(64756008)(6916009)(5660300002)(966005)(66446008)(66556008)(6512007)(9686003)(478600001)(1076003)(6486002)(76116006)(91956017)(2906002)(83380400001)(71200400001)(66946007)(316002)(38070700005)(4326008);
  DIR:OUT; SFP:1102; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?TlNxck1vaHZXRGgxYys4SkwvTW9ZcjVUd0graWdEV2Mvblpqa0RtQytVN3VP?=
- =?utf-8?B?MzNRcCtsZ0VzZlRsdk9JSFAzVWN0YzdaakVuL2hhM0RUdWNYcUZQeHAvdG5G?=
- =?utf-8?B?NWZIUWNLWUZEWVUySUZ1NklLanRQaitjWDljYVNKbWYwZExuanRyMmxmVWNO?=
- =?utf-8?B?YTJISitJV3BySGZkZk1ORG9yS0FrclBGcEhEZFF0UjVWSjU5N3BBa0habXFB?=
- =?utf-8?B?cWNlb2hrNDlZL1lKdlNpTHg0eVloOFFnS3MycmlhYTBMaW8wR1JmZGVBS2pZ?=
- =?utf-8?B?SlJsM1hNR0dpdERRbXRMdHVnNS9aYjhjcFYwK0xIOVpQL2lZSDltK3Job1kw?=
- =?utf-8?B?bHh1SHovWjZ4S2xzY25TRmwwTmcvSTJXUFUzMUFaVkNlTFVaUm9hdFZHcjVn?=
- =?utf-8?B?NFkrM3d2WDgxNFU2bVZJY0VPWTdaZkt6ZXFVT2NhYklPeXFhdGV2WlU4aFhy?=
- =?utf-8?B?OHpjOC9kajB3L2pYTytMSFpJc1FkbzFnT3FiTFBTT2J4N0pTNkJyWTErMDhB?=
- =?utf-8?B?R3oxRGRBYVNzUmJRRHpxb1doM0ROa0NYNDVzSC93Sjl6bFVqdGxjMHJhZXN1?=
- =?utf-8?B?b3R5Smw5UVM1WVZtdkdyU3pFbThzQmZmeWpEOFJwNEZzbitjcURvTjNSUVQ3?=
- =?utf-8?B?RHozRlBSV3Z3ejZyWmtGMUp1OWRMUThtMlBsdjBDZTVFaVpnYlN4dFBsWmdL?=
- =?utf-8?B?Yk1GWDI3VllwNGZrbWp2ditQb1ROS1lJM2VxQU11RjZjcWpzb3dYT1FIUFlp?=
- =?utf-8?B?ckZQMTRVekJQY25jRlZSUll3KzJhT09rdVBRYmtqdk9oMjNmYVNNeDBiRElR?=
- =?utf-8?B?R2JRc2RFZER4SVl2YTBMMFM3Sm5lQlZ3K2swck9oSC9nYlFhQm5MOVRFSkw5?=
- =?utf-8?B?VFQrc2RIVDlyS0Zyb21iMGNLL1VzRzdkLzhOMEhpVzBlVlBnS2Y0YmhGQnhJ?=
- =?utf-8?B?T2JXUUxpOU5ZMGdhU0dSVXFFQXpmejFwd1BEL1hsRHpQSkJld3pWK2hUOG1a?=
- =?utf-8?B?Wk5qN0ZwNlZQcHpTNnVzRko1ZU9iWE9qbWY1RG9YRHJUVmlHM0NBTXZsakFi?=
- =?utf-8?B?bUxwOElubk5NcVIxZERDdElWYzdVYkI1THJWemg1YVVJQmxHa24xSjZsRGMz?=
- =?utf-8?B?TGh4dFdJSkxuQkpzVDhzcFozUzlYV0wvREtwejhPRlJab2NGRjZLTktndFQr?=
- =?utf-8?B?RDNYclVxeTdVUUpGanRXM20yd0lhY01mNkpYbTVpbGk4WFpYTDFGQVZIU0dD?=
- =?utf-8?B?SUZvSUNPOHZrWEpJcm9VTVF1VnVYQnVGaHpET2NwUDJvLy9wSUtwQ0ZMNFJj?=
- =?utf-8?B?Mys4aUpZY0RMWGlKQzJzYlltckpKb2ViN0Q3c1JWNVQzNzVZdDhZZWpNN3ZT?=
- =?utf-8?B?d1dKTHRWajdvR1RWWlRnMEo5ekxNcm5VOStab29RbGYwTDhSeFUvcTRHMXNr?=
- =?utf-8?B?MzQ0emV4T3lSckdvUEtKSUN5WjJzM2w3M0RyejZ4SElzZ2RzaERvOVBOMXU4?=
- =?utf-8?B?Q1NYWUFvaGVHazM1dXI5QmR1c3dtc1Mwa0VIa1lWNkU5bTdPSFQ1bkNFY091?=
- =?utf-8?B?SEFvWDNFY2h5Ny9WSFJTbFkyc0lQOHdGN2EyaFZJV0EyOFk0V3lwcjNYS2dy?=
- =?utf-8?B?d1cwYm80V0krYWVibFJRcEkrU0k5NzhNMzgxVjdjWVRJR2xtaWtJZHFHZnY4?=
- =?utf-8?B?dUl0NlBOOTgwTmJKZjNoZWN6TFFROGcyOEFTR1YzaFpEWGZPZkpzazZDNHY3?=
- =?utf-8?Q?GP+Jl+lVpqPzbAa6TkbLTGq/su9ZqR8n9ScSvJC?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?d9bXIn54hgNaBQmjI8FbxHEhEXhuvQbjbYnZSvoNBY7MQITc59ieW5OhTprF?=
+ =?us-ascii?Q?72TFZi+yytKUy2OY+L+FEAdLxkoSKTRBNKNvQJ2Ve+mn0iw0eAhSjl93RL6R?=
+ =?us-ascii?Q?FkCPhM9O4yadAGwO1YnE1FxjVX43bFUQdUYLFouvRoBuN8PR0VWaTWE56Z7q?=
+ =?us-ascii?Q?stZlbOl/D96gjN8f8WvGB+xpx/uU9oOK+OgXRhegaU/Zoa7XVzznOo+iK8C3?=
+ =?us-ascii?Q?RnhVylEGh3qZ0hBlP0Ev2c472k4I/oOrIulq/HqR/vCSyb/mKsXxtj9G8AjD?=
+ =?us-ascii?Q?I5XxsyMUYF89CHJ0TW9O6S37PxDW61O7leuHagcpxf8n7t0UnRtx4IKhOWHP?=
+ =?us-ascii?Q?lkwqsPkPhQf5QwpgWmgZub0mpDKEfAr0fPivnD2cKT1z6UIWt0wiDSAU2T/2?=
+ =?us-ascii?Q?MIFm7/IuSsIHjl1/vKSsnhwM2U6zxh8uSafjDrbvaUD6nj3/rnpJ1Q8eM012?=
+ =?us-ascii?Q?EQ34yzYug0rWZHBrWfVpT2Uqlkp4tZLWd7Q4aQ4JgmJKOF6UOy/wue0HxO3n?=
+ =?us-ascii?Q?SoaPvi+XcZtDIBLkbE5qqU6mAPxNs51GQXfdxsBdQCw5DnkSDuZruxqO+nLV?=
+ =?us-ascii?Q?SMpnt/NAG2aQAC8+Yeq4ZD2boRzkDGliCbeuvFsCPqUy6yQidpsezKVh0kFf?=
+ =?us-ascii?Q?lhb4Uy7Xxa9zTmcTQLIB6hB/9zyBqq/adE3bgxKeHiu9R/Eo/BRrz+PqNM3C?=
+ =?us-ascii?Q?q6ih01EwCaYQQ8JtUuZQ1qxLhF8LxbkkLH3CVJXI7JEbQAzUbHlvECb6UnYX?=
+ =?us-ascii?Q?rcGOMqx3+XYgKOvB0RBi4miIEQKyULrkdKyWkBoHQ38rsRky3bF3x1oqsOLO?=
+ =?us-ascii?Q?O/O4NcLhfdaauCkSFQOVhXuK6eSYLi++yjOIC9bsH28otEqclCEdN0XDwCjb?=
+ =?us-ascii?Q?TQ5j+ZVyp/0hAeMcHSzIirDmF0UBpFAaTXTcHMfwa+ZFDeDx9UGB/smnwT9O?=
+ =?us-ascii?Q?0hDOAzAPKhFFQIgziKwxfsZS7ykXrkUrc4+NR+wbbYcfkeS+kFEe3QqCv56k?=
+ =?us-ascii?Q?jmvHV39ah/SocCPL1mVejOegqn1XFMhuV8tU8YyuQmp4vqwGVwwa8orow/cZ?=
+ =?us-ascii?Q?hDf/MTmw+cpjdjdb6En4Eg5pd4yk/kdvu4SGUs+BSpEZsgnO7MBl7gsEFH/7?=
+ =?us-ascii?Q?2PE7/xHD5D5I0XOqKlCOVO3NiyvjWTS/3RkFjimC00L4nFZ7ORRsCLXU3mSe?=
+ =?us-ascii?Q?NM41q6To0dm5OVDZT7TSRwMGVZNtIuPRBYeY/HWujKSojS4WJiYeyo7hllcy?=
+ =?us-ascii?Q?K4e4qcrXYJAeRhApJ5GUymCQrNrnS7lfw7tmL6o6NgAb+l4IAJMAnss87lQS?=
+ =?us-ascii?Q?x1qucMFLBUflDXBdJU+wi9tn?=
+x-ms-exchange-transport-forked: True
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <9DB22F49C21D3746BB4EEFEA3F852991@namprd04.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
+X-OriginatorOrg: equinix.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: HK0PR06MB3779.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 524c79ba-ed4a-48fa-98b8-08d9740a5a79
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2021 03:23:26.4280 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR04MB8007.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 04e67e5a-eefc-4aaa-dfc5-08d9740220d9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Sep 2021 02:24:33.8177 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-id: 72adb271-2fc7-4afe-a5ee-9de6a59f6bfb
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: sCTQBI9032WGLsa9++jaLV5D6/WfanDTRxfkZaELUiKWOb+up6ls4EvrHpONRa/egICr+Qgv07wIUHrbCZYhunPwkW0E1UlOibMFryfOcYg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK2PR06MB3250
+X-MS-Exchange-CrossTenant-userprincipalname: OVtDGJ+bT3Y03riPbb1i/dTPXWCs7fQTge9sFZP8zQqm/jUOkX5xq0U7TTNKQoi0/O9nlcZYzHJFfhUKFSk3xQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM8PR04MB7768
+X-Proofpoint-GUID: TnMIKI8cFWbMQxnn6qcs7-H5cQXXwPU5
+X-Proofpoint-ORIG-GUID: TnMIKI8cFWbMQxnn6qcs7-H5cQXXwPU5
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-09_09,2021-09-09_01,2020-04-07_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1011 mlxlogscore=999
+ lowpriorityscore=0 bulkscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ adultscore=0 priorityscore=1501 mlxscore=0 malwarescore=0 phishscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
+ definitions=main-2109100012
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -160,80 +164,223 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Morris Mao <morris_mao@aspeedtech.com>,
- Ryan Chen <ryan_chen@aspeedtech.com>
+Cc: Andrew Jeffery <andrew@aj.id.au>, Jeremy Kerr <jk@codeconstruct.com.au>,
+ Eddie James <eajames@linux.ibm.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-SGkgSmVyZW15LA0KDQo+IEZyb206IEplcmVteSBLZXJyIDxqa0Bjb2RlY29uc3RydWN0LmNvbS5h
-dT4NCj4gU2VudDogVGh1cnNkYXksIFNlcHRlbWJlciA5LCAyMDIxIDk6NTMgQU0NCj4gIA0KPiA+
-IFllcywgdGhlcmUgaXMgc2VjdXJpdHkgY29uY2VybiB1c2luZyBIVyBtb2RlLg0KPiA+IE91ciBk
-ZXNpZ25lciBpcyBjb25zaWRlcmluZyB0byByZW1vdmUgdGhlIEhXIG1vZGUgc3VwcG9ydCBpbiB0
-aGUgbmV4dA0KPiA+IGdlbmVyYXRpb24gb2YgQXNwZWVkIFNvQ3MuDQo+ID4gU28gZmFyIHdlIGhh
-dmVuJ3QgZW5jb3VudGVyZWQgYSBzY2VuYXJpbyBkZW1hbmRpbmcgSFcgbW9kZS4NCj4gDQo+IEdy
-ZWF0IHRvIGhlYXIgOikgY2FuIHdlIHVuY29uZGl0aW9uYWxseSBzZXQgRVNQSTAwMFs5XSBpbiB0
-aGUgZHJpdmVyIHRoZW4/DQoNClllcyBmb3IgdGhlIHY1IHJldmlzaW9uLiBBcyBIVyBtb2RlIGlz
-IGdvaW5nIHRvIGJlIGVsaW1pbmF0ZWQgaW4gdGhlIGZ1dHVyZS4NCkEgYnJpZWYgZXhwbGFuYXRp
-b24gd2lsbCBhbHNvIGJlIGFkZGVkLg0KDQo+IA0KPiA+ID4gV2l0aCB0aGFuIGluIG1pbmQsIGlm
-IHdlJ3JlIGRpc2FibGluZyBoYXJkd2FyZSBtb2RlIC0gd2hhdCBkb2VzIHRoZQ0KPiA+ID4gZGly
-ZWN0aW9uIGNvbnRyb2wgc2V0dGluZyBlZmZlY3Qgd2hlbiB3ZSdyZSBpbiBzb2Z0d2FyZSBtb2Rl
-DQo+ID4gPiAoRVNQSUNUUkxbOV0gPT0gMSk/IERvZXMgaXQgZXZlbiBtYXR0ZXI/DQo+ID4NCj4g
-PiBZZXMsIHRoZSBkaXJlY3Rpb24gbWF0dGVycyBldmVuIGluIFNXIG1vZGUuDQo+ID4gV2hlbiB0
-aGUgZGlyZWN0aW9uIGlzICdtYXN0ZXItdG8tc2xhdmUnIGFuZCB0aGUgR1BJTyB2YWx1ZSBpcyB1
-cGRhdGVkDQo+ID4gYnkgdGhlIEhvc3QgdGhyb3VnaCBQVVRfVlcsIGEgVlcgaW50ZXJydXB0IGlz
-IHRyaWdnZXIgdG8gbm90aWZ5IEJNQy4NCj4gPiBGb3IgdGhlICdzbGF2ZS10by1tYXN0ZXInIEdQ
-SU8sIGEgYWxlcnQgaXMgZ2VuZXJhdGVkIHRvIG5vdGlmeSB0aGUNCj4gPiBIb3N0IHRvIGlzc3Vl
-IEdFVF9WVyBmb3IgdGhlIEdQSU8gdmFsdWUgdXBkYXRlZCBieSB0aGUgQk1DIGJ5IEVTUEkwOUMu
-DQo+IA0KPiBPSywgYnV0IHRoZSBkYXRhc2hlZXQgbWVudGlvbnMgdGhhdCBFU1BJQ0ZHODA0IGlz
-IG9ubHkgYXBwbGljYWJsZSB3aGVuDQo+IEVTUEkwMDBbOV0gPSAwLCBvciBpcyB0aGF0IG5vdCB0
-aGUgY2FzZT8NCg0KWWVzLCBFU1BJQ0ZHODA0IGlzIGFwcGxpY2FibGUgb25seSBvbiBIVyBtb2Rl
-IChFU1BJMDAwWzldPTApLg0KV2hlbiB0aGUgSFcgbW9kZSBpcyBzZWxlY3RlZCwgdGhlIGVTUEkg
-c2xhdmUgZm9yd2FyZHMgR1BJTyB1cGRhdGUgaW4gUFVUX1ZXIHBhY2tldCBzZW50IGJ5IHRoZSBI
-b3N0IHRvIHRoZSBwaHlzaWNhbCBHUElPIGJhc2VkIG9uIHRoZSBFU1BJQ0ZHODA0IG1hcHBpbmcu
-DQpUaGlzIGlzIHB1cmVseSBkb25lIGJ5IEhXLiBObyBpbnRlcnJ1cHRzIHdpbGwgYmUgZ2VuZXJh
-dGVkIHRvIG5vdGlmeSBTVy4NCg0KPiANCj4gQnV0IGJhc2VkIG9uIHdoYXQgeW91J3ZlIHNhaWQ6
-IHllcywgaXQgc291bmRzIGxpa2UgdGhlIGdlbmVyaWMgZ3Bpb2RldiBwYXJ0cw0KPiB3b24ndCBi
-ZSB1c2VmdWwgZm9yIHRoaXMuDQo+IA0KPiA+ID4gU2VwYXJhdGUgZnJvbSB0aGlzOiBJJ20gYWxz
-byBwcm9wb3NpbmcgdGhhdCB3ZSByZXByZXNlbnQgdGhlIHN5c3RlbQ0KPiA+ID4gZXZlbnQgVldz
-IGFzIGdwaW9kZXZzIGFzIHdlbGwuDQo+ID4gPg0KPiA+ID4gPiBBIHJhdyBwYWNrZXQsIHByaW1p
-dGl2ZSBpbnRlcmZhY2Ugc2hvdWxkIGhhdmUgYmV0dGVyIGZsZXhpYmlsaXR5DQo+ID4gPiA+IHRv
-IG1hbmFnZSBNQ1RQIHBhY2tldHMgb3ZlciB0aGUgT09CIGNoYW5uZWwuDQo+ID4gPg0KPiA+ID4g
-T0ssIGxldCBtZSBwaHJhc2UgdGhpcyBkaWZmZXJlbnRseTogY2FuIHRoZSBPT0IgY2hhbm5lbCBi
-ZSB1c2VkIGZvcg0KPiA+ID4gYW55dGhpbmcgb3RoZXIgdGhhbiBTTUJ1cyBtZXNzYWdpbmc/IElz
-IGl0IHVzZWZ1bCB0byBwcm92aWRlIGFuDQo+ID4gPiBpbnRlcmZhY2UgdGhhdCBpc24ndCBhIHN0
-YW5kYXJkIFNNQnVzL2kyYyBkZXZpY2U/DQo+ID4NCj4gPiBZZXMsIHRoZSBQQ0ggc3BlYy4gYWxz
-byBkZWZpbmVzIHR3byBhZGRpdGlvbmFsIHBhY2tldCBmb3JtYXQgZm9yIGFuDQo+ID4gZVNQSSBz
-bGF2ZSB0byByZXRyaWV2ZSBQQ0ggVGVtcGVyYXR1cmUgRGF0YSBhbmQgUlRDIHRpbWUuDQo+ID4g
-SXQgc2hvdWxkIGJlIHRyaXZpYWwgdG8gcHJlcGFyZSBhIGJ5dGUgYnVmZmVyIGluIHRoYXQgZm9y
-bWF0IGFuZCBzZW5kDQo+ID4gaXQgdGhyb3VnaCB0aGUgcmF3IHBhY2tldCBpbnRlcmZhY2UuDQo+
-IA0KPiBPSywgdW5kZXJzdG9vZC4NCj4gDQo+ID4gPiBJZiB5b3UgbmVlZCBjdXN0b20gdWFwaSBk
-ZWZpbml0aW9ucyBmb3IgdGhpcyBkcml2ZXIsIHRoYXQgbWlnaHQgYmUNCj4gPiA+IG9rYXksIGJ1
-dCBpdCdzIGdvaW5nIHRvIGJlIG1vcmUgd29yayBmb3IgeW91ICh0byBkZWZpbmUgYW4gaW50ZXJm
-YWNlDQo+ID4gPiB0aGF0IGNhbiBiZSBzdXBwb3J0ZWQgbG9uZy10ZXJtKSwgcmF0aGVyIHRoYW4g
-dXNpbmcgc3RhbmRhcmQNCj4gPiA+IGluZnJhc3RydWN0dXJlIHRoYXQgYWxyZWFkeSBleGlzdHMu
-DQo+ID4NCj4gPiBUaHVzIEkgc3VnZ2VzdGVkIHRoYXQgd2UgY2FuIHJlZmVyIHRvIHRoZSBJUE1J
-IEtDUyBCTUMgZHJpdmVyLCB3aGljaA0KPiA+IHN1cHBvcnRzIHRoZSBzZWxlY3Rpb24gb2YgZGlm
-ZmVyZW50IHVzZXIgaW50ZXJmYWNlcywgUkFXIG9yIElQTUkuDQo+IA0KPiBZZXAsIGJ1dCB0aGUg
-S0NTICJyYXciIHJlZ2lzdGVyIHNldCBpcyBzdGFuZGFyZGlzZWQgYXMgcGFydCBvZiB0aGUgSVBN
-SSBzcGVjIHRvbywNCj4gd2hpY2ggaGVscHMgdG8gZGVmaW5lIGEgc3RhYmxlIHVzZXIgQVBJLiBX
-ZSBkb24ndCBoYXZlIHRoYXQgaW4gdGhpcyBjYXNlLg0KPiANCj4gT3ZlcmFsbCB0aG91Z2gsIGlm
-IHlvdSB3YW50IHRvIHN0YXJ0IHdpdGggdGhlICJsb3ctbGV2ZWwiIEFQSSwgdGhlbiBpbnRyb2R1
-Y2UNCj4gImVuaGFuY2VkIiBmdW5jdGlvbmFsaXR5IC0gbGlrZSBhbiBhY3R1YWwgU01CdXMgZHJp
-dmVyIC0gYWxvbmdzaWRlIHRoYXQsIHRoZW4NCj4gdGhhdCBzb3VuZHMgbGlrZSBhbiBPSyBhcHBy
-b2FjaC4NCj4gDQo+ID4gSWYgSU9DVEwgaXMgY29uc2lkZXJlZCB0byBiZSBub3QgdXNlciBmcmll
-bmRseSBvciBtYWdpYyBjb2RlDQo+ID4gcG9sbHV0aW5nLCBmaWxlLWJhc2VkIHJlYWQvd3JpdGUg
-b24gdGhlIG1pc2NkZXZpY2Ugbm9kZSBpcyBhbHNvIGFuDQo+ID4gb3B0aW9uLg0KPiANCj4gSXQn
-cyBub3QgcmVhbGx5IG15IGRlY2lzaW9uIHRvIG1ha2UsIGJ1dCBhIHJlYWQvd3JpdGUgZXZlbnQg
-aW50ZXJmYWNlIHdvdWxkDQo+IHNlZW0gdG8gYmUgbW9yZSBjb25zaXN0ZW50IHRvIG1lLiBJcyB0
-aGVyZSBhbiBvYnZpb3VzIGV2ZW50IGZvcm1hdCB0aGF0IHdvdWxkDQo+IGJlIGNvbW1vbiBhY3Jv
-c3MgYWxsIGNoYW5uZWxzLCBwZXJoYXBzPyBXZSdkIHByb2JhYmx5IGFsc28gbmVlZCBhIHBvbGwg
-dG9vIC0NCj4gdG8gbWFrZSB1c2Ugb2YgaW5jb21pbmcgZXZlbnRzLCBsaWtlIG1hc3Rlci10by1z
-bGF2ZSBWVyBjaGFuZ2VzLCBwZXJoYXBzPw0KDQpBIGZpbGUtYmFzZWQgcmVhZC93cml0ZS9wb2xs
-IGludGVyZmFjZSBpcyBPSyB0byBtZSBhcyB3ZWxsLiBUaGUgbWFpbiBjb25jZXJuIGlzIGFib3V0
-IHRoZSBwZXJpcGhlcmFsIGFuZCB0aGUgVlcgY2hhbm5lbHMuDQpGb3IgdGhlIHBlcmlwaGVyYWwg
-Y2hhbm5lbCwgaXQgdGFrZXMgdHdvIG1pc2NkZXZpY2UgdG8gZXhwb3J0IFRYL1JYIGludGVyZmFj
-ZXMgZm9yIHBvc3RlZCBhbmQgbm9uLXBvc3RlZCBwYWNrZXRzLCByZXNwZWN0aXZlbHkuDQpBbmQg
-Zm9yIHRoZSBWVyBjaGFubmVsLCB0aGUgc2V0dGluZ3MgR1BJTyBkaXJlY3Rpb24gaXMgUk8gYW5k
-IHRoYXQgb2YgR1BJTyB2YWx1ZSBpcyBSVy4gQW5kIHRoZXNlIHR3byBzaG91bGQgYmUgZXhwb3J0
-ZWQgaW5kaXZpZHVhbGx5Lg0K
+Hi all,
+
+I'd like to hear people's thoughts on how to approach specifying that a dev=
+ice
+is present, but should be left alone by default.  The specific example I ha=
+ve
+at hand is that of the host firmware (BIOS) SPI flash -- it's attached to a=
+ SPI
+controller on my BMC, but actually accessing it via that interface requires=
+ a
+bit of a dance involving three GPIOs and exchanging some IPMI commands with=
+ the
+ME, so if I have it defined in my dts, the mtd driver's probe routine durin=
+g
+the BMC's boot sequence just spews errors into dmesg and fails (I can then
+manually bind it later via sysfs after fiddling with GPIOs and IPMI from
+userspace).  This "works" in its clumsy way in this specific case, but I'd =
+like
+to try to upstream a cleaner (and hopefully reasonably general) solution.
+
+What I've had patched into my local fork for a while is a 'noautobind' kern=
+el
+command-line argument that lists devices to skip automatic probing on, and =
+then
+just a simple check in driver_probe_device() against that list (bypassed if
+called from a sysfs 'bind' write).  (Patch for dev-5.10 inline below, thoug=
+h it
+doesn't currently apply to mainline.)
+
+The other alternative I've considered (though not actually implemented thus
+far) is to start using the "reserved" status value defined in the device-tr=
+ee
+spec (section 2.3.4, [0]) to mean this -- from the wording in the spec it s=
+eems
+like a not-terribly-unreasonable interpretation, and the existing kernel &
+u-boot fdt code don't seem to make any use of it as far as I can see (thoug=
+h I
+don't know what might be out there in device-tree implementations floating
+around in other projects).
+
+Anyone have any particular thoughts?  The 'noautobind' approach is a pretty
+small, simple patch, and I'd guess a 'status =3D "reserved"' patch probably
+wouldn't be much bigger, but I figured it might be worth it to solicit opin=
+ions
+from OpenBMC people before potentially ruffling driver-core/device-tree
+feathers on upstream lists.
+
+
+Thanks,
+Zev
+
+[0] https://github.com/devicetree-org/devicetree-specification/releases/dow=
+nload/v0.3/devicetree-specification-v0.3.pdf
+
+---
+ drivers/base/base.h |  2 +-
+ drivers/base/bus.c  |  2 +-
+ drivers/base/dd.c   | 33 +++++++++++++++++++++++++++------
+ 3 files changed, 29 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/base/base.h b/drivers/base/base.h
+index 52b3d7b75c27..98bd131dacfc 100644
+--- a/drivers/base/base.h
++++ b/drivers/base/base.h
+@@ -152,7 +152,7 @@ extern int driver_add_groups(struct device_driver *drv,
+ 			     const struct attribute_group **groups);
+ extern void driver_remove_groups(struct device_driver *drv,
+ 				 const struct attribute_group **groups);
+-int device_driver_attach(struct device_driver *drv, struct device *dev);
++int device_driver_attach(struct device_driver *drv, struct device *dev, bo=
+ol explicit);
+ void device_driver_detach(struct device *dev);
+=20
+ extern char *make_class_name(const char *name, struct kobject *kobj);
+diff --git a/drivers/base/bus.c b/drivers/base/bus.c
+index 36d0c654ea61..4a672a7051e5 100644
+--- a/drivers/base/bus.c
++++ b/drivers/base/bus.c
+@@ -211,7 +211,7 @@ static ssize_t bind_store(struct device_driver *drv, co=
+nst char *buf,
+=20
+ 	dev =3D bus_find_device_by_name(bus, NULL, buf);
+ 	if (dev && dev->driver =3D=3D NULL && driver_match_device(drv, dev)) {
+-		err =3D device_driver_attach(drv, dev);
++		err =3D device_driver_attach(drv, dev, true);
+=20
+ 		if (err > 0) {
+ 			/* success */
+diff --git a/drivers/base/dd.c b/drivers/base/dd.c
+index e2cf3b29123e..bf723a30bbaf 100644
+--- a/drivers/base/dd.c
++++ b/drivers/base/dd.c
+@@ -62,6 +62,10 @@ static bool initcalls_done;
+ #define ASYNC_DRV_NAMES_MAX_LEN	256
+ static char async_probe_drv_names[ASYNC_DRV_NAMES_MAX_LEN];
+=20
++/* Saved copy of noautobind kernel cmdline arg */
++#define NOAUTOBIND_DEVS_MAX_LEN 256
++static char noautobind_dev_names[NOAUTOBIND_DEVS_MAX_LEN];
++
+ /*
+  * In some cases, like suspend to RAM or hibernation, It might be reasonab=
+le
+  * to prohibit probing of devices as it could be unsafe.
+@@ -713,6 +717,7 @@ EXPORT_SYMBOL_GPL(wait_for_device_probe);
+  * driver_probe_device - attempt to bind device & driver together
+  * @drv: driver to bind a device to
+  * @dev: device to try to bind to the driver
++ * @explicit: whether or not this is an explicit bind request from userspa=
+ce
+  *
+  * This function returns -ENODEV if the device is not registered,
+  * 1 if the device is bound successfully and 0 otherwise.
+@@ -722,13 +727,18 @@ EXPORT_SYMBOL_GPL(wait_for_device_probe);
+  *
+  * If the device has a parent, runtime-resume the parent before driver pro=
+bing.
+  */
+-static int driver_probe_device(struct device_driver *drv, struct device *d=
+ev)
++static int driver_probe_device(struct device_driver *drv, struct device *d=
+ev, bool explicit)
+ {
+ 	int ret =3D 0;
+=20
+ 	if (!device_is_registered(dev))
+ 		return -ENODEV;
+=20
++	if (!explicit && parse_option_str(noautobind_dev_names, dev_name(dev))) {
++		dev_info(dev, "skipping %s probe of noautobind device\n", drv->name);
++		return -EPROBE_DEFER;
++	}
++
+ 	pr_debug("bus: '%s': %s: matched device %s with driver %s\n",
+ 		 drv->bus->name, __func__, dev_name(dev), drv->name);
+=20
+@@ -766,6 +776,16 @@ static int __init save_async_options(char *buf)
+ }
+ __setup("driver_async_probe=3D", save_async_options);
+=20
++static int __init save_noautobind_options(char *buf)
++{
++	if (strlen(buf) >=3D NOAUTOBIND_DEVS_MAX_LEN)
++		pr_warn("'noautobind' device name list too long!\n");
++
++	strlcpy(noautobind_dev_names, buf, NOAUTOBIND_DEVS_MAX_LEN);
++	return 0;
++}
++__setup("noautobind=3D", save_noautobind_options);
++
+ bool driver_allows_async_probing(struct device_driver *drv)
+ {
+ 	switch (drv->probe_type) {
+@@ -846,7 +866,7 @@ static int __device_attach_driver(struct device_driver =
+*drv, void *_data)
+ 	if (data->check_async && async_allowed !=3D data->want_async)
+ 		return 0;
+=20
+-	return driver_probe_device(drv, dev);
++	return driver_probe_device(drv, dev, false);
+ }
+=20
+ static void __device_attach_async_helper(void *_dev, async_cookie_t cookie=
+)
+@@ -1000,11 +1020,12 @@ static void __device_driver_unlock(struct device *d=
+ev, struct device *parent)
+  * device_driver_attach - attach a specific driver to a specific device
+  * @drv: Driver to attach
+  * @dev: Device to attach it to
++ * @explicit: whether or not this is an explicit bind request from userspa=
+ce
+  *
+  * Manually attach driver to a device. Will acquire both @dev lock and
+  * @dev->parent lock if needed.
+  */
+-int device_driver_attach(struct device_driver *drv, struct device *dev)
++int device_driver_attach(struct device_driver *drv, struct device *dev, bo=
+ol explicit)
+ {
+ 	int ret =3D 0;
+=20
+@@ -1015,7 +1036,7 @@ int device_driver_attach(struct device_driver *drv, s=
+truct device *dev)
+ 	 * bound a driver before us just skip the driver probe call.
+ 	 */
+ 	if (!dev->p->dead && !dev->driver)
+-		ret =3D driver_probe_device(drv, dev);
++		ret =3D driver_probe_device(drv, dev, explicit);
+=20
+ 	__device_driver_unlock(dev, dev->parent);
+=20
+@@ -1037,7 +1058,7 @@ static void __driver_attach_async_helper(void *_dev, =
+async_cookie_t cookie)
+ 	 * bound a driver before us just skip the driver probe call.
+ 	 */
+ 	if (!dev->p->dead && !dev->driver)
+-		ret =3D driver_probe_device(drv, dev);
++		ret =3D driver_probe_device(drv, dev, false);
+=20
+ 	__device_driver_unlock(dev, dev->parent);
+=20
+@@ -1092,7 +1113,7 @@ static int __driver_attach(struct device *dev, void *=
+data)
+ 		return 0;
+ 	}
+=20
+-	device_driver_attach(drv, dev);
++	device_driver_attach(drv, dev, false);
+=20
+ 	return 0;
+ }
+--=20
+2.33.0
+
