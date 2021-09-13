@@ -2,54 +2,80 @@ Return-Path: <SRS0=dV0T=OD=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 070A3C433F5
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 15:30:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D8A5EC433EF
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 16:57:14 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 7D8DB61056
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 15:30:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7D8DB61056
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=zankapfel.net
+	by mail.kernel.org (Postfix) with ESMTPS id 5AF0861056
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 16:57:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5AF0861056
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H7VmG1b38z2ymy
-	for <openbmc@archiver.kernel.org>; Tue, 14 Sep 2021 01:30:22 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H7XhS5P2pz2yRS
+	for <openbmc@archiver.kernel.org>; Tue, 14 Sep 2021 02:57:12 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
- spf=none (no SPF record) smtp.mailfrom=zankapfel.net
- (client-ip=2a03:4000:6:113f:0:1ce:1ce:babe; helo=zankapfel.net;
- envelope-from=phil@zankapfel.net; receiver=<UNKNOWN>)
-X-Greylist: delayed 417 seconds by postgrey-1.36 at boromir;
- Tue, 14 Sep 2021 01:29:56 AEST
-Received: from zankapfel.net (zankapfel.net
- [IPv6:2a03:4000:6:113f:0:1ce:1ce:babe])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=Ec7JLJOE;
+	dkim-atps=neutral
+Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.kartashev@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=Ec7JLJOE; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H7Vlm3tYqz2xfJ
- for <openbmc@lists.ozlabs.org>; Tue, 14 Sep 2021 01:29:56 +1000 (AEST)
-Received: by zankapfel.net (Postfix, from userid 110)
- id 97D8E12173A; Mon, 13 Sep 2021 17:22:52 +0200 (CEST)
-Received: from zankapfel.net (localhost [IPv6:::1])
- by zankapfel.net (Postfix) with ESMTP id 59240121736;
- Mon, 13 Sep 2021 17:22:50 +0200 (CEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H7Xgg4Y3Rz2yK6
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Sep 2021 02:56:31 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id 3981F41767
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 16:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-transfer-encoding:mime-version:user-agent:content-type
+ :content-type:organization:references:in-reply-to:date:date:from
+ :from:subject:subject:message-id:received:received:received; s=
+ mta-01; t=1631552184; x=1633366585; bh=2n6HXMU0AMqtmlfQ8hrqWhYjW
+ 8KtvCc3MYZx0flSn78=; b=Ec7JLJOEyP2L4H/WnPy24Xb8uInzyM3GcQSYqMBcX
+ zDuWALaU+NQmPyATrdEkRkMZ9C79xn6g4UNGE60HX5+wnKGwtgntno7TsrwCKJLm
+ livzYN6AlVauCWekYENaCaWK8P7QM39slEUm9/dYtcx/i1m2EROY8cbzBXeb/YyE
+ E8=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id h98YgMhSTDwV for <openbmc@lists.ozlabs.org>;
+ Mon, 13 Sep 2021 19:56:24 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 07DA041372
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 19:56:23 +0300 (MSK)
+Received: from [10.199.0.6] (10.199.0.6) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Mon, 13
+ Sep 2021 19:56:22 +0300
+Message-ID: <d190054863c8112a66baad2f50dda7c6bdc45717.camel@yadro.com>
+Subject: Re: Read smbios2 file failed
+From: Andrei Kartashev <a.kartashev@yadro.com>
+To: <openbmc@lists.ozlabs.org>
+Date: Mon, 13 Sep 2021 19:56:22 +0300
+In-Reply-To: <CAMqwjCAaHrv0SgA_1hDEjjnX1fur6ijmCJCrn1gTPbr5Z2-ONw@mail.gmail.com>
+References: <CAMqwjCAaHrv0SgA_1hDEjjnX1fur6ijmCJCrn1gTPbr5Z2-ONw@mail.gmail.com>
+Organization: YADRO
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon, 13 Sep 2021 17:22:50 +0200
-From: Phil Eichinger <phil@zankapfel.net>
-To: Heyi Guo <guoheyi@linux.alibaba.com>
-Subject: Re: [Question] How can we use underscore "_" in sensor name?
-In-Reply-To: <3a702375-de87-985d-d096-7f187d293459@linux.alibaba.com>
-References: <3a702375-de87-985d-d096-7f187d293459@linux.alibaba.com>
-Message-ID: <1a17bc685cf90247a3feb5776f1b029b@zankapfel.net>
-X-Sender: phil@zankapfel.net
-User-Agent: Roundcube Webmail/1.3.16
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.199.0.6]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,30 +87,28 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc@lists.ozlabs.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On 2021-09-13 12:49, Heyi Guo wrote:
-> Hi all,
-> 
-> Can we use underscore "_" in IPMI sensor names? Now we see that "_" in
-> sensor names will be replaced with space in the code, even if we
-> really use "_" for sensor names in json configuration files.
-> 
-> The background is that we used underscore "_" in sensor names in
-> legacy BMC, and all the OOB software uses such names to get sensor
-> data. Therefore we want to make it compatible for switching to
-> OpenBMC.
-> 
-> Is there any way to achieve this?
+You need to somehow deliver smbios data image to BMC. This means, your
+BIOS should implementat some logic to transfer this data. 
+For BMC side see example here:
+https://github.com/openbmc/intel-ipmi-oem/blob/master/src/smbiosmdrv2handler.cpp
 
-This works here, using phosphor-hwmon, it does not replace underscores 
-in sensor names.
-DBus should allow this: "Each element must only contain the ASCII 
-characters "[A-Z][a-z][0-9]_"
-phosphor-webui however does replace underscores with spaces.
+On Mon, 2021-09-13 at 17:40 +0300, Alexander Raih wrote:
+> Hi guys, I am beginner in openbmc
+> I build openbmc with smbios-mdr repository and I have error:
+> 
+> Read data from flash error - Open MDRV2 table file failure
+> 
+> There isnt file in /var/lib/smbios/smbios2
+> 
+> How I can resolve this problem?
+> Help me please!!!
 
-Cheers
-Phil
+-- 
+Best regards,
+Andrei Kartashev
+
+
