@@ -2,91 +2,75 @@ Return-Path: <SRS0=dV0T=OD=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-4.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=0.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	URIBL_BLOCKED,USER_AGENT_SANE_1 autolearn=no autolearn_force=no version=3.4.0
+	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3D14AC433F5
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 13:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 11DF1C433F5
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 14:41:33 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 9360663227
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 13:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 9360663227
+	by mail.kernel.org (Postfix) with ESMTPS id 748A260F9F
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 14:41:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 748A260F9F
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=gmail.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H7Sjk02djz2yJs
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 23:58:02 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H7Tgt6qTvz2yR7
+	for <openbmc@archiver.kernel.org>; Tue, 14 Sep 2021 00:41:30 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=IPzXLxZo;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20210112 header.b=caxbprpv;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::22f;
- helo=mail-lj1-x22f.google.com; envelope-from=fercerpav@gmail.com;
+ smtp.mailfrom=gmail.com (client-ip=2a00:1450:4864:20::631;
+ helo=mail-ej1-x631.google.com; envelope-from=61a91bc@gmail.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256
- header.s=20210112 header.b=IPzXLxZo; dkim-atps=neutral
-Received: from mail-lj1-x22f.google.com (mail-lj1-x22f.google.com
- [IPv6:2a00:1450:4864:20::22f])
+ header.s=20210112 header.b=caxbprpv; dkim-atps=neutral
+Received: from mail-ej1-x631.google.com (mail-ej1-x631.google.com
+ [IPv6:2a00:1450:4864:20::631])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H7Sj05NRYz2yHq
- for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 23:57:22 +1000 (AEST)
-Received: by mail-lj1-x22f.google.com with SMTP id s3so17465900ljp.11
- for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 06:57:22 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H7Tg86brhz2yHH
+ for <openbmc@lists.ozlabs.org>; Tue, 14 Sep 2021 00:40:50 +1000 (AEST)
+Received: by mail-ej1-x631.google.com with SMTP id ho42so21569283ejc.9
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 07:40:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
- h=date:from:to:cc:subject:message-id:references:mime-version
- :content-disposition:in-reply-to:user-agent;
- bh=HUA85e5LsPvmtYmuCmhinWB+yb4f2XX6FnQzUp2D+pU=;
- b=IPzXLxZo5QyZ0RrgnjQ/QXq3zDuGIe5zCo1d3DB/2Q1qQi/fG5PfSq7PJOkmAFkfuY
- DbhZ9ddVw7Doxvogw9wGjDxfRJokRo8j4wcO/7dIAJErug0to53fdofcCCPxNpamIDEF
- BD6ycj73H8HdV1oZqhv2SlD68riwwoMns+cIKo+EHoj54evBQ9PJUXlCDPRrzYLrbaN/
- cJYv5q9AV8diWf5T6KRqQO4im+2h5eEcJHjXSiQRTXbQMAvDWdLZD/C6rbbFPUfrMoas
- lhNkvgKTY+S7vjO1aDeGP40lcEaqCI1J21MoyEryfGRcJgXAQP/SpoNU0aA/56weM6DE
- GbBQ==
+ h=mime-version:from:date:message-id:subject:to;
+ bh=WcKVBvkK3edMUxoCqDZDshm4pGlfW5elmPARMt7O6TQ=;
+ b=caxbprpvcfQRnVlzaQnSGp2dxoKUzT7hNHSyrpiZEMnJhY4l0xMxy9eXUipJSAWdXm
+ WtVv28Vh/aYiN45M90L5GwZzUa7vJaYBeBRaRKAz9qDGV5QOQB+stW7/LX8wRZmSnUQS
+ s8bPLEmgU2+//Og9sLC9713z0oZSM74geShbuC3g0LD+ABXOm8cq2r7/HgvhCbDCPT99
+ Ys41Q5UgzdVfqC4rKhXsX5q1gKXN4Y/QZqXgrBx855jM4m3TPhAyVBM7BCAqm78EmrmY
+ A/MRq3f995rqQVGcGEflfXnBKjV5tkxqbRPG40E8bZyyn5w9HT06YtQfdazqczMcUUzR
+ r6Ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to:user-agent;
- bh=HUA85e5LsPvmtYmuCmhinWB+yb4f2XX6FnQzUp2D+pU=;
- b=xpR5weDhxqyAciBozzAmGfpZQRiJrSiFbHv3JPFP4U++WqFNrhc981Qfn58hNNBpQR
- msv9sccnMqOXkF+DwGSNn8C3mOYT9dRXsYFLTfakS3A/MINARa68gEJvlo1p73dCm6s+
- dNrW+4htevyLW/Kni3Q5zVK/FBU1V1Cz8NU3SCIn30PIMDwLf7wXQSM1CeWfZOimTDhK
- h5OeR/hT8751cjMBLYpycY2zzYUDTSOXCx1x3tkCVnZwDsIL1F5uVGu6XlZqBWqekESW
- W8MAa+nGRfntZHqGCR1FUBn/Mk+RmJbMFKXjL/O69DKNx67vLIKEofWDKnBuKzsAC12r
- D5ow==
-X-Gm-Message-State: AOAM533d2N+WR1QgKAHr4JfmhUVSp8KekcPk4OeUAKpoe6YEf5oDKK4l
- amMUyPNfM6y0cj7DSGS9/f4=
-X-Google-Smtp-Source: ABdhPJwHMmgex9WvWA2vfM3i2d9LXs39rc5+tQZ9z/+TcTR6EnnCF+Nz1XM4CMJEtkcS6k2EEU5Gdw==
-X-Received: by 2002:a2e:9607:: with SMTP id v7mr10231985ljh.405.1631541436572; 
- Mon, 13 Sep 2021 06:57:16 -0700 (PDT)
-Received: from home.paul.comp (paulfertser.info.
- [2001:470:26:54b:226:9eff:fe70:80c2])
- by smtp.gmail.com with ESMTPSA id s2sm1005312ljj.83.2021.09.13.06.57.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 06:57:16 -0700 (PDT)
-Received: from home.paul.comp (home.paul.comp [IPv6:0:0:0:0:0:0:0:1])
- by home.paul.comp (8.15.2/8.15.2/Debian-14~deb10u1) with ESMTP id
- 18DDvDPJ001649; Mon, 13 Sep 2021 16:57:14 +0300
-Received: (from paul@localhost)
- by home.paul.comp (8.15.2/8.15.2/Submit) id 18DDvCZT001648;
- Mon, 13 Sep 2021 16:57:12 +0300
-Date: Mon, 13 Sep 2021 16:57:12 +0300
-From: Paul Fertser <fercerpav@gmail.com>
-To: Lei Yu <yulei.sh@bytedance.com>
-Subject: Re: About KVM screenshot
-Message-ID: <20210913135712.GW23326@home.paul.comp>
-References: <CAGm54UG1guTohXRB5CPYJR=4PQmdXaqZ0Tgq5Z0WXPS7QBxg5Q@mail.gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=WcKVBvkK3edMUxoCqDZDshm4pGlfW5elmPARMt7O6TQ=;
+ b=twO9JKTnfP6mvICmjwGI0bzR8wxeR6a84JrH/+ddOl+UlSl1pw/ELOi5ywKCf9hxwg
+ I8ed2FS1fd5GklHSJUUBinSRCLE0I9jfjZHSlMwa0S8wTw8p9XZ/HxgU64IfWtdE/J+t
+ 5vPwIDll/75MV9IpzngEpNVdL9x/47/VDxOJbbVWFHIJH1tOUnXGgOJ/BQJSVsN6YudQ
+ KQTuaILw/Y3YlIZSuYM/dAbNyvu3CUlacwYHrlgM/WEsQu+baulBMsmbHALw47yS205Z
+ PYQzzkvkFFOp4LUAnnDl18B25vHArAYqe1lvhjmuPsHWVYlW0rngb0KScXZQBEu/9qnp
+ NIuw==
+X-Gm-Message-State: AOAM531SaiqHA1F+glpcPy86/q14PGCGfjghOGZkVa7gZNg2oyRVVLc2
+ GM7c84O+0jqn35faXDzZuTw6JPUPN0lDF6BBUPU9+HtjIg8=
+X-Google-Smtp-Source: ABdhPJxJjhC80ObP4z4IYB1cJ2/amiovzwLPWxEa4nTQbRADskQjBlPYNTt7oWS9boFZzaZ9o8lad/M82dlEdfL15SQ=
+X-Received: by 2002:a17:906:4f97:: with SMTP id
+ o23mr12812779eju.418.1631544046616; 
+ Mon, 13 Sep 2021 07:40:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAGm54UG1guTohXRB5CPYJR=4PQmdXaqZ0Tgq5Z0WXPS7QBxg5Q@mail.gmail.com>
-User-Agent: Mutt/1.10.1 (2018-07-13)
+From: Alexander Raih <61a91bc@gmail.com>
+Date: Mon, 13 Sep 2021 17:40:55 +0300
+Message-ID: <CAMqwjCAaHrv0SgA_1hDEjjnX1fur6ijmCJCrn1gTPbr5Z2-ONw@mail.gmail.com>
+Subject: Read smbios2 file failed
+To: openbmc@lists.ozlabs.org
+Content-Type: multipart/alternative; boundary="00000000000055825105cbe173df"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,31 +82,32 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: openbmc <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Hello,
+--00000000000055825105cbe173df
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Sep 13, 2021 at 09:47:03PM +0800, Lei Yu wrote:
-> The whole KVM screenshot is implemented by the below pieces:
-> 1. The vncsnapshot[1] is slightly modified for cross-compile, and a
-> bitbake recipe is created for it;
-> 2. A service is created to host the DBus interface to provide the
-> "Trigger" and "Clear" methods for KVM screenshot;
-> 3. OEM redfish actions are implemented to trigger and clear the KVM
-> screenshot, including the download of the picture;
+Hi guys, I am beginner in openbmc
+I build openbmc with smbios-mdr repository and I have error:
 
-Currently obmc-ikvm gets a steady stream of JPG images, frame by
-frame, from V4L2. Have you considered extending it a bit so that it
-would be capable of simply saving the current frame to disk, without
-any conversion/transformation, just dump an array of bytes to a file?
+Read data from flash error - Open MDRV2 table file failure
 
-What would be the advantage of establishing a local VNC session with
-this additional software compared to the straightforward JPG to file
-writing?
+There isnt file in /var/lib/smbios/smbios2
 
--- 
-Be free, use free (http://www.gnu.org/philosophy/free-sw.html) software!
-mailto:fercerpav@gmail.com
+How I can resolve this problem?
+Help me please!!!
+
+--00000000000055825105cbe173df
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr">Hi guys, I am beginner=C2=A0in openbmc<div>I build openbmc=
+ with smbios-mdr repository and I have error:</div><div><br></div><div>Read=
+ data from flash error - Open MDRV2 table file failure<br></div><div><br></=
+div><div>There isnt=C2=A0file in /var/lib/smbios/smbios2</div><div><br></di=
+v><div>How I can resolve this problem?</div><div>Help me please!!!</div></d=
+iv>
+
+--00000000000055825105cbe173df--
