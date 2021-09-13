@@ -2,68 +2,76 @@ Return-Path: <SRS0=dV0T=OD=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12862C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 12:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 32507C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 13:48:00 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8A7DA60F58
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 12:19:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8A7DA60F58
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 98D3961B44
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 13:47:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 98D3961B44
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H7QWt0WWCz2yM4
-	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 22:19:22 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H7SV56VkPz2yKJ
+	for <openbmc@archiver.kernel.org>; Mon, 13 Sep 2021 23:47:57 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (2048-bit key; unprotected) header.d=bytedance-com.20150623.gappssmtp.com header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=aq/Sv8Hi;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=209.85.210.50; helo=mail-ot1-f50.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
+ smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::c35;
+ helo=mail-oo1-xc35.google.com; envelope-from=yulei.sh@bytedance.com;
+ receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
+ unprotected) header.d=bytedance-com.20150623.gappssmtp.com
+ header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
+ header.s=20150623 header.b=aq/Sv8Hi; dkim-atps=neutral
+Received: from mail-oo1-xc35.google.com (mail-oo1-xc35.google.com
+ [IPv6:2607:f8b0:4864:20::c35])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H7QWJ5Hmpz2xtT;
- Mon, 13 Sep 2021 22:18:50 +1000 (AEST)
-Received: by mail-ot1-f50.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so13002338otc.4; 
- Mon, 13 Sep 2021 05:18:50 -0700 (PDT)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H7STM6DT4z2yHb
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 23:47:17 +1000 (AEST)
+Received: by mail-oo1-xc35.google.com with SMTP id
+ q26-20020a4adc5a000000b002918a69c8eeso3401407oov.13
+ for <openbmc@lists.ozlabs.org>; Mon, 13 Sep 2021 06:47:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=bytedance-com.20150623.gappssmtp.com; s=20150623;
+ h=mime-version:from:date:message-id:subject:to;
+ bh=3XyvWQ6+wMy0b/YiAvfuGGvQ9a3UKS8hNLKLux03WaQ=;
+ b=aq/Sv8Hidb1EdHEVSGwDZLWwU+03ktRyRjzeyZMxDlzEUvWtumT94hGL9TeTECK9Tb
+ yyr6ct33wiEAgkyfPzZUMs/zylCsFo2qC3zQflagV9LUm33Qenz2yABE9b4lOxmLPfsd
+ 83DnlS9ZMHCT0LZzbx/Cp6B06qqiz98P7d0rMje32gytCjxj+6UNVnS1XXyO4y0U4pmc
+ p3w3MKz8q0aCtsZJDeoLDSER3Fr6S7oxceHaoh+lA9kBcJCLMmTOiL+XOVrcPwIwAPl1
+ pYPc9sAxqsYexfy8q5FV/NosdvWa1ub3dZoy2XBm14fpA+WGEV+iwCBhTaEcL5YDw/bR
+ TH9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject:date
- :message-id;
- bh=QviKwU9E32B1NHqI9WCd3jJH00Se8iBU33oRL7KYCVI=;
- b=Vl6WRt1l5woCTrvDGRlV3vMuK/N14FjAXg+UsdN16Fh5X2/SZWlXCLqqlC9UOX3pGx
- /OdSgooEYxikew/xY1lCJumGJHdxK/6GYwRXFI5/TVP32Ihoji9B2D9P2dfbDuNb9jjW
- ChM2F/qULh4iB1qz74LQn6qisZkgzdUl5WDyczyWYlgj0/0537wyzYvSnpbhmb+A1nzC
- TyzsKwcX3qwPwEKPvhC61X3QjAnbYrllow1+sAMLsVq/d1t1o9USY9Vea0Btr1myGYMu
- +vw2nU4O3pq/YMaElujR9s+nzYy+1w3xNNxnJWpbf0S4NTtILEqOGH9Cl8Z3nOIaI1J9
- /1RQ==
-X-Gm-Message-State: AOAM530NSomZ6lbDCx64uVMDPSumpgOc8qPFkmIBWx6nir7GJSAWz++/
- gO6er4WYNDZ2Gla8yNOl0g==
-X-Google-Smtp-Source: ABdhPJzMsElTnZR96Stl0Jidt4vyTF4mY6gkVe/sRFOau/+qhl1NPc8J930JqDDSM8aDFfgq6rLrHQ==
-X-Received: by 2002:a9d:7cd7:: with SMTP id r23mr9250801otn.165.1631535527526; 
- Mon, 13 Sep 2021 05:18:47 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id k8sm1791521oom.20.2021.09.13.05.18.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Sep 2021 05:18:46 -0700 (PDT)
-Received: (nullmailer pid 444719 invoked by uid 1000);
- Mon, 13 Sep 2021 12:18:43 -0000
-From: Rob Herring <robh@kernel.org>
-To: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-In-Reply-To: <20210913060231.15619-2-chiawei_wang@aspeedtech.com>
-References: <20210913060231.15619-1-chiawei_wang@aspeedtech.com>
- <20210913060231.15619-2-chiawei_wang@aspeedtech.com>
-Subject: Re: [PATCH v4 1/4] dt-bindings: mfd: aspeed-lpc: Convert to YAML
- schema
-Date: Mon, 13 Sep 2021 07:18:43 -0500
-Message-Id: <1631535523.196891.444718.nullmailer@robh.at.kernel.org>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=3XyvWQ6+wMy0b/YiAvfuGGvQ9a3UKS8hNLKLux03WaQ=;
+ b=JSVdPfYHG42OVpxpPJGfztXa8l0DS03rIolA8UNgrNxpvqy6Ec+9ieNAuna8BktWh5
+ C90x1w9mvZgBqwChYO6ObdnEoJK045UwTjRjjVBCMfyG4rde3M1orYCz5z1lWmOTr8ws
+ OwaablvFqxp6jiWJKU103DPK7TN7YQxGrvXUh9T1kRTNEWeVIrvCx50FEYIe1DFFpEpj
+ luldpx0yeAM20RMV8yL5OAeu5IEUxdnb3fp0x7RMyzvK1ENxEkHQcVS+rdrWu2lyR8S1
+ A4g/znFhoFalsSOpY8VJCdY4E80uMFyzu1XGMYuWHahPSvHfdtVsMooKE2QffTaP0VtD
+ ZoqA==
+X-Gm-Message-State: AOAM530/lGSHc7xLToo2Exewg+hjslU/1ENHXFyw3BPlMNaGXDwumM8X
+ CZ9qL9t5yvCHbidqoecehm6giNOWMqWk6HSTCS+saZn8X8JutLD7
+X-Google-Smtp-Source: ABdhPJxCo4wLLoUR/Gd7TCTJ++dxao/zWOUECx4bY9rT56+JbEazKQvchL4fImQdU6FDHurChG6Bv4t8b6Uaiyiq+rA=
+X-Received: by 2002:a4a:e297:: with SMTP id k23mr9213444oot.4.1631540834114;
+ Mon, 13 Sep 2021 06:47:14 -0700 (PDT)
+MIME-Version: 1.0
+From: Lei Yu <yulei.sh@bytedance.com>
+Date: Mon, 13 Sep 2021 21:47:03 +0800
+Message-ID: <CAGm54UG1guTohXRB5CPYJR=4PQmdXaqZ0Tgq5Z0WXPS7QBxg5Q@mail.gmail.com>
+Subject: About KVM screenshot
+To: openbmc <openbmc@lists.ozlabs.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,48 +83,39 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, yulei.sh@bytedance.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-arm-kernel@lists.infradead.org, osk@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 13 Sep 2021 14:02:28 +0800, Chia-Wei Wang wrote:
-> Convert the bindings of Aspeed LPC from text file into YAML schema.
-> 
-> Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-> ---
->  .../devicetree/bindings/mfd/aspeed-lpc.txt    | 157 ---------------
->  .../devicetree/bindings/mfd/aspeed-lpc.yaml   | 187 ++++++++++++++++++
->  2 files changed, 187 insertions(+), 157 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
->  create mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
-> 
+This email is to introduce some progress and ask for comments about
+the KVM screenshot function.
 
-My bot found errors running 'make DT_CHECKER_FLAGS=-m dt_binding_check'
-on your patch (DT_CHECKER_FLAGS is new in v5.13):
+The whole KVM screenshot is implemented by the below pieces:
+1. The vncsnapshot[1] is slightly modified for cross-compile, and a
+bitbake recipe is created for it;
+2. A service is created to host the DBus interface to provide the
+"Trigger" and "Clear" methods for KVM screenshot;
+3. OEM redfish actions are implemented to trigger and clear the KVM
+screenshot, including the download of the picture;
 
-yamllint warnings/errors:
+Be noted that the function is currently experimental and not stable:
+* vncsnapshot has some bug on skipping the black screen, so we have to
+add a delay to capture the screen;
+* When the BMC is in high load, it takes longer to open and capture
+the KVM, so the above delay may not be enough.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/mfd/aspeed-lpc.example.dts:30.35-36.15: Warning (unique_unit_address): /example-0/lpc@1e789000/lpc-ctrl@80: duplicate unit-address (also used in node /example-0/lpc@1e789000/lpc-snoop@80)
-Documentation/devicetree/bindings/mfd/aspeed-lpc.example.dt.yaml:0:0: /example-0/lpc@1e789000/lpc-ctrl@80: failed to match any schema with compatible: ['aspeed,ast2600-lpc-ctrl']
-Documentation/devicetree/bindings/mfd/aspeed-lpc.example.dt.yaml:0:0: /example-0/lpc@1e789000/reset-controller@98: failed to match any schema with compatible: ['aspeed,ast2600-lpc-reset']
-Documentation/devicetree/bindings/mfd/aspeed-lpc.example.dt.yaml:0:0: /example-0/lpc@1e789000/lpc-snoop@80: failed to match any schema with compatible: ['aspeed,ast2600-lpc-snoop']
+If the work is got interested, we could try to upstream the changes, including:
+* Submit a patch to meta-openembedded to add vncsnapshot recipe (with
+patches for cross-compile)
+* Add an interface to phosphor-dbus-interface to host the service interface;
+* Add a new daemon (in a new repo or share some existing repo?)
+* Submit patches to bmcweb about the OEM Redfish actions (for now it's
+Bytedance OEM action)
 
-doc reference errors (make refcheckdocs):
+Feedbacks and suggestions are welcome.
 
-See https://patchwork.ozlabs.org/patch/1527193
+[1]: https://sourceforge.net/projects/vncsnapshot/files/vncsnapshot/1.2a/
 
-This check can fail if there are any dependencies. The base for a patch
-series is generally the most recent rc1.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit.
-
+-- 
+BRs,
+Lei YU
