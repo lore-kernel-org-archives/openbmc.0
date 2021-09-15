@@ -1,86 +1,80 @@
-Return-Path: <SRS0=NBRl=OE=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
+Return-Path: <SRS0=dr2a=OF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.kernel.org@kernel.org>
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-18.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,URIBL_BLOCKED
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD4C5C433EF
-	for <openbmc@archiver.kernel.org>; Tue, 14 Sep 2021 23:42:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6243EC433F5
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 02:22:36 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 334A06108F
-	for <openbmc@archiver.kernel.org>; Tue, 14 Sep 2021 23:42:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 334A06108F
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
+	by mail.kernel.org (Postfix) with ESMTPS id A66146113E
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 02:22:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A66146113E
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H8Kf73r98z2yLN
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 09:42:55 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H8PBL1ck3z2yMM
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 12:22:34 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=Tau0ZGRz;
+	dkim=fail reason="signature verification failed" (1024-bit key; secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256 header.s=google header.b=X4as+tR2;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
- envelope-from=i.mikhaylov@yadro.com; receiver=<UNKNOWN>)
+ smtp.mailfrom=gmail.com (client-ip=2607:f8b0:4864:20::735;
+ helo=mail-qk1-x735.google.com; envelope-from=joel.stan@gmail.com;
+ receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
- unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
- header.s=mta-01 header.b=Tau0ZGRz; dkim-atps=neutral
-Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ secure) header.d=jms.id.au header.i=@jms.id.au header.a=rsa-sha256
+ header.s=google header.b=X4as+tR2; dkim-atps=neutral
+Received: from mail-qk1-x735.google.com (mail-qk1-x735.google.com
+ [IPv6:2607:f8b0:4864:20::735])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H8KdK4lBkz2y0B
- for <openbmc@lists.ozlabs.org>; Wed, 15 Sep 2021 09:42:13 +1000 (AEST)
-Received: from localhost (unknown [127.0.0.1])
- by mta-01.yadro.com (Postfix) with ESMTP id CDE5942413;
- Tue, 14 Sep 2021 23:42:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
- content-transfer-encoding:mime-version:user-agent:content-type
- :content-type:organization:references:in-reply-to:date:date:from
- :from:subject:subject:message-id:received:received:received; s=
- mta-01; t=1631662926; x=1633477327; bh=R5bpcvsT3kXYqwQ+cjx1HLt+j
- CeJZyVa9dVb6M+UHRc=; b=Tau0ZGRzI41Vrwpo448vEHSwjzNgq/xoACMaGw0PZ
- PskR3K/6q0CWV7yu0pDusI8qIx1TNfvL9m3KUcDzUasmD8GUroN/Ey9bUFk5a9SR
- cDM/BA0FfGfG1/xhErLeoJpTCe+jnB8c+gb3qPn1wxYTsMVlkifUjLtbZiajufQv
- N0=
-X-Virus-Scanned: amavisd-new at yadro.com
-Received: from mta-01.yadro.com ([127.0.0.1])
- by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
- with ESMTP id For72AKW95pQ; Wed, 15 Sep 2021 02:42:06 +0300 (MSK)
-Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
- [172.17.100.104])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
- (No client certificate requested)
- by mta-01.yadro.com (Postfix) with ESMTPS id 1EB6A423EF;
- Wed, 15 Sep 2021 02:42:05 +0300 (MSK)
-Received: from [10.199.0.2] (10.199.0.2) by T-EXCH-04.corp.yadro.com
- (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 15
- Sep 2021 02:42:05 +0300
-Message-ID: <8f47c350219719cbd8706ebc079b064cfa43ce95.camel@yadro.com>
-Subject: Re: [PATCH 0/2] rtc: pch-rtc: add Intel Series PCH built-in
- read-only RTC
-From: Ivan Mikhaylov <i.mikhaylov@yadro.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Milton Miller II
- <miltonm@us.ibm.com>
-Date: Wed, 15 Sep 2021 02:52:55 +0300
-In-Reply-To: <ff8a8a78fefd2639fa0bcc68bbbb98ec9f1f2e4a.camel@yadro.com>
-References: <YRhQJ4kdyu1Xs1Rb@piout.net>
- <20210810154436.125678-1-i.mikhaylov@yadro.com>
- <20210814224215.GX15173@home.paul.comp>
- <OFBF96A764.75CCED3A-ON00258734.0062B30C-00258734.00634222@ibm.com>
- <YRwWmeQiVC3dGAjH@piout.net>
- <ff8a8a78fefd2639fa0bcc68bbbb98ec9f1f2e4a.camel@yadro.com>
-Organization: YADRO
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.38.4 (3.38.4-1.fc33) 
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H8P9T3FGXz2xr8;
+ Wed, 15 Sep 2021 12:21:48 +1000 (AEST)
+Received: by mail-qk1-x735.google.com with SMTP id t190so1852792qke.7;
+ Tue, 14 Sep 2021 19:21:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jms.id.au; s=google;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=A+KAQJV7yr5BHufuqHUeYpeLECPeGugfRBKqmtmeEC8=;
+ b=X4as+tR2z4jqAmk5O1K0ygHqymiDqUcDCapkO0TOoqLvDVqIuL0ILdEhs+u4/nVufu
+ fBKOEhOmrgIWoAhtWCjGE0bSYU5Xb44ffJy2fERDSp8lJkW9K4Uwi18q3RgPjV0c/lT+
+ gfi0fNv8Ewl5mdqg4deRUJb8qj7PsinrPIP70=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=A+KAQJV7yr5BHufuqHUeYpeLECPeGugfRBKqmtmeEC8=;
+ b=yPKfFe2KNP3bF41C7pJ3LdkwhCiyq6Fx2Tn175JTZnH7jPWQjroQ1OE19QbFDOu1UO
+ ELP7hjPyuoALcCYj9D5v73R11UV17EhaI1nAr46gRLqSF7Np/wVjfs/mBLJtU1YlVWgA
+ KJW29wWdTHZeA8+qmCTew72T02o+W+cpl150A2TNDstObSu2eYoji2YnOu08mxRc2J1s
+ 5+e9qDqZVNWzR5I+ElOxCw6GvWCnbAs3rO4tnQrz1R9QyjrX+MmuqlbvvxtCpM4sNfM6
+ ya+IQn84PWkXXcbp+5nNukP/4nqdkTnoflsiO/YL5Z6OcvW8lmH18Eik6Vqsbz1YG/qZ
+ 6QZA==
+X-Gm-Message-State: AOAM532bMWqK+4dtCXfi5fYHSQMBlQ2rfcHczG8ttlAnRBLo9vSkSEdP
+ Kjdphpuhim0/Q6Vf+/zyxTpeP61KBg74I2xN7YU=
+X-Google-Smtp-Source: ABdhPJwdfQIBMrmxJzpwVpZM1a+IKrHbWPgYk9i5TDUgw+nGTgDCmDfk9YQHlYuUugQY8Pp8dlh4YM1r7rU7EdBiEM0=
+X-Received: by 2002:a37:67d7:: with SMTP id b206mr7876480qkc.395.1631672504815; 
+ Tue, 14 Sep 2021 19:21:44 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Originating-IP: [10.199.0.2]
-X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
- T-EXCH-04.corp.yadro.com (172.17.100.104)
+References: <20210910195417.2838841-1-anoo@linux.ibm.com>
+ <CACPK8XfjF+aiEMLocscMEOw8ebKoT2MK8djvv4voyFOBjumXRg@mail.gmail.com>
+ <23EB5226-63A1-45AF-A50E-2A9D6DABFC08@linux.ibm.com>
+In-Reply-To: <23EB5226-63A1-45AF-A50E-2A9D6DABFC08@linux.ibm.com>
+From: Joel Stanley <joel@jms.id.au>
+Date: Wed, 15 Sep 2021 02:21:32 +0000
+Message-ID: <CACPK8Xd9MK6oZ=Ac85EkKn7vPvEfqjMKSk=73_R=_16US+6gHQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ARM: dts: aspeed: rainier: Add N_MODE_VREF gpio
+To: Adriana Kobylak <anoo@linux.ibm.com>, Andrew Jeffery <andrew@aj.id.au>, 
+ Andrew Geissler <geissonator@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,73 +86,97 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Paul Fertser <fercerpav@gmail.com>, Alessandro Zummo <a.zummo@towertech.it>,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Cc: Matt Spinler <spinler@us.ibm.com>, Derek Howard <derekh@us.ibm.com>,
+ linux-aspeed <linux-aspeed@lists.ozlabs.org>,
+ OpenBMC Maillist <openbmc@lists.ozlabs.org>, Adriana Kobylak <anoo@us.ibm.com>,
+ Brandon Wyman <bjwyman@gmail.com>, shawnmm@us.ibm.com,
+ Linux ARM <linux-arm-kernel@lists.infradead.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 2021-08-30 at 14:56 +0300, Ivan Mikhaylov wrote:
-> On Tue, 2021-08-17 at 22:05 +0200, Alexandre Belloni wrote:
-> > On 17/08/2021 18:04:09+0000, Milton Miller II wrote:
-> > > 
-> > > On Aug 16, 2021, Alexandre Belloni wrote:
-> > > > On 15/08/2021 01:42:15+0300, Paul Fertser wrote:
-> > > > > On Tue, Aug 10, 2021 at 06:44:34PM +0300, Ivan Mikhaylov wrote:
-> > > > > > Add RTC driver with dt binding tree document. Also this driver
-> > > > adds one sysfs
-> > > > > > attribute for host power control which I think is odd for RTC
-> > > > driver.
-> > > > > > Need I cut it off and use I2C_SLAVE_FORCE? I2C_SLAVE_FORCE is not
-> > > > good
-> > > > > > way too from my point of view. Is there any better approach?
-> > > > > 
-> > > > > Reading the C620 datasheet I see this interface also allows other
-> > > > > commands (wake up, watchdog feeding, reboot etc.) and reading
-> > > > statuses
-> > > > > (e.g Intruder Detect, POWER_OK_BAD).
-> > > > > 
-> > > > > I think if there's any plan to use anything other but RTC via this
-> > > > > interface then the driver should be registered as an MFD.
-> > > > > 
-> > > > 
-> > > > This is not the current thinking, if everything is integrated, then
-> > > > there is no issue registering a watchdog from the RTC driver. I'll
-> > > > let
-> > > > you check with Lee...
-> > > 
-> > > I think the current statement is "if they are truly disjoint 
-> > > hardware controls" then an MFD might suffice, but if they require 
-> > > software cordination the new auxillary bus seems to be desired.
-> > > 
-> > 
-> > Honestly, the auxiliary bus doesn't provide anything that you can't do
-> > by registering a device in multiple subsystem from a single driver.
-> > (Lee Jones, Mark Brown and I did complain at the time that this was yet
-> > another back channel for misuses).
-> > 
-> > > > > However, I'm not sure what is the correct interface for
-> > > > poweroff/reboot
-> > > > control.
-> > > 
-> > > While there is a gpio interface to a simple regulator switch,
-> > > the project to date has been asserting direct or indirect 
-> > > gpios etc to control the host.   If these are events to 
-> > > trigger a change in state and not a direct state change
-> > > that some controller trys to follow, maybe a message delivery 
-> > > model?   (this is not to reboot or cycle the bmc).
-> > > 
-> > > milton
-> > 
-> 
-> Alexandre, gentle reminder about this one series. I can get rid off from sysfs
-> attribute and put it like RO rtc without any additional things for now as
-> starter.
-> 
-> Thanks.
-> 
+On Tue, 14 Sept 2021 at 20:46, Adriana Kobylak <anoo@linux.ibm.com> wrote:
+>
+>
+>
+> > On Sep 14, 2021, at 3:49 AM, Joel Stanley <joel@jms.id.au> wrote:
+> >
+> > On Fri, 10 Sept 2021 at 19:54, Adriana Kobylak <anoo@linux.ibm.com> wro=
+te:
+> >>
+> >> From: Adriana Kobylak <anoo@us.ibm.com>
+> >>
+> >> The N_MODE_VREF gpio is designed to be used to specify how many power
+> >> supplies the system should have (2 or 4).  If enough power supplies fa=
+il
+> >> so that the system no longer has redundancy (no longer n+1), the
+> >> hardware will signal to the Onboard Chip Controller that the system ma=
+y
+> >> be oversubscribed, and performance may need to be reduced so the syste=
+m
+> >> can maintain it's powered on state. This gpio is on a 9552, populate a=
+ll
+> >> the gpios on that chip for completeness.
+> >>
+> >> Signed-off-by: Adriana Kobylak <anoo@us.ibm.com>
+> >> ---
+> >>
+> >> v2: Update commit message.
+> >>
+> >> arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 103 +++++++++++++++++++
+> >> 1 file changed, 103 insertions(+)
+> >>
+> >> diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/b=
+oot/dts/aspeed-bmc-ibm-rainier.dts
+> >> index 6fd3ddf97a21..d5eea86dc260 100644
+> >> --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+> >> +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
+> >> @@ -1502,6 +1502,109 @@ eeprom@51 {
+> >>                reg =3D <0x51>;
+> >>        };
+> >>
+> >> +       pca_pres3: pca9552@60 {
+> >> +               compatible =3D "nxp,pca9552";
+> >> +               reg =3D <0x60>;
+> >> +               #address-cells =3D <1>;
+> >> +               #size-cells =3D <0>;
+> >> +               gpio-controller;
+> >> +               #gpio-cells =3D <2>;
+> >> +
+> >> +               gpio-line-names =3D
+> >> +                       "",
+> >> +                       "APSS_RESET_N",
+> >> +                       "", "", "", "",
+> >> +                       "P10_DCM0_PRES",
+> >> +                       "P10_DCM1_PRES",
+> >> +                       "", "",
+> >> +                       "N_MODE_CPU_N",
+> >> +                       "",
+> >> +                       "PRESENT_VRM_DCM0_N",
+> >> +                       "PRESENT_VRM_DCM1_N",
+> >> +                       "N_MODE_VREF",
+> >
+> > Should any (all?) of these names be documented?
+> >
+> > https://github.com/openbmc/docs/blob/master/designs/device-tree-gpio-na=
+ming.md
+>
+> Not sure. Seems the openbmc doc is documenting the gpios for gpiochip0 on=
+ly?
 
-ping
+AIUI the document is for GPIOs that are exposed to userspace.
 
-Thanks.
+It doesn't matter where they're coming from. If they are going to be
+used by a libgpio application, they need to have names, and the names
+should be documented where possible.
 
+> The gpio names for 9552 in this patch come from the System Workbook, and =
+doesn=E2=80=99t seem the gpios from the existing 9552 that also come from t=
+he System Workbook are documented in the openbmc design doc, such as SLOT6_=
+PRSNT_EN_RSVD, SLOT11_EXPANDER_PRSNT_N, etc.
+
+They should be fixed, if possible.
+
+Cheers,
+
+Joel
