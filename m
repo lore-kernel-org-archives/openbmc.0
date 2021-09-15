@@ -2,104 +2,104 @@ Return-Path: <SRS0=dr2a=OF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.5 required=3.0 tests=BAYES_00,DKIM_INVALID,
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT,WEIRD_QUOTING
-	autolearn=ham autolearn_force=no version=3.4.0
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 29627C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:50:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EE19C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:51:12 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B63F0610E8
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:50:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B63F0610E8
+	by mail.kernel.org (Postfix) with ESMTPS id 1773A610E9
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:51:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1773A610E9
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H8v602SD3z2yNM
-	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 07:50:32 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H8v6k5dFJz2yNS
+	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 07:51:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=T8T9bqGt;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lYHiSEpg;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
  helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=T8T9bqGt; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5])
+ header.s=pp1 header.b=lYHiSEpg; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H8v2p1TSgz2yK4
- for <openbmc@lists.ozlabs.org>; Thu, 16 Sep 2021 07:47:45 +1000 (AEST)
-Received: from pps.filterd (m0098420.ppops.net [127.0.0.1])
- by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18FJT8Sd026149;
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H8v2p60pDz2yK4
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Sep 2021 07:47:46 +1000 (AEST)
+Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18FIgN8h011738;
  Wed, 15 Sep 2021 17:47:43 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=pth3xdQVOwJUA02+AVvXpX9fdRXz/r6z3SFZCNK4qyA=;
- b=T8T9bqGtTuHgybWS/lGdvG41b4vAKgBgjktYiW76DjrKOzc//rD//dZ/XjZv8HEbWER1
- 1b4fKVJZ+xE6+MtgHN+YBXvdAYBTc3XlibFQ158kYAUDL2HjIKQc+go2qHVNCFhCgcAm
- MhM1zVAZU6g9oG5t0PpdO7GhHRhIKwZ8tL59UwMQOSXVZw6nBu0uaM5BQxT5ldkGG5Gc
- L6HCAecMQpIENcMw267CsQ5cCD51+T8t3gxqVdZGZJxGPqaoCaXwt96cgzK0QvX+N8yX
- r8PAujZrJQJCQtz62iYs5qg41ltaXQfD2ed9/Hfo/TIDv+74xJhkP1z8m0rXssjDYQow +A== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0b-001b2d01.pphosted.com with ESMTP id 3b3q1g2bnm-1
+ bh=CYplEX+gQkwFZN5pEXJ5dqZVpdSg6u7o31LTqP79pko=;
+ b=lYHiSEpgYhFm7oUulffRI2YVx73TQEAaG9l0yvJt4kt7hB4yMusVFaWDowPxcG5Pqm+x
+ yZvKF5A1LvGj+oxISUqwniYmDTezwGJNzU9NH3G/xVVzxDDcuJmLFYQFlyEMxrZeqVnm
+ YLS7X8Byt8WnDdJfBVdaaxgfGnM2ZRB+CSnf44U5w4G0rJTHRgrbo2v+XJnmsCmU5sgl
+ jPZMdsnPhh62BLRzULW5Iv6aptHb5HOs1Evr32PrrD3e0Z9Dnj1USPhlci/OVjl9NBBq
+ +uW8+8+1wZEsNu/4PeEUtGwqqcqcgX357b78UkXcjTegzNsgbxxW2takrSv3FT9OrHIj gw== 
+Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
+ [169.47.144.26])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3b3gypmnnf-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Sep 2021 17:47:42 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18FLcUed007723;
- Wed, 15 Sep 2021 21:47:42 GMT
+ Wed, 15 Sep 2021 17:47:43 -0400
+Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
+ by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18FLb4ee015145;
+ Wed, 15 Sep 2021 21:47:41 GMT
 Received: from b03cxnp07028.gho.boulder.ibm.com
  (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma02dal.us.ibm.com with ESMTP id 3b0m3ca564-1
+ by ppma04wdc.us.ibm.com with ESMTP id 3b0m3c41yc-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Sep 2021 21:47:42 +0000
+ Wed, 15 Sep 2021 21:47:41 +0000
 Received: from b03ledav006.gho.boulder.ibm.com
  (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
  by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18FLle3u48038154
+ 18FLleOm43188522
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Wed, 15 Sep 2021 21:47:40 GMT
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9BABCC6055;
+ by IMSVA (Postfix) with ESMTP id 62965C6063;
  Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
 Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 72B10C605D;
+ by IMSVA (Postfix) with ESMTP id 23729C605A;
  Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.152.249])
  by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
  Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 v2 4/4] ARM: dts: aspeed: Rainier: Remove gpio
- hog for GPIOP7
-Date: Wed, 15 Sep 2021 16:47:38 -0500
-Message-Id: <20210915214738.34382-5-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 v2 3/4] ARM: dts: aspeed: rainier: Add eeprom
+ on bus 12
+Date: Wed, 15 Sep 2021 16:47:37 -0500
+Message-Id: <20210915214738.34382-4-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210915214738.34382-1-eajames@linux.ibm.com>
 References: <20210915214738.34382-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: d-IQCFhaJOMr3OC6f-9Fl9lCpVnJ-l3K
-X-Proofpoint-ORIG-GUID: d-IQCFhaJOMr3OC6f-9Fl9lCpVnJ-l3K
+X-Proofpoint-GUID: dCkupsaSf3hVZj6q7YSafrTAq_fRuwD-
+X-Proofpoint-ORIG-GUID: dCkupsaSf3hVZj6q7YSafrTAq_fRuwD-
 X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.687,Hydra:6.0.235,FMLib:17.0.607.475
- definitions=2020-10-13_15,2020-10-13_02,2020-04-07_01
+ engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
+ definitions=2021-09-11_02,2021-09-09_01,2020-04-07_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 mlxscore=0
- adultscore=0 bulkscore=0 clxscore=1015 malwarescore=0 mlxlogscore=881
- priorityscore=1501 spamscore=0 suspectscore=0 lowpriorityscore=0
- phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109030001 definitions=main-2109150110
+ lowpriorityscore=0
+ suspectscore=0 adultscore=0 malwarescore=0 mlxlogscore=982 phishscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 spamscore=0
+ mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2109030001 definitions=main-2109150102
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,75 +116,29 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Only the pass 1 Ingraham board (Rainier system) had a micro-controller
-wired to GPIOP7 on ball Y23. Pass 2 boards have this ball wired to the
-heartbeat LED, so remove the hog and add it to the pass 1 devicetrees.
+The devicetree was missing an eeprom.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
 ---
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts | 9 +++++++++
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts    | 9 +++++++++
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts       | 7 -------
- 3 files changed, 18 insertions(+), 7 deletions(-)
+ arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
-index e35a3efd9d22..b7ec83848750 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-4u-p1.dts
-@@ -22,6 +22,15 @@ aliases {
- 	};
- };
- 
-+&gpio0 {
-+	pin_mclr_vpp {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(P, 7) GPIO_OPEN_DRAIN>;
-+		output-high;
-+		line-name = "mclr_vpp";
-+	};
-+};
-+
- &i2c4 {
- 	/delete-node/ pca9546@70;
- 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-index b3c923f1838b..d650dbebe5d2 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier-p1.dts
-@@ -22,6 +22,15 @@ aliases {
- 	};
- };
- 
-+&gpio0 {
-+	pin_mclr_vpp {
-+		gpio-hog;
-+		gpios = <ASPEED_GPIO(P, 7) GPIO_OPEN_DRAIN>;
-+		output-high;
-+		line-name = "mclr_vpp";
-+	};
-+};
-+
- &i2c4 {
- 	/delete-node/ pca9546@70;
- 
 diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index 2b6bb20dfd82..9250d9465407 100644
+index a039d91114ad..2b6bb20dfd82 100644
 --- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
 +++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -254,13 +254,6 @@ &gpio0 {
- 	/*Y0-Y7*/	"","","","","","","","",
- 	/*Z0-Z7*/	"","","","","","","","";
+@@ -2516,6 +2516,11 @@ eeprom@51 {
  
--	pin_mclr_vpp {
--		gpio-hog;
--		gpios = <ASPEED_GPIO(P, 7) GPIO_OPEN_DRAIN>;
--		output-high;
--		line-name = "mclr_vpp";
--	};
--
- 	i2c3_mux_oe_n {
- 		gpio-hog;
- 		gpios = <ASPEED_GPIO(G, 6) GPIO_ACTIVE_LOW>;
+ &i2c12 {
+ 	status = "okay";
++
++	eeprom@50 {
++		compatible = "atmel,24c64";
++		reg = <0x50>;
++	};
+ };
+ 
+ &i2c13 {
 -- 
 2.27.0
 
