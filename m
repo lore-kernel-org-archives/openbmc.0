@@ -2,79 +2,82 @@ Return-Path: <SRS0=dr2a=OF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-3.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,URIBL_BLOCKED autolearn=no autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-3.5 required=3.0 tests=BAYES_00,DKIM_ADSP_CUSTOM_MED,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CDF23C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 09:09:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E1213C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 13:55:49 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id DA7C761244
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 09:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org DA7C761244
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bytedance.com
+	by mail.kernel.org (Postfix) with ESMTPS id 5B97961263
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 13:55:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 5B97961263
+Authentication-Results: mail.kernel.org; dmarc=fail (p=reject dis=none) header.from=google.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H8ZCN3ZDqz2yJL
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 19:09:04 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H8hZC6qqnz2yPk
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 23:55:47 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bytedance-com.20150623.gappssmtp.com header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256 header.s=20150623 header.b=r6zcFl5T;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20210112 header.b=ORN70U8Y;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bytedance.com (client-ip=2607:f8b0:4864:20::331;
- helo=mail-ot1-x331.google.com; envelope-from=yulei.sh@bytedance.com;
+ smtp.mailfrom=google.com (client-ip=2a00:1450:4864:20::135;
+ helo=mail-lf1-x135.google.com; envelope-from=osk@google.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=bytedance-com.20150623.gappssmtp.com
- header.i=@bytedance-com.20150623.gappssmtp.com header.a=rsa-sha256
- header.s=20150623 header.b=r6zcFl5T; dkim-atps=neutral
-Received: from mail-ot1-x331.google.com (mail-ot1-x331.google.com
- [IPv6:2607:f8b0:4864:20::331])
+ unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256
+ header.s=20210112 header.b=ORN70U8Y; dkim-atps=neutral
+Received: from mail-lf1-x135.google.com (mail-lf1-x135.google.com
+ [IPv6:2a00:1450:4864:20::135])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H8ZBZ2lFfz2yHX
- for <openbmc@lists.ozlabs.org>; Wed, 15 Sep 2021 19:08:20 +1000 (AEST)
-Received: by mail-ot1-x331.google.com with SMTP id
- i3-20020a056830210300b0051af5666070so2656671otc.4
- for <openbmc@lists.ozlabs.org>; Wed, 15 Sep 2021 02:08:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=bytedance-com.20150623.gappssmtp.com; s=20150623;
- h=mime-version:references:in-reply-to:from:date:message-id:subject:to;
- bh=6pTLC9vfIuZvAxJOPO5vgEPMh9EWupSNKtF9jPIKRsA=;
- b=r6zcFl5TIJmFPLt5/93MOPGWia1GLZ1KejH2Pjt3A7L9RA4OlVU06AYXTNrpmN6xa2
- i2azCVdiH0d36p4pKgBcVkgK8CzNLzXz+Msqn80V1teQF8t2OYEyeUHScssdG/Q+1F2h
- 7tpY0VmC4pRNVtg9vMPBV1EnpkShz67aHWF4V+8xjKgbrrcn6nxNqkmyWkPKt4P/zzoV
- Ji+dXdlkiPN6m1fJY53n0Eyq/XgB8FdvkkNtHcb/WrtIT6iFCM6Agn46ITdlb7fzmCJg
- JHU87zvcy0X8nkJFvGTJkn9ZhDvfnaKQCMLKzyILjYdtmr0oA9DYGfEGTcUohaIjfwhL
- pZcA==
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H8hYV4pm0z2xg6
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Sep 2021 23:55:08 +1000 (AEST)
+Received: by mail-lf1-x135.google.com with SMTP id t10so659050lfd.8
+ for <openbmc@lists.ozlabs.org>; Wed, 15 Sep 2021 06:55:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=20210112;
+ h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+ :cc:content-transfer-encoding;
+ bh=9DffDoV6ze1SdqQU0z1GeMEHP6J8NIZdOdgdfB8ankI=;
+ b=ORN70U8YUPUnxvJ55GDnb665PZnEwDRM3+F+k4nMHbbCsXosW0lN+xQcByRO5v71j9
+ a01PwFfW7gP1WmSynxnt7Uae4di5Uv8G14Byxh3sESUH4QnZoNCejw2zgaTdlH2Uo2Wq
+ mRqgsfsb/nKxKCbrERkQV3crYYEkQplYAIULQYeqgg+tusMwKBZTEd9m/3r9LsUVAM1a
+ jxmQP0tYYyHWc8Y7mp8012h/cY/glcSNIXar34hohA9n51qodu5Fs/WKTjGqWztcrt89
+ UuxvtBz0Cdu/thaMTsAn07WE15VQ4V/rEh58Hci8ZmU2JGZPmqx30FMg33nWV2pwUTC/
+ 4wjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to;
- bh=6pTLC9vfIuZvAxJOPO5vgEPMh9EWupSNKtF9jPIKRsA=;
- b=nye8Iy78UZjwWkIsuPXJvO7ZE0CYeIgLDzeae3IjM30miK/QEfrEL5GKurYFuCtYmN
- nfQW5/209iRt4O3x4rOvbeFCVwKAjVvMds/H0TdNDMJuSVBnMcTb5Padx/kGnhsfiggA
- 9tt2anuW84/WZ6gKN/MqwhsKDom4yodoPmD0YgaDA4fWkmRqSu+HwG+Ur0noZkVB36X4
- p8aw68s2+XSKSQh3ogI39fa2c1JNcq+BOzb1QZUUhfavhXNOD3jNC+80TPrlswMzfgnd
- j2uXOwIVaOvVyeBm8N0GpZOoNSZtsd7r5sh1MHf1oBn3nGnKh5riL+Dy9/vfYKHXxK8D
- fkCw==
-X-Gm-Message-State: AOAM532CpUuogYxH04MOU2tIb1BKIC+ocKieKd2I4/KZ0wf5o+wdNjKG
- 78pQao1RcZ5C3/uet6CWPNRqVzbV1IVcSmyM1fNRwt95Kz3PysNy
-X-Google-Smtp-Source: ABdhPJxUUXfCsYrXf7Sady5z6vUPwJWAiFA2595neB6L1wc+yGL6YRFqcZC14mV4wnMSmLf+oxa9vUxAERc13jrDfds=
-X-Received: by 2002:a9d:5a81:: with SMTP id w1mr17612174oth.307.1631696897664; 
- Wed, 15 Sep 2021 02:08:17 -0700 (PDT)
+ :message-id:subject:to:cc:content-transfer-encoding;
+ bh=9DffDoV6ze1SdqQU0z1GeMEHP6J8NIZdOdgdfB8ankI=;
+ b=LbXLUYal/5yA23kK4a20U8WgiZ7UWIqGh2EXTizspzBK1EklAbuvRX/EFUnZqdwqet
+ pAzNIVC+C9+Xdpz+SvWX5bDG/RHnYNIpCwkuBfmQi0ZLtMUTChf40p6VsYjqh5HtDVzj
+ ihd3Iq3DqmD4Pbtq+4HguL5pdJRY8neVP6i6pija6pPdys5WUdShkDxabw2RW1ZTyLoD
+ X8XoGcAjST1he+YftbXWDf5KeJzMridRplMCOIMIQ48HVcVwqe9KRLiBWJ3bIMJ0BTgQ
+ 8KWkGyAvLYNZFvYgc80IQ8m61DA6rR7ZxyA1UZDmTYXE8Ce1RbyZdg8mo8oPBhuRCuz7
+ qidQ==
+X-Gm-Message-State: AOAM531WMWBD8jKvQzJonbYiD8P3n6YbpnZ7/l0dIBrt0Sf+pyc+hbLx
+ rdG9JwfDfIAtlAusRTIhGB8abD7zQPJ1+FlRuORzXA==
+X-Google-Smtp-Source: ABdhPJyzg+7h/7B1DlpmLX0H3NJSOYzSV3MirpSWE8sJt1DzzqxGMRXaRcwUB/LR3otLs2DsEhwJxPlLeETAhyZLBKo=
+X-Received: by 2002:a05:6512:1194:: with SMTP id
+ g20mr43083lfr.206.1631714103545; 
+ Wed, 15 Sep 2021 06:55:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <CAGm54UHdTyPh0hGiatA44whg2PdRzJFg0gBnVHA4moYRr=aT=g@mail.gmail.com>
-In-Reply-To: <CAGm54UHdTyPh0hGiatA44whg2PdRzJFg0gBnVHA4moYRr=aT=g@mail.gmail.com>
-From: Lei Yu <yulei.sh@bytedance.com>
-Date: Wed, 15 Sep 2021 17:08:06 +0800
-Message-ID: <CAGm54UE5gb+S0WWYGbbr0Nsif6tJ2j+-U1awrAeyJbrj=kf0oQ@mail.gmail.com>
-Subject: Re: ipmi sel log revisited
-To: openbmc <openbmc@lists.ozlabs.org>
+References: <3a702375-de87-985d-d096-7f187d293459@linux.alibaba.com>
+ <2416388c-73fe-f4fd-8c1c-c98f9c93230c@intel.com>
+ <1405025a-fbd8-f350-ae12-5bf94671ff87@linux.alibaba.com>
+In-Reply-To: <1405025a-fbd8-f350-ae12-5bf94671ff87@linux.alibaba.com>
+From: Oskar Senft <osk@google.com>
+Date: Wed, 15 Sep 2021 09:54:47 -0400
+Message-ID: <CABoTLcTznKtVLT1LdXKiGRO0Gnov=kSJfTDTe2bfeVGHCRdPHw@mail.gmail.com>
+Subject: Re: [Question] How can we use underscore "_" in sensor name?
+To: Heyi Guo <guoheyi@linux.alibaba.com>, 
+ "openbmc@lists.ozlabs.org" <openbmc@lists.ozlabs.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,76 +89,84 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
+Cc: Vernon Mauery <vernon.mauery@linux.intel.com>,
+ Tom Joseph <rushtotom@gmail.com>, "Puli,
+ Apparao" <apparao.puli@linux.intel.com>,
+ Johnathan Mantey <johnathanx.mantey@intel.com>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, Jun 28, 2021 at 5:42 PM Lei Yu <yulei.sh@bytedance.com> wrote:
->
-> This email is to describe the current status and issues related ipmi
-> sel log in OpenBMC, and propose a possible solution.
->
-> # Background
-> There are two backends of the ipmi sel log:
-> * The logging entry on DBus
-> * The ipmi_sel log stored in "/var/log/ipmi_sel"
->
-> The configuration option `SEL_LOGGER_SEND_TO_LOGGING_SERVICE` in
-> phosphor-sel-logger is used to control which way to use.
->
-> ## The logging entry on DBus
-> The logging entries on DBus in /xyz/openbmc_project/logging/entry/
-> will be parsed and converted to IPMI sel logs.
-> This includes two types of logs:
-> * The logging entries with a CALLOUT path in the associations.
-> * The logging entries with SEL metadata[1] in the "AdditionalData".
-> For the both logging entries, the ipmid will parse the entry and
-> convert it to a SEL entry.
->
-> ## The ipmi_sel log stored in "/var/log/ipmi_sel"
-> The log is sent to the journal log with specific MESSAGE_ID and properties.
-> rsyslog filters such logs and save the "/var/log/ipmi_sel" [2]
->
-> ## Comparison
-> Both methods have pros and cons:
->
-> | Method        | Pros                              | Cons
->                  |
-> | ------        | ----                              | ----
->                  |
-> | Logging entry | Use DBus data model               | Complicate and
-> slow to parse      |
-> |               | Support both ipmi sel and redfish |
->                  |
-> |               |                                   |
->                  |
-> | ipmi_sel      | Easy and quick to parse           | Data is
-> separated from DBus       |
-> |               |                                   | ipmi sel and
-> redfish is separated |
->
-> # The proposed solution
-> The openbmc usually uses the DBus as the data model and all the
-> services consume data from DBus, and the upstream phosphor-host-ipmid
-> already supports the logging entries, the proposal is to re-use the
-> logging entry on DBus as the data source, and improve the cons: to
-> make it faster to parse in ipmid.
->
-> The idea is:
-> 1. On BMC startup, let ipmid parse all the logging entries in the
-> background and generate the SEL entries in RAM;
-> 2. Use a match to get a callback on logging entries' add/delete
-> events, and update the SEL entries in RAM when a logging entry is
-> added or deleted;
-> 3. Use the SEL entries in RAM directly when `ipmi sel list|elist` is called.
->
-> This way improves `ipmitool sel list` speed and possibly resolve the
-> issue of the current logging entry model.
++1 to using something more explicit, like %20 instead of "_" for
+replacing " " for D-bus names.
 
-The above idea is now implemented by the below series of patches.
-https://gerrit.openbmc-project.xyz/c/openbmc/phosphor-host-ipmid/+/46893
+We're facing the same problem where "_" in sensor names from D-bus get
+unconditionally replaced with " " in dbus-sensors. This is currently
+preventing us from "converting" an older platform to Entity Manager.
 
+Oskar.
 
--- 
-BRs,
-Lei YU
+On Wed, Sep 15, 2021 at 12:58 AM Heyi Guo <guoheyi@linux.alibaba.com> wrote=
+:
+>
+> Hi Johnathan,
+>
+> The code in dbus-sensors will translate sensor name by replacing space "
+> " to "_", e.g. ADCSensor.cpp:
+>
+> 53     Sensor(boost::replace_all_copy(sensorName, " ", "_"),
+>
+> Then in phosphor-ipmi-host dbus-sdr/sensorcommands.cpp, it will try to
+> revert "_" back to " ":
+>
+>   419     std::replace(name.begin(), name.end(), '_', ' ');
+>
+> The first conversion does nothing for our case, but the 2nd conversion
+> will unconditionally convert "_" to space " ".
+>
+> If we don't really forbid to use "_" in sensor names, I think we'd
+> better replace space " " with %20 in dbus-sensors, and convert %20 back
+> to " " in ipmi-host.
+>
+> Thanks,
+>
+> Heyi
+>
+> On 2021/9/13 =E4=B8=8B=E5=8D=8810:57, Johnathan Mantey wrote:
+> > Heyi,
+> >
+> > On 9/13/21 3:49 AM, Heyi Guo wrote:
+> >> Hi all,
+> >>
+> >> Can we use underscore "_" in IPMI sensor names? Now we see that "_"
+> >> in sensor names will be replaced with space in the code, even if we
+> >> really use "_" for sensor names in json configuration files.
+> >>
+> >
+> > Which layer is translating the "_" char?
+> > Are you referring to D-Bus?
+> > IPMITool?
+> > Some other locatioN?
+> >
+> > It would be helpful to know.
+> > As an example, D-Bus translates "-" to "%2D" and back because D-Bus,
+> > or one of the D-Bus consumers can't accept the hyphen character.
+> >
+> > It is likely that the underscore character has some similar naming
+> > convention issue.
+> >
+> > You may want to investigate using the same scheme to translate between
+> > "_" and a "%5F" combination.
+> >
+> >> The background is that we used underscore "_" in sensor names in
+> >> legacy BMC, and all the OOB software uses such names to get sensor
+> >> data. Therefore we want to make it compatible for switching to OpenBMC=
+.
+> >>
+> >> Is there any way to achieve this?
+> >>
+> >> Thanks,
+> >>
+> >> Heyi
+> >>
+> >
