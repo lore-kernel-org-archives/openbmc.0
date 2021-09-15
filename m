@@ -2,26 +2,26 @@ Return-Path: <SRS0=dr2a=OF=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-10.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2 autolearn=ham autolearn_force=no
+	version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7EE19C433F5
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:51:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 14180C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:52:14 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 1773A610E9
-	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:51:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 1773A610E9
+	by mail.kernel.org (Postfix) with ESMTPS id 7E5D061131
+	for <openbmc@archiver.kernel.org>; Wed, 15 Sep 2021 21:52:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7E5D061131
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H8v6k5dFJz2yNS
-	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 07:51:10 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H8v7v6cscz2yNZ
+	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 07:52:11 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=lYHiSEpg;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=K4F54XHG;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
@@ -29,74 +29,75 @@ Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=lYHiSEpg; dkim-atps=neutral
+ header.s=pp1 header.b=K4F54XHG; dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H8v2p60pDz2yK4
- for <openbmc@lists.ozlabs.org>; Thu, 16 Sep 2021 07:47:46 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H8v3l21nQz2yQ9
+ for <openbmc@lists.ozlabs.org>; Thu, 16 Sep 2021 07:48:35 +1000 (AEST)
 Received: from pps.filterd (m0187473.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18FIgN8h011738;
- Wed, 15 Sep 2021 17:47:43 -0400
+ by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.0.43) with SMTP id 18FIgNeO011769;
+ Wed, 15 Sep 2021 17:48:30 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : in-reply-to : references : mime-version :
- content-transfer-encoding; s=pp1;
- bh=CYplEX+gQkwFZN5pEXJ5dqZVpdSg6u7o31LTqP79pko=;
- b=lYHiSEpgYhFm7oUulffRI2YVx73TQEAaG9l0yvJt4kt7hB4yMusVFaWDowPxcG5Pqm+x
- yZvKF5A1LvGj+oxISUqwniYmDTezwGJNzU9NH3G/xVVzxDDcuJmLFYQFlyEMxrZeqVnm
- YLS7X8Byt8WnDdJfBVdaaxgfGnM2ZRB+CSnf44U5w4G0rJTHRgrbo2v+XJnmsCmU5sgl
- jPZMdsnPhh62BLRzULW5Iv6aptHb5HOs1Evr32PrrD3e0Z9Dnj1USPhlci/OVjl9NBBq
- +uW8+8+1wZEsNu/4PeEUtGwqqcqcgX357b78UkXcjTegzNsgbxxW2takrSv3FT9OrHIj gw== 
-Received: from ppma04wdc.us.ibm.com (1a.90.2fa9.ip4.static.sl-reverse.com
- [169.47.144.26])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3b3gypmnnf-1
+ h=message-id : subject :
+ from : to : date : in-reply-to : references : content-type : mime-version
+ : content-transfer-encoding; s=pp1;
+ bh=D10X8xTK4l7pTHhskIRHyNIezmaoGM1z5RmgbEKmc4s=;
+ b=K4F54XHG02dAREebe4BF5HdSUyUbBoVUPHc2fq/ku+dnAuRNjoUNIbsTm9xkm6HrBEDx
+ afQAIcifILvB1i9orNilngCan7XL4A/6WOhy+MNNHIzCy3IVfgZvNllKxDuZOoxxt/vf
+ jcynADG97bq37CL5jG+37WosM2cBptZLtXeOPnBRVqRLfzQWgS7HFYJAn7KK//okuvew
+ G8BQVXP1/GS6OpLvNnxYZ1JO0PKCa1KecBP9pFiI4rBSTsmCOWCr/iqFdoan8h6nSLvT
+ YS93krlJFYdvq0SaUogx2X11s+lI67uNcgLijhEwmZJAuWqzbjl1LvnWA7yIXGAVQruE mw== 
+Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
+ [169.55.91.170])
+ by mx0a-001b2d01.pphosted.com with ESMTP id 3b3gypmp39-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Sep 2021 17:47:43 -0400
-Received: from pps.filterd (ppma04wdc.us.ibm.com [127.0.0.1])
- by ppma04wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18FLb4ee015145;
- Wed, 15 Sep 2021 21:47:41 GMT
-Received: from b03cxnp07028.gho.boulder.ibm.com
- (b03cxnp07028.gho.boulder.ibm.com [9.17.130.15])
- by ppma04wdc.us.ibm.com with ESMTP id 3b0m3c41yc-1
+ Wed, 15 Sep 2021 17:48:29 -0400
+Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
+ by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18FLb7pb021442;
+ Wed, 15 Sep 2021 21:48:28 GMT
+Received: from b01cxnp22034.gho.pok.ibm.com (b01cxnp22034.gho.pok.ibm.com
+ [9.57.198.24]) by ppma02wdc.us.ibm.com with ESMTP id 3b0m3c3x2m-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 15 Sep 2021 21:47:41 +0000
-Received: from b03ledav006.gho.boulder.ibm.com
- (b03ledav006.gho.boulder.ibm.com [9.17.130.237])
- by b03cxnp07028.gho.boulder.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18FLleOm43188522
+ Wed, 15 Sep 2021 21:48:28 +0000
+Received: from b01ledav002.gho.pok.ibm.com (b01ledav002.gho.pok.ibm.com
+ [9.57.199.107])
+ by b01cxnp22034.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 18FLmSEx37945780
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 15 Sep 2021 21:47:40 GMT
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 62965C6063;
- Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
-Received: from b03ledav006.gho.boulder.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 23729C605A;
- Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
-Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.152.249])
- by b03ledav006.gho.boulder.ibm.com (Postfix) with ESMTP;
- Wed, 15 Sep 2021 21:47:40 +0000 (GMT)
+ Wed, 15 Sep 2021 21:48:28 GMT
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2FA89124052;
+ Wed, 15 Sep 2021 21:48:28 +0000 (GMT)
+Received: from b01ledav002.gho.pok.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AEA02124055;
+ Wed, 15 Sep 2021 21:48:27 +0000 (GMT)
+Received: from v0005c16 (unknown [9.211.152.249])
+ by b01ledav002.gho.pok.ibm.com (Postfix) with ESMTP;
+ Wed, 15 Sep 2021 21:48:27 +0000 (GMT)
+Message-ID: <2ae3fe66da1e688e1779ab5f5c6788cdef75606f.camel@linux.ibm.com>
+Subject: Re: [RESEND linux dev-5.10 0/2] ARM: dts: p10 i2c and leds
 From: Eddie James <eajames@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 v2 3/4] ARM: dts: aspeed: rainier: Add eeprom
- on bus 12
-Date: Wed, 15 Sep 2021 16:47:37 -0500
-Message-Id: <20210915214738.34382-4-eajames@linux.ibm.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210915214738.34382-1-eajames@linux.ibm.com>
-References: <20210915214738.34382-1-eajames@linux.ibm.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+To: Joel Stanley <joel@jms.id.au>, openbmc@lists.ozlabs.org, Andrew Jeffery
+ <andrew@aj.id.au>
+Date: Wed, 15 Sep 2021 16:48:27 -0500
+In-Reply-To: <20210903072724.316336-1-joel@jms.id.au>
+References: <20210903072724.316336-1-joel@jms.id.au>
+Organization: IBM
+Content-Type: text/plain; charset="UTF-8"
+X-Mailer: Evolution 3.28.5 (3.28.5-16.el8) 
+Mime-Version: 1.0
+Content-Transfer-Encoding: 7bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: dCkupsaSf3hVZj6q7YSafrTAq_fRuwD-
-X-Proofpoint-ORIG-GUID: dCkupsaSf3hVZj6q7YSafrTAq_fRuwD-
+X-Proofpoint-GUID: 0Vtjx6C1dPdi__panSgJhPbJBzNW0M-K
+X-Proofpoint-ORIG-GUID: 0Vtjx6C1dPdi__panSgJhPbJBzNW0M-K
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
  definitions=2021-09-11_02,2021-09-09_01,2020-04-07_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  lowpriorityscore=0
- suspectscore=0 adultscore=0 malwarescore=0 mlxlogscore=982 phishscore=0
+ suspectscore=0 adultscore=0 malwarescore=0 mlxlogscore=887 phishscore=0
  priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 spamscore=0
  mlxscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2109030001 definitions=main-2109150102
@@ -111,34 +112,29 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: eajames@linux.ibm.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-The devicetree was missing an eeprom.
+On Fri, 2021-09-03 at 16:57 +0930, Joel Stanley wrote:
+> This is a resend of Eddie's patches, with the diff reformatted so it
+> can
+> be reviewed.
 
-Signed-off-by: Eddie James <eajames@linux.ibm.com>
----
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 5 +++++
- 1 file changed, 5 insertions(+)
+Thanks Joel. I just sent a v2 actually since I was missing a gpio
+expander, and had a couple more fixes to go in.
 
-diff --git a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-index a039d91114ad..2b6bb20dfd82 100644
---- a/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-+++ b/arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts
-@@ -2516,6 +2516,11 @@ eeprom@51 {
- 
- &i2c12 {
- 	status = "okay";
-+
-+	eeprom@50 {
-+		compatible = "atmel,24c64";
-+		reg = <0x50>;
-+	};
- };
- 
- &i2c13 {
--- 
-2.27.0
+Thanks,
+Eddie
+
+> 
+> Eddie James (2):
+>   ARM: dts: aspeed: rainier: Add system LEDs
+>   ARM: dts: aspeed: everest: Add I2C bus 15 muxes
+> 
+>  arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts |  158 +++
+>  arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 1133
+> +++++++++++++++++-
+>  2 files changed, 1279 insertions(+), 12 deletions(-)
+> 
 
