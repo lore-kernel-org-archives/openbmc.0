@@ -7,98 +7,97 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6C13EC433EF
-	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 21:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C955CC433EF
+	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 21:23:50 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id A5D9B60FC0
-	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 21:23:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org A5D9B60FC0
+	by mail.kernel.org (Postfix) with ESMTPS id 536AE6113A
+	for <openbmc@archiver.kernel.org>; Thu, 16 Sep 2021 21:23:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 536AE6113A
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4H9VRw1PtZz2yLZ
-	for <openbmc@archiver.kernel.org>; Fri, 17 Sep 2021 07:23:08 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4H9VSh5gg8z2ybD
+	for <openbmc@archiver.kernel.org>; Fri, 17 Sep 2021 07:23:48 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=IDDq/sOy;
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=m8nnIDbp;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
+ smtp.mailfrom=linux.ibm.com (client-ip=148.163.158.5;
  helo=mx0a-001b2d01.pphosted.com; envelope-from=eajames@linux.ibm.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
  unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=IDDq/sOy; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
+ header.s=pp1 header.b=m8nnIDbp; dkim-atps=neutral
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4H9VQL6BwRz2xrL
- for <openbmc@lists.ozlabs.org>; Fri, 17 Sep 2021 07:21:46 +1000 (AEST)
-Received: from pps.filterd (m0098409.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18GKm00G011609; 
- Thu, 16 Sep 2021 17:21:43 -0400
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4H9VQM6qXmz2xrL
+ for <openbmc@lists.ozlabs.org>; Fri, 17 Sep 2021 07:21:47 +1000 (AEST)
+Received: from pps.filterd (m0098419.ppops.net [127.0.0.1])
+ by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18GKpZGC029963; 
+ Thu, 16 Sep 2021 17:21:45 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
  h=from : to : cc : subject
  : date : message-id : in-reply-to : references : mime-version :
  content-transfer-encoding; s=pp1;
- bh=mDz/fWwmypUZm30E47vKg89I5r5W7YV0UxU94NCzUC0=;
- b=IDDq/sOy1aKrwIv44Trut3oF/y2DRR/nLN2Qusz8QsSnbyiR9FrTpdK6rOLjWBT5ka2T
- LoHm1/a+ROjCyPS8Ytiai6YL4F5xIyQwOKRp0JTKSHUngClnQVisoI0ctVkR3LAek8ns
- GiyTvl3M9ysOihbrGKHt1jXQZwDe/thme9cXY291xTb/Q/TMj5oPUZQt++ZkLpLIKR4d
- s4Pt2qLdZLa8eRwoh56X12a0Xr+hPTtrMWr/1oqq2j4AZaPlpR43HUux6pVYv5cPY9gm
- Cbb2CyoZ6vOcxm7Lx9EoDAe6SJLEXUjmdih5ql8b+77YjZi7ksW54NkH/XgeP7d/MubK bA== 
-Received: from ppma02wdc.us.ibm.com (aa.5b.37a9.ip4.static.sl-reverse.com
- [169.55.91.170])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3b4cn89bxa-1
+ bh=jDTzKOJxfNOimhCEjnwMx9TnDvnQMsV+d/YAj4z0O3E=;
+ b=m8nnIDbpeRDahsh19GHjx4xDgBG4Gu4b2iAZpXu56ZUPqHOsSfgMr4QDfJtvP4kPAB2D
+ zvJbIFu/HZW3CFkDIGlk/8lavR3OjhJ6d5DBvtpO3tigBe68ArWPbiOhNOUKmixCicBS
+ bIdv8rcAZC30n5zB9rm4BRyc1kVfI8aOOa9nsSsyTmVX0l54x1u6/kHoDOH2wmQIMtjv
+ rrZgImDhDygiwjofeeXyqQyVmL3XFGs2dh2GAIfUP22nUkpAos0X1CcGq17RdqBvtPeF
+ 6r4f0uEW2mmsMPYGvUg6GVndPQYA2SIVp4z3ARUROAzFo7r0ftN2HOvnAaUd1EvS4kBn Pg== 
+Received: from ppma03dal.us.ibm.com (b.bd.3ea9.ip4.static.sl-reverse.com
+ [169.62.189.11])
+ by mx0b-001b2d01.pphosted.com with ESMTP id 3b4bbaju6r-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Sep 2021 17:21:43 -0400
-Received: from pps.filterd (ppma02wdc.us.ibm.com [127.0.0.1])
- by ppma02wdc.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18GLB0bq004235;
- Thu, 16 Sep 2021 21:21:42 GMT
-Received: from b01cxnp22033.gho.pok.ibm.com (b01cxnp22033.gho.pok.ibm.com
- [9.57.198.23]) by ppma02wdc.us.ibm.com with ESMTP id 3b0m3cvpkf-1
+ Thu, 16 Sep 2021 17:21:44 -0400
+Received: from pps.filterd (ppma03dal.us.ibm.com [127.0.0.1])
+ by ppma03dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18GL9r0f004191;
+ Thu, 16 Sep 2021 21:21:44 GMT
+Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
+ [9.57.198.26]) by ppma03dal.us.ibm.com with ESMTP id 3b0m3d8v29-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 16 Sep 2021 21:21:42 +0000
+ Thu, 16 Sep 2021 21:21:44 +0000
 Received: from b01ledav006.gho.pok.ibm.com (b01ledav006.gho.pok.ibm.com
  [9.57.199.111])
- by b01cxnp22033.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18GLLfkv19661072
+ by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 18GLLhrq12256006
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Sep 2021 21:21:41 GMT
+ Thu, 16 Sep 2021 21:21:43 GMT
 Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id B37ACAC059;
- Thu, 16 Sep 2021 21:21:41 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 5BE9BAC05B;
+ Thu, 16 Sep 2021 21:21:43 +0000 (GMT)
 Received: from b01ledav006.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5BDF7AC05E;
- Thu, 16 Sep 2021 21:21:41 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 00508AC05E;
+ Thu, 16 Sep 2021 21:21:42 +0000 (GMT)
 Received: from v0005c16.aus.stglabs.ibm.com (unknown [9.211.39.159])
  by b01ledav006.gho.pok.ibm.com (Postfix) with ESMTP;
- Thu, 16 Sep 2021 21:21:41 +0000 (GMT)
+ Thu, 16 Sep 2021 21:21:42 +0000 (GMT)
 From: Eddie James <eajames@linux.ibm.com>
 To: joel@jms.id.au
-Subject: [PATCH linux dev-5.10 1/7] dt-bindings: leds: Add
- retain-state-shutdown boolean
-Date: Thu, 16 Sep 2021 16:21:34 -0500
-Message-Id: <20210916212140.33915-2-eajames@linux.ibm.com>
+Subject: [PATCH linux dev-5.10 4/7] leds: pca955x: Add brightness_get function
+Date: Thu, 16 Sep 2021 16:21:37 -0500
+Message-Id: <20210916212140.33915-5-eajames@linux.ibm.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210916212140.33915-1-eajames@linux.ibm.com>
 References: <20210916212140.33915-1-eajames@linux.ibm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
-X-Proofpoint-ORIG-GUID: zhJM43FI31FMGPJUuLdxKtq0OeZysnqv
-X-Proofpoint-GUID: zhJM43FI31FMGPJUuLdxKtq0OeZysnqv
+X-Proofpoint-GUID: WsDaykQ-hRKZbX6yhHk8EeWb9wvlRdKC
+X-Proofpoint-ORIG-GUID: WsDaykQ-hRKZbX6yhHk8EeWb9wvlRdKC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
  definitions=2021-09-16_07,2021-09-16_01,2020-04-07_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 mlxlogscore=999
- lowpriorityscore=0 spamscore=0 priorityscore=1501 phishscore=0
- impostorscore=0 bulkscore=0 malwarescore=0 mlxscore=0 adultscore=0
- suspectscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2109030001 definitions=main-2109160122
+ impostorscore=0 bulkscore=0
+ mlxlogscore=999 adultscore=0 malwarescore=0 suspectscore=0 clxscore=1015
+ phishscore=0 priorityscore=1501 lowpriorityscore=0 mlxscore=0 spamscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
+ definitions=main-2109160122
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,33 +114,84 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Document the retain-state-shutdown property that indicates that a LED
-should not be turned off or changed during system shutdown.
+Add a function to fetch the state of the hardware LED.
 
 Signed-off-by: Eddie James <eajames@linux.ibm.com>
-Acked-by: Rob Herring <robh@kernel.org>
 Signed-off-by: Pavel Machek <pavel@ucw.cz>
 ---
- Documentation/devicetree/bindings/leds/common.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/leds/leds-pca955x.c | 52 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/leds/common.yaml b/Documentation/devicetree/bindings/leds/common.yaml
-index f1211e7045f1..fd74d33291da 100644
---- a/Documentation/devicetree/bindings/leds/common.yaml
-+++ b/Documentation/devicetree/bindings/leds/common.yaml
-@@ -128,6 +128,12 @@ properties:
-       as a panic indicator.
-     type: boolean
+diff --git a/drivers/leds/leds-pca955x.c b/drivers/leds/leds-pca955x.c
+index f0d841cb59fc..e47ba7c3b7c7 100644
+--- a/drivers/leds/leds-pca955x.c
++++ b/drivers/leds/leds-pca955x.c
+@@ -233,6 +233,57 @@ static int pca955x_read_ls(struct i2c_client *client, int n, u8 *val)
+ 	return 0;
+ }
  
-+  retain-state-shutdown:
-+    description:
-+      This property specifies that the LED should not be turned off or changed
-+      when the system shuts down.
-+    type: boolean
++static int pca955x_read_pwm(struct i2c_client *client, int n, u8 *val)
++{
++	struct pca955x *pca955x = i2c_get_clientdata(client);
++	u8 cmd = pca95xx_num_input_regs(pca955x->chipdef->bits) + 1 + (2 * n);
++	int ret;
 +
-   trigger-sources:
-     description: |
-       List of devices which should be used as a source triggering this LED
++	ret = i2c_smbus_read_byte_data(client, cmd);
++	if (ret < 0) {
++		dev_err(&client->dev, "%s: reg 0x%x, err %d\n",
++			__func__, n, ret);
++		return ret;
++	}
++	*val = (u8)ret;
++	return 0;
++}
++
++static enum led_brightness pca955x_led_get(struct led_classdev *led_cdev)
++{
++	struct pca955x_led *pca955x_led = container_of(led_cdev,
++						       struct pca955x_led,
++						       led_cdev);
++	struct pca955x *pca955x = pca955x_led->pca955x;
++	u8 ls, pwm;
++	int ret;
++
++	ret = pca955x_read_ls(pca955x->client, pca955x_led->led_num / 4, &ls);
++	if (ret)
++		return ret;
++
++	ls = (ls >> ((pca955x_led->led_num % 4) << 1)) & 0x3;
++	switch (ls) {
++	case PCA955X_LS_LED_ON:
++		ret = LED_FULL;
++		break;
++	case PCA955X_LS_LED_OFF:
++		ret = LED_OFF;
++		break;
++	case PCA955X_LS_BLINK0:
++		ret = LED_HALF;
++		break;
++	case PCA955X_LS_BLINK1:
++		ret = pca955x_read_pwm(pca955x->client, 1, &pwm);
++		if (ret)
++			return ret;
++		ret = 255 - pwm;
++		break;
++	}
++
++	return ret;
++}
++
+ static int pca955x_led_set(struct led_classdev *led_cdev,
+ 			    enum led_brightness value)
+ {
+@@ -512,6 +563,7 @@ static int pca955x_probe(struct i2c_client *client,
+ 
+ 			led->name = pca955x_led->name;
+ 			led->brightness_set_blocking = pca955x_led_set;
++			led->brightness_get = pca955x_led_get;
+ 
+ 			err = devm_led_classdev_register(&client->dev, led);
+ 			if (err)
 -- 
 2.27.0
 
