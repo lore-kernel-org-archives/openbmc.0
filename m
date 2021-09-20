@@ -2,99 +2,99 @@ Return-Path: <SRS0=JGev=OK=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=3.4.0
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AF174C433EF
-	for <openbmc@archiver.kernel.org>; Mon, 20 Sep 2021 15:08:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A384FC433F5
+	for <openbmc@archiver.kernel.org>; Mon, 20 Sep 2021 17:07:31 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 4FA09606A5
-	for <openbmc@archiver.kernel.org>; Mon, 20 Sep 2021 15:08:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 4FA09606A5
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.ibm.com
+	by mail.kernel.org (Postfix) with ESMTPS id CAF6561B46
+	for <openbmc@archiver.kernel.org>; Mon, 20 Sep 2021 17:07:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org CAF6561B46
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=fuzziesquirrel.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HCny46B6mz2yPp
-	for <openbmc@archiver.kernel.org>; Tue, 21 Sep 2021 01:08:44 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HCrb51wnbz2yPS
+	for <openbmc@archiver.kernel.org>; Tue, 21 Sep 2021 03:07:29 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=f4JFyU22;
+	dkim=pass (2048-bit key; unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com header.a=rsa-sha256 header.s=fm3 header.b=JTQxw+JY;
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=i+gYuDE4;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=linux.ibm.com (client-ip=148.163.156.1;
- helo=mx0a-001b2d01.pphosted.com; envelope-from=bentyner@linux.ibm.com;
+ smtp.mailfrom=fuzziesquirrel.com (client-ip=64.147.123.19;
+ helo=wout3-smtp.messagingengine.com; envelope-from=bradleyb@fuzziesquirrel.com;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (2048-bit key;
- unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256
- header.s=pp1 header.b=f4JFyU22; dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ unprotected) header.d=fuzziesquirrel.com header.i=@fuzziesquirrel.com
+ header.a=rsa-sha256 header.s=fm3 header.b=JTQxw+JY; 
+ dkim=pass (2048-bit key;
+ unprotected) header.d=messagingengine.com header.i=@messagingengine.com
+ header.a=rsa-sha256 header.s=fm3 header.b=i+gYuDE4; 
+ dkim-atps=neutral
+Received: from wout3-smtp.messagingengine.com (wout3-smtp.messagingengine.com
+ [64.147.123.19])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HCnvQ59pZz2yXW
- for <openbmc@lists.ozlabs.org>; Tue, 21 Sep 2021 01:06:26 +1000 (AEST)
-Received: from pps.filterd (m0098399.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id 18KEqO2B026257
- for <openbmc@lists.ozlabs.org>; Mon, 20 Sep 2021 11:06:23 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com;
- h=from : to : cc : subject
- : date : message-id : mime-version : content-transfer-encoding; s=pp1;
- bh=QWrdvdRP+LSmPzZwcUs+CYgKzSmURSDHxMEbaEplKdw=;
- b=f4JFyU22NtiZATBi/B/r2Xno4DaC8rJ1dpqBFbkI+MlhyoUrJQlI5TFTaLmLy5GoQP4P
- LE+ZF8qalZ79NLui9bNm0i6aTXj5kwx9B3SWeRcW4CfX2hd0HwCy0d8Q/xZsCgL+btjE
- BxOfv+4cRySS2ICfWkJIBfoaT49gTl+WEqVGHJbAqFYi3C7VAj2Fgp5xQUHukSk+/vE+
- l/nrrVhoenI/Df/sc2KLzUFMIO7tMAiS5Jbze9DC4yVBCbuqnVOUyYKMqqYAWBRkkCIs
- My/E5h09cOrPlNngPSdNegqVdJB0LL0Cgsp47aASAYPsQzRaYOavm8CKjyz6F9D0kltq gA== 
-Received: from ppma02dal.us.ibm.com (a.bd.3ea9.ip4.static.sl-reverse.com
- [169.62.189.10])
- by mx0a-001b2d01.pphosted.com with ESMTP id 3b5w78d5jq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 20 Sep 2021 11:06:23 -0400
-Received: from pps.filterd (ppma02dal.us.ibm.com [127.0.0.1])
- by ppma02dal.us.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 18KF4j1Q007600
- for <openbmc@lists.ozlabs.org>; Mon, 20 Sep 2021 15:06:22 GMT
-Received: from b01cxnp22036.gho.pok.ibm.com (b01cxnp22036.gho.pok.ibm.com
- [9.57.198.26]) by ppma02dal.us.ibm.com with ESMTP id 3b57ra1np4-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
- for <openbmc@lists.ozlabs.org>; Mon, 20 Sep 2021 15:06:21 +0000
-Received: from b01ledav001.gho.pok.ibm.com (b01ledav001.gho.pok.ibm.com
- [9.57.199.106])
- by b01cxnp22036.gho.pok.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 18KF5ro53736338
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Mon, 20 Sep 2021 15:05:53 GMT
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id F020D2806D;
- Mon, 20 Sep 2021 15:05:52 +0000 (GMT)
-Received: from b01ledav001.gho.pok.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id AF9FA28060;
- Mon, 20 Sep 2021 15:05:52 +0000 (GMT)
-Received: from xubuntu.austin.rr.com (unknown [9.160.134.25])
- by b01ledav001.gho.pok.ibm.com (Postfix) with ESMTP;
- Mon, 20 Sep 2021 15:05:52 +0000 (GMT)
-From: Ben Tyner <bentyner@linux.ibm.com>
-To: openbmc@lists.ozlabs.org
-Subject: [PATCH linux dev-5.10 v2 0/3] v2 changes 
-Date: Mon, 20 Sep 2021 10:05:46 -0500
-Message-Id: <20210920150549.6431-1-bentyner@linux.ibm.com>
-X-Mailer: git-send-email 2.25.1
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HCrZG6p4Tz2yLq
+ for <openbmc@lists.ozlabs.org>; Tue, 21 Sep 2021 03:06:46 +1000 (AEST)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 4B8D33201A3C;
+ Mon, 20 Sep 2021 13:06:43 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Mon, 20 Sep 2021 13:06:43 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ fuzziesquirrel.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=fm3; bh=SBt
+ INXuPA0FXbpBwuLTzsNUUl1rL3RXTJ6IkzbDy4qM=; b=JTQxw+JY6uyEn5nEtwe
+ KBbEe8TysfdU1geN1tKZy0/dimcpiwfhPLE2aDfnJ7QjRGag53eIS3t6cc/WdNc7
+ id4W2LLj0Z3ewufxRYC7acdQQ7JVdVpxfsStHDiVUYxqMvbwH+bELWd0jjLpNWsq
+ HAnPz1xB3a9TL4akKe13iHfDX20B30gZq6WL3iX48mXOp30YWam5nx9d1WzkMNUB
+ Ej7OpMxJILcWQhs5UA9on35/VFzVW8YXV1vNVLu8CLsImXnUby2SKtyDKIcLYivL
+ B9Dtr4Kcntgalh9G4CGgauXuqNuwga5YW9QAUWkhxhQphiPpjRieXdqvFZjMVFhs
+ RjA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to:x-me-proxy
+ :x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=SBtINX
+ uPA0FXbpBwuLTzsNUUl1rL3RXTJ6IkzbDy4qM=; b=i+gYuDE4wn873Ybr+5yhQB
+ +6qsBm0vb7ePEm83bFnEu3pe7XPS+LQ4AcqLdsmup3VjXokMUeWQ3cdzsczhunna
+ ZhrBWlib+5j9/olz42o6/Lm+BF/nIW0o9Y4RBClMs8qNa/0Iz0aPCQXi6NJxwEaw
+ 0hfbs9witF3P+6ettLszrQouccZGpvnFq4HLedEPp0NlNvl+fIojHx/DkIdupawP
+ cziprxvthtL5aCXMQu9p/HzQbIVG1SFcUhw6XccsjOoP2RdheEZKIUAogJjaKzGX
+ FNtHZv0LTDHfqpACsZNb59SDfbvsXGsUR8p3c9H3Ro9Ouw9DLGS4aNjm7wyNFYsw
+ ==
+X-ME-Sender: <xms:or9IYfSgdHgqggzObRb_DXOKW-lalBOBIqTe9_1No8M7lm4l6sawbQ>
+ <xme:or9IYQzcKVPzBUR-cMNA9wRE7ROAu2mH0OSBK0ZMREZeg8X07JHoRl1D_wDDmt9YD
+ 9fwv092eP9WdOrQAfo>
+X-ME-Received: <xmr:or9IYU3R9T6Os5hkOYuDaf_3xshRIy2KaHIRFCkzeThC_rFmgJG2_sAO>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudeivddguddtkecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvuffkfhggtggujgesthdtredttddtvdenucfhrhhomhepuehrrggu
+ uceuihhshhhophcuoegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtoh
+ hmqeenucggtffrrghtthgvrhhnpeeffffhfeehgedutddvtdeuiefhudeifeekfeeifeek
+ fedufeeuvedulefgkefffeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmh
+ grihhlfhhrohhmpegsrhgrughlvgihsgesfhhuiiiiihgvshhquhhirhhrvghlrdgtohhm
+X-ME-Proxy: <xmx:or9IYfC3lKaR9rAKChTPeDou57Uvterp6U_ieJYnew0N335tHNi0ig>
+ <xmx:or9IYYi1F3hSxr5Z2-OINtjAmBAar80oBWUV6WeM2gF3rctKKLq9Rg>
+ <xmx:or9IYToXdzkIR1c4uZI04liWvnPFpjsSrevG9gXTyhyvSK4AwRFuFg>
+ <xmx:or9IYQLrHAYUbbZY7zl4DZdR2V9r8Pptscd-oUNWlqFzwJ6Fpf93Kg>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 20 Sep 2021 13:06:42 -0400 (EDT)
+Date: Mon, 20 Sep 2021 13:06:40 -0400
+From: Brad Bishop <bradleyb@fuzziesquirrel.com>
+To: Graeme Gregory <quic_ggregory@quicinc.com>
+Subject: Re: CCLA for Qualcomm Innovation Center, Inc.
+Message-ID: <20210920170640.x6ry2mdwgeav3ano@cheese>
+References: <06616d14-6add-bfcf-760e-a98a8eb26a8a@quicinc.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: qFamFxFwu3saYtX23uSvmehj8rIL-0vZ
-X-Proofpoint-ORIG-GUID: qFamFxFwu3saYtX23uSvmehj8rIL-0vZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.182.1,Aquarius:18.0.790,Hydra:6.0.391,FMLib:17.0.607.475
- definitions=2021-09-20_07,2021-09-20_01,2020-04-07_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015
- mlxscore=0 lowpriorityscore=0 adultscore=0 mlxlogscore=449 impostorscore=0
- malwarescore=0 bulkscore=0 spamscore=0 suspectscore=0 priorityscore=1501
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2109030001
- definitions=main-2109200097
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <06616d14-6add-bfcf-760e-a98a8eb26a8a@quicinc.com>
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,26 +106,14 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: Ben Tyner <ben.tyner@ibm.com>, eajames@linux.ibm.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-From: Ben Tyner <ben.tyner@ibm.com>
+On Fri, Sep 17, 2021 at 01:50:45PM +0100, Graeme Gregory wrote:
+>Please find attached the CCLA for Qualcomm Innovation Center, Inc.
 
-patch 1/3 v2: vrm-fault-standby changed to regulator-standby-faulted
-patch 2/3 v2: vrm-fault-standby changed to regulator-standby-faulted
-patch 3/3 v2: same as v1
+Hi Graeme, CCLA accepted, thanks and welcome!
 
-Ben Tyner (3):
-  ARM: dts: rainier: Define name for gpio line Q2
-  ARM: dts: everest: Define name for gpio line Q2
-  ARM: dts: everest: Define name for gpio line B6
-
- arch/arm/boot/dts/aspeed-bmc-ibm-everest.dts | 4 ++--
- arch/arm/boot/dts/aspeed-bmc-ibm-rainier.dts | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
--- 
-2.25.1
-
+-brad
