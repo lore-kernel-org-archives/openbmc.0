@@ -2,59 +2,81 @@ Return-Path: <SRS0=bmDf=OM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,NICE_REPLY_A,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F57FC433F5
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:35:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C760FC433F5
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 09:03:27 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id D2C6C61178
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:35:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D2C6C61178
-Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
+	by mail.kernel.org (Postfix) with ESMTPS id 0D2366136F
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 09:03:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0D2366136F
+Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=yadro.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HDqpJ43sjz3076
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 17:35:36 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HDsld1vvhz2ym5
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 19:03:25 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org;
+	dkim=pass (1024-bit key; unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256 header.s=mta-01 header.b=iPzc5f4B;
+	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
- helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
- receiver=<UNKNOWN>)
-Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
- [211.20.114.71])
+ smtp.mailfrom=yadro.com (client-ip=89.207.88.252; helo=mta-01.yadro.com;
+ envelope-from=a.amelkin@yadro.com; receiver=<UNKNOWN>)
+Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
+ unprotected) header.d=yadro.com header.i=@yadro.com header.a=rsa-sha256
+ header.s=mta-01 header.b=iPzc5f4B; dkim-atps=neutral
+Received: from mta-01.yadro.com (mta-02.yadro.com [89.207.88.252])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HDqls1Jj9z2yHp;
- Wed, 22 Sep 2021 17:33:26 +1000 (AEST)
-Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 18M7CPFS096732;
- Wed, 22 Sep 2021 15:12:27 +0800 (GMT-8)
- (envelope-from chiawei_wang@aspeedtech.com)
-Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
- (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 22 Sep 2021 15:32:44 +0800
-From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH v6 3/4] soc: aspeed: Add UART routing support
-Date: Wed, 22 Sep 2021 15:32:40 +0800
-Message-ID: <20210922073241.14119-4-chiawei_wang@aspeedtech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
-References: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HDskq0SGmz2yHg
+ for <openbmc@lists.ozlabs.org>; Wed, 22 Sep 2021 19:02:42 +1000 (AEST)
+Received: from localhost (unknown [127.0.0.1])
+ by mta-01.yadro.com (Postfix) with ESMTP id EB5AF426BC;
+ Wed, 22 Sep 2021 09:02:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=yadro.com; h=
+ content-language:content-transfer-encoding:content-type
+ :content-type:in-reply-to:mime-version:user-agent:date:date
+ :message-id:from:from:references:subject:subject:received
+ :received:received; s=mta-01; t=1632301356; x=1634115757; bh=U5N
+ VGwybn2FtU69og3+nKtkLLSv0MzuCjHipvIsRrug=; b=iPzc5f4BVtJsksotIiE
+ PVLmJiSp0b+oOKJzoFqByq67DkUo3ofwqwqZMm6MCcO/+JKnEEvcx74+S1vxjzVP
+ cd3kaMXWGXpq5/lgrxemTBZ7VvdBdQjlRYdZU/Tdt9I3sKIG34t/dLMri//Lf+KP
+ l2gkscGpyj7/Q4S9ZVp0+Jm0=
+X-Virus-Scanned: amavisd-new at yadro.com
+Received: from mta-01.yadro.com ([127.0.0.1])
+ by localhost (mta-01.yadro.com [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id jkHVMhOgYsPM; Wed, 22 Sep 2021 12:02:36 +0300 (MSK)
+Received: from T-EXCH-04.corp.yadro.com (t-exch-04.corp.yadro.com
+ [172.17.100.104])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mta-01.yadro.com (Postfix) with ESMTPS id 37F3B404AD;
+ Wed, 22 Sep 2021 12:02:36 +0300 (MSK)
+Received: from [10.199.0.205] (10.199.0.205) by T-EXCH-04.corp.yadro.com
+ (172.17.100.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384_P384) id 15.1.669.32; Wed, 22
+ Sep 2021 12:02:35 +0300
+Subject: Re: New test for patches in openbmc/openbmc
+To: Ed Tanous <edtanous@google.com>, OpenBMC Maillist
+ <openbmc@lists.ozlabs.org>
+References: <CAH2-KxDe6hR1V-Lz1k8cdD11jEquy4UhR4LfLhg37E5EG42EJg@mail.gmail.com>
+From: Alexander Amelkin <a.amelkin@yadro.com>
+Message-ID: <67dbec1b-8598-8814-e85e-848b2eb123cf@yadro.com>
+Date: Wed, 22 Sep 2021 12:02:34 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+ Thunderbird/68.4.1
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Originating-IP: [192.168.2.66]
-X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
- (192.168.0.24)
-X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 18M7CPFS096732
+In-Reply-To: <CAH2-KxDe6hR1V-Lz1k8cdD11jEquy4UhR4LfLhg37E5EG42EJg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+Content-Language: en-US
+X-Originating-IP: [10.199.0.205]
+X-ClientProxiedBy: T-EXCH-01.corp.yadro.com (172.17.10.101) To
+ T-EXCH-04.corp.yadro.com (172.17.100.104)
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,708 +88,105 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: yulei.sh@bytedance.com, osk@google.com
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add driver support for the UART routing control. Users can perform
-runtime configuration of the RX muxes among the UART controllers and
-the UART IO pins.
+Hi Ed!
 
-The sysfs interface is also exported for the convenience of routing paths
-check and update.
+Most patches you listed (at least those for YADRO) are
+platform specific and no repository will accept them for
+a general audience.
 
-Signed-off-by: Oskar Senft <osk@google.com>
-Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-Tested-by: Lei YU <yulei.sh@bytedance.com>
----
- .../testing/sysfs-driver-aspeed-uart-routing  |  27 +
- drivers/soc/aspeed/Kconfig                    |  10 +
- drivers/soc/aspeed/Makefile                   |   9 +-
- drivers/soc/aspeed/aspeed-uart-routing.c      | 603 ++++++++++++++++++
- 4 files changed, 645 insertions(+), 4 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing
- create mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
+No vendor, I'm confident, is willing to spend endless time
+persuading maintainers to include vendor-specific or
+platform-specific patches into their repositories.
 
-diff --git a/Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing b/Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing
-new file mode 100644
-index 000000000000..b363827da437
---- /dev/null
-+++ b/Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing
-@@ -0,0 +1,27 @@
-+What:		/sys/bus/platform/drivers/aspeed-uart-routing/*/uart*
-+Date:		September 2021
-+Contact:	Oskar Senft <osk@google.com>
-+		Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-+Description:	Selects the RX source of the UARTx device.
-+
-+		When read, each file shows the list of available options with currently
-+		selected option marked by brackets "[]". The list of available options
-+		depends on the selected file.
-+
-+		e.g.
-+		cat /sys/bus/platform/drivers/aspeed-uart-routing/*.uart_routing/uart1
-+		[io1] io2 io3 io4 uart2 uart3 uart4 io6
-+
-+		In this case, UART1 gets its input from IO1 (physical serial port 1).
-+
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-+
-+What:		/sys/bus/platform/drivers/aspeed-uart-routing/*/io*
-+Date:		September 2021
-+Contact:	Oskar Senft <osk@google.com>
-+		Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-+Description:	Selects the RX source of IOx serial port. The current selection
-+		will be marked by brackets "[]".
-+Users:		OpenBMC.  Proposed changes should be mailed to
-+		openbmc@lists.ozlabs.org
-diff --git a/drivers/soc/aspeed/Kconfig b/drivers/soc/aspeed/Kconfig
-index 243ca196e6ad..f579ee0b5afa 100644
---- a/drivers/soc/aspeed/Kconfig
-+++ b/drivers/soc/aspeed/Kconfig
-@@ -24,6 +24,16 @@ config ASPEED_LPC_SNOOP
- 	  allows the BMC to listen on and save the data written by
- 	  the host to an arbitrary LPC I/O port.
- 
-+config ASPEED_UART_ROUTING
-+	tristate "ASPEED uart routing control"
-+	select REGMAP
-+	select MFD_SYSCON
-+	default ARCH_ASPEED
-+	help
-+	  Provides a driver to control the UART routing paths, allowing
-+	  users to perform runtime configuration of the RX muxes among
-+	  the UART controllers and I/O pins.
-+
- config ASPEED_P2A_CTRL
- 	tristate "ASPEED P2A (VGA MMIO to BMC) bridge control"
- 	select REGMAP
-diff --git a/drivers/soc/aspeed/Makefile b/drivers/soc/aspeed/Makefile
-index fcab7192e1a4..b35d74592964 100644
---- a/drivers/soc/aspeed/Makefile
-+++ b/drivers/soc/aspeed/Makefile
-@@ -1,5 +1,6 @@
- # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_ASPEED_LPC_CTRL)	+= aspeed-lpc-ctrl.o
--obj-$(CONFIG_ASPEED_LPC_SNOOP)	+= aspeed-lpc-snoop.o
--obj-$(CONFIG_ASPEED_P2A_CTRL)	+= aspeed-p2a-ctrl.o
--obj-$(CONFIG_ASPEED_SOCINFO)	+= aspeed-socinfo.o
-+obj-$(CONFIG_ASPEED_LPC_CTRL)		+= aspeed-lpc-ctrl.o
-+obj-$(CONFIG_ASPEED_LPC_SNOOP)		+= aspeed-lpc-snoop.o
-+obj-$(CONFIG_ASPEED_UART_ROUTING)	+= aspeed-uart-routing.o
-+obj-$(CONFIG_ASPEED_P2A_CTRL)		+= aspeed-p2a-ctrl.o
-+obj-$(CONFIG_ASPEED_SOCINFO)		+= aspeed-socinfo.o
-diff --git a/drivers/soc/aspeed/aspeed-uart-routing.c b/drivers/soc/aspeed/aspeed-uart-routing.c
-new file mode 100644
-index 000000000000..ef8b24fd1851
---- /dev/null
-+++ b/drivers/soc/aspeed/aspeed-uart-routing.c
-@@ -0,0 +1,603 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Copyright (c) 2018 Google LLC
-+ * Copyright (c) 2021 Aspeed Technology Inc.
-+ */
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/of_platform.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/regmap.h>
-+#include <linux/platform_device.h>
-+
-+/* register offsets */
-+#define HICR9	0x98
-+#define HICRA	0x9c
-+
-+/* attributes options */
-+#define UART_ROUTING_IO1	"io1"
-+#define UART_ROUTING_IO2	"io2"
-+#define UART_ROUTING_IO3	"io3"
-+#define UART_ROUTING_IO4	"io4"
-+#define UART_ROUTING_IO5	"io5"
-+#define UART_ROUTING_IO6	"io6"
-+#define UART_ROUTING_IO10	"io10"
-+#define UART_ROUTING_UART1	"uart1"
-+#define UART_ROUTING_UART2	"uart2"
-+#define UART_ROUTING_UART3	"uart3"
-+#define UART_ROUTING_UART4	"uart4"
-+#define UART_ROUTING_UART5	"uart5"
-+#define UART_ROUTING_UART6	"uart6"
-+#define UART_ROUTING_UART10	"uart10"
-+#define UART_ROUTING_RES	"reserved"
-+
-+struct aspeed_uart_routing {
-+	struct regmap *map;
-+	struct attribute_group const *attr_grp;
-+};
-+
-+struct aspeed_uart_routing_selector {
-+	struct device_attribute	dev_attr;
-+	uint8_t reg;
-+	uint8_t mask;
-+	uint8_t shift;
-+	const char *const options[];
-+};
-+
-+#define to_routing_selector(_dev_attr)					\
-+	container_of(_dev_attr, struct aspeed_uart_routing_selector, dev_attr)
-+
-+static ssize_t aspeed_uart_routing_show(struct device *dev,
-+					struct device_attribute *attr,
-+					char *buf);
-+
-+static ssize_t aspeed_uart_routing_store(struct device *dev,
-+					 struct device_attribute *attr,
-+					 const char *buf, size_t count);
-+
-+#define ROUTING_ATTR(_name) {					\
-+	.attr = {.name = _name,					\
-+		 .mode = VERIFY_OCTAL_PERMISSIONS(0644) },	\
-+	.show = aspeed_uart_routing_show,			\
-+	.store = aspeed_uart_routing_store,			\
-+}
-+
-+/* routing selector for AST25xx */
-+static struct aspeed_uart_routing_selector ast2500_io6_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO6),
-+	.reg = HICR9,
-+	.shift = 8,
-+	.mask = 0xf,
-+	.options = {
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO5,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_uart5_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART5),
-+	.reg = HICRA,
-+	.shift = 28,
-+	.mask = 0xf,
-+	.options = {
-+		    UART_ROUTING_IO5,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_uart4_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART4),
-+	.reg = HICRA,
-+	.shift = 25,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+	},
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_uart3_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART3),
-+	.reg = HICRA,
-+	.shift = 22,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_uart2_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART2),
-+	.reg = HICRA,
-+	.shift = 19,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_uart1_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART1),
-+	.reg = HICRA,
-+	.shift = 16,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_io5_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO5),
-+	.reg = HICRA,
-+	.shift = 12,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_io4_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO4),
-+	.reg = HICRA,
-+	.shift = 9,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_io3_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO3),
-+	.reg = HICRA,
-+	.shift = 6,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_io2_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO2),
-+	.reg = HICRA,
-+	.shift = 3,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2500_io1_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO1),
-+	.reg = HICRA,
-+	.shift = 0,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART5,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO6,
-+		    NULL,
-+		    },
-+};
-+
-+static struct attribute *ast2500_uart_routing_attrs[] = {
-+	&ast2500_io6_sel.dev_attr.attr,
-+	&ast2500_uart5_sel.dev_attr.attr,
-+	&ast2500_uart4_sel.dev_attr.attr,
-+	&ast2500_uart3_sel.dev_attr.attr,
-+	&ast2500_uart2_sel.dev_attr.attr,
-+	&ast2500_uart1_sel.dev_attr.attr,
-+	&ast2500_io5_sel.dev_attr.attr,
-+	&ast2500_io4_sel.dev_attr.attr,
-+	&ast2500_io3_sel.dev_attr.attr,
-+	&ast2500_io2_sel.dev_attr.attr,
-+	&ast2500_io1_sel.dev_attr.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group ast2500_uart_routing_attr_group = {
-+	.attrs = ast2500_uart_routing_attrs,
-+};
-+
-+/* routing selector for AST26xx */
-+static struct aspeed_uart_routing_selector ast2600_uart10_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART10),
-+	.reg = HICR9,
-+	.shift = 12,
-+	.mask = 0xf,
-+	.options = {
-+		    UART_ROUTING_IO10,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+			UART_ROUTING_RES,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_io10_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO10),
-+	.reg = HICR9,
-+	.shift = 8,
-+	.mask = 0xf,
-+	.options = {
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+			UART_ROUTING_RES,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+			UART_ROUTING_RES,
-+		    UART_ROUTING_UART10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_uart4_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART4),
-+	.reg = HICRA,
-+	.shift = 25,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+	},
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_uart3_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART3),
-+	.reg = HICRA,
-+	.shift = 22,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_uart2_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART2),
-+	.reg = HICRA,
-+	.shift = 19,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_uart1_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_UART1),
-+	.reg = HICRA,
-+	.shift = 16,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_io4_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO4),
-+	.reg = HICRA,
-+	.shift = 9,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART10,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_io3_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO3),
-+	.reg = HICRA,
-+	.shift = 6,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART10,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_IO1,
-+		    UART_ROUTING_IO2,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_io2_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO2),
-+	.reg = HICRA,
-+	.shift = 3,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART10,
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct aspeed_uart_routing_selector ast2600_io1_sel = {
-+	.dev_attr = ROUTING_ATTR(UART_ROUTING_IO1),
-+	.reg = HICRA,
-+	.shift = 0,
-+	.mask = 0x7,
-+	.options = {
-+		    UART_ROUTING_UART1,
-+		    UART_ROUTING_UART2,
-+		    UART_ROUTING_UART3,
-+		    UART_ROUTING_UART4,
-+		    UART_ROUTING_UART10,
-+		    UART_ROUTING_IO3,
-+		    UART_ROUTING_IO4,
-+		    UART_ROUTING_IO10,
-+		    NULL,
-+		    },
-+};
-+
-+static struct attribute *ast2600_uart_routing_attrs[] = {
-+	&ast2600_uart10_sel.dev_attr.attr,
-+	&ast2600_io10_sel.dev_attr.attr,
-+	&ast2600_uart4_sel.dev_attr.attr,
-+	&ast2600_uart3_sel.dev_attr.attr,
-+	&ast2600_uart2_sel.dev_attr.attr,
-+	&ast2600_uart1_sel.dev_attr.attr,
-+	&ast2600_io4_sel.dev_attr.attr,
-+	&ast2600_io3_sel.dev_attr.attr,
-+	&ast2600_io2_sel.dev_attr.attr,
-+	&ast2600_io1_sel.dev_attr.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group ast2600_uart_routing_attr_group = {
-+	.attrs = ast2600_uart_routing_attrs,
-+};
-+
-+static ssize_t aspeed_uart_routing_show(struct device *dev,
-+					struct device_attribute *attr,
-+					char *buf)
-+{
-+	struct aspeed_uart_routing *uart_routing = dev_get_drvdata(dev);
-+	struct aspeed_uart_routing_selector *sel = to_routing_selector(attr);
-+	int val, pos, len;
-+
-+	regmap_read(uart_routing->map, sel->reg, &val);
-+	val = (val >> sel->shift) & sel->mask;
-+
-+	len = 0;
-+	for (pos = 0; sel->options[pos] != NULL; ++pos) {
-+		if (pos == val)
-+			len += sysfs_emit_at(buf, len, "[%s] ", sel->options[pos]);
-+		else
-+			len += sysfs_emit_at(buf, len, "%s ", sel->options[pos]);
-+	}
-+
-+	if (val >= pos)
-+		len += sysfs_emit_at(buf, len, "[unknown(%d)]", val);
-+
-+	len += sysfs_emit_at(buf, len, "\n");
-+
-+	return len;
-+}
-+
-+static ssize_t aspeed_uart_routing_store(struct device *dev,
-+					 struct device_attribute *attr,
-+					 const char *buf, size_t count)
-+{
-+	struct aspeed_uart_routing *uart_routing = dev_get_drvdata(dev);
-+	struct aspeed_uart_routing_selector *sel = to_routing_selector(attr);
-+	int val;
-+
-+	val = match_string(sel->options, -1, buf);
-+	if (val < 0) {
-+		dev_err(dev, "invalid value \"%s\"\n", buf);
-+		return -EINVAL;
-+	}
-+
-+	regmap_update_bits(uart_routing->map, sel->reg,
-+			(sel->mask << sel->shift),
-+			(val & sel->mask) << sel->shift);
-+
-+	return count;
-+}
-+
-+static int aspeed_uart_routing_probe(struct platform_device *pdev)
-+{
-+	int rc;
-+	struct device *dev = &pdev->dev;
-+	struct aspeed_uart_routing *uart_routing;
-+
-+	uart_routing = devm_kzalloc(&pdev->dev, sizeof(*uart_routing), GFP_KERNEL);
-+	if (!uart_routing)
-+		return -ENOMEM;
-+
-+	uart_routing->map = syscon_node_to_regmap(dev->parent->of_node);
-+	if (IS_ERR(uart_routing->map)) {
-+		dev_err(dev, "cannot get regmap\n");
-+		return PTR_ERR(uart_routing->map);
-+	}
-+
-+	uart_routing->attr_grp = of_device_get_match_data(dev);
-+
-+	rc = sysfs_create_group(&dev->kobj, uart_routing->attr_grp);
-+	if (rc < 0)
-+		return rc;
-+
-+	dev_set_drvdata(dev, uart_routing);
-+
-+	dev_info(dev, "module loaded\n");
-+
-+	return 0;
-+}
-+
-+static int aspeed_uart_routing_remove(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct aspeed_uart_routing *uart_routing = platform_get_drvdata(pdev);
-+
-+	sysfs_remove_group(&dev->kobj, uart_routing->attr_grp);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id aspeed_uart_routing_table[] = {
-+	{ .compatible = "aspeed,ast2400-uart-routing",
-+	  .data = &ast2500_uart_routing_attr_group },
-+	{ .compatible = "aspeed,ast2500-uart-routing",
-+	  .data = &ast2500_uart_routing_attr_group },
-+	{ .compatible = "aspeed,ast2600-uart-routing",
-+	  .data = &ast2600_uart_routing_attr_group },
-+	{ },
-+};
-+
-+static struct platform_driver aspeed_uart_routing_driver = {
-+	.driver = {
-+		.name = "aspeed-uart-routing",
-+		.of_match_table = aspeed_uart_routing_table,
-+	},
-+	.probe = aspeed_uart_routing_probe,
-+	.remove = aspeed_uart_routing_remove,
-+};
-+
-+module_platform_driver(aspeed_uart_routing_driver);
-+
-+MODULE_AUTHOR("Oskar Senft <osk@google.com>");
-+MODULE_AUTHOR("Chia-Wei Wang <chiawei_wang@aspeedtech.com>");
-+MODULE_LICENSE("GPL v2");
-+MODULE_DESCRIPTION("Driver to configure Aspeed UART routing");
--- 
-2.17.1
+For instance, 
+meta-yadro/recipes-phosphor/ipmi/phosphor-ipmi-host/0002-Add-support-for-boot-initiator-mailbox.patch
+is there because our customers demand this feature and we failed
+proving to openbmc maintainers that this is a needed feature
+and not a "security threat" or something. We honestly tried for months.
 
+On the other hand, 
+meta-yadro/meta-nicole/recipes-bsp/u-boot/files/0004-aspeed-add-bmc-position-support.patch
+is strictly hardware-specific and is not needed as is for other
+vendors or platforms, and we don't have time to make it a
+generic solution. If we ever do have that time, we will surely
+push the developed generic solution to the appropriate
+repository.
+
+What you propose now will force vendors to move farther away
+from upstream and create their own forks of openbmc where
+they will not even try to upstream their changes and will just drift
+farther and farther away.
+
+Is that what you really pursue or did I get your idea wrong?
+So far it looks to me like a destructive decision.
+
+WBR, Alexander.
+
+22.09.2021 01:35, Ed Tanous пишет:
+> A few new features have been merged into CI that will now disallow
+> .patch files within most meta layers.  This is due to a significant
+> number of them popping up in both reviews and in the repo itself,
+> despite having documented rules to the contrary.  The hope here is to
+> better codify our rules, and give very quick response to submitters
+> about the right procedure so we can encourage getting patches in
+> faster, and keep machines buildable against master.  As the patches
+> state, meta-phosphor is still allowed to contain patch files as an
+> escape hatch, if the community decides it's required.
+>
+> The patchsets in question are here:
+> https://gerrit.openbmc-project.xyz/q/repotest
+>
+> And add some ability for us to make more of these expectations for
+> meta layers codified in the future.
+>
+> The script itself is here:
+> https://github.com/openbmc/openbmc/blob/master/meta-phosphor/scripts/run-repotest.sh
+> and is runnable on any tree prior to submitting to CI.  We currently
+> have the following patches in meta layers.
+>
+> meta-amd/meta-ethanolx/recipes-x86/chassis/x86-power-control/0001-Amd-power-control-modifications-for-EthanolX.patch
+> meta-ampere/meta-common/recipes-devtools/mtd/mtd-utils/0001-flashcp-support-offset-option.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0001-aspeed-scu-Switch-PWM-pin-to-GPIO-input-mode.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0002-aspeed-Disable-internal-PD-resistors-for-GPIOs.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0003-aspeed-support-passing-system-reset-status-to-kernel.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0004-aspeed-add-gpio-support.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0005-aspeed-Enable-SPI-master-mode.patch
+> meta-ampere/meta-jade/recipes-bsp/u-boot/u-boot-aspeed/0006-aspeed-support-Mt.Jade-platform-init.patch
+> meta-aspeed/recipes-bsp/u-boot/files/default-gcc.patch
+> meta-bytedance/meta-g220a/recipes-kernel/linux/linux-aspeed/0001-bytedance-g220a-Enable-ipmb.patch
+> meta-bytedance/meta-g220a/recipes-kernel/linux/linux-aspeed/0003-misc-aspeed-Add-Aspeed-UART-routing-control-driver.patch
+> meta-bytedance/meta-g220a/recipes-kernel/linux/linux-aspeed/0004-ARM-dts-aspeed-Add-uart-routing-node.patch
+> meta-bytedance/meta-g220a/recipes-kernel/linux/linux-aspeed/0005-ARM-dts-aspeed-Enable-g220a-uart-route.patch
+> meta-bytedance/meta-g220a/recipes-phosphor/ipmi/phosphor-node-manager-proxy/0001-Remove-Total_Power-sensor.patch
+> meta-facebook/meta-bletchley/recipes-bsp/u-boot/u-boot-aspeed-sdk/0001-u-boot-ast2600-57600-baudrate-for-bletchley.patch
+> meta-facebook/meta-tiogapass/recipes-bsp/u-boot/u-boot-aspeed/0001-configs-ast-common-use-57600-baud-rate-to-match-Tiog.patch
+> meta-facebook/meta-yosemitev2/recipes-bsp/u-boot/u-boot-aspeed/0001-board-aspeed-Add-Mux-for-yosemitev2.patch
+> meta-facebook/meta-yosemitev2/recipes-bsp/u-boot/u-boot-aspeed/0002-spl-host-console-handle.patch
+> meta-google/dynamic-layers/nuvoton-layer/recipes-bsp/images/npcm7xx-igps/0001-Set-FIU0_DRD_CFG-and-FIU_Clk_divider-for-gbmc-hoth.patch
+> meta-google/recipes-extended/libconfig/files/0001-conf2struct-Use-the-right-perl.patch
+> meta-google/recipes-extended/libconfig/files/0001-makefile-Add-missing-LDFLAGS.patch
+> meta-google/recipes-phosphor/initrdscripts/obmc-phosphor-initfs/rwfs-clean-dev.patch
+> meta-ingrasys/meta-zaius/recipes-bsp/u-boot/u-boot-aspeed/0001-board-aspeed-Add-reset_phy-for-Zaius.patch
+> meta-nuvoton/recipes-bsp/images/npcm7xx-igps/0001-Adjust-paths-for-use-with-Bitbake.patch
+> meta-yadro/meta-nicole/recipes-bsp/u-boot/files/0001-Add-system-reset-status-support.patch
+> meta-yadro/meta-nicole/recipes-bsp/u-boot/files/0002-config-ast-common-set-fieldmode-to-true.patch
+> meta-yadro/meta-nicole/recipes-bsp/u-boot/files/0003-aspeed-add-gpio-support.patch
+> meta-yadro/meta-nicole/recipes-bsp/u-boot/files/0004-aspeed-add-bmc-position-support.patch
+> meta-yadro/meta-nicole/recipes-kernel/linux/linux-aspeed/0001-Add-NCSI-channel-selector.patch
+> meta-yadro/meta-nicole/recipes-phosphor/host/op-proc-control/0001-Stop-and-send-SRESET-for-one-thread-only.patch
+> meta-yadro/recipes-phosphor/dbus/phosphor-dbus-interfaces/0001-Add-boot-initiator-mailbox-interface.patch
+> meta-yadro/recipes-phosphor/ipmi/phosphor-ipmi-host/0001-Add-support-for-persistent-only-settings.patch
+> meta-yadro/recipes-phosphor/ipmi/phosphor-ipmi-host/0002-Add-support-for-boot-initiator-mailbox.patch
+> meta-yadro/recipes-phosphor/ipmi/phosphor-ipmi-host/0003-Fix-version-parsing-update-AUX-revision-info.patch
+>
+> If you are a maintainer of these meta layers, please work to get these
+> patches submitted to the correct repositories using their prefered
+> review (email for linux/u-boot, gerrit for phosphor repos).
+>
+> Thanks,
+>
+> -Ed
