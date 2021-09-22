@@ -7,19 +7,19 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 92B05C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 321C1C433EF
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:35:12 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 3611161168
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3611161168
+	by mail.kernel.org (Postfix) with ESMTPS id 7B13A61168
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:35:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 7B13A61168
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HDqnL6Ggcz3bXC
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 17:34:46 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HDqnp1PjPz2yxv
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 17:35:10 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -28,23 +28,23 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HDqls1QkPz2yLq;
- Wed, 22 Sep 2021 17:33:27 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HDqls1TZQz2yPy;
+ Wed, 22 Sep 2021 17:33:25 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 18M7CPFT096732;
+ by twspam01.aspeedtech.com with ESMTP id 18M7CPFR096732;
  Wed, 22 Sep 2021 15:12:27 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 22 Sep 2021 15:32:44 +0800
+ Wed, 22 Sep 2021 15:32:43 +0800
 From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH v6 4/4] ARM: dts: aspeed: Add uart routing to device tree
-Date: Wed, 22 Sep 2021 15:32:41 +0800
-Message-ID: <20210922073241.14119-5-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v6 2/4] dt-bindings: aspeed: Add UART routing controller
+Date: Wed, 22 Sep 2021 15:32:39 +0800
+Message-ID: <20210922073241.14119-3-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
 References: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
@@ -54,7 +54,7 @@ X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 18M7CPFT096732
+X-MAIL: twspam01.aspeedtech.com 18M7CPFR096732
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,68 +71,93 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add LPC uart routing to the device tree for Aspeed SoCs.
+Add dt-bindings for Aspeed UART routing controller.
 
 Signed-off-by: Oskar Senft <osk@google.com>
 Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-Tested-by: Lei YU <yulei.sh@bytedance.com>
 ---
- arch/arm/boot/dts/aspeed-g4.dtsi | 6 ++++++
- arch/arm/boot/dts/aspeed-g5.dtsi | 6 ++++++
- arch/arm/boot/dts/aspeed-g6.dtsi | 6 ++++++
- 3 files changed, 18 insertions(+)
+ .../devicetree/bindings/mfd/aspeed-lpc.yaml   |  4 ++
+ .../bindings/soc/aspeed/uart-routing.yaml     | 56 +++++++++++++++++++
+ 2 files changed, 60 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
 
-diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
-index c5aeb3cf3a09..b313a1cf5f73 100644
---- a/arch/arm/boot/dts/aspeed-g4.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g4.dtsi
-@@ -383,6 +383,12 @@
- 					interrupts = <8>;
- 					status = "disabled";
- 				};
-+
-+				uart_routing: uart-routing@9c {
-+					compatible = "aspeed,ast2400-uart-routing";
-+					reg = <0x9c 0x4>;
-+					status = "disabled";
-+				};
- 			};
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+index 9c66795a1fb6..fdcbb7906581 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+@@ -142,6 +142,10 @@ patternProperties:
+       - interrupts
+       - snoop-ports
  
- 			uart2: serial@1e78d000 {
-diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
-index 73ca1ec6fc24..c7049454c7cb 100644
---- a/arch/arm/boot/dts/aspeed-g5.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g5.dtsi
-@@ -491,6 +491,12 @@
- 					#reset-cells = <1>;
- 				};
- 
-+				uart_routing: uart-routing@9c {
-+					compatible = "aspeed,ast2500-uart-routing";
-+					reg = <0x9c 0x4>;
-+					status = "disabled";
-+				};
++  "^uart-routing@[0-9a-f]+$":
++    $ref: /schemas/soc/aspeed/uart-routing.yaml#
++    description: The UART routing control under LPC register space
 +
- 				lhc: lhc@a0 {
- 					compatible = "aspeed,ast2500-lhc";
- 					reg = <0xa0 0x24 0xc8 0x8>;
-diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
-index 1b47be1704f8..cdc59c5d86fe 100644
---- a/arch/arm/boot/dts/aspeed-g6.dtsi
-+++ b/arch/arm/boot/dts/aspeed-g6.dtsi
-@@ -551,6 +551,12 @@
- 					#reset-cells = <1>;
- 				};
- 
-+				uart_routing: uart-routing@98 {
-+					compatible = "aspeed,ast2600-uart-routing";
-+					reg = <0x98 0x8>;
-+					status = "disabled";
-+				};
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml b/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
+new file mode 100644
+index 000000000000..6876407124dc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# # Copyright (c) 2018 Google LLC
++# # Copyright (c) 2021 Aspeed Technology Inc.
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/soc/aspeed/uart-routing.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
 +
- 				ibt: ibt@140 {
- 					compatible = "aspeed,ast2600-ibt-bmc";
- 					reg = <0x140 0x18>;
++title: Aspeed UART Routing Controller
++
++maintainers:
++  - Oskar Senft <osk@google.com>
++  - Chia-Wei Wang <chiawei_wang@aspeedtech.com>
++
++description:
++  The Aspeed UART routing control allow to dynamically route the inputs for
++  the built-in UARTS and physical serial I/O ports.
++
++  This allows, for example, to connect the output of UART to another UART.
++  This can be used to enable Host <-> BMC communication via UARTs, e.g. to
++  allow access to the Host's serial console.
++
++  This driver is for the BMC side. The sysfs files allow the BMC userspace
++  which owns the system configuration policy, to configure how UARTs and
++  physical serial I/O ports are routed.
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - aspeed,ast2400-uart-routing
++          - aspeed,ast2500-uart-routing
++          - aspeed,ast2600-uart-routing
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    lpc: lpc@1e789000 {
++        compatible = "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
++        reg = <0x1e789000 0x1000>;
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x0 0x1e789000 0x1000>;
++
++        uart_routing: uart-routing@98 {
++            compatible = "aspeed,ast2600-uart-routing";
++            reg = <0x98 0x8>;
++        };
++    };
 -- 
 2.17.1
 
