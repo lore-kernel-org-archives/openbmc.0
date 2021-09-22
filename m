@@ -2,23 +2,24 @@ Return-Path: <SRS0=bmDf=OM=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2EE1BC433F5
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 92B05C433EF
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:48 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id AD27D610A1
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org AD27D610A1
+	by mail.kernel.org (Postfix) with ESMTPS id 3611161168
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 07:34:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 3611161168
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HDqmq2r5Kz305T
-	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 17:34:19 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HDqnL6Ggcz3bXC
+	for <openbmc@archiver.kernel.org>; Wed, 22 Sep 2021 17:34:46 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -27,31 +28,33 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HDqls1Mhpz2yJv;
- Wed, 22 Sep 2021 17:33:25 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HDqls1QkPz2yLq;
+ Wed, 22 Sep 2021 17:33:27 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 18M7CPKR096731;
- Wed, 22 Sep 2021 15:12:25 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 18M7CPFT096732;
+ Wed, 22 Sep 2021 15:12:27 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Wed, 22 Sep 2021 15:32:43 +0800
+ Wed, 22 Sep 2021 15:32:44 +0800
 From: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
 To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH v6 0/4] arm: aspeed: Add UART routing support
-Date: Wed, 22 Sep 2021 15:32:37 +0800
-Message-ID: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v6 4/4] ARM: dts: aspeed: Add uart routing to device tree
+Date: Wed, 22 Sep 2021 15:32:41 +0800
+Message-ID: <20210922073241.14119-5-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
+References: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 18M7CPKR096731
+X-MAIL: twspam01.aspeedtech.com 18M7CPFT096732
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,51 +71,68 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add UART routing driver and the device tree nodes.
+Add LPC uart routing to the device tree for Aspeed SoCs.
 
-v6:
- - Fix another typo in YAML file
- - Move sysfs description from bindings to ABI document
+Signed-off-by: Oskar Senft <osk@google.com>
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+Tested-by: Lei YU <yulei.sh@bytedance.com>
+---
+ arch/arm/boot/dts/aspeed-g4.dtsi | 6 ++++++
+ arch/arm/boot/dts/aspeed-g5.dtsi | 6 ++++++
+ arch/arm/boot/dts/aspeed-g6.dtsi | 6 ++++++
+ 3 files changed, 18 insertions(+)
 
-v5:
- - Fix typo in YAML file to solve the compatible string not found error
-
-v4:
- - Convert aspeed-lpc bindings to YAML schema to resolve dependecy issues
-
-v3:
- - Add individual bindings in YAML
- - Add support for AST24xx (AST25xx shares the same design)
- - Add more explanation for the sysfs ABI
-
-v2:
- - Add dt-bindings
- - Add ABI documents for the exported sysfs interface
- - Revise driver implementation suggested by Joel
-
-Chia-Wei Wang (4):
-  dt-bindings: mfd: aspeed-lpc: Convert to YAML schema
-  dt-bindings: aspeed: Add UART routing controller
-  soc: aspeed: Add UART routing support
-  ARM: dts: aspeed: Add uart routing to device tree
-
- .../testing/sysfs-driver-aspeed-uart-routing  |  27 +
- .../devicetree/bindings/mfd/aspeed-lpc.txt    | 157 -----
- .../devicetree/bindings/mfd/aspeed-lpc.yaml   | 191 ++++++
- .../bindings/soc/aspeed/uart-routing.yaml     |  56 ++
- arch/arm/boot/dts/aspeed-g4.dtsi              |   6 +
- arch/arm/boot/dts/aspeed-g5.dtsi              |   6 +
- arch/arm/boot/dts/aspeed-g6.dtsi              |   6 +
- drivers/soc/aspeed/Kconfig                    |  10 +
- drivers/soc/aspeed/Makefile                   |   9 +-
- drivers/soc/aspeed/aspeed-uart-routing.c      | 603 ++++++++++++++++++
- 10 files changed, 910 insertions(+), 161 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing
- delete mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
- create mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
- create mode 100644 Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
- create mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
-
+diff --git a/arch/arm/boot/dts/aspeed-g4.dtsi b/arch/arm/boot/dts/aspeed-g4.dtsi
+index c5aeb3cf3a09..b313a1cf5f73 100644
+--- a/arch/arm/boot/dts/aspeed-g4.dtsi
++++ b/arch/arm/boot/dts/aspeed-g4.dtsi
+@@ -383,6 +383,12 @@
+ 					interrupts = <8>;
+ 					status = "disabled";
+ 				};
++
++				uart_routing: uart-routing@9c {
++					compatible = "aspeed,ast2400-uart-routing";
++					reg = <0x9c 0x4>;
++					status = "disabled";
++				};
+ 			};
+ 
+ 			uart2: serial@1e78d000 {
+diff --git a/arch/arm/boot/dts/aspeed-g5.dtsi b/arch/arm/boot/dts/aspeed-g5.dtsi
+index 73ca1ec6fc24..c7049454c7cb 100644
+--- a/arch/arm/boot/dts/aspeed-g5.dtsi
++++ b/arch/arm/boot/dts/aspeed-g5.dtsi
+@@ -491,6 +491,12 @@
+ 					#reset-cells = <1>;
+ 				};
+ 
++				uart_routing: uart-routing@9c {
++					compatible = "aspeed,ast2500-uart-routing";
++					reg = <0x9c 0x4>;
++					status = "disabled";
++				};
++
+ 				lhc: lhc@a0 {
+ 					compatible = "aspeed,ast2500-lhc";
+ 					reg = <0xa0 0x24 0xc8 0x8>;
+diff --git a/arch/arm/boot/dts/aspeed-g6.dtsi b/arch/arm/boot/dts/aspeed-g6.dtsi
+index 1b47be1704f8..cdc59c5d86fe 100644
+--- a/arch/arm/boot/dts/aspeed-g6.dtsi
++++ b/arch/arm/boot/dts/aspeed-g6.dtsi
+@@ -551,6 +551,12 @@
+ 					#reset-cells = <1>;
+ 				};
+ 
++				uart_routing: uart-routing@98 {
++					compatible = "aspeed,ast2600-uart-routing";
++					reg = <0x98 0x8>;
++					status = "disabled";
++				};
++
+ 				ibt: ibt@140 {
+ 					compatible = "aspeed,ast2600-ibt-bmc";
+ 					reg = <0x140 0x18>;
 -- 
 2.17.1
 
