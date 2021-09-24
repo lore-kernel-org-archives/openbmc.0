@@ -2,71 +2,45 @@ Return-Path: <SRS0=iBVr=OO=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 X-Spam-Level: 
-X-Spam-Status: No, score=-14.0 required=3.0 tests=BAYES_00,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=3.4.0
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS autolearn=ham autolearn_force=no version=3.4.0
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E06AC433F5
-	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 01:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4E55AC433EF
+	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 02:46:23 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 0B5C061211
-	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 01:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 0B5C061211
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id 88B5F610C9
+	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 02:46:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 88B5F610C9
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=codeconstruct.com.au
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HFtzF39RMz30R2
-	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 11:02:01 +1000 (AEST)
-Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=209.85.210.49; helo=mail-ot1-f49.google.com;
- envelope-from=robherring2@gmail.com; receiver=<UNKNOWN>)
-Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com
- [209.85.210.49])
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HFxHc6NGVz304S
+	for <openbmc@archiver.kernel.org>; Fri, 24 Sep 2021 12:46:20 +1000 (AEST)
+Authentication-Results: lists.ozlabs.org; spf=none (no SPF record)
+ smtp.mailfrom=codeconstruct.com.au (client-ip=203.29.241.158;
+ helo=codeconstruct.com.au; envelope-from=matt@codeconstruct.com.au;
+ receiver=<UNKNOWN>)
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HFtyf70b7z2ybC;
- Fri, 24 Sep 2021 11:01:30 +1000 (AEST)
-Received: by mail-ot1-f49.google.com with SMTP id
- o59-20020a9d2241000000b0054745f28c69so8961962ota.13; 
- Thu, 23 Sep 2021 18:01:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=urz8FYBXj65a7OQWijy7xkzj+b5LyJCaBborSqW0HQA=;
- b=nphOzED1OBjcdjteuRwZnCI5iTjzom5ywGq0vU0TwylSWkoUqZ7TRxmeJq+c7Teesz
- +RJhpJ65nHUjib5HZNtEbUD5TrK51hGPC8HqiPVaAr7sjnkHJOmEUmkCTIzAuf0bdoyl
- LFb044LSEVONA0qX6nYP7BdjuauQ+gGLklJMhBwYitSFZT0F7gjUuZ0m0s3nPF3RTZqW
- oq/SA+rptcopTHgzU/3qX7mNUr1in1AeFU7aGiNgyNhMHyOg9jwKUrx4Niy74j7BEemT
- BUYdQSbpLsWwMR6/CBvTiebPbIqlGhXc2r5bTNiT9V1O7FaFU+4OX1bGaAo6MXixfbOE
- I+tg==
-X-Gm-Message-State: AOAM532GgPkNScm0Lpemo2vWOQLXMPRVlICC6Mjfk9kKtkO4s4SSJRdp
- fFtF/bsdmLxSQzJ82PC0gg==
-X-Google-Smtp-Source: ABdhPJyYluxit92wpgHRxp5jm/+GCNNV1Rzzp6SPv42n9fF9kjTALxEgk6gmgNeZvcL8R+VX8w/dkA==
-X-Received: by 2002:a05:6830:2b1e:: with SMTP id
- l30mr1515926otv.55.1632445286993; 
- Thu, 23 Sep 2021 18:01:26 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id n33sm1706549ota.8.2021.09.23.18.01.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Sep 2021 18:01:26 -0700 (PDT)
-Received: (nullmailer pid 3850087 invoked by uid 1000);
- Fri, 24 Sep 2021 01:01:25 -0000
-Date: Thu, 23 Sep 2021 20:01:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-Subject: Re: [PATCH v6 2/4] dt-bindings: aspeed: Add UART routing controller
-Message-ID: <YU0jZb/VgSTeHMMK@robh.at.kernel.org>
-References: <20210922073241.14119-1-chiawei_wang@aspeedtech.com>
- <20210922073241.14119-3-chiawei_wang@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HFxH64d2Gz2yQ9
+ for <openbmc@lists.ozlabs.org>; Fri, 24 Sep 2021 12:45:54 +1000 (AEST)
+Received: from [192.168.12.102] (unknown [159.196.94.94])
+ by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 094022012C;
+ Fri, 24 Sep 2021 10:45:50 +0800 (AWST)
+Message-ID: <94429904ec0c9d75919cda42339a2fafcbc35fe4.camel@codeconstruct.com.au>
+Subject: openssh-dev package and populate_sdk conflicts
+From: Matt Johnston <matt@codeconstruct.com.au>
+To: openembedded-devel@lists.openembedded.org
+Date: Fri, 24 Sep 2021 10:45:49 +0800
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.40.0-1 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210922073241.14119-3-chiawei_wang@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,23 +52,38 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, yulei.sh@bytedance.com, linux-kernel@vger.kernel.org,
- robh+dt@kernel.org, linux-arm-kernel@lists.infradead.org, osk@google.com
+Cc: OpenBMC Maillist <openbmc@lists.ozlabs.org>
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Wed, 22 Sep 2021 15:32:39 +0800, Chia-Wei Wang wrote:
-> Add dt-bindings for Aspeed UART routing controller.
-> 
-> Signed-off-by: Oskar Senft <osk@google.com>
-> Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-> ---
->  .../devicetree/bindings/mfd/aspeed-lpc.yaml   |  4 ++
->  .../bindings/soc/aspeed/uart-routing.yaml     | 56 +++++++++++++++++++
->  2 files changed, 60 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
-> 
+Hi OE list,
 
-Reviewed-by: Rob Herring <robh@kernel.org>
+Recently OpenBMC merged a change to install openssh-sftp-server package
+alongside dropbear sshd [1]. That caused a conflict in "populate_sdk" which
+installs all available -dev packages [2]. 'openssh-dev' pulls in an
+'openssh' -> 'openssh-sshd' dependency which conflicts with 'dropbear' [3].
+
+What would be the recommended way to handle that situation? For now OpenBMC
+has merged a change to disable building openssh-dev (it's empty since
+openssh doesn't have libraries) [4].
+
+Should non-library packages handle -dev packages differently? The default 
+-dev package comes from bitbake.conf .
+
+Cheers,
+Matt
+
+[1]
+https://github.com/openbmc/openbmc/commit/26dbcdbd917e4f22fb400153da0d3e7255c8e646
+[2]
+https://github.com/openbmc/openbmc/blob/49465582e16221caf74cbdea11c87600a02bf47b/poky/meta/classes/populate_sdk_base.bbclass#L5
+
+[3] https://github.com/openbmc/openbmc/issues/3819
+ *   - package openssh-8.7p1-r0.arm1176jzs conflicts with dropbear provided
+by dropbear-2020.81-r0.arm1176jzs
+ *   - package openssh-dev-8.7p1-r0.arm1176jzs requires openssh = 8.7p1-r0,
+but none of the providers can be installed
+
+[4] https://gerrit.openbmc-project.xyz/c/openbmc/openbmc/+/47089
+
