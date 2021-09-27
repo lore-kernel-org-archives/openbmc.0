@@ -2,19 +2,19 @@ Return-Path: <SRS0=7PyP=OR=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 267ADC433EF
-	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 02:32:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7C8F4C433EF
+	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 02:33:17 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 8E612610A2
-	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 02:32:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 8E612610A2
+	by mail.kernel.org (Postfix) with ESMTPS id C9A6360D07
+	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 02:33:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org C9A6360D07
 Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=aspeedtech.com
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HHmrg2J0dz3015
-	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 12:32:51 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HHms73gtSz2ynr
+	for <openbmc@archiver.kernel.org>; Mon, 27 Sep 2021 12:33:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
  smtp.mailfrom=aspeedtech.com (client-ip=211.20.114.71;
  helo=twspam01.aspeedtech.com; envelope-from=chiawei_wang@aspeedtech.com;
@@ -23,11 +23,11 @@ Received: from twspam01.aspeedtech.com (twspam01.aspeedtech.com
  [211.20.114.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HHmq76H64z2yHM;
- Mon, 27 Sep 2021 12:31:30 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HHmqC2xGtz2yHM;
+ Mon, 27 Sep 2021 12:31:35 +1000 (AEST)
 Received: from mail.aspeedtech.com ([192.168.0.24])
- by twspam01.aspeedtech.com with ESMTP id 18R2AIXn038748;
- Mon, 27 Sep 2021 10:10:18 +0800 (GMT-8)
+ by twspam01.aspeedtech.com with ESMTP id 18R2AIvu038750;
+ Mon, 27 Sep 2021 10:10:20 +0800 (GMT-8)
  (envelope-from chiawei_wang@aspeedtech.com)
 Received: from ChiaWeiWang-PC.aspeed.com (192.168.2.66) by TWMBX02.aspeed.com
  (192.168.0.24) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
@@ -37,17 +37,19 @@ To: <robh+dt@kernel.org>, <joel@jms.id.au>, <andrew@aj.id.au>,
  <linux-arm-kernel@lists.infradead.org>,
  <linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>,
  <devicetree@vger.kernel.org>, <openbmc@lists.ozlabs.org>
-Subject: [PATCH v7 0/5] arm: aspeed: Add UART routing support
-Date: Mon, 27 Sep 2021 10:30:48 +0800
-Message-ID: <20210927023053.6728-1-chiawei_wang@aspeedtech.com>
+Subject: [PATCH v7 3/5] dt-bindings: aspeed: Add UART routing controller
+Date: Mon, 27 Sep 2021 10:30:51 +0800
+Message-ID: <20210927023053.6728-4-chiawei_wang@aspeedtech.com>
 X-Mailer: git-send-email 2.17.1
+In-Reply-To: <20210927023053.6728-1-chiawei_wang@aspeedtech.com>
+References: <20210927023053.6728-1-chiawei_wang@aspeedtech.com>
 MIME-Version: 1.0
 Content-Type: text/plain
 X-Originating-IP: [192.168.2.66]
 X-ClientProxiedBy: TWMBX02.aspeed.com (192.168.0.24) To TWMBX02.aspeed.com
  (192.168.0.24)
 X-DNSRBL: 
-X-MAIL: twspam01.aspeedtech.com 18R2AIXn038748
+X-MAIL: twspam01.aspeedtech.com 18R2AIvu038750
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,56 +66,94 @@ Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Add UART routing driver and the device tree nodes.
+Add dt-bindings for Aspeed UART routing controller.
 
-v7:
- - Drop unused 'reg-io-width' properties from LPC nodes
- - Revise LPC bindgins as suggested by Rob
-
-v6:
- - Fix another typo in YAML file
- - Move sysfs description from bindings to ABI document
-
-v5:
- - Fix typo in YAML file to solve the compatible string not found error
-
-v4:
- - Convert aspeed-lpc bindings to YAML schema to resolve dependecy issues
-
-v3:
- - Add individual bindings in YAML
- - Add support for AST24xx (AST25xx shares the same design)
- - Add more explanation for the sysfs ABI
-
-v2:
- - Add dt-bindings
- - Add ABI documents for the exported sysfs interface
- - Revise driver implementation suggested by Joel
-
-Chia-Wei Wang (5):
-  ARM: dts: aspeed: Drop reg-io-width from LPC nodes
-  dt-bindings: mfd: aspeed-lpc: Convert to YAML schema
-  dt-bindings: aspeed: Add UART routing controller
-  soc: aspeed: Add UART routing support
-  ARM: dts: aspeed: Add uart routing to device tree
-
- .../testing/sysfs-driver-aspeed-uart-routing  |  27 +
- .../devicetree/bindings/mfd/aspeed-lpc.txt    | 157 -----
- .../devicetree/bindings/mfd/aspeed-lpc.yaml   | 192 ++++++
- .../bindings/soc/aspeed/uart-routing.yaml     |  56 ++
- arch/arm/boot/dts/aspeed-g4.dtsi              |   7 +-
- arch/arm/boot/dts/aspeed-g5.dtsi              |   7 +-
- arch/arm/boot/dts/aspeed-g6.dtsi              |   7 +-
- drivers/soc/aspeed/Kconfig                    |  10 +
- drivers/soc/aspeed/Makefile                   |   9 +-
- drivers/soc/aspeed/aspeed-uart-routing.c      | 603 ++++++++++++++++++
- 10 files changed, 911 insertions(+), 164 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-aspeed-uart-routing
- delete mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.txt
- create mode 100644 Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+Signed-off-by: Oskar Senft <osk@google.com>
+Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
+---
+ .../devicetree/bindings/mfd/aspeed-lpc.yaml   |  4 ++
+ .../bindings/soc/aspeed/uart-routing.yaml     | 56 +++++++++++++++++++
+ 2 files changed, 60 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
- create mode 100644 drivers/soc/aspeed/aspeed-uart-routing.c
 
+diff --git a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+index 03d417762752..f1538038c045 100644
+--- a/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
++++ b/Documentation/devicetree/bindings/mfd/aspeed-lpc.yaml
+@@ -142,6 +142,10 @@ patternProperties:
+       - interrupts
+       - snoop-ports
+ 
++  "^uart-routing@[0-9a-f]+$":
++    $ref: /schemas/soc/aspeed/uart-routing.yaml#
++    description: The UART routing control under LPC register space
++
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml b/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
+new file mode 100644
+index 000000000000..6876407124dc
+--- /dev/null
++++ b/Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++# # Copyright (c) 2018 Google LLC
++# # Copyright (c) 2021 Aspeed Technology Inc.
++%YAML 1.2
++---
++$id: "http://devicetree.org/schemas/soc/aspeed/uart-routing.yaml#"
++$schema: "http://devicetree.org/meta-schemas/core.yaml#"
++
++title: Aspeed UART Routing Controller
++
++maintainers:
++  - Oskar Senft <osk@google.com>
++  - Chia-Wei Wang <chiawei_wang@aspeedtech.com>
++
++description:
++  The Aspeed UART routing control allow to dynamically route the inputs for
++  the built-in UARTS and physical serial I/O ports.
++
++  This allows, for example, to connect the output of UART to another UART.
++  This can be used to enable Host <-> BMC communication via UARTs, e.g. to
++  allow access to the Host's serial console.
++
++  This driver is for the BMC side. The sysfs files allow the BMC userspace
++  which owns the system configuration policy, to configure how UARTs and
++  physical serial I/O ports are routed.
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - aspeed,ast2400-uart-routing
++          - aspeed,ast2500-uart-routing
++          - aspeed,ast2600-uart-routing
++  reg:
++    maxItems: 1
++
++required:
++  - compatible
++
++additionalProperties: false
++
++examples:
++  - |
++    lpc: lpc@1e789000 {
++        compatible = "aspeed,ast2600-lpc-v2", "simple-mfd", "syscon";
++        reg = <0x1e789000 0x1000>;
++
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges = <0x0 0x1e789000 0x1000>;
++
++        uart_routing: uart-routing@98 {
++            compatible = "aspeed,ast2600-uart-routing";
++            reg = <0x98 0x8>;
++        };
++    };
 -- 
 2.17.1
 
