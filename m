@@ -2,67 +2,56 @@ Return-Path: <SRS0=OLA0=OT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40418C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 22:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 91333C433F5
+	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 23:29:43 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id 941BE60FC2
-	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 22:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 941BE60FC2
-Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=kernel.org
+	by mail.kernel.org (Postfix) with ESMTPS id D675161504
+	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 23:29:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org D675161504
+Authentication-Results: mail.kernel.org; dmarc=none (p=none dis=none) header.from=sjtu.edu.cn
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HKVwD6Zd3z2xv2
-	for <openbmc@archiver.kernel.org>; Thu, 30 Sep 2021 08:11:56 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HKXdx0yh2z307D
+	for <openbmc@archiver.kernel.org>; Thu, 30 Sep 2021 09:29:41 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=gmail.com (client-ip=209.85.167.179;
- helo=mail-oi1-f179.google.com; envelope-from=robherring2@gmail.com;
- receiver=<UNKNOWN>)
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
- [209.85.167.179])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ smtp.mailfrom=sjtu.edu.cn (client-ip=202.120.2.181; helo=smtp181.sjtu.edu.cn;
+ envelope-from=qtxuning1999@sjtu.edu.cn; receiver=<UNKNOWN>)
+X-Greylist: delayed 354 seconds by postgrey-1.36 at boromir;
+ Wed, 29 Sep 2021 21:11:34 AEST
+Received: from smtp181.sjtu.edu.cn (smtp181.sjtu.edu.cn [202.120.2.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HKVvh4jh5z2xtZ;
- Thu, 30 Sep 2021 08:11:27 +1000 (AEST)
-Received: by mail-oi1-f179.google.com with SMTP id t189so4786528oie.7;
- Wed, 29 Sep 2021 15:11:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Xe2Jz+HG0oynCJl0Rh79iqr/d53l3gDFqX1VxKfAJeg=;
- b=OfW00goHuMuvQynhsSuZyZSKuLwOrGu+TF9lKUkzqRxhDOiA6FDljz7/OV7Bti/xuc
- 243AYTO4hs2hP6UYiDwlsW+AmVvncllggUEmRNsYWbz8mSJZ+fObKZ0ppq/CidT4bWWy
- +RnMSh1Ln2t69iDvYI2n04r8YosCHLgKXG3LmHNMvdC1pqdzi6rCK1mT0ztv3GtXIXs3
- 1f3w/0LDPUZ/A7H8b3Du9aUnZpeMTBtgreIwF8kwQ7scIGo09WInSCNy9MwFM0Uc7KOz
- mIuoECdbrN006r+SeDEAczj5ZQlf8oDDEILADSm0Cc476heJUDbF1LE28AepaOw4ggZH
- ttYA==
-X-Gm-Message-State: AOAM530cXvtVxo0E9qb/D3fZGG31lLM5CSlea7Rs4aoCiJ9hiwowQdCr
- Rbo5AGQtJCeK+n5/CmnD0Q==
-X-Google-Smtp-Source: ABdhPJy/+/VB5A39jM44w1plBCdCfDo7DjkavPi1UzNuFA1EpZDX2UQk/OCAu6tqg2tZ2h0FWKJbAA==
-X-Received: by 2002:a05:6808:309f:: with SMTP id
- bl31mr17941oib.41.1632953485705; 
- Wed, 29 Sep 2021 15:11:25 -0700 (PDT)
-Received: from robh.at.kernel.org (66-90-148-213.dyn.grandenetworks.net.
- [66.90.148.213])
- by smtp.gmail.com with ESMTPSA id k2sm207954oog.5.2021.09.29.15.11.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Sep 2021 15:11:25 -0700 (PDT)
-Received: (nullmailer pid 313269 invoked by uid 1000);
- Wed, 29 Sep 2021 22:11:24 -0000
-Date: Wed, 29 Sep 2021 17:11:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-Subject: Re: [PATCH v7 3/5] dt-bindings: aspeed: Add UART routing controller
-Message-ID: <YVTkjKdXcyIVImmP@robh.at.kernel.org>
-References: <20210927023053.6728-1-chiawei_wang@aspeedtech.com>
- <20210927023053.6728-4-chiawei_wang@aspeedtech.com>
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HKDGG6BySz2yL9
+ for <openbmc@lists.ozlabs.org>; Wed, 29 Sep 2021 21:11:34 +1000 (AEST)
+Received: from proxy02.sjtu.edu.cn (smtp188.sjtu.edu.cn [202.120.2.188])
+ by smtp181.sjtu.edu.cn (Postfix) with ESMTPS id 789C21008CBC0;
+ Wed, 29 Sep 2021 19:05:34 +0800 (CST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+ by proxy02.sjtu.edu.cn (Postfix) with ESMTP id 8CD3F200B5753;
+ Wed, 29 Sep 2021 19:05:31 +0800 (CST)
+X-Virus-Scanned: amavisd-new at 
+Received: from proxy02.sjtu.edu.cn ([127.0.0.1])
+ by localhost (proxy02.sjtu.edu.cn [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id Rn75ASWTZkzI; Wed, 29 Sep 2021 19:05:31 +0800 (CST)
+Received: from guozhi-ipads.ipads-lab.se.sjtu.edu.cn (unknown [202.120.40.82])
+ (Authenticated sender: qtxuning1999@sjtu.edu.cn)
+ by proxy02.sjtu.edu.cn (Postfix) with ESMTPSA id 84914200C02CB;
+ Wed, 29 Sep 2021 19:05:14 +0800 (CST)
+From: Guo Zhi <qtxuning1999@sjtu.edu.cn>
+To: Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Daniel Lezcano <daniel.lezcano@linaro.org>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: [PATCH] clockresource/npcm: Fix kernel pointer leak
+Date: Wed, 29 Sep 2021 19:04:29 +0800
+Message-Id: <20210929110431.1113708-1-qtxuning1999@sjtu.edu.cn>
+X-Mailer: git-send-email 2.33.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20210927023053.6728-4-chiawei_wang@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 30 Sep 2021 09:29:17 +1000
 X-BeenThere: openbmc@lists.ozlabs.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,24 +63,34 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org, andrew@aj.id.au,
- openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, robh+dt@kernel.org,
- osk@google.com, linux-arm-kernel@lists.infradead.org
+Cc: openbmc@lists.ozlabs.org, Guo Zhi <qtxuning1999@sjtu.edu.cn>,
+ linux-kernel@vger.kernel.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-On Mon, 27 Sep 2021 10:30:51 +0800, Chia-Wei Wang wrote:
-> Add dt-bindings for Aspeed UART routing controller.
-> 
-> Signed-off-by: Oskar Senft <osk@google.com>
-> Signed-off-by: Chia-Wei Wang <chiawei_wang@aspeedtech.com>
-> Reviewed-by: Rob Herring <robh@kernel.org>
-> ---
->  .../devicetree/bindings/mfd/aspeed-lpc.yaml   |  4 ++
->  .../bindings/soc/aspeed/uart-routing.yaml     | 56 +++++++++++++++++++
->  2 files changed, 60 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/aspeed/uart-routing.yaml
-> 
+Pointers should be printed with %p rather than %px
+which printed kernel pointer directly.
+Change %px to %p to print the secured pointer.
 
-Applied, thanks!
+Signed-off-by: Guo Zhi <qtxuning1999@sjtu.edu.cn>
+---
+ drivers/clocksource/timer-npcm7xx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clocksource/timer-npcm7xx.c b/drivers/clocksource/timer-npcm7xx.c
+index a00520cbb660..bf477685d545 100644
+--- a/drivers/clocksource/timer-npcm7xx.c
++++ b/drivers/clocksource/timer-npcm7xx.c
+@@ -202,7 +202,7 @@ static int __init npcm7xx_timer_init(struct device_node *np)
+ 	npcm7xx_clocksource_init();
+ 	npcm7xx_clockevents_init();
+ 
+-	pr_info("Enabling NPCM7xx clocksource timer base: %px, IRQ: %d ",
++	pr_info("Enabling NPCM7xx clocksource timer base: %p, IRQ: %d ",
+ 		timer_of_base(&npcm7xx_to), timer_of_irq(&npcm7xx_to));
+ 
+ 	return 0;
+-- 
+2.33.0
+
