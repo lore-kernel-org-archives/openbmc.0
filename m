@@ -2,56 +2,56 @@ Return-Path: <SRS0=OLA0=OT=lists.ozlabs.org=openbmc-bounces+openbmc=archiver.ker
 X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 	aws-us-west-2-korg-lkml-1.web.codeaurora.org
 Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 40290C433EF
-	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 11:55:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B550C433EF
+	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 11:56:17 +0000 (UTC)
 Received: from lists.ozlabs.org (lists.ozlabs.org [112.213.38.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPS id B7F0A6136A
-	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 11:55:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org B7F0A6136A
+	by mail.kernel.org (Postfix) with ESMTPS id 584FC61407
+	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 11:56:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.1 mail.kernel.org 584FC61407
 Authentication-Results: mail.kernel.org; dmarc=fail (p=none dis=none) header.from=bewilderbeest.net
 Authentication-Results: mail.kernel.org; spf=pass smtp.mailfrom=lists.ozlabs.org
 Received: from boromir.ozlabs.org (localhost [IPv6:::1])
-	by lists.ozlabs.org (Postfix) with ESMTP id 4HKFF31khBz305f
-	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 21:55:35 +1000 (AEST)
+	by lists.ozlabs.org (Postfix) with ESMTP id 4HKFFq0HlKz2yn1
+	for <openbmc@archiver.kernel.org>; Wed, 29 Sep 2021 21:56:15 +1000 (AEST)
 Authentication-Results: lists.ozlabs.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=kbG2Osc2;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net header.a=rsa-sha256 header.s=thorn header.b=TPHBvzSo;
 	dkim-atps=neutral
 Authentication-Results: lists.ozlabs.org; spf=pass (sender SPF authorized)
- smtp.mailfrom=bewilderbeest.net (client-ip=2605:2700:0:5::4713:9cab;
+ smtp.mailfrom=bewilderbeest.net (client-ip=71.19.156.171;
  helo=thorn.bewilderbeest.net; envelope-from=zev@bewilderbeest.net;
  receiver=<UNKNOWN>)
 Authentication-Results: lists.ozlabs.org; dkim=pass (1024-bit key;
  unprotected) header.d=bewilderbeest.net header.i=@bewilderbeest.net
- header.a=rsa-sha256 header.s=thorn header.b=kbG2Osc2; 
+ header.a=rsa-sha256 header.s=thorn header.b=TPHBvzSo; 
  dkim-atps=neutral
 Received: from thorn.bewilderbeest.net (thorn.bewilderbeest.net
- [IPv6:2605:2700:0:5::4713:9cab])
+ [71.19.156.171])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by lists.ozlabs.org (Postfix) with ESMTPS id 4HKFCl0jk1z2yLm
- for <openbmc@lists.ozlabs.org>; Wed, 29 Sep 2021 21:54:26 +1000 (AEST)
+ by lists.ozlabs.org (Postfix) with ESMTPS id 4HKFCl3Zzwz2yPK;
+ Wed, 29 Sep 2021 21:54:27 +1000 (AEST)
 Received: from hatter.bewilderbeest.net (71-212-29-146.tukw.qwest.net
  [71.212.29.146])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: zev)
- by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 89B6E5BB;
- Wed, 29 Sep 2021 04:54:23 -0700 (PDT)
+ by thorn.bewilderbeest.net (Postfix) with ESMTPSA id 5AD49C20;
+ Wed, 29 Sep 2021 04:54:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bewilderbeest.net;
- s=thorn; t=1632916463;
- bh=VvdpB8mbsYf/DJVsjaHTusalreawtUz+RvXRNF7RnKs=;
+ s=thorn; t=1632916465;
+ bh=gWhuqV+M1Tlbi05phPKIzczuXxjec79mm6Htp3ec2Fc=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=kbG2Osc2t+/QFFAWn9ongmo33wgHSa7nxJfnis/84QRCheip6ACs4vk2ndlhTeMTH
- bz/yF1Ts6JL7fgwosxPYf2Iw0VYA9PY48tqBiWnt491P7dYMMQ3/5oXyCUqHMoS/Cu
- 1YUOITs+uvDqowgJN5PVsI8EiuTRqCcUOrpOLNIs=
+ b=TPHBvzSoAHCSQnD3bL2UL4TNhvWQeplNlEAzdi66LW/EUSsZHaD8j+grZQ+lI2rPL
+ eCkgGN+VYhA8AV5DkC4Shr4g/Hu70PSi+JCPV/MV1HNEtnkphvooWRgWmWSiRA5E23
+ 67EO2AZnjt3cdiI2zXmGhZBitG81BlaRm1fHmeno=
 From: Zev Weiss <zev@bewilderbeest.net>
 To: openbmc@lists.ozlabs.org
-Subject: [PATCH 1/6] of: base: Add function to check for status = "reserved"
-Date: Wed, 29 Sep 2021 04:54:03 -0700
-Message-Id: <20210929115409.21254-2-zev@bewilderbeest.net>
+Subject: [PATCH 3/6] mtd: spi-nor: aspeed: Refactor registration/unregistration
+Date: Wed, 29 Sep 2021 04:54:05 -0700
+Message-Id: <20210929115409.21254-4-zev@bewilderbeest.net>
 X-Mailer: git-send-email 2.33.0
 In-Reply-To: <20210929115409.21254-1-zev@bewilderbeest.net>
 References: <20210929115409.21254-1-zev@bewilderbeest.net>
@@ -68,151 +68,170 @@ List-Post: <mailto:openbmc@lists.ozlabs.org>
 List-Help: <mailto:openbmc-request@lists.ozlabs.org?subject=help>
 List-Subscribe: <https://lists.ozlabs.org/listinfo/openbmc>,
  <mailto:openbmc-request@lists.ozlabs.org?subject=subscribe>
-Cc: devicetree@vger.kernel.org, Zev Weiss <zev@bewilderbeest.net>,
+Cc: Vignesh Raghavendra <vigneshr@ti.com>, Zev Weiss <zev@bewilderbeest.net>,
+ Tudor Ambarus <tudor.ambarus@microchip.com>, Andrew Jeffery <andrew@aj.id.au>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Rob Herring <robh+dt@kernel.org>,
+ Richard Weinberger <richard@nod.at>, Michael Walle <michael@walle.cc>,
+ linux-mtd@lists.infradead.org,
  =?UTF-8?q?C=C3=A9dric=20Le=20Goater?= <clg@kaod.org>,
- Jeremy Kerr <jk@codeconstruct.com.au>, Frank Rowand <frowand.list@gmail.com>
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jeremy Kerr <jk@codeconstruct.com.au>, linux-aspeed@lists.ozlabs.org,
+ Pratyush Yadav <p.yadav@ti.com>, linux-arm-kernel@lists.infradead.org
 Errors-To: openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org
 Sender: "openbmc"
  <openbmc-bounces+openbmc=archiver.kernel.org@lists.ozlabs.org>
 
-Per v0.3 of the Devicetree Specification [0]:
-
-  Indicates that the device is operational, but should not be used.
-  Typically this is used for devices that are controlled by another
-  software component, such as platform firmware.
-
-One use-case for this is in OpenBMC, where certain devices (such as a
-BIOS flash chip) may be shared by the host and the BMC, but cannot be
-accessed by the BMC during its usual boot-time device probing, because
-they require additional (potentially elaborate) coordination with the
-host to arbitrate which processor is controlling the device.
-
-Devices marked with this status should thus be instantiated, but not
-have a driver bound to them or be otherwise touched.
-
-[0] https://github.com/devicetree-org/devicetree-specification/releases/download/v0.3/devicetree-specification-v0.3.pdf
+We now have separate functions for registering and unregistering
+individual flash chips, instead of the entire controller.  This is a
+preparatory step for allowing userspace to request that a specific
+chip be attached or detached at runtime.
 
 Signed-off-by: Zev Weiss <zev@bewilderbeest.net>
 ---
- drivers/of/base.c  | 53 +++++++++++++++++++++++++++++++++++++++-------
- include/linux/of.h |  6 ++++++
- 2 files changed, 51 insertions(+), 8 deletions(-)
+ drivers/mtd/spi-nor/controllers/aspeed-smc.c | 73 ++++++++++++--------
+ 1 file changed, 45 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index f720c0d246f2..c5cc178fc6bd 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -579,14 +579,18 @@ int of_machine_is_compatible(const char *compat)
- EXPORT_SYMBOL(of_machine_is_compatible);
+diff --git a/drivers/mtd/spi-nor/controllers/aspeed-smc.c b/drivers/mtd/spi-nor/controllers/aspeed-smc.c
+index 7225870e8b18..3c153104a905 100644
+--- a/drivers/mtd/spi-nor/controllers/aspeed-smc.c
++++ b/drivers/mtd/spi-nor/controllers/aspeed-smc.c
+@@ -107,9 +107,10 @@ struct aspeed_smc_controller {
+ 	const struct aspeed_smc_info *info;	/* type info of controller */
+ 	void __iomem *regs;			/* controller registers */
+ 	void __iomem *ahb_base;			/* per-chip windows resource */
++	struct resource *ahb_res;		/* resource for AHB address space */
+ 	u32 ahb_window_size;			/* full mapping window size */
  
- /**
-- *  __of_device_is_available - check if a device is available for use
-+ * __of_device_check_status - check if a device's status matches a particular string
-  *
-- *  @device: Node to check for availability, with locks already held
-+ * @device: Node to check status of, with locks already held
-+ * @val: Status string to check for
-+ * @alt: Optional alternate status string to check for (NULL to check only @val)
-+ * @dflt: default to return if status property absent
-  *
-- *  Return: True if the status property is absent or set to "okay" or "ok",
-- *  false otherwise
-+ * Return: True if status property exists and matches either @val or @alt.
-+ * @dflt if status property is absent.  False otherwise.
-  */
--static bool __of_device_is_available(const struct device_node *device)
-+static bool __of_device_check_status(const struct device_node *device, const char *val,
-+                                     const char *alt, bool dflt)
+-	struct aspeed_smc_chip *chips[];	/* pointers to attached chips */
++	struct aspeed_smc_chip *chips[];	/* pointers to connected chips */
+ };
+ 
+ /*
+@@ -399,15 +400,24 @@ static ssize_t aspeed_smc_write_user(struct spi_nor *nor, loff_t to,
+ 	return len;
+ }
+ 
++static int aspeed_smc_unregister_chip(struct aspeed_smc_chip *chip)
++{
++	return mtd_device_unregister(&chip->nor.mtd);
++}
++
+ static int aspeed_smc_unregister(struct aspeed_smc_controller *controller)
  {
- 	const char *status;
- 	int statlen;
-@@ -595,17 +599,30 @@ static bool __of_device_is_available(const struct device_node *device)
- 		return false;
+ 	struct aspeed_smc_chip *chip;
+-	int n;
++	int n, ret;
  
- 	status = __of_get_property(device, "status", &statlen);
--	if (status == NULL)
--		return true;
-+	if (!status)
-+		return dflt;
- 
- 	if (statlen > 0) {
--		if (!strcmp(status, "okay") || !strcmp(status, "ok"))
-+		if (!strcmp(status, val) || (alt && !strcmp(status, alt)))
- 			return true;
+ 	for (n = 0; n < controller->info->nce; n++) {
+ 		chip = controller->chips[n];
+-		if (chip)
+-			mtd_device_unregister(&chip->nor.mtd);
++		if (chip) {
++			ret = aspeed_smc_unregister_chip(chip);
++			if (ret)
++				dev_warn(controller->dev, "failed to unregister CS%d: %d\n",
++				         n, ret);
++		}
  	}
  
- 	return false;
- }
+ 	return 0;
+@@ -756,14 +766,39 @@ static const struct spi_nor_controller_ops aspeed_smc_controller_ops = {
+ 	.write = aspeed_smc_write_user,
+ };
  
-+/**
-+ * __of_device_is_available - check if a device is available for use
-+ *
-+ * @device: Node to check for availability, with locks already held
-+ *
-+ * Return: True if the status property is absent or set to "okay" or "ok",
-+ * false otherwise
-+ */
-+static bool __of_device_is_available(const struct device_node *device)
-+{
-+	return __of_device_check_status(device, "okay", "ok", true);
-+}
-+
- /**
-  *  of_device_is_available - check if a device is available for use
-  *
-@@ -627,6 +644,26 @@ bool of_device_is_available(const struct device_node *device)
- }
- EXPORT_SYMBOL(of_device_is_available);
- 
-+/**
-+ * of_device_is_reserved - check if a device is marked as reserved
-+ *
-+ * @device: Node to check for reservation
-+ *
-+ * Return: True if the status property is set to "reserved", false otherwise
-+ */
-+bool of_device_is_reserved(const struct device_node *device)
-+{
-+	unsigned long flags;
-+	bool res;
-+
-+	raw_spin_lock_irqsave(&devtree_lock, flags);
-+	res = __of_device_check_status(device, "reserved", NULL, false);
-+	raw_spin_unlock_irqrestore(&devtree_lock, flags);
-+
-+	return res;
-+}
-+EXPORT_SYMBOL(of_device_is_reserved);
-+
- /**
-  *  of_device_is_big_endian - check if a device has BE registers
-  *
-diff --git a/include/linux/of.h b/include/linux/of.h
-index 6f1c41f109bb..aa9762da5e7c 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -345,6 +345,7 @@ extern int of_device_is_compatible(const struct device_node *device,
- extern int of_device_compatible_match(struct device_node *device,
- 				      const char *const *compat);
- extern bool of_device_is_available(const struct device_node *device);
-+extern bool of_device_is_reserved(const struct device_node *device);
- extern bool of_device_is_big_endian(const struct device_node *device);
- extern const void *of_get_property(const struct device_node *node,
- 				const char *name,
-@@ -707,6 +708,11 @@ static inline bool of_device_is_available(const struct device_node *device)
- 	return false;
- }
- 
-+static inline bool of_device_is_reserved(const struct device_node *device)
-+{
-+	return false;
-+}
-+
- static inline bool of_device_is_big_endian(const struct device_node *device)
+-static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
+-				  struct device_node *np, struct resource *r)
++static int aspeed_smc_register_chip(struct aspeed_smc_chip *chip)
  {
- 	return false;
+-	const struct spi_nor_hwcaps hwcaps = {
++	static const struct spi_nor_hwcaps hwcaps = {
+ 		.mask = SNOR_HWCAPS_READ |
+ 			SNOR_HWCAPS_READ_FAST |
+ 			SNOR_HWCAPS_PP,
+ 	};
++	int ret;
++
++	ret = aspeed_smc_chip_setup_init(chip, chip->controller->ahb_res);
++	if (ret)
++		goto out;
++
++	/*
++	 * TODO: Add support for Dual and Quad SPI protocols attach when board
++	 * support is present as determined by of property.
++	 */
++	ret = spi_nor_scan(&chip->nor, NULL, &hwcaps);
++	if (ret)
++		goto out;
++
++	ret = aspeed_smc_chip_setup_finish(chip);
++	if (ret)
++		goto out;
++
++	ret = mtd_device_register(&chip->nor.mtd, NULL, 0);
++out:
++	return ret;
++}
++
++static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
++				  struct device_node *np, struct resource *r)
++{
+ 	const struct aspeed_smc_info *info = controller->info;
+ 	struct device *dev = controller->dev;
+ 	struct device_node *child;
+@@ -773,7 +808,6 @@ static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
+ 	for_each_available_child_of_node(np, child) {
+ 		struct aspeed_smc_chip *chip;
+ 		struct spi_nor *nor;
+-		struct mtd_info *mtd;
+ 
+ 		/* This driver does not support NAND or NOR flash devices. */
+ 		if (!of_device_is_compatible(child, "jedec,spi-nor"))
+@@ -810,35 +844,17 @@ static int aspeed_smc_setup_flash(struct aspeed_smc_controller *controller,
+ 		chip->cs = cs;
+ 
+ 		nor = &chip->nor;
+-		mtd = &nor->mtd;
+ 
+ 		nor->dev = dev;
+ 		nor->priv = chip;
+ 		spi_nor_set_flash_node(nor, child);
+ 		nor->controller_ops = &aspeed_smc_controller_ops;
+ 
+-		ret = aspeed_smc_chip_setup_init(chip, r);
+-		if (ret)
+-			break;
+-
+-		/*
+-		 * TODO: Add support for Dual and Quad SPI protocols
+-		 * attach when board support is present as determined
+-		 * by of property.
+-		 */
+-		ret = spi_nor_scan(nor, NULL, &hwcaps);
+-		if (ret)
+-			break;
+-
+-		ret = aspeed_smc_chip_setup_finish(chip);
+-		if (ret)
+-			break;
++		controller->chips[cs] = chip;
+ 
+-		ret = mtd_device_register(mtd, NULL, 0);
++		ret = aspeed_smc_register_chip(chip);
+ 		if (ret)
+ 			break;
+-
+-		controller->chips[cs] = chip;
+ 	}
+ 
+ 	if (ret) {
+@@ -881,6 +897,7 @@ static int aspeed_smc_probe(struct platform_device *pdev)
+ 		return PTR_ERR(controller->regs);
+ 
+ 	res = platform_get_resource(pdev, IORESOURCE_MEM, 1);
++	controller->ahb_res = res;
+ 	controller->ahb_base = devm_ioremap_resource(dev, res);
+ 	if (IS_ERR(controller->ahb_base))
+ 		return PTR_ERR(controller->ahb_base);
 -- 
 2.33.0
 
